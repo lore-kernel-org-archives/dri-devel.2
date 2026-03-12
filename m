@@ -4,85 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 84C84106FD9B
-	for <dri-devel@archiver.kernel.org>; Fri, 13 Mar 2026 08:25:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1F450106FD9D
+	for <dri-devel@archiver.kernel.org>; Fri, 13 Mar 2026 08:25:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B7FDA10EB22;
-	Fri, 13 Mar 2026 08:25:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5E66B10EB26;
+	Fri, 13 Mar 2026 08:25:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=jumpstation.co.uk header.i=rob.github@jumpstation.co.uk header.b="sZny4rMa";
+	dkim=pass (2048-bit key; unprotected) header.d=meta.com header.i=@meta.com header.b="AKkjswGo";
 	dkim-atps=neutral
-X-Greylist: delayed 874 seconds by postgrey-1.36 at gabe;
- Thu, 12 Mar 2026 21:10:16 UTC
-Received: from mout.kundenserver.de (mout.kundenserver.de [217.72.192.74])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 894AB10E215
- for <dri-devel@lists.freedesktop.org>; Thu, 12 Mar 2026 21:10:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jumpstation.co.uk;
- s=s1-ionos; t=1773349815; x=1773954615;
- i=rob.github@jumpstation.co.uk;
- bh=V9Jz4M+Z9QN56aIB3snMb32hgRyUtBNNksRT8e1ZYxQ=;
- h=X-UI-Sender-Class:Date:From:To:Cc:Subject:Message-ID:
- MIME-Version:Content-Type:cc:content-transfer-encoding:
- content-type:date:from:message-id:mime-version:reply-to:subject:
- to;
- b=sZny4rMag7ckz44JYvFv4SDZH7lR9KhVR736C1AmoFG682y2TqZZMv+aRnxKnJsg
- NjWoyag9E339b3ccpjSNL+tUb7guw8SAeM4X2Je7zU8gayY51z9/nx7IchUOHo5Yl
- RcntJfebE+kwE3brkso03jv78a6Yz8DTRN8ptWzFAPj1xScR4nWq8shQ5DfhN6vz+
- 5R2qNr2J57XmW2GydArdwT6RS627wAmmD73g/iIc9dqzFx3bgkHZOesxYv8jgXjNB
- KvN1sd3ruepHYr979OJ21m4c6nq9crCk0WVFUavKSruBBNWD9iddfLOWph8bxG+RI
- z4IYOyboi11J8L77hA==
-X-UI-Sender-Class: 55c96926-9e95-11ee-ae09-1f7a4046a0f6
-Received: from client.hidden.invalid by mrelayeu.kundenserver.de (mreue109
- [212.227.15.153]) with ESMTPSA (Nemesis) id 1MYvTy-1w5F2h3Aky-00YwXR; Thu, 12
- Mar 2026 21:55:39 +0100
-Date: Thu, 12 Mar 2026 20:55:07 +0000
-From: robgithub <rob.github@jumpstation.co.uk>
-To: Helge Deller <deller@gmx.de>, Thomas Zimmermann <tzimmermann@suse.de>,
- linux-fbdev@vger.kernel.org
-Cc: robgithub <rob.github@jumpstation.co.uk>, Prasanna Kumar T S M
- <ptsm@linux.microsoft.com>, Wei Liu <wei.liu@kernel.org>, Michael Kelley
- <mhklinux@outlook.com>, Sukrut Heroorkar <hsukrut3@gmail.com>, Randy Dunlap
- <rdunlap@infradead.org>, Mukesh Rathor <mrathor@linux.microsoft.com>, Uwe
- =?UTF-8?B?S2xlaW5lLUvDtm5pZw==?= <u.kleine-koenig@baylibre.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: fbdev: update outdated help text for CONFIG_FB_NVIDIA
-Message-ID: <20260312205507.70b9013b@hexa5>
-X-Mailer: Claws Mail 4.3.1 (GTK 3.24.51; x86_64-pc-linux-gnu)
+Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com
+ [67.231.145.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 50F7B10EAA0
+ for <dri-devel@lists.freedesktop.org>; Thu, 12 Mar 2026 18:59:06 +0000 (UTC)
+Received: from pps.filterd (m0148461.ppops.net [127.0.0.1])
+ by mx0a-00082601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 62CHrWqW2853764; Thu, 12 Mar 2026 11:46:33 -0700
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=meta.com; h=cc
+ :content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=s2048-2025-q2;
+ bh=yABRgDa4Smt7xH35V/HV2UTHouYqNi0/j2J9K5YgcvI=; b=AKkjswGoDJeJ
+ 3LFVTzysksvweic7lsg+Q281vwoLUjw5DyDTrrb+jaTG9HKMB/vURPWqdTGsheJW
+ mnjkiuo6TgTIQXZ2b5MjJNNOTOlLNa/CAFWuj9yTaa0NOdNSynTpEukQMHT8wJro
+ Oxf++2ulrANLf+S4HXIRVMUrE5ZWDvzTuUWeauYrOvBuN0vRpt5wMN0M7BV9tUmS
+ ZJ4OvOqi4Tc8GWIoQ+aV+z5YaCRvIXL1hESLHawyPtIDSixBk4NjxZjNClKFXYCI
+ UMEYKzr4Ycz1jTDeYVBQsESvL0RNwiD1VinZPJENU6fv3O5pPbqq9gyjkK4UzIux
+ kXZGn9k3nw==
+Received: from mail.thefacebook.com ([163.114.134.16])
+ by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4cv29nh38v-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+ Thu, 12 Mar 2026 11:46:32 -0700 (PDT)
+Received: from localhost (2620:10d:c085:108::4) by mail.thefacebook.com
+ (2620:10d:c08b:78::2ac9) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.35; Thu, 12 Mar
+ 2026 18:46:32 +0000
+From: Matt Evans <mattev@meta.com>
+To: Alex Williamson <alex@shazbot.org>, Leon Romanovsky <leon@kernel.org>,
+ Jason Gunthorpe <jgg@nvidia.com>, Alex Mastro <amastro@fb.com>,
+ Mahmoud Adam <mngyadam@amazon.de>, David Matlack <dmatlack@google.com>
+CC: =?UTF-8?q?Bj=C3=B6rn=20T=C3=B6pel?= <bjorn@kernel.org>, Sumit Semwal
+ <sumit.semwal@linaro.org>, =?UTF-8?q?Christian=20K=C3=B6nig?=
+ <christian.koenig@amd.com>,
+ Kevin Tian <kevin.tian@intel.com>, Ankit Agrawal <ankita@nvidia.com>,
+ Pranjal Shrivastava <praan@google.com>, Alistair Popple
+ <apopple@nvidia.com>, Vivek Kasireddy <vivek.kasireddy@intel.com>,
+ <linux-kernel@vger.kernel.org>, <linux-media@vger.kernel.org>,
+ <dri-devel@lists.freedesktop.org>, <linaro-mm-sig@lists.linaro.org>,
+ <kvm@vger.kernel.org>
+Subject: [RFC v2 PATCH 02/10] vfio/pci: Clean up DMABUFs before disabling
+ function
+Date: Thu, 12 Mar 2026 11:46:00 -0700
+Message-ID: <20260312184613.3710705-3-mattev@meta.com>
+X-Mailer: git-send-email 2.52.0
+In-Reply-To: <20260312184613.3710705-1-mattev@meta.com>
+References: <20260312184613.3710705-1-mattev@meta.com>
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="MP_/yGBOsdgxZKPDmDkoTfe./G4"
-X-Provags-ID: V03:K1:m4dxKb2C/lhZ6yoYeupD2qV4gdJy+SHNHiOBkdjEWEM+AXGZQdf
- Dd+MLdHQ8sIBriWhNWbrrNvgibU7MqoW81ArvXzay0of27YKPh5qQ1KYlShh3QE0fSWcmpb
- Oguyfcr/kzc9VmB3ec4eF2R9iSvnrikB+Q0Ja6lEDXgP/rFNPXYRyIEdyfck4nKGsfxhwOU
- atvldWUXkwgLWf4+YXY+w==
-UI-OutboundReport: notjunk:1;M01:P0:TCDb2iEfj9k=;XXTKWmjREQN1MACwTufqj+7jSp3
- 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
- CYPaWuuQnQ2/UVqmC7sEhy6YTT7VM=
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [2620:10d:c085:108::4]
+X-Proofpoint-GUID: T8Yuc9PQqL6Z-6JxP8LV4CMEZQgXG9hN
+X-Proofpoint-ORIG-GUID: T8Yuc9PQqL6Z-6JxP8LV4CMEZQgXG9hN
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzEyMDE1MSBTYWx0ZWRfX7XzcAXsQ5Hr/
+ waDgvCGVXfyPZksrBh7BebX5id10i4wDMWPzJC1L0EbTSXpHYLMfpRY4PGPcXSdVwkI+5HxdsjQ
+ xYnUqKCqgBd3UcZEJiwK3SrWO50h1PgXcXaxmfjp8yKwI0H/Z8BAUZC4buJNfAl4UaqJQSwdYrB
+ afVvUp0fU2aUJIXRD/+HsmMAAvqtnfA3kidQflYpbq1IoK+6nGkuyWzcNPM2KN84Fbqv9fJkTjh
+ kc9Mw76bhQAVQQ7qIn3CKclIT+jIc9UATBYZEgTSG8vAojpJO9yBqVsW9uHx4CJqeMfGSA+lig/
+ Qt+yJtfXJGF1MY7bCrUrTP5eZvpiOwmb7T3lNqeWqfKlGUIk5SblFPojq7wbpCylvoa2VHaiMiV
+ c6Os+n/hClffeC6nXzOMLTI5/zRGJS+4Fy52RYPGqXfUOu2DVoXvOUDns77xFc35Ca3G+JI8QdE
+ zT3ZUoo4hVc2qAy6Ing==
+X-Authority-Analysis: v=2.4 cv=FvYIPmrq c=1 sm=1 tr=0 ts=69b30a09 cx=c_pps
+ a=CB4LiSf2rd0gKozIdrpkBw==:117 a=CB4LiSf2rd0gKozIdrpkBw==:17
+ a=Yq5XynenixoA:10 a=VkNPw1HP01LnGYTKEx00:22 a=7x6HtfJdh03M6CCDgxCd:22
+ a=03ozwUkBphtHgyqjj1sw:22 a=VabnemYjAAAA:8 a=4DpnPWOeRWuCnonzwFEA:9
+ a=gKebqoRLp9LExxC7YDUY:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-03-12_02,2026-03-12_01,2025-10-01_01
 X-Mailman-Approved-At: Fri, 13 Mar 2026 08:25:02 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -99,58 +95,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
---MP_/yGBOsdgxZKPDmDkoTfe./G4
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+On device shutdown, make vfio_pci_core_close_device() call
+vfio_pci_dma_buf_cleanup() before the function is disabled via
+vfio_pci_core_disable().  This ensures that all access via DMABUFs is
+revoked before the function's BARs become inaccessible.
 
-The help text for CONFIG_FB_NVIDIA refers to obsolete hardware and
-incorrect default behaviour. This patch updates the description to
-reflect the current state of the driver and supported devices.
+This fixes an issue where, if the function is disabled first, a tiny
+window exists in which the function's MSE is cleared and yet BARs
+could still be accessed via the DMABUF.  The resources would also be
+freed and up for grabs by a different driver.
 
-Signed-off-by: robgithub <rob.github@jumpstation.co.uk>
-
---MP_/yGBOsdgxZKPDmDkoTfe./G4
-Content-Type: text/x-patch
-Content-Transfer-Encoding: quoted-printable
-Content-Disposition: attachment;
- filename=0001-fbdev-update-outdated-help-text-for-CONFIG_FB_NVIDIA.patch
-
-=46rom 688a061ba0db71fc2d5facd8344db7a4d5b1575a Mon Sep 17 00:00:00 2001
-From: robgithub <rob.github@jumpstation.co.uk>
-Date: Wed, 11 Mar 2026 22:14:43 +0000
-Subject: [PATCH] fbdev: update outdated help text for CONFIG_FB_NVIDIA
-
-The help text for CONFIG_FB_NVIDIA refers to obsolete hardware and
-incorrect default behaviour. This patch updates the description to
-reflect the current state of the driver and supported devices.
-
-Signed-off-by: robgithub <rob.github@jumpstation.co.uk>
+Fixes: 5d74781ebc86c ("vfio/pci: Add dma-buf export support for MMIO regions")
+Signed-off-by: Matt Evans <mattev@meta.com>
 ---
- drivers/video/fbdev/Kconfig | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ drivers/vfio/pci/vfio_pci_core.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/video/fbdev/Kconfig b/drivers/video/fbdev/Kconfig
-index ac9ac4287c6a..d8e331427443 100644
---- a/drivers/video/fbdev/Kconfig
-+++ b/drivers/video/fbdev/Kconfig
-@@ -668,10 +668,10 @@ config FB_NVIDIA
- 	select BITREVERSE
- 	select VGASTATE
- 	help
--	  This driver supports graphics boards with the nVidia chips, TNT
--	  and newer. For very old chipsets, such as the RIVA128, then use
--	  the rivafb.
--	  Say Y if you have such a graphics board.
-+    Supports NVIDIA GPUs from TNT through early GeForce generations
-+    (NV4=E2=80=93NV2x: Twintor, Twintor2, Celsius, Kelvin).
-+    Later architectures (Rankine and newer) are not reliably supported.
-+    If unsure, say N.
-=20
- 	  To compile this driver as a module, choose M here: the
- 	  module will be called nvidiafb.
---=20
-2.52.0
+diff --git a/drivers/vfio/pci/vfio_pci_core.c b/drivers/vfio/pci/vfio_pci_core.c
+index d43745fe4c84..f9ed3374d268 100644
+--- a/drivers/vfio/pci/vfio_pci_core.c
++++ b/drivers/vfio/pci/vfio_pci_core.c
+@@ -734,10 +734,10 @@ void vfio_pci_core_close_device(struct vfio_device *core_vdev)
+ #if IS_ENABLED(CONFIG_EEH)
+ 	eeh_dev_release(vdev->pdev);
+ #endif
+-	vfio_pci_core_disable(vdev);
+-
+ 	vfio_pci_dma_buf_cleanup(vdev);
+ 
++	vfio_pci_core_disable(vdev);
++
+ 	mutex_lock(&vdev->igate);
+ 	vfio_pci_eventfd_replace_locked(vdev, &vdev->err_trigger, NULL);
+ 	vfio_pci_eventfd_replace_locked(vdev, &vdev->req_trigger, NULL);
+-- 
+2.47.3
 
-
---MP_/yGBOsdgxZKPDmDkoTfe./G4--
