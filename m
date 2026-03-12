@@ -4,55 +4,85 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AFBA5106FD9D
-	for <dri-devel@archiver.kernel.org>; Fri, 13 Mar 2026 08:25:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 84C84106FD9B
+	for <dri-devel@archiver.kernel.org>; Fri, 13 Mar 2026 08:25:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0665F10EB21;
-	Fri, 13 Mar 2026 08:25:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B7FDA10EB22;
+	Fri, 13 Mar 2026 08:25:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=pm.me header.i=@pm.me header.b="nPcpJoWH";
+	dkim=pass (2048-bit key; unprotected) header.d=jumpstation.co.uk header.i=rob.github@jumpstation.co.uk header.b="sZny4rMa";
 	dkim-atps=neutral
-Received: from mail-43100.protonmail.ch (mail-43100.protonmail.ch
- [185.70.43.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1EF8110E363
- for <dri-devel@lists.freedesktop.org>; Thu, 12 Mar 2026 18:19:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
- s=protonmail3; t=1773339549; x=1773598749;
- bh=XPi7N6rAJfXojvM7KpS5aTU2qRvg2YrP9Z2KMTkPGos=;
- h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
- Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
- b=nPcpJoWHpUQzGQ0d6PgYXTc9dfde95ZEa67WQdQMvzQUr2Q31JxZaKRqOSXyw6mwP
- Xe3MnSuUNiiXr5NyPdtZldLyw92XvTEKlxQ4940HKn0IN4Uws6qDtQDTGjodgRWwo4
- GvD2QJpLX2Gugc3rjI8y7Dlsm0nCZFLNGxoWM6Qb6JtyNA9pHyCVf1WV7dTJ2lqBr3
- NBnFSs1kachz7dNw54akQA7Hor1EXPm/VoPwxn8Vu/k28mRnsSx1DLnwMCa8zAMoZX
- 2S66xOsRxV0gHYZwRVD1N7VzqMohF62rjtzZc/H0maoOyb/YDBkCSr7zqtIcVP0qFg
- 9JLLCE8BJVLDg==
-Date: Thu, 12 Mar 2026 18:18:59 +0000
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-From: Alexander Koskovich <akoskovich@pm.me>
-Cc: Junjie Cao <caojunjie650@gmail.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
- Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>,
- Antonino Maniscalco <antomani103@gmail.com>,
- Jonathan Marek <jonathan@marek.ca>, Eugene Lepshy <fekz115@gmail.com>,
- Jun Nie <jun.nie@linaro.org>, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
-Subject: Re: [PATCH 2/3] drm/msm/dsi: support DSC configurations with
- slice_per_pkt > 1
-Message-ID: <abL8qtbnNzspJMGC@prism>
-Feedback-ID: 37836894:user:proton
-X-Pm-Message-ID: 09c56c36f25158d50c25def04b7467015a9e174d
+X-Greylist: delayed 874 seconds by postgrey-1.36 at gabe;
+ Thu, 12 Mar 2026 21:10:16 UTC
+Received: from mout.kundenserver.de (mout.kundenserver.de [217.72.192.74])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 894AB10E215
+ for <dri-devel@lists.freedesktop.org>; Thu, 12 Mar 2026 21:10:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jumpstation.co.uk;
+ s=s1-ionos; t=1773349815; x=1773954615;
+ i=rob.github@jumpstation.co.uk;
+ bh=V9Jz4M+Z9QN56aIB3snMb32hgRyUtBNNksRT8e1ZYxQ=;
+ h=X-UI-Sender-Class:Date:From:To:Cc:Subject:Message-ID:
+ MIME-Version:Content-Type:cc:content-transfer-encoding:
+ content-type:date:from:message-id:mime-version:reply-to:subject:
+ to;
+ b=sZny4rMag7ckz44JYvFv4SDZH7lR9KhVR736C1AmoFG682y2TqZZMv+aRnxKnJsg
+ NjWoyag9E339b3ccpjSNL+tUb7guw8SAeM4X2Je7zU8gayY51z9/nx7IchUOHo5Yl
+ RcntJfebE+kwE3brkso03jv78a6Yz8DTRN8ptWzFAPj1xScR4nWq8shQ5DfhN6vz+
+ 5R2qNr2J57XmW2GydArdwT6RS627wAmmD73g/iIc9dqzFx3bgkHZOesxYv8jgXjNB
+ KvN1sd3ruepHYr979OJ21m4c6nq9crCk0WVFUavKSruBBNWD9iddfLOWph8bxG+RI
+ z4IYOyboi11J8L77hA==
+X-UI-Sender-Class: 55c96926-9e95-11ee-ae09-1f7a4046a0f6
+Received: from client.hidden.invalid by mrelayeu.kundenserver.de (mreue109
+ [212.227.15.153]) with ESMTPSA (Nemesis) id 1MYvTy-1w5F2h3Aky-00YwXR; Thu, 12
+ Mar 2026 21:55:39 +0100
+Date: Thu, 12 Mar 2026 20:55:07 +0000
+From: robgithub <rob.github@jumpstation.co.uk>
+To: Helge Deller <deller@gmx.de>, Thomas Zimmermann <tzimmermann@suse.de>,
+ linux-fbdev@vger.kernel.org
+Cc: robgithub <rob.github@jumpstation.co.uk>, Prasanna Kumar T S M
+ <ptsm@linux.microsoft.com>, Wei Liu <wei.liu@kernel.org>, Michael Kelley
+ <mhklinux@outlook.com>, Sukrut Heroorkar <hsukrut3@gmail.com>, Randy Dunlap
+ <rdunlap@infradead.org>, Mukesh Rathor <mrathor@linux.microsoft.com>, Uwe
+ =?UTF-8?B?S2xlaW5lLUvDtm5pZw==?= <u.kleine-koenig@baylibre.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: fbdev: update outdated help text for CONFIG_FB_NVIDIA
+Message-ID: <20260312205507.70b9013b@hexa5>
+X-Mailer: Claws Mail 4.3.1 (GTK 3.24.51; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: multipart/mixed; boundary="MP_/yGBOsdgxZKPDmDkoTfe./G4"
+X-Provags-ID: V03:K1:m4dxKb2C/lhZ6yoYeupD2qV4gdJy+SHNHiOBkdjEWEM+AXGZQdf
+ Dd+MLdHQ8sIBriWhNWbrrNvgibU7MqoW81ArvXzay0of27YKPh5qQ1KYlShh3QE0fSWcmpb
+ Oguyfcr/kzc9VmB3ec4eF2R9iSvnrikB+Q0Ja6lEDXgP/rFNPXYRyIEdyfck4nKGsfxhwOU
+ atvldWUXkwgLWf4+YXY+w==
+UI-OutboundReport: notjunk:1;M01:P0:TCDb2iEfj9k=;XXTKWmjREQN1MACwTufqj+7jSp3
+ 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
+ CYPaWuuQnQ2/UVqmC7sEhy6YTT7VM=
 X-Mailman-Approved-At: Fri, 13 Mar 2026 08:25:02 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -69,120 +99,58 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Oct 13, 2025 at 05:34:06PM +0300, Dmitry Baryshkov wrote:
-> On Mon, Oct 13, 2025 at 09:17:04PM +0800, Junjie Cao wrote:
-> > Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> =E4=BA=8E2025=
-=E5=B9=B410=E6=9C=8813=E6=97=A5=E5=91=A8=E4=B8=80 20:31=E5=86=99=E9=81=
-=93=EF=BC=9A
-> > > On Mon, Oct 13, 2025 at 07:04:43PM +0800, Junjie Cao wrote:
-> > > > Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> =E4=BA=8E2025=
-=E5=B9=B410=E6=9C=8813=E6=97=A5=E5=91=A8=E4=B8=80 17:39=E5=86=99=E9=81=
-=93=EF=BC=9A
-> > > > > On 13/10/2025 04:52, =E6=9B=B9=E4=BF=8A=E6=9D=B0 wrote:
-> > > > > >  >Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com
-> > > > > > <mailto:dmitry.baryshkov@oss.qualcomm.com>> =E4=BA=8E2025=
-=E5=B9=B410=E6=9C=882=E6=97=A5=E5=91=A8=E5=9B=9B 10:04=E5=86=99=E9=81=93=
-=EF=BC=9A
-> > > > > >  >On Wed, Oct 01, 2025 at 09:59:13PM +0800, Junjie Cao wrote:
-> > > > > >  >> From: Jun Nie <jun.nie@linaro.org <mailto:jun.nie@linaro.or=
-g>>
-> > > > > >  >>
-> > > > > >  >> Some panels support multiple slice to be sent in a single D=
-SC
-> > > > > > packet. And
-> > > > > >  >> this feature is a must for specific panels, such as JDI LPM=
-026M648C.
-> > > > > > Add a
-> > > > > >  >> dsc_slice_per_pkt member into struct mipi_dsi_device and su=
-pport the
-> > > > > >  >> feature in msm mdss driver.
-> > > > > >  >>
-> > > > > >  >> Co-developed-by: Jonathan Marek <jonathan@marek.ca
-> > > > > > <mailto:jonathan@marek.ca>>
-> > > > > >  >> Signed-off-by: Jonathan Marek <jonathan@marek.ca
-> > > > > > <mailto:jonathan@marek.ca>>
-> > > > > >  >> Signed-off-by: Jun Nie <jun.nie@linaro.org <mailto:jun.nie@=
-linaro.org>>
-> > > > > >  >> Signed-off-by: Junjie Cao <caojunjie650@gmail.com
-> > > > > > <mailto:caojunjie650@gmail.com>>
-> > > > > >  >> ---
-> > > > > >  >>  drivers/gpu/drm/msm/dsi/dsi_host.c | 25 ++++++++++--------=
--------
-> > > > > >  >>  include/drm/drm_mipi_dsi.h         |  2 ++
-> > > > > >  >>  2 files changed, 12 insertions(+), 15 deletions(-)
-> > > > > >  >
-> > > > > >  >Please extract the generic part, so that it can be merged thr=
-ough a
-> > > > > >  >generic tree.
-> > > > > >  >
-> > > > > >
-> > > > > > Sorry, I don't get it.  The generic part, generic tree? Do you =
-mean
-> > > > > > the drm tree? `slice_per_pkt >=3D 2` is seen on the panels of t=
-hese
-> > > > > > tablets that are equipped with qcom chips. I don't know if thes=
-e
-> > > > > > panels are used on other platforms, and if it is necessary to d=
-o it
-> > > > > > in drm.
-> > > > >
-> > > > > There are two changes here:
-> > > > > - MIPI DSI header change
-> > > > > - msm DSI driver
-> > > > >
-> > > > > I've asked to split it to those two commits so that he change for
-> > > > > drm_mipi_dsi.h is more obvious for reviewers and so that it can b=
-e
-> > > > > merged through a drm-misc tree (or through drm-msm tree provided =
-it gets
-> > > > > a necessary ack).
-> > > > >
-> > > >
-> > > > Thanks for your clear explanation.
-> > > >
-> > > > I don't mind to add the field separately. But should I submit it
-> > > > with the panel driver together? Otherwise, this field is unused
-> > > > for a while.
-> > > >
-> > > > However, as you mentioned, this is not a part of standard, neither
-> > > > mipi dsi nor VESA DSC. Recently, only Qualcomm devices require it
-> > > > to calculate parameters, then we use them to program registers. Why
-> > > > don't we parse the field from devicetree?
-> > >
-> > > Because the value is uniquelly identified by the panel's compat strin=
-g.
-> > >
-> >=20
-> > Yes, it is panel specified.
-> > But can we set it for every panel like
-> >=20
-> > &mdss_dsi0 {
-> >     qcom,mdss-dsc-slice-per-pkt =3D <2>;
-> >=20
-> >     status =3D "okay";
-> >=20
-> >     panel: panel@0 {
-> >         compatible =3D "foo,bar";
-> >         reg =3D <0>;
-> >     };
-> > };
-> >=20
-> > or moving the property to panel node? We access it from child node.
->=20
-> Why do you need it in DT if the panel driver can provide this
-> information.
+--MP_/yGBOsdgxZKPDmDkoTfe./G4
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
-Hello, I need this patch for the Tianma TA066VVHM03 on the ASUS ROG Phone 3=
-. Is
-the only change required at this point to split the generic part, and is a =
-v2
-in the works to address this?
+The help text for CONFIG_FB_NVIDIA refers to obsolete hardware and
+incorrect default behaviour. This patch updates the description to
+reflect the current state of the driver and supported devices.
 
->=20
-> --=20
-> With best wishes
-> Dmitry
+Signed-off-by: robgithub <rob.github@jumpstation.co.uk>
 
-Thanks,
-Alex
+--MP_/yGBOsdgxZKPDmDkoTfe./G4
+Content-Type: text/x-patch
+Content-Transfer-Encoding: quoted-printable
+Content-Disposition: attachment;
+ filename=0001-fbdev-update-outdated-help-text-for-CONFIG_FB_NVIDIA.patch
 
+=46rom 688a061ba0db71fc2d5facd8344db7a4d5b1575a Mon Sep 17 00:00:00 2001
+From: robgithub <rob.github@jumpstation.co.uk>
+Date: Wed, 11 Mar 2026 22:14:43 +0000
+Subject: [PATCH] fbdev: update outdated help text for CONFIG_FB_NVIDIA
+
+The help text for CONFIG_FB_NVIDIA refers to obsolete hardware and
+incorrect default behaviour. This patch updates the description to
+reflect the current state of the driver and supported devices.
+
+Signed-off-by: robgithub <rob.github@jumpstation.co.uk>
+---
+ drivers/video/fbdev/Kconfig | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/video/fbdev/Kconfig b/drivers/video/fbdev/Kconfig
+index ac9ac4287c6a..d8e331427443 100644
+--- a/drivers/video/fbdev/Kconfig
++++ b/drivers/video/fbdev/Kconfig
+@@ -668,10 +668,10 @@ config FB_NVIDIA
+ 	select BITREVERSE
+ 	select VGASTATE
+ 	help
+-	  This driver supports graphics boards with the nVidia chips, TNT
+-	  and newer. For very old chipsets, such as the RIVA128, then use
+-	  the rivafb.
+-	  Say Y if you have such a graphics board.
++    Supports NVIDIA GPUs from TNT through early GeForce generations
++    (NV4=E2=80=93NV2x: Twintor, Twintor2, Celsius, Kelvin).
++    Later architectures (Rankine and newer) are not reliably supported.
++    If unsure, say N.
+=20
+ 	  To compile this driver as a module, choose M here: the
+ 	  module will be called nvidiafb.
+--=20
+2.52.0
+
+
+--MP_/yGBOsdgxZKPDmDkoTfe./G4--
