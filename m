@@ -4,80 +4,141 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 45C2C106FD9B
-	for <dri-devel@archiver.kernel.org>; Fri, 13 Mar 2026 08:25:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E3D2B103E302
+	for <dri-devel@archiver.kernel.org>; Fri, 13 Mar 2026 08:25:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5F8A310EB16;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8712110EB18;
 	Fri, 13 Mar 2026 08:25:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=meta.com header.i=@meta.com header.b="vZQUqDmr";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="OpqdOLUy";
 	dkim-atps=neutral
-Received: from mx0a-00082601.pphosted.com (mx0b-00082601.pphosted.com
- [67.231.153.30])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3569B10E1C6
- for <dri-devel@lists.freedesktop.org>; Thu, 12 Mar 2026 18:46:50 +0000 (UTC)
-Received: from pps.filterd (m0089730.ppops.net [127.0.0.1])
- by m0089730.ppops.net (8.18.1.11/8.18.1.11) with ESMTP id 62CHL0IC3607800;
- Thu, 12 Mar 2026 11:46:41 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=meta.com; h=cc
- :content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=s2048-2025-q2;
- bh=jMiaUo8paSIO6PvAm6fwqjCbL0AMR9nz9Pv6QzgxClo=; b=vZQUqDmrPRzH
- aby+BVb+xSnrlRlkIPf1HPM5AjklHUdl/1MyVvaCNwZhzzzieBnf5sImbjpSLOMK
- hVPOCjrcKIFDKqNskM72BJD+6BYLU/xVRl7XO5NohqbIACQn4DkZvcTdlrvf+yJa
- eu3A5OXJKhKrnz4k/YGx0/bc0DxwErZH7Mec6a4U0mewhODAduqSsh2q846AoIeA
- aSO315SG60eWA2SlyK0Fy2qhSzhMOzzQtzJ5pMdr8pU2EGg4cg8KXwtk9bQFhA/P
- hVwabFDY+IoiXw69FDUrYegRG88qA/blMh3HMWNfMv8aR5etBynKs6p20Uxe0tvR
- HMY4UpIQWg==
-Received: from mail.thefacebook.com ([163.114.134.16])
- by m0089730.ppops.net (PPS) with ESMTPS id 4cv1te9t9d-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Thu, 12 Mar 2026 11:46:41 -0700 (PDT)
-Received: from localhost (2620:10d:c085:108::4) by mail.thefacebook.com
- (2620:10d:c08b:78::c78f) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.35; Thu, 12 Mar
- 2026 18:46:39 +0000
-From: Matt Evans <mattev@meta.com>
-To: Alex Williamson <alex@shazbot.org>, Leon Romanovsky <leon@kernel.org>,
- Jason Gunthorpe <jgg@nvidia.com>, Alex Mastro <amastro@fb.com>,
- Mahmoud Adam <mngyadam@amazon.de>, David Matlack <dmatlack@google.com>
-CC: =?UTF-8?q?Bj=C3=B6rn=20T=C3=B6pel?= <bjorn@kernel.org>, Sumit Semwal
- <sumit.semwal@linaro.org>, =?UTF-8?q?Christian=20K=C3=B6nig?=
- <christian.koenig@amd.com>,
- Kevin Tian <kevin.tian@intel.com>, Ankit Agrawal <ankita@nvidia.com>,
- Pranjal Shrivastava <praan@google.com>, Alistair Popple
- <apopple@nvidia.com>, Vivek Kasireddy <vivek.kasireddy@intel.com>,
- <linux-kernel@vger.kernel.org>, <linux-media@vger.kernel.org>,
- <dri-devel@lists.freedesktop.org>, <linaro-mm-sig@lists.linaro.org>,
- <kvm@vger.kernel.org>
-Subject: [RFC v2 PATCH 05/10] vfio/pci: Convert BAR mmap() to use a DMABUF
-Date: Thu, 12 Mar 2026 11:46:03 -0700
-Message-ID: <20260312184613.3710705-6-mattev@meta.com>
-X-Mailer: git-send-email 2.52.0
-In-Reply-To: <20260312184613.3710705-1-mattev@meta.com>
-References: <20260312184613.3710705-1-mattev@meta.com>
+Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com
+ [209.85.216.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0DCE610EA84
+ for <dri-devel@lists.freedesktop.org>; Thu, 12 Mar 2026 16:54:44 +0000 (UTC)
+Received: by mail-pj1-f54.google.com with SMTP id
+ 98e67ed59e1d1-358ed696623so569890a91.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 12 Mar 2026 09:54:44 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1773334483; cv=none;
+ d=google.com; s=arc-20240605;
+ b=E6cuXJpQ9nNXML4p0SInkvt4zhUxSSUQNBWvjFsWTOqwjcfeZntjwzFz2u3QJu29+K
+ 0TKIg/E2twNBHwxnzWWSOw3zWeTUkMvrH5QO45fqE8A5GhUoIEI4edb2RBJVmMSUTP3p
+ AETG8BCABD60gpePcxIf8DYKDUCZJmfQqWgTTXtd2EUZ0gNmWU+HNuMqSJhuVHgdtc+Y
+ 1qxHWh5qTHTW+t2dpUXXgY87ao/9zpsm0Q33QlAADFdJl5mPWce61c31odEDTv7tMGM9
+ 1+ZaqQkeM77ZRmBf/6sRe/IZwVcMQwgGkeDTZG9w7dTvQtXop7ZXPSrP7GnFrndqowlA
+ +q1w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=+kWy5KRAZzJ0k+gfnUe4+KiD3cukw8nZMNARL7dWDnQ=;
+ fh=NmMar6WAM3ICnv9cGYtOrgWJujITKhYtDR5b6K6L07U=;
+ b=O7i4GvOe2dUjOBvxPAZ8hmMKm6soj1+gVyH1oDCC7My2QGU3T1bGyV5jSecB6AflKY
+ M10Jchjupnx/UHpa00kZQJ7dP/ecQduF33hmgDjfaa3vgutG08zc22PxVkhLrVV4tsf/
+ pwXixnop0tmKVEhoGB+IJUxqLg0oUB3opECtSwtPQ4L8U2UhU5lfyx9qCF2h3i5QVVOi
+ emo3c2AVZyHnM/R5RFiZK9beQB+HtjPtAF315M2f21exTcuIYZNudEuH1FasaH1PEzEK
+ P2Ztf9JlAD40V2ItMRqfZUJBHm/c/cJSFCKY53OCHI3GIjzs8bthvjgktQGpfoiB/GvN
+ X7nw==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1773334483; x=1773939283; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=+kWy5KRAZzJ0k+gfnUe4+KiD3cukw8nZMNARL7dWDnQ=;
+ b=OpqdOLUy9qMvN5bHwEES8gq6ubqcg1HzHYMh97JRbsERufjCnMka6xTkoRLtUW4OIf
+ 4blHMlI3X6mlEomz9NrRqXEZ3Fgx8XY4lvoM8siCsLdIn6xwIk5FYU4fucKHg9ugQZzR
+ Q7lzLSCYU/VBm+DF/KHu9lv74Q368pV9IOAyT75e6ZrLU8/XQKxWE8fo+PIxxh4dWOsq
+ AQrgyb8zyZVV2kl5A4PFHaJ0iTDc/7OMgzzdyhCAlHSy7ai486k/RRDPWuIYcq9qthqP
+ kWikP33wDWj3G0dbmUNZKGCvfNES438IolqjSNNBx+YPNAIQc+dZB93vd8tNjnv6dxak
+ IjrA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1773334483; x=1773939283;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=+kWy5KRAZzJ0k+gfnUe4+KiD3cukw8nZMNARL7dWDnQ=;
+ b=gxlCFG+F8C9nV5N2/+HlaEwBxhtCIJ9NgMwGf6CRK1dHP1jLPPd0RUfNvXpxgbUxD7
+ ELwhpaxnNWRX4Ld6pi42M4928zsFp11bo7mpwfj7cv8qgXOndUqwsNDkdZhxvG50enxq
+ 9OWHLYunWnYTQYECHxdi0b+WToHAajgM9s06lgoY5MOOlNGQxOhuJHNQlTtCQzjE8m6m
+ ijcJepeWtYIS1uhV+AbAWYcvuo4bPfDRkqkCItO9E+N9LcnUPfhGg8Y5+/isR5bFF9LV
+ A2ooeaJydIVVDgwpRY9H6JpbKjqxwNlkQXuitegvPql8HVsm739mRbq7zkrUXXRwqIa4
+ Smeg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUiBmnfFNpFBHCeveqLALd06ek6K2WVncdn5QSkL3FQtCxeNVx6Kt3Wv5IRQ4qh4H00B7dV2brT9K8=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxDlwGXgdbEhVa7dL28MgtRwjlj7GYm1wMA4fxvK5dvu5T5JTEh
+ lW1RtRkzmy1QHUsZ1W12V3vfSI3FrJcR4yKCBp1ntrfgnmu0lhK2cRdnFcqmN5CRwUEdHShGc72
+ ZNOXIW3G76VB+PE61Va5kygK/WNxHuxI=
+X-Gm-Gg: ATEYQzx1tFnvDuPiWFQRCLMdaa8UWbN7jfpu4tAeGxR2BeESGPbCXGlPvOXxvrstSxm
+ w8km06O44uV2+EAM5tn//kEfTQIDRaEPTZolBRioWembkLumfGkN5thAs82Vlth79nQFpsCnaSc
+ S+cEu5wneUrlYUY+SkeRNNJiDl8FPe2tFZKWt/E8ev0utNh5qq+NFP1W4UxXCEeP28G5yPiSYuu
+ vezWvRlCWEQQzvx44u9HBoZSWahOegXBZ0YPM423qQ7bqeme1jF9ULNvsnj5dOFgOH9tqTJ/mxO
+ 8dMOYe4ByqtXhAFQ5lH/kao=
+X-Received: by 2002:a17:90b:288e:b0:359:8d0d:5905 with SMTP id
+ 98e67ed59e1d1-35a21eba194mr250522a91.9.1773334483388; Thu, 12 Mar 2026
+ 09:54:43 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [2620:10d:c085:108::4]
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzEyMDE1MSBTYWx0ZWRfXyhmrcqMaf9cL
- A3pNUN53l2yWME+vnW47eHfegXVnnGkUNJ12uX+gGA3qWRiAzNMOhgPCNhheaMbiSyZb3eG3abu
- DaIi9rYLAfD51G4mcx6iOKMhi1opTwFUSE+aMP1Li6FOlOt7AwDWCNbVv+SDoVPCrpbEAWa9tHm
- +65vpSUPPJmp7W+cB+q1+uRvGLaQXkaLgz/tfSvcDJQ6N4shRNITg3nuZ0UYoTNigNrZ/or+UO0
- Eu5pem7UtNy8VjEOFCVk8Clx+u9mDumD5/Ukto3sV7ZipjwKnEHCHzJn1lKEFuKufEaMmYpC6Qt
- Nmy1YnUx55KtI5L2iKOx00sP1uI4aWKqeEuvA3JngTZrYaRT2sqkLIeCep16JR9mwAtcr6UAO7v
- DNLob3grQ6rEvv2pOoVphcQnE6et93gD6IF4Ec9vbgI55t9X3R9ejR8SAJX0Pf1PGq9wQAiSaZU
- PivFcd8n3ak7RJa6vpA==
-X-Proofpoint-ORIG-GUID: ieEjwAOBeG8b1DGaKPt6nf1RNWsafjwu
-X-Authority-Analysis: v=2.4 cv=QoJTHFyd c=1 sm=1 tr=0 ts=69b30a11 cx=c_pps
- a=CB4LiSf2rd0gKozIdrpkBw==:117 a=CB4LiSf2rd0gKozIdrpkBw==:17
- a=Yq5XynenixoA:10 a=VkNPw1HP01LnGYTKEx00:22 a=7x6HtfJdh03M6CCDgxCd:22
- a=855S8uPTkML1Oy45N9_h:22 a=VabnemYjAAAA:8 a=KljUu2FEy107lt1Px6sA:9
- a=gKebqoRLp9LExxC7YDUY:22
-X-Proofpoint-GUID: ieEjwAOBeG8b1DGaKPt6nf1RNWsafjwu
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-03-12_02,2026-03-12_01,2025-10-01_01
+References: <20260312150523.2054552-1-vineeth@bitbyteword.org>
+ <1e3c2830-765e-4271-89f7-0b6784b37597@efficios.com>
+ <20260312112354.3dd99e36@gandalf.local.home>
+ <219d015d-076b-4c80-8f63-88569115fdad@efficios.com>
+ <20260312114041.5193c729@gandalf.local.home>
+ <1becdbce-2c01-468a-bbab-42b5dea9fdf8@efficios.com>
+ <CAO7JXPjnnruhM5oC6xMgnYaQ9efzYFqMCFiJLNM3HCQ+ZeCiJw@mail.gmail.com>
+In-Reply-To: <CAO7JXPjnnruhM5oC6xMgnYaQ9efzYFqMCFiJLNM3HCQ+ZeCiJw@mail.gmail.com>
+From: Andrii Nakryiko <andrii.nakryiko@gmail.com>
+Date: Thu, 12 Mar 2026 09:54:29 -0700
+X-Gm-Features: AaiRm51tg7oVvkVGab0X55k0oYxIuUltKNvtNsrbO-Cw57of2y67mwv1ziUvJS0
+Message-ID: <CAEf4BzbnfyhCqp0ne=2gRnVxp-mdGmuZwDeFRyhRYH+eDcz2-w@mail.gmail.com>
+Subject: Re: [PATCH 00/15] tracepoint: Avoid double static_branch evaluation
+ at guarded call sites
+To: Vineeth Remanan Pillai <vineeth@bitbyteword.org>
+Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ Steven Rostedt <rostedt@goodmis.org>, 
+ Peter Zijlstra <peterz@infradead.org>, Dmitry Ilvokhin <d@ilvokhin.com>, 
+ Masami Hiramatsu <mhiramat@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+ Jens Axboe <axboe@kernel.dk>, 
+ io-uring@vger.kernel.org, "David S. Miller" <davem@davemloft.net>, 
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, 
+ Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+ Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>,
+ Xin Long <lucien.xin@gmail.com>, 
+ Jon Maloy <jmaloy@redhat.com>, Aaron Conole <aconole@redhat.com>, 
+ Eelco Chaudron <echaudro@redhat.com>, Ilya Maximets <i.maximets@ovn.org>,
+ netdev@vger.kernel.org, bpf@vger.kernel.org, linux-sctp@vger.kernel.org, 
+ tipc-discussion@lists.sourceforge.net, dev@openvswitch.org, 
+ Oded Gabbay <ogabbay@kernel.org>, Koby Elbaz <koby.elbaz@intel.com>, 
+ dri-devel@lists.freedesktop.org, "Rafael J. Wysocki" <rafael@kernel.org>, 
+ Viresh Kumar <viresh.kumar@linaro.org>,
+ "Gautham R. Shenoy" <gautham.shenoy@amd.com>, 
+ Huang Rui <ray.huang@amd.com>, Mario Limonciello <mario.limonciello@amd.com>, 
+ Len Brown <lenb@kernel.org>,
+ Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>, 
+ linux-pm@vger.kernel.org, MyungJoo Ham <myungjoo.ham@samsung.com>, 
+ Kyungmin Park <kyungmin.park@samsung.com>, Chanwoo Choi <cw00.choi@samsung.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Sumit Semwal <sumit.semwal@linaro.org>, linaro-mm-sig@lists.linaro.org, 
+ Eddie James <eajames@linux.ibm.com>,
+ Andrew Jeffery <andrew@codeconstruct.com.au>, 
+ Joel Stanley <joel@jms.id.au>, linux-fsi@lists.ozlabs.org, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Alex Deucher <alexander.deucher@amd.com>, Danilo Krummrich <dakr@kernel.org>, 
+ Matthew Brost <matthew.brost@intel.com>, Philipp Stanner <phasta@kernel.org>, 
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
+ amd-gfx@lists.freedesktop.org, Jiri Kosina <jikos@kernel.org>, 
+ Benjamin Tissoires <bentiss@kernel.org>, linux-input@vger.kernel.org, 
+ Wolfram Sang <wsa+renesas@sang-engineering.com>, linux-i2c@vger.kernel.org, 
+ Mark Brown <broonie@kernel.org>,
+ Michael Hennerich <michael.hennerich@analog.com>, 
+ =?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, linux-spi@vger.kernel.org, 
+ "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, 
+ "Martin K. Petersen" <martin.petersen@oracle.com>, linux-scsi@vger.kernel.org, 
+ Chris Mason <clm@fb.com>, David Sterba <dsterba@suse.com>,
+ linux-btrfs@vger.kernel.org, 
+ linux-trace-kernel@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Fri, 13 Mar 2026 08:25:02 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -94,283 +155,73 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Convert the VFIO device fd fops->mmap to create a DMABUF representing
-the BAR mapping, and make the VMA fault handler look up PFNs from the
-corresponding DMABUF.  This supports future code mmap()ing BAR
-DMABUFs, and iommufd work to support Type1 P2P.
+On Thu, Mar 12, 2026 at 9:15=E2=80=AFAM Vineeth Remanan Pillai
+<vineeth@bitbyteword.org> wrote:
+>
+> On Thu, Mar 12, 2026 at 11:49=E2=80=AFAM Mathieu Desnoyers
+> <mathieu.desnoyers@efficios.com> wrote:
+> >
+> > On 2026-03-12 11:40, Steven Rostedt wrote:
+> > > On Thu, 12 Mar 2026 11:28:07 -0400
+> > > Mathieu Desnoyers <mathieu.desnoyers@efficios.com> wrote:
+> > >
+> > >>> Note, Vineeth came up with the naming. I would have done "do" but w=
+hen I
+> > >>> saw "invoke" I thought it sounded better.
+> > >>
+> > >> It works as long as you don't have a tracing subsystem called
+> > >> "invoke", then you get into identifier clash territory.
+> > >
+> > > True. Perhaps we should do the double underscore trick.
+> > >
+> > > Instead of:  trace_invoke_foo()
+> > >
+> > > use:  trace_invoke__foo()
+> > >
+> > >
+> > > Which will make it more visible to what the trace event is.
+> > >
+> > > Hmm, we probably should have used: trace__foo() for all tracepoints, =
+as
+> > > there's still functions that are called trace_foo() that are not
+> > > tracepoints :-p
+> >
+> > One certain way to eliminate identifier clash would be to go for a
+> > prefix to "trace_", e.g.
+> >
+> > do_trace_foo()
+> > call_trace_foo()
+>
+> This was the initial idea, but it had conflict in the existing source:
+> call_trace_sched_update_nr_running. do_trace_##name also had
+> collisions when I checked. So, went with trace_invoke_##name. Did not
+> check rest of the suggestions here though.
+>
+> Thanks,
+> Vineeth
+>
+> > emit_trace_foo()
+> > __trace_foo()
 
-First, vfio_pci_core_mmap() uses the new
-vfio_pci_core_mmap_prep_dmabuf() helper to export a DMABUF
-representing a single BAR range.  Then, the vfio_pci_mmap_huge_fault()
-callback is updated to understand revoked buffers, and uses the new
-vfio_pci_dma_buf_find_pfn() helper to determine the PFN for a given
-fault address.
+this seems like the best approach, IMO. double-underscored variants
+are usually used for some specialized/internal version of a function
+when we know that some conditions are correct (e.g., lock is already
+taken, or something like that). Which fits here: trace_xxx() will
+check if tracepoint is enabled, while __trace_xxx() will not check and
+just invoke the tracepoint? It's short, it's distinct, and it says "I
+know what I am doing".
 
-Now that the VFIO DMABUFs can be mmap()ed, vfio_pci_dma_buf_move() and
-vfio_pci_dma_buf_cleanup() need to zap PTEs on revocation and cleanup
-paths.
-
-CONFIG_VFIO_PCI_CORE now unconditionally depends on
-CONFIG_DMA_SHARED_BUFFER.  CONFIG_VFIO_PCI_DMABUF remains, to
-conditionally include support for VFIO_DEVICE_FEATURE_DMA_BUF, and
-depends on CONFIG_PCI_P2PDMA.
-
-Signed-off-by: Matt Evans <mattev@meta.com>
----
- drivers/vfio/pci/Kconfig           |  3 +-
- drivers/vfio/pci/Makefile          |  3 +-
- drivers/vfio/pci/vfio_pci_core.c   | 73 ++++++++++++++++++++----------
- drivers/vfio/pci/vfio_pci_dmabuf.c | 14 ++++++
- drivers/vfio/pci/vfio_pci_priv.h   | 11 +----
- 5 files changed, 67 insertions(+), 37 deletions(-)
-
-diff --git a/drivers/vfio/pci/Kconfig b/drivers/vfio/pci/Kconfig
-index 1e82b44bda1a..bf5c64d1fe22 100644
---- a/drivers/vfio/pci/Kconfig
-+++ b/drivers/vfio/pci/Kconfig
-@@ -6,6 +6,7 @@ config VFIO_PCI_CORE
- 	tristate
- 	select VFIO_VIRQFD
- 	select IRQ_BYPASS_MANAGER
-+	select DMA_SHARED_BUFFER
- 
- config VFIO_PCI_INTX
- 	def_bool y if !S390
-@@ -56,7 +57,7 @@ config VFIO_PCI_ZDEV_KVM
- 	  To enable s390x KVM vfio-pci extensions, say Y.
- 
- config VFIO_PCI_DMABUF
--	def_bool y if VFIO_PCI_CORE && PCI_P2PDMA && DMA_SHARED_BUFFER
-+	def_bool y if PCI_P2PDMA
- 
- source "drivers/vfio/pci/mlx5/Kconfig"
- 
-diff --git a/drivers/vfio/pci/Makefile b/drivers/vfio/pci/Makefile
-index e0a0757dd1d2..bab7a33a2b31 100644
---- a/drivers/vfio/pci/Makefile
-+++ b/drivers/vfio/pci/Makefile
-@@ -1,8 +1,7 @@
- # SPDX-License-Identifier: GPL-2.0-only
- 
--vfio-pci-core-y := vfio_pci_core.o vfio_pci_intrs.o vfio_pci_rdwr.o vfio_pci_config.o
-+vfio-pci-core-y := vfio_pci_core.o vfio_pci_intrs.o vfio_pci_rdwr.o vfio_pci_config.o vfio_pci_dmabuf.o
- vfio-pci-core-$(CONFIG_VFIO_PCI_ZDEV_KVM) += vfio_pci_zdev.o
--vfio-pci-core-$(CONFIG_VFIO_PCI_DMABUF) += vfio_pci_dmabuf.o
- obj-$(CONFIG_VFIO_PCI_CORE) += vfio-pci-core.o
- 
- vfio-pci-y := vfio_pci.o
-diff --git a/drivers/vfio/pci/vfio_pci_core.c b/drivers/vfio/pci/vfio_pci_core.c
-index f9ed3374d268..41224efa58d8 100644
---- a/drivers/vfio/pci/vfio_pci_core.c
-+++ b/drivers/vfio/pci/vfio_pci_core.c
-@@ -1648,18 +1648,6 @@ void vfio_pci_memory_unlock_and_restore(struct vfio_pci_core_device *vdev, u16 c
- 	up_write(&vdev->memory_lock);
- }
- 
--static unsigned long vma_to_pfn(struct vm_area_struct *vma)
--{
--	struct vfio_pci_core_device *vdev = vma->vm_private_data;
--	int index = vma->vm_pgoff >> (VFIO_PCI_OFFSET_SHIFT - PAGE_SHIFT);
--	u64 pgoff;
--
--	pgoff = vma->vm_pgoff &
--		((1U << (VFIO_PCI_OFFSET_SHIFT - PAGE_SHIFT)) - 1);
--
--	return (pci_resource_start(vdev->pdev, index) >> PAGE_SHIFT) + pgoff;
--}
--
- vm_fault_t vfio_pci_vmf_insert_pfn(struct vfio_pci_core_device *vdev,
- 				   struct vm_fault *vmf,
- 				   unsigned long pfn,
-@@ -1692,23 +1680,45 @@ static vm_fault_t vfio_pci_mmap_huge_fault(struct vm_fault *vmf,
- 					   unsigned int order)
- {
- 	struct vm_area_struct *vma = vmf->vma;
--	struct vfio_pci_core_device *vdev = vma->vm_private_data;
--	unsigned long addr = vmf->address & ~((PAGE_SIZE << order) - 1);
--	unsigned long pgoff = (addr - vma->vm_start) >> PAGE_SHIFT;
--	unsigned long pfn = vma_to_pfn(vma) + pgoff;
-+	struct vfio_pci_dma_buf *priv = vma->vm_private_data;
-+	struct vfio_pci_core_device *vdev;
-+	unsigned long pfn;
- 	vm_fault_t ret = VM_FAULT_FALLBACK;
-+	int pres;
-+
-+	vdev = READ_ONCE(priv->vdev);
- 
--	if (is_aligned_for_order(vma, addr, pfn, order)) {
--		scoped_guard(rwsem_read, &vdev->memory_lock)
--			ret = vfio_pci_vmf_insert_pfn(vdev, vmf, pfn, order);
-+	/*
-+	 * A fault might occur after vfio_pci_dma_buf_cleanup() has
-+	 * revoked and destroyed the vdev's DMABUFs, and annulled
-+	 * vdev.  After creation, vdev is only ever written in
-+	 * cleanup.
-+	 */
-+	if (!vdev)
-+		return VM_FAULT_SIGBUS;
-+
-+	pres = vfio_pci_dma_buf_find_pfn(priv, vma, vmf->address, order, &pfn);
-+
-+	if (pres == 0) {
-+		scoped_guard(rwsem_read, &vdev->memory_lock) {
-+			/*
-+			 * A buffer's revocation/unmap and status
-+			 * change occurs whilst holding memory_lock,
-+			 * so protects against racing faults.
-+			 */
-+			if (priv->revoked)
-+				ret = VM_FAULT_SIGBUS;
-+			else
-+				ret = vfio_pci_vmf_insert_pfn(vdev, vmf, pfn, order);
-+		}
-+	} else if (pres != -EAGAIN) {
-+		ret = VM_FAULT_SIGBUS;
- 	}
- 
- 	dev_dbg_ratelimited(&vdev->pdev->dev,
--			   "%s(,order = %d) BAR %ld page offset 0x%lx: 0x%x\n",
--			    __func__, order,
--			    vma->vm_pgoff >>
--				(VFIO_PCI_OFFSET_SHIFT - PAGE_SHIFT),
--			    pgoff, (unsigned int)ret);
-+			    "%s(order = %d) PFN 0x%lx, VA 0x%lx, pgoff 0x%lx: 0x%x\n",
-+			    __func__, order, pfn, vmf->address, vma->vm_pgoff,
-+			    (unsigned int)ret);
- 
- 	return ret;
- }
-@@ -1773,7 +1783,20 @@ int vfio_pci_core_mmap(struct vfio_device *core_vdev, struct vm_area_struct *vma
- 	if (ret)
- 		return ret;
- 
--	vma->vm_private_data = vdev;
-+	/*
-+	 * Create a DMABUF with a single range corresponding to this
-+	 * mapping, and wire it into vma->vm_private_data.  The VMA's
-+	 * vm_file becomes that of the DMABUF, and the DMABUF takes
-+	 * ownership of the VFIO device file (put upon DMABUF
-+	 * release).  This maintains the behaviour of a live VMA
-+	 * mapping holding the VFIO device file open.
-+	 */
-+	ret = vfio_pci_core_mmap_prep_dmabuf(vdev, vma,
-+					     pci_resource_start(pdev, index),
-+					     pgoff, req_len);
-+	if (ret)
-+		return ret;
-+
- 	vma->vm_page_prot = pgprot_noncached(vma->vm_page_prot);
- 	vma->vm_page_prot = pgprot_decrypted(vma->vm_page_prot);
- 
-diff --git a/drivers/vfio/pci/vfio_pci_dmabuf.c b/drivers/vfio/pci/vfio_pci_dmabuf.c
-index 76db340ba592..197f50365ee1 100644
---- a/drivers/vfio/pci/vfio_pci_dmabuf.c
-+++ b/drivers/vfio/pci/vfio_pci_dmabuf.c
-@@ -9,6 +9,7 @@
- 
- MODULE_IMPORT_NS("DMA_BUF");
- 
-+#ifdef CONFIG_VFIO_PCI_DMABUF
- static int vfio_pci_dma_buf_attach(struct dma_buf *dmabuf,
- 				   struct dma_buf_attachment *attachment)
- {
-@@ -25,6 +26,7 @@ static int vfio_pci_dma_buf_attach(struct dma_buf *dmabuf,
- 
- 	return 0;
- }
-+#endif /* CONFIG_VFIO_PCI_DMABUF */
- 
- static void vfio_pci_dma_buf_done(struct kref *kref)
- {
-@@ -89,7 +91,9 @@ static void vfio_pci_dma_buf_release(struct dma_buf *dmabuf)
- }
- 
- static const struct dma_buf_ops vfio_pci_dmabuf_ops = {
-+#ifdef CONFIG_VFIO_PCI_DMABUF
- 	.attach = vfio_pci_dma_buf_attach,
-+#endif
- 	.map_dma_buf = vfio_pci_dma_buf_map,
- 	.unmap_dma_buf = vfio_pci_dma_buf_unmap,
- 	.release = vfio_pci_dma_buf_release,
-@@ -219,6 +223,7 @@ static int vfio_pci_dmabuf_export(struct vfio_pci_core_device *vdev,
- 	return 0;
- }
- 
-+#ifdef CONFIG_VFIO_PCI_DMABUF
- /*
-  * This is a temporary "private interconnect" between VFIO DMABUF and iommufd.
-  * It allows the two co-operating drivers to exchange the physical address of
-@@ -428,6 +433,7 @@ int vfio_pci_core_feature_dma_buf(struct vfio_pci_core_device *vdev, u32 flags,
- 	kfree(dma_ranges);
- 	return ret;
- }
-+#endif /* CONFIG_VFIO_PCI_DMABUF */
- 
- int vfio_pci_core_mmap_prep_dmabuf(struct vfio_pci_core_device *vdev,
- 				   struct vm_area_struct *vma,
-@@ -490,6 +496,10 @@ void vfio_pci_dma_buf_move(struct vfio_pci_core_device *vdev, bool revoked)
- 	struct vfio_pci_dma_buf *tmp;
- 
- 	lockdep_assert_held_write(&vdev->memory_lock);
-+	/*
-+	 * Holding memory_lock ensures a racing VMA fault observes
-+	 * priv->revoked properly.
-+	 */
- 
- 	list_for_each_entry_safe(priv, tmp, &vdev->dmabufs, dmabufs_elm) {
- 		if (!get_file_active(&priv->dmabuf->file))
-@@ -507,6 +517,8 @@ void vfio_pci_dma_buf_move(struct vfio_pci_core_device *vdev, bool revoked)
- 			if (revoked) {
- 				kref_put(&priv->kref, vfio_pci_dma_buf_done);
- 				wait_for_completion(&priv->comp);
-+				unmap_mapping_range(priv->dmabuf->file->f_mapping,
-+						    0, priv->size, 1);
- 			} else {
- 				/*
- 				 * Kref is initialize again, because when revoke
-@@ -550,6 +562,8 @@ void vfio_pci_dma_buf_cleanup(struct vfio_pci_core_device *vdev)
- 		dma_resv_unlock(priv->dmabuf->resv);
- 		kref_put(&priv->kref, vfio_pci_dma_buf_done);
- 		wait_for_completion(&priv->comp);
-+		unmap_mapping_range(priv->dmabuf->file->f_mapping,
-+				    0, priv->size, 1);
- 		vfio_device_put_registration(&vdev->vdev);
- 		fput(priv->dmabuf->file);
- 	}
-diff --git a/drivers/vfio/pci/vfio_pci_priv.h b/drivers/vfio/pci/vfio_pci_priv.h
-index 5fd3a6e00a0e..37ece9b4b5bd 100644
---- a/drivers/vfio/pci/vfio_pci_priv.h
-+++ b/drivers/vfio/pci/vfio_pci_priv.h
-@@ -132,13 +132,13 @@ int vfio_pci_dma_buf_find_pfn(struct vfio_pci_dma_buf *vpdmabuf,
- int vfio_pci_core_mmap_prep_dmabuf(struct vfio_pci_core_device *vdev,
- 				   struct vm_area_struct *vma,
- 				   u64 phys_start, u64 pgoff, u64 req_len);
-+void vfio_pci_dma_buf_cleanup(struct vfio_pci_core_device *vdev);
-+void vfio_pci_dma_buf_move(struct vfio_pci_core_device *vdev, bool revoked);
- 
- #ifdef CONFIG_VFIO_PCI_DMABUF
- int vfio_pci_core_feature_dma_buf(struct vfio_pci_core_device *vdev, u32 flags,
- 				  struct vfio_device_feature_dma_buf __user *arg,
- 				  size_t argsz);
--void vfio_pci_dma_buf_cleanup(struct vfio_pci_core_device *vdev);
--void vfio_pci_dma_buf_move(struct vfio_pci_core_device *vdev, bool revoked);
- #else
- static inline int
- vfio_pci_core_feature_dma_buf(struct vfio_pci_core_device *vdev, u32 flags,
-@@ -147,13 +147,6 @@ vfio_pci_core_feature_dma_buf(struct vfio_pci_core_device *vdev, u32 flags,
- {
- 	return -ENOTTY;
- }
--static inline void vfio_pci_dma_buf_cleanup(struct vfio_pci_core_device *vdev)
--{
--}
--static inline void vfio_pci_dma_buf_move(struct vfio_pci_core_device *vdev,
--					 bool revoked)
--{
--}
- #endif
- 
- #endif
--- 
-2.47.3
-
+> > invoke_trace_foo()
+> > dispatch_trace_foo()
+> >
+> > Thanks,
+> >
+> > Mathieu
+> >
+> >
+> >
+> > --
+> > Mathieu Desnoyers
+> > EfficiOS Inc.
+> > https://www.efficios.com
+>
