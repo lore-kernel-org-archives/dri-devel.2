@@ -4,88 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6333D106FD9D
-	for <dri-devel@archiver.kernel.org>; Fri, 13 Mar 2026 08:25:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 46512106FD9F
+	for <dri-devel@archiver.kernel.org>; Fri, 13 Mar 2026 08:25:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8DA8210EB19;
-	Fri, 13 Mar 2026 08:25:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3979710EB23;
+	Fri, 13 Mar 2026 08:25:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Q9sJUD+D";
+	dkim=pass (2048-bit key; unprotected) header.d=meta.com header.i=@meta.com header.b="sQe13Fme";
 	dkim-atps=neutral
-Received: from mail-oi1-f174.google.com (mail-oi1-f174.google.com
- [209.85.167.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1DD5310EABD
- for <dri-devel@lists.freedesktop.org>; Thu, 12 Mar 2026 21:42:46 +0000 (UTC)
-Received: by mail-oi1-f174.google.com with SMTP id
- 5614622812f47-466ed3bc95eso581383b6e.2
- for <dri-devel@lists.freedesktop.org>; Thu, 12 Mar 2026 14:42:46 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1773351764; cv=none;
- d=google.com; s=arc-20240605;
- b=d9sc2LPGeDHOlIfNjtUE3qBoXnRYwqSr1kQRENApViWpXXzNEPzcI001+p2w7O8D2O
- Pf9h9IGam5aJKX1AbFl5l0i6RmIGBDqAe5aqHrLOLXGTGe3sxRyiJ8uSpdIkDoTp4I0y
- fz04wsBEBIcr2LaGejKF9eoYTOV7Vl9pqNpQLMfSkmXMnzYF2lELIB53JDbcRZI6QrXR
- p0AnXUIok1lv5kA6FLuO/wOrG9lpDCCVmQUCIXLhiMWqCAi06YqmcmscjI9qgrz4wG6M
- FnVXcss5Cz/yPKQj1Ht6Igw4TYSRqzZX+0UXDNFDtWeIvuVreUC0kl4NykPQNvsu6ngo
- F4Fg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
- bh=xSg4btNtymY/4+hlVrtazwIHWia5HvYB5yobNV/mmak=;
- fh=7vxsFeM7Z7MQ3Q/tu67Jt444C/niOcB9vrbE4jUnYgw=;
- b=KW6IBYnKQ6C1X0JuowK3Kx9+vadxj1+HDEOW4AmJ2jMKcoCQrFarljToYrDbaKIBLB
- g8G/TwHIIaj/x0aXWbmnkAIorrPzkZ/0/d2HlNI1y1a1CWG/6JEG9OJx5/7tp8R+4+HW
- VwGnPaWKJui64UYI9CO65s/eVtICjXKg8VLhfvVRpvrPWmcPEqlC4mqRFC71gXudGNLX
- B7KGldCORwdzSILgjXr8OiKc7yc6AzBQNj6j7220QWiS0cpLlcM52neWI22qfsIS6Fej
- p+pCHRGdBpq3uOLg6NosiR27Om1fHX9Btd+1ge7wKRKA9JqCmxgWl8BU+8RDXt1vrC3H
- 7Q9Q==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1773351764; x=1773956564; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:mime-version:from:to:cc:subject
- :date:message-id:reply-to;
- bh=xSg4btNtymY/4+hlVrtazwIHWia5HvYB5yobNV/mmak=;
- b=Q9sJUD+DVw8PFXEjVCOuDD7bJswATm4aLjniXanLXbUfvPHPExQRosIzD8c1762u5B
- A9EArXF37WLgKs6FuWIDtrMND9GUBGqbomepa2yFYzRWGspZyIypd7tk4/doJ7OIMuN+
- iZvH7S3Lg2wa/fHiFI/GxjWm89QAtquKxWJwiwQqY/IdzPXErsEB/hmSmRljh2/TTyQZ
- wXUuSrVSEOwevMJjL6zQ0b7s4OmxREPQgRRcJDB0Qwnl4s2hhw09RVoJlcVjBDRC4ow/
- NNqtoScvbv1Ahoot7HopaNRd8rcfgPqxeeN2PFqVOI9fnTWHJQvcbfZmgU6uOPDA0Soq
- UZUQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1773351764; x=1773956564;
- h=cc:to:subject:message-id:date:from:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=xSg4btNtymY/4+hlVrtazwIHWia5HvYB5yobNV/mmak=;
- b=hL6X7UNIqeP9irVJ9oVAP2S2r+4khGQ2R5AirTwBzBRcPgGyDSVJ9vH/uaz/F9OFdI
- S2T5fAQWmy75GDsjFypGdjdf2laxx9g5xIZB2t8ea0EyRJYUIYWs9MpCHuVQ9gLlPCwA
- MggLX7tvkdVbK8QAn8u6mGpnz+gSQJ+N7/jVkOhVjxsN90O5MiLNYTE66sYAWtlw3z8Z
- JDO3JgH2Vm0abAvngEzFRVCEN8V/6+3CeWid848dRBsbMev1wLSc8xxQGvBGuDllReE3
- VK82O9Ku2Zuutmie/i6FbC7sT/ry4aDBUaOEjUduTk0dq7KYx1C7Ione3OPI/xSTp/Jf
- 7+jQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWqFzVBAJy7kZrF8KKEs//tVGCPUBmtx+SFdR78uq7H7jv0qXa5dVnCJaD5+fq1p3Wpod0i5uMsgoY=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzAZlkS8Ezp9kVfQumdkLgpQ/76mqRbG6TVtS7BPe2f7U5uRKjd
- mswAVg4OW+2EDisc88PopFEuXFzEo9y1lVfZim08UAPx2LghCRrWNvVRudJ6lGArC+woFZ189+H
- 6ladTn+jTcXHQvWgq7M4ROCV2k4TPUF4=
-X-Gm-Gg: ATEYQzzvpDFIJTRXbHZWTtFiRnGQtG1z6chTcU04PhGLQl00VsVewQSa9IfiOxD65B5
- twnanuO2v4RkFBGl+AgLor25mdedSUwdq7Ydc555fS7K5IWs6k72JRFtj7v7oChmKxEF8rbfMKB
- z6Z1FbWaPnh9V8nIeDgRudB/cPYB/PbKVGU0+J8Nu49ptDxVxZfeH9r8P9MBy6r/haCfDR/Zg2Y
- Aq4JefE/QG39/HHxeUpy8POjmOQnoqo49KE5f3hCmZKPvSNAnTgdjprs3S2/Z9DsF3ZLCv6t2uB
- hlOL6is+6/2RWtgQTaP/PDPCBIoanljqXi3lefl/JeMk+OmLDEgyK/boWb2R14UxmP1brHhc8i+
- QBian
-X-Received: by 2002:a05:6808:1302:b0:467:272e:896 with SMTP id
- 5614622812f47-467575b0937mr476360b6e.62.1773351764539; Thu, 12 Mar 2026
- 14:42:44 -0700 (PDT)
+Received: from mx0a-00082601.pphosted.com (mx0b-00082601.pphosted.com
+ [67.231.153.30])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E02BE10E1C6
+ for <dri-devel@lists.freedesktop.org>; Thu, 12 Mar 2026 18:46:51 +0000 (UTC)
+Received: from pps.filterd (m0001303.ppops.net [127.0.0.1])
+ by m0001303.ppops.net (8.18.1.11/8.18.1.11) with ESMTP id 62CHs6hG736960;
+ Thu, 12 Mar 2026 11:46:40 -0700
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=meta.com; h=cc
+ :content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=s2048-2025-q2;
+ bh=ZrlwwZVUdcMNUJAX32tIRUCuImsZe5FshFy6zCbtrbE=; b=sQe13FmeJUaM
+ Wt7xRE0a3ver+QCEpyBcUDV2Xsw3KljnCngbtDXhbLKBDmt1tZAHdRf+ae65fSGO
+ EngT5lcQF1HVd5y11X4moY4ftfrdtPn8Et0ngQwNiZPVUJnaotF646yfYW3iYcly
+ gkY0TmYia8qH8Cc43dmFWn2Sc01EF1IKbf6wotXlMbJXLnq6CJIbir/KJU6g/adI
+ yWPJreIK/FML5rXRXTD1ej8Gv4Sc06XByslUjsTRMj9+MfYQ9rp4wTA+PrErZwIt
+ H7uwzx1JPZj1oou2HG7Jjrrsx7w5ZxwmoaGzf7lF2YROFlpUvpzlwv7T3mKhGPLs
+ hEUamEY+fg==
+Received: from maileast.thefacebook.com ([163.114.135.16])
+ by m0001303.ppops.net (PPS) with ESMTPS id 4cv29xs1t8-4
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+ Thu, 12 Mar 2026 11:46:40 -0700 (PDT)
+Received: from localhost (2620:10d:c0a8:1c::1b) by mail.thefacebook.com
+ (2620:10d:c0a9:6f::237c) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.35; Thu, 12 Mar
+ 2026 18:46:37 +0000
+From: Matt Evans <mattev@meta.com>
+To: Alex Williamson <alex@shazbot.org>, Leon Romanovsky <leon@kernel.org>,
+ Jason Gunthorpe <jgg@nvidia.com>, Alex Mastro <amastro@fb.com>,
+ Mahmoud Adam <mngyadam@amazon.de>, David Matlack <dmatlack@google.com>
+CC: =?UTF-8?q?Bj=C3=B6rn=20T=C3=B6pel?= <bjorn@kernel.org>, Sumit Semwal
+ <sumit.semwal@linaro.org>, =?UTF-8?q?Christian=20K=C3=B6nig?=
+ <christian.koenig@amd.com>,
+ Kevin Tian <kevin.tian@intel.com>, Ankit Agrawal <ankita@nvidia.com>,
+ Pranjal Shrivastava <praan@google.com>, Alistair Popple
+ <apopple@nvidia.com>, Vivek Kasireddy <vivek.kasireddy@intel.com>,
+ <linux-kernel@vger.kernel.org>, <linux-media@vger.kernel.org>,
+ <dri-devel@lists.freedesktop.org>, <linaro-mm-sig@lists.linaro.org>,
+ <kvm@vger.kernel.org>
+Subject: [RFC v2 PATCH 04/10] vfio/pci: Add a helper to create a DMABUF for a
+ BAR-map VMA
+Date: Thu, 12 Mar 2026 11:46:02 -0700
+Message-ID: <20260312184613.3710705-5-mattev@meta.com>
+X-Mailer: git-send-email 2.52.0
+In-Reply-To: <20260312184613.3710705-1-mattev@meta.com>
+References: <20260312184613.3710705-1-mattev@meta.com>
 MIME-Version: 1.0
-From: John S <xaum.io@gmail.com>
-Date: Thu, 12 Mar 2026 22:42:31 +0100
-X-Gm-Features: AaiRm538N0gSaDCFHGWanXhFr7aTxlxi-ifUVs118JNj6Hrmu2fLSBitJItsXMA
-Message-ID: <CAAZVx9_Ki2h-FGemFOhykKvWxayJ26z8ji645Vsj-fdJuH4fZg@mail.gmail.com>
-Subject: [PATCH] backlight: cgbc_bl: fix kernel-doc comment for struct
- cgbc_bl_data
-To: lee@kernel.org, danielt@kernel.org, jingoohan1@gmail.com
-Cc: deller@gmx.de, dri-devel@lists.freedesktop.org, 
- linux-fbdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [2620:10d:c0a8:1c::1b]
+X-Proofpoint-ORIG-GUID: yWV221Ynv3RiRAhf8YGWx40uCR8JGEaY
+X-Proofpoint-GUID: yWV221Ynv3RiRAhf8YGWx40uCR8JGEaY
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzEyMDE1MSBTYWx0ZWRfX/K+cZwc/d5h4
+ V6UbyYW1PpDsWHpDykBPG55BoC9bmrkIgEjod/kyYfCZwsghhpb7cNg2vHWh/ZDoykXawDCY3gg
+ WNFQ8IabTZPwZMLaygob6CVGYjkVCBr0934NDsM4Vi9gT9Ue/210UIXPAUsOqCrJ3g1GHe9924S
+ IYkrfslpsKmUb/X6On+VEYfGr8oM5p66v2bRmxtpxSEWtdAipF+2wjJHs+AyTRzKSF7/zt4nFCs
+ XXqy4txRhV5cjLIARoSin8zcXja3aIPJtCxf0HecQy4b8yxTn4fV/ylb19KDsawTfSEpHdRaLr0
+ ebSliXkTZozR1TSrESNexyVL0pfMF1q0H8fBa9AgyHq5bJ9SiG1S9KKQT2rg2Zjb6LtFktYguTm
+ TFDK5eYH4/H5G2d6iXfBouFh7Ly75KmiUI6A+v5o1I3Wk2MPwfFRIhX+sG5W1Qu7HqZ7o60ae14
+ PkOKk+c2+mLA1IpwvZg==
+X-Authority-Analysis: v=2.4 cv=G4YR0tk5 c=1 sm=1 tr=0 ts=69b30a10 cx=c_pps
+ a=MfjaFnPeirRr97d5FC5oHw==:117 a=MfjaFnPeirRr97d5FC5oHw==:17
+ a=Dv35txUGz5gI0hTa:21 a=Yq5XynenixoA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=7x6HtfJdh03M6CCDgxCd:22 a=_78whYxrdx1mplLwxq1U:22 a=VabnemYjAAAA:8
+ a=tb9bu44HMbSD3pB8wWYA:9 a=gKebqoRLp9LExxC7YDUY:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-03-12_02,2026-03-12_01,2025-10-01_01
 X-Mailman-Approved-At: Fri, 13 Mar 2026 08:25:02 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -102,32 +95,223 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add the required 'struct cgbc_bl_data -' prefix to the kernel-doc
-comment so it is properly recognized as struct documentation.
+This helper, vfio_pci_core_mmap_prep_dmabuf(), creates a single-range
+DMABUF for the purpose of mapping a PCI BAR.  This is used in a future
+commit by VFIO's ordinary mmap() path.
 
-This fixes the following warning:
+This function transfers ownership of the VFIO device fd to the
+DMABUF, which fput()s when it's released.
 
-  drivers/video/backlight/cgbc_bl.c:29: This comment starts with
-'/**', but isn't a kernel-doc comment
+Refactor the existing vfio_pci_core_feature_dma_buf() to split out
+export code common to the two paths, VFIO_DEVICE_FEATURE_DMA_BUF and
+this new VFIO_BAR mmap().
 
-Signed-off-by: Kit Dallege <xaum.io@gmail.com>
+Signed-off-by: Matt Evans <mattev@meta.com>
 ---
- drivers/video/backlight/cgbc_bl.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/vfio/pci/vfio_pci_dmabuf.c | 131 +++++++++++++++++++++--------
+ drivers/vfio/pci/vfio_pci_priv.h   |   4 +
+ 2 files changed, 102 insertions(+), 33 deletions(-)
 
-diff --git a/drivers/video/backlight/cgbc_bl.c
-b/drivers/video/backlight/cgbc_bl.c
-index 9212c498e6e3..0964205ef1ab 100644
---- a/drivers/video/backlight/cgbc_bl.c
-+++ b/drivers/video/backlight/cgbc_bl.c
-@@ -26,7 +26,7 @@
- #define CGBC_BL_MAX_BRIGHTNESS     100
+diff --git a/drivers/vfio/pci/vfio_pci_dmabuf.c b/drivers/vfio/pci/vfio_pci_dmabuf.c
+index 63140528dbea..76db340ba592 100644
+--- a/drivers/vfio/pci/vfio_pci_dmabuf.c
++++ b/drivers/vfio/pci/vfio_pci_dmabuf.c
+@@ -82,6 +82,8 @@ static void vfio_pci_dma_buf_release(struct dma_buf *dmabuf)
+ 		up_write(&priv->vdev->memory_lock);
+ 		vfio_device_put_registration(&priv->vdev->vdev);
+ 	}
++	if (priv->vfile)
++		fput(priv->vfile);
+ 	kfree(priv->phys_vec);
+ 	kfree(priv);
+ }
+@@ -182,6 +184,41 @@ int vfio_pci_dma_buf_find_pfn(struct vfio_pci_dma_buf *vpdmabuf,
+ 	return -EFAULT;
+ }
+ 
++static int vfio_pci_dmabuf_export(struct vfio_pci_core_device *vdev,
++				  struct vfio_pci_dma_buf *priv, uint32_t flags,
++				  size_t size, bool status_ok)
++{
++	DEFINE_DMA_BUF_EXPORT_INFO(exp_info);
++
++	if (!vfio_device_try_get_registration(&vdev->vdev))
++		return -ENODEV;
++
++	exp_info.ops = &vfio_pci_dmabuf_ops;
++	exp_info.size = size;
++	exp_info.flags = flags;
++	exp_info.priv = priv;
++
++	priv->dmabuf = dma_buf_export(&exp_info);
++	if (IS_ERR(priv->dmabuf)) {
++		vfio_device_put_registration(&vdev->vdev);
++		return PTR_ERR(priv->dmabuf);
++	}
++
++	kref_init(&priv->kref);
++	init_completion(&priv->comp);
++
++	/* dma_buf_put() now frees priv */
++	INIT_LIST_HEAD(&priv->dmabufs_elm);
++	down_write(&vdev->memory_lock);
++	dma_resv_lock(priv->dmabuf->resv, NULL);
++	priv->revoked = !status_ok;
++	list_add_tail(&priv->dmabufs_elm, &vdev->dmabufs);
++	dma_resv_unlock(priv->dmabuf->resv);
++	up_write(&vdev->memory_lock);
++
++	return 0;
++}
++
+ /*
+  * This is a temporary "private interconnect" between VFIO DMABUF and iommufd.
+  * It allows the two co-operating drivers to exchange the physical address of
+@@ -300,7 +337,6 @@ int vfio_pci_core_feature_dma_buf(struct vfio_pci_core_device *vdev, u32 flags,
+ {
+ 	struct vfio_device_feature_dma_buf get_dma_buf = {};
+ 	struct vfio_region_dma_range *dma_ranges;
+-	DEFINE_DMA_BUF_EXPORT_INFO(exp_info);
+ 	struct vfio_pci_dma_buf *priv;
+ 	size_t length;
+ 	int ret;
+@@ -369,46 +405,20 @@ int vfio_pci_core_feature_dma_buf(struct vfio_pci_core_device *vdev, u32 flags,
+ 	kfree(dma_ranges);
+ 	dma_ranges = NULL;
+ 
+-	if (!vfio_device_try_get_registration(&vdev->vdev)) {
+-		ret = -ENODEV;
++	ret = vfio_pci_dmabuf_export(vdev, priv, get_dma_buf.open_flags,
++				     priv->size,
++				     __vfio_pci_memory_enabled(vdev));
++	if (ret)
+ 		goto err_free_phys;
+-	}
+-
+-	exp_info.ops = &vfio_pci_dmabuf_ops;
+-	exp_info.size = priv->size;
+-	exp_info.flags = get_dma_buf.open_flags;
+-	exp_info.priv = priv;
+-
+-	priv->dmabuf = dma_buf_export(&exp_info);
+-	if (IS_ERR(priv->dmabuf)) {
+-		ret = PTR_ERR(priv->dmabuf);
+-		goto err_dev_put;
+-	}
+-
+-	kref_init(&priv->kref);
+-	init_completion(&priv->comp);
+-
+-	/* dma_buf_put() now frees priv */
+-	INIT_LIST_HEAD(&priv->dmabufs_elm);
+-	down_write(&vdev->memory_lock);
+-	dma_resv_lock(priv->dmabuf->resv, NULL);
+-	priv->revoked = !__vfio_pci_memory_enabled(vdev);
+-	list_add_tail(&priv->dmabufs_elm, &vdev->dmabufs);
+-	dma_resv_unlock(priv->dmabuf->resv);
+-	up_write(&vdev->memory_lock);
+-
+ 	/*
+ 	 * dma_buf_fd() consumes the reference, when the file closes the dmabuf
+ 	 * will be released.
+ 	 */
+ 	ret = dma_buf_fd(priv->dmabuf, get_dma_buf.open_flags);
+-	if (ret < 0)
+-		goto err_dma_buf;
+-	return ret;
++	if (ret >= 0)
++		return ret;
+ 
+-err_dma_buf:
+ 	dma_buf_put(priv->dmabuf);
+-err_dev_put:
+ 	vfio_device_put_registration(&vdev->vdev);
+ err_free_phys:
+ 	kfree(priv->phys_vec);
+@@ -419,6 +429,61 @@ int vfio_pci_core_feature_dma_buf(struct vfio_pci_core_device *vdev, u32 flags,
+ 	return ret;
+ }
+ 
++int vfio_pci_core_mmap_prep_dmabuf(struct vfio_pci_core_device *vdev,
++				   struct vm_area_struct *vma,
++				   u64 phys_start,
++				   u64 pgoff,
++				   u64 req_len)
++{
++	struct vfio_pci_dma_buf *priv;
++	const unsigned int nr_ranges = 1;
++	int ret;
++
++	priv = kzalloc(sizeof(*priv), GFP_KERNEL);
++	if (!priv)
++		return -ENOMEM;
++
++	priv->phys_vec = kcalloc(nr_ranges, sizeof(*priv->phys_vec),
++				 GFP_KERNEL);
++	if (!priv->phys_vec) {
++		ret = -ENOMEM;
++		goto err_free_priv;
++	}
++
++	priv->vdev = vdev;
++	priv->nr_ranges = nr_ranges;
++	priv->size = req_len;
++	priv->phys_vec[0].paddr = phys_start + (pgoff << PAGE_SHIFT);
++	priv->phys_vec[0].len = req_len;
++
++	/*
++	 * Creates a DMABUF, adds it to vdev->dmabufs list for
++	 * tracking (meaning cleanup or revocation will zap them), and
++	 * registers with vfio_device:
++	 */
++	ret = vfio_pci_dmabuf_export(vdev, priv, O_CLOEXEC, priv->size, true);
++	if (ret)
++		goto err_free_phys;
++
++	/*
++	 * The VMA gets the DMABUF file so that other users can locate
++	 * the DMABUF via a VA.  Ownership of the original VFIO device
++	 * file being mmap()ed transfers to priv, and is put when the
++	 * DMABUF is released.
++	 */
++	priv->vfile = vma->vm_file;
++	vma->vm_file = priv->dmabuf->file;
++	vma->vm_private_data = priv;
++
++	return 0;
++
++err_free_phys:
++	kfree(priv->phys_vec);
++err_free_priv:
++	kfree(priv);
++	return ret;
++}
++
+ void vfio_pci_dma_buf_move(struct vfio_pci_core_device *vdev, bool revoked)
+ {
+ 	struct vfio_pci_dma_buf *priv;
+diff --git a/drivers/vfio/pci/vfio_pci_priv.h b/drivers/vfio/pci/vfio_pci_priv.h
+index 5cc8c85a2153..5fd3a6e00a0e 100644
+--- a/drivers/vfio/pci/vfio_pci_priv.h
++++ b/drivers/vfio/pci/vfio_pci_priv.h
+@@ -30,6 +30,7 @@ struct vfio_pci_dma_buf {
+ 	size_t size;
+ 	struct phys_vec *phys_vec;
+ 	struct p2pdma_provider *provider;
++	struct file *vfile;
+ 	u32 nr_ranges;
+ 	struct kref kref;
+ 	struct completion comp;
+@@ -128,6 +129,9 @@ int vfio_pci_dma_buf_find_pfn(struct vfio_pci_dma_buf *vpdmabuf,
+ 			      unsigned long address,
+ 			      unsigned int order,
+ 			      unsigned long *out_pfn);
++int vfio_pci_core_mmap_prep_dmabuf(struct vfio_pci_core_device *vdev,
++				   struct vm_area_struct *vma,
++				   u64 phys_start, u64 pgoff, u64 req_len);
+ 
+ #ifdef CONFIG_VFIO_PCI_DMABUF
+ int vfio_pci_core_feature_dma_buf(struct vfio_pci_core_device *vdev, u32 flags,
+-- 
+2.47.3
 
- /**
-- * CGBC backlight driver data
-+ * struct cgbc_bl_data - CGBC backlight driver data
-  * @dev: Pointer to the platform device
-  * @cgbc: Pointer to the parent CGBC device data
-  * @current_brightness: Current brightness level (0-100)
---
-2.53.0
