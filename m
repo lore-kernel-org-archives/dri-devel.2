@@ -4,131 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 983CD106ACEF
-	for <dri-devel@archiver.kernel.org>; Thu, 12 Mar 2026 21:14:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6F0D3106ACEE
+	for <dri-devel@archiver.kernel.org>; Thu, 12 Mar 2026 21:34:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C470410E215;
-	Thu, 12 Mar 2026 21:14:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9E78410E1CA;
+	Thu, 12 Mar 2026 21:34:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="OhudFM3C";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="JcTYpUWp";
 	dkim-atps=neutral
-Received: from PH7PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11010061.outbound.protection.outlook.com [52.101.201.61])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9AA1510E199;
- Thu, 12 Mar 2026 21:14:30 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=b7j2gXwFNYQCZhVuU8WyC9VEAjWUuGGSy0LKlCWc9QPXhFNC4wRQ7NUUwwiZKt6Ilng3Nvjo5Px3MWK4nhNfDlX5wkAi2G9LVpGana5tfnyxwslj+tfmX9ieekZqT4OC4yje5DjgvSwifGLSK8HHIsfBAptQeSDxhoAN3EdWbXH1KHaHpbJFHBQMwCpkZNkMMsp7VgUdrMtxN2EvCwwp3/KZ3fowU22yzxkA4kJzYzvdJTxgcp+LaLvlMl/z5RVSKpSqctmWt1WdMMpZ6gzw29UpHWo/ilbvO5/FCZU4bWf6RH4yh+BH/nKjfEd8tGpJN75o6artJ0mrcLaywBcfpw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=o8Rio0BOEwIErcLOfMSEX1Y1QOfuaFsDpAhCViRqW+o=;
- b=hub/cHDM9Xm7Wj3v3tfSGWHM12Fk1wtxKnxr2gxZN4GEXAxqwZ4RGDORrKUjBRrvYu+o1t/iLMEwSoaJ7h7NHlhXLLxcVfZnTrqfPlR0cr5g5K5cUiXMXV3fE3tewLIn5m4jT9B/jcyXhc2+6d41Tnwu4O40ZpneLrC167Yv+dpfEj8+F/Xw+qSe8W9mGJ4+gL77hQRLGO2J59A9A9GXDOXhzmixIzmaz+nVvcPH5MjQwlVdlh8R3FMto2Ud60LxRVv63o2k0IUQZoHw9GudppgOJN3WR7DS9jVMgbkzA3vfdF2z8CY2RW0ocveOCs5n4eCJcsTZ53KJkCanNpeezw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=o8Rio0BOEwIErcLOfMSEX1Y1QOfuaFsDpAhCViRqW+o=;
- b=OhudFM3C99ybFsVyx+VmgenG3mT00PFQwXFGQNsJ7HSnQhvvTUFWLYxo2C1lUB6etUITK1zeb20rFz3UxA7mLk8WM/4YQDgdlWP7VQ1CJJ+F29DRi8G4+SKl62alJfHLL29fMmtamJ4+5mqGfGGXA4VWO2ldhN8yXJR+j5LUrbk=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB8476.namprd12.prod.outlook.com (2603:10b6:8:17e::15)
- by PH0PR12MB7077.namprd12.prod.outlook.com (2603:10b6:510:21d::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.6; Thu, 12 Mar
- 2026 21:14:27 +0000
-Received: from DM4PR12MB8476.namprd12.prod.outlook.com
- ([fe80::2d79:122f:c62b:1cd8]) by DM4PR12MB8476.namprd12.prod.outlook.com
- ([fe80::2d79:122f:c62b:1cd8%6]) with mapi id 15.20.9723.004; Thu, 12 Mar 2026
- 21:14:27 +0000
-Message-ID: <ef24d3dc-28f8-4ca9-848a-c480337aac04@amd.com>
-Date: Thu, 12 Mar 2026 15:14:24 -0600
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/colorop: Fix blob property reference tracking in
- state lifecycle
-To: Harry Wentland <harry.wentland@amd.com>, dri-devel@lists.freedesktop.org, 
- amd-gfx@lists.freedesktop.org
-Cc: Simon Ser <contact@emersion.fr>, Daniel Stone <daniels@collabora.com>,
- Melissa Wen <mwen@igalia.com>, Sebastian Wick <sebastian.wick@redhat.com>,
- Uma Shankar <uma.shankar@intel.com>,
- =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Jani Nikula <jani.nikula@intel.com>,
- Louis Chauvet <louis.chauvet@bootlin.com>,
- Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>,
- stable@vger.kernel.org
-References: <20260312204145.829714-1-harry.wentland@amd.com>
-Content-Language: en-US
-From: Alex Hung <alex.hung@amd.com>
-In-Reply-To: <20260312204145.829714-1-harry.wentland@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: MW4PR03CA0117.namprd03.prod.outlook.com
- (2603:10b6:303:b7::32) To DM4PR12MB8476.namprd12.prod.outlook.com
- (2603:10b6:8:17e::15)
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DE0C410E1CA
+ for <dri-devel@lists.freedesktop.org>; Thu, 12 Mar 2026 21:34:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Cc:To:Content-Transfer-Encoding:Content-Type:MIME-Version:
+ Message-Id:Date:Subject:From:Sender:Reply-To:Content-ID:Content-Description:
+ Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
+ In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=VGnkNRbRIEFHMah1+akqFhtLH6g58Zk2y++AAOv+YdQ=; b=JcTYpUWpKsT87x8t8maCHWrVl2
+ iiDgVs7oxAxrgH8T/lzBgDAsjOrIUXPimx82x6BiwB5lI37BJfhc2dKoIBNMWpkRwxDh/6akGFR3/
+ RMfy62dcd+Y6hv9IdwpS+H2uhjFP6IPllzelrMU0voGT3W5J/IUicx9AttbtcKfk0/nJafcchbUr2
+ B88Zmj+GxUuenVVg+IP+2r1d9oPr3IzYyPiapPA5HqeZa2BeakADYgH1h37N9JVlWG9dsjHM5sbVv
+ dn1t21EreEcj3exSnXT03ur/2l1dH8hN+DDUEhptRT9Bw9VbULQG9xn7gUI0X7MDXvgOGwn4yM+7i
+ y7uvj/7Q==;
+Received: from [189.7.87.203] (helo=[10.0.0.1])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1w0ng3-00ElyQ-So; Thu, 12 Mar 2026 22:34:44 +0100
+From: =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
+Subject: [PATCH v7 0/5] Power Management for Raspberry Pi V3D GPU
+Date: Thu, 12 Mar 2026 18:34:22 -0300
+Message-Id: <20260312-v3d-power-management-v7-0-9f006a1d4c55@igalia.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB8476:EE_|PH0PR12MB7077:EE_
-X-MS-Office365-Filtering-Correlation-Id: f8716470-f6fe-45e9-3a94-08de807c57d2
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|7416014|366016|1800799024|56012099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: u6Dl/T0THSkQ8kyThYwdX3POncjAQMd5WzEagrEBAlntSMBWsBhdb/dlQ21IyS6MhHy5cGuuzfILZ5iHP0pofPbJVlVM0HM3XxKxE8XVJIxlGJsbj/whANQkwT0EF8Ye4wjUH/OoJBM1aDLaKUx91KxghTC935Is7bla7jqP/+XHlJBFcuiwzAkW7T2tT5jFfMfrU5HrjOApWmbXY4Swh4/+P4ogu7Wt7zHMNf0naXzfZEq+Cmdna/hsLcy6im/gFiMYCooJ7i5449tlOzaGRbpav98FXcTHuGXblYRbhidlLesGn6DvmdOZCfzi4Dc/2qI6KnGXcBicJodBfQrjIYOi6iCwEQSBOK1UYZ9InV58cDhGcbm16BicTyrUlYJnGbK+34T/9jupws1S9i4WFRldL4E15rH8S8pX8EvuSaRgbOG6nzans90K4lvEBjljjXAd7ckHcW30+lE0SW1Tv0tctbuSJIPQ6SMyaC3qdTcugnZaDzPZJ70uHcQvcD6fidSlcnlSl/+aAM+ebfXmw1wlDsh5A2kpv946B+WDHmuLFdSN1AZ1aRTyPg01aL0F41F9yZFjrIT+MpYBOhg+DPRtOH0FY3b/0Q95FON1EJ/SuXzQKcgWr1VeA9/bAOrOCaM7Ct4SiAzZAVkP7qZCJVDRKbzbgiW2QyYwGCtxTJYBiw7J+napOJw2Shn4kzAalDNtuEp3KyBEC1l2wgxQVrVI+nKgxIDFKAL6yUU+9m8=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB8476.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(7416014)(366016)(1800799024)(56012099003)(22082099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ckRwaDUxVWQwa1lOWmluR2pDMnZIaGFhWndWeUUzb3FLc2hiMXhMc05iVUpP?=
- =?utf-8?B?RmlaeGJ0d1VtOWhPaDNFejVzY083Smh4bW4yODdqcVFTQjlWR21TTnIyRjFN?=
- =?utf-8?B?a2xCamp1ZU8wTWlLMGQ5cUszZUh0bGtsNjhEMnRYc1NhM08vRmtMRTNjSlVB?=
- =?utf-8?B?bkJwSmNQbDdLbVJqUTd6NmIvdEF5T2hyT3hyZ1ZXSTF4UnVBSEJsaWxIMmJ0?=
- =?utf-8?B?eFRkU0o4eXhJelVRbkcxY2FaeGNyMEMxVXUyZ1M4cXVab081Q2FhZjNybEVl?=
- =?utf-8?B?VGJQeWE4K3lqckVQNHpVdWFpN3ZaTnUvcnRWcllsZlpOamxadTJSN0cwY0Mw?=
- =?utf-8?B?NjNWbGNpVjc2VUI2b1lUR3poWGVBNEgvRWNCMXdQdjVyZmltOSt2bjJFTnZH?=
- =?utf-8?B?ZElwdi9nbVpidFVTdS82bW9ZTU9IeElXUHRuRG51TFU2NHBqa2hpTjE0RkFS?=
- =?utf-8?B?OTBWbEJ3elhWQlJpekhpWkk4UDN5RVpUTHA0TGliMUJsZldQcm8yY2ZCUm5O?=
- =?utf-8?B?OFlkbk1td2EyM1U3VlpZK0FSNlI1OUEydmhEWnlMNGZNSUNqRE5ER3YrUFhp?=
- =?utf-8?B?bGxSUncxTWpRVkh2UGVjYzNRTERLTXRzUU92TGNpVjdpd3ZYRG1NKzAzdllm?=
- =?utf-8?B?azRRbkZ6aGx4QXU5MzFPQ01idjRRbHBMN0ZjNVBxaGF0TDZmblFYOFFLd2FT?=
- =?utf-8?B?a3F5NGVvd1dqdWMxTTIwZWtkZEE0WWpKS091eit1SFZTemtuSXBsSW9rZHVS?=
- =?utf-8?B?QlE2Z1NnNkNuRXBlUWhMdEkzVnp0QVZVdGp4TUZ2R0JCSktsN2pPV3M2TnVT?=
- =?utf-8?B?Y2hHRW5SbEZNY0NaZ08wcnM2UjgxdWNqOFNSOS9sRjZyYWUwb0szNWdvczdl?=
- =?utf-8?B?aW1xUDZIN2h4UmdwZ0Jrd0xvNGszNXhxRFQySzhYVTZSL09FZzJZVmE4Ung2?=
- =?utf-8?B?dFdoQWl2WU1kRFdYdms2RCt5aDczejVaYkt4clpRcnJNRGhKeHh2dzVxTEdC?=
- =?utf-8?B?amEzQ1k0dGduSnlRMlliTGZzQjI0cEJhWnlCbndYazB2L2U0eUM0YVBtemti?=
- =?utf-8?B?WXZPSTh3RUdSUHdIeEtxK051S09pR1cvT2pHZ1U2Rko1azhBb2lqUnpTR1la?=
- =?utf-8?B?WVVtZjFDSUw4dDBDSWo3aUtCVTB3VWpQS0tjeUVlTEJSY3lEcmxxeUJPNVo3?=
- =?utf-8?B?ekF1MlhNMXF6SjBMQ1hDMzUvZVFreTYyem51LzdwUG1rS1ZQNWY0cURsa1Zi?=
- =?utf-8?B?VTRxQkp2Z2lySnZmQmxySjYwdjlpN1k4dk5BVWpRbjFxdVdSTENPSnB6M2U0?=
- =?utf-8?B?WjJ4ZWN6MklxZG5zblhrdDZiN1lKcFVCOWdiekR6UEdhZnd0aFRUMUFPbnpN?=
- =?utf-8?B?ZkFTWFJYN0pybnpRYTdjK2NJQ3JUOHpSNUlJL3ZkSndNci9tMEUwbUdwN1Nq?=
- =?utf-8?B?Q0RKWVVZTDJKMzgxajV2UEdlSnBDV2pGNnhQL3JpUDBuL05oOWdyWlpHT0ZV?=
- =?utf-8?B?bUh0OXJNd2kzcE1DOEE0Yk4weldnUGgzTHhiZW1wdFB5NmgydkRuUmlTbFEv?=
- =?utf-8?B?UzJlMDJ3WkZvd3U2V1dzNGxycXVySmp1SjE3dk1uWHRCZUFwcFFVK1NIL0g5?=
- =?utf-8?B?aHNuU3pMMktvWHFNRUxnemFJREFoVXdYOUVQeFhyTUErTHFSNkJwL1NqOFRu?=
- =?utf-8?B?eU1xY0JzSlkrNzd2RjRzWWoxVDlZb3BXVEtRcU5mZ3kxRjI0TXZMekNyVGNM?=
- =?utf-8?B?eG1lVjlpN24zblVpYm40QWtRWDkzT2FNTHgyMmRKOGduWnNkc2R6R1FkYmp2?=
- =?utf-8?B?cGpjaVBGUWxIcE9na05ld0RtWkYwZ1FqczlESjFnT0p2WVExYVJScFlRWTNz?=
- =?utf-8?B?d3F3NXdOMEg2N0hrL28yU05BbXp2VnFweGRDY3lOM3RaM3JKNGJTNEVZZmNx?=
- =?utf-8?B?K1RQUWFpUUtaNTQxSWo5SWI2bVYrMEcxUEMvSVFsV3YrK3hTTjhRQmFPQ2Vw?=
- =?utf-8?B?M0FQT3hRazlrNUpxdXN1cG9YcUxRa0I2dzlYcThDVHdNVWJYa2F4SkgwS1NO?=
- =?utf-8?B?RG1haFFoWnZiSkMyQnBwL2pLbEk3Zi9udmtCeUpLaElBYVNUNkhxWHp0RVk0?=
- =?utf-8?B?M041NWxzWm03SUhrTnRFaktYUUhuMVdZbTB6S3FxZmlFUlIzMnFnSzBZSytl?=
- =?utf-8?B?b2xkY2szNDNWa1BNNENobkVsWDZ4UngwVFR1UWdrdXVMNEppeFlnVi9qT3pU?=
- =?utf-8?B?dWZVb1dyMmV5UnFrSkhOUzhBbHo1RlMxekVLdDdrSWUzWnc4OHJzZGhmSUZq?=
- =?utf-8?B?bFhJNUxNNjQwak5sRzJsYm1jWWlROXhXdEhHNDAwUkZEUis3NzRkQT09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f8716470-f6fe-45e9-3a94-08de807c57d2
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB8476.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Mar 2026 21:14:27.1888 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: naIiMOVjTF/G1fDP+nJ3a+y2hA1gASryZLcSM9SjIv33MF23snH4HHNFHTKM6UFbGor2UaLAZAe0opHdBMJRYw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB7077
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/4XQwWrDMAwG4FcpPs/Dkm3F6WnvMXawYyU1LElJS
+ rZR8u5zCmMZwez4C+kT0l3MPCWexfl0FxMvaU7jkEP1dBLNxQ8dyxRzFqjQqgqdXHSU1/GDJ9n
+ 7wXfc83CTzCHkDhObmkQevU7cps8H+/qW8yXNt3H6emxZYKv+Ay4glaycamvEAMq4l9T59+Sfm
+ 7EXm7jgTtFQUDArSmO0FBTUZA6K/lFIAVBB0VkxDK4y7CBGOihmp2BJMVlpfIuxBYqG8aDYXwV
+ BFxS7/cW7oB1w0FV9UGivlL5L20WKnG6jrh3ZP8q6rt9ohgtEFwIAAA==
+X-Change-ID: 20250728-v3d-power-management-eebb2024dc96
+To: Michael Turquette <mturquette@baylibre.com>, 
+ Stephen Boyd <sboyd@kernel.org>, Nicolas Saenz Julienne <nsaenz@kernel.org>, 
+ Florian Fainelli <florian.fainelli@broadcom.com>, 
+ Stefan Wahren <wahrenst@gmx.net>, Maxime Ripard <mripard@kernel.org>, 
+ Melissa Wen <mwen@igalia.com>, Iago Toral Quiroga <itoral@igalia.com>, 
+ Chema Casanova <jmcasanova@igalia.com>, 
+ Dave Stevenson <dave.stevenson@raspberrypi.com>, 
+ Philipp Zabel <p.zabel@pengutronix.de>
+Cc: linux-clk@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+ kernel-dev@igalia.com, =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>, 
+ stable@vger.kernel.org, Ulf Hansson <ulf.hansson@linaro.org>, 
+ Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>, 
+ linux-pm@vger.kernel.org
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5519; i=mcanal@igalia.com;
+ h=from:subject:message-id; bh=hMV8b2zX+MF3vz/Lexi8nix/0TRXQp0tGvL+/FqMPR8=;
+ b=owEBbQGS/pANAwAKAT/zDop2iPqqAcsmYgBpszFrEGGWyOVcQm7udLKS1zmPWmwoOU9YViVjW
+ 7PoQukmHcKJATMEAAEKAB0WIQT45F19ARZ3Bymmd9E/8w6Kdoj6qgUCabMxawAKCRA/8w6Kdoj6
+ qgWdCACjr0YreuHpelFvJIcCxNHwOB1hbj0qDzl289Ol4tsiSyYNtVRfbluX8HWhhcW4+TFoBY0
+ m28eUDwyO4+UWQTWa+jVnwGyMWQ3qxXA05tCIbI7JLybqUPtrcb1V+vhn+ZLQYbv3J3RTbNKs+0
+ 4R+kpxyk7ShC4eivqobVVV8YYxWpXoxdfUv7+KhG2hmgganhsbWPDgu+Rc01bzFYKoWTd06KfI2
+ cneUalofeGnv8OsvTBA4QQnGx7EMPs2adhYqeG8hJA0u9c8SMJrGT5NBiAU9IugVaaXb1Ohwa8Z
+ uT+DuFNGsOggJi96C5Dg8x1ni2G7laEqQDyndq7WbU0+9Ubk
+X-Developer-Key: i=mcanal@igalia.com; a=openpgp;
+ fpr=F8E45D7D0116770729A677D13FF30E8A7688FAAA
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -144,105 +87,117 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Reviewed-by: Alex Hung <alex.hung@amd.com>
+This series introduces Runtime Power Management (PM) support for the
+Raspberry Pi V3D GPU.
 
-On 3/12/26 14:41, Harry Wentland wrote:
-> The colorop state blob property handling had memory leaks during state
-> duplication, destruction, and reset operations. The implementation
-> failed to follow the established pattern from drm_crtc's handling of
-> DEGAMMA/GAMMA blob properties.
-> 
-> Issues fixed:
-> - drm_colorop_atomic_destroy_state() was freeing state memory without
->    releasing the blob reference, causing a leak
-> - drm_colorop_reset() was directly freeing old state with kfree()
->    instead of properly destroying it, leaking blob references
-> - drm_colorop_cleanup() had duplicate blob cleanup code
-> 
-> Changes:
-> - Add __drm_atomic_helper_colorop_destroy_state() helper to properly
->    release blob references before freeing state memory
-> - Update drm_colorop_atomic_destroy_state() to call the helper
-> - Fix drm_colorop_reset() to use drm_colorop_atomic_destroy_state()
->    for proper cleanup of old state
-> - Simplify drm_colorop_cleanup() to use the common destruction path
-> 
-> This matches the well-tested pattern used by drm_crtc since 2016 and
-> ensures proper reference counting throughout the state lifecycle.
-> 
-> Co-developed by Claude Sonnet 4.5.
-> 
-> Fixes: cfc27680ee20 ("drm/colorop: Introduce new drm_colorop mode object")
-> Cc: Simon Ser <contact@emersion.fr>
-> Cc: Alex Hung <alex.hung@amd.com>
-> Cc: Harry Wentland <harry.wentland@amd.com>
-> Cc: Daniel Stone <daniels@collabora.com>
-> Cc: Melissa Wen <mwen@igalia.com>
-> Cc: Sebastian Wick <sebastian.wick@redhat.com>
-> Cc: Uma Shankar <uma.shankar@intel.com>
-> Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
-> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-> Cc: Jani Nikula <jani.nikula@intel.com>
-> Cc: Louis Chauvet <louis.chauvet@bootlin.com>
-> Cc: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
-> Cc: <stable@vger.kernel.org> #v6.19+
-> Signed-off-by: Harry Wentland <harry.wentland@amd.com>
-> ---
->   drivers/gpu/drm/drm_colorop.c | 26 +++++++++++++++++++-------
->   1 file changed, 19 insertions(+), 7 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/drm_colorop.c b/drivers/gpu/drm/drm_colorop.c
-> index f421c623b3f0..647cf881f413 100644
-> --- a/drivers/gpu/drm/drm_colorop.c
-> +++ b/drivers/gpu/drm/drm_colorop.c
-> @@ -171,12 +171,8 @@ void drm_colorop_cleanup(struct drm_colorop *colorop)
->   	list_del(&colorop->head);
->   	config->num_colorop--;
->   
-> -	if (colorop->state && colorop->state->data) {
-> -		drm_property_blob_put(colorop->state->data);
-> -		colorop->state->data = NULL;
-> -	}
-> -
-> -	kfree(colorop->state);
-> +	if (colorop->state)
-> +		drm_colorop_atomic_destroy_state(colorop, colorop->state);
->   }
->   EXPORT_SYMBOL(drm_colorop_cleanup);
->   
-> @@ -485,9 +481,23 @@ drm_atomic_helper_colorop_duplicate_state(struct drm_colorop *colorop)
->   	return state;
->   }
->   
-> +/**
-> + * __drm_atomic_helper_colorop_destroy_state - release colorop state
-> + * @state: colorop state object to release
-> + *
-> + * Releases all resources stored in the colorop state without actually freeing
-> + * the memory of the colorop state. This is useful for drivers that subclass the
-> + * colorop state.
-> + */
-> +static void __drm_atomic_helper_colorop_destroy_state(struct drm_colorop_state *state)
-> +{
-> +	drm_property_blob_put(state->data);
-> +}
-> +
->   void drm_colorop_atomic_destroy_state(struct drm_colorop *colorop,
->   				      struct drm_colorop_state *state)
->   {
-> +	__drm_atomic_helper_colorop_destroy_state(state);
->   	kfree(state);
->   }
->   
-> @@ -538,7 +548,9 @@ static void __drm_colorop_reset(struct drm_colorop *colorop,
->   
->   void drm_colorop_reset(struct drm_colorop *colorop)
->   {
-> -	kfree(colorop->state);
-> +	if (colorop->state)
-> +		drm_colorop_atomic_destroy_state(colorop, colorop->state);
-> +
->   	colorop->state = kzalloc_obj(*colorop->state);
->   
->   	if (colorop->state)
+Currently, the V3D clock remains enabled for the entire system uptime,
+even when the GPU is idle. With the introduction of Runtime PM, the
+clock can now be disabled during idle periods. For example, with this
+series applied to a Raspberry Pi 5, if we check `vcgencmd measure_clock
+v3d`, we get:
+
+(idle)
+
+$ vcgencmd measure_clock v3d
+frequency(0)=0
+
+(running glmark2)
+
+$ vcgencmd measure_clock v3d
+frequency(0)=960016128
+
+Best regards,
+- Maíra
+
+v1 -> v2: https://lore.kernel.org/r/20250728-v3d-power-management-v1-0-780f922b1048@igalia.com
+
+- [1/5] NEW PATCH: "clk: bcm: rpi: Add missing logs if firmware fails" (Stefan Wahren)
+- [2/5] Remove the "Fixes:" tag (Stefan Wahren)
+- [2/5] dev_err_ratelimited() instead of dev_err() (Stefan Wahren)
+- [2/5] Instead of logging the clock ID, use clk_hw_get_name(hw) to log the name (Stefan Wahren)
+- [2/5] Add a newline character at the end of the log message (Stefan Wahren)
+- [2/5] Use CLK_IS_CRITICAL for all clocks that can't be disabled (Maxime Ripard)
+- [3/5] NEW PATCH: "clk: bcm: rpi: Maximize V3D clock"
+- [4/5] Use devm_reset_control_get_optional_exclusive() (Philipp Zabel)
+- [4/5] Make sure that resources are cleaned in the inverse order of allocation (Philipp Zabel)
+
+v2 -> v3: https://lore.kernel.org/r/20250731-v3d-power-management-v2-0-032d56b01964@igalia.com
+
+- Rebased on top of drm-misc-next
+- Patches "[PATCH v2 1/5] clk: bcm: rpi: Add missing logs if firmware
+  fails", "[PATCH v2 2/5] clk: bcm: rpi: Turn firmware clock on/off when
+  preparing/unpreparing", and "[PATCH v2 3/5] clk: bcm: rpi: Maximize
+  V3D clock" were applied to clk-next.
+- [1/4] NEW PATCH: "clk: bcm: rpi: Let V3D consumers manage clock rate"
+- [2/4] NEW PATCH: "clk: bcm: rpi: Mark PIXEL_CLK and HEVC_CLK as CLK_IGNORE_UNUSED"
+- [3/4] Add Philipp's R-b (Philipp Zabel)
+- [4/4] s/DRM_ERROR/drm_err
+- [4/4] Set the clock rate to 0 during suspend and to the maximum rate during resume
+
+v3 -> v4: https://lore.kernel.org/r/20260116-v3d-power-management-v3-0-4e1874e81dd6@igalia.com
+
+- Rebased on top of drm-misc-next
+- [1/6, 3/6] Add Melissa's A-b (Melissa Wen)
+- [2/6] NEW PATCH: "clk: bcm: rpi: Add a comment about RPI_FIRMWARE_SET_CLOCK_STATE
+  behavior" (Stefan Wahren)
+- [4/6] NEW PATCH: "drm/v3d: Use devm_reset_control_get_optional_exclusive()" (Melissa Wen)
+- [5/6] Include more context in the commit message (Melissa Wen)
+- [5/6, 6/6] Instead of creating the function v3d_gem_allocate(), use v3d_gem_init()
+  and move HW initialization out of it (Melissa Wen)
+
+v4 -> v5: https://lore.kernel.org/r/20260126-v3d-power-management-v4-0-caf2df16d4e2@igalia.com
+
+- [2/7] Add Stefan's A-b (Stefan Wahren)
+- [2/7, 5/7, 6/7] Add Melissa's R-b (Melissa Wen)
+- [4/7] NEW PATCH: "pmdomain: bcm: bcm2835-power: Increase ASB control timeout"
+- [7/7] Remove redundant pm_runtime_mark_last_busy() from v3d_pm_runtime_put()
+- [7/7] Use pm_runtime_get_if_active() in v3d_mmu_flush_all() instead of
+  pm_runtime_get_noresume() + pm_runtime_active()
+- [7/7] Add missing PM runtime calls to v3d_perfmon_start() and v3d_perfmon_stop()
+
+v5 -> v6: https://lore.kernel.org/r/20260213-v3d-power-management-v5-0-7a8b381eb379@igalia.com
+
+- [1/6] NEW PATCH: "clk: bcm: rpi: Manage clock rate in prepare/unprepare
+  callbacks" (Maxime Ripard)
+    - Replaces "clk: bcm: rpi: Let V3D consumers manage clock rate" and
+      "clk: bcm: rpi: Add a comment about RPI_FIRMWARE_SET_CLOCK_STATE
+      behavior" 
+- [6/6] Stop setting min and max clock rates directly in v3d (Maxime Ripard)
+
+v6 -> v7: https://lore.kernel.org/r/20260218-v3d-power-management-v6-0-40683fd39865@igalia.com
+
+- Drop commit "[PATCH v6 2/6] clk: bcm: rpi: Mark PIXEL_CLK and HEVC_CLK as CLK_IGNORE_UNUSED"
+- [1/5] Add comment about why is okay to set the clock's rate at prepare/unprepare (Maxime Ripard)
+- [1/5] Use clk_hw_get_rate_range() (Maxime Ripard)
+- [2/5] Add Stefan's R-b and stable tag (Stefan Wahren)
+- [3/5] Add Philipp's R-b (Philipp Zabel)
+- [5/5] Keep the alphabetical order in the Makefile (Stefan Wahren)
+- [5/5] Propagate `reset_control_assert()` error (Stefan Wahren)
+- [5/5] Add v3d_init_hw_state() before v3d_mmu_set_page_table()
+- [5/5] Stop any active perfmon during suspend
+
+---
+Maíra Canal (5):
+      clk: bcm: rpi: Manage clock rate in prepare/unprepare callbacks
+      pmdomain: bcm: bcm2835-power: Increase ASB control timeout
+      drm/v3d: Use devm_reset_control_get_optional_exclusive()
+      drm/v3d: Allocate all resources before enabling the clock
+      drm/v3d: Introduce Runtime Power Management
+
+ drivers/clk/bcm/clk-raspberrypi.c    |  38 ++++++++-
+ drivers/gpu/drm/v3d/Makefile         |   1 +
+ drivers/gpu/drm/v3d/v3d_debugfs.c    |  23 ++++-
+ drivers/gpu/drm/v3d/v3d_drv.c        | 160 +++++++++++++++++------------------
+ drivers/gpu/drm/v3d/v3d_drv.h        |  18 ++++
+ drivers/gpu/drm/v3d/v3d_gem.c        |  18 ++--
+ drivers/gpu/drm/v3d/v3d_irq.c        |  15 ++--
+ drivers/gpu/drm/v3d/v3d_mmu.c        |  10 ++-
+ drivers/gpu/drm/v3d/v3d_perfmon.c    |  18 +++-
+ drivers/gpu/drm/v3d/v3d_power.c      |  88 +++++++++++++++++++
+ drivers/gpu/drm/v3d/v3d_submit.c     |  19 ++++-
+ drivers/pmdomain/bcm/bcm2835-power.c |   5 +-
+ 12 files changed, 291 insertions(+), 122 deletions(-)
+---
+base-commit: ece3e8980907818c72dc9faa7bbaf40488ef1824
+change-id: 20250728-v3d-power-management-eebb2024dc96
 
