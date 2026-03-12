@@ -4,45 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0708B106ACF6
-	for <dri-devel@archiver.kernel.org>; Thu, 12 Mar 2026 23:08:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6A5F6FED2F5
+	for <dri-devel@archiver.kernel.org>; Thu, 12 Mar 2026 23:28:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 55C6110E171;
-	Thu, 12 Mar 2026 23:08:21 +0000 (UTC)
-Received: from m-r1.th.seeweb.it (m-r1.th.seeweb.it [5.144.164.170])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 78A2810E0E5
- for <dri-devel@lists.freedesktop.org>; Thu, 12 Mar 2026 23:08:19 +0000 (UTC)
-Received: from SoMainline.org (94-211-6-86.cable.dynamic.v4.ziggo.nl
- [94.211.6.86])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (prime256v1) server-signature RSA-PSS (2048 bits)
- server-digest SHA256) (No client certificate requested)
- by m-r1.th.seeweb.it (Postfix) with ESMTPSA id A9410208BD;
- Fri, 13 Mar 2026 00:08:16 +0100 (CET)
-Date: Fri, 13 Mar 2026 00:08:15 +0100
-From: Marijn Suijten <marijn.suijten@somainline.org>
-To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>, 
- Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>, 
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Pengyu Luo <mitltlatltl@gmail.com>, 
- ~postmarketos/upstreaming@lists.sr.ht,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
- Martin Botka <martin.botka@somainline.org>,
- Jami Kettunen <jami.kettunen@somainline.org>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] drm/msm/dsi: Restore widebus calculation for CMDMode
- panels
-Message-ID: <abNCphH1cGeora16@SoMainline.org>
-References: <20260311-dsi-dsc-regresses-again-v1-1-6a422141eeea@somainline.org>
- <f88c030f-ebdb-49d1-8334-62f1f85154e7@collabora.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id A1B0310E092;
+	Thu, 12 Mar 2026 23:28:14 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=nabladev.com header.i=@nabladev.com header.b="Bqq3AcVn";
+	dkim-atps=neutral
+Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BD22510E092
+ for <dri-devel@lists.freedesktop.org>; Thu, 12 Mar 2026 23:28:12 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
+ with ESMTPSA id DDC8E107870; Fri, 13 Mar 2026 00:28:08 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
+ s=dkim; t=1773358090;
+ h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ content-transfer-encoding:content-language:in-reply-to:references;
+ bh=D4U67KyPuip0+4wF0EN2QGlBhdOHlDVkwPXiAqd3gVI=;
+ b=Bqq3AcVngYY1S2QMommyl6BcmySjmlHZQjknGYE5eo30yFZ9fhuzWw20+bAw4jHQ/xo767
+ 6QDoVskFY99f6xcCyru7yQ7xty/qhoZ8NuIFqCywcwgFirhIBkYWq7kbwA1FwlVa1vtDcB
+ MbUp0DeQkUud1rl1Sh7nvSqPel4k8bVN9okOynihllrdVUCHeJNdIYIBkFfXxJWZ5f+kov
+ QNMTEAtYM2bdeI34/pCoY35hm3G3+xZWxvSTrkWzd6cA5U6wXmPAre56Um8ZOCygsFM/rm
+ 61DDY2ylIlwfD4DpDHKLWtf7F6ahOBrxYvZF3eeIRJOryMg2nulAoThfVJUruA==
+Message-ID: <d320187b-0770-4d9c-bafd-119d99ff453f@nabladev.com>
+Date: Fri, 13 Mar 2026 00:28:08 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <f88c030f-ebdb-49d1-8334-62f1f85154e7@collabora.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/imx: parallel-display: Prefer bus format set via
+ legacy "interface-pix-fmt" DT property
+To: Philipp Zabel <p.zabel@pengutronix.de>, dri-devel@lists.freedesktop.org
+Cc: stable@vger.kernel.org, David Airlie <airlied@gmail.com>,
+ Fabio Estevam <festevam@gmail.com>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Sascha Hauer <s.hauer@pengutronix.de>, Shawn Guo <shawnguo@kernel.org>,
+ Simona Vetter <simona@ffwll.ch>, Thomas Zimmermann <tzimmermann@suse.de>,
+ imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+References: <20260110171510.692666-1-marex@nabladev.com>
+ <0d3a41526ba02eee28457fafc95f5152a9c7bb4b.camel@pengutronix.de>
+Content-Language: en-US
+From: Marek Vasut <marex@nabladev.com>
+In-Reply-To: <0d3a41526ba02eee28457fafc95f5152a9c7bb4b.camel@pengutronix.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,61 +64,19 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 2026-03-12 14:18:43, AngeloGioacchino Del Regno wrote:
-...
-> Marijn et al,
+On 1/13/26 12:31 PM, Philipp Zabel wrote:
+> On Sa, 2026-01-10 at 18:14 +0100, Marek Vasut wrote:
+>> Prefer bus format set via legacy "interface-pix-fmt" DT property
+>> over panel bus format. This is necessary to retain support for
+>> DTs which configure the IPUv3 parallel output as 24bit DPI, but
+>> connect 18bit DPI panels to it with hardware swizzling.
+>>
+>> This used to work up to Linux 6.12, but stopped working in 6.13,
+>> reinstate the behavior to support old DTs.
+>>
+>> Cc: stable@vger.kernel.org
+>> Fixes: 5f6e56d3319d ("drm/imx: parallel-display: switch to drm_panel_bridge")
+>> Signed-off-by: Marek Vasut <marex@nabladev.com>
 > 
-> I don't really know this hardware specifically, but I had a very fast look
-> at this patch, and I believe that however you put it, this looks like being
-> either plain wrong or very weird.
-
-I would say I also don't know the hardware here very well, and which parameters
-apply when and were.  Most importantly, just be aware that the code we're
-looking at is for **DSC**, i.e. when we're no longer transfering single pixels
-per pclk, but compressed slices of a given number of bytes that can loosely be
-converted back to a "number of pixels".
-
-> I think this should be, instead....
-> 
-> 	/* (don't add this comment) assuming RGB888/666, this will be 24 for both Command 
-> and Video modes */
-> 	bits_per_pclk = mipi_dsi_pixel_format_to_bpp(msm_host->format);
-
-That would make sense, if it weren't for DSC.  The older downstream kernel I'm
-looking at -for at least CMD mode- disregards the format entirely, and just
-divides the "width" (computed like msm_dsc_get_bytes_per_line()) by 3 or 6
-depending on widebus.
-
-In other words that's clearly demonstrating that input/output "bits per
-component" (in uncompressed space) are irrelevant when we're transmitting
-compressed pixels.
-
-> 	/* Can send twice the bits per clock if WideBus with Video Mode */
-> 	if (wide_bus_enabled && msm_host->mode_flags & MIPI_DSI_MODE_VIDEO)
-> 		bits_per_pclk *= 2;
-
-And this is where the original patch got things wrong too; widebus isn't limited
-to VIDEO mode, in fact we were specifically only allowing CMD mode to use it
-thus far.  That comment and condition should be inverted.
-
-In this old downstream, widebus also doesn't seem to affect the pclk rate for
-VIDEO mode, only the ratio between bits per component and the chroma format
-(making up the total size of the pixel) and the configured "bits per pixel"
-value are taken into account; that ratio is generally 3.
-
-> ...because, unless there's a hardware quirk (and that should be really clarified
-> with a big comment stating that), I don't see why command mode should always be
-> 24 bits per clock, and I also don't see why a widebus case would do 48 bits per
-> clock even in the RGB666_PACKED and RGB565 cases (which may not even be possible
-> but *meh*).
-> 
-> Just my two cents.
-> 
-> Reminding you all again that I don't know this HW, so I may have said something
-> wrong here.
->
-> Cheers!
-> Angelo
-
-Kind regards,
-Marijn
+> Reviewed-by: Philipp Zabel <p.zabel@pengutronix.de>
+If there are no objections, would it be OK to apply this ?
