@@ -4,127 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 54456106ACD6
-	for <dri-devel@archiver.kernel.org>; Thu, 12 Mar 2026 19:16:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 85133106ACDD
+	for <dri-devel@archiver.kernel.org>; Thu, 12 Mar 2026 19:16:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B484B10EA8F;
-	Thu, 12 Mar 2026 19:16:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CD62A10E1CD;
+	Thu, 12 Mar 2026 19:16:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="I70LgRYw";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="AlsDiPyl";
 	dkim-atps=neutral
-Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com
- [74.125.82.176])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E225910EA92
- for <dri-devel@lists.freedesktop.org>; Thu, 12 Mar 2026 19:16:13 +0000 (UTC)
-Received: by mail-dy1-f176.google.com with SMTP id
- 5a478bee46e88-2bd801b40dbso96436eec.0
- for <dri-devel@lists.freedesktop.org>; Thu, 12 Mar 2026 12:16:13 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1773342973; cv=none;
- d=google.com; s=arc-20240605;
- b=k1dAD8RDuJMotZrpgM1SLvYRdXC48vLjeYo43McixmxVp6119y4c5pElJGWJBpXPJG
- 6GnELKcuM964Q3Yn58wXERPqqyxrCxC+a921VHIf9rHRUqdkCHnZ40vLoxTln0TqeSmI
- x8i76Yt//+U2pghL9EgygCGGALAKvDjA+XjEvHtwU/gD7dxOmrcOHdubwFhWlo3VzbGR
- gtnDhttRQ4ycPGKRZe1utqAki7ejp4b8OdCQN/IqtDwBHd9WwIVsjfC2wtfqM9i37212
- d9fnpmnD2Rzf1gizPtI4gxpTD9jESNOWkSpVBEax5nlAj3rNCQdkW5fRRwy7FpyvC3My
- avSw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=2hzSysAOGotLHY/Gk0vtKsQ07bdjUjpPdIHGXWzs09g=;
- fh=PHasE2GOynPMehqRiCoEJyEmr7ZavUwcNDSfcke6llk=;
- b=OhHKmxmIKOsbXJydWCbFPoEbMpK9pYwGesi2f1tpkVYKtaRDeyX4PqNCTQLtFsHIPV
- fdLBOrVkYXbdIIhoOrZKGFe16rCYMxJBJfQnWwdrIoHCRXyhj7x7x7U+2fR5Bpdzjl7X
- ZlJAqHSZEPlaczGuE6B9gYsjLk37WXA34x4183Dt19P7QWl3A/LFtxpE8vWlY9eCHMLi
- Vtt99WKKpRrTf0PmCOljQ5PCeZlVhJc2KigFMwsiaYkyuqqDKuUgXe8YCWpcfmRCstyW
- wvx29RrYYCSMe/Toq6c8gKod3QKRsvkNKEq+Rgm6I5kGIwo5FEpqlZ/LeqRiWj9hmrr1
- wAZA==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1773342973; x=1773947773; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=2hzSysAOGotLHY/Gk0vtKsQ07bdjUjpPdIHGXWzs09g=;
- b=I70LgRYwmb1Kf3TSnl+ArSLtzExyTBoa7dl04aKCHbpIOVlt0pkM+kTuMC22F9ryVp
- jUv01TLfI+UOeUVX6Sjz3kZS8LJyXET8ksAMjQMZzMqR2UNwz/RhUR0Dh0iVLA9TJZHL
- QXDsAXdQJiSbkyV3ypZv6uYxCyR1eCY+nrb6KQRwRLstb0XzDVTra1OJoA7lxpmr4sXI
- kaiXA9abzkmSNzENEsVuZBIyKPxgfqceCeSC5GzkFLFj33Ut8QJ5agezs64BnIL5WFv+
- 4K0QJleWgs+yILD46TlDsM4JTXcyiLlouPXq9bhfJihv+HoQC5so3WutGFCQ5CAn3ICC
- Xoxg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1773342973; x=1773947773;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=2hzSysAOGotLHY/Gk0vtKsQ07bdjUjpPdIHGXWzs09g=;
- b=mE2EoRURLOIxibKqVEECgrjZgymqEyrS8w99Gvrq3IzxQlk5OEe/9WR06QXhkHjvit
- Bj1OHhSRN64DQVEaBSduyCkttQVgj/UiYrXL5lChR/P8SJEx6INKPTyJBZpFZiXKUBpU
- 8T8bycUCS53gOQZv+Ndpz9ovMcWP0NBnkO60B0buoft36f9S9wq5bIgNuHD45+ix1aRu
- mMstqSoDgD2kBwdp8wTFV915yOC3Eu/0KlfIWJMTXA16L5JhYKb6qhKRoOg14tlxygQv
- nr5AtlQm1REoejGDo/Pw6CwbHsHk3/m3U65Y9XDFQcUZXYBvTEtz7w+SK2fAvK47dWvv
- 9z7w==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXy0xPl/IC2Pz5Ll+XnwVfLuMiOA7/Q05VdgbBmBsSd3LBzBQ0gYcx+W/ReC9EpgRqRh8xjD+dewZ8=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yz7vOzHsY6jIkHUUZoXr2W/A232F/I+v1U7PJntxIUqX7M1PPkV
- XzHHwSY/jkhd4Uw1wngsztoIgibBdVpbx0XPjdXF51/P15293J6NEbnq51qKGtge3obgOGcavZn
- F8iWkpybXSvR0QsrwyscdHRKeLfaDB90=
-X-Gm-Gg: ATEYQzwezrDCavB9Na0/TnbG8b3EkcxWaMb3A3mzPdeivKUEVdvDCX3o6NmSvqAt8rF
- U1dYxCI+3vYTMePf6kyAeYuRsg5UgMJHJECK04b9DUAVTA6972yR6NT72impprOwGrb1foi652w
- VLi9VjXNDOctbgyHGiwwK5n9glRNK7GEgsZnS5gfkT7mnAf1XYo8lDYiVN3yTgog42vOUWJCdJY
- 4YncmVScOt2FQFQt+gqF7Drzw+N4u5M9ptyGB5iKBQwDT9k6ruM9rmZJ8Z1m+gSZUX10/8Ix4ZR
- swdpf3zE0NhP1KPUUUt7T5/9czU9yDs5Xr0R4TbZwcWlRCV+isGDl0wpbKa4igvpQM3DnmGa5bD
- GwSVoY094NJshnVIPxIGUn7U=
-X-Received: by 2002:a05:7300:fd03:b0:2be:171c:2177 with SMTP id
- 5a478bee46e88-2bea5744a60mr186533eec.7.1773342973060; Thu, 12 Mar 2026
- 12:16:13 -0700 (PDT)
-MIME-Version: 1.0
-References: <20260306203648.1136554-1-joelagnelf@nvidia.com>
- <20260306203648.1136554-2-joelagnelf@nvidia.com>
-In-Reply-To: <20260306203648.1136554-2-joelagnelf@nvidia.com>
-From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Date: Thu, 12 Mar 2026 20:16:00 +0100
-X-Gm-Features: AaiRm537cVQtFBzSwOEaMgXdjzYeE0uMIzdX3f2cfwXX8kFS15LK67mGvYzfQo0
-Message-ID: <CANiq72m2Eo1UAuwMC0LhiD4+yqKixRm=+oHtEnpwY-VbNdR+fw@mail.gmail.com>
-Subject: Re: [PATCH v12 1/1] rust: interop: Add list module for C linked list
- interface
-To: Joel Fernandes <joelagnelf@nvidia.com>
-Cc: linux-kernel@vger.kernel.org, Miguel Ojeda <ojeda@kernel.org>, 
- Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
- =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
- Alex Gaynor <alex.gaynor@gmail.com>, Danilo Krummrich <dakr@kernel.org>, 
- Dave Airlie <airlied@redhat.com>, David Airlie <airlied@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, Simona Vetter <simona@ffwll.ch>, 
- Daniel Almeida <daniel.almeida@collabora.com>,
- Koen Koning <koen.koning@linux.intel.com>, 
- Nikola Djukic <ndjukic@nvidia.com>, Alexandre Courbot <acourbot@nvidia.com>, 
- Philipp Stanner <phasta@kernel.org>, Elle Rhumsaa <elle@weathered-steel.dev>, 
- Jonathan Corbet <corbet@lwn.net>, Alex Deucher <alexander.deucher@amd.com>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Jani Nikula <jani.nikula@linux.intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Tvrtko Ursulin <tursulin@ursulin.net>, Huang Rui <ray.huang@amd.com>, 
- Matthew Auld <matthew.auld@intel.com>, Matthew Brost <matthew.brost@intel.com>,
- Lucas De Marchi <lucas.demarchi@intel.com>, 
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
- Helge Deller <deller@gmx.de>, John Hubbard <jhubbard@nvidia.com>, 
- Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
- Edwin Peer <epeer@nvidia.com>, 
- Andrea Righi <arighi@nvidia.com>, Andy Ritger <aritger@nvidia.com>,
- Zhi Wang <zhiw@nvidia.com>, 
- Balbir Singh <balbirs@nvidia.com>, alexeyi@nvidia.com, 
- Eliot Courtney <ecourtney@nvidia.com>, dri-devel@lists.freedesktop.org, 
- nouveau@lists.freedesktop.org, rust-for-linux@vger.kernel.org, 
- linux-doc@vger.kernel.org, amd-gfx@lists.freedesktop.org, 
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
- linux-fbdev@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1E3B910EA95;
+ Thu, 12 Mar 2026 19:16:18 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 4A2D444514;
+ Thu, 12 Mar 2026 19:16:17 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F0989C2BCB1;
+ Thu, 12 Mar 2026 19:16:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1773342977;
+ bh=jlyx9l+qGp+RWiemW+VcSfXUDZgJ9xq/VQap7qzq8dQ=;
+ h=Date:To:From:Subject:Cc:References:In-Reply-To:From;
+ b=AlsDiPylrriqz02nX09F6Dsml7vaxeR0f7gbhVVvsEV/Zz+hLha9hIIfh3xiogl7f
+ B2KJuPJjb5gvfwFCqVxhqkHzVTdKoUQfGun8vDVXYopcJlnuYZPTlW1V7mNoB/RS/4
+ bPxlEk1dMNAbLYjrdMt+Um1UPAIsHa3xef/8lUcdO41JCyoxKfZY5jCKtZ80W/RvaL
+ 3eD6tbWfoyasy6ZN93LBr+lWBRZhvxtWQvZMe87ED0/9oeZT0RMiHu+GMFi+3hJ97A
+ K2YervJTOJvLJM2Xnv58MBNKr0gzzWjEY9/ntYZbA6A2LMkFkRzFDgsMmW9wO5PMZy
+ xa1t4ArO/0L8Q==
+Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 12 Mar 2026 20:16:13 +0100
+Message-Id: <DH11MBCZFQIJ.33U3GFVI1HFZF@kernel.org>
+To: "Cheng-Yang Chou" <yphbchou0911@gmail.com>
+From: "Danilo Krummrich" <dakr@kernel.org>
+Subject: Re: [PATCH] gpu: nova: rename drivers to use kebab-case convention
+Cc: "John Hubbard" <jhubbard@nvidia.com>, "Alice Ryhl"
+ <aliceryhl@google.com>, "Alexandre Courbot" <acourbot@nvidia.com>, "David
+ Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Gary Guo"
+ <gary@garyguo.net>, <nouveau@lists.freedesktop.org>,
+ <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
+ <jserv@ccns.ncku.edu.tw>
+References: <20260310062443.2763230-1-yphbchou0911@gmail.com>
+ <99af9d88-05a0-4dcd-85f4-9d5fe9ee6744@nvidia.com>
+ <abMJsUpvcUrITCVi@eric-acer>
+In-Reply-To: <abMJsUpvcUrITCVi@eric-acer>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -140,114 +63,49 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, Mar 6, 2026 at 9:37=E2=80=AFPM Joel Fernandes <joelagnelf@nvidia.co=
-m> wrote:
+On Thu Mar 12, 2026 at 7:45 PM CET, Cheng-Yang Chou wrote:
+> Hi John,
 >
-> Acked-by: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+> On Tue, Mar 10, 2026 at 06:34:51PM -0700, John Hubbard wrote:
+>> On 3/9/26 11:24 PM, Cheng-Yang Chou wrote:
+>> > -    name: c"nova",
+>> > +    name: c"nova-drm",
+>> >      desc: c"Nvidia Graphics",
+>>=20
+>> hmm, as long as we are fooling around with names here, I see that
+>> this should be "NVIDIA Graphics and Compute", really.
 
-Acked-by: Miguel Ojeda <ojeda@kernel.org>
+SGTM.
 
-> +//! # // SAFETY: head and all the items are test objects allocated in th=
-is scope.
+>> >  kernel::module_auxiliary_driver! {
+>> >      type: NovaDriver,
+>> > -    name: "Nova",
+>> > +    name: "nova-drm",
+>>=20
+>> Well, but now it is out of sync with the file name: nova.rs.
+>>=20
+>> You should change both, or neither, I'm thinking.
+>
+> I think renaming the file to nova_drm.rs would better reflect the
+> driver's identity now that the module name is nova-drm, making it easier
+> for readers to associate the source file with the driver.
+>
+> Would that work for you?
 
-`head`
+I think the module name should ideally match the directoy name, i.e. we hav=
+e
 
-> +//! // Rust wrapper for the C struct.
+	drivers/gpu/nova-core/
 
-Empty newline comment between these:
+with the module name "nova-core" and
 
-  //! //
+	drivers/gpu/drm/nova/
 
-Actually, should this be `//! ///`?
+with the module name "nova-drm".
 
-> +//! // The list item struct in this example is defined in C code as:
-> +//! //   struct SampleItemC {
-> +//! //       int value;
-> +//! //       struct list_head link;
-> +//! //   };
-> +//! //
+The reason why this is not .../nova-drm/ already is that I figured it would=
+ be a
+bit redundant given that "drm" is already part of the path.
 
-Let's try to use the usual style, i.e. no empty newline at the end of
-docs for an item.
-
-And the example should be in a proper code block with a C tag, so all
-together something like:
-
-    //! /// Rust wrapper for the C struct.
-    //! ///
-    //! /// The list item struct in this example is defined in C code as:
-    //! ///
-    //! /// ```c
-    //! /// struct SampleItemC {
-    //! ///     int value;
-    //! ///     struct list_head link;
-    //! /// };
-    //! /// ```
-
-> +//!         // SAFETY: [`Item`] has same layout as [`SampleItemC`].
-
-No need for intra-doc links in comments (for now at least).
-
-> +//! // Create typed [`CList`] from sentinel head.
-
-Empty newline comment.
-
-> +//! // SAFETY: head is valid and initialized, items are `SampleItemC` wi=
-th
-
-`head`
-
-However, this is giving me a Clippy issue (please see the other email).
-
-> +///   `next`/`prev` pointers are valid and non-NULL.
-
-We started using `NULL` recently as a convention for the null pointer.
-
-> +        // - [`CListHead`] has same layout as `list_head`.
-
-Intra-doc link not needed.
-
-> +        // - `ptr` is valid and unmodified for 'a per caller guarantees.
-
-`'a`
-
-> +        // SAFETY: self.as_raw() is valid per type invariants.
-
-`self.as_raw()`
-
-> +/// perform conversion of returned [`CListHead`] to an item (using `cont=
-ainer_of` macro or similar).
-
-Intra-doc link to `container_of`?
-
-> +        // - [`CList`] has same layout as [`CListHead`] due to repr(tran=
-sparent).
-
-Intra-doc link not needed.
-
-> +        // Convert to item using OFFSET.
-
-`OFFSET`
-
-Newline comment after this one.
-
-> +/// Create a C doubly-circular linked list interface `CList` from a raw =
-`list_head` pointer.
-
-[`CList`]
-
-> +///   pointing to a list that is not concurrently modified for the lifet=
-ime of the `CList`.
-
-[`CList`]
-
-> +/// Refer to the examples in this module's documentation.
-
-Perhaps we could have an intra-doc link here to the module.
-
-> +        // Compile-time check that field path is a list_head.
-
-`list_head`
-
-Cheers,
-Miguel
+While I don't mind changing this, I wonder what this would mean for the
+Kconfig, CONFIG_DRM_NOVA_DRM? :)
