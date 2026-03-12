@@ -4,51 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 234E7106ACE1
-	for <dri-devel@archiver.kernel.org>; Thu, 12 Mar 2026 19:21:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 035C1106ACDD
+	for <dri-devel@archiver.kernel.org>; Thu, 12 Mar 2026 19:21:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 87D5C10EA91;
-	Thu, 12 Mar 2026 19:21:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5EA3C10EA9F;
+	Thu, 12 Mar 2026 19:21:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Am8zHsoJ";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="PJUJXlRm";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5DD2710EA91;
- Thu, 12 Mar 2026 19:21:34 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3EFE910EA91;
+ Thu, 12 Mar 2026 19:21:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1773343294; x=1804879294;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=Zhb0XbVbSkgWBxiVuSG+gDE7nzQfwhSjuCf+rcLIxCs=;
- b=Am8zHsoJBaFeRg77WUThGkO+M8LeEnsx3WTmzew0gsxkfoLgZZ9Qd29n
- MINCwVh6QZpxVHVrOQR3bbvL6DOimnz7qB+7cJA86bQ0bV8UcHK8ieIWW
- SPDPHujQpoVBxC/2/uhIuCMnQ8ndjS42hu4HkEXK0NQAGkwuTW3JRA64J
- /6qM08BogA+Xv4dFlLfljpmbvdf43qQzTtpH2YmO9ar+KxZAurKynI4vt
- 5erUKOlv64Q18KvZl+lMeY2QSazp6ypw5CDf5BWtkZr4UXhKsauPsSryO
- YL8za+2D86bqo/tDK60k0HBxlSeOsHqPubL4Peb1FrtR4AGzdXxNwAIf3 g==;
-X-CSE-ConnectionGUID: 8dhupD/FTMSohzQpLUyAoQ==
-X-CSE-MsgGUID: mCJe/bfVRaKk0/xqxxc9SA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11727"; a="78052707"
-X-IronPort-AV: E=Sophos;i="6.23,116,1770624000"; d="scan'208";a="78052707"
+ t=1773343295; x=1804879295;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=9wlp+jrtDpxq4glZ8+eKbGQvQDzLZWbncMGoqU85Tfk=;
+ b=PJUJXlRm7S2hp05Uku/Tl3u1F5XCGAkN2KD2AMP19aFv20BV1+W8ca9H
+ gW6vSmhx0u/44LyJWO39xOPOAyXkFT82y+QQtuxlW1e98j9bBPWBm4bUE
+ 7xHDcOyZ2Ij3g0fsg1zgaWkbS6G35Xnak2/jG47N6WtJcB+BfrP+YoRZL
+ kj7oeYUUB07rFVcrhvmDV5iGq/t3v9mcQezJPrHE+uAjyw20MHETC9KaN
+ oIYKbycp6SalFKC+iVTNeHGkoz9k6jkpbkKEcImi8gH0hboTRfrx0sqy2
+ bzF+Re9QPy32ybwFezZ9dOmprmeKVGViPKpUEW8ck5yFkXiDcbJ1Cbe5Y g==;
+X-CSE-ConnectionGUID: 01EKMwWuQV6XB4alvV+R4Q==
+X-CSE-MsgGUID: jUMPgaykQ3uyWhJFk0fHkA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11727"; a="78052710"
+X-IronPort-AV: E=Sophos;i="6.23,116,1770624000"; d="scan'208";a="78052710"
 Received: from orviesa007.jf.intel.com ([10.64.159.147])
  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Mar 2026 12:21:34 -0700
-X-CSE-ConnectionGUID: 3m9xK1+kSeSdouq2HQeyhA==
-X-CSE-MsgGUID: VuMHCvQ6QzuNsmfzNXz9iA==
+ 12 Mar 2026 12:21:35 -0700
+X-CSE-ConnectionGUID: TwwJfPOnQOO5i/aGW2JQqA==
+X-CSE-MsgGUID: AQ/sviqKR06J9GZJ6uuW3A==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,116,1770624000"; d="scan'208";a="221105054"
+X-IronPort-AV: E=Sophos;i="6.23,116,1770624000"; d="scan'208";a="221105057"
 Received: from smoticic-mobl1.ger.corp.intel.com (HELO fdugast-desk.home)
  ([10.245.245.89])
  by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Mar 2026 12:21:33 -0700
+ 12 Mar 2026 12:21:34 -0700
 From: Francois Dugast <francois.dugast@intel.com>
 To: intel-xe@lists.freedesktop.org
 Cc: dri-devel@lists.freedesktop.org
-Subject: [PATCH v9 0/4] Enable THP support in drm_pagemap
-Date: Thu, 12 Mar 2026 20:20:10 +0100
-Message-ID: <20260312192126.2024853-1-francois.dugast@intel.com>
+Subject: [PATCH v9 1/4] drm/pagemap: Unlock and put folios when possible
+Date: Thu, 12 Mar 2026 20:20:11 +0100
+Message-ID: <20260312192126.2024853-2-francois.dugast@intel.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260312192126.2024853-1-francois.dugast@intel.com>
+References: <20260312192126.2024853-1-francois.dugast@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -66,62 +68,83 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Use Balbir Singh's series for device-private THP support [1] and previous
-preparation work in drm_pagemap [2] to add 2MB/THP support in xe. This leads
-to significant performance improvements when using SVM with 2MB pages.
+If the page is part of a folio, unlock and put the whole folio at once
+instead of individual pages one after the other. This will reduce the
+amount of operations once device THP are in use.
 
-[1] https://lore.kernel.org/linux-mm/20251001065707.920170-1-balbirs@nvidia.com/
-[2] https://patchwork.freedesktop.org/series/151754/
+Cc: Andrew Morton <akpm@linux-foundation.org>
+Cc: David Hildenbrand <david@kernel.org>
+Cc: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
+Cc: Liam R. Howlett <Liam.Howlett@oracle.com>
+Cc: Vlastimil Babka <vbabka@suse.cz>
+Cc: Mike Rapoport <rppt@kernel.org>
+Cc: Suren Baghdasaryan <surenb@google.com>
+Cc: Michal Hocko <mhocko@suse.com>
+Cc: Zi Yan <ziy@nvidia.com>
+Cc: Alistair Popple <apopple@nvidia.com>
+Cc: Balbir Singh <balbirs@nvidia.com>
+Cc: linux-mm@kvack.org
+Suggested-by: Matthew Brost <matthew.brost@intel.com>
+Reviewed-by: Matthew Brost <matthew.brost@intel.com>
+Signed-off-by: Francois Dugast <francois.dugast@intel.com>
+Reviewed-by: Balbir Singh <balbirs@nvidia.com>
+---
+ drivers/gpu/drm/drm_pagemap.c | 26 +++++++++++++++++---------
+ 1 file changed, 17 insertions(+), 9 deletions(-)
 
-v2:
-- rebase on top of multi-device SVM
-- add drm_pagemap_cpages() with temporary patch
-- address other feedback from Matt Brost on v1
-
-v3:
-The major change is to remove the dependency to the mm/huge_memory
-helper migrate_device_split_page() that was called explicitely when
-a 2M buddy allocation backed by a large folio would be later reused
-for a smaller allocation (4K or 64K). Instead, the first 3 patches
-provided by Matthew Brost ensure large folios are split at the time
-of freeing.
-
-v4:
-- add order argument to folio_free callback
-- send complete series to linux-mm and MM folks as requested (Zi Yan
-  and Andrew Morton) and cover letter to anyone receiving at least
-  one of the patches (Liam R. Howlett)
-
-v5:
-- update zone_device_page_init() in patch #1 to reinitialize large
-  zone device private folios
-
-v6:
-- fix drm_pagemap change in patch #1 to allow applying to 6.19 and
-  add some comments
-
-v7:
-- now that patch #1 is merged, rebase and resend for CI
-
-v8:
-- rebase on 7.0.0-rc3
-
-v9:
-- fix build when CONFIG_ZONE_DEVICE is disabled
-
-Francois Dugast (3):
-  drm/pagemap: Unlock and put folios when possible
-  drm/pagemap: Add helper to access zone_device_data
-  drm/pagemap: Enable THP support for GPU memory migration
-
-Matthew Brost (1):
-  drm/pagemap: Correct cpages calculation for migrate_vma_setup
-
- drivers/gpu/drm/drm_gpusvm.c  |   7 +-
- drivers/gpu/drm/drm_pagemap.c | 157 +++++++++++++++++++++++++++-------
- include/drm/drm_pagemap.h     |  21 +++++
- 3 files changed, 154 insertions(+), 31 deletions(-)
-
+diff --git a/drivers/gpu/drm/drm_pagemap.c b/drivers/gpu/drm/drm_pagemap.c
+index 862675ac5bb2..f453a12b6a8e 100644
+--- a/drivers/gpu/drm/drm_pagemap.c
++++ b/drivers/gpu/drm/drm_pagemap.c
+@@ -154,15 +154,15 @@ static void drm_pagemap_zdd_put(struct drm_pagemap_zdd *zdd)
+ }
+ 
+ /**
+- * drm_pagemap_migration_unlock_put_page() - Put a migration page
+- * @page: Pointer to the page to put
++ * drm_pagemap_migration_unlock_put_folio() - Put a migration folio
++ * @folio: Pointer to the folio to put
+  *
+- * This function unlocks and puts a page.
++ * This function unlocks and puts a folio.
+  */
+-static void drm_pagemap_migration_unlock_put_page(struct page *page)
++static void drm_pagemap_migration_unlock_put_folio(struct folio *folio)
+ {
+-	unlock_page(page);
+-	put_page(page);
++	folio_unlock(folio);
++	folio_put(folio);
+ }
+ 
+ /**
+@@ -177,15 +177,23 @@ static void drm_pagemap_migration_unlock_put_pages(unsigned long npages,
+ {
+ 	unsigned long i;
+ 
+-	for (i = 0; i < npages; ++i) {
++	for (i = 0; i < npages;) {
+ 		struct page *page;
++		struct folio *folio;
++		unsigned int order = 0;
+ 
+ 		if (!migrate_pfn[i])
+-			continue;
++			goto next;
+ 
+ 		page = migrate_pfn_to_page(migrate_pfn[i]);
+-		drm_pagemap_migration_unlock_put_page(page);
++		folio = page_folio(page);
++		order = folio_order(folio);
++
++		drm_pagemap_migration_unlock_put_folio(folio);
+ 		migrate_pfn[i] = 0;
++
++next:
++		i += NR_PAGES(order);
+ 	}
+ }
+ 
 -- 
 2.43.0
 
