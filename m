@@ -4,41 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9949F106ACEC
-	for <dri-devel@archiver.kernel.org>; Thu, 12 Mar 2026 21:35:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 94550106ACEF
+	for <dri-devel@archiver.kernel.org>; Thu, 12 Mar 2026 21:35:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CF38F10EAB8;
-	Thu, 12 Mar 2026 21:35:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D086010E305;
+	Thu, 12 Mar 2026 21:35:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="OKh8DthI";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="MZddNuAS";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9700E10E305
- for <dri-devel@lists.freedesktop.org>; Thu, 12 Mar 2026 21:34:59 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0038610E305
+ for <dri-devel@lists.freedesktop.org>; Thu, 12 Mar 2026 21:35:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329; h=Cc:To:In-Reply-To:References:Message-Id:
  Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:From:Sender:
  Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender
  :Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
  List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=NXkaGX7nlKYg5SOHjVLErs+bK3INDBge4zhemVx5PGg=; b=OKh8DthIEg7JIzRIGOeFQbXBP8
- SvjJFp4U25pxM28Gxfc+p8vbyOjCIBb3y2f6FfXBYt+vIVe2m8i2EQV7RY/66p4klKG3j/u9LiiM6
- ReRxyu/yt0zW5QJJW1JLO+Mh6+y4ZXK2S2iKn6Y12NhLUsZY8H/WXhDNX0fJqYaey5LAGu4aZoxJy
- 46/Hm7mgJ0l4cE2Zfg27UoL+r8fJS1XJQ6t8rHqM3PjnBWtFYY8OrRqQY8zM/UVDsKpwcRcln025g
- qGDkzPfjJTeHGIlQtfsjlwk1t03jM2b96zi2+E22bgUBLWqTK/4pi3luEP8r3I4fYL0cDJKRfAhFy
- cIGIJKdQ==;
+ bh=+mkbco2DYpLYIg6W0/gxXvZBYfuan5aT8DY6Oq7vk00=; b=MZddNuAS3xkEribzB1lOgfihEh
+ As2RkO47FakZb9QC92IG5wWB9t2fpkqMt+xm+GD1qRX6WpoBqZzRPLdSRmqbLjGJRmNfG6miy4jbC
+ KOVMOg8DKBYU54NMWJLOgOISKfACrwWGPyMPhdigQ/2daWzNfZN2N6BZeaq3KEw2B2TvSnLQF0i6e
+ 92rQyUJkf4IoO7TUQKVZilortrby1ElMVW8zkPyoTVgbMWN+ywAez+rWRkKgpLP6eL7+j9Q3sPGRx
+ bDySr3Uvd5A8hBniO9emE5W13Ij6nWDZMzLWTt3wiX/BY6Rk+LjSDLk0yyQKdui18aG2uVbsdBpl3
+ jk5YdsyA==;
 Received: from [189.7.87.203] (helo=[10.0.0.1])
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1w0ngA-00ElyQ-4L; Thu, 12 Mar 2026 22:34:50 +0100
+ id 1w0ngH-00ElyQ-Fp; Thu, 12 Mar 2026 22:34:57 +0100
 From: =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
-Date: Thu, 12 Mar 2026 18:34:23 -0300
-Subject: [PATCH v7 1/5] clk: bcm: rpi: Manage clock rate in
- prepare/unprepare callbacks
+Date: Thu, 12 Mar 2026 18:34:24 -0300
+Subject: [PATCH v7 2/5] pmdomain: bcm: bcm2835-power: Increase ASB control
+ timeout
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260312-v3d-power-management-v7-1-9f006a1d4c55@igalia.com>
+Message-Id: <20260312-v3d-power-management-v7-2-9f006a1d4c55@igalia.com>
 References: <20260312-v3d-power-management-v7-0-9f006a1d4c55@igalia.com>
 In-Reply-To: <20260312-v3d-power-management-v7-0-9f006a1d4c55@igalia.com>
 To: Michael Turquette <mturquette@baylibre.com>, 
@@ -52,17 +52,20 @@ To: Michael Turquette <mturquette@baylibre.com>,
 Cc: linux-clk@vger.kernel.org, dri-devel@lists.freedesktop.org, 
  linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
  Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
- kernel-dev@igalia.com, =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
+ kernel-dev@igalia.com, stable@vger.kernel.org, 
+ =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>, 
+ Ulf Hansson <ulf.hansson@linaro.org>, Ray Jui <rjui@broadcom.com>, 
+ Scott Branden <sbranden@broadcom.com>, linux-pm@vger.kernel.org
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3491; i=mcanal@igalia.com;
- h=from:subject:message-id; bh=b9Nf4ppP1CN6gGunwOnQ7j5yuk7aAOGVOvFlqCd7cDo=;
- b=owEBbQGS/pANAwAKAT/zDop2iPqqAcsmYgBpszFrt4qjlkf1ummrT3PwCFZq83+cg8JN+uBcf
- M+fXZF2+1OJATMEAAEKAB0WIQT45F19ARZ3Bymmd9E/8w6Kdoj6qgUCabMxawAKCRA/8w6Kdoj6
- qilOB/9K6MYj/fvLMBSRAMEk2tnXWH9G9lORMgjUv964Q93EjhOUVC0DpNqyKXNoxLRQ45a5hVd
- k1CL4HJkm9pvSPMwuIgY6qCDm06rzc+1TOKWx5OzN81CG8Aw9OsmiyVLnsMkxgRp/r+mnSch/Eo
- FKg2M6l4aEn917bWB1ABmDInLN87LdZDNzo2qD3QLciRfxYJnMqqjPPmiusaMkfHlRBB2IkD1c1
- rZzPEaWqbwXpJdo8jkHY5DvaWL3Jv8nBhLKmVGohxwyF/1IjcOk9wjxhRQF5GC/jciNW6csKzww
- +vYK/lC51Jd6Pf1YRK4jd01R7I7R4fwMAT0ZccZAfMRGswGe
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2076; i=mcanal@igalia.com;
+ h=from:subject:message-id; bh=euqSfLBmeaCLZHWPklfYFKyXd9/jNfEqOAD7t8grm+8=;
+ b=owEBbQGS/pANAwAKAT/zDop2iPqqAcsmYgBpszFr76DUXmoAsyJGsXd/N9TtDJyMFCabSqnNX
+ F10hpKOuLSJATMEAAEKAB0WIQT45F19ARZ3Bymmd9E/8w6Kdoj6qgUCabMxawAKCRA/8w6Kdoj6
+ qj2DCADAlWnt1dBmx5rDtgiehKMjC3M22RREyzbuB2SQps4zINZ0KPZnq6bmm02OwNmAQ/7ssES
+ fqFDltfhMdukQo0X4s5RRzCCoS0AevB+l0EizpPkRPOqETx0OFq4Exm46qbuvvhr2ktYfNMs9Mz
+ 6lWqTRviy15/peur+G5BZonMhWAydDYwAvnCk+dPPQOnppSs/ZAsHPAbiJXQ4ySjaKPDrRXfFdT
+ B6YjxiTQCBgCArL6lFVcHgJcuZydO1HF7TPZPd5qk6RVx40HP9v8HnCiN8Z1BIJotOlZuJmEu8K
+ VkIeA5jzXH5lVrDzNSE2vsX+XqxByfZ/hXYb3sa/EofZiBUo
 X-Developer-Key: i=mcanal@igalia.com; a=openpgp;
  fpr=F8E45D7D0116770729A677D13FF30E8A7688FAAA
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -80,96 +83,56 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On current firmware versions, RPI_FIRMWARE_SET_CLOCK_STATE doesn't
-actually power off the clock. To achieve meaningful power savings, the
-clock rate must be set to the minimum before disabling. This might be
-fixed in future firmware releases.
+The bcm2835_asb_control() function uses a tight polling loop to wait
+for the ASB bridge to acknowledge a request. During intensive workloads,
+this handshake intermittently fails for V3D's master ASB on BCM2711,
+resulting in "Failed to disable ASB master for v3d" errors during
+runtime PM suspend. As a consequence, the failed power-off leaves V3D in
+a broken state, leading to bus faults or system hangs on later accesses.
 
-Rather than pushing rate management to clock consumers, handle it
-directly in the clock framework's prepare/unprepare callbacks. In
-unprepare, set the rate to the minimum before disabling the clock.
-In prepare, for clocks marked with `maximize` (currently v3d),
-restore the rate to the maximum after enabling.
+As the timeout is insufficient in some scenarios, increase the polling
+timeout from 1us to 5us, which is still negligible in the context of a
+power domain transition. Also, move the start timestamp to after the
+MMIO write, as the write latency is counted against the timeout,
+reducing the effective wait time for the hardware to respond.
 
+Cc: stable@vger.kernel.org
+Reviewed-by: Stefan Wahren <wahrenst@gmx.net>
 Signed-off-by: Maíra Canal <mcanal@igalia.com>
----
- drivers/clk/bcm/clk-raspberrypi.c | 38 ++++++++++++++++++++++++++++++++++----
- 1 file changed, 34 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/clk/bcm/clk-raspberrypi.c b/drivers/clk/bcm/clk-raspberrypi.c
-index 1a9162f0ae31e330c46f6eafdd00350599b0eede..df2d246eb6efd0c9a9c508eb7a43a6a70e1c3810 100644
---- a/drivers/clk/bcm/clk-raspberrypi.c
-+++ b/drivers/clk/bcm/clk-raspberrypi.c
-@@ -289,16 +289,31 @@ static int raspberrypi_fw_dumb_determine_rate(struct clk_hw *hw,
- static int raspberrypi_fw_prepare(struct clk_hw *hw)
- {
- 	const struct raspberrypi_clk_data *data = clk_hw_to_data(hw);
-+	struct raspberrypi_clk_variant *variant = data->variant;
- 	struct raspberrypi_clk *rpi = data->rpi;
- 	u32 state = RPI_FIRMWARE_STATE_ENABLE_BIT;
- 	int ret;
- 
- 	ret = raspberrypi_clock_property(rpi->firmware, data,
- 					 RPI_FIRMWARE_SET_CLOCK_STATE, &state);
--	if (ret)
-+	if (ret) {
- 		dev_err_ratelimited(rpi->dev,
- 				    "Failed to set clock %s state to on: %d\n",
- 				    clk_hw_get_name(hw), ret);
-+		return ret;
-+	}
-+
-+	/*
-+	 * For clocks marked with 'maximize', restore the rate to the
-+	 * maximum after enabling. This compensates for the rate being
-+	 * set to minimum during unprepare (see raspberrypi_fw_unprepare).
-+	 */
-+	if (variant->maximize) {
-+		unsigned long min_rate, max_rate;
-+
-+		clk_hw_get_rate_range(hw, &min_rate, &max_rate);
-+		ret = raspberrypi_fw_set_rate(hw, max_rate, 0);
-+	}
- 
- 	return ret;
- }
-@@ -307,9 +322,27 @@ static void raspberrypi_fw_unprepare(struct clk_hw *hw)
- {
- 	const struct raspberrypi_clk_data *data = clk_hw_to_data(hw);
- 	struct raspberrypi_clk *rpi = data->rpi;
-+	unsigned long min_rate, max_rate;
- 	u32 state = 0;
- 	int ret;
- 
-+	clk_hw_get_rate_range(hw, &min_rate, &max_rate);
-+
-+	/*
-+	 * Setting the rate in unprepare is a deviation from the usual CCF
-+	 * behavior, where unprepare only gates the clock. However, this is
-+	 * needed, as RPI_FIRMWARE_SET_CLOCK_STATE doesn't actually power off
-+	 * the clock on current firmware versions. Setting the rate to minimum
-+	 * before disabling the clock is the only way to achieve meaningful
-+	 * power savings.
-+	 *
-+	 * This is safe because no consumer should rely on the rate of an
-+	 * unprepared clock. Any consumer must call clk_prepare() before use,
-+	 * at which point the rate is either restored to maximum (for clocks
-+	 * with the 'maximize' flag) or re-established by the consumer.
-+	 */
-+	raspberrypi_fw_set_rate(hw, min_rate, 0);
-+
- 	ret = raspberrypi_clock_property(rpi->firmware, data,
- 					 RPI_FIRMWARE_SET_CLOCK_STATE, &state);
- 	if (ret)
-@@ -387,9 +420,6 @@ static struct clk_hw *raspberrypi_clk_register(struct raspberrypi_clk *rpi,
- 		}
+---
+To: Ulf Hansson <ulf.hansson@linaro.org>
+To: Ray Jui <rjui@broadcom.com>
+To: Scott Branden <sbranden@broadcom.com>
+Cc: linux-pm@vger.kernel.org
+---
+ drivers/pmdomain/bcm/bcm2835-power.c | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/pmdomain/bcm/bcm2835-power.c b/drivers/pmdomain/bcm/bcm2835-power.c
+index 0450202bbee2513c9116a36abaa839b460550935..1815eb4ee69b9b672b5e314402f1cc9897c57dcb 100644
+--- a/drivers/pmdomain/bcm/bcm2835-power.c
++++ b/drivers/pmdomain/bcm/bcm2835-power.c
+@@ -166,8 +166,6 @@ static int bcm2835_asb_control(struct bcm2835_power *power, u32 reg, bool enable
+ 		break;
  	}
  
--	if (variant->maximize)
--		variant->min_rate = max_rate;
+-	start = ktime_get_ns();
 -
- 	if (variant->min_rate) {
- 		unsigned long rate;
+ 	/* Enable the module's async AXI bridges. */
+ 	if (enable) {
+ 		val = readl(base + reg) & ~ASB_REQ_STOP;
+@@ -176,9 +174,10 @@ static int bcm2835_asb_control(struct bcm2835_power *power, u32 reg, bool enable
+ 	}
+ 	writel(PM_PASSWORD | val, base + reg);
+ 
++	start = ktime_get_ns();
+ 	while (!!(readl(base + reg) & ASB_ACK) == enable) {
+ 		cpu_relax();
+-		if (ktime_get_ns() - start >= 1000)
++		if (ktime_get_ns() - start >= 5000)
+ 			return -ETIMEDOUT;
+ 	}
  
 
 -- 
