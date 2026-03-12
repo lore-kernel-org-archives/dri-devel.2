@@ -4,72 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6C0B2106ACF3
-	for <dri-devel@archiver.kernel.org>; Thu, 12 Mar 2026 22:42:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0708B106ACF6
+	for <dri-devel@archiver.kernel.org>; Thu, 12 Mar 2026 23:08:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BFDEF10E2FB;
-	Thu, 12 Mar 2026 22:42:23 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="r9Ob3yk+";
-	dkim-atps=neutral
-Received: from mail-ed1-f74.google.com (mail-ed1-f74.google.com
- [209.85.208.74])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 09D4010E171
- for <dri-devel@lists.freedesktop.org>; Thu, 12 Mar 2026 22:42:22 +0000 (UTC)
-Received: by mail-ed1-f74.google.com with SMTP id
- 4fb4d7f45d1cf-6612daf5e65so1088519a12.0
- for <dri-devel@lists.freedesktop.org>; Thu, 12 Mar 2026 15:42:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20230601; t=1773355340; x=1773960140;
- darn=lists.freedesktop.org; 
- h=cc:to:from:subject:message-id:mime-version:date:from:to:cc:subject
- :date:message-id:reply-to;
- bh=ZQePyGCcJSLkSetdN+bKrj1kfFypqaLV10vxUIU7GyU=;
- b=r9Ob3yk+UvU6rpJ2Vi/U60D9DM5AyhrQcbbks3fzDE7EptYHz9SMSsSjc7ZIow99/T
- qMQPB+Eka2RS1SQN+tlGsTEOtRuDf2cqfr7T3GQ8QFETCyS8bU1SHGyQWVGF96HkfRn1
- Di0bf7LFQKeCyXdWek0xvpFqzjrAYXWOrzKq9NQB0P+kk0gJmwPuyDbvzPSrpGGmSXMv
- mM0Uttvr6osud6vNX1eIYC/jisl/lYqu4TEtYPR8T7pLCldcNy1M3sS2nxePc3E4Q05G
- N9mwny5q9sLAvbioyqNmSpGNLv131nTISiW6g6OAKxceJjtOwsIxo///gkUKoCXxLeXg
- KX/Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1773355340; x=1773960140;
- h=cc:to:from:subject:message-id:mime-version:date:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to;
- bh=ZQePyGCcJSLkSetdN+bKrj1kfFypqaLV10vxUIU7GyU=;
- b=YZiK5q+9iqF7TuawxvAQn/BoBN9mTHod7tL3XLEIABpqtEg/GeU2RIvXoSEPS6c1nI
- ND0KGwQ4HxLAwhFc1kZDTxJTht6KI+zYTKl6XGhCDzdg2G/Sc/Jb6Jp4s8RlGkTCjXHM
- nuOMp/ohocT6bk07xpIEvTK1qAoKh5TOjjR6AXyo3gIMMvNIN3iVSmzveyzcxEK2Znul
- 297UG3mmm5/nZ425aibrKXPeL0kWA7Bhh2h2gUGosFY944aCa44DcQQHdjGly8Tr+8K1
- N8MF46PXQogozO1b15T5EYoqAeP91SgPzUPXzWpuiWDrdIyqEo1CxbxzrYNM09e50d07
- hbrQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVgzZTIu5nnM3YajUxfhdsD7HRk3N3mar7u487lOqhrRwlJS+EZeeZbHlWwdw4i+Ew6AG6VUhZifWs=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwtoyQAor8zvxIsSwe/1bgeEFsQC2JEQKNgA6BrGqH91TyvaLj7
- l/jP4kwnIHFsaYy+c6D8fLte1AD2L3uYwYcgzKDwmf08wye9s/9FYaSQtIh+EONUGBxlvDFmEfo
- KH2MBBJ8wQ9Dbpxl5KA==
-X-Received: from edxw2.prod.google.com ([2002:a05:6402:702:b0:660:bf79:1ded])
- (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6402:1ecf:b0:662:fad8:4ab1 with SMTP id
- 4fb4d7f45d1cf-663ba9c2be5mr581809a12.7.1773355339768; 
- Thu, 12 Mar 2026 15:42:19 -0700 (PDT)
-Date: Thu, 12 Mar 2026 22:42:18 +0000
-Mime-Version: 1.0
-Message-ID: <abNBSol3CLRCqlkZ@google.com>
-Subject: [PULL] drm-rust-fixes 2026-03-12
-From: Alice Ryhl <aliceryhl@google.com>
-To: Dave Airlie <airlied@gmail.com>, Simona Vetter <simona.vetter@ffwll.ch>
-Cc: Jani Nikula <jani.nikula@linux.intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, 
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Thomas Zimmermann <tzimmermann@suse.de>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Matthew Brost <matthew.brost@intel.com>, 
- "Thomas =?utf-8?Q?Hellstr=C3=B6m?=" <thomas.hellstrom@linux.intel.com>,
- Oded Gabbay <ogabbay@kernel.org>, 
- dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
- intel-xe@lists.freedesktop.org, dim-tools@lists.freedesktop.org
-Content-Type: text/plain; charset="utf-8"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 55C6110E171;
+	Thu, 12 Mar 2026 23:08:21 +0000 (UTC)
+Received: from m-r1.th.seeweb.it (m-r1.th.seeweb.it [5.144.164.170])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 78A2810E0E5
+ for <dri-devel@lists.freedesktop.org>; Thu, 12 Mar 2026 23:08:19 +0000 (UTC)
+Received: from SoMainline.org (94-211-6-86.cable.dynamic.v4.ziggo.nl
+ [94.211.6.86])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (prime256v1) server-signature RSA-PSS (2048 bits)
+ server-digest SHA256) (No client certificate requested)
+ by m-r1.th.seeweb.it (Postfix) with ESMTPSA id A9410208BD;
+ Fri, 13 Mar 2026 00:08:16 +0100 (CET)
+Date: Fri, 13 Mar 2026 00:08:15 +0100
+From: Marijn Suijten <marijn.suijten@somainline.org>
+To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Pengyu Luo <mitltlatltl@gmail.com>, 
+ ~postmarketos/upstreaming@lists.sr.ht,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+ Martin Botka <martin.botka@somainline.org>,
+ Jami Kettunen <jami.kettunen@somainline.org>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] drm/msm/dsi: Restore widebus calculation for CMDMode
+ panels
+Message-ID: <abNCphH1cGeora16@SoMainline.org>
+References: <20260311-dsi-dsc-regresses-again-v1-1-6a422141eeea@somainline.org>
+ <f88c030f-ebdb-49d1-8334-62f1f85154e7@collabora.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <f88c030f-ebdb-49d1-8334-62f1f85154e7@collabora.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,56 +58,61 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Dave and Sima,
+On 2026-03-12 14:18:43, AngeloGioacchino Del Regno wrote:
+...
+> Marijn et al,
+> 
+> I don't really know this hardware specifically, but I had a very fast look
+> at this patch, and I believe that however you put it, this looks like being
+> either plain wrong or very weird.
 
-Please pull these DRM Rust fixes.
+I would say I also don't know the hardware here very well, and which parameters
+apply when and were.  Most importantly, just be aware that the code we're
+looking at is for **DSC**, i.e. when we're no longer transfering single pixels
+per pclk, but compressed slices of a given number of bytes that can loosely be
+converted back to a "number of pixels".
 
-The last patch has not been linux-next yet, but no issues are expected.
-No conflicts expected.
+> I think this should be, instead....
+> 
+> 	/* (don't add this comment) assuming RGB888/666, this will be 24 for both Command 
+> and Video modes */
+> 	bits_per_pclk = mipi_dsi_pixel_format_to_bpp(msm_host->format);
 
-The following changes since commit 11439c4635edd669ae435eec308f4ab8a0804808:
+That would make sense, if it weren't for DSC.  The older downstream kernel I'm
+looking at -for at least CMD mode- disregards the format entirely, and just
+divides the "width" (computed like msm_dsc_get_bytes_per_line()) by 3 or 6
+depending on widebus.
 
-  Linux 7.0-rc2 (2026-03-01 15:39:31 -0800)
+In other words that's clearly demonstrating that input/output "bits per
+component" (in uncompressed space) are irrelevant when we're transmitting
+compressed pixels.
 
-are available in the Git repository at:
+> 	/* Can send twice the bits per clock if WideBus with Video Mode */
+> 	if (wide_bus_enabled && msm_host->mode_flags & MIPI_DSI_MODE_VIDEO)
+> 		bits_per_pclk *= 2;
 
-  https://gitlab.freedesktop.org/drm/rust/kernel.git tags/drm-rust-fixes-2026-03-12
+And this is where the original patch got things wrong too; widebus isn't limited
+to VIDEO mode, in fact we were specifically only allowing CMD mode to use it
+thus far.  That comment and condition should be inverted.
 
-for you to fetch changes up to 0073a17b466684413ac87cf8ff6c19560db44e7a:
+In this old downstream, widebus also doesn't seem to affect the pclk rate for
+VIDEO mode, only the ratio between bits per component and the chroma format
+(making up the total size of the pixel) and the configured "bits per pixel"
+value are taken into account; that ratio is generally 3.
 
-  gpu: nova-core: gsp: fix UB in DmaGspMem pointer accessors (2026-03-11 16:24:15 +0100)
+> ...because, unless there's a hardware quirk (and that should be really clarified
+> with a big comment stating that), I don't see why command mode should always be
+> 24 bits per clock, and I also don't see why a widebus case would do 48 bits per
+> clock even in the RGB666_PACKED and RGB565 cases (which may not even be possible
+> but *meh*).
+> 
+> Just my two cents.
+> 
+> Reminding you all again that I don't know this HW, so I may have said something
+> wrong here.
+>
+> Cheers!
+> Angelo
 
-----------------------------------------------------------------
-Core Changes:
-
-- Fix safety issue in dma_read! and dma_write!.
-
-Driver Changes (Nova Core):
-
-- Fix UB in DmaGspMem pointer accessors.
-- Fix stack overflow in GSP memory allocation.
-
-----------------------------------------------------------------
-Danilo Krummrich (1):
-      gpu: nova-core: gsp: fix UB in DmaGspMem pointer accessors
-
-Gary Guo (3):
-      rust: ptr: add `KnownSize` trait to support DST size info extraction
-      rust: ptr: add projection infrastructure
-      rust: dma: use pointer projection infra for `dma_{read,write}` macro
-
-Tim Kovalenko (1):
-      gpu: nova-core: fix stack overflow in GSP memory allocation
-
- drivers/gpu/nova-core/gsp.rs      |  46 +++---
- drivers/gpu/nova-core/gsp/boot.rs |   2 +-
- drivers/gpu/nova-core/gsp/cmdq.rs |  93 +++++-------
- drivers/gpu/nova-core/gsp/fw.rs   | 101 +++++++++----
- rust/kernel/dma.rs                | 114 +++++++-------
- rust/kernel/lib.rs                |   4 +
- rust/kernel/ptr.rs                |  30 +++-
- rust/kernel/ptr/projection.rs     | 305 ++++++++++++++++++++++++++++++++++++++
- samples/rust/rust_dma.rs          |  30 ++--
- scripts/Makefile.build            |   4 +-
- 10 files changed, 534 insertions(+), 195 deletions(-)
- create mode 100644 rust/kernel/ptr/projection.rs
+Kind regards,
+Marijn
