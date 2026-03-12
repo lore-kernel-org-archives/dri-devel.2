@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 840CE106FD9E
-	for <dri-devel@archiver.kernel.org>; Fri, 13 Mar 2026 08:25:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 45C2C106FD9B
+	for <dri-devel@archiver.kernel.org>; Fri, 13 Mar 2026 08:25:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3753C10EB14;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5F8A310EB16;
 	Fri, 13 Mar 2026 08:25:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=meta.com header.i=@meta.com header.b="u2tzEWYC";
+	dkim=pass (2048-bit key; unprotected) header.d=meta.com header.i=@meta.com header.b="vZQUqDmr";
 	dkim-atps=neutral
-Received: from mx0b-00082601.pphosted.com (mx0b-00082601.pphosted.com
+Received: from mx0a-00082601.pphosted.com (mx0b-00082601.pphosted.com
  [67.231.153.30])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 16D7710E1C6
- for <dri-devel@lists.freedesktop.org>; Thu, 12 Mar 2026 18:46:59 +0000 (UTC)
-Received: from pps.filterd (m0109331.ppops.net [127.0.0.1])
- by mx0a-00082601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 62CGlVwu2379095; Thu, 12 Mar 2026 11:46:49 -0700
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3569B10E1C6
+ for <dri-devel@lists.freedesktop.org>; Thu, 12 Mar 2026 18:46:50 +0000 (UTC)
+Received: from pps.filterd (m0089730.ppops.net [127.0.0.1])
+ by m0089730.ppops.net (8.18.1.11/8.18.1.11) with ESMTP id 62CHL0IC3607800;
+ Thu, 12 Mar 2026 11:46:41 -0700
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=meta.com; h=cc
  :content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=s2048-2025-q2;
- bh=S9Q1m7Yawtoc96ydzMvMquqkIEeOdQ3R30MlZU1sEBY=; b=u2tzEWYCBQ0d
- NrjMBD7z6OjDS9pcEp0bjxszrsZbfPEzpKzEDTKyf9t8TcI+4LjeopaZRnvW/uLj
- ePfgZ73J8LVPgh/p5na7fEPbHX/HNInQn0aPsWlv9K0QQknKxh9wrXVJEkRm1ALj
- CRGeu+R3wp9ehtnCXZpww3ZyiH1wTKFPQPv7YGdVA0gKmfA8CNjEZ8gC+WWH4hrn
- Fx3dYAX/xQnX/pN+aO8besxYJ2zBwmzKiI/Uwm1bsO1kmleaEp8yamHJcRAbFOLF
- 10Ng60bzPECiaKlHwxzjNEq1FzIsOtFReokMAaXpkWo1qhiah+1UZkTDF4V84Y2d
- Fk8qtNOdng==
-Received: from maileast.thefacebook.com ([163.114.135.16])
- by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4cv1araj18-1
+ bh=jMiaUo8paSIO6PvAm6fwqjCbL0AMR9nz9Pv6QzgxClo=; b=vZQUqDmrPRzH
+ aby+BVb+xSnrlRlkIPf1HPM5AjklHUdl/1MyVvaCNwZhzzzieBnf5sImbjpSLOMK
+ hVPOCjrcKIFDKqNskM72BJD+6BYLU/xVRl7XO5NohqbIACQn4DkZvcTdlrvf+yJa
+ eu3A5OXJKhKrnz4k/YGx0/bc0DxwErZH7Mec6a4U0mewhODAduqSsh2q846AoIeA
+ aSO315SG60eWA2SlyK0Fy2qhSzhMOzzQtzJ5pMdr8pU2EGg4cg8KXwtk9bQFhA/P
+ hVwabFDY+IoiXw69FDUrYegRG88qA/blMh3HMWNfMv8aR5etBynKs6p20Uxe0tvR
+ HMY4UpIQWg==
+Received: from mail.thefacebook.com ([163.114.134.16])
+ by m0089730.ppops.net (PPS) with ESMTPS id 4cv1te9t9d-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Thu, 12 Mar 2026 11:46:49 -0700 (PDT)
-Received: from localhost (2620:10d:c0a8:fe::f072) by mail.thefacebook.com
- (2620:10d:c0a9:6f::8fd4) with Microsoft SMTP Server (version=TLS1_2,
+ Thu, 12 Mar 2026 11:46:41 -0700 (PDT)
+Received: from localhost (2620:10d:c085:108::4) by mail.thefacebook.com
+ (2620:10d:c08b:78::c78f) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.35; Thu, 12 Mar
- 2026 18:46:48 +0000
+ 2026 18:46:39 +0000
 From: Matt Evans <mattev@meta.com>
 To: Alex Williamson <alex@shazbot.org>, Leon Romanovsky <leon@kernel.org>,
  Jason Gunthorpe <jgg@nvidia.com>, Alex Mastro <amastro@fb.com>,
@@ -50,31 +50,31 @@ CC: =?UTF-8?q?Bj=C3=B6rn=20T=C3=B6pel?= <bjorn@kernel.org>, Sumit Semwal
  <linux-kernel@vger.kernel.org>, <linux-media@vger.kernel.org>,
  <dri-devel@lists.freedesktop.org>, <linaro-mm-sig@lists.linaro.org>,
  <kvm@vger.kernel.org>
-Subject: [RFC v2 PATCH 08/10] vfio/pci: Permanently revoke a DMABUF on request
-Date: Thu, 12 Mar 2026 11:46:06 -0700
-Message-ID: <20260312184613.3710705-9-mattev@meta.com>
+Subject: [RFC v2 PATCH 05/10] vfio/pci: Convert BAR mmap() to use a DMABUF
+Date: Thu, 12 Mar 2026 11:46:03 -0700
+Message-ID: <20260312184613.3710705-6-mattev@meta.com>
 X-Mailer: git-send-email 2.52.0
 In-Reply-To: <20260312184613.3710705-1-mattev@meta.com>
 References: <20260312184613.3710705-1-mattev@meta.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-Originating-IP: [2620:10d:c0a8:fe::f072]
-X-Proofpoint-ORIG-GUID: l-6exdQ2mUDfMVKoUXcgg-AHq58Jx64f
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzEyMDE1MSBTYWx0ZWRfX59qQJdyiusot
- LNnaykwobaXYBrYKroTvvZzrcI5N57VMUK1Q61CVooUv3SyN3/O9tC/U1PLMVRFDmZoeQ11vbAQ
- M4ocF8/R+KdtA9fi1ZRLHNKDS4jXfymZSk+HwDXaY7UVPqxS/AF/nQJFbRfDCxc4Tlkk51b4yYS
- bnTU4/k02zchJJA9uUdmqq8RqAz1C4U3QjRtie3zDbgXoAsTt0X4v0G3sUlz0ywRTBZKFdiR5HK
- e6aXjTCgu0ZJb5udPCVPMF1qdB4iZkttzyXsI/bynOkCSQPm3wX7fsRbY2Di8mdIfEMzMNaTZ6L
- JHGjZ6PDeSriTlx5qPLaB2OFNTsdO0+7iyfArxuGX57yihDDH2qPTwzQ6uHdsPrMzgdVfAjDgpf
- rWXLVZmtnLJel+qDqxn03BXlKf3mYd/f1j7Y18k9WbhawIQF0AUFm/pOmTV+l+vbOZiiJ+5Gy1T
- P+MaGJGHAwJc2pbO9Kw==
-X-Proofpoint-GUID: l-6exdQ2mUDfMVKoUXcgg-AHq58Jx64f
-X-Authority-Analysis: v=2.4 cv=NYPrFmD4 c=1 sm=1 tr=0 ts=69b30a19 cx=c_pps
- a=MfjaFnPeirRr97d5FC5oHw==:117 a=MfjaFnPeirRr97d5FC5oHw==:17
+X-Originating-IP: [2620:10d:c085:108::4]
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzEyMDE1MSBTYWx0ZWRfXyhmrcqMaf9cL
+ A3pNUN53l2yWME+vnW47eHfegXVnnGkUNJ12uX+gGA3qWRiAzNMOhgPCNhheaMbiSyZb3eG3abu
+ DaIi9rYLAfD51G4mcx6iOKMhi1opTwFUSE+aMP1Li6FOlOt7AwDWCNbVv+SDoVPCrpbEAWa9tHm
+ +65vpSUPPJmp7W+cB+q1+uRvGLaQXkaLgz/tfSvcDJQ6N4shRNITg3nuZ0UYoTNigNrZ/or+UO0
+ Eu5pem7UtNy8VjEOFCVk8Clx+u9mDumD5/Ukto3sV7ZipjwKnEHCHzJn1lKEFuKufEaMmYpC6Qt
+ Nmy1YnUx55KtI5L2iKOx00sP1uI4aWKqeEuvA3JngTZrYaRT2sqkLIeCep16JR9mwAtcr6UAO7v
+ DNLob3grQ6rEvv2pOoVphcQnE6et93gD6IF4Ec9vbgI55t9X3R9ejR8SAJX0Pf1PGq9wQAiSaZU
+ PivFcd8n3ak7RJa6vpA==
+X-Proofpoint-ORIG-GUID: ieEjwAOBeG8b1DGaKPt6nf1RNWsafjwu
+X-Authority-Analysis: v=2.4 cv=QoJTHFyd c=1 sm=1 tr=0 ts=69b30a11 cx=c_pps
+ a=CB4LiSf2rd0gKozIdrpkBw==:117 a=CB4LiSf2rd0gKozIdrpkBw==:17
  a=Yq5XynenixoA:10 a=VkNPw1HP01LnGYTKEx00:22 a=7x6HtfJdh03M6CCDgxCd:22
- a=wpfVPzegXHpEFt3DAXn9:22 a=VabnemYjAAAA:8 a=GvNw_QJiROG6ZKnmDkIA:9
+ a=855S8uPTkML1Oy45N9_h:22 a=VabnemYjAAAA:8 a=KljUu2FEy107lt1Px6sA:9
  a=gKebqoRLp9LExxC7YDUY:22
+X-Proofpoint-GUID: ieEjwAOBeG8b1DGaKPt6nf1RNWsafjwu
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
  definitions=2026-03-12_02,2026-03-12_01,2025-10-01_01
@@ -94,366 +94,283 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Expand the VFIO DMABUF revocation state to three states:
-Not revoked, temporarily revoked, and permanently revoked.
+Convert the VFIO device fd fops->mmap to create a DMABUF representing
+the BAR mapping, and make the VMA fault handler look up PFNs from the
+corresponding DMABUF.  This supports future code mmap()ing BAR
+DMABUFs, and iommufd work to support Type1 P2P.
 
-The first two are for existing transient revocation, e.g. across a
-function reset, and the DMABUF is put into the last in response to a
-new ioctl(VFIO_DEVICE_PCI_DMABUF_REVOKE) request.
+First, vfio_pci_core_mmap() uses the new
+vfio_pci_core_mmap_prep_dmabuf() helper to export a DMABUF
+representing a single BAR range.  Then, the vfio_pci_mmap_huge_fault()
+callback is updated to understand revoked buffers, and uses the new
+vfio_pci_dma_buf_find_pfn() helper to determine the PFN for a given
+fault address.
 
-This VFIO device fd ioctl passes a DMABUF by fd and requests that the
-DMABUF is permanently revoked.  On success, it's guaranteed that the
-buffer can never be imported/attached/mmap()ed in future, that dynamic
-imports have been cleanly detached, and all mappings made
-inaccessible/PTEs zapped.
+Now that the VFIO DMABUFs can be mmap()ed, vfio_pci_dma_buf_move() and
+vfio_pci_dma_buf_cleanup() need to zap PTEs on revocation and cleanup
+paths.
 
-This is useful for lifecycle management, to reclaim VFIO PCI BAR
-ranges previously delegated to a subordinate client process: The
-driver process can ensure that the loaned resources are revoked when
-the client is deemed "done", and exported ranges can be safely re-used
-elsewhere.
+CONFIG_VFIO_PCI_CORE now unconditionally depends on
+CONFIG_DMA_SHARED_BUFFER.  CONFIG_VFIO_PCI_DMABUF remains, to
+conditionally include support for VFIO_DEVICE_FEATURE_DMA_BUF, and
+depends on CONFIG_PCI_P2PDMA.
 
 Signed-off-by: Matt Evans <mattev@meta.com>
 ---
- drivers/vfio/pci/vfio_pci_core.c   |  16 +++-
- drivers/vfio/pci/vfio_pci_dmabuf.c | 136 ++++++++++++++++++++---------
- drivers/vfio/pci/vfio_pci_priv.h   |  14 ++-
- include/uapi/linux/vfio.h          |  30 +++++++
- 4 files changed, 154 insertions(+), 42 deletions(-)
+ drivers/vfio/pci/Kconfig           |  3 +-
+ drivers/vfio/pci/Makefile          |  3 +-
+ drivers/vfio/pci/vfio_pci_core.c   | 73 ++++++++++++++++++++----------
+ drivers/vfio/pci/vfio_pci_dmabuf.c | 14 ++++++
+ drivers/vfio/pci/vfio_pci_priv.h   | 11 +----
+ 5 files changed, 67 insertions(+), 37 deletions(-)
 
+diff --git a/drivers/vfio/pci/Kconfig b/drivers/vfio/pci/Kconfig
+index 1e82b44bda1a..bf5c64d1fe22 100644
+--- a/drivers/vfio/pci/Kconfig
++++ b/drivers/vfio/pci/Kconfig
+@@ -6,6 +6,7 @@ config VFIO_PCI_CORE
+ 	tristate
+ 	select VFIO_VIRQFD
+ 	select IRQ_BYPASS_MANAGER
++	select DMA_SHARED_BUFFER
+ 
+ config VFIO_PCI_INTX
+ 	def_bool y if !S390
+@@ -56,7 +57,7 @@ config VFIO_PCI_ZDEV_KVM
+ 	  To enable s390x KVM vfio-pci extensions, say Y.
+ 
+ config VFIO_PCI_DMABUF
+-	def_bool y if VFIO_PCI_CORE && PCI_P2PDMA && DMA_SHARED_BUFFER
++	def_bool y if PCI_P2PDMA
+ 
+ source "drivers/vfio/pci/mlx5/Kconfig"
+ 
+diff --git a/drivers/vfio/pci/Makefile b/drivers/vfio/pci/Makefile
+index e0a0757dd1d2..bab7a33a2b31 100644
+--- a/drivers/vfio/pci/Makefile
++++ b/drivers/vfio/pci/Makefile
+@@ -1,8 +1,7 @@
+ # SPDX-License-Identifier: GPL-2.0-only
+ 
+-vfio-pci-core-y := vfio_pci_core.o vfio_pci_intrs.o vfio_pci_rdwr.o vfio_pci_config.o
++vfio-pci-core-y := vfio_pci_core.o vfio_pci_intrs.o vfio_pci_rdwr.o vfio_pci_config.o vfio_pci_dmabuf.o
+ vfio-pci-core-$(CONFIG_VFIO_PCI_ZDEV_KVM) += vfio_pci_zdev.o
+-vfio-pci-core-$(CONFIG_VFIO_PCI_DMABUF) += vfio_pci_dmabuf.o
+ obj-$(CONFIG_VFIO_PCI_CORE) += vfio-pci-core.o
+ 
+ vfio-pci-y := vfio_pci.o
 diff --git a/drivers/vfio/pci/vfio_pci_core.c b/drivers/vfio/pci/vfio_pci_core.c
-index 4f411a0b980c..c7760dd3a5f0 100644
+index f9ed3374d268..41224efa58d8 100644
 --- a/drivers/vfio/pci/vfio_pci_core.c
 +++ b/drivers/vfio/pci/vfio_pci_core.c
-@@ -1461,6 +1461,18 @@ static int vfio_pci_ioctl_ioeventfd(struct vfio_pci_core_device *vdev,
- 				  ioeventfd.fd);
+@@ -1648,18 +1648,6 @@ void vfio_pci_memory_unlock_and_restore(struct vfio_pci_core_device *vdev, u16 c
+ 	up_write(&vdev->memory_lock);
  }
  
-+static int vfio_pci_ioctl_dmabuf_revoke(struct vfio_pci_core_device *vdev,
-+					struct vfio_device_ioeventfd __user *arg)
-+{
-+	unsigned long minsz = offsetofend(struct vfio_pci_dmabuf_revoke, dmabuf_fd);
-+	struct vfio_pci_dmabuf_revoke revoke;
-+
-+	if (copy_from_user(&revoke, arg, minsz))
-+		return -EFAULT;
-+
-+	return vfio_pci_dma_buf_revoke(vdev, revoke.dmabuf_fd);
-+}
-+
- long vfio_pci_core_ioctl(struct vfio_device *core_vdev, unsigned int cmd,
- 			 unsigned long arg)
+-static unsigned long vma_to_pfn(struct vm_area_struct *vma)
+-{
+-	struct vfio_pci_core_device *vdev = vma->vm_private_data;
+-	int index = vma->vm_pgoff >> (VFIO_PCI_OFFSET_SHIFT - PAGE_SHIFT);
+-	u64 pgoff;
+-
+-	pgoff = vma->vm_pgoff &
+-		((1U << (VFIO_PCI_OFFSET_SHIFT - PAGE_SHIFT)) - 1);
+-
+-	return (pci_resource_start(vdev->pdev, index) >> PAGE_SHIFT) + pgoff;
+-}
+-
+ vm_fault_t vfio_pci_vmf_insert_pfn(struct vfio_pci_core_device *vdev,
+ 				   struct vm_fault *vmf,
+ 				   unsigned long pfn,
+@@ -1692,23 +1680,45 @@ static vm_fault_t vfio_pci_mmap_huge_fault(struct vm_fault *vmf,
+ 					   unsigned int order)
  {
-@@ -1483,6 +1495,8 @@ long vfio_pci_core_ioctl(struct vfio_device *core_vdev, unsigned int cmd,
- 		return vfio_pci_ioctl_reset(vdev, uarg);
- 	case VFIO_DEVICE_SET_IRQS:
- 		return vfio_pci_ioctl_set_irqs(vdev, uarg);
-+	case VFIO_DEVICE_PCI_DMABUF_REVOKE:
-+		return vfio_pci_ioctl_dmabuf_revoke(vdev, uarg);
- 	default:
- 		return -ENOTTY;
+ 	struct vm_area_struct *vma = vmf->vma;
+-	struct vfio_pci_core_device *vdev = vma->vm_private_data;
+-	unsigned long addr = vmf->address & ~((PAGE_SIZE << order) - 1);
+-	unsigned long pgoff = (addr - vma->vm_start) >> PAGE_SHIFT;
+-	unsigned long pfn = vma_to_pfn(vma) + pgoff;
++	struct vfio_pci_dma_buf *priv = vma->vm_private_data;
++	struct vfio_pci_core_device *vdev;
++	unsigned long pfn;
+ 	vm_fault_t ret = VM_FAULT_FALLBACK;
++	int pres;
++
++	vdev = READ_ONCE(priv->vdev);
+ 
+-	if (is_aligned_for_order(vma, addr, pfn, order)) {
+-		scoped_guard(rwsem_read, &vdev->memory_lock)
+-			ret = vfio_pci_vmf_insert_pfn(vdev, vmf, pfn, order);
++	/*
++	 * A fault might occur after vfio_pci_dma_buf_cleanup() has
++	 * revoked and destroyed the vdev's DMABUFs, and annulled
++	 * vdev.  After creation, vdev is only ever written in
++	 * cleanup.
++	 */
++	if (!vdev)
++		return VM_FAULT_SIGBUS;
++
++	pres = vfio_pci_dma_buf_find_pfn(priv, vma, vmf->address, order, &pfn);
++
++	if (pres == 0) {
++		scoped_guard(rwsem_read, &vdev->memory_lock) {
++			/*
++			 * A buffer's revocation/unmap and status
++			 * change occurs whilst holding memory_lock,
++			 * so protects against racing faults.
++			 */
++			if (priv->revoked)
++				ret = VM_FAULT_SIGBUS;
++			else
++				ret = vfio_pci_vmf_insert_pfn(vdev, vmf, pfn, order);
++		}
++	} else if (pres != -EAGAIN) {
++		ret = VM_FAULT_SIGBUS;
  	}
-@@ -1690,7 +1704,7 @@ static vm_fault_t vfio_pci_mmap_huge_fault(struct vm_fault *vmf,
- 			 * change occurs whilst holding memory_lock,
- 			 * so protects against racing faults.
- 			 */
--			if (priv->revoked)
-+			if (priv->status != VFIO_PCI_DMABUF_OK)
- 				ret = VM_FAULT_SIGBUS;
- 			else
- 				ret = vfio_pci_vmf_insert_pfn(vdev, vmf, pfn, order);
-diff --git a/drivers/vfio/pci/vfio_pci_dmabuf.c b/drivers/vfio/pci/vfio_pci_dmabuf.c
-index ab665db66904..362207cf7e71 100644
---- a/drivers/vfio/pci/vfio_pci_dmabuf.c
-+++ b/drivers/vfio/pci/vfio_pci_dmabuf.c
-@@ -18,7 +18,7 @@ static int vfio_pci_dma_buf_attach(struct dma_buf *dmabuf,
- 	if (!attachment->peer2peer)
- 		return -EOPNOTSUPP;
  
--	if (priv->revoked)
-+	if (priv->status != VFIO_PCI_DMABUF_OK)
- 		return -ENODEV;
+ 	dev_dbg_ratelimited(&vdev->pdev->dev,
+-			   "%s(,order = %d) BAR %ld page offset 0x%lx: 0x%x\n",
+-			    __func__, order,
+-			    vma->vm_pgoff >>
+-				(VFIO_PCI_OFFSET_SHIFT - PAGE_SHIFT),
+-			    pgoff, (unsigned int)ret);
++			    "%s(order = %d) PFN 0x%lx, VA 0x%lx, pgoff 0x%lx: 0x%x\n",
++			    __func__, order, pfn, vmf->address, vma->vm_pgoff,
++			    (unsigned int)ret);
  
- 	if (!dma_buf_attach_revocable(attachment))
-@@ -32,7 +32,7 @@ static int vfio_pci_dma_buf_mmap(struct dma_buf *dmabuf, struct vm_area_struct *
- 	struct vfio_pci_dma_buf *priv = dmabuf->priv;
- 	u64 req_len, req_start;
- 
--	if (priv->revoked)
-+	if (priv->status != VFIO_PCI_DMABUF_OK)
- 		return -ENODEV;
- 	if ((vma->vm_flags & VM_SHARED) == 0)
- 		return -EINVAL;
-@@ -72,7 +72,7 @@ vfio_pci_dma_buf_map(struct dma_buf_attachment *attachment,
- 
- 	dma_resv_assert_held(priv->dmabuf->resv);
- 
--	if (priv->revoked)
-+	if (priv->status != VFIO_PCI_DMABUF_OK)
- 		return ERR_PTR(-ENODEV);
- 
- 	ret = dma_buf_phys_vec_to_sgt(attachment, priv->provider,
-@@ -243,7 +243,8 @@ static int vfio_pci_dmabuf_export(struct vfio_pci_core_device *vdev,
- 	INIT_LIST_HEAD(&priv->dmabufs_elm);
- 	down_write(&vdev->memory_lock);
- 	dma_resv_lock(priv->dmabuf->resv, NULL);
--	priv->revoked = !status_ok;
-+	priv->status = status_ok ? VFIO_PCI_DMABUF_OK :
-+		VFIO_PCI_DMABUF_TEMP_REVOKED;
- 	list_add_tail(&priv->dmabufs_elm, &vdev->dmabufs);
- 	dma_resv_unlock(priv->dmabuf->resv);
- 	up_write(&vdev->memory_lock);
-@@ -274,7 +275,7 @@ int vfio_pci_dma_buf_iommufd_map(struct dma_buf_attachment *attachment,
- 		return -EOPNOTSUPP;
- 
- 	priv = attachment->dmabuf->priv;
--	if (priv->revoked)
-+	if (priv->status != VFIO_PCI_DMABUF_OK)
- 		return -ENODEV;
- 
- 	/* More than one range to iommufd will require proper DMABUF support */
-@@ -518,6 +519,48 @@ int vfio_pci_core_mmap_prep_dmabuf(struct vfio_pci_core_device *vdev,
  	return ret;
  }
+@@ -1773,7 +1783,20 @@ int vfio_pci_core_mmap(struct vfio_device *core_vdev, struct vm_area_struct *vma
+ 	if (ret)
+ 		return ret;
  
-+static void __vfio_pci_dma_buf_revoke(struct vfio_pci_dma_buf *priv, bool revoked,
-+				      bool permanently)
-+{
-+	if ((priv->status == VFIO_PCI_DMABUF_PERM_REVOKED) ||
-+	    (priv->status == VFIO_PCI_DMABUF_OK && !revoked) ||
-+	    (priv->status == VFIO_PCI_DMABUF_TEMP_REVOKED && revoked && !permanently)) {
-+		return;
-+	}
+-	vma->vm_private_data = vdev;
++	/*
++	 * Create a DMABUF with a single range corresponding to this
++	 * mapping, and wire it into vma->vm_private_data.  The VMA's
++	 * vm_file becomes that of the DMABUF, and the DMABUF takes
++	 * ownership of the VFIO device file (put upon DMABUF
++	 * release).  This maintains the behaviour of a live VMA
++	 * mapping holding the VFIO device file open.
++	 */
++	ret = vfio_pci_core_mmap_prep_dmabuf(vdev, vma,
++					     pci_resource_start(pdev, index),
++					     pgoff, req_len);
++	if (ret)
++		return ret;
 +
-+	dma_resv_lock(priv->dmabuf->resv, NULL);
-+	if (revoked)
-+		priv->status = permanently ?
-+			VFIO_PCI_DMABUF_PERM_REVOKED : VFIO_PCI_DMABUF_TEMP_REVOKED;
-+	dma_buf_invalidate_mappings(priv->dmabuf);
-+	dma_resv_wait_timeout(priv->dmabuf->resv,
-+			      DMA_RESV_USAGE_BOOKKEEP, false,
-+			      MAX_SCHEDULE_TIMEOUT);
-+	dma_resv_unlock(priv->dmabuf->resv);
-+	if (revoked) {
-+		kref_put(&priv->kref, vfio_pci_dma_buf_done);
-+		wait_for_completion(&priv->comp);
-+		unmap_mapping_range(priv->dmabuf->file->f_mapping,
-+				    0, priv->size, 1);
-+	} else {
-+		/*
-+		 * Kref is initialize again, because when revoke
-+		 * was performed the reference counter was decreased
-+		 * to zero to trigger completion.
-+		 */
-+		kref_init(&priv->kref);
-+		/*
-+		 * There is no need to wait as no mapping was
-+		 * performed when the previous status was
-+		 * priv->status == *REVOKED.
-+		 */
-+		reinit_completion(&priv->comp);
-+		dma_resv_lock(priv->dmabuf->resv, NULL);
-+		priv->status = VFIO_PCI_DMABUF_OK;
-+		dma_resv_unlock(priv->dmabuf->resv);
-+	}
-+}
-+
- void vfio_pci_dma_buf_move(struct vfio_pci_core_device *vdev, bool revoked)
+ 	vma->vm_page_prot = pgprot_noncached(vma->vm_page_prot);
+ 	vma->vm_page_prot = pgprot_decrypted(vma->vm_page_prot);
+ 
+diff --git a/drivers/vfio/pci/vfio_pci_dmabuf.c b/drivers/vfio/pci/vfio_pci_dmabuf.c
+index 76db340ba592..197f50365ee1 100644
+--- a/drivers/vfio/pci/vfio_pci_dmabuf.c
++++ b/drivers/vfio/pci/vfio_pci_dmabuf.c
+@@ -9,6 +9,7 @@
+ 
+ MODULE_IMPORT_NS("DMA_BUF");
+ 
++#ifdef CONFIG_VFIO_PCI_DMABUF
+ static int vfio_pci_dma_buf_attach(struct dma_buf *dmabuf,
+ 				   struct dma_buf_attachment *attachment)
  {
- 	struct vfio_pci_dma_buf *priv;
-@@ -526,45 +569,13 @@ void vfio_pci_dma_buf_move(struct vfio_pci_core_device *vdev, bool revoked)
+@@ -25,6 +26,7 @@ static int vfio_pci_dma_buf_attach(struct dma_buf *dmabuf,
+ 
+ 	return 0;
+ }
++#endif /* CONFIG_VFIO_PCI_DMABUF */
+ 
+ static void vfio_pci_dma_buf_done(struct kref *kref)
+ {
+@@ -89,7 +91,9 @@ static void vfio_pci_dma_buf_release(struct dma_buf *dmabuf)
+ }
+ 
+ static const struct dma_buf_ops vfio_pci_dmabuf_ops = {
++#ifdef CONFIG_VFIO_PCI_DMABUF
+ 	.attach = vfio_pci_dma_buf_attach,
++#endif
+ 	.map_dma_buf = vfio_pci_dma_buf_map,
+ 	.unmap_dma_buf = vfio_pci_dma_buf_unmap,
+ 	.release = vfio_pci_dma_buf_release,
+@@ -219,6 +223,7 @@ static int vfio_pci_dmabuf_export(struct vfio_pci_core_device *vdev,
+ 	return 0;
+ }
+ 
++#ifdef CONFIG_VFIO_PCI_DMABUF
+ /*
+  * This is a temporary "private interconnect" between VFIO DMABUF and iommufd.
+  * It allows the two co-operating drivers to exchange the physical address of
+@@ -428,6 +433,7 @@ int vfio_pci_core_feature_dma_buf(struct vfio_pci_core_device *vdev, u32 flags,
+ 	kfree(dma_ranges);
+ 	return ret;
+ }
++#endif /* CONFIG_VFIO_PCI_DMABUF */
+ 
+ int vfio_pci_core_mmap_prep_dmabuf(struct vfio_pci_core_device *vdev,
+ 				   struct vm_area_struct *vma,
+@@ -490,6 +496,10 @@ void vfio_pci_dma_buf_move(struct vfio_pci_core_device *vdev, bool revoked)
+ 	struct vfio_pci_dma_buf *tmp;
+ 
  	lockdep_assert_held_write(&vdev->memory_lock);
- 	/*
- 	 * Holding memory_lock ensures a racing VMA fault observes
--	 * priv->revoked properly.
-+	 * priv->status properly.
- 	 */
++	/*
++	 * Holding memory_lock ensures a racing VMA fault observes
++	 * priv->revoked properly.
++	 */
  
  	list_for_each_entry_safe(priv, tmp, &vdev->dmabufs, dmabufs_elm) {
  		if (!get_file_active(&priv->dmabuf->file))
- 			continue;
--
--		if (priv->revoked != revoked) {
--			dma_resv_lock(priv->dmabuf->resv, NULL);
--			if (revoked)
--				priv->revoked = true;
--			dma_buf_invalidate_mappings(priv->dmabuf);
--			dma_resv_wait_timeout(priv->dmabuf->resv,
--					      DMA_RESV_USAGE_BOOKKEEP, false,
--					      MAX_SCHEDULE_TIMEOUT);
--			dma_resv_unlock(priv->dmabuf->resv);
--			if (revoked) {
--				kref_put(&priv->kref, vfio_pci_dma_buf_done);
--				wait_for_completion(&priv->comp);
--				unmap_mapping_range(priv->dmabuf->file->f_mapping,
--						    0, priv->size, 1);
--			} else {
--				/*
--				 * Kref is initialize again, because when revoke
--				 * was performed the reference counter was decreased
--				 * to zero to trigger completion.
--				 */
--				kref_init(&priv->kref);
--				/*
--				 * There is no need to wait as no mapping was
--				 * performed when the previous status was
--				 * priv->revoked == true.
--				 */
--				reinit_completion(&priv->comp);
--				dma_resv_lock(priv->dmabuf->resv, NULL);
--				priv->revoked = false;
--				dma_resv_unlock(priv->dmabuf->resv);
--			}
--		}
-+		__vfio_pci_dma_buf_revoke(priv, revoked, false);
+@@ -507,6 +517,8 @@ void vfio_pci_dma_buf_move(struct vfio_pci_core_device *vdev, bool revoked)
+ 			if (revoked) {
+ 				kref_put(&priv->kref, vfio_pci_dma_buf_done);
+ 				wait_for_completion(&priv->comp);
++				unmap_mapping_range(priv->dmabuf->file->f_mapping,
++						    0, priv->size, 1);
+ 			} else {
+ 				/*
+ 				 * Kref is initialize again, because when revoke
+@@ -550,6 +562,8 @@ void vfio_pci_dma_buf_cleanup(struct vfio_pci_core_device *vdev)
+ 		dma_resv_unlock(priv->dmabuf->resv);
+ 		kref_put(&priv->kref, vfio_pci_dma_buf_done);
+ 		wait_for_completion(&priv->comp);
++		unmap_mapping_range(priv->dmabuf->file->f_mapping,
++				    0, priv->size, 1);
+ 		vfio_device_put_registration(&vdev->vdev);
  		fput(priv->dmabuf->file);
  	}
- }
-@@ -582,7 +593,7 @@ void vfio_pci_dma_buf_cleanup(struct vfio_pci_core_device *vdev)
- 		dma_resv_lock(priv->dmabuf->resv, NULL);
- 		list_del_init(&priv->dmabufs_elm);
- 		priv->vdev = NULL;
--		priv->revoked = true;
-+		priv->status = VFIO_PCI_DMABUF_PERM_REVOKED;
- 		dma_buf_invalidate_mappings(priv->dmabuf);
- 		dma_resv_wait_timeout(priv->dmabuf->resv,
- 				      DMA_RESV_USAGE_BOOKKEEP, false,
-@@ -597,3 +608,48 @@ void vfio_pci_dma_buf_cleanup(struct vfio_pci_core_device *vdev)
- 	}
- 	up_write(&vdev->memory_lock);
- }
-+
-+#ifdef CONFIG_VFIO_PCI_DMABUF
-+int vfio_pci_dma_buf_revoke(struct vfio_pci_core_device *vdev, int dmabuf_fd)
-+{
-+	struct vfio_pci_core_device *db_vdev;
-+	struct dma_buf *dmabuf;
-+	struct vfio_pci_dma_buf *priv;
-+	int ret = 0;
-+
-+	dmabuf = dma_buf_get(dmabuf_fd);
-+	if (IS_ERR(dmabuf))
-+		return PTR_ERR(dmabuf);
-+
-+	/*
-+	 * The DMABUF is a user-provided fd, so sanity-check it's
-+	 * really a vfio_pci_dma_buf _and_ relates to the VFIO device
-+	 * that it was provided for:
-+	 */
-+	if (dmabuf->ops != &vfio_pci_dmabuf_ops) {
-+		ret = -ENODEV;
-+		goto out_put_buf;
-+	}
-+
-+	priv = dmabuf->priv;
-+	db_vdev = READ_ONCE(priv->vdev);
-+
-+	if (!db_vdev || db_vdev != vdev) {
-+		ret = -ENODEV;
-+		goto out_put_buf;
-+	}
-+
-+	scoped_guard(rwsem_read, &vdev->memory_lock) {
-+		if (priv->status == VFIO_PCI_DMABUF_PERM_REVOKED) {
-+			ret = -EBADFD;
-+			break;
-+		}
-+		__vfio_pci_dma_buf_revoke(priv, true, true);
-+	}
-+
-+ out_put_buf:
-+	dma_buf_put(dmabuf);
-+
-+	return ret;
-+}
-+#endif /* CONFIG_VFIO_PCI_DMABUF */
 diff --git a/drivers/vfio/pci/vfio_pci_priv.h b/drivers/vfio/pci/vfio_pci_priv.h
-index b16a8d22563c..c5a9e06bf81a 100644
+index 5fd3a6e00a0e..37ece9b4b5bd 100644
 --- a/drivers/vfio/pci/vfio_pci_priv.h
 +++ b/drivers/vfio/pci/vfio_pci_priv.h
-@@ -23,6 +23,12 @@ struct vfio_pci_ioeventfd {
- 	bool			test_mem;
- };
+@@ -132,13 +132,13 @@ int vfio_pci_dma_buf_find_pfn(struct vfio_pci_dma_buf *vpdmabuf,
+ int vfio_pci_core_mmap_prep_dmabuf(struct vfio_pci_core_device *vdev,
+ 				   struct vm_area_struct *vma,
+ 				   u64 phys_start, u64 pgoff, u64 req_len);
++void vfio_pci_dma_buf_cleanup(struct vfio_pci_core_device *vdev);
++void vfio_pci_dma_buf_move(struct vfio_pci_core_device *vdev, bool revoked);
  
-+enum vfio_pci_dma_buf_status {
-+	VFIO_PCI_DMABUF_OK = 0,
-+	VFIO_PCI_DMABUF_TEMP_REVOKED = 1,
-+	VFIO_PCI_DMABUF_PERM_REVOKED = 2,
-+};
-+
- struct vfio_pci_dma_buf {
- 	struct dma_buf *dmabuf;
- 	struct vfio_pci_core_device *vdev;
-@@ -34,7 +40,7 @@ struct vfio_pci_dma_buf {
- 	u32 nr_ranges;
- 	struct kref kref;
- 	struct completion comp;
--	u8 revoked : 1;
-+	enum vfio_pci_dma_buf_status status;
- };
- 
- extern const struct vm_operations_struct vfio_pci_mmap_ops;
-@@ -140,6 +146,7 @@ void vfio_pci_dma_buf_move(struct vfio_pci_core_device *vdev, bool revoked);
+ #ifdef CONFIG_VFIO_PCI_DMABUF
  int vfio_pci_core_feature_dma_buf(struct vfio_pci_core_device *vdev, u32 flags,
  				  struct vfio_device_feature_dma_buf __user *arg,
  				  size_t argsz);
-+int vfio_pci_dma_buf_revoke(struct vfio_pci_core_device *vdev, int dmabuf_fd);
+-void vfio_pci_dma_buf_cleanup(struct vfio_pci_core_device *vdev);
+-void vfio_pci_dma_buf_move(struct vfio_pci_core_device *vdev, bool revoked);
  #else
  static inline int
  vfio_pci_core_feature_dma_buf(struct vfio_pci_core_device *vdev, u32 flags,
-@@ -148,6 +155,11 @@ vfio_pci_core_feature_dma_buf(struct vfio_pci_core_device *vdev, u32 flags,
+@@ -147,13 +147,6 @@ vfio_pci_core_feature_dma_buf(struct vfio_pci_core_device *vdev, u32 flags,
  {
  	return -ENOTTY;
  }
-+static inline int vfio_pci_dma_buf_revoke(struct vfio_pci_core_device *vdev,
-+					  int dmabuf_fd)
-+{
-+	return -ENODEV;
-+}
+-static inline void vfio_pci_dma_buf_cleanup(struct vfio_pci_core_device *vdev)
+-{
+-}
+-static inline void vfio_pci_dma_buf_move(struct vfio_pci_core_device *vdev,
+-					 bool revoked)
+-{
+-}
  #endif
  
  #endif
-diff --git a/include/uapi/linux/vfio.h b/include/uapi/linux/vfio.h
-index bb7b89330d35..c1b3fa880aa1 100644
---- a/include/uapi/linux/vfio.h
-+++ b/include/uapi/linux/vfio.h
-@@ -1307,6 +1307,36 @@ struct vfio_precopy_info {
- 
- #define VFIO_MIG_GET_PRECOPY_INFO _IO(VFIO_TYPE, VFIO_BASE + 21)
- 
-+/**
-+ * VFIO_DEVICE_PCI_DMABUF_REVOKE - _IO(VFIO_TYPE, VFIO_BASE + 22)
-+ *
-+ * This ioctl is used on the device FD, and requests that access to
-+ * the buffer corresponding to the DMABUF FD parameter is immediately
-+ * and permanently revoked.  On successful return, the buffer is not
-+ * accessible through any mmap() or dma-buf import.  The request fails
-+ * if the buffer is pinned; otherwise, the exporter marks the buffer
-+ * as inaccessible and uses the move_notify callback to inform
-+ * importers of the change.  The buffer is permanently disabled, and
-+ * VFIO refuses all map, mmap, attach, etc. requests.
-+ *
-+ * Returns:
-+ *
-+ * Return: 0 on success, -1 and errno set on failure:
-+ *
-+ *  ENODEV if the associated dmabuf FD no longer exists/is closed,
-+ *         or is not a DMABUF created for this device.
-+ *  EINVAL if the dmabuf_fd parameter isn't a DMABUF.
-+ *  EBADF if the dmabuf_fd parameter isn't a valid file number.
-+ *  EBADFD if the buffer has already been revoked.
-+ *
-+ */
-+struct vfio_pci_dmabuf_revoke {
-+	__u32 argsz;
-+	__u32 dmabuf_fd;
-+};
-+
-+#define VFIO_DEVICE_PCI_DMABUF_REVOKE _IO(VFIO_TYPE, VFIO_BASE + 22)
-+
- /*
-  * Upon VFIO_DEVICE_FEATURE_SET, allow the device to be moved into a low power
-  * state with the platform-based power management.  Device use of lower power
 -- 
 2.47.3
 
