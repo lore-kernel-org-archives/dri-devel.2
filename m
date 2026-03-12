@@ -4,54 +4,104 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 725DB106ACE4
-	for <dri-devel@archiver.kernel.org>; Thu, 12 Mar 2026 20:37:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9E382106ACED
+	for <dri-devel@archiver.kernel.org>; Thu, 12 Mar 2026 20:42:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 71B5D10EAB2;
-	Thu, 12 Mar 2026 20:37:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0F39D10EAB5;
+	Thu, 12 Mar 2026 20:42:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="C/QLezoJ";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="pc2NZscn";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7A86410EAAC;
- Thu, 12 Mar 2026 20:37:46 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 251C943EF8;
- Thu, 12 Mar 2026 20:37:46 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0DA7CC4CEF7;
- Thu, 12 Mar 2026 20:37:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1773347866;
- bh=Hlj3wUVDqV3lGFj/UpEgAg7uNK/MNg5jI7SSa9ZuiSI=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=C/QLezoJFTZ2W1UxtqdQN5LK1EmIN7m6I0wcGmma+62apeVCvv6OTk8lUKDGL9Bck
- SKtnnR1IeNSiM4EoGP43LJ4XmGA9laBiUxLUl3a0vYozZtSUyfotxBycyYLq1pTKrA
- sceSRw3irBaavRL6Nb6Ut9H8v6XADlw1FEmMrdgAXHRwtgoo+NRsY1TdTWkOgYX/Sf
- X153gd+D+ZnSA02cvaPWrLunOnHMqfkQaGnT/3jvubTyanCyFBUa/kbSS/GaCft+Ua
- Ztr0K958uKpOlUYe3bLsvCPDteIR8aJbKle7G7BBINtEkDbXFNvsoYLZ2wFMbmAdlz
- jljSLSlzkgQ4g==
-Date: Thu, 12 Mar 2026 13:37:40 -0700
-From: Nathan Chancellor <nathan@kernel.org>
-To: Calvin Owens <calvin@wbinvd.org>
-Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, Charlene Liu <charlene.liu@amd.com>,
- Ovidiu Bunea <ovidiu.bunea@amd.com>, Alex Hung <alex.hung@amd.com>,
- Dan Wheeler <daniel.wheeler@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Harry Wentland <harry.wentland@amd.com>,
- Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
- Christian Koenig <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- llvm@lists.linux.dev
-Subject: Re: [PATCH v2] drm/amd/display: Fix uninitialized variable use which
- breaks full LTO
-Message-ID: <20260312203740.GA2747807@ax162>
-References: <ef7266eb7802ce6d68ebd9356477e9671f0c94e0.1773116305.git.calvin@wbinvd.org>
- <abL0PlD1FDnfrX4o@mozart.vkv.me>
+Received: from BN1PR04CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11010005.outbound.protection.outlook.com [52.101.56.5])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 93A1E10EAB3;
+ Thu, 12 Mar 2026 20:42:01 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=a09gpEHHJWVekoKjiCDUEydrag2HSdpcjYnS54dDfeQBByBl1vLgFrS/ix15PMAlb3Ll4v+ZvE6ByVIkuOT2qtZ3I6RiZTPdNnU/QzGThSkHD54eF5fZVjqaFvSYXiOIhq0G2pxwjbaZb/roCs0q4d0BSQd8xRTHUGZ0zr0BcjsfOOz1ShmWCz1kRl/6tU64McIx3DiU+5zchUjbjtq4d5v8IA0ACvvMJ84cS8Fm51wQYCOm5M+Qc7EVrN8JtZOCcetzs7ZbaIL0M4iVkIc8VW5D/iHE4RMQjbuuumJMwsx4mQZkfgLqZMrs4PQOTDcjcK2kSNbTMZwc+JYcT2sOsg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Z+KY8B5juyyE6Q5qeQHHQuQCXcQW9Gc70WTK45N1As0=;
+ b=FHeG27LIcPWLWpuE4URRqaGG+n1XYHd9npf7tftr/ymU2BjLE1pqQ/dj8Uj5TV3ilsM8Gt578foiFdrze8CWrVTUkFZILIgH7TTQDBm7Ya4Gxcv+SRFgvpq5bzBdQeEnaBNnVdwmeiRCJcBnLacKVnd4InfG1lN0W//A4uBtc/gZr1E2fFDOpvGdC7S8O1NbgW3zELPP4CED0uZ3E0Iz+YPQhi1hNX7q4W9qWV/TwGwR7thSrikRoFijNPdPODiIl8YvNFYmvz28UsIEaSvx+FNCmzQq9XQALN4t6ZNJukrTI395PdXod72dnCm1VQuM2zloqI8MOvI2mL/zI4GUnw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Z+KY8B5juyyE6Q5qeQHHQuQCXcQW9Gc70WTK45N1As0=;
+ b=pc2NZscnCjeihIYSbIii8NkGNz9CgUSGstIEuWadh4BKVgkyUEE7DYHbkAOqjR9AB0SQp7tXNWF2udDtIFrM8CDuT0eachFTGP82ecL4l1O44HTsi4s+o42Krs2W7G5FZKr1+VPAIZ9eDEi7vAG9zb0KEDLgSyPh4SLFjarxhpw=
+Received: from BN1PR13CA0019.namprd13.prod.outlook.com (2603:10b6:408:e2::24)
+ by SA5PPFB2BF91BC0.namprd12.prod.outlook.com
+ (2603:10b6:80f:fc04::8de) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.3; Thu, 12 Mar
+ 2026 20:41:53 +0000
+Received: from BN1PEPF00006001.namprd05.prod.outlook.com
+ (2603:10b6:408:e2:cafe::dd) by BN1PR13CA0019.outlook.office365.com
+ (2603:10b6:408:e2::24) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9700.12 via Frontend Transport; Thu,
+ 12 Mar 2026 20:41:49 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ BN1PEPF00006001.mail.protection.outlook.com (10.167.243.233) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9678.18 via Frontend Transport; Thu, 12 Mar 2026 20:41:51 +0000
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Thu, 12 Mar
+ 2026 15:41:50 -0500
+Received: from hwentlanryzen (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
+ Transport; Thu, 12 Mar 2026 15:41:48 -0500
+From: Harry Wentland <harry.wentland@amd.com>
+To: <dri-devel@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>
+CC: Harry Wentland <harry.wentland@amd.com>, Simon Ser <contact@emersion.fr>, 
+ Alex Hung <alex.hung@amd.com>, Daniel Stone <daniels@collabora.com>,
+ "Melissa
+ Wen" <mwen@igalia.com>, Sebastian Wick <sebastian.wick@redhat.com>, "Uma
+ Shankar" <uma.shankar@intel.com>, =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?=
+ <ville.syrjala@linux.intel.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Jani Nikula <jani.nikula@intel.com>,
+ Louis Chauvet <louis.chauvet@bootlin.com>, Chaitanya Kumar Borah
+ <chaitanya.kumar.borah@intel.com>, <stable@vger.kernel.org>
+Subject: [PATCH] drm/colorop: Fix blob property reference tracking in state
+ lifecycle
+Date: Thu, 12 Mar 2026 16:41:45 -0400
+Message-ID: <20260312204145.829714-1-harry.wentland@amd.com>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <abL0PlD1FDnfrX4o@mozart.vkv.me>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN1PEPF00006001:EE_|SA5PPFB2BF91BC0:EE_
+X-MS-Office365-Filtering-Correlation-Id: 27634b8f-9862-431b-b2c9-08de8077ca11
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|7416014|82310400026|376014|36860700016|56012099003|18002099003;
+X-Microsoft-Antispam-Message-Info: cJx34eXi/vvPprzwvX2fN/kozHuQezDC1XhBcsC+u6f/rS3DozKBntq7I/c/cDGkNztZsEmuEv7hiMDSfAL+DJrm4GGuVCHnVziy+iUKjXrHvFsdFuagXN7yal5UWoCDLtu2pchNyOR8l6rvCWTXwlSGqb8wLjQGt6+0dbrJ4O87rnzB492A5Z2NJRg2wwCoWSugRZw+hFkCdlyqVwcm9Puna/ne7382IJumAZZckphR278ZQaIok1QxWH4zm+x1LEOZ/0j3orGSHlnh1KSwyr1xYkM54+vXr8GoEm0zmG84ZJvL+V/PXxzGTw4QhYTHl0VOyPZBpj4lbfOQLJ/rShOpIFqSG9bd8EoT/udhpytKBTYf8Zl9D+zGVbs3Em4yVHWloMMUIN3ukmo7ZnF37aJUpQwmORlzbZ+ufk/l7ZlvCWnMV+k+bRvu9WRPRbJNSZ4PhyfEErWA02LIMSSL8vzrA+nlQtDOylIPyfA5wzFBijfzodvgfPWUCycfo1fFUqg8KwJrhIudQWRpdTcrHIQriY9LiXKvyEOkFC/S5v8nrSFX1k00bcfZO8MIndV576Zxpb2mBUXcA31+CKcV7ZsCxFH/y1mvX/i+gaQ6Ak3EcBA195df+fUSihTJJKhXmtr1uiq6R9U4SUdmWbt/kah0uiBCPvEvvRzxXFySuyOfSyHZDoy0gg5aEW/a8WFB+tNaAgL5wAIta3CRHxjfw9EaBNp5ed1NJbu4HClHU2F6QBVl/aQ3/i2o8pIKfcuHd74W1hP29toOx4lPQrl9IA==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(7416014)(82310400026)(376014)(36860700016)(56012099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: h9YC0aGmmmvU6ix14HpnWwwUzvzkAdWht6eYqRDFgQ018TEYvIBdEgoF16lCNlX+xh3vuLWEnnhybFsyxSuW8Cfqq/vGj8a2zr42C/yIRZkmlMkPRt6OAZEfpjwUOHUEX0MveE6g9hwGSzkzc1LL4CSMwcTnWYE6YhlfMk/Pu7okHb9P+3615TxaavQ63VqYSc6tMPwRGnxY51kGq7gBVeveMTyyGe1XB+e+rLsTwOeTucuxENe98ZZkvlAly3YODinVDgj/n0X43r6vqQwBVZMrTXpV41iiHsTZ5TTkWG8tdRMwK1vNN1uAZ7KzvbnezRx4E5PDf5Dkgsgo4+3UITz41NmAXIWxsK8gItocL1efHkTlgikmRiXv1HOvWnC6qSnw1T9ahzNz/trZoSkITuO1P321phaDCwgxvnLX0c4Nf7yFwNcyRaYGK8V1sePl
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Mar 2026 20:41:51.2382 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 27634b8f-9862-431b-b2c9-08de8077ca11
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN1PEPF00006001.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA5PPFB2BF91BC0
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,55 +117,104 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Mar 12, 2026 at 10:13:34AM -0700, Calvin Owens wrote:
-> Commit e1b385726f7f ("drm/amd/display: Add additional checks for PSP
-> footer size") introduced a use of an uninitialized stack variable
-> in dm_dmub_sw_init() (region_params.bss_data_size).
-> 
-> Interestingly, this seems to cause no issue on normal kernels. But when
-> full LTO is enabled, it causes the compiler to "optimize" out huge
-> swaths of amdgpu initialization code, and the driver is unusable:
-> 
->     amdgpu 0000:03:00.0: [drm] Loading DMUB firmware via PSP: version=0x07002F00
->     amdgpu 0000:03:00.0: sw_init of IP block <dm> failed 5
->     amdgpu 0000:03:00.0: amdgpu_device_ip_init failed
->     amdgpu 0000:03:00.0: Fatal error during GPU init
-> 
-> It surprises me that neither gcc nor clang emit a warning about this: I
-> only found it by bisecting the LTO breakage.
-> 
-> Fix by using the bss_data_size field from fw_meta_info_params, as was
-> presumably intended.
-> 
-> Fixes: e1b385726f7f ("drm/amd/display: Add additional checks for PSP footer size")
-> Signed-off-by: Calvin Owens <calvin@wbinvd.org>
+The colorop state blob property handling had memory leaks during state
+duplication, destruction, and reset operations. The implementation
+failed to follow the established pattern from drm_crtc's handling of
+DEGAMMA/GAMMA blob properties.
 
-Reviewed-by: Nathan Chancellor <nathan@kernel.org>
+Issues fixed:
+- drm_colorop_atomic_destroy_state() was freeing state memory without
+  releasing the blob reference, causing a leak
+- drm_colorop_reset() was directly freeing old state with kfree()
+  instead of properly destroying it, leaking blob references
+- drm_colorop_cleanup() had duplicate blob cleanup code
 
-> ---
-> Changes in v2:
-> * Use fw_meta_info_params.bss_data_size instead of repeating the load
->   from the payload header field [Nathan]
-> 
->  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index b3d6f2cd8ab6..0d1c772ef713 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -2553,9 +2553,9 @@ static int dm_dmub_sw_init(struct amdgpu_device *adev)
->  	fw_meta_info_params.bss_data_size = le32_to_cpu(hdr->bss_data_bytes);
->  	fw_meta_info_params.fw_inst_const = adev->dm.dmub_fw->data +
->  					    le32_to_cpu(hdr->header.ucode_array_offset_bytes) +
->  					    PSP_HEADER_BYTES_256;
-> -	fw_meta_info_params.fw_bss_data = region_params.bss_data_size ? adev->dm.dmub_fw->data +
-> +	fw_meta_info_params.fw_bss_data = fw_meta_info_params.bss_data_size ? adev->dm.dmub_fw->data +
->  					  le32_to_cpu(hdr->header.ucode_array_offset_bytes) +
->  					  le32_to_cpu(hdr->inst_const_bytes) : NULL;
->  	fw_meta_info_params.custom_psp_footer_size = 0;
->  
-> -- 
-> 2.47.3
-> 
-> 
+Changes:
+- Add __drm_atomic_helper_colorop_destroy_state() helper to properly
+  release blob references before freeing state memory
+- Update drm_colorop_atomic_destroy_state() to call the helper
+- Fix drm_colorop_reset() to use drm_colorop_atomic_destroy_state()
+  for proper cleanup of old state
+- Simplify drm_colorop_cleanup() to use the common destruction path
+
+This matches the well-tested pattern used by drm_crtc since 2016 and
+ensures proper reference counting throughout the state lifecycle.
+
+Co-developed by Claude Sonnet 4.5.
+
+Fixes: cfc27680ee20 ("drm/colorop: Introduce new drm_colorop mode object")
+Cc: Simon Ser <contact@emersion.fr>
+Cc: Alex Hung <alex.hung@amd.com>
+Cc: Harry Wentland <harry.wentland@amd.com>
+Cc: Daniel Stone <daniels@collabora.com>
+Cc: Melissa Wen <mwen@igalia.com>
+Cc: Sebastian Wick <sebastian.wick@redhat.com>
+Cc: Uma Shankar <uma.shankar@intel.com>
+Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Cc: Jani Nikula <jani.nikula@intel.com>
+Cc: Louis Chauvet <louis.chauvet@bootlin.com>
+Cc: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
+Cc: <stable@vger.kernel.org> #v6.19+
+Signed-off-by: Harry Wentland <harry.wentland@amd.com>
+---
+ drivers/gpu/drm/drm_colorop.c | 26 +++++++++++++++++++-------
+ 1 file changed, 19 insertions(+), 7 deletions(-)
+
+diff --git a/drivers/gpu/drm/drm_colorop.c b/drivers/gpu/drm/drm_colorop.c
+index f421c623b3f0..647cf881f413 100644
+--- a/drivers/gpu/drm/drm_colorop.c
++++ b/drivers/gpu/drm/drm_colorop.c
+@@ -171,12 +171,8 @@ void drm_colorop_cleanup(struct drm_colorop *colorop)
+ 	list_del(&colorop->head);
+ 	config->num_colorop--;
+ 
+-	if (colorop->state && colorop->state->data) {
+-		drm_property_blob_put(colorop->state->data);
+-		colorop->state->data = NULL;
+-	}
+-
+-	kfree(colorop->state);
++	if (colorop->state)
++		drm_colorop_atomic_destroy_state(colorop, colorop->state);
+ }
+ EXPORT_SYMBOL(drm_colorop_cleanup);
+ 
+@@ -485,9 +481,23 @@ drm_atomic_helper_colorop_duplicate_state(struct drm_colorop *colorop)
+ 	return state;
+ }
+ 
++/**
++ * __drm_atomic_helper_colorop_destroy_state - release colorop state
++ * @state: colorop state object to release
++ *
++ * Releases all resources stored in the colorop state without actually freeing
++ * the memory of the colorop state. This is useful for drivers that subclass the
++ * colorop state.
++ */
++static void __drm_atomic_helper_colorop_destroy_state(struct drm_colorop_state *state)
++{
++	drm_property_blob_put(state->data);
++}
++
+ void drm_colorop_atomic_destroy_state(struct drm_colorop *colorop,
+ 				      struct drm_colorop_state *state)
+ {
++	__drm_atomic_helper_colorop_destroy_state(state);
+ 	kfree(state);
+ }
+ 
+@@ -538,7 +548,9 @@ static void __drm_colorop_reset(struct drm_colorop *colorop,
+ 
+ void drm_colorop_reset(struct drm_colorop *colorop)
+ {
+-	kfree(colorop->state);
++	if (colorop->state)
++		drm_colorop_atomic_destroy_state(colorop, colorop->state);
++
+ 	colorop->state = kzalloc_obj(*colorop->state);
+ 
+ 	if (colorop->state)
+-- 
+2.53.0
+
