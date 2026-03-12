@@ -4,126 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1B96E106ACDD
-	for <dri-devel@archiver.kernel.org>; Thu, 12 Mar 2026 19:20:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 234E7106ACE1
+	for <dri-devel@archiver.kernel.org>; Thu, 12 Mar 2026 19:21:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 81EB210E255;
-	Thu, 12 Mar 2026 19:20:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 87D5C10EA91;
+	Thu, 12 Mar 2026 19:21:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="eKa/GtPM";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Am8zHsoJ";
 	dkim-atps=neutral
-Received: from mail-dl1-f48.google.com (mail-dl1-f48.google.com [74.125.82.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3064D10EA91
- for <dri-devel@lists.freedesktop.org>; Thu, 12 Mar 2026 19:20:23 +0000 (UTC)
-Received: by mail-dl1-f48.google.com with SMTP id
- a92af1059eb24-12714f01940so65242c88.0
- for <dri-devel@lists.freedesktop.org>; Thu, 12 Mar 2026 12:20:23 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1773343222; cv=none;
- d=google.com; s=arc-20240605;
- b=RfOFhTmnuTnh0DFbEHrdHmrUHSp3hjNT4vKeO1rGOBg+NahNtxpzZxDctVhfTdcJD8
- C+DQHs7wT1MOBo0y9zG91Bina/Wyl5rq9UwG/pN/Hoc0eO2ytCOW9gj55v8GDXuQl77g
- 9th8oTY//Pcb4UHT4ixaKffqp6xqwPcA0Su8F4JFtD0KcDU/U6JR/+zNWss2KZpnz8yV
- vcNAGCy+f91+n2H74122HuWoHVmWp7LcPnxFlHG/uIMF6GmOTCgmbr++cC/aJvamJUXa
- YCeufFsE2pPSsdRGau+IxFZCZDMUfi8bojJvvXYB4G8IKtwkZWcfnETa9wpHd9T21lUb
- O6Tw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=sqyBefgbThwlgKP9KCSuGlJgdIuR2RT0nMZ3gZqSKA8=;
- fh=lrvGrwnX3vjirfHu95tp7CppF2402QkzisgKP4xhZg0=;
- b=hE0GgEsRybaOyZISwuj9mgY8ZFDst321BFkC2LmrFKq19XYClfSNAPHfmtyCrgnhfZ
- 8iCPxgYaqPjWNWVqQPBgbD8i5zaAmcGpZFoUlv83s6ECXiXl4OjTtJekxdcv+L4Z/IA6
- Ci3HcFG4aEdf5tpTxSc63ksCAO3D+Q+IEmtsaM864rpSHUop3PkPmu8co0LTwk90h/D8
- OieTF/GkRbwYqWiHLsyGF9kPqYmXX6+XFhtJts+86b0kfTmUULK5dkMk6SoeDsD2+ZtD
- ZfQWCbiMQDO+oPFERAB31wJ0WdRBHuurMwBpfc4HmdqgMSek+ft4+D9qtPEbsFVDzCki
- FzmQ==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1773343222; x=1773948022; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=sqyBefgbThwlgKP9KCSuGlJgdIuR2RT0nMZ3gZqSKA8=;
- b=eKa/GtPM6DQyTDU1NXE17k03ynX+A5tbTCcDsNZIKXsmdmIq/2Vu2FvzIyDsBMF2kq
- 3LB2Ba4NSm3HX4KTlxWs+XQe7CY4o0RwC07+JyWNzmZN4cgxB5VvH9RFlgMMxvbwKQ44
- e+9z7Rn+mW8nPeGorv2EXGrujJbIU/SrcoLjvuLFZFF9GuK65Qq/Orfm9g4r3xVVuQXm
- HNWJp0KcbVTZyQ06X0lG8/CefLI7VEfGZxw08RN70KxirSfYU8nRdXFRunAnrQz58EH5
- aCHWY0Lz7Tn3GVQ/vQxpnNi24rSzCQnwg7YwDCM6xkkU8ojuVnugo4ZbMgRi6ah2Clup
- /gsA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1773343222; x=1773948022;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=sqyBefgbThwlgKP9KCSuGlJgdIuR2RT0nMZ3gZqSKA8=;
- b=mBOuZ0xzsXckr6qee8u5sKuzc6QSIqR+ZDYv+M3riXJrLOAL+RZ6VEjCjG1cg55gsl
- EIRGs8QNIVpPR8PzHTPgKxdEmWQVrDc96oLv5XHb/MpX0+gf9rfOsfpb/26U2T7uFguf
- ixwERTciJz4MK+jZQBb+/H80ckmkvoJUyL3yaWwqHMtp4gEHETMC3mYJiVlZMLVYg/xe
- xCSVF4nqO2T00izbowxxdxbehA90pHP8SoGiVp/PNjYIzbhdDelHaq0p3CHhPsqWvtxj
- uqzgeJW1s3y35MW+WkjXP6iTxttfUfRfL8HZ4iAODFM59U+rPJZ76iQTqdJQ11UbE+1S
- fneQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCX/UpQh8IDVdpq29KsJIeOhVPcsOMPFvkm+LGSrRV3YFvX1nJvvGJfhU0hZq5b+efAYXwytoe06b8k=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyLuuL7voXNRItZS28WKSie4M35kf9HedclfJ+FVMTYw1KTK553
- SooD/aWlOEF+kBYZhnGZWCJN9IB33UBnCbEs87nLQP4I2+0xixL7tNFMTPJm5pPrfqmnsEhnOOU
- knS3eu8t/X/W5HpDKIIybJGxVhHPTFbg=
-X-Gm-Gg: ATEYQzywTcrynPcPJk+17C67pc9xHnWUr9/58PlcIWBL6zwb+EFvbDTmfdcmEPu5URf
- m3EIxWezBOKY3+oW0X1XKM6xghy7/jXHQGk568W+9OT8hRLp7MHrieWxlsZhiDQOPIV1aTQr77y
- L2CPF0syP7zqL7UTwG/z4tsH0PXJVcZUQ9GvHnlFE8/hENd6iXk2OgYu69Jsj5WNX2eLpZjBXjm
- INoLxpkBCbfAkJ6cX0xf/2e6dPnahVwxHBMmH+4atzcqLVXlnyOax4N0QRABzrFIv3nLl4S+9Ly
- KxyXkU6PU+p6ZJ2h6BYSBOgH2gYQ8sb3NfTIQVqvWabd0AabqLN7AcpuwGvl/EOQdUBswcZccu/
- n1iaa8decgg5ot0wrwTNPxxs=
-X-Received: by 2002:a05:693c:3113:b0:2be:ca4:e136 with SMTP id
- 5a478bee46e88-2bea539b6c2mr239955eec.2.1773343222351; Thu, 12 Mar 2026
- 12:20:22 -0700 (PDT)
-MIME-Version: 1.0
-References: <20260306203648.1136554-1-joelagnelf@nvidia.com>
- <20260306203648.1136554-2-joelagnelf@nvidia.com>
-In-Reply-To: <20260306203648.1136554-2-joelagnelf@nvidia.com>
-From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5DD2710EA91;
+ Thu, 12 Mar 2026 19:21:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1773343294; x=1804879294;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=Zhb0XbVbSkgWBxiVuSG+gDE7nzQfwhSjuCf+rcLIxCs=;
+ b=Am8zHsoJBaFeRg77WUThGkO+M8LeEnsx3WTmzew0gsxkfoLgZZ9Qd29n
+ MINCwVh6QZpxVHVrOQR3bbvL6DOimnz7qB+7cJA86bQ0bV8UcHK8ieIWW
+ SPDPHujQpoVBxC/2/uhIuCMnQ8ndjS42hu4HkEXK0NQAGkwuTW3JRA64J
+ /6qM08BogA+Xv4dFlLfljpmbvdf43qQzTtpH2YmO9ar+KxZAurKynI4vt
+ 5erUKOlv64Q18KvZl+lMeY2QSazp6ypw5CDf5BWtkZr4UXhKsauPsSryO
+ YL8za+2D86bqo/tDK60k0HBxlSeOsHqPubL4Peb1FrtR4AGzdXxNwAIf3 g==;
+X-CSE-ConnectionGUID: 8dhupD/FTMSohzQpLUyAoQ==
+X-CSE-MsgGUID: mCJe/bfVRaKk0/xqxxc9SA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11727"; a="78052707"
+X-IronPort-AV: E=Sophos;i="6.23,116,1770624000"; d="scan'208";a="78052707"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+ by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Mar 2026 12:21:34 -0700
+X-CSE-ConnectionGUID: 3m9xK1+kSeSdouq2HQeyhA==
+X-CSE-MsgGUID: VuMHCvQ6QzuNsmfzNXz9iA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,116,1770624000"; d="scan'208";a="221105054"
+Received: from smoticic-mobl1.ger.corp.intel.com (HELO fdugast-desk.home)
+ ([10.245.245.89])
+ by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Mar 2026 12:21:33 -0700
+From: Francois Dugast <francois.dugast@intel.com>
+To: intel-xe@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org
+Subject: [PATCH v9 0/4] Enable THP support in drm_pagemap
 Date: Thu, 12 Mar 2026 20:20:10 +0100
-X-Gm-Features: AaiRm53FHItUdFEegxUW1-4wt0_otNvbfdbd3Uys6sYfgMCnCSAVDf6Yalvkc30
-Message-ID: <CANiq72kEnDyUpnWMZmheJytjioeiJUK_C-yQJk77dPid89LExw@mail.gmail.com>
-Subject: Re: [PATCH v12 1/1] rust: interop: Add list module for C linked list
- interface
-To: Joel Fernandes <joelagnelf@nvidia.com>
-Cc: linux-kernel@vger.kernel.org, Miguel Ojeda <ojeda@kernel.org>, 
- Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
- =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
- Alex Gaynor <alex.gaynor@gmail.com>, Danilo Krummrich <dakr@kernel.org>, 
- Dave Airlie <airlied@redhat.com>, David Airlie <airlied@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, Simona Vetter <simona@ffwll.ch>, 
- Daniel Almeida <daniel.almeida@collabora.com>,
- Koen Koning <koen.koning@linux.intel.com>, 
- Nikola Djukic <ndjukic@nvidia.com>, Alexandre Courbot <acourbot@nvidia.com>, 
- Philipp Stanner <phasta@kernel.org>, Elle Rhumsaa <elle@weathered-steel.dev>, 
- Jonathan Corbet <corbet@lwn.net>, Alex Deucher <alexander.deucher@amd.com>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Jani Nikula <jani.nikula@linux.intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Tvrtko Ursulin <tursulin@ursulin.net>, Huang Rui <ray.huang@amd.com>, 
- Matthew Auld <matthew.auld@intel.com>, Matthew Brost <matthew.brost@intel.com>,
- Lucas De Marchi <lucas.demarchi@intel.com>, 
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
- Helge Deller <deller@gmx.de>, John Hubbard <jhubbard@nvidia.com>, 
- Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
- Edwin Peer <epeer@nvidia.com>, 
- Andrea Righi <arighi@nvidia.com>, Andy Ritger <aritger@nvidia.com>,
- Zhi Wang <zhiw@nvidia.com>, 
- Balbir Singh <balbirs@nvidia.com>, alexeyi@nvidia.com, 
- Eliot Courtney <ecourtney@nvidia.com>, dri-devel@lists.freedesktop.org, 
- nouveau@lists.freedesktop.org, rust-for-linux@vger.kernel.org, 
- linux-doc@vger.kernel.org, amd-gfx@lists.freedesktop.org, 
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
- linux-fbdev@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Message-ID: <20260312192126.2024853-1-francois.dugast@intel.com>
+X-Mailer: git-send-email 2.43.0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -139,112 +66,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, Mar 6, 2026 at 9:37=E2=80=AFPM Joel Fernandes <joelagnelf@nvidia.co=
-m> wrote:
->
-> +//! // Create typed [`CList`] from sentinel head.
-> +//! // SAFETY: head is valid and initialized, items are `SampleItemC` wi=
-th
-> +//! // embedded `link` field, and `Item` is `#[repr(transparent)]` over =
-`SampleItemC`.
-> +//! let list =3D clist_create!(unsafe { head, Item, SampleItemC, link })=
-;
+Use Balbir Singh's series for device-private THP support [1] and previous
+preparation work in drm_pagemap [2] to add 2MB/THP support in xe. This leads
+to significant performance improvements when using SVM with 2MB pages.
 
-Was the patch tested with Clippy? It has several issues.
+[1] https://lore.kernel.org/linux-mm/20251001065707.920170-1-balbirs@nvidia.com/
+[2] https://patchwork.freedesktop.org/series/151754/
 
-The worst news is that it seems the "supposed to be `unsafe` block"
-does not count as one for Clippy, i.e.:
+v2:
+- rebase on top of multi-device SVM
+- add drm_pagemap_cpages() with temporary patch
+- address other feedback from Matt Brost on v1
 
-    let list =3D clist_create!(unsafe { head, Item, SampleItemC, link });
+v3:
+The major change is to remove the dependency to the mm/huge_memory
+helper migrate_device_split_page() that was called explicitely when
+a 2M buddy allocation backed by a large folio would be later reused
+for a smaller allocation (4K or 64K). Instead, the first 3 patches
+provided by Matthew Brost ensure large folios are split at the time
+of freeing.
 
-So we get:
+v4:
+- add order argument to folio_free callback
+- send complete series to linux-mm and MM folks as requested (Zi Yan
+  and Andrew Morton) and cover letter to anyone receiving at least
+  one of the patches (Liam R. Howlett)
 
-    error: statement has unnecessary safety comment
-        --> rust/doctests_kernel_generated.rs:7416:1
-         |
-    7416 | let list =3D clist_create!(unsafe { head, Item, SampleItemC, lin=
-k });
-         | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^=
-^^^
-         |
-    help: consider removing the safety comment
-        --> rust/doctests_kernel_generated.rs:7414:4
-         |
-    7414 | // SAFETY: head is valid and initialized, items are
-`SampleItemC` with
-         |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^=
-^^^^^^
-         =3D help: for further information visit
-https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#unnecessary_=
-safety_comment
-         =3D note: `-D clippy::unnecessary-safety-comment` implied by
-`-D warnings`
-         =3D help: to override `-D warnings` add
-`#[allow(clippy::unnecessary_safety_comment)]`
+v5:
+- update zone_device_page_init() in patch #1 to reinitialize large
+  zone device private folios
 
-For this, we could write them as a `// SAFETY*: ` comment or similar,
-to make progress for now, but it would best to request upstream Clippy
-to detect this or to rework the macro to force the `unsafe` block
-outside.
+v6:
+- fix drm_pagemap change in patch #1 to allow applying to 6.19 and
+  add some comments
 
-In addition:
+v7:
+- now that patch #1 is merged, rebase and resend for CI
 
-    error: unsafe block missing a safety comment
-       --> rust/kernel/interop/list.rs:357:17
-        |
-    112 |     let _list =3D clist_create!(unsafe { head, Item,
-SampleItemC, link });
-        |
---------------------------------------------------------- in this
-macro invocation
-    ...
-    357 |             |p| unsafe { &raw const (*p).$($field).+ };
-        |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-        |
-        =3D help: consider adding a safety comment on the preceding line
-        =3D help: for further information visit
-https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#undocumented=
-_unsafe_blocks
-        =3D note: `-D clippy::undocumented-unsafe-blocks` implied by `-D wa=
-rnings`
-        =3D help: to override `-D warnings` add
-`#[allow(clippy::undocumented_unsafe_blocks)]`
-        =3D note: this error originates in the macro `clist_create` (in
-Nightly builds, run with -Z macro-backtrace for more info)
+v8:
+- rebase on 7.0.0-rc3
 
-So this needs a `// SAFETY:` comment on top of the closure.
+v9:
+- fix build when CONFIG_ZONE_DEVICE is disabled
 
-    error: this macro expands metavariables in an unsafe block
-       --> rust/kernel/interop/list.rs:362:9
-        |
-    362 |         unsafe { $crate::interop::list::CList::<$rust_type,
-OFFSET>::from_raw($head) }
-        |
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^=
-^^^
-        |
-        =3D note: this allows the user of the macro to write unsafe code
-outside of an unsafe block
-        =3D help: consider expanding any metavariables outside of this
-block, e.g. by storing them in a variable
-        =3D help: ... or also expand referenced metavariables in a safe
-context to require an unsafe block at callsite
-        =3D help: for further information visit
-https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#macro_metava=
-rs_in_unsafe
-        =3D note: `-D clippy::macro-metavars-in-unsafe` implied by `-D warn=
-ings`
-        =3D help: to override `-D warnings` add
-`#[allow(clippy::macro_metavars_in_unsafe)]`
+Francois Dugast (3):
+  drm/pagemap: Unlock and put folios when possible
+  drm/pagemap: Add helper to access zone_device_data
+  drm/pagemap: Enable THP support for GPU memory migration
 
-For this one, to begin with, do we expect to have actual expressions
-for `$head`, or could we constrain it for now to an identifier for
-instance?
+Matthew Brost (1):
+  drm/pagemap: Correct cpages calculation for migrate_vma_setup
 
-With an identifier there is no issue then -- the example currently has
-just an identifier anyway.
+ drivers/gpu/drm/drm_gpusvm.c  |   7 +-
+ drivers/gpu/drm/drm_pagemap.c | 157 +++++++++++++++++++++++++++-------
+ include/drm/drm_pagemap.h     |  21 +++++
+ 3 files changed, 154 insertions(+), 31 deletions(-)
 
-I hope that helps.
+-- 
+2.43.0
 
-Cheers,
-Miguel
