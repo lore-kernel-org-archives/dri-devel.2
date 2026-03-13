@@ -4,122 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 365B8107BCD3
-	for <dri-devel@archiver.kernel.org>; Fri, 13 Mar 2026 17:41:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 04D40107BCD5
+	for <dri-devel@archiver.kernel.org>; Fri, 13 Mar 2026 17:46:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 985E810ECF6;
-	Fri, 13 Mar 2026 17:41:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5E76F10EC75;
+	Fri, 13 Mar 2026 17:46:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="DknBq4jC";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="QbZ8IcW4";
 	dkim-atps=neutral
-Received: from CY3PR05CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11013013.outbound.protection.outlook.com
- [40.93.201.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 50E8C10EC75
- for <dri-devel@lists.freedesktop.org>; Fri, 13 Mar 2026 17:41:14 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=d63PAqVkj1OtXIZ3lGpHqHLiB96niBpjKnjX73s9HSFE1tKHKNiHZ3U19jsM3jkhuOYIFkq8Dh6NSKk38V05PeoFZ2h71Lj2tERdWnibY9s1VyU18jL4XJripM7Orz0ZjCaKvpErJ1V1Wkk7+pkphh2NVfJiI+kP8ws6M5Nz0XeQoCDmNRKS2B/FBVZs77TiPv5YZo3UuF9tbVorPMmpwbV2Uwa5ir31QrywMehGUSmeFKVeHqX74pp41rIA+ZpUSyLXo9O4/ZiCJ2I8Um1rcTjJ4wqiZOiG3oBGiRVYHVKOIrObpTJF0Z2sU9vPBHG+aot4UG8ymbQ/sdNoMIH59Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=aCzK7SAwtZVNI0sXrW0XtwGXtonbY2IGWuWTglvOgNI=;
- b=W9T4LrxnbiUUzH/yQ7HUHn2J50fyNC4tlYQHaGDmfc6CFI9WVJG/5Yq0l58bU98drdGnucdiAxlhdi7oUivAmdsFQrbdq0dWEQ5uJkxnbNg1NwGgRBSWn3o9dZYiIxq3jOdLpJF3fnDar7FOz0dTgzDhKm/HYKB6zYjoGztEU+PeAImX6MgQlVvq2zMgEl0QGbKGBvU7Nu0Fi6q/3Iaj8K8TtjLR/ZmKzVK/PxUgr3RibgSBbGVR/I/S2D3oO9/m+x0FNr8hQOy4wwodjcaKIXTCtW7SD5vvWQ9wgHzH9lpcQtuk3qMgCfpU1enyhHbkm29um5qXjWNll3Vxv23lnA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=aCzK7SAwtZVNI0sXrW0XtwGXtonbY2IGWuWTglvOgNI=;
- b=DknBq4jCBzvf/lXyeIvlRxj/EQadCa3w+S8BESvcYDgYlwlbJoneFs2Oc645cpBUQnb93TWXq89Rcm+O5D/8K4aBzf+Gt3yz7LQ+bCpTADwDstabE3l35MTnT1sYTvfcyXtDDQXTcB0/msMEg8MsITZ8nrtt9yvVRe2NbF7RkwpRT2YTZnH5b9myaVeQwH1jI4u5+cQ88Qi3kOGNYltSTsZCbY7HP15ZGMVTEmMGO+rOl4Z9fCgq5bVWuaH5oV6agkfzVR7ZBNGsB7c0HpLvoehglVyLgFuninH7gRp0oauigAcSUpvHunxux6dxGbrzNvqdF+nUqnKcWNtu7O3UbA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from LV8PR12MB9620.namprd12.prod.outlook.com (2603:10b6:408:2a1::19)
- by PH7PR12MB7425.namprd12.prod.outlook.com (2603:10b6:510:200::8)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.6; Fri, 13 Mar
- 2026 17:41:07 +0000
-Received: from LV8PR12MB9620.namprd12.prod.outlook.com
- ([fe80::299d:f5e0:3550:1528]) by LV8PR12MB9620.namprd12.prod.outlook.com
- ([fe80::299d:f5e0:3550:1528%5]) with mapi id 15.20.9654.022; Fri, 13 Mar 2026
- 17:41:06 +0000
-From: Jason Gunthorpe <jgg@nvidia.com>
-To: =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
- linux-media@vger.kernel.org, Sumit Semwal <sumit.semwal@linaro.org>
-Cc: Dave Airlie <airlied@redhat.com>,
- Andrew Morton <akpm@linux-foundation.org>, Arnd Bergmann <arnd@arndb.de>,
- Daniel Vetter <daniel.vetter@ffwll.ch>,
- David Hildenbrand <david@redhat.com>, Dongwon Kim <dongwon.kim@intel.com>,
- Christoph Hellwig <hch@infradead.org>, Christoph Hellwig <hch@lst.de>,
- Hugh Dickins <hughd@google.com>, Julian Orth <ju.orth@gmail.com>,
- Junxiao Chang <junxiao.chang@intel.com>, Gerd Hoffmann <kraxel@redhat.com>,
- Mike Kravetz <mike.kravetz@oracle.com>, Oscar Salvador <osalvador@suse.de>,
- patches@lists.linux.dev, Peter Xu <peterx@redhat.com>,
- Shuah Khan <shuah@kernel.org>, Vivek Kasireddy <vivek.kasireddy@intel.com>,
- "Matthew Wilcox (Oracle)" <willy@infradead.org>
-Subject: [PATCH] udmabuf: Do not create malformed scatterlists
-Date: Fri, 13 Mar 2026 14:41:05 -0300
-Message-ID: <0-v1-42779f29381a+4b9-udmabuf_sg_jgg@nvidia.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: IA1P220CA0005.NAMP220.PROD.OUTLOOK.COM
- (2603:10b6:208:461::13) To LV8PR12MB9620.namprd12.prod.outlook.com
- (2603:10b6:408:2a1::19)
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EA56410EC75
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Mar 2026 17:45:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1773423954;
+ bh=T9aamq2yo0HMqv1Jkdy4l6sGV0d7EEk4IPc7FyjxaZA=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=QbZ8IcW4JHGAMYXu00b68izz85X/OeSPnxidT+oajlEnYp0fQDUw6qBGK5zVwAFj0
+ rsW+lBsRYU9vvg1Ekauiunq9R/JnoTZ8eakQf9qQIrRrPjQ2c4xFEmtUcgbb1hIViN
+ 4g8eeLbSg3vyfY8MtO3Zb2ASD1/26tV18JhYuKJJfltB2fGAwN+rC4LdI8DfEApLNv
+ BKSdvOaL07HWWIstLMeRhCHk0CR/g5TGFeZKIHRK2dUcDoKX3GmloqJkt3vjzWepgr
+ TYoj41wQYZpQuxwkpWFtS7VbgdSQbWqSZaOI6QRq60XQO/GhlzgvYc/1EL6en/rhOQ
+ 65xJGiKB/HX5w==
+Received: from fedora (unknown [IPv6:2a01:e0a:2c:6930:d919:a6e:5ea1:8a9f])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256) (No client certificate requested)
+ (Authenticated sender: bbrezillon)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 4C1E717E127A;
+ Fri, 13 Mar 2026 18:45:54 +0100 (CET)
+Date: Fri, 13 Mar 2026 18:45:49 +0100
+From: Boris Brezillon <boris.brezillon@collabora.com>
+To: Biju Das <biju.das.jz@bp.renesas.com>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>, Tommaso Merciai
+ <tommaso.merciai.xr@bp.renesas.com>, "loic.molinari@collabora.com"
+ <loic.molinari@collabora.com>, "willy@infradead.org" <willy@infradead.org>,
+ "frank.binns@imgtec.com" <frank.binns@imgtec.com>, "matt.coster@imgtec.com"
+ <matt.coster@imgtec.com>, "maarten.lankhorst@linux.intel.com"
+ <maarten.lankhorst@linux.intel.com>, "mripard@kernel.org"
+ <mripard@kernel.org>, "airlied@gmail.com" <airlied@gmail.com>,
+ "simona@ffwll.ch" <simona@ffwll.ch>, "linux-mm@kvack.org"
+ <linux-mm@kvack.org>, "dri-devel@lists.freedesktop.org"
+ <dri-devel@lists.freedesktop.org>
+Subject: Re: [PATCH v4 5/6] drm/gem-shmem: Track folio accessed/dirty status
+ in mmap
+Message-ID: <20260313184549.08656eed@fedora>
+In-Reply-To: <20260313135521.07823792@fedora>
+References: <20260227114509.165572-1-tzimmermann@suse.de>
+ <20260227114509.165572-6-tzimmermann@suse.de>
+ <abL5rcYIaFFO3GW2@tom-desktop>
+ <TY3PR01MB113460CA616D3576DA0C3FC698644A@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+ <TY3PR01MB113461ACB668738E1952EC8898645A@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+ <20260313111851.4c1f89f3@fedora>
+ <f3384342-cdc5-4260-b670-4ffde76a2802@suse.de>
+ <20260313125644.65131b27@fedora>
+ <TY3PR01MB1134662A395AA0A048CEE152E8645A@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+ <20260313131835.52c5c935@fedora> <20260313134328.3166c4d0@fedora>
+ <20260313135521.07823792@fedora>
+Organization: Collabora
+X-Mailer: Claws Mail 4.3.1 (GTK 3.24.51; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LV8PR12MB9620:EE_|PH7PR12MB7425:EE_
-X-MS-Office365-Filtering-Correlation-Id: e36e1d7d-0c33-4e00-5f1e-08de8127b48a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|7416014|366016|1800799024|56012099003|18002099003; 
-X-Microsoft-Antispam-Message-Info: szgdETTy3OI6RkeD6ZqnwOe4NruZ0Gmym68mzo/+B91HFCo++2RAro0gxgLaJVSpLLatsV0faV617hVyRpFAkneHNuMlmBHRoFb6qN35jNI/+19vAp/iXjSPvAH3fCMjiW9hTy5tZ+4tI/lZ0FTWLH0kV2FVb+8zYPwsi8Sepevx7mnGs2M6iQMajCrz1oOInznokLtsO7o4Xc1CKbNIY5PTEhN/kIgEeukA6r8SDp6pIyEXx2RWDdh4a9micCVub+/WU9QKHntAky251fQHUwf9HgajfSoJHBqfQ/RGBLqidrpUy4HPXdZBXV356LI5+wUYrovT6oW9IHJO8gHDJOrhwv0hcQM5BJqp9kbzNXIPfTKDcW0wUew1TXBmwUWYgqNJIZVJwKbU1+StxmbGgY7agb30vTa9lSBlHhL3lc8U4UgX93HarOt2nfzi3mWvSEWFHm/FwUzLWRnUUSROdehvn7SAe+M62j40Rx1S22ghmH+kslPqIPuyzL+R8Ez4HrUIeopxzXKeAz36kKCivQ5EmYI8ShRaPI8kHfF8HKnWyNOYD5vpo5oiZtQsQwGUzUp1XTuT5kcWaqID8G0slWnrwmdyRZvLJxVuA9M9qzcZmiLLmSG3qTGT+BbJ2wRRzR2IIFiich/yPwR+Dpdvwu+9hNuvpYH9PcVakCuPKXF1KOfDLRYRYTPCv4HZ3PfzKKU9nuXYMN9AckVT+3h9SMeXnxO91okw7KNDqjuKRno=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:LV8PR12MB9620.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(7416014)(366016)(1800799024)(56012099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?DiSWQsO6pMHvkO18k1BKXFdKFZaN91i31zFE11LbCGnii/zkMTFXZBLTNrLl?=
- =?us-ascii?Q?1C/X2aBjiwF/OVtAlP/whwk23cJA4vdpW311kv8MiggexGuUv1454+svAVWW?=
- =?us-ascii?Q?ZNXW0R8DfladE2C32bjVLaYVThtR0C8ocnoQiEKPJj3zxsipRpnhHQlRZsYM?=
- =?us-ascii?Q?VcSxueTn0FrkHPMv3eRIHEiMzZbaoTxSvQjDq9f3Gsldh26zB3AbsEhsVenF?=
- =?us-ascii?Q?W1aVkXZuF82Nj7yS82ZMVTbGCtgqYj98t8cEA84jAIWLcwuzNr3Ttl23WODl?=
- =?us-ascii?Q?npB5PwHtIQbp9xNul8sTlXGh6YInR1kWiAyHehXpcTuWfb71q3jIbYtim5D8?=
- =?us-ascii?Q?4KPLlWLf7H6FUtmKRPcFY2aujlDfJmp1UWybCQtoi/JmFo914xj+lGWIjfPn?=
- =?us-ascii?Q?kN5Dff/PvwiY1ZRETRk6zQybUPnvu9L+ef29CVsBLQtqcBBAEGYisCwzZpDd?=
- =?us-ascii?Q?bZ22n5KXQifjLf9g8AgDcLDoz5go81vTA/xx0QyuAsrykC/IRGwD8+mjT2Ug?=
- =?us-ascii?Q?StDl/CkYBgtE2tsqJQJw+VUu5bFtANgkmApjdEJuJbo3rpc0vJb/32LmvUhE?=
- =?us-ascii?Q?1umnh6UT1X/909QT+7IAFX6IDlukVu7O4BYeK5jn9iF30/qXcpWUUMKXzjqx?=
- =?us-ascii?Q?Y5TcHp6iOLEHLNnV/GpnosIY2pZiMrour8bCY6IKa++Qu+zs2MA7p4Vs6iEM?=
- =?us-ascii?Q?oi+dKznEjg/FK4RDWqX3ixfcJHuTK+bzbeS5ddorlHojFPrx9uk6jq4ieb69?=
- =?us-ascii?Q?Ui+KcdhANxqlbNu6BgT8Fh1/9wAQlKsvda0Lv5hl2TnWLKSsSbEQNv8NyICC?=
- =?us-ascii?Q?5bidW9LYjKUgWFNG13eK9l1ClnV+iVzlRCPMqjRVDRMTI55ZPtnKUz9vbo4Q?=
- =?us-ascii?Q?d98pQE6zXJw0JW35mwVLYdK8BIIWu83Dv4HJQNDalz/HTr/wHbZZjRYUfv84?=
- =?us-ascii?Q?HGZhbxl2LV+wfpC+GfSneP1K7nbVjJTZk+2wJ0hjnZa1uFq/T4L9ofXDOONw?=
- =?us-ascii?Q?v8T9b4mggnSPlDX9kGjB1BPZk/ufOzdbfFs1WAczEBLprwZ3jMQodFe8vIMf?=
- =?us-ascii?Q?1dLR3f3y8KvZGs/7+kaOBvVJ1TVQCzkiYURn+FLw5jI9DjTZayuMusvgfoRn?=
- =?us-ascii?Q?hiPN+4X9t9+fzvXMFaYvBlptGp6ZMzv2LZMowjdA13reXVPA2nJm6VFisB6Q?=
- =?us-ascii?Q?+8hXfTt+q1GrtwVOoqoEVvXP2uW3JDCewRDD007amppzJmEVSvfrLmbSaT6q?=
- =?us-ascii?Q?jBoiH/dkNh4pwxVmwNgx+7UgJ7OI4vVyMPlvp3QoJPjdsTjD/pYNzyW4HH9q?=
- =?us-ascii?Q?qzwF9OuFkMmB5M1gRTeerwlbJqyrCGX+E5oq22J2es/0a+SkxauFudQmToVW?=
- =?us-ascii?Q?QCXaj7QKxWxUi8UmAZqBqpRxZ3mc5PZdbVLE+iBB5RuDZXM7J7/CrxVbO+O8?=
- =?us-ascii?Q?pZhFF3ztgIA4kRDpz4oHt90Rahv6PLtbGkbfpDAluLxY+S/hfILm0ViHFW+J?=
- =?us-ascii?Q?/ju6l6VIZ4ApxPCgT4b+yubwwdsZHpPty+gmwhB0Jkh7Vywfs/2HDzpAOGu5?=
- =?us-ascii?Q?uRFlOQV8akkyJvA5qpj+gPvWZgDEoQ49d8KykhhukvFAZoM0//QpTLgyJTlg?=
- =?us-ascii?Q?0hcvnar6jS03jTEoiz1oDFFOJg5j+eA1SYvA8ynoGr0wwAJtDsSonvshsql1?=
- =?us-ascii?Q?mUiM99jcoPDUwfv4yQNm97hHJm+HzjtblRtNEPSb4j33XZuAQmilFdJEYU/Y?=
- =?us-ascii?Q?0gcIKt3wOg=3D=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e36e1d7d-0c33-4e00-5f1e-08de8127b48a
-X-MS-Exchange-CrossTenant-AuthSource: LV8PR12MB9620.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Mar 2026 17:41:06.8239 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: fC/Y37F7f1BylTGNoNhZU9za+vUw3gSXuVBkfRm4QxY3H6pwVPXJPzn0okgFI89Z
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7425
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,158 +81,92 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Using a sg_set_folio() loop for every 4K results in a malformed scatterlist
-because sg_set_folio() has an issue with offsets > PAGE_SIZE and because
-scatterlist expects the creator to build a list which consolidates any
-physical contiguity.
+On Fri, 13 Mar 2026 13:55:21 +0100
+Boris Brezillon <boris.brezillon@collabora.com> wrote:
 
-sg_alloc_table_from_pages() creates a valid scatterlist directly from a
-struct page array, so go back to that.
+> On Fri, 13 Mar 2026 13:43:28 +0100
+> Boris Brezillon <boris.brezillon@collabora.com> wrote:
+> 
+> > On Fri, 13 Mar 2026 13:18:35 +0100
+> > Boris Brezillon <boris.brezillon@collabora.com> wrote:
+> >   
+> > > On Fri, 13 Mar 2026 12:04:25 +0000
+> > > Biju Das <biju.das.jz@bp.renesas.com> wrote:
+> > >     
+> > > > > -----Original Message-----
+> > > > > From: dri-devel <dri-devel-bounces@lists.freedesktop.org> On Behalf Of Boris Brezillon
+> > > > > Sent: 13 March 2026 11:57
+> > > > > Subject: Re: [PATCH v4 5/6] drm/gem-shmem: Track folio accessed/dirty status in mmap
+> > > > > 
+> > > > > On Fri, 13 Mar 2026 11:29:47 +0100
+> > > > > Thomas Zimmermann <tzimmermann@suse.de> wrote:
+> > > > >         
+> > > > > > Hi
+> > > > > >
+> > > > > > Am 13.03.26 um 11:18 schrieb Boris Brezillon:
+> > > > > > [...]        
+> > > > > > >>>>> +	if (drm_WARN_ON(obj->dev, !shmem->pages || page_offset >= num_pages))
+> > > > > > >>>>> +		return VM_FAULT_SIGBUS;
+> > > > > > >>>>> +
+> > > > > > >>>>> +	file_update_time(vma->vm_file);
+> > > > > > >>>>> +
+> > > > > > >>>>> +	folio_mark_dirty(page_folio(shmem->pages[page_offset]));        
+> > > > > > > Do we need a folio_mark_dirty_lock() here?        
+> > > > > >
+> > > > > > There is a helper for that with some documentation. [1]        
+> > > > > 
+> > > > > This [1] seems to solve the problem for me. Still unsure about the folio_mark_dirty_lock vs
+> > > > > folio_mark_dirty though.
+> > > > > 
+> > > > > [1]https://yhbt.net/lore/dri-devel/20260312155027.1682606-1-pedrodemargomes@gmail.com/        
+> > > > 
+> > > > FYI, I used folio_mark_dirty_lock() still it does not solve the issue with weston hang.      
+> > > 
+> > > The patch I pointed to has nothing to do with folio_mark_dirty_lock(),
+> > > It's a bug caused by huge page mapping changes.    
+> > 
+> > Scratch that. I had a bunch of other changes on top, and it hangs again
+> > now that I dropped those.  
+> 
+> Seems like it's the combination of huge pages and mkwrite that's
+> causing issues, if I disable huge pages, it doesn't hang...
 
-Remove the offsets allocation and just store an array of tail pages as it
-did before the below commit. Everything wants that anyhow.
+I managed to have it working with the following diff. I still need to
+check why the "map-RO-split+RW-on-demand" approach doesn't work (races
+between huge_fault and pfn_mkwrite?), but I think it's okay to map the
+real thing writable on the first attempt anyway (we're not trying to do
+CoW here, since we're always pointing to the same page, it's just the
+permissions that change). Note that there's still the race fixed by
+https://yhbt.net/lore/dri-devel/20260312155027.1682606-1-pedrodemargomes@gmail.com/
+in this diff, I just tried to keep the diffstat minimal.
 
-Fixes: 0c8b91ef5100 ("udmabuf: add back support for mapping hugetlb pages")
-Reported-by: Julian Orth <ju.orth@gmail.com>
-Closes: https://lore.kernel.org/all/20260308-scatterlist-v1-1-39c4566b0bba@gmail.com/
-Signed-off-by: Jason Gunthorpe <jgg@nvidia.com>
----
- drivers/dma-buf/udmabuf.c | 49 +++++++++++----------------------------
- 1 file changed, 13 insertions(+), 36 deletions(-)
-
-diff --git a/drivers/dma-buf/udmabuf.c b/drivers/dma-buf/udmabuf.c
-index 94b8ecb892bb17..5d687860445137 100644
---- a/drivers/dma-buf/udmabuf.c
-+++ b/drivers/dma-buf/udmabuf.c
-@@ -26,10 +26,10 @@ MODULE_PARM_DESC(size_limit_mb, "Max size of a dmabuf, in megabytes. Default is
+--->8---
+diff --git a/drivers/gpu/drm/drm_gem_shmem_helper.c b/drivers/gpu/drm/drm_gem_shmem_helper.c
+index 4500deef4127..4efdce5a60f0 100644
+--- a/drivers/gpu/drm/drm_gem_shmem_helper.c
++++ b/drivers/gpu/drm/drm_gem_shmem_helper.c
+@@ -561,9 +561,8 @@ static vm_fault_t drm_gem_shmem_try_insert_pfn_pmd(struct vm_fault *vmf, unsigne
+        bool aligned = (vmf->address & ~PMD_MASK) == (paddr & ~PMD_MASK);
  
- struct udmabuf {
- 	pgoff_t pagecount;
--	struct folio **folios;
-+	struct page **pages;
+        if (aligned && pmd_none(*vmf->pmd)) {
+-               /* Read-only mapping; split upon write fault */
+                pfn &= PMD_MASK >> PAGE_SHIFT;
+-               return vmf_insert_pfn_pmd(vmf, pfn, false);
++               return vmf_insert_pfn_pmd(vmf, pfn, vmf->flags & FAULT_FLAG_WRITE);
+        }
+ #endif
  
- 	/**
--	 * Unlike folios, pinned_folios is only used for unpin.
-+	 * Unlike pages, pinned_folios is only used for unpin.
- 	 * So, nr_pinned is not the same to pagecount, the pinned_folios
- 	 * only set each folio which already pinned when udmabuf_create.
- 	 * Note that, since a folio may be pinned multiple times, each folio
-@@ -41,7 +41,6 @@ struct udmabuf {
+@@ -597,8 +596,12 @@ static vm_fault_t drm_gem_shmem_fault(struct vm_fault *vmf)
  
- 	struct sg_table *sg;
- 	struct miscdevice *device;
--	pgoff_t *offsets;
- };
+        pfn = page_to_pfn(page);
  
- static vm_fault_t udmabuf_vm_fault(struct vm_fault *vmf)
-@@ -55,8 +54,7 @@ static vm_fault_t udmabuf_vm_fault(struct vm_fault *vmf)
- 	if (pgoff >= ubuf->pagecount)
- 		return VM_FAULT_SIGBUS;
+-       if (folio_test_pmd_mappable(folio))
++       if (folio_test_pmd_mappable(folio)) {
+                ret = drm_gem_shmem_try_insert_pfn_pmd(vmf, pfn);
++               if (ret == VM_FAULT_NOPAGE && vmf->flags & FAULT_FLAG_WRITE)
++                       folio_mark_dirty(folio);
++       }
++
+        if (ret != VM_FAULT_NOPAGE)
+                ret = vmf_insert_pfn(vma, vmf->address, pfn);
  
--	pfn = folio_pfn(ubuf->folios[pgoff]);
--	pfn += ubuf->offsets[pgoff] >> PAGE_SHIFT;
-+	pfn = page_to_pfn(ubuf->pages[pgoff]);
- 
- 	ret = vmf_insert_pfn(vma, vmf->address, pfn);
- 	if (ret & VM_FAULT_ERROR)
-@@ -73,8 +71,7 @@ static vm_fault_t udmabuf_vm_fault(struct vm_fault *vmf)
- 		if (WARN_ON(pgoff >= ubuf->pagecount))
- 			break;
- 
--		pfn = folio_pfn(ubuf->folios[pgoff]);
--		pfn += ubuf->offsets[pgoff] >> PAGE_SHIFT;
-+		pfn = page_to_pfn(ubuf->pages[pgoff]);
- 
- 		/**
- 		 * If the below vmf_insert_pfn() fails, we do not return an
-@@ -109,22 +106,11 @@ static int mmap_udmabuf(struct dma_buf *buf, struct vm_area_struct *vma)
- static int vmap_udmabuf(struct dma_buf *buf, struct iosys_map *map)
- {
- 	struct udmabuf *ubuf = buf->priv;
--	struct page **pages;
- 	void *vaddr;
--	pgoff_t pg;
- 
- 	dma_resv_assert_held(buf->resv);
- 
--	pages = kvmalloc_objs(*pages, ubuf->pagecount);
--	if (!pages)
--		return -ENOMEM;
--
--	for (pg = 0; pg < ubuf->pagecount; pg++)
--		pages[pg] = folio_page(ubuf->folios[pg],
--				       ubuf->offsets[pg] >> PAGE_SHIFT);
--
--	vaddr = vm_map_ram(pages, ubuf->pagecount, -1);
--	kvfree(pages);
-+	vaddr = vm_map_ram(ubuf->pages, ubuf->pagecount, -1);
- 	if (!vaddr)
- 		return -EINVAL;
- 
-@@ -146,22 +132,18 @@ static struct sg_table *get_sg_table(struct device *dev, struct dma_buf *buf,
- {
- 	struct udmabuf *ubuf = buf->priv;
- 	struct sg_table *sg;
--	struct scatterlist *sgl;
--	unsigned int i = 0;
- 	int ret;
- 
- 	sg = kzalloc_obj(*sg);
- 	if (!sg)
- 		return ERR_PTR(-ENOMEM);
- 
--	ret = sg_alloc_table(sg, ubuf->pagecount, GFP_KERNEL);
-+	ret = sg_alloc_table_from_pages(sg, ubuf->pages, ubuf->pagecount, 0,
-+					ubuf->pagecount << PAGE_SHIFT,
-+					GFP_KERNEL);
- 	if (ret < 0)
- 		goto err_alloc;
- 
--	for_each_sg(sg->sgl, sgl, ubuf->pagecount, i)
--		sg_set_folio(sgl, ubuf->folios[i], PAGE_SIZE,
--			     ubuf->offsets[i]);
--
- 	ret = dma_map_sgtable(dev, sg, direction, 0);
- 	if (ret < 0)
- 		goto err_map;
-@@ -207,12 +189,8 @@ static void unpin_all_folios(struct udmabuf *ubuf)
- 
- static __always_inline int init_udmabuf(struct udmabuf *ubuf, pgoff_t pgcnt)
- {
--	ubuf->folios = kvmalloc_objs(*ubuf->folios, pgcnt);
--	if (!ubuf->folios)
--		return -ENOMEM;
--
--	ubuf->offsets = kvzalloc_objs(*ubuf->offsets, pgcnt);
--	if (!ubuf->offsets)
-+	ubuf->pages = kvmalloc_objs(*ubuf->pages, pgcnt);
-+	if (!ubuf->pages)
- 		return -ENOMEM;
- 
- 	ubuf->pinned_folios = kvmalloc_objs(*ubuf->pinned_folios, pgcnt);
-@@ -225,8 +203,7 @@ static __always_inline int init_udmabuf(struct udmabuf *ubuf, pgoff_t pgcnt)
- static __always_inline void deinit_udmabuf(struct udmabuf *ubuf)
- {
- 	unpin_all_folios(ubuf);
--	kvfree(ubuf->offsets);
--	kvfree(ubuf->folios);
-+	kvfree(ubuf->pages);
- }
- 
- static void release_udmabuf(struct dma_buf *buf)
-@@ -344,8 +321,8 @@ static long udmabuf_pin_folios(struct udmabuf *ubuf, struct file *memfd,
- 		ubuf->pinned_folios[nr_pinned++] = folios[cur_folio];
- 
- 		for (; subpgoff < fsize; subpgoff += PAGE_SIZE) {
--			ubuf->folios[upgcnt] = folios[cur_folio];
--			ubuf->offsets[upgcnt] = subpgoff;
-+			ubuf->pages[upgcnt] = folio_page(folios[cur_folio],
-+						subpgoff >> PAGE_SHIFT);
- 			++upgcnt;
- 
- 			if (++cur_pgcnt >= pgcnt)
-
-base-commit: 1f318b96cc84d7c2ab792fcc0bfd42a7ca890681
--- 
-2.43.0
-
