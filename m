@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2AE20106FD65
-	for <dri-devel@archiver.kernel.org>; Fri, 13 Mar 2026 01:52:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6D83D106FD60
+	for <dri-devel@archiver.kernel.org>; Fri, 13 Mar 2026 01:52:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B062F10EAC6;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A906810EAD5;
 	Fri, 13 Mar 2026 01:52:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="CIqEpYec";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="RGAe2DTJ";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2CE8210E441;
- Fri, 13 Mar 2026 01:52:18 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 89D1810E042;
+ Fri, 13 Mar 2026 01:52:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1773366738; x=1804902738;
+ t=1773366737; x=1804902737;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=e7n6gmt/VJvrflZ91gaAWMC2i5y1tb7wbi/GVIv6ung=;
- b=CIqEpYecA5mCU0qVF8OeUIbSFUJ0ZksV8tmh8+wdkf142sCjgncWdY9f
- rt9Ol1HhzswwGvkUvrMGKw5qBljaEx4b973UUPMrw8P/ixD5Gt4YoP12O
- KVCUMSeAf2A4DhIX/arDQRdIGSM7A9pRKBkl3vRo9YvBiGg0DMz/9FqTI
- XW/NAiuSqGL4MSJhY48Zcg+BmrqzRkYIRES7fmP+MnkZAlXnNlAHINyRk
- 80RWk2H8WYipAdr0S5CSpiTtjUzHi4TLYDivEZdzZED6LRjalCwgtULxl
- OOyzl4J2p1Hou5qPVMCFewoKabXMvRCs8HaOTYS1z5EdLurGMK7ZjmDVE w==;
-X-CSE-ConnectionGUID: oM1gepHuTTKAxxVVEGkIIQ==
-X-CSE-MsgGUID: nVDdepDSSQqtSyLUD2h2dA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11727"; a="74354537"
-X-IronPort-AV: E=Sophos;i="6.23,117,1770624000"; d="scan'208";a="74354537"
+ bh=WONamGQbXptDRGDmdLHUEBW84LXUS7Uj3t8SsXitEYo=;
+ b=RGAe2DTJQvj62HIM4GHEjLVfr/IXDlAsI39PwBth653YaUuIAKTtnH3J
+ 113yRWSQs+zvT6Iam+K2DqZsE2ay4qt7vD5RrbpgLLbHZ9Z0iv3xjs1N+
+ VBUnZl2oHNkTTHzn8/cOYu/6n2qGrh4BWnWRhz3CNDTWUKMgO4T3gaU9q
+ PANoIVK+XAgpzCLw2e3ni9vP8/ir68wUzWJnkgTBmVQrdVxMOY1l8fpy8
+ 2ijiyi9xhI0ISHpuuuk1oYOnIR8lAnuOFhxyw1R2Mn1EGJc4JOG+rLxFv
+ wxwyqwWYXahHr/v+f2jjXp18iC4BmtL5culJm3IKwfY90AaR/QKaGJFKs g==;
+X-CSE-ConnectionGUID: uasM1j0GRs6HRRQiLeQ/2Q==
+X-CSE-MsgGUID: FGg1JXX5QM6IHxeZTcTwmA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11727"; a="74354541"
+X-IronPort-AV: E=Sophos;i="6.23,117,1770624000"; d="scan'208";a="74354541"
 Received: from orviesa006.jf.intel.com ([10.64.159.146])
  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  12 Mar 2026 18:52:12 -0700
-X-CSE-ConnectionGUID: Cmu18mG3Shqnlc3/ngs5kQ==
-X-CSE-MsgGUID: PwQ/aNEySxqS40T2mRYebw==
+X-CSE-ConnectionGUID: +mBq/iHqRgyT5YaHy+xSwg==
+X-CSE-MsgGUID: jgT7NQpETQavsNKbewDIiw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,117,1770624000"; d="scan'208";a="220108468"
+X-IronPort-AV: E=Sophos;i="6.23,117,1770624000"; d="scan'208";a="220108471"
 Received: from debox1-desk4.jf.intel.com ([10.88.27.138])
  by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  12 Mar 2026 18:52:12 -0700
@@ -49,9 +49,9 @@ To: thomas.hellstrom@linux.intel.com, rodrigo.vivi@intel.com,
 Cc: david.e.box@linux.intel.com, hansg@kernel.org,
  linux-kernel@vger.kernel.org, platform-driver-x86@vger.kernel.org,
  "Michael J . Ruhl" <michael.j.ruhl@intel.com>
-Subject: [PATCH 01/22] platform/x86/intel/vsec: Refactor base_addr handling
-Date: Thu, 12 Mar 2026 18:51:40 -0700
-Message-ID: <20260313015202.3660072-2-david.e.box@linux.intel.com>
+Subject: [PATCH 02/22] platform/x86/intel/vsec: Make driver_data info const
+Date: Thu, 12 Mar 2026 18:51:41 -0700
+Message-ID: <20260313015202.3660072-3-david.e.box@linux.intel.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260313015202.3660072-1-david.e.box@linux.intel.com>
 References: <20260313015202.3660072-1-david.e.box@linux.intel.com>
@@ -72,24 +72,20 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The base_addr field in intel_vsec_platform_info was originally added to
-support devices that emulate PCI VSEC capabilities in MMIO. Previously,
-the code would check at registration time whether base_addr was set,
-falling back to the PCI BAR if not.
+Treat PCI id->driver_data (intel_vsec_platform_info) as read-only by making
+vsec_priv->info a const pointer and updating all function signatures to
+accept const intel_vsec_platform_info *.
 
-Refactor this by making base_addr an explicit function parameter. This
-clarifies ownership of the value and removes conditional logic from
-intel_vsec_add_dev(). It also enables making intel_vsec_platform_info
-const in a later patch, since the function no longer needs to write to
-info->base_addr.
+This improves const-correctness and clarifies that the platform info data
+from the driver_data table is not meant to be modified at runtime.
 
-No functional change intended.
+No functional changes intended.
 
 Signed-off-by: David E. Box <david.e.box@linux.intel.com>
 Reviewed-by: Michael J. Ruhl <michael.j.ruhl@intel.com>
 ---
 
-Previous change log:
+Previous changelog:
   Changes in v7:
   - No change
 =20=20
@@ -106,108 +102,135 @@ Previous change log:
   - No change
 =20=20
   Changes in v2:
-  - Use pci_resource_start() macro instead of direct pdev->resource array
-    access (suggested by Ilpo)
+  - New patch
 
- drivers/platform/x86/intel/vsec.c | 23 ++++++++++-------------
- 1 file changed, 10 insertions(+), 13 deletions(-)
+ drivers/platform/x86/intel/vsec.c | 20 ++++++++++----------
+ include/linux/intel_vsec.h        |  4 ++--
+ 2 files changed, 12 insertions(+), 12 deletions(-)
 
 diff --git a/drivers/platform/x86/intel/vsec.c b/drivers/platform/x86/intel=
 /vsec.c
-index 5059d320edf8..46966edca03b 100644
+index 46966edca03b..e0096be605d9 100644
 --- a/drivers/platform/x86/intel/vsec.c
 +++ b/drivers/platform/x86/intel/vsec.c
-@@ -271,14 +271,13 @@ EXPORT_SYMBOL_NS_GPL(intel_vsec_add_aux, "INTEL_VSEC"=
-);
+@@ -42,7 +42,7 @@ enum vsec_device_state {
+ };
+=20
+ struct vsec_priv {
+-	struct intel_vsec_platform_info *info;
++	const struct intel_vsec_platform_info *info;
+ 	struct device *suppliers[VSEC_FEATURE_COUNT];
+ 	struct oobmsm_plat_info plat_info;
+ 	enum vsec_device_state state[VSEC_FEATURE_COUNT];
+@@ -270,7 +270,7 @@ int intel_vsec_add_aux(struct pci_dev *pdev, struct dev=
+ice *parent,
+ EXPORT_SYMBOL_NS_GPL(intel_vsec_add_aux, "INTEL_VSEC");
 =20
  static int intel_vsec_add_dev(struct pci_dev *pdev, struct intel_vsec_head=
 er *header,
- 			      struct intel_vsec_platform_info *info,
--			      unsigned long cap_id)
-+			      unsigned long cap_id, u64 base_addr)
+-			      struct intel_vsec_platform_info *info,
++			      const struct intel_vsec_platform_info *info,
+ 			      unsigned long cap_id, u64 base_addr)
  {
  	struct intel_vsec_device __free(kfree) *intel_vsec_dev =3D NULL;
- 	struct resource __free(kfree) *res =3D NULL;
- 	struct resource *tmp;
- 	struct device *parent;
- 	unsigned long quirks =3D info->quirks;
--	u64 base_addr;
- 	int i;
-=20
- 	if (info->parent)
-@@ -310,11 +309,6 @@ static int intel_vsec_add_dev(struct pci_dev *pdev, st=
-ruct intel_vsec_header *he
- 	if (quirks & VSEC_QUIRK_TABLE_SHIFT)
- 		header->offset >>=3D TABLE_OFFSET_SHIFT;
-=20
--	if (info->base_addr)
--		base_addr =3D info->base_addr;
--	else
--		base_addr =3D pdev->resource[header->tbir].start;
--
- 	/*
- 	 * The DVSEC/VSEC contains the starting offset and count for a block of
- 	 * discovery tables. Create a resource array of these tables to the
-@@ -412,7 +406,8 @@ static int get_cap_id(u32 header_id, unsigned long *cap=
+@@ -406,7 +406,7 @@ static int get_cap_id(u32 header_id, unsigned long *cap=
 _id)
 =20
  static int intel_vsec_register_device(struct pci_dev *pdev,
  				      struct intel_vsec_header *header,
--				      struct intel_vsec_platform_info *info)
-+				      struct intel_vsec_platform_info *info,
-+				      u64 base_addr)
+-				      struct intel_vsec_platform_info *info,
++				      const struct intel_vsec_platform_info *info,
+ 				      u64 base_addr)
  {
  	const struct vsec_feature_dependency *consumer_deps;
+@@ -452,7 +452,7 @@ static int intel_vsec_register_device(struct pci_dev *p=
+dev,
+ }
+=20
+ static bool intel_vsec_walk_header(struct pci_dev *pdev,
+-				   struct intel_vsec_platform_info *info)
++				   const struct intel_vsec_platform_info *info)
+ {
+ 	struct intel_vsec_header **header =3D info->headers;
+ 	bool have_devices =3D false;
+@@ -468,7 +468,7 @@ static bool intel_vsec_walk_header(struct pci_dev *pdev,
+ }
+=20
+ static bool intel_vsec_walk_dvsec(struct pci_dev *pdev,
+-				  struct intel_vsec_platform_info *info)
++				  const struct intel_vsec_platform_info *info)
+ {
+ 	bool have_devices =3D false;
+ 	int pos =3D 0;
+@@ -519,7 +519,7 @@ static bool intel_vsec_walk_dvsec(struct pci_dev *pdev,
+ }
+=20
+ static bool intel_vsec_walk_vsec(struct pci_dev *pdev,
+-				 struct intel_vsec_platform_info *info)
++				 const struct intel_vsec_platform_info *info)
+ {
+ 	bool have_devices =3D false;
+ 	int pos =3D 0;
+@@ -565,7 +565,7 @@ static bool intel_vsec_walk_vsec(struct pci_dev *pdev,
+ }
+=20
+ int intel_vsec_register(struct pci_dev *pdev,
+-			 struct intel_vsec_platform_info *info)
++			const struct intel_vsec_platform_info *info)
+ {
+ 	if (!pdev || !info || !info->headers)
+ 		return -EINVAL;
+@@ -578,7 +578,7 @@ int intel_vsec_register(struct pci_dev *pdev,
+ EXPORT_SYMBOL_NS_GPL(intel_vsec_register, "INTEL_VSEC");
+=20
+ static bool intel_vsec_get_features(struct pci_dev *pdev,
+-				    struct intel_vsec_platform_info *info)
++				    const struct intel_vsec_platform_info *info)
+ {
+ 	bool found =3D false;
+=20
+@@ -622,7 +622,7 @@ static void intel_vsec_skip_missing_dependencies(struct=
+ pci_dev *pdev)
+=20
+ static int intel_vsec_pci_probe(struct pci_dev *pdev, const struct pci_dev=
+ice_id *id)
+ {
+-	struct intel_vsec_platform_info *info;
++	const struct intel_vsec_platform_info *info;
  	struct vsec_priv *priv;
-@@ -428,7 +423,7 @@ static int intel_vsec_register_device(struct pci_dev *p=
-dev,
- 	 * For others using the exported APIs, add the device directly.
- 	 */
- 	if (!pci_match_id(intel_vsec_pci_ids, pdev))
--		return intel_vsec_add_dev(pdev, header, info, cap_id);
-+		return intel_vsec_add_dev(pdev, header, info, cap_id, base_addr);
+ 	int num_caps, ret;
+ 	int run_once =3D 0;
+@@ -633,7 +633,7 @@ static int intel_vsec_pci_probe(struct pci_dev *pdev, c=
+onst struct pci_device_id
+ 		return ret;
 =20
- 	priv =3D pci_get_drvdata(pdev);
- 	if (priv->state[cap_id] =3D=3D STATE_REGISTERED ||
-@@ -444,7 +439,7 @@ static int intel_vsec_register_device(struct pci_dev *p=
-dev,
+ 	pci_save_state(pdev);
+-	info =3D (struct intel_vsec_platform_info *)id->driver_data;
++	info =3D (const struct intel_vsec_platform_info *)id->driver_data;
+ 	if (!info)
+ 		return -EINVAL;
 =20
- 	consumer_deps =3D get_consumer_dependencies(priv, cap_id);
- 	if (!consumer_deps || suppliers_ready(priv, consumer_deps, cap_id)) {
--		ret =3D intel_vsec_add_dev(pdev, header, info, cap_id);
-+		ret =3D intel_vsec_add_dev(pdev, header, info, cap_id, base_addr);
- 		if (ret)
- 			priv->state[cap_id] =3D STATE_SKIP;
- 		else
-@@ -464,7 +459,7 @@ static bool intel_vsec_walk_header(struct pci_dev *pdev,
- 	int ret;
+diff --git a/include/linux/intel_vsec.h b/include/linux/intel_vsec.h
+index 1a0f357c2427..d551174b0049 100644
+--- a/include/linux/intel_vsec.h
++++ b/include/linux/intel_vsec.h
+@@ -200,13 +200,13 @@ static inline struct intel_vsec_device *auxdev_to_ivd=
+ev(struct auxiliary_device
 =20
- 	for ( ; *header; header++) {
--		ret =3D intel_vsec_register_device(pdev, *header, info);
-+		ret =3D intel_vsec_register_device(pdev, *header, info, info->base_addr);
- 		if (!ret)
- 			have_devices =3D true;
- 	}
-@@ -512,7 +507,8 @@ static bool intel_vsec_walk_dvsec(struct pci_dev *pdev,
- 		pci_read_config_dword(pdev, pos + PCI_DVSEC_HEADER2, &hdr);
- 		header.id =3D PCI_DVSEC_HEADER2_ID(hdr);
-=20
--		ret =3D intel_vsec_register_device(pdev, &header, info);
-+		ret =3D intel_vsec_register_device(pdev, &header, info,
-+						 pci_resource_start(pdev, header.tbir));
- 		if (ret)
- 			continue;
-=20
-@@ -557,7 +553,8 @@ static bool intel_vsec_walk_vsec(struct pci_dev *pdev,
- 		header.tbir =3D INTEL_DVSEC_TABLE_BAR(table);
- 		header.offset =3D INTEL_DVSEC_TABLE_OFFSET(table);
-=20
--		ret =3D intel_vsec_register_device(pdev, &header, info);
-+		ret =3D intel_vsec_register_device(pdev, &header, info,
-+						 pci_resource_start(pdev, header.tbir));
- 		if (ret)
- 			continue;
-=20
+ #if IS_ENABLED(CONFIG_INTEL_VSEC)
+ int intel_vsec_register(struct pci_dev *pdev,
+-			 struct intel_vsec_platform_info *info);
++			const struct intel_vsec_platform_info *info);
+ int intel_vsec_set_mapping(struct oobmsm_plat_info *plat_info,
+ 			   struct intel_vsec_device *vsec_dev);
+ struct oobmsm_plat_info *intel_vsec_get_mapping(struct pci_dev *pdev);
+ #else
+ static inline int intel_vsec_register(struct pci_dev *pdev,
+-				       struct intel_vsec_platform_info *info)
++				      const struct intel_vsec_platform_info *info)
+ {
+ 	return -ENODEV;
+ }
 --=20
 2.43.0
 
