@@ -4,68 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CCAC2105F787
-	for <dri-devel@archiver.kernel.org>; Fri, 13 Mar 2026 09:52:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D1283105F787
+	for <dri-devel@archiver.kernel.org>; Fri, 13 Mar 2026 09:57:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3D03E10E04D;
-	Fri, 13 Mar 2026 09:52:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 28E7D10E0E9;
+	Fri, 13 Mar 2026 09:57:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="CwddWdhI";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="a/UtCAsU";
 	dkim-atps=neutral
-Received: from mail-wm1-f74.google.com (mail-wm1-f74.google.com
- [209.85.128.74])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3469B10E04D
- for <dri-devel@lists.freedesktop.org>; Fri, 13 Mar 2026 09:52:19 +0000 (UTC)
-Received: by mail-wm1-f74.google.com with SMTP id
- 5b1f17b1804b1-4853b5b0fafso25037535e9.3
- for <dri-devel@lists.freedesktop.org>; Fri, 13 Mar 2026 02:52:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20251104; t=1773395538; x=1774000338;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:cc:to:from:subject:message-id:references
- :mime-version:in-reply-to:date:from:to:cc:subject:date:message-id
- :reply-to; bh=V70IkhLpQ/taGR6pCrJdxC5WDW/RC4Bx2WhEUbll+RY=;
- b=CwddWdhI8kXIUg5V5thWgwGxuP19GKILO95CkEHZwbKPqKVk7XC9S3Cwv7cl3AVjhR
- 2IDnWBkgBG+4TjGbEaVHeFG/gtduOmUgYNVycNQhdg34fV0C3kz7VbtTugi0KJa3Bcq/
- 6uN1FApt7IIX0TC0RTNtdlevk3XBzBq6XC1w9BkXebNPZoqI8/tatlYYnLUMe2jn3Nqw
- ANKCf/r8+pODYEgnVPopSlVaZrlpEHgdbE5yjOeAR4j+D+HeJwZEyGuQun/AWWfMyN00
- EmXylncXiy5SAyMKZ8BxUouxzaZt/7A5vepUoOOHpVBAvVBMvcX/poLcib//4gftxoAN
- 7v7Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1773395538; x=1774000338;
- h=content-transfer-encoding:cc:to:from:subject:message-id:references
- :mime-version:in-reply-to:date:x-gm-message-state:from:to:cc:subject
- :date:message-id:reply-to;
- bh=V70IkhLpQ/taGR6pCrJdxC5WDW/RC4Bx2WhEUbll+RY=;
- b=FOPY8HGbQ1H30bAZK63M3Cw24tbc5cH6ItIUUwGz+BnhiIeM4VhgU4ZjW8e5vxEjUq
- uP9ujVE5DgJZlq18Nor2ft3fHZlBYDVRbER7JsTUJAra20eWEqndK3gIurA0FXinxhG3
- MYeVhmSoWTDKwhg5CQLwQFuGPyZpQHPy4aeWiY+0CpdMkHaTow8xblNioNR/j0eIS0lz
- 5G2bKaIOvt6zzCTp/QHlvuqVu67+7CE2u6/NZaQfTvKyjltzUo77i1VLYmwJ87HHyD+l
- EBUWovptmZdvdjuE2WR8VhVW8QlPijTRvL9tLtcGUJV24QMCq65ck3Tjrb33H5+Ct1hA
- B7zQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXnZFOErlLo9MV4kso0X4uGa6wNtD9Pl5ZjF/mjN0j9pbB362MA8fj60s9akONAaXXcBPa+h89wzmA=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxFI1BF7+48fq/aUcYnYc+vbxhdKULirzlQ/jci7HEq7CCD2EkU
- pXi4zAB+0/vXq9LIo7FP198Q1XrcGVI7OmzjoQLrdolbu43ZsCt6myOuPALi5HKUER/pJxoHOdp
- ReT9CLJEy9C10eTazhQ==
-X-Received: from wmlv5.prod.google.com ([2002:a05:600c:2145:b0:485:4ce0:d98f])
- (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:600c:524f:b0:483:47ae:7c00 with SMTP id
- 5b1f17b1804b1-4855670281emr40166955e9.20.1773395537565; 
- Fri, 13 Mar 2026 02:52:17 -0700 (PDT)
-Date: Fri, 13 Mar 2026 09:52:16 +0000
-In-Reply-To: <20260313091646.16938-1-work@onurozkan.dev>
-Mime-Version: 1.0
-References: <20260313091646.16938-1-work@onurozkan.dev>
-Message-ID: <abPeUBWpTB3mQRQs@google.com>
-Subject: Re: [PATCH v1 RESEND 0/4] drm/tyr: implement GPU reset API
-From: Alice Ryhl <aliceryhl@google.com>
-To: "Onur =?utf-8?B?w5Z6a2Fu?=" <work@onurozkan.dev>
-Cc: linux-kernel@vger.kernel.org, dakr@kernel.org, 
- daniel.almeida@collabora.com, airlied@gmail.com, simona@ffwll.ch, 
- dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0CAC610EB88
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Mar 2026 09:57:07 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id B28BE429C1;
+ Fri, 13 Mar 2026 09:57:07 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 433F0C2BC86;
+ Fri, 13 Mar 2026 09:57:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1773395827;
+ bh=oRkOP7dzdb8gYLs9PmrI7X6Kwn8xFQTWyx/CBJ+1Mts=;
+ h=From:To:Cc:Subject:Date:From;
+ b=a/UtCAsUe9b430je15Jr+au3UEJ72Cop5WiAiZio+MqqfAqVeq3R4RVCsY7I9H+B8
+ eG8lTi5vtAwOFG8JbYKoyl1YvJEaxg2nQrHwIA+EjVU/UnRLqxs7tSnL84WbNnETv3
+ dj/oFxzaUOJP0/BiK/W+IgT8Z8+7DpnOvnYfIEOXz7687FfIIRHrgcjNB6LL4rWXYL
+ Ksl7hHCAmIjUg3wDhoyy1oPTpwbs+x0WLxvULKZUISYxEvs8f+7arJgQUp328wAKS9
+ WTOapWD8tnWT2Nb25UrVTsvYk79AaAVKovApkOR68bgSc0xJr249t7nLXefm1DX2cB
+ JYM53cK3CLoQg==
+From: Arnd Bergmann <arnd@kernel.org>
+To: Mark Brown <broonie@kernel.org>
+Cc: Arnd Bergmann <arnd@arndb.de>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [PATCH] [linux-next mismerge] drm/fbdev-emulation: restore
+ drm_fb_helper_gem_is_fb() dummy
+Date: Fri, 13 Mar 2026 10:56:33 +0100
+Message-Id: <20260313095657.4115599-1-arnd@kernel.org>
+X-Mailer: git-send-email 2.39.5
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,37 +61,51 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, Mar 13, 2026 at 12:16:40PM +0300, Onur =C3=96zkan wrote:
-> This series adds GPU reset handling support for Tyr in a new module
-> drivers/gpu/drm/tyr/driver.rs which encapsulates the low-level reset
-> controller internals and exposes a ResetHandle API to the driver.
->=20
-> The reset module owns reset state, queueing and execution ordering
-> through OrderedQueue and handles duplicate/concurrent reset requests
-> with a pending flag.
->=20
-> Apart from the reset module, the first 3 patches:
->=20
-> - Fixes a potential reset-complete stale state bug by clearing completed
->   state before doing soft reset.
-> - Adds Work::disable_sync() (wrapper of bindings::disable_work_sync).
-> - Adds OrderedQueue support.
->=20
-> Runtime tested on hardware by Deborah Brouwer (see [1]) and myself.
->=20
-> [1]: https://gitlab.freedesktop.org/panfrost/linux/-/merge_requests/63#no=
-te_3364131
->=20
-> Link: https://gitlab.freedesktop.org/panfrost/linux/-/issues/28
-> ---
->=20
-> Onur =C3=96zkan (4):
->   drm/tyr: clear reset IRQ before soft reset
->   rust: add Work::disable_sync
->   rust: add ordered workqueue wrapper
+From: Arnd Bergmann <arnd@arndb.de>
 
-I actually added ordered workqueue support here:
-https://lore.kernel.org/all/20260312-create-workqueue-v4-0-ea39c351c38f@goo=
-gle.com/
+linux-next contains an incorrect merge of the drm tree and the amdgpu tree,
+which have conflicting patches from Thomas Zimmermann:
 
-Alice
+drivers/gpu/drm/amd/amdgpu/amdgpu_display.c: In function 'amdgpu_display_suspend_helper':
+drivers/gpu/drm/amd/amdgpu/amdgpu_display.c:1777:22: error: implicit declaration of function 'drm_fb_helper_gem_is_fb'; did you mean 'drm_fb_helper_from_client'? [-Wimplicit-function-declaration]
+ 1777 |                 if (!drm_fb_helper_gem_is_fb(dev->fb_helper, fb->obj[0])) {
+
+drivers/gpu/drm/radeon/radeon_device.c: In function 'radeon_suspend_kms':
+drivers/gpu/drm/radeon/radeon_device.c:1592:22: error: implicit declaration of function 'drm_fb_helper_gem_is_fb'; did you mean 'drm_fb_helper_from_client'? [-Wimplicit-function-declaration]
+ 1592 |                 if (!drm_fb_helper_gem_is_fb(dev->fb_helper, fb->obj[0])) {
+      |                      ^~~~~~~~~~~~~~~~~~~~~~~
+      |                      drm_fb_helper_from_client
+
+The newly added drm_fb_helper_from_client() stub is in fact needed, while all
+the other stubs are correctly removed.
+
+Fixes: 6d438685340d ("drm/fbdev-emulation: Remove empty placeholders")
+Fixes: 1837c76b780a ("drm/amdgpu: Move test for fbdev GEM object into generic helper")
+Fixes: 9c63d743d5cc ("Merge branch 'drm-next' of https://gitlab.freedesktop.org/agd5f/linux.git")
+Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+---
+ include/drm/drm_fb_helper.h | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/include/drm/drm_fb_helper.h b/include/drm/drm_fb_helper.h
+index bf391903443d..80c81fdb04a2 100644
+--- a/include/drm/drm_fb_helper.h
++++ b/include/drm/drm_fb_helper.h
+@@ -273,6 +273,14 @@ int drm_fb_helper_hotplug_event(struct drm_fb_helper *fb_helper);
+ int drm_fb_helper_initial_config(struct drm_fb_helper *fb_helper);
+ bool drm_fb_helper_gem_is_fb(const struct drm_fb_helper *fb_helper,
+ 			     const struct drm_gem_object *obj);
++#else
++static inline bool
++drm_fb_helper_gem_is_fb(const struct drm_fb_helper *fb_helper,
++			const struct drm_gem_object *obj)
++{
++	return false;
++}
++
+ #endif
+ 
+ #endif
+-- 
+2.39.5
+
