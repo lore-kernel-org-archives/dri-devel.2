@@ -4,93 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 827A3105F7AE
-	for <dri-devel@archiver.kernel.org>; Fri, 13 Mar 2026 14:04:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B4612105F7AE
+	for <dri-devel@archiver.kernel.org>; Fri, 13 Mar 2026 14:11:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CC10F10EC38;
-	Fri, 13 Mar 2026 14:04:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2330C10E120;
+	Fri, 13 Mar 2026 14:11:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="cw2W3XLQ";
+	dkim=pass (2048-bit key; unprotected) header.d=ursulin.net header.i=@ursulin.net header.b="krCYkfF/";
 	dkim-atps=neutral
-Received: from mail-dl1-f54.google.com (mail-dl1-f54.google.com [74.125.82.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2EBD710E153
- for <dri-devel@lists.freedesktop.org>; Fri, 13 Mar 2026 14:04:51 +0000 (UTC)
-Received: by mail-dl1-f54.google.com with SMTP id
- a92af1059eb24-128eb45835cso54603c88.1
- for <dri-devel@lists.freedesktop.org>; Fri, 13 Mar 2026 07:04:51 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1773410690; cv=none;
- d=google.com; s=arc-20240605;
- b=PYiXvi/R1a4psLs4pomdXj4z6hoCtcDEo73PLZby2kkm1uggs2fWnftUgHlcemaeP1
- jtncFV+4ZzfPvdbwBdinsx2xJuEPwMkciLI4vcgvCAUFVjBNmTtNBRaPVZDinQAs25wZ
- PFPQ55SfqE8wvlMxnPYPZJ30NtEpQYKisEFBSDpWtp8vSZl6EIRkj9aAyaqhuYB+Fhmt
- GmoYzbZzmDPI9vud9wPgQ4CcaDEma1Ps4nSft5r4uBVtoRrNIyJxJYDXJbFHxsy7tPvc
- CF4TxEu/obbn8Aluig7BWzA+14IjkMWGAt07QAXloNLlh5bBahDk2ZI5TTqHO7mgK5I+
- Bx5w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=5E88w3jX+YSLLylZTFGH+to3tZ27lkENQ9LYovk5WCw=;
- fh=4qhlJdTwEnbLCOBWhg/URjj8CfjNQ3GXwOKg3jbnbZI=;
- b=Ic7M3u7jt9jFmulx5GfdgdUh3AowPBGmDZueh3waVV1ryf3x06/c/TfCcxjNDONwmb
- SQitkLWEht4F0c3WgpPe2UVrkxeVywuUxcjlk2ZgMLYjD57c1v42cXNOXeYfu9dwzQp8
- w2pKP21IAoCGclNy1+dO2ibbAbm+g89HbieiEuKoHLErOUIGuevplYWiADd9ehOwNQqg
- yhYYtndFUZpdUBoDKVsOj9VxCeIboTMUl/STGZ0kXAeYiY9fgTO0VLku1XSfZ0WjJf0k
- NiyRWwSxTV/Cqn222v3nkgQuxO4RptdqFnAlmmDBKjZvPjvT7QWjq36lrLOROlcCLJY6
- h4xw==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com
+ [209.85.128.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A706510E120
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Mar 2026 14:11:33 +0000 (UTC)
+Received: by mail-wm1-f48.google.com with SMTP id
+ 5b1f17b1804b1-4838c15e3cbso20193065e9.3
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Mar 2026 07:11:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1773410690; x=1774015490; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=5E88w3jX+YSLLylZTFGH+to3tZ27lkENQ9LYovk5WCw=;
- b=cw2W3XLQocKGWFmvdO3nn2yKb+60GiM6NiskuCbCYqm1HJb1yR7f4BeiJwU714iwHW
- ex/82wipCBzJI85H9tZm9q8JJynHw1i3J/mgXksX6jn04I5b4WDYoFgDPmGkpvRVkoD/
- JD1BT6iU3mzJ7DHQtyydC/3lXM6eKSpnV0vFs2wrf+7lZTQxoQope/13tiJBIF5iUvwv
- fvWAheonQdvcWzPSMgd370fG4IO9SR0r/zy6K68YrN/I7u2vi6XJsyBCsbuXlwSRamG7
- biRDbsHfxeDBwcHnIWI3A17Pm0/j9Xq1DQ/4riJNt+HH6Es07VbZX/JLMtiFFDkQiOB5
- jk/Q==
+ d=ursulin.net; s=google; t=1773411092; x=1774015892; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=LafAaegGRU7i9rzjjUW1sBiK+ZDukEKzI9QIgeF8Beg=;
+ b=krCYkfF/NwH8BN1ylARstu55OZfxucTKreW0efPHpJi+1dlSADO6WUWVctqBh1YtxY
+ y+tVfzyO6EoxpnggW7kSRNXQR1O1yJ5yvXa4A/IhWYzWOi7+T9j3zkUeQeLhiasEpcuQ
+ I+DrQL6jjyQp/d3BuHt5lu50PRMyfbt8VFwJRMENs948UqWOaWPfMeRMteKULCoEvue1
+ J+t+R0To5Si1gmgJwlbOXodz6Gzx496K5JXG3mrpLSg0Xu4adhYj9Dz4r6BEZkVH0446
+ zmOG6ZRupMMZdDHh/2I9vSJNoyuRNqlpo21LN17wj6i0WMvVg/JQwceJ6ntOSSiTHdn5
+ Ir3g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1773410690; x=1774015490;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=5E88w3jX+YSLLylZTFGH+to3tZ27lkENQ9LYovk5WCw=;
- b=Mi3f7QAlHlQpfxB7d3jCY9/PwafWhx5fDjHntiX36BUkWDDfd6Xgqj7qD1CH+KLiol
- 3diPppb608S6Us+6sL7TY1yuCD+Tb6eAIvKGf9fEdkqkUTWl+4ME9P+Wjjstjtfnp/yT
- NGqqyS5VMYmjGnn3KVJ+0FY6aWcMPt4FrPOdOLdr6ZXG83pgTG4zMHkee26pkiRKGNyl
- Nt8G5/WGKYlXAjtepEbXaDVCPObp4ZJzUSKFB4e5kZKihI11Aj77bnDq/bJA1U7C/GSy
- +cy+Qr0A0oIAFOR1BAwM3s5zAf6LrJv0Kv/rQU0G15Bts9a10xs+Ur3YIcPYHEclXMLc
- ubxA==
+ d=1e100.net; s=20251104; t=1773411092; x=1774015892;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=LafAaegGRU7i9rzjjUW1sBiK+ZDukEKzI9QIgeF8Beg=;
+ b=qEVPGROtqOcjLxk3RMOLShHAjXyCF+H4M1YhzA+xF9wA9KEOR6Lm8kx+IpJCA2nOm2
+ x1Hx5CNWCNise9fWSv71UwP3JznTD8jdNQu/bjFYK93G9hU6yirBKvPzeJCWokxB+X4R
+ tIcmjmx1eMvSqa08WBj4HiFRbFYCx+MpcdEXNwC8ZZLruaEHd9jHNDO2K5M4FLzycIbj
+ K5z3/0DFUUT0wd66zXBYve+oeaRrK9yIsmD5AvsUOx/8cPFKOSF32P0a/Xo21G7H2y5d
+ 8XiW5cJDyzrvDzBRA2GcnRdD14jtblv0RsoZDigHXqjI+ONauRZGysW7BNnM9no/meve
+ +CVg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCV+KJjN/v+k+BtAGYhdez1oYqIoJPTi059W89mNxH+WWbb+/8b74Rrz2ToWRXooVbsZwGJENRJHtek=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwtSJRXOJgewKP3uKnPQMWajUWsep80Hyp8hGPxy/DNkeeWSvQ4
- UrI+IWjbhtixp/CNjbn4aYIi278nsw0n9WdJ/ta8x+SMneUCqgfOAStHPBZoHDqBS7C0CXDkq0t
- c/UBEyNRkbAYup+8pOJalE+meJeYSHUI=
-X-Gm-Gg: ATEYQzyUax4bC31fU/b3jaWUWamWJBf2hWrLXwQvJh1zA3+kRJgv/BMT8+lO+M2i6tI
- y3oR0fw8yHWmWI9fo48bcsKVRAmPKzx/u1xAtHM4xUGxrAE7O1yVQQyx/BoXogvGO+w+ArfLlEA
- 1slKjUkLHu5o92fgR9J3I3B1AzrQnTOTZjznRG4qjUUBye+4i3ouxrHHYOCDPR1OSfjbKnCinTX
- RHXJ3JL6f69Vgsq6HY6drM91YZhVHdRbdKfWnsW8twx8dUJ1fm9JQZtObQqCqW6aC0v3b7iErRz
- 9l36qWHfqLGDzbtGnduierxwIODPnfAb+iLFAIH8rpPPgL+5n+B+pmAL7SWsvcuy952l7A==
-X-Received: by 2002:a05:7022:418a:b0:123:2d38:929b with SMTP id
- a92af1059eb24-128f3e33d01mr793389c88.6.1773410690364; Fri, 13 Mar 2026
- 07:04:50 -0700 (PDT)
+ AJvYcCX6C26bK+BjRAuMczvX3hLz9cO8Zew9CPTvx948uZvtYfwVQejXyySEIWgOxpQ4ZFc8KBqDmdqybWM=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxLfmaqUOAUF/C86FM3o+9W41nAliCEFBPeBUOHHG/nlLy8xMKe
+ y0cfgLgVHspoz94ua2cBcTeOTZRqwrSAXg9ymeIkBBaRWIAiUZw9O3uwFLeZdAIr+1uVL/jW+Ut
+ yCb5ArYY=
+X-Gm-Gg: ATEYQzyv26psCrAlMY8YR0GwGB1GVvWP5UOTZK+0wns00eGyGd0yUDgOuH3CcI0uL5g
+ kZndQwhyd9+2ofPM6sSoj1NYg7g/psmvwodWmCpnW6bZfZoh/tAVFgX1pSkExdpmSix0mWdlaH4
+ nlS1A7Da+9uedoXAHsup8C0LmZJ8e0DzSuHz41i196rkVtOstIa0fbRvPikLuDdXTrsMXkDWnIb
+ 38nkShlwMty0JbAgnK+JYsQ7R2OKAIJ7Vgkjv+EpCnSpO9vbi51ZGsncBXY6wMdEDjB9+VUqEZ/
+ EPx2WloTOY4LbDNiiuV9OHEqIAQphlS+m4wC32w0rOdvPDgpsjA4OkSswZS4uJFBx61S7Px22Dp
+ YaCgvxXQQVZC5/Vj+C+uX093dU8krgzqB2HkycJYaK9BSHtJAWPU67lt71l0NFLuz42oiqRLOx9
+ W1rG2XisJk8z5/ThMXPvDBqpXvoQ2P8fl1MJSKGIUwfYag
+X-Received: by 2002:a05:600c:5247:b0:485:3c8f:e4c5 with SMTP id
+ 5b1f17b1804b1-485566fcaaemr55645355e9.17.1773411091876; 
+ Fri, 13 Mar 2026 07:11:31 -0700 (PDT)
+Received: from [192.168.0.101] ([90.240.106.137])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-48557a732cesm21788415e9.12.2026.03.13.07.11.30
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 13 Mar 2026 07:11:31 -0700 (PDT)
+Message-ID: <cf522bc4-09ef-4e19-afc4-2c8a9d8a1abc@ursulin.net>
+Date: Fri, 13 Mar 2026 14:11:30 +0000
 MIME-Version: 1.0
-References: <20260313015226.39727-1-davidbaum461@gmail.com>
-In-Reply-To: <20260313015226.39727-1-davidbaum461@gmail.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 13 Mar 2026 10:04:38 -0400
-X-Gm-Features: AaiRm50d_WEY5sRN59yLf89uD38vQ-LQP7kESvNrj1X-FqVXwJ8QeTLcGXASPgE
-Message-ID: <CADnq5_O=Ycrhk1uXO2EfPimZ8EP=nVX4sJ4BUkaB8e0Hwp3_eg@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: switch XGMI sysfs show helpers to
- sysfs_emit_at()
-To: David Baum <davidbaum461@gmail.com>
-Cc: alex.deucher@amd.com, christian.koenig@amd.com, lijo.lazar@amd.com, 
- airlied@gmail.com, simona@ffwll.ch, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 6/6] drm/ttm: Use common ancestor of evictor and
+ evictee as limit pool
+To: Natalie Vock <natalie.vock@gmx.de>, Maarten Lankhorst <dev@lankhorst.se>, 
+ Maxime Ripard <mripard@kernel.org>, Tejun Heo <tj@kernel.org>,
+ Johannes Weiner <hannes@cmpxchg.org>, =?UTF-8?Q?Michal_Koutn=C3=BD?=
+ <mkoutny@suse.com>, Christian Koenig <christian.koenig@amd.com>,
+ Huang Rui <ray.huang@amd.com>, Matthew Auld <matthew.auld@intel.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+Cc: cgroups@vger.kernel.org, dri-devel@lists.freedesktop.org
+References: <20260313-dmemcg-aggressive-protect-v6-0-7c71cc1492db@gmx.de>
+ <20260313-dmemcg-aggressive-protect-v6-6-7c71cc1492db@gmx.de>
+Content-Language: en-GB
+From: Tvrtko Ursulin <tursulin@ursulin.net>
+In-Reply-To: <20260313-dmemcg-aggressive-protect-v6-6-7c71cc1492db@gmx.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,72 +102,101 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Applied.  Thanks!
 
-Alex
-
-On Fri, Mar 13, 2026 at 4:55=E2=80=AFAM David Baum <davidbaum461@gmail.com>=
- wrote:
->
-> The XGMI sysfs show helpers amdgpu_xgmi_show_num_hops() and
-> amdgpu_xgmi_show_num_links() currently populate the output buffer with
-> sprintf() and then call sysfs_emit(buf, "%s\n", buf) to append the final
-> newline.
->
-> Convert both helpers to use sysfs_emit_at() while tracking the current
-> offset. This keeps buffer construction in the sysfs helpers, avoids
-> feeding the output buffer back into the final formatted write, and
-> matches the style already used by
-> amdgpu_xgmi_show_connected_port_num().
->
-> Signed-off-by: David Baum <davidbaum461@gmail.com>
+On 13/03/2026 11:40, Natalie Vock wrote:
+> When checking whether to skip certain buffers because they're protected
+> by dmem.low, we're checking the effective protection of the evictee's
+> cgroup, but depending on how the evictor's cgroup relates to the
+> evictee's, the semantics of effective protection values change.
+> 
+> When testing against cgroups from different subtrees, page_counter's
+> recursive protection propagates memory protection afforded to a parent
+> down to the child cgroups, even if the children were not explicitly
+> protected. This prevents cgroups whose parents were afforded no
+> protection from stealing memory from cgroups whose parents were afforded
+> more protection, without users having to explicitly propagate this
+> protection.
+> 
+> However, if we always calculate protection from the root cgroup, this
+> breaks prioritization of sibling cgroups: If one cgroup was explicitly
+> protected and its siblings were not, the protected cgroup should get
+> higher priority, i.e. the protected cgroup should be able to steal from
+> unprotected siblings. This only works if we restrict the protection
+> calculation to the subtree shared by evictor and evictee.
+> 
+> Signed-off-by: Natalie Vock <natalie.vock@gmx.de>
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c | 12 ++++++------
->  1 file changed, 6 insertions(+), 6 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_xgmi.c
-> index 11e56df1d91b..13fc7247fe23 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
-> @@ -469,12 +469,12 @@ static ssize_t amdgpu_xgmi_show_num_hops(struct dev=
-ice *dev,
->         struct drm_device *ddev =3D dev_get_drvdata(dev);
->         struct amdgpu_device *adev =3D drm_to_adev(ddev);
->         struct psp_xgmi_topology_info *top =3D &adev->psp.xgmi_context.to=
-p_info;
-> -       int i;
-> +       int i, offset =3D 0;
->
->         for (i =3D 0; i < top->num_nodes; i++)
-> -               sprintf(buf + 3 * i, "%02x ", top->nodes[i].num_hops);
-> +               offset +=3D sysfs_emit_at(buf, offset, "%02x ", top->node=
-s[i].num_hops);
->
-> -       return sysfs_emit(buf, "%s\n", buf);
-> +       return offset + sysfs_emit_at(buf, offset, "\n");
->  }
->
->  static ssize_t amdgpu_xgmi_show_num_links(struct device *dev,
-> @@ -484,12 +484,12 @@ static ssize_t amdgpu_xgmi_show_num_links(struct de=
-vice *dev,
->         struct drm_device *ddev =3D dev_get_drvdata(dev);
->         struct amdgpu_device *adev =3D drm_to_adev(ddev);
->         struct psp_xgmi_topology_info *top =3D &adev->psp.xgmi_context.to=
-p_info;
-> -       int i;
-> +       int i, offset =3D 0;
->
->         for (i =3D 0; i < top->num_nodes; i++)
-> -               sprintf(buf + 3 * i, "%02x ", top->nodes[i].num_links);
-> +               offset +=3D sysfs_emit_at(buf, offset, "%02x ", top->node=
-s[i].num_links);
->
-> -       return sysfs_emit(buf, "%s\n", buf);
-> +       return offset + sysfs_emit_at(buf, offset, "\n");
->  }
->
->  static ssize_t amdgpu_xgmi_show_connected_port_num(struct device *dev,
-> --
-> 2.50.1 (Apple Git-155)
->
+>   drivers/gpu/drm/ttm/ttm_bo.c | 43 ++++++++++++++++++++++++++++++++++++++++---
+>   1 file changed, 40 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/ttm/ttm_bo.c b/drivers/gpu/drm/ttm/ttm_bo.c
+> index 7300b91b77dd3..df4f4633a3a53 100644
+> --- a/drivers/gpu/drm/ttm/ttm_bo.c
+> +++ b/drivers/gpu/drm/ttm/ttm_bo.c
+> @@ -628,11 +628,48 @@ static s64 ttm_bo_evict_cb(struct ttm_lru_walk *walk, struct ttm_buffer_object *
+>   {
+>   	struct ttm_bo_evict_walk *evict_walk =
+>   		container_of(walk, typeof(*evict_walk), walk);
+> +	struct dmem_cgroup_pool_state *limit_pool, *ancestor = NULL;
+> +	bool evict_valuable;
+>   	s64 lret;
+>   
+> -	if (!dmem_cgroup_state_evict_valuable(evict_walk->alloc_state->limit_pool,
+> -					      bo->resource->css, evict_walk->try_low,
+> -					      &evict_walk->hit_low))
+> +	/*
+> +	 * If may_try_low is not set, then we're trying to evict unprotected
+> +	 * buffers in favor of a protected allocation for charge_pool. Explicitly skip
+> +	 * buffers belonging to the same cgroup here - that cgroup is definitely protected,
+> +	 * even though dmem_cgroup_state_evict_valuable would allow the eviction because a
+> +	 * cgroup is always allowed to evict from itself even if it is protected.
+> +	 */
+> +	if (!evict_walk->alloc_state->may_try_low &&
+> +			bo->resource->css == evict_walk->alloc_state->charge_pool)
+> +		return 0;
+
+Hm.. should this hunk go into the previous patch?
+
+> +
+> +	limit_pool = evict_walk->alloc_state->limit_pool;
+> +	/*
+> +	 * If there is no explicit limit pool, find the root of the shared subtree between
+> +	 * evictor and evictee. This is important so that recursive protection rules can
+> +	 * apply properly: Recursive protection distributes cgroup protection afforded
+> +	 * to a parent cgroup but not used explicitly by a child cgroup between all child
+> +	 * cgroups (see docs of effective_protection in mm/page_counter.c). However, when
+> +	 * direct siblings compete for memory, siblings that were explicitly protected
+> +	 * should get prioritized over siblings that weren't. This only happens correctly
+> +	 * when the root of the shared subtree is passed to
+> +	 * dmem_cgroup_state_evict_valuable. Otherwise, the effective-protection
+> +	 * calculation cannot distinguish direct siblings from unrelated subtrees and the
+> +	 * calculated protection ends up wrong.
+> +	 */
+> +	if (!limit_pool) {
+> +		ancestor = dmem_cgroup_get_common_ancestor(bo->resource->css,
+> +							   evict_walk->alloc_state->charge_pool);
+> +		limit_pool = ancestor;
+> +	}
+> +
+> +	evict_valuable = dmem_cgroup_state_evict_valuable(limit_pool, bo->resource->css,
+> +							  evict_walk->try_low,
+> +							  &evict_walk->hit_low);
+> +	if (ancestor)
+> +		dmem_cgroup_pool_state_put(ancestor);
+> +
+> +	if (!evict_valuable)
+
+This part is probably better reviewed by someone more familiar with the 
+dmem controller. One question I have though is whether this patch is 
+independent from the rest of the series or it really makes sense for it 
+to be last?
+
+Regards,
+
+Tvrtko
+
+>   		return 0;
+>   
+>   	if (bo->pin_count || !bo->bdev->funcs->eviction_valuable(bo, evict_walk->place))
+> 
+
