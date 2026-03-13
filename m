@@ -4,84 +4,134 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9B49F106FD9E
-	for <dri-devel@archiver.kernel.org>; Fri, 13 Mar 2026 08:33:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EF292106FD9E
+	for <dri-devel@archiver.kernel.org>; Fri, 13 Mar 2026 08:33:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 07CA710EB2D;
-	Fri, 13 Mar 2026 08:33:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5CA6E10EB30;
+	Fri, 13 Mar 2026 08:33:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=fairphone.com header.i=@fairphone.com header.b="QN8XO9Ct";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="Xtt7juVZ";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="AR1jn7Xj";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="Xtt7juVZ";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="AR1jn7Xj";
 	dkim-atps=neutral
-Received: from mail-ed1-f47.google.com (mail-ed1-f47.google.com
- [209.85.208.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 05DAD10EB30
- for <dri-devel@lists.freedesktop.org>; Fri, 13 Mar 2026 08:33:20 +0000 (UTC)
-Received: by mail-ed1-f47.google.com with SMTP id
- 4fb4d7f45d1cf-6642a16be1cso248824a12.3
- for <dri-devel@lists.freedesktop.org>; Fri, 13 Mar 2026 01:33:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=fairphone.com; s=fair; t=1773390799; x=1773995599; darn=lists.freedesktop.org;
- h=in-reply-to:references:cc:to:from:subject:message-id:date
- :content-transfer-encoding:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=/of78zuCI1x5T6ZYrwM97n73xB/ugxAeVuA7riCgkNo=;
- b=QN8XO9Ctz1xbzw1u6tUJnuvL55djyYK5aBGGGsruF+nYTJu2xDOYMDdN1woZZKbPoJ
- /HaMhXRyIk7nIDoWSiCHjSW35j+SCarN16NQYVEGIqw+CnbYohB/eXWA2qEXAJZUpZJ8
- Cx05hVgiOw174E2nhO6+03woTl10S77oaso41WmfDiL0nrl1TTyUNNuLysRM7/Yl/+8/
- EsosWbNVhL5wd0JwY3grzhuiLl8z9cdHDYlBxuQG7YoFkMzYDv+EeyrZO/VFh64R9hGm
- Jub+v4z5E6IyUAjq6qKwwvJP0CdOkJFmfoFpfk1IyBkHaT4hmn2XyDzd44YKYYpDXMXs
- KiMQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1773390799; x=1773995599;
- h=in-reply-to:references:cc:to:from:subject:message-id:date
- :content-transfer-encoding:mime-version:x-gm-gg:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to;
- bh=/of78zuCI1x5T6ZYrwM97n73xB/ugxAeVuA7riCgkNo=;
- b=m9lElwAmFe1Mdnf5sCGFRq3RAiw71KI5EP7mTeN9N2dtRuRyQIy+PIY1JgKFDQzzIT
- FKREDi0Ndu9Asm/lMEYrEuMiyo0yKL9AGeQKMO861T37FOho9TZ4pc++/lHpuniSJacW
- DCyt1w8MGYWnXixmgBRKCupKuIRMsc03YWM4ZDUXk7GUKSkV0C3gMr1X2u1eHt2eDIKn
- khx7cnO56msVkuWpVBqPcMLph0l8f00BLFdaDfSyguAVgenGhpa+V+I2YY/+l7sAn+/S
- 6r+YzkgA1GKs4f+OiIU9KvkY8vWCkaL/UUoMZCRFqh53skiwqgI+YHD3bofsy9Vb6qA3
- /GuQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUlHDOxRiVHUml1JzDRlo3LduuZzJHFWwjdVHfkuBPVruNow228stg2b+7SLJhnxS7mm9XrvlA5C74=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyqKminJoK40Mxfb3tvWBKOo1YkBBDGrtsD+nTN6zSLxiYdbDng
- O0TPYV5lSjT+WrqybgHsWHfEBkBhDUBnPOysvmVpnT0BMyFCmpF1j0AgPvidU9YSmAo=
-X-Gm-Gg: ATEYQzwK1Z8AsZgDKbXP2EliYyKivh9bCM1TtmWIQa/3vcEAKMEsE9OJkuqP51vy2B+
- Jw++9J35OO4P0uy2sgO0S+7LOSnD4aBkFZKX/ssr/IqXwcCxAn5MtDSYLCVbVlhmezIm9KUHVX/
- VXAXoFAXiafBxgsTqJButqoXl3lxqCyQDhXRe5fuARB/zhAHbKaTJDcitBs+7Y2YF8gR3dpFptX
- z1HdHvDVLdntyVnRaTaMFgxAmMtuG6tUGRhS7hqfo93Rta/66LgKqt5BCjh6GLrFTq76DtZIMJ3
- xK15j7AeW3P1zHsGUqzja8pKRPulE7dYZgRrxv7ENJ5L1fPXhWCuImHcxSmF+SHrM70eNYZU8ie
- dwa50vBAD6ifMqH5if+ldSQMM0SHO0vL942/C4bFRojgVm8t9AzMKDX+yza9S4OXBSSTmgKWatD
- yVJHnHIm0Y7kTj/ARnBXtmZ+3aAk1TXN9DHNgAJfKvyigtab0Qw1cd13JozTziktbkyFSQ
-X-Received: by 2002:a17:906:4a9a:b0:b97:f3:1231 with SMTP id
- a640c23a62f3a-b97653525a2mr101020566b.57.1773390799228; 
- Fri, 13 Mar 2026 01:33:19 -0700 (PDT)
-Received: from localhost (144-178-202-138.static.ef-service.nl.
- [144.178.202.138]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b976cc1c154sm28620666b.27.2026.03.13.01.33.18
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 13 Mar 2026 01:33:18 -0700 (PDT)
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 13 Mar 2026 09:33:18 +0100
-Message-Id: <DH1IKLU0YZYU.2SW4WYO7H3H4R@fairphone.com>
-Subject: Re: [PATCH v2] drm/msm/disp/dpu: add merge3d support for sc7280
-From: "Luca Weiss" <luca.weiss@fairphone.com>
-To: "Mahadevan P" <mahadevan.p@oss.qualcomm.com>, "Rob Clark"
- <robin.clark@oss.qualcomm.com>, "Dmitry Baryshkov" <lumag@kernel.org>,
- "Abhinav Kumar" <abhinav.kumar@linux.dev>, "Jessica Zhang"
- <jesszhan0024@gmail.com>, "Sean Paul" <sean@poorly.run>, "Marijn Suijten"
- <marijn.suijten@somainline.org>, "David Airlie" <airlied@gmail.com>,
- "Simona Vetter" <simona@ffwll.ch>, "Krishna Manikandan"
- <quic_mkrishn@quicinc.com>
-Cc: <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <freedreno@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
- <regressions@lists.linux.dev>
-X-Mailer: aerc 0.21.0-0-g5549850facc2
-References: <20260101-4k-v2-1-712ae3c1f816@oss.qualcomm.com>
-In-Reply-To: <20260101-4k-v2-1-712ae3c1f816@oss.qualcomm.com>
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ABA7C10EB30
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Mar 2026 08:33:42 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 5405D5CFD9;
+ Fri, 13 Mar 2026 08:33:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1773390821; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=By/5ukn2mwKOcgj/f+9D00tvg2cfhX8HhLGnGYQXqis=;
+ b=Xtt7juVZnOR+TX/3aKQVKYH4jA5lwyX1gJfyddLaPoit4EXLrx7beuoZPoIUr/7pa7+c++
+ JezHlC2b8MjF+kVD7zlO7lV6VIVkgptp1gfb3VTDqFRGI1ARiJX/rcomq/4a91jUpdpg+W
+ rOT3g1BvlXkgAvdRS2duRmyv6Rbgk4w=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1773390821;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=By/5ukn2mwKOcgj/f+9D00tvg2cfhX8HhLGnGYQXqis=;
+ b=AR1jn7XjRExFQnH6CLbctLjz9P5lTakrIJzXfuc52EULHxZxVqswY0YIftY+7neJOogX5f
+ 2jXtr3HjtV6cbfDA==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1773390821; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=By/5ukn2mwKOcgj/f+9D00tvg2cfhX8HhLGnGYQXqis=;
+ b=Xtt7juVZnOR+TX/3aKQVKYH4jA5lwyX1gJfyddLaPoit4EXLrx7beuoZPoIUr/7pa7+c++
+ JezHlC2b8MjF+kVD7zlO7lV6VIVkgptp1gfb3VTDqFRGI1ARiJX/rcomq/4a91jUpdpg+W
+ rOT3g1BvlXkgAvdRS2duRmyv6Rbgk4w=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1773390821;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=By/5ukn2mwKOcgj/f+9D00tvg2cfhX8HhLGnGYQXqis=;
+ b=AR1jn7XjRExFQnH6CLbctLjz9P5lTakrIJzXfuc52EULHxZxVqswY0YIftY+7neJOogX5f
+ 2jXtr3HjtV6cbfDA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 02E3B40423;
+ Fri, 13 Mar 2026 08:33:40 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id +8fqOuTLs2lVSAAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Fri, 13 Mar 2026 08:33:40 +0000
+Content-Type: multipart/mixed; boundary="------------7ZdkRrZrk9ysaFnV0R6IQqxK"
+Message-ID: <d3818663-2673-4de4-b483-557602f6e8b9@suse.de>
+Date: Fri, 13 Mar 2026 09:33:40 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 5/6] drm/gem-shmem: Track folio accessed/dirty status
+ in mmap
+To: Biju Das <biju.das.jz@bp.renesas.com>,
+ Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+Cc: "boris.brezillon@collabora.com" <boris.brezillon@collabora.com>,
+ "loic.molinari@collabora.com" <loic.molinari@collabora.com>,
+ "willy@infradead.org" <willy@infradead.org>,
+ "frank.binns@imgtec.com" <frank.binns@imgtec.com>,
+ "matt.coster@imgtec.com" <matt.coster@imgtec.com>,
+ "maarten.lankhorst@linux.intel.com" <maarten.lankhorst@linux.intel.com>,
+ "mripard@kernel.org" <mripard@kernel.org>,
+ "airlied@gmail.com" <airlied@gmail.com>, "simona@ffwll.ch"
+ <simona@ffwll.ch>, "linux-mm@kvack.org" <linux-mm@kvack.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
+References: <20260227114509.165572-1-tzimmermann@suse.de>
+ <20260227114509.165572-6-tzimmermann@suse.de> <abL5rcYIaFFO3GW2@tom-desktop>
+ <TY3PR01MB113460CA616D3576DA0C3FC698644A@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <TY3PR01MB113460CA616D3576DA0C3FC698644A@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+X-Spamd-Result: default: False [-3.20 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ MIME_BASE64_TEXT_BOGUS(1.00)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ NEURAL_HAM_SHORT(-0.20)[-0.999]; MIME_BASE64_TEXT(0.10)[];
+ MIME_GOOD(-0.10)[multipart/mixed,text/plain,text/x-patch];
+ FUZZY_RATELIMITED(0.00)[rspamd.com];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; TO_DN_EQ_ADDR_SOME(0.00)[];
+ ARC_NA(0.00)[]; RCPT_COUNT_TWELVE(0.00)[13];
+ MIME_TRACE(0.00)[0:+,1:+,2:+]; RCVD_TLS_ALL(0.00)[];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com]; TO_DN_SOME(0.00)[];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ FREEMAIL_CC(0.00)[collabora.com,infradead.org,imgtec.com,linux.intel.com,kernel.org,gmail.com,ffwll.ch,kvack.org,lists.freedesktop.org];
+ MID_RHS_MATCH_FROM(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+ TO_MATCH_ENVRCPT_ALL(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.de:mid,suse.de:email,collabora.com:email,suse.com:url,renesas.com:email];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ HAS_ATTACHMENT(0.00)[]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,103 +147,160 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Mahadevan,
+This is a multi-part message in MIME format.
+--------------7ZdkRrZrk9ysaFnV0R6IQqxK
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Thu Jan 1, 2026 at 6:04 AM CET, Mahadevan P wrote:
-> On SC7280 targets, display modes with a width greater than the
-> max_mixer_width (2400) are rejected during mode validation when
-> merge3d is disabled. This limitation exists because, without a
-> 3D merge block, two layer mixers cannot be combined(non-DSC interface),
-> preventing large layers from being split across mixers. As a result,
-> higher resolution modes cannot be supported.
+Hi
+
+Am 12.03.26 um 18:46 schrieb Biju Das:
+> Hi Tommaso,
 >
-> Enable merge3d support on SC7280 to allow combining streams from
-> two layer mixers into a single non-DSC interface. This capability
-> removes the width restriction and enables buffer sizes beyond the
-> 2400-pixel limit.
+>> -----Original Message-----
+>> From: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+>> Sent: 12 March 2026 17:37
+>> Subject: Re: [PATCH v4 5/6] drm/gem-shmem: Track folio accessed/dirty status in mmap
+>>
+>> Hi Thomas,
+>> Thanks for your patch.
+>>
+>> I'm working on DSI support for RZ/G3E from this morning rebasing on top of next-20260311 I'm seeing
+>> that weston hang on my side:
+>>
+>> Reverting this patch fix the issue.
+>> (git revert 28e3918179aa)
+
+Just a guess, but maybe vm_file is NULL. The attached patch should 
+handle this. Could either of you please test?
+
+Best regards
+Thomas
+
+
+>>
+>> I'm wondering if anyone encountered this issue?
+>> Thanks in advance.
 >
-> Fixes: 591e34a091d1 ("drm/msm/disp/dpu1: add support for display for SC72=
-80 target")
-> Signed-off-by: Mahadevan P <mahadevan.p@oss.qualcomm.com>
+> I am also seeing same issue on RZ/G3L with weston.
+>
+> Cheers,
+> Biju
+>
+>
+>
+>> Kind Regards,
+>> Tommaso
+>>
+>> On Fri, Feb 27, 2026 at 12:42:10PM +0100, Thomas Zimmermann wrote:
+>>> Invoke folio_mark_accessed() in mmap page faults to add the folio to
+>>> the memory manager's LRU list. Userspace invokes mmap to get the
+>>> memory for software rendering. Compositors do the same when creating
+>>> the final on-screen image, so keeping the pages in LRU makes sense.
+>>> Avoids paging out graphics buffers when under memory pressure.
+>>>
+>>> In pfn_mkwrite, further invoke the folio_mark_dirty() to add the folio
+>>> for writeback should the underlying file be paged out from system memory.
+>>> This rarely happens in practice, yet it would corrupt the buffer content.
+>>>
+>>> This has little effect on a system's hardware-accelerated rendering,
+>>> which only mmaps for an initial setup of textures, meshes, shaders, etc.
+>>>
+>>> v4:
+>>> - test for VM_FAULT_NOPAGE before marking folio as accessed (Boris)
+>>> - test page-array bounds in mkwrite handler (Boris)
+>>> v3:
+>>> - rewrite for VM_PFNMAP
+>>> v2:
+>>> - adapt to changes in drm_gem_shmem_try_mmap_pmd()
+>>>
+>>> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+>>> Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
+>>> ---
+>>>   drivers/gpu/drm/drm_gem_shmem_helper.c | 22 ++++++++++++++++++++++
+>>>   1 file changed, 22 insertions(+)
+>>>
+>>> diff --git a/drivers/gpu/drm/drm_gem_shmem_helper.c
+>>> b/drivers/gpu/drm/drm_gem_shmem_helper.c
+>>> index cefa50eaf7a4..1ab2bbd3860c 100644
+>>> --- a/drivers/gpu/drm/drm_gem_shmem_helper.c
+>>> +++ b/drivers/gpu/drm/drm_gem_shmem_helper.c
+>>> @@ -598,6 +598,9 @@ static vm_fault_t drm_gem_shmem_fault(struct vm_fault *vmf)
+>>>   	if (ret != VM_FAULT_NOPAGE)
+>>>   		ret = vmf_insert_pfn(vma, vmf->address, pfn);
+>>>
+>>> +	if (ret == VM_FAULT_NOPAGE)
+>>> +		folio_mark_accessed(folio);
+>>> +
+>>>   out:
+>>>   	dma_resv_unlock(obj->resv);
+>>>
+>>> @@ -638,10 +641,29 @@ static void drm_gem_shmem_vm_close(struct vm_area_struct *vma)
+>>>   	drm_gem_vm_close(vma);
+>>>   }
+>>>
+>>> +static vm_fault_t drm_gem_shmem_pfn_mkwrite(struct vm_fault *vmf) {
+>>> +	struct vm_area_struct *vma = vmf->vma;
+>>> +	struct drm_gem_object *obj = vma->vm_private_data;
+>>> +	struct drm_gem_shmem_object *shmem = to_drm_gem_shmem_obj(obj);
+>>> +	loff_t num_pages = obj->size >> PAGE_SHIFT;
+>>> +	pgoff_t page_offset = vmf->pgoff - vma->vm_pgoff; /* page offset
+>>> +within VMA */
+>>> +
+>>> +	if (drm_WARN_ON(obj->dev, !shmem->pages || page_offset >= num_pages))
+>>> +		return VM_FAULT_SIGBUS;
+>>> +
+>>> +	file_update_time(vma->vm_file);
+>>> +
+>>> +	folio_mark_dirty(page_folio(shmem->pages[page_offset]));
+>>> +
+>>> +	return 0;
+>>> +}
+>>> +
+>>>   const struct vm_operations_struct drm_gem_shmem_vm_ops = {
+>>>   	.fault = drm_gem_shmem_fault,
+>>>   	.open = drm_gem_shmem_vm_open,
+>>>   	.close = drm_gem_shmem_vm_close,
+>>> +	.pfn_mkwrite = drm_gem_shmem_pfn_mkwrite,
+>>>   };
+>>>   EXPORT_SYMBOL_GPL(drm_gem_shmem_vm_ops);
+>>>
+>>> --
+>>> 2.52.0
+>>>
 
-This patch is causing display regression on QCM6490 fairphone-fp5.
-
-With this patch in 7.0-rc3 (or 6.18.16) there's just pink noise on the
-screen. When reverting this patch everything becomes working again.
-
-See also https://salsa.debian.org/Mobian-team/devices/kernels/qcom-linux/-/=
-issues/41
-
-@Dmitry: Can we revert this for later 7.0-rc, in case it's not fixed
-quickly?
-
-Regards
-Luca
-
-#regzbot introduced: 2892de3f4f985fa779c330468e2f341fdb762ccd
-
-> ---
-> Changes in v2:
->   - Updated commit message for clarity (Dmitry).
-> ---
->  drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_2_sc7280.h | 14 ++++++++++++=
+-- 
 --
->  1 file changed, 12 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_2_sc7280.h b/dri=
-vers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_2_sc7280.h
-> index 8f978b9c3452..2f8688224f34 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_2_sc7280.h
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_2_sc7280.h
-> @@ -13,6 +13,7 @@ static const struct dpu_caps sc7280_dpu_caps =3D {
->  	.has_dim_layer =3D true,
->  	.has_idle_pc =3D true,
->  	.max_linewidth =3D 2400,
-> +	.has_3d_merge =3D true,
->  	.pixel_ram_size =3D DEFAULT_PIXEL_RAM_SIZE,
->  };
-> =20
-> @@ -134,17 +135,24 @@ static const struct dpu_pingpong_cfg sc7280_pp[] =
-=3D {
->  		.name =3D "pingpong_2", .id =3D PINGPONG_2,
->  		.base =3D 0x6b000, .len =3D 0,
->  		.sblk =3D &sc7280_pp_sblk,
-> -		.merge_3d =3D 0,
-> +		.merge_3d =3D MERGE_3D_1,
->  		.intr_done =3D DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 10),
->  	}, {
->  		.name =3D "pingpong_3", .id =3D PINGPONG_3,
->  		.base =3D 0x6c000, .len =3D 0,
->  		.sblk =3D &sc7280_pp_sblk,
-> -		.merge_3d =3D 0,
-> +		.merge_3d =3D MERGE_3D_1,
->  		.intr_done =3D DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 11),
->  	},
->  };
-> =20
-> +static const struct dpu_merge_3d_cfg sc7280_merge_3d[] =3D {
-> +	{
-> +		.name =3D "merge_3d_1", .id =3D MERGE_3D_1,
-> +		.base =3D 0x4f000, .len =3D 0x8,
-> +	},
-> +};
-> +
->  /* NOTE: sc7280 only has one DSC hard slice encoder */
->  static const struct dpu_dsc_cfg sc7280_dsc[] =3D {
->  	{
-> @@ -247,6 +255,8 @@ const struct dpu_mdss_cfg dpu_sc7280_cfg =3D {
->  	.mixer =3D sc7280_lm,
->  	.pingpong_count =3D ARRAY_SIZE(sc7280_pp),
->  	.pingpong =3D sc7280_pp,
-> +	.merge_3d_count =3D ARRAY_SIZE(sc7280_merge_3d),
-> +	.merge_3d =3D sc7280_merge_3d,
->  	.dsc_count =3D ARRAY_SIZE(sc7280_dsc),
->  	.dsc =3D sc7280_dsc,
->  	.wb_count =3D ARRAY_SIZE(sc7280_wb),
->
-> ---
-> base-commit: efb26a23ed5f5dc3554886ab398f559dcb1de96b
-> change-id: 20251231-4k-969b53d2ea4c
->
-> Best regards,
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
 
+
+--------------7ZdkRrZrk9ysaFnV0R6IQqxK
+Content-Type: text/x-patch; charset=UTF-8;
+ name="0001-test-for-vm_file-before-updating-file-access-time.patch"
+Content-Disposition: attachment;
+ filename*0="0001-test-for-vm_file-before-updating-file-access-time.patch"
+Content-Transfer-Encoding: base64
+
+RnJvbSBlNjQzNDZjNmIzZDk0NmU0NDI0MDY2ZDg4OGNiNDFmZTYwZWI5ZDg4IE1vbiBTZXAg
+MTcgMDA6MDA6MDAgMjAwMQpGcm9tOiBUaG9tYXMgWmltbWVybWFubiA8dHppbW1lcm1hbm5A
+c3VzZS5kZT4KRGF0ZTogRnJpLCAxMyBNYXIgMjAyNiAwOToyOToyNiArMDEwMApTdWJqZWN0
+OiBbUEFUQ0hdIHRlc3QgZm9yIHZtX2ZpbGUgYmVmb3JlIHVwZGF0aW5nIGZpbGUgYWNjZXNz
+IHRpbWUKCi0tLQogZHJpdmVycy9ncHUvZHJtL2RybV9nZW1fc2htZW1faGVscGVyLmMgfCAz
+ICsrLQogMSBmaWxlIGNoYW5nZWQsIDIgaW5zZXJ0aW9ucygrKSwgMSBkZWxldGlvbigtKQoK
+ZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9kcm1fZ2VtX3NobWVtX2hlbHBlci5jIGIv
+ZHJpdmVycy9ncHUvZHJtL2RybV9nZW1fc2htZW1faGVscGVyLmMKaW5kZXggNDUwMGRlZWY0
+MTI3Li43ZmFkNzJjYzAxZGMgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9kcm1fZ2Vt
+X3NobWVtX2hlbHBlci5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9kcm1fZ2VtX3NobWVtX2hl
+bHBlci5jCkBAIC02NTYsNyArNjU2LDggQEAgc3RhdGljIHZtX2ZhdWx0X3QgZHJtX2dlbV9z
+aG1lbV9wZm5fbWt3cml0ZShzdHJ1Y3Qgdm1fZmF1bHQgKnZtZikKIAlpZiAoZHJtX1dBUk5f
+T04ob2JqLT5kZXYsICFzaG1lbS0+cGFnZXMgfHwgcGFnZV9vZmZzZXQgPj0gbnVtX3BhZ2Vz
+KSkKIAkJcmV0dXJuIFZNX0ZBVUxUX1NJR0JVUzsKIAotCWZpbGVfdXBkYXRlX3RpbWUodm1h
+LT52bV9maWxlKTsKKwlpZiAodm1hLT52bV9maWxlKQorCQlmaWxlX3VwZGF0ZV90aW1lKHZt
+YS0+dm1fZmlsZSk7CiAKIAlmb2xpb19tYXJrX2RpcnR5KHBhZ2VfZm9saW8oc2htZW0tPnBh
+Z2VzW3BhZ2Vfb2Zmc2V0XSkpOwogCi0tIAoyLjUzLjAKCg==
+
+--------------7ZdkRrZrk9ysaFnV0R6IQqxK--
