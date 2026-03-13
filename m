@@ -4,125 +4,82 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 451BE105F7AF
-	for <dri-devel@archiver.kernel.org>; Fri, 13 Mar 2026 14:35:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D5CE0105F7AF
+	for <dri-devel@archiver.kernel.org>; Fri, 13 Mar 2026 14:47:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EA1A210E13E;
-	Fri, 13 Mar 2026 14:35:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4022010EC74;
+	Fri, 13 Mar 2026 14:47:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="3k6yb9ZE";
+	dkim=pass (2048-bit key; unprotected) header.d=suse.com header.i=@suse.com header.b="KiTGQShY";
 	dkim-atps=neutral
-Received: from BN8PR05CU002.outbound.protection.outlook.com
- (mail-eastus2azon11011034.outbound.protection.outlook.com [52.101.57.34])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7985210E0B0;
- Fri, 13 Mar 2026 14:35:51 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=YnL1VFk7Re569gw3iqAwc4ikv57AQeBPDhTE+Du7oUqduh0rMICr9ieHYN2lUWSyYesBV2DX2vKULY+vGq6qFAhjtQUO5X5hqpwWm4IYsDjZmOPiErhld4CpujHH8COnrncSN8/VKDMoicyGdgAUpqcfd4pt+WIvkKCT2qdum3RjSmnXdMZxA+V+5owmP/ihs8Obg0OBYGSm5yjgytAL09RCytI7+JqxiDqW/MPMdTR6ijORA7TO86twiL6nakpnbNPE1BeuHpwG6rdkCgKHm60OFIbHcvOSCVWiPUwAkCMP2bcwxHeLzMQD45cue5Ylo5PUERigzsJqDY/GF1ro+g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2j0OdmAFP+vWE05KVPGSjqdw1M86ZsR1I02tBQNP6Eo=;
- b=t39p22jl12VnQl2h7SpkjemHBWEO6a5EhZu2YFCumkd/GPIzbMnYzyiJvhv1XJ7bRdrcNHZtbna1kFUj14XFFKAi2HRAyJ6D/04mkA1+jLQUOkhoLc6rUAiVA+mNM47E76KDOzygiIZgSFCD/9jR9DbFvABdTT1GD6SlaTcUFHvC2nIy/tFokuqCFel7c608Wbh/ABWKz2rKyXuse1OK5gPUPyfFWJ6z9Uth8go+NFoadCeZQbAaEhALeX4lOYTk9KgCvGm+PGrzgscuLPfPeILPfCjckFVWfm60uvky5DP1+bqCBes34dDkpVj9MG6G5RwgE9UfcLynmHiwvDx45g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2j0OdmAFP+vWE05KVPGSjqdw1M86ZsR1I02tBQNP6Eo=;
- b=3k6yb9ZEfxzgitNi09vljXCbmcj7LRCutsu7XcvUQhAsDzKHMAKAYGb4lBMFrAmAQqDdlEVH34FaimeQZ7wH8FrYuW6t7N521502TTbiDLQqDn/rQpHGgcRUdHjtVT3Z6l7iKjaL4L8OBCQsOw6yE1BbBSacjZaD/m7E8sngclw=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BL1PR12MB5126.namprd12.prod.outlook.com (2603:10b6:208:312::8)
- by SA1PR12MB5640.namprd12.prod.outlook.com (2603:10b6:806:23e::9)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.8; Fri, 13 Mar
- 2026 14:35:46 +0000
-Received: from BL1PR12MB5126.namprd12.prod.outlook.com
- ([fe80::c3e7:1bc5:2b91:1cfe]) by BL1PR12MB5126.namprd12.prod.outlook.com
- ([fe80::c3e7:1bc5:2b91:1cfe%4]) with mapi id 15.20.9723.008; Fri, 13 Mar 2026
- 14:35:46 +0000
-Message-ID: <15e4fec4-0bb7-41e2-9543-1b1df3905172@amd.com>
-Date: Fri, 13 Mar 2026 10:35:42 -0400
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amd/display: Fix gamma 2.2 colorop TFs
-To: Alex Hung <alex.hung@amd.com>, sunpeng.li@amd.com,
- alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
- simona@ffwll.ch, contact@emersion.fr, daniels@collabora.com,
- mwen@igalia.com, amd-gfx@lists.freedesktop.org,
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com
+ [209.85.128.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 878D810EC6D
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Mar 2026 14:47:34 +0000 (UTC)
+Received: by mail-wm1-f51.google.com with SMTP id
+ 5b1f17b1804b1-485410a0a8aso20997425e9.2
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Mar 2026 07:47:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=suse.com; s=google; t=1773413253; x=1774018053; darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=Hwuj/ezVd8q3XBeXipLijWROjE/A37RRQZ4CHLHIBcs=;
+ b=KiTGQShYKqUMJrojmk8HfU80euBocJMBAPhJId1hR2Mr21RtZn4+GU4TKNDFs8bM3Y
+ DoYzWHzImHHp7OPACFGB7WM200GdUhskXsBGunD0PvJ97HRfsNAA/8+Mu8pCPBg4JonR
+ wvi294NPEDskBgU8Fy2Yt/VACC3afMiw1wxuKSCm6lqF8PZnJCg1quO4Yemi6ekvgmiK
+ uBfRPwFpzpZo1lhZjKNo7tGqmkINE0Nc+2Kt2juRaPtkStaljQvKzAtjTjnY3DgJbmQp
+ X0T1RC1SGnbmXcB7a6zleijsknBY+Fqy1EtW4e039eTcB4R8O4JvOnKr7L1VzHFFdsTW
+ xsSw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1773413253; x=1774018053;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=Hwuj/ezVd8q3XBeXipLijWROjE/A37RRQZ4CHLHIBcs=;
+ b=pcAlWSmPS/nQiTn0+WUJ0WV9uA0E7OXGEobCU5khwNZVXaDfdMEdwRndOXahvJgRTj
+ rai6wroWcbMac/2Qqz4eGoqP/1I1q1EUl91YCb4VvGVO5KO4B33d4X74dG/l6ov09Mv5
+ Xsk8NKVffS+N63hbNXf4HFhoWltHqw/7fTIJzok9jq5xed6qe4jlKwwhbvzQ0j8gLSk7
+ NQHYMrfH7rHEM1Higdgj5NEXUzyP1LV5ZeaDFtOoK2KLpBOrCbrdbRdG0Ndsjv2v1jK7
+ gOsJvGhU7mfhrwF4yitLsM6kV0cRH6WqqFOnrKgTMxF9PbgGc+eSmLx73k5c3IdogoRG
+ PS0A==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUVy9kIdvXtvi63z5nM9IwhRdoqurGBYRKBBhghTKJ5KFs9r2YYP/oB+b5BK4J0H2wk/vZOIkfCGpk=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwsPvVfw4QrZvMfHmb/bvbCzEXHb2TJpGbQevO2A2wXqJjzfcPK
+ dTC0BWSSWA7/j1p4h4o9BEBV6rBB2fvebmtODqy1aJ/v4z0tBOPJrirdiTsZ5uRNjtg=
+X-Gm-Gg: ATEYQzxOeFEzJM5SSnuIeRS5kPAAqcm+1xUhj8rhVIyA9xbr6eXIkFrD7/UGT1Wxe0/
+ gnYOcsc81LLEgNYEYTNgLDuNQ31AahYgeeoNjPPMpArS19VNuKrY6xwq9FafCW8wMFb0zxpk3VU
+ dZsfvv6/OCPxtYB5MWLNLsTR8buyeorQvsjZ73rnTfuN68GgnvN9F5fdp3t18ZfsW2vk5A+/uNg
+ vWt6f4JtVbiHSzk7YQw1iAHbYrbj7bFtV+mKbrHBtKWF3fSJpai2zrHzrTN++oYrZ+uTlp9DvT3
+ TJiDbIC6hdEPU0hDKGb/DaB7EZHr6Ox+NfF3BVxnbU50vpJISY/SE+ICj26OMFneM6/UXwBFJz+
+ TzSChDPrDGM5bluEyOkCqmAUprGxHExZFXwZST8GKt5FZPDbo4dMsyDA27xlVe9rJ0k4A0pO42e
+ embf3oNbIeeNRzSCAVVJ17y3VG25NX0Lj9G6SH+TpyUnj7soS3Rg==
+X-Received: by 2002:a05:600c:3590:b0:485:3b34:2f61 with SMTP id
+ 5b1f17b1804b1-485566c9464mr61968075e9.7.1773413252920; 
+ Fri, 13 Mar 2026 07:47:32 -0700 (PDT)
+Received: from linux.fritz.box ([2a00:6d43:105:c401:e307:1a37:2e76:ce91])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-439fe22f3a4sm18375071f8f.38.2026.03.13.07.47.31
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 13 Mar 2026 07:47:32 -0700 (PDT)
+From: Marco Crivellari <marco.crivellari@suse.com>
+To: linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org
-Cc: Xaver Hugl <xaver.hugl@kde.org>
-References: <20260311211837.2482799-1-alex.hung@amd.com>
-Content-Language: en-US
-From: Harry Wentland <harry.wentland@amd.com>
-In-Reply-To: <20260311211837.2482799-1-alex.hung@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YT3PR01CA0100.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:85::33) To BL1PR12MB5126.namprd12.prod.outlook.com
- (2603:10b6:208:312::8)
+Cc: Tejun Heo <tj@kernel.org>, Lai Jiangshan <jiangshanlai@gmail.com>,
+ Frederic Weisbecker <frederic@kernel.org>,
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+ Marco Crivellari <marco.crivellari@suse.com>,
+ Michal Hocko <mhocko@suse.com>, Harry Wentland <harry.wentland@amd.com>,
+ Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Christian Konig <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Subject: [PATCH] drm/amd/display: Replace use of system_wq with
+ system_percpu_wq
+Date: Fri, 13 Mar 2026 15:47:15 +0100
+Message-ID: <20260313144715.252069-1-marco.crivellari@suse.com>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL1PR12MB5126:EE_|SA1PR12MB5640:EE_
-X-MS-Office365-Filtering-Correlation-Id: dc5c8ab3-9e90-4c6d-327a-08de810dd035
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|366016|376014|921020|18002099003|56012099003|22082099003;
-X-Microsoft-Antispam-Message-Info: GmJiUCNY5PJW3BFSK2En/xEt+Pfw5wtfzNLgKE98VZOieGkDM415zXu6RsGOn9QKAzCOSCbV13P+AJ1lOBG/8nv/NHmkOyJi6e2mw/a/tEprWrWJ8X8tJVHuR8ZJ6KmJYH4NYIQ6wDxG/wCA/xh9OC/jetf5x/1O/32Jn490VtBf9rhtPiwaTPnNhOLJK+6UQ9RvaNebm9LMpsUg0lEcSK48nJJc35KKzSX88amXKV2ZAaClyXCJDXZZMIXbg8UBQUALmOdxGrWVUvmjtWaC9QLCaitdWXNEvYMZq4RD/8zc3VMcsbXqbVER5iAEipwlVfHHlqOToUephkwVGR+aPaCtvzwgHjk9uYQX331IEmaOE5ob36M033rfNvXFEUjA7Ui/qI5sb7+ajVeMa7Hhmjfu6lZkBJ2i3uQ6csWAYb/HrL61g6KlPgdaQHOvuoZ3LkgwdAhQZKBPzNBsAWFJffpwFPWO93Ojasuwzv22A+QKLZdCfCl4MYppIkZEOrUqc3hCrjhaIZaAxCwZJa0kC70bPmgTfByq1Rijsfx5jZ/qFkfG/+s/M/Ck+SgprJLwrayQqKNOcdeuNxfiAk8d+0ucObRK/6RytC5SWnQ0gmiR39ZxyWtFiPp5/t+tn7afpulMEbTEzSrJQn3LRNLI4BC//LeI6J2EzRzHhDil33vy4Jk27ZxsSFWrVL6ixxyngxeyWidftHITOC5ZF0hCMJzbmkoK6weonRTfALayPHs=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BL1PR12MB5126.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014)(921020)(18002099003)(56012099003)(22082099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Sml3YVVpTUprd09ZOU55T1RqN3R3QVdjSXRkV1ZJaElSMGVxcUk4cjBaQURX?=
- =?utf-8?B?Y25Ta25TRW5Ob0ZrdXplTkVienREZTF0ZUdabjBWWk96MFJtc1h0OHpPcTQ0?=
- =?utf-8?B?eGJyeE8zS2xMaElNNHMxRHhWU1hqZ2FnVkVPZGJqelFlZk5PR0RvSUdXTW5y?=
- =?utf-8?B?Z1E4MTZWRDV0NmhOZDhUWmU5WlN5STZ1U2dwUjVpL2hkVm9RdVRzQ1IyemdK?=
- =?utf-8?B?eVNXdG9MbWdNSmlIcFN4UUljRjZwTmZubWw1YThiL3dWcVlETjNuYmRDekNL?=
- =?utf-8?B?K0VJSmhqbFB4K0pHWGwzdEZtM1ZsTCtxT1UzeHVHekFNVmRwYjc3WjBieWhH?=
- =?utf-8?B?SkFtUWRmcC9uYmlNUStpYkRqekJ0Z3l4cTF3WlNFZFc3MnZ6OStqeXFCc2JD?=
- =?utf-8?B?cWpGZTFQSGwzQ2Z1eldTdWppSDFhK0d2am5QMkdQTU9aOUVtNkYvVUVrWDBa?=
- =?utf-8?B?ODRTVjRMMzlzVTRuYS9hUWZMdDl0S0d6akxPR0MvZVJUU04rY1V3VWc0dzlu?=
- =?utf-8?B?NmZoYlVKQ2prNXJKdUNYTktld2tibXZtV1dGOXlpazVoNVM2SVgrdHVyV1M4?=
- =?utf-8?B?RlpUVUtEcE1vaE9BaWlKd2lwSHRBNDhpRWJzMENrSFRmcWhQOG0yTDVrVlFL?=
- =?utf-8?B?RVYrV0UzT043UHl3ZUtldHN5VkVQY1ZMS1B3dmhnZUtpYlNyZTlybVlJMXZM?=
- =?utf-8?B?aWNLODBSQjMxS29kNFFVSEFpZncxZzU1bG5lMzRIaG44ZHVrR3lFeHk2ZWdK?=
- =?utf-8?B?TFl6SXB2ZytFVUV3dnF1TWhYZWVKYnBZWGEzYUJUZ2tNWnhxSVpyWDYzZWRy?=
- =?utf-8?B?SVlNLzgyR24zYUJrUlJvdE1FMUhSb3M1QnpqZ0p5enlldUhrbEwyUFEzVzJO?=
- =?utf-8?B?N2w2WVNoNWxWczdWOXFuY1lwQ1c5SSswNjk3M1RCQXRZWXR0SGJXcTFIdGpt?=
- =?utf-8?B?RkRFWVB1azJVVG5XbFAzaHJSNEVadTg3ejFxSm8rS3ZkV1JFT1JNZ3U4eWJy?=
- =?utf-8?B?MWZtRnU5QjI1NHdqSmpTUUtPeUg5NUcyalpuOVVEZUlTQ0JhWjRObGVVejFC?=
- =?utf-8?B?RjJ0aG9xMGwvb0ZRZVZYS0dqcXpYYnNUSzc2c1d3Uk9Ya0RiemJCeExSOXJa?=
- =?utf-8?B?cFlXK2FodDl4L2lXRXJLUHQydVpiRlFJaDZtN1F1Lzl4ZXUzQW16RWYrZXZH?=
- =?utf-8?B?VjI1dEExQVVJejNwemg0anZ2OVd6OVJ2MklUbVhmNW1SQWF2ajc5M1pURmtk?=
- =?utf-8?B?c0JqN0txc1JXQUhxMnlrZFNuSFgybDhEM29UYmF1MHQyOEhqZG01U0p1Ny9R?=
- =?utf-8?B?Zm5yM21TWkZRSHdSTTJnRDU5SVdvOFJzNitXazNTUjZNeEY1WlFpMVJIQ1Vu?=
- =?utf-8?B?Qk4yb2w5RnN1cDQ4dlF6cHpkY3B5UDU2OHdOM2JqUURkL3YydDQzNm1yS1Bp?=
- =?utf-8?B?SEYzYTZrb3Y3aGxOVHZNQ21laUFqd1dGOGJ6M3cwS0Fkb21lUzZVNUJjNnZS?=
- =?utf-8?B?SVNkbkVuZ1JIZFlja1JsLzJaR0VBS2w2YThBWjFhc083eXdzdmVMZE8zb1hO?=
- =?utf-8?B?YWlocUUrT2htaXNkbWdmWm5CMG80ZUkxd3BsUEpqWkxwdXNIVm12S01lenYr?=
- =?utf-8?B?YndjQUpvaWNxSUZjTXNqNi9XbVVuVXQvR3pzcWFZc0hUVi9ybzRKVlFXc3d6?=
- =?utf-8?B?eURFZDhhdkFCVmtUVGUxWVJ6dmJ6N2JsUmplakR0c3lEQ2N4RklHN3hGby8x?=
- =?utf-8?B?MnlOUnJwOGxaakxQVTMvMWV4UWcyWWozd2QvTmpiWjRydmxHUmpqbWF5aE95?=
- =?utf-8?B?Y2RQNDBDT3NRRWE1dFBCRXNwQlJqeXRKNkN6a2pYeHNnTThlSjdFU1JEcVlX?=
- =?utf-8?B?MENxRjQwZ0JPMDZmdG15MnNqNkFNQlBNL1ZseXFmR3dMN1VVaWM5WjFGZklM?=
- =?utf-8?B?cVVwbGt1cnN6eUh0aHlsajl6OWVGQjFqYVVPVU4rcHhJQ1Jwdk5pZWY2b2lM?=
- =?utf-8?B?NmU0YmdCajJhUnZBOG1JTVRRTXhPWEYyUGxoaWk4N0k0Wm1KVnpuc2RoOUhP?=
- =?utf-8?B?K1V0QW8zd2pibjQ3NlpRZXc0Q08vaU82YTk5L1RINUdGSEo2LzQwTytXbVVG?=
- =?utf-8?B?OHFnNndnQjUxQkpqRE9TVUoxRGhTZkpVdVE3NkkwWWw3a2hMV1VzQVJ0SVhl?=
- =?utf-8?B?K2hMa3Z1eSsvSlMyUEdYdHdUb0UybTF6dlE5RnJBbERqN3ZoSWd0aUxQb3NJ?=
- =?utf-8?B?TmhjMGc3cy9ybWxnTkNsR2Uvdk9wQ3dJQlNkRHp4cGFwb3NaTEtKeDU3bVFF?=
- =?utf-8?B?VklIZ2FFalhWYWEwcGVoN2Y2bExOK1NNMzRla1hRR1lBS0hVUjB2Zz09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: dc5c8ab3-9e90-4c6d-327a-08de810dd035
-X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5126.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Mar 2026 14:35:46.2173 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ixVvQxZ5UtdswFhRw0IoSiLzKGOKx+flX7PdLhzLKzin0rR2MSEZvTOufXpeHIbIClPS/bHwVYIA5k0Pt1NXBw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB5640
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -138,49 +95,54 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+This patch continues the effort to refactor workqueue APIs, which has begun
+with the changes introducing new workqueues and a new alloc_workqueue flag:
 
+   commit 128ea9f6ccfb ("workqueue: Add system_percpu_wq and system_dfl_wq")
+   commit 930c2ea566af ("workqueue: Add new WQ_PERCPU flag")
 
-On 2026-03-11 17:18, Alex Hung wrote:
-> Use GAMMA22 for degamma/blend and GAMMA22_INV for shaper so
-> curves match the color pipeline.
-> 
-> Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/5016
-> Tested-by: Xaver Hugl <xaver.hugl@kde.org>
-> Signed-off-by: Alex Hung <alex.hung@amd.com>
+The point of the refactoring is to eventually alter the default behavior of
+workqueues to become unbound by default so that their workload placement is
+optimized by the scheduler.
 
-Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+Before that to happen, workqueue users must be converted to the better named
+new workqueues with no intended behaviour changes:
 
-Harry
+   system_wq -> system_percpu_wq
+   system_unbound_wq -> system_dfl_wq
 
-> ---
->  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.c | 6 +++---
->  1 file changed, 3 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.c
-> index d59ba82d3d7c..aa4658867e55 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.c
-> @@ -37,19 +37,19 @@ const u64 amdgpu_dm_supported_degam_tfs =
->  	BIT(DRM_COLOROP_1D_CURVE_SRGB_EOTF) |
->  	BIT(DRM_COLOROP_1D_CURVE_PQ_125_EOTF) |
->  	BIT(DRM_COLOROP_1D_CURVE_BT2020_INV_OETF) |
-> -	BIT(DRM_COLOROP_1D_CURVE_GAMMA22_INV);
-> +	BIT(DRM_COLOROP_1D_CURVE_GAMMA22);
->  
->  const u64 amdgpu_dm_supported_shaper_tfs =
->  	BIT(DRM_COLOROP_1D_CURVE_SRGB_INV_EOTF) |
->  	BIT(DRM_COLOROP_1D_CURVE_PQ_125_INV_EOTF) |
->  	BIT(DRM_COLOROP_1D_CURVE_BT2020_OETF) |
-> -	BIT(DRM_COLOROP_1D_CURVE_GAMMA22);
-> +	BIT(DRM_COLOROP_1D_CURVE_GAMMA22_INV);
->  
->  const u64 amdgpu_dm_supported_blnd_tfs =
->  	BIT(DRM_COLOROP_1D_CURVE_SRGB_EOTF) |
->  	BIT(DRM_COLOROP_1D_CURVE_PQ_125_EOTF) |
->  	BIT(DRM_COLOROP_1D_CURVE_BT2020_INV_OETF) |
-> -	BIT(DRM_COLOROP_1D_CURVE_GAMMA22_INV);
-> +	BIT(DRM_COLOROP_1D_CURVE_GAMMA22);
->  
->  #define MAX_COLOR_PIPELINE_OPS 10
->  
+This way the old obsolete workqueues (system_wq, system_unbound_wq) can be
+removed in the future.
+
+Link: https://lore.kernel.org/all/20250221112003.1dSuoGyc@linutronix.de/
+Suggested-by: Tejun Heo <tj@kernel.org>
+Signed-off-by: Marco Crivellari <marco.crivellari@suse.com>
+---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index b3d6f2cd8ab6..04f09eb30e41 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -568,7 +568,7 @@ static void schedule_dc_vmin_vmax(struct amdgpu_device *adev,
+ 	offload_work->stream = stream;
+ 	offload_work->adjust = adjust_copy;
+ 
+-	queue_work(system_wq, &offload_work->work);
++	queue_work(system_percpu_wq, &offload_work->work);
+ }
+ 
+ static void dm_vupdate_high_irq(void *interrupt_params)
+@@ -4117,7 +4117,7 @@ static void handle_hpd_irq_helper(struct amdgpu_dm_connector *aconnector)
+ 			dc_sink_retain(aconnector->hdmi_prev_sink);
+ 
+ 		/* Schedule delayed detection. */
+-		if (mod_delayed_work(system_wq,
++		if (mod_delayed_work(system_percpu_wq,
+ 				 &aconnector->hdmi_hpd_debounce_work,
+ 				 msecs_to_jiffies(aconnector->hdmi_hpd_debounce_delay_ms)))
+ 			drm_dbg_kms(dev, "HDMI HPD: Re-scheduled debounce work\n");
+-- 
+2.53.0
 
