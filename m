@@ -4,94 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0692A105F7AC
-	for <dri-devel@archiver.kernel.org>; Fri, 13 Mar 2026 13:36:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 827A3105F7AE
+	for <dri-devel@archiver.kernel.org>; Fri, 13 Mar 2026 14:04:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6321610E06C;
-	Fri, 13 Mar 2026 13:35:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CC10F10EC38;
+	Fri, 13 Mar 2026 14:04:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="DxvOUzxq";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="cw2W3XLQ";
 	dkim-atps=neutral
-Received: from mail-dl1-f45.google.com (mail-dl1-f45.google.com [74.125.82.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8AF3610E04B
- for <dri-devel@lists.freedesktop.org>; Fri, 13 Mar 2026 13:35:57 +0000 (UTC)
-Received: by mail-dl1-f45.google.com with SMTP id
- a92af1059eb24-12734af2cdcso101455c88.0
- for <dri-devel@lists.freedesktop.org>; Fri, 13 Mar 2026 06:35:57 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1773408957; cv=none;
+Received: from mail-dl1-f54.google.com (mail-dl1-f54.google.com [74.125.82.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2EBD710E153
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Mar 2026 14:04:51 +0000 (UTC)
+Received: by mail-dl1-f54.google.com with SMTP id
+ a92af1059eb24-128eb45835cso54603c88.1
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Mar 2026 07:04:51 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1773410690; cv=none;
  d=google.com; s=arc-20240605;
- b=O0bR0Tu4JO7SmG971ZVs5LcwpCohNgSa4Bj6MEm0x4KPfgCR1XupF9zLIsLT8gM/Wj
- CLwUTx6TnU7ZGB4YFnQIpGsppUuV13qZk5o/+NTXG31qE9khYT6S6ILptLqXV0b8Meol
- ateBs3jOWZ8mC+XdJpEU5WvuvMl7QTMUdVpOG7w/hE9+8RrJGBMVvr6u1+uu5Z4mkcBt
- JpMHdI+yflErWfacbe3vJOUOl57xYyQvBdEJDmrNKaU5EODh2QvqcL1zN5EjjHCHztjY
- 4FXSRzjNJ971KwNdu7lVWKKGxtr/6yP1cbqmSGD5ZlH43jZ++UxSVCYh4dnOhZ+KwxIf
- xm4Q==
+ b=PYiXvi/R1a4psLs4pomdXj4z6hoCtcDEo73PLZby2kkm1uggs2fWnftUgHlcemaeP1
+ jtncFV+4ZzfPvdbwBdinsx2xJuEPwMkciLI4vcgvCAUFVjBNmTtNBRaPVZDinQAs25wZ
+ PFPQ55SfqE8wvlMxnPYPZJ30NtEpQYKisEFBSDpWtp8vSZl6EIRkj9aAyaqhuYB+Fhmt
+ GmoYzbZzmDPI9vud9wPgQ4CcaDEma1Ps4nSft5r4uBVtoRrNIyJxJYDXJbFHxsy7tPvc
+ CF4TxEu/obbn8Aluig7BWzA+14IjkMWGAt07QAXloNLlh5bBahDk2ZI5TTqHO7mgK5I+
+ Bx5w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20240605; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=QhMxT5t81umetHP7OJdIfPfi7qUU4Lkh+7YuNP7wTXU=;
- fh=BKK6rCOYrsJzZ2lD8C8FkzFO7cq705axE8f6Mgj2Juw=;
- b=PBGCV5Bks5TmZLTNrZTESDzqDbGYu1odfY1MklsQKjzQoZ1SZg3RVnkVaKFcZnORd9
- MCM+UO1OuJW14SFfGYAG+rgnUaa+2iztQcFygFVl3CJY1NTo1pCLYuLYgyojFA99T8ca
- kLZWK2sjTtBqGDfP0zxR6KcURA+trjFh8XWYcymAoDeL6SFq1e5hlnvqxiawAt+j2ko9
- LL6svDar8snonREuJLUIvhlhT5UM2t4VeQafZURWiuK8MdkZI5Qju0/wJ8Y7zrcU+DTt
- b3AL4DU8p9sB+Ea5ScbUGTER6y/R1TmmzAoMME6WN1v12KWz7ciLAkmfYFehN2y3gdJN
- w0bQ==; darn=lists.freedesktop.org
+ bh=5E88w3jX+YSLLylZTFGH+to3tZ27lkENQ9LYovk5WCw=;
+ fh=4qhlJdTwEnbLCOBWhg/URjj8CfjNQ3GXwOKg3jbnbZI=;
+ b=Ic7M3u7jt9jFmulx5GfdgdUh3AowPBGmDZueh3waVV1ryf3x06/c/TfCcxjNDONwmb
+ SQitkLWEht4F0c3WgpPe2UVrkxeVywuUxcjlk2ZgMLYjD57c1v42cXNOXeYfu9dwzQp8
+ w2pKP21IAoCGclNy1+dO2ibbAbm+g89HbieiEuKoHLErOUIGuevplYWiADd9ehOwNQqg
+ yhYYtndFUZpdUBoDKVsOj9VxCeIboTMUl/STGZ0kXAeYiY9fgTO0VLku1XSfZ0WjJf0k
+ NiyRWwSxTV/Cqn222v3nkgQuxO4RptdqFnAlmmDBKjZvPjvT7QWjq36lrLOROlcCLJY6
+ h4xw==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1773408957; x=1774013757; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1773410690; x=1774015490; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=QhMxT5t81umetHP7OJdIfPfi7qUU4Lkh+7YuNP7wTXU=;
- b=DxvOUzxq9SjNx/dKEIARpYy7j4Wlzh8AKM6u6B7/bTgx9nGSXJlctPNmXSekYvy8UJ
- MW3Ssom5RuHaBV2a9wBHOShZ/ZCaiCCLfFnft57zvfFncoPwBGW83s/nlh7mMXKuOMMJ
- NHSf722XTY1vdMa3VKOUyfkNgVdGEAm9dE4CkRAKmBYNQ4Us1/+zTb2uEsFWEzVuZs7o
- KEUED0DfmoRNUdujrFSCdF8sBJHbNl6KoGWB75CfAFCIZLgHb4XYSLGquTJTdTdeXoCJ
- WIDeLjXiQf7x8efKe+Ngm+WGYQkvpucpvnFBI1d4JCYldgNkEsw2STyDVuNlEoRRgDY5
- eJwQ==
+ bh=5E88w3jX+YSLLylZTFGH+to3tZ27lkENQ9LYovk5WCw=;
+ b=cw2W3XLQocKGWFmvdO3nn2yKb+60GiM6NiskuCbCYqm1HJb1yR7f4BeiJwU714iwHW
+ ex/82wipCBzJI85H9tZm9q8JJynHw1i3J/mgXksX6jn04I5b4WDYoFgDPmGkpvRVkoD/
+ JD1BT6iU3mzJ7DHQtyydC/3lXM6eKSpnV0vFs2wrf+7lZTQxoQope/13tiJBIF5iUvwv
+ fvWAheonQdvcWzPSMgd370fG4IO9SR0r/zy6K68YrN/I7u2vi6XJsyBCsbuXlwSRamG7
+ biRDbsHfxeDBwcHnIWI3A17Pm0/j9Xq1DQ/4riJNt+HH6Es07VbZX/JLMtiFFDkQiOB5
+ jk/Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1773408957; x=1774013757;
+ d=1e100.net; s=20251104; t=1773410690; x=1774015490;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=QhMxT5t81umetHP7OJdIfPfi7qUU4Lkh+7YuNP7wTXU=;
- b=XHqd6o6LpZDabUCemeeXn+J5o4BzhtQl6rcptKyvgDwujQUAeX9H8xHe5b8Lb6KnjX
- wRIQG3QfsAvnoR7sNh5gEJMlFfPvyEDYjhldB4T2zIoY42wohebYTjTg6yVNfsmTxUTN
- HHRxMxBqmOobBtwMQZqveFzA4IjOnWtKmh/VwGwgrRWdiy7qGh7QNJF+iKV7TwQ84UV1
- +Ls7LxNLep7jqsFMdaMpGd3fdFFS3fDKYaZBEluvAmA7KfU2ZpbmoaRfse/Pu+8KamBX
- MBU8Do7s9ATFaTuCa/ewHzr5lqb0QZ4zr4W81+hf/T0BGOm7BvqSTFwRVA2vpRY0RmRs
- h3jw==
+ bh=5E88w3jX+YSLLylZTFGH+to3tZ27lkENQ9LYovk5WCw=;
+ b=Mi3f7QAlHlQpfxB7d3jCY9/PwafWhx5fDjHntiX36BUkWDDfd6Xgqj7qD1CH+KLiol
+ 3diPppb608S6Us+6sL7TY1yuCD+Tb6eAIvKGf9fEdkqkUTWl+4ME9P+Wjjstjtfnp/yT
+ NGqqyS5VMYmjGnn3KVJ+0FY6aWcMPt4FrPOdOLdr6ZXG83pgTG4zMHkee26pkiRKGNyl
+ Nt8G5/WGKYlXAjtepEbXaDVCPObp4ZJzUSKFB4e5kZKihI11Aj77bnDq/bJA1U7C/GSy
+ +cy+Qr0A0oIAFOR1BAwM3s5zAf6LrJv0Kv/rQU0G15Bts9a10xs+Ur3YIcPYHEclXMLc
+ ubxA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUITwwc3Qgt86WQkC+kx9eIAeskuFE0n+BAGdgz9TRwoDpMT7lzYWaRh0iXqa3Fq4rJcWwoBCKbs7Y=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YynXsWOmrToHKrNeQpqIPQC31WS4EvUeUnF4ngCM368ZYtj+mRG
- 3pDLAN7WDxIo30hPnuVO6v+rW9u22xm5sIav68hSeYp2Nlu6fGmw1yIWTMcclI+Nk0M++a0nP3B
- P38KeWL1AImHBqjyZzOLpAk7V/WVKWWc=
-X-Gm-Gg: ATEYQzyR9W0gUPqvV3hzjE7IEvbcQa4U6r30vQtO6b3tmSDfIXQFqcLmQRJGWRCTwPr
- f1DF8ma96K/oDekHymXVEPLDB3iRYy5H0cMrNgAyLrYLJTjvFQEO0gV0RMcrleq7BFk7m/dadBh
- odBL6bT1G08Rhpqfk9yKpPLZF1Uj67ApnELa8uVPDlzPD+EmZx3SWBaojKnc+JV9w89BBJhO6pT
- fX65x9zZDbqFFs42byolRJCU9y34PYXHtElQPJSEojXEG6fMPu4rW8JBYrCXZSSfMDhSQJuZddd
- +gr2DdPrjn+mTW+iRnipUgsryiILrJhM2Xw1G0myxYWN+iSJAFuF3LEIHrNS1/ZzgX3DtQ==
-X-Received: by 2002:a05:7022:2391:b0:128:d4d5:93b9 with SMTP id
- a92af1059eb24-128f3ddb7e9mr736853c88.7.1773408956533; Fri, 13 Mar 2026
- 06:35:56 -0700 (PDT)
+ AJvYcCV+KJjN/v+k+BtAGYhdez1oYqIoJPTi059W89mNxH+WWbb+/8b74Rrz2ToWRXooVbsZwGJENRJHtek=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwtSJRXOJgewKP3uKnPQMWajUWsep80Hyp8hGPxy/DNkeeWSvQ4
+ UrI+IWjbhtixp/CNjbn4aYIi278nsw0n9WdJ/ta8x+SMneUCqgfOAStHPBZoHDqBS7C0CXDkq0t
+ c/UBEyNRkbAYup+8pOJalE+meJeYSHUI=
+X-Gm-Gg: ATEYQzyUax4bC31fU/b3jaWUWamWJBf2hWrLXwQvJh1zA3+kRJgv/BMT8+lO+M2i6tI
+ y3oR0fw8yHWmWI9fo48bcsKVRAmPKzx/u1xAtHM4xUGxrAE7O1yVQQyx/BoXogvGO+w+ArfLlEA
+ 1slKjUkLHu5o92fgR9J3I3B1AzrQnTOTZjznRG4qjUUBye+4i3ouxrHHYOCDPR1OSfjbKnCinTX
+ RHXJ3JL6f69Vgsq6HY6drM91YZhVHdRbdKfWnsW8twx8dUJ1fm9JQZtObQqCqW6aC0v3b7iErRz
+ 9l36qWHfqLGDzbtGnduierxwIODPnfAb+iLFAIH8rpPPgL+5n+B+pmAL7SWsvcuy952l7A==
+X-Received: by 2002:a05:7022:418a:b0:123:2d38:929b with SMTP id
+ a92af1059eb24-128f3e33d01mr793389c88.6.1773410690364; Fri, 13 Mar 2026
+ 07:04:50 -0700 (PDT)
 MIME-Version: 1.0
-References: <20260312-amdgpu-fix-clang-c23-extensions-v1-1-59883120a451@kernel.org>
-In-Reply-To: <20260312-amdgpu-fix-clang-c23-extensions-v1-1-59883120a451@kernel.org>
+References: <20260313015226.39727-1-davidbaum461@gmail.com>
+In-Reply-To: <20260313015226.39727-1-davidbaum461@gmail.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 13 Mar 2026 09:35:45 -0400
-X-Gm-Features: AaiRm52K3lFtnPCDTCHQ46AGp4JF3gz3oOt-LlB3C1NBMH_-HZtICTmqKkOb1PM
-Message-ID: <CADnq5_MbW=jfGJE=jJi4EXacQs37P1d9KV4a8HjNDLwicwZV7A@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu/discovery: Add braces to case statements in
- amdgpu_discovery_table_check()
-To: Nathan Chancellor <nathan@kernel.org>
-Cc: Alex Deucher <alexander.deucher@amd.com>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Likun Gao <Likun.Gao@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>,
- amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, llvm@lists.linux.dev, 
- patches@lists.linux.dev
+Date: Fri, 13 Mar 2026 10:04:38 -0400
+X-Gm-Features: AaiRm50d_WEY5sRN59yLf89uD38vQ-LQP7kESvNrj1X-FqVXwJ8QeTLcGXASPgE
+Message-ID: <CADnq5_O=Ycrhk1uXO2EfPimZ8EP=nVX4sJ4BUkaB8e0Hwp3_eg@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: switch XGMI sysfs show helpers to
+ sysfs_emit_at()
+To: David Baum <davidbaum461@gmail.com>
+Cc: alex.deucher@amd.com, christian.koenig@amd.com, lijo.lazar@amd.com, 
+ airlied@gmail.com, simona@ffwll.ch, amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -109,137 +106,72 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Mar 12, 2026 at 5:54=E2=80=AFPM Nathan Chancellor <nathan@kernel.or=
-g> wrote:
->
-> When building with a version of clang that supports the narrower
-> '-fms-anonymous-structs' (as opposed to the wider '-fms-extensions')
-> along with the associated kernel support (such as in next-20260312 [1]),
-> there are warnings (or errors with CONFIG_WERROR=3Dy / W=3De) from the
-> switch statement added by commit 47ab777c16c7 ("drm/amdgpu/discovery:
-> use common function to check discovery table").
->
->   drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c:560:3: error: label follo=
-wed by a declaration is a C23 extension [-Werror,-Wc23-extensions]
->     560 |                 struct ip_discovery_header *ihdr =3D
->         |                 ^
->   drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c:568:3: error: label follo=
-wed by a declaration is a C23 extension [-Werror,-Wc23-extensions]
->     568 |                 struct gpu_info_header *ghdr =3D
->         |                 ^
->   drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c:576:3: error: label follo=
-wed by a declaration is a C23 extension [-Werror,-Wc23-extensions]
->     576 |                 struct harvest_info_header *hhdr =3D
->         |                 ^
->   drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c:584:3: error: label follo=
-wed by a declaration is a C23 extension [-Werror,-Wc23-extensions]
->     584 |                 struct vcn_info_header *vhdr =3D
->         |                 ^
->   drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c:592:3: error: label follo=
-wed by a declaration is a C23 extension [-Werror,-Wc23-extensions]
->     592 |                 struct mall_info_header *mhdr =3D
->         |                 ^
->
-> If '-fms-extensions' were not present, this would be a hard error in
-> older clang versions.
->
-> Add braces to the case statements that declare variables to clear up the
-> warnings.
->
-> Fixes: 47ab777c16c7 ("drm/amdgpu/discovery: use common function to check =
-discovery table")
-> Link: https://git.kernel.org/next/linux-next/c/0d3fccf68d9873a3c824fb70be=
-0dbb2c4642aa90 [1]
-> Signed-off-by: Nathan Chancellor <nathan@kernel.org>
-
 Applied.  Thanks!
 
 Alex
 
+On Fri, Mar 13, 2026 at 4:55=E2=80=AFAM David Baum <davidbaum461@gmail.com>=
+ wrote:
+>
+> The XGMI sysfs show helpers amdgpu_xgmi_show_num_hops() and
+> amdgpu_xgmi_show_num_links() currently populate the output buffer with
+> sprintf() and then call sysfs_emit(buf, "%s\n", buf) to append the final
+> newline.
+>
+> Convert both helpers to use sysfs_emit_at() while tracking the current
+> offset. This keeps buffer construction in the sysfs helpers, avoids
+> feeding the output buffer back into the final formatted write, and
+> matches the style already used by
+> amdgpu_xgmi_show_connected_port_num().
+>
+> Signed-off-by: David Baum <davidbaum461@gmail.com>
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 15 ++++++++++-----
->  1 file changed, 10 insertions(+), 5 deletions(-)
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c | 12 ++++++------
+>  1 file changed, 6 insertions(+), 6 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/=
-drm/amd/amdgpu/amdgpu_discovery.c
-> index f9f785c5d8ac..4209945af66f 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-> @@ -556,7 +556,7 @@ static int amdgpu_discovery_table_check(struct amdgpu=
-_device *adev,
->         checksum =3D le16_to_cpu(info->checksum);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_xgmi.c
+> index 11e56df1d91b..13fc7247fe23 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
+> @@ -469,12 +469,12 @@ static ssize_t amdgpu_xgmi_show_num_hops(struct dev=
+ice *dev,
+>         struct drm_device *ddev =3D dev_get_drvdata(dev);
+>         struct amdgpu_device *adev =3D drm_to_adev(ddev);
+>         struct psp_xgmi_topology_info *top =3D &adev->psp.xgmi_context.to=
+p_info;
+> -       int i;
+> +       int i, offset =3D 0;
 >
->         switch (table_id) {
-> -       case IP_DISCOVERY:
-> +       case IP_DISCOVERY: {
->                 struct ip_discovery_header *ihdr =3D
->                         (struct ip_discovery_header *)(discovery_bin + of=
-fset);
->                 act_val =3D le32_to_cpu(ihdr->signature);
-> @@ -564,7 +564,8 @@ static int amdgpu_discovery_table_check(struct amdgpu=
-_device *adev,
->                 table_size =3D le16_to_cpu(ihdr->size);
->                 table_name =3D "data table";
->                 break;
-> -       case GC:
-> +       }
-> +       case GC: {
->                 struct gpu_info_header *ghdr =3D
->                         (struct gpu_info_header *)(discovery_bin + offset=
-);
->                 act_val =3D le32_to_cpu(ghdr->table_id);
-> @@ -572,7 +573,8 @@ static int amdgpu_discovery_table_check(struct amdgpu=
-_device *adev,
->                 table_size =3D le16_to_cpu(ghdr->size);
->                 table_name =3D "gc table";
->                 break;
-> -       case HARVEST_INFO:
-> +       }
-> +       case HARVEST_INFO: {
->                 struct harvest_info_header *hhdr =3D
->                         (struct harvest_info_header *)(discovery_bin + of=
-fset);
->                 act_val =3D le32_to_cpu(hhdr->signature);
-> @@ -580,7 +582,8 @@ static int amdgpu_discovery_table_check(struct amdgpu=
-_device *adev,
->                 table_size =3D sizeof(struct harvest_table);
->                 table_name =3D "harvest table";
->                 break;
-> -       case VCN_INFO:
-> +       }
-> +       case VCN_INFO: {
->                 struct vcn_info_header *vhdr =3D
->                         (struct vcn_info_header *)(discovery_bin + offset=
-);
->                 act_val =3D le32_to_cpu(vhdr->table_id);
-> @@ -588,7 +591,8 @@ static int amdgpu_discovery_table_check(struct amdgpu=
-_device *adev,
->                 table_size =3D le32_to_cpu(vhdr->size_bytes);
->                 table_name =3D "vcn table";
->                 break;
-> -       case MALL_INFO:
-> +       }
-> +       case MALL_INFO: {
->                 struct mall_info_header *mhdr =3D
->                         (struct mall_info_header *)(discovery_bin + offse=
-t);
->                 act_val =3D le32_to_cpu(mhdr->table_id);
-> @@ -597,6 +601,7 @@ static int amdgpu_discovery_table_check(struct amdgpu=
-_device *adev,
->                 table_name =3D "mall table";
->                 check_table =3D false;
->                 break;
-> +       }
->         default:
->                 dev_err(adev->dev, "invalid ip discovery table id %d spec=
-ified\n", table_id);
->                 check_table =3D false;
+>         for (i =3D 0; i < top->num_nodes; i++)
+> -               sprintf(buf + 3 * i, "%02x ", top->nodes[i].num_hops);
+> +               offset +=3D sysfs_emit_at(buf, offset, "%02x ", top->node=
+s[i].num_hops);
 >
-> ---
-> base-commit: 7a9419ab42699fd3d4c857ef81ae097d8d8d5899
-> change-id: 20260312-amdgpu-fix-clang-c23-extensions-1fb28eee64c2
+> -       return sysfs_emit(buf, "%s\n", buf);
+> +       return offset + sysfs_emit_at(buf, offset, "\n");
+>  }
 >
-> Best regards,
+>  static ssize_t amdgpu_xgmi_show_num_links(struct device *dev,
+> @@ -484,12 +484,12 @@ static ssize_t amdgpu_xgmi_show_num_links(struct de=
+vice *dev,
+>         struct drm_device *ddev =3D dev_get_drvdata(dev);
+>         struct amdgpu_device *adev =3D drm_to_adev(ddev);
+>         struct psp_xgmi_topology_info *top =3D &adev->psp.xgmi_context.to=
+p_info;
+> -       int i;
+> +       int i, offset =3D 0;
+>
+>         for (i =3D 0; i < top->num_nodes; i++)
+> -               sprintf(buf + 3 * i, "%02x ", top->nodes[i].num_links);
+> +               offset +=3D sysfs_emit_at(buf, offset, "%02x ", top->node=
+s[i].num_links);
+>
+> -       return sysfs_emit(buf, "%s\n", buf);
+> +       return offset + sysfs_emit_at(buf, offset, "\n");
+>  }
+>
+>  static ssize_t amdgpu_xgmi_show_connected_port_num(struct device *dev,
 > --
-> Nathan Chancellor <nathan@kernel.org>
+> 2.50.1 (Apple Git-155)
 >
