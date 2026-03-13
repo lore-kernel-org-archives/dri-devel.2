@@ -4,167 +4,142 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5A163106FD98
-	for <dri-devel@archiver.kernel.org>; Fri, 13 Mar 2026 07:58:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AD1C7106FD9B
+	for <dri-devel@archiver.kernel.org>; Fri, 13 Mar 2026 08:00:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B02C310EB06;
-	Fri, 13 Mar 2026 07:58:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E386F10EB2B;
+	Fri, 13 Mar 2026 08:00:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="dlh/sIKS";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="FbRydT1K";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="gd1v2RCK";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D5F5510EB06;
- Fri, 13 Mar 2026 07:58:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1773388684; x=1804924684;
- h=from:to:cc:subject:date:message-id:references:
- in-reply-to:content-id:content-transfer-encoding: mime-version;
- bh=y7lMZxQU7P41qoRaERAaaMWEUvg6FByF8BFPIRcyqu0=;
- b=dlh/sIKSzPq6fPMhlN27oN96DbZL8pVechBDmgZSF9o5x9sUp3J1Cx8r
- 09zeRDQim5Eohp/y/WYnUsp+jOrJ/aWqwqa/JTPDwcg7a4OMQkDXPVy8U
- bGPZ7YVj4CGKKsORXp1ZnENel3JNKiLTQ9n4rqAwuGjUZCIVSZZYpfNsX
- on7j/3MxT3F/Q+BeiveFTPJBz30WyLdKdq6pjMRfQsiy6kBEoesmDTHHD
- LCCOkz3h+rasGfqvPcFrYvlv7UTEtPUHR5DHtC3r2o/bSnnpPjMG5Yub0
- X/vC8Z2b8ABaIXPCtCmlhsfGr5WVYI3f28UnKmv4yrnR3NFE7KZm7WfLJ w==;
-X-CSE-ConnectionGUID: wGuubRqRRVek4JqhQadhpw==
-X-CSE-MsgGUID: gL23ozgfRNuZLYmOw4BtwQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11727"; a="84811099"
-X-IronPort-AV: E=Sophos;i="6.23,117,1770624000"; d="scan'208";a="84811099"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
- by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Mar 2026 00:58:03 -0700
-X-CSE-ConnectionGUID: 5e+KDXJIRyWDV6UPO7rYHw==
-X-CSE-MsgGUID: fOmapDbiQPSbuNOcDYcPYA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,117,1770624000"; d="scan'208";a="246306579"
-Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
- by fmviesa001.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Mar 2026 00:57:57 -0700
-Received: from FMSMSX903.amr.corp.intel.com (10.18.126.92) by
- fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Fri, 13 Mar 2026 00:57:55 -0700
-Received: from fmsedg902.ED.cps.intel.com (10.1.192.144) by
- FMSMSX903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37 via Frontend Transport; Fri, 13 Mar 2026 00:57:55 -0700
-Received: from SN4PR0501CU005.outbound.protection.outlook.com (40.93.194.15)
- by edgegateway.intel.com (192.55.55.82) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Fri, 13 Mar 2026 00:57:54 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=U+9DkCevNQJUzXhG7q3d3bjzlqDO9Ou3bICMKl5GHygj+xyo19kqghShStO+bCVVHT75/SpHCNGXuTkdpOT+oYVM6sbSMejZSKthrOez4Uw00SHojl+pSMq8ARdihGdkk6DNKflTEX7zcDFGcBVS/9ubKv9/vwZy8cDd2alF++xD1/VGFgVWeEy4bYu+26spWJ4c6ag3/l6EbktnOJEOo2NRaPwrJXhAYUznJBVHsmsXCziP5tCFpHNbxT4pPShvim4fvOX68IIMx9hytPX4LavQbxWwBcAj89FGA1lEjS3jif1+AB8osO9i5BrjP7s4FltfBpJrR1FzizGioBCgbA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=y7lMZxQU7P41qoRaERAaaMWEUvg6FByF8BFPIRcyqu0=;
- b=VfBQhhL8sguBmgzBOxV979i6EvzbHrk7HhWQfvaO7dQ4d4ATvUnKWDn9Wu/N3RUDl2qo6lv6EeWe+tR9+ATcrVR8wv5od0hTC7DW91VmUk2TGk9p5OuXwAt9xuQ5kOgFs9Xs653tL+nFqP3SQx+YNpF76IQgfEB9rQ1YMHstl0g7rt/RvWcW0LL4cE4uNB/yr7uM/r6O4AoeQqF2VzmJt+UYD0Bnxa72euvNYpatQw6jmgaAsVftyC/tdnPHyQR1vzWmsFtDbcIfiYB2E3KoyRCmPnBHQ6XfTLNCKdZVoX3DyBQcXQFbeiAh9I9ziuZENMt89hfY4KRy7662Q0WliA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Received: from DM4PR11MB6019.namprd11.prod.outlook.com (2603:10b6:8:60::5) by
- CY8PR11MB7924.namprd11.prod.outlook.com (2603:10b6:930:7a::20) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9723.7; Fri, 13 Mar 2026 07:57:44 +0000
-Received: from DM4PR11MB6019.namprd11.prod.outlook.com
- ([fe80::9086:5e0b:ad24:762]) by DM4PR11MB6019.namprd11.prod.outlook.com
- ([fe80::9086:5e0b:ad24:762%6]) with mapi id 15.20.9723.004; Fri, 13 Mar 2026
- 07:57:44 +0000
-From: "Hogander, Jouni" <jouni.hogander@intel.com>
-To: "Deak, Imre" <imre.deak@intel.com>
-CC: "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "Nikula, 
- Jani" <jani.nikula@intel.com>, "Manna, Animesh" <animesh.manna@intel.com>,
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>, "Murthy, 
- Arun R" <arun.r.murthy@intel.com>
-Subject: Re: [PATCH v7 0/3] Panel Replay BW optimization
-Thread-Topic: [PATCH v7 0/3] Panel Replay BW optimization
-Thread-Index: AQHcseFtvVqfVU+4l0S51ihL3Qu0I7Wqij2AgAB4/YCAAOsygIAAKjeAgAABvQA=
-Date: Fri, 13 Mar 2026 07:57:43 +0000
-Message-ID: <cbd5a8b6e612da35d03440b18f81138f3fa48349.camel@intel.com>
-References: <20260312050035.3493690-1-animesh.manna@intel.com>
- <07a6b5ed17b3781aa6f769d92b8409d3519c21ea.camel@intel.com>
- <abLZS_Xn2mnKAgLq@ideak-desk.lan>
- <34d06e837ea473c4f1a6456ae2da55c97e58fc67.camel@intel.com>
- <abPCARYnIAdJHuxf@ideak-desk.lan>
-In-Reply-To: <abPCARYnIAdJHuxf@ideak-desk.lan>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DM4PR11MB6019:EE_|CY8PR11MB7924:EE_
-x-ms-office365-filtering-correlation-id: 73451d05-a78c-4181-8614-08de80d63562
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|1800799024|376014|366016|10070799003|18002099003|22082099003|56012099003|38070700021;
-x-microsoft-antispam-message-info: YfCxq6d+E76LV5gwR9CJ5Japy4uSKoFZLyQrAX39Gn+v2WQ0rfzF5H90T++SNxQzJT85eNGSYHMXC+pO0aCnPFpCna9PFajBwIUckAqNft5uJygccW6QCeksIXHzrZe+T3A/0A6g1owpWsGJqG+86vcuJHFOo5dPPhIqRehhjGH8vqwHhPSqVDkJk7Dg0igAbTgx8HCiDLURfWSCW1IJ3JvAuxAWoKKCEX1E+fetKOLhyz4suPkFu05Xs8dErkYGlKItl8vs4WKLy+4bKkZ2WX+KJbxVitlPZtWQwl6BD9UvUvKmEQqkCdpp+8rrnaaT14W0fJgQpDMSsmWZUxK3bb/SrOGdZLbC6E/G/q6zL1pLRchefxPC5xJ0CYx4Kw4IPM0crliNGYnycMfikC3SjN6OanaA0JnVAo6P5BKwjZFezPCQZxmwO2LF7ium8Er4lbereZlMqV0hmulUGLldjzxaheTKsvHEmub6lwQBuXplajPZ3vf2yFDofn/kVN0sz91YOn7CVZ7RkfAxyc4LIWfDuUzOw83YYusKfBJPtpZELxCRluPPzCDVEC+YdhMIRGktvmBjTTsJv5eAtoRdMJ0Y5Y6yB3uGbXJXdUU7UYB4meO9ZY1RPYT+3wYroOuQmb5vfR/xFnWorr+A7nfxvZHjlie70NNqCU20RRzHfIJk00jzWqaxaT6y7MsrtdoWj8JFikuFpSAxHkhMzmV9NrWBlB6fZmFs7COlgkSr1U1a0fLZBa7pdnFRQvVy88F37lXlrb13o0xsxOK2oXg8nLS+NXwJK8cx5PmJA9fPZGo=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR11MB6019.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(366016)(10070799003)(18002099003)(22082099003)(56012099003)(38070700021);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 2
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?b1c3YW1aOG4xT1BuajNFZTBiMVExOXE1d1lCd2ZiNHNWdFNQZXIwSzkzZmRs?=
- =?utf-8?B?WFVFRFk1YUhIcDBQTG9RNUl2b1FGcE9QNGtEeUhxSDNQUUVBeVFkVDdVdERY?=
- =?utf-8?B?cGIzcmRaWGc5UFVWM1h3cDlWb2J0TWl4MlBmZk5zbHNsczNDUzY0TEJmTjRI?=
- =?utf-8?B?U0lZd1dkRVFuZWlTYlNneWxZMVI4YW50bkwxdkc0VW4rdTlVblNpeittSnd2?=
- =?utf-8?B?R3hQS1BlNTNlUmNVR0lKS1hkU05pWnhYRlNyUHpVdVRxblpqNzdZaWVwUzBj?=
- =?utf-8?B?ZVMwS0R2eVZHZGhWNUp6M2EzVC80bXJYeEtBUldSazhPZDk4aytNRHVTTnhj?=
- =?utf-8?B?MWlPVzYrUnhsZisySDdiVnVtVkwzM2FKOHlqUCtpams2NVF6c2t3Q2F2UHNh?=
- =?utf-8?B?bzlMcmJidldSbzRISDh3c3c5ZmE3L0NwWFgvaDNyZitxdThDdFdrNXIyWUxV?=
- =?utf-8?B?ZFdVcjl2WFpHUnp3SUlqQXFZd2h0MGxGeXRndCs3cXNuREJrWGdZZjlCMU02?=
- =?utf-8?B?ZmlyVzF2SjRIQ25qYVE0ZzdlRGtxdEhOZG1QTjBwOE1BWDBaREJDdy9LVFhh?=
- =?utf-8?B?bU54MjVManZQL0VvbnZVaUNGYnJzbFlSaDhQdllPblJTdEpDWk5INnhsS2tI?=
- =?utf-8?B?Ry9DUlZEOVI0SkEyb0ZsaVJ1TmFlUU91TFB4b2xRZ3MzUXpZT1pHV1N0SVY5?=
- =?utf-8?B?Y0tmMDM3bzc4cEtydjMrN1NESStVano3ZzJ3NXkzMXJKTUd4OEt4QVFxdEUr?=
- =?utf-8?B?VzE0Y3MrVEdxMVNMd1F2YTd3c0pCZC9seFpNNHo4akdPa3ZwMTg0UnNweTUw?=
- =?utf-8?B?MHI2RGIwUTVRYWtHNm1OeTJBV3NWODhMWlJFMUEveVNJWFQzc2JhYndYelNp?=
- =?utf-8?B?WVZLOTRhREdkNGFDb1BVUVdYcXlIMk9ralNHTW5NOXJMTy9HSTZESnVSUVBT?=
- =?utf-8?B?dDNTVlBZNHRYMnBENjdqZm4vZjBWUUhyZkJCWHdIRDVjTVFoVStwRE5vSkd0?=
- =?utf-8?B?akJBdWpkbWcvWnliRS9rZFVNREJDaXd5Z1lrcGdTMVFuUVlCbndKSW5IZGZD?=
- =?utf-8?B?eTc0VkxhNzJ1cnZ0dGR6THlRdExYa2crcXZtNWlyNm1LR0tMRDl0VVFWQ0Iz?=
- =?utf-8?B?eUhwV2w5VDVha3lsa2lVeGVkYVM3Y3hxdnZ1N0tSQ2FDc05lRm83aXpMV3l2?=
- =?utf-8?B?WWtMVVhCMGtmTWgrSGpVM3EybzZBMVd1b2t3OVhab2lRemRwU3Y1S2FWYWt5?=
- =?utf-8?B?WG9kRkI3VEFWVEtXU1VXMnN4a2ppaHpaVndpUzNCbDc4dDJsSjhiZk5JdnRM?=
- =?utf-8?B?UFZVRXhsMVh4Z3k3ZEpZZFBrcnVtRGQ5d0R5VlllWFFKNUtvblp3U012N0lr?=
- =?utf-8?B?Y1crS00wcU10SWo5b2lOWkRCblhaK09UU2plcmtGSWtMNjlSbkdsTjRHRFls?=
- =?utf-8?B?MjRqamRPZml3VVNRU2ZpditlR254YjJXRU9ycUNabzZHYnFHMTB1ZFpSa00r?=
- =?utf-8?B?S0hKRk1mejJYL0RHaUwwdU9qeHh3Qi9HaWNDM20wQlZ3c3NFWXdYVjRuY0hF?=
- =?utf-8?B?K3BTb256MFR2MVVnaGtiVXI5NmRvNUJMTFIvQ3FDd1puUEtyTjQxYUllMkJ0?=
- =?utf-8?B?ZS9Dc1lIMis3cCtKY0FxOE5OMzM3bXk4ZG5PQ0s4aGJnd05XMS8vNDNCdUpK?=
- =?utf-8?B?VHN6WVpXMWhhZ3lIRGdJcE1ydVo2Z0NLTERCYjNhNGlETUo4UkdxM2NoazM2?=
- =?utf-8?B?N2lBd2I0VVAxcGZtMEduNXh2K2NyaFJ4K2dXd3JZTnlZcmM1VWxQb0ErcGtB?=
- =?utf-8?B?SzNrNnY3TFVQK2QvTnBCT2N5L0I1TG9zQmpZMUNOM3BsSXo0WWdpVHJJMW1X?=
- =?utf-8?B?emZoQThQSlpHVTY1V05qcmhXbXIvOFU0aXFHbkZGUzU3Wmw5S0ZTdTF4Y1RX?=
- =?utf-8?B?SXBBQ2xqbURuRGVhVjNqaVNGTzBNTjFsL2NCN3NoVVdCTFYzWHlYVGJ2VGEw?=
- =?utf-8?B?RkN3STFNS1lmeENPUmRpWlZIQURVQ1RrVWVESUpTWXZlNnVkZXlETllGVnY0?=
- =?utf-8?B?T09VL2pEM3I5bmQwN0pPL0s2a0hnRjJlMUgwYVR3TFo5QWc4TjlTK3hMZjB6?=
- =?utf-8?B?M2xCTFNNTmJYQmJnMHR5YzJmU2EwK0JRdFRVM0Z0YWcwd0Y1ektiRmttbUI2?=
- =?utf-8?B?RWZad3hkelhKL2pSNWxXZFdTVjlyNURLUGpkbGhJalh0VmppbDFpZG9HM2hr?=
- =?utf-8?B?OHNuRzh5aGtTb0dERGdMQXpSWGYrdmNDVzRuQmtwbTM2SjdqSEd2YWRETlNx?=
- =?utf-8?B?L0d3cEpCQWMrQUZZOFZWRVhvVEMzY0FHcDJsN3M1K2xaVnpIeGZmTmxTd01k?=
- =?utf-8?Q?PY8K+L0nHrTGvBNYBh/+GazN1Dzo3Zm+VVbMshtXkMTun?=
-x-ms-exchange-antispam-messagedata-1: B1uXlMlxujy9+v4gmPLfpH2EGOBgeELk0Nc=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <8F36F6E6FCD2B847991CFB671C53815B@namprd11.prod.outlook.com>
-Content-Transfer-Encoding: base64
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F0CA810EB12
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Mar 2026 08:00:06 +0000 (UTC)
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 62D6oV9t793568
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Mar 2026 08:00:06 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=rNU/qaflvRflKxNAETsUT5KC
+ t1w4gHqJvqKZ7vG+hEo=; b=FbRydT1KiNMuZrzf0mEE1ScmR7krNdCvYxO7619u
+ PSSXSZd7/zYhvPNMT7ljUEJBjcUz5T6QVDb6PGC1WFu8wz+/o6HCGfzTaSJt4IF5
+ 6UzaIzSLp3lDI861BmTFMC07fkhITEGKcalGL8jmUyK2QgN2estr2zoky2HmWWAq
+ ht8L2trF6kzZAO3aps2syHq5pPamaJu9EHed48m/9YTVa30TK9w5bOzIx4XR471H
+ UhkRo+DGDED1dF9jgIZX1QT/fNKEbrt/gizBMJYXNc4OSwCDY51a1cVrgMV7QU74
+ lQWIuahYq1Q4U2kjDlsb/1IGdUS9q9qeuBekKBqZq9sK8w==
+Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com
+ [209.85.214.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4cvdnt08bk-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Mar 2026 08:00:05 +0000 (GMT)
+Received: by mail-pl1-f199.google.com with SMTP id
+ d9443c01a7336-2aebfa0af7dso98794965ad.1
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Mar 2026 01:00:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1773388805; x=1773993605;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=rNU/qaflvRflKxNAETsUT5KCt1w4gHqJvqKZ7vG+hEo=;
+ b=gd1v2RCK88YS8YKXG5Cv48Egx/E9GA8VU/gU1+TfTWAnSOsUd/Z0Yv2J0yNdGEbgKZ
+ RAqrTp2m1wUTeyzAR84Ki8DCr4beAmKAavmgXYuGBNzt9wg+P4sf7fhDkXJvJdyFgeLK
+ V6rChmgdddV+yjuFOWBrf+t/I1STttv7mt8hm2gCHIZC8wFCMRQfv2SHdlfaYXzBnvKK
+ zGgdgWzLBuIsS+fQ/3sXFl5ctDLddIQyw1T1BnWnkSqUKUS1xVfLk+H3Kw/njW2e31PK
+ HYZr/BYi/zgetl40676o6FtAwRWzLmoHrYslhUYtQUWJyZv4/diehr0zmwlOux8IM2/l
+ IvlQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1773388805; x=1773993605;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=rNU/qaflvRflKxNAETsUT5KCt1w4gHqJvqKZ7vG+hEo=;
+ b=b3GVAXWBQvtdQRIgWyQSgBVJUVMopxkm6mWraEWL8yvNmcjHN/zWR3/ys79uUtFbAj
+ ux8T/g7dSKYSerk0h8yj8t/cwe8HqS/TAC2lywfMbUbjbRJ/lz3xwKyEyO2BVMXdts5q
+ 2z/zZL78rxX1zcZIIIvD0+xJG9tNbMUDL/epfPqrVwi2pWJtnzBKqf4Ju9H3nr92errY
+ 3ImTf0OuHh11E/S4CnwXjvuDQe10t2Ie/42CzeHCJDXN73qyAwr0kioih1ZqyvusmHpw
+ vmZOXW1smn3Cz5MQnLlw4lNTm+Xy03t992dhCchjobZybBjvyVirT63C3NMkY5znaXEx
+ Uz5w==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUQx9ZgCUyA3IUbt6LCJPRVHf8UV+D+zez00//gQiZX0E3xEIFS7IAzT3IGjeovTc/cA/9vNqm0WKA=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwhXcwWFHs5Txwmu61EIHD0FGfeH0f1ro4mCl0iu9YNOPp1dQWU
+ DQiSx9SPhTESp6zqjkM4fsThu9WC8M2yXq2CtA480lMPiOMzfa9UoC5+9Uww/lvI5QXpHFnXJGY
+ OK4lo/j/CutpEoUYtNfzXIsYrUj7WCb+grj3s/FajToTJUr46tFNThhZIkY4MkQu6X0MufwM=
+X-Gm-Gg: ATEYQzyWH1kve+2ar1AZFiqhFNc+FfgLx0psBAOXBH4rmwI+E4DlIdkUFfdyjCuzmag
+ oBexFAJ9ptUJ877/2ucVN3I3bKB/lWNPeZdkHAvh8ybKkVGWPCAG6b2Fl0aHhg37ycMrgWvAXrP
+ 35LA6yOWpKXHcXKIFlDMvf+Ino/rxxsIom+KqyhsF5nLnrw8Rg9wENW7E1gWkskNswGq+XeoY4I
+ dWhT4azUbq7cUV2JDkom7+Y3C+B4b4pqlkKxm9pYe574/kAugdjAQQleAunbj7FEdyiq+Te5GLm
+ PwzjTUMjstG9eM4LyzhrlssbrEry12W1OsVL6GDJO7jcXkpQbNw+9KeS1g++1LPqUUTu81RBoGT
+ RGD0m/5vIfAcwIAV/p/m5C5+04/LiU4Nxm2pqsA/NnC6HQ/Jg
+X-Received: by 2002:a17:902:dac9:b0:2ad:d5ea:4c89 with SMTP id
+ d9443c01a7336-2aecaa7917amr23777525ad.22.1773388804791; 
+ Fri, 13 Mar 2026 01:00:04 -0700 (PDT)
+X-Received: by 2002:a17:902:dac9:b0:2ad:d5ea:4c89 with SMTP id
+ d9443c01a7336-2aecaa7917amr23776835ad.22.1773388803903; 
+ Fri, 13 Mar 2026 01:00:03 -0700 (PDT)
+Received: from hu-mojha-hyd.qualcomm.com ([202.46.23.25])
+ by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-2aece56c388sm17225935ad.11.2026.03.13.00.59.51
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 13 Mar 2026 01:00:03 -0700 (PDT)
+Date: Fri, 13 Mar 2026 13:29:48 +0530
+From: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+To: Sumit Garg <sumit.garg@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-media@vger.kernel.org, netdev@vger.kernel.org,
+ linux-wireless@vger.kernel.org, ath12k@lists.infradead.org,
+ linux-remoteproc@vger.kernel.org, andersson@kernel.org,
+ konradybcio@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, robin.clark@oss.qualcomm.com, sean@poorly.run,
+ akhilpo@oss.qualcomm.com, lumag@kernel.org, abhinav.kumar@linux.dev,
+ jesszhan0024@gmail.com, marijn.suijten@somainline.org,
+ airlied@gmail.com, simona@ffwll.ch, vikash.garodia@oss.qualcomm.com,
+ dikshita.agarwal@oss.qualcomm.com, bod@kernel.org, mchehab@kernel.org,
+ elder@kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ jjohnson@kernel.org, mathieu.poirier@linaro.org,
+ trilokkumar.soni@oss.qualcomm.com, pavan.kondeti@oss.qualcomm.com,
+ jorge.ramirez@oss.qualcomm.com, tonyh@qti.qualcomm.com,
+ vignesh.viswanathan@oss.qualcomm.com, srinivas.kandagatla@oss.qualcomm.com,
+ amirreza.zarrabi@oss.qualcomm.com, jens.wiklander@linaro.org,
+ op-tee@lists.trustedfirmware.org, apurupa@qti.qualcomm.com,
+ skare@qti.qualcomm.com, linux-kernel@vger.kernel.org,
+ Sumit Garg <sumit.garg@oss.qualcomm.com>
+Subject: Re: [PATCH v2 02/15] firmware: qcom: Add a generic PAS service
+Message-ID: <20260313075948.nbopdkctdcvzlj3f@hu-mojha-hyd.qualcomm.com>
+References: <20260312062756.694390-1-sumit.garg@kernel.org>
+ <20260312062756.694390-3-sumit.garg@kernel.org>
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: a+TTjs83rHjJWemSK9ucF0PU62mdDJLJXWlN/5VhrQkdVyLsYvRzA5LzuX3zRvPYz+cUygesr//SBIHSJv/yImEL8xeaZmJNVYa/jpOMl+jgM9s5HYxNRU0kPwwTrMQoYKip27VySCfrulZVxwQ7tgy27nuD4EGOXLPbcy4Q6NXMXiwIyCHsXtruQcRCdgILQm0C6YD63GviyOAx790kGeT7TV+T37PEbtakNdBFjn6UjoRLertwoUs9g4G0uyzPtV5A7g8BsYmdDtlR2RbDZ0hCR709WVOeHHprVWbL5z70yNn6gZZufbPCezjz7j/+MStKxtxQWbCHnJSClOsz/Q==
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR11MB6019.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 73451d05-a78c-4181-8614-08de80d63562
-X-MS-Exchange-CrossTenant-originalarrivaltime: 13 Mar 2026 07:57:43.9310 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: GryDjbamKE2bB9sid73jspZ+EpTnTfL7R8VnG3Xghlc1wnaNNe8siUBnTHw7cU6t1HOOBHqyW9w8tH0DNB/Tsan+fiYGVvckQkXf9LiEhuU=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR11MB7924
-X-OriginatorOrg: intel.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260312062756.694390-3-sumit.garg@kernel.org>
+X-Authority-Analysis: v=2.4 cv=KZrfcAYD c=1 sm=1 tr=0 ts=69b3c405 cx=c_pps
+ a=JL+w9abYAAE89/QcEU+0QA==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=kj9zAlcOel0A:10 a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=EUspDBNiAAAA:8 a=B9m6UvTZno2CEb395rQA:9 a=CjuIK1q_8ugA:10
+ a=324X-CrmTo6CU4MGRt3R:22
+X-Proofpoint-GUID: HceglL7cro8AKUTKm9oXbzaDCO516rmf
+X-Proofpoint-ORIG-GUID: HceglL7cro8AKUTKm9oXbzaDCO516rmf
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzEzMDA2MiBTYWx0ZWRfX8HzjVcRN/jRc
+ dTM6qTFhHO7+HN5H36uMsOIUATXjUcC9NBw7dju3x4BraWu2ICWzXZiGkijWkOx9HgnTDI2S5cB
+ JEVwPzwvDktUdqOs940g/iZKt3X9x4BA8tpUmyWCXJ8eP7M/Dvj4W3OibSjGiZ3N0bjH7j+z6Ia
+ XDC7Yhnd8sCDPAyF2PWI+du6HY8omeRlw6Fx45VnrkT+XMt96p7RHgSOyRumOEabITCYFwKaB56
+ CbryAt5v1zb0nVspI1auwVkpVFL/qsVvD2UOKWKmeUI8eaP8kupXutfzFDvMCuumYBRwMVpBCPv
+ hkyvp27tMbqpJ7iuj+3XtVoVKYzuW/dMG16J6RkTeUpx3ekJp53yOUF4nnnHTL9jus9eQfwZkiI
+ U9D/5/LTMs+pUKOWPuy6rJS2GcBbcb4y9OuQLaEx2BfHMbb39Yl4d94hDCH8Z50XrwbMKWxPb32
+ phg+avZZQvIIThVY8PA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-03-13_01,2026-03-12_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 spamscore=0 lowpriorityscore=0 priorityscore=1501 bulkscore=0
+ malwarescore=0 impostorscore=0 adultscore=0 clxscore=1015 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603130062
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -180,82 +155,490 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-T24gRnJpLCAyMDI2LTAzLTEzIGF0IDA5OjUxICswMjAwLCBJbXJlIERlYWsgd3JvdGU6DQo+IE9u
-IEZyaSwgTWFyIDEzLCAyMDI2IGF0IDA3OjIwOjI0QU0gKzAyMDAsIEhvZ2FuZGVyLCBKb3VuaSB3
-cm90ZToNCj4gPiBPbiBUaHUsIDIwMjYtMDMtMTIgYXQgMTc6MTggKzAyMDAsIEltcmUgRGVhayB3
-cm90ZToNCj4gPiA+IE9uIFRodSwgTWFyIDEyLCAyMDI2IGF0IDEwOjA1OjM1QU0gKzAyMDAsIEhv
-Z2FuZGVyLCBKb3VuaSB3cm90ZToNCj4gPiA+ID4gT24gVGh1LCAyMDI2LTAzLTEyIGF0IDEwOjMw
-ICswNTMwLCBBbmltZXNoIE1hbm5hIHdyb3RlOg0KPiA+ID4gPiA+IFVudXNlZCBiYW5kd2lkdGgg
-Y2FuIGJlIHVzZWQgYnkgZXh0ZXJuYWwgZGlzcGxheSBhZ2VudHMgZm9yDQo+ID4gPiA+ID4gUGFu
-ZWwNCj4gPiA+ID4gPiBSZXBsYXkNCj4gPiA+ID4gPiBlbmFibGVkIERQIHBhbmVsIGR1cmluZyBp
-ZGxlbmVzcyB3aXRoIGxpbmsgb24uIFRoaXMgcGF0Y2gNCj4gPiA+ID4gPiBzZXJpZXMNCj4gPiA+
-ID4gPiBlbmFibGluZyB0aGUgc2FtZS4NCj4gPiA+ID4gDQo+ID4gPiA+IEdlbmVyaWMgY29tbWVu
-dCBvbiB0aGlzIHBhdGNoIHNldC4gTWF5YmUgd2Ugc2hvdWxkIGFkZCBvbmUgbW9yZQ0KPiA+ID4g
-PiBwYXRjaA0KPiA+ID4gPiB3aXRoICJGaXhlcyIgdGFnOg0KPiA+ID4gPiANCj4gPiA+ID4gRml4
-ZXM6IGU2MGNmZjQ1M2I4MiAoImRybS9pOTE1L2RwOiBFbmFibGUgRFAgdHVubmVsIEJXDQo+ID4g
-PiA+IGFsbG9jYXRpb24NCj4gPiA+ID4gbW9kZSIpDQo+ID4gPiA+IENjOiBJbXJlIERlYWsgPGlt
-cmUuZGVha0BpbnRlbC5jb20+DQo+ID4gPiA+IENjOiA8c3RhYmxlQHZnZXIua2VybmVsLm9yZz4g
-IyB2Ni45Kw0KPiA+ID4gDQo+ID4gPiBXaHk/IEFzIEkgdW5kZXJzdGFuZCB0aGUgUGFuZWwgUmVw
-bGF5IEJXIG9wdGltaXphdGlvbiBvbiBhIERQDQo+ID4gPiB0dW5uZWxlZA0KPiA+ID4gbGluayBp
-cyBhbiBfb3B0aW9uYWxfIGZlYXR1cmUsIHdoZXJlYnkgdGhlIGZyZWUgQlcgY2FuIGJlIHVzZWQg
-YnkNCj4gPiA+IHRoZQ0KPiA+ID4gVGh1bmRlcmJvbHQgcHJvdG9jb2wgZm9yIG90aGVyIHB1cnBv
-c2VzIHRoYW4gZm9yIHRoZSBnaXZlbg0KPiA+ID4gZGlzcGxheQ0KPiA+ID4gc3RyZWFtIGZvciB3
-aGljaCBQYW5lbCBSZXBsYXkgaXMgZW5hYmxlZC4gSU9XLCBpdCBsb29rcyB0byBtZSBhDQo+ID4g
-PiB2YWxpZA0KPiA+ID4gY29uZmlndXJhdGlvbiB0byBlbmFibGUgUGFuZWwgUmVwbGF5IG9uIGEg
-RFAgdHVubmVsZWQgbGluaw0KPiA+ID4gd2l0aG91dA0KPiA+ID4gZW5hYmxpbmcgdGhlIFBhbmVs
-IFJlcGxheSBCVyBvcHRpbWl6YXRpb24gb24gaXQuDQo+ID4gDQo+ID4gTXkgb3JpZ2luYWwgY29t
-bWVudCB3YXMgYWJvdXQgRFAgc3BlYzoNCj4gPiANCj4gPiAiDQo+ID4gVGhlIERQIFNvdXJjZSBk
-ZXZpY2UgbWF5IG9wdGlvbmFsbHkgZW5hYmxlIFBSIG9wdGltaXphdGlvbiB3aXRoIERQDQo+ID4g
-dHVubmVsaW5nLiBUaGUgZGV2aWNlDQo+ID4gc2hhbGwgcXVlcnkgdGhlIFR1bm5lbGluZyBCcmlk
-Z2XigJlzIFBSIHR1bm5lbGluZyBvcHRpbWl6YXRpb24NCj4gPiBjYXBhYmlsaXR5DQo+ID4gYnkg
-d2F5IG9mIHRoZQ0KPiA+IFBhbmVsX1JlcGxheV9UdW5uZWxpbmdfT3B0aW1pemF0aW9uX1N1cHBv
-cnQgYml0IGluIHRoZQ0KPiA+IERQX1RVTk5FTElOR19DQVBBQklMSVRJRVMNCj4gPiByZWdpc3Rl
-ciAoRFBDRCBFMDAwRGhbNl0pLCBhbmQgdGhlbiBlbmFibGUgUFIgb25seSB3aGVuIHRoZQ0KPiA+
-IFR1bm5lbGluZw0KPiA+IEJyaWRnZSBpcyBjYXBhYmxlLg0KPiA+ICINCj4gPiANCj4gPiBUaGF0
-IHNvdW5kcyBsaWtlIFBSIGNhbiBiZSBlbmFibGVkIG9ubHkgd2hlbiBQYW5lbCBSZXBsYXkgVHVu
-bmVsaW5nDQo+ID4gT3B0aW1pemF0aW9uIGlzIHN1cHBvcnRlZD8NCj4gDQo+IFRoZSBTdGFuZGFy
-ZCByZWZlcnMgdG8gdGhlIF9vcHRpbWl6YXRpb25fIG9mIHRoZSBQYW5lbCBSZXBsYXkNCj4gZnVu
-Y3Rpb25hbGl0eSBvdmVyIGEgdHVubmVsLiBUaGlzIG9wdGltaXphdGlvbiBjYW4gYmUgZWl0aGVy
-IGVuYWJsZWQNCj4gYnkNCj4gdGhlIHNvdXJjZSB3aGVuIGVuYWJsaW5nIHRoZSBQYW5lbCBSZXBs
-YXkgZnVuY3Rpb25hbGl0eSBvdmVyIGEgdHVubmVsDQo+IG9yDQo+IHRoZSBvcHRpbWl6YXRpb24g
-Y2FuIGJlIGxlZnQgZGlzYWJsZWQgYnkgdGhlIHNvdXJjZSB3aGVuIGVuYWJsaW5nIHRoZQ0KPiBQ
-YW5lbCBSZXBsYXkgZnVuY3Rpb25hbGl0eSBvdmVyIGEgdHVubmVsLg0KPiANCj4gVGhlIG9wdGlt
-aXphdGlvbiBtZWFucyB0aGF0IHRoZSBCVyBvZiB0aGUgc3RyZWFtLCBub3Qgb3RoZXJ3aXNlIHVz
-ZWQNCj4gZm9yDQo+IHRyYW5zZmVycmluZyBhY3RpdmUgcGl4ZWxzIG9yIG90aGVyIGRhdGEgKGku
-ZS4gZHVtbXkgcGl4ZWxzKSBjYW4gYmUNCj4gdXNlZA0KPiBieSB0aGUgVGh1bmRlcmJvbHQgcHJv
-dG9jb2wgdG8gdHJhbnNmZXIgbm9uLWRpc3BsYXkgdHJhZmZpYy4gSWYgdGhlDQo+IFBhbmVsIFJl
-cGxheSBpcyBlbmFibGVkIG92ZXIgYSB0dW5uZWwgd2l0aG91dCB0aGlzIG9wdGltaXphdGlvbiwg
-dGhlbg0KPiB0aGUgVGh1bmRlcmJvbHQgcHJvdG9jb2wgaXMgbm90IGFsbG93ZWQgdG8gdXNlIHRo
-aXMgQlcgZm9yIG90aGVyDQo+IHB1cnBvc2VzIChpLmUuIGl0IGp1c3QgdHJhbnNmZXJzIGFsbCB0
-aGUgZGlzcGxheSB0cmFmZmljIGl0IHJlY2VpdmVzDQo+IGZyb20gdGhlIHNvdXJjZSBhcy1pcyku
-DQoNCk9rLCB0aGVuIG15IG9yaWdpbmFsIGNvbW1lbnQgd2Fzbid0IHZhbGlkIGF0IGFsbC4NCg0K
-U29ycnkgQW5pbWVzaCBmb3Igc3RlZXJpbmcgaW50byB3cm9uZyBkaXJlY3Rpb24gaGVyZS4gQmFz
-ZWQgb24gY29tbWVudA0KZnJvbSBJbXJlIEkgdGhpbmsgeW91IGNhbiBkcm9wIHBhdGNoIDMuDQoN
-CkJSLA0KSm91bmkgSMO2Z2FuZGVyDQoNCj4gDQo+ID4gDQo+ID4gQlIsDQo+ID4gSm91bmkgSMO2
-Z2FuZGVyDQo+ID4gDQo+ID4gPiANCj4gPiA+ID4gVGhpcyBwYXRjaCB3b3VsZCBqdXN0IGFkZDoN
-Cj4gPiA+ID4gDQo+ID4gPiA+IGlmIChpbnRlbF9kcF90dW5uZWxfYndfYWxsb2NfaXNfZW5hYmxl
-ZChpbnRlbF9kcCkpIHsNCj4gPiA+ID4gCWRybV9kYmdfa21zKGRpc3BsYXktPmRybSwNCj4gPiA+
-ID4gCQnCoMKgwqAgIlBhbmVsIFJlcGxheSBpcyBkaXNhYmxlZCBhcyBEUCB0dW5uZWxpbmcNCj4g
-PiA+ID4gZW5hYmxlZFxuIik7DQo+ID4gPiA+IAlyZXR1cm4gZmFsc2U7DQo+ID4gPiA+IH0NCj4g
-PiA+ID4gDQo+ID4gPiA+IGludG8gX3BhbmVsX3JlcGxheV9jb21wdXRlX2NvbmZpZy4gdGhpcyBj
-b3VsZCBiZSBmaXJzdCBwYXRjaCBpbg0KPiA+ID4gPiB5b3VyDQo+ID4gPiA+IHNldC4gV2hhdCBk
-byB5b3UgdGhpbms/DQo+ID4gPiA+IA0KPiA+ID4gPiBCUiwNCj4gPiA+ID4gSm91bmkgSMO2Z2Fu
-ZGVyDQo+ID4gPiA+IA0KPiA+ID4gPiA+IA0KPiA+ID4gPiA+IFNpZ25lZC1vZmYtYnk6IEFuaW1l
-c2ggTWFubmEgPGFuaW1lc2gubWFubmFAaW50ZWwuY29tPg0KPiA+ID4gPiA+IA0KPiA+ID4gPiA+
-IEFuaW1lc2ggTWFubmEgKDMpOg0KPiA+ID4gPiA+IMKgIGRybS9pOTE1L2Rpc3BsYXk6IEFkZCBk
-cm0gaGVscGVyIHRvIGNoZWNrIHByIG9wdGltaXphdGlvbg0KPiA+ID4gPiA+IHN1cHBvcnQNCj4g
-PiA+ID4gPiDCoCBkcm0vaTkxNS9kaXNwbGF5OiBQYW5lbCBSZXBsYXkgQlcgb3B0aW1pemF0aW9u
-IGZvciBEUDIuMA0KPiA+ID4gPiA+IHR1bm5lbGluZw0KPiA+ID4gPiA+IMKgIGRybS9pOTE1L2Rp
-c3BsYXk6IERpc2FibGUgUGFuZWwgUmVwbGF5IGZvciBEUC10dW5uZWxpbmcNCj4gPiA+ID4gPiB3
-aXRob3V0DQo+ID4gPiA+ID4gwqDCoMKgIG9wdGltaXphdGlvbg0KPiA+ID4gPiA+IA0KPiA+ID4g
-PiA+IMKgZHJpdmVycy9ncHUvZHJtL2Rpc3BsYXkvZHJtX2RwX3R1bm5lbC5jwqDCoMKgwqDCoMKg
-IHwgMTcNCj4gPiA+ID4gPiArKysrKysrKysrDQo+ID4gPiA+ID4gwqAuLi4vZ3B1L2RybS9pOTE1
-L2Rpc3BsYXkvaW50ZWxfZGlzcGxheV9yZWdzLmggfMKgIDEgKw0KPiA+ID4gPiA+IMKgLi4uL2dw
-dS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2RwX3R1bm5lbC5jwqDCoMKgIHwgMTQgKysrKysrKysr
-DQo+ID4gPiA+ID4gwqAuLi4vZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfZHBfdHVubmVsLmjC
-oMKgwqAgfMKgIDYgKysrKw0KPiA+ID4gPiA+IMKgZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxh
-eS9pbnRlbF9wc3IuY8KgwqDCoMKgwqAgfCAzMQ0KPiA+ID4gPiA+ICsrKysrKysrKysrKysrKysr
-LS0NCj4gPiA+ID4gPiDCoGluY2x1ZGUvZHJtL2Rpc3BsYXkvZHJtX2RwX3R1bm5lbC5owqDCoMKg
-wqDCoMKgwqDCoMKgwqAgfMKgIDYgKysrKw0KPiA+ID4gPiA+IMKgNiBmaWxlcyBjaGFuZ2VkLCA3
-MyBpbnNlcnRpb25zKCspLCAyIGRlbGV0aW9ucygtKQ0KPiA+ID4gPiA+IA0KPiA+ID4gPiANCj4g
-PiANCg0K
+On Thu, Mar 12, 2026 at 11:57:43AM +0530, Sumit Garg wrote:
+> From: Sumit Garg <sumit.garg@oss.qualcomm.com>
+> 
+> Qcom platforms has the legacy of using non-standard SCM calls
+> splintered over the various kernel drivers. These SCM calls aren't
+> compliant with the standard SMC calling conventions which is a
+> prerequisite to enable migration to the FF-A specifications from Arm.
+> 
+> OP-TEE as an alternative trusted OS to Qualcomm TEE (QTEE) can't
+> support these non-standard SCM calls. And even for newer architectures
+> with S-EL2 and Hafnium support, QTEE won't be able to support SCM
+> calls either with FF-A requirements coming in. And with both OP-TEE
+> and QTEE drivers well integrated in the TEE subsystem, it makes further
+> sense to reuse the TEE bus client drivers infrastructure.
+> 
+> The added benefit of TEE bus infrastructure is that there is support
+> for discoverable/enumerable services. With that client drivers don't
+> have to manually invoke a special SCM call to know the service status.
+> 
+> So enable the generic Peripheral Authentication Service (PAS) provided
+> by the firmware. It acts as the common layer with different TZ
+> backends plugged in whether it's an SCM implementation or a proper
+> TEE bus based PAS service implementation.
+> 
+> Signed-off-by: Sumit Garg <sumit.garg@oss.qualcomm.com>
+> ---
+>  drivers/firmware/qcom/Kconfig          |   8 +
+>  drivers/firmware/qcom/Makefile         |   1 +
+>  drivers/firmware/qcom/qcom_pas.c       | 298 +++++++++++++++++++++++++
+>  drivers/firmware/qcom/qcom_pas.h       |  53 +++++
+>  include/linux/firmware/qcom/qcom_pas.h |  41 ++++
+>  5 files changed, 401 insertions(+)
+>  create mode 100644 drivers/firmware/qcom/qcom_pas.c
+>  create mode 100644 drivers/firmware/qcom/qcom_pas.h
+>  create mode 100644 include/linux/firmware/qcom/qcom_pas.h
+> 
+> diff --git a/drivers/firmware/qcom/Kconfig b/drivers/firmware/qcom/Kconfig
+> index b477d54b495a..8653639d06db 100644
+> --- a/drivers/firmware/qcom/Kconfig
+> +++ b/drivers/firmware/qcom/Kconfig
+> @@ -6,6 +6,14 @@
+>  
+>  menu "Qualcomm firmware drivers"
+>  
+> +config QCOM_PAS
+> +	tristate
+> +	help
+> +	  Enable the generic Peripheral Authentication Service (PAS) provided
+> +	  by the firmware. It acts as the common layer with different TZ
+> +	  backends plugged in whether it's an SCM implementation or a proper
+> +	  TEE bus based PAS service implementation.
+> +
+>  config QCOM_SCM
+>  	select QCOM_TZMEM
+>  	tristate
+> diff --git a/drivers/firmware/qcom/Makefile b/drivers/firmware/qcom/Makefile
+> index 0be40a1abc13..dc5ab45f906a 100644
+> --- a/drivers/firmware/qcom/Makefile
+> +++ b/drivers/firmware/qcom/Makefile
+> @@ -8,3 +8,4 @@ qcom-scm-objs += qcom_scm.o qcom_scm-smc.o qcom_scm-legacy.o
+>  obj-$(CONFIG_QCOM_TZMEM)	+= qcom_tzmem.o
+>  obj-$(CONFIG_QCOM_QSEECOM)	+= qcom_qseecom.o
+>  obj-$(CONFIG_QCOM_QSEECOM_UEFISECAPP) += qcom_qseecom_uefisecapp.o
+> +obj-$(CONFIG_QCOM_PAS)		+= qcom_pas.o
+> diff --git a/drivers/firmware/qcom/qcom_pas.c b/drivers/firmware/qcom/qcom_pas.c
+> new file mode 100644
+> index 000000000000..beb1bae55546
+> --- /dev/null
+> +++ b/drivers/firmware/qcom/qcom_pas.c
+> @@ -0,0 +1,298 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+> + */
+
+I know, this is new file but most of the documentation and some of the
+function are rename to reflect pas service.
+
+Should this carry original file copyright ? Not sure..
+
+
+> +
+> +#include <linux/device/devres.h>
+> +#include <linux/firmware/qcom/qcom_pas.h>
+> +#include <linux/kernel.h>
+> +#include <linux/module.h>
+> +
+> +#include "qcom_pas.h"
+> +
+> +struct qcom_pas_ops *ops_ptr;
+> +
+> +/**
+> + * devm_qcom_pas_context_alloc() - Allocate peripheral authentication service
+> + *				   context for a given peripheral
+> + *
+> + * PAS context is device-resource managed, so the caller does not need
+> + * to worry about freeing the context memory.
+> + *
+> + * @dev:	  PAS firmware device
+> + * @pas_id:	  peripheral authentication service id
+> + * @mem_phys:	  Subsystem reserve memory start address
+> + * @mem_size:	  Subsystem reserve memory size
+> + *
+> + * Return: The new PAS context, or ERR_PTR() on failure.
+> + */
+> +struct qcom_pas_context *devm_qcom_pas_context_alloc(struct device *dev,
+> +						     u32 pas_id,
+> +						     phys_addr_t mem_phys,
+> +						     size_t mem_size)
+> +{
+> +	struct qcom_pas_context *ctx;
+> +
+> +	ctx = devm_kzalloc(dev, sizeof(*ctx), GFP_KERNEL);
+> +	if (!ctx)
+> +		return ERR_PTR(-ENOMEM);
+> +
+> +	ctx->dev = dev;
+> +	ctx->pas_id = pas_id;
+> +	ctx->mem_phys = mem_phys;
+> +	ctx->mem_size = mem_size;
+> +
+> +	return ctx;
+> +}
+> +EXPORT_SYMBOL_GPL(devm_qcom_pas_context_alloc);
+> +
+> +/**
+> + * qcom_pas_init_image() - Initialize peripheral authentication service state
+> + *			   machine for a given peripheral, using the metadata
+> + * @pas_id:	peripheral authentication service id
+> + * @metadata:	pointer to memory containing ELF header, program header table
+> + *		and optional blob of data used for authenticating the metadata
+> + *		and the rest of the firmware
+> + * @size:	size of the metadata
+> + * @ctx:	optional pas context
+> + *
+> + * Return: 0 on success.
+> + *
+> + * Upon successful return, the PAS metadata context (@ctx) will be used to
+> + * track the metadata allocation, this needs to be released by invoking
+> + * qcom_pas_metadata_release() by the caller.
+> + */
+> +int qcom_pas_init_image(u32 pas_id, const void *metadata, size_t size,
+> +			struct qcom_pas_context *ctx)
+> +{
+> +	if (ops_ptr)
+> +		return ops_ptr->init_image(ops_ptr->dev, pas_id,
+> +					   metadata, size, ctx);
+> +
+> +	return -ENODEV;
+> +}
+> +EXPORT_SYMBOL_GPL(qcom_pas_init_image);
+> +
+> +/**
+> + * qcom_pas_metadata_release() - release metadata context
+> + * @ctx:	pas context
+> + */
+> +void qcom_pas_metadata_release(struct qcom_pas_context *ctx)
+> +{
+> +	if (!ctx || !ctx->ptr)
+> +		return;
+> +
+> +	if (ops_ptr)
+> +		ops_ptr->metadata_release(ops_ptr->dev, ctx);
+> +}
+> +EXPORT_SYMBOL_GPL(qcom_pas_metadata_release);
+> +
+> +/**
+> + * qcom_pas_mem_setup() - Prepare the memory related to a given peripheral
+> + *			  for firmware loading
+> + * @pas_id:	peripheral authentication service id
+> + * @addr:	start address of memory area to prepare
+> + * @size:	size of the memory area to prepare
+> + *
+> + * Return: 0 on success.
+> + */
+> +int qcom_pas_mem_setup(u32 pas_id, phys_addr_t addr, phys_addr_t size)
+> +{
+> +	if (ops_ptr)
+> +		return ops_ptr->mem_setup(ops_ptr->dev, pas_id, addr, size);
+> +
+> +	return -ENODEV;
+> +}
+> +EXPORT_SYMBOL_GPL(qcom_pas_mem_setup);
+> +
+> +/**
+> + * qcom_pas_get_rsc_table() - Retrieve the resource table in passed output buffer
+> + *			      for a given peripheral.
+> + *
+> + * Qualcomm remote processor may rely on both static and dynamic resources for
+> + * its functionality. Static resources typically refer to memory-mapped
+> + * addresses required by the subsystem and are often embedded within the
+> + * firmware binary and dynamic resources, such as shared memory in DDR etc.,
+> + * are determined at runtime during the boot process.
+> + *
+> + * On Qualcomm Technologies devices, it's possible that static resources are
+> + * not embedded in the firmware binary and instead are provided by TrustZone.
+> + * However, dynamic resources are always expected to come from TrustZone. This
+> + * indicates that for Qualcomm devices, all resources (static and dynamic) will
+> + * be provided by TrustZone PAS service.
+> + *
+> + * If the remote processor firmware binary does contain static resources, they
+> + * should be passed in input_rt. These will be forwarded to TrustZone for
+> + * authentication. TrustZone will then append the dynamic resources and return
+> + * the complete resource table in output_rt_tzm.
+> + *
+> + * If the remote processor firmware binary does not include a resource table,
+> + * the caller of this function should set input_rt as NULL and input_rt_size
+> + * as zero respectively.
+> + *
+> + * More about documentation on resource table data structures can be found in
+> + * include/linux/remoteproc.h
+> + *
+> + * @ctx:	    PAS context
+> + * @pas_id:	    peripheral authentication service id
+> + * @input_rt:       resource table buffer which is present in firmware binary
+> + * @input_rt_size:  size of the resource table present in firmware binary
+> + * @output_rt_size: TrustZone expects caller should pass worst case size for
+> + *		    the output_rt_tzm.
+> + *
+> + * Return:
+> + *  On success, returns a pointer to the allocated buffer containing the final
+> + *  resource table and output_rt_size will have actual resource table size from
+> + *  TrustZone. The caller is responsible for freeing the buffer. On failure,
+> + *  returns ERR_PTR(-errno).
+> + */
+> +struct resource_table *qcom_pas_get_rsc_table(struct qcom_pas_context *ctx,
+> +					      void *input_rt,
+> +					      size_t input_rt_size,
+> +					      size_t *output_rt_size)
+> +{
+> +	if (ops_ptr)
+> +		return ops_ptr->get_rsc_table(ops_ptr->dev, ctx, input_rt,
+> +					      input_rt_size, output_rt_size);
+> +
+> +	return ERR_PTR(-ENODEV);
+> +}
+> +EXPORT_SYMBOL_GPL(qcom_pas_get_rsc_table);
+> +
+> +/**
+> + * qcom_pas_auth_and_reset() - Authenticate the given peripheral firmware
+> + *			       and reset the remote processor
+> + * @pas_id:	peripheral authentication service id
+> + *
+> + * Return: 0 on success.
+> + */
+> +int qcom_pas_auth_and_reset(u32 pas_id)
+> +{
+> +	if (ops_ptr)
+> +		return ops_ptr->auth_and_reset(ops_ptr->dev, pas_id);
+> +
+> +	return -ENODEV;
+> +}
+> +EXPORT_SYMBOL_GPL(qcom_pas_auth_and_reset);
+> +
+> +/**
+> + * qcom_pas_prepare_and_auth_reset() - Prepare, authenticate, and reset the
+> + *				       remote processor
+> + *
+> + * @ctx:	Context saved during call to qcom_scm_pas_context_init()
+> + *
+> + * This function performs the necessary steps to prepare a PAS subsystem,
+> + * authenticate it using the provided metadata, and initiate a reset sequence.
+> + *
+> + * It should be used when Linux is in control setting up the IOMMU hardware
+> + * for remote subsystem during secure firmware loading processes. The
+> + * preparation step sets up a shmbridge over the firmware memory before
+> + * TrustZone accesses the firmware memory region for authentication. The
+> + * authentication step verifies the integrity and authenticity of the firmware
+> + * or configuration using secure metadata. Finally, the reset step ensures the
+> + * subsystem starts in a clean and sane state.
+> + *
+> + * Return: 0 on success, negative errno on failure.
+> + */
+> +int qcom_pas_prepare_and_auth_reset(struct qcom_pas_context *ctx)
+> +{
+> +	if (ops_ptr)
+> +		return ops_ptr->prepare_and_auth_reset(ops_ptr->dev, ctx);
+> +
+> +	return -ENODEV;
+> +}
+> +EXPORT_SYMBOL_GPL(qcom_pas_prepare_and_auth_reset);
+> +
+> +/**
+> + * qcom_pas_set_remote_state() - Set the remote processor state
+> + * @state:	peripheral state
+> + * @pas_id:	peripheral authentication service id
+> + *
+> + * Return: 0 on success.
+> + */
+> +int qcom_pas_set_remote_state(u32 state, u32 pas_id)
+> +{
+> +	if (ops_ptr)
+> +		return ops_ptr->set_remote_state(ops_ptr->dev, state, pas_id);
+> +
+> +	return -ENODEV;
+> +}
+> +EXPORT_SYMBOL_GPL(qcom_pas_set_remote_state);
+> +
+> +/**
+> + * qcom_pas_shutdown() - Shut down the remote processor
+> + * @pas_id:	peripheral authentication service id
+> + *
+> + * Return: 0 on success.
+> + */
+> +int qcom_pas_shutdown(u32 pas_id)
+> +{
+> +	if (ops_ptr)
+> +		return ops_ptr->shutdown(ops_ptr->dev, pas_id);
+> +
+> +	return -ENODEV;
+> +}
+> +EXPORT_SYMBOL_GPL(qcom_pas_shutdown);
+> +
+> +/**
+> + * qcom_pas_supported() - Check if the peripheral authentication service is
+> + *			  available for the given peripheral
+> + * @pas_id:	peripheral authentication service id
+> + *
+> + * Return: true if PAS is supported for this peripheral, otherwise false.
+> + */
+> +bool qcom_pas_supported(u32 pas_id)
+> +{
+> +	if (ops_ptr)
+> +		return ops_ptr->supported(ops_ptr->dev, pas_id);
+> +
+> +	return false;
+> +}
+> +EXPORT_SYMBOL_GPL(qcom_pas_supported);
+> +
+> +/**
+> + * qcom_pas_is_available() - Check for PAS service
+> + *
+> + * Return: true on success.
+> + */
+> +bool qcom_pas_is_available(void)
+> +{
+> +	/*
+> +	 * The barrier for ops_ptr is intended to synchronize the data stores
+> +	 * for the ops data structure when client drivers are in parallel
+> +	 * checking for PAS service availability.
+> +	 *
+> +	 * Once the PAS backend becomes available, it is allowed for multiple
+> +	 * threads to enter TZ for parallel bringup of co-processors during
+> +	 * boot.
+> +	 */
+> +	return !!smp_load_acquire(&ops_ptr);
+> +}
+> +EXPORT_SYMBOL_GPL(qcom_pas_is_available);
+> +
+> +/**
+> + * qcom_pas_ops_register() - Register PAS service ops
+> + * @ops:	PAS service ops pointer
+> + */
+> +void qcom_pas_ops_register(struct qcom_pas_ops *ops)
+> +{
+> +	if (!qcom_pas_is_available())
+> +		/* Paired with smp_load_acquire() in qcom_pas_is_available() */
+> +		smp_store_release(&ops_ptr, ops);
+> +	else
+> +		pr_err("qcom_pas: ops already registered\n");
+> +}
+> +EXPORT_SYMBOL_GPL(qcom_pas_ops_register);
+> +
+> +/**
+> + * qcom_pas_ops_unregister() - Unregister PAS service ops
+> + */
+> +void qcom_pas_ops_unregister(void)
+> +{
+> +	/* Paired with smp_load_acquire() in qcom_pas_is_available() */
+> +	smp_store_release(&ops_ptr, NULL);
+> +}
+> +EXPORT_SYMBOL_GPL(qcom_pas_ops_unregister);
+> +
+> +MODULE_LICENSE("GPL");
+> +MODULE_DESCRIPTION("Qualcomm common TZ PAS driver");
+> diff --git a/drivers/firmware/qcom/qcom_pas.h b/drivers/firmware/qcom/qcom_pas.h
+> new file mode 100644
+> index 000000000000..4ebed22178f8
+> --- /dev/null
+> +++ b/drivers/firmware/qcom/qcom_pas.h
+> @@ -0,0 +1,53 @@
+> +/* SPDX-License-Identifier: GPL-2.0 */
+> +/*
+> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+> + */
+> +
+> +#ifndef __QCOM_PAS_INT_H
+> +#define __QCOM_PAS_INT_H
+> +
+> +struct device;
+> +
+> +/**
+> + * struct qcom_pas_ops - Qcom Peripheral Authentication Service (PAS) ops
+> + * @drv_name:			PAS driver name.
+> + * @dev:			PAS device pointer.
+> + * @supported:			Peripheral supported callback.
+> + * @init_image:			Peripheral image initialization callback.
+> + * @mem_setup:			Peripheral memory setup callback.
+> + * @get_rsc_table:		Peripheral get resource table callback.
+> + * @prepare_and_auth_reset:	Peripheral prepare firmware authentication and
+> + *				reset callback.
+> + * @auth_and_reset:		Peripheral firmware authentication and reset
+> + *				callback.
+> + * @set_remote_state:		Peripheral set remote state callback.
+> + * @shutdown:			Peripheral shutdown callback.
+> + * @metadata_release:		Image metadata release callback.
+> + */
+> +struct qcom_pas_ops {
+> +	const char *drv_name;
+> +	struct device *dev;
+> +	bool (*supported)(struct device *dev, u32 pas_id);
+> +	int (*init_image)(struct device *dev, u32 pas_id,
+> +			  const void *metadata, size_t size,
+> +			  struct qcom_pas_context *ctx);
+> +	int (*mem_setup)(struct device *dev, u32 pas_id,
+> +			 phys_addr_t addr, phys_addr_t size);
+> +	void *(*get_rsc_table)(struct device *dev,
+> +			       struct qcom_pas_context *ctx,
+> +			       void *input_rt,
+> +			       size_t input_rt_size,
+> +			       size_t *output_rt_size);
+> +	int (*prepare_and_auth_reset)(struct device *dev,
+> +				      struct qcom_pas_context *ctx);
+> +	int (*auth_and_reset)(struct device *dev, u32 pas_id);
+> +	int (*set_remote_state)(struct device *dev, u32 state, u32 pas_id);
+> +	int (*shutdown)(struct device *dev, u32 pas_id);
+> +	void (*metadata_release)(struct device *dev,
+> +				 struct qcom_pas_context *ctx);
+> +};
+> +
+> +void qcom_pas_ops_register(struct qcom_pas_ops *ops);
+> +void qcom_pas_ops_unregister(void);
+> +
+> +#endif /* __QCOM_PAS_INT_H */
+> diff --git a/include/linux/firmware/qcom/qcom_pas.h b/include/linux/firmware/qcom/qcom_pas.h
+> new file mode 100644
+> index 000000000000..ef7328ecfa47
+> --- /dev/null
+> +++ b/include/linux/firmware/qcom/qcom_pas.h
+> @@ -0,0 +1,41 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+> +/*
+> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+> + */
+> +
+> +#ifndef __QCOM_PAS_H
+> +#define __QCOM_PAS_H
+> +
+> +#include <linux/err.h>
+> +#include <linux/types.h>
+> +
+> +struct qcom_pas_context {
+> +	struct device *dev;
+> +	u32 pas_id;
+> +	phys_addr_t mem_phys;
+> +	size_t mem_size;
+> +	void *ptr;
+> +	dma_addr_t phys;
+> +	ssize_t size;
+> +	bool use_tzmem;
+> +};
+> +
+> +bool qcom_pas_is_available(void);
+> +struct qcom_pas_context *devm_qcom_pas_context_alloc(struct device *dev,
+> +						     u32 pas_id,
+> +						     phys_addr_t mem_phys,
+> +						     size_t mem_size);
+> +int qcom_pas_init_image(u32 pas_id, const void *metadata, size_t size,
+> +			struct qcom_pas_context *ctx);
+> +struct resource_table *qcom_pas_get_rsc_table(struct qcom_pas_context *ctx,
+> +					      void *input_rt, size_t input_rt_size,
+> +					      size_t *output_rt_size);
+> +int qcom_pas_mem_setup(u32 pas_id, phys_addr_t addr, phys_addr_t size);
+> +int qcom_pas_auth_and_reset(u32 pas_id);
+> +int qcom_pas_prepare_and_auth_reset(struct qcom_pas_context *ctx);
+> +int qcom_pas_set_remote_state(u32 state, u32 pas_id);
+> +int qcom_pas_shutdown(u32 pas_id);
+> +bool qcom_pas_supported(u32 pas_id);
+> +void qcom_pas_metadata_release(struct qcom_pas_context *ctx);
+> +
+> +#endif /* __QCOM_PAS_H */
+> -- 
+> 2.51.0
+> 
+
+-- 
+-Mukesh Ojha
