@@ -4,60 +4,122 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E2443107BCD3
-	for <dri-devel@archiver.kernel.org>; Fri, 13 Mar 2026 17:32:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 365B8107BCD3
+	for <dri-devel@archiver.kernel.org>; Fri, 13 Mar 2026 17:41:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5490010EB85;
-	Fri, 13 Mar 2026 17:32:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 985E810ECF6;
+	Fri, 13 Mar 2026 17:41:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="zBiKwoPe";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="DknBq4jC";
 	dkim-atps=neutral
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D5EC610EB85
- for <dri-devel@lists.freedesktop.org>; Fri, 13 Mar 2026 17:32:54 +0000 (UTC)
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-04.galae.net (Postfix) with ESMTPS id 964B0C4270F;
- Fri, 13 Mar 2026 17:33:14 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 2F3E560027;
- Fri, 13 Mar 2026 17:32:52 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id DA5DB10368950; Fri, 13 Mar 2026 18:32:47 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1773423171; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding:in-reply-to:references;
- bh=I5I6di6GxOJaF3M0DlGDG2wogUWuTcHbKDBWuT86Y4A=;
- b=zBiKwoPechlYPRYCGJPgUknDVsTV95lK9j/A7L6sgdwfaxW3HE7c0AiTHArm/kh7bhmC55
- aA1YmtzWZ1dW6tPCU+hDNsBlw6j+RBPPY/mlYnjG3BLftIwlHaj6o3xYVjuh/lgjUWkr6J
- d/whAuvrIr9bEM3ifgOrUxn9RkL2MrT4PWUrMD8t2VKFtxZcK9PBx3S4ex9v3fAqAU8qRa
- XchKrl7QnDpa88fE1PFZoIwYlbelewpcrX1yNqMi35mjdKQkGMJEb7TahPE5g+NkEgZlpH
- 6kmRSVrj244YtLXsHtz+VM4lZ5WBSXdwdZHcLG/bR65VLb685PHS3EOahUqVYw==
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 13 Mar 2026 18:32:46 +0100
-Message-Id: <DH1U1NUNGZTO.13UP9EXCAC2P5@bootlin.com>
-Subject: Re: [PATCH] drm/bridge: Fix refcount shown via debugfs for
- encoder_bridges_show()
-Cc: "Marco Felsch" <m.felsch@pengutronix.de>,
- <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
-To: "Liu Ying" <victor.liu@nxp.com>, "Andrzej Hajda"
- <andrzej.hajda@intel.com>, "Neil Armstrong" <neil.armstrong@linaro.org>,
- "Robert Foss" <rfoss@kernel.org>, "Laurent Pinchart"
- <Laurent.pinchart@ideasonboard.com>, "Jonas Karlman" <jonas@kwiboo.se>,
- "Jernej Skrabec" <jernej.skrabec@gmail.com>, "Maarten Lankhorst"
- <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
- "Thomas Zimmermann" <tzimmermann@suse.de>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>
-From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
-X-Mailer: aerc 0.20.1
-References: <20260312-drm-misc-next-2026-03-05-fix-encoder-bridges-refcount-v1-1-b9ba3d844732@nxp.com>
- <DH0ZD9UFY68E.2C1ISONVIO42L@bootlin.com>
- <53c257df-9800-48ed-a975-d7bfe4d71be1@nxp.com>
- <DH1KCR43169Z.200HRE4K6DNRQ@bootlin.com>
- <61a51c05-7730-4b7a-85cf-5f03a7985408@nxp.com>
-In-Reply-To: <61a51c05-7730-4b7a-85cf-5f03a7985408@nxp.com>
-X-Last-TLS-Session-Version: TLSv1.3
+Received: from CY3PR05CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11013013.outbound.protection.outlook.com
+ [40.93.201.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 50E8C10EC75
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Mar 2026 17:41:14 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=d63PAqVkj1OtXIZ3lGpHqHLiB96niBpjKnjX73s9HSFE1tKHKNiHZ3U19jsM3jkhuOYIFkq8Dh6NSKk38V05PeoFZ2h71Lj2tERdWnibY9s1VyU18jL4XJripM7Orz0ZjCaKvpErJ1V1Wkk7+pkphh2NVfJiI+kP8ws6M5Nz0XeQoCDmNRKS2B/FBVZs77TiPv5YZo3UuF9tbVorPMmpwbV2Uwa5ir31QrywMehGUSmeFKVeHqX74pp41rIA+ZpUSyLXo9O4/ZiCJ2I8Um1rcTjJ4wqiZOiG3oBGiRVYHVKOIrObpTJF0Z2sU9vPBHG+aot4UG8ymbQ/sdNoMIH59Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=aCzK7SAwtZVNI0sXrW0XtwGXtonbY2IGWuWTglvOgNI=;
+ b=W9T4LrxnbiUUzH/yQ7HUHn2J50fyNC4tlYQHaGDmfc6CFI9WVJG/5Yq0l58bU98drdGnucdiAxlhdi7oUivAmdsFQrbdq0dWEQ5uJkxnbNg1NwGgRBSWn3o9dZYiIxq3jOdLpJF3fnDar7FOz0dTgzDhKm/HYKB6zYjoGztEU+PeAImX6MgQlVvq2zMgEl0QGbKGBvU7Nu0Fi6q/3Iaj8K8TtjLR/ZmKzVK/PxUgr3RibgSBbGVR/I/S2D3oO9/m+x0FNr8hQOy4wwodjcaKIXTCtW7SD5vvWQ9wgHzH9lpcQtuk3qMgCfpU1enyhHbkm29um5qXjWNll3Vxv23lnA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=aCzK7SAwtZVNI0sXrW0XtwGXtonbY2IGWuWTglvOgNI=;
+ b=DknBq4jCBzvf/lXyeIvlRxj/EQadCa3w+S8BESvcYDgYlwlbJoneFs2Oc645cpBUQnb93TWXq89Rcm+O5D/8K4aBzf+Gt3yz7LQ+bCpTADwDstabE3l35MTnT1sYTvfcyXtDDQXTcB0/msMEg8MsITZ8nrtt9yvVRe2NbF7RkwpRT2YTZnH5b9myaVeQwH1jI4u5+cQ88Qi3kOGNYltSTsZCbY7HP15ZGMVTEmMGO+rOl4Z9fCgq5bVWuaH5oV6agkfzVR7ZBNGsB7c0HpLvoehglVyLgFuninH7gRp0oauigAcSUpvHunxux6dxGbrzNvqdF+nUqnKcWNtu7O3UbA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from LV8PR12MB9620.namprd12.prod.outlook.com (2603:10b6:408:2a1::19)
+ by PH7PR12MB7425.namprd12.prod.outlook.com (2603:10b6:510:200::8)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.6; Fri, 13 Mar
+ 2026 17:41:07 +0000
+Received: from LV8PR12MB9620.namprd12.prod.outlook.com
+ ([fe80::299d:f5e0:3550:1528]) by LV8PR12MB9620.namprd12.prod.outlook.com
+ ([fe80::299d:f5e0:3550:1528%5]) with mapi id 15.20.9654.022; Fri, 13 Mar 2026
+ 17:41:06 +0000
+From: Jason Gunthorpe <jgg@nvidia.com>
+To: =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+ linux-media@vger.kernel.org, Sumit Semwal <sumit.semwal@linaro.org>
+Cc: Dave Airlie <airlied@redhat.com>,
+ Andrew Morton <akpm@linux-foundation.org>, Arnd Bergmann <arnd@arndb.de>,
+ Daniel Vetter <daniel.vetter@ffwll.ch>,
+ David Hildenbrand <david@redhat.com>, Dongwon Kim <dongwon.kim@intel.com>,
+ Christoph Hellwig <hch@infradead.org>, Christoph Hellwig <hch@lst.de>,
+ Hugh Dickins <hughd@google.com>, Julian Orth <ju.orth@gmail.com>,
+ Junxiao Chang <junxiao.chang@intel.com>, Gerd Hoffmann <kraxel@redhat.com>,
+ Mike Kravetz <mike.kravetz@oracle.com>, Oscar Salvador <osalvador@suse.de>,
+ patches@lists.linux.dev, Peter Xu <peterx@redhat.com>,
+ Shuah Khan <shuah@kernel.org>, Vivek Kasireddy <vivek.kasireddy@intel.com>,
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>
+Subject: [PATCH] udmabuf: Do not create malformed scatterlists
+Date: Fri, 13 Mar 2026 14:41:05 -0300
+Message-ID: <0-v1-42779f29381a+4b9-udmabuf_sg_jgg@nvidia.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: IA1P220CA0005.NAMP220.PROD.OUTLOOK.COM
+ (2603:10b6:208:461::13) To LV8PR12MB9620.namprd12.prod.outlook.com
+ (2603:10b6:408:2a1::19)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LV8PR12MB9620:EE_|PH7PR12MB7425:EE_
+X-MS-Office365-Filtering-Correlation-Id: e36e1d7d-0c33-4e00-5f1e-08de8127b48a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|7416014|366016|1800799024|56012099003|18002099003; 
+X-Microsoft-Antispam-Message-Info: szgdETTy3OI6RkeD6ZqnwOe4NruZ0Gmym68mzo/+B91HFCo++2RAro0gxgLaJVSpLLatsV0faV617hVyRpFAkneHNuMlmBHRoFb6qN35jNI/+19vAp/iXjSPvAH3fCMjiW9hTy5tZ+4tI/lZ0FTWLH0kV2FVb+8zYPwsi8Sepevx7mnGs2M6iQMajCrz1oOInznokLtsO7o4Xc1CKbNIY5PTEhN/kIgEeukA6r8SDp6pIyEXx2RWDdh4a9micCVub+/WU9QKHntAky251fQHUwf9HgajfSoJHBqfQ/RGBLqidrpUy4HPXdZBXV356LI5+wUYrovT6oW9IHJO8gHDJOrhwv0hcQM5BJqp9kbzNXIPfTKDcW0wUew1TXBmwUWYgqNJIZVJwKbU1+StxmbGgY7agb30vTa9lSBlHhL3lc8U4UgX93HarOt2nfzi3mWvSEWFHm/FwUzLWRnUUSROdehvn7SAe+M62j40Rx1S22ghmH+kslPqIPuyzL+R8Ez4HrUIeopxzXKeAz36kKCivQ5EmYI8ShRaPI8kHfF8HKnWyNOYD5vpo5oiZtQsQwGUzUp1XTuT5kcWaqID8G0slWnrwmdyRZvLJxVuA9M9qzcZmiLLmSG3qTGT+BbJ2wRRzR2IIFiich/yPwR+Dpdvwu+9hNuvpYH9PcVakCuPKXF1KOfDLRYRYTPCv4HZ3PfzKKU9nuXYMN9AckVT+3h9SMeXnxO91okw7KNDqjuKRno=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:LV8PR12MB9620.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(7416014)(366016)(1800799024)(56012099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?DiSWQsO6pMHvkO18k1BKXFdKFZaN91i31zFE11LbCGnii/zkMTFXZBLTNrLl?=
+ =?us-ascii?Q?1C/X2aBjiwF/OVtAlP/whwk23cJA4vdpW311kv8MiggexGuUv1454+svAVWW?=
+ =?us-ascii?Q?ZNXW0R8DfladE2C32bjVLaYVThtR0C8ocnoQiEKPJj3zxsipRpnhHQlRZsYM?=
+ =?us-ascii?Q?VcSxueTn0FrkHPMv3eRIHEiMzZbaoTxSvQjDq9f3Gsldh26zB3AbsEhsVenF?=
+ =?us-ascii?Q?W1aVkXZuF82Nj7yS82ZMVTbGCtgqYj98t8cEA84jAIWLcwuzNr3Ttl23WODl?=
+ =?us-ascii?Q?npB5PwHtIQbp9xNul8sTlXGh6YInR1kWiAyHehXpcTuWfb71q3jIbYtim5D8?=
+ =?us-ascii?Q?4KPLlWLf7H6FUtmKRPcFY2aujlDfJmp1UWybCQtoi/JmFo914xj+lGWIjfPn?=
+ =?us-ascii?Q?kN5Dff/PvwiY1ZRETRk6zQybUPnvu9L+ef29CVsBLQtqcBBAEGYisCwzZpDd?=
+ =?us-ascii?Q?bZ22n5KXQifjLf9g8AgDcLDoz5go81vTA/xx0QyuAsrykC/IRGwD8+mjT2Ug?=
+ =?us-ascii?Q?StDl/CkYBgtE2tsqJQJw+VUu5bFtANgkmApjdEJuJbo3rpc0vJb/32LmvUhE?=
+ =?us-ascii?Q?1umnh6UT1X/909QT+7IAFX6IDlukVu7O4BYeK5jn9iF30/qXcpWUUMKXzjqx?=
+ =?us-ascii?Q?Y5TcHp6iOLEHLNnV/GpnosIY2pZiMrour8bCY6IKa++Qu+zs2MA7p4Vs6iEM?=
+ =?us-ascii?Q?oi+dKznEjg/FK4RDWqX3ixfcJHuTK+bzbeS5ddorlHojFPrx9uk6jq4ieb69?=
+ =?us-ascii?Q?Ui+KcdhANxqlbNu6BgT8Fh1/9wAQlKsvda0Lv5hl2TnWLKSsSbEQNv8NyICC?=
+ =?us-ascii?Q?5bidW9LYjKUgWFNG13eK9l1ClnV+iVzlRCPMqjRVDRMTI55ZPtnKUz9vbo4Q?=
+ =?us-ascii?Q?d98pQE6zXJw0JW35mwVLYdK8BIIWu83Dv4HJQNDalz/HTr/wHbZZjRYUfv84?=
+ =?us-ascii?Q?HGZhbxl2LV+wfpC+GfSneP1K7nbVjJTZk+2wJ0hjnZa1uFq/T4L9ofXDOONw?=
+ =?us-ascii?Q?v8T9b4mggnSPlDX9kGjB1BPZk/ufOzdbfFs1WAczEBLprwZ3jMQodFe8vIMf?=
+ =?us-ascii?Q?1dLR3f3y8KvZGs/7+kaOBvVJ1TVQCzkiYURn+FLw5jI9DjTZayuMusvgfoRn?=
+ =?us-ascii?Q?hiPN+4X9t9+fzvXMFaYvBlptGp6ZMzv2LZMowjdA13reXVPA2nJm6VFisB6Q?=
+ =?us-ascii?Q?+8hXfTt+q1GrtwVOoqoEVvXP2uW3JDCewRDD007amppzJmEVSvfrLmbSaT6q?=
+ =?us-ascii?Q?jBoiH/dkNh4pwxVmwNgx+7UgJ7OI4vVyMPlvp3QoJPjdsTjD/pYNzyW4HH9q?=
+ =?us-ascii?Q?qzwF9OuFkMmB5M1gRTeerwlbJqyrCGX+E5oq22J2es/0a+SkxauFudQmToVW?=
+ =?us-ascii?Q?QCXaj7QKxWxUi8UmAZqBqpRxZ3mc5PZdbVLE+iBB5RuDZXM7J7/CrxVbO+O8?=
+ =?us-ascii?Q?pZhFF3ztgIA4kRDpz4oHt90Rahv6PLtbGkbfpDAluLxY+S/hfILm0ViHFW+J?=
+ =?us-ascii?Q?/ju6l6VIZ4ApxPCgT4b+yubwwdsZHpPty+gmwhB0Jkh7Vywfs/2HDzpAOGu5?=
+ =?us-ascii?Q?uRFlOQV8akkyJvA5qpj+gPvWZgDEoQ49d8KykhhukvFAZoM0//QpTLgyJTlg?=
+ =?us-ascii?Q?0hcvnar6jS03jTEoiz1oDFFOJg5j+eA1SYvA8ynoGr0wwAJtDsSonvshsql1?=
+ =?us-ascii?Q?mUiM99jcoPDUwfv4yQNm97hHJm+HzjtblRtNEPSb4j33XZuAQmilFdJEYU/Y?=
+ =?us-ascii?Q?0gcIKt3wOg=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e36e1d7d-0c33-4e00-5f1e-08de8127b48a
+X-MS-Exchange-CrossTenant-AuthSource: LV8PR12MB9620.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Mar 2026 17:41:06.8239 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: fC/Y37F7f1BylTGNoNhZU9za+vUw3gSXuVBkfRm4QxY3H6pwVPXJPzn0okgFI89Z
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7425
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,112 +135,158 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri Mar 13, 2026 at 11:22 AM CET, Liu Ying wrote:
-> On Fri, Mar 13, 2026 at 10:57:04AM +0100, Luca Ceresoli wrote:
->> On Fri Mar 13, 2026 at 9:33 AM CET, Liu Ying wrote:
->>> On Thu, Mar 12, 2026 at 06:30:22PM +0100, Luca Ceresoli wrote:
->>>> Hello Liu, Maxime,
->>>>
->>>> On Thu Mar 12, 2026 at 7:05 AM CET, Liu Ying wrote:
->>>>> A typical bridge refcount value is 3 after a bridge chain is formed:
->>>>> - devm_drm_bridge_alloc() initializes the refcount value to be 1.
->>>>> - drm_bridge_add() gets an additional reference hence 2.
->>>>> - drm_bridge_attach() gets the third reference hence 3.
->>>>>
->>>>> This typical refcount value aligns with allbridges_show()'s behaviour=
-.
->>>>> However, since encoder_bridges_show() uses
->>>>> drm_for_each_bridge_in_chain_scoped() to automatically get/put the
->>>>> bridge reference while iterating, a bogus reference is accidentally
->>>>> got when showing the wrong typical refcount value as 4 to users via
->>>>> debugfs.  Fix this by caching the refcount value returned from
->>>>> kref_read() while iterating and explicitly decreasing the cached
->>>>> refcount value by 1 before showing it to users.
->>>>
->>>> Good point, indeed the refcount shown by
->>>> <debugfs>/dri/<card>/encoder-0/bridges is by one unit higher than the =
-one
->>>> shown in <debugfs>/dri/bridges. I understand it's puzzling from a debu=
-gfs
->>>> user point of view.
->>>>
->>>> As you noticed, this is because the _scoped loop holds an extra ref on=
- the
->>>> current bridge.
->>>>
->>>> For other reasons I proposed a mutex for stronger protection around th=
-e
->>>> bridge chain [v2]. With the mutex the extra ref is redundant, so in [v=
-2]
->>>> the extra ref is removed, thus making your patch unneeded. However Max=
-ime
->>>> asked to keep the extra ref, and so my latest iteration [v4] still has=
- the
->>>> extra ref.
->>>>
->>>> That series is still on the mailing list, we are still in time to redi=
-scuss
->>>> it.
->>>>
->>>> @Maxime: based on the issue Liu is trying to work around, do you think=
- it
->>>> would make sense to go back to the initial approach for that series?
->>>> I.e. drm_for_each_bridge_in_chain_scoped() grabs the chain lock, which=
- is a
->>>> superset of the per-bridge refcount, and thus the refcount can be drop=
-ped?
->>>> This would remove the debugfs issue, slightly simplify
->>>> drm_for_each_bridge_in_chain_scoped(), and introduce no new issues AFA=
-IK.
->>>
->>> Just my take on the chain lock approach - I agree Maxime's comment on [=
-v2]
->>> that keeping the get/put is a better than using the chain lock to ensur=
-e
->>> the refcount is correct.  The chain lock could be added later on if nee=
-ded.
->>
->> Well, no, adding the chain mutex is necessary(*), otherwise Thread A cou=
-ld
->> iterate over the chain while thread B is adding/removing bridges to/from
->> the chain.
->>
->> And the chain mutex is a superset of the per-bridge refcount, so when
->> adding the mutex the refcount inside drm_for_each_bridge_in_chain_scoped=
-()
->> becomes useless (and slightly hurting as it makes the refcount shown in
->> debugfs inconsistent, as you noticed).
->
-> For better code readability, I think keeping the get/put is fine even if
-> you add a lock
+Using a sg_set_folio() loop for every 4K results in a malformed scatterlist
+because sg_set_folio() has an issue with offsets > PAGE_SIZE and because
+scatterlist expects the creator to build a list which consolidates any
+physical contiguity.
 
-The [v4] code with the removal of the extra refcount would not be more
-complex. It would be a bit less code (no need for the DEFINE_FREE and
-__free()). Maybe it'd need an extra comment to clarify when the
-drm_bridge_put() is called.
+sg_alloc_table_from_pages() creates a valid scatterlist directly from a
+struct page array, so go back to that.
 
-[v4] https://lore.kernel.org/all/20260113-drm-bridge-alloc-encoder-chain-mu=
-tex-v4-4-60f3135adc45@bootlin.com/
+Remove the offsets allocation and just store an array of tail pages as it
+did before the below commit. Everything wants that anyhow.
 
-> (maybe RCU list is better than mutex, since the chain is
-> read often).  That follows the idea that you mentioned in [1]: "every
-> pointer to a drm_bridge stored somewhere is a reference to a bridge".
+Fixes: 0c8b91ef5100 ("udmabuf: add back support for mapping hugetlb pages")
+Reported-by: Julian Orth <ju.orth@gmail.com>
+Closes: https://lore.kernel.org/all/20260308-scatterlist-v1-1-39c4566b0bba@gmail.com/
+Signed-off-by: Jason Gunthorpe <jgg@nvidia.com>
+---
+ drivers/dma-buf/udmabuf.c | 49 +++++++++++----------------------------
+ 1 file changed, 13 insertions(+), 36 deletions(-)
 
-That's true. However while it's an important pointer hygiene rule for
-device drivers, for core code it's OK to deviate when there is a reason.
+diff --git a/drivers/dma-buf/udmabuf.c b/drivers/dma-buf/udmabuf.c
+index 94b8ecb892bb17..5d687860445137 100644
+--- a/drivers/dma-buf/udmabuf.c
++++ b/drivers/dma-buf/udmabuf.c
+@@ -26,10 +26,10 @@ MODULE_PARM_DESC(size_limit_mb, "Max size of a dmabuf, in megabytes. Default is
+ 
+ struct udmabuf {
+ 	pgoff_t pagecount;
+-	struct folio **folios;
++	struct page **pages;
+ 
+ 	/**
+-	 * Unlike folios, pinned_folios is only used for unpin.
++	 * Unlike pages, pinned_folios is only used for unpin.
+ 	 * So, nr_pinned is not the same to pagecount, the pinned_folios
+ 	 * only set each folio which already pinned when udmabuf_create.
+ 	 * Note that, since a folio may be pinned multiple times, each folio
+@@ -41,7 +41,6 @@ struct udmabuf {
+ 
+ 	struct sg_table *sg;
+ 	struct miscdevice *device;
+-	pgoff_t *offsets;
+ };
+ 
+ static vm_fault_t udmabuf_vm_fault(struct vm_fault *vmf)
+@@ -55,8 +54,7 @@ static vm_fault_t udmabuf_vm_fault(struct vm_fault *vmf)
+ 	if (pgoff >= ubuf->pagecount)
+ 		return VM_FAULT_SIGBUS;
+ 
+-	pfn = folio_pfn(ubuf->folios[pgoff]);
+-	pfn += ubuf->offsets[pgoff] >> PAGE_SHIFT;
++	pfn = page_to_pfn(ubuf->pages[pgoff]);
+ 
+ 	ret = vmf_insert_pfn(vma, vmf->address, pfn);
+ 	if (ret & VM_FAULT_ERROR)
+@@ -73,8 +71,7 @@ static vm_fault_t udmabuf_vm_fault(struct vm_fault *vmf)
+ 		if (WARN_ON(pgoff >= ubuf->pagecount))
+ 			break;
+ 
+-		pfn = folio_pfn(ubuf->folios[pgoff]);
+-		pfn += ubuf->offsets[pgoff] >> PAGE_SHIFT;
++		pfn = page_to_pfn(ubuf->pages[pgoff]);
+ 
+ 		/**
+ 		 * If the below vmf_insert_pfn() fails, we do not return an
+@@ -109,22 +106,11 @@ static int mmap_udmabuf(struct dma_buf *buf, struct vm_area_struct *vma)
+ static int vmap_udmabuf(struct dma_buf *buf, struct iosys_map *map)
+ {
+ 	struct udmabuf *ubuf = buf->priv;
+-	struct page **pages;
+ 	void *vaddr;
+-	pgoff_t pg;
+ 
+ 	dma_resv_assert_held(buf->resv);
+ 
+-	pages = kvmalloc_objs(*pages, ubuf->pagecount);
+-	if (!pages)
+-		return -ENOMEM;
+-
+-	for (pg = 0; pg < ubuf->pagecount; pg++)
+-		pages[pg] = folio_page(ubuf->folios[pg],
+-				       ubuf->offsets[pg] >> PAGE_SHIFT);
+-
+-	vaddr = vm_map_ram(pages, ubuf->pagecount, -1);
+-	kvfree(pages);
++	vaddr = vm_map_ram(ubuf->pages, ubuf->pagecount, -1);
+ 	if (!vaddr)
+ 		return -EINVAL;
+ 
+@@ -146,22 +132,18 @@ static struct sg_table *get_sg_table(struct device *dev, struct dma_buf *buf,
+ {
+ 	struct udmabuf *ubuf = buf->priv;
+ 	struct sg_table *sg;
+-	struct scatterlist *sgl;
+-	unsigned int i = 0;
+ 	int ret;
+ 
+ 	sg = kzalloc_obj(*sg);
+ 	if (!sg)
+ 		return ERR_PTR(-ENOMEM);
+ 
+-	ret = sg_alloc_table(sg, ubuf->pagecount, GFP_KERNEL);
++	ret = sg_alloc_table_from_pages(sg, ubuf->pages, ubuf->pagecount, 0,
++					ubuf->pagecount << PAGE_SHIFT,
++					GFP_KERNEL);
+ 	if (ret < 0)
+ 		goto err_alloc;
+ 
+-	for_each_sg(sg->sgl, sgl, ubuf->pagecount, i)
+-		sg_set_folio(sgl, ubuf->folios[i], PAGE_SIZE,
+-			     ubuf->offsets[i]);
+-
+ 	ret = dma_map_sgtable(dev, sg, direction, 0);
+ 	if (ret < 0)
+ 		goto err_map;
+@@ -207,12 +189,8 @@ static void unpin_all_folios(struct udmabuf *ubuf)
+ 
+ static __always_inline int init_udmabuf(struct udmabuf *ubuf, pgoff_t pgcnt)
+ {
+-	ubuf->folios = kvmalloc_objs(*ubuf->folios, pgcnt);
+-	if (!ubuf->folios)
+-		return -ENOMEM;
+-
+-	ubuf->offsets = kvzalloc_objs(*ubuf->offsets, pgcnt);
+-	if (!ubuf->offsets)
++	ubuf->pages = kvmalloc_objs(*ubuf->pages, pgcnt);
++	if (!ubuf->pages)
+ 		return -ENOMEM;
+ 
+ 	ubuf->pinned_folios = kvmalloc_objs(*ubuf->pinned_folios, pgcnt);
+@@ -225,8 +203,7 @@ static __always_inline int init_udmabuf(struct udmabuf *ubuf, pgoff_t pgcnt)
+ static __always_inline void deinit_udmabuf(struct udmabuf *ubuf)
+ {
+ 	unpin_all_folios(ubuf);
+-	kvfree(ubuf->offsets);
+-	kvfree(ubuf->folios);
++	kvfree(ubuf->pages);
+ }
+ 
+ static void release_udmabuf(struct dma_buf *buf)
+@@ -344,8 +321,8 @@ static long udmabuf_pin_folios(struct udmabuf *ubuf, struct file *memfd,
+ 		ubuf->pinned_folios[nr_pinned++] = folios[cur_folio];
+ 
+ 		for (; subpgoff < fsize; subpgoff += PAGE_SIZE) {
+-			ubuf->folios[upgcnt] = folios[cur_folio];
+-			ubuf->offsets[upgcnt] = subpgoff;
++			ubuf->pages[upgcnt] = folio_page(folios[cur_folio],
++						subpgoff >> PAGE_SHIFT);
+ 			++upgcnt;
+ 
+ 			if (++cur_pgcnt >= pgcnt)
 
-> Plus, seems no performance issue with the get/put, as discussed in [v2].
+base-commit: 1f318b96cc84d7c2ab792fcc0bfd42a7ca890681
+-- 
+2.43.0
 
-I confirm performance is surely not an issue here.
-
-All that said, I'm OK with either option:
-
- * no ref taken when the mutex is added
- * ref taken when the mutex is added (as v4) + your patch to fix debugfs
-
-Luca
-
---
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
