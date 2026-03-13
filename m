@@ -4,67 +4,110 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4F4C6105F7A7
-	for <dri-devel@archiver.kernel.org>; Fri, 13 Mar 2026 12:55:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CDA32105F7A7
+	for <dri-devel@archiver.kernel.org>; Fri, 13 Mar 2026 12:56:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7D84510EBDE;
-	Fri, 13 Mar 2026 12:55:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2303310EBDF;
+	Fri, 13 Mar 2026 12:56:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="SWH6jPaU";
+	dkim=pass (1024-bit key; unprotected) header.d=broadcom.com header.i=@broadcom.com header.b="F2A8Wz7q";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 09DD010EBDF
- for <dri-devel@lists.freedesktop.org>; Fri, 13 Mar 2026 12:55:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1773406525;
- bh=NCXnzrq2A1QW1RDxmrjE1LGSy0pWXHheSFQWOUDwhh4=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=SWH6jPaUpOc3lGvw4TCDoo9W9Qn8tDU5LLjiQ4Y2ipCzP5m0UNuz4qx985Bz86alW
- HsnvE3FN8+MU+C3dKMVbcL+ZWAHDWEVCa+Joj0mHbRA/BlCxJ3Uu70ho/zICVwFnZS
- ItST95C90KB0MCDO2jcaNKBYLRjSF4QURroz3mtmS8uRY60G5Zvnk1ooycDIjOEaGr
- sZcTun1BZvCMRQHvWtDCqaqmr752DfIWLzzw50T26bQPNOnziS+Eyf7Qs626Fbn0P0
- LzHqJT7pWSC2pHctShTxBS0dJaJue3+tn8aGNJZ2cYuCB/IUnNfeVKYGjTYxwm4rOr
- +BwojEDw3hgVA==
-Received: from fedora (unknown [IPv6:2a01:e0a:2c:6930:d919:a6e:5ea1:8a9f])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
- server-digest SHA256) (No client certificate requested)
- (Authenticated sender: bbrezillon)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 17C2717E0222;
- Fri, 13 Mar 2026 13:55:25 +0100 (CET)
-Date: Fri, 13 Mar 2026 13:55:21 +0100
-From: Boris Brezillon <boris.brezillon@collabora.com>
-To: Biju Das <biju.das.jz@bp.renesas.com>
-Cc: Thomas Zimmermann <tzimmermann@suse.de>, Tommaso Merciai
- <tommaso.merciai.xr@bp.renesas.com>, "loic.molinari@collabora.com"
- <loic.molinari@collabora.com>, "willy@infradead.org" <willy@infradead.org>,
- "frank.binns@imgtec.com" <frank.binns@imgtec.com>, "matt.coster@imgtec.com"
- <matt.coster@imgtec.com>, "maarten.lankhorst@linux.intel.com"
- <maarten.lankhorst@linux.intel.com>, "mripard@kernel.org"
- <mripard@kernel.org>, "airlied@gmail.com" <airlied@gmail.com>,
- "simona@ffwll.ch" <simona@ffwll.ch>, "linux-mm@kvack.org"
- <linux-mm@kvack.org>, "dri-devel@lists.freedesktop.org"
- <dri-devel@lists.freedesktop.org>
-Subject: Re: [PATCH v4 5/6] drm/gem-shmem: Track folio accessed/dirty status
- in mmap
-Message-ID: <20260313135521.07823792@fedora>
-In-Reply-To: <20260313134328.3166c4d0@fedora>
-References: <20260227114509.165572-1-tzimmermann@suse.de>
- <20260227114509.165572-6-tzimmermann@suse.de>
- <abL5rcYIaFFO3GW2@tom-desktop>
- <TY3PR01MB113460CA616D3576DA0C3FC698644A@TY3PR01MB11346.jpnprd01.prod.outlook.com>
- <TY3PR01MB113461ACB668738E1952EC8898645A@TY3PR01MB11346.jpnprd01.prod.outlook.com>
- <20260313111851.4c1f89f3@fedora>
- <f3384342-cdc5-4260-b670-4ffde76a2802@suse.de>
- <20260313125644.65131b27@fedora>
- <TY3PR01MB1134662A395AA0A048CEE152E8645A@TY3PR01MB11346.jpnprd01.prod.outlook.com>
- <20260313131835.52c5c935@fedora> <20260313134328.3166c4d0@fedora>
-Organization: Collabora
-X-Mailer: Claws Mail 4.3.1 (GTK 3.24.51; x86_64-redhat-linux-gnu)
+Received: from mail-pl1-f229.google.com (mail-pl1-f229.google.com
+ [209.85.214.229])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4573A10EBDF
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Mar 2026 12:56:18 +0000 (UTC)
+Received: by mail-pl1-f229.google.com with SMTP id
+ d9443c01a7336-2aec4a71ef9so10125865ad.3
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Mar 2026 05:56:18 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1773406578; x=1774011378;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:dkim-signature:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=1PXPM6YNi5VyyzapLMjyyn9gMbVXKmCO0nhetuPRekY=;
+ b=OJtvhIRsp7g5V3qFtmY8Jj0oOMLper04FQ8RXk+erRlfbuwP/L6COC+YtsMJ7IU4gm
+ FKVnkPuNC21/EcIOR0+Pg61l397jyG5QZjwposd32eRbjS72Pb31HJ0O/MhshSNeO4OI
+ V0VhtpNNdGoMEOgBd7drbYyDd3X0XlUS3IcZhtJ/mLVopkOgARzUwwKnSA2kBcIate/g
+ 5wxyxL12+T/8qunhXWlHU9TR6apSFdJM+A/pB19Y01K9VLa1nCeFFJvkyocGM1V11A5w
+ sM2wdr96Prg8O4bP82XPp7Q5vKsddURWxLsVbKQrjHet8Q0Z6FfQyeEVkrwHF5XgK2Cp
+ 0hGw==
+X-Gm-Message-State: AOJu0YxsUw5t6m9PWyU9xHaX3djQf7nbzMK+E6FUQ+JY/v5ZDvLmDmDT
+ uCThptl9/kMICoRW8uumBtf3IK94p2o1QJy5/oQFxR+yCUXCNmwaWtWytfKbTp9nEZARkZY78wG
+ VLdqz2TnzMrsPfrWNCpbp896BmYfuPl6xV3qwQozJb/0YvO/kaXGF6drhThQ9NaSRjr/Q43NZ8K
+ 6rjjkEOr5uVLeMKWLPdKOSCZ5b8agu5MVuXzIGjjk8ELWDbwUI3okN6Ix09qAbbahnf5GPry9ee
+ zjn+QFjBKW2a1G+8JK5aB8=
+X-Gm-Gg: ATEYQzzQ4MW2VA0tpmJrcNk0r5OMg4qa3Z3a3hDsdSMgU+S+UhasNRoVfsx3JFGPimC
+ uaxCa2yzyldv3iDdbgwPHTV7i3JWG+x0+jp8dImhMcnvWhhV5B/kmEyz3gKoOI8CWQuY3mDR14t
+ WxeT+VjhHYP6thkq7cTcPt9MEdW8NkR/Rz3FVnk42gz2bnSo/deKa3mSEIPPNurPDNciDOgAehs
+ 8VZdsfYxB/+Pg4mmCqZ23I1ZrCijymlpV6S8iG9VBhSwa2GOeaAXW+x7ekfevaP3u7jmjqv7dqw
+ jo+PmUo8vSYAnp0DuzxCFO+1M2wGa/lGQNfIpguiHpbbTVDqqeha8gxeEEZE8T0dvMMRD5nYz7S
+ KmK8QC6Saq+307RlQUnHHgCvcfNBh7sOyJPK96g+oz12FxBarFVNj1G6W0DDy0nBVm4pzznxMFC
+ S/FkgfNkg0+aQrLTQy2bvFSejshnNZ7KXpzl8KXDRF7KjY5TtvjlKj9r9t
+X-Received: by 2002:a17:902:cf0f:b0:2ae:fc60:2650 with SMTP id
+ d9443c01a7336-2aefc6f7250mr8639475ad.39.1773406577378; 
+ Fri, 13 Mar 2026 05:56:17 -0700 (PDT)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com
+ (address-144-49-247-117.dlp.protect.broadcom.com. [144.49.247.117])
+ by smtp-relay.gmail.com with ESMTPS id
+ d9443c01a7336-2aece8375a2sm2277535ad.57.2026.03.13.05.56.16
+ for <dri-devel@lists.freedesktop.org>
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Fri, 13 Mar 2026 05:56:17 -0700 (PDT)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-wr1-f72.google.com with SMTP id
+ ffacd0b85a97d-439b4e653d2so2181361f8f.1
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Mar 2026 05:56:16 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1773406575; cv=none;
+ d=google.com; s=arc-20240605;
+ b=FPhqfyjfigNG+RsdiXIdiv5kngxZQA+k+wefR2fu/0C01S0+7K1U2kt9ORg1sMDXFB
+ bedJ06B4Ai3DA/7PYbI90/sM0v9SJCslTq2G/qel9OYh+N2P17IJOc+jA++K0jJYchs2
+ u8tgRem/6mL4npBPPIPbEXNsHUF5dhhZ7seFILi6bnRCsjtZYWGdJvvAIVE2DPn+ePMR
+ BnyuIIyt/+MKJJYwvnRnVNHFuHTKKFscYyan26niTmr1xPO4ZjPH2ZWYDyopvm/h3E5m
+ Bf57JXDAcgRujWaH3SpJlqZsQHvnE5kek5lijiADRiaCKS4j24HCejlNItDI8K5LhJ+N
+ wvBg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:dkim-signature;
+ bh=1PXPM6YNi5VyyzapLMjyyn9gMbVXKmCO0nhetuPRekY=;
+ fh=8Onn4zHbKflUQATOKpDzygrc3JMPwZb/qN5XfPVJSig=;
+ b=UQFFZQoCTLEARcd57Z7NoIxtWfEn5gdfeV3fkpDq/7+py+vwMy7J/DtUMPf6WEP91v
+ jQiHaX9XbBIrmJbFYYzsnrJH/F+aPy9fy640uo49hkFCkkQCjjY2TqQPbf+59OJw1IDP
+ 17wSD9Lfu2pwwfDxZ061kH3+0bPbllJKxoNRobMrjAUQMG/oADR0dgvKl3Bw3BM7lEDm
+ od5voeEOaqnA7PfGzywgOBB0oVsvSDfWClEip5/EGnV81JFbL/u9hkSIjFPs9KZF3y9l
+ zDRkmQLvCgmffc4xoYexs9bVj+g4CnTExCofoIWZS8oQFWyYS1OKBMDdmSgfue4ImMSo
+ LEJw==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=broadcom.com; s=google; t=1773406575; x=1774011375;
+ darn=lists.freedesktop.org; 
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=1PXPM6YNi5VyyzapLMjyyn9gMbVXKmCO0nhetuPRekY=;
+ b=F2A8Wz7q5p9PcVmMS7bhXwoc2DbVikrn8iL0zVyE3aT+iLL5/1lmv3GpS/NiwOkUBn
+ 3bdCh61jz/Aka8itwI8z9D6dVg7qVjIHIc4s3KoT+0q44H0hoO4LF2hdP4E+r1x3rkIR
+ FC0rTpt6twbL5+554H0AafEnvQ6TIkaG60f4U=
+X-Received: by 2002:a05:6000:2307:b0:439:cf1f:22a7 with SMTP id
+ ffacd0b85a97d-43a04d79e26mr6298952f8f.6.1773406575032; 
+ Fri, 13 Mar 2026 05:56:15 -0700 (PDT)
+X-Received: by 2002:a05:6000:2307:b0:439:cf1f:22a7 with SMTP id
+ ffacd0b85a97d-43a04d79e26mr6298891f8f.6.1773406574454; Fri, 13 Mar 2026
+ 05:56:14 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+References: <SEYPR02MB601492D054783E9F4F18AEE5FB44A@SEYPR02MB6014.apcprd02.prod.outlook.com>
+In-Reply-To: <SEYPR02MB601492D054783E9F4F18AEE5FB44A@SEYPR02MB6014.apcprd02.prod.outlook.com>
+From: Ian Forbes <ian.forbes@broadcom.com>
+Date: Fri, 13 Mar 2026 07:56:02 -0500
+X-Gm-Features: AaiRm53jYTSWt1W9QSnUqMA3lizv3eMgogpwQMoLDrZYUWoXbe9zCXG5i35DFrM
+Message-ID: <CAO6MGtjZ3nrZ=71MCE0XKvFAkR3iGHq5G46QXquSXL+vYAe8bw@mail.gmail.com>
+Subject: Re: [BUG] vmwgfx: Severe Slab memory leak (radix_tree_node) with
+ Wayland Atomic KMS
+To: Yuma Kakei <yumasansansan@gmail.com>
+Cc: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
+Content-Type: multipart/signed; protocol="application/pkcs7-signature";
+ micalg=sha-256; boundary="000000000000f93474064ce764af"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,49 +123,247 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, 13 Mar 2026 13:43:28 +0100
-Boris Brezillon <boris.brezillon@collabora.com> wrote:
+--000000000000f93474064ce764af
+Content-Type: multipart/alternative; boundary="000000000000e9c77d064ce764b5"
 
-> On Fri, 13 Mar 2026 13:18:35 +0100
-> Boris Brezillon <boris.brezillon@collabora.com> wrote:
-> 
-> > On Fri, 13 Mar 2026 12:04:25 +0000
-> > Biju Das <biju.das.jz@bp.renesas.com> wrote:
-> >   
-> > > > -----Original Message-----
-> > > > From: dri-devel <dri-devel-bounces@lists.freedesktop.org> On Behalf Of Boris Brezillon
-> > > > Sent: 13 March 2026 11:57
-> > > > Subject: Re: [PATCH v4 5/6] drm/gem-shmem: Track folio accessed/dirty status in mmap
-> > > > 
-> > > > On Fri, 13 Mar 2026 11:29:47 +0100
-> > > > Thomas Zimmermann <tzimmermann@suse.de> wrote:
-> > > >       
-> > > > > Hi
-> > > > >
-> > > > > Am 13.03.26 um 11:18 schrieb Boris Brezillon:
-> > > > > [...]      
-> > > > > >>>>> +	if (drm_WARN_ON(obj->dev, !shmem->pages || page_offset >= num_pages))
-> > > > > >>>>> +		return VM_FAULT_SIGBUS;
-> > > > > >>>>> +
-> > > > > >>>>> +	file_update_time(vma->vm_file);
-> > > > > >>>>> +
-> > > > > >>>>> +	folio_mark_dirty(page_folio(shmem->pages[page_offset]));      
-> > > > > > Do we need a folio_mark_dirty_lock() here?      
-> > > > >
-> > > > > There is a helper for that with some documentation. [1]      
-> > > > 
-> > > > This [1] seems to solve the problem for me. Still unsure about the folio_mark_dirty_lock vs
-> > > > folio_mark_dirty though.
-> > > > 
-> > > > [1]https://yhbt.net/lore/dri-devel/20260312155027.1682606-1-pedrodemargomes@gmail.com/      
-> > > 
-> > > FYI, I used folio_mark_dirty_lock() still it does not solve the issue with weston hang.    
-> > 
-> > The patch I pointed to has nothing to do with folio_mark_dirty_lock(),
-> > It's a bug caused by huge page mapping changes.  
-> 
-> Scratch that. I had a bunch of other changes on top, and it hangs again
-> now that I dropped those.
+--000000000000e9c77d064ce764b5
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Seems like it's the combination of huge pages and mkwrite that's
-causing issues, if I disable huge pages, it doesn't hang...
+Can you retry with
+https://patchwork.kernel.org/project/dri-devel/patch/20260302200330.66763-1=
+-ian.forbes@broadcom.com/
+appliecd to your kernel?
+
+Thank you,
+Ian
+
+On Thu, Mar 12, 2026 at 11:48=E2=80=AFAM Yuma Kakei <yumasansansan@gmail.co=
+m> wrote:
+
+> Hi vmwgfx maintainers and DRM developers,
+>
+> I have encountered a severe Slab memory leak in the vmwgfx driver when
+> using a Wayland compositor (KWin) with Atomic KMS enabled. This issue
+> eventually leads to complete memory exhaustion and OOM within a few minut=
+es
+> of normal desktop usage.
+>
+> [Environment]
+> Kernel: 7.0-rc3 (Mainline) and 6.17.0-14 (HWE kernel)
+> Distro: KDE neon Unstable (Ubuntu 24.04 LTS base)
+> Compositor: KWin Wayland (Latest master branch)
+> Guest Graphics: VMware SVGA II Adapter (vmwgfx)
+>
+> [Symptoms & Evidence]
+> When moving windows or triggering screen updates on the Wayland session,
+> system memory is rapidly consumed.
+> Monitoring with slabtop reveals that radix_tree_node and kmalloc-rnd-07-1=
+k
+> objects are leaking aggressively per frame.
+>
+> It appears that DRM objects (likely GEM handles/IDR or framebuffers)
+> created during the Atomic KMS commit are not being properly freed by the
+> driver after the frame is rendered, leaving orphaned objects in the kerne=
+l
+> Slab.
+>
+> Earlier, before disabling 3D acceleration, dmesg also showed:
+> vmwgfx: mob memory overflow. Consider increasing guest RAM and
+> graphicsMemory.
+> However, even with 3D acceleration disabled (llvmpipe fallback), the Slab
+> memory leak persists as long as Atomic KMS is used.
+>
+> [Steps to Reproduce]
+> 1. Boot a VMware guest with vmwgfx and launch a modern Wayland compositor
+> (KWin) that strictly uses Atomic KMS.
+> 2. Move windows around to force screen redraws.
+> 3. Run sudo slabtop -s c and observe radix_tree_node and kmalloc-rnd-07-1=
+k
+> growing indefinitely.
+>
+> [Workaround]
+> Disabling Atomic KMS in the compositor completely stops the memory leak.
+> Setting the environment variable KWIN_DRM_NO_AMS=3D1 forces KWin to use
+> legacy DRM API, which works perfectly without any Slab growth. This
+> strongly suggests the bug resides in the vmwgfx atomic commit/cleanup pat=
+h.
+>
+> Any assistance or guidance on testing potential patches would be greatly
+> appreciated. I am happy to provide further logs or test patches if needed=
+.
+>
+> Best regards,
+> Yuma Kakei
+
+--000000000000e9c77d064ce764b5
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div class=3D"gmail_default" style=3D"font-family:arial,sa=
+ns-serif">Can you retry with=C2=A0<a href=3D"https://patchwork.kernel.org/p=
+roject/dri-devel/patch/20260302200330.66763-1-ian.forbes@broadcom.com/">htt=
+ps://patchwork.kernel.org/project/dri-devel/patch/20260302200330.66763-1-ia=
+n.forbes@broadcom.com/</a> appliecd to your kernel?<br><br></div><div class=
+=3D"gmail_default" style=3D"font-family:arial,sans-serif">Thank you,<br></d=
+iv><div class=3D"gmail_default" style=3D"font-family:arial,sans-serif">Ian<=
+/div></div><br><div class=3D"gmail_quote gmail_quote_container"><div dir=3D=
+"ltr" class=3D"gmail_attr">On Thu, Mar 12, 2026 at 11:48=E2=80=AFAM Yuma Ka=
+kei &lt;<a href=3D"mailto:yumasansansan@gmail.com">yumasansansan@gmail.com<=
+/a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0=
+px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">H=
+i vmwgfx maintainers and DRM developers,<br>
+<br>
+I have encountered a severe Slab memory leak in the vmwgfx driver when usin=
+g a Wayland compositor (KWin) with Atomic KMS enabled. This issue eventuall=
+y leads to complete memory exhaustion and OOM within a few minutes of norma=
+l desktop usage.<br>
+<br>
+[Environment]<br>
+Kernel: 7.0-rc3 (Mainline) and 6.17.0-14 (HWE kernel)<br>
+Distro: KDE neon Unstable (Ubuntu 24.04 LTS base)<br>
+Compositor: KWin Wayland (Latest master branch)<br>
+Guest Graphics: VMware SVGA II Adapter (vmwgfx)<br>
+<br>
+[Symptoms &amp; Evidence]<br>
+When moving windows or triggering screen updates on the Wayland session, sy=
+stem memory is rapidly consumed.<br>
+Monitoring with slabtop reveals that radix_tree_node and kmalloc-rnd-07-1k =
+objects are leaking aggressively per frame.<br>
+<br>
+It appears that DRM objects (likely GEM handles/IDR or framebuffers) create=
+d during the Atomic KMS commit are not being properly freed by the driver a=
+fter the frame is rendered, leaving orphaned objects in the kernel Slab.<br=
+>
+<br>
+Earlier, before disabling 3D acceleration, dmesg also showed:<br>
+vmwgfx: mob memory overflow. Consider increasing guest RAM and graphicsMemo=
+ry.<br>
+However, even with 3D acceleration disabled (llvmpipe fallback), the Slab m=
+emory leak persists as long as Atomic KMS is used.<br>
+<br>
+[Steps to Reproduce]<br>
+1. Boot a VMware guest with vmwgfx and launch a modern Wayland compositor (=
+KWin) that strictly uses Atomic KMS.<br>
+2. Move windows around to force screen redraws.<br>
+3. Run sudo slabtop -s c and observe radix_tree_node and kmalloc-rnd-07-1k =
+growing indefinitely.<br>
+<br>
+[Workaround]<br>
+Disabling Atomic KMS in the compositor completely stops the memory leak.<br=
+>
+Setting the environment variable KWIN_DRM_NO_AMS=3D1 forces KWin to use leg=
+acy DRM API, which works perfectly without any Slab growth. This strongly s=
+uggests the bug resides in the vmwgfx atomic commit/cleanup path.<br>
+<br>
+Any assistance or guidance on testing potential patches would be greatly ap=
+preciated. I am happy to provide further logs or test patches if needed.<br=
+>
+<br>
+Best regards,<br>
+Yuma Kakei</blockquote></div>
+
+--000000000000e9c77d064ce764b5--
+
+--000000000000f93474064ce764af
+Content-Type: application/pkcs7-signature; name="smime.p7s"
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment; filename="smime.p7s"
+Content-Description: S/MIME Cryptographic Signature
+
+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
+V0fYJUiKJMCwvDmndOil8EtMA8j2T6taUZoQINiKQ0oDWgY6eYVv7AdPVIeOOs3noCyUL8AyA7Bl
+yoOPBB2/gk8VGcolEKgAAj+3hPbBF/d19x1bZzU3wABizBomVwykx5ms1nVXDbQajz8jqYECKWh9
+3OMo7BuC3TAClu5mLr2zs0Ccpp6NRRkjTF8WtCJ+jSnjFJGLAgMBAAGjggHYMIIB1DAOBgNVHQ8B
+Af8EBAMCBaAwgZMGCCsGAQUFBwEBBIGGMIGDMEYGCCsGAQUFBzAChjpodHRwOi8vc2VjdXJlLmds
+b2JhbHNpZ24uY29tL2NhY2VydC9nc2djY3I2c21pbWVjYTIwMjMuY3J0MDkGCCsGAQUFBzABhi1o
+dHRwOi8vb2NzcC5nbG9iYWxzaWduLmNvbS9nc2djY3I2c21pbWVjYTIwMjMwZQYDVR0gBF4wXDAJ
+BgdngQwBBQMBMAsGCSsGAQQBoDIBKDBCBgorBgEEAaAyCgMCMDQwMgYIKwYBBQUHAgEWJmh0dHBz
+Oi8vd3d3Lmdsb2JhbHNpZ24uY29tL3JlcG9zaXRvcnkvMAkGA1UdEwQCMAAwQQYDVR0fBDowODA2
+oDSgMoYwaHR0cDovL2NybC5nbG9iYWxzaWduLmNvbS9nc2djY3I2c21pbWVjYTIwMjMuY3JsMCIG
+A1UdEQQbMBmBF2lhbi5mb3JiZXNAYnJvYWRjb20uY29tMBMGA1UdJQQMMAoGCCsGAQUFBwMEMB8G
+A1UdIwQYMBaAFAApNp5ceroPry1QLdugI4UYsKCSMB0GA1UdDgQWBBSvJWzgGK7aSByS+CQVBVfM
+Xgm5azANBgkqhkiG9w0BAQsFAAOCAgEAfrWiLF3zrYq7D+KPNRaAP70FbxHeaiUfn27Hbu37Eefz
+xeJTcFZH04IEtXqpM3NWYZm4A/dFn/VQPbLCRaeXzpT2TESVH6EFY7BEF0rnSSlUbFyi000MnSH3
+h5m+MoyE+PzLqfzLBZS+EU/haCpPy6Nqhs3fPKG3w5VTnUPsAxXK7rSmkIDVNsvwRttuMq9KHJzH
+Bx51dP/z3mel4OuMjgrwHk5uNY1Sn1MZAUQztVUsWguyfoKcmhxXbBccR5DdEfBgDEbq8bicPQ3J
+kqEy1QZXJfHlJuAJIiEw7odGctwqLeGCU6cBLhnsg54ngjO3uYC6tIySul55MRxFKE8HIwIrx+D5
+2SwhDeVLZ8sTK40uPzW5xg5laOWVCvmy2b+cHCGzarUeIlYdtw0ejdH9Hbkm0G7IrDvjkhPa64gR
+6Q+m5CGRDk+8iWhieH6WFE4HL++BpZhoi+YsOkGU3DK0dA+pxQnXNcNw1s0eNbSUVwQzmlC4LqiK
+Gj5JV81HTPLhoAya57a9i28Fp5qHZiFnCq4HMvwiwY7IWe+UwUuueU199aTK80xNiS553vHc6FpI
+/vxGy+LveJqEtodfKqQKwDOVu//c1Lz3uergJHqFYTMykk5U95J3FG5q/7Mqe4RF6E9OgtuAJidS
+6Ca5anjLQ/qzIfTjoXX7TJSjPztehRQxggJXMIICUwIBATBiMFIxCzAJBgNVBAYTAkJFMRkwFwYD
+VQQKExBHbG9iYWxTaWduIG52LXNhMSgwJgYDVQQDEx9HbG9iYWxTaWduIEdDQyBSNiBTTUlNRSBD
+QSAyMDIzAgx2/5+PPF/QoW30N7swDQYJYIZIAWUDBAIBBQCggccwLwYJKoZIhvcNAQkEMSIEIAqI
+VrD0H9dW/9UH98CG3DG4dUYjdpbS1Qn+SBSxuqDoMBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwEw
+HAYJKoZIhvcNAQkFMQ8XDTI2MDMxMzEyNTYxNVowXAYJKoZIhvcNAQkPMU8wTTALBglghkgBZQME
+ASowCwYJYIZIAWUDBAEWMAsGCWCGSAFlAwQBAjAKBggqhkiG9w0DBzALBgkqhkiG9w0BAQcwCwYJ
+YIZIAWUDBAIBMA0GCSqGSIb3DQEBAQUABIIBABZ0UcvcUXYnowx0Tya0kZMxEiOXv2mbGjbLqnmN
+vyn38qoY5I3cbdGJzK8VPWBFtAZ5pqmoRd7Bk8dgY8QZSk4vJqc7za9Q3+kbq0uvkFMDzRZgd6Re
+NqpUEZBvL+CKdsz4ShyF9hWiXrtUeIkh39/j4bYjdCUzImdrIG8YrsuyXWfBeONWXzHouWIC8EA1
+1pMbz3izoJUDWj4mMUNNL2OH36KHoX69pK5ZG1rMxrt1TcZ5NM71GK3VQVj4+qic68Un0okN8KOT
+IghpkI7geRH0jKwFRZCnQiRSdqaGl/xhcu8znIO8p9LFsXQKW+nGKQTiJ5D8kXnwA/CUfHqfFBE=
+--000000000000f93474064ce764af--
