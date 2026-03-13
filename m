@@ -4,179 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5FF36105F7A6
-	for <dri-devel@archiver.kernel.org>; Fri, 13 Mar 2026 12:51:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A2422105F7A6
+	for <dri-devel@archiver.kernel.org>; Fri, 13 Mar 2026 12:53:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BE51E10E11F;
-	Fri, 13 Mar 2026 12:51:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0518F10EBDB;
+	Fri, 13 Mar 2026 12:53:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=gmx.de header.i=deller@gmx.de header.b="jMJeBcXJ";
+	dkim=pass (2048-bit key; unprotected) header.d=ursulin.net header.i=@ursulin.net header.b="itxHp5Kl";
 	dkim-atps=neutral
-Received: from mout.gmx.net (mout.gmx.net [212.227.15.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2D62910E11F
- for <dri-devel@lists.freedesktop.org>; Fri, 13 Mar 2026 12:50:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
- s=s31663417; t=1773406255; x=1774011055; i=deller@gmx.de;
- bh=WYTXehAz3Tkprls041O/SdcEBiG3v9f0dVM6LTIyYQE=;
- h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
- References:From:In-Reply-To:Content-Type:
- Content-Transfer-Encoding:cc:content-transfer-encoding:
- content-type:date:from:message-id:mime-version:reply-to:subject:
- to;
- b=jMJeBcXJBIVuoNhgFlT86aKFqYPeVsl/BWE6sMnIXmu6tw7m/yYS0+2WGIBCLqyz
- 3oSyymi/kWDWSd9H6ZXZNoL6uJkquNYDpiTF3jqvRw0DIhzAzpG26H2VCKwjjeXCJ
- kuhJ8WX+9PLU7G1zFfvlnzsmoiUR/GDGrVVoKxnmDcufu9izyNxCm5mYsxO/2c5qj
- KIzQIgBg/suysNN6vnzsFklxfOTHPD5QTu91DKyKWAM5chmENSJv0q7LKzCfgHKYZ
- th160WW387YCSdlCygUZZzfFJs2Oj+AWsQra88nf2wG50uz5f1Gvspv8wwWFg/xhc
- 6a7M9gtDrqH9F6n7GA==
-X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
-Received: from client.hidden.invalid by mail.gmx.net (mrgmx005
- [212.227.17.190]) with ESMTPSA (Nemesis) id 1MiaY9-1vNJyi1KLv-00ev9q; Fri, 13
- Mar 2026 13:50:55 +0100
-Message-ID: <e9580f2e-19e2-4e82-b041-afe4cf9fb301@gmx.de>
-Date: Fri, 13 Mar 2026 13:50:51 +0100
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com
+ [209.85.128.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BE28910EBDB
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Mar 2026 12:53:05 +0000 (UTC)
+Received: by mail-wm1-f51.google.com with SMTP id
+ 5b1f17b1804b1-4852ff06541so22099095e9.2
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Mar 2026 05:53:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=ursulin.net; s=google; t=1773406384; x=1774011184; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=wUAXZOch+j8GBQV9ng35Tf6PnvC1xmx52FcG64eQxFc=;
+ b=itxHp5Kly6LpxTHrnGreTPofYrrfGByMiASHH5t/gJOV4PCv8GWhPWuZctqc50kPvm
+ H9YgidX+KbjfsVerl6+x83YwSLxasKAyJ8+HNWaxFI9cUgH1mKojDulurP8VvKvJoMRT
+ Q/RdWwwn/CD5picxHeNDpKoT6qZLqF6stDw554u4LQvsEmcLPMz6nN7DWqrRX9d2kSbM
+ BGQ4tPbGV3oKW75eKrmcGe7srMRBAFmEF5rpJwHvAx86i9s8pgnLM8GP/VdLc2DKCpIJ
+ f9EvzyyTNHXciU3ldbaWxIP7a3hI5TCXFiwhhwsBAkSaQxM6Ezdln31T2EqJqt0KbSiE
+ Kq2A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1773406384; x=1774011184;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=wUAXZOch+j8GBQV9ng35Tf6PnvC1xmx52FcG64eQxFc=;
+ b=egEdAFKdcwt/nieZCiymHVxjwBG92mcZEH2kJte9X1qmZwTlzXAl38GNL4iMON8FHf
+ oY9wqp5g86vPiEIG9pJWJZU9W2PzDked76MUwKjz0iTaz1ewM8IGOguf1Wlb8V5P4oBV
+ ZFe+xAYUXe1LYaWa6DRIHHVMJPo8PD6dg2VCwj5pNkDB4x2+DZfxIr0jajR5/uOhQdKU
+ nuyg1M+qT0rQ3ZEPksU1Ba75DjvSCsuFIOU5KXLBkewI0eGI69R7OQYViMwDSKBrZJ31
+ VnXITGZ1DuhXKuvYb0LlEEfnEHjTzbTHN5DMZQ8xEdM3WYO6QemxUiMTh2QOUYeF8I1H
+ h1ww==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCV69CKd7AXCqOQhL+UQiPIuhUDSb5+/KLSDCjp360JgjFf7dwRHo98/0yq+WxSu0EqIe8MUP/iiGxw=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzmLE7/gtaB4Gr5aIuQjyUnxxWlIR93sH6JfdRwrVIMnNAMt71q
+ slRkHOBniAHgQhomT04+Ic8nl0sMJXnaks+rbs9R+44hMY0AE3/nfzsGtPDmfWern8w=
+X-Gm-Gg: ATEYQzy1d001OUUoVylOUk2yNJ7fA/63dRHmzy9TxhpjRqTNcHzqciA8kZOrlPabW5z
+ fyc4raYsy94heK8TTHPYTaOFwDI/G/9M9+7hrbZWQYPeNPqnydnF5wGootHDKOy6izfBgyPYY+W
+ r9rhwtIdufgaBOjQymvDZdETLDszOcbwp3dybOiIZ25HC1e/FWP724Tfby6GIbdsXM8KrE8u9Tz
+ htTHnWoegKBrz/AL7++M7u4grfNjBbmd6Yf9Lbqn5Qo79rDK7mmf2fxG8TDXi6KdimTst7OfxSB
+ L/E/6dAYvIvpFOVXX0Iv9Y1RM/ZOsUob6azlhye52ldNLq28LNy60nRRU/EOcYoTBz9HdnFscBv
+ f0WByicEjOhY3whv/EodV3+JetappR/Ioc/8yCUuQdFOKmSTdIlnpHIuz3x0nDonYsHLu/aYzHG
+ oNnF0Yzt1S0R9zstRKRKf8XNncWD5yxbf0d5GI7SJ7Gph7
+X-Received: by 2002:a05:600c:4e15:b0:485:3f1c:d887 with SMTP id
+ 5b1f17b1804b1-4855670e6e8mr48910125e9.26.1773406383716; 
+ Fri, 13 Mar 2026 05:53:03 -0700 (PDT)
+Received: from [192.168.0.101] ([90.240.106.137])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-439fe2273d9sm19741899f8f.34.2026.03.13.05.53.02
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 13 Mar 2026 05:53:03 -0700 (PDT)
+Message-ID: <fd77dce5-39f9-446e-b78e-3304ca3de4ac@ursulin.net>
+Date: Fri, 13 Mar 2026 12:53:02 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] fbdev/hga: Request memory region before ioremap
-To: Thomas Zimmermann <tzimmermann@suse.de>,
- Hardik Phalet <hardik.phalet@pm.me>,
- Ferenc Bakonyi <fero@drama.obuda.kando.hu>
-Cc: Shuah Khan <skhan@linuxfoundation.org>,
- Brigham Campbell <me@brighamcampbell.com>, linux-nvidia@lists.surfsouth.com,
- linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-References: <20260310123004.888132-1-hardik.phalet@pm.me>
- <3d58e520-0308-44c7-a43a-e438548e9c40@suse.de>
- <DH0W99FBZJEX.30MPSPJVGV4ZF@pm.me>
- <afd8b00d-42fa-4eb7-b18e-302d3f7cadf7@suse.de>
- <100ea3bc-d7a2-45c5-982f-5dc5fd27163b@gmx.de>
- <4f06f63c-7ab6-42b7-9789-13c929c64db3@suse.de>
-Content-Language: en-US
-From: Helge Deller <deller@gmx.de>
-Autocrypt: addr=deller@gmx.de; keydata=
- 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
-In-Reply-To: <4f06f63c-7ab6-42b7-9789-13c929c64db3@suse.de>
+Subject: Re: [PATCH v6 4/6] drm/ttm: Split cgroup charge and resource
+ allocation
+To: Natalie Vock <natalie.vock@gmx.de>, Maarten Lankhorst <dev@lankhorst.se>, 
+ Maxime Ripard <mripard@kernel.org>, Tejun Heo <tj@kernel.org>,
+ Johannes Weiner <hannes@cmpxchg.org>, =?UTF-8?Q?Michal_Koutn=C3=BD?=
+ <mkoutny@suse.com>, Christian Koenig <christian.koenig@amd.com>,
+ Huang Rui <ray.huang@amd.com>, Matthew Auld <matthew.auld@intel.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+Cc: cgroups@vger.kernel.org, dri-devel@lists.freedesktop.org
+References: <20260313-dmemcg-aggressive-protect-v6-0-7c71cc1492db@gmx.de>
+ <20260313-dmemcg-aggressive-protect-v6-4-7c71cc1492db@gmx.de>
+Content-Language: en-GB
+From: Tvrtko Ursulin <tursulin@ursulin.net>
+In-Reply-To: <20260313-dmemcg-aggressive-protect-v6-4-7c71cc1492db@gmx.de>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:Svfw2ZOE+M4S7YvgVe9ahOafaRzGN9GSbBGYYXgBm1zrGZSxgXw
- u9ECh40W/fHyERxIV+uaDmxhd7go2phY2EVA7oTXimeCE6cCm0DdZ4XXO5L4LrJEfdz9k5I
- 3N+UXFkW2zp8fnAueSdtZYvq1DW4bbj6TgOrinTlxfF2r7mszggzU1s6ovSEbo2Il7ewmR/
- 6UCNHQqFINKeP9uFTLsFQ==
-UI-OutboundReport: notjunk:1;M01:P0:T07y6Qk4kbs=;mXkRjl8JJCNPcrgI6CnA4+PYwcp
- rk6iK/aZBdcgvOEQ3PSWt23+gTwUfLGbR8r7DRYtk2wxOuGz+GQ9QkAxmWm5XRdFb8vmjJMMF
- MVy6bqJjjmstDzlX75PYKFjq1DLEfR4/1HKHaIzNyHOsVu2BZnGxZA2CuKNkJwlaKWcA7T/Ta
- DCH3qSgJPSRp+FdW2scIJLiNokHe+g64YHY7CqJwBsWGaqBDT1XMglTeITTwBkhtL8g18C4f8
- u/UzL/aKjR/LvmaxSfIzv6ibEuA26iexSHzJJz4Iafo3mPpB+6AdsQAW8IrHS+G1GrcsTLb6C
- zzS441IdBOOKv+sTn/ihIYUzAEL50Pqp2ki3gnYtdmb8aZjecfBMH8BMJDms4vBsGpjU5HUYT
- /qZ6OiaNc6Rpr6/njsIG8kK52yCiiNfhHTIxafRW/ZbaTOAR4CoDRzLffCYrRJZW5U3WVd/zS
- W8fyhdvuMt5i75AzsRpqnNjP2PPAw7C3Sr5wmDaGhp9oC8wnDQs7CWGvu2ETGYowH/uX8ECic
- 08Vy5rI1qOcGosPfRQklkxQku2y+zPeWOcZ+kEJxEPVmKJ8pWrHr4ONpUej42clhbwuZyoQWe
- o1GHdh6tdcyfooWEDq4svXTSaoQdPqOD1V501Wz357rsLtIO92C/YFoKbLeb/0Nl5MYeInGIv
- TfuBdrLXXxPUMZEthlS0YGXOoZe39wd5rTRcNsU/ErSyNiDZ6qcne0Ydscytpu5c85B/9twvJ
- ztqbj+58mXVvUJhJP3hvF62CMHbDRmV+x25bRG9G909hQyk237vXFJhyIyU7VrE5qr4NwQJmh
- MUAVI2cf4EE2jSFJT/6HKeKL7m1a/6gEpDKa2HtdoDUy4rWLZgN3GeCoXVUxAwCSjmwXg8yjH
- +tO4413chcT3/ZnuTwa0ZfqJBL9gZs4BDzNwo2QEjJHmoJFYoAt+xo6jprXht49yViKO3Vt9Z
- rkS+YXIdbRH1j1hp/zMOWNNgQ74/vQ7KsdAKGIWXY5NGkQZZOjYJp2DeJu2YJrrOmbGMjvGRa
- Nmncs8WZudFPu3akb3/HAKV3E/QtYuwrKdItHJ3zWUSEpkaHcBGPXKiFzhFgdGZmTkMuwwNOx
- LLnSJRw8vjR1VJqznh/mOLE/92FV1NEEodizkjuFTEv40yZ7X/pheByd0hoGORHoyXSppyoNb
- bftzWm2mhr/tuvK+j/1kGVFeyxghG7j4Na6yt2b1Es2vQQ1ZXDKY3qSZ8vRb24MF5/pEJjUqu
- jODO5ZaGgvh24IvFXJ80Gx6Evm4OVvAtyhZSFdIALqOC8E9PK/+riSURsvpluSwjYO415Sf1z
- h2E6CgNji8ChMdAtcZhaMdj+C8y2xvljZK6DWKM+kAYvEGS0whJGZwwWn+xHYBJmcdwvHEZaP
- rvsJN9T+OuQWOSmHJHtzE1MWUlcsMA+FyIwslPFDUfWK8TypUnNRk4p9zAsJkW/vfaKGvhj32
- D9M7H+6rWYb1YEX/JYnuASgdS3XGDcHTAM+U++CCINKF5e6wYdvT7iR5l/6QcCpVCMGbOuJM9
- DOulXES8YO1HlUzJvdMzZedbte1JYKGz/A7jNnFHg9rYvz+FDVjy+cyvIfHi1flVrowh4KDia
- XxOuVA+RR+yBrOTLzO7mCrMLhpw75SCAlWyRGyAg9S5JhtwGlOruZ1vzG8JGBPDgoG6Eh6pds
- ryz6PtDib6u/UWu23Nr8kvm6IqE0Oih72jg+An0qO1VMkLXHbuiddAbh4YsmX+q/RimKpFIKL
- ZIGMa0HakyWDV/ZSAr53Zy6p3vvs42m4Mp5w1sUzwE0zLR5RjUQ9XFyuMGHKGNH97wErFY6y6
- Z9AdP+Qu0i01EMLWwtQeRPVbCiIjQNl3e0H4E5JKf0uLF6qytJLIfmSTSpnnp+MNKLgip78j5
- hVBp44EKlQYRkaArXmboiAITairO2A1HhkUtxGJGiXIHVSd1CwH+E1ENdMaH/dmpjxaCcrHez
- EnDxs5yiNcZAuNTD2IHlL2tTE4gffRr2AgPlGFzo3wrt060nVS9pmsOeFxIGZTvsHly/kQpDD
- 4NER8LVylVpOsfZBCKUsNnueeasvYxKP9g+xEYlzV9J9AfhI/o4fRYDmn1F0vksOGAP6e2jsk
- MSQyGyNAl4J3wSgdvqjXl3bMb64y1YB03uq8piVUcnkMmt2BimVgA838sGVYiLfKoawrsl+Pr
- MhbDn7qDet1cPW5puqsbSSoQzwTw2hQVAHMCKf3lGQA6Lq7Gp6WNoJL+cZbdplSTwdLYoAaNF
- Pie8TVh2hH6pvYvxVWOYd9gFqCZyntW1myd3d5dLyfxUgFFRWWvE8MeQQHPJE7NQQJKczylbF
- S07fwUB246TkFYF/IYqQdHj7PXWdqRYT3Ffw7uEPzOYtuZsrdE35UKNUILO4jUElUyLRZEgST
- bD/vPJ4Mvak4HmrhwcglFkD9eXmm6rUsrSKk84QOx1I+KpLEW9p/jANIYAtlrNJJIVnuTKA7N
- rMelBz+ukMoN3bxxU83tEDXahUl+US3COvN7CVkF9KQoDksp5J0gsVG2TmXVauKt2sZ9/56qk
- Sh4K8+FM7e8ThG10OlStcx2ZXr/0WXjIaqf/MkRLHTLV14IBtNpFaXhBY9kNBPUG3qICXySRb
- lrbbBacTHEBLE+3hKasZEO1oY7YD/XWlUsrcE3A4L0/AQySMb61H/a9sIXIibPcolai+A5kQe
- Ovneq9dK5Q7D8vAFXc8Np6wchLnnMajBA/zTIRvyKeVziJS5hHR4gtj4bMH8AifUNrFRj+Gup
- 5GRm84lmjs39WjDkVi3yjRKxR6hOiREGyfFeQnmcoMax77sz82sos3TuxEHWvlYXqnc+Nop3z
- Wdf3XMI0fqOeEXeqBufAsET1YY413K4mEoirhRHFiy8CitwVDLZiGKXC8PUwhr66bXtl26YGd
- 7/XSmB59v4h8l74+/wZv+D/eTR30OJTjHyotWtg0jZfh/i+XnACnostkAzAVYlyYjgMuQvEAM
- bhC9Sb9ID7Df33Pa441Y+AueY5KDyGnWZ9VUoeut7ncOdQqhqApuiXlb/4PXKoI/YpijqC+V1
- A1LTCfY8kyo334IyRNG61GZSfK3reIGDZOQ5WoFFw6PYNaVzcvsxZrODX3S5b78w4twd++WVK
- 4Gdv4bZvVAXGCP08rPeMEu7jd2F7Py98YGWu1SQizRKaAC7vcq3fXF1RLK75shl1KDtiGceQA
- 9v5jkx3IGSrDETc8GakgepAU9eVXt0NbPPt8/gZvIbp09WQt8GJyTopIUXddCG/u77w1WF1v+
- nf9dA+hC8XhQUXQBA1Cj5iHqb3K4Sc9Ehxw9V4dPjwjfhwLkUbo1z6O7Z7JyI8fGwrvaU2yW0
- z4EhCuDdhOIlnYJwTq4tzIFXNC1/bVyWwu/Gk9ZX5T6Keqe2u4K24BNQkX7J1s9MSh6CY+1kT
- 4+xBWZMu+nDDJlR4KjNRH3f5B6WTo74l7efDXVywAEbp614NKKZanxmZMByD7EKmM65hW83wI
- pyt2A9tn5nqfS0ohsBJIfAonm4E5FdlbwoIznU+RoGmQeRuQDxQyCz0qdkY+NOY4lqaHTpYAs
- O+1UYbwinAhKwovt0EW140pJ+Jp2Dvq2oeqtV4Q+LNdZ8GuBlLcWBAPWRzsCsfrUUmRddEv3W
- TCdYioaqCtdJpIB19ByUhDHTOcL9TDWoJ4Aq7uDjEmk75qJv55Ti44WcTfRZf3d0kKJ/VAjVz
- djFV3uJcpAgIowXJl4MUQKpzxSePMD9vvS2b5OPHZ8Ql6v0+CE6+2W8qqyX8P2bskCiVsTxsE
- vR/aYzRSGDfrC99yJkOz1ZA6ocHbDJ5O84YnOeoUfgLDkWTBzRkG2W4PQT6SEG/jOFFfQ1tje
- BXJwpFn4OZiT/Oe8FWDzTeOrqUXoDXmdzzdyjcuPduoVfS7fVM2jp12f7Y054BSH6uVlHhbtq
- 4/hcsuQ+Ksk9aVYkm7xOeOVUEV5zOnkDPdxB44NV7q5ycEQxSZO1Wgc1XohvbCf1maoVY9gkW
- peVZcWzDGvH4KFStICduPljQUZI25zwp/+hmlweTI1MWiMwdu6gxVff3OKSshiBdQ0ZNGTQW/
- y4RkdmjADgwjy5JGv0XuXmWBW1oC9rlheLS1uLngDVHfeZC2YVrR0RKP/kS10uv/8GbgHp7Zv
- 9Z60t1y+uTG9PT047eGQr/54oesqr4xmmvULFBwelsv25A0sjhxKr2bF8R8IPse4/+LTKUOkL
- 0oPMAd58TPu4fnxq4uwWBA6HPZ7pC5zqeCMIYFPFhmgzUg6qTGJinZdfJUb3yI9z3MCfrs4sM
- fn4d2wMUc2zlCQ7MboxTCmld8o5cMmj3KnnhjpvvccrC1eX9bPUu7zSuCNPEqtCEBRZUFHUxb
- B2lc2iPwQ/kEAPEY2guywXuRBHqV6/yxxeXAf4LQr4zmgMxBDzL0Q5PV7YDajkKKvtga6tV05
- 74rJAwuW4Y5VOHnIMmNj+Z+FBSJ49RTm9/UGoZv8GSUOFtaCAY9IBdocPnpvjsMuQftlE9dBI
- y39tFJqvgiXFx16Kqd2/UStnrsYL7/wdN9hQ/NYdj7/x4LM95+U1qRVCAeVYmG9tjwK5XsRN3
- uMz/Bs2K8CLHlgmABBf8+L/512rSpvnUmGRjAzFLlk+8lV6g4ZLuC1ClxB30z9MI/3n+gmfNk
- 4Up/+Gp1NpTadV/DzEea48YD1CSlZCVYWA4HqAVVcoHY5qt5TGd5j44CzTfvG7GagQvv+AG+b
- EZtHss1wrgqnjgu65uYUa+3e/zVmmQLfU5O3pQpbPkN2DL66UH++dRSCHF+XxwjjlIgnM+29m
- ib2x0jbwwiv0baWsFUikNXDcZbPn7P/ATgl1wXncbzXj9YuyHnW8jS1Mg6hxB5VvsjcnJU06z
- phBvok+aOnrI2EIfIZuwLVHP8AIxuyJY3dYo16SOD+zyeZvyZXMGbHWtaDgFsfL2jjjF6rWct
- XTbRNOkK7MmBb7nWVlM1VPDCa6wFstxafwSMK4FPTal6ep9Il+40eDaco4MVptFogJj3mnXZh
- hdXyhqihCDQ9zgh3f6/p8XVR0bo5BA4vpvUf5sX0nYyNiCaVRnEOmDiWvzhwN3d1N3+9br0sm
- Mk6Y/CeCZrO/w4lTlt44QNLAc6HG+p8pSj5rQ/tsl5oBkUBemP138/gNaeZXCUnslBnNjx2Sa
- GjRGVqUGX4K9t5HNTR6pwlXMu072J7Wa2/YiNGRfeEuqOpOco++vMZifKkJypymj8iYSc2NfJ
- 20lnDOB0guTNhgAH/Ilb0xO/1JZ4oCkeaTUgpMsjCao8xW1IyCQ==
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -192,65 +101,269 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Thomas,
 
-On 3/13/26 09:05, Thomas Zimmermann wrote:
-> Am 12.03.26 um 20:47 schrieb Helge Deller:
->> On 3/12/26 16:10, Thomas Zimmermann wrote:
->>> Am 12.03.26 um 16:04 schrieb Hardik Phalet:
->>>> On Tue Mar 10, 2026 at 6:38 PM IST, Thomas Zimmermann wrote:
->>>>> Hi,
->>>>>
->>>>> thanks for the patch. Let's hope there are no conflicts with other
->>>>> hardware.=C2=A0 IDK if anyone still uses this driver.
->>>> Hi Thomas,
->>>>
->>>> Thanks for reviewing this.
->>>>
->>>> Since I currently do not have access to the hardware needed to test t=
-he
->>>> change properly, I will drop this patch for now. I may revisit it onc=
-e I
->>>> can validate the behavior on real hardware.
->>>
->>> Good luck. That's the Hercules framebuffer driver. Finding such
->>> ancient hardware that can run modern Linux is nigh impossible.
->>>
->>> But we can merge the patch. If it breaks anyone's setup, they will sen=
-d a bug report.
->>>
->>> Helge will pick up the fix if he's ok with it.
->>
->> No, I don't want to merge such patches any longer without any testing
->> on real hardware. There is no actual problem (else someone would have r=
-eported),
->> as such I don't see a benefit to apply it. Applying it just brings the =
-risk
->> that we break it for someone.
->> So, NAK.
->>
->> I believe I wrote about my opinion already in another patch?
->=20
-> Sorry, I wasn't aware.
->=20
->> I think we should rephrase that specific TODO item (which mentions the =
-memory
->> region allocation) that only patches which have been tested are accepte=
-d.
->=20
-> There will likely no one show up here for testing unless it breaks
-> there system. Which you won't know until you merge the patch.
+On 13/03/2026 11:40, Natalie Vock wrote:
+> Coupling resource allocation and cgroup charging is racy when charging
+> succeeds, but subsequent resource allocation fails. Certain eviction
+> decisions are made on the basis of whether the allocating cgroup is
+> protected, i.e. within its min/low limits, but with the charge being
+> tied to resource allocation (and uncharged when the resource allocation
+> fails), this check is done at a point where the allocation is not actually
+> charged to the cgroup.
+> 
+> This is subtly wrong if the allocation were to cause the cgroup to exceed
+> the min/low protection, but it's even more wrong if the same cgroup tries
+> allocating multiple buffers concurrently: In this case, the min/low
+> protection may pass for all allocation attempts when the real min/low
+> protection covers only some, or potentially none of the allocated
+> buffers.
+> 
+> Instead, charge the allocation to the cgroup once and keep the charge
+> for as long as we try to allocate a ttm_resource, and only undo the charge
+> if allocating the resource is ultimately unsuccessful and we move on to
+> a different ttm_place.
+> 
+> Signed-off-by: Natalie Vock <natalie.vock@gmx.de>
+> ---
+>   drivers/gpu/drm/ttm/ttm_bo.c       | 66 ++++++++++++++++++++++++++------------
+>   drivers/gpu/drm/ttm/ttm_resource.c | 48 +++++++++++++++++++--------
+>   include/drm/ttm/ttm_resource.h     |  6 +++-
+>   3 files changed, 85 insertions(+), 35 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/ttm/ttm_bo.c b/drivers/gpu/drm/ttm/ttm_bo.c
+> index 5cca0d6edbaf6..4adc9b80cba4a 100644
+> --- a/drivers/gpu/drm/ttm/ttm_bo.c
+> +++ b/drivers/gpu/drm/ttm/ttm_bo.c
+> @@ -490,8 +490,12 @@ int ttm_bo_evict_first(struct ttm_device *bdev, struct ttm_resource_manager *man
+>   }
+>   
+>   struct ttm_bo_alloc_state {
+> +	/** @charge_pool: The memory pool the resource is charged to */
+> +	struct dmem_cgroup_pool_state *charge_pool;
+>   	/** @limit_pool: Which pool limit we should test against */
+>   	struct dmem_cgroup_pool_state *limit_pool;
+> +	/** @in_evict: Whether we are currently evicting buffers */
+> +	bool in_evict;
+>   };
+>   
+>   /**
+> @@ -520,28 +524,39 @@ static int ttm_bo_alloc_at_place(struct ttm_buffer_object *bo,
+>   	bool may_evict;
+>   	int ret;
+>   
+> -	may_evict = force_space && place->mem_type != TTM_PL_SYSTEM;
+> -
+> -	ret = ttm_resource_alloc(bo, place, res,
+> -				 force_space ? &alloc_state->limit_pool : NULL);
+> +	may_evict = !alloc_state->in_evict && force_space &&
+> +		    place->mem_type != TTM_PL_SYSTEM;
+> +	if (!alloc_state->charge_pool) {
+> +		ret = ttm_resource_try_charge(bo, place, &alloc_state->charge_pool,
+> +					      force_space ? &alloc_state->limit_pool
+> +							  : NULL);
+> +		if (ret) {
+> +			/*
+> +			 * -EAGAIN means the charge failed, which we treat
+> +			 * like an allocation failure. Therefore, return an
+> +			 * error code indicating the allocation failed -
+> +			 * either -EBUSY if the allocation should be
+> +			 * retried with eviction, or -ENOSPC if there should
+> +			 * be no second attempt.
+> +			 */
+> +			if (ret == -EAGAIN)
+> +				ret = may_evict ? -EBUSY : -ENOSPC;
+> +			return ret;
+> +		}
+> +	}
+>   
+> +	ret = ttm_resource_alloc(bo, place, res, alloc_state->charge_pool);
+>   	if (ret) {
+> -		/*
+> -		 * -EAGAIN means the charge failed, which we treat like an
+> -		 * allocation failure. Therefore, return an error code indicating
+> -		 * the allocation failed - either -EBUSY if the allocation should
+> -		 * be retried with eviction, or -ENOSPC if there should be no second
+> -		 * attempt.
+> -		 */
+> -		if (ret == -EAGAIN)
+> -			return may_evict ? -EBUSY : -ENOSPC;
+> -
+>   		if (ret == -ENOSPC && may_evict)
+> -			return -EBUSY;
+> -
+> +			ret = -EBUSY;
+>   		return ret;
+>   	}
+>   
+> +	/*
+> +	 * Ownership of charge_pool has been transferred to the TTM resource,
+> +	 * don't make the caller think we still hold a reference to it.
+> +	 */
+> +	alloc_state->charge_pool = NULL;
+>   	return 0;
+>   }
+>   
+> @@ -596,8 +611,9 @@ static s64 ttm_bo_evict_cb(struct ttm_lru_walk *walk, struct ttm_buffer_object *
+>   
+>   	evict_walk->evicted++;
+>   	if (evict_walk->res)
+> -		lret = ttm_resource_alloc(evict_walk->evictor, evict_walk->place,
+> -					  evict_walk->res, NULL);
+> +		lret = ttm_bo_alloc_at_place(evict_walk->evictor, evict_walk->place,
+> +					     walk->arg.ctx, false, evict_walk->res,
+> +					     evict_walk->alloc_state);
 
-No-one likes to merge unnecessary patches which highly potentially
-introduce malfunctioning and haven't been tested at all.
- =20
-> If only pre-tested patches can go in,
+Oh I am glad this worked out. I will not go as far to say TTM eviction 
+logic is now easy to follow but at least the new state machine logic is 
+consolidated. Anyway, I went back and forth many many times and it all 
+looks good to me.
 
-You misunderstand.
-I'm still happy to take *any* patches for fbdev.
-Even untested ones if they
-a) seem necessary (e.g. bugfix), or
-b) seem beneficial (code cleanup)
-as long as they don't break the driver. This patch may break the driver.
+Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 
-Helge
+Btw have you looked at the TTM kunit tests? Does any cover the new paths 
+or it would make sense to add some coverage with this series, or as a 
+follow up?
+
+Regards,
+
+Tvrtko
+
+>   	if (lret == 0)
+>   		return 1;
+>   out:
+> @@ -636,6 +652,8 @@ static int ttm_bo_evict_alloc(struct ttm_device *bdev,
+>   	};
+>   	s64 lret;
+>   
+> +	state->in_evict = true;
+> +
+>   	evict_walk.walk.arg.trylock_only = true;
+>   	lret = ttm_lru_walk_for_evict(&evict_walk.walk, bdev, man, 1);
+>   
+> @@ -666,6 +684,7 @@ static int ttm_bo_evict_alloc(struct ttm_device *bdev,
+>   		goto retry;
+>   	}
+>   out:
+> +	state->in_evict = false;
+>   	if (lret < 0)
+>   		return lret;
+>   	if (lret == 0)
+> @@ -798,6 +817,7 @@ static int ttm_bo_alloc_resource(struct ttm_buffer_object *bo,
+>   				res, &alloc_state);
+>   
+>   		if (ret == -ENOSPC) {
+> +			dmem_cgroup_uncharge(alloc_state.charge_pool, bo->base.size);
+>   			dmem_cgroup_pool_state_put(alloc_state.limit_pool);
+>   			continue;
+>   		} else if (ret == -EBUSY) {
+> @@ -806,11 +826,15 @@ static int ttm_bo_alloc_resource(struct ttm_buffer_object *bo,
+>   
+>   			dmem_cgroup_pool_state_put(alloc_state.limit_pool);
+>   
+> -			if (ret == -EBUSY)
+> -				continue;
+> -			else if (ret)
+> +			if (ret) {
+> +				dmem_cgroup_uncharge(alloc_state.charge_pool,
+> +						bo->base.size);
+> +				if (ret == -EBUSY)
+> +					continue;
+>   				return ret;
+> +			}
+>   		} else if (ret) {
+> +			dmem_cgroup_uncharge(alloc_state.charge_pool, bo->base.size);
+>   			dmem_cgroup_pool_state_put(alloc_state.limit_pool);
+>   			return ret;
+>   		}
+> diff --git a/drivers/gpu/drm/ttm/ttm_resource.c b/drivers/gpu/drm/ttm/ttm_resource.c
+> index 192fca24f37e4..a8a836f6e376a 100644
+> --- a/drivers/gpu/drm/ttm/ttm_resource.c
+> +++ b/drivers/gpu/drm/ttm/ttm_resource.c
+> @@ -373,30 +373,52 @@ void ttm_resource_fini(struct ttm_resource_manager *man,
+>   }
+>   EXPORT_SYMBOL(ttm_resource_fini);
+>   
+> +/**
+> + * ttm_resource_try_charge - charge a resource manager's cgroup pool
+> + * @bo: buffer for which an allocation should be charged
+> + * @place: where the allocation is attempted to be placed
+> + * @ret_pool: on charge success, the pool that was charged
+> + * @ret_limit_pool: on charge failure, the pool responsible for the failure
+> + *
+> + * Should be used to charge cgroups before attempting resource allocation.
+> + * When charging succeeds, the value of ret_pool should be passed to
+> + * ttm_resource_alloc.
+> + *
+> + * Returns: 0 on charge success, negative errno on failure.
+> + */
+> +int ttm_resource_try_charge(struct ttm_buffer_object *bo,
+> +			    const struct ttm_place *place,
+> +			    struct dmem_cgroup_pool_state **ret_pool,
+> +			    struct dmem_cgroup_pool_state **ret_limit_pool)
+> +{
+> +	struct ttm_resource_manager *man =
+> +		ttm_manager_type(bo->bdev, place->mem_type);
+> +
+> +	if (!man->cg) {
+> +		*ret_pool = NULL;
+> +		if (ret_limit_pool)
+> +			*ret_limit_pool = NULL;
+> +		return 0;
+> +	}
+> +
+> +	return dmem_cgroup_try_charge(man->cg, bo->base.size, ret_pool,
+> +				      ret_limit_pool);
+> +}
+> +
+>   int ttm_resource_alloc(struct ttm_buffer_object *bo,
+>   		       const struct ttm_place *place,
+>   		       struct ttm_resource **res_ptr,
+> -		       struct dmem_cgroup_pool_state **ret_limit_pool)
+> +		       struct dmem_cgroup_pool_state *charge_pool)
+>   {
+>   	struct ttm_resource_manager *man =
+>   		ttm_manager_type(bo->bdev, place->mem_type);
+> -	struct dmem_cgroup_pool_state *pool = NULL;
+>   	int ret;
+>   
+> -	if (man->cg) {
+> -		ret = dmem_cgroup_try_charge(man->cg, bo->base.size, &pool, ret_limit_pool);
+> -		if (ret)
+> -			return ret;
+> -	}
+> -
+>   	ret = man->func->alloc(man, bo, place, res_ptr);
+> -	if (ret) {
+> -		if (pool)
+> -			dmem_cgroup_uncharge(pool, bo->base.size);
+> +	if (ret)
+>   		return ret;
+> -	}
+>   
+> -	(*res_ptr)->css = pool;
+> +	(*res_ptr)->css = charge_pool;
+>   
+>   	spin_lock(&bo->bdev->lru_lock);
+>   	ttm_resource_add_bulk_move(*res_ptr, bo);
+> diff --git a/include/drm/ttm/ttm_resource.h b/include/drm/ttm/ttm_resource.h
+> index 33e80f30b8b82..549b5b796884d 100644
+> --- a/include/drm/ttm/ttm_resource.h
+> +++ b/include/drm/ttm/ttm_resource.h
+> @@ -456,10 +456,14 @@ void ttm_resource_init(struct ttm_buffer_object *bo,
+>   void ttm_resource_fini(struct ttm_resource_manager *man,
+>   		       struct ttm_resource *res);
+>   
+> +int ttm_resource_try_charge(struct ttm_buffer_object *bo,
+> +			    const struct ttm_place *place,
+> +			    struct dmem_cgroup_pool_state **ret_pool,
+> +			    struct dmem_cgroup_pool_state **ret_limit_pool);
+>   int ttm_resource_alloc(struct ttm_buffer_object *bo,
+>   		       const struct ttm_place *place,
+>   		       struct ttm_resource **res,
+> -		       struct dmem_cgroup_pool_state **ret_limit_pool);
+> +		       struct dmem_cgroup_pool_state *charge_pool);
+>   void ttm_resource_free(struct ttm_buffer_object *bo, struct ttm_resource **res);
+>   bool ttm_resource_intersects(struct ttm_device *bdev,
+>   			     struct ttm_resource *res,
+> 
+
