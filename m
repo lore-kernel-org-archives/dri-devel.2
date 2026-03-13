@@ -4,106 +4,131 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F1393106FD9A
-	for <dri-devel@archiver.kernel.org>; Fri, 13 Mar 2026 08:32:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7A0F5106FD9D
+	for <dri-devel@archiver.kernel.org>; Fri, 13 Mar 2026 08:32:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5E3F610EB10;
-	Fri, 13 Mar 2026 08:32:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DF43F10EB2A;
+	Fri, 13 Mar 2026 08:32:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="EYs5mD6/";
+	dkim=pass (2048-bit key; unprotected) header.d=nxp.com header.i=@nxp.com header.b="mC3u4nk+";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BE49E10EB10
- for <dri-devel@lists.freedesktop.org>; Fri, 13 Mar 2026 08:32:21 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id F18EA60133;
- Fri, 13 Mar 2026 08:32:20 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D2D27C19424;
- Fri, 13 Mar 2026 08:32:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1773390740;
- bh=Nl+7LWtkxv6+ukIGHNTsuAHfdV43ujZAEvxFTAY1mD8=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=EYs5mD6/OMIB8MxF7KtH8yGzdMiS16u4t8pL24wgXbPXL5Qsz99xd85z6hQfvAs0Z
- Szf3uLOzX3POmHvCyokYelXTUE5bQUqNDocPuNM0yQ8i0WT2fSgd+BVi2a7Mzu9lr6
- pvniiL5mxW2dGs9Qn7C28ac4XWyziHf97HlZIPn6bAAunBcP0JAVq60Gib3fWqLAJq
- H+uGVprrlXur7feqkVlb2E7gLbvfhM+JKCk46WxIAvFT2Bp91PoAyqSRUOR8BbK8uR
- 9ZDL2ziMroPI5c2vEFFT6e5df7F9CrJJb0LmUQiY83oTS/OzqidkKTvdVNFLEMupQe
- 5Bel/e8GR+FfQ==
-Message-ID: <2d0afdab-78b7-4e60-b132-98cfcbbbb5af@kernel.org>
-Date: Fri, 13 Mar 2026 09:32:14 +0100
-MIME-Version: 1.0
+Received: from OSPPR02CU001.outbound.protection.outlook.com
+ (mail-norwayeastazon11013011.outbound.protection.outlook.com [40.107.159.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2BEBE10EB2A
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Mar 2026 08:32:54 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=rLzkUbwFSPhxuc58APRoKhi+KPtoEI4yB9E17liNosby6dGxiqNXToq6fusEtqkEZnlsv6A5xLFQ62VGSgG9EVYQRr0eNAo9wZNqVgvvswK/SuzdXvpfguc8H/n+zTy8qcTi+vyvAcpgQSk3UHLkVN0n/F9BubF47tsH3G4g9O1uiYPD7QpTHrVMwjbEcZkoHvfWqZ2gwOY5ngYY+mFTvLPMEQDNS9+YozHsOFzU6uCe/J9qb4EQFZI+dprAe5cQsYec4++dFevdzz1Ku8HQ6QtimH8Vcmx38EKNvHc/h2nAgCm18M1bq2C7EbOubX7GGA6o9XWdDUxExzb7RqflNw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=uxXuHjP4bPMWQfQlioDJXaDCJonJBVxVFa0JxWZGOEw=;
+ b=ibXNxv3Yel+IePZ/NsZcWNtbUki2Y+z3szX++/Nk+68A7gUxvSkx+pPsmxaiGxJ3RESPYkRCn0zAyOMh00uXqMhBJ/5yQLBpIuY02QiaWvvIDTpzTymdnzb1zYNWo48lIYAYSTJOlYP8W0EG65253gl0/MtgCUl/NpnBHKGIoXg53smHzixJQObV85sSScG1EQlzxRN1LfI6fzuX4+pJQvfhB9JFpBoMZhUzvU8mWw5Z/OwMg2WNCvstTNrenHOaOx6Tp4E1zbXLfuzOkiZjChAAIij0utbgdOHk2L8tvr/RxPfrUcXUYenHxPwMVE9tlHjyna6XJ2JKa9gYIPGm8Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=uxXuHjP4bPMWQfQlioDJXaDCJonJBVxVFa0JxWZGOEw=;
+ b=mC3u4nk+f7b2ZRA7mv1kVwNDqpGYwtGBZOcq+Z0U/zlEXLi9hyX/90UuwBahsmrsIzKh+pWbP073lxFM0KEFgTbdjh+mtbVCo4r+vdCTnAyw60/CH2Cl3C3Q4XSTt6SJjdwpUdsH2pXTgLO+JwAQ5fl9Cr9wXcDuh6+2Iq6p5D/7PNBdno612k8KMJSrCkmvVEjgR6WwHrSHSTB3m4dwFg9i7YyIfuz8jwZex6WATGFHw5rzmbosfWD6JMcb+xzeBelXJGLpFmYOMcwAaj6cAOaRYJS4FPJwT81GOai31U9BIf9C3EnnOKjlYTgslCsPZU4smoq+FiGCwA5RxY2wUg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from AM7PR04MB7046.eurprd04.prod.outlook.com (2603:10a6:20b:113::22)
+ by PA4PR04MB7742.eurprd04.prod.outlook.com (2603:10a6:102:b9::17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9700.16; Fri, 13 Mar
+ 2026 08:32:37 +0000
+Received: from AM7PR04MB7046.eurprd04.prod.outlook.com
+ ([fe80::4609:64af:8a4b:fd64]) by AM7PR04MB7046.eurprd04.prod.outlook.com
+ ([fe80::4609:64af:8a4b:fd64%3]) with mapi id 15.20.9700.010; Fri, 13 Mar 2026
+ 08:32:46 +0000
+Message-ID: <53c257df-9800-48ed-a975-d7bfe4d71be1@nxp.com>
+Date: Fri, 13 Mar 2026 16:33:58 +0800
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/6] dt-bindings: display: panel: Add Novatek NT35532 LCD
- DSI
-To: cristian_ci <cristian_ci@protonmail.com>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
+Subject: Re: [PATCH] drm/bridge: Fix refcount shown via debugfs for
+ encoder_bridges_show()
+To: Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht,
- phone-devel@vger.kernel.org
-References: <20260308-rimob-new-features-v1-0-aa2c330572c0@protonmail.com>
- <20260308-rimob-new-features-v1-1-aa2c330572c0@protonmail.com>
- <369b48d9-f089-49a2-89cb-a4e0c68f92fa@kernel.org>
- <7Ft_cDw10-3MmNTrKncMut5g08sodd9CL7r7AGXAtPPqZpXtHEgmqm05WhEpYMZzFEs4B0KWz-LU27Z0_YDnc44nXhdUrUt5X2dWK7D6pYM=@protonmail.com>
- <db04882b-7f30-464c-91a6-578302aef4ff@kernel.org>
- <Nz_hTfDbWqQk8-FcCknxZKO8dIhCAGueG89SRe2LkTG1VK4KjoH-UZH6bsOvqEySwNRjJtsEUL7vxxIXOWyyzLOtM9YLZaCuhPfxNz0mVyk=@protonmail.com>
- <4cfc7b40-f172-4eae-8f19-4a3eb858075e@kernel.org>
- <q2whOVhy_Cqm5m8toyiZ0PQQThv6LLoo8a5ialb_td0o5yM1FRLIMRZh2FKRiwSuwPfmfibU6Z6_jz6kJFJGlFfu3V-ELMteHVDM7zpnSBI=@protonmail.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: Marco Felsch <m.felsch@pengutronix.de>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+References: <20260312-drm-misc-next-2026-03-05-fix-encoder-bridges-refcount-v1-1-b9ba3d844732@nxp.com>
+ <DH0ZD9UFY68E.2C1ISONVIO42L@bootlin.com>
+From: Liu Ying <victor.liu@nxp.com>
 Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 a/A=
-In-Reply-To: <q2whOVhy_Cqm5m8toyiZ0PQQThv6LLoo8a5ialb_td0o5yM1FRLIMRZh2FKRiwSuwPfmfibU6Z6_jz6kJFJGlFfu3V-ELMteHVDM7zpnSBI=@protonmail.com>
+In-Reply-To: <DH0ZD9UFY68E.2C1ISONVIO42L@bootlin.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MA5P287CA0193.INDP287.PROD.OUTLOOK.COM
+ (2603:1096:a01:1aa::7) To AM7PR04MB7046.eurprd04.prod.outlook.com
+ (2603:10a6:20b:113::22)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AM7PR04MB7046:EE_|PA4PR04MB7742:EE_
+X-MS-Office365-Filtering-Correlation-Id: 48efa19c-84c3-4159-c820-08de80db1a5a
+X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|19092799006|376014|7416014|1800799024|366016|921020|22082099003|56012099003|18002099003;
+X-Microsoft-Antispam-Message-Info: svuAHW53AzrUq0/M5CU4Y6V4jfH33Iyr925ZOu28IhbQQM3bZj+WWNsDfnKmMmOW04LUAdiYxNPtQMAAWdUB/XdP3QaxWM7/onWbYlsueMMDZpzK1grS3mSYasxnlJyvUw4HC5P1IjqOX6N2D0unsMyiy3OjWOEdper06Ph3WvcMnordv21vlk2A3Pe/GptnYvTkEa3qAIiMhbozadbfqkxXbm53/xNrgGbqYb2sVCGy4smS2X2bdzGnYnWmXY7Tcz3nzaeN2XK6wufoUWhed/DZPBLma2mt4lzzefas1S/3gomMtF6e+JqfBdbsfodg4dLTTj/xS0R00VWo5PQ36u0tPhL1rbr1aw10FFnDcIhGkxQxhrPKPhwODDdidelONIojpjpBealt/W38j0f1w7TIWtFnM+uxa42Rp6MHQM8Cmuywh/N0rlqauITZT3o2ni+YZ2scQBF5QXGw7Idfnh7Ul84wmp64coumqVQGRbVLexqRE3AnYfIH/eO+Te9LjhlYv7LdXDacby8YfZDUgNWt2PyQLC+H4Uy1M3OY62OMr6beOQgZFLba8z588hiiIm7/BZpjuVn9gGoy50Thcs+ZNuPwtZLTW++aMfhJVarr1AUQvodSV7o2a1YPIzMnGLk1aRXv+HAgbUbQf6EiIMQs4r4rb70zyWpwAMDQoeIYmoq+RyosWYn81AF1mA7riPkPkET9qAmbJ5q03TTiruToBbbD/RoXWIOsuZ+juKI=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:AM7PR04MB7046.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(19092799006)(376014)(7416014)(1800799024)(366016)(921020)(22082099003)(56012099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bUJMNVc0Rk95bXJOOTJ2bjFUR05TUVYyazM2NVhBdTlzVk9XNGc2ZXpnQW5H?=
+ =?utf-8?B?Ulo4eis4QTlRcGdqSFVXZjdNVGRjc0kySFZXejZPUTJVRzVwcmRiZ0R2ODgx?=
+ =?utf-8?B?bm1SMXFaR05VaXlySVlVTHhzdUxJUnVldjFqaXFQMjd6YkRTdnY4a21saHpS?=
+ =?utf-8?B?NlFCUy9CUkhEZHhDYW90UjBpYTVYZjc4SHkyUEZSaVNJQnJ6S2JxcUU0RWxI?=
+ =?utf-8?B?WC82UXVoOVcyRVVTRWVKcEgrTTNMUnZrcGtENzNta003b0VDZk5jT1k1SWZW?=
+ =?utf-8?B?clZERWs5aVNJQVh0ZU41dzc4VzV3eUhVOGc5TFg2QTJmK2JwbG1VakhSS3lM?=
+ =?utf-8?B?MVAvYytCKzMzWVVVVkE3b3MzZVlEd2VyaGEyNFM1OXNxb3FuVlVJdVpleXh5?=
+ =?utf-8?B?RWFIY1NuMnIzV0dTaE0zVTBHOXp5N2I4TVkvY2ROb0ZnVFRLSTNLZzhTa2Iv?=
+ =?utf-8?B?T2lWSXVCY2kzdjNoR0p1V1dsRVlJOGdyZ3J4ZXpwUEdVakJCeGgzV0o0MTYv?=
+ =?utf-8?B?YVpyM09GMjdBWStscHJxeEVGRFNFbmVQNGg3NlVQcTgvbkhWMFRhU1VyVFh0?=
+ =?utf-8?B?bzlhaDk3aHFZNi81NWtublNCQy8rNjMzMHpBWitsb3p5OTJPcUMxejNMVUdD?=
+ =?utf-8?B?SmYvNWRacXg5S1lPNlZTTmVoMUhXdnJ3RmR3NGdDckk1RE1aU2Ztc29VZVlN?=
+ =?utf-8?B?Vk5ZN0lmWEllc0ZSTUFiTEM5ZEtuUnA2OFR1K0Q5VU5CUWN5MEpWNmNXSWta?=
+ =?utf-8?B?VXNTNmdSRXQ4L2ZuanFBVTlrUHJWcEgxbVpCQlZKeTE1eEV3N09pbTJmUkZp?=
+ =?utf-8?B?bERXdCt6S2ZJdzh0Vzl1cE5vVmFIckxJZWZveVl4S01KWXRoQmlILzYwNEhP?=
+ =?utf-8?B?WFd1eXRqUG4rSkd3dGxGSzR6dysvMVB6WEtaWXQxSGFKdldId0dqMGkrOWph?=
+ =?utf-8?B?RnZnVzhhUXgrQnl5bzJmVmQzQ2pBLyt3Y2xqQURzZ29kZzZKNytrblFvOWNo?=
+ =?utf-8?B?L1BhNGpKSVNYdTZDQ3RBeDhrU2EwS1R2cUszZnlqYTJiWkZyN3hua3g5cE4w?=
+ =?utf-8?B?TFhrRi9PQTBuZ3VnN3ZodGNBYm5sVjZTdzlkM1kxRVNTSHU0cU1NNnN4TWtO?=
+ =?utf-8?B?anR3dXlrWFZnSnVIOGdvMFZmSWR5YVh4NXU4dG5iOFYvbGhpeWVXRXlRbG8x?=
+ =?utf-8?B?MjZpTFEwbTgyUUFQMlBHd1dxZjg1NzlLTEhEcWVEdStWWGtNUzVFMG1LSVBZ?=
+ =?utf-8?B?UmtQam5Cajl0eXVkSEZJS0FOTHJUWVZ4aFV6c2R0dEt5TGZKSGY2QjBzUDNZ?=
+ =?utf-8?B?YVQzeElDelA4NnRYbGhsd0NpV2V4bEs1T1ZvYXVSZktrMzg3RjlRMk15Rzhu?=
+ =?utf-8?B?RzEyNG1FY2c0NmFXbEptYitQZ3B0bUFLaGZ1S0Y0c1I3RmdjL1NRWEdNZ1Z1?=
+ =?utf-8?B?NDViMDhkVXkxRTNYaFRHbzQxcklqOTF2b21qTE1oelBXRGJsS3VhRnVibHVC?=
+ =?utf-8?B?UEROeDhLUFlHSkdsS1AvclJJaDRXTjEwaEFQNWZuM0VjazYzMkg0U29pWUVL?=
+ =?utf-8?B?UjhFYy91Q0MzQlhOcnZSYk9qak1MOWNIbFFUcXFKSy9OckQ1dUczUXc3SEpU?=
+ =?utf-8?B?d2hJemR6Q3VOdDgvVDllUU9nTXpWdnBwbk40UE5JaTZPc0xHY2l0ZmIwNWNz?=
+ =?utf-8?B?L3dBNmVnZjFNbXdNRmNMRUh3MUhib1pIL2VmZWx4dHBSVStlT2xlOXc4Q2Fn?=
+ =?utf-8?B?YXpIV2pFcWVBdUoxY3FEQ3NrMEwyaHZyc2R3eTdOUzFCQlUzOVJ2TVF2MDFE?=
+ =?utf-8?B?MWNMWDAwWldXSTZUSXJEVWkySk5neW5BMjZtSldJSGFYRmNQOFpUZXM4VHZR?=
+ =?utf-8?B?bmVwUk5rVkJTRXl1MVpKUEdUWXlTSnRzZUZ1SitxYWVuU1VmcmtzYit3WGxP?=
+ =?utf-8?B?aDhaSzBwaG1TZUxmTkF6eklJNzVkNWVFWURMb3hSR3hQTWtHS0JEMkVCaXNW?=
+ =?utf-8?B?UFozOXIzRjU2b0cwMmM4MUlEUmdTYlBIbXJhRTJnSnZMWWkycDFtd3hpZ0pv?=
+ =?utf-8?B?OG81NFRHcnZxUGtDRWtyZkJRb3NUNXpvdW5yNkkwNGNhZVpTM2lNSVFPeW1J?=
+ =?utf-8?B?VXRlNXZvSFh3dUZGTm9HMXhibmE0bWt3aEx5UHVvdXFOZUVCLzd6clNzZEtE?=
+ =?utf-8?B?OVFTY0lFZEZNYTZIdmNhNDBOSkxuZjJ6TkZubTB2YmNBQVhyOEFHVkFobTBU?=
+ =?utf-8?B?VXFQM2hYK3ZRTkpYMGZEZXZhV2VLNGhQcHhBaDliYVhjaTZJVEtWQmdCVGhu?=
+ =?utf-8?B?UGN2VEFCNE5pWWticmlUZFlVR1hGZDBaUXUzU0JtTThlQnUwc3l3Zz09?=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 48efa19c-84c3-4159-c820-08de80db1a5a
+X-MS-Exchange-CrossTenant-AuthSource: AM7PR04MB7046.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Mar 2026 08:32:46.3413 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: B52rDUxV1DsTlg0ObHCGr0gWQjc2g+/rdukg9LQzY5yHVkzr4ZfxA9vbfobOFhykcdsnwEQAvlnr3ciiyQ/6ew==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA4PR04MB7742
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -119,82 +144,63 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 13/03/2026 09:26, cristian_ci wrote:
+On Thu, Mar 12, 2026 at 06:30:22PM +0100, Luca Ceresoli wrote:
+> Hello Liu, Maxime,
 > 
-> On Tuesday, March 10th, 2026 at 21:06, Krzysztof Kozlowski <krzk@kernel.org> wrote:
-> 
->> On 10/03/2026 18:48, cristian_ci wrote:
->>> On Monday, March 9th, 2026 at 16:08, Krzysztof Kozlowski <krzk@kernel.org> wrote:
->>>
->>>> On 09/03/2026 15:52, cristian_ci wrote:
->>>>> On Sunday, March 8th, 2026 at 17:13, Krzysztof Kozlowski <krzk@kernel.org> wrote:
->>>>>
->>>>>>> +  vsp-supply:
->>>>>>> +    description: positive voltage supply for analog circuits
->>>>>>
->>>>>> Both are odd. Datasheet says vci, vddi, vddam and optional avdd, avee.
->>>>>>
->>>>>> There is no VSN and VSP. Otherwise please point the page in datasheet or
->>>>>> some schematics.
->>>>>>
->>>>>> Best regards,
->>>>>> Krzysztof
->>>>>>
->>>>>
->>>>> I'm not sure about that. Writing panel dt-bindings has been based pretty mostly on vendor devicetree - which also describes somehow the panel and makes that working with the final product released to the market - so I've to necessarily consider that.
->>>>> Then, I could agree that vendor devicetree might be not compliant with upstream rules and could possibly make mistakes with describing the hardware, so I'd like to find a way to describe that in a more proper way, according to upstream rules.
->>>>>
->>>>> That said, vendor devicetree describes lists four power supplies for  DSI: 'vdd', 'vddio', 'lab' and 'ibb' (which have the following property names, respectively, in qcom,mdss_dsi_ctrl node: 'vdd-supply', 'vddio-supply', 'lab-supply' and 'ibb-supply'.
->>>>> Two of these are related to ds/controller (apparently, 'vddio' should match VDDI power supply in NT35532 datasheet.
->>>>>
->>>>> The remaining two supplies are related to panel ('lab' and 'ibb'). These ones are two 'external ' regulators ('external' from NT35532 perspective), which provide power supply to display, located in the qcom PMIC (in this case, that should be PMI8950). WRT to power supply names described in the bindings ('vsp-supply' and 'vsn-supply') are the same as 'lab-supply' and 'ibb-supply', just named differently in the vendor devicetrees.
->>>>>
->>>>> Usage of 'vsp'/'vsn' naming for power supply properties is grounded on they commonly being used at upstream (different panel bindings make use of these properties), on one side, and also described on schematics of devices with the same hardware configuration (LCD_VSN and LCD_VSP), on the other.
->>>>>
->>>>> In the meantime, I've found out schematics for 'xiaomi-mido' (another MSM8953 device) - a variant of this device is shipped with a panel also using NT35532 IC (just like my device) - and LCD_VSN/LCD_VSP are clearly shown there too.
->>>>>
->>>>> I couldn't find much more information about the display on my device and the only resources available about that are those listed above, as of today. In light of my reply, I ask if it is still necessary to describe, in the bindings, power supply properties properties not used currently in the board DTS file.
->>>>
->>>> Please wrap your answers so this will be possible to parse.
->>>>
->>>> You write bindings matching the hardware and for the hardware, not for
->>>> the downstream code. You cannot add supplies which do not exist
->>>> regardless what some vendor wrote somewhere
->>>
->>> Vendor has also described the hardware by storing information (by including info
->>> about panel too) directly inside the device itself (/sys/firmware/fdt).
+> On Thu Mar 12, 2026 at 7:05 AM CET, Liu Ying wrote:
+>> A typical bridge refcount value is 3 after a bridge chain is formed:
+>> - devm_drm_bridge_alloc() initializes the refcount value to be 1.
+>> - drm_bridge_add() gets an additional reference hence 2.
+>> - drm_bridge_attach() gets the third reference hence 3.
 >>
->> Vendor does not care about rules of DT thus puts there completely fake
->> information just to make their drivers working
->> .
+>> This typical refcount value aligns with allbridges_show()'s behaviour.
+>> However, since encoder_bridges_show() uses
+>> drm_for_each_bridge_in_chain_scoped() to automatically get/put the
+>> bridge reference while iterating, a bogus reference is accidentally
+>> got when showing the wrong typical refcount value as 4 to users via
+>> debugfs.  Fix this by caching the refcount value returned from
+>> kref_read() while iterating and explicitly decreasing the cached
+>> refcount value by 1 before showing it to users.
 > 
-> I'm not sure what that statement is based on in the specific case of
+> Good point, indeed the refcount shown by
+> <debugfs>/dri/<card>/encoder-0/bridges is by one unit higher than the one
+> shown in <debugfs>/dri/bridges. I understand it's puzzling from a debugfs
+> user point of view.
+> 
+> As you noticed, this is because the _scoped loop holds an extra ref on the
+> current bridge.
+> 
+> For other reasons I proposed a mutex for stronger protection around the
+> bridge chain [v2]. With the mutex the extra ref is redundant, so in [v2]
+> the extra ref is removed, thus making your patch unneeded. However Maxime
+> asked to keep the extra ref, and so my latest iteration [v4] still has the
+> extra ref.
+> 
+> That series is still on the mailing list, we are still in time to rediscuss
+> it.
+> 
+> @Maxime: based on the issue Liu is trying to work around, do you think it
+> would make sense to go back to the initial approach for that series?
+> I.e. drm_for_each_bridge_in_chain_scoped() grabs the chain lock, which is a
+> superset of the per-bridge refcount, and thus the refcount can be dropped?
+> This would remove the debugfs issue, slightly simplify
+> drm_for_each_bridge_in_chain_scoped(), and introduce no new issues AFAIK.
 
-It's based on years of looking at vendor code.
+Just my take on the chain lock approach - I agree Maxime's comment on [v2]
+that keeping the get/put is a better than using the chain lock to ensure
+the refcount is correct.  The chain lock could be added later on if needed.
 
-> the panel I'm actually testing. A set of clues (some of which were also mentioned
-> in my first reply some days ago) point out that rimob's panel is really supplied by
-> two regulators part of PMIC [1]. Not only for this reason, I do not have
-> enough solid reasons, after all, to consider vendor data about the panel mounted in
-> this device (rimob) as not decently reliable, so I cannot ignore them, at least.
+> 
+> [v2] https://lore.kernel.org/all/20251003-drm-bridge-alloc-encoder-chain-mutex-v2-4-78bf61580a06@bootlin.com/
+> [v4] https://lore.kernel.org/all/20260113-drm-bridge-alloc-encoder-chain-mutex-v4-4-60f3135adc45@bootlin.com/
+> 
+> Luca
+> 
+> --
+> Luca Ceresoli, Bootlin
+> Embedded Linux and Kernel engineering
+> https://bootlin.com/
 
-And I did not disagree that you need regulators and that vendor
-correctly wired two of them.
-
-The comments are about naming!
-
-I discussed of using argument of incomplete or not fully correct vendor
-code when the true hardware description is available. If the vendor
-calls them in vendor DTS "yellow-pony-supply" you are going to use that
-argument to write bindings? And then argue that "not sure what that
-statement is based on"?
-
-It's obvious - vendor code is crap. There are no VSN and VSP inputs. We
-already confirmed that.
-
-You claim that vendor called like that thus you can use them as well is
-simply not correct approach.
-
-
-Best regards,
-Krzysztof
+-- 
+Regards,
+Liu Ying
