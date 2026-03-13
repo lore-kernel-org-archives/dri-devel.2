@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B185105F7B3
-	for <dri-devel@archiver.kernel.org>; Fri, 13 Mar 2026 15:11:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8283D105F7B3
+	for <dri-devel@archiver.kernel.org>; Fri, 13 Mar 2026 15:11:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D4DB710E14A;
-	Fri, 13 Mar 2026 15:11:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F05B910E02E;
+	Fri, 13 Mar 2026 15:11:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="duBzJwq5";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="Bk3IWUMz";
 	dkim-atps=neutral
 Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
  [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8CC6E10E14A
- for <dri-devel@lists.freedesktop.org>; Fri, 13 Mar 2026 15:11:05 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1773414656; cv=none; 
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E728810E02E
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Mar 2026 15:11:08 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1773414658; cv=none; 
  d=zohomail.com; s=zohoarc; 
- b=frNDPhuU3go+5oGwCGyL3tIa7ZqYelwVOnM8go7alV0RCYNihZNoziceaZF/FOao0+v6sJvlAi10C2opbvDB0haN3TSM3L83PPDdfajkysoUIVzw2rZdPgC5vOlxHRq/lOIsXB/MPJ0cB0BpUSZDAN/DydNA76/WJlXqI7kD7Lk=
+ b=S+4slY15TeJiumMclXVJVYXm+YQ5FxkzEJTqC/AYYxoXGxegJZA/YGiQDKj8iR5qtonryY5Pt9ime6mDIbbPf+EYaJsTVTPtTZunvJjHSg+tRwFEDhBHT1wlmFXPaCfeCUH5JDxhFMLK+GmoMdbkoWboHrj2i5pd2ePKnC2ll4Y=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1773414656;
+ s=zohoarc; t=1773414658;
  h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=rvo8v0kzuARx/tL36EjoGulUvklp2HYMwX094Y3tEzo=; 
- b=mmW1XsT3AqBr036yUHVk4PNUhrzBuAwJBTB8xxPRJ0M+zkJLjgs4rJHLzRkgfsRyyuPOd0tfzGzvZ9pM4SRGXrfyeN8Jnsx3RP3Q5gkC5S32yUicn+o4hfhlH53xfcQfutmVUkbeRxHnQcFwg+Z74h5INU1H/CMr0w1A50jtjSE=
+ bh=ZKtUQFvAxLD2hZTa5LPl00p/Z3EKh1SexwtdHAhYr+c=; 
+ b=loGAJEZGn5iABzLNieOvtZd9bBo6PD1trpJ95urjBjQx2WTCbTXOhZ4+dYcZY5CZ1Gs69NRQIt81GKg+P/9AmaQnSiCq3l+0t8bQ5Yjd3Uyzg5/XjjpfpohxjHX1YZLIb56VxRsyTWrz3lSPrL2NkCNbmCHNzaRx6qKRa/R6RdE=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
  dkim=pass  header.i=collabora.com;
  spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
  dmarc=pass header.from=<adrian.larumbe@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1773414656; 
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1773414658; 
  s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
  h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:References:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
- bh=rvo8v0kzuARx/tL36EjoGulUvklp2HYMwX094Y3tEzo=;
- b=duBzJwq50bDQ8XldTRdx8573mxqH8xXRs80BfFWnEOcn7htOS1M+DdpVjTqJWe7R
- 0iAPCXhwoDaXCuE3SPd2z+M+wg7hxhHbKJDM4pQJPnqIH9r5rKqAQMGpRnC2B9Bx8Oq
- O6X6/1kgA1dRudf7oNqmvyTDj9FE1G8U8CNEbMQA=
-Received: by mx.zohomail.com with SMTPS id 17734146534651007.4634642976198;
- Fri, 13 Mar 2026 08:10:53 -0700 (PDT)
+ bh=ZKtUQFvAxLD2hZTa5LPl00p/Z3EKh1SexwtdHAhYr+c=;
+ b=Bk3IWUMzULsgmGyTMKAkb/cxyPtuJbon3nU3TSkxwips5wzTUeGiEWCQxyrQsjyP
+ rx68ht/oeFyeaYdYUg7QSpauoUGxinvkieBHqUYlsjSSgOQTcXI2aSP8ltbb1yrjfhe
+ P1JYYdz7M+HvrJB0Dll6cgoDwtvA6Mvz9jckOqRU=
+Received: by mx.zohomail.com with SMTPS id 1773414656949399.2089361119673;
+ Fri, 13 Mar 2026 08:10:56 -0700 (PDT)
 From: =?UTF-8?q?Adri=C3=A1n=20Larumbe?= <adrian.larumbe@collabora.com>
 To: linux-kernel@vger.kernel.org
 Cc: dri-devel@lists.freedesktop.org, Steven Price <steven.price@arm.com>,
@@ -51,9 +51,10 @@ Cc: dri-devel@lists.freedesktop.org, Steven Price <steven.price@arm.com>,
  Maxime Ripard <mripard@kernel.org>,
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
  Simona Vetter <simona@ffwll.ch>
-Subject: [PATCH v5 02/11] drm/gpuvm: Remove dead code
-Date: Fri, 13 Mar 2026 15:09:39 +0000
-Message-ID: <20260313150956.1618635-3-adrian.larumbe@collabora.com>
+Subject: [PATCH v5 03/11] drm/gpuvm: Fix comment to reflect remap operation
+ operand status
+Date: Fri, 13 Mar 2026 15:09:40 +0000
+Message-ID: <20260313150956.1618635-4-adrian.larumbe@collabora.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260313150956.1618635-1-adrian.larumbe@collabora.com>
 References: <20260313150956.1618635-1-adrian.larumbe@collabora.com>
@@ -75,59 +76,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-drm_gpuva_find_next() has no consumers.
+When a new mapping intersects with an existing GPU VA, but either
+end lies before or beyond the existing VA's edges, then the prev
+and next mapping operations part of a remap will reflect this
+condition by being set to NULL.
 
 Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
 ---
- drivers/gpu/drm/drm_gpuvm.c | 22 ----------------------
- include/drm/drm_gpuvm.h     |  1 -
- 2 files changed, 23 deletions(-)
+ include/drm/drm_gpuvm.h | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/gpu/drm/drm_gpuvm.c b/drivers/gpu/drm/drm_gpuvm.c
-index 14469765a780..3c2b6102e818 100644
---- a/drivers/gpu/drm/drm_gpuvm.c
-+++ b/drivers/gpu/drm/drm_gpuvm.c
-@@ -2245,28 +2245,6 @@ drm_gpuva_find_prev(struct drm_gpuvm *gpuvm, u64 start)
- }
- EXPORT_SYMBOL_GPL(drm_gpuva_find_prev);
- 
--/**
-- * drm_gpuva_find_next() - find the &drm_gpuva after the given address
-- * @gpuvm: the &drm_gpuvm to search in
-- * @end: the given GPU VA's end address
-- *
-- * Find the adjacent &drm_gpuva after the GPU VA with given &end address.
-- *
-- * Note that if there is any free space between the GPU VA mappings no mapping
-- * is returned.
-- *
-- * Returns: a pointer to the found &drm_gpuva or NULL if none was found
-- */
--struct drm_gpuva *
--drm_gpuva_find_next(struct drm_gpuvm *gpuvm, u64 end)
--{
--	if (!drm_gpuvm_range_valid(gpuvm, end, 1))
--		return NULL;
--
--	return drm_gpuva_it_iter_first(&gpuvm->rb.tree, end, end + 1);
--}
--EXPORT_SYMBOL_GPL(drm_gpuva_find_next);
--
- /**
-  * drm_gpuvm_interval_empty() - indicate whether a given interval of the VA space
-  * is empty
 diff --git a/include/drm/drm_gpuvm.h b/include/drm/drm_gpuvm.h
-index 655bd9104ffb..625958fce7fd 100644
+index 625958fce7fd..6a6e64cd2cce 100644
 --- a/include/drm/drm_gpuvm.h
 +++ b/include/drm/drm_gpuvm.h
-@@ -160,7 +160,6 @@ struct drm_gpuva *drm_gpuva_find(struct drm_gpuvm *gpuvm,
- struct drm_gpuva *drm_gpuva_find_first(struct drm_gpuvm *gpuvm,
- 				       u64 addr, u64 range);
- struct drm_gpuva *drm_gpuva_find_prev(struct drm_gpuvm *gpuvm, u64 start);
--struct drm_gpuva *drm_gpuva_find_next(struct drm_gpuvm *gpuvm, u64 end);
- 
- /**
-  * drm_gpuva_invalidate() - sets whether the backing GEM of this &drm_gpuva is
+@@ -929,6 +929,8 @@ struct drm_gpuva_op_unmap {
+  * If either a new mapping's start address is aligned with the start address
+  * of the old mapping or the new mapping's end address is aligned with the
+  * end address of the old mapping, either @prev or @next is NULL.
++ * This might also be the case when the requested mapping extends over the
++ * lower and upper boundaries of the intersecting GPU VA.
+  *
+  * Note, the reason for a dedicated remap operation, rather than arbitrary
+  * unmap and map operations, is to give drivers the chance of extracting driver
 -- 
 2.53.0
 
