@@ -4,131 +4,84 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7A0F5106FD9D
-	for <dri-devel@archiver.kernel.org>; Fri, 13 Mar 2026 08:32:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9B49F106FD9E
+	for <dri-devel@archiver.kernel.org>; Fri, 13 Mar 2026 08:33:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DF43F10EB2A;
-	Fri, 13 Mar 2026 08:32:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 07CA710EB2D;
+	Fri, 13 Mar 2026 08:33:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=nxp.com header.i=@nxp.com header.b="mC3u4nk+";
+	dkim=pass (2048-bit key; unprotected) header.d=fairphone.com header.i=@fairphone.com header.b="QN8XO9Ct";
 	dkim-atps=neutral
-Received: from OSPPR02CU001.outbound.protection.outlook.com
- (mail-norwayeastazon11013011.outbound.protection.outlook.com [40.107.159.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2BEBE10EB2A
- for <dri-devel@lists.freedesktop.org>; Fri, 13 Mar 2026 08:32:54 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=rLzkUbwFSPhxuc58APRoKhi+KPtoEI4yB9E17liNosby6dGxiqNXToq6fusEtqkEZnlsv6A5xLFQ62VGSgG9EVYQRr0eNAo9wZNqVgvvswK/SuzdXvpfguc8H/n+zTy8qcTi+vyvAcpgQSk3UHLkVN0n/F9BubF47tsH3G4g9O1uiYPD7QpTHrVMwjbEcZkoHvfWqZ2gwOY5ngYY+mFTvLPMEQDNS9+YozHsOFzU6uCe/J9qb4EQFZI+dprAe5cQsYec4++dFevdzz1Ku8HQ6QtimH8Vcmx38EKNvHc/h2nAgCm18M1bq2C7EbOubX7GGA6o9XWdDUxExzb7RqflNw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=uxXuHjP4bPMWQfQlioDJXaDCJonJBVxVFa0JxWZGOEw=;
- b=ibXNxv3Yel+IePZ/NsZcWNtbUki2Y+z3szX++/Nk+68A7gUxvSkx+pPsmxaiGxJ3RESPYkRCn0zAyOMh00uXqMhBJ/5yQLBpIuY02QiaWvvIDTpzTymdnzb1zYNWo48lIYAYSTJOlYP8W0EG65253gl0/MtgCUl/NpnBHKGIoXg53smHzixJQObV85sSScG1EQlzxRN1LfI6fzuX4+pJQvfhB9JFpBoMZhUzvU8mWw5Z/OwMg2WNCvstTNrenHOaOx6Tp4E1zbXLfuzOkiZjChAAIij0utbgdOHk2L8tvr/RxPfrUcXUYenHxPwMVE9tlHjyna6XJ2JKa9gYIPGm8Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=uxXuHjP4bPMWQfQlioDJXaDCJonJBVxVFa0JxWZGOEw=;
- b=mC3u4nk+f7b2ZRA7mv1kVwNDqpGYwtGBZOcq+Z0U/zlEXLi9hyX/90UuwBahsmrsIzKh+pWbP073lxFM0KEFgTbdjh+mtbVCo4r+vdCTnAyw60/CH2Cl3C3Q4XSTt6SJjdwpUdsH2pXTgLO+JwAQ5fl9Cr9wXcDuh6+2Iq6p5D/7PNBdno612k8KMJSrCkmvVEjgR6WwHrSHSTB3m4dwFg9i7YyIfuz8jwZex6WATGFHw5rzmbosfWD6JMcb+xzeBelXJGLpFmYOMcwAaj6cAOaRYJS4FPJwT81GOai31U9BIf9C3EnnOKjlYTgslCsPZU4smoq+FiGCwA5RxY2wUg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from AM7PR04MB7046.eurprd04.prod.outlook.com (2603:10a6:20b:113::22)
- by PA4PR04MB7742.eurprd04.prod.outlook.com (2603:10a6:102:b9::17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9700.16; Fri, 13 Mar
- 2026 08:32:37 +0000
-Received: from AM7PR04MB7046.eurprd04.prod.outlook.com
- ([fe80::4609:64af:8a4b:fd64]) by AM7PR04MB7046.eurprd04.prod.outlook.com
- ([fe80::4609:64af:8a4b:fd64%3]) with mapi id 15.20.9700.010; Fri, 13 Mar 2026
- 08:32:46 +0000
-Message-ID: <53c257df-9800-48ed-a975-d7bfe4d71be1@nxp.com>
-Date: Fri, 13 Mar 2026 16:33:58 +0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/bridge: Fix refcount shown via debugfs for
- encoder_bridges_show()
-To: Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: Marco Felsch <m.felsch@pengutronix.de>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-References: <20260312-drm-misc-next-2026-03-05-fix-encoder-bridges-refcount-v1-1-b9ba3d844732@nxp.com>
- <DH0ZD9UFY68E.2C1ISONVIO42L@bootlin.com>
-From: Liu Ying <victor.liu@nxp.com>
-Content-Language: en-US
-In-Reply-To: <DH0ZD9UFY68E.2C1ISONVIO42L@bootlin.com>
+Received: from mail-ed1-f47.google.com (mail-ed1-f47.google.com
+ [209.85.208.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 05DAD10EB30
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Mar 2026 08:33:20 +0000 (UTC)
+Received: by mail-ed1-f47.google.com with SMTP id
+ 4fb4d7f45d1cf-6642a16be1cso248824a12.3
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Mar 2026 01:33:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=fairphone.com; s=fair; t=1773390799; x=1773995599; darn=lists.freedesktop.org;
+ h=in-reply-to:references:cc:to:from:subject:message-id:date
+ :content-transfer-encoding:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=/of78zuCI1x5T6ZYrwM97n73xB/ugxAeVuA7riCgkNo=;
+ b=QN8XO9Ctz1xbzw1u6tUJnuvL55djyYK5aBGGGsruF+nYTJu2xDOYMDdN1woZZKbPoJ
+ /HaMhXRyIk7nIDoWSiCHjSW35j+SCarN16NQYVEGIqw+CnbYohB/eXWA2qEXAJZUpZJ8
+ Cx05hVgiOw174E2nhO6+03woTl10S77oaso41WmfDiL0nrl1TTyUNNuLysRM7/Yl/+8/
+ EsosWbNVhL5wd0JwY3grzhuiLl8z9cdHDYlBxuQG7YoFkMzYDv+EeyrZO/VFh64R9hGm
+ Jub+v4z5E6IyUAjq6qKwwvJP0CdOkJFmfoFpfk1IyBkHaT4hmn2XyDzd44YKYYpDXMXs
+ KiMQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1773390799; x=1773995599;
+ h=in-reply-to:references:cc:to:from:subject:message-id:date
+ :content-transfer-encoding:mime-version:x-gm-gg:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=/of78zuCI1x5T6ZYrwM97n73xB/ugxAeVuA7riCgkNo=;
+ b=m9lElwAmFe1Mdnf5sCGFRq3RAiw71KI5EP7mTeN9N2dtRuRyQIy+PIY1JgKFDQzzIT
+ FKREDi0Ndu9Asm/lMEYrEuMiyo0yKL9AGeQKMO861T37FOho9TZ4pc++/lHpuniSJacW
+ DCyt1w8MGYWnXixmgBRKCupKuIRMsc03YWM4ZDUXk7GUKSkV0C3gMr1X2u1eHt2eDIKn
+ khx7cnO56msVkuWpVBqPcMLph0l8f00BLFdaDfSyguAVgenGhpa+V+I2YY/+l7sAn+/S
+ 6r+YzkgA1GKs4f+OiIU9KvkY8vWCkaL/UUoMZCRFqh53skiwqgI+YHD3bofsy9Vb6qA3
+ /GuQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUlHDOxRiVHUml1JzDRlo3LduuZzJHFWwjdVHfkuBPVruNow228stg2b+7SLJhnxS7mm9XrvlA5C74=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyqKminJoK40Mxfb3tvWBKOo1YkBBDGrtsD+nTN6zSLxiYdbDng
+ O0TPYV5lSjT+WrqybgHsWHfEBkBhDUBnPOysvmVpnT0BMyFCmpF1j0AgPvidU9YSmAo=
+X-Gm-Gg: ATEYQzwK1Z8AsZgDKbXP2EliYyKivh9bCM1TtmWIQa/3vcEAKMEsE9OJkuqP51vy2B+
+ Jw++9J35OO4P0uy2sgO0S+7LOSnD4aBkFZKX/ssr/IqXwcCxAn5MtDSYLCVbVlhmezIm9KUHVX/
+ VXAXoFAXiafBxgsTqJButqoXl3lxqCyQDhXRe5fuARB/zhAHbKaTJDcitBs+7Y2YF8gR3dpFptX
+ z1HdHvDVLdntyVnRaTaMFgxAmMtuG6tUGRhS7hqfo93Rta/66LgKqt5BCjh6GLrFTq76DtZIMJ3
+ xK15j7AeW3P1zHsGUqzja8pKRPulE7dYZgRrxv7ENJ5L1fPXhWCuImHcxSmF+SHrM70eNYZU8ie
+ dwa50vBAD6ifMqH5if+ldSQMM0SHO0vL942/C4bFRojgVm8t9AzMKDX+yza9S4OXBSSTmgKWatD
+ yVJHnHIm0Y7kTj/ARnBXtmZ+3aAk1TXN9DHNgAJfKvyigtab0Qw1cd13JozTziktbkyFSQ
+X-Received: by 2002:a17:906:4a9a:b0:b97:f3:1231 with SMTP id
+ a640c23a62f3a-b97653525a2mr101020566b.57.1773390799228; 
+ Fri, 13 Mar 2026 01:33:19 -0700 (PDT)
+Received: from localhost (144-178-202-138.static.ef-service.nl.
+ [144.178.202.138]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-b976cc1c154sm28620666b.27.2026.03.13.01.33.18
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 13 Mar 2026 01:33:18 -0700 (PDT)
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-X-ClientProxiedBy: MA5P287CA0193.INDP287.PROD.OUTLOOK.COM
- (2603:1096:a01:1aa::7) To AM7PR04MB7046.eurprd04.prod.outlook.com
- (2603:10a6:20b:113::22)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM7PR04MB7046:EE_|PA4PR04MB7742:EE_
-X-MS-Office365-Filtering-Correlation-Id: 48efa19c-84c3-4159-c820-08de80db1a5a
-X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|19092799006|376014|7416014|1800799024|366016|921020|22082099003|56012099003|18002099003;
-X-Microsoft-Antispam-Message-Info: svuAHW53AzrUq0/M5CU4Y6V4jfH33Iyr925ZOu28IhbQQM3bZj+WWNsDfnKmMmOW04LUAdiYxNPtQMAAWdUB/XdP3QaxWM7/onWbYlsueMMDZpzK1grS3mSYasxnlJyvUw4HC5P1IjqOX6N2D0unsMyiy3OjWOEdper06Ph3WvcMnordv21vlk2A3Pe/GptnYvTkEa3qAIiMhbozadbfqkxXbm53/xNrgGbqYb2sVCGy4smS2X2bdzGnYnWmXY7Tcz3nzaeN2XK6wufoUWhed/DZPBLma2mt4lzzefas1S/3gomMtF6e+JqfBdbsfodg4dLTTj/xS0R00VWo5PQ36u0tPhL1rbr1aw10FFnDcIhGkxQxhrPKPhwODDdidelONIojpjpBealt/W38j0f1w7TIWtFnM+uxa42Rp6MHQM8Cmuywh/N0rlqauITZT3o2ni+YZ2scQBF5QXGw7Idfnh7Ul84wmp64coumqVQGRbVLexqRE3AnYfIH/eO+Te9LjhlYv7LdXDacby8YfZDUgNWt2PyQLC+H4Uy1M3OY62OMr6beOQgZFLba8z588hiiIm7/BZpjuVn9gGoy50Thcs+ZNuPwtZLTW++aMfhJVarr1AUQvodSV7o2a1YPIzMnGLk1aRXv+HAgbUbQf6EiIMQs4r4rb70zyWpwAMDQoeIYmoq+RyosWYn81AF1mA7riPkPkET9qAmbJ5q03TTiruToBbbD/RoXWIOsuZ+juKI=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:AM7PR04MB7046.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(19092799006)(376014)(7416014)(1800799024)(366016)(921020)(22082099003)(56012099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bUJMNVc0Rk95bXJOOTJ2bjFUR05TUVYyazM2NVhBdTlzVk9XNGc2ZXpnQW5H?=
- =?utf-8?B?Ulo4eis4QTlRcGdqSFVXZjdNVGRjc0kySFZXejZPUTJVRzVwcmRiZ0R2ODgx?=
- =?utf-8?B?bm1SMXFaR05VaXlySVlVTHhzdUxJUnVldjFqaXFQMjd6YkRTdnY4a21saHpS?=
- =?utf-8?B?NlFCUy9CUkhEZHhDYW90UjBpYTVYZjc4SHkyUEZSaVNJQnJ6S2JxcUU0RWxI?=
- =?utf-8?B?WC82UXVoOVcyRVVTRWVKcEgrTTNMUnZrcGtENzNta003b0VDZk5jT1k1SWZW?=
- =?utf-8?B?clZERWs5aVNJQVh0ZU41dzc4VzV3eUhVOGc5TFg2QTJmK2JwbG1VakhSS3lM?=
- =?utf-8?B?MVAvYytCKzMzWVVVVkE3b3MzZVlEd2VyaGEyNFM1OXNxb3FuVlVJdVpleXh5?=
- =?utf-8?B?RWFIY1NuMnIzV0dTaE0zVTBHOXp5N2I4TVkvY2ROb0ZnVFRLSTNLZzhTa2Iv?=
- =?utf-8?B?T2lWSXVCY2kzdjNoR0p1V1dsRVlJOGdyZ3J4ZXpwUEdVakJCeGgzV0o0MTYv?=
- =?utf-8?B?YVpyM09GMjdBWStscHJxeEVGRFNFbmVQNGg3NlVQcTgvbkhWMFRhU1VyVFh0?=
- =?utf-8?B?bzlhaDk3aHFZNi81NWtublNCQy8rNjMzMHpBWitsb3p5OTJPcUMxejNMVUdD?=
- =?utf-8?B?SmYvNWRacXg5S1lPNlZTTmVoMUhXdnJ3RmR3NGdDckk1RE1aU2Ztc29VZVlN?=
- =?utf-8?B?Vk5ZN0lmWEllc0ZSTUFiTEM5ZEtuUnA2OFR1K0Q5VU5CUWN5MEpWNmNXSWta?=
- =?utf-8?B?VXNTNmdSRXQ4L2ZuanFBVTlrUHJWcEgxbVpCQlZKeTE1eEV3N09pbTJmUkZp?=
- =?utf-8?B?bERXdCt6S2ZJdzh0Vzl1cE5vVmFIckxJZWZveVl4S01KWXRoQmlILzYwNEhP?=
- =?utf-8?B?WFd1eXRqUG4rSkd3dGxGSzR6dysvMVB6WEtaWXQxSGFKdldId0dqMGkrOWph?=
- =?utf-8?B?RnZnVzhhUXgrQnl5bzJmVmQzQ2pBLyt3Y2xqQURzZ29kZzZKNytrblFvOWNo?=
- =?utf-8?B?L1BhNGpKSVNYdTZDQ3RBeDhrU2EwS1R2cUszZnlqYTJiWkZyN3hua3g5cE4w?=
- =?utf-8?B?TFhrRi9PQTBuZ3VnN3ZodGNBYm5sVjZTdzlkM1kxRVNTSHU0cU1NNnN4TWtO?=
- =?utf-8?B?anR3dXlrWFZnSnVIOGdvMFZmSWR5YVh4NXU4dG5iOFYvbGhpeWVXRXlRbG8x?=
- =?utf-8?B?MjZpTFEwbTgyUUFQMlBHd1dxZjg1NzlLTEhEcWVEdStWWGtNUzVFMG1LSVBZ?=
- =?utf-8?B?UmtQam5Cajl0eXVkSEZJS0FOTHJUWVZ4aFV6c2R0dEt5TGZKSGY2QjBzUDNZ?=
- =?utf-8?B?YVQzeElDelA4NnRYbGhsd0NpV2V4bEs1T1ZvYXVSZktrMzg3RjlRMk15Rzhu?=
- =?utf-8?B?RzEyNG1FY2c0NmFXbEptYitQZ3B0bUFLaGZ1S0Y0c1I3RmdjL1NRWEdNZ1Z1?=
- =?utf-8?B?NDViMDhkVXkxRTNYaFRHbzQxcklqOTF2b21qTE1oelBXRGJsS3VhRnVibHVC?=
- =?utf-8?B?UEROeDhLUFlHSkdsS1AvclJJaDRXTjEwaEFQNWZuM0VjazYzMkg0U29pWUVL?=
- =?utf-8?B?UjhFYy91Q0MzQlhOcnZSYk9qak1MOWNIbFFUcXFKSy9OckQ1dUczUXc3SEpU?=
- =?utf-8?B?d2hJemR6Q3VOdDgvVDllUU9nTXpWdnBwbk40UE5JaTZPc0xHY2l0ZmIwNWNz?=
- =?utf-8?B?L3dBNmVnZjFNbXdNRmNMRUh3MUhib1pIL2VmZWx4dHBSVStlT2xlOXc4Q2Fn?=
- =?utf-8?B?YXpIV2pFcWVBdUoxY3FEQ3NrMEwyaHZyc2R3eTdOUzFCQlUzOVJ2TVF2MDFE?=
- =?utf-8?B?MWNMWDAwWldXSTZUSXJEVWkySk5neW5BMjZtSldJSGFYRmNQOFpUZXM4VHZR?=
- =?utf-8?B?bmVwUk5rVkJTRXl1MVpKUEdUWXlTSnRzZUZ1SitxYWVuU1VmcmtzYit3WGxP?=
- =?utf-8?B?aDhaSzBwaG1TZUxmTkF6eklJNzVkNWVFWURMb3hSR3hQTWtHS0JEMkVCaXNW?=
- =?utf-8?B?UFozOXIzRjU2b0cwMmM4MUlEUmdTYlBIbXJhRTJnSnZMWWkycDFtd3hpZ0pv?=
- =?utf-8?B?OG81NFRHcnZxUGtDRWtyZkJRb3NUNXpvdW5yNkkwNGNhZVpTM2lNSVFPeW1J?=
- =?utf-8?B?VXRlNXZvSFh3dUZGTm9HMXhibmE0bWt3aEx5UHVvdXFOZUVCLzd6clNzZEtE?=
- =?utf-8?B?OVFTY0lFZEZNYTZIdmNhNDBOSkxuZjJ6TkZubTB2YmNBQVhyOEFHVkFobTBU?=
- =?utf-8?B?VXFQM2hYK3ZRTkpYMGZEZXZhV2VLNGhQcHhBaDliYVhjaTZJVEtWQmdCVGhu?=
- =?utf-8?B?UGN2VEFCNE5pWWticmlUZFlVR1hGZDBaUXUzU0JtTThlQnUwc3l3Zz09?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 48efa19c-84c3-4159-c820-08de80db1a5a
-X-MS-Exchange-CrossTenant-AuthSource: AM7PR04MB7046.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Mar 2026 08:32:46.3413 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: B52rDUxV1DsTlg0ObHCGr0gWQjc2g+/rdukg9LQzY5yHVkzr4ZfxA9vbfobOFhykcdsnwEQAvlnr3ciiyQ/6ew==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA4PR04MB7742
+Date: Fri, 13 Mar 2026 09:33:18 +0100
+Message-Id: <DH1IKLU0YZYU.2SW4WYO7H3H4R@fairphone.com>
+Subject: Re: [PATCH v2] drm/msm/disp/dpu: add merge3d support for sc7280
+From: "Luca Weiss" <luca.weiss@fairphone.com>
+To: "Mahadevan P" <mahadevan.p@oss.qualcomm.com>, "Rob Clark"
+ <robin.clark@oss.qualcomm.com>, "Dmitry Baryshkov" <lumag@kernel.org>,
+ "Abhinav Kumar" <abhinav.kumar@linux.dev>, "Jessica Zhang"
+ <jesszhan0024@gmail.com>, "Sean Paul" <sean@poorly.run>, "Marijn Suijten"
+ <marijn.suijten@somainline.org>, "David Airlie" <airlied@gmail.com>,
+ "Simona Vetter" <simona@ffwll.ch>, "Krishna Manikandan"
+ <quic_mkrishn@quicinc.com>
+Cc: <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <freedreno@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
+ <regressions@lists.linux.dev>
+X-Mailer: aerc 0.21.0-0-g5549850facc2
+References: <20260101-4k-v2-1-712ae3c1f816@oss.qualcomm.com>
+In-Reply-To: <20260101-4k-v2-1-712ae3c1f816@oss.qualcomm.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -144,63 +97,103 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Mar 12, 2026 at 06:30:22PM +0100, Luca Ceresoli wrote:
-> Hello Liu, Maxime,
-> 
-> On Thu Mar 12, 2026 at 7:05 AM CET, Liu Ying wrote:
->> A typical bridge refcount value is 3 after a bridge chain is formed:
->> - devm_drm_bridge_alloc() initializes the refcount value to be 1.
->> - drm_bridge_add() gets an additional reference hence 2.
->> - drm_bridge_attach() gets the third reference hence 3.
->>
->> This typical refcount value aligns with allbridges_show()'s behaviour.
->> However, since encoder_bridges_show() uses
->> drm_for_each_bridge_in_chain_scoped() to automatically get/put the
->> bridge reference while iterating, a bogus reference is accidentally
->> got when showing the wrong typical refcount value as 4 to users via
->> debugfs.  Fix this by caching the refcount value returned from
->> kref_read() while iterating and explicitly decreasing the cached
->> refcount value by 1 before showing it to users.
-> 
-> Good point, indeed the refcount shown by
-> <debugfs>/dri/<card>/encoder-0/bridges is by one unit higher than the one
-> shown in <debugfs>/dri/bridges. I understand it's puzzling from a debugfs
-> user point of view.
-> 
-> As you noticed, this is because the _scoped loop holds an extra ref on the
-> current bridge.
-> 
-> For other reasons I proposed a mutex for stronger protection around the
-> bridge chain [v2]. With the mutex the extra ref is redundant, so in [v2]
-> the extra ref is removed, thus making your patch unneeded. However Maxime
-> asked to keep the extra ref, and so my latest iteration [v4] still has the
-> extra ref.
-> 
-> That series is still on the mailing list, we are still in time to rediscuss
-> it.
-> 
-> @Maxime: based on the issue Liu is trying to work around, do you think it
-> would make sense to go back to the initial approach for that series?
-> I.e. drm_for_each_bridge_in_chain_scoped() grabs the chain lock, which is a
-> superset of the per-bridge refcount, and thus the refcount can be dropped?
-> This would remove the debugfs issue, slightly simplify
-> drm_for_each_bridge_in_chain_scoped(), and introduce no new issues AFAIK.
+Hi Mahadevan,
 
-Just my take on the chain lock approach - I agree Maxime's comment on [v2]
-that keeping the get/put is a better than using the chain lock to ensure
-the refcount is correct.  The chain lock could be added later on if needed.
+On Thu Jan 1, 2026 at 6:04 AM CET, Mahadevan P wrote:
+> On SC7280 targets, display modes with a width greater than the
+> max_mixer_width (2400) are rejected during mode validation when
+> merge3d is disabled. This limitation exists because, without a
+> 3D merge block, two layer mixers cannot be combined(non-DSC interface),
+> preventing large layers from being split across mixers. As a result,
+> higher resolution modes cannot be supported.
+>
+> Enable merge3d support on SC7280 to allow combining streams from
+> two layer mixers into a single non-DSC interface. This capability
+> removes the width restriction and enables buffer sizes beyond the
+> 2400-pixel limit.
+>
+> Fixes: 591e34a091d1 ("drm/msm/disp/dpu1: add support for display for SC72=
+80 target")
+> Signed-off-by: Mahadevan P <mahadevan.p@oss.qualcomm.com>
 
-> 
-> [v2] https://lore.kernel.org/all/20251003-drm-bridge-alloc-encoder-chain-mutex-v2-4-78bf61580a06@bootlin.com/
-> [v4] https://lore.kernel.org/all/20260113-drm-bridge-alloc-encoder-chain-mutex-v4-4-60f3135adc45@bootlin.com/
-> 
-> Luca
-> 
-> --
-> Luca Ceresoli, Bootlin
-> Embedded Linux and Kernel engineering
-> https://bootlin.com/
+This patch is causing display regression on QCM6490 fairphone-fp5.
 
--- 
-Regards,
-Liu Ying
+With this patch in 7.0-rc3 (or 6.18.16) there's just pink noise on the
+screen. When reverting this patch everything becomes working again.
+
+See also https://salsa.debian.org/Mobian-team/devices/kernels/qcom-linux/-/=
+issues/41
+
+@Dmitry: Can we revert this for later 7.0-rc, in case it's not fixed
+quickly?
+
+Regards
+Luca
+
+#regzbot introduced: 2892de3f4f985fa779c330468e2f341fdb762ccd
+
+> ---
+> Changes in v2:
+>   - Updated commit message for clarity (Dmitry).
+> ---
+>  drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_2_sc7280.h | 14 ++++++++++++=
+--
+>  1 file changed, 12 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_2_sc7280.h b/dri=
+vers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_2_sc7280.h
+> index 8f978b9c3452..2f8688224f34 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_2_sc7280.h
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_2_sc7280.h
+> @@ -13,6 +13,7 @@ static const struct dpu_caps sc7280_dpu_caps =3D {
+>  	.has_dim_layer =3D true,
+>  	.has_idle_pc =3D true,
+>  	.max_linewidth =3D 2400,
+> +	.has_3d_merge =3D true,
+>  	.pixel_ram_size =3D DEFAULT_PIXEL_RAM_SIZE,
+>  };
+> =20
+> @@ -134,17 +135,24 @@ static const struct dpu_pingpong_cfg sc7280_pp[] =
+=3D {
+>  		.name =3D "pingpong_2", .id =3D PINGPONG_2,
+>  		.base =3D 0x6b000, .len =3D 0,
+>  		.sblk =3D &sc7280_pp_sblk,
+> -		.merge_3d =3D 0,
+> +		.merge_3d =3D MERGE_3D_1,
+>  		.intr_done =3D DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 10),
+>  	}, {
+>  		.name =3D "pingpong_3", .id =3D PINGPONG_3,
+>  		.base =3D 0x6c000, .len =3D 0,
+>  		.sblk =3D &sc7280_pp_sblk,
+> -		.merge_3d =3D 0,
+> +		.merge_3d =3D MERGE_3D_1,
+>  		.intr_done =3D DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 11),
+>  	},
+>  };
+> =20
+> +static const struct dpu_merge_3d_cfg sc7280_merge_3d[] =3D {
+> +	{
+> +		.name =3D "merge_3d_1", .id =3D MERGE_3D_1,
+> +		.base =3D 0x4f000, .len =3D 0x8,
+> +	},
+> +};
+> +
+>  /* NOTE: sc7280 only has one DSC hard slice encoder */
+>  static const struct dpu_dsc_cfg sc7280_dsc[] =3D {
+>  	{
+> @@ -247,6 +255,8 @@ const struct dpu_mdss_cfg dpu_sc7280_cfg =3D {
+>  	.mixer =3D sc7280_lm,
+>  	.pingpong_count =3D ARRAY_SIZE(sc7280_pp),
+>  	.pingpong =3D sc7280_pp,
+> +	.merge_3d_count =3D ARRAY_SIZE(sc7280_merge_3d),
+> +	.merge_3d =3D sc7280_merge_3d,
+>  	.dsc_count =3D ARRAY_SIZE(sc7280_dsc),
+>  	.dsc =3D sc7280_dsc,
+>  	.wb_count =3D ARRAY_SIZE(sc7280_wb),
+>
+> ---
+> base-commit: efb26a23ed5f5dc3554886ab398f559dcb1de96b
+> change-id: 20251231-4k-969b53d2ea4c
+>
+> Best regards,
+
