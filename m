@@ -4,30 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9757A103E305
-	for <dri-devel@archiver.kernel.org>; Fri, 13 Mar 2026 15:33:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C0699105F7B5
+	for <dri-devel@archiver.kernel.org>; Fri, 13 Mar 2026 15:34:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0378810E456;
-	Fri, 13 Mar 2026 15:33:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 167AB10E457;
+	Fri, 13 Mar 2026 15:34:40 +0000 (UTC)
 Received: from metis.whiteo.stw.pengutronix.de
  (metis.whiteo.stw.pengutronix.de [185.203.201.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8ECB810E456
- for <dri-devel@lists.freedesktop.org>; Fri, 13 Mar 2026 15:33:41 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CE00210E457
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Mar 2026 15:34:38 +0000 (UTC)
 Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
  by metis.whiteo.stw.pengutronix.de with esmtps
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <p.zabel@pengutronix.de>)
- id 1w14W5-0001sU-Dh; Fri, 13 Mar 2026 16:33:33 +0100
+ id 1w14X0-00029Y-A2; Fri, 13 Mar 2026 16:34:30 +0100
 Received: from lupine.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::4e]
  helo=lupine)
  by drehscheibe.grey.stw.pengutronix.de with esmtps (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <p.zabel@pengutronix.de>) id 1w14W2-0006Mm-34;
- Fri, 13 Mar 2026 16:33:30 +0100
+ (envelope-from <p.zabel@pengutronix.de>) id 1w14Wz-0006RK-15;
+ Fri, 13 Mar 2026 16:34:29 +0100
 Received: from pza by lupine with local (Exim 4.98.2)
- (envelope-from <p.zabel@pengutronix.de>) id 1w14W2-00000000El6-3cWe;
- Fri, 13 Mar 2026 16:33:30 +0100
-Message-ID: <7b2aa2c742f41e376ffe8865e3a2cd9c53843574.camel@pengutronix.de>
+ (envelope-from <p.zabel@pengutronix.de>) id 1w14Wz-00000000En3-12Wn;
+ Fri, 13 Mar 2026 16:34:29 +0100
+Message-ID: <62df7303bfb508e00d02b14ddbe4f4d70349ad95.camel@pengutronix.de>
 Subject: Re: [PATCH] drm/imx: parallel-display: add DRM_DISPLAY_HELPER for
  DRM_IMX_PARALLEL_DISPLAY
 From: Philipp Zabel <p.zabel@pengutronix.de>
@@ -38,7 +38,7 @@ To: Martin Kepplinger-Novakovic <martin.kepplinger-novakovic@ginzinger.com>,
 Cc: kernel@pengutronix.de, dri-devel@lists.freedesktop.org,
  imx@lists.linux.dev, 	linux-arm-kernel@lists.infradead.org,
  linux-kernel@vger.kernel.org, kernel test robot <lkp@intel.com>
-Date: Fri, 13 Mar 2026 16:33:30 +0100
+Date: Fri, 13 Mar 2026 16:34:29 +0100
 In-Reply-To: <20260121102607.4087362-1-martin.kepplinger-novakovic@ginzinger.com>
 References: <20260121102607.4087362-1-martin.kepplinger-novakovic@ginzinger.com>
 Content-Type: text/plain; charset="UTF-8"
@@ -84,7 +84,11 @@ ntel.com/
 > Signed-off-by: Martin Kepplinger-Novakovic <martin.kepplinger-novakovic@g=
 inzinger.com>
 
-Reviewed-by: Philipp Zabel <p.zabel@pengutronix.de>
+Applied to drm-misc-next, thanks!
+
+[1/1] drm/imx: parallel-display: add DRM_DISPLAY_HELPER for DRM_IMX_PARALLE=
+L_DISPLAY
+      commit: 02df94d98ff837074788ce921edf67707dbad404
 
 regards
 Philipp
