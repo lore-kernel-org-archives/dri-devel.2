@@ -4,91 +4,119 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BA753D58B1A
-	for <dri-devel@archiver.kernel.org>; Sun, 15 Mar 2026 11:21:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A705DD58B18
+	for <dri-devel@archiver.kernel.org>; Sun, 15 Mar 2026 11:21:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AAC1A10E290;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D1AB410E4B1;
 	Sun, 15 Mar 2026 11:21:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="XqdTqPXA";
+	dkim=pass (2048-bit key; secure) header.d=posteo.de header.i=@posteo.de header.b="IkxR70q1";
 	dkim-atps=neutral
-Received: from mail-yw1-f179.google.com (mail-yw1-f179.google.com
- [209.85.128.179])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 32CEA10E0B9
- for <dri-devel@lists.freedesktop.org>; Sat, 14 Mar 2026 04:15:54 +0000 (UTC)
-Received: by mail-yw1-f179.google.com with SMTP id
- 00721157ae682-7986e538decso24183047b3.1
- for <dri-devel@lists.freedesktop.org>; Fri, 13 Mar 2026 21:15:54 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1773461753; cv=none;
- d=google.com; s=arc-20240605;
- b=Pdqt8h0sEoeWFJqyjaP4JTEAv9Pb4CGz2T/aonVFNGHnTgDAAtT6bwd+eM94ZdDFRg
- zk7sbnoR54A+U763AYFsvh8j2sLzAJ6kr41FltGYZJquEvGCPPcB41NvjxbO68wOBS20
- u67fkw1zKhQMKF/RtNYnQyKPcUCZwzLHP68K4mi3cBiKNwlDvcC321tY9UrMHxRdqHtH
- KUkr6qzZWcQMHjHiN89nFh+x89uUyvB9Ivyi5QpQF/ij6KRYT0KHp3FHWsGpEakNA4+a
- AO2mUpORU9Db6CKzad4MCBfLZluVwlz03ToQOaz4rcgc1h51B2jkJh8E30mJRzjfnzf/
- b3dg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=+8e5HjZWL1f+eKxnwGMxsaWkOM5jvTDdVFwjfWylFQQ=;
- fh=eIL1z2t//WQ+eW/WB2MCP8iDLVvm0TklD1pMjkV4jN0=;
- b=YOADXgao1Q9ZuZVavsRSYrWwaUWN2wK5IZJ76JOQDnkjmdMfr93T2drtjo7E/Xd7hZ
- RPMB/Bt2Xp7KsVVCCkRTLp3ekERQwnXL+NzNAkiJPoEchBM6MVeuDrCXkaEI7L5i2zZ6
- 13omlCOMQX3h/JG1GqSBcHj09oQ+QENMo7DRTw6ZHhC5et5wxCM4QdUu0vIRxsbNrUyH
- WdtPPSnNqRI0fbEZo0abySl1y4zYiYqIO2BjEq4ltYp23OPqq3KiMV7vw7ixhloedn8w
- DBP3NKFt0K2s7KsFgrCg06Wrjr5+g9SDReE4cgCxyjclUonXCFnhAr9s9MnFn277Rl2P
- mBtA==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1773461753; x=1774066553; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=+8e5HjZWL1f+eKxnwGMxsaWkOM5jvTDdVFwjfWylFQQ=;
- b=XqdTqPXALRUUbJPIkloSqWo0qfRhsATU4Eo/iV8Tzm/bQyItmusgtghsEBwlkpcf30
- FgrUjQZkPzMHjxsCd5MBBFsCVYLNXpAgFB3XcFSJ+G7/ZBBtY1ph2WKo8TsmSVAwVMqa
- qC7s4wmWjZdmmPRdjouqaCFTk8bp0cdn03r+1PcLlD1C2Du/uN+lyMdbB4+vSK8mHIut
- CubuXhsrwlKNvYaJ9V8yZcmWMoY5XqcyJeAG7yBGybcBRi+KvWabHt6BQzICPe5W5QfB
- NvpGhNha/PmAKgOVu4YvtrwGjb/zlC42RyRZI9BRV+3oLne8ap8OPnhtmh6Ttctpw8go
- zu6A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1773461753; x=1774066553;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=+8e5HjZWL1f+eKxnwGMxsaWkOM5jvTDdVFwjfWylFQQ=;
- b=gV3Uocr2Tc9VW6B99+wrZNTKMd40jNsaVJPWLE+AInGUkd318HsPoUroHoIp2wcRek
- P36H9T83V3S/awp5bxmRaQFmGllVNUSyqYsxMEMa9Bq8bdWPaNqxQF9vtyFwO+Ff0e4V
- UpGm/iyfa3v7aFybWXszdRg5xeRrM4/lsDktCp3ZWgWVgifI1PZYw67jRYsOcj6q+UK5
- POZFkNTVvcsulDNGl6wBklMp7jbYC5cd37Oz5ahD3UCNsHpxKNZLvTPsej3OGmqE1/Ai
- 95O3rNDcV3LZnLwImA/vcaaPwUGPQNm5+HrcPR1dKu6aqxAYSlD4b9Hg+Q3lTnOfYMsD
- eRkQ==
-X-Gm-Message-State: AOJu0YwLF1YhrvXqSrN/0fXUNluxv6b7HazBDOUqC+NXoCJigHFejTPK
- h9sa7k7caMYmgElikRzde6oqJrXvByh9FVS30E+S1wCj0uikEB1Ml2R69UcY0IokQ+RxM73U67r
- Xh10tanvgX+SEIZVgZW1RpCBLf8tP39M=
-X-Gm-Gg: ATEYQzw3QZqAkOhWNg6tWNPy9JoiCpEcIeqn+KAVHb98zQXVhU9fOnP4RpAyKW0Dqny
- d+mLHLwHbrIXTA8lRC+cYKPBwtF56z3zyJmC2QTfl/pJr0TZWlsgI/zdD0p7nkE/PCr39jqVGeh
- R7wqa6jLzzohqi4OaToWi/pSAbyyDJjLwBtIV5000exCjXisLeleC3PqJq+sYPPHEApFtXfwAi4
- pOf5OKaFehyV1S25d8KhWiD64lEwkkTWKfJKKgK5KOTuft/rQgaOvLhgv/M2noUp6HAyN74endX
- YjV3dWcq2Mq6/NVWozavHBJ2b4+VxNPr/BQCxA0=
-X-Received: by 2002:a05:690c:7344:b0:798:dbaa:d989 with SMTP id
- 00721157ae682-79a1c1888afmr61159867b3.36.1773461752999; Fri, 13 Mar 2026
- 21:15:52 -0700 (PDT)
+Received: from mout01.posteo.de (mout01.posteo.de [185.67.36.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DF4E610E373
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Mar 2026 18:12:34 +0000 (UTC)
+Received: from submission (posteo.de [185.67.36.169]) 
+ by mout01.posteo.de (Postfix) with ESMTPS id DFBC9240027
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Mar 2026 19:12:32 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=posteo.de; s=2017;
+ t=1773425552; bh=75iCErYdyp9Wiyr3L13jLe2X/q5ye8h5xDYdqwVoNnc=;
+ h=From:Date:Subject:MIME-Version:Content-Type:
+ Content-Transfer-Encoding:Message-Id:To:Cc:Autocrypt:OpenPGP:From;
+ b=IkxR70q1wruRrwHZz5QkW0MX5TXPSCZj7I3pdN39IPSN9AReS2Pslhqcm4NLdrvIj
+ I/6AqwsSJWgvd2jPEs306b3pdHQs9WUf7HGOi8NDo0bqD9QskUouNYlexEo7gct/Jv
+ /XfsKt21L0Pg/bGvAvirdbP/3kZqv7YDaWC69coJt/NMyc10B/Ab1ux89USxuzxk3R
+ EXQgNKv57p/m7Kv71mGklUSvZ82pFVnvfb5Om8J+rlde8p+JlN9cG/zQsrvPL5uniT
+ KQPO9O6+ByRvQMHY25lmceXf9QuM8vN06bgMV40krB85SS5tPugN7aFtVBcnTS9Ris
+ qFTEmKUkgFT7w==
+Received: from customer (localhost [127.0.0.1])
+ by submission (posteo.de) with ESMTPSA id 4fXXdT5dKYz6v0H;
+ Fri, 13 Mar 2026 19:12:29 +0100 (CET)
+From: Markus Probst <markus.probst@posteo.de>
+Date: Fri, 13 Mar 2026 18:12:31 +0000
+Subject: [PATCH v3 2/4] serdev: add rust private data to serdev_device
 MIME-Version: 1.0
-References: <SEYPR02MB601492D054783E9F4F18AEE5FB44A@SEYPR02MB6014.apcprd02.prod.outlook.com>
- <CAO6MGtjZ3nrZ=71MCE0XKvFAkR3iGHq5G46QXquSXL+vYAe8bw@mail.gmail.com>
-In-Reply-To: <CAO6MGtjZ3nrZ=71MCE0XKvFAkR3iGHq5G46QXquSXL+vYAe8bw@mail.gmail.com>
-From: Yuma Kakei <yumasansansan@gmail.com>
-Date: Sat, 14 Mar 2026 13:15:42 +0900
-X-Gm-Features: AaiRm52IX8MxKvzUoW7G-a5zJUvySPKgbYJmZNOrcgmk0gZC8iCi09mOblZDcKE
-Message-ID: <CABTSbfc=NYV8RU6C1RRgdr8OubR4aG4EVoZFF=CzX1Fb=JWQVg@mail.gmail.com>
-Subject: Re: [BUG] vmwgfx: Severe Slab memory leak (radix_tree_node) with
- Wayland Atomic KMS
-To: Ian Forbes <ian.forbes@broadcom.com>
-Cc: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260313-rust_serdev-v3-2-c9a3af214f7f@posteo.de>
+References: <20260313-rust_serdev-v3-0-c9a3af214f7f@posteo.de>
+In-Reply-To: <20260313-rust_serdev-v3-0-c9a3af214f7f@posteo.de>
+To: Rob Herring <robh@kernel.org>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Jiri Slaby <jirislaby@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, 
+ Gary Guo <gary@garyguo.net>, 
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+ Danilo Krummrich <dakr@kernel.org>, 
+ Kari Argillander <kari.argillander@gmail.com>, 
+ "Rafael J. Wysocki" <rafael@kernel.org>, 
+ Viresh Kumar <viresh.kumar@linaro.org>, Boqun Feng <boqun@kernel.org>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Boqun Feng <boqun@kernel.org>
+Cc: linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ rust-for-linux@vger.kernel.org, linux-pm@vger.kernel.org, 
+ driver-core@lists.linux.dev, dri-devel@lists.freedesktop.org, 
+ Markus Probst <markus.probst@posteo.de>
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1717;
+ i=markus.probst@posteo.de; h=from:subject:message-id;
+ bh=ECl35l4KVjDGQ1987vPeXlJAH328JZDbp6x8p1+V+Tw=;
+ b=owEBiQJ2/ZANAwAIATR2H/jnrUPSAcsmYgBptFOAXe2qwnF/1lGexDSrt5nHtAjHWrI2Vasw2
+ CwJeSl28z+JAk8EAAEIADkWIQSCdBjE9KxY53IwxHM0dh/4561D0gUCabRTgBsUgAAAAAAEAA5t
+ YW51MiwyLjUrMS4xMSwyLDIACgkQNHYf+OetQ9J/kg//YeyFMrNHyQ5X8znae+NR9YBo/g/0H+k
+ 6OOMwP5U9EhSYiaO0fmMUTmvwaX1bqMgu59JnrqE66O/GcikoeZDB/F2akj4m8yRIvWv9UcBCaW
+ p5P/yySUoDOGZUUnR/mVxa0ALpNAWHJx306+RbRmyfCWH/nx7aSQN5/iJi3jdGsH7mSvJv6maA9
+ jcf5lABJ4VCk85faveIJ2sw4D+JVTq1DLWhScIHKz3gu2VEU//mcoxgnZXLgHV4VYDn0N2DsmB4
+ QPgCUFWDsvvJda96hkGpKKAdzmXiyDeEymj7TS1MfCscuzjL6c9yyvMMkyMwoAubX5rsjdjUO6O
+ UuUSozMI+rTtMyYPGpL0HvNr2z1LurRTBK8bKzG6f/qeZvfnYsFBPLJ6EFnVVHcwaYblXcN2fw8
+ lgN9Kum0azUEKKG6I6S8WsdVMALzfu3SI6g0LVZwonh+wwZTX6RJcSsQslJFRxWTFJ9w9tzkwOa
+ GcE7ABJBd2xMlBT8U2X5ax0ALj81mCC/fqiw7TAZCaZUrQeNeis4CoBtfs1YpHYsvyd+CW/WgYl
+ RxSmBCTTDFzGgjFYmLjc35KokuFQ5GDOFQGVWnPkraEK0lPmjw8D3ozyxD4oU+EbZNcWHzkp/3Y
+ ykzKD/0m/evY/4Xq12OmzbnZemTyPTOmxOmYkukxcoljEmL1RIqM=
+X-Developer-Key: i=markus.probst@posteo.de; a=openpgp;
+ fpr=827418C4F4AC58E77230C47334761FF8E7AD43D2
+Autocrypt: addr=markus.probst@posteo.de; prefer-encrypt=mutual;
+ keydata=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
+ aBeNN4ijKZchBXHPgVx+YtWRHfcm4l8=
+OpenPGP: url=https://posteo.de/keys/markus.probst@posteo.de.asc;
+ preference=encrypt
 X-Mailman-Approved-At: Sun, 15 Mar 2026 11:20:58 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -105,86 +133,49 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for the patch!
+Add rust private data to `struct serdev_device`, as it is required by the
+rust abstraction added in the following commit
+(rust: add basic serial device bus abstractions).
 
-I applied it to my 7.0-rc3 tree. To be absolutely certain that the new
-module was loaded and the modified code path was being executed, I
-added a custom DRM_INFO printk right next to your if
-(surface->res.dirty =3D=3D NULL) check. I can confirm the code is
-definitely being hit during Wayland usage.
+Signed-off-by: Markus Probst <markus.probst@posteo.de>
+---
+ include/linux/serdev.h | 15 +++++++++------
+ 1 file changed, 9 insertions(+), 6 deletions(-)
 
-Unfortunately, the severe slab leak still persists. When moving
-windows, radix_tree_node and the 1KB kmalloc caches (kmalloc-rnd-*-1k)
-continue to grow rapidly per frame, eventually leading to OOM.
+diff --git a/include/linux/serdev.h b/include/linux/serdev.h
+index 5654c58eb73c..c74c345d60ae 100644
+--- a/include/linux/serdev.h
++++ b/include/linux/serdev.h
+@@ -33,12 +33,14 @@ struct serdev_device_ops {
+ 
+ /**
+  * struct serdev_device - Basic representation of an serdev device
+- * @dev:	Driver model representation of the device.
+- * @nr:		Device number on serdev bus.
+- * @ctrl:	serdev controller managing this device.
+- * @ops:	Device operations.
+- * @write_comp	Completion used by serdev_device_write() internally
+- * @write_lock	Lock to serialize access when writing data
++ * @dev:	       Driver model representation of the device.
++ * @nr:		       Device number on serdev bus.
++ * @ctrl:	       serdev controller managing this device.
++ * @ops:	       Device operations.
++ * @write_comp:	       Completion used by serdev_device_write() internally
++ * @write_lock:	       Lock to serialize access when writing data
++ * @rust_private_data: Private data for the rust abstraction. This should
++ *		       not be used by the C drivers.
+  */
+ struct serdev_device {
+ 	struct device dev;
+@@ -47,6 +49,7 @@ struct serdev_device {
+ 	const struct serdev_device_ops *ops;
+ 	struct completion write_comp;
+ 	struct mutex write_lock;
++	void *rust_private_data;
+ };
+ 
+ static inline struct serdev_device *to_serdev_device(struct device *d)
 
-Just to double-check, setting KWIN_DRM_NO_AMS=3D1 still completely stops
-the leak, so the missing reference drop (perhaps a missing
-drm_framebuffer_put or GEM unreference) seems to be hiding somewhere
-else in the atomic commit/cleanup path of vmwgfx.
+-- 
+2.52.0
 
-I am ready to test any further patches you might have. Let me know if
-you need me to enable specific drm debug logs or use ftrace to track
-down the exact leaking objects.
-
-Best regards,
-Yuma
-
-2026=E5=B9=B43=E6=9C=8813=E6=97=A5(=E9=87=91) 21:56 Ian Forbes <ian.forbes@=
-broadcom.com>:
->
-> Can you retry with https://patchwork.kernel.org/project/dri-devel/patch/2=
-0260302200330.66763-1-ian.forbes@broadcom.com/ appliecd to your kernel?
->
-> Thank you,
-> Ian
->
-> On Thu, Mar 12, 2026 at 11:48=E2=80=AFAM Yuma Kakei <yumasansansan@gmail.=
-com> wrote:
->>
->> Hi vmwgfx maintainers and DRM developers,
->>
->> I have encountered a severe Slab memory leak in the vmwgfx driver when u=
-sing a Wayland compositor (KWin) with Atomic KMS enabled. This issue eventu=
-ally leads to complete memory exhaustion and OOM within a few minutes of no=
-rmal desktop usage.
->>
->> [Environment]
->> Kernel: 7.0-rc3 (Mainline) and 6.17.0-14 (HWE kernel)
->> Distro: KDE neon Unstable (Ubuntu 24.04 LTS base)
->> Compositor: KWin Wayland (Latest master branch)
->> Guest Graphics: VMware SVGA II Adapter (vmwgfx)
->>
->> [Symptoms & Evidence]
->> When moving windows or triggering screen updates on the Wayland session,=
- system memory is rapidly consumed.
->> Monitoring with slabtop reveals that radix_tree_node and kmalloc-rnd-07-=
-1k objects are leaking aggressively per frame.
->>
->> It appears that DRM objects (likely GEM handles/IDR or framebuffers) cre=
-ated during the Atomic KMS commit are not being properly freed by the drive=
-r after the frame is rendered, leaving orphaned objects in the kernel Slab.
->>
->> Earlier, before disabling 3D acceleration, dmesg also showed:
->> vmwgfx: mob memory overflow. Consider increasing guest RAM and graphicsM=
-emory.
->> However, even with 3D acceleration disabled (llvmpipe fallback), the Sla=
-b memory leak persists as long as Atomic KMS is used.
->>
->> [Steps to Reproduce]
->> 1. Boot a VMware guest with vmwgfx and launch a modern Wayland composito=
-r (KWin) that strictly uses Atomic KMS.
->> 2. Move windows around to force screen redraws.
->> 3. Run sudo slabtop -s c and observe radix_tree_node and kmalloc-rnd-07-=
-1k growing indefinitely.
->>
->> [Workaround]
->> Disabling Atomic KMS in the compositor completely stops the memory leak.
->> Setting the environment variable KWIN_DRM_NO_AMS=3D1 forces KWin to use =
-legacy DRM API, which works perfectly without any Slab growth. This strongl=
-y suggests the bug resides in the vmwgfx atomic commit/cleanup path.
->>
->> Any assistance or guidance on testing potential patches would be greatly=
- appreciated. I am happy to provide further logs or test patches if needed.
->>
->> Best regards,
->> Yuma Kakei
