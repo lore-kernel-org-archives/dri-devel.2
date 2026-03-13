@@ -4,96 +4,131 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1DB9E105F79F
-	for <dri-devel@archiver.kernel.org>; Fri, 13 Mar 2026 12:00:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7E6D5105F79C
+	for <dri-devel@archiver.kernel.org>; Fri, 13 Mar 2026 12:04:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7415010EBC1;
-	Fri, 13 Mar 2026 12:00:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B9AC010EBC2;
+	Fri, 13 Mar 2026 12:04:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="rTDMwVMu";
+	dkim=pass (1024-bit key; unprotected) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="eJ/tQg9z";
 	dkim-atps=neutral
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com
- [209.85.128.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1CBB110EBC1
- for <dri-devel@lists.freedesktop.org>; Fri, 13 Mar 2026 12:00:29 +0000 (UTC)
-Received: by mail-wm1-f45.google.com with SMTP id
- 5b1f17b1804b1-48534e9076fso17411385e9.0
- for <dri-devel@lists.freedesktop.org>; Fri, 13 Mar 2026 05:00:29 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1773403227; cv=none;
- d=google.com; s=arc-20240605;
- b=QLg7t4zy089KiT3FVo/6cQ4NgY6/DPtq1kPJGrmpocYEdzg1KP0DvVTfLFFDUsyhlm
- EL77QPw+JsNevKQzuQJmwsP7NaeGi4r65Pvy8FGZ8hWKB4jW2BhA/n+G6VhOcCJY6417
- WMTlLDob1B83FmaLAtMnaL4IRi2MiwbcNNOzeAwgYyh6PN5UN3xNIW96ihOfjgLl9M1e
- 15rtI4EC9exYsa/6ldb7ZAqxTTLP671gP2T5Z68JdBcVbrUtOAg3NFLShmxMgH24QHvJ
- nzRPaEPQFBWNuC7V/iW7KcWS0/EO842JeTZRUS2kbiRYJlm1jVgmwHTn8Mq/L4Pst6Ct
- iP5A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=0LTIFZfVSy/HsNH3KObZHOq0ZyU515+2Giryrm+nhHg=;
- fh=VheiqWkOCbU00KWPSwxbq6ZbpRRBSWAVO30AA8Q5TtI=;
- b=elkepKA0XL/xInZN+L/t2kS96cHruxLTyDkeCcjLBE7OUskAKRKDztE7vayXf4ZESM
- ecupEL0TUPGdrR9mj0u/9j7Inj9upiRoPTbH8g9h4+2SjRZuLy9M2bnPJ5rxgAd1kJcH
- 4qOzizzUSwt60a/NEK9aNfjBU7ifTAq47m0Xql0JkCuZPBKFGzSJ0vD3waM1oVUQAuyj
- jEm/dS70X2Y6qGLD2BWY3e+gaWSHdTYe22B2o6q1NLYUOdrzzq40w2HB0AIhMGjkp5Ic
- LClL8XbSD/a2DlLxp7e+TQ2mhMx1AVvDnh+qvJS2s8pOV1u45CD0M5zpfw9FUz2Xxx7k
- v3Eg==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20251104; t=1773403227; x=1774008027;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=0LTIFZfVSy/HsNH3KObZHOq0ZyU515+2Giryrm+nhHg=;
- b=rTDMwVMuG3ZQU4zuKmwOe60YMXzBFthJ4H7weyEfKKDQ9cfHfjSKJTokHpeuoErg5S
- MEdKOrv07BQd1dFi0U/zuhfrd7/gaZL8bJATcuQbpEB7wHc748PMVjoMw4vFY12m9Lin
- 7Nnb7H5B3cPWub+SECg8K7y3Om3rO+qCIrtQQRa6aWfoMfYeqPIH3Sx3T2ncbkuhEo6i
- 9M4af977GeVThV/hNRouI3dVijWLVw3q0xnLOvlNBzfmR6QKYlFgL3lh7keFUaW6hpUq
- nEizPt68u2CL6lOsLbL0hGcRNPV7MYT9X0VGry9mqRgVjgQuWJIXe4JjMHe3BW+dVNiQ
- VUvg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1773403227; x=1774008027;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=0LTIFZfVSy/HsNH3KObZHOq0ZyU515+2Giryrm+nhHg=;
- b=mxZF5nYuRlpGiB4zTLOxJNLaUxDlGe+WrHpUL4WdQZyxfjhnBZw9q6CV6UE5uab3JL
- qcVQ6KbnKpNGvOas1xqqAqlVJAGVMLt2O4gAjCDRRdClQji83GJctUNi/vEiKJs3x9w+
- E412+qrVu7R59jBWwTtAHzbSMEQbcW5CYp7SKf8ye6rWerq+SpLSX4/lPaUaWX2ZoG+R
- PA7j91QOmZS23B4dh6Ph9Hl7HUrISBLPfnwb9Mk00dDo1I8zfGbBpgAjkDxK2PbuLDZ2
- 2SS8u2UvjxKen4Wg6Fb2Im2P8WqpiHPRTgqFPCT1+Mju7J4nohKPJmBEv+3AWQ9ZyLNg
- OTcw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWrX8K6tLLcq5V/QcbSY3qU6sl79RpwovCzSzRqbEaECBR4WArK1JZcte4gqy5AIEwoM2n31EUaHNw=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwilQ1MEZL//4uon9kMy4obTRd3tKEpjhZEjORVWfsBj33Q0SPY
- VfrCz7oHmsxD62TzoTSmvO9FXi8W92i+BzYcizmm+UfoRsQyvC42E4ePLdgalTQQdH69Ptg/tXg
- qfe63I0w9kTBa0n+BEH+xfxcgkcheS9jwRVv+i+/m
-X-Gm-Gg: ATEYQzy0YNYivBBPrSFBtylvhpipCIGHRsPAtkmyg6CvJMZCz5Yanvbyl4FDoRdSqnK
- EkzHiQdgvsatYyzoTXt/I/QPzcHUcTJfNQnLucb8/e6rZEXL4kiqRFT1orSQqQGIndlaLkBKrU6
- EZt/bZg7WCLd3lGYoz70YZQQTHqM+3rAv+PL2srCPTC3KLOZSts4zJ/Fw+a50Iq9DK2IVcvjpmW
- A3lSHclg6+qzaTFUIr/RtWvna+LyKVePUbC0ZdewFYHV4EcSUgog09BnfiG9hFep01H42IPW3UP
- lainHNE0VALRUPzFLPlxRNLwJW+VYlXi9ttAjXC0tpr6nvmE9Ws5gNTOI/ybT+y8r7Z+KA==
-X-Received: by 2002:a05:600c:a08c:b0:485:42ba:fc8 with SMTP id
- 5b1f17b1804b1-485566cdb46mr43616275e9.4.1773403226928; Fri, 13 Mar 2026
- 05:00:26 -0700 (PDT)
-MIME-Version: 1.0
-References: <20260313091646.16938-1-work@onurozkan.dev>
- <20260313091646.16938-3-work@onurozkan.dev>
-In-Reply-To: <20260313091646.16938-3-work@onurozkan.dev>
-From: Alice Ryhl <aliceryhl@google.com>
-Date: Fri, 13 Mar 2026 13:00:13 +0100
-X-Gm-Features: AaiRm52mH5ClK1vq2lDPbEjgPagq8eHcfKd6sbRZuNsCe1ubX7r91PcCPwWlYx4
-Message-ID: <CAH5fLghXAYsa6NJY0pt6cq4qYiB1ZDAatyGM1GCj+xcpYy9-cw@mail.gmail.com>
-Subject: Re: [PATCH v1 RESEND 2/4] rust: add Work::disable_sync
-To: =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>
-Cc: linux-kernel@vger.kernel.org, dakr@kernel.org, 
- daniel.almeida@collabora.com, airlied@gmail.com, simona@ffwll.ch, 
- dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org, 
- Deborah Brouwer <deborah.brouwer@collabora.com>
-Content-Type: text/plain; charset="UTF-8"
+Received: from OS0P286CU010.outbound.protection.outlook.com
+ (mail-japanwestazon11011017.outbound.protection.outlook.com [40.107.74.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AB4B310EBC2
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Mar 2026 12:04:34 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=DCB6aPBE+YcGkEvtEG6MuUbGbVnNxVDDv8jT/RT84xx8iubLdqMLMtN6qOhw6nt8dTObVr5wlsuImTrtAHA0RCfGgGJaXVPeji/AJw+1/RG7HuouDzQ61xSD163UbWnpJ73geEv2I7NFbbf5N80hBXVzMiRULevQNKunOGemBiqWS2d1Ad1/YyTv6zIGfiShir05pf2CxbS8tICdd0dx/ZkphdQnZRO6tEaD7qoAUfWYEfKSKsEKm9qu3utcAwtUMePmMqsRETi+wKv4Iyfr06p4KCj+DPHWrA3CXEWZmBVO8u9BEF2alnQ/3P9r1MWS1+TaCHOjGFnFtjG/+BVoPA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=gfOC/VHGg+VHEDY6OwhbzpgpXKsOaz0IWHk+ZqoM8MM=;
+ b=IynnczFB693sF8f8frcNFPnBdgEBy+kcWy+6GpTqElw77AYCx1o7VZjix2avkP4MvarTrsfc8vUO8x8d7dySr2aCUNt33UNEWobzwuvwmwnzWSfsWS6yJ6R9B4im1nYMFONOPW97Ub2A42nMVTK4HjKXSEFyhA+0G1cm4h+pxZFSSBgVPlxyFOWlrcCg1XRfdQajNqlLBx0xAqkF8FbmGU2ODchZHFTRels5YwZTfi5xIxH2Mxam7U8leAl6ZgEYC8wpFwOx2Nvf6Hp5wlE1kQ/NY7mGwPDwlLxFRg1EGmSVpHTLQJXqRsPRBX7chxe4YOOxsTspvJ9OwqmjSLO9ig==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
+ header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=gfOC/VHGg+VHEDY6OwhbzpgpXKsOaz0IWHk+ZqoM8MM=;
+ b=eJ/tQg9zeh88N4Uz2Vn8yLj1T9ATy5LLcNgD+r5dJZZsfAoHgBPxFV90R/SdZo+/SZyk26bZrlOfj11pyRbnfm8wt+IEpOAzqP2Qh6BULAgzmqKup4F4uC4Gp0yJGKOLj7NtxAGk+CDkOzrgD3SdxInwDx/1S0hOpIWFlVe6auU=
+Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com (2603:1096:400:3d0::7)
+ by TY1PR01MB10738.jpnprd01.prod.outlook.com (2603:1096:400:31c::9)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9700.16; Fri, 13 Mar
+ 2026 12:04:26 +0000
+Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com
+ ([fe80::87d1:4928:d55:97de]) by TY3PR01MB11346.jpnprd01.prod.outlook.com
+ ([fe80::87d1:4928:d55:97de%4]) with mapi id 15.20.9700.015; Fri, 13 Mar 2026
+ 12:04:25 +0000
+From: Biju Das <biju.das.jz@bp.renesas.com>
+To: Boris Brezillon <boris.brezillon@collabora.com>, Thomas Zimmermann
+ <tzimmermann@suse.de>
+CC: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>,
+ "loic.molinari@collabora.com" <loic.molinari@collabora.com>,
+ "willy@infradead.org" <willy@infradead.org>, "frank.binns@imgtec.com"
+ <frank.binns@imgtec.com>, "matt.coster@imgtec.com" <matt.coster@imgtec.com>,
+ "maarten.lankhorst@linux.intel.com" <maarten.lankhorst@linux.intel.com>,
+ "mripard@kernel.org" <mripard@kernel.org>, "airlied@gmail.com"
+ <airlied@gmail.com>, "simona@ffwll.ch" <simona@ffwll.ch>,
+ "linux-mm@kvack.org" <linux-mm@kvack.org>, "dri-devel@lists.freedesktop.org"
+ <dri-devel@lists.freedesktop.org>
+Subject: RE: [PATCH v4 5/6] drm/gem-shmem: Track folio accessed/dirty status
+ in mmap
+Thread-Topic: [PATCH v4 5/6] drm/gem-shmem: Track folio accessed/dirty status
+ in mmap
+Thread-Index: AQHcp96eSUoAacjqcU2c+U96UWFVr7WrPdqAgAAB0YCAANfgAIAAPkuAgAADDoCAABhLAIAAAcHA
+Date: Fri, 13 Mar 2026 12:04:25 +0000
+Message-ID: <TY3PR01MB1134662A395AA0A048CEE152E8645A@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+References: <20260227114509.165572-1-tzimmermann@suse.de>
+ <20260227114509.165572-6-tzimmermann@suse.de> <abL5rcYIaFFO3GW2@tom-desktop>
+ <TY3PR01MB113460CA616D3576DA0C3FC698644A@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+ <TY3PR01MB113461ACB668738E1952EC8898645A@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+ <20260313111851.4c1f89f3@fedora>
+ <f3384342-cdc5-4260-b670-4ffde76a2802@suse.de>
+ <20260313125644.65131b27@fedora>
+In-Reply-To: <20260313125644.65131b27@fedora>
+Accept-Language: en-GB, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=bp.renesas.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: TY3PR01MB11346:EE_|TY1PR01MB10738:EE_
+x-ms-office365-filtering-correlation-id: 3b8b3ae6-341c-4474-5bba-08de80f8abd9
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|366016|376014|1800799024|7416014|18002099003|22082099003|56012099003|38070700021;
+x-microsoft-antispam-message-info: iI1Nocz0PbqK6NgV8N3EojkSWN8D/K2E6qw1AIZhK5MOlYOhkPrkS+dGR/9Nd01lEqnBTRrqHq8nuWea3+5aICZNXgmdipXTiV9WCE6zTEq1A9Ffa8TW8rgtOlY0osR46KUD/82/2R/VIiISc0EO7HB1aabD0JHPHJgqSFxAf2SaIpj1orVWJ6Ag21ZDaBcb8b9sD2I3ynrUEQkONUV1JscHYoXH4zyGHHreJNXuTnCivCl35prtVH7bxPZb/MO2YJt5PQEtQVlQUjeau7RSNkMLkAuBslbZUc38luQh3nub9oFYGogHg21zb+sD4Busxp++vZciSXMjpcbAH8hx9jNdAOblf9JOS4bVtayEQG9Bwv1PHZyZ5mjtxUgMWi4Rs8Vs1IvZse4P2QQWVGVvQxUaKOLW5TbFEqlhFHfqLTipPT0Yn9XpnSO9Ipc8xzs2cJgXhq7cnDnZ+ehZ0Jhm3ezXzn4U/eQQmd5xlAbFKCM9y4Khq03V8JWd5Zf0EcwT9F9GYTFgbu3mDVoazdUwYJIoGeNjkhrWvL7epGgG4poGM6qHyVGm/ZFcjXwtB6t0pLYU1Kw8h/WkghE7OD7tPCkvghW1nYowlaRVLAJ0gaYl1dlRqB41KGfxafUZ9AjqzQiXx8HY44A8gMNEc+/58oPndjaYpsdSgjl3BtwYkh2a4sZqXnkOFieyOkbfAausmog2fpsg3Yg8I7AN//2odnMQ7p5E0lOJ6YoqfXvlr+R9/ZwLkQ+7ktFf8zWXZ4+R
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:TY3PR01MB11346.jpnprd01.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(376014)(1800799024)(7416014)(18002099003)(22082099003)(56012099003)(38070700021);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?tuRxvjUmRc+6121Aak+uk7mFfzI4whRa5ei+Z57MjF5wmDckZrrvffX1TOu2?=
+ =?us-ascii?Q?Dqn5fY6W2B9HymdUzTnXYOY6J9qB+p+HmVux0iB05xqL2O75JQKBmW2HJoTr?=
+ =?us-ascii?Q?b0vwPDRKVwemlEqiTEi+oa5/g8NpM9FsHehenQJSbOCevvkLJnBGtxWGAKY4?=
+ =?us-ascii?Q?tf2wefHKmM15QdiyaImCIUQCZt33E7kzJXvALAi0fb+S17K3/OnU9T8QH5u0?=
+ =?us-ascii?Q?W/aFZmCOtCHPK8QnHfp7m8mfS4TOxRowDEhFxmV+I2yTWRz1CGtOyCr6b1Be?=
+ =?us-ascii?Q?wmo6kYVxezO5Lp3HT3DnAv9UEgYk0LAcYMCvBnip4bjiNaNRnu0eqv024nl9?=
+ =?us-ascii?Q?NppPZloNwHAyqLq8NKI/5qTV82aHHPPkZ+hqLSnHBwiESFbB+tItoTWEfLlz?=
+ =?us-ascii?Q?QMJMwH6uCVMfFZ2khE32jR6BQaaITKNIPQN4SZyKZy9LHJwX0zmioUtve2HM?=
+ =?us-ascii?Q?pEf5fixgQHrH8p6SLeZLpIwl1fG3la692dZr/xXLcEqrNxmZ+f0Etqj3kxt4?=
+ =?us-ascii?Q?wSeWx+fmEpUVOVucHhFgMkagKlMK8R6fZMTf47Jyl6hw480/v9X3+X6qVT6B?=
+ =?us-ascii?Q?gAfzu0JHN3PqM4qO3NOZRIL8deCQOuf9Xg5Kfl3rVq67oh59NNsXzasI6K9F?=
+ =?us-ascii?Q?1/tE1KCjfNHdIR1hGP+U31pDKXPYa+uxP/nDTJY69hRobM6vtTBQxtackTIg?=
+ =?us-ascii?Q?ERtkX87C2NcP6jDkqSMmrDsfPVYEKUEVbWzKg1/BqTt65tyaIxLt1kdN6slq?=
+ =?us-ascii?Q?+brVywS3wmi8PKHl64C3cWHSCxxico0KGKlED7aIWKbnjuN6lNsmYAntcHNY?=
+ =?us-ascii?Q?U7bv1Z6zgke7sge3nhXfQoWDCru+Ym37wnb/4y5TFFPdi3JcbUBes0OrGlTZ?=
+ =?us-ascii?Q?i7vAgrimadLhJM0Z41AKbDGzMGNTxIJNYAfq9F28K9mdEIqKy/zcsHjd43eI?=
+ =?us-ascii?Q?EsJSSRtr+X/RBrqJD+ri/W9z89NaoAiCVQHJvAgAJtrPX4eIwjTROScQpbEV?=
+ =?us-ascii?Q?Jk8BQ8ykM16cJcTW7WFWT7S+609shsAGDBYlkBcy8VEeAhb3cFKrPqOuEb8+?=
+ =?us-ascii?Q?tmuPJzaW4kv7v+cungGZnx033Gcxa15IViKA6GVUstGfav6Ztl+wzdZSBeSg?=
+ =?us-ascii?Q?T3uhEROu1qNPE+KSQgn1W4xl4GOCnP/Gaip+Y/EaRHFNuUKQM5gYKH+m2jv9?=
+ =?us-ascii?Q?gzk6NSHo2t5srYWPG0jjP17FJvjMhn9Pa46GZA1IqRP43FmkIaPPiLb7BfA0?=
+ =?us-ascii?Q?vQu31AUQGffDmsZS1fKzK5J1Qr6uTuxmfSUSkxjWHyYkaq6DHq4XM8qmSGa/?=
+ =?us-ascii?Q?RSzNU5+UYk0n6F9VbUosY770XiDeJCjbiJxxK70ZkNcJqcuLPFCM6efTdFut?=
+ =?us-ascii?Q?I2fc8QSceDLcCCSXaulJr99JDNzw4potvglWiq1ED8tD91GD5SiIf+NyYDzE?=
+ =?us-ascii?Q?ZBWNL57Xpg4nl08ztfN/RfWEQ46Y/ODxgGFuCXHKNQZT2VB7hxKLrhilef+4?=
+ =?us-ascii?Q?+JWa6FP/kzw6Wh0uvYrLc/sV5HxW9i5LSzfiKELrA2nms0GwQcMPkSMriO/S?=
+ =?us-ascii?Q?mSkhwbLc/43r6mWMaDqkZumYfcCF2weGr7I/9N6Ax7wqaaL8FO/2EfES2yHP?=
+ =?us-ascii?Q?rH7WiZiA3uwgK/0m18ZlKPRuDKRxPLDBzjHEIWO9zCkfq3Z+AQ9KMpeSNtwc?=
+ =?us-ascii?Q?TVztNBzQ15INnma1O8UoC+fdYi4cUnsokN8evyw0D0N29a8uCHc5jI/wQrUe?=
+ =?us-ascii?Q?+6K5kGg+Nw=3D=3D?=
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-OriginatorOrg: bp.renesas.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TY3PR01MB11346.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3b8b3ae6-341c-4474-5bba-08de80f8abd9
+X-MS-Exchange-CrossTenant-originalarrivaltime: 13 Mar 2026 12:04:25.6412 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: MRS82Eq9WEVT7zrNkN7Poa+ZRXlD+nVfv/d2TKupliBM/Ul0usbcjpR8LSQu0ALSlfmejGs4kzDQC4WHYnJRpwVDeQFKBDInCU3Pd4uM1jM=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY1PR01MB10738
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,40 +144,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, Mar 13, 2026 at 10:17=E2=80=AFAM Onur =C3=96zkan <work@onurozkan.de=
-v> wrote:
->
-> Add Work::disable_sync() as a safe wrapper for disable_work_sync().
->
-> Drivers can use this during teardown to stop new queueing and wait for
-> queued or running work to finish before dropping related resources.
->
-> Tested-by: Deborah Brouwer <deborah.brouwer@collabora.com>
-> Signed-off-by: Onur =C3=96zkan <work@onurozkan.dev>
-> ---
->  rust/kernel/workqueue.rs | 15 +++++++++++++++
->  1 file changed, 15 insertions(+)
->
-> diff --git a/rust/kernel/workqueue.rs b/rust/kernel/workqueue.rs
-> index 706e833e9702..6acc7b5ba31c 100644
-> --- a/rust/kernel/workqueue.rs
-> +++ b/rust/kernel/workqueue.rs
-> @@ -530,6 +530,21 @@ pub unsafe fn raw_get(ptr: *const Self) -> *mut bind=
-ings::work_struct {
->          // the compiler does not complain that the `work` field is unuse=
-d.
->          unsafe { Opaque::cast_into(core::ptr::addr_of!((*ptr).work)) }
->      }
-> +
-> +    /// Disables this work item and waits for queued/running executions =
-to finish.
-> +    ///
-> +    /// # Safety
-> +    ///
-> +    /// Must be called from a sleepable context if the work was last que=
-ued on a non-BH
-> +    /// workqueue.
 
-We generally do not make functions unsafe just because they might sleep.
 
-Alice
+> -----Original Message-----
+> From: dri-devel <dri-devel-bounces@lists.freedesktop.org> On Behalf Of Bo=
+ris Brezillon
+> Sent: 13 March 2026 11:57
+> Subject: Re: [PATCH v4 5/6] drm/gem-shmem: Track folio accessed/dirty sta=
+tus in mmap
+>=20
+> On Fri, 13 Mar 2026 11:29:47 +0100
+> Thomas Zimmermann <tzimmermann@suse.de> wrote:
+>=20
+> > Hi
+> >
+> > Am 13.03.26 um 11:18 schrieb Boris Brezillon:
+> > [...]
+> > >>>>> +	if (drm_WARN_ON(obj->dev, !shmem->pages || page_offset >=3D num=
+_pages))
+> > >>>>> +		return VM_FAULT_SIGBUS;
+> > >>>>> +
+> > >>>>> +	file_update_time(vma->vm_file);
+> > >>>>> +
+> > >>>>> +	folio_mark_dirty(page_folio(shmem->pages[page_offset]));
+> > > Do we need a folio_mark_dirty_lock() here?
+> >
+> > There is a helper for that with some documentation. [1]
+>=20
+> This [1] seems to solve the problem for me. Still unsure about the folio_=
+mark_dirty_lock vs
+> folio_mark_dirty though.
+>=20
+> [1]https://yhbt.net/lore/dri-devel/20260312155027.1682606-1-pedrodemargom=
+es@gmail.com/
+
+FYI, I used folio_mark_dirty_lock() still it does not solve the issue with =
+weston hang.
+
+Cheers,
+Biju
