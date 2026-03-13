@@ -4,62 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AB98C105F7A4
-	for <dri-devel@archiver.kernel.org>; Fri, 13 Mar 2026 12:43:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 13E1E105F7A2
+	for <dri-devel@archiver.kernel.org>; Fri, 13 Mar 2026 12:43:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 13A5A10EBDD;
-	Fri, 13 Mar 2026 12:43:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6E00D10EBD9;
+	Fri, 13 Mar 2026 12:43:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="G6cmPtgE";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="VFDaKRdD";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 86C3310EBD9;
- Fri, 13 Mar 2026 12:43:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1773405780; x=1804941780;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=T/oAZlQntOauE8Rca7++5NByj8AgYQDNRpE72LJMUt4=;
- b=G6cmPtgE0I3MWzEKfM42y5cTDkluCRqqWte52Uipm45EHoTST3cvaexh
- VNs73ZjqlxTPzalwAFIo5u/ichfs53hqi8y8oM38zcODF5rvXw1QCeGpS
- RnjhQuBzAgZSB9jP63mM5XrTU4QJ2FS+5q8HmesC3TZehX0i5yhEFz72I
- vT4seqgyvVOvl4cGsu+PH8BswFr0gMHFVJ2lgRZHirxq67Fxvq7GiM69h
- v1YtInywEUpy3xIzFkyMWRtzWtw0fdbmVVCpoBjzjuNy0nEAVgGpbP+TP
- YFnppEI4i4rbCgdcL8Dudbp+93tocpu+dM0ucK4Wtybjq4q4Krh2EaaOw g==;
-X-CSE-ConnectionGUID: cp1DEFCtTn2c0HIrNmLHWg==
-X-CSE-MsgGUID: pAUsKrl6R+Sx1rFyckbT/Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11727"; a="74479034"
-X-IronPort-AV: E=Sophos;i="6.23,118,1770624000"; d="scan'208";a="74479034"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
- by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Mar 2026 05:43:00 -0700
-X-CSE-ConnectionGUID: CxYTJHTHSI6KUe/0TAKrDg==
-X-CSE-MsgGUID: Lw7L+tRNQXKppgebK+Tqhw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,118,1770624000"; d="scan'208";a="221215692"
-Received: from smoticic-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.245.244.21])
- by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Mar 2026 05:42:58 -0700
-Date: Fri, 13 Mar 2026 14:42:55 +0200
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, jouni.hogander@intel.com,
- animesh.manna@intel.com
-Subject: Re: [PATCH 18/19] drm/i915/dp: Make provision for AS SDP version 1
-Message-ID: <abQGT0gcL7SsDCh9@intel.com>
-References: <20260311113611.3393194-1-ankit.k.nautiyal@intel.com>
- <20260311113611.3393194-19-ankit.k.nautiyal@intel.com>
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F160D10EBD9
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Mar 2026 12:43:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1773405812;
+ bh=7Pm6mMExEx5lWIW38xNWnPfp0ZKZGLwsfIxn+Dyg4g8=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=VFDaKRdDnGGghZnpZSW5mYj6SElB0veOlaUHJBhuFwiI3B9kWjoza7aYGqqXgqzov
+ VW1C5bH1/NQuk5QKAvSQFMwNgHRxYhOFrYwdi8pGsEFaZvdUWDTNeDV13YBGfon++x
+ M9jTcWmLZs94YinJ977RvGdsMFkGLLthv7ULiu2nV0eSUQ5GOCo91T5sr5BgnbAh2G
+ 6aPoOKsoYa5GU71v8sxS5d1SC8KxdkibvS/QtxyKqQFobAAVyL8TBsHb18xtFip/26
+ Pj/x4fZ7LjZ44pQbTFE3me4vTBuzFtzE/ipkQporhzIvByi0mux4US8NEcuf8jOP8S
+ fR5XDqhUjKp0A==
+Received: from fedora (unknown [IPv6:2a01:e0a:2c:6930:d919:a6e:5ea1:8a9f])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256) (No client certificate requested)
+ (Authenticated sender: bbrezillon)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 1DBC717E0222;
+ Fri, 13 Mar 2026 13:43:32 +0100 (CET)
+Date: Fri, 13 Mar 2026 13:43:28 +0100
+From: Boris Brezillon <boris.brezillon@collabora.com>
+To: Biju Das <biju.das.jz@bp.renesas.com>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>, Tommaso Merciai
+ <tommaso.merciai.xr@bp.renesas.com>, "loic.molinari@collabora.com"
+ <loic.molinari@collabora.com>, "willy@infradead.org" <willy@infradead.org>,
+ "frank.binns@imgtec.com" <frank.binns@imgtec.com>, "matt.coster@imgtec.com"
+ <matt.coster@imgtec.com>, "maarten.lankhorst@linux.intel.com"
+ <maarten.lankhorst@linux.intel.com>, "mripard@kernel.org"
+ <mripard@kernel.org>, "airlied@gmail.com" <airlied@gmail.com>,
+ "simona@ffwll.ch" <simona@ffwll.ch>, "linux-mm@kvack.org"
+ <linux-mm@kvack.org>, "dri-devel@lists.freedesktop.org"
+ <dri-devel@lists.freedesktop.org>
+Subject: Re: [PATCH v4 5/6] drm/gem-shmem: Track folio accessed/dirty status
+ in mmap
+Message-ID: <20260313134328.3166c4d0@fedora>
+In-Reply-To: <20260313131835.52c5c935@fedora>
+References: <20260227114509.165572-1-tzimmermann@suse.de>
+ <20260227114509.165572-6-tzimmermann@suse.de>
+ <abL5rcYIaFFO3GW2@tom-desktop>
+ <TY3PR01MB113460CA616D3576DA0C3FC698644A@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+ <TY3PR01MB113461ACB668738E1952EC8898645A@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+ <20260313111851.4c1f89f3@fedora>
+ <f3384342-cdc5-4260-b670-4ffde76a2802@suse.de>
+ <20260313125644.65131b27@fedora>
+ <TY3PR01MB1134662A395AA0A048CEE152E8645A@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+ <20260313131835.52c5c935@fedora>
+Organization: Collabora
+X-Mailer: Claws Mail 4.3.1 (GTK 3.24.51; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260311113611.3393194-19-ankit.k.nautiyal@intel.com>
-X-Patchwork-Hint: comment
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,82 +80,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Mar 11, 2026 at 05:06:10PM +0530, Ankit Nautiyal wrote:
-> Currently we are setting AS SDP version to 2 without checking if the sink
-> supports it or whether we need to send version 1.
-> 
-> For PR with Link ON, the AS SDP version V1 is used.
-> When using AS SDP Version 1, AS SDP payload and parity bytes
-> are all set to zeroes.
-> 
-> Add a helper to compute the AS SDP version based on sink support and
-> feature requirement.
-> 
-> If AS SDP V2 is supported we use V2, unless Panel Replay with Link On is
-> enabled, for which we use V1.
-> If AS SDP V1 is not supported, we always send V1, without the payload.
-> 
-> Bspec: 75639
-> Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-> ---
->  drivers/gpu/drm/i915/display/intel_dp.c | 24 +++++++++++++++++++++++-
->  1 file changed, 23 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-> index 4d0a7695be5a..6b45894e40e0 100644
-> --- a/drivers/gpu/drm/i915/display/intel_dp.c
-> +++ b/drivers/gpu/drm/i915/display/intel_dp.c
-> @@ -5109,6 +5109,10 @@ static ssize_t intel_dp_as_sdp_pack(const struct drm_dp_as_sdp *as_sdp,
->  	sdp->sdp_header.HB2 = as_sdp->revision;
->  	sdp->sdp_header.HB3 = as_sdp->length;
->  
-> +	/* No Payload Data bytes for Version 1 */
-> +	if (as_sdp->revision == 0x1)
-> +		return length;
-> +
->  	/* Fill AS (Adaptive Sync) SDP Payload */
->  	sdp->db[0] = as_sdp->mode;
->  	sdp->db[1] = as_sdp->vtotal & 0xFF;
-> @@ -7330,6 +7334,19 @@ void intel_dp_mst_resume(struct intel_display *display)
->  	}
->  }
->  
-> +static bool intel_dp_get_as_sdp_revision(struct intel_dp *intel_dp,
-> +					 struct intel_crtc_state *crtc_state)
-> +{
-> +	if (crtc_state->has_panel_replay &&
-> +	    !intel_alpm_is_alpm_aux_less(intel_dp, crtc_state))
-> +		return 1;
+On Fri, 13 Mar 2026 13:18:35 +0100
+Boris Brezillon <boris.brezillon@collabora.com> wrote:
 
-The bogus v1 in PR link ON requirement got nuked from bspec.
+> On Fri, 13 Mar 2026 12:04:25 +0000
+> Biju Das <biju.das.jz@bp.renesas.com> wrote:
+> 
+> > > -----Original Message-----
+> > > From: dri-devel <dri-devel-bounces@lists.freedesktop.org> On Behalf Of Boris Brezillon
+> > > Sent: 13 March 2026 11:57
+> > > Subject: Re: [PATCH v4 5/6] drm/gem-shmem: Track folio accessed/dirty status in mmap
+> > > 
+> > > On Fri, 13 Mar 2026 11:29:47 +0100
+> > > Thomas Zimmermann <tzimmermann@suse.de> wrote:
+> > >     
+> > > > Hi
+> > > >
+> > > > Am 13.03.26 um 11:18 schrieb Boris Brezillon:
+> > > > [...]    
+> > > > >>>>> +	if (drm_WARN_ON(obj->dev, !shmem->pages || page_offset >= num_pages))
+> > > > >>>>> +		return VM_FAULT_SIGBUS;
+> > > > >>>>> +
+> > > > >>>>> +	file_update_time(vma->vm_file);
+> > > > >>>>> +
+> > > > >>>>> +	folio_mark_dirty(page_folio(shmem->pages[page_offset]));    
+> > > > > Do we need a folio_mark_dirty_lock() here?    
+> > > >
+> > > > There is a helper for that with some documentation. [1]    
+> > > 
+> > > This [1] seems to solve the problem for me. Still unsure about the folio_mark_dirty_lock vs
+> > > folio_mark_dirty though.
+> > > 
+> > > [1]https://yhbt.net/lore/dri-devel/20260312155027.1682606-1-pedrodemargomes@gmail.com/    
+> > 
+> > FYI, I used folio_mark_dirty_lock() still it does not solve the issue with weston hang.  
+> 
+> The patch I pointed to has nothing to do with folio_mark_dirty_lock(),
+> It's a bug caused by huge page mapping changes.
 
-> +
-> +	if (intel_dp->as_sdp_v2_supported)
-> +		return 2;
-> +
-> +	return 1;
-> +}
-> +
->  static
->  void intel_dp_as_sdp_compute_config_late(struct intel_dp *intel_dp,
->  					 struct intel_crtc_state *crtc_state)
-> @@ -7345,7 +7362,12 @@ void intel_dp_as_sdp_compute_config_late(struct intel_dp *intel_dp,
->  	as_sdp->sdp_type = DP_SDP_ADAPTIVE_SYNC;
->  	as_sdp->length = 0x9;
->  	as_sdp->duration_incr_ms = 0;
-> -	as_sdp->revision = 0x2;
-> +	as_sdp->revision = intel_dp_get_as_sdp_revision(intel_dp, crtc_state);
-> +
-> +	/* No payload data bytes for Version 1 */
-> +	if (as_sdp->revision == 1)
-> +		return;
-> +
->  	as_sdp->vtotal = intel_vrr_vmin_vtotal(crtc_state);
->  
->  	if (crtc_state->cmrr.enable) {
-> -- 
-> 2.45.2
-
--- 
-Ville Syrjälä
-Intel
+Scratch that. I had a bunch of other changes on top, and it hangs again
+now that I dropped those.
