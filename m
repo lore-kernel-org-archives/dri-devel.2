@@ -4,122 +4,145 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1DCAFD58B17
-	for <dri-devel@archiver.kernel.org>; Sun, 15 Mar 2026 11:21:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A2780D58B1C
+	for <dri-devel@archiver.kernel.org>; Sun, 15 Mar 2026 11:21:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D99FC10E54A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id DD57310E551;
 	Sun, 15 Mar 2026 11:21:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=posteo.de header.i=@posteo.de header.b="oPres7mu";
+	dkim=pass (2048-bit key; secure) header.d=bitbyteword.org header.i=@bitbyteword.org header.b="OUXLcKf+";
 	dkim-atps=neutral
-Received: from mout02.posteo.de (mout02.posteo.de [185.67.36.66])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D0AD810E373
- for <dri-devel@lists.freedesktop.org>; Fri, 13 Mar 2026 18:12:30 +0000 (UTC)
-Received: from submission (posteo.de [185.67.36.169]) 
- by mout02.posteo.de (Postfix) with ESMTPS id A6C57240101
- for <dri-devel@lists.freedesktop.org>; Fri, 13 Mar 2026 19:12:28 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=posteo.de; s=2017;
- t=1773425548; bh=oP1CwqkAzPip8KPnsHIuwNOs+ExBzvZniOq/Ft8GfNI=;
- h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:
- Content-Transfer-Encoding:To:Cc:Autocrypt:OpenPGP:From;
- b=oPres7muxfKgHkLoJKVK63A39hZGGygi5uuWSFBvf5SxSn3MPn8DLzcF0hfwxZvoZ
- oq0WlI2jpTJ8N9qFvNzM+7Tgx6QVlFcEURamIkGIhCcwiaO+6nPuPN2f85b2YeNgnO
- 2KZ+m7muoxLXK6Fb3jpxIK4iQjV8bLuzXwUnOwFGt07Erdtpc8FLiYXq8aj3EyzgG9
- ZPqOz4XIUeW2T9EqZl9ls23g3Zz+IjpUQT7b7X4CSZnmNW3Wawe+WqfVphkHrslEhq
- 0ClK0OyrCswmxYDtxVK8TcJZzCTczV8aBB0ygEXi2pncrcslxTyzmbdqKKiZiTpTqX
- c88F5T0crqg4g==
-Received: from customer (localhost [127.0.0.1])
- by submission (posteo.de) with ESMTPSA id 4fXXdN4yr5z6txb;
- Fri, 13 Mar 2026 19:12:24 +0100 (CET)
-From: Markus Probst <markus.probst@posteo.de>
-Subject: [PATCH v3 0/4] rust: add basic serial device bus abstractions
-Date: Fri, 13 Mar 2026 18:12:27 +0000
-Message-Id: <20260313-rust_serdev-v3-0-c9a3af214f7f@posteo.de>
+Received: from mail-yx1-f46.google.com (mail-yx1-f46.google.com
+ [74.125.224.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 67E8B10E153
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Mar 2026 14:02:46 +0000 (UTC)
+Received: by mail-yx1-f46.google.com with SMTP id
+ 956f58d0204a3-64c9ebd1369so2225771d50.1
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Mar 2026 07:02:46 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1773410565; cv=none;
+ d=google.com; s=arc-20240605;
+ b=RCUaGS7sVcmj8Gv0zkE+cDyMmC0S8mzs37hptOg5u78kNh66FwKQXMykPUyKefUc9B
+ +gz8rX/OAXJIfXoD0evgREJhKFHg0oB1oA46oqSAiaW3b+CVtYu+WWjMJYwPENMZxan/
+ rN0nuFjNHURnvgCYYtb1HtyFmNzivNdV1XDSwNKQW2ydkRbU2NNTXASE8jNjNOiKP6Iu
+ 5rsyvehTNwTo63dbzmFFxLdty/1H7g+YDZpPKfeZmAnWW8zuKyXJB2479iCpivttWWyE
+ wV+gmK4UWerUwom2i8ucmwQW+83Ngryj6l1FQ0i3wv6taX0EitaEr9qj1lnoyXkM3/UE
+ vYZA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=a7/dI9iHAkAoxpT/Y/jlrZ1Uk/u+tnKK+1+hPiLUJTk=;
+ fh=mcuvUrVN6QdI1/1lXJRIor9RUov6r2x4z0bcwezhcTM=;
+ b=JL5i3QEFpBpUDOO/eMFy6UBEcec82i8Pgo4cOlNHOMQiRuvkivLmZ9uivP6OPzCkO6
+ c0h9qpjlLzYqsEYcMPPz7v9zkK+DRbMU1J6GYBd7rT4A2I4vQpiLj/BGOKhrLpvioGDQ
+ sfkh/6zjeluZ84gI+wqvA26ctA01NQQkUjNSx0mf9gtv2MiBRD6Z2sWoO4e+DsELzHw0
+ CiXNTKF5KmU+B4U4EwTjmwCCvIo1K0HK2jhAAqbDlWRpslHldkW6+2mxLDWPim55eVjA
+ zY2+t23pXfH125bmdUoQaY/HPbseahB3xSVtTdWk+ROh+lemCIBG888Js1VxFQnto6I5
+ omzw==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=bitbyteword.org; s=google; t=1773410565; x=1774015365;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=a7/dI9iHAkAoxpT/Y/jlrZ1Uk/u+tnKK+1+hPiLUJTk=;
+ b=OUXLcKf+YxtlG+gu5P6spfXm+Rd+FyDQSobBvy5ObOZv+K9msK0AizkIFBfwpuwV2j
+ 8goaxk6Mw3Oiel/n5AP3Wir5nu9vY/VtM490IwubJOw8z3sgBkJIJsWCBQ7tGPgVH4bD
+ 1KOT35FXflCnoNJF8Hf9EXNbZY7+8guN6yziCmIWgaZqYQZ2OJ5VlxBCh263gWfCo6Uf
+ e6Yqwmy0LKc8sgcNl+UJzhCKgZooSyyrdUPZgs2CBZ7btBZWXflBmGCLLDQ+Nzjctmux
+ Rpfb6Ms30RtQjdcIbR8ZZmOuxYtdVTHLm8a0QcLvJwWwNBL8GqQaUEbTH2a+j23vq5BU
+ D2SA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1773410565; x=1774015365;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=a7/dI9iHAkAoxpT/Y/jlrZ1Uk/u+tnKK+1+hPiLUJTk=;
+ b=AARR0nMT15iX+2kpqBNBg6tfdBb6NPLtAoSu67j4FQBOV+l14e/Sm9KzcQaBHriMOe
+ OCR9yfwbpNDzDev0Gi6MVpooBLS0FiIta+LLrFFK/brMNYfMNxCwRot8mmqtwa4Hjt8H
+ 41w4lBzFFt3BvZvQAFWmfESojrUBkHiipR7vVF2V5+oaaxWRb583+yfRWXyIMcx8U08d
+ 4s2JzR3t5z8NyrDrNdJLFqF+zrKdJGSJ61wM2hg0FlzpQebKgb87oiipj6UKJeoTl/lq
+ YjpGAhpl75yLVouzic2xeu4wgNR6IPlovlL6vQkcKQKGqba7dRNtlX44YRMulljE72jm
+ O+Yg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWJaOhiDZ8/CXNpTOMfLN69nQ2GXEsCD1sxEhBdjtN2RrI90FMCHkV8gfU40vwq4UuqvySZ+d149+8=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxW8Lwk2k4tCl/CDCteBAhK0liQpryg7r+DQ2zEpEL8GNZFU+sz
+ SYmuYOpOdclxUU3yct/Ec1nEYM2wWxkuWt6fwG0vnSQsfV0j6v2Y921kHIrJ33s5UcZl1tkDi2v
+ 7D5WCoT8h7K/ltsJqUj82rsdoHugPAtQa3zdGS5evRg==
+X-Gm-Gg: ATEYQzxxipeU8BZZSkYXEkWZnYmLi2GDdVw8J7VdWVAU7SZDKqtrW/ku38AOC1o3+G5
+ YvK06w9H2/VSv+NV5ghH76wwGx8Owym8bNwDgzp+XpW+ISzK4glY9D3ILMjAKavWJZVvvfLWq1X
+ Ibf+ikKxx1xdJQp/XMFcndFneFFqN6/NT+0ebFJ044zSfspofcsZwvNZFaTLJ0b/n43D0Xqi89T
+ fgK1hUACmSVnRnoAuTILkhN8K+RbunxLbjo+7VwZ9W2HwJPcwwm9WP056OB+eueV0voWN+85G1q
+ 5OGhomg=
+X-Received: by 2002:a53:eccf:0:b0:64d:568b:bcb3 with SMTP id
+ 956f58d0204a3-64e62eeb40fmr2691449d50.9.1773410564388; Fri, 13 Mar 2026
+ 07:02:44 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAG9TtGkC/1XMSw6CMBSF4a2QO7amvX0BI/dhjBG4SieUtNhoC
- Hu3EE1keE7y/TNECo4i1MUMgZKLzg95yEMBbX8bHsRclzcgRy1QWBaecbpm1FFiRFqVgipe6ha
- yGAPd3WurnS959y5OPry3eBLr++0g33WSYJyRUkZpa6xBcRp9nMgfO4K1k/BnDZfc7C2utmpQN
- gob1PrfLsvyAVQlkmfiAAAA
-X-Change-ID: 20251217-rust_serdev-ee5481e9085c
-To: Rob Herring <robh@kernel.org>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Jiri Slaby <jirislaby@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, 
- Gary Guo <gary@garyguo.net>, 
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
- Danilo Krummrich <dakr@kernel.org>, 
- Kari Argillander <kari.argillander@gmail.com>, 
- "Rafael J. Wysocki" <rafael@kernel.org>, 
- Viresh Kumar <viresh.kumar@linaro.org>, Boqun Feng <boqun@kernel.org>, 
+References: <20260312150523.2054552-1-vineeth@bitbyteword.org>
+ <1e3c2830-765e-4271-89f7-0b6784b37597@efficios.com>
+ <20260312112354.3dd99e36@gandalf.local.home>
+ <219d015d-076b-4c80-8f63-88569115fdad@efficios.com>
+ <20260312114041.5193c729@gandalf.local.home>
+ <1becdbce-2c01-468a-bbab-42b5dea9fdf8@efficios.com>
+ <CAO7JXPjnnruhM5oC6xMgnYaQ9efzYFqMCFiJLNM3HCQ+ZeCiJw@mail.gmail.com>
+ <CAEf4BzbnfyhCqp0ne=2gRnVxp-mdGmuZwDeFRyhRYH+eDcz2-w@mail.gmail.com>
+ <20260312130255.6476e560@gandalf.local.home>
+In-Reply-To: <20260312130255.6476e560@gandalf.local.home>
+From: Vineeth Remanan Pillai <vineeth@bitbyteword.org>
+Date: Fri, 13 Mar 2026 10:02:32 -0400
+X-Gm-Features: AaiRm51K5Hc3O7_rOVK2jMiMzft9bvuP5pyZ-VF_j7db91GKvyylhuGDp34sRoA
+Message-ID: <CAO7JXPgHYZ9zF1HFahb2447X85YRZCQQBHB6ihOwKSDtiZi8kQ@mail.gmail.com>
+Subject: Re: [PATCH 00/15] tracepoint: Avoid double static_branch evaluation
+ at guarded call sites
+To: Steven Rostedt <rostedt@goodmis.org>
+Cc: Andrii Nakryiko <andrii.nakryiko@gmail.com>, 
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ Peter Zijlstra <peterz@infradead.org>, 
+ Dmitry Ilvokhin <d@ilvokhin.com>, Masami Hiramatsu <mhiramat@kernel.org>,
+ Ingo Molnar <mingo@redhat.com>, 
+ Jens Axboe <axboe@kernel.dk>, io-uring@vger.kernel.org, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Alexei Starovoitov <ast@kernel.org>, 
+ Daniel Borkmann <daniel@iogearbox.net>,
+ Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>, 
+ Xin Long <lucien.xin@gmail.com>, Jon Maloy <jmaloy@redhat.com>, 
+ Aaron Conole <aconole@redhat.com>, Eelco Chaudron <echaudro@redhat.com>, 
+ Ilya Maximets <i.maximets@ovn.org>, netdev@vger.kernel.org, bpf@vger.kernel.org,
+ linux-sctp@vger.kernel.org, tipc-discussion@lists.sourceforge.net, 
+ dev@openvswitch.org, Oded Gabbay <ogabbay@kernel.org>,
+ Koby Elbaz <koby.elbaz@intel.com>, 
+ dri-devel@lists.freedesktop.org, "Rafael J. Wysocki" <rafael@kernel.org>, 
+ Viresh Kumar <viresh.kumar@linaro.org>,
+ "Gautham R. Shenoy" <gautham.shenoy@amd.com>, 
+ Huang Rui <ray.huang@amd.com>, Mario Limonciello <mario.limonciello@amd.com>, 
+ Len Brown <lenb@kernel.org>,
+ Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>, 
+ linux-pm@vger.kernel.org, MyungJoo Ham <myungjoo.ham@samsung.com>, 
+ Kyungmin Park <kyungmin.park@samsung.com>, Chanwoo Choi <cw00.choi@samsung.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Sumit Semwal <sumit.semwal@linaro.org>, linaro-mm-sig@lists.linaro.org, 
+ Eddie James <eajames@linux.ibm.com>,
+ Andrew Jeffery <andrew@codeconstruct.com.au>, 
+ Joel Stanley <joel@jms.id.au>, linux-fsi@lists.ozlabs.org, 
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Boqun Feng <boqun@kernel.org>
-Cc: linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org, 
- rust-for-linux@vger.kernel.org, linux-pm@vger.kernel.org, 
- driver-core@lists.linux.dev, dri-devel@lists.freedesktop.org, 
- Markus Probst <markus.probst@posteo.de>
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2932;
- i=markus.probst@posteo.de; h=from:subject:message-id;
- bh=nhzCKHcpSQOEzqoUhprA9k7Hu+jE/8eApFY1eIPTW04=;
- b=owEBiQJ2/ZANAwAIATR2H/jnrUPSAcsmYgBptFN6g+aGMPfixr0XlcGVBcwNy4Px4KRsaJTEd
- y5+CVZ53IeJAk8EAAEIADkWIQSCdBjE9KxY53IwxHM0dh/4561D0gUCabRTehsUgAAAAAAEAA5t
- YW51MiwyLjUrMS4xMSwyLDIACgkQNHYf+OetQ9J54A//SNYv1EpOne/57kO88w2ksXoyXY7kXkV
- Cbcc0EWbCMlSTYBx5ykIKtal9EW5qNYyZlI2D4l4JePfwwDcMQd0a92N5w1AJScLHpmYVmATcjb
- zv6O4ICOe3+IeH4XCgOeeav2/QlvvrBUTdw1W4st49/AJlbfoh6trp5C+PjtsIxwGPVGc2iiOzM
- YuSq4Bz35DzWCaxLTcbkv638fz+Jho95OXKNDlu8IT7NFmnc/nTo2aBLkhPIq9WqZFxldwPe/Rb
- IdMA6Du9fTa0xqMcX6bXZWaiG5azCODp8T+EKv8np7gYqT0n556lKsKGy0GaVtjA2m73huEm6eU
- fncI10o2p8MGi1YlhRFV5pD52BXpzwi3Q/HfZwHi0ypKxeM82vDlqyZVWyXESPBycIzkC2Mql+Y
- YK5lQi7B/0AA8rJp+w2md0yIx+1GcxrmqrMbbvjksY0ccZMqClfZWobWPq0lgpsB1G5z1Ta4obd
- FcbMPk9pQzI5rcH4ucD9Hm+CPsEfLoDZxtWEsg9SJsNKbLvW9P77p5emtyPB8Pf7yb7eHin8guL
- j9C719KgHJD+MB6yC9HFKNrA7sA5kLH6PWej0Rm3ZPzkOApB9mEzzFqtzxOsdvHd/u3DG7kO7fK
- PP6cBdVc82/KjwcFIIuWWta9gLQiFN5HrTZw6yh7ZXEk7Mx7tsEQ=
-X-Developer-Key: i=markus.probst@posteo.de; a=openpgp;
- fpr=827418C4F4AC58E77230C47334761FF8E7AD43D2
-Autocrypt: addr=markus.probst@posteo.de; prefer-encrypt=mutual;
- keydata=xsFNBGiDvXgBEADAXUceKafpl46S35UmDh2wRvvx+UfZbcTjeQOlSwKP7YVJ4JOZrVs93qReNLkO
- WguIqPBxR9blQ4nyYrqSCV+MMw/3ifyXIm6Pw2YRUDg+WTEOjTixRCoWDgUj1nOsvJ9tVAm76Ww+
- /pAnepVRafMID0rqEfD9oGv1YrfpeFJhyE2zUw3SyyNLIKWD6QeLRhKQRbSnsXhGLFBXCqt9k5JA
- RhgQof9zvztcCVlT5KVvuyfC4H+HzeGmu9201BVyihJwKdcKPq+n/aY5FUVxNTgtI9f8wIbmfAja
- oT1pjXSp+dszakA98fhONM98pOq723o/1ZGMZukyXFfsDGtA3BB79HoopHKujLGWAGskzClwTjRQ
- xBqxh/U/lL1pc+0xPWikTNCmtziCOvv0KA0arDOMQlyFvImzX6oGVgE4ksKQYbMZ3Ikw6L1Rv1J+
- FvN0aNwOKgL2ztBRYscUGcQvA0Zo1fGCAn/BLEJvQYShWKeKqjyncVGoXFsz2AcuFKe1pwETSsN6
- OZncjy32e4ktgs07cWBfx0v62b8md36jau+B6RVnnodaA8++oXl3FRwiEW8XfXWIjy4umIv93tb8
- 8ekYsfOfWkTSewZYXGoqe4RtK80ulMHb/dh2FZQIFyRdN4HOmB4FYO5sEYFr9YjHLmDkrUgNodJC
- XCeMe4BO4iaxUQARAQABzRdtYXJrdXMucHJvYnN0QHBvc3Rlby5kZcLBkQQTAQgAOxYhBIJ0GMT0
- rFjncjDEczR2H/jnrUPSBQJog714AhsDBQsJCAcCAiICBhUKCQgLAgQWAgMBAh4HAheAAAoJEDR2
- H/jnrUPSgdkQAISaTk2D345ehXEkn5z2yUEjaVjHIE7ziqRaOgn/QanCgeTUinIv6L6QXUFvvIfH
- 1OLPwQ1hfvEg9NnNLyFezWSy6jvoVBTIPqicD/r3FkithnQ1IDkdSjrarPMxJkvuh3l7XZHo49GV
- HQ8i5zh5w4YISrcEtE99lJisvni2Jqx7we5tey9voQFDyM8jxlSWv3pmoUTCtBkX/eKHJXosgsuS
- B4TGDCVPOjla/emI5c9MhMG7O4WEEmoSdPbmraPw66YZD6uLyhV4DPHbiDWRzXWnClHSyjB9rky9
- lausFxogvu4l9H+KDsXIadNDWdLdu1/enS/wDd9zh5S78rY2jeXaG4mnf4seEKamZ7KQ6FIHrcyP
- ezdDzssPQcTQcGRMQzCn6wP3tlGk7rsfmyHMlFqdRoNNv+ZER/OkmZFPW655zRfbMi0vtrqK2Awm
- 9ggobb1oktfd9PPNXMUY+DNVlgR2G7jLnenSoQausLUm0pHoNE8TWFv851Y6SOYnvn488sP1Tki5
- F3rKwclawQFHUXTCQw+QSh9ay8xgnNZfH+u9NY7w3gPoeKBOAFcBc2BtzcgekeWS8qgEmm2/oNFV
- G0ivPQbRx8FjRKbuF7g3YhgNZZ0ac8FneuUtJ2PkSIFTZhaAiC0utvxk0ndmWFiW4acEkMZGrLaM
- L2zWNjrqwsD2zsFNBGiDvXgBEADCXQy1n7wjRxG12DOVADawjghKcG+5LtEf31WftHKLFbp/HArj
- BhkT6mj+CCI1ClqY+FYU5CK/s0ScMfLxRGLZ0Ktzawb78vOgBVFT3yB1yWBTewsAXdqNqRooaUNo
- 8cG/NNJLjhccH/7PO/FWX5qftOVUJ/AIsAhKQJ18Tc8Ik73v427EDxuKb9mTAnYQFA3Ev3hAiVbO
- 6Rv39amVOfJ8sqwiSUGidj2Fctg2aB5JbeMln0KCUbTD1LhEFepeKypfofAXQbGwaCjAhmkWy/q3
- IT1mUrPxOngbxdRoOx1tGUC0HCMUW1sFaJgQPMmDcR0JGPOpgsKnitsSnN7ShcCr1buel7vLnUMD
- +TAZ5opdoF6HjAvAnBQaijtK6minkrM0seNXnCg0KkV8xhMNa6zCs1rq4GgjNLJue2EmuyHooHA4
- 7JMoLVHcxVeuNTp6K2+XRx0Pk4e2Lj8IVy9yEYyrywEOC5XRW37KJjsiOAsumi1rkvM7QREWgUDe
- Xs0+RpxI3QrrANh71fLMRo7LKRF3Gvw13NVCCC9ea20P4PwhgWKStkwO2NO+YJsAoS1QycMi/vKu
- 0EHhknYXamaSV50oZzHKmX56vEeJHTcngrM8R1SwJCYopCx9gkz90bTVYlitJa5hloWTYeMD7FNj
- Y6jfVSzgM/K4gMgUNDW/PPGeMwARAQABwsF2BBgBCAAgFiEEgnQYxPSsWOdyMMRzNHYf+OetQ9IF
- AmiDvXgCGwwACgkQNHYf+OetQ9LHDBAAhk+ab8+WrbS/b1/gYW3q1KDiXU719nCtfkUVXKidW5Ec
- Idlr5HGt8ilLoxSWT2Zi368iHCXS0WenGgPwlv8ifvB7TOZiiTDZROZkXjEBmU4nYjJ7GymawpWv
- oQwjMsPuq6ysbzWtOZ7eILx7cI0FjQeJ/Q2baRJub0uAZNwBOxCkAS6lpk5Fntd2u8CWmDQo4SYp
- xeuQ+pwkp0yEP30RhN2BO2DXiBEGSZSYh+ioGbCHQPIV3iVj0h6lcCPOqopZqyeCfigeacBI0nvN
- jHWz/spzF3+4OS+3RJvoHtAQmProxyGib8iVsTxgZO3UUi4TSODeEt0i0kHSPY4sCciOyXfAyYoD
- DFqhRjOEwBBxhr+scU4C1T2AflozvDwq3VSONjrKJUkhd8+WsdXxMdPFgBQuiKKwUy11mz6KQfcR
- wmDehF3UaUoxa+YIhWPbKmycxuX/D8SvnqavzAeAL1OcRbEI/HsoroVlEFbBRNBZLJUlnTPs8ZcU
- 4+8rq5YX1GUrJL3jf6SAfSgO7UdkEET3PdcKFYtS+ruV1Cp5V0q4kCfI5jk25iiz8grM2wOzVSsc
- l1mEkhiEPH87HP0whhb544iioSnumd3HJKL7dzhRegsMizatupp8D65A2JziW0WKopa1iw9fti3A
- aBeNN4ijKZchBXHPgVx+YtWRHfcm4l8=
-OpenPGP: url=https://posteo.de/keys/markus.probst@posteo.de.asc;
- preference=encrypt
+ Alex Deucher <alexander.deucher@amd.com>, Danilo Krummrich <dakr@kernel.org>, 
+ Matthew Brost <matthew.brost@intel.com>, Philipp Stanner <phasta@kernel.org>, 
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
+ amd-gfx@lists.freedesktop.org, Jiri Kosina <jikos@kernel.org>, 
+ Benjamin Tissoires <bentiss@kernel.org>, linux-input@vger.kernel.org, 
+ Wolfram Sang <wsa+renesas@sang-engineering.com>, linux-i2c@vger.kernel.org, 
+ Mark Brown <broonie@kernel.org>,
+ Michael Hennerich <michael.hennerich@analog.com>, 
+ =?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, linux-spi@vger.kernel.org, 
+ "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, 
+ "Martin K. Petersen" <martin.petersen@oracle.com>, linux-scsi@vger.kernel.org, 
+ Chris Mason <clm@fb.com>, David Sterba <dsterba@suse.com>,
+ linux-btrfs@vger.kernel.org, 
+ linux-trace-kernel@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Sun, 15 Mar 2026 11:20:58 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -136,73 +159,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This patch series adds the serdev device bus rust abstraction into the
-kernel.
+On Thu, Mar 12, 2026 at 1:03=E2=80=AFPM Steven Rostedt <rostedt@goodmis.org=
+> wrote:
+>
+> On Thu, 12 Mar 2026 09:54:29 -0700
+> Andrii Nakryiko <andrii.nakryiko@gmail.com> wrote:
+>
+> > > > emit_trace_foo()
+> > > > __trace_foo()
+> >
+> > this seems like the best approach, IMO. double-underscored variants
+> > are usually used for some specialized/internal version of a function
+> > when we know that some conditions are correct (e.g., lock is already
+> > taken, or something like that). Which fits here: trace_xxx() will
+> > check if tracepoint is enabled, while __trace_xxx() will not check and
+> > just invoke the tracepoint? It's short, it's distinct, and it says "I
+> > know what I am doing".
+>
+> Honestly, I consider double underscore as internal only and not something
+> anyone but the subsystem maintainers use.
+>
+> This, is a normal function where it's just saying: If you have it already
+> enabled, then you can use this. Thus, I don't think it qualifies as a "yo=
+u
+> know what you are doing".
+>
+> Perhaps: call_trace_foo() ?
+>
+call_trace_foo has one collision with the tracepoint
+sched_update_nr_running and a function
+call_trace_sched_update_nr_running. I had considered this and later
+moved to trace_invoke_foo() because of the collision. But I can rename
+call_trace_sched_update_nr_running to something else if call_trace_foo
+is the general consensus.
 
-This abstraction will be used by a driver,
-which targets the MCU devices in Synology devices.
-
-Kari Argillander also messaged me, stating that he wants to write a
-watchdog driver with this abstraction (needing initial device data).
-
-@Rob: Are you willing to maintain these rust abstractions yourself,
-as you are the expert on this subsystem, otherwise I would take care of
-it with a "SERIAL DEVICE BUS [RUST]" section in the MAINTAINERS file. In
-the second case, I assume you are going to pick those patches as-is into
-your tree, after they have been reviewed?
-
-Signed-off-by: Markus Probst <markus.probst@posteo.de>
----
-Changes in v3:
-- fix vertical import style
-- add Kconfig entry for the rust abstraction
-- fix documentation in include/linux/serdev.h
-- rename private_data to rust_private_data
-- fix `complete_all` <-> `wait_for_completion` typo
-- move drvdata_borrow call after the completion
-- Link to v2: https://lore.kernel.org/r/20260306-rust_serdev-v2-0-e9b23b42b255@posteo.de
-
-Changes in v2:
-- fix documentation in `serdev::Driver::write` and
-  `serdev::Driver::write_all`
-- remove use of `dev_info` in probe from the sample
-- remove `properties_parse` from the sample
-- add optional `baudrate` property to the sample
-- remove 1. patch
-- remove `TryFrom<&device::Device<Ctx>> for &serdev::Device<Ctx>`
-  implementation
-- fix import style
-- add patch to return reference in `devres::register` to fix safety
-  issue
-- add patch to add private data to serdev_device, to fix
-  `Device.drvdata()` from failing
-- simplify abstraction by removing ability to receive the initial
-  transmission. It may be added later in a separate patch series if
-  needed.
-- Link to v1: https://lore.kernel.org/r/20251220-rust_serdev-v1-0-e44645767621@posteo.de
-
----
-Markus Probst (4):
-      rust: devres: return reference in `devres::register`
-      serdev: add rust private data to serdev_device
-      rust: add basic serial device bus abstractions
-      samples: rust: add Rust serial device bus sample device driver
-
- drivers/tty/serdev/Kconfig         |   7 +
- include/linux/serdev.h             |  15 +-
- rust/bindings/bindings_helper.h    |   1 +
- rust/helpers/helpers.c             |   1 +
- rust/helpers/serdev.c              |  22 ++
- rust/kernel/cpufreq.rs             |   3 +-
- rust/kernel/devres.rs              |  15 +-
- rust/kernel/drm/driver.rs          |   3 +-
- rust/kernel/lib.rs                 |   2 +
- rust/kernel/serdev.rs              | 536 +++++++++++++++++++++++++++++++++++++
- samples/rust/Kconfig               |  11 +
- samples/rust/Makefile              |   1 +
- samples/rust/rust_driver_serdev.rs |  86 ++++++
- 13 files changed, 693 insertions(+), 10 deletions(-)
----
-base-commit: 1f318b96cc84d7c2ab792fcc0bfd42a7ca890681
-change-id: 20251217-rust_serdev-ee5481e9085c
-
+Thanks,
+Vineeth
