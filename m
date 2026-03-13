@@ -4,133 +4,137 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 37286105F78F
-	for <dri-devel@archiver.kernel.org>; Fri, 13 Mar 2026 10:21:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B0A0C105F791
+	for <dri-devel@archiver.kernel.org>; Fri, 13 Mar 2026 10:22:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9980A10EB75;
-	Fri, 13 Mar 2026 10:21:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0037410EB77;
+	Fri, 13 Mar 2026 10:22:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=nxp.com header.i=@nxp.com header.b="oHFg/tto";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="YnMAHNbQ";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="W76UzT77";
 	dkim-atps=neutral
-Received: from DU2PR03CU002.outbound.protection.outlook.com
- (mail-northeuropeazon11011030.outbound.protection.outlook.com [52.101.65.30])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F344910EB75
- for <dri-devel@lists.freedesktop.org>; Fri, 13 Mar 2026 10:21:35 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=GOhdb48ZaEsgRyfBRYJcLj2NlDuTwC6wwR47iNKZOhwF0SAOFBEFE7ykPG1kSPnLozkh+cqHbahWEhz7hpTVr0+zF5+Vbv0gsbBIKW5hnweMdLroaeZlzUNGnDj5RMlbLMCCWrzFOKtEvnCIprSvRBUUAWHMqRbAoZyvrT3WlkboM94wFViLLjn/4s3A6CxnFcsBP5QKdcCSx6fLR9VsuVWvJl4oK/3ix0cEKTHnX50JnFe/hfeDwzOZ1LwRTGOUD/yUXJxW9nWohspJQGj+ChJZCM4xMer0e1NuxW0489EUvh4H9Dk5kkKOQL6yap2PSxtXNxst+b6HD3wp2FNiBw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=FkwSYepmiRGfJNGOPJCoCNitH++Lcg5OwF/F8LKf3Ug=;
- b=JzWcbi9c1ok+f9YdDAaxBChDeW4xs2mEThbjaULU1riZS9iNaUKkcWhlgaA+6lXk+FVq7pcyTbwrOYpvJ90C/nekckZIXw6j+onzE73a9vYy5SWSnw605yKIDZxJvla1V/cQxFPkfH0PuI4Pi0N6SMyJbTUqFxUQMBv4CoqFs35QDuOOg6DN2xuwtS1wo/ko8D2YUzizOuqqCEUOAOSfb/OI/ax3W2zK0ENKH35lTrWPzc3GoZwHHKkS7BYJCEy96tuzZND5x2Tn40fYcKNTzGFaH9QEJiZ9SE8F2iIxMH2ekVBT6oIO3g3ilYyLDYhJMUf1VZlVBtPX9raLkM9HtQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=FkwSYepmiRGfJNGOPJCoCNitH++Lcg5OwF/F8LKf3Ug=;
- b=oHFg/ttonu42h1JYXWFTFhEYzbqOZbQThb5NfuIXwC5sDG7DcvrfH6yT99NKoI208uD9W80zkFsIy6ksU2IYaGuJutDEtluCGC/BFgS2oXlKUdxn+TYCza6JSLMEiJzufj0gtw2YctL5oz3fxY/w7mM9Utn2ChR2p4CufIslTPzu16jGVk8oa62n67Jm0GUQgxezlFrWGX0Gow2ukI+E82dXDlb5J2tohsdczMk268N9HEMzssEC2qr2qjtVVFS9rIaJc5Vm58jRETniNNIMExIR5vZCsh98y+z0nrd6c00vxP5jNaOj5EYYYTqarQqy5pMEuM1wGoEzM5h+PwVutg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from AM7PR04MB7046.eurprd04.prod.outlook.com (2603:10a6:20b:113::22)
- by GVXPR04MB10996.eurprd04.prod.outlook.com (2603:10a6:150:220::10)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9700.16; Fri, 13 Mar
- 2026 10:21:19 +0000
-Received: from AM7PR04MB7046.eurprd04.prod.outlook.com
- ([fe80::4609:64af:8a4b:fd64]) by AM7PR04MB7046.eurprd04.prod.outlook.com
- ([fe80::4609:64af:8a4b:fd64%3]) with mapi id 15.20.9700.010; Fri, 13 Mar 2026
- 10:21:26 +0000
-Message-ID: <61a51c05-7730-4b7a-85cf-5f03a7985408@nxp.com>
-Date: Fri, 13 Mar 2026 18:22:39 +0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/bridge: Fix refcount shown via debugfs for
- encoder_bridges_show()
-To: Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: Marco Felsch <m.felsch@pengutronix.de>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-References: <20260312-drm-misc-next-2026-03-05-fix-encoder-bridges-refcount-v1-1-b9ba3d844732@nxp.com>
- <DH0ZD9UFY68E.2C1ISONVIO42L@bootlin.com>
- <53c257df-9800-48ed-a975-d7bfe4d71be1@nxp.com>
- <DH1KCR43169Z.200HRE4K6DNRQ@bootlin.com>
-From: Liu Ying <victor.liu@nxp.com>
-Content-Language: en-US
-In-Reply-To: <DH1KCR43169Z.200HRE4K6DNRQ@bootlin.com>
-Content-Type: text/plain; charset=UTF-8
-X-ClientProxiedBy: SI2PR02CA0027.apcprd02.prod.outlook.com
- (2603:1096:4:195::14) To AM7PR04MB7046.eurprd04.prod.outlook.com
- (2603:10a6:20b:113::22)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 921C310EB79
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Mar 2026 10:22:09 +0000 (UTC)
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 62D8vFoC481699
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Mar 2026 10:22:08 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ 9RLzBru1PJO/xbKYewzMwJUh7vtg3J9W4Mz3Jhv2beA=; b=YnMAHNbQYPlu6xTX
+ f45SZMUf4QMkso+YRyd6pprSEk8AeUxxh7FS4JyoNyewUfWh97e83XL5xH0WomI0
+ OPfRB9ZaUh9aPgMz8hrqNbycNAgihzudZP+7VYPz1FPgTDWicwll7B3NaP/tobJG
+ XBsSWIDdB3oqryX/14NPJeZPMDlMjqy8Y+b9ZPdMqbrUyEyaYUTDM6VHLQ0zMKJ3
+ IdHaNCF+and6iAAqxCUwhtFWpxf1EGiNTPpML2iI2+vZ3LlcS91iB3lN9lo4/hMf
+ rg6Fw9h0SrE7zc4vBkuc0MNe4/lQBpUyzwVkDWnt6iLHia9wVKTDrCdkOuE5y1OL
+ QPJc8Q==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com
+ [209.85.222.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4cvfh7rae3-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Mar 2026 10:22:08 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id
+ af79cd13be357-8cd8198fe16so127504685a.2
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Mar 2026 03:22:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1773397328; x=1774002128;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=9RLzBru1PJO/xbKYewzMwJUh7vtg3J9W4Mz3Jhv2beA=;
+ b=W76UzT7734K1w6IZ2NsWx3NN5zahGVPVaR/lbXl8/1DCxbEL0tPBXeKUVv+DEw2xZo
+ DyIZdVPBRBQvPJm59A+fkMzW1g3yXFOlHPYDSUGJHMsIU4Iz0iMM5z5qJlV7RrL1WSej
+ dkMO6VjerYxj1jBQKhA3S+SN5dZFqQ6mc0heRQ+OKsUrx5Pi2hAczejqViaouOKhwmdi
+ rv+5edhxMowyx+W4M0lRx8ZE9/CHWQL+tfhy76hgxcHj+xKbaKgosQoOKe0VMAdKWo+V
+ yUKp6fquhk0CC4hSUOi+hwTgllZwoOiMkGHm5PMxjtJpSYiwz2zXQmtWXW+bW2jNMsl2
+ qqbw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1773397328; x=1774002128;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=9RLzBru1PJO/xbKYewzMwJUh7vtg3J9W4Mz3Jhv2beA=;
+ b=XsxZ7yWhXOZXEr8qwHjM42NFbyuXAr2HkfRaekelu2iQ63KfLZMTQ2hh5OFsqKmHLL
+ mwRA+LMwEkPwZ0bkEo5x43CxJQw/1agLPl4h1hiFwCw72FLM4PjbASaps29Pwnw6ZbcC
+ DBGm9DST5SJeG5G/w6E9zZ/xh/ouOOgkzTwzMTwpnQ1SrQrY2+exJS+axScM2sPQLVQs
+ Rv2A4vqyLAx/IrZk2TeFmSvbceZRxADw7O3N8nYMROKDVBiUf7YeBa1K0Q3KJMRz4I0Q
+ phiVaMvWYLQbYmzsoQLUtbZcCv9mQCNFBl4n09s4F19wkkViqLIgViLl3iZi+2VMkGTY
+ 8PZA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXTD/0DRi5UH7oFjMerx7DvsumNhLk8E4BxUkaJ1+YnfdjBRnhC2qNe0vtxFQIePJtxKKihRDW0XrA=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzsEk/EnBTXAwPU7DfozAlppJvEbFnw6k7EK57T44RodbFsSKPQ
+ M+Dl0jXl50qMv39jW5/sMPeobgbO5mDARBf6NkVOLWFdpB+QABNaMGmxImYGBfOsO8CTHOQgIJm
+ u7T80CUCAyuzyIkQgUd8tEd7xGJ6E77XJY7Xr4omX0HGxZTeRxO1UcXoMorEiQM3CvlJ3SJQ=
+X-Gm-Gg: ATEYQzypBP5hiuHIs3dulVN2IF2NERdUUtWph+1veHhI+ECAJbc9Af9EYtFx5QmfazV
+ RnMRrS3kkSgG0CtZYskg8eQZaWhRvmZfgfI2E6fGof7TohbqUuO9MPFY1QsFp9ezsJlmYAtg5h7
+ yKPhkW/xmJgfVCDJybuqeCiYLgHOImEx1t+n9tuGD55zsTWq8yp4Vgc2RCzr+04krnAf+xcI1eQ
+ LG3aBRRWn4sFyWSGjQq85looH0VceY9CLT3u98w38/ziia6+gN+WP7RyuaKHSPxhX+f8A1ce+Xn
+ iKGqbvwnmh830reE0kLN4TbvJfzc1Ru8pYUgBocgeJGWavnLD6FS4/sw5VU+cR7dKtAbTYpng+d
+ FASx6Vh9t1H1t32w7UPdZLWuPudlf/xk2uvzVYi/rgb8IvIk74ekvKM4CNdZOfmCd8rZyBEb6WW
+ zrrmM=
+X-Received: by 2002:a05:620a:4625:b0:8cd:b2ce:b746 with SMTP id
+ af79cd13be357-8cdb5a1caa9mr274207685a.1.1773397328102; 
+ Fri, 13 Mar 2026 03:22:08 -0700 (PDT)
+X-Received: by 2002:a05:620a:4625:b0:8cd:b2ce:b746 with SMTP id
+ af79cd13be357-8cdb5a1caa9mr274205585a.1.1773397327672; 
+ Fri, 13 Mar 2026 03:22:07 -0700 (PDT)
+Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl.
+ [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-6635088ffadsm1220549a12.21.2026.03.13.03.22.04
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 13 Mar 2026 03:22:06 -0700 (PDT)
+Message-ID: <f16d0ab2-dc40-40c9-bc1a-772efffb71a0@oss.qualcomm.com>
+Date: Fri, 13 Mar 2026 11:22:03 +0100
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM7PR04MB7046:EE_|GVXPR04MB10996:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3ef579c0-7218-4bfc-b3df-08de80ea48bc
-X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|19092799006|366016|376014|7416014|1800799024|921020|18002099003|56012099003|22082099003;
-X-Microsoft-Antispam-Message-Info: 16hv7dz432YpvVbrm/gwGHiEfO8znMXvvK456DYlj1jYMs9IENrC1/OKembbUziOcBm9R6ufNJajc07ds39Lh9rXZL2JsCAbRNRySmQHg5Af27l4edvxjOIMyHKjQJNXGPezaiLdoNt9uudwhaCui93LBXqYlVjSom3Ia2DsRfUbQOrzTOphiRjQD88r+CVrnXnksIQpkgvTPEcAOKtQypsnSz2O9bbQm5Onp9A2p/8V1wmt22ItKUttbB8gSVpzRoCcFa+uT00R7br1bVUXnEHJYwVhiT2JKH2BldSaQ6njaHtN+XClw1KCXMYBRR6MlvByGxnWa0Q8D7BeAyM5QLGcZ283YtNDQcEMOdsPKWiX6A5gAn9S11UAJZ8Ife6Xw6nG4G93ps3d1MjxETZVkpOJVDKuOlbs16c71UYVwixaWhqkesprxVc+796PycLInRlpUy6rGEdV0zBzW3RDDpF820SI5rw6q89U63qGiBYlahdflMgfESVu2HwJB5sTLAMfwJsDSl9AQilT6vCEptZ4JSDbi0SFjofNQ3CKZv05ghBgVwGRWbZ9v/h4XsxXpMtHyfoSw1Kzw9L5Aw8LkCEHpGVbnf8pDLsxaD2kOgpRIdILrql3U1yGRuVXpuknJ4VWfO0nrQ1PVIuVJfqKpdKIVmFrVPQIbFvNPOwdLgrRcNcQDWhVsri9RsrCpgvfpwkrS1/f21nBnnblByn85jGqheqvjNjVbnOTUENQYic=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:AM7PR04MB7046.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(19092799006)(366016)(376014)(7416014)(1800799024)(921020)(18002099003)(56012099003)(22082099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?OHAzTzVrVmxlY3IrV0U2RVFZOGpIKzMxNUx1UUlKOTh0ME05OUhrVVNnblVi?=
- =?utf-8?B?U1ptTXRvaGVUSE1EdVM4cVNSbHFPNWxjUW1ZY0FubWZvZjVES25yV3g5ZEc5?=
- =?utf-8?B?NEdBZGk2NW5wa2tvQkdlUTY4ZVpMNmtDTFhya3A0b01vajZ0YlZmRVRQTkJ1?=
- =?utf-8?B?NVFhL0I1aTJ4M21lUXNXVTVQMVhUVlF3VzZXUGl4VlYvaTNEYlhpNTR5UUpa?=
- =?utf-8?B?T1VGNEd2R3pBR0Y1Rks0d2RqWnh0Um1GcUFnU3I3S28za2JyWlNMRVQ3Wisw?=
- =?utf-8?B?dG5TMldQSUJoTlJoTWdmNDhwZ0RRUUxmM1NvQ2w5L2pSN3ByZnNkcGc3T0pw?=
- =?utf-8?B?b2MrbHJwcy95Y08wWWprSS9vajFsaFdFdE0vc1lPNE94QmtyekJoekY4bWQv?=
- =?utf-8?B?OHNQcEQ5V25RRjg5bzJKU21VenNLN2NHMHkybndXd3IybENYVGZWNTk5eGVK?=
- =?utf-8?B?bnNiZTB0R2R5eVdIaTJSMnJOamdYV20yQmFlZFZ6NlhseFk5ckt6eDhKVzN0?=
- =?utf-8?B?OEw0RWdVYlRNMDJVdXlQRmIxemluOHM0SGdXOXZYazNCN2IvUGZ5SnRKSngy?=
- =?utf-8?B?QVI2aDh4Q0RWTmhJSjhaM0k0RlRaRzQ3MXdHdnJUbDIxQWZhRkxrbWRNUFV4?=
- =?utf-8?B?eWVRYkVaeHJTdWY3WGRLWEtodXRnSzNkTnhqQ2U0VE1rcEhzWVc1SWFLRWdT?=
- =?utf-8?B?cVNiZkV6ZjZ2NXd2VFJ4YXd6aUlTS2dUNWVtbytlVUNwZklaZjRsTUpvN0xB?=
- =?utf-8?B?MkU3by9oU05QUk1FbUZhZ1RqUHhTRURzK29pQnM0cTNQUWJKZGE3d0N6OW43?=
- =?utf-8?B?NWZyNTdvL1lIN1BCaTVQL0VRTy9mN2VsK3lCanhuUWR6bnhZREw1YmtYOG1h?=
- =?utf-8?B?SGgyZmQ0VEFKR3dWaFpUcDBnRGhsRlM0UWdpdWNZTHBpSXlBZ1AxK2FGTDNj?=
- =?utf-8?B?Ym40ckovU3QrQ1VQTHFBYlgySUFuSzBxM29LcG1uUTRqSDlGVExwaGZqWXlz?=
- =?utf-8?B?MUV4MXZIaWEwTVlBZC80Nyt2WmVSZ0FBU2ZNd0lPcUNzZmFucG5od2UvaU9E?=
- =?utf-8?B?SmdRZytJY3Y0YU1rK3NnYU9yQlRmeG9SUmV5ZlZmdTdTS0x6cFBodEFGVis5?=
- =?utf-8?B?VzZ0SFM1bzZpeGhhcjdkcVd0SXlBQUpkcVgrQTVyaWp1VzYwMU9ZYVR1MGo2?=
- =?utf-8?B?SWZHTDBWbEErNitxdjdma3lBNTkrYnIrbzRwMFQ2UXE5OW5Hc1VaZXhwNVNP?=
- =?utf-8?B?UzZ2L0ZFZk45dGd3czVORHEvT0ZpR3FEcDlRUUJlNjErcDJVU0tXVzB0VjI0?=
- =?utf-8?B?OTZIZDRCMStHVnlHNGpEc1dTZkdlZ0NUVnM2U2srcE1TRjJQeEI5V2psK3ZX?=
- =?utf-8?B?Zy90eE9HNkltSUhIMXFONi9Hc2JyaG5mYnBKVkgwZ2t5aEdWS2I0MkJQT0tE?=
- =?utf-8?B?VWRCd1RML0d4TDZlNVhPaTVRd3kxZEZIMkVGZ0JYczFqWUcrKzlCempnSjRQ?=
- =?utf-8?B?T1I2R1Z0U2o5NUVVQzIyQWFGaWFHM1B4QjBIdG9BeUNsTzVPZGJWaTBtYXZv?=
- =?utf-8?B?S0Yzc2drSXNod3NrdmhDdnhPY1dPRnFMdjU5akIwcGhzOTBqMnM2L0RXR2xD?=
- =?utf-8?B?ZkVwZFE0OXhRNVEreDRVNmxmc0NobFkzMmQ5cHNKOVQ0TUFwdXMzY0svSGJS?=
- =?utf-8?B?T0xDZ0RNNGFNN0h1OGJLcmVleGpMbDlCeWVjalYvdUpUZDk0NFc5eFBBTUlX?=
- =?utf-8?B?T1FqWVZBUVpXWlh4NEExQlJleW4xdGxYOGlzMzVSOW40NzVvUWg0eEV3ZWdx?=
- =?utf-8?B?QndGYjlYWi9YeFdod2ZIRTlqcG9EaDl0N0xxc1hyc2RiMmFPWVZPS3NHZkk4?=
- =?utf-8?B?bVJ2VkppWlZxRWlJUWYwN0tVK29adFp0QVlKS3MveXBMTWZiTWRPdmhUNjMr?=
- =?utf-8?B?WGhjMEJtdkQ0eVowNUNqdVk1SVRaOHJYUUJkQW9LaE9EK05MVWFEQmROVU1V?=
- =?utf-8?B?V2hNTHJwbDFBOU5Pa1Fxdnd0ajllTllMT3dsMEpwOStyZitkTGVCVEF2czFG?=
- =?utf-8?B?NHBmbUx4MDNldlpnelhwUUJNUnVWa0JnOFBjNml5M0x4QngrTW84cy83eC9u?=
- =?utf-8?B?dUM4aHg1dldVM2lwU2NuTTRCNVVaZXp5VVVSZkFEaXZkSlc3V0phNFFBRWZ3?=
- =?utf-8?B?Q1VmUlJNZmRKMTJLaVVlL2pxTk9RZEREZWRZS0pOdVlFOTZRR1k4VUhhNHJO?=
- =?utf-8?B?UHNlUEgyNXJhQVVNR2xDUThyTytrUHNpbUpmWjRUWThENHVuYXYvRXRweWFR?=
- =?utf-8?B?aEh6N1VrK0hGUnM2czlwL0NyUDZ3S2xlRFVOSlZUUi8yNndQMlMwdz09?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3ef579c0-7218-4bfc-b3df-08de80ea48bc
-X-MS-Exchange-CrossTenant-AuthSource: AM7PR04MB7046.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Mar 2026 10:21:26.7192 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: JNj4ViW/slHSXEH05/j+Za/e4OK2bu/InppNDa9dTpB9pYxysZ5sZN27lo5dktXohczkt6t0Mgz233aEu1WSIw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXPR04MB10996
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 18/27] drm/msm/dpu: drop ubwc_dec_version
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
+ <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Akhil P Oommen <akhilpo@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20260312-ubwc-rework-v3-0-b7e8f800176a@oss.qualcomm.com>
+ <20260312-ubwc-rework-v3-18-b7e8f800176a@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260312-ubwc-rework-v3-18-b7e8f800176a@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: xSQ3XWp7bWHT7Om6vG4yKNSbF8qOAz5e
+X-Proofpoint-GUID: xSQ3XWp7bWHT7Om6vG4yKNSbF8qOAz5e
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzEzMDA4MCBTYWx0ZWRfX84AQn6B0P1tS
+ +EA9RvopgNppMdf/wBw3rkFIuyRycGoJ5iQGleNSWzf4vCYoenkqgbHx/aapMXWVQ7dNzEAixKB
+ Ki2G0xp3bPMz9HdgJbWqX/4MS7cS+eIGsFAzNdHreGuyM2M6RsXsVHlFCgWmHofJvbkJQItaXeM
+ NpzqTZWA1NK3TokRxNkLA3Br27ImNY9FxqZTgO5vLW8JZq01nsRVKj3dnv8h1QcuyXX2L2pHSgl
+ 7fSqywsl405kzAe97tODb4QqrvQnfmhkdLdrYwVkU0L56swCgIzn7b/PMA9Qr01DiqocN7Bwstj
+ Q/n6wDtSLwjrhJkoYty+CH+ls3oJy6+XaFp90t+gpQfFDwIQGdcw9nVIferVbLYeMl91MOhV/kY
+ K0LiQHIStuiqvWJstdw2oiTQWfTANc0FCyP4kz28V1d7kuj6LQ658vHzaW2wUd3cGe9n5ADim/P
+ aMg20XVGeTbJOOvuMHA==
+X-Authority-Analysis: v=2.4 cv=BpiQAIX5 c=1 sm=1 tr=0 ts=69b3e550 cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
+ a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=EUspDBNiAAAA:8 a=tWrNggSR6SyvBOkGGPYA:9 a=QEXdDO2ut3YA:10
+ a=bTQJ7kPSJx9SKPbeHEYW:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-03-13_02,2026-03-12_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 impostorscore=0 phishscore=0 adultscore=0 suspectscore=0
+ lowpriorityscore=0 clxscore=1015 bulkscore=0 spamscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603130080
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -146,83 +150,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, Mar 13, 2026 at 10:57:04AM +0100, Luca Ceresoli wrote:
-> On Fri Mar 13, 2026 at 9:33 AM CET, Liu Ying wrote:
->> On Thu, Mar 12, 2026 at 06:30:22PM +0100, Luca Ceresoli wrote:
->>> Hello Liu, Maxime,
->>>
->>> On Thu Mar 12, 2026 at 7:05 AM CET, Liu Ying wrote:
->>>> A typical bridge refcount value is 3 after a bridge chain is formed:
->>>> - devm_drm_bridge_alloc() initializes the refcount value to be 1.
->>>> - drm_bridge_add() gets an additional reference hence 2.
->>>> - drm_bridge_attach() gets the third reference hence 3.
->>>>
->>>> This typical refcount value aligns with allbridges_show()'s behaviour.
->>>> However, since encoder_bridges_show() uses
->>>> drm_for_each_bridge_in_chain_scoped() to automatically get/put the
->>>> bridge reference while iterating, a bogus reference is accidentally
->>>> got when showing the wrong typical refcount value as 4 to users via
->>>> debugfs.  Fix this by caching the refcount value returned from
->>>> kref_read() while iterating and explicitly decreasing the cached
->>>> refcount value by 1 before showing it to users.
->>>
->>> Good point, indeed the refcount shown by
->>> <debugfs>/dri/<card>/encoder-0/bridges is by one unit higher than the one
->>> shown in <debugfs>/dri/bridges. I understand it's puzzling from a debugfs
->>> user point of view.
->>>
->>> As you noticed, this is because the _scoped loop holds an extra ref on the
->>> current bridge.
->>>
->>> For other reasons I proposed a mutex for stronger protection around the
->>> bridge chain [v2]. With the mutex the extra ref is redundant, so in [v2]
->>> the extra ref is removed, thus making your patch unneeded. However Maxime
->>> asked to keep the extra ref, and so my latest iteration [v4] still has the
->>> extra ref.
->>>
->>> That series is still on the mailing list, we are still in time to rediscuss
->>> it.
->>>
->>> @Maxime: based on the issue Liu is trying to work around, do you think it
->>> would make sense to go back to the initial approach for that series?
->>> I.e. drm_for_each_bridge_in_chain_scoped() grabs the chain lock, which is a
->>> superset of the per-bridge refcount, and thus the refcount can be dropped?
->>> This would remove the debugfs issue, slightly simplify
->>> drm_for_each_bridge_in_chain_scoped(), and introduce no new issues AFAIK.
->>
->> Just my take on the chain lock approach - I agree Maxime's comment on [v2]
->> that keeping the get/put is a better than using the chain lock to ensure
->> the refcount is correct.  The chain lock could be added later on if needed.
+On 3/12/26 2:29 PM, Dmitry Baryshkov wrote:
+> Stop using ubwc_dec_version (the version of the UBWC block in the
+> display subsystem) for detecting the enablement of the UBWC. Use only
+> ubwc_enc_version, the version of the UBWC which we are setting up for.
 > 
-> Well, no, adding the chain mutex is necessary(*), otherwise Thread A could
-> iterate over the chain while thread B is adding/removing bridges to/from
-> the chain.
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> ---
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 3 +--
+>  1 file changed, 1 insertion(+), 2 deletions(-)
 > 
-> And the chain mutex is a superset of the per-bridge refcount, so when
-> adding the mutex the refcount inside drm_for_each_bridge_in_chain_scoped()
-> becomes useless (and slightly hurting as it makes the refcount shown in
-> debugfs inconsistent, as you noticed).
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+> index 547d084f2944..f424be5ad82b 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+> @@ -1718,8 +1718,7 @@ static bool dpu_plane_format_mod_supported(struct drm_plane *plane,
+>  		uint32_t format, uint64_t modifier)
+>  {
+>  	struct dpu_kms *dpu_kms = _dpu_plane_get_kms(plane);
+> -	bool has_no_ubwc = (dpu_kms->mdss->ubwc_enc_version == 0) &&
+> -			   (dpu_kms->mdss->ubwc_dec_version == 0);
+> +	bool has_no_ubwc = (dpu_kms->mdss->ubwc_enc_version == 0);
 
-For better code readability, I think keeping the get/put is fine even if
-you add a lock(maybe RCU list is better than mutex, since the chain is
-read often).  That follows the idea that you mentioned in [1]: "every
-pointer to a drm_bridge stored somewhere is a reference to a bridge".
-Plus, seems no performance issue with the get/put, as discussed in [v2].
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-[1] https://lore.kernel.org/all/DH0YC7M9YFU7.31DSHCPV381WC@bootlin.com/
-
-> 
-> (*) by "necessary" I mean it's necessary to support a bridge chain that
-> changes after the card is populated, i.e. for bridge hotplug.
-> 
-> 
-> Luca
-> 
-> --
-> Luca Ceresoli, Bootlin
-> Embedded Linux and Kernel engineering
-> https://bootlin.com/
-
--- 
-Regards,
-Liu Ying
+Konrad
