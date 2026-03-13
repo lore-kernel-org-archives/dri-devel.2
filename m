@@ -4,136 +4,102 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7796D105F7AF
-	for <dri-devel@archiver.kernel.org>; Fri, 13 Mar 2026 14:30:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AC98A105F7AE
+	for <dri-devel@archiver.kernel.org>; Fri, 13 Mar 2026 14:31:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A0C8110E048;
-	Fri, 13 Mar 2026 14:30:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 18C9E10E09C;
+	Fri, 13 Mar 2026 14:31:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="DcI+0Bbx";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="kq6y122V";
+	dkim=pass (2048-bit key; unprotected) header.d=suse.com header.i=@suse.com header.b="L9ZDUkRP";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9761210E048
- for <dri-devel@lists.freedesktop.org>; Fri, 13 Mar 2026 14:30:01 +0000 (UTC)
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 62DAmp2l2390203
- for <dri-devel@lists.freedesktop.org>; Fri, 13 Mar 2026 14:30:00 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=5bxFQeCPd7k8jJvVFFFJLioU
- dLVXiU/NXmy4eQvQlxY=; b=DcI+0Bbx7x+WZjWfzXUPb53/dAIa28T2uWZcMvOG
- +6jcPI/GyrJUOBTgZtbguhbpy3xxiICBp/x1MdPFl7NViU38r/KhH6c1z7Gpmzqg
- jNNnLvHseDglh55A+EHsmJz1lBAZRkZvEDG115dIm115Q/TAGobWzP+t6/INxleT
- xFIPeSxbY1+Y4Cf7kql/jLvPiaGupVuHE+2uY9LCDUgVtP/4Ja3Ef3W2iRZRvPLd
- czf9NZJavbW6fJoVuYM1RxWz5QAf15oay0M6RD7C7Q6zrhhPZ0GLJmr7DtzKlpLe
- CYFJ0V+ZsvWwan7cZbAKpsoB9pw1Zh+ZXF07FetNG9rlxA==
-Received: from mail-ua1-f69.google.com (mail-ua1-f69.google.com
- [209.85.222.69])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4cvh5m8pk3-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Fri, 13 Mar 2026 14:30:00 +0000 (GMT)
-Received: by mail-ua1-f69.google.com with SMTP id
- a1e0cc1a2514c-94e4b6c8cd5so3909567241.2
- for <dri-devel@lists.freedesktop.org>; Fri, 13 Mar 2026 07:30:00 -0700 (PDT)
+Received: from mail-ej1-f49.google.com (mail-ej1-f49.google.com
+ [209.85.218.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E26C310E09C
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Mar 2026 14:30:58 +0000 (UTC)
+Received: by mail-ej1-f49.google.com with SMTP id
+ a640c23a62f3a-b94358796a1so314194866b.2
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Mar 2026 07:30:58 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1773412257; cv=none;
+ d=google.com; s=arc-20240605;
+ b=dI3ZrYV7tOwtpaW6barrhJxcGtS9Z1pA4usCHMww5fZU25xv1nSZ7p0GSUMgHIz54O
+ 2WonUh3fPfFq0TKbaBHji+3qVDlHFVcA6iQw2B6LxzkL9+lClg76TQi+VCWRxYNJ41dI
+ aMz4ANWjavpIssbfAg65XQWsUo/K2GnfJ8UnlvfFudpM9HGcWigF2b/u/0boskp/l5QD
+ ueNH++grquRzRL/Vs2O4braTFRl7NNgG+KvYCXzenhMUSVHVRRhrcull7YT2iVq5iI0i
+ 7TAl687Ln3+5iXLqp2osSB7Af6jn2PTD+APiKcC/T2ZlaNVyVxfqEgKONP2gD8WSMXFg
+ oe/g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=LRxonFHxKOFtwLU4vtjcCaWjDuObgsewD5LZ6SLLhBw=;
+ fh=yrU7FU2pNiW7tXPis/GQi75kRcy3Vnebi11hcsbvb5s=;
+ b=XxG96AkXcELIYdYNZ/lxG0yZA5EMH+UDc/6nIV+HV/k2y2Ughmf5ZVQ8b7bkszSryn
+ LHMZrgE1kAFzN2t+DCfH64tdzJA6a7HN2YpRZy0Jb5/ZiZty2FzONfiwcabSXb1DtcLS
+ lvGp1qSf429qXOkCXTL107k176qaO3Q2Cs6S0OWxkq7GDviswrzlkJnLjIQjIQeXMJwp
+ 2AwstBO8B4Od2wqxdSqKxCe9+ElEIrGm8IV5+f64qFtQrt6yphhNm/VGDWRRbV3TT2BT
+ FSioCMLjV7D0MPdbsDCJ4E4P8qMWyApbNfL51OwKhU4j04ulouxyuCvDIlL//mt2qTIy
+ Z1Yw==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1773412200; x=1774017000;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=5bxFQeCPd7k8jJvVFFFJLioUdLVXiU/NXmy4eQvQlxY=;
- b=kq6y122VRwrWw+T/EtdOaYLInbhPhRjwKIXADtb20iqEZ3mfdTIP+qNVKbi4qMk3yV
- PJWe/ylwz3q4zHk2BuJTkdUXK5+g4jtdVJkeVgFhtpp16wtneq7cUUzaTwybhe4n+Avu
- LZ7MV7pLK1Lxy8nGcylZeOKsG1snoADGbnO3QKeg/nbiCb/nz52Ql4W6Cs3R8jqhkR7F
- JobtPn3T2JNFyu1t8RB7NGQbgBtGju8HfLcdLG8TaFiTn9/mOHfnbjtlh1/2MhXEyt7Y
- agIm/SY8O1wQtyiCNBxOdkcwhDlQgU3d/Jnpgj7laNacbu0/NoHMmyq2RYr5/b8yUXlN
- kNvw==
+ d=suse.com; s=google; t=1773412257; x=1774017057; darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=LRxonFHxKOFtwLU4vtjcCaWjDuObgsewD5LZ6SLLhBw=;
+ b=L9ZDUkRPDOqVJMDjsyN83qRs9iD5TquISN6oD/q4YF8hNSbvtYOe0eorLHilqylYOS
+ /KJNHrsT12T43TlXOrONJjDSOJ+RF2r3eRPQyCCfBNzNyDCw4gdRqM1FJqou9bnraFJu
+ 8h3FCATlqtCsLsXrygRIOGSarcLpfLw1ieCBuxBfx4zZcI2GkGeKpKCwjV+ZLMSpq8yX
+ S3+H7NFW536oLYcSLXpMBK7CSxX+3ds8QwxsAwDyFnT+f2VCHUNFI3aoEcrR76sB4Mp6
+ BpOEYbnRv8e/082Wnhi3tE2P10ck4J1nYx2td+29Y8ZYKO9mMuZqBv/YYNNT0QyLcOSb
+ 5ivA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1773412200; x=1774017000;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=5bxFQeCPd7k8jJvVFFFJLioUdLVXiU/NXmy4eQvQlxY=;
- b=j3VyliIp/4p9YuR9GfDOMHbRTjSur7tfeKIMdAIBaxTQzmmHXcmjacgTM7wvmVNI00
- tGq50QsrHtgS208z0CAEmkGHYyAaZ+ErBg/Jw3LnllycqBRX/ggeWG8rFD0PKLeKE7kd
- TSuP/EexZvNYHKEBRQMJCfM4pCr4EScYWAs+qsa2CzT6pIVoE+qFoQlgIKAghMu9zqol
- +zpa+cOZqvSu/QwpRx4AWD4Zhx+yRcZ4/H2pNqkewWjqMMak1MRNmQX7LBn7G+2rUx80
- uc9ac45MXyeQb5C0VlVhNhEcTP9ta4suMrrMGicX1+RqoV/HtKpU149hNOShLXvRN6/w
- 0Hqw==
+ d=1e100.net; s=20251104; t=1773412257; x=1774017057;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=LRxonFHxKOFtwLU4vtjcCaWjDuObgsewD5LZ6SLLhBw=;
+ b=d0gf3Vn6QSAzMFXJvMx11o63zPayQ5ubxRJAehD+Wjz9Su1TPR1BXBhur+7G0E3tap
+ jmWmQ2SWmdSod2xIeZyRy+7Id9LTx8y2GQUZEnzAZHBBKhqcS/GyRhA2e9OG6fbvUrbY
+ DFXKdKqeHJY0n74EDLl1xJUgADqvjCEU1US8aUQUbCrUhDPhPDnhpmutsxl8Sp0HUZ4z
+ HMr9olsT/B6U4W55n6nR3FUA4hsAmK5mdIKuc8fxlgrrUHEROpakA+5BNfJpsH3+onVj
+ 58b1NakVcZb7nGe01M93qy93OtBg8wEQZeZyhhuRFZNVGCuyrSOgGHB6xYq6TnnEYRGc
+ IYlw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVfqXxLHO56tcDeJG3dZHtpxHZXRy/+6nG/ZCtUkCpEtECeqehK/u5EYB3g/Zk5VYZuzPK6qM5WHos=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzAaqOicyTIVXZtHBQAosqkAhY7zHLe/GJMqkW0CeOMJd95m6ln
- +I6vkZYVzsJzOkYmPRU7bC+66Qs/BUhKCcrGl0obgeTdE4cD9rX2xFqrX0JeZka2KdfZTzfn5gT
- RkPrprI2LI/SDM5d2V8GGY1pM9vxGxKkcSx9Uw0RY0x9OKFrm+zGCZxlEt8+/RfevfQ39IqU=
-X-Gm-Gg: ATEYQzyQPP7zJarRw970LviDQzaGEkPFbPsBbCaQCayZV7Vu7W2JJwrCnj2zGKxBfgj
- o0fPi9P2SfFpSxMSY4mUXY6NcXq9h8K9mdaA+/EOtpzTnDO1YlBRlihjdtg/ZKfa4PISSHZV955
- 3zdsv8ja13h7hf0Hg6uAVwRq8mP37K1OFA/F4HYF6MrXr86MkdKaVTe5J6HIB7JfmgC2Q2+fDC+
- EtUC3LhpXHCxd2hPzl+xSa8ES2dTmnpzOOMY4xi20C845Bmhl7fzCRozNewpRwezfe2glmohKGU
- PlWoCAaVNkDYcK95vUN8LcpS09JCBv4BgTw79KWuUcaELAPDRSpoPsWYZ5QKxkA8uBvKr2fv0Kh
- tSQLPfPjGFCBxALbcvIMMjjxNUnpMOlhZ5k8BybgcPPRWFqm1kpVQ5FNsR/YKDf7Pgs4j1kf7ES
- Y0s0z+xiC0STiaiq0t/W+gCZ7S05vCQdsyZIg=
-X-Received: by 2002:a05:6102:510f:b0:5ff:be25:8937 with SMTP id
- ada2fe7eead31-6020e6233d1mr1360028137.31.1773412199955; 
- Fri, 13 Mar 2026 07:29:59 -0700 (PDT)
-X-Received: by 2002:a05:6102:510f:b0:5ff:be25:8937 with SMTP id
- ada2fe7eead31-6020e6233d1mr1360012137.31.1773412199436; 
- Fri, 13 Mar 2026 07:29:59 -0700 (PDT)
-Received: from umbar.lan
- (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
- by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-38a67e5ecedsm14686921fa.21.2026.03.13.07.29.57
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 13 Mar 2026 07:29:57 -0700 (PDT)
-Date: Fri, 13 Mar 2026 16:29:56 +0200
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Akhil P Oommen <akhilpo@oss.qualcomm.com>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 24/27] soc: qcom: ubwc: drop macrotile_mode from the
- database
-Message-ID: <knrwkgsq7fp46y2yy7ub5l4zqwrhpmsky3khvtltsvdxsemjn5@t3re4gxcnbkc>
-References: <20260312-ubwc-rework-v3-0-b7e8f800176a@oss.qualcomm.com>
- <20260312-ubwc-rework-v3-24-b7e8f800176a@oss.qualcomm.com>
- <52bd0410-5009-45c8-bfdc-b493e2f60610@oss.qualcomm.com>
+ AJvYcCXnZYoWShCiPR+ezwiTGCc8WlnQxAx2q6A1D/l2EFM+pwT7QoJFSdEHinCTIBuY5tsNa0FdkJSxyd8=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwY3+1HhVSYIYQaFND/I0sdsSj1e0Xa+7AOiCzNP4UATcPfoRyb
+ d3r7xCK0OaFr0a2cgj4OlebI3nHZmkUQL6xvuPjdW1qnAMm5zI4QOkNAOOKNmWmveWxtKm80R/4
+ N4TNecHCBl55S6a/SJsTcuMMTH6tJF3getmGZdXQ5mw==
+X-Gm-Gg: ATEYQzxNNOCRa8YOCpVMsueVosSGyzGZOyTlWnGcFpjq1nxMpHszpbCprkXk6WPrRvT
+ qfYVlF1n/G1Bv07zoznCUqqR/9kbeLminpNynfJNBMDvuPr40heRwlHaLhHSIMhj1Dn3tfzADqT
+ RATabNao1+TLz+Z+Ts4LPOviQCKuHpA3gYroDdgSoWT/yiM6ogNFrMPSnQVOaqyQbuuA2bgXJmw
+ SrD/mfzt7pLbhauJGaq5+Mij5HzjiCOFU9HUG6LNlZoOSKT0v2PlN50/RuO49COU11Xa4GzEzed
+ RMMm8HC7fMI0IrZxvv054MWzVzKF/P3SdYCUEip7
+X-Received: by 2002:a17:907:c11:b0:b87:1c20:7c63 with SMTP id
+ a640c23a62f3a-b97650e6e92mr207376766b.20.1773412256991; Fri, 13 Mar 2026
+ 07:30:56 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <52bd0410-5009-45c8-bfdc-b493e2f60610@oss.qualcomm.com>
-X-Proofpoint-ORIG-GUID: HipxYsi9Qa9vp9proKShNXRpSt-GXDez
-X-Proofpoint-GUID: HipxYsi9Qa9vp9proKShNXRpSt-GXDez
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzEzMDExNSBTYWx0ZWRfX3FWe0zZWtkMd
- h2KVRVWC19pzevcMgdC0r3GSrxOHGUw338ttHLcfjEN25OrOEiTtuRDm5QpnsvZ5lwYoqHb04Xt
- 2HvY16SJkXFYFewNzEjQQ+1g+zPFjpR0K/SpANlQoiwvyOZfoYTiQeeVw2rxKs7OP2wiQIjbn72
- kd+NMPaoF+IDEXLHhFjAINQ5nwzQN1c5yvIvJAm4yC8EJ87ssarYNaq5DYqPMMpoIYrWOo6AUeU
- +EYwO/R/KIE6p4KkJHpOJANVA8dVLo5CPzpVGMZlouTSEhS2+sjiRITjcnoeQvKd2dxTExkEj3b
- jsogu4VIUUqaQaZRCZThug5Pldah/r7D9awPX91ZivhY3399JWE1pLt6kOBnuhRQdXfzhVG2F4Y
- eSsTHSBsEzz+sQ4MDW9LJoQ/zfaYPDgir85gh1j9lQuHOtJ8cDhNnnbghttFZWwVu7XlEuoRjjb
- hdtOfxPxdEYggLhU7vg==
-X-Authority-Analysis: v=2.4 cv=S6TUAYsP c=1 sm=1 tr=0 ts=69b41f68 cx=c_pps
- a=UbhLPJ621ZpgOD2l3yZY1w==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22 a=EUspDBNiAAAA:8
- a=TemcLLIvp6Dw_u3LJh8A:9 a=CjuIK1q_8ugA:10 a=TOPH6uDL9cOC6tEoww4z:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-03-13_02,2026-03-13_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 phishscore=0 adultscore=0 lowpriorityscore=0 suspectscore=0
- priorityscore=1501 malwarescore=0 spamscore=0 impostorscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603130115
+References: <20251224144708.61167-1-marco.crivellari@suse.com>
+ <CAAofZF5XSUVn+XW75rC76-Amibc3rZnG3QQhWxPtk7K6YMQx4w@mail.gmail.com>
+ <50e3d83a-c90b-40a4-85d4-f5b0b474ab97@amd.com>
+In-Reply-To: <50e3d83a-c90b-40a4-85d4-f5b0b474ab97@amd.com>
+From: Marco Crivellari <marco.crivellari@suse.com>
+Date: Fri, 13 Mar 2026 15:30:44 +0100
+X-Gm-Features: AaiRm50wX-gvpB6CSw1TM_ZxnjyuF9CD-NmCqCiMXD1oDbU4mspiNqOOHLx64Tw
+Message-ID: <CAAofZF493ZvbZa0qpTjKU7VZgnGcG6HFuPF1SMDk1+S3kiW77Q@mail.gmail.com>
+Subject: Re: [PATCH v3 0/4] Replace old wq name and add WQ_PERCPU and
+ WQ_UNBOUND to alloc_workqueue users
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, Tejun Heo <tj@kernel.org>, 
+ Lai Jiangshan <jiangshanlai@gmail.com>,
+ Frederic Weisbecker <frederic@kernel.org>, 
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+ Michal Hocko <mhocko@suse.com>, 
+ Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Philip Yang <yangp@amd.com>, 
+ "Kuehling, Felix" <Felix.Kuehling@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -149,29 +115,21 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, Mar 13, 2026 at 11:28:26AM +0100, Konrad Dybcio wrote:
-> On 3/12/26 2:29 PM, Dmitry Baryshkov wrote:
-> > All the users have been migrated to using qcom_ubwc_macrotile_mode()
-> > instead of reading the raw value from the config structure. Drop the
-> > field from struct qcom_ubwc_cfg_data and replace it with the calculated
-> > value. Split single UBWC_3_0 into UBWC_3_0 (no macrotile mode) and
-> > UBWC_3_1 (with macrotile mode).
-> > 
-> > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> > ---
-> 
+On Mon, Feb 23, 2026 at 11:51=E2=80=AFAM Christian K=C3=B6nig
+<christian.koenig@amd.com> wrote:
 > [...]
-> 
-> >  static const struct qcom_ubwc_cfg_data sar2130p_data = {
-> > -	.ubwc_enc_version = UBWC_3_0, /* 4.0.2 in hw */
-> 
-> Is it referring to the values reported by MDSS (4.0.2 enc, 4.3.1
-> dec)? FWIW the other doc only mentions UBWC3 for the platform..
+> I don't have time to go over that again in detail, but skimming over it l=
+ooks good to me.
+>
+> Feel free to add Acked-by: Christian K=C3=B6nig <christian.koenig@amd.com=
+> to the radeon and amdgpu patches.
+>
+> Felix or Philip might want to check the amdkfd patches.
 
-Yes. The code (and the database) has its roots in the msm_mdss.c, which
-had that comment. Other blocks on SAR2130P might have different UBWC
-support levels, leading to UWBC 3.0 (3.1) as a common denominator.
+Thanks for the ack, Christian!
 
--- 
-With best wishes
-Dmitry
+--=20
+
+Marco Crivellari
+
+L3 Support Engineer
