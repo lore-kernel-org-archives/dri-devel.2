@@ -4,67 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 72843107BCCD
-	for <dri-devel@archiver.kernel.org>; Fri, 13 Mar 2026 16:54:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AEB63107BCCD
+	for <dri-devel@archiver.kernel.org>; Fri, 13 Mar 2026 16:54:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CE27F10EC64;
-	Fri, 13 Mar 2026 16:54:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F1ADB10EC67;
+	Fri, 13 Mar 2026 16:54:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="elMOKlGD";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="B423D2mz";
 	dkim-atps=neutral
-Received: from CY3PR05CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11013034.outbound.protection.outlook.com
- [40.93.201.34])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B020010EC64;
- Fri, 13 Mar 2026 16:54:22 +0000 (UTC)
+Received: from CY7PR03CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11010042.outbound.protection.outlook.com
+ [40.93.198.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C7A8910ECDC;
+ Fri, 13 Mar 2026 16:54:34 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=VxYhgYP0xdfmqsHqrs0m+R+NuGNz8S3yz6B3fsIvDu5ornAFSFv6MlkxDb6XCmArro9yTXZjxa7NcoG4RXOlDFrK0FjOMjtXXGNTVyC7c5og5kLtIblZmtgnbCGYf4FkocRLe5XsKA7tPvuHmlODOeeDm/dttIlWYkc5lz+xIX5DgpuwEbWaZYHeekm58YKNsYhosCGitm59MklAiJ3uoF3Zno2EoJ6uWSKLg8UaiS9EXkyjdiLyTn/pRvoLz1LTkapVfjQRrqLUVopLIuKD+5ynggSkadctM2cGLVd0UbB9WQ8IZSXC9IfYgRdhlMsPCxxqXTo34G5Q94H3bQjvrw==
+ b=k8zT749MnoECQHaPIAEXrkTd2BSc6X0hEBClUe7e9COxLU+5EfQIL2eTX08Qm3sGkFudWjAv/I4QxMYhz8E2FprDVRvuh9y4rYkxTair6qFmxl/3sKt71tZ9BAfB7UnUqR6KwBLi54383i7+vRQeBohaMCiyXKj+E/xo+LrGsKrOrt1gutn81WejRun5hsw3k5clm2DUB0TkeQYg4UTjlWEqfgliu3wWMMNUeg1TmGdRHQFMmsnRtjCwXIfQI/PIrZ6xB8P2Qa0vc3V0KIWueKWR5ct3jBb5SA2TjQOsM1hYwJHbo0XZMP6+BEvcEjaglyzvldJruhY/1PEYKnuBtQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=koww9rh/+UdpFYobu1XacYH7GVIdk+rkej1Z+tTPPx8=;
- b=zLgqmo65vm8WlufTWBZWjnTH+9vNgadYT4aa1YntEWaFMTZ4ilU5BPIvgpw4LStYQgXPJmx6WgljQgEXWYqq+SaK7OaT+s2smaQVfT9ThNy1AQgznLslqfIuITSyljgkLTnqh3KmVII7jKy0RPdeyedbhdoioVLHjlNwOBRpdYrFj5ewqj89iLieol1T+yHFe93WnxWPu+PvKkS0rqveZ5t3ekKMSs2n6leihsYVXXcj+M8FhN4UEATYy2O7laGxy6Zve/5La57cdyYbjSv/fI+vb0xbTj1RYYBkA91k5Uc9b6/e0/v4HuyKFZ9FfgSq9uRzPS1of3sy9rqhzU/nhg==
+ bh=Z3x9TTFjXo8ebR0eZ2bbiSdJ+uBo/0lEJBE4Y7SR21o=;
+ b=f0IFQQQFpHvnKnFYn8y/MaBUsQxs4fJmQl7gP2w0FRIEQsuEkbw0BcTsOa0tjKSizeq0qiZ7DFhhjzT2tSWkbSyUwJRehJw5IgPMrHHP9k6OuxtZmWKv5ZTvbnETDgmrMl1AJHRC7pwpbWw+NFPLE8TmLo5d7CDgDL9TV9YX3d4vV00/dbhs2onZ+i6ebn/ypqyH/soYJbCMyoLB0JzCkpecvITy5QkEQc25Yj/tsSCbqa8fggeiZv202GmbobOlueTaKrSjwJ+M98/l7FdX/O2O3TEe3CtYwBCsllCilxAsN7ZMJDEChESsQMuFNn7jt53Rya/dug+rtA+NwxO3NA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.160) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
+ 216.228.117.161) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
  dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=koww9rh/+UdpFYobu1XacYH7GVIdk+rkej1Z+tTPPx8=;
- b=elMOKlGDD+JjeZoGv52DCt5nWVOBF7QHf77lVeHQgkAQPyVukzihKfWe/c571gOrePnV5edSQdkLzDEu0Mcfdpc6V6g1ovXwlhXPnibMVuzOacQgDoQslk2NQu+Lq9q3Iwk1JwvEIXQB8jPtDUAG9WI5cE0Tmsxma/lLRF7Uo0oz40PQt1FOjQDRj+rNs5uBjjI0VDLbZVD6rf8BSwJNfNVzGG6OhJXaVg3fp7331ffU3wv+EtR+/tmqvAXklIsAPug7Vud0oPZyEjf2IBtiwYHZPN9fGYoZkO9+xEzJ+7yQBO8fl7YIv4L9dgsuP7yhNclj14Ysq/ujZ8q+VN/isQ==
-Received: from CH0P221CA0003.NAMP221.PROD.OUTLOOK.COM (2603:10b6:610:11c::7)
- by LV8PR12MB9641.namprd12.prod.outlook.com (2603:10b6:408:295::18) with
- Microsoft SMTP Server (version=TLS1_2,
+ bh=Z3x9TTFjXo8ebR0eZ2bbiSdJ+uBo/0lEJBE4Y7SR21o=;
+ b=B423D2mzS2SPZErOzxHweYGSROFMm9JKUy9qM20NzJr7Pv75HBc54l3M9mvP1YYzc749mCI4iDlDMD/RfR7IiAGESzTzksg0TxVCOc4J46nTOoO6bJLKLa1rcSQ+FIYFESdCuAESIcMVpnlgZSPNLYMzurqHxRwIiZ4Zphu1YolLOB4cOIOCRowiAJx6LjoC06wqce9RwknTqNRumwwrxyr2lhez4eeydqF3jjQLl99/JjqNvhOTKiDSzrNY2DMSdTHOVmaK5AYPmUoT4+3anOdyunok7ljURhu6HaCAzvbwgoADzQI+S4G/5JPHFTpvEDVevuw4+fO7pk/evc43pQ==
+Received: from MN0PR04CA0023.namprd04.prod.outlook.com (2603:10b6:208:52d::28)
+ by CY1PR12MB9628.namprd12.prod.outlook.com (2603:10b6:930:105::14)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.8; Fri, 13 Mar
- 2026 16:54:14 +0000
-Received: from CH3PEPF00000013.namprd21.prod.outlook.com
- (2603:10b6:610:11c:cafe::7d) by CH0P221CA0003.outlook.office365.com
- (2603:10b6:610:11c::7) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9700.17 via Frontend Transport; Fri,
- 13 Mar 2026 16:54:14 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.160)
+ 2026 16:54:28 +0000
+Received: from BL02EPF00029928.namprd02.prod.outlook.com
+ (2603:10b6:208:52d:cafe::f1) by MN0PR04CA0023.outlook.office365.com
+ (2603:10b6:208:52d::28) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9700.16 via Frontend Transport; Fri,
+ 13 Mar 2026 16:54:28 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.161)
  smtp.mailfrom=nvidia.com;
  dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=nvidia.com;
 Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.117.160) by
- CH3PEPF00000013.mail.protection.outlook.com (10.167.244.118) with Microsoft
+ 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.161) by
+ BL02EPF00029928.mail.protection.outlook.com (10.167.249.53) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9723.1 via Frontend Transport; Fri, 13 Mar 2026 16:54:14 +0000
+ 15.20.9700.17 via Frontend Transport; Fri, 13 Mar 2026 16:54:27 +0000
 Received: from rnnvmail204.nvidia.com (10.129.68.6) by mail.nvidia.com
- (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
+ (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Fri, 13 Mar
- 2026 09:53:57 -0700
+ 2026 09:54:07 -0700
 Received: from rnnvmail201.nvidia.com (10.129.68.8) by rnnvmail204.nvidia.com
  (10.129.68.6) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Fri, 13 Mar
- 2026 09:53:56 -0700
+ 2026 09:54:06 -0700
 Received: from inno-dell.nvidia.com (10.127.8.11) by mail.nvidia.com
  (10.129.68.8) with Microsoft SMTP Server id 15.2.2562.20 via Frontend
- Transport; Fri, 13 Mar 2026 09:53:47 -0700
+ Transport; Fri, 13 Mar 2026 09:53:57 -0700
 From: Zhi Wang <zhiw@nvidia.com>
 To: <dakr@kernel.org>, <aliceryhl@google.com>, <acourbot@nvidia.com>,
  <airlied@gmail.com>, <simona@ffwll.ch>, <lossin@kernel.org>,
@@ -75,10 +75,10 @@ CC: <nouveau@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
  <alkumar@nvidia.com>, <ankita@nvidia.com>, <aniketa@nvidia.com>,
  <kwankhede@nvidia.com>, <targupta@nvidia.com>, <jhubbard@nvidia.com>,
  <gjuvekar@nvidia.com>, <joelagnelf@nvidia.com>, <zhiwang@kernel.org>, "Zhi
- Wang" <zhiw@nvidia.com>, Dirk Behme <dirk.behme@gmail.com>
-Subject: [RFC v2 01/10] rust: pci: expose sriov_get_totalvfs() helper
-Date: Fri, 13 Mar 2026 18:53:25 +0200
-Message-ID: <20260313165336.935771-2-zhiw@nvidia.com>
+ Wang" <zhiw@nvidia.com>
+Subject: [RFC v2 02/10] gpu: nova-core: factor out common FSP message header
+Date: Fri, 13 Mar 2026 18:53:26 +0200
+Message-ID: <20260313165336.935771-3-zhiw@nvidia.com>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20260313165336.935771-1-zhiw@nvidia.com>
 References: <20260313165336.935771-1-zhiw@nvidia.com>
@@ -88,29 +88,29 @@ Content-Type: text/plain
 X-NV-OnPremToCloud: ExternallySecured
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH3PEPF00000013:EE_|LV8PR12MB9641:EE_
-X-MS-Office365-Filtering-Correlation-Id: ee72e3e7-83d2-4d06-632b-08de81212855
+X-MS-TrafficTypeDiagnostic: BL02EPF00029928:EE_|CY1PR12MB9628:EE_
+X-MS-Office365-Filtering-Correlation-Id: 81d49a00-b63f-4a0d-8ac5-08de8121307e
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|376014|36860700016|1800799024|7416014|56012099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: 6U6kLQtqoHUslM6uuyGm7xSWjkkA99PMQPgohtxbZSoSkd1Ne3K3nQqTvV6La/z/EtERjynKCXjBaMn+Lt+106CyeBSK1jE0nBBKWJO43kWQXZCxVnh9RTXnaZ1WGB/UdYx/U4cwdFkb7PmjLNLgcBzfquaOtavf1EucQ66jRCdhsNASj3ZW9juf7jeV8Zt+RGxW+f3Uu2kaaYf0TATMMv2xrDXfAzph1bHzwbeUK3AdSb2iJcXEIFGp98RC5iw82s+AXptUac2eGfXE9ASW5DHvto/dSJVXjFHhcGbao64h3xzjU+I72RzZ3Qp+VU8Z0F5nslCiX1M0XCW1i01DHRQp5f66OAwANgdzCTcQ7AVe9YR1qtZnkzvcnANsEVIuFyYb/lnqjOlPjSLkEoDSlbx644gut5cSR9/yP/rXoHfDScZqYCXYEA5165N8U9PI3hs9e0hmhD5ZIOJygcgLBxgvMagRLEnL3vilY0LoXiSHvzReuqMw3n9m4fkOOV3shsdaHxdxodkcDFMFTvOHlEJLPpRURMpcLpSgnddsMwbM4IVKTuj1/9pVinH0rTiY6VaISYQBwhNAiObkw6fR9nNHyOwjVMlyayB0kykj57CgOBT8TwswnPxAhTRkefw7XGN5sJ5NBKAPwhzAOqDvjAHmCHxJ36tOlQMfwlsuyi9gQLgO7v0aOZGiof9XPQWi4cc/5Zf5ZRZINgXLQvWiun2WRs1VIvkjB+Y7DdBvdYNx1QDr6HE4RbVTEfib7XOm5adrnvnVXh+h66PF0eFjBw==
-X-Forefront-Antispam-Report: CIP:216.228.117.160; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:mail.nvidia.com; PTR:dc6edge1.nvidia.com; CAT:NONE;
- SFS:(13230040)(82310400026)(376014)(36860700016)(1800799024)(7416014)(56012099003)(18002099003)(22082099003);
+ ARA:13230040|1800799024|7416014|376014|36860700016|82310400026|18002099003|56012099003|22082099003;
+X-Microsoft-Antispam-Message-Info: MipGCaktQ0jpT5mCq9unwRfiaTpYEoBagoavCtCNS9hI3QME2ka/gcG1XAoCS0bH8y3wZKT0sDpo8Y9I3fIqUCyORVopxVz7ZgDkAmB9pN+8L61O9QCPQtM3HRKJsYWXchPNCtRDqnpGiz9B5R97/hWxKoRtbb5j/+syEftmTz06GXS9AFaIihbZUgCOSHiCrQmhXc6asyo1PZKGTfhRu4IKVjMFZ8BgVCPBlIQs33VTvSnsRtt5+KxlS8nIb/dEof95MP0ttkxL3lDXlbfeKSNWVDBh/CYwOBPQRndJ5a6p5T0K72D6Q/xK62uxInGViW4SOTEQRVbcW8WDFTebaHE3Ov9loW9X2wG5PPQREazwEJNcPbmlBsjtSzkJT/PBn1Gndb3Z+B1c9SlpxAMrhnsiXSMpe6WGQygkc9scnUS7WNAyOsaw3jVvYa46fIt4snfL9IP/A/2wV+ZPMzRoEH+m04OOrBZ+kL24xgJ5z9uezc4THvf+bzGX3aHCnwA5Fa4Bgx7gZvJgFW4N03Oe3JvL6hKZexHhrchJ+jUlmObBQQTaaXU41A+ZjyDZXg3umrZgyXpeCMCoYc7lFgi7XjHL+FWEFvb7jijh1s20a8yJvU454Q+KzrjNq/vBKDkFyRgILHUqFB8gGspLXP+aka13j6ubYW+6iAAWNmE7D/OczgGksQ7wB7ZeArdqA6jMrjGmpmQDBVjwEDbvK5HcLtCGaOYLYA9bCOY4P0M2A6u2U5y4JKymnAw2+UDRMghkpEv0FVXb7pMv0QlWqsoLKQ==
+X-Forefront-Antispam-Report: CIP:216.228.117.161; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:mail.nvidia.com; PTR:dc6edge2.nvidia.com; CAT:NONE;
+ SFS:(13230040)(1800799024)(7416014)(376014)(36860700016)(82310400026)(18002099003)(56012099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 4L5g15yzEENPMkSMd4arZRnMQl3dM+T+nzRVaGQeYShwF1Yluc+E0YoeLdgd+u9tz99yBTUT7EiNanZXF5JvV7jJQ1MyfNcBkLInaOoXh9XykdMfBQArde16jisf9pHpzG0u9OW6jRECMULd/zcMo1+AkYGNBq08ZUp9rzshgyqsKG+GI49muHE87hFRvSaumetFCps90hzcdqTSA88TFI6z4J6YiybOaqPQcrNiZkyCGtzTqIvBI3ShX4Gp48F1rgZmaK2sUiBqqjeLf7J1d3nvL5etRXNpbTfRL9XddFqnTBda+WkqZlKQ3usQSrg39tSqq1+vcMovJ7TMxksvH6SFVdFKYf9ootpRUMrE0w/TSbaBZOtyLgwGNQ0QwRT5TOEptYeqaybnMOwvhyhRwbdsAQyecK1pdseqyU6132Uy4avyun8M37ZyvDapElFB
+X-MS-Exchange-AntiSpam-MessageData-0: Lf17dIxhSg9gSs7XvyknxGLS4K8X+IBXajfSBGww1fOqQ3ls7KeVVdhg7sOMjlcxkvY8t3lwKvyWGdPc3ut4abVHAyFlYYF0oDz/yzjN4ekPbv6ZuDLA7Ro8RRiQ5bQKBBBeyqXFFJxO7NBnvMze68ihDR9UDL9bRqy2nPNDJcNOeVZ69COop8VktF3XkcPvnfpY0Cg8DvvIkVCrQLs8GoadRTbgAY/Ke3lQ2j/0MGgcoGmcUtEk6oRjcL4dGT7zVaJPdAzyTOrTRtXvL2K9YiTqQpbh/T3YERxUb2ZdRoNoLTBkPqcbWwqLk3BmdsdZTXGrURfq/P/urMG3SLt+tfH2BwP7Y1+83JUGcLaE8c7VAyqXnmMhwQSGupJxi0q9z+ifP5pzU5nIUVbca+w+Pin0AId47MhY3vfBgNPui3MUmwB0pxcS2qf3p1oICWxQ
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Mar 2026 16:54:14.2103 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ee72e3e7-83d2-4d06-632b-08de81212855
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Mar 2026 16:54:27.8778 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 81d49a00-b63f-4a0d-8ac5-08de8121307e
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a; Ip=[216.228.117.160];
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a; Ip=[216.228.117.161];
  Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource: CH3PEPF00000013.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BL02EPF00029928.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9641
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY1PR12MB9628
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -126,61 +126,109 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add a wrapper for the `pci_sriov_get_totalvfs()` helper, allowing drivers
-to query the number of total SR-IOV virtual functions a PCI device
-supports.
+FSP supports multiple protocols (COT, PRC) with different message
+types, all sharing the same MCTP and NVDM header format.
 
-Cc: Dirk Behme <dirk.behme@gmail.com>
-Cc: Alexandre Courbot <acourbot@nvidia.com>
+Extract common headers into FspMessageHeader with a new() constructor
+that builds standard MCTP/NVDM headers using the bitfield types. Rename
+FspMessage to FspCotMessage for clarity. The COT message construction is
+simplified to FspMessageHeader::new(NVDM_TYPE_COT).
+
 Signed-off-by: Zhi Wang <zhiw@nvidia.com>
 ---
- rust/helpers/pci.c |  7 +++++++
- rust/kernel/pci.rs | 14 ++++++++++++++
- 2 files changed, 21 insertions(+)
+ drivers/gpu/nova-core/fsp.rs | 46 ++++++++++++++++++++++++++----------
+ 1 file changed, 33 insertions(+), 13 deletions(-)
 
-diff --git a/rust/helpers/pci.c b/rust/helpers/pci.c
-index 5043c9909d44..a3072fbe2871 100644
---- a/rust/helpers/pci.c
-+++ b/rust/helpers/pci.c
-@@ -29,6 +29,13 @@ __rust_helper u32 rust_helper_pci_ext_cap_next(u32 header)
- 	return PCI_EXT_CAP_NEXT(header);
+diff --git a/drivers/gpu/nova-core/fsp.rs b/drivers/gpu/nova-core/fsp.rs
+index 1bd2ce997d4a..477ed719b757 100644
+--- a/drivers/gpu/nova-core/fsp.rs
++++ b/drivers/gpu/nova-core/fsp.rs
+@@ -189,24 +189,46 @@ struct NvdmPayloadCot {
+     gsp_boot_args_sysmem_offset: u64,
  }
  
-+#ifndef CONFIG_PCI_IOV
-+__rust_helper int rust_helper_pci_sriov_get_totalvfs(struct pci_dev *dev)
-+{
-+	return pci_sriov_get_totalvfs(dev);
+-/// Complete FSP message structure with MCTP and NVDM headers.
++/// Common MCTP and NVDM headers shared by all FSP messages.
+ #[repr(C, packed)]
+ #[derive(Clone, Copy)]
+-struct FspMessage {
++struct FspMessageHeader {
+     mctp_header: u32,
+     nvdm_header: u32,
 +}
-+#endif
 +
- #ifndef CONFIG_PCI_MSI
- __rust_helper int rust_helper_pci_alloc_irq_vectors(struct pci_dev *dev,
- 						    unsigned int min_vecs,
-diff --git a/rust/kernel/pci.rs b/rust/kernel/pci.rs
-index fc9c8e2077b2..c787f62b7f53 100644
---- a/rust/kernel/pci.rs
-+++ b/rust/kernel/pci.rs
-@@ -450,6 +450,20 @@ pub fn pci_class(&self) -> Class {
-         // SAFETY: `self.as_raw` is a valid pointer to a `struct pci_dev`.
-         Class::from_raw(unsafe { (*self.as_raw()).class })
-     }
++// SAFETY: FspMessageHeader is a packed C struct with only integral fields.
++unsafe impl AsBytes for FspMessageHeader {}
 +
-+    /// Returns total number of VFs, or `Err(ENODEV)` if none available.
-+    pub fn sriov_get_totalvfs(&self) -> Result<u16> {
-+        // SAFETY: `self.as_raw()` is a valid pointer to a `struct pci_dev`.
-+        let vfs = unsafe { bindings::pci_sriov_get_totalvfs(self.as_raw()) };
++// SAFETY: FspMessageHeader is a packed C struct with only integral fields.
++unsafe impl FromBytes for FspMessageHeader {}
 +
-+        if vfs == 0 {
-+            return Err(ENODEV);
++impl FspMessageHeader {
++    /// Construct a standard FSP message header for the given NVDM type.
++    fn new(nvdm_type: NvdmType) -> Self {
++        Self {
++            mctp_header: MctpHeader::single_packet().raw(),
++            nvdm_header: NvdmHeader::new(nvdm_type).raw(),
 +        }
-+
-+        // `pci_sriov_get_totalvfs` reads from the SR-IOV total_VFs field (u16
-+        // in the PCI spec), so non-zero values always fit in u16.
-+        Ok(vfs.try_into()?)
 +    }
++}
++
++/// Complete FSP COT (Chain of Trust) message structure.
++#[repr(C, packed)]
++#[derive(Clone, Copy)]
++struct FspCotMessage {
++    header: FspMessageHeader,
+     cot: NvdmPayloadCot,
  }
  
- impl Device<device::Core> {
+-// SAFETY: FspMessage is a packed C struct with only integral fields.
+-unsafe impl AsBytes for FspMessage {}
++// SAFETY: FspCotMessage is a packed C struct with only integral fields.
++unsafe impl AsBytes for FspCotMessage {}
+ 
+ /// Complete FSP response structure with MCTP and NVDM headers.
+ #[repr(C, packed)]
+ #[derive(Clone, Copy)]
+ struct FspResponse {
+-    mctp_header: u32,
+-    nvdm_header: u32,
++    header: FspMessageHeader,
+     response: NvdmPayloadCommandResponse,
+ }
+ 
+@@ -222,7 +244,7 @@ pub(crate) trait MessageToFsp: AsBytes {
+     const NVDM_TYPE: u32;
+ }
+ 
+-impl MessageToFsp for FspMessage {
++impl MessageToFsp for FspCotMessage {
+     const NVDM_TYPE: u32 = NvdmType::Cot as u32;
+ }
+ 
+@@ -405,10 +427,8 @@ pub(crate) fn boot_fmc(
+         let frts_size: u32 = if !args.resume { SZ_1M as u32 } else { 0 };
+ 
+         let msg = KBox::new(
+-            FspMessage {
+-                mctp_header: MctpHeader::single_packet().raw(),
+-                nvdm_header: NvdmHeader::new(NvdmType::Cot).raw(),
+-
++            FspCotMessage {
++                header: FspMessageHeader::new(NvdmType::Cot),
+                 cot: NvdmPayloadCot {
+                     version: args.chipset.fsp_cot_version().ok_or(ENOTSUPP)?.raw(),
+                     size: u16::try_from(core::mem::size_of::<NvdmPayloadCot>())
+@@ -469,8 +489,8 @@ fn send_sync_fsp<M>(
+ 
+         let response = FspResponse::from_bytes(&response_buf[..]).ok_or(EIO)?;
+ 
+-        let mctp_header: MctpHeader = response.mctp_header.into();
+-        let nvdm_header: NvdmHeader = response.nvdm_header.into();
++        let mctp_header: MctpHeader = response.header.mctp_header.into();
++        let nvdm_header: NvdmHeader = response.header.nvdm_header.into();
+         let command_nvdm_type = response.response.command_nvdm_type;
+         let error_code = response.response.error_code;
+ 
 -- 
 2.51.0
 
