@@ -4,158 +4,140 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E6BEB106FD92
-	for <dri-devel@archiver.kernel.org>; Fri, 13 Mar 2026 06:58:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ACEEB106FD98
+	for <dri-devel@archiver.kernel.org>; Fri, 13 Mar 2026 07:18:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 684FF10EAFF;
-	Fri, 13 Mar 2026 06:58:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2046910E062;
+	Fri, 13 Mar 2026 07:18:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="fRvBfubD";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="kYOta4Hp";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="KK0Mp9hK";
 	dkim-atps=neutral
-Received: from CY7PR03CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11010027.outbound.protection.outlook.com
- [40.93.198.27])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8C78010E0B4;
- Fri, 13 Mar 2026 06:58:45 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=VlfE916cUw9mtK0ftqodWq5hrGcFAaauntGntV4OUMEa1rRn3qQ0ywySlb89utJSiqnuVGHTv+Cupc1xkq9aG94g/jEazgejNJa8P/OszNn7L7R9+sNx7D0YVKUAc+8qzU140hEFwUs4IYmRWCZLgVZYVwQgu3epWDMDS6d+MypKNSkoW9Zv+nTMtEN1knrOw1DEOmm4QIsRkMpvb4mRa3WI7SLp5HN6RqOJVMUYSFMWhDkWmoBD86+9CNbLmnbPIEWx5VpnlKeyu6AFdIvY8CH6GXM3YL2Wm8d+CEhuWooiJHOFT5RIGwzwDO+rU0Ze2b6XgOeVqecolAN5ftxTZw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=IyAlfp3YyGOy7eo5odhMLDh4nSebm7+tPWnpBhxfiK0=;
- b=tFRXe1g7qF2ed6ksKbANWDAA9y4xIRreStjgeNhaqpXlusxNIXigdUnjFxkp7cIL8TYtl9uKcekifKkzIHuvidowJLUFnMHJ3m/JRxyfi/kKgXstxSclaQyo422Vo91ufolwt+aHKRrv8qrSE61z9SrS76gDtR9MQOXF1xvj0thB61wUIfe0OLSCKE3VMs6zyhyMWjtid0UmD/i7R5SJ0PoNdoAElPQvv5GDOj48ie839RBTar7H8MRnQkSwsbs6+VrgPzENLYT6M4zt/2jWNhinXTbtW3I7MpLL+7Rtu3YLRWbkj6sIBqDfD7l/8gwnVwNlZTY+qHWzBhSmfgXdFw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=IyAlfp3YyGOy7eo5odhMLDh4nSebm7+tPWnpBhxfiK0=;
- b=fRvBfubDYAuVM68oAf92EDw99H/3+yuJ5YTsAyPfGU+yPjjNtphGBmJagEKBfLLQyu2ZEnHPpyKNTqeom6l43se7Z7bK8n7iSuF3jnlqgQIR4mSrGz0uoqMazhKsjo6XXXUOZLcadZXwM5I5JpBNoavV4w1+jt+N20h5Vn29NZIPAh3oMhrPf7pmShdDncHXE4f3lBoNmRp0gaLC+TG0iwisUH5T4oDfQywGO4/ojevLlDR/+iwiw1I7Wci8k1AmW1Qq5MbXcBr7nLF06W/CCNY+uXIwHzq5Zg9GkA5dlDGiGy5meROSZeFbsF2KtlwhJljPYaDdz/EDRmvebUX0RA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from BL0PR12MB2353.namprd12.prod.outlook.com (2603:10b6:207:4c::31)
- by MW6PR12MB8914.namprd12.prod.outlook.com (2603:10b6:303:244::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.3; Fri, 13 Mar
- 2026 06:58:39 +0000
-Received: from BL0PR12MB2353.namprd12.prod.outlook.com
- ([fe80::99b:dcff:8d6d:78e0]) by BL0PR12MB2353.namprd12.prod.outlook.com
- ([fe80::99b:dcff:8d6d:78e0%4]) with mapi id 15.20.9723.000; Fri, 13 Mar 2026
- 06:58:39 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 13 Mar 2026 15:58:35 +0900
-Message-Id: <DH1GK30TUB4V.2GR6ANXIZDFFQ@nvidia.com>
-From: "Eliot Courtney" <ecourtney@nvidia.com>
-To: "Joel Fernandes" <joelagnelf@nvidia.com>, <linux-kernel@vger.kernel.org>
-Cc: "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>,
- "Gary Guo" <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
- <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
- Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
- "Trevor Gross" <tmgross@umich.edu>, "Danilo Krummrich" <dakr@kernel.org>,
- "Dave Airlie" <airlied@redhat.com>, "Daniel Almeida"
- <daniel.almeida@collabora.com>, "Koen Koning"
- <koen.koning@linux.intel.com>, <dri-devel@lists.freedesktop.org>,
- <nouveau@lists.freedesktop.org>, <rust-for-linux@vger.kernel.org>, "Nikola
- Djukic" <ndjukic@nvidia.com>, "Maarten Lankhorst"
- <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
- "Thomas Zimmermann" <tzimmermann@suse.de>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Jonathan Corbet"
- <corbet@lwn.net>, "Alex Deucher" <alexander.deucher@amd.com>,
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, "Jani Nikula"
- <jani.nikula@linux.intel.com>, "Joonas Lahtinen"
- <joonas.lahtinen@linux.intel.com>, "Rodrigo Vivi" <rodrigo.vivi@intel.com>,
- "Tvrtko Ursulin" <tursulin@ursulin.net>, "Huang Rui" <ray.huang@amd.com>,
- "Matthew Auld" <matthew.auld@intel.com>, "Matthew Brost"
- <matthew.brost@intel.com>, "Lucas De Marchi" <lucas.demarchi@intel.com>,
- =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- "Helge Deller" <deller@gmx.de>, "Alex Gaynor" <alex.gaynor@gmail.com>,
- "Boqun Feng" <boqun.feng@gmail.com>, "John Hubbard" <jhubbard@nvidia.com>,
- "Alistair Popple" <apopple@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>,
- "Edwin Peer" <epeer@nvidia.com>, "Alexandre Courbot" <acourbot@nvidia.com>,
- "Andrea Righi" <arighi@nvidia.com>, "Andy Ritger" <aritger@nvidia.com>,
- "Zhi Wang" <zhiw@nvidia.com>, "Balbir Singh" <balbirs@nvidia.com>, "Philipp
- Stanner" <phasta@kernel.org>, "Elle Rhumsaa" <elle@weathered-steel.dev>,
- <alexeyi@nvidia.com>, "Eliot Courtney" <ecourtney@nvidia.com>,
- <joel@joelfernandes.org>, <linux-doc@vger.kernel.org>,
- <amd-gfx@lists.freedesktop.org>, <intel-gfx@lists.freedesktop.org>,
- <intel-xe@lists.freedesktop.org>, <linux-fbdev@vger.kernel.org>,
- "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-Subject: Re: [PATCH v9 04/23] gpu: nova-core: gsp: Extract usable FB region
- from GSP
-X-Mailer: aerc 0.21.0-0-g5549850facc2
-References: <20260311004008.2208806-1-joelagnelf@nvidia.com>
- <20260311004008.2208806-5-joelagnelf@nvidia.com>
-In-Reply-To: <20260311004008.2208806-5-joelagnelf@nvidia.com>
-X-ClientProxiedBy: TYCP286CA0330.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:400:3b7::19) To BL0PR12MB2353.namprd12.prod.outlook.com
- (2603:10b6:207:4c::31)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8C63D10E062
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Mar 2026 07:18:13 +0000 (UTC)
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 62D5temb3342525
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Mar 2026 07:16:17 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ i2IlKIi4brx2n2555N+kXUhgIRruRM2KVO7+XTSNjAw=; b=kYOta4Hp6PVm9IEo
+ z0kzYQ7SouURAyJ6rUTTvPIoClsZXCgEpgm9eIegOOHN5QFlkHFjyubBt7hd7hyE
+ cbOMlzo76yJn1yxqMtA+ZqwPGfS3bCV34TogNZSJ5/VCPWu5j49ux1+sRj+B651n
+ QGMQiDz/iJd05KRzSFJVg/BFBYj4+WjCDwsdxWkF38g0A75m5ktyIstd2V8SbjET
+ zdzuNBkA1Zws7sfX9UWbOnpwy2H1OrCtQuJG/DgGhjZ0x0G+e++0ROoTnPyA5xE8
+ L1G9gTSRqrfL0RXA+uVzBkq+8GWOL5dpt1EhWOIeq/L6JCiZfHVex8W+W5phkdJb
+ rpJ2HA==
+Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com
+ [209.85.214.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4cus9w3ng7-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Mar 2026 07:16:17 +0000 (GMT)
+Received: by mail-pl1-f199.google.com with SMTP id
+ d9443c01a7336-2ae3f446ccfso19494955ad.2
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Mar 2026 00:16:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1773386177; x=1773990977;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=i2IlKIi4brx2n2555N+kXUhgIRruRM2KVO7+XTSNjAw=;
+ b=KK0Mp9hKbgDY7wulBFnPSmr2DbdThbm+YlEPLJSeembPys+kq8U6ExklM9h9VSoghO
+ fyCpHDuaoP3es6N8WCWt6/s8JJGEKj0JaDp70A8dyX79oWS9KR0RNeaCsnHHj5B6er/M
+ 43dj4CyTUfy2ViZ86dn9HVXlVjrA7elXljJwIs345+VlLtLJLuGdpJLar9ryCjg60k/S
+ ZNSsonk00Qd2s+jWsB62q6mxx3NCNGI7JoE+8/WU6SdlrNvScWC2bYXXMXDbKmKybM9w
+ 3Kyab8gFgQM6gBCPNg6c1P6ePVeQkDppp/UjBsy4GhKpw8eafqSPL5/FEog2RK1JGB+1
+ QPPg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1773386177; x=1773990977;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=i2IlKIi4brx2n2555N+kXUhgIRruRM2KVO7+XTSNjAw=;
+ b=SW9mQjEGeHG6jKE/KVbS2GWCDeVkqiQ8GAORyJOm+i3LdvnBmCOuomNPz+CrJgHouf
+ pkgWUjgecr4AYoRqTSQJcTDB4bODkcBF9n769aYmjMIeF4GCQvZwX5/nbXd0d0xKmzwg
+ HnSyxaBPdFkxN3BSnmjqKBEnHTrlmatFlxgrDWK8Tav8x87iEC+0h4NLvnsX2t6gTQ4C
+ 8WV8Xkoa6oUHnknzW6frdIY6gKp6mKryAl2Xt0LFDyZnS+JZ8Wtw20eL5y9+6TICDG7w
+ GLICIBYk+9JqsI1/+Wz8xoxLt+JI6+bs06CwX61yFQym6Z0LRhLz+aS1la+5qs3ToTWX
+ 5Zxw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXqP28zI9zCIGXuXeJCXGgDKNGRk7mcCGUak3SYxXDT5rB2wnSaR0jxQzKs3vpAshANN1gQ5Nfq+1k=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yx0KizukJr/Bam9wvidmd7AU4Ov8KAafPT9mlZ3DTvLMU/wqQkK
+ 0K+gTI38Getf2h/+ZzIzousGlKnpgOMKz/THdU9xsYWH73BuwlRU/FpyyKexoq0B1vpXevAhaOb
+ mmxAIql1lD5Zr8QXrJpusVSe1XJkEFMC0UcOfdUGL9SCawBmt6H0VzDjnbrgVb2bCryS8IDI=
+X-Gm-Gg: ATEYQzypoQk9DwvR+W2YJsWPeL9sadrIbE00rx+Ctql5EAX/mnH7nb0OADny8R4VorO
+ kJM/6Q2sdzzahd8JNWPnz8GIHheRp87p01XkNaoK8WP9AuAfAh1tjDz+1X4zMk2Nz5ufUdNYLWQ
+ YfTz08AEHpXg+jtgG3SgtDtCkuB22gJe1ddskqNc3dFFSRTA0iBdBNlfjDrrbnqCNx+ZUdymJ2i
+ yfBeOcK7otkMbv4kQUY4F/Wi/QMa0bAmgl4fXTCKMfC2CX6kXE+8Io3lWXS5ZbbcevJ/fQHZAHW
+ xFUSE2wT+4tabS7AE5nCQ99ZhQQX1KpxeyX2Fn9cwi39eYF2qjS0eppcMK3pEUvSo+J5mgsR/Vl
+ M5YLrmB+4BcZn8ZrhbqjLuRUIc+0s7BcI8Zgz4mDNij7JCewCViFZug==
+X-Received: by 2002:a17:903:390d:b0:2ae:3cf0:3aa1 with SMTP id
+ d9443c01a7336-2aecaa3bfe2mr25528735ad.37.1773386176727; 
+ Fri, 13 Mar 2026 00:16:16 -0700 (PDT)
+X-Received: by 2002:a17:903:390d:b0:2ae:3cf0:3aa1 with SMTP id
+ d9443c01a7336-2aecaa3bfe2mr25528405ad.37.1773386176268; 
+ Fri, 13 Mar 2026 00:16:16 -0700 (PDT)
+Received: from [10.218.35.45] ([202.46.22.19])
+ by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-2aece62c733sm16610105ad.35.2026.03.13.00.16.09
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 13 Mar 2026 00:16:15 -0700 (PDT)
+Message-ID: <a17e4c07-1f00-4b0d-90e3-2eeb1e71a248@oss.qualcomm.com>
+Date: Fri, 13 Mar 2026 12:46:08 +0530
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL0PR12MB2353:EE_|MW6PR12MB8914:EE_
-X-MS-Office365-Filtering-Correlation-Id: b60e8643-0059-4548-e6bd-08de80cdf421
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|10070799003|376014|7416014|1800799024|22082099003|56012099003|18002099003;
-X-Microsoft-Antispam-Message-Info: xOCU095OoSAHXv3IxESNCXfSqDoMiXKMz3DOXmIy8vhX2r6tvATqpsQJeSjHWDyigaktxB8UafaBVnpxUr6WkDpsSrZqPM2EDNwDzaxt5u8AtCrMRvDAKSPKg9zBN5dXRvf7bZRFL9vSew9vV0vI/4GTrsGn7zLA73s0es9hylIawqkQ0lEL+FSENGB71m5S2famExAafdcTL0FRsdI2Y+VRwpsaDJkJWoyiO3l5t3E3yYOOrmUZNIeybOKhr9O4SrWY1RGZ2jGM7kpspotskthW/kPbMBI1VioMaPWmnZySmtecLj5BJaoKGrR2YvY7i8JenBIU7+XN9aoSqOqExEiYAx7+c321nTaGAhPZ+hr0HqYF16byRjbqni+mDfZJUY7Yg4mlzbWaYnqQ288MXlz1A9Qg/Cf1CrKYB8UbZ0ezHSFDtqITRWMEMc6qT57hlLlHOqxWyikMzm1YFjwe7tsbBJBOgHKQiUwtvbVbvbcc5ZI66bmi9eX5zMMu5mHtOeJ4/h9iWhMvtJScthpm0qQZRxmxFDdtyZcujQX7/qbcELbRqOBHThlLVHdyacC6PrKujUQhj5h6kfhQwa54Ds4FJrqgXW9w7KQkbBe1F7rCzQfMd+UgFWSATZJjWzlk621Pvy9I+A2B39HLTwpyDCjFEp6MDjD6EYh8hTokWXfni10K7SGuM4Xnsx1vt3ECXf8xZt5g5FR7LAsqhSsrOpe0Fc8OjfJ1sgeAuss1hiU=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BL0PR12MB2353.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(10070799003)(376014)(7416014)(1800799024)(22082099003)(56012099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TDJ0VU9wQnM2ZzNhajl5UXRvTnA5bjZqVGMyd24wd2FxaDM0Uy9Eay91cUl3?=
- =?utf-8?B?T3ViSFk0ek42NUZVTXFpV2lqNFFBM1hXM05FUzRnV2JJZlF1am1rL3A5blhC?=
- =?utf-8?B?SFdRc1ZvMlJ3bUh1c2JWUXNQM1BacHBMYUMrSkh4eE5zRmpIL1RhckhhREFs?=
- =?utf-8?B?Z3pUYmduVFZKbG5Hcm9JTDBhY1JmVUJ1QW9lVUZ6QjFKbit4a1Mrbm5TZkUw?=
- =?utf-8?B?Y0VLZTJVV0ZDUFlPQ1FOQ3h2Q0dwOGhjWGpMcndMQnYxQ0lzd2F2QXVRVDRk?=
- =?utf-8?B?bXRqOFdTQ04rbzVDUGtWVm5tb0ZPY2ZPVmJ5VXgya2tYWEJDTDdLTGhBTDlk?=
- =?utf-8?B?clhMeHl1bDRyem85cHVLREFuVWd6dVRVRytLN2l3bm9yT1N0RTNTRzJ3M25U?=
- =?utf-8?B?ZGpwTUpqRktkK0J0MnJld1VpTTNRSk5oTUlPNHZVbStsN3owRFpxa05aQjVE?=
- =?utf-8?B?bzRRM1dQZjhTWTcva1JmcTBxK3FkaDJFRGxoTXN3VHhiblZyaVpweUpEZnll?=
- =?utf-8?B?ZHRwL3NXOFF2WDBFcnZwSThqS1dTb0I5eWNWWGxCckNpbWlsRWgwWXJvVitC?=
- =?utf-8?B?Y2RRQUwybU82TVo1MnhEdnJ2WXVKbXlkRVlZR2RNQ1BTdENkZ1U1SHQ4SGxJ?=
- =?utf-8?B?cmV0NmF4cW53azV2NGVjazhXb3pqM2VmZkZRWGtYQ3BxalZLQllYcnhzTVUv?=
- =?utf-8?B?YkE1MzB2Zml5YXZTUDQwdm1iRmZuNUk1ZnVxQm5GWlh3V1Uxd1BmWFZVQmFI?=
- =?utf-8?B?TEp3eTNtaEpEdkxsb1pUMldDYS9YdzdDSkN6WkEzVmNaUCtkbGdxeEVMcjFH?=
- =?utf-8?B?c0hFNFJ2Y25IZWYxa291c1FTYUdhemgvM0JNck1TMmFmaUlweWVIUjBNYnhG?=
- =?utf-8?B?MDdtdmg1dzlvM1VtMzRxVVVKWGJtQ2p0ODBFYjJCRUlCZGYzK2U1bGk2aSt1?=
- =?utf-8?B?bm81enJ6dEQ2aEQwOVNBZkkrdTltNHhEa2tNN2J4UGdVWjJKdDVMNzRWWU1Q?=
- =?utf-8?B?RlMvYWZselRDSUVtb2lxUnY2YUkwalI0OW9iaGtjZGp5S01sZHlRVEpiZWZv?=
- =?utf-8?B?b0ZBbjVQZlFtTmduWERDNXR4WFU4d1NTMnVpNUorZmZtTDdyYkZ6SCtMNll5?=
- =?utf-8?B?cHF0TVZySTBlMFBUTzk2ZC9FZTl6eXcyN0w4RWQ0SFNwV05DQmlYdXM3ZFNq?=
- =?utf-8?B?YitrS3Q1NWZUbnBwREVPS1lzd25wbkk3SXBCSzhzb2llOEtCVzd0bXBYUE1N?=
- =?utf-8?B?SWdJNEVVOWVvMEl6T3Y2SGxCYS9YNGhOV3VMY0V6TktkbXQ3QjB4Yjg4b3dz?=
- =?utf-8?B?L2pPMStkYjN2QThMRjdtR1ZiVHpJNVpDOWJDNnkwL2ZVUmkzN0V3SWpadGIv?=
- =?utf-8?B?OWlVSHRlOU9TWlRhVkd3YUpGaEZrdzJWS0YwVnBqUXJiZWxkY1I5ZUFqcDNS?=
- =?utf-8?B?ckN4WWVHSGY2cU00QTZCMmFNQzFLQTNsK0IwN3B4MU5FQVFRYi9kWmNFQjJh?=
- =?utf-8?B?NHRLQzAvZklVeUVMUm5UNmVjVmU3TW5qWjFTVE1LL3hTblFBTmQ0aXBreDVU?=
- =?utf-8?B?N2p0RjdQOGNjREF3SjJWTDg1VHNWK0hzM2U4T2NjS1p2QWNYWlUrS0lYQlFU?=
- =?utf-8?B?Tk11ZWlCRXdpREFQZzhsbWNpR2VXRXJDTzdhT0ptNDhrOEs4cmNCZnE0VnRQ?=
- =?utf-8?B?bEtERnhGSXFudDVZSmxoUE5MOEJibWlmOWV2QmpJbDlMbWNKclNsWC9NS2xR?=
- =?utf-8?B?OFpTYW5jL1FQUFVYa0JTcnVDaW44WGpzNXg5d04vNjEwWmc1K291RTBBbXlF?=
- =?utf-8?B?ZEt2U0VCemJDeDZGSjYxcTFGbXN3OWh4TWh0MERPNTRvUnVkY2hLK3c5ai9H?=
- =?utf-8?B?QWxFUUdjQWlSWjkrSGdzZXBSdFVab2pJNFhKbHE3YXJ2UFBQSUhha1pIK0JH?=
- =?utf-8?B?ckt4czFLbUFFdW9ueTNWdzVIR2RmTi9PQjd1VGFkblZOTk5FMGs0a2FmOEov?=
- =?utf-8?B?dVdUT1NYM214N2xKcHpwNDhsYkVGS2pzclRyeCt5VnhCRnlxeTFqZG81NnFo?=
- =?utf-8?B?RnpobEplOU94U0VncitnTlcwclgxcjlvVjQ2enhGd2tPOXhrcDY2dEkwS2lz?=
- =?utf-8?B?VzJKenhOYVA3Y1V3RzZGQ1Y4Y0F6akU2ZGdZcHgraThhc1JUSnFoUmZtNjR6?=
- =?utf-8?B?a2xrc3VaUXNIT1FyT1EvNzVGY3IxS1ZhY3kzZkVXUGNmZFMvTXd4eVJ4Rk94?=
- =?utf-8?B?KzFPWDdNcmFwOERRWEgwam9nekJoOXNGVS9HT3hicFluZmcxTGxoOHVQMndQ?=
- =?utf-8?B?SWtPaWNkd2xlV0g4S1pPNU1sdGd1VFZFV3RlYlFzSjFaV3VyWm5aWlM3eGJn?=
- =?utf-8?Q?DXxfM2kx17ndnqmwcy8skhFvTyu8m2asMOs9RTdmshw9c?=
-X-MS-Exchange-AntiSpam-MessageData-1: Z52nq5Abo2TEHg==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b60e8643-0059-4548-e6bd-08de80cdf421
-X-MS-Exchange-CrossTenant-AuthSource: BL0PR12MB2353.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Mar 2026 06:58:38.9472 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 8lHSwE8V+ewTHWp1l8YMdT9O4p0C4ZD5283GTvlclvvZUCsXuIY227MGN98+Zipu8EoHTka8REFgXwF+BAxQeg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR12MB8914
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/4] net: mhi_net: Implement runtime PM support
+To: Bjorn Andersson <andersson@kernel.org>
+Cc: Manivannan Sadhasivam <mani@kernel.org>,
+ Jeff Hugo <jeff.hugo@oss.qualcomm.com>,
+ Carl Vanderlip <carl.vanderlip@oss.qualcomm.com>,
+ Oded Gabbay <ogabbay@kernel.org>, Jeff Johnson <jjohnson@kernel.org>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+ <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, mhi@lists.linux.dev,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-wireless@vger.kernel.org,
+ ath11k@lists.infradead.org, ath12k@lists.infradead.org,
+ netdev@vger.kernel.org, mayank.rana@oss.qualcomm.com,
+ quic_vbadigan@quicinc.com, vivek.pernamitta@oss.qualcomm.com
+References: <20251201-mhi_runtimepm-v1-0-fab94399ca75@oss.qualcomm.com>
+ <20251201-mhi_runtimepm-v1-3-fab94399ca75@oss.qualcomm.com>
+ <nj4ovttt4i7hsqfdv5zhdotxrx3upxfq4ozuligwuheubnsmkd@e6bwzgkn55kl>
+Content-Language: en-US
+From: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
+In-Reply-To: <nj4ovttt4i7hsqfdv5zhdotxrx3upxfq4ozuligwuheubnsmkd@e6bwzgkn55kl>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: sZ88XEBXdtos98MOy55EFDLDX6x3tb2m
+X-Authority-Analysis: v=2.4 cv=IIIPywvG c=1 sm=1 tr=0 ts=69b3b9c1 cx=c_pps
+ a=JL+w9abYAAE89/QcEU+0QA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
+ a=8pif782wAAAA:8 a=EUspDBNiAAAA:8 a=BRVcir-zca08BhkZB6AA:9 a=QEXdDO2ut3YA:10
+ a=324X-CrmTo6CU4MGRt3R:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzEzMDA1NyBTYWx0ZWRfX8gJ7PenXoUfO
+ /eDVGFDBs2RywKfhqvgnmd3ndxmhF4lBjZAbyZFOQ0jBrqWZDulDPztB/Q1dECaNZ7jj/OypAU9
+ zVT2Ib+Bs1jpjHxgaqwIMXtISX0ZQZaVxzkWyXATFz9IYdrAFMbyUquik+Ne8/qyMzj5qsZnvoW
+ LrpHnRyKXZOYZHR9KkjMeiq0Wv+haxwVfhlnT5V4xgQ7SLYITAF9nh8m/q0JZ4kSjRXrQi0xu/H
+ 9cJK0wTa9UpdMtBy50LvLZVbzCkLAacogOnuHH0tZBzlYriQLmydkHdFYBkqCCAbdGEBsFjxuWO
+ KCc2goPiJsGsH22kgOTbnrJNqiXApiDEbX1AcusJmkcI9iisXocF80BQ3TkfbHHrlRCVVS81/wg
+ NzVRnJdaQMrA0N2skdCxT8UH/vjAbG8MLl5lm6WUI01VmkXzg9z+JcoDTRbPQiJKYkkUlwxTU7J
+ jizmU4U8ZOoktGXPZqA==
+X-Proofpoint-ORIG-GUID: sZ88XEBXdtos98MOy55EFDLDX6x3tb2m
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-03-13_01,2026-03-12_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 bulkscore=0 priorityscore=1501 phishscore=0 lowpriorityscore=0
+ clxscore=1011 adultscore=0 impostorscore=0 spamscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603130057
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -171,135 +153,127 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed Mar 11, 2026 at 9:39 AM JST, Joel Fernandes wrote:
-> Add first_usable_fb_region() to GspStaticConfigInfo to extract the first
-> usable FB region from GSP's fbRegionInfoParams. Usable regions are those
-> that are not reserved or protected.
+
+
+On 12/3/2025 3:07 AM, Bjorn Andersson wrote:
+> On Mon, Dec 01, 2025 at 06:13:19PM +0530, Krishna Chaitanya Chundru wrote:
+>> Add runtime power management support to the mhi_net driver to align with
+>> the updated MHI framework, which expects runtime PM to be enabled by client
+>> drivers. This ensures the controller remains active during data transfers
+>> and can autosuspend when idle.
+> This last sentence hints at there being an actual problem with the
+> current code. Perhaps we do this because it's the right thing to do,
+> perhaps we're making this change because devices are crashing and
+> burning?
+we are doing because its right thing to do, with current code we are not 
+seeing
+any issues.
+> Start your commit message with making the reason for your change clear.
 >
-> The extracted region is stored in GetGspStaticInfoReply and exposed via
-> usable_fb_region() API for use by the memory subsystem.
+> Ask yourself https://en.wikipedia.org/wiki/Five_whys when you come up
+> with your problem description.
+ack.
+>> The driver now uses pm_runtime_get() and pm_runtime_put() around
+>> transmit, receive, and buffer refill operations. Runtime PM is initialized
+>> during probe with autosuspend enabled and a 100ms delay. The device is
+>> marked with pm_runtime_no_callbacks() to notify PM framework that there
+>> are no callbacks for this driver.
+> This looks like an AI prompt, does it add value to the commit message?
 >
-> Cc: Nikola Djukic <ndjukic@nvidia.com>
-> Signed-off-by: Joel Fernandes <joelagnelf@nvidia.com>
-> ---
->  drivers/gpu/nova-core/gsp/commands.rs    | 11 ++++++--
->  drivers/gpu/nova-core/gsp/fw/commands.rs | 32 ++++++++++++++++++++++++
->  2 files changed, 41 insertions(+), 2 deletions(-)
+> It can mostly be summarized as "Implement pm_runtime in the driver". The
+> only part that's not obvious is the 100ms autosuspend delay, but you
+> skipped explaining why you did choose this number.
+100ms taken from pci port bus driver reference, I will add the reason 
+for 100ms
+in next patch.
+>> Signed-off-by: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
+>> ---
+>>   drivers/net/mhi_net.c | 13 +++++++++++++
+>>   1 file changed, 13 insertions(+)
+>>
+>> diff --git a/drivers/net/mhi_net.c b/drivers/net/mhi_net.c
+>> index ae169929a9d8e449b5a427993abf68e8d032fae2..c5c697f29e69e9bc874b6cfff4699de12a4af114 100644
+>> --- a/drivers/net/mhi_net.c
+>> +++ b/drivers/net/mhi_net.c
+>> @@ -9,6 +9,7 @@
+>>   #include <linux/mod_devicetable.h>
+>>   #include <linux/module.h>
+>>   #include <linux/netdevice.h>
+>> +#include <linux/pm_runtime.h>
+>>   #include <linux/skbuff.h>
+>>   #include <linux/u64_stats_sync.h>
+>>   
+>> @@ -76,6 +77,7 @@ static netdev_tx_t mhi_ndo_xmit(struct sk_buff *skb, struct net_device *ndev)
+>>   	struct mhi_device *mdev = mhi_netdev->mdev;
+>>   	int err;
+>>   
+>> +	pm_runtime_get(&mdev->dev);
+> What happened to your error handling?
+ack I will add error handling.
+
+- Krishna Chaitanya.
 >
-> diff --git a/drivers/gpu/nova-core/gsp/commands.rs b/drivers/gpu/nova-cor=
-e/gsp/commands.rs
-> index 8f270eca33be..8d5780d9cace 100644
-> --- a/drivers/gpu/nova-core/gsp/commands.rs
-> +++ b/drivers/gpu/nova-core/gsp/commands.rs
-> @@ -4,6 +4,7 @@
->      array,
->      convert::Infallible,
->      ffi::FromBytesUntilNulError,
-> +    ops::Range,
->      str::Utf8Error, //
->  };
-> =20
-> @@ -186,22 +187,28 @@ fn init(&self) -> impl Init<Self::Command, Self::In=
-itError> {
->      }
->  }
-> =20
-> -/// The reply from the GSP to the [`GetGspInfo`] command.
-> +/// The reply from the GSP to the [`GetGspStaticInfo`] command.
->  pub(crate) struct GetGspStaticInfoReply {
->      gpu_name: [u8; 64],
-> +    /// Usable FB (VRAM) region for driver memory allocation.
-> +    #[expect(dead_code)]
-> +    pub(crate) usable_fb_region: Range<u64>,
->  }
-> =20
->  impl MessageFromGsp for GetGspStaticInfoReply {
->      const FUNCTION: MsgFunction =3D MsgFunction::GetGspStaticInfo;
->      type Message =3D GspStaticConfigInfo;
-> -    type InitError =3D Infallible;
-> +    type InitError =3D Error;
-> =20
->      fn read(
->          msg: &Self::Message,
->          _sbuffer: &mut SBufferIter<array::IntoIter<&[u8], 2>>,
->      ) -> Result<Self, Self::InitError> {
-> +        let (base, size) =3D msg.first_usable_fb_region().ok_or(ENODEV)?=
-;
-> +
->          Ok(GetGspStaticInfoReply {
->              gpu_name: msg.gpu_name_str(),
-> +            usable_fb_region: base..base.saturating_add(size),
-
-We already return a Result here, so why not use checked_add?:
-`base..base.checked_add(size).ok_or(EOVERFLOW)?`
-
->          })
->      }
->  }
-> diff --git a/drivers/gpu/nova-core/gsp/fw/commands.rs b/drivers/gpu/nova-=
-core/gsp/fw/commands.rs
-> index 67f44421fcc3..cef86cab8a12 100644
-> --- a/drivers/gpu/nova-core/gsp/fw/commands.rs
-> +++ b/drivers/gpu/nova-core/gsp/fw/commands.rs
-> @@ -5,6 +5,7 @@
->  use kernel::{device, pci};
-> =20
->  use crate::gsp::GSP_PAGE_SIZE;
-> +use crate::num::IntoSafeCast;
-> =20
->  use super::bindings;
-> =20
-> @@ -115,6 +116,37 @@ impl GspStaticConfigInfo {
->      pub(crate) fn gpu_name_str(&self) -> [u8; 64] {
->          self.0.gpuNameString
->      }
-> +
-> +    /// Extract the first usable FB region from GSP firmware data.
-> +    ///
-> +    /// Returns the first region suitable for driver memory allocation a=
-s a `(base, size)` tuple.
-> +    /// Usable regions are those that:
-> +    /// - Are not reserved for firmware internal use.
-> +    /// - Are not protected (hardware-enforced access restrictions).
-> +    /// - Support compression (can use GPU memory compression for bandwi=
-dth).
-> +    /// - Support ISO (isochronous memory for display requiring guarante=
-ed bandwidth).
-
-Are the above conditions all required (AND) or any required (OR)?
-Might be worth clarifying in the doc.
-
-> +    pub(crate) fn first_usable_fb_region(&self) -> Option<(u64, u64)> {
-> +        let fb_info =3D &self.0.fbRegionInfoParams;
-> +        for i in 0..fb_info.numFBRegions.into_safe_cast() {
-> +            if let Some(reg) =3D fb_info.fbRegion.get(i) {
-> +                // Skip malformed regions where limit < base.
-
-Is it normal that it returns a bunch of broken regions?
-
-> +                if reg.limit < reg.base {
-> +                    continue;
-> +                }
-> +
-> +                // Filter: not reserved, not protected, supports compres=
-sion and ISO.
-> +                if reg.reserved =3D=3D 0
-> +                    && reg.bProtected =3D=3D 0
-> +                    && reg.supportCompressed !=3D 0
-> +                    && reg.supportISO !=3D 0
-> +                {
-> +                    let size =3D reg.limit - reg.base + 1;
-> +                    return Some((reg.base, size));
-
-This is identifying a range, so how about returning Option<Range<u64>>
-instead? It gets immediately converted into a range anyway.
-
-> +                }
-> +            }
-> +        }
-> +        None
-> +    }
->  }
-> =20
->  // SAFETY: Padding is explicit and will not contain uninitialized data.
+> Regards,
+> Bjorn
+>
+>>   	err = mhi_queue_skb(mdev, DMA_TO_DEVICE, skb, skb->len, MHI_EOT);
+>>   	if (unlikely(err)) {
+>>   		net_err_ratelimited("%s: Failed to queue TX buf (%d)\n",
+>> @@ -94,6 +96,7 @@ static netdev_tx_t mhi_ndo_xmit(struct sk_buff *skb, struct net_device *ndev)
+>>   	u64_stats_inc(&mhi_netdev->stats.tx_dropped);
+>>   	u64_stats_update_end(&mhi_netdev->stats.tx_syncp);
+>>   
+>> +	pm_runtime_put_autosuspend(&mdev->dev);
+>>   	return NETDEV_TX_OK;
+>>   }
+>>   
+>> @@ -261,6 +264,7 @@ static void mhi_net_ul_callback(struct mhi_device *mhi_dev,
+>>   	}
+>>   	u64_stats_update_end(&mhi_netdev->stats.tx_syncp);
+>>   
+>> +	pm_runtime_put_autosuspend(&mdev->dev);
+>>   	if (netif_queue_stopped(ndev) && !mhi_queue_is_full(mdev, DMA_TO_DEVICE))
+>>   		netif_wake_queue(ndev);
+>>   }
+>> @@ -277,6 +281,7 @@ static void mhi_net_rx_refill_work(struct work_struct *work)
+>>   
+>>   	size = mhi_netdev->mru ? mhi_netdev->mru : READ_ONCE(ndev->mtu);
+>>   
+>> +	pm_runtime_get_sync(&mdev->dev);
+>>   	while (!mhi_queue_is_full(mdev, DMA_FROM_DEVICE)) {
+>>   		skb = netdev_alloc_skb(ndev, size);
+>>   		if (unlikely(!skb))
+>> @@ -296,6 +301,7 @@ static void mhi_net_rx_refill_work(struct work_struct *work)
+>>   		cond_resched();
+>>   	}
+>>   
+>> +	pm_runtime_put_autosuspend(&mdev->dev);
+>>   	/* If we're still starved of rx buffers, reschedule later */
+>>   	if (mhi_get_free_desc_count(mdev, DMA_FROM_DEVICE) == mhi_netdev->rx_queue_sz)
+>>   		schedule_delayed_work(&mhi_netdev->rx_refill, HZ / 2);
+>> @@ -362,12 +368,19 @@ static int mhi_net_probe(struct mhi_device *mhi_dev,
+>>   
+>>   	SET_NETDEV_DEV(ndev, &mhi_dev->dev);
+>>   
+>> +	pm_runtime_no_callbacks(&mhi_dev->dev);
+>> +	devm_pm_runtime_set_active_enabled(&mhi_dev->dev);
+>> +	pm_runtime_set_autosuspend_delay(&mhi_dev->dev, 100);
+>> +	pm_runtime_use_autosuspend(&mhi_dev->dev);
+>> +	pm_runtime_get(&mhi_dev->dev);
+>>   	err = mhi_net_newlink(mhi_dev, ndev);
+>>   	if (err) {
+>>   		free_netdev(ndev);
+>> +		pm_runtime_put_autosuspend(&mhi_dev->dev);
+>>   		return err;
+>>   	}
+>>   
+>> +	pm_runtime_put_autosuspend(&mhi_dev->dev);
+>>   	return 0;
+>>   }
+>>   
+>>
+>> -- 
+>> 2.34.1
+>>
+>>
 
