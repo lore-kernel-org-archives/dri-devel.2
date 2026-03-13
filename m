@@ -4,72 +4,170 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5D888106FD85
-	for <dri-devel@archiver.kernel.org>; Fri, 13 Mar 2026 06:16:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0D784106FD87
+	for <dri-devel@archiver.kernel.org>; Fri, 13 Mar 2026 06:27:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B451810EADF;
-	Fri, 13 Mar 2026 06:16:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 73FDD10EAE9;
+	Fri, 13 Mar 2026 06:27:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="rlUK1MS8";
+	dkim=pass (2048-bit key; unprotected) header.d=imgtec.com header.i=@imgtec.com header.b="lR3Gr+qN";
+	dkim=pass (1024-bit key; unprotected) header.d=IMGTecCRM.onmicrosoft.com header.i=@IMGTecCRM.onmicrosoft.com header.b="iK47H/6e";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E43DB10E02F
- for <dri-devel@lists.freedesktop.org>; Fri, 13 Mar 2026 06:16:35 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 12B1060132;
- Fri, 13 Mar 2026 06:16:35 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id AB0F0C19424;
- Fri, 13 Mar 2026 06:16:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1773382594;
- bh=XWEtQoEWbgR9DYbHJTmOros7zGhTGpjR1QrZ2m7Srtk=;
- h=From:Subject:Date:To:Cc:Reply-To:From;
- b=rlUK1MS8QVpSh8MrfJnClqMEwRineO5Ha46eZQzXiePMIAGDXl/EcJwi1Wnqft2dq
- 92kei49n1waW5MIlyLucVptsI9uZDnFkND2jnBU67yMHn3BazkUGsFbrCOBH6KvGjQ
- V9O8OUPQwy64FTm50Bp2n7xGPrbd/hM0d8qXX33uxACBQIeTgaoQ1j5qbt0v6Ie9CB
- ces3kLAY2fn+S2Gbej+FrYE44HOBsCOz/QcwZvGKxwPnujsKAXEq1T8b5LLQHU1S9p
- RRJCCFN3d4JB+8x459AjfF+ta1eDElnIz8G2Y4CbqKkridbe6Z3GYGEPoFf52QVJ5B
- vdfFxDQz0uqiA==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
- (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id 91B7F106FD87;
- Fri, 13 Mar 2026 06:16:34 +0000 (UTC)
-From: Hermes Wu via B4 Relay <devnull+Hermes.wu.ite.com.tw@kernel.org>
-Subject: [PATCH v3 0/2] Add ITE IT6162 MIPI DSI to HDMI bridge driver
-Date: Fri, 13 Mar 2026 14:15:59 +0800
-Message-Id: <20260313-upstream-6162-v3-0-8497fb7c4406@ite.com.tw>
-MIME-Version: 1.0
+Received: from mx07-00376f01.pphosted.com (mx07-00376f01.pphosted.com
+ [185.132.180.163])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3D90710EAE9
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Mar 2026 06:27:46 +0000 (UTC)
+Received: from pps.filterd (m0168889.ppops.net [127.0.0.1])
+ by mx07-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 62D5sO7R2322817; Fri, 13 Mar 2026 06:27:34 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
+ :content-id:content-transfer-encoding:content-type:date:from
+ :in-reply-to:message-id:mime-version:references:subject:to; s=
+ dk201812; bh=FIIYkNZkD5VO4A4T9THmk/KpOQoXvMF9uI2VC3IvJEI=; b=lR3
+ Gr+qNvam7VpNyhYBb1LyWz/7yE505j6NyGcjqI6w3BmV3HybLzj3bTX+0iwZQ7fO
+ KEjCyv53EC8Ql0U1TBOdCGt5SskyVWdNKahT6sohMBltme2w4WQKn5VL1o3HBPN2
+ 9De95jYw2bg1bZd55q0bc/GIPiZxmI3x5yDD4idB/QjIcD0g8+hD+Xd+8K+4jxfb
+ MaBqpUo45O/mRGrtKMOPxOwBVzs/2U9m99+kIYzZgbv940o/DRk2o4FMtgLi2Jwm
+ aB7ZZmORlUkaVgCAdv4b4uDl6hEBtIGb2LVfHjmfG4SIBZ/Z7ib0Bbv7kfuMBt1w
+ vqnYVzTY0O+ZKPquyIQ==
+Received: from cwxp265cu009.outbound.protection.outlook.com
+ (mail-ukwestazon11021124.outbound.protection.outlook.com [52.101.100.124])
+ by mx07-00376f01.pphosted.com (PPS) with ESMTPS id 4ctxygj70t-1
+ (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+ Fri, 13 Mar 2026 06:27:34 +0000 (GMT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=dWdIkAxcL1Av3CLM2c+Mg9tkAIiWB4TkpdRZ7etKu4lSQ7Ybha6ZFQtPRIzRB/e37LdGuO4ExTq66nnVlHoHvMuqsTbrkDGMVRXTcjkPNE0xVQPpC/Eo8xqpCOr7HDfANeEz0GPmv7RGkx/XldB0+AOrj/zDfEoDHzOO3itaHtFpnmdzgBn2I+9J8Fe7FFztZUQ2gLFIOygndolM1lidIsn6qCdkL07ooELUYAA623PFHkG/LOVQmmd9q/e/fNmU7F3rrTiI0pUZwN54+lSCxN18FGmwZsg3+5RfNEU9cByuM0RbtmlL9qHV3CM7nbH9mZN6yGoWfr3lReF5JyllqQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=FIIYkNZkD5VO4A4T9THmk/KpOQoXvMF9uI2VC3IvJEI=;
+ b=FclC7GyFMXYNe9G7g/mIGpHKlI0I3OH6qwuGTPmME1aVhkZIx2fNmZ2z1zFABj4bHT5ox95x6KGDkE9XxvPuBpk+PQkt6+39sfgKcdYh2gzlgbHKKRM09QSlwZ4ycnBzLqBrtG/My0NJjSSeIECU3xUmHbFCdRCeAO2M5YutF4WIofaCmCdqi3JnKdhflwTYaE+YspJ8TZJyyfGaU6HHfxS2hdVmmOJyfdwAwjWiVKPTfpZ0dKfCpnciHUvEiEkgkTB/nSOMQA+SWhb7JIwg7ari4ZGsewlLGgj60P2zqcAjBBEHsjM80elqnwm++rXii+0sL4Vw0l7mQvQpHFz70w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=imgtec.com; dmarc=pass action=none header.from=imgtec.com;
+ dkim=pass header.d=imgtec.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=IMGTecCRM.onmicrosoft.com; s=selector2-IMGTecCRM-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=FIIYkNZkD5VO4A4T9THmk/KpOQoXvMF9uI2VC3IvJEI=;
+ b=iK47H/6evpRrTnsfW7DhNkazzdT352Kk6LrcK2l+WcX27jw9OeUcG9d959k2qEYilUuWjKYQti7+ZfiNnUxZTqs/qTQSbqmB1lQSZ1WEzt2fs5o/2kuuLO/y44GKFoPBuwYWl2XWmcokc8o9/OK+CxqNqm54Ws0nmPOgsOYKA9o=
+Received: from LOCP265MB8661.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4b5::14)
+ by LO2P265MB3198.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:164::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9700.17; Fri, 13 Mar
+ 2026 06:27:31 +0000
+Received: from LOCP265MB8661.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::6b99:94f7:a14f:a722]) by LOCP265MB8661.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::6b99:94f7:a14f:a722%5]) with mapi id 15.20.9700.017; Fri, 13 Mar 2026
+ 06:27:31 +0000
+From: Brajesh Gupta <Brajesh.Gupta@imgtec.com>
+To: Matt Coster <Matt.Coster@imgtec.com>
+CC: "tzimmermann@suse.de" <tzimmermann@suse.de>, "simona@ffwll.ch"
+ <simona@ffwll.ch>, "dri-devel@lists.freedesktop.org"
+ <dri-devel@lists.freedesktop.org>, "airlied@gmail.com" <airlied@gmail.com>,
+ Frank Binns <Frank.Binns@imgtec.com>, Alessio Belle
+ <Alessio.Belle@imgtec.com>, "maarten.lankhorst@linux.intel.com"
+ <maarten.lankhorst@linux.intel.com>, Alexandru Dadu
+ <Alexandru.Dadu@imgtec.com>, "mripard@kernel.org" <mripard@kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH 2/2] drm/imagination: Skip 2nd thread DM association for
+ non META Firmware
+Thread-Topic: [PATCH 2/2] drm/imagination: Skip 2nd thread DM association for
+ non META Firmware
+Thread-Index: AQHcrJBCulrkl/IiakmBIY/yJ9X/17WpPs6AgALMy4A=
+Date: Fri, 13 Mar 2026 06:27:31 +0000
+Message-ID: <1a7532df2235f2b432f63b648b1a8c3ce0ecfc87.camel@imgtec.com>
+References: <20260305-b4-staging-layout_mars_base-v1-0-09831fa17cef@imgtec.com>
+ <20260305-b4-staging-layout_mars_base-v1-2-09831fa17cef@imgtec.com>
+ <db2d7031-7106-4cb5-b036-765e185cfedd@imgtec.com>
+In-Reply-To: <db2d7031-7106-4cb5-b036-765e185cfedd@imgtec.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: LOCP265MB8661:EE_|LO2P265MB3198:EE_
+x-ms-office365-filtering-correlation-id: 6cd65389-95f2-40da-8874-08de80c99b4f
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|376014|1800799024|366016|38070700021|22082099003|56012099003|18002099003;
+x-microsoft-antispam-message-info: rr/Eqp2fk21ymaIJCIJK0WhtnfrCSFcP/ujW3bscWajR+ysBqlQtniofWZ3r1OggTLKXTr5XlLw6ymIuvNy2lV+ghZb2ipEKTDoTrb0CZJ7SYsBS4qvA7jxw1BecWKPMDQVsQufvROHxjw6uWWONXNK+ZErKF3KhfNz0u1zUydH86qBqdHYUAiREyP1KLXqBQ4Nekj3QnMDYEfcrT/TIln6JSHP/2JWoS6iSBfxHgRFTT13YQeHCSTGoKkUstLt9ggFHvaBz+A+3dSZxjClG7RTrrHoOFjsp3q4lohZUSVWNLq444qHyIw4HVa+1oLqPpyfHXD9boW/T7PFsLYde8u7s1S9M4V0UdqBxoTw5CCr1fJNZ2h4LvIkgsnHfJo6xLBt7TDVleg1jo7+DEu5MV95BBywZVbjN0c8cN4QkGkAsgDENMLjRwMl/vyCiINxsOZ2r9XJcku0U/YGdiURHN7fbX2oY0Mavs55mbr4JNlF64bWdX3c/Yt39jVCEYngam/ttZaMNaKN3Y9r61aYV27a14fvXE78eBkh7qOq9Y/83HTXQY3m4C9BiiaW5irO2JfPOSpz42SNsInN7xUrMfQABiimNR9sKGGkVxFbHsjLNC2FJuIF6psT5OTbQA9JhCCRcXG8V1YHXfHHK2l6Sb5WCZGQMPXrKcxI18G0sOj0ea2dwU+uz8E6TUqGkgezIPmwFaWCZ6SnBADSdRitda1s7++2sPGWnndzNpHw1zThUrABd6+JOWax6BnnTDnUfsriH4NXPXacshOfbNbLjbqw1JRAmS8m3MZw0J4ZG1Ew=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:LOCP265MB8661.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(366016)(38070700021)(22082099003)(56012099003)(18002099003);
+ DIR:OUT; SFP:1102; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?MTQ1bUgwWEZONXRwdVVSU3FvL3RJT1pOelY3eGhJNlhFUG9VLzM4YmtxSDhT?=
+ =?utf-8?B?NTFrdFBua05XdTZrdUxEbU8ydngrbEllSU5XWnBpZjFjeUhjb3RZZ1FkK00w?=
+ =?utf-8?B?R2pMREpMRkh2dVNPdEdTdHd2UlIwMVgxSER6bnhQTStPei9VT09aM3M2cWor?=
+ =?utf-8?B?NVpRTU9Bbjk5di92YjhZTXRjNVlwMmttci9yT0d1OWZnR2pTbURNZ1MvMEhy?=
+ =?utf-8?B?NmdNait6MjJ1UjhIZ1k2KzVMZzBnOEh0dStxZVB5SXFzdVpGc2ZlQmlHN3Z1?=
+ =?utf-8?B?RzU1WE5NaU5wOGxJRm1DeGVVNFVidE90MjJPVXJNVnZiUlBIV1NZcGlIc2or?=
+ =?utf-8?B?OXpoN2svS3cwd0xIdnUwUzRERUg5aDlzZ3BlVmVIbUd3WkIyMHhZOGdVTmth?=
+ =?utf-8?B?R1QvZHl5VEVYcnZIbXNFWW5VcHVOaWN1Qzk4OWtNZXNMVzd1WnJGTkdmb1ls?=
+ =?utf-8?B?OU1jQy9oaC9jeittRmVsNFQ0Uk8yd1d0Rm1zNThvTXJXZE1hM2oyb3VOL0Fk?=
+ =?utf-8?B?M2l6ejUwaW1FOGFscTlaVlR5S29MMVdaRmlVS2xEcXNSdUgzZmd6ZjRWdkxo?=
+ =?utf-8?B?U3VxK3IyS25WR0t2anRuUGljWTlBbXBFRjNXTk0xR3dVdjRsNEROWDFpaENk?=
+ =?utf-8?B?eWRxMlJyMTZZQnJQU01sNDVxZnpURXBnVFdwWGY2TUJ3Z1FGZ2Z2ZlJVSGNM?=
+ =?utf-8?B?K1RTaGNyYWRDK01idXdLTzcyWWQ3VHpDUlJFL2ZjSGZZYXRrbW9veFYwaFpu?=
+ =?utf-8?B?YnZoOEExclMvVS9oZm5xeHFUdDlNVUluQkJZVGltbmxIaXRMdUNvZW56RWJU?=
+ =?utf-8?B?MkNGTkxGSHZQekE5aEZsMk5LNEI3VWt3Z1NJVUZPbmJnb1pjdHprMVB4U0hI?=
+ =?utf-8?B?VFlvU3U5NVRyeC9ZWEZxR1FiVGcra3JXTG1EckdlbmJnKzgzRXZUYVVFbzVV?=
+ =?utf-8?B?c2EvVVVaWFVDdlMyQWhvUHpJaWRlRWNCQTd0cmJldUFlT0JRdWcwMmlydWJ4?=
+ =?utf-8?B?dVZqd21YenIwd2U5RnFTM1R3bmQ2Ty9tTko5Z1l0c1ZPQjRYYjl3dmdRaWd0?=
+ =?utf-8?B?TkhFOHAzK3VRbEZjRTh4TWRVNG9xb3BlcGZDN3hjSVNUOUMwN2F4L2VxL1Rn?=
+ =?utf-8?B?RUtUQkw1S1drV2ZBTEVSRXFsWGZORUc5MDhmWXpFanAyVVJyTVJwTVBaYjNy?=
+ =?utf-8?B?QlF6b3dMSlhhaEsrWU0za3UwaHFLZUFEUzBYQ1BieVVPc21CeGVjNUZOalZj?=
+ =?utf-8?B?NGlTTzR5MU1DQ2pjbU03WVpweFM3YzIvbjRJSEp1VW9xVnhoTzMrRjdORlN1?=
+ =?utf-8?B?ZW84alF3bUxjWVlIVThJeHBwYUdHcmltbUMwdFR5TWpxeVJmVmVNVTdKVXU5?=
+ =?utf-8?B?cjhrZjBqV2FzOGJwME9TSEtESDRteWtKQ3BYaUlURVdoMTM1UHl5MHFOQWFP?=
+ =?utf-8?B?VnVCb3BPOGg3dHBnNjFaMjN2dmYwNURXdjlhNG84UjF3Zk5meXNZLzV1UzhD?=
+ =?utf-8?B?MTh1bkJVNVhZNk9QWUtTWFRiSm11OEhpcWk1QnJiZGxrT0M1ZDRSa21sa2JO?=
+ =?utf-8?B?dUwrYm92ekt5Y3ByZEpaTkNzWW4xekFvM1AyQUltVENtaVVkelM4RnRlK3gv?=
+ =?utf-8?B?aDNKWDV0M2I0VUVMeVUwZFVEanp6dGdxa3JCRDNOb0Rucm90RERpTlQxMXVN?=
+ =?utf-8?B?eU05bkNJVStoVDhUSlg5cUdEK1BuL0NMZG54dlBrVko4ZWgzWmFJd25OSmJN?=
+ =?utf-8?B?b0VRaEI1SWFLWmhVQ2hoaXVFb25rclp1dkVqeVkyQmx0NnhoQlhYVzA1bW5E?=
+ =?utf-8?B?NncvY0dzWm5qbWdxd1V3aVNUN3VWNThGcTE4UW53Ti9tSnRDcXV1T1NOK0o4?=
+ =?utf-8?B?VytVSXl0VW1NNGVKQndkYXl1cG9OMHZHT09mc2xJQ0pEZDBaZnlrZHI3VGdz?=
+ =?utf-8?B?S25hdXBHTVJwUGNJaGx4VGFXdGsyMjVKSVZCcVBOZG94dnBxdEVCVVkzaEFC?=
+ =?utf-8?B?MWdKTFZzRXFpSzh3Y3RhSFBPN0N6THpvR0M3S0wrTjZPNUVTczBhR0xnZ0tr?=
+ =?utf-8?B?ZzhjN0QvcUQ2MVRuckE2NW1lUW8veVo3Q21KQVJQMmpoZ3VGejhnc05PemhP?=
+ =?utf-8?B?MjhNWm0zS2Yvck9YVTJ4QTBCWTZCR2RyVE9QYWRnQlpCSVJKcDFwNjVxVTlt?=
+ =?utf-8?B?TGYrd1h1Z2JtNmFob1UyRGFNN295MkdoeFc5bXlsbGtVN0owZ3hKYlVrTVNm?=
+ =?utf-8?B?clNGT0lpc0JyU0RUSlc1V25zZWZIZkRVWjhMWHhuUlNiWmlRY0h6Umh6S2V2?=
+ =?utf-8?B?RE0ySVlJdlo4L3JyMEIvVjZMQkc2OXE5NzJPcU9jNnZzNDR5RnVjOUIrVFZX?=
+ =?utf-8?Q?zOaDFHwS6dAckmg0=3D?=
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAJ+rs2kC/3WMyw6CMBBFf4XM2pI+YkFX/IdxQaeDdMEjba0aw
- r9b2BhNXJ6be84CgbyjAOdiAU/JBTeNGdShAOzb8UbM2cwgudRcSsXuc4ie2oFpoSVT1VFQVds
- OWwvZmT117rn3LtfMvQtx8q89n8S2/islwTgjg6g1ohEdNS5SidNQxgdsqSQ/uuKnX11m3ZKxR
- mNd58OXvq7rG/ItMMnqAAAA
-X-Change-ID: 20260223-upstream-6162-3751e78dfcad
-To: Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: Pet.Weng@ite.com.tw, Kenneth.Hung@ite.com.tw, 
- Hermes Wu <Hermes.Wu@ite.com.tw>, dri-devel@lists.freedesktop.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Hermes Wu <Hermes.wu@ite.com.tw>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1773382593; l=4723;
- i=Hermes.wu@ite.com.tw; s=20241230; h=from:subject:message-id;
- bh=XWEtQoEWbgR9DYbHJTmOros7zGhTGpjR1QrZ2m7Srtk=;
- b=uP8QKB5VDZeROLOXuvqlvgiBqvNrVKhxnQmw14JAT6W4irAv4LgsFfXwkQNa0RP84ng3kyH61
- 8NVCrkAkPw1Cl0UFjDdYYPuZ5azfpImj8RUmpjs4OrvqSV/USEXuHY3
-X-Developer-Key: i=Hermes.wu@ite.com.tw; a=ed25519;
- pk=qho5Dawp2WWj9CGyjtJ6/Y10xH8odjRdS6SXDaDAerU=
-X-Endpoint-Received: by B4 Relay for Hermes.wu@ite.com.tw/20241230 with
- auth_id=310
-X-Original-From: Hermes Wu <Hermes.wu@ite.com.tw>
+Content-ID: <C81589FDA9E884488322D34F86ABD27B@GBRP265.PROD.OUTLOOK.COM>
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
+X-Exchange-RoutingPolicyChecked: ZwaXdg3osVBBq7wwNvsUbLC+d/9yJfqEsyvOVh0IOLzKqWQ43gCZ5BL1SuGxUidMLNVhGLmmc4NB3hUu3jLoZu5WY7M3palmf8hy+RkaXG+eAu4JeHK59jWm4m1Luw1v70v+90IEnzZOzOprb0jmkVvA/Wzn5Fe9UK1Tjet4o+6nK2B4nb8qOG4i1hKmeBTYi9Dv8pMG+E9o3ScxEZTF7amk6uJh7hR8+lBgi9VwkjMebRt/mV30do0nGQUd4XR7LlSqC+wl6qrS7q8MnBrxdu0Ua6j537COe3xGhQwq458Rs4LIMAumQD2RG598rXsf5Kxavi2Qjvx/ba0bnsI9FA==
+X-OriginatorOrg: imgtec.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: LOCP265MB8661.GBRP265.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6cd65389-95f2-40da-8874-08de80c99b4f
+X-MS-Exchange-CrossTenant-originalarrivaltime: 13 Mar 2026 06:27:31.5243 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 0d5fd8bb-e8c2-4e0a-8dd5-2c264f7140fe
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 0iJ1Q4getP4kjSlLbrGbfAlOhI9KE6PBDV4+agiIxUF+s7hoojqxHqQyACbjH/ZV93Zz6wXCaN/yjftfxfzFn9yQiM3vOra2HF8Nfwf1dIo=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO2P265MB3198
+X-Proofpoint-ORIG-GUID: 9TfYGqX0WKGCLrKElr66wt2LQ1GLIRK1
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzEzMDA0OSBTYWx0ZWRfX2h4ySVbJqDuR
+ 5CjYwnFAKcxkmll70008hlLu2PVPR+NgEMVrbkp2Bj5Jt97vKy7Ai4B7GOEo/6pJ3gbqRSfHrKL
+ 8u1K8MLGolNO08hWynJihiRkU3oyWMuoRKEVH1NxGjb4rIQmfCNxLDVN9Dbtp2zKpenO8QAKRWU
+ swUfvfKfHWFJbDUH0lzlYJOGzX84P/9Zic4jNUzf2kM+1xIsUqYn7zvh6DVQc4ppcB0OodAOx3t
+ gzAZ+fGNgDDz0/E56s40K3DSKAk+kCK/vRD2dP+dS1MvdNHGw647rU+IyX/oIHSnZQVxcxArVLK
+ K4KU+1EF/j8qAxNxYKmbXcpCNfv8NUm8RKxlEpwn3XpnQRFwE8t3L47fU+78Jsbal5XiDms5JdF
+ 9S54wqBN7b2zpxZiMMyKPj/pGwLOeSuiwJ5PmlLVLFNVlbnYCb/+Q0yRHmaOOgvAM6mL4cqOKHT
+ Y6DIygGjgku7b3Ros4w==
+X-Proofpoint-GUID: 9TfYGqX0WKGCLrKElr66wt2LQ1GLIRK1
+X-Authority-Analysis: v=2.4 cv=NevrFmD4 c=1 sm=1 tr=0 ts=69b3ae56 cx=c_pps
+ a=mv9VF2DNUkA1Ha8aThKgsA==:117 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
+ a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=Yq5XynenixoA:10 a=NgoYpvdbvlAA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=kQ-hrUj2-E3RCbRHssb7:22 a=7RYWX5rxfSByPNLylY2M:22 a=r_1tXGB3AAAA:8
+ a=ct4mjZn-H4WNQMw-4i0A:9 a=QEXdDO2ut3YA:10 a=t8nPyN_e6usw4ciXM-Pk:22
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,109 +180,21 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: Hermes.wu@ite.com.tw
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This patch series adds support for the ITE IT6162 MIPI DSI to HDMI
-bridge chip. The IT6162 is an I2C-controlled bridge that receives MIPI
-DSI input and outputs HDMI signals.
-
-The device supports the following configurations:
-  - Single MIPI DSI input: up to 4K @ 30Hz
-  - Dual MIPI DSI input (combined): up to 4K @ 60Hz
-
-This series introduces:
-  - dt-bindings: Add YAML binding document for ITE IT6162
-  - drm/bridge: Add ITE IT6162 MIPI DSI to HDMI bridge driver
-
-Signed-off-by: Hermes Wu <Hermes.wu@ite.com.tw>
----
-Changes in v3:
-- Documentation/devicetree/bindings/display/bridge/ite,it6162.yaml:  
-  * Fix lane-polarities: remove $ref redefinition, allow via video-interfaces.yaml
-  * Improve ite,support-hdcp description to clarify FW-based HDCP behavior
-  * Remove descriptions repeating schema constraints
-  * Remove stray comment in ports required section
-  * Fix data-lanes spacing in example: <1 2 3 4>
-  * Add missing newline at end of file
-  * Add missing change log  that Reviewed-by tag was removed when V1->V2
-
-- drivers/gpu/drm/bridge/ite-it6162.c:
-  * Fix OFFSET_VERSION_H register offset from 0x03 to 0x05
-  * Add MIPI_PORT_EN_MASK macro combining MIPI_PORT1_EN_MASK and MIPI_PORT0_EN_MASK
-  * Rename HDCP enums: NO_HDCP -> HDCP_DISABLE, NO_HDCP_STATE -> HDCP_STATE_IDLE,
-    AUTH_DONE -> HDCP_STATE_AUTH_DONE, AUTH_FAIL -> HDCP_STATE_AUTH_FAIL
-  * Rename it6162_infoblock_complete() to it6162_wait_command_complete()
-  * Rename it6162_infoblock_host_set() to it6162_infoblock_trigger() 
-  * Remove it6162_infoblock_mipi_config() and it6162_infoblock_write_msg()
-    wrappers, inline into it6162_reset_init() and
-    it6162_mipi_set_video_timing() respectively
-  * Remove it6162_set_default_config() wrapper, inline into
-    it6162_reset_init()  
-  * Fix typo: hdcp_encyption -> hdcp_encryption
-  * Fix typo: it6162_hdcp_read_infomation -> it6162_hdcp_read_information
-  * Remove dev_err_probe() usage outside of probe path
-  * Remove verbose success-path dev_info/dev_dbg logging throughout
-  * Replace __func__ usage in error messages with descriptive strings
-  * Fix double error printing in probe for it6162_init_pdata failure path
-  * Fix uninitialized variable warning: initialize cp_status to
-    DRM_MODE_CONTENT_PROTECTION_DESIRED at declaration; move
-    drm_hdcp_update_content_protection() inside the state-change block
-  * Fix audio sample width mapping: case 20 now maps to WORD_LENGTH_20BIT,
-    case 24 to WORD_LENGTH_24BIT
-  * Remove stray drm_dbg("it6162_bridge_atomic_disable") call
-  * Remove drm_dbg() calls from it6162_display_mode_to_settings()
-  * Drop unused struct it6162 * parameter from it6162_avi_to_video_setting()
-    and it6162_display_mode_to_settings()
-  * Fold it6162_set_default_config() body directly into it6162_reset_init(),
-    removing the wrapper
-  * it6162_infoblock_request_data(): split command complete polling and
-    buffer status check into two steps; use wait_event_timeout() for
-    data_buf_sts since it is updated asynchronously by the interrupt
-    handler; add wait_queue_head_t data_buf_wait to struct it6162 and
-    wake_up() in interrupt handler
-
-- Link to v2: https://lore.kernel.org/r/20260309-upstream-6162-v2-0-debdb6c88030@ite.com.tw
-
-Changes in v2:
-- dt-bindings:
-  * Drop Reviewed-by tag due to below changes
-  * Add property "ite,spport-hdcp" to enable HDCP
-  * Add property "lane-polarities" and "clock-noncontinuous" for DSI
-    setting
-
-- drm/bridge:
-  * Drop unused element in struct it6162
-  * Remove regmap wrappers
-  * Use FIELD_PREP for bitfield operations
-  * Update HDCP status with drm_hdcp_update_content_protection()
-  * Add AVI, AUDIO, and SPD infoframe control
-  * Remove conversion from drm_display_mode to videomode
-  * Fix regulator/gpio error handling in it6162_init_pdata() to return proper error codes
-
-- MAINTAINERS
-  * squash to driver patch
-
-- Link to v1: https://lore.kernel.org/r/20260223-upstream-6162-v1-0-ebcc66ccb1fe@ite.com.tw
-
----
-Hermes Wu (2):
-      dt-bindings: display: bridge: Add ITE IT6162 MIPI DSI to HDMI bridge
-      drm/bridge: Add ITE IT6162 MIPI DSI to HDMI bridge driver
-
- .../bindings/display/bridge/ite,it6162.yaml        |  178 +++
- MAINTAINERS                                        |    7 +
- drivers/gpu/drm/bridge/Kconfig                     |   17 +
- drivers/gpu/drm/bridge/Makefile                    |    1 +
- drivers/gpu/drm/bridge/ite-it6162.c                | 1631 ++++++++++++++++++++
- 5 files changed, 1834 insertions(+)
----
-base-commit: 2622649ad6cdbb3e77bfafc8c0fe686090b77f70
-change-id: 20260223-upstream-6162-3751e78dfcad
-
-Best regards,
--- 
-Hermes Wu <Hermes.wu@ite.com.tw>
-
-
+T24gV2VkLCAyMDI2LTAzLTExIGF0IDExOjQxICswMDAwLCBNYXR0IENvc3RlciB3cm90ZToNCj4g
+T24gMDUvMDMvMjAyNiAxMTowNiwgQnJhamVzaCBHdXB0YSB3cm90ZToNCj4gPiBPbmx5IGEgTUVU
+QSBmaXJtd2FyZSBjYW4gaGF2ZSB0d28gdGhyZWFkcy4NCj4gDQo+IElmIHRoaXMgaXMgaW52YWxp
+ZCBiZWhhdmlvdXIgb24gbm9uLU1FVEEgZmlyd21hcmUgcHJvY2Vzc29ycywgc2hvdWxkDQo+IHRo
+aXMgYmUgY29uc2lkZXJlZCBhIGZpeCAoYW5kIGdhaW4gYSBGaXhlczogdGFnKT8gSSBndWVzcyB0
+ZWNobmljYWxseSBpdA0KPiBkb2Vzbid0IGZpeCB0aGUgY29tbWl0IHRoYXQgYWRkZWQgdGhlc2Ug
+bGluZXNbMV0gc2luY2UgdGhhdCB3YXMgb25seQ0KPiBhZGRpbmcgc3VwcG9ydCBmb3IgTUVUQS4g
+V291bGQgaXQgYmUgZml4aW5nIHRoZSBmb2xsb3cgdXAgdG8gYWRkIE1JUFMNCj4gc3VwcG9ydFsy
+XT8gSSdtIG5vdCBzdXJlLiBNYXliZSBpdCBkb2Vzbid0IGV2ZW4gbmVlZCBhIEZpeGVzOiB0YWcu
+DQo+IA0KVGhvc2Ugb3BlcmF0aW9ucyBhcmUgbm8tb3AgZm9yIG5vbi1NRVRBIGZpcm13YXJlLiBT
+byBhbiBpbXByb3ZlbWVudCBhbmQgbm90DQpmaXhpbmcuDQpDaGFuZ2UgaXMgYXBwbGljYWJsZSBm
+b3IgYW55IGZpcm13YXJlIHdoaWNoIGhhcyBvbmUgdGhyZWFkIGluY2x1ZGluZyBNSVBTLiBBbmQN
+Cm5vIGFkZGl0aW9uYWwgZml4ZXMgZm9yIE1JUFMuDQoNCkEgdmVyc2lvbiAyIHdpbGwgYmUgZ2Vu
+ZXJhdGVkIGFzIHBlciBwYXRjaCAxIHVwZGF0ZS4NCg0KLS0NCkJyYWplc2ggR3VwdGENCkU6IGJy
+YWplc2guZ3VwdGFAaW1ndGVjLmNvbQ0KPiANCg==
