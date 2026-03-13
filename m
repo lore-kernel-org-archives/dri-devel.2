@@ -4,68 +4,132 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 04D40107BCD5
-	for <dri-devel@archiver.kernel.org>; Fri, 13 Mar 2026 17:46:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 781D9107BCD0
+	for <dri-devel@archiver.kernel.org>; Fri, 13 Mar 2026 17:56:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5E76F10EC75;
-	Fri, 13 Mar 2026 17:46:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CDEE810ECEB;
+	Fri, 13 Mar 2026 17:56:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="QbZ8IcW4";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="TU7NFTRa";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="GIeJEnuc";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EA56410EC75
- for <dri-devel@lists.freedesktop.org>; Fri, 13 Mar 2026 17:45:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1773423954;
- bh=T9aamq2yo0HMqv1Jkdy4l6sGV0d7EEk4IPc7FyjxaZA=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=QbZ8IcW4JHGAMYXu00b68izz85X/OeSPnxidT+oajlEnYp0fQDUw6qBGK5zVwAFj0
- rsW+lBsRYU9vvg1Ekauiunq9R/JnoTZ8eakQf9qQIrRrPjQ2c4xFEmtUcgbb1hIViN
- 4g8eeLbSg3vyfY8MtO3Zb2ASD1/26tV18JhYuKJJfltB2fGAwN+rC4LdI8DfEApLNv
- BKSdvOaL07HWWIstLMeRhCHk0CR/g5TGFeZKIHRK2dUcDoKX3GmloqJkt3vjzWepgr
- TYoj41wQYZpQuxwkpWFtS7VbgdSQbWqSZaOI6QRq60XQO/GhlzgvYc/1EL6en/rhOQ
- 65xJGiKB/HX5w==
-Received: from fedora (unknown [IPv6:2a01:e0a:2c:6930:d919:a6e:5ea1:8a9f])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
- server-digest SHA256) (No client certificate requested)
- (Authenticated sender: bbrezillon)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 4C1E717E127A;
- Fri, 13 Mar 2026 18:45:54 +0100 (CET)
-Date: Fri, 13 Mar 2026 18:45:49 +0100
-From: Boris Brezillon <boris.brezillon@collabora.com>
-To: Biju Das <biju.das.jz@bp.renesas.com>
-Cc: Thomas Zimmermann <tzimmermann@suse.de>, Tommaso Merciai
- <tommaso.merciai.xr@bp.renesas.com>, "loic.molinari@collabora.com"
- <loic.molinari@collabora.com>, "willy@infradead.org" <willy@infradead.org>,
- "frank.binns@imgtec.com" <frank.binns@imgtec.com>, "matt.coster@imgtec.com"
- <matt.coster@imgtec.com>, "maarten.lankhorst@linux.intel.com"
- <maarten.lankhorst@linux.intel.com>, "mripard@kernel.org"
- <mripard@kernel.org>, "airlied@gmail.com" <airlied@gmail.com>,
- "simona@ffwll.ch" <simona@ffwll.ch>, "linux-mm@kvack.org"
- <linux-mm@kvack.org>, "dri-devel@lists.freedesktop.org"
- <dri-devel@lists.freedesktop.org>
-Subject: Re: [PATCH v4 5/6] drm/gem-shmem: Track folio accessed/dirty status
- in mmap
-Message-ID: <20260313184549.08656eed@fedora>
-In-Reply-To: <20260313135521.07823792@fedora>
-References: <20260227114509.165572-1-tzimmermann@suse.de>
- <20260227114509.165572-6-tzimmermann@suse.de>
- <abL5rcYIaFFO3GW2@tom-desktop>
- <TY3PR01MB113460CA616D3576DA0C3FC698644A@TY3PR01MB11346.jpnprd01.prod.outlook.com>
- <TY3PR01MB113461ACB668738E1952EC8898645A@TY3PR01MB11346.jpnprd01.prod.outlook.com>
- <20260313111851.4c1f89f3@fedora>
- <f3384342-cdc5-4260-b670-4ffde76a2802@suse.de>
- <20260313125644.65131b27@fedora>
- <TY3PR01MB1134662A395AA0A048CEE152E8645A@TY3PR01MB11346.jpnprd01.prod.outlook.com>
- <20260313131835.52c5c935@fedora> <20260313134328.3166c4d0@fedora>
- <20260313135521.07823792@fedora>
-Organization: Collabora
-X-Mailer: Claws Mail 4.3.1 (GTK 3.24.51; x86_64-redhat-linux-gnu)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 718A810E080
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Mar 2026 17:56:17 +0000 (UTC)
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 62DAmoow2389981
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Mar 2026 17:56:16 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=T0nHSm5dsiHf9m2n8csKq+6K
+ k0/f9mLZIr/QYD6IAjs=; b=TU7NFTRaXxTGeooj91AXOvvZRNc4WKrBy5JMOfMv
+ gsaoFFJ/kjqHGtV/RemvQcr4ZnOUmtUMBzWrfnE+DWhH1KjbzVt8CWLLimS1+uHl
+ u7N6FrvYzwJ5cKAhWqZXYsC2KPjEqvtWH1EmJr51M2ElChTcV+aoMWL6hw3J9v2+
+ qZL/TS1QDiTPRzFe+g+eLK2d96knaztGQqYhzblpB8odfY0hHjRZ+Tdk2VdZAd5P
+ eEsNuQtMA5Qm1f4oJ3hDNEkp+qtv+mjbtlOQ8f9W4opAhNIa8EJ50KQJi2eOXese
+ va6vv4csSTgd9B/CutefaXI+Fk5Wx6O/iRYLcWow7GRYTw==
+Received: from mail-ua1-f72.google.com (mail-ua1-f72.google.com
+ [209.85.222.72])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4cvh5m9eb9-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Mar 2026 17:56:16 +0000 (GMT)
+Received: by mail-ua1-f72.google.com with SMTP id
+ a1e0cc1a2514c-94e9d49f7c7so24277673241.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Mar 2026 10:56:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1773424576; x=1774029376;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=T0nHSm5dsiHf9m2n8csKq+6Kk0/f9mLZIr/QYD6IAjs=;
+ b=GIeJEnucEj2BiI1mrDDWi4f/dosvDH6qerybmWD7U4PoSP5gVef9Y/ZJaBEe6Ko1/c
+ g+aY5Wx+GRndDiXrKEZJ9WrRkNA0NR2MvnE96FwNoNcc2WVaFl5TNKczqQFlMsUz7pwO
+ kByVK9Zrr+PdgEYpQd/UpimVaYnmTqgcIFc1z0wpYA2RQ+CrsH7s4SddRVi7Jhk9ePTu
+ NINpnT3UQKQmwg5iUpaSILPa90pLC2J3fY7o4lmw9+3sQCM4+yeAy4jZr/3N6qUzF/Th
+ 3n8snxQkkKIzbfmySL1wmAaM2HE1pkmR6sEXwDZeVGtDsUPRQ4y+QuuzKVkTdMoEp+l7
+ VJKw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1773424576; x=1774029376;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=T0nHSm5dsiHf9m2n8csKq+6Kk0/f9mLZIr/QYD6IAjs=;
+ b=sp2oYCHIw+slcJIyKtqGw6Muoq08Y3UYOEuXkaCx58K231w4syo61hY72wfhhY9TrX
+ KwBeba23Nry92yWzOo1gXkYJbVc6clKVcWDyfqnimpwfs8P352M7KdW58u5o7E041Kyc
+ /qsEaRBczfYi3YMRbJ2uPeLDS72Kf9OtgV3WuSgvdwZ/1QCubgnvDaFBsL/EWoLOLC4h
+ buKrowEsP5k3Fgj4vKMCnyJ/NDRtyaqezs3JrVv02g87SwXslri2vSZZd8mQ7XojEN3A
+ 0k3HHbrDBiqQpiU+b3mOOAuu2RW+DzU1PoGoepaVTQ0fUsWQE80CTRi0l9u/tZyz7Z9k
+ YMvQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVaJtlj80tSSOTh5CHiyZ2vp5XiEMcurj830wjmTbq6ppUXekgbKp6qLjnAKDHaajs/SBOY9lJdyPM=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxV3ff8RZrkU87KPIpd/HXo4SSgCxxBXhDPqvQHzoW8icFJ6Hqe
+ Za2CsuJo/UJwENUay7amt2fCZBtRzAz/yhKxPwUtOc2ODGKwNCBuFBVwuicRcZrT7ueKPebIPgo
+ Cn+pgrvTcb5fgdYKvFl95FkDax2XhPia8Pp9HEpaYAEXQNDOBLSEI56+XeY4Qv/OxoXdxPb4=
+X-Gm-Gg: ATEYQzyTETrodLeaQzAwU/vgi8CYds1JuM6p8hdkRyc1OvNgIrwQG8RfzeDyxhW2dVv
+ c95r2bZpLGbhH7wpFjRmwdiNGJfe41aMnQ4x9hvCNtztje7owucQxsDjZTAWE8qGooG4Ge0blKY
+ f9uUrYeDVbgwyZI1wZhM2WiER23vgPNrE3UTurmXBqPMi2iMpoOrXVcwvyd8uXxsx/jPGlYylJR
+ mHBFqZ/G7OEfgJWyaTbZUblBJ+T1OvHocdh+UGJ8bhGF5iKaA6e3lanTEkzHCS8vY9hMmNYBh7l
+ J7WoOHbPpAuVNMaYya7kvWU/+KSBT2aOcjdz/QEmWAKAYx/T92ZzkFiV9Gnuo6tsfpRiysZLKmD
+ C2tCAKRxgphAT3vujRhgYXbUAxoIZ6/bvQHlNmOwF6gSKu6Ywwvom5xRrl4t8x5vQH1o2528UMD
+ ZQXpFbybc6r0lvlAb+fZ+2iZPoZJFcKuyHxu8=
+X-Received: by 2002:a05:6102:509e:b0:5ef:248b:d533 with SMTP id
+ ada2fe7eead31-6020e92248bmr2053219137.31.1773424575893; 
+ Fri, 13 Mar 2026 10:56:15 -0700 (PDT)
+X-Received: by 2002:a05:6102:509e:b0:5ef:248b:d533 with SMTP id
+ ada2fe7eead31-6020e92248bmr2053198137.31.1773424575497; 
+ Fri, 13 Mar 2026 10:56:15 -0700 (PDT)
+Received: from umbar.lan
+ (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+ by smtp.gmail.com with ESMTPSA id
+ 38308e7fff4ca-38a67e5ebc5sm16479621fa.26.2026.03.13.10.56.14
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 13 Mar 2026 10:56:14 -0700 (PDT)
+Date: Fri, 13 Mar 2026 19:56:12 +0200
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Pengyu Luo <mitltlatltl@gmail.com>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ kernel test robot <lkp@intel.com>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] drm/msm/dsi: add the missing parameter description
+Message-ID: <shzdpuesjea5lmkmzu6cnem7xv4adeuk5icp6bkxtxw5jrggag@6aqab5iiqes4>
+References: <20260309100254.877801-1-mitltlatltl@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260309100254.877801-1-mitltlatltl@gmail.com>
+X-Proofpoint-ORIG-GUID: GthTICXz0OPOLvI4ug40K7qaqPqCF56V
+X-Proofpoint-GUID: GthTICXz0OPOLvI4ug40K7qaqPqCF56V
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzEzMDE0MiBTYWx0ZWRfX3+DyRTJfJWkE
+ d0hMMrO4dd8EFLupNabzVjt7dTHWUHevOpEFsAU7Y7yJ467JvTJPR4pa/pxcXNb+/62KVe1V2TM
+ YHhEdYmHqMcQ5sQce0schJE7O4vPk4/U7UMBtPunlrFHii3ijhrAfcHg5HQHAYbOpzwAbFwNAdH
+ QnWe0O96fUyHxP1LWUqyvfygp0Oq2gMSZlCgnHB1lC4ddYj/v4f3j1q2IhGsJ2Bs9PrCElJ7MTS
+ J/JlsrYVy2fqEv9YykqdEr/S4ozUCjmA80yGsWM6W14hGdWCKA2Fqq4kBvGv4Qo89vZso+XiQ5h
+ tS9A//4sBQCBZ0pnduzPIwGPz3nYxEVU4Q1yesf1/wVolwM5c9XdSa76OsUhIRpZGTucTQxw7Os
+ r6qKswakVDwpuFs9Ix1DgpCPv15AZQj6lyku03Gh8jWX6ny+mpdeRhHQdDLoGaHM8h9J2Lk2lie
+ RvB1mg0/GOZFGRPEg8g==
+X-Authority-Analysis: v=2.4 cv=S6TUAYsP c=1 sm=1 tr=0 ts=69b44fc0 cx=c_pps
+ a=ULNsgckmlI/WJG3HAyAuOQ==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22 a=VwQbUJbxAAAA:8
+ a=QyXUC8HyAAAA:8 a=pGLkceISAAAA:8 a=EUspDBNiAAAA:8 a=LJNnJWuWgWF8sx2EOesA:9
+ a=CjuIK1q_8ugA:10 a=1WsBpfsz9X-RYQiigVTh:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-03-13_03,2026-03-13_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 phishscore=0 adultscore=0 lowpriorityscore=0 suspectscore=0
+ priorityscore=1501 malwarescore=0 spamscore=0 impostorscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603130142
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,92 +145,22 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, 13 Mar 2026 13:55:21 +0100
-Boris Brezillon <boris.brezillon@collabora.com> wrote:
-
-> On Fri, 13 Mar 2026 13:43:28 +0100
-> Boris Brezillon <boris.brezillon@collabora.com> wrote:
+On Mon, Mar 09, 2026 at 06:02:53PM +0800, Pengyu Luo wrote:
+> Add a description for is_bonded_dsi in dsi_adjust_pclk_for_compression
+> to match the existing kernel-doc comment.
 > 
-> > On Fri, 13 Mar 2026 13:18:35 +0100
-> > Boris Brezillon <boris.brezillon@collabora.com> wrote:
-> >   
-> > > On Fri, 13 Mar 2026 12:04:25 +0000
-> > > Biju Das <biju.das.jz@bp.renesas.com> wrote:
-> > >     
-> > > > > -----Original Message-----
-> > > > > From: dri-devel <dri-devel-bounces@lists.freedesktop.org> On Behalf Of Boris Brezillon
-> > > > > Sent: 13 March 2026 11:57
-> > > > > Subject: Re: [PATCH v4 5/6] drm/gem-shmem: Track folio accessed/dirty status in mmap
-> > > > > 
-> > > > > On Fri, 13 Mar 2026 11:29:47 +0100
-> > > > > Thomas Zimmermann <tzimmermann@suse.de> wrote:
-> > > > >         
-> > > > > > Hi
-> > > > > >
-> > > > > > Am 13.03.26 um 11:18 schrieb Boris Brezillon:
-> > > > > > [...]        
-> > > > > > >>>>> +	if (drm_WARN_ON(obj->dev, !shmem->pages || page_offset >= num_pages))
-> > > > > > >>>>> +		return VM_FAULT_SIGBUS;
-> > > > > > >>>>> +
-> > > > > > >>>>> +	file_update_time(vma->vm_file);
-> > > > > > >>>>> +
-> > > > > > >>>>> +	folio_mark_dirty(page_folio(shmem->pages[page_offset]));        
-> > > > > > > Do we need a folio_mark_dirty_lock() here?        
-> > > > > >
-> > > > > > There is a helper for that with some documentation. [1]        
-> > > > > 
-> > > > > This [1] seems to solve the problem for me. Still unsure about the folio_mark_dirty_lock vs
-> > > > > folio_mark_dirty though.
-> > > > > 
-> > > > > [1]https://yhbt.net/lore/dri-devel/20260312155027.1682606-1-pedrodemargomes@gmail.com/        
-> > > > 
-> > > > FYI, I used folio_mark_dirty_lock() still it does not solve the issue with weston hang.      
-> > > 
-> > > The patch I pointed to has nothing to do with folio_mark_dirty_lock(),
-> > > It's a bug caused by huge page mapping changes.    
-> > 
-> > Scratch that. I had a bunch of other changes on top, and it hangs again
-> > now that I dropped those.  
+> Fixes: e4eb11b34d6c ("drm/msm/dsi: fix pclk rate calculation for bonded dsi")
+> Reported-by: kernel test robot <lkp@intel.com>
+> Closes: https://lore.kernel.org/oe-kbuild-all/202603080314.XeqyRZ7A-lkp@intel.com/
+> Signed-off-by: Pengyu Luo <mitltlatltl@gmail.com>
+> ---
+>  drivers/gpu/drm/msm/dsi/dsi_host.c | 1 +
+>  1 file changed, 1 insertion(+)
 > 
-> Seems like it's the combination of huge pages and mkwrite that's
-> causing issues, if I disable huge pages, it doesn't hang...
 
-I managed to have it working with the following diff. I still need to
-check why the "map-RO-split+RW-on-demand" approach doesn't work (races
-between huge_fault and pfn_mkwrite?), but I think it's okay to map the
-real thing writable on the first attempt anyway (we're not trying to do
-CoW here, since we're always pointing to the same page, it's just the
-permissions that change). Note that there's still the race fixed by
-https://yhbt.net/lore/dri-devel/20260312155027.1682606-1-pedrodemargomes@gmail.com/
-in this diff, I just tried to keep the diffstat minimal.
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
---->8---
-diff --git a/drivers/gpu/drm/drm_gem_shmem_helper.c b/drivers/gpu/drm/drm_gem_shmem_helper.c
-index 4500deef4127..4efdce5a60f0 100644
---- a/drivers/gpu/drm/drm_gem_shmem_helper.c
-+++ b/drivers/gpu/drm/drm_gem_shmem_helper.c
-@@ -561,9 +561,8 @@ static vm_fault_t drm_gem_shmem_try_insert_pfn_pmd(struct vm_fault *vmf, unsigne
-        bool aligned = (vmf->address & ~PMD_MASK) == (paddr & ~PMD_MASK);
- 
-        if (aligned && pmd_none(*vmf->pmd)) {
--               /* Read-only mapping; split upon write fault */
-                pfn &= PMD_MASK >> PAGE_SHIFT;
--               return vmf_insert_pfn_pmd(vmf, pfn, false);
-+               return vmf_insert_pfn_pmd(vmf, pfn, vmf->flags & FAULT_FLAG_WRITE);
-        }
- #endif
- 
-@@ -597,8 +596,12 @@ static vm_fault_t drm_gem_shmem_fault(struct vm_fault *vmf)
- 
-        pfn = page_to_pfn(page);
- 
--       if (folio_test_pmd_mappable(folio))
-+       if (folio_test_pmd_mappable(folio)) {
-                ret = drm_gem_shmem_try_insert_pfn_pmd(vmf, pfn);
-+               if (ret == VM_FAULT_NOPAGE && vmf->flags & FAULT_FLAG_WRITE)
-+                       folio_mark_dirty(folio);
-+       }
-+
-        if (ret != VM_FAULT_NOPAGE)
-                ret = vmf_insert_pfn(vma, vmf->address, pfn);
- 
+
+-- 
+With best wishes
+Dmitry
