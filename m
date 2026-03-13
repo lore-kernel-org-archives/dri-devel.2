@@ -4,77 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 19F5F106FD9B
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D6995106FD9E
 	for <dri-devel@archiver.kernel.org>; Fri, 13 Mar 2026 08:25:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A38BA10EB25;
+	by gabe.freedesktop.org (Postfix) with ESMTP id ECC9B10EB27;
 	Fri, 13 Mar 2026 08:25:05 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ab9S3arQ";
-	dkim-atps=neutral
-Received: from mail-dl1-f43.google.com (mail-dl1-f43.google.com [74.125.82.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BCF9910E0B7
- for <dri-devel@lists.freedesktop.org>; Fri, 13 Mar 2026 06:32:46 +0000 (UTC)
-Received: by mail-dl1-f43.google.com with SMTP id
- a92af1059eb24-124a7216c9cso44156c88.0
- for <dri-devel@lists.freedesktop.org>; Thu, 12 Mar 2026 23:32:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1773383566; x=1773988366; darn=lists.freedesktop.org;
- h=content-disposition:mime-version:message-id:subject:cc:to:from:date
- :from:to:cc:subject:date:message-id:reply-to;
- bh=fl4H23Ge0Zsyj8n566Pf+v0tahs4AEuuruZIdW3bY9s=;
- b=ab9S3arQFgx/5gHxJ15EuVNTbg4eHHkZ/TeB3xLxAtqc+obx+eoHqAy6qoNiaUsip6
- 17nzeXEwPqpnW7mW5XXTXdeTNGmmT48iNDMQdVOaZ/rFIlT8ztex3zRiwczhpd//WHCu
- YLO+usaVAPA19DwdWCeCYn85wnMramr5TRi2bvh0LebnBR5RZ94WFz4iW5FOdRTz60Ei
- 3a31Zyt70lN/uNFPoDVOWnF8ExWCUntw21ZbpLDFCXVtllr/NWEtAIFktbCmmQoYNq6k
- bZ6UNgVt85ZfEI/k5LSChQ3WmB0tAFFovtGcbTYCXGo84iFlfLlGH9IfztE1L9HnjDrQ
- hi7A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1773383566; x=1773988366;
- h=content-disposition:mime-version:message-id:subject:cc:to:from:date
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=fl4H23Ge0Zsyj8n566Pf+v0tahs4AEuuruZIdW3bY9s=;
- b=TT5iwPdfg9CurTU8CakyQvTNJ0iSknN8Hm74GOQvgOUmoAeuQNtBdJrsC/zv/qgX2c
- A2XB7OPj9p7p/NwgMT8VuKjO/2N/qKAgAM06u2+knLj9wKmdpx5wRCXkk6PgQuCAQ6/j
- KCFGp+tsLTUZOz33BnEIa/wRZtw1qzSYWYFxuJc31pZz8chxG6aw79zKDlLoyEiAAi6t
- 1RK/fXuI+PvhaD+VABerYOSHEE4IU/f6qtzSpO1TiY5EMzMfarJVGlSssnhs38+c+w27
- V+xLpLXnRVbZJymIIRitZmM9Jchq4/Lu94YHuo9p/Tu/FzN0iBQ1ovEP/lQcExG8zVlb
- YN6Q==
-X-Forwarded-Encrypted: i=1;
- AJvYcCX4G4reLrppzQnWx+9dL086G80AqoMQZ+vIxTY0trZqEFGjCRUQvWa4mG42zB20jlpXYeXQ+5dpuek=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yz3qgJN3r0eOcTcZklH1i6CMYDmlizsMVWeoS4XwujtqbGvYqQ6
- 3MUwlFkXdtPDCx9YSCx3LJyynGZI7hbUWVx4Ci6mOxwMAU8bi6L7zUj7
-X-Gm-Gg: ATEYQzwovRVeF+LPcByWscvotYEYFaeNZMkB5xeaNGhJo9t3N4XPx/1mczPNrobz75F
- q7YXB6p5BEsUw0VmZKvXkpxexMPtYZnqWGlNHOGVwG0NtGmAfQ2T0ttezjQDoEIgQ6lX3T9TehJ
- pkGimJZID/ZrxPxjij80/STot7GC6dbw0un7Y5aIzlfGKhxEDDUZvldTtA2qmwlcjAovje+r7M+
- 1v8udir9RDoTSiwraaEYLYU09zHZffoHkP/uk14j0Wvx63B4Nsijmzg25WRmpD+ESe+WUjQp2Nm
- gJjQqg0NQwVFS3iQa3iYPaiGw4dRZxND0Okw5E/nFY2bn6zta3xX2FE/9Pu5l8/B/dnEeKZfwva
- 5qdaVZIWdok0Ne3ziFNq3VjkfBMwOrZHhvGJhB60QnB3NBqIyWb3jix4nzVZtHFkz8Ojk4ZK4Cy
- 7iFVMQEFI1b5gXqMJRtWU4
-X-Received: by 2002:a05:7022:f8c:b0:128:d81e:adb7 with SMTP id
- a92af1059eb24-128f3c6740emr553076c88.0.1773383565553; 
- Thu, 12 Mar 2026 23:32:45 -0700 (PDT)
-Received: from hobbes ([2600:70ff:f864:0:caf6:9140:4157:1e66])
- by smtp.gmail.com with ESMTPSA id
- a92af1059eb24-128f62b2100sm1049160c88.8.2026.03.12.23.32.42
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 12 Mar 2026 23:32:44 -0700 (PDT)
-Date: Thu, 12 Mar 2026 20:32:40 -1000
-From: Joey Pabalinas <joeypabalinas@gmail.com>
-To: nouveau@lists.freedesktop.org
-Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Joey Pabalinas <joeypabalinas@gmail.com>
-Subject: [PATCH] drm/nouveau: fix misleading indentation
-Message-ID: <6c1d96782664e4f491f23e8c73545fe4d8b9533a.1773383224.git.joeypabalinas@gmail.com>
+Received: from OS8PR02CU002.outbound.protection.outlook.com
+ (mail-japanwestazon11022099.outbound.protection.outlook.com [40.107.75.99])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5C97610E08C
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Mar 2026 03:31:27 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=BVXkWnJYpB0f3KetmfsuTngPLzgv/l0SjXusg66XxNmmp7GJCw1PGkXyGLjwfpPk0yI43xD9rl9JM7Agl2X6fHC7mUkxomuIuOAeuI0qoYLg6yVOSrteYfP8G61jhq+0p6qFw9idjP1IAWLhlppETM3TTqnkksHK6ARdiCK/i8WYjVkXVkNOXvpPeIzEhP0fiuspr6qJJxBWcT0YcsYKMrMpM/InoZbQxEmvBP2I53ckFPSzPTA6wUgV7mF890JWl75K7C9UF8X2INX7xX+IiKkYDHzsfjBQcAHtOzB0HMs+VUdaSUN9FbI+Qcg7rEkgqINuE68PdwYhvvbItyS1XA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=j0IRboASkZu/bMACbgNhlDBXKJ3ArEKo0n5mulo+uWo=;
+ b=lv4KYTc8/rgMzlNUfsu8PwUWyAWNFj2dq2Cql3gJ5QYjzSg7e5i3l24wcKXjpRLEkDr84SsuP6Upipi8qf9vziKTbO8V4keNWbg/LWdvj7oZ0NINbMkfBghESfvPicSr7vxhZABMYx9lrQ+vkP7PT/VOp3cnB1WUIWlLCYzAwxdiI3ktTDGzi+d0JweAJbdPnRf3rlMuUobZllY/PGRYHUApVplQ3GEiKKkWCHsqa8yAi57Sf483JWW8r8mZ+fhAs3m0lsXKGz1HKBvxY04FgjXeoQZKBRpw/7Zb9YirkXEMGCdz4adgWodXQUYBrsjC+LTtL/Ur/HYgONVDXOj3LQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 222.71.101.198) smtp.rcpttodomain=arm.com smtp.mailfrom=cixtech.com;
+ dmarc=bestguesspass action=none header.from=cixtech.com; dkim=none (message
+ not signed); arc=none (0)
+Received: from PS2PR02CA0045.apcprd02.prod.outlook.com (2603:1096:300:59::33)
+ by TY2PPF5EE8C6F8A.apcprd06.prod.outlook.com (2603:1096:408::792)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9678.19; Fri, 13 Mar
+ 2026 03:31:22 +0000
+Received: from TY2PEPF0000AB83.apcprd03.prod.outlook.com
+ (2603:1096:300:59:cafe::7d) by PS2PR02CA0045.outlook.office365.com
+ (2603:1096:300:59::33) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9678.30 via Frontend Transport; Fri,
+ 13 Mar 2026 03:31:24 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 222.71.101.198)
+ smtp.mailfrom=cixtech.com; dkim=none (message not signed)
+ header.d=none;dmarc=bestguesspass action=none header.from=cixtech.com;
+Received-SPF: Pass (protection.outlook.com: domain of cixtech.com designates
+ 222.71.101.198 as permitted sender) receiver=protection.outlook.com;
+ client-ip=222.71.101.198; helo=smtprelay.cixcomputing.com; pr=C
+Received: from smtprelay.cixcomputing.com (222.71.101.198) by
+ TY2PEPF0000AB83.mail.protection.outlook.com (10.167.253.4) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9678.18 via Frontend Transport; Fri, 13 Mar 2026 03:31:21 +0000
+Received: from cix (unknown [172.16.64.42])
+ by smtprelay.cixcomputing.com (Postfix) with ESMTPSA id F108C40A5BD7;
+ Fri, 13 Mar 2026 11:31:19 +0800 (CST)
+From: Cunyuan Liu <cunyuan.liu@cixtech.com>
+To: liviu.dudau@arm.com, maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org
+Cc: neil.armstrong@linaro.org, heiko@sntech.de, marex@nabladev.com,
+ dev@kael-k.io, prabhakar.mahadev-lad.rj@bp.renesas.com,
+ andre.przywara@arm.com, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ cix-kernel-upstream@cixtech.com, Cunyuan Liu <cunyuan.liu@cixtech.com>
+Subject: [PATCH v2 0/3] Arm China Linlon-D6 display controller support
+Date: Fri, 13 Mar 2026 11:31:16 +0800
+Message-ID: <20260313033119.33686-1-cunyuan.liu@cixtech.com>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="k7ogklrer7rk7odl"
-Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TY2PEPF0000AB83:EE_|TY2PPF5EE8C6F8A:EE_
+Content-Type: text/plain
+X-MS-Office365-Filtering-Correlation-Id: 01b4d406-ff12-4f87-022c-08de80b0ff22
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|36860700016|7416014|82310400026|376014|56012099003|18002099003;
+X-Microsoft-Antispam-Message-Info: sab4KzK2mySXxiJ+auz68yddyMaBO31Bh2PjaLCrYoeH1UAya9dw9RqQAo/SDXRIbOGPlMPzqvf1FiczJyTgN0TVslbCkC1vELvuIgLfi/22QubjSpq77/ZHBai4ZFTo1ufAbaJvsDCvPxp6FTJ9qiAR7T0Dkx5RNUl4eVrhCfrqS8HsYj8/qPAaXGKLmRe1lBka8SDIwrkWdqgeEyxbXyQViXIoow2FQ6nrpHw7qlSRTem5TDL+aI60cQNfs90QvBy1GVc4xyaOcX9fHLf6gGAB74PFDj3h3NH+l8EvvQDQ3ahiKuENgCrJyQYToXJ2+TImTsP/w/6E194iwitMjf+c9z+/JEQcGFSjarufDCuUyRPr6kuR2OFCpu9YRYfOXBa1A+b+f22arYYajkA/w54k26zZm1zgydIqP+2OalOGkQ6YM48ztGHXZVrttO83Soz0fUHUNyvRlBUS7bdCcAT8DSmrI0P0gg8z+I6/KNKALfUHv4bvHNCV3e6FCYOaR8IEA4S+fq7tVJuBT2tt2IdHkvnPGCj6LFXutCsoYiQPBfjCIytpu3NNYC6mczUOh9qpPWVZjQ9qIw1DF4iVJowNEum8TCv+pr83+flvAisgMscLPNPKvsf+Clyvp7vN3YEi7TP4MWeTP3b8L8qQvMMPP7fqdpGHOn/9ZPOhd3GRPviCmeuwTK/fBQSQNGu0oXFS0C6kJBSwBhasmv/H+iyQhI7TAHnOPoBpClWeao7HonEhDDlvVLBvtlpKnGjqifxrjs+tI30aviv9SIY/wA==
+X-Forefront-Antispam-Report: CIP:222.71.101.198; CTRY:CN; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:smtprelay.cixcomputing.com; PTR:InfoDomainNonexistent;
+ CAT:NONE;
+ SFS:(13230040)(1800799024)(36860700016)(7416014)(82310400026)(376014)(56012099003)(18002099003);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: wXOGuKLdf9Vykxrr1iHPjicImHnQOZCt4P164PlTWKPG7tT1LZD0Q9cecTOY3LlHzI+CvL8l0n1Kl9tkAgf1B+nVgzCp6msHSYCp4hos2eCXKtc0wgtl8e2sLaMjpdzeertHfT12b8AgPy2KTd7JiFx16Lox3jlQ47Y2MVtnYSXDZFb+SaU0hc6MtVW46tZaH0dtpULZpto6Dq69pyOr1FvgTqTgS1oz2HRDjRe6GtpSB+JitcFm6XYM44ulZCboLUpuLd4RMu5j71ek3kxW/dVcE4Iwpj2nHdDDjhgwQw7+6Xuigh0c4d5CM2aqPtxTFL+gnDGrcDcqdfzjFpXYgdc7ceY0L7j6B0T9zwz53ZQvFpFSOyaTAHZruUL3E+NMQ5mlJwx5qjaMzJf0fK1UueJtZVB2kkmXvZMEu2nve3+5w6ovTsKx6wEV9BIOBNAM
+X-OriginatorOrg: cixtech.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Mar 2026 03:31:21.3630 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 01b4d406-ff12-4f87-022c-08de80b0ff22
+X-MS-Exchange-CrossTenant-Id: 0409f77a-e53d-4d23-943e-ccade7cb4811
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=0409f77a-e53d-4d23-943e-ccade7cb4811; Ip=[222.71.101.198];
+ Helo=[smtprelay.cixcomputing.com]
+X-MS-Exchange-CrossTenant-AuthSource: TY2PEPF0000AB83.apcprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY2PPF5EE8C6F8A
 X-Mailman-Approved-At: Fri, 13 Mar 2026 08:25:02 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -91,134 +105,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Adds Komeda DRM support for Arm China Linlon-D6. The IP is register-compatible
+with Mali-D71, so we reuse the D71 code path.
 
---k7ogklrer7rk7odl
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: [PATCH] drm/nouveau: fix misleading indentation
-MIME-Version: 1.0
+  [1/3] dt-bindings: vendor-prefixes: add Arm Technology (China) "armchina"
+  [2/3] dt-bindings: add armchina,linlon-d6 compatible (fallback to arm,mali-d71)
+  [3/3] drm/komeda: add Linlon-D6 product ID and of_device_id, use D71 funcs
 
-Fix misleading indentation in if/else statements.
+Changes in v2:
+- PATCH [2/3]: rework compatible schema using enum as suggested by Krzysztof.
 
-Signed-off-by: Joey Pabalinas <joeypabalinas@gmail.com>
----
- drivers/gpu/drm/nouveau/nouveau_abi16.c | 49 ++++++++++++-------------
- 1 file changed, 24 insertions(+), 25 deletions(-)
+v1: https://lore.kernel.org/dri-devel/20260311055506.12023-1-cunyuan.liu@cixtech.com/
 
-diff --git a/drivers/gpu/drm/nouveau/nouveau_abi16.c b/drivers/gpu/drm/nouv=
-eau/nouveau_abi16.c
-index f9201f2e73a339a10b..3da75aa136d04faf3b 100644
---- a/drivers/gpu/drm/nouveau/nouveau_abi16.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_abi16.c
-@@ -425,14 +425,14 @@ nouveau_abi16_ioctl_channel_alloc(ABI16_IOCTL_ARGS)
-=20
- 	if (device->info.family >=3D NV_DEVICE_INFO_V0_TESLA)
- 		init->pushbuf_domains =3D NOUVEAU_GEM_DOMAIN_VRAM |
- 					NOUVEAU_GEM_DOMAIN_GART;
- 	else
--	if (chan->chan->push.buffer->bo.resource->mem_type =3D=3D TTM_PL_VRAM)
--		init->pushbuf_domains =3D NOUVEAU_GEM_DOMAIN_VRAM;
--	else
--		init->pushbuf_domains =3D NOUVEAU_GEM_DOMAIN_GART;
-+		if (chan->chan->push.buffer->bo.resource->mem_type =3D=3D TTM_PL_VRAM)
-+			init->pushbuf_domains =3D NOUVEAU_GEM_DOMAIN_VRAM;
-+		else
-+			init->pushbuf_domains =3D NOUVEAU_GEM_DOMAIN_GART;
-=20
- 	if (device->info.family < NV_DEVICE_INFO_V0_CELSIUS) {
- 		init->subchan[0].handle =3D 0x00000000;
- 		init->subchan[0].grclass =3D 0x0000;
- 		init->subchan[1].handle =3D chan->chan->nvsw.handle;
-@@ -579,21 +579,20 @@ nouveau_abi16_ioctl_grobj_alloc(ABI16_IOCTL_ARGS)
- 				oclass =3D sclass[i].oclass;
- 				break;
- 			}
- 		}
- 	} else
--	if ((init->class & 0x00ff) =3D=3D 0x00b3) { /* msppp */
--		/* msppp: compatibility with incorrect version exposure */
--		for (i =3D 0; i < ret; i++) {
--			if ((sclass[i].oclass & 0x00ff) =3D=3D 0x00b3) {
--				oclass =3D sclass[i].oclass;
--				break;
-+		if ((init->class & 0x00ff) =3D=3D 0x00b3) { /* msppp */
-+			/* msppp: compatibility with incorrect version exposure */
-+			for (i =3D 0; i < ret; i++) {
-+				if ((sclass[i].oclass & 0x00ff) =3D=3D 0x00b3) {
-+					oclass =3D sclass[i].oclass;
-+					break;
-+				}
- 			}
--		}
--	} else {
--		oclass =3D init->class;
--	}
-+		} else
-+			oclass =3D init->class;
-=20
- 	nvif_object_sclass_put(&sclass);
- 	if (!oclass)
- 		return nouveau_abi16_put(abi16, -EINVAL);
-=20
-@@ -652,21 +651,21 @@ nouveau_abi16_ioctl_notifierobj_alloc(ABI16_IOCTL_ARG=
-S)
- 		args.target =3D NV_DMA_V0_TARGET_VM;
- 		args.access =3D NV_DMA_V0_ACCESS_VM;
- 		args.start +=3D chan->ntfy_vma->addr;
- 		args.limit +=3D chan->ntfy_vma->addr;
- 	} else
--	if (drm->agp.bridge) {
--		args.target =3D NV_DMA_V0_TARGET_AGP;
--		args.access =3D NV_DMA_V0_ACCESS_RDWR;
--		args.start +=3D drm->agp.base + chan->ntfy->offset;
--		args.limit +=3D drm->agp.base + chan->ntfy->offset;
--	} else {
--		args.target =3D NV_DMA_V0_TARGET_VM;
--		args.access =3D NV_DMA_V0_ACCESS_RDWR;
--		args.start +=3D chan->ntfy->offset;
--		args.limit +=3D chan->ntfy->offset;
--	}
-+		if (drm->agp.bridge) {
-+			args.target =3D NV_DMA_V0_TARGET_AGP;
-+			args.access =3D NV_DMA_V0_ACCESS_RDWR;
-+			args.start +=3D drm->agp.base + chan->ntfy->offset;
-+			args.limit +=3D drm->agp.base + chan->ntfy->offset;
-+		} else {
-+			args.target =3D NV_DMA_V0_TARGET_VM;
-+			args.access =3D NV_DMA_V0_ACCESS_RDWR;
-+			args.start +=3D chan->ntfy->offset;
-+			args.limit +=3D chan->ntfy->offset;
-+		}
-=20
- 	ret =3D nvif_object_ctor(&chan->chan->user, "abi16Ntfy", info->handle,
- 			       NV_DMA_IN_MEMORY, &args, sizeof(args),
- 			       &ntfy->object);
- 	if (ret)
---=20
-Cheers,
-Joey Pabalinas
+Tested on Radxa Orion O6 with Linlon-D6, basic display bring-up works as expected.
 
+Thanks,
+Cunyuan
 
---k7ogklrer7rk7odl
-Content-Type: application/pgp-signature; name="signature.asc"
+Cunyuan Liu (3):
+  dt-bindings: vendor-prefixes: Add Arm Technology (China) Co., Ltd.
+  dt-bindings: display: arm,komeda: add Arm China Linlon D6 compatible
+  drm/komeda: Add support for Arm China Linlon-D6
 
------BEGIN PGP SIGNATURE-----
+ Documentation/devicetree/bindings/display/arm,komeda.yaml | 4 +++-
+ Documentation/devicetree/bindings/vendor-prefixes.yaml    | 2 ++
+ drivers/gpu/drm/arm/display/include/malidp_product.h      | 1 +
+ drivers/gpu/drm/arm/display/komeda/d71/d71_dev.c          | 1 +
+ drivers/gpu/drm/arm/display/komeda/komeda_drv.c           | 1 +
+ 5 files changed, 8 insertions(+), 1 deletion(-)
 
-iQJPBAABCAA5FiEEx6b1SGGPTKxTmPDYqoHu9CTxowIFAmmzr4gbFIAAAAAABAAO
-bWFudTIsMi41KzEuMTIsMiwyAAoJEKqB7vQk8aMCkVAQAJ148g2qWIqsAEqEqSkt
-vAyVkxh4eqEF7hSJoRAD8zp1a3mMxjmZYwDzC3fvlEeyrTjcKSGU4ec28O+Ruu0L
-sHng+ludg4a426Ofe4hLSeRC9HTQKpEvtC0+y3C8JIOdXfInRTZrccGU8/goyY9z
-zVaVBBdLnpIXNc+2FxMdj9nrujZCd1uTGL+XOL1pxC6rjVgT5W5x/MKEGaLiK98X
-m1CSsIH7I+g71nt/3XvFVkPwawHtlj6QFEJwSEOjTRcS1vpZcGr+nUiM1XXi0CKY
-oJtmeOsYX7sTgOhKDml9LHxgeRu+J8iGcHOA6poke00bSB1pdvXYzOc3x/2lLZbW
-tRk139aRXeNUUZznN+tCtyOScZQXPUJpis0b+0izliM5GtAPJIugnd/wjpKRg86z
-EYIiPfY6AoDeQKCCvuTmoZqRIGm1naT4uUEkFAZc54GOFA4utFR7WXxGZ2T0RrZq
-7Z1ntYwW8VCEKmVJxmYcXz/hUiDKe4ZRBPcwUagDW3WE4zmHXaFUOf6Fv8azgyCZ
-INtvtUqn6N2WEc+IleKK1IzyqJjyq+OyZzSqyCofbq+WycCyLeSBaO4xWr/Fd5qu
-S2KZf9GaCgUTlk9QD2qamVwANkRdkxZRUnH/UKyOKNdOciPIm/BGjhVEsPtXtiU9
-BbCHq7coMN8hinzZLCdoi1it
-=7+J+
------END PGP SIGNATURE-----
+-- 
+2.53.0
 
---k7ogklrer7rk7odl--
