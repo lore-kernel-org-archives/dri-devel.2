@@ -4,52 +4,130 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 73D5A105F781
-	for <dri-devel@archiver.kernel.org>; Fri, 13 Mar 2026 09:18:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 03056105F783
+	for <dri-devel@archiver.kernel.org>; Fri, 13 Mar 2026 09:22:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D7D7B10EB61;
-	Fri, 13 Mar 2026 09:18:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4810E10EB71;
+	Fri, 13 Mar 2026 09:22:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=onurozkan.dev header.i=@onurozkan.dev header.b="o6V5EXYb";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="eEaREBnM";
 	dkim-atps=neutral
-Received: from forward100a.mail.yandex.net (forward100a.mail.yandex.net
- [178.154.239.83])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 717A710EB56
- for <dri-devel@lists.freedesktop.org>; Fri, 13 Mar 2026 09:17:56 +0000 (UTC)
-Received: from mail-nwsmtp-smtp-production-main-81.vla.yp-c.yandex.net
- (mail-nwsmtp-smtp-production-main-81.vla.yp-c.yandex.net
- [IPv6:2a02:6b8:c0f:571a:0:640:23e3:0])
- by forward100a.mail.yandex.net (Yandex) with ESMTPS id 1F36BC0210;
- Fri, 13 Mar 2026 12:17:55 +0300 (MSK)
-Received: by mail-nwsmtp-smtp-production-main-81.vla.yp-c.yandex.net
- (smtp/Yandex) with ESMTPSA id 3HEusrTGkmI0-lTVYqrRv; 
- Fri, 13 Mar 2026 12:17:54 +0300
-X-Yandex-Fwd: 1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=onurozkan.dev;
- s=mail; t=1773393474;
- bh=9dj0+25F18WQitVKF1FKkRi87RpcIXAE7se35EAxq/U=;
- h=Cc:Message-ID:References:Date:In-Reply-To:Subject:To:From;
- b=o6V5EXYbZIrlufNMT5CY6vcHF7CLZMGWPOQIIQNWOypaP9l6gc+r731hUx6nvR8zA
- 1SDMpbmI/bhyJmP/hzKn5QuXQ73NRm+kLVhDQeHKxs7sY/Sj0jJH3z8Sw7bG6kSm5p
- EFx1e4qthJCkZb97tKcrNIBUk9452wNT+ztqElNs=
-Authentication-Results: mail-nwsmtp-smtp-production-main-81.vla.yp-c.yandex.net;
- dkim=pass header.i=@onurozkan.dev
-From: =?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>
-To: linux-kernel@vger.kernel.org
-Cc: dakr@kernel.org, aliceryhl@google.com, daniel.almeida@collabora.com,
- airlied@gmail.com, simona@ffwll.ch, dri-devel@lists.freedesktop.org,
- rust-for-linux@vger.kernel.org,
- =?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>,
- Deborah Brouwer <deborah.brouwer@collabora.com>
-Subject: [PATCH v1 RESEND 4/4] drm/tyr: add GPU reset handling
-Date: Fri, 13 Mar 2026 12:16:44 +0300
-Message-ID: <20260313091646.16938-5-work@onurozkan.dev>
-X-Mailer: git-send-email 2.51.2
-In-Reply-To: <20260313091646.16938-1-work@onurozkan.dev>
-References: <20260313091646.16938-1-work@onurozkan.dev>
-MIME-Version: 1.0
+Received: from PH8PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11012001.outbound.protection.outlook.com [40.107.209.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7206610EB6F
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Mar 2026 09:22:10 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=K/ZX0+ZE3/w/87sf5ymPD4yLdKEN/ITuZviHlVJb3WRf6Qah+oa7ZAMdMxUMZ73AVqTxY35BZVNMsdTf61qQ8JkTYw3lCmlWa9mi0tE24F/nWjvjmMQlfvcThM2wqFV18JGyuUdnaK00NkLb0RehwH+BMqpI0547rcnT3n9TVVFqKW/Ncvo1AmU72YotD7MK6HOTTYzczCrty+AmjranjKB0+VFsrE8+D9xWNA9Gu/NW/eX14Avo/GGNGT6VZc62aXEJm0+aU2l0DZImyJleKgjz7H5Cp7rxzqlKLzDYGYztoTebCQSwB4YGZ781u2Rq1sBiTYJ18jLZqfs3auiO2A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=f89RTfJP5cCZR2sArNfVJu8Ab8L4isAAMD+WHsWsNo8=;
+ b=f1x/L019beUAWQuxBySdE+ZbPCLGiSD38NQmFfj5qW6YbkJtPKVMmkOLS4X0oJOixOIUMmCNHdHUQ92v3eItUseQOJ2zepjPvSaupofYfxpkgZhaAUtmGB7y1m6qGuhDr9TKPX16P8jSmNUEliACRgHFIQvf0sQm7j+iNRx+QVjTcx5pSj3Vwk32f+CX4q5U+LgGWCxqE/qjaha0rkGfMZSDrbePqB7OetFLZE3+CnnN9KA8Nl1bDfjMYPBAnuRfCsyRGdmuGLKwZjDwi1aEuPnc/rKfH8gH8D22AdytFsptaxs8umbgJyDv+80nKDofm31XbOjFMUfePEyyC6kGdg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=f89RTfJP5cCZR2sArNfVJu8Ab8L4isAAMD+WHsWsNo8=;
+ b=eEaREBnM3tp3ZfT1r1Eow2h2e+JX2pY/1Y4YdTr4TFzBhjC5OAOIX7qnJUCIFCHApuqeDV5rwzw4zZ4QOblbOZLGIaWiQRYnMENJI1dT6JXyZ21jj9nRLclNYJazNf4dspkTDSuK1P/tWx/rhO97zqpQVHnMpo2K41+g8fjk9Ls=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by LV8PR12MB9358.namprd12.prod.outlook.com (2603:10b6:408:201::12)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.6; Fri, 13 Mar
+ 2026 09:22:07 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.20.9723.004; Fri, 13 Mar 2026
+ 09:22:07 +0000
+Message-ID: <22eaf986-3fa5-4904-a7ad-dc7316aa1165@amd.com>
+Date: Fri, 13 Mar 2026 10:21:59 +0100
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC v2 PATCH 00/10] vfio/pci: Add mmap() for DMABUFs
+To: Matt Evans <mattev@meta.com>, Alex Williamson <alex@shazbot.org>,
+ Leon Romanovsky <leon@kernel.org>, Jason Gunthorpe <jgg@nvidia.com>,
+ Alex Mastro <amastro@fb.com>, Mahmoud Adam <mngyadam@amazon.de>,
+ David Matlack <dmatlack@google.com>
+Cc: =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>,
+ Sumit Semwal <sumit.semwal@linaro.org>, Kevin Tian <kevin.tian@intel.com>,
+ Ankit Agrawal <ankita@nvidia.com>, Pranjal Shrivastava <praan@google.com>,
+ Alistair Popple <apopple@nvidia.com>,
+ Vivek Kasireddy <vivek.kasireddy@intel.com>, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, kvm@vger.kernel.org
+References: <20260312184613.3710705-1-mattev@meta.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20260312184613.3710705-1-mattev@meta.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR4P281CA0019.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:c9::16) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|LV8PR12MB9358:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9aa62212-6538-4048-d235-08de80e1ff5f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|7416014|1800799024|366016|376014|56012099003|18002099003|22082099003|13003099007;
+X-Microsoft-Antispam-Message-Info: WXapiiH0tsjh+DZJUD6yhG2OzxVI8m0DXa6boU494uh+4JWPSoqw5vKIGcOYRaMqrScYXwtAGaCvSYUons5MX0DhvtkOyk6J2AIXzgjdJdhlB3a0CmrGKlBejLv9W8oLd0WwSA0UPj15KXTRorb0F0fttpT4S0LWJ8v0iRwsVlKxY4osWKf3R13sygpjv5Yw4M49x0CsCN++QTiAd062yladVgDS8dEIoNBBeaytTIBw+ntOzX7HCvdyq2vCqGMODqXFViDxPbvCURYaa9Fs9zCRYWc9JHSWCXFsPb1QbAnyBL2uJTsT5B0hFmXiMj3M/crT7oVn+aT7+VfCXsmrJtMcipN+iGqGffmZb+cF2a+nACe2ZEWK70DxAmrkR9jQCUVJiT6FyXjVKGElhwKIYA43muqZc39wB5rT6exMjlI4Nl9E2HuMgLxiGYRjkK8W2Ezq8AxUU8NwVZbfMl0O5pE4vTvreHLnKajrATBIW3bpwCOg7JLTpqkpCc6Tk17Z4GHWdbGsMOHGiVXi/S4qrXpm9gOXSrsluoC03qDM78eRos2A5rZyiIwVmybhU4nFA8FhHQ/HP7QnlQyfHtQrDMNvIplxcT5UpLucF52F1HwA1aePP4NjzZKBUI42i/9WlZnctuTYMTAIl04Hd7wszAEFovEGLiGsRoW/vuyPv/6jjYPwzWI8tEXizMOG4DxzPCYoXc1FnlPaXjDMUNQKeg==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(7416014)(1800799024)(366016)(376014)(56012099003)(18002099003)(22082099003)(13003099007);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WXVtNTdTQUpLZW15dFZHYkhvNDZ1Si96UjlUaUFuRDJTY2JTUTNEQ1BiVmx0?=
+ =?utf-8?B?QmdEV1dsWUNLTzRjK2hMODVOQlVTSEpnSmxveE5FOG8zQ3p5aWMxbStBa2tw?=
+ =?utf-8?B?TWcvckdtWE0yRmNJUjF0TEp3RTJoVUt4a3laVUNybFlrOEMvMUNManNMVWNl?=
+ =?utf-8?B?R25DZFk3UnFobjY5L01VYUpmR1RCTUc3WW9jNHJWVHEvRkgxTEI0aEJuNjhX?=
+ =?utf-8?B?bFJLZ3N5ckd3bXhydmtPWjV6U2NNSmdNWUJPWkhGVjU2ZWlHQlFlcW5hT2c5?=
+ =?utf-8?B?anNEN1dwRDR5bDFXYnNsKzNJUGtsQVdNQStHS2c2SkJTVG9SamcybXhHNDhN?=
+ =?utf-8?B?ZHNiZ1pKQUdQNWNXZVlLY2dLczNZWHoyaGl6VEJGT01VSURoNUJyNCtyRk5L?=
+ =?utf-8?B?TGlnTGxoZEswaDRiMUVWWEJHVlROSXdHODFDcUhwU1B0WWNBcThuVnhlakZa?=
+ =?utf-8?B?Ymc0MzNtR0NXeE01SDJmajVsV0pXL2lDRjVSZGlxVmQwckJNNk9zVngrZmRr?=
+ =?utf-8?B?L3AzRmh4dzFZTWp2Wm9LQ0hBNFpwWXo2cm94Z0ZYTFNHaDlabDJ2b3BOcVR6?=
+ =?utf-8?B?TWEzYXVWVCtoU3FJWW5OM2xJOWY1L2J4RXh2VWYwY0RZaVBhK1UxSG5OdlZi?=
+ =?utf-8?B?OWpNTVN3dFZlcjBrVisyT2FFSWlHRmtjK2tZbWFpS0xkU2I3aXNEeUJpaHdu?=
+ =?utf-8?B?OFZ2NGo4K3lsWmNBYTZQamxqUlJnbG80MzNaODJOUEd3dWhseEpDeUFGWVR5?=
+ =?utf-8?B?ckZYeVh5dkF4WGUwUW9hRy94dTQ5TTcxOVVmelBSdjN2bzZ1aEIwOXRtMytt?=
+ =?utf-8?B?aXU0NTIwT2pCL0JnVlNXVldTTWpuRTZIbk5PV2pVSjJyc2c1VkNxNDFvSFIz?=
+ =?utf-8?B?TXBBbXkwWGJoZHVPV2JkTkxUdDJBMjVJUFU3SGZ5bTR6N2YrSkwraWZXQWtC?=
+ =?utf-8?B?OUlFRHpIT1JoNmxqVjd2UWxueVZLZTZ5UGVWc1VxcEhxeU1ZbTNPUnFZYS91?=
+ =?utf-8?B?L1JUbzJJMlRFMi9HSHlJTXVZNWpyTkhObko5d09CMEk3UlNlaUFlRkRzMjFv?=
+ =?utf-8?B?RUROeFAzN2JWRUJmSS9DWmx4VHJSK0xBcVVYV2pTZkhpMzZJM0czU1RMMTl0?=
+ =?utf-8?B?MXprdjc3U0RSM243c2hteFFERVZwQlFhY3crQkF3RUZFTEtBS1BMK1F3amhr?=
+ =?utf-8?B?WDNZVTFUWnVuWmVSeWNPNE5kT0R6dzZiUVFHK3J2YlA4UVVUT0lIVDhyYXRG?=
+ =?utf-8?B?cVlsQUdTSFd1RUtRcTBuazBiSk9ha0JjMEEwNjZFYWt2SWV5RnIxSzJOMHJZ?=
+ =?utf-8?B?SHNoWmNMeHlGQTRXRHRNckJqL055VlBTWEorK1dhYUx1cnpKNE9wd0RidjZu?=
+ =?utf-8?B?NFhYSkFYZSs1dkIxdlkvTHB2WTBKZkZSZWtmeHArQ3ZrUjQ3Z3ErOTBMYVRh?=
+ =?utf-8?B?TG0vdm9UTUpEbnV3NlVaVE50c1BNbmdzUlJqUno3cmEwWlRua0dVV1liZWl3?=
+ =?utf-8?B?L0JGNzRsNHdiYzd2OTE4c2hMSmMwMEJKUEFiV093YWowQjhoT1pVOFRoTGVG?=
+ =?utf-8?B?VzJueVRmYkd3RHA0RE9zcTBLRWc4RFJ5M3BpZ1NkVnpiY2RQL242THVYTk54?=
+ =?utf-8?B?MElhQnl0Q2F4ak96cEg2aTV1SDdsNGtxQ09RZFZDS0hNSTBFVGhRQ1hEdWYr?=
+ =?utf-8?B?VDRRczdmUkkwSmhteFZyemlsM0dmRmVpcGVYN3FmSGJreVNSSG1RSEJ3dHNO?=
+ =?utf-8?B?d1BSbGpCWTFzUHBGQ1lYS1h2RkFsZ0FzaXNITzBHZ2V3NzAvRy9sOWJRaTZO?=
+ =?utf-8?B?ZU01MVI0ZEkxL1VTUVdvV0IzS1JnVE1MaTA2WHpRS3R6N2NZcTZlZjZUcDdj?=
+ =?utf-8?B?SXJpL25rRjNMa3JEZFNLQ0x5U3B4MGpiQ0pkVDcwandxZDg1ZHl2ZDBFY0dP?=
+ =?utf-8?B?M3U5dUtzVlNtUFlzSnVtUjdXcDlQWk42K1JkdWlRODJPalNBQUxSM0IxRmYx?=
+ =?utf-8?B?eWg2Q3VqdW1jZm9KLzIxMXVETjl3Tk1McmRHUE4xUEt3NHVucGU0dEgzejh0?=
+ =?utf-8?B?YXRPdHBSd1lzcTR1dkhxZllqRk9pSE5TVi9rakZtSWxCdDFzZGNSV3RTNHBE?=
+ =?utf-8?B?WGhkRnVPWkZUdm9wUFROZUNJWDgyRWh4Y2dobDNyTFZSeGdDUU9HcHg5UFdh?=
+ =?utf-8?B?ZDg4ZG9iU3JsTzZ5QkRCNU8xY3lLT2s1N2xTdi9SMkRpZ1ZJbldzUXJ1d2dF?=
+ =?utf-8?B?UnhySm5ldXMwekpzWUpLYlZVSHpOQ0pDRzFWQjNLZTI2TCtLU3lrb2hvSVFt?=
+ =?utf-8?Q?3KIE5TU+Ztd7d+7m9L?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9aa62212-6538-4048-d235-08de80e1ff5f
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Mar 2026 09:22:07.4617 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: uXo4JGRcB91/gb8TxYxYjTo2nUPFU5kAwZO+umZdc3oCG2vY4spDYCctLqSyp/qO
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9358
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,334 +143,225 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Move Tyr reset logic into a new reset module and add async reset work.
+On 3/12/26 19:45, Matt Evans wrote:
+> Hi all,
+> 
+> 
+> There were various suggestions in the September 2025 thread "[TECH
+> TOPIC] vfio, iommufd: Enabling user space drivers to vend more
+> granular access to client processes" [0], and LPC discussions, around
+> improving the situation for multi-process userspace driver designs.
+> This RFC series implements some of these ideas.
+> 
+> (Thanks for feedback on v1!  Revised series, with changes noted
+> inline.)
+> 
+> Background: Multi-process USDs
+> ==============================
+> 
+> The userspace driver scenario discussed in that thread involves a
+> primary process driving a PCIe function through VFIO/iommufd, which
+> manages the function-wide ownership/lifecycle.  The function is
+> designed to provide multiple distinct programming interfaces (for
+> example, several independent MMIO register frames in one function),
+> and the primary process delegates control of these interfaces to
+> multiple independent client processes (which do the actual work).
+> This scenario clearly relies on a HW design that provides appropriate
+> isolation between the programming interfaces.
+> 
+> The two key needs are:
+> 
+>  1.  Mechanisms to safely delegate a subset of the device MMIO
+>      resources to a client process without over-sharing wider access
+>      (or influence over whole-device activities, such as reset).
+> 
+>  2.  Mechanisms to allow a client process to do its own iommufd
+>      management w.r.t. its address space, in a way that's isolated
+>      from DMA relating to other clients.
+> 
+> 
+> mmap() of VFIO DMABUFs
+> ======================
+> 
+> This RFC addresses #1 in "vfio/pci: Support mmap() of a VFIO DMABUF",
+> implementing the proposals in [0] to add mmap() support to the
+> existing VFIO DMABUF exporter.
+> 
+> This enables a userspace driver to define DMABUF ranges corresponding
+> to sub-ranges of a BAR, and grant a given client (via a shared fd)
+> the capability to access (only) those sub-ranges.  The VFIO device fds
+> would be kept private to the primary process.  All the client can do
+> with that fd is map (or iomap via iommufd) that specific subset of
+> resources, and the impact of bugs/malice is contained.
+> 
+>  (We'll follow up on #2 separately, as a related-but-distinct problem.
+>   PASIDs are one way to achieve per-client isolation of DMA; another
+>   could be sharing of a single IOVA space via 'constrained' iommufds.)
+> 
+> 
+> New in v2: To achieve this, the existing VFIO BAR mmap() path is
+> converted to use DMABUFs behind the scenes, in "vfio/pci: Convert BAR
+> mmap() to use a DMABUF" plus new helper functions, as Jason/Christian
+> suggested in the v1 discussion [3].
+> 
+> This means:
+> 
+>  - Both regular and new DMABUF BAR mappings share the same vm_ops,
+>    i.e.  mmap()ing DMABUFs is a smaller change on top of the existing
+>    mmap().
+> 
+>  - The zapping of mappings occurs via vfio_pci_dma_buf_move(), and the
+>    vfio_pci_zap_bars() originally paired with the _move()s can go
+>    away.  Each DMABUF has a unique address_space.
+> 
+>  - It's a step towards future iommufd VFIO Type1 emulation
+>    implementing P2P, since iommufd can now get a DMABUF from a VA that
+>    it's mapping for IO; the VMAs' vm_file is that of the backing
+>    DMABUF.
+> 
+> 
+> Revocation/reclaim
+> ==================
+> 
+> Mapping a BAR subset is useful, but the lifetime of access granted to
+> a client needs to be managed well.  For example, a protocol between
+> the primary process and the client can indicate when the client is
+> done, and when it's safe to reuse the resources elsewhere, but cleanup
+> can't practically be cooperative.
+> 
+> For robustness, we enable the driver to make the resources
+> guaranteed-inaccessible when it chooses, so that it can re-assign them
+> to other uses in future.
+> 
+> "vfio/pci: Permanently revoke a DMABUF on request" adds a new VFIO
+> device fd ioctl, VFIO_DEVICE_PCI_DMABUF_REVOKE.  This takes a DMABUF
+> fd parameter previously exported (from that device!) and permanently
+> revokes the DMABUF.  This notifies/detaches importers, zaps PTEs for
+> any mappings, and guarantees no future attachment/import/map/access is
+> possible by any means.
+> 
+> A primary driver process would use this operation when the client's
+> tenure ends to reclaim "loaned-out" MMIO interfaces, at which point
+> the interfaces could be safely re-used.
+> 
+> New in v2: ioctl() on VFIO driver fd, rather than DMABUF fd.  A DMABUF
+> is revoked using code common to vfio_pci_dma_buf_move(), selectively
+> zapping mappings (after waiting for completion on the
+> dma_buf_invalidate_mappings() request).
+> 
+> 
+> BAR mapping access attributes
+> =============================
+> 
+> Inspired by Alex [Mastro] and Jason's comments in [0] and Mahmoud's
+> work in [1] with the goal of controlling CPU access attributes for
+> VFIO BAR mappings (e.g. WC), we can decorate DMABUFs with access
+> attributes that are then used by a mapping's PTEs.
+> 
+> I've proposed reserving a field in struct
+> vfio_device_feature_dma_buf's flags to specify an attribute for its
+> ranges.  Although that keeps the (UAPI) struct unchanged, it means all
+> ranges in a DMABUF share the same attribute.  I feel a single
+> attribute-to-mmap() relation is logical/reasonable.  An application
+> can also create multiple DMABUFs to describe any BAR layout and mix of
+> attributes.
+> 
+> 
+> Tests
+> =====
+> 
+> (Still sharing the [RFC ONLY] userspace test/demo program for context,
+> not for merge.)
+> 
+> It illustrates & tests various map/revoke cases, but doesn't use the
+> existing VFIO selftests and relies on a (tweaked) QEMU EDU function.
+> I'm (still) working on integrating the scenarios into the existing
+> VFIO selftests.
+> 
+> This code has been tested in mapping DMABUFs of single/multiple
+> ranges, aliasing mmap()s, aliasing ranges across DMABUFs, vm_pgoff >
+> 0, revocation, shutdown/cleanup scenarios, and hugepage mappings seem
+> to work correctly.  I've lightly tested WC mappings also (by observing
+> resulting PTEs as having the correct attributes...).
+> 
+> 
+> Fin
+> ===
+> 
+> v2 is based on next-20260310 (to build on Leon's recent series
+> "vfio: Wait for dma-buf invalidation to complete" [2]).
+> 
+> 
+> Please share your thoughts!  I'd like to de-RFC if we feel this
+> approach is now fair.
 
-This adds:
-- ResetHandle with internal controller state
-- a dedicated ordered reset workqueue
-- a pending flag to avoid duplicate queued resets
-- run_reset() as the shared synchronous reset helper
+I only skimmed over it, but at least of hand I couldn't find anything fundamentally wrong.
 
-Probe now calls reset::run_reset() before normal init. Driver data now
-keeps ResetHandle so reset work is drained before clocks and regulators
-are dropped.
+The locking order seems to change in patch #6. In general I strongly recommend to enable lockdep while testing anyway but explicitly when I see such changes.
 
-Tested-by: Deborah Brouwer <deborah.brouwer@collabora.com>
-Signed-off-by: Onur Özkan <work@onurozkan.dev>
----
- drivers/gpu/drm/tyr/driver.rs |  40 +++-----
- drivers/gpu/drm/tyr/reset.rs  | 180 ++++++++++++++++++++++++++++++++++
- drivers/gpu/drm/tyr/tyr.rs    |   1 +
- 3 files changed, 192 insertions(+), 29 deletions(-)
- create mode 100644 drivers/gpu/drm/tyr/reset.rs
+Additional to that it might also be a good idea to have a lockdep initcall function which defines the locking order in the way all the VFIO code should follow.
 
-diff --git a/drivers/gpu/drm/tyr/driver.rs b/drivers/gpu/drm/tyr/driver.rs
-index f7951804e4e0..c80238a21ff2 100644
---- a/drivers/gpu/drm/tyr/driver.rs
-+++ b/drivers/gpu/drm/tyr/driver.rs
-@@ -6,11 +6,8 @@
-         OptionalClk, //
-     },
-     device::{
--        Bound,
--        Core,
--        Device, //
-+        Core, //
-     },
--    devres::Devres,
-     dma::{
-         Device as DmaDevice,
-         DmaMask, //
-@@ -22,10 +19,7 @@
-         Registered,
-         UnregisteredDevice, //
-     },
--    io::poll,
--    new_mutex,
--    of,
--    platform,
-+    new_mutex, of, platform,
-     prelude::*,
-     regulator,
-     regulator::Regulator,
-@@ -35,17 +29,15 @@
-         Arc,
-         Mutex, //
-     },
--    time, //
- };
- 
- use crate::{
-     file::TyrDrmFileData,
-     fw::Firmware,
-     gem::BoData,
--    gpu,
-     gpu::GpuInfo,
-     mmu::Mmu,
--    regs, //
-+    reset, //
- };
- 
- pub(crate) type IoMem = kernel::io::mem::IoMem<SZ_2M>;
-@@ -62,6 +54,11 @@ pub(crate) struct TyrPlatformDriverData {
- 
- #[pin_data]
- pub(crate) struct TyrDrmDeviceData {
-+    // `ResetHandle::drop()` drains queued/running works and this must happen
-+    // before clocks/regulators are dropped. So keep this field before them to
-+    // ensure the correct drop order.
-+    pub(crate) reset: reset::ResetHandle,
-+
-     pub(crate) pdev: ARef<platform::Device>,
- 
-     pub(crate) fw: Arc<Firmware>,
-@@ -90,22 +87,6 @@ unsafe impl Send for TyrDrmDeviceData {}
- // SAFETY: This will be removed in a future patch.
- unsafe impl Sync for TyrDrmDeviceData {}
- 
--fn issue_soft_reset(dev: &Device<Bound>, iomem: &Devres<IoMem>) -> Result {
--    // Clear any stale reset-complete IRQ state before issuing a new soft reset.
--    regs::GPU_IRQ_CLEAR.write(dev, iomem, regs::GPU_IRQ_RAWSTAT_RESET_COMPLETED)?;
--    regs::GPU_CMD.write(dev, iomem, regs::GPU_CMD_SOFT_RESET)?;
--
--    poll::read_poll_timeout(
--        || regs::GPU_IRQ_RAWSTAT.read(dev, iomem),
--        |status| *status & regs::GPU_IRQ_RAWSTAT_RESET_COMPLETED != 0,
--        time::Delta::from_millis(1),
--        time::Delta::from_millis(100),
--    )
--    .inspect_err(|_| dev_err!(dev, "GPU reset failed."))?;
--
--    Ok(())
--}
--
- kernel::of_device_table!(
-     OF_TABLE,
-     MODULE_OF_TABLE,
-@@ -138,8 +119,7 @@ fn probe(
-         let request = pdev.io_request_by_index(0).ok_or(ENODEV)?;
-         let iomem = Arc::pin_init(request.iomap_sized::<SZ_2M>(), GFP_KERNEL)?;
- 
--        issue_soft_reset(pdev.as_ref(), &iomem)?;
--        gpu::l2_power_on(pdev.as_ref(), &iomem)?;
-+        reset::run_reset(pdev.as_ref(), &iomem)?;
- 
-         let gpu_info = GpuInfo::new(pdev.as_ref(), &iomem)?;
-         gpu_info.log(pdev);
-@@ -153,6 +133,7 @@ fn probe(
- 
-         let uninit_ddev = UnregisteredDevice::<TyrDrmDriver>::new(pdev.as_ref())?;
-         let platform: ARef<platform::Device> = pdev.into();
-+        let reset = reset::ResetHandle::new(platform.clone(), iomem.clone())?;
- 
-         let mmu = Mmu::new(pdev, iomem.as_arc_borrow(), &gpu_info)?;
- 
-@@ -178,6 +159,7 @@ fn probe(
-                     _mali: mali_regulator,
-                     _sram: sram_regulator,
-                 }),
-+                reset,
-                 gpu_info,
-         });
-         let ddev = Registration::new_foreign_owned(uninit_ddev, pdev.as_ref(), data, 0)?;
-diff --git a/drivers/gpu/drm/tyr/reset.rs b/drivers/gpu/drm/tyr/reset.rs
-new file mode 100644
-index 000000000000..29dfae98b0dd
---- /dev/null
-+++ b/drivers/gpu/drm/tyr/reset.rs
-@@ -0,0 +1,180 @@
-+// SPDX-License-Identifier: GPL-2.0 or MIT
-+
-+//! Provides asynchronous reset handling for the Tyr DRM driver via
-+//! [`ResetHandle`], which runs reset work on a dedicated ordered
-+//! workqueue and avoids duplicate pending resets.
-+
-+use kernel::{
-+    device::{
-+        Bound,
-+        Device, //
-+    },
-+    devres::Devres,
-+    io::poll,
-+    platform,
-+    prelude::*,
-+    sync::{
-+        aref::ARef,
-+        atomic::{
-+            Acquire,
-+            Atomic,
-+            Relaxed,
-+            Release, //
-+        },
-+        Arc,
-+    },
-+    time,
-+    workqueue::{
-+        self,
-+        Work, //
-+    },
-+};
-+
-+use crate::{
-+    driver::IoMem,
-+    gpu,
-+    regs, //
-+};
-+
-+/// Manages asynchronous GPU reset handling and ensures only a single reset
-+/// work is pending at a time.
-+#[pin_data]
-+struct Controller {
-+    /// Platform device reference needed for reset operations and logging.
-+    pdev: ARef<platform::Device>,
-+    /// Mapped register space needed for reset operations.
-+    iomem: Arc<Devres<IoMem>>,
-+    /// Atomic flag for controlling the scheduling pending state.
-+    pending: Atomic<bool>,
-+    /// Dedicated ordered workqueue for reset operations.
-+    wq: workqueue::OrderedQueue,
-+    /// Work item backing async reset processing.
-+    #[pin]
-+    work: Work<Controller>,
-+}
-+
-+kernel::impl_has_work! {
-+    impl HasWork<Controller> for Controller { self.work }
-+}
-+
-+impl workqueue::WorkItem for Controller {
-+    type Pointer = Arc<Self>;
-+
-+    fn run(this: Arc<Self>) {
-+        this.reset_work();
-+    }
-+}
-+
-+impl Controller {
-+    /// Creates a [`Controller`] instance.
-+    fn new(pdev: ARef<platform::Device>, iomem: Arc<Devres<IoMem>>) -> Result<Arc<Self>> {
-+        let wq = workqueue::OrderedQueue::new(c"tyr-reset-wq", 0)?;
-+
-+        Arc::pin_init(
-+            try_pin_init!(Self {
-+                pdev,
-+                iomem,
-+                pending: Atomic::new(false),
-+                wq,
-+                work <- kernel::new_work!("tyr::reset"),
-+            }),
-+            GFP_KERNEL,
-+        )
-+    }
-+
-+    /// Processes one scheduled reset request.
-+    ///
-+    /// Panthor reference:
-+    /// - drivers/gpu/drm/panthor/panthor_device.c::panthor_device_reset_work()
-+    fn reset_work(self: &Arc<Self>) {
-+        dev_info!(self.pdev.as_ref(), "GPU reset work is started.\n");
-+
-+        // SAFETY: `Controller` is part of driver-private data and only exists
-+        // while the platform device is bound.
-+        let pdev = unsafe { self.pdev.as_ref().as_bound() };
-+        if let Err(e) = run_reset(pdev, &self.iomem) {
-+            dev_err!(self.pdev.as_ref(), "GPU reset failed: {:?}\n", e);
-+        } else {
-+            dev_info!(self.pdev.as_ref(), "GPU reset work is done.\n");
-+        }
-+
-+        self.pending.store(false, Release);
-+    }
-+}
-+
-+/// Reset handle that shuts down pending work gracefully on drop.
-+pub(crate) struct ResetHandle(Arc<Controller>);
-+
-+impl ResetHandle {
-+    /// Creates a [`ResetHandle`] instance.
-+    pub(crate) fn new(pdev: ARef<platform::Device>, iomem: Arc<Devres<IoMem>>) -> Result<Self> {
-+        Ok(Self(Controller::new(pdev, iomem)?))
-+    }
-+
-+    /// Schedules reset work.
-+    #[expect(dead_code)]
-+    pub(crate) fn schedule(&self) {
-+        // TODO: Similar to `panthor_device_schedule_reset()` in Panthor, add a
-+        // power management check once Tyr supports it.
-+
-+        // Keep only one reset request running or queued. If one is already pending,
-+        // we ignore new schedule requests.
-+        if self.0.pending.cmpxchg(false, true, Relaxed).is_ok()
-+            && self.0.wq.enqueue(self.0.clone()).is_err()
-+        {
-+            self.0.pending.store(false, Release);
-+        }
-+    }
-+
-+    /// Returns true if a reset is queued or in progress.
-+    ///
-+    /// Note that the state can change immediately after the return.
-+    #[inline]
-+    #[expect(dead_code)]
-+    pub(crate) fn is_pending(&self) -> bool {
-+        self.0.pending.load(Acquire)
-+    }
-+}
-+
-+impl Drop for ResetHandle {
-+    fn drop(&mut self) {
-+        // Drain queued/running work and block future queueing attempts for this
-+        // work item before clocks/regulators are torn down.
-+        // SAFETY: drop executes in a sleepable context.
-+        unsafe { self.0.work.disable_sync() };
-+    }
-+}
-+
-+/// Issues a soft reset command and waits for reset-complete IRQ status.
-+fn issue_soft_reset(dev: &Device<Bound>, iomem: &Devres<IoMem>) -> Result {
-+    // Clear any stale reset-complete IRQ state before issuing a new soft reset.
-+    regs::GPU_IRQ_CLEAR.write(dev, iomem, regs::GPU_IRQ_RAWSTAT_RESET_COMPLETED)?;
-+    regs::GPU_CMD.write(dev, iomem, regs::GPU_CMD_SOFT_RESET)?;
-+
-+    poll::read_poll_timeout(
-+        || regs::GPU_IRQ_RAWSTAT.read(dev, iomem),
-+        |status| *status & regs::GPU_IRQ_RAWSTAT_RESET_COMPLETED != 0,
-+        time::Delta::from_millis(1),
-+        time::Delta::from_millis(100),
-+    )
-+    .inspect_err(|_| dev_err!(dev, "GPU reset failed."))?;
-+
-+    Ok(())
-+}
-+
-+/// Runs one synchronous GPU reset pass.
-+///
-+/// Its visibility is `pub(super)` only so the probe path can run an
-+/// initial reset; it is not part of this module's public API.
-+///
-+/// On success, the GPU is left in a state suitable for reinitialization.
-+///
-+/// The reset sequence is as follows:
-+/// 1. Trigger a GPU soft reset.
-+/// 2. Wait for the reset-complete IRQ status.
-+/// 3. Power L2 back on.
-+pub(super) fn run_reset(dev: &Device<Bound>, iomem: &Devres<IoMem>) -> Result {
-+    issue_soft_reset(dev, iomem)?;
-+    gpu::l2_power_on(dev, iomem)?;
-+    Ok(())
-+}
-diff --git a/drivers/gpu/drm/tyr/tyr.rs b/drivers/gpu/drm/tyr/tyr.rs
-index 18b0668bb217..d0349bc49f27 100644
---- a/drivers/gpu/drm/tyr/tyr.rs
-+++ b/drivers/gpu/drm/tyr/tyr.rs
-@@ -14,6 +14,7 @@
- mod gpu;
- mod mmu;
- mod regs;
-+mod reset;
- mod slot;
- mod vm;
- 
--- 
-2.51.2
+See function dma_resv_lockdep() for an example on how to do that. Especially with mmap support and all the locks involved with that it has proven to be a good practice to have something like that.
+
+Regards,
+Christian.
+
+> 
+> 
+> Many thanks,
+> 
+> 
+> Matt
+> 
+> 
+> 
+> References:
+> 
+> [0]: https://lore.kernel.org/linux-iommu/20250918214425.2677057-1-amastro@fb.com/
+> [1]: https://lore.kernel.org/all/20250804104012.87915-1-mngyadam@amazon.de/
+> [2]: https://lore.kernel.org/linux-iommu/20260205-nocturnal-poetic-chamois-f566ad@houat/T/#m310cd07011e3a1461b6fda45e3f9b886ba76571a
+> [3]: https://lore.kernel.org/all/20260226202211.929005-1-mattev@meta.com/
+> 
+> --------------------------------------------------------------------------------
+> Changelog:
+> 
+> v2:  Respin based on the feedback/suggestions:
+> 
+> - Transform the existing VFIO BAR mmap path to also use DMABUFs behind
+>   the scenes, and then simply share that code for explicitly-mapped
+>   DMABUFs.
+> 
+> - Refactors the export itself out of vfio_pci_core_feature_dma_buf,
+>   and shared by a new vfio_pci_core_mmap_prep_dmabuf helper used by
+>   the regular VFIO mmap to create a DMABUF.
+> 
+> - Revoke buffers using a VFIO device fd ioctl
+> 
+> v1: https://lore.kernel.org/all/20260226202211.929005-1-mattev@meta.com/
+> 
+> 
+> Matt Evans (10):
+>   vfio/pci: Set up VFIO barmap before creating a DMABUF
+>   vfio/pci: Clean up DMABUFs before disabling function
+>   vfio/pci: Add helper to look up PFNs for DMABUFs
+>   vfio/pci: Add a helper to create a DMABUF for a BAR-map VMA
+>   vfio/pci: Convert BAR mmap() to use a DMABUF
+>   vfio/pci: Remove vfio_pci_zap_bars()
+>   vfio/pci: Support mmap() of a VFIO DMABUF
+>   vfio/pci: Permanently revoke a DMABUF on request
+>   vfio/pci: Add mmap() attributes to DMABUF feature
+>   [RFC ONLY] selftests: vfio: Add standalone vfio_dmabuf_mmap_test
+> 
+>  drivers/vfio/pci/Kconfig                      |   3 +-
+>  drivers/vfio/pci/Makefile                     |   3 +-
+>  drivers/vfio/pci/vfio_pci_config.c            |  18 +-
+>  drivers/vfio/pci/vfio_pci_core.c              | 123 +--
+>  drivers/vfio/pci/vfio_pci_dmabuf.c            | 425 +++++++--
+>  drivers/vfio/pci/vfio_pci_priv.h              |  46 +-
+>  include/uapi/linux/vfio.h                     |  42 +-
+>  tools/testing/selftests/vfio/Makefile         |   1 +
+>  .../vfio/standalone/vfio_dmabuf_mmap_test.c   | 837 ++++++++++++++++++
+>  9 files changed, 1339 insertions(+), 159 deletions(-)
+>  create mode 100644 tools/testing/selftests/vfio/standalone/vfio_dmabuf_mmap_test.c
+> 
 
