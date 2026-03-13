@@ -4,133 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A038D106FD62
-	for <dri-devel@archiver.kernel.org>; Fri, 13 Mar 2026 00:48:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 53911106FD65
+	for <dri-devel@archiver.kernel.org>; Fri, 13 Mar 2026 01:52:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AD25310E04E;
-	Fri, 13 Mar 2026 00:48:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 946B110EACE;
+	Fri, 13 Mar 2026 01:52:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="O9ofmUeH";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Os4LoVjB";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="bcMcrOyy";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 12FC010EAC9
- for <dri-devel@lists.freedesktop.org>; Fri, 13 Mar 2026 00:48:55 +0000 (UTC)
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 62CL5Q2n1758836
- for <dri-devel@lists.freedesktop.org>; Fri, 13 Mar 2026 00:48:54 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=bVVvC3z9iWF1NoMxk2yYgr/D
- MqbMXcwjDRsqtMtqWB0=; b=O9ofmUeHlTLxPt1VrAPhCetnxcrk18ZDB2BWcBo5
- PxtQw8hgcsbx6jP+twwG0gVwrRdUAglNel/ujdp58Nchy0VoD4KfToJAusYdfdHh
- 0z1sW9CjF35YXhnEn8vxZImCsW4E8lAe8wv7MxKdxMTZXlAKMFZO02qdZz7JR5Wk
- ZP1uB3u8lq8nyl3NxXQVykLiUUbGhEmYiAt+7DxFHtxe64yoS1cYbHqWJi3rcFlN
- 8eHlGqAj9aHUQuIRXgIF9Xix2MequAM6729/+4ZyoYgdbAqGXrS/StsLlrKLGx5X
- AEF8He9pQyohcroJsWzoHTV45nV8uyj9AM37InDe6hEy8g==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
- [209.85.222.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4cuh53kwnb-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Fri, 13 Mar 2026 00:48:54 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id
- af79cd13be357-8cd7ea0bb20so896592585a.3
- for <dri-devel@lists.freedesktop.org>; Thu, 12 Mar 2026 17:48:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1773362933; x=1773967733;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=bVVvC3z9iWF1NoMxk2yYgr/DMqbMXcwjDRsqtMtqWB0=;
- b=Os4LoVjBp1fDTH2e07qpuQDU8dwc+GU0Rb4fM+u33xKmtgdpIt/eZczqN8Ba+z5Qoj
- Uzfd0jDj8UJv/zXwC+Ajl1CTfDyYahJGSZQq3/l4cMqO9trcK2UNfdr67cEeVyz1T3ut
- 5XxLLZJuqonQsLVBQ8tvvuGpA5YbGb8ktcxZlVkJ1X1B0bfk0A8/3pSZU/uD/OuRvyCD
- MKuIU3tllGafCrM7pHXf+eufAVM/EsUuKIKhWh4eDmfUyCilgjtSf0G/kbDxF7birDrW
- xxjG5GubZNBp0JfbPZDy4L3foL6jRIkW+YgpuEgLaU/a2A5Kptz8kVXmS3kyPVqqrbiL
- 3/iQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1773362933; x=1773967733;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=bVVvC3z9iWF1NoMxk2yYgr/DMqbMXcwjDRsqtMtqWB0=;
- b=s2ZPIN0guS0D9r27yKF98IlinLTaHHquaamnzMT7plQeF+Vz0KOSbWnlwg6KCNIfIi
- vxicxob7CDMB+yeXNtCtN2UNnj27zs058mxhc8zuyR3BC2cDhcFnZDkcofDz783ESwxY
- oZmZ6oxbTWcj5rH7UETKxpfOxiUJn9HQ7SB2P10MfytiV5wgdPT8jGkVngaMQrI1tdXl
- /FPa05HV8Fa/1n2BRYB2Nvk8nqGF/oF2jgQ0abVQGUatltezgvpU9cOK9v3TU08o2IfX
- z53Y+rd+2JCby84hZaCv8wHzqo8DK6LR94uEBQCz4WMbBDCU5J7/ziTEsaWfXCW65emc
- 1oVg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXnHfrzPA54DdqiigDgYb6D6w+NuQVwDBCRmgrtNRbUwdREAWFgGMznIq+lJ8zF4ZFsQntVW++XoWs=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyplAZiW3TN8l/nSRwhgODz92Hs9eFELXOrbwDS7+QhjiEJarWb
- CyHM1E5T7yo+4t65C7sPLwRTYepbvfMCObYxaoenKwJ10ujqEbAq/7qpM5bDyMRXCFofUJxMc7y
- odPmsIaz+FIrT8R6l7EoZ5j0w7OwUau42N2B7qSFw/yOxAZuYuz7DA+IV5KDzlOjML4eTHxM=
-X-Gm-Gg: ATEYQzwhvuU80W38VQVPvkJF3bNKMpjFcHwFEdM+WN9a2konod30s/64h8IdrNknHlD
- UGH1/ZFhmIV8x5GnQSgLsa7JYuEUyYWhHH9D36pU7xNlXP2wk9NGsYsToyMKIgxl+xOONbKRxB0
- vY4FNBJNZXl51JaC8FRZIMmCJMpJ1r2RpRvNuO0dmVfAbXtitxgte4DEyYPjPBuKiQkYIHr7ws4
- nGIX5lMpE++8N1uO7B/D6Q6yKPpcuYTITvLAhLXma1Q9ltuU6CQLHy/RphK7VZrnZq3zjfoRAvu
- TaOfdT8EZoz0ncAPs0uOpIGAjk64NoKduEtRfKyfYewFuqyYu/jW2x47bdZg5+3Xb7cGYWt+LZ2
- 69ZWdXUp68Cbcn09LiuhKLRW4wuikWNLZl7OliuIoIooXh4G036yh2VgCCIZcImu95CdehaFo8F
- BwtWmpYPWvdTPwmGOf2HPYioLD1fg/c3oBp8E=
-X-Received: by 2002:a05:620a:4691:b0:8cd:8f04:50ec with SMTP id
- af79cd13be357-8cdb5a5479cmr238145985a.2.1773362933467; 
- Thu, 12 Mar 2026 17:48:53 -0700 (PDT)
-X-Received: by 2002:a05:620a:4691:b0:8cd:8f04:50ec with SMTP id
- af79cd13be357-8cdb5a5479cmr238143185a.2.1773362932953; 
- Thu, 12 Mar 2026 17:48:52 -0700 (PDT)
-Received: from umbar.lan
- (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5a155f33cbesm1227741e87.9.2026.03.12.17.48.50
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 12 Mar 2026 17:48:51 -0700 (PDT)
-Date: Fri, 13 Mar 2026 02:48:49 +0200
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/7] drm/msm/hdmi: Simplify with dev_of_node()
-Message-ID: <6dvv4px4yinuppwcxzkyhzbdfq76c2xh4is4xlx7srogd55qcq@tf23oqxqimz3>
-References: <20260311-drm-msm-hdmi-cleanup-v1-0-c5535245f6de@oss.qualcomm.com>
- <20260311-drm-msm-hdmi-cleanup-v1-1-c5535245f6de@oss.qualcomm.com>
- <hg2icue2e4oyr2pu2osjlbbcv5g2q6golwoabe3oy2bxhvhb6r@ku7aqp5jdovb>
- <e1a5bc39-fabd-451c-b480-03ac9bf2720c@oss.qualcomm.com>
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6C2C110E042;
+ Fri, 13 Mar 2026 01:52:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1773366738; x=1804902738;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=Bu8e4iScR7E3XQ8O9eiaq6neJALpydajJX1JgnO3uCw=;
+ b=bcMcrOyyX1fRv4LwRsT0sTYAizTYNOt+ynCzDTNzAwLg7/9kqBhAjgeH
+ jJFGQeLcrn9/4fkgNGfR0qDvZ5bxleQlTCHUFI7ix3fsv5hG5gOWaB80j
+ vssrS2Yo21gHrSBGt2PS7nEcJvGC/jZCHYdBdigY+IMFrBb3I9EaSJuVW
+ BhnERs6CVmgnt462efrLUKGS1K6caUnBajNXo07a0Jh62x/4uwo5ApNyt
+ b0eg/SKdRahb5I10hieSSBygYZjO3EAMWHp7+grQLsNBx7ChHLW1vXZSt
+ XpFEHYVtCIgELs0lmm4pPE97gtMhPdSlyt+mXIvjVmKGcSLq0VQJ9FCZM Q==;
+X-CSE-ConnectionGUID: m7ZI0U5cSZiEw2tLWBX7ZA==
+X-CSE-MsgGUID: n63Y4y6EQHCO1v88ZuVPQA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11727"; a="74354545"
+X-IronPort-AV: E=Sophos;i="6.23,117,1770624000"; d="scan'208";a="74354545"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+ by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Mar 2026 18:52:12 -0700
+X-CSE-ConnectionGUID: gjSH2OmzQQ2zkn9kBRFh6w==
+X-CSE-MsgGUID: 3nmWHI5+TgGw6uDfZBhAuw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,117,1770624000"; d="scan'208";a="220108474"
+Received: from debox1-desk4.jf.intel.com ([10.88.27.138])
+ by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Mar 2026 18:52:12 -0700
+From: "David E. Box" <david.e.box@linux.intel.com>
+To: thomas.hellstrom@linux.intel.com, rodrigo.vivi@intel.com,
+ irenic.rajneesh@gmail.com, ilpo.jarvinen@linux.intel.com,
+ srinivas.pandruvada@linux.intel.com, intel-xe@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, xi.pardee@linux.intel.com
+Cc: david.e.box@linux.intel.com, hansg@kernel.org,
+ linux-kernel@vger.kernel.org, platform-driver-x86@vger.kernel.org,
+ "Michael J . Ruhl" <michael.j.ruhl@intel.com>
+Subject: [PATCH 03/22] platform/x86/intel/vsec: Decouple add/link helpers from
+ PCI
+Date: Thu, 12 Mar 2026 18:51:42 -0700
+Message-ID: <20260313015202.3660072-4-david.e.box@linux.intel.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260313015202.3660072-1-david.e.box@linux.intel.com>
+References: <20260313015202.3660072-1-david.e.box@linux.intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <e1a5bc39-fabd-451c-b480-03ac9bf2720c@oss.qualcomm.com>
-X-Authority-Analysis: v=2.4 cv=ZN/aWH7b c=1 sm=1 tr=0 ts=69b35ef6 cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22 a=EUspDBNiAAAA:8
- a=5gE0ENHsfxdwuEGK4QIA:9 a=CjuIK1q_8ugA:10 a=PEH46H7Ffwr30OY-TuGO:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzEzMDAwNSBTYWx0ZWRfX9yd0bLRtZjJy
- qNeYjBIi0vC9+s2OQDOSZWfeL8P+CmbAmj7bYn5+sk39Bu7Udro1AztRkGxgmu147fXb2sW869h
- GaO+YapX8DKFp0oUw3FSNvZ2gCXS/SJ++ZD2BtN9w4f0Z6XjiaFWzjzCHUXXGLpBrhReG63KNqi
- PpjR5xC6fThYvvp27BvCct1l/5HC2h9pObKjI89TR0+tQps6gf5BkngcPvR2XXn9fv10lIlTQJJ
- cUVt34qdX05aRgXEoS3iqDe+ag7tDPD3bN/XMc+y1DRl/x4aVEp3MKqNajJPcYEkZuztgw0wslO
- NXofrSyOssezlb76MPwYa8H6i6Ks7TZie2eUSscX9nxO1ik7eqDnmhnXCxNRvjjlNO/nMK79P5O
- fNgvMYnUOkxIIa1ZiEHw+Eo4jC2nsSbqJwqrzSupcGdeCCR2HKtT7sYwZEGaAqVPP+WpCpA9ONE
- 5ZYaJys9XzUB7IqPhGA==
-X-Proofpoint-GUID: KS8SkQL6gPQOurWRzS4YVw0qkIfrNC_K
-X-Proofpoint-ORIG-GUID: KS8SkQL6gPQOurWRzS4YVw0qkIfrNC_K
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-03-12_03,2026-03-12_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 impostorscore=0 phishscore=0 adultscore=0 malwarescore=0
- bulkscore=0 suspectscore=0 clxscore=1015 priorityscore=1501 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603130005
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -146,47 +74,137 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Mar 12, 2026 at 05:32:02PM +0100, Krzysztof Kozlowski wrote:
-> On 12/03/2026 03:41, Dmitry Baryshkov wrote:
-> > On Wed, Mar 11, 2026 at 09:17:25PM +0100, Krzysztof Kozlowski wrote:
-> >> Simplify chain of pointer dereferences with dev_of_node() which also
-> >> checks if 'dev' argument is non-NULL.
-> >>
-> >> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-> >> ---
-> >>  drivers/gpu/drm/msm/hdmi/hdmi.c | 4 ++--
-> >>  1 file changed, 2 insertions(+), 2 deletions(-)
-> >>
-> >> diff --git a/drivers/gpu/drm/msm/hdmi/hdmi.c b/drivers/gpu/drm/msm/hdmi/hdmi.c
-> >> index 5afac09c0d33..b1db1b597901 100644
-> >> --- a/drivers/gpu/drm/msm/hdmi/hdmi.c
-> >> +++ b/drivers/gpu/drm/msm/hdmi/hdmi.c
-> >> @@ -91,7 +91,7 @@ static int msm_hdmi_get_phy(struct hdmi *hdmi)
-> >>  	struct platform_device *phy_pdev;
-> >>  	struct device_node *phy_node;
-> >>  
-> >> -	phy_node = of_parse_phandle(pdev->dev.of_node, "phys", 0);
-> >> +	phy_node = of_parse_phandle(dev_of_node(&pdev->dev), "phys", 0);
-> >>  	if (!phy_node) {
-> >>  		DRM_DEV_ERROR(&pdev->dev, "cannot find phy device\n");
-> >>  		return -ENXIO;
-> >> @@ -287,7 +287,7 @@ static int msm_hdmi_dev_probe(struct platform_device *pdev)
-> >>  	spin_lock_init(&hdmi->reg_lock);
-> >>  	mutex_init(&hdmi->state_mutex);
-> >>  
-> >> -	ret = drm_of_find_panel_or_bridge(pdev->dev.of_node, 1, 0, NULL, &hdmi->next_bridge);
-> >> +	ret = drm_of_find_panel_or_bridge(dev_of_node(dev), 1, 0, NULL, &hdmi->next_bridge);
-> > 
-> > dev_of_node(&pdev->dev)?
-> 
-> Why? dev is already simpler.
+This refactor prepares for adding ACPI-enumerated PMT endpoints. While
+intel_vsec is bound to PCI today, some helpers are used by code that will
+also register PMT endpoints from non-PCI (ACPI) paths. Clean up
+PCI-specific plumbing where it isn=E2=80=99t strictly required and rely on =
+generic
+struct device where possible.
 
-... and there is no struct device *dev in msm_hdmi_get_phy().
+Signed-off-by: David E. Box <david.e.box@linux.intel.com>
+Reviewed-by: Ilpo J=C3=A4rvinen <ilpo.jarvinen@linux.intel.com>
+Reviewed-by: Michael J. Ruhl <michael.j.ruhl@intel.com>
+---
 
+Previous changelog:
+  Changes in v7:
+  - Correct the remaining struct device * argument to intel_vsec_add_aux().
+    When dropping the unused first argument in v6, the device parameter was
+    inadvertently changed from &vsec_dev->auxdev.dev to the PCI device.
+    Restore the aux device.
+=20=20=20=20
+  Changes in v6:
+  - No change
+=20=20=20=20
+  Changes in v5:
+  - No change
+=20=20=20=20
+  Changes in v4:
+  - No change
+=20=20=20=20
+  Changes in v3:
+  - No change
+=20=20=20=20
+  Changes in v2:
+  - No change (previous patch 1)
+=20=20=20=20
+ drivers/platform/x86/intel/vsec.c      | 13 +++++++++----
+ drivers/platform/x86/intel/vsec_tpmi.c |  2 +-
+ include/linux/intel_vsec.h             |  2 +-
+ 3 files changed, 11 insertions(+), 6 deletions(-)
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+diff --git a/drivers/platform/x86/intel/vsec.c b/drivers/platform/x86/intel=
+/vsec.c
+index e0096be605d9..938648b9ef09 100644
+--- a/drivers/platform/x86/intel/vsec.c
++++ b/drivers/platform/x86/intel/vsec.c
+@@ -158,18 +158,23 @@ static bool vsec_driver_present(int cap_id)
+  */
+ static const struct pci_device_id intel_vsec_pci_ids[];
+=20
+-static int intel_vsec_link_devices(struct pci_dev *pdev, struct device *de=
+v,
++static int intel_vsec_link_devices(struct device *parent, struct device *d=
+ev,
+ 				   int consumer_id)
+ {
+ 	const struct vsec_feature_dependency *deps;
+ 	enum vsec_device_state *state;
+ 	struct device **suppliers;
+ 	struct vsec_priv *priv;
++	struct pci_dev *pdev;
+ 	int supplier_id;
+=20
+ 	if (!consumer_id)
+ 		return 0;
+=20
++	if (!dev_is_pci(parent))
++		return 0;
++
++	pdev =3D to_pci_dev(parent);
+ 	if (!pci_match_id(intel_vsec_pci_ids, pdev))
+ 		return 0;
+=20
+@@ -204,7 +209,7 @@ static int intel_vsec_link_devices(struct pci_dev *pdev=
+, struct device *dev,
+ 	return 0;
+ }
+=20
+-int intel_vsec_add_aux(struct pci_dev *pdev, struct device *parent,
++int intel_vsec_add_aux(struct device *parent,
+ 		       struct intel_vsec_device *intel_vsec_dev,
+ 		       const char *name)
+ {
+@@ -252,7 +257,7 @@ int intel_vsec_add_aux(struct pci_dev *pdev, struct dev=
+ice *parent,
+ 	if (ret)
+ 		goto cleanup_aux;
+=20
+-	ret =3D intel_vsec_link_devices(pdev, &auxdev->dev, intel_vsec_dev->cap_i=
+d);
++	ret =3D intel_vsec_link_devices(parent, &auxdev->dev, intel_vsec_dev->cap=
+_id);
+ 	if (ret)
+ 		goto cleanup_aux;
+=20
+@@ -343,7 +348,7 @@ static int intel_vsec_add_dev(struct pci_dev *pdev, str=
+uct intel_vsec_header *he
+ 	 * Pass the ownership of intel_vsec_dev and resource within it to
+ 	 * intel_vsec_add_aux()
+ 	 */
+-	return intel_vsec_add_aux(pdev, parent, no_free_ptr(intel_vsec_dev),
++	return intel_vsec_add_aux(parent, no_free_ptr(intel_vsec_dev),
+ 				  intel_vsec_name(header->id));
+ }
+=20
+diff --git a/drivers/platform/x86/intel/vsec_tpmi.c b/drivers/platform/x86/=
+intel/vsec_tpmi.c
+index 98846e88d3d0..2298b6361094 100644
+--- a/drivers/platform/x86/intel/vsec_tpmi.c
++++ b/drivers/platform/x86/intel/vsec_tpmi.c
+@@ -655,7 +655,7 @@ static int tpmi_create_device(struct intel_tpmi_info *t=
+pmi_info,
+ 	 * feature_vsec_dev and res memory are also freed as part of
+ 	 * device deletion.
+ 	 */
+-	return intel_vsec_add_aux(vsec_dev->pcidev, &vsec_dev->auxdev.dev,
++	return intel_vsec_add_aux(&vsec_dev->auxdev.dev,
+ 				  feature_vsec_dev, feature_id_name);
+ }
+=20
+diff --git a/include/linux/intel_vsec.h b/include/linux/intel_vsec.h
+index d551174b0049..49a746ec0128 100644
+--- a/include/linux/intel_vsec.h
++++ b/include/linux/intel_vsec.h
+@@ -184,7 +184,7 @@ struct pmt_feature_group {
+ 	struct telemetry_region	regions[];
+ };
+=20
+-int intel_vsec_add_aux(struct pci_dev *pdev, struct device *parent,
++int intel_vsec_add_aux(struct device *parent,
+ 		       struct intel_vsec_device *intel_vsec_dev,
+ 		       const char *name);
+=20
+--=20
+2.43.0
 
-
--- 
-With best wishes
-Dmitry
