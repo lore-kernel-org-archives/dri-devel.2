@@ -4,87 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C9FAA105F7AE
-	for <dri-devel@archiver.kernel.org>; Fri, 13 Mar 2026 13:25:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 57E6E105F7AC
+	for <dri-devel@archiver.kernel.org>; Fri, 13 Mar 2026 13:29:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AFD4010EC37;
-	Fri, 13 Mar 2026 13:25:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 33CAC10EC4F;
+	Fri, 13 Mar 2026 13:29:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="hTdyY45m";
+	dkim=pass (2048-bit key; unprotected) header.d=ursulin.net header.i=@ursulin.net header.b="sl6LZD5D";
 	dkim-atps=neutral
-Received: from mail-oi1-f169.google.com (mail-oi1-f169.google.com
- [209.85.167.169])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 46A4110EC1F
- for <dri-devel@lists.freedesktop.org>; Fri, 13 Mar 2026 13:25:00 +0000 (UTC)
-Received: by mail-oi1-f169.google.com with SMTP id
- 5614622812f47-467161c4b89so1365885b6e.3
- for <dri-devel@lists.freedesktop.org>; Fri, 13 Mar 2026 06:25:00 -0700 (PDT)
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com
+ [209.85.128.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 07EA710EC4F
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Mar 2026 13:29:11 +0000 (UTC)
+Received: by mail-wm1-f50.google.com with SMTP id
+ 5b1f17b1804b1-482f454be5bso32935395e9.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Mar 2026 06:29:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1773408299; x=1774013099; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=MSI+J0679V/DmlJlREZ5wQ9k+pFMYu6PsZxwHc99Yws=;
- b=hTdyY45mvr2XhOdbaKznl2huansZYxi0c3QF0/LeT9rSvMnPD6sUQ61sSnp3P82eNw
- 1fmGSS+JrQcvWeLJ8GDI0znAy6HywqtbAcPN26ujeczJNpDmqAVUJj9Z2tPWFlD0M6ZA
- Yqu8tz02rfeWP3XRakpCvEK9tkudyRbpFfwNoHebPkM411KicZWF7IfJ+djM9NRWJjw1
- ml2wSBH1zjp2HbuktXmn9T9gKt2sYwxfMFw8gX6BN/U8xy0RoPLKZnfkwUbZ086ft4mg
- U49CYwhqsgyta0F3eSGySoq2PmqMbDkXKMUeHtR+EsHrpWZqt7wrCyoe5jnTZv28Uion
- zywA==
+ d=ursulin.net; s=google; t=1773408549; x=1774013349; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=JRHdwoAhh6Z6VJ1IOXt8YpVwRbA24oij+up+nK+z+qQ=;
+ b=sl6LZD5D2VCO9X93n/nCDQBCgyx2R/Fz9NIz3lo/nQq3XHoO4Lh7SsKe8ctpvexFCb
+ BilcxhWvC0coOPWUCJUooWpTeQr58KqxWYkJlBVM39X/L0UnTS8DYaTMefD7qOLbdqFy
+ Ur0KgMsJqrD4LKbztg2m6CkVL85nDqzfEljA9cU7L5Tf8n9yc1VWp48vuv0AO2ya5wUd
+ qf+makoC53vKyHoaaDO4tGQmgNGrNczbLaYMY8LGOX+xUtSIqzX/RxsUbqiiBxuDk5TO
+ LjkFVvYtyHgsdXxCPXYAAPJzdTVZzBdWQp1I/vwEZdoLFDzwznUlrddudn1dODdJfevF
+ ns+g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1773408299; x=1774013099;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=MSI+J0679V/DmlJlREZ5wQ9k+pFMYu6PsZxwHc99Yws=;
- b=iLIbgC/pfzLpsBAKRNlgpX4geAeLYadEZVY9zbRdbG4mGZq3Wn+nJMtQpg62fvAHC6
- Hm4E6Ewy9AKFFu0D5PgnBlMCOWAwD/sUTW9njjrMqqefUobQaxSbPrfrJ+nvZZKcJK5t
- b/On0k1hry+hHk2aPA1qMdNbCLFJiFjy4+LA6/eq5zH1c0SlZkICikiILwoV1q9Un91M
- +YYW4mPW3eIxmpFhEq9bLlCBpvs+rIsWqbROn6U7oa2IV1gRzWjsPSBrAAeSaPpUrQkx
- XNHiBzluUgHK9B8UDVK/65RaVpDDzg7CI++ahQOZC4dHGLNpIm3NVpM1E/WCqHddU+hc
- Grsg==
+ d=1e100.net; s=20251104; t=1773408549; x=1774013349;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=JRHdwoAhh6Z6VJ1IOXt8YpVwRbA24oij+up+nK+z+qQ=;
+ b=qLS9nHYJV17Zc4w7ndN6pkX9nOzt/p8i9TqNI1zZtJrLA4jNusxIRVvOYMxRFyjllp
+ ER60YUbjaHR7wSDv+NUvAgTo4PDF/oRd3KYZeGbQNWoQMUSI6g6FTeWNMT7YSKUnE8tL
+ uZI8/wmadt/cT5wM2wUOQRY+pPJN9AlzqyTFKqgJhANL3S18BXb4gSb7I81aSLEaUZ5N
+ do6YOssIWgZSGM+HycaE6tvz7E5M28ZCAVPRN5kAfWOVC7aCPn2tt1w48Z7nxKkzO+vJ
+ UAtrnHIMbLHoTc9LRthY0BaY3IYMu7hmxRfCc8xsnIk+h3l77eSCgAnPiqG2NE//C2zJ
+ bS3g==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWuaPot73lVWe7si+2UQYejeGbYaXMVS0Gt02BNJRXEgbSUlcWvmxvgv7KupSJKX/fOO+9LUekiQ4k=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzfwLhQzALU0/0UF3oSKhLuP6PCWnA5VPaKBsj7kD7fklWo3SgH
- 43VHBghTHXxvRUGsctvf4+P6G/ZHsJzjtbjVcRJePN8f7z5Kpao9LPJI
-X-Gm-Gg: ATEYQzxutfGbD7rywG+LtdWZpj6GHWirYsGA4Ce+kCLlQIDWthSJwrGVhgRk3YCVdNK
- PKhMPjCFtmIPPMT9bJ4djB+rNz/d7OteM9r69xSQr2bMB4+T8mNgcvFfniW7jGl9TE3k06DCD6Y
- bYyuzd7+7TyyX/CkKd455aPDdrlGvSKhpbXFnVh1dl5EQnDcIOhsp4dGLLKydQMlDnGHq+zV3P9
- HvkmJtzNzr+Qe4I6vZy/hF6vPDkilCCMt6yJg4UlOBp5frMOOx1+Zds5R7OpgrOEMWWH8C24LjL
- k8ks8gli6va9ypR4aehCt7cbSBt8h8dLlF99qkbos9Id4NvKn1YAZyNdFn/Jr8x6Gee4QvM3gmF
- lFtpuDlgJ0VBL6Of9kAg6DARMPyQQE4YQxdxsf5o6R6KJrqpSJe3gdf+dEMHbt44FuSG8Nkb2lL
- +IgApwPKNgfQE2+QrwBkgPe2YeRC50Qv4Y74jzHtEhhoqtBIWy
-X-Received: by 2002:a05:6808:444b:b0:455:7fe4:b215 with SMTP id
- 5614622812f47-467575d484amr1587635b6e.53.1773408299425; 
- Fri, 13 Mar 2026 06:24:59 -0700 (PDT)
-Received: from frodo (c-98-38-17-99.hsd1.co.comcast.net. [98.38.17.99])
- by smtp.googlemail.com with ESMTPSA id
- 5614622812f47-4673434a35csm4795987b6e.20.2026.03.13.06.24.58
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 13 Mar 2026 06:24:59 -0700 (PDT)
-From: Jim Cromie <jim.cromie@gmail.com>
-To: airlied@gmail.com, simona@ffwll.ch, jbaron@akamai.com,
- gregkh@linuxfoundation.org,
- Maciej Falkowski <maciej.falkowski@linux.intel.com>,
- Karol Wachowski <karol.wachowski@linux.intel.com>,
- Oded Gabbay <ogabbay@kernel.org>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Cc: Jim Cromie <jim.cromie@gmail.com>, mripard@kernel.org, tzimmermann@suse.de,
- maarten.lankhorst@linux.intel.com, jani.nikula@intel.com,
- ville.syrjala@linux.intel.com, christian.koenig@amd.com,
- matthew.auld@intel.com, arunpravin.paneerselvam@amd.com,
- louis.chauvet@bootlin.com, skhan@linuxfoundation.org, pmladek@suse.com,
- ukaszb@chromium.org, intel-gfx@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org
-Subject: [PATCH v11 59/65] accel/ivpu: implement IVPU_DBG_* as a dyndbg
- classmap
-Date: Fri, 13 Mar 2026 07:20:24 -0600
-Message-ID: <20260313132103.2529746-60-jim.cromie@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260313132103.2529746-1-jim.cromie@gmail.com>
-References: <20260313132103.2529746-1-jim.cromie@gmail.com>
+ AJvYcCXNW1gZ2t3v0HTCFxyAJNpasZ6SRF13fxTpWAUHFMx/M5ZVRxR7yYB7BBlMst2rv7XezK9bBgT+ESc=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwzHNW7ckLzfVPMOVcuPx5xG7wbEVpBEubtn8D5RNhGgCXSh+pz
+ an9808pc6zYKUxHSLSFlEIt7TVt8fPnsl7HpwS96QRtONwloCzZUnsF6GdX/cYrJfW4=
+X-Gm-Gg: ATEYQzx8YMBHtfbGlcQynwOIZ0RxMLSa2G4Vs8X5tVUTdivaFc4Ht9WIBIx3gvqrBbA
+ 3p4xBkINXJHxOMYjhhkhjpwW8W2xBiLoEaZJlLZcufzfXravPJylHJKEK3bSNF/oyTH7y/3hM4B
+ 7S6Zt0jnLTrHAC6Y2oHh7uX0tk+yczb239fba8gLbAHn+LV4QAw3cKhTYpNHYDa59tZg1mjkLvc
+ EMJLjXuELS7IsjAdrVGfzqWZv41kkAAs0CJ1G+xCV8MimSjPSln+pmF6FtMlIPdhwL5i/vmtQHT
+ mSMeqHviSkdRm644phDRhbvWFLPcbvn1D7qStkUjdVczcIQVqGSO9TaHWEroy/A2GNrEU4qqQnL
+ L11JqO1lP29SjxCyYtqtlV/KF8I3djmk4JH3VTjLVYUEeeOprqH2DVgwRYPkeeDB3VoeAyN5/qr
+ aqZeGRBai4EgFM9lQswPZOXcYekmPfGpz6z1zjIHk1Wkws
+X-Received: by 2002:a05:600c:2295:b0:483:a2b0:d210 with SMTP id
+ 5b1f17b1804b1-4854f56d693mr91452245e9.7.1773408549051; 
+ Fri, 13 Mar 2026 06:29:09 -0700 (PDT)
+Received: from [192.168.0.101] ([90.240.106.137])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-439fe20bb90sm18046479f8f.19.2026.03.13.06.29.08
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 13 Mar 2026 06:29:08 -0700 (PDT)
+Message-ID: <c1b8d304-09d3-47cf-a314-4a8777b85e6f@ursulin.net>
+Date: Fri, 13 Mar 2026 13:29:07 +0000
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 5/6] drm/ttm: Be more aggressive when allocating below
+ protection limit
+To: Natalie Vock <natalie.vock@gmx.de>, Maarten Lankhorst <dev@lankhorst.se>, 
+ Maxime Ripard <mripard@kernel.org>, Tejun Heo <tj@kernel.org>,
+ Johannes Weiner <hannes@cmpxchg.org>, =?UTF-8?Q?Michal_Koutn=C3=BD?=
+ <mkoutny@suse.com>, Christian Koenig <christian.koenig@amd.com>,
+ Huang Rui <ray.huang@amd.com>, Matthew Auld <matthew.auld@intel.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+Cc: cgroups@vger.kernel.org, dri-devel@lists.freedesktop.org
+References: <20260313-dmemcg-aggressive-protect-v6-0-7c71cc1492db@gmx.de>
+ <20260313-dmemcg-aggressive-protect-v6-5-7c71cc1492db@gmx.de>
+Content-Language: en-GB
+From: Tvrtko Ursulin <tursulin@ursulin.net>
+In-Reply-To: <20260313-dmemcg-aggressive-protect-v6-5-7c71cc1492db@gmx.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,159 +101,119 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Invoke DRM_CLASSMAP_DEFINE to create a classmap of
-class-ids/categories for ivpu_dbg().
 
-This brings static-key optimized-off benefits to the ivpu_dbg()
-callsites.  DRM_CLASSMAP_PARAM_REF wires the sysfs kparam to the
-classmap.
+On 13/03/2026 11:40, Natalie Vock wrote:
+> When the cgroup's memory usage is below the low/min limit and allocation
+> fails, try evicting some unprotected buffers to make space. Otherwise,
+> application buffers may be forced to go into GTT even though usage is
+> below the corresponding low/min limit, if other applications filled VRAM
+> with their allocations first.
+> 
+> Signed-off-by: Natalie Vock <natalie.vock@gmx.de>
+> ---
+>   drivers/gpu/drm/ttm/ttm_bo.c | 51 +++++++++++++++++++++++++++++++++++++++++---
+>   1 file changed, 48 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/ttm/ttm_bo.c b/drivers/gpu/drm/ttm/ttm_bo.c
+> index 4adc9b80cba4a..7300b91b77dd3 100644
+> --- a/drivers/gpu/drm/ttm/ttm_bo.c
+> +++ b/drivers/gpu/drm/ttm/ttm_bo.c
+> @@ -496,6 +496,10 @@ struct ttm_bo_alloc_state {
+>   	struct dmem_cgroup_pool_state *limit_pool;
+>   	/** @in_evict: Whether we are currently evicting buffers */
+>   	bool in_evict;
+> +	/** @may_try_low: If only unprotected BOs, i.e. BOs whose cgroup
+> +	 *  is exceeding its dmem low/min protection, should be considered for eviction
+> +	 */
+> +	bool may_try_low;
+>   };
+>   
+>   /**
+> @@ -545,6 +549,42 @@ static int ttm_bo_alloc_at_place(struct ttm_buffer_object *bo,
+>   		}
+>   	}
+>   
+> +	/*
+> +	 * cgroup protection plays a special role in eviction.
+> +	 * Conceptually, protection of memory via the dmem cgroup controller
+> +	 * entitles the protected cgroup to use a certain amount of memory.
+> +	 * There are two types of protection - the 'low' limit is a
+> +	 * "best-effort" protection, whereas the 'min' limit provides a hard
+> +	 * guarantee that memory within the cgroup's allowance will not be
+> +	 * evicted under any circumstance.
+> +	 *
+> +	 * To faithfully model this concept in TTM, we also need to take cgroup
+> +	 * protection into account when allocating. When allocation in one
+> +	 * place fails, TTM will default to trying other places first before
+> +	 * evicting.
+> +	 * If the allocation is covered by dmem cgroup protection, however,
+> +	 * this prevents the allocation from using the memory it is "entitled"
+> +	 * to. To make sure unprotected allocations cannot push new protected
+> +	 * allocations out of places they are "entitled" to use, we should
+> +	 * evict buffers not covered by any cgroup protection, if this
+> +	 * allocation is covered by cgroup protection.
+> +	 *
+> +	 * Buffers covered by 'min' protection are a special case - the 'min'
+> +	 * limit is a stronger guarantee than 'low', and thus buffers protected
+> +	 * by 'low' but not 'min' should also be considered for eviction.
+> +	 * Buffers protected by 'min' will never be considered for eviction
+> +	 * anyway, so the regular eviction path should be triggered here.
+> +	 * Buffers protected by 'low' but not 'min' will take a special
+> +	 * eviction path that only evicts buffers covered by neither 'low' or
+> +	 * 'min' protections.
+> +	 */
+> +	if (!alloc_state->in_evict) {
+> +		may_evict |= dmem_cgroup_below_min(NULL, alloc_state->charge_pool);
+> +		alloc_state->may_try_low = may_evict;
+> +
+> +		may_evict |= dmem_cgroup_below_low(NULL, alloc_state->charge_pool);
 
-This is the 1st real-world example of a module avoiding another
-module's classmap's class_id range reservation.
+For some value of optimisation you could combine the two calls of 
+dmem_cgroup_below_min/low into a single helper which returns both min 
+and low, given how it is the only callers, saving a pair of function 
+calls and tree traversing calculations. Or.. I am not sure if simply 
+exporting dmem_cgroup_calculate_protection() and making it return 
+page_counters would be okay, or a copy of them, or a new data structure 
+would need to be added.
 
-Its also something of an oddity: it "is" a DRM module only cuz
+Anyway, that can be discussed separately. In the meantime this patch 
+looks good to me:
 
-1. CONFIG_DRM_ACCEL_IVPU exists.
+Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 
-2. code therefore uses CONFIG_DRM_USE_DYNAMIC_DEBUG, so must also use
-   it's dependent wrappers: DRM_CLASSMAP_*
+Regards,
 
-accel/amdxdna is already using drm.debug via dev_dbg(), so it is more
-fully DRM but iirc its a single call.
+Tvrtko
 
-Anyway, to play nice with DRM, we change all the constants, from
-macros calling BIT(X), to an explicit "enum ivpu_dbg_category"
-starting at 16 to avoid DRM_UT_CORE..RES.  This is all in an indef to
-avoid changing the constants for the non-dyndbg case.
-
-Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
----
- drivers/accel/ivpu/ivpu_drv.c | 27 +++++++++++++++++++--
- drivers/accel/ivpu/ivpu_drv.h | 45 ++++++++++++++++++++++++++++++-----
- 2 files changed, 64 insertions(+), 8 deletions(-)
-
-diff --git a/drivers/accel/ivpu/ivpu_drv.c b/drivers/accel/ivpu/ivpu_drv.c
-index dd3a486df5f1..2d7d290eb8bb 100644
---- a/drivers/accel/ivpu/ivpu_drv.c
-+++ b/drivers/accel/ivpu/ivpu_drv.c
-@@ -3,6 +3,7 @@
-  * Copyright (C) 2020-2025 Intel Corporation
-  */
- 
-+#include <linux/dynamic_debug.h>
- #include <linux/firmware.h>
- #include <linux/module.h>
- #include <linux/pci.h>
-@@ -37,8 +38,30 @@
- #define DRIVER_VERSION_STR "1.0.0 " UTS_RELEASE
- #endif
- 
--int ivpu_dbg_mask;
--module_param_named(dbg_mask, ivpu_dbg_mask, int, 0644);
-+unsigned long ivpu_dbg_mask;
-+
-+#if !defined(CONFIG_DRM_USE_DYNAMIC_DEBUG)
-+
-+module_param_named(dbg_mask, ivpu_dbg_mask, ulong, 0644);
-+#else
-+DRM_CLASSMAP_DEFINE(ivpu_dbg_classes, DD_CLASS_TYPE_DISJOINT_BITS,
-+		IVPU_DBG_REG,
-+		"IVPU_DBG_REG",
-+		"IVPU_DBG_IRQ",
-+		"IVPU_DBG_MMU",
-+		"IVPU_DBG_FILE",
-+		"IVPU_DBG_MISC",
-+		"IVPU_DBG_FW_BOOT",
-+		"IVPU_DBG_PM",
-+		"IVPU_DBG_IPC",
-+		"IVPU_DBG_BO",
-+		"IVPU_DBG_JOB",
-+		"IVPU_DBG_JSM",
-+		"IVPU_DBG_KREF",
-+		"IVPU_DBG_RPM",
-+		"IVPU_DBG_MMU_MAP");
-+DRM_CLASSMAP_PARAM_REF(dbg_mask, ivpu_dbg_mask, ivpu_dbg_classes, p);
-+#endif
- MODULE_PARM_DESC(dbg_mask, "Driver debug mask. See IVPU_DBG_* macros.");
- 
- int ivpu_test_mode;
-diff --git a/drivers/accel/ivpu/ivpu_drv.h b/drivers/accel/ivpu/ivpu_drv.h
-index 6378e23e0c97..b59aa0759e26 100644
---- a/drivers/accel/ivpu/ivpu_drv.h
-+++ b/drivers/accel/ivpu/ivpu_drv.h
-@@ -63,6 +63,10 @@
- 
- #define IVPU_SCHED_MODE_AUTO -1
- 
-+extern unsigned long ivpu_dbg_mask;
-+
-+#if !defined(CONFIG_DRM_USE_DYNAMIC_DEBUG)
-+
- #define IVPU_DBG_REG	 BIT(0)
- #define IVPU_DBG_IRQ	 BIT(1)
- #define IVPU_DBG_MMU	 BIT(2)
-@@ -79,6 +83,41 @@
- #define IVPU_DBG_MMU_MAP BIT(13)
- #define IVPU_DBG_IOCTL   BIT(14)
- 
-+#define ivpu_dbg(vdev, type, fmt, args...) do {				\
-+	if (unlikely(IVPU_DBG_##type & ivpu_dbg_mask))			\
-+		dev_dbg((vdev)->drm.dev, "[%s] " fmt, #type, ##args);	\
-+} while (0)
-+
-+#else /* !!CONFIG_DRM_USE_DYNAMIC_DEBUG */
-+
-+enum ivpu_dbg_category {
-+	/*
-+	 * since accels are drm-devices (CONFIG_DRM_ACCEL_*), adjust
-+	 * IVPU_DBG_* to avoid DRMs 0..10 class_id reservations.
-+	 */
-+	IVPU_DBG_REG = 16,
-+	IVPU_DBG_IRQ,
-+	IVPU_DBG_MMU,
-+	IVPU_DBG_FILE,
-+	IVPU_DBG_MISC,
-+	IVPU_DBG_FW_BOOT,
-+	IVPU_DBG_PM,
-+	IVPU_DBG_IPC,
-+	IVPU_DBG_BO,
-+	IVPU_DBG_JOB,
-+	IVPU_DBG_JSM,
-+	IVPU_DBG_KREF,
-+	IVPU_DBG_RPM,
-+	IVPU_DBG_MMU_MAP,
-+	IVPU_DBG_IOCTL
-+};
-+
-+#define ivpu_dbg(vdev, type, fmt, ...)                    \
-+	_dynamic_func_call_cls(IVPU_DBG_##type, fmt, __dynamic_dev_dbg,	\
-+			       (vdev)->drm.dev, fmt, ##__VA_ARGS__)
-+
-+#endif /* !!CONFIG_DRM_USE_DYNAMIC_DEBUG */
-+
- #define ivpu_err(vdev, fmt, ...) \
- 	drm_err(&(vdev)->drm, "%s(): " fmt, __func__, ##__VA_ARGS__)
- 
-@@ -93,11 +132,6 @@
- 
- #define ivpu_info(vdev, fmt, ...) drm_info(&(vdev)->drm, fmt, ##__VA_ARGS__)
- 
--#define ivpu_dbg(vdev, type, fmt, args...) do {                                \
--	if (unlikely(IVPU_DBG_##type & ivpu_dbg_mask))                         \
--		dev_dbg((vdev)->drm.dev, "[%s] " fmt, #type, ##args);          \
--} while (0)
--
- #define IVPU_WA(wa_name) (vdev->wa.wa_name)
- 
- #define IVPU_PRINT_WA(wa_name) do {					\
-@@ -208,7 +242,6 @@ struct ivpu_file_priv {
- 	bool aborted;
- };
- 
--extern int ivpu_dbg_mask;
- extern u8 ivpu_pll_min_ratio;
- extern u8 ivpu_pll_max_ratio;
- extern int ivpu_sched_mode;
--- 
-2.53.0
+> +	}
+> +
+>   	ret = ttm_resource_alloc(bo, place, res, alloc_state->charge_pool);
+>   	if (ret) {
+>   		if (ret == -ENOSPC && may_evict)
+> @@ -657,8 +697,12 @@ static int ttm_bo_evict_alloc(struct ttm_device *bdev,
+>   	evict_walk.walk.arg.trylock_only = true;
+>   	lret = ttm_lru_walk_for_evict(&evict_walk.walk, bdev, man, 1);
+>   
+> -	/* One more attempt if we hit low limit? */
+> -	if (!lret && evict_walk.hit_low) {
+> +	/* If we failed to find enough BOs to evict, but we skipped over
+> +	 * some BOs because they were covered by dmem low protection, retry
+> +	 * evicting these protected BOs too, except if we're told not to
+> +	 * consider protected BOs at all.
+> +	 */
+> +	if (!lret && evict_walk.hit_low && state->may_try_low) {
+>   		evict_walk.try_low = true;
+>   		lret = ttm_lru_walk_for_evict(&evict_walk.walk, bdev, man, 1);
+>   	}
+> @@ -679,7 +723,8 @@ static int ttm_bo_evict_alloc(struct ttm_device *bdev,
+>   	} while (!lret && evict_walk.evicted);
+>   
+>   	/* We hit the low limit? Try once more */
+> -	if (!lret && evict_walk.hit_low && !evict_walk.try_low) {
+> +	if (!lret && evict_walk.hit_low && !evict_walk.try_low &&
+> +			state->may_try_low) {
+>   		evict_walk.try_low = true;
+>   		goto retry;
+>   	}
+> 
 
