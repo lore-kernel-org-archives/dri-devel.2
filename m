@@ -4,95 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9F7E8105F79B
-	for <dri-devel@archiver.kernel.org>; Fri, 13 Mar 2026 11:27:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 37B4D105F79B
+	for <dri-devel@archiver.kernel.org>; Fri, 13 Mar 2026 11:33:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 07FF110EBA5;
-	Fri, 13 Mar 2026 11:27:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 91B4010EB6F;
+	Fri, 13 Mar 2026 11:33:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="qTxn7Y2u";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b="KEFSiBeb";
 	dkim-atps=neutral
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com
- [209.85.221.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BB9FB10EBA5
- for <dri-devel@lists.freedesktop.org>; Fri, 13 Mar 2026 11:27:01 +0000 (UTC)
-Received: by mail-wr1-f53.google.com with SMTP id
- ffacd0b85a97d-439b7a87fb5so1604902f8f.3
- for <dri-devel@lists.freedesktop.org>; Fri, 13 Mar 2026 04:27:01 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1773401220; cv=none;
- d=google.com; s=arc-20240605;
- b=IkqGAaG5DFqHaYC/179IWmnV2azlMjjI3UqMOfD736vwmzkZjEjESSD3RYhn+W3xVU
- G6HW9g4Imnn/oSCOpd/1Is8lxW9JFT9n6M5TS8ASt4Vz2MRhVnHj+x/NiWUr4UMVwyal
- SMgD+orjaxitTGbPIJXcCmEznLM0F0oKwBG98YlQHXlmNoUSazJCTaO0dUDJbg6JtRJo
- mTkD2OEyrrYYGK1tgN5hCAPJ5VyjXWrYmCUa19th5HOYM1X42Afg9EgMqECDBeshJfNR
- dkvgFljJz0kbqlrUR+LXAOXDR4Oe4uCKF30QW/69VEAt/fEsVlh1bkvlQEI6+Cbw0ixN
- Wk9Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=Oyt+ZfMfYxDKRVuKbiCNT4uX/OXqUN9qFlMYleYX9OI=;
- fh=gv6L85g9iGNrLWtpkOmaURbhW5KrbxQNQWeKqahFnY8=;
- b=kQjiiZSnE+IvKKcK8Q/69S5KjfcuhdhDiCuTe1HEznuMRQBlohyL/Gu3l8YXtoXRjn
- G2P1E14rUQoxEpGvbO5mlBMYxtKco5wGTYUsZhf1geqdtxFOhYwnvATKlqONnYfNEUab
- 9VEhIHHAQpsZaqQxFEUMgSICixyJ31YHq1uHDo3uybVPR4tJwRYapi+W//v319lGgVEz
- J2rHix3HjNKoS6t4RIdncJX731I4/IzInGc6Pigqk3hsfQU/NYxj//m+wTzPO/IkTrHw
- e12Umws3VICnTvf3twHfZ6thuWlFO3yzs1HZqOr2YApI0SVj0jTh0rNg+5KZzR+uaCHR
- mgog==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20251104; t=1773401220; x=1774006020;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=Oyt+ZfMfYxDKRVuKbiCNT4uX/OXqUN9qFlMYleYX9OI=;
- b=qTxn7Y2um+6vzBFN3OhKPRGGIGjPT2ME4kYmjtF8ez/NfPd11U4uqkVS3lS9sDsS2T
- VlZvoP5Ds5FPuiYri5n5t4HlOLQvoDJawzj95JhJBD4oxPoqIE1b5M+YPrmcjMIFtob/
- IcEfW76XvFICH4hzcbL7WZ/AgR53I0avE7ALYZ2JBnovaacK4qwFNFC7N3I11ypaMnCT
- CRMSxxOcrVHEx2D0S1qDB/PE/7LkQrxhxZeap8pwh4sWPFB6ER0ddrY3Op3fi33ZaivR
- IokrgaIb/zhetkX+47CZCONOt/in6ryeChGxEiKo6Pn6nt4fKIyx/f1+ogC05yRWqq1V
- A82A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1773401220; x=1774006020;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=Oyt+ZfMfYxDKRVuKbiCNT4uX/OXqUN9qFlMYleYX9OI=;
- b=D6n4QafLnOSUQXyb3ocjyl56RU1HvD+mVtlf4zbkYJIfxv1/eJuVrmKMcNPmS+C6WB
- 1/Cmb0X9EbvGnU73RPiJ0cI4hWed74ViwRdH5L6zliNZAgCUox77Nh1RJjHK9pUNOJl4
- 7W2eECRfI3+nHx/S1ZMcMNl8U68w5Y80YaxI3+d/+CLl0pCK4k1r4yxNhFoNPn8Fo2B2
- 7Me3zxxjudRzKtnFtsismq7qgjmhZwDaapCTltmbUNWobusBjTCu6pynXgP+zR8mDI8B
- X7rgmugI4NwryJnWS5hg22XgJqqB+Rk2BBzvPEN8Wwyt87fzdUk01znzgthOoYfSKuZt
- kGyA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVtNPwuRHNAo4DMQkkqIX3oZoBk+3jSP7kDaCUZFFV7DxenP4mW9LRUt6tJUiJeyC9RwZJH/rHTtnM=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yzi+zKt3hl5CTHIZ+YXWudjHf5c3CPNTL+e8yB1bk2bnn+3kHC+
- EzlE8sHSq3WA3Gersx/YShXW/3ODBYUCVdkZlJwB4TBKkmwnYaZVoet8VIcPr/PEUJovv0Wxv9e
- xPFtmI4SzU/EO9wmDjDvPpwnTGY+/Mhnuoi26a2dr
-X-Gm-Gg: ATEYQzzy9Q0O6CKAtFeybArxGPmEAYxSkopNF7UqWJK+etOVWFMqA0uHdb8qMsDu2dR
- Mrn7pNdES7fzTylerFwrlGJ17ZDD00tBcLeXSJzYWEEqBDxKHPRGo1uiAuF0YnwpXH6GKGhrkAN
- hnHPvaNXqTO+7NX9sdnF30UufQTEk21DtYsksPmXg3Or7/lpVtI7XNJT9gdSq5yZnIsJbEJzQhw
- Z8Pj55cZ5GpPzzKnLHlvrfPNV6+9GKZFhvmhlHbmUluEyx615NYCNr56LcZo0VA6be8PLD54afh
- 8mdHTX6b5eqQZ7I4SfxrSz3//29lWyILEmzQ4YUq2OuWKYCl6uMkCj84pUNU83GUjkl6rA==
-X-Received: by 2002:a05:6000:18a6:b0:439:d73d:95e with SMTP id
- ffacd0b85a97d-43a04da8191mr6114695f8f.27.1773401219803; Fri, 13 Mar 2026
- 04:26:59 -0700 (PDT)
+Received: from www537.your-server.de (www537.your-server.de [188.40.3.216])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9ADFC10EBAB
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Mar 2026 11:33:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=ew.tq-group.com; s=default2602; h=Content-Transfer-Encoding:MIME-Version:
+ Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:In-Reply-To:References;
+ bh=om0xglTcuNDYM+xalbxku5+gocJ/6M+d8FAJL6FzxL0=; b=KEFSiBebyux/Y7ljuaaP1WxWb8
+ 1oDs6Yek+oQlucZMq9QQuwN0ctl9w+1MQ0zHdujMdcK+HHLazdiRoBuEZyYqcK9xiN0wBtOv/0ICm
+ SI5j6zzRdLMnYO5eGe0LcDkBajXFR+ZGnuZMiGj8AckbI0ujYoZ6wZlpNHTp08vnSOtUCVdkkDmX8
+ V+AqQH0pVcWVXVPC8FgL+pCOIFYmUiZCu+l17Xa7vjETgAew55o9uf/CrZ62M/Pk2dXLUVXSjlAxh
+ dv4ZAlOk4dknFfidMGRzOCbu4Ph9Nc0JNrorTOnOrF/97RE+sSUM5DG7wY8dKs5GYxtjvHQq+DzPw
+ It8kAb7Q==;
+Received: from sslproxy07.your-server.de ([78.47.199.104])
+ by www537.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+ (Exim 4.96.2) (envelope-from <alexander.stein@ew.tq-group.com>)
+ id 1w10lR-0006ot-2S; Fri, 13 Mar 2026 12:33:09 +0100
+Received: from localhost ([127.0.0.1])
+ by sslproxy07.your-server.de with esmtpsa (TLS1.3) tls TLS_AES_256_GCM_SHA384
+ (Exim 4.96) (envelope-from <alexander.stein@ew.tq-group.com>)
+ id 1w10lR-000LbO-0p; Fri, 13 Mar 2026 12:33:09 +0100
+From: Alexander Stein <alexander.stein@ew.tq-group.com>
+To: Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+Cc: Alexander Stein <alexander.stein@ew.tq-group.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [PATCH 1/1] drm/bridge: nwl-dsi: Use dev_err_probe
+Date: Fri, 13 Mar 2026 12:32:58 +0100
+Message-ID: <20260313113259.1721914-1-alexander.stein@ew.tq-group.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-References: <20260313091646.16938-1-work@onurozkan.dev>
- <abPeUBWpTB3mQRQs@google.com> <20260313141228.36ad6e43@nimda>
-In-Reply-To: <20260313141228.36ad6e43@nimda>
-From: Alice Ryhl <aliceryhl@google.com>
-Date: Fri, 13 Mar 2026 12:26:47 +0100
-X-Gm-Features: AaiRm50G5PW7f-JOBV2MdV0GNAwCIyaeaW1Vc_JgUVMxQ2LNOQ5DdcEHR8VhrHE
-Message-ID: <CAH5fLgiDvCaK7xu+R-cr8Cp8ABK0=xSQxXAJxKhSLRhtjH4fpQ@mail.gmail.com>
-Subject: Re: [PATCH v1 RESEND 0/4] drm/tyr: implement GPU reset API
-To: =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>
-Cc: linux-kernel@vger.kernel.org, dakr@kernel.org, 
- daniel.almeida@collabora.com, airlied@gmail.com, simona@ffwll.ch, 
- dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-Virus-Scanned: Clear (ClamAV 1.4.3/27939/Fri Mar 13 07:24:42 2026)
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,52 +67,178 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, Mar 13, 2026 at 12:12=E2=80=AFPM Onur =C3=96zkan <work@onurozkan.de=
-v> wrote:
->
-> On Fri, 13 Mar 2026 09:52:16 +0000
-> Alice Ryhl <aliceryhl@google.com> wrote:
->
-> > On Fri, Mar 13, 2026 at 12:16:40PM +0300, Onur =C3=96zkan wrote:
-> > > This series adds GPU reset handling support for Tyr in a new module
-> > > drivers/gpu/drm/tyr/driver.rs which encapsulates the low-level reset
-> > > controller internals and exposes a ResetHandle API to the driver.
-> > >
-> > > The reset module owns reset state, queueing and execution ordering
-> > > through OrderedQueue and handles duplicate/concurrent reset requests
-> > > with a pending flag.
-> > >
-> > > Apart from the reset module, the first 3 patches:
-> > >
-> > > - Fixes a potential reset-complete stale state bug by clearing
-> > > completed state before doing soft reset.
-> > > - Adds Work::disable_sync() (wrapper of
-> > > bindings::disable_work_sync).
-> > > - Adds OrderedQueue support.
-> > >
-> > > Runtime tested on hardware by Deborah Brouwer (see [1]) and myself.
-> > >
-> > > [1]:
-> > > https://gitlab.freedesktop.org/panfrost/linux/-/merge_requests/63#not=
-e_3364131
-> > >
-> > > Link: https://gitlab.freedesktop.org/panfrost/linux/-/issues/28
-> > > ---
-> > >
-> > > Onur =C3=96zkan (4):
-> > >   drm/tyr: clear reset IRQ before soft reset
-> > >   rust: add Work::disable_sync
-> > >   rust: add ordered workqueue wrapper
-> >
-> > I actually added ordered workqueue support here:
-> > https://lore.kernel.org/all/20260312-create-workqueue-v4-0-ea39c351c38f=
-@google.com/
-> >
-> > Alice
->
-> That's cool. I guess this will wait until your patch lands unless we
-> want to combine them into a single series.
+This simplifies the code as well as adding a probe deferral message.
 
-You can just say in your cover letter that your series depends on mine.
+Signed-off-by: Alexander Stein <alexander.stein@ew.tq-group.com>
+---
+ drivers/gpu/drm/bridge/nwl-dsi.c | 114 +++++++++++--------------------
+ 1 file changed, 40 insertions(+), 74 deletions(-)
 
-Alice
+diff --git a/drivers/gpu/drm/bridge/nwl-dsi.c b/drivers/gpu/drm/bridge/nwl-dsi.c
+index 2f7429b24fc20..0a39643b128ba 100644
+--- a/drivers/gpu/drm/bridge/nwl-dsi.c
++++ b/drivers/gpu/drm/bridge/nwl-dsi.c
+@@ -9,6 +9,7 @@
+ #include <linux/bitfield.h>
+ #include <linux/bits.h>
+ #include <linux/clk.h>
++#include <linux/dev_printk.h>
+ #include <linux/irq.h>
+ #include <linux/math64.h>
+ #include <linux/mfd/syscon.h>
+@@ -975,68 +976,46 @@ static int nwl_dsi_parse_dt(struct nwl_dsi *dsi)
+ 	struct platform_device *pdev = to_platform_device(dsi->dev);
+ 	struct clk *clk;
+ 	void __iomem *base;
+-	int ret;
+ 
+ 	dsi->phy = devm_phy_get(dsi->dev, "dphy");
+-	if (IS_ERR(dsi->phy)) {
+-		ret = PTR_ERR(dsi->phy);
+-		if (ret != -EPROBE_DEFER)
+-			DRM_DEV_ERROR(dsi->dev, "Could not get PHY: %d\n", ret);
+-		return ret;
+-	}
++	if (IS_ERR(dsi->phy))
++		return dev_err_probe(dsi->dev, PTR_ERR(dsi->phy),
++				     "Could not get PHY\n");
+ 
+ 	clk = devm_clk_get(dsi->dev, "lcdif");
+-	if (IS_ERR(clk)) {
+-		ret = PTR_ERR(clk);
+-		DRM_DEV_ERROR(dsi->dev, "Failed to get lcdif clock: %d\n",
+-			      ret);
+-		return ret;
+-	}
++	if (IS_ERR(clk))
++		return dev_err_probe(dsi->dev, PTR_ERR(clk),
++				     "Failed to get lcdif clock\n");
+ 	dsi->lcdif_clk = clk;
+ 
+ 	clk = devm_clk_get(dsi->dev, "core");
+-	if (IS_ERR(clk)) {
+-		ret = PTR_ERR(clk);
+-		DRM_DEV_ERROR(dsi->dev, "Failed to get core clock: %d\n",
+-			      ret);
+-		return ret;
+-	}
++	if (IS_ERR(clk))
++		return dev_err_probe(dsi->dev, PTR_ERR(clk),
++				     "Failed to get core clock\n");
+ 	dsi->core_clk = clk;
+ 
+ 	clk = devm_clk_get(dsi->dev, "phy_ref");
+-	if (IS_ERR(clk)) {
+-		ret = PTR_ERR(clk);
+-		DRM_DEV_ERROR(dsi->dev, "Failed to get phy_ref clock: %d\n",
+-			      ret);
+-		return ret;
+-	}
++	if (IS_ERR(clk))
++		return dev_err_probe(dsi->dev, PTR_ERR(clk),
++				     "Failed to get phy_ref clock\n");
+ 	dsi->phy_ref_clk = clk;
+ 
+ 	clk = devm_clk_get(dsi->dev, "rx_esc");
+-	if (IS_ERR(clk)) {
+-		ret = PTR_ERR(clk);
+-		DRM_DEV_ERROR(dsi->dev, "Failed to get rx_esc clock: %d\n",
+-			      ret);
+-		return ret;
+-	}
++	if (IS_ERR(clk))
++		return dev_err_probe(dsi->dev, PTR_ERR(clk),
++				     "Failed to get rx_esc clock\n");
+ 	dsi->rx_esc_clk = clk;
+ 
+ 	clk = devm_clk_get(dsi->dev, "tx_esc");
+-	if (IS_ERR(clk)) {
+-		ret = PTR_ERR(clk);
+-		DRM_DEV_ERROR(dsi->dev, "Failed to get tx_esc clock: %d\n",
+-			      ret);
+-		return ret;
+-	}
++	if (IS_ERR(clk))
++		return dev_err_probe(dsi->dev, PTR_ERR(clk),
++				     "Failed to get tx_esc clock\n");
+ 	dsi->tx_esc_clk = clk;
+ 
+ 	dsi->mux = devm_mux_control_get(dsi->dev, NULL);
+-	if (IS_ERR(dsi->mux)) {
+-		ret = PTR_ERR(dsi->mux);
+-		if (ret != -EPROBE_DEFER)
+-			DRM_DEV_ERROR(dsi->dev, "Failed to get mux: %d\n", ret);
+-		return ret;
+-	}
++	if (IS_ERR(dsi->mux))
++		return dev_err_probe(dsi->dev, PTR_ERR(dsi->mux),
++				     "Failed to get mux\n");
+ 
+ 	base = devm_platform_ioremap_resource(pdev, 0);
+ 	if (IS_ERR(base))
+@@ -1044,44 +1023,31 @@ static int nwl_dsi_parse_dt(struct nwl_dsi *dsi)
+ 
+ 	dsi->regmap =
+ 		devm_regmap_init_mmio(dsi->dev, base, &nwl_dsi_regmap_config);
+-	if (IS_ERR(dsi->regmap)) {
+-		ret = PTR_ERR(dsi->regmap);
+-		DRM_DEV_ERROR(dsi->dev, "Failed to create NWL DSI regmap: %d\n",
+-			      ret);
+-		return ret;
+-	}
++	if (IS_ERR(dsi->regmap))
++		return dev_err_probe(dsi->dev, PTR_ERR(dsi->regmap),
++				     "Failed to create NWL DSI regmap\n");
+ 
+ 	dsi->irq = platform_get_irq(pdev, 0);
+-	if (dsi->irq < 0) {
+-		DRM_DEV_ERROR(dsi->dev, "Failed to get device IRQ: %d\n",
+-			      dsi->irq);
+-		return dsi->irq;
+-	}
++	if (dsi->irq < 0)
++		return dev_err_probe(dsi->dev, dsi->irq,
++				     "Failed to get device IRQ\n");
+ 
+ 	dsi->rst_pclk = devm_reset_control_get_exclusive(dsi->dev, "pclk");
+-	if (IS_ERR(dsi->rst_pclk)) {
+-		DRM_DEV_ERROR(dsi->dev, "Failed to get pclk reset: %ld\n",
+-			      PTR_ERR(dsi->rst_pclk));
+-		return PTR_ERR(dsi->rst_pclk);
+-	}
++	if (IS_ERR(dsi->rst_pclk))
++		return dev_err_probe(dsi->dev, PTR_ERR(dsi->rst_pclk),
++				     "Failed to get pclk reset\n");
+ 	dsi->rst_byte = devm_reset_control_get_exclusive(dsi->dev, "byte");
+-	if (IS_ERR(dsi->rst_byte)) {
+-		DRM_DEV_ERROR(dsi->dev, "Failed to get byte reset: %ld\n",
+-			      PTR_ERR(dsi->rst_byte));
+-		return PTR_ERR(dsi->rst_byte);
+-	}
++	if (IS_ERR(dsi->rst_byte))
++		return dev_err_probe(dsi->dev, PTR_ERR(dsi->rst_byte),
++				     "Failed to get byte reset\n");
+ 	dsi->rst_esc = devm_reset_control_get_exclusive(dsi->dev, "esc");
+-	if (IS_ERR(dsi->rst_esc)) {
+-		DRM_DEV_ERROR(dsi->dev, "Failed to get esc reset: %ld\n",
+-			      PTR_ERR(dsi->rst_esc));
+-		return PTR_ERR(dsi->rst_esc);
+-	}
++	if (IS_ERR(dsi->rst_esc))
++		return dev_err_probe(dsi->dev, PTR_ERR(dsi->rst_esc),
++				     "Failed to get esc reset\n");
+ 	dsi->rst_dpi = devm_reset_control_get_exclusive(dsi->dev, "dpi");
+-	if (IS_ERR(dsi->rst_dpi)) {
+-		DRM_DEV_ERROR(dsi->dev, "Failed to get dpi reset: %ld\n",
+-			      PTR_ERR(dsi->rst_dpi));
+-		return PTR_ERR(dsi->rst_dpi);
+-	}
++	if (IS_ERR(dsi->rst_dpi))
++		return dev_err_probe(dsi->dev, PTR_ERR(dsi->rst_dpi),
++				     "Failed to get dpi reset\n");
+ 	return 0;
+ }
+ 
+-- 
+2.43.0
+
