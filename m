@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BD4D4105F7B5
-	for <dri-devel@archiver.kernel.org>; Fri, 13 Mar 2026 15:33:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9757A103E305
+	for <dri-devel@archiver.kernel.org>; Fri, 13 Mar 2026 15:33:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 33C3410E040;
-	Fri, 13 Mar 2026 15:33:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0378810E456;
+	Fri, 13 Mar 2026 15:33:43 +0000 (UTC)
 Received: from metis.whiteo.stw.pengutronix.de
  (metis.whiteo.stw.pengutronix.de [185.203.201.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3485310E040
- for <dri-devel@lists.freedesktop.org>; Fri, 13 Mar 2026 15:33:04 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8ECB810E456
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Mar 2026 15:33:41 +0000 (UTC)
 Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
  by metis.whiteo.stw.pengutronix.de with esmtps
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <p.zabel@pengutronix.de>)
- id 1w14Va-0001kX-Md; Fri, 13 Mar 2026 16:33:02 +0100
+ id 1w14W5-0001sU-Dh; Fri, 13 Mar 2026 16:33:33 +0100
 Received: from lupine.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::4e]
  helo=lupine)
  by drehscheibe.grey.stw.pengutronix.de with esmtps (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <p.zabel@pengutronix.de>) id 1w14Va-0006Mi-0h;
- Fri, 13 Mar 2026 16:33:02 +0100
+ (envelope-from <p.zabel@pengutronix.de>) id 1w14W2-0006Mm-34;
+ Fri, 13 Mar 2026 16:33:30 +0100
 Received: from pza by lupine with local (Exim 4.98.2)
- (envelope-from <p.zabel@pengutronix.de>) id 1w14Va-00000000EjJ-0Vjx;
- Fri, 13 Mar 2026 16:33:02 +0100
-Message-ID: <30511e1e0ffd6579091fc4ed1cad084fd81b9c96.camel@pengutronix.de>
-Subject: Re: [PATCH] drm/imx: parallel-display: Prefer bus format set via
- legacy "interface-pix-fmt" DT property
+ (envelope-from <p.zabel@pengutronix.de>) id 1w14W2-00000000El6-3cWe;
+ Fri, 13 Mar 2026 16:33:30 +0100
+Message-ID: <7b2aa2c742f41e376ffe8865e3a2cd9c53843574.camel@pengutronix.de>
+Subject: Re: [PATCH] drm/imx: parallel-display: add DRM_DISPLAY_HELPER for
+ DRM_IMX_PARALLEL_DISPLAY
 From: Philipp Zabel <p.zabel@pengutronix.de>
-To: Marek Vasut <marex@nabladev.com>, dri-devel@lists.freedesktop.org
-Cc: stable@vger.kernel.org, David Airlie <airlied@gmail.com>, Fabio Estevam	
- <festevam@gmail.com>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Sascha Hauer <s.hauer@pengutronix.de>, Shawn Guo <shawnguo@kernel.org>,
- Simona Vetter <simona@ffwll.ch>,  Thomas Zimmermann <tzimmermann@suse.de>,
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
- linux-kernel@vger.kernel.org
-Date: Fri, 13 Mar 2026 16:33:01 +0100
-In-Reply-To: <20260110171510.692666-1-marex@nabladev.com>
-References: <20260110171510.692666-1-marex@nabladev.com>
+To: Martin Kepplinger-Novakovic <martin.kepplinger-novakovic@ginzinger.com>,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ tzimmermann@suse.de, 	airlied@gmail.com, simona@ffwll.ch,
+ shawnguo@kernel.org, s.hauer@pengutronix.de
+Cc: kernel@pengutronix.de, dri-devel@lists.freedesktop.org,
+ imx@lists.linux.dev, 	linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, kernel test robot <lkp@intel.com>
+Date: Fri, 13 Mar 2026 16:33:30 +0100
+In-Reply-To: <20260121102607.4087362-1-martin.kepplinger-novakovic@ginzinger.com>
+References: <20260121102607.4087362-1-martin.kepplinger-novakovic@ginzinger.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 User-Agent: Evolution 3.56.2-0+deb13u1 
@@ -65,25 +65,26 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sa, 2026-01-10 at 18:14 +0100, Marek Vasut wrote:
-> Prefer bus format set via legacy "interface-pix-fmt" DT property
-> over panel bus format. This is necessary to retain support for
-> DTs which configure the IPUv3 parallel output as 24bit DPI, but
-> connect 18bit DPI panels to it with hardware swizzling.
+On Mi, 2026-01-21 at 11:26 +0100, Martin Kepplinger-Novakovic wrote:
+> When I build for an old imx53 platform I see the same as the test robot
+> saw before:
 >=20
-> This used to work up to Linux 6.12, but stopped working in 6.13,
-> reinstate the behavior to support old DTs.
+> arm-buildroot-linux-gnueabihf-ld: drivers/gpu/drm/imx/ipuv3/parallel-disp=
+lay.o: in function `imx_pd_bind':
+> parallel-display.c:(.text+0xb8): undefined reference to `drm_bridge_conne=
+ctor_init'
 >=20
-> Cc: stable@vger.kernel.org
-> Fixes: 5f6e56d3319d ("drm/imx: parallel-display: switch to drm_panel_brid=
-ge")
-> Signed-off-by: Marek Vasut <marex@nabladev.com>
+> Selecting DRM_DISPLAY_HELPER for DRM_IMX_PARALLEL_DISPLAY fixes the build=
+.
+>=20
+> Reported-by: kernel test robot <lkp@intel.com>
+> Closes: https://lore.kernel.org/oe-kbuild-all/202512241721.jZgcwRfr-lkp@i=
+ntel.com/
+>=20
+> Signed-off-by: Martin Kepplinger-Novakovic <martin.kepplinger-novakovic@g=
+inzinger.com>
 
-Applied to drm-misc-next, thanks!
-
-[1/1] drm/imx: parallel-display: Prefer bus format set via legacy "interfac=
-e-pix-fmt" DT property
-      commit: cdf26e1462c220629bb79d487263b66f8b679eab
+Reviewed-by: Philipp Zabel <p.zabel@pengutronix.de>
 
 regards
 Philipp
