@@ -4,60 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A8929105F7A7
-	for <dri-devel@archiver.kernel.org>; Fri, 13 Mar 2026 12:22:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8EDAF105F7A6
+	for <dri-devel@archiver.kernel.org>; Fri, 13 Mar 2026 12:31:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 270B410EBD5;
-	Fri, 13 Mar 2026 12:22:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A4E2110EBD6;
+	Fri, 13 Mar 2026 12:31:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Km33f4II";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="IgqFVxMo";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3FFEB10EBC9;
- Fri, 13 Mar 2026 12:22:11 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B13BC10E11E;
+ Fri, 13 Mar 2026 12:31:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1773404531; x=1804940531;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=lgdfMu+HtA7xAd10zI4IF3HYREpPW30Wtwm/Ue0b1qo=;
- b=Km33f4IIZZo4mXUJ4oKmHZvuftYZOBPwk0WfgZA5x1LcWVIrG+Quxadx
- s4NmtKArwqx5Z+6Bi7PDsTuKdS+h4wFHT368bs+GWMjB65w7CSiPSKLHP
- LbAIFHe1Mc+Hm6Wra7xpl2pkKZaw/Dv5ZuRHyf2KTv2IpuVm4RqAWOAnU
- jbd8yXtOXJTO28krPSmxh5n4TeAeMZjoMD7NkJbuOHjkUDIJmHwFbMMmS
- 4AdegxpS206HawP0U+vZIld+yZbmU+gvWIY+qP85h0k25nRP/YXAwCZ+g
- 4FH+QDBiyJwh8Vsj9Qx9OrrZ7XVNyV7UYTeP8AiL4RDMHZShMLinBqHx7 w==;
-X-CSE-ConnectionGUID: SpiEMaqJRIm2uCnE9o4+ow==
-X-CSE-MsgGUID: C48CUYv+Ry2sabhDkAvoSw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11727"; a="77116939"
-X-IronPort-AV: E=Sophos;i="6.23,118,1770624000"; d="scan'208";a="77116939"
+ t=1773405094; x=1804941094;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=ryg7LcAzGnLhuGSQQgnKEqRRr72019WNOG5PlffixHg=;
+ b=IgqFVxMoFWMYMDdRvaqhr703vL2OdSYTAF6q0OouSzFiOfYdZzGTqJ7p
+ Hwor459Su0fSGJGyCsu5NDX3CPupq1h7mqEZkjHOcoZvR+qiypgvtD6aC
+ RBUNzrGJib54hSROZYLs5nr7iOEJcsVYwp6O+6Nf6CB2fW5GvbKT6uRNh
+ qbb9A3xzjb3bUKepPkRmUjUHx41RNGmIzC6HQWAVA57/8fMuDxBitajBa
+ izsChoJn2M2eaW+RVgkPN/5iMha5N23963fg2Bk3MSwGoGEo21nO3QkhM
+ TRc4ogrSV1ZR3xAAErJTVoz3SHr1auDA4JqWd9xWj5NNLOgSnE//BgfDb g==;
+X-CSE-ConnectionGUID: hxAB5ejJS7+iXjPGtcbDgw==
+X-CSE-MsgGUID: z14317TwQLi9cE8iAVy/8w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11727"; a="77117475"
+X-IronPort-AV: E=Sophos;i="6.23,118,1770624000"; d="scan'208";a="77117475"
 Received: from orviesa003.jf.intel.com ([10.64.159.143])
  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Mar 2026 05:22:11 -0700
-X-CSE-ConnectionGUID: Sndr6oCeQo6dN48yS+JgLQ==
-X-CSE-MsgGUID: df31+eVQTBCanbr5xw7JvQ==
+ 13 Mar 2026 05:31:33 -0700
+X-CSE-ConnectionGUID: 1OHoAhI+Q6uXyYD2mDf9Og==
+X-CSE-MsgGUID: NTVsS05fTI+vyueAVfZyJw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,118,1770624000"; d="scan'208";a="225269256"
-Received: from amilburn-desk.amilburn-desk (HELO jhogande-mobl3.intel.com)
- ([10.245.245.196])
+X-IronPort-AV: E=Sophos;i="6.23,118,1770624000"; d="scan'208";a="225271055"
+Received: from smoticic-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.245.244.21])
  by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Mar 2026 05:22:10 -0700
-From: =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
-To: intel-gfx@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org,
- =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
-Subject: [PATCH 1/2] drm/dp: Add quirk to disable Panel Replay on certain
- panels
-Date: Fri, 13 Mar 2026 14:21:44 +0200
-Message-ID: <20260313122145.1747175-2-jouni.hogander@intel.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260313122145.1747175-1-jouni.hogander@intel.com>
-References: <20260313122145.1747175-1-jouni.hogander@intel.com>
+ 13 Mar 2026 05:31:31 -0700
+Date: Fri, 13 Mar 2026 14:31:27 +0200
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, jouni.hogander@intel.com,
+ animesh.manna@intel.com
+Subject: Re: [PATCH 11/19] drm/i915/dp: Add member to intel_dp to store AS
+ SDP v2 support
+Message-ID: <abQDnyVJ-Ps1p7wp@intel.com>
+References: <20260311113611.3393194-1-ankit.k.nautiyal@intel.com>
+ <20260311113611.3393194-12-ankit.k.nautiyal@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260311113611.3393194-12-ankit.k.nautiyal@intel.com>
+X-Patchwork-Hint: comment
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,48 +76,94 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-We are currently observing problems with LG panel when Panel Replay is
-enabled. Add new quirk DP_DPCD_QUIRK_NO_PANEL_REPLAY and set it for
-the problematic panel model.
+On Wed, Mar 11, 2026 at 05:06:03PM +0530, Ankit Nautiyal wrote:
+> DP v2.1 mentions support for FAVT payload fields parsing in DPCD 0x2214
+> Bit 2. This essentially signals the support for AS SDP version 2, that
+> allows source to set the version in HB2[4:0] and the payload length in
+> HB3[5:0] of the AS SDP header.
+> 
+> Read this bit and store the AS SDP v2 capability in intel_dp.
+> 
+> Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+> ---
+>  .../drm/i915/display/intel_display_types.h    |  1 +
+>  drivers/gpu/drm/i915/display/intel_dp.c       | 21 +++++++++++++++++++
+>  2 files changed, 22 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
+> index e189f8c39ccb..d783cea06aed 100644
+> --- a/drivers/gpu/drm/i915/display/intel_display_types.h
+> +++ b/drivers/gpu/drm/i915/display/intel_display_types.h
+> @@ -1870,6 +1870,7 @@ struct intel_dp {
+>  	/* connector directly attached - won't be use for modeset in mst world */
+>  	struct intel_connector *attached_connector;
+>  	bool as_sdp_supported;
+> +	bool as_sdp_v2_supported;
+>  
+>  	struct drm_dp_tunnel *tunnel;
+>  	bool tunnel_suspended:1;
+> diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+> index 0d2403d48528..e6148e7f0ebc 100644
+> --- a/drivers/gpu/drm/i915/display/intel_dp.c
+> +++ b/drivers/gpu/drm/i915/display/intel_dp.c
+> @@ -6291,6 +6291,24 @@ intel_dp_unset_edid(struct intel_dp *intel_dp)
+>  					       false);
+>  }
+>  
+> +static bool
+> +intel_dp_sink_supports_as_sdp_v2(struct intel_dp *intel_dp)
+> +{
+> +	struct intel_display *display = to_intel_display(intel_dp);
+> +	u8 rx_features;
+> +
+> +	if (drm_dp_dpcd_read_byte(&intel_dp->aux,
+> +				  DP_DPRX_FEATURE_ENUMERATION_LIST_CONT_1,
+> +				  &rx_features) < 0) {
+> +		drm_dbg_kms(display->drm,
+> +			    "Failed to read DP_DPRX_FEATURE_ENUMERATION_LIST_CONT_1\n");
+> +
+> +		return false;
+> +	}
+> +
+> +	return rx_features & DP_AS_SDP_FAVT_PAYLOAD_FIELDS_PARSING_SUPPORTED;
 
-Signed-off-by: Jouni HÃ¶gander <jouni.hogander@intel.com>
----
- drivers/gpu/drm/display/drm_dp_helper.c | 2 ++
- include/drm/display/drm_dp_helper.h     | 8 ++++++++
- 2 files changed, 10 insertions(+)
+Hmm. So the name seems to imply it's only about the FAVT stuff.
+But even when running in AVT mode some of the payload bytes
+can still be valid. Dunno how much the other stuff actually matters
+for VRR itself, but I think for PR the coasting vtotal would at
+least be important if we don't send AS SDP while in PR active
+state.
 
-diff --git a/drivers/gpu/drm/display/drm_dp_helper.c b/drivers/gpu/drm/display/drm_dp_helper.c
-index a697cc227e28..96c8b53ba4e4 100644
---- a/drivers/gpu/drm/display/drm_dp_helper.c
-+++ b/drivers/gpu/drm/display/drm_dp_helper.c
-@@ -2540,6 +2540,8 @@ static const struct dpcd_quirk dpcd_quirk_list[] = {
- 	{ OUI(0x00, 0x22, 0xb9), DEVICE_ID_ANY, true, BIT(DP_DPCD_QUIRK_CONSTANT_N) },
- 	/* LG LP140WF6-SPM1 eDP panel */
- 	{ OUI(0x00, 0x22, 0xb9), DEVICE_ID('s', 'i', 'v', 'a', 'r', 'T'), false, BIT(DP_DPCD_QUIRK_CONSTANT_N) },
-+	/* Problems observed with LG panel */
-+	{ OUI(0x00, 0x22, 0xb9), DEVICE_ID_ANY, false, BIT(DP_DPCD_QUIRK_NO_PANEL_REPLAY) },
- 	/* Apple panels need some additional handling to support PSR */
- 	{ OUI(0x00, 0x10, 0xfa), DEVICE_ID_ANY, false, BIT(DP_DPCD_QUIRK_NO_PSR) },
- 	/* CH7511 seems to leave SINK_COUNT zeroed */
-diff --git a/include/drm/display/drm_dp_helper.h b/include/drm/display/drm_dp_helper.h
-index 1d0acd58f486..ca36b5a9c1b6 100644
---- a/include/drm/display/drm_dp_helper.h
-+++ b/include/drm/display/drm_dp_helper.h
-@@ -824,6 +824,14 @@ enum drm_dp_quirk {
- 	 * driver still need to implement proper handling for such device.
- 	 */
- 	DP_DPCD_QUIRK_NO_PSR,
-+	/**
-+	 * @DP_DPCD_QUIRK_NO_PANEL_REPLAY:
-+	 *
-+	 * The device does not support Panel Replay even if reports
-+	 * that it supports or driver still need to implement proper
-+	 * handling for such device.
-+	 */
-+	DP_DPCD_QUIRK_NO_PANEL_REPLAY,
- 	/**
- 	 * @DP_DPCD_QUIRK_NO_SINK_COUNT:
- 	 *
+The problematic case would be if we have to send the AS SDP
+for VRR purposes, but want to suspend it during PR active
+for power savings, assuming the sink has the
+!ASYNC_VIDEO_TIMING_NOT_SUPPORTED_IN_PR capability.
+
+So I suppose we might want to also check for PR+ALPM here,
+in case some of those don't also set the
+DP_AS_SDP_FAVT_PAYLOAD_FIELDS_PARSING_SUPPORTED bit.
+
+Sadly there doesn't seem to be a proper AS SDP v2 supported
+bit anywhere. We just have to guess based on other capabilities :(
+
+> +}
+> +
+>  static void
+>  intel_dp_detect_sdp_caps(struct intel_dp *intel_dp)
+>  {
+> @@ -6298,6 +6316,9 @@ intel_dp_detect_sdp_caps(struct intel_dp *intel_dp)
+>  
+>  	intel_dp->as_sdp_supported = HAS_AS_SDP(display) &&
+>  		drm_dp_as_sdp_supported(&intel_dp->aux, intel_dp->dpcd);
+> +
+> +	intel_dp->as_sdp_v2_supported = intel_dp->as_sdp_supported &&
+> +					intel_dp_sink_supports_as_sdp_v2(intel_dp);
+>  }
+>  
+>  static bool intel_dp_needs_dpcd_probe(struct intel_dp *intel_dp, bool force_on_external)
+> -- 
+> 2.45.2
+
 -- 
-2.43.0
-
+Ville Syrjälä
+Intel
