@@ -4,63 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9480D105F79F
-	for <dri-devel@archiver.kernel.org>; Fri, 13 Mar 2026 11:56:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D8425105F78C
+	for <dri-devel@archiver.kernel.org>; Fri, 13 Mar 2026 11:56:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 01BAB10EBBE;
-	Fri, 13 Mar 2026 11:56:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3E13710EBBF;
+	Fri, 13 Mar 2026 11:56:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="mgEwug9f";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="IIESd1Uk";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (unknown [198.175.65.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 328E910EBBA;
- Fri, 13 Mar 2026 11:55:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1773402967; x=1804938967;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=LOnaTDGC51VgqbQ1maJ7Rj1bBIfxNyBbFiCTiX4kJkU=;
- b=mgEwug9f7Q7ABwTYhx9dVkroRN5veJ4dD3VfGc/SZp9FdY+LeEGd8j4J
- 1cz3A+gix5vLwziqtN5jCKD4pjWmDEtb690z3ososgvxpt2HmPV1ul3/O
- upLdydlgg9+o69BMro0f1xOrc7CvkhL7VfMGozH3GrVF3e3+SvNvOl3dt
- 1sxpSUGYqwnYnZl+mfvY7S9ZbYabB7Mi/ixAOmsoR14G4gGi1WNXiXZ7/
- fwxs9Hvha9RZG9Le/hhgHlxHm+z7oQBqo04B1LtU79lH1cYQHyXMCGp7I
- AzhOarllbSgtmv7uISQn3MEMUvhTjqHDY6eam3WIKGVuucX929EYM6O0y w==;
-X-CSE-ConnectionGUID: vrMqpdkPQhudpzyIZE6now==
-X-CSE-MsgGUID: R8vZt/rxReGSNiRkPeRRwA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11727"; a="78106891"
-X-IronPort-AV: E=Sophos;i="6.23,118,1770624000"; d="scan'208";a="78106891"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
- by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Mar 2026 04:55:31 -0700
-X-CSE-ConnectionGUID: hPfhKbCCQgeKFntlc8En4w==
-X-CSE-MsgGUID: +FaFAoLxT5iJZKLp6UhaFg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,118,1770624000"; d="scan'208";a="225602127"
-Received: from smoticic-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.245.244.21])
- by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Mar 2026 04:55:29 -0700
-Date: Fri, 13 Mar 2026 13:55:26 +0200
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, jouni.hogander@intel.com,
- animesh.manna@intel.com
-Subject: Re: [PATCH 10/19] drm/i915/dp: Use revision field of AS SDP data
- structure
-Message-ID: <abP7Lq--PC69q5ex@intel.com>
-References: <20260311113611.3393194-1-ankit.k.nautiyal@intel.com>
- <20260311113611.3393194-11-ankit.k.nautiyal@intel.com>
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3C49B10EBBF
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Mar 2026 11:56:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1773403009;
+ bh=ryfo0HX0S/V7M0SWwIS4tZdxJ9Lo0de+Y8H0l4abNTw=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=IIESd1Uk1oG7U5UyfDe0THl2ouAMqR+m4rEcTeXgDwoPpDZbZMthh9uHpZwEAwr4H
+ eNNiyCXl+59Dhi9/G9tCj3CButG2iEBU/MJSm4v1JuNxIxG0thDMzj4eErz02xATFh
+ f4PWEUOEFGNTbynfQINKj8fnS+mTZ4Y540I8jCHD1jGrPHqFdX2MLQaK/udzMCagfx
+ IxaaXNyxuQ32iZklS6sbx05KxeoVRjBaHV5xYidm31LA3fglqVoPqqg4SgajqxQyxQ
+ VARBUe9mhhLuVbtGIyBLVVN7G8kVkyxXHYLJcLZ+LVeZHk0Dnf0HAamGB38yBOrj6Y
+ jzDVEiPTCiLIA==
+Received: from fedora (unknown [IPv6:2a01:e0a:2c:6930:d919:a6e:5ea1:8a9f])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256) (No client certificate requested)
+ (Authenticated sender: bbrezillon)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 5CA2017E0E6A;
+ Fri, 13 Mar 2026 12:56:49 +0100 (CET)
+Date: Fri, 13 Mar 2026 12:56:44 +0100
+From: Boris Brezillon <boris.brezillon@collabora.com>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: Biju Das <biju.das.jz@bp.renesas.com>, Tommaso Merciai
+ <tommaso.merciai.xr@bp.renesas.com>, "loic.molinari@collabora.com"
+ <loic.molinari@collabora.com>, "willy@infradead.org" <willy@infradead.org>,
+ "frank.binns@imgtec.com" <frank.binns@imgtec.com>, "matt.coster@imgtec.com"
+ <matt.coster@imgtec.com>, "maarten.lankhorst@linux.intel.com"
+ <maarten.lankhorst@linux.intel.com>, "mripard@kernel.org"
+ <mripard@kernel.org>, "airlied@gmail.com" <airlied@gmail.com>,
+ "simona@ffwll.ch" <simona@ffwll.ch>, "linux-mm@kvack.org"
+ <linux-mm@kvack.org>, "dri-devel@lists.freedesktop.org"
+ <dri-devel@lists.freedesktop.org>
+Subject: Re: [PATCH v4 5/6] drm/gem-shmem: Track folio accessed/dirty status
+ in mmap
+Message-ID: <20260313125644.65131b27@fedora>
+In-Reply-To: <f3384342-cdc5-4260-b670-4ffde76a2802@suse.de>
+References: <20260227114509.165572-1-tzimmermann@suse.de>
+ <20260227114509.165572-6-tzimmermann@suse.de>
+ <abL5rcYIaFFO3GW2@tom-desktop>
+ <TY3PR01MB113460CA616D3576DA0C3FC698644A@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+ <TY3PR01MB113461ACB668738E1952EC8898645A@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+ <20260313111851.4c1f89f3@fedora>
+ <f3384342-cdc5-4260-b670-4ffde76a2802@suse.de>
+Organization: Collabora
+X-Mailer: Claws Mail 4.3.1 (GTK 3.24.51; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260311113611.3393194-11-ankit.k.nautiyal@intel.com>
-X-Patchwork-Hint: comment
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,76 +77,24 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Mar 11, 2026 at 05:06:02PM +0530, Ankit Nautiyal wrote:
-> Use the revision field of struct drm_dp_as_sdp instead of current
-> hardcoding for the AS SDP revisions.
+On Fri, 13 Mar 2026 11:29:47 +0100
+Thomas Zimmermann <tzimmermann@suse.de> wrote:
+
+> Hi
 > 
-> Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-> ---
->  drivers/gpu/drm/i915/display/intel_display.c | 3 ++-
->  drivers/gpu/drm/i915/display/intel_dp.c      | 7 +++----
->  2 files changed, 5 insertions(+), 5 deletions(-)
+> Am 13.03.26 um 11:18 schrieb Boris Brezillon:
+> [...]
+> >>>>> +	if (drm_WARN_ON(obj->dev, !shmem->pages || page_offset >= num_pages))
+> >>>>> +		return VM_FAULT_SIGBUS;
+> >>>>> +
+> >>>>> +	file_update_time(vma->vm_file);
+> >>>>> +
+> >>>>> +	folio_mark_dirty(page_folio(shmem->pages[page_offset]));  
+> > Do we need a folio_mark_dirty_lock() here?  
 > 
-> diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-> index b18ce0c36a64..88e1b503d301 100644
-> --- a/drivers/gpu/drm/i915/display/intel_display.c
-> +++ b/drivers/gpu/drm/i915/display/intel_display.c
-> @@ -4900,7 +4900,8 @@ static bool
->  intel_compare_dp_as_sdp(const struct drm_dp_as_sdp *a,
->  			const struct drm_dp_as_sdp *b)
->  {
-> -	return a->vtotal == b->vtotal &&
-> +	return a->revision == b->revision &&
+> There is a helper for that with some documentation. [1]
 
-Someone should add the check for the type and length as well
-(and other relevant stuff in the header if any). But that
-can be a separate patch.
+This [1] seems to solve the problem for me. Still unsure about the
+folio_mark_dirty_lock vs folio_mark_dirty though.
 
-Reviewed-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
-
-> +		a->vtotal == b->vtotal &&
->  		a->target_rr == b->target_rr &&
->  		a->duration_incr_ms == b->duration_incr_ms &&
->  		a->duration_decr_ms == b->duration_decr_ms &&
-> diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-> index 17af68a1a9e5..0d2403d48528 100644
-> --- a/drivers/gpu/drm/i915/display/intel_dp.c
-> +++ b/drivers/gpu/drm/i915/display/intel_dp.c
-> @@ -3154,6 +3154,7 @@ static void intel_dp_compute_as_sdp(struct intel_dp *intel_dp,
->  	as_sdp->sdp_type = DP_SDP_ADAPTIVE_SYNC;
->  	as_sdp->length = 0x9;
->  	as_sdp->duration_incr_ms = 0;
-> +	as_sdp->revision = 0x2;
->  	as_sdp->vtotal = intel_vrr_vmin_vtotal(crtc_state);
->  
->  	if (crtc_state->cmrr.enable) {
-> @@ -5117,7 +5118,7 @@ static ssize_t intel_dp_as_sdp_pack(const struct drm_dp_as_sdp *as_sdp,
->  	/* Prepare AS (Adaptive Sync) SDP Header */
->  	sdp->sdp_header.HB0 = 0;
->  	sdp->sdp_header.HB1 = as_sdp->sdp_type;
-> -	sdp->sdp_header.HB2 = 0x02;
-> +	sdp->sdp_header.HB2 = as_sdp->revision;
->  	sdp->sdp_header.HB3 = as_sdp->length;
->  
->  	/* Fill AS (Adaptive Sync) SDP Payload */
-> @@ -5304,13 +5305,11 @@ int intel_dp_as_sdp_unpack(struct drm_dp_as_sdp *as_sdp,
->  	if (sdp->sdp_header.HB1 != DP_SDP_ADAPTIVE_SYNC)
->  		return -EINVAL;
->  
-> -	if (sdp->sdp_header.HB2 != 0x02)
-> -		return -EINVAL;
-> -
->  	if ((sdp->sdp_header.HB3 & 0x3F) != 9)
->  		return -EINVAL;
->  
->  	as_sdp->length = sdp->sdp_header.HB3 & DP_AS_SDP_LENGTH_MASK;
-> +	as_sdp->revision = sdp->sdp_header.HB2;
->  	as_sdp->mode = sdp->db[0] & DP_AS_SDP_OPERATION_MODE_MASK;
->  	as_sdp->vtotal = (sdp->db[2] << 8) | sdp->db[1];
->  	as_sdp->target_rr = ((sdp->db[4] & 0x3) << 8) | sdp->db[3];
-> -- 
-> 2.45.2
-
--- 
-Ville Syrjälä
-Intel
+[1]https://yhbt.net/lore/dri-devel/20260312155027.1682606-1-pedrodemargomes@gmail.com/
