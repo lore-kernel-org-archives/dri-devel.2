@@ -4,127 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A9F08107BCE5
-	for <dri-devel@archiver.kernel.org>; Fri, 13 Mar 2026 20:45:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0BEFA107BCE2
+	for <dri-devel@archiver.kernel.org>; Fri, 13 Mar 2026 20:57:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6685D10ECD5;
-	Fri, 13 Mar 2026 20:45:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 581B810E474;
+	Fri, 13 Mar 2026 20:57:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="DVGJSBiI";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="MEj/gm3R";
 	dkim-atps=neutral
-Received: from PH8PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11012036.outbound.protection.outlook.com [40.107.209.36])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2A91910E478;
- Fri, 13 Mar 2026 20:45:30 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=vDLZKz3CtIFqAGaDWCdzckKEfixV+CckUkzmoZIYF1UcWuhoYdm7tTH4FhrpFBCusmp5hGnM5/2dfnCQpbdIFZxqiMEmCLDGPkQnv4lvdMdzIxWT3zEpSgskASKAazebUH9d4BB8E+Mjqc4jD1Bp+D9hOUERgYHoCs74AC/+YPpT+tZGwp4VDhaAU+pcCpZ6FbGcoV/jKMqzgMy2ztBIbCeoslwh1CUzPe4nFmuBSQ0p3r2XAb72CkUOW1CEdF7tezWkF/J+LhjL/e26IKRUVYZUM+06BcadV5Ypz8B07dINhM837djRvIquAWJaXVFtVRP4joTpv6Q6iYe5/beuIw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=O5BYzute5+kZ3yyCHv9fymXh8G+FGy3aAw6haj9RGDc=;
- b=e35YtllWc+BR73RbUrd/Bub03hDevKICzi+xaJTLkM6B7EgLByI7ceIR+KgONDlEJFKimHokmrDQrnbspqRyqZ5Ikq79o16Xrrug3a7uC7uRbpSLmc5cGksX8qbh0RnI968y/v3Bd9269Lzbzyv/9TMeST863O1xdCajmRr02rBcCWPqij54I+xX7NKGVFJ09CFx8DXP/8ZyQn8JvybI1eAL820BP3474Vb1f4jgrFvBDwdQMxKq0YuHh+yU+f/RIKEYf2llULXYrU4C0E8MS+Y7gRVRspBQi871VLYUJe6tm2qaigS6smLvuaFlZh2Q83EKN2jXttkJqBoNZnrVMA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=O5BYzute5+kZ3yyCHv9fymXh8G+FGy3aAw6haj9RGDc=;
- b=DVGJSBiI6dTVQaWSFD8cOKr5wmVymDkRYjptvF5dg+SjO4l7EDuAGgpgsOraEh6guBWUardDKQlCn3pIGFb5tHBU15ZPllvTDA9MAsjwbI8mnRqGSfp3mD+9tHK38E64dMUZNr4V59rXTtsPK+k8hPpgdSyINiJfPWGLZMBR5EI=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BL1PR12MB5126.namprd12.prod.outlook.com (2603:10b6:208:312::8)
- by SJ0PR12MB6853.namprd12.prod.outlook.com (2603:10b6:a03:47b::17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.4; Fri, 13 Mar
- 2026 20:45:26 +0000
-Received: from BL1PR12MB5126.namprd12.prod.outlook.com
- ([fe80::c3e7:1bc5:2b91:1cfe]) by BL1PR12MB5126.namprd12.prod.outlook.com
- ([fe80::c3e7:1bc5:2b91:1cfe%4]) with mapi id 15.20.9723.008; Fri, 13 Mar 2026
- 20:45:25 +0000
-Message-ID: <a0ec2ae2-502a-4587-8951-41dca92fc8c6@amd.com>
-Date: Fri, 13 Mar 2026 16:45:21 -0400
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 0/2] drm/colorop: Keep colorop state consistent across
- atomic commits
-To: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>,
- dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org
-Cc: contact@emersion.fr, alex.hung@amd.com, daniels@collabora.com,
- mwen@igalia.com, sebastian.wick@redhat.com, uma.shankar@intel.com,
- ville.syrjala@linux.intel.com, maarten.lankhorst@linux.intel.com,
- jani.nikula@intel.com, louis.chauvet@bootlin.com, stable@vger.kernel.org
-References: <20260310113238.3495981-1-chaitanya.kumar.borah@intel.com>
-Content-Language: en-US
-From: Harry Wentland <harry.wentland@amd.com>
-In-Reply-To: <20260310113238.3495981-1-chaitanya.kumar.borah@intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YT3PR01CA0114.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:85::31) To BL1PR12MB5126.namprd12.prod.outlook.com
- (2603:10b6:208:312::8)
+Received: from mail-qv1-f49.google.com (mail-qv1-f49.google.com
+ [209.85.219.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5E26010E474
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Mar 2026 20:57:03 +0000 (UTC)
+Received: by mail-qv1-f49.google.com with SMTP id
+ 6a1803df08f44-899a9f445cbso35643746d6.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Mar 2026 13:57:03 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1773435421; cv=none;
+ d=google.com; s=arc-20240605;
+ b=YlzS4aQNfaSoeP03WIIxzpnIUq/ndUsDhHO5OcLqzRTf8fveAC4EnZbeHESvHn4Hfq
+ 8F0hiPllbgrRWOSo/cnZW2pwk0iZY9Nq69HLqinnMoDRHN+KCEhC7gIjfJcfLIpjR4B8
+ kByEtuA8aDd3cOy2QUu5sMhiWslWd1s3gXBKOm5BywEVscPYH1wxzZIcSUpKyIvoyTbS
+ d0YjLUSPJ3hsDmqNQBx1eFeH2dVK68PTwaIihxSl3Dk2XNvJt3KgGVMe+/uNsV4NOfB6
+ wGq71cxNn4MSNuUK5qyRIhPhiRqEr6HW/rFZShWAQBiB/kY2XZFE9ha2dMb1X9HMIwU5
+ HMGQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :mime-version:dkim-signature;
+ bh=ELgkiztwOyhfOX/SY/z8y+qIK2kL8znxaXjPXbi+pqk=;
+ fh=A08XZwmmb57jzirbgTkluPSvjDeiJMkkojF1n6qDmTk=;
+ b=lDF1ZMNejsswx1O2OSvJO5YYcWlQhS0h0tbX2p2eoWaY655lBj82fXIsW0daGfAki2
+ r8WVsaKA1A6/x2avO4Ymhe2n7WZqL/e6ojL0lCVg7zwKjcrWUJWToFc0QFoXkJei5E9G
+ oDi/3K/Fx1IsWXgk9yU0L40wi6FujP8QaM+GMgkw0aLAgkAwfbnYm46rNNbVvp2P0M87
+ 6D/XR27feAKf9l/1HXuWdqaf35wUTbWln5WeAH/fn2hj3ERsYJ+a+JxxT4JHHXIo5RIq
+ l0XerkJJe4n2NrD1Xpyy90a+CiE7QKb+X9OoHjbQGY6FOF3+Bxt+f4u5nddmhg4DTQda
+ sB+g==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1773435421; x=1774040221; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=ELgkiztwOyhfOX/SY/z8y+qIK2kL8znxaXjPXbi+pqk=;
+ b=MEj/gm3RwVrywk1Z1JwF4ujsnI+/aqLui5Vdghcn9MllTlXIX1SYgoaLIkvrd5k8YQ
+ KwFajnVer23tFV2udhc+cGcXwCmdNhePEigct13DDPpIi0eVCDN5JwRcJgSxnRvvo6Y0
+ UxmdeHtY+7cqPWVURtI/DiTuabU1iOZY38wrS1IrMJx6RE9wpZ9mGWlhER5JP7WU/xuM
+ PwSSg0PeqEb4pBiDN6ho1oqMW4Sj/kQvEUh+XhIkw+9rTMpqzmk3qhrxRx3hzgfXf7K9
+ 14uK+BzTaR1Ddr2PuItd0aM2LTetx2l9ZAaf8Qcusi3Zo3Lq9hhrf6sefdajf4PhTnmZ
+ qO3w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1773435421; x=1774040221;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=ELgkiztwOyhfOX/SY/z8y+qIK2kL8znxaXjPXbi+pqk=;
+ b=rbJp4Oyji42POZy6s8AYK6bd+uIzDYfujrwZSPAx9ddEeQmdT95U/Rcj4HnWekBFX6
+ deR/WZStRfV2ieGKAGRzUcrRSCrEwYUwk5h0UJ1/cwAqyZP1C4sB6SAxfg4oLCkk4cos
+ soFt7OnA5YT0vkK10vIMHcm2sHRuD3GhHXS+hyN/0bBUtOVH0NinNhEBh87gSxI/tR7R
+ eocXDyRp8uZsR1/c5sqg5Wd+hNVwxszQlLCT9sE54A5Q9GicgtmDiLOdbQzFEpquPZLc
+ dnR94cm0FHXmRKcJhew0lnIgoI2r+XyD+HelVXUzC8Cj7yvWIa8prCAoK/dL5mk0cQhH
+ rkcw==
+X-Gm-Message-State: AOJu0YzkhJLW2gRpApaVG7Xmw0sT0ytGGgVGA87P9kKghd7XAWVj03b1
+ XrjpZFUmnquhKJMcDv0h8IO9Rn/iu+0oNCeIby/mgHgPcL5NgledIxxRBqxh4Sjs2akC6NClWuy
+ N7SnDKhPEBtO292YAtpuhOm/x0gii3vA=
+X-Gm-Gg: ATEYQzzjKzawOd+w4NuAnyw8yY3DlL1NJmKOJN5JG+HP/nIMFztUJfoujSiQetOWl6c
+ RH5EzwGOW3eOjD6LpLPf8kJwBZRh3G+Y6G3QTxPk6D9IwF1gabTcoZ7F4ngJFulSHuG585etZRB
+ kJWNbuyHCFsEgP0fEAv6TJgputO2KxXOZGgA2Jl3vsmNX4W+TIGvuXcIFc3BSp48Hl47UlqVTSG
+ cqnN6b9nGEUTryHmivthne4eTvqtOOstBrR2fd3xxEFzLg3QgCBTBIkK/Xf2eeHJx2cIsqCXqxA
+ mLQz8Z9Pxe/S1lkgsLfhVGYY1Wpaz28eIrvnHJ9rXI6Mr+MrthJT6iF3YEkpElUAEIs=
+X-Received: by 2002:a05:6214:2aa4:b0:89a:2fe7:91d1 with SMTP id
+ 6a1803df08f44-89a81d20cdamr75635586d6.6.1773435421355; Fri, 13 Mar 2026
+ 13:57:01 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL1PR12MB5126:EE_|SJ0PR12MB6853:EE_
-X-MS-Office365-Filtering-Correlation-Id: 75dd4a72-1635-4ea2-8383-08de81417432
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|7416014|1800799024|376014|22082099003|18002099003|56012099003;
-X-Microsoft-Antispam-Message-Info: 7s9VVaWP4ASqQfFEVUA5D7H9dTAVRFt1VIx7SeDn2HqD5S5Zf/iDT/xz4MrkJIpfik222uqTn8jRLD/g5UIEfudh3avTAS2JOMDqHlprVATywnH01bYiZhdvslvPye8M5yBBVlnT5pf6cW2fnW0N0s1WY+7UsZcbOqEw/dAv30yeRY+QrI82SPmx+zZGi7nSGLjnIPS/HsIaJw+nkng5ULprK8rIEgW8bYhf8Fmiu0IXDZ3JFypzeDcTbBm2CKw9+n5UiOFrK+mh5eTy5AYzsWrGfSybXij8gTu7gkfRQO+lACajp8EprI9QFRg0IJp2UxrNlmLs2UW8DKjdVlnJd++WcKmQ2q8NleG6SeBfqa5xqJhTyWlM6qu7sYOK2sqeqtrlcdNAGFMEauEU8eQ/b8CxomeFm+t7hXWsaImZbtrNZPDpDinPeXpsGvfPn28YTRuyO3P4k7JPExIqd7TsBUNmX4ciwWT/vPWIfQuYnsJganjyt3+sUAifRt515sqGLWK1TnAqUVr+pMGdI5GtQDgXmOVOah1LVnrJLvMtIwhGQGRZrXYWbLrrHEVKv2BAzsiBMeTsZ2AvPK7Xy22QVPfSSsE5u5OBGob70w8BQemHkL8OOMgYBrfNRcTptx4xsKuNia9H9zZP1wxDV07F27Bgtqn1uFoEqh8EVAHyxS6FipXYcEJ2S1dwbSeei1Bz27u58skpZW1k9JsdlpgakKNJOK1m8DEfgevFPgK2VkM=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BL1PR12MB5126.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(7416014)(1800799024)(376014)(22082099003)(18002099003)(56012099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?eXpFZ0RWaGlrVFBwMzhUU1BwMXYzbjVsTVROekZxNXdmRWdzNnhkVXpoakx5?=
- =?utf-8?B?ZEg4LzBQYjEvUmJQT055WkNxS3NmbGVhTEQ5S1BpZWVKOGpLRyttb2w0UUVH?=
- =?utf-8?B?ZGt0RnBtTno3VmJCc1hkS3h3cFh6cDA0bUFENzk0Y2pYc1FkaVFXaGRhS2Rt?=
- =?utf-8?B?RTJ0cENlZ0FqcU1FKzlid0VnV010MFE2eWZKSnlIekpwYXVqc0tWUlhvbUVp?=
- =?utf-8?B?dVQxaHZuMEZNOGJ2VnI1cFhGdDV6OVV6WUZmUzRMeXZiclRZZExqUGpvbXZZ?=
- =?utf-8?B?QVpKSWNITVJhaFdiVldWdVc3Qjl3ZWRJd051bm52VDRRZU1oaHZGN2p3dWlN?=
- =?utf-8?B?U2RPcVVycm9MUm91Z2NVZWtUSTBkZllMcGV0TDBzejhjRyt4N0lxbnA3bUc5?=
- =?utf-8?B?eTBpUk9uSTIrKytjWjZuZk5rdzhMek5VeWlTbThzVjJRODJ1bll4UFErZEdR?=
- =?utf-8?B?T0wvRFdpdlJkQUN2WlVBN3graHlveXJPcGFKMU0ydjdNRHNZTnlhSmt4dE1i?=
- =?utf-8?B?dXUyajR6b0Mwb2swcStlL2JwSDZLaUhUS1RwcUlqTmQ0RTJWTm9NMmJkdjU3?=
- =?utf-8?B?NUFaN0VWanVlUlJxUmlwekN6WkovOXhpVW9nUFpRdlp3KysvWlVjY3poZ1Bu?=
- =?utf-8?B?UmtNbVgwVjF1dHRmL3hxWTI1UXlVeHJPTHEvNnc1RlFReXVCOWtnZS9iRGpp?=
- =?utf-8?B?a2hURGlpRThENWR6N0hVcXQ1N1htT20ySjMzSmQ1N3JickdUeE5VbFV1Y1NO?=
- =?utf-8?B?TzRhUjFUSXhxNkFLaFZIYlJvbTBadVlrcmp2dG4yb242NFBId2RwK3pUK2Vq?=
- =?utf-8?B?SXNEYkRMNWpWTjIvZGhXOStxVVovUkZHL3FFZVp3bnZ1dHpxa1F3cXpUb1RF?=
- =?utf-8?B?WVE4T1NTaTRnQVNWYTJLbjNEdFQ2VVZwaTlDMlR2eWZGTi9pSFByOVpoUlgx?=
- =?utf-8?B?NmNHVUYyK3FtUkoxY2hWNnRtMkt1UWs5dTJxdTFFbFlxS2J4VnB0MDlRbFpz?=
- =?utf-8?B?blZCTUU3eGp4Z0VCMG5ScVhJc3pmTHM5ckUxRkFnbGc3V1FzTGQ2eWR6N3NY?=
- =?utf-8?B?clZVcEdMNTNkRCtSbHNzRS83NzBwK3FQMHZKY2FBbFM2MnJnLzE0a2RVdE1B?=
- =?utf-8?B?aFoxOWNweUhMYmVyUUk0dDFGbjFtTmhGc3k0YlVSaDFybzBwcUNaL1hIZFFk?=
- =?utf-8?B?OWc5b0piU0l0V2hXcktZbEVsU3dYQ2dVdWYxQjU0bGJTWHZKZi9tczhvS0dK?=
- =?utf-8?B?Nkg2SlBweTgybmZLc2liMGR4VFhVdU03cUU1THliZmVzS2lueXllT0pFME1O?=
- =?utf-8?B?clIvRmpKRERkS2o5eURZR2tmcTZwRW9WdWlBR1dtbzFXOTVORkVYN1Npbndk?=
- =?utf-8?B?SC9QUVNrSVJqbXBwK1VhWStUTFlsMmpTYTNIVkZZZHUxb3BCVmtVNVp5VEc5?=
- =?utf-8?B?R1pBSWhEdEFhazZOTlB6KzJ1UUJYVkx4UTUvUUxrbkhtWEpFMlVqL1dNbWN1?=
- =?utf-8?B?Rmx3SDF3cHhmbXBLdnpwbVh2YVloRUlvRERFUlFSaGtuemJEWmx0SFB4dVpo?=
- =?utf-8?B?VnZnNFBkd01CMGZVYmRjU3dRYUU1L3R1czI1dTY2Ry8vcXVVbFc3eFhwL2lm?=
- =?utf-8?B?VVB2UWtianNTd3hhM2t6N2w5SUZHeSt4bkhsWlZBNC8xYlpVSlBYL0ZQWE5p?=
- =?utf-8?B?VjhpNmt4NDZnLzJmNmpSZk5EQldldm5YM3ZqSVVVWWZLK3E2THRILzhsYWxk?=
- =?utf-8?B?V1h3U3JDMCtKS3hmUzF2bnZnOHlZdXZhN0ZSODlidjB5Vnd0MGliUW9NOE9W?=
- =?utf-8?B?blE2VERuTHhHNERLTTVPbk9FM0xXanRHb210L0dMays5RTF4ZTExM1Z5YjUr?=
- =?utf-8?B?OVdtNFgvTUNlUE1zVUdBZWI0d1N2aGorc0xCWHFtUWdvVU5OUmYvVlo5a1Rl?=
- =?utf-8?B?WEJmTXJ0MjZDSEhMdU14eFlXS0c4aWxnYnlWMFN3clRablZwQzdHUVNXeER4?=
- =?utf-8?B?ZmNXNVRDbCtYK3ZXWndITzJIMi94N2RDSXN2RFllZ1lMOXZmZ0lyMVVNQU1a?=
- =?utf-8?B?SEdUQlN1N1NlTkw0KzdnSDcvbU9jNyswRVZVMEdUY1YydlM3YklWSDNSaE14?=
- =?utf-8?B?V0tVZFdkQ1ZZRjNTV2ZiQktUNW00QTZwUWc3NW9UVEZLa2RhNDIybXVYRnVr?=
- =?utf-8?B?NEpLTGdWaWN6VnNCNThuR2tjLzNRUUMvWUZXQnA2QzNwaU5NakpCekNIQTQv?=
- =?utf-8?B?RnZNdk5pTjBFdWNpbU9kdWlEYUludlRvbE1DSEZzZjhIR3VxbSt3cmNVTklz?=
- =?utf-8?B?eEc3ZElwZDF0aVd6VzhNeG4xRFl0OXM0cnNvdldZZCsyN2NBZnNEQT09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 75dd4a72-1635-4ea2-8383-08de81417432
-X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5126.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Mar 2026 20:45:25.6993 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Nb0oF3uArxdMNMOJmeL18zPQ0+IBdrBX4OPtVSajE+U22RZpWlb/0weXCD2xBBgeL7sDutoDioIdw0pV0dInAQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB6853
+From: Dave Airlie <airlied@gmail.com>
+Date: Sat, 14 Mar 2026 06:56:50 +1000
+X-Gm-Features: AaiRm51jU8JCawik2JOJhbanCumMJDZueTE65G43u-xiLPITmwQ5JqXkbN8WiTA
+Message-ID: <CAPM=9tyoZ7v9_Ki2wzYGryWDzTfnbMy6YE-1XBmRxcRCA-FonQ@mail.gmail.com>
+Subject: [git pull] drm fixes for 7.0-rc4
+To: Linus Torvalds <torvalds@linux-foundation.org>,
+ Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel <dri-devel@lists.freedesktop.org>,
+ LKML <linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -140,103 +101,340 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Would you like me to pull these into drm-misc-next? I'd love
-the changes as base for me next patchset.
+Hi Linus,
 
-Harry
+The weekly drm fixes. This is mostly msm fixes across the functions,
+with amdgpu and i915. It also has a core rust fix and changes in
+nova-core to take advantage of it, and otherwise just has some minor
+driver fixes, and marks loongsoon as orphaned.
 
-On 2026-03-10 07:32, Chaitanya Kumar Borah wrote:
-> This series aims to keep colorop state consistent across atomic
-> transactions by ensuring it accurately reflects committed hardware
-> state and remains part of the atomic update whenever its associated
-> plane is involved.
-> 
-> It contains two changes:
-> - Preserves the bypass value in duplicated colorop state.
-> 
-> _drm_atomic_helper_colorop_duplicate_state() unconditionally reset
-> bypass to true, which means the duplicated state no longer reflects the
-> committed hardware state. Since bypass directly controls whether the
-> colorop is active in hardware, this can lead to an unintended disable
-> during subsequent commits.
-> 
-> This could potentially be a problem also for colorops where bypass value
-> is immutably false.
-> 
-> Conceptually, I consider 'bypass' to behave similar to 'visible' in plane 
-> state - it represents current HW state and should therefore be preserved
-> across duplication.
-> 
-> - Add affected colorops with affected plane
-> 
-> Colorops are unique in the DRM model. While they are DRM objects with their
-> own states, they are logically attached to a plane and exposed through
-> a plane property. In some sense, they share the same hierarchy as CRTC and
-> planes while following a different 'ownership' model.
-> 
-> Given that enabling a CRTC pulls in all its affected planes into the atomic
-> state, it follows that when a plane is added, its associated colorops are
-> also included. Otherwise, during modesets or internal commits, colorop state
-> may be missing from the transaction, resulting in inconsistent or incomplete
-> state updates.
-> 
-> That said, I do have a concern about potentially inflating the atomic
-> state by automatically pulling in colorops from the core. It is not
-> entirely clear to me whether inclusion of affected colorops should be
-> handled in core, or left to individual drivers.
-> 
-> My understanding of the atomic framework is still evolving, so
-> I would appreciate feedback from those more familiar with the intended
-> design direction.
-> 
-> ==
-> Chaitanya
-> 
-> P.S/Background/TL;DR:
-> 
-> I discovered inconsistency with the colorop state while analysing CRC mismatches
-> in kms_color_pipeline test cases[1]. Visual inspection reveals that while CRC is
-> being collected degamma block has been reset. This was traced back to the internal
-> commit that the driver does to disable PSR2 and selective fetch for CRC collection.
-> 
-> crtc_crc_open
->     -> intel_crtc_set_crc_source
->         -> intel_crtc_crc_setup_workarounds
->             -> drm_atomic_commit
-> 
-> During this flow colorop states are never added to the atomic state which in turn
-> makes intel_plane_color_copy_uapi_to_hw_state() disable the colorops.
-> 
-> If we add the colorops, to the atomic state, the problem still persisted because
-> while duplicating the colorop state, 'bypass' was getting reset to true.
-> 
-> The two changes made in this series fixes the issue.
-> 
-> [1] https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18001/shard-mtlp-6/igt@kms_color_pipeline@plane-lut1d.html
-> 
-> v2:
->   - Add affected colorops only when a pipeline is enabled
-> 
-> Cc: Simon Ser <contact@emersion.fr>
-> Cc: Alex Hung <alex.hung@amd.com>
-> Cc: Harry Wentland <harry.wentland@amd.com>
-> Cc: Daniel Stone <daniels@collabora.com>
-> Cc: Melissa Wen <mwen@igalia.com>
-> Cc: Sebastian Wick <sebastian.wick@redhat.com>
-> Cc: Alex Hung <alex.hung@amd.com>
-> Cc: Uma Shankar <uma.shankar@intel.com>
-> Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
-> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-> Cc: Jani Nikula <jani.nikula@intel.com>
-> Cc: Louis Chauvet <louis.chauvet@bootlin.com>
-> Cc: <stable@vger.kernel.org> #v6.19+
-> 
-> Chaitanya Kumar Borah (2):
->   drm/colorop: Preserve bypass value in duplicate_state()
->   drm/atomic: Add affected colorops with affected planes
-> 
->  drivers/gpu/drm/drm_atomic.c  | 7 +++++++
->  drivers/gpu/drm/drm_colorop.c | 2 --
->  2 files changed, 7 insertions(+), 2 deletions(-)
-> 
+Let me know if there are any issues,
 
+Regards,
+Dave.
+
+drm-fixes-2026-03-14:
+drm-fixes for 7.0-rc4
+
+rust:
+- Fix safety issue in dma_read! and dma_write!.
+
+nova-core:
+- Fix UB in DmaGspMem pointer accessors.
+- Fix stack overflow in GSP memory allocation.
+
+loongsoon:
+- mark drm driver as unmaintained
+
+msm:
+- Core:
+  - Adjusted msm_iommu_pagetable_prealloc_allocate() allocation type
+- DPU:
+  - Fixed blue screens on Hamoa laptops by reverting the LM reservation
+  - Fixed the size of the LM block on several platforms
+  - Dropped usage of %pK (again)
+  - Fixed smatch warning on SSPP v13+ code
+  - Fixed INTF_6 interrupts on Lemans
+- DSI:
+  - Fixed DSI PHY revision on Kaanapali
+  - Fixed pixel clock calculation for the bonded DSI mode panels with
+    compression enabled
+- DT bindings:
+  - Fixed DisplayPort description on Glymur
+  - Fixed model name in SM8750 MDSS schema
+- GPU:
+  - Added MODULE_DEVICE_TABLE to the GPU driver
+  - Fix bogus protect error on X2-85
+  - Fix dma_free_attrs() buffer size
+  - Gen8 UBWC fix for Glymur
+
+i915:
+- Avoid hang when configuring VRR [icl]
+- Fix sg_table overflow with >4GB folios
+- Fix PSR Selective Update handling
+- Fix eDP ALPM read-out sequence
+
+amdgpu:
+- SMU13 fix
+- SMU14 fix
+- Fixes for bringup hw testing
+- Kerneldoc fix
+- GC12 idle power fix for compute workloads
+- DCCG fixes
+
+amdkfd:
+- Fix missing BO unreserve in an error path
+
+ivpu:
+- drop unnecessary bootparams register setting
+
+amdxdna:
+- fix runtime/suspend resume deadlock
+
+bridge:
+- ti-sn65dsi83: fix DSI rounding and dual LVDS
+
+gud:
+- fix NULL crtc dereference on display disable
+The following changes since commit 1f318b96cc84d7c2ab792fcc0bfd42a7ca890681=
+:
+
+  Linux 7.0-rc3 (2026-03-08 16:56:54 -0700)
+
+are available in the Git repository at:
+
+  https://gitlab.freedesktop.org/drm/kernel.git tags/drm-fixes-2026-03-14
+
+for you to fetch changes up to b28913e897edfeedc4e33b03b28068b27d002e6c:
+
+  Merge tag 'drm-rust-fixes-2026-03-12' of
+https://gitlab.freedesktop.org/drm/rust/kernel into drm-fixes
+(2026-03-13 10:40:17 +1000)
+
+----------------------------------------------------------------
+drm-fixes for 7.0-rc4
+
+rust:
+- Fix safety issue in dma_read! and dma_write!.
+
+nova-core:
+- Fix UB in DmaGspMem pointer accessors.
+- Fix stack overflow in GSP memory allocation.
+
+loongsoon:
+- mark drm driver as unmaintained
+
+msm:
+- Core:
+  - Adjusted msm_iommu_pagetable_prealloc_allocate() allocation type
+- DPU:
+  - Fixed blue screens on Hamoa laptops by reverting the LM reservation
+  - Fixed the size of the LM block on several platforms
+  - Dropped usage of %pK (again)
+  - Fixed smatch warning on SSPP v13+ code
+  - Fixed INTF_6 interrupts on Lemans
+- DSI:
+  - Fixed DSI PHY revision on Kaanapali
+  - Fixed pixel clock calculation for the bonded DSI mode panels with
+    compression enabled
+- DT bindings:
+  - Fixed DisplayPort description on Glymur
+  - Fixed model name in SM8750 MDSS schema
+- GPU:
+  - Added MODULE_DEVICE_TABLE to the GPU driver
+  - Fix bogus protect error on X2-85
+  - Fix dma_free_attrs() buffer size
+  - Gen8 UBWC fix for Glymur
+
+i915:
+- Avoid hang when configuring VRR [icl]
+- Fix sg_table overflow with >4GB folios
+- Fix PSR Selective Update handling
+- Fix eDP ALPM read-out sequence
+
+amdgpu:
+- SMU13 fix
+- SMU14 fix
+- Fixes for bringup hw testing
+- Kerneldoc fix
+- GC12 idle power fix for compute workloads
+- DCCG fixes
+
+amdkfd:
+- Fix missing BO unreserve in an error path
+
+ivpu:
+- drop unnecessary bootparams register setting
+
+amdxdna:
+- fix runtime/suspend resume deadlock
+
+bridge:
+- ti-sn65dsi83: fix DSI rounding and dual LVDS
+
+gud:
+- fix NULL crtc dereference on display disable
+
+----------------------------------------------------------------
+Abel Vesa (1):
+      dt-bindings: display: msm: Fix reg ranges and clocks on Glymur
+
+Abhinav Kumar (1):
+      drm/msm/dpu: Correct the SA8775P intr_underrun/intr_underrun index
+
+Akhil P Oommen (3):
+      drm/msm/adreno: Add GPU to MODULE_DEVICE_TABLE
+      drm/msm/a6xx: Fix the bogus protect error on X2-85
+      drm/msm/a8xx: Fix ubwc config related to swizzling
+
+Andrzej Kacprowski (1):
+      accel/ivpu: Remove boot params address setting via MMIO register
+
+Arun R Murthy (1):
+      drm/i915/dp: Read ALPM caps after DPCD init
+
+Cristian Ciocaltea (1):
+      drm/amdgpu: Fix kernel-doc comments for some LUT properties
+
+Danilo Krummrich (1):
+      gpu: nova-core: gsp: fix UB in DmaGspMem pointer accessors
+
+Dave Airlie (5):
+      Merge tag 'drm-msm-fixes-2026-03-06' of
+https://gitlab.freedesktop.org/drm/msm into drm-fixes
+      Merge tag 'drm-misc-fixes-2026-03-12' of
+https://gitlab.freedesktop.org/drm/misc/kernel into drm-fixes
+      Merge tag 'drm-intel-fixes-2026-03-12' of
+https://gitlab.freedesktop.org/drm/i915/kernel into drm-fixes
+      Merge tag 'amd-drm-fixes-7.0-2026-03-12' of
+https://gitlab.freedesktop.org/agd5f/linux into drm-fixes
+      Merge tag 'drm-rust-fixes-2026-03-12' of
+https://gitlab.freedesktop.org/drm/rust/kernel into drm-fixes
+
+David Lechner (1):
+      drm/sitronix/st7586: fix bad pixel data due to byte swap
+
+Dmitry Baryshkov (1):
+      Revert "drm/msm/dpu: try reserving the DSPP-less LM first"
+
+Gary Guo (3):
+      rust: ptr: add `KnownSize` trait to support DST size info extraction
+      rust: ptr: add projection infrastructure
+      rust: dma: use pointer projection infra for `dma_{read,write}` macro
+
+Ivan Lipski (2):
+      drm/amd/display: Add missing DCCG register entries for DCN20-DCN316
+      drm/amd/display: Check for S0i3 to be done before DCCG init on DCN21
+
+Janusz Krzysztofik (1):
+      drm/i915: Fix potential overflow of shmem scatterlist length
+
+Jouni H=C3=B6gander (4):
+      drm/i915/psr: Repeat Selective Update area alignment
+      drm/i915/dsc: Add Selective Update register definitions
+      drm/i915/dsc: Add helper for writing DSC Selective Update ET paramete=
+rs
+      drm/i915/psr: Write DSC parameters on Selective Update in ET mode
+
+Kees Cook (1):
+      drm/msm: Adjust msm_iommu_pagetable_prealloc_allocate() allocation ty=
+pe
+
+Konrad Dybcio (1):
+      drm/msm/dpu: Fix LM size on a number of platforms
+
+Krzysztof Kozlowski (1):
+      dt-bindings: display/msm: qcom,sm8750-mdss: Fix model typo
+
+Lizhi Hou (1):
+      accel/amdxdna: Fix runtime suspend deadlock when there is pending job
+
+Luca Ceresoli (2):
+      drm/bridge: ti-sn65dsi83: fix CHA_DSI_CLK_RANGE rounding
+      drm/bridge: ti-sn65dsi83: halve horizontal syncs for dual LVDS output
+
+Mario Limonciello (3):
+      drm/amd: Fix NULL pointer dereference in device cleanup
+      drm/amd: Fix a few more NULL pointer dereference in device cleanup
+      drm/amd: Set num IP blocks to 0 if discovery fails
+
+Pengyu Luo (3):
+      drm/msm/dsi: fix hdisplay calculation when programming dsi registers
+      drm/msm/dsi/phy: fix hardware revision
+      drm/msm/dsi: fix pclk rate calculation for bonded dsi
+
+Philip Yang (1):
+      drm/amdkfd: Unreserve bo if queue update failed
+
+Shenghao Yang (1):
+      drm/gud: fix NULL crtc dereference on display disable
+
+Thomas Fourier (1):
+      drm/msm: Fix dma_free_attrs() buffer size
+
+Thomas Wei=C3=9Fschuh (1):
+      drm/msm/dpu: Don't use %pK through printk (again)
+
+Thomas Zimmermann (1):
+      drm/loongson: Mark driver as orphaned
+
+Tim Kovalenko (1):
+      gpu: nova-core: fix stack overflow in GSP memory allocation
+
+Ville Syrj=C3=A4l=C3=A4 (1):
+      drm/i915/vrr: Configure VRR timings after enabling TRANS_DDI_FUNC_CTL
+
+Yang Wang (3):
+      drm/amd/pm: add missing od setting PP_OD_FEATURE_ZERO_FAN_BIT for smu=
+ v13
+      drm/amd/pm: add missing od setting PP_OD_FEATURE_ZERO_FAN_BIT for smu=
+ v14
+      drm/amdgpu: fix gpu idle power consumption issue for gfx v12
+
+sunliming (1):
+      drm/msm/dpu: Fix smatch warnings about variable dereferenced before c=
+heck
+
+ .../bindings/display/msm/dp-controller.yaml        |  21 +-
+ .../bindings/display/msm/qcom,glymur-mdss.yaml     |  16 +-
+ .../bindings/display/msm/qcom,sm8750-mdss.yaml     |   2 +-
+ MAINTAINERS                                        |   3 +-
+ drivers/accel/amdxdna/aie2_ctx.c                   |  14 +-
+ drivers/accel/amdxdna/amdxdna_ctx.c                |  10 +
+ drivers/accel/ivpu/ivpu_hw_40xx_reg.h              |   6 -
+ drivers/accel/ivpu/ivpu_hw_ip.c                    |   1 -
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c         |  14 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c            |   2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h           |  16 +-
+ drivers/gpu/drm/amd/amdgpu/mes_v12_0.c             |   5 +-
+ .../gpu/drm/amd/amdkfd/kfd_process_queue_manager.c |   1 +
+ .../gpu/drm/amd/display/dc/dccg/dcn20/dcn20_dccg.h |   6 +-
+ .../gpu/drm/amd/display/dc/dccg/dcn21/dcn21_dccg.c |  21 +-
+ .../drm/amd/display/dc/dccg/dcn301/dcn301_dccg.h   |   8 +-
+ .../gpu/drm/amd/display/dc/dccg/dcn31/dcn31_dccg.h |   5 +-
+ .../drm/amd/display/dc/dccg/dcn314/dcn314_dccg.h   |   5 +-
+ .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c   |   3 +-
+ .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c   |   3 +-
+ .../gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c   |   3 +-
+ drivers/gpu/drm/bridge/ti-sn65dsi83.c              |  13 +-
+ drivers/gpu/drm/gud/gud_drv.c                      |   9 +-
+ drivers/gpu/drm/gud/gud_internal.h                 |   4 +
+ drivers/gpu/drm/gud/gud_pipe.c                     |  54 ++--
+ drivers/gpu/drm/i915/display/intel_alpm.c          |   6 -
+ drivers/gpu/drm/i915/display/intel_display.c       |   1 -
+ drivers/gpu/drm/i915/display/intel_dp.c            |   7 +
+ drivers/gpu/drm/i915/display/intel_psr.c           |  60 +++-
+ drivers/gpu/drm/i915/display/intel_vdsc.c          |  23 ++
+ drivers/gpu/drm/i915/display/intel_vdsc.h          |   3 +
+ drivers/gpu/drm/i915/display/intel_vdsc_regs.h     |  12 +
+ drivers/gpu/drm/i915/display/intel_vrr.c           |  14 +
+ drivers/gpu/drm/i915/gem/i915_gem_shmem.c          |  12 +-
+ drivers/gpu/drm/msm/adreno/a2xx_gpummu.c           |   2 +-
+ drivers/gpu/drm/msm/adreno/a6xx_catalog.c          |   3 +-
+ drivers/gpu/drm/msm/adreno/a8xx_gpu.c              |  14 +-
+ drivers/gpu/drm/msm/adreno/adreno_device.c         |   1 +
+ .../drm/msm/disp/dpu1/catalog/dpu_8_0_sc8280xp.h   |  12 +-
+ .../gpu/drm/msm/disp/dpu1/catalog/dpu_8_1_sm8450.h |  12 +-
+ .../drm/msm/disp/dpu1/catalog/dpu_8_4_sa8775p.h    |   4 +-
+ .../gpu/drm/msm/disp/dpu1/catalog/dpu_9_0_sm8550.h |  12 +-
+ .../drm/msm/disp/dpu1/catalog/dpu_9_1_sar2130p.h   |  12 +-
+ .../drm/msm/disp/dpu1/catalog/dpu_9_2_x1e80100.h   |  12 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dspp.c        |   2 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp_v13.c    |   4 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c             |  52 +---
+ drivers/gpu/drm/msm/dsi/dsi_host.c                 |  43 ++-
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c          |  22 +-
+ drivers/gpu/drm/sitronix/st7586.c                  |  15 +-
+ drivers/gpu/nova-core/gsp.rs                       |  46 ++--
+ drivers/gpu/nova-core/gsp/boot.rs                  |   2 +-
+ drivers/gpu/nova-core/gsp/cmdq.rs                  |  93 +++----
+ drivers/gpu/nova-core/gsp/fw.rs                    | 101 ++++---
+ rust/kernel/dma.rs                                 | 114 ++++----
+ rust/kernel/lib.rs                                 |   4 +
+ rust/kernel/ptr.rs                                 |  30 +-
+ rust/kernel/ptr/projection.rs                      | 305 +++++++++++++++++=
+++++
+ samples/rust/rust_dma.rs                           |  30 +-
+ scripts/Makefile.build                             |   4 +-
+ 60 files changed, 935 insertions(+), 399 deletions(-)
+ create mode 100644 rust/kernel/ptr/projection.rs
