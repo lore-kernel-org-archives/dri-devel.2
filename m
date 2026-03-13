@@ -4,142 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E322D105F78C
-	for <dri-devel@archiver.kernel.org>; Fri, 13 Mar 2026 12:33:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6C366105F7A4
+	for <dri-devel@archiver.kernel.org>; Fri, 13 Mar 2026 12:34:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 45DB410EBE2;
-	Fri, 13 Mar 2026 12:33:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C2F6810E11E;
+	Fri, 13 Mar 2026 12:34:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="N2LE2tGs";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="V0hKAvdo";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="IIkGL3fn";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4685910EBE5
- for <dri-devel@lists.freedesktop.org>; Fri, 13 Mar 2026 12:33:25 +0000 (UTC)
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 62DAsF3k525821
- for <dri-devel@lists.freedesktop.org>; Fri, 13 Mar 2026 12:33:24 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- BDSd6M3ADucBUh7vaHNmBoAw2ElUft2U7rcIQs+bGmg=; b=N2LE2tGsId8fohuo
- cpgbtYagjGt1ueDsCHwFSzVhhDSG5ASaiHRm3AE3TXTbc4zyfJbGQlCGglenjJx+
- FFaZm518+/X6bIJ/+9R4Jur6nHWQFlF1su6J/r6zBrZnOm14W9JfgZeswk/90WjL
- XVsbLjl9fcqXCt4gDz1rYXb4O2EFt/AmS7ij365mmSoub+HLVW/GmIzLzCvyVd+n
- d+fFcAwG+EphWz3jrzcbcKH9k+ZR5Krge8GyedeixSzCRtFIpYXtLkdmX0ZOOF3/
- TmFfJqd/KmZ0Kc7JoAZztv0w+nX1dIDiVfUCY6pCfCpd3uMqzPKqnqho6lKfdI8L
- +q8uSg==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
- [209.85.222.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4cvh84r8u4-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Fri, 13 Mar 2026 12:33:24 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id
- af79cd13be357-8cd90210336so93513085a.3
- for <dri-devel@lists.freedesktop.org>; Fri, 13 Mar 2026 05:33:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1773405204; x=1774010004;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=BDSd6M3ADucBUh7vaHNmBoAw2ElUft2U7rcIQs+bGmg=;
- b=V0hKAvdoGaiNFL38TheNOCHpNEICxSPpl3Py7RibMz0C6xBMjEJpS9FvQ056uQNSe9
- DACBEDJQGTalFfDyJf7v/VkkeIgXDDfk8tFrQjv5eTfB+M34S+cmIwvJzh5UqKIpZ5TT
- N0fh5CW+pP3hy1csv5ZaOeNyqvXLkWxsYdvShY2IAs8AXN/VgHGHToF4fzj76tnEf+fh
- 4dkVBS5lAwgwI3H4WYC4yixXxp6Mof11orqoCLSfyxVtV1XKxdCtNjkKWnuU7lMODy1C
- /kyo2sMLcqNnoqP+fzmWM+56OGFpBKRm45MB5DeFPYv83V6uVXIfc1zSoNYELoMcnzcV
- xbdA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1773405204; x=1774010004;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=BDSd6M3ADucBUh7vaHNmBoAw2ElUft2U7rcIQs+bGmg=;
- b=OkjCVvgPgiU4cjAOujRpgPad865WhR2ASM7j4ZyMfkSvwQElmelc+YJTmJBWPKjylD
- oy7tPXPymcNMFm7/UJ6JXOsI556encB+X107szAPsQsRRW4cSFxtF1q+J4futqig8iwW
- 3alihluTwHP5xtNq3Ezh0tNDwlYDaiEO2AqXcAKK8d9Ym0341QByZG3SsmiFkjFyPDyY
- 3YL+/g2aI344nQdcgQzgJ+VNndsi4LoiiywGJi4rOFLvO1mGfJR0p46qYM6+G6LXP3Bb
- 8maDrKL7suTLgcLukEnHDkeGHL6Q+MfsGDYX4G8xm6Y+v4F4MnGTeCMRzZiBJCng7dNT
- TN9g==
-X-Forwarded-Encrypted: i=1;
- AJvYcCW+3MMVUv5vOsiS1I8HTfKHSmdyfW9yJxlr1ewUwPpSrKzZH6XnVrqOkA0+DvanR6mRy+QFHtefo0I=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yw1GNEp6H8Jop79XxzP1wkm1GMLdulHbDPXrUVv6i/oFSB+SNuK
- ccxtO10M7jDdCJXbfd9qPEx9ubRlTIu9xeyniuZuc/NX0KHm7rYF3EksVlZn7wJqGLOL/7Dtubg
- xltJi2fOsVKUwoMLCpdl8BScgmsXb3eD0r/6sVO3kMyL6jBwlYPHHllJHBmh2DBBHd+3JgrI=
-X-Gm-Gg: ATEYQzx3IfbgPhC4ht4kUncHPAYe5Z70y/TNTx/8VMv3lmLlRYdOEcLItTQZQkX8UqW
- kHlKGfWsq+W1v54klwvxOWczf638tcVxFU1tUXKFNgeH+wXj/7xPwuh+LoGz8TCU+FXibeUwJXB
- zXxTJFoCw0jWTagc0kLxjdT6OD7y+oMKPrYupIr/c/vtB7rmm8ec5HmkaYJr7Fjkli/lriPybyj
- N3OG5ybWNmuwAVckHBX+iG2kc0YzvJbuzdNvik61qCxhZY4IPKqFfBSur38nB+h/82tXEdC7T/v
- yPkzTreKKGIxzT5oIl2I/WI5oGAAnP8wQrHVGAJPYeL8cG/V3z/aOgNC7CiRrgbSrZAHDwvSfrx
- GaGoZQ/zV9siZiTy0Kw5Fc/Gcqvd+ssAn1OiUC5KHxANxShc8vEaXHJVB2P0Iwy0nlHGnl/mhm1
- 9+NJI=
-X-Received: by 2002:a05:620a:44d3:b0:7e6:9e2b:6140 with SMTP id
- af79cd13be357-8cdb5bb356dmr351084785a.8.1773405203713; 
- Fri, 13 Mar 2026 05:33:23 -0700 (PDT)
-X-Received: by 2002:a05:620a:44d3:b0:7e6:9e2b:6140 with SMTP id
- af79cd13be357-8cdb5bb356dmr351079285a.8.1773405203234; 
- Fri, 13 Mar 2026 05:33:23 -0700 (PDT)
-Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl.
- [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b976d0b7722sm41877066b.66.2026.03.13.05.33.20
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 13 Mar 2026 05:33:22 -0700 (PDT)
-Message-ID: <4d5d0fe1-9aea-4ace-a369-275cbb728afa@oss.qualcomm.com>
-Date: Fri, 13 Mar 2026 13:33:19 +0100
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B4E3610E11E;
+ Fri, 13 Mar 2026 12:34:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1773405272; x=1804941272;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=3GcBQEEt8aOJAmyiXiT93a/YWK2uh0iuk0X0BSZHDS8=;
+ b=IIkGL3fnR5IhNHykay0awid8QSv2U+mpnA0fIXP7aQVhzLzSqlj+sHRE
+ zsrBqU78nnUl3ErDEbIHD1Ot6zXfX0Ouks2Cm35WiK5QZ/eXOowMtHHRw
+ dMXv5xlxyr9fOyUF9vJTSo5caMpsXiqzfhaojZLqfgcw5ORe6ZjW3ONCZ
+ E+1Mn9PnOw76ZSxNuoQAgLlsUQOkhbfMDz1C3T85vuyKDGduTHhOZa29v
+ KHBNVhVmRozG5A1R0Sub19K3KLzkAsRfZQh3G9FpQia02xrOyyiJ1qXej
+ YSNRd69SqGKMFzWNYjjdAtCPTIF2Y9LEJsjYvmE9KKiMa3mjZQ3Jbd3Nv Q==;
+X-CSE-ConnectionGUID: 4+mwLJbqT/WTKgzYKBwxNQ==
+X-CSE-MsgGUID: s1u22pjOTzOoxjnG1tfMsg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11727"; a="74391374"
+X-IronPort-AV: E=Sophos;i="6.23,118,1770624000"; d="scan'208";a="74391374"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+ by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Mar 2026 05:34:32 -0700
+X-CSE-ConnectionGUID: rx6dW0HCRu+dLQchD7V1RQ==
+X-CSE-MsgGUID: UpXZZD/nQbOJ8wn1urs3QQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,118,1770624000"; d="scan'208";a="259044922"
+Received: from smoticic-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.245.244.21])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Mar 2026 05:34:29 -0700
+Date: Fri, 13 Mar 2026 14:34:26 +0200
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, jouni.hogander@intel.com,
+ animesh.manna@intel.com
+Subject: Re: [PATCH 12/19] drm/i915/psr: Write the PR config DPCDs in burst
+ mode
+Message-ID: <abQEUmV5SZVWCAX7@intel.com>
+References: <20260311113611.3393194-1-ankit.k.nautiyal@intel.com>
+ <20260311113611.3393194-13-ankit.k.nautiyal@intel.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 3/3] arm64: dts: qcom: sm6125-xiaomi-laurel-sprout:
- Enable MDSS and add panel
-To: Yedaya Katsman <yedaya.ka@gmail.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, =?UTF-8?Q?Kamil_Go=C5=82da?=
- <kamil.golda@protonmail.com>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>
-Cc: ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org
-References: <20260312-panel-patches-v3-0-6ed8c006d0be@gmail.com>
- <20260312-panel-patches-v3-3-6ed8c006d0be@gmail.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260312-panel-patches-v3-3-6ed8c006d0be@gmail.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-Authority-Analysis: v=2.4 cv=OMoqHCaB c=1 sm=1 tr=0 ts=69b40414 cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
- a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=sfOm8-O8AAAA:8 a=pGLkceISAAAA:8 a=EUspDBNiAAAA:8 a=bqK5-dEd6McJkE9xslgA:9
- a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10 a=NFOGd7dJGGMPyQGDc5-O:22
- a=TvTJqdcANYtsRzA46cdi:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzEzMDA5OSBTYWx0ZWRfX/83dwSfoISER
- 5Mmwc+NuuVlJq41PW18LpGBsV/rYEl9MYkkF4kTP2/1oomUsbSQN+oBw8qRz6+i2Tbq7hUK+dku
- RTpFgrnkxo9DuVEt+qYbSQ3Ad4SVloL5IYsc147mHAutS+vi7qO7lm/qX+QfgiN+IbeavLskYoa
- KEAnMGeaCE2GCS9FsG9WWR+Yyoz8w6cWyQA2yg982Z1MsvyCv+ad40y4wgVpewrnyksZuQ3SxY9
- 7uNchNbwH09tyR8AQmETEPQ5GqIMEU+DRMMWapJPh18n8mMws86O5MfIHYj+FOGnVGfrDOdaJj7
- 6K+hEZtkJP3l7koIwQ9hjssQCDwdKHNslwvsmbzz29nGXQ7JlxS+PBD0oc2jgI9NhcroOzCysLf
- M8WO0YykUEFSW0b5W0+B+CpOiaarfZGXuQZHcZeaoDxdnLZrVmqzSdypj/WiWri9DnCBOOJ7S+U
- DgXwgHx3WAHtb86QMVA==
-X-Proofpoint-ORIG-GUID: 3ywE9FWi5rJKKH9L5viSXssFaeEE1vSu
-X-Proofpoint-GUID: 3ywE9FWi5rJKKH9L5viSXssFaeEE1vSu
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-03-13_02,2026-03-13_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 priorityscore=1501 impostorscore=0 suspectscore=0 phishscore=0
- bulkscore=0 adultscore=0 spamscore=0 lowpriorityscore=0 clxscore=1015
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603130099
+In-Reply-To: <20260311113611.3393194-13-ankit.k.nautiyal@intel.com>
+X-Patchwork-Hint: comment
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -155,18 +76,72 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 3/12/26 12:55 PM, Yedaya Katsman wrote:
-> Enable the MDSS nodes and add supplies and bindings for the Samsung S6E8FCO
-> DSI controller for the M1906F9 panel.
+On Wed, Mar 11, 2026 at 05:06:04PM +0530, Ankit Nautiyal wrote:
+> Replace the consecutive single-byte writes to PANEL_REPLAY_CONFIG and
+> CONFIG2 with one drm_dp_dpcd_write() burst starting at PANEL_REPLAY_CONFIG,
+> reducing AUX transactions.
 > 
-> The ldo and iovcc gpio pins boot up with a current of 16 mA, but they work
-> fine with 2mA, so I used that.
-> 
-> Co-developed-by: Kamil Go≈Çda <kamil.golda@protonmail.com>
-> Signed-off-by: Kamil Go≈Çda <kamil.golda@protonmail.com>
-> Signed-off-by: Yedaya Katsman <yedaya.ka@gmail.com>
+> Suggested-by: Ville Syrj‰l‰ <ville.syrjala@linux.intel.com>
+> Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 > ---
+>  drivers/gpu/drm/i915/display/intel_psr.c | 18 ++++++++++++------
+>  1 file changed, 12 insertions(+), 6 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
+> index 5041a5a138d1..ee6e26abd05e 100644
+> --- a/drivers/gpu/drm/i915/display/intel_psr.c
+> +++ b/drivers/gpu/drm/i915/display/intel_psr.c
+> @@ -774,27 +774,33 @@ static bool psr2_su_region_et_valid(struct intel_connector *connector, bool pane
+>  static void _panel_replay_enable_sink(struct intel_dp *intel_dp,
+>  				      const struct intel_crtc_state *crtc_state)
+>  {
+> -	u8 val = DP_PANEL_REPLAY_ENABLE |
+> +	struct intel_display *display = to_intel_display(intel_dp);
+> +	u8 panel_replay_config = DP_PANEL_REPLAY_ENABLE |
+>  		DP_PANEL_REPLAY_VSC_SDP_CRC_EN |
+>  		DP_PANEL_REPLAY_UNRECOVERABLE_ERROR_EN |
+>  		DP_PANEL_REPLAY_RFB_STORAGE_ERROR_EN |
+>  		DP_PANEL_REPLAY_ACTIVE_FRAME_CRC_ERROR_EN;
+>  	u8 panel_replay_config2 = DP_PANEL_REPLAY_CRC_VERIFICATION;
+> +	u8 buf[2];
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+u8 panel_replay_config[2];
 
-Konrad
+would reduce the number of variables we have to contend with.
+
+> +	int ret;
+>  
+>  	if (crtc_state->has_sel_update)
+> -		val |= DP_PANEL_REPLAY_SU_ENABLE;
+> +		panel_replay_config |= DP_PANEL_REPLAY_SU_ENABLE;
+>  
+>  	if (crtc_state->enable_psr2_su_region_et)
+> -		val |= DP_PANEL_REPLAY_ENABLE_SU_REGION_ET;
+> +		panel_replay_config |= DP_PANEL_REPLAY_ENABLE_SU_REGION_ET;
+>  
+>  	if (crtc_state->req_psr2_sdp_prior_scanline)
+>  		panel_replay_config2 |=
+>  			DP_PANEL_REPLAY_SU_REGION_SCANLINE_CAPTURE;
+>  
+> -	drm_dp_dpcd_writeb(&intel_dp->aux, PANEL_REPLAY_CONFIG, val);
+> +	buf[0] = panel_replay_config;
+> +	buf[1] = panel_replay_config2;
+> +
+> +	ret = drm_dp_dpcd_write(&intel_dp->aux, PANEL_REPLAY_CONFIG, buf, sizeof(buf));
+>  
+> -	drm_dp_dpcd_writeb(&intel_dp->aux, PANEL_REPLAY_CONFIG2,
+> -			   panel_replay_config2);
+> +	if (ret < 0 || ret != sizeof(buf))
+
+The < 0 check is redunadnt.
+
+> +		drm_dbg_kms(display->drm, "Failed to write Panel Replay Configs\n");
+>  }
+>  
+>  static void _psr_enable_sink(struct intel_dp *intel_dp,
+> -- 
+> 2.45.2
+
+-- 
+Ville Syrj‰l‰
+Intel
