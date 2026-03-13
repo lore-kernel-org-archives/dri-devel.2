@@ -4,81 +4,82 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CA9E4105F7AD
-	for <dri-devel@archiver.kernel.org>; Fri, 13 Mar 2026 13:24:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EDF14105F7AD
+	for <dri-devel@archiver.kernel.org>; Fri, 13 Mar 2026 13:24:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9655110EC19;
-	Fri, 13 Mar 2026 13:24:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4149A10EC16;
+	Fri, 13 Mar 2026 13:24:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="RHqeQIaI";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="HCmzpJZm";
 	dkim-atps=neutral
-Received: from mail-oi1-f171.google.com (mail-oi1-f171.google.com
- [209.85.167.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EA66410EC13
- for <dri-devel@lists.freedesktop.org>; Fri, 13 Mar 2026 13:24:23 +0000 (UTC)
-Received: by mail-oi1-f171.google.com with SMTP id
- 5614622812f47-46704177508so1465806b6e.0
- for <dri-devel@lists.freedesktop.org>; Fri, 13 Mar 2026 06:24:23 -0700 (PDT)
+Received: from mail-oi1-f176.google.com (mail-oi1-f176.google.com
+ [209.85.167.176])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3F01510EC13
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Mar 2026 13:24:54 +0000 (UTC)
+Received: by mail-oi1-f176.google.com with SMTP id
+ 5614622812f47-46726528f1cso1547056b6e.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Mar 2026 06:24:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1773408263; x=1774013063; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1773408293; x=1774013093; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=irTrrnawNz+DXC6VSfC9mZGBC+I85t9C/e5XGxZ5eAQ=;
- b=RHqeQIaIWe1JqhhrXvX8ug6w/Q2CufFrX51kU/fBLeqBBLuoNvzOxaSgHBvxew6cB/
- K5IyIEGOvQ5TYToxsDutQ9L4kbWKfFFf2AklK2dC5vnk2JW9tY1DOda0rpYQ1+Fq6pvX
- 6uerzeDB3YQhrLt/8481YkSWN55ufMzep9BnAm2bK0AcSFVm5kgthW+grT6jSAaMux0J
- fxSY93WxXVuJEi8HbiFXrFmqO6W/ZZXewt2BcCkdzATnRRmioD2uvWfNipyY3ZaaSvvd
- KFCzY6+VO9MM2DE2AQVvINmcKRUTCgHOa1sauKKZ6MZG64kNiOfpbGdJiPyKOb4OoLLq
- ypSw==
+ bh=ves6/eFJLAs0HG68Znj+VH4wZtUdDvx4ZnDak47UPW8=;
+ b=HCmzpJZmxi9a7DnbKerMWSIhWQF7UXL8eGUb0SvcU8745rmGSlCC+CebuJCvRAqoE0
+ FGclb8dhe87X6biLkNTv9cM7kjRRuO3t6Yki9GIOdu+K5yWdNbSjFUloo5LjgUuaz43T
+ I8ps2fvs5GlWL9VKA7/9LdrrJjLKZo4Ixje+TC7PfDx43yHVcAiVwfyI0L/Ytjm/6ZZv
+ SrszsoFVXunk2Hoisx1ShBrMJVoIr7PG33/wgllyV9CTjhc9vwOIzExeHFsYKYaT82fL
+ /6Lq2PyMIs6hsTcyrUVJxK7+BDDLHAf1Zc1qGaDDrRY4nmpBfn24R4f18jcmnyii09D5
+ V8Pg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1773408263; x=1774013063;
+ d=1e100.net; s=20251104; t=1773408293; x=1774013093;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=irTrrnawNz+DXC6VSfC9mZGBC+I85t9C/e5XGxZ5eAQ=;
- b=f69RBFj904wUVQYXjvjh5+AKNtBKwmTmiPvkxZFMYvbh4/55ak7EwNAvsgzXXUy90h
- EyptFvTW2wHuOeGWqEaCzsolGCwOMGgDxLdta3oT2H20LF0tabhz2zZlxltbmOzLgNEc
- ZjYuIXCJ/QrPkYMfgX+Dmya2Mke7pk8/bYNAsblFJjR+XtIyO4mujOSaYzpKYtad0Aen
- 5U4PS8uKs+ZdnRq1A7pGDIA/TzrOxSboq3zb4mHaxrs4Qo3XT5thJ1WTQKq0S936+nKr
- r5XaBh1bE6ifdXD4jGG1lJWKztHCCjWh9vbJbOVxYhMUgyMkbh6XFCMGB2mW/rp9dyS0
- f3NQ==
+ bh=ves6/eFJLAs0HG68Znj+VH4wZtUdDvx4ZnDak47UPW8=;
+ b=Rrpjl+HzqQQp1KXRg2NKFJZ53BMnGrHM7UA6ZuOENcDqYXCaD5YWOdlb9GcaNtkIPJ
+ j8/cDZiv3vJ7hqmKtLSQSNV8eRCDp1wgR41YJQ7FmFhrkQqVn2JlLFY9YcNWo7ZfPA65
+ mjjN5iwVyEwMvseQ+wV2LE78virjRaUTcCYoqq1Oy/s2YoU+v294bRHcKrYb5GSTCjs1
+ RivshfweU+FkHc0aP7nY/s4hWRz4JJrPuaX5GYIZIu+Dfbtyae0QFpT+JzcIDVrWTJY7
+ TfoAf5aODnbbWZeqV59xJZuZZsb//SbUa6autC0U1yfiQREMBDW4F/A3ig3wqGka7a7d
+ dOJQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWprLYcIAOMGR/eqyh7eLSwCwq4GQ6M19j6jiknnXrGOfD/+c8UK6I6fS+eAv3+HPSu3PNKab2IwTQ=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Ywctj7/amNoDAh+pibunNKaR0pdi+9uU29W+zbExzhcxXFm4zmx
- MiY/L/jHCbiJHEL9Tuy4Svw6S3W+i/ta9tFk/3V1HwuDjvJ5dGsxszsM
-X-Gm-Gg: ATEYQzzgEolm56NfrPf9d4+iinHsuUCr8yA976+1fc7wRI8jPonbh6IM1n+diwUuxXu
- tdgxUoYMCen1I4OFL5EoyNiQOJjYRFYr4v7HDlT/nZFKbtdTyvECMGXLluknSxZhx5D8/qlvTjy
- 94N6NLr5EXOA1HThJpk8VLLWCSgBoZ7XFc730mWejIVGpQi/d+0l35Dzn0UB+K5bVgi6MPv6pbE
- fnxrm3k1k2z7tF9jBJ6kIqJh1y/EwBp4OvgjtixYDrqHdfTILMKDbilrjIr35wqrFa3hgktp7CT
- BfSFYGc08267okik+OgDmyZr/baWm4jUd3FvVVglD6bsQQWIMAcvsM1xX4k27Mh4uHHi6JIkteI
- Lb9R/2toOsuYAD0Opw5JSHamG1NPD/YCoF0wq3TGScbwQus8yom179AiYHdK6REIolaCJkGXD+J
- iXMCQQCgkNxoHfUbcDT6n6jXXXIa4ivIF4t+nl0zcAaOJO10Q3
-X-Received: by 2002:a05:6808:302c:b0:467:4a7:e3f6 with SMTP id
- 5614622812f47-467570efaf8mr1550885b6e.2.1773408262974; 
- Fri, 13 Mar 2026 06:24:22 -0700 (PDT)
+ AJvYcCVe8wcbloINfKq/ZpetfAzx3IE5IdCNTirCMjns6oa9WHmHgJLARxpQ/tWvrWH7YP3rcPb0FFQZUEI=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwAUTTTd3uskvKBydM6/iKlXixlj+JLcH3BKfoPhjCcLtfFTVMX
+ W7eKrEYXGyDu1rvkGHIDVLiFiHC7V7iSaa/LdmF+dTjL8Zwrh2aHeXuT
+X-Gm-Gg: ATEYQzxfhqUn528rIv7GTkF4CV+/Lp3NUqU1z/KXfPH6g/GXLZ8x1kAPPDyV0/CYvzN
+ LLmgv/+FmEvEOLaRnTqzUF705N9EHVy1R3oAVd786MF7YxR8bJqbMPZDM9mjMnyIB7Ig3HZ0Rz6
+ 8mYSzzKxODM6Qs4aYOur2hckjDt8JJ8Eq3iCstobNALRBQsKkYClsf96KOz/tWQcgG5gjWuHeJd
+ LZNYWQkeLyjZQQ7awXfFhzgFu3oHzt6dhe9gSptXrb9iVJqakQjenakn9vE6ibjCMqj1jn+2l0f
+ 0tTh3Oe0O42/uXjw3CDba5J0I6/kM59fZHqg+JG6ycYOlFJ25IewGNud70hbqllh4RqTur4Sk58
+ MlUv6BFU+t329oh4D1yK+YQxrhr0vV30z9P6KHC2fA3/khC2agMhpz8L9Op0CCDsbQv9un+Ad7x
+ wU8znutd7DvC11c3Aqk06uz90MUMwxpWCQXg/sTWnqb83khogc
+X-Received: by 2002:a05:6808:1b10:b0:467:254:b90 with SMTP id
+ 5614622812f47-4675704a335mr1612471b6e.10.1773408293451; 
+ Fri, 13 Mar 2026 06:24:53 -0700 (PDT)
 Received: from frodo (c-98-38-17-99.hsd1.co.comcast.net. [98.38.17.99])
  by smtp.googlemail.com with ESMTPSA id
- 5614622812f47-4673434a35csm4795987b6e.20.2026.03.13.06.24.21
+ 5614622812f47-4673434a35csm4795987b6e.20.2026.03.13.06.24.51
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 13 Mar 2026 06:24:22 -0700 (PDT)
+ Fri, 13 Mar 2026 06:24:53 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: airlied@gmail.com, simona@ffwll.ch, jbaron@akamai.com,
- gregkh@linuxfoundation.org, Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, Jim Cromie <jim.cromie@gmail.com>,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ gregkh@linuxfoundation.org, Dave Airlie <airlied@redhat.com>,
+ Gerd Hoffmann <kraxel@redhat.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, virtualization@lists.linux.dev,
+ spice-devel@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org
-Cc: mripard@kernel.org, tzimmermann@suse.de, maarten.lankhorst@linux.intel.com,
- jani.nikula@intel.com, ville.syrjala@linux.intel.com,
- christian.koenig@amd.com, matthew.auld@intel.com,
- arunpravin.paneerselvam@amd.com, louis.chauvet@bootlin.com,
- skhan@linuxfoundation.org, pmladek@suse.com, ukaszb@chromium.org,
+Cc: Jim Cromie <jim.cromie@gmail.com>, jani.nikula@intel.com,
+ ville.syrjala@linux.intel.com, christian.koenig@amd.com,
+ matthew.auld@intel.com, arunpravin.paneerselvam@amd.com,
+ louis.chauvet@bootlin.com, skhan@linuxfoundation.org, pmladek@suse.com,
+ ukaszb@chromium.org, intel-gfx@lists.freedesktop.org,
  amd-gfx@lists.freedesktop.org
-Subject: [PATCH v11 40/65] drm-dyndbg: DRM_CLASSMAP_USE in i915 driver
-Date: Fri, 13 Mar 2026 07:20:05 -0600
-Message-ID: <20260313132103.2529746-41-jim.cromie@gmail.com>
+Subject: [PATCH v11 56/65] drm-dyndbg: add DRM_CLASSMAP_USE to the qxl driver
+Date: Fri, 13 Mar 2026 07:20:21 -0600
+Message-ID: <20260313132103.2529746-57-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260313132103.2529746-1-jim.cromie@gmail.com>
 References: <20260313132103.2529746-1-jim.cromie@gmail.com>
@@ -99,44 +100,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Following the dyndbg-api-fix, replace DECLARE_DYNDBG_CLASSMAP with
-DRM_CLASSMAP_USE.  This refs the defined & exported classmap, rather
-than re-declaring it redundantly, and error-prone-ly.
-
-This resolves the appearance of "class:_UNKNOWN_" in the control file
-for the driver's drm_dbg()s.
-
-Fixes: f158936b60a7 ("drm: POC drm on dyndbg - use in core, 2 helpers, 3 drivers.")
+The qxl driver has a number of DRM_UT_* debugs, make them
+controllable when CONFIG_DRM_USE_DYNAMIC_DEBUG=y by telling dyndbg
+that the module uses them.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
-Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
 ---
- drivers/gpu/drm/i915/i915_params.c | 12 +-----------
- 1 file changed, 1 insertion(+), 11 deletions(-)
+ drivers/gpu/drm/qxl/qxl_drv.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/i915_params.c b/drivers/gpu/drm/i915/i915_params.c
-index 34ed82bb1b1a..40c5e0014686 100644
---- a/drivers/gpu/drm/i915/i915_params.c
-+++ b/drivers/gpu/drm/i915/i915_params.c
-@@ -29,17 +29,7 @@
- #include "i915_params.h"
- #include "i915_drv.h"
+diff --git a/drivers/gpu/drm/qxl/qxl_drv.c b/drivers/gpu/drm/qxl/qxl_drv.c
+index 2bbb1168a3ff..73998bb331d9 100644
+--- a/drivers/gpu/drm/qxl/qxl_drv.c
++++ b/drivers/gpu/drm/qxl/qxl_drv.c
+@@ -67,6 +67,8 @@ module_param_named(modeset, qxl_modeset, int, 0400);
+ MODULE_PARM_DESC(num_heads, "Number of virtual crtcs to expose (default 4)");
+ module_param_named(num_heads, qxl_num_crtc, int, 0400);
  
--DECLARE_DYNDBG_CLASSMAP(drm_debug_classes, DD_CLASS_TYPE_DISJOINT_BITS, 0,
--			"DRM_UT_CORE",
--			"DRM_UT_DRIVER",
--			"DRM_UT_KMS",
--			"DRM_UT_PRIME",
--			"DRM_UT_ATOMIC",
--			"DRM_UT_VBL",
--			"DRM_UT_STATE",
--			"DRM_UT_LEASE",
--			"DRM_UT_DP",
--			"DRM_UT_DRMRES");
 +DRM_CLASSMAP_USE(drm_debug_classes);
++
+ static struct drm_driver qxl_driver;
+ static struct pci_driver qxl_pci_driver;
  
- #define i915_param_named(name, T, perm, desc) \
- 	module_param_named(name, i915_modparams.name, T, perm); \
 -- 
 2.53.0
 
