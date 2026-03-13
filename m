@@ -4,81 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 46512106FD9F
-	for <dri-devel@archiver.kernel.org>; Fri, 13 Mar 2026 08:25:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 19F5F106FD9B
+	for <dri-devel@archiver.kernel.org>; Fri, 13 Mar 2026 08:25:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3979710EB23;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A38BA10EB25;
 	Fri, 13 Mar 2026 08:25:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=meta.com header.i=@meta.com header.b="sQe13Fme";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ab9S3arQ";
 	dkim-atps=neutral
-Received: from mx0a-00082601.pphosted.com (mx0b-00082601.pphosted.com
- [67.231.153.30])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E02BE10E1C6
- for <dri-devel@lists.freedesktop.org>; Thu, 12 Mar 2026 18:46:51 +0000 (UTC)
-Received: from pps.filterd (m0001303.ppops.net [127.0.0.1])
- by m0001303.ppops.net (8.18.1.11/8.18.1.11) with ESMTP id 62CHs6hG736960;
- Thu, 12 Mar 2026 11:46:40 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=meta.com; h=cc
- :content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=s2048-2025-q2;
- bh=ZrlwwZVUdcMNUJAX32tIRUCuImsZe5FshFy6zCbtrbE=; b=sQe13FmeJUaM
- Wt7xRE0a3ver+QCEpyBcUDV2Xsw3KljnCngbtDXhbLKBDmt1tZAHdRf+ae65fSGO
- EngT5lcQF1HVd5y11X4moY4ftfrdtPn8Et0ngQwNiZPVUJnaotF646yfYW3iYcly
- gkY0TmYia8qH8Cc43dmFWn2Sc01EF1IKbf6wotXlMbJXLnq6CJIbir/KJU6g/adI
- yWPJreIK/FML5rXRXTD1ej8Gv4Sc06XByslUjsTRMj9+MfYQ9rp4wTA+PrErZwIt
- H7uwzx1JPZj1oou2HG7Jjrrsx7w5ZxwmoaGzf7lF2YROFlpUvpzlwv7T3mKhGPLs
- hEUamEY+fg==
-Received: from maileast.thefacebook.com ([163.114.135.16])
- by m0001303.ppops.net (PPS) with ESMTPS id 4cv29xs1t8-4
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Thu, 12 Mar 2026 11:46:40 -0700 (PDT)
-Received: from localhost (2620:10d:c0a8:1c::1b) by mail.thefacebook.com
- (2620:10d:c0a9:6f::237c) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.35; Thu, 12 Mar
- 2026 18:46:37 +0000
-From: Matt Evans <mattev@meta.com>
-To: Alex Williamson <alex@shazbot.org>, Leon Romanovsky <leon@kernel.org>,
- Jason Gunthorpe <jgg@nvidia.com>, Alex Mastro <amastro@fb.com>,
- Mahmoud Adam <mngyadam@amazon.de>, David Matlack <dmatlack@google.com>
-CC: =?UTF-8?q?Bj=C3=B6rn=20T=C3=B6pel?= <bjorn@kernel.org>, Sumit Semwal
- <sumit.semwal@linaro.org>, =?UTF-8?q?Christian=20K=C3=B6nig?=
- <christian.koenig@amd.com>,
- Kevin Tian <kevin.tian@intel.com>, Ankit Agrawal <ankita@nvidia.com>,
- Pranjal Shrivastava <praan@google.com>, Alistair Popple
- <apopple@nvidia.com>, Vivek Kasireddy <vivek.kasireddy@intel.com>,
- <linux-kernel@vger.kernel.org>, <linux-media@vger.kernel.org>,
- <dri-devel@lists.freedesktop.org>, <linaro-mm-sig@lists.linaro.org>,
- <kvm@vger.kernel.org>
-Subject: [RFC v2 PATCH 04/10] vfio/pci: Add a helper to create a DMABUF for a
- BAR-map VMA
-Date: Thu, 12 Mar 2026 11:46:02 -0700
-Message-ID: <20260312184613.3710705-5-mattev@meta.com>
-X-Mailer: git-send-email 2.52.0
-In-Reply-To: <20260312184613.3710705-1-mattev@meta.com>
-References: <20260312184613.3710705-1-mattev@meta.com>
+Received: from mail-dl1-f43.google.com (mail-dl1-f43.google.com [74.125.82.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BCF9910E0B7
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Mar 2026 06:32:46 +0000 (UTC)
+Received: by mail-dl1-f43.google.com with SMTP id
+ a92af1059eb24-124a7216c9cso44156c88.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 12 Mar 2026 23:32:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1773383566; x=1773988366; darn=lists.freedesktop.org;
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=fl4H23Ge0Zsyj8n566Pf+v0tahs4AEuuruZIdW3bY9s=;
+ b=ab9S3arQFgx/5gHxJ15EuVNTbg4eHHkZ/TeB3xLxAtqc+obx+eoHqAy6qoNiaUsip6
+ 17nzeXEwPqpnW7mW5XXTXdeTNGmmT48iNDMQdVOaZ/rFIlT8ztex3zRiwczhpd//WHCu
+ YLO+usaVAPA19DwdWCeCYn85wnMramr5TRi2bvh0LebnBR5RZ94WFz4iW5FOdRTz60Ei
+ 3a31Zyt70lN/uNFPoDVOWnF8ExWCUntw21ZbpLDFCXVtllr/NWEtAIFktbCmmQoYNq6k
+ bZ6UNgVt85ZfEI/k5LSChQ3WmB0tAFFovtGcbTYCXGo84iFlfLlGH9IfztE1L9HnjDrQ
+ hi7A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1773383566; x=1773988366;
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=fl4H23Ge0Zsyj8n566Pf+v0tahs4AEuuruZIdW3bY9s=;
+ b=TT5iwPdfg9CurTU8CakyQvTNJ0iSknN8Hm74GOQvgOUmoAeuQNtBdJrsC/zv/qgX2c
+ A2XB7OPj9p7p/NwgMT8VuKjO/2N/qKAgAM06u2+knLj9wKmdpx5wRCXkk6PgQuCAQ6/j
+ KCFGp+tsLTUZOz33BnEIa/wRZtw1qzSYWYFxuJc31pZz8chxG6aw79zKDlLoyEiAAi6t
+ 1RK/fXuI+PvhaD+VABerYOSHEE4IU/f6qtzSpO1TiY5EMzMfarJVGlSssnhs38+c+w27
+ V+xLpLXnRVbZJymIIRitZmM9Jchq4/Lu94YHuo9p/Tu/FzN0iBQ1ovEP/lQcExG8zVlb
+ YN6Q==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCX4G4reLrppzQnWx+9dL086G80AqoMQZ+vIxTY0trZqEFGjCRUQvWa4mG42zB20jlpXYeXQ+5dpuek=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yz3qgJN3r0eOcTcZklH1i6CMYDmlizsMVWeoS4XwujtqbGvYqQ6
+ 3MUwlFkXdtPDCx9YSCx3LJyynGZI7hbUWVx4Ci6mOxwMAU8bi6L7zUj7
+X-Gm-Gg: ATEYQzwovRVeF+LPcByWscvotYEYFaeNZMkB5xeaNGhJo9t3N4XPx/1mczPNrobz75F
+ q7YXB6p5BEsUw0VmZKvXkpxexMPtYZnqWGlNHOGVwG0NtGmAfQ2T0ttezjQDoEIgQ6lX3T9TehJ
+ pkGimJZID/ZrxPxjij80/STot7GC6dbw0un7Y5aIzlfGKhxEDDUZvldTtA2qmwlcjAovje+r7M+
+ 1v8udir9RDoTSiwraaEYLYU09zHZffoHkP/uk14j0Wvx63B4Nsijmzg25WRmpD+ESe+WUjQp2Nm
+ gJjQqg0NQwVFS3iQa3iYPaiGw4dRZxND0Okw5E/nFY2bn6zta3xX2FE/9Pu5l8/B/dnEeKZfwva
+ 5qdaVZIWdok0Ne3ziFNq3VjkfBMwOrZHhvGJhB60QnB3NBqIyWb3jix4nzVZtHFkz8Ojk4ZK4Cy
+ 7iFVMQEFI1b5gXqMJRtWU4
+X-Received: by 2002:a05:7022:f8c:b0:128:d81e:adb7 with SMTP id
+ a92af1059eb24-128f3c6740emr553076c88.0.1773383565553; 
+ Thu, 12 Mar 2026 23:32:45 -0700 (PDT)
+Received: from hobbes ([2600:70ff:f864:0:caf6:9140:4157:1e66])
+ by smtp.gmail.com with ESMTPSA id
+ a92af1059eb24-128f62b2100sm1049160c88.8.2026.03.12.23.32.42
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 12 Mar 2026 23:32:44 -0700 (PDT)
+Date: Thu, 12 Mar 2026 20:32:40 -1000
+From: Joey Pabalinas <joeypabalinas@gmail.com>
+To: nouveau@lists.freedesktop.org
+Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Joey Pabalinas <joeypabalinas@gmail.com>
+Subject: [PATCH] drm/nouveau: fix misleading indentation
+Message-ID: <6c1d96782664e4f491f23e8c73545fe4d8b9533a.1773383224.git.joeypabalinas@gmail.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [2620:10d:c0a8:1c::1b]
-X-Proofpoint-ORIG-GUID: yWV221Ynv3RiRAhf8YGWx40uCR8JGEaY
-X-Proofpoint-GUID: yWV221Ynv3RiRAhf8YGWx40uCR8JGEaY
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzEyMDE1MSBTYWx0ZWRfX/K+cZwc/d5h4
- V6UbyYW1PpDsWHpDykBPG55BoC9bmrkIgEjod/kyYfCZwsghhpb7cNg2vHWh/ZDoykXawDCY3gg
- WNFQ8IabTZPwZMLaygob6CVGYjkVCBr0934NDsM4Vi9gT9Ue/210UIXPAUsOqCrJ3g1GHe9924S
- IYkrfslpsKmUb/X6On+VEYfGr8oM5p66v2bRmxtpxSEWtdAipF+2wjJHs+AyTRzKSF7/zt4nFCs
- XXqy4txRhV5cjLIARoSin8zcXja3aIPJtCxf0HecQy4b8yxTn4fV/ylb19KDsawTfSEpHdRaLr0
- ebSliXkTZozR1TSrESNexyVL0pfMF1q0H8fBa9AgyHq5bJ9SiG1S9KKQT2rg2Zjb6LtFktYguTm
- TFDK5eYH4/H5G2d6iXfBouFh7Ly75KmiUI6A+v5o1I3Wk2MPwfFRIhX+sG5W1Qu7HqZ7o60ae14
- PkOKk+c2+mLA1IpwvZg==
-X-Authority-Analysis: v=2.4 cv=G4YR0tk5 c=1 sm=1 tr=0 ts=69b30a10 cx=c_pps
- a=MfjaFnPeirRr97d5FC5oHw==:117 a=MfjaFnPeirRr97d5FC5oHw==:17
- a=Dv35txUGz5gI0hTa:21 a=Yq5XynenixoA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=7x6HtfJdh03M6CCDgxCd:22 a=_78whYxrdx1mplLwxq1U:22 a=VabnemYjAAAA:8
- a=tb9bu44HMbSD3pB8wWYA:9 a=gKebqoRLp9LExxC7YDUY:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-03-12_02,2026-03-12_01,2025-10-01_01
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature"; boundary="k7ogklrer7rk7odl"
+Content-Disposition: inline
 X-Mailman-Approved-At: Fri, 13 Mar 2026 08:25:02 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -95,223 +91,134 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This helper, vfio_pci_core_mmap_prep_dmabuf(), creates a single-range
-DMABUF for the purpose of mapping a PCI BAR.  This is used in a future
-commit by VFIO's ordinary mmap() path.
 
-This function transfers ownership of the VFIO device fd to the
-DMABUF, which fput()s when it's released.
+--k7ogklrer7rk7odl
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: [PATCH] drm/nouveau: fix misleading indentation
+MIME-Version: 1.0
 
-Refactor the existing vfio_pci_core_feature_dma_buf() to split out
-export code common to the two paths, VFIO_DEVICE_FEATURE_DMA_BUF and
-this new VFIO_BAR mmap().
+Fix misleading indentation in if/else statements.
 
-Signed-off-by: Matt Evans <mattev@meta.com>
+Signed-off-by: Joey Pabalinas <joeypabalinas@gmail.com>
 ---
- drivers/vfio/pci/vfio_pci_dmabuf.c | 131 +++++++++++++++++++++--------
- drivers/vfio/pci/vfio_pci_priv.h   |   4 +
- 2 files changed, 102 insertions(+), 33 deletions(-)
+ drivers/gpu/drm/nouveau/nouveau_abi16.c | 49 ++++++++++++-------------
+ 1 file changed, 24 insertions(+), 25 deletions(-)
 
-diff --git a/drivers/vfio/pci/vfio_pci_dmabuf.c b/drivers/vfio/pci/vfio_pci_dmabuf.c
-index 63140528dbea..76db340ba592 100644
---- a/drivers/vfio/pci/vfio_pci_dmabuf.c
-+++ b/drivers/vfio/pci/vfio_pci_dmabuf.c
-@@ -82,6 +82,8 @@ static void vfio_pci_dma_buf_release(struct dma_buf *dmabuf)
- 		up_write(&priv->vdev->memory_lock);
- 		vfio_device_put_registration(&priv->vdev->vdev);
- 	}
-+	if (priv->vfile)
-+		fput(priv->vfile);
- 	kfree(priv->phys_vec);
- 	kfree(priv);
- }
-@@ -182,6 +184,41 @@ int vfio_pci_dma_buf_find_pfn(struct vfio_pci_dma_buf *vpdmabuf,
- 	return -EFAULT;
- }
- 
-+static int vfio_pci_dmabuf_export(struct vfio_pci_core_device *vdev,
-+				  struct vfio_pci_dma_buf *priv, uint32_t flags,
-+				  size_t size, bool status_ok)
-+{
-+	DEFINE_DMA_BUF_EXPORT_INFO(exp_info);
-+
-+	if (!vfio_device_try_get_registration(&vdev->vdev))
-+		return -ENODEV;
-+
-+	exp_info.ops = &vfio_pci_dmabuf_ops;
-+	exp_info.size = size;
-+	exp_info.flags = flags;
-+	exp_info.priv = priv;
-+
-+	priv->dmabuf = dma_buf_export(&exp_info);
-+	if (IS_ERR(priv->dmabuf)) {
-+		vfio_device_put_registration(&vdev->vdev);
-+		return PTR_ERR(priv->dmabuf);
-+	}
-+
-+	kref_init(&priv->kref);
-+	init_completion(&priv->comp);
-+
-+	/* dma_buf_put() now frees priv */
-+	INIT_LIST_HEAD(&priv->dmabufs_elm);
-+	down_write(&vdev->memory_lock);
-+	dma_resv_lock(priv->dmabuf->resv, NULL);
-+	priv->revoked = !status_ok;
-+	list_add_tail(&priv->dmabufs_elm, &vdev->dmabufs);
-+	dma_resv_unlock(priv->dmabuf->resv);
-+	up_write(&vdev->memory_lock);
-+
-+	return 0;
-+}
-+
- /*
-  * This is a temporary "private interconnect" between VFIO DMABUF and iommufd.
-  * It allows the two co-operating drivers to exchange the physical address of
-@@ -300,7 +337,6 @@ int vfio_pci_core_feature_dma_buf(struct vfio_pci_core_device *vdev, u32 flags,
- {
- 	struct vfio_device_feature_dma_buf get_dma_buf = {};
- 	struct vfio_region_dma_range *dma_ranges;
--	DEFINE_DMA_BUF_EXPORT_INFO(exp_info);
- 	struct vfio_pci_dma_buf *priv;
- 	size_t length;
- 	int ret;
-@@ -369,46 +405,20 @@ int vfio_pci_core_feature_dma_buf(struct vfio_pci_core_device *vdev, u32 flags,
- 	kfree(dma_ranges);
- 	dma_ranges = NULL;
- 
--	if (!vfio_device_try_get_registration(&vdev->vdev)) {
--		ret = -ENODEV;
-+	ret = vfio_pci_dmabuf_export(vdev, priv, get_dma_buf.open_flags,
-+				     priv->size,
-+				     __vfio_pci_memory_enabled(vdev));
-+	if (ret)
- 		goto err_free_phys;
+diff --git a/drivers/gpu/drm/nouveau/nouveau_abi16.c b/drivers/gpu/drm/nouv=
+eau/nouveau_abi16.c
+index f9201f2e73a339a10b..3da75aa136d04faf3b 100644
+--- a/drivers/gpu/drm/nouveau/nouveau_abi16.c
++++ b/drivers/gpu/drm/nouveau/nouveau_abi16.c
+@@ -425,14 +425,14 @@ nouveau_abi16_ioctl_channel_alloc(ABI16_IOCTL_ARGS)
+=20
+ 	if (device->info.family >=3D NV_DEVICE_INFO_V0_TESLA)
+ 		init->pushbuf_domains =3D NOUVEAU_GEM_DOMAIN_VRAM |
+ 					NOUVEAU_GEM_DOMAIN_GART;
+ 	else
+-	if (chan->chan->push.buffer->bo.resource->mem_type =3D=3D TTM_PL_VRAM)
+-		init->pushbuf_domains =3D NOUVEAU_GEM_DOMAIN_VRAM;
+-	else
+-		init->pushbuf_domains =3D NOUVEAU_GEM_DOMAIN_GART;
++		if (chan->chan->push.buffer->bo.resource->mem_type =3D=3D TTM_PL_VRAM)
++			init->pushbuf_domains =3D NOUVEAU_GEM_DOMAIN_VRAM;
++		else
++			init->pushbuf_domains =3D NOUVEAU_GEM_DOMAIN_GART;
+=20
+ 	if (device->info.family < NV_DEVICE_INFO_V0_CELSIUS) {
+ 		init->subchan[0].handle =3D 0x00000000;
+ 		init->subchan[0].grclass =3D 0x0000;
+ 		init->subchan[1].handle =3D chan->chan->nvsw.handle;
+@@ -579,21 +579,20 @@ nouveau_abi16_ioctl_grobj_alloc(ABI16_IOCTL_ARGS)
+ 				oclass =3D sclass[i].oclass;
+ 				break;
+ 			}
+ 		}
+ 	} else
+-	if ((init->class & 0x00ff) =3D=3D 0x00b3) { /* msppp */
+-		/* msppp: compatibility with incorrect version exposure */
+-		for (i =3D 0; i < ret; i++) {
+-			if ((sclass[i].oclass & 0x00ff) =3D=3D 0x00b3) {
+-				oclass =3D sclass[i].oclass;
+-				break;
++		if ((init->class & 0x00ff) =3D=3D 0x00b3) { /* msppp */
++			/* msppp: compatibility with incorrect version exposure */
++			for (i =3D 0; i < ret; i++) {
++				if ((sclass[i].oclass & 0x00ff) =3D=3D 0x00b3) {
++					oclass =3D sclass[i].oclass;
++					break;
++				}
+ 			}
+-		}
+-	} else {
+-		oclass =3D init->class;
 -	}
--
--	exp_info.ops = &vfio_pci_dmabuf_ops;
--	exp_info.size = priv->size;
--	exp_info.flags = get_dma_buf.open_flags;
--	exp_info.priv = priv;
--
--	priv->dmabuf = dma_buf_export(&exp_info);
--	if (IS_ERR(priv->dmabuf)) {
--		ret = PTR_ERR(priv->dmabuf);
--		goto err_dev_put;
++		} else
++			oclass =3D init->class;
+=20
+ 	nvif_object_sclass_put(&sclass);
+ 	if (!oclass)
+ 		return nouveau_abi16_put(abi16, -EINVAL);
+=20
+@@ -652,21 +651,21 @@ nouveau_abi16_ioctl_notifierobj_alloc(ABI16_IOCTL_ARG=
+S)
+ 		args.target =3D NV_DMA_V0_TARGET_VM;
+ 		args.access =3D NV_DMA_V0_ACCESS_VM;
+ 		args.start +=3D chan->ntfy_vma->addr;
+ 		args.limit +=3D chan->ntfy_vma->addr;
+ 	} else
+-	if (drm->agp.bridge) {
+-		args.target =3D NV_DMA_V0_TARGET_AGP;
+-		args.access =3D NV_DMA_V0_ACCESS_RDWR;
+-		args.start +=3D drm->agp.base + chan->ntfy->offset;
+-		args.limit +=3D drm->agp.base + chan->ntfy->offset;
+-	} else {
+-		args.target =3D NV_DMA_V0_TARGET_VM;
+-		args.access =3D NV_DMA_V0_ACCESS_RDWR;
+-		args.start +=3D chan->ntfy->offset;
+-		args.limit +=3D chan->ntfy->offset;
 -	}
--
--	kref_init(&priv->kref);
--	init_completion(&priv->comp);
--
--	/* dma_buf_put() now frees priv */
--	INIT_LIST_HEAD(&priv->dmabufs_elm);
--	down_write(&vdev->memory_lock);
--	dma_resv_lock(priv->dmabuf->resv, NULL);
--	priv->revoked = !__vfio_pci_memory_enabled(vdev);
--	list_add_tail(&priv->dmabufs_elm, &vdev->dmabufs);
--	dma_resv_unlock(priv->dmabuf->resv);
--	up_write(&vdev->memory_lock);
--
- 	/*
- 	 * dma_buf_fd() consumes the reference, when the file closes the dmabuf
- 	 * will be released.
- 	 */
- 	ret = dma_buf_fd(priv->dmabuf, get_dma_buf.open_flags);
--	if (ret < 0)
--		goto err_dma_buf;
--	return ret;
-+	if (ret >= 0)
-+		return ret;
- 
--err_dma_buf:
- 	dma_buf_put(priv->dmabuf);
--err_dev_put:
- 	vfio_device_put_registration(&vdev->vdev);
- err_free_phys:
- 	kfree(priv->phys_vec);
-@@ -419,6 +429,61 @@ int vfio_pci_core_feature_dma_buf(struct vfio_pci_core_device *vdev, u32 flags,
- 	return ret;
- }
- 
-+int vfio_pci_core_mmap_prep_dmabuf(struct vfio_pci_core_device *vdev,
-+				   struct vm_area_struct *vma,
-+				   u64 phys_start,
-+				   u64 pgoff,
-+				   u64 req_len)
-+{
-+	struct vfio_pci_dma_buf *priv;
-+	const unsigned int nr_ranges = 1;
-+	int ret;
-+
-+	priv = kzalloc(sizeof(*priv), GFP_KERNEL);
-+	if (!priv)
-+		return -ENOMEM;
-+
-+	priv->phys_vec = kcalloc(nr_ranges, sizeof(*priv->phys_vec),
-+				 GFP_KERNEL);
-+	if (!priv->phys_vec) {
-+		ret = -ENOMEM;
-+		goto err_free_priv;
-+	}
-+
-+	priv->vdev = vdev;
-+	priv->nr_ranges = nr_ranges;
-+	priv->size = req_len;
-+	priv->phys_vec[0].paddr = phys_start + (pgoff << PAGE_SHIFT);
-+	priv->phys_vec[0].len = req_len;
-+
-+	/*
-+	 * Creates a DMABUF, adds it to vdev->dmabufs list for
-+	 * tracking (meaning cleanup or revocation will zap them), and
-+	 * registers with vfio_device:
-+	 */
-+	ret = vfio_pci_dmabuf_export(vdev, priv, O_CLOEXEC, priv->size, true);
-+	if (ret)
-+		goto err_free_phys;
-+
-+	/*
-+	 * The VMA gets the DMABUF file so that other users can locate
-+	 * the DMABUF via a VA.  Ownership of the original VFIO device
-+	 * file being mmap()ed transfers to priv, and is put when the
-+	 * DMABUF is released.
-+	 */
-+	priv->vfile = vma->vm_file;
-+	vma->vm_file = priv->dmabuf->file;
-+	vma->vm_private_data = priv;
-+
-+	return 0;
-+
-+err_free_phys:
-+	kfree(priv->phys_vec);
-+err_free_priv:
-+	kfree(priv);
-+	return ret;
-+}
-+
- void vfio_pci_dma_buf_move(struct vfio_pci_core_device *vdev, bool revoked)
- {
- 	struct vfio_pci_dma_buf *priv;
-diff --git a/drivers/vfio/pci/vfio_pci_priv.h b/drivers/vfio/pci/vfio_pci_priv.h
-index 5cc8c85a2153..5fd3a6e00a0e 100644
---- a/drivers/vfio/pci/vfio_pci_priv.h
-+++ b/drivers/vfio/pci/vfio_pci_priv.h
-@@ -30,6 +30,7 @@ struct vfio_pci_dma_buf {
- 	size_t size;
- 	struct phys_vec *phys_vec;
- 	struct p2pdma_provider *provider;
-+	struct file *vfile;
- 	u32 nr_ranges;
- 	struct kref kref;
- 	struct completion comp;
-@@ -128,6 +129,9 @@ int vfio_pci_dma_buf_find_pfn(struct vfio_pci_dma_buf *vpdmabuf,
- 			      unsigned long address,
- 			      unsigned int order,
- 			      unsigned long *out_pfn);
-+int vfio_pci_core_mmap_prep_dmabuf(struct vfio_pci_core_device *vdev,
-+				   struct vm_area_struct *vma,
-+				   u64 phys_start, u64 pgoff, u64 req_len);
- 
- #ifdef CONFIG_VFIO_PCI_DMABUF
- int vfio_pci_core_feature_dma_buf(struct vfio_pci_core_device *vdev, u32 flags,
--- 
-2.47.3
++		if (drm->agp.bridge) {
++			args.target =3D NV_DMA_V0_TARGET_AGP;
++			args.access =3D NV_DMA_V0_ACCESS_RDWR;
++			args.start +=3D drm->agp.base + chan->ntfy->offset;
++			args.limit +=3D drm->agp.base + chan->ntfy->offset;
++		} else {
++			args.target =3D NV_DMA_V0_TARGET_VM;
++			args.access =3D NV_DMA_V0_ACCESS_RDWR;
++			args.start +=3D chan->ntfy->offset;
++			args.limit +=3D chan->ntfy->offset;
++		}
+=20
+ 	ret =3D nvif_object_ctor(&chan->chan->user, "abi16Ntfy", info->handle,
+ 			       NV_DMA_IN_MEMORY, &args, sizeof(args),
+ 			       &ntfy->object);
+ 	if (ret)
+--=20
+Cheers,
+Joey Pabalinas
 
+
+--k7ogklrer7rk7odl
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQJPBAABCAA5FiEEx6b1SGGPTKxTmPDYqoHu9CTxowIFAmmzr4gbFIAAAAAABAAO
+bWFudTIsMi41KzEuMTIsMiwyAAoJEKqB7vQk8aMCkVAQAJ148g2qWIqsAEqEqSkt
+vAyVkxh4eqEF7hSJoRAD8zp1a3mMxjmZYwDzC3fvlEeyrTjcKSGU4ec28O+Ruu0L
+sHng+ludg4a426Ofe4hLSeRC9HTQKpEvtC0+y3C8JIOdXfInRTZrccGU8/goyY9z
+zVaVBBdLnpIXNc+2FxMdj9nrujZCd1uTGL+XOL1pxC6rjVgT5W5x/MKEGaLiK98X
+m1CSsIH7I+g71nt/3XvFVkPwawHtlj6QFEJwSEOjTRcS1vpZcGr+nUiM1XXi0CKY
+oJtmeOsYX7sTgOhKDml9LHxgeRu+J8iGcHOA6poke00bSB1pdvXYzOc3x/2lLZbW
+tRk139aRXeNUUZznN+tCtyOScZQXPUJpis0b+0izliM5GtAPJIugnd/wjpKRg86z
+EYIiPfY6AoDeQKCCvuTmoZqRIGm1naT4uUEkFAZc54GOFA4utFR7WXxGZ2T0RrZq
+7Z1ntYwW8VCEKmVJxmYcXz/hUiDKe4ZRBPcwUagDW3WE4zmHXaFUOf6Fv8azgyCZ
+INtvtUqn6N2WEc+IleKK1IzyqJjyq+OyZzSqyCofbq+WycCyLeSBaO4xWr/Fd5qu
+S2KZf9GaCgUTlk9QD2qamVwANkRdkxZRUnH/UKyOKNdOciPIm/BGjhVEsPtXtiU9
+BbCHq7coMN8hinzZLCdoi1it
+=7+J+
+-----END PGP SIGNATURE-----
+
+--k7ogklrer7rk7odl--
