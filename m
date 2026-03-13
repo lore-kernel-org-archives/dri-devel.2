@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E1EE6105F7B1
-	for <dri-devel@archiver.kernel.org>; Fri, 13 Mar 2026 15:11:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B2E8F105F7B1
+	for <dri-devel@archiver.kernel.org>; Fri, 13 Mar 2026 15:11:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5337810E178;
-	Fri, 13 Mar 2026 15:11:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 23F7A10E12D;
+	Fri, 13 Mar 2026 15:11:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="Mv7vOoaE";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="WbNx98AX";
 	dkim-atps=neutral
 Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
  [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B585410E178
- for <dri-devel@lists.freedesktop.org>; Fri, 13 Mar 2026 15:11:29 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1773414680; cv=none; 
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BEB5710E17C
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Mar 2026 15:11:35 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1773414686; cv=none; 
  d=zohomail.com; s=zohoarc; 
- b=UV3yL518arnR0/TjctHYyB0rzN/vQblVHEmQ1s1j0n09hdcsqPhORPAr43cFUZ4DSusB6EiWv14VRqh4ErSwmU6ZHqUTogoUEWCtjgkTmOYbjhTNttojjgqECb73QNwZtMJh20LsfE2RhUI2egmr4d3A9ZwtMyUMsQZ8SCTGuX4=
+ b=fZm5YLkePVD6p6ZgU4aKEa43BumSfIr27Jjh7FjzIE9cHPhLOAMXQckma3Ur7h3DJ5/gk7quk37c1rzQ5dh1vRk9WdACeKQVbnjFdVQVgEieVgKQnpoQXiR1qetkQh5lgV6mFifWWIZ4DJdqCF+fWdal0PropzZzxlpCEUXRf0c=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1773414680;
+ s=zohoarc; t=1773414686;
  h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=SdVZB9xAx6kDE71K2UbMTmPRTxksVaVSVA3Iu9cKNPk=; 
- b=QaH/pWzQskk9ajUlqyjqrz36awrtv3pmNqIYIo/owLPHN7+pnbTAAgIlbh2FooLV5Nr8KnCSFKm3CwfD7fIrn2l9ixKzF8ysghPtDeNnTAPpgHxmiyyYIevieV6BYXRr+UxERbW6Cbh7VuYo1rutZynhAnrgVHWvARTSRwJKvyQ=
+ bh=ge+3jZ5QBvUzD4tZrYrmX9/hapqDN8fljqN3IzCz7Q0=; 
+ b=UMebwzEvMaLmm8nErLz23bpurBlp7fF/SG5Y5njnK0nLiKXUW+VCihxFX6idgbfwxjbPriIACgqQX8SrVj8WKKMI3Q7CYfAyyDEreitc5+mpDmfSwO9a9FdZI4NzcZEijOjzwDuUZD0O3BUZjco5u/40z3LgJHP6TgsQjiW6XYM=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
  dkim=pass  header.i=collabora.com;
  spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
  dmarc=pass header.from=<adrian.larumbe@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1773414680; 
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1773414686; 
  s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
  h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:References:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
- bh=SdVZB9xAx6kDE71K2UbMTmPRTxksVaVSVA3Iu9cKNPk=;
- b=Mv7vOoaEkTKPFo6XUHzvZnHNHqjfnpUX8ErMTabRCH/TTGSCDE8IfYTKnx76+24P
- u/QzDS7GtpEOrSk3JQSDn2JWVXTi/V2ON/4CQ5szdxPTUuWkv4E8w2QNAgSJBmpf/Jk
- El5gup6wYr2yPgOLxvmFHbh4xhzwv1bcpiz5cHAs=
-Received: by mx.zohomail.com with SMTPS id 1773414678777968.1023471391474;
- Fri, 13 Mar 2026 08:11:18 -0700 (PDT)
+ bh=ge+3jZ5QBvUzD4tZrYrmX9/hapqDN8fljqN3IzCz7Q0=;
+ b=WbNx98AXGmu5Gn4r5XAlkqWV3l5yeuv18xLW89fempUghAIxSUhMJot+/QGa4a8C
+ bc724hFPhWBvIkukV+e0TcsUBOS/5e2cx8RwAYp4KrgOd+oYd1BAqRGyTqZ0UE5X5lk
+ JY2qkiQrS4C6xSDbvHnVkr72GdRj/Ei7qPjcXvbY=
+Received: by mx.zohomail.com with SMTPS id 177341468484416.0749273637565;
+ Fri, 13 Mar 2026 08:11:24 -0700 (PDT)
 From: =?UTF-8?q?Adri=C3=A1n=20Larumbe?= <adrian.larumbe@collabora.com>
 To: linux-kernel@vger.kernel.org
 Cc: dri-devel@lists.freedesktop.org, Steven Price <steven.price@arm.com>,
@@ -48,9 +48,9 @@ Cc: dri-devel@lists.freedesktop.org, Steven Price <steven.price@arm.com>,
  Maxime Ripard <mripard@kernel.org>,
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
  Simona Vetter <simona@ffwll.ch>
-Subject: [PATCH v5 09/11] drm/panthor: Handle remap case for repeated mappings
-Date: Fri, 13 Mar 2026 15:09:46 +0000
-Message-ID: <20260313150956.1618635-10-adrian.larumbe@collabora.com>
+Subject: [PATCH v5 11/11] drm/panthor: Bump the driver version to 1.8
+Date: Fri, 13 Mar 2026 15:09:48 +0000
+Message-ID: <20260313150956.1618635-12-adrian.larumbe@collabora.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260313150956.1618635-1-adrian.larumbe@collabora.com>
 References: <20260313150956.1618635-1-adrian.larumbe@collabora.com>
@@ -72,118 +72,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-When a GPUVA remap is triggered as a consequence of a VM operation
-insersecting with existing VAs, when mapping the split VAs one must take
-into account whether they were repeat-mapped.
+Bump the driver version to reflect the new MMU info query ioctl
+parameter and the VM_BIND repeat flag.
 
 Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
 ---
- drivers/gpu/drm/panthor/panthor_mmu.c | 63 +++++++++++++++++----------
- 1 file changed, 39 insertions(+), 24 deletions(-)
+ drivers/gpu/drm/panthor/panthor_drv.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/panthor/panthor_mmu.c
-index a357063bb9f6..ba322e2029b9 100644
---- a/drivers/gpu/drm/panthor/panthor_mmu.c
-+++ b/drivers/gpu/drm/panthor/panthor_mmu.c
-@@ -2124,41 +2124,52 @@ static void panthor_vma_init(struct panthor_vma *vma, u32 flags)
- 	 DRM_PANTHOR_VM_BIND_OP_MAP_NOEXEC | \
- 	 DRM_PANTHOR_VM_BIND_OP_MAP_UNCACHED)
+diff --git a/drivers/gpu/drm/panthor/panthor_drv.c b/drivers/gpu/drm/panthor/panthor_drv.c
+index 8a901e06a9c9..c965d58a05cb 100644
+--- a/drivers/gpu/drm/panthor/panthor_drv.c
++++ b/drivers/gpu/drm/panthor/panthor_drv.c
+@@ -1688,6 +1688,8 @@ static void panthor_debugfs_init(struct drm_minor *minor)
+  *       - adds DRM_IOCTL_PANTHOR_BO_SYNC ioctl
+  *       - adds DRM_IOCTL_PANTHOR_BO_QUERY_INFO ioctl
+  *       - adds drm_panthor_gpu_info::selected_coherency
++ * - 1.8 - adds DRM_PANTHOR_DEV_QUERY_MMU_INFO query
++ *       - adds DRM_PANTHOR_VM_BIND_OP_MAP_REPEAT flag
+  */
+ static const struct drm_driver panthor_drm_driver = {
+ 	.driver_features = DRIVER_RENDER | DRIVER_GEM | DRIVER_SYNCOBJ |
+@@ -1701,7 +1703,7 @@ static const struct drm_driver panthor_drm_driver = {
+ 	.name = "panthor",
+ 	.desc = "Panthor DRM driver",
+ 	.major = 1,
+-	.minor = 7,
++	.minor = 8,
  
--static int panthor_gpuva_sm_step_map(struct drm_gpuva_op *op, void *priv)
-+static int
-+panthor_vm_map_range(struct panthor_vm *vm, bool repeat, struct sg_table *sgt,
-+		     u64 addr, u64 offset, u64 size, u32 repeat_range, int prot)
- {
--	struct panthor_vm *vm = priv;
--	struct panthor_vm_op_ctx *op_ctx = vm->op_ctx;
--	struct panthor_vma *vma = panthor_vm_op_ctx_get_vma(op_ctx);
- 	int ret;
- 
--	if (!vma)
--		return -EINVAL;
--
--	panthor_vma_init(vma, op_ctx->flags & PANTHOR_VM_MAP_FLAGS);
-+	if (!size)
-+		return 0;
- 
--	if (op_ctx->flags & DRM_PANTHOR_VM_BIND_OP_MAP_REPEAT) {
--		u64 repeat_count = op->map.va.range;
-+	if (repeat) {
-+		u64 repeat_count = size;
- 
--		do_div(repeat_count, op->map.gem.repeat_range);
-+		do_div(repeat_count, repeat_range);
- 
- 		if (drm_WARN_ON(&vm->ptdev->base, !repeat_count))
- 			return -EINVAL;
- 
--		ret = panthor_vm_repeated_map_pages(vm, op->map.va.addr,
--						    flags_to_prot(vma->flags),
--						    op_ctx->map.sgt,
--						    op->map.gem.offset,
--						    op->map.gem.repeat_range,
-+		ret = panthor_vm_repeated_map_pages(vm, addr, prot, sgt,
-+						    offset, repeat_range,
- 						    repeat_count);
- 		if (!ret)
- 			vm->base.flags |= DRM_GPUVM_HAS_REPEAT_MAPS;
- 	} else {
--		ret = panthor_vm_map_pages(vm, op->map.va.addr,
--					   flags_to_prot(vma->flags),
--					   op_ctx->map.sgt, op->map.gem.offset,
--					   op->map.va.range);
-+		ret = panthor_vm_map_pages(vm, addr, prot, sgt,
-+					   offset, size);
- 	}
- 
-+	return ret;
-+}
-+
-+static int panthor_gpuva_sm_step_map(struct drm_gpuva_op *op, void *priv)
-+{
-+	struct panthor_vm *vm = priv;
-+	struct panthor_vm_op_ctx *op_ctx = vm->op_ctx;
-+	struct panthor_vma *vma = panthor_vm_op_ctx_get_vma(op_ctx);
-+	int ret;
-+
-+	if (!vma)
-+		return -EINVAL;
-+
-+	panthor_vma_init(vma, op_ctx->flags & PANTHOR_VM_MAP_FLAGS);
-+
-+	ret = panthor_vm_map_range(vm, op_ctx->flags & DRM_PANTHOR_VM_BIND_OP_MAP_REPEAT,
-+				   op_ctx->map.sgt, op->map.va.addr, op->map.gem.offset,
-+				   op->map.va.range, op->map.gem.repeat_range,
-+				   flags_to_prot(vma->flags));
- 	if (ret) {
- 		panthor_vm_op_ctx_return_vma(op_ctx, vma);
- 		return ret;
-@@ -2262,8 +2273,10 @@ static int panthor_gpuva_sm_step_remap(struct drm_gpuva_op *op,
- 		u64 offset = op->remap.prev->gem.offset + unmap_start - op->remap.prev->va.addr;
- 		u64 size = op->remap.prev->va.addr + op->remap.prev->va.range - unmap_start;
- 
--		ret = panthor_vm_map_pages(vm, unmap_start, flags_to_prot(unmap_vma->flags),
--					   bo->base.sgt, offset, size);
-+		ret = panthor_vm_map_range(vm, op->remap.prev->flags & DRM_GPUVA_REPEAT,
-+					   bo->base.sgt, op->remap.prev->va.addr, offset,
-+					   size, op->remap.prev->gem.repeat_range,
-+					   flags_to_prot(unmap_vma->flags));
- 		if (ret)
- 			return ret;
- 
-@@ -2276,8 +2289,10 @@ static int panthor_gpuva_sm_step_remap(struct drm_gpuva_op *op,
- 		u64 addr = op->remap.next->va.addr;
- 		u64 size = unmap_start + unmap_range - op->remap.next->va.addr;
- 
--		ret = panthor_vm_map_pages(vm, addr, flags_to_prot(unmap_vma->flags),
--					   bo->base.sgt, op->remap.next->gem.offset, size);
-+		ret = panthor_vm_map_range(vm, op->remap.next->flags & DRM_GPUVA_REPEAT,
-+					   bo->base.sgt, addr, op->remap.next->gem.offset,
-+					   size, op->remap.next->gem.repeat_range,
-+					   flags_to_prot(unmap_vma->flags));
- 		if (ret)
- 			return ret;
- 
+ 	.gem_create_object = panthor_gem_create_object,
+ 	.gem_prime_import_sg_table = drm_gem_shmem_prime_import_sg_table,
 -- 
 2.53.0
 
