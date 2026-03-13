@@ -4,130 +4,137 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 03056105F783
-	for <dri-devel@archiver.kernel.org>; Fri, 13 Mar 2026 09:22:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3A718105F781
+	for <dri-devel@archiver.kernel.org>; Fri, 13 Mar 2026 09:24:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4810E10EB71;
-	Fri, 13 Mar 2026 09:22:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 96AAB10EB74;
+	Fri, 13 Mar 2026 09:24:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="eEaREBnM";
+	dkim=pass (1024-bit key; unprotected) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="MFPWf/+L";
 	dkim-atps=neutral
-Received: from PH8PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11012001.outbound.protection.outlook.com [40.107.209.1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7206610EB6F
- for <dri-devel@lists.freedesktop.org>; Fri, 13 Mar 2026 09:22:10 +0000 (UTC)
+Received: from OS0P286CU010.outbound.protection.outlook.com
+ (mail-japanwestazon11011028.outbound.protection.outlook.com [40.107.74.28])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 91C1910EB84
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Mar 2026 09:24:24 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=K/ZX0+ZE3/w/87sf5ymPD4yLdKEN/ITuZviHlVJb3WRf6Qah+oa7ZAMdMxUMZ73AVqTxY35BZVNMsdTf61qQ8JkTYw3lCmlWa9mi0tE24F/nWjvjmMQlfvcThM2wqFV18JGyuUdnaK00NkLb0RehwH+BMqpI0547rcnT3n9TVVFqKW/Ncvo1AmU72YotD7MK6HOTTYzczCrty+AmjranjKB0+VFsrE8+D9xWNA9Gu/NW/eX14Avo/GGNGT6VZc62aXEJm0+aU2l0DZImyJleKgjz7H5Cp7rxzqlKLzDYGYztoTebCQSwB4YGZ781u2Rq1sBiTYJ18jLZqfs3auiO2A==
+ b=r6lwrc2IsHdaPSbsq4WYIcGVs4xXU1kPfflkvTK6UI2yMgvp31lp5FQ6tpSLi38uXbAHxgQqGC+XnEdyTc74V4bnyEsDJbp93eRpzHb94zCOkNeZ3aEQLRQCwfhbYTKLMEBwAx4UE0G6sMd6h0vFGui0Z1yq8ZaYB+k859fNvPK/K9rcCmCztCQ/+QUmmR5JAxFitMF9VneOTqNn4PGUP2oHJGT13E0FSx4IAeLwY4irov8/WN8n/JeRpTBeuKoNVrCQjP6Wx8PITnryy1FyRYw42mywD8I7Pi91v/FIsj7kLl+QqxZ1un+mIW0SOdd3VhDq9+OxMU6pmTFQZ2xAMw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=f89RTfJP5cCZR2sArNfVJu8Ab8L4isAAMD+WHsWsNo8=;
- b=f1x/L019beUAWQuxBySdE+ZbPCLGiSD38NQmFfj5qW6YbkJtPKVMmkOLS4X0oJOixOIUMmCNHdHUQ92v3eItUseQOJ2zepjPvSaupofYfxpkgZhaAUtmGB7y1m6qGuhDr9TKPX16P8jSmNUEliACRgHFIQvf0sQm7j+iNRx+QVjTcx5pSj3Vwk32f+CX4q5U+LgGWCxqE/qjaha0rkGfMZSDrbePqB7OetFLZE3+CnnN9KA8Nl1bDfjMYPBAnuRfCsyRGdmuGLKwZjDwi1aEuPnc/rKfH8gH8D22AdytFsptaxs8umbgJyDv+80nKDofm31XbOjFMUfePEyyC6kGdg==
+ bh=b08ig8157mSeMq+Nfkl2mx6KrX20363GFDTCLFHh15M=;
+ b=cIagmDxznNUhsaKdh525dxf+x6idp4x/f3jG1Vx+0BbIDB100Vm2NZoEw7vau96KAsWkmBPMocNhDbejSatdMaE1AVnX030cnWOTVmNXJZQPplcfqeVJZLXJ06nBpNfwBrtvv7vdtIW4FhbHkzY2SneQQ1+4rPhQ61eVa4TQAh1tWUsr46S2P5bYGA9+o2JxivHUs1bM+n81UySOrtdLJm/ehGntSU8FL6rjSbLBg/+nZq+WTQGusBbVvknFcyHNOuC6L0lDsdrf7aNyq9NuTN2AuCEwKmgWH7Of+jKmLhVJStH77IRa9Qw5AOWniM2F6EqTEgicKeU66xqH06L2MQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
+ header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
+ s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=f89RTfJP5cCZR2sArNfVJu8Ab8L4isAAMD+WHsWsNo8=;
- b=eEaREBnM3tp3ZfT1r1Eow2h2e+JX2pY/1Y4YdTr4TFzBhjC5OAOIX7qnJUCIFCHApuqeDV5rwzw4zZ4QOblbOZLGIaWiQRYnMENJI1dT6JXyZ21jj9nRLclNYJazNf4dspkTDSuK1P/tWx/rhO97zqpQVHnMpo2K41+g8fjk9Ls=
+ bh=b08ig8157mSeMq+Nfkl2mx6KrX20363GFDTCLFHh15M=;
+ b=MFPWf/+L0y3xaBhKxKRauDh45WUvSQLlvV2CWZzeoE5EHB8n2V2q7IdLWtJhO0vuDpWwigR+HlgddbI1NJIn/jcSeJtPt+NF4FXiiWJ7aYJ4Hp859mzdS+K4vhEUF7G02N51MfgKtuNQsBzGDf8sBHimju31gzeD7AXPbTpb6K4=
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by LV8PR12MB9358.namprd12.prod.outlook.com (2603:10b6:408:201::12)
+ header.d=none;dmarc=none action=none header.from=bp.renesas.com;
+Received: from TY3PR01MB11948.jpnprd01.prod.outlook.com (2603:1096:400:409::5)
+ by TYYPR01MB12777.jpnprd01.prod.outlook.com (2603:1096:405:158::7)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.6; Fri, 13 Mar
- 2026 09:22:07 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.20.9723.004; Fri, 13 Mar 2026
- 09:22:07 +0000
-Message-ID: <22eaf986-3fa5-4904-a7ad-dc7316aa1165@amd.com>
-Date: Fri, 13 Mar 2026 10:21:59 +0100
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9700.15; Fri, 13 Mar
+ 2026 09:24:10 +0000
+Received: from TY3PR01MB11948.jpnprd01.prod.outlook.com
+ ([fe80::b718:17d0:6c0f:1495]) by TY3PR01MB11948.jpnprd01.prod.outlook.com
+ ([fe80::b718:17d0:6c0f:1495%6]) with mapi id 15.20.9700.015; Fri, 13 Mar 2026
+ 09:24:12 +0000
+Message-ID: <a364ed87-aa63-4950-916d-682271cb5ff0@bp.renesas.com>
+Date: Fri, 13 Mar 2026 10:24:08 +0100
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC v2 PATCH 00/10] vfio/pci: Add mmap() for DMABUFs
-To: Matt Evans <mattev@meta.com>, Alex Williamson <alex@shazbot.org>,
- Leon Romanovsky <leon@kernel.org>, Jason Gunthorpe <jgg@nvidia.com>,
- Alex Mastro <amastro@fb.com>, Mahmoud Adam <mngyadam@amazon.de>,
- David Matlack <dmatlack@google.com>
-Cc: =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>,
- Sumit Semwal <sumit.semwal@linaro.org>, Kevin Tian <kevin.tian@intel.com>,
- Ankit Agrawal <ankita@nvidia.com>, Pranjal Shrivastava <praan@google.com>,
- Alistair Popple <apopple@nvidia.com>,
- Vivek Kasireddy <vivek.kasireddy@intel.com>, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, kvm@vger.kernel.org
-References: <20260312184613.3710705-1-mattev@meta.com>
+Subject: Re: [PATCH v4 5/6] drm/gem-shmem: Track folio accessed/dirty status
+ in mmap
+To: Thomas Zimmermann <tzimmermann@suse.de>,
+ Biju Das <biju.das.jz@bp.renesas.com>
+Cc: "boris.brezillon@collabora.com" <boris.brezillon@collabora.com>,
+ "loic.molinari@collabora.com" <loic.molinari@collabora.com>,
+ "willy@infradead.org" <willy@infradead.org>,
+ "frank.binns@imgtec.com" <frank.binns@imgtec.com>,
+ "matt.coster@imgtec.com" <matt.coster@imgtec.com>,
+ "maarten.lankhorst@linux.intel.com" <maarten.lankhorst@linux.intel.com>,
+ "mripard@kernel.org" <mripard@kernel.org>,
+ "airlied@gmail.com" <airlied@gmail.com>, "simona@ffwll.ch"
+ <simona@ffwll.ch>, "linux-mm@kvack.org" <linux-mm@kvack.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
+References: <20260227114509.165572-1-tzimmermann@suse.de>
+ <20260227114509.165572-6-tzimmermann@suse.de> <abL5rcYIaFFO3GW2@tom-desktop>
+ <TY3PR01MB113460CA616D3576DA0C3FC698644A@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+ <d3818663-2673-4de4-b483-557602f6e8b9@suse.de>
 Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260312184613.3710705-1-mattev@meta.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR4P281CA0019.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:c9::16) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+From: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+In-Reply-To: <d3818663-2673-4de4-b483-557602f6e8b9@suse.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR0P281CA0069.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:49::22) To TY3PR01MB11948.jpnprd01.prod.outlook.com
+ (2603:1096:400:409::5)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|LV8PR12MB9358:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9aa62212-6538-4048-d235-08de80e1ff5f
+X-MS-TrafficTypeDiagnostic: TY3PR01MB11948:EE_|TYYPR01MB12777:EE_
+X-MS-Office365-Filtering-Correlation-Id: b647da94-233a-4ccd-e34b-08de80e249b2
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|7416014|1800799024|366016|376014|56012099003|18002099003|22082099003|13003099007;
-X-Microsoft-Antispam-Message-Info: WXapiiH0tsjh+DZJUD6yhG2OzxVI8m0DXa6boU494uh+4JWPSoqw5vKIGcOYRaMqrScYXwtAGaCvSYUons5MX0DhvtkOyk6J2AIXzgjdJdhlB3a0CmrGKlBejLv9W8oLd0WwSA0UPj15KXTRorb0F0fttpT4S0LWJ8v0iRwsVlKxY4osWKf3R13sygpjv5Yw4M49x0CsCN++QTiAd062yladVgDS8dEIoNBBeaytTIBw+ntOzX7HCvdyq2vCqGMODqXFViDxPbvCURYaa9Fs9zCRYWc9JHSWCXFsPb1QbAnyBL2uJTsT5B0hFmXiMj3M/crT7oVn+aT7+VfCXsmrJtMcipN+iGqGffmZb+cF2a+nACe2ZEWK70DxAmrkR9jQCUVJiT6FyXjVKGElhwKIYA43muqZc39wB5rT6exMjlI4Nl9E2HuMgLxiGYRjkK8W2Ezq8AxUU8NwVZbfMl0O5pE4vTvreHLnKajrATBIW3bpwCOg7JLTpqkpCc6Tk17Z4GHWdbGsMOHGiVXi/S4qrXpm9gOXSrsluoC03qDM78eRos2A5rZyiIwVmybhU4nFA8FhHQ/HP7QnlQyfHtQrDMNvIplxcT5UpLucF52F1HwA1aePP4NjzZKBUI42i/9WlZnctuTYMTAIl04Hd7wszAEFovEGLiGsRoW/vuyPv/6jjYPwzWI8tEXizMOG4DxzPCYoXc1FnlPaXjDMUNQKeg==
+ ARA:13230040|366016|1800799024|376014|7416014|18002099003|56012099003|22082099003;
+X-Microsoft-Antispam-Message-Info: 3g3zt8QeIDAQGsAduxTFTZzLX4sdp41dngVIVsryvdOgU7ELnJ6g/nKkBcifVY6MD68luVjX1nfU41rECHseRA4I8Aadjr/CY3YAFkToiB2qxdorBY+IqfJ8RJlFeIqJBCLxxsYH52deQqpRR3yyDNVe8EpmjWIJjNHoArIZgGZaC3Mn/AZjUEFWMYiT5h7Nj2kDKqk5RMd8KuG8aXtMMdRdJKBwCA0sh9AXQExRweAGhvlwmAoRvCxVq5t92TrEHLeS9G4DVyua2ZIUsxtGWxS2CgQjmZWrLkJwEDai8i5xvqLqGRQh5VtuZ7U7MISZgG8P371MUHaWJm5OgYEz9g6/nSplAAMrOE0/nMOtD/nraZ5hjxHmGIz4MdbeJ2BRunAo8ohb5vtK5Y/UbOEU6EvblzZ1nOg2rVbZMqLbHwfiBFK/jLFShI2CZdyJ5Eq2mmu3MT+eQY7PUdUzdZH/GlYOfRS1okS8wrH7AsX8X/+tnQDY94yv8Pok8LiiPvOOyHvdXN1diGlzbIYLJhUjyT/f8VRyVPT+4iDvtjWJ+rZAYRTtiYn+cNv7Rxx/Qyoof4/H5W3NX/wgctSJH2fVhI5SRUTjdPxtJUbvNIgXyeQikGC7iceialhsh8An28vMhfCYgGqvFVmDKHCRPzVdsyGLj0VYiw0yTv247c0n2glHCU3758m3s7rIYHhJP/L8bNwxsw5gmusv+KqkOISuj9FC9+UO3oV3V2gXpRXF7CA=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(7416014)(1800799024)(366016)(376014)(56012099003)(18002099003)(22082099003)(13003099007);
+ IPV:NLI; SFV:NSPM; H:TY3PR01MB11948.jpnprd01.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(376014)(7416014)(18002099003)(56012099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WXVtNTdTQUpLZW15dFZHYkhvNDZ1Si96UjlUaUFuRDJTY2JTUTNEQ1BiVmx0?=
- =?utf-8?B?QmdEV1dsWUNLTzRjK2hMODVOQlVTSEpnSmxveE5FOG8zQ3p5aWMxbStBa2tw?=
- =?utf-8?B?TWcvckdtWE0yRmNJUjF0TEp3RTJoVUt4a3laVUNybFlrOEMvMUNManNMVWNl?=
- =?utf-8?B?R25DZFk3UnFobjY5L01VYUpmR1RCTUc3WW9jNHJWVHEvRkgxTEI0aEJuNjhX?=
- =?utf-8?B?bFJLZ3N5ckd3bXhydmtPWjV6U2NNSmdNWUJPWkhGVjU2ZWlHQlFlcW5hT2c5?=
- =?utf-8?B?anNEN1dwRDR5bDFXYnNsKzNJUGtsQVdNQStHS2c2SkJTVG9SamcybXhHNDhN?=
- =?utf-8?B?ZHNiZ1pKQUdQNWNXZVlLY2dLczNZWHoyaGl6VEJGT01VSURoNUJyNCtyRk5L?=
- =?utf-8?B?TGlnTGxoZEswaDRiMUVWWEJHVlROSXdHODFDcUhwU1B0WWNBcThuVnhlakZa?=
- =?utf-8?B?Ymc0MzNtR0NXeE01SDJmajVsV0pXL2lDRjVSZGlxVmQwckJNNk9zVngrZmRr?=
- =?utf-8?B?L3AzRmh4dzFZTWp2Wm9LQ0hBNFpwWXo2cm94Z0ZYTFNHaDlabDJ2b3BOcVR6?=
- =?utf-8?B?TWEzYXVWVCtoU3FJWW5OM2xJOWY1L2J4RXh2VWYwY0RZaVBhK1UxSG5OdlZi?=
- =?utf-8?B?OWpNTVN3dFZlcjBrVisyT2FFSWlHRmtjK2tZbWFpS0xkU2I3aXNEeUJpaHdu?=
- =?utf-8?B?OFZ2NGo4K3lsWmNBYTZQamxqUlJnbG80MzNaODJOUEd3dWhseEpDeUFGWVR5?=
- =?utf-8?B?ckZYeVh5dkF4WGUwUW9hRy94dTQ5TTcxOVVmelBSdjN2bzZ1aEIwOXRtMytt?=
- =?utf-8?B?aXU0NTIwT2pCL0JnVlNXVldTTWpuRTZIbk5PV2pVSjJyc2c1VkNxNDFvSFIz?=
- =?utf-8?B?TXBBbXkwWGJoZHVPV2JkTkxUdDJBMjVJUFU3SGZ5bTR6N2YrSkwraWZXQWtC?=
- =?utf-8?B?OUlFRHpIT1JoNmxqVjd2UWxueVZLZTZ5UGVWc1VxcEhxeU1ZbTNPUnFZYS91?=
- =?utf-8?B?L1JUbzJJMlRFMi9HSHlJTXVZNWpyTkhObko5d09CMEk3UlNlaUFlRkRzMjFv?=
- =?utf-8?B?RUROeFAzN2JWRUJmSS9DWmx4VHJSK0xBcVVYV2pTZkhpMzZJM0czU1RMMTl0?=
- =?utf-8?B?MXprdjc3U0RSM243c2hteFFERVZwQlFhY3crQkF3RUZFTEtBS1BMK1F3amhr?=
- =?utf-8?B?WDNZVTFUWnVuWmVSeWNPNE5kT0R6dzZiUVFHK3J2YlA4UVVUT0lIVDhyYXRG?=
- =?utf-8?B?cVlsQUdTSFd1RUtRcTBuazBiSk9ha0JjMEEwNjZFYWt2SWV5RnIxSzJOMHJZ?=
- =?utf-8?B?SHNoWmNMeHlGQTRXRHRNckJqL055VlBTWEorK1dhYUx1cnpKNE9wd0RidjZu?=
- =?utf-8?B?NFhYSkFYZSs1dkIxdlkvTHB2WTBKZkZSZWtmeHArQ3ZrUjQ3Z3ErOTBMYVRh?=
- =?utf-8?B?TG0vdm9UTUpEbnV3NlVaVE50c1BNbmdzUlJqUno3cmEwWlRua0dVV1liZWl3?=
- =?utf-8?B?L0JGNzRsNHdiYzd2OTE4c2hMSmMwMEJKUEFiV093YWowQjhoT1pVOFRoTGVG?=
- =?utf-8?B?VzJueVRmYkd3RHA0RE9zcTBLRWc4RFJ5M3BpZ1NkVnpiY2RQL242THVYTk54?=
- =?utf-8?B?MElhQnl0Q2F4ak96cEg2aTV1SDdsNGtxQ09RZFZDS0hNSTBFVGhRQ1hEdWYr?=
- =?utf-8?B?VDRRczdmUkkwSmhteFZyemlsM0dmRmVpcGVYN3FmSGJreVNSSG1RSEJ3dHNO?=
- =?utf-8?B?d1BSbGpCWTFzUHBGQ1lYS1h2RkFsZ0FzaXNITzBHZ2V3NzAvRy9sOWJRaTZO?=
- =?utf-8?B?ZU01MVI0ZEkxL1VTUVdvV0IzS1JnVE1MaTA2WHpRS3R6N2NZcTZlZjZUcDdj?=
- =?utf-8?B?SXJpL25rRjNMa3JEZFNLQ0x5U3B4MGpiQ0pkVDcwandxZDg1ZHl2ZDBFY0dP?=
- =?utf-8?B?M3U5dUtzVlNtUFlzSnVtUjdXcDlQWk42K1JkdWlRODJPalNBQUxSM0IxRmYx?=
- =?utf-8?B?eWg2Q3VqdW1jZm9KLzIxMXVETjl3Tk1McmRHUE4xUEt3NHVucGU0dEgzejh0?=
- =?utf-8?B?YXRPdHBSd1lzcTR1dkhxZllqRk9pSE5TVi9rakZtSWxCdDFzZGNSV3RTNHBE?=
- =?utf-8?B?WGhkRnVPWkZUdm9wUFROZUNJWDgyRWh4Y2dobDNyTFZSeGdDUU9HcHg5UFdh?=
- =?utf-8?B?ZDg4ZG9iU3JsTzZ5QkRCNU8xY3lLT2s1N2xTdi9SMkRpZ1ZJbldzUXJ1d2dF?=
- =?utf-8?B?UnhySm5ldXMwekpzWUpLYlZVSHpOQ0pDRzFWQjNLZTI2TCtLU3lrb2hvSVFt?=
- =?utf-8?Q?3KIE5TU+Ztd7d+7m9L?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9aa62212-6538-4048-d235-08de80e1ff5f
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?amtyUzFtdU5wKzhBUThHNjdiVWhNczZudGM4aHpicGVpY0haTkllSGdUWk1D?=
+ =?utf-8?B?aDF5M2FDdnUzR2JMakozYzZtSmphdW1NNnNqb2NteFg2OG1WdnhPRllTTTBJ?=
+ =?utf-8?B?N29JTGF0TFJHQzY0eVh3UE45MlpwNFpoM1o5eTRJNE1zS1Y4dmxaTnFIYUdw?=
+ =?utf-8?B?QUdqKzVDdm9yVHVYVGl4ek40NEdobm0zOUIzNElOM0FpaXZYTm9vZUwva0tF?=
+ =?utf-8?B?SkhiMi9hM0s5MW14dWU0cXl4Mnh3dFhkVEdvYjRyQVY4Z2pYbDBDQVpNbWYr?=
+ =?utf-8?B?TkhyL0RmN3MzSFJoL2hTeGJzeTdWZEExdDlTWkhDQncxZ1oyTjVWUkZNaEg5?=
+ =?utf-8?B?eXppR1VVcVFRQy84RmxVYjdoVGVIY2FaZ3gwblU3RjUrWmF6MkF3NVZoamhX?=
+ =?utf-8?B?UHFNMzFVTDFkWUJML3prS211ODdXd2FaRkxVZE9ubjJPUlFUQ1BqalpRMkpK?=
+ =?utf-8?B?OGNzUkJBUTg1eloydllKQ05LRUplcEtVWEd5djZhaTNrREh5amMyeXdDd2tw?=
+ =?utf-8?B?Q0lJN0RKdTlsTWQ2UUpsYWJVdmxxelRzM3dvTWlUU095UEdxYmQyQnNmem4v?=
+ =?utf-8?B?WkVMTVhmTXpXUXd3MmlvRmpRWHd6aVhFRTQyVnpjYitlZUhRaHU5bCtTblVw?=
+ =?utf-8?B?YXRTSFlFUHBaRjloTHJTL1lqTUJ4S3g5bFdoRUxPQ253UWM4Y1R3dE5ITnl6?=
+ =?utf-8?B?Q3d6Ky9pWU1yOThNQ3hTYUVMQnd2dU9yLzhJUEdSL0t6cm1CbnA2UGREK0Fj?=
+ =?utf-8?B?WHdPdHlxNEhmZ0YxUlpIQS9xZ3ZJUldobTJDZlhZNDdFSDZFL0R0cE8wbWp4?=
+ =?utf-8?B?TVpiTGJCQk5CeGpmTXo1cFVucGs0ZWZJcHBxeUdILzk4Wk1INlREdmNjeEZq?=
+ =?utf-8?B?RVExL0Z0SUZIZzE5Rm1VRGFrYTdhVER3WWhvVGpqZWZDSitjczgrd3Z2RzFu?=
+ =?utf-8?B?NjgzUndVS3F6Vm42WjJZRFNIaHNCRk9DT2ZJaVVJaG1INzJpTWxZVWNWTEtL?=
+ =?utf-8?B?K29VUjhvQmo5eTVSb0oxQ0F1M1hxbXptWTFWSGNrSlgwWFhmV0YwdmcyZmFa?=
+ =?utf-8?B?b0E4dmNnQkt0bjJmdzZKNkxFYVMrTEV4YXBha3BuTHVYUG5JY3BCWm1PaktT?=
+ =?utf-8?B?ajVvZDZoWWNObkY1d3N6QTRUSEVwQk9jSTBvNUw3U2FQTERXZDErd0p1SVdT?=
+ =?utf-8?B?a0lIYUU2Q05kbDRDZjEzcW1KdjZRRHhoREt5RWdWblQranJHeDZyTmFaYUJ5?=
+ =?utf-8?B?OXc2dEtUTlN3QlYwa05wL3BTM1NyTzVwR2x5ZW1Cc3kxNFdUMHgveWdsNFBQ?=
+ =?utf-8?B?QWQxbnVQOXN3KzBzeTdtTWdHbHA0aFdXNFJOczAvRmZ5aFBDK3dVK3l1ZDlW?=
+ =?utf-8?B?TnNNTGlaNUlRdWZ6bkhtN0xiTlQrSXJpTm1USkpVTDlNOEVtZXUwRko1Ukwv?=
+ =?utf-8?B?UnJ0U0R6MVdCbzJubWRoS21UVTViNERHNjJBYnRncUs1dEZsUEZTNnYrMUtS?=
+ =?utf-8?B?bjNmVkVsZisxRlgzKzkvREJ0TlpBOUlsSHNlQmJxaUFEY2E4V3lad096d0lZ?=
+ =?utf-8?B?K2Q4TlJkbzM5WVBkcjd0cW5DMVN1WGdlRnl5RnNKS0F3UXBkSjlTZWlSb1VU?=
+ =?utf-8?B?bVRUTWV1TG4rUDFmQVllZmV1QVNuRGVjTXc0ZjhHOS9nbmZKMXFocUx1OHpB?=
+ =?utf-8?B?dXJUTDZ3aEFjci9qT3VycXllVE5RN2d0TkVwTVZTTmxmZG92VkFoZnF4blNI?=
+ =?utf-8?B?ZkJOTm9XWVBvU2FRdnlUSDFvZDUxeTVNeC9OUy9xbk9mYUExdUlLSEF0eHVo?=
+ =?utf-8?B?WjlhUFZ3YzErdWUxd2hjOS9SM2J0MHRCdnlGckdXWENyaGVjTmt5QzZlZ2l0?=
+ =?utf-8?B?SlhhTDFwMnp6ZnZ5MlIrdklQLzVkTVNwcUJFTHdnYXduQ0RRZlcybGhXQUQ3?=
+ =?utf-8?B?aWFMMkhPN24ydmNoSEU2elJIbXdaTko4bUZPQ3BNZ20rK3ZlSDNJRHNNWWRZ?=
+ =?utf-8?B?ZmVEenNYeWU3eUhYQ011aHBFNkJhN2c5TzVKZXE0KzRXMWNUL2pKQUNqRkpi?=
+ =?utf-8?B?eFlBNm9oUy9tc29OVW1FWHZsU1ZLcU1DWjhsK0pIbWxSOHludndUNXpubUFH?=
+ =?utf-8?B?dS94bXNQelhRcTM5RmxRT1U3SDRvRjJVQUxsMlJhRGlrTGViVVk5Mm5FTFEy?=
+ =?utf-8?B?WHRwdTdJakVobjhScFdmMEdIY0tVZWlXd09DUUlqNFV5MFFkaDRFOHhIMWxP?=
+ =?utf-8?B?UUY5SUlGQ0hzbFZlY0t0ZVBTTWI5Ly9UaTZHTWYrUm5kZXE3SWVFYVoxejh0?=
+ =?utf-8?B?UXdTMkdlbVNiQkEzb0JPclQwODBvVXp0MTdkSWZNVlhyVFQ5VHU3NE5XbHho?=
+ =?utf-8?Q?OOAnGP9Jtb8ATTKAYmdEyrrHPNgAKeC8hD2vM?=
+X-OriginatorOrg: bp.renesas.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b647da94-233a-4ccd-e34b-08de80e249b2
+X-MS-Exchange-CrossTenant-AuthSource: TY3PR01MB11948.jpnprd01.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Mar 2026 09:22:07.4617 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Mar 2026 09:24:12.4287 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: uXo4JGRcB91/gb8TxYxYjTo2nUPFU5kAwZO+umZdc3oCG2vY4spDYCctLqSyp/qO
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9358
+X-MS-Exchange-CrossTenant-UserPrincipalName: AMBK2M4rcM35ttCoxAKImMx7j8qXFYV0iRm86QyEVw0eutleiPbz+LHgtHnvzEL9GLF0kaElMADblOYAHriFhWhz3U3FrrS5wM7+LlEy6TfVeDKZoxE9YyapM4z29LMz
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYYPR01MB12777
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -143,225 +150,139 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 3/12/26 19:45, Matt Evans wrote:
-> Hi all,
-> 
-> 
-> There were various suggestions in the September 2025 thread "[TECH
-> TOPIC] vfio, iommufd: Enabling user space drivers to vend more
-> granular access to client processes" [0], and LPC discussions, around
-> improving the situation for multi-process userspace driver designs.
-> This RFC series implements some of these ideas.
-> 
-> (Thanks for feedback on v1!  Revised series, with changes noted
-> inline.)
-> 
-> Background: Multi-process USDs
-> ==============================
-> 
-> The userspace driver scenario discussed in that thread involves a
-> primary process driving a PCIe function through VFIO/iommufd, which
-> manages the function-wide ownership/lifecycle.  The function is
-> designed to provide multiple distinct programming interfaces (for
-> example, several independent MMIO register frames in one function),
-> and the primary process delegates control of these interfaces to
-> multiple independent client processes (which do the actual work).
-> This scenario clearly relies on a HW design that provides appropriate
-> isolation between the programming interfaces.
-> 
-> The two key needs are:
-> 
->  1.  Mechanisms to safely delegate a subset of the device MMIO
->      resources to a client process without over-sharing wider access
->      (or influence over whole-device activities, such as reset).
-> 
->  2.  Mechanisms to allow a client process to do its own iommufd
->      management w.r.t. its address space, in a way that's isolated
->      from DMA relating to other clients.
-> 
-> 
-> mmap() of VFIO DMABUFs
-> ======================
-> 
-> This RFC addresses #1 in "vfio/pci: Support mmap() of a VFIO DMABUF",
-> implementing the proposals in [0] to add mmap() support to the
-> existing VFIO DMABUF exporter.
-> 
-> This enables a userspace driver to define DMABUF ranges corresponding
-> to sub-ranges of a BAR, and grant a given client (via a shared fd)
-> the capability to access (only) those sub-ranges.  The VFIO device fds
-> would be kept private to the primary process.  All the client can do
-> with that fd is map (or iomap via iommufd) that specific subset of
-> resources, and the impact of bugs/malice is contained.
-> 
->  (We'll follow up on #2 separately, as a related-but-distinct problem.
->   PASIDs are one way to achieve per-client isolation of DMA; another
->   could be sharing of a single IOVA space via 'constrained' iommufds.)
-> 
-> 
-> New in v2: To achieve this, the existing VFIO BAR mmap() path is
-> converted to use DMABUFs behind the scenes, in "vfio/pci: Convert BAR
-> mmap() to use a DMABUF" plus new helper functions, as Jason/Christian
-> suggested in the v1 discussion [3].
-> 
-> This means:
-> 
->  - Both regular and new DMABUF BAR mappings share the same vm_ops,
->    i.e.  mmap()ing DMABUFs is a smaller change on top of the existing
->    mmap().
-> 
->  - The zapping of mappings occurs via vfio_pci_dma_buf_move(), and the
->    vfio_pci_zap_bars() originally paired with the _move()s can go
->    away.  Each DMABUF has a unique address_space.
-> 
->  - It's a step towards future iommufd VFIO Type1 emulation
->    implementing P2P, since iommufd can now get a DMABUF from a VA that
->    it's mapping for IO; the VMAs' vm_file is that of the backing
->    DMABUF.
-> 
-> 
-> Revocation/reclaim
-> ==================
-> 
-> Mapping a BAR subset is useful, but the lifetime of access granted to
-> a client needs to be managed well.  For example, a protocol between
-> the primary process and the client can indicate when the client is
-> done, and when it's safe to reuse the resources elsewhere, but cleanup
-> can't practically be cooperative.
-> 
-> For robustness, we enable the driver to make the resources
-> guaranteed-inaccessible when it chooses, so that it can re-assign them
-> to other uses in future.
-> 
-> "vfio/pci: Permanently revoke a DMABUF on request" adds a new VFIO
-> device fd ioctl, VFIO_DEVICE_PCI_DMABUF_REVOKE.  This takes a DMABUF
-> fd parameter previously exported (from that device!) and permanently
-> revokes the DMABUF.  This notifies/detaches importers, zaps PTEs for
-> any mappings, and guarantees no future attachment/import/map/access is
-> possible by any means.
-> 
-> A primary driver process would use this operation when the client's
-> tenure ends to reclaim "loaned-out" MMIO interfaces, at which point
-> the interfaces could be safely re-used.
-> 
-> New in v2: ioctl() on VFIO driver fd, rather than DMABUF fd.  A DMABUF
-> is revoked using code common to vfio_pci_dma_buf_move(), selectively
-> zapping mappings (after waiting for completion on the
-> dma_buf_invalidate_mappings() request).
-> 
-> 
-> BAR mapping access attributes
-> =============================
-> 
-> Inspired by Alex [Mastro] and Jason's comments in [0] and Mahmoud's
-> work in [1] with the goal of controlling CPU access attributes for
-> VFIO BAR mappings (e.g. WC), we can decorate DMABUFs with access
-> attributes that are then used by a mapping's PTEs.
-> 
-> I've proposed reserving a field in struct
-> vfio_device_feature_dma_buf's flags to specify an attribute for its
-> ranges.  Although that keeps the (UAPI) struct unchanged, it means all
-> ranges in a DMABUF share the same attribute.  I feel a single
-> attribute-to-mmap() relation is logical/reasonable.  An application
-> can also create multiple DMABUFs to describe any BAR layout and mix of
-> attributes.
-> 
-> 
-> Tests
-> =====
-> 
-> (Still sharing the [RFC ONLY] userspace test/demo program for context,
-> not for merge.)
-> 
-> It illustrates & tests various map/revoke cases, but doesn't use the
-> existing VFIO selftests and relies on a (tweaked) QEMU EDU function.
-> I'm (still) working on integrating the scenarios into the existing
-> VFIO selftests.
-> 
-> This code has been tested in mapping DMABUFs of single/multiple
-> ranges, aliasing mmap()s, aliasing ranges across DMABUFs, vm_pgoff >
-> 0, revocation, shutdown/cleanup scenarios, and hugepage mappings seem
-> to work correctly.  I've lightly tested WC mappings also (by observing
-> resulting PTEs as having the correct attributes...).
-> 
-> 
-> Fin
-> ===
-> 
-> v2 is based on next-20260310 (to build on Leon's recent series
-> "vfio: Wait for dma-buf invalidation to complete" [2]).
-> 
-> 
-> Please share your thoughts!  I'd like to de-RFC if we feel this
-> approach is now fair.
+Hi Thomas,
 
-I only skimmed over it, but at least of hand I couldn't find anything fundamentally wrong.
+On 3/13/26 09:33, Thomas Zimmermann wrote:
+> Hi
+> 
+> Am 12.03.26 um 18:46 schrieb Biju Das:
+>> Hi Tommaso,
+>>
+>>> -----Original Message-----
+>>> From: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+>>> Sent: 12 March 2026 17:37
+>>> Subject: Re: [PATCH v4 5/6] drm/gem-shmem: Track folio accessed/dirty 
+>>> status in mmap
+>>>
+>>> Hi Thomas,
+>>> Thanks for your patch.
+>>>
+>>> I'm working on DSI support for RZ/G3E from this morning rebasing on 
+>>> top of next-20260311 I'm seeing
+>>> that weston hang on my side:
+>>>
+>>> Reverting this patch fix the issue.
+>>> (git revert 28e3918179aa)
+> 
+> Just a guess, but maybe vm_file is NULL. The attached patch should 
+> handle this. Could either of you please test?
 
-The locking order seems to change in patch #6. In general I strongly recommend to enable lockdep while testing anyway but explicitly when I see such changes.
+Same here, no luck.
+Thanks for sharing.
 
-Additional to that it might also be a good idea to have a lockdep initcall function which defines the locking order in the way all the VFIO code should follow.
-
-See function dma_resv_lockdep() for an example on how to do that. Especially with mmap support and all the locks involved with that it has proven to be a good practice to have something like that.
-
-Regards,
-Christian.
+Kind Regards,
+Tommaso
 
 > 
-> 
-> Many thanks,
-> 
-> 
-> Matt
+> Best regards
+> Thomas
 > 
 > 
-> 
-> References:
-> 
-> [0]: https://lore.kernel.org/linux-iommu/20250918214425.2677057-1-amastro@fb.com/
-> [1]: https://lore.kernel.org/all/20250804104012.87915-1-mngyadam@amazon.de/
-> [2]: https://lore.kernel.org/linux-iommu/20260205-nocturnal-poetic-chamois-f566ad@houat/T/#m310cd07011e3a1461b6fda45e3f9b886ba76571a
-> [3]: https://lore.kernel.org/all/20260226202211.929005-1-mattev@meta.com/
-> 
-> --------------------------------------------------------------------------------
-> Changelog:
-> 
-> v2:  Respin based on the feedback/suggestions:
-> 
-> - Transform the existing VFIO BAR mmap path to also use DMABUFs behind
->   the scenes, and then simply share that code for explicitly-mapped
->   DMABUFs.
-> 
-> - Refactors the export itself out of vfio_pci_core_feature_dma_buf,
->   and shared by a new vfio_pci_core_mmap_prep_dmabuf helper used by
->   the regular VFIO mmap to create a DMABUF.
-> 
-> - Revoke buffers using a VFIO device fd ioctl
-> 
-> v1: https://lore.kernel.org/all/20260226202211.929005-1-mattev@meta.com/
-> 
-> 
-> Matt Evans (10):
->   vfio/pci: Set up VFIO barmap before creating a DMABUF
->   vfio/pci: Clean up DMABUFs before disabling function
->   vfio/pci: Add helper to look up PFNs for DMABUFs
->   vfio/pci: Add a helper to create a DMABUF for a BAR-map VMA
->   vfio/pci: Convert BAR mmap() to use a DMABUF
->   vfio/pci: Remove vfio_pci_zap_bars()
->   vfio/pci: Support mmap() of a VFIO DMABUF
->   vfio/pci: Permanently revoke a DMABUF on request
->   vfio/pci: Add mmap() attributes to DMABUF feature
->   [RFC ONLY] selftests: vfio: Add standalone vfio_dmabuf_mmap_test
-> 
->  drivers/vfio/pci/Kconfig                      |   3 +-
->  drivers/vfio/pci/Makefile                     |   3 +-
->  drivers/vfio/pci/vfio_pci_config.c            |  18 +-
->  drivers/vfio/pci/vfio_pci_core.c              | 123 +--
->  drivers/vfio/pci/vfio_pci_dmabuf.c            | 425 +++++++--
->  drivers/vfio/pci/vfio_pci_priv.h              |  46 +-
->  include/uapi/linux/vfio.h                     |  42 +-
->  tools/testing/selftests/vfio/Makefile         |   1 +
->  .../vfio/standalone/vfio_dmabuf_mmap_test.c   | 837 ++++++++++++++++++
->  9 files changed, 1339 insertions(+), 159 deletions(-)
->  create mode 100644 tools/testing/selftests/vfio/standalone/vfio_dmabuf_mmap_test.c
+>>>
+>>> I'm wondering if anyone encountered this issue?
+>>> Thanks in advance.
+>>
+>> I am also seeing same issue on RZ/G3L with weston.
+>>
+>> Cheers,
+>> Biju
+>>
+>>
+>>
+>>> Kind Regards,
+>>> Tommaso
+>>>
+>>> On Fri, Feb 27, 2026 at 12:42:10PM +0100, Thomas Zimmermann wrote:
+>>>> Invoke folio_mark_accessed() in mmap page faults to add the folio to
+>>>> the memory manager's LRU list. Userspace invokes mmap to get the
+>>>> memory for software rendering. Compositors do the same when creating
+>>>> the final on-screen image, so keeping the pages in LRU makes sense.
+>>>> Avoids paging out graphics buffers when under memory pressure.
+>>>>
+>>>> In pfn_mkwrite, further invoke the folio_mark_dirty() to add the folio
+>>>> for writeback should the underlying file be paged out from system 
+>>>> memory.
+>>>> This rarely happens in practice, yet it would corrupt the buffer 
+>>>> content.
+>>>>
+>>>> This has little effect on a system's hardware-accelerated rendering,
+>>>> which only mmaps for an initial setup of textures, meshes, shaders, 
+>>>> etc.
+>>>>
+>>>> v4:
+>>>> - test for VM_FAULT_NOPAGE before marking folio as accessed (Boris)
+>>>> - test page-array bounds in mkwrite handler (Boris)
+>>>> v3:
+>>>> - rewrite for VM_PFNMAP
+>>>> v2:
+>>>> - adapt to changes in drm_gem_shmem_try_mmap_pmd()
+>>>>
+>>>> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+>>>> Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
+>>>> ---
+>>>>   drivers/gpu/drm/drm_gem_shmem_helper.c | 22 ++++++++++++++++++++++
+>>>>   1 file changed, 22 insertions(+)
+>>>>
+>>>> diff --git a/drivers/gpu/drm/drm_gem_shmem_helper.c
+>>>> b/drivers/gpu/drm/drm_gem_shmem_helper.c
+>>>> index cefa50eaf7a4..1ab2bbd3860c 100644
+>>>> --- a/drivers/gpu/drm/drm_gem_shmem_helper.c
+>>>> +++ b/drivers/gpu/drm/drm_gem_shmem_helper.c
+>>>> @@ -598,6 +598,9 @@ static vm_fault_t drm_gem_shmem_fault(struct 
+>>>> vm_fault *vmf)
+>>>>       if (ret != VM_FAULT_NOPAGE)
+>>>>           ret = vmf_insert_pfn(vma, vmf->address, pfn);
+>>>>
+>>>> +    if (ret == VM_FAULT_NOPAGE)
+>>>> +        folio_mark_accessed(folio);
+>>>> +
+>>>>   out:
+>>>>       dma_resv_unlock(obj->resv);
+>>>>
+>>>> @@ -638,10 +641,29 @@ static void drm_gem_shmem_vm_close(struct 
+>>>> vm_area_struct *vma)
+>>>>       drm_gem_vm_close(vma);
+>>>>   }
+>>>>
+>>>> +static vm_fault_t drm_gem_shmem_pfn_mkwrite(struct vm_fault *vmf) {
+>>>> +    struct vm_area_struct *vma = vmf->vma;
+>>>> +    struct drm_gem_object *obj = vma->vm_private_data;
+>>>> +    struct drm_gem_shmem_object *shmem = to_drm_gem_shmem_obj(obj);
+>>>> +    loff_t num_pages = obj->size >> PAGE_SHIFT;
+>>>> +    pgoff_t page_offset = vmf->pgoff - vma->vm_pgoff; /* page offset
+>>>> +within VMA */
+>>>> +
+>>>> +    if (drm_WARN_ON(obj->dev, !shmem->pages || page_offset >= 
+>>>> num_pages))
+>>>> +        return VM_FAULT_SIGBUS;
+>>>> +
+>>>> +    file_update_time(vma->vm_file);
+>>>> +
+>>>> +    folio_mark_dirty(page_folio(shmem->pages[page_offset]));
+>>>> +
+>>>> +    return 0;
+>>>> +}
+>>>> +
+>>>>   const struct vm_operations_struct drm_gem_shmem_vm_ops = {
+>>>>       .fault = drm_gem_shmem_fault,
+>>>>       .open = drm_gem_shmem_vm_open,
+>>>>       .close = drm_gem_shmem_vm_close,
+>>>> +    .pfn_mkwrite = drm_gem_shmem_pfn_mkwrite,
+>>>>   };
+>>>>   EXPORT_SYMBOL_GPL(drm_gem_shmem_vm_ops);
+>>>>
+>>>> -- 
+>>>> 2.52.0
+>>>>
 > 
 
