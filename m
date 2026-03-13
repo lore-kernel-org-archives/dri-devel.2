@@ -4,59 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7AB94106FD65
-	for <dri-devel@archiver.kernel.org>; Fri, 13 Mar 2026 01:52:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7E4AB106FD66
+	for <dri-devel@archiver.kernel.org>; Fri, 13 Mar 2026 02:12:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 06F4110EAF9;
-	Fri, 13 Mar 2026 01:52:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EB3C710E042;
+	Fri, 13 Mar 2026 02:12:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="geiiSDLJ";
+	dkim=pass (1024-bit key; unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.b="PPY8peb+";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B9B8E10EAD7;
- Fri, 13 Mar 2026 01:52:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1773366740; x=1804902740;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=RFMAz3gtqVPr0spLvBGURASuHF6nJbAQptgHl3lAlNs=;
- b=geiiSDLJfaSevQ3aKs0w+Qc1MXDvAPWCYcDkpFOUUjs5TJogLQflibnD
- Pozc16F+qv01ubdszgGJZhC41VHcd/ZEcx/UKo6q306BRx2k/riQ1EMFu
- l5DN6uYmf2edaXlBREuYbFbklVtSTvufLKvK+h5RUdozwaycTsY2iyZU8
- +V3b4Y5LGfz7TECH4+ft+EE5O5FH95sXho5sNe7qlELqDURI2FHC0kBxF
- KxLjmDxWZ0bkHbGXmSqUp6AUl5/rOGlzl3cOOHfEfzuJ0stMNwu2OIDP7
- WPjHehsfSSMPpF1cj0XWKNe59K7B3CY20zhnPjBEGDyZ1A4E9X/pR/T7q w==;
-X-CSE-ConnectionGUID: eqI0qjUjQ5W0lAV6khXIBA==
-X-CSE-MsgGUID: k35dtHeHRLasyJmvn0dR7g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11727"; a="74354607"
-X-IronPort-AV: E=Sophos;i="6.23,117,1770624000"; d="scan'208";a="74354607"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
- by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Mar 2026 18:52:12 -0700
-X-CSE-ConnectionGUID: ukU4FvFWTqeuDfszU6JniQ==
-X-CSE-MsgGUID: h4eqBIB4Req9XaOI4ac/bg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,117,1770624000"; d="scan'208";a="220108515"
-Received: from debox1-desk4.jf.intel.com ([10.88.27.138])
- by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Mar 2026 18:52:12 -0700
-From: "David E. Box" <david.e.box@linux.intel.com>
-To: thomas.hellstrom@linux.intel.com, rodrigo.vivi@intel.com,
- irenic.rajneesh@gmail.com, ilpo.jarvinen@linux.intel.com,
- srinivas.pandruvada@linux.intel.com, intel-xe@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, xi.pardee@linux.intel.com
-Cc: david.e.box@linux.intel.com, hansg@kernel.org,
- linux-kernel@vger.kernel.org, platform-driver-x86@vger.kernel.org
-Subject: [PATCH 16/22] platform/x86/intel/pmc/ssram: Use fixed-size static pmc
- array
-Date: Thu, 12 Mar 2026 18:51:55 -0700
-Message-ID: <20260313015202.3660072-17-david.e.box@linux.intel.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260313015202.3660072-1-david.e.box@linux.intel.com>
-References: <20260313015202.3660072-1-david.e.box@linux.intel.com>
+Received: from mail-m1973171.qiye.163.com (mail-m1973171.qiye.163.com
+ [220.197.31.71])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7DF7610E042
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Mar 2026 02:12:22 +0000 (UTC)
+Received: from [172.16.12.43] (unknown [58.22.7.114])
+ by smtp.qiye.163.com (Hmail) with ESMTP id 36c776438;
+ Fri, 13 Mar 2026 10:07:14 +0800 (GMT+08:00)
+Message-ID: <716e9716-2268-438f-ae55-d380877db123@rock-chips.com>
+Date: Fri, 13 Mar 2026 10:07:13 +0800
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1 1/4] dt-bindings: display: rockchip: analogix-dp: Add
+ support for RK3576
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: hjc@rock-chips.com, heiko@sntech.de, andy.yan@rock-chips.com,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ airlied@gmail.com, simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, andrzej.hajda@intel.com, neil.armstrong@linaro.org,
+ rfoss@kernel.org, Laurent.pinchart@ideasonboard.com, jonas@kwiboo.se,
+ jernej.skrabec@gmail.com, nicolas.frattaroli@collabora.com,
+ alchark@gmail.com, cristian.ciocaltea@collabora.com,
+ sebastian.reichel@collabora.com, kever.yang@rock-chips.com,
+ dmitry.baryshkov@oss.qualcomm.com, luca.ceresoli@bootlin.com,
+ dianders@chromium.org, m.szyprowski@samsung.com,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+References: <20260310105307.309765-1-damon.ding@rock-chips.com>
+ <20260310105307.309765-2-damon.ding@rock-chips.com>
+ <20260311-toucanet-of-imaginary-authority-c9f0db@quoll>
+Content-Language: en-US
+From: Damon Ding <damon.ding@rock-chips.com>
+In-Reply-To: <20260311-toucanet-of-imaginary-authority-c9f0db@quoll>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-HM-Tid: 0a9ce4f2a92e03a3kunmc1811a2e381cc
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+ tZV1koWUFDSUNOT01LS0k3V1ktWUFJV1kPCRoVCBIfWUFZQ0xJQlYYQkkZQx5KSU5OSk5WFRQJFh
+ oXVRMBExYaEhckFA4PWVdZGBILWUFZTkNVSUlVTFVKSk9ZV1kWGg8SFR0UWUFZT0tIVUpLSEpKQk
+ 1VSktLVUpCWQY+
+DKIM-Signature: a=rsa-sha256;
+ b=PPY8peb+FTgHiMCthwWnx7ddQB28ebg/49XsKF30c4mNbCyqrWJ52zOSOmR2IRU2UfLunwLLT5U6DjQ0/SomKzjkYrvdEeQRpuHcTdZw76dueIwcCIQHDeGUHsUYzvPe+3wi4X3eqbZaiJpNzvrsCHKw7KjV7QoJyQUD3l77WDs=;
+ c=relaxed/relaxed; s=default; d=rock-chips.com; v=1; 
+ bh=bq4iq8k6GkX1ctzNetJVx6rxaOwxLlO+PzTPDVOLeDk=;
+ h=date:mime-version:subject:message-id:from;
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,62 +73,53 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Xi Pardee <xi.pardee@linux.intel.com>
+Hi Krzysztof,
 
-Switch pmc_ssram_telems from a devm-allocated pointer to a fixed-size
-static array, eliminating per-probe allocation overhead and simplifying
-lifetime management.
+On 3/11/2026 9:01 PM, Krzysztof Kozlowski wrote:
+> On Tue, Mar 10, 2026 at 06:53:04PM +0800, Damon Ding wrote:
+>> The eDP TX controller on RK3576 is the same as that on RK3588.
+>>
+>> The newly added clock 'hclk' is the video datapath clock.
+>>
+>> Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
+>> ---
+>>   .../bindings/display/rockchip/rockchip,analogix-dp.yaml     | 6 +++++-
+>>   1 file changed, 5 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml b/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml
+>> index d99b23b88cc5..4496a43881f9 100644
+>> --- a/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml
+>> +++ b/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml
+>> @@ -15,6 +15,7 @@ properties:
+>>       enum:
+>>         - rockchip,rk3288-dp
+>>         - rockchip,rk3399-edp
+>> +      - rockchip,rk3576-edp
+>>         - rockchip,rk3588-edp
+>>   
+>>     clocks:
+>> @@ -26,7 +27,9 @@ properties:
+>>       items:
+>>         - const: dp
+>>         - const: pclk
+>> -      - const: grf
+>> +      - enum:
+>> +          - grf
+>> +          - hclk
+> 
+> And why it is not the same clock? Nothing in commit msg explains why
+> this clock input (not output!) is different.
+> 
 
-Correspondingly simplify pmc_ssram_telemetry_get_pmc_info() validation to
-check devid availability and tighten input bounds checking. Drop
-null-pointer checks now that the storage is static.
+After checking the CRU design for both platforms, I confirm that both 
+require this HCLK.
 
-Signed-off-by: Xi Pardee <xi.pardee@linux.intel.com>
-Signed-off-by: David E. Box <david.e.box@linux.intel.com>
----
- drivers/platform/x86/intel/pmc/ssram_telemetry.c | 10 ++--------
- 1 file changed, 2 insertions(+), 8 deletions(-)
+The RK3588 platform works without explicitly adding this clock because 
+the 'rockchip,vo-grf = <&vo1_grf>' property implicitly enables hclk_vo1.
 
-diff --git a/drivers/platform/x86/intel/pmc/ssram_telemetry.c b/drivers/pla=
-tform/x86/intel/pmc/ssram_telemetry.c
-index 1deb4d71da3f..9c3d7ba2fd52 100644
---- a/drivers/platform/x86/intel/pmc/ssram_telemetry.c
-+++ b/drivers/platform/x86/intel/pmc/ssram_telemetry.c
-@@ -24,7 +24,7 @@
-=20
- DEFINE_FREE(pmc_ssram_telemetry_iounmap, void __iomem *, if (_T) iounmap(_=
-T))
-=20
--static struct pmc_ssram_telemetry *pmc_ssram_telems;
-+static struct pmc_ssram_telemetry pmc_ssram_telems[3];
- static bool device_probed;
-=20
- static int
-@@ -140,7 +140,7 @@ int pmc_ssram_telemetry_get_pmc_info(unsigned int pmc_i=
-dx,
- 	if (pmc_idx >=3D MAX_NUM_PMC)
- 		return -EINVAL;
-=20
--	if (!pmc_ssram_telems || !pmc_ssram_telems[pmc_idx].devid)
-+	if (!pmc_ssram_telems[pmc_idx].devid)
- 		return -ENODEV;
-=20
- 	pmc_ssram_telemetry->devid =3D pmc_ssram_telems[pmc_idx].devid;
-@@ -153,12 +153,6 @@ static int pmc_ssram_telemetry_probe(struct pci_dev *p=
-cidev, const struct pci_de
- {
- 	int ret;
-=20
--	pmc_ssram_telems =3D devm_kzalloc(&pcidev->dev, sizeof(*pmc_ssram_telems)=
- * MAX_NUM_PMC,
--					GFP_KERNEL);
--	if (!pmc_ssram_telems) {
--		ret =3D -ENOMEM;
--		goto probe_finish;
--	}
-=20
- 	ret =3D pcim_enable_device(pcidev);
- 	if (ret) {
---=20
-2.43.0
+For v2, it should be better to add the corresponding HCLK reference to 
+the eDP nodes in the RK3588 DTS.
+
+Best regards,
+Damon
 
