@@ -4,80 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 62806106FD9D
-	for <dri-devel@archiver.kernel.org>; Fri, 13 Mar 2026 08:25:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A5068106FD9E
+	for <dri-devel@archiver.kernel.org>; Fri, 13 Mar 2026 08:25:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8811210EB0F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id AD31010EB11;
 	Fri, 13 Mar 2026 08:25:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=meta.com header.i=@meta.com header.b="tGmcNPiF";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="KCvpqIyy";
 	dkim-atps=neutral
-Received: from mx0a-00082601.pphosted.com (mx0b-00082601.pphosted.com
- [67.231.153.30])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2995510E1C6
- for <dri-devel@lists.freedesktop.org>; Thu, 12 Mar 2026 18:46:51 +0000 (UTC)
-Received: from pps.filterd (m0001303.ppops.net [127.0.0.1])
- by m0001303.ppops.net (8.18.1.11/8.18.1.11) with ESMTP id 62CHs6hE736960;
- Thu, 12 Mar 2026 11:46:40 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=meta.com; h=cc
- :content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=s2048-2025-q2;
- bh=F5iP07MryKL+RBsKPNOrGIpOE0QiFHOMNY2skfwri+I=; b=tGmcNPiFi4vV
- t6FnUDDv+vLa3kMO3p0i07iWoKFn9rsEAf42YjvI6n69DHDOWEVuEXJq4B+WdLqo
- 1910n5MQVkqLlCQiMg2nayCgF2jcKPfAd1Znem1lwvKniN7RwYAgBnHVfzuffMKw
- yKpC5QR7r0TKXqzkUHHIv819vX9zASDRjcJG7iXBK1Y4jFpjs+EXWpP58i+9597P
- SrOYwvNldvEMQ1xeozyCpy0dcXLyq9O4qWipxsAAFaPZ7Tk2S5vTZywzjKtBTgqK
- elnQ1PeVbZ1z5IclB3ZtOchhfcQ/jAr96ohdb2/YEny4nj6CeVVQov6mU4uXCp12
- zIxRAqY0nQ==
-Received: from maileast.thefacebook.com ([163.114.135.16])
- by m0001303.ppops.net (PPS) with ESMTPS id 4cv29xs1t8-3
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Thu, 12 Mar 2026 11:46:40 -0700 (PDT)
-Received: from localhost (2620:10d:c0a8:1b::30) by mail.thefacebook.com
- (2620:10d:c0a9:6f::237c) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.35; Thu, 12 Mar
- 2026 18:46:35 +0000
-From: Matt Evans <mattev@meta.com>
-To: Alex Williamson <alex@shazbot.org>, Leon Romanovsky <leon@kernel.org>,
- Jason Gunthorpe <jgg@nvidia.com>, Alex Mastro <amastro@fb.com>,
- Mahmoud Adam <mngyadam@amazon.de>, David Matlack <dmatlack@google.com>
-CC: =?UTF-8?q?Bj=C3=B6rn=20T=C3=B6pel?= <bjorn@kernel.org>, Sumit Semwal
- <sumit.semwal@linaro.org>, =?UTF-8?q?Christian=20K=C3=B6nig?=
- <christian.koenig@amd.com>,
- Kevin Tian <kevin.tian@intel.com>, Ankit Agrawal <ankita@nvidia.com>,
- Pranjal Shrivastava <praan@google.com>, Alistair Popple
- <apopple@nvidia.com>, Vivek Kasireddy <vivek.kasireddy@intel.com>,
- <linux-kernel@vger.kernel.org>, <linux-media@vger.kernel.org>,
- <dri-devel@lists.freedesktop.org>, <linaro-mm-sig@lists.linaro.org>,
- <kvm@vger.kernel.org>
-Subject: [RFC v2 PATCH 03/10] vfio/pci: Add helper to look up PFNs for DMABUFs
-Date: Thu, 12 Mar 2026 11:46:01 -0700
-Message-ID: <20260312184613.3710705-4-mattev@meta.com>
-X-Mailer: git-send-email 2.52.0
-In-Reply-To: <20260312184613.3710705-1-mattev@meta.com>
-References: <20260312184613.3710705-1-mattev@meta.com>
+Received: from mail-ot1-f45.google.com (mail-ot1-f45.google.com
+ [209.85.210.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2D13710E441
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Mar 2026 01:53:16 +0000 (UTC)
+Received: by mail-ot1-f45.google.com with SMTP id
+ 46e09a7af769-7d75371d873so1964653a34.3
+ for <dri-devel@lists.freedesktop.org>; Thu, 12 Mar 2026 18:53:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1773366795; x=1773971595; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=Je77iCsOrEuw63H4T4mEYukShtJgkZJQLEZYMkoBqT4=;
+ b=KCvpqIyylOCpqqTdkCPph5QbuCMofd5Mmn4OOSSTaPiz3xBpv0Tmr0uEIvSZHkpZcF
+ csiCpnTDowMVyk3jzgERR3AVjzlZC8+fbpcfsjqYCkFEMSMIUOWGNjVMmhXNtLuDy8ed
+ WKRvvH6dlK53SJde4x/uQAoiy+fpnw7svYPLmXqeBQprpD8UyA+prALQ4UqENyWp20km
+ o0UEbbY/VnZjxQYcwlVAjSOFv7WNtAEv0lowiac56gv3dOQLLir8ivQeh0N02olB4WVw
+ sYssViEWDLIXz8MdZOL9M8+LbMHZYKEOF1FyvyUBeMfU1EfVER4LRzMno/Tr2iL25uyT
+ 0+KQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1773366795; x=1773971595;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=Je77iCsOrEuw63H4T4mEYukShtJgkZJQLEZYMkoBqT4=;
+ b=kPblu6r9Ltr083DlfHIj/qgti3q97weWH52wObatgNT7822UqNgvxzRrZCI4H0h3/+
+ s5ruA17xH688xDwXTIX0ALe+RWYWOipmki+mwx/Wc+mz2ZS2MxSxgPkLYu6eHkj6s1oE
+ o/Xf8qaPOMYuw3jrtjrxXWhl5kbnziFFW7LeLXGcV/N2kC0wymVtezgOoSwzn3Zq05md
+ xTLzWTpAQDfxGy0KLMRWqOQMFmNqbGxycrut3O/WJQ8XCy6yJUyeTUh5YzeKamY4hcV8
+ N4jyPx5I2OiDBXTdIcVMiR1X9uA0fkdi567awj77wX2tut4zLiImQQMtCA6Zr4XwKx2o
+ 6nSg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXXMkZRiwr1AwJ/g+bELLunl7UyLrYdFv9PYojtuu2VxxKgqLtVwktmOjgHJkiYKF7iHy3WtjRaPGU=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwYlRjMEXDfL05JfIkgF13mWzOIlPtEacZklYD74X+m6YSFPUV9
+ qf0BSJLdc6v4mjIUAH6TBVmz2EhJ4cUgj23cqaGY3VKaoVtEOCG3kdFZ
+X-Gm-Gg: ATEYQzzXYIn62hGHXEiW+lemztsJTg5uHLbGAUwdTP6GvJr0JuC9oyjAGojBEnWmJgu
+ 1okFIg1lmkRTx5rr6U+WMl/OeOjAM/p25aaQDC1QvKfdfPxiYjukkESG23IKtoQt4waCQnJqJ5K
+ 5PR6PnPNFfprHQaByR6hOq+J3KsdcwGUR1mCcvRM6XcpIEVyON1z5ke4HyS65BLJ9CKfgErGIKg
+ uvh/I9UsmN8Z0o+tq+um9p5uvw5uYg0Z5vx9IpLbx0YwOQlWBBViigOAIJ3yz+re8EnXiiWHPu0
+ zwbzVAanCnOMTY/hUOEJij41vg2FeuiBP9QbN2ItEYTMCijzZ/bSUgUCF6I2Q3YOiFlA3NeyEtW
+ j4h0OqvYA7r7vLspZUzy7+HMrGNqZ1qvOBfj0sfqfVxZfZwgRobdSNqalKsQjjHmu8cU5bVY3EA
+ 3RokH/+WyAkJ2vEnCopYpPCFyFchHjktDvXGoiu8mJ/FRAlGxN13elYng/9S3xfHuoXNtK
+X-Received: by 2002:a05:6830:4903:b0:7d7:7b6f:d53e with SMTP id
+ 46e09a7af769-7d782311bc6mr985481a34.0.1773366795315; 
+ Thu, 12 Mar 2026 18:53:15 -0700 (PDT)
+Received: from Mac (c-76-107-126-43.hsd1.tn.comcast.net. [76.107.126.43])
+ by smtp.gmail.com with ESMTPSA id
+ 46e09a7af769-7d76ae68a4bsm5314729a34.19.2026.03.12.18.53.13
+ (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+ Thu, 12 Mar 2026 18:53:14 -0700 (PDT)
+From: David Baum <davidbaum461@gmail.com>
+To: alex.deucher@amd.com,
+	christian.koenig@amd.com
+Cc: lijo.lazar@amd.com, airlied@gmail.com, simona@ffwll.ch,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ David Baum <davidbaum461@gmail.com>
+Subject: [PATCH] drm/amdgpu: switch XGMI sysfs show helpers to sysfs_emit_at()
+Date: Thu, 12 Mar 2026 20:52:26 -0500
+Message-ID: <20260313015226.39727-1-davidbaum461@gmail.com>
+X-Mailer: git-send-email 2.50.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [2620:10d:c0a8:1b::30]
-X-Proofpoint-ORIG-GUID: 9y-dGupEJZ0nM22C7yEmPbFzaVwEVxI5
-X-Proofpoint-GUID: 9y-dGupEJZ0nM22C7yEmPbFzaVwEVxI5
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzEyMDE1MSBTYWx0ZWRfX7og+xCebr1Z8
- 9wGO5s5UEdE2Yeslw0vblbNfCiRwbJoSvgo9nlWQT8cVXzF5sfLQZqTfIzPzNQ6p/UQMP5Iv1nh
- WluUZEZs+iSxIJgAWsDtwjaEa2jHNi3ULa0b/Kt24ZApxDXGi2h3EmLrb/R14FPgHtbtkbecHE/
- w3hY/3gQb7N/8ylpDY7eoxpXUaJfVtPYmdadjVtqE1WzzVbXVhTrrJDNpc0+xiv4uwX0AVP3sdY
- /tVZ72jJjyRxDNKRILGF123tgkRQgyzovZ7KkOwnzSO62y6/5jiAUTXsZ9ZNQel4PluK714LwT8
- QrB0gjPihfTYndRSJKNNZw9naQDsm37u8kj2g2iGR5tfVI9H7BCcFxzLWFxrL2w6nVKbekF1NQF
- HFRyr2izqkyY0xYmrjY3+s3q7warmVesoHMcYw2lR4IMMurs7dEd6ShEEskYQchI8gZDLdd591W
- 8a842RHSrLPEoAGZ4VQ==
-X-Authority-Analysis: v=2.4 cv=G4YR0tk5 c=1 sm=1 tr=0 ts=69b30a10 cx=c_pps
- a=MfjaFnPeirRr97d5FC5oHw==:117 a=MfjaFnPeirRr97d5FC5oHw==:17
- a=Yq5XynenixoA:10 a=VkNPw1HP01LnGYTKEx00:22 a=7x6HtfJdh03M6CCDgxCd:22
- a=_78whYxrdx1mplLwxq1U:22 a=VabnemYjAAAA:8 a=FgeSMtyZeV4UKi14g-cA:9
- a=gKebqoRLp9LExxC7YDUY:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-03-12_02,2026-03-12_01,2025-10-01_01
 X-Mailman-Approved-At: Fri, 13 Mar 2026 08:25:02 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -94,179 +89,58 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add a helper, vfio_pci_dma_buf_find_pfn(), which a VMA fault handler
-can use to find a PFN.
+The XGMI sysfs show helpers amdgpu_xgmi_show_num_hops() and
+amdgpu_xgmi_show_num_links() currently populate the output buffer with
+sprintf() and then call sysfs_emit(buf, "%s\n", buf) to append the final
+newline.
 
-This supports multi-range DMABUFs, which typically would be used to
-represent scattered spans but might even represent overlapping or
-aliasing spans of PFNs.
+Convert both helpers to use sysfs_emit_at() while tracking the current
+offset. This keeps buffer construction in the sysfs helpers, avoids
+feeding the output buffer back into the final formatted write, and
+matches the style already used by
+amdgpu_xgmi_show_connected_port_num().
 
-Because this is intended to be used in vfio_pci_core.c, we also need
-to expose the struct vfio_pci_dma_buf in the vfio_pci_priv.h header.
-
-Signed-off-by: Matt Evans <mattev@meta.com>
+Signed-off-by: David Baum <davidbaum461@gmail.com>
 ---
- drivers/vfio/pci/vfio_pci_dmabuf.c | 102 +++++++++++++++++++++++++----
- drivers/vfio/pci/vfio_pci_priv.h   |  19 ++++++
- 2 files changed, 108 insertions(+), 13 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/vfio/pci/vfio_pci_dmabuf.c b/drivers/vfio/pci/vfio_pci_dmabuf.c
-index 44558cc2948e..63140528dbea 100644
---- a/drivers/vfio/pci/vfio_pci_dmabuf.c
-+++ b/drivers/vfio/pci/vfio_pci_dmabuf.c
-@@ -9,19 +9,6 @@
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
+index 11e56df1d91b..13fc7247fe23 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
+@@ -469,12 +469,12 @@ static ssize_t amdgpu_xgmi_show_num_hops(struct device *dev,
+ 	struct drm_device *ddev = dev_get_drvdata(dev);
+ 	struct amdgpu_device *adev = drm_to_adev(ddev);
+ 	struct psp_xgmi_topology_info *top = &adev->psp.xgmi_context.top_info;
+-	int i;
++	int i, offset = 0;
  
- MODULE_IMPORT_NS("DMA_BUF");
+ 	for (i = 0; i < top->num_nodes; i++)
+-		sprintf(buf + 3 * i, "%02x ", top->nodes[i].num_hops);
++		offset += sysfs_emit_at(buf, offset, "%02x ", top->nodes[i].num_hops);
  
--struct vfio_pci_dma_buf {
--	struct dma_buf *dmabuf;
--	struct vfio_pci_core_device *vdev;
--	struct list_head dmabufs_elm;
--	size_t size;
--	struct phys_vec *phys_vec;
--	struct p2pdma_provider *provider;
--	u32 nr_ranges;
--	struct kref kref;
--	struct completion comp;
--	u8 revoked : 1;
--};
--
- static int vfio_pci_dma_buf_attach(struct dma_buf *dmabuf,
- 				   struct dma_buf_attachment *attachment)
- {
-@@ -106,6 +93,95 @@ static const struct dma_buf_ops vfio_pci_dmabuf_ops = {
- 	.release = vfio_pci_dma_buf_release,
- };
- 
-+int vfio_pci_dma_buf_find_pfn(struct vfio_pci_dma_buf *vpdmabuf,
-+			      struct vm_area_struct *vma,
-+			      unsigned long address,
-+			      unsigned int order,
-+			      unsigned long *out_pfn)
-+{
-+	/*
-+	 * Given a VMA (start, end, pgoffs) and a fault address,
-+	 * search the corresponding DMABUF's phys_vec[] to find the
-+	 * range representing the address's offset into the VMA, and
-+	 * its PFN.
-+	 *
-+	 * The phys_vec[] ranges represent contiguous spans of VAs
-+	 * upwards from the buffer offset 0; the actual PFNs might be
-+	 * in any order, overlap/alias, etc.  Calculate an offset of
-+	 * the desired page given VMA start/pgoff and address, then
-+	 * search upwards from 0 to find which span contains it.
-+	 *
-+	 * On success, a valid PFN for a page sized by 'order' is
-+	 * returned into out_pfn.
-+	 *
-+	 * Failure occurs if:
-+	 * - The page would cross the edge of the VMA
-+	 * - The page isn't entirely contained within a range
-+	 * - We find a range, but the final PFN isn't aligned to the
-+	 *   requested order.
-+	 *
-+	 * (Upon failure, the caller is expected to try again with a
-+	 * smaller order; the tests above will always succeed for
-+	 * order=0 as the limit case.)
-+	 *
-+	 * It's suboptimal if DMABUFs are created with neigbouring
-+	 * ranges that are physically contiguous, since hugepages
-+	 * can't straddle range boundaries.  (The construction of the
-+	 * ranges vector should merge such ranges.)
-+	 */
-+
-+	const unsigned long pagesize = PAGE_SIZE << order;
-+	unsigned long rounded_page_addr = address & ~(pagesize - 1);
-+	unsigned long rounded_page_end = rounded_page_addr + pagesize;
-+	unsigned long buf_page_offset;
-+	unsigned long buf_offset = 0;
-+	unsigned int i;
-+
-+	if (rounded_page_addr < vma->vm_start || rounded_page_end > vma->vm_end)
-+		return -EAGAIN;
-+
-+	if (unlikely(check_add_overflow(rounded_page_addr - vma->vm_start,
-+					vma->vm_pgoff << PAGE_SHIFT, &buf_page_offset)))
-+		return -EFAULT;
-+
-+	for (i = 0; i < vpdmabuf->nr_ranges; i++) {
-+		unsigned long range_len = vpdmabuf->phys_vec[i].len;
-+		unsigned long range_start = vpdmabuf->phys_vec[i].paddr;
-+
-+		if (buf_page_offset >= buf_offset &&
-+		    buf_page_offset + pagesize <= buf_offset + range_len) {
-+			/*
-+			 * The faulting page is wholly contained
-+			 * within the span represented by the range.
-+			 * Validate PFN alignment for the order:
-+			 */
-+			unsigned long pfn = (range_start >> PAGE_SHIFT) +
-+				((buf_page_offset - buf_offset) >> PAGE_SHIFT);
-+
-+			if (IS_ALIGNED(pfn, 1 << order)) {
-+				*out_pfn = pfn;
-+				return 0;
-+			}
-+			/* Retry with smaller order */
-+			return -EAGAIN;
-+		}
-+		buf_offset += range_len;
-+	}
-+
-+	/*
-+	 * If we get here, the address fell outside of the span
-+	 * represented by the (concatenated) ranges.  Setup of a
-+	 * mapping must ensure that the VMA is <= the total size of
-+	 * the ranges, so this should never happen.  But, if it does,
-+	 * force SIGBUS for the access and warn.
-+	 */
-+	WARN_ONCE(1, "No range for addr 0x%lx, order %d: VMA 0x%lx-0x%lx pgoff 0x%lx, %d ranges, size 0x%lx\n",
-+		  address, order, vma->vm_start, vma->vm_end, vma->vm_pgoff,
-+		  vpdmabuf->nr_ranges, vpdmabuf->size);
-+
-+	return -EFAULT;
-+}
-+
- /*
-  * This is a temporary "private interconnect" between VFIO DMABUF and iommufd.
-  * It allows the two co-operating drivers to exchange the physical address of
-diff --git a/drivers/vfio/pci/vfio_pci_priv.h b/drivers/vfio/pci/vfio_pci_priv.h
-index 27ac280f00b9..5cc8c85a2153 100644
---- a/drivers/vfio/pci/vfio_pci_priv.h
-+++ b/drivers/vfio/pci/vfio_pci_priv.h
-@@ -23,6 +23,19 @@ struct vfio_pci_ioeventfd {
- 	bool			test_mem;
- };
- 
-+struct vfio_pci_dma_buf {
-+	struct dma_buf *dmabuf;
-+	struct vfio_pci_core_device *vdev;
-+	struct list_head dmabufs_elm;
-+	size_t size;
-+	struct phys_vec *phys_vec;
-+	struct p2pdma_provider *provider;
-+	u32 nr_ranges;
-+	struct kref kref;
-+	struct completion comp;
-+	u8 revoked : 1;
-+};
-+
- bool vfio_pci_intx_mask(struct vfio_pci_core_device *vdev);
- void vfio_pci_intx_unmask(struct vfio_pci_core_device *vdev);
- 
-@@ -110,6 +123,12 @@ static inline bool vfio_pci_is_vga(struct pci_dev *pdev)
- 	return (pdev->class >> 8) == PCI_CLASS_DISPLAY_VGA;
+-	return sysfs_emit(buf, "%s\n", buf);
++	return offset + sysfs_emit_at(buf, offset, "\n");
  }
  
-+int vfio_pci_dma_buf_find_pfn(struct vfio_pci_dma_buf *vpdmabuf,
-+			      struct vm_area_struct *vma,
-+			      unsigned long address,
-+			      unsigned int order,
-+			      unsigned long *out_pfn);
-+
- #ifdef CONFIG_VFIO_PCI_DMABUF
- int vfio_pci_core_feature_dma_buf(struct vfio_pci_core_device *vdev, u32 flags,
- 				  struct vfio_device_feature_dma_buf __user *arg,
+ static ssize_t amdgpu_xgmi_show_num_links(struct device *dev,
+@@ -484,12 +484,12 @@ static ssize_t amdgpu_xgmi_show_num_links(struct device *dev,
+ 	struct drm_device *ddev = dev_get_drvdata(dev);
+ 	struct amdgpu_device *adev = drm_to_adev(ddev);
+ 	struct psp_xgmi_topology_info *top = &adev->psp.xgmi_context.top_info;
+-	int i;
++	int i, offset = 0;
+ 
+ 	for (i = 0; i < top->num_nodes; i++)
+-		sprintf(buf + 3 * i, "%02x ", top->nodes[i].num_links);
++		offset += sysfs_emit_at(buf, offset, "%02x ", top->nodes[i].num_links);
+ 
+-	return sysfs_emit(buf, "%s\n", buf);
++	return offset + sysfs_emit_at(buf, offset, "\n");
+ }
+ 
+ static ssize_t amdgpu_xgmi_show_connected_port_num(struct device *dev,
 -- 
-2.47.3
+2.50.1 (Apple Git-155)
 
