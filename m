@@ -4,69 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7CC53105F7B0
-	for <dri-devel@archiver.kernel.org>; Fri, 13 Mar 2026 13:24:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4407D105F7A6
+	for <dri-devel@archiver.kernel.org>; Fri, 13 Mar 2026 13:24:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 490C310EC0C;
-	Fri, 13 Mar 2026 13:24:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9E17C10EC06;
+	Fri, 13 Mar 2026 13:24:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Au+TW1wa";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="B7Oc/sGg";
 	dkim-atps=neutral
-Received: from mail-oi1-f175.google.com (mail-oi1-f175.google.com
- [209.85.167.175])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 572E610EC0B
- for <dri-devel@lists.freedesktop.org>; Fri, 13 Mar 2026 13:24:01 +0000 (UTC)
-Received: by mail-oi1-f175.google.com with SMTP id
- 5614622812f47-4673790ab85so1445621b6e.3
- for <dri-devel@lists.freedesktop.org>; Fri, 13 Mar 2026 06:24:01 -0700 (PDT)
+Received: from mail-oi1-f169.google.com (mail-oi1-f169.google.com
+ [209.85.167.169])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 933BF10EC0F
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Mar 2026 13:24:05 +0000 (UTC)
+Received: by mail-oi1-f169.google.com with SMTP id
+ 5614622812f47-46703fb602fso906870b6e.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Mar 2026 06:24:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1773408240; x=1774013040; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1773408245; x=1774013045; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=ZxTkOltoVAiRQNIiLPEo11+229bHMC78x0TMXlU2wIM=;
- b=Au+TW1wapgMyvc3Dzjn+VPZTiRP4wXMF3C/5RE8dkFAKXkzi3gagiqiO8pfy+y8yw7
- HHa19wwfN5OLn+EmY6iIyTwybTCyfSuJzqGlv0QajXCtaSG+THwiNQIEe81QIPVTacvW
- yvsLdWZSb67WarGNh1mebTFu4H0wKDsK92Xrxhv1ptkSg8EGPlxMv0ZKmbGOjxwIYmEP
- YvQWJshIgsEt/5rVRgCC0tVO5XCVN/mhNg+/ykNStlGw0AMmo2PXvnTyM/bfLJ8EuWom
- ShiUjDZal2rmemm7WncKnY6rTrSJ5AJ9rlyu4QJR5gOC6q3+Pzkv+SMLGIrl58Y97uvQ
- gNEA==
+ bh=qdG+Un7f/ck3xLwdvB5oV2R2xxQrjM1Me1J1P6bJ/B8=;
+ b=B7Oc/sGgi6eQp3zRYL7zvnA1Ug7pae6MPp0eajBrt85vu6cVF+5JeMHGPtT2dZyC7G
+ 95A7cskUVuwzMPMJfNAwwQB40rKRVbNiD60EeHLYyst6SgW/eufChX6mn3MJlzlcZU2K
+ OqRwmTxsCACxFb8KAs7hDMC3EhNDY45DUulWPp7SdsS0KrNCl4KGa9dHs9IBfoPqhEsj
+ 7sFQnVSbO6ccpe8EUPIeYEA2v6jiC4WBczsUkKbl7ewVayHoo1Klhjl2C8rTeOi2jFk+
+ hZLCni8as0ywPgg9NaFVMqx7woPRc6g5lE1v/GnK7qp91OS6nICUL0jKaPT+b9M6RDwK
+ yWvw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1773408240; x=1774013040;
+ d=1e100.net; s=20251104; t=1773408245; x=1774013045;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=ZxTkOltoVAiRQNIiLPEo11+229bHMC78x0TMXlU2wIM=;
- b=i+ZJeK1OLVnAbdMzxj+bFrAUNuxMyi5uQ8eJOKWVzacdQN0LTzTGngntA/C7ry2VPO
- oUl79T3l6gKpzU2UfHoxSdsTsSrEvhzNUAGkmT3nXjR+EXe7t9MOUxS1ayilVsw+CDKI
- Nt4gcmi3Kok7kAjWoMlbKcy6rSuaIdWh3ios+NDEmtbS0NzpMPgaVI1vOTs89CEoUT2N
- HEbl0UBjdgS20/mPJ52mv8kXT/4DB2SV1k/rxTcxX2vfFsw1OBSjdOOk4obmjBTkjb65
- Xap5T0Hufx5pZS4TtPHqVRiP7HUipuQ6YuwGxZCEDL9WeY95ymZbK+tb1dyO8aWtwrgx
- FFCg==
+ bh=qdG+Un7f/ck3xLwdvB5oV2R2xxQrjM1Me1J1P6bJ/B8=;
+ b=S40knf7lbUOhVlZcB8FquH+zLsGo3VgXAbxZleWmcWNLWF2xPqNchW6r9d/mi6jm8z
+ AZR9FTYI9C2c1nyr5JkADIyWwV3K6ByAReVZ41HbLJrAHUcgzQHKiHv4H1/GDX6LHv14
+ i1+26IbpBfTqmKiTkeetTUH8W241jwgM+g8sNJojaJXEL/Rf53hFD7Pn7AbBAOGKXtb0
+ 4fBGNYdy8Ip/UP4LVaoHIINGkeFPr4xB6FStk07LOfj3YacahTfsfi+XfIfM6VT2l23b
+ eatp/rmeRfrqCPlIc/lxQrLH4hze2ji/2vKOjWkYfEpdxAUzEwJCmmQtcHUEX4hK9048
+ 13EQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCW5b7hzfoSAH+KbxuGZw8jpD7z1FOs1k6ThUmweW+/QJ9uO4She+6r5HJ8ynZUcdqPrekdgoqUUvys=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yx6QpLZ9G/YuC6vZllp7HhBqYOAHYMTS+2AcwWvIItMh7UaZ2vC
- ycX/2DeKNFv3Z1BqLtQ067QCDUObBlJWys6Qly4K/Y/8lOZmFW0NdeQR
-X-Gm-Gg: ATEYQzyccGhhIY0QGb6FbImcevHAarcvQ/qJYpFg4fM/Wvc2P+RevxBqc6AXz4+Uijc
- 9ODxNvXpxpWUDylz1nWfaxxUiExS1w4lKl3Qo3mK6YnW2MnlrDJX199YXPfAXFLYvgT29maLti/
- 1q2h3qjRsy9n0YglEFbL2C0iPGwMGYFLnFEtsU8CaKFe81+e0GMKxxD5H6CkHrFAwX9X9RRVca0
- J8D3lq/1NiTOsaA6xrZqqug2hCeFAS/MuUaria1E7VR9KhrU+f9ymBF0zbbN5iV1rUodiL4yeTI
- 6LefEr4juY4/MJFh+y2OOJO+LEh+XyA6vmVt8JWucFrR4qz/PJpnBQc6GT5e/8pwsywTO32qnSZ
- 7DI9MaMfts7H55X5q5z5cpNIbn+JkkIxJeR897PPDYk0L9zcaYU8/rT2VV/VOZMfgdLIe41Ce0r
- GfXVe2GWXCkbjvwWi91EcS+jTuSYspBAV31eEaVTyh6+S8cPYC
-X-Received: by 2002:a05:6808:5292:b0:45e:bfe0:21f2 with SMTP id
- 5614622812f47-467570ecc8fmr1454885b6e.10.1773408240480; 
- Fri, 13 Mar 2026 06:24:00 -0700 (PDT)
+ AJvYcCWG69rM4ap6SC/STQBAQNqmsm2KsTe3stz6GEu7gI/oiLhJtK7WgbTZrVOBq8xPzNDvTUuIMaP1p6E=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyoLyercWhaCyisGWhAjDLxJtAwul30Pv6zuBx6VCTOAFPGDTHO
+ IiRwgp9n5CfKlOCs+092e0tc9Glg/ZMqOx/lSWRPVi5Yt/ZiCVaTsQmg
+X-Gm-Gg: ATEYQzwpHFwoG/u5BSnWM6GLdcrL5uP6DZgpEZ61EdYtBiTjpKweoH9Xwf7tOUZhD9t
+ fD4rCq1cBdLE+pD4PhVRUIfM9hg0pdSmQC5pTK4SVsx2Exg0jixSruYR2aPdNiE1TH6sHNk650n
+ 8kuC2dikL6IvDpuEQD6PEETQvd8V8t687aMA5TF9FyXYLXzmGLZ7Zj3d6Pw6yKvmT6JNwUxJFjy
+ qqmML4OUD2AboFucs5c35WS60wthzoqSPSGSrLvbYjjVhK0TB9IDgJtm1+oz1yT4MHleQGg0g6O
+ 06hvSid3u/OWuFCNF7FnRylyHCKqU34yJJJRy8eaZ8mgV3oAlN1R1wbyd2HshITg2Zh/I3ZPsDY
+ kCiE/9R2QtcPREljuGppNKTjnbCsG6PSG9UBTXvLIaFX1XKv5ylqC6kHCLUrRgz2nDL9MhlDe4e
+ lLbU5Pp++0JopMvexVj4rSPCMtpqUj3bwegQmm9Fieb6brCZE7
+X-Received: by 2002:a05:6808:4783:b0:466:f60b:19c5 with SMTP id
+ 5614622812f47-46757052ad7mr1017669b6e.6.1773408244642; 
+ Fri, 13 Mar 2026 06:24:04 -0700 (PDT)
 Received: from frodo (c-98-38-17-99.hsd1.co.comcast.net. [98.38.17.99])
  by smtp.googlemail.com with ESMTPSA id
- 5614622812f47-4673434a35csm4795987b6e.20.2026.03.13.06.23.58
+ 5614622812f47-4673434a35csm4795987b6e.20.2026.03.13.06.24.03
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 13 Mar 2026 06:23:59 -0700 (PDT)
+ Fri, 13 Mar 2026 06:24:04 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: airlied@gmail.com, simona@ffwll.ch, jbaron@akamai.com,
  gregkh@linuxfoundation.org, Jim Cromie <jim.cromie@gmail.com>,
- Shuah Khan <shuah@kernel.org>, linux-kselftest@vger.kernel.org,
- linux-kernel@vger.kernel.org
+ Andrew Morton <akpm@linux-foundation.org>, linux-kernel@vger.kernel.org
 Cc: mripard@kernel.org, tzimmermann@suse.de, maarten.lankhorst@linux.intel.com,
  jani.nikula@intel.com, ville.syrjala@linux.intel.com,
  christian.koenig@amd.com, matthew.auld@intel.com,
@@ -74,9 +73,10 @@ Cc: mripard@kernel.org, tzimmermann@suse.de, maarten.lankhorst@linux.intel.com,
  skhan@linuxfoundation.org, pmladek@suse.com, ukaszb@chromium.org,
  dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  amd-gfx@lists.freedesktop.org
-Subject: [PATCH v11 29/65] selftests-dyndbg: add test_mod_submod
-Date: Fri, 13 Mar 2026 07:19:54 -0600
-Message-ID: <20260313132103.2529746-30-jim.cromie@gmail.com>
+Subject: [PATCH v11 31/65] dyndbg: add
+ DYNAMIC_DEBUG_CLASSMAP_USE_(dd_class_name, offset)
+Date: Fri, 13 Mar 2026 07:19:56 -0600
+Message-ID: <20260313132103.2529746-32-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260313132103.2529746-1-jim.cromie@gmail.com>
 References: <20260313132103.2529746-1-jim.cromie@gmail.com>
@@ -97,126 +97,145 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This new test-fn runs 3 module/submodule modprobe scenarios, variously
-using both the generic dyndbg=<queries> modprobe arg, and the
-test-module's classmap-params to manipulate the test-mod*'s pr_debugs.
-In all cases, the current flag-settings are counted and tested vs
-expectations.
+Allow a module to use 2 classmaps together that would otherwise have a
+class_id range conflict.
 
-The 3rd scenario recapitulates the DRM_USE_DYNAMIC_DEBUG=y failure.
+Suppose a drm-driver does:
 
-1. 2 modprobes (super then sub), with separate dyndbg=class-settings
-   check module specific flag settings
+  DYNAMIC_DEBUG_CLASSMAP_USE(drm_debug_classes);
+  DYNAMIC_DEBUG_CLASSMAP_USE(drm_accel_xfer_debug);
 
-2. modprobe submod, supermod is auto-loaded
-   set supermod class-params
-   check expected enablements in super & submod
+If (for some reason) drm-accel cannot define their constants to avoid
+DRM's drm_debug_category 0..10 reservations, we would have a conflict
+with reserved-ids.
 
-3. modprobe super, with param=setting (like drm.debug=0x1ef)
-   modprobe submod
-   validate submod's class'd pr_debugs get properly enabled
+In this case a driver needing to use both would _USE_ one of them with
+an offset to avoid the conflict.  This will handle most foreseeable
+cases; perhaps a 3-X-3 of classmap-defns X classmap-users would get
+too awkward and fiddly.
 
-The test uses multi-queries, with both commas and percents (to avoid
-spaces and quoting).  This is the main reason the test wasn't earlier
-in the patchset, closer to the classmap patches its validating.
+This is an untested interface extension, so drop this patch if it
+feels too speculative, knowing theres at least a notional solution
+should the situation arise.
 
-With some tedium, the tests could be refactored to split out early
-tests which avoid multi-cmds, and test only the class-params.
+NB: this gets a checkpatch warning about unused _offset arg,
+apparently because the arg is 5 lines down, and out of the chunk
+context window.
 
-Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- .../dynamic_debug/dyndbg_selftest.sh          | 73 +++++++++++++++++++
- 1 file changed, 73 insertions(+)
+ include/linux/dynamic_debug.h | 27 ++++++++++++++++++++++-----
+ lib/dynamic_debug.c           | 19 ++++++++++++-------
+ 2 files changed, 34 insertions(+), 12 deletions(-)
 
-diff --git a/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh b/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
-index 513f6cb1db1d..09937dca3056 100755
---- a/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
-+++ b/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
-@@ -279,10 +279,83 @@ function test_percent_splitting {
-     ifrmmod test_dynamic_debug
+diff --git a/include/linux/dynamic_debug.h b/include/linux/dynamic_debug.h
+index a1454db1bcb0..0d1245aefc69 100644
+--- a/include/linux/dynamic_debug.h
++++ b/include/linux/dynamic_debug.h
+@@ -88,7 +88,7 @@ struct _ddebug_class_map {
+ struct _ddebug_class_user {
+ 	char *mod_name;
+ 	struct _ddebug_class_map *map;
+-	const int offset;	/* user offset to re-number the used map */
++	const int offset;	/* offset from map->base */
+ };
+ 
+ /*
+@@ -239,11 +239,28 @@ struct _ddebug_class_param {
+  *
+  * This tells dyndbg that the module has prdbgs with classids defined
+  * in the named classmap.  This qualifies "class NAME" >controls on
+- * the user module, and ignores unknown names.
++ * the user module, and ignores unknown names. This is a wrapper for
++ * DYNAMIC_DEBUG_CLASSMAP_USE_() with a base offset of 0.
+  */
+-#define DYNAMIC_DEBUG_CLASSMAP_USE(_var)				\
+-	DYNAMIC_DEBUG_CLASSMAP_USE_(_var, 0, __UNIQUE_ID(_ddebug_class_user))
+-#define DYNAMIC_DEBUG_CLASSMAP_USE_(_var, _offset, _uname)		\
++#define DYNAMIC_DEBUG_CLASSMAP_USE(_var) \
++	DYNAMIC_DEBUG_CLASSMAP_USE_(_var, 0)
++
++/**
++ * DYNAMIC_DEBUG_CLASSMAP_USE_ - refer to a classmap with a manual offset.
++ * @_var:   name of the exported classmap var to use.
++ * @_offset:  an integer offset to add to the class IDs of the used map.
++ *
++ * This is an extended version of DYNAMIC_DEBUG_CLASSMAP_USE(). It should
++ * only be used to resolve class ID conflicts when a module uses multiple
++ * classmaps that have overlapping ID ranges.
++ *
++ * The final class IDs for the used map will be calculated as:
++ * original_map_base + class_index + @_offset.
++ */
++#define DYNAMIC_DEBUG_CLASSMAP_USE_(_var, _offset)			\
++	__DYNAMIC_DEBUG_CLASSMAP_USE(_var, _offset, __UNIQUE_ID(_ddebug_class_user))
++
++#define __DYNAMIC_DEBUG_CLASSMAP_USE(_var, _offset, _uname)		\
+ 	extern struct _ddebug_class_map _var;				\
+ 	static struct _ddebug_class_user __aligned(8) __used		\
+ 	__section("__dyndbg_class_users") _uname = {			\
+diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
+index e9fa0c8868db..2083a8546460 100644
+--- a/lib/dynamic_debug.c
++++ b/lib/dynamic_debug.c
+@@ -198,7 +198,7 @@ ddebug_find_valid_class(struct _ddebug_info const *di, const char *query_class,
+ 		if (idx >= 0) {
+ 			vpr_di_info(di, "class-ref: %s -> %s.%s ",
+ 				    cli->mod_name, cli->map->mod_name, query_class);
+-			*class_id = idx + cli->map->base;
++			*class_id = idx + cli->map->base - cli->offset;
+ 			return cli->map;
+ 		}
+ 	}
+@@ -206,12 +206,17 @@ ddebug_find_valid_class(struct _ddebug_info const *di, const char *query_class,
+ 	return NULL;
  }
  
-+function test_mod_submod {
-+    echo -e "${GREEN}# TEST_MOD_SUBMOD ${NC}"
-+    if [ $LACK_TMOD -eq 1 ]; then
-+	echo "SKIP - test requires test-dynamic-debug.ko"
-+	return
-+    fi
-+    ifrmmod test_dynamic_debug_submod
-+    ifrmmod test_dynamic_debug
-+    ddcmd =_
-+
-+    # modprobe with class enablements
-+    modprobe test_dynamic_debug \
-+	dyndbg=class,D2_CORE,+pf%class,D2_KMS,+pt%class,D2_ATOMIC,+pm
-+
-+    check_match_ct '\[test_dynamic_debug\]' 23 -r
-+    check_match_ct =pf 1
-+    check_match_ct =pt 1
-+    check_match_ct =pm 1
-+
-+    modprobe test_dynamic_debug_submod
-+    check_match_ct test_dynamic_debug_submod 23 -r
-+    check_match_ct '\[test_dynamic_debug\]' 23 -r
-+    check_match_ct test_dynamic_debug 46 -r
-+
-+    # no enablements propagate here
-+    check_match_ct =pf 1
-+    check_match_ct =pt 1
-+    check_match_ct =pm 1
-+
-+    # change classes again, this time submod too
-+    ddcmd class,D2_CORE,+mf%class,D2_KMS,+lt%class,D2_ATOMIC,+ml "# add some prefixes"
-+    check_match_ct =pmf 1
-+    check_match_ct =plt 1
-+    check_match_ct =pml 1
-+    #  submod changed too
-+    check_match_ct =mf 1
-+    check_match_ct =lt 1
-+    check_match_ct =ml 1
-+
-+    # now work the classmap-params
-+    # fresh start, to clear all above flags (test-fn limits)
-+    ifrmmod test_dynamic_debug_submod
-+    ifrmmod test_dynamic_debug
-+    modprobe test_dynamic_debug_submod # get supermod too
-+
-+    echo 1 > /sys/module/test_dynamic_debug/parameters/p_disjoint_bits
-+    echo 4 > /sys/module/test_dynamic_debug/parameters/p_level_num
-+    # 2 mods * ( V1-3 + D2_CORE )
-+    check_match_ct =p 8
-+    echo 3 > /sys/module/test_dynamic_debug/parameters/p_disjoint_bits
-+    echo 0 > /sys/module/test_dynamic_debug/parameters/p_level_num
-+    # 2 mods * ( D2_CORE, D2_DRIVER )
-+    check_match_ct =p 4
-+    echo 0x16 > /sys/module/test_dynamic_debug/parameters/p_disjoint_bits
-+    echo 0 > /sys/module/test_dynamic_debug/parameters/p_level_num
-+    # 2 mods * ( D2_DRIVER, D2_KMS, D2_ATOMIC )
-+    check_match_ct =p 6
-+
-+    # recap DRM_USE_DYNAMIC_DEBUG regression
-+    ifrmmod test_dynamic_debug_submod
-+    ifrmmod test_dynamic_debug
-+    # set super-mod params
-+    modprobe test_dynamic_debug p_disjoint_bits=0x16 p_level_num=5
-+    check_match_ct =p 7
-+    modprobe test_dynamic_debug_submod
-+    # see them picked up by submod
-+    check_match_ct =p 14
-+    ifrmmod test_dynamic_debug_submod
-+    ifrmmod test_dynamic_debug
+-static bool ddebug_class_in_range(const int class_id, const struct _ddebug_class_map *map)
++static bool ddebug_class_map_in_range(const int class_id, const struct _ddebug_class_map *map)
+ {
+ 	return (class_id >= map->base &&
+ 		class_id < map->base + map->length);
+ }
+ 
++static bool ddebug_class_user_in_range(const int class_id, const struct _ddebug_class_user *user)
++{
++	return ddebug_class_map_in_range(class_id - user->offset, user->map);
 +}
 +
- tests_list=(
-     basic_tests
-+    # these require test_dynamic_debug*.ko
-     comma_terminator_tests
-     test_percent_splitting
-+    test_mod_submod
- )
+ static struct _ddebug_class_map *
+ ddebug_find_map_by_class_id(struct _ddebug_info *di, int class_id)
+ {
+@@ -220,11 +225,11 @@ ddebug_find_map_by_class_id(struct _ddebug_info *di, int class_id)
+ 	int i;
  
- # Run tests
+ 	for_subvec(i, map, di, maps)
+-		if (ddebug_class_in_range(class_id, map))
++		if (ddebug_class_map_in_range(class_id, map))
+ 			return map;
+ 
+ 	for_subvec(i, cli, di, users)
+-		if (ddebug_class_in_range(class_id, cli->map))
++		if (ddebug_class_user_in_range(class_id, cli))
+ 			return cli->map;
+ 
+ 	return NULL;
+@@ -1178,12 +1183,12 @@ static const char *ddebug_class_name(struct _ddebug_info *di, struct _ddebug *dp
+ 	int i;
+ 
+ 	for_subvec(i, map, di, maps)
+-		if (ddebug_class_in_range(dp->class_id, map))
++		if (ddebug_class_map_in_range(dp->class_id, map))
+ 			return map->class_names[dp->class_id - map->base];
+ 
+ 	for_subvec(i, cli, di, users)
+-		if (ddebug_class_in_range(dp->class_id, cli->map))
+-			return cli->map->class_names[dp->class_id - cli->map->base];
++		if (ddebug_class_user_in_range(dp->class_id, cli))
++			return cli->map->class_names[dp->class_id - cli->map->base - cli->offset];
+ 
+ 	return NULL;
+ }
 -- 
 2.53.0
 
