@@ -4,71 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2656C105F7AC
-	for <dri-devel@archiver.kernel.org>; Fri, 13 Mar 2026 13:25:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7106A105F7A6
+	for <dri-devel@archiver.kernel.org>; Fri, 13 Mar 2026 13:25:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 460C010EC23;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6317810EC25;
 	Fri, 13 Mar 2026 13:25:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="m3kl09Ol";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="JYdwpci1";
 	dkim-atps=neutral
-Received: from mail-oi1-f177.google.com (mail-oi1-f177.google.com
- [209.85.167.177])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2996610EC26
- for <dri-devel@lists.freedesktop.org>; Fri, 13 Mar 2026 13:24:40 +0000 (UTC)
-Received: by mail-oi1-f177.google.com with SMTP id
- 5614622812f47-4672076355aso1531076b6e.2
- for <dri-devel@lists.freedesktop.org>; Fri, 13 Mar 2026 06:24:40 -0700 (PDT)
+Received: from mail-oi1-f174.google.com (mail-oi1-f174.google.com
+ [209.85.167.174])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4498210EC1F
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Mar 2026 13:24:58 +0000 (UTC)
+Received: by mail-oi1-f174.google.com with SMTP id
+ 5614622812f47-466ebbf7ff7so802320b6e.1
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Mar 2026 06:24:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1773408279; x=1774013079; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1773408297; x=1774013097; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=rnDJitpTduufuEe6X95vH8IiBFUBoxeB6eQQOPNaxFg=;
- b=m3kl09OlQN5dK2iZ3NA0J2efr132PpZtDsIPxBXmaAKJ4RI0ksQkuzxGLA6izbl41V
- k74ar3fx3+22dsxwwqDJLTrI77Fppo8C7usxpODu7DgqrKgG+//9SEg13QZE0dMNV2Od
- iDuopc7myG6Bq6sgV9TWhkzhBbx/oMXUABnmnhW3DX4GBTXsNZqxM9nEtW8oS3PI3q11
- eVue2eMom4TE8QvVJGeCqAyG9PYXV1iV91BGY+xom+yXKM/vc2nrTq+ZeSHJm1I8wU+Y
- /ek9E0mOkrZfncmtkCXwH4Y0r6Oxc3AOKju4dNqkaCsMMOcEuyDgMmItIbHudzGrXqGj
- ZtNA==
+ bh=NDrEVSsHN3/NxzQ31ZhlYG+/I6Z2jtFfe5b8tEwBAEg=;
+ b=JYdwpci1Yd7N3lJxHR/Ue0LFCgIZrz5BNSRVr37NSRL3qI8GEbpoAkROUuGz+0wKXw
+ xF7RSwgveMEzzEl51Sxfzf9KpXkii9DB3y6OrloIoUF33OP+/8U2aaqzrwJPuSqtMLHV
+ d6x8RFZeA8dfRXyZm9C81mbcz8MZUuFcaUz52KLpZ3QgrszPO1qyRHLsxFWET8ZGlIhk
+ gTQJ6waZhVrJGsnX2/3RiqR9idjCjZ/PBa2Y7dJNpE+5teFq4aejZR5de9609RQ/0dnx
+ qBK5jQF4C4KvK3wKYeNna8SLaEAQirCRsdeT0L49RbN715dqg7wH0p4hH4g/AZTUhLe3
+ NLkw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1773408279; x=1774013079;
+ d=1e100.net; s=20251104; t=1773408297; x=1774013097;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=rnDJitpTduufuEe6X95vH8IiBFUBoxeB6eQQOPNaxFg=;
- b=eZjjRYPSCH6zz26eUl607Q0wfMSeTZPX1RJCw4Dw9qpgxVjEx4qsQyuyjiHHXZGagh
- QkIvWdoSIePyKUZYqUh+/lbse8jal7ocsEBLCp1PokXs31u6lWKRa1idk/9FgesXRgqk
- lpsbxiN+f72kssToIzM0noSIJPSX8VTxoPGYL5rr+kb999f8kFz8Iek+Gbz6KX53WfOi
- tmOES+Ho/6JPsmAx7XiAK02qGy1gWZfnpsbmpczP3fHE/gsTjOg8e3IPWqsh8KG3rpuh
- bSuM/gOokT1bm5FhvlLuRfM1EEh7atmunkUH6tfFoi6tsA5RKIH/R2yBTptg7M1Fejpt
- ySMg==
+ bh=NDrEVSsHN3/NxzQ31ZhlYG+/I6Z2jtFfe5b8tEwBAEg=;
+ b=QI7fiN+SKgzDd0HBd/SNS2F4K182zrhnRMGuACu1hvPSJDZMZadNIeBn+gk6AoslaT
+ hh91obNzQeRDmiOvsFnWmq8xkTplrylNS0VDaYYkV3TPflfcdEoaaF3NCnuAlbLyBUt1
+ 0saQszag1yfrdi1XhXmOoZVOa5WaFIRCUdT1Oc1a5BcG0YlToMzMHqNYR8FPKU91VBLQ
+ 5EyKxmV0RCojRUnB6kLZRsNzzFTiTnSCRFRio2rgtSSACXE2rtQFj23gflMDvsVDXKZI
+ 80CtzdyY9ZQj6H2jJltSxdNKn7QEA6CxN4pyJcwRUOvsJv+j2PSTD2A1J6CLDapTQWM8
+ EVmg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCW27RLQW9b6Ybzwu7BIqSJhfqSShvNC2ou4dMxS4r9iAj+dMx4cIM9tViSCL58JJFPr6hdsNwvYYI0=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwtbXKDP7lAm+NL3n8/kzuIoWP8YNwWCDDflbrCBdlv/RwYFexs
- Pt+EDM0PNUuUHIjc9pmc/T/hjrVBTIAyCsO4rc2d7bIU2hG97QdOGrHT
-X-Gm-Gg: ATEYQzwAF0RLvf4CJgFJhj9JR3Vz/r9Hr+ewrN5CvZyXbMifhmFHeOc0tGMekmwEBdC
- Far+crdFWPTQsJmEXdTczcYo5L0X+awt3o36wQ+p3pZPX/hzKlfvh3neNP9BRGjutxmJX3O469D
- EDwEdM/G9Q7I5DRGcBIlnbZJt6B64ezxR5zYmEBVAYkZtvhvQ+9qXukNhfrM8S/0lADV4s0g3Fm
- GM+2BZsq9WMQfYIPJ/AE7v2EIll9eGfpz8ieSqV2l3KUtPEsqM+XTusk8zG7lb3RDw8xU9XU73n
- Xck3DIrTYK68xrGvWf9h+OV7y7cAR9kK3ZpAw5wBt86oWy+Xa0T2q8jHLXwMl6MUP4XHn9MRH9l
- AWzVrQv7UGcxKM8s08V+Uy7UTMHPqhc/0lvgyWe8M/8PNrg5/R72s1sv/uDAMObkvYOGNdEZFKT
- GomViPZY3jMad850MNHl54+wcYv72Iv49PITQHDz5KbaGSNAKr
-X-Received: by 2002:a05:6808:11cb:b0:464:305e:8fcc with SMTP id
- 5614622812f47-4675713631amr1649395b6e.20.1773408279143; 
- Fri, 13 Mar 2026 06:24:39 -0700 (PDT)
+ AJvYcCW843i21JcR79DvOeAxJwPiwOD+bKVTu5vxqAMiqwsBsR9Xep4wo0lbgK7HzyuTYS2+EwoYcdsVwbs=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yw5LST/VeMOBFaiOrwPg5spUDpsJeUPPLgyUFsq5DuLPQXHzQdg
+ XXfznPf3YmH6m/L4jwYSeJS8QorWxZ8v+UbxVEllBUy6EwbVDmNU029w
+X-Gm-Gg: ATEYQzyLszPYRIg0MJ8BJvOuBRL3MbMqVsSmalyYy/6su/OrvyvQYCcJyHye9lERdaU
+ 4k2OfVIijRrmNMH5s5WyKZrE0yMWo10JdyE+utZiHwSlQhzhBVOQ02BZhiynwPDssS/HCevRHtK
+ cJKGDY0eb6l2srboqTfSnl1OCcfbponwbTKKhcFB/g4w1nUFdQ1zsrot2VpxoLDQ+Pq0GNbNcQo
+ qORGAcItFo1aStPO1IQFkBCTjGIOt2+s+bjrVt7j3ll3fpiVjkXjlvVw6D+pMUOym1srzn6WRY/
+ kk8PE5BsB1XYnh6JNVh/b7PR9TkFmt/HwdmV9BAI2a9GMAZWzwbsXVo9XFsqnHtoA8qWSWYvzYG
+ zbkbqu7kU/Q5F4j4Pu2XVkEeiXcA3wx6NQfCJhyhd1g2Sg80LXP8dqD7RIoSJ/qZiVDmvivwJGk
+ MauKMaKs6rsEaoy4UWXN6PriGptN0nuEcDfCSZTYaZBqjh0kEu
+X-Received: by 2002:a05:6808:670b:b0:450:275b:d942 with SMTP id
+ 5614622812f47-467570374e6mr1313194b6e.10.1773408297398; 
+ Fri, 13 Mar 2026 06:24:57 -0700 (PDT)
 Received: from frodo (c-98-38-17-99.hsd1.co.comcast.net. [98.38.17.99])
  by smtp.googlemail.com with ESMTPSA id
- 5614622812f47-4673434a35csm4795987b6e.20.2026.03.13.06.24.37
+ 5614622812f47-4673434a35csm4795987b6e.20.2026.03.13.06.24.55
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 13 Mar 2026 06:24:38 -0700 (PDT)
+ Fri, 13 Mar 2026 06:24:56 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: airlied@gmail.com, simona@ffwll.ch, jbaron@akamai.com,
- gregkh@linuxfoundation.org, Lucas Stach <l.stach@pengutronix.de>,
- Russell King <linux+etnaviv@armlinux.org.uk>,
- Christian Gmeiner <christian.gmeiner@gmail.com>,
- etnaviv@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
+ gregkh@linuxfoundation.org, Oded Gabbay <ogabbay@kernel.org>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Cc: Jim Cromie <jim.cromie@gmail.com>, mripard@kernel.org, tzimmermann@suse.de,
  maarten.lankhorst@linux.intel.com, jani.nikula@intel.com,
  ville.syrjala@linux.intel.com, christian.koenig@amd.com,
@@ -76,9 +73,9 @@ Cc: Jim Cromie <jim.cromie@gmail.com>, mripard@kernel.org, tzimmermann@suse.de,
  louis.chauvet@bootlin.com, skhan@linuxfoundation.org, pmladek@suse.com,
  ukaszb@chromium.org, intel-gfx@lists.freedesktop.org,
  amd-gfx@lists.freedesktop.org
-Subject: [PATCH v11 48/65] drm-dyndbg: add DRM_CLASSMAP_USE to etnaviv
-Date: Fri, 13 Mar 2026 07:20:13 -0600
-Message-ID: <20260313132103.2529746-49-jim.cromie@gmail.com>
+Subject: [PATCH v11 58/65] accel: add -DDYNAMIC_DEBUG_MODULE to subdir-ccflags
+Date: Fri, 13 Mar 2026 07:20:23 -0600
+Message-ID: <20260313132103.2529746-59-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260313132103.2529746-1-jim.cromie@gmail.com>
 References: <20260313132103.2529746-1-jim.cromie@gmail.com>
@@ -99,28 +96,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-etnaviv has 5 DRM_UT_CORE debugs, make them controllable when
-CONFIG_DRM_USE_DYNAMIC_DEBUG=y by telling dyndbg that the module has
-class'd debugs as well as plain-old pr_debug()s
+With CONFIG_DRM_USE_DYNAMIC_DEBUG=y and CONFIG_DYNAMIC_DEBUG=n,
+accelerator modules are currently missing the _dynamic_func_call_cls
+macro, due to its conditional definition in dynamic_debug.h, which
+depends upon -DDYNAMIC_DEBUG_MODULE.
+
+So add that to subir-ccflags for all accels, in accel/Makefile.
+
+Notes:
+
+The added "indirection" allows modules to individually enable
+dynamic-debug, where a CONFIG_ option would be global to the build.
+
+Several accelerator modules make drm*dbg() calls, so in effect they
+*are* DRM modules.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- drivers/gpu/drm/etnaviv/etnaviv_drv.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/accel/Makefile | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/etnaviv/etnaviv_drv.c b/drivers/gpu/drm/etnaviv/etnaviv_drv.c
-index 08aca9035fc1..ef4423d4987f 100644
---- a/drivers/gpu/drm/etnaviv/etnaviv_drv.c
-+++ b/drivers/gpu/drm/etnaviv/etnaviv_drv.c
-@@ -26,6 +26,8 @@
- #include "etnaviv_mmu.h"
- #include "etnaviv_perfmon.h"
+diff --git a/drivers/accel/Makefile b/drivers/accel/Makefile
+index 1d3a7251b950..44db786ea223 100644
+--- a/drivers/accel/Makefile
++++ b/drivers/accel/Makefile
+@@ -1,8 +1,13 @@
+ # SPDX-License-Identifier: GPL-2.0-only
  
-+DRM_CLASSMAP_USE(drm_debug_classes);
++# several accel modules use drm*dbg, so they *are* DRM modules.
++# When built with only CONFIG_DYNAMIC_DEBUG_CORE
++# (and not CONFIG_DYNAMIC_DEBUG), they need this flag
++subdir-ccflags-$(CONFIG_DRM_USE_DYNAMIC_DEBUG) += -DDYNAMIC_DEBUG_MODULE
 +
- /*
-  * DRM operations:
-  */
+ obj-$(CONFIG_DRM_ACCEL_AMDXDNA)		+= amdxdna/
+ obj-$(CONFIG_DRM_ACCEL_ARM_ETHOSU)	+= ethosu/
+ obj-$(CONFIG_DRM_ACCEL_HABANALABS)	+= habanalabs/
+ obj-$(CONFIG_DRM_ACCEL_IVPU)		+= ivpu/
+ obj-$(CONFIG_DRM_ACCEL_QAIC)		+= qaic/
+-obj-$(CONFIG_DRM_ACCEL_ROCKET)		+= rocket/
+\ No newline at end of file
++obj-$(CONFIG_DRM_ACCEL_ROCKET)		+= rocket/
 -- 
 2.53.0
 
