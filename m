@@ -4,131 +4,125 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7E6D5105F79C
-	for <dri-devel@archiver.kernel.org>; Fri, 13 Mar 2026 12:04:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3FDC1105F79F
+	for <dri-devel@archiver.kernel.org>; Fri, 13 Mar 2026 12:08:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B9AC010EBC2;
-	Fri, 13 Mar 2026 12:04:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3E2A710EBC5;
+	Fri, 13 Mar 2026 12:08:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="eJ/tQg9z";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="XcyPdW7P";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="FJWL6o9H";
 	dkim-atps=neutral
-Received: from OS0P286CU010.outbound.protection.outlook.com
- (mail-japanwestazon11011017.outbound.protection.outlook.com [40.107.74.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AB4B310EBC2
- for <dri-devel@lists.freedesktop.org>; Fri, 13 Mar 2026 12:04:34 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=DCB6aPBE+YcGkEvtEG6MuUbGbVnNxVDDv8jT/RT84xx8iubLdqMLMtN6qOhw6nt8dTObVr5wlsuImTrtAHA0RCfGgGJaXVPeji/AJw+1/RG7HuouDzQ61xSD163UbWnpJ73geEv2I7NFbbf5N80hBXVzMiRULevQNKunOGemBiqWS2d1Ad1/YyTv6zIGfiShir05pf2CxbS8tICdd0dx/ZkphdQnZRO6tEaD7qoAUfWYEfKSKsEKm9qu3utcAwtUMePmMqsRETi+wKv4Iyfr06p4KCj+DPHWrA3CXEWZmBVO8u9BEF2alnQ/3P9r1MWS1+TaCHOjGFnFtjG/+BVoPA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=gfOC/VHGg+VHEDY6OwhbzpgpXKsOaz0IWHk+ZqoM8MM=;
- b=IynnczFB693sF8f8frcNFPnBdgEBy+kcWy+6GpTqElw77AYCx1o7VZjix2avkP4MvarTrsfc8vUO8x8d7dySr2aCUNt33UNEWobzwuvwmwnzWSfsWS6yJ6R9B4im1nYMFONOPW97Ub2A42nMVTK4HjKXSEFyhA+0G1cm4h+pxZFSSBgVPlxyFOWlrcCg1XRfdQajNqlLBx0xAqkF8FbmGU2ODchZHFTRels5YwZTfi5xIxH2Mxam7U8leAl6ZgEYC8wpFwOx2Nvf6Hp5wlE1kQ/NY7mGwPDwlLxFRg1EGmSVpHTLQJXqRsPRBX7chxe4YOOxsTspvJ9OwqmjSLO9ig==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
- header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=gfOC/VHGg+VHEDY6OwhbzpgpXKsOaz0IWHk+ZqoM8MM=;
- b=eJ/tQg9zeh88N4Uz2Vn8yLj1T9ATy5LLcNgD+r5dJZZsfAoHgBPxFV90R/SdZo+/SZyk26bZrlOfj11pyRbnfm8wt+IEpOAzqP2Qh6BULAgzmqKup4F4uC4Gp0yJGKOLj7NtxAGk+CDkOzrgD3SdxInwDx/1S0hOpIWFlVe6auU=
-Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com (2603:1096:400:3d0::7)
- by TY1PR01MB10738.jpnprd01.prod.outlook.com (2603:1096:400:31c::9)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9700.16; Fri, 13 Mar
- 2026 12:04:26 +0000
-Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com
- ([fe80::87d1:4928:d55:97de]) by TY3PR01MB11346.jpnprd01.prod.outlook.com
- ([fe80::87d1:4928:d55:97de%4]) with mapi id 15.20.9700.015; Fri, 13 Mar 2026
- 12:04:25 +0000
-From: Biju Das <biju.das.jz@bp.renesas.com>
-To: Boris Brezillon <boris.brezillon@collabora.com>, Thomas Zimmermann
- <tzimmermann@suse.de>
-CC: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>,
- "loic.molinari@collabora.com" <loic.molinari@collabora.com>,
- "willy@infradead.org" <willy@infradead.org>, "frank.binns@imgtec.com"
- <frank.binns@imgtec.com>, "matt.coster@imgtec.com" <matt.coster@imgtec.com>,
- "maarten.lankhorst@linux.intel.com" <maarten.lankhorst@linux.intel.com>,
- "mripard@kernel.org" <mripard@kernel.org>, "airlied@gmail.com"
- <airlied@gmail.com>, "simona@ffwll.ch" <simona@ffwll.ch>,
- "linux-mm@kvack.org" <linux-mm@kvack.org>, "dri-devel@lists.freedesktop.org"
- <dri-devel@lists.freedesktop.org>
-Subject: RE: [PATCH v4 5/6] drm/gem-shmem: Track folio accessed/dirty status
- in mmap
-Thread-Topic: [PATCH v4 5/6] drm/gem-shmem: Track folio accessed/dirty status
- in mmap
-Thread-Index: AQHcp96eSUoAacjqcU2c+U96UWFVr7WrPdqAgAAB0YCAANfgAIAAPkuAgAADDoCAABhLAIAAAcHA
-Date: Fri, 13 Mar 2026 12:04:25 +0000
-Message-ID: <TY3PR01MB1134662A395AA0A048CEE152E8645A@TY3PR01MB11346.jpnprd01.prod.outlook.com>
-References: <20260227114509.165572-1-tzimmermann@suse.de>
- <20260227114509.165572-6-tzimmermann@suse.de> <abL5rcYIaFFO3GW2@tom-desktop>
- <TY3PR01MB113460CA616D3576DA0C3FC698644A@TY3PR01MB11346.jpnprd01.prod.outlook.com>
- <TY3PR01MB113461ACB668738E1952EC8898645A@TY3PR01MB11346.jpnprd01.prod.outlook.com>
- <20260313111851.4c1f89f3@fedora>
- <f3384342-cdc5-4260-b670-4ffde76a2802@suse.de>
- <20260313125644.65131b27@fedora>
-In-Reply-To: <20260313125644.65131b27@fedora>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=bp.renesas.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: TY3PR01MB11346:EE_|TY1PR01MB10738:EE_
-x-ms-office365-filtering-correlation-id: 3b8b3ae6-341c-4474-5bba-08de80f8abd9
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|366016|376014|1800799024|7416014|18002099003|22082099003|56012099003|38070700021;
-x-microsoft-antispam-message-info: iI1Nocz0PbqK6NgV8N3EojkSWN8D/K2E6qw1AIZhK5MOlYOhkPrkS+dGR/9Nd01lEqnBTRrqHq8nuWea3+5aICZNXgmdipXTiV9WCE6zTEq1A9Ffa8TW8rgtOlY0osR46KUD/82/2R/VIiISc0EO7HB1aabD0JHPHJgqSFxAf2SaIpj1orVWJ6Ag21ZDaBcb8b9sD2I3ynrUEQkONUV1JscHYoXH4zyGHHreJNXuTnCivCl35prtVH7bxPZb/MO2YJt5PQEtQVlQUjeau7RSNkMLkAuBslbZUc38luQh3nub9oFYGogHg21zb+sD4Busxp++vZciSXMjpcbAH8hx9jNdAOblf9JOS4bVtayEQG9Bwv1PHZyZ5mjtxUgMWi4Rs8Vs1IvZse4P2QQWVGVvQxUaKOLW5TbFEqlhFHfqLTipPT0Yn9XpnSO9Ipc8xzs2cJgXhq7cnDnZ+ehZ0Jhm3ezXzn4U/eQQmd5xlAbFKCM9y4Khq03V8JWd5Zf0EcwT9F9GYTFgbu3mDVoazdUwYJIoGeNjkhrWvL7epGgG4poGM6qHyVGm/ZFcjXwtB6t0pLYU1Kw8h/WkghE7OD7tPCkvghW1nYowlaRVLAJ0gaYl1dlRqB41KGfxafUZ9AjqzQiXx8HY44A8gMNEc+/58oPndjaYpsdSgjl3BtwYkh2a4sZqXnkOFieyOkbfAausmog2fpsg3Yg8I7AN//2odnMQ7p5E0lOJ6YoqfXvlr+R9/ZwLkQ+7ktFf8zWXZ4+R
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:TY3PR01MB11346.jpnprd01.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(1800799024)(7416014)(18002099003)(22082099003)(56012099003)(38070700021);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?tuRxvjUmRc+6121Aak+uk7mFfzI4whRa5ei+Z57MjF5wmDckZrrvffX1TOu2?=
- =?us-ascii?Q?Dqn5fY6W2B9HymdUzTnXYOY6J9qB+p+HmVux0iB05xqL2O75JQKBmW2HJoTr?=
- =?us-ascii?Q?b0vwPDRKVwemlEqiTEi+oa5/g8NpM9FsHehenQJSbOCevvkLJnBGtxWGAKY4?=
- =?us-ascii?Q?tf2wefHKmM15QdiyaImCIUQCZt33E7kzJXvALAi0fb+S17K3/OnU9T8QH5u0?=
- =?us-ascii?Q?W/aFZmCOtCHPK8QnHfp7m8mfS4TOxRowDEhFxmV+I2yTWRz1CGtOyCr6b1Be?=
- =?us-ascii?Q?wmo6kYVxezO5Lp3HT3DnAv9UEgYk0LAcYMCvBnip4bjiNaNRnu0eqv024nl9?=
- =?us-ascii?Q?NppPZloNwHAyqLq8NKI/5qTV82aHHPPkZ+hqLSnHBwiESFbB+tItoTWEfLlz?=
- =?us-ascii?Q?QMJMwH6uCVMfFZ2khE32jR6BQaaITKNIPQN4SZyKZy9LHJwX0zmioUtve2HM?=
- =?us-ascii?Q?pEf5fixgQHrH8p6SLeZLpIwl1fG3la692dZr/xXLcEqrNxmZ+f0Etqj3kxt4?=
- =?us-ascii?Q?wSeWx+fmEpUVOVucHhFgMkagKlMK8R6fZMTf47Jyl6hw480/v9X3+X6qVT6B?=
- =?us-ascii?Q?gAfzu0JHN3PqM4qO3NOZRIL8deCQOuf9Xg5Kfl3rVq67oh59NNsXzasI6K9F?=
- =?us-ascii?Q?1/tE1KCjfNHdIR1hGP+U31pDKXPYa+uxP/nDTJY69hRobM6vtTBQxtackTIg?=
- =?us-ascii?Q?ERtkX87C2NcP6jDkqSMmrDsfPVYEKUEVbWzKg1/BqTt65tyaIxLt1kdN6slq?=
- =?us-ascii?Q?+brVywS3wmi8PKHl64C3cWHSCxxico0KGKlED7aIWKbnjuN6lNsmYAntcHNY?=
- =?us-ascii?Q?U7bv1Z6zgke7sge3nhXfQoWDCru+Ym37wnb/4y5TFFPdi3JcbUBes0OrGlTZ?=
- =?us-ascii?Q?i7vAgrimadLhJM0Z41AKbDGzMGNTxIJNYAfq9F28K9mdEIqKy/zcsHjd43eI?=
- =?us-ascii?Q?EsJSSRtr+X/RBrqJD+ri/W9z89NaoAiCVQHJvAgAJtrPX4eIwjTROScQpbEV?=
- =?us-ascii?Q?Jk8BQ8ykM16cJcTW7WFWT7S+609shsAGDBYlkBcy8VEeAhb3cFKrPqOuEb8+?=
- =?us-ascii?Q?tmuPJzaW4kv7v+cungGZnx033Gcxa15IViKA6GVUstGfav6Ztl+wzdZSBeSg?=
- =?us-ascii?Q?T3uhEROu1qNPE+KSQgn1W4xl4GOCnP/Gaip+Y/EaRHFNuUKQM5gYKH+m2jv9?=
- =?us-ascii?Q?gzk6NSHo2t5srYWPG0jjP17FJvjMhn9Pa46GZA1IqRP43FmkIaPPiLb7BfA0?=
- =?us-ascii?Q?vQu31AUQGffDmsZS1fKzK5J1Qr6uTuxmfSUSkxjWHyYkaq6DHq4XM8qmSGa/?=
- =?us-ascii?Q?RSzNU5+UYk0n6F9VbUosY770XiDeJCjbiJxxK70ZkNcJqcuLPFCM6efTdFut?=
- =?us-ascii?Q?I2fc8QSceDLcCCSXaulJr99JDNzw4potvglWiq1ED8tD91GD5SiIf+NyYDzE?=
- =?us-ascii?Q?ZBWNL57Xpg4nl08ztfN/RfWEQ46Y/ODxgGFuCXHKNQZT2VB7hxKLrhilef+4?=
- =?us-ascii?Q?+JWa6FP/kzw6Wh0uvYrLc/sV5HxW9i5LSzfiKELrA2nms0GwQcMPkSMriO/S?=
- =?us-ascii?Q?mSkhwbLc/43r6mWMaDqkZumYfcCF2weGr7I/9N6Ax7wqaaL8FO/2EfES2yHP?=
- =?us-ascii?Q?rH7WiZiA3uwgK/0m18ZlKPRuDKRxPLDBzjHEIWO9zCkfq3Z+AQ9KMpeSNtwc?=
- =?us-ascii?Q?TVztNBzQ15INnma1O8UoC+fdYi4cUnsokN8evyw0D0N29a8uCHc5jI/wQrUe?=
- =?us-ascii?Q?+6K5kGg+Nw=3D=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 837FA10EBC5
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Mar 2026 12:08:42 +0000 (UTC)
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 62DAseKN530519
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Mar 2026 12:08:41 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:date:from:message-id:mime-version
+ :subject:to; s=qcppdkim1; bh=IGOT9fD2d0q1zlnv6OnUTILWf5Y89gyMTfA
+ EqWAQqBU=; b=XcyPdW7PwRzUxdImdzLrJpali8nZRk/vNxl+gBFJaylkCeLHmsn
+ bkUOIs0IKBB16FkZp/bdsW/kIZXz59PFr6Hpjt/8CR50A6CbpSqOmN7dB662LDf/
+ GDfhbw0m/mT3CJdNIbsG/fkmFy2PPwqrBlYa9zKK1OgvIcTQ+WIXJP89UIg2Ln4Y
+ c9hbSFrFk7hik9eSmX9vPEsL2DyEgJt2lpH7CrDhc8dCNSbBDLgXYwyr1HxSQ7IB
+ Z9PysOBXEWsBL3k/2l6vG+7U0+585Wilh6B4BRijl9MOMQAiWZG/Lj+UFVk0qgfG
+ ETsWtZgbz+MjMbfkBc+To49om/c3torZjcA==
+Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com
+ [209.85.216.72])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4cvh84r66j-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Mar 2026 12:08:41 +0000 (GMT)
+Received: by mail-pj1-f72.google.com with SMTP id
+ 98e67ed59e1d1-35a0998a441so12507905a91.2
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Mar 2026 05:08:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1773403720; x=1774008520;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=IGOT9fD2d0q1zlnv6OnUTILWf5Y89gyMTfAEqWAQqBU=;
+ b=FJWL6o9HxJCDHWbsQPKfTqzWon/q0JMI9lzOIJ/rN12bwpJ4KLenVn1fLjs/kt5WM0
+ 8Uqcej7Hip+05TP2OiObkt2+TsTkuBiNrS6iI1ZO+yy4OB6dG/ktqG5Yst/1BmXEhqvZ
+ usuUduHb3ibIfRC3XcjWAFb7lnnCR5KNb+XOtgvGcve6UN6Mu25Ss+8NfR1sBsHvZGfL
+ jhVspx0az2Mw2XE6L4YRq98hpoChv598wEd6VURJCIqEfGVMuXKn5yhFWTseQzvjkj8T
+ JVRc6L1///MpB2DnaDR5BkyuGw4AO2cIp+2iUTZRT3YMTlZpRfTLgAFmMAsr6yKxWdf6
+ S4Kw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1773403720; x=1774008520;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=IGOT9fD2d0q1zlnv6OnUTILWf5Y89gyMTfAEqWAQqBU=;
+ b=n10vOFxwApuOFnbCRfsg+upQ5FHkSSfYCwQEwQpnH/J7cQeBVOxJ9OTHk/R5APqMLc
+ sLHR9LdUwZqaSKDUlFhJnnCuBuDfzwUEupBEqYeT/7jW3IN2C+PUkRaRQNDj2tivuxBZ
+ +kemQuAXBRFvQLvmET80tnX0L2jAa/JB5TOYIboZkit044iDHkLYWF6/XRjc42X2k6EC
+ AkyR4NclQ1DeR80Jhf/bSs6j6k+x3zu5EFFW3sNLHvb4oHTpjPcMECQuVrln1o2hIZxR
+ bDIqBqmpOQK6i+gDvKkY+9wFUFW8PEIps4T9vEAdTNYBmnYF4YtYNLLGdgi2BvmdecCr
+ usFw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXGPDkm5g1SkOdpXsmlOk+jBBsVnWunBlXkDvSpxeYDQjOb7V4V/5L2jLFDp9pnYdkneEz+ceIfZCI=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwpIFsb5oSHzy7BtYSsmpVCDlMMDD8wwJ95YR+c2DNcFCiTIvxx
+ e8DCEhfcaBEoSB2l0ZXllhy/1nnkl5tZPgDKRUvpkJhy2sB5Nx5ekZuQIO64jveF61WCsKgyYBJ
+ aGCM1NAddp53zOR/LfDvOOGTch10ofOjiEsUfIfwOiK35cTYG5B+jbEkD5KxQWY9kybh4TYo=
+X-Gm-Gg: ATEYQzwELVquhrqOrSvY/Do2K4ohoyB9XNVKYByBkdfgIlP/mpRte/msu/zxDaVJQll
+ qnwzGXAbuA8Ke5CiPwmSYUC+qPlySS4nB9stVjDYd5j0JqS/5et+DZ5RLzGijLI3euHPhVcY4TD
+ P1ZuqZsad5cPo9l/HsmdjccH91beRZQ1/YraoN0GiJYl1EHDLAGDJX7Dp1wuWJ2kkexdLvWCyFb
+ w3OKGTnHxpyOzk3EQPVJazJkvzNBOpfrVChZIvXK10N9Z2PeNOkvEIHbmeRo3n4y8zDyhzTuHYs
+ IpLo5XXMUAXZ7qijTM8HZ7mfI1jWj24vU37nl/Mo9wujl9NslD8d7o/GgddTP9lyKGxEDDbAMUw
+ yyH7hwnSJc2zr97yeliZsjdK1F5ov+Q8S1V7s8dZ3yq2PyW6teEdZiIaq04NExpjLBJVT3K1Plc
+ VTrh0Gx/rvYPbajef1GspENr9jUm4v35+h7CKu
+X-Received: by 2002:a17:90b:1c08:b0:359:88c5:3add with SMTP id
+ 98e67ed59e1d1-35a22004c98mr2877059a91.19.1773403720378; 
+ Fri, 13 Mar 2026 05:08:40 -0700 (PDT)
+X-Received: by 2002:a17:90b:1c08:b0:359:88c5:3add with SMTP id
+ 98e67ed59e1d1-35a22004c98mr2877014a91.19.1773403719854; 
+ Fri, 13 Mar 2026 05:08:39 -0700 (PDT)
+Received: from hu-sibis-blr.qualcomm.com
+ (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
+ by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-35a02e18f0asm8421945a91.1.2026.03.13.05.08.35
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 13 Mar 2026 05:08:39 -0700 (PDT)
+From: Sibi Sankar <sibi.sankar@oss.qualcomm.com>
+To: robh@kernel.org, srini@kernel.org, amahesh@qti.qualcomm.com,
+ krzk+dt@kernel.org, conor+dt@kernel.org, andersson@kernel.org,
+ konradybcio@kernel.org
+Cc: mathieu.poirier@linaro.org, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-remoteproc@vger.kernel.org,
+ mani@kernel.org
+Subject: [PATCH V5 0/5] Enable ADSP and CDSP for Glymur SoC
+Date: Fri, 13 Mar 2026 17:38:09 +0530
+Message-Id: <20260313120814.1312410-1-sibi.sankar@oss.qualcomm.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-X-OriginatorOrg: bp.renesas.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TY3PR01MB11346.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3b8b3ae6-341c-4474-5bba-08de80f8abd9
-X-MS-Exchange-CrossTenant-originalarrivaltime: 13 Mar 2026 12:04:25.6412 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: MRS82Eq9WEVT7zrNkN7Poa+ZRXlD+nVfv/d2TKupliBM/Ul0usbcjpR8LSQu0ALSlfmejGs4kzDQC4WHYnJRpwVDeQFKBDInCU3Pd4uM1jM=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY1PR01MB10738
+Content-Transfer-Encoding: 8bit
+X-Authority-Analysis: v=2.4 cv=OMoqHCaB c=1 sm=1 tr=0 ts=69b3fe49 cx=c_pps
+ a=RP+M6JBNLl+fLTcSJhASfg==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=VwQbUJbxAAAA:8
+ a=EUspDBNiAAAA:8 a=9v-nsc7hOUgGWHzJVNoA:9 a=iS9zxrgQBfv6-_F4QbHw:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzEzMDA5NiBTYWx0ZWRfX591VO4Y8OZjz
+ EddlG1ox5022+absHt95fHT2Sv0pVEEQLGvNc78FvfSR2K504AWc0rhrcp/RbwpzDqcroGIo3UR
+ 5QjJYzmZb4kC6j3+tw4+ny6TwI7l+XTkt5HOHCpuCy3hmLz9OtaTD9ua0y8wBL1LlVRm6v8uWR0
+ xI4p2r1SnXIBQ/XDlUd4wNoA396BdrwsVmRFWWIa1pmBN0zOEe2ax66Ln0mJcyGsUe5JLGRZY35
+ r6NId8V8n00vmvAgCKxJAEGcJvZyKtDbH/N1wu6McwCbf+geveIEUo0EKLCIQdwLYWgmtdr/vdu
+ fm+gzvaU0TVjqKw02LYHqBXqKYub3UyKcd4sDcv5P9ahbYsHfTIb/7OOaW07dQsdeehollwlM6O
+ Wop2ls2ykKzrfTXpeUoFO6KtURyhw3Jp2tU3mTFmGcs2kwi7PDOYt+Hu8R36hSwO7buDEWDkewI
+ DeDojqnXaPYKoP1KUNg==
+X-Proofpoint-ORIG-GUID: gVu9tau1tYorhIIwkhFSLatKDoTlUiOZ
+X-Proofpoint-GUID: gVu9tau1tYorhIIwkhFSLatKDoTlUiOZ
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-03-13_02,2026-03-13_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 priorityscore=1501 impostorscore=0 suspectscore=0 phishscore=0
+ bulkscore=0 adultscore=0 spamscore=0 lowpriorityscore=0 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603130096
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -144,42 +138,49 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Qualcomm Glymur SoC variants predominantly boot Linux at EL2. This means
+that the firmware streams of the remote processors are managed in kernel
+and not in Gunyah hypervisor. Given that the Peripheral Image Loader for
+Qualcomm SoCs now support running Linux Host at EL2 [1], this series
+documents and enables ADSP and CDSP on Qualcomm Glymur SoCs with its
+fastrpc nodes. A few variants of the SoC are expected to run Linux at EL1
+hence the iommus properties are left optional.
+
+[1] - https://lore.kernel.org/all/20260105-kvmrprocv10-v10-0-022e96815380@oss.qualcomm.com/
+
+Changes in v5:
+- Fix commit messages (patch 1/2) to accurately describe compatibility [Krzysztof]
+- Link to v4: https://lore.kernel.org/lkml/20260310033617.3108675-1-sibi.sankar@oss.qualcomm.com/
+
+Changes in v4:
+- Fix SID used in ADSP/CDSP for correctness [Konrad]
+- Link to v3: https://lore.kernel.org/lkml/20260129001358.770053-1-sibi.sankar@oss.qualcomm.com/
+
+Changes in v3:
+- A few variants of the SoC are expected to run Linux at EL1 hence the
+  iommus properties are left optional.
+- Add fastrpc bindings and nodes.
+- Link to v2: https://lore.kernel.org/all/20251029-knp-remoteproc-v2-0-6c81993b52ea@oss.qualcomm.com/
+
+Changes in v2:
+- Combined into Kaanapali series since they are fully compatible.
+- Link to v1: https://lore.kernel.org/all/20250924183726.509202-1-sibi.sankar@oss.qualcomm.com/
+
+Sibi Sankar (5):
+  dt-bindings: remoteproc: qcom,sm8550-pas: Add Glymur ADSP
+  dt-bindings: remoteproc: qcom,sm8550-pas: Add Glymur CDSP
+  dt-bindings: misc: qcom,fastrpc: Add compatible for Glymur
+  arm64: dts: qcom: glymur: Add ADSP and CDSP for Glymur SoC
+  arm64: dts: qcom: glymur-crd: Enable ADSP and CDSP
+
+ .../bindings/misc/qcom,fastrpc.yaml           |  11 +-
+ .../bindings/remoteproc/qcom,sm8550-pas.yaml  |   4 +
+ arch/arm64/boot/dts/qcom/glymur-crd.dts       |  14 +
+ arch/arm64/boot/dts/qcom/glymur.dtsi          | 286 ++++++++++++++++++
+ 4 files changed, 312 insertions(+), 3 deletions(-)
 
 
-> -----Original Message-----
-> From: dri-devel <dri-devel-bounces@lists.freedesktop.org> On Behalf Of Bo=
-ris Brezillon
-> Sent: 13 March 2026 11:57
-> Subject: Re: [PATCH v4 5/6] drm/gem-shmem: Track folio accessed/dirty sta=
-tus in mmap
->=20
-> On Fri, 13 Mar 2026 11:29:47 +0100
-> Thomas Zimmermann <tzimmermann@suse.de> wrote:
->=20
-> > Hi
-> >
-> > Am 13.03.26 um 11:18 schrieb Boris Brezillon:
-> > [...]
-> > >>>>> +	if (drm_WARN_ON(obj->dev, !shmem->pages || page_offset >=3D num=
-_pages))
-> > >>>>> +		return VM_FAULT_SIGBUS;
-> > >>>>> +
-> > >>>>> +	file_update_time(vma->vm_file);
-> > >>>>> +
-> > >>>>> +	folio_mark_dirty(page_folio(shmem->pages[page_offset]));
-> > > Do we need a folio_mark_dirty_lock() here?
-> >
-> > There is a helper for that with some documentation. [1]
->=20
-> This [1] seems to solve the problem for me. Still unsure about the folio_=
-mark_dirty_lock vs
-> folio_mark_dirty though.
->=20
-> [1]https://yhbt.net/lore/dri-devel/20260312155027.1682606-1-pedrodemargom=
-es@gmail.com/
+base-commit: 5c9e55fecf9365890c64f14761a80f9413a3b1d1
+-- 
+2.34.1
 
-FYI, I used folio_mark_dirty_lock() still it does not solve the issue with =
-weston hang.
-
-Cheers,
-Biju
