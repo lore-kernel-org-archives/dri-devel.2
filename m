@@ -4,132 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 50D95105F781
-	for <dri-devel@archiver.kernel.org>; Fri, 13 Mar 2026 09:12:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 56E88105F781
+	for <dri-devel@archiver.kernel.org>; Fri, 13 Mar 2026 09:17:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9CCD610E036;
-	Fri, 13 Mar 2026 09:12:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BAE3110EB54;
+	Fri, 13 Mar 2026 09:17:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="xPgu1QuA";
+	dkim=pass (1024-bit key; unprotected) header.d=onurozkan.dev header.i=@onurozkan.dev header.b="qrCWNn48";
 	dkim-atps=neutral
-Received: from CH4PR04CU002.outbound.protection.outlook.com
- (mail-northcentralusazon11013056.outbound.protection.outlook.com
- [40.107.201.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4E6C610E036
- for <dri-devel@lists.freedesktop.org>; Fri, 13 Mar 2026 09:12:38 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Sd5M/tLgOQu4hC7rpCR94zdLrXs2ga4P5RDmKZEE2p4L9Rjsj1Cdl2+gXBzsBBbYvBXwRgizXx3CINhX4myY6AQ/4ZePHfS4z8hONiAWY5/d4tJDjKlb4gUE0RrxaMSaCrQxzWPUik40pC1JvdKXPIS3sJ9l3hjXTCE3Umtp6+XwRk4byXsd3bgvv2LyQREbTGP5hTH67LqTPDHbaf5aoxzej+QewpMUeLGG7AH/rWdogmYpbObFKdYRUi26C2EZsh+GwXDVmthZjNqU554x42R0wL63Lo2jOJyUo0351td11cSXJTbmpetXSQamzU264LDGuIwkm2urj5UsYWSQ0A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=d5WBmDWQBoUIJW2AbV/HHiBC9zdE9Ww/ThAWmlWoezY=;
- b=FIhYkhnawg38FRLgIeNNXRZVDbPKY4VlrcrdT0/EyWMWhxzJps++XMZ+rhly4IvcbuwVaOn3O/7Ke3Zdh13nKIwp4/DFeVHprw+r7HhVSP8HHTfgQ9gSBKusEkbnoBWR2lG4lwM/hX9Bok2PsSZZ2bPVe/7Z1/n8f5BXrB9d4wPo59584LYDEhxxvqyFGh6oSpDrMQNQQ/XCWoaV9rVDG2aad7rBEGBmA7QHEleWTt3WpAr2kPY2NK42G3hX3AxuMMbvCQNpBg0mg6Tfc507haqSikY0FXF39nCeLVDi5qsgncuaIdbpQlDb14ySoixzbdVm8MapTuJQ3sL2PSs3HA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=d5WBmDWQBoUIJW2AbV/HHiBC9zdE9Ww/ThAWmlWoezY=;
- b=xPgu1QuAyUnM3oR+OJimgy+hBvDlsJa/rlUPWeKkh5JsM3AjPMe2UF+v5CRr8KJrkkTl0iKI9aIEfYAFzP/8l1NzkO/6vPPRDeN8flO3IVgUvvE9M8EAkCl05o07VZkKp08LpLtKjqpPY33jGVyyScQxiIaSu5xVvWaJicp/520=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by LV8PR12MB9358.namprd12.prod.outlook.com (2603:10b6:408:201::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.6; Fri, 13 Mar
- 2026 09:12:31 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.20.9723.004; Fri, 13 Mar 2026
- 09:12:31 +0000
-Message-ID: <50de8376-d675-4a98-9a86-8485dba5d449@amd.com>
-Date: Fri, 13 Mar 2026 10:12:23 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC v2 PATCH 06/10] vfio/pci: Remove vfio_pci_zap_bars()
-To: Matt Evans <mattev@meta.com>, Alex Williamson <alex@shazbot.org>,
- Leon Romanovsky <leon@kernel.org>, Jason Gunthorpe <jgg@nvidia.com>,
- Alex Mastro <amastro@fb.com>, Mahmoud Adam <mngyadam@amazon.de>,
- David Matlack <dmatlack@google.com>
-Cc: =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>,
- Sumit Semwal <sumit.semwal@linaro.org>, Kevin Tian <kevin.tian@intel.com>,
- Ankit Agrawal <ankita@nvidia.com>, Pranjal Shrivastava <praan@google.com>,
- Alistair Popple <apopple@nvidia.com>,
- Vivek Kasireddy <vivek.kasireddy@intel.com>, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, kvm@vger.kernel.org
-References: <20260312184613.3710705-1-mattev@meta.com>
- <20260312184613.3710705-7-mattev@meta.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260312184613.3710705-7-mattev@meta.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR2P281CA0116.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:9d::9) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+Received: from forward101a.mail.yandex.net (forward101a.mail.yandex.net
+ [178.154.239.84])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6CD0910E0DA
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Mar 2026 09:17:49 +0000 (UTC)
+Received: from mail-nwsmtp-smtp-production-main-81.vla.yp-c.yandex.net
+ (mail-nwsmtp-smtp-production-main-81.vla.yp-c.yandex.net
+ [IPv6:2a02:6b8:c0f:571a:0:640:23e3:0])
+ by forward101a.mail.yandex.net (Yandex) with ESMTPS id BA6AC80E9A;
+ Fri, 13 Mar 2026 12:17:46 +0300 (MSK)
+Received: by mail-nwsmtp-smtp-production-main-81.vla.yp-c.yandex.net
+ (smtp/Yandex) with ESMTPSA id 3HEusrTGkmI0-9zP4Lv6M; 
+ Fri, 13 Mar 2026 12:17:45 +0300
+X-Yandex-Fwd: 1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=onurozkan.dev;
+ s=mail; t=1773393466;
+ bh=zw4BW7xq9n36BgD6MB8AZl3w8nnFPfRvDfzjrTAcMTw=;
+ h=Message-ID:Date:Cc:Subject:To:From;
+ b=qrCWNn48F/vf+k8Ltav4UisfBQXf/aJ0aJ54nfPMfO3JKTNtOoxVEmOG3YftN8DFk
+ s7rgfNKxMR1HizlJDv/GumR4B00d5taBgR4juYkMe7IHM8O6GKu0RyuAtuXd0R6YrZ
+ 44oZXVlfw3TczEpU1AnGGH74E+3jM1xZ2QxT3Bfg=
+Authentication-Results: mail-nwsmtp-smtp-production-main-81.vla.yp-c.yandex.net;
+ dkim=pass header.i=@onurozkan.dev
+From: =?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>
+To: linux-kernel@vger.kernel.org
+Cc: dakr@kernel.org, aliceryhl@google.com, daniel.almeida@collabora.com,
+ airlied@gmail.com, simona@ffwll.ch, dri-devel@lists.freedesktop.org,
+ rust-for-linux@vger.kernel.org,
+ =?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>
+Subject: [PATCH v1 RESEND 0/4] drm/tyr: implement GPU reset API
+Date: Fri, 13 Mar 2026 12:16:40 +0300
+Message-ID: <20260313091646.16938-1-work@onurozkan.dev>
+X-Mailer: git-send-email 2.51.2
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|LV8PR12MB9358:EE_
-X-MS-Office365-Filtering-Correlation-Id: ee3282fc-bd55-4c6a-d5b7-08de80e0a7dd
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|7416014|1800799024|366016|376014|7053199007|56012099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: QDeC4Dgqa7wXbTdSnWlSphQhJvczMprAh5vJ5OvcO71HP44EsvA+uy/lhoJx/JuDGJos2bLbq1qSKt4Sw8LjA83Vn7e8jofzZmKzonQJpTTMCQzJZekqmDHluelyj8nsE90lc0YmDPrUUvyUwZ4FbGqGywFJxHIMbRukLDwmnhxTNVjcsUSQqiBczK+BYmqaU0K3nNlNDMfAUKrtMsLyGZsWOjiyk6rfspDAXr/ehaj3KKeJKDi+wL/rGVRUOkKiI5AMBukC1qsKVy2Djq0nL2fSXOPkvqaeTrRzDqf7Vm36/zOC611FxtjrDsjBf9yjWW+ZY6EkIKhqLs7HFhPxvhAKn0FVcfn9D/3t2POwjoNwyu3IqSOcp6EjQG+355sALyjWjQu4nfaGY9ujsqDxkqu61668TYUPUm+Kv80n9LEbBB/iuw5hqtVG4AWz5gZKmx1gC4cBJXhnBfBE5n9aamTm0XCdEUs8+ksJ6VP0mQFzbvX0DuEA0O3+K9JMvNPbaRh06DJqxXCmROfcYdBAWMHTtQ7HiYjpF91wyDS0F5PP/MMElScuaVmkh6GsgYz5U1Y9+W8Qd9tHOtRdKxzdLM+hVKKEjcg7SJ6C1CfkcPVDcQ1LUdFDN37g219qf8DK+FiXU3m7I1b003pR8fh7yWc2C/ML++482BE933B+ap6lCMmXmudL7KggaJ3bwcbgSSwiNmdhCFvbcGGodyfeNFyNrux5O5ZDqbGhvwJU+I4=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(7416014)(1800799024)(366016)(376014)(7053199007)(56012099003)(18002099003)(22082099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NlE3QVViblQ0SG1qZWVxMW82eXRGbEZaTzI3NFFqSERpcWxrRkUrVE42SlFI?=
- =?utf-8?B?WU5hWnVjeVBYN2Z6ZjlESlRtaHUzSVlGdjdEMVpYdXV2dFdQWEZSVmw2ZlZI?=
- =?utf-8?B?Q3daYlNXc2cybXhGOXR4NldyN2xabEVvUlBZNkVCYVFGU0FjcFZLa1A5b3ZV?=
- =?utf-8?B?NTFkYXgxVTZDc214Y3dORERDeTRKYTVmRE1vajBuRkl6MSs3NUMzR3NXY2pO?=
- =?utf-8?B?QTFsZHBkTUIrcUhDTE1DVGdPTnU0L3ZjM1ppRlVOS1d3U0tBc3JaOHpuV0lT?=
- =?utf-8?B?d05Eb3VudEtOV2lMOHluMFBnZ3I1aEtpODhJUnNYSVJhNTZySFpWcjY4eFdU?=
- =?utf-8?B?NlhXWkJ0SVVFaHZWMWpybnZZSXp4Uk1zMUNPd0N4UEFGYmpzL0FYWUpXck9l?=
- =?utf-8?B?cUV4R1ZUbm5sbXEzTXJZWHZ0NS9ZdnNJWVAvMUZQbFlET1Byc0ZhZWVQMUxZ?=
- =?utf-8?B?Wjh6aGYyTUFYOGppRVhVcWJ3MFRxdlRGbFJxVHhmM0R2S0NKVkg3bStPV2NH?=
- =?utf-8?B?M01GcFJQNEkxRU9NeTMyT2lJVVNiZ2VkYi83WEM5bUY0NU5Wd1JhUG4rOUFm?=
- =?utf-8?B?OFBrTnJ1SUVpRDJzS2lDU2NqYzk5ZUtheWxyZzRKalZERjh2UzFtWjd1WjZ5?=
- =?utf-8?B?UWpWc0crTXkrOFRtUVBDakJNTzJqRkMxRHFLTHpreTJyVmN5VlhhcndUYjM3?=
- =?utf-8?B?eFd3R1hDdXZoKzE4ZVh2L2dCU0FlbU1LNjM0MUMrdUJWSkJ5MzRIU2h6UllT?=
- =?utf-8?B?QWtXZ1FveU5GeURtY2VzUTdXYnVNMUo4ajYzQ0daZk0rNGhzNWxHamZrYm5P?=
- =?utf-8?B?R3AzZFVIZzF3b0lYZ1RGRG96enZBVE1QcXZjdGx1bUdYb0pDRHN2WHhXWFBJ?=
- =?utf-8?B?c3JNYitJbDUrbUpIQVFIMURiZTBRMzdHcm5abVFINjRkNS9HN2piZ3JtMG9X?=
- =?utf-8?B?L1NFb2V0dHdRSHhBYWdtTWJLNjV5ekRaMGcwS2FRVG9DUUF6ZFBVSW4vcldi?=
- =?utf-8?B?NzdrbzRkamNtMyszNXdVZEVkMFpKbTlLN3J4aHBEWUMzZndJYk8rdG9iRXVN?=
- =?utf-8?B?ZXloME1NOUNmR2RSTjJzSGFjUi8xTURKRDhyN3FSK25oUGlOUHJrODRWY1A0?=
- =?utf-8?B?cG1SK2xuek9FMHVEWklWU1lDUjJHRG8rTXFTbXF6eHNEa0UzczJERFgxd3VP?=
- =?utf-8?B?TXI3TWEvdysybVdWNmNJaXM1OGxZUFpOb3JPdDc5L0ZuaHZxZWFPUzFYNXdN?=
- =?utf-8?B?NTdGZlUvZzlTR0tTbDlLQy9GdUgzcGNWZjR3NmovN2FIbnFlY0tEdkExSUVs?=
- =?utf-8?B?MTl3S2dhS0VINGh5MHMyb0s0cm1iMzZNd2VGS0FCYUlBdmk5L2hibjVNN0dE?=
- =?utf-8?B?V1NSNXc4c2tzUnNESHpIREQxMS96VitPa0FoRHVvZ3Qxdnh2UFcxOStlakZr?=
- =?utf-8?B?ZUI2Z2d0TEhndnJ3bStTY055d3lEc2FpOWVEcTBlSERiYXU0NDkyUEthaEpF?=
- =?utf-8?B?dE5CNUhzYXhJQ1ZJSVVTaFZwaFRjelFwbytpQzc2SE1pKytKYXlyOE1YNUZ4?=
- =?utf-8?B?dm94SnROb2Nka0pOeU9WVWpuQWN3Z2xuejkwTndVbFFMaU5ta0dNdWJ0N3J0?=
- =?utf-8?B?QWlaOGduQm1nSE5IZGtnWGJKYTdlRGZibGp5UWs0M3llRVB5TkwxOHNXbDhR?=
- =?utf-8?B?MWhUL1JJZ1liSS9kMGt2UXhDYzRmNWFVQXVDM25IMXhZLzFQZ3VVbmpjeUNI?=
- =?utf-8?B?cjBzTHZhNlg4MzUrSjA3WXhzR2xqL3I5TG1rYlpSNjgyb1pTd0RBQlh0cktz?=
- =?utf-8?B?ZDFlMmdFWDRvY1dONmIxeGgyZHRQY0tmcWc1WXdrOWZVL2NiakVaNmpNYXgv?=
- =?utf-8?B?WDB4d0RDYzk2OFdVVkV6alZsdWhqODJRVG0vL0NrbjllNGNWZ2I4UDhiTGlW?=
- =?utf-8?B?cFZPU1lHNnFSVVpJVThOMDlCc1dEU3l4Sk1nRnd5d3pzQldZRWJSV2ZiR1Nm?=
- =?utf-8?B?Q0g1cVdVRHMvZ3dDb2lyZlZCSWdGQjZFNzdNaTFXOFhrVVlMUERNL1k3d3FQ?=
- =?utf-8?B?VFhiWFY5SVZiQ1dmSGRIcnFoaHhweVduUkgyek9Ob2pIZjhvV0o4U3NrUXQv?=
- =?utf-8?B?dW1NMkZPQmZNMjdpVlpEMG9TemhOWmxQQkJWa2ljWWM4YmFYZXJwaW42RkxW?=
- =?utf-8?B?enNkTERYb2VLWmJvMzM1UStiRXJDTW9vOFhEZDhDTFRmM2Rlb0pQcWlMOWxN?=
- =?utf-8?B?ejlMS0FMamlrVGZvV3lqbTJpTjRVUUUzbnFLNUxpMXJvaE1yajhyUlZFSkFn?=
- =?utf-8?Q?1UvfAFYSvn6KpdJ/qM?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ee3282fc-bd55-4c6a-d5b7-08de80e0a7dd
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Mar 2026 09:12:31.3165 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: pz/N2nUrJ0CaHe5BbMmM47YiRLLvmZt/1kbdFahgj2ApZDkVhSzwm9pGhQv1MPJF
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9358
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -145,163 +62,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 3/12/26 19:46, Matt Evans wrote:
-> vfio_pci_zap_bars() and the wrapper
-> vfio_pci_zap_and_down_write_memory_lock() are redundant as of
-> "vfio/pci: Convert BAR mmap() to use a DMABUF".  The DMABUFs used for
-> BAR mappings already zap PTEs via the existing
-> vfio_pci_dma_buf_move(), which notifies changes to the BAR space
-> (e.g. around reset).
-> 
-> Remove the old functions, and the various points needing to zap BARs
-> become slightly cleaner.
+This series adds GPU reset handling support for Tyr in a new module
+drivers/gpu/drm/tyr/driver.rs which encapsulates the low-level reset
+controller internals and exposes a ResetHandle API to the driver.
 
-No a full review, but it looks like you now take the DMA buf reservation lock while holding vdev->memory_lock.
+The reset module owns reset state, queueing and execution ordering
+through OrderedQueue and handles duplicate/concurrent reset requests
+with a pending flag.
 
-I strongly recommend enabling lockdep while testing that, just to be on the sure side that all locks are taken in a consistend order.
+Apart from the reset module, the first 3 patches:
 
-Regards,
-Christian.
+- Fixes a potential reset-complete stale state bug by clearing completed
+  state before doing soft reset.
+- Adds Work::disable_sync() (wrapper of bindings::disable_work_sync).
+- Adds OrderedQueue support.
 
-> 
-> Signed-off-by: Matt Evans <mattev@meta.com>
-> ---
->  drivers/vfio/pci/vfio_pci_config.c | 18 ++++++------------
->  drivers/vfio/pci/vfio_pci_core.c   | 30 +++++++-----------------------
->  drivers/vfio/pci/vfio_pci_priv.h   |  1 -
->  3 files changed, 13 insertions(+), 36 deletions(-)
-> 
-> diff --git a/drivers/vfio/pci/vfio_pci_config.c b/drivers/vfio/pci/vfio_pci_config.c
-> index b4e39253f98d..c7ed28be1104 100644
-> --- a/drivers/vfio/pci/vfio_pci_config.c
-> +++ b/drivers/vfio/pci/vfio_pci_config.c
-> @@ -590,12 +590,9 @@ static int vfio_basic_config_write(struct vfio_pci_core_device *vdev, int pos,
->  		virt_mem = !!(le16_to_cpu(*virt_cmd) & PCI_COMMAND_MEMORY);
->  		new_mem = !!(new_cmd & PCI_COMMAND_MEMORY);
->  
-> -		if (!new_mem) {
-> -			vfio_pci_zap_and_down_write_memory_lock(vdev);
-> +		down_write(&vdev->memory_lock);
-> +		if (!new_mem)
->  			vfio_pci_dma_buf_move(vdev, true);
-> -		} else {
-> -			down_write(&vdev->memory_lock);
-> -		}
->  
->  		/*
->  		 * If the user is writing mem/io enable (new_mem/io) and we
-> @@ -712,12 +709,9 @@ static int __init init_pci_cap_basic_perm(struct perm_bits *perm)
->  static void vfio_lock_and_set_power_state(struct vfio_pci_core_device *vdev,
->  					  pci_power_t state)
->  {
-> -	if (state >= PCI_D3hot) {
-> -		vfio_pci_zap_and_down_write_memory_lock(vdev);
-> +	down_write(&vdev->memory_lock);
-> +	if (state >= PCI_D3hot)
->  		vfio_pci_dma_buf_move(vdev, true);
-> -	} else {
-> -		down_write(&vdev->memory_lock);
-> -	}
->  
->  	vfio_pci_set_power_state(vdev, state);
->  	if (__vfio_pci_memory_enabled(vdev))
-> @@ -908,7 +902,7 @@ static int vfio_exp_config_write(struct vfio_pci_core_device *vdev, int pos,
->  						 &cap);
->  
->  		if (!ret && (cap & PCI_EXP_DEVCAP_FLR)) {
-> -			vfio_pci_zap_and_down_write_memory_lock(vdev);
-> +			down_write(&vdev->memory_lock);
->  			vfio_pci_dma_buf_move(vdev, true);
->  			pci_try_reset_function(vdev->pdev);
->  			if (__vfio_pci_memory_enabled(vdev))
-> @@ -993,7 +987,7 @@ static int vfio_af_config_write(struct vfio_pci_core_device *vdev, int pos,
->  						&cap);
->  
->  		if (!ret && (cap & PCI_AF_CAP_FLR) && (cap & PCI_AF_CAP_TP)) {
-> -			vfio_pci_zap_and_down_write_memory_lock(vdev);
-> +			down_write(&vdev->memory_lock);
->  			vfio_pci_dma_buf_move(vdev, true);
->  			pci_try_reset_function(vdev->pdev);
->  			if (__vfio_pci_memory_enabled(vdev))
-> diff --git a/drivers/vfio/pci/vfio_pci_core.c b/drivers/vfio/pci/vfio_pci_core.c
-> index 41224efa58d8..9e9ad97c2f7f 100644
-> --- a/drivers/vfio/pci/vfio_pci_core.c
-> +++ b/drivers/vfio/pci/vfio_pci_core.c
-> @@ -319,7 +319,7 @@ static int vfio_pci_runtime_pm_entry(struct vfio_pci_core_device *vdev,
->  	 * The vdev power related flags are protected with 'memory_lock'
->  	 * semaphore.
->  	 */
-> -	vfio_pci_zap_and_down_write_memory_lock(vdev);
-> +	down_write(&vdev->memory_lock);
->  	vfio_pci_dma_buf_move(vdev, true);
->  
->  	if (vdev->pm_runtime_engaged) {
-> @@ -1229,7 +1229,7 @@ static int vfio_pci_ioctl_reset(struct vfio_pci_core_device *vdev,
->  	if (!vdev->reset_works)
->  		return -EINVAL;
->  
-> -	vfio_pci_zap_and_down_write_memory_lock(vdev);
-> +	down_write(&vdev->memory_lock);
->  
->  	/*
->  	 * This function can be invoked while the power state is non-D0. If
-> @@ -1613,22 +1613,6 @@ ssize_t vfio_pci_core_write(struct vfio_device *core_vdev, const char __user *bu
->  }
->  EXPORT_SYMBOL_GPL(vfio_pci_core_write);
->  
-> -static void vfio_pci_zap_bars(struct vfio_pci_core_device *vdev)
-> -{
-> -	struct vfio_device *core_vdev = &vdev->vdev;
-> -	loff_t start = VFIO_PCI_INDEX_TO_OFFSET(VFIO_PCI_BAR0_REGION_INDEX);
-> -	loff_t end = VFIO_PCI_INDEX_TO_OFFSET(VFIO_PCI_ROM_REGION_INDEX);
-> -	loff_t len = end - start;
-> -
-> -	unmap_mapping_range(core_vdev->inode->i_mapping, start, len, true);
-> -}
-> -
-> -void vfio_pci_zap_and_down_write_memory_lock(struct vfio_pci_core_device *vdev)
-> -{
-> -	down_write(&vdev->memory_lock);
-> -	vfio_pci_zap_bars(vdev);
-> -}
-> -
->  u16 vfio_pci_memory_lock_and_enable(struct vfio_pci_core_device *vdev)
->  {
->  	u16 cmd;
-> @@ -2487,10 +2471,11 @@ static int vfio_pci_dev_set_hot_reset(struct vfio_device_set *dev_set,
->  		}
->  
->  		/*
-> -		 * Take the memory write lock for each device and zap BAR
-> -		 * mappings to prevent the user accessing the device while in
-> -		 * reset.  Locking multiple devices is prone to deadlock,
-> -		 * runaway and unwind if we hit contention.
-> +		 * Take the memory write lock for each device and
-> +		 * revoke all DMABUFs, which will prevent any access
-> +		 * to the device while in reset.  Locking multiple
-> +		 * devices is prone to deadlock, runaway and unwind if
-> +		 * we hit contention.
->  		 */
->  		if (!down_write_trylock(&vdev->memory_lock)) {
->  			ret = -EBUSY;
-> @@ -2498,7 +2483,6 @@ static int vfio_pci_dev_set_hot_reset(struct vfio_device_set *dev_set,
->  		}
->  
->  		vfio_pci_dma_buf_move(vdev, true);
-> -		vfio_pci_zap_bars(vdev);
->  	}
->  
->  	if (!list_entry_is_head(vdev,
-> diff --git a/drivers/vfio/pci/vfio_pci_priv.h b/drivers/vfio/pci/vfio_pci_priv.h
-> index 37ece9b4b5bd..e201c96bbb14 100644
-> --- a/drivers/vfio/pci/vfio_pci_priv.h
-> +++ b/drivers/vfio/pci/vfio_pci_priv.h
-> @@ -78,7 +78,6 @@ void vfio_config_free(struct vfio_pci_core_device *vdev);
->  int vfio_pci_set_power_state(struct vfio_pci_core_device *vdev,
->  			     pci_power_t state);
->  
-> -void vfio_pci_zap_and_down_write_memory_lock(struct vfio_pci_core_device *vdev);
->  u16 vfio_pci_memory_lock_and_enable(struct vfio_pci_core_device *vdev);
->  void vfio_pci_memory_unlock_and_restore(struct vfio_pci_core_device *vdev,
->  					u16 cmd);
+Runtime tested on hardware by Deborah Brouwer (see [1]) and myself.
+
+[1]: https://gitlab.freedesktop.org/panfrost/linux/-/merge_requests/63#note_3364131
+
+Link: https://gitlab.freedesktop.org/panfrost/linux/-/issues/28
+---
+
+Onur Özkan (4):
+  drm/tyr: clear reset IRQ before soft reset
+  rust: add Work::disable_sync
+  rust: add ordered workqueue wrapper
+  drm/tyr: add GPU reset handling
+
+ drivers/gpu/drm/tyr/driver.rs |  38 +++----
+ drivers/gpu/drm/tyr/reset.rs  | 180 ++++++++++++++++++++++++++++++++++
+ drivers/gpu/drm/tyr/tyr.rs    |   1 +
+ rust/helpers/workqueue.c      |   6 ++
+ rust/kernel/workqueue.rs      |  62 ++++++++++++
+ 5 files changed, 260 insertions(+), 27 deletions(-)
+ create mode 100644 drivers/gpu/drm/tyr/reset.rs
+
+
+base-commit: 0ccc0dac94bf2f5c6eb3e9e7f1014cd9dddf009f
+-- 
+2.51.2
 
