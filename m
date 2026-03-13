@@ -4,81 +4,94 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1F450106FD9D
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7488B106FD9B
 	for <dri-devel@archiver.kernel.org>; Fri, 13 Mar 2026 08:25:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5E66B10EB26;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 93CFD10EB2C;
 	Fri, 13 Mar 2026 08:25:43 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=meta.com header.i=@meta.com header.b="AKkjswGo";
-	dkim-atps=neutral
-Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com
- [67.231.145.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 50F7B10EAA0
- for <dri-devel@lists.freedesktop.org>; Thu, 12 Mar 2026 18:59:06 +0000 (UTC)
-Received: from pps.filterd (m0148461.ppops.net [127.0.0.1])
- by mx0a-00082601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 62CHrWqW2853764; Thu, 12 Mar 2026 11:46:33 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=meta.com; h=cc
- :content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=s2048-2025-q2;
- bh=yABRgDa4Smt7xH35V/HV2UTHouYqNi0/j2J9K5YgcvI=; b=AKkjswGoDJeJ
- 3LFVTzysksvweic7lsg+Q281vwoLUjw5DyDTrrb+jaTG9HKMB/vURPWqdTGsheJW
- mnjkiuo6TgTIQXZ2b5MjJNNOTOlLNa/CAFWuj9yTaa0NOdNSynTpEukQMHT8wJro
- Oxf++2ulrANLf+S4HXIRVMUrE5ZWDvzTuUWeauYrOvBuN0vRpt5wMN0M7BV9tUmS
- ZJ4OvOqi4Tc8GWIoQ+aV+z5YaCRvIXL1hESLHawyPtIDSixBk4NjxZjNClKFXYCI
- UMEYKzr4Ycz1jTDeYVBQsESvL0RNwiD1VinZPJENU6fv3O5pPbqq9gyjkK4UzIux
- kXZGn9k3nw==
-Received: from mail.thefacebook.com ([163.114.134.16])
- by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4cv29nh38v-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Thu, 12 Mar 2026 11:46:32 -0700 (PDT)
-Received: from localhost (2620:10d:c085:108::4) by mail.thefacebook.com
- (2620:10d:c08b:78::2ac9) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.35; Thu, 12 Mar
- 2026 18:46:32 +0000
-From: Matt Evans <mattev@meta.com>
-To: Alex Williamson <alex@shazbot.org>, Leon Romanovsky <leon@kernel.org>,
- Jason Gunthorpe <jgg@nvidia.com>, Alex Mastro <amastro@fb.com>,
- Mahmoud Adam <mngyadam@amazon.de>, David Matlack <dmatlack@google.com>
-CC: =?UTF-8?q?Bj=C3=B6rn=20T=C3=B6pel?= <bjorn@kernel.org>, Sumit Semwal
- <sumit.semwal@linaro.org>, =?UTF-8?q?Christian=20K=C3=B6nig?=
- <christian.koenig@amd.com>,
- Kevin Tian <kevin.tian@intel.com>, Ankit Agrawal <ankita@nvidia.com>,
- Pranjal Shrivastava <praan@google.com>, Alistair Popple
- <apopple@nvidia.com>, Vivek Kasireddy <vivek.kasireddy@intel.com>,
- <linux-kernel@vger.kernel.org>, <linux-media@vger.kernel.org>,
- <dri-devel@lists.freedesktop.org>, <linaro-mm-sig@lists.linaro.org>,
- <kvm@vger.kernel.org>
-Subject: [RFC v2 PATCH 02/10] vfio/pci: Clean up DMABUFs before disabling
- function
-Date: Thu, 12 Mar 2026 11:46:00 -0700
-Message-ID: <20260312184613.3710705-3-mattev@meta.com>
-X-Mailer: git-send-email 2.52.0
-In-Reply-To: <20260312184613.3710705-1-mattev@meta.com>
-References: <20260312184613.3710705-1-mattev@meta.com>
+Received: from OS8PR02CU002.outbound.protection.outlook.com
+ (mail-japanwestazon11022116.outbound.protection.outlook.com [40.107.75.116])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6B1BF10E08C
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Mar 2026 03:31:29 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=MyZPIPTmdTVXGQIMkI8QcnVc11OhuOK5dkAs6/pOIjneQCxnd3oLiQ81X8aRVsA8ezYaOF65iyTk71whEMydCrLw5VovT/JoNhTlzQdiSBek6MUXvQqaLyp+TUO7wsXKxDxuAsz58uSdnHJ7zBZrzl5bBJbe5sz/UiUeSG82Q8b7pMCuqRG4tZhtAZqWLfs+4HcduezuuLm7l/vca/L13eyNtH0GyUimni0HlcxyXdbFfCDTAOSzgRz3u6kfqKN2QLvJW2jaWDCudDX0pQq3UmuAjI+0FzQWeF1uT1TKcmEWRY8Nfhpyfzb6nnJbtWkhMtHsd9tiq0xwGLXxsssZLQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=LQ1K1UxMosZqX5+dKpsnYWXy9DkY3/gOQ6O7dLzkX58=;
+ b=tl0AtcslYDIeYlG6yY+L7SmkSz5Ciy2NTqorgQkiLiFtM5mJiTZKoCFeC7ZxeEtZtMlTi/dx2t0szjkqdEYEvn1ZTnLDd9JVISHzA9RTQYI0CNA6liM5Uow+0NpIXo0fy9U+ZzGiS4uMU3TqX/HA54P+VR3k/gjGE1sapLQonAEnbMcFTOmsO64WSObXB/wxzE/q0Ze05FTn5R61omCis5qmBGMf2DbJT52MDzbuo1f5daksrWxwzZn/f3eAMA3+wYwQFyfHkqFEQtCSjR+lXrUtImHSG26O8aN9nbQQObSLOdYGi0Do1Dh0byyT2A1ud0L83ltzVxQswXOZAJMEOw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 222.71.101.198) smtp.rcpttodomain=arm.com smtp.mailfrom=cixtech.com;
+ dmarc=bestguesspass action=none header.from=cixtech.com; dkim=none (message
+ not signed); arc=none (0)
+Received: from SI1PR02CA0045.apcprd02.prod.outlook.com (2603:1096:4:1f6::16)
+ by PUZPR06MB6187.apcprd06.prod.outlook.com (2603:1096:301:107::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9700.11; Fri, 13 Mar
+ 2026 03:31:24 +0000
+Received: from OSA0EPF000000CB.apcprd02.prod.outlook.com
+ (2603:1096:4:1f6:cafe::8) by SI1PR02CA0045.outlook.office365.com
+ (2603:1096:4:1f6::16) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9678.29 via Frontend Transport; Fri,
+ 13 Mar 2026 03:31:21 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 222.71.101.198)
+ smtp.mailfrom=cixtech.com; dkim=none (message not signed)
+ header.d=none;dmarc=bestguesspass action=none header.from=cixtech.com;
+Received-SPF: Pass (protection.outlook.com: domain of cixtech.com designates
+ 222.71.101.198 as permitted sender) receiver=protection.outlook.com;
+ client-ip=222.71.101.198; helo=smtprelay.cixcomputing.com; pr=C
+Received: from smtprelay.cixcomputing.com (222.71.101.198) by
+ OSA0EPF000000CB.mail.protection.outlook.com (10.167.240.57) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9678.18 via Frontend Transport; Fri, 13 Mar 2026 03:31:21 +0000
+Received: from cix (unknown [172.16.64.42])
+ by smtprelay.cixcomputing.com (Postfix) with ESMTPSA id 0D8F840A5BD8;
+ Fri, 13 Mar 2026 11:31:20 +0800 (CST)
+From: Cunyuan Liu <cunyuan.liu@cixtech.com>
+To: liviu.dudau@arm.com, maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org
+Cc: neil.armstrong@linaro.org, heiko@sntech.de, marex@nabladev.com,
+ dev@kael-k.io, prabhakar.mahadev-lad.rj@bp.renesas.com,
+ andre.przywara@arm.com, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ cix-kernel-upstream@cixtech.com, Cunyuan Liu <cunyuan.liu@cixtech.com>
+Subject: [PATCH v2 1/3] dt-bindings: vendor-prefixes: Add Arm Technology
+ (China) Co., Ltd.
+Date: Fri, 13 Mar 2026 11:31:17 +0800
+Message-ID: <20260313033119.33686-2-cunyuan.liu@cixtech.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260313033119.33686-1-cunyuan.liu@cixtech.com>
+References: <20260313033119.33686-1-cunyuan.liu@cixtech.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: OSA0EPF000000CB:EE_|PUZPR06MB6187:EE_
 Content-Type: text/plain
-X-Originating-IP: [2620:10d:c085:108::4]
-X-Proofpoint-GUID: T8Yuc9PQqL6Z-6JxP8LV4CMEZQgXG9hN
-X-Proofpoint-ORIG-GUID: T8Yuc9PQqL6Z-6JxP8LV4CMEZQgXG9hN
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzEyMDE1MSBTYWx0ZWRfX7XzcAXsQ5Hr/
- waDgvCGVXfyPZksrBh7BebX5id10i4wDMWPzJC1L0EbTSXpHYLMfpRY4PGPcXSdVwkI+5HxdsjQ
- xYnUqKCqgBd3UcZEJiwK3SrWO50h1PgXcXaxmfjp8yKwI0H/Z8BAUZC4buJNfAl4UaqJQSwdYrB
- afVvUp0fU2aUJIXRD/+HsmMAAvqtnfA3kidQflYpbq1IoK+6nGkuyWzcNPM2KN84Fbqv9fJkTjh
- kc9Mw76bhQAVQQ7qIn3CKclIT+jIc9UATBYZEgTSG8vAojpJO9yBqVsW9uHx4CJqeMfGSA+lig/
- Qt+yJtfXJGF1MY7bCrUrTP5eZvpiOwmb7T3lNqeWqfKlGUIk5SblFPojq7wbpCylvoa2VHaiMiV
- c6Os+n/hClffeC6nXzOMLTI5/zRGJS+4Fy52RYPGqXfUOu2DVoXvOUDns77xFc35Ca3G+JI8QdE
- zT3ZUoo4hVc2qAy6Ing==
-X-Authority-Analysis: v=2.4 cv=FvYIPmrq c=1 sm=1 tr=0 ts=69b30a09 cx=c_pps
- a=CB4LiSf2rd0gKozIdrpkBw==:117 a=CB4LiSf2rd0gKozIdrpkBw==:17
- a=Yq5XynenixoA:10 a=VkNPw1HP01LnGYTKEx00:22 a=7x6HtfJdh03M6CCDgxCd:22
- a=03ozwUkBphtHgyqjj1sw:22 a=VabnemYjAAAA:8 a=4DpnPWOeRWuCnonzwFEA:9
- a=gKebqoRLp9LExxC7YDUY:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-03-12_02,2026-03-12_01,2025-10-01_01
+X-MS-Office365-Filtering-Correlation-Id: e0fc6e11-24c9-4321-3d67-08de80b0fefb
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|82310400026|36860700016|7416014|376014|1800799024|22082099003|56012099003|18002099003;
+X-Microsoft-Antispam-Message-Info: FMX0c4zIouAIHqxE7s8CeTs8owhl4lB6XMomCzh10qlyU1N+HoZW9olyqMJOPtAmgMnEMMy9EjOFWWnFXJbFYupqMAVTi8d7AtjlTavFqXTzxf3s4tKgNXSSo/u7QBcugKAxgIqSsty6lBGK80HVXcttIP2jkURiomhrVzVr52Gq7S8uO/ddvJCi+xLiQl/n3p/bvyhrjxCh5Rje5+rwo7Mq1XmlWCFnxNRCiZZTSGXyhFGF2+Zx2eqZLBZUbJ0LSX1U7yymalDA7sQIwvbR0zE8zkMfMHhVHdL03ouh8VBfM6f5LFBpYgW0jPn+znL2JGxU3qN0JY5XuL60EIIYqbI5dAWYRXTf9kLvPE45q3p4kiI6ECGxw1cdJHcU8AplVkcBvk4/GgknUHdLVD9rH1rcjDNsjzXhwTv7UNuu5nTvWBMljKaZp6sib0mvWckkUJZCJAhJF9LExcA06H4pEzWLuWSLKxLcAWPjqK7KkEW7htDgZnsZ1On6HRS2s9WuMQR9wWu/AlYF2lqNRLVvwc24RkUghy/RTSKLTTf7Tv+kTzA8bfDo3K4pouvLu3LwzmbsOCY5ptPSa8BEcwsYNRI6hsBL9dWKjMz4Mi43JBuOHgy9nPhzm5X3jc5J5rFTUpqVW1+W+TUxN4vXll6JSqqM1Kp/ygBVJ3dkFh/YC0w9DU0wcN0P9dT9PoL0vhS65EDCvl4RMgIQIyPJdzg+oA==
+X-Forefront-Antispam-Report: CIP:222.71.101.198; CTRY:CN; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:smtprelay.cixcomputing.com; PTR:InfoDomainNonexistent;
+ CAT:NONE;
+ SFS:(13230040)(82310400026)(36860700016)(7416014)(376014)(1800799024)(22082099003)(56012099003)(18002099003);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: TdFlgh8MHRvO8MfcjPyQpiDE96MnYDsCPUO/JLhQpiWEkb3ocl4fM7/GQhgKMxbg1dJ11qBxwNkD5NjeP0C+klN1rxI00Dw7JjZuTMpw51beYLDr8sfe8rkFFZrRT0lLJ2HyFE4ytUlsmFOaV85rdoBK+hcAI69JwEB+ThEPnAkhC+yBmsNphSL80TCNqVE4hXt3tg4WbNOYpocwSIAWfEE/qxD4m9Mw86JZcfYJaoYATkqgSiVHBDsfL/0vQc+BSf7kgs4HCBltIBjR2GgPFa3gUCB6PMwwLtcFdJ3sWSb1IV5fdymnbOMwt2tm7x5EPKgD0X1pC3Nbuu3VcbFkEwXIqTFkUUxwIRemK+tBqPbR2DhFAjaLdGu5SrzqsV4oPoTwAitdHnPh1GwfdAzWdZ2hWnlppz3biPNexYa098x0XRoXasXXTX9/imiKTr9s
+X-OriginatorOrg: cixtech.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Mar 2026 03:31:21.1438 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e0fc6e11-24c9-4321-3d67-08de80b0fefb
+X-MS-Exchange-CrossTenant-Id: 0409f77a-e53d-4d23-943e-ccade7cb4811
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=0409f77a-e53d-4d23-943e-ccade7cb4811; Ip=[222.71.101.198];
+ Helo=[smtprelay.cixcomputing.com]
+X-MS-Exchange-CrossTenant-AuthSource: OSA0EPF000000CB.apcprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PUZPR06MB6187
 X-Mailman-Approved-At: Fri, 13 Mar 2026 08:25:02 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -95,39 +108,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On device shutdown, make vfio_pci_core_close_device() call
-vfio_pci_dma_buf_cleanup() before the function is disabled via
-vfio_pci_core_disable().  This ensures that all access via DMABUFs is
-revoked before the function's BARs become inaccessible.
+Add "armchina" vendor prefix for Arm Technology (China) Co., Ltd.
 
-This fixes an issue where, if the function is disabled first, a tiny
-window exists in which the function's MSE is cleared and yet BARs
-could still be accessed via the DMABUF.  The resources would also be
-freed and up for grabs by a different driver.
+Link: https://www.armchina.com/
 
-Fixes: 5d74781ebc86c ("vfio/pci: Add dma-buf export support for MMIO regions")
-Signed-off-by: Matt Evans <mattev@meta.com>
+Acked-by: Rob Herring (Arm) <robh@kernel.org>
+Signed-off-by: Cunyuan Liu <cunyuan.liu@cixtech.com>
 ---
- drivers/vfio/pci/vfio_pci_core.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ Documentation/devicetree/bindings/vendor-prefixes.yaml | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/vfio/pci/vfio_pci_core.c b/drivers/vfio/pci/vfio_pci_core.c
-index d43745fe4c84..f9ed3374d268 100644
---- a/drivers/vfio/pci/vfio_pci_core.c
-+++ b/drivers/vfio/pci/vfio_pci_core.c
-@@ -734,10 +734,10 @@ void vfio_pci_core_close_device(struct vfio_device *core_vdev)
- #if IS_ENABLED(CONFIG_EEH)
- 	eeh_dev_release(vdev->pdev);
- #endif
--	vfio_pci_core_disable(vdev);
--
- 	vfio_pci_dma_buf_cleanup(vdev);
- 
-+	vfio_pci_core_disable(vdev);
-+
- 	mutex_lock(&vdev->igate);
- 	vfio_pci_eventfd_replace_locked(vdev, &vdev->err_trigger, NULL);
- 	vfio_pci_eventfd_replace_locked(vdev, &vdev->req_trigger, NULL);
+diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+index ee7fd3cfe203..c7ca7f43925b 100644
+--- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
++++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+@@ -172,6 +172,8 @@ patternProperties:
+     description: ARM Ltd.
+   "^armadeus,.*":
+     description: ARMadeus Systems SARL
++  "^armchina,.*":
++    description: Arm Technology (China) Co., Ltd.
+   "^armsom,.*":
+     description: ArmSoM Technology Co., Ltd.
+   "^arrow,.*":
 -- 
-2.47.3
+2.53.0
 
