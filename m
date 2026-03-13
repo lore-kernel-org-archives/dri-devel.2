@@ -4,81 +4,94 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1FF1F106FD9F
-	for <dri-devel@archiver.kernel.org>; Fri, 13 Mar 2026 08:25:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BDEF6103E300
+	for <dri-devel@archiver.kernel.org>; Fri, 13 Mar 2026 08:25:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CDA6810EB20;
+	by gabe.freedesktop.org (Postfix) with ESMTP id AA21310EB1C;
 	Fri, 13 Mar 2026 08:25:04 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=meta.com header.i=@meta.com header.b="pYL0HTRz";
-	dkim-atps=neutral
-Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com
- [67.231.145.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C6C3610EA90
- for <dri-devel@lists.freedesktop.org>; Thu, 12 Mar 2026 18:53:00 +0000 (UTC)
-Received: from pps.filterd (m0109334.ppops.net [127.0.0.1])
- by mx0a-00082601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 62CH37c93822056; Thu, 12 Mar 2026 11:46:30 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=meta.com; h=cc
- :content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=s2048-2025-q2;
- bh=lyheLk9Wvs0fvD4s1b5iebQGWNGSW8pkLBga2jwoIMs=; b=pYL0HTRziDvE
- ieE6PsbkKCshsCYWNDD1wtNcjCEhoUDkzVT5WnfN5H+Urq+PoLq9kJ7m21Tcsulc
- CE41Dz6/6BW5PB+oJZhpw54Bp8AYSxCxYwDjjfR17KL8STWRYwR/1cX/HuWqN1Ed
- wQytqiM++CkCBXQhbarMSlzz7PpJjfAYm/76oCYJ1+2gX66Cu0q3/qMrBvGPFfAz
- AhpWlckCOXKsEdfaCp+iMNzxlaGCwY9LWFOSRjMVgu0pX7ZAxpgKAgpKoRHv1MQy
- h1s+sdnzTvGdWJZEXnR2lXiCehzAqZD/OaGTQsCD3RH7bXE+lGN/6DZcXxZXKQ58
- FiiQxXP11Q==
-Received: from mail.thefacebook.com ([163.114.134.16])
- by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4cv1j2j8et-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Thu, 12 Mar 2026 11:46:30 -0700 (PDT)
-Received: from localhost (2620:10d:c085:208::7cb7) by mail.thefacebook.com
- (2620:10d:c08b:78::c78f) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.35; Thu, 12 Mar
- 2026 18:46:29 +0000
-From: Matt Evans <mattev@meta.com>
-To: Alex Williamson <alex@shazbot.org>, Leon Romanovsky <leon@kernel.org>,
- Jason Gunthorpe <jgg@nvidia.com>, Alex Mastro <amastro@fb.com>,
- Mahmoud Adam <mngyadam@amazon.de>, David Matlack <dmatlack@google.com>
-CC: =?UTF-8?q?Bj=C3=B6rn=20T=C3=B6pel?= <bjorn@kernel.org>, Sumit Semwal
- <sumit.semwal@linaro.org>, =?UTF-8?q?Christian=20K=C3=B6nig?=
- <christian.koenig@amd.com>,
- Kevin Tian <kevin.tian@intel.com>, Ankit Agrawal <ankita@nvidia.com>,
- Pranjal Shrivastava <praan@google.com>, Alistair Popple
- <apopple@nvidia.com>, Vivek Kasireddy <vivek.kasireddy@intel.com>,
- <linux-kernel@vger.kernel.org>, <linux-media@vger.kernel.org>,
- <dri-devel@lists.freedesktop.org>, <linaro-mm-sig@lists.linaro.org>,
- <kvm@vger.kernel.org>
-Subject: [RFC v2 PATCH 01/10] vfio/pci: Set up VFIO barmap before creating a
- DMABUF
-Date: Thu, 12 Mar 2026 11:45:59 -0700
-Message-ID: <20260312184613.3710705-2-mattev@meta.com>
-X-Mailer: git-send-email 2.52.0
-In-Reply-To: <20260312184613.3710705-1-mattev@meta.com>
-References: <20260312184613.3710705-1-mattev@meta.com>
+Received: from SEYPR02CU001.outbound.protection.outlook.com
+ (mail-koreacentralazon11023103.outbound.protection.outlook.com
+ [40.107.44.103])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6E45110EAD9
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Mar 2026 03:31:27 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=JGOAJuL1Jkv2fesYs7rZqLSN/pmUud9RsxtrsNROsbr+y6sfeiA2qmZjXqaxWQ20VyXfu9DbhtTMGDuCZiwmpXnq4aCBooOQmdMLcpQyK9Tp1xvh2wn3adgtzE6uIFRh5ydQgdTnIVyswBoT8kRwg9CQX99uiAVtWl44TYmKsSfyGh/L6wtQv1IdOmFyY2DFXlitKLVTnCsuQXO9+BsSStfY1wczuVKKnzpdiZav0bRi4ZZ5BsQ+oNzg0TgHd7UTU3j5pDl/HLJSEi8JRBWN2OY4VZKgZOnu0OR0Yz2C4cfRc3dqtqNrIz14JihqcHSTbha5jWQ0G57k2SlhlJZ9Vg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=p9MNxInqI+VQ6BWy/WlilNnPq5BYdwCKRrW8O5Hf06Y=;
+ b=d7vsPUOkqIfnNInMsMN5eaGfm5DsvHVkDz1/zo9JJHx2a8ku7G49zHNZeIH3fklpOMAyUwVd2dGmZWNXy4wpKdVDeIAdLdndFj/uU82z355N2NN320WwGl0DPkPbTYPRCs5rNnwMZUekkrCFPVo1daoz5aMX6IuZNplEvnUCAAGRqtQx/yXciixf6tYFlDy3LzOgm8rP+AptFFbIGgvK0zwJfHXW8oH7NPe8smGKHezHdhJ+caS4r2RGzPDoE9p7yLnINWlyK25LbD/H+2AZL/ZzzSR3SWU8fEO89E6ZnyGb/VdD4oNegq+z4BWVoIxuj6ltFnFogXPyMd17r8kZ6Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 222.71.101.198) smtp.rcpttodomain=arm.com smtp.mailfrom=cixtech.com;
+ dmarc=bestguesspass action=none header.from=cixtech.com; dkim=none (message
+ not signed); arc=none (0)
+Received: from PS2PR02CA0048.apcprd02.prod.outlook.com (2603:1096:300:59::36)
+ by KL1PR06MB6942.apcprd06.prod.outlook.com (2603:1096:820:129::9)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9700.15; Fri, 13 Mar
+ 2026 03:31:22 +0000
+Received: from TY2PEPF0000AB83.apcprd03.prod.outlook.com
+ (2603:1096:300:59:cafe::e7) by PS2PR02CA0048.outlook.office365.com
+ (2603:1096:300:59::36) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9678.29 via Frontend Transport; Fri,
+ 13 Mar 2026 03:31:25 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 222.71.101.198)
+ smtp.mailfrom=cixtech.com; dkim=none (message not signed)
+ header.d=none;dmarc=bestguesspass action=none header.from=cixtech.com;
+Received-SPF: Pass (protection.outlook.com: domain of cixtech.com designates
+ 222.71.101.198 as permitted sender) receiver=protection.outlook.com;
+ client-ip=222.71.101.198; helo=smtprelay.cixcomputing.com; pr=C
+Received: from smtprelay.cixcomputing.com (222.71.101.198) by
+ TY2PEPF0000AB83.mail.protection.outlook.com (10.167.253.4) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9678.18 via Frontend Transport; Fri, 13 Mar 2026 03:31:21 +0000
+Received: from cix (unknown [172.16.64.42])
+ by smtprelay.cixcomputing.com (Postfix) with ESMTPSA id 2E44D40A5BFA;
+ Fri, 13 Mar 2026 11:31:20 +0800 (CST)
+From: Cunyuan Liu <cunyuan.liu@cixtech.com>
+To: liviu.dudau@arm.com, maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org
+Cc: neil.armstrong@linaro.org, heiko@sntech.de, marex@nabladev.com,
+ dev@kael-k.io, prabhakar.mahadev-lad.rj@bp.renesas.com,
+ andre.przywara@arm.com, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ cix-kernel-upstream@cixtech.com, Cunyuan Liu <cunyuan.liu@cixtech.com>
+Subject: [PATCH v2 3/3] drm/komeda: Add support for Arm China Linlon-D6
+Date: Fri, 13 Mar 2026 11:31:19 +0800
+Message-ID: <20260313033119.33686-4-cunyuan.liu@cixtech.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260313033119.33686-1-cunyuan.liu@cixtech.com>
+References: <20260313033119.33686-1-cunyuan.liu@cixtech.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TY2PEPF0000AB83:EE_|KL1PR06MB6942:EE_
 Content-Type: text/plain
-X-Originating-IP: [2620:10d:c085:208::7cb7]
-X-Proofpoint-GUID: PvXIK7001yah_q_sVCLHPSoZDp3mLo2e
-X-Authority-Analysis: v=2.4 cv=ALq93nRn c=1 sm=1 tr=0 ts=69b30a06 cx=c_pps
- a=CB4LiSf2rd0gKozIdrpkBw==:117 a=CB4LiSf2rd0gKozIdrpkBw==:17
- a=Yq5XynenixoA:10 a=VkNPw1HP01LnGYTKEx00:22 a=7x6HtfJdh03M6CCDgxCd:22
- a=crHB47gyY4rKiduisYu9:22 a=VabnemYjAAAA:8 a=DkskzI1_-XwU4soQF-MA:9
- a=gKebqoRLp9LExxC7YDUY:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzEyMDE1MSBTYWx0ZWRfX8djASQHH+VAA
- ltjJlqmH55EDbWfxbbJ7FyTuvxqN6vMHePt/cF2tSVoxk6bkjkTwC8QjvpTwsT+RD9YMljBSaK/
- 36OsJTKf1QwsIQaUMPiSF0WgBUCs2IfZNBpOevxB+IcKzDPftiEmHtW6c7yvvertvgCTar5vur1
- d2Mhx0mRzrpATABoUz7byz5ekuDjE2ULkxl/3npaeLDswE2K4nDrSqN/I/sncUDG5VuHQ+Vz0ZF
- 2hZ80M9bF0gZ7E+jmCV9iL4lqBZZnzS1quxPjHn745eOrle3T8vm3yZsmn5P9cEhBCRpVhMK5s1
- 12YSduE3T56nfBeqmjxXEz3yiR4C5SKEaqAB1/E7IaifPUB/T+dvyG+IeWodMtzH6kEBwUS3X5s
- rgKXzYRfW8SLe+g6Xetq6+3eZ5KAYhPBIwJMjJbd8ZGGYXHd7RTGjfl20sHcfL54eCH/Ck4PiB+
- Mzp/l+X46195EIqFNWg==
-X-Proofpoint-ORIG-GUID: PvXIK7001yah_q_sVCLHPSoZDp3mLo2e
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-03-12_02,2026-03-12_01,2025-10-01_01
+X-MS-Office365-Filtering-Correlation-Id: 77c9a427-afda-4404-d809-08de80b0ff19
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|376014|36860700016|7416014|82310400026|18002099003|22082099003|56012099003;
+X-Microsoft-Antispam-Message-Info: tVAG9aKYD8/keAprj1NZZH91wybjJwRdwTPfXE0bq85Zh3ZAHdw7rd2GbzzsA4zJCu4J6k5l65fl8aFcF3vbyltMSPKNywxpfd2G/akMamgONFxzGODsDfaRy5gvXizRclxIoHsVFdmPwgNrwUE7vbcSgF+bhWP4WQzFDMAaxwpMgwm7VK3OrBHWwWMDA0OFskj2TPDfD6jB7ZwA0LHujf15BTq01EA/EL007rESN2nSSc16PTFiIXfUDGRT1ltdV63FL59ke+p+czwgVBqI1M0lCkiZVcP0ZIB113xcaEPFakhnR9DKfNlqx9jTUMAy/tf26JShmUY7nKzge/aeuLnL7B+TCbx4KpGz+zWMddphx0EquD4TwKHu/dVX/rHSdJMFaEY9FQmKCGPDmjcR2f0S50EC5UhwCYOQ5YCl92FOGC/9aic82EdrqWMQdJS+xoMP/fJPPRvVq/BwvrGANPQus2pAUdRi7aD7//WaV3GFgwMIHFLDVoHJKY1Q1FVl5bXmn/THUmPG3a2mynVAFGmsJ1b1n8gbQqSShTD7hoVAJ6D62gKYwfccdZS00QMi3dNNtRukk6okeIvCwLjV5qOfqwDsyAgIab50ngF56NgIVXbimltSsuWDKrfTZYVDjtvSMsOBR7yeSJxKh3qHoIKCqzAHX0gaAdpEdvf/opGTVNXmcOsWL4qYX2PrPd4Mc2/BTYJrJByiTIvZH/FNmlICpzGwtJNR4KR40CRI0chLsQP3Xs2Y+4toNzLaROMUED+0BvUJWXO+yStwsbakEQ==
+X-Forefront-Antispam-Report: CIP:222.71.101.198; CTRY:CN; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:smtprelay.cixcomputing.com; PTR:InfoDomainNonexistent;
+ CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(36860700016)(7416014)(82310400026)(18002099003)(22082099003)(56012099003);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: lMWVkWCQSVEv9Kk+I7RHbqTboe1ljqNAmYW72bD7GYHDRaWc1MYfxgkFNOKp43oq/WAhSZBDGZRKGno3la39eGbfY50ty5mP2ID9y7+HCGw+sT24o/MYYRUEEwNl+IZPMj54vRI6+hCmLfEq0Q8H2Ruy+qA9TYbpu9jMHg2mL1eBduZwWdLyrXeSIrqTKOL7kNSrAXcJbE+KzGomeLD6GU8qV0bMC5+8Akq4W7fC84hj+R9Mt7K24REfcL13P1KWp9pdYF3w/MYT3Bu4eQIVB46QKlsWzYP787mKix+n3QoHtasUQricKKM1h0iF9Qfysy1oFCnziKaf+tdhm7CSPbno2k6hovvNztNLDf6yuLlqvQi+MGp05G+TX8iYF1AhW9NqPQY3phgtcYLrYY2KM3T8au5WmUT8UDCtT7i/8INsUXkjvvwGLrLq+Wlw9vgL
+X-OriginatorOrg: cixtech.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Mar 2026 03:31:21.3065 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 77c9a427-afda-4404-d809-08de80b0ff19
+X-MS-Exchange-CrossTenant-Id: 0409f77a-e53d-4d23-943e-ccade7cb4811
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=0409f77a-e53d-4d23-943e-ccade7cb4811; Ip=[222.71.101.198];
+ Helo=[smtprelay.cixcomputing.com]
+X-MS-Exchange-CrossTenant-AuthSource: TY2PEPF0000AB83.apcprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: KL1PR06MB6942
 X-Mailman-Approved-At: Fri, 13 Mar 2026 08:25:02 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -95,42 +108,58 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-A DMABUF exports access to BAR resources which need to be requested
-before the DMABUF is handed out.  Usually the resources are requested
-when setting up the barmap when the VFIO device fd is mmap()ed, but
-there's no guarantee that's done before a DMABUF is created.
+Arm China Linlon-D6 is register-compatible with the Mali-D71 display
+pipeline for the purpose of basic modesetting.
 
-Set up the barmap (and so request resources) in the DMABUF-creation
-path.
+On Linlon-D6, the PRODUCT_ID register is located at the same offset as on
+Mali-D71 and reports 0x0060. The IP also exposes the same Komeda top-level
+block layout expected by the existing d71_identify() probing flow, so we
+can reuse the D71 function table to bring up the display engine.
 
-Fixes: 5d74781ebc86c ("vfio/pci: Add dma-buf export support for MMIO regions")
-Signed-off-by: Matt Evans <mattev@meta.com>
+Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
+Signed-off-by: Cunyuan Liu <cunyuan.liu@cixtech.com>
 ---
- drivers/vfio/pci/vfio_pci_dmabuf.c | 11 +++++++++++
- 1 file changed, 11 insertions(+)
+ drivers/gpu/drm/arm/display/include/malidp_product.h | 1 +
+ drivers/gpu/drm/arm/display/komeda/d71/d71_dev.c     | 1 +
+ drivers/gpu/drm/arm/display/komeda/komeda_drv.c      | 1 +
+ 3 files changed, 3 insertions(+)
 
-diff --git a/drivers/vfio/pci/vfio_pci_dmabuf.c b/drivers/vfio/pci/vfio_pci_dmabuf.c
-index 3a803923141b..44558cc2948e 100644
---- a/drivers/vfio/pci/vfio_pci_dmabuf.c
-+++ b/drivers/vfio/pci/vfio_pci_dmabuf.c
-@@ -269,6 +269,17 @@ int vfio_pci_core_feature_dma_buf(struct vfio_pci_core_device *vdev, u32 flags,
- 		goto err_free_priv;
- 	}
+diff --git a/drivers/gpu/drm/arm/display/include/malidp_product.h b/drivers/gpu/drm/arm/display/include/malidp_product.h
+index 16a8a2c22c42..6f954bcdf40e 100644
+--- a/drivers/gpu/drm/arm/display/include/malidp_product.h
++++ b/drivers/gpu/drm/arm/display/include/malidp_product.h
+@@ -20,6 +20,7 @@
+ /* Mali-display product IDs */
+ #define MALIDP_D71_PRODUCT_ID	0x0071
+ #define MALIDP_D32_PRODUCT_ID	0x0032
++#define LINLONDP_D6_PRODUCT_ID	0x0060
  
-+	/*
-+	 * Just like the vfio_pci_core_mmap() path, we need to ensure
-+	 * PCI regions have been requested before returning DMABUFs
-+	 * that reference them.  It's possible to create a DMABUF for
-+	 * a BAR without the BAR having already been mmap()ed.  The
-+	 * barmap setup requests the regions for us:
-+	 */
-+	ret = vfio_pci_core_setup_barmap(vdev, get_dma_buf.region_index);
-+	if (ret)
-+		goto err_free_phys;
-+
- 	priv->vdev = vdev;
- 	priv->nr_ranges = get_dma_buf.nr_ranges;
- 	priv->size = length;
+ union komeda_config_id {
+ 	struct {
+diff --git a/drivers/gpu/drm/arm/display/komeda/d71/d71_dev.c b/drivers/gpu/drm/arm/display/komeda/d71/d71_dev.c
+index 80973975bfdb..f105e3a2dce2 100644
+--- a/drivers/gpu/drm/arm/display/komeda/d71/d71_dev.c
++++ b/drivers/gpu/drm/arm/display/komeda/d71/d71_dev.c
+@@ -628,6 +628,7 @@ d71_identify(u32 __iomem *reg_base, struct komeda_chip_info *chip)
+ 	switch (product_id) {
+ 	case MALIDP_D71_PRODUCT_ID:
+ 	case MALIDP_D32_PRODUCT_ID:
++	case LINLONDP_D6_PRODUCT_ID:
+ 		funcs = &d71_chip_funcs;
+ 		break;
+ 	default:
+diff --git a/drivers/gpu/drm/arm/display/komeda/komeda_drv.c b/drivers/gpu/drm/arm/display/komeda/komeda_drv.c
+index 358c1512b087..4bb5f250e95e 100644
+--- a/drivers/gpu/drm/arm/display/komeda/komeda_drv.c
++++ b/drivers/gpu/drm/arm/display/komeda/komeda_drv.c
+@@ -104,6 +104,7 @@ static int komeda_platform_probe(struct platform_device *pdev)
+ static const struct of_device_id komeda_of_match[] = {
+ 	{ .compatible = "arm,mali-d71", .data = d71_identify, },
+ 	{ .compatible = "arm,mali-d32", .data = d71_identify, },
++	{ .compatible = "armchina,linlon-d6", .data = d71_identify, },
+ 	{},
+ };
+ 
 -- 
-2.47.3
+2.53.0
 
