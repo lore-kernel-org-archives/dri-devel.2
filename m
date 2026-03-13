@@ -4,76 +4,135 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F3DD0105F7AE
-	for <dri-devel@archiver.kernel.org>; Fri, 13 Mar 2026 14:18:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 67006105F7A6
+	for <dri-devel@archiver.kernel.org>; Fri, 13 Mar 2026 14:26:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4677E10E36C;
-	Fri, 13 Mar 2026 14:18:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9EBD210EC69;
+	Fri, 13 Mar 2026 14:26:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="CXn9MAoU";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="mcWSI0h5";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="NI9OIUQH";
 	dkim-atps=neutral
-Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com
- [74.125.82.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 63B9A10E36C
- for <dri-devel@lists.freedesktop.org>; Fri, 13 Mar 2026 14:18:17 +0000 (UTC)
-Received: by mail-dy1-f171.google.com with SMTP id
- 5a478bee46e88-2beab594d8eso536924eec.0
- for <dri-devel@lists.freedesktop.org>; Fri, 13 Mar 2026 07:18:17 -0700 (PDT)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AD0A810EC68
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Mar 2026 14:26:46 +0000 (UTC)
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 62DBeRlF3229800
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Mar 2026 14:26:46 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=UrKQhgpAedlMnHwgHifVtQ34
+ FWYLdmDi753Ssg/d0SE=; b=mcWSI0h5FfX6Ja2d2EHxMhok+LBJr0zCglH0omCw
+ Zx2YlhXSPI9GoW6P3A5pEOmIpruxiI6H2UIcFJ9TZ8QC8WFMOHLwMwc2QQuRjDAk
+ bkiOmOaSEfaH7K2wI76AyORfszEwgslCFEDiL6ykZo3hq7DA8fOIwK06PRASNarJ
+ Qnc7M58ICSjogKoHQ2zEw6cxr0FmqiWcUkG+AUycj9N5shshppyXsBBihzQ1AWSf
+ Cid9lQ36qBOiGgAvIYYWQyN++3HE9IgtgSIRibmPReBZjrAchWZm5QdSSS1CICO6
+ wlmJ0WYIVJt1K90LP6BEslNC89z9j6pIVQUQrLlFEWKHaA==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com
+ [209.85.222.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4cv8n7jhh7-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Mar 2026 14:26:46 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id
+ af79cd13be357-8cd80bea54dso1288245285a.3
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Mar 2026 07:26:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1773411497; x=1774016297; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=r1meeHFmJysBuX7/16oB76k0jIo/jgbnm0xUY/2rAoc=;
- b=CXn9MAoUZyfPcOzLE4fOofYQuVCZSK3nFexwM1nY8bhpWAnRP3hpc6nNU1EiLwzcyh
- eD1acKc5K8YbT0U833T5C64c1adrAV8mtRdJR5amEO5ejnBBr+suqDViIkWbtPZmMibV
- 16qVN9Pj2427I9NDAIcLksx3RuWc7JHn3n1RxaN1QTvWCkAdCc35rlZ247tNnNRU8sxe
- OO4FZoo47/+dX7Wz2f31zrbuthun+lKD+NQaaxehnxP5pQn7bkqcA97JaFnNyevOa3Rm
- 6Ru2eevXAnqAO4jf/We7hp/0FFjpD45R9Cb+TlstmoI4H1HIZup6ZTvMHoZ9IvSzMv0s
- 6p8w==
+ d=oss.qualcomm.com; s=google; t=1773412005; x=1774016805;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=UrKQhgpAedlMnHwgHifVtQ34FWYLdmDi753Ssg/d0SE=;
+ b=NI9OIUQHy+feST/jsceB1PshcoDm1aihnuE4A7pyE7kBfzYa/eo8j04x/C+RL4UJmA
+ telLs8DKkHRsjz4fu1L09ROZWFVci8//1MSgelNJZpMdBRA8Bv5uLi7nqT6JG2cvCw4Z
+ NiJn8B3/jckIk9vHr7j9L8v60I3DLQeacUxFYPxyMRKVAYLCwzP6ZAoGoIucd+EO76qN
+ k2gT/5YmvgrZFXfeWytOWTEj6K38LpVrbikEtWuUcyQRhjk72f0hV7GRL2WsnTetMTDG
+ e2lnC+Kdo5oE95gZQNi+DVRtgOj5axziT57B9JchsA9qy8kohdGnCncf+FgEeh9dvaE+
+ DoFA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1773411497; x=1774016297;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=r1meeHFmJysBuX7/16oB76k0jIo/jgbnm0xUY/2rAoc=;
- b=PkwP6EnDuKHXe1wKu7m20v74LFh8yHnCgxJJDxRh1XRvgmTWvo7GAXLy5a7+zKSAHv
- GCFeqoLsoR6ZYYyhgH/0vpdxmS3FlcWCXOKZ+wfYZ54WUnYTLhPeQgpEMlgc15L8t6t7
- 7v7Dl4sBwzV1M4mI7lXCpxy78IjpF2agnNMMSnlMn47waUZIiVQz9i1ExWHV54pS8kUI
- RE9m9enQc+3jeTT99MTYWY5XE4dD3uVnBN8AC8HYdCXpu1a0Y9upTUEgTYTspzCPHZmN
- IJ+2/0krZ9xbg0VpwCwxBwATa2ZVJPqVp20cjEY3LnyktihaIugPJuPIFVzTY9PqM9/5
- ZC0w==
-X-Gm-Message-State: AOJu0YyhFDB1Oa27uUsj9Jd8Mk8/iKoM4Sby/2tkVZ+jDI5PH3myxrPQ
- H236X5V6haG5enDLdeM/cLXuQufLkfBJtFKKr5dElD8Kn05yVnQeeMGh
-X-Gm-Gg: ATEYQzzpgMTqJyO5Wc98tgibbqxKHhIT9itgHcREe/3eKbXBddfjcP3vnzG+sPfpe3v
- XSc0irDdSgYXhox+gB290doOUVO6z2p8yksyWXyE0zVorBRV4S/qkKsIpWnsFI++yb5cGQ8hwi+
- +ikpwDTa/eBloEGWSwZmZ0aHt+S8cy9+piaR9H55YBx2pcwNfpSL1fXYauR1JDWkVyBO1ilmkA3
- C6uDDOe19vx++88IgdSB0yX3fS9JvBMeq5h9msDesSVAAhqKR0sw4+xjzJyQndre5llE0p7DR5F
- RhoHNytov6fErXyWr3hbf/VrY5gauSRyqb1e9fOwGz5Q3pnEsO72pPZl4YMhKZ+cdsCrvY6G3fk
- bKIzvG+8c0c5NAJdOfTppiYbj9/Im4wW72QkJ6MkVf1VSYasi59Zb4YizdVSDUXiRyIeUAY2VXu
- DgZWPExXrDHCCgMCe5Wd5m+qRepjo4qpDuGA9WWyw74NoGdCzkTJ7bITA=
-X-Received: by 2002:a05:7301:3806:b0:2ba:a712:51e3 with SMTP id
- 5a478bee46e88-2bea558f2dcmr1668586eec.21.1773411496218; 
- Fri, 13 Mar 2026 07:18:16 -0700 (PDT)
-Received: from fedora ([177.73.136.69]) by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-2beab526d61sm3023095eec.17.2026.03.13.07.18.11
+ d=1e100.net; s=20251104; t=1773412005; x=1774016805;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=UrKQhgpAedlMnHwgHifVtQ34FWYLdmDi753Ssg/d0SE=;
+ b=biCiK7VL+cBT15eBZH5MwkAw5ohyACvE8aUomfoT+xeYqBp11d31QPKwjh3qNYZE4h
+ kOOimZVOIktUfgPEPPEuLsvsqPNVGAuqnNowHH8E7kXCAd1R7q6eQgbR3h07zaDGDrwX
+ a4YMxP8KWA6vFmPRRAAbkzx0tFgKqi5FPeAQVQoe/rVA5k4anblPeGTyHbmtPawDxbCv
+ 8e6T8ZL4TJa3mMp6jUilsk5vrIYc+GIdRNU9I3mfB0FGHVMQspejrLyFywKRa18kcecu
+ ckpL/nCPF5WLDKph375Nrt4GLjqttRkdRYqHDPNJ46VA+uGjm7NuychLwCkDp8R2iyLB
+ wpAw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXnqi+Mgu/knkSefAqQnEZnOccq0C3IwqfUNV2x4A492R5BiYZ+0V+MVR0yv8yY+aP838rkYMLvrto=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzZwvci/t8Evcqv331vxJhqZhy1DIfIY2NAZfYdkmtrGo6o2nsR
+ j7d9SwVso/kQLHqqNPGAk0I4E+8hZ0/MC3MXtnKp7fbcAIja02UkE8e/AIhQAo0tjN4JiIAHmS9
+ QGSl+bc3bu1L2jhAsQNpBz65VMh2RzuQoTdDfMHtT8YHpB9PQOoheRMOCxXnc61z4GRjCogc=
+X-Gm-Gg: ATEYQzxEVQQ/+qXt0Um7rz/uxi8fhZp3DpxawAER/Z4HzEncpsSJFDb+i4EtfDc76O+
+ adRU6Mu0RLxgzz3VWCUBmw9AziGUqgEqiRomtTp0EsZykFKuBs9u33+5YmPTO0X9ihUWPaATp4O
+ /DWMaMKY724jtmBlp4zpZCGGqzE1HWK+gdxQqH+7AVcPelfIVOkqapih6dC0zQa+eTPyt/v37yd
+ sZ0cU6xRbMPUU1JVFJqDZWm2pIpNchXk3xoEoQsOu40WCTzgYjmFY7ZHZKN5/qjmRrOgBknHzx1
+ GhnECuXkr24DpYk7KA+mOMZIlNhzBBfW20DVr20b4j9rij6fllK0w0q/3gkPZcbBcC86kWJQzVl
+ lpqJjLnzLswCwrGK4hHT9d6ENSMlHdP/b1tu+gPJxAjtWoGQ6gtX7FPE8JqpNCxnWl97k19Sf1Y
+ FfuGWRKYcl2kUs+4XfIi3Czngx1FP/pI1f94k=
+X-Received: by 2002:a05:620a:2954:b0:8ca:7b14:16d2 with SMTP id
+ af79cd13be357-8cdb5b25e8dmr454965685a.50.1773412005099; 
+ Fri, 13 Mar 2026 07:26:45 -0700 (PDT)
+X-Received: by 2002:a05:620a:2954:b0:8ca:7b14:16d2 with SMTP id
+ af79cd13be357-8cdb5b25e8dmr454958885a.50.1773412004447; 
+ Fri, 13 Mar 2026 07:26:44 -0700 (PDT)
+Received: from umbar.lan
+ (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+ by smtp.gmail.com with ESMTPSA id
+ 38308e7fff4ca-38a96565ecbsm1001551fa.41.2026.03.13.07.26.42
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 13 Mar 2026 07:18:15 -0700 (PDT)
-From: Pedro Demarchi Gomes <pedrodemargomes@gmail.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Boris Brezillon <boris.brezillon@collabora.com>,
- Loic Molinari <loic.molinari@collabora.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Pedro Demarchi Gomes <pedrodemargomes@gmail.com>
-Subject: [PATCH v2] drm/shmem-helper: Fix Map huge page mapping in fault
- handler
-Date: Fri, 13 Mar 2026 11:17:19 -0300
-Message-ID: <20260313141719.3949700-1-pedrodemargomes@gmail.com>
-X-Mailer: git-send-email 2.53.0
+ Fri, 13 Mar 2026 07:26:43 -0700 (PDT)
+Date: Fri, 13 Mar 2026 16:26:41 +0200
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 17/27] drm/msm/mdss: use new helper to set amsbc
+Message-ID: <uahvm7kvu2vi6o6mwznn5eqzqqscxmfetl4c3q3xa2eryg6ode@ltxfpjmqbrrt>
+References: <20260312-ubwc-rework-v3-0-b7e8f800176a@oss.qualcomm.com>
+ <20260312-ubwc-rework-v3-17-b7e8f800176a@oss.qualcomm.com>
+ <19b36a86-12c7-4710-8f80-5e27c9c00e3c@oss.qualcomm.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <19b36a86-12c7-4710-8f80-5e27c9c00e3c@oss.qualcomm.com>
+X-Proofpoint-ORIG-GUID: v6q97hfDxJwTFxgZ9m6Hsyk3IOCXj-Ex
+X-Proofpoint-GUID: v6q97hfDxJwTFxgZ9m6Hsyk3IOCXj-Ex
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzEzMDExNCBTYWx0ZWRfX+Scir3P4bCDW
+ 0BreGb42Dqh6tvfmIIChBDhHums47Jrg2dgDMkVCvKs4hmXQgamHYwA8zAv0VGPJrmEd76Js9kU
+ a1ouwlUzpJRDIVBPlo3igfpyrR6OCkBOKPcRaFywBcFyDIcoDDRTXj8QRBuiH3Ez3/5K5wAMPz/
+ Eumq762qDbB2ccQ7Gz1eSa+7jUmP6pGFFDfvEll+whrNWAEI6c13vVl5I0CuqA7bdFIORWqXs18
+ 9Zt2Jb4SUs0dlB11mescZiXe3dM9fedwi+QY239vHEiGZFk4D7hjcrTab8Ho5IPw7gzFenFa1wf
+ 4y5KIvQFLIYgg62QzrllNbumC2WMLYMyR7uh/f1wr3HzACLRqpIRT8kNI16Wsi/J4zJCYUpa1A3
+ sww8G0pMgi5/4ATY3wMES4C7YAZYOuVW2SYAGotCnblcEi0Gte3jaxtb57ggeoILp7oOqVfMvB7
+ hALW6Xq/IE2iKQwfqkQ==
+X-Authority-Analysis: v=2.4 cv=CpCys34D c=1 sm=1 tr=0 ts=69b41ea6 cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22 a=EUspDBNiAAAA:8
+ a=ffw7P2BtgO-SoTFsxwAA:9 a=CjuIK1q_8ugA:10 a=bTQJ7kPSJx9SKPbeHEYW:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-03-13_02,2026-03-13_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 malwarescore=0 lowpriorityscore=0 clxscore=1015 spamscore=0
+ priorityscore=1501 adultscore=0 suspectscore=0 bulkscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603130114
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,211 +148,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-When running ./tools/testing/selftests/mm/split_huge_page_test multiple
-times with /sys/kernel/mm/transparent_hugepage/shmem_enabled and
-/sys/kernel/mm/transparent_hugepage/enabled set as always the following BUG
-occurs:
+On Fri, Mar 13, 2026 at 11:19:59AM +0100, Konrad Dybcio wrote:
+> On 3/12/26 2:29 PM, Dmitry Baryshkov wrote:
+> > Use freshly defined helper instead of checking the UBWC version
+> > directly.
+> > 
+> > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> > ---
+> >  drivers/gpu/drm/msm/msm_mdss.c | 2 +-
+> >  1 file changed, 1 insertion(+), 1 deletion(-)
+> > 
+> > diff --git a/drivers/gpu/drm/msm/msm_mdss.c b/drivers/gpu/drm/msm/msm_mdss.c
+> > index ca59bcdde7b2..04efc29f38cd 100644
+> > --- a/drivers/gpu/drm/msm/msm_mdss.c
+> > +++ b/drivers/gpu/drm/msm/msm_mdss.c
+> > @@ -188,7 +188,7 @@ static void msm_mdss_5x_setup_ubwc(struct msm_mdss *msm_mdss)
+> >  	if (qcom_ubwc_macrotile_mode(data))
+> >  		value |= MDSS_UBWC_STATIC_MACROTILE_MODE;
+> >  
+> > -	if (data->ubwc_enc_version == UBWC_3_0)
+> > +	if (qcom_ubwc_enable_amsbc(data))
+> >  		value |= MDSS_UBWC_STATIC_UBWC_AMSBC;
+> 
+> I know it's already there, but fwiw downstream doesn't seem to be
+> concerned with toggling AMSBC in MDSS (perhaps incorrectly?)
 
-[  232.728858] ------------[ cut here ]------------
-[  232.729458] kernel BUG at mm/memory.c:2276!
-[  232.729726] Oops: invalid opcode: 0000 [#1] SMP DEBUG_PAGEALLOC KASAN PTI
-[  232.730217] CPU: 19 UID: 60578 PID: 1497 Comm: llvmpipe-9 Not tainted 7.0.0-rc1mm-new+ #19 PREEMPT(lazy)
-[  232.730855] Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.17.0-9.fc43 06/10/2025
-[  232.731360] RIP: 0010:walk_to_pmd+0x29e/0x3c0
-[  232.731569] Code: d8 5b 5d 41 5c 41 5d 41 5e 41 5f c3 cc cc cc cc 48 89 ea 48 89 de 4c 89 f7 e8 ae 85 ff ff 85 c0 0f 84 1f fe ff ff 31 db eb d0 <0f> 0b 48 89 ea 48 89 de 4c 89 f7 e8 92 8b ff ff 85 c0 75 e8 48 b8
-[  232.732614] RSP: 0000:ffff8881aa6ff9a8 EFLAGS: 00010282
-[  232.732991] RAX: 8000000142e002e7 RBX: ffff8881433cae10 RCX: dffffc0000000000
-[  232.733362] RDX: 0000000000000000 RSI: 00007fb47840b000 RDI: 8000000142e002e7
-[  232.733801] RBP: 00007fb47840b000 R08: 0000000000000000 R09: 1ffff110354dff46
-[  232.734168] R10: fffffbfff0cb921d R11: 00000000910da5ce R12: 1ffffffff0c1fcdd
-[  232.734459] R13: 1ffffffff0c23f36 R14: ffff888171628040 R15: 0000000000000000
-[  232.734861] FS:  00007fb4907f86c0(0000) GS:ffff888791f2c000(0000) knlGS:0000000000000000
-[  232.735265] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-[  232.735548] CR2: 00007fb47840be00 CR3: 000000015e6dc000 CR4: 00000000000006f0
-[  232.736031] Call Trace:
-[  232.736273]  <TASK>
-[  232.736500]  get_locked_pte+0x1f/0xa0
-[  232.736878]  insert_pfn+0x9f/0x350
-[  232.737190]  ? __pfx_pat_pagerange_is_ram+0x10/0x10
-[  232.737614]  ? __pfx_insert_pfn+0x10/0x10
-[  232.737990]  ? __pfx_css_rstat_updated+0x10/0x10
-[  232.738281]  ? __pfx_pfn_modify_allowed+0x10/0x10
-[  232.738552]  ? lookup_memtype+0x62/0x180
-[  232.738761]  vmf_insert_pfn_prot+0x14b/0x340
-[  232.739012]  ? __pfx_vmf_insert_pfn_prot+0x10/0x10
-[  232.739247]  ? __pfx___might_resched+0x10/0x10
-[  232.739475]  drm_gem_shmem_fault.cold+0x18/0x39
-[  232.739677]  ? rcu_read_unlock+0x20/0x70
-[  232.739882]  __do_fault+0x251/0x7b0
-[  232.740028]  do_fault+0x6e1/0xc00
-[  232.740167]  ? __lock_acquire+0x590/0xc40
-[  232.740335]  handle_pte_fault+0x439/0x760
-[  232.740498]  ? mtree_range_walk+0x252/0xae0
-[  232.740669]  ? __pfx_handle_pte_fault+0x10/0x10
-[  232.740899]  __handle_mm_fault+0xa02/0xf30
-[  232.741066]  ? __pfx___handle_mm_fault+0x10/0x10
-[  232.741255]  ? find_vma+0xa1/0x120
-[  232.741403]  handle_mm_fault+0x2bf/0x8f0
-[  232.741564]  do_user_addr_fault+0x2d3/0xed0
-[  232.741736]  ? trace_page_fault_user+0x1bf/0x240
-[  232.741969]  exc_page_fault+0x87/0x120
-[  232.742124]  asm_exc_page_fault+0x26/0x30
-[  232.742288] RIP: 0033:0x7fb4d73ed546
-[  232.742441] Code: 66 41 0f 6f fb 66 44 0f 6d dc 66 44 0f 6f c6 66 41 0f 6d f1 66 0f 6c fc 66 45 0f 6c c1 66 44 0f 6f c9 66 0f 6d ca 66 0f db f0 <66> 0f df 04 08 66 44 0f 6c ca 66 45 0f db c2 66 44 0f df 10 66 44
-[  232.743193] RSP: 002b:00007fb4907f68a0 EFLAGS: 00010206
-[  232.743565] RAX: 00007fb47840aa00 RBX: 00007fb4d73ec070 RCX: 0000000000001400
-[  232.743871] RDX: 0000000000002800 RSI: 0000000000003c00 RDI: 0000000000000001
-[  232.744150] RBP: 0000000000000004 R08: 0000000000001400 R09: 00007fb4d73ec060
-[  232.744433] R10: 000055f0261a4288 R11: 00007fb4c013da40 R12: 0000000000000008
-[  232.744712] R13: 0000000000000000 R14: 4332322132212110 R15: 0000000000000004
-[  232.746616]  </TASK>
-[  232.746711] Modules linked in: nft_nat nft_masq veth bridge stp llc snd_seq_dummy snd_hrtimer snd_seq snd_seq_device snd_timer snd soundcore overlay rfkill nf_conntrack_netbios_ns nf_conntrack_broadcast nft_fib_inet nft_fib_ipv4 nft_fib_ipv6 nft_fib nft_reject_inet nf_reject_ipv4 nf_reject_ipv6 nft_reject nft_ct nft_chain_nat nf_nat nf_conntrack nf_defrag_ipv6 nf_defrag_ipv4 nf_tables qrtr ppdev 9pnet_virtio 9pnet parport_pc i2c_piix4 netfs pcspkr parport i2c_smbus joydev sunrpc vfat fat loop dm_multipath nfnetlink vsock_loopback vmw_vsock_virtio_transport_common vmw_vsock_vmci_transport zram lz4hc_compress vmw_vmci lz4_compress vsock e1000 bochs serio_raw ata_generic pata_acpi scsi_dh_rdac scsi_dh_emc scsi_dh_alua i2c_dev fuse qemu_fw_cfg
-[  232.749308] ---[ end trace 0000000000000000 ]---
-[  232.749507] RIP: 0010:walk_to_pmd+0x29e/0x3c0
-[  232.749692] Code: d8 5b 5d 41 5c 41 5d 41 5e 41 5f c3 cc cc cc cc 48 89 ea 48 89 de 4c 89 f7 e8 ae 85 ff ff 85 c0 0f 84 1f fe ff ff 31 db eb d0 <0f> 0b 48 89 ea 48 89 de 4c 89 f7 e8 92 8b ff ff 85 c0 75 e8 48 b8
-[  232.750428] RSP: 0000:ffff8881aa6ff9a8 EFLAGS: 00010282
-[  232.750645] RAX: 8000000142e002e7 RBX: ffff8881433cae10 RCX: dffffc0000000000
-[  232.750954] RDX: 0000000000000000 RSI: 00007fb47840b000 RDI: 8000000142e002e7
-[  232.751232] RBP: 00007fb47840b000 R08: 0000000000000000 R09: 1ffff110354dff46
-[  232.751514] R10: fffffbfff0cb921d R11: 00000000910da5ce R12: 1ffffffff0c1fcdd
-[  232.751837] R13: 1ffffffff0c23f36 R14: ffff888171628040 R15: 0000000000000000
-[  232.752124] FS:  00007fb4907f86c0(0000) GS:ffff888791f2c000(0000) knlGS:0000000000000000
-[  232.752441] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-[  232.752674] CR2: 00007fb47840be00 CR3: 000000015e6dc000 CR4: 00000000000006f0
-[  232.752983] Kernel panic - not syncing: Fatal exception
-[  232.753510] Kernel Offset: disabled
-[  232.754643] ---[ end Kernel panic - not syncing: Fatal exception ]---
+Downstream enables it only for the cases where encoder and decoder
+use exactly UBWC 3.0. This is not completely correct as the bit doesn't
+exist for MDSS 6.x+. For 5.x this is equivalent to the code from the
+patch: enable AMSBC if targeting UBWC >= 3.0 (because MDSS 5.x don't
+support UBWC 4.0 or higher).
 
-This happens when two concurrent page faults occur within the same PMD range.
-One fault installs a PMD mapping through vmf_insert_pfn_pmd(), while the other
-attempts to install a PTE mapping via vmf_insert_pfn(). The bug is
-triggered because a pmd_trans_huge is not expected when walking the page
-table inside vmf_insert_pfn.
+> 
+> Konrad
 
-Avoid this race by adding a huge_fault callback to drm_gem_shmem_vm_ops so that
-PMD-sized mappings are handled through the appropriate huge page fault path.
-
-Fixes: 211b9a39f261 ("drm/shmem-helper: Map huge pages in fault handler")
-Signed-off-by: Pedro Demarchi Gomes <pedrodemargomes@gmail.com>
----
-
-Changes in v2:
- - Keep the #ifdef unindented
- - Create drm_gem_shmem_any_fault to handle faults of any order and use
-drm_gem_shmem_[huge_]fault() as wrappers
-
----
- drivers/gpu/drm/drm_gem_shmem_helper.c | 67 +++++++++++++++-----------
- 1 file changed, 39 insertions(+), 28 deletions(-)
-
-diff --git a/drivers/gpu/drm/drm_gem_shmem_helper.c b/drivers/gpu/drm/drm_gem_shmem_helper.c
-index 7b5a49935ae4..fb8b74ac3057 100644
---- a/drivers/gpu/drm/drm_gem_shmem_helper.c
-+++ b/drivers/gpu/drm/drm_gem_shmem_helper.c
-@@ -550,36 +550,19 @@ int drm_gem_shmem_dumb_create(struct drm_file *file, struct drm_device *dev,
- }
- EXPORT_SYMBOL_GPL(drm_gem_shmem_dumb_create);
- 
--static bool drm_gem_shmem_try_map_pmd(struct vm_fault *vmf, unsigned long addr,
--				      struct page *page)
--{
--#ifdef CONFIG_ARCH_SUPPORTS_PMD_PFNMAP
--	unsigned long pfn = page_to_pfn(page);
--	unsigned long paddr = pfn << PAGE_SHIFT;
--	bool aligned = (addr & ~PMD_MASK) == (paddr & ~PMD_MASK);
--
--	if (aligned &&
--	    pmd_none(*vmf->pmd) &&
--	    folio_test_pmd_mappable(page_folio(page))) {
--		pfn &= PMD_MASK >> PAGE_SHIFT;
--		if (vmf_insert_pfn_pmd(vmf, pfn, false) == VM_FAULT_NOPAGE)
--			return true;
--	}
--#endif
--
--	return false;
--}
--
--static vm_fault_t drm_gem_shmem_fault(struct vm_fault *vmf)
-+static vm_fault_t drm_gem_shmem_any_fault(struct vm_fault *vmf,
-+					   unsigned int order)
- {
- 	struct vm_area_struct *vma = vmf->vma;
- 	struct drm_gem_object *obj = vma->vm_private_data;
- 	struct drm_gem_shmem_object *shmem = to_drm_gem_shmem_obj(obj);
- 	loff_t num_pages = obj->size >> PAGE_SHIFT;
--	vm_fault_t ret;
-+	vm_fault_t ret = VM_FAULT_FALLBACK;
- 	struct page **pages = shmem->pages;
- 	pgoff_t page_offset;
- 	unsigned long pfn;
-+	unsigned long paddr;
-+	bool aligned;
- 
- 	/* Offset to faulty address in the VMA. */
- 	page_offset = vmf->pgoff - vma->vm_pgoff;
-@@ -593,13 +576,24 @@ static vm_fault_t drm_gem_shmem_fault(struct vm_fault *vmf)
- 		goto out;
- 	}
- 
--	if (drm_gem_shmem_try_map_pmd(vmf, vmf->address, pages[page_offset])) {
--		ret = VM_FAULT_NOPAGE;
--		goto out;
--	}
--
- 	pfn = page_to_pfn(pages[page_offset]);
--	ret = vmf_insert_pfn(vma, vmf->address, pfn);
-+	switch (order) {
-+	case 0:
-+		ret = vmf_insert_pfn(vma, vmf->address, pfn);
-+		break;
-+#ifdef CONFIG_ARCH_SUPPORTS_PMD_PFNMAP
-+	case PMD_ORDER:
-+		paddr = pfn << PAGE_SHIFT;
-+		aligned = (vmf->address & ~PMD_MASK) == (paddr & ~PMD_MASK);
-+
-+		if (aligned &&
-+		    folio_test_pmd_mappable(page_folio(pages[page_offset]))) {
-+			pfn &= PMD_MASK >> PAGE_SHIFT;
-+			ret = vmf_insert_pfn_pmd(vmf, pfn, false);
-+		}
-+		break;
-+#endif
-+	}
- 
-  out:
- 	dma_resv_unlock(shmem->base.resv);
-@@ -607,6 +601,20 @@ static vm_fault_t drm_gem_shmem_fault(struct vm_fault *vmf)
- 	return ret;
- }
- 
-+static vm_fault_t drm_gem_shmem_huge_fault(struct vm_fault *vmf,
-+					   unsigned int order)
-+{
-+	if (order != PMD_ORDER)
-+		return VM_FAULT_FALLBACK;
-+
-+	return drm_gem_shmem_any_fault(vmf, order);
-+}
-+
-+static vm_fault_t drm_gem_shmem_fault(struct vm_fault *vmf)
-+{
-+	return drm_gem_shmem_any_fault(vmf, 0);
-+}
-+
- static void drm_gem_shmem_vm_open(struct vm_area_struct *vma)
- {
- 	struct drm_gem_object *obj = vma->vm_private_data;
-@@ -643,6 +651,9 @@ static void drm_gem_shmem_vm_close(struct vm_area_struct *vma)
- 
- const struct vm_operations_struct drm_gem_shmem_vm_ops = {
- 	.fault = drm_gem_shmem_fault,
-+#ifdef CONFIG_ARCH_SUPPORTS_HUGE_PFNMAP
-+	.huge_fault = drm_gem_shmem_huge_fault,
-+#endif
- 	.open = drm_gem_shmem_vm_open,
- 	.close = drm_gem_shmem_vm_close,
- };
 -- 
-2.53.0
-
+With best wishes
+Dmitry
