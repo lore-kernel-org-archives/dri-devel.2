@@ -4,88 +4,103 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 14962D58B17
-	for <dri-devel@archiver.kernel.org>; Sun, 15 Mar 2026 11:21:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 67B08D58B1C
+	for <dri-devel@archiver.kernel.org>; Sun, 15 Mar 2026 11:21:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D17A810E033;
-	Sun, 15 Mar 2026 11:21:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6CDA610E566;
+	Sun, 15 Mar 2026 11:21:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=jumpstation.co.uk header.i=rob.github@jumpstation.co.uk header.b="H2jHEy7Q";
+	dkim=pass (2048-bit key; secure) header.d=posteo.de header.i=@posteo.de header.b="eVny/CGI";
 	dkim-atps=neutral
-Received: from mout.kundenserver.de (mout.kundenserver.de [217.72.192.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 73ECF10E478
- for <dri-devel@lists.freedesktop.org>; Fri, 13 Mar 2026 20:37:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jumpstation.co.uk;
- s=s1-ionos; t=1773434197; x=1774038997;
- i=rob.github@jumpstation.co.uk;
- bh=yNeguXK/hCzjev/CuFv757Q16f+SKWneTOqzXdVeLgQ=;
- h=X-UI-Sender-Class:Date:From:To:Cc:Subject:Message-ID:In-Reply-To:
- References:MIME-Version:Content-Type:Content-Transfer-Encoding:cc:
- content-transfer-encoding:content-type:date:from:message-id:
- mime-version:reply-to:subject:to;
- b=H2jHEy7QTlxZpsHz2QGbFL8D81/fISi/3igPyBC96/8dc/TMFfGEqaLYOXqpMAt5
- IcxRSuXpEYuR59Q/nl9Kt22sSM5TEpKFhl34uFWF/hrr/I3NCWbcp85PzsodQBGd/
- q33148U85yyisOGzkap1iSnX8jb3RTSNL+1S4dV+LwBDrztppy8Aqg2EyQkVHoSkA
- cCj1hOfK4yfkO86KZuakn2aZ7CVQNLnOCbnP/y/ivQEuy53wbWFlW3nXtqJcpo8i1
- Yydyq4cnDfj2DJOGCXkrxgveO5iZYh6cHojQyFBjZCJmQWhYRAurUMwb2BkUE1BHB
- KAArrVYLBcHUmaiZ7w==
-X-UI-Sender-Class: 55c96926-9e95-11ee-ae09-1f7a4046a0f6
-Received: from client.hidden.invalid by mrelayeu.kundenserver.de (mreue106
- [212.227.15.152]) with ESMTPSA (Nemesis) id 1MNLVU-1wH1P51lAw-00JnkN; Fri, 13
- Mar 2026 21:36:37 +0100
-Date: Fri, 13 Mar 2026 20:35:42 +0000
-From: robgithub <rob.github@jumpstation.co.uk>
-To: Randy Dunlap <rdunlap@infradead.org>
-Cc: robgithub <rob.github@jumpstation.co.uk>, Helge Deller <deller@gmx.de>,
- Thomas Zimmermann <tzimmermann@suse.de>, linux-fbdev@vger.kernel.org,
- Prasanna Kumar T S M <ptsm@linux.microsoft.com>, Wei Liu
- <wei.liu@kernel.org>, Michael Kelley <mhklinux@outlook.com>, Sukrut
- Heroorkar <hsukrut3@gmail.com>, Mukesh Rathor
- <mrathor@linux.microsoft.com>, Uwe =?UTF-8?B?S2xlaW5lLUvDtm5pZw==?=
- <u.kleine-koenig@baylibre.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: Re: fbdev: update outdated help text for CONFIG_FB_NVIDIA
-Message-ID: <20260313203443.7cf0a8f5@hexa5>
-In-Reply-To: <034989df-cf86-4136-8522-6c48e5523645@infradead.org>
-References: <20260312205507.70b9013b@hexa5>
- <034989df-cf86-4136-8522-6c48e5523645@infradead.org>
-X-Mailer: Claws Mail 4.3.1 (GTK 3.24.51; x86_64-pc-linux-gnu)
+Received: from mout01.posteo.de (mout01.posteo.de [185.67.36.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9CDF610E086
+ for <dri-devel@lists.freedesktop.org>; Sat, 14 Mar 2026 11:42:05 +0000 (UTC)
+Received: from submission (posteo.de [185.67.36.169]) 
+ by mout01.posteo.de (Postfix) with ESMTPS id 6BDFD240029
+ for <dri-devel@lists.freedesktop.org>; Sat, 14 Mar 2026 12:42:03 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=posteo.de; s=2017;
+ t=1773488523; bh=wuP7aGFXaCoi0Qj9e0TOENROxQfNcb8qbW4/sLW+2MA=;
+ h=Message-ID:Subject:From:To:Cc:Date:Autocrypt:Content-Type:
+ MIME-Version:OpenPGP:From;
+ b=eVny/CGIImF8jH8O0FIZKcN4zAb274dFEU7yPs677sQjMepqSt/RUW83YjX+qB7Qr
+ H5/XMYTx9dp1t51PclxmWw1tn/Tr3yV1pJX/AJC4G32q5/iqEthVYjiIvB3SfEzlhG
+ 6Fl4NNkKQqC6w8NEpVTB/N+x7TNODppf+nzOreinRB+JvxSLIxxYbVjsUhq5+jIdeV
+ ADYAPMYTRKaPT9fXDbIntJXEUTsStWos57nrbS+VayXpXM+sdJjuZ+cnL8lvlKPYl9
+ FLhxEx3aH5ty0NZ3c6nNLtplG1VRKHQzKwzzPYPgnwKJONXgYX8LxhsaEaarRHCcxE
+ wbQOvj4X8CBFg==
+Received: from customer (localhost [127.0.0.1])
+ by submission (posteo.de) with ESMTPSA id 4fXzwR5X5Nz6tvm;
+ Sat, 14 Mar 2026 12:41:59 +0100 (CET)
+Message-ID: <a9618d034bd48ec21bd26060573770a548619402.camel@posteo.de>
+Subject: Re: [PATCH v3 2/4] serdev: add rust private data to serdev_device
+From: Markus Probst <markus.probst@posteo.de>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Rob Herring <robh@kernel.org>, Jiri Slaby <jirislaby@kernel.org>, Miguel
+ Ojeda <ojeda@kernel.org>, Gary Guo <gary@garyguo.net>,
+ =?ISO-8859-1?Q?Bj=F6rn?= Roy Baron	 <bjorn3_gh@protonmail.com>, Benno
+ Lossin <lossin@kernel.org>, Andreas Hindborg	 <a.hindborg@kernel.org>,
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross	 <tmgross@umich.edu>,
+ Danilo Krummrich <dakr@kernel.org>, Kari Argillander	
+ <kari.argillander@gmail.com>, "Rafael J. Wysocki" <rafael@kernel.org>, 
+ Viresh Kumar <viresh.kumar@linaro.org>, Boqun Feng <boqun@kernel.org>,
+ David Airlie <airlied@gmail.com>,  Simona Vetter <simona@ffwll.ch>,
+ linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ rust-for-linux@vger.kernel.org, linux-pm@vger.kernel.org, 
+ driver-core@lists.linux.dev, dri-devel@lists.freedesktop.org
+Date: Sat, 14 Mar 2026 11:42:02 +0000
+In-Reply-To: <2026031402-absence-graph-af5d@gregkh>
+References: <20260313-rust_serdev-v3-0-c9a3af214f7f@posteo.de>
+ <20260313-rust_serdev-v3-2-c9a3af214f7f@posteo.de>
+ <2026031402-absence-graph-af5d@gregkh>
+Autocrypt: addr=markus.probst@posteo.de; prefer-encrypt=mutual;
+ keydata=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
+ jfGillcaQOqFZ3WwVqyzG1BUfTow==
+Content-Type: multipart/signed; micalg="pgp-sha256";
+ protocol="application/pgp-signature"; boundary="=-I1iRCfX0MpbeR/VGtPiF"
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:XUz8T25alQmrBIZdGDY40dw8GomJi3pVKhxc8LFmGxmNVDAs73v
- AtUD3OoNdc0+tA+L5MB7lyIf34i8B0kbl4YAP9UoP1V1419adWiNZeeowUyVFw13Lu7OXGY
- hbKQQHzR3ew/ioudmoGET3FRpAK1UCJZbYGn9btXqamEDZcW/qRy1z3sdPPTq1YbtLf8xaw
- GwC4bnWyE4ViGNXkm3c5w==
-UI-OutboundReport: notjunk:1;M01:P0:o9HaNVhN59s=;lFAdKnjzIHgSBgW4MLd1hCngF8m
- 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
+OpenPGP: url=https://posteo.de/keys/markus.probst@posteo.de.asc;
+ preference=encrypt
 X-Mailman-Approved-At: Sun, 15 Mar 2026 11:20:58 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -102,92 +117,63 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-=46rom 688a061ba0db71fc2d5facd8344db7a4d5b1575a Mon Sep 17 00:00:00 2001
-From: robgithub <rob.github@jumpstation.co.uk>
-Date: Wed, 11 Mar 2026 22:14:43 +0000
-Subject: [PATCH] fbdev: update outdated help text for CONFIG_FB_NVIDIA
 
-The help text for CONFIG_FB_NVIDIA refers to obsolete hardware and
-incorrect default behaviour. This patch updates the description to
-reflect the current state of the driver and supported devices.
+--=-I1iRCfX0MpbeR/VGtPiF
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Signed-off-by: robgithub <rob.github@jumpstation.co.uk>
----
- drivers/video/fbdev/Kconfig | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/video/fbdev/Kconfig b/drivers/video/fbdev/Kconfig
-index ac9ac4287c6a..d8e331427443 100644
---- a/drivers/video/fbdev/Kconfig
-+++ b/drivers/video/fbdev/Kconfig
-@@ -668,10 +668,10 @@ config FB_NVIDIA
- 	select BITREVERSE
- 	select VGASTATE
- 	help
--	  This driver supports graphics boards with the nVidia chips, TNT
--	  and newer. For very old chipsets, such as the RIVA128, then use
--	  the rivafb.
--	  Say Y if you have such a graphics board.
-+	  Supports NVIDIA GPUs from TNT through early GeForce generations
-+	  (NV4=E2=80=93NV2x: Twintor, Twintor2, Celsius, Kelvin).
-+	  Later architectures (Rankine and newer) are not reliably supported.
-+	  If unsure, say N.
-=20
- 	  To compile this driver as a module, choose M here: the
- 	  module will be called nvidiafb.
---=20
-2.52.0
-
-
-
-Thanks, this my first time submitting a patch.
-
-I have fixed the invisible whitespace inconsistency, wonder why I missed th=
-at :)
-
-I really wanted to stop future users reading the "and newer" and enabling i=
-t on an unsupported card. It stopped my kernel booting with no errors.
-
-The references I used to confirm the Nvidia devices affected are
-
-List of devices documented in the code between lines 1228-1277
-https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/tree/drive=
-rs/video/fbdev/nvidia/nvidia.c?h=3Dv6.19.6
-
-with more human readable extraction available at
-https://cateee.net/lkddb/web-lkddb/FB_NVIDIA.html
-
-and the code names for all Nvidia cards are here
-https://nouveau.freedesktop.org/CodeNames.html
-
-Regards
-
-Rob
-
-On Thu, 12 Mar 2026 14:02:18 -0700
-Randy Dunlap <rdunlap@infradead.org> wrote:
-
-> Hi,
+On Sat, 2026-03-14 at 09:07 +0100, Greg Kroah-Hartman wrote:
+> On Fri, Mar 13, 2026 at 06:12:31PM +0000, Markus Probst wrote:
+> > Add rust private data to `struct serdev_device`, as it is required by t=
+he
+> > rust abstraction added in the following commit
+> > (rust: add basic serial device bus abstractions).
 >=20
-> On 3/12/26 1:55 PM, robgithub wrote:
-> > The help text for CONFIG_FB_NVIDIA refers to obsolete hardware and
-> > incorrect default behaviour. This patch updates the description to
-> > reflect the current state of the driver and supported devices.
-> >=20
-> > Signed-off-by: robgithub <rob.github@jumpstation.co.uk>
->=20
-> Inline patches are preferred over attachments.
->=20
-> I thought that Claws mail could send inline patches successfully. (?)
->=20
-> Documentation/process/email-clients.rst says that it works (after a little
-> configuration setting).
->=20
-> I don't know anything about which products are supported, so I have no
-> comment on that.
->=20
-> In the patch, the indentation is incorrect. Kconfig help text should be
-> indented with one tab + 2 spaces, not with 4 spaces.
->=20
-> thanks.
+> why is rust "special" here?  What's wrong with the existing private
+> pointer in this structure?  Why must we add another one?
+Because in rust, the device drvdata will be set after probe has run. In
+serdev, once the device has been opened, it can receive data. It must
+be opened either inside probe or before probe, because it can only be
+configured (baudrate, flow control etc.) and data written to after it
+has been opened. Because it can receive data before drvdata has been
+set yet, we need to ensure it waits on data receival for the probe to
+be finished. Otherwise this would be a null pointer dereference. To do
+this, we need to store a `Completion` for it to wait and a `bool` in
+case the probe exits with an error. We cannot store this data in the
+device drvdata, because this is where the drivers drvdata goes. We also
+cannot create a wrapper of the drivers drvdata, because
+`Device::drvdata::<T>()` would always fail in that case. That is why we
+need a "rust_private_data" for this abstraction to store the
+`Completion` and `bool`.
 
+Thanks
+- Markus Probst
+
+>=20
+> thanks,
+>=20
+> greg k-h
+
+--=-I1iRCfX0MpbeR/VGtPiF
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+
+-----BEGIN PGP SIGNATURE-----
+
+iQJPBAABCAA5FiEEgnQYxPSsWOdyMMRzNHYf+OetQ9IFAmm1SXgbFIAAAAAABAAO
+bWFudTIsMi41KzEuMTEsMiwyAAoJEDR2H/jnrUPS9jAP/3JGU2gk+hFkYnBUk8UU
+iP1lJJDruz2fV0dXxGHCh3svfkHvcKFTtozb6FSQ7hZ9wNU8tsxTfnqMhycvmf6S
+J3NpCtL/ifnjtIWpy6qq0xk89BLrEU0EglsQ5tLN+BAY0Nkxsa1e7bvw461ZFEPF
+xzVwh8hAucFdEZuVt7O6ouZ0CIryYmM6MK2BSnjA5yo+vMlS560JtDh2rQFuilrd
+zzbOBhpbxlIxRGVHg5WdiTT07kgm6zr+uHehF4GQmyYH6Z7KvNOHRRFA8FUYUes0
+cRZjsxmeMzE/7EU4lshWDN6AYprhE8CHDNxEJd05aFMATuWpOKB82SCyC1qKQdE+
+EGdLS2lcUUl5yRXXRFl6+VjfrvaZo7IrwhE8i1Akbp2kXqZbn5R2kADaQ1RIDt/Z
+AvDz9Af8HhqJF3wwUrtlameo6UyKl/AOAWK6QQzjTyk9/8LXmA1lfHiSZr7waTxf
+6zE39ALkP5vaBNjDbljj01OkoPR9NNjbaZZ3O2WKy9656HWDVofGnISWq9L++lXO
+FtGVAQGxPETFtqjA81aFVchaYtskooLtA2VuAnnuoEJok6hqYTUCgSdijOi/rEJW
+k6THWQDqZ9kM5F/oxvn1a3h2jAosCbISp/lXkKGlUiOcGrlc0D3UjVC641JaOHYD
+9U2DU5EH/6+xscOpnN2O1gvc
+=2BtH
+-----END PGP SIGNATURE-----
+
+--=-I1iRCfX0MpbeR/VGtPiF--
