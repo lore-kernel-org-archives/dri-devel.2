@@ -4,34 +4,34 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 67B08D58B1C
-	for <dri-devel@archiver.kernel.org>; Sun, 15 Mar 2026 11:21:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5FE80D58B1B
+	for <dri-devel@archiver.kernel.org>; Sun, 15 Mar 2026 11:21:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6CDA610E566;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3C30A10E562;
 	Sun, 15 Mar 2026 11:21:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=posteo.de header.i=@posteo.de header.b="eVny/CGI";
+	dkim=pass (2048-bit key; secure) header.d=posteo.de header.i=@posteo.de header.b="lJA8xBg7";
 	dkim-atps=neutral
-Received: from mout01.posteo.de (mout01.posteo.de [185.67.36.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9CDF610E086
- for <dri-devel@lists.freedesktop.org>; Sat, 14 Mar 2026 11:42:05 +0000 (UTC)
+Received: from mout02.posteo.de (mout02.posteo.de [185.67.36.66])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1568110E4AF
+ for <dri-devel@lists.freedesktop.org>; Sat, 14 Mar 2026 12:08:13 +0000 (UTC)
 Received: from submission (posteo.de [185.67.36.169]) 
- by mout01.posteo.de (Postfix) with ESMTPS id 6BDFD240029
- for <dri-devel@lists.freedesktop.org>; Sat, 14 Mar 2026 12:42:03 +0100 (CET)
+ by mout02.posteo.de (Postfix) with ESMTPS id 52DAE240101
+ for <dri-devel@lists.freedesktop.org>; Sat, 14 Mar 2026 13:08:10 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=posteo.de; s=2017;
- t=1773488523; bh=wuP7aGFXaCoi0Qj9e0TOENROxQfNcb8qbW4/sLW+2MA=;
+ t=1773490091; bh=S3UJthAAAugjlisXBsl+sY1qjPTyY1jITpkgmCyumLo=;
  h=Message-ID:Subject:From:To:Cc:Date:Autocrypt:Content-Type:
  MIME-Version:OpenPGP:From;
- b=eVny/CGIImF8jH8O0FIZKcN4zAb274dFEU7yPs677sQjMepqSt/RUW83YjX+qB7Qr
- H5/XMYTx9dp1t51PclxmWw1tn/Tr3yV1pJX/AJC4G32q5/iqEthVYjiIvB3SfEzlhG
- 6Fl4NNkKQqC6w8NEpVTB/N+x7TNODppf+nzOreinRB+JvxSLIxxYbVjsUhq5+jIdeV
- ADYAPMYTRKaPT9fXDbIntJXEUTsStWos57nrbS+VayXpXM+sdJjuZ+cnL8lvlKPYl9
- FLhxEx3aH5ty0NZ3c6nNLtplG1VRKHQzKwzzPYPgnwKJONXgYX8LxhsaEaarRHCcxE
- wbQOvj4X8CBFg==
+ b=lJA8xBg77DckydX647gYffMQC80ope7HX0d6hRjhuLqqeMvtw5bEWRA6uy5NmGxcG
+ ACX2OYxjLX6FnkB9OqU2l+7LSmyg72ebInJX+3+3IkIFK3jTyK+1Ge4/xDz0hRoUPj
+ sNr9o+6/+mjWN6FPXAJLcrC3yEV5a+uf7dTTOzDUZzLA5rCk1/AjbI9xwedz4UsSbp
+ KccqxZSEmvsZ13hhQoy4BtWqGItb50iAfxxy/z/kxHMYrwrrVlyn8LHJt5YcnLXhS1
+ gCRVakbxwQpG3JyMP/1KpYBfwDdHMZMGAgm12XJlP9R7mg1HhXRQG6TNc1wudkxVlj
+ g2ZgpgWc4I6HQ==
 Received: from customer (localhost [127.0.0.1])
- by submission (posteo.de) with ESMTPSA id 4fXzwR5X5Nz6tvm;
- Sat, 14 Mar 2026 12:41:59 +0100 (CET)
-Message-ID: <a9618d034bd48ec21bd26060573770a548619402.camel@posteo.de>
+ by submission (posteo.de) with ESMTPSA id 4fY0Vc391kz6tsg;
+ Sat, 14 Mar 2026 13:08:08 +0100 (CET)
+Message-ID: <fa25ed4ff4688a40bd601d695804def772e47af9.camel@posteo.de>
 Subject: Re: [PATCH v3 2/4] serdev: add rust private data to serdev_device
 From: Markus Probst <markus.probst@posteo.de>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
@@ -47,11 +47,13 @@ Cc: Rob Herring <robh@kernel.org>, Jiri Slaby <jirislaby@kernel.org>, Miguel
  linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org, 
  rust-for-linux@vger.kernel.org, linux-pm@vger.kernel.org, 
  driver-core@lists.linux.dev, dri-devel@lists.freedesktop.org
-Date: Sat, 14 Mar 2026 11:42:02 +0000
-In-Reply-To: <2026031402-absence-graph-af5d@gregkh>
+Date: Sat, 14 Mar 2026 12:08:09 +0000
+In-Reply-To: <2026031422-shaded-matchbook-5078@gregkh>
 References: <20260313-rust_serdev-v3-0-c9a3af214f7f@posteo.de>
  <20260313-rust_serdev-v3-2-c9a3af214f7f@posteo.de>
  <2026031402-absence-graph-af5d@gregkh>
+ <a9618d034bd48ec21bd26060573770a548619402.camel@posteo.de>
+ <2026031422-shaded-matchbook-5078@gregkh>
 Autocrypt: addr=markus.probst@posteo.de; prefer-encrypt=mutual;
  keydata=mQINBGiDvXgBEADAXUceKafpl46S35UmDh2wRvvx+UfZbcTjeQOlSwKP7YVJ4JOZrVs93
  qReNLkOWguIqPBxR9blQ4nyYrqSCV+MMw/3ifyXIm6Pw2YRUDg+WTEOjTixRCoWDgUj1nOsvJ9tVA
@@ -97,7 +99,7 @@ Autocrypt: addr=markus.probst@posteo.de; prefer-encrypt=mutual;
  dQNGrZ91M9nlIBKw8Y7c7xZ4098qX2b8JX/CxD+gC1r4C8vuA3GkhFLx+KlkON7LyiJPkrePp6Qky
  jfGillcaQOqFZ3WwVqyzG1BUfTow==
 Content-Type: multipart/signed; micalg="pgp-sha256";
- protocol="application/pgp-signature"; boundary="=-I1iRCfX0MpbeR/VGtPiF"
+ protocol="application/pgp-signature"; boundary="=-wkFjE0NNVbaYsiwLLSt0"
 MIME-Version: 1.0
 OpenPGP: url=https://posteo.de/keys/markus.probst@posteo.de.asc;
  preference=encrypt
@@ -118,62 +120,75 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
---=-I1iRCfX0MpbeR/VGtPiF
+--=-wkFjE0NNVbaYsiwLLSt0
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Sat, 2026-03-14 at 09:07 +0100, Greg Kroah-Hartman wrote:
-> On Fri, Mar 13, 2026 at 06:12:31PM +0000, Markus Probst wrote:
-> > Add rust private data to `struct serdev_device`, as it is required by t=
-he
-> > rust abstraction added in the following commit
-> > (rust: add basic serial device bus abstractions).
+On Sat, 2026-03-14 at 12:52 +0100, Greg Kroah-Hartman wrote:
+> On Sat, Mar 14, 2026 at 11:42:02AM +0000, Markus Probst wrote:
+> > On Sat, 2026-03-14 at 09:07 +0100, Greg Kroah-Hartman wrote:
+> > > On Fri, Mar 13, 2026 at 06:12:31PM +0000, Markus Probst wrote:
+> > > > Add rust private data to `struct serdev_device`, as it is required =
+by the
+> > > > rust abstraction added in the following commit
+> > > > (rust: add basic serial device bus abstractions).
+> > >=20
+> > > why is rust "special" here?  What's wrong with the existing private
+> > > pointer in this structure?  Why must we add another one?
+> > Because in rust, the device drvdata will be set after probe has run. In
+> > serdev, once the device has been opened, it can receive data. It must
+> > be opened either inside probe or before probe, because it can only be
+> > configured (baudrate, flow control etc.) and data written to after it
+> > has been opened. Because it can receive data before drvdata has been
+> > set yet, we need to ensure it waits on data receival for the probe to
+> > be finished. Otherwise this would be a null pointer dereference. To do
+> > this, we need to store a `Completion` for it to wait and a `bool` in
+> > case the probe exits with an error. We cannot store this data in the
+> > device drvdata, because this is where the drivers drvdata goes. We also
+> > cannot create a wrapper of the drivers drvdata, because
+> > `Device::drvdata::<T>()` would always fail in that case. That is why we
+> > need a "rust_private_data" for this abstraction to store the
+> > `Completion` and `bool`.
 >=20
-> why is rust "special" here?  What's wrong with the existing private
-> pointer in this structure?  Why must we add another one?
-Because in rust, the device drvdata will be set after probe has run. In
-serdev, once the device has been opened, it can receive data. It must
-be opened either inside probe or before probe, because it can only be
-configured (baudrate, flow control etc.) and data written to after it
-has been opened. Because it can receive data before drvdata has been
-set yet, we need to ensure it waits on data receival for the probe to
-be finished. Otherwise this would be a null pointer dereference. To do
-this, we need to store a `Completion` for it to wait and a `bool` in
-case the probe exits with an error. We cannot store this data in the
-device drvdata, because this is where the drivers drvdata goes. We also
-cannot create a wrapper of the drivers drvdata, because
-`Device::drvdata::<T>()` would always fail in that case. That is why we
-need a "rust_private_data" for this abstraction to store the
-`Completion` and `bool`.
+> So why is this any different from any other bus type?  I don't see the
+> "uniqueness" here that has not required this to happen for PCI or USB or
+> anything else.
+>=20
+> What am I missing?
+In Short:
+In serdev, we have to handle incoming device data (serdev calls on a
+function pointer we provide in advance), even in the case that the
+driver hasn't completed probe yet.
+
+>=20
+> Also, all of this information MUST be in the changelog text in order for
+> us to be able to accept it.  You need to say _why_ a change is needed,
+> not just _what_ the change does, as you know.
+Will do.
 
 Thanks
 - Markus Probst
 
->=20
-> thanks,
->=20
-> greg k-h
-
---=-I1iRCfX0MpbeR/VGtPiF
+--=-wkFjE0NNVbaYsiwLLSt0
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: This is a digitally signed message part
 
 -----BEGIN PGP SIGNATURE-----
 
-iQJPBAABCAA5FiEEgnQYxPSsWOdyMMRzNHYf+OetQ9IFAmm1SXgbFIAAAAAABAAO
-bWFudTIsMi41KzEuMTEsMiwyAAoJEDR2H/jnrUPS9jAP/3JGU2gk+hFkYnBUk8UU
-iP1lJJDruz2fV0dXxGHCh3svfkHvcKFTtozb6FSQ7hZ9wNU8tsxTfnqMhycvmf6S
-J3NpCtL/ifnjtIWpy6qq0xk89BLrEU0EglsQ5tLN+BAY0Nkxsa1e7bvw461ZFEPF
-xzVwh8hAucFdEZuVt7O6ouZ0CIryYmM6MK2BSnjA5yo+vMlS560JtDh2rQFuilrd
-zzbOBhpbxlIxRGVHg5WdiTT07kgm6zr+uHehF4GQmyYH6Z7KvNOHRRFA8FUYUes0
-cRZjsxmeMzE/7EU4lshWDN6AYprhE8CHDNxEJd05aFMATuWpOKB82SCyC1qKQdE+
-EGdLS2lcUUl5yRXXRFl6+VjfrvaZo7IrwhE8i1Akbp2kXqZbn5R2kADaQ1RIDt/Z
-AvDz9Af8HhqJF3wwUrtlameo6UyKl/AOAWK6QQzjTyk9/8LXmA1lfHiSZr7waTxf
-6zE39ALkP5vaBNjDbljj01OkoPR9NNjbaZZ3O2WKy9656HWDVofGnISWq9L++lXO
-FtGVAQGxPETFtqjA81aFVchaYtskooLtA2VuAnnuoEJok6hqYTUCgSdijOi/rEJW
-k6THWQDqZ9kM5F/oxvn1a3h2jAosCbISp/lXkKGlUiOcGrlc0D3UjVC641JaOHYD
-9U2DU5EH/6+xscOpnN2O1gvc
-=2BtH
+iQJPBAABCAA5FiEEgnQYxPSsWOdyMMRzNHYf+OetQ9IFAmm1T5wbFIAAAAAABAAO
+bWFudTIsMi41KzEuMTEsMiwyAAoJEDR2H/jnrUPSflUQAKqL5F2xWybONH+MFn+J
+sxpVmDP+ubzWW/MuNzVPusCp8l044B1CFWF231mitm9i5vntajEWZjE4Ngkzim4D
+cXnru1paHU48+OEvHyGZcqHpieUjthEFVwMRiD+QjBV9AyUEvUKTpHJAt2QUgRXG
+emLjkDAuaTMdGUChvIwzSEnImJX5LZvneytlDlaeIBABgv6kk0wjb3/7F71nXd4H
+g+Zaz5nAKB+aPQzraS+mnHmJrvlVhdJTiLUhlGyUQT3fexpFea8StZgVBtmqZMv6
+C676taKQyA9xkQ/kGeQF1Snv5Osr2b9mG5n5ZgG7BSBeGfLB5NGNXWKyKVvOImJU
+HCIbuEq0GTflEFEone2cw1BdWloxCZ0OtMj9GGpGSM6GJnYpHfUVQ9FFx9qU0FrW
+mcnqtjFGf+0IxZfJ8NpMhetcsUA0aaX5npFKJld2oUaZdkAJ605TqLKq2CVDSYDZ
+T6nvxWktGNaoyciDPoJ3PZ+JUG3mTH6uLTObIQQ8QT3gWLmjRkC5a0673IMg97pD
+gzCebbQ2Eo0Q3/vVKCICKtiqiNNdWZEZyfC5G6I0IqOiYtxp0q/KIcVMAQxE9c/P
+gbIyH0hOVblfCRvAIbXTxqkfDAXqhLekRgYRnWVCFIS4dHPZSzP2Amha4Nkg0OBW
+qaNtTfGo3Gjpj+VAbVy7csnp
+=Zdwe
 -----END PGP SIGNATURE-----
 
---=-I1iRCfX0MpbeR/VGtPiF--
+--=-wkFjE0NNVbaYsiwLLSt0--
