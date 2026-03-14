@@ -4,110 +4,96 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E7C47D58B17
-	for <dri-devel@archiver.kernel.org>; Sun, 15 Mar 2026 11:21:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ABBC1D58B1B
+	for <dri-devel@archiver.kernel.org>; Sun, 15 Mar 2026 11:21:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C901510E571;
-	Sun, 15 Mar 2026 11:21:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ED11810E570;
+	Sun, 15 Mar 2026 11:21:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=posteo.de header.i=@posteo.de header.b="ILLRPcto";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="i2FKZoAU";
 	dkim-atps=neutral
-Received: from mout02.posteo.de (mout02.posteo.de [185.67.36.66])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3004A10E0FA
- for <dri-devel@lists.freedesktop.org>; Sat, 14 Mar 2026 14:58:23 +0000 (UTC)
-Received: from submission (posteo.de [185.67.36.169]) 
- by mout02.posteo.de (Postfix) with ESMTPS id 4B67A240101
- for <dri-devel@lists.freedesktop.org>; Sat, 14 Mar 2026 15:58:20 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=posteo.de; s=2017;
- t=1773500301; bh=m3f1myYQm+jc217x+0j6Wppdm0EP6jCFnngmRvQ0j2A=;
- h=Message-ID:Subject:From:To:Cc:Date:Autocrypt:Content-Type:
- MIME-Version:OpenPGP:From;
- b=ILLRPctoC7Cm6NwmNr1VX9fIjBdVr5bgdlCCiKPHHhm69vwOW2l2zorrV2fK8A94a
- 21ff+STMqf9vXz7SwXjCsZ70VNaFNbHtncwfaxX6x58m1oIKQSbQldfks4lR8+Qx8m
- bSKzjHM/fGjFeVqNZFjM0LhtQxX4ZwZlRtpzK+trenSGGfxZ7RxKLriQALqdLEeRHe
- nPXI4uLo2kQdfIpWmpXppX2ydAw1vFusvo3zXPwa+g/tT2Yh6S91Gs5QeVKSvgW+CL
- QVKw9d5DroyZS0JDZADO1rndxnlmHJucTa6xoHZtUzLo5PD5SYLP74cjxVhw64BTpa
- 2MJOFaUNwC2xg==
-Received: from customer (localhost [127.0.0.1])
- by submission (posteo.de) with ESMTPSA id 4fY4Gy1rQqz9rxD;
- Sat, 14 Mar 2026 15:58:17 +0100 (CET)
-Message-ID: <50e46b76d14b250f0700f5585d459017b716c07c.camel@posteo.de>
-Subject: Re: [PATCH v3 2/4] serdev: add rust private data to serdev_device
-From: Markus Probst <markus.probst@posteo.de>
-To: Danilo Krummrich <dakr@kernel.org>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Rob Herring	
- <robh@kernel.org>, Jiri Slaby <jirislaby@kernel.org>, Miguel Ojeda	
- <ojeda@kernel.org>, Gary Guo <gary@garyguo.net>, =?ISO-8859-1?Q?Bj=F6rn?=
- Roy Baron <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>,
- Andreas Hindborg	 <a.hindborg@kernel.org>, Alice Ryhl
- <aliceryhl@google.com>, Trevor Gross	 <tmgross@umich.edu>, Kari Argillander
- <kari.argillander@gmail.com>, "Rafael J. Wysocki" <rafael@kernel.org>,
- Viresh Kumar <viresh.kumar@linaro.org>, Boqun Feng <boqun@kernel.org>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-serial@vger.kernel.org, 	linux-kernel@vger.kernel.org,
- rust-for-linux@vger.kernel.org, 	linux-pm@vger.kernel.org,
- driver-core@lists.linux.dev, 	dri-devel@lists.freedesktop.org
-Date: Sat, 14 Mar 2026 14:58:20 +0000
-In-Reply-To: <DH2K1DMGFWYR.1E2UZFI1IUZ0N@kernel.org>
-References: <20260313-rust_serdev-v3-0-c9a3af214f7f@posteo.de>
- <20260313-rust_serdev-v3-2-c9a3af214f7f@posteo.de>
- <2026031402-absence-graph-af5d@gregkh>
- <a9618d034bd48ec21bd26060573770a548619402.camel@posteo.de>
- <2026031422-shaded-matchbook-5078@gregkh>
- <fa25ed4ff4688a40bd601d695804def772e47af9.camel@posteo.de>
- <2026031447-margarita-untamed-e976@gregkh>
- <DH2JS8YL1NXY.VRKLBSTZ5ZYI@kernel.org>
- <cd773d17f15f3f2e5d047236721a882c35f64595.camel@posteo.de>
- <DH2K1DMGFWYR.1E2UZFI1IUZ0N@kernel.org>
-Autocrypt: addr=markus.probst@posteo.de; prefer-encrypt=mutual;
- keydata=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
- jfGillcaQOqFZ3WwVqyzG1BUfTow==
-Content-Type: multipart/signed; micalg="pgp-sha256";
- protocol="application/pgp-signature"; boundary="=-peC4TxaQkAO/hAhDTXuc"
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com
+ [209.85.128.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 44B0D10E18E
+ for <dri-devel@lists.freedesktop.org>; Sat, 14 Mar 2026 21:46:33 +0000 (UTC)
+Received: by mail-wm1-f41.google.com with SMTP id
+ 5b1f17b1804b1-48534b59cf3so29557495e9.2
+ for <dri-devel@lists.freedesktop.org>; Sat, 14 Mar 2026 14:46:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1773524792; x=1774129592; darn=lists.freedesktop.org;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+ :reply-to; bh=t4dcDIIqWjuCuDIw/EKfyfSSct6pSLR9IhCmDMZcgFo=;
+ b=i2FKZoAUVhEETPj2+dnJrOWUE1XKBWKc1VKduWKgrmvCfwWHuLQyNMnVF8HGPMKZW1
+ 4DHiKxOwjIPnWhVgI1zQ6iIUkzuZyn9qXVq7A5GHJXQTZUHRIEkS/BLo9UK4/5Q1ZjR9
+ ofShglHxyUrkWtj1P7NPxVTOLrB6/RKndD7Tnt2oxoW8lwKl9gy6wKnef9CBABPPiyLx
+ XiEJ5E22L5+ba+wSCETT5Bl2wpDzc3dozE0dh8+FwUIY6npN2hjs9nINh4fiBCVRYcVq
+ 5Adj/3oTU8YUqFuVG4epF+AsU/Kd7Dg4mLclN+eILEXNTW+PgJl8i95bWf3jfyHDZ7UC
+ OClg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1773524792; x=1774129592;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=t4dcDIIqWjuCuDIw/EKfyfSSct6pSLR9IhCmDMZcgFo=;
+ b=N4AlRTWhnoWYTZvLO3sr1AwlUsJmyuaCxOAxFReovW3+whYVeFSPcyuJ2lLpAzDFOO
+ wbSrHrCG9r1jnlrsPLk1AS19fccWJoEFjYHchKyx9sBKxqBr2O0fmNucA06NluEGM2l4
+ QuvnbSiWUdfm0YIkfAXDqw8hEGmXsePCB/qGdOz3F1plmakB0yc0UuXsHQ2GGIWa95uX
+ mAF5ooPnZcyXOgMKVqcmcZDt4ilMnwOlHJAiluprOxGct4EZ3MulXzXVjrEzKEU51MM+
+ hcwXm6Ovp/ZMnz+PJ5GCqR6t08N8K3xHxNv0LRRcxugD836EGMEx/9YCAZd2F3V2z3gc
+ erOA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWO4C5/5HOZBxt0SZU7Urd8SWYU/60lFNvg4ymzIPuCKW+Qves/db3sLHR65Df2bUco20spz3eXWkI=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyibpaZxlOb2eDDFHv3w0nAQztNbBIDM7ymaIZPAITP554d5qeY
+ j41sS43BCi7Irol7+eUgr805VsIJzxKRvlO0y1qj+hJOXYmrXkSJRUQ8
+X-Gm-Gg: ATEYQzyw+zrhGQSw37luzdMX6EOzAElitKFoqWNxiMIYPVORvwfGt1sDZ6NILh7Z4pu
+ STroksXOQIEuRVd61ftzDv02VYaCZRjr9yyriifZ8ZGG0zvXQR9fkVmm1Pg/7PqWpibcWP6Oo3U
+ 8uS0Qub01l5g3nr41BqizLS7gDvIvguHE8SymVLNJBYuKMOuqY1y4lBPS2LUHs1GmKFaJ0Tom4U
+ Q6XIK5r3EJdDHb8RM/IU03Kj3UIKkkDgwz011xIQhab/MhP50zxA5NFS3RjJ7/4LUbpej0QUMq+
+ LPen84nqfeZ5+TFUdb061++7Uhn05CrJHjmh1IcX/hzCC3/SGiiqgL9jm3qu+jfnd8UjpoUdkdv
+ RMZcAHRxioq49z1J1bRrYimB5Yp6i3yFt/ZOZLDtmPxPM1Sn3rRT1WN9zMY7i4peOYCD45QAdFs
+ JTp/oh3r2uXAj5fOAiJof7O2c6aP5K/ZJPkx6NLSmhG9A1zznlVy22LjXyYdTuUXw=
+X-Received: by 2002:a05:600c:3552:b0:485:1878:7b8c with SMTP id
+ 5b1f17b1804b1-485567028b2mr128325555e9.18.1773524791465; 
+ Sat, 14 Mar 2026 14:46:31 -0700 (PDT)
+Received: from [10.100.102.17] (89-139-129-65.bb.netvision.net.il.
+ [89.139.129.65]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-439fe19aec5sm28756221f8f.4.2026.03.14.14.46.29
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 14 Mar 2026 14:46:31 -0700 (PDT)
+From: Yedaya Katsman <yedaya.ka@gmail.com>
+Date: Sat, 14 Mar 2026 23:46:22 +0200
+Subject: [PATCH v4 2/3] drm: panel: Add Samsung S6E8FCO DSI controller for
+ M1906F9 panel
 MIME-Version: 1.0
-OpenPGP: url=https://posteo.de/keys/markus.probst@posteo.de.asc;
- preference=encrypt
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Message-Id: <20260314-panel-patches-v4-2-1ecbb2c0c3c8@gmail.com>
+References: <20260314-panel-patches-v4-0-1ecbb2c0c3c8@gmail.com>
+In-Reply-To: <20260314-panel-patches-v4-0-1ecbb2c0c3c8@gmail.com>
+To: Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ =?utf-8?q?Kamil_Go=C5=82da?= <kamil.golda@protonmail.com>, 
+ Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, 
+ Kaustabh Chakraborty <kauschluss@disroot.org>
+Cc: ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+ Yedaya Katsman <yedaya.ka@gmail.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1773524784; l=12581;
+ i=yedaya.ka@gmail.com; s=20260113; h=from:subject:message-id;
+ bh=7QWXwQae0M3nfvVtdUe9fsLhIDOP/YC+Hs++mWbyNjU=;
+ b=NnI0t3ib6ozAfw0oattCqPISiDzJyiVkEB94+5zVdFfiGqlIrYX1jDLcO3QneYa6iFcEbqzY5
+ h2YTW3rpW5gAQK5FXGxx25Z8lj+wZ8nmJXCORPrM0+POjCjBjM2mKC0
+X-Developer-Key: i=yedaya.ka@gmail.com; a=ed25519;
+ pk=CgNmxD3tYSws5dZfpmJfc6re/bV/f47veVijddHLytk=
 X-Mailman-Approved-At: Sun, 15 Mar 2026 11:20:58 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -124,151 +110,384 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Add driver for Samsung S6E8FCO DSI controller for M1906F9 video mode panel,
+found in Xiaomi Mi A3 mobile phone.
 
---=-peC4TxaQkAO/hAhDTXuc
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Co-developed-by: Kamil Gołda <kamil.golda@protonmail.com>
+Signed-off-by: Kamil Gołda <kamil.golda@protonmail.com>
+Signed-off-by: Yedaya Katsman <yedaya.ka@gmail.com>
 
-On Sat, 2026-03-14 at 14:54 +0100, Danilo Krummrich wrote:
-> On Sat Mar 14, 2026 at 2:49 PM CET, Markus Probst wrote:
-> > On Sat, 2026-03-14 at 14:42 +0100, Danilo Krummrich wrote:
-> > > On Sat Mar 14, 2026 at 2:31 PM CET, Greg Kroah-Hartman wrote:
-> > > > On Sat, Mar 14, 2026 at 12:08:09PM +0000, Markus Probst wrote:
-> > > > > On Sat, 2026-03-14 at 12:52 +0100, Greg Kroah-Hartman wrote:
-> > > > > > On Sat, Mar 14, 2026 at 11:42:02AM +0000, Markus Probst wrote:
-> > > > > > > On Sat, 2026-03-14 at 09:07 +0100, Greg Kroah-Hartman wrote:
-> > > > > > > > On Fri, Mar 13, 2026 at 06:12:31PM +0000, Markus Probst wro=
-te:
-> > > > > > > > > Add rust private data to `struct serdev_device`, as it is=
- required by the
-> > > > > > > > > rust abstraction added in the following commit
-> > > > > > > > > (rust: add basic serial device bus abstractions).
-> > > > > > > >=20
-> > > > > > > > why is rust "special" here?  What's wrong with the existing=
- private
-> > > > > > > > pointer in this structure?  Why must we add another one?
-> > > > > > > Because in rust, the device drvdata will be set after probe h=
-as run. In
-> > > > > > > serdev, once the device has been opened, it can receive data.=
- It must
-> > > > > > > be opened either inside probe or before probe, because it can=
- only be
-> > > > > > > configured (baudrate, flow control etc.) and data written to =
-after it
-> > > > > > > has been opened. Because it can receive data before drvdata h=
-as been
-> > > > > > > set yet, we need to ensure it waits on data receival for the =
-probe to
-> > > > > > > be finished. Otherwise this would be a null pointer dereferen=
-ce. To do
-> > > > > > > this, we need to store a `Completion` for it to wait and a `b=
-ool` in
-> > > > > > > case the probe exits with an error. We cannot store this data=
- in the
-> > > > > > > device drvdata, because this is where the drivers drvdata goe=
-s. We also
-> > > > > > > cannot create a wrapper of the drivers drvdata, because
-> > > > > > > `Device::drvdata::<T>()` would always fail in that case. That=
- is why we
-> > > > > > > need a "rust_private_data" for this abstraction to store the
-> > > > > > > `Completion` and `bool`.
-> > > > > >=20
-> > > > > > So why is this any different from any other bus type?  I don't =
-see the
-> > > > > > "uniqueness" here that has not required this to happen for PCI =
-or USB or
-> > > > > > anything else.
-> > > > > >=20
-> > > > > > What am I missing?
-> > > > > In Short:
-> > > > > In serdev, we have to handle incoming device data (serdev calls o=
-n a
-> > > > > function pointer we provide in advance), even in the case that th=
-e
-> > > > > driver hasn't completed probe yet.
-> > > >=20
-> > > > But how is that any different from a USB or PCI driver doing the sa=
-me
-> > > > thing?  Why is serdev so unique here?  What specific serdev functio=
-n
-> > > > causes this and why isn't it an issue with the C api?  Can we chang=
-e the
-> > > > C code to not require this?
-> > >=20
-> > > I think the idea is to avoid bugs as in the mhz19b driver [1].
-> > >=20
-> > > This driver's probe() looks like this:
-> > >=20
-> > >=20
-> > > 	serdev_device_set_client_ops(serdev, &mhz19b_ops);
-> > > 	ret =3D devm_serdev_device_open(dev, serdev);
-> > >=20
-> > > 	// Lots of other initialization.
-> > >=20
-> > > 	serdev_device_set_drvdata(serdev, indio_dev);
-> > >=20
-> > > But the receive_buf() callback from mhz19b_ops dereferences the drive=
-r's private
-> > > data.
-> > >=20
-> > > Now, maybe this is actually prevented to become an actual race, since=
- some
-> > > regulator is only enabled subsequently:
-> > >=20
-> > > 	devm_regulator_get_enable(dev, "vin");
-> > >=20
-> > > But in any case in Rust it would be unsound as with this a driver cou=
-ld easily
-> > > cause undefined behavior with safe APIs.
-> > >=20
-> > > Maybe it is as simple as letting the abstraction call serdev_device_o=
-pen() only
-> > > after the driver's probe() has completed, but maybe there are reasons=
- why that
-> > > is not an option, that's a serdev question.
-> > If we call it after probe, calls to `serdev_device_set_baudrate`,
-> > `serdev_device_set_flow_control`, `serdev_device_set_parity`,
-> > `serdev_device_write_buf`, `serdev_device_write`,
-> > `serdev_device_write_flush`, which are exposed via the rust abstraction
-> > would result in a null pointer dereference.
->=20
-> Then maybe ensure that the driver's receive_buf() callback can only ever =
-be
-> called after probe() has been completed? E.g. receive_buf() could be opti=
-onal
-> and swapped out later on.
-I am not exactly sure what you mean by "could be optional and swapped
-out later on".
+---
 
-Also,
-the function pointer cannot be changed while the device is open, as
-this could introduce a race condition. In addition if it was prior set
-to NULL and data was received, this data would be lost.
+The downstream dts claims a max brightness of 2047, but seems to ignore the
+MSB.
+---
+ MAINTAINERS                                        |   5 +
+ drivers/gpu/drm/panel/Kconfig                      |  13 +
+ drivers/gpu/drm/panel/Makefile                     |   1 +
+ .../gpu/drm/panel/panel-samsung-s6e8fco-m1906f9.c  | 301 +++++++++++++++++++++
+ 4 files changed, 320 insertions(+)
 
-Thanks
-- Markus Probst
+diff --git a/MAINTAINERS b/MAINTAINERS
+index e087673237636268346979ddc270f8cf0905c722..0c835d432ced8cc1c8494596bc1c2a36eadd6fe8 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -8183,6 +8183,11 @@ S:	Maintained
+ F:	Documentation/devicetree/bindings/display/panel/samsung,s6e3ha8.yaml
+ F:	drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c
+ 
++DRM DRIVER FOR SAMSUNG S6E8FCO PANELS
++M:	Yedaya Katsman <yedaya.ka@gmail.com>
++S:	Maintained
++F:	drivers/gpu/drm/panel/panel-samsung-s6e8fco-m1906f9.c
++
+ DRM DRIVER FOR SAMSUNG SOFEF00 DDIC
+ M:	David Heidelberg <david@ixit.cz>
+ M:	Casey Connolly <casey.connolly@linaro.org>
+diff --git a/drivers/gpu/drm/panel/Kconfig b/drivers/gpu/drm/panel/Kconfig
+index 7a83804fedca1b688ce6fbe4295ec9009007e693..47a8a2d2535f3fa46fc4545ae30f7e0b6b3d2e1d 100644
+--- a/drivers/gpu/drm/panel/Kconfig
++++ b/drivers/gpu/drm/panel/Kconfig
+@@ -893,6 +893,19 @@ config DRM_PANEL_SAMSUNG_S6E8AA5X01_AMS561RA01
+ 	  ~5.6 inch AMOLED display, and the controller is driven by the MIPI
+ 	  DSI protocol with 4 lanes.
+ 
++config DRM_PANEL_SAMSUNG_S6E8FCO
++	tristate "Samsung S6E8FCO DSI controller"
++	depends on OF
++	depends on BACKLIGHT_CLASS_DEVICE
++	select DRM_MIPI_DSI
++	help
++	  Say Y or M here if you want to enable support for the Samsung
++	  S6E8FCO DSI controller and connected panel.
++	  Currently supported panels:
++
++	    M1906F9 (M1906F9SH or M1906F9SI), 6.09 inch 720x1560, found
++	    in the Xiaomi Mi A3 smartphone (xiaomi-laurel).
++
+ config DRM_PANEL_SAMSUNG_SOFEF00
+ 	tristate "Samsung SOFEF00 DSI panel controller"
+ 	depends on OF
+diff --git a/drivers/gpu/drm/panel/Makefile b/drivers/gpu/drm/panel/Makefile
+index b9562a6fdcb38bfd0dfee9e8c11e16149ada4386..0cf7f0fb4654eb3dc67b2f15294ea46015a9bcdc 100644
+--- a/drivers/gpu/drm/panel/Makefile
++++ b/drivers/gpu/drm/panel/Makefile
+@@ -91,6 +91,7 @@ obj-$(CONFIG_DRM_PANEL_SAMSUNG_S6E88A0_AMS427AP24) += panel-samsung-s6e88a0-ams4
+ obj-$(CONFIG_DRM_PANEL_SAMSUNG_S6E88A0_AMS452EF01) += panel-samsung-s6e88a0-ams452ef01.o
+ obj-$(CONFIG_DRM_PANEL_SAMSUNG_S6E8AA0) += panel-samsung-s6e8aa0.o
+ obj-$(CONFIG_DRM_PANEL_SAMSUNG_S6E8AA5X01_AMS561RA01) += panel-samsung-s6e8aa5x01-ams561ra01.o
++obj-$(CONFIG_DRM_PANEL_SAMSUNG_S6E8FCO) += panel-samsung-s6e8fco-m1906f9.o
+ obj-$(CONFIG_DRM_PANEL_SAMSUNG_SOFEF00) += panel-samsung-sofef00.o
+ obj-$(CONFIG_DRM_PANEL_SEIKO_43WVF1G) += panel-seiko-43wvf1g.o
+ obj-$(CONFIG_DRM_PANEL_SHARP_LQ079L1SX01) += panel-sharp-lq079l1sx01.o
+diff --git a/drivers/gpu/drm/panel/panel-samsung-s6e8fco-m1906f9.c b/drivers/gpu/drm/panel/panel-samsung-s6e8fco-m1906f9.c
+new file mode 100644
+index 0000000000000000000000000000000000000000..7fabfe19b5728612ab2a2518a8a100e7010b1d0c
+--- /dev/null
++++ b/drivers/gpu/drm/panel/panel-samsung-s6e8fco-m1906f9.c
+@@ -0,0 +1,301 @@
++// SPDX-License-Identifier: GPL-2.0-only
++// Copyright (c) Kamil Gołda <kamil.golda@protonmail.com>
++// Copyright (c) Yedaya Katsman <yedaya.ka@gmail.com>
++// Generated with linux-mdss-dsi-panel-driver-generator from vendor device tree:
++//   Copyright (c) The Linux Foundation. All rights reserved.
++
++#include <linux/backlight.h>
++#include <linux/delay.h>
++#include <linux/gpio/consumer.h>
++#include <linux/mod_devicetable.h>
++#include <linux/module.h>
++#include <linux/regulator/consumer.h>
++
++#include <video/mipi_display.h>
++
++#include <drm/drm_mipi_dsi.h>
++#include <drm/drm_modes.h>
++#include <drm/drm_panel.h>
++#include <drm/drm_probe_helper.h>
++
++struct s6e8fco_ctx {
++	struct drm_panel panel;
++	struct mipi_dsi_device *dsi;
++	struct regulator_bulk_data *supplies;
++	struct gpio_desc *reset_gpio;
++};
++
++static const struct regulator_bulk_data s6e8fco_m1906f9_supplies[] = {
++	{ .supply = "vdd" },
++	{ .supply = "vci" },
++};
++
++static inline
++struct s6e8fco_ctx *to_s6e8fco_ctx(struct drm_panel *panel)
++{
++	return container_of_const(panel, struct s6e8fco_ctx, panel);
++}
++
++static void s6e8fco_m1906f9_reset(struct s6e8fco_ctx *ctx)
++{
++	gpiod_set_value_cansleep(ctx->reset_gpio, 0);
++	usleep_range(12000, 13000);
++	gpiod_set_value_cansleep(ctx->reset_gpio, 1);
++	usleep_range(2000, 3000);
++	gpiod_set_value_cansleep(ctx->reset_gpio, 0);
++	usleep_range(10000, 11000);
++}
++
++#define s6e8fco_m1906f9_test_key_on_lvl2(ctx) \
++	mipi_dsi_dcs_write_seq_multi(ctx, 0xf0, 0x5a, 0x5a)
++#define s6e8fco_m1906f9_test_key_off_lvl2(ctx) \
++	mipi_dsi_dcs_write_seq_multi(ctx, 0xf0, 0xa5, 0xa5)
++#define s6e8fco_m1906f9_test_key_on_lvl3(ctx) \
++	mipi_dsi_dcs_write_seq_multi(ctx, 0xfc, 0x5a, 0x5a)
++#define s6e8fco_m1906f9_test_key_off_lvl3(ctx) \
++	mipi_dsi_dcs_write_seq_multi(ctx, 0xfc, 0xa5, 0xa5)
++
++static int s6e8fco_m1906f9_on(struct s6e8fco_ctx *ctx)
++{
++	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
++
++	s6e8fco_m1906f9_test_key_on_lvl3(&dsi_ctx);
++
++	mipi_dsi_dcs_set_display_brightness_multi(&dsi_ctx, 0x0000);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, MIPI_DCS_WRITE_CONTROL_DISPLAY,
++				     0x20);
++	mipi_dsi_dcs_exit_sleep_mode_multi(&dsi_ctx);
++	mipi_dsi_msleep(&dsi_ctx, 50);
++	mipi_dsi_dcs_set_display_on_multi(&dsi_ctx);
++
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xb0, 0x04, 0xed);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xed,
++				     0xe4, 0x08, 0x96, 0xa4, 0x2a, 0x72, 0xe2,
++				     0xca, 0x00);
++	s6e8fco_m1906f9_test_key_off_lvl3(&dsi_ctx);
++	s6e8fco_m1906f9_test_key_on_lvl2(&dsi_ctx);
++	s6e8fco_m1906f9_test_key_on_lvl3(&dsi_ctx);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xe1, 0x93);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xb0, 0x05, 0xf4);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xf4, 0x03);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xed, 0x01, 0x81, 0x04);
++	s6e8fco_m1906f9_test_key_off_lvl2(&dsi_ctx);
++	s6e8fco_m1906f9_test_key_off_lvl3(&dsi_ctx);
++
++	return dsi_ctx.accum_err;
++}
++
++static int s6e8fco_m1906f9_off(struct s6e8fco_ctx *ctx)
++{
++	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
++
++	mipi_dsi_dcs_set_display_off_multi(&dsi_ctx);
++	mipi_dsi_msleep(&dsi_ctx, 20);
++	mipi_dsi_dcs_enter_sleep_mode_multi(&dsi_ctx);
++	mipi_dsi_msleep(&dsi_ctx, 120);
++
++	return dsi_ctx.accum_err;
++}
++
++static int s6e8fco_m1906f9_prepare(struct drm_panel *panel)
++{
++	struct s6e8fco_ctx *ctx = to_s6e8fco_ctx(panel);
++	struct device *dev = &ctx->dsi->dev;
++	int ret;
++
++	ret = regulator_bulk_enable(ARRAY_SIZE(s6e8fco_m1906f9_supplies), ctx->supplies);
++	if (ret < 0) {
++		dev_err(dev, "Failed to enable regulators: %d\n", ret);
++		return ret;
++	}
++
++	s6e8fco_m1906f9_reset(ctx);
++
++	ret = s6e8fco_m1906f9_on(ctx);
++	if (ret < 0) {
++		dev_err(dev, "Failed to initialize panel: %d\n", ret);
++		gpiod_set_value_cansleep(ctx->reset_gpio, 1);
++		regulator_bulk_disable(ARRAY_SIZE(s6e8fco_m1906f9_supplies), ctx->supplies);
++		return ret;
++	}
++
++	return 0;
++}
++
++static int s6e8fco_m1906f9_unprepare(struct drm_panel *panel)
++{
++	struct s6e8fco_ctx *ctx = to_s6e8fco_ctx(panel);
++	struct device *dev = &ctx->dsi->dev;
++	int ret;
++
++	ret = s6e8fco_m1906f9_off(ctx);
++	if (ret < 0)
++		dev_err(dev, "Failed to un-initialize panel: %d\n", ret);
++
++	gpiod_set_value_cansleep(ctx->reset_gpio, 1);
++	regulator_bulk_disable(ARRAY_SIZE(s6e8fco_m1906f9_supplies), ctx->supplies);
++
++	return 0;
++}
++
++static const struct drm_display_mode s6e8fco_m1906f9_samsungp_mode = {
++	.clock = (720 + 350 + 40 + 294) * (1560 + 17 + 2 + 5) * 60 / 1000,
++	.hdisplay = 720,
++	.hsync_start = 720 + 350,
++	.hsync_end = 720 + 350 + 40,
++	.htotal = 720 + 350 + 40 + 294,
++	.vdisplay = 1560,
++	.vsync_start = 1560 + 17,
++	.vsync_end = 1560 + 17 + 2,
++	.vtotal = 1560 + 17 + 2 + 5,
++	.width_mm = 65,
++	.height_mm = 140,
++	.type = DRM_MODE_TYPE_DRIVER,
++};
++
++static int s6e8fco_m1906f9_get_modes(struct drm_panel *panel,
++				      struct drm_connector *connector)
++{
++	return drm_connector_helper_get_modes_fixed(connector, &s6e8fco_m1906f9_samsungp_mode);
++}
++
++static const struct drm_panel_funcs s6e8fco_m1906f9_panel_funcs = {
++	.prepare = s6e8fco_m1906f9_prepare,
++	.unprepare = s6e8fco_m1906f9_unprepare,
++	.get_modes = s6e8fco_m1906f9_get_modes,
++};
++
++static int s6e8fco_bl_update_status(struct backlight_device *bl)
++{
++	struct mipi_dsi_device *dsi = bl_get_data(bl);
++	u16 brightness = backlight_get_brightness(bl);
++	int ret;
++
++	dsi->mode_flags &= ~MIPI_DSI_MODE_LPM;
++
++	ret = mipi_dsi_dcs_set_display_brightness_large(dsi, brightness);
++	if (ret < 0)
++		return ret;
++
++	dsi->mode_flags |= MIPI_DSI_MODE_LPM;
++
++	return 0;
++}
++
++static int s6e8fco_bl_get_brightness(struct backlight_device *bl)
++{
++	struct mipi_dsi_device *dsi = bl_get_data(bl);
++	u16 brightness;
++	int ret;
++
++	dsi->mode_flags &= ~MIPI_DSI_MODE_LPM;
++
++	ret = mipi_dsi_dcs_get_display_brightness_large(dsi, &brightness);
++	if (ret < 0)
++		return ret;
++
++	dsi->mode_flags |= MIPI_DSI_MODE_LPM;
++
++	return brightness;
++}
++
++static const struct backlight_ops s6e8fco_bl_ops = {
++	.update_status = s6e8fco_bl_update_status,
++	.get_brightness = s6e8fco_bl_get_brightness,
++};
++
++static struct backlight_device *
++s6e8fco_m1906f9_create_backlight(struct mipi_dsi_device *dsi)
++{
++	struct device *dev = &dsi->dev;
++	const struct backlight_properties props = {
++		.type = BACKLIGHT_RAW,
++		.brightness = 512,
++		.max_brightness = 1023,
++	};
++
++	return devm_backlight_device_register(dev, dev_name(dev), dev, dsi,
++					      &s6e8fco_bl_ops, &props);
++}
++
++static int s6e8fco_m1906f9_probe(struct mipi_dsi_device *dsi)
++{
++	struct device *dev = &dsi->dev;
++	struct s6e8fco_ctx *ctx;
++	int ret;
++
++	ctx = devm_drm_panel_alloc(dev, struct s6e8fco_ctx, panel,
++				   &s6e8fco_m1906f9_panel_funcs,
++				   DRM_MODE_CONNECTOR_DSI);
++	if (IS_ERR(ctx))
++		return PTR_ERR(ctx);
++
++	ret = devm_regulator_bulk_get_const(dev,
++					    ARRAY_SIZE(s6e8fco_m1906f9_supplies),
++					    s6e8fco_m1906f9_supplies,
++					    &ctx->supplies);
++	if (ret < 0)
++		return ret;
++
++	ctx->reset_gpio = devm_gpiod_get(dev, "reset", GPIOD_OUT_HIGH);
++	if (IS_ERR(ctx->reset_gpio))
++		return dev_err_probe(dev, PTR_ERR(ctx->reset_gpio),
++				     "Failed to get reset-gpios\n");
++
++	ctx->dsi = dsi;
++	mipi_dsi_set_drvdata(dsi, ctx);
++
++	dsi->lanes = 4;
++	dsi->format = MIPI_DSI_FMT_RGB888;
++	dsi->mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_BURST |
++			  MIPI_DSI_CLOCK_NON_CONTINUOUS;
++
++	ctx->panel.prepare_prev_first = true;
++
++	ctx->panel.backlight = s6e8fco_m1906f9_create_backlight(dsi);
++	if (IS_ERR(ctx->panel.backlight))
++		return dev_err_probe(dev, PTR_ERR(ctx->panel.backlight),
++				     "Failed to create backlight\n");
++
++	drm_panel_add(&ctx->panel);
++
++	ret = mipi_dsi_attach(dsi);
++	if (ret < 0) {
++		drm_panel_remove(&ctx->panel);
++		return dev_err_probe(dev, ret, "Failed to attach to DSI host\n");
++	}
++
++	return 0;
++}
++
++static void s6e8fco_remove(struct mipi_dsi_device *dsi)
++{
++	struct s6e8fco_ctx *ctx = mipi_dsi_get_drvdata(dsi);
++	int ret;
++
++	ret = mipi_dsi_detach(dsi);
++	if (ret < 0)
++		dev_err(&dsi->dev, "Failed to detach from DSI host: %d\n", ret);
++
++	drm_panel_remove(&ctx->panel);
++}
++
++static const struct of_device_id samsung_s6e8fco_m1906f9_of_match[] = {
++	{ .compatible = "samsung,s6e8fco-m1906f9" },
++	{ /* sentinel */ }
++};
++MODULE_DEVICE_TABLE(of, samsung_s6e8fco_m1906f9_of_match);
++
++static struct mipi_dsi_driver s6e8fco_m1906f9_driver = {
++	.probe = s6e8fco_m1906f9_probe,
++	.remove = s6e8fco_remove,
++	.driver = {
++		.name = "panel-samsung-s6e8fco-m1906f9",
++		.of_match_table = samsung_s6e8fco_m1906f9_of_match,
++	},
++};
++module_mipi_dsi_driver(s6e8fco_m1906f9_driver);
++
++MODULE_AUTHOR("Kamil Gołda <kamil.golda@protonmail.com>");
++MODULE_DESCRIPTION("DRM driver for Samsung s6e8fco DSI controller");
++MODULE_LICENSE("GPL");
 
+-- 
+2.53.0
 
---=-peC4TxaQkAO/hAhDTXuc
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-
------BEGIN PGP SIGNATURE-----
-
-iQJPBAABCAA5FiEEgnQYxPSsWOdyMMRzNHYf+OetQ9IFAmm1d4UbFIAAAAAABAAO
-bWFudTIsMi41KzEuMTEsMiwyAAoJEDR2H/jnrUPSxjkQAJQ58HdNG3LmyHvZUbXB
-r7OfNAWeB+hwNISJyKwE1MMHHln1dXfl2GNEo7sUyEtXom/TEQB79JFYDUEBlu9r
-GtYraE+HvSWvKlD/RgYxqDFZNet5846bCjkuXd50FB8ZOSn56lYe2DcA+RJR6zRq
-YkfrW/apt/vjiaho0Nsholo+OO4uJrE26YheRomjisLq/9yaWnQlwtGzTWhZLtlS
-Q65B6gI7dnL7AlUOfNelR0yru0/ss63UZuRCaw4G0h6hHL3cXtdAFA6baWDXuTLz
-KfdnEnpVFXUmbpvUviMw5oGGNi5JiRzqN+TlvE3fUmFwwAk1kLv0bIse2pcvfArf
-yFCqEKSVBhpZViWymFSzmZ7uVqJCZsMrzDDEEbvjFxolsX0UqGOZ+KzFcPkoXuCX
-S0AqFEEmbXNo6FW26nXgBejytml+Vuuv4eIi6z4yjKJtvgRHmOIE6K+M80Fmg9w/
-rm+GfC/a/16v1OGyqrn8YF6MHzn2ZM/Gy6j/50h20dfiCZBRQM/P9bO0ApROgSOg
-rg8uuZR5fkvIAdI4aw4WyXOCa5BfgK9E0vwhZGzhOHczKBrBTM3S94F7OeiPyZim
-CknGAXVXW95SOmzTRsl0uzsRoj2JyDKW7CDr9yi7taSkSPpj6sm2gCWsrjZNwRrl
-W7XFNhjOBtlU+2hETtofbmKx
-=/5kW
------END PGP SIGNATURE-----
-
---=-peC4TxaQkAO/hAhDTXuc--
