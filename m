@@ -4,56 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 821A310706CC
-	for <dri-devel@archiver.kernel.org>; Sat, 14 Mar 2026 11:52:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1A3C310706DB
+	for <dri-devel@archiver.kernel.org>; Sat, 14 Mar 2026 13:13:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B21D010E490;
-	Sat, 14 Mar 2026 11:52:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2FA9C10E168;
+	Sat, 14 Mar 2026 13:13:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="s9+v0ZA6";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="o6eSe+7r";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EF71D10E490
- for <dri-devel@lists.freedesktop.org>; Sat, 14 Mar 2026 11:52:35 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0549D10E168
+ for <dri-devel@lists.freedesktop.org>; Sat, 14 Mar 2026 13:13:44 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 8249240E24;
- Sat, 14 Mar 2026 11:52:35 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 82A56C116C6;
- Sat, 14 Mar 2026 11:52:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1773489155;
- bh=YtuOZ55W8PDmlGkVLBE4be0lCpswLb+7bbBVz7Kd9Gw=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=s9+v0ZA6+GWWKYRvJli/W2sGWMVldNwhLNWxqAFjZ5rblzbxzv+HV5KlIdTDLjT8K
- 3BBzTsWonv56AhpnRF5hqtt4nY58f0l4pzxhxqtBJkTNyuloB6bsl+/t6uqQNbHVRy
- hrlhYQ0VlW8oXaaO1rEAAiIrimDaIXCWNv0He5JI=
-Date: Sat, 14 Mar 2026 12:52:31 +0100
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Markus Probst <markus.probst@posteo.de>
-Cc: Rob Herring <robh@kernel.org>, Jiri Slaby <jirislaby@kernel.org>,
- Miguel Ojeda <ojeda@kernel.org>, Gary Guo <gary@garyguo.net>,
- =?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
- Danilo Krummrich <dakr@kernel.org>,
- Kari Argillander <kari.argillander@gmail.com>,
- "Rafael J. Wysocki" <rafael@kernel.org>,
- Viresh Kumar <viresh.kumar@linaro.org>,
- Boqun Feng <boqun@kernel.org>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, linux-serial@vger.kernel.org,
- linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org,
- linux-pm@vger.kernel.org, driver-core@lists.linux.dev,
- dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH v3 2/4] serdev: add rust private data to serdev_device
-Message-ID: <2026031422-shaded-matchbook-5078@gregkh>
-References: <20260313-rust_serdev-v3-0-c9a3af214f7f@posteo.de>
- <20260313-rust_serdev-v3-2-c9a3af214f7f@posteo.de>
- <2026031402-absence-graph-af5d@gregkh>
- <a9618d034bd48ec21bd26060573770a548619402.camel@posteo.de>
+ by sea.source.kernel.org (Postfix) with ESMTP id B20124099A;
+ Sat, 14 Mar 2026 13:13:44 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F947C116C6;
+ Sat, 14 Mar 2026 13:13:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1773494024;
+ bh=6gcZCrWNBMWCJ2rVIp8u8DGpdWLgEe3iegnZ0nHqqPE=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+ b=o6eSe+7rRxpimIhRgJz0UD0ujM1PWgKdkdaQDhvJyAVm7CYaFoMzBl91PcrcLVzKv
+ rLswmURYOYRA2p8X/mTAuARSDSOPqtbcLnR4Drl2laA7xUC38nBicD8Ccl18mnzRdw
+ HKPtQsl1vq0EyCgDPtCJ6pPF4J1cFyeCcw0QE7+jGwMLt0JQtitClQ981Y9EAyy7Qv
+ LSW2xnOYX4MdqLYjYkaD2pQ2N+D1HYba5v1HuSCgyN6dU4CFm0/cONKJoxlY6AJig8
+ o4cgmPCMr1Uti3yc9DTYfq+VQEuN6WBp4Y7K67vr4aTOUW8ZW2UR/0EsQn2dxbjAHT
+ sdo79JRByBvzg==
+From: Chen-Yu Tsai <wens@kernel.org>
+To: mripard@kernel.org, jernej.skrabec@gmail.com, samuel@sholland.org, 
+ Ethan Tidmore <ethantidmore06@gmail.com>
+Cc: maarten.lankhorst@linux.intel.com, tzimmermann@suse.de, 
+ airlied@gmail.com, simona@ffwll.ch, dri-devel@lists.freedesktop.org, 
+ linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, 
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20260226163836.10335-1-ethantidmore06@gmail.com>
+References: <20260226163836.10335-1-ethantidmore06@gmail.com>
+Subject: Re: [PATCH] drm/sun4i: Fix resource leaks
+Message-Id: <177349402208.44870.10275878012349571806.b4-ty@kernel.org>
+Date: Sat, 14 Mar 2026 21:13:42 +0800
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <a9618d034bd48ec21bd26060573770a548619402.camel@posteo.de>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.14.2
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,40 +61,20 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sat, Mar 14, 2026 at 11:42:02AM +0000, Markus Probst wrote:
-> On Sat, 2026-03-14 at 09:07 +0100, Greg Kroah-Hartman wrote:
-> > On Fri, Mar 13, 2026 at 06:12:31PM +0000, Markus Probst wrote:
-> > > Add rust private data to `struct serdev_device`, as it is required by the
-> > > rust abstraction added in the following commit
-> > > (rust: add basic serial device bus abstractions).
-> > 
-> > why is rust "special" here?  What's wrong with the existing private
-> > pointer in this structure?  Why must we add another one?
-> Because in rust, the device drvdata will be set after probe has run. In
-> serdev, once the device has been opened, it can receive data. It must
-> be opened either inside probe or before probe, because it can only be
-> configured (baudrate, flow control etc.) and data written to after it
-> has been opened. Because it can receive data before drvdata has been
-> set yet, we need to ensure it waits on data receival for the probe to
-> be finished. Otherwise this would be a null pointer dereference. To do
-> this, we need to store a `Completion` for it to wait and a `bool` in
-> case the probe exits with an error. We cannot store this data in the
-> device drvdata, because this is where the drivers drvdata goes. We also
-> cannot create a wrapper of the drivers drvdata, because
-> `Device::drvdata::<T>()` would always fail in that case. That is why we
-> need a "rust_private_data" for this abstraction to store the
-> `Completion` and `bool`.
+On Thu, 26 Feb 2026 10:38:36 -0600, Ethan Tidmore wrote:
+> Three clocks are not being released in devm_regmap_init_mmio() error
+> path.
+> 
+> Add proper goto and set ret to the error code.
+> 
+> 
 
-So why is this any different from any other bus type?  I don't see the
-"uniqueness" here that has not required this to happen for PCI or USB or
-anything else.
+Applied to drm-misc-next in drm-misc, thanks!
 
-What am I missing?
+[1/1] drm/sun4i: Fix resource leaks
+      commit: 127367ad2e0f4870de60c6d719ae82ecf68d674c
 
-Also, all of this information MUST be in the changelog text in order for
-us to be able to accept it.  You need to say _why_ a change is needed,
-not just _what_ the change does, as you know.
+Best regards,
+-- 
+Chen-Yu Tsai <wens@kernel.org>
 
-thanks,
-
-greg k-h
