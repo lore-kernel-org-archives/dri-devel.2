@@ -4,118 +4,108 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 24406D58B1A
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E7C47D58B17
 	for <dri-devel@archiver.kernel.org>; Sun, 15 Mar 2026 11:21:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6D05310E568;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C901510E571;
 	Sun, 15 Mar 2026 11:21:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=posteo.de header.i=@posteo.de header.b="b0DHfhaf";
+	dkim=pass (2048-bit key; secure) header.d=posteo.de header.i=@posteo.de header.b="ILLRPcto";
 	dkim-atps=neutral
-Received: from mout01.posteo.de (mout01.posteo.de [185.67.36.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 146EA10E373
- for <dri-devel@lists.freedesktop.org>; Fri, 13 Mar 2026 18:12:39 +0000 (UTC)
+Received: from mout02.posteo.de (mout02.posteo.de [185.67.36.66])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3004A10E0FA
+ for <dri-devel@lists.freedesktop.org>; Sat, 14 Mar 2026 14:58:23 +0000 (UTC)
 Received: from submission (posteo.de [185.67.36.169]) 
- by mout01.posteo.de (Postfix) with ESMTPS id 7803624002A
- for <dri-devel@lists.freedesktop.org>; Fri, 13 Mar 2026 19:12:37 +0100 (CET)
+ by mout02.posteo.de (Postfix) with ESMTPS id 4B67A240101
+ for <dri-devel@lists.freedesktop.org>; Sat, 14 Mar 2026 15:58:20 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=posteo.de; s=2017;
- t=1773425557; bh=txAK4TUgih2D/E3Nqfs0Z2H7fnxxBtNclmi2vXilof0=;
- h=From:Date:Subject:MIME-Version:Content-Type:
- Content-Transfer-Encoding:Message-Id:To:Cc:Autocrypt:OpenPGP:From;
- b=b0DHfhafdEgogsrqN98r6H+XEa0zPTpCYelw/zMkghBJIZ8pRuP/DgwWKr40TEyLI
- j7jMakuryTjShsTqNvA2zGkcULYCZeoWy0UTckDrerZ4JsUDUAvYSmpGSEGAGGFSZK
- SbvyXWznsbnYEg1FVKmJcq3ENQc287aeUbPoUfn4A6ou65BrQ0MpTaGjtmEe26QUBo
- gd9UEKFpQERXkvM5eRayUCNdX6FUHJZJqoaymmulXjJTet98dFr1l0ZAiSEdowCgpF
- fEsdjfipw2z1VJFOhtpZe9IqGt1FI0GaSyhW4SCdvhbFxRHpd2FEP2TGHAcl3hoVMh
- p7+zQL6ENuqkQ==
+ t=1773500301; bh=m3f1myYQm+jc217x+0j6Wppdm0EP6jCFnngmRvQ0j2A=;
+ h=Message-ID:Subject:From:To:Cc:Date:Autocrypt:Content-Type:
+ MIME-Version:OpenPGP:From;
+ b=ILLRPctoC7Cm6NwmNr1VX9fIjBdVr5bgdlCCiKPHHhm69vwOW2l2zorrV2fK8A94a
+ 21ff+STMqf9vXz7SwXjCsZ70VNaFNbHtncwfaxX6x58m1oIKQSbQldfks4lR8+Qx8m
+ bSKzjHM/fGjFeVqNZFjM0LhtQxX4ZwZlRtpzK+trenSGGfxZ7RxKLriQALqdLEeRHe
+ nPXI4uLo2kQdfIpWmpXppX2ydAw1vFusvo3zXPwa+g/tT2Yh6S91Gs5QeVKSvgW+CL
+ QVKw9d5DroyZS0JDZADO1rndxnlmHJucTa6xoHZtUzLo5PD5SYLP74cjxVhw64BTpa
+ 2MJOFaUNwC2xg==
 Received: from customer (localhost [127.0.0.1])
- by submission (posteo.de) with ESMTPSA id 4fXXdZ1Bscz6twH;
- Fri, 13 Mar 2026 19:12:34 +0100 (CET)
+ by submission (posteo.de) with ESMTPSA id 4fY4Gy1rQqz9rxD;
+ Sat, 14 Mar 2026 15:58:17 +0100 (CET)
+Message-ID: <50e46b76d14b250f0700f5585d459017b716c07c.camel@posteo.de>
+Subject: Re: [PATCH v3 2/4] serdev: add rust private data to serdev_device
 From: Markus Probst <markus.probst@posteo.de>
-Date: Fri, 13 Mar 2026 18:12:36 +0000
-Subject: [PATCH v3 4/4] samples: rust: add Rust serial device bus sample
- device driver
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260313-rust_serdev-v3-4-c9a3af214f7f@posteo.de>
-References: <20260313-rust_serdev-v3-0-c9a3af214f7f@posteo.de>
-In-Reply-To: <20260313-rust_serdev-v3-0-c9a3af214f7f@posteo.de>
-To: Rob Herring <robh@kernel.org>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Jiri Slaby <jirislaby@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, 
- Gary Guo <gary@garyguo.net>, 
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
- Danilo Krummrich <dakr@kernel.org>, 
- Kari Argillander <kari.argillander@gmail.com>, 
- "Rafael J. Wysocki" <rafael@kernel.org>, 
+To: Danilo Krummrich <dakr@kernel.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Rob Herring	
+ <robh@kernel.org>, Jiri Slaby <jirislaby@kernel.org>, Miguel Ojeda	
+ <ojeda@kernel.org>, Gary Guo <gary@garyguo.net>, =?ISO-8859-1?Q?Bj=F6rn?=
+ Roy Baron <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>,
+ Andreas Hindborg	 <a.hindborg@kernel.org>, Alice Ryhl
+ <aliceryhl@google.com>, Trevor Gross	 <tmgross@umich.edu>, Kari Argillander
+ <kari.argillander@gmail.com>, "Rafael J. Wysocki" <rafael@kernel.org>,
  Viresh Kumar <viresh.kumar@linaro.org>, Boqun Feng <boqun@kernel.org>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Boqun Feng <boqun@kernel.org>
-Cc: linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org, 
- rust-for-linux@vger.kernel.org, linux-pm@vger.kernel.org, 
- driver-core@lists.linux.dev, dri-devel@lists.freedesktop.org, 
- Markus Probst <markus.probst@posteo.de>
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4223;
- i=markus.probst@posteo.de; h=from:subject:message-id;
- bh=35U7frsCMzSPd4Y0Xg13l2r+WwfzxpmhICOIhuy4C4A=;
- b=owEBiQJ2/ZANAwAIATR2H/jnrUPSAcsmYgBptFOFxHIjbU1E/oPSyiTSjjTInPK2dn/7Yqe6i
- 528Y8evhyeJAk8EAAEIADkWIQSCdBjE9KxY53IwxHM0dh/4561D0gUCabRThRsUgAAAAAAEAA5t
- YW51MiwyLjUrMS4xMSwyLDIACgkQNHYf+OetQ9JhnQ/+NeFE4i+fjc+FXKbasyE79ysn3gdKKr9
- KQKvNxvUTB0NHf3vjpm49mh9z0IABmkBHOCSWqhHe+w1D/ntJWi5ozuzaOEAfdR5w5csy+YTNyX
- GJ+cNh8wSlrLx3bsckZY9ml8szEbRqskjYlNlgP1rS/kXLxVC7FEyoqctyW6oo3SKTI8EEvVPSq
- OrDsmqu+WSVZ8OnnyBTgzUWxHoAxqWw1/2aWQnz8/kkbQyDYZTKo8RXKVYCzniAebhgOheKnnL4
- 7i5Kp1Me3L1QapoB5WyPDABRLwuZjPzVVI2c4yyv/qJEW4IEPKWaYufG4Tg19JZuCXKQD6Glyh/
- bRXuKTcEoqK55xxlDguP70WRWJIbFkoYtAhtkg7CXNPq9dXY686KaguKYw9HJ2xaErbYizZxEkb
- TOM6lh8bJMwJqxLoMopIQaMIhhvlhO41g/WvZ+MMqqySS8v2o54QyjuXsKv4bfH9FEIYVihtEee
- YOoXTYU22g8FJtw5l5zJ6sAMuGr0vqulCcRkM87zDXYZBAGM5Tv6YgZaJ37tRdxVjHd3E2zf8Vo
- pRO4XUcBNtVgzYnuSoPnKf0rKIZsY3qIrZmy6rdfZUdurnHgGbCFrCGwVpj/g4RppTVtxi7dXX/
- L0vwHWq4d8bnkyRMlvSNNJJu3jW5TG4nuWjZiSb9r4KX4e4RxjQo=
-X-Developer-Key: i=markus.probst@posteo.de; a=openpgp;
- fpr=827418C4F4AC58E77230C47334761FF8E7AD43D2
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ linux-serial@vger.kernel.org, 	linux-kernel@vger.kernel.org,
+ rust-for-linux@vger.kernel.org, 	linux-pm@vger.kernel.org,
+ driver-core@lists.linux.dev, 	dri-devel@lists.freedesktop.org
+Date: Sat, 14 Mar 2026 14:58:20 +0000
+In-Reply-To: <DH2K1DMGFWYR.1E2UZFI1IUZ0N@kernel.org>
+References: <20260313-rust_serdev-v3-0-c9a3af214f7f@posteo.de>
+ <20260313-rust_serdev-v3-2-c9a3af214f7f@posteo.de>
+ <2026031402-absence-graph-af5d@gregkh>
+ <a9618d034bd48ec21bd26060573770a548619402.camel@posteo.de>
+ <2026031422-shaded-matchbook-5078@gregkh>
+ <fa25ed4ff4688a40bd601d695804def772e47af9.camel@posteo.de>
+ <2026031447-margarita-untamed-e976@gregkh>
+ <DH2JS8YL1NXY.VRKLBSTZ5ZYI@kernel.org>
+ <cd773d17f15f3f2e5d047236721a882c35f64595.camel@posteo.de>
+ <DH2K1DMGFWYR.1E2UZFI1IUZ0N@kernel.org>
 Autocrypt: addr=markus.probst@posteo.de; prefer-encrypt=mutual;
- keydata=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
- aBeNN4ijKZchBXHPgVx+YtWRHfcm4l8=
+ keydata=mQINBGiDvXgBEADAXUceKafpl46S35UmDh2wRvvx+UfZbcTjeQOlSwKP7YVJ4JOZrVs93
+ qReNLkOWguIqPBxR9blQ4nyYrqSCV+MMw/3ifyXIm6Pw2YRUDg+WTEOjTixRCoWDgUj1nOsvJ9tVA
+ m76Ww+/pAnepVRafMID0rqEfD9oGv1YrfpeFJhyE2zUw3SyyNLIKWD6QeLRhKQRbSnsXhGLFBXCqt
+ 9k5JARhgQof9zvztcCVlT5KVvuyfC4H+HzeGmu9201BVyihJwKdcKPq+n/aY5FUVxNTgtI9f8wIbm
+ fAjaoT1pjXSp+dszakA98fhONM98pOq723o/1ZGMZukyXFfsDGtA3BB79HoopHKujLGWAGskzClwT
+ jRQxBqxh/U/lL1pc+0xPWikTNCmtziCOvv0KA0arDOMQlyFvImzX6oGVgE4ksKQYbMZ3Ikw6L1Rv1
+ J+FvN0aNwOKgL2ztBRYscUGcQvA0Zo1fGCAn/BLEJvQYShWKeKqjyncVGoXFsz2AcuFKe1pwETSsN
+ 6OZncjy32e4ktgs07cWBfx0v62b8md36jau+B6RVnnodaA8++oXl3FRwiEW8XfXWIjy4umIv93tb8
+ 8ekYsfOfWkTSewZYXGoqe4RtK80ulMHb/dh2FZQIFyRdN4HOmB4FYO5sEYFr9YjHLmDkrUgNodJCX
+ CeMe4BO4iaxUQARAQABtCdNYXJrdXMgUHJvYnN0IDxtYXJrdXMucHJvYnN0QHBvc3Rlby5kZT6JAl
+ QEEwEIAD4CGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AWIQSCdBjE9KxY53IwxHM0dh/4561
+ D0gUCaIZ9HQIZAQAKCRA0dh/4561D0pKmD/92zsCfbD+SrvBpNWtbit7J9wFBNr9qSFFm2n/65qen
+ NNWKDrCzDsjRbALMHSO8nigMWzjofbVjj8Nf7SDcdapRjrMCnidS0DuW3pZBo6W0sZqV/fLx+AzgQ
+ 7PAr6jtBbUoKW/GCGHLLtb6Hv+zjL17KGVO0DdQeoHEXMa48mJh8rS7VlUzVtpbxsWbb1wRZJTD88
+ ALDOLTWGqMbCTFDKFfGcqBLdUT13vx706Q29wrDiogmQhLGYKc6fQzpHhCLNhHTl8ZVLuKVY3wTT+
+ f9TzW1BDzFTAe3ZXsKhrzF+ud7vr6ff9p1Zl+Nujz94EDYHi/5Yrtp//+N/ZjDGDmqZOEA86/Gybu
+ 6XE/v4S85ls0cAe37WTqsMCJjVRMP52r7Y1AuOONJDe3sIsDge++XFhwfGPbZwBnwd4gEVcdrKhnO
+ ntuP9TvBMFWeTvtLqlWJUt7n8f/ELCcGoO5acai1iZ59GC81GLl2izObOLNjyv3G6hia/w50Mw9MU
+ dAdZQ2MxM6k+x4L5XeysdcR/2AydVLtu2LGFOrKyEe0M9XmlE6OvziWXvVVwomvTN3LaNUmaINhr7
+ pHTFwDiZCSWKnwnvD2+jA1trKq1xKUQY1uGW9XgSj98pKyixHWoeEpydr+alSTB43c3m0351/9rYT
+ TTi4KSk73wtapPKtaoIR3rOFHLQXbWFya3VzLnByb2JzdEBwb3N0ZW8uZGWJAlEEEwEIADsWIQSCd
+ BjE9KxY53IwxHM0dh/4561D0gUCaIO9eAIbAwULCQgHAgIiAgYVCgkICwIEFgIDAQIeBwIXgAAKCR
+ A0dh/4561D0oHZEACEmk5Ng9+OXoVxJJ+c9slBI2lYxyBO84qkWjoJ/0GpwoHk1IpyL+i+kF1Bb7y
+ Hx9Tiz8ENYX7xIPTZzS8hXs1ksuo76FQUyD6onA/69xZIrYZ0NSA5HUo62qzzMSZL7od5e12R6OPR
+ lR0PIuc4ecOGCEq3BLRPfZSYrL54tiase8HubXsvb6EBQ8jPI8ZUlr96ZqFEwrQZF/3ihyV6LILLk
+ geExgwlTzo5Wv3piOXPTITBuzuFhBJqEnT25q2j8OumGQ+ri8oVeAzx24g1kc11pwpR0sowfa5MvZ
+ WrrBcaIL7uJfR/ig7FyGnTQ1nS3btf3p0v8A3fc4eUu/K2No3l2huJp3+LHhCmpmeykOhSB63Mj3s
+ 3Q87LD0HE0HBkTEMwp+sD97ZRpO67H5shzJRanUaDTb/mREfzpJmRT1uuec0X2zItL7a6itgMJvYI
+ KG29aJLX3fTzzVzFGPgzVZYEdhu4y53p0qEGrrC1JtKR6DRPE1hb/OdWOkjmJ75+PPLD9U5IuRd6y
+ sHJWsEBR1F0wkMPkEofWsvMYJzWXx/rvTWO8N4D6HigTgBXAXNgbc3IHpHlkvKoBJptv6DRVRtIrz
+ 0G0cfBY0Sm7he4N2IYDWWdGnPBZ3rlLSdj5EiBU2YWgIgtLrb8ZNJ3ZlhYluGnBJDGRqy2jC9s1jY
+ 66sLA9rQZMHhJTzMyIDwweGlvMzJAcG9zdGVvLmV1PokCbQQTAQgAVxYhBIJ0GMT0rFjncjDEczR2
+ H/jnrUPSBQJpa71VGxSAAAAAAAQADm1hbnUyLDIuNSsxLjExLDIsMgIbAwULCQgHAgIiAgYVCgkIC
+ wIEFgIDAQIeBwIXgAAKCRA0dh/4561D0gKJD/9uOQKYlsDoQX65Gd0LiMT0C+5vXgr3VI0PHDOwcv
+ 51fJ3A1vNyPZRFPGrz8+mDEXUQOF/INfnz5Tu1QHwf+iYcWcTGAN/FHgVR6ET6VBNU2hJaKhu+Ggo
+ kjYyJTOvyX+3yNRUfSny0GjTjIPuPTErjqmHF+BtjXslpgwqnNMznf3lRIuUjRORupos6p3k1DndE
+ 5vzUTmXSvMyXyOD2KhBl/kL76k0bHYyAQytZPag12pltrtFbA/r2phDGN2si8PooDT99bSTJjaM45
+ MTAAHbHKJfvgfK41bNFD5mMtpWpL195XRtS0Nrxdg3PaYBxN5gtTG0RyZfpYRlkdEhm+jj/8RxuSG
+ i/qdhRdbiI7K2IELWeQVHSNDi9JabR/UzlR4NSnhfAjRIVlRM+eFbUl8XwxwVrAkojF5IraH2qRvg
+ VCmuFsHUW07FUlrDrzpjXsD73cKppoFGDCdDR0BHJepXbFLS9+AqkT+guRJlnCTg2p+TQtnbwPgKp
+ Vj98JixovCl99zRYTsL2bRNU5+q8iET65VMJ1ydyNanvLd5vI/NqDkXhlXLsGmdaDTtu4R21PkToX
+ dQNGrZ91M9nlIBKw8Y7c7xZ4098qX2b8JX/CxD+gC1r4C8vuA3GkhFLx+KlkON7LyiJPkrePp6Qky
+ jfGillcaQOqFZ3WwVqyzG1BUfTow==
+Content-Type: multipart/signed; micalg="pgp-sha256";
+ protocol="application/pgp-signature"; boundary="=-peC4TxaQkAO/hAhDTXuc"
+MIME-Version: 1.0
 OpenPGP: url=https://posteo.de/keys/markus.probst@posteo.de.asc;
  preference=encrypt
 X-Mailman-Approved-At: Sun, 15 Mar 2026 11:20:58 +0000
@@ -134,146 +124,151 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add a sample Rust serial device bus device driver illustrating the usage
-of the serial device bus abstractions.
 
-This drivers probes through either a match of device / driver name or a
-match within the OF ID table.
+--=-peC4TxaQkAO/hAhDTXuc
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Signed-off-by: Markus Probst <markus.probst@posteo.de>
----
- samples/rust/Kconfig               | 11 +++++
- samples/rust/Makefile              |  1 +
- samples/rust/rust_driver_serdev.rs | 86 ++++++++++++++++++++++++++++++++++++++
- 3 files changed, 98 insertions(+)
+On Sat, 2026-03-14 at 14:54 +0100, Danilo Krummrich wrote:
+> On Sat Mar 14, 2026 at 2:49 PM CET, Markus Probst wrote:
+> > On Sat, 2026-03-14 at 14:42 +0100, Danilo Krummrich wrote:
+> > > On Sat Mar 14, 2026 at 2:31 PM CET, Greg Kroah-Hartman wrote:
+> > > > On Sat, Mar 14, 2026 at 12:08:09PM +0000, Markus Probst wrote:
+> > > > > On Sat, 2026-03-14 at 12:52 +0100, Greg Kroah-Hartman wrote:
+> > > > > > On Sat, Mar 14, 2026 at 11:42:02AM +0000, Markus Probst wrote:
+> > > > > > > On Sat, 2026-03-14 at 09:07 +0100, Greg Kroah-Hartman wrote:
+> > > > > > > > On Fri, Mar 13, 2026 at 06:12:31PM +0000, Markus Probst wro=
+te:
+> > > > > > > > > Add rust private data to `struct serdev_device`, as it is=
+ required by the
+> > > > > > > > > rust abstraction added in the following commit
+> > > > > > > > > (rust: add basic serial device bus abstractions).
+> > > > > > > >=20
+> > > > > > > > why is rust "special" here?  What's wrong with the existing=
+ private
+> > > > > > > > pointer in this structure?  Why must we add another one?
+> > > > > > > Because in rust, the device drvdata will be set after probe h=
+as run. In
+> > > > > > > serdev, once the device has been opened, it can receive data.=
+ It must
+> > > > > > > be opened either inside probe or before probe, because it can=
+ only be
+> > > > > > > configured (baudrate, flow control etc.) and data written to =
+after it
+> > > > > > > has been opened. Because it can receive data before drvdata h=
+as been
+> > > > > > > set yet, we need to ensure it waits on data receival for the =
+probe to
+> > > > > > > be finished. Otherwise this would be a null pointer dereferen=
+ce. To do
+> > > > > > > this, we need to store a `Completion` for it to wait and a `b=
+ool` in
+> > > > > > > case the probe exits with an error. We cannot store this data=
+ in the
+> > > > > > > device drvdata, because this is where the drivers drvdata goe=
+s. We also
+> > > > > > > cannot create a wrapper of the drivers drvdata, because
+> > > > > > > `Device::drvdata::<T>()` would always fail in that case. That=
+ is why we
+> > > > > > > need a "rust_private_data" for this abstraction to store the
+> > > > > > > `Completion` and `bool`.
+> > > > > >=20
+> > > > > > So why is this any different from any other bus type?  I don't =
+see the
+> > > > > > "uniqueness" here that has not required this to happen for PCI =
+or USB or
+> > > > > > anything else.
+> > > > > >=20
+> > > > > > What am I missing?
+> > > > > In Short:
+> > > > > In serdev, we have to handle incoming device data (serdev calls o=
+n a
+> > > > > function pointer we provide in advance), even in the case that th=
+e
+> > > > > driver hasn't completed probe yet.
+> > > >=20
+> > > > But how is that any different from a USB or PCI driver doing the sa=
+me
+> > > > thing?  Why is serdev so unique here?  What specific serdev functio=
+n
+> > > > causes this and why isn't it an issue with the C api?  Can we chang=
+e the
+> > > > C code to not require this?
+> > >=20
+> > > I think the idea is to avoid bugs as in the mhz19b driver [1].
+> > >=20
+> > > This driver's probe() looks like this:
+> > >=20
+> > >=20
+> > > 	serdev_device_set_client_ops(serdev, &mhz19b_ops);
+> > > 	ret =3D devm_serdev_device_open(dev, serdev);
+> > >=20
+> > > 	// Lots of other initialization.
+> > >=20
+> > > 	serdev_device_set_drvdata(serdev, indio_dev);
+> > >=20
+> > > But the receive_buf() callback from mhz19b_ops dereferences the drive=
+r's private
+> > > data.
+> > >=20
+> > > Now, maybe this is actually prevented to become an actual race, since=
+ some
+> > > regulator is only enabled subsequently:
+> > >=20
+> > > 	devm_regulator_get_enable(dev, "vin");
+> > >=20
+> > > But in any case in Rust it would be unsound as with this a driver cou=
+ld easily
+> > > cause undefined behavior with safe APIs.
+> > >=20
+> > > Maybe it is as simple as letting the abstraction call serdev_device_o=
+pen() only
+> > > after the driver's probe() has completed, but maybe there are reasons=
+ why that
+> > > is not an option, that's a serdev question.
+> > If we call it after probe, calls to `serdev_device_set_baudrate`,
+> > `serdev_device_set_flow_control`, `serdev_device_set_parity`,
+> > `serdev_device_write_buf`, `serdev_device_write`,
+> > `serdev_device_write_flush`, which are exposed via the rust abstraction
+> > would result in a null pointer dereference.
+>=20
+> Then maybe ensure that the driver's receive_buf() callback can only ever =
+be
+> called after probe() has been completed? E.g. receive_buf() could be opti=
+onal
+> and swapped out later on.
+I am not exactly sure what you mean by "could be optional and swapped
+out later on".
 
-diff --git a/samples/rust/Kconfig b/samples/rust/Kconfig
-index c49ab9106345..a421470d2c52 100644
---- a/samples/rust/Kconfig
-+++ b/samples/rust/Kconfig
-@@ -161,6 +161,17 @@ config SAMPLE_RUST_DRIVER_AUXILIARY
- 
- 	  If unsure, say N.
- 
-+config SAMPLE_RUST_DRIVER_SERDEV
-+	tristate "Serial Device Bus Device Driver"
-+	depends on SERIAL_DEV_BUS
-+	help
-+	  This option builds the Rust serial device bus driver sample.
-+
-+	  To compile this as a module, choose M here:
-+	  the module will be called rust_driver_serdev.
-+
-+	  If unsure, say N.
-+
- config SAMPLE_RUST_SOC
- 	tristate "SoC Driver"
- 	select SOC_BUS
-diff --git a/samples/rust/Makefile b/samples/rust/Makefile
-index 6c0aaa58cccc..b986b681cde5 100644
---- a/samples/rust/Makefile
-+++ b/samples/rust/Makefile
-@@ -14,6 +14,7 @@ obj-$(CONFIG_SAMPLE_RUST_DRIVER_PLATFORM)	+= rust_driver_platform.o
- obj-$(CONFIG_SAMPLE_RUST_DRIVER_USB)		+= rust_driver_usb.o
- obj-$(CONFIG_SAMPLE_RUST_DRIVER_FAUX)		+= rust_driver_faux.o
- obj-$(CONFIG_SAMPLE_RUST_DRIVER_AUXILIARY)	+= rust_driver_auxiliary.o
-+obj-$(CONFIG_SAMPLE_RUST_DRIVER_SERDEV)		+= rust_driver_serdev.o
- obj-$(CONFIG_SAMPLE_RUST_CONFIGFS)		+= rust_configfs.o
- obj-$(CONFIG_SAMPLE_RUST_SOC)			+= rust_soc.o
- 
-diff --git a/samples/rust/rust_driver_serdev.rs b/samples/rust/rust_driver_serdev.rs
-new file mode 100644
-index 000000000000..8cf3fb451b22
---- /dev/null
-+++ b/samples/rust/rust_driver_serdev.rs
-@@ -0,0 +1,86 @@
-+// SPDX-License-Identifier: GPL-2.0
-+
-+//! Rust Serial device bus device driver sample.
-+
-+use kernel::{
-+    acpi,
-+    device::{
-+        Bound,
-+        Core, //
-+    },
-+    of,
-+    prelude::*,
-+    serdev,
-+    sync::aref::ARef, //
-+};
-+
-+struct SampleDriver {
-+    sdev: ARef<serdev::Device>,
-+}
-+
-+kernel::of_device_table!(
-+    OF_TABLE,
-+    MODULE_OF_TABLE,
-+    <SampleDriver as serdev::Driver>::IdInfo,
-+    [(of::DeviceId::new(c"test,rust_driver_serdev"), ())]
-+);
-+
-+kernel::acpi_device_table!(
-+    ACPI_TABLE,
-+    MODULE_ACPI_TABLE,
-+    <SampleDriver as serdev::Driver>::IdInfo,
-+    [(acpi::DeviceId::new(c"LNUXBEEF"), ())]
-+);
-+
-+#[vtable]
-+impl serdev::Driver for SampleDriver {
-+    type IdInfo = ();
-+    const OF_ID_TABLE: Option<of::IdTable<Self::IdInfo>> = Some(&OF_TABLE);
-+    const ACPI_ID_TABLE: Option<acpi::IdTable<Self::IdInfo>> = Some(&ACPI_TABLE);
-+
-+    fn probe(
-+        sdev: &serdev::Device<Core>,
-+        _info: Option<&Self::IdInfo>,
-+    ) -> impl PinInit<Self, Error> {
-+        let dev = sdev.as_ref();
-+
-+        dev_dbg!(dev, "Probe Rust Serial device bus device driver sample.\n");
-+
-+        if sdev
-+            .set_baudrate(
-+                dev.fwnode()
-+                    .and_then(|fwnode| fwnode.property_read(c"baudrate").optional())
-+                    .unwrap_or(115200),
-+            )
-+            .is_err()
-+        {
-+            return Err(EINVAL);
-+        }
-+        sdev.set_flow_control(false);
-+        sdev.set_parity(serdev::Parity::None)?;
-+
-+        Ok(Self { sdev: sdev.into() })
-+    }
-+
-+    fn receive(sdev: &serdev::Device<Bound>, _this: Pin<&Self>, data: &[u8]) -> usize {
-+        let _ = sdev.write_all(data, serdev::Timeout::Max);
-+        data.len()
-+    }
-+}
-+
-+impl Drop for SampleDriver {
-+    fn drop(&mut self) {
-+        dev_dbg!(
-+            self.sdev.as_ref(),
-+            "Remove Rust Serial device bus device driver sample.\n"
-+        );
-+    }
-+}
-+
-+kernel::module_serdev_device_driver! {
-+    type: SampleDriver,
-+    name: "rust_driver_serdev",
-+    authors: ["Markus Probst"],
-+    description: "Rust Serial device bus device driver",
-+    license: "GPL v2",
-+}
+Also,
+the function pointer cannot be changed while the device is open, as
+this could introduce a race condition. In addition if it was prior set
+to NULL and data was received, this data would be lost.
 
--- 
-2.52.0
+Thanks
+- Markus Probst
 
+
+--=-peC4TxaQkAO/hAhDTXuc
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+
+-----BEGIN PGP SIGNATURE-----
+
+iQJPBAABCAA5FiEEgnQYxPSsWOdyMMRzNHYf+OetQ9IFAmm1d4UbFIAAAAAABAAO
+bWFudTIsMi41KzEuMTEsMiwyAAoJEDR2H/jnrUPSxjkQAJQ58HdNG3LmyHvZUbXB
+r7OfNAWeB+hwNISJyKwE1MMHHln1dXfl2GNEo7sUyEtXom/TEQB79JFYDUEBlu9r
+GtYraE+HvSWvKlD/RgYxqDFZNet5846bCjkuXd50FB8ZOSn56lYe2DcA+RJR6zRq
+YkfrW/apt/vjiaho0Nsholo+OO4uJrE26YheRomjisLq/9yaWnQlwtGzTWhZLtlS
+Q65B6gI7dnL7AlUOfNelR0yru0/ss63UZuRCaw4G0h6hHL3cXtdAFA6baWDXuTLz
+KfdnEnpVFXUmbpvUviMw5oGGNi5JiRzqN+TlvE3fUmFwwAk1kLv0bIse2pcvfArf
+yFCqEKSVBhpZViWymFSzmZ7uVqJCZsMrzDDEEbvjFxolsX0UqGOZ+KzFcPkoXuCX
+S0AqFEEmbXNo6FW26nXgBejytml+Vuuv4eIi6z4yjKJtvgRHmOIE6K+M80Fmg9w/
+rm+GfC/a/16v1OGyqrn8YF6MHzn2ZM/Gy6j/50h20dfiCZBRQM/P9bO0ApROgSOg
+rg8uuZR5fkvIAdI4aw4WyXOCa5BfgK9E0vwhZGzhOHczKBrBTM3S94F7OeiPyZim
+CknGAXVXW95SOmzTRsl0uzsRoj2JyDKW7CDr9yi7taSkSPpj6sm2gCWsrjZNwRrl
+W7XFNhjOBtlU+2hETtofbmKx
+=/5kW
+-----END PGP SIGNATURE-----
+
+--=-peC4TxaQkAO/hAhDTXuc--
