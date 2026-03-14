@@ -4,50 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 979D110706E2
-	for <dri-devel@archiver.kernel.org>; Sat, 14 Mar 2026 16:54:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DE41810706FF
+	for <dri-devel@archiver.kernel.org>; Sat, 14 Mar 2026 19:06:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CEE7910E163;
-	Sat, 14 Mar 2026 16:54:45 +0000 (UTC)
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 85E0010E519
- for <dri-devel@lists.freedesktop.org>; Sat, 14 Mar 2026 16:54:42 +0000 (UTC)
-Received: from edelgard.fodlan.icenowy.me (unknown [112.94.100.43])
- by APP-03 (Coremail) with SMTP id rQCowABXdt2_krVp5hKqCg--.41046S2;
- Sun, 15 Mar 2026 00:54:24 +0800 (CST)
-From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-To: Sui Jingfeng <suijingfeng@loongson.cn>,
+	by gabe.freedesktop.org (Postfix) with ESMTP id E497110E072;
+	Sat, 14 Mar 2026 19:06:14 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Woeug8/L";
+	dkim-atps=neutral
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0B23A10E22A
+ for <dri-devel@lists.freedesktop.org>; Sat, 14 Mar 2026 19:06:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1773515173; x=1805051173;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=v3EoKgm2ivNf66z0g0GCk/Ytkkn5QAkZzV+I0bQuEH8=;
+ b=Woeug8/LqZ7XbeCm1baQfb7HQ3Gf1H+4YCuxFbtygdNl4r97aImZ53r8
+ 1JnIPIp+LJ7ptAPiWgrWQOHkzmZrgvUaV6sGQckI8AiwwistJHaFuWepl
+ SOtxMWblsHBPiz2ZGnWoG39mBdg3gqpzgsu8MkGtmsXPg2PYjaTKcOyWf
+ uo4qWLhvfvBXgNVv1q6FBROiiLbqd6r2GdKr0psIaeqOY54POEjjrr9i4
+ 2Znxim3oM6XHioe5qcu+tGa0GE4U/tXKeRnOgtmEqZdrvrFVYsIbXQUlh
+ Q7LrHi0Wxtuhea7gzT9jOhDhpP2r0i62d5tfsoCzEZhzU9laeryDIBS5A Q==;
+X-CSE-ConnectionGUID: ZtAP3HKeQqaVNIDvLglRAQ==
+X-CSE-MsgGUID: ejkcrtG6Qki64ZZJGpe2wQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11729"; a="74481183"
+X-IronPort-AV: E=Sophos;i="6.23,119,1770624000"; d="scan'208";a="74481183"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+ by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Mar 2026 12:06:12 -0700
+X-CSE-ConnectionGUID: ms0u+3/UR6C4NdXbWExiAA==
+X-CSE-MsgGUID: 8saqSGTVQ8SsZEq7EF3uog==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,119,1770624000"; d="scan'208";a="226478118"
+Received: from lkp-server01.sh.intel.com (HELO 418530b1a366) ([10.239.97.150])
+ by orviesa005.jf.intel.com with ESMTP; 14 Mar 2026 12:06:10 -0700
+Received: from kbuild by 418530b1a366 with local (Exim 4.98.2)
+ (envelope-from <lkp@intel.com>) id 1w1UJK-000000005b1-0w8v;
+ Sat, 14 Mar 2026 19:06:06 +0000
+Date: Sun, 15 Mar 2026 03:05:34 +0800
+From: kernel test robot <lkp@intel.com>
+To: Pedro Demarchi Gomes <pedrodemargomes@gmail.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Icenowy Zheng <zhengxingda@iscas.ac.cn>
-Subject: [PATCH] drm/loongson: stop to set get_vblank_timestamp for 7A1000 CRTC
-Date: Sun, 15 Mar 2026 00:54:21 +0800
-Message-ID: <20260314165421.1201790-1-zhengxingda@iscas.ac.cn>
-X-Mailer: git-send-email 2.52.0
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Boris Brezillon <bbrezillon@kernel.org>,
+ Loic Molinari <loic.molinari@collabora.com>
+Cc: oe-kbuild-all@lists.linux.dev, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org,
+ Pedro Demarchi Gomes <pedrodemargomes@gmail.com>
+Subject: Re: [PATCH] drm/shmem-helper: Fix Map huge page mapping in fault
+ handler
+Message-ID: <202603150233.7ZFf6Fsm-lkp@intel.com>
+References: <20260312155027.1682606-1-pedrodemargomes@gmail.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: rQCowABXdt2_krVp5hKqCg--.41046S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7Xw1UJw1rWr48Kr43Aw15CFg_yoW8Jr4kpF
- srCF1IyrWDXFySywnrJF10kayruay5Jr929a9Fkw13uw45Ar18CF18AFW7uw17XF9rZ3ya
- qrn7tF1YkFs29aUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUUkE14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
- rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
- 1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
- 6F4UM28EF7xvwVC2z280aVAFwI0_Cr0_Gr1UM28EF7xvwVC2z280aVCY1x0267AKxVW8Jr
- 0_Cr1UM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj
- 6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr
- 0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7MxkF7I0En4kS14v2
- 6r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrV
- AFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCI
- c40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267
- AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_
- Gr1lIxAIcVC2z280aVCY1x0267AKxVW8Jr0_Cr1UYxBIdaVFxhVjvjDU0xZFpf9x0JUd-B
- _UUUUU=
-X-Originating-IP: [112.94.100.43]
-X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260312155027.1682606-1-pedrodemargomes@gmail.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,33 +78,90 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-As there's no known hardware capability about querying vblank on the
-7A1000 display controller, setting get_vblank_timestamp will mislead the
-kernel about the support of DC-backed high precision vblank query.
+Hi Pedro,
 
-Drop this function pointer in the CRTC function table for 7A1000.
+kernel test robot noticed the following build warnings:
 
-This solves a kernel warning when booting Linux 7.0-rc3 on a
-3A4000+7A1000 Haier Boyue G51 laptop (with injected EDID for replicating
-the display timing set by the firmware).
+[auto build test WARNING on linus/master]
+[also build test WARNING on v7.0-rc3]
+[cannot apply to drm-misc/drm-misc-next next-20260311]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-Signed-off-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
----
- drivers/gpu/drm/loongson/lsdc_crtc.c | 1 -
- 1 file changed, 1 deletion(-)
+url:    https://github.com/intel-lab-lkp/linux/commits/Pedro-Demarchi-Gomes/drm-shmem-helper-Fix-Map-huge-page-mapping-in-fault-handler/20260314-094433
+base:   linus/master
+patch link:    https://lore.kernel.org/r/20260312155027.1682606-1-pedrodemargomes%40gmail.com
+patch subject: [PATCH] drm/shmem-helper: Fix Map huge page mapping in fault handler
+config: m68k-allmodconfig (https://download.01.org/0day-ci/archive/20260315/202603150233.7ZFf6Fsm-lkp@intel.com/config)
+compiler: m68k-linux-gcc (GCC) 15.2.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260315/202603150233.7ZFf6Fsm-lkp@intel.com/reproduce)
 
-diff --git a/drivers/gpu/drm/loongson/lsdc_crtc.c b/drivers/gpu/drm/loongson/lsdc_crtc.c
-index 587fbe285e9ef..b3af8e0cdb15f 100644
---- a/drivers/gpu/drm/loongson/lsdc_crtc.c
-+++ b/drivers/gpu/drm/loongson/lsdc_crtc.c
-@@ -721,7 +721,6 @@ static const struct drm_crtc_funcs ls7a1000_crtc_funcs = {
- 	.late_register = lsdc_crtc_late_register,
- 	.enable_vblank = lsdc_crtc_enable_vblank,
- 	.disable_vblank = lsdc_crtc_disable_vblank,
--	.get_vblank_timestamp = drm_crtc_vblank_helper_get_vblank_timestamp,
- 	.atomic_print_state = lsdc_crtc_atomic_print_state,
- };
- 
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202603150233.7ZFf6Fsm-lkp@intel.com/
+
+All warnings (new ones prefixed by >>):
+
+>> drivers/gpu/drm/drm_gem_shmem_helper.c:554:19: warning: 'drm_gem_shmem_huge_fault' defined but not used [-Wunused-function]
+     554 | static vm_fault_t drm_gem_shmem_huge_fault(struct vm_fault *vmf,
+         |                   ^~~~~~~~~~~~~~~~~~~~~~~~
+
+
+vim +/drm_gem_shmem_huge_fault +554 drivers/gpu/drm/drm_gem_shmem_helper.c
+
+   552	
+   553	
+ > 554	static vm_fault_t drm_gem_shmem_huge_fault(struct vm_fault *vmf,
+   555						   unsigned int order)
+   556	{
+   557		struct vm_area_struct *vma = vmf->vma;
+   558		struct drm_gem_object *obj = vma->vm_private_data;
+   559		struct drm_gem_shmem_object *shmem = to_drm_gem_shmem_obj(obj);
+   560		loff_t num_pages = obj->size >> PAGE_SHIFT;
+   561		vm_fault_t ret = VM_FAULT_FALLBACK;
+   562		struct page **pages = shmem->pages;
+   563		pgoff_t page_offset;
+   564		unsigned long pfn;
+   565		unsigned long paddr;
+   566		bool aligned;
+   567		struct page *page;
+   568	
+   569		if (order != PMD_ORDER)
+   570			goto out_unlocked;
+   571	
+   572		/* Offset to faulty address in the VMA. */
+   573		page_offset = vmf->pgoff - vma->vm_pgoff;
+   574	
+   575		dma_resv_lock(shmem->base.resv, NULL);
+   576	
+   577		if (page_offset >= num_pages ||
+   578		    drm_WARN_ON_ONCE(obj->dev, !shmem->pages) ||
+   579		    shmem->madv < 0) {
+   580			ret = VM_FAULT_SIGBUS;
+   581			goto out;
+   582		}
+   583	
+   584		page = pages[page_offset];
+   585		pfn = page_to_pfn(page);
+   586		paddr = pfn << PAGE_SHIFT;
+   587		aligned = (vmf->address & ~PMD_MASK) == (paddr & ~PMD_MASK);
+   588	
+   589		if (aligned &&
+   590		    folio_test_pmd_mappable(page_folio(page))) {
+   591			pfn &= PMD_MASK >> PAGE_SHIFT;
+   592			ret = vmf_insert_pfn_pmd(vmf, pfn, false);
+   593		}
+   594	
+   595	 out:
+   596		dma_resv_unlock(shmem->base.resv);
+   597	
+   598	 out_unlocked:
+   599		return ret;
+   600	}
+   601	
+
 -- 
-2.52.0
-
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
