@@ -4,97 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ABBC1D58B1B
-	for <dri-devel@archiver.kernel.org>; Sun, 15 Mar 2026 11:21:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E0C4FD58B17
+	for <dri-devel@archiver.kernel.org>; Sun, 15 Mar 2026 12:32:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ED11810E570;
-	Sun, 15 Mar 2026 11:21:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D63F810E14C;
+	Sun, 15 Mar 2026 12:32:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="i2FKZoAU";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="FYBYrVMW";
 	dkim-atps=neutral
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com
- [209.85.128.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 44B0D10E18E
- for <dri-devel@lists.freedesktop.org>; Sat, 14 Mar 2026 21:46:33 +0000 (UTC)
-Received: by mail-wm1-f41.google.com with SMTP id
- 5b1f17b1804b1-48534b59cf3so29557495e9.2
- for <dri-devel@lists.freedesktop.org>; Sat, 14 Mar 2026 14:46:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1773524792; x=1774129592; darn=lists.freedesktop.org;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=t4dcDIIqWjuCuDIw/EKfyfSSct6pSLR9IhCmDMZcgFo=;
- b=i2FKZoAUVhEETPj2+dnJrOWUE1XKBWKc1VKduWKgrmvCfwWHuLQyNMnVF8HGPMKZW1
- 4DHiKxOwjIPnWhVgI1zQ6iIUkzuZyn9qXVq7A5GHJXQTZUHRIEkS/BLo9UK4/5Q1ZjR9
- ofShglHxyUrkWtj1P7NPxVTOLrB6/RKndD7Tnt2oxoW8lwKl9gy6wKnef9CBABPPiyLx
- XiEJ5E22L5+ba+wSCETT5Bl2wpDzc3dozE0dh8+FwUIY6npN2hjs9nINh4fiBCVRYcVq
- 5Adj/3oTU8YUqFuVG4epF+AsU/Kd7Dg4mLclN+eILEXNTW+PgJl8i95bWf3jfyHDZ7UC
- OClg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1773524792; x=1774129592;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
- :cc:subject:date:message-id:reply-to;
- bh=t4dcDIIqWjuCuDIw/EKfyfSSct6pSLR9IhCmDMZcgFo=;
- b=N4AlRTWhnoWYTZvLO3sr1AwlUsJmyuaCxOAxFReovW3+whYVeFSPcyuJ2lLpAzDFOO
- wbSrHrCG9r1jnlrsPLk1AS19fccWJoEFjYHchKyx9sBKxqBr2O0fmNucA06NluEGM2l4
- QuvnbSiWUdfm0YIkfAXDqw8hEGmXsePCB/qGdOz3F1plmakB0yc0UuXsHQ2GGIWa95uX
- mAF5ooPnZcyXOgMKVqcmcZDt4ilMnwOlHJAiluprOxGct4EZ3MulXzXVjrEzKEU51MM+
- hcwXm6Ovp/ZMnz+PJ5GCqR6t08N8K3xHxNv0LRRcxugD836EGMEx/9YCAZd2F3V2z3gc
- erOA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWO4C5/5HOZBxt0SZU7Urd8SWYU/60lFNvg4ymzIPuCKW+Qves/db3sLHR65Df2bUco20spz3eXWkI=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyibpaZxlOb2eDDFHv3w0nAQztNbBIDM7ymaIZPAITP554d5qeY
- j41sS43BCi7Irol7+eUgr805VsIJzxKRvlO0y1qj+hJOXYmrXkSJRUQ8
-X-Gm-Gg: ATEYQzyw+zrhGQSw37luzdMX6EOzAElitKFoqWNxiMIYPVORvwfGt1sDZ6NILh7Z4pu
- STroksXOQIEuRVd61ftzDv02VYaCZRjr9yyriifZ8ZGG0zvXQR9fkVmm1Pg/7PqWpibcWP6Oo3U
- 8uS0Qub01l5g3nr41BqizLS7gDvIvguHE8SymVLNJBYuKMOuqY1y4lBPS2LUHs1GmKFaJ0Tom4U
- Q6XIK5r3EJdDHb8RM/IU03Kj3UIKkkDgwz011xIQhab/MhP50zxA5NFS3RjJ7/4LUbpej0QUMq+
- LPen84nqfeZ5+TFUdb061++7Uhn05CrJHjmh1IcX/hzCC3/SGiiqgL9jm3qu+jfnd8UjpoUdkdv
- RMZcAHRxioq49z1J1bRrYimB5Yp6i3yFt/ZOZLDtmPxPM1Sn3rRT1WN9zMY7i4peOYCD45QAdFs
- JTp/oh3r2uXAj5fOAiJof7O2c6aP5K/ZJPkx6NLSmhG9A1zznlVy22LjXyYdTuUXw=
-X-Received: by 2002:a05:600c:3552:b0:485:1878:7b8c with SMTP id
- 5b1f17b1804b1-485567028b2mr128325555e9.18.1773524791465; 
- Sat, 14 Mar 2026 14:46:31 -0700 (PDT)
-Received: from [10.100.102.17] (89-139-129-65.bb.netvision.net.il.
- [89.139.129.65]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-439fe19aec5sm28756221f8f.4.2026.03.14.14.46.29
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 14 Mar 2026 14:46:31 -0700 (PDT)
-From: Yedaya Katsman <yedaya.ka@gmail.com>
-Date: Sat, 14 Mar 2026 23:46:22 +0200
-Subject: [PATCH v4 2/3] drm: panel: Add Samsung S6E8FCO DSI controller for
- M1906F9 panel
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A3C3E10E14C;
+ Sun, 15 Mar 2026 12:32:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1773577944; x=1805113944;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=oI6MMjdrRiaCAiLm+4uAHBkh86Uge9u2mrxFB1RgqEA=;
+ b=FYBYrVMWVLoCXY1bQb6Wqmx6pAReHf2vld/znmhExgl/5uUQS2JlxG87
+ J7Yh8eHE20Pro4AqDqINtUCKX9htJVwSvCId9BA1wWmebnt8fq2IN5PoE
+ ymS9uozo8iforCH8clHuIZ9VoWWXq/6dp45YJnpWSfx42JvsPusJB9OQE
+ hn7oo0ML4pMngvfPYMpMdu6VJcrBherOaoaXjyqawmoUtjzxN3mMoX3g5
+ 9ufhaBklnsZ+saCKnTEp4UpwP+2Nrcs4z3aomcBaKlTe4QNr1DXOHoMjj
+ EfHwjupTGENw2wAhYeRqi6QFm6Ip6bCxvYkFaYBOM7UM137PKh9U/dNEL g==;
+X-CSE-ConnectionGUID: 7IrYrytDSSezOk2IFbyUXA==
+X-CSE-MsgGUID: ZM8qw4xbRAq2nWTQgi9xBg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11729"; a="74583986"
+X-IronPort-AV: E=Sophos;i="6.23,122,1770624000"; d="scan'208";a="74583986"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+ by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Mar 2026 05:32:24 -0700
+X-CSE-ConnectionGUID: OvcvSN/VRY6kcg8sUlkdvA==
+X-CSE-MsgGUID: bNt8mSvJTS+UeALy/t88Pg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,122,1770624000"; d="scan'208";a="259528675"
+Received: from lkp-server01.sh.intel.com (HELO 418530b1a366) ([10.239.97.150])
+ by orviesa001.jf.intel.com with ESMTP; 15 Mar 2026 05:32:22 -0700
+Received: from kbuild by 418530b1a366 with local (Exim 4.98.2)
+ (envelope-from <lkp@intel.com>) id 1w1kdn-000000006WR-39ic;
+ Sun, 15 Mar 2026 12:32:19 +0000
+Date: Sun, 15 Mar 2026 20:31:47 +0800
+From: kernel test robot <lkp@intel.com>
+To: Francois Dugast <francois.dugast@intel.com>, intel-xe@lists.freedesktop.org
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+ dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH v8 2/4] drm/pagemap: Add helper to access zone_device_data
+Message-ID: <202603152031.EJj7lRw4-lkp@intel.com>
+References: <20260312151726.1779566-3-francois.dugast@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260314-panel-patches-v4-2-1ecbb2c0c3c8@gmail.com>
-References: <20260314-panel-patches-v4-0-1ecbb2c0c3c8@gmail.com>
-In-Reply-To: <20260314-panel-patches-v4-0-1ecbb2c0c3c8@gmail.com>
-To: Neil Armstrong <neil.armstrong@linaro.org>, 
- Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- =?utf-8?q?Kamil_Go=C5=82da?= <kamil.golda@protonmail.com>, 
- Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, 
- Kaustabh Chakraborty <kauschluss@disroot.org>
-Cc: ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
- Yedaya Katsman <yedaya.ka@gmail.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1773524784; l=12581;
- i=yedaya.ka@gmail.com; s=20260113; h=from:subject:message-id;
- bh=7QWXwQae0M3nfvVtdUe9fsLhIDOP/YC+Hs++mWbyNjU=;
- b=NnI0t3ib6ozAfw0oattCqPISiDzJyiVkEB94+5zVdFfiGqlIrYX1jDLcO3QneYa6iFcEbqzY5
- h2YTW3rpW5gAQK5FXGxx25Z8lj+wZ8nmJXCORPrM0+POjCjBjM2mKC0
-X-Developer-Key: i=yedaya.ka@gmail.com; a=ed25519;
- pk=CgNmxD3tYSws5dZfpmJfc6re/bV/f47veVijddHLytk=
-X-Mailman-Approved-At: Sun, 15 Mar 2026 11:20:58 +0000
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260312151726.1779566-3-francois.dugast@intel.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,384 +70,272 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add driver for Samsung S6E8FCO DSI controller for M1906F9 video mode panel,
-found in Xiaomi Mi A3 mobile phone.
+Hi Francois,
 
-Co-developed-by: Kamil Gołda <kamil.golda@protonmail.com>
-Signed-off-by: Kamil Gołda <kamil.golda@protonmail.com>
-Signed-off-by: Yedaya Katsman <yedaya.ka@gmail.com>
+kernel test robot noticed the following build errors:
 
----
+[auto build test ERROR on drm-misc/drm-misc-next]
+[also build test ERROR on daeinki-drm-exynos/exynos-drm-next drm/drm-next drm-i915/for-linux-next drm-i915/for-linux-next-fixes drm-tip/drm-tip linus/master v7.0-rc3 next-20260311]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-The downstream dts claims a max brightness of 2047, but seems to ignore the
-MSB.
----
- MAINTAINERS                                        |   5 +
- drivers/gpu/drm/panel/Kconfig                      |  13 +
- drivers/gpu/drm/panel/Makefile                     |   1 +
- .../gpu/drm/panel/panel-samsung-s6e8fco-m1906f9.c  | 301 +++++++++++++++++++++
- 4 files changed, 320 insertions(+)
+url:    https://github.com/intel-lab-lkp/linux/commits/Francois-Dugast/drm-pagemap-Unlock-and-put-folios-when-possible/20260314-185018
+base:   https://gitlab.freedesktop.org/drm/misc/kernel.git drm-misc-next
+patch link:    https://lore.kernel.org/r/20260312151726.1779566-3-francois.dugast%40intel.com
+patch subject: [PATCH v8 2/4] drm/pagemap: Add helper to access zone_device_data
+config: sparc64-allmodconfig (https://download.01.org/0day-ci/archive/20260315/202603152031.EJj7lRw4-lkp@intel.com/config)
+compiler: clang version 23.0.0git (https://github.com/llvm/llvm-project 7d47b695929cc7f85eeb0f87d0189adc04c1c629)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260315/202603152031.EJj7lRw4-lkp@intel.com/reproduce)
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index e087673237636268346979ddc270f8cf0905c722..0c835d432ced8cc1c8494596bc1c2a36eadd6fe8 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -8183,6 +8183,11 @@ S:	Maintained
- F:	Documentation/devicetree/bindings/display/panel/samsung,s6e3ha8.yaml
- F:	drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c
- 
-+DRM DRIVER FOR SAMSUNG S6E8FCO PANELS
-+M:	Yedaya Katsman <yedaya.ka@gmail.com>
-+S:	Maintained
-+F:	drivers/gpu/drm/panel/panel-samsung-s6e8fco-m1906f9.c
-+
- DRM DRIVER FOR SAMSUNG SOFEF00 DDIC
- M:	David Heidelberg <david@ixit.cz>
- M:	Casey Connolly <casey.connolly@linaro.org>
-diff --git a/drivers/gpu/drm/panel/Kconfig b/drivers/gpu/drm/panel/Kconfig
-index 7a83804fedca1b688ce6fbe4295ec9009007e693..47a8a2d2535f3fa46fc4545ae30f7e0b6b3d2e1d 100644
---- a/drivers/gpu/drm/panel/Kconfig
-+++ b/drivers/gpu/drm/panel/Kconfig
-@@ -893,6 +893,19 @@ config DRM_PANEL_SAMSUNG_S6E8AA5X01_AMS561RA01
- 	  ~5.6 inch AMOLED display, and the controller is driven by the MIPI
- 	  DSI protocol with 4 lanes.
- 
-+config DRM_PANEL_SAMSUNG_S6E8FCO
-+	tristate "Samsung S6E8FCO DSI controller"
-+	depends on OF
-+	depends on BACKLIGHT_CLASS_DEVICE
-+	select DRM_MIPI_DSI
-+	help
-+	  Say Y or M here if you want to enable support for the Samsung
-+	  S6E8FCO DSI controller and connected panel.
-+	  Currently supported panels:
-+
-+	    M1906F9 (M1906F9SH or M1906F9SI), 6.09 inch 720x1560, found
-+	    in the Xiaomi Mi A3 smartphone (xiaomi-laurel).
-+
- config DRM_PANEL_SAMSUNG_SOFEF00
- 	tristate "Samsung SOFEF00 DSI panel controller"
- 	depends on OF
-diff --git a/drivers/gpu/drm/panel/Makefile b/drivers/gpu/drm/panel/Makefile
-index b9562a6fdcb38bfd0dfee9e8c11e16149ada4386..0cf7f0fb4654eb3dc67b2f15294ea46015a9bcdc 100644
---- a/drivers/gpu/drm/panel/Makefile
-+++ b/drivers/gpu/drm/panel/Makefile
-@@ -91,6 +91,7 @@ obj-$(CONFIG_DRM_PANEL_SAMSUNG_S6E88A0_AMS427AP24) += panel-samsung-s6e88a0-ams4
- obj-$(CONFIG_DRM_PANEL_SAMSUNG_S6E88A0_AMS452EF01) += panel-samsung-s6e88a0-ams452ef01.o
- obj-$(CONFIG_DRM_PANEL_SAMSUNG_S6E8AA0) += panel-samsung-s6e8aa0.o
- obj-$(CONFIG_DRM_PANEL_SAMSUNG_S6E8AA5X01_AMS561RA01) += panel-samsung-s6e8aa5x01-ams561ra01.o
-+obj-$(CONFIG_DRM_PANEL_SAMSUNG_S6E8FCO) += panel-samsung-s6e8fco-m1906f9.o
- obj-$(CONFIG_DRM_PANEL_SAMSUNG_SOFEF00) += panel-samsung-sofef00.o
- obj-$(CONFIG_DRM_PANEL_SEIKO_43WVF1G) += panel-seiko-43wvf1g.o
- obj-$(CONFIG_DRM_PANEL_SHARP_LQ079L1SX01) += panel-sharp-lq079l1sx01.o
-diff --git a/drivers/gpu/drm/panel/panel-samsung-s6e8fco-m1906f9.c b/drivers/gpu/drm/panel/panel-samsung-s6e8fco-m1906f9.c
-new file mode 100644
-index 0000000000000000000000000000000000000000..7fabfe19b5728612ab2a2518a8a100e7010b1d0c
---- /dev/null
-+++ b/drivers/gpu/drm/panel/panel-samsung-s6e8fco-m1906f9.c
-@@ -0,0 +1,301 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+// Copyright (c) Kamil Gołda <kamil.golda@protonmail.com>
-+// Copyright (c) Yedaya Katsman <yedaya.ka@gmail.com>
-+// Generated with linux-mdss-dsi-panel-driver-generator from vendor device tree:
-+//   Copyright (c) The Linux Foundation. All rights reserved.
-+
-+#include <linux/backlight.h>
-+#include <linux/delay.h>
-+#include <linux/gpio/consumer.h>
-+#include <linux/mod_devicetable.h>
-+#include <linux/module.h>
-+#include <linux/regulator/consumer.h>
-+
-+#include <video/mipi_display.h>
-+
-+#include <drm/drm_mipi_dsi.h>
-+#include <drm/drm_modes.h>
-+#include <drm/drm_panel.h>
-+#include <drm/drm_probe_helper.h>
-+
-+struct s6e8fco_ctx {
-+	struct drm_panel panel;
-+	struct mipi_dsi_device *dsi;
-+	struct regulator_bulk_data *supplies;
-+	struct gpio_desc *reset_gpio;
-+};
-+
-+static const struct regulator_bulk_data s6e8fco_m1906f9_supplies[] = {
-+	{ .supply = "vdd" },
-+	{ .supply = "vci" },
-+};
-+
-+static inline
-+struct s6e8fco_ctx *to_s6e8fco_ctx(struct drm_panel *panel)
-+{
-+	return container_of_const(panel, struct s6e8fco_ctx, panel);
-+}
-+
-+static void s6e8fco_m1906f9_reset(struct s6e8fco_ctx *ctx)
-+{
-+	gpiod_set_value_cansleep(ctx->reset_gpio, 0);
-+	usleep_range(12000, 13000);
-+	gpiod_set_value_cansleep(ctx->reset_gpio, 1);
-+	usleep_range(2000, 3000);
-+	gpiod_set_value_cansleep(ctx->reset_gpio, 0);
-+	usleep_range(10000, 11000);
-+}
-+
-+#define s6e8fco_m1906f9_test_key_on_lvl2(ctx) \
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xf0, 0x5a, 0x5a)
-+#define s6e8fco_m1906f9_test_key_off_lvl2(ctx) \
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xf0, 0xa5, 0xa5)
-+#define s6e8fco_m1906f9_test_key_on_lvl3(ctx) \
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xfc, 0x5a, 0x5a)
-+#define s6e8fco_m1906f9_test_key_off_lvl3(ctx) \
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xfc, 0xa5, 0xa5)
-+
-+static int s6e8fco_m1906f9_on(struct s6e8fco_ctx *ctx)
-+{
-+	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
-+
-+	s6e8fco_m1906f9_test_key_on_lvl3(&dsi_ctx);
-+
-+	mipi_dsi_dcs_set_display_brightness_multi(&dsi_ctx, 0x0000);
-+	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, MIPI_DCS_WRITE_CONTROL_DISPLAY,
-+				     0x20);
-+	mipi_dsi_dcs_exit_sleep_mode_multi(&dsi_ctx);
-+	mipi_dsi_msleep(&dsi_ctx, 50);
-+	mipi_dsi_dcs_set_display_on_multi(&dsi_ctx);
-+
-+	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xb0, 0x04, 0xed);
-+	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xed,
-+				     0xe4, 0x08, 0x96, 0xa4, 0x2a, 0x72, 0xe2,
-+				     0xca, 0x00);
-+	s6e8fco_m1906f9_test_key_off_lvl3(&dsi_ctx);
-+	s6e8fco_m1906f9_test_key_on_lvl2(&dsi_ctx);
-+	s6e8fco_m1906f9_test_key_on_lvl3(&dsi_ctx);
-+	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xe1, 0x93);
-+	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xb0, 0x05, 0xf4);
-+	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xf4, 0x03);
-+	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xed, 0x01, 0x81, 0x04);
-+	s6e8fco_m1906f9_test_key_off_lvl2(&dsi_ctx);
-+	s6e8fco_m1906f9_test_key_off_lvl3(&dsi_ctx);
-+
-+	return dsi_ctx.accum_err;
-+}
-+
-+static int s6e8fco_m1906f9_off(struct s6e8fco_ctx *ctx)
-+{
-+	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
-+
-+	mipi_dsi_dcs_set_display_off_multi(&dsi_ctx);
-+	mipi_dsi_msleep(&dsi_ctx, 20);
-+	mipi_dsi_dcs_enter_sleep_mode_multi(&dsi_ctx);
-+	mipi_dsi_msleep(&dsi_ctx, 120);
-+
-+	return dsi_ctx.accum_err;
-+}
-+
-+static int s6e8fco_m1906f9_prepare(struct drm_panel *panel)
-+{
-+	struct s6e8fco_ctx *ctx = to_s6e8fco_ctx(panel);
-+	struct device *dev = &ctx->dsi->dev;
-+	int ret;
-+
-+	ret = regulator_bulk_enable(ARRAY_SIZE(s6e8fco_m1906f9_supplies), ctx->supplies);
-+	if (ret < 0) {
-+		dev_err(dev, "Failed to enable regulators: %d\n", ret);
-+		return ret;
-+	}
-+
-+	s6e8fco_m1906f9_reset(ctx);
-+
-+	ret = s6e8fco_m1906f9_on(ctx);
-+	if (ret < 0) {
-+		dev_err(dev, "Failed to initialize panel: %d\n", ret);
-+		gpiod_set_value_cansleep(ctx->reset_gpio, 1);
-+		regulator_bulk_disable(ARRAY_SIZE(s6e8fco_m1906f9_supplies), ctx->supplies);
-+		return ret;
-+	}
-+
-+	return 0;
-+}
-+
-+static int s6e8fco_m1906f9_unprepare(struct drm_panel *panel)
-+{
-+	struct s6e8fco_ctx *ctx = to_s6e8fco_ctx(panel);
-+	struct device *dev = &ctx->dsi->dev;
-+	int ret;
-+
-+	ret = s6e8fco_m1906f9_off(ctx);
-+	if (ret < 0)
-+		dev_err(dev, "Failed to un-initialize panel: %d\n", ret);
-+
-+	gpiod_set_value_cansleep(ctx->reset_gpio, 1);
-+	regulator_bulk_disable(ARRAY_SIZE(s6e8fco_m1906f9_supplies), ctx->supplies);
-+
-+	return 0;
-+}
-+
-+static const struct drm_display_mode s6e8fco_m1906f9_samsungp_mode = {
-+	.clock = (720 + 350 + 40 + 294) * (1560 + 17 + 2 + 5) * 60 / 1000,
-+	.hdisplay = 720,
-+	.hsync_start = 720 + 350,
-+	.hsync_end = 720 + 350 + 40,
-+	.htotal = 720 + 350 + 40 + 294,
-+	.vdisplay = 1560,
-+	.vsync_start = 1560 + 17,
-+	.vsync_end = 1560 + 17 + 2,
-+	.vtotal = 1560 + 17 + 2 + 5,
-+	.width_mm = 65,
-+	.height_mm = 140,
-+	.type = DRM_MODE_TYPE_DRIVER,
-+};
-+
-+static int s6e8fco_m1906f9_get_modes(struct drm_panel *panel,
-+				      struct drm_connector *connector)
-+{
-+	return drm_connector_helper_get_modes_fixed(connector, &s6e8fco_m1906f9_samsungp_mode);
-+}
-+
-+static const struct drm_panel_funcs s6e8fco_m1906f9_panel_funcs = {
-+	.prepare = s6e8fco_m1906f9_prepare,
-+	.unprepare = s6e8fco_m1906f9_unprepare,
-+	.get_modes = s6e8fco_m1906f9_get_modes,
-+};
-+
-+static int s6e8fco_bl_update_status(struct backlight_device *bl)
-+{
-+	struct mipi_dsi_device *dsi = bl_get_data(bl);
-+	u16 brightness = backlight_get_brightness(bl);
-+	int ret;
-+
-+	dsi->mode_flags &= ~MIPI_DSI_MODE_LPM;
-+
-+	ret = mipi_dsi_dcs_set_display_brightness_large(dsi, brightness);
-+	if (ret < 0)
-+		return ret;
-+
-+	dsi->mode_flags |= MIPI_DSI_MODE_LPM;
-+
-+	return 0;
-+}
-+
-+static int s6e8fco_bl_get_brightness(struct backlight_device *bl)
-+{
-+	struct mipi_dsi_device *dsi = bl_get_data(bl);
-+	u16 brightness;
-+	int ret;
-+
-+	dsi->mode_flags &= ~MIPI_DSI_MODE_LPM;
-+
-+	ret = mipi_dsi_dcs_get_display_brightness_large(dsi, &brightness);
-+	if (ret < 0)
-+		return ret;
-+
-+	dsi->mode_flags |= MIPI_DSI_MODE_LPM;
-+
-+	return brightness;
-+}
-+
-+static const struct backlight_ops s6e8fco_bl_ops = {
-+	.update_status = s6e8fco_bl_update_status,
-+	.get_brightness = s6e8fco_bl_get_brightness,
-+};
-+
-+static struct backlight_device *
-+s6e8fco_m1906f9_create_backlight(struct mipi_dsi_device *dsi)
-+{
-+	struct device *dev = &dsi->dev;
-+	const struct backlight_properties props = {
-+		.type = BACKLIGHT_RAW,
-+		.brightness = 512,
-+		.max_brightness = 1023,
-+	};
-+
-+	return devm_backlight_device_register(dev, dev_name(dev), dev, dsi,
-+					      &s6e8fco_bl_ops, &props);
-+}
-+
-+static int s6e8fco_m1906f9_probe(struct mipi_dsi_device *dsi)
-+{
-+	struct device *dev = &dsi->dev;
-+	struct s6e8fco_ctx *ctx;
-+	int ret;
-+
-+	ctx = devm_drm_panel_alloc(dev, struct s6e8fco_ctx, panel,
-+				   &s6e8fco_m1906f9_panel_funcs,
-+				   DRM_MODE_CONNECTOR_DSI);
-+	if (IS_ERR(ctx))
-+		return PTR_ERR(ctx);
-+
-+	ret = devm_regulator_bulk_get_const(dev,
-+					    ARRAY_SIZE(s6e8fco_m1906f9_supplies),
-+					    s6e8fco_m1906f9_supplies,
-+					    &ctx->supplies);
-+	if (ret < 0)
-+		return ret;
-+
-+	ctx->reset_gpio = devm_gpiod_get(dev, "reset", GPIOD_OUT_HIGH);
-+	if (IS_ERR(ctx->reset_gpio))
-+		return dev_err_probe(dev, PTR_ERR(ctx->reset_gpio),
-+				     "Failed to get reset-gpios\n");
-+
-+	ctx->dsi = dsi;
-+	mipi_dsi_set_drvdata(dsi, ctx);
-+
-+	dsi->lanes = 4;
-+	dsi->format = MIPI_DSI_FMT_RGB888;
-+	dsi->mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_BURST |
-+			  MIPI_DSI_CLOCK_NON_CONTINUOUS;
-+
-+	ctx->panel.prepare_prev_first = true;
-+
-+	ctx->panel.backlight = s6e8fco_m1906f9_create_backlight(dsi);
-+	if (IS_ERR(ctx->panel.backlight))
-+		return dev_err_probe(dev, PTR_ERR(ctx->panel.backlight),
-+				     "Failed to create backlight\n");
-+
-+	drm_panel_add(&ctx->panel);
-+
-+	ret = mipi_dsi_attach(dsi);
-+	if (ret < 0) {
-+		drm_panel_remove(&ctx->panel);
-+		return dev_err_probe(dev, ret, "Failed to attach to DSI host\n");
-+	}
-+
-+	return 0;
-+}
-+
-+static void s6e8fco_remove(struct mipi_dsi_device *dsi)
-+{
-+	struct s6e8fco_ctx *ctx = mipi_dsi_get_drvdata(dsi);
-+	int ret;
-+
-+	ret = mipi_dsi_detach(dsi);
-+	if (ret < 0)
-+		dev_err(&dsi->dev, "Failed to detach from DSI host: %d\n", ret);
-+
-+	drm_panel_remove(&ctx->panel);
-+}
-+
-+static const struct of_device_id samsung_s6e8fco_m1906f9_of_match[] = {
-+	{ .compatible = "samsung,s6e8fco-m1906f9" },
-+	{ /* sentinel */ }
-+};
-+MODULE_DEVICE_TABLE(of, samsung_s6e8fco_m1906f9_of_match);
-+
-+static struct mipi_dsi_driver s6e8fco_m1906f9_driver = {
-+	.probe = s6e8fco_m1906f9_probe,
-+	.remove = s6e8fco_remove,
-+	.driver = {
-+		.name = "panel-samsung-s6e8fco-m1906f9",
-+		.of_match_table = samsung_s6e8fco_m1906f9_of_match,
-+	},
-+};
-+module_mipi_dsi_driver(s6e8fco_m1906f9_driver);
-+
-+MODULE_AUTHOR("Kamil Gołda <kamil.golda@protonmail.com>");
-+MODULE_DESCRIPTION("DRM driver for Samsung s6e8fco DSI controller");
-+MODULE_LICENSE("GPL");
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202603152031.EJj7lRw4-lkp@intel.com/
+
+All errors (new ones prefixed by >>):
+
+>> drivers/gpu/drm/drm_gpusvm.c:1492:5: error: call to undeclared function 'drm_pagemap_page_zone_device_data'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+    1492 |                                 drm_pagemap_page_zone_device_data(page);
+         |                                 ^
+   drivers/gpu/drm/drm_gpusvm.c:1492:5: note: did you mean 'drm_pagemap_page_to_dpagemap'?
+   include/drm/drm_pagemap.h:264:35: note: 'drm_pagemap_page_to_dpagemap' declared here
+     264 | static inline struct drm_pagemap *drm_pagemap_page_to_dpagemap(struct page *page)
+         |                                   ^
+>> drivers/gpu/drm/drm_gpusvm.c:1491:28: error: incompatible integer to pointer conversion initializing 'struct drm_pagemap_zdd *' with an expression of type 'int' [-Wint-conversion]
+    1491 |                         struct drm_pagemap_zdd *__zdd =
+         |                                                 ^
+    1492 |                                 drm_pagemap_page_zone_device_data(page);
+         |                                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   2 errors generated.
+
+
+vim +/drm_pagemap_page_zone_device_data +1492 drivers/gpu/drm/drm_gpusvm.c
+
+  1366	
+  1367	/**
+  1368	 * drm_gpusvm_get_pages() - Get pages and populate GPU SVM pages struct
+  1369	 * @gpusvm: Pointer to the GPU SVM structure
+  1370	 * @svm_pages: The SVM pages to populate. This will contain the dma-addresses
+  1371	 * @mm: The mm corresponding to the CPU range
+  1372	 * @notifier: The corresponding notifier for the given CPU range
+  1373	 * @pages_start: Start CPU address for the pages
+  1374	 * @pages_end: End CPU address for the pages (exclusive)
+  1375	 * @ctx: GPU SVM context
+  1376	 *
+  1377	 * This function gets and maps pages for CPU range and ensures they are
+  1378	 * mapped for DMA access.
+  1379	 *
+  1380	 * Return: 0 on success, negative error code on failure.
+  1381	 */
+  1382	int drm_gpusvm_get_pages(struct drm_gpusvm *gpusvm,
+  1383				 struct drm_gpusvm_pages *svm_pages,
+  1384				 struct mm_struct *mm,
+  1385				 struct mmu_interval_notifier *notifier,
+  1386				 unsigned long pages_start, unsigned long pages_end,
+  1387				 const struct drm_gpusvm_ctx *ctx)
+  1388	{
+  1389		struct hmm_range hmm_range = {
+  1390			.default_flags = HMM_PFN_REQ_FAULT | (ctx->read_only ? 0 :
+  1391				HMM_PFN_REQ_WRITE),
+  1392			.notifier = notifier,
+  1393			.start = pages_start,
+  1394			.end = pages_end,
+  1395			.dev_private_owner = ctx->device_private_page_owner,
+  1396		};
+  1397		void *zdd;
+  1398		unsigned long timeout =
+  1399			jiffies + msecs_to_jiffies(HMM_RANGE_DEFAULT_TIMEOUT);
+  1400		unsigned long i, j;
+  1401		unsigned long npages = npages_in_range(pages_start, pages_end);
+  1402		unsigned long num_dma_mapped;
+  1403		unsigned int order = 0;
+  1404		unsigned long *pfns;
+  1405		int err = 0;
+  1406		struct dev_pagemap *pagemap;
+  1407		struct drm_pagemap *dpagemap;
+  1408		struct drm_gpusvm_pages_flags flags;
+  1409		enum dma_data_direction dma_dir = ctx->read_only ? DMA_TO_DEVICE :
+  1410								   DMA_BIDIRECTIONAL;
+  1411	
+  1412	retry:
+  1413		if (time_after(jiffies, timeout))
+  1414			return -EBUSY;
+  1415	
+  1416		hmm_range.notifier_seq = mmu_interval_read_begin(notifier);
+  1417		if (drm_gpusvm_pages_valid_unlocked(gpusvm, svm_pages))
+  1418			goto set_seqno;
+  1419	
+  1420		pfns = kvmalloc_array(npages, sizeof(*pfns), GFP_KERNEL);
+  1421		if (!pfns)
+  1422			return -ENOMEM;
+  1423	
+  1424		if (!mmget_not_zero(mm)) {
+  1425			err = -EFAULT;
+  1426			goto err_free;
+  1427		}
+  1428	
+  1429		hmm_range.hmm_pfns = pfns;
+  1430		while (true) {
+  1431			mmap_read_lock(mm);
+  1432			err = hmm_range_fault(&hmm_range);
+  1433			mmap_read_unlock(mm);
+  1434	
+  1435			if (err == -EBUSY) {
+  1436				if (time_after(jiffies, timeout))
+  1437					break;
+  1438	
+  1439				hmm_range.notifier_seq =
+  1440					mmu_interval_read_begin(notifier);
+  1441				continue;
+  1442			}
+  1443			break;
+  1444		}
+  1445		mmput(mm);
+  1446		if (err)
+  1447			goto err_free;
+  1448	
+  1449	map_pages:
+  1450		/*
+  1451		 * Perform all dma mappings under the notifier lock to not
+  1452		 * access freed pages. A notifier will either block on
+  1453		 * the notifier lock or unmap dma.
+  1454		 */
+  1455		drm_gpusvm_notifier_lock(gpusvm);
+  1456	
+  1457		flags.__flags = svm_pages->flags.__flags;
+  1458		if (flags.unmapped) {
+  1459			drm_gpusvm_notifier_unlock(gpusvm);
+  1460			err = -EFAULT;
+  1461			goto err_free;
+  1462		}
+  1463	
+  1464		if (mmu_interval_read_retry(notifier, hmm_range.notifier_seq)) {
+  1465			drm_gpusvm_notifier_unlock(gpusvm);
+  1466			kvfree(pfns);
+  1467			goto retry;
+  1468		}
+  1469	
+  1470		if (!svm_pages->dma_addr) {
+  1471			/* Unlock and restart mapping to allocate memory. */
+  1472			drm_gpusvm_notifier_unlock(gpusvm);
+  1473			svm_pages->dma_addr =
+  1474				kvmalloc_objs(*svm_pages->dma_addr, npages);
+  1475			if (!svm_pages->dma_addr) {
+  1476				err = -ENOMEM;
+  1477				goto err_free;
+  1478			}
+  1479			goto map_pages;
+  1480		}
+  1481	
+  1482		zdd = NULL;
+  1483		pagemap = NULL;
+  1484		num_dma_mapped = 0;
+  1485		for (i = 0, j = 0; i < npages; ++j) {
+  1486			struct page *page = hmm_pfn_to_page(pfns[i]);
+  1487	
+  1488			order = drm_gpusvm_hmm_pfn_to_order(pfns[i], i, npages);
+  1489			if (is_device_private_page(page) ||
+  1490			    is_device_coherent_page(page)) {
+> 1491				struct drm_pagemap_zdd *__zdd =
+> 1492					drm_pagemap_page_zone_device_data(page);
+  1493	
+  1494				if (!ctx->allow_mixed &&
+  1495				    zdd != __zdd && i > 0) {
+  1496					err = -EOPNOTSUPP;
+  1497					goto err_unmap;
+  1498				}
+  1499				zdd = __zdd;
+  1500				if (pagemap != page_pgmap(page)) {
+  1501					if (pagemap) {
+  1502						err = -EOPNOTSUPP;
+  1503						goto err_unmap;
+  1504					}
+  1505	
+  1506					pagemap = page_pgmap(page);
+  1507					dpagemap = drm_pagemap_page_to_dpagemap(page);
+  1508					if (drm_WARN_ON(gpusvm->drm, !dpagemap)) {
+  1509						/*
+  1510						 * Raced. This is not supposed to happen
+  1511						 * since hmm_range_fault() should've migrated
+  1512						 * this page to system.
+  1513						 */
+  1514						err = -EAGAIN;
+  1515						goto err_unmap;
+  1516					}
+  1517				}
+  1518				svm_pages->dma_addr[j] =
+  1519					dpagemap->ops->device_map(dpagemap,
+  1520								  gpusvm->drm->dev,
+  1521								  page, order,
+  1522								  dma_dir);
+  1523				if (dma_mapping_error(gpusvm->drm->dev,
+  1524						      svm_pages->dma_addr[j].addr)) {
+  1525					err = -EFAULT;
+  1526					goto err_unmap;
+  1527				}
+  1528			} else {
+  1529				dma_addr_t addr;
+  1530	
+  1531				if (is_zone_device_page(page) ||
+  1532				    (pagemap && !ctx->allow_mixed)) {
+  1533					err = -EOPNOTSUPP;
+  1534					goto err_unmap;
+  1535				}
+  1536	
+  1537				if (ctx->devmem_only) {
+  1538					err = -EFAULT;
+  1539					goto err_unmap;
+  1540				}
+  1541	
+  1542				addr = dma_map_page(gpusvm->drm->dev,
+  1543						    page, 0,
+  1544						    PAGE_SIZE << order,
+  1545						    dma_dir);
+  1546				if (dma_mapping_error(gpusvm->drm->dev, addr)) {
+  1547					err = -EFAULT;
+  1548					goto err_unmap;
+  1549				}
+  1550	
+  1551				svm_pages->dma_addr[j] = drm_pagemap_addr_encode
+  1552					(addr, DRM_INTERCONNECT_SYSTEM, order,
+  1553					 dma_dir);
+  1554			}
+  1555			i += 1 << order;
+  1556			num_dma_mapped = i;
+  1557			flags.has_dma_mapping = true;
+  1558		}
+  1559	
+  1560		if (pagemap) {
+  1561			flags.has_devmem_pages = true;
+  1562			drm_pagemap_get(dpagemap);
+  1563			drm_pagemap_put(svm_pages->dpagemap);
+  1564			svm_pages->dpagemap = dpagemap;
+  1565		}
+  1566	
+  1567		/* WRITE_ONCE pairs with READ_ONCE for opportunistic checks */
+  1568		WRITE_ONCE(svm_pages->flags.__flags, flags.__flags);
+  1569	
+  1570		drm_gpusvm_notifier_unlock(gpusvm);
+  1571		kvfree(pfns);
+  1572	set_seqno:
+  1573		svm_pages->notifier_seq = hmm_range.notifier_seq;
+  1574	
+  1575		return 0;
+  1576	
+  1577	err_unmap:
+  1578		svm_pages->flags.has_dma_mapping = true;
+  1579		__drm_gpusvm_unmap_pages(gpusvm, svm_pages, num_dma_mapped);
+  1580		drm_gpusvm_notifier_unlock(gpusvm);
+  1581	err_free:
+  1582		kvfree(pfns);
+  1583		if (err == -EAGAIN)
+  1584			goto retry;
+  1585		return err;
+  1586	}
+  1587	EXPORT_SYMBOL_GPL(drm_gpusvm_get_pages);
+  1588	
 
 -- 
-2.53.0
-
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
