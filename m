@@ -4,81 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AE04AF3027F
-	for <dri-devel@archiver.kernel.org>; Sun, 15 Mar 2026 22:16:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 89090F3028C
+	for <dri-devel@archiver.kernel.org>; Sun, 15 Mar 2026 22:34:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AF5B910E0F8;
-	Sun, 15 Mar 2026 22:16:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BD1FE10E102;
+	Sun, 15 Mar 2026 22:34:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="CD378SnH";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="IIaa7nqr";
 	dkim-atps=neutral
-Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com
- [74.125.82.180])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1680910E096
- for <dri-devel@lists.freedesktop.org>; Sun, 15 Mar 2026 22:16:31 +0000 (UTC)
-Received: by mail-dy1-f180.google.com with SMTP id
- 5a478bee46e88-2ba895adfeaso3796931eec.0
- for <dri-devel@lists.freedesktop.org>; Sun, 15 Mar 2026 15:16:31 -0700 (PDT)
+Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com
+ [209.85.221.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4F8B310E096
+ for <dri-devel@lists.freedesktop.org>; Sun, 15 Mar 2026 22:34:44 +0000 (UTC)
+Received: by mail-wr1-f50.google.com with SMTP id
+ ffacd0b85a97d-439b790af67so3700704f8f.0
+ for <dri-devel@lists.freedesktop.org>; Sun, 15 Mar 2026 15:34:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1773612990; x=1774217790; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=wDCV4CSyMF4p0s/r2hRRnbSlNVSHg4qCal9x7Ns+mXQ=;
- b=CD378SnHX5Q/eRkkt8ix8jIld5AQUX2EUmSImd9AESpNpXdHDjL5AmVadIF3DPHuD9
- etxmhIKIz8iD5yx2zaT2ipquLosadsQhSHm/dEbEKBSf5o4b3lBbnDD3ZSK5ezGajwk6
- X8/A4evJjtOWMobapR3CTjNKcG859bZ7Wz2dvcJi0jVqKCKq/L3IuXTpv/mlooUPANLC
- eHPRiG2Zn0BFJl7wD5Ck50X/sHHGVV23ZkdaLKIw2voRjZ19xj+G48R70UW8Q/GivhLO
- rj5+ySov5kAHi0MP19zodbf4HhUwVhobNI9WkJAsQk7tQv5v5j3LwhheOGCaQfQzHdmk
- kiYQ==
+ d=gmail.com; s=20230601; t=1773614083; x=1774218883; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=22ovE2K16n5tTLqzy0s1QaiwyRfQv18z/gESU5TwKDI=;
+ b=IIaa7nqr07F04l/oOoCQbsMd59tJNdYWgFgLX6iyJjtzV++deocZ32q+fWv4gR+wE+
+ gJWYdidA6S9a/lLji9d30J3dlpCCa2knmpj2hpb/dLxmoKpA8/+p/N0hcpfiZ4p6aH8m
+ FjWjlGzEZQ6nlGsr6MqlJOxRg+8yoBiZsPKjFwlM+vjDuzTYJaJkWOxb9atAVx/E6vLY
+ 277cD1iquZhEWZTH59cRTfuYE/vRFTgKhjbQPXCOLRiynFbgpTqLx9FnWkGu6RA4XQ6B
+ d1jWF8ijHEtf5pC7zIWV7D+YogfA4QoFZojCPQqJ9fZeZRXuaS9PVRvfjMj6XARt7zxP
+ O3/Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1773612990; x=1774217790;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=wDCV4CSyMF4p0s/r2hRRnbSlNVSHg4qCal9x7Ns+mXQ=;
- b=PwTJX6UJbQ8rjWjxtKRYDIuQY1d1BsZn1qmmbF4a4/5SOdFKGbnMcRa/Hp6kdDOvgS
- WrbqDZ7Cj7EGHxocsJwjj0doC/z4Z27tABPEQg25i7eFMOE/kYN345Hf+oFWK5v+Rx9r
- 5g5jugWXRg20v5TWyWDKIH1SpJiMgxTBmY7sPVG/EG5SHjNMITSsjnIadAAwWvstqUl2
- nDxezS+5XYv96CUX7z8MJJ84wAqH1LEyHZK4dqKweM5A3PXNrEkU1lSJ+EGne2WaME2T
- 9ZSqC/VJEXTKjC9TSX/FQTaqaPPfQyMpkPfyhj5+9kBMOZB0P+PYR2PmuQbZ6xcJ+Tuj
- v/eg==
+ d=1e100.net; s=20251104; t=1773614083; x=1774218883;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=22ovE2K16n5tTLqzy0s1QaiwyRfQv18z/gESU5TwKDI=;
+ b=hby0EdUg4URHsIXMbpkUbcNzEFQsx3rEViEkm4LZ5qagr8yKjADwF6jEbTO9eudEtp
+ LBwPX5t6+1yzrHI1Bs7NzkyXyAPcRbNgyOL4N+ZGMo1Zvsoi19cLjDNCvrOmU9wmaPkh
+ ozCkgB15IvdsJQ1SkXL/GmWJHWDogRQhFLOhhl80pijy2VGUz7noXZFsurS6WAN/X+j5
+ YiDB2lcgAGqDOrxsIunJnynHKhSIiMnsNMGoqozk5dnFfT0CEhHFuNG2hVVk77izntr3
+ M9c7aDiYOdDKeh/+9DQI+X6iR+co+FBqmtPaNC1kcui2eREeG/9tyS5t6EJLs2cWiGPR
+ QyDg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUiUdD0lfJ44BVHpjAYnvsMoGBBs1uON6D4IdZnA52mXWb8YcWlo+zqZ9H850EFbp1fTpLbbbBAnZY=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzmArQPeu8pPRfE5CWzoqID3juMMwf2H7ocWFqopSXtRKHQOt0m
- jLhCv2qmQAarKBKDifuUbyyDuWEWATIqI7C2viXU2CR+lW1rcJl7HZuZ
-X-Gm-Gg: ATEYQzzQCmHRfYsXAB1jN51N9z0FqfTwp9cit/3Co3vxxeo/O1luKEFRoQMJX6aXIsN
- iDR826vhjqbaAD8MBXj5jj6AJPCxNGtW9e9sHd3gvKhMWSyiAV0h/T9/VwgQiFKQQcgZ4ZLV4fI
- VEHTph5NDpsI7URTjonqlmbL+xr2dPAoQlUrkMDKBtCcKw3reJkha8sAPB949H2R0RsWmQgkJwV
- jnu0L+vUwbwvHh5dHN1AcR7FOzqkTbp1bUDL5VOzkxijbdYj7zy+ehFAwLte/Cmh5C7f6bSpc77
- eHaIB3EXe+6O8had/LiVRu7ndgIgg3HuGWrIwt5kF37v06cvquEyZvNSuMZTOF3Cvvi4fu8++jL
- 4XtuSQgswIyj2Yrrf/HZ3Wb+Y/qYwSXkFZg62f4H1eFDmSIPcDTVAfhsmAHiMqEJelxA/RphYTd
- cbdPCpzs9Jo9+d0H/JHjHyZT2WXYWZ+dRscdGjZW4jIpteV1oIPf4Yaw4FDqAGsZE/GCQep7ho8
- fn7bd4L
-X-Received: by 2002:a05:7300:d517:b0:2be:1f58:329c with SMTP id
- 5a478bee46e88-2bea5461653mr4536938eec.11.1773612989981; 
- Sun, 15 Mar 2026 15:16:29 -0700 (PDT)
-Received: from ryzoh.168.0.127 ([2804:14c:5fc8:80a3:8b71:8583:278d:8c27])
+ AJvYcCWC+N6B/6ewQCXaY19mUq1p4H27Ij2v4tEQSBE4Q1OUKx18QqtwuTh8IdX8Q7/rhlGGD8hb+wQ5K2o=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzybYaFWTshSc4m1p4iJISxn8WGPEpqtBHBt9zDh1NvjfvCB9AQ
+ 6mJdyRSzbuJPkL5GaPL++Peh31or95QEnL4ghR/ZpP6fT+PcFGKF2dqG
+X-Gm-Gg: ATEYQzwG1v/G3fcN164tFFJJ1Sa0xpEKDY6Z1eHRHPjdQOkFWBq+rReOmU2EprB5ekV
+ KDityF4t9nM3fReB5RUA01iSUmqKD/NPIQ7r8iHwBEHGaW9Cas60edJGeSzvBD61CiKlFZiy6w3
+ tHILJgQhYSC04xj0+F/VuhPpeiCIWuPDIIS7a2iF99pYdLWzHJ92oUWejwDnaZvdqH5Ihg03GOC
+ jD8jChCZnVddWghdOW6k5nTCiGneOLn1jBNKWv+uHi3W7nUO5uWfblj9QboU5K2NXBPj8zBiX9J
+ lHL/PN/HpSxub1+CrAOUmIbPfmZdOJ7llJbLPdDlRfNt5rG/t1EgpJC/KouKH3daJA3CUhWCXiV
+ kKZ05DqBZdECLQJzvTlX1l5ZWSwoBLs0hlxUFs69XZXlwiSAxlPMETmVG43LE99q+q5orrwcukW
+ xNbig2h7Xy75uSz9X8PYjvoaegHyj/Fo2c4IzV0X7+nlHXmKQh0YnZf6he0PkdQbQkeFIKXjuUQ
+ a5CgMVNN17dT2Qoc4n8
+X-Received: by 2002:a05:6000:2313:b0:439:b775:fca2 with SMTP id
+ ffacd0b85a97d-43a04dbb74emr19341850f8f.24.1773614082441; 
+ Sun, 15 Mar 2026 15:34:42 -0700 (PDT)
+Received: from localhost
+ (p200300eba70b6e00ca7f54fffe019321.dip0.t-ipconnect.de.
+ [2003:eb:a70b:6e00:ca7f:54ff:fe01:9321])
  by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-2c0bfd41aacsm3399405eec.27.2026.03.15.15.16.26
+ ffacd0b85a97d-439fe228986sm34022943f8f.35.2026.03.15.15.34.42
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 15 Mar 2026 15:16:29 -0700 (PDT)
-Date: Sun, 15 Mar 2026 19:16:24 -0300
-From: Pedro Demarchi Gomes <pedrodemargomes@gmail.com>
-To: Boris Brezillon <boris.brezillon@collabora.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Loic Molinari <loic.molinari@collabora.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] drm/shmem-helper: Fix Map huge page mapping in fault
- handler
-Message-ID: <pbyr3arcp3q7gqkhjfkpxqooxmzyq2oijahdshcpciul7kntqj@d2jbjvdu6dhj>
-References: <20260313141719.3949700-1-pedrodemargomes@gmail.com>
- <20260313180830.4c847826@fedora>
+ Sun, 15 Mar 2026 15:34:42 -0700 (PDT)
+From: =?UTF-8?q?Johannes=20W=C3=BCller?= <johanneswueller@gmail.com>
+To: amd-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org
+Cc: =?UTF-8?q?Johannes=20W=C3=BCller?= <johanneswueller@gmail.com>
+Subject: [PATCH 0/4] drm/amd: fix HDMI output with non-HDMI EDID overrides
+Date: Sun, 15 Mar 2026 23:33:02 +0100
+Message-ID: <20260315223307.45807-1-johanneswueller@gmail.com>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260313180830.4c847826@fedora>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,225 +90,50 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, Mar 13, 2026 at 06:08:30PM +0100, Boris Brezillon wrote:
-> On Fri, 13 Mar 2026 11:17:19 -0300
-> Pedro Demarchi Gomes <pedrodemargomes@gmail.com> wrote:
->
-> > When running ./tools/testing/selftests/mm/split_huge_page_test multiple
-> > times with /sys/kernel/mm/transparent_hugepage/shmem_enabled and
-> > /sys/kernel/mm/transparent_hugepage/enabled set as always the following BUG
-> > occurs:
-> >
-> > [  232.728858] ------------[ cut here ]------------
-> > [  232.729458] kernel BUG at mm/memory.c:2276!
-> > [  232.729726] Oops: invalid opcode: 0000 [#1] SMP DEBUG_PAGEALLOC KASAN PTI
-> > [  232.730217] CPU: 19 UID: 60578 PID: 1497 Comm: llvmpipe-9 Not tainted 7.0.0-rc1mm-new+ #19 PREEMPT(lazy)
-> > [  232.730855] Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.17.0-9.fc43 06/10/2025
-> > [  232.731360] RIP: 0010:walk_to_pmd+0x29e/0x3c0
-> > [  232.731569] Code: d8 5b 5d 41 5c 41 5d 41 5e 41 5f c3 cc cc cc cc 48 89 ea 48 89 de 4c 89 f7 e8 ae 85 ff ff 85 c0 0f 84 1f fe ff ff 31 db eb d0 <0f> 0b 48 89 ea 48 89 de 4c 89 f7 e8 92 8b ff ff 85 c0 75 e8 48 b8
-> > [  232.732614] RSP: 0000:ffff8881aa6ff9a8 EFLAGS: 00010282
-> > [  232.732991] RAX: 8000000142e002e7 RBX: ffff8881433cae10 RCX: dffffc0000000000
-> > [  232.733362] RDX: 0000000000000000 RSI: 00007fb47840b000 RDI: 8000000142e002e7
-> > [  232.733801] RBP: 00007fb47840b000 R08: 0000000000000000 R09: 1ffff110354dff46
-> > [  232.734168] R10: fffffbfff0cb921d R11: 00000000910da5ce R12: 1ffffffff0c1fcdd
-> > [  232.734459] R13: 1ffffffff0c23f36 R14: ffff888171628040 R15: 0000000000000000
-> > [  232.734861] FS:  00007fb4907f86c0(0000) GS:ffff888791f2c000(0000) knlGS:0000000000000000
-> > [  232.735265] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> > [  232.735548] CR2: 00007fb47840be00 CR3: 000000015e6dc000 CR4: 00000000000006f0
-> > [  232.736031] Call Trace:
-> > [  232.736273]  <TASK>
-> > [  232.736500]  get_locked_pte+0x1f/0xa0
-> > [  232.736878]  insert_pfn+0x9f/0x350
-> > [  232.737190]  ? __pfx_pat_pagerange_is_ram+0x10/0x10
-> > [  232.737614]  ? __pfx_insert_pfn+0x10/0x10
-> > [  232.737990]  ? __pfx_css_rstat_updated+0x10/0x10
-> > [  232.738281]  ? __pfx_pfn_modify_allowed+0x10/0x10
-> > [  232.738552]  ? lookup_memtype+0x62/0x180
-> > [  232.738761]  vmf_insert_pfn_prot+0x14b/0x340
-> > [  232.739012]  ? __pfx_vmf_insert_pfn_prot+0x10/0x10
-> > [  232.739247]  ? __pfx___might_resched+0x10/0x10
-> > [  232.739475]  drm_gem_shmem_fault.cold+0x18/0x39
-> > [  232.739677]  ? rcu_read_unlock+0x20/0x70
-> > [  232.739882]  __do_fault+0x251/0x7b0
-> > [  232.740028]  do_fault+0x6e1/0xc00
-> > [  232.740167]  ? __lock_acquire+0x590/0xc40
-> > [  232.740335]  handle_pte_fault+0x439/0x760
-> > [  232.740498]  ? mtree_range_walk+0x252/0xae0
-> > [  232.740669]  ? __pfx_handle_pte_fault+0x10/0x10
-> > [  232.740899]  __handle_mm_fault+0xa02/0xf30
-> > [  232.741066]  ? __pfx___handle_mm_fault+0x10/0x10
-> > [  232.741255]  ? find_vma+0xa1/0x120
-> > [  232.741403]  handle_mm_fault+0x2bf/0x8f0
-> > [  232.741564]  do_user_addr_fault+0x2d3/0xed0
-> > [  232.741736]  ? trace_page_fault_user+0x1bf/0x240
-> > [  232.741969]  exc_page_fault+0x87/0x120
-> > [  232.742124]  asm_exc_page_fault+0x26/0x30
-> > [  232.742288] RIP: 0033:0x7fb4d73ed546
-> > [  232.742441] Code: 66 41 0f 6f fb 66 44 0f 6d dc 66 44 0f 6f c6 66 41 0f 6d f1 66 0f 6c fc 66 45 0f 6c c1 66 44 0f 6f c9 66 0f 6d ca 66 0f db f0 <66> 0f df 04 08 66 44 0f 6c ca 66 45 0f db c2 66 44 0f df 10 66 44
-> > [  232.743193] RSP: 002b:00007fb4907f68a0 EFLAGS: 00010206
-> > [  232.743565] RAX: 00007fb47840aa00 RBX: 00007fb4d73ec070 RCX: 0000000000001400
-> > [  232.743871] RDX: 0000000000002800 RSI: 0000000000003c00 RDI: 0000000000000001
-> > [  232.744150] RBP: 0000000000000004 R08: 0000000000001400 R09: 00007fb4d73ec060
-> > [  232.744433] R10: 000055f0261a4288 R11: 00007fb4c013da40 R12: 0000000000000008
-> > [  232.744712] R13: 0000000000000000 R14: 4332322132212110 R15: 0000000000000004
-> > [  232.746616]  </TASK>
-> > [  232.746711] Modules linked in: nft_nat nft_masq veth bridge stp llc snd_seq_dummy snd_hrtimer snd_seq snd_seq_device snd_timer snd soundcore overlay rfkill nf_conntrack_netbios_ns nf_conntrack_broadcast nft_fib_inet nft_fib_ipv4 nft_fib_ipv6 nft_fib nft_reject_inet nf_reject_ipv4 nf_reject_ipv6 nft_reject nft_ct nft_chain_nat nf_nat nf_conntrack nf_defrag_ipv6 nf_defrag_ipv4 nf_tables qrtr ppdev 9pnet_virtio 9pnet parport_pc i2c_piix4 netfs pcspkr parport i2c_smbus joydev sunrpc vfat fat loop dm_multipath nfnetlink vsock_loopback vmw_vsock_virtio_transport_common vmw_vsock_vmci_transport zram lz4hc_compress vmw_vmci lz4_compress vsock e1000 bochs serio_raw ata_generic pata_acpi scsi_dh_rdac scsi_dh_emc scsi_dh_alua i2c_dev fuse qemu_fw_cfg
-> > [  232.749308] ---[ end trace 0000000000000000 ]---
-> > [  232.749507] RIP: 0010:walk_to_pmd+0x29e/0x3c0
-> > [  232.749692] Code: d8 5b 5d 41 5c 41 5d 41 5e 41 5f c3 cc cc cc cc 48 89 ea 48 89 de 4c 89 f7 e8 ae 85 ff ff 85 c0 0f 84 1f fe ff ff 31 db eb d0 <0f> 0b 48 89 ea 48 89 de 4c 89 f7 e8 92 8b ff ff 85 c0 75 e8 48 b8
-> > [  232.750428] RSP: 0000:ffff8881aa6ff9a8 EFLAGS: 00010282
-> > [  232.750645] RAX: 8000000142e002e7 RBX: ffff8881433cae10 RCX: dffffc0000000000
-> > [  232.750954] RDX: 0000000000000000 RSI: 00007fb47840b000 RDI: 8000000142e002e7
-> > [  232.751232] RBP: 00007fb47840b000 R08: 0000000000000000 R09: 1ffff110354dff46
-> > [  232.751514] R10: fffffbfff0cb921d R11: 00000000910da5ce R12: 1ffffffff0c1fcdd
-> > [  232.751837] R13: 1ffffffff0c23f36 R14: ffff888171628040 R15: 0000000000000000
-> > [  232.752124] FS:  00007fb4907f86c0(0000) GS:ffff888791f2c000(0000) knlGS:0000000000000000
-> > [  232.752441] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> > [  232.752674] CR2: 00007fb47840be00 CR3: 000000015e6dc000 CR4: 00000000000006f0
-> > [  232.752983] Kernel panic - not syncing: Fatal exception
-> > [  232.753510] Kernel Offset: disabled
-> > [  232.754643] ---[ end Kernel panic - not syncing: Fatal exception ]---
-> >
-> > This happens when two concurrent page faults occur within the same PMD range.
-> > One fault installs a PMD mapping through vmf_insert_pfn_pmd(), while the other
-> > attempts to install a PTE mapping via vmf_insert_pfn(). The bug is
-> > triggered because a pmd_trans_huge is not expected when walking the page
-> > table inside vmf_insert_pfn.
-> >
-> > Avoid this race by adding a huge_fault callback to drm_gem_shmem_vm_ops so that
-> > PMD-sized mappings are handled through the appropriate huge page fault path.
-> >
-> > Fixes: 211b9a39f261 ("drm/shmem-helper: Map huge pages in fault handler")
-> > Signed-off-by: Pedro Demarchi Gomes <pedrodemargomes@gmail.com>
-> > ---
-> >
-> > Changes in v2:
-> >  - Keep the #ifdef unindented
-> >  - Create drm_gem_shmem_any_fault to handle faults of any order and use
-> > drm_gem_shmem_[huge_]fault() as wrappers
-> >
-> > ---
-> >  drivers/gpu/drm/drm_gem_shmem_helper.c | 67 +++++++++++++++-----------
-> >  1 file changed, 39 insertions(+), 28 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/drm_gem_shmem_helper.c b/drivers/gpu/drm/drm_gem_shmem_helper.c
-> > index 7b5a49935ae4..fb8b74ac3057 100644
-> > --- a/drivers/gpu/drm/drm_gem_shmem_helper.c
-> > +++ b/drivers/gpu/drm/drm_gem_shmem_helper.c
-> > @@ -550,36 +550,19 @@ int drm_gem_shmem_dumb_create(struct drm_file *file, struct drm_device *dev,
-> >  }
-> >  EXPORT_SYMBOL_GPL(drm_gem_shmem_dumb_create);
-> >
-> > -static bool drm_gem_shmem_try_map_pmd(struct vm_fault *vmf, unsigned long addr,
-> > -				      struct page *page)
-> > -{
-> > -#ifdef CONFIG_ARCH_SUPPORTS_PMD_PFNMAP
-> > -	unsigned long pfn = page_to_pfn(page);
-> > -	unsigned long paddr = pfn << PAGE_SHIFT;
-> > -	bool aligned = (addr & ~PMD_MASK) == (paddr & ~PMD_MASK);
-> > -
-> > -	if (aligned &&
-> > -	    pmd_none(*vmf->pmd) &&
-> > -	    folio_test_pmd_mappable(page_folio(page))) {
-> > -		pfn &= PMD_MASK >> PAGE_SHIFT;
-> > -		if (vmf_insert_pfn_pmd(vmf, pfn, false) == VM_FAULT_NOPAGE)
-> > -			return true;
-> > -	}
-> > -#endif
-> > -
-> > -	return false;
-> > -}
-> > -
-> > -static vm_fault_t drm_gem_shmem_fault(struct vm_fault *vmf)
-> > +static vm_fault_t drm_gem_shmem_any_fault(struct vm_fault *vmf,
-> > +					   unsigned int order)
-> >  {
-> >  	struct vm_area_struct *vma = vmf->vma;
-> >  	struct drm_gem_object *obj = vma->vm_private_data;
-> >  	struct drm_gem_shmem_object *shmem = to_drm_gem_shmem_obj(obj);
-> >  	loff_t num_pages = obj->size >> PAGE_SHIFT;
-> > -	vm_fault_t ret;
-> > +	vm_fault_t ret = VM_FAULT_FALLBACK;
-> >  	struct page **pages = shmem->pages;
-> >  	pgoff_t page_offset;
-> >  	unsigned long pfn;
-> > +	unsigned long paddr;
-> > +	bool aligned;
-> >
-> >  	/* Offset to faulty address in the VMA. */
-> >  	page_offset = vmf->pgoff - vma->vm_pgoff;
-> > @@ -593,13 +576,24 @@ static vm_fault_t drm_gem_shmem_fault(struct vm_fault *vmf)
-> >  		goto out;
-> >  	}
-> >
-> > -	if (drm_gem_shmem_try_map_pmd(vmf, vmf->address, pages[page_offset])) {
-> > -		ret = VM_FAULT_NOPAGE;
-> > -		goto out;
-> > -	}
-> > -
-> >  	pfn = page_to_pfn(pages[page_offset]);
-> > -	ret = vmf_insert_pfn(vma, vmf->address, pfn);
-> > +	switch (order) {
-> > +	case 0:
-> > +		ret = vmf_insert_pfn(vma, vmf->address, pfn);
-> > +		break;
-> > +#ifdef CONFIG_ARCH_SUPPORTS_PMD_PFNMAP
-> > +	case PMD_ORDER:
-> > +		paddr = pfn << PAGE_SHIFT;
-> > +		aligned = (vmf->address & ~PMD_MASK) == (paddr & ~PMD_MASK);
-> > +
-> > +		if (aligned &&
-> > +		    folio_test_pmd_mappable(page_folio(pages[page_offset]))) {
-> > +			pfn &= PMD_MASK >> PAGE_SHIFT;
-> > +			ret = vmf_insert_pfn_pmd(vmf, pfn, false);
-> > +		}
-> > +		break;
-> > +#endif
-> > +	}
->
-> I'd rather have the pmd vs pte detection done early (before the lock is
-> taken) so we can return before acquiring the lock and we can get rid of
-> the order != PMD_ORDER check in drm_gem_shmem_huge_fault(). That, or we
-> keep the check in drm_gem_shmem_huge_fault() and pass a try_pmd boolean
-> instead of order to drm_gem_shmem_any_fault().
->
+This series fixes several issues that prevent amdgpu from driving an
+HDMI display at its native resolution when a non-HDMI EDID is injected
+via drm.edid_firmware or debugfs edid_override.
 
-Ok. I understand your point.
-I will follow the try_pmd approach in the v3.
-Thanks for the feedback.
+The motivating case is a Dell U3011 (2560x1600) connected via HDMI,
+whose native HDMI EDID only advertises CEA modes up to 1920x1080. By
+injecting the monitor's DisplayPort EDID (which contains the native
+2560x1600 mode), the correct resolution becomes available. However,
+amdgpu then fails to drive the output because the injected EDID lacks
+an HDMI VSDB, causing the driver to treat the physical HDMI connector
+as a passive HDMI-DVI dongle, and rejecting the required pixel clock.
 
-> >
-> >   out:
-> >  	dma_resv_unlock(shmem->base.resv);
-> > @@ -607,6 +601,20 @@ static vm_fault_t drm_gem_shmem_fault(struct vm_fault *vmf)
-> >  	return ret;
-> >  }
-> >
-> > +static vm_fault_t drm_gem_shmem_huge_fault(struct vm_fault *vmf,
-> > +					   unsigned int order)
-> > +{
-> > +	if (order != PMD_ORDER)
-> > +		return VM_FAULT_FALLBACK;
-> > +
-> > +	return drm_gem_shmem_any_fault(vmf, order);
-> > +}
-> > +
-> > +static vm_fault_t drm_gem_shmem_fault(struct vm_fault *vmf)
-> > +{
-> > +	return drm_gem_shmem_any_fault(vmf, 0);
-> > +}
-> > +
-> >  static void drm_gem_shmem_vm_open(struct vm_area_struct *vma)
-> >  {
-> >  	struct drm_gem_object *obj = vma->vm_private_data;
-> > @@ -643,6 +651,9 @@ static void drm_gem_shmem_vm_close(struct vm_area_struct *vma)
-> >
-> >  const struct vm_operations_struct drm_gem_shmem_vm_ops = {
-> >  	.fault = drm_gem_shmem_fault,
-> > +#ifdef CONFIG_ARCH_SUPPORTS_HUGE_PFNMAP
-> > +	.huge_fault = drm_gem_shmem_huge_fault,
-> > +#endif
-> >  	.open = drm_gem_shmem_vm_open,
-> >  	.close = drm_gem_shmem_vm_close,
-> >  };
->
+Patch 1 adds an edid_overridden flag to drm_connector, set by the
+existing EDID override mechanisms in _drm_do_get_edid(), so that
+drivers can detect when an override is in effect and adjust their
+behavior accordingly, without duplicating the override mechanism.
+
+Patches 2-4 fix the amdgpu-specific issues:
+- incorrect signal type selection when an override is active
+- unconditional rejection of all colour depths when max_tmds_clock is
+  zero
+- force_yuv420/422_output flags being silently ignored when the
+  display doesn't advertise the requested format.
+
+Tested on AMD Ryzen 9 7950X (RDNA3 iGPU, DCN 3.1.5) with a Dell U3011
+connected via HDMI at 2560x1600@60Hz RGB 8bpc, and another Dell U3011
+connected via DisplayPort in the same mode.
+
+This is my first code contribution to the kernel, so I would appreciate
+feedback on whether I've gotten recipients and other procedural details
+right! :)
+
+Johannes Wüller (4):
+  drm: add edid_overridden flag to drm_connector
+  drm/amd: fix HDMI signal type for EDID overrides
+  drm/amd: treat max_tmds_clock==0 as unconstrained
+  drm/amd: fix force_yuv420/422_output being ignored
+
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 20 +++++++++++--------
+ .../amd/display/amdgpu_dm/amdgpu_dm_helpers.c |  9 ++++++++-
+ drivers/gpu/drm/drm_edid.c                    |  2 ++
+ include/drm/drm_connector.h                   |  8 ++++++++
+ 4 files changed, 30 insertions(+), 9 deletions(-)
+
+-- 
+2.53.0
+
