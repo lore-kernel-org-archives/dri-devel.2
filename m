@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9A995F3028A
-	for <dri-devel@archiver.kernel.org>; Sun, 15 Mar 2026 23:43:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 527F0F30283
+	for <dri-devel@archiver.kernel.org>; Sun, 15 Mar 2026 23:49:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C144710E1DE;
-	Sun, 15 Mar 2026 23:43:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 98E1310E247;
+	Sun, 15 Mar 2026 23:49:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=lechnology.com header.i=@lechnology.com header.b="uZaLpYV4";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=lechnology.com header.i=@lechnology.com header.b="BMjBNCCA";
 	dkim-atps=neutral
 Received: from galaxy.gendns.com (unknown [66.235.175.158])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 15C1510E1DE
- for <dri-devel@lists.freedesktop.org>; Sun, 15 Mar 2026 23:43:41 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1601610E247
+ for <dri-devel@lists.freedesktop.org>; Sun, 15 Mar 2026 23:49:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=lechnology.com; s=default; h=Content-Transfer-Encoding:Content-Type:
  In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender
  :Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
  Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
  List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=+zRmW//YBAtNYJzWczgrQre0/3myTRXquSD2Tq6GzVc=; b=uZaLpYV4qQ45VAJBJVRu2R5ttg
- Sj0+xI28J0eOrhWjdNBzgkB46sotZSt8KlTTNk6HSwcmIldCCragk49H5ff+ugbPSs5VMEyoKG4th
- gS8ZU/FM21QFs9MT51OIvO5w0upqUQslByjqH/es+iOZcv9Y5wqAgHxuFiguc9BKwSBNrYTZ+doAM
- EAP6gL1j1CIPOwIPuY9dkKmCu6Vij8qujYTJHq84YcaEulg8Vlf5SeVwvKlFQrS5LxwqttuODNcrN
- MPJV97F34RFKNPiitP/k6oDsFDimZ1N+kSZWB+ce+WVzCRoST/tFW18UtA5SegyUA372Z8miypNvu
- WShjvADg==;
-Received: from ip98-183-112-25.ok.ok.cox.net ([98.183.112.25]:35048
+ bh=vPMRD9yvXnTyPtB/rHt1PThhae52aKrvE9ltUB+0TLw=; b=BMjBNCCAWoyg6nFvfR7hhxP3wn
+ /IIySY6mm5cJBpEFsxUnsSrLLZ3PS/NbQ1SiKFjaQpc2gyTqrdtzS0LCEgN0j/RwVt1oZvUnwNm3u
+ aRVpx42vS0StfPps4DopSK1j6Lw3sFLDo77hO/q2FBPRte5N+VTNbYDfWgc9l62zE5y8g9QJnxyqd
+ fPlX8rT5g0Qs0eNqKhZoGjOkqEOZzX2khLx/UfbR+gJ7+P5i3aTWNUXJP4rKtvPqW5VnTEPRbrEY5
+ IMLwpI+CoEfGZV2XUOLpkrlDsJQ8/7RQhk4ohp/i2bOqwKJy2gJ0M5tgv2x8mnjCpKDGs4e61yEQ0
+ 3udmMTWw==;
+Received: from ip98-183-112-25.ok.ok.cox.net ([98.183.112.25]:46302
  helo=[192.168.1.142])
  by galaxy.gendns.com with essmtpa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
  (Exim 4.99.1) (envelope-from <david@lechnology.com>)
- id 1w1v7T-00000006q3B-27WO; Sun, 15 Mar 2026 19:43:38 -0400
-Message-ID: <cf8f3b22-dcaf-4bce-abad-99cc568a36f8@lechnology.com>
-Date: Sun, 15 Mar 2026 18:43:38 -0500
+ id 1w1vDO-00000006tOy-2lWv; Sun, 15 Mar 2026 19:49:46 -0400
+Message-ID: <1daa2dcd-bc77-476d-80ad-bb517cd1d575@lechnology.com>
+Date: Sun, 15 Mar 2026 18:49:45 -0500
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 06/16] drm/ili9225: Use regular atomic helpers; drop
+Subject: Re: [PATCH v2 11/16] drm/st7586: Use regular atomic helpers; drop
  simple-display helpers
 To: Thomas Zimmermann <tzimmermann@suse.de>, javierm@redhat.com,
  lanzano.alex@gmail.com, kamlesh.gurudasani@gmail.com,
@@ -44,7 +44,7 @@ To: Thomas Zimmermann <tzimmermann@suse.de>, javierm@redhat.com,
  maarten.lankhorst@linux.intel.com, simona@ffwll.ch, airlied@gmail.com
 Cc: dri-devel@lists.freedesktop.org
 References: <20260311101438.365997-1-tzimmermann@suse.de>
- <20260311101438.365997-7-tzimmermann@suse.de>
+ <20260311101438.365997-12-tzimmermann@suse.de>
 Content-Language: en-US
 From: David Lechner <david@lechnology.com>
 Autocrypt: addr=david@lechnology.com; keydata=
@@ -91,7 +91,7 @@ Autocrypt: addr=david@lechnology.com; keydata=
  4VJ96sVvnQFzls3motvG+pq/c37Ms1gYayeCzA2iCDuKx6ZkybHg7IzNEduqZQ4bkaBpnEt+
  vwE3Gg5l4dAUFWAs9qY13nyBANQ282FNctziEHCUJZ/Map6TdzHWO6hU1HuvmlwcJSFCOey8
  yhkt386E6KfVYzrIhwTtabg+DLyMZK40Rop1VcU7Nx0M
-In-Reply-To: <20260311101438.365997-7-tzimmermann@suse.de>
+In-Reply-To: <20260311101438.365997-12-tzimmermann@suse.de>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-AntiAbuse: This header was added to track abuse,
@@ -123,40 +123,49 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 On 3/11/26 5:10 AM, Thomas Zimmermann wrote:
 > Replace simple-display helpers with regular atomic helpers. Store the
-> pipeline elements in struct ili9225_device and initialize them as part
+> pipeline elements in struct st7586_device and initialize them as part
 > of probing the device. Use mipi-dbi's existing helpers and initializer
 > macros where possible.
 > 
 > Effectively open-codes the modesetting code in the initializer helpers
-> of mipi-dbi and simple-display. Ili9225 requires custom helpers for
+> of mipi-dbi and simple-display. St7586 requires custom helpers for
 > various pipeline elements, and non-freeing cleanup of the pipeline.
 > 
 
+
 ...
 
-> @@ -373,19 +432,22 @@ MODULE_DEVICE_TABLE(spi, ili9225_id);
->  static int ili9225_probe(struct spi_device *spi)
+> +static void st7586_plane_helper_atomic_update(struct drm_plane *plane,
+> +					      struct drm_atomic_state *state)
 >  {
->  	struct device *dev = &spi->dev;
-> +	struct ili9225_device *ili9225;
->  	struct mipi_dbi_dev *dbidev;
->  	struct drm_device *drm;
->  	struct mipi_dbi *dbi;
->  	struct gpio_desc *rs;
-> +	struct drm_plane *plane;
-> +	struct drm_crtc *crtc;
-> +	struct drm_encoder *encoder;
-> +	struct drm_connector *connector;
->  	u32 rotation = 0;
->  	int ret;
+> -	struct drm_plane_state *state = pipe->plane.state;
+> -	struct drm_shadow_plane_state *shadow_plane_state = to_drm_shadow_plane_state(state);
+> -	struct drm_framebuffer *fb = state->fb;
+> +	struct drm_plane_state *plane_state = plane->state;
+> +	struct drm_shadow_plane_state *shadow_plane_state = to_drm_shadow_plane_state(plane_state);
+> +	struct drm_framebuffer *fb = plane_state->fb;
+> +	struct drm_plane_state *old_plane_state = drm_atomic_get_old_plane_state(state, plane);
+>  	struct drm_rect rect;
+>  	int idx;
 >  
-> -	dbidev = devm_drm_dev_alloc(dev, &ili9225_driver,
-> -				    struct mipi_dbi_dev, drm);
-> -	if (IS_ERR(dbidev))
-> -		return PTR_ERR(dbidev);
-> -
-> -	dbi = &dbidev->dbi;
-Same as previous patch, removing this line is problematic.
+> -	if (!pipe->crtc.state->active)
+> +	if (!fb)
+>  		return;
+>  
+> -	if (!drm_dev_enter(fb->dev, &idx))
+> -		return;
 
-And the next two ili9xxx patches as well.
+What was wrong with returning early here?
+
+> +	if (drm_dev_enter(plane->dev, &idx)) {
+> +		if (drm_atomic_helper_damage_merged(old_plane_state, plane_state, &rect))
+> +			st7586_fb_dirty(&shadow_plane_state->data[0], fb, &rect,
+> +					&shadow_plane_state->fmtcnv_state);
+> +		drm_dev_exit(idx);
+> +	}
+> +}
+>  
+> -	if (drm_atomic_helper_damage_merged(old_state, state, &rect))
+> -		st7586_fb_dirty(&shadow_plane_state->data[0], fb, &rect,
+> -				&shadow_plane_state->fmtcnv_state);
 
