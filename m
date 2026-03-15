@@ -4,130 +4,106 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 76449F3026E
-	for <dri-devel@archiver.kernel.org>; Sun, 15 Mar 2026 16:44:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 66CFAF30283
+	for <dri-devel@archiver.kernel.org>; Sun, 15 Mar 2026 21:23:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C8DE810E276;
-	Sun, 15 Mar 2026 16:44:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 02FEF10E00F;
+	Sun, 15 Mar 2026 21:23:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="eOBOgDzT";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="VN/yf8/I";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="FZshWHzQ";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0402A10E276
- for <dri-devel@lists.freedesktop.org>; Sun, 15 Mar 2026 16:44:50 +0000 (UTC)
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 62F6U2p43433604
- for <dri-devel@lists.freedesktop.org>; Sun, 15 Mar 2026 16:44:50 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- Vlh0UMYtaMeioYXkM4rvp9tC++xOLzdzVq3WJDRWFcE=; b=eOBOgDzTeF8R6VY/
- FgyDDN9UUKFz/7hypVC0lkz6GfbY7/sEQ0LL10EmoLFVpTN34rfsyjEG541lHw28
- bOUBn2c2WpxcvFY+H0XJN0Ky4gioErWE+V0mODA7MQyUKxdkBP11fTFG6x+TT04F
- s//+PWtP4kkneFYC/hi9gVGxnfzY2NOlAci2yqhwcMsieRYgFDzV6oDV5Pi7OuqL
- H0OEjqc3fCJplLxiSGuY6AN6rpkntelAaYQ6rangtNY5IlQ4nO4F/Hot8obVbKEc
- lnPTSwtVidb3aYVGVuZm1+zyIuigTjdiOqalGhEdBufwGHkHJK5OhAtazQRrSfuy
- HCLp3w==
-Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com
- [74.125.82.199])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4cw00ak2k1-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Sun, 15 Mar 2026 16:44:49 +0000 (GMT)
-Received: by mail-dy1-f199.google.com with SMTP id
- 5a478bee46e88-2bea80a5849so53252633eec.0
- for <dri-devel@lists.freedesktop.org>; Sun, 15 Mar 2026 09:44:49 -0700 (PDT)
+Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com
+ [74.125.82.181])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B409010E00F
+ for <dri-devel@lists.freedesktop.org>; Sun, 15 Mar 2026 21:23:36 +0000 (UTC)
+Received: by mail-dy1-f181.google.com with SMTP id
+ 5a478bee46e88-2c0c482dfc8so10628eec.1
+ for <dri-devel@lists.freedesktop.org>; Sun, 15 Mar 2026 14:23:36 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1773609816; cv=none;
+ d=google.com; s=arc-20240605;
+ b=cc0UfGqtUL4BCVabt9JPOhcp9xMwsCaSlXANtu2KvbiloLO+KNpDoiyLyPZWb6IzE9
+ Z7wACyo+y8FdS4MA6LG48OTsar6MlLab+gE0QkP1pMz1U7D/d6C+tkD00XxteSXeo7C6
+ 6royzSWj7VDNCXGP2uRxggKKWABN5RBTVtv7RwFsDRaQzwqNE8t5VCokPuokCq2pL42N
+ EYR3ByK5kKZn6RX55kAvsNVmhjUZlH6U5cL0TGoDra5BLXZ7fsENQP2douuujaS+Cuw3
+ CuJhg/0uYDPVQZcF3qPG+/3YZBV7j6+XeqRat8Uw+lchmJKZcvvkXPIH6tZKeubrTryf
+ 2kkw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=IkQe1o5B6paHiUn+z4l+GM/Kq0EzHLVr9WcX/nooLFw=;
+ fh=K0hZwRO3EaM/nWpDdnXMydistvZ91JXJiqwa31Le8oQ=;
+ b=KSMvtZAG+Os9Nv0d/YLz5bJHjhs+3FGIVbe7XSjj0Ekuy5XAlwJGbGG8jl3fucbTBw
+ dYp4rJ/Pj6Ybb8I0ygKpHHwX/KwHYU1E2jFyLqFdMXuC03oFdMVlbrAXhGJoHmF4N+8J
+ GkUGDudl5yKBv5YyWm4zXCq1VROeb1RK9xXZB+G5kgyYSE9cvXssJ9e0wVjMQ4dWs/6h
+ 6eZ+MFuFUmbqOrGLR576OVyZ3g2KNJe4eRkI+6eWKDdiWk35kadCW/cM8l7QONHef+Vd
+ kBgq7iACBYz2CUH1Ix3ng4F9TOxzaSUWcLZ4ewn85VWRVMKuLi9cmMElejpCMTzsggjX
+ t1qA==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1773593089; x=1774197889;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=Vlh0UMYtaMeioYXkM4rvp9tC++xOLzdzVq3WJDRWFcE=;
- b=VN/yf8/IQaO5NmXOXkCs9uLmTjYE0SM0BK8+vAg8SzlbsnZlJtsBzuWs/eT9ABSlHQ
- jbEz2eQOARx9pjHXStbGWhcOY/+F1E2GQZpSbyrpQu5LhDc6osmpSG18NHbQKe0aXtGe
- m6RSSSbHcfxNICZbSUF/1S9miLNHs8vH0hvYTY+K9qVur3zl/78v7p18WMaBjrEqK1Fi
- XhNPa+835vC/Ro7v7Fng4gZRQK8q+CysHFHBwha7Aye+Q3opG/2tZ/x32PrPMW0Ebc32
- IJAkY2DaIajRWmOBUAjbG51Nz2ivkjvo5qOZPi11fee1v+0N7zCG8l/Vu5jx6OyGmzbM
- AZVg==
+ d=gmail.com; s=20230601; t=1773609816; x=1774214616; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=IkQe1o5B6paHiUn+z4l+GM/Kq0EzHLVr9WcX/nooLFw=;
+ b=FZshWHzQRChw7FYtgzo7HSaujLVfdS7/aOGtK+ESlqLHSNLdYTK2Iu8iAy4g8fxFPQ
+ 4WPZUczQsVPt72uSI1qFq/CX28Ixqa8Dr3h8yYMW6c38Tmo9YnKca2019cIV1qlRVCSc
+ +zXMyJGoMayhHdEXDRrlefNnszyBIwBKRu13sHwtZkT+4VNd908QngYEpEhso/0W6Yui
+ sbKi6PS/VgZhx1VDQzQ2W0qCdI0l0qNSJQ8XF2WZnb93APfyebsdTtuafJ4571Hpkws8
+ Lc6IQ6bqMwWnJlkd5RzEFjeDFsGcEzxoukVJo7VsVcic5EDK3HzBN0A9yWPOfQDIrSdT
+ QAww==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1773593089; x=1774197889;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=Vlh0UMYtaMeioYXkM4rvp9tC++xOLzdzVq3WJDRWFcE=;
- b=Ofhfm2bf3s4Amt6q0hGZvJXyO4lA7W1J0ZwOf5S0ts50gh4WMQ2copTSzRhQIImhjJ
- 1WexkKu77GADGK63Kx0uS83wYQisGCFCV4edKw4Y9wxo4QJIZGxxb9KD4V2T5GO+iS1p
- I4OQF9qRUiluOxjC72bW8eF/CXH5U0QxvSE3fmyRa+ioJNqlSCb/VpX9TJyZHu1o14CM
- Vxg2Pz5NBeTh+s+MIUhLLai8LCVQ7yd5XcX4RjindtkAEgZHE8G5QJzgZgo66n/+xLd+
- hySJTviIez5MUD6U6O54nMGhPZ/LAohVUMTCYn88/kOuQNTPrDrjjoylzh1+v0JseGkN
- PSXQ==
+ d=1e100.net; s=20251104; t=1773609816; x=1774214616;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=IkQe1o5B6paHiUn+z4l+GM/Kq0EzHLVr9WcX/nooLFw=;
+ b=iDhqJmzkTN9Fs3WbXwxBttvsPjiPlCJUEf31gvI+8hz4xUE+3hY5E67nSwDNXVm3z/
+ wZOPGKjB3hac9R4yOT64J8pAUMZeuEfy0cKCyMDcBd/5fqwJy+EdsbQqwy8oK1vLm/rJ
+ ZmNwtCdyE/F551f9z23CSgX1Mxa2bhobA2TPxe4AVruSbh7FJSfTck5YaLQr4Tabdipp
+ gFUCpCreHW34XDD/3KXzv/QQZO2xZRyRZFbKr+82Z/xWv8x1f6hw9MhotsoupDOSWNem
+ imtEVm/sn4F+BsH6oONGGQb1nZ58CQwLupgNaO+YP34lA/H5HWTvIp2u5pS3gq4nHtZM
+ 2MWg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVeyr7EDmtdTPkAA+siI0CaHR4Zv9q3iggj03U/ibhbCICnM5rncc5M2PmeudaIRs80K8TIDiKcGJI=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwOQ3DdH1E5mNx3cfByBiozMVORDddRBuLvQyVNFEMHN6/m+HSu
- 6XgrnnlKr/n1PmvVAVUsrMIiM0TQBwN7fYfatN3lG5cvv0TXPMO1M3Au/wrzLwJ004Rd7Almmk6
- R5JM2K4yKdX35c1elwJI90KV/evpZ5OsNSAAxU4FX9BaEoIGMB0qfQFcCY4O03kHD2MVCNGY=
-X-Gm-Gg: ATEYQzxXzJbJyU2f6zKs4LLAgYmgiuZLX/txqC/6+a4MHcISURubNVPMxnpMqys93cE
- kAJtlAn+LrUeXTNY2fq+J7drMH3cOdeeKoudZXkIUtetSnS619H920TUfApHO5+Y7Yu2ZkjX+Id
- WRtPqyND7+Apatb7YQCgb/T8rvjhoxXA1PePaGPFJodeyZeQmAjDV0cACmJOY8hlL6npMq/knqP
- aLmH4bNzLvhQW2SvSdP2aHTKBQT3MKbvvQrJRYFYKQ34nNw5f5mjZxaSOJnx6wIkOc0mKXFKuDK
- sMLnmRoTCSt8/gItfXXzb/anlGFoq+Zcso1cdIMs/k7P3qkijL3e8KvXUxf8mmwCwabOnZ750lQ
- CUMl6mRgh2s3qmKLeD0NTmJPeORI7ifmjWi3pfiqzjWKEivJqn9VUNtqklfWKFjEjMA+y5EKHs5
- Y=
-X-Received: by 2002:a05:7300:5383:b0:2be:3f:307c with SMTP id
- 5a478bee46e88-2bea55ef0c8mr4689030eec.29.1773593088884; 
- Sun, 15 Mar 2026 09:44:48 -0700 (PDT)
-X-Received: by 2002:a05:7300:5383:b0:2be:3f:307c with SMTP id
- 5a478bee46e88-2bea55ef0c8mr4689026eec.29.1773593088389; 
- Sun, 15 Mar 2026 09:44:48 -0700 (PDT)
-Received: from [10.226.59.182] (i-global254.qualcomm.com. [199.106.103.254])
- by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-2beab55541fsm12945850eec.24.2026.03.15.09.44.47
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 15 Mar 2026 09:44:47 -0700 (PDT)
-Message-ID: <42d61f90-bbfe-49c0-ae09-cb6738ec7014@oss.qualcomm.com>
-Date: Sun, 15 Mar 2026 10:44:46 -0600
+ AJvYcCUDr+4esbgzJ1slOMCQjeDVko9AWM+optU0a4xtq1vF57UyY/FAuyPDijg5pqiatthDdUJo2AQN0+Y=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzBqyt7yhow6p9ehjQCNFJJ7Wc45BLm6d00Pzf5L9QAcfgT5xzY
+ NmPrRu7ebzsXf2TdQeqa0ybhpiO64Y0ZWNEnI2tw9DJpbunBgt5ZakjGfxA4Gejb8UhjMF3G4q3
+ xkxn8nr6a/xwBAa3KfgTUL7bdR6zxW3s=
+X-Gm-Gg: ATEYQzxoje2adQ7fhBiD+lAJyOe5TnMI+eFOwncG90NUaTka27UQW4hpkdX+DUyi849
+ vAYTWvAW/IRkeVNa7R2894FgWV7fyunh/KhCUoDBqT+dSHJhfxevInVGmaC5NSWu5huNRQbiJz9
+ VZfXqOjSUuZ4sQ2iLwvR413glj06ev0yV8RQd1zda34U1cTlOqCEYV6Qhu5ZNSA2s5Qk0K1E2zp
+ y6kQv9MjNPPgaR2BkI92iz+sS0K0FWyLv0Y8opmx1oBOGnwmdwIPD5NtMsuW8uGCJiHkxVJ/g0G
+ yv695yg/kTeOAAIuSU5o6dNl5RbyQK+lP3ejeC+MI+oHNys38KEnRkf9rn1uxINT4nj2Ed/v0db
+ hgmny96S1T7yAOj4qMJ/wlj0=
+X-Received: by 2002:a05:7300:8ca9:b0:2bd:db75:c28b with SMTP id
+ 5a478bee46e88-2bea56065damr2711462eec.7.1773609815900; Sun, 15 Mar 2026
+ 14:23:35 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] accel/qaic Fix HELLO_RESP mode sourced from wrong rx field
-To: Alok Tiwari <alok.a.tiwari@oracle.com>, jacek.lawrynowicz@linux.intel.com, 
- andersson@kernel.org, ogabbay@kernel.org,
- carl.vanderlip@oss.qualcomm.com, dri-devel@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org
-Cc: alok.a.tiwarilinux@gmail.com
-References: <20260301091214.171263-1-alok.a.tiwari@oracle.com>
-Content-Language: en-US
-From: Jeff Hugo <jeff.hugo@oss.qualcomm.com>
-In-Reply-To: <20260301091214.171263-1-alok.a.tiwari@oracle.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: k6d68di-j_Z4rxUbmLOEPNOIU_Ac6SxK
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzE1MDEzMiBTYWx0ZWRfX7JBH/2LXLyrm
- oTrJuoP0LSnVo2yCQsvf9shvPQ+9kfzeRW3oI4frvt/23hCvp5zD4LPcTmOkxc22p3Z12+Qx6y5
- zHIwFA66BEPMc9pGAwy4mrum/OU8KGEpuxsWjD00k2H9WtbMInUKtGsx68IB6wE/lSLn0DoXagy
- 9YA0inadbFHd2zV8ndl/xe9iE+n/Rz3XuJ3sATsL0wHCoAb7mZA0lYjcUt4jcsvCWwAibDlOKIn
- nwGn1nlBaqFN+D5XmSfghERNAqUuQjaJBSfNWBKZAEdVo2AxL4GpxyElo7Yj6XfSFVUTgF34BTV
- RJLostCNoflENrMxOThFT5RV6qlvMvVKgo989UDjbWwgKJxnoBh2laLqYlS+duLdaUwxrubl4em
- hVNDxEXcEbQO8Y1cIJsmibANuTic4kBp0KtDR1UKn5nj+VUy5vVyTDrAGGI5HljQSwVv8kgts4A
- dPyC6d4qIqq8QoMre+g==
-X-Proofpoint-ORIG-GUID: k6d68di-j_Z4rxUbmLOEPNOIU_Ac6SxK
-X-Authority-Analysis: v=2.4 cv=ebIwvrEH c=1 sm=1 tr=0 ts=69b6e201 cx=c_pps
- a=cFYjgdjTJScbgFmBucgdfQ==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
- a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
- a=yPCof4ZbAAAA:8 a=Wz-czTzbEKbp6fIjhE8A:9 a=QEXdDO2ut3YA:10
- a=scEy_gLbYbu1JhEsrz4S:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-03-15_06,2026-03-13_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 adultscore=0 suspectscore=0 spamscore=0 priorityscore=1501
- clxscore=1015 phishscore=0 lowpriorityscore=0 malwarescore=0 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603150132
+References: <20260309-cstr-rename-macro-v2-1-25f7de75944e@kernel.org>
+In-Reply-To: <20260309-cstr-rename-macro-v2-1-25f7de75944e@kernel.org>
+From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Date: Sun, 15 Mar 2026 22:23:22 +0100
+X-Gm-Features: AaiRm53Z5esmB8NqhpEo3Ukkf4yvUe-1ALiBGT0hKmtMX4C3iH5_QYhJU6S78z0
+Message-ID: <CANiq72=1koL5z-5WzyPfFX4otxgSL_oKGVt8ju7iShki0LwJhg@mail.gmail.com>
+Subject: Re: [PATCH v2] rust: update `kernel::c_str!` documentation
+To: Tamir Duberstein <tamird@kernel.org>
+Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
+ Gary Guo <gary@garyguo.net>, 
+ =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+ Danilo Krummrich <dakr@kernel.org>, Breno Leitao <leitao@debian.org>,
+ David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Brendan Higgins <brendan.higgins@linux.dev>, 
+ David Gow <davidgow@google.com>, Rae Moar <raemoar63@gmail.com>, 
+ Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
+ Will Deacon <will@kernel.org>, 
+ Waiman Long <longman@redhat.com>, rust-for-linux@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ linux-kselftest@vger.kernel.org, kunit-dev@googlegroups.com, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -143,35 +119,20 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 3/1/2026 2:12 AM, Alok Tiwari wrote:
-> sahara_hello() handles SAHARA_HELLO_CMD and validates fields from
-> context->rx->hello. When building the HELLO_RESP, copy the mode from the
-> received HELLO request (rx->hello.mode) rather than rx->hello_resp.mode.
+On Mon, Mar 9, 2026 at 6:02=E2=80=AFPM Tamir Duberstein <tamird@kernel.org>=
+ wrote:
+>
+> Now that all literals are C-Strings, update the documentation to explain
+> that use of this macro should be limited to non-literal strings.
+>
+> Link: https://github.com/Rust-for-Linux/linux/issues/1075
+> Acked-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+> Reviewed-by: Alice Ryhl <aliceryhl@google.com>
+> Signed-off-by: Tamir Duberstein <tamird@kernel.org>
 
-This does not explain why, nor what is broken (since you have listed a 
-fixes tag).
+Applied to `rust-next` -- thanks everyone!
 
-rx->hello.mode == rx->hello_resp.mode
+    [ Apply sentence case to comment. Reword title. - Miguel ]
 
-Also, care to explain how you discovered this?
-
-> Fixes: 76b801aa2198 ("accel/qaic: Add Sahara implementation for firmware loading")
-> Signed-off-by: Alok Tiwari <alok.a.tiwari@oracle.com>
-> ---
->   drivers/accel/qaic/sahara.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/accel/qaic/sahara.c b/drivers/accel/qaic/sahara.c
-> index fd3c3b2d1fd3..99bf832e2825 100644
-> --- a/drivers/accel/qaic/sahara.c
-> +++ b/drivers/accel/qaic/sahara.c
-> @@ -325,7 +325,7 @@ static void sahara_hello(struct sahara_context *context)
->   	context->tx[0]->hello_resp.version = cpu_to_le32(SAHARA_VERSION);
->   	context->tx[0]->hello_resp.version_compat = cpu_to_le32(SAHARA_VERSION);
->   	context->tx[0]->hello_resp.status = cpu_to_le32(SAHARA_SUCCESS);
-> -	context->tx[0]->hello_resp.mode = context->rx->hello_resp.mode;
-> +	context->tx[0]->hello_resp.mode = context->rx->hello.mode;
->   
->   	ret = mhi_queue_buf(context->mhi_dev, DMA_TO_DEVICE, context->tx[0],
->   			    SAHARA_HELLO_LENGTH, MHI_EOT);
-
+Cheers,
+Miguel
