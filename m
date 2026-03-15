@@ -4,74 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 89090F3028C
-	for <dri-devel@archiver.kernel.org>; Sun, 15 Mar 2026 22:34:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1A3C2F3028C
+	for <dri-devel@archiver.kernel.org>; Sun, 15 Mar 2026 22:34:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BD1FE10E102;
-	Sun, 15 Mar 2026 22:34:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 50F7010E167;
+	Sun, 15 Mar 2026 22:34:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="IIaa7nqr";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="m8Gmqo4y";
 	dkim-atps=neutral
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com
- [209.85.221.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4F8B310E096
- for <dri-devel@lists.freedesktop.org>; Sun, 15 Mar 2026 22:34:44 +0000 (UTC)
-Received: by mail-wr1-f50.google.com with SMTP id
- ffacd0b85a97d-439b790af67so3700704f8f.0
- for <dri-devel@lists.freedesktop.org>; Sun, 15 Mar 2026 15:34:44 -0700 (PDT)
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com
+ [209.85.128.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C123D10E127
+ for <dri-devel@lists.freedesktop.org>; Sun, 15 Mar 2026 22:34:53 +0000 (UTC)
+Received: by mail-wm1-f43.google.com with SMTP id
+ 5b1f17b1804b1-4852f8ac7e9so47119185e9.1
+ for <dri-devel@lists.freedesktop.org>; Sun, 15 Mar 2026 15:34:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1773614083; x=1774218883; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=22ovE2K16n5tTLqzy0s1QaiwyRfQv18z/gESU5TwKDI=;
- b=IIaa7nqr07F04l/oOoCQbsMd59tJNdYWgFgLX6iyJjtzV++deocZ32q+fWv4gR+wE+
- gJWYdidA6S9a/lLji9d30J3dlpCCa2knmpj2hpb/dLxmoKpA8/+p/N0hcpfiZ4p6aH8m
- FjWjlGzEZQ6nlGsr6MqlJOxRg+8yoBiZsPKjFwlM+vjDuzTYJaJkWOxb9atAVx/E6vLY
- 277cD1iquZhEWZTH59cRTfuYE/vRFTgKhjbQPXCOLRiynFbgpTqLx9FnWkGu6RA4XQ6B
- d1jWF8ijHEtf5pC7zIWV7D+YogfA4QoFZojCPQqJ9fZeZRXuaS9PVRvfjMj6XARt7zxP
- O3/Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1773614083; x=1774218883;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=gmail.com; s=20230601; t=1773614092; x=1774218892; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=22ovE2K16n5tTLqzy0s1QaiwyRfQv18z/gESU5TwKDI=;
- b=hby0EdUg4URHsIXMbpkUbcNzEFQsx3rEViEkm4LZ5qagr8yKjADwF6jEbTO9eudEtp
- LBwPX5t6+1yzrHI1Bs7NzkyXyAPcRbNgyOL4N+ZGMo1Zvsoi19cLjDNCvrOmU9wmaPkh
- ozCkgB15IvdsJQ1SkXL/GmWJHWDogRQhFLOhhl80pijy2VGUz7noXZFsurS6WAN/X+j5
- YiDB2lcgAGqDOrxsIunJnynHKhSIiMnsNMGoqozk5dnFfT0CEhHFuNG2hVVk77izntr3
- M9c7aDiYOdDKeh/+9DQI+X6iR+co+FBqmtPaNC1kcui2eREeG/9tyS5t6EJLs2cWiGPR
- QyDg==
+ bh=vT4CyMXqzzZQnzh0fKnlLc2lOrrVq4ApdEBBPyIY3U0=;
+ b=m8Gmqo4yQ1x2/XoXxgW1uVFTrXbdguMSwKYyrNmYI8mdBrpgJ1xu3QLCobM9hMMzaC
+ eu0VnFGdCq0S/Y91HAxpixCUGFw2mRo6ejRDRDZbLNZOaMEPB8bMDC1X66d1s+vhoU3c
+ EDStL01qzCC1z9ry1BdAxEigoHUWNfwXRTZOWHt4h/fl9VYLgAa6x6mgFhWaOt1EHjqK
+ 90O/Qi+TqVmah9iYA+P+R4B0HeQdhi9lQA9D6xQMpl8Itbxqdon1MxOjDKwasHZahLVs
+ 9PHFPRj1GTcnu+yaacNtUaRgzCjZq700tRayRGL0BF7IdSqJoNB4rbYB5IQIChTJs+NV
+ ylRA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1773614092; x=1774218892;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=vT4CyMXqzzZQnzh0fKnlLc2lOrrVq4ApdEBBPyIY3U0=;
+ b=QGXT9wrNQHy+YeNpqw7FG8KqcyFLxI+OZNH6nfNFQ1FODz00sXj4gdgCJjZVuNb8T5
+ +OVHkuY2Gutc8DtO2G2tRcxszvHOmz0QS2LYakf/KLNJiJ2P5LuFK7JyzNc6c7HRSkLr
+ a/Xo+FFYyWhWdxiMTqrN0OZ5b3E2Ketu4RgEWi/F0G3XUEotsTQMXUXtJSW4CRa3TzFA
+ W8YcwAe360Ccn8ZYrQ9FKLlkd0gMBNi2Xm5lqA8bqiAQxkDtWhn9IIRXyJDBgp41QQin
+ DcpWO0SpV+ch1AXPnwEaCPFl2E72S29TWum/DcsZxuhDivaNymbKmc5Xnrg0AcxQKYeW
+ cucg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWC+N6B/6ewQCXaY19mUq1p4H27Ij2v4tEQSBE4Q1OUKx18QqtwuTh8IdX8Q7/rhlGGD8hb+wQ5K2o=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzybYaFWTshSc4m1p4iJISxn8WGPEpqtBHBt9zDh1NvjfvCB9AQ
- 6mJdyRSzbuJPkL5GaPL++Peh31or95QEnL4ghR/ZpP6fT+PcFGKF2dqG
-X-Gm-Gg: ATEYQzwG1v/G3fcN164tFFJJ1Sa0xpEKDY6Z1eHRHPjdQOkFWBq+rReOmU2EprB5ekV
- KDityF4t9nM3fReB5RUA01iSUmqKD/NPIQ7r8iHwBEHGaW9Cas60edJGeSzvBD61CiKlFZiy6w3
- tHILJgQhYSC04xj0+F/VuhPpeiCIWuPDIIS7a2iF99pYdLWzHJ92oUWejwDnaZvdqH5Ihg03GOC
- jD8jChCZnVddWghdOW6k5nTCiGneOLn1jBNKWv+uHi3W7nUO5uWfblj9QboU5K2NXBPj8zBiX9J
- lHL/PN/HpSxub1+CrAOUmIbPfmZdOJ7llJbLPdDlRfNt5rG/t1EgpJC/KouKH3daJA3CUhWCXiV
- kKZ05DqBZdECLQJzvTlX1l5ZWSwoBLs0hlxUFs69XZXlwiSAxlPMETmVG43LE99q+q5orrwcukW
- xNbig2h7Xy75uSz9X8PYjvoaegHyj/Fo2c4IzV0X7+nlHXmKQh0YnZf6he0PkdQbQkeFIKXjuUQ
- a5CgMVNN17dT2Qoc4n8
-X-Received: by 2002:a05:6000:2313:b0:439:b775:fca2 with SMTP id
- ffacd0b85a97d-43a04dbb74emr19341850f8f.24.1773614082441; 
- Sun, 15 Mar 2026 15:34:42 -0700 (PDT)
+ AJvYcCXVAAzFRODjE9fSIxK7EHXclb3TNuXAyATzBCWBYc0a106/V+UIOWZBIAyUe0gDorc939bs1UAZagc=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyjJcsqsAYwtJIsreZX6fLjsb1P7hEGWkj8VmyKv+D/tZn8RkK/
+ Up0T4IWeHmzmyuN15t+2MfBR0LdmbFTVUSdJRvSPdfy/3bReY92SIcDO
+X-Gm-Gg: ATEYQzxqKH04dLs5WbtHnUu2XpFjPAxDBjtBk8aWiisC1uBz8f+qDiOdmRUBxftcSGw
+ R1A7/Cji6uZ+d7DL0SLMCzlFLuEFtkGAnoGZ2qbjAwmgIKcLe0ervwa+8+1RTQPwTuB1vIvOcTA
+ 1hIKkpxqSG/cwwuH1vb7o4E8ZVex14reOeW3cEJk87WL7zLH8Fg3CNAqxQBshwATlQRX4zr9DnQ
+ X/PvGZty5CI+x6NdXD2PcrcUH9FIyeq4yb4hss8vS6Cnd8xvaKJVxQjb6+gK73O9iPUmOoufqDk
+ ifV1YOEhztYMTThvk3Po6kMyv1eod4AUISiIQpsg4i4/wHYBa+cG4+O3ILCStnQ0UUdnFwDNtsc
+ yZb3XMdflq9RahaKwIPWGoQUKv/DbLgkVQuQ3H4UJDc++ki3l8jQqedmRTi+8IFh4Z7s2/CUtKj
+ S2kfjH9poNbILZtvmJq/E4CM57xZjvGCHZlS2EEfpXjDXMtZxM99ykYDiEa5HnfAnsx3oYVrMtt
+ OCRUxrVPZRvTjjFK2yN
+X-Received: by 2002:a05:600c:64cf:b0:477:7b16:5fb1 with SMTP id
+ 5b1f17b1804b1-485566cf893mr182557815e9.7.1773614092190; 
+ Sun, 15 Mar 2026 15:34:52 -0700 (PDT)
 Received: from localhost
  (p200300eba70b6e00ca7f54fffe019321.dip0.t-ipconnect.de.
  [2003:eb:a70b:6e00:ca7f:54ff:fe01:9321])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-439fe228986sm34022943f8f.35.2026.03.15.15.34.42
+ 5b1f17b1804b1-48541b6f6e6sm821489895e9.10.2026.03.15.15.34.51
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 15 Mar 2026 15:34:42 -0700 (PDT)
+ Sun, 15 Mar 2026 15:34:51 -0700 (PDT)
 From: =?UTF-8?q?Johannes=20W=C3=BCller?= <johanneswueller@gmail.com>
 To: amd-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
-Cc: =?UTF-8?q?Johannes=20W=C3=BCller?= <johanneswueller@gmail.com>
-Subject: [PATCH 0/4] drm/amd: fix HDMI output with non-HDMI EDID overrides
-Date: Sun, 15 Mar 2026 23:33:02 +0100
-Message-ID: <20260315223307.45807-1-johanneswueller@gmail.com>
+Cc: =?UTF-8?q?Johannes=20W=C3=BCller?= <johanneswueller@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH 1/4] drm: add edid_overridden flag to drm_connector
+Date: Sun, 15 Mar 2026 23:33:03 +0100
+Message-ID: <20260315223307.45807-2-johanneswueller@gmail.com>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260315223307.45807-1-johanneswueller@gmail.com>
+References: <20260315223307.45807-1-johanneswueller@gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -90,50 +97,55 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This series fixes several issues that prevent amdgpu from driving an
-HDMI display at its native resolution when a non-HDMI EDID is injected
-via drm.edid_firmware or debugfs edid_override.
+When an EDID override is in effect, the physical connector may not
+match reported capabilities. Adds a drm_connector flag that allows
+drivers to detect such mismatches.
 
-The motivating case is a Dell U3011 (2560x1600) connected via HDMI,
-whose native HDMI EDID only advertises CEA modes up to 1920x1080. By
-injecting the monitor's DisplayPort EDID (which contains the native
-2560x1600 mode), the correct resolution becomes available. However,
-amdgpu then fails to drive the output because the injected EDID lacks
-an HDMI VSDB, causing the driver to treat the physical HDMI connector
-as a passive HDMI-DVI dongle, and rejecting the required pixel clock.
+Signed-off-by: Johannes Wüller <johanneswueller@gmail.com>
+---
+ drivers/gpu/drm/drm_edid.c  | 2 ++
+ include/drm/drm_connector.h | 8 ++++++++
+ 2 files changed, 10 insertions(+)
 
-Patch 1 adds an edid_overridden flag to drm_connector, set by the
-existing EDID override mechanisms in _drm_do_get_edid(), so that
-drivers can detect when an override is in effect and adjust their
-behavior accordingly, without duplicating the override mechanism.
-
-Patches 2-4 fix the amdgpu-specific issues:
-- incorrect signal type selection when an override is active
-- unconditional rejection of all colour depths when max_tmds_clock is
-  zero
-- force_yuv420/422_output flags being silently ignored when the
-  display doesn't advertise the requested format.
-
-Tested on AMD Ryzen 9 7950X (RDNA3 iGPU, DCN 3.1.5) with a Dell U3011
-connected via HDMI at 2560x1600@60Hz RGB 8bpc, and another Dell U3011
-connected via DisplayPort in the same mode.
-
-This is my first code contribution to the kernel, so I would appreciate
-feedback on whether I've gotten recipients and other procedural details
-right! :)
-
-Johannes Wüller (4):
-  drm: add edid_overridden flag to drm_connector
-  drm/amd: fix HDMI signal type for EDID overrides
-  drm/amd: treat max_tmds_clock==0 as unconstrained
-  drm/amd: fix force_yuv420/422_output being ignored
-
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 20 +++++++++++--------
- .../amd/display/amdgpu_dm/amdgpu_dm_helpers.c |  9 ++++++++-
- drivers/gpu/drm/drm_edid.c                    |  2 ++
- include/drm/drm_connector.h                   |  8 ++++++++
- 4 files changed, 30 insertions(+), 9 deletions(-)
-
+diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
+index 26bb7710a462..9b0f410ea2de 100644
+--- a/drivers/gpu/drm/drm_edid.c
++++ b/drivers/gpu/drm/drm_edid.c
+@@ -2373,6 +2373,7 @@ static struct edid *_drm_do_get_edid(struct drm_connector *connector,
+ 	struct edid *edid, *new;
+ 	size_t alloc_size = EDID_LENGTH;
+ 
++	connector->edid_overridden = false;
+ 	override = drm_edid_override_get(connector);
+ 	if (override) {
+ 		alloc_size = override->size;
+@@ -2380,6 +2381,7 @@ static struct edid *_drm_do_get_edid(struct drm_connector *connector,
+ 		drm_edid_free(override);
+ 		if (!edid)
+ 			return NULL;
++		connector->edid_overridden = true;
+ 		goto ok;
+ 	}
+ 
+diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
+index c18be8c19de0..43d7ac31deba 100644
+--- a/include/drm/drm_connector.h
++++ b/include/drm/drm_connector.h
+@@ -2261,6 +2261,14 @@ struct drm_connector {
+ 	/** @bad_edid_counter: track sinks that give us an EDID with invalid checksum */
+ 	unsigned bad_edid_counter;
+ 
++	/**
++	 * @edid_overridden: Indicates whether the last read EDID was an
++	 * override (e.g. via debugfs edid_override or drm.edid_firmware kernel
++	 * parameter), which can cause the physical connector to differ from
++	 * the advertised capabilities.
++	 */
++	bool edid_overridden;
++
+ 	/**
+ 	 * @edid_corrupt: Indicates whether the last read EDID was corrupt. Used
+ 	 * in Displayport compliance testing - Displayport Link CTS Core 1.2
 -- 
 2.53.0
 
