@@ -4,75 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 28F0210854AA
-	for <dri-devel@archiver.kernel.org>; Sat, 14 Mar 2026 23:28:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E0A1310854B6
+	for <dri-devel@archiver.kernel.org>; Sun, 15 Mar 2026 00:51:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1BB5510E103;
-	Sat, 14 Mar 2026 23:28:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 297FA10E157;
+	Sun, 15 Mar 2026 00:51:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="nGI4eXpV";
+	dkim=pass (2048-bit key; unprotected) header.d=packett.cool header.i=@packett.cool header.b="DRvR4QUU";
 	dkim-atps=neutral
-Received: from mail-lj1-f176.google.com (mail-lj1-f176.google.com
- [209.85.208.176])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A51EA10E103
- for <dri-devel@lists.freedesktop.org>; Sat, 14 Mar 2026 23:28:01 +0000 (UTC)
-Received: by mail-lj1-f176.google.com with SMTP id
- 38308e7fff4ca-38a01c80c34so28141761fa.0
- for <dri-devel@lists.freedesktop.org>; Sat, 14 Mar 2026 16:28:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1773530880; x=1774135680; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=jCtEmGh8LeY5ZVx8BhZuufdcg167qUrzjvmKMxMMtZ8=;
- b=nGI4eXpVmYa10ZBFpCOsUNMa7ECiV5yOWWF1f4rpWmdBy+hIXRfBp51RgViMckRcI7
- Mszr5JYQHVmgWSdLRFsgCQ4usA08K4wmqm7tJkQVfjO4msyF1+dY370g2yhF4S8fg3dD
- E0iY/3FWMfWa+IKQUJY+KRhsVoYjO2WQ69y3a1z/sLMzXj/QtymHZviSo05wkXct1kKe
- J9AuTzGlG0HFTaF1Wr9k91l8PBadKjdYYwqkg99G2nxXji87uOmJWffBDBVEdydSiEe+
- 7mz7mEK0kjL5aGzxg6Nje/yU9lLUq2Oww1O/XvIpi88lAMunYCgeT8mRaS8U5IrZwuu7
- PqMQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1773530880; x=1774135680;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=jCtEmGh8LeY5ZVx8BhZuufdcg167qUrzjvmKMxMMtZ8=;
- b=mcNNtohXmw/XHBBCDILn/ilnbFJDre67/kvuNgfNGJ247m1ug4vHg73wm4EXeGStxZ
- utdI96VRfJUNb1LnJEAgn/MsYtD+LZlq5OoL2esd1ERrTVrrBlTxaEwEv9TtFXJy2w8A
- GGXYeD4suGzj2sG4PRmDk6yIcF7RxOUcbwZmocz5COxQmUm0VJT3LIA5HzeJoS+QGu0i
- PnWYBsDJfX4WReCugoVjEVShh+1GCxagWKzA7SoaXrmxQ4Yo6Gty0PDxtvIjhiEj68zn
- QTPeqVH8XsgTJ1lHSh60FpgXdMEM297cPk+EoSYH0Bz61xf7nRmwpU5LS0w2BgppcXZt
- WT/g==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVdg/pdun5nslc/M5IkHQhw948woffHUq54Qmjx9BLd5VVyzswqMWr7FNQsTMxfyThnI3OxjxlYvXU=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxUo0HaUdLqDy6z3q6XBjq98j6K5MdcNWIqbAbxD8OKuqJPdmnC
- wZlkWIcgC8Xe5WjiV1JRqfgPTmlhi8sTPsOfMMRDnLNeY41SMB/4aki0
-X-Gm-Gg: ATEYQzzSyo2ce5zbVNA7WutW/p7O6I85GMkH+57XzfypQP17wGY4F0BoxqmDLymBNH5
- NoZ6h3yjoyPY99jtfGbw7M4hiYlkY1Svwz4RbxM5ZY0kM2wDsdBAje8YpSIQLn2CByp+V5fFcHL
- tVxU27KS7O6/cNMKASCtkoaaSHUOWhC6ATUZ9DfjsLmEINWgevxiVDwI+7nz/sulEwX0wD2Zm2z
- 4uTmh7tQ8y9R4eVbl8+cbs8Xjtq1TS8g7lO8AMd9oswMnn/rYGBSKVMYn41sO7J+pmn9K4z9rG3
- eFM9TwHIdq5O5JUEKs13k2v3TMO1Wd+ofSYl6bMDOrjjXzJogYQYgEgOY9S6H+L2+xD8B9ya3Xs
- 36psZR2yUhbwFHXVE/krr9VCamAdkxyzzSlK9SpuvRQyAEBlFRhdodkKOgmz/qpHqU/Pyinhk3N
- D5oGqyGc9IPEbhCPiebFm6r9N25ZBFCcIdrw==
-X-Received: by 2002:a05:651c:4083:b0:385:bb24:d0eb with SMTP id
- 38308e7fff4ca-38a897b7410mr17019691fa.34.1773530879579; 
- Sat, 14 Mar 2026 16:27:59 -0700 (PDT)
-Received: from localhost ([188.234.148.119]) by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-38a67d9a4b6sm24308881fa.12.2026.03.14.16.27.57
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 14 Mar 2026 16:27:58 -0700 (PDT)
-From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
-To: kraxel@redhat.com,
-	vivek.kasireddy@intel.com
-Cc: sumit.semwal@linaro.org, christian.koenig@amd.com,
- dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org,
- linaro-mm-sig@lists.linaro.org, stable@vger.kernel.org,
- Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
-Subject: [PATCH] udmabuf: fix DMA direction mismatch in release_udmabuf()
-Date: Sun, 15 Mar 2026 04:27:22 +0500
-Message-ID: <20260314232722.15555-1-mikhail.v.gavrilov@gmail.com>
-X-Mailer: git-send-email 2.53.0
+Received: from out-189.mta1.migadu.com (out-189.mta1.migadu.com
+ [95.215.58.189])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 940DC10E157
+ for <dri-devel@lists.freedesktop.org>; Sun, 15 Mar 2026 00:51:17 +0000 (UTC)
+Message-ID: <9c4dad2c-25bd-47d2-bc40-9b551d023615@packett.cool>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=packett.cool;
+ s=key1; t=1773535875;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=pZtyxbHkiRBLwkPVgVeFtZ6s5sbnrf0HLktsBRDQ70o=;
+ b=DRvR4QUUdqxmEinGhXNRb4gRM7g8mkFIpCHdTiH6PJE7H5JhibRgd4pS88h+hZv59j7Ex9
+ 76KhGcl5ZJR+X8ifbpSeb7q7+4mP+da/nIYk3R5rhRn1y1v9Xm8FJXmrMNQ2TzW2PcbkO6
+ 8XzVMUvK1nur0gdbg5XHAtwD8Qbzelbc0vIGw70deJxpjaQTE1Oal9Ehz3HBy+XlyedRcf
+ nRVzZs8RN+56vj4D7Unllkyts2uMchL+tYWHYqCvpgaXXtvjih1K5x87r6Qt1KyIVN59R/
+ kK/WxLHJssPmgb4vtvzRJQoPl7p5VZcUmtcAReEfU3E6Roa4mxem0VJoRZ1Xag==
+Date: Sat, 14 Mar 2026 21:51:02 -0300
 MIME-Version: 1.0
+Subject: Re: [PATCH v5 00/10] drm/msm/dp: Drop the HPD state machine
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
+ <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20260314-hpd-refactor-v5-0-0c8450737d64@oss.qualcomm.com>
+Content-Language: en-US
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
+ include these headers.
+From: Val Packett <val@packett.cool>
+In-Reply-To: <20260314-hpd-refactor-v5-0-0c8450737d64@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-Migadu-Flow: FLOW_OUT
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,65 +66,76 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-begin_cpu_udmabuf() maps the sg_table with the caller-provided direction
-(e.g., DMA_TO_DEVICE for a write-only sync), and caches it in ubuf->sg
-for reuse.  However, release_udmabuf() always unmaps this sg_table with
-a hardcoded DMA_BIDIRECTIONAL, regardless of the direction that was
-originally used for the mapping.
 
-With CONFIG_DMA_API_DEBUG=y this produces:
+On 3/13/26 10:09 PM, Dmitry Baryshkov wrote:
+> Currently, all HPD interrupt handling must go through the HPD state
+> machine.
+>
+> This has caused many issues where the DRM framework assumes that DP is
+> in one state while the state machine is stuck in another state.
+>
+> As discussed here [1], this series:
+>
+> - Removes the state machine
+> - Moves link training to atomic_enable()
+> - Changes the detect() behavior to return true if a display is physically
+>    plugged in (as opposed to if the DP link is ready).
+> - Remove event queue and move internal HPD handling to hpd_notify()
+>
+> To correctly detect the displays which are plugged on boot on the boards
+> which use dp-connector devices, this series depends on [2]. USB-C and
+> eDP panels are handled natively.
+>
+> [1] https://patchwork.freedesktop.org/patch/656312/?series=142010&rev=2#comment_1201738
+> [2] https://lore.kernel.org/all/20260314-dp-connector-hpd-v1-0-786044cedc17@oss.qualcomm.com/
 
-  DMA-API: misc udmabuf: device driver frees DMA memory with different
-  direction [device address=0x000000044a123000] [size=4096 bytes]
-  [mapped with DMA_TO_DEVICE] [unmapped with DMA_BIDIRECTIONAL]
+Unfortunately this currently seems to mostly break link training with 
+USB-C, on x1e80100-dell-latitude-7455:
 
-The issue was found during video playback when GStreamer performed a
-write-only DMA_BUF_IOCTL_SYNC on a udmabuf.  It can be reproduced
-with CONFIG_DMA_API_DEBUG=y by creating a udmabuf from a memfd,
-performing a write-only sync (DMA_BUF_SYNC_WRITE without
-DMA_BUF_SYNC_READ), and closing the file descriptor.
+[  102.190083] [drm:msm_dp_ctrl_link_train_1_2 [msm]] *ERROR* link 
+training #2 on phy 1 failed. ret=-110
+[  102.192846] [drm:msm_dp_ctrl_setup_main_link [msm]] *ERROR* link 
+training of LTTPR(s) failed. ret=-110
+[  102.211095] [drm:msm_dp_bridge_atomic_enable [msm]] *ERROR* Failed 
+link training (rc=-104)
+[  102.211164] [drm:msm_dp_aux_isr [msm]] *ERROR* Unexpected DP AUX IRQ 
+0x01000000 when not busy
+[  102.247168] [drm:msm_dp_ctrl_link_train_1_2 [msm]] *ERROR* link 
+training #2 on phy 1 failed. ret=-110
+[  102.252859] [drm:msm_dp_ctrl_setup_main_link [msm]] *ERROR* link 
+training of LTTPR(s) failed. ret=-110
 
-Fix this by storing the DMA direction used when the sg_table is first
-created in begin_cpu_udmabuf(), and passing that same direction to
-put_sg_table() in release_udmabuf().
 
-Fixes: 284562e1f348 ("udmabuf: implement begin_cpu_access/end_cpu_access hooks")
-Cc: stable@vger.kernel.org
-Signed-off-by: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
----
- drivers/dma-buf/udmabuf.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+Once I did get it to connect on one of the ports, but then on unplug it 
+didn't detect the unplug properly and continued trying to use the link:
 
-diff --git a/drivers/dma-buf/udmabuf.c b/drivers/dma-buf/udmabuf.c
-index 94b8ecb892bb..d0836febefdd 100644
---- a/drivers/dma-buf/udmabuf.c
-+++ b/drivers/dma-buf/udmabuf.c
-@@ -40,6 +40,7 @@ struct udmabuf {
- 	struct folio **pinned_folios;
- 
- 	struct sg_table *sg;
-+	enum dma_data_direction sg_dir;
- 	struct miscdevice *device;
- 	pgoff_t *offsets;
- };
-@@ -235,7 +236,7 @@ static void release_udmabuf(struct dma_buf *buf)
- 	struct device *dev = ubuf->device->this_device;
- 
- 	if (ubuf->sg)
--		put_sg_table(dev, ubuf->sg, DMA_BIDIRECTIONAL);
-+		put_sg_table(dev, ubuf->sg, ubuf->sg_dir);
- 
- 	deinit_udmabuf(ubuf);
- 	kfree(ubuf);
-@@ -253,6 +254,8 @@ static int begin_cpu_udmabuf(struct dma_buf *buf,
- 		if (IS_ERR(ubuf->sg)) {
- 			ret = PTR_ERR(ubuf->sg);
- 			ubuf->sg = NULL;
-+		} else {
-+			ubuf->sg_dir = direction;
- 		}
- 	} else {
- 		dma_sync_sgtable_for_cpu(dev, ubuf->sg, direction);
--- 
-2.53.0
+[ 1418.418954] disp_cc_mdss_dptx1_link_clk status stuck at 'off'
+<trace cut>
+[ 1418.420950] Failed to enable clk 'ctrl_link': -16
+[ 1418.420959] [drm:msm_dp_ctrl_enable_mainlink_clocks [msm]] *ERROR* 
+Unable to start link clocks. ret=-16
+[ 1418.421058] [drm:msm_dp_bridge_atomic_enable [msm]] *ERROR* Failed 
+link training (rc=-16)
+<trace cut>
+[ 1418.423228] Failed to enable clk 'ctrl_link': -16
+[ 1418.423234] [drm:msm_dp_ctrl_enable_mainlink_clocks [msm]] *ERROR* 
+Unable to start link clocks. ret=-16
+[ 1418.423325] [drm:msm_dp_ctrl_on_stream [msm]] *ERROR* Failed to start 
+link clocks. ret=-16
+[ 1418.476234] [drm:dpu_encoder_phys_vid_wait_for_commit_done:543] [dpu 
+error]vblank timeout: 808208c0
+[ 1418.476272] [drm:dpu_kms_wait_for_commit_done:527] [dpu error]wait 
+for commit done returned -110
+[ 1418.509204] [drm:dpu_encoder_frame_done_timeout:2731] [dpu 
+error]enc37 frame done timeout
+[ 1419.163337] [drm:dpu_encoder_phys_vid_wait_for_commit_done:543] [dpu 
+error]vblank timeout: 808208c0
+[ 1419.163365] [drm:dpu_kms_wait_for_commit_done:527] [dpu error]wait 
+for commit done returned -110
+
+But after reboot, link training was failing on both ports..
+
+
+Thanks,
+~val
 
