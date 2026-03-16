@@ -4,52 +4,110 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E278FF506D9
-	for <dri-devel@archiver.kernel.org>; Mon, 16 Mar 2026 14:22:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 70EE4F506D5
+	for <dri-devel@archiver.kernel.org>; Mon, 16 Mar 2026 14:24:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5239310E244;
-	Mon, 16 Mar 2026 14:22:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DCC5310E17E;
+	Mon, 16 Mar 2026 14:24:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="kiGRj9iU";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=lechnology.com header.i=@lechnology.com header.b="x/LIb+cF";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1275F10E244
- for <dri-devel@lists.freedesktop.org>; Mon, 16 Mar 2026 14:22:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1773670918;
- bh=g6Qe9dUQSB1jW5FeSA3Az/mat94cXmfskVixp1L/sts=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=kiGRj9iUUwz6h9Dr/vvgh96XV/j3SbaeWTKACzRFGv0k0nuzP8fortPI7wOux3QNi
- xwIdCzMHjKEqKJC448Q4DSw0X7P2sHk0zlQucSh1mHbtQBpl91JwOwgrVJi0X8bupr
- lM54AaCbS5SullTHduMi1JQ7alX3dIJoCBPuF47VS0ZBLikSOe9F+2/B+El9IWnsVe
- iPr332Lbi2EUj+tdzEoNdApO+hbe/IBGtTwy2rtuS/whS4aMU9eD0ztIqE4+vy7sT+
- pjzUI16Qoon5/YfUzuK/WJqKTRooaHW5nWqcBM7tOJlehAq2R+FgA7Z89v8YLNr4ZJ
- QtgpSHjPS6BRw==
-Received: from fedora (unknown [IPv6:2a01:e0a:2c:6930:d919:a6e:5ea1:8a9f])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
- server-digest SHA256) (No client certificate requested)
- (Authenticated sender: bbrezillon)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 6564B17E05B5;
- Mon, 16 Mar 2026 15:21:58 +0100 (CET)
-Date: Mon, 16 Mar 2026 15:21:52 +0100
-From: Boris Brezillon <boris.brezillon@collabora.com>
-To: Pedro Demarchi Gomes <pedrodemargomes@gmail.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3] drm/shmem-helper: Fix Map huge page mapping in fault
- handler
-Message-ID: <20260316152152.1e20d35e@fedora>
-In-Reply-To: <20260316002649.211819-1-pedrodemargomes@gmail.com>
-References: <20260316002649.211819-1-pedrodemargomes@gmail.com>
-Organization: Collabora
-X-Mailer: Claws Mail 4.3.1 (GTK 3.24.51; x86_64-redhat-linux-gnu)
+Received: from galaxy.gendns.com (galaxy.gendns.com [66.235.175.158])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D68CB10E17E
+ for <dri-devel@lists.freedesktop.org>; Mon, 16 Mar 2026 14:24:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=lechnology.com; s=default; h=Content-Transfer-Encoding:Content-Type:
+ In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender
+ :Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
+ Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
+ List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=IjF+tcLQ8ULvfLpcMC8LYfiNnq4xRFR1Xq/lkm49gcE=; b=x/LIb+cFZ4DA6Rsu4LqFUuRJSw
+ Sj9ykvH5qv0fIFzsFAUDdANCjFfzNE/HhX8t9DrRjJ/mrS92iQj8nXi3bzwcw7AnDtu8BO7vBPTxZ
+ nHuTO5+RHSFB5/yf0Ezsnq7M0kImdn0R0Wx6Ghm03Bw4qm+6SwG0xKmNxoJqnAo/PKENHtAsakzy0
+ L9o5CPAd5cN/nzw35s0InKkl89KiPWTmWtdR55AqPb1teGWetW2PPGqYbvsBzisFz2OcAFe0VYifQ
+ Qk7Of2qYLwcOG83itFEc8vswK0IHvgEyvk0nUeAXpWpqiaf7zDG8MnMV2P9An3iKD7MHI8ETnBQJC
+ CJmI9fYw==;
+Received: from ip98-183-112-25.ok.ok.cox.net ([98.183.112.25]:33952
+ helo=[192.168.1.142])
+ by galaxy.gendns.com with essmtpa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
+ (Exim 4.99.1) (envelope-from <david@lechnology.com>)
+ id 1w28sG-0000000GII1-4Bvs; Mon, 16 Mar 2026 10:24:51 -0400
+Message-ID: <8a1369bc-d670-4863-9029-c377a20d64e6@lechnology.com>
+Date: Mon, 16 Mar 2026 09:24:50 -0500
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 11/16] drm/st7586: Use regular atomic helpers; drop
+ simple-display helpers
+To: Thomas Zimmermann <tzimmermann@suse.de>, javierm@redhat.com,
+ lanzano.alex@gmail.com, kamlesh.gurudasani@gmail.com,
+ architanant5@gmail.com, wens@kernel.org, mripard@kernel.org,
+ maarten.lankhorst@linux.intel.com, simona@ffwll.ch, airlied@gmail.com
+Cc: dri-devel@lists.freedesktop.org
+References: <20260311101438.365997-1-tzimmermann@suse.de>
+ <20260311101438.365997-12-tzimmermann@suse.de>
+ <1daa2dcd-bc77-476d-80ad-bb517cd1d575@lechnology.com>
+ <3312781e-6d81-47d7-a1fd-c0ff6da3db10@suse.de>
+Content-Language: en-US
+From: David Lechner <david@lechnology.com>
+Autocrypt: addr=david@lechnology.com; keydata=
+ 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
+In-Reply-To: <3312781e-6d81-47d7-a1fd-c0ff6da3db10@suse.de>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-AntiAbuse: This header was added to track abuse,
+ please include it with any abuse report
+X-AntiAbuse: Primary Hostname - galaxy.gendns.com
+X-AntiAbuse: Original Domain - lists.freedesktop.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - lechnology.com
+X-Get-Message-Sender-Via: galaxy.gendns.com: authenticated_id:
+ davidmain+lechnology.com/only user confirmed/virtual account not confirmed
+X-Authenticated-Sender: galaxy.gendns.com: davidmain@lechnology.com
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,206 +123,61 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sun, 15 Mar 2026 21:26:49 -0300
-Pedro Demarchi Gomes <pedrodemargomes@gmail.com> wrote:
+On 3/16/26 3:02 AM, Thomas Zimmermann wrote:
+> Hi
+> 
+> Am 16.03.26 um 00:49 schrieb David Lechner:
+>> On 3/11/26 5:10 AM, Thomas Zimmermann wrote:
+>>> Replace simple-display helpers with regular atomic helpers. Store the
+>>> pipeline elements in struct st7586_device and initialize them as part
+>>> of probing the device. Use mipi-dbi's existing helpers and initializer
+>>> macros where possible.
+>>>
+>>> Effectively open-codes the modesetting code in the initializer helpers
+>>> of mipi-dbi and simple-display. St7586 requires custom helpers for
+>>> various pipeline elements, and non-freeing cleanup of the pipeline.
+>>>
+>>
+>> ...
+>>
+>>> +static void st7586_plane_helper_atomic_update(struct drm_plane *plane,
+>>> +                          struct drm_atomic_state *state)
+>>>   {
+>>> -    struct drm_plane_state *state = pipe->plane.state;
+>>> -    struct drm_shadow_plane_state *shadow_plane_state = to_drm_shadow_plane_state(state);
+>>> -    struct drm_framebuffer *fb = state->fb;
+>>> +    struct drm_plane_state *plane_state = plane->state;
+>>> +    struct drm_shadow_plane_state *shadow_plane_state = to_drm_shadow_plane_state(plane_state);
+>>> +    struct drm_framebuffer *fb = plane_state->fb;
+>>> +    struct drm_plane_state *old_plane_state = drm_atomic_get_old_plane_state(state, plane);
+>>>       struct drm_rect rect;
+>>>       int idx;
+>>>   -    if (!pipe->crtc.state->active)
+>>> +    if (!fb)
+>>>           return;
+>>>   -    if (!drm_dev_enter(fb->dev, &idx))
+>>> -        return;
+>> What was wrong with returning early here?
+> 
+> Nothing. Putting the affected code into a single block just seems to make the code better structured. But we can go back to the old style, if preferred.
 
-> When running ./tools/testing/selftests/mm/split_huge_page_test multiple
-> times with /sys/kernel/mm/transparent_hugepage/shmem_enabled and
-> /sys/kernel/mm/transparent_hugepage/enabled set as always the following BUG
-> occurs:
-> 
-> [  232.728858] ------------[ cut here ]------------
-> [  232.729458] kernel BUG at mm/memory.c:2276!
-> [  232.729726] Oops: invalid opcode: 0000 [#1] SMP DEBUG_PAGEALLOC KASAN PTI
-> [  232.730217] CPU: 19 UID: 60578 PID: 1497 Comm: llvmpipe-9 Not tainted 7.0.0-rc1mm-new+ #19 PREEMPT(lazy)
-> [  232.730855] Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.17.0-9.fc43 06/10/2025
-> [  232.731360] RIP: 0010:walk_to_pmd+0x29e/0x3c0
-> [  232.731569] Code: d8 5b 5d 41 5c 41 5d 41 5e 41 5f c3 cc cc cc cc 48 89 ea 48 89 de 4c 89 f7 e8 ae 85 ff ff 85 c0 0f 84 1f fe ff ff 31 db eb d0 <0f> 0b 48 89 ea 48 89 de 4c 89 f7 e8 92 8b ff ff 85 c0 75 e8 48 b8
-> [  232.732614] RSP: 0000:ffff8881aa6ff9a8 EFLAGS: 00010282
-> [  232.732991] RAX: 8000000142e002e7 RBX: ffff8881433cae10 RCX: dffffc0000000000
-> [  232.733362] RDX: 0000000000000000 RSI: 00007fb47840b000 RDI: 8000000142e002e7
-> [  232.733801] RBP: 00007fb47840b000 R08: 0000000000000000 R09: 1ffff110354dff46
-> [  232.734168] R10: fffffbfff0cb921d R11: 00000000910da5ce R12: 1ffffffff0c1fcdd
-> [  232.734459] R13: 1ffffffff0c23f36 R14: ffff888171628040 R15: 0000000000000000
-> [  232.734861] FS:  00007fb4907f86c0(0000) GS:ffff888791f2c000(0000) knlGS:0000000000000000
-> [  232.735265] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> [  232.735548] CR2: 00007fb47840be00 CR3: 000000015e6dc000 CR4: 00000000000006f0
-> [  232.736031] Call Trace:
-> [  232.736273]  <TASK>
-> [  232.736500]  get_locked_pte+0x1f/0xa0
-> [  232.736878]  insert_pfn+0x9f/0x350
-> [  232.737190]  ? __pfx_pat_pagerange_is_ram+0x10/0x10
-> [  232.737614]  ? __pfx_insert_pfn+0x10/0x10
-> [  232.737990]  ? __pfx_css_rstat_updated+0x10/0x10
-> [  232.738281]  ? __pfx_pfn_modify_allowed+0x10/0x10
-> [  232.738552]  ? lookup_memtype+0x62/0x180
-> [  232.738761]  vmf_insert_pfn_prot+0x14b/0x340
-> [  232.739012]  ? __pfx_vmf_insert_pfn_prot+0x10/0x10
-> [  232.739247]  ? __pfx___might_resched+0x10/0x10
-> [  232.739475]  drm_gem_shmem_fault.cold+0x18/0x39
-> [  232.739677]  ? rcu_read_unlock+0x20/0x70
-> [  232.739882]  __do_fault+0x251/0x7b0
-> [  232.740028]  do_fault+0x6e1/0xc00
-> [  232.740167]  ? __lock_acquire+0x590/0xc40
-> [  232.740335]  handle_pte_fault+0x439/0x760
-> [  232.740498]  ? mtree_range_walk+0x252/0xae0
-> [  232.740669]  ? __pfx_handle_pte_fault+0x10/0x10
-> [  232.740899]  __handle_mm_fault+0xa02/0xf30
-> [  232.741066]  ? __pfx___handle_mm_fault+0x10/0x10
-> [  232.741255]  ? find_vma+0xa1/0x120
-> [  232.741403]  handle_mm_fault+0x2bf/0x8f0
-> [  232.741564]  do_user_addr_fault+0x2d3/0xed0
-> [  232.741736]  ? trace_page_fault_user+0x1bf/0x240
-> [  232.741969]  exc_page_fault+0x87/0x120
-> [  232.742124]  asm_exc_page_fault+0x26/0x30
-> [  232.742288] RIP: 0033:0x7fb4d73ed546
-> [  232.742441] Code: 66 41 0f 6f fb 66 44 0f 6d dc 66 44 0f 6f c6 66 41 0f 6d f1 66 0f 6c fc 66 45 0f 6c c1 66 44 0f 6f c9 66 0f 6d ca 66 0f db f0 <66> 0f df 04 08 66 44 0f 6c ca 66 45 0f db c2 66 44 0f df 10 66 44
-> [  232.743193] RSP: 002b:00007fb4907f68a0 EFLAGS: 00010206
-> [  232.743565] RAX: 00007fb47840aa00 RBX: 00007fb4d73ec070 RCX: 0000000000001400
-> [  232.743871] RDX: 0000000000002800 RSI: 0000000000003c00 RDI: 0000000000000001
-> [  232.744150] RBP: 0000000000000004 R08: 0000000000001400 R09: 00007fb4d73ec060
-> [  232.744433] R10: 000055f0261a4288 R11: 00007fb4c013da40 R12: 0000000000000008
-> [  232.744712] R13: 0000000000000000 R14: 4332322132212110 R15: 0000000000000004
-> [  232.746616]  </TASK>
-> [  232.746711] Modules linked in: nft_nat nft_masq veth bridge stp llc snd_seq_dummy snd_hrtimer snd_seq snd_seq_device snd_timer snd soundcore overlay rfkill nf_conntrack_netbios_ns nf_conntrack_broadcast nft_fib_inet nft_fib_ipv4 nft_fib_ipv6 nft_fib nft_reject_inet nf_reject_ipv4 nf_reject_ipv6 nft_reject nft_ct nft_chain_nat nf_nat nf_conntrack nf_defrag_ipv6 nf_defrag_ipv4 nf_tables qrtr ppdev 9pnet_virtio 9pnet parport_pc i2c_piix4 netfs pcspkr parport i2c_smbus joydev sunrpc vfat fat loop dm_multipath nfnetlink vsock_loopback vmw_vsock_virtio_transport_common vmw_vsock_vmci_transport zram lz4hc_compress vmw_vmci lz4_compress vsock e1000 bochs serio_raw ata_generic pata_acpi scsi_dh_rdac scsi_dh_emc scsi_dh_alua i2c_dev fuse qemu_fw_cfg
-> [  232.749308] ---[ end trace 0000000000000000 ]---
-> [  232.749507] RIP: 0010:walk_to_pmd+0x29e/0x3c0
-> [  232.749692] Code: d8 5b 5d 41 5c 41 5d 41 5e 41 5f c3 cc cc cc cc 48 89 ea 48 89 de 4c 89 f7 e8 ae 85 ff ff 85 c0 0f 84 1f fe ff ff 31 db eb d0 <0f> 0b 48 89 ea 48 89 de 4c 89 f7 e8 92 8b ff ff 85 c0 75 e8 48 b8
-> [  232.750428] RSP: 0000:ffff8881aa6ff9a8 EFLAGS: 00010282
-> [  232.750645] RAX: 8000000142e002e7 RBX: ffff8881433cae10 RCX: dffffc0000000000
-> [  232.750954] RDX: 0000000000000000 RSI: 00007fb47840b000 RDI: 8000000142e002e7
-> [  232.751232] RBP: 00007fb47840b000 R08: 0000000000000000 R09: 1ffff110354dff46
-> [  232.751514] R10: fffffbfff0cb921d R11: 00000000910da5ce R12: 1ffffffff0c1fcdd
-> [  232.751837] R13: 1ffffffff0c23f36 R14: ffff888171628040 R15: 0000000000000000
-> [  232.752124] FS:  00007fb4907f86c0(0000) GS:ffff888791f2c000(0000) knlGS:0000000000000000
-> [  232.752441] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> [  232.752674] CR2: 00007fb47840be00 CR3: 000000015e6dc000 CR4: 00000000000006f0
-> [  232.752983] Kernel panic - not syncing: Fatal exception
-> [  232.753510] Kernel Offset: disabled
-> [  232.754643] ---[ end Kernel panic - not syncing: Fatal exception ]---
-> 
-> This happens when two concurrent page faults occur within the same PMD range.
-> One fault installs a PMD mapping through vmf_insert_pfn_pmd(), while the other
-> attempts to install a PTE mapping via vmf_insert_pfn(). The bug is
-> triggered because a pmd_trans_huge is not expected when walking the page
-> table inside vmf_insert_pfn.
-> 
-> Avoid this race by adding a huge_fault callback to drm_gem_shmem_vm_ops so that
-> PMD-sized mappings are handled through the appropriate huge page fault path.
-> 
-> Fixes: 211b9a39f261 ("drm/shmem-helper: Map huge pages in fault handler")
-> Signed-off-by: Pedro Demarchi Gomes <pedrodemargomes@gmail.com>
-> ---
-> 
-> Changes in v3:
->  - Pass a try_pmd boolean parameter to drm_gem_shmem_any_fault
->  - Compile drm_gem_shmem_huge_fault only if CONFIG_ARCH_SUPPORTS_PMD_PFNMAP
-> is defined to avoid a build warning
-> 
-> Changes in v2: https://lore.kernel.org/dri-devel/20260313141719.3949700-1-pedrodemargomes@gmail.com/
->  - Keep the #ifdef unindented
->  - Create drm_gem_shmem_any_fault to handle faults of any order and use
-> drm_gem_shmem_[huge_]fault() as wrappers
-> 
-> v1: https://lore.kernel.org/all/20260312155027.1682606-1-pedrodemargomes@gmail.com/
+I have a slight preference for avoiding more indentation when we can
+help it.
 
-I've played a bit with the drm-misc-{next,fixes} versions (with the extra
-pfn_mkwrite fixes on top for the -next variant), and below is my preferred
-version (pfn insertion is all handled inside the try_insert_pfn() helper,
-with order == PMD_ORDER specialized there).
+> 
+> Best regards
+> Thomas
+> 
+>>
+>>> +    if (drm_dev_enter(plane->dev, &idx)) {
+>>> +        if (drm_atomic_helper_damage_merged(old_plane_state, plane_state, &rect))
+>>> +            st7586_fb_dirty(&shadow_plane_state->data[0], fb, &rect,
+>>> +                    &shadow_plane_state->fmtcnv_state);
+>>> +        drm_dev_exit(idx);
+>>> +    }
+>>> +}
+>>>   -    if (drm_atomic_helper_damage_merged(old_state, state, &rect))
+>>> -        st7586_fb_dirty(&shadow_plane_state->data[0], fb, &rect,
+>>> -                &shadow_plane_state->fmtcnv_state);
+> 
 
---->8---
-
-diff --git a/drivers/gpu/drm/drm_gem_shmem_helper.c b/drivers/gpu/drm/drm_gem_shmem_helper.c
-index 7b5a49935ae4..f549cc040c7a 100644
---- a/drivers/gpu/drm/drm_gem_shmem_helper.c
-+++ b/drivers/gpu/drm/drm_gem_shmem_helper.c
-@@ -550,27 +550,27 @@ int drm_gem_shmem_dumb_create(struct drm_file *file, struct drm_device *dev,
- }
- EXPORT_SYMBOL_GPL(drm_gem_shmem_dumb_create);
- 
--static bool drm_gem_shmem_try_map_pmd(struct vm_fault *vmf, unsigned long addr,
--                                     struct page *page)
-+static vm_fault_t try_insert_pfn(struct vm_fault *vmf, unsigned int order, unsigned long pfn)
- {
-+       if (!order) {
-+               return vmf_insert_pfn(vmf->vma, vmf->address, pfn);
- #ifdef CONFIG_ARCH_SUPPORTS_PMD_PFNMAP
--       unsigned long pfn = page_to_pfn(page);
--       unsigned long paddr = pfn << PAGE_SHIFT;
--       bool aligned = (addr & ~PMD_MASK) == (paddr & ~PMD_MASK);
-+       } else if (order == PMD_ORDER) {
-+               unsigned long paddr = pfn << PAGE_SHIFT;
-+               bool aligned = (vmf->address & ~PMD_MASK) == (paddr & ~PMD_MASK);
- 
--       if (aligned &&
--           pmd_none(*vmf->pmd) &&
--           folio_test_pmd_mappable(page_folio(page))) {
--               pfn &= PMD_MASK >> PAGE_SHIFT;
--               if (vmf_insert_pfn_pmd(vmf, pfn, false) == VM_FAULT_NOPAGE)
--                       return true;
--       }
-+               if (aligned &&
-+                   folio_test_pmd_mappable(page_folio(pfn_to_page(pfn)))) {
-+                       pfn &= PMD_MASK >> PAGE_SHIFT;
-+                       return vmf_insert_pfn_pmd(vmf, pfn, false);
-+               }
- #endif
-+       }
- 
--       return false;
-+       return VM_FAULT_FALLBACK;
- }
- 
--static vm_fault_t drm_gem_shmem_fault(struct vm_fault *vmf)
-+static vm_fault_t drm_gem_shmem_any_fault(struct vm_fault *vmf, unsigned int order)
- {
-        struct vm_area_struct *vma = vmf->vma;
-        struct drm_gem_object *obj = vma->vm_private_data;
-@@ -581,6 +581,9 @@ static vm_fault_t drm_gem_shmem_fault(struct vm_fault *vmf)
-        pgoff_t page_offset;
-        unsigned long pfn;
- 
-+       if (order && order != PMD_ORDER)
-+               return VM_FAULT_FALLBACK;
-+
-        /* Offset to faulty address in the VMA. */
-        page_offset = vmf->pgoff - vma->vm_pgoff;
- 
-@@ -593,13 +596,8 @@ static vm_fault_t drm_gem_shmem_fault(struct vm_fault *vmf)
-                goto out;
-        }
- 
--       if (drm_gem_shmem_try_map_pmd(vmf, vmf->address, pages[page_offset])) {
--               ret = VM_FAULT_NOPAGE;
--               goto out;
--       }
--
-        pfn = page_to_pfn(pages[page_offset]);
--       ret = vmf_insert_pfn(vma, vmf->address, pfn);
-+       ret = try_insert_pfn(vmf, order, pfn);
- 
-  out:
-        dma_resv_unlock(shmem->base.resv);
-@@ -607,6 +605,11 @@ static vm_fault_t drm_gem_shmem_fault(struct vm_fault *vmf)
-        return ret;
- }
- 
-+static vm_fault_t drm_gem_shmem_fault(struct vm_fault *vmf)
-+{
-+       return drm_gem_shmem_any_fault(vmf, 0);
-+}
-+
- static void drm_gem_shmem_vm_open(struct vm_area_struct *vma)
- {
-        struct drm_gem_object *obj = vma->vm_private_data;
-@@ -643,6 +646,9 @@ static void drm_gem_shmem_vm_close(struct vm_area_struct *vma)
- 
- const struct vm_operations_struct drm_gem_shmem_vm_ops = {
-        .fault = drm_gem_shmem_fault,
-+#ifdef CONFIG_ARCH_SUPPORTS_PMD_PFNMAP
-+       .huge_fault = drm_gem_shmem_any_fault,
-+#endif
-        .open = drm_gem_shmem_vm_open,
-        .close = drm_gem_shmem_vm_close,
- };
