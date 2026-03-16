@@ -4,131 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C742F53D87
-	for <dri-devel@archiver.kernel.org>; Mon, 16 Mar 2026 18:50:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 22242F53D81
+	for <dri-devel@archiver.kernel.org>; Mon, 16 Mar 2026 18:51:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CC62C10E323;
-	Mon, 16 Mar 2026 18:50:55 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="E3B1nt3A";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="PTlKqCbh";
-	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9B00510E323
- for <dri-devel@lists.freedesktop.org>; Mon, 16 Mar 2026 18:50:54 +0000 (UTC)
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 62GF4Nu2795437
- for <dri-devel@lists.freedesktop.org>; Mon, 16 Mar 2026 18:50:54 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=Q8YGBda9KOWCRb2Cug1HV/KM
- YV+AJlVa1FamO6IJAT0=; b=E3B1nt3A5bsRv/nTpUsvIg4h8p7ERZNQOPCcPQtD
- ENyY83BT296WCI+Q3y34BUfmwZ++q2STnSQLYuSeYSQcU5MDe/A9Ol+7NU6L/Tyo
- oe3s2UgQJwOtk3RWMpcCteyvngj7Wp2d8lgsvOGafye8+P5inFf0N4q1EjFJIhbr
- jl7wsmnRzpErSOzzc8rOwPynWn7yKcODKJhaSGXDnG6T02IH6QnReBdcm9Xbz7RF
- RzC4AeFTQjaw8aTRRiqL5Z/rjUPNneUW5qm/pzhLIWw+jOHkJNF0R6djZiwzoEQE
- AAXMOqV13FfQ15fsHudKG4kDwvqyPZA2982RCzL+KPOKAQ==
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
- [209.85.160.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4cxm6d0v19-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Mon, 16 Mar 2026 18:50:53 +0000 (GMT)
-Received: by mail-qt1-f197.google.com with SMTP id
- d75a77b69052e-5092033798eso69674681cf.1
- for <dri-devel@lists.freedesktop.org>; Mon, 16 Mar 2026 11:50:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1773687053; x=1774291853;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=Q8YGBda9KOWCRb2Cug1HV/KMYV+AJlVa1FamO6IJAT0=;
- b=PTlKqCbhqW9ebIqNF25CKEv3FiBn2M8luokqKBaATo8z29h3Kq9mf5A95VdULk31mq
- 6twr3YVsG45AsKqx5P6SnMC1deeAXPuE2vXdqRmRXzTF2FnBlOesuhj2P++mC5mq4ZjW
- zIHQzTiftk8GwZ7Xbif5IzS6rX1HIu+aWoptN1cigLOZY40Ft2U2DbTjN9BCwHKn79Ns
- rkPExQAgL7m7v+YBSJEKvoi04N3Rr2kHfDsbEcK7sfWnVRPkmM0DtrDFDCTtoPoRsie1
- +t2QSL1OUfR4Lb2bgtxKiRwQ1HovPUErfD//VBTR6Yf6GODf8PgFJHubdsxr+KIhmGTt
- xD0w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1773687053; x=1774291853;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=Q8YGBda9KOWCRb2Cug1HV/KMYV+AJlVa1FamO6IJAT0=;
- b=Din1xFdN8AIfWe5rQi53cCzINVLY/tLqImC5Mn0R1/CbNXFZBiYoUk32YVobik6m4A
- 9HFu5rq9fdsJ2iE5V1NRaqtVJ7xN1vBLLMTt9l//sb4b/VrKYqPA5FZsECDDgT2YRTcI
- WMYQNLkbHshsUtjViUXeNgxe0jO4JC+alcjG1K9ByY1qRWxZcgC1zjEquPdqN30jNdyZ
- TVECpHaryrkDm9OIVY9256owmarn2DAim80D/Zc7PhyhJKhQaKgdD8ziZ93/ZO/bH+3h
- OUWH+6nrzHxR/LaWXtwcJUTd7V9KoZJ4XbaSmMewD6VlGn20ZxThakK2bULKv7/Pp3VS
- wcRw==
-X-Gm-Message-State: AOJu0YxSdLCv8IkVDlE6RBYm3ggEx/na8yZ5Q3ZcvssgrVrS3rjqML4P
- W6n1ZeM27v3MVLkzdoJvBn3HUeOA9T+oh2vHW/1QizgO0VdIMuXuHOZaFsoeUrEzJJEPvz6vV1h
- RerGyVJPUVtJUzLjNB7wJdiXWecJrkE32F80dEyh2RQxBa3j9vcY2MY5wai5BKxm17o7rX3k=
-X-Gm-Gg: ATEYQzyge2uyKLU+N7PK1HctcPSWHKxOThW6xjI10Z/x0uzKW7SM+ePP/hrvqQOsXrO
- xArOYjPCvLbGcHVRbu2MFMX9JPYmmNOwIWgyKfe5412A+hWi6hTySoE/2az9cPJzGLoOaAWAOF1
- NnBr5GdYw0+WhXjRrfDkAsIATwXfPGrq+ulGIVs+BAX93jFT45CZUXBQ9+MBZ9oFFTVDTmj6B9E
- I4vGsfhFTVC4F+MT+9x0ZmH/NCsOKh+gVMWzr1HJLcjMQAKiyAkR1nN8SK71NtgV37jzvidaPIG
- QgXJr0AnYKA2mNMbrZrCaqtDioFjgY8wH9jj7deLjV+iHIwvDcl7XfqEDSak0u53oEhgMM2dDFI
- hzdQhawGwmuJVGIUtX1eGkWEBNFAuJ0cgsoVsPetQoDWOroftRD9wb9EXW8+8Iy5PI3TkVf3Ifm
- 92bi2+E8o/6+4oWrfvpJujFOnSfqbtMJk2MOY=
-X-Received: by 2002:a05:622a:198a:b0:509:4342:9980 with SMTP id
- d75a77b69052e-50957cfb4d5mr190496741cf.33.1773687052848; 
- Mon, 16 Mar 2026 11:50:52 -0700 (PDT)
-X-Received: by 2002:a05:622a:198a:b0:509:4342:9980 with SMTP id
- d75a77b69052e-50957cfb4d5mr190496461cf.33.1773687052405; 
- Mon, 16 Mar 2026 11:50:52 -0700 (PDT)
-Received: from umbar.lan
- (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5a156162ac3sm3712137e87.46.2026.03.16.11.50.51
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 16 Mar 2026 11:50:51 -0700 (PDT)
-Date: Mon, 16 Mar 2026 20:50:49 +0200
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Rob Clark <robin.clark@oss.qualcomm.com>
-Cc: dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, Sean Paul <sean@poorly.run>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Akhil P Oommen <akhilpo@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
+	by gabe.freedesktop.org (Postfix) with ESMTP id 75D0C10E0E0;
+	Mon, 16 Mar 2026 18:51:12 +0000 (UTC)
+Received: from MTA-12-4.privateemail.com (mta-12-4.privateemail.com
+ [198.54.127.107])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4F42C10E0E0
+ for <dri-devel@lists.freedesktop.org>; Mon, 16 Mar 2026 18:51:11 +0000 (UTC)
+Received: from mta-12.privateemail.com (localhost [127.0.0.1])
+ by mta-12.privateemail.com (Postfix) with ESMTP id 4fZPLj6CbYz3hhTr;
+ Mon, 16 Mar 2026 14:51:09 -0400 (EDT)
+Received: from hal-station (unknown [23.129.64.161])
+ by mta-12.privateemail.com (Postfix) with ESMTPA;
+ Mon, 16 Mar 2026 14:50:54 -0400 (EDT)
+Date: Mon, 16 Mar 2026 14:50:45 -0400
+From: Hamza Mahfooz <someguy@effective-light.com>
+To: dri-devel@lists.freedesktop.org
+Cc: Ian Forbes <ian.forbes@broadcom.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Karol Herbst <kherbst@redhat.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- open list <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH 1/2] drm/msm/adreno: Change chip_id format
-Message-ID: <l5efwvmvrla3we5a5mgf2hrngtgyplla5avolda636apgycve3@fkyet2nl5d5n>
-References: <20260316183436.671482-1-robin.clark@oss.qualcomm.com>
- <20260316183436.671482-2-robin.clark@oss.qualcomm.com>
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v6] drm/edid: add CTA Video Format Data Block support
+Message-ID: <abhRBaCjV2ALtHkR@hal-station>
+References: <20260225175709.408010-1-someguy@effective-light.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260316183436.671482-2-robin.clark@oss.qualcomm.com>
-X-Authority-Analysis: v=2.4 cv=c7+mgB9l c=1 sm=1 tr=0 ts=69b8510d cx=c_pps
- a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22 a=EUspDBNiAAAA:8
- a=LrZYsQg68yZ-jVbP9dYA:9 a=CjuIK1q_8ugA:10 a=a_PwQJl-kcHnX1M80qC6:22
-X-Proofpoint-ORIG-GUID: D4GNrCTAoQDGT_aamh4DKBjTL3cYno_x
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzE2MDE1MCBTYWx0ZWRfXyGF8lXIerYMA
- +XlRkxo8E5qvD+mbfs7UfGB+osUmVbMITsaWw47cdsLmWAw+706/LVuXGkq443iLECTQ4bHYMSI
- z/yb4FxUf4fZ7WzW+B8Lgl46ciTYf/I2CBazAbXqIl00BwnApr/NYme7/G6uE5x+iL+Z6DJZq40
- jN1v9deaua84jjAUm6uX7OXxUtY4Vk+hNQnwurPmMWX8/6dW3lSVb4NWv4OeIKRc68BTRMOj+O1
- vf1yclfaRGNaA0THZWGldNrpX+YJf4zGVOJV8qfor4f0/+7urCpeWrmUQhCcW3d2Qavakim9CiP
- 8jwsG/OXRJAm5NrAboTBXpEuIfYAkgSwzYr6sXA7s2mzug6NxSLUlzktRPHMAS/vv6+eDEWBAoJ
- Ymq8/jrDvxUXTGs1lrmDZaSLbsqRGmgkBZnu4SjzPmYwDJ/DbPrFM627zurW8CGiW0QmZQSn5Ux
- c4UjPU43PjiprRteFsg==
-X-Proofpoint-GUID: D4GNrCTAoQDGT_aamh4DKBjTL3cYno_x
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-03-16_05,2026-03-16_06,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 bulkscore=0 priorityscore=1501 suspectscore=0 phishscore=0
- clxscore=1015 lowpriorityscore=0 spamscore=0 malwarescore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603160150
+In-Reply-To: <20260225175709.408010-1-someguy@effective-light.com>
+X-Virus-Scanned: ClamAV using ClamSMTP
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -144,23 +53,561 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Mar 16, 2026 at 11:34:33AM -0700, Rob Clark wrote:
-> The "ipv4-style" %u.%u.%u.%u used to make sense when the chip_id was
-> simply encoding gen.major.minor.patch.  But this hasn't been true for
-> at least a couple years.
+Ping.
+
+On Wed, Feb 25, 2026 at 12:57:08PM -0500, Hamza Mahfooz wrote:
+> Video Format Data Blocks (VFDBs) contain the necessary information that
+> needs to be fed to the Optimized Video Timings (OVT) Algorithm.
+> Also, we require OVT support to cover modes that aren't supported by
+> earlier standards (e.g. CVT). So, parse all of the relevant VFDB data
+> and feed it to the OVT Algorithm, to extract all of the missing OVT
+> modes.
 > 
-> Switch to %08x, which is still easy enough to read for older devices,
-> and much easier to read with the new scheme.
-> 
-> Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
+> Cc: Ian Forbes <ian.forbes@broadcom.com>
+> Cc: Jani Nikula <jani.nikula@linux.intel.com>
+> Suggested-by: Karol Herbst <kherbst@redhat.com>
+> Signed-off-by: Hamza Mahfooz <someguy@effective-light.com>
 > ---
->  drivers/gpu/drm/msm/adreno/adreno_gpu.h | 8 ++------
->  1 file changed, 2 insertions(+), 6 deletions(-)
+> v3: move ovt stuff above add_cea_modes() and break up
+>     calculate_ovt_mode() to make it easier to read.
 > 
-
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-
-
--- 
-With best wishes
-Dmitry
+> v4: fix 32 bit build and constify read-only vars.
+> 
+> v5: implement suggestions from:
+>     https://lore.kernel.org/dri-devel/87plpbk92h.fsf@intel.com/
+>     and export drm_ovt_mode().
+> 
+> v6: rebased onto drm-misc-next and tested on an AYA AYANEO-OLED.
+> ---
+>  drivers/gpu/drm/drm_edid.c | 465 +++++++++++++++++++++++++++++++++++++
+>  include/drm/drm_edid.h     |   3 +
+>  2 files changed, 468 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
+> index 26bb7710a462..0e3141866f21 100644
+> --- a/drivers/gpu/drm/drm_edid.c
+> +++ b/drivers/gpu/drm/drm_edid.c
+> @@ -31,6 +31,7 @@
+>  #include <linux/bitfield.h>
+>  #include <linux/byteorder/generic.h>
+>  #include <linux/cec.h>
+> +#include <linux/gcd.h>
+>  #include <linux/export.h>
+>  #include <linux/hdmi.h>
+>  #include <linux/i2c.h>
+> @@ -755,6 +756,87 @@ static const struct minimode extra_modes[] = {
+>  	{ 2048, 1536, 60, 0 },
+>  };
+>  
+> +struct cta_rid {
+> +	u16 hactive;
+> +	u16 vactive;
+> +	u8 hratio;
+> +	u8 vratio;
+> +};
+> +
+> +/* CTA-861-I Table 11 - Resolution Identification (RID) */
+> +static const struct cta_rid rids[] = {
+> +	[0]  = { 0, 0, 0, 0 },
+> +	[1]  = { 1280, 720, 16, 9 },
+> +	[2]  = { 1280, 720, 64, 27 },
+> +	[3]  = { 1680, 720, 64, 27 },
+> +	[4]  = { 1920, 1080, 16, 9 },
+> +	[5]  = { 1920, 1080, 64, 27 },
+> +	[6]  = { 2560, 1080, 64, 27 },
+> +	[7]  = { 3840, 1080, 32, 9 },
+> +	[8]  = { 2560, 1440, 16, 9 },
+> +	[9]  = { 3440, 1440, 64, 27 },
+> +	[10] = { 5120, 1440, 32, 9 },
+> +	[11] = { 3840, 2160, 16, 9 },
+> +	[12] = { 3840, 2160, 64, 27 },
+> +	[13] = { 5120, 2160, 64, 27 },
+> +	[14] = { 7680, 2160, 32, 9 },
+> +	[15] = { 5120, 2880, 16, 9 },
+> +	[16] = { 5120, 2880, 64, 27 },
+> +	[17] = { 6880, 2880, 64, 27 },
+> +	[18] = { 10240, 2880, 32, 9 },
+> +	[19] = { 7680, 4320, 16, 9 },
+> +	[20] = { 7680, 4320, 64, 27 },
+> +	[21] = { 10240, 4320, 64, 27 },
+> +	[22] = { 15360, 4320, 32, 9 },
+> +	[23] = { 11520, 6480, 16, 9 },
+> +	[24] = { 11520, 6480, 64, 27 },
+> +	[25] = { 15360, 6480, 64, 27 },
+> +	[26] = { 15360, 8640, 16, 9 },
+> +	[27] = { 15360, 8640, 64, 27 },
+> +	[28] = { 20480, 8640, 64, 27 },
+> +};
+> +
+> +/* CTA-861-I Table 12 - AVI InfoFrame Video Format Frame Rate */
+> +static const u16 video_format_frame_rates[] = {
+> +	/* Frame Rate 0-7 */
+> +	0, 24, 25, 30, 48, 50, 60, 100,
+> +	/* Frame Rate 8-15 */
+> +	120, 144, 200, 240, 300, 360, 400, 480,
+> +};
+> +
+> +/* CTA-861-I Table 13 - RID To VIC Mapping */
+> +static const u8 rid_to_vic[][8] = {
+> +	[0]  = {},
+> +	[1]  = { 60, 61, 62, 108, 19, 4, 41, 47 },
+> +	[2]  = { 65, 66, 67, 109, 68, 69, 70, 71 },
+> +	[3]  = { 79, 80, 81, 110, 82, 83, 84, 85 },
+> +	[4]  = { 32, 33, 34, 111, 31, 16, 64, 63 },
+> +	[5]  = { 72, 73, 74, 112, 75, 76, 77, 78 },
+> +	[6]  = { 86, 87, 88, 113, 89, 90, 91, 92 },
+> +	[7]  = {},
+> +	[8]  = {},
+> +	[9]  = {},
+> +	[10] = {},
+> +	[11] = { 93, 94, 95, 114, 96, 97, 117, 118 },
+> +	[12] = { 103, 104, 105, 116, 106, 107, 119, 120 },
+> +	[13] = { 121, 122, 123, 124, 125, 126, 127, 193 },
+> +	[14] = {},
+> +	[15] = {},
+> +	[16] = {},
+> +	[17] = {},
+> +	[18] = {},
+> +	[19] = { 194, 195, 196, 197, 198, 199, 200, 201 },
+> +	[20] = { 202, 203, 204, 205, 206, 207, 208, 209 },
+> +	[21] = { 210, 211, 212, 213, 214, 215, 216, 217 },
+> +	[22] = {},
+> +	[23] = {},
+> +	[24] = {},
+> +	[25] = {},
+> +	[26] = {},
+> +	[27] = {},
+> +	[28] = {},
+> +};
+> +
+>  /*
+>   * From CEA/CTA-861 spec.
+>   *
+> @@ -4155,6 +4237,7 @@ static int add_detailed_modes(struct drm_connector *connector,
+>  #define CTA_DB_VIDEO			2
+>  #define CTA_DB_VENDOR			3
+>  #define CTA_DB_SPEAKER			4
+> +#define CTA_DB_VIDEO_FORMAT		6
+>  #define CTA_DB_EXTENDED_TAG		7
+>  
+>  /* CTA-861-H Table 62 - CTA Extended Tag Codes */
+> @@ -4996,6 +5079,16 @@ struct cea_db {
+>  	u8 data[];
+>  } __packed;
+>  
+> +struct cta_vfd {
+> +	u8 rid;
+> +	u8 fr_fact;
+> +	bool bfr50;
+> +	bool fr24;
+> +	bool bfr60;
+> +	bool fr144;
+> +	bool fr48;
+> +};
+> +
+>  static int cea_db_tag(const struct cea_db *db)
+>  {
+>  	return db->tag_length >> 5;
+> @@ -5274,6 +5367,376 @@ static int edid_hfeeodb_extension_block_count(const struct edid *edid)
+>  	return cta[4 + 2];
+>  }
+>  
+> +/* CTA-861 Video Format Descriptor (CTA VFD) */
+> +static void parse_cta_vfd(struct cta_vfd *vfd, const u8 *data, int vfd_len)
+> +{
+> +	vfd->rid = data[0] & 0x3f;
+> +	vfd->bfr50 = data[0] & 0x80;
+> +	vfd->fr24 = data[0] & 0x40;
+> +	vfd->bfr60 = vfd_len > 1 ? (data[1] & 0x80) : true;
+> +	vfd->fr144 = vfd_len > 1 ? (data[1] & 0x40) : false;
+> +	vfd->fr_fact = vfd_len > 1 ? (data[1] & 0x3f) : 0x3;
+> +	vfd->fr48 = vfd_len > 2 ? (data[2] & 0x1) : false;
+> +}
+> +
+> +static bool vfd_has_fr(const struct cta_vfd *vfd, int rate)
+> +{
+> +	static const u8 factors[] = {
+> +		1, 2, 4, 8, 12, 16
+> +	};
+> +	int factor = 0;
+> +	int i;
+> +
+> +	switch (rate) {
+> +	case 24:
+> +		return vfd->fr24;
+> +	case 48:
+> +		return vfd->fr48;
+> +	case 144:
+> +		return vfd->fr144;
+> +	}
+> +
+> +	if (!(rate % 25)) {
+> +		if (!vfd->bfr50)
+> +			return false;
+> +
+> +		factor = rate / 25;
+> +	} else if (!(rate % 30)) {
+> +		if (!vfd->bfr60)
+> +			return false;
+> +
+> +		factor = rate / 30;
+> +	}
+> +
+> +	for (i = 0; i < ARRAY_SIZE(factors); i++)
+> +		if (factor == factors[i] && (vfd->fr_fact & (1 << i)))
+> +			return true;
+> +
+> +	return false;
+> +}
+> +
+> +#define OVT_PIXEL_CLOCK_GRANULARITY	1000		/* Hz */
+> +#define OVT_MIN_HTOTAL_GRANULARITY	8		/* pixels */
+> +#define OVT_MIN_VBLANK_DURATION	460000000	/* ps */
+> +#define OVT_MIN_VBLANK_LINES		20
+> +#define OVT_MIN_VSYNC_LEADING_EDGE	400		/* us */
+> +#define OVT_MIN_VSYNC_LE_LINES		14
+> +#define OVT_MIN_CLOCK_RATE_420		590000000	/* Hz */
+> +#define OVT_PIXEL_FACTOR_420		2
+> +#define OVT_MIN_HBLANK_444		80		/* pixels */
+> +#define OVT_MIN_HBLANK_420		128		/* pixels */
+> +#define OVT_MAX_CHUNK_RATE		650000000	/* Hz */
+> +#define OVT_AUDIO_PACKET_RATE		195000		/* Hz */
+> +#define OVT_AUDIO_PACKET_SIZE		32
+> +#define OVT_LINE_OVERHEAD		32
+> +#define OVT_HSYNC_WIDTH		32
+> +#define OVT_VSYNC_WIDTH		8
+> +
+> +static u32 calculate_ovt_min_vtotal(const struct cta_rid *rid, u64 max_vrate,
+> +				    u32 vtotal_granularity)
+> +{
+> +	u64 max_active_time;
+> +	u32 min_line_time;
+> +	u32 min_vblank;
+> +	u32 min_vtotal;
+> +
+> +	/* step 2 */
+> +	max_active_time = div64_u64(1000000000000, max_vrate) -
+> +		(u64)OVT_MIN_VBLANK_DURATION;
+> +
+> +	min_line_time = div_u64(max_active_time, rid->vactive);
+> +
+> +	min_vblank = max_t(u64, (u64)OVT_MIN_VBLANK_LINES,
+> +			   DIV64_U64_ROUND_UP(OVT_MIN_VBLANK_DURATION,
+> +					      min_line_time));
+> +
+> +	min_vtotal = rid->vactive + min_vblank;
+> +
+> +	if (min_vtotal % vtotal_granularity)
+> +		min_vtotal += vtotal_granularity - (min_vtotal %
+> +						    vtotal_granularity);
+> +
+> +	return min_vtotal;
+> +}
+> +
+> +static u32 calculate_ovt_min_htotal(const struct cta_rid *rid,
+> +				    const u32 max_vrate,
+> +				    const u32 min_vtotal,
+> +				    u32 *min_hblank,
+> +				    u32 *htotal_granularity)
+> +{
+> +	u32 max_audio_packets_per_line;
+> +	u32 htotal_granularity_chunk;
+> +	u64 min_pixel_clock_rate;
+> +	u32 min_line_rate;
+> +	u32 min_htotal;
+> +
+> +	/* step 3 */
+> +	min_line_rate = max_vrate * min_vtotal;
+> +
+> +	max_audio_packets_per_line = DIV_ROUND_UP(OVT_AUDIO_PACKET_RATE,
+> +						  min_line_rate);
+> +
+> +	/* step 4 */
+> +	*min_hblank = OVT_LINE_OVERHEAD + OVT_AUDIO_PACKET_SIZE *
+> +		max_audio_packets_per_line;
+> +
+> +	min_htotal = rid->hactive + max(OVT_MIN_HBLANK_444, *min_hblank);
+> +
+> +	min_pixel_clock_rate = max_vrate * min_htotal * min_vtotal;
+> +
+> +	htotal_granularity_chunk =
+> +		roundup_pow_of_two(DIV64_U64_ROUND_UP(min_pixel_clock_rate,
+> +						      OVT_MAX_CHUNK_RATE));
+> +
+> +	*htotal_granularity = max(OVT_MIN_HTOTAL_GRANULARITY,
+> +				  htotal_granularity_chunk);
+> +
+> +	if (min_htotal % *htotal_granularity)
+> +		min_htotal += *htotal_granularity - (min_htotal %
+> +						     *htotal_granularity);
+> +
+> +	return min_htotal;
+> +}
+> +
+> +static u64 calculate_ovt_pixel_clock_rate(const struct cta_rid *rid,
+> +					  const u32 max_vrate,
+> +					  const u32 min_hblank,
+> +					  u32 min_htotal,
+> +					  u32 min_vtotal,
+> +					  const u32 htotal_granularity,
+> +					  const u32 vtotal_granularity,
+> +					  u32 *htotal, u32 *vtotal)
+> +{
+> +	u32 resolution_granularity;
+> +	u64 pixel_clock_rate;
+> +	u64 min_resolution;
+> +	u64 rem;
+> +	u32 h;
+> +	u64 r;
+> +	u32 v;
+> +
+> +	resolution_granularity = OVT_PIXEL_CLOCK_GRANULARITY /
+> +		gcd(OVT_PIXEL_CLOCK_GRANULARITY, max_vrate);
+> +
+> +	do {
+> +		/* step 5 */
+> +		min_resolution = 0;
+> +		v = min_vtotal;
+> +
+> +		goto loop_end;
+> +
+> +		while (!min_resolution || r <= min_resolution) {
+> +			goto inner_loop_end;
+> +
+> +			while (rem || div64_u64(max_vrate * r, (h & ~(h - 1))) >
+> +			       OVT_MAX_CHUNK_RATE) {
+> +				h += htotal_granularity;
+> +				r = (u64)h * (u64)v;
+> +inner_loop_end:
+> +				div64_u64_rem(r, resolution_granularity, &rem);
+> +			}
+> +
+> +			if (!min_resolution || r < min_resolution) {
+> +				*htotal = h;
+> +				*vtotal = v;
+> +				min_resolution = r;
+> +			}
+> +
+> +			v += vtotal_granularity;
+> +
+> +loop_end:
+> +			h = min_htotal;
+> +			r = (u64)h * (u64)v;
+> +		}
+> +
+> +		pixel_clock_rate = max_vrate * min_resolution;
+> +
+> +		/* step 6 */
+> +		min_htotal = rid->hactive + max(OVT_MIN_HBLANK_420,
+> +						OVT_PIXEL_FACTOR_420 *
+> +						min_hblank);
+> +
+> +	} while (pixel_clock_rate >= OVT_MIN_CLOCK_RATE_420 &&
+> +		 *htotal < min_htotal);
+> +
+> +	return pixel_clock_rate;
+> +}
+> +
+> +static const struct cta_rid *find_rid(u8 rid)
+> +{
+> +	if (!rid || rid >= ARRAY_SIZE(rids))
+> +		return NULL;
+> +
+> +	return &rids[rid];
+> +}
+> +
+> +/* OVT Algorthim as specified in CTA-861-I */
+> +struct drm_display_mode *drm_ovt_mode(struct drm_device *dev, int r_id,
+> +				      int vrefresh)
+> +{
+> +	const struct cta_rid *rid = find_rid(r_id);
+> +	struct drm_display_mode *mode;
+> +	u32 vtotal_granularity = 1;
+> +	u32 htotal_granularity;
+> +	u32 max_vrate = vrefresh;
+> +	u64 pixel_clock_rate;
+> +	u32 vsync_position;
+> +	u32 min_hblank;
+> +	u32 min_htotal;
+> +	u32 min_vtotal;
+> +	u32 htotal;
+> +	u32 vtotal;
+> +
+> +	if (!rid)
+> +		return NULL;
+> +
+> +	/* step 1 */
+> +	switch (vrefresh) {
+> +	case 24:
+> +	case 25:
+> +		max_vrate = 30;
+> +		fallthrough;
+> +	case 30:
+> +		vtotal_granularity = 20;
+> +		break;
+> +	case 48:
+> +	case 50:
+> +		max_vrate = 60;
+> +		fallthrough;
+> +	case 60:
+> +		vtotal_granularity = 20;
+> +		break;
+> +	case 100:
+> +		max_vrate = 120;
+> +		fallthrough;
+> +	case 120:
+> +		vtotal_granularity = 5;
+> +		break;
+> +	case 200:
+> +		max_vrate = 240;
+> +		fallthrough;
+> +	case 240:
+> +		vtotal_granularity = 5;
+> +		break;
+> +	case 300:
+> +		max_vrate = 360;
+> +		fallthrough;
+> +	case 360:
+> +		vtotal_granularity = 5;
+> +		break;
+> +	case 400:
+> +		max_vrate = 480;
+> +		fallthrough;
+> +	case 480:
+> +		vtotal_granularity = 5;
+> +		break;
+> +	}
+> +
+> +	min_vtotal = calculate_ovt_min_vtotal(rid, max_vrate,
+> +					      vtotal_granularity);
+> +
+> +	min_htotal = calculate_ovt_min_htotal(rid, max_vrate, min_vtotal,
+> +					      &min_hblank, &htotal_granularity);
+> +
+> +	pixel_clock_rate = calculate_ovt_pixel_clock_rate(rid, max_vrate,
+> +							  min_hblank,
+> +							  min_htotal,
+> +							  min_vtotal,
+> +							  htotal_granularity,
+> +							  vtotal_granularity,
+> +							  &htotal, &vtotal);
+> +
+> +	/* step 7 */
+> +	vtotal = vtotal * max_vrate / (u32)vrefresh;
+> +
+> +	/* step 8 */
+> +	vsync_position = max(OVT_MIN_VSYNC_LE_LINES,
+> +			     DIV64_U64_ROUND_UP((u64)OVT_MIN_VSYNC_LE_LINES *
+> +						pixel_clock_rate,
+> +						(u64)htotal * (u64)1000000));
+> +
+> +	mode = drm_mode_create(dev);
+> +
+> +	if (!mode)
+> +		return NULL;
+> +
+> +	/* step 10 */
+> +	mode->clock = div_u64(pixel_clock_rate, 1000);
+> +	mode->hdisplay = rid->hactive;
+> +	mode->hsync_start = htotal - OVT_HSYNC_WIDTH * 2;
+> +	mode->hsync_end = mode->hsync_start + OVT_HSYNC_WIDTH;
+> +	mode->htotal = htotal;
+> +
+> +	mode->vdisplay = rid->vactive;
+> +	mode->vsync_start = vtotal - vsync_position;
+> +	mode->vsync_end = mode->vsync_start + OVT_VSYNC_WIDTH;
+> +	mode->vtotal = vtotal;
+> +
+> +	return mode;
+> +}
+> +
+> +static u8 find_vic(u8 rid, int rate_idx)
+> +{
+> +	if (video_format_frame_rates[rate_idx] > 120 || !find_rid(rid))
+> +		return 0;
+> +
+> +	return rid_to_vic[rid][rate_idx - 1];
+> +}
+> +
+> +/* CTA-861 Video Format Data Block (CTA VFDB) */
+> +static int add_modes_from_vfdb(struct drm_connector *connector,
+> +			       const struct cea_db *db)
+> +{
+> +	const struct drm_display_info *info = &connector->display_info;
+> +	int vfdb_len = cea_db_payload_len(db);
+> +	struct drm_display_mode *mode;
+> +	struct cta_vfd vfd;
+> +	int num_modes = 0;
+> +	int rate_idx;
+> +	int vfd_len;
+> +	int rate;
+> +	int i;
+> +
+> +	if (!vfdb_len)
+> +		return 0;
+> +
+> +	vfd_len = (db->data[0] & 0x3);
+> +
+> +	if (!vfd_len)
+> +		return 0;
+> +
+> +	vfd_len++;
+> +	vfdb_len--;
+> +	vfdb_len -= (vfdb_len % vfd_len);
+> +
+> +	for (i = 0; i < vfdb_len; i += vfd_len) {
+> +		parse_cta_vfd(&vfd, &db->data[i + 1], vfd_len);
+> +
+> +		for (rate_idx = 1; rate_idx <
+> +		     ARRAY_SIZE(video_format_frame_rates); rate_idx++) {
+> +			rate = video_format_frame_rates[rate_idx];
+> +
+> +			if (!vfd_has_fr(&vfd, rate) || find_vic(vfd.rid,
+> +								rate_idx))
+> +				continue;
+> +
+> +			mode = drm_ovt_mode(connector->dev, vfd.rid, rate);
+> +
+> +			if (!mode)
+> +				continue;
+> +
+> +			mode->height_mm = info->height_mm;
+> +			mode->width_mm = info->width_mm;
+> +
+> +			drm_mode_probed_add(connector, mode);
+> +			num_modes++;
+> +		}
+> +	}
+> +
+> +	return num_modes;
+> +}
+> +
+>  /*
+>   * CTA-861 YCbCr 4:2:0 Capability Map Data Block (CTA Y420CMDB)
+>   *
+> @@ -5342,6 +5805,8 @@ static int add_cea_modes(struct drm_connector *connector,
+>  			/* Add 4:2:0(only) modes present in EDID */
+>  			modes += do_y420vdb_modes(connector, vdb420,
+>  						  cea_db_payload_len(db) - 1);
+> +		} else if (cea_db_tag(db) == CTA_DB_VIDEO_FORMAT) {
+> +			modes += add_modes_from_vfdb(connector, db);
+>  		}
+>  	}
+>  	cea_db_iter_end(&iter);
+> diff --git a/include/drm/drm_edid.h b/include/drm/drm_edid.h
+> index 04f7a7f1f108..272506331634 100644
+> --- a/include/drm/drm_edid.h
+> +++ b/include/drm/drm_edid.h
+> @@ -463,6 +463,9 @@ struct drm_display_mode *
+>  drm_display_mode_from_cea_vic(struct drm_device *dev,
+>  			      u8 video_code);
+>  
+> +struct drm_display_mode *drm_ovt_mode(struct drm_device *dev, int rid,
+> +				      int vrefresh);
+> +
+>  /* Interface based on struct drm_edid */
+>  const struct drm_edid *drm_edid_alloc(const void *edid, size_t size);
+>  const struct drm_edid *drm_edid_dup(const struct drm_edid *drm_edid);
+> -- 
+> 2.53.0
+> 
