@@ -4,134 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 51548F013E6
-	for <dri-devel@archiver.kernel.org>; Mon, 16 Mar 2026 09:22:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 30844F46421
+	for <dri-devel@archiver.kernel.org>; Mon, 16 Mar 2026 09:28:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 255B610E1F2;
-	Mon, 16 Mar 2026 09:22:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 804AD10E2BB;
+	Mon, 16 Mar 2026 09:28:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="RqQRjCvc";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="jj2myALe";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="h4ReK9lZ";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A604510E1F2
- for <dri-devel@lists.freedesktop.org>; Mon, 16 Mar 2026 09:22:50 +0000 (UTC)
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 62G64kGR538935
- for <dri-devel@lists.freedesktop.org>; Mon, 16 Mar 2026 09:22:50 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- UtWXTGagT/GGBueURbq9/nje29CFuwHmLEoPSvQmhuc=; b=RqQRjCvc0rawgpoE
- OTePQPjeAADE3fgu7fHeo9i2Fay09uLE6T86LJPMaB3aQQIeOMxodoe70h1PA/VA
- YDTofbhkFE5OEMMPQeakL0fWNsMZThM+PK/9clgZ1U2sQ/PV6az9bbnODqE2GbFG
- SiCFU2dUJQfuYyAt+Jk4E/9jYE2nyCrrTufFYMLseooGM7g/RmucvIdexnDP91dj
- 5IBMoqUJGyGrHyHyaVPiLtWqokxJgv0iJsR6vrTHVJYwlwdMHSliO546bpDTz/5P
- hYemKC5wdCdV74NcvUGMy2Ys6zfPDu4+3paH2XXvu1af7A/6fm9C12Z8OdZeo2z0
- dWdp3Q==
-Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com
- [209.85.219.69])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4cvyy5n0av-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Mon, 16 Mar 2026 09:22:50 +0000 (GMT)
-Received: by mail-qv1-f69.google.com with SMTP id
- 6a1803df08f44-89a01982dc5so42253546d6.3
- for <dri-devel@lists.freedesktop.org>; Mon, 16 Mar 2026 02:22:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1773652969; x=1774257769;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=UtWXTGagT/GGBueURbq9/nje29CFuwHmLEoPSvQmhuc=;
- b=jj2myALextZXg3KrY2KIiIZLeae0aqGSjyYW60s4kcYdIWs3Dg3mKF4DFhQrEDFf2e
- B9RjhovXLVfTgCdY0DgR/NCXUx1M3lLPpJeeRU6e24nXsKT3cPkyAoccs3mesC7IIkNP
- 6Mac/ZNoIs1tsxFeNLP+Klzb3RqVgrig2cmyqUJqE5nRo/Bw03DpxNR1KpXREf/le2jB
- p3LEl4PFpS8SpiOfO6XsYQw//oDWI6yKUICVZgEzPybzZI7eU48tZqtVCgj8J96XDUit
- 1PKfnkcqPkXkWejYSNcokbLjL+6sJltbZ+nL7Ix32NsZFYu1StOcO9lLbPyDX8yDa3Vv
- Fv1A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1773652969; x=1774257769;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=UtWXTGagT/GGBueURbq9/nje29CFuwHmLEoPSvQmhuc=;
- b=ntBDJkFMpLm7mmsGV/QOwTevbm9cwxaipuwyhQ5wIIZ7S4666+Z+eseDhqlPINVLDk
- if6KjxBlstHKX+vKNH2l0SE/PGYeYEROisnPpOC4LWOvJU8HV0116blSr2d0fNm6+Wgs
- +0pfkfgZsPcgylJJse/Ene9xsR3vxwr2mgm9HbmgEpbv5DodIM5C5kwFYGJQf2EmTa2w
- wiUpHavK7R5Ph2IkZa7i/avfxc0HmY2Q3nOL74BnHhl6ihgnNfN4kqimZsjGb/hd/Lx1
- NaHiUzctrPn4dHGqukC/JcYRp1PZOKPcZvd01nzGeczCfnGqpBEhH/y2U10det+KSQGK
- emiQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUjw0IdJUZs4lbuAiYgBlvxsx7wB9o+BXl1Pmq22wSfGhF3DTE7CJC8yUeHDqMW40PT38NgKLrtS2A=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyTFWPCEsa8Opx8lYNUh+zss2ziP25On2U2P9Jk2vsJE+8nPmdx
- zbqQ5R1EPd8wLBYUhNzMlury8uPUxyZ1fPeM+NzArW9VxqIMtTjwARO19UYPml09ibQ/gpct+sm
- AmldXC+LcYSwUDYkctKhhh5/lABKnCQ3RDc+ecDpxiHl4QuRlt4+TiDX3r2NivaQ0zbm0WzQ=
-X-Gm-Gg: ATEYQzzWIuH5PhCS2wvFu+iRoPFBN/HGfm1lgxszi4YIrNAbA0sN/M/+5T7PDBClGUJ
- ol50HI5q5AVTQLzFEUxMJhcweCSzO6CDaos1cIgQyshQnQbhsqYij1PBTqkISAJjy934F7RwnCK
- UBYbaafhd/HYkxSyYeUKJjZJSs7t49Sp+rlMWplo3ileiTSjxTO77C45wBVOCFXjwMlAFXbJijy
- hXQftYqA5XApnefyBPU6VlRA7iuEuWZKJ1eASw2ffKK6j2uYOfH7nfSlFAhhaR9IFFRA7p5Frxd
- Z7SYpB9UNkijUB2bjlYmfD3mWHUs/YEtNEcn79jBqs2BdH7TvdtxnMIbAhGwOwG6/Sadf6aCaSk
- Uni0tooXn13/cccqxBwEYkxakF3Zw9G7SILf17wKtXqGEed8cTkSBqGd3q2HXFxOLSWIYm+hYfJ
- XfNBU=
-X-Received: by 2002:a0c:f105:0:b0:89a:7d14:66d4 with SMTP id
- 6a1803df08f44-89a8203defbmr112828846d6.7.1773652969189; 
- Mon, 16 Mar 2026 02:22:49 -0700 (PDT)
-X-Received: by 2002:a0c:f105:0:b0:89a:7d14:66d4 with SMTP id
- 6a1803df08f44-89a8203defbmr112828636d6.7.1773652968804; 
- Mon, 16 Mar 2026 02:22:48 -0700 (PDT)
-Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl.
- [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b976cc220basm525813566b.28.2026.03.16.02.22.45
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 16 Mar 2026 02:22:47 -0700 (PDT)
-Message-ID: <2938aa01-cc1b-4dd8-a4af-45ff8354a061@oss.qualcomm.com>
-Date: Mon, 16 Mar 2026 10:22:44 +0100
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DF49010E23F
+ for <dri-devel@lists.freedesktop.org>; Mon, 16 Mar 2026 09:28:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1773653294;
+ bh=YjttUt2jUuNHN5tYlEalDtrj+WTv10QIVAHmpAraExU=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=h4ReK9lZt0010oe2jc7MaZ6GO7Gv7rRXUw2Bpg3/n8HB1hF0wzz6e/wzXlH02n5U9
+ 7wEvX+s7UWUqHsIojHAeOG/+ORsov6qciT7ocq+FV5xlSeZpay8uMGxSEFlm3v0jnB
+ x255NsFCPPR2QwsYqfg/J8bZteJp56QjbWknqW4g8GtmjzV7qjz3ymo1JptGcFBTdO
+ v+tnrIHtMOxH6Td/JYmQny7LWDrCyRNfT3LSUvc7DjED6o5DY3QtPnyL3ZYqu1fCgu
+ E0IqJ8sfWMfKzCqb8I+RYi2YpoqeHtSrE7rQQob2XZmHCtUXMc0olXcZxvkNsUXvDw
+ QTfwo7Oq2Phyw==
+Received: from fedora (unknown [IPv6:2a01:e0a:2c:6930:d919:a6e:5ea1:8a9f])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256) (No client certificate requested)
+ (Authenticated sender: bbrezillon)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 36F1F17E0ED6;
+ Mon, 16 Mar 2026 10:28:14 +0100 (CET)
+Date: Mon, 16 Mar 2026 10:28:10 +0100
+From: Boris Brezillon <boris.brezillon@collabora.com>
+To: Thomas Zimmermann <tzimmermann@suse.de>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>
+Cc: Pedro Demarchi Gomes <pedrodemargomes@gmail.com>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3] drm/shmem-helper: Fix Map huge page mapping in fault
+ handler
+Message-ID: <20260316102810.7b26c5ec@fedora>
+In-Reply-To: <004c48cb-196a-4aac-bfc4-c440c9fd74d2@suse.de>
+References: <20260316002649.211819-1-pedrodemargomes@gmail.com>
+ <004c48cb-196a-4aac-bfc4-c440c9fd74d2@suse.de>
+Organization: Collabora
+X-Mailer: Claws Mail 4.3.1 (GTK 3.24.51; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/msm: Fix GMEM_BASE for A650
-To: Alexander Koskovich <akoskovich@pm.me>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Akhil P Oommen <akhilpo@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
- <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20260314-fix-gmem-base-a650-v1-1-3308f60cf74c@pm.me>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260314-fix-gmem-base-a650-v1-1-3308f60cf74c@pm.me>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: SnISUqu_hhfFDLutINIRTbG_4S_yNZOj
-X-Authority-Analysis: v=2.4 cv=QOxlhwLL c=1 sm=1 tr=0 ts=69b7cbea cx=c_pps
- a=wEM5vcRIz55oU/E2lInRtA==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
- a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=e0mgrY8X18LXsc_zQXUA:9 a=QEXdDO2ut3YA:10 a=OIgjcC2v60KrkQgK7BGD:22
-X-Proofpoint-ORIG-GUID: SnISUqu_hhfFDLutINIRTbG_4S_yNZOj
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzE2MDA3MSBTYWx0ZWRfXyEg+JzzGru8N
- imkUfCtNkEecGl43TTxW5HTjwx0ML/6f3e9VxWSIuRcZ6+Kggk7KHK5Tnw1bQ6oFjrLfKCGZxM3
- BaLofY4zL0VOXvXKA9cOI8LH+c8n7fToF7dHa2NeTlk3qssl65Dsxmf6iZyMuLN2mEC0E7Wi/BE
- ZOO1neDUzJNqEw1xeEAYMJP8owTEMJc8vjQ43uO8XUsS1NgoL47gug/wgvMUwPLgoPxfhusHihG
- gxVmPXtJYEtDbrHO8K3FwXddFM2kN8SkisuNQbXScghGp1qCDHXCN9YJxxBn5x21oCwUxZZ/3Ex
- 7OCtk6lwigJ/Fl931pBegt/hU+Zx+Eh/Tf/7fnmdovf5ElAPyun5PuHNc9QpCzR/HmoUenVjtUn
- 0JtMdXMxsJdTg4tZE+d3/NWdRw1m+OKg7TrpkpcquR/PGz//8KkSG99rc4+FvCYhiIbSH9RvCFY
- R4sepcJlZ6roxF8Nzmg==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-03-16_03,2026-03-13_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 phishscore=0 impostorscore=0 lowpriorityscore=0 malwarescore=0
- bulkscore=0 suspectscore=0 clxscore=1015 adultscore=0 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603160071
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -147,44 +66,155 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 3/14/26 5:14 AM, Alexander Koskovich wrote:
-> Commit dc220915ddb2 ("drm/msm: Fix GMEM_BASE for gen8") changed the
-> GMEM_BASE check from adreno_is_a650_family() & adreno_is_a740_family()
-> to family >= ADRENO_6XX_GEN4.
-> 
-> This inadvertently excluded A650 (ADRENO_6XX_GEN3), causing it to report
-> an incorrect GMEM_BASE which results in severe rendering corruption.
-> 
-> Update check to also include ADRENO_6XX_GEN3 to fix A650.
-> 
-> Fixes: dc220915ddb2 ("drm/msm: Fix GMEM_BASE for gen8")
+On Mon, 16 Mar 2026 10:14:23 +0100
+Thomas Zimmermann <tzimmermann@suse.de> wrote:
 
-Hm, that commit also changed the value for A730 - Akhil/Rob, should
-that be changed back?
+> Hi
+> 
+> Am 16.03.26 um 01:26 schrieb Pedro Demarchi Gomes:
+> > When running ./tools/testing/selftests/mm/split_huge_page_test multiple
+> > times with /sys/kernel/mm/transparent_hugepage/shmem_enabled and
+> > /sys/kernel/mm/transparent_hugepage/enabled set as always the following BUG
+> > occurs:
+> >
+> > [  232.728858] ------------[ cut here ]------------
+> > [  232.729458] kernel BUG at mm/memory.c:2276!
+> > [  232.729726] Oops: invalid opcode: 0000 [#1] SMP DEBUG_PAGEALLOC KASAN PTI
+> > [  232.730217] CPU: 19 UID: 60578 PID: 1497 Comm: llvmpipe-9 Not tainted 7.0.0-rc1mm-new+ #19 PREEMPT(lazy)
+> > [  232.730855] Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.17.0-9.fc43 06/10/2025
+> > [  232.731360] RIP: 0010:walk_to_pmd+0x29e/0x3c0
+> > [  232.731569] Code: d8 5b 5d 41 5c 41 5d 41 5e 41 5f c3 cc cc cc cc 48 89 ea 48 89 de 4c 89 f7 e8 ae 85 ff ff 85 c0 0f 84 1f fe ff ff 31 db eb d0 <0f> 0b 48 89 ea 48 89 de 4c 89 f7 e8 92 8b ff ff 85 c0 75 e8 48 b8
+> > [  232.732614] RSP: 0000:ffff8881aa6ff9a8 EFLAGS: 00010282
+> > [  232.732991] RAX: 8000000142e002e7 RBX: ffff8881433cae10 RCX: dffffc0000000000
+> > [  232.733362] RDX: 0000000000000000 RSI: 00007fb47840b000 RDI: 8000000142e002e7
+> > [  232.733801] RBP: 00007fb47840b000 R08: 0000000000000000 R09: 1ffff110354dff46
+> > [  232.734168] R10: fffffbfff0cb921d R11: 00000000910da5ce R12: 1ffffffff0c1fcdd
+> > [  232.734459] R13: 1ffffffff0c23f36 R14: ffff888171628040 R15: 0000000000000000
+> > [  232.734861] FS:  00007fb4907f86c0(0000) GS:ffff888791f2c000(0000) knlGS:0000000000000000
+> > [  232.735265] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+> > [  232.735548] CR2: 00007fb47840be00 CR3: 000000015e6dc000 CR4: 00000000000006f0
+> > [  232.736031] Call Trace:
+> > [  232.736273]  <TASK>
+> > [  232.736500]  get_locked_pte+0x1f/0xa0
+> > [  232.736878]  insert_pfn+0x9f/0x350
+> > [  232.737190]  ? __pfx_pat_pagerange_is_ram+0x10/0x10
+> > [  232.737614]  ? __pfx_insert_pfn+0x10/0x10
+> > [  232.737990]  ? __pfx_css_rstat_updated+0x10/0x10
+> > [  232.738281]  ? __pfx_pfn_modify_allowed+0x10/0x10
+> > [  232.738552]  ? lookup_memtype+0x62/0x180
+> > [  232.738761]  vmf_insert_pfn_prot+0x14b/0x340
+> > [  232.739012]  ? __pfx_vmf_insert_pfn_prot+0x10/0x10
+> > [  232.739247]  ? __pfx___might_resched+0x10/0x10
+> > [  232.739475]  drm_gem_shmem_fault.cold+0x18/0x39
+> > [  232.739677]  ? rcu_read_unlock+0x20/0x70
+> > [  232.739882]  __do_fault+0x251/0x7b0
+> > [  232.740028]  do_fault+0x6e1/0xc00
+> > [  232.740167]  ? __lock_acquire+0x590/0xc40
+> > [  232.740335]  handle_pte_fault+0x439/0x760
+> > [  232.740498]  ? mtree_range_walk+0x252/0xae0
+> > [  232.740669]  ? __pfx_handle_pte_fault+0x10/0x10
+> > [  232.740899]  __handle_mm_fault+0xa02/0xf30
+> > [  232.741066]  ? __pfx___handle_mm_fault+0x10/0x10
+> > [  232.741255]  ? find_vma+0xa1/0x120
+> > [  232.741403]  handle_mm_fault+0x2bf/0x8f0
+> > [  232.741564]  do_user_addr_fault+0x2d3/0xed0
+> > [  232.741736]  ? trace_page_fault_user+0x1bf/0x240
+> > [  232.741969]  exc_page_fault+0x87/0x120
+> > [  232.742124]  asm_exc_page_fault+0x26/0x30
+> > [  232.742288] RIP: 0033:0x7fb4d73ed546
+> > [  232.742441] Code: 66 41 0f 6f fb 66 44 0f 6d dc 66 44 0f 6f c6 66 41 0f 6d f1 66 0f 6c fc 66 45 0f 6c c1 66 44 0f 6f c9 66 0f 6d ca 66 0f db f0 <66> 0f df 04 08 66 44 0f 6c ca 66 45 0f db c2 66 44 0f df 10 66 44
+> > [  232.743193] RSP: 002b:00007fb4907f68a0 EFLAGS: 00010206
+> > [  232.743565] RAX: 00007fb47840aa00 RBX: 00007fb4d73ec070 RCX: 0000000000001400
+> > [  232.743871] RDX: 0000000000002800 RSI: 0000000000003c00 RDI: 0000000000000001
+> > [  232.744150] RBP: 0000000000000004 R08: 0000000000001400 R09: 00007fb4d73ec060
+> > [  232.744433] R10: 000055f0261a4288 R11: 00007fb4c013da40 R12: 0000000000000008
+> > [  232.744712] R13: 0000000000000000 R14: 4332322132212110 R15: 0000000000000004
+> > [  232.746616]  </TASK>
+> > [  232.746711] Modules linked in: nft_nat nft_masq veth bridge stp llc snd_seq_dummy snd_hrtimer snd_seq snd_seq_device snd_timer snd soundcore overlay rfkill nf_conntrack_netbios_ns nf_conntrack_broadcast nft_fib_inet nft_fib_ipv4 nft_fib_ipv6 nft_fib nft_reject_inet nf_reject_ipv4 nf_reject_ipv6 nft_reject nft_ct nft_chain_nat nf_nat nf_conntrack nf_defrag_ipv6 nf_defrag_ipv4 nf_tables qrtr ppdev 9pnet_virtio 9pnet parport_pc i2c_piix4 netfs pcspkr parport i2c_smbus joydev sunrpc vfat fat loop dm_multipath nfnetlink vsock_loopback vmw_vsock_virtio_transport_common vmw_vsock_vmci_transport zram lz4hc_compress vmw_vmci lz4_compress vsock e1000 bochs serio_raw ata_generic pata_acpi scsi_dh_rdac scsi_dh_emc scsi_dh_alua i2c_dev fuse qemu_fw_cfg
+> > [  232.749308] ---[ end trace 0000000000000000 ]---
+> > [  232.749507] RIP: 0010:walk_to_pmd+0x29e/0x3c0
+> > [  232.749692] Code: d8 5b 5d 41 5c 41 5d 41 5e 41 5f c3 cc cc cc cc 48 89 ea 48 89 de 4c 89 f7 e8 ae 85 ff ff 85 c0 0f 84 1f fe ff ff 31 db eb d0 <0f> 0b 48 89 ea 48 89 de 4c 89 f7 e8 92 8b ff ff 85 c0 75 e8 48 b8
+> > [  232.750428] RSP: 0000:ffff8881aa6ff9a8 EFLAGS: 00010282
+> > [  232.750645] RAX: 8000000142e002e7 RBX: ffff8881433cae10 RCX: dffffc0000000000
+> > [  232.750954] RDX: 0000000000000000 RSI: 00007fb47840b000 RDI: 8000000142e002e7
+> > [  232.751232] RBP: 00007fb47840b000 R08: 0000000000000000 R09: 1ffff110354dff46
+> > [  232.751514] R10: fffffbfff0cb921d R11: 00000000910da5ce R12: 1ffffffff0c1fcdd
+> > [  232.751837] R13: 1ffffffff0c23f36 R14: ffff888171628040 R15: 0000000000000000
+> > [  232.752124] FS:  00007fb4907f86c0(0000) GS:ffff888791f2c000(0000) knlGS:0000000000000000
+> > [  232.752441] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+> > [  232.752674] CR2: 00007fb47840be00 CR3: 000000015e6dc000 CR4: 00000000000006f0
+> > [  232.752983] Kernel panic - not syncing: Fatal exception
+> > [  232.753510] Kernel Offset: disabled
+> > [  232.754643] ---[ end Kernel panic - not syncing: Fatal exception ]---
+> >
+> > This happens when two concurrent page faults occur within the same PMD range.
+> > One fault installs a PMD mapping through vmf_insert_pfn_pmd(), while the other
+> > attempts to install a PTE mapping via vmf_insert_pfn(). The bug is
+> > triggered because a pmd_trans_huge is not expected when walking the page
+> > table inside vmf_insert_pfn.
+> >
+> > Avoid this race by adding a huge_fault callback to drm_gem_shmem_vm_ops so that
+> > PMD-sized mappings are handled through the appropriate huge page fault path.
+> >
+> > Fixes: 211b9a39f261 ("drm/shmem-helper: Map huge pages in fault handler")
+> > Signed-off-by: Pedro Demarchi Gomes <pedrodemargomes@gmail.com>
+> > ---
+> >
+> > Changes in v3:
+> >   - Pass a try_pmd boolean parameter to drm_gem_shmem_any_fault
+> >   - Compile drm_gem_shmem_huge_fault only if CONFIG_ARCH_SUPPORTS_PMD_PFNMAP
+> > is defined to avoid a build warning
+> >
+> > Changes in v2: https://lore.kernel.org/dri-devel/20260313141719.3949700-1-pedrodemargomes@gmail.com/
+> >   - Keep the #ifdef unindented
+> >   - Create drm_gem_shmem_any_fault to handle faults of any order and use
+> > drm_gem_shmem_[huge_]fault() as wrappers
+> >
+> > v1: https://lore.kernel.org/all/20260312155027.1682606-1-pedrodemargomes@gmail.com/
+> >
+> > ---
+> >   drivers/gpu/drm/drm_gem_shmem_helper.c | 63 ++++++++++++++------------
+> >   1 file changed, 35 insertions(+), 28 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/drm_gem_shmem_helper.c b/drivers/gpu/drm/drm_gem_shmem_helper.c
+> > index 7b5a49935ae4..9428c3ab7283 100644
+> > --- a/drivers/gpu/drm/drm_gem_shmem_helper.c
+> > +++ b/drivers/gpu/drm/drm_gem_shmem_helper.c
+> > @@ -550,36 +550,18 @@ int drm_gem_shmem_dumb_create(struct drm_file *file, struct drm_device *dev,
+> >   }
+> >   EXPORT_SYMBOL_GPL(drm_gem_shmem_dumb_create);
+> >
+> > -static bool drm_gem_shmem_try_map_pmd(struct vm_fault *vmf, unsigned long addr,
+> > -				      struct page *page)
+> > -{
+> > -#ifdef CONFIG_ARCH_SUPPORTS_PMD_PFNMAP
+> > -	unsigned long pfn = page_to_pfn(page);
+> > -	unsigned long paddr = pfn << PAGE_SHIFT;
+> > -	bool aligned = (addr & ~PMD_MASK) == (paddr & ~PMD_MASK);
+> > -
+> > -	if (aligned &&
+> > -	    pmd_none(*vmf->pmd) &&
+> > -	    folio_test_pmd_mappable(page_folio(page))) {
+> > -		pfn &= PMD_MASK >> PAGE_SHIFT;
+> > -		if (vmf_insert_pfn_pmd(vmf, pfn, false) == VM_FAULT_NOPAGE)
+> > -			return true;
+> > -	}
+> > -#endif
+> > -
+> > -	return false;
+> > -}
+> > -
+> > -static vm_fault_t drm_gem_shmem_fault(struct vm_fault *vmf)
+> > +static vm_fault_t drm_gem_shmem_any_fault(struct vm_fault *vmf, bool try_pmd)  
+> 
+> Please write two functions. One for huge pages and one for regular page 
+> faults.
 
-Konrad
-
-> Signed-off-by: Alexander Koskovich <akoskovich@pm.me>
-> ---
->  drivers/gpu/drm/msm/adreno/adreno_gpu.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-> index d5fe6f6f0dec..0ac3fba5c277 100644
-> --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-> +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-> @@ -376,7 +376,7 @@ int adreno_get_param(struct msm_gpu *gpu, struct msm_context *ctx,
->  		*value = adreno_gpu->info->gmem;
->  		return 0;
->  	case MSM_PARAM_GMEM_BASE:
-> -		if (adreno_gpu->info->family >= ADRENO_6XX_GEN4)
-> +		if (adreno_gpu->info->family >= ADRENO_6XX_GEN3)
->  			*value = 0;
->  		else
->  			*value = 0x100000;
-> 
-> ---
-> base-commit: 1f318b96cc84d7c2ab792fcc0bfd42a7ca890681
-> change-id: 20260314-fix-gmem-base-a650-cfd9bfcea425
-> 
-> Best regards,
+That's actually what the first version of the patch was doing, and I
+strongly disagree with that. In my opinion, it's more error-prone to
+have two distinct implementations duplicating most of the logic
+(locking, bookkeeping, ...) than having both handled in the same
+function and have dummy wrappers to decide the kind of vmf_insert_pfn
+to do (_pmd vs regular). Think about the folio_mark_accessed() you
+recently added, and how easy it would have been to add it to
+drm_gem_shmem_fault() and forget it in the huge_fault handler.
