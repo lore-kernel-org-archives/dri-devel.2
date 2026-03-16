@@ -4,56 +4,139 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5B45DF013EA
-	for <dri-devel@archiver.kernel.org>; Mon, 16 Mar 2026 08:57:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 62441F013EF
+	for <dri-devel@archiver.kernel.org>; Mon, 16 Mar 2026 09:05:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A3ED210E381;
-	Mon, 16 Mar 2026 08:57:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AB9B210E37B;
+	Mon, 16 Mar 2026 09:05:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="BAdVUFOG";
+	dkim=pass (2048-bit key; secure) header.d=gmx.de header.i=natalie.vock@gmx.de header.b="YFdRkUyz";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F3F1310E37C;
- Mon, 16 Mar 2026 08:57:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1773651457;
- bh=x6Q+8eMpH6JxTYEzuYVBWgFh5IKKG7foAfIOI+u8IIA=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=BAdVUFOGx2BfnchDQ/MRsYd+hYCaDUny4yUNQtE/cttdo3RbdT0d6NlD6TeTG75hy
- QDb6BZ8WqhXHwNl5kOJ0tjjGWsExHcFsvGizjqTLdQzPmisPqdouqvmN5DZNjYlPbD
- ig/L6BFHo7MyVBnQpzJOs+kbJ5dK8DF27fyfeBQZmQmCphJ7zt7Ygr2tJ7HJR6iZW1
- fWHjRtm3f/pN6q6iz1bXhLwm4DB9n+POr32mn9oRbGP2PIeTCGWu2dRZ4Sl74SeqM9
- o1Lozt65N7YfbTWKZ439eVc17R6/CGWDyycNbe8y2kLs6OzcCJmt8YpYB+ppzQsLAY
- x8GLpXE0vy+kA==
-Received: from eldfell (unknown [194.136.85.206])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
- server-digest SHA256) (No client certificate requested)
- (Authenticated sender: pq)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id D2BA917E1330;
- Mon, 16 Mar 2026 09:57:36 +0100 (CET)
-Date: Mon, 16 Mar 2026 10:57:24 +0200
-From: Pekka Paalanen <pekka.paalanen@collabora.com>
-To: "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>,
- <harry.wentland@amd.com>
-Cc: <dri-devel@lists.freedesktop.org>, <intel-gfx@lists.freedesktop.org>,
- <intel-xe@lists.freedesktop.org>, <louis.chauvet@bootlin.com>,
- <mwen@igalia.com>, <contact@emersion.fr>, <alex.hung@amd.com>,
- <daniels@collabora.com>, <uma.shankar@intel.com>,
- <maarten.lankhorst@intel.com>, <pranay.samala@intel.com>,
- <swati2.sharma@intel.com>
-Subject: Re: [PATCH 01/10] drm/colorop: Add DRM_COLOROP_CSC_FF
-Message-ID: <20260316105724.47d24409@eldfell>
-In-Reply-To: <53c3f610-942c-46bf-be5f-a4c51625c358@intel.com>
-References: <20260306165307.3233194-1-chaitanya.kumar.borah@intel.com>
- <20260306165307.3233194-2-chaitanya.kumar.borah@intel.com>
- <20260310163229.521186ab@eldfell>
- <53c3f610-942c-46bf-be5f-a4c51625c358@intel.com>
-X-Mailer: Claws Mail 4.3.1 (GTK 3.24.49; x86_64-pc-linux-gnu)
+Received: from mout.gmx.net (mout.gmx.net [212.227.17.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0A7AE10E37B
+ for <dri-devel@lists.freedesktop.org>; Mon, 16 Mar 2026 09:05:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
+ s=s31663417; t=1773651910; x=1774256710; i=natalie.vock@gmx.de;
+ bh=Y+Xwh+O1w2JgaYhr8eGzj06PXUowI/yAVRV8jeCtX38=;
+ h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
+ References:From:In-Reply-To:Content-Type:
+ Content-Transfer-Encoding:cc:content-transfer-encoding:
+ content-type:date:from:message-id:mime-version:reply-to:subject:
+ to;
+ b=YFdRkUyza8zbxwRTYfrgIUTuDFCd1PFUXiITHpFSFKgGx98K0q8SxOP9+6AbqJ8C
+ 8utZ23tKEnjWfSZIxJgavpPxOxgYIjjgcXAVPpIMK69H5Zysiz1SDqIRyTsmpwTvP
+ eKYDW95SxZv+vVj2F8PztdjH6Pcuoc6WKKqFHl7rNz9lQR5pRfjGffR18uQHzrolE
+ CGIIOdFjl1WCv0Fft5glyNKz5SXa+yke1ZfScsS5gqeF33P16UNcz/D57e7gkZTVf
+ tJfTyV8HwUqbxQ8ZIXRy8cSSfJLzLepeMEZm7ftwSzzoeM5tdPuMBuHgZbYONFfFz
+ IwkVhgkGb7bnPKuU1A==
+X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
+Received: from client.hidden.invalid by mail.gmx.net (mrgmx104
+ [212.227.17.168]) with ESMTPSA (Nemesis) id 1MgvvJ-1vPAhU3ZTZ-00dpR8; Mon, 16
+ Mar 2026 10:05:10 +0100
+Message-ID: <792705f1-e50e-48f8-ae06-95b6da0bb0f1@gmx.de>
+Date: Mon, 16 Mar 2026 10:05:07 +0100
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="Sig_/ppUUbMM1t85cLWiz3_=vpVH";
- protocol="application/pgp-signature"; micalg=pgp-sha256
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 6/6] drm/ttm: Use common ancestor of evictor and
+ evictee as limit pool
+To: Tvrtko Ursulin <tursulin@ursulin.net>,
+ Maarten Lankhorst <dev@lankhorst.se>, Maxime Ripard <mripard@kernel.org>,
+ Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>,
+ =?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>,
+ Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>,
+ Matthew Auld <matthew.auld@intel.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+Cc: cgroups@vger.kernel.org, dri-devel@lists.freedesktop.org
+References: <20260313-dmemcg-aggressive-protect-v6-0-7c71cc1492db@gmx.de>
+ <20260313-dmemcg-aggressive-protect-v6-6-7c71cc1492db@gmx.de>
+ <cf522bc4-09ef-4e19-afc4-2c8a9d8a1abc@ursulin.net>
+Content-Language: en-US
+From: Natalie Vock <natalie.vock@gmx.de>
+In-Reply-To: <cf522bc4-09ef-4e19-afc4-2c8a9d8a1abc@ursulin.net>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:wC/9A+nsQs0YyX8ZZ005iHf95jqrlLiSMzOAC0BIkuetQfC7t6n
+ /qf1+Rbu/4/TlyUBf2yApE5HPdfFlxIjdSS8C+Q1ZBys8UahopuK2VNV4KXavHhaFswypSP
+ JUDpRndTbtK8Ombv2teCTiHcpposfPvquClfJL9X/LIGTUIEf6zXNLr4fjtTHd1s28qBwqG
+ T9aCfGiCo8OhQIGxAys8Q==
+UI-OutboundReport: notjunk:1;M01:P0:VdI23JBag7w=;gdzRqBsPtjFZEs+JpysOyXSIiL4
+ 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
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,594 +152,169 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
---Sig_/ppUUbMM1t85cLWiz3_=vpVH
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: quoted-printable
-
-On Mon, 16 Mar 2026 12:46:39 +0530
-"Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com> wrote:
-
-> Hi Pekka,
+On 3/13/26 15:11, Tvrtko Ursulin wrote:
 >=20
-> Thank you for looking into the patch.
+> On 13/03/2026 11:40, Natalie Vock wrote:
+>> When checking whether to skip certain buffers because they're protected
+>> by dmem.low, we're checking the effective protection of the evictee's
+>> cgroup, but depending on how the evictor's cgroup relates to the
+>> evictee's, the semantics of effective protection values change.
+>>
+>> When testing against cgroups from different subtrees, page_counter's
+>> recursive protection propagates memory protection afforded to a parent
+>> down to the child cgroups, even if the children were not explicitly
+>> protected. This prevents cgroups whose parents were afforded no
+>> protection from stealing memory from cgroups whose parents were afforde=
+d
+>> more protection, without users having to explicitly propagate this
+>> protection.
+>>
+>> However, if we always calculate protection from the root cgroup, this
+>> breaks prioritization of sibling cgroups: If one cgroup was explicitly
+>> protected and its siblings were not, the protected cgroup should get
+>> higher priority, i.e. the protected cgroup should be able to steal from
+>> unprotected siblings. This only works if we restrict the protection
+>> calculation to the subtree shared by evictor and evictee.
+>>
+>> Signed-off-by: Natalie Vock <natalie.vock@gmx.de>
+>> ---
+>> =C2=A0 drivers/gpu/drm/ttm/ttm_bo.c | 43 ++++++++++++++++++++++++++++++=
+++++=20
+>> ++++++---
+>> =C2=A0 1 file changed, 40 insertions(+), 3 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/ttm/ttm_bo.c b/drivers/gpu/drm/ttm/ttm_bo.=
+c
+>> index 7300b91b77dd3..df4f4633a3a53 100644
+>> --- a/drivers/gpu/drm/ttm/ttm_bo.c
+>> +++ b/drivers/gpu/drm/ttm/ttm_bo.c
+>> @@ -628,11 +628,48 @@ static s64 ttm_bo_evict_cb(struct ttm_lru_walk=20
+>> *walk, struct ttm_buffer_object *
+>> =C2=A0 {
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct ttm_bo_evict_walk *evict_walk =3D
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 container_of(wal=
+k, typeof(*evict_walk), walk);
+>> +=C2=A0=C2=A0=C2=A0 struct dmem_cgroup_pool_state *limit_pool, *ancesto=
+r =3D NULL;
+>> +=C2=A0=C2=A0=C2=A0 bool evict_valuable;
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 s64 lret;
+>> -=C2=A0=C2=A0=C2=A0 if (!dmem_cgroup_state_evict_valuable(evict_walk->a=
+lloc_state-=20
+>> >limit_pool,
+>> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0 bo->resource->css, evict_walk->try_low,
+>> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0 &evict_walk->hit_low))
+>> +=C2=A0=C2=A0=C2=A0 /*
+>> +=C2=A0=C2=A0=C2=A0=C2=A0 * If may_try_low is not set, then we're tryin=
+g to evict unprotected
+>> +=C2=A0=C2=A0=C2=A0=C2=A0 * buffers in favor of a protected allocation =
+for charge_pool.=20
+>> Explicitly skip
+>> +=C2=A0=C2=A0=C2=A0=C2=A0 * buffers belonging to the same cgroup here -=
+ that cgroup is=20
+>> definitely protected,
+>> +=C2=A0=C2=A0=C2=A0=C2=A0 * even though dmem_cgroup_state_evict_valuabl=
+e would allow the=20
+>> eviction because a
+>> +=C2=A0=C2=A0=C2=A0=C2=A0 * cgroup is always allowed to evict from itse=
+lf even if it is=20
+>> protected.
+>> +=C2=A0=C2=A0=C2=A0=C2=A0 */
+>> +=C2=A0=C2=A0=C2=A0 if (!evict_walk->alloc_state->may_try_low &&
+>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 bo-=
+>resource->css =3D=3D evict_walk->alloc_state->charge_pool)
+>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return 0;
+>=20
+> Hm.. should this hunk go into the previous patch?
 
-Hi Chaitanya!
-
-Replies inline below.
+Hm. Maybe, I can move it there in a v7.
 
 >=20
-> On 3/10/2026 8:02 PM, Pekka Paalanen wrote:
-> > On Fri,  6 Mar 2026 22:22:58 +0530
-> > Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com> wrote:
-> >  =20
-> >> Introduce DRM_COLOROP_CSC_FF, a new colorop type representing a
-> >> fixed-function Color Space Conversion (CSC) block.
-> >>
-> >> Unlike CTM-based colorops, this block does not expose programmable
-> >> coefficients. Instead, userspace selects one of the predefined
-> >> hardware modes via a new CSC_FF_TYPE enum property. Supported modes
-> >> include common YUV->RGB and RGB709->RGB2020 conversions.
-> >>
-> >> Signed-off-by: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
-> >> ---
-> >>   drivers/gpu/drm/drm_atomic.c      |   4 ++
-> >>   drivers/gpu/drm/drm_atomic_uapi.c |   4 ++
-> >>   drivers/gpu/drm/drm_colorop.c     | 105 ++++++++++++++++++++++++++++=
-++
-> >>   include/drm/drm_colorop.h         |  72 ++++++++++++++++++++
-> >>   include/uapi/drm/drm_mode.h       |  13 ++++
-> >>   5 files changed, 198 insertions(+)
-> >>
-> >> diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic=
-.c
-> >> index 04925166df98..7296b844e3fd 100644
-> >> --- a/drivers/gpu/drm/drm_atomic.c
-> >> +++ b/drivers/gpu/drm/drm_atomic.c
-> >> @@ -844,6 +844,10 @@ static void drm_atomic_colorop_print_state(struct=
- drm_printer *p,
-> >>   			   drm_get_colorop_lut3d_interpolation_name(colorop->lut3d_interp=
-olation));
-> >>   		drm_printf(p, "\tdata blob id=3D%d\n", state->data ? state->data->=
-base.id : 0);
-> >>   		break;
-> >> +	case DRM_COLOROP_CSC_FF:
-> >> +		drm_printf(p, "\tcsc_ff_type=3D%s\n",
-> >> +			   drm_get_colorop_csc_ff_type_name(state->csc_ff_type));
-> >> +		break;
-> >>   	default:
-> >>   		break;
-> >>   	}
-> >> diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_a=
-tomic_uapi.c
-> >> index 87de41fb4459..9af73325aa93 100644
-> >> --- a/drivers/gpu/drm/drm_atomic_uapi.c
-> >> +++ b/drivers/gpu/drm/drm_atomic_uapi.c
-> >> @@ -757,6 +757,8 @@ static int drm_atomic_colorop_set_property(struct =
-drm_colorop *colorop,
-> >>   	} else if (property =3D=3D colorop->data_property) {
-> >>   		return drm_atomic_color_set_data_property(colorop, state,
-> >>   							  property, val);
-> >> +	} else if (property =3D=3D colorop->csc_ff_type_property) {
-> >> +		state->csc_ff_type =3D val;
-> >>   	} else {
-> >>   		drm_dbg_atomic(colorop->dev,
-> >>   			       "[COLOROP:%d:%d] unknown property [PROP:%d:%s]\n",
-> >> @@ -789,6 +791,8 @@ drm_atomic_colorop_get_property(struct drm_colorop=
- *colorop,
-> >>   		*val =3D colorop->lut3d_interpolation;
-> >>   	else if (property =3D=3D colorop->data_property)
-> >>   		*val =3D (state->data) ? state->data->base.id : 0;
-> >> +	else if (property =3D=3D colorop->csc_ff_type_property)
-> >> +		*val =3D state->csc_ff_type;
-> >>   	else
-> >>   		return -EINVAL;
-> >>  =20
-> >> diff --git a/drivers/gpu/drm/drm_colorop.c b/drivers/gpu/drm/drm_color=
-op.c
-> >> index f421c623b3f0..49422c625f4d 100644
-> >> --- a/drivers/gpu/drm/drm_colorop.c
-> >> +++ b/drivers/gpu/drm/drm_colorop.c
-> >> @@ -68,6 +68,7 @@ static const struct drm_prop_enum_list drm_colorop_t=
-ype_enum_list[] =3D {
-> >>   	{ DRM_COLOROP_CTM_3X4, "3x4 Matrix"},
-> >>   	{ DRM_COLOROP_MULTIPLIER, "Multiplier"},
-> >>   	{ DRM_COLOROP_3D_LUT, "3D LUT"},
-> >> +	{ DRM_COLOROP_CSC_FF, "CSC Fixed-Function"}, =20
-> >=20
-> > Hi,
-> >=20
-> > the fundamental idea seems fine to me, but I have a lot to say about the
-> > nomenclature.
-> >=20
-> > What would you think of a more readable name DRM_COLOROP_FIXED_MATRIX
-> > "Fixed Matrix"?
-> >=20
-> > Alternatively DRM_COLOROP_ENUM_MATRIX "Enumerated Matrix".
-> >  =20
+>> +
+>> +=C2=A0=C2=A0=C2=A0 limit_pool =3D evict_walk->alloc_state->limit_pool;
+>> +=C2=A0=C2=A0=C2=A0 /*
+>> +=C2=A0=C2=A0=C2=A0=C2=A0 * If there is no explicit limit pool, find th=
+e root of the=20
+>> shared subtree between
+>> +=C2=A0=C2=A0=C2=A0=C2=A0 * evictor and evictee. This is important so t=
+hat recursive=20
+>> protection rules can
+>> +=C2=A0=C2=A0=C2=A0=C2=A0 * apply properly: Recursive protection distri=
+butes cgroup=20
+>> protection afforded
+>> +=C2=A0=C2=A0=C2=A0=C2=A0 * to a parent cgroup but not used explicitly =
+by a child cgroup=20
+>> between all child
+>> +=C2=A0=C2=A0=C2=A0=C2=A0 * cgroups (see docs of effective_protection i=
+n mm/=20
+>> page_counter.c). However, when
+>> +=C2=A0=C2=A0=C2=A0=C2=A0 * direct siblings compete for memory, sibling=
+s that were=20
+>> explicitly protected
+>> +=C2=A0=C2=A0=C2=A0=C2=A0 * should get prioritized over siblings that w=
+eren't. This only=20
+>> happens correctly
+>> +=C2=A0=C2=A0=C2=A0=C2=A0 * when the root of the shared subtree is pass=
+ed to
+>> +=C2=A0=C2=A0=C2=A0=C2=A0 * dmem_cgroup_state_evict_valuable. Otherwise=
+, the effective-=20
+>> protection
+>> +=C2=A0=C2=A0=C2=A0=C2=A0 * calculation cannot distinguish direct sibli=
+ngs from unrelated=20
+>> subtrees and the
+>> +=C2=A0=C2=A0=C2=A0=C2=A0 * calculated protection ends up wrong.
+>> +=C2=A0=C2=A0=C2=A0=C2=A0 */
+>> +=C2=A0=C2=A0=C2=A0 if (!limit_pool) {
+>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ancestor =3D dmem_cgroup_ge=
+t_common_ancestor(bo->resource->css,
+>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 evict_walk->alloc_state->charge_po=
+ol);
+>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 limit_pool =3D ancestor;
+>> +=C2=A0=C2=A0=C2=A0 }
+>> +
+>> +=C2=A0=C2=A0=C2=A0 evict_valuable =3D dmem_cgroup_state_evict_valuable=
+(limit_pool, bo-=20
+>> >resource->css,
+>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 evict_walk->try_low,
+>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 &evict_walk->hit_low);
+>> +=C2=A0=C2=A0=C2=A0 if (ancestor)
+>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 dmem_cgroup_pool_state_put(=
+ancestor);
+>> +
+>> +=C2=A0=C2=A0=C2=A0 if (!evict_valuable)
 >=20
-> I was intentionally staying away from the word matrix because there was=20
-> no programmable matrix but it would make sense to name it something like
-> DRM_COLOROP_FIXED_MATRIX (or *_PRESET_MATRIX for that matter).
->=20
-> >>   };
-> >>  =20
-> >>   static const char * const colorop_curve_1d_type_names[] =3D {
-> >> @@ -90,6 +91,13 @@ static const struct drm_prop_enum_list drm_colorop_=
-lut3d_interpolation_list[] =3D
-> >>   	{ DRM_COLOROP_LUT3D_INTERPOLATION_TETRAHEDRAL, "Tetrahedral" },
-> >>   };
-> >>  =20
-> >> +static const char * const colorop_csc_ff_type_names[] =3D {
-> >> +	[DRM_COLOROP_CSC_FF_YUV601_RGB601]   =3D "YUV601 to RGB601",
-> >> +	[DRM_COLOROP_CSC_FF_YUV709_RGB709]   =3D "YUV709 to RGB709",
-> >> +	[DRM_COLOROP_CSC_FF_YUV2020_RGB2020] =3D "YUV2020 to RGB2020",
-> >> +	[DRM_COLOROP_CSC_FF_RGB709_RGB2020]  =3D "RGB709 to RGB2020", =20
-> >=20
-> > I'd suggest names:
-> >=20
-> > "YCbCr 601 to RGB"
-> > "YCbCr 709 to RGB"
-> > "YCbCr 2020 NC to RGB"
-> > "RGB709 to RGB2020"
-> >=20
-> > or something in that direction.
-> >=20
-> > The relevant ITU-R BT specifications use YCbCr nomenclature IIRC. Wrt.
-> > YCbCr-to-RGB conversion, there is no RGB601, RGB709 or RGB2020. There
-> > is only some RGB, and which primaries it uses is not always tied to
-> > which YCbCr conversion was used.
-> > =20
->=20
-> What I understand from this is that the BT.709(et al.) only defines the=20
-> matrix that is used for YCbCr->RGB, "what" RGB it is defined by the=20
-> primaries (which comes with metadata?).
-
-Unfortunately, BT.601, BT.709 and BT.2020 define two separate things each:
-- the YCbCr<->RGB conversion, and
-- the colorspace primaries (and white point, but that is the same for
-  them all).
-
-BT.601 actually has two different sets of primaries. Bt.2020 defines
-two different YCbCr conversions. BT.709 uses the same primaries as
-sRGB, but is different from sRGB on all other aspects.
-
-Therefore, when you refer to any one of these, you also need to be
-clear whether you are referring to the YCbCr conversion or to the
-primaries.
-
-> I will read up on why our HW names these bits as such.
-
-Sure, but keep in mind that your hardware naming is irrelevant for the
-UAPI design.
-
-> > For YCbCr 2020 I feel it's nice to remember, that there are two
-> > different conversions in the specification: the simple matrix one
-> > called "non-constant luminance", and the complex one called "constant
-> > luminance". Hence "NC".
-> >=20
-> > It's also good to recall that YCbCr-RGB conversions are done in an
-> > electrical space, while RGB709-to-RGB2020 conversion must be done in the
-> > optical space. It is up to the userspace to arrange the neighbouring
-> > colorops to use the fixed matrix right.
-> >  =20
->=20
-> Ack on the above.
->=20
-> >> +};
-> >> +
-> >>   /* Init Helpers */
-> >>  =20
-> >>   static int drm_plane_colorop_init(struct drm_device *dev, struct drm=
-_colorop *colorop,
-> >> @@ -459,6 +467,80 @@ int drm_plane_colorop_3dlut_init(struct drm_devic=
-e *dev, struct drm_colorop *col
-> >>   }
-> >>   EXPORT_SYMBOL(drm_plane_colorop_3dlut_init);
-> >>  =20
-> >> +/**
-> >> + * drm_plane_colorop_csc_ff_init - Initialize a DRM_COLOROP_CSC_FF
-> >> + *
-> >> + * @dev: DRM device
-> >> + * @colorop: The drm_colorop object to initialize
-> >> + * @plane: The associated drm_plane
-> >> + * @funcs: control functions for the new colorop
-> >> + * @supported_csc_ff: A bitfield of supported drm_plane_colorop_csc_f=
-f_type enum values,
-> >> + *                    created using BIT(csc_ff_type) and combined wit=
-h the OR '|'
-> >> + *                    operator.
-> >> + * @flags: bitmask of misc, see DRM_COLOROP_FLAG_* defines.
-> >> + * @return zero on success, -E value on failure
-> >> + */
-> >> +int drm_plane_colorop_csc_ff_init(struct drm_device *dev, struct drm_=
-colorop *colorop,
-> >> +				  struct drm_plane *plane, const struct drm_colorop_funcs *funcs,
-> >> +				  u64 supported_csc_ff, uint32_t flags)
-> >> +{
-> >> +	struct drm_prop_enum_list enum_list[DRM_COLOROP_CSC_FF_COUNT];
-> >> +	int i, len;
-> >> +
-> >> +	struct drm_property *prop;
-> >> +	int ret;
-> >> +
-> >> +	if (!supported_csc_ff) {
-> >> +		drm_err(dev,
-> >> +			"No supported CSC op for new CSC FF colorop on [PLANE:%d:%s]\n",
-> >> +			plane->base.id, plane->name);
-> >> +		return -EINVAL;
-> >> +	}
-> >> +
-> >> +	if ((supported_csc_ff & -BIT(DRM_COLOROP_CSC_FF_COUNT)) !=3D 0) {
-> >> +		drm_err(dev, "Unknown CSC provided on [PLANE:%d:%s]\n",
-> >> +			plane->base.id, plane->name);
-> >> +		return -EINVAL;
-> >> +	}
-> >> +
-> >> +	ret =3D drm_plane_colorop_init(dev, colorop, plane, funcs, DRM_COLOR=
-OP_CSC_FF, flags);
-> >> +	if (ret)
-> >> +		return ret;
-> >> +
-> >> +	len =3D 0;
-> >> +	for (i =3D 0; i < DRM_COLOROP_CSC_FF_COUNT; i++) {
-> >> +		if ((supported_csc_ff & BIT(i)) =3D=3D 0)
-> >> +			continue;
-> >> +
-> >> +		enum_list[len].type =3D i;
-> >> +		enum_list[len].name =3D colorop_csc_ff_type_names[i];
-> >> +		len++;
-> >> +	}
-> >> +
-> >> +	if (WARN_ON(len <=3D 0))
-> >> +		return -EINVAL;
-> >> +
-> >> +	prop =3D drm_property_create_enum(dev, DRM_MODE_PROP_ATOMIC, "CSC_FF=
-_TYPE",
-> >> +					enum_list, len); =20
-> >=20
-> > The Color Space Conversion Fixed-Function type is always "fixed
-> > matrix", right?
-> >=20
-> > The name for the colorop property to choose one of the supported
-> > matrices could be... "matrix"? "choice"? =20
->=20
-> Ack.
->=20
-> >=20
-> > Does the property name need to be unique over all colorop types?
-> >  =20
->=20
-> I am not sure if I understand your question. Could you please elaborate?
-
-Let's say we have two colorop types: MATRIX implements an arbitrary
-programmable matrix, and FIXED_MATRIX where you pick the matrix from an
-enum.
-
-MATRIX needs a property for the matrix data, I think there is a
-colorop property named DATA that takes a blob id and is used by several
-colorop types for different kinds of data - they all take a blob id
-though.
-
-Ok, so there is no strict requirement for the property to be unique
-over all colorop types. But are there any design guidelines here?
-
-Hmm, maybe not.
-
-> >> +
-> >> +	if (!prop)
-> >> +		return -ENOMEM;
-> >> +
-> >> +	colorop->csc_ff_type_property =3D prop;
-> >> +	/*
-> >> +	 * Default to the first supported CSC mode as provided by the driver.
-> >> +	 * Intuitively this should be something that keeps the colorop in pi=
-xel bypass
-> >> +	 * mode but that is already handled via the standard colorop bypass
-> >> +	 * property.
-> >> +	 */
-> >> +	drm_object_attach_property(&colorop->base, colorop->csc_ff_type_prop=
-erty,
-> >> +				   enum_list[0].type);
-> >> +	drm_colorop_reset(colorop);
-> >> +
-> >> +	return 0;
-> >> +}
-> >> +EXPORT_SYMBOL(drm_plane_colorop_csc_ff_init);
-> >> +
-> >>   static void __drm_atomic_helper_colorop_duplicate_state(struct drm_c=
-olorop *colorop,
-> >>   							struct drm_colorop_state *state)
-> >>   {
-> >> @@ -513,6 +595,13 @@ static void __drm_colorop_state_reset(struct drm_=
-colorop_state *colorop_state,
-> >>   						      &val);
-> >>   		colorop_state->curve_1d_type =3D val;
-> >>   	}
-> >> +
-> >> +	if (colorop->csc_ff_type_property) {
-> >> +		drm_object_property_get_default_value(&colorop->base,
-> >> +						      colorop->csc_ff_type_property,
-> >> +						      &val);
-> >> +		colorop_state->csc_ff_type =3D val;
-> >> +	}
-> >>   }
-> >>  =20
-> >>   /**
-> >> @@ -551,6 +640,7 @@ static const char * const colorop_type_name[] =3D {
-> >>   	[DRM_COLOROP_CTM_3X4] =3D "3x4 Matrix",
-> >>   	[DRM_COLOROP_MULTIPLIER] =3D "Multiplier",
-> >>   	[DRM_COLOROP_3D_LUT] =3D "3D LUT",
-> >> +	[DRM_COLOROP_CSC_FF] =3D "CSC Fixed-Function",
-> >>   }; =20
-> >=20
-> > Why are there two arrays with the same DRM_COLOROP_* =3D name associati=
-on?
-> > drm_colorop_type_enum_list is the first one.
-> >  =20
->=20
-> This array is explicitly used by drm_get_colorop_type_name(). Connectors=
+> This part is probably better reviewed by someone more familiar with the=
 =20
-> use an enum list for a similar purpose, so colorops could also reuse an=20
-> enum list here, provided that the enum array index remains in sync with=20
-> the corresponding enum value.
->=20
-> >>  =20
-> >>   static const char * const colorop_lu3d_interpolation_name[] =3D {
-> >> @@ -607,6 +697,21 @@ const char *drm_get_colorop_lut3d_interpolation_n=
-ame(enum drm_colorop_lut3d_inte
-> >>   	return colorop_lu3d_interpolation_name[type];
-> >>   }
-> >>  =20
-> >> +/**
-> >> + * drm_get_colorop_csc_ff_type_name: return a string for interpolatio=
-n type
-> >> + * @type: csc ff type to compute name of
-> >> + *
-> >> + * In contrast to the other drm_get_*_name functions this one here re=
-turns a
-> >> + * const pointer and hence is threadsafe.
-> >> + */
-> >> +const char *drm_get_colorop_csc_ff_type_name(enum drm_colorop_csc_ff_=
-type type)
-> >> +{
-> >> +	if (WARN_ON(type >=3D ARRAY_SIZE(colorop_csc_ff_type_names)))
-> >> +		return "unknown";
-> >> +
-> >> +	return colorop_csc_ff_type_names[type];
-> >> +}
-> >> +
-> >>   /**
-> >>    * drm_colorop_set_next_property - sets the next pointer
-> >>    * @colorop: drm colorop
-> >> diff --git a/include/drm/drm_colorop.h b/include/drm/drm_colorop.h
-> >> index bd082854ca74..2cd8e0779c2a 100644
-> >> --- a/include/drm/drm_colorop.h
-> >> +++ b/include/drm/drm_colorop.h
-> >> @@ -134,6 +134,60 @@ enum drm_colorop_curve_1d_type {
-> >>   	DRM_COLOROP_1D_CURVE_COUNT
-> >>   };
-> >>  =20
-> >> +/**
-> >> + * enum drm_colorop_csc_ff_type - type of CSC Fixed-Function
-> >> + *
-> >> + * Describes a CSC operation to be applied by the DRM_COLOROP_CSC_FF =
-colorop. =20
-> >=20
-> > It's a matrix operation. It seems to me that "CSC operation" is more
-> > specific and does not fit the YCbCr-to-RGB conversion.
-> >  =20
->=20
-> Yes makes sense, matrix would be a more generic term.
->=20
-> >> + */
-> >> +enum drm_colorop_csc_ff_type {
-> >> +	/**
-> >> +	 * @DRM_COLOROP_CSC_FF_YUV601_RGB601
-> >> +	 *
-> >> +	 * enum string "YUV601 to RGB601"
-> >> +	 *
-> >> +	 * Selects the fixed-function CSC preset that converts YUV
-> >> +	 * (BT.601) colorimetry to RGB (BT.601). =20
-> >=20
-> > This selects the matrix that converts YCbCr into RGB
-> > according to the BT.601 coefficients.
-> >  =20
-> >> +	 */
-> >> +	DRM_COLOROP_CSC_FF_YUV601_RGB601,
-> >> +
-> >> +	/**
-> >> +	 * @DRM_COLOROP_CSC_FF_YUV709_RGB709:
-> >> +	 *
-> >> +	 * enum string "YUV709 to RGB709"
-> >> +	 *
-> >> +	 * Selects the fixed-function CSC preset that converts YUV
-> >> +	 * (BT.709) colorimetry to RGB (BT.709). =20
-> >=20
-> > This selects the matrix that converts YCbCr into RGB
-> > according to the BT.709 coefficients.
-> >  =20
-> >> +	 */
-> >> +	DRM_COLOROP_CSC_FF_YUV709_RGB709,
-> >> +
-> >> +	/**
-> >> +	 * @DRM_COLOROP_CSC_FF_YUV2020_RGB2020:
-> >> +	 *
-> >> +	 * enum string "YUV2020 to RGB2020"
-> >> +	 *
-> >> +	 * Selects the fixed-function CSC preset that converts YUV
-> >> +	 * (BT.2020) colorimetry to RGB (BT.2020). =20
-> >=20
-> > This selects the matrix that converts YCbCr into RGB
-> > according to the BT.2020 non-constant luminance coefficients.
-> >  =20
-> >> +	 */
-> >> +	DRM_COLOROP_CSC_FF_YUV2020_RGB2020,
-> >> +
-> >> +	/**
-> >> +	 * @DRM_COLOROP_CSC_FF_RGB709_RGB2020:
-> >> +	 *
-> >> +	 * enum string "RGB709 to RGB2020"
-> >> +	 *
-> >> +	 * Selects the fixed-function CSC preset that converts RGB
-> >> +	 * (BT.709) colorimetry to RGB (BT.2020). =20
-> >=20
-> > This selects the matrix that converts optical RGB from BT.709 primaries
-> > to BT.2020 primaries.
-> >  =20
->=20
-> Ack on the documentation.
->=20
-> >> +	 */
-> >> +	DRM_COLOROP_CSC_FF_RGB709_RGB2020,
-> >> +
-> >> +	/**
-> >> +	 * @DRM_COLOROP_CSC_FF_COUNT:
-> >> +	 *
-> >> +	 * enum value denoting the size of the enum
-> >> +	 */
-> >> +	DRM_COLOROP_CSC_FF_COUNT
-> >> +};
-> >> +
-> >>   /**
-> >>    * struct drm_colorop_state - mutable colorop state
-> >>    */
-> >> @@ -183,6 +237,13 @@ struct drm_colorop_state {
-> >>   	 */
-> >>   	struct drm_property_blob *data;
-> >>  =20
-> >> +	/**
-> >> +	 * @csc_ff_type:
-> >> +	 *
-> >> +	 * Type of Fixed function CSC.
-> >> +	 */
-> >> +	enum drm_colorop_csc_ff_type csc_ff_type;
-> >> +
-> >>   	/** @state: backpointer to global drm_atomic_state */
-> >>   	struct drm_atomic_state *state;
-> >>   };
-> >> @@ -368,6 +429,13 @@ struct drm_colorop {
-> >>   	 */
-> >>   	struct drm_property *data_property;
-> >>  =20
-> >> +	/**
-> >> +	 * @csc_ff_type_property:
-> >> +	 *
-> >> +	 * Sub-type for DRM_COLOROP_CSC_FF type.
-> >> +	 */
-> >> +	struct drm_property *csc_ff_type_property;
-> >> +
-> >>   	/**
-> >>   	 * @next_property:
-> >>   	 *
-> >> @@ -424,6 +492,9 @@ int drm_plane_colorop_3dlut_init(struct drm_device=
- *dev, struct drm_colorop *col
-> >>   				 uint32_t lut_size,
-> >>   				 enum drm_colorop_lut3d_interpolation_type interpolation,
-> >>   				 uint32_t flags);
-> >> +int drm_plane_colorop_csc_ff_init(struct drm_device *dev, struct drm_=
-colorop *colorop,
-> >> +				  struct drm_plane *plane, const struct drm_colorop_funcs *funcs,
-> >> +				  u64 supported_csc_ff, uint32_t flags);
-> >>  =20
-> >>   struct drm_colorop_state *
-> >>   drm_atomic_helper_colorop_duplicate_state(struct drm_colorop *coloro=
-p);
-> >> @@ -480,6 +551,7 @@ drm_get_colorop_lut1d_interpolation_name(enum drm_=
-colorop_lut1d_interpolation_ty
-> >>  =20
-> >>   const char *
-> >>   drm_get_colorop_lut3d_interpolation_name(enum drm_colorop_lut3d_inte=
-rpolation_type type);
-> >> +const char *drm_get_colorop_csc_ff_type_name(enum drm_colorop_csc_ff_=
-type type);
-> >>  =20
-> >>   void drm_colorop_set_next_property(struct drm_colorop *colorop, stru=
-ct drm_colorop *next);
-> >>  =20
-> >> diff --git a/include/uapi/drm/drm_mode.h b/include/uapi/drm/drm_mode.h
-> >> index 3693d82b5279..f7808e7ea984 100644
-> >> --- a/include/uapi/drm/drm_mode.h
-> >> +++ b/include/uapi/drm/drm_mode.h
-> >> @@ -968,6 +968,19 @@ enum drm_colorop_type {
-> >>   	 *         color =3D lut3d[index]
-> >>   	 */
-> >>   	DRM_COLOROP_3D_LUT,
-> >> +
-> >> +	/**
-> >> +	 * @DRM_COLOROP_CSC_FF:
-> >> +	 *
-> >> +	 * enum string "CSC Fixed-Function"
-> >> +	 *
-> >> +	 * A fixed-function Color Space Conversion block where the coefficie=
-nts
-> >> +	 * are not programmable but selected from predefined hardware modes =
-via
-> >> +	 * the CSC_FF_TYPE enum property. The driver advertises the supported
-> >> +	 * CSC modes through this property. =20
-> >=20
-> > This would be a lot more obvious if it was called a "fixed matrix"
-> > operation or such. The current wording never mentions "matrix".
-> >  =20
->=20
-> Ack.
->=20
-> I also wanted throw this question out there. Since we have introduced=20
-> YUV to RGB conversion colorop which essentially replaces the color=20
-> encoding property, would this also be the right time to bring in=20
-> something to replace the color range property.
+> dmem controller. One question I have though is whether this patch is=20
+> independent from the rest of the series or it really makes sense for it=
+=20
+> to be last?
 
-Yes.
-
-> I recall Harry mentioning in the cover letter of the original series=20
-> that he was working on something along those lines.
-
-Reading Harry's latest blog post it sounds he has done similar work as
-you.
-
-Harry's blog link seems dead, but the post is available at
-https://planet.freedesktop.org/
-titled "Harry Wentland: Plane Color Pipeline, CSC, 3D LUT, and KWin"
-with links to patches.
-
+It depends on patch 2/6 (cgroup,cgroup/dmem: Add=20
+(dmem_)cgroup_common_ancestor helper). I could potentially reorder it,=20
+though then there's likely going to be quite a few rebase conflicts.
 
 Thanks,
-pq
+Natalie
 
 >=20
-> =3D=3D
-> Chaitanya
+> Regards,
 >=20
-> >> +	 */
-> >> +	DRM_COLOROP_CSC_FF,
-> >> +
-> >>   };
-> >>  =20
-> >>   /** =20
-> >=20
-> > Thanks,
-> > pq =20
+> Tvrtko
+>=20
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return 0;
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (bo->pin_count || !bo->bdev->funcs->e=
+viction_valuable(bo,=20
+>> evict_walk->place))
+>>
 >=20
 
-
---Sig_/ppUUbMM1t85cLWiz3_=vpVH
-Content-Type: application/pgp-signature
-Content-Description: OpenPGP digital signature
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmm3xfQACgkQI1/ltBGq
-qqf/Ew/8DlkdPSHMfs70plYMVmym+7i5yjfBt+q1bNWvu+Z8urKXxj1Sd9v+mP3u
-GBMcAvTGROfMCcN/ak3rMov5GbeSdD7JbpVOMZv80C5ZFEBr6ofAINmDtkzZP/fK
-Xw+0Uy9zDGZX42hsQWO4zWksiIvIVuSwtTyMXzEo5gfUjQe55NOkz79pHF7ideKJ
-XnOIPoPBh6axWm4/druIzqg6n1BOlI4vWzMEDCCDLXrQUuU40PIEAb81tX3IBfoh
-S5LcZBoTBHMfTdnXcor8Ce8pfxWOVKZBPFKt+bKDpc6Zkk+L5uaLx9CWvgSu4Uu+
-ntbJxdOn7TxjAThaZa3N5/TGgU/FQ/nSfMmsGGgS85UQKgtRFhhBJq5zaRHNLmi2
-AA1biO/MV0b/EdYn/lXGU6QUFwUHLNztdCzR90qpAlQXELtN0MlZKvtvuNuKmRst
-RV2CY6oE3QWvF3PNUx3riw6u3kSQ7DZD1jZjXCnj5zoM5OVMLwQBbK3gdZT6XWcj
-nj1wYDIhdaDYCc4KDHgODOtOT9eD77rz1jMktcagjpY5qufay34nuR/jA+oqVvtH
-sQnIGoYwfJR3Em9TWf4YuUyg8E2QGJIHhVTGLu6m8Drf4R/aVRAoDmODJNY8PaqU
-UO7kD1y7jbgTe3BmYoCJ9scRW/jAUAqXToFEKYdV1zRI3oQDG8M=
-=YyWZ
------END PGP SIGNATURE-----
-
---Sig_/ppUUbMM1t85cLWiz3_=vpVH--
