@@ -4,103 +4,140 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3A5ECF53D96
-	for <dri-devel@archiver.kernel.org>; Mon, 16 Mar 2026 20:49:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 65D25F53D96
+	for <dri-devel@archiver.kernel.org>; Mon, 16 Mar 2026 20:54:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6220410E32B;
-	Mon, 16 Mar 2026 20:49:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C21F710E245;
+	Mon, 16 Mar 2026 20:54:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ZOxA7A/H";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="iqCS0vSF";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="PWLY9hgH";
 	dkim-atps=neutral
-Received: from CY7PR03CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11010039.outbound.protection.outlook.com
- [40.93.198.39])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 54E2F10E32B
- for <dri-devel@lists.freedesktop.org>; Mon, 16 Mar 2026 20:49:15 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=TTh5qEzPwi6Cq7UEQcXgPSTVszlR2CsReEx/PLAsTrN2qFmA2CrmQxYSllxsFgbTXEScc54Ks27bH9Ch3iBGxQPqFbvm5MM+uIygOge87GICVB6ixAkDNrJFpXggepbFyVBgjzrbCCfyGHWJz+usIBSN3jbVgXMpGhOSEoDVYHMau0+1zGZiqDEO5vVtVjw/ZfqfoIeOQTn5zMw6QdOjmAznLzMAYvW1frAOx1sv1w+mfAzVXrieabyvkw8PtRDdzubhayvJAeecatSTy6JaXLpObo9HBm83LPU0pJ1u8eTW4OJn2Eb9IlWt6evt+LNL9pF+5AvfYxdcbLWEPhp3dg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=K6czNdzarOm4ex6F/hI2qOJPKH4VLARCz0F5hiEpgzA=;
- b=JfIr4URQnk96KjGn6F5s24Q282UfZgQtvrId2UJral4eMOojvMT5ByrAc9NluP1zN4y4gi4aPVl8Tzjt/mC81ukePtzzhDaOV0wpiRQxRw00qmR/7dnqEWxtTIJhimnWGWdd0CyjqQYRZUNDgoGYNksVR4VAs3V2PSokcJ34QGcliZxsEwPFOMn4JInVFTZjjlproeu2CVlvpZohuYn3T5+I8sf3YsTdpo+hvKFALc2X61DDPi4qs7EvXl7gJDjWcmgsgfKx2Tc74tETzWC0qxoiAh/LsJ6d3HdhkD9pTAagbyEtZWSXHTDVAeZVhW0OuSp06tiHuEMJkGy/BiiSlw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=K6czNdzarOm4ex6F/hI2qOJPKH4VLARCz0F5hiEpgzA=;
- b=ZOxA7A/HcaM6TVr3CcubpLCM1OScsYhDKkcQXyTZFUgsReDzrjxMTz5etE6L4geRKCweNaFUJRVZmWdjHx4cV4Il/0+LQthSYepZ1Uzqfv59jnsRx98mHyY2Ia8p19frJWQEBAxRksQGkeisRBB55ySV5J1XD/elQdaT1wj+npM=
-Received: from SA1P222CA0119.NAMP222.PROD.OUTLOOK.COM (2603:10b6:806:3c5::18)
- by PH8PR12MB6938.namprd12.prod.outlook.com (2603:10b6:510:1bd::8)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.16; Mon, 16 Mar
- 2026 20:49:08 +0000
-Received: from SA2PEPF00003F67.namprd04.prod.outlook.com
- (2603:10b6:806:3c5:cafe::e6) by SA1P222CA0119.outlook.office365.com
- (2603:10b6:806:3c5::18) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9700.25 via Frontend Transport; Mon,
- 16 Mar 2026 20:49:03 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- SA2PEPF00003F67.mail.protection.outlook.com (10.167.248.42) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9700.17 via Frontend Transport; Mon, 16 Mar 2026 20:49:08 +0000
-Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Mon, 16 Mar
- 2026 15:49:08 -0500
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
- (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Mon, 16 Mar
- 2026 13:49:07 -0700
-Received: from aaurabin-tumbleweed.amd.com (10.180.168.240) by
- satlexmb08.amd.com (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.17
- via Frontend Transport; Mon, 16 Mar 2026 15:49:07 -0500
-From: Aurabindo Pillai <aurabindo.pillai@amd.com>
-To: <dri-devel@lists.freedesktop.org>
-CC: Simona Vetter <simona@ffwll.ch>, David Airlie <airlied@gmail.com>, "Thomas
- Zimmermann" <tzimmermann@suse.de>, Maxime Ripard <mripard@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- <alexander.deucher@amd.com>
-Subject: [PATCH] drm/edid: fix off-by-2 byte offsets in HF-SCDB parsing
-Date: Mon, 16 Mar 2026 16:49:07 -0400
-Message-ID: <20260316204907.3852592-1-aurabindo.pillai@amd.com>
-X-Mailer: git-send-email 2.53.0
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B6C8710E2C8
+ for <dri-devel@lists.freedesktop.org>; Mon, 16 Mar 2026 20:54:53 +0000 (UTC)
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 62GFMpEQ2314565
+ for <dri-devel@lists.freedesktop.org>; Mon, 16 Mar 2026 20:54:52 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ fIPRW9ojG6PosnLQMZvCH1qVnkK0dNhAcHrugDb3mb4=; b=iqCS0vSFgvA95inI
+ FDkdY8rpRTOm38K0Q/aNEVo+HRhDTGcu0lBX6P0GmFNN/Fc4pPRjuY5MgiWsacq6
+ eEXzcu+ATLUp7LnrxwtT7yxq66Ew7SvFGjfQbZEi0qzbY9+NcKHx/NNWGFQJPj0B
+ w6mVFRiGQlF5wswRcztc/U3dIw68FaBu7aIqHYfW20Vws3ld3as6+XUxp/8vVenW
+ qIj9UG4fMUpR5cd+4T7qojAenMbQN9R9XC+7dpGdk6/dRoKI982H+kMci8W020ao
+ hTdfZGkD/HmjpMK/tOJsCw+t7LpqwCcfcdU0PRZ6DPpyPmRBj9fM9tAcnkLSfIT+
+ 66JaKg==
+Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com
+ [209.85.214.197])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4cxmf291qd-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Mon, 16 Mar 2026 20:54:52 +0000 (GMT)
+Received: by mail-pl1-f197.google.com with SMTP id
+ d9443c01a7336-2b060c14ccbso41319335ad.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 16 Mar 2026 13:54:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1773694492; x=1774299292;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:in-reply-to:content-language:from
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=fIPRW9ojG6PosnLQMZvCH1qVnkK0dNhAcHrugDb3mb4=;
+ b=PWLY9hgHnfIQzWEA0o/U4R66IQun8mxLYD1iSAfJ0/rLxyvaPmGmUDFJB0kfL/qG8l
+ hi/WPAd0gzu+a/VsckPMBIdxk7pRbM1dwZt05bOBlM2gvFMQ2rX/5DnE+l3SXlhvm4wY
+ 90/rB/qdS6HYbj5fc5lyjeaAD1KlA/ZKMeU92GUQBN57lp2XAmlntnH92JHMDkwCElKf
+ JLG7gfmZ3lLNxuouoZmwwim7hJgH4cS1WCofJXCymXqHfoqUoLh1MWvP0JdV1BpWVA4H
+ t9K0GWXOFNKSuc/tl4vBvQmJDykmumOZZpTGA+N+oayD5pPxSUUv3xdKvajp9/3BP+2/
+ 8Phw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1773694492; x=1774299292;
+ h=content-transfer-encoding:in-reply-to:content-language:from
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=fIPRW9ojG6PosnLQMZvCH1qVnkK0dNhAcHrugDb3mb4=;
+ b=e1ZYt2KmD1WDZ5BS+iRMZgXyHJHup5S40kxNnhD6jnHi+JBkkF2KU/oWKHQ0EWZ9Uk
+ KvaDH5YcIPOJSghxI/h4uSWMblb/ZHm7HPYxs6nyVgWtbgkqly3ag1vgKTLeYmXYKs/R
+ ER6Q27ggWjYZNE2WvdjNt1NHcFzl4HsbPUNZXANaMQNVQIMgTxW/dSXFmj2N6XRrmz63
+ WOpXcPhsIA++8Unfjmt0lmWki3N8k/+xhvhxG1cdSDIW/W+v0K6FwV53t1lnEjZ7GObw
+ IMT5qFE0W0xNU3yON72XedIpHvFb4rah99goAUx5Hr3xASMIpaPtoZsRh42Qa22hspJb
+ oMPg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXXQ+zV4EJ7hr67WvzYZPO7OOgEVpD1zdr0WJGvI/dcA06uPT6bZB5CKudR2nYnb/z+wd2S1GXCeVI=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyUmVFJO4HPwrdbWWcnEk9o0WqW8D60vPrGl1eiM+6xOd3ZDaCf
+ s75xAb1vKKRWxGNLwNgAkeX1MSWTujGvF5TlUx4OZ7++xulFwhlNqvAyzl64dFdd3FkCKwj37yq
+ zFkoZXDadUAhqki0yBpVg/HFJ8MlCBCcstjVe3YLG/q+8TT8XyVFtfu3LJ1d/00HxGPDrw5I=
+X-Gm-Gg: ATEYQzxKEzW+bJen+sBCAHPyjszKttWWyEQhi4EL3Kj0Nh89BI6ara5rbIesGKuD1Mz
+ AQaDD/oFQra39WPOxciCKSHdYAg51UteS2BXaEHPI1Lbhuzm6ULH3Onpqr2Q4MYq3HGprhy95Mo
+ 1p874YtCDCKYrx96l0LvkzF85Myz9w6QUA9jhWpc1bQHGf7nEqwsYoUtVwbnqaNIiUp7njxPQW/
+ h39UiPbMJNZNfH/N07DmbcHFrSnf4gwzaerB7ZlmbzKqzma6Ar2YgX9lnU9oKq5+MkX61CxxBwS
+ xoqtQ53kjyj8dZYYz3EB5JXASnOOpKHg+ZnMUT8TQvksjXcDdSSRjLSuphThlxNuomHo7hHa2Lp
+ WUus7e1wkFp/dSI33EDOTkqHx/L1ZupDoxf+LfiZ1FM+nECd9/AXyZ5UjO1GSVVXwnV5PHtDyp9
+ odia89
+X-Received: by 2002:a17:902:e5d2:b0:2ae:7f24:4940 with SMTP id
+ d9443c01a7336-2aecac97dbcmr161128845ad.50.1773694491598; 
+ Mon, 16 Mar 2026 13:54:51 -0700 (PDT)
+X-Received: by 2002:a17:902:e5d2:b0:2ae:7f24:4940 with SMTP id
+ d9443c01a7336-2aecac97dbcmr161128715ad.50.1773694491133; 
+ Mon, 16 Mar 2026 13:54:51 -0700 (PDT)
+Received: from ?IPV6:2401:4900:1c27:17c8:7897:b4f6:fc6e:b55?
+ ([2401:4900:1c27:17c8:7897:b4f6:fc6e:b55])
+ by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-2aece83b35fsm128243285ad.80.2026.03.16.13.54.46
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 16 Mar 2026 13:54:50 -0700 (PDT)
+Message-ID: <97b5fc67-9dc0-4d86-a98d-eabf7465ba40@oss.qualcomm.com>
+Date: Tue, 17 Mar 2026 02:24:44 +0530
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/msm: Fix GMEM_BASE for A650
+To: rob.clark@oss.qualcomm.com
+Cc: Alexander Koskovich <akoskovich@pm.me>, Sean Paul <sean@poorly.run>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+References: <20260314-fix-gmem-base-a650-v1-1-3308f60cf74c@pm.me>
+ <2938aa01-cc1b-4dd8-a4af-45ff8354a061@oss.qualcomm.com>
+ <CACSVV00HQY6OfWRSWDcv4KnpwhTO+aLpTXLoQuGutvTTmgJFnw@mail.gmail.com>
+From: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+Content-Language: en-US
+In-Reply-To: <CACSVV00HQY6OfWRSWDcv4KnpwhTO+aLpTXLoQuGutvTTmgJFnw@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA2PEPF00003F67:EE_|PH8PR12MB6938:EE_
-X-MS-Office365-Filtering-Correlation-Id: aabe38c1-3c70-402f-6919-08de839d782e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|36860700016|82310400026|376014|18002099003|56012099003;
-X-Microsoft-Antispam-Message-Info: 0dDS1C6hxzXD14GmKpu/jDf2lTJFCydmY1zOJUPZTPdhp8GX84OboCcgSFq1sWExm6Zn6EfWqvrTjVdQq1R1B82zSJgf21PE9hwEmLIL/KZsjdGRpTC/26qfxIhH30KPihYAva0HzxjE++9TcMifZOYAzLhMEELzojL3rrcLFk1L8HNDJWMRGYWwdeFEun88nH8UF6QFh4+INFQ0vfbtGpPGFzwrSVyLk6stpokMRs2NEAeTnO3Qac4BWL61ASKtBJdRx5oqNQPUc8B/kRJ87tzu8RqmupaXIptjmTXqrmujf4xbJpGwPJ4nk874E8URMAvp1yLvms2DhOfmrGzMaZM7xQfVL9qLeSvYF+fQmByoQhSQDS50EQ6DEw2N44ZyBVVrvoRDXW1v5gXCDDBiPiKIKABRyaDF2aZHGQhwKkMTcahto8bFB/ELaoAIHxblSVkXJaYd2ZS7/iN3L1KGLL6csi9iZJF2ofVrInwxJGMOnJ+md9p8eYDQmy4eWeLrFOp0nXRIjB63fuBogFTN3BI/0jISleC08zpt/ovLuCFPKEDu+kd54Lgsyi3OqFDy33tle30XhNgedczM1LQOXsuWFa3m3XJnf1TqnswQiMjCuOE/iK5EHoFPamS1CgZwVTIkiDg/V3P9hLLl0htvMhuooMlxpeoFYVvf3O4vhnNoeohVxNocw8Xj8bCy+1P6D+OZzLXSGKfGZieB1KvZY+1dWMNfWsHsFRwqX8Jg6qoPICvZ9+qd/hWXdch1HE9qJVmUA6/2gNlscon2sDFnkg==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(36860700016)(82310400026)(376014)(18002099003)(56012099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: CTEf8/7uFPhvoeIGeOiJ1KCHBRIUjDkST5rBKpSBU71DKY2NG2kYi3Mwq/mj2dqf/XN5k5AEBN/FBBkJGVeMnzSzTkdt9oabTVQMVO/gVXX+buYyUkZZ/hxGRAE6NjjDNljl1sBYquR9kaWoy0EXZ+3gLZhQUQZpQVnZloIubfhtwBgPBO5mcryd4I+/UBCWouesoZcnddUZUDIPB6d0fVaEVOPBfRsoKezyfAFu009kJ0mE8NR1xdC6p7dFUPXdzCcPM+sntRU6+BIgTTkJmudpw+YDGyGA14veOkWK0v4ZGeOyFAqlh8m+2hnchKuvfgBfkvMsbZwJwUAagaXm1CEnyA5W0YkzG3EdmpUNdn0uARmCF1dlD4R1RiARPAKC6CFvDEAsEHxURPnW0NNulB6XwRowpBXWX3sAfmvEVKdKeQScMcLXKalQrXPOckvs
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Mar 2026 20:49:08.2246 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: aabe38c1-3c70-402f-6919-08de839d782e
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SA2PEPF00003F67.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB6938
+X-Proofpoint-ORIG-GUID: AcJGKRqiFwqxE6smkpBIhwYI528V_i00
+X-Proofpoint-GUID: AcJGKRqiFwqxE6smkpBIhwYI528V_i00
+X-Authority-Analysis: v=2.4 cv=FvcIPmrq c=1 sm=1 tr=0 ts=69b86e1c cx=c_pps
+ a=cmESyDAEBpBGqyK7t0alAg==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=EUspDBNiAAAA:8
+ a=iNc0q687GlOE84pCJgIA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=1OuFwYUASf3TG4hYMiVC:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzE2MDE2OSBTYWx0ZWRfX3imloRRVUBaG
+ PF1L+7cUKP8to0HiW0xNsyHRdtiB0ybzb+AjOqdxukhOEhigGq+E7a4d1P9y9HrAMDsiDpv9iRz
+ gXENNkGLU2oURQ5U7Fhwz8wz0r7hdTtwFDyAoxWZO9qLLSbNirjfTKvRsKPVi6GvqMcWNm3NT1e
+ 1ujvZB6yEgOoV0TfXDcbu0vggfIhtMU++LvNxMMsROQWhAz/Ol8d5nR5hjv132Zo6TBb/mL4q7q
+ 187qsFPwN+Ol48MPqtVHxPmW/5jN2dxII0XiTVAE5fAVkCjNwl7PA/qKcWab02OiQBu6zTH417P
+ WNvSTrsmu4oF/0lkLzpAOi1H0BThAJKrNQ89eQJ7TFp0MT8TlbsORzBOraewLQLcrLhSsVgS/iH
+ a4WZ7A2x9W1vSqeCvxtCeh5kUEerAjqmWwJ0I79QHzANj60uWnKBrWgypWa/M3sl4rep3JmXm0/
+ gFfrxLpeAmu67c/KY7w==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-03-16_05,2026-03-16_06,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 priorityscore=1501 suspectscore=0 phishscore=0
+ lowpriorityscore=0 bulkscore=0 spamscore=0 clxscore=1015 malwarescore=0
+ adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2603050001
+ definitions=main-2603160169
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,176 +153,68 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-drm_parse_hdmi_forum_scds() used HF-VSDB byte offsets for both HF-VSDB
-and HF-SCDB block types. HF-VSDB has a 4-byte header (1 tag_len +
-3 OUI) while HF-SCDB has a 2-byte header (1 tag_len + 1 ext_tag), so
-all field accesses were off by 2 for the SCDB case.
+On 3/16/2026 8:01 PM, Rob Clark wrote:
+> On Mon, Mar 16, 2026 at 2:22 AM Konrad Dybcio
+> <konrad.dybcio@oss.qualcomm.com> wrote:
+>>
+>> On 3/14/26 5:14 AM, Alexander Koskovich wrote:
+>>> Commit dc220915ddb2 ("drm/msm: Fix GMEM_BASE for gen8") changed the
+>>> GMEM_BASE check from adreno_is_a650_family() & adreno_is_a740_family()
+>>> to family >= ADRENO_6XX_GEN4.
+>>>
+>>> This inadvertently excluded A650 (ADRENO_6XX_GEN3), causing it to report
+>>> an incorrect GMEM_BASE which results in severe rendering corruption.
+>>>
+>>> Update check to also include ADRENO_6XX_GEN3 to fix A650.
+>>>
+>>> Fixes: dc220915ddb2 ("drm/msm: Fix GMEM_BASE for gen8")
+>>
+>> Hm, that commit also changed the value for A730 - Akhil/Rob, should
+>> that be changed back?
+> 
+> No, it was incorrect before my patch.  The only problem was the change
+> happened in a6xx_gen3, not a6xx_gen4.  So this patch is correct.
 
-This caused SCDC support, max TMDS clock, scrambling, FRL rate,
-YCbCr420 deep color, and DSC capabilities to be read from wrong byte
-positions when parsed from an HF-SCDB block.
+<< a little unrelated to this patch >>
 
-Fix by passing a pointer to the Version byte (first field after
-block-specific headers) and an explicit length to the parsing
-functions, so both block types use the same normalized layout:
- - HF-VSDB: data + 4, payload_len - 3 (skip tag_len + 3-byte OUI)
- - HF-SCDB: data + 2, payload_len - 1 (skip tag_len + 1-byte ext_tag)
+Rob, on A740 and A8x GPU, KMD is mapping GMEM at 16MB and 64MB offsets
+respectively. So returning 0 here to userspace for those GPUs doesn't
+seem right for those GPUs.
 
-Signed-off-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
----
- drivers/gpu/drm/drm_edid.c | 59 +++++++++++++++++++++-----------------
- 1 file changed, 32 insertions(+), 27 deletions(-)
+I believe userspace is interested in the aperture base address
+configured in UCHE_GMEM_RANGE/UCHE_CCHE_GC_GMEM_RANGE registers so that
+it can compute the IOVA to read GMEM via UCHE.
 
-diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
-index 26bb7710a462..13174876b04c 100644
---- a/drivers/gpu/drm/drm_edid.c
-+++ b/drivers/gpu/drm/drm_edid.c
-@@ -6143,45 +6143,45 @@ void drm_get_max_frl_rate(int max_frl_rate, u8 *max_lanes, u8 *max_rate_per_lane
- }
- 
- static void drm_parse_ycbcr420_deep_color_info(struct drm_connector *connector,
--					       const u8 *db)
-+					       const u8 *hf_scds)
- {
- 	u8 dc_mask;
- 	struct drm_hdmi_info *hdmi = &connector->display_info.hdmi;
- 
--	dc_mask = db[7] & DRM_EDID_YCBCR420_DC_MASK;
-+	dc_mask = hf_scds[3] & DRM_EDID_YCBCR420_DC_MASK;
- 	hdmi->y420_dc_modes = dc_mask;
- }
- 
- static void drm_parse_dsc_info(struct drm_hdmi_dsc_cap *hdmi_dsc,
--			       const u8 *hf_scds)
-+			       const u8 *hf_scds, int hf_scds_len)
- {
--	hdmi_dsc->v_1p2 = hf_scds[11] & DRM_EDID_DSC_1P2;
-+	hdmi_dsc->v_1p2 = hf_scds[7] & DRM_EDID_DSC_1P2;
- 
- 	if (!hdmi_dsc->v_1p2)
- 		return;
- 
--	hdmi_dsc->native_420 = hf_scds[11] & DRM_EDID_DSC_NATIVE_420;
--	hdmi_dsc->all_bpp = hf_scds[11] & DRM_EDID_DSC_ALL_BPP;
-+	hdmi_dsc->native_420 = hf_scds[7] & DRM_EDID_DSC_NATIVE_420;
-+	hdmi_dsc->all_bpp = hf_scds[7] & DRM_EDID_DSC_ALL_BPP;
- 
--	if (hf_scds[11] & DRM_EDID_DSC_16BPC)
-+	if (hf_scds[7] & DRM_EDID_DSC_16BPC)
- 		hdmi_dsc->bpc_supported = 16;
--	else if (hf_scds[11] & DRM_EDID_DSC_12BPC)
-+	else if (hf_scds[7] & DRM_EDID_DSC_12BPC)
- 		hdmi_dsc->bpc_supported = 12;
--	else if (hf_scds[11] & DRM_EDID_DSC_10BPC)
-+	else if (hf_scds[7] & DRM_EDID_DSC_10BPC)
- 		hdmi_dsc->bpc_supported = 10;
- 	else
- 		/* Supports min 8 BPC if DSC 1.2 is supported*/
- 		hdmi_dsc->bpc_supported = 8;
- 
--	if (cea_db_payload_len(hf_scds) >= 12 && hf_scds[12]) {
-+	if (hf_scds_len >= 9 && hf_scds[8]) {
- 		u8 dsc_max_slices;
- 		u8 dsc_max_frl_rate;
- 
--		dsc_max_frl_rate = (hf_scds[12] & DRM_EDID_DSC_MAX_FRL_RATE_MASK) >> 4;
-+		dsc_max_frl_rate = (hf_scds[8] & DRM_EDID_DSC_MAX_FRL_RATE_MASK) >> 4;
- 		drm_get_max_frl_rate(dsc_max_frl_rate, &hdmi_dsc->max_lanes,
- 				     &hdmi_dsc->max_frl_rate_per_lane);
- 
--		dsc_max_slices = hf_scds[12] & DRM_EDID_DSC_MAX_SLICES;
-+		dsc_max_slices = hf_scds[8] & DRM_EDID_DSC_MAX_SLICES;
- 
- 		switch (dsc_max_slices) {
- 		case 1:
-@@ -6219,13 +6219,13 @@ static void drm_parse_dsc_info(struct drm_hdmi_dsc_cap *hdmi_dsc,
- 		}
- 	}
- 
--	if (cea_db_payload_len(hf_scds) >= 13 && hf_scds[13])
--		hdmi_dsc->total_chunk_kbytes = hf_scds[13] & DRM_EDID_DSC_TOTAL_CHUNK_KBYTES;
-+	if (hf_scds_len >= 10 && hf_scds[9])
-+		hdmi_dsc->total_chunk_kbytes = hf_scds[9] & DRM_EDID_DSC_TOTAL_CHUNK_KBYTES;
- }
- 
- /* Sink Capability Data Structure */
- static void drm_parse_hdmi_forum_scds(struct drm_connector *connector,
--				      const u8 *hf_scds)
-+				      const u8 *hf_scds, int hf_scds_len)
- {
- 	struct drm_display_info *info = &connector->display_info;
- 	struct drm_hdmi_info *hdmi = &info->hdmi;
-@@ -6236,9 +6236,9 @@ static void drm_parse_hdmi_forum_scds(struct drm_connector *connector,
- 
- 	info->has_hdmi_infoframe = true;
- 
--	if (hf_scds[6] & 0x80) {
-+	if (hf_scds[2] & 0x80) {
- 		hdmi->scdc.supported = true;
--		if (hf_scds[6] & 0x40)
-+		if (hf_scds[2] & 0x40)
- 			hdmi->scdc.read_request = true;
- 	}
- 
-@@ -6251,11 +6251,11 @@ static void drm_parse_hdmi_forum_scds(struct drm_connector *connector,
- 	 * Lets check it out.
- 	 */
- 
--	if (hf_scds[5]) {
-+	if (hf_scds[1]) {
- 		struct drm_scdc *scdc = &hdmi->scdc;
- 
- 		/* max clock is 5000 KHz times block value */
--		max_tmds_clock = hf_scds[5] * 5000;
-+		max_tmds_clock = hf_scds[1] * 5000;
- 
- 		if (max_tmds_clock > 340000) {
- 			info->max_tmds_clock = max_tmds_clock;
-@@ -6265,21 +6265,21 @@ static void drm_parse_hdmi_forum_scds(struct drm_connector *connector,
- 			scdc->scrambling.supported = true;
- 
- 			/* Few sinks support scrambling for clocks < 340M */
--			if ((hf_scds[6] & 0x8))
-+			if ((hf_scds[2] & 0x8))
- 				scdc->scrambling.low_rates = true;
- 		}
- 	}
- 
--	if (hf_scds[7]) {
--		max_frl_rate = (hf_scds[7] & DRM_EDID_MAX_FRL_RATE_MASK) >> 4;
-+	if (hf_scds[3]) {
-+		max_frl_rate = (hf_scds[3] & DRM_EDID_MAX_FRL_RATE_MASK) >> 4;
- 		drm_get_max_frl_rate(max_frl_rate, &hdmi->max_lanes,
- 				     &hdmi->max_frl_rate_per_lane);
- 	}
- 
- 	drm_parse_ycbcr420_deep_color_info(connector, hf_scds);
- 
--	if (cea_db_payload_len(hf_scds) >= 11 && hf_scds[11]) {
--		drm_parse_dsc_info(hdmi_dsc, hf_scds);
-+	if (hf_scds_len >= 8 && hf_scds[7]) {
-+		drm_parse_dsc_info(hdmi_dsc, hf_scds, hf_scds_len);
- 		dsc_support = true;
- 	}
- 
-@@ -6444,9 +6444,14 @@ static void drm_parse_cea_ext(struct drm_connector *connector,
- 
- 		if (cea_db_is_hdmi_vsdb(db))
- 			drm_parse_hdmi_vsdb_video(connector, data);
--		else if (cea_db_is_hdmi_forum_vsdb(db) ||
--			 cea_db_is_hdmi_forum_scdb(db))
--			drm_parse_hdmi_forum_scds(connector, data);
-+		else if (cea_db_is_hdmi_forum_vsdb(db))
-+			drm_parse_hdmi_forum_scds(connector,
-+						  data + 4,
-+						  cea_db_payload_len(db) - 3);
-+		else if (cea_db_is_hdmi_forum_scdb(db))
-+			drm_parse_hdmi_forum_scds(connector,
-+						  data + 2,
-+						  cea_db_payload_len(db) - 1);
- 		else if (cea_db_is_microsoft_vsdb(db))
- 			drm_parse_microsoft_vsdb(connector, data);
- 		else if (cea_db_is_y420cmdb(db))
--- 
-2.53.0
+-Akhil.
+
+> 
+> BR,
+> -R
+> 
+>> Konrad
+>>
+>>> Signed-off-by: Alexander Koskovich <akoskovich@pm.me>
+>>> ---
+>>>  drivers/gpu/drm/msm/adreno/adreno_gpu.c | 2 +-
+>>>  1 file changed, 1 insertion(+), 1 deletion(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+>>> index d5fe6f6f0dec..0ac3fba5c277 100644
+>>> --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+>>> +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+>>> @@ -376,7 +376,7 @@ int adreno_get_param(struct msm_gpu *gpu, struct msm_context *ctx,
+>>>               *value = adreno_gpu->info->gmem;
+>>>               return 0;
+>>>       case MSM_PARAM_GMEM_BASE:
+>>> -             if (adreno_gpu->info->family >= ADRENO_6XX_GEN4)
+>>> +             if (adreno_gpu->info->family >= ADRENO_6XX_GEN3)
+>>>                       *value = 0;
+>>>               else
+>>>                       *value = 0x100000;
+>>>
+>>> ---
+>>> base-commit: 1f318b96cc84d7c2ab792fcc0bfd42a7ca890681
+>>> change-id: 20260314-fix-gmem-base-a650-cfd9bfcea425
+>>>
+>>> Best regards,
 
