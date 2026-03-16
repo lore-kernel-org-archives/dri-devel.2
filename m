@@ -4,127 +4,103 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0F7FDF53D9C
-	for <dri-devel@archiver.kernel.org>; Mon, 16 Mar 2026 20:45:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3A5ECF53D96
+	for <dri-devel@archiver.kernel.org>; Mon, 16 Mar 2026 20:49:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2810310E4DA;
-	Mon, 16 Mar 2026 20:45:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6220410E32B;
+	Mon, 16 Mar 2026 20:49:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="JSSS5tbU";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ZOxA7A/H";
 	dkim-atps=neutral
-Received: from BN8PR05CU002.outbound.protection.outlook.com
- (mail-eastus2azon11011042.outbound.protection.outlook.com [52.101.57.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D4B7910E4C3;
- Mon, 16 Mar 2026 20:45:07 +0000 (UTC)
+Received: from CY7PR03CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11010039.outbound.protection.outlook.com
+ [40.93.198.39])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 54E2F10E32B
+ for <dri-devel@lists.freedesktop.org>; Mon, 16 Mar 2026 20:49:15 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=t0hfQ6EAVqXdK6uzPbEfcnD8sVpvLnczB+zDZ8JjvzfzpzjZEMrsdtnI2tpssL8Zr1vOtU9zGBTHK8ZSbSQFHnrb30uAFPuhQpJ4+PjeMUGqiSkRtFAnqt6UcTnucffEri07JHU9wAovvTdLjNWEi+f+78KH/ZmoWS4bSuGHi4LzlnUMe1vSu7isKN88UrZgWE6V+ulzy65WMXiQoygDv4szqPX0US184CSbHWE96AMD74QtU3J+OO0FYJAbSGrN+Nn0/Sh3rGrVC7fWbhtvyMnR11QHJl7ecMqEJR+DPoLuKxOlUE21MnemfH/+DQ2xEMlytfx1klN4Ud0nSY1uLQ==
+ b=TTh5qEzPwi6Cq7UEQcXgPSTVszlR2CsReEx/PLAsTrN2qFmA2CrmQxYSllxsFgbTXEScc54Ks27bH9Ch3iBGxQPqFbvm5MM+uIygOge87GICVB6ixAkDNrJFpXggepbFyVBgjzrbCCfyGHWJz+usIBSN3jbVgXMpGhOSEoDVYHMau0+1zGZiqDEO5vVtVjw/ZfqfoIeOQTn5zMw6QdOjmAznLzMAYvW1frAOx1sv1w+mfAzVXrieabyvkw8PtRDdzubhayvJAeecatSTy6JaXLpObo9HBm83LPU0pJ1u8eTW4OJn2Eb9IlWt6evt+LNL9pF+5AvfYxdcbLWEPhp3dg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=dmgIXwuiaZvNVumNieOlnXG68T2fMMcWtQ6HEwgPv2o=;
- b=KpuPAzxq26qQvZUxiE7Hi3WgTiAq8D77vOoiYMnvALyyXKWkKFfo0Jdbyt+JSPO6S9AMUYko8sgpR8ZcOw+Zj8pCfTEY+dPWalx4g1havF1GIct6rNqbyP8b+++8Ji8k1rbapfvK4Xbr65lRvn5SoRCPaVcoEVm+U/KknvNcwkxMvOe7bPKWyLgOOCivAl86+sDRqZLydto2P/ovK2ZtFv17aab6Il1ajXxdaTz8uC5xHvCD+VqF/Tq8Cgz5a2nSXeDRtiTyc/ihQ7iVBs4gE60OirMJ/l2FXJQnVauUAO3KF/iiZWRtCAAE2z19bL6eYF3gpkhv4dYEwVulWs+fUA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=K6czNdzarOm4ex6F/hI2qOJPKH4VLARCz0F5hiEpgzA=;
+ b=JfIr4URQnk96KjGn6F5s24Q282UfZgQtvrId2UJral4eMOojvMT5ByrAc9NluP1zN4y4gi4aPVl8Tzjt/mC81ukePtzzhDaOV0wpiRQxRw00qmR/7dnqEWxtTIJhimnWGWdd0CyjqQYRZUNDgoGYNksVR4VAs3V2PSokcJ34QGcliZxsEwPFOMn4JInVFTZjjlproeu2CVlvpZohuYn3T5+I8sf3YsTdpo+hvKFALc2X61DDPi4qs7EvXl7gJDjWcmgsgfKx2Tc74tETzWC0qxoiAh/LsJ6d3HdhkD9pTAagbyEtZWSXHTDVAeZVhW0OuSp06tiHuEMJkGy/BiiSlw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=dmgIXwuiaZvNVumNieOlnXG68T2fMMcWtQ6HEwgPv2o=;
- b=JSSS5tbU0jx7zN20oZyCGW1i6xa+a68sFUDlCF6RUfRpE33i9Nih52nVF0HwGrjXLwygg8NGJ45Ej83BVXfLQjNj7BYLJtJnNqHRcAUlj/OZJRlYNVutct/6xbnd4WMOtjEwVdx30IVf5ArlZ/+uFoAoQIbc8JfLkp9scttTBB4=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BL1PR12MB5126.namprd12.prod.outlook.com (2603:10b6:208:312::8)
- by SA5PPF530AE3851.namprd12.prod.outlook.com
- (2603:10b6:80f:fc04::8c9) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.8; Mon, 16 Mar
- 2026 20:45:04 +0000
-Received: from BL1PR12MB5126.namprd12.prod.outlook.com
- ([fe80::c3e7:1bc5:2b91:1cfe]) by BL1PR12MB5126.namprd12.prod.outlook.com
- ([fe80::c3e7:1bc5:2b91:1cfe%4]) with mapi id 15.20.9723.016; Mon, 16 Mar 2026
- 20:45:04 +0000
-Message-ID: <3cc8bd83-8a19-488b-b5bf-b71f75c18e74@amd.com>
-Date: Mon, 16 Mar 2026 16:45:00 -0400
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 01/10] drm/colorop: Add DRM_COLOROP_CSC_FF
-To: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>,
- dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org
-Cc: louis.chauvet@bootlin.com, mwen@igalia.com, contact@emersion.fr,
- alex.hung@amd.com, daniels@collabora.com, uma.shankar@intel.com,
- maarten.lankhorst@intel.com, pekka.paalanen@collabora.com,
- pranay.samala@intel.com, swati2.sharma@intel.com
-References: <20260306165307.3233194-1-chaitanya.kumar.borah@intel.com>
- <20260306165307.3233194-2-chaitanya.kumar.borah@intel.com>
-Content-Language: en-US
-From: Harry Wentland <harry.wentland@amd.com>
-In-Reply-To: <20260306165307.3233194-2-chaitanya.kumar.borah@intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YT4PR01CA0046.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:fe::14) To BL1PR12MB5126.namprd12.prod.outlook.com
- (2603:10b6:208:312::8)
+ bh=K6czNdzarOm4ex6F/hI2qOJPKH4VLARCz0F5hiEpgzA=;
+ b=ZOxA7A/HcaM6TVr3CcubpLCM1OScsYhDKkcQXyTZFUgsReDzrjxMTz5etE6L4geRKCweNaFUJRVZmWdjHx4cV4Il/0+LQthSYepZ1Uzqfv59jnsRx98mHyY2Ia8p19frJWQEBAxRksQGkeisRBB55ySV5J1XD/elQdaT1wj+npM=
+Received: from SA1P222CA0119.NAMP222.PROD.OUTLOOK.COM (2603:10b6:806:3c5::18)
+ by PH8PR12MB6938.namprd12.prod.outlook.com (2603:10b6:510:1bd::8)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.16; Mon, 16 Mar
+ 2026 20:49:08 +0000
+Received: from SA2PEPF00003F67.namprd04.prod.outlook.com
+ (2603:10b6:806:3c5:cafe::e6) by SA1P222CA0119.outlook.office365.com
+ (2603:10b6:806:3c5::18) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9700.25 via Frontend Transport; Mon,
+ 16 Mar 2026 20:49:03 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ SA2PEPF00003F67.mail.protection.outlook.com (10.167.248.42) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9700.17 via Frontend Transport; Mon, 16 Mar 2026 20:49:08 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Mon, 16 Mar
+ 2026 15:49:08 -0500
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
+ (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Mon, 16 Mar
+ 2026 13:49:07 -0700
+Received: from aaurabin-tumbleweed.amd.com (10.180.168.240) by
+ satlexmb08.amd.com (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.17
+ via Frontend Transport; Mon, 16 Mar 2026 15:49:07 -0500
+From: Aurabindo Pillai <aurabindo.pillai@amd.com>
+To: <dri-devel@lists.freedesktop.org>
+CC: Simona Vetter <simona@ffwll.ch>, David Airlie <airlied@gmail.com>, "Thomas
+ Zimmermann" <tzimmermann@suse.de>, Maxime Ripard <mripard@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ <alexander.deucher@amd.com>
+Subject: [PATCH] drm/edid: fix off-by-2 byte offsets in HF-SCDB parsing
+Date: Mon, 16 Mar 2026 16:49:07 -0400
+Message-ID: <20260316204907.3852592-1-aurabindo.pillai@amd.com>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL1PR12MB5126:EE_|SA5PPF530AE3851:EE_
-X-MS-Office365-Filtering-Correlation-Id: d48816fa-d05a-4a90-515a-08de839ce68c
+X-MS-TrafficTypeDiagnostic: SA2PEPF00003F67:EE_|PH8PR12MB6938:EE_
+X-MS-Office365-Filtering-Correlation-Id: aabe38c1-3c70-402f-6919-08de839d782e
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|7416014|366016|56012099003|18002099003|22082099003|7053199007;
-X-Microsoft-Antispam-Message-Info: AJTdCtc1dk6N57w2PaG5aCDSxKbeNXIGhW2ICIzbx79Nq1OqXv6lrnGIsI8Tyby46hRJtTLNRgw34INP+/lHpV9Kq/WOAdpsVq5hb9vz5QMMnpnglyNeCMkPbn97LVtoMAcL8nKcwLVX+Av7mV+YFXpd1nkpqtuxRIac+/ep3FN7JnQftgKFo4wfSJHYtilWvvHnTVWt+K0w/1i7qdDrgH5I/cdHHHd5cWXOlP6k6IEC/jKuFUVXZC3wb2vTj7OWZDmDMW+3RjLmP4F7ZN4iQiPy0Bzefw9VgNnEyyaSbCUnhrZUyGysGanneQe04v1JVXwU0SG0yjNcfL9J8mNtwOHJvfuquF5G8zXjX5LP9byhbo7aMsN3rKMPQbcuKKs5AJoHgAPYsXs2ttxd5WM68+ZonWw5QvFdKMzo8JSkOT7wmMmx2OoplXh3YMNazbkeVxusYi+MugVXqIMtzgGwv2nwD006eDcXpSjC2XgLgcqql3N6yyfkE+BfhvffaWZol92m6WRvvkJ8QMQ5Lxr35No3+RIH83cGkiq3A5W4hThm5WrIAqbOvx0w8xGY8XwvyBMDVjYonBNm8dsXlPf4s2Q/vAGnZkaYtlJPLlKb4y8MUciU9cPC0/sLF98XYP9EgGxtiAdQSFNVhBZirgHV3g785AkI0KPlF4klo0Yf/o4eZdYxeXSq+67rIE4W7A1YXRMneftkMajdKrW1frJIHVHKsjMcWuIGIs7kjPOYn+w=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BL1PR12MB5126.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(7416014)(366016)(56012099003)(18002099003)(22082099003)(7053199007);
+ ARA:13230040|1800799024|36860700016|82310400026|376014|18002099003|56012099003;
+X-Microsoft-Antispam-Message-Info: 0dDS1C6hxzXD14GmKpu/jDf2lTJFCydmY1zOJUPZTPdhp8GX84OboCcgSFq1sWExm6Zn6EfWqvrTjVdQq1R1B82zSJgf21PE9hwEmLIL/KZsjdGRpTC/26qfxIhH30KPihYAva0HzxjE++9TcMifZOYAzLhMEELzojL3rrcLFk1L8HNDJWMRGYWwdeFEun88nH8UF6QFh4+INFQ0vfbtGpPGFzwrSVyLk6stpokMRs2NEAeTnO3Qac4BWL61ASKtBJdRx5oqNQPUc8B/kRJ87tzu8RqmupaXIptjmTXqrmujf4xbJpGwPJ4nk874E8URMAvp1yLvms2DhOfmrGzMaZM7xQfVL9qLeSvYF+fQmByoQhSQDS50EQ6DEw2N44ZyBVVrvoRDXW1v5gXCDDBiPiKIKABRyaDF2aZHGQhwKkMTcahto8bFB/ELaoAIHxblSVkXJaYd2ZS7/iN3L1KGLL6csi9iZJF2ofVrInwxJGMOnJ+md9p8eYDQmy4eWeLrFOp0nXRIjB63fuBogFTN3BI/0jISleC08zpt/ovLuCFPKEDu+kd54Lgsyi3OqFDy33tle30XhNgedczM1LQOXsuWFa3m3XJnf1TqnswQiMjCuOE/iK5EHoFPamS1CgZwVTIkiDg/V3P9hLLl0htvMhuooMlxpeoFYVvf3O4vhnNoeohVxNocw8Xj8bCy+1P6D+OZzLXSGKfGZieB1KvZY+1dWMNfWsHsFRwqX8Jg6qoPICvZ9+qd/hWXdch1HE9qJVmUA6/2gNlscon2sDFnkg==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(36860700016)(82310400026)(376014)(18002099003)(56012099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MWEvcmo5Z2lCdTJaYi94enFmK2d2VlZac25RdUdUSm5nd2xXUWpwRzl5aUIw?=
- =?utf-8?B?MDYxK3NlNk9XUW9IeWl0YkNSWEtTd256U3Q3OUNkbUtNN3pkcnB5NlBzQ0ti?=
- =?utf-8?B?anJNYTdpVmp6ZEZwS0ZrWWZEaWZYU1VBczQ0cXYrdGM3NHdMdVBWMHdvRmdS?=
- =?utf-8?B?eUZPeXVwc3VsQU1HU3NlcU40Um1welVVOVZyZmVtMzBxdmlHS3VvaGdVTnlF?=
- =?utf-8?B?TnBHRVQxeHRydlhlSmkxZ2EyNENNOXZQQXVhakVBSjhsaVpWS1o0N0d5ajJQ?=
- =?utf-8?B?MndmeEpVWmU5NjV0UlZiL2ZqL0ZqWkdSZ1JVcUZLKy9oOWVuVlJ2L2dsanJh?=
- =?utf-8?B?OVVBdHFMeTRvYXBQd1RzV0V6TElpVDQxcDBYWG1IWEoyYVR6VGc0Z3BCTDBU?=
- =?utf-8?B?aXJ5Rm42eTBXL0VHMncrVnN1cFV0cW9YLzJZV080dE02YVB1ZU1lc2VLa3By?=
- =?utf-8?B?RW9kZUJOaVpKWThGZnhPTHN6c1kyNk15SjUzR0JZVzVqRnNVa1VueVpEbk1k?=
- =?utf-8?B?S0NDVXB1MW9KY0Z0WTBTYm5XVVlaZzVZYWJuQ0F5ai9FaHB0cVhwbFVNNS90?=
- =?utf-8?B?WDJRd3dTOXh6cUFQeHZXTEJRMzVLcTZGNVRGVGxkNUlKZi84YkZCZVhXYVE5?=
- =?utf-8?B?djdyZGJhUGdVRlVUV1ZZNDl6dDE0emJzNDEwSDBNR3orQmJvZmowdzBDamFq?=
- =?utf-8?B?NUJ3L09BRTBLUXdjYzFSSjc5T0c1SFZaM0xNZTYzNmFYS0Z0T3lkK3hQaXdO?=
- =?utf-8?B?Vm9CNW9mUDM5ZEJQWFYrWmVySnBhaENoRkxFSlNRbFRSdjhScHptRHR2N05T?=
- =?utf-8?B?MmozUHlhS081bjhrS0tyZWxxR3ROZkxqS2Q4Y2JuQ3JWaVVUT3l4dHBVcUUw?=
- =?utf-8?B?ODF6MVNETFVTOWlod2FXR2JZOXY4WVpwN0haWDJJb3lZak82VnlrUGFvTkN4?=
- =?utf-8?B?dWtCbFJBYnFuVmtxQkR5WFhBWEFpN25KVWZ5VkIvYXk1bVVCbGVzbmtJWHRU?=
- =?utf-8?B?TUtPT0syck9hREt5TkhBcmNTUXREYzI3bHlUeGhEOWJ1TFBLVVVucTNLNUUz?=
- =?utf-8?B?T3huaEVTdDc1TzVXcndJU25BOXBvVHEwMThydUl1VVNrUFF0c25aMWpnRHNx?=
- =?utf-8?B?SHNzUlFoTUFsLzZjQW5FYjhKdDFOdEROaXEyUjZwaVBZVXJSSXFDZzlOVHJX?=
- =?utf-8?B?QVdjRGZDR3J0SFcydXQ4WDN6NDMzSC9MQk9HU08rUkluSERRZ3NzYXlyVFdK?=
- =?utf-8?B?QmJJS09BbEZWUjJIWVNJTFJMbE9WQjY4SWtwcURONCs3WkxkcHlTWGVianhL?=
- =?utf-8?B?UmEzclpYVktnaGo5REpZWE9aVFdhWlAyc3BkK1hTQzVYUG5GdG8rbnVSdnZ1?=
- =?utf-8?B?a3J5VmZmNTJUa2d0SUdQQUdsVStTZ3dIMDRJRVN5M2IyN09wOEdOMnBzQTRE?=
- =?utf-8?B?ellkOTNvRkdtSm1XNW9oYzdXa1JGdFYwQnEvRGdXUVl2Mk9VUjkwYjV6Ty9S?=
- =?utf-8?B?UUIybnlDMTV1RXROQVQ2ZTk5Q215VUp3NzA5N3RpQkdKcjVwOGh0VWRXOGZl?=
- =?utf-8?B?a1lwOEs4cFdod0lUeSt2VmdzQTNLQXQ0Q3l6bTNjSkZqeko5OUNiekR5UGVG?=
- =?utf-8?B?RkdCb0NSaUhqckUxNzlQVEZKTzVsd1QwMGVWbVREOWFPV29NbG4xVVdPLzU3?=
- =?utf-8?B?QmozRmhFNUR2S0xvaExGV3FIaWFxK3dTNkpKaU1VUFZaVjN1T0laUnJkbjU5?=
- =?utf-8?B?K013VzQ0SG56WThrUjFWMzl4bVVsMVlleSt4RGVSbXdndU5XaElnNTdxZkwx?=
- =?utf-8?B?SXNRYi9CWFBIcFl0dXExQnJPUGFhdE9qVDNKNDFmbmk4U205eG45RFpocTdO?=
- =?utf-8?B?N1RZczEzUjBWTFUzK2ZqQThWcFd3eHQvWVlwNnlVY3grVUxjbE43UVppcWlF?=
- =?utf-8?B?VVBMWEdOeDg1N0NUVmlxc21KWTdCR2p1MDdDekJtenFGS3lmUEtNNlFKSkc0?=
- =?utf-8?B?MENZVXprUmZ5ZjhMQ2pIWEk3K3duK1RjZm5kSEJXZkQ2OGVJWGVJSGQzeWhK?=
- =?utf-8?B?dlJ4Z1JxWmR0ZURmalVid3dCZTVpNW9ZMWk5cFdMb1JLRnFtRXVFeUlOMGF6?=
- =?utf-8?B?a0VvWHhnNm5MN0dha05uYzA4Nm9CUmI4S0RlYmorN2M5UkNxSzlNT2RKS0Vw?=
- =?utf-8?B?ZXJkYkJ3VnNkanYvRUtabHRMQW14YllHMGgzNkljbFN0MTFMZ2F4U3ExclM3?=
- =?utf-8?B?Z3QxN2xOMmFVVTVKRDBJTXg4c2lNK2VzWUswY1U5c1M2Ty9ybTJoOEFlWU9D?=
- =?utf-8?B?aGRKYTNlUHBuWlJjdG1TbjhTeEdMdERaOWlmaEFwc0UwK3B3R0Qydz09?=
+X-MS-Exchange-AntiSpam-MessageData-0: CTEf8/7uFPhvoeIGeOiJ1KCHBRIUjDkST5rBKpSBU71DKY2NG2kYi3Mwq/mj2dqf/XN5k5AEBN/FBBkJGVeMnzSzTkdt9oabTVQMVO/gVXX+buYyUkZZ/hxGRAE6NjjDNljl1sBYquR9kaWoy0EXZ+3gLZhQUQZpQVnZloIubfhtwBgPBO5mcryd4I+/UBCWouesoZcnddUZUDIPB6d0fVaEVOPBfRsoKezyfAFu009kJ0mE8NR1xdC6p7dFUPXdzCcPM+sntRU6+BIgTTkJmudpw+YDGyGA14veOkWK0v4ZGeOyFAqlh8m+2hnchKuvfgBfkvMsbZwJwUAagaXm1CEnyA5W0YkzG3EdmpUNdn0uARmCF1dlD4R1RiARPAKC6CFvDEAsEHxURPnW0NNulB6XwRowpBXWX3sAfmvEVKdKeQScMcLXKalQrXPOckvs
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d48816fa-d05a-4a90-515a-08de839ce68c
-X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5126.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Mar 2026 20:45:04.0404 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Mar 2026 20:49:08.2246 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: aabe38c1-3c70-402f-6919-08de839d782e
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: IC+tJ7cH+Ozrp6i4FZsJ30fRzzrmVeLffI7OfbIfY4i00aKWJIJHEZoOmHFbqC28nmUzGRDQn0Nv5jk19TacVQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA5PPF530AE3851
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SA2PEPF00003F67.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB6938
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -140,354 +116,176 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+drm_parse_hdmi_forum_scds() used HF-VSDB byte offsets for both HF-VSDB
+and HF-SCDB block types. HF-VSDB has a 4-byte header (1 tag_len +
+3 OUI) while HF-SCDB has a 2-byte header (1 tag_len + 1 ext_tag), so
+all field accesses were off by 2 for the SCDB case.
 
+This caused SCDC support, max TMDS clock, scrambling, FRL rate,
+YCbCr420 deep color, and DSC capabilities to be read from wrong byte
+positions when parsed from an HF-SCDB block.
 
-On 2026-03-06 11:52, Chaitanya Kumar Borah wrote:
-> Introduce DRM_COLOROP_CSC_FF, a new colorop type representing a
-> fixed-function Color Space Conversion (CSC) block.
-> 
-> Unlike CTM-based colorops, this block does not expose programmable
-> coefficients. Instead, userspace selects one of the predefined
-> hardware modes via a new CSC_FF_TYPE enum property. Supported modes
-> include common YUV->RGB and RGB709->RGB2020 conversions.
-> 
-> Signed-off-by: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
-> ---
->  drivers/gpu/drm/drm_atomic.c      |   4 ++
->  drivers/gpu/drm/drm_atomic_uapi.c |   4 ++
->  drivers/gpu/drm/drm_colorop.c     | 105 ++++++++++++++++++++++++++++++
->  include/drm/drm_colorop.h         |  72 ++++++++++++++++++++
->  include/uapi/drm/drm_mode.h       |  13 ++++
->  5 files changed, 198 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
-> index 04925166df98..7296b844e3fd 100644
-> --- a/drivers/gpu/drm/drm_atomic.c
-> +++ b/drivers/gpu/drm/drm_atomic.c
-> @@ -844,6 +844,10 @@ static void drm_atomic_colorop_print_state(struct drm_printer *p,
->  			   drm_get_colorop_lut3d_interpolation_name(colorop->lut3d_interpolation));
->  		drm_printf(p, "\tdata blob id=%d\n", state->data ? state->data->base.id : 0);
->  		break;
-> +	case DRM_COLOROP_CSC_FF:
-> +		drm_printf(p, "\tcsc_ff_type=%s\n",
-> +			   drm_get_colorop_csc_ff_type_name(state->csc_ff_type));
-> +		break;
->  	default:
->  		break;
->  	}
-> diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atomic_uapi.c
-> index 87de41fb4459..9af73325aa93 100644
-> --- a/drivers/gpu/drm/drm_atomic_uapi.c
-> +++ b/drivers/gpu/drm/drm_atomic_uapi.c
-> @@ -757,6 +757,8 @@ static int drm_atomic_colorop_set_property(struct drm_colorop *colorop,
->  	} else if (property == colorop->data_property) {
->  		return drm_atomic_color_set_data_property(colorop, state,
->  							  property, val);
-> +	} else if (property == colorop->csc_ff_type_property) {
-> +		state->csc_ff_type = val;
->  	} else {
->  		drm_dbg_atomic(colorop->dev,
->  			       "[COLOROP:%d:%d] unknown property [PROP:%d:%s]\n",
-> @@ -789,6 +791,8 @@ drm_atomic_colorop_get_property(struct drm_colorop *colorop,
->  		*val = colorop->lut3d_interpolation;
->  	else if (property == colorop->data_property)
->  		*val = (state->data) ? state->data->base.id : 0;
-> +	else if (property == colorop->csc_ff_type_property)
-> +		*val = state->csc_ff_type;
->  	else
->  		return -EINVAL;
->  
-> diff --git a/drivers/gpu/drm/drm_colorop.c b/drivers/gpu/drm/drm_colorop.c
-> index f421c623b3f0..49422c625f4d 100644
-> --- a/drivers/gpu/drm/drm_colorop.c
-> +++ b/drivers/gpu/drm/drm_colorop.c
-> @@ -68,6 +68,7 @@ static const struct drm_prop_enum_list drm_colorop_type_enum_list[] = {
->  	{ DRM_COLOROP_CTM_3X4, "3x4 Matrix"},
->  	{ DRM_COLOROP_MULTIPLIER, "Multiplier"},
->  	{ DRM_COLOROP_3D_LUT, "3D LUT"},
-> +	{ DRM_COLOROP_CSC_FF, "CSC Fixed-Function"},
->  };
->  
->  static const char * const colorop_curve_1d_type_names[] = {
-> @@ -90,6 +91,13 @@ static const struct drm_prop_enum_list drm_colorop_lut3d_interpolation_list[] =
->  	{ DRM_COLOROP_LUT3D_INTERPOLATION_TETRAHEDRAL, "Tetrahedral" },
->  };
->  
-> +static const char * const colorop_csc_ff_type_names[] = {
-> +	[DRM_COLOROP_CSC_FF_YUV601_RGB601]   = "YUV601 to RGB601",
-> +	[DRM_COLOROP_CSC_FF_YUV709_RGB709]   = "YUV709 to RGB709",
-> +	[DRM_COLOROP_CSC_FF_YUV2020_RGB2020] = "YUV2020 to RGB2020",
+Fix by passing a pointer to the Version byte (first field after
+block-specific headers) and an explicit length to the parsing
+functions, so both block types use the same normalized layout:
+ - HF-VSDB: data + 4, payload_len - 3 (skip tag_len + 3-byte OUI)
+ - HF-SCDB: data + 2, payload_len - 1 (skip tag_len + 1-byte ext_tag)
 
-If these are intended to be used for YCbCr to RGB conversions
-will they convert from limited to full range? Or full range
-to full range? Or something else?
+Signed-off-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
+---
+ drivers/gpu/drm/drm_edid.c | 59 +++++++++++++++++++++-----------------
+ 1 file changed, 32 insertions(+), 27 deletions(-)
 
-Harry
-
-> +	[DRM_COLOROP_CSC_FF_RGB709_RGB2020]  = "RGB709 to RGB2020",
-> +};
-> +
->  /* Init Helpers */
->  
->  static int drm_plane_colorop_init(struct drm_device *dev, struct drm_colorop *colorop,
-> @@ -459,6 +467,80 @@ int drm_plane_colorop_3dlut_init(struct drm_device *dev, struct drm_colorop *col
->  }
->  EXPORT_SYMBOL(drm_plane_colorop_3dlut_init);
->  
-> +/**
-> + * drm_plane_colorop_csc_ff_init - Initialize a DRM_COLOROP_CSC_FF
-> + *
-> + * @dev: DRM device
-> + * @colorop: The drm_colorop object to initialize
-> + * @plane: The associated drm_plane
-> + * @funcs: control functions for the new colorop
-> + * @supported_csc_ff: A bitfield of supported drm_plane_colorop_csc_ff_type enum values,
-> + *                    created using BIT(csc_ff_type) and combined with the OR '|'
-> + *                    operator.
-> + * @flags: bitmask of misc, see DRM_COLOROP_FLAG_* defines.
-> + * @return zero on success, -E value on failure
-> + */
-> +int drm_plane_colorop_csc_ff_init(struct drm_device *dev, struct drm_colorop *colorop,
-> +				  struct drm_plane *plane, const struct drm_colorop_funcs *funcs,
-> +				  u64 supported_csc_ff, uint32_t flags)
-> +{
-> +	struct drm_prop_enum_list enum_list[DRM_COLOROP_CSC_FF_COUNT];
-> +	int i, len;
-> +
-> +	struct drm_property *prop;
-> +	int ret;
-> +
-> +	if (!supported_csc_ff) {
-> +		drm_err(dev,
-> +			"No supported CSC op for new CSC FF colorop on [PLANE:%d:%s]\n",
-> +			plane->base.id, plane->name);
-> +		return -EINVAL;
-> +	}
-> +
-> +	if ((supported_csc_ff & -BIT(DRM_COLOROP_CSC_FF_COUNT)) != 0) {
-> +		drm_err(dev, "Unknown CSC provided on [PLANE:%d:%s]\n",
-> +			plane->base.id, plane->name);
-> +		return -EINVAL;
-> +	}
-> +
-> +	ret = drm_plane_colorop_init(dev, colorop, plane, funcs, DRM_COLOROP_CSC_FF, flags);
-> +	if (ret)
-> +		return ret;
-> +
-> +	len = 0;
-> +	for (i = 0; i < DRM_COLOROP_CSC_FF_COUNT; i++) {
-> +		if ((supported_csc_ff & BIT(i)) == 0)
-> +			continue;
-> +
-> +		enum_list[len].type = i;
-> +		enum_list[len].name = colorop_csc_ff_type_names[i];
-> +		len++;
-> +	}
-> +
-> +	if (WARN_ON(len <= 0))
-> +		return -EINVAL;
-> +
-> +	prop = drm_property_create_enum(dev, DRM_MODE_PROP_ATOMIC, "CSC_FF_TYPE",
-> +					enum_list, len);
-> +
-> +	if (!prop)
-> +		return -ENOMEM;
-> +
-> +	colorop->csc_ff_type_property = prop;
-> +	/*
-> +	 * Default to the first supported CSC mode as provided by the driver.
-> +	 * Intuitively this should be something that keeps the colorop in pixel bypass
-> +	 * mode but that is already handled via the standard colorop bypass
-> +	 * property.
-> +	 */
-> +	drm_object_attach_property(&colorop->base, colorop->csc_ff_type_property,
-> +				   enum_list[0].type);
-> +	drm_colorop_reset(colorop);
-> +
-> +	return 0;
-> +}
-> +EXPORT_SYMBOL(drm_plane_colorop_csc_ff_init);
-> +
->  static void __drm_atomic_helper_colorop_duplicate_state(struct drm_colorop *colorop,
->  							struct drm_colorop_state *state)
->  {
-> @@ -513,6 +595,13 @@ static void __drm_colorop_state_reset(struct drm_colorop_state *colorop_state,
->  						      &val);
->  		colorop_state->curve_1d_type = val;
->  	}
-> +
-> +	if (colorop->csc_ff_type_property) {
-> +		drm_object_property_get_default_value(&colorop->base,
-> +						      colorop->csc_ff_type_property,
-> +						      &val);
-> +		colorop_state->csc_ff_type = val;
-> +	}
->  }
->  
->  /**
-> @@ -551,6 +640,7 @@ static const char * const colorop_type_name[] = {
->  	[DRM_COLOROP_CTM_3X4] = "3x4 Matrix",
->  	[DRM_COLOROP_MULTIPLIER] = "Multiplier",
->  	[DRM_COLOROP_3D_LUT] = "3D LUT",
-> +	[DRM_COLOROP_CSC_FF] = "CSC Fixed-Function",
->  };
->  
->  static const char * const colorop_lu3d_interpolation_name[] = {
-> @@ -607,6 +697,21 @@ const char *drm_get_colorop_lut3d_interpolation_name(enum drm_colorop_lut3d_inte
->  	return colorop_lu3d_interpolation_name[type];
->  }
->  
-> +/**
-> + * drm_get_colorop_csc_ff_type_name: return a string for interpolation type
-> + * @type: csc ff type to compute name of
-> + *
-> + * In contrast to the other drm_get_*_name functions this one here returns a
-> + * const pointer and hence is threadsafe.
-> + */
-> +const char *drm_get_colorop_csc_ff_type_name(enum drm_colorop_csc_ff_type type)
-> +{
-> +	if (WARN_ON(type >= ARRAY_SIZE(colorop_csc_ff_type_names)))
-> +		return "unknown";
-> +
-> +	return colorop_csc_ff_type_names[type];
-> +}
-> +
->  /**
->   * drm_colorop_set_next_property - sets the next pointer
->   * @colorop: drm colorop
-> diff --git a/include/drm/drm_colorop.h b/include/drm/drm_colorop.h
-> index bd082854ca74..2cd8e0779c2a 100644
-> --- a/include/drm/drm_colorop.h
-> +++ b/include/drm/drm_colorop.h
-> @@ -134,6 +134,60 @@ enum drm_colorop_curve_1d_type {
->  	DRM_COLOROP_1D_CURVE_COUNT
->  };
->  
-> +/**
-> + * enum drm_colorop_csc_ff_type - type of CSC Fixed-Function
-> + *
-> + * Describes a CSC operation to be applied by the DRM_COLOROP_CSC_FF colorop.
-> + */
-> +enum drm_colorop_csc_ff_type {
-> +	/**
-> +	 * @DRM_COLOROP_CSC_FF_YUV601_RGB601
-> +	 *
-> +	 * enum string "YUV601 to RGB601"
-> +	 *
-> +	 * Selects the fixed-function CSC preset that converts YUV
-> +	 * (BT.601) colorimetry to RGB (BT.601).
-> +	 */
-> +	DRM_COLOROP_CSC_FF_YUV601_RGB601,
-> +
-> +	/**
-> +	 * @DRM_COLOROP_CSC_FF_YUV709_RGB709:
-> +	 *
-> +	 * enum string "YUV709 to RGB709"
-> +	 *
-> +	 * Selects the fixed-function CSC preset that converts YUV
-> +	 * (BT.709) colorimetry to RGB (BT.709).
-> +	 */
-> +	DRM_COLOROP_CSC_FF_YUV709_RGB709,
-> +
-> +	/**
-> +	 * @DRM_COLOROP_CSC_FF_YUV2020_RGB2020:
-> +	 *
-> +	 * enum string "YUV2020 to RGB2020"
-> +	 *
-> +	 * Selects the fixed-function CSC preset that converts YUV
-> +	 * (BT.2020) colorimetry to RGB (BT.2020).
-> +	 */
-> +	DRM_COLOROP_CSC_FF_YUV2020_RGB2020,
-> +
-> +	/**
-> +	 * @DRM_COLOROP_CSC_FF_RGB709_RGB2020:
-> +	 *
-> +	 * enum string "RGB709 to RGB2020"
-> +	 *
-> +	 * Selects the fixed-function CSC preset that converts RGB
-> +	 * (BT.709) colorimetry to RGB (BT.2020).
-> +	 */
-> +	DRM_COLOROP_CSC_FF_RGB709_RGB2020,
-> +
-> +	/**
-> +	 * @DRM_COLOROP_CSC_FF_COUNT:
-> +	 *
-> +	 * enum value denoting the size of the enum
-> +	 */
-> +	DRM_COLOROP_CSC_FF_COUNT
-> +};
-> +
->  /**
->   * struct drm_colorop_state - mutable colorop state
->   */
-> @@ -183,6 +237,13 @@ struct drm_colorop_state {
->  	 */
->  	struct drm_property_blob *data;
->  
-> +	/**
-> +	 * @csc_ff_type:
-> +	 *
-> +	 * Type of Fixed function CSC.
-> +	 */
-> +	enum drm_colorop_csc_ff_type csc_ff_type;
-> +
->  	/** @state: backpointer to global drm_atomic_state */
->  	struct drm_atomic_state *state;
->  };
-> @@ -368,6 +429,13 @@ struct drm_colorop {
->  	 */
->  	struct drm_property *data_property;
->  
-> +	/**
-> +	 * @csc_ff_type_property:
-> +	 *
-> +	 * Sub-type for DRM_COLOROP_CSC_FF type.
-> +	 */
-> +	struct drm_property *csc_ff_type_property;
-> +
->  	/**
->  	 * @next_property:
->  	 *
-> @@ -424,6 +492,9 @@ int drm_plane_colorop_3dlut_init(struct drm_device *dev, struct drm_colorop *col
->  				 uint32_t lut_size,
->  				 enum drm_colorop_lut3d_interpolation_type interpolation,
->  				 uint32_t flags);
-> +int drm_plane_colorop_csc_ff_init(struct drm_device *dev, struct drm_colorop *colorop,
-> +				  struct drm_plane *plane, const struct drm_colorop_funcs *funcs,
-> +				  u64 supported_csc_ff, uint32_t flags);
->  
->  struct drm_colorop_state *
->  drm_atomic_helper_colorop_duplicate_state(struct drm_colorop *colorop);
-> @@ -480,6 +551,7 @@ drm_get_colorop_lut1d_interpolation_name(enum drm_colorop_lut1d_interpolation_ty
->  
->  const char *
->  drm_get_colorop_lut3d_interpolation_name(enum drm_colorop_lut3d_interpolation_type type);
-> +const char *drm_get_colorop_csc_ff_type_name(enum drm_colorop_csc_ff_type type);
->  
->  void drm_colorop_set_next_property(struct drm_colorop *colorop, struct drm_colorop *next);
->  
-> diff --git a/include/uapi/drm/drm_mode.h b/include/uapi/drm/drm_mode.h
-> index 3693d82b5279..f7808e7ea984 100644
-> --- a/include/uapi/drm/drm_mode.h
-> +++ b/include/uapi/drm/drm_mode.h
-> @@ -968,6 +968,19 @@ enum drm_colorop_type {
->  	 *         color = lut3d[index]
->  	 */
->  	DRM_COLOROP_3D_LUT,
-> +
-> +	/**
-> +	 * @DRM_COLOROP_CSC_FF:
-> +	 *
-> +	 * enum string "CSC Fixed-Function"
-> +	 *
-> +	 * A fixed-function Color Space Conversion block where the coefficients
-> +	 * are not programmable but selected from predefined hardware modes via
-> +	 * the CSC_FF_TYPE enum property. The driver advertises the supported
-> +	 * CSC modes through this property.
-> +	 */
-> +	DRM_COLOROP_CSC_FF,
-> +
->  };
->  
->  /**
+diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
+index 26bb7710a462..13174876b04c 100644
+--- a/drivers/gpu/drm/drm_edid.c
++++ b/drivers/gpu/drm/drm_edid.c
+@@ -6143,45 +6143,45 @@ void drm_get_max_frl_rate(int max_frl_rate, u8 *max_lanes, u8 *max_rate_per_lane
+ }
+ 
+ static void drm_parse_ycbcr420_deep_color_info(struct drm_connector *connector,
+-					       const u8 *db)
++					       const u8 *hf_scds)
+ {
+ 	u8 dc_mask;
+ 	struct drm_hdmi_info *hdmi = &connector->display_info.hdmi;
+ 
+-	dc_mask = db[7] & DRM_EDID_YCBCR420_DC_MASK;
++	dc_mask = hf_scds[3] & DRM_EDID_YCBCR420_DC_MASK;
+ 	hdmi->y420_dc_modes = dc_mask;
+ }
+ 
+ static void drm_parse_dsc_info(struct drm_hdmi_dsc_cap *hdmi_dsc,
+-			       const u8 *hf_scds)
++			       const u8 *hf_scds, int hf_scds_len)
+ {
+-	hdmi_dsc->v_1p2 = hf_scds[11] & DRM_EDID_DSC_1P2;
++	hdmi_dsc->v_1p2 = hf_scds[7] & DRM_EDID_DSC_1P2;
+ 
+ 	if (!hdmi_dsc->v_1p2)
+ 		return;
+ 
+-	hdmi_dsc->native_420 = hf_scds[11] & DRM_EDID_DSC_NATIVE_420;
+-	hdmi_dsc->all_bpp = hf_scds[11] & DRM_EDID_DSC_ALL_BPP;
++	hdmi_dsc->native_420 = hf_scds[7] & DRM_EDID_DSC_NATIVE_420;
++	hdmi_dsc->all_bpp = hf_scds[7] & DRM_EDID_DSC_ALL_BPP;
+ 
+-	if (hf_scds[11] & DRM_EDID_DSC_16BPC)
++	if (hf_scds[7] & DRM_EDID_DSC_16BPC)
+ 		hdmi_dsc->bpc_supported = 16;
+-	else if (hf_scds[11] & DRM_EDID_DSC_12BPC)
++	else if (hf_scds[7] & DRM_EDID_DSC_12BPC)
+ 		hdmi_dsc->bpc_supported = 12;
+-	else if (hf_scds[11] & DRM_EDID_DSC_10BPC)
++	else if (hf_scds[7] & DRM_EDID_DSC_10BPC)
+ 		hdmi_dsc->bpc_supported = 10;
+ 	else
+ 		/* Supports min 8 BPC if DSC 1.2 is supported*/
+ 		hdmi_dsc->bpc_supported = 8;
+ 
+-	if (cea_db_payload_len(hf_scds) >= 12 && hf_scds[12]) {
++	if (hf_scds_len >= 9 && hf_scds[8]) {
+ 		u8 dsc_max_slices;
+ 		u8 dsc_max_frl_rate;
+ 
+-		dsc_max_frl_rate = (hf_scds[12] & DRM_EDID_DSC_MAX_FRL_RATE_MASK) >> 4;
++		dsc_max_frl_rate = (hf_scds[8] & DRM_EDID_DSC_MAX_FRL_RATE_MASK) >> 4;
+ 		drm_get_max_frl_rate(dsc_max_frl_rate, &hdmi_dsc->max_lanes,
+ 				     &hdmi_dsc->max_frl_rate_per_lane);
+ 
+-		dsc_max_slices = hf_scds[12] & DRM_EDID_DSC_MAX_SLICES;
++		dsc_max_slices = hf_scds[8] & DRM_EDID_DSC_MAX_SLICES;
+ 
+ 		switch (dsc_max_slices) {
+ 		case 1:
+@@ -6219,13 +6219,13 @@ static void drm_parse_dsc_info(struct drm_hdmi_dsc_cap *hdmi_dsc,
+ 		}
+ 	}
+ 
+-	if (cea_db_payload_len(hf_scds) >= 13 && hf_scds[13])
+-		hdmi_dsc->total_chunk_kbytes = hf_scds[13] & DRM_EDID_DSC_TOTAL_CHUNK_KBYTES;
++	if (hf_scds_len >= 10 && hf_scds[9])
++		hdmi_dsc->total_chunk_kbytes = hf_scds[9] & DRM_EDID_DSC_TOTAL_CHUNK_KBYTES;
+ }
+ 
+ /* Sink Capability Data Structure */
+ static void drm_parse_hdmi_forum_scds(struct drm_connector *connector,
+-				      const u8 *hf_scds)
++				      const u8 *hf_scds, int hf_scds_len)
+ {
+ 	struct drm_display_info *info = &connector->display_info;
+ 	struct drm_hdmi_info *hdmi = &info->hdmi;
+@@ -6236,9 +6236,9 @@ static void drm_parse_hdmi_forum_scds(struct drm_connector *connector,
+ 
+ 	info->has_hdmi_infoframe = true;
+ 
+-	if (hf_scds[6] & 0x80) {
++	if (hf_scds[2] & 0x80) {
+ 		hdmi->scdc.supported = true;
+-		if (hf_scds[6] & 0x40)
++		if (hf_scds[2] & 0x40)
+ 			hdmi->scdc.read_request = true;
+ 	}
+ 
+@@ -6251,11 +6251,11 @@ static void drm_parse_hdmi_forum_scds(struct drm_connector *connector,
+ 	 * Lets check it out.
+ 	 */
+ 
+-	if (hf_scds[5]) {
++	if (hf_scds[1]) {
+ 		struct drm_scdc *scdc = &hdmi->scdc;
+ 
+ 		/* max clock is 5000 KHz times block value */
+-		max_tmds_clock = hf_scds[5] * 5000;
++		max_tmds_clock = hf_scds[1] * 5000;
+ 
+ 		if (max_tmds_clock > 340000) {
+ 			info->max_tmds_clock = max_tmds_clock;
+@@ -6265,21 +6265,21 @@ static void drm_parse_hdmi_forum_scds(struct drm_connector *connector,
+ 			scdc->scrambling.supported = true;
+ 
+ 			/* Few sinks support scrambling for clocks < 340M */
+-			if ((hf_scds[6] & 0x8))
++			if ((hf_scds[2] & 0x8))
+ 				scdc->scrambling.low_rates = true;
+ 		}
+ 	}
+ 
+-	if (hf_scds[7]) {
+-		max_frl_rate = (hf_scds[7] & DRM_EDID_MAX_FRL_RATE_MASK) >> 4;
++	if (hf_scds[3]) {
++		max_frl_rate = (hf_scds[3] & DRM_EDID_MAX_FRL_RATE_MASK) >> 4;
+ 		drm_get_max_frl_rate(max_frl_rate, &hdmi->max_lanes,
+ 				     &hdmi->max_frl_rate_per_lane);
+ 	}
+ 
+ 	drm_parse_ycbcr420_deep_color_info(connector, hf_scds);
+ 
+-	if (cea_db_payload_len(hf_scds) >= 11 && hf_scds[11]) {
+-		drm_parse_dsc_info(hdmi_dsc, hf_scds);
++	if (hf_scds_len >= 8 && hf_scds[7]) {
++		drm_parse_dsc_info(hdmi_dsc, hf_scds, hf_scds_len);
+ 		dsc_support = true;
+ 	}
+ 
+@@ -6444,9 +6444,14 @@ static void drm_parse_cea_ext(struct drm_connector *connector,
+ 
+ 		if (cea_db_is_hdmi_vsdb(db))
+ 			drm_parse_hdmi_vsdb_video(connector, data);
+-		else if (cea_db_is_hdmi_forum_vsdb(db) ||
+-			 cea_db_is_hdmi_forum_scdb(db))
+-			drm_parse_hdmi_forum_scds(connector, data);
++		else if (cea_db_is_hdmi_forum_vsdb(db))
++			drm_parse_hdmi_forum_scds(connector,
++						  data + 4,
++						  cea_db_payload_len(db) - 3);
++		else if (cea_db_is_hdmi_forum_scdb(db))
++			drm_parse_hdmi_forum_scds(connector,
++						  data + 2,
++						  cea_db_payload_len(db) - 1);
+ 		else if (cea_db_is_microsoft_vsdb(db))
+ 			drm_parse_microsoft_vsdb(connector, data);
+ 		else if (cea_db_is_y420cmdb(db))
+-- 
+2.53.0
 
