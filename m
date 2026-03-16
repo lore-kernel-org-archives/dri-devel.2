@@ -4,128 +4,140 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2ACAFF46441
-	for <dri-devel@archiver.kernel.org>; Mon, 16 Mar 2026 10:04:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5FBF4F46441
+	for <dri-devel@archiver.kernel.org>; Mon, 16 Mar 2026 10:08:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8830A10E399;
-	Mon, 16 Mar 2026 10:04:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BB67610E39B;
+	Mon, 16 Mar 2026 10:08:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="oV9nokCS";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="AffWizTZ";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="O3RNzaZc";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="6rMru4vL";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="NDh2WZx/";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="cm4MQfeH";
 	dkim-atps=neutral
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8D4DF10E399
- for <dri-devel@lists.freedesktop.org>; Mon, 16 Mar 2026 10:04:11 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 2D2AF5BCC3;
- Mon, 16 Mar 2026 10:04:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1773655450; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=KfwgO5Xm1GA/MmpYiz1fWmR2hvwviD2iUrNXxDIfK+s=;
- b=oV9nokCSKpYJ40z0cakqJu9UnLSsX7IDTbdB+q17zlFYzarrEXontL9Aj2huj+5x9jYZNP
- MHp7r7S2AR0PjpJUhw3XbuVyc8awn3LJ0D3tYu3C+afYeoFGz0vGPUyOQMlnbe1jf+Xj8a
- NaVXz1kBij7j5uK/EAWaJZBh7ds28rE=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1773655450;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=KfwgO5Xm1GA/MmpYiz1fWmR2hvwviD2iUrNXxDIfK+s=;
- b=AffWizTZgQe2B6eWb6P4QpyGK2m4nEk3lAHEqT7GzOeMIwdcGPJ6YmtX38xAuJbKoAeMh2
- F2Hm0ZJGbvhSMLBg==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1773655448; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=KfwgO5Xm1GA/MmpYiz1fWmR2hvwviD2iUrNXxDIfK+s=;
- b=O3RNzaZcDLMzwZwhOUcba/mMYAUuzkiehahPfoYIZ/9U2QzpCaTa+5FjYS+DGOdjKzjkIZ
- h3g7tYuk/56F5oJMgSxYnmYNVgxVa10U3cRuxGnPYxcdkmRXNE857EPh26O1gD1crTZhRc
- VHWzzjmzLpn4KhsoN9cmtLgslKSEILk=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1773655448;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=KfwgO5Xm1GA/MmpYiz1fWmR2hvwviD2iUrNXxDIfK+s=;
- b=6rMru4vLQ6FnQv+NNJeD8d6rBt/oU5xhhFBG5GoQaLkgeGd6MJuTrCPlMXqAQG2UrJLraf
- g4EoAxmty6zm0GCQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id E58C04273B;
- Mon, 16 Mar 2026 10:04:07 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id KMGZNpfVt2nrQgAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Mon, 16 Mar 2026 10:04:07 +0000
-Message-ID: <b0b1f644-ea5c-4636-99a0-28b040ed2fe0@suse.de>
-Date: Mon, 16 Mar 2026 11:04:07 +0100
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 04B2410E39C
+ for <dri-devel@lists.freedesktop.org>; Mon, 16 Mar 2026 10:08:05 +0000 (UTC)
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 62G652Ow1068051
+ for <dri-devel@lists.freedesktop.org>; Mon, 16 Mar 2026 10:08:05 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ jCKxTdgkdhUfhMWVS3bqu1wMEwzKvP/Qe5TgTlQaWwI=; b=NDh2WZx/rg9oCG3+
+ rKpsQ9IW5iKg3abY7aAEIGITLM0KxtNekaJQVZz2ueZUyGBfNTaj0KSme3ZBLXkv
+ asbB/C8OMNZD/zYenZLU26hULxRUQErIb0MZQ4KZ4RokZ4OFx31KISOJrmxy7w9d
+ 5eawRa0ZpdhJzV9JGifJhVXfm7RhqorehiG7mbSbBlycAASZUa0pdS98GU5QOurC
+ +kIROciR7fgvKUDSJBQ1QEPwzJdS3/sT515te7IxXBqXyAEd9HncdNQ1VbRktmmJ
+ TTT6BZ7fexIhtNVV/1j9uz2XvGQUy2KElp1INJCT8QVPgMef7oWYOfZpIrv7c/HE
+ AsGJRg==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
+ [209.85.222.197])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4cw027d726-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Mon, 16 Mar 2026 10:08:04 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id
+ af79cd13be357-8cb39de5c54so285725585a.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 16 Mar 2026 03:08:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1773655684; x=1774260484;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=jCKxTdgkdhUfhMWVS3bqu1wMEwzKvP/Qe5TgTlQaWwI=;
+ b=cm4MQfeHmyPIUO6JyFxqrEc6Kxdg+A8UiyPvLgyJrGM7diHw61VoCe7c6D/J/LZfl0
+ XsUAshQyhE5D/2UwR2wexEoEV4Hh8Q19l9weO2kHTOMP1hJRPamYg3sXk+qRM0PyYJtV
+ C9mPfRJsCy5ZdEOaaRMLRgI/6fFkgQ77Mu4UdEjqflV7BUI1jutc3ZFlMQCVbxenPjOy
+ duvOpGzOi2pNTpv7bQ+X5ks7KDXN2WlsF8GIS2hNDYmlnoTxjzHwrlI3GBqNaLF1bEdh
+ L4UtiLEBQAeGmC25rjx7yMOxvsoquS31pyFVMxbs5qrYeL0AEbxO/FhMZRrPmEShTLJ/
+ W11w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1773655684; x=1774260484;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=jCKxTdgkdhUfhMWVS3bqu1wMEwzKvP/Qe5TgTlQaWwI=;
+ b=X8fv6pWP6xA88VhVLDT7nHD2d3kjiCPL7WRjzO1HCzsEo0G5JihBDE1a/HlLtXLM0c
+ umN9sYmXlhg/Ielsqp6LzTjphY6mjJb5Sd5xxAGrMNGN8YE7rdRb07TXzIM5JmijLSgi
+ w4qVbaj+S9pXsvZFywTXL17zC3pl6mGiXQvNJt2oD+TEZUaLgV1c2NqRZk8mwYYeUNxe
+ PW8Qs9z2SScumaRJWl9Y0wb4lNLn8nxUJ51+LQ5mfQ1gDNPQkcy6fQunc2hMMZb+XSyM
+ OLLdJXqUtjvbBKZE8bySrfajBpZ10QkdqOTpuAkZs+pZ+6x2KcK/c0KrztzTJJLiikvk
+ aoqA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUbTuVycYn3u6OPLQ43iFJMBWO/Fu3BIPe1AX0ott+OdTTbMO2WyvzSRAjPrKf8wRDSKNPHZKFvRUo=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzzYpaP1TvBFGGtS64fbRv/bTFMmsBWU+XghNdvpAGHNSlUtdal
+ Icfdinkp7ewHrXzpED+IPcWT05R2DBNJRR2ghq6y/IbE+5bzS9WhBb4wfKdX+Upmql8PRCCsmMI
+ lS9DfMEwHpbygXZSLDaGf9JcnYLeU15cqfN+EeFJJ8w8L3jRkiM+Gh2Kvs/yPOK4iDLjGEyo=
+X-Gm-Gg: ATEYQzwrt8jR9TUuo01i6UUb3vYxdUT0Cm+4gzBsZsy3YFz4ZX3Mzl27cGL5SoggtfQ
+ X0U+PNYnIqpElewdt4WKA8kzJjVe7AJKzVWreby8syJKuK0On2/lCvucAbYGnkNKAibYWlzqHl3
+ 0NK7qEXghztttNqGcdZr2MiAIuQo4KtAEcPfkEQrhVlrFDOhJON3HWJiZzhu9qi+T9oiisDu9YM
+ qmB3PztQgKs/8NFAGrJ2SsFpTS1tU6tRsy8+EDweWih/8qh4tj4fFeU/6P+DWOfBMlv5OA/4tbG
+ Rcapm04IQjC5XrRjBzI1SeQz4Ra9LGzYQhRr6MLkWcz2xsXuQvpZNLE8Bh2hRuYJvn5w2ABRgtc
+ yCc+C6Z958KWKgcT51yTh59AmQbRAuegSEZocxaLTpjKieZjzsErdbShhUzTZizgDAqUKTG4Ish
+ ld6UA=
+X-Received: by 2002:a05:620a:290e:b0:8c9:eee0:dba6 with SMTP id
+ af79cd13be357-8cdb5b7617bmr1240588985a.7.1773655684313; 
+ Mon, 16 Mar 2026 03:08:04 -0700 (PDT)
+X-Received: by 2002:a05:620a:290e:b0:8c9:eee0:dba6 with SMTP id
+ af79cd13be357-8cdb5b7617bmr1240587685a.7.1773655683933; 
+ Mon, 16 Mar 2026 03:08:03 -0700 (PDT)
+Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl.
+ [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-b97cb0d2df2sm49348266b.54.2026.03.16.03.08.01
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 16 Mar 2026 03:08:03 -0700 (PDT)
+Message-ID: <fe151ffe-aea2-429d-a725-4697381c4a93@oss.qualcomm.com>
+Date: Mon, 16 Mar 2026 11:08:00 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/ast: DisplayPort edid supports 256 bytes
-To: Jammy Huang <jammy_huang@aspeedtech.com>, Dave Airlie
- <airlied@redhat.com>, Jocelyn Falempe <jfalempe@redhat.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20260313-upstream_ast_dp_edid-v1-1-2a75b7c091b2@aspeedtech.com>
+Subject: Re: [PATCH v3 17/27] drm/msm/mdss: use new helper to set amsbc
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
+ <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20260312-ubwc-rework-v3-0-b7e8f800176a@oss.qualcomm.com>
+ <20260312-ubwc-rework-v3-17-b7e8f800176a@oss.qualcomm.com>
+ <19b36a86-12c7-4710-8f80-5e27c9c00e3c@oss.qualcomm.com>
+ <uahvm7kvu2vi6o6mwznn5eqzqqscxmfetl4c3q3xa2eryg6ode@ltxfpjmqbrrt>
 Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20260313-upstream_ast_dp_edid-v1-1-2a75b7c091b2@aspeedtech.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- RCVD_VIA_SMTP_AUTH(0.00)[];
- FREEMAIL_TO(0.00)[aspeedtech.com,redhat.com,linux.intel.com,kernel.org,gmail.com,ffwll.ch];
- ARC_NA(0.00)[]; MIME_TRACE(0.00)[0:+];
- RCPT_COUNT_SEVEN(0.00)[9]; FUZZY_RATELIMITED(0.00)[rspamd.com];
- MID_RHS_MATCH_FROM(0.00)[]; FREEMAIL_ENVRCPT(0.00)[gmail.com];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- TO_DN_SOME(0.00)[]; RCVD_TLS_ALL(0.00)[];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url, imap1.dmz-prg2.suse.org:helo,
- bootlin.com:url, aspeedtech.com:email, suse.de:mid]
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <uahvm7kvu2vi6o6mwznn5eqzqqscxmfetl4c3q3xa2eryg6ode@ltxfpjmqbrrt>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: E4cItEY87UhhhNxSqsCm19_elm1CF8p4
+X-Proofpoint-ORIG-GUID: E4cItEY87UhhhNxSqsCm19_elm1CF8p4
+X-Authority-Analysis: v=2.4 cv=AqXjHe9P c=1 sm=1 tr=0 ts=69b7d684 cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
+ a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=EUspDBNiAAAA:8 a=Nnq6w86PQWoF-9HhF-wA:9 a=QEXdDO2ut3YA:10
+ a=IoWCM6iH3mJn3m4BftBB:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzE2MDA3NyBTYWx0ZWRfX5ave/Xfy9v5n
+ uLrwZ0gJpRXqAYyQnpAyUfyl3OWMDa2B2Vm04igvwN+Hg/2zmIxcO3nizsldPgmIarnSiRRjMgg
+ d80mw/8s5SgpDDa8zJ1Mx/v7HitbJSML0oEnzwxo6aOI731V/u+yeeqFLKiN7LWCDVRfHiZpECU
+ i2PTRlyZDFv5E5kZff4RHfJvMkVtx1IkFoKSypskQTFMA+DVwbqGvgheNFckbLEGblYCHUFMqCA
+ IHRJLNVh0wawXj7NcgP5G9gBAJ/G5v//WURt1eyKygemVj9XzhK78ED0OJHdnod6aox960u8gfc
+ FAxa1RicMkgShwhi7Xj3q9ABqH3hDrZBcGDppdOvTzlZJtXkLJ8yGihpjtZEjxQWGxhuJvc8upf
+ /O/ZK6rvdftb8bJSWKCAeFPziMjYtsfAa8DgTwk4oqxPyRgTcBPllaNU/PJd0YI0ccOwNThVcXH
+ 6M82vrC7XFJ8QAlbVTA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-03-16_04,2026-03-13_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 impostorscore=0 bulkscore=0 clxscore=1015 phishscore=0
+ spamscore=0 suspectscore=0 malwarescore=0 lowpriorityscore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603160077
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -141,65 +153,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Jammy
+On 3/13/26 3:26 PM, Dmitry Baryshkov wrote:
+> On Fri, Mar 13, 2026 at 11:19:59AM +0100, Konrad Dybcio wrote:
+>> On 3/12/26 2:29 PM, Dmitry Baryshkov wrote:
+>>> Use freshly defined helper instead of checking the UBWC version
+>>> directly.
+>>>
+>>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+>>> ---
+>>>  drivers/gpu/drm/msm/msm_mdss.c | 2 +-
+>>>  1 file changed, 1 insertion(+), 1 deletion(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/msm/msm_mdss.c b/drivers/gpu/drm/msm/msm_mdss.c
+>>> index ca59bcdde7b2..04efc29f38cd 100644
+>>> --- a/drivers/gpu/drm/msm/msm_mdss.c
+>>> +++ b/drivers/gpu/drm/msm/msm_mdss.c
+>>> @@ -188,7 +188,7 @@ static void msm_mdss_5x_setup_ubwc(struct msm_mdss *msm_mdss)
+>>>  	if (qcom_ubwc_macrotile_mode(data))
+>>>  		value |= MDSS_UBWC_STATIC_MACROTILE_MODE;
+>>>  
+>>> -	if (data->ubwc_enc_version == UBWC_3_0)
+>>> +	if (qcom_ubwc_enable_amsbc(data))
+>>>  		value |= MDSS_UBWC_STATIC_UBWC_AMSBC;
+>>
+>> I know it's already there, but fwiw downstream doesn't seem to be
+>> concerned with toggling AMSBC in MDSS (perhaps incorrectly?)
+> 
+> Downstream enables it only for the cases where encoder and decoder
+> use exactly UBWC 3.0. This is not completely correct as the bit doesn't
+> exist for MDSS 6.x+. For 5.x this is equivalent to the code from the
+> patch: enable AMSBC if targeting UBWC >= 3.0 (because MDSS 5.x don't
+> support UBWC 4.0 or higher).
 
-Am 13.03.26 um 11:04 schrieb Jammy Huang:
-> DisplayPort supports edid at most 256 bytes. Thus, allow it to fetch
-> edid block 0 and 1.
->
-> Signed-off-by: Jammy Huang <jammy_huang@aspeedtech.com>
-> ---
-> ASPEED DisplayPort's EDID size can be 256 bytes at most. Thus, EDID
-> blocks fetched can be 0 and 1.
-> ---
->   drivers/gpu/drm/ast/ast_dp.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/ast/ast_dp.c b/drivers/gpu/drm/ast/ast_dp.c
-> index 9d07dad358c..c938e1d6b1d 100644
-> --- a/drivers/gpu/drm/ast/ast_dp.c
-> +++ b/drivers/gpu/drm/ast/ast_dp.c
-> @@ -88,7 +88,7 @@ static int ast_astdp_read_edid_block(void *data, u8 *buf, unsigned int block, si
->   	int ret = 0;
->   	unsigned int i;
->   
-> -	if (block > 0)
-> +	if (block > 1)
->   		return -EIO; /* extension headers not supported */
+Right, this seems to indeed be the case
 
-But see the code at [1]. It clears the number of extensions to zero and 
-updates the checksum accordingly. This is required to make the shortened 
-EDID work with DRM. If you leave this as-is, it will still clear support 
-for any extension in block 1.
+While trying to confirm that, I noticed that some lower-end MDSS 5.x
+chips (like Talos) report UBWC3 in the register, but the MDSS docs say
+they're UBWC2 - any idea?
 
-See the table 2.4 in the VESA EDID 1.4 standard for the semantics. For 
-1.3, if the number of blocks is >2, the first extensions is a 'block map 
-of the extensions'. This is useless, as it's not a data extension in 
-itself.  In 1.4, the block map is optional. That code should clear the 
-EDID's number of extensions to 0 or 1, depending on whether there is a 
-block map to be expected.
-
-Best regards
-Thomas
-
-[1] 
-https://elixir.bootlin.com/linux/v6.19.8/source/drivers/gpu/drm/ast/ast_dp.c#L157
-
->   
->   	/*
->
-> ---
-> base-commit: 5ee8dbf54602dc340d6235b1d6aa17c0f283f48c
-> change-id: 20260313-upstream_ast_dp_edid-5fe6adf7ad36
->
-> Best regards,
-
--- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
-
-
+Konrad
