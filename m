@@ -4,52 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C278FF53D6F
-	for <dri-devel@archiver.kernel.org>; Mon, 16 Mar 2026 16:16:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 09D72F53D70
+	for <dri-devel@archiver.kernel.org>; Mon, 16 Mar 2026 16:20:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E05F210E066;
-	Mon, 16 Mar 2026 16:16:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5A41110E025;
+	Mon, 16 Mar 2026 16:20:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="m4AQiTQa";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="cA3gd/Bg";
 	dkim-atps=neutral
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
- [213.167.242.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 34C9C10E066
- for <dri-devel@lists.freedesktop.org>; Mon, 16 Mar 2026 16:16:21 +0000 (UTC)
-Received: from killaraus.ideasonboard.com
- (2001-14ba-703d-e500--2a1.rev.dnainternet.fi [IPv6:2001:14ba:703d:e500::2a1])
- by perceval.ideasonboard.com (Postfix) with UTF8SMTPSA id 954E3B1A;
- Mon, 16 Mar 2026 17:15:08 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1773677708;
- bh=IXo0vBVE3pGzsWgWziX8G4a7BS05yGec8qQFLaz5dxM=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=m4AQiTQagpy6MkLxgZrgmZPNPh1f368ItOxQJbQnKKjupRUSMJjFkHEy648NIzGMp
- XQGl1CfPIDLVqyTw/0+91sNWA+jOdrES9tIk2jDnprMYwwSg3CqhtA57BZP6q5kLVn
- 7OKDRbn2tMWPAMZoUc9sDkV27RWbBiLKCBYxJq1Y=
-Date: Mon, 16 Mar 2026 18:16:18 +0200
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Cc: Maxime Ripard <mripard@kernel.org>, dri-devel@lists.freedesktop.org,
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7918B10E025;
+ Mon, 16 Mar 2026 16:20:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1773678035; x=1805214035;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=zdDadFAKEKsGBKt3/8FLGmgtX8Z8G66mf73tPxmJadk=;
+ b=cA3gd/BglSC4uMBOUaGwfE+94iRDKjSnZmG6s9WkanOCAeOeO8KxszVP
+ 8vlk1oUwOMi8+IQ55nxTCOj459QFmNjSHFCpL36mbx4xev581gywSWLHk
+ oC3jN7YpHkiuvX+eTFpe+7vqF/ritljK2Dlwf6NnQjbR6Kf7hVUTyeHJd
+ RTr+VmIPuxAWvMcUuvah8ZXZvSLyFddI7DHQEXBAhayT8FJ0A41Yum+gV
+ a6t7mjfKgzU9cBDDzAQ3ADH6GpKgtjdsa0Aop47bXOiNZr+EbXVnBk2kk
+ c/L+tPN7XK9LED2xCDaGDUrz8E2OCou58Uf9vEF7YBbqjSg+AhZOMqkzS g==;
+X-CSE-ConnectionGUID: wB2HABmdSW2brie72SD1qA==
+X-CSE-MsgGUID: 6nmjwkqLQhKm0/2uTp4uwQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11731"; a="74884812"
+X-IronPort-AV: E=Sophos;i="6.23,124,1770624000"; d="scan'208";a="74884812"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+ by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Mar 2026 09:20:33 -0700
+X-CSE-ConnectionGUID: lf13wFxxQveiRla+gXkyhQ==
+X-CSE-MsgGUID: yCuO87GcSNuvN5fZdS+EmQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,124,1770624000"; d="scan'208";a="244993884"
+Received: from zzombora-mobl1.ger.corp.intel.com (HELO fedora)
+ ([10.245.244.233])
+ by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Mar 2026 09:20:30 -0700
+From: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
+To: intel-xe@lists.freedesktop.org
+Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Matthew Brost <matthew.brost@intel.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Jyri Sarha <jyri.sarha@iki.fi>, Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Robert Foss <rfoss@kernel.org>, Jonas Karlman <jonas@kwiboo.se>,
- Jernej Skrabec <jernej.skrabec@gmail.com>
-Subject: Re: [PATCH 05/14] drm/plane: Add new atomic_create_state callback
-Message-ID: <20260316161618.GG31616@killaraus.ideasonboard.com>
-References: <20260310-drm-mode-config-init-v1-0-de7397c8e1cf@kernel.org>
- <20260310-drm-mode-config-init-v1-5-de7397c8e1cf@kernel.org>
- <477e022a-d336-4995-a3bc-f12c7d233b0d@ideasonboard.com>
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Dave Airlie <airlied@gmail.com>, Simona Vetter <simona.vetter@ffwll.ch>,
+ dri-devel@lists.freedesktop.org
+Subject: [PATCH 0/2] drm,drm/xe: Relax helper module reference requirement
+Date: Mon, 16 Mar 2026 17:20:00 +0100
+Message-ID: <20260316162002.13479-1-thomas.hellstrom@linux.intel.com>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <477e022a-d336-4995-a3bc-f12c7d233b0d@ideasonboard.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,236 +72,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Mar 11, 2026 at 09:13:18AM +0200, Tomi Valkeinen wrote:
-> On 10/03/2026 18:06, Maxime Ripard wrote:
-> > Commit 47b5ac7daa46 ("drm/atomic: Add new atomic_create_state callback
-> > to drm_private_obj") introduced a new pattern for allocating drm object
-> > states.
-> > 
-> > Instead of relying on the reset() callback, it created a new
-> > atomic_create_state hook. This is helpful because reset is a bit
-> > overloaded: it's used to create the initial software tate, reset it, but
+Helper components that hold a drm device reference also need to hold
+a module reference on the (sub)driver that owns the DRM device.
 
-s/tate/state/
+This can be undesirable since it's not possible to rmmod the module
+without unbinding the driver first.
 
-> > also reset the hardware.
-> > 
-> > It can also be used either at probe time, to create the initial state
-> > and possibly reset the hardware to an expected default, but also during
-> > suspend/resume.
-> > 
-> > Both these cases come with different expectations too: during the
-> > initialization, we want to initialize all states, but during
-> > suspend/resume, drm_private_states for example are expected to be kept
-> > around.
-> > 
-> > And reset() isn't fallible, which makes it harder to handle
-> > initialization errors properly.
-> > 
-> > And this is only really relevant for some drivers, since all the helpers
-> > for reset only create a new state, and don't touch the hardware at all.
-> > 
-> > It was thus decided to create a new hook that would allocate and
-> > initialize a pristine state without any side effect:
-> > atomic_create_state to untangle a bit some of it, and to separate the
-> > initialization with the actual reset one might need during a
-> > suspend/resume.
-> > 
-> > Let's continue the transition to the new pattern with planes.
-> > 
-> > Signed-off-by: Maxime Ripard <mripard@kernel.org>
-> > ---
-> >  drivers/gpu/drm/drm_atomic_state_helper.c | 41 +++++++++++++++++++++++++++++++
-> >  drivers/gpu/drm/drm_mode_config.c         | 18 ++++++++++++++
-> >  include/drm/drm_atomic_state_helper.h     |  4 +++
-> >  include/drm/drm_plane.h                   | 13 ++++++++++
-> >  4 files changed, 76 insertions(+)
-> > 
-> > diff --git a/drivers/gpu/drm/drm_atomic_state_helper.c b/drivers/gpu/drm/drm_atomic_state_helper.c
-> > index a1abf4247c348eca21da348c3893dd843b9ed391..898e168eeae1c3899121ffd13c79fae7803fcd2a 100644
-> > --- a/drivers/gpu/drm/drm_atomic_state_helper.c
-> > +++ b/drivers/gpu/drm/drm_atomic_state_helper.c
-> > @@ -318,10 +318,29 @@ void __drm_atomic_helper_plane_reset(struct drm_plane *plane,
-> >  
-> >  	plane->state = plane_state;
-> >  }
-> >  EXPORT_SYMBOL(__drm_atomic_helper_plane_reset);
-> >  
-> > +/**
-> > + * __drm_atomic_helper_plane_create_state - initializes plane state
-> > + * @plane: plane object
-> > + * @state: new state to initialize
-> > + *
-> > + * Initializes the newly allocated @state, usually required when
-> > + * initializing the drivers.
-> > + *
-> > + * @state is assumed to be zeroed.
-> > + *
-> > + * This is useful for drivers that subclass @drm_plane_state.
-> > + */
-> > +void __drm_atomic_helper_plane_create_state(struct drm_plane *plane,
-> > +					    struct drm_plane_state *state)
-> > +{
-> > +	__drm_atomic_helper_plane_reset(plane, state);
-> > +}
-> > +EXPORT_SYMBOL(__drm_atomic_helper_plane_create_state);
-> > +
-> 
-> This calls __drm_atomic_helper_plane_reset(), which does "plane->state =
-> plane_state". From the description I understood this would be without
-> side effects. Is that not a side effect? Or should this call
-> __drm_atomic_helper_plane_state_reset() instead?
+Provide means to relax that requirement and then relax it for the
+drm/xe driver: Keep a device-count in the xe driver (Patch 2) and add a
+function to drm to wait to ensure any device release callbacks are
+done executing. (Patch 1).
 
-If you want to dedicate the word "reset" to code paths that reset the
-hardware or initialize the state based on the hardware state, I would
-also rename __drm_atomic_helper_plane_state_reset() to
-__drm_atomic_helper_plane_state_init(), as its purpose is to initialize
-a new state.
+The remaining requirement is that whatever module calls drm_dev_put()
+needs to ensure it stays in memory until that function returns.
+That is true also for the unload-protected driver itself
+At unload time it needs to ensure that any code inside the module
+itself ending up calling drm_dev_put() is waited for before
+unloading the module. This change doesn't protect against that.
 
-> Same thing for the next two patches too.
-> 
-> >  /**
-> >   * drm_atomic_helper_plane_reset - default &drm_plane_funcs.reset hook for planes
-> >   * @plane: drm plane
-> >   *
-> >   * Resets the atomic state for @plane by freeing the state pointer (which might
-> > @@ -337,10 +356,32 @@ void drm_atomic_helper_plane_reset(struct drm_plane *plane)
-> >  	if (plane->state)
-> >  		__drm_atomic_helper_plane_reset(plane, plane->state);
-> >  }
-> >  EXPORT_SYMBOL(drm_atomic_helper_plane_reset);
-> >  
-> > +/**
-> > + * drm_atomic_helper_plane_create_state - default &drm_plane_funcs.atomic_create_state hook for planes
-> > + * @plane: plane object
-> > + *
-> > + * Initializes a pristine @drm_plane_state.
-> > + *
-> > + * This is useful for drivers that don't subclass @drm_plane_state.
-> > + */
-> > +struct drm_plane_state *drm_atomic_helper_plane_create_state(struct drm_plane *plane)
-> > +{
-> > +	struct drm_plane_state *state;
-> > +
-> > +	state = kzalloc_obj(*state);
-> > +	if (!state)
-> > +		return ERR_PTR(-ENOMEM);
-> > +
-> > +	__drm_atomic_helper_plane_reset(plane, state);
-> > +
-> > +	return state;
-> > +}
-> > +EXPORT_SYMBOL(drm_atomic_helper_plane_create_state);
-> > +
-> >  /**
-> >   * __drm_atomic_helper_plane_duplicate_state - copy atomic plane state
-> >   * @plane: plane object
-> >   * @state: atomic plane state
-> >   *
-> > diff --git a/drivers/gpu/drm/drm_mode_config.c b/drivers/gpu/drm/drm_mode_config.c
-> > index 54c27376f9894ef5eee378bb5b1e5fc7049de922..43fe64540b8ec4df4bb823d96db607e6bfe58824 100644
-> > --- a/drivers/gpu/drm/drm_mode_config.c
-> > +++ b/drivers/gpu/drm/drm_mode_config.c
-> > @@ -180,10 +180,26 @@ int drm_mode_getresources(struct drm_device *dev, void *data,
-> >  	drm_connector_list_iter_end(&conn_iter);
-> >  
-> >  	return ret;
-> >  }
-> >  
-> > +static int drm_mode_config_plane_create_state(struct drm_plane *plane)
-> > +{
-> > +	struct drm_plane_state *plane_state;
-> > +
-> > +	if (!plane->funcs->atomic_create_state)
-> > +		return 0;
-> > +
-> > +	plane_state = plane->funcs->atomic_create_state(plane);
-> > +	if (IS_ERR(plane_state))
-> > +		return PTR_ERR(plane_state);
-> > +
-> > +	plane->state = plane_state;
-> 
-> And this one sets the plane->state, so maybe .atomic_create_state() is
-> not supposed to do that.
-> 
-> > +
-> > +	return 0;
-> > +}
-> > +
-> >  /**
-> >   * drm_mode_config_reset - call ->reset callbacks
-> >   * @dev: drm device
-> >   *
-> >   * This functions calls all the crtc's, encoder's and connector's ->reset
-> > @@ -207,10 +223,12 @@ void drm_mode_config_reset(struct drm_device *dev)
-> >  		drm_colorop_reset(colorop);
-> >  
-> >  	drm_for_each_plane(plane, dev)
-> >  		if (plane->funcs->reset)
-> >  			plane->funcs->reset(plane);
-> > +		else if (plane->funcs->atomic_create_state)
-> > +			drm_mode_config_plane_create_state(plane);
+As an example, this series would allow dropping the module reference
+held by drm_pagemap if the modules owning the drm device is
+sufficently protected.
 
-While at it I'd add curly braces for the loop.
+Thomas Hellström (2):
+  drm: Provide a drm_dev_release_barrier() function to wait for device
+    release callbacks
+  drm/xe: Don't unload the driver until all drm devices are freed
 
-> >  
-> >  	drm_for_each_crtc(crtc, dev)
-> >  		if (crtc->funcs->reset)
-> >  			crtc->funcs->reset(crtc);
-> >  
-> > diff --git a/include/drm/drm_atomic_state_helper.h b/include/drm/drm_atomic_state_helper.h
-> > index 900672c6ea90ba9cb87e38a7c84225972aee43c5..f56a91fca20e778d8ccb1767301dc00783bf40f3 100644
-> > --- a/include/drm/drm_atomic_state_helper.h
-> > +++ b/include/drm/drm_atomic_state_helper.h
-> > @@ -51,12 +51,16 @@ struct drm_crtc_state *
-> >  drm_atomic_helper_crtc_duplicate_state(struct drm_crtc *crtc);
-> >  void __drm_atomic_helper_crtc_destroy_state(struct drm_crtc_state *state);
-> >  void drm_atomic_helper_crtc_destroy_state(struct drm_crtc *crtc,
-> >  					  struct drm_crtc_state *state);
-> >  
-> > +void __drm_atomic_helper_plane_create_state(struct drm_plane *plane,
-> > +					    struct drm_plane_state *state);
-> >  void __drm_atomic_helper_plane_state_reset(struct drm_plane_state *state,
-> >  					   struct drm_plane *plane);
-> > +struct drm_plane_state *
-> > +drm_atomic_helper_plane_create_state(struct drm_plane *plane);
-> >  void __drm_atomic_helper_plane_reset(struct drm_plane *plane,
-> >  				     struct drm_plane_state *state);
-> >  void drm_atomic_helper_plane_reset(struct drm_plane *plane);
-> >  void __drm_atomic_helper_plane_duplicate_state(struct drm_plane *plane,
-> >  					       struct drm_plane_state *state);
-> > diff --git a/include/drm/drm_plane.h b/include/drm/drm_plane.h
-> > index 703ef4d1bbbcf084c43aa5e127d28691878061c4..4d4d511b681d50c17fbc593cce9f706d63e04a52 100644
-> > --- a/include/drm/drm_plane.h
-> > +++ b/include/drm/drm_plane.h
-> > @@ -386,10 +386,23 @@ struct drm_plane_funcs {
-> >  	 * 0 on success or a negative error code on failure.
-> >  	 */
-> >  	int (*set_property)(struct drm_plane *plane,
-> >  			    struct drm_property *property, uint64_t val);
-> >  
-> > +	/**
-> > +	 * @atomic_create_state:
-> > +	 *
-> > +	 * Allocates a pristine, initialized, state for the plane object
-> > +	 * and returns it.
-> > +	 *
-> > +	 * RETURNS:
-> > +	 *
-> > +	 * A new, pristine, plane state instance or an error pointer
-> > +	 * on failure.
-> > +	 */
-> > +	struct drm_plane_state *(*atomic_create_state)(struct drm_plane *plane);
-> > +
-> >  	/**
-> >  	 * @atomic_duplicate_state:
-> >  	 *
-> >  	 * Duplicate the current atomic state for this plane and return it.
-> >  	 * The core and helpers guarantee that any atomic state duplicated with
-> > 
-> 
+ drivers/gpu/drm/drm_drv.c      | 25 +++++++++++++++++++++++++
+ drivers/gpu/drm/xe/xe_device.c | 19 +++++++++++++++++++
+ drivers/gpu/drm/xe/xe_device.h |  2 ++
+ drivers/gpu/drm/xe/xe_module.c |  5 ++++-
+ include/drm/drm_drv.h          |  1 +
+ 5 files changed, 51 insertions(+), 1 deletion(-)
 
 -- 
-Regards,
+2.53.0
 
-Laurent Pinchart
