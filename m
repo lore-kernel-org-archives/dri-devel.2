@@ -4,84 +4,138 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F3ADAF013DC
-	for <dri-devel@archiver.kernel.org>; Mon, 16 Mar 2026 08:53:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 91127F013E6
+	for <dri-devel@archiver.kernel.org>; Mon, 16 Mar 2026 08:56:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E448F10E377;
-	Mon, 16 Mar 2026 08:53:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 00ABD10E37A;
+	Mon, 16 Mar 2026 08:56:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="J9dZvd++";
+	dkim=pass (2048-bit key; secure) header.d=gmx.de header.i=natalie.vock@gmx.de header.b="jvlakwtn";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7950610E372;
- Mon, 16 Mar 2026 08:53:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1773651191; x=1805187191;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=PI/mAYTBRcU4Lz4+ZDh76VUhW4ibWpPBttE/6cvygZQ=;
- b=J9dZvd++TIebHJ+eUE9x2UeLKTz1Br5cRi2xOHadbR1MjV+ZZAjIupps
- WK/nx/63RhxuGEBtJeaLh7OGBsnvasZStfPrOAMRYlCwAGUvDG7wQdyKn
- EYit7vuP2Kfjxzjyln0tOvUj5s44VqjOHckpr2KCbkIffoVg4t7abhERp
- +CeBdRy9EidwuezAn91C0ZZj+2PR7sJzSiQ6c6C9zvdAD5Opbq2BteYSe
- d/Y4grqq2/k8iPkCPQ4v5uc7hPlaz+Ds2SKWbPOV2sn1DMGeluqT+EXrq
- ha8s0Eh+MW+1N911OKSTyG3t8tJ1AhVmooucDP9s+S0McwooaOmPBZW/7 Q==;
-X-CSE-ConnectionGUID: t69z6jfAQ1GowT1BuRir8A==
-X-CSE-MsgGUID: esM36LXnSE6dqoE54y0qoQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11730"; a="74697098"
-X-IronPort-AV: E=Sophos;i="6.23,123,1770624000"; d="scan'208";a="74697098"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
- by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Mar 2026 01:53:10 -0700
-X-CSE-ConnectionGUID: lbZZBjlgQ7iKsGNu2li5Ig==
-X-CSE-MsgGUID: salQm0erT+KA4U7veGXdBA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,123,1770624000"; d="scan'208";a="222050115"
-Received: from mjarzebo-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.245.246.238])
- by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Mar 2026 01:52:54 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Hou Wenlong <houwenlong.hwl@antgroup.com>, linux-kernel@vger.kernel.org
-Cc: Hou Wenlong <houwenlong.hwl@antgroup.com>, Alex Deucher
- <alexander.deucher@amd.com>, Alex Hung <alex.hung@amd.com>, Alvin Lee
- <alvin.lee2@amd.com>, amd-gfx@lists.freedesktop.org, Ankit Nautiyal
- <ankit.k.nautiyal@intel.com>, Aurabindo Pillai <aurabindo.pillai@amd.com>,
- Ausef Yousof <auyousof@amd.com>, Bhuvanachandra Pinninti
- <bpinnint@amd.com>, Chaitanya Kumar Borah
- <chaitanya.kumar.borah@intel.com>, Charlene Liu <charlene.liu@amd.com>,
- Chenyu Chen <chen-yu.chen@amd.com>, Chris Park <chris.park@amd.com>,
- Christian =?utf-8?Q?K=C3=B6nig?= <christian.koenig@amd.com>, David Airlie
- <airlied@gmail.com>, Dillon Varone <dillon.varone@amd.com>, Dmytro
- Laktyushkin <dmytro.laktyushkin@amd.com>, dri-devel@lists.freedesktop.org,
- Gustavo Sousa <gustavo.sousa@intel.com>, Harold Sun <Harold.Sun@amd.com>,
- Harry Wentland <harry.wentland@amd.com>, intel-gfx@lists.freedesktop.org,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, Jun Lei
- <jun.lei@amd.com>, Karthi Kandasamy <karthi.kandasamy@amd.com>, Leo Chen
- <leo.chen@amd.com>, Leo Li <sunpeng.li@amd.com>, Lohita Mudimela
- <lohita.mudimela@amd.com>, Lucas De Marchi <demarchi@kernel.org>,
- Meenakshikumar Somasundaram <meenakshikumar.somasundaram@amd.com>,
- Nicholas Carbones <Nicholas.Carbones@amd.com>, Ray Wu <ray.wu@amd.com>,
- Relja Vojvodic <rvojvodi@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Ryan Seto <ryanseto@amd.com>,
- Samson Tam <Samson.Tam@amd.com>, Simona Vetter <simona@ffwll.ch>, Timur
- =?utf-8?Q?Krist=C3=B3f?= <timur.kristof@gmail.com>, Tvrtko Ursulin
- <tursulin@ursulin.net>,
- Wayne Lin <wayne.lin@amd.com>, Wenjing Liu <wenjing.liu@amd.com>, Yan Li
- <yan.li@amd.com>, Zhenyu Wang <zhenyuw.linux@gmail.com>, Zhi Wang
- <zhi.wang.linux@gmail.com>
-Subject: Re: [PATCH 1/2] drm/i915/gvt: Rename struct 'pixel_format' to
- 'gvt_pixel_format'
-In-Reply-To: <f5e603648f6733047bbf74a5af6ae4b4436a44f6.1773629419.git.houwenlong.hwl@antgroup.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <cover.1773629419.git.houwenlong.hwl@antgroup.com>
- <f5e603648f6733047bbf74a5af6ae4b4436a44f6.1773629419.git.houwenlong.hwl@antgroup.com>
-Date: Mon, 16 Mar 2026 10:52:51 +0200
-Message-ID: <832d5f67f05edfb9c97694a8f7bada0104d1be67@intel.com>
+Received: from mout.gmx.net (mout.gmx.net [212.227.17.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 432A210E37A
+ for <dri-devel@lists.freedesktop.org>; Mon, 16 Mar 2026 08:56:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
+ s=s31663417; t=1773651400; x=1774256200; i=natalie.vock@gmx.de;
+ bh=yyqVtQeCEjoypG+BjKKAA69XbPhzxMYMMxjC7ZVluw0=;
+ h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
+ References:From:In-Reply-To:Content-Type:
+ Content-Transfer-Encoding:cc:content-transfer-encoding:
+ content-type:date:from:message-id:mime-version:reply-to:subject:
+ to;
+ b=jvlakwtnCBmDBLucH1TVtu64sArtryicsVnEEKvk97NY5ubg5g588/GLxcfUvYlf
+ GQzwvNfGwEAoReGMPG3A169gFMyMEDwdhabN9xOeEhBsmQFDapzz9nxOlwe4hK4fY
+ Uoo44Yl5Tf0gW48blaIMmL9gehoWfaH123ZH4kci7Ql/JOPmNtAqoZXxwZPylo2IF
+ CTVwr02QVfKuwVI8otOaNfRZjve6F04bW4Vd7HyaNgPRhklZVt7Cw3tKzTdgF7Ccu
+ m3leWu6PhryYdHvfS3Ow0hsEFMiuZB2I3aKBx23wZxhPNwukkLbxEHAwCDksBlvLO
+ Kkymq4ECzQalig9lDg==
+X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
+Received: from client.hidden.invalid by mail.gmx.net (mrgmx104
+ [212.227.17.168]) with ESMTPSA (Nemesis) id 1MAfUe-1vvVFQ1BX6-00AIGX; Mon, 16
+ Mar 2026 09:56:40 +0100
+Message-ID: <1e02c50a-c2cb-44da-8bd7-dcd5ce9ada05@gmx.de>
+Date: Mon, 16 Mar 2026 09:56:38 +0100
 MIME-Version: 1.0
-Content-Type: text/plain
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 6/6] drm/ttm: Use common ancestor of evictor and
+ evictee as limit pool
+To: =?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>
+Cc: Maarten Lankhorst <dev@lankhorst.se>, Maxime Ripard <mripard@kernel.org>, 
+ Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>,
+ Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>,
+ Matthew Auld <matthew.auld@intel.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Tvrtko Ursulin <tursulin@ursulin.net>,
+ cgroups@vger.kernel.org, dri-devel@lists.freedesktop.org
+References: <20260313-dmemcg-aggressive-protect-v6-0-7c71cc1492db@gmx.de>
+ <20260313-dmemcg-aggressive-protect-v6-6-7c71cc1492db@gmx.de>
+ <i2n5xfy5fmb2vwbh7xvyjmrz5vn35i7m7yw6uom3vmgb2l6xzm@rpgdwahd2lt4>
+Content-Language: en-US
+From: Natalie Vock <natalie.vock@gmx.de>
+In-Reply-To: <i2n5xfy5fmb2vwbh7xvyjmrz5vn35i7m7yw6uom3vmgb2l6xzm@rpgdwahd2lt4>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:rDDcNo8PfBjWVgoSr3bVfsrbgM0yeJEIefXv/MpuO/hHE+JtOI4
+ J//rC4x03eKTlmfWnou5Ysnfx8SV04EB/B0ULIvsxjzrgIqIbg/4dmJq/ADOLKAWxGyQ7o3
+ AAQNQA4Hu/bPk90M6E4k7Ydkl8MRw1CtvNQTjCvI2/NdW566IVt/iSKGVygfJX1Hp6fIDd4
+ TM/zhWVFR4X9r7ymPhcEg==
+UI-OutboundReport: notjunk:1;M01:P0:NQiHfdQLlyI=;KQvEBXaKy6DV7Uhg9vshavMrsbG
+ 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
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,50 +151,52 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, 16 Mar 2026, Hou Wenlong <houwenlong.hwl@antgroup.com> wrote:
-> Rename the local struct 'pixel_format' to 'gvt_pixel_format' to avoid
-> potential name conflicts with the 'pixel_format' struct defined in
-> include/video/pixel_format.h.
->
-> Signed-off-by: Hou Wenlong <houwenlong.hwl@antgroup.com>
+On 3/13/26 15:16, Michal Koutn=C3=BD wrote:
+> Hi.
+>=20
+> On Fri, Mar 13, 2026 at 12:40:05PM +0100, Natalie Vock <natalie.vock@gmx=
+.de> wrote:
+>> However, if we always calculate protection from the root cgroup, this
+>> breaks prioritization of sibling cgroups: If one cgroup was explicitly
+>> protected and its siblings were not, the protected cgroup should get
+>> higher priority, i.e. the protected cgroup should be able to steal from
+>> unprotected siblings. This only works if we restrict the protection
+>> calculation to the subtree shared by evictor and evictee.
+>=20
+> When there are thee siblings A, B, C where A has protection and C is
+> doing a new allocation (evictor) but hits a limit on L, what effective
+> values to A would be applied in the respective cases below?
+>=20
+> Case 1)
+>=20
+>    L    dmem.max
+>    `- A dmem.low
+>    `- B
+>    `- C (alloc)
+>=20
+> Case 2)
+>=20
+>    L       dmem.max
+>    `- M    // dmem.low=3D0
+>       `- A dmem.low
+>       `- B
+>       `- C (alloc)
+>=20
+> I think it should be the configured A:dmem.low in the first case but
+> zero in the latter case because M has no protection configured. -- Is
+> that correct?
 
-Reviewed-by: Jani Nikula <jani.nikula@intel.com>
+Yeah, I think so too. In the former case, A hits the shortcut for parent=
+=20
+=3D=3D root in page_counter_calculate_protection(), so the effective=20
+protection is set to the low setting directly. In case 2, they don't,=20
+and since M:dmem.low is 0, M's effective low is also zero, and all its=20
+children's protection is 0 as well.
 
-and ack for merging via whichever branch you prefer.
+Thanks,
+Natalie
 
-> ---
->  drivers/gpu/drm/i915/gvt/fb_decoder.c | 6 +++---
->  1 file changed, 3 insertions(+), 3 deletions(-)
->
-> diff --git a/drivers/gpu/drm/i915/gvt/fb_decoder.c b/drivers/gpu/drm/i915/gvt/fb_decoder.c
-> index d7abf38df532..25fffc77f138 100644
-> --- a/drivers/gpu/drm/i915/gvt/fb_decoder.c
-> +++ b/drivers/gpu/drm/i915/gvt/fb_decoder.c
-> @@ -48,13 +48,13 @@
->  #include "i915_reg.h"
->  
->  #define PRIMARY_FORMAT_NUM	16
-> -struct pixel_format {
-> +struct gvt_pixel_format {
->  	int drm_format;	/* Pixel format in DRM definition */
->  	int bpp; /* Bits per pixel, 0 indicates invalid */
->  	const char *desc; /* The description */
->  };
->  
-> -static const struct pixel_format bdw_pixel_formats[] = {
-> +static const struct gvt_pixel_format bdw_pixel_formats[] = {
->  	{DRM_FORMAT_C8, 8, "8-bit Indexed"},
->  	{DRM_FORMAT_RGB565, 16, "16-bit BGRX (5:6:5 MSB-R:G:B)"},
->  	{DRM_FORMAT_XRGB8888, 32, "32-bit BGRX (8:8:8:8 MSB-X:R:G:B)"},
-> @@ -67,7 +67,7 @@ static const struct pixel_format bdw_pixel_formats[] = {
->  	{}
->  };
->  
-> -static const struct pixel_format skl_pixel_formats[] = {
-> +static const struct gvt_pixel_format skl_pixel_formats[] = {
->  	{DRM_FORMAT_YUYV, 16, "16-bit packed YUYV (8:8:8:8 MSB-V:Y2:U:Y1)"},
->  	{DRM_FORMAT_UYVY, 16, "16-bit packed UYVY (8:8:8:8 MSB-Y2:V:Y1:U)"},
->  	{DRM_FORMAT_YVYU, 16, "16-bit packed YVYU (8:8:8:8 MSB-U:Y2:V:Y1)"},
+>=20
+> Thanks,
+> Michal
 
--- 
-Jani Nikula, Intel
