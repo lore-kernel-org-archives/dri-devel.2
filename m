@@ -4,60 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5DC8DF013D5
-	for <dri-devel@archiver.kernel.org>; Mon, 16 Mar 2026 08:41:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B8562F013DA
+	for <dri-devel@archiver.kernel.org>; Mon, 16 Mar 2026 08:41:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 93DBF10E1CE;
-	Mon, 16 Mar 2026 08:41:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1FEE710E369;
+	Mon, 16 Mar 2026 08:41:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="SVKECDnH";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="FkcRDq7c";
 	dkim-atps=neutral
-Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com
- [209.85.214.178])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 697AF10E1CE
- for <dri-devel@lists.freedesktop.org>; Mon, 16 Mar 2026 08:41:17 +0000 (UTC)
-Received: by mail-pl1-f178.google.com with SMTP id
- d9443c01a7336-2aecefc7503so17659775ad.1
- for <dri-devel@lists.freedesktop.org>; Mon, 16 Mar 2026 01:41:17 -0700 (PDT)
+Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com
+ [209.85.214.175])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3DC1C10E344
+ for <dri-devel@lists.freedesktop.org>; Mon, 16 Mar 2026 08:41:23 +0000 (UTC)
+Received: by mail-pl1-f175.google.com with SMTP id
+ d9443c01a7336-2ab46931cf1so38404105ad.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 16 Mar 2026 01:41:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1773650477; x=1774255277; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=cz7mmWupQiHeJBt4/mLmGWxEIG5p++4iVJofkne7BcA=;
- b=SVKECDnHx9BlO6H5nyTdgmDxCv5ScTVn8IlTWNHD1DVfu9TTcqX3cUajuM4EAAwO2O
- cp8SabyoN/TNHkVKShQY3HngIPdmGaO1KQfT+y0NsuhAnhaD95BFa7bHotz/D+rlndW8
- NI+N90qny0lRM0wNuVs1arnmZjpT/5alfp4JVw4yDfpC3zRDfFK02NeQUGQiRZTCjXTP
- 31yd1ltmstLmJHlzo4GuvpLoasDTBLzbpFyJOYyj3MyBqnXJaVT5UXxpnyDhpbIoegtV
- Ptv4mkAhUYmf9pIRscfoebY3IwQtYHUpQPeKvhtprb8lhzpWsHF4jzGnvbccSqNeghHs
- lr1g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1773650477; x=1774255277;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=gmail.com; s=20230601; t=1773650483; x=1774255283; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=cz7mmWupQiHeJBt4/mLmGWxEIG5p++4iVJofkne7BcA=;
- b=hBP0vFfbRYIcuq0PfauxcVQdUPyjj3uWXiSbIpgI0N2q9Udhae4DOvD2i+zyMnQX1Y
- ZepabgXB+9MEqs9H/AC5RclXPpG6ZdziwkIFiiWqFE05KQ0ORVdQSrM5aCWW2joc/MAh
- RGrsK/HXeL7UE4R3S0eVE//JAHKJyuDfoh6mP/nAAT9lwrc8q1wuxFNKn9M7K+iLth7v
- DY2ajl05zwyYfvVRGVo1edByF4hGZodVaMb8Kef7ieB4JWpmZUin0lL5AdbJzVcQKiOS
- Q9tyhi2rNg8E/Sh1HJKjTEwomcAUKnbMyALdbAmNgdmaLatYrOisWMCMNqhWeM+lGGQD
- V4fA==
-X-Gm-Message-State: AOJu0Yw5bNbZxlZzRKQPKcyOknxWHMj+neN9MgxFkFUB2QS8syrg3tXC
- Ik7sKaQhOeKzSdnN31a/mLM/Qw/tyrDeJj1udjiX53HAD8Q2JHRudHww
-X-Gm-Gg: ATEYQzzb436ufgpLtuytONZkV6mG1ykgPDKPve1R2+GVcM5OgLANL82jL6eHKaJndK8
- FaZ2cNrC+qM7sXdj6KQ49cVQ3+Lp36F0dfM0QUP56nhJ4Zxc06rnf64rHykRdKGUIPNoNrYSy/P
- 8JB+toLNjB1+1C16d3j2ovWjv4UniULKIM+29ld5BtoGMDa2h7qU0G5+oXQFl1mQuXkBKSMexcN
- 9XHeDnhoqJ85B4wPBhghG3mSvJBj+tH2cRIgLdRda2ePJ2wy2WbECSen644JkDN+BK8usDRvxSQ
- lxFWE/dZ4Q1xb7m7wP7SPTnV9vw4JQ48rb2X+0exaXnaGhKjMd8BD05QxUEhffLKwYSYQtAJvFq
- 7wWt8szZT2qgVJ7ALfyoVEnex2rfRX2PnWX3KN1z6yw2cTexf/bvZlbiun8BfRKpNWEjnq6I3pH
- 6By2C4hWIQa1t8Gi3hHw==
-X-Received: by 2002:a17:903:17cd:b0:2ae:ac0c:5a1c with SMTP id
- d9443c01a7336-2aeca95fd0cmr120435875ad.15.1773650476824; 
- Mon, 16 Mar 2026 01:41:16 -0700 (PDT)
+ bh=l6XtG3AvTvkCvaM5JUgbGWufscX9JqZNMjL0RdIiJ6c=;
+ b=FkcRDq7cDktF2RGTAwcHCcNlglDtOwfpLRrGi5cGZOBo9bBERyT9cfkdT7iXG9vR+5
+ wNGC6ri3Gblv2bcTceo+PokZq3Kw67I4zivBqYfmEJCCpYfgjnY7FecdEGXf0U4Jk+KT
+ PWfGElyFHKMvDeGhTppSQQ9ttKz4BZA1GjnS0+RS6q99j8GwnPB0onPfCwoEVEatf1c3
+ HbZFm4SF7gYouH453i9E+Qae7dCQfBNtpUn5Zkb2eF3rCPwt6a1VExujkbY0eEzWIgCn
+ B6xpdoTq+Sz2GDnSdrDwQt5QX3MLOKEq2RnUJ76gxXc6YJcQIut+3I5sFmI9Oc/3QYSc
+ hqEg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1773650483; x=1774255283;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=l6XtG3AvTvkCvaM5JUgbGWufscX9JqZNMjL0RdIiJ6c=;
+ b=JnwGWc+dBPDAEBMTxk4P09sW7Ithzt4kk5Ti27ywuc7TDxkYhKXLC6vbyPckMYv0qr
+ V+eXWyQR3D3es0AuCbqBIueo4rTihVTLKv8TU5zcvF5Q5WnQtcNRk3aqEkyKhWJaCceJ
+ d8N56DHn50yBvO+vIpBOHFZVWgTYAgEpuWl7ssZDGD6nkXoJ1AjZH1dzjrhbAXERuwkw
+ Q+UnKioTOCAcEHK4SrGqLiMkox8AO/6aGb/6I3T26dmo8I7Vor98mRrDe7LL5O8RkGXh
+ J1cBt1WIqNP3ayGB6zoqTU7kKA5QT2teGrQiE47xhbAGL8w6CIh2Nu+wz5pe+mR/Upm2
+ Riqg==
+X-Gm-Message-State: AOJu0Yz5R/FQ1gDr6imrwi3oeb+LFh9etcabD1aU59foXLiRnJO2JYpX
+ Ovf113dEz9Zmg+y5UwOWJ76hPoWe5NY728/n2xFwhkPGJV3aJ9XIeA3K
+X-Gm-Gg: ATEYQzxwXoRaRRuBNEP0Rq+UypZO7At+5A7vAFNUGdMX14NTaTexlCCJNOmjdpkdh7W
+ zBV/3/ySKnqprBfhxouWj8sX3LzCNQvjSZJAtrVZvRmYe+WuIPSS1mTuREZgR0QG/cWGKOhLWFC
+ N4mda8evYUOraFahMvs5GwHmQ9lovrtXkZcSDthBHYYXyJTRy/z791ptERngLsMlvJHjCNAKMUT
+ oR6QckRg4z9APbvKcI26s8poA/qeSQDFaYlOvS8dwq6n75WMrSxISMVo2pO1HtKwp6XL3CMpY1h
+ j5mVGqvbfwQ+AMipup+mjeAMBPOGjf0pmB8QBgz5cNpdv6r03C86iBp2MkGJMrIygd94la0tiUp
+ sRpJFuKuSdbxuC/QumbahxYtpyMphPQTuOf5U0cXhzQK5V9BZZqlUHHUkNiIExsc5Y9HbjMOUyk
+ X0IxhZtFVrlHPiTRcasKHWM3qvsmX/
+X-Received: by 2002:a17:902:ec91:b0:2ae:4d6b:b2c7 with SMTP id
+ d9443c01a7336-2aeca50068bmr112406065ad.9.1773650482642; 
+ Mon, 16 Mar 2026 01:41:22 -0700 (PDT)
 Received: from nuvole ([109.166.36.159]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2aece83188csm101699045ad.75.2026.03.16.01.41.11
+ d9443c01a7336-2aece83188csm101699045ad.75.2026.03.16.01.41.17
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 16 Mar 2026 01:41:16 -0700 (PDT)
+ Mon, 16 Mar 2026 01:41:22 -0700 (PDT)
 From: Pengyu Luo <mitltlatltl@gmail.com>
 To: Neil Armstrong <neil.armstrong@linaro.org>,
  Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>,
@@ -69,10 +70,12 @@ To: Neil Armstrong <neil.armstrong@linaro.org>,
  Conor Dooley <conor+dt@kernel.org>
 Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, Pengyu Luo <mitltlatltl@gmail.com>
-Subject: [PATCH v4 0/2] drm/panel: Add Himax HX83121A panel driver
-Date: Mon, 16 Mar 2026 16:40:38 +0800
-Message-ID: <20260316084040.728106-1-mitltlatltl@gmail.com>
+Subject: [PATCH v4 1/2] dt-bindings: display: panel: Add Himax HX83121A
+Date: Mon, 16 Mar 2026 16:40:39 +0800
+Message-ID: <20260316084040.728106-2-mitltlatltl@gmail.com>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260316084040.728106-1-mitltlatltl@gmail.com>
+References: <20260316084040.728106-1-mitltlatltl@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -90,47 +93,121 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add a driver for panels using the Himax HX83121A Display Driver IC,
-including support for the BOE/CSOT PPC357DB1-4, found in HUAWEI
-Matebook E Go series (Gaokun2/3).
+HX83121A is a driver IC used to drive MIPI-DSI panels. It is found
+in HUAWEI Matebook E Go series (Gaokun2/3) with BOE or CSOT panels.
 
 Signed-off-by: Pengyu Luo <mitltlatltl@gmail.com>
 ---
-base-commit: b84a0ebe421ca56995ff78b66307667b62b3a900
----
-Changes in v4:
+v4:
 - use v2 as the base since v3 was using v1 as the base by mistake
 - remove '|' from description (Krzysztof)
 - drop description for reset-gpios (Krzysztof)
-- use backlight_enable instead of backlight_update_status to avoid NULL ptr
-- Link to v3: https://lore.kernel.org/dri-devel/20260315144536.515032-1-mitltlatltl@gmail.com
 
-Changes in v3:
+v3:
 - remove '|' from description (Krzysztof)
 - drop description for reset-gpios (Krzysztof)
-- use backlight_enable instead of backlight_update_status to avoid NULL ptr
-- Link to v2: https://lore.kernel.org/dri-devel/20260305084810.370024-1-mitltlatltl@gmail.com
-
-Changes in v2:
-- fix dt_binding_check (Rob)
-- use devm_drm_panel_alloc (Neil)
-- move panels specific chunks before module probe function. (Neil)
-- fix supply in .c file
-- do not initialise statics to false
-- Link to v1: https://lore.kernel.org/dri-devel/20260303115730.9580-1-mitltlatltl@gmail.com
-
-Pengyu Luo (2):
-  dt-bindings: display: panel: Add Himax HX83121A
-  drm/panel: Add Himax HX83121A panel driver
-
- .../display/panel/himax,hx83121a.yaml         |  91 +++
- drivers/gpu/drm/panel/Kconfig                 |  11 +
- drivers/gpu/drm/panel/Makefile                |   1 +
- drivers/gpu/drm/panel/panel-himax-hx83121a.c  | 749 ++++++++++++++++++
- 4 files changed, 852 insertions(+)
+---
+ .../display/panel/himax,hx83121a.yaml         | 91 +++++++++++++++++++
+ 1 file changed, 91 insertions(+)
  create mode 100644 Documentation/devicetree/bindings/display/panel/himax,hx83121a.yaml
- create mode 100644 drivers/gpu/drm/panel/panel-himax-hx83121a.c
 
+diff --git a/Documentation/devicetree/bindings/display/panel/himax,hx83121a.yaml b/Documentation/devicetree/bindings/display/panel/himax,hx83121a.yaml
+new file mode 100644
+index 0000000000..e067a2f6d0
+--- /dev/null
++++ b/Documentation/devicetree/bindings/display/panel/himax,hx83121a.yaml
+@@ -0,0 +1,91 @@
++# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/display/panel/himax,hx83121a.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Himax HX83121A based DSI display Panels
++
++maintainers:
++  - Pengyu Luo <mitltlatltl@gmail.com>
++
++description:
++  The Himax HX83121A is a generic DSI Panel IC used to drive dsi
++  panels. Support video mode panels from China Star Optoelectronics
++  Technology (CSOT) and BOE Technology.
++
++allOf:
++  - $ref: panel-common-dual.yaml#
++
++properties:
++  compatible:
++    items:
++      - enum:
++          - boe,ppc357db1-4
++          - csot,ppc357db1-4
++      - const: himax,hx83121a
++
++  reg:
++    maxItems: 1
++
++  reset-gpios:
++    maxItems: 1
++
++  avdd-supply:
++    description: analog positive supply for IC
++
++  avee-supply:
++    description: analog negative supply for IC
++
++  vddi-supply:
++    description: power supply for IC
++
++  backlight: true
++  ports: true
++
++required:
++  - compatible
++  - reg
++  - vddi-supply
++  - reset-gpios
++  - ports
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++
++    dsi {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        panel@0 {
++            compatible = "csot,ppc357db1-4", "himax,hx83121a";
++            reg = <0>;
++
++            vddi-supply = <&vreg_l2b>;
++            reset-gpios = <&tlmm 38 GPIO_ACTIVE_LOW>;
++
++            ports {
++                #address-cells = <1>;
++                #size-cells = <0>;
++
++                port@0 {
++                    reg = <0>;
++                    panel_in_0: endpoint {
++                        remote-endpoint = <&dsi0_out>;
++                    };
++                };
++
++                port@1{
++                    reg = <1>;
++                    panel_in_1: endpoint {
++                        remote-endpoint = <&dsi1_out>;
++                    };
++                };
++            };
++        };
++    };
++
++...
 -- 
 2.53.0
 
