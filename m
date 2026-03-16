@@ -4,54 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0E244D58B09
-	for <dri-devel@archiver.kernel.org>; Mon, 16 Mar 2026 03:59:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CBAEDD58B0D
+	for <dri-devel@archiver.kernel.org>; Mon, 16 Mar 2026 04:03:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3858310E2B6;
-	Mon, 16 Mar 2026 03:59:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1549B10E2AF;
+	Mon, 16 Mar 2026 04:03:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="YdHTY2Qi";
+	dkim=pass (2048-bit key; unprotected) header.d=ite.com.tw header.i=@ite.com.tw header.b="Hg2HgKZI";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EBAAF10E2AF;
- Mon, 16 Mar 2026 03:59:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1773633593; x=1805169593;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=lM7yVBNtjUQ4daYcyXeHh74jDYzXneNb6FXu9qEC5I8=;
- b=YdHTY2QiDvE7m1ui5lhBceNzRSVLrjcYr2a/vmJcnR0ZX1Ibdhlo7E/y
- ETQAGH4KAR2VnThcE1oD+hhfv/f8KEYp4P6DpDMZ+jW9Tg5F8N8q5lXgL
- MfHBQgF73XHy7s9nxKR+UYfLRcqBRc8ES+xlr+creRFRG4b91JY4BzM3V
- FBj8PbcuYsaOgSx6iihgvSb8kBOHyTMWPxbNQCEGwuR/0rLfYa8FC9d9c
- Jqo9mA5rQ/scVIOizLd6rPezOhQ47QhU95aL62Fvcg915q6mYhSTRyodT
- q6WSghaq983gzFbg0WQ4XSQ3KhXyWlzWm+PKhROIVUXPx+KhLUyhNC0gm g==;
-X-CSE-ConnectionGUID: kAJSiTBVTyWZhhW3sESPrA==
-X-CSE-MsgGUID: MOwPvoCaSoeSn30Vw04c5g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11730"; a="78249145"
-X-IronPort-AV: E=Sophos;i="6.23,123,1770624000"; d="scan'208";a="78249145"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
- by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Mar 2026 20:59:26 -0700
-X-CSE-ConnectionGUID: 72Xp84aoSYOdjJJrflE6YA==
-X-CSE-MsgGUID: pGYc5wwMTfSBKUR2hEk/Uw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,123,1770624000"; d="scan'208";a="220827963"
-Received: from varungup-desk.iind.intel.com ([10.190.238.71])
- by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Mar 2026 20:59:23 -0700
-From: Varun Gupta <varun.gupta@intel.com>
-To: dri-devel@lists.freedesktop.org
-Cc: intel-xe@lists.freedesktop.org, christian.koenig@amd.com,
- matthew.auld@intel.com, sanjay.kumar.yadav@intel.com
-Subject: [PATCH] drm/ttm: Fix spelling mistakes and comment style in
- ttm_resource.c
-Date: Mon, 16 Mar 2026 09:29:15 +0530
-Message-ID: <20260316035915.1403424-1-varun.gupta@intel.com>
-X-Mailer: git-send-email 2.43.0
+Received: from ironport.ite.com.tw (219-87-157-213.static.tfn.net.tw
+ [219.87.157.213])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9452110E2AF
+ for <dri-devel@lists.freedesktop.org>; Mon, 16 Mar 2026 04:03:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ite.com.tw; s=dkim;
+ h=from:to:cc:subject:date:message-id:references:
+ in-reply-to:content-transfer-encoding:mime-version;
+ bh=vOuZ5YEbCZZDLW9CYiHZv/UOnprW0pRVMy0ioFpd5+w=;
+ b=Hg2HgKZIsnhzYD4rxNnbSz/pn5uNCc+EbRpkfEgESz+CW5AFmvhQfkI1
+ Irc9DudOCWCEFOdChZpHBWp31ZA9c4dcwaNzxPa/ExzQGqUoz8uU+nVSs
+ 0rIeBvBHmhO1arCJ/tQYcQ8m50LreGDcj5gNk4Gt1wyTYO+BZuKoMnXbM
+ Crf2Mfjnym8Q4OlCYEN3z/Obeh2+TSfC6Q0aaYH1FqYROt3iklKklQgI0
+ KFTaNv6qz0+24u7DzJwRA8s7LkPM+ODGwwBS3+RbEUN6lwncIXt7yo+Rn
+ v+thamELQ86Qc4DdyZe/OzZXLQNIGP5KJ2HvbDU2pQu2EyOWDAIUZECwN g==;
+X-CSE-ConnectionGUID: glXo0tQQSM+koOMHCLHpgQ==
+X-CSE-MsgGUID: WySOr+I6Ste0QNNQnjw3AA==
+Received: from unknown (HELO mse.ite.com.tw) ([192.168.35.30])
+ by ironport.ite.com.tw with ESMTP; 16 Mar 2026 11:50:24 +0800
+Received: from CSBMAIL1.internal.ite.com.tw (CSBMAIL1.internal.ite.com.tw
+ [192.168.65.58]) by mse.ite.com.tw with ESMTP id 62G3thf6054905;
+ Mon, 16 Mar 2026 11:55:43 +0800 (+08)
+ (envelope-from Pet.Weng@ite.com.tw)
+Received: from CSBMAIL2.internal.ite.com.tw (192.168.65.41) by
+ CSBMAIL1.internal.ite.com.tw (192.168.65.58) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37; Mon, 16 Mar 2026 11:55:41 +0800
+Received: from CSBMAIL2.internal.ite.com.tw ([fe80::9446:9aa0:fea6:7e92]) by
+ CSBMAIL2.internal.ite.com.tw ([fe80::9446:9aa0:fea6:7e92%15]) with mapi id
+ 15.02.2562.035; Mon, 16 Mar 2026 11:55:41 +0800
+From: <Pet.Weng@ite.com.tw>
+To: <krzk@kernel.org>, <andrzej.hajda@intel.com>, <neil.armstrong@linaro.org>, 
+ <rfoss@kernel.org>, <Laurent.pinchart@ideasonboard.com>,
+ <jonas@kwiboo.se>, <jernej.skrabec@gmail.com>,
+ <maarten.lankhorst@linux.intel.com>, <mripard@kernel.org>,
+ <tzimmermann@suse.de>, <airlied@gmail.com>, <simona@ffwll.ch>,
+ <robh@kernel.org>, <krzk+dt@kernel.org>, <conor+dt@kernel.org>
+CC: <dri-devel@lists.freedesktop.org>, <devicetree@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <Hermes.Wu@ite.com.tw>,
+ <Kenneth.Hung@ite.com.tw>, <Jau-Chih.Tseng@ite.com.tw>,
+ <treapking@google.com>, <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: RE: [PATCH v7 1/2] dt-binding: display: Add ITE IT61620 MIPI DSI to
+ HDMI bridge
+Thread-Topic: [PATCH v7 1/2] dt-binding: display: Add ITE IT61620 MIPI DSI to
+ HDMI bridge
+Thread-Index: AQHcs5VEhw2PGpehd0Ola7L0HsAAuLWwiB/g
+Date: Mon, 16 Mar 2026 03:55:41 +0000
+Message-ID: <15aa9069d5f341eb82815f4b9da54fa0@ite.com.tw>
+References: <20260313-it61620-0714-v7-0-36a16dc036d6@ite.com.tw>
+ <20260313-it61620-0714-v7-1-36a16dc036d6@ite.com.tw>
+ <21cc3b90-0cd7-421c-914d-30e718558224@kernel.org>
+In-Reply-To: <21cc3b90-0cd7-421c-914d-30e718558224@kernel.org>
+Accept-Language: zh-TW, en-US
+Content-Language: zh-TW
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [192.168.70.1]
+x-tm-snts-smtp: 1306098BDF4E2B5173E91D3163A79F321913FC930EAFDE001D8EF815AC2FECB42002:8
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MAIL: mse.ite.com.tw 62G3thf6054905
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,111 +88,25 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Correct several spelling mistakes and textual inconsistencies in
-kdoc comments and inline comments.
-
-Suggested-by: Sanjay Yadav <sanjay.kumar.yadav@intel.com>
-Signed-off-by: Varun Gupta <varun.gupta@intel.com>
----
- drivers/gpu/drm/ttm/ttm_resource.c | 28 ++++++++++++++--------------
- 1 file changed, 14 insertions(+), 14 deletions(-)
-
-diff --git a/drivers/gpu/drm/ttm/ttm_resource.c b/drivers/gpu/drm/ttm/ttm_resource.c
-index 192fca24f37e..9f36631d48b6 100644
---- a/drivers/gpu/drm/ttm/ttm_resource.c
-+++ b/drivers/gpu/drm/ttm/ttm_resource.c
-@@ -37,7 +37,7 @@
- #include <drm/drm_print.h>
- #include <drm/drm_util.h>
- 
--/* Detach the cursor from the bulk move list*/
-+/* Detach the cursor from the bulk move list */
- static void
- ttm_resource_cursor_clear_bulk(struct ttm_resource_cursor *cursor)
- {
-@@ -105,9 +105,9 @@ void ttm_resource_cursor_init(struct ttm_resource_cursor *cursor,
-  * ttm_resource_cursor_fini() - Finalize the LRU list cursor usage
-  * @cursor: The struct ttm_resource_cursor to finalize.
-  *
-- * The function pulls the LRU list cursor off any lists it was previusly
-+ * The function pulls the LRU list cursor off any lists it was previously
-  * attached to. Needs to be called with the LRU lock held. The function
-- * can be called multiple times after eachother.
-+ * can be called multiple times after each other.
-  */
- void ttm_resource_cursor_fini(struct ttm_resource_cursor *cursor)
- {
-@@ -317,10 +317,10 @@ void ttm_resource_move_to_lru_tail(struct ttm_resource *res)
- }
- 
- /**
-- * ttm_resource_init - resource object constructure
-- * @bo: buffer object this resources is allocated for
-+ * ttm_resource_init - resource object constructor
-+ * @bo: buffer object this resource is allocated for
-  * @place: placement of the resource
-- * @res: the resource object to inistilize
-+ * @res: the resource object to initialize
-  *
-  * Initialize a new resource object. Counterpart of ttm_resource_fini().
-  */
-@@ -435,7 +435,7 @@ EXPORT_SYMBOL(ttm_resource_free);
-  * @size: How many bytes the new allocation needs.
-  *
-  * Test if @res intersects with @place and @size. Used for testing if evictions
-- * are valueable or not.
-+ * are valuable or not.
-  *
-  * Returns true if the res placement intersects with @place and @size.
-  */
-@@ -513,7 +513,7 @@ void ttm_resource_set_bo(struct ttm_resource *res,
-  * @bdev: ttm device this manager belongs to
-  * @size: size of managed resources in arbitrary units
-  *
-- * Initialise core parts of a manager object.
-+ * Initialize core parts of a manager object.
-  */
- void ttm_resource_manager_init(struct ttm_resource_manager *man,
- 			       struct ttm_device *bdev,
-@@ -536,8 +536,8 @@ EXPORT_SYMBOL(ttm_resource_manager_init);
- /*
-  * ttm_resource_manager_evict_all
-  *
-- * @bdev - device to use
-- * @man - manager to use
-+ * @bdev: device to use
-+ * @man: manager to use
-  *
-  * Evict all the objects out of a memory manager until it is empty.
-  * Part of memory manager cleanup sequence.
-@@ -882,7 +882,7 @@ ttm_kmap_iter_linear_io_init(struct ttm_kmap_iter_linear_io *iter_io,
- 
- /**
-  * ttm_kmap_iter_linear_io_fini - Clean up an iterator for linear io memory
-- * @iter_io: The iterator to initialize
-+ * @iter_io: The iterator to finalize
-  * @bdev: The TTM device
-  * @mem: The ttm resource representing the iomap.
-  *
-@@ -921,15 +921,15 @@ DEFINE_SHOW_ATTRIBUTE(ttm_resource_manager);
- /**
-  * ttm_resource_manager_create_debugfs - Create debugfs entry for specified
-  * resource manager.
-- * @man: The TTM resource manager for which the debugfs stats file be creates
-+ * @man: The TTM resource manager for which the debugfs stats file to be created
-  * @parent: debugfs directory in which the file will reside
-  * @name: The filename to create.
-  *
-- * This function setups up a debugfs file that can be used to look
-+ * This function sets up a debugfs file that can be used to look
-  * at debug statistics of the specified ttm_resource_manager.
-  */
- void ttm_resource_manager_create_debugfs(struct ttm_resource_manager *man,
--					 struct dentry * parent,
-+					 struct dentry *parent,
- 					 const char *name)
- {
- #if defined(CONFIG_DEBUG_FS)
--- 
-2.43.0
-
+SGkgS3J6eXN6dG9mLA0KPiANCj4gT24gMTMvMDMvMjAyNiAwNzo0OCwgUGV0IFdlbmcgd3JvdGU6
+DQo+ID4gVGhpcyBjaGlwIHJlY2VpdmVzIE1JUEkgRFNJIGlucHV0IGFuZCBvdXRwdXRzIEhETUks
+IGFuZCBpcyBjb21tb25seQ0KPiA+IGNvbm5lY3RlZCB0byBTb0NzIHZpYSBJMkMgYW5kIERTSS4N
+Cj4gPg0KPiA+IFNpZ25lZC1vZmYtYnk6IFBldCBXZW5nIDxwZXQud2VuZ0BpdGUuY29tLnR3Pg0K
+PiA+IFJldmlld2VkLWJ5OiBLcnp5c3p0b2YgS296bG93c2tpIDxrcnp5c3p0b2Yua296bG93c2tp
+QG9zcy5xdWFsY29tbS5jb20+DQo+ID4gLS0tDQo+ID4gIC4uLi9iaW5kaW5ncy9kaXNwbGF5L2Jy
+aWRnZS9pdGUsaXQ2MTYyMC55YW1sICAgICAgIHwgMTQyICsrKysrKysrKysrKysrKysrKysrKw0K
+PiA+ICAxIGZpbGUgY2hhbmdlZCwgMTQyIGluc2VydGlvbnMoKykNCj4gDQo+IA0KPiBUaGlzIGlz
+IGFsbW9zdCB0aGUgc2FtZSBhcyBpdGUsaXQ2MTYyLiBBbG1vc3QgdGhlIHNhbWUgYmluZGluZywg
+c2FtZQ0KPiBkZXNjcmlwdGlvbi4gQWxzbyBnb29nbGUgZmluZHMgbm90aGluZyBmb3IgaXRlLGl0
+NjE2MjAuDQo+IA0KPiBMb29rcyBsaWtlIHNvbWUgZHVwbGljYXRlIGFuZCB5b3VyIGNvdmVyIGxl
+dHRlciBkb2VzIG5vdCBleHBsYWluIGhlcmUNCj4gYW55dGhpbmcuDQo+IA0KDQpJVDYxNjIwIGlz
+IGEgdmFyaWFudCBvZiBJVDYxNjIuDQpUaGUgbWFpbiBkaWZmZXJlbmNlcyBhcmU6DQotIElUNjE2
+MjAgc3VwcG9ydHMgb25seSBhIHNpbmdsZSBNSVBJIERTSSBpbnB1dCBwb3J0LCB3aGlsZSBJVDYx
+NjINCiAgc3VwcG9ydHMgZHVhbCBNSVBJIERTSSBwb3J0cy4NCi0gSVQ2MTYyMCBkb2VzIG5vdCBp
+bmNsdWRlIHRoZSBpbnRlcm5hbCBNQ1UgcHJlc2VudCBpbiBJVDYxNjIuDQoNCkJlY2F1c2Ugb2Yg
+dGhlc2UgYXJjaGl0ZWN0dXJhbCBkaWZmZXJlbmNlcywgSVQ2MTYyMCB1c2VzIGEgc2VwYXJhdGUN
+CmNvbXBhdGlibGUgc3RyaW5nIGV2ZW4gdGhvdWdoIHRoZSBleHRlcm5hbCBpbnRlcmZhY2VzIGFu
+ZCBiaW5kaW5ncw0KYXJlIGxhcmdlbHkgc2ltaWxhci4NCg0KSSB3aWxsIHVwZGF0ZSB0aGUgYmlu
+ZGluZyBkZXNjcmlwdGlvbiBhbmQgY292ZXIgbGV0dGVyIHRvIGNsYXJpZnkNCnRoZXNlIGRpZmZl
+cmVuY2VzDQoNCj4gQmVzdCByZWdhcmRzLA0KPiBLcnp5c3p0b2YNCg0KQmVzdCByZWdhcmRzLA0K
+UGV0IFdlbmcNCg==
