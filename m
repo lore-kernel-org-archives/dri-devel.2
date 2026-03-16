@@ -4,136 +4,128 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 54334F3029C
-	for <dri-devel@archiver.kernel.org>; Mon, 16 Mar 2026 03:23:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ECC36F3029D
+	for <dri-devel@archiver.kernel.org>; Mon, 16 Mar 2026 03:24:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B57B110E273;
-	Mon, 16 Mar 2026 03:23:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4EBED10E2AA;
+	Mon, 16 Mar 2026 03:24:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="L8pQyTRr";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Tv4quAcR";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="k4LgyMIH";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Ldrim5GC";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 692A410E273
- for <dri-devel@lists.freedesktop.org>; Mon, 16 Mar 2026 03:23:45 +0000 (UTC)
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E128A10E2A0
+ for <dri-devel@lists.freedesktop.org>; Mon, 16 Mar 2026 03:24:44 +0000 (UTC)
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 62FLxvJN3915137
- for <dri-devel@lists.freedesktop.org>; Mon, 16 Mar 2026 03:23:44 GMT
+ 62G2wHjU3044949
+ for <dri-devel@lists.freedesktop.org>; Mon, 16 Mar 2026 03:24:44 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- wCTtvtbeSyA/RrQyiGYTxM5IzCFNImcGvaMiSQ6lzRY=; b=L8pQyTRr6ABq1Yfa
- jLM98/76PZAWz/6nsKDgwUM/5ByFsruBDk9FQ8nOo4HEUZn+5N++MVI+fKsGIVER
- 5I4rKPvCtzfmyJahr3ffKpxiInVlGl78wYCRHF1djQtDd2seEaf8rtVrYdNynYBD
- enfwpMSPHKz3/d0OhnCTYNaYEzayg+ZvYh544qqkijky15UGxMGor2Sc6v7FBTEm
- 8E8b9ssuskZNdDf54vuw2O7KrQ7eRQixvKQ9jKaxwJ5CeQBFfXX4D9fze7AFC5Yj
- tQ7k4kbzHuQcWjdlggj5oXc99HC5Kh9fHwKwA2qAiGWYqXlbNh/AbHjdX0FhXGrW
- zs3jUQ==
-Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com
- [209.85.160.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4cw00bc21g-1
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=x+7MaGjLd+vSRSDnStILHVrm
+ 2PQxEhWXJkJc8OhBOCU=; b=k4LgyMIHGFHiGB8DBE5dIbWvqhqTk/OpWMZ3amBs
+ SCFEbU107vJM1bqN/qIWC8D/J/pfnXEwg+gUdxRxHiSg8oi+JQlLqYWTjvfpybPr
+ GlIzpux4BuPihgOQKXaGfqfRWffp2z5HBugZRsPBgLWSCxk387dsxSq9MFTARGZ6
+ 1vwHj1Mj2M2iFM9RkJqlAPhQU6HnUrFrX4hDqdgy9Hnab/guULfY5H0B8yHVOBfO
+ DGpdPKAXHP7hP2kK2PcUAihFHnxDUbMNAeRU43LLTB/9Oz1Ew8AXYliFQItGlnNp
+ HXcTYfhgWMj6ZhLqdzcgEjstE8Z3KRe+89dS9k65sOLYXQ==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
+ [209.85.222.197])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4cw0udktyv-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Mon, 16 Mar 2026 03:23:44 +0000 (GMT)
-Received: by mail-qt1-f198.google.com with SMTP id
- d75a77b69052e-509114d7418so57369361cf.1
- for <dri-devel@lists.freedesktop.org>; Sun, 15 Mar 2026 20:23:44 -0700 (PDT)
+ for <dri-devel@lists.freedesktop.org>; Mon, 16 Mar 2026 03:24:44 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id
+ af79cd13be357-8cd849cd562so2814747785a.0
+ for <dri-devel@lists.freedesktop.org>; Sun, 15 Mar 2026 20:24:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1773631424; x=1774236224;
+ d=oss.qualcomm.com; s=google; t=1773631483; x=1774236283;
  darn=lists.freedesktop.org; 
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date:from:to
- :cc:subject:date:message-id:reply-to;
- bh=wCTtvtbeSyA/RrQyiGYTxM5IzCFNImcGvaMiSQ6lzRY=;
- b=Tv4quAcRvnucZwvRKRoJqlWaPnCY/U15C/IBefCHv6exdaaEYYc/vCV06dP/7mh5Fm
- K5sVeIy1uSPE9ztRuEtCISXoKMH6iFzdwACH8DgcYl5MKW5BceKdQZs/rhcWQgNJKfKW
- 1hzf7SjWV0hIk395x2QVdW6fwgdOZrvfyOqV9KRDaGq7z8BiMDDJXlpxXVZcOzeF5NlV
- MNdv4Gco0qb5TerQF24X1HLsoSdtTLz1yYu+7GLPct9GcQ1h0cu0axWnVZqgY9k+kcnF
- mtFf7CgYYqoppQEALFZv64H9AIEWSvJNq2/HF/OTOGrUxzjze8w+CpbDcNp3JlGMTP7w
- FCOg==
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=x+7MaGjLd+vSRSDnStILHVrm2PQxEhWXJkJc8OhBOCU=;
+ b=Ldrim5GCkId1sMBOcexfitqrRTqPrqvCFhxAa6o46LUjdJK9L5DbxgWpcS5+UyorGz
+ c1mgFurWy08qHFcwpTooTN1iILmaJkZNsNOnSu2PtoTraiFv7FyWYdQOHNPwMvREDUNa
+ Qm3ieDt12STkk6RL1Jt3th/on9w8kvd/e31cJviaLFew6mb41F6dGSQ/ITkjhmlZb42u
+ ImSV4uwQQgRy6cBad0F4lC6kX7W5H3UsgrdFLNYKESlvErr0uFKFLrOyEfqXBjdJK+3b
+ XgJbgcE+1pISPb6yp6dZcgqc8jKda41nLW1notCqkmBNmRi5OqpL1ecrGoDZ5iqsgTMM
+ JDrg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1773631424; x=1774236224;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=wCTtvtbeSyA/RrQyiGYTxM5IzCFNImcGvaMiSQ6lzRY=;
- b=FZYlQN1updp7nUU74T2CS0HdYQSvksUEB9KQv+6w7XXYES4xmPMgvw+g3insBPMxhI
- nqtjv7A1RmTkqq5gN8t5kqq/uCgGPUtvibFJQQ9F8G905ET2IgwNup0hD5LkSZyzmk8t
- l1mhIpZgVHfB98fFy1oaAksK9/eYwb1IA9T1SFZjp5tmwOO/B00Q5O0sI0wuXqpxJgDd
- LLhY1ZgmKImQw4olMYGPODmWOT40UzgFfJi8Eay0zeLCSBmyQWbGQqUk+RwzRXKrCNFF
- DS94nsVIFvCu475u348rDL/vbUPMzawrIZUL7DzjCt0zuXgmQJfQ5I+PQ2cija2m4ZzD
- ch+Q==
+ d=1e100.net; s=20251104; t=1773631483; x=1774236283;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=x+7MaGjLd+vSRSDnStILHVrm2PQxEhWXJkJc8OhBOCU=;
+ b=jCN3WPQWya9fv16OQ3QxpRR503I4ZIz/Jb9iPDm8e1kWTc0z6/FSXjbeA7/SYYWNxF
+ +OMC7tKlfyOI2f5TUN41Z3n1fNcJHPeXy2DJXy5gjpjzj4/xGOjRWTG5YG9V4xuuVonh
+ VXi74FlteUuhQDdWOpdmon5lO/oyfcVkdaYedBkeFEfebmxngXtKDFpaFJkbLt5MiMZJ
+ yppCN58bOPeyzymDigJ5yRGu9QZvXuJ3cpkVV8Amvt+lTB9Uq6pPPPJaFggIbD6OFe8b
+ wfO9CeUZ+GO3brjYZQitgZPMo6WaBMPJJUV/6RlBc40wsvwnM8ladjNvan822kGmhA0Q
+ UgQQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVExFA0jNe45N6oHl51/I2fS6mpTQIk0oycg4E+UekH154DrOAmH9zcMIxA+YhmViBzyLTLVOZwELU=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yxrr489KBGltgVqNmv8js/PZcKA1xn+kC1+A1Ky7xtXXIyGCG66
- 5bMwm8rH6Yy5E6YN0CYf0X7IecsT93o7vbS1TkBrFXNGTrmBpwzXtRUtphgTpZ9v4EDSjMZpu3t
- nyk000dTic96igXOBBycce4p/aKEBQkc1KvHKcBLJoX4O2UuIXcPjgOjPqgZzB1wFgDZw3fU=
-X-Gm-Gg: ATEYQzwKAj4juC9m9lFD2CzvZwzh1mwQ+7Mv6OSCVMnWN46iEqALiEEDq5r1JBymZgZ
- lrVNBz3zPzqAoYb8wacDbtZIVyZQoODFz9a0I+DDnA/IDYiml0ITGcTWI1b18Sfuq3ZCnhNccMq
- K+itpC55XTIjcP0ZVu0bOm4sAECmI+HiKaxIexrCrTtYomflkZkhZCWXAvRJ3Qo3O54KM3VCdC5
- IEMwUMBHukT5SWfMYwjIH2Ak6YuDCSVXA6ha4KmNUqeQRtcfRVhZvFa8wrY27jnXmTmbEI8K+67
- 1vbpveod0MJUVVDs/0++fj5Izsvux1KhSI6bGEIEtt3a8kZeUY5Bx4X4uCFTQwoHfxtPx/dBvjt
- HXedwgsiNL9elVy8p3NeKn//C6G20CI7Xc2CtLZKsGrjXsadjHGEa/BCDT1YsoMcO4yCSh9I+3f
- DvpRJLREK1LA7OvtzFlajDKmQeJZLuga2gYqA=
-X-Received: by 2002:a05:622a:291:b0:509:4db5:88c4 with SMTP id
- d75a77b69052e-50957e2c164mr143607811cf.53.1773631423542; 
- Sun, 15 Mar 2026 20:23:43 -0700 (PDT)
-X-Received: by 2002:a05:622a:291:b0:509:4db5:88c4 with SMTP id
- d75a77b69052e-50957e2c164mr143607691cf.53.1773631423052; 
- Sun, 15 Mar 2026 20:23:43 -0700 (PDT)
+ AJvYcCWbjNRyMd9aHQEru9pdFO3iUDC4ZWz5Y4L+tng/4VIUcgjZimjkSg3bXC5fWIyZ/ckDcm+rxzLe3Io=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzDEXQ43S9L1vJyqILIucyRMQ1negPXoklkV7tkmM+wYxVXUuIb
+ ufSS+5JmpVXcTc26XvlVTK9B8BqUqetONnf2MqnjWe+UjkvDrS6o1a6/eGIl9f/UsQEIUMA4TcC
+ kfWJYURgxQQYHnP98vm0nRHGdLEkazHvwLIJIEFUoK1QE7sKsAXkJ+r9SLP7SakGa+Qux8XU=
+X-Gm-Gg: ATEYQzx36piFK5AP4lgKV3G922neU9odr6VD6x2giNLxi4eRD4Zi9xszBiuXJgm/nd3
+ LyzfB4TAbOOOefsZxtHkJLvglHpSCuAIEQpOxKD9Dl+xzkogNG/Yaw4LJxjyv24uP2/XilF9mr1
+ 2X358NeGQon5SWkG8bQTcxX2mJB9uCeVaSrROG9y460SVrXOU1miAMttTlcNmY99NyIFOF0DF0n
+ v6R4rOG7Z9YACUvI+N2e1A/zvwED7vY1trtCXWLe5Lpx29uvwFCDCspdcdSErJ8f+sMQDlC8cOO
+ yG/hfDRNEEWrFhKRTF8sahk25YrbblPnvbj4q9ErTwFpPAVEamutG8Zd6Dv5rH/9XLHit9FBUd9
+ PEQ+duVQmSrZUnlAxITG/cWPhorPEc95LoCajCSunItEO0BrDuDreb/+x0/8xvRAzDkk/p2tORz
+ mJOLEGgQ1zLOtxBAMDgCRLiAFM5QFW5YTJQPo=
+X-Received: by 2002:a05:620a:6919:b0:8cd:8938:f01d with SMTP id
+ af79cd13be357-8cdb5a54987mr1761854485a.3.1773631483267; 
+ Sun, 15 Mar 2026 20:24:43 -0700 (PDT)
+X-Received: by 2002:a05:620a:6919:b0:8cd:8938:f01d with SMTP id
+ af79cd13be357-8cdb5a54987mr1761853385a.3.1773631482833; 
+ Sun, 15 Mar 2026 20:24:42 -0700 (PDT)
 Received: from umbar.lan
  (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
  [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
  by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-38a67e67a2dsm31696561fa.32.2026.03.15.20.23.39
+ 38308e7fff4ca-38a67e67836sm28357531fa.31.2026.03.15.20.24.39
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 15 Mar 2026 20:23:40 -0700 (PDT)
-Date: Mon, 16 Mar 2026 05:23:37 +0200
+ Sun, 15 Mar 2026 20:24:40 -0700 (PDT)
+Date: Mon, 16 Mar 2026 05:24:37 +0200
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 To: Val Packett <val@packett.cool>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+Cc: Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>,
  Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Kuogee Hsieh <quic_khsieh@quicinc.com>,
- Yongxing Mou <yongxing.mou@oss.qualcomm.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
  linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 00/10] drm/msm/dp: Drop the HPD state machine
-Message-ID: <itszs6eu7l2zix4stdiokftgxjpqlfukbqbdg4u3sestln6pgl@yq3wud26vi25>
-References: <20260314-hpd-refactor-v5-0-0c8450737d64@oss.qualcomm.com>
- <9c4dad2c-25bd-47d2-bc40-9b551d023615@packett.cool>
- <a6190a6c-60ae-4d24-b396-089f3b42973f@packett.cool>
+Subject: Re: [PATCH RFT v2] drm/msm/dpu: enable virtual planes by default
+Message-ID: <lvgrkx6ypchqputyzgr5vlugjxsnifuoi4gil2vjpv5wut57ps@6z7phvhzmx46>
+References: <20260226-dpu-enable-virt-planes-v2-1-87971236fe86@oss.qualcomm.com>
+ <776a18d5-9d7e-45ff-8cfd-4823522ea375@packett.cool>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <a6190a6c-60ae-4d24-b396-089f3b42973f@packett.cool>
-X-Authority-Analysis: v=2.4 cv=IsATsb/g c=1 sm=1 tr=0 ts=69b777c0 cx=c_pps
- a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=xqWC_Br6kY4A:10 a=8nJEP1OIZ-IA:10
+In-Reply-To: <776a18d5-9d7e-45ff-8cfd-4823522ea375@packett.cool>
+X-Authority-Analysis: v=2.4 cv=BJ2+bVQG c=1 sm=1 tr=0 ts=69b777fc cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
  a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=e5mUnYsNAAAA:8
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=8ndv8QXTNta43bgeejsA:9 a=3ZKOabzyN94A:10
- a=wPNLvfGTeEIA:10 a=dawVfQjAaf238kedN5IG:22 a=Vxmtnl_E_bksehYqCbjh:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzE2MDAyNCBTYWx0ZWRfXwIjhHCn65gaM
- 5nvTqDQMEfrX6VRi94aOJVDg8y8W0PdQyme+hJR8Q4Jpfbd77twLxMPFMymQ2qXvJaLacOaSoxW
- v9YVkqTxGgFrkI0MDC2b1FX8y1R0x76mZfq6co6Qn8vkhzZnmRWGD04c0zhvX6mY9jLEWpkg5MY
- Alsha3tZHBf2NmSWDh2zZgVz6w6oQcduth05WaUo3QWkWfklVuc+77MCe/LN3UHxYVe0Z2Bzyzz
- j/KVV7tf7jZpQT1wG9PixLaF/odlhum2jacQiq7eC2RMy+BGyrbUFiglSScBQj2D0Qpv53dE7QO
- DV0tTYi/Xh93kNNvmAySi4twoeOcNALMAdszE9K7R8AdIFPqITO77M3i1rtzd+ms6QIlU1MMDqc
- KvEmJTfRzVNC2K3NEBQK+C5lLO5NJdz7/RegVzM0IclBwGhAgBqET6Ae9DZIf9/q2epGjGhipmd
- 86yJ4QVsvcFHPQKFReQ==
-X-Proofpoint-GUID: A2qXUwZnVA46d5ni8RaXo3xE7dXYnRqM
-X-Proofpoint-ORIG-GUID: A2qXUwZnVA46d5ni8RaXo3xE7dXYnRqM
+ a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=EUspDBNiAAAA:8
+ a=NRyVjlmX0iHkmRb3oaYA:9 a=CjuIK1q_8ugA:10 a=zgiPjhLxNE0A:10
+ a=zZCYzV9kfG8A:10 a=IoWCM6iH3mJn3m4BftBB:22
+X-Proofpoint-GUID: yPJ4hYSu-43Uzi6brEoURM7xyIsSX91f
+X-Proofpoint-ORIG-GUID: yPJ4hYSu-43Uzi6brEoURM7xyIsSX91f
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzE2MDAyNCBTYWx0ZWRfX8FjgSbLkayQK
+ Vuy0kwcjdLFOZbG4tI4ry5r38HYtL/rvO1E7u/7a7hCUtjTAX1TImqghAxIcxn06671qBTk/vt2
+ 5d6TeRORnZmxtR4r7J24ifHxb1AVREQRlYWRCSMAfUw8J3lOtRtAwS2rh7kbmIE16XVVuTzd+eQ
+ WD+WSbh1wvuYLrKrBaFn9aQ0+ix4iqQOCO1B3j4Wk9xTPB/aNNWgde8mxE6AHH1OoJ6yJtDK/EU
+ n2gvTxKzyj3eiDKsZUPIYzSqbVqDNvcTWLUOEFoJI4fP/ibpQt036xZx7XueQ/Oc0rc3JaqRIeW
+ 9goawio4OGL1wWzdGj5l6YT/ToaM78npbXLY3wpBp8TgAjfxKi9myvc1+aUuHN7Jbuc4ZcBEiJF
+ xoanbVcbQYpbwpRlkv/0PN+osxQux8mUHcZCfm2KOth0SSpXxOt8lNqTV7AixrC0ffz8OHvZfKQ
+ 9djU3KvNA9jE7ex9isg==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
  definitions=2026-03-16_01,2026-03-13_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 adultscore=0 priorityscore=1501 bulkscore=0 malwarescore=0
- lowpriorityscore=0 impostorscore=0 phishscore=0 suspectscore=0 clxscore=1015
+ clxscore=1015 lowpriorityscore=0 adultscore=0 priorityscore=1501 phishscore=0
+ bulkscore=0 impostorscore=0 spamscore=0 suspectscore=0 malwarescore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603160024
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -151,101 +143,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sat, Mar 14, 2026 at 10:10:26PM -0300, Val Packett wrote:
+On Sat, Mar 14, 2026 at 04:06:37PM -0300, Val Packett wrote:
+> On 2/26/26 10:49 AM, Dmitry Baryshkov wrote:
 > 
-> On 3/14/26 9:51 PM, Val Packett wrote:
+> > Turn on the switch and use virtual planes by default, enhancing
+> > utilisation of the display pipelines. It is still possible to use legacy
+> > implementation by using `msm.dpu_use_virtual_planes=false` kernel boot
+> > parameter.
 > > 
-> > On 3/13/26 10:09 PM, Dmitry Baryshkov wrote:
-> > > Currently, all HPD interrupt handling must go through the HPD state
-> > > machine.
-> > > 
-> > > This has caused many issues where the DRM framework assumes that DP is
-> > > in one state while the state machine is stuck in another state.
-> > > 
-> > > As discussed here [1], this series:
-> > > 
-> > > - Removes the state machine
-> > > - Moves link training to atomic_enable()
-> > > - Changes the detect() behavior to return true if a display is
-> > > physically
-> > >    plugged in (as opposed to if the DP link is ready).
-> > > - Remove event queue and move internal HPD handling to hpd_notify()
-> > > 
-> > > To correctly detect the displays which are plugged on boot on the boards
-> > > which use dp-connector devices, this series depends on [2]. USB-C and
-> > > eDP panels are handled natively.
-> > > 
-> > > [1] https://patchwork.freedesktop.org/patch/656312/?series=142010&rev=2#comment_1201738
-> > > [2] https://lore.kernel.org/all/20260314-dp-connector-hpd-v1-0-786044cedc17@oss.qualcomm.com/
-> > 
-> > Unfortunately this currently seems to mostly break link training with
-> > USB-C, on x1e80100-dell-latitude-7455:
-> > 
-> > [  102.190083] [drm:msm_dp_ctrl_link_train_1_2 [msm]] *ERROR* link
-> > training #2 on phy 1 failed. ret=-110
-> > [  102.192846] [drm:msm_dp_ctrl_setup_main_link [msm]] *ERROR* link
-> > training of LTTPR(s) failed. ret=-110
-> > [  102.211095] [drm:msm_dp_bridge_atomic_enable [msm]] *ERROR* Failed
-> > link training (rc=-104)
-> > [  102.211164] [drm:msm_dp_aux_isr [msm]] *ERROR* Unexpected DP AUX IRQ
-> > 0x01000000 when not busy
-> > [  102.247168] [drm:msm_dp_ctrl_link_train_1_2 [msm]] *ERROR* link
-> > training #2 on phy 1 failed. ret=-110
-> > [  102.252859] [drm:msm_dp_ctrl_setup_main_link [msm]] *ERROR* link
-> > training of LTTPR(s) failed. ret=-110
-> > 
-> > [..]
+> > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> > ---
+> > This is being sent as an RFT for now. Please give it a test with your
+> > compositor of choice. X11. Weston. Sway. Wlroot. CrOS. I plan to turn
+> > the switch for 7.1
 > 
-> Actually looks like that might've been due to having applied the [2]
-> dp-connector series from above.
-
-Interesting. The series only affects dp-connector. It can't affect
-pmic-glink usecase.
-
+> Tested-by: Val Packett <val@packett.cool> # x1e80100-dell-latitude-7455,
+> with niri
 > 
-> Removed it and rebooted, now plugging and unplugging multiple times between
-> the 2 ports works fine.
-> 
-> Except unplug is still not reliable, the "ghost" monitor often remains after
-> unplugging.
+> Running with this for a few days, seems like no change, everything works as
+> before. Any way to confirm virtual planes are being used?
 
-Does the patch at [3] fix the issue?
-
-[3] https://lore.kernel.org/linux-arm-msm/177362655076.7429.3868048981197120360.b4-ty@kernel.org/
-
-> 
-> Almost nothing is logged to dmesg, literally I've only seen this line once:
-> [drm:msm_dp_panel_read_sink_caps [msm]] *ERROR* panel edid read failed
-
-You might want to use drm.debug=0x100 to get DP-related messages.
-
-> 
-> But I have unplugged the monitor now and I still see:
-> 
-> crtc[108]: crtc-1
->         enable=1
->         active=1
->         self_refresh_active=0
->         planes_changed=1
->         mode_changed=0
->         active_changed=0
->         connectors_changed=0
->         color_mgmt_changed=0
->         plane_mask=2
->         connector_mask=2
->         encoder_mask=2
->         mode: "3840x2560": 60 631750 3840 3888 3920 4000 2560 2563 2573 2633
-> 0x48 0x9
->         lm[0]=2
->         ctl[0]=1
->         lm[1]=3
->         ctl[1]=1
-> connector[38]: DP-2
->         crtc=crtc-1
->         [..]
-> 
-> and the compositor thinks it's still present, I can move the mouse to where
-> the screen was etc.
+You can compare, which SSPPs are used by checking
+/sys/kernel/debug/dri/*/state.
 
 -- 
 With best wishes
