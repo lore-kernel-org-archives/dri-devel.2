@@ -4,79 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 28B34F3380B
-	for <dri-devel@archiver.kernel.org>; Tue, 17 Mar 2026 08:02:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 37AE8F3380E
+	for <dri-devel@archiver.kernel.org>; Tue, 17 Mar 2026 08:02:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D361410E53B;
-	Tue, 17 Mar 2026 08:02:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 44B2710E54B;
+	Tue, 17 Mar 2026 08:02:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="cpufdEfT";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="OBLbdcc0";
 	dkim-atps=neutral
-Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com
- [209.85.215.180])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B053A10E3C9
- for <dri-devel@lists.freedesktop.org>; Mon, 16 Mar 2026 11:25:45 +0000 (UTC)
-Received: by mail-pg1-f180.google.com with SMTP id
- 41be03b00d2f7-c73a12af63cso2771128a12.0
- for <dri-devel@lists.freedesktop.org>; Mon, 16 Mar 2026 04:25:45 -0700 (PDT)
+Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com
+ [209.85.216.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7E50E10E4FE
+ for <dri-devel@lists.freedesktop.org>; Mon, 16 Mar 2026 12:08:40 +0000 (UTC)
+Received: by mail-pj1-f53.google.com with SMTP id
+ 98e67ed59e1d1-35a1f549e7eso2056973a91.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 16 Mar 2026 05:08:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1773660345; x=1774265145; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1773662920; x=1774267720; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=wgmZwA5aTm7ncl3DyHbavGYhjXi/iScqCoLnw+YPzBw=;
- b=cpufdEfTsjmg25hOSAA8b2wvMlAQYQyR+dQH8Uqczj6GkPqotbHOeyE5RVK3XkAVDf
- polxm3NazbtXco6xqSLJg3744LG18KtJvclN9Yk+U+npTfmyxfZTzZyBcG7IEUzzyjpa
- l4RYKsvQAQeX3DmwoL+bq/mPZCMaT1LuSyK9iXCo72s1mfti+QnSPzecCSwXWf5LYKAf
- pYZ0XgWJ3hhPjoqxprh+S5ASVBKyOwUqHvD2guyiNy0iB8JIh+pIjP85sQiPgzDCIHTn
- YIRb3gGmnniDIzwd/4MFRSs7VLCNypqjGj+xJUk9G67Vws8I328gPKKB2Qu3+c3lYMBD
- 2EVA==
+ bh=B/HmswETn8XM8b74AAva4wxSUFI8VgvK+V0Z0VnScGU=;
+ b=OBLbdcc0KCdoi7Qq23UKrC2RluvCMBKtdybiCBFgA4nPkjWsTxlLwc6Bn/U7iXll4p
+ S9ki7Ps5eilzJYHN5KnSvkJ2WgmCaysXgfp+rS2g5h+Tp4izCeno9pDaszD7KKtugpFZ
+ I7jbyrGtBihrIPTSbpzK9i0F6elaXhwIzYbp9478t+mIhoecXLB1WvPPERUaSTrgLGo1
+ i1NtdunIoveMZlMX0/uVgg65kSHtHzZjfcx+qnq2hW/F9Fhd5K8r4O3JKNh71kWRMOoD
+ icfNZNhCxPyxIy/UScYlrna/vGjArz01VFjXRsf8zy3SCBW1aamtnbnOCVEBX9l0YwXK
+ /J0Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1773660345; x=1774265145;
+ d=1e100.net; s=20251104; t=1773662920; x=1774267720;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=wgmZwA5aTm7ncl3DyHbavGYhjXi/iScqCoLnw+YPzBw=;
- b=fXX80as8zvIX+t1FpzLZSe/syrDt+ug0+Qg6So1J97JyCGr07SaBmk18CdZScefZV/
- 0sGEQdaptCXk4Sm54oMZPaxug5rtOcXXBe4RX+O/LdYmlUGT2HpYhHyVWoHHykYX4yph
- 6a995hCqfAqPNs93x301M9+kj4NYUXhf1jUzs/UY/WrWIwLBi6oXGeBpv4lYpcENchDG
- vOIWLgZNiltgem338OOTltJewymRjXpp9lMw7nmbTm1PlNZ73jqwuobAeB1FRYrK+73W
- 1LDM0WaDeiXBJMsH6+qhCqwSgxSdLKhvGDusHD4PHx8JGxItd9aVfSNBJKiDpRxRPPwy
- puBA==
+ bh=B/HmswETn8XM8b74AAva4wxSUFI8VgvK+V0Z0VnScGU=;
+ b=CxNglfLSPA1cmIi69VjSWFwB/IuWPafVkX51GWolc68RJfCRabKHZtEvCb70Izlwaa
+ /eUvJHaCaWFROAvUKN15swbPWSsKL39Pb78Hqw/+yOcOtWKpUscVi3i8Dn45Cye5Q7Na
+ 8wMqhf3wPkDfHhEMMurLK7uIf74RQIuksJ/qd8jgNt2DYFe9iTiq2Qu5xKoGpx4wc4td
+ dNhlB1HIpiHcq2KFuMQhQfyj48d96RCSiD4XXJ3kx7kV/WaqPzvjLetxPXKsCbtdCtb4
+ NwpYuEhlQw74LLKSGAoKoTMnBHh7vwCjCgoRaU5okIp0dh4NXW4kcHQK+QH4l4oJea4L
+ 1CUg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVxQI61O6VkyhcPJDXqnPIuYyLNdiIQGaITakPTmYQW46i6x1ny6Iwz4SZ1Sved0B8q/upWTEBdA3U=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yw56FRHnTQd7FlN1ZCuiPd/4SqtxpOGi7tLkO6YG6f1azmfueks
- Hq8qZOaLjoYX7ngLzUfGwnsjkD7vUoJLJmigzwzrMPIbKiZkmX2bHbj9
-X-Gm-Gg: ATEYQzwxhN3HIH6uXg79Xtq6cZfIJwsTtsr0SdXDV/0MwtEFFyX2oikaHMTv7XuMPW6
- fASBzu7egtVIn0oqOXw+QICNUhA0SD+KuI7d94OQ7Aa04DCP2WdMuCbscfwLOIq8ngmEx89ZdVX
- 01MYg25/diKF4gCeOepDhrPCla/l6tmdov0fondjTDgHJQBVVhx5p/gPGcHy4gP/220uy9397qs
- nR+1KSdqAU26mCyyoDzgJasiuA9b9V3jddXvzPXx4AAki68ZtdLQMb4JVOO8Y3LoAdoDw7vd390
- M10vfS3c/h9jw7M/k9lzvgJcdGxPbWZ06iu5bwpy9oN9gP64+KR4CeFN/DvIduk9Uf4mq2oOowW
- 9BykBeWpRi6BNK11m8T9X5shB0pCOhu6AVr5Iss2aM6cw/8eACnZw8nXj7QijLjOMBvDrs6Nnxo
- T4zS3XFpNmZfVGvl9uTjtT+NiYX35WACIK8IlctjIWm/ipHVfNQ0nSF/3JhIKwBFmXt5Si6sHOm
- O41LT4R7VAUBJTI
-X-Received: by 2002:a05:6a21:a345:b0:398:9820:f6ed with SMTP id
- adf61e73a8af0-398ecd67b1cmr13269758637.56.1773660345183; 
- Mon, 16 Mar 2026 04:25:45 -0700 (PDT)
-Received: from localhost.localdomain ([14.160.25.72])
+ AJvYcCUlHNh3BIfdiiXsYmZ96DluFtFMYsdtF7X6duNOB1qJfgzOHcOGyX3rlTJCdFelB8qZbi+cc1uz2C0=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxlxMXEOdL9srlin9fV9Lug6XLKIDf9+ty6AhSnOGtCWH/Y5oop
+ XtJ/j7ZEM6WM4a2kll4XnFI+5+Q35eKP1v1ap8wpASCtoU+NLoV1gI4Q
+X-Gm-Gg: ATEYQzwib4/CK1uBZT5vp5rnIA6BvPHG1OKtaPpIzvWGAZAfodcL/YhxugFAyCCQNm3
+ NcGdz4Hqv92lIcDn/rzc/iV7pfeN36fwKneWVmQH+q4Wwtsf/eQW5nWBd+3yKmxm7NGqUztGygY
+ 07onaGpjbk4n3bAT0w97psNmHU9AZSeVg7nUPLylE00SD/Tpgjn5gwzR5w6vheIQcgl4i94MJ4l
+ 9st4pYMLS4K6Obp+3cdSfb09IDjOfGeOOH5o3nwb1JuqSUp2vDqxctaXnBr4Lq2oY513oSlYx8C
+ mhUNQl9MY8MewqLLoqcerdC1jnKnpgkhN7fJ96gWFmqaLknsTLJhUmGvG/P5GlEP5Wa8pfAcLxs
+ EGT/QS2A4JJHmrVY5xc30T1YorRGtX/XMG8Gn073uF1e+HGdU03B6OoKAZMJo0Wg96hytXL7JJP
+ tDJ7d08cu+8jfppWKgOGXBsYJW17/WZZGPJUglaaoqSa5egwPwkYLF
+X-Received: by 2002:a17:90b:510b:b0:33b:b078:d6d3 with SMTP id
+ 98e67ed59e1d1-35a21fd68f4mr11272122a91.23.1773662919828; 
+ Mon, 16 Mar 2026 05:08:39 -0700 (PDT)
+Received: from eric-wcnlab.tail151456.ts.net
+ ([2001:288:7001:1099:c21f:f7d6:f4bc:6198])
  by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-c73fc935ad4sm4744131a12.2.2026.03.16.04.25.42
- (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Mon, 16 Mar 2026 04:25:44 -0700 (PDT)
-From: phucduc.bui@gmail.com
-To: geert@linux-m68k.org
-Cc: airlied@gmail.com, dri-devel@lists.freedesktop.org,
- laurent.pinchart@ideasonboard.com, linux-kernel@vger.kernel.org,
- linux-renesas-soc@vger.kernel.org, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, phucduc.bui@gmail.com, simona@ffwll.ch,
- tzimmermann@suse.de, wsa+renesas@sang-engineering.com
-Subject: Re: [PATCH v2] drm: shmobile: Fix blank screen after resume when LCDC
- is stopped
-Date: Mon, 16 Mar 2026 18:25:40 +0700
-Message-Id: <20260316112540.8636-1-phucduc.bui@gmail.com>
-X-Mailer: git-send-email 2.37.1 (Apple Git-137.1)
-In-Reply-To: <CAMuHMdXJQmfU0p=yk1kROTm=ZiiQoUHZQpw5kj813x=RWCS1fg@mail.gmail.com>
-References: <CAMuHMdXJQmfU0p=yk1kROTm=ZiiQoUHZQpw5kj813x=RWCS1fg@mail.gmail.com>
+ 98e67ed59e1d1-35b9e36f45asm3240083a91.3.2026.03.16.05.08.37
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 16 Mar 2026 05:08:39 -0700 (PDT)
+From: Cheng-Yang Chou <yphbchou0911@gmail.com>
+To: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
+ Alexandre Courbot <acourbot@nvidia.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Gary Guo <gary@garyguo.net>,
+ John Hubbard <jhubbard@nvidia.com>
+Cc: nouveau@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Ching-Chun Huang <jserv@ccns.ncku.edu.tw>,
+ Chia-Ping Tsai <chia7712@gmail.com>,
+ Cheng-Yang Chou <yphbchou0911@gmail.com>, Timur Tabi <ttabi@nvidia.com>
+Subject: [PATCH v2 1/2] gpu: nova: rename drivers to use kebab-case convention
+Date: Mon, 16 Mar 2026 20:08:19 +0800
+Message-ID: <20260316120820.2117081-2-yphbchou0911@gmail.com>
+X-Mailer: git-send-email 2.48.1
+In-Reply-To: <20260316120820.2117081-1-yphbchou0911@gmail.com>
+References: <20260316120820.2117081-1-yphbchou0911@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 17 Mar 2026 08:02:43 +0000
@@ -95,84 +96,67 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Geert,
+Rename nova-core driver from "NovaCore" to "nova-core" and nova-drm
+driver from "Nova" to "nova-drm" to follow kernel naming conventions
+before these names become UAPI (e.g. exposed via driver_override).
 
-> Your MIRROR value is truncated (I don't trust the final zero)
+Also fix the nova-drm driver description from "Nvidia Graphics" to
+"NVIDIA Graphics and Compute".
 
-I apologize for the inconvenience. The displayed value was
-truncated due to a missing newline character in my debug print
-function. As you suspected, the value is indeed not zero.
+Link: https://github.com/Rust-for-Linux/linux/issues/1228
+Signed-off-by: Cheng-Yang Chou <yphbchou0911@gmail.com>
+Acked-by: Timur Tabi <ttabi@nvidia.com>
+---
+ drivers/gpu/drm/nova/driver.rs     | 6 +++---
+ drivers/gpu/drm/nova/nova.rs       | 2 +-
+ drivers/gpu/nova-core/nova_core.rs | 2 +-
+ 3 files changed, 5 insertions(+), 5 deletions(-)
 
->>>Enter: shmob_drm_crtc_atomic_enable
->>>ENTER: shmob_drm_plane_atomic_update
->>>ENTER: shmob_drm_primary_plane_setup
-shmob-drm fe940000.lcd-controller:
-[BEFORE] LDSA1R: A=0x00000000 B=0x5c100000 MIRROR=0x5c100000
-shmob-drm fe940000.lcd-controller:
-[AFTER MIRROR] LDSA1R: A=0x00000000 B=0x5c100000 MIRROR=0x5c100000
-shmob-drm fe940000.lcd-controller:
-[AFTER SWAP] LDSA1R: A=0x00000000 B=0x5c100000 MIRROR=0x5c100000
-OOM killer enabled.
-Restarting tasks: Starting
-Restarting tasks: Done
-PM: suspend exit
-
-> TL;DR it depends on kernel config.
-> With my .config, your patch is not needed (but it doesn't hurt).
-> With your .config, your patch is needed.
-> Unfortunately I haven't found yet which config options causes this.
-> I will send you my .config by personal email.
-
-Thank you for sharing your configuration file. I noticed there are
-numerous differences between our configurations. After further
-investigation, I narrowed down the main cause to the following debug
-options:
-
-CONFIG_PROVE_LOCKING=n
-
-CONFIG_DEBUG_LOCK_ALLOC=n
-
-CONFIG_DEBUG_RT_MUTEXES=n
-
-CONFIG_DEBUG_SPINLOCK=n
-
-CONFIG_DEBUG_MUTEXES=n
-
-CONFIG_DEBUG_WW_MUTEX_SLOWPATH=n
-
-CONFIG_DEBUG_RWSEMS=n
-
-CONFIG_DEBUG_LOCKING_API_SELFTESTS=n
-
-CONFIG_LOCK_STAT=n
-
-CONFIG_DEBUG_ATOMIC_SLEEP=n
-
-
-These options are enabled in your configuration but disabled in mine.
-Enabling these debug features introduces additional overhead, which
-slows down the resume process. This delay unintentionally provides
-enough time for the hardware to generate the Frame End interrupt,
-effectively masking the issue on your system.
-
-It is also worth mentioning that this behavior is not new. I have been
-able to reproduce it consistently for a long time, dating back to the
-Kernel 3.x era when armadillo800eva_defconfig was used upstream. In
-fact, the issue can be reproduced as far back as Kernel 3.12. While the
-exact configurations may have changed over time, the underlying
-behavior has remained the same across multiple kernel versions.
-
-This observation suggests the presence of a systemic race condition.
-If the resume process completes too quickly, the Frame End interrupt
-may not occur in time to trigger the transfer from Side B to Side A.
-As a result, explicitly initializing Side A (priming) during resume,
-as proposed in my patch, provides a more robust and deterministic
-solution. This ensures correct behavior regardless of CPU speed,
-system load, or debug configuration, rather than relying on the
-incidental timing introduced by debug options.
-
-
-Best regard,
-
-Phuc
+diff --git a/drivers/gpu/drm/nova/driver.rs b/drivers/gpu/drm/nova/driver.rs
+index b1af0a099551..e3de04f358f0 100644
+--- a/drivers/gpu/drm/nova/driver.rs
++++ b/drivers/gpu/drm/nova/driver.rs
+@@ -32,11 +32,11 @@ pub(crate) struct NovaData {
+     major: 0,
+     minor: 0,
+     patchlevel: 0,
+-    name: c"nova",
+-    desc: c"Nvidia Graphics",
++    name: c"nova-drm",
++    desc: c"NVIDIA Graphics and Compute",
+ };
+ 
+-const NOVA_CORE_MODULE_NAME: &CStr = c"NovaCore";
++const NOVA_CORE_MODULE_NAME: &CStr = c"nova-core";
+ const AUXILIARY_NAME: &CStr = c"nova-drm";
+ 
+ kernel::auxiliary_device_table!(
+diff --git a/drivers/gpu/drm/nova/nova.rs b/drivers/gpu/drm/nova/nova.rs
+index 8893e58ee0db..1fd454c7e0df 100644
+--- a/drivers/gpu/drm/nova/nova.rs
++++ b/drivers/gpu/drm/nova/nova.rs
+@@ -10,7 +10,7 @@
+ 
+ kernel::module_auxiliary_driver! {
+     type: NovaDriver,
+-    name: "Nova",
++    name: "nova-drm",
+     authors: ["Danilo Krummrich"],
+     description: "Nova GPU driver",
+     license: "GPL v2",
+diff --git a/drivers/gpu/nova-core/nova_core.rs b/drivers/gpu/nova-core/nova_core.rs
+index c1121e7c64c5..90e98380687b 100644
+--- a/drivers/gpu/nova-core/nova_core.rs
++++ b/drivers/gpu/nova-core/nova_core.rs
+@@ -22,7 +22,7 @@
+ 
+ kernel::module_pci_driver! {
+     type: driver::NovaCore,
+-    name: "NovaCore",
++    name: "nova-core",
+     authors: ["Danilo Krummrich"],
+     description: "Nova Core GPU driver",
+     license: "GPL v2",
+-- 
+2.48.1
 
