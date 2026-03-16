@@ -4,53 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 91568F46453
-	for <dri-devel@archiver.kernel.org>; Mon, 16 Mar 2026 11:25:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 743CEF46450
+	for <dri-devel@archiver.kernel.org>; Mon, 16 Mar 2026 11:32:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E382410E3BB;
-	Mon, 16 Mar 2026 11:25:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C8AE810E27B;
+	Mon, 16 Mar 2026 11:32:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="nIyKn5DS";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="Qb/gHHBd";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D204B10E3BB;
- Mon, 16 Mar 2026 11:25:28 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 0A7976013A;
- Mon, 16 Mar 2026 11:25:28 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E5A36C19421;
- Mon, 16 Mar 2026 11:25:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1773660327;
- bh=BV2Fvfkpi9LBJuI9ErHX/edj2DFHqDR1D2AIoMHj8dI=;
- h=Date:Subject:Cc:To:From:References:In-Reply-To:From;
- b=nIyKn5DSZAdduua9xEl6f3AXSiaVCI7S0Nc8gnEIeGrRxxeJI/e+GKCRT/ogCjAfn
- RIm6hRIj0RL9NR7GhED55cAjqeOymxsuEg7+PUwqiAoRg5sNG7TZH9D3XQghBbZ1ov
- IyzrGryBpXOenYX9QTVw9Lpd/pPohS5rYBodL9J3gyTHUGri7aVGuuWLLBI1PRFuj5
- H8BNNnNmZG5fcyU76W5kZOSaIH1AOEmliAeqZQuAtaNlMb4k6C+tiYDsoXn21ZaeuH
- tW6WX04DM7Di8Lh92zhAooMw2g5bL6gKHc1VnFJwAx6rB2UcFHvDv0wbwgl51ftUBf
- 6EYR12UNyohbQ==
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 16 Mar 2026 11:25:23 +0100
-Message-Id: <DH44U26ZLJS2.3DTS9D6PA0IL4@kernel.org>
-Subject: Re: [RFC PATCH 02/12] drm/dep: Add DRM dependency queue layer
-Cc: <intel-xe@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- "Boris Brezillon" <boris.brezillon@collabora.com>, "Tvrtko Ursulin"
- <tvrtko.ursulin@igalia.com>, "Rodrigo Vivi" <rodrigo.vivi@intel.com>,
- =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, "David Airlie"
- <airlied@gmail.com>, "Maarten Lankhorst"
- <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
- "Philipp Stanner" <phasta@kernel.org>, "Simona Vetter" <simona@ffwll.ch>,
- "Sumit Semwal" <sumit.semwal@linaro.org>, "Thomas Zimmermann"
- <tzimmermann@suse.de>, <linux-kernel@vger.kernel.org>
-To: "Matthew Brost" <matthew.brost@intel.com>
-From: "Danilo Krummrich" <dakr@kernel.org>
-References: <20260316043255.226352-1-matthew.brost@intel.com>
- <20260316043255.226352-3-matthew.brost@intel.com>
-In-Reply-To: <20260316043255.226352-3-matthew.brost@intel.com>
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
+ [136.143.188.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EFB8810E25C
+ for <dri-devel@lists.freedesktop.org>; Mon, 16 Mar 2026 11:32:08 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1773660724; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=F5QPg5QvClRsgprNIOWkQWiwFQm+dWKe9f8HPyUMho0soxoQbkLiFJfIpez5JZ1PigEn5p2Onftnis86ah6JBlxcsJDUpEKiQlUw3t3rOdVbwY8B1NjqVlnlQsfRfwABdmS/4NLUt57tqvnIqUUTUWfMF7H8/4et17f+VoGbim0=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1773660724;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=CXwiJopPTfeJca7/CePLy+cTjnRvIej3hEugFxqj6bA=; 
+ b=NPHsMkbLcQtUOQ2SMvdf0pDuTMLy/4JSD6/lF/IVJS4DHw9Ts8pzy+9H7H6lQgKEHMDF5c0N8fBFb1CnB/2+K5G70mC4bVpd2G7zShMyPfCrSFpNpTWogfNC3sGpEBumVrWNQZz5WMy23+PHY5kPBFVAvPFBSmL+YhML7vxnG5A=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
+ dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1773660724; 
+ s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
+ h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:Content-Type:Message-Id:Reply-To;
+ bh=CXwiJopPTfeJca7/CePLy+cTjnRvIej3hEugFxqj6bA=;
+ b=Qb/gHHBdfTgv/e9eLd1d1KVInpZsAKl9y9HQM5Qb10aD7Ho7wdwJlrXA6f05+YvU
+ opCkIGjTDy/QFmlArMrZ1HHUhFRhMXKYRemytIMttdtrG5iCnY282H4Pk5Dc086IIlC
+ CFPxsim+VxRyLq9U5QPYCyx39lPuDrID9b6avwhg=
+Received: by mx.zohomail.com with SMTPS id 1773660722084398.51922306894573;
+ Mon, 16 Mar 2026 04:32:02 -0700 (PDT)
+From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+To: hjc@rock-chips.com, heiko@sntech.de, andy.yan@rock-chips.com,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ airlied@gmail.com, simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, andrzej.hajda@intel.com, neil.armstrong@linaro.org,
+ rfoss@kernel.org, Damon Ding <damon.ding@rock-chips.com>
+Cc: Laurent.pinchart@ideasonboard.com, jonas@kwiboo.se,
+ jernej.skrabec@gmail.com, alchark@gmail.com,
+ cristian.ciocaltea@collabora.com, sebastian.reichel@collabora.com,
+ kever.yang@rock-chips.com, dmitry.baryshkov@oss.qualcomm.com,
+ luca.ceresoli@bootlin.com, dianders@chromium.org, m.szyprowski@samsung.com,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
+ linux-kernel@vger.kernel.org, Damon Ding <damon.ding@rock-chips.com>
+Subject: Re: [PATCH v1 2/4] arm64: dts: rockchip: Add eDP node for RK3576
+Date: Mon, 16 Mar 2026 12:31:54 +0100
+Message-ID: <9590182.CDJkKcVGEf@workhorse>
+In-Reply-To: <20260310105307.309765-3-damon.ding@rock-chips.com>
+References: <20260310105307.309765-1-damon.ding@rock-chips.com>
+ <20260310105307.309765-3-damon.ding@rock-chips.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="utf-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,74 +75,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon Mar 16, 2026 at 5:32 AM CET, Matthew Brost wrote:
-> Diverging requirements between GPU drivers using firmware scheduling
-> and those using hardware scheduling have shown that drm_gpu_scheduler is
-> no longer sufficient for firmware-scheduled GPU drivers. The technical
-> debt, lack of memory-safety guarantees, absence of clear object-lifetime
-> rules, and numerous driver-specific hacks have rendered
-> drm_gpu_scheduler unmaintainable. It is time for a fresh design for
-> firmware-scheduled GPU drivers=E2=80=94one that addresses all of the
-> aforementioned shortcomings.
+On Tuesday, 10 March 2026 11:53:05 Central European Standard Time Damon Ding wrote:
+> Add support for the eDP output on RK3576 SoC.
+> 
+> Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
+> ---
+>  arch/arm64/boot/dts/rockchip/rk3576.dtsi | 28 ++++++++++++++++++++++++
+>  1 file changed, 28 insertions(+)
+> 
+> diff --git a/arch/arm64/boot/dts/rockchip/rk3576.dtsi b/arch/arm64/boot/dts/rockchip/rk3576.dtsi
+> index a86fc6b4e8c4..14900a66d3e1 100644
+> --- a/arch/arm64/boot/dts/rockchip/rk3576.dtsi
+> +++ b/arch/arm64/boot/dts/rockchip/rk3576.dtsi
+> @@ -1446,6 +1446,34 @@ hdmi_out: port@1 {
+>  			};
+>  		};
+>  
+> +		edp: edp@27dc0000 {
+> +			compatible = "rockchip,rk3576-edp";
+> +			reg = <0x0 0x27dc0000 0x0 0x1000>;
+> +			clocks = <&cru CLK_EDP0_24M>, <&cru PCLK_EDP0>, <&cru HCLK_VO0_ROOT>;
+> +			clock-names = "dp", "pclk", "hclk";
+> +			interrupts = <GIC_SPI 365 IRQ_TYPE_LEVEL_HIGH>;
+> +			phys = <&hdptxphy>;
+> +			phy-names = "dp";
+> +			power-domains = <&power RK3576_PD_VO0>;
+> +			resets = <&cru SRST_EDP0_24M>, <&cru SRST_P_EDP0>;
+> +			reset-names = "dp", "apb";
+> +			rockchip,grf = <&vo0_grf>;
+> +			status = "disabled";
+> +
+> +			ports {
+> +				#address-cells = <1>;
+> +				#size-cells = <0>;
+> +
+> +				edp_in: port@0 {
+> +					reg = <0>;
+> +				};
+> +
+> +				edp_out: port@1 {
+> +					reg = <1>;
+> +				};
+> +			};
+> +		};
+> +
+>  		sai7: sai@27ed0000 {
+>  			compatible = "rockchip,rk3576-sai";
+>  			reg = <0x0 0x27ed0000 0x0 0x1000>;
+> 
 
-I think we all agree on this and I also think we all agree that this should=
- have
-been a separate component in the first place -- and just to be clear, I am
-saying this in retrospective.
+Reviewed-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 
-In fact, this is also the reason why I proposed building the Rust component
-differently, i.e. start with a Joqueue (or drm_dep as called in this patch)=
- and
-expand as needed with a loosely coupled "orchestrator" for drivers with str=
-ictly
-limited software/hardware queues later.
+By cross-referencing the TRM, I checked the address, the IRQ number,
+and the power domain, and verified that there are no new check_dtbs
+warnings introduced.
 
-The reason I proposed a new component for Rust, is basically what you also =
-wrote
-in your cover letter, plus the fact that it prevents us having to build a R=
-ust
-abstraction layer to the DRM GPU scheduler.
+Kind regards,
+Nicolas Frattaroli
 
-The latter I identified as pretty questionable as building another abstract=
-ion
-layer on top of some infrastructure is really something that you only want =
-to do
-when it is mature enough in terms of lifetime and ownership model.
 
-I'm not saying it wouldn't be possible, but as mentioned in other threads, =
-I
-don't think it is a good idea building new features on top of something tha=
-t has
-known problems, even less when they are barely resolvable due to other exis=
-ting
-dependencies, such as some drivers relying on implementation details
-historically, etc.
-
-My point is, the justification for a new Jobqueue component in Rust I consi=
-der
-given by the fact that it allows us to avoid building another abstraction l=
-ayer
-on top of DRM sched. Additionally, DRM moves to Rust and gathering experien=
-ce
-with building native Rust components seems like a good synergy in this cont=
-ext.
-
-Having that said, the obvious question for me for this series is how drm_de=
-p
-fits into the bigger picture.
-
-I.e. what is the maintainance strategy?
-
-Do we want to support three components allowing users to do the same thing?=
- What
-happens to DRM sched for 1:1 entity / scheduler relationships?
-
-Is it worth? Do we have enough C users to justify the maintainance of yet
-another component? (Again, DRM moves into the direction of Rust drivers, so=
- I
-don't know how many new C drivers we will see.) I.e. having this component =
-won't
-get us rid of the majority of DRM sched users.
-
-What are the expected improvements? Given the above, I'm not sure it will
-actually decrease the maintainance burdon of DRM sched.
