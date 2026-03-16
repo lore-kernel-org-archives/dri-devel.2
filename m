@@ -4,30 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90983F53D72
-	for <dri-devel@archiver.kernel.org>; Mon, 16 Mar 2026 16:40:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D8BF4F53D75
+	for <dri-devel@archiver.kernel.org>; Mon, 16 Mar 2026 16:43:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 01C4510E279;
-	Mon, 16 Mar 2026 16:40:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3FD5E10E315;
+	Mon, 16 Mar 2026 16:43:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="PGlJKIfF";
+	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="Lxq5dk1Y";
 	dkim-atps=neutral
 Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
  [213.167.242.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BAE2710E281
- for <dri-devel@lists.freedesktop.org>; Mon, 16 Mar 2026 16:40:49 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DEE3610E2DD
+ for <dri-devel@lists.freedesktop.org>; Mon, 16 Mar 2026 16:42:59 +0000 (UTC)
 Received: from killaraus.ideasonboard.com
  (2001-14ba-703d-e500--2a1.rev.dnainternet.fi [IPv6:2001:14ba:703d:e500::2a1])
- by perceval.ideasonboard.com (Postfix) with UTF8SMTPSA id 248F9BD2;
- Mon, 16 Mar 2026 17:39:37 +0100 (CET)
+ by perceval.ideasonboard.com (Postfix) with UTF8SMTPSA id 4210DBD2;
+ Mon, 16 Mar 2026 17:41:47 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1773679177;
- bh=Kzr1m6Va29xtUkkFLvG6x5CgshfUIGpowXhuuaDrOns=;
+ s=mail; t=1773679307;
+ bh=+NWc8VwtCmn525XipCnNx0dZNSsnmYU3nirzpmPH0+I=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=PGlJKIfFimg6caDoKZiMxZeVUwOfDr8bkablGpGZTBFxu8LHj84LwjmVjIJj3U+WR
- pQfgEqeWPWRjYCsyTaUzol6hkVeQqvUQW63OTNarHkMp6QVN29wgU3btF6hCmtOmmy
- IJrTppq+SpRvkhBGG2qL5IQ2x8kXRlAJBlajBRCA=
-Date: Mon, 16 Mar 2026 18:40:47 +0200
+ b=Lxq5dk1YqEe0IBL4hsBymS5CFyCH/laNLcHtee8y6zsAXXFhKHUOzViy2adrPulJD
+ ko8AZ/rs8tB+TeEEx0eNceS3EHr2bNX38HpHIkISAEmNw5u6WFgV2S8IaVRAgdqoxB
+ 8hOxihMKb1KlqRK44ipjP1/3Lzr18+Lx0xpS7c+0=
+Date: Mon, 16 Mar 2026 18:42:57 +0200
 From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
 To: Maxime Ripard <mripard@kernel.org>
 Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
@@ -43,14 +43,14 @@ Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Jernej Skrabec <jernej.skrabec@gmail.com>,
  dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org,
  linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 13/14] drm/tidss: Convert to atomic_create_state
-Message-ID: <20260316164047.GP31604@killaraus.ideasonboard.com>
+Subject: Re: [PATCH 14/14] drm/bridge_connector: Convert to atomic_create_state
+Message-ID: <20260316164257.GQ31604@killaraus.ideasonboard.com>
 References: <20260310-drm-mode-config-init-v1-0-de7397c8e1cf@kernel.org>
- <20260310-drm-mode-config-init-v1-13-de7397c8e1cf@kernel.org>
+ <20260310-drm-mode-config-init-v1-14-de7397c8e1cf@kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260310-drm-mode-config-init-v1-13-de7397c8e1cf@kernel.org>
+In-Reply-To: <20260310-drm-mode-config-init-v1-14-de7397c8e1cf@kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,90 +66,63 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, Mar 10, 2026 at 05:07:05PM +0100, Maxime Ripard wrote:
-> Our driver uses reset to create the various object states, but only
-> calls the helper that allocate a new state. They are thus strictly
-> equivalent to the new atomic_create_state helpers, so let's switch to
-> these.
+On Tue, Mar 10, 2026 at 05:07:06PM +0100, Maxime Ripard wrote:
+> The connector created by drm_bridge_connector only initializes a
+> pristine state in reset, which is equivalent to that atomic_create_state
+> would expect. Let's convert to it.
 > 
 > Signed-off-by: Maxime Ripard <mripard@kernel.org>
+> ---
+>  drivers/gpu/drm/display/drm_bridge_connector.c | 15 +++++++++++----
+>  1 file changed, 11 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/display/drm_bridge_connector.c b/drivers/gpu/drm/display/drm_bridge_connector.c
+> index f686aa5c0ed9b84dbe5e0957df22d08aff2f1945..2f73576783f5f69ebce277a7537accefc94645a9 100644
+> --- a/drivers/gpu/drm/display/drm_bridge_connector.c
+> +++ b/drivers/gpu/drm/display/drm_bridge_connector.c
+> @@ -263,26 +263,33 @@ static void drm_bridge_connector_debugfs_init(struct drm_connector *connector,
+>  		if (bridge->funcs->debugfs_init)
+>  			bridge->funcs->debugfs_init(bridge, root);
+>  	}
+>  }
+>  
+> -static void drm_bridge_connector_reset(struct drm_connector *connector)
+> +static struct drm_connector_state *
+> +drm_bridge_connector_create_state(struct drm_connector *connector)
+>  {
+>  	struct drm_bridge_connector *bridge_connector =
+>  		to_drm_bridge_connector(connector);
+> +	struct drm_connector_state *conn_state;
+> +
+> +	conn_state = drm_atomic_helper_connector_create_state(connector);
+> +	if (IS_ERR(conn_state))
+> +		return conn_state;
+>  
+> -	drm_atomic_helper_connector_reset(connector);
+>  	if (bridge_connector->bridge_hdmi)
+>  		__drm_atomic_helper_connector_hdmi_reset(connector,
+
+It would be good to rename this function too, to avoid using "reset".
 
 Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
 
-> ---
->  drivers/gpu/drm/tidss/tidss_crtc.c  | 17 +++++++----------
->  drivers/gpu/drm/tidss/tidss_plane.c |  2 +-
->  2 files changed, 8 insertions(+), 11 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/tidss/tidss_crtc.c b/drivers/gpu/drm/tidss/tidss_crtc.c
-> index a31c21c5f855ac8a94089dd3908e2510193b7d67..66e3d161c60bc14b2982cff4cdd43030d4086798 100644
-> --- a/drivers/gpu/drm/tidss/tidss_crtc.c
-> +++ b/drivers/gpu/drm/tidss/tidss_crtc.c
-> @@ -355,24 +355,21 @@ static void tidss_crtc_destroy_state(struct drm_crtc *crtc,
->  
->  	__drm_atomic_helper_crtc_destroy_state(&tstate->base);
->  	kfree(tstate);
->  }
->  
-> -static void tidss_crtc_reset(struct drm_crtc *crtc)
-> +static struct drm_crtc_state *tidss_crtc_create_state(struct drm_crtc *crtc)
->  {
->  	struct tidss_crtc_state *tstate;
->  
-> -	if (crtc->state)
-> -		tidss_crtc_destroy_state(crtc, crtc->state);
-> -
->  	tstate = kzalloc_obj(*tstate);
-> -	if (!tstate) {
-> -		crtc->state = NULL;
-> -		return;
-> -	}
-> +	if (!tstate)
-> +		return ERR_PTR(-ENOMEM);
->  
-> -	__drm_atomic_helper_crtc_reset(crtc, &tstate->base);
-> +	__drm_atomic_helper_crtc_create_state(crtc, &tstate->base);
+> -							 connector->state);
+> +							 conn_state);
 > +
-> +	return &tstate->base;
+> +	return conn_state;
 >  }
 >  
->  static struct drm_crtc_state *tidss_crtc_duplicate_state(struct drm_crtc *crtc)
->  {
->  	struct tidss_crtc_state *state, *current_state;
-> @@ -403,14 +400,14 @@ static void tidss_crtc_destroy(struct drm_crtc *crtc)
->  	drm_crtc_cleanup(crtc);
->  	kfree(tcrtc);
->  }
->  
->  static const struct drm_crtc_funcs tidss_crtc_funcs = {
-> -	.reset = tidss_crtc_reset,
->  	.destroy = tidss_crtc_destroy,
->  	.set_config = drm_atomic_helper_set_config,
->  	.page_flip = drm_atomic_helper_page_flip,
-> +	.atomic_create_state = tidss_crtc_create_state,
->  	.atomic_duplicate_state = tidss_crtc_duplicate_state,
->  	.atomic_destroy_state = tidss_crtc_destroy_state,
->  	.enable_vblank = tidss_crtc_enable_vblank,
->  	.disable_vblank = tidss_crtc_disable_vblank,
+>  static const struct drm_connector_funcs drm_bridge_connector_funcs = {
+> -	.reset = drm_bridge_connector_reset,
+>  	.detect = drm_bridge_connector_detect,
+>  	.force = drm_bridge_connector_force,
+>  	.fill_modes = drm_helper_probe_single_connector_modes,
+> +	.atomic_create_state = drm_bridge_connector_create_state,
+>  	.atomic_duplicate_state = drm_atomic_helper_connector_duplicate_state,
+>  	.atomic_destroy_state = drm_atomic_helper_connector_destroy_state,
+>  	.debugfs_init = drm_bridge_connector_debugfs_init,
+>  	.oob_hotplug_event = drm_bridge_connector_oob_hotplug_event,
 >  };
-> diff --git a/drivers/gpu/drm/tidss/tidss_plane.c b/drivers/gpu/drm/tidss/tidss_plane.c
-> index aaa02c851c595aa3781ec2e6741af1999092aa40..518498d4576528a0ec59fd03cf27a87b1b3f1e6e 100644
-> --- a/drivers/gpu/drm/tidss/tidss_plane.c
-> +++ b/drivers/gpu/drm/tidss/tidss_plane.c
-> @@ -176,12 +176,12 @@ static const struct drm_plane_helper_funcs tidss_primary_plane_helper_funcs = {
->  };
->  
->  static const struct drm_plane_funcs tidss_plane_funcs = {
->  	.update_plane = drm_atomic_helper_update_plane,
->  	.disable_plane = drm_atomic_helper_disable_plane,
-> -	.reset = drm_atomic_helper_plane_reset,
->  	.destroy = drm_plane_destroy,
-> +	.atomic_create_state = drm_atomic_helper_plane_create_state,
->  	.atomic_duplicate_state = drm_atomic_helper_plane_duplicate_state,
->  	.atomic_destroy_state = drm_atomic_helper_plane_destroy_state,
->  };
->  
->  struct tidss_plane *tidss_plane_create(struct tidss_device *tidss,
 > 
 
 -- 
