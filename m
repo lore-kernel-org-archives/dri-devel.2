@@ -4,137 +4,108 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 814A6F53D90
-	for <dri-devel@archiver.kernel.org>; Mon, 16 Mar 2026 19:54:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5634BF53D90
+	for <dri-devel@archiver.kernel.org>; Mon, 16 Mar 2026 19:57:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E78C910E3DE;
-	Mon, 16 Mar 2026 19:54:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6364010E3E9;
+	Mon, 16 Mar 2026 19:57:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="f3FenR7x";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ixJA8qsb";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="1Pjy+ZB3";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B3B7510E3DE
- for <dri-devel@lists.freedesktop.org>; Mon, 16 Mar 2026 19:54:55 +0000 (UTC)
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 62GECT1G1639392
- for <dri-devel@lists.freedesktop.org>; Mon, 16 Mar 2026 19:54:55 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=pIDGUC66DjeB5/G8Sh3DXLNt
- 596Pz7YBrzXPtS3KZpA=; b=f3FenR7xKGBt7N689oX1FC7QCS3nZKWyany+Ukve
- AhGgqwm9iAgDQemKfXde2XKj4dmel1184ERT0DJphfT5NRqMNwVM113O+oewmBfb
- l7WjLUQxTBYuydQGuiniirF0uwDiy78WWJ/vMQ+bvMy60eo5koNmr9Nj8UWJ1YJ6
- cY2BVEbsBLiLpzgbgPbO+gH0RakTe6GjTAZyKnL4zYxHDeQjaP+GFFRwOjQAe1/S
- auRfD8JKoGljAfRFauPH1duCup4fBX+Jt3rssfxVio3bu3swuUzzt2N14iPhNOcT
- UsFKEZKkbyVsx6MGpXXL0csd8LlSpJGhIjUoJIhY3wAHrw==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
- [209.85.222.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4cxke098k7-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Mon, 16 Mar 2026 19:54:55 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id
- af79cd13be357-8cd98d96382so559201685a.0
- for <dri-devel@lists.freedesktop.org>; Mon, 16 Mar 2026 12:54:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1773690894; x=1774295694;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=pIDGUC66DjeB5/G8Sh3DXLNt596Pz7YBrzXPtS3KZpA=;
- b=ixJA8qsbve0tuxeOvNyeyredzy5nHOnZdxsu2YPsh1b5j6j4TCzwk/qe65qP+sFjyp
- sOThT5KrEm054gZpvGmK2qDCrBwAnUz4YFHF+qI8WQDQ3U8+Bnc2iyP3rS0/Yuing9kg
- Xtnd1c9Jod5+Mua5ZDnt9DMcsFOVJlxmA0rZ7bRsoQyp2sMwY2MhMaToMn+T1/ttw4/G
- 0dBudhiDfhe1/Yk6JmohoS1MfSa//ZwXLGLWivC8aNe22rq7pg9//zScdZg7LB98wtfE
- diBEOMuRRgGrM++sw189vXDa7tKNr3eByw/auLuTibsMa8ERjXeWpR0S6fvvhZ8eN1Ab
- LxSQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1773690894; x=1774295694;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=pIDGUC66DjeB5/G8Sh3DXLNt596Pz7YBrzXPtS3KZpA=;
- b=gBeQRM9pERYObRLFeTXPN4sF4VuL5FisW0XX7Nxet/XZQRvHetS13CqOeHyRSbo2JY
- ts1CgbRHEatXQdQ2fN7KC8UHkUR8m9l1+FmiEUvBW6oppy+/wiC8WAxYxoB/qEJLLuqv
- QEW1w96b/exBS3ysf0J+YgN8WBdGDmYVhFzoYZvMcNDmuuMlVrbgGIu0hKFmbyieclBX
- uKEd8acmY8sdKW7I9h5bDqCbgwhNADKF8bxjcvaTfKwn4RWE3q/jPMXy2FZIvRvYmnep
- s6XtUXA6djxhj5kY6UyoUE2vicKuaS8d+qLa4ifH98l3PCzPsSp0yLGSUxBiYtKkwfG2
- zlzg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUUAsVfrnuWPsMe6GozDvnrL9U3J/u7n0kcmbwCmo2a1hbBJhomGFNcszIHbsK7gQYVubYFjGqAj9I=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwkNgecEFgrexjb1Ogz+O94oXqkcpf8nRBSIEF9P6Epaz+oXMir
- nIw264IpmyvbAHwoirRXjSSf/C33UbuHVqNUEhiS2KXlSVhsxyLAcdr+m8v+DGyTJ5juA2ZeR6E
- qTx434hfxpTj8fq872CQYHHrY/YBd0PY3I0DsltvvyCbOE2PXSdO5139F8fB6+5EsEPh/UPo=
-X-Gm-Gg: ATEYQzz+C9NBChN+l2NVm5vN+Ne5cR+dXZpRtd6AncPhmNortwgeA9HWK54Jn47i6sd
- GXuCy0erBDg+fQiOKUB/Q2+RUCwHfzMoALyO/f2dW4zhyfHyrF7ul1L99ZdXPg1zNInU2/3B3WO
- o+xu69D5iEwTbXXzHDDkJZgOcbwBf8mXdVshYruaP3GxYpC9+K2+4YLw5ODYWzQ1nL+JpIgCNc6
- zblBHBP+AwXIJZX3fUi2VzXNLu/UwOKtm0Thr9DEbGt/v6WGXbUbvtYvRSlHyiSnsOjj0clk987
- 3Qr6rNS6IocYxvLNWEFabSL8+yhEzur5Id8FW8pJ+Pr92rWLlUi0iCtpV4rKxnXVad0YmfuwQHZ
- KigPv/Cp9nMwPSpZyHg3/8LblBqZZVMAeXFgFir0Bpp9VSTragpgw5FfudEx4pNZYiFwrD0U6ml
- YtvE7YnEaFTOTtzfCIhHBAu6V4LAYzYIyQrzA=
-X-Received: by 2002:a05:620a:31aa:b0:8cd:8e8c:208b with SMTP id
- af79cd13be357-8cdb5b05b6amr1799114385a.38.1773690893997; 
- Mon, 16 Mar 2026 12:54:53 -0700 (PDT)
-X-Received: by 2002:a05:620a:31aa:b0:8cd:8e8c:208b with SMTP id
- af79cd13be357-8cdb5b05b6amr1799109585a.38.1773690893417; 
- Mon, 16 Mar 2026 12:54:53 -0700 (PDT)
-Received: from umbar.lan
- (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5a156358066sm3681927e87.63.2026.03.16.12.54.51
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 16 Mar 2026 12:54:52 -0700 (PDT)
-Date: Mon, 16 Mar 2026 21:54:50 +0200
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Luca Weiss <luca.weiss@fairphone.com>
-Cc: Mahadevan P <mahadevan.p@oss.qualcomm.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Krishna Manikandan <quic_mkrishn@quicinc.com>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- regressions@lists.linux.dev
-Subject: Re: [PATCH v2] drm/msm/disp/dpu: add merge3d support for sc7280
-Message-ID: <twm2kcouzbwew4md27f3o36q5odpctlfugmkakxom7b2ittftg@qb7golmack6c>
-References: <20260101-4k-v2-1-712ae3c1f816@oss.qualcomm.com>
- <DH1IKLU0YZYU.2SW4WYO7H3H4R@fairphone.com>
- <tbi5mwg4jt5scvr76lpzpvi5zj3kn3entoorsd4dior4g23czd@xtobadslhfrz>
- <DH437ESQRIAF.2336WF7XZBTI@fairphone.com>
+Received: from DM1PR04CU001.outbound.protection.outlook.com
+ (mail-centralusazon11010027.outbound.protection.outlook.com [52.101.61.27])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BBD6210E3E2
+ for <dri-devel@lists.freedesktop.org>; Mon, 16 Mar 2026 19:57:20 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Ch1dR/VEEoFCdxrkMPbPV5Bb0xO2qvVHBuSFtN3QFBXldiebR7w0r6kLos/dJFYr4yebnwkpyLNhmQLsuOAKKShGJWgm+eGrLmTu2UBJEZt0Wy0pM6cyAM+QI++ucx71szczPIJZfUUR8xINfRrnQ0fSl2VKMDqnRkB/+i4IL2279umeEpCAIyEitU7T5yo4TYu98a9W2H8qZt7OJxutAdmbnGm5yKUY3j03+0XtpxDEkCTk6MnN1KIKRnBMGVmnAvcoi3VN1FiqnY3t31MQgwKXUtwLGAvI2MqUkD/2FHeZaXWPBao8cFIeiynik9+iewhjhTvCgcxF3liqeFBD0g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=6ej6z2yUNGtWCSHTzFcGRyc796sPwfsJeY67tndG6Uc=;
+ b=GmfjxnvQe5ebIMVj3wBdSB/wuIFRkrX8U1i3BNlzKehRRhjeC4FyzJaBS/Yz20LUo9qcLhTLvuvyAetsjvIpHIJp/fbSg1NWpP5NXJ5lZsV+gH/4j/DTOJJ2Tpqm3wXBm/DOJzQbvJd2Tan8yRLoN8l4KahGGmXvuaa0aMAn9Wz/G/yknmY16aLFbDiUyzQFDh0+8zA7FN/1fGYZH4XQsK80RmEWvX2f+0oRpDXtxOocCzl4v3pkQ6MWMb+BTW7hCgRsT323CAK6QLmnWqSNMu9ohL+bqJvIqcfRHWGZkGf/BYBHa+HuWP2qXZFcWDScCcDlVBLtzjKwnySRonjmGg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=6ej6z2yUNGtWCSHTzFcGRyc796sPwfsJeY67tndG6Uc=;
+ b=1Pjy+ZB3cUb2d65ZBBDD3kq5N6AcuKNx0dag0KqUr4xOSv/9NWvNmVeXdgP7bG/3CucA0+UjmeKmo8U6YrLhMXhVQOgS+Qvb7IwlrVkKeNglQVIEme8pVpFK/jxNIFllWrA/34vPHbZSrdHRuG05qS6slc6+o8ChjeZO8aqnnNY=
+Received: from SJ0PR13CA0126.namprd13.prod.outlook.com (2603:10b6:a03:2c6::11)
+ by IA1PR12MB6603.namprd12.prod.outlook.com (2603:10b6:208:3a1::17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.17; Mon, 16 Mar
+ 2026 19:57:14 +0000
+Received: from CO1PEPF00012E83.namprd03.prod.outlook.com
+ (2603:10b6:a03:2c6:cafe::e) by SJ0PR13CA0126.outlook.office365.com
+ (2603:10b6:a03:2c6::11) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9700.24 via Frontend Transport; Mon,
+ 16 Mar 2026 19:57:10 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ CO1PEPF00012E83.mail.protection.outlook.com (10.167.249.58) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9700.17 via Frontend Transport; Mon, 16 Mar 2026 19:57:14 +0000
+Received: from SATLEXMB04.amd.com (10.181.40.145) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.17; Mon, 16 Mar
+ 2026 14:57:11 -0500
+Received: from satlexmb07.amd.com (10.181.42.216) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 16 Mar
+ 2026 14:57:11 -0500
+Received: from [172.19.71.207] (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
+ Transport; Mon, 16 Mar 2026 14:57:10 -0500
+Message-ID: <48c3dc71-8162-1045-989f-5d5c6dea5cd1@amd.com>
+Date: Mon, 16 Mar 2026 12:57:05 -0700
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <DH437ESQRIAF.2336WF7XZBTI@fairphone.com>
-X-Proofpoint-ORIG-GUID: oxfHGT3KWTVxBT5JnuDhn0DTlfH4lNrw
-X-Authority-Analysis: v=2.4 cv=aue/yCZV c=1 sm=1 tr=0 ts=69b8600f cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=xNf9USuDAAAA:8
- a=EUspDBNiAAAA:8 a=PZxLfFMIzHLfKC7kn-cA:9 a=CjuIK1q_8ugA:10
- a=NFOGd7dJGGMPyQGDc5-O:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzE2MDE1OSBTYWx0ZWRfX0m8PPRwn5ysi
- npRXSy7sKRjOU0LK7qyt0jGqre+Ar1GJAJ0tMBhbMYLzxFA2nh0LgvHvUSPeHYqKJ9guYAF5x2j
- ZUur1zk1OBqSiigoIjqXcdb05KSKdT9X+lYSsEJA0OpDJrsD53TSjAepUgkQnXAdux6slHyMSsG
- 2NMhndPRRnmRfCRrfVUxzSTpbdo0oZuNL/j3o0pDbbj3U/+R3Wxdwht2fyo75nn2Y9rgc/GDxmW
- yl8Vxjz18O9lZGUmobfN3Sb0ucdqZiStyXz9ORXQ2yRLMxCZ7i0ZjVDPFxeAnkTSTGHjVVzkFE9
- bzm7zqZCq12/ItmD+wIB+QBrbLL0kDn+rZ8rgLXJFhfCA3VW+2Wq353FlFzK+YWTnun5wNG8Hr8
- ub+VkbizDWrpieZa36XGAlG2m8wc3J1XcmLj7VElfYhYAD5HG/236jbrIwXofqJGd4pwEcUgOc8
- cd60OsbK+0Vo88Gn6ag==
-X-Proofpoint-GUID: oxfHGT3KWTVxBT5JnuDhn0DTlfH4lNrw
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-03-16_05,2026-03-16_06,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=0 clxscore=1015 phishscore=0 lowpriorityscore=0
- malwarescore=0 bulkscore=0 priorityscore=1501 adultscore=0 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603160159
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [PATCH V2] accel/amdxdna: Add debug prints for command submission
+Content-Language: en-US
+To: Mario Limonciello <mario.limonciello@amd.com>, <ogabbay@kernel.org>,
+ <quic_jhugo@quicinc.com>, <dri-devel@lists.freedesktop.org>,
+ <maciej.falkowski@linux.intel.com>
+CC: <linux-kernel@vger.kernel.org>, <max.zhen@amd.com>, <sonal.santan@amd.com>
+References: <20260316175642.1451749-1-lizhi.hou@amd.com>
+ <1d2c1de6-3c2a-4c7e-b7a4-e3fbd5b8fdcb@amd.com>
+From: Lizhi Hou <lizhi.hou@amd.com>
+In-Reply-To: <1d2c1de6-3c2a-4c7e-b7a4-e3fbd5b8fdcb@amd.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+Received-SPF: None (SATLEXMB04.amd.com: lizhi.hou@amd.com does not designate
+ permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1PEPF00012E83:EE_|IA1PR12MB6603:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7aaaf5c5-3ebc-46b5-fdd7-08de83963814
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|82310400026|36860700016|376014|1800799024|22082099003|56012099003|18002099003;
+X-Microsoft-Antispam-Message-Info: 9JCxUxDYEXAwKZFQp1vOLudEnfQFIuUo2iD+EaUnKc3hu2/pFSXKYfcyhUridJX0swxa7MnqdCaOIC0j8pvF/1yLyawc6OM6v0CuWddhOIekF17K5nB3VFqsCI6CWuC1CdngwTB0XMm2SvigCC5tfte7ae7NcOOHjNiuJ8LYoaD4fWSdIN1W6suyPNBB1E/GK/1phSOoZ1JEvm7fZ/50ShHJYCipieyYmqH8mkBBBiA4MUoYJF8x9Ghx+2AOFHCNavUOAf4fBekTj1Np68oDUL8m62xa7GyAxtJVv1WtUBbZeYY0W8dE8tRWA99rmwB7Pdckrnm4WlcMfM/z7IH0ls4uV0gtsCvqIM7g2L6tku5k6tVsfNFCoJftUJ6+SbjrexqVCx0IZJgcmRsjOXSzCYXTc/f3+oY/o5E/H4pkbciOWF+CFdcmmUcr2TwTkc4woKC2szKnenTLr372M/QO2GJPMAj8DH/7Uf3SuTZh4VJrMoIuGp8FeV3et7wO/VT0RvpVQ0ydVX2rEvtBQVy89bahPSiz/YMgEg2gzeGOfk30IZe2SaykbTrZNKuJ16EPTdp5r6DRALNQ6kZWQoMBFbSMlMoyUdoPSOK6Epa1lUbebtHqao2a9bSCn9ZfTFJfU2DbKtKQBFfc45wyODrHX0Nwu+Q5u5lGSQqtZcZ+I97PXqjW0L7wPVjE4KCwMZgQso6GZ9abu9jnCmvD0oK3RcwYWWWQbVtg/WnXfE3IBmK+YkV5m71I+v7GtePPs5UjuAffb8oG8IwOWHU2f5CdQw==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(36860700016)(376014)(1800799024)(22082099003)(56012099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: xosraP8FubfqeUN5JVtC0Mx2UkYiJvFRYNtwsJiaGfnBdlrtBK7wSSvLV0tAOTZOCpiyU5eiYRBS7D03d+d/5Egy3Sxb80aJRXmmKhOwi9zrIMSRFvZbjjFXFfN2QpLdp2iQwh8AtL00KS7OIw0LZL0nN0HPCOwSaDO60TXXulOlE35ZA6LItjQfHvlmqtCXYqvVI6p37lQmVfKb3E5uk9HrW+9iYy+ukBmU7q8oHjAfMVBW5e+pCvoAc9dwnnNSSSEiyXnpQvpgzmWVV85UmR8NpivacjqCexXoUVPaFM8hU2SAm1r9j17ATxVh47zEqbZx5d+nFTLpCsUVha+mIGw4aSQC9yxWFcunqjz3gDRPsUXYJm0GB+sXFfZ+udAdbkrmGNH6U5Hc78IvpDRxA16OyxzlO9+ODFaSbzzQA1QvhGvIWimH3FFi43ZmyxxN
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Mar 2026 19:57:14.1092 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7aaaf5c5-3ebc-46b5-fdd7-08de83963814
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF00012E83.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6603
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -150,73 +121,109 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Mar 16, 2026 at 10:08:47AM +0100, Luca Weiss wrote:
-> Hi Dmitry,
-> 
-> On Fri Mar 13, 2026 at 6:14 PM CET, Dmitry Baryshkov wrote:
-> > On Fri, Mar 13, 2026 at 09:33:18AM +0100, Luca Weiss wrote:
-> >> Hi Mahadevan,
-> >> 
-> >> On Thu Jan 1, 2026 at 6:04 AM CET, Mahadevan P wrote:
-> >> > On SC7280 targets, display modes with a width greater than the
-> >> > max_mixer_width (2400) are rejected during mode validation when
-> >> > merge3d is disabled. This limitation exists because, without a
-> >> > 3D merge block, two layer mixers cannot be combined(non-DSC interface),
-> >> > preventing large layers from being split across mixers. As a result,
-> >> > higher resolution modes cannot be supported.
-> >> >
-> >> > Enable merge3d support on SC7280 to allow combining streams from
-> >> > two layer mixers into a single non-DSC interface. This capability
-> >> > removes the width restriction and enables buffer sizes beyond the
-> >> > 2400-pixel limit.
-> >> >
-> >> > Fixes: 591e34a091d1 ("drm/msm/disp/dpu1: add support for display for SC7280 target")
-> >> > Signed-off-by: Mahadevan P <mahadevan.p@oss.qualcomm.com>
-> >> 
-> >> This patch is causing display regression on QCM6490 fairphone-fp5.
-> >> 
-> >> With this patch in 7.0-rc3 (or 6.18.16) there's just pink noise on the
-> >> screen. When reverting this patch everything becomes working again.
-> >> 
-> >> See also https://salsa.debian.org/Mobian-team/devices/kernels/qcom-linux/-/issues/41
-> >> 
-> >> @Dmitry: Can we revert this for later 7.0-rc, in case it's not fixed
-> >> quickly?
-> >
-> > Could you please provide the resource allocation parts of
-> > debugfs/dri/0/state for both working and non-working cases?
-> 
-> Broken (with the patch)
+Applied to drm-misc-next
 
-> resource mapping:
->         pingpong=# # 68 68 - - - - - - - - - 
->         mixer=# - 68 68 - - - - 
->         ctl=68 # # # - - - - 
->         dspp=# - - - - - - - 
->         dsc=68 - - - - - - - 
->         cdm=# 
->         sspp=# - - - - - - - # # # - - - - - 
->         cwb=- - - - 
-
-I see. It tries to use two mixers with a single DSC. What about someting
-as simple as:
-
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-index 0f4921b1a892..cbb7caa194c1 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-@@ -1410,7 +1410,8 @@ static struct msm_display_topology dpu_crtc_get_topology(
- 		topology.num_lm = 2;
- 	else if (topology.num_dsc == 2)
- 		topology.num_lm = 2;
--	else if (dpu_kms->catalog->caps->has_3d_merge)
-+	else if (dpu_kms->catalog->caps->has_3d_merge &&
-+		 topology.num_dsc == 0)
- 		topology.num_lm = (mode->hdisplay > MAX_HDISPLAY_SPLIT) ? 2 : 1;
- 	else
- 		topology.num_lm = 1;
-
-
--- 
-With best wishes
-Dmitry
+On 3/16/26 11:02, Mario Limonciello wrote:
+>
+>
+> On 3/16/26 12:56, Lizhi Hou wrote:
+>> Add debug prints to help diagnose issues with incoming command 
+>> submissions.
+>>
+>> Signed-off-by: Lizhi Hou <lizhi.hou@amd.com>
+>
+> Reviewed-by: Mario Limonciello <mario.limonciello@amd.com>
+>
+>> ---
+>>   drivers/accel/amdxdna/aie2_message.c | 34 ++++++++++++++++++++++++----
+>>   1 file changed, 29 insertions(+), 5 deletions(-)
+>>
+>> diff --git a/drivers/accel/amdxdna/aie2_message.c 
+>> b/drivers/accel/amdxdna/aie2_message.c
+>> index b764c7e8816a..4ec591306854 100644
+>> --- a/drivers/accel/amdxdna/aie2_message.c
+>> +++ b/drivers/accel/amdxdna/aie2_message.c
+>> @@ -1002,7 +1002,7 @@ int aie2_cmdlist_multi_execbuf(struct 
+>> amdxdna_hwctx *hwctx,
+>>       struct amdxdna_cmd_chain *payload;
+>>       struct xdna_mailbox_msg msg;
+>>       union exec_chain_req req;
+>> -    u32 payload_len;
+>> +    u32 payload_len, ccnt;
+>>       u32 offset = 0;
+>>       size_t size;
+>>       int ret;
+>> @@ -1011,12 +1011,24 @@ int aie2_cmdlist_multi_execbuf(struct 
+>> amdxdna_hwctx *hwctx,
+>>         op = amdxdna_cmd_get_op(cmd_abo);
+>>       payload = amdxdna_cmd_get_payload(cmd_abo, &payload_len);
+>> -    if (op != ERT_CMD_CHAIN || !payload ||
+>> -        payload_len < struct_size(payload, data, 
+>> payload->command_count))
+>> +    if (op != ERT_CMD_CHAIN) {
+>> +        XDNA_DBG(xdna, "Invalid op code %d", op);
+>>           return -EINVAL;
+>> +    }
+>> +
+>> +    if (!payload) {
+>> +        XDNA_DBG(xdna, "Failed to get command payload");
+>> +        return -EINVAL;
+>> +    }
+>> +
+>> +    ccnt = payload->command_count;
+>> +    if (payload_len < struct_size(payload, data, ccnt)) {
+>> +        XDNA_DBG(xdna, "Invalid command count %d", ccnt);
+>> +        return -EINVAL;
+>> +    }
+>>         op = ERT_INVALID_CMD;
+>> -    for (i = 0; i < payload->command_count; i++) {
+>> +    for (i = 0; i < ccnt; i++) {
+>>           u32 boh = (u32)(payload->data[i]);
+>>           struct amdxdna_gem_obj *abo;
+>>   @@ -1035,19 +1047,26 @@ int aie2_cmdlist_multi_execbuf(struct 
+>> amdxdna_hwctx *hwctx,
+>>             offset += size;
+>>       }
+>> +
+>> +    XDNA_DBG(xdna, "Total %d commands:", ccnt);
+>> +    print_hex_dump_debug("cmdbufs: ", DUMP_PREFIX_OFFSET, 16, 4,
+>> +                 cmdbuf_abo->mem.kva, offset, false);
+>> +
+>>       msg.opcode = EXEC_MSG_OPS(xdna)->get_chain_msg_op(op);
+>>       if (msg.opcode == MSG_OP_MAX_OPCODE)
+>>           return -EOPNOTSUPP;
+>>         /* The offset is the accumulated total size of the cmd buffer */
+>>       EXEC_MSG_OPS(xdna)->init_chain_req(&req, cmdbuf_abo->mem.dev_addr,
+>> -                       offset, payload->command_count);
+>> +                       offset, ccnt);
+>>       drm_clflush_virt_range(cmdbuf_abo->mem.kva, offset);
+>>         msg.handle = job;
+>>       msg.notify_cb = notify_cb;
+>>       msg.send_data = (u8 *)&req;
+>>       msg.send_size = sizeof(req);
+>> +    print_hex_dump_debug("cmdlist msg: ", DUMP_PREFIX_OFFSET, 16, 4,
+>> +                 &req, msg.send_size, false);
+>>       ret = xdna_mailbox_send_msg(chann, &msg, TX_TIMEOUT);
+>>       if (ret) {
+>>           XDNA_ERR(xdna, "Send message failed");
+>> @@ -1076,6 +1095,9 @@ int aie2_cmdlist_single_execbuf(struct 
+>> amdxdna_hwctx *hwctx,
+>>       if (ret)
+>>           return ret;
+>>   +    print_hex_dump_debug("cmdbuf: ", DUMP_PREFIX_OFFSET, 16, 4,
+>> +                 cmdbuf_abo->mem.kva, size, false);
+>> +
+>>       msg.opcode = EXEC_MSG_OPS(xdna)->get_chain_msg_op(op);
+>>       if (msg.opcode == MSG_OP_MAX_OPCODE)
+>>           return -EOPNOTSUPP;
+>> @@ -1088,6 +1110,8 @@ int aie2_cmdlist_single_execbuf(struct 
+>> amdxdna_hwctx *hwctx,
+>>       msg.notify_cb = notify_cb;
+>>       msg.send_data = (u8 *)&req;
+>>       msg.send_size = sizeof(req);
+>> +    print_hex_dump_debug("cmdlist msg: ", DUMP_PREFIX_OFFSET, 16, 4,
+>> +                 &req, msg.send_size, false);
+>>       ret = xdna_mailbox_send_msg(chann, &msg, TX_TIMEOUT);
+>>       if (ret) {
+>>           XDNA_ERR(hwctx->client->xdna, "Send message failed");
+>
