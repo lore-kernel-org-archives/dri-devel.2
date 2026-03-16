@@ -4,154 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 36498D58B09
-	for <dri-devel@archiver.kernel.org>; Mon, 16 Mar 2026 04:34:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 663EFEFCBB3
+	for <dri-devel@archiver.kernel.org>; Mon, 16 Mar 2026 06:41:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 89BAC10E2BF;
-	Mon, 16 Mar 2026 04:34:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9871510E144;
+	Mon, 16 Mar 2026 06:41:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="Ayhk0WBc";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="byODa34U";
 	dkim-atps=neutral
-Received: from PH0PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11011014.outbound.protection.outlook.com [40.107.208.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9FE0810E2BF;
- Mon, 16 Mar 2026 04:34:28 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ptPA7+ATxVJtTNc0jw1h8Ptyx1mUPKqpaTyQ7XFsKl8/XwHmVh/drOf889Ibpta/8SUgGto05o8pXsH2DOHSP85PCILbQPNiNbo+EhCMo9TxyfVYsH5ohNjSmuj+QzU1E5Ur6ykF94l4DBn7qCqR7qCO6SSqjcWJOxdlyIPxGfdnH4YYbNZnpc845uJBb13M6g3tEcteD0wX4ipAw4cKAAMCErDqfVdbEpCUaxa9Hcg1V0Ml7ugYzJ+99Ol8BhuzPthw0rwadcwzgjv0dAcWpEFr2/I7cbLcyRQufTam4f1PoZF3o1Vxb997W6MULctGnZfHhPi+Y6ATMA6HsOCJ/A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=vLAOWr6EV8ec+ztoApO3bq8IdwHVFiqzPOCDjQVoHxw=;
- b=otO4r0kNuFfGqUN3SG8EXfHvcz0O+fflwCY6vePBhrZ+7uSpDBPp0YI1xOUIP6Cgsso1v+UYIwYaT2avvslxgu0Gh41hqEFtSbVnO/oRNJqPzm3OI9Q96lU6D/Wvrc4tUcMpns5ARQq+Kd7+8GOU+zNK5QkH9iU81VcF65DE1tCrxAFnCd2r8sqzcxiLzv1sOmFIuDM2vbiYYHbjkNkRvLRP8WxuLyrtKMRVaXaqSd70xLsOkZXIKWjmd/POstyyGG0suoV2mT4qazYv+GSig4gVM78FemnPI38nLM1VU2rNc6/781VXFdYkfkAd0H+4/fsCfUaQFIVNgImqXXm8sw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vLAOWr6EV8ec+ztoApO3bq8IdwHVFiqzPOCDjQVoHxw=;
- b=Ayhk0WBcMpJvjY8+bJ4lmpulBKcbuKZdvr+LTz7aOU4niJI6NGgkxYNy6YTQW8djbtZf12PRIyjfMv7eHJuNKfyRVmZnxgWbw7EZF4VQ2FE5yHvj2q1e5gSkvtEHMG2TiEKxRhCmAEMSECFD7LlkMqCxlgCRmV5NK32B6/QbsLIBLuZcfM0zx3cp0UXwTJfq+5L0pW+Q6y5vHm7jDZv1gNFYuPi7m03zjR/2qhmAt9VwH7PA93ak7aEVKnkHB0ATDVK8iR4ANarU1OdrmlKW7Sb/sBuXGWPOaLyYfk7oZaFIYRMHiLJhzl+id38LYpkKcRIcd02XUnB5tf4htDLyhw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from CH2PR12MB3990.namprd12.prod.outlook.com (2603:10b6:610:28::18)
- by DM6PR12MB4122.namprd12.prod.outlook.com (2603:10b6:5:214::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9700.11; Mon, 16 Mar
- 2026 04:34:21 +0000
-Received: from CH2PR12MB3990.namprd12.prod.outlook.com
- ([fe80::7de1:4fe5:8ead:5989]) by CH2PR12MB3990.namprd12.prod.outlook.com
- ([fe80::7de1:4fe5:8ead:5989%6]) with mapi id 15.20.9723.014; Mon, 16 Mar 2026
- 04:34:21 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 16 Mar 2026 13:34:17 +0900
-Message-Id: <DH3XD8NUDJNG.2IMPYC40D8DXI@nvidia.com>
-Subject: Re: [PATCH v12 1/1] rust: interop: Add list module for C linked
- list interface
-From: "Alexandre Courbot" <acourbot@nvidia.com>
-To: "Joel Fernandes" <joelagnelf@nvidia.com>
-Cc: <linux-kernel@vger.kernel.org>, "Miguel Ojeda" <ojeda@kernel.org>,
- "Boqun Feng" <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>,
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
- <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Alice
- Ryhl" <aliceryhl@google.com>, "Trevor Gross" <tmgross@umich.edu>, "Alex
- Gaynor" <alex.gaynor@gmail.com>, "Danilo Krummrich" <dakr@kernel.org>,
- "Dave Airlie" <airlied@redhat.com>, "David Airlie" <airlied@gmail.com>,
- "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>, "Maxime Ripard"
- <mripard@kernel.org>, "Thomas Zimmermann" <tzimmermann@suse.de>, "Simona
- Vetter" <simona@ffwll.ch>, "Daniel Almeida" <daniel.almeida@collabora.com>,
- "Koen Koning" <koen.koning@linux.intel.com>, "Nikola Djukic"
- <ndjukic@nvidia.com>, "Philipp Stanner" <phasta@kernel.org>, "Elle Rhumsaa"
- <elle@weathered-steel.dev>, "Jonathan Corbet" <corbet@lwn.net>, "Alex
- Deucher" <alexander.deucher@amd.com>, =?utf-8?q?Christian_K=C3=B6nig?=
- <christian.koenig@amd.com>, "Jani Nikula" <jani.nikula@linux.intel.com>,
- "Joonas Lahtinen" <joonas.lahtinen@linux.intel.com>, "Rodrigo Vivi"
- <rodrigo.vivi@intel.com>, "Tvrtko Ursulin" <tursulin@ursulin.net>, "Huang
- Rui" <ray.huang@amd.com>, "Matthew Auld" <matthew.auld@intel.com>, "Matthew
- Brost" <matthew.brost@intel.com>, "Lucas De Marchi"
- <lucas.demarchi@intel.com>, =?utf-8?q?Thomas_Hellstr=C3=B6m?=
- <thomas.hellstrom@linux.intel.com>, "Helge Deller" <deller@gmx.de>, "John
- Hubbard" <jhubbard@nvidia.com>, "Alistair Popple" <apopple@nvidia.com>,
- "Timur Tabi" <ttabi@nvidia.com>, "Edwin Peer" <epeer@nvidia.com>, "Andrea
- Righi" <arighi@nvidia.com>, "Andy Ritger" <aritger@nvidia.com>, "Zhi Wang"
- <zhiw@nvidia.com>, "Balbir Singh" <balbirs@nvidia.com>,
- <alexeyi@nvidia.com>, "Eliot Courtney" <ecourtney@nvidia.com>,
- <dri-devel@lists.freedesktop.org>, <nouveau@lists.freedesktop.org>,
- <rust-for-linux@vger.kernel.org>, <linux-doc@vger.kernel.org>,
- <amd-gfx@lists.freedesktop.org>, <intel-gfx@lists.freedesktop.org>,
- <intel-xe@lists.freedesktop.org>, <linux-fbdev@vger.kernel.org>, "Miguel
- Ojeda" <miguel.ojeda.sandonis@gmail.com>
-References: <20260306203648.1136554-1-joelagnelf@nvidia.com>
- <20260306203648.1136554-2-joelagnelf@nvidia.com>
-In-Reply-To: <20260306203648.1136554-2-joelagnelf@nvidia.com>
-X-ClientProxiedBy: TY4P301CA0090.JPNP301.PROD.OUTLOOK.COM
- (2603:1096:405:37a::12) To CH2PR12MB3990.namprd12.prod.outlook.com
- (2603:10b6:610:28::18)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8F16210E144;
+ Mon, 16 Mar 2026 06:41:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1773643272; x=1805179272;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=c/A6EKunFC0d09PYr6XJzpiil3BToYnDWAY2OTqlT/o=;
+ b=byODa34UDKlHfvDi6W6u7EkCz7nd2T+MEDG4OLEznaHz4fUdMDgijRAX
+ inS9rc86x3nfo5oVKYVAr34q7YE+YOtoZz9DAFTFPwv2IUJgt5M0PLzJO
+ ps5sSVmYBKgMS1o+HM5cJzPA5WWypBYUlI2wurXyB1eDzdH3K4Hq5gQUb
+ pWkbn0JfCEjqUHiSLzFKTgJKiYAH6LFjUuHe1Ij3X7P7XDE1N0PjMQy48
+ otXpS9thaRNwzWXsopBE5vHh41LKCC5BlM7irnKB8VDiP5mSZLPAxMSJ6
+ xFC+PWVHSZW6CAu6q1GFCtjI44CUcfAztICmmSXWxrEij+DWguRPcxJVK A==;
+X-CSE-ConnectionGUID: 1nj1tTQMS+qQPgBGM833Nw==
+X-CSE-MsgGUID: DlVJu6o2R0mACWIH+kNXtg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11730"; a="100111376"
+X-IronPort-AV: E=Sophos;i="6.23,123,1770624000"; d="scan'208";a="100111376"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+ by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Mar 2026 23:41:12 -0700
+X-CSE-ConnectionGUID: NGCCTMJ9T8S7+LiB5ulIuQ==
+X-CSE-MsgGUID: urzCcaEwQuOD++nQghIuAw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,123,1770624000"; d="scan'208";a="225929024"
+Received: from gsd-build.iind.intel.com ([10.190.229.167])
+ by orviesa003.jf.intel.com with ESMTP; 15 Mar 2026 23:41:09 -0700
+From: Satyanarayana K V P <satyanarayana.k.v.p@intel.com>
+To: intel-xe@lists.freedesktop.org
+Cc: Satyanarayana K V P <satyanarayana.k.v.p@intel.com>,
+ Michal Wajdeczko <michal.wajdeczko@intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ =?UTF-8?q?Piotr=20Pi=C3=B3rkowski?= <piotr.piorkowski@intel.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ =?UTF-8?q?Micha=C5=82=20Winiarski?= <michal.winiarski@intel.com>,
+ Dunajski Bartosz <bartosz.dunajski@intel.com>,
+ dri-devel@lists.freedesktop.org
+Subject: [RFC v6 1/1] drm/xe/pf: Restrict device query responses in admin-only
+ PF mode
+Date: Mon, 16 Mar 2026 06:41:02 +0000
+Message-ID: <20260316064100.2542412-4-satyanarayana.k.v.p@intel.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260316064100.2542412-3-satyanarayana.k.v.p@intel.com>
+References: <20260316064100.2542412-3-satyanarayana.k.v.p@intel.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PR12MB3990:EE_|DM6PR12MB4122:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4533d80c-50a7-47d7-e14a-08de83154ab7
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|10070799003|1800799024|366016|376014|7416014|18002099003|22082099003|56012099003;
-X-Microsoft-Antispam-Message-Info: 76T5UEpTilXP3nXHqX0fqibe3qa6fUue8qhAlc0Utd23NnYSkHBB0ES4TNIOq1JUGlgW2oYCHSiPA51s/mflbF3qRVjsunXMU/9eM/LWqxbld5GVeVJmbybNbPmiLzw1ZoqQ4JzbrIpFql5Gp/jTiw+nPZ5kv6UWh006I7rbOr3NsCP/8ahFB5E+T/jeiXk/0Yj01OCSzV8pY84U6ZTQ2Ojz7K3fCO6Kdlh0mrQk9ppJVo28GmoWkcNNloL8DXaWD9RibP2gcLKu2g9wlLZsH3uRn/Kwaq4ekHKNhs3yqXEU+EwJK5s4yR01SJ93XttkYq7ZGepcZxjUDUS+ueGThWXWqw4b9A8AV0l1EubG/+dhOBgvgS4TxFlPmy6GuFO+UXdj2n0mzFSzsYIomg57slrR5m1N9TJjBRbzkCWkSblXMUgGeFrN7UoMLS0DBjYgIVScEawBKQRb/li61ebIt6Nk4kAdbhYuMxDFaJr3T80nK+aHMnj3lgsdGXK0qW3H2ZDfTv3KXemEHGaZ3WsHSNmoi1huEvcz5QtRvbgRdZMrGOJzQ47b1Q5lJbQv0VdtZx+nSeiZ8J5Y+uvT+qQuBKC3FVnV9EEkfycosBd4fpqgIXraQWXi+m4vwuD48h0OkQrOGFIuiy8cqZrxkkzak/e221LeoT+NKq5ZY9znk5506c05d6dXBj+SE+/09iP74W6cK+QQtOIwraSigkB44KVevkarJmPmHehh+ea8wks=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CH2PR12MB3990.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(10070799003)(1800799024)(366016)(376014)(7416014)(18002099003)(22082099003)(56012099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?KzFYeXZUb1hKY0h3cXc4bjdrbUsrNDl0NEgyOFd3WEN1YUVuU3IreTZVdlBP?=
- =?utf-8?B?UDZMdjRxWTgvUkRBVkpqUGljdDZqWnEyZFIxSTl0Q011V2o5NDVKc1RNbjNa?=
- =?utf-8?B?ZVdUTTNxQUdHcWNnRkkxWW5OL2RGRjVKRmdrSWM4aEdkUHQ0aHk5d3lvQTNz?=
- =?utf-8?B?ZkV3VWJYNEV0azBFU3dWWnFWVlJrN1hlOVFibUY0VUtxZlNxVWZaTGlGc1ZF?=
- =?utf-8?B?SWtjQjZhRkhlRUNFUFgzR2YwMjAxemxZZk9EQjFBWHN5K2FQb2F2aDJ5UG9u?=
- =?utf-8?B?N0x3bzBrVFE1Z1VRSVhab2grc3VqanM0RFZKZm91WHhPc1lqYXROSFRqRVlw?=
- =?utf-8?B?MkVNbzF1allZZzFoTk9VbGpVSm1VVWhubVY3djc3SlpGSlhzWXY4VVI4bWNt?=
- =?utf-8?B?L3ZhRjVTMG80d0djallwUXZUbUo3SmdLbkh3YXVIeG9yUXdsSithQld0TGN4?=
- =?utf-8?B?dnlOZm9RMlVsbTRGbWZRVnA0TmpLSnkyS3A3bjlvL0ZvNGpNdGkydHRkbU95?=
- =?utf-8?B?Vlk2dVJDc2dRTFF0dTRmUCtERjhCcC91NUJyaWxIZmF6TjBKTUl0RmduR0Jx?=
- =?utf-8?B?VkZ4K3d6WWhrQjJ0dlkvM2xzUDN0MmhZNmtQL2xRakVJTjNQaXdueEozcGVI?=
- =?utf-8?B?eG1aelloMDIyVWpNcHl1dlNDYU5Kamtid3ZOM2g2all0NnBJRlhTcUR2ODdY?=
- =?utf-8?B?aWtEMEdIYjBYOFBmelY2YkkvQTQxU241TGE2UloyZ0IxQWpCcFBXd2o3b2Vh?=
- =?utf-8?B?RTZTbzkxNE5YY3ZXbkFDVjFZQnZDU0NNa3gycm41eGE0cnR1bVVUWHZ2OXFG?=
- =?utf-8?B?eXE2OC9EeFU0cXB6N2VXendRb3ZJM2FqSWJmdW9pSEJ5UE1uSXJ5aWpmRCtq?=
- =?utf-8?B?T0dnNVRIcTE2TGlRcjJqVXJvUTdQVURrOUQ1YnU4YTN0L3U5SE00R3NTdDdT?=
- =?utf-8?B?Tm80aldQVjg2dExzajFua0xVVXBtMWtTZk1rSG5LM29XVHlzSEh1YThnWEN4?=
- =?utf-8?B?OFhqTFJGV2w5TXV4RER1MHNDOVhNbjBYcEJFTnB6VDRMOGw0TFVXak9ZSVVq?=
- =?utf-8?B?ZVVnbWZLOWlQVWh3dU9XSlFDbmVxeVdIY1lsU1hMaDA4azd6WVFpYmRQamtD?=
- =?utf-8?B?dWxQWHFFejdjb0kvLy9RWEc1L2NCUU9FeWhqWUZKaTNNUXU2Q2t2alF3bHdk?=
- =?utf-8?B?ajlVL3BJcVYzakI5N1l1cTFFQXRSbDRiMjZMdU5LNnprNFIzWm5GMUc1d0lH?=
- =?utf-8?B?TnZsTUt5dGttTWxnU0RlRmtocEpIdTFOdUJmamw1NWc2a1pNajBWT2lPOURD?=
- =?utf-8?B?RnJFL0Z6ZzBaQ0d2eUZ5QTc2TlREUkZOY1oySlFybCtJNnNBUWNUOUc0QXUy?=
- =?utf-8?B?MjV3cEVrdlJPV3orTzBZT0RreGRDckRwZVB1NzZhd3lpYW5tNjFlbEhzaUJy?=
- =?utf-8?B?cUlMbUJxRXhyUHBobUJDb3VXWG1rNzFKZXV4NTlkdkVta1BaZHMrZ3o2WU4z?=
- =?utf-8?B?L3dGdHZKTmpTbWtCZU1NVXNXZzJldTJEMDU5czQxRnV2NmJySU9DUDR5eTVT?=
- =?utf-8?B?NUFjS0pwZFRjMURuYUNQWDJwYm9nZ2NlR3IzK2xpR1c5c0k2T3FnMkFJRmpW?=
- =?utf-8?B?YUtVbHJyT2djWllGRVJ2ZzI3REN4R0FBZnNEdEtQN1dqYmdVREV5dnVudnMr?=
- =?utf-8?B?U2FJeGJGeEpSNExHaFNtdXVJZ09EaUlBeHpPa1RlMVNuVnlLRXBjMDRhUXc0?=
- =?utf-8?B?QlhCSm9kZm4wQWMyN1pBbThHSWNWWWFROG5EVFpOM1NOakJsOHB1eEU2K2lH?=
- =?utf-8?B?Q3pkbnVQM3FQY2lEZGZRaEpTRFAvMVRzRWpsTUdaaTBYaWh3VW5IN1pSdUlP?=
- =?utf-8?B?VGlGZVlKUzBLMDJwTzEyTU1JUjlRUGZFREFUdzlHUncrR3UwNG0wOVVXRnVD?=
- =?utf-8?B?K3B4dVdtVzFUbWRmTkZEQ1I5c0tuaDhpZTZHbDB0czZGd1lwdU1EdHFpUW1B?=
- =?utf-8?B?Q0dWZUJpZ0lseS81TUwwTlhNUnFWZ25zQzBsb01mUXJQRHBXM2VFbWtmbkFa?=
- =?utf-8?B?NlhySW96ZGVLTFhDaTZPOXI4YzNJOWJOUUlIaEo0REY3M0w1VDNpVGY2Smkz?=
- =?utf-8?B?YXFvYURMazlnbzZqTDE4QnhrRWNXeW1hOGJyVUZRcXczRnNoYmZiOGR2WXl3?=
- =?utf-8?B?Qk5UeTJyS21VazAwQ2o4QkJZblZsY1E1UUh0OFN6ZlkwbkNWNXAvbUQwVkNu?=
- =?utf-8?B?V3B6c3JOcHIzeGFuTU1kT1YxdWdjY0NSTWVJbmdpbjJjRjNrTllDc2dTN0py?=
- =?utf-8?B?SjZZYW42RnAvb3pTQkVnWjJuQTZDN0M1Nm15M3ZjVStmOEFGSDRSOEc3QW9m?=
- =?utf-8?Q?KVsUbxOgdRrwgZY6+5gbpUtUtT1jBnqZy/3JoP7cxkOwO?=
-X-MS-Exchange-AntiSpam-MessageData-1: 6J/6okws/1mo7A==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4533d80c-50a7-47d7-e14a-08de83154ab7
-X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB3990.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Mar 2026 04:34:20.7388 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: nmXihOcwuGppbO2DNVgXdfvvWhydbOtaJ64dbv75Fn1OAfT+uKuLjZU0fvjxHl9McWy3J/2gFB/eVD0bwEUaOQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4122
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -167,31 +76,210 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sat Mar 7, 2026 at 5:36 AM JST, Joel Fernandes wrote:
-> Add a new module `kernel::interop::list` for working with C's doubly
-> circular linked lists. Provide low-level iteration over list nodes.
->
-> Typed iteration over actual items is provided with a `clist_create`
-> macro to assist in creation of the `CList` type.
->
-> Cc: Nikola Djukic <ndjukic@nvidia.com>
-> Reviewed-by: Daniel Almeida <daniel.almeida@collabora.com>
-> Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
-> Acked-by: Alexandre Courbot <acourbot@nvidia.com>
-> Acked-by: Gary Guo <gary@garyguo.net>
-> Acked-by: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-> Signed-off-by: Joel Fernandes <joelagnelf@nvidia.com>
-> ---
->  MAINTAINERS                 |   8 +
->  rust/helpers/helpers.c      |   1 +
->  rust/helpers/list.c         |  17 ++
->  rust/kernel/interop/list.rs | 338 ++++++++++++++++++++++++++++++++++++
->  rust/kernel/interop/mod.rs  |   9 +
+When a PF is configured in admin-only mode, it is intended for management
+only and must not expose workload-facing capabilities to userspace.
 
-I think I have mentioned that in another context, but the standard seems
-to be to use `interop.rs` instead of `interop/mod.rs` (Miguel please
-correct me if I'm wrong).
+Limit the exposed ioctl set in admin-only PF mode to XE_DEVICE_QUERY, and
+suppress capability-bearing query payloads so that the userspace cannot
+discover execution-related device details in this mode.
 
-Also, and once again, please, please build with CLIPPY=3D1 before sending.
-The buddy series also has clippy warnings. Fixing them before I can
-review is tedious.
+Enable admin-only mode with:
+echo 0 | sudo tee /sys/bus/pci/drivers_autoprobe
+sudo modprobe xe
+sudo mkdir /sys/kernel/config/xe/<B:D:F>
+echo yes | sudo tee /sys/kernel/config/xe/<B:D:F>/sriov/admin_only_pf
+echo <B:D:F> | sudo tee /sys/bus/pci/drivers/xe/bind
+
+Signed-off-by: Satyanarayana K V P <satyanarayana.k.v.p@intel.com>
+Cc: Michal Wajdeczko <michal.wajdeczko@intel.com>
+Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
+Cc: Piotr Piórkowski <piotr.piorkowski@intel.com>
+Cc: Matthew Brost <matthew.brost@intel.com>
+Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+Cc: Michał Winiarski <michal.winiarski@intel.com>
+Cc: Dunajski Bartosz <bartosz.dunajski@intel.com>
+Cc: dri-devel@lists.freedesktop.org
+
+---
+V5 -> V6:
+- Updated commit message.
+- Return number of engines and memory regions as zero instead of returning
+query size as zero (Michal Wajdeczko).
+- Allow all other query IOCTLs excepts query_engines and query_mem_regions
+(Michal Wajdeczko).
+
+V4 -> V5:
+- Updated commit message (Matt B).
+- Introduced new driver_admin_only_pf structure (Michal Wajdeczko).
+- Updated all query configs (Michal Wajdeczko).
+- Renamed xe_device_is_admin_only() to xe_device_is_admin_only_pf()
+- Fixed other review comments (Michal Wajdeczko).
+
+V3 -> V4:
+- Suppressed device capabilities in admin-only PF mode. (Wajdeczko)
+
+V2 -> V3:
+- Introduced new helper function xe_debugfs_create_files() to create
+debugfs entries based on admin_only_pf mode or normal mode.
+
+V1 -> V2:
+- Rebased to latest drm-tip.
+- Update update_minor_dev() to debugfs_minor_dev().
+---
+ drivers/gpu/drm/xe/xe_device.c | 60 +++++++++++++++++++++++++++++++---
+ drivers/gpu/drm/xe/xe_device.h |  1 +
+ drivers/gpu/drm/xe/xe_query.c  |  6 ++++
+ 3 files changed, 63 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/gpu/drm/xe/xe_device.c b/drivers/gpu/drm/xe/xe_device.c
+index e77a3a3db73d..7decc6510681 100644
+--- a/drivers/gpu/drm/xe/xe_device.c
++++ b/drivers/gpu/drm/xe/xe_device.c
+@@ -25,6 +25,7 @@
+ #include "regs/xe_regs.h"
+ #include "xe_bo.h"
+ #include "xe_bo_evict.h"
++#include "xe_configfs.h"
+ #include "xe_debugfs.h"
+ #include "xe_defaults.h"
+ #include "xe_devcoredump.h"
+@@ -213,6 +214,10 @@ static const struct drm_ioctl_desc xe_ioctls[] = {
+ 			  DRM_RENDER_ALLOW),
+ };
+ 
++static const struct drm_ioctl_desc xe_ioctls_admin_only[] = {
++	DRM_IOCTL_DEF_DRV(XE_DEVICE_QUERY, xe_query_ioctl, DRM_RENDER_ALLOW),
++};
++
+ static long xe_drm_ioctl(struct file *file, unsigned int cmd, unsigned long arg)
+ {
+ 	struct drm_file *file_priv = file->private_data;
+@@ -387,7 +392,7 @@ bool xe_is_xe_file(const struct file *file)
+ 	return file->f_op == &xe_driver_fops;
+ }
+ 
+-static struct drm_driver driver = {
++static struct drm_driver regular_driver = {
+ 	/* Don't use MTRRs here; the Xserver or userspace app should
+ 	 * deal with them for Intel hardware.
+ 	 */
+@@ -415,6 +420,40 @@ static struct drm_driver driver = {
+ 	.patchlevel = DRIVER_PATCHLEVEL,
+ };
+ 
++static struct drm_driver admin_only_driver = {
++	.driver_features =
++	    DRIVER_GEM | DRIVER_RENDER | DRIVER_GEM_GPUVA,
++	.open = xe_file_open,
++	.postclose = xe_file_close,
++
++	.gem_prime_import = xe_gem_prime_import,
++
++	.dumb_create = xe_bo_dumb_create,
++	.dumb_map_offset = drm_gem_ttm_dumb_map_offset,
++#ifdef CONFIG_PROC_FS
++	.show_fdinfo = xe_drm_client_fdinfo,
++#endif
++	.ioctls = xe_ioctls_admin_only,
++	.num_ioctls = ARRAY_SIZE(xe_ioctls_admin_only),
++	.fops = &xe_driver_fops,
++	.name = DRIVER_NAME,
++	.desc = DRIVER_DESC,
++	.major = DRIVER_MAJOR,
++	.minor = DRIVER_MINOR,
++	.patchlevel = DRIVER_PATCHLEVEL,
++};
++
++/**
++ * xe_device_is_admin_only() - Check whether device is admin only or not.
++ * @xe: the &xe_device to check
++ *
++ * Return: true if the device is admin only, false otherwise.
++ */
++bool xe_device_is_admin_only(const struct xe_device *xe)
++{
++	return xe->drm.driver == &admin_only_driver;
++}
++
+ static void xe_device_destroy(struct drm_device *dev, void *dummy)
+ {
+ 	struct xe_device *xe = to_xe_device(dev);
+@@ -439,16 +478,24 @@ static void xe_device_destroy(struct drm_device *dev, void *dummy)
+ struct xe_device *xe_device_create(struct pci_dev *pdev,
+ 				   const struct pci_device_id *ent)
+ {
++	struct drm_driver *driver = &regular_driver;
+ 	struct xe_device *xe;
+ 	int err;
+ 
+-	xe_display_driver_set_hooks(&driver);
++	/*
++	 * Since XE device is not initialized yet, read from configfs
++	 * directly to decide whether we are in admin-only PF mode or not.
++	 */
++	if (xe_configfs_admin_only_pf(pdev))
++		driver = &admin_only_driver;
++
++	xe_display_driver_set_hooks(driver);
+ 
+-	err = aperture_remove_conflicting_pci_devices(pdev, driver.name);
++	err = aperture_remove_conflicting_pci_devices(pdev, driver->name);
+ 	if (err)
+ 		return ERR_PTR(err);
+ 
+-	xe = devm_drm_dev_alloc(&pdev->dev, &driver, struct xe_device, drm);
++	xe = devm_drm_dev_alloc(&pdev->dev, driver, struct xe_device, drm);
+ 	if (IS_ERR(xe))
+ 		return xe;
+ 
+@@ -708,6 +755,11 @@ int xe_device_probe_early(struct xe_device *xe)
+ 
+ 	xe_sriov_probe_early(xe);
+ 
++	if (xe_configfs_admin_only_pf(to_pci_dev(xe->drm.dev)) && !IS_SRIOV_PF(xe)) {
++		drm_err(&xe->drm, "Admin-only PF mode is enabled in non PF mode\n");
++		return -ENODEV;
++	}
++
+ 	if (IS_SRIOV_VF(xe))
+ 		vf_update_device_info(xe);
+ 
+diff --git a/drivers/gpu/drm/xe/xe_device.h b/drivers/gpu/drm/xe/xe_device.h
+index c4d267002661..4695761585e6 100644
+--- a/drivers/gpu/drm/xe/xe_device.h
++++ b/drivers/gpu/drm/xe/xe_device.h
+@@ -43,6 +43,7 @@ static inline struct xe_device *ttm_to_xe_device(struct ttm_device *ttm)
+ 	return container_of(ttm, struct xe_device, ttm);
+ }
+ 
++bool xe_device_is_admin_only(const struct xe_device *xe);
+ struct xe_device *xe_device_create(struct pci_dev *pdev,
+ 				   const struct pci_device_id *ent);
+ int xe_device_probe_early(struct xe_device *xe);
+diff --git a/drivers/gpu/drm/xe/xe_query.c b/drivers/gpu/drm/xe/xe_query.c
+index 4852fdcb4b95..a42b6606a55b 100644
+--- a/drivers/gpu/drm/xe/xe_query.c
++++ b/drivers/gpu/drm/xe/xe_query.c
+@@ -217,6 +217,9 @@ static int query_engines(struct xe_device *xe,
+ 
+ 	engines->num_engines = i;
+ 
++	if (xe_device_is_admin_only(xe))
++		memset(engines, 0, size);
++
+ 	if (copy_to_user(query_ptr, engines, size)) {
+ 		kfree(engines);
+ 		return -EFAULT;
+@@ -297,6 +300,9 @@ static int query_mem_regions(struct xe_device *xe,
+ 		}
+ 	}
+ 
++	if (xe_device_is_admin_only(xe))
++		memset(mem_regions, 0, size);
++
+ 	if (!copy_to_user(query_ptr, mem_regions, size))
+ 		ret = 0;
+ 	else
+-- 
+2.43.0
+
