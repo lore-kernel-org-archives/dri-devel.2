@@ -4,60 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4BE6EF53D6C
-	for <dri-devel@archiver.kernel.org>; Mon, 16 Mar 2026 21:54:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4ADC7F013FA
+	for <dri-devel@archiver.kernel.org>; Mon, 16 Mar 2026 21:59:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A5E5910E3A4;
-	Mon, 16 Mar 2026 21:54:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8EDBB10E195;
+	Mon, 16 Mar 2026 21:59:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="UG1rg/w6";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="FhWRu9qz";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B258710E242;
- Mon, 16 Mar 2026 21:54:29 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3104010E195
+ for <dri-devel@lists.freedesktop.org>; Mon, 16 Mar 2026 21:59:27 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 6370C40E87;
- Mon, 16 Mar 2026 21:54:29 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E334C19421;
- Mon, 16 Mar 2026 21:54:27 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 14DB441910;
+ Mon, 16 Mar 2026 21:59:27 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A186C19421;
+ Mon, 16 Mar 2026 21:59:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1773698069;
- bh=TMGfrOPqq1QMIR2jmkCprr2khCTXxYuklmyZc5fsbzY=;
- h=From:Date:Subject:To:Cc:From;
- b=UG1rg/w6PophvgY0jPl/iMm0p1n6G1t5lGM/FGnXbWhvNl3z82NdpIRzM/A/gLS3/
- kN+UjWYo/kl0bob/MIMsmMXm8wfx6mvLOf5CfBC6biNAPFA01Dmu2GAG0zcQxVjpwd
- to1dF2Q06P7s0LTzG86pcx0j0AuHWS2VNwLM4cRiTqSTIhgKnJ/UjgBxkVs1h1+4df
- n8uLFRhVp2lr04mo94A5UmEgoMX6L7umbgIixTiDIrcK1p3RBst7lrauvaYrBJ6xAL
- o6A+tngEi7dJgnRu5sa/kHdfP+aIzXRIdMlIbOCYY63WfrZZAIGJlBJ5x0nSMushFf
- X1hztCNQ9UoyQ==
-From: Nathan Chancellor <nathan@kernel.org>
-Date: Mon, 16 Mar 2026 14:54:22 -0700
-Subject: [PATCH] drm/xe: Fix format specifier for printing pointer differences
+ s=k20201202; t=1773698366;
+ bh=ZEi8YvdWHzQjH0SsQ2N40nefvfuZZe4kcpLiAZSqMyo=;
+ h=From:To:Cc:Subject:Date:From;
+ b=FhWRu9qzB2tH2AERKglm7h9vPaXpOtMXtQ0KSQrhGdW40UBcTgXEKjoeBKT8WhuV8
+ fmjA9+qQ952MTLStnq6pOO5vkRRR+KDfUiIhLNis8aSz84BpSis7/7GV4ln+HhFYuU
+ ryd3teJFq8Efz+JijTNmhZy67khoABN7ZEeNV9HVlYk2Fg/As3AVKrdREUCuvwBy7f
+ DoYbkGMRttO+0eTeytO+Mdc+m8crPpWCAl6shd1YPg7jkRTcgtA7QrfXW6ZQlcVKWK
+ drUj1OTiYoW9IQyVqNRw317ZiW6v4wy1NA29f7DtiNX4YzhbZwF0Rdu1a5mGghvErd
+ I60Uhg8fraU0g==
+From: Arnd Bergmann <arnd@kernel.org>
+To: Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Prahlad Valluru <vvalluru@qti.qualcomm.com>,
+ Vishnu Saini <vishnu.saini@oss.qualcomm.com>
+Cc: Arnd Bergmann <arnd@arndb.de>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [PATCH] drm/bridge: lt8713sx: avoid 64-bit division
+Date: Mon, 16 Mar 2026 22:56:32 +0100
+Message-Id: <20260316215920.1993390-1-arnd@kernel.org>
+X-Mailer: git-send-email 2.39.5
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260316-drm-xe-fix-32-bit-wformat-ptrdiff-v1-1-0108b10b2b6b@kernel.org>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXNywqDMBCF4VeRWXdAEyvSVyldxGRGp+CFSbyA+
- O5N2+UHh/+cEEmFIjyKE5Q2iTJPGdWtAD+4qSeUkA2mNE1pqwaDjngQshxoDXaScOdZR5dwSRq
- EGd2da27r1pK3kDuLUl7/Pp6vv+Pavcmnbxiu6wM+uI0YhQAAAA==
-X-Change-ID: 20260316-drm-xe-fix-32-bit-wformat-ptrdiff-a5f4f8483ec3
-To: Matthew Brost <matthew.brost@intel.com>, 
- =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Matt Roper <matthew.d.roper@intel.com>, 
- Dnyaneshwar Bhadane <dnyaneshwar.bhadane@intel.com>
-Cc: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- llvm@lists.linux.dev, patches@lists.linux.dev, 
- Nathan Chancellor <nathan@kernel.org>
-X-Mailer: b4 0.15-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6882; i=nathan@kernel.org;
- h=from:subject:message-id; bh=TMGfrOPqq1QMIR2jmkCprr2khCTXxYuklmyZc5fsbzY=;
- b=owGbwMvMwCUmm602sfCA1DTG02pJDJk7aoQTet+WS1Vufzil+PzhjwxSYounzhNdkP422aS19
- Mz7yJsTO0pZGMS4GGTFFFmqH6seNzScc5bxxqlJMHNYmUCGMHBxCsBEWBYxMmz07I3ZK3f38IsY
- MfMyrm+2ioyzJjluyJJ383AxCAtQ+svwP/9AWW0NW3vmuSeqk9JVy2//Ytv8UWiWcciMoPsHlhw
- r5QEA
-X-Developer-Key: i=nathan@kernel.org; a=openpgp;
- fpr=2437CB76E544CB6AB3D9DFD399739260CB6CB716
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,154 +65,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-GCC and clang warn (or error with CONFIG_WERROR=y / W=e) several times
-when targeting 32-bit platforms along the lines of
+From: Arnd Bergmann <arnd@arndb.de>
 
-  drivers/gpu/drm/xe/xe_lrc.c: In function 'dump_mi_command':
-  drivers/gpu/drm/xe/xe_lrc.c:1921:40: error: format '%lx' expects argument of type 'long unsigned int', but argument 3 has type 'int' [-Werror=format=]
-   1921 |                 drm_printf(p, "LRC[%#5lx]  =  [%#010x] MI_NOOP (%d dwords)\n",
-        |                                    ~~~~^
-        |                                        |
-        |                                        long unsigned int
-        |                                    %#5x
-   1922 |                            dw - num_noop - start, inst_header, num_noop);
-        |                            ~~~~~~~~~~~~~~~~~~~~~
-        |                                          |
-        |                                          int
+On 32-bit kernels, 64-bit integers cannot be passed to the division operator:
 
-  drivers/gpu/drm/xe/xe_lrc.c:1922:7: error: format specifies type 'unsigned long' but the argument has type '__ptrdiff_t' (aka 'int') [-Werror,-Wformat]
-   1921 |                 drm_printf(p, "LRC[%#5lx]  =  [%#010x] MI_NOOP (%d dwords)\n",
-        |                                    ~~~~~
-        |                                    %#5tx
-   1922 |                            dw - num_noop - start, inst_header, num_noop);
-        |                            ^~~~~~~~~~~~~~~~~~~~~
+ld.lld-22: error: undefined symbol: __aeabi_uldivmod
+>>> referenced by lontium-lt8713sx.c
+>>>               drivers/gpu/drm/bridge/lontium-lt8713sx.o:(lt8713sx_firmware_store) in archive vmlinux.a
 
-Use the '%tx' specifier for printing pointer differences, which clears
-up the warnings for 32-bit platforms while introducing no regressions
-for 64-bit platforms.
+Since this is a constant number used to divide a size_t, just change the type
+to that as well.
 
-Fixes: 65fcf19cb36b ("drm/xe: Include running dword offset in default_lrc dumps")
-Signed-off-by: Nathan Chancellor <nathan@kernel.org>
+Fixes: 4037c6adc1f9 ("drm/bridge: add support for lontium lt8713sx bridge driver")
+Signed-off-by: Arnd Bergmann <arnd@arndb.de>
 ---
- drivers/gpu/drm/xe/xe_lrc.c | 30 +++++++++++++++---------------
- 1 file changed, 15 insertions(+), 15 deletions(-)
+ drivers/gpu/drm/bridge/lontium-lt8713sx.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/xe/xe_lrc.c b/drivers/gpu/drm/xe/xe_lrc.c
-index 7fb59386d1c5..31d57d8ec051 100644
---- a/drivers/gpu/drm/xe/xe_lrc.c
-+++ b/drivers/gpu/drm/xe/xe_lrc.c
-@@ -1918,17 +1918,17 @@ static int dump_mi_command(struct drm_printer *p,
- 		while (num_noop < remaining_dw &&
- 		       (*(++dw) & REG_GENMASK(31, 23)) == MI_NOOP)
- 			num_noop++;
--		drm_printf(p, "LRC[%#5lx]  =  [%#010x] MI_NOOP (%d dwords)\n",
-+		drm_printf(p, "LRC[%#5tx]  =  [%#010x] MI_NOOP (%d dwords)\n",
- 			   dw - num_noop - start, inst_header, num_noop);
- 		return num_noop;
+diff --git a/drivers/gpu/drm/bridge/lontium-lt8713sx.c b/drivers/gpu/drm/bridge/lontium-lt8713sx.c
+index a8ae38c84719..18fac6a46db4 100644
+--- a/drivers/gpu/drm/bridge/lontium-lt8713sx.c
++++ b/drivers/gpu/drm/bridge/lontium-lt8713sx.c
+@@ -100,7 +100,7 @@ static void lt8713sx_i2c_disable(struct lt8713sx *lt8713sx)
+ static int lt8713sx_prepare_firmware_data(struct lt8713sx *lt8713sx)
+ {
+ 	int ret = 0;
+-	u64 sz_12k = 12 * SZ_1K;
++	size_t sz_12k = 12 * SZ_1K;
  
- 	case MI_TOPOLOGY_FILTER:
--		drm_printf(p, "LRC[%#5lx]  =  [%#010x] MI_TOPOLOGY_FILTER\n",
-+		drm_printf(p, "LRC[%#5tx]  =  [%#010x] MI_TOPOLOGY_FILTER\n",
- 			   dw - start, inst_header);
- 		return 1;
- 
- 	case MI_BATCH_BUFFER_END:
--		drm_printf(p, "LRC[%#5lx]  =  [%#010x] MI_BATCH_BUFFER_END\n",
-+		drm_printf(p, "LRC[%#5tx]  =  [%#010x] MI_BATCH_BUFFER_END\n",
- 			   dw - start, inst_header);
- 		/* Return 'remaining_dw' to consume the rest of the LRC */
- 		return remaining_dw;
-@@ -1943,35 +1943,35 @@ static int dump_mi_command(struct drm_printer *p,
- 
- 	switch (inst_header & MI_OPCODE) {
- 	case MI_LOAD_REGISTER_IMM:
--		drm_printf(p, "LRC[%#5lx]  =  [%#010x] MI_LOAD_REGISTER_IMM: %d regs\n",
-+		drm_printf(p, "LRC[%#5tx]  =  [%#010x] MI_LOAD_REGISTER_IMM: %d regs\n",
- 			   dw - start, inst_header, (numdw - 1) / 2);
- 		for (int i = 1; i < numdw; i += 2)
--			drm_printf(p, "LRC[%#5lx]  =  - %#6x = %#010x\n",
-+			drm_printf(p, "LRC[%#5tx]  =  - %#6x = %#010x\n",
- 				   &dw[i] - start, dw[i], dw[i + 1]);
- 		return numdw;
- 
- 	case MI_LOAD_REGISTER_MEM & MI_OPCODE:
--		drm_printf(p, "LRC[%#5lx]  =  [%#010x] MI_LOAD_REGISTER_MEM: %s%s\n",
-+		drm_printf(p, "LRC[%#5tx]  =  [%#010x] MI_LOAD_REGISTER_MEM: %s%s\n",
- 			   dw - start, inst_header,
- 			   dw[0] & MI_LRI_LRM_CS_MMIO ? "CS_MMIO " : "",
- 			   dw[0] & MI_LRM_USE_GGTT ? "USE_GGTT " : "");
- 		if (numdw == 4)
--			drm_printf(p, "LRC[%#5lx]  =  - %#6x = %#010llx\n",
-+			drm_printf(p, "LRC[%#5tx]  =  - %#6x = %#010llx\n",
- 				   dw - start,
- 				   dw[1], ((u64)(dw[3]) << 32 | (u64)(dw[2])));
- 		else
--			drm_printf(p, "LRC[%#5lx]  =  - %*ph (%s)\n",
-+			drm_printf(p, "LRC[%#5tx]  =  - %*ph (%s)\n",
- 				   dw - start, (int)sizeof(u32) * (numdw - 1),
- 				   dw + 1, numdw < 4 ? "truncated" : "malformed");
- 		return numdw;
- 
- 	case MI_FORCE_WAKEUP:
--		drm_printf(p, "LRC[%#5lx]  =  [%#010x] MI_FORCE_WAKEUP\n",
-+		drm_printf(p, "LRC[%#5tx]  =  [%#010x] MI_FORCE_WAKEUP\n",
- 			   dw - start, inst_header);
- 		return numdw;
- 
- 	default:
--		drm_printf(p, "LRC[%#5lx]  =  [%#010x] unknown MI opcode %#x, likely %d dwords\n",
-+		drm_printf(p, "LRC[%#5tx]  =  [%#010x] unknown MI opcode %#x, likely %d dwords\n",
- 			   dw - start, inst_header, opcode, numdw);
- 		return numdw;
- 	}
-@@ -1998,12 +1998,12 @@ static int dump_gfxpipe_command(struct drm_printer *p,
- 	switch (*dw & GFXPIPE_MATCH_MASK) {
- #define MATCH(cmd) \
- 	case cmd: \
--		drm_printf(p, "LRC[%#5lx]  =  [%#010x] " #cmd " (%d dwords)\n", \
-+		drm_printf(p, "LRC[%#5tx]  =  [%#010x] " #cmd " (%d dwords)\n", \
- 			   dw - start, *dw, numdw); \
- 		return numdw
- #define MATCH3D(cmd) \
- 	case CMD_##cmd: \
--		drm_printf(p, "LRC[%#5lx]  =  [%#010x] " #cmd " (%d dwords)\n", \
-+		drm_printf(p, "LRC[%#5tx]  =  [%#010x] " #cmd " (%d dwords)\n", \
- 			   dw - start, *dw, numdw); \
- 		return numdw
- 
-@@ -2136,7 +2136,7 @@ static int dump_gfxpipe_command(struct drm_printer *p,
- 	MATCH3D(3DSTATE_SLICE_TABLE_STATE_POINTER_2);
- 
- 	default:
--		drm_printf(p, "LRC[%#5lx]  =  [%#010x] unknown GFXPIPE command (pipeline=%#x, opcode=%#x, subopcode=%#x), likely %d dwords\n",
-+		drm_printf(p, "LRC[%#5tx]  =  [%#010x] unknown GFXPIPE command (pipeline=%#x, opcode=%#x, subopcode=%#x), likely %d dwords\n",
- 			   dw - start, *dw, pipeline, opcode, subopcode, numdw);
- 		return numdw;
- 	}
-@@ -2162,7 +2162,7 @@ static int dump_gfx_state_command(struct drm_printer *p,
- 	MATCH(STATE_WRITE_INLINE);
- 
- 	default:
--		drm_printf(p, "LRC[%#5lx]  =  [%#010x] unknown GFX_STATE command (opcode=%#x), likely %d dwords\n",
-+		drm_printf(p, "LRC[%#5tx]  =  [%#010x] unknown GFX_STATE command (opcode=%#x), likely %d dwords\n",
- 			   dw - start, *dw, opcode, numdw);
- 		return numdw;
- 	}
-@@ -2197,7 +2197,7 @@ void xe_lrc_dump_default(struct drm_printer *p,
- 			num_dw = dump_gfx_state_command(p, gt, start, dw, remaining_dw);
- 		} else {
- 			num_dw = min(instr_dw(*dw), remaining_dw);
--			drm_printf(p, "LRC[%#5lx]  =  [%#10x] Unknown instruction of type %#x, likely %d dwords\n",
-+			drm_printf(p, "LRC[%#5tx]  =  [%#10x] Unknown instruction of type %#x, likely %d dwords\n",
- 				   dw - start,
- 				   *dw, REG_FIELD_GET(XE_INSTR_CMD_TYPE, *dw),
- 				   num_dw);
-
----
-base-commit: 1b12096b4bc5177d685ae098fdb90260ffd5db6b
-change-id: 20260316-drm-xe-fix-32-bit-wformat-ptrdiff-a5f4f8483ec3
-
-Best regards,
---  
-Nathan Chancellor <nathan@kernel.org>
+ 	ret = request_firmware(&lt8713sx->fw, FW_FILE, lt8713sx->dev);
+ 	if (ret < 0) {
+-- 
+2.39.5
 
