@@ -4,51 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 42520F53D76
-	for <dri-devel@archiver.kernel.org>; Mon, 16 Mar 2026 17:15:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 61002F53D76
+	for <dri-devel@archiver.kernel.org>; Mon, 16 Mar 2026 17:16:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6FE1E10E3E7;
-	Mon, 16 Mar 2026 17:15:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BA11810E3FE;
+	Mon, 16 Mar 2026 17:16:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="DzpVpooO";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="lV3o+FQK";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1D26D10E3E7;
- Mon, 16 Mar 2026 17:15:45 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5621810E3ED
+ for <dri-devel@lists.freedesktop.org>; Mon, 16 Mar 2026 17:16:11 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 5DDF760018;
- Mon, 16 Mar 2026 17:15:44 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E8D50C2BC87;
- Mon, 16 Mar 2026 17:15:41 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id C9D9960097;
+ Mon, 16 Mar 2026 17:16:10 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 26C87C19421;
+ Mon, 16 Mar 2026 17:16:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1773681344;
- bh=iSlF4zlqIDCA6gK7HutoWfysGMTms7jpLdMF1JoK120=;
- h=Date:From:To:Cc:Subject:From;
- b=DzpVpooOLlPuqJp3uc2kqIlmJ7NKBzFilvG4zGp2Hvu87TkMIG2M5qYzJtumBWFdz
- arUSy1sLe6pY5W/UmWN1ocSGZ9aknRSN/ZYFPFf0O61er94ijGqyYizKhlPLWsim7u
- Q4vRbsfeBhYA5WYv7TfgqXKe/Fm4oW58MJ2EcO1PJHyuY1rX0Fmc8VW/I46rAhoFk6
- CKSJW+Z0S5wN5u0Y8D3budS0VYLLTRyk+qIjLIpa3PAdXIijBqAmmMbOVjYZBuncuI
- g4fJBSE6Ps1fct7X9KCV1Iew/iIGCgjkBmU2knt+/D3XhYQqbxLRfyWFiGLlhrA914
- s9aG8+xA/l/Vg==
-Date: Mon, 16 Mar 2026 17:15:39 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Simona Vetter <simona.vetter@ffwll.ch>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Intel Graphics <intel-gfx@lists.freedesktop.org>,
- DRI <dri-devel@lists.freedesktop.org>
-Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- =?iso-8859-1?Q?Jos=E9?= Roberto de Souza <jose.souza@intel.com>,
- Lionel Landwerlin <lionel.g.landwerlin@intel.com>,
- Jani Nikula <jani.nikula@intel.com>,
- Linux Next Mailing List <linux-next@vger.kernel.org>
-Subject: linux-next: build failure after merge of the drm-intel tree
-Message-ID: <abg6u6o_Pjxkvi0A@sirena.org.uk>
+ s=k20201202; t=1773681370;
+ bh=6LmWPTZ/Wg2pBGtohG0Ur/9CqBjO5FCLHf+6zdpUR6I=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=lV3o+FQKmNNn7HspUM9dsacv+6GjqRIAdGFLZM6/mwsB1VNXctFqXUJSk04vZLgly
+ E9FXbaW1d24eD+MJeX+CR2lGzj4/iNFw6bCt+VoPV3AsWCzGTz3RUH8RQJdpwFiaH4
+ L9eMi/E5vBHU7BqItJA7zmT3v8h/nHIbhF5YUA3ueh02HCSxOdtnsGIGA/h6P+N/Zj
+ QWlpmBNxDUoFd9gcBUsSs/He+4VH8Xei98P/uCpeIQq5OnN+aEAJZHixJTnyL9MZSY
+ 3GvgA2sgf496joKi/RTQ1wrMW9lWkYvFnMtF/dw/dxqGnyNxiBlfr4xSKaV7u7YNuH
+ ynUwHLz7cqq9w==
+Date: Mon, 16 Mar 2026 18:16:07 +0100
+From: Maxime Ripard <mripard@kernel.org>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Jonathan Corbet <corbet@lwn.net>, 
+ Shuah Khan <skhan@linuxfoundation.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+ Jyri Sarha <jyri.sarha@iki.fi>,
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Robert Foss <rfoss@kernel.org>, Jonas Karlman <jonas@kwiboo.se>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>, dri-devel@lists.freedesktop.org,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 02/14] drm/atomic: Drop drm_private_state.obj assignment
+ from create_state
+Message-ID: <20260316-lumpy-jackdaw-of-downpour-10a890@houat>
+References: <20260310-drm-mode-config-init-v1-0-de7397c8e1cf@kernel.org>
+ <20260310-drm-mode-config-init-v1-2-de7397c8e1cf@kernel.org>
+ <20260316154913.GE31616@killaraus.ideasonboard.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="3Assb2b4LU8n49id"
+Content-Type: multipart/signed; micalg=pgp-sha384;
+ protocol="application/pgp-signature"; boundary="oun657mnxvl2buei"
 Content-Disposition: inline
+In-Reply-To: <20260316154913.GE31616@killaraus.ideasonboard.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,49 +72,53 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
---3Assb2b4LU8n49id
-Content-Type: text/plain; charset=us-ascii
+--oun657mnxvl2buei
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH 02/14] drm/atomic: Drop drm_private_state.obj assignment
+ from create_state
+MIME-Version: 1.0
 
-Hi all,
+Hi Laurent,
 
-After merging the drm-intel tree, today's linux-next build (x86_64
-allmodconfig) failed like this:
+Thanks for your review
 
-/tmp/next/build/drivers/gpu/drm/xe/xe_lrc.c: In function 'xe_lrc_ctx_init':
-/tmp/next/build/drivers/gpu/drm/xe/xe_lrc.c:1554:43: error: implicit declar=
-ation of function '_MASKED_BIT_ENABLE'; did you mean 'REG_MASKED_FIELD_ENAB=
-LE'? [-Wimplicit-function-declaration]
- 1554 |                 state_cache_perf_fix[2] =3D _MASKED_BIT_ENABLE(DISA=
-BLE_STATE_CACHE_PERF_FIX);
-      |                                           ^~~~~~~~~~~~~~~~~~
-      |                                           REG_MASKED_FIELD_ENABLE
+On Mon, Mar 16, 2026 at 05:49:13PM +0200, Laurent Pinchart wrote:
+> On Tue, Mar 10, 2026 at 05:06:54PM +0100, Maxime Ripard wrote:
+> > The initial intent of the atomic_create_state helper was to simply
+> > allocate a proper drm_private_state and returning it, without any side
+> > effect.
+> >=20
+> > However, the __drm_atomic_helper_private_obj_create_state() introduces a
+> > side effect by setting the drm_private_obj.state to the newly allocated
+> > state.
+> >=20
+> > This assignment defeats the purpose, but is also redundant since
+> > the only caller, drm_atomic_private_obj_init(), will also set this
+> > pointer to the newly allocated state.
+>=20
+> __drm_atomic_helper_bridge_reset() is called in many places. Most of
+> them are .atomic_create_state() handlers, called from
+> drm_atomic_private_obj_init() only. The only exception is
+> __drm_atomic_helper_bridge_reset().
 
-This is caused by an interaction with:
+__drm_atomic_helper_bridge_reset (and any bridge reset implementation)
+is also called through atomic_create_state and
+drm_atomic_private_obj_init(), so there's nothing special about it.
 
-   0e07b16371b6e (drm/xe: Allow per queue programming of COMMON_SLICE_CHICK=
-EN3 bit13)
+Maxime
 
-=66rom the drm tree and is obviously related to:
-
-   https://lore.kernel.org/r/abFpM1FHgzgARB88@sirena.org.uk
-
-This has been broken for almost a week now and just keeps getting worse.
-
---3Assb2b4LU8n49id
+--oun657mnxvl2buei
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmm4OroACgkQJNaLcl1U
-h9B3xgf/TB/nRjpziRmRjEb+oAUtnN2Y6hHetyrv/oe5mxMQbUB/pZHZ9wgioPeN
-4Eryx1w/7b6ZY2onX++VMqi390Q0w3ljjC4GxQK5wWkzOouZgZxjqJkuHNWYejTo
-fBXSEiGFc483BsVco9NjLT4n3TJLKumBFfN8dVgQYAyOwEtoOfUlJyMuZq7mH6G1
-VOHpjWxgrkT8o001TEieQYiD+/gsxl5dBqN1olYnPv0zSP27s+bvbDj1dBGG86Yn
-pmnSqsAh58NkDpKrQT9kWWaEAQ8MfYgOlhQigHpyc3OkwFpRhgNZ9e8kOGkbtrDx
-UIdwF8QhRuFyoW9jt0izTZUDeiDzGg==
-=PxS4
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCabg60wAKCRAnX84Zoj2+
+dnU4AYCuEyiXgv3cybTH7SWACE5/V+hfw6e2wgFRaG9UpIXSl7/mSglBbkRVOA/v
+kT/T7x0Bf3bTigOLUzyCx6DbYn3+Xek8KAsMkBq0mNX5eoDVDR8cPjnVVqphtvff
+kp9Uhw3c1Q==
+=8w94
 -----END PGP SIGNATURE-----
 
---3Assb2b4LU8n49id--
+--oun657mnxvl2buei--
