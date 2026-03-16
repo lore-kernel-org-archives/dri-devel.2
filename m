@@ -4,50 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B8D4AF4644B
-	for <dri-devel@archiver.kernel.org>; Mon, 16 Mar 2026 10:42:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DDB45F4644B
+	for <dri-devel@archiver.kernel.org>; Mon, 16 Mar 2026 10:54:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 09A2210E3BF;
-	Mon, 16 Mar 2026 10:42:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 57FE410E165;
+	Mon, 16 Mar 2026 10:53:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="hg/W6llx";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="eFppJ663";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 65C3C10E3B6
- for <dri-devel@lists.freedesktop.org>; Mon, 16 Mar 2026 10:42:17 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DC40510E165
+ for <dri-devel@lists.freedesktop.org>; Mon, 16 Mar 2026 10:53:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1773657736;
- bh=ceW70cFZ9Tuf9jzdHR9cUAipzhtkxyzpP9JZGb3Xphc=;
+ s=mail; t=1773658437;
+ bh=3/krYZ6GCvKnFIo/XDaVM+GqnlDdX+4GULBc07rBNEY=;
  h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=hg/W6llx6zg3IO6CsM4WAREG141CSmZ0pJRG5y7qi7Dg8LOkiYj1c6G+M3YWEsQgH
- 6o4oUES9qyzrvdIaSkUodKd9Ht4ft0GotjSwR0BnUKD9y3Z6YkY8X3B2k1Fw/vzQkW
- 46Lk1njR+AwI6ge1LUXs8z1CNs92ceYE+Xcnd/pyZRQUfGHISfxl/U5n03SojyzDvQ
- sGSPUxRuKLBr2W3RORjDPcu/LLAGFTDqvCqlhztELM3KAluwnT4Yi9sQQ8y3tTY0p2
- f07OHDyMhhWQDJbxmDjpluNCb7E9lUETsbYT7KAQk6IbSYekAbP+UrjYdt3rqeZNxg
- 8XzsnL1RwRkcg==
+ b=eFppJ663mV+RnAiVhVjBzClTNPryo4e15RGAJX7qWbXVQhQPibU7XIgYyqpbTOxsA
+ pCbq6TAz6xn00DcoGfZeJP79fC+kUIaVHhMAYYwtkYY/zG1rHwNjAEaAn7Nt9GJq+u
+ l7KqLlOvNUHDO1aCb2KKl9+z7WLT9bgZSuN4waZwCQh7RRRgJmyqi1D6nFBe14/x4A
+ x4r8WkjRRd0/aM0hWphIj6b+rcDofoepfTEFcZUeoFyw4NcKtoVF5rCXOjOUGhJfxW
+ w2azexyPaYH79DqqH7TAY1oZDQCgrs1BoBcFE9HIqYPKRDO8V8VrOWA34d/rpAFiPe
+ orNi/w2JzV6Ug==
 Received: from fedora (unknown [IPv6:2a01:e0a:2c:6930:d919:a6e:5ea1:8a9f])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
  server-digest SHA256) (No client certificate requested)
  (Authenticated sender: bbrezillon)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id B21CA17E0E4C;
- Mon, 16 Mar 2026 11:42:15 +0100 (CET)
-Date: Mon, 16 Mar 2026 11:42:11 +0100
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 104AB17E0D04;
+ Mon, 16 Mar 2026 11:53:57 +0100 (CET)
+Date: Mon, 16 Mar 2026 11:53:53 +0100
 From: Boris Brezillon <boris.brezillon@collabora.com>
 To: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Pedro Demarchi Gomes <pedrodemargomes@gmail.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3] drm/shmem-helper: Fix Map huge page mapping in fault
- handler
-Message-ID: <20260316114211.4d2f0a71@fedora>
-In-Reply-To: <f162dafb-4282-41db-a696-b993de875736@suse.de>
-References: <20260316002649.211819-1-pedrodemargomes@gmail.com>
- <004c48cb-196a-4aac-bfc4-c440c9fd74d2@suse.de>
- <20260316102810.7b26c5ec@fedora>
- <f162dafb-4282-41db-a696-b993de875736@suse.de>
+Cc: Biju Das <biju.das.jz@bp.renesas.com>, Tommaso Merciai
+ <tommaso.merciai.xr@bp.renesas.com>, "loic.molinari@collabora.com"
+ <loic.molinari@collabora.com>, "willy@infradead.org" <willy@infradead.org>,
+ "frank.binns@imgtec.com" <frank.binns@imgtec.com>, "matt.coster@imgtec.com"
+ <matt.coster@imgtec.com>, "maarten.lankhorst@linux.intel.com"
+ <maarten.lankhorst@linux.intel.com>, "mripard@kernel.org"
+ <mripard@kernel.org>, "airlied@gmail.com" <airlied@gmail.com>,
+ "simona@ffwll.ch" <simona@ffwll.ch>, "linux-mm@kvack.org"
+ <linux-mm@kvack.org>, "dri-devel@lists.freedesktop.org"
+ <dri-devel@lists.freedesktop.org>
+Subject: Re: [PATCH v4 5/6] drm/gem-shmem: Track folio accessed/dirty status
+ in mmap
+Message-ID: <20260316115353.45fadc81@fedora>
+In-Reply-To: <21f56de3-ec1a-4d7b-8abf-c538584e18b2@suse.de>
+References: <20260227114509.165572-1-tzimmermann@suse.de>
+ <20260227114509.165572-6-tzimmermann@suse.de>
+ <abL5rcYIaFFO3GW2@tom-desktop>
+ <TY3PR01MB113460CA616D3576DA0C3FC698644A@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+ <TY3PR01MB113461ACB668738E1952EC8898645A@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+ <20260313111851.4c1f89f3@fedora>
+ <f3384342-cdc5-4260-b670-4ffde76a2802@suse.de>
+ <20260313125644.65131b27@fedora>
+ <TY3PR01MB1134662A395AA0A048CEE152E8645A@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+ <20260313131835.52c5c935@fedora> <20260313134328.3166c4d0@fedora>
+ <20260313135521.07823792@fedora> <20260313184549.08656eed@fedora>
+ <53f11658-5466-49a3-816a-ff6fd2e1da6f@suse.de>
+ <20260316103621.6ed48b68@fedora>
+ <21f56de3-ec1a-4d7b-8abf-c538584e18b2@suse.de>
 Organization: Collabora
 X-Mailer: Claws Mail 4.3.1 (GTK 3.24.51; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
@@ -68,50 +84,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, 16 Mar 2026 11:12:45 +0100
+On Mon, 16 Mar 2026 11:22:49 +0100
 Thomas Zimmermann <tzimmermann@suse.de> wrote:
 
 > Hi
 >=20
-> Am 16.03.26 um 10:28 schrieb Boris Brezillon:
+> Am 16.03.26 um 10:36 schrieb Boris Brezillon:
 > [...]
-> >>> -static vm_fault_t drm_gem_shmem_fault(struct vm_fault *vmf)
-> >>> +static vm_fault_t drm_gem_shmem_any_fault(struct vm_fault *vmf, bool=
- try_pmd) =20
-> >> Please write two functions. One for huge pages and one for regular page
-> >> faults. =20
-> > That's actually what the first version of the patch was doing, and I
-> > strongly disagree with that. In my opinion, it's more error-prone to
-> > have two distinct implementations duplicating most of the logic
-> > (locking, bookkeeping, ...) than having both handled in the same
-> > function and have dummy wrappers to decide the kind of vmf_insert_pfn
-> > to do (_pmd vs regular). Think about the folio_mark_accessed() you
-> > recently added, and how easy it would have been to add it to
-> > drm_gem_shmem_fault() and forget it in the huge_fault handler. =20
+> >> This would keep the huge-page code within the first branch. And if it
+> >> fails, it still does the regular page fault. =20
+> > Well, in practice that's not what we want anyway (see the other fix for
+> > the huge_fault vs regular fault race), so I'd still be inclined to have
+> > the folio_mark_accessed() handled in the common path and have the pmd
+> > vs regular pfn insertion in some if/else branches. Something like that:
+> >
+> > 	if (pmd_insert)
+> > 		ret =3D drm_gem_shmem_try_insert_pfn_pmd(vmf, pfn);
+> > 	else
+> > 		ret =3D vmf_insert_pfn(vma, vmf->address, pfn);
+> >
+> > 	if (ret =3D=3D VM_FAULT_NOPAGE) {
+> > 		folio_mark_accesed(folio);
+> >
+> > 		/* Normal pages are mapped RO, and remapped RW afterwards. */
+> > 		if (pmd_insert && vmf->flags & FAULT_FLAG_WRITE) =20
 >=20
-> But that would be a _simple_ one-time fix.=C2=A0 All these branching any=
+> This style mixes conditions from different branching depths. The first=20
+> outermost branch uses pmd_insert to compute ret.=C2=A0 Any then both have=
 =20
-> parameterization will stay for _all_ later changes to that code.
+> changed places, so that ret is in the outer branch and pmd_insert is in=20
+> the inner branch.=C2=A0 This is hard to maintain. It is already confusing=
+ now=20
+> and will be even more so to anyone locking at that code later on.
 
-But you'll have to deal with these two distinct fault cases in the long
-run anyway. Again, look at the access tracking you've added, it has to
-apply to huge folios too, so why have two completely distinct functions
-that do exactly the same except for the kind of page they insert into
-the page table.
-
->=20
-> There's little to be gained from cramming things into single functions.=20
-> I'd say that we have two distinct fault callbacks for huge pages and=20
-> regular ones already support this point.
-
-The bulk of the code is the same, the only bits that differ are the
-function we use to insert the pfn. Again, if we were to duplicate it'd
-be more error-prone, because then you have to update two places every
-time you fix/add something. And it's not like we'd be the only ones to
-do this sort of multiplexing, see [1][2]. So I'm still very much in
-favor of this common drm_gem_shmem_any_fault(), and then have
-fault/huge_fault implementation call that thing with the proper
-parameters.
-
-[1]https://elixir.bootlin.com/linux/v6.19.8/source/fs/xfs/xfs_file.c#L1889
-[2]https://elixir.bootlin.com/linux/v6.19.8/source/fs/fuse/dax.c#L796
+I guess that's another occurrence of us disagreeing on what's
+easy/uneasy to maintain :P. I find it way easier to group things by
+functionality (here that would be folio state tracking) at the cost of
+having conditionals repeated (I trust the compiler to do the proper
+optimization) than having multiple paths doing exactly the same thing.
+The latter easily leads to one path being updated while the other path
+is left behind when new features/fixes are proposed.
