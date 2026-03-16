@@ -4,60 +4,143 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 35AEDF30295
-	for <dri-devel@archiver.kernel.org>; Mon, 16 Mar 2026 02:46:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 16195F30295
+	for <dri-devel@archiver.kernel.org>; Mon, 16 Mar 2026 03:18:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 68FFA10E04A;
-	Mon, 16 Mar 2026 02:46:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6665710E253;
+	Mon, 16 Mar 2026 03:18:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.b="Cy9WSrpN";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="UgZY4e3T";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Z2vrJ/+e";
 	dkim-atps=neutral
-Received: from mail-m1973185.qiye.163.com (mail-m1973185.qiye.163.com
- [220.197.31.85])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4D90B10E04A
- for <dri-devel@lists.freedesktop.org>; Mon, 16 Mar 2026 02:45:58 +0000 (UTC)
-Received: from [172.16.12.43] (unknown [58.22.7.114])
- by smtp.qiye.163.com (Hmail) with ESMTP id 37099b5a3;
- Mon, 16 Mar 2026 10:45:51 +0800 (GMT+08:00)
-Message-ID: <a60a6435-ee62-4788-8dbe-85cce13f2d69@rock-chips.com>
-Date: Mon, 16 Mar 2026 10:45:50 +0800
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 21ED310E253
+ for <dri-devel@lists.freedesktop.org>; Mon, 16 Mar 2026 03:18:01 +0000 (UTC)
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 62F9trBm2994269
+ for <dri-devel@lists.freedesktop.org>; Mon, 16 Mar 2026 03:18:00 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ rCtDtvcMPIIzhmO3lBZlD8BEAmaAtTPECV5u+wA+9e4=; b=UgZY4e3TeFQKHPMO
+ r6LQfQJeV3Qn53k6CAeodM36D4WHGJUBdYzlZIXc/BaPfW8a4pgN7bjOfVsynI2N
+ 4Gv5Li7Rnv2mB0OkuRDUdqsLM0oG2nJSwc3vrGaGbaMWsDCt4ZUb2H8htU2KrH25
+ iHaWq9Tayse/EPVAwFxjFj1ZN+amDyJfKe62a/OSx7yB3Tj2Wq0+djVKl02iBTLu
+ +V+RoXafAEIan1xvli4t6tVnn3g/ZT48KW2+uGJh1t1MN87tuxjK2pg2nHZF29pM
+ sAuB6k7L09ullyq6vsD9bM2Pqk6cWtoTq1R8YcJsI03pxTjWg9taQOUuAwY29Mwr
+ JbGu1Q==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
+ [209.85.222.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4cvyyc3u9p-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Mon, 16 Mar 2026 03:18:00 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id
+ af79cd13be357-8cb0595def4so3589600785a.0
+ for <dri-devel@lists.freedesktop.org>; Sun, 15 Mar 2026 20:18:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1773631079; x=1774235879;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=rCtDtvcMPIIzhmO3lBZlD8BEAmaAtTPECV5u+wA+9e4=;
+ b=Z2vrJ/+et79SxDUlLP+qpM07wo4CPf53GyUywzzM2ladnCxnoAHkJsY9FLbhVRHfnd
+ gA2hcoVuSa71Rdg8qbbCrNucAGAvIq7Tu0Dbz5a7kv2IlX729615uiO4m9k8+ZLPhTb8
+ icRVvXq9V628qJ7SLKx21ttRC2MCcFyzzVvCRexD5hpClWe4cV7IHdZnGwVvdwvslpHS
+ PTp0SKZx0Ppo8HZ7BnOKV3KC2GHiS+0U04Wmh0KuCUq47poItYRVvlmMN2jh0aR12Hql
+ xeGzkrfAhW1RV1G5d5686ABigO7i28thCS3Tpc+V+JyJ1urtlxJ4rc01F3H3LestDyGu
+ Knbg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1773631079; x=1774235879;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=rCtDtvcMPIIzhmO3lBZlD8BEAmaAtTPECV5u+wA+9e4=;
+ b=EB1Q6aP/lHQeLX10421IETWj88Fstopeb5R5YCzrbYRNg+Rnxs1e69QdcyfYI9Ennl
+ 5khWCw5JCYf4vNHuQnFBiiEGc+TLG+zCI/VCLd6xeNH7X9Bn0rr5nxvdqjN7Y/jb0dCd
+ te0y2YSruT9o5t+rNmkCJGb35gK1oRg/6kA5mmq7/mtfMwPab5AAdVjtWVvS2Z2mZrjM
+ n0bzF7y6fEmidUoWGgbAyW56QtsDk5ASTQtLhTUhlnKbfa6MxAODTxhcnfvs7N8DO9DR
+ Bz1MbZgl0B+oNBmeJHUvC5emcVAWSfBDohdOsILBGmF0aKvyR2SRCPVQx0EUZrPdHrL5
+ dasA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCX9+SfRQx3DEDjL73xjB6m+eSETRWQsVPE1hRnGA+Ct2NeTAatbdVrhp4F42eCCFO71dqjfqSqhUHE=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yx57qAVcMeq2r9rFCeTma3ISNmobWI/1IESXk6YqEEIbuAJ6vYp
+ LbqBXPHD6YOJm9tuf8WesUH9gjtbdw+yo/6x3xA2ZiM42b0rSCAIcEXc90McJtG3ZdbyZ6Cb96R
+ nsZpIp7iUae+RoNxWb0r9Da9jwCURUDRPOR674+9s6IxwuC+u5rVTJyVpdbGTTkOZrRfprzQ=
+X-Gm-Gg: ATEYQzz1B3pAqKQ72AWV7HEXJOOYTAI1hm9L/BMR/RSho8DBI29BLchBnV3fmBhfG1I
+ iDw3PycMUIaO0kYYOEbAfT6AgYaxCg3YOsvRhZnE7d19KeRiKALDyNrITJTlBqIbrdKC3J4cnBl
+ j2oqs5zYotp/6TDX0YW5g0JKn4MyHcBiv0BDzT2jRJFAc2MGqpdnnpOIlROi2yn0kRdwf/zWDmD
+ yT0xDGxn/wgEje7WN8kAGiTQIhEgOavKlSCdImH9rs5C8D30jihLbGWKV+IZPr6JwzgsxSVyDfg
+ 2bsR7wU0NHCum/FqXjRC8qXMrUAbErt5kpIVP+R3uUOIVK9McHYCl8b43x4QB+HxKODaRRpIFN9
+ a299+rIfvRPTwISXq+WrorLvzhUb3GWChmjDV/NOsjU9DD1V+yhu49bymMxEkMT09mL1LZH+jh6
+ szR6fh9FwAEraD7johIadcYWoQZoAfoZzrP9Q=
+X-Received: by 2002:a05:620a:29ca:b0:8cd:85a1:d136 with SMTP id
+ af79cd13be357-8cdaa7793a3mr1718925385a.4.1773631079322; 
+ Sun, 15 Mar 2026 20:17:59 -0700 (PDT)
+X-Received: by 2002:a05:620a:29ca:b0:8cd:85a1:d136 with SMTP id
+ af79cd13be357-8cdaa7793a3mr1718923685a.4.1773631078859; 
+ Sun, 15 Mar 2026 20:17:58 -0700 (PDT)
+Received: from umbar.lan
+ (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-5a15602e47csm3234895e87.28.2026.03.15.20.17.56
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 15 Mar 2026 20:17:56 -0700 (PDT)
+Date: Mon, 16 Mar 2026 05:17:55 +0200
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Yedaya Katsman <yedaya.ka@gmail.com>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Kamil =?utf-8?B?R2/FgmRh?= <kamil.golda@protonmail.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Kaustabh Chakraborty <kauschluss@disroot.org>,
+ ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org
+Subject: Re: [PATCH v4 2/3] drm: panel: Add Samsung S6E8FCO DSI controller
+ for M1906F9 panel
+Message-ID: <36cglvsoch5vvlyyanyh4zuqbpb3mxlb463dh4zddr2ceu6kwt@mbmcwckg4meo>
+References: <20260314-panel-patches-v4-0-1ecbb2c0c3c8@gmail.com>
+ <20260314-panel-patches-v4-2-1ecbb2c0c3c8@gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v10 12/18] drm/bridge: analogix_dp: Remove unnecessary
- &analogix_dp_device.connector
-To: Luca Ceresoli <luca.ceresoli@bootlin.com>, andrzej.hajda@intel.com,
- neil.armstrong@linaro.org, rfoss@kernel.org
-Cc: Laurent.pinchart@ideasonboard.com, jonas@kwiboo.se,
- jernej.skrabec@gmail.com, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch,
- shawnguo@kernel.org, s.hauer@pengutronix.de, kernel@pengutronix.de,
- festevam@gmail.com, inki.dae@samsung.com, sw0312.kim@samsung.com,
- kyungmin.park@samsung.com, krzk@kernel.org, alim.akhtar@samsung.com,
- jingoohan1@gmail.com, p.zabel@pengutronix.de, hjc@rock-chips.com,
- heiko@sntech.de, andy.yan@rock-chips.com, dmitry.baryshkov@oss.qualcomm.com,
- dianders@chromium.org, m.szyprowski@samsung.com, jani.nikula@intel.com,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
- linux-samsung-soc@vger.kernel.org, linux-rockchip@lists.infradead.org
-References: <20260310012458.169272-1-damon.ding@rock-chips.com>
- <20260310012458.169272-13-damon.ding@rock-chips.com>
- <DH1TLZT5696T.2XAQIND6F9YS3@bootlin.com>
-Content-Language: en-US
-From: Damon Ding <damon.ding@rock-chips.com>
-In-Reply-To: <DH1TLZT5696T.2XAQIND6F9YS3@bootlin.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-HM-Tid: 0a9cf489172b03a3kunmea86f0cd190659
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
- tZV1koWUFDSUNOT01LS0k3V1ktWUFJV1kPCRoVCBIfWUFZQx1JH1YaGUNDSEJCTk0eGBhWFRQJFh
- oXVRMBExYaEhckFA4PWVdZGBILWUFZTkNVSUlVTFVKSk9ZV1kWGg8SFR0UWUFZT0tIVUpLSEpKQk
- 1VSktLVUpCWQY+
-DKIM-Signature: a=rsa-sha256;
- b=Cy9WSrpN8R7G3q+DpLjNtJcxR9Rfmh/Uw9G/ysOtP84TmMj/x6CzlL9UeA6hPyGqz/TzXs6Y4L32fWY23llQHRqZ9CIz7GHJSV2gfREmMNFDEkOgCZmGwbsqBld4AEmsv24+Wk+fnoEsY5oPxYEI21QfSNHI4bNxhYPZeLCtxdg=;
- c=relaxed/relaxed; s=default; d=rock-chips.com; v=1; 
- bh=hG5rWW1tvZoHBRwfgexg2zqSAF2tcsPwI8XnBrBCp6Y=;
- h=date:mime-version:subject:message-id:from;
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260314-panel-patches-v4-2-1ecbb2c0c3c8@gmail.com>
+X-Authority-Analysis: v=2.4 cv=euXSD4pX c=1 sm=1 tr=0 ts=69b77668 cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22 a=sfOm8-O8AAAA:8
+ a=pGLkceISAAAA:8 a=EUspDBNiAAAA:8 a=8s1cotv8QL1OgUCTKcIA:9 a=3ZKOabzyN94A:10
+ a=QEXdDO2ut3YA:10 a=PEH46H7Ffwr30OY-TuGO:22 a=TvTJqdcANYtsRzA46cdi:22
+X-Proofpoint-GUID: gTd10kxmoT-oqR_QgH523Mej0RsqmnH7
+X-Proofpoint-ORIG-GUID: gTd10kxmoT-oqR_QgH523Mej0RsqmnH7
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzE2MDAyMyBTYWx0ZWRfX0eLZgxL90n96
+ kBgWnG/fBMUSIC8uhk3F8rgph0aeCt94fkDAKHPiCa1Zmvl/2Wgx32belECKHEvhsTpTRWmFLoS
+ LGamHsz6P5+oGmtMC/baRrbocqPaBh6fbbB8Ix20c6EeEbLKbjMcXEY8+pXYQUV9UvJEVmKXEFP
+ 2OP1Ez6tJCQ8Ly3fPXSsbgDdoSdhQBxhga9dh3knCZYWKDXBjI78kOUzte1K0mvtVeX278AH3rV
+ 9hCPUACz5z45XaTeQHOXB+5ggulcM9yKDq9R4fsukQJlTll9G21XpYdXO4AnbyJ2h6bWp7SwhQ6
+ DKdvee16T/W6nNGfiAnX6S6yolxvgdSc1htgBIbTGiAzFKLB0Mr6kDavwSOXSMxTzrUL8l1AKZM
+ HjsIGzxG2J9O/T8BcvX0GVV/maBdmLT9hVy/KklI0clOuOC43JsNB8aDlE1NGBIbXef/0Kd37hw
+ j3/89Lj3BEwj+xmDiIg==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-03-16_01,2026-03-13_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 adultscore=0 bulkscore=0 malwarescore=0 spamscore=0
+ impostorscore=0 lowpriorityscore=0 phishscore=0 clxscore=1015 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603160023
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,21 +156,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Luca,
-
-On 3/14/2026 1:12 AM, Luca Ceresoli wrote:
-> On Tue Mar 10, 2026 at 2:24 AM CET, Damon Ding wrote:
->> After adapting to the bridge connector framework, the private
->> drm_connector is no longer required.
->>
->> Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
+On Sat, Mar 14, 2026 at 11:46:22PM +0200, Yedaya Katsman wrote:
+> Add driver for Samsung S6E8FCO DSI controller for M1906F9 video mode panel,
+> found in Xiaomi Mi A3 mobile phone.
 > 
-> This should be folded in the previous patch, where all usages of this field
-> are removed.
+> Co-developed-by: Kamil Gołda <kamil.golda@protonmail.com>
+> Signed-off-by: Kamil Gołda <kamil.golda@protonmail.com>
+> Signed-off-by: Yedaya Katsman <yedaya.ka@gmail.com>
+> 
+> ---
+> 
+> The downstream dts claims a max brightness of 2047, but seems to ignore the
+> MSB.
+> ---
+>  MAINTAINERS                                        |   5 +
+>  drivers/gpu/drm/panel/Kconfig                      |  13 +
+>  drivers/gpu/drm/panel/Makefile                     |   1 +
+>  .../gpu/drm/panel/panel-samsung-s6e8fco-m1906f9.c  | 301 +++++++++++++++++++++
+>  4 files changed, 320 insertions(+)
 > 
 
-Will fix in v11.
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
-Best regards,
-Damon
 
+-- 
+With best wishes
+Dmitry
