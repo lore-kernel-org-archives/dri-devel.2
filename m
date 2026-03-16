@@ -4,65 +4,131 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 544A1F46456
-	for <dri-devel@archiver.kernel.org>; Mon, 16 Mar 2026 11:39:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 973F3F46456
+	for <dri-devel@archiver.kernel.org>; Mon, 16 Mar 2026 11:42:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B3B5610E25C;
-	Mon, 16 Mar 2026 11:39:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EC3E410E4BF;
+	Mon, 16 Mar 2026 11:42:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="YrywEDwd";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="pKAIA0YB";
 	dkim-atps=neutral
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E41BF10E25C
- for <dri-devel@lists.freedesktop.org>; Mon, 16 Mar 2026 11:39:39 +0000 (UTC)
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-03.galae.net (Postfix) with ESMTPS id 97AA04E426C1;
- Mon, 16 Mar 2026 11:39:38 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 4EB815FC4A;
- Mon, 16 Mar 2026 11:39:38 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 7DF5310369E73; Mon, 16 Mar 2026 12:39:25 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1773661176; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding:in-reply-to:references;
- bh=9LLjJ8Qd6wNXbg06pYIRYcPmRb/RcOo68671SJw5PZI=;
- b=YrywEDwd/DzMcHZz4wMx/qDUUpvovYoTrhVPGEOmyWw/GimO4aRGWgjfaRUp096SdfisEu
- fL7fyiN9g5ShHiC0bJ1HLcSiRmmromhJMWEGykRppDiKWCfJyd8CE9upne8c7MS4veJl9C
- F2567Jh16wPZp2rva8ZWs5sa/ktvOyV7GgKVD1l9lwwqvogkfchCWNn0uiaK9l1+o4CsY/
- 8XM9Y78ODDYhIPF3fR5xInhUpzGGiyzeH9/8xsONdMXOwnDHMCWJaUzPBNzQ9Pm/aZwkh+
- 4jh1gU77n4mMk8A8bpwAPpZU8p6RPatwWYKsvXQsYdR0qnmwUDqWFz4JFrOonQ==
-Mime-Version: 1.0
+Received: from BN1PR04CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11010002.outbound.protection.outlook.com [52.101.56.2])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5F84C10E4BF;
+ Mon, 16 Mar 2026 11:42:31 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=E5jpema5mIIACecE7ov0xItuTZ3ejGkCLy594NfFXLLTbutBK36NfM/mBvE3mnGVgvoso6JaTcx0VLJLZbchmvMDRReWxinFcxeTfZ4dDkRHO+i89GaVQQ6pjx3Qvue1xz+cBVXtp852HoTLFs6JxpZNJEjhP39GWcBX/BpTxGaaof5RWPTsSY3/MQDjoikOLNtkfNdNRad+jeaU+UXkU62rGUWtrU47pmSScgthM0OEjrRkgQIvRZeKeMH8AdYDFviveK69xieLJQaGep4czGbDY0FaG9rtYBw9beXOm2KDWpr0ZtdJsGdRHGnGu5GEm5bPOUdipODyM6IJPkHXvw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=L6qqhZo4K8WFmY6HJPlKjJ+Av9sK5YoXORwE6lC3IeI=;
+ b=b059mf/UWibhDZSNo+ki4fL9azPzxlqnpAc4sLoEMasyh1tLwPZWRp4XX8AbPpUEvmI17Rme7LRkdWPRJRD11uB+6g9ANszQ3OHsoNdyvUmRMNj4igjWQb/fGE75EDBseFKH+zOEWBtkhojuoNpd+eNly++JObXfDTY1lH+5bKIsOELgQvdw+IXMQsmk78KbYtAsd9jUfJGW/v26nGBn/q1ISMjXcgW9JL70gS7lKXkOHpsIww2YRC+rYPKFpMjbqqEC5otcG3N9uomOIgjOt2QS1wKXK7SBlqmXWjbLPin5QLHCaLijlEe5ze1S87XSQwOy0lyyPG3RVMVrZTCRJw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=L6qqhZo4K8WFmY6HJPlKjJ+Av9sK5YoXORwE6lC3IeI=;
+ b=pKAIA0YBZwowvjTTRIy2TYS4TICbtEZNk0xJ5+aJioUBUi/WeKpMFYXmntC21UK/cnNYFqsYz6TIN9p6kfDdDhLGgszB4eJM7i4WeDxEUg1mWWHNy0Dvs1xsIdkyZ5NHfzExefdUU3qc3mN6TPiWWJr8MzSVPhnrvQMKGkP0dnItUBlnIjXGIAzRtaU8oAOeatIu2/ebweCS8lUalIAefl88bkOBH/DFkWU/DgRzX6riUhcdRh0TYXdL/6mdMCuM8eilC5xomDuTzR+YEexO9HHl8sJKU4V5C5xN/fOwLmktzxCwVq+IP7crqEUZHfBUBvBq1C2C0/QkgzK+sLfkvQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from BL0PR12MB2353.namprd12.prod.outlook.com (2603:10b6:207:4c::31)
+ by SN7PR12MB7346.namprd12.prod.outlook.com (2603:10b6:806:299::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.12; Mon, 16 Mar
+ 2026 11:42:27 +0000
+Received: from BL0PR12MB2353.namprd12.prod.outlook.com
+ ([fe80::99b:dcff:8d6d:78e0]) by BL0PR12MB2353.namprd12.prod.outlook.com
+ ([fe80::99b:dcff:8d6d:78e0%4]) with mapi id 15.20.9723.014; Mon, 16 Mar 2026
+ 11:42:27 +0000
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Date: Mon, 16 Mar 2026 12:39:24 +0100
-Message-Id: <DH46EQM1PED9.2BVW9DWVIMEJZ@bootlin.com>
-Subject: Re: [PATCH v10 11/18] drm/bridge: analogix_dp: Apply
- drm_bridge_connector helper
-Cc: <Laurent.pinchart@ideasonboard.com>, <jonas@kwiboo.se>,
- <jernej.skrabec@gmail.com>, <maarten.lankhorst@linux.intel.com>,
- <mripard@kernel.org>, <tzimmermann@suse.de>, <airlied@gmail.com>,
- <simona@ffwll.ch>, <shawnguo@kernel.org>, <s.hauer@pengutronix.de>,
- <kernel@pengutronix.de>, <festevam@gmail.com>, <inki.dae@samsung.com>,
- <sw0312.kim@samsung.com>, <kyungmin.park@samsung.com>, <krzk@kernel.org>,
- <alim.akhtar@samsung.com>, <jingoohan1@gmail.com>,
- <p.zabel@pengutronix.de>, <hjc@rock-chips.com>, <heiko@sntech.de>,
- <andy.yan@rock-chips.com>, <dmitry.baryshkov@oss.qualcomm.com>,
- <dianders@chromium.org>, <m.szyprowski@samsung.com>,
- <jani.nikula@intel.com>, <linux-kernel@vger.kernel.org>,
- <dri-devel@lists.freedesktop.org>, <imx@lists.linux.dev>,
- <linux-arm-kernel@lists.infradead.org>,
- <linux-samsung-soc@vger.kernel.org>, <linux-rockchip@lists.infradead.org>
-To: "Damon Ding" <damon.ding@rock-chips.com>, <andrzej.hajda@intel.com>,
- <neil.armstrong@linaro.org>, <rfoss@kernel.org>
-From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
-X-Mailer: aerc 0.20.1
-References: <20260310012458.169272-1-damon.ding@rock-chips.com>
- <20260310012458.169272-12-damon.ding@rock-chips.com>
- <DH1TKWREZMFK.3BY4NY36BXLXG@bootlin.com>
- <bebadd3b-2fd1-404e-bc64-205c8b44880c@rock-chips.com>
-In-Reply-To: <bebadd3b-2fd1-404e-bc64-205c8b44880c@rock-chips.com>
-X-Last-TLS-Session-Version: TLSv1.3
+Date: Mon, 16 Mar 2026 20:42:24 +0900
+Message-Id: <DH46H12EEO1D.15SP7TVY8J12U@nvidia.com>
+Cc: "Danilo Krummrich" <dakr@kernel.org>, "Alice Ryhl"
+ <aliceryhl@google.com>, "Alexandre Courbot" <acourbot@nvidia.com>, "David
+ Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>,
+ <rust-for-linux@vger.kernel.org>, <nouveau@lists.freedesktop.org>,
+ <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
+ "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+Subject: Re: [PATCH 5/9] gpu: nova-core: gsp: add types for RM control RPCs
+From: "Eliot Courtney" <ecourtney@nvidia.com>
+To: "Joel Fernandes" <joelagnelf@nvidia.com>, "Eliot Courtney"
+ <ecourtney@nvidia.com>
+X-Mailer: aerc 0.21.0-0-g5549850facc2
+References: <20260227-rmcontrol-v1-0-86648e4869f9@nvidia.com>
+ <20260227-rmcontrol-v1-5-86648e4869f9@nvidia.com>
+ <0bdb9aa3-976a-45ec-91cc-0f5396a69fe3@nvidia.com>
+In-Reply-To: <0bdb9aa3-976a-45ec-91cc-0f5396a69fe3@nvidia.com>
+X-ClientProxiedBy: DM6PR08CA0042.namprd08.prod.outlook.com
+ (2603:10b6:5:1e0::16) To BL0PR12MB2353.namprd12.prod.outlook.com
+ (2603:10b6:207:4c::31)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL0PR12MB2353:EE_|SN7PR12MB7346:EE_
+X-MS-Office365-Filtering-Correlation-Id: d848a27f-56f1-4cc4-509a-08de83511925
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|366016|10070799003|1800799024|22082099003|18002099003|56012099003;
+X-Microsoft-Antispam-Message-Info: RE4g3mmhkN+HyT1CLNlX05LU6PMv/AA+c91soZcaA1zDE4bLds7HFiXXCxvv0aemxAu+EEKMxruVSTTqJMQhDuAJ/NhTN1oaiOz3widwWNTAUgIH6nTGxlTldYPEHe0dwbTKb/Wy+Jb0whF9eXn+uztiNYuecHF0fDbAO3tb+Q1SaX7jqCVsEbHd/yfqh7X7l77FeEQUti2MWem7yIOAWOIYooctxQ1jAqyOiHZC1NCtLLuJ1ICgVmB1lZQU55W68Ln4sabxhzJfLWypjjjugMjW1Pl77aJ4EZ78jICo+xpXcQdXRMy6vMgaSagEVDWYAJb51kQvjITSil+cy9i/v36llZfipQedZQYh82CIz8h5qH4d1f2aEAQz+Qim+PoqwNrNUVMLkDc0MpV8sMAigteBrRFiyjHjh6vFtqPe8LlWEZgAaUUTKadPBLDVLbvBDB025ktoAi1G5LYbOLrMv9Im8Jcdz+61wsoUCFu/Y88CIvscK4J1okh53M22YyXpbqMq85Iym1T1x13XYqP4hVu5IBdFB5joMt829ZogLofZ0kOTenHZncZsuVG1KiPigymXwEWmjuNTmFQUXOg2Y6WL14ZI5lTild/MH6xPGoQ/xknlVuymWdd8TYpC1jeAVGEVYSC49N6NczVUBr3EJ4mxD91M7RwO/r/zXyBhMdKtD9uXBTPFo0xAVK8v6WpdfXWp4QRkr2UEYhUX0E9lPJ5CuwQqByx+XIA1w/vCLJI=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BL0PR12MB2353.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(366016)(10070799003)(1800799024)(22082099003)(18002099003)(56012099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RURGQndFaFJvanYrdzhWU09FbnFXNWVWaktEYTJxSlZFOC9PMUpKRHNyVXNX?=
+ =?utf-8?B?MDk2QmhpLytTT3pVazdGMzlMU0R0amVaWVZBN2NsM002YW10R0g3SkFjZFZj?=
+ =?utf-8?B?dU81ZlphUC8xWlQ3N0JRTUF3Z3FhM0ZlcTh3Q2hJcUw4TEN6cTZsY1FLdFlr?=
+ =?utf-8?B?bXliSEtHU2tPaG1Ia2tUemV6bVdHb0VnODkwT2dmWXdFZkE2YzBRV1M2clNU?=
+ =?utf-8?B?Y3Q3U0xTZ1ZrTUVlbVVSdzU5aW1MRzdGak9UbkNhdWVEK2lKdk1nYUJXSzBl?=
+ =?utf-8?B?TWdLMzl1Nm9rdEM4ZXVEMDk4SHF0OEI2K0lRUDBjR1BvS3Y1bUIwNVd1YjU2?=
+ =?utf-8?B?Y0MzU0hocXl1OGJtdHhzT0p2eElEcmg3MW1mZURZYVFEL05hNDN0dEoxbUo1?=
+ =?utf-8?B?ZDVMdUJMQ2t5Z2VEMlhNSnRES3hCcjY3d3BrTGN2R3N4VjhiV1B0ZE9YWUM5?=
+ =?utf-8?B?dUUvclNyM3dMWFE5WW9MN2NZbVc0ZjQzalc4Y2kwOWtxMU9qY0tpRXR5Sm9r?=
+ =?utf-8?B?TkNjb0ZzdlZxUW5rZFEwM2FjTVpxckFyTXBjSEpXeGRVbjZ0Z3R0dzA0L2NS?=
+ =?utf-8?B?VkRmWXhCNE9NeDN5Zmk3WHRJRmxLVVBZeWpFQWx6em8wcDRtN3ZBa0FPTzBE?=
+ =?utf-8?B?UzRvTlcwTkpsandweks0RlhTQ0RQU2tvOTBVM0I0cWFkb0J6WHhkZWpPeml2?=
+ =?utf-8?B?YUgycm92dUlsTWZPSmxSKzRnbTVOMWZYQklwRVBGRUNpQ1AzWTVQNDgvM09m?=
+ =?utf-8?B?VmJueHZTMFFoMzl5akd6Z2laR01Icm1JN1g5S2k3V0F1amttOHZPbVIxVk8r?=
+ =?utf-8?B?N25WakdaWGlaa0VCaEhuVXR3TW5oYUF5SWM0WVRMUlY1NWxCUnlzZFVqZ1Bv?=
+ =?utf-8?B?b0p3K244b1BOanBXMUlwNWVCQzRTTDkzcmdSdTdQaHM2a3ArMklTUk96YTdu?=
+ =?utf-8?B?RnhyQUhOU0RnV0ZUWXMycmx3Zng1WDg3dXZYbWNNUkdHUmNvZ3hsVlc4SlFL?=
+ =?utf-8?B?VnlyWDQ5b1ZBTjhWaENta3JMS0c0aUVSNUFvQnBzTnN1RDZ1SzdiYVRqREc5?=
+ =?utf-8?B?QVdwa1hEVUYvNU8zY3QvZ1VmVnRvdk5oQzM5eVI3a0kyK1JhWDRXdmg5N2wr?=
+ =?utf-8?B?WkxpNGw3L0g5dURvZUQvRC9jVzlPRkR0MEI1Vjk4eGZ5TVRUZktMSndLN0Zr?=
+ =?utf-8?B?THBjR3JjSjhldTNLbmFycytoVzdlVi9ZczRUbVVvdTJaclNtRW5BMHdKa0dC?=
+ =?utf-8?B?bG84eGRzNVNWU0RIT0tFOTZKMkdseVUwQW9PZW8yRnFWdjhjc2o2eEtMbmVQ?=
+ =?utf-8?B?Ujg1aVR6QW5PcmtRSW1oOHRLVUovRVdwenhZZC9zaXlUVWVyKzMxNFlESkFN?=
+ =?utf-8?B?aG0yKzk5aUZNNkVrTE5wc3pXUjgyTkx5aVBDdDlRMzlBd3RDMndVOFFGSHR1?=
+ =?utf-8?B?RE5UQTJHUHh1RWM3VmNLMmlDYW4rWU5YMHkvRFJMOFY1VCtYVEhkZmNMY01Z?=
+ =?utf-8?B?dlVrRWcyaDhFRWdCMTdxS05Db0JtcW5sME5jQjJLV2RjNHdjOVZja2YyeUpM?=
+ =?utf-8?B?ZytZOVlMMU1lc3BsWUhwTk5rcCtNN3dzWk1iQklscEhzbXhQWmZ0b3d2OHcw?=
+ =?utf-8?B?ZDNoRXR4N05yczNSNFc1Y3VVbUVyU3ZpeXdnWHpNeGFuV24wTGNNT1E3NUFG?=
+ =?utf-8?B?MlMrNmFEUkE4YVlmRXQ5UVlTOGtQaVFRTlZvTkUwb3Vkd3FSaUZuWnIwZklh?=
+ =?utf-8?B?TFVQT1ViL2VCMGF0KzUxNnREWTZyakd5S0FCd2tPaEF4ZUtwcVptUjBuMitr?=
+ =?utf-8?B?cjBUQ0hRc2JyTllrM0F0djA0UG5FY1Y4TFJ4bi9ENUljMytCbitIcDBJWWlX?=
+ =?utf-8?B?a3RSSHpiSnprbmRhV2NuYUxsTEdGdkNhK2hUa2gxUjl6TkFhMDFnb0pQZWFt?=
+ =?utf-8?B?ZFNNbDZYZzN6ajg5L295ZjFVSWFuMGhLMUpacW1pd1d2NkVoNHZ2d0ttOGgr?=
+ =?utf-8?B?Z0wxUkV1SEx0SFZZejFMSUgyRi82NUgzTUxkUXJMWVY4QTkyTzRIaWRick5m?=
+ =?utf-8?B?eng4M1E1dXlIakVudGF1aVdKZWs4Z1ZpeTljZHg3SEI0bG9XRVZIYndvZk4z?=
+ =?utf-8?B?K0ZMbWFtQ2NJc1BrK3g1WFA3NkpwaHRGVURWNXhRMi9RYld4SFhyM1JsY3JQ?=
+ =?utf-8?B?UUJwS2gyQ0hXV3pmTC8xT29PblVvY0Y5aTJCdWU3allQTHVaN01vU2ZwMGda?=
+ =?utf-8?B?YVJoU01MaDc1akJNQ3UwQUhwWjlYdzFBYThGRWNNS1U4ZFExVmRKMkJ2R2pD?=
+ =?utf-8?B?b1ZMMDRBME5VbFNiQlhSKzdDbG1aMHdPQjNGR01iUGJLdUNVaGEwUDNwbGto?=
+ =?utf-8?Q?PjTNPk1OTC69IBn1lYMMm/OtY+2vJFxtBLnnTki/HPvdi?=
+X-MS-Exchange-AntiSpam-MessageData-1: J1D0BNg123DPGw==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d848a27f-56f1-4cc4-509a-08de83511925
+X-MS-Exchange-CrossTenant-AuthSource: BL0PR12MB2353.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Mar 2026 11:42:27.2848 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: nEEvhPODsWUSXxaNGe17h6q2HRYg1g9QQXdiorxAzoa4poP12ZVtCRh7ZkEk+4B+EJ+teqm0vU+l5GEYNELGfg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7346
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,81 +144,52 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon Mar 16, 2026 at 4:17 AM CET, Damon Ding wrote:
-> Hi Luca,
+On Tue Mar 10, 2026 at 6:45 AM JST, Joel Fernandes wrote:
+> On Fri, 27 Feb 2026, Eliot Courtney wrote:
+> [..]
+>> +/// Command code for RM control RPCs sent using [`MsgFunction::GspRmCon=
+trol`].
+>> +#[derive(Copy, Clone, Debug, PartialEq)]
+>> +#[repr(u32)]
+>> +pub(crate) enum RmControlMsgFunction {
+>> +    /// Get the CE fault method buffer size.
+>> +    CeGetFaultMethodBufferSize =3D bindings::NV2080_CTRL_CMD_CE_GET_FAU=
+LT_METHOD_BUFFER_SIZE,
+>> +}
+>> +
+>> +impl TryFrom<u32> for RmControlMsgFunction {
+>> +    type Error =3D kernel::error::Error;
+>> +
+>> +    fn try_from(value: u32) -> Result<Self> {
 >
-> On 3/14/2026 1:10 AM, Luca Ceresoli wrote:
->> Hello Damon,
->>
->> On Tue Mar 10, 2026 at 2:24 AM CET, Damon Ding wrote:
->>> Initialize bridge_connector for both Rockchip and Exynos encoder sides.
->>> Then, make DRM_BRIDGE_ATTACH_NO_CONNECTOR mandatory for Analogix bridge
->>> side, as the private &drm_connector is no longer created.
->>>
->>> The previous &drm_connector_funcs and &drm_connector_helper_funcs APIs
->>> are replaced by the corresponding &drm_bridge_funcs APIs:
->>>
->>> analogix_dp_atomic_check() -> analogix_dp_bridge_atomic_check()
->>> analogix_dp_detect()       -> analogix_dp_bridge_detect()
->>> analogix_dp_get_modes()    -> analogix_dp_bridge_get_modes()
->>>                                analogix_dp_bridge_edid_read()
->>>
->>> Additionally, the compatibilities of Analogix DP bridge based on whethe=
-r
->>> the next bridge is a 'panel'. If it is, OP_MODES and OP_DETECT are
->>> supported; If not (the next bridge is a 'monitor' or a bridge chip),
->>> OP_EDID and OP_DETECT are supported.
->>>
->>> The devm_drm_bridge_add() is placed in analogix_dp_bind() instead of
->>> analogix_dp_probe(), because the type of next bridge (the panel, monito=
-r
->>> or bridge chip) can only be determined after the probe process has full=
-y
->>> completed.
->>>
->>> Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
->>> Tested-by: Marek Szyprowski <m.szyprowski@samsung.com>
->>> Tested-by: Heiko Stuebner <heiko@sntech.de> (on rk3588)
->>
->> ...
->>
->>> @@ -73,15 +72,12 @@ static int exynos_dp_bridge_attach(struct analogix_=
-dp_plat_data *plat_data,
->>>   				   struct drm_bridge *bridge)
->>>   {
->>>   	struct exynos_dp_device *dp =3D to_dp(plat_data);
->>> -	enum drm_bridge_attach_flags flags =3D 0;
->>>   	int ret;
->>>
->>>   	/* Pre-empt DP connector creation if there's a bridge */
->>>   	if (plat_data->next_bridge) {
->>> -		if (dp->has_of_bridge)
->>> -			flags =3D DRM_BRIDGE_ATTACH_NO_CONNECTOR;
->>> -
->>> -		ret =3D drm_bridge_attach(&dp->encoder, plat_data->next_bridge, brid=
-ge, flags);
->>> +		ret =3D drm_bridge_attach(&dp->encoder, plat_data->next_bridge, brid=
-ge,
->>> +					DRM_BRIDGE_ATTACH_NO_CONNECTOR);
->>
->> Should this be 'flags | DRM_BRIDGE_ATTACH_NO_CONNECTOR' to be future-pro=
-of?
->>
+> Other similar impls in the driver carry a TODO[FPRI] comment. Please add =
+one
+> above this impl:
 >
-> Aha, the exynos_dp_bridge_attach() and even
-> &analogix_dp_plat_data.attach() have been removed in [PATCH v10 16/18]
-> for consistency and simplification. Since the only bridge flag supported
-> right now is DRM_BRIDGE_ATTACH_NO_CONNECTOR, let=E2=80=99s leave this as =
-is for
-> now. ;-)
+> // TODO[FPRI]: replace with `FromPrimitive`.
+>
+>> +        match value {
+>> +            bindings::NV2080_CTRL_CMD_CE_GET_FAULT_METHOD_BUFFER_SIZE =
+=3D> {
+>> +                Ok(Self::CeGetFaultMethodBufferSize)
+>> +            }
+>> +            _ =3D> Err(EINVAL),
+>> +        }
+>> +    }
+>> +}
 
-As you are going to send v11, I'd do that change. It is the right thing do
-to, it's cheap, and in case patches up to 11/18 but not (yet) up to 16/18
-we avoid ending up with unoptimal code until patch 16/18 is applied.
+Will do, thanks.
 
-Luca
+>
+> Nit: the braces around the single-expression match arm are unnecessary:
+>
+>     match value {
+>         bindings::NV2080_CTRL_CMD_CE_GET_FAULT_METHOD_BUFFER_SIZE =3D>
+>             Ok(Self::CeGetFaultMethodBufferSize),
+>         _ =3D> Err(EINVAL),
+>     }
+>
+> thanks,
 
---
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+This does not pass rustfmtcheck, probably because rustfmt wants braces
+on multilines like this.
