@@ -4,36 +4,36 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BD461F46426
-	for <dri-devel@archiver.kernel.org>; Mon, 16 Mar 2026 09:50:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 73A12F46441
+	for <dri-devel@archiver.kernel.org>; Mon, 16 Mar 2026 10:03:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2121510E38F;
-	Mon, 16 Mar 2026 09:50:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DB16110E396;
+	Mon, 16 Mar 2026 10:03:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="RJSfS2O+";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="huGr/W+y";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A9FCB10E38F
- for <dri-devel@lists.freedesktop.org>; Mon, 16 Mar 2026 09:50:48 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8C77C10E396
+ for <dri-devel@lists.freedesktop.org>; Mon, 16 Mar 2026 10:03:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1773654647;
- bh=vpsBCUIu5XDFowugmn3tmtpkDxHBtVYs11IY9BRWzlA=;
+ s=mail; t=1773655393;
+ bh=G4lI7JjmeRI1KhlZ95ekE0JbWMTYesndWDGpdT1dyEw=;
  h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=RJSfS2O+FLiRPyMyJKJB3e1UMqZiEdVtWjfwzqGqxC3avHMdOSCvlCTj2Ns4ng6Th
- i3TKSlxU5LK6f43AZ8UteDUr5LekYrz4FpyHY0iItGRUVLXwEfFqa2w2GX/bFEXip6
- M5qSG+6JnNFe2cockfWwPr1mw6td17yKKdpxVBPdwtai0I9msGZcaNWH6iYtl62mrW
- oq+5jDVsSVZsklBqwkDIW0JUMC+Au4Q0glDV1KuYQR1c8odOSs71Uwi8HwbbVD2nCL
- L3dLxvu2/DP6Xh0BJpeE0SnHfsRo+TcxDd2KXBc3Zr91CSznczPTFb0UxIjGS18iTq
- 2FPq49higrUZw==
+ b=huGr/W+ypt68erU1qRHjs+YdDeD0jIRPti0GJy8IrJ9bwhFT/BSV6JHBPf+Y6RA2g
+ p6oRNS5qIAWXeYbQfR02SKRYPKgKQjVEVPvS6Ve/RU/a0UPanJYJC5rdnn4P+qvpTG
+ hvIPYLBSpcnIfjS5/KMUjx7stIIMAa8uVM56cXfpdlebCXfy+ylpzUaU/7v/JcXNcS
+ vEddNtmj2ddIVa+l9fAP/eOP19i74cVPNn90C84Ho+jssds5WRDO45h6hw0HU3vJME
+ FUr0RXAReBoRDlZFWziJSb0BlkXQUwOM02FzS99fFa1dj9mJDfwPWJU81fxIcggdPF
+ QvnskafHsmtIA==
 Received: from fedora (unknown [IPv6:2a01:e0a:2c:6930:d919:a6e:5ea1:8a9f])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
  server-digest SHA256) (No client certificate requested)
  (Authenticated sender: bbrezillon)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 11C5917E0EF1;
- Mon, 16 Mar 2026 10:50:47 +0100 (CET)
-Date: Mon, 16 Mar 2026 10:50:43 +0100
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id DC37D17E0ED6;
+ Mon, 16 Mar 2026 11:03:12 +0100 (CET)
+Date: Mon, 16 Mar 2026 11:03:08 +0100
 From: Boris Brezillon <boris.brezillon@collabora.com>
 To: Pedro Demarchi Gomes <pedrodemargomes@gmail.com>
 Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
@@ -42,7 +42,7 @@ Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Subject: Re: [PATCH v3] drm/shmem-helper: Fix Map huge page mapping in fault
  handler
-Message-ID: <20260316105043.115ba8a3@fedora>
+Message-ID: <20260316110308.6bf03d12@fedora>
 In-Reply-To: <20260316002649.211819-1-pedrodemargomes@gmail.com>
 References: <20260316002649.211819-1-pedrodemargomes@gmail.com>
 Organization: Collabora
@@ -202,6 +202,13 @@ Pedro Demarchi Gomes <pedrodemargomes@gmail.com> wrote:
 > -
 > -static vm_fault_t drm_gem_shmem_fault(struct vm_fault *vmf)
 > +static vm_fault_t drm_gem_shmem_any_fault(struct vm_fault *vmf, bool try_pmd)
+
+Since we're at it, maybe we can take the order here, and use
+drm_gem_shmem_any_fault directly for the huge_fault handler (see
+below for the few places to modify to do that)
+
+static vm_fault_t drm_gem_shmem_any_fault(struct vm_fault *vmf, unsigned int order)
+
 >  {
 >  	struct vm_area_struct *vma = vmf->vma;
 >  	struct drm_gem_object *obj = vma->vm_private_data;
@@ -215,7 +222,8 @@ Pedro Demarchi Gomes <pedrodemargomes@gmail.com> wrote:
 > +	unsigned long paddr;
 > +	bool aligned;
 
-Those two variables can be moved to the `if (try_pmd)` branch.
+	if (order && order != PMD_ORDER)
+		return VM_FAULT_FALLBACK;
 
 > 
 >  	/* Offset to faulty address in the VMA. */
@@ -244,10 +252,7 @@ Those two variables can be moved to the `if (try_pmd)` branch.
 > +		ret = vmf_insert_pfn(vma, vmf->address, pfn);
 > +	}
 
-Hm, if we get rid of drm_gem_shmem_try_map_pmd(), we probably
-need something like
-
-	if (!try_pmd) {
+	if (!order) {
 		ret = vmf_insert_pfn(vma, vmf->address, pfn);
 	} else {
 #ifdef CONFIG_ARCH_SUPPORTS_PMD_PFNMAP
@@ -258,15 +263,13 @@ need something like
 		    folio_test_pmd_mappable(page_folio(pages[page_offset]))) {
 			pfn &= PMD_MASK >> PAGE_SHIFT;
 			ret = vmf_insert_pfn_pmd(vmf, pfn, false);
+		} else {
+			ret = VM_FAULT_FALLBACK;
 		}
 #else
 		ret = VM_FAULT_FALLBACK;
 #endif
 	}
-
-to make sure we're not calling helpers that might not
-exist in some configs (the compile might optimize the
-try_pmd==true branch out already, but better safe than sorry).
 
 > 
 >   out:
@@ -285,10 +288,16 @@ try_pmd==true branch out already, but better safe than sorry).
 > +	return drm_gem_shmem_any_fault(vmf, true);
 > +}
 > +#endif
+
+You can get rid of drm_gem_shmem_huge_fault.
+
 > +
 > +static vm_fault_t drm_gem_shmem_fault(struct vm_fault *vmf)
 > +{
 > +	return drm_gem_shmem_any_fault(vmf, false);
+
+	return drm_gem_shmem_any_fault(vmf, 0);
+
 > +}
 > +
 >  static void drm_gem_shmem_vm_open(struct vm_area_struct *vma)
@@ -300,6 +309,8 @@ try_pmd==true branch out already, but better safe than sorry).
 >  	.fault = drm_gem_shmem_fault,
 > +#ifdef CONFIG_ARCH_SUPPORTS_PMD_PFNMAP
 > +	.huge_fault = drm_gem_shmem_huge_fault,
+
+	.huge_fault = drm_gem_shmem_any_fault,
 > +#endif
 >  	.open = drm_gem_shmem_vm_open,
 >  	.close = drm_gem_shmem_vm_close,
