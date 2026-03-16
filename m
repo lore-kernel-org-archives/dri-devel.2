@@ -4,62 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9C39CF4644F
-	for <dri-devel@archiver.kernel.org>; Mon, 16 Mar 2026 11:14:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B8F45F4644F
+	for <dri-devel@archiver.kernel.org>; Mon, 16 Mar 2026 11:14:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0021510E0BB;
-	Mon, 16 Mar 2026 11:14:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0EB8B10E3E6;
+	Mon, 16 Mar 2026 11:14:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="knqEIGCW";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="FPZG0d9U";
 	dkim-atps=neutral
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9302510E0BB
- for <dri-devel@lists.freedesktop.org>; Mon, 16 Mar 2026 11:14:33 +0000 (UTC)
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-02.galae.net (Postfix) with ESMTPS id 00A331A2E6E;
- Mon, 16 Mar 2026 11:14:32 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id C905F5FC4A;
- Mon, 16 Mar 2026 11:14:31 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id E9CC310369E4D; Mon, 16 Mar 2026 12:14:24 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1773659671; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding:in-reply-to:references;
- bh=2MbOg0Y9XZ4FNZJISl3n/LWKp7gjXBMr4OVGp+U/RcY=;
- b=knqEIGCWGr3glusq9ivP4Nvwv2+FP9OWO13N77/x44sxOBCjgJPg0myoREbZL9ryKwHt00
- pKxhMV8PKyTcae5RGXr6lznBNAwPksBOTho+e+i+lRqR3vW184zLLzlZeasesRfqhPBw0v
- 0LWIcGXqrVbSug7OViiTqDJ/DKb+SXqnolZ6UfKawOsePIX0kQVdxiXkHtUuaj4FyfR9Ov
- H1F+a6eDuGNXaBdCL5MRrt14vSBlEnH05RzZUACcmAdBzN2xLrXjQOK8Pl+PUhMrAK8IXj
- SfP9JwIPYiSJPDiE8OAa9Mdnxcn/xTbonXn34N1bDQEjQxbiF7cy2fYoI5EOWQ==
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 16 Mar 2026 12:14:23 +0100
-Message-Id: <DH45VL1LHCP3.2MWX4VKP46H04@bootlin.com>
-To: "Liu Ying" <victor.liu@nxp.com>, "Andrzej Hajda"
- <andrzej.hajda@intel.com>, "Neil Armstrong" <neil.armstrong@linaro.org>,
- "Robert Foss" <rfoss@kernel.org>, "Laurent Pinchart"
- <Laurent.pinchart@ideasonboard.com>, "Jonas Karlman" <jonas@kwiboo.se>,
- "Jernej Skrabec" <jernej.skrabec@gmail.com>, "Maarten Lankhorst"
- <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
- "Thomas Zimmermann" <tzimmermann@suse.de>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>
-From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
-Subject: Re: [PATCH] drm/bridge: Fix refcount shown via debugfs for
- encoder_bridges_show()
-Cc: "Marco Felsch" <m.felsch@pengutronix.de>,
- <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
-X-Mailer: aerc 0.20.1
-References: <20260312-drm-misc-next-2026-03-05-fix-encoder-bridges-refcount-v1-1-b9ba3d844732@nxp.com>
- <DH0ZD9UFY68E.2C1ISONVIO42L@bootlin.com>
- <53c257df-9800-48ed-a975-d7bfe4d71be1@nxp.com>
- <DH1KCR43169Z.200HRE4K6DNRQ@bootlin.com>
- <61a51c05-7730-4b7a-85cf-5f03a7985408@nxp.com>
- <DH1U1NUNGZTO.13UP9EXCAC2P5@bootlin.com>
- <b25719e0-21d3-4919-b95e-22b22bdbb388@nxp.com>
-In-Reply-To: <b25719e0-21d3-4919-b95e-22b22bdbb388@nxp.com>
-X-Last-TLS-Session-Version: TLSv1.3
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
+ [136.143.188.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 042F110E3E6
+ for <dri-devel@lists.freedesktop.org>; Mon, 16 Mar 2026 11:14:51 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1773659687; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=UIej3PgOTkE/n0d+iLhvO9KUEiB24mLjI5T3L8rccNLAyjrayVNy8Aw0GeSTmgMPA68EXjupr5mrY8JaIsmw27IaWeATHFfYPAFqIrCh+nM3maDlIYuf8fIQ06Y/Vkp9l8E5WIfTUs3OU16oTagb2sSEhfrcm/esDoQertxM7Io=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1773659687;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=XlhrKy1qO5Y7JTYOOoPiFnrf+Gaw2TCJw74PIWbx0L8=; 
+ b=GHJL5UhzMhaI4sJ/M2v+eF4cfdijD4SFjKwqah2FRjP9h/z1zw2QMf9fj98FRyyGfo3LH8PCo1xWQF8j2EeKQ0LopTyqkGzgSvdHumi+9YnmRzB5LQeaczuGyYgmdJY/3gCNT68jyY6In18UbnM7WRUY7rUMGkP+ZShY2bE1rgU=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
+ dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1773659687; 
+ s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
+ h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:Content-Type:Message-Id:Reply-To;
+ bh=XlhrKy1qO5Y7JTYOOoPiFnrf+Gaw2TCJw74PIWbx0L8=;
+ b=FPZG0d9UCoj7VXzxtKmvxxFQxaF9k8mtZY+xQj9wmcNo5ZR3YeOZ0v/MSQDEG4e/
+ uo+DFdjh4U8fl2V0BoI81dK5Xu0NTrMpgb8RMITuxhj8KJz8j88FHgNWCMwF0qOxFfQ
+ 9yuJEN5GQKJ2HcVlyUA0Yk+HsIxrGRCSHTTnxhhU=
+Received: by mx.zohomail.com with SMTPS id 177365968484917.368603781984916;
+ Mon, 16 Mar 2026 04:14:44 -0700 (PDT)
+From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+To: hjc@rock-chips.com, heiko@sntech.de, andy.yan@rock-chips.com,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ airlied@gmail.com, simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, andrzej.hajda@intel.com, neil.armstrong@linaro.org,
+ rfoss@kernel.org, Damon Ding <damon.ding@rock-chips.com>
+Cc: Laurent.pinchart@ideasonboard.com, jonas@kwiboo.se,
+ jernej.skrabec@gmail.com, alchark@gmail.com,
+ cristian.ciocaltea@collabora.com, sebastian.reichel@collabora.com,
+ kever.yang@rock-chips.com, dmitry.baryshkov@oss.qualcomm.com,
+ luca.ceresoli@bootlin.com, dianders@chromium.org, m.szyprowski@samsung.com,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
+ linux-kernel@vger.kernel.org, Damon Ding <damon.ding@rock-chips.com>
+Subject: Re: [PATCH v1 3/4] drm/bridge: analogix_dp: Add support for RK3576
+Date: Mon, 16 Mar 2026 12:14:37 +0100
+Message-ID: <2032185.PYKUYFuaPT@workhorse>
+In-Reply-To: <20260310105307.309765-4-damon.ding@rock-chips.com>
+References: <20260310105307.309765-1-damon.ding@rock-chips.com>
+ <20260310105307.309765-4-damon.ding@rock-chips.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="utf-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,91 +75,73 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hello Liu, Maxime,
+On Tuesday, 10 March 2026 11:53:06 Central European Standard Time Damon Ding wrote:
+> Expand enum analogix_dp_devtype with RK3576_EDP, and add max_link_rate
+> and max_lane_count configs for it.
+> 
+> Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
+> ---
+>  drivers/gpu/drm/bridge/analogix/analogix_dp_core.c | 1 +
+>  include/drm/bridge/analogix_dp.h                   | 3 ++-
+>  2 files changed, 3 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+> index fe7158d9edde..c4e49e8186ab 100644
+> --- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+> +++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+> @@ -1248,6 +1248,7 @@ static int analogix_dp_dt_parse_pdata(struct analogix_dp_device *dp)
+>  		video_info->max_link_rate = 0x0A;
+>  		video_info->max_lane_count = 0x04;
+>  		break;
+> +	case RK3576_EDP:
+>  	case RK3588_EDP:
+>  		video_info->max_link_rate = 0x14;
+>  		video_info->max_lane_count = 0x04;
+> diff --git a/include/drm/bridge/analogix_dp.h b/include/drm/bridge/analogix_dp.h
+> index 854af692229b..d1a6e6d44a2b 100644
+> --- a/include/drm/bridge/analogix_dp.h
+> +++ b/include/drm/bridge/analogix_dp.h
+> @@ -16,12 +16,13 @@ enum analogix_dp_devtype {
+>  	EXYNOS_DP,
+>  	RK3288_DP,
+>  	RK3399_EDP,
+> +	RK3576_EDP,
+>  	RK3588_EDP,
+>  };
+>  
+>  static inline bool is_rockchip(enum analogix_dp_devtype type)
+>  {
+> -	return type == RK3288_DP || type == RK3399_EDP || type == RK3588_EDP;
+> +	return type == RK3288_DP || type == RK3399_EDP || type == RK3576_EDP || type == RK3588_EDP;
 
-On Mon Mar 16, 2026 at 10:47 AM CET, Liu Ying wrote:
->>>>>> @Maxime: based on the issue Liu is trying to work around, do you thi=
-nk it
->>>>>> would make sense to go back to the initial approach for that series?
->>>>>> I.e. drm_for_each_bridge_in_chain_scoped() grabs the chain lock, whi=
-ch is a
->>>>>> superset of the per-bridge refcount, and thus the refcount can be dr=
-opped?
->>>>>> This would remove the debugfs issue, slightly simplify
->>>>>> drm_for_each_bridge_in_chain_scoped(), and introduce no new issues A=
-FAIK.
->>>>>
->>>>> Just my take on the chain lock approach - I agree Maxime's comment on=
- [v2]
->>>>> that keeping the get/put is a better than using the chain lock to ens=
-ure
->>>>> the refcount is correct.  The chain lock could be added later on if n=
-eeded.
->>>>
->>>> Well, no, adding the chain mutex is necessary(*), otherwise Thread A c=
-ould
->>>> iterate over the chain while thread B is adding/removing bridges to/fr=
-om
->>>> the chain.
->>>>
->>>> And the chain mutex is a superset of the per-bridge refcount, so when
->>>> adding the mutex the refcount inside drm_for_each_bridge_in_chain_scop=
-ed()
->>>> becomes useless (and slightly hurting as it makes the refcount shown i=
-n
->>>> debugfs inconsistent, as you noticed).
->>>
->>> For better code readability, I think keeping the get/put is fine even i=
-f
->>> you add a lock
->>
->> The [v4] code with the removal of the extra refcount would not be more
->> complex. It would be a bit less code (no need for the DEFINE_FREE and
->> __free()). Maybe it'd need an extra comment to clarify when the
->> drm_bridge_put() is called.
->>
->> [v4] https://lore.kernel.org/all/20260113-drm-bridge-alloc-encoder-chain=
--mutex-v4-4-60f3135adc45@bootlin.com/
->>
->>> (maybe RCU list is better than mutex, since the chain is
->>> read often).  That follows the idea that you mentioned in [1]: "every
->>> pointer to a drm_bridge stored somewhere is a reference to a bridge".
->>
->> That's true. However while it's an important pointer hygiene rule for
->> device drivers, for core code it's OK to deviate when there is a reason.
->>
->>> Plus, seems no performance issue with the get/put, as discussed in [v2]=
-.
->>
->> I confirm performance is surely not an issue here.
->>
->> All that said, I'm OK with either option:
->>
->>  * no ref taken when the mutex is added
->>  * ref taken when the mutex is added (as v4) + your patch to fix debugfs
->
-> Maybe consider to take this patch first, since it doesn't hurt.
+I think we can make this easier to read with a switch statement. In
+a separate patch, we may also want to rename `is_rockchip` to
+`analogix_dp_is_rockchip`, as e.g. rockchip_drm_vop.c and exynos_dp.c
+both include his header file as well.
 
-Yes, especially as the current debugfs output is non-intuitive.
+Switch statement would make the function look something like:
 
-> Even if
-> we end up with the first option, the refcount is supposed to be correct
-> anyway.
+static inline bool is_rockchip(enum analogix_dp_devtype type)
+{
+	switch (type) {
+	case RK3288_DP:
+	case RK3399_EDP:
+	case RK3576_EDP:
+	case RK3588_EDP:
+		return true;
+	default:
+		return false;
+	}
+}
 
-Well, if we apply this patch and then go for option 1 then this patch shall
-be removed, or the refcount shown would be one-less than the expected
-value, instead of one-more as it is now.
+Kind regards,
+Nicolas Frattaroli
 
-> Luca, do you think this patch deserves at least an A-b tag from you if no=
-t
-> a R-b tag?
+>  }
+>  
+>  struct analogix_dp_plat_data {
+> 
 
-I've been waiting a bit in case Maxime or someone else wanted to chime
-in. I'm reviewing it now.
 
-Luca
 
---
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+
