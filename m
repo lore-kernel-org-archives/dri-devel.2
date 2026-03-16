@@ -4,144 +4,138 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2D61BF013D5
-	for <dri-devel@archiver.kernel.org>; Mon, 16 Mar 2026 08:45:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3DD08EFCBD4
+	for <dri-devel@archiver.kernel.org>; Mon, 16 Mar 2026 08:46:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4154A10E344;
-	Mon, 16 Mar 2026 08:45:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8FFFF10E36B;
+	Mon, 16 Mar 2026 08:46:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="RKnM5v0i";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="bh7FO9X1";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="RKnM5v0i";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="bh7FO9X1";
+	dkim=pass (2048-bit key; secure) header.d=gmx.de header.i=natalie.vock@gmx.de header.b="YaOcUGg8";
 	dkim-atps=neutral
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 58D4610E36B
- for <dri-devel@lists.freedesktop.org>; Mon, 16 Mar 2026 08:45:51 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 0438D4D1C7;
- Mon, 16 Mar 2026 08:45:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1773650750; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=UcK0mCj2Jo8AI0kfTvelbnqRTyW2MZtbydy4WExAfks=;
- b=RKnM5v0iKaypRbV+xk8QYDgskUYIsvLndYi1j/JP8u9VZm6G9nQOEX41GheDP8TXTIONOO
- tvEAYh2rdn93ub8L8YJSOzyhT8RWrEEn2yiwdYuVanXap/ScmKn/Mdsi3KSbP5ttD7pMay
- vBBgzYeHGAJPAej5MoN0+CC0Eup+Ma8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1773650750;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=UcK0mCj2Jo8AI0kfTvelbnqRTyW2MZtbydy4WExAfks=;
- b=bh7FO9X12wVVbZW3DBYdD2VW0HVn01MPJI5/g6y3nFrehfRxQINgYmyBsSS9j5evGnEsTX
- SwIg8GZZx7P7/gDw==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1773650750; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=UcK0mCj2Jo8AI0kfTvelbnqRTyW2MZtbydy4WExAfks=;
- b=RKnM5v0iKaypRbV+xk8QYDgskUYIsvLndYi1j/JP8u9VZm6G9nQOEX41GheDP8TXTIONOO
- tvEAYh2rdn93ub8L8YJSOzyhT8RWrEEn2yiwdYuVanXap/ScmKn/Mdsi3KSbP5ttD7pMay
- vBBgzYeHGAJPAej5MoN0+CC0Eup+Ma8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1773650750;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=UcK0mCj2Jo8AI0kfTvelbnqRTyW2MZtbydy4WExAfks=;
- b=bh7FO9X12wVVbZW3DBYdD2VW0HVn01MPJI5/g6y3nFrehfRxQINgYmyBsSS9j5evGnEsTX
- SwIg8GZZx7P7/gDw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 9963D4273B;
- Mon, 16 Mar 2026 08:45:49 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id 9UkHJD3Dt2nrbgAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Mon, 16 Mar 2026 08:45:49 +0000
-Message-ID: <53f11658-5466-49a3-816a-ff6fd2e1da6f@suse.de>
-Date: Mon, 16 Mar 2026 09:45:49 +0100
+Received: from mout.gmx.net (mout.gmx.net [212.227.17.22])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4347F10E36B
+ for <dri-devel@lists.freedesktop.org>; Mon, 16 Mar 2026 08:46:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
+ s=s31663417; t=1773650777; x=1774255577; i=natalie.vock@gmx.de;
+ bh=96UFq0Jee3mbXOL1pVtFSnSBHwRvEcVpbZpy1zz8p4E=;
+ h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
+ References:From:In-Reply-To:Content-Type:
+ Content-Transfer-Encoding:cc:content-transfer-encoding:
+ content-type:date:from:message-id:mime-version:reply-to:subject:
+ to;
+ b=YaOcUGg8VHKdDPy0bcFRgcgQCEz4EjivZ00TMNeTd04aP1BYoBcpEJZjwX2hKp0p
+ ZCm4DHb+I4aVWngVqapn4t/uprNVWMX7GhNpFAUgbgPgXeTXMTpGOngErZo8jbtkX
+ YSNA8DX0QsYz9cweXzYyN0IOsmfJUi1y793O9YuLv+88s3aR9TNuAlSxXQ+LinAKW
+ 2hfH6jcT9oi6SiIE+McrKGpgebU7bISgoJsmMdEdoLECyMXmEFWGoe+QZ6zs4J6js
+ P0Px2TiP3g1AD3xosCDHFjBpj50yKzl3tzgfmspLb4ULmhEByNb03LUhLbj34ntsn
+ Ew1a2lG1kUb1oS75GA==
+X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
+Received: from client.hidden.invalid by mail.gmx.net (mrgmx104
+ [212.227.17.168]) with ESMTPSA (Nemesis) id 1MOA3F-1wH8We2HLF-00N8CL; Mon, 16
+ Mar 2026 09:46:17 +0100
+Message-ID: <911b9bfb-c352-4f6d-93a1-540246ccd5b2@gmx.de>
+Date: Mon, 16 Mar 2026 09:46:15 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 5/6] drm/gem-shmem: Track folio accessed/dirty status
- in mmap
-To: Boris Brezillon <boris.brezillon@collabora.com>,
- Biju Das <biju.das.jz@bp.renesas.com>
-Cc: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>,
- "loic.molinari@collabora.com" <loic.molinari@collabora.com>,
- "willy@infradead.org" <willy@infradead.org>,
- "frank.binns@imgtec.com" <frank.binns@imgtec.com>,
- "matt.coster@imgtec.com" <matt.coster@imgtec.com>,
- "maarten.lankhorst@linux.intel.com" <maarten.lankhorst@linux.intel.com>,
- "mripard@kernel.org" <mripard@kernel.org>,
- "airlied@gmail.com" <airlied@gmail.com>, "simona@ffwll.ch"
- <simona@ffwll.ch>, "linux-mm@kvack.org" <linux-mm@kvack.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
-References: <20260227114509.165572-1-tzimmermann@suse.de>
- <20260227114509.165572-6-tzimmermann@suse.de> <abL5rcYIaFFO3GW2@tom-desktop>
- <TY3PR01MB113460CA616D3576DA0C3FC698644A@TY3PR01MB11346.jpnprd01.prod.outlook.com>
- <TY3PR01MB113461ACB668738E1952EC8898645A@TY3PR01MB11346.jpnprd01.prod.outlook.com>
- <20260313111851.4c1f89f3@fedora>
- <f3384342-cdc5-4260-b670-4ffde76a2802@suse.de>
- <20260313125644.65131b27@fedora>
- <TY3PR01MB1134662A395AA0A048CEE152E8645A@TY3PR01MB11346.jpnprd01.prod.outlook.com>
- <20260313131835.52c5c935@fedora> <20260313134328.3166c4d0@fedora>
- <20260313135521.07823792@fedora> <20260313184549.08656eed@fedora>
+Subject: Re: [PATCH v6 2/6] cgroup,cgroup/dmem: Add
+ (dmem_)cgroup_common_ancestor helper
+To: =?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>
+Cc: Maarten Lankhorst <dev@lankhorst.se>, Maxime Ripard <mripard@kernel.org>, 
+ Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>,
+ Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>,
+ Matthew Auld <matthew.auld@intel.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Tvrtko Ursulin <tursulin@ursulin.net>,
+ cgroups@vger.kernel.org, dri-devel@lists.freedesktop.org
+References: <20260313-dmemcg-aggressive-protect-v6-0-7c71cc1492db@gmx.de>
+ <20260313-dmemcg-aggressive-protect-v6-2-7c71cc1492db@gmx.de>
+ <cykgy6mf4nu5kkwl3uc6modkj3ppela2xgjy2ijidpyzdsnyn4@cbwivcrqa5kh>
 Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20260313184549.08656eed@fedora>
+From: Natalie Vock <natalie.vock@gmx.de>
+In-Reply-To: <cykgy6mf4nu5kkwl3uc6modkj3ppela2xgjy2ijidpyzdsnyn4@cbwivcrqa5kh>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- NEURAL_HAM_SHORT(-0.20)[-0.999]; MIME_GOOD(-0.10)[text/plain];
- TO_DN_EQ_ADDR_SOME(0.00)[]; RCPT_COUNT_TWELVE(0.00)[13];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- MIME_TRACE(0.00)[0:+]; FUZZY_RATELIMITED(0.00)[rspamd.com];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; ARC_NA(0.00)[];
- FREEMAIL_ENVRCPT(0.00)[gmail.com];
- FREEMAIL_CC(0.00)[bp.renesas.com,collabora.com,infradead.org,imgtec.com,linux.intel.com,kernel.org,gmail.com,ffwll.ch,kvack.org,lists.freedesktop.org];
- RCVD_TLS_ALL(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
- FROM_HAS_DN(0.00)[]; TO_DN_SOME(0.00)[];
- RCVD_COUNT_TWO(0.00)[2]; RCVD_VIA_SMTP_AUTH(0.00)[];
- MID_RHS_MATCH_FROM(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url,suse.de:mid,suse.de:email]
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:I7f7ml8E9z07wjFby9cVae4dD0jqNDkdP7LcekYQT4nATfv0iTl
+ FlvKU9BeogR36eU7TZjW5sefFPp9e/9us3qEO6d7BZkVBo/oTFR5qrKQAYflY87LDgQyJAk
+ TaVGvFbXv/BAWttB+Q5iHfT1YkFg1wu9o23ruqdzZ7BZyaadG4YUND54rzX/wmjKpsIA7er
+ bppV4mABIPNdJUKUUtsUA==
+UI-OutboundReport: notjunk:1;M01:P0:8Ua4JPpl2Jo=;Wyk8I/cscy6VpHaYQkUf0+ErqS1
+ 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
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -157,128 +151,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Boris,
-
-thanks for investigating this problem.
-
-Am 13.03.26 um 18:45 schrieb Boris Brezillon:
-> On Fri, 13 Mar 2026 13:55:21 +0100
-> Boris Brezillon <boris.brezillon@collabora.com> wrote:
->
->> On Fri, 13 Mar 2026 13:43:28 +0100
->> Boris Brezillon <boris.brezillon@collabora.com> wrote:
+On 3/13/26 15:16, Michal Koutn=C3=BD wrote:
+> On Fri, Mar 13, 2026 at 12:40:01PM +0100, Natalie Vock <natalie.vock@gmx=
+.de> wrote:
+>> This helps to find a common subtree of two resources, which is importan=
+t
+>> when determining whether it's helpful to evict one resource in favor of
+>> another.
 >>
->>> On Fri, 13 Mar 2026 13:18:35 +0100
->>> Boris Brezillon <boris.brezillon@collabora.com> wrote:
->>>    
->>>> On Fri, 13 Mar 2026 12:04:25 +0000
->>>> Biju Das <biju.das.jz@bp.renesas.com> wrote:
->>>>      
->>>>>> -----Original Message-----
->>>>>> From: dri-devel <dri-devel-bounces@lists.freedesktop.org> On Behalf Of Boris Brezillon
->>>>>> Sent: 13 March 2026 11:57
->>>>>> Subject: Re: [PATCH v4 5/6] drm/gem-shmem: Track folio accessed/dirty status in mmap
->>>>>>
->>>>>> On Fri, 13 Mar 2026 11:29:47 +0100
->>>>>> Thomas Zimmermann <tzimmermann@suse.de> wrote:
->>>>>>          
->>>>>>> Hi
->>>>>>>
->>>>>>> Am 13.03.26 um 11:18 schrieb Boris Brezillon:
->>>>>>> [...]
->>>>>>>>>>>> +	if (drm_WARN_ON(obj->dev, !shmem->pages || page_offset >= num_pages))
->>>>>>>>>>>> +		return VM_FAULT_SIGBUS;
->>>>>>>>>>>> +
->>>>>>>>>>>> +	file_update_time(vma->vm_file);
->>>>>>>>>>>> +
->>>>>>>>>>>> +	folio_mark_dirty(page_folio(shmem->pages[page_offset]));
->>>>>>>> Do we need a folio_mark_dirty_lock() here?
->>>>>>> There is a helper for that with some documentation. [1]
->>>>>> This [1] seems to solve the problem for me. Still unsure about the folio_mark_dirty_lock vs
->>>>>> folio_mark_dirty though.
->>>>>>
->>>>>> [1]https://yhbt.net/lore/dri-devel/20260312155027.1682606-1-pedrodemargomes@gmail.com/
->>>>> FYI, I used folio_mark_dirty_lock() still it does not solve the issue with weston hang.
->>>> The patch I pointed to has nothing to do with folio_mark_dirty_lock(),
->>>> It's a bug caused by huge page mapping changes.
->>> Scratch that. I had a bunch of other changes on top, and it hangs again
->>> now that I dropped those.
->> Seems like it's the combination of huge pages and mkwrite that's
->> causing issues, if I disable huge pages, it doesn't hang...
-> I managed to have it working with the following diff. I still need to
-> check why the "map-RO-split+RW-on-demand" approach doesn't work (races
-> between huge_fault and pfn_mkwrite?), but I think it's okay to map the
-> real thing writable on the first attempt anyway (we're not trying to do
-> CoW here, since we're always pointing to the same page, it's just the
-> permissions that change). Note that there's still the race fixed by
-> https://yhbt.net/lore/dri-devel/20260312155027.1682606-1-pedrodemargomes@gmail.com/
-> in this diff, I just tried to keep the diffstat minimal.
->
-> --->8---
-> diff --git a/drivers/gpu/drm/drm_gem_shmem_helper.c b/drivers/gpu/drm/drm_gem_shmem_helper.c
-> index 4500deef4127..4efdce5a60f0 100644
-> --- a/drivers/gpu/drm/drm_gem_shmem_helper.c
-> +++ b/drivers/gpu/drm/drm_gem_shmem_helper.c
-> @@ -561,9 +561,8 @@ static vm_fault_t drm_gem_shmem_try_insert_pfn_pmd(struct vm_fault *vmf, unsigne
->          bool aligned = (vmf->address & ~PMD_MASK) == (paddr & ~PMD_MASK);
->   
->          if (aligned && pmd_none(*vmf->pmd)) {
-> -               /* Read-only mapping; split upon write fault */
->                  pfn &= PMD_MASK >> PAGE_SHIFT;
-> -               return vmf_insert_pfn_pmd(vmf, pfn, false);
-> +               return vmf_insert_pfn_pmd(vmf, pfn, vmf->flags & FAULT_FLAG_WRITE);
->          }
->   #endif
->   
-> @@ -597,8 +596,12 @@ static vm_fault_t drm_gem_shmem_fault(struct vm_fault *vmf)
->   
->          pfn = page_to_pfn(page);
->   
-> -       if (folio_test_pmd_mappable(folio))
-> +       if (folio_test_pmd_mappable(folio)) {
->                  ret = drm_gem_shmem_try_insert_pfn_pmd(vmf, pfn);
-> +               if (ret == VM_FAULT_NOPAGE && vmf->flags & FAULT_FLAG_WRITE)
-> +                       folio_mark_dirty(folio);
-> +       }
-> +
->          if (ret != VM_FAULT_NOPAGE)
->                  ret = vmf_insert_pfn(vma, vmf->address, pfn);
+>> To facilitate this, add a common helper to find the ancestor of two
+>> cgroups using each cgroup's ancestor array.
+>>
+>> Signed-off-by: Natalie Vock <natalie.vock@gmx.de>
+>> ---
+>>   include/linux/cgroup.h      | 21 +++++++++++++++++++++
+>>   include/linux/cgroup_dmem.h |  9 +++++++++
+>>   kernel/cgroup/dmem.c        | 28 ++++++++++++++++++++++++++++
+>>   3 files changed, 58 insertions(+)
+>=20
+> When the helper is added, the idiom in
+> kernel/cgroup/cgroup.c:cgroup_procs_write_permission() could perhaps be
+> switched to it too (structured in commits) to "optimize" migrations from
+> large depths.
 
-All these branches with NOPAGE seem confusing. Can we change the overall 
-logic here? Something like:
+Right. Perhaps better suited as follow-up work though, isn't it?
 
-if (folio_test_pmd_mappable()) {
-     ret = try_insert_pfn_pmd()
-     if (ret == VM_FAULT_NOPAGE) {
-         folio_mark_accessed()
-         if (flags & FLAG_WRITE)
-             folio_mark_dirty()
-         goto out;
-     }
-}
+Thanks,
+Natalie
 
-ret = vmf_insert_pfn()
-if (ret == NOPAGE)
-     folio_mark_accesed()
-
-out:
-   ...
-
-
-This would keep the huge-page code within the first branch. And if it 
-fails, it still does the regular page fault.
-
-Best regards
-Thomas
-
->   
-
--- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
-
+>=20
+> Thanks,
+> Michal
 
