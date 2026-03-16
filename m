@@ -4,136 +4,107 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 20106F46445
-	for <dri-devel@archiver.kernel.org>; Mon, 16 Mar 2026 11:00:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A19ADF46445
+	for <dri-devel@archiver.kernel.org>; Mon, 16 Mar 2026 11:03:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7679610E3A6;
-	Mon, 16 Mar 2026 11:00:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 05C2E10E3B4;
+	Mon, 16 Mar 2026 11:03:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=web.de header.i=markus.elfring@web.de header.b="r0VpyXrC";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="FNTQeudR";
 	dkim-atps=neutral
-Received: from mout.web.de (mout.web.de [212.227.15.3])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 68EBF10E3A6;
- Mon, 16 Mar 2026 11:00:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
- s=s29768273; t=1773658831; x=1774263631; i=markus.elfring@web.de;
- bh=b+kIpuqtFhF4ktUbbMXDmhvxNc54LV/P/ourahO5+54=;
- h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
- References:From:In-Reply-To:Content-Type:
- Content-Transfer-Encoding:cc:content-transfer-encoding:
- content-type:date:from:message-id:mime-version:reply-to:subject:
- to;
- b=r0VpyXrCEG9iWRi0u4YJGTi+rFMvVhsqWpDw8sHjuKCnmkyEiJ0cI+EMXZqLwuCA
- eIeM1CbHzng1Jl6uuFnSgzJ3/sckzvGbBwylgjLJhPfAcLzB6ldqgnukuvlqN5Wkm
- A9KWIB0VDrpbp6cRx1dKHG/odjlE2mWzH2UC9o6qYkNbAtyWY+TlSeWn58bp1w3AC
- 94q8TXCCIpR1EOc3cs6m7L325+WiAO7y4USOz4qEdkl3m9CTHkbho2E/WgkCSNqfD
- zOZKQeuKXjSOc6qittgRrqgC0Knv49IxfxenZtkR2HpVyfrjmwMXTRlv2Lzmh+5I2
- O1wQfWsea3MSNaIxcg==
-X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
-Received: from client.hidden.invalid by smtp.web.de (mrweb006
- [213.165.67.108]) with ESMTPSA (Nemesis) id 1Mq1CA-1vEzEb0fCc-00f9o1; Mon, 16
- Mar 2026 12:00:31 +0100
-Message-ID: <33c8a45a-3548-4ee7-8e32-4b401f4feeb4@web.de>
-Date: Mon, 16 Mar 2026 12:00:29 +0100
+Received: from mail-lf1-f43.google.com (mail-lf1-f43.google.com
+ [209.85.167.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9C32710E3B9
+ for <dri-devel@lists.freedesktop.org>; Mon, 16 Mar 2026 11:03:00 +0000 (UTC)
+Received: by mail-lf1-f43.google.com with SMTP id
+ 2adb3069b0e04-5a12cd0bcd8so5084734e87.3
+ for <dri-devel@lists.freedesktop.org>; Mon, 16 Mar 2026 04:03:00 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1773658979; cv=none;
+ d=google.com; s=arc-20240605;
+ b=SmDKU5rYXuQiky2BJdyXzq4h3+GjnySzV8bS3ewYTWPnnLVzlb4g0XJwMnBeCt1bPS
+ THpjq5gYEaNJsXKQg06p9V5CVmGTsQxnZArgUjMwcutwBgO5dPZENi90MBc6nXQdlVsQ
+ OONEEIos+blF7aqegLP04Ai24m4Kr2+zgu+nd83M6BGT1xbIMSch0fJ0fj89M6ttHIpd
+ AWfgp9BQoIz7HwImtlmgxNlL1iKX7aA7URL3s4SEa7q7Hx7Au81ggxtRZ5N4v3ZHSlLV
+ eVk8v20kwKaeNeWCBZOgFVyHtX7KWg8DGvUd8EEut3LqhZfV3dBccv9i2A/lvuFHX/a/
+ Y8ow==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=LHF5jh1E/8cDW6oFzgL0o++DHKJ5vfxqmY6kxOKCXrg=;
+ fh=NNXCBwWBt6aQNXPu3EvC72LN0uzxQoacFFYfw7C9xcM=;
+ b=hd5br9FAtiCC4BfkFA7HwjXkybqHQLK1cRARJyLYZYzjbMTzUYBhaHOcJAgrCbQ8DK
+ 1FcOGPcf+j380Bpku6kHVpLXeBwfcCxUDPFTMdJd9Sc4enDU2Hix9GMUSL3cZDya0Cxr
+ 4zSm8M4KZM7vNidhedZtiyQznNFt6QtrBBMavzvbjeddWu5LItTroz+uUOUrQ6SrAtLj
+ rHdzEdsy86/LA3taMpvhigEe6SS9RO33uEo4wRtAhBhh5xrFMIrrbkhsDTFVwB/seGis
+ 7S/47BFc+5EFDfc7/X7yxmYW8U4ae84eR2jE20DUy2pOA/wACtUyUR7Odiu4/mreTolo
+ Vidw==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1773658979; x=1774263779; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=LHF5jh1E/8cDW6oFzgL0o++DHKJ5vfxqmY6kxOKCXrg=;
+ b=FNTQeudRCygGYbklf/cVkvmc2Sy2AlIcCXjuY+V1Yp3KZiicqBFnAdz9LQEffCOKiy
+ vo6ueozSHLEsDjLpEmJ6AhJn/Eduz7o4v75ZpnWAi74apmLuQNUO1Hxeq8DhrnLzkhbl
+ FAJaQoWW/TUPxgyGuajYQjZ1hm06g1b6HEkm4hKMvHXpJRCc8m4p+a0JQ4EcdVlkQxVk
+ otQI3SMOfXQUiqWbNo6J1peaqO2RnZel6Vi2AFgFqlQtagduFVnQDGKxpenXqhYigHbZ
+ xfINaCUjgKbA2KBojMQPgtayvMEeJYDOGweVnUFjAfNsH0yrlX8rZ0FfbmtaB72zCfsC
+ XrVA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1773658979; x=1774263779;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=LHF5jh1E/8cDW6oFzgL0o++DHKJ5vfxqmY6kxOKCXrg=;
+ b=dZ+fzYW0Jey/kNgWUySVrk0HiyKd1QhijM8Dlxttz2AvcrvELUkds3cnyJ7HDwdoEM
+ A2vFj00y7Je1iAgGYIbUZ6hRdvfQMPYIc0z+GkEd/ZTgSyD6geeWpigVpPxavN2FMg/1
+ nXvAD9jyUPyz2pCy3PiUTWWGaAiO7O5v/fQx5KovRf9AwdtlkHcIqPKGW/cHRev2oamv
+ 27sKwVL4daagh603m52nYh3FfRKbAFu5B0uAebURHUroqWe0Umx+pgFoSMQpwf7VGSI3
+ J2ebUQ34R+V4B63MNBza0n9WgFwoxOfBoQmZ/E7v0G2h8+Ubijt7DxVooada0a2Y6IJ7
+ 1Dpg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUTP0PGwixN8ayAgFysZS79jc1kQtwy5bz5qksZ2h4LDKog+otYDY07M2byrKvNJayPdmbFCnTHPhI=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yyg795mcR7WMWKKnfx7h3suUhtmECLelLzxdrAa5z2j7pu7GcNT
+ KgtMlbLx+mNHNKRBBFYyrliojoPP2cwq8nKWiDjYsybBoJzpNa0qRUHVziMaaWpKUKmrMlQUUm2
+ tO1apJzHwXVAZGp9DK22lCoyu2SVqm3mFbMLvUpllmQ==
+X-Gm-Gg: ATEYQzzeWTEBYEYP0BBHvVl0+b9i38fziqUNo8nxBTyyUYunNFoER2D6UuRGu2NOSP/
+ NZ2uQqjMNuZaMH0Duvwlit/uI/3HiVQpw/w3jTJuW+AZQMxiMaAzsH+GXA4HnRS+cUly3zMAXeo
+ c3C5IQCdUE4pttkbG5S6JHP2T56lLuI0xxvKkUxFRKrgCbMcrYtn6KM3vIzdvmEwBSFvpbTa2I8
+ kGCGPaheV4bsrxKZ/j9ZMFyoTtIiCrKfX+PeLUj6d87qdVltKNzcikXOkjBH/lSdQsxAQwqfWgM
+ XGHvNKDm
+X-Received: by 2002:a05:6512:3d08:b0:5a1:476f:bbcd with SMTP id
+ 2adb3069b0e04-5a162b1febemr3904293e87.44.1773658978742; Mon, 16 Mar 2026
+ 04:02:58 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu/userq: fix memory leak in MQD creation error
- paths
-To: Junrui Luo <moonafterrain@outlook.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Prike Liang <Prike.Liang@amd.com>,
- Simona Vetter <simona@ffwll.ch>
-Cc: stable@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>,
- Yuhao Jiang <danisjiang@gmail.com>
-References: <SYBPR01MB7881A279A361F81B670CDEEAAF42A@SYBPR01MB7881.ausprd01.prod.outlook.com>
- <PH7PR12MB6000A8C0694949AA83702AE2FB40A@PH7PR12MB6000.namprd12.prod.outlook.com>
- <F21AC290-0B53-40AF-A0A0-0647B86AD2C3@outlook.com>
-Content-Language: en-GB, de-DE
-From: Markus Elfring <Markus.Elfring@web.de>
-In-Reply-To: <F21AC290-0B53-40AF-A0A0-0647B86AD2C3@outlook.com>
-Content-Type: text/plain; charset=UTF-8
+References: <20260312-v3d-power-management-v7-0-9f006a1d4c55@igalia.com>
+ <20260312-v3d-power-management-v7-2-9f006a1d4c55@igalia.com>
+In-Reply-To: <20260312-v3d-power-management-v7-2-9f006a1d4c55@igalia.com>
+From: Ulf Hansson <ulf.hansson@linaro.org>
+Date: Mon, 16 Mar 2026 12:02:20 +0100
+X-Gm-Features: AaiRm53iPYU3kIDyxQsV0KhFz9ohyZ2kXqcNJl_f0uC65KcEG9ey-Zyr9y0Dr8Q
+Message-ID: <CAPDyKFqqdGG34+a7hY8feNHsnJsHvq0M45Y5-hDJp=bedHcZpg@mail.gmail.com>
+Subject: Re: [PATCH v7 2/5] pmdomain: bcm: bcm2835-power: Increase ASB control
+ timeout
+To: =?UTF-8?B?TWHDrXJhIENhbmFs?= <mcanal@igalia.com>
+Cc: Michael Turquette <mturquette@baylibre.com>,
+ Stephen Boyd <sboyd@kernel.org>, 
+ Nicolas Saenz Julienne <nsaenz@kernel.org>,
+ Florian Fainelli <florian.fainelli@broadcom.com>, 
+ Stefan Wahren <wahrenst@gmx.net>, Maxime Ripard <mripard@kernel.org>,
+ Melissa Wen <mwen@igalia.com>, 
+ Iago Toral Quiroga <itoral@igalia.com>, Chema Casanova <jmcasanova@igalia.com>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>, 
+ linux-clk@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+ kernel-dev@igalia.com, 
+ stable@vger.kernel.org, Ray Jui <rjui@broadcom.com>, 
+ Scott Branden <sbranden@broadcom.com>, linux-pm@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:T8JWasfNIb5srH1jqhZuRlGNT60te624dgFuEr0Ur+06BV1XGbf
- C2weWIJflQfYbLIi697C92ts0H/QN9bDSmLwBPqpLzLE0wFcWZtVWke1tde8t62nu5XupKO
- 4kQEAtLIj9iBg1EEXS8sDpYjisYVQcDeU5j2YGkmorf2GZwrDpFdJV1qS9fMvH5vm4XRDKL
- dyMW++Dcc65VMMrAhHoWQ==
-UI-OutboundReport: notjunk:1;M01:P0:M3qFDmLmVTs=;mI8iGdb5SRIeI5660iB1GAyZ8rM
- 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
- KMHl+YyLDwFH+f/j/xYEIInJbzoCjWG1A==
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -149,17 +120,66 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-=E2=80=A6
-> static int mes_userq_mqd_init_compute(struct amdgpu_device *adev,
-> 				      struct amdgpu_usermode_queue *queue,
-> 				      struct drm_amdgpu_userq_in *mqd_user,
-> 				      struct amdgpu_mqd_prop *userq_props)
-> {
-> 	struct drm_amdgpu_userq_mqd_compute_gfx11 *mqd __free(kfree) =3D NULL;
-=E2=80=A6
+On Thu, 12 Mar 2026 at 22:35, Ma=C3=ADra Canal <mcanal@igalia.com> wrote:
+>
+> The bcm2835_asb_control() function uses a tight polling loop to wait
+> for the ASB bridge to acknowledge a request. During intensive workloads,
+> this handshake intermittently fails for V3D's master ASB on BCM2711,
+> resulting in "Failed to disable ASB master for v3d" errors during
+> runtime PM suspend. As a consequence, the failed power-off leaves V3D in
+> a broken state, leading to bus faults or system hangs on later accesses.
+>
+> As the timeout is insufficient in some scenarios, increase the polling
+> timeout from 1us to 5us, which is still negligible in the context of a
+> power domain transition. Also, move the start timestamp to after the
+> MMIO write, as the write latency is counted against the timeout,
+> reducing the effective wait time for the hardware to respond.
+>
+> Cc: stable@vger.kernel.org
+> Reviewed-by: Stefan Wahren <wahrenst@gmx.net>
+> Signed-off-by: Ma=C3=ADra Canal <mcanal@igalia.com>
+>
+> ---
+> To: Ulf Hansson <ulf.hansson@linaro.org>
+> To: Ray Jui <rjui@broadcom.com>
+> To: Scott Branden <sbranden@broadcom.com>
+> Cc: linux-pm@vger.kernel.org
+> ---
+>  drivers/pmdomain/bcm/bcm2835-power.c | 5 ++---
+>  1 file changed, 2 insertions(+), 3 deletions(-)
+>
+> diff --git a/drivers/pmdomain/bcm/bcm2835-power.c b/drivers/pmdomain/bcm/=
+bcm2835-power.c
+> index 0450202bbee2513c9116a36abaa839b460550935..1815eb4ee69b9b672b5e31440=
+2f1cc9897c57dcb 100644
+> --- a/drivers/pmdomain/bcm/bcm2835-power.c
+> +++ b/drivers/pmdomain/bcm/bcm2835-power.c
+> @@ -166,8 +166,6 @@ static int bcm2835_asb_control(struct bcm2835_power *=
+power, u32 reg, bool enable
+>                 break;
+>         }
+>
+> -       start =3D ktime_get_ns();
+> -
+>         /* Enable the module's async AXI bridges. */
+>         if (enable) {
+>                 val =3D readl(base + reg) & ~ASB_REQ_STOP;
+> @@ -176,9 +174,10 @@ static int bcm2835_asb_control(struct bcm2835_power =
+*power, u32 reg, bool enable
+>         }
+>         writel(PM_PASSWORD | val, base + reg);
+>
+> +       start =3D ktime_get_ns();
+>         while (!!(readl(base + reg) & ASB_ACK) =3D=3D enable) {
+>                 cpu_relax();
+> -               if (ktime_get_ns() - start >=3D 1000)
+> +               if (ktime_get_ns() - start >=3D 5000)
+>                         return -ETIMEDOUT;
+>         }
 
-How do you think about to use a direct assignment without the variable ini=
-tialisation =E2=80=9CNULL=E2=80=9D?
+Please consider replacing the above polling-loop with
+readl_poll_timeout() or use another one that fits better from the
+similar helpers.
 
-Regards,
-Markus
+Kind regards
+Uffe
