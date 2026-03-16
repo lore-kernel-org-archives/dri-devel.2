@@ -4,104 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B05C1F013CA
-	for <dri-devel@archiver.kernel.org>; Mon, 16 Mar 2026 08:19:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 53E37F013CC
+	for <dri-devel@archiver.kernel.org>; Mon, 16 Mar 2026 08:30:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1551A10E4A0;
-	Mon, 16 Mar 2026 08:19:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8850010E36D;
+	Mon, 16 Mar 2026 08:30:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="iepxQ2vh";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="dJhV7Ems";
 	dkim-atps=neutral
-Received: from mail-vk1-f173.google.com (mail-vk1-f173.google.com
- [209.85.221.173])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4694510E4AA
- for <dri-devel@lists.freedesktop.org>; Mon, 16 Mar 2026 08:19:24 +0000 (UTC)
-Received: by mail-vk1-f173.google.com with SMTP id
- 71dfb90a1353d-56b672c68dbso956976e0c.0
- for <dri-devel@lists.freedesktop.org>; Mon, 16 Mar 2026 01:19:24 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1773649163; cv=none;
- d=google.com; s=arc-20240605;
- b=TArvrjF9k2+MnQ2Hr7iRY0XCkElTfP+SWrgj8zfR8E2ApQSR/ZD4vdcnd3p1E4GDGA
- V/nIQCVBRMb0w3VSWoDO7fgZ7uhlRtWi1wOnLtwdYOEgQbRQDjvPFxzFtzdlUAK731YX
- xzP6ueqRfgoqusGWmJXZtdSiKas8EY7XW1ulXuxdVUBh7sDx9m/jxFFWOvV6Nn+CLuk9
- PWCjH79goQ6zQr7ycYZ5MU5PWwA3ihRVvEqIR7vn8OcDloiDWdVje/c+9Mlv0otG3FJj
- rN9scNH4PMM4OqE5B/9BNvvrcHvEHQJh6UfgOFXpQIlvoNS1l6SIz1geQgPvQsftpiiA
- zmaQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=z92d2h4C2EUu0ME+sfNVOt2211TfUL2AGc7b7GuFF7E=;
- fh=iKuPgeySls6pIx28rR266HID4CJtWMbaP15R00uYiGI=;
- b=drDOAoFR2SaievqKRjYTyigdJ+o0zHUviYJkdKpToZ3byJ5nzvZEUrlf1C8HTidXu5
- iuyV6mmNO3PiOHH8jmE6dzSO8wb8SttBFbJgSkgutrTnhX64VGWqpj9Now4zqJChwd5Y
- 3gCa20KhmvhgULsfQr5dx/lddxQHFMPE75bm6nnRFqeVjYaY/OJfcjLYuB7+cdEKTO05
- NOH0vWaiGYAJbv8cm/Thn22zoUy9uLM2c23pKmEaFDiqw3cxW99AJ0XIy5Yty8JGoWSM
- ISfjBLxd88fhl8KI9lHEq2qKXZ8Rnz6KgKKp07aSit8nd2UdEnts68V7RslrmiYH8ked
- N7qA==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1773649163; x=1774253963; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=z92d2h4C2EUu0ME+sfNVOt2211TfUL2AGc7b7GuFF7E=;
- b=iepxQ2vhGJ6V65djZwCrc5mG5+kfC05cLihlGL5e/elyvdu07E89MRxZ8DPP7t85/F
- qbH/SrLTep+68jSA8b8C/b/mT0v88EthSisbOYdxWkt2iOwN2fIzGI0+CfIuWzUbuq9c
- sCxbbrAcXKducOitY9cdPYoxTmo54vpDY58iE13OFFhH2PIjmil7VREQDh2VrluR1C94
- 65Tbw0nEIqaPzhwUgKFRhHeZb+SyjC8xCGTAfqK5QVGOweVlGKgulmzQu32EhkZaNYld
- vP1XRBxtBSG0zrXNjmspm7OVK4a90/c6e/89CKl8uQnVm78ghv6pP2C2W1RYLlHWbtoM
- 7EAA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1773649163; x=1774253963;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=z92d2h4C2EUu0ME+sfNVOt2211TfUL2AGc7b7GuFF7E=;
- b=mnnmwLsJT2G2tRZQxUg7rK/h7lDrwXdP8bDL/40kxqBvqhZNZIfJdjZ0gg5+Juw5IJ
- R3fCNiDJEpRRUUAz4SS8ILxj51wj7+i9O9I3W6Gvrybm20bTevwEQ0MXKifgMn9d/TGT
- NZQW9Pn1h+Xufn5WswKjNWzPskSB5/Z70THQ/iIhux4RxKZ8Ub2DjAD8W4Ord6FxMViO
- KxMfbtVExib3k8+MuDAOmkuWiiaFWdwNjZySPv4voMaGnkoDCP5HvwoA4Xw41ryJv1pP
- pDcIaVGAM2znMLDrc0jyggUSZFDwKYHY4jmo+Bm5RYrwufYQWevL0I9mGP7lZaHSTSCi
- 1OOg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUzbNmWbWiSmYlqMtq6AIlMN1SPE5CGPDZ6MEiFYSN4+4X31VRTiLbaf05ypqrzu5jFxQbHlJ9xz3k=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwGSNFcUinz92R5lv5si9LQMFPBHtM4kUl092mFOZeAnItCqfXs
- ksJ2GU4FwPl8cPFaAatgK8rMMz61/k40EFADWOp7nRZaim/Yjk0Q5Yc+NbFcZJwTaDrfjY0Kviz
- a5Hhs+e5GX4Sw3tnsQc2yb71aeQ7STZ0=
-X-Gm-Gg: ATEYQzxwTPulFSAT0v72SmEttgWnU7zAXOAnahRpXeGjtK0bUnv1XKgZHKf5w2Ab3gG
- Sr4R5qlSBigrHKIQ7hNVgcgmWWEGj2twlcuP5Wp/gwdeoJMlToMgOaycZQVd/1ArkK/2bvCpRCZ
- OMjgnlaewvYzCS+eSQZLkJk24/LhyggVI/lu3hU4zwcLbpzn/g2HmDlKkQNvwjLjudkJHCtTusT
- 2WUckRJt7gfIy0zxsSjSm3ZkrHyD3x9ZU+RMhb/PgfW0MymDxjCduszz9W7Jr5xDNws1bB5gYGb
- syJcDBvBF2sHXz0FTws=
-X-Received: by 2002:a05:6102:38ce:b0:5ff:9ef0:9978 with SMTP id
- ada2fe7eead31-601f47313cdmr6960412137.6.1773649163216; Mon, 16 Mar 2026
- 01:19:23 -0700 (PDT)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B0BD189870;
+ Mon, 16 Mar 2026 08:30:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1773649837; x=1805185837;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=aRM3qd+6F6N7GpoYtfIBeQSbvfWgtoGFVl5Adw4VJro=;
+ b=dJhV7EmsUOuKhpDFCDlG4+TpNgiPAWZquRLSeNb5m1IWZXN7hYIBH8RG
+ fM8X5ocfMvqaRWn60iAShR77Ln9dBawou4i4y+yxVhNZeC5ScEbFzrPDo
+ c5u70seKh9fOcov0Vv/vj5o4uW+8kRHrbjg27aCJ3NIuxC0uEmaPZ+0SN
+ ETd7N+diyEQA0ACA8K9JpAXcMcCvM9K0AQH1DFkPLEz8e7VEqblvbN4ct
+ xQs8f34TvdBcWxfqBkHW2+mKDEHLDfgMlD0NSFgf4QSIV5KmYzqyfLBFR
+ eurslkqT8iy9L7jlqvWi+aCjWxm+Gbp0+fmWRrCVbWteux3kKHgz+mj2c g==;
+X-CSE-ConnectionGUID: CSQ7t79oRMSpIKcK5Jgt3A==
+X-CSE-MsgGUID: G0xS5iQxR7KtF2tdgh6xGA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11730"; a="77268176"
+X-IronPort-AV: E=Sophos;i="6.23,123,1770624000"; d="scan'208";a="77268176"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+ by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Mar 2026 01:30:36 -0700
+X-CSE-ConnectionGUID: PYw3hLuIRgCceOEhjDSOaw==
+X-CSE-MsgGUID: pL2WZByGRnaBzy52hfC9BQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,123,1770624000"; d="scan'208";a="220888952"
+Received: from kandpal-x299-ud4-pro.iind.intel.com ([10.190.239.10])
+ by orviesa006.jf.intel.com with ESMTP; 16 Mar 2026 01:30:28 -0700
+From: Suraj Kandpal <suraj.kandpal@intel.com>
+To: freedreno@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ kernel-list@raspberrypi.com, amd-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, intel-xe@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org
+Cc: ankit.k.nautiyal@intel.com, uma.shankar@intel.com,
+ dmitry.baryshkov@oss.qualcomm.com, arun.r.murthy@intel.com,
+ jani.nikula@intel.com, harry.wentland@amd.com, siqueira@igalia.com,
+ alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
+ simona@ffwll.ch, liviu.dudau@arm.com, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, robin.clark@oss.qualcomm.com, abhinav.kumar@linux.dev,
+ tzimmermann@suse.de, sean@poorly.ru, marijn.suijten@somainline.org,
+ laurent.pinchart+renesas@ideasonboard.com, dave.stevenson@raspberrypi.com,
+ tomi.valkeinen+renesas@ideasonboard.com,
+ kieran.bingham+renesas@ideasonboard.com,
+ Suraj Kandpal <suraj.kandpal@intel.com>
+Subject: [PATCH v3 0/7] Refactor drm_writeback_connector structure
+Date: Mon, 16 Mar 2026 14:00:02 +0530
+Message-Id: <20260316083008.87466-1-suraj.kandpal@intel.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-References: <20260315144536.515032-1-mitltlatltl@gmail.com>
- <20260315144536.515032-2-mitltlatltl@gmail.com>
- <20260316-demonic-delicate-manul-8ffb80@quoll>
- <CAH2e8h4US7Ut=u3AW6bra9kUhCo15k+sWmVw40adVE-JQ+ayVg@mail.gmail.com>
- <6e00e9f3-0ff2-422d-b79f-fff8ebd47e58@kernel.org>
-In-Reply-To: <6e00e9f3-0ff2-422d-b79f-fff8ebd47e58@kernel.org>
-From: Pengyu Luo <mitltlatltl@gmail.com>
-Date: Mon, 16 Mar 2026 16:18:58 +0800
-X-Gm-Features: AaiRm50gLbGdGr8rNok5-hrG0NMe2RJownVmEyvoHJPIbWUrNakdDWolpC5BLkU
-Message-ID: <CAH2e8h7x-xFYCDNx3BL25wheYbz_CAwX_QiO_ETxNvzf44e-hw@mail.gmail.com>
-Subject: Re: [PATCH v3 1/2] dt-bindings: display: panel: Add Himax HX83121A
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,42 +77,66 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Mar 16, 2026 at 4:15=E2=80=AFPM Krzysztof Kozlowski <krzk@kernel.or=
-g> wrote:
->
-> On 16/03/2026 09:02, Pengyu Luo wrote:
-> > On Mon, Mar 16, 2026 at 3:44=E2=80=AFPM Krzysztof Kozlowski <krzk@kerne=
-l.org> wrote:
-> >>
-> >> On Sun, Mar 15, 2026 at 10:45:35PM +0800, Pengyu Luo wrote:
-> >>> HX83121A is a driver IC used to drive MIPI-DSI panels. It is found
-> >>> in HUAWEI Matebook E Go series (Gaokun2/3) with BOE or CSOT panels.
-> >>>
-> >>> Signed-off-by: Pengyu Luo <mitltlatltl@gmail.com>
-> >>> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.co=
-m>
-> >>> ---
-> >>> v3:
-> >>> - remove '|' from description (Krzysztof)
-> >>> - drop description for reset-gpios (Krzysztof)
-> >>
-> >> And all other changes?
-> >>
-> >> Why aren't you testing this code?
-> >>
-> >> NAK, drop the tag and request re-review.
-> >>
-> >
-> > I see. I will send a new version later. I made changes to v1 binding by=
- mistake.
->
-> And EVERY patch you sent must be build tested, which would tell you that
-> you made mistakes. Why do you think build testing your code is our task?
->
+Some drivers cannot work with the current design where the connector
+is embedded within the drm_writeback_connector such as intel and
+some drivers that can get it working end up adding a lot of checks
+all around the code to check if it's a writeback conenctor or not.
+This is due to the inheritance limitation in C.
+This series intends to solve it by moving the drm_writeback_connector
+within the drm_connector and remove the drm_connector base which was in
+drm_writeback_connector. This is done in union with hdmi connector
+within drm_connector to save memory and since drm_connector cannot be
+both hdmi and writeback it serves is well.
+A RFC version was floated and discussion had taken place at [1] which
+kicked of this more cleaner series. 
+We do all other required modifications that come with these changes
+along with addition of new function which returns the drm_connector when
+drm_writeback_connector is present.
+This series also contains some writeback API cleanups as a consequence
+of writeback connector moving into drm_connector
+All drivers will be expected to allocate the drm_connector.
+This discussion was tiggered from [2] and sits on top of Dmitry's series
+see [3].
 
-Thanks for your suggestion. I will remember that. I thought removing
-the descriptions would not break things since I tested the binding in
-v2, until I found I was using the wrong base.
+[1] https://patchwork.freedesktop.org/series/152758/
+[2] https://patchwork.freedesktop.org/series/152106/
+[3] https://patchwork.freedesktop.org/series/152420/
 
-Best wishes,
-Pengyu
+Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
+
+Suraj Kandpal (7):
+  drm: writeback: Refactor drm_writeback_connector structure
+  drm: writeback: Modify writeback init helpers
+  drm: writeback: Modify drm_writeback_queue_job params
+  drm: writeback: Modify drm_writeback_signal_completion param
+  drm: writeback: Modify params for drm_writeback_get_out_fence
+  drm/connector: Modify prepare_writeback_job helper
+  drm/connector: Modify cleanup_writeback_job helper
+
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 10 +--
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |  2 +-
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c  | 12 +--
+ .../gpu/drm/arm/display/komeda/komeda_crtc.c  |  2 +-
+ .../gpu/drm/arm/display/komeda/komeda_kms.h   |  6 +-
+ .../arm/display/komeda/komeda_wb_connector.c  | 11 +--
+ drivers/gpu/drm/arm/malidp_crtc.c             |  2 +-
+ drivers/gpu/drm/arm/malidp_drv.h              |  2 +-
+ drivers/gpu/drm/arm/malidp_mw.c               |  7 +-
+ drivers/gpu/drm/drm_atomic_uapi.c             |  4 +-
+ drivers/gpu/drm/drm_writeback.c               | 51 ++++++++-----
+ .../drm/msm/disp/dpu1/dpu_encoder_phys_wb.c   |  9 ++-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c | 10 +--
+ drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.h |  4 +-
+ .../gpu/drm/renesas/rcar-du/rcar_du_crtc.h    |  4 +-
+ .../drm/renesas/rcar-du/rcar_du_writeback.c   | 12 ++-
+ drivers/gpu/drm/vc4/vc4_txp.c                 |  8 +-
+ drivers/gpu/drm/vkms/vkms_drv.h               |  2 +-
+ drivers/gpu/drm/vkms/vkms_writeback.c         | 15 ++--
+ include/drm/drm_connector.h                   | 69 ++++++++++++++++-
+ include/drm/drm_modeset_helper_vtables.h      |  4 +-
+ include/drm/drm_writeback.h                   | 76 ++-----------------
+ 22 files changed, 162 insertions(+), 160 deletions(-)
+
+-- 
+2.34.1
+
