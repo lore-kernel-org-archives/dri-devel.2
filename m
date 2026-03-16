@@ -4,97 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5CF69F53D72
-	for <dri-devel@archiver.kernel.org>; Mon, 16 Mar 2026 16:44:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C3A20F53D74
+	for <dri-devel@archiver.kernel.org>; Mon, 16 Mar 2026 16:44:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BC64210E281;
-	Mon, 16 Mar 2026 16:44:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2822010E26A;
+	Mon, 16 Mar 2026 16:44:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="kNq3N96w";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ZZIYyiYA";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 29C7810E281
- for <dri-devel@lists.freedesktop.org>; Mon, 16 Mar 2026 16:44:09 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 52E5560018;
- Mon, 16 Mar 2026 16:44:08 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 97EFDC19421;
- Mon, 16 Mar 2026 16:44:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1773679448;
- bh=UJiJGdnIbo8YhWP9a8898EeByRFPPoe9G04ORqwYyao=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=kNq3N96w1Uyh9BHrPZnStKE3rWXHfkL/gk6W/wkus/0NBFRkv0EO/+10w1ZnP4V5P
- RGl2dfpJ6Ee0c7aV0BiBoXX1Qiu1rR1s5f3QQ3CxytQrnivU1ip1kH79vZDcgmZccc
- PvLfb3s1iH2p4F6Tvr6pLL5Tm0jgF8RebY2LCkkYWaNie21VhThcOcEIQj6/rmL7vp
- eK07/QA6xGM6up9uwIUbDIgjBkzFt9ltdecOzTJ68omLfVjjHXrOFU/LJZZu6KSe6h
- XrPpzP61JJNXwX5O9PwbtHbp7BM9uFLQ6VuNtL17KXUz/Z4WHL2cbMBWORm4VBPBzL
- 764nAuua2hjPQ==
-Message-ID: <bb9712c6-a8be-4068-b549-96a12bc55e3c@kernel.org>
-Date: Mon, 16 Mar 2026 17:44:02 +0100
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A714910E26A
+ for <dri-devel@lists.freedesktop.org>; Mon, 16 Mar 2026 16:44:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1773679479; x=1805215479;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=r3k38bwjH0ZuBrxeJO+jvgnNmMlBitH7QWdnFx3etxo=;
+ b=ZZIYyiYAIyeDphrK0OlE4qHu0iWOiAZyoJ+k0imay28SKNlG+/Yzt3Jd
+ D3I6B9VD/tMAutcTZKSvDIW/wbv2LNcqFZAOpZSL+Q/qYmYn/k6VTwBsX
+ Tsjj278rdlH37wQe05fZLcqE3ca5hY4mwZQCsyxBKMz0i9WY0L0uW8MIr
+ h9rGDiAQFAxa6i0PGJzGaykplj1oeORzvZRCFzy7Z3I5r2I6xLUkvtFWA
+ X7W0ZJM0dH/mZvlMlf5vcQTI7tyc6H4ZFtsYaDdp/sfB++ZfYWV1zA386
+ Lurnhak98KvHkMl7lZWZryYi/uBxYckqfLu6UNQ+9mb4lCvjQU9I87QUn w==;
+X-CSE-ConnectionGUID: VlVN0pmZRoeYCjWRkceHNQ==
+X-CSE-MsgGUID: YSnnN0HrQyuLxjHGUhpo9Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11731"; a="78596962"
+X-IronPort-AV: E=Sophos;i="6.23,124,1770624000"; d="scan'208";a="78596962"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+ by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Mar 2026 09:44:38 -0700
+X-CSE-ConnectionGUID: 1c52I7EMQXa0Q4onwQ1fKg==
+X-CSE-MsgGUID: 0s2F2lCxSLeAGDs+P2W7XQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,124,1770624000"; d="scan'208";a="221920519"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost)
+ ([10.245.245.42])
+ by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Mar 2026 09:44:35 -0700
+Date: Mon, 16 Mar 2026 18:44:32 +0200
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Rosen Penev <rosenp@gmail.com>
+Cc: dri-devel@lists.freedesktop.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Kees Cook <kees@kernel.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>,
+ open list <linux-kernel@vger.kernel.org>,
+ "open list:KERNEL HARDENING (not covered by other
+ areas):Keyword:b__counted_by(_le|_be)?b" <linux-hardening@vger.kernel.org>
+Subject: Re: [PATCH] drm: dp_tunnel: use kzalloc_flex
+Message-ID: <abPd9rQFjsOQheNm@intel.com>
+References: <20260308211220.33759-1-rosenp@gmail.com>
+ <aa_SahEg_NzB_PJN@intel.com>
+ <CAKxU2N8x4z7Lw3mQjsnGAMxYP-K0AxLUtCXJP6btEBuTcxL7fA@mail.gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] dt-bindings: display: ti, am65x-dss: Fix AM62L DSS reg
- and clock constraints
-To: Swamil Jain <s-jain1@ti.com>
-Cc: jyri.sarha@iki.fi, tomi.valkeinen@ideasonboard.com,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- airlied@gmail.com, simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, devarsht@ti.com, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, praneeth@ti.com,
- vigneshr@ti.com
-References: <20260129150601.185882-1-s-jain1@ti.com>
- <20260205-spectral-dramatic-jellyfish-cec4e2@quoll>
- <4b554339-95e1-4980-8899-57ba637ba80c@ti.com>
- <7b3660cf-cc5a-47d6-9cc8-362544cfdb37@ti.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 a/A=
-In-Reply-To: <7b3660cf-cc5a-47d6-9cc8-362544cfdb37@ti.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAKxU2N8x4z7Lw3mQjsnGAMxYP-K0AxLUtCXJP6btEBuTcxL7fA@mail.gmail.com>
+X-Patchwork-Hint: comment
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,69 +82,113 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 16/03/2026 13:36, Swamil Jain wrote:
->>      description:
->>        Addresses to each DSS memory region described in the SoC's TRM.
->>      oneOf:
->>        - items:
->>            - description: common DSS register area
->>            - description: VIDL1 light video plane
->>            - description: VID video plane
->>            - description: OVR1 overlay manager for vp1
->>            - description: OVR2 overlay manager for vp2
->>            - description: VP1 video port 1
->>            - description: VP2 video port 2
->>            - description: common1 DSS register area
->>        - items:
->>            - description: common DSS register area
->>            - description: VIDL1 light video plane
->>            - description: OVR1 overlay manager for vp1
->>            - description: VP1 video port 1
->>            - description: common1 DSS register area
->>
->> .....(Similarly for reg-names, clocks, clock-names,...)
->>
->> allOf:
->>    - if:
->>        properties:
->>          compatible:
->>            contains:
->>              const: ti,am62l-dss
->>      then:
->>        properties:
->>          clock-names:
->>            maxItems: 2
->>          clocks:
->>            maxItems: 2
->>          reg:
->>            maxItems: 5
->>      else:
->>        properties:
->>          clock-names:
->>            minItems: 3
->>          clocks:
->>            minItems: 3
->>          reg:
->>            minItems: 8
->>
->> ```
->>
->> Could you please confirm on this?
-
-If there is no common part of each list, then this looks correct. Other
-way would be the example I wrote ~2 hours ago on DT IRC (different
-patchset) - so the qcom,ufs way. It depends how readable is the final
-schema.
-
+On Tue, Mar 10, 2026 at 03:09:31PM -0700, Rosen Penev wrote:
+> On Tue, Mar 10, 2026 at 1:12 AM Ville Syrjälä
+> <ville.syrjala@linux.intel.com> wrote:
+> >
+> > On Sun, Mar 08, 2026 at 02:12:20PM -0700, Rosen Penev wrote:
+> > > Simplifies allocation by using a flexible array member to remove a
+> > > second kzalloc.
+> > >
+> > > Added __counted_by for extra runtime analysis.
+> > >
+> > > Simplify assignment loop. It always returns true. That is,
+> > > max_group_count is always equal to group_count.
+> > >
+> > > Signed-off-by: Rosen Penev <rosenp@gmail.com>
+> > > ---
+> > >  drivers/gpu/drm/display/drm_dp_tunnel.c | 26 ++++++-------------------
+> > >  1 file changed, 6 insertions(+), 20 deletions(-)
+> > >
+> > > diff --git a/drivers/gpu/drm/display/drm_dp_tunnel.c b/drivers/gpu/drm/display/drm_dp_tunnel.c
+> > > index f442430d8de7..aad1605b956e 100644
+> > > --- a/drivers/gpu/drm/display/drm_dp_tunnel.c
+> > > +++ b/drivers/gpu/drm/display/drm_dp_tunnel.c
+> > > @@ -188,13 +188,13 @@ struct drm_dp_tunnel_group {
+> > >  struct drm_dp_tunnel_mgr {
+> > >       struct drm_device *dev;
+> > >
+> > > -     int group_count;
+> > > -     struct drm_dp_tunnel_group *groups;
+> > >       wait_queue_head_t bw_req_queue;
+> > >
+> > >  #ifdef CONFIG_DRM_DISPLAY_DP_TUNNEL_STATE_DEBUG
+> > >       struct ref_tracker_dir ref_tracker;
+> > >  #endif
+> > > +     int group_count;
+> > > +     struct drm_dp_tunnel_group groups[] __counted_by(group_count);
+> > >  };
+> > >
+> > >  /*
+> > > @@ -1893,7 +1893,6 @@ static void destroy_mgr(struct drm_dp_tunnel_mgr *mgr)
+> > >       ref_tracker_dir_exit(&mgr->ref_tracker);
+> > >  #endif
+> > >
+> > > -     kfree(mgr->groups);
+> > >       kfree(mgr);
+> > >  }
+> > >
+> > > @@ -1913,33 +1912,20 @@ drm_dp_tunnel_mgr_create(struct drm_device *dev, int max_group_count)
+> > >       struct drm_dp_tunnel_mgr *mgr;
+> > >       int i;
+> > >
+> > > -     mgr = kzalloc_obj(*mgr);
+> > > +     mgr = kzalloc_flex(*mgr, groups, max_group_count);
+> > >       if (!mgr)
+> > >               return ERR_PTR(-ENOMEM);
+> > >
+> > > +     mgr->group_count = max_group_count;
+> > >       mgr->dev = dev;
+> > >       init_waitqueue_head(&mgr->bw_req_queue);
+> > >
+> > > -     mgr->groups = kzalloc_objs(*mgr->groups, max_group_count);
+> > > -     if (!mgr->groups) {
+> > > -             kfree(mgr);
+> > > -
+> > > -             return ERR_PTR(-ENOMEM);
+> > > -     }
+> > > -
+> > >  #ifdef CONFIG_DRM_DISPLAY_DP_TUNNEL_STATE_DEBUG
+> > >       ref_tracker_dir_init(&mgr->ref_tracker, 16, "drm_dptun");
+> > >  #endif
+> > >
+> > > -     for (i = 0; i < max_group_count; i++) {
+> > > -             if (!init_group(mgr, &mgr->groups[i])) {
+> > > -                     destroy_mgr(mgr);
+> > > -
+> > > -                     return ERR_PTR(-ENOMEM);
+> > > -             }
+> > > -
+> > > -             mgr->group_count++;
+> > > -     }
+> > > +     for (i = 0; i < max_group_count; i++)
+> > > +             init_group(mgr, &mgr->groups[i]);
+> >
+> > This breaks the error handling.
+> >
+> > Hmm, actually it looks like it already got broken by commit
+> > 8e6da25bd60d ("drm/dp_tunnel: Switch private_obj initialization
+> > to atomic_create_state")...
+> I can't comment on that.
 > 
-> Hi Krzysztof,
-> 
-> Gentle ping, could you please confirm on the above design?
+> This patch does not touch that.
 
-If you do not hear from me or other reviewer for some time after asking
-"shall I do like that", just send next version implementing what you
-think should be done and mentioning in changelog, that this is how you
-address reviewers feedback.
+You are removing what remains of the error handling, and that part
+would have to be undone to fix the earlier breakage.
 
-Best regards,
-Krzysztof
+Maxime, can you fix that up?
+
+> >
+> > >
+> > >       return mgr;
+> > >  }
+> > > --
+> > > 2.53.0
+> >
+> > --
+> > Ville Syrjälä
+> > Intel
+
+-- 
+Ville Syrjälä
+Intel
