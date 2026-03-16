@@ -4,57 +4,134 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0330DF013F2
-	for <dri-devel@archiver.kernel.org>; Mon, 16 Mar 2026 09:16:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 51548F013E6
+	for <dri-devel@archiver.kernel.org>; Mon, 16 Mar 2026 09:22:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6F91510E217;
-	Mon, 16 Mar 2026 09:16:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 255B610E1F2;
+	Mon, 16 Mar 2026 09:22:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="NNwLHf5p";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="RqQRjCvc";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="jj2myALe";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D7FD210E1F2;
- Mon, 16 Mar 2026 09:16:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1773652567;
- bh=OIeLap2FXzW6vjcsc2Bh25M8mdFiVnu9UvNiKma7U9k=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=NNwLHf5p9B5fm+Hf7grTgUFPYWuLIEkNWyNggtAE7CfFqypotPAzUBA0m8/r+YCHY
- jZ2AqpSNCdzql71V2Jsy8skGZ/F7uJ+CfkBcT4K8Wi5G6I8nNAdFvFk8ilajfBfyfM
- lTSW69lOtAmf+dh2+0G22DL5P1HP8GLCFRJPnWXk9oFq4zOR+GNl1DWetybZXoMlJr
- DHQVURtXv84AB9C2TbC7l6XRBYej+cavIXSu1egy0+qhJNatP5dNxCUakdCXe/WjOf
- 31zeul94j/4Wrt+A/7CgjzMSmeIdgsxMe4gXWbWYRQGY0kNWvKBNUw5pvUnsjeEYrb
- uL3XyGvwwfjyQ==
-Received: from fedora (unknown [IPv6:2a01:e0a:2c:6930:d919:a6e:5ea1:8a9f])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
- server-digest SHA256) (No client certificate requested)
- (Authenticated sender: bbrezillon)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id ED2DE17E04DC;
- Mon, 16 Mar 2026 10:16:06 +0100 (CET)
-Date: Mon, 16 Mar 2026 10:16:01 +0100
-From: Boris Brezillon <boris.brezillon@collabora.com>
-To: Matthew Brost <matthew.brost@intel.com>
-Cc: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org, Tvrtko
- Ursulin <tvrtko.ursulin@igalia.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Thomas =?UTF-8?B?SGVsbHN0csO2bQ==?= <thomas.hellstrom@linux.intel.com>,
- Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>, Danilo Krummrich
- <dakr@kernel.org>, David Airlie <airlied@gmail.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Philipp Stanner <phasta@kernel.org>, Simona Vetter <simona@ffwll.ch>, Sumit
- Semwal <sumit.semwal@linaro.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH 02/12] drm/dep: Add DRM dependency queue layer
-Message-ID: <20260316101601.464823ae@fedora>
-In-Reply-To: <20260316043255.226352-3-matthew.brost@intel.com>
-References: <20260316043255.226352-1-matthew.brost@intel.com>
- <20260316043255.226352-3-matthew.brost@intel.com>
-Organization: Collabora
-X-Mailer: Claws Mail 4.3.1 (GTK 3.24.51; x86_64-redhat-linux-gnu)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A604510E1F2
+ for <dri-devel@lists.freedesktop.org>; Mon, 16 Mar 2026 09:22:50 +0000 (UTC)
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 62G64kGR538935
+ for <dri-devel@lists.freedesktop.org>; Mon, 16 Mar 2026 09:22:50 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ UtWXTGagT/GGBueURbq9/nje29CFuwHmLEoPSvQmhuc=; b=RqQRjCvc0rawgpoE
+ OTePQPjeAADE3fgu7fHeo9i2Fay09uLE6T86LJPMaB3aQQIeOMxodoe70h1PA/VA
+ YDTofbhkFE5OEMMPQeakL0fWNsMZThM+PK/9clgZ1U2sQ/PV6az9bbnODqE2GbFG
+ SiCFU2dUJQfuYyAt+Jk4E/9jYE2nyCrrTufFYMLseooGM7g/RmucvIdexnDP91dj
+ 5IBMoqUJGyGrHyHyaVPiLtWqokxJgv0iJsR6vrTHVJYwlwdMHSliO546bpDTz/5P
+ hYemKC5wdCdV74NcvUGMy2Ys6zfPDu4+3paH2XXvu1af7A/6fm9C12Z8OdZeo2z0
+ dWdp3Q==
+Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com
+ [209.85.219.69])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4cvyy5n0av-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Mon, 16 Mar 2026 09:22:50 +0000 (GMT)
+Received: by mail-qv1-f69.google.com with SMTP id
+ 6a1803df08f44-89a01982dc5so42253546d6.3
+ for <dri-devel@lists.freedesktop.org>; Mon, 16 Mar 2026 02:22:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1773652969; x=1774257769;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=UtWXTGagT/GGBueURbq9/nje29CFuwHmLEoPSvQmhuc=;
+ b=jj2myALextZXg3KrY2KIiIZLeae0aqGSjyYW60s4kcYdIWs3Dg3mKF4DFhQrEDFf2e
+ B9RjhovXLVfTgCdY0DgR/NCXUx1M3lLPpJeeRU6e24nXsKT3cPkyAoccs3mesC7IIkNP
+ 6Mac/ZNoIs1tsxFeNLP+Klzb3RqVgrig2cmyqUJqE5nRo/Bw03DpxNR1KpXREf/le2jB
+ p3LEl4PFpS8SpiOfO6XsYQw//oDWI6yKUICVZgEzPybzZI7eU48tZqtVCgj8J96XDUit
+ 1PKfnkcqPkXkWejYSNcokbLjL+6sJltbZ+nL7Ix32NsZFYu1StOcO9lLbPyDX8yDa3Vv
+ Fv1A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1773652969; x=1774257769;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=UtWXTGagT/GGBueURbq9/nje29CFuwHmLEoPSvQmhuc=;
+ b=ntBDJkFMpLm7mmsGV/QOwTevbm9cwxaipuwyhQ5wIIZ7S4666+Z+eseDhqlPINVLDk
+ if6KjxBlstHKX+vKNH2l0SE/PGYeYEROisnPpOC4LWOvJU8HV0116blSr2d0fNm6+Wgs
+ +0pfkfgZsPcgylJJse/Ene9xsR3vxwr2mgm9HbmgEpbv5DodIM5C5kwFYGJQf2EmTa2w
+ wiUpHavK7R5Ph2IkZa7i/avfxc0HmY2Q3nOL74BnHhl6ihgnNfN4kqimZsjGb/hd/Lx1
+ NaHiUzctrPn4dHGqukC/JcYRp1PZOKPcZvd01nzGeczCfnGqpBEhH/y2U10det+KSQGK
+ emiQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUjw0IdJUZs4lbuAiYgBlvxsx7wB9o+BXl1Pmq22wSfGhF3DTE7CJC8yUeHDqMW40PT38NgKLrtS2A=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyTFWPCEsa8Opx8lYNUh+zss2ziP25On2U2P9Jk2vsJE+8nPmdx
+ zbqQ5R1EPd8wLBYUhNzMlury8uPUxyZ1fPeM+NzArW9VxqIMtTjwARO19UYPml09ibQ/gpct+sm
+ AmldXC+LcYSwUDYkctKhhh5/lABKnCQ3RDc+ecDpxiHl4QuRlt4+TiDX3r2NivaQ0zbm0WzQ=
+X-Gm-Gg: ATEYQzzWIuH5PhCS2wvFu+iRoPFBN/HGfm1lgxszi4YIrNAbA0sN/M/+5T7PDBClGUJ
+ ol50HI5q5AVTQLzFEUxMJhcweCSzO6CDaos1cIgQyshQnQbhsqYij1PBTqkISAJjy934F7RwnCK
+ UBYbaafhd/HYkxSyYeUKJjZJSs7t49Sp+rlMWplo3ileiTSjxTO77C45wBVOCFXjwMlAFXbJijy
+ hXQftYqA5XApnefyBPU6VlRA7iuEuWZKJ1eASw2ffKK6j2uYOfH7nfSlFAhhaR9IFFRA7p5Frxd
+ Z7SYpB9UNkijUB2bjlYmfD3mWHUs/YEtNEcn79jBqs2BdH7TvdtxnMIbAhGwOwG6/Sadf6aCaSk
+ Uni0tooXn13/cccqxBwEYkxakF3Zw9G7SILf17wKtXqGEed8cTkSBqGd3q2HXFxOLSWIYm+hYfJ
+ XfNBU=
+X-Received: by 2002:a0c:f105:0:b0:89a:7d14:66d4 with SMTP id
+ 6a1803df08f44-89a8203defbmr112828846d6.7.1773652969189; 
+ Mon, 16 Mar 2026 02:22:49 -0700 (PDT)
+X-Received: by 2002:a0c:f105:0:b0:89a:7d14:66d4 with SMTP id
+ 6a1803df08f44-89a8203defbmr112828636d6.7.1773652968804; 
+ Mon, 16 Mar 2026 02:22:48 -0700 (PDT)
+Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl.
+ [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-b976cc220basm525813566b.28.2026.03.16.02.22.45
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 16 Mar 2026 02:22:47 -0700 (PDT)
+Message-ID: <2938aa01-cc1b-4dd8-a4af-45ff8354a061@oss.qualcomm.com>
+Date: Mon, 16 Mar 2026 10:22:44 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/msm: Fix GMEM_BASE for A650
+To: Alexander Koskovich <akoskovich@pm.me>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
+ <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20260314-fix-gmem-base-a650-v1-1-3308f60cf74c@pm.me>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260314-fix-gmem-base-a650-v1-1-3308f60cf74c@pm.me>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: SnISUqu_hhfFDLutINIRTbG_4S_yNZOj
+X-Authority-Analysis: v=2.4 cv=QOxlhwLL c=1 sm=1 tr=0 ts=69b7cbea cx=c_pps
+ a=wEM5vcRIz55oU/E2lInRtA==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
+ a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=e0mgrY8X18LXsc_zQXUA:9 a=QEXdDO2ut3YA:10 a=OIgjcC2v60KrkQgK7BGD:22
+X-Proofpoint-ORIG-GUID: SnISUqu_hhfFDLutINIRTbG_4S_yNZOj
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzE2MDA3MSBTYWx0ZWRfXyEg+JzzGru8N
+ imkUfCtNkEecGl43TTxW5HTjwx0ML/6f3e9VxWSIuRcZ6+Kggk7KHK5Tnw1bQ6oFjrLfKCGZxM3
+ BaLofY4zL0VOXvXKA9cOI8LH+c8n7fToF7dHa2NeTlk3qssl65Dsxmf6iZyMuLN2mEC0E7Wi/BE
+ ZOO1neDUzJNqEw1xeEAYMJP8owTEMJc8vjQ43uO8XUsS1NgoL47gug/wgvMUwPLgoPxfhusHihG
+ gxVmPXtJYEtDbrHO8K3FwXddFM2kN8SkisuNQbXScghGp1qCDHXCN9YJxxBn5x21oCwUxZZ/3Ex
+ 7OCtk6lwigJ/Fl931pBegt/hU+Zx+Eh/Tf/7fnmdovf5ElAPyun5PuHNc9QpCzR/HmoUenVjtUn
+ 0JtMdXMxsJdTg4tZE+d3/NWdRw1m+OKg7TrpkpcquR/PGz//8KkSG99rc4+FvCYhiIbSH9RvCFY
+ R4sepcJlZ6roxF8Nzmg==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-03-16_03,2026-03-13_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 phishscore=0 impostorscore=0 lowpriorityscore=0 malwarescore=0
+ bulkscore=0 suspectscore=0 clxscore=1015 adultscore=0 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603160071
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,138 +147,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Matthew,
+On 3/14/26 5:14 AM, Alexander Koskovich wrote:
+> Commit dc220915ddb2 ("drm/msm: Fix GMEM_BASE for gen8") changed the
+> GMEM_BASE check from adreno_is_a650_family() & adreno_is_a740_family()
+> to family >= ADRENO_6XX_GEN4.
+> 
+> This inadvertently excluded A650 (ADRENO_6XX_GEN3), causing it to report
+> an incorrect GMEM_BASE which results in severe rendering corruption.
+> 
+> Update check to also include ADRENO_6XX_GEN3 to fix A650.
+> 
+> Fixes: dc220915ddb2 ("drm/msm: Fix GMEM_BASE for gen8")
 
-On Sun, 15 Mar 2026 21:32:45 -0700
-Matthew Brost <matthew.brost@intel.com> wrote:
+Hm, that commit also changed the value for A730 - Akhil/Rob, should
+that be changed back?
 
-> Diverging requirements between GPU drivers using firmware scheduling
-> and those using hardware scheduling have shown that drm_gpu_scheduler is
-> no longer sufficient for firmware-scheduled GPU drivers. The technical
-> debt, lack of memory-safety guarantees, absence of clear object-lifetime
-> rules, and numerous driver-specific hacks have rendered
-> drm_gpu_scheduler unmaintainable. It is time for a fresh design for
-> firmware-scheduled GPU drivers=E2=80=94one that addresses all of the
-> aforementioned shortcomings.
->=20
-> Add drm_dep, a lightweight GPU submission queue intended as a
-> replacement for drm_gpu_scheduler for firmware-managed GPU schedulers
-> (e.g. Xe, Panthor, AMDXDNA, PVR, Nouveau, Nova). Unlike
-> drm_gpu_scheduler, which separates the scheduler (drm_gpu_scheduler)
-> from the queue (drm_sched_entity) into two objects requiring external
-> coordination, drm_dep merges both roles into a single struct
-> drm_dep_queue. This eliminates the N:1 entity-to-scheduler mapping
-> that is unnecessary for firmware schedulers which manage their own
-> run-lists internally.
->=20
-> Unlike drm_gpu_scheduler, which relies on external locking and lifetime
-> management by the driver, drm_dep uses reference counting (kref) on both
-> queues and jobs to guarantee object lifetime safety. A job holds a queue
-> reference from init until its last put, and the queue holds a job referen=
-ce
-> from dispatch until the put_job worker runs. This makes use-after-free
-> impossible even when completion arrives from IRQ context or concurrent
-> teardown is in flight.
->=20
-> The core objects are:
->=20
->   struct drm_dep_queue - a per-context submission queue owning an
->     ordered submit workqueue, a TDR timeout workqueue, an SPSC job
->     queue, and a pending-job list. Reference counted; drivers can embed
->     it and provide a .release vfunc for RCU-safe teardown.
+Konrad
 
-First of, I like this idea, and actually think we should have done that
-from the start rather than trying to bend drm_sched to meet our
-FW-assisted scheduling model. That's also the direction me and Danilo
-have been pushing for for the new JobQueue stuff in rust, so I'm glad
-to see some consensus here.
-
-Now, let's start with the usual naming nitpick :D =3D> can't we find a
-better prefix than "drm_dep"? I think I get where "dep" comes from (the
-logic mostly takes care of job deps, and acts as a FIFO otherwise, no
-real scheduling involved). It's kinda okay for drm_dep_queue, even
-though, according to the description you've made, jobs seem to stay in
-that queue even after their deps are met, which, IMHO, is a bit
-confusing: dep_queue sounds like a queue in which jobs are placed until
-their deps are met, and then the job moves to some other queue.
-
-It gets worse for drm_dep_job, which sounds like a dep-only job, rather
-than a job that's queued to the drm_dep_queue. Same goes for
-drm_dep_fence, which I find super confusing. What this one does is just
-proxy the driver fence to provide proper isolation between GPU drivers
-and fence observers (other drivers).
-
-Since this new model is primarily designed for hardware that have
-FW-assisted scheduling, how about drm_fw_queue, drm_fw_job,
-drm_fw_job_fence?
-
->=20
->   struct drm_dep_job - a single unit of GPU work. Drivers embed this
->     and provide a .release vfunc. Jobs carry an xarray of input
->     dma_fence dependencies and produce a drm_dep_fence as their
->     finished fence.
->=20
->   struct drm_dep_fence - a dma_fence subclass wrapping an optional
->     parent hardware fence. The finished fence is armed (sequence
->     number assigned) before submission and signals when the hardware
->     fence signals (or immediately on synchronous completion).
->=20
-> Job lifecycle:
->   1. drm_dep_job_init() - allocate and initialise; job acquires a
->      queue reference.
->   2. drm_dep_job_add_dependency() and friends - register input fences;
->      duplicates from the same context are deduplicated.
->   3. drm_dep_job_arm() - assign sequence number, obtain finished fence.
->   4. drm_dep_job_push() - submit to queue.
->=20
-> Submission paths under queue lock:
->   - Bypass path: if DRM_DEP_QUEUE_FLAGS_BYPASS_SUPPORTED is set, the
->     SPSC queue is empty, no dependencies are pending, and credits are
->     available, the job is dispatched inline on the calling thread.
-
-I've yet to look at the code, but I must admit I'm less worried about
-this fast path if it's part of a new model restricted to FW-assisted
-scheduling. I keep thinking we're not entirely covered for so called
-real-time GPU contexts that might have jobs that are not dep-free, and
-if we're going for something new, I'd really like us to consider that
-case from the start (maybe investigate if kthread_work[er] can be used
-as a replacement for workqueues, if RT priority on workqueues is not an
-option).
-
->   - Queued path: job is pushed onto the SPSC queue and the run_job
->     worker is kicked. The worker resolves remaining dependencies
->     (installing wakeup callbacks for unresolved fences) before calling
->     ops->run_job().
->=20
-> Credit-based throttling prevents hardware overflow: each job declares
-> a credit cost at init time; dispatch is deferred until sufficient
-> credits are available.
->=20
-> Timeout Detection and Recovery (TDR): a per-queue delayed work item
-> fires when the head pending job exceeds q->job.timeout jiffies, calling
-> ops->timedout_job(). drm_dep_queue_trigger_timeout() forces immediate
-> expiry for device teardown.
->=20
-> IRQ-safe completion: queues flagged DRM_DEP_QUEUE_FLAGS_JOB_PUT_IRQ_SAFE
-> allow drm_dep_job_done() to be called from hardirq context (e.g. a
-> dma_fence callback). Dependency cleanup is deferred to process context
-> after ops->run_job() returns to avoid calling xa_destroy() from IRQ.
->=20
-> Zombie-state guard: workers use kref_get_unless_zero() on entry and
-> bail immediately if the queue refcount has already reached zero and
-> async teardown is in flight, preventing use-after-free.
->=20
-> Teardown is always deferred to a module-private workqueue (dep_free_wq)
-> so that destroy_workqueue() is never called from within one of the
-> queue's own workers. Each queue holds a drm_dev_get() reference on its
-> owning struct drm_device, released as the final step of teardown via
-> drm_dev_put(). This prevents the driver module from being unloaded
-> while any queue is still alive without requiring a separate drain API.
-
-Thanks for posting this RFC. I'll try to have a closer look at the code
-in the coming days, but given the diffstat, it might take me a bit of
-time...
-
-Regards,
-
-Boris
+> Signed-off-by: Alexander Koskovich <akoskovich@pm.me>
+> ---
+>  drivers/gpu/drm/msm/adreno/adreno_gpu.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+> index d5fe6f6f0dec..0ac3fba5c277 100644
+> --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+> +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+> @@ -376,7 +376,7 @@ int adreno_get_param(struct msm_gpu *gpu, struct msm_context *ctx,
+>  		*value = adreno_gpu->info->gmem;
+>  		return 0;
+>  	case MSM_PARAM_GMEM_BASE:
+> -		if (adreno_gpu->info->family >= ADRENO_6XX_GEN4)
+> +		if (adreno_gpu->info->family >= ADRENO_6XX_GEN3)
+>  			*value = 0;
+>  		else
+>  			*value = 0x100000;
+> 
+> ---
+> base-commit: 1f318b96cc84d7c2ab792fcc0bfd42a7ca890681
+> change-id: 20260314-fix-gmem-base-a650-cfd9bfcea425
+> 
+> Best regards,
