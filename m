@@ -4,110 +4,135 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 70EE4F506D5
-	for <dri-devel@archiver.kernel.org>; Mon, 16 Mar 2026 14:24:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 170ACF506D9
+	for <dri-devel@archiver.kernel.org>; Mon, 16 Mar 2026 14:28:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DCC5310E17E;
-	Mon, 16 Mar 2026 14:24:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7627310E3AA;
+	Mon, 16 Mar 2026 14:28:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=lechnology.com header.i=@lechnology.com header.b="x/LIb+cF";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="hhjEHBtx";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="FnMsDWyc";
 	dkim-atps=neutral
-Received: from galaxy.gendns.com (galaxy.gendns.com [66.235.175.158])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D68CB10E17E
- for <dri-devel@lists.freedesktop.org>; Mon, 16 Mar 2026 14:24:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=lechnology.com; s=default; h=Content-Transfer-Encoding:Content-Type:
- In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender
- :Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
- Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
- List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=IjF+tcLQ8ULvfLpcMC8LYfiNnq4xRFR1Xq/lkm49gcE=; b=x/LIb+cFZ4DA6Rsu4LqFUuRJSw
- Sj9ykvH5qv0fIFzsFAUDdANCjFfzNE/HhX8t9DrRjJ/mrS92iQj8nXi3bzwcw7AnDtu8BO7vBPTxZ
- nHuTO5+RHSFB5/yf0Ezsnq7M0kImdn0R0Wx6Ghm03Bw4qm+6SwG0xKmNxoJqnAo/PKENHtAsakzy0
- L9o5CPAd5cN/nzw35s0InKkl89KiPWTmWtdR55AqPb1teGWetW2PPGqYbvsBzisFz2OcAFe0VYifQ
- Qk7Of2qYLwcOG83itFEc8vswK0IHvgEyvk0nUeAXpWpqiaf7zDG8MnMV2P9An3iKD7MHI8ETnBQJC
- CJmI9fYw==;
-Received: from ip98-183-112-25.ok.ok.cox.net ([98.183.112.25]:33952
- helo=[192.168.1.142])
- by galaxy.gendns.com with essmtpa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
- (Exim 4.99.1) (envelope-from <david@lechnology.com>)
- id 1w28sG-0000000GII1-4Bvs; Mon, 16 Mar 2026 10:24:51 -0400
-Message-ID: <8a1369bc-d670-4863-9029-c377a20d64e6@lechnology.com>
-Date: Mon, 16 Mar 2026 09:24:50 -0500
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7107B10E3A1
+ for <dri-devel@lists.freedesktop.org>; Mon, 16 Mar 2026 14:28:54 +0000 (UTC)
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 62GCXBhu1622327
+ for <dri-devel@lists.freedesktop.org>; Mon, 16 Mar 2026 14:28:53 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=74yO8b4S84lStu/3hVA6Hz5K
+ 7prxIWx/s9Fs0CUTS+E=; b=hhjEHBtx5p3dyeruEZdRN4ggAXyN461Gk22VrDN+
+ 8EelU2nKWqabHDVDUBlfaJtJjTrzDz70MRMsM7wZz/ZUUeOfbpJW05jp3Y7hlWn/
+ ixjnpysODldvCgVx5/SWktoEiG6CDvEcELh3x2IHotIk+baK55gX16DudY7XYypm
+ 4Gqk7TdmWQFX+IiO1iYDHPpjFabchXI6s8m/n2vaiuMANxrjZZVc3hTb1Mf5L3Oy
+ wiskPzW5x3vk8ijnY0ye7xKu2kjcZ0bDbXY4XOn7odmuNnlRzCNP2tLWYFcp7d/x
+ uJ5kmh21aegCO8axkKF0ze27gAyprb7wKJYOd2YN4YBgSQ==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
+ [209.85.222.197])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4cxhyege6b-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Mon, 16 Mar 2026 14:28:53 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id
+ af79cd13be357-8cd849cd562so3082088585a.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 16 Mar 2026 07:28:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1773671332; x=1774276132;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=74yO8b4S84lStu/3hVA6Hz5K7prxIWx/s9Fs0CUTS+E=;
+ b=FnMsDWycs0cGglfD3kikB6uNsBGohsO2l1jFUom24zONzCbBwOAOASLs5yMJly41Oh
+ LQ/I64D8PQRTOETCInVppnElSn4lE0N3RMoapFfVJdf4ZL2/JQDaM3hLfyzsie5q/Wso
+ feXOKwuL2gPrxmIvshXrrXsTOZABbq+UMbFMbYgE3sLwbIsUtiJz2YzMd5dcEcpX8bnS
+ ssCSsLnAT5LjiuVAq5MxaVkzXFuoiwYospDDyUlf8y+cKndA9msa/2lpJqMS1twZvTGC
+ 9ZJPwMQxcLj+RPSt+VRhA4e2k8K9ObKIYcc5bL3KqfZT9x/B8PRUMKpzKDy9mhKSY+In
+ Cn9A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1773671332; x=1774276132;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=74yO8b4S84lStu/3hVA6Hz5K7prxIWx/s9Fs0CUTS+E=;
+ b=FQxGeFE0eP+0L4GzSOCLehmzLG8AkAmpRgk/939A6bBzhhgNe7YxTQkjkABnghmAwJ
+ xXLDcfV/fiV/Z5KSnI/2rvUUL0UJH0HuDPgETKgDkDlzW2eH0KFjxyr3Ch/HtEJ1TiLt
+ H1q0JCmwhZJ7dnVjaHPgOLF/P0QcOYQ4b+s/PwVO0aB+jqYaqdHC8qf0pUm6VQ7YNCxy
+ 7fTHgfbirNSOI1THQUperWO4CKf0SM7BtR3A0bGWD2BrKJfH29y9G3asCQW7VZ7CKKDx
+ ILwu3BVna91/2paxtOhhERy50iJzXuyvhoi5Em6Q/hweR8c7KQP7WNj0ar5aHUONW6aN
+ d2Ng==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVlYcSgxrWrqdZ8TTKDt3+sCYsSS5I4lAjIPjrPMYCszO3+oqHuKlhz5w71fnQ6W7IOEpciATC4D3A=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwA4/+2skvScrdhDLp+0mPYeYL+SrohJQMliqFEzDr/icZ8QctX
+ lkaMdhEBO3DSTt9rm5kBP0OvoE9nXtGbMVJYjciqgPHrfkghtOFQTPwO3ckfpEidlkFGze8KTcb
+ xIqyTnaZO2/hZadrKpCN124q6Jwc/qNDEWkuQDa4001yr9LsR8GXTkq7aV5Yf7XqEJH0XYdE=
+X-Gm-Gg: ATEYQzybAsMW1v6H8Zh10S7ElUCysL62Gd6ur6z0R7rht2unCw5u+o/icgd2zNkZRaZ
+ KfcNBa9Ah+GvzukdZmdIw2zzxBQGeDtbYN4Tq3FSiVFruZVsx3l+xfEQsfbdCvMVVQRS790QqbR
+ vLDPzmKAnYm4OUChf9fcnLieWSXnCD6+MfKaJfsbB7IRl7aiokbQs8wXqi21iUXBxmGi3PgqYsj
+ ZkrlU+PDa5Cvc2C/D8EiOUoe84ugsZ2sasHtMlo20DQQvs1D3sr8qCDhIJmVG1pLUe+D3h21hg3
+ aPrakOYCUem9EHfCzcHsCKwAFjYuW34sz8ZLAnKZvzkCgUDQTcsPWMHzChh+ryvQIS+LEAcUxHC
+ W3+3ru1gKTYq1lOCDFpD9o5SLSTcedzvcR5a7d/0Uyg1eB79NLMJ+D1s8j2SIG7gpLOPOkqvms6
+ /nyKvW+AOYdyO41qzOhl/hjRAKcezWi9Y7OTQ=
+X-Received: by 2002:a05:620a:4041:b0:8b2:ed29:f15f with SMTP id
+ af79cd13be357-8cdb5a83bcdmr1632416585a.21.1773671331791; 
+ Mon, 16 Mar 2026 07:28:51 -0700 (PDT)
+X-Received: by 2002:a05:620a:4041:b0:8b2:ed29:f15f with SMTP id
+ af79cd13be357-8cdb5a83bcdmr1632411585a.21.1773671331271; 
+ Mon, 16 Mar 2026 07:28:51 -0700 (PDT)
+Received: from umbar.lan
+ (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+ by smtp.gmail.com with ESMTPSA id
+ 38308e7fff4ca-38a67e5f33bsm33396071fa.27.2026.03.16.07.28.49
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 16 Mar 2026 07:28:50 -0700 (PDT)
+Date: Mon, 16 Mar 2026 16:28:48 +0200
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Cc: Alexander Koskovich <akoskovich@pm.me>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] drm/msm: Fix GMEM_BASE for A650
+Message-ID: <6gxzcgwzvqoaqgynwnturjybanjrk2jmmsa3qh3r7vafyyzj44@dfzkd3vigluu>
+References: <20260314-fix-gmem-base-a650-v1-1-3308f60cf74c@pm.me>
+ <2938aa01-cc1b-4dd8-a4af-45ff8354a061@oss.qualcomm.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 11/16] drm/st7586: Use regular atomic helpers; drop
- simple-display helpers
-To: Thomas Zimmermann <tzimmermann@suse.de>, javierm@redhat.com,
- lanzano.alex@gmail.com, kamlesh.gurudasani@gmail.com,
- architanant5@gmail.com, wens@kernel.org, mripard@kernel.org,
- maarten.lankhorst@linux.intel.com, simona@ffwll.ch, airlied@gmail.com
-Cc: dri-devel@lists.freedesktop.org
-References: <20260311101438.365997-1-tzimmermann@suse.de>
- <20260311101438.365997-12-tzimmermann@suse.de>
- <1daa2dcd-bc77-476d-80ad-bb517cd1d575@lechnology.com>
- <3312781e-6d81-47d7-a1fd-c0ff6da3db10@suse.de>
-Content-Language: en-US
-From: David Lechner <david@lechnology.com>
-Autocrypt: addr=david@lechnology.com; keydata=
- xsFNBFFxkZ8BEADXzbnj9t8XSZYxKJGHdHqYgEBVzRElb3+f11qhDZKzVCMsn1+AN+PlHqC7
- VrCWLsWTSY7WsHB2fW3aXaoidtac5FYoX2IXAun1Sbv15NcBdapImkMv6zxhAyWz6LqPfdCp
- QV+3x6qwUPFeLHdmew8mkSq56qTFgDQr9oQhsrXKHkXFD7aIAf5bM6janQCHgGTVDraRDfEO
- rV9rj7Wu/SfjUCVSCvW/SuWBa3IXTLNgbrNwBfo7Pl/tHuto0jxkVCIJ6J3xa85BKMw1WjA+
- jKzh12S6KWrLUfhEUt64G9WJHiZOnVAjxgCR7TUahVM2OQHcp49ouG/JZsGNniulXH4ErA2O
- Wt6seUEx8XQIm48H96RWgKrwKJ+1WoLEmUcYOJDZUcguMZVc3Astx8aSaRjf6IRBO8XlJSJV
- OorkguvrTQBZJfjoicuFx7VlpdMggMZayv0cqEvzZMSHUt8DCUG74rLhtab9LCg/9wdCwqyE
- JEi/8jaV7JWxwiCmzVpw0mHn1DiUlp5kapZT+Hart0Gc1WW915psA4G6KneisFM5DJe+S5mn
- dUJb5IttTOx37jQQi2igwlSBdSC/M+Zy3sb+DXYJUVjVxK56RGAnlSvjHUx/TkID6Vb6HXvm
- Fgm9vQamTEf+C3XzlY2v1YaMMX8yQjfrzQSoGfB0+9zaD9J/cwARAQABzSREYXZpZCBMZWNo
- bmVyIDxkYXZpZEBsZWNobm9sb2d5LmNvbT7CwdIEEwEIAIYFgmeVPmMECwkIBwkQH4r4jIL3
- fANHFAAAAAAAHgAgc2FsdEBub3RhdGlvbnMuc2VxdW9pYS1wZ3Aub3JnDM6jI9LThow7adCF
- tC3vi3zrklAc6o/kt42Hifhjwk8DFQgKBBYCAwECF4ACGwMCHgEWIQSKc9gqah9QmQfzc4gf
- iviMgvd8AwAAEm4P/04Ou1k+zfSz2Di+wzFiIzz7c3zyU+R04sj0rFx4KRKIBYQQxgQOTkM/
- zbKLMlggKMsbgICjDlWLp6ANCH0A22gGZQx5PJBDfjIl05G+GnK6XilpLyd3U18Xj/7PbB/t
- GHER2Llpf/ePe1YgZPqUuI7fTtFz5QLdIjr/ygb+HWJI/H/IydaJfFDWxQWU6quGi852oKv8
- KMhmhGjgahPF+am6p0iPjkm+PfhHchxgKIneBixpwxFaOlikODcNuo0E+wp3gGLkaDIoGv15
- H3BMZklu96EOKeKQYctpCj8RvTKzjEbn6JxGyXhVGoPMnic2Mwc0TNrXccqDqlQh48FEK6+L
- zAbQrPE3wWl1PFxSUvUc6b3jZ1JAjcVU2GfqhzHC0U1cjJX/XKA3jn60jl9vBgU+DkvT6Gq6
- +pzj2nQszEx+N0+71I2v/vgoB8+kRKlibh2ydDRXfpipn2r4qR5imONrbW7OkLCEJ8nHmpmK
- N8iZKJjjTFmktLesE1s2L0hb9eoWz7i4YGCcIMOZISRTv/w860ebOrH787Bg3JNRz+edvKU8
- TM3twZrCedbi+wBZcgGUBpPkWLH9dUTgpycjRcCOPqOzuHQIOqCMXWFq2cQ9Oy5szMdwsEzh
- Zf1Ys7e2++tAuALI/HXJNk4/BuddZYoorLyw7MV2mVEV91ERPIx4zsFNBFFxkZ8BEADSVjyc
- eG8Up24FFXwv5YmV7yX520kM97N11e1RJVMI1RSU+Na3Xo9J1BW6EFMAdibD6hH8PiMmToKx
- BrfYSLStLh2MbHA2T/3zqicU1nuk376LMyrAuoV/fl8/7Jldwh1c9AADaYXNQfZ84R6nyaTR
- jy4fqcc/dG2kw5ZMln909SMKZc3HdVynmo9pLT2HBOnXu2d3bIGmzuDnDXzh1X8+ods4gViu
- vB31xU1WiANr4TbhaNU+/LmEVfvhS+34Cmz3U5Xs5x7nWdpM6fFfDOSz2sIYXOGAcaV3oJ12
- 1Uul2U2bMTsXxiwdbjmZP9jrzEfvhD5KIOutX+0OzdtM9QVB70QQOEh3maW/FwGdL5stYcad
- sBiEEI6Y2ymVpBgzrPS6HzC+UZLUShOE+aLx+SYBYAuypikMPvG9W3MqWHCsXXEfyp2mCeor
- Kb7PafyaBO/E5REjPmYUpkGMNZH1lGV3jegE9WdOBfXW9xvCwf0UefoFaVhjsjtzvl8lMQnd
- rDBdKPpJ7zIIG6FGSsUYmCtvE+JAk83tfpUpSZKDSzsqtLTI8GE2fQzEuZcBqm6Yk2V1+u6r
- jUjmqEBIzunyeUupaUc+p00JiwNE8v/wcx7UbD5m+PGOkNoLMLe0ti0O7nFlY8avZzy3eLBQ
- enu4WsJjPVYeQGeGB3oLvCGIhT9/WwARAQABwsFfBBgBAgAJBQJRcZGfAhsMAAoJEB+K+IyC
- 93wDC44P/0bAjHgFUPHl7jG5CrWGwgdTNN8NrjpmIxSk37kIuKMzcwP9BWhFF0mx6mCUEaxv
- GdAQ9Va/uXB2TOyhLCGXhlf8uCwxcIyrOlhi2bK6ZIwwovyjjh7GCRnm8cP8ohDCJlDUpHkO
- pmU4tcapbZiBrFaFAahxPMjwK9GJ3JY0lx63McgCEIwm6txNcMnVX5Y3HeW5Wo8DtmeM3Xaj
- JLFaBXIhEfoNHMfDON6UGiXFeR8S9W8dpaX8XEwzPUjZyOG2LvOMAEPXx+kB9mZPTogong8L
- ekL1HZHSY4OYffzQy5fVE+woHAMADkrmuosGkTRCP4IQHXOagoax/Dox01lKTLnlUL1iWWQj
- fRaFXVKxEc2PF1RZUpoO/IQYFB1twcaF2ibT3TlGolbmb3qUYBo/Apl5GJUj/xOWwrbikD+C
- i+vx8yuFUlulbS9Ht+3z1dFjBUDbtZ4Bdy/1heNpA9xORiRs+M4GyTil33pnBXEZp29nh7ev
- 4VJ96sVvnQFzls3motvG+pq/c37Ms1gYayeCzA2iCDuKx6ZkybHg7IzNEduqZQ4bkaBpnEt+
- vwE3Gg5l4dAUFWAs9qY13nyBANQ282FNctziEHCUJZ/Map6TdzHWO6hU1HuvmlwcJSFCOey8
- yhkt386E6KfVYzrIhwTtabg+DLyMZK40Rop1VcU7Nx0M
-In-Reply-To: <3312781e-6d81-47d7-a1fd-c0ff6da3db10@suse.de>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-AntiAbuse: This header was added to track abuse,
- please include it with any abuse report
-X-AntiAbuse: Primary Hostname - galaxy.gendns.com
-X-AntiAbuse: Original Domain - lists.freedesktop.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - lechnology.com
-X-Get-Message-Sender-Via: galaxy.gendns.com: authenticated_id:
- davidmain+lechnology.com/only user confirmed/virtual account not confirmed
-X-Authenticated-Sender: galaxy.gendns.com: davidmain@lechnology.com
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <2938aa01-cc1b-4dd8-a4af-45ff8354a061@oss.qualcomm.com>
+X-Proofpoint-GUID: Ozup2eXEZv0IkWPt31CH8OmtPzfWe1-G
+X-Proofpoint-ORIG-GUID: Ozup2eXEZv0IkWPt31CH8OmtPzfWe1-G
+X-Authority-Analysis: v=2.4 cv=KLxXzVFo c=1 sm=1 tr=0 ts=69b813a5 cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=aLg-ZeeFEV5HabecVkUA:9
+ a=CjuIK1q_8ugA:10 a=IoWCM6iH3mJn3m4BftBB:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzE2MDEwOCBTYWx0ZWRfX7bsdjlgvaE6H
+ lwcRvO3pdWX0ATL6d52tbq1hLBdrmCFNkn8uLOg5MtozNKEEj3gCW4uVobOfB2SgCB6+7q58OEd
+ 9QLhuSLGjeqkYfvA/8+QekSFf4zQjAF14epNgp5Q+qyMaa1WfO1Efh2r2rsQX6Gmk2xDWeIMGjC
+ sNilOfk2lhCpACkeF16IRgJR/X9/rnI1LVVQX97d/57gFRRFLP4ioIN3qOxPgqsFEVhSxGHFIYi
+ e3/M8DdNMVjtvudTcj2ilexBIhHNoh3KP7eHBgHp8D+D3wjswzbiesDorVtLQ495mQVjSweFZjp
+ S6EKAwix/t/YH7FD3uGPH1sP7N0Two6i7BAIOHpZVF8HfX7wEQNNcRgoD0Yo4sfi8kDGtNST/R8
+ CUegxgHA8bi2UyRd0kJb27QsLUY4j5vS0UMeIze3amCGXfA0PBzkMid2Y5jZw/PkVNLtw+mgqwP
+ j2aynpmWV+bNRiXkVzg==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-03-16_04,2026-03-16_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 phishscore=0 priorityscore=1501 lowpriorityscore=0
+ suspectscore=0 spamscore=0 clxscore=1015 bulkscore=0 impostorscore=0
+ adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2603050001
+ definitions=main-2603160108
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -123,61 +148,53 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 3/16/26 3:02 AM, Thomas Zimmermann wrote:
-> Hi
+On Mon, Mar 16, 2026 at 10:22:44AM +0100, Konrad Dybcio wrote:
+> On 3/14/26 5:14 AM, Alexander Koskovich wrote:
+> > Commit dc220915ddb2 ("drm/msm: Fix GMEM_BASE for gen8") changed the
+> > GMEM_BASE check from adreno_is_a650_family() & adreno_is_a740_family()
+> > to family >= ADRENO_6XX_GEN4.
+> > 
+> > This inadvertently excluded A650 (ADRENO_6XX_GEN3), causing it to report
+> > an incorrect GMEM_BASE which results in severe rendering corruption.
+> > 
+> > Update check to also include ADRENO_6XX_GEN3 to fix A650.
+> > 
+> > Fixes: dc220915ddb2 ("drm/msm: Fix GMEM_BASE for gen8")
 > 
-> Am 16.03.26 um 00:49 schrieb David Lechner:
->> On 3/11/26 5:10 AM, Thomas Zimmermann wrote:
->>> Replace simple-display helpers with regular atomic helpers. Store the
->>> pipeline elements in struct st7586_device and initialize them as part
->>> of probing the device. Use mipi-dbi's existing helpers and initializer
->>> macros where possible.
->>>
->>> Effectively open-codes the modesetting code in the initializer helpers
->>> of mipi-dbi and simple-display. St7586 requires custom helpers for
->>> various pipeline elements, and non-freeing cleanup of the pipeline.
->>>
->>
->> ...
->>
->>> +static void st7586_plane_helper_atomic_update(struct drm_plane *plane,
->>> +                          struct drm_atomic_state *state)
->>>   {
->>> -    struct drm_plane_state *state = pipe->plane.state;
->>> -    struct drm_shadow_plane_state *shadow_plane_state = to_drm_shadow_plane_state(state);
->>> -    struct drm_framebuffer *fb = state->fb;
->>> +    struct drm_plane_state *plane_state = plane->state;
->>> +    struct drm_shadow_plane_state *shadow_plane_state = to_drm_shadow_plane_state(plane_state);
->>> +    struct drm_framebuffer *fb = plane_state->fb;
->>> +    struct drm_plane_state *old_plane_state = drm_atomic_get_old_plane_state(state, plane);
->>>       struct drm_rect rect;
->>>       int idx;
->>>   -    if (!pipe->crtc.state->active)
->>> +    if (!fb)
->>>           return;
->>>   -    if (!drm_dev_enter(fb->dev, &idx))
->>> -        return;
->> What was wrong with returning early here?
-> 
-> Nothing. Putting the affected code into a single block just seems to make the code better structured. But we can go back to the old style, if preferred.
+> Hm, that commit also changed the value for A730 - Akhil/Rob, should
+> that be changed back?
 
-I have a slight preference for avoiding more indentation when we can
-help it.
+I'd say, I'm also surprised about something being broken for A650. Which
+path / stack uses this value?
 
 > 
-> Best regards
-> Thomas
+> Konrad
 > 
->>
->>> +    if (drm_dev_enter(plane->dev, &idx)) {
->>> +        if (drm_atomic_helper_damage_merged(old_plane_state, plane_state, &rect))
->>> +            st7586_fb_dirty(&shadow_plane_state->data[0], fb, &rect,
->>> +                    &shadow_plane_state->fmtcnv_state);
->>> +        drm_dev_exit(idx);
->>> +    }
->>> +}
->>>   -    if (drm_atomic_helper_damage_merged(old_state, state, &rect))
->>> -        st7586_fb_dirty(&shadow_plane_state->data[0], fb, &rect,
->>> -                &shadow_plane_state->fmtcnv_state);
-> 
+> > Signed-off-by: Alexander Koskovich <akoskovich@pm.me>
+> > ---
+> >  drivers/gpu/drm/msm/adreno/adreno_gpu.c | 2 +-
+> >  1 file changed, 1 insertion(+), 1 deletion(-)
+> > 
+> > diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+> > index d5fe6f6f0dec..0ac3fba5c277 100644
+> > --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+> > +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+> > @@ -376,7 +376,7 @@ int adreno_get_param(struct msm_gpu *gpu, struct msm_context *ctx,
+> >  		*value = adreno_gpu->info->gmem;
+> >  		return 0;
+> >  	case MSM_PARAM_GMEM_BASE:
+> > -		if (adreno_gpu->info->family >= ADRENO_6XX_GEN4)
+> > +		if (adreno_gpu->info->family >= ADRENO_6XX_GEN3)
+> >  			*value = 0;
+> >  		else
+> >  			*value = 0x100000;
+> > 
+> > ---
+> > base-commit: 1f318b96cc84d7c2ab792fcc0bfd42a7ca890681
+> > change-id: 20260314-fix-gmem-base-a650-cfd9bfcea425
+> > 
+> > Best regards,
 
+-- 
+With best wishes
+Dmitry
