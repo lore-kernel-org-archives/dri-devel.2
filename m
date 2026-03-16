@@ -4,138 +4,84 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3DD08EFCBD4
-	for <dri-devel@archiver.kernel.org>; Mon, 16 Mar 2026 08:46:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F3ADAF013DC
+	for <dri-devel@archiver.kernel.org>; Mon, 16 Mar 2026 08:53:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8FFFF10E36B;
-	Mon, 16 Mar 2026 08:46:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E448F10E377;
+	Mon, 16 Mar 2026 08:53:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=gmx.de header.i=natalie.vock@gmx.de header.b="YaOcUGg8";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="J9dZvd++";
 	dkim-atps=neutral
-Received: from mout.gmx.net (mout.gmx.net [212.227.17.22])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4347F10E36B
- for <dri-devel@lists.freedesktop.org>; Mon, 16 Mar 2026 08:46:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
- s=s31663417; t=1773650777; x=1774255577; i=natalie.vock@gmx.de;
- bh=96UFq0Jee3mbXOL1pVtFSnSBHwRvEcVpbZpy1zz8p4E=;
- h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
- References:From:In-Reply-To:Content-Type:
- Content-Transfer-Encoding:cc:content-transfer-encoding:
- content-type:date:from:message-id:mime-version:reply-to:subject:
- to;
- b=YaOcUGg8VHKdDPy0bcFRgcgQCEz4EjivZ00TMNeTd04aP1BYoBcpEJZjwX2hKp0p
- ZCm4DHb+I4aVWngVqapn4t/uprNVWMX7GhNpFAUgbgPgXeTXMTpGOngErZo8jbtkX
- YSNA8DX0QsYz9cweXzYyN0IOsmfJUi1y793O9YuLv+88s3aR9TNuAlSxXQ+LinAKW
- 2hfH6jcT9oi6SiIE+McrKGpgebU7bISgoJsmMdEdoLECyMXmEFWGoe+QZ6zs4J6js
- P0Px2TiP3g1AD3xosCDHFjBpj50yKzl3tzgfmspLb4ULmhEByNb03LUhLbj34ntsn
- Ew1a2lG1kUb1oS75GA==
-X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
-Received: from client.hidden.invalid by mail.gmx.net (mrgmx104
- [212.227.17.168]) with ESMTPSA (Nemesis) id 1MOA3F-1wH8We2HLF-00N8CL; Mon, 16
- Mar 2026 09:46:17 +0100
-Message-ID: <911b9bfb-c352-4f6d-93a1-540246ccd5b2@gmx.de>
-Date: Mon, 16 Mar 2026 09:46:15 +0100
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7950610E372;
+ Mon, 16 Mar 2026 08:53:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1773651191; x=1805187191;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version;
+ bh=PI/mAYTBRcU4Lz4+ZDh76VUhW4ibWpPBttE/6cvygZQ=;
+ b=J9dZvd++TIebHJ+eUE9x2UeLKTz1Br5cRi2xOHadbR1MjV+ZZAjIupps
+ WK/nx/63RhxuGEBtJeaLh7OGBsnvasZStfPrOAMRYlCwAGUvDG7wQdyKn
+ EYit7vuP2Kfjxzjyln0tOvUj5s44VqjOHckpr2KCbkIffoVg4t7abhERp
+ +CeBdRy9EidwuezAn91C0ZZj+2PR7sJzSiQ6c6C9zvdAD5Opbq2BteYSe
+ d/Y4grqq2/k8iPkCPQ4v5uc7hPlaz+Ds2SKWbPOV2sn1DMGeluqT+EXrq
+ ha8s0Eh+MW+1N911OKSTyG3t8tJ1AhVmooucDP9s+S0McwooaOmPBZW/7 Q==;
+X-CSE-ConnectionGUID: t69z6jfAQ1GowT1BuRir8A==
+X-CSE-MsgGUID: esM36LXnSE6dqoE54y0qoQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11730"; a="74697098"
+X-IronPort-AV: E=Sophos;i="6.23,123,1770624000"; d="scan'208";a="74697098"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+ by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Mar 2026 01:53:10 -0700
+X-CSE-ConnectionGUID: lbZZBjlgQ7iKsGNu2li5Ig==
+X-CSE-MsgGUID: salQm0erT+KA4U7veGXdBA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,123,1770624000"; d="scan'208";a="222050115"
+Received: from mjarzebo-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.245.246.238])
+ by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Mar 2026 01:52:54 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Hou Wenlong <houwenlong.hwl@antgroup.com>, linux-kernel@vger.kernel.org
+Cc: Hou Wenlong <houwenlong.hwl@antgroup.com>, Alex Deucher
+ <alexander.deucher@amd.com>, Alex Hung <alex.hung@amd.com>, Alvin Lee
+ <alvin.lee2@amd.com>, amd-gfx@lists.freedesktop.org, Ankit Nautiyal
+ <ankit.k.nautiyal@intel.com>, Aurabindo Pillai <aurabindo.pillai@amd.com>,
+ Ausef Yousof <auyousof@amd.com>, Bhuvanachandra Pinninti
+ <bpinnint@amd.com>, Chaitanya Kumar Borah
+ <chaitanya.kumar.borah@intel.com>, Charlene Liu <charlene.liu@amd.com>,
+ Chenyu Chen <chen-yu.chen@amd.com>, Chris Park <chris.park@amd.com>,
+ Christian =?utf-8?Q?K=C3=B6nig?= <christian.koenig@amd.com>, David Airlie
+ <airlied@gmail.com>, Dillon Varone <dillon.varone@amd.com>, Dmytro
+ Laktyushkin <dmytro.laktyushkin@amd.com>, dri-devel@lists.freedesktop.org,
+ Gustavo Sousa <gustavo.sousa@intel.com>, Harold Sun <Harold.Sun@amd.com>,
+ Harry Wentland <harry.wentland@amd.com>, intel-gfx@lists.freedesktop.org,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, Jun Lei
+ <jun.lei@amd.com>, Karthi Kandasamy <karthi.kandasamy@amd.com>, Leo Chen
+ <leo.chen@amd.com>, Leo Li <sunpeng.li@amd.com>, Lohita Mudimela
+ <lohita.mudimela@amd.com>, Lucas De Marchi <demarchi@kernel.org>,
+ Meenakshikumar Somasundaram <meenakshikumar.somasundaram@amd.com>,
+ Nicholas Carbones <Nicholas.Carbones@amd.com>, Ray Wu <ray.wu@amd.com>,
+ Relja Vojvodic <rvojvodi@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Ryan Seto <ryanseto@amd.com>,
+ Samson Tam <Samson.Tam@amd.com>, Simona Vetter <simona@ffwll.ch>, Timur
+ =?utf-8?Q?Krist=C3=B3f?= <timur.kristof@gmail.com>, Tvrtko Ursulin
+ <tursulin@ursulin.net>,
+ Wayne Lin <wayne.lin@amd.com>, Wenjing Liu <wenjing.liu@amd.com>, Yan Li
+ <yan.li@amd.com>, Zhenyu Wang <zhenyuw.linux@gmail.com>, Zhi Wang
+ <zhi.wang.linux@gmail.com>
+Subject: Re: [PATCH 1/2] drm/i915/gvt: Rename struct 'pixel_format' to
+ 'gvt_pixel_format'
+In-Reply-To: <f5e603648f6733047bbf74a5af6ae4b4436a44f6.1773629419.git.houwenlong.hwl@antgroup.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <cover.1773629419.git.houwenlong.hwl@antgroup.com>
+ <f5e603648f6733047bbf74a5af6ae4b4436a44f6.1773629419.git.houwenlong.hwl@antgroup.com>
+Date: Mon, 16 Mar 2026 10:52:51 +0200
+Message-ID: <832d5f67f05edfb9c97694a8f7bada0104d1be67@intel.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 2/6] cgroup,cgroup/dmem: Add
- (dmem_)cgroup_common_ancestor helper
-To: =?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>
-Cc: Maarten Lankhorst <dev@lankhorst.se>, Maxime Ripard <mripard@kernel.org>, 
- Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>,
- Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>,
- Matthew Auld <matthew.auld@intel.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Tvrtko Ursulin <tursulin@ursulin.net>,
- cgroups@vger.kernel.org, dri-devel@lists.freedesktop.org
-References: <20260313-dmemcg-aggressive-protect-v6-0-7c71cc1492db@gmx.de>
- <20260313-dmemcg-aggressive-protect-v6-2-7c71cc1492db@gmx.de>
- <cykgy6mf4nu5kkwl3uc6modkj3ppela2xgjy2ijidpyzdsnyn4@cbwivcrqa5kh>
-Content-Language: en-US
-From: Natalie Vock <natalie.vock@gmx.de>
-In-Reply-To: <cykgy6mf4nu5kkwl3uc6modkj3ppela2xgjy2ijidpyzdsnyn4@cbwivcrqa5kh>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:I7f7ml8E9z07wjFby9cVae4dD0jqNDkdP7LcekYQT4nATfv0iTl
- FlvKU9BeogR36eU7TZjW5sefFPp9e/9us3qEO6d7BZkVBo/oTFR5qrKQAYflY87LDgQyJAk
- TaVGvFbXv/BAWttB+Q5iHfT1YkFg1wu9o23ruqdzZ7BZyaadG4YUND54rzX/wmjKpsIA7er
- bppV4mABIPNdJUKUUtsUA==
-UI-OutboundReport: notjunk:1;M01:P0:8Ua4JPpl2Jo=;Wyk8I/cscy6VpHaYQkUf0+ErqS1
- jUVRBLHRc3Vby1Pqx0nt1RZ+IFBqIm8R2dkLQHwAgH6RF86D+N4bC00p00LLLXWP4EHMgYmZt
- WBGJune5dhlcd3XdoY9D73jG7sMjRB+aAtRgd9dMcXPtp4/JRLkT633VUgaTCLzjBs53P0NUE
- pCd23h4dF9pF/FCc2iU2vkNcKWxMFOo5GdKT4UaAz55uwV3hdelsmPbeOWmuKrWO5YdlvAuVO
- 7C68i7XEC33y/OUHjAM9Z7N2UJgWFZBdEduEBDtYXUO0PLq+EFho6iXTLja/jWaX1+9ZZLY/q
- FNl3Yb7WBwE57lBFmuipqlUem3lK4Q1GHWtDUmDWncopDejFSIfQQuAFbtt7mDQrOGYHDNXB7
- qwGvxUDMl8MsVKqe0UoLqshBQikf0eYXkKfnNZp+mF1UxwbSHm1jgaie4gM3+SBKJmw9Qu7Sn
- ZIjkLS5ZP8HpptQqA78KxQOKbgNAJnW72fYzB/8rPnhRqUE3ry5OupOn93wl+ZeKOFRCY3foM
- keWTm+rN1eeBR3PIbXiBGAl0XFUOVTzkDvSzeuzBovETc3UrC47HRRSswOXTruNIuNjcR1All
- BPinUz06+XhZHu6nx9ZPuofWnemdDcFDctPv+LDFkQYIts9cmUuXxN+qAXNzbukLBm9guAS3Z
- Xpt5lFimVgqCq04GBUAyWI6QM2VOxZwTn3B3u7wzECwr1nR+kqxEZNI1dy7mWUuSvZ1Mg5muE
- xmOZNLDzzSUgJbureP6YspjS/uIy048YWgHGIA1/JMqme8qSW6YtrhJaqHQpIRKYk7QKRcvoG
- uB8J+03UdDoToBXmXJ4wtpdqrCag8AWrkuOPTX8QElWzy2cDCjCNJFDL8vdjSxJ106kDLMuzh
- 69WkY/fU1A182K62LbpOupvqpVRZ5HwsNpl1dmY6TWbSOegM5xxnoWiybpW6O93jAkSGyTc4a
- mYXFnGDjPDDsGBnuyMlg0Tga+28KqM2bzQDM9wcvz25jbQGzNbSHnwMlkWvqy31xlTaOhgW/A
- H2gsi9ETFuw15QmoiiNvv9OVe31GfKOP+s3Fb3+RL4ZtNf+ES2wmb8jSvoMY9mjo2rNXnF4FO
- bnIrCWZFvr7y3YNdKNlyz/71vf1VmUb01hzG+7U8WYH/zwhrj81/6N1puRYE0EaZCtgYKJQW7
- NJAfdf1qLZ5E25wDgsnvqxnjZZN7mWuIXyISgOJsPMv3DU85AUIjdzt3xYbUeMpbbwHRXBWOx
- BRd5EwJTeQ3kaGYgtdqLMY5SAtgM8VgxSORMpi0kveJbUU7odjMhYYLftWBxGTVvHU24zvC0v
- 1YbcM2NjVQrcHYYlEeuqnw6pxs4bqkP98Y+bxvDtw8vM9LglQbIrNfLYlV7fvTwbHOu/G/B/N
- jGRUUgY5EhzduGsXrGTbMNVXeTaAaZuqAQlCKoX9t/dETpx27acUOZpXhe6iO3ov2ri3noBzP
- ChAREzLglI5lpuo3n0v3Me1t8MNwRxxXUMnJpkRdGivkRhsvqRsSX1QHZLBuli7MV/WXzTRbm
- pVar5w6J2cC1quE/262nYX9Ex+s9qmL5dVMYwbZcbkaL9DjzqS8a+jnJmZGiUrVT2M1EA8IQa
- OdSYiEvtU/duk1Dt8J6ekfxzIcQMMIUUk72JBiZEaCYgoEUUDqw1kxilKXvcSjfyKrWwjpG41
- siUs5p5wsSU5VUXu07EUJxbe8pARheHUGvX3YExTCTG1tdpO5Z8RPUhEKiXjH1jVINkTNDP0l
- gs040opQyJJZeZbUX71jMU0RVUZexg446L343VOMMUCQPWLq24iMp6gYWhH1wXtOUZQp6IVJh
- OHfoPfy/5WSl80j/ASguCq+dFl1+s1xKnzWdqXTlMbuInoTSWhDx/OGV++4+M6u/B49c39myJ
- W0P1QjcGiabFxANVFAw4gV+QCN9hsjNYofJurjxiJUxfknyy144WVEaWpRPToXn2zvwKH/6n4
- BYJYGeXi+/uI/J5UkQkorZbwWaYUetWYMChb8KPvYQpWHqC4DmxOYki5rC+INCl7T1g+QTEe/
- wPimbxnJQibvnAuRGqCdxs0yC1g+RStoJEOtNN7OxgAmcw11JC7T0GzHD1QkGw4wzwMM9PFHv
- 8eAiIQD7BsKkxY+gnne3rHTYorPxk7ofVKhB+CqTe47LkTUrWCCIaLW4d67uEdDnIoRIIiDG+
- mGcJ31TXoPNzs09p9Hl+fvvgpuVlMd2YCk3mExjWhm0fyhfnfzCoJb9KX1uNqnfEk4k4kX4yj
- 0CMocOiks8gBFQxIyzStPgxraVmLxSwD9Hcty8s2tB7oI2bPCXmgJt1ON7yIEx03PrECocNWm
- hEqGozG1G7qxznePzOJ+oXur0y4kShzqbKM4GzR2cElWBp3b5KO6AghbBKciTPoBdAWOEdnqD
- lqMBDAD5ovT4BvTxfclDIpbb1/6o2IIXCyWIeAIHQDQq2Cqm/lf6MhoYnfPNlVyd3BtiP8bSP
- R0YDVGdt4c6sAtmHYlf1anPZiVO4rmKXCq8mC/flmn6TN0B7RgimIs3q5ZE0x6bP+cQ16fw5r
- q1926HHr3jfAdHI+lJ/w+qrWy42MhjxQqwI2uUptxJce+RvW6yMylkbwk/zDWt971d6mC77xB
- 5p2tDC1zu1D4B5gcUjKe0KvUs/jhaKfqtg4gk2/VokF5kXzcIrH/s7Gk0Cr/W+q3aC64dALib
- bPbmPmjFSlRCJ8FxnvdeXkkdL5Zxj2Ky41HvwGlLUFOScG19LzO2OD9qwxGjb+qskLyggamB2
- xCGOVm5JLRPiXHAVPfgr5m7BYiLAqsgzUIfeVq+YsOpWpURUUJ1CY15n1mjU0fuwF7D5wKHFU
- iOo4RfD/Kzh4JOm2hHidBAKBitl5SxZ/d9bZYozO6fhIFXz0+0p5zM/AgkQHpna3sdt63FmZG
- Y7eaT7tTr7trkiCKfd9UBT3EOFtAIfQnd7eshmRKnx6nq0PbMXxU/XZaO1HadUSt6FrfQaoJX
- CDFUmeNCpPkl1MCEKZUqWnUby8/3glQS76uANuu5s3oOHrVwV3GMlezg/SxaU1Fzbu+BMmESS
- 8ohZS3/E0CRhiTe07RhWhdFG7p6y1azaguTQ8vgzAJrrDHpMIsUxNci9NgXZHCWAG6y5gfxnz
- L+TSU7uKXdTPTUcCAsxTtRqzfy1UAhYSWB95FAkSI+hrRrvBG4HvxfV35eoo9qOyUxNSZ8AaK
- Bd5ACO601YQB+wtzIb6WLHXpF0QrzayGI0aEoY7kA5MAIt7+FseMYYq9RHh+X+O8+IY4LUzce
- KsBNfsDdfj/1+uRSl5H2/a1t7uGOKrWh8InjtmrlWsuDA4KU7hBzlJvWOxcKeTEONTwmdswCX
- 7aiKlZHFmU7LZkfb0f7GDj7Z3oIJfv1L2TKONhCy8jo6fT2VhAmafuSRIAUNKVlv1Pvk+Rm0U
- GckSBaZvmmU/Pjm5lvhrOPNrNP+uYnwvWe8RfgmY9ks+6W3JFM92r6kc8LTtg+s2D5tZYBWcK
- eogsgx1toTeqSmV2ABqPI85s8VQLmiSDErwBO2aGS9NpaurfwI0+N9wdFc8aw+rXQ7sAYTFSn
- boMdDk2dw7M72Hn96lgDyrqENGWS0Ansn5Mbexr0/gSypdM3sH94/fw6zeTcCNDdgIIWLREss
- DIhv4qdxmenxAXAmsprty9btv5lXmQt5rjCSgyorwkAXB4cj+BwKwjTQBNyXHTzEtJFhPytzg
- wVdbfFE0/ZTlQjWvfTRuL2ddFffe2cW+ZOZFeI/KQnBOlf526SYNzJs0sRDzPvUROMZwgplzs
- SW7EDNuuy+rQfK82KMkKDaUT5Z0sujs0tQ6W81iFFUpSI68zMTgdRbWOFU3kUQz0fwSOUD3K3
- WSbaASofOnwqaZzHvwVUJN6WqOdfnaXRfwY0Rep9uY0IgUKYKeDXGlTDt6BVwwIQpEQn7qy2v
- 48SYX2VCXZYnQRsYcG4VPGOj6m3WB+XID8wBLfY9Zh00TqBbe+aYC14Mk5h0B3tjW7/DoQhoC
- o8UO0ljdPXXjeTgn9d1vMgRyxz+AFnfL57l0K8Z8yvPZTDe7A1ziDh2uK979PYNXTBCrJ3ssQ
- jc1hojVtKttdJLTPqLTPAep3RC6EJ4m+Z3GxvGSVgeMVG7Z+gTuxFj2+i3WgoNHZMdfh0/yLT
- L1p12Yzxk8l7VsRkj7xViqJYuYh2IlSPGQWIAkck/KSCzkzB+Z8D3hcKf7e0cdWJZf8a5eYmd
- +pGaqPf9A/h5Hwu4QcXqtLHS6hs+g5dBTcNQkLdvH8w4DgDkKxvS9pK8sAy2dIwW9IwEhi+CP
- Ysct7B3mvAm9ZPEMQK+KKqCg4pBJ0C+k2JG9VAubcUClzGXhEeHasYfcoqRmpf/WDSOlUWqBT
- zRKwGYGtws0U+QpDuOlkqF8Uvx3sRfKsHS/UIUK9GUB6g2YjLtK/OghghHrx3FlnHmyrgs4gP
- DXX4MzuOPvb5XDatN/yjnIJrWKQ8m7pcqUdqFaKcD0Gt4k0UsbzW8nNHhvTnux/epgHHWSKxf
- XQNpi/mwidMFz4OR+GXNVfAeFBhn3vgz8Aq+mhaGdMnJ0WjbjM+hxTTmLwKKuaIaRu65iKVOO
- qGTlIr5FcXa5fHmzsZ+Hk4ItjonEROjpo1fPK6XDi2U3SU9yYUHuBRVfD3IFZxOc3HsHGQtsa
- wjwTg3i0cJpesEx3EpbijeMrLYQRlc7HjtfTGz+lNxWX7noM3Q77cPxgtyiiyMPY7XXkj9M5R
- SS8dIH7LfxLAUvnYwe3u4tN3Xl/h4OJtn9UkNEJPoa9bzS13hT/JsUS74d7atYmN7RN5nGn9U
- q+NS/kFJTuyxAuVp2Yav2Eh/YDnQKs2X/XpXKQm9z1AjQv5xDwCiDdwus9BlB6N76ne6kZlim
- SvT2qtvzZm1cCHdkUG4KJMrJCrrc28WtsEb03+PeE5qPRJpjKVoII64glecHa+iSqviEhavHr
- aivzGmXN7Zd1KySPgTzZyO86UlrttHLxFYuGRo5c0w3eJ7+/YZc7u+TgdjhGc3b/BXkF8I9Qz
- o8GrR4Yit+TgNPcoiGn+qucyCNlI7ZjEoa9T+cYOOIyjuc+CW3P7gdlU6Ci2VB4zE1t87Vh4W
- Xn3sZ/hULHrzGDCw/Lrrh/nYSah0qdo9UPyais+VH4f7923klZuZ9cgWDsMEU7ZhJG32Tk7vT
- nd3zLWIJTnFbehEZDHpoZh0gmNfS/R/g+dP0qfaVdq8gjswrZS/XfsHAl9fsMYwYovliTs9g6
- 6+1YpixRbbHzM0hfL7m+qh809CqZtiiszq1iy+CjznYeBdt0WPq5T8Q5UgNDhHv/V6Ujltfbj
- ugGtLFc33kX3Bj+RTmM2YKiTO0pGo9XYKCC3VeSwtk5FpBYwF6dKTzk7HwYAZxE=
+Content-Type: text/plain
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -151,35 +97,50 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 3/13/26 15:16, Michal Koutn=C3=BD wrote:
-> On Fri, Mar 13, 2026 at 12:40:01PM +0100, Natalie Vock <natalie.vock@gmx=
-.de> wrote:
->> This helps to find a common subtree of two resources, which is importan=
-t
->> when determining whether it's helpful to evict one resource in favor of
->> another.
->>
->> To facilitate this, add a common helper to find the ancestor of two
->> cgroups using each cgroup's ancestor array.
->>
->> Signed-off-by: Natalie Vock <natalie.vock@gmx.de>
->> ---
->>   include/linux/cgroup.h      | 21 +++++++++++++++++++++
->>   include/linux/cgroup_dmem.h |  9 +++++++++
->>   kernel/cgroup/dmem.c        | 28 ++++++++++++++++++++++++++++
->>   3 files changed, 58 insertions(+)
->=20
-> When the helper is added, the idiom in
-> kernel/cgroup/cgroup.c:cgroup_procs_write_permission() could perhaps be
-> switched to it too (structured in commits) to "optimize" migrations from
-> large depths.
+On Mon, 16 Mar 2026, Hou Wenlong <houwenlong.hwl@antgroup.com> wrote:
+> Rename the local struct 'pixel_format' to 'gvt_pixel_format' to avoid
+> potential name conflicts with the 'pixel_format' struct defined in
+> include/video/pixel_format.h.
+>
+> Signed-off-by: Hou Wenlong <houwenlong.hwl@antgroup.com>
 
-Right. Perhaps better suited as follow-up work though, isn't it?
+Reviewed-by: Jani Nikula <jani.nikula@intel.com>
 
-Thanks,
-Natalie
+and ack for merging via whichever branch you prefer.
 
->=20
-> Thanks,
-> Michal
+> ---
+>  drivers/gpu/drm/i915/gvt/fb_decoder.c | 6 +++---
+>  1 file changed, 3 insertions(+), 3 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/i915/gvt/fb_decoder.c b/drivers/gpu/drm/i915/gvt/fb_decoder.c
+> index d7abf38df532..25fffc77f138 100644
+> --- a/drivers/gpu/drm/i915/gvt/fb_decoder.c
+> +++ b/drivers/gpu/drm/i915/gvt/fb_decoder.c
+> @@ -48,13 +48,13 @@
+>  #include "i915_reg.h"
+>  
+>  #define PRIMARY_FORMAT_NUM	16
+> -struct pixel_format {
+> +struct gvt_pixel_format {
+>  	int drm_format;	/* Pixel format in DRM definition */
+>  	int bpp; /* Bits per pixel, 0 indicates invalid */
+>  	const char *desc; /* The description */
+>  };
+>  
+> -static const struct pixel_format bdw_pixel_formats[] = {
+> +static const struct gvt_pixel_format bdw_pixel_formats[] = {
+>  	{DRM_FORMAT_C8, 8, "8-bit Indexed"},
+>  	{DRM_FORMAT_RGB565, 16, "16-bit BGRX (5:6:5 MSB-R:G:B)"},
+>  	{DRM_FORMAT_XRGB8888, 32, "32-bit BGRX (8:8:8:8 MSB-X:R:G:B)"},
+> @@ -67,7 +67,7 @@ static const struct pixel_format bdw_pixel_formats[] = {
+>  	{}
+>  };
+>  
+> -static const struct pixel_format skl_pixel_formats[] = {
+> +static const struct gvt_pixel_format skl_pixel_formats[] = {
+>  	{DRM_FORMAT_YUYV, 16, "16-bit packed YUYV (8:8:8:8 MSB-V:Y2:U:Y1)"},
+>  	{DRM_FORMAT_UYVY, 16, "16-bit packed UYVY (8:8:8:8 MSB-Y2:V:Y1:U)"},
+>  	{DRM_FORMAT_YVYU, 16, "16-bit packed YVYU (8:8:8:8 MSB-U:Y2:V:Y1)"},
 
+-- 
+Jani Nikula, Intel
