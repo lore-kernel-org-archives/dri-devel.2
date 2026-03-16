@@ -4,135 +4,113 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A2B2DF53D79
-	for <dri-devel@archiver.kernel.org>; Mon, 16 Mar 2026 17:01:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 038B6F53D79
+	for <dri-devel@archiver.kernel.org>; Mon, 16 Mar 2026 17:05:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E412210E39F;
-	Mon, 16 Mar 2026 17:01:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5F46910E2BE;
+	Mon, 16 Mar 2026 17:05:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="ciFhP4p8";
+	dkim=pass (1024-bit key; unprotected) header.d=ti.com header.i=@ti.com header.b="t+Ws/0gg";
 	dkim-atps=neutral
-Received: from MW6PR02CU001.outbound.protection.outlook.com
- (mail-westus2azon11012064.outbound.protection.outlook.com [52.101.48.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 09D7F89190;
- Mon, 16 Mar 2026 17:01:16 +0000 (UTC)
+Received: from DM5PR21CU001.outbound.protection.outlook.com
+ (mail-centralusazon11011060.outbound.protection.outlook.com [52.101.62.60])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C517B10E2BE
+ for <dri-devel@lists.freedesktop.org>; Mon, 16 Mar 2026 17:05:22 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=NtpPFBGVIY/h2K9BM5UUV5jBTVzrvYcQDpDtebmjrNJI9QW8oXaYraAA3iEaFOclenAc19I8S/dCARVqPJiFpCviNuhqnjaPPPCn7WPv3gzbXi9BVyMVGUkGyTSdzKSdbCF1JmaoPpF9Iy73cxvgmGEFYqJkFI4k1g0U7mDmFNUL94/9pQ36KXy2xyf84w7uryFVzX2kS+Nl13WSSa2KK+cqz8dGqI7zGf6dzq19tW5+bXi/5O2kGUQRj7FqCEuZyww5rGOK4aJPoCiJDMz8sbP0Lke9Ts79Pd/QBKLQmX/udVwJpoNGGVa2uvBstgRPboKJF5WdFY+joV7xlhQtNw==
+ b=lCBrpzY6F1mZ/es6xzrCCLPO2ItwuriRZe45jn//Oq8/rckL2n14f5ucYeAgIZ9Juq9PWYrwW3KpbB5mEdln9ROT8ZDZGnQ1KPFStOsxW5Y+I3wKVqcJ4QrkI0S7ZyZfu2bF9v2gA+nNP8NQi+OXrYk4b5VtLssfXzoClcgyNEZSau1Wz0xbLUHps6uhLdFxtqkkwcrrLj4XHvxWuQkBkd+ecX2MTx2/o44LdRzjJ1lOFyB9TbltIBOrRKq6Dki53qfpWsIVpnsxch1TpAR4TYphW+duupMCFcp2v5dvfaw0Weaynwb486N+XM/S8YJZK3uYHkO+tDOlLOk8jDzi3w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ZIhRmrisoxqoIEUxNgWbtQBTNgBGV7cyjWF2X6YX73U=;
- b=LwtPepAlw8ZY3D4YHlF9db0d7UgQYgMB27xqD4vUpGdrmzwlOn1wlAgq1GTyB871qm31NpnHHkiYSgrBA0gPZ/2CNT9lGJE/9+/E5Y5mfXgfbZNg7vO2RsssgHYcK4UCsDAOfW8aXQSM7JzWhfBETgKH/i+Lb+AtdIC1F39vXm8f4UW8YCU2kPAY4T98Rmobyh7JcIVVXlzZsfby8g3uC2BGP51YR9sK8wgSrFmner6dKsfaanRlrmseMX57NKsXJZjVHxRyGTEViR8woLYHcV1JyLIJTXAtLahcJusv5PCdvYn4gQgQMlpS7nsW1V21rIKs2yQh4NlFagnh4KheRw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
+ bh=WQNwQwyzrqZ6cScjn0R9Td5SA5Hn9IT0GNnk7L2ss/M=;
+ b=u4vUgRFNGJwJ03J/P/a4mvs+1hN9WbTDUsYqq4TnQu+FdROmkmxCyfKlwhsg8uWpt9cq+cA6HxXMbUdxq9FY0j8KmLlA/clX1Bi0jfEDW0xxAeIVQwVyy24yGfBiW2EzA6fg0RRnmJMHSZkTIVjh5bvDLAjY0WxhF4E8Ra813IBbFw5V92Yezyx+GfbkGrS1gMuvAcIwnPaZBRSSPTwO3YCMQAb8f+Dnhj7Y3YtdmRZ66im+XIFFJavj9/5X/Uc1ORYsK1CpjbvfuRp8rqVGz0htKQRRygdPORdVZ4SJNDRDVazw6o/+moBemU+OP+ojBFwPpG90kZZ3+vVkOu5+rA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 198.47.21.195) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
+ dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ZIhRmrisoxqoIEUxNgWbtQBTNgBGV7cyjWF2X6YX73U=;
- b=ciFhP4p8gPtSmOq8zME23UvFshVpwsJefzw5LRcVfQ5L5BcHuMh5Fodr1jSAqkJqFxHy9+jc+mj3fYCntZyzuDC8V4jkz5RUqGZfmC0rFgNOpwLTe5IMP6x2oc1kJze+54OIkMe4fvCgyVMFBUUrpp5U3/OuKywUO7FccMwdokw5PxmMGTC4q3Kn5kOZfnpJCwrmrincVB3veggrwWjGxmLB2Iloq7wQ3AHL2SEvAr82GRZ5OcUeMauKrkAtLap45w5sf6Bb6XpTzN77UAeAj23MmLNYsCTXFGoC1QTWUhdmM/2ROgGzFacxb3Zswgl1pL0mbxDOspNRi2QNp+Vqww==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DS0PR12MB6486.namprd12.prod.outlook.com (2603:10b6:8:c5::21) by
- PH8PR12MB6988.namprd12.prod.outlook.com (2603:10b6:510:1bf::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.16; Mon, 16 Mar
- 2026 17:00:59 +0000
-Received: from DS0PR12MB6486.namprd12.prod.outlook.com
- ([fe80::88a9:f314:c95f:8b33]) by DS0PR12MB6486.namprd12.prod.outlook.com
- ([fe80::88a9:f314:c95f:8b33%4]) with mapi id 15.20.9723.014; Mon, 16 Mar 2026
- 17:00:58 +0000
-Message-ID: <6b4e7327-08a7-41db-966c-48faed3f33f0@nvidia.com>
-Date: Mon, 16 Mar 2026 13:00:56 -0400
-User-Agent: Mozilla Thunderbird
-From: Joel Fernandes <joelagnelf@nvidia.com>
-Subject: Re: [PATCH v9 05/23] gpu: nova-core: gsp: Expose total physical VRAM
- end from FB region info
-To: Alexandre Courbot <acourbot@nvidia.com>
-Cc: linux-kernel@vger.kernel.org, Miguel Ojeda <ojeda@kernel.org>,
- Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
- =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
- Danilo Krummrich <dakr@kernel.org>, Dave Airlie <airlied@redhat.com>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Koen Koning <koen.koning@linux.intel.com>, dri-devel@lists.freedesktop.org,
- nouveau@lists.freedesktop.org, rust-for-linux@vger.kernel.org,
- Nikola Djukic <ndjukic@nvidia.com>, Eliot Courtney <ecourtney@nvidia.com>,
- joel@joelfernandes.org, linux-doc@vger.kernel.org
-References: <20260311004008.2208806-1-joelagnelf@nvidia.com>
- <20260311004008.2208806-6-joelagnelf@nvidia.com>
- <DH48J45RRVJC.15YBFZ05IGIWB@nvidia.com>
-Content-Language: en-US
-In-Reply-To: <DH48J45RRVJC.15YBFZ05IGIWB@nvidia.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MN2PR01CA0051.prod.exchangelabs.com (2603:10b6:208:23f::20)
- To DS0PR12MB6486.namprd12.prod.outlook.com
- (2603:10b6:8:c5::21)
+ bh=WQNwQwyzrqZ6cScjn0R9Td5SA5Hn9IT0GNnk7L2ss/M=;
+ b=t+Ws/0gg4eYjWgA0aDekbYfZ1u14Om7DmFsb3RtjGQeJrXGh5ybXU4G/AXglexU8gqaI9Pr6+/6MxF5KMjemc51QnHMPSit67YyFdkY6IICzuI6Z3p37W6g2hk/n5dnXTyRkTvjOi/F1mO305Qn+kH1G6sgdYH2T2VhFyx7ilJg=
+Received: from DS7PR03CA0319.namprd03.prod.outlook.com (2603:10b6:8:2b::27) by
+ EAYPR10MB997807.namprd10.prod.outlook.com (2603:10b6:303:2bf::21)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9700.24; Mon, 16 Mar
+ 2026 17:05:19 +0000
+Received: from DS1PEPF0001709D.namprd05.prod.outlook.com
+ (2603:10b6:8:2b:cafe::5c) by DS7PR03CA0319.outlook.office365.com
+ (2603:10b6:8:2b::27) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9700.25 via Frontend Transport; Mon,
+ 16 Mar 2026 17:05:11 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.21.195)
+ smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none; dmarc=pass
+ action=none header.from=ti.com;
+Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
+ 198.47.21.195 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.21.195; helo=flwvzet201.ext.ti.com; pr=C
+Received: from flwvzet201.ext.ti.com (198.47.21.195) by
+ DS1PEPF0001709D.mail.protection.outlook.com (10.167.18.107) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9700.17 via Frontend Transport; Mon, 16 Mar 2026 17:05:18 +0000
+Received: from DFLE208.ent.ti.com (10.64.6.66) by flwvzet201.ext.ti.com
+ (10.248.192.32) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Mon, 16 Mar
+ 2026 12:05:07 -0500
+Received: from DFLE207.ent.ti.com (10.64.6.65) by DFLE208.ent.ti.com
+ (10.64.6.66) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Mon, 16 Mar
+ 2026 12:05:07 -0500
+Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DFLE207.ent.ti.com
+ (10.64.6.65) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20 via Frontend
+ Transport; Mon, 16 Mar 2026 12:05:07 -0500
+Received: from [128.247.81.246] (mz02jj9v.dhcp.ti.com [128.247.81.246])
+ by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 62GH56Xl1168853;
+ Mon, 16 Mar 2026 12:05:06 -0500
+Message-ID: <27a87cb1-d3f0-4e95-8fd1-9d49bf435a85@ti.com>
+Date: Mon, 16 Mar 2026 12:05:06 -0500
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/bridge: ite-it66121: Disable HDMI audio capture stream
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+CC: <ple@baylibre.com>, <neil.armstrong@linaro.org>,
+ <andrzej.hajda@intel.com>, <rfoss@kernel.org>,
+ <Laurent.pinchart@ideasonboard.com>, <jonas@kwiboo.se>,
+ <jernej.skrabec@gmail.com>, <devarsht@ti.com>, <s-jain1@ti.com>,
+ <j-sahu@ti.com>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>
+References: <20260312193355.1348842-1-sen@ti.com>
+ <unsq4jrmlmwmkh4l6yz3vpmzifqpfxcafluawnxwxixuxg2mcf@gpou5yjbyc62>
+Content-Language: en-US
+From: Sen Wang <sen@ti.com>
+In-Reply-To: <unsq4jrmlmwmkh4l6yz3vpmzifqpfxcafluawnxwxixuxg2mcf@gpou5yjbyc62>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB6486:EE_|PH8PR12MB6988:EE_
-X-MS-Office365-Filtering-Correlation-Id: e011e098-43b9-4ab0-f010-08de837d984c
+X-MS-TrafficTypeDiagnostic: DS1PEPF0001709D:EE_|EAYPR10MB997807:EE_
+X-MS-Office365-Filtering-Correlation-Id: fa448c03-61b8-47e1-a007-08de837e334d
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|7416014|376014|1800799024|56012099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: q0wQ7K/w+Tl5E8SryqRDEGMT0KHOs3rhLjfYHJx/OY0m6j/cMDt40rrKRhBX6SNlY1G9HcKkFEwiptGlmAs+T6AJkEIqFTqEEPFP6QuyBtMGaMadu4rl0NHWRDMdAHLRahZOCSnfA3YeRa4o26tU7gCz8aegHU0p9wL37fqy4vxf0etlHERaYfRoIvVUc/5Yabwudium835ogYal7TNAjc1nF/SdYTBcLskB3R/i8jBlUAxLwKbxr1SkvpoLfUqZ82A8DaI7VS9aJLK/bnVmkWEsaGz34WJvEf31edR172R4oyhobw50/NHGZ6TSsX1a17w592kd4JyhHDEUceU7jYVbb/tTEojJuj9SOdCiAM3l2OgkwUV/lllH8aSFXOrOkbPBrNr7frp0WGuUwRBR97N64pgJ/gemjIQyd2SyAmIAZre5NAslVwF6FwyhVogaiTuol7bBfzDZ9fLlYGzc3vf9QYEr52MK8IWat0yZFm4cGn2hRmkstPDwsOtTfcPAckhbqsYsMGQyRsOg20NID9HiB0mvMwGrk/iLJP6IhyllO03cHqi5VMKGyo8PY/IWLh1EckrAxIoSzS1DRhAgEEkIQMUjSB9JYkyXQIk459KrvTF3KTiiK5JJdAWFTn/4p7LVxnXA4E6ECa/bl+blYEp6HkuPG7lPgu7WfUdwi06fypVmcob/q/jddlfXvN+X18Syu/cqlrQc+5nWsuZ8naYyo/F3BF8bayKCm2u7+QU=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS0PR12MB6486.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(7416014)(376014)(1800799024)(56012099003)(22082099003)(18002099003);
+ ARA:13230040|376014|7416014|1800799024|82310400026|36860700016|18002099003|56012099003|22082099003;
+X-Microsoft-Antispam-Message-Info: PTVIYC8bg1k8qBBlR5qpwM6suw5JJERY7uEgtBuPiH7XDPFnihb9OeVkHyRymBTvP5krUD9DLEcmpw/4xkvdtea8robd8VZ2kQSUyxWrUcD/MwY7j5w4R/iZm6KqCGmWMchSdp5uH6+MNi34xCD+IW9ruWw6EUlG5T6GHsOj3QQ4T8r4IKF+eiNKqp3JqKny7unO5OiC9GjzBF11nlkcZKp8ULKwA3qGv5qbQQjdjn4GgiG5bbbfPbBbLXsdjhgP//hQgn5/xvEgMDujF6ccAb3pVnK/4+tYWFrxjABMY4z8ZGF4PpKNu5DqHtUGQ6vsU930RFcf5mDwvsGfY0ceWqWi5vH+UMqNe6mpgc38CjI+utapxUzuPQZ6i0cBR+EhYqOuE13bsU8Wr8B1Yx/wR+IRpcYNibbY2BzRYNexbvXKq7qI0b9AY7qVTyahj8rYKBgniukkZFsoNeNmwq4Gkpnjalmf26zKl4fG4Y8Eolp1JvTV7ALULDcok/veH6KM8zF/a7Fy4uTu0ZzeFaCoIirRBqgle4uylBTADkP/+SJEb/SmHL1X0TVd3W/yCpVfvHRzSF2vJY5+dXYidWXNplhyG00Qy333JMi+2AN71R8V9HWALXFnz7BCzG+ADdCUqwy/bf2nKNGZzsR3lL+Zl8/Cn/1oscQ7gXLmrGGpAEgX2lNXh/G6I2W+qYMLvCVdwymfLqz5y6a+32IBSKmcB8oFqakYlvTnqUUAe4wtffYTusIG7scshujM9LzwWTgEAli7QMqr4omqNk1CzBj/iw==
+X-Forefront-Antispam-Report: CIP:198.47.21.195; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:flwvzet201.ext.ti.com; PTR:ErrorRetry; CAT:NONE;
+ SFS:(13230040)(376014)(7416014)(1800799024)(82310400026)(36860700016)(18002099003)(56012099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TEhBalk4RFY0THNUd1hSVXM3dmltMTFuNEI5WWEvUCtiSnp2dEhVV2lpdXBW?=
- =?utf-8?B?RzVOZkRxZEJSc05SWW1CVGVuNUY2M3pBbkFTZ3JvM0c0T1JtSFdKZHk4cDcz?=
- =?utf-8?B?ckg3WE1zTzdxalJ2M2ZvUTdJc2JxR2I3dEo5VURHRHdXTC90aUsrdEl4OU9s?=
- =?utf-8?B?RkhnNWpFRklrOEgrNmxhOVI3ZkhkQU9IcVlUbDFCQ0tOSVNBUjQ5S3ZIczZq?=
- =?utf-8?B?YnhGT3pLeUNReTdYTG9TcmRydnNoV2FoNm1KYUFJSVY4dlFrdXZ3Tm93S3pl?=
- =?utf-8?B?aFNnOXAzUkoyS0trSjBVZkh4MkhEbmc3ci9KNHNHbzRjMDBoaWJaaGVXU1dB?=
- =?utf-8?B?ZHMxK0JTbVhmL2JMRDh0ckpnVlU1OTNtU3hEaHQ0OC9XMWY0ZU5laEJoalk5?=
- =?utf-8?B?ZUVZeFc2S2J3VWcrRm9Jd3NZQlpNaEFoZXRUY0IxYTdtQ3d4TDBwSWRRcC8z?=
- =?utf-8?B?NnZWS3dQVmxoT1F5QUJvU2NZZXNRUnVDc0p5cXM3WG5JeEoxVnc1VS9RWXVU?=
- =?utf-8?B?SlBJSHExT2pWV1pYRVZBQ3JnN2JmMGZVak9vdzZkdzN3dFp3eUFyeUtqUXNW?=
- =?utf-8?B?OGJacHZzdi8vSE4vNEI2NXZHK2JrKytrYzJxR3ZSUDNYaDF3RVBVK1NuaWZk?=
- =?utf-8?B?bnNCdGNWbHlaVmJpc0p2YW1WVzdwdlc0a3pvcFV4WWY1SFZPNkRtbWh2ZTFG?=
- =?utf-8?B?WHBkdEw5RTgxTHBKTGZnUTJXeFJ1ZlpKZW9XR09tVU93WU1YYmFVVzN1SG1F?=
- =?utf-8?B?Q3dnVDhjYkhUQ0o5TWtyRlFlYTRIZ2dpejYxS1pCMm9Vc3VENXhlSmRQSjha?=
- =?utf-8?B?cTdmRU1nbEJBaWNsVVlHSTZvRW5KcHorUkcyZzJGZUpmZm1FU1pFSzlQd3c3?=
- =?utf-8?B?bkJGMHE1ci8zaE9GbWhuUFQrRTArOUpyeTFkdlNDR1ZnNldDOGN6MU1KRnk0?=
- =?utf-8?B?aTZwYVQ4Um9BcnVRcm56ZW5hY2ZtbVVwdm1jUEx5WC9CNnZwY0J5b3VTZmtj?=
- =?utf-8?B?YXQ4K0M0OTZZWEkxam1wckRFdzRpMjd5YWV2cjFDZEoxRVFGZlNwa0tEcEdi?=
- =?utf-8?B?TFhCSW1SN2pDdDlselgza1dCWEwxbXUxT0t2NXErb2VPbmt4OUJuQXFIOGhJ?=
- =?utf-8?B?YS9XZ2ZURHllMVo4MWhKckl5MExnTzlhbllTWkN0bEp5ZENwUlZGa1RYV2lW?=
- =?utf-8?B?eTd5QW9XYnJQUHY4SFF0L0ttNXM3MzhSUURSaHBkaGkwNWN6Y3phdFdNNVNG?=
- =?utf-8?B?WHl1Y3pjbFRWNDZ6enlIUEdPODVMTytKRHE5UWwxRDVMcWhLamVOenpPSUtR?=
- =?utf-8?B?TmJRL3psaWRmUUNkTThKajBLWklxMTBYYlRnMndWNExiZENoN05vN21oMFJB?=
- =?utf-8?B?SkxFTTN6V2ZlaXAyRzdValkrRjlaTFZMTDJuUkQ1bDNZUlQ2eENrMFFjZzRR?=
- =?utf-8?B?UCtLbWFlOElFa3VBZW55NUVkMHhOS3BUTFBDdmd3NnFNNXVWRk94S0xWcHQ2?=
- =?utf-8?B?NnlCZGNXVk1CemFmVWZvd280eWxrMGVEdE1RaEtxbklhaXFnZXRlVUxxN016?=
- =?utf-8?B?blR6RWduWFg4bHY1QVYzVnoyaVV5dWFmZm5yYXcyaUh4eTNUUTk0OXFNL1c4?=
- =?utf-8?B?djZLQTFnU3c5Y3M0S0huYkxFUi9maVpCU2EzV0VxOG85SXlkMU9QOXdpL2lv?=
- =?utf-8?B?ekljTURhZXRLZjZTVTZhZm1uYU0ydmlsNGlIVmkxR2M2TzVjWXFSZTJIdVZJ?=
- =?utf-8?B?K0l3ZEpGaGwxbkExQWxBeE5pTXBNMDlmQXRVSzltNkFpNG8wcEJySFRpcDNL?=
- =?utf-8?B?UzZlcHRaRWlJKy8yMW95dkVJQitaMTNhWTVkakxRUHZKMnI2bC9NMUh0eHor?=
- =?utf-8?B?MnVoUEh1dWhCaHp4d2xSUk53OG5iNjdmd1k2djJqT2JUL04yWmVBYUZVRWw5?=
- =?utf-8?B?cjFUa2JSemZGeWZaR3A5VUFZbkdVenRVSlVnd3UwSEJmaUZHZ0xHRVVoMGFx?=
- =?utf-8?B?YW9uTGIzZmVIdmJaeTdnL2ZwSHZmWHBaWitUbU5pNVgrdXh5UTQ2c29wSDlo?=
- =?utf-8?B?OG5EeGc5L1grbSthNnZqeDRxcHhLaFdaVmpnMjk3aUhicmpKcjVKSlkvK1hG?=
- =?utf-8?B?aHdxZzJENEM5czU0ekVZeXhTT3BVVkFIa0VHOU9wMmJTWU5DZXh2ME9vYzFH?=
- =?utf-8?B?bVkwdHVsdDhiRGFSYWdyeE1NbWRPSmdBOHVjUll3RGg1K0tiZEdNbVB2cnRx?=
- =?utf-8?B?aGtacGNBYkNTVWpDcVBIVUJkV085ck0wcEt2a3oxSHdCSWs2d25QY0hTKytl?=
- =?utf-8?B?OGpxQXJPQUdLcmFDeStZOWRwSFljd2JsL1YzKzRoRXpmTzVJRGdWUT09?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e011e098-43b9-4ab0-f010-08de837d984c
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6486.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Mar 2026 17:00:58.4992 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: suZu92DTRHyAliftemjWhdlkZm8QsWVgol5gxpajKZGe79aH/rkDeODjpRHjbprBPRI8r3s4bwaKwfGLPhiceA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB6988
+X-MS-Exchange-AntiSpam-MessageData-0: dIfIA+Vgna87UgElpzm88yvFf5jY4ECQ2TQlxO+QzABgSO/emlo3rB+lvwdoq6pnQcb9L9BaCXn5XLG3XnaB4hbsyDNLtnhB/g7sHuisu97QcHgW/9tRPxzYJPVIj9A2LNEqHrazGmSh4Ae5VuGMd+C379CPBgUSxxt7byGa4ZMCEJfzf2xRQNRE8ugONrjtLT9U8lbiK5Y3ghXZ68ASUIbGeMXhd1UaVaTDGFKGZ74Umvrv/ZFWMT5WuXtzmpWwIvKrp2rWAjlEeQuZWG/hUAz4R9gx9QZVdeUHfS/b7S3EtCswH75cFL7Re3uNiQ5fKfKx1JDTmpX7RUmJ0A8r03kpBkjQfickinlN3xXu180RKzWrSNID6JViIbTTJe5mgjN7Hhx1YD4K2Wl8dVn++Td7j8bMASR3Qh5CQX5gWy/l+SQglIzQbYeXUPDkhfHc
+X-OriginatorOrg: ti.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Mar 2026 17:05:18.2020 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: fa448c03-61b8-47e1-a007-08de837e334d
+X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7; Ip=[198.47.21.195];
+ Helo=[flwvzet201.ext.ti.com]
+X-MS-Exchange-CrossTenant-AuthSource: DS1PEPF0001709D.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: EAYPR10MB997807
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -148,19 +126,61 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, 16 Mar 2026, Alexandre Courbot wrote:
-> This is basically a repeat of the code of the previous patch. Let's
-> implement an iterator over the FB memory regions (that filters out
-> invalid regions) that we can leverage in both places so we don't need
-> to repeat ourselves.
+On 3/13/26 20:59, Dmitry Baryshkov wrote:
+> On Thu, Mar 12, 2026 at 02:33:55PM -0500, Sen Wang wrote:
+>> The IT66121 is an HDMI transmitter and does not support audio capture.
+>> However, the driver registers hdmi-codec without setting no_i2s_capture,
+>> causing the codec to advertise a non-functional capture stream. Userspace
+>> audio servers such as PulseAudio then attempt to open this capture
+>> device, resulting in errors.
+>>
+>> Set no_i2s_capture and no_spdif_capture in hdmi_codec_pdata so that the
+>> hdmi-codec driver only registers playback, matching the actual hardware
+>> capability.
+> 
+> As you hopefully have the hardware, can I suggest instead porting the
+> driver to HDMI helpers and HDMI audio helpers? The
+> drm_connector_hdmi_audio_init() already sets thesse flags for you.
+> 
+Hi Dmitry,
 
-Good catch. Added `fb_regions()` to create an iterator which both this and
-previous patch use. Nice simplification:
+Thanks for your feedback.  I dug the code base a little bit more, and I 
+sure can try to convert the legacy hdmi_codec_ops related APIs to the 
+newer hdmi_audio funcs and test it out. Hopefully there won't be any
+regressions by this conversion.
 
-    /// Compute the end of physical VRAM from all FB regions.
-    pub(crate) fn total_fb_end(&self) -> Option<u64> {
-        self.fb_regions().map(|reg| reg.limit.saturating_add(1)).max()
-    }
+Looks like I just need the following new drm_bridge_funcs:
+  .hdmi_audio_startup
+  .hdmi_audio_prepare
+  .hdmi_audio_shutdown
+  .hdmi_audio_mute_stream.
 
---
-Joel Fernandes
+Please let me know if there's anything else to consider for the 
+conversion, I'll take a stab at it and send a separate patch.
+
+Best Regards,
+Sen Wang
+
+>>
+>> Signed-off-by: Sen Wang <sen@ti.com>
+>> ---
+>>   drivers/gpu/drm/bridge/ite-it66121.c | 2 ++
+>>   1 file changed, 2 insertions(+)
+>>
+>> diff --git a/drivers/gpu/drm/bridge/ite-it66121.c b/drivers/gpu/drm/bridge/ite-it66121.c
+>> index 329fa47a5701..a1b2c3d4e5f6 100644
+>> --- a/drivers/gpu/drm/bridge/ite-it66121.c
+>> +++ b/drivers/gpu/drm/bridge/ite-it66121.c
+>> @@ -1476,6 +1476,8 @@ static int it66121_audio_codec_init(struct it66121_ctx *ctx, struct device *dev)
+>>   		.i2s = 1, /* Only i2s support for now */
+>>   		.spdif = 0,
+>>   		.max_i2s_channels = 8,
+>> +		.no_i2s_capture = 1,
+>> +		.no_spdif_capture = 1,
+>>   		.no_capture_mute = 1,
+>>   	};
+>>
+>> --
+>> 2.34.1
+> 
+
