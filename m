@@ -4,87 +4,129 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 64A07F013F0
-	for <dri-devel@archiver.kernel.org>; Mon, 16 Mar 2026 09:08:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1C643F013F5
+	for <dri-devel@archiver.kernel.org>; Mon, 16 Mar 2026 09:14:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AC58010E384;
-	Mon, 16 Mar 2026 09:08:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 430B110E130;
+	Mon, 16 Mar 2026 09:14:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=fairphone.com header.i=@fairphone.com header.b="3T8sV3C3";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="P5AXSQNg";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="dZ21jLKk";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="JKfdmvDB";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="+mRN/9Oz";
 	dkim-atps=neutral
-Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com
- [209.85.218.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ECD5B10E380
- for <dri-devel@lists.freedesktop.org>; Mon, 16 Mar 2026 09:08:49 +0000 (UTC)
-Received: by mail-ej1-f42.google.com with SMTP id
- a640c23a62f3a-b976536806cso503083766b.0
- for <dri-devel@lists.freedesktop.org>; Mon, 16 Mar 2026 02:08:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=fairphone.com; s=fair; t=1773652128; x=1774256928; darn=lists.freedesktop.org;
- h=in-reply-to:references:to:from:subject:cc:message-id:date
- :content-transfer-encoding:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=MkQ3ltXCFznTU4ceGv0LPxbwLcaDE8cpGKaOEA1BzBs=;
- b=3T8sV3C3Sj1N8WkQHwd7DVADJnbQ/W+R0DDD+eAMdKyr3slwBX6vHwHb9j+STrux71
- SB8NQEw3xC+RAmeGmL8flPxVbjhC+boZBnNGSGLOyiHlQ2uXtWpoOssBEmvgal8u4we1
- iIAClIibE0EnBZJi3cc8lCNYd1HPX8WObq17rwIsA6F/8n+R4JDuAyCx59VdsqXLIMZX
- IL5krfcupaDqdTtHbABBl8nE16wt2UjH491vRbHgCRaazQAcjqcj0n0awTN9qqHPb8oE
- JZTsWOsB/ecSDJCdNLF2AHkpK/dytHVBQRHJLPKiWJaZ5uu/2vSxvs6a/rALs3OMgH/d
- RHVA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1773652128; x=1774256928;
- h=in-reply-to:references:to:from:subject:cc:message-id:date
- :content-transfer-encoding:mime-version:x-gm-gg:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to;
- bh=MkQ3ltXCFznTU4ceGv0LPxbwLcaDE8cpGKaOEA1BzBs=;
- b=m+qN2WFeoR4+9C5xgc0xOsHkpCz/j4RHvv3qKfLD+JYI65tD/yklSXd8Al+fp86o32
- uG9jXoJSMfzwWOSOGQlYdA48ieFpfi88MhxDCjkkfz4MeQz3qOMWBKHRmU87uunqFBWH
- qhtHHZa/pTY9IHDde3dAtFGr8/eTW9DHiOyXujAztwd4h6P2SpopXEAs6Mrp3a/Ddxua
- C+aNqfvu5nm8U29gCBACRBqaNeSIu0Z84nlMWNRhPP9CEcxcvnYf2f+gufUKtFteOS/y
- 0BhrEnfaiHEq6qBmduVb3jKp1DO17rJh+RG+pkZ7ZUUBCjHUQYDSGVxM2yXGmqnLEO2L
- Fiqg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXAeCONgXPigLGEFUX7Kv59hfkTSymIBXa1U2DlEvLJiEGv0TnVrzGP3EYXAOW+oC6eOwypeS6gMKA=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxBslF0KKlwGLSxWVEYYvMMnZ39P9IRKjoMbrY8HfwjLqTXlnR4
- eLoXlYFE5ci2EeYc1SzSFiEWit+tKU8wSWQOFdaH51UMG2BdFGhwlouIso4TD/EbnSk=
-X-Gm-Gg: ATEYQzxqB/rA3I153lO+gg2Lv9zeVWKEQ/PkQxzbdp+j+a2W7UZNX8fc1UBARcwi+Io
- yait9FiEDHFxO6NOnjwFG2MBipMA46mRxzhEy7Ghp0neFPaWFjHF5R3EC/6eQmi2jEk37HmFwzv
- BFdW0x4hmLNLwep7TFEKbFavD7XfnLweZlXgEgrH8FgPuQl8ejAa/4jpXSTQcN40+Svusy5TWk3
- cTr2bpHR2KppIwB6c20KNwwgDUhRoj17ZRdRICByUK/64S/KzqiXpEQsNS+7FKWAsbY97BeIOcG
- nHm+i63z6dkODCbPDDA/wvtI41sSBpKT0uDcwQEWm1g6NfGJHekR2Wloe50x0sj6/bdMb91yUQl
- RukwY/NSlWpN6VmGxXeEHHo0Bkk1Up5L0xmyd5p6mBaxlHAZer6t2j4t/qQJxuage+QjTjpBLdY
- voWnQMf6qvRHGECFmEJLbBRr0SuifTzunfqlS9DfpV5Tp11/78SA0uKnhK05/R4nZMw1Kw
-X-Received: by 2002:a17:907:3d4c:b0:b87:b0ba:5d2d with SMTP id
- a640c23a62f3a-b9765410045mr711976966b.57.1773652128251; 
- Mon, 16 Mar 2026 02:08:48 -0700 (PDT)
-Received: from localhost (144-178-202-138.static.ef-service.nl.
- [144.178.202.138]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b97afca45c3sm229016866b.13.2026.03.16.02.08.47
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 16 Mar 2026 02:08:47 -0700 (PDT)
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 16 Mar 2026 10:08:47 +0100
-Message-Id: <DH437ESQRIAF.2336WF7XZBTI@fairphone.com>
-Cc: "Mahadevan P" <mahadevan.p@oss.qualcomm.com>, "Rob Clark"
- <robin.clark@oss.qualcomm.com>, "Dmitry Baryshkov" <lumag@kernel.org>,
- "Abhinav Kumar" <abhinav.kumar@linux.dev>, "Jessica Zhang"
- <jesszhan0024@gmail.com>, "Sean Paul" <sean@poorly.run>, "Marijn Suijten"
- <marijn.suijten@somainline.org>, "David Airlie" <airlied@gmail.com>,
- "Simona Vetter" <simona@ffwll.ch>, "Krishna Manikandan"
- <quic_mkrishn@quicinc.com>, <linux-arm-msm@vger.kernel.org>,
- <dri-devel@lists.freedesktop.org>, <freedreno@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>, <regressions@lists.linux.dev>
-Subject: Re: [PATCH v2] drm/msm/disp/dpu: add merge3d support for sc7280
-From: "Luca Weiss" <luca.weiss@fairphone.com>
-To: "Dmitry Baryshkov" <dmitry.baryshkov@oss.qualcomm.com>, "Luca Weiss"
- <luca.weiss@fairphone.com>
-X-Mailer: aerc 0.21.0-0-g5549850facc2
-References: <20260101-4k-v2-1-712ae3c1f816@oss.qualcomm.com>
- <DH1IKLU0YZYU.2SW4WYO7H3H4R@fairphone.com>
- <tbi5mwg4jt5scvr76lpzpvi5zj3kn3entoorsd4dior4g23czd@xtobadslhfrz>
-In-Reply-To: <tbi5mwg4jt5scvr76lpzpvi5zj3kn3entoorsd4dior4g23czd@xtobadslhfrz>
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1BC2710E130
+ for <dri-devel@lists.freedesktop.org>; Mon, 16 Mar 2026 09:14:27 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id AA75E4D202;
+ Mon, 16 Mar 2026 09:14:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1773652465; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=w5KCBPqD081N8TfZVfbYED0aaQMeoJhOd+mhW7Mw2l0=;
+ b=P5AXSQNg9lsSTVMJwS4y1FXEPePcwtshbx5eeXbXUSUTWYlu+he1euLNPWKT0l3VYjzOuj
+ lQLATieH9hVVR+xHB3t3csIzUpi2PAlb5WVaZYizxTa+3/a406aIvbpJ5yNOrBaLdnW1Sn
+ wLaiUqX6rSJo9zvZZUCiqpDrNK+aAp4=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1773652465;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=w5KCBPqD081N8TfZVfbYED0aaQMeoJhOd+mhW7Mw2l0=;
+ b=dZ21jLKkhqssqSKNpWx6mNeWTlPoQ7BP+/hspb4VE2T1D1BBEpKB3A48Vbu3BDtrm8hbwL
+ NQImeGPHwRHyOzDg==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1773652464; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=w5KCBPqD081N8TfZVfbYED0aaQMeoJhOd+mhW7Mw2l0=;
+ b=JKfdmvDBPvR/MbnSPv1VU4BwqRRg54u4dDWsCsdCvlRiO2HDi8WNeSoNApiAo866eA5FFn
+ ertbm2/czsbpl3PlJXt05TCofLxjXwmKJ5aXKk5aKwMK0Gb4JVYzYg+bFl/X2y/Dv9Ef0U
+ 33Ghme+QWqyz7kHYoqoumMUZXy1Zj80=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1773652464;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=w5KCBPqD081N8TfZVfbYED0aaQMeoJhOd+mhW7Mw2l0=;
+ b=+mRN/9Oz6Capx8Nopfcw0d7ch9Xziifj7eRc1FMJ845DntiSE24se/7S9PClk7KBF2ZC1m
+ LEZFzhI6HrVjPCCg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 6E38B4273B;
+ Mon, 16 Mar 2026 09:14:24 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id PxC5GfDJt2lADgAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Mon, 16 Mar 2026 09:14:24 +0000
+Message-ID: <004c48cb-196a-4aac-bfc4-c440c9fd74d2@suse.de>
+Date: Mon, 16 Mar 2026 10:14:23 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] drm/shmem-helper: Fix Map huge page mapping in fault
+ handler
+To: Pedro Demarchi Gomes <pedrodemargomes@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Boris Brezillon <boris.brezillon@collabora.com>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20260316002649.211819-1-pedrodemargomes@gmail.com>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <20260316002649.211819-1-pedrodemargomes@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ RCVD_VIA_SMTP_AUTH(0.00)[];
+ FREEMAIL_TO(0.00)[gmail.com,linux.intel.com,kernel.org,ffwll.ch,collabora.com];
+ ARC_NA(0.00)[]; MIME_TRACE(0.00)[0:+];
+ RCPT_COUNT_SEVEN(0.00)[8]; FUZZY_RATELIMITED(0.00)[rspamd.com];
+ MID_RHS_MATCH_FROM(0.00)[]; FREEMAIL_ENVRCPT(0.00)[gmail.com];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ TO_DN_SOME(0.00)[]; RCVD_TLS_ALL(0.00)[];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid, imap1.dmz-prg2.suse.org:helo,
+ suse.com:url]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,336 +142,234 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Dmitry,
+Hi
 
-On Fri Mar 13, 2026 at 6:14 PM CET, Dmitry Baryshkov wrote:
-> On Fri, Mar 13, 2026 at 09:33:18AM +0100, Luca Weiss wrote:
->> Hi Mahadevan,
->>=20
->> On Thu Jan 1, 2026 at 6:04 AM CET, Mahadevan P wrote:
->> > On SC7280 targets, display modes with a width greater than the
->> > max_mixer_width (2400) are rejected during mode validation when
->> > merge3d is disabled. This limitation exists because, without a
->> > 3D merge block, two layer mixers cannot be combined(non-DSC interface)=
-,
->> > preventing large layers from being split across mixers. As a result,
->> > higher resolution modes cannot be supported.
->> >
->> > Enable merge3d support on SC7280 to allow combining streams from
->> > two layer mixers into a single non-DSC interface. This capability
->> > removes the width restriction and enables buffer sizes beyond the
->> > 2400-pixel limit.
->> >
->> > Fixes: 591e34a091d1 ("drm/msm/disp/dpu1: add support for display for S=
-C7280 target")
->> > Signed-off-by: Mahadevan P <mahadevan.p@oss.qualcomm.com>
->>=20
->> This patch is causing display regression on QCM6490 fairphone-fp5.
->>=20
->> With this patch in 7.0-rc3 (or 6.18.16) there's just pink noise on the
->> screen. When reverting this patch everything becomes working again.
->>=20
->> See also https://salsa.debian.org/Mobian-team/devices/kernels/qcom-linux=
-/-/issues/41
->>=20
->> @Dmitry: Can we revert this for later 7.0-rc, in case it's not fixed
->> quickly?
+Am 16.03.26 um 01:26 schrieb Pedro Demarchi Gomes:
+> When running ./tools/testing/selftests/mm/split_huge_page_test multiple
+> times with /sys/kernel/mm/transparent_hugepage/shmem_enabled and
+> /sys/kernel/mm/transparent_hugepage/enabled set as always the following BUG
+> occurs:
 >
-> Could you please provide the resource allocation parts of
-> debugfs/dri/0/state for both working and non-working cases?
+> [  232.728858] ------------[ cut here ]------------
+> [  232.729458] kernel BUG at mm/memory.c:2276!
+> [  232.729726] Oops: invalid opcode: 0000 [#1] SMP DEBUG_PAGEALLOC KASAN PTI
+> [  232.730217] CPU: 19 UID: 60578 PID: 1497 Comm: llvmpipe-9 Not tainted 7.0.0-rc1mm-new+ #19 PREEMPT(lazy)
+> [  232.730855] Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.17.0-9.fc43 06/10/2025
+> [  232.731360] RIP: 0010:walk_to_pmd+0x29e/0x3c0
+> [  232.731569] Code: d8 5b 5d 41 5c 41 5d 41 5e 41 5f c3 cc cc cc cc 48 89 ea 48 89 de 4c 89 f7 e8 ae 85 ff ff 85 c0 0f 84 1f fe ff ff 31 db eb d0 <0f> 0b 48 89 ea 48 89 de 4c 89 f7 e8 92 8b ff ff 85 c0 75 e8 48 b8
+> [  232.732614] RSP: 0000:ffff8881aa6ff9a8 EFLAGS: 00010282
+> [  232.732991] RAX: 8000000142e002e7 RBX: ffff8881433cae10 RCX: dffffc0000000000
+> [  232.733362] RDX: 0000000000000000 RSI: 00007fb47840b000 RDI: 8000000142e002e7
+> [  232.733801] RBP: 00007fb47840b000 R08: 0000000000000000 R09: 1ffff110354dff46
+> [  232.734168] R10: fffffbfff0cb921d R11: 00000000910da5ce R12: 1ffffffff0c1fcdd
+> [  232.734459] R13: 1ffffffff0c23f36 R14: ffff888171628040 R15: 0000000000000000
+> [  232.734861] FS:  00007fb4907f86c0(0000) GS:ffff888791f2c000(0000) knlGS:0000000000000000
+> [  232.735265] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+> [  232.735548] CR2: 00007fb47840be00 CR3: 000000015e6dc000 CR4: 00000000000006f0
+> [  232.736031] Call Trace:
+> [  232.736273]  <TASK>
+> [  232.736500]  get_locked_pte+0x1f/0xa0
+> [  232.736878]  insert_pfn+0x9f/0x350
+> [  232.737190]  ? __pfx_pat_pagerange_is_ram+0x10/0x10
+> [  232.737614]  ? __pfx_insert_pfn+0x10/0x10
+> [  232.737990]  ? __pfx_css_rstat_updated+0x10/0x10
+> [  232.738281]  ? __pfx_pfn_modify_allowed+0x10/0x10
+> [  232.738552]  ? lookup_memtype+0x62/0x180
+> [  232.738761]  vmf_insert_pfn_prot+0x14b/0x340
+> [  232.739012]  ? __pfx_vmf_insert_pfn_prot+0x10/0x10
+> [  232.739247]  ? __pfx___might_resched+0x10/0x10
+> [  232.739475]  drm_gem_shmem_fault.cold+0x18/0x39
+> [  232.739677]  ? rcu_read_unlock+0x20/0x70
+> [  232.739882]  __do_fault+0x251/0x7b0
+> [  232.740028]  do_fault+0x6e1/0xc00
+> [  232.740167]  ? __lock_acquire+0x590/0xc40
+> [  232.740335]  handle_pte_fault+0x439/0x760
+> [  232.740498]  ? mtree_range_walk+0x252/0xae0
+> [  232.740669]  ? __pfx_handle_pte_fault+0x10/0x10
+> [  232.740899]  __handle_mm_fault+0xa02/0xf30
+> [  232.741066]  ? __pfx___handle_mm_fault+0x10/0x10
+> [  232.741255]  ? find_vma+0xa1/0x120
+> [  232.741403]  handle_mm_fault+0x2bf/0x8f0
+> [  232.741564]  do_user_addr_fault+0x2d3/0xed0
+> [  232.741736]  ? trace_page_fault_user+0x1bf/0x240
+> [  232.741969]  exc_page_fault+0x87/0x120
+> [  232.742124]  asm_exc_page_fault+0x26/0x30
+> [  232.742288] RIP: 0033:0x7fb4d73ed546
+> [  232.742441] Code: 66 41 0f 6f fb 66 44 0f 6d dc 66 44 0f 6f c6 66 41 0f 6d f1 66 0f 6c fc 66 45 0f 6c c1 66 44 0f 6f c9 66 0f 6d ca 66 0f db f0 <66> 0f df 04 08 66 44 0f 6c ca 66 45 0f db c2 66 44 0f df 10 66 44
+> [  232.743193] RSP: 002b:00007fb4907f68a0 EFLAGS: 00010206
+> [  232.743565] RAX: 00007fb47840aa00 RBX: 00007fb4d73ec070 RCX: 0000000000001400
+> [  232.743871] RDX: 0000000000002800 RSI: 0000000000003c00 RDI: 0000000000000001
+> [  232.744150] RBP: 0000000000000004 R08: 0000000000001400 R09: 00007fb4d73ec060
+> [  232.744433] R10: 000055f0261a4288 R11: 00007fb4c013da40 R12: 0000000000000008
+> [  232.744712] R13: 0000000000000000 R14: 4332322132212110 R15: 0000000000000004
+> [  232.746616]  </TASK>
+> [  232.746711] Modules linked in: nft_nat nft_masq veth bridge stp llc snd_seq_dummy snd_hrtimer snd_seq snd_seq_device snd_timer snd soundcore overlay rfkill nf_conntrack_netbios_ns nf_conntrack_broadcast nft_fib_inet nft_fib_ipv4 nft_fib_ipv6 nft_fib nft_reject_inet nf_reject_ipv4 nf_reject_ipv6 nft_reject nft_ct nft_chain_nat nf_nat nf_conntrack nf_defrag_ipv6 nf_defrag_ipv4 nf_tables qrtr ppdev 9pnet_virtio 9pnet parport_pc i2c_piix4 netfs pcspkr parport i2c_smbus joydev sunrpc vfat fat loop dm_multipath nfnetlink vsock_loopback vmw_vsock_virtio_transport_common vmw_vsock_vmci_transport zram lz4hc_compress vmw_vmci lz4_compress vsock e1000 bochs serio_raw ata_generic pata_acpi scsi_dh_rdac scsi_dh_emc scsi_dh_alua i2c_dev fuse qemu_fw_cfg
+> [  232.749308] ---[ end trace 0000000000000000 ]---
+> [  232.749507] RIP: 0010:walk_to_pmd+0x29e/0x3c0
+> [  232.749692] Code: d8 5b 5d 41 5c 41 5d 41 5e 41 5f c3 cc cc cc cc 48 89 ea 48 89 de 4c 89 f7 e8 ae 85 ff ff 85 c0 0f 84 1f fe ff ff 31 db eb d0 <0f> 0b 48 89 ea 48 89 de 4c 89 f7 e8 92 8b ff ff 85 c0 75 e8 48 b8
+> [  232.750428] RSP: 0000:ffff8881aa6ff9a8 EFLAGS: 00010282
+> [  232.750645] RAX: 8000000142e002e7 RBX: ffff8881433cae10 RCX: dffffc0000000000
+> [  232.750954] RDX: 0000000000000000 RSI: 00007fb47840b000 RDI: 8000000142e002e7
+> [  232.751232] RBP: 00007fb47840b000 R08: 0000000000000000 R09: 1ffff110354dff46
+> [  232.751514] R10: fffffbfff0cb921d R11: 00000000910da5ce R12: 1ffffffff0c1fcdd
+> [  232.751837] R13: 1ffffffff0c23f36 R14: ffff888171628040 R15: 0000000000000000
+> [  232.752124] FS:  00007fb4907f86c0(0000) GS:ffff888791f2c000(0000) knlGS:0000000000000000
+> [  232.752441] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+> [  232.752674] CR2: 00007fb47840be00 CR3: 000000015e6dc000 CR4: 00000000000006f0
+> [  232.752983] Kernel panic - not syncing: Fatal exception
+> [  232.753510] Kernel Offset: disabled
+> [  232.754643] ---[ end Kernel panic - not syncing: Fatal exception ]---
+>
+> This happens when two concurrent page faults occur within the same PMD range.
+> One fault installs a PMD mapping through vmf_insert_pfn_pmd(), while the other
+> attempts to install a PTE mapping via vmf_insert_pfn(). The bug is
+> triggered because a pmd_trans_huge is not expected when walking the page
+> table inside vmf_insert_pfn.
+>
+> Avoid this race by adding a huge_fault callback to drm_gem_shmem_vm_ops so that
+> PMD-sized mappings are handled through the appropriate huge page fault path.
+>
+> Fixes: 211b9a39f261 ("drm/shmem-helper: Map huge pages in fault handler")
+> Signed-off-by: Pedro Demarchi Gomes <pedrodemargomes@gmail.com>
+> ---
+>
+> Changes in v3:
+>   - Pass a try_pmd boolean parameter to drm_gem_shmem_any_fault
+>   - Compile drm_gem_shmem_huge_fault only if CONFIG_ARCH_SUPPORTS_PMD_PFNMAP
+> is defined to avoid a build warning
+>
+> Changes in v2: https://lore.kernel.org/dri-devel/20260313141719.3949700-1-pedrodemargomes@gmail.com/
+>   - Keep the #ifdef unindented
+>   - Create drm_gem_shmem_any_fault to handle faults of any order and use
+> drm_gem_shmem_[huge_]fault() as wrappers
+>
+> v1: https://lore.kernel.org/all/20260312155027.1682606-1-pedrodemargomes@gmail.com/
+>
+> ---
+>   drivers/gpu/drm/drm_gem_shmem_helper.c | 63 ++++++++++++++------------
+>   1 file changed, 35 insertions(+), 28 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/drm_gem_shmem_helper.c b/drivers/gpu/drm/drm_gem_shmem_helper.c
+> index 7b5a49935ae4..9428c3ab7283 100644
+> --- a/drivers/gpu/drm/drm_gem_shmem_helper.c
+> +++ b/drivers/gpu/drm/drm_gem_shmem_helper.c
+> @@ -550,36 +550,18 @@ int drm_gem_shmem_dumb_create(struct drm_file *file, struct drm_device *dev,
+>   }
+>   EXPORT_SYMBOL_GPL(drm_gem_shmem_dumb_create);
+>
+> -static bool drm_gem_shmem_try_map_pmd(struct vm_fault *vmf, unsigned long addr,
+> -				      struct page *page)
+> -{
+> -#ifdef CONFIG_ARCH_SUPPORTS_PMD_PFNMAP
+> -	unsigned long pfn = page_to_pfn(page);
+> -	unsigned long paddr = pfn << PAGE_SHIFT;
+> -	bool aligned = (addr & ~PMD_MASK) == (paddr & ~PMD_MASK);
+> -
+> -	if (aligned &&
+> -	    pmd_none(*vmf->pmd) &&
+> -	    folio_test_pmd_mappable(page_folio(page))) {
+> -		pfn &= PMD_MASK >> PAGE_SHIFT;
+> -		if (vmf_insert_pfn_pmd(vmf, pfn, false) == VM_FAULT_NOPAGE)
+> -			return true;
+> -	}
+> -#endif
+> -
+> -	return false;
+> -}
+> -
+> -static vm_fault_t drm_gem_shmem_fault(struct vm_fault *vmf)
+> +static vm_fault_t drm_gem_shmem_any_fault(struct vm_fault *vmf, bool try_pmd)
 
-Working (patch reverted)
+Please write two functions. One for huge pages and one for regular page 
+faults.
 
-# cat /sys/kernel/debug/dri/1/state
-plane[44]: plane-0
-        crtc=3Dcrtc-0
-        fb=3D71
-                allocated by =3D phoc
-                refcount=3D2
-                format=3DXR24 little-endian (0x34325258)
-                modifier=3D0x500000000000001
-                size=3D1224x2700
-                layers:
-                        size[0]=3D1224x2700
-                        pitch[0]=3D5120
-                        offset[0]=3D0
-                        obj[0]:
-                                name=3D0
-                                refcount=3D6
-                                start=3D00103729
-                                size=3D14680064
-                                imported=3Dno
-        crtc-pos=3D1224x2700+0+0
-        src-pos=3D1224.000000x2700.000000+0.000000+0.000000
-        rotation=3D1
-        normalized-zpos=3D0
-        color-encoding=3DITU-R BT.601 YCbCr
-        color-range=3DYCbCr limited range
-        color_mgmt_changed=3D0
-        color-pipeline=3D0
-        stage=3D1
-        sspp[0]=3Dsspp_0
-        multirect_mode[0]=3Dnone
-        multirect_index[0]=3Dsolo
-        src[0]=3D1224x2700+0+0
-        dst[0]=3D1224x2700+0+0
-plane[50]: plane-1
-        crtc=3D(null)
-        fb=3D0
-        crtc-pos=3D0x0+0+0
-        src-pos=3D0.000000x0.000000+0.000000+0.000000
-        rotation=3D1
-        normalized-zpos=3D0
-        color-encoding=3DITU-R BT.601 YCbCr
-        color-range=3DYCbCr limited range
-        color_mgmt_changed=3D0
-        color-pipeline=3D0
-        stage=3D0
-        sspp[0]=3Dsspp_8
-        multirect_mode[0]=3Dnone
-        multirect_index[0]=3Dsolo
-        src[0]=3D0x0+0+0
-        dst[0]=3D0x0+0+0
-plane[56]: plane-2
-        crtc=3D(null)
-        fb=3D0
-        crtc-pos=3D0x0+0+0
-        src-pos=3D0.000000x0.000000+0.000000+0.000000
-        rotation=3D1
-        normalized-zpos=3D0
-        color-encoding=3DITU-R BT.601 YCbCr
-        color-range=3DYCbCr limited range
-        color_mgmt_changed=3D0
-        color-pipeline=3D0
-        stage=3D0
-        sspp[0]=3Dsspp_9
-        multirect_mode[0]=3Dnone
-        multirect_index[0]=3Dsolo
-        src[0]=3D0x0+0+0
-        dst[0]=3D0x0+0+0
-plane[62]: plane-3
-        crtc=3D(null)
-        fb=3D0
-        crtc-pos=3D0x0+0+0
-        src-pos=3D0.000000x0.000000+0.000000+0.000000
-        rotation=3D1
-        normalized-zpos=3D0
-        color-encoding=3DITU-R BT.601 YCbCr
-        color-range=3DYCbCr limited range
-        color_mgmt_changed=3D0
-        color-pipeline=3D0
-        stage=3D0
-        sspp[0]=3Dsspp_10
-        multirect_mode[0]=3Dnone
-        multirect_index[0]=3Dsolo
-        src[0]=3D0x0+0+0
-        dst[0]=3D0x0+0+0
-crtc[68]: crtc-0
-        enable=3D1
-        active=3D1
-        self_refresh_active=3D0
-        planes_changed=3D1
-        mode_changed=3D0
-        active_changed=3D0
-        connectors_changed=3D0
-        color_mgmt_changed=3D0
-        plane_mask=3D1
-        connector_mask=3D1
-        encoder_mask=3D1
-        mode: "1224x2700": 90 311156 1224 1256 1264 1272 2700 2708 2710 271=
-8 0x48 0x0
-        lm[0]=3D2
-        ctl[0]=3D0
-crtc[69]: crtc-1
-        enable=3D0
-        active=3D0
-        self_refresh_active=3D0
-        planes_changed=3D0
-        mode_changed=3D0
-        active_changed=3D0
-        connectors_changed=3D0
-        color_mgmt_changed=3D0
-        plane_mask=3D0
-        connector_mask=3D0
-        encoder_mask=3D0
-        mode: "": 0 0 0 0 0 0 0 0 0 0 0x0 0x0
-connector[34]: DSI-1
-        crtc=3Dcrtc-0
-        self_refresh_aware=3D0
-        interlace_allowed=3D0
-        ycbcr_420_allowed=3D0
-        max_requested_bpc=3D0
-        colorspace=3DDefault
-connector[36]: DP-1
-        crtc=3D(null)
-        self_refresh_aware=3D0
-        interlace_allowed=3D0
-        ycbcr_420_allowed=3D1
-        max_requested_bpc=3D0
-        colorspace=3DDefault
-connector[39]: Writeback-1
-        crtc=3D(null)
-        self_refresh_aware=3D0
-        interlace_allowed=3D0
-        ycbcr_420_allowed=3D0
-        max_requested_bpc=3D0
-        colorspace=3DDefault
-resource mapping:
-        pingpong=3D# # 68 # - - - - - - - - -=20
-        mixer=3D# - 68 # - - - -=20
-        ctl=3D68 # # # - - - -=20
-        dspp=3D# - - - - - - -=20
-        dsc=3D68 - - - - - - -=20
-        cdm=3D#=20
-        sspp=3D# - - - - - - - # # # - - - - -=20
-        cwb=3D- - - -=20
+Best regards
+Thomas
 
+>   {
+>   	struct vm_area_struct *vma = vmf->vma;
+>   	struct drm_gem_object *obj = vma->vm_private_data;
+>   	struct drm_gem_shmem_object *shmem = to_drm_gem_shmem_obj(obj);
+>   	loff_t num_pages = obj->size >> PAGE_SHIFT;
+> -	vm_fault_t ret;
+> +	vm_fault_t ret = VM_FAULT_FALLBACK;
+>   	struct page **pages = shmem->pages;
+>   	pgoff_t page_offset;
+>   	unsigned long pfn;
+> +	unsigned long paddr;
+> +	bool aligned;
+>
+>   	/* Offset to faulty address in the VMA. */
+>   	page_offset = vmf->pgoff - vma->vm_pgoff;
+> @@ -593,13 +575,19 @@ static vm_fault_t drm_gem_shmem_fault(struct vm_fault *vmf)
+>   		goto out;
+>   	}
+>
+> -	if (drm_gem_shmem_try_map_pmd(vmf, vmf->address, pages[page_offset])) {
+> -		ret = VM_FAULT_NOPAGE;
+> -		goto out;
+> -	}
+> -
+>   	pfn = page_to_pfn(pages[page_offset]);
+> -	ret = vmf_insert_pfn(vma, vmf->address, pfn);
+> +	if (try_pmd) {
+> +		paddr = pfn << PAGE_SHIFT;
+> +		aligned = (vmf->address & ~PMD_MASK) == (paddr & ~PMD_MASK);
+> +
+> +		if (aligned &&
+> +		    folio_test_pmd_mappable(page_folio(pages[page_offset]))) {
+> +			pfn &= PMD_MASK >> PAGE_SHIFT;
+> +			ret = vmf_insert_pfn_pmd(vmf, pfn, false);
+> +		}
+> +	} else {
+> +		ret = vmf_insert_pfn(vma, vmf->address, pfn);
+> +	}
+>
+>    out:
+>   	dma_resv_unlock(shmem->base.resv);
+> @@ -607,6 +595,22 @@ static vm_fault_t drm_gem_shmem_fault(struct vm_fault *vmf)
+>   	return ret;
+>   }
+>
+> +#ifdef CONFIG_ARCH_SUPPORTS_PMD_PFNMAP
+> +static vm_fault_t drm_gem_shmem_huge_fault(struct vm_fault *vmf,
+> +					   unsigned int order)
+> +{
+> +	if (order != PMD_ORDER)
+> +		return VM_FAULT_FALLBACK;
+> +
+> +	return drm_gem_shmem_any_fault(vmf, true);
+> +}
+> +#endif
+> +
+> +static vm_fault_t drm_gem_shmem_fault(struct vm_fault *vmf)
+> +{
+> +	return drm_gem_shmem_any_fault(vmf, false);
+> +}
+> +
+>   static void drm_gem_shmem_vm_open(struct vm_area_struct *vma)
+>   {
+>   	struct drm_gem_object *obj = vma->vm_private_data;
+> @@ -643,6 +647,9 @@ static void drm_gem_shmem_vm_close(struct vm_area_struct *vma)
+>
+>   const struct vm_operations_struct drm_gem_shmem_vm_ops = {
+>   	.fault = drm_gem_shmem_fault,
+> +#ifdef CONFIG_ARCH_SUPPORTS_PMD_PFNMAP
+> +	.huge_fault = drm_gem_shmem_huge_fault,
+> +#endif
+>   	.open = drm_gem_shmem_vm_open,
+>   	.close = drm_gem_shmem_vm_close,
+>   };
+> --
+> 2.47.3
+>
 
-Broken (with the patch)
+-- 
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
 
-# cat /sys/kernel/debug/dri/1/state
-plane[44]: plane-0
-        crtc=3Dcrtc-0
-        fb=3D72
-                allocated by =3D phoc
-                refcount=3D2
-                format=3DXR24 little-endian (0x34325258)
-                modifier=3D0x500000000000001
-                size=3D1224x2700
-                layers:
-                        size[0]=3D1224x2700
-                        pitch[0]=3D5120
-                        offset[0]=3D0
-                        obj[0]:
-                                name=3D0
-                                refcount=3D6
-                                start=3D00103729
-                                size=3D14680064
-                                imported=3Dno
-        crtc-pos=3D1224x2700+0+0
-        src-pos=3D1224.000000x2700.000000+0.000000+0.000000
-        rotation=3D1
-        normalized-zpos=3D0
-        color-encoding=3DITU-R BT.601 YCbCr
-        color-range=3DYCbCr limited range
-        color_mgmt_changed=3D0
-        color-pipeline=3D0
-        stage=3D1
-        sspp[0]=3Dsspp_0
-        multirect_mode[0]=3Dnone
-        multirect_index[0]=3Dsolo
-        src[0]=3D1224x2700+0+0
-        dst[0]=3D1224x2700+0+0
-plane[50]: plane-1
-        crtc=3D(null)
-        fb=3D0
-        crtc-pos=3D0x0+0+0
-        src-pos=3D0.000000x0.000000+0.000000+0.000000
-        rotation=3D1
-        normalized-zpos=3D0
-        color-encoding=3DITU-R BT.601 YCbCr
-        color-range=3DYCbCr limited range
-        color_mgmt_changed=3D0
-        color-pipeline=3D0
-        stage=3D0
-        sspp[0]=3Dsspp_8
-        multirect_mode[0]=3Dnone
-        multirect_index[0]=3Dsolo
-        src[0]=3D0x0+0+0
-        dst[0]=3D0x0+0+0
-plane[56]: plane-2
-        crtc=3D(null)
-        fb=3D0
-        crtc-pos=3D0x0+0+0
-        src-pos=3D0.000000x0.000000+0.000000+0.000000
-        rotation=3D1
-        normalized-zpos=3D0
-        color-encoding=3DITU-R BT.601 YCbCr
-        color-range=3DYCbCr limited range
-        color_mgmt_changed=3D0
-        color-pipeline=3D0
-        stage=3D0
-        sspp[0]=3Dsspp_9
-        multirect_mode[0]=3Dnone
-        multirect_index[0]=3Dsolo
-        src[0]=3D0x0+0+0
-        dst[0]=3D0x0+0+0
-plane[62]: plane-3
-        crtc=3D(null)
-        fb=3D0
-        crtc-pos=3D0x0+0+0
-        src-pos=3D0.000000x0.000000+0.000000+0.000000
-        rotation=3D1
-        normalized-zpos=3D0
-        color-encoding=3DITU-R BT.601 YCbCr
-        color-range=3DYCbCr limited range
-        color_mgmt_changed=3D0
-        color-pipeline=3D0
-        stage=3D0
-        sspp[0]=3Dsspp_10
-        multirect_mode[0]=3Dnone
-        multirect_index[0]=3Dsolo
-        src[0]=3D0x0+0+0
-        dst[0]=3D0x0+0+0
-crtc[68]: crtc-0
-        enable=3D1
-        active=3D1
-        self_refresh_active=3D0
-        planes_changed=3D1
-        mode_changed=3D0
-        active_changed=3D0
-        connectors_changed=3D0
-        color_mgmt_changed=3D0
-        plane_mask=3D1
-        connector_mask=3D1
-        encoder_mask=3D1
-        mode: "1224x2700": 90 311156 1224 1256 1264 1272 2700 2708 2710 271=
-8 0x48 0x0
-        lm[0]=3D2
-        ctl[0]=3D0
-        lm[1]=3D3
-        ctl[1]=3D0
-crtc[69]: crtc-1
-        enable=3D0
-        active=3D0
-        self_refresh_active=3D0
-        planes_changed=3D0
-        mode_changed=3D0
-        active_changed=3D0
-        connectors_changed=3D0
-        color_mgmt_changed=3D0
-        plane_mask=3D0
-        connector_mask=3D0
-        encoder_mask=3D0
-        mode: "": 0 0 0 0 0 0 0 0 0 0 0x0 0x0
-connector[34]: DSI-1
-        crtc=3Dcrtc-0
-        self_refresh_aware=3D0
-        interlace_allowed=3D0
-        ycbcr_420_allowed=3D0
-        max_requested_bpc=3D0
-        colorspace=3DDefault
-connector[36]: DP-1
-        crtc=3D(null)
-        self_refresh_aware=3D0
-        interlace_allowed=3D0
-        ycbcr_420_allowed=3D1
-        max_requested_bpc=3D0
-        colorspace=3DDefault
-connector[39]: Writeback-1
-        crtc=3D(null)
-        self_refresh_aware=3D0
-        interlace_allowed=3D0
-        ycbcr_420_allowed=3D0
-        max_requested_bpc=3D0
-        colorspace=3DDefault
-resource mapping:
-        pingpong=3D# # 68 68 - - - - - - - - -=20
-        mixer=3D# - 68 68 - - - -=20
-        ctl=3D68 # # # - - - -=20
-        dspp=3D# - - - - - - -=20
-        dsc=3D68 - - - - - - -=20
-        cdm=3D#=20
-        sspp=3D# - - - - - - - # # # - - - - -=20
-        cwb=3D- - - -=20
 
