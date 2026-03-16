@@ -4,89 +4,97 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1DE67F4645F
-	for <dri-devel@archiver.kernel.org>; Mon, 16 Mar 2026 12:17:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 85AC3F4645F
+	for <dri-devel@archiver.kernel.org>; Mon, 16 Mar 2026 12:18:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7662E10E507;
-	Mon, 16 Mar 2026 12:17:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E826710E513;
+	Mon, 16 Mar 2026 12:18:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="mEGFbxye";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="jiCSqO3K";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="mEGFbxye";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="jiCSqO3K";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="YMbihowt";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="g/RQt8/Z";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="YMbihowt";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="g/RQt8/Z";
 	dkim-atps=neutral
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C2BE610E507
- for <dri-devel@lists.freedesktop.org>; Mon, 16 Mar 2026 12:17:46 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 408C710E514
+ for <dri-devel@lists.freedesktop.org>; Mon, 16 Mar 2026 12:18:46 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 76BFF5BD1A;
- Mon, 16 Mar 2026 12:17:45 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id DC46F5BD1A;
+ Mon, 16 Mar 2026 12:18:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1773663465; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1773663524; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=ejUjcwIGFdLCqMKZAxV+B0YfEULhqWOq3Y49S9/SDV0=;
- b=mEGFbxyetc1TE4RnNVH0AvLAbrG/eCfWhnFVC0Dc1XrE6FqQZiY/9vtN5R/XfbTj2d0y+L
- NwPKi9sHvGpRHFQaBfCoIrhg+/MprCWppVzMGUafyYPxI0hVXvhyhTL1mVNPd8/MsgpKow
- Kfj/1yKIVu2NRVr3/PcGbUfkwVaIiPM=
+ bh=mB9Tj05DF4lv5T+QxlQXo7H+zML20YMLhiJtCrtfPgA=;
+ b=YMbihowtfo2GjiPz4aQmTrHixBFJuyIjMLqNHhsnSvrrdDJ0D5vtThpK/yJ10whM+FbnY1
+ HAHJF40UoFuuE5nEvpWV6ZIyU4S4IUF41cObxCLBHCBglZG/a1hGvrO51UrAMhZU7mk9wi
+ VID50r/T/huXYCy1Hib/TxbEVvrpx9U=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1773663465;
+ s=susede2_ed25519; t=1773663524;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=ejUjcwIGFdLCqMKZAxV+B0YfEULhqWOq3Y49S9/SDV0=;
- b=jiCSqO3KjvugUBpaEPrdH+Yr4UZW1nVdLWbIlQ5uX9aVnZtxRtpSmmhtEJ3fdqHd8mL/CT
- MrCA6+DLm0SfFJBg==
+ bh=mB9Tj05DF4lv5T+QxlQXo7H+zML20YMLhiJtCrtfPgA=;
+ b=g/RQt8/ZJPi7TiVJ91ZFWYt4v0Yxn2FFupdXKQm44etrzj5XjgthDIDoLpuKeNr+xbkGHP
+ qFFWC4hIG7IrKsAA==
 Authentication-Results: smtp-out2.suse.de;
-	none
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=YMbihowt;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b="g/RQt8/Z"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1773663465; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1773663524; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=ejUjcwIGFdLCqMKZAxV+B0YfEULhqWOq3Y49S9/SDV0=;
- b=mEGFbxyetc1TE4RnNVH0AvLAbrG/eCfWhnFVC0Dc1XrE6FqQZiY/9vtN5R/XfbTj2d0y+L
- NwPKi9sHvGpRHFQaBfCoIrhg+/MprCWppVzMGUafyYPxI0hVXvhyhTL1mVNPd8/MsgpKow
- Kfj/1yKIVu2NRVr3/PcGbUfkwVaIiPM=
+ bh=mB9Tj05DF4lv5T+QxlQXo7H+zML20YMLhiJtCrtfPgA=;
+ b=YMbihowtfo2GjiPz4aQmTrHixBFJuyIjMLqNHhsnSvrrdDJ0D5vtThpK/yJ10whM+FbnY1
+ HAHJF40UoFuuE5nEvpWV6ZIyU4S4IUF41cObxCLBHCBglZG/a1hGvrO51UrAMhZU7mk9wi
+ VID50r/T/huXYCy1Hib/TxbEVvrpx9U=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1773663465;
+ s=susede2_ed25519; t=1773663524;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=ejUjcwIGFdLCqMKZAxV+B0YfEULhqWOq3Y49S9/SDV0=;
- b=jiCSqO3KjvugUBpaEPrdH+Yr4UZW1nVdLWbIlQ5uX9aVnZtxRtpSmmhtEJ3fdqHd8mL/CT
- MrCA6+DLm0SfFJBg==
+ bh=mB9Tj05DF4lv5T+QxlQXo7H+zML20YMLhiJtCrtfPgA=;
+ b=g/RQt8/ZJPi7TiVJ91ZFWYt4v0Yxn2FFupdXKQm44etrzj5XjgthDIDoLpuKeNr+xbkGHP
+ qFFWC4hIG7IrKsAA==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 2FBCD4273B;
- Mon, 16 Mar 2026 12:17:45 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 720114273B;
+ Mon, 16 Mar 2026 12:18:44 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id HV44Cun0t2nwUgAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Mon, 16 Mar 2026 12:17:45 +0000
-Message-ID: <1729c256-5854-4ffd-ab90-730047a47067@suse.de>
-Date: Mon, 16 Mar 2026 13:17:44 +0100
+ by imap1.dmz-prg2.suse.org with ESMTPSA id 8palGiT1t2k8VAAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Mon, 16 Mar 2026 12:18:44 +0000
+Message-ID: <9b3354fe-ff49-4436-9f36-2a19eaf2918c@suse.de>
+Date: Mon, 16 Mar 2026 13:18:44 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] [linux-next mismerge] drm/fbdev-emulation: restore
- drm_fb_helper_gem_is_fb() dummy
-To: Arnd Bergmann <arnd@kernel.org>, Mark Brown <broonie@kernel.org>
-Cc: Arnd Bergmann <arnd@arndb.de>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20260313095657.4115599-1-arnd@kernel.org>
-Content-Language: en-US
+Subject: Re: [PATCH] drm/i915/fbdev: fix link failure without FBDEV emulation
 From: Thomas Zimmermann <tzimmermann@suse.de>
+To: Arnd Bergmann <arnd@kernel.org>, Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
+ <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Uma Shankar <uma.shankar@intel.com>,
+ Mika Kahola <mika.kahola@intel.com>,
+ =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
+ Vinod Govindapillai <vinod.govindapillai@intel.com>
+Cc: Arnd Bergmann <arnd@arndb.de>, =?UTF-8?Q?Jouni_H=C3=B6gander?=
+ <jouni.hogander@intel.com>,
+ Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+References: <20260304083701.724908-1-arnd@kernel.org>
+ <c9fe5e38-de78-45f3-82ae-adf0996a7aa1@suse.de>
+Content-Language: en-US
 Autocrypt: addr=tzimmermann@suse.de; keydata=
  xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
  XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
@@ -111,23 +119,34 @@ Autocrypt: addr=tzimmermann@suse.de; keydata=
  SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
  Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
  4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20260313095657.4115599-1-arnd@kernel.org>
+In-Reply-To: <c9fe5e38-de78-45f3-82ae-adf0996a7aa1@suse.de>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+X-Rspamd-Action: no action
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
  NEURAL_HAM_LONG(-1.00)[-1.000];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- RCVD_VIA_SMTP_AUTH(0.00)[]; RCVD_TLS_ALL(0.00)[];
- ARC_NA(0.00)[]; MIME_TRACE(0.00)[0:+];
- RCPT_COUNT_SEVEN(0.00)[11];
- FUZZY_RATELIMITED(0.00)[rspamd.com];
- MID_RHS_MATCH_FROM(0.00)[]; FREEMAIL_ENVRCPT(0.00)[gmail.com];
+ NEURAL_HAM_SHORT(-0.20)[-1.000];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ MIME_GOOD(-0.10)[text/plain]; MX_GOOD(-0.01)[]; ARC_NA(0.00)[];
  DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FROM_HAS_DN(0.00)[];
- FREEMAIL_CC(0.00)[arndb.de,linux.intel.com,kernel.org,gmail.com,ffwll.ch,amd.com,lists.freedesktop.org,vger.kernel.org];
- TO_DN_SOME(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url,imap1.dmz-prg2.suse.org:helo]
+ RCPT_COUNT_TWELVE(0.00)[17];
+ SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+ MIME_TRACE(0.00)[0:+]; FUZZY_RATELIMITED(0.00)[rspamd.com];
+ FREEMAIL_TO(0.00)[kernel.org,linux.intel.com,intel.com,ursulin.net,gmail.com,ffwll.ch];
+ URIBL_BLOCKED(0.00)[suse.com:url,arndb.de:email,suse.de:dkim,suse.de:mid,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns];
+ RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
+ FREEMAIL_ENVRCPT(0.00)[gmail.com]; TO_DN_SOME(0.00)[];
+ RCVD_COUNT_TWO(0.00)[2]; MID_RHS_MATCH_FROM(0.00)[];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ TO_MATCH_ENVRCPT_ALL(0.00)[];
+ RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+ ASN(0.00)[asn:32098, ipnet:2800::/6, country:US];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; RCVD_TLS_ALL(0.00)[];
+ DKIM_TRACE(0.00)[suse.de:+];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,
+ imap1.dmz-prg2.suse.org:rdns, suse.com:url]
+X-Rspamd-Queue-Id: DC46F5BD1A
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -143,57 +162,63 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Hi
 
+Am 04.03.26 um 09:43 schrieb Thomas Zimmermann:
+> Hi
+>
+> Am 04.03.26 um 09:36 schrieb Arnd Bergmann:
+>> From: Arnd Bergmann <arnd@arndb.de>
+>>
+>> If CONFIG_DRM_FBDEV_EMULATION is disabled but CONFIG_FRAMEBUFFER_CONSOLE
+>> is turned on, the i915 driver now fails to link:
+>>
+>> ERROR: modpost: "intel_fbdev_fb_prefer_stolen" 
+>> [drivers/gpu/drm/i915/i915.ko] undefined!
+>>
+>> Fix the contition to include a check for the symbol that controls 
+>> compilation
+>> of intel_fbdev_fb.c.
+>>
+>> Fixes: 94c7d2861292 ("drm/i915/fbdev: Extract 
+>> intel_fbdev_fb_prefer_stolen()")
+>> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+>> ---
+>>   drivers/gpu/drm/i915/i915_initial_plane.c | 3 ++-
+>>   1 file changed, 2 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/gpu/drm/i915/i915_initial_plane.c 
+>> b/drivers/gpu/drm/i915/i915_initial_plane.c
+>> index 5594548f51d8..390a9248d631 100644
+>> --- a/drivers/gpu/drm/i915/i915_initial_plane.c
+>> +++ b/drivers/gpu/drm/i915/i915_initial_plane.c
+>> @@ -115,7 +115,8 @@ initial_plane_vma(struct drm_i915_private *i915,
+>>        * important and we should probably use that space with FBC or 
+>> other
+>>        * features.
+>>        */
+>> -    if (IS_ENABLED(CONFIG_FRAMEBUFFER_CONSOLE) &&
+>> +    if (IS_ENABLED(CONFIG_DRM_FBDEV_EMULATION) &&
+>> +        IS_ENABLED(CONFIG_FRAMEBUFFER_CONSOLE) &&
+>
+> It's possible to run fbdev without the console. So if I'm not 
+> mistaken, only CONFIG_DRM_FBDEV_EMULATION would be correct.
 
-Am 13.03.26 um 10:56 schrieb Arnd Bergmann:
-> From: Arnd Bergmann <arnd@arndb.de>
->
-> linux-next contains an incorrect merge of the drm tree and the amdgpu tree,
-> which have conflicting patches from Thomas Zimmermann:
->
-> drivers/gpu/drm/amd/amdgpu/amdgpu_display.c: In function 'amdgpu_display_suspend_helper':
-> drivers/gpu/drm/amd/amdgpu/amdgpu_display.c:1777:22: error: implicit declaration of function 'drm_fb_helper_gem_is_fb'; did you mean 'drm_fb_helper_from_client'? [-Wimplicit-function-declaration]
->   1777 |                 if (!drm_fb_helper_gem_is_fb(dev->fb_helper, fb->obj[0])) {
->
-> drivers/gpu/drm/radeon/radeon_device.c: In function 'radeon_suspend_kms':
-> drivers/gpu/drm/radeon/radeon_device.c:1592:22: error: implicit declaration of function 'drm_fb_helper_gem_is_fb'; did you mean 'drm_fb_helper_from_client'? [-Wimplicit-function-declaration]
->   1592 |                 if (!drm_fb_helper_gem_is_fb(dev->fb_helper, fb->obj[0])) {
->        |                      ^~~~~~~~~~~~~~~~~~~~~~~
->        |                      drm_fb_helper_from_client
->
-> The newly added drm_fb_helper_from_client() stub is in fact needed, while all
-> the other stubs are correctly removed.
->
-> Fixes: 6d438685340d ("drm/fbdev-emulation: Remove empty placeholders")
-> Fixes: 1837c76b780a ("drm/amdgpu: Move test for fbdev GEM object into generic helper")
-> Fixes: 9c63d743d5cc ("Merge branch 'drm-next' of https://gitlab.freedesktop.org/agd5f/linux.git")
-> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+Did anyone pick up this fix?
 
-Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
+Best regards
+Thomas
 
-> ---
->   include/drm/drm_fb_helper.h | 8 ++++++++
->   1 file changed, 8 insertions(+)
 >
-> diff --git a/include/drm/drm_fb_helper.h b/include/drm/drm_fb_helper.h
-> index bf391903443d..80c81fdb04a2 100644
-> --- a/include/drm/drm_fb_helper.h
-> +++ b/include/drm/drm_fb_helper.h
-> @@ -273,6 +273,14 @@ int drm_fb_helper_hotplug_event(struct drm_fb_helper *fb_helper);
->   int drm_fb_helper_initial_config(struct drm_fb_helper *fb_helper);
->   bool drm_fb_helper_gem_is_fb(const struct drm_fb_helper *fb_helper,
->   			     const struct drm_gem_object *obj);
-> +#else
-> +static inline bool
-> +drm_fb_helper_gem_is_fb(const struct drm_fb_helper *fb_helper,
-> +			const struct drm_gem_object *obj)
-> +{
-> +	return false;
-> +}
-> +
->   #endif
->   
->   #endif
+> Best regards
+> Thomas
+>
+>
+>>           mem == i915->mm.stolen_region &&
+>>           !intel_fbdev_fb_prefer_stolen(&i915->drm, size)) {
+>>           drm_dbg_kms(&i915->drm, "Initial FB size exceeds half of 
+>> stolen, discarding\n");
+>
 
 -- 
 --
