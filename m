@@ -4,78 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AE6E0F3380B
-	for <dri-devel@archiver.kernel.org>; Tue, 17 Mar 2026 08:02:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 40874F3380E
+	for <dri-devel@archiver.kernel.org>; Tue, 17 Mar 2026 08:02:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1E73910E51E;
-	Tue, 17 Mar 2026 08:02:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DA43B10E52E;
+	Tue, 17 Mar 2026 08:02:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="fff9f8qR";
+	dkim=pass (1024-bit key; unprotected) header.d=antgroup.com header.i=@antgroup.com header.b="jz/g29XK";
 	dkim-atps=neutral
-Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com
- [209.85.215.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5B5B310E394
- for <dri-devel@lists.freedesktop.org>; Tue, 17 Mar 2026 07:17:46 +0000 (UTC)
-Received: by mail-pg1-f172.google.com with SMTP id
- 41be03b00d2f7-c741692db4cso19884a12.1
- for <dri-devel@lists.freedesktop.org>; Tue, 17 Mar 2026 00:17:46 -0700 (PDT)
+Received: from out28-5.mail.aliyun.com (out28-5.mail.aliyun.com [115.124.28.5])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E255110E2AF;
+ Mon, 16 Mar 2026 03:52:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1773731866; x=1774336666; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=tFnPL5x7ivygrIkdRXEnLlp1R6tWrg85WLqUxl13qlY=;
- b=fff9f8qRoJCz76KlUJybXKiUNKjWLFmyRUTnu7+749M0qWdI1kIJT0weeZttX8AJ6J
- 34luqOZuloypqZIME59/ocOGMDzbsShrMpI8V329gwOc8NycpLxRGJbSRug8Ek9egvFM
- hUIoSLqqYTFj0wm+a7Cinj92mk+7AWzS2bqqIV746T4shlD+o5DP0j/UA2mc6FYo7vOv
- etv6FlOR8PBv0zuwAaG8/Dp6aIqgI18GgmP+V/VAJAlthqOrxcSzU5EiUEZXtZhHoulh
- lbO3EIfx22Rr2GeVm9pdW+EX9HfuEAUGo1MfSB3BK6vkrd8KTXya0xLCRv5lTLdPiboa
- GWuQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1773731866; x=1774336666;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=tFnPL5x7ivygrIkdRXEnLlp1R6tWrg85WLqUxl13qlY=;
- b=cr/7QXoGLGsc/3k7kDb7tlORAWF+nLmYSaA15SdQKXDirG6DdHypn78jTKdg141ucp
- jiMFkfCpdqipxoLWOCRFmvUMFcSJ4eOlbIJqXE9fv3whO1Ma4JoxhkhxSA+8kfjDYqFZ
- g3AP5LhkKGPwBIwhTYB/9YtbS3/7LsbEagAFhTcsVvoHe5yKOGW8wM3IftpwybDooAt3
- aTJIqVcIbbOBppV3zCrdUT1bWEPOCrraM3ZFbH3q0blCUzxbn04zIgeUTZ+4IQM5Uw1h
- Ke77beK0pGT+yfYJHRq6IVeUEQbPm3QYrR51dUlrcB2u9YJ+9NRZPQ9kt6tzlZQ5SWwt
- 3iDw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVAKK/GngHBkU+ZJ/aaSgS+uO/roDws8Q6JNaqZJ2r9v2ARWER8oyCFiN0mN4Bktkln68btcXedZno=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxsLH/G8NpixNGnFt2YnEDIMEB11CY70X2jPMSRkvl5nZ/wCjya
- ooJ5DDSYQ19kfOPqCEkaUPl1m7Bi2dv4gtoDKSeKwkYQAOcT5NFmmhSE
-X-Gm-Gg: ATEYQzxkytuWvrJ+6bCEALmbnmCKbE+wxUiKn9Jx+5N+wetobH963ryQOAzmYZd0Ogq
- g53oevjOvM6MGXfNzac/piiVdl+KNu4MpaEL3QuKXbms4p9wULZPC1eSPy+M/WloG9y5JPMk2gR
- QiJaa1txYiNHOzR+RSTDkls/UZmdIzIIW444Zyx0/ikg79SP2L6mbUcOCZdpZvw80JP8PMX9Xvn
- oD/XuSd42JLyP3gAzw2UV8Dg1XmgST6TJmkF7mTJt1riSKSDyMwqQyO3NsR+VAZzTlZWeikjA+P
- MAodafkYJNhwYI+scLmF5C4aXdip8UyvTypL+fKikmV2Y6uRCfZwxiOZ4AIuQ2vsMFFEwsBxHiL
- xzf6x2Yc42xIP4Am2Vo0mvED/VYGZYpgsOW5Ar4bpsYfQTQTPIQtMFnSocMOgzoxNSaaC96EpU5
- EmWra7ir2NpCvMT38ME+j3hbSPiZ1UR4JDi5Jom0FKyWsyc2frbCo9seNz3OyEWR5BtTZhWPzM7
- B3Dww==
-X-Received: by 2002:a05:6a21:888c:b0:35d:cc9a:8bc1 with SMTP id
- adf61e73a8af0-39b7dfd49e4mr2000340637.27.1773731865863; 
- Tue, 17 Mar 2026 00:17:45 -0700 (PDT)
-Received: from localhost.localdomain ([14.160.25.72])
- by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-82a0725ca0asm18751443b3a.17.2026.03.17.00.17.41
- (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Tue, 17 Mar 2026 00:17:45 -0700 (PDT)
-From: phucduc.bui@gmail.com
-To: geert@linux-m68k.org
-Cc: airlied@gmail.com, dri-devel@lists.freedesktop.org,
- laurent.pinchart@ideasonboard.com, linux-kernel@vger.kernel.org,
- linux-renesas-soc@vger.kernel.org, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, phucduc.bui@gmail.com, simona@ffwll.ch,
- tzimmermann@suse.de, wsa+renesas@sang-engineering.com
-Subject: Re: [PATCH v2] drm: shmobile: Fix blank screen after resume when 
-Date: Tue, 17 Mar 2026 14:17:38 +0700
-Message-Id: <20260317071738.3660-1-phucduc.bui@gmail.com>
-X-Mailer: git-send-email 2.37.1 (Apple Git-137.1)
-In-Reply-To: <CAMuHMdUBwNtdhZYnA3+nwe-CEmrUdPu_K7923uMY5qi9edbkbg@mail.gmail.com>
-References: <CAMuHMdUBwNtdhZYnA3+nwe-CEmrUdPu_K7923uMY5qi9edbkbg@mail.gmail.com>
+ d=antgroup.com; s=default;
+ t=1773633158; h=From:To:Subject:Date:Message-Id:MIME-Version;
+ bh=c9/X8odBS2n9mVEmqOXdQw5uNgbPFfBggNNq8a/rnIo=;
+ b=jz/g29XKfOZCOP1/0WTWAJsO1hElJ619MPezMYR+QZbb3dYMMh6mmLfEX0w3Xs1AIaDoV48uXhu7YRztjvk+3QiF8xBTC3M67LDEUusFxfLqX6oLzmA/t9Pylk1LyrCb8kyTrjQh7t396oV94NyOjgumRLWji2Ky1+um5n5oBQM=
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R991e4; CH=green; DM=||false|;
+ DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=maildocker-contentspam033037031241;
+ MF=houwenlong.hwl@antgroup.com; NM=1; PH=DS; RN=47; SR=0;
+ TI=SMTPD_---.gt2oRKf_1773632851; 
+Received: from localhost(mailfrom:houwenlong.hwl@antgroup.com
+ fp:SMTPD_---.gt2oRKf_1773632851 cluster:ay29) by smtp.aliyun-inc.com;
+ Mon, 16 Mar 2026 11:47:32 +0800
+From: Hou Wenlong <houwenlong.hwl@antgroup.com>
+To: linux-kernel@vger.kernel.org
+Cc: Hou Wenlong <houwenlong.hwl@antgroup.com>,
+ Alex Deucher <alexander.deucher@amd.com>, Alex Hung <alex.hung@amd.com>,
+ Alvin Lee <alvin.lee2@amd.com>, amd-gfx@lists.freedesktop.org,
+ Ankit Nautiyal <ankit.k.nautiyal@intel.com>,
+ Aurabindo Pillai <aurabindo.pillai@amd.com>,
+ Ausef Yousof <auyousof@amd.com>,
+ Bhuvanachandra Pinninti <bpinnint@amd.com>,
+ Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>,
+ Charlene Liu <charlene.liu@amd.com>, Chenyu Chen <chen-yu.chen@amd.com>,
+ Chris Park <chris.park@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Dillon Varone <dillon.varone@amd.com>,
+ Dmytro Laktyushkin <dmytro.laktyushkin@amd.com>,
+ dri-devel@lists.freedesktop.org, Gustavo Sousa <gustavo.sousa@intel.com>,
+ Harold Sun <Harold.Sun@amd.com>, Harry Wentland <harry.wentland@amd.com>,
+ intel-gfx@lists.freedesktop.org, Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Jun Lei <jun.lei@amd.com>, Karthi Kandasamy <karthi.kandasamy@amd.com>,
+ Leo Chen <leo.chen@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Lohita Mudimela <lohita.mudimela@amd.com>,
+ Lucas De Marchi <demarchi@kernel.org>,
+ Meenakshikumar Somasundaram <meenakshikumar.somasundaram@amd.com>,
+ Nicholas Carbones <Nicholas.Carbones@amd.com>, Ray Wu <ray.wu@amd.com>,
+ Relja Vojvodic <rvojvodi@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Ryan Seto <ryanseto@amd.com>,
+ Samson Tam <Samson.Tam@amd.com>, Simona Vetter <simona@ffwll.ch>,
+ =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, Wayne Lin <wayne.lin@amd.com>,
+ Wenjing Liu <wenjing.liu@amd.com>, Yan Li <yan.li@amd.com>,
+ Zhenyu Wang <zhenyuw.linux@gmail.com>, Zhi Wang <zhi.wang.linux@gmail.com>
+Subject: [PATCH 1/2] drm/i915/gvt: Rename struct 'pixel_format' to
+ 'gvt_pixel_format'
+Date: Mon, 16 Mar 2026 11:46:28 +0800
+Message-Id: <f5e603648f6733047bbf74a5af6ae4b4436a44f6.1773629419.git.houwenlong.hwl@antgroup.com>
+X-Mailer: git-send-email 2.31.1
+In-Reply-To: <cover.1773629419.git.houwenlong.hwl@antgroup.com>
+References: <cover.1773629419.git.houwenlong.hwl@antgroup.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 17 Mar 2026 08:02:43 +0000
@@ -94,19 +84,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Geert,
+Rename the local struct 'pixel_format' to 'gvt_pixel_format' to avoid
+potential name conflicts with the 'pixel_format' struct defined in
+include/video/pixel_format.h.
 
-> Thank you, that explains the difference!
+Signed-off-by: Hou Wenlong <houwenlong.hwl@antgroup.com>
+---
+ drivers/gpu/drm/i915/gvt/fb_decoder.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-Thank you for your confirmation. I am glad that we were able to
-identify the root cause.
+diff --git a/drivers/gpu/drm/i915/gvt/fb_decoder.c b/drivers/gpu/drm/i915/gvt/fb_decoder.c
+index d7abf38df532..25fffc77f138 100644
+--- a/drivers/gpu/drm/i915/gvt/fb_decoder.c
++++ b/drivers/gpu/drm/i915/gvt/fb_decoder.c
+@@ -48,13 +48,13 @@
+ #include "i915_reg.h"
+ 
+ #define PRIMARY_FORMAT_NUM	16
+-struct pixel_format {
++struct gvt_pixel_format {
+ 	int drm_format;	/* Pixel format in DRM definition */
+ 	int bpp; /* Bits per pixel, 0 indicates invalid */
+ 	const char *desc; /* The description */
+ };
+ 
+-static const struct pixel_format bdw_pixel_formats[] = {
++static const struct gvt_pixel_format bdw_pixel_formats[] = {
+ 	{DRM_FORMAT_C8, 8, "8-bit Indexed"},
+ 	{DRM_FORMAT_RGB565, 16, "16-bit BGRX (5:6:5 MSB-R:G:B)"},
+ 	{DRM_FORMAT_XRGB8888, 32, "32-bit BGRX (8:8:8:8 MSB-X:R:G:B)"},
+@@ -67,7 +67,7 @@ static const struct pixel_format bdw_pixel_formats[] = {
+ 	{}
+ };
+ 
+-static const struct pixel_format skl_pixel_formats[] = {
++static const struct gvt_pixel_format skl_pixel_formats[] = {
+ 	{DRM_FORMAT_YUYV, 16, "16-bit packed YUYV (8:8:8:8 MSB-V:Y2:U:Y1)"},
+ 	{DRM_FORMAT_UYVY, 16, "16-bit packed UYVY (8:8:8:8 MSB-Y2:V:Y1:U)"},
+ 	{DRM_FORMAT_YVYU, 16, "16-bit packed YVYU (8:8:8:8 MSB-U:Y2:V:Y1)"},
+-- 
+2.31.1
 
-I also appreciate the support you and Morimoto-san have provided in
-the past. It is a pleasure to work with you again.
-
-If there are any further changes or improvements needed, please let
-me know and I will prepare a v3 accordingly.
-
-Best regards,
-
-Phuc
