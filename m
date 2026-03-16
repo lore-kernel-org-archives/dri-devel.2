@@ -4,108 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5634BF53D90
-	for <dri-devel@archiver.kernel.org>; Mon, 16 Mar 2026 19:57:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2D1FDF53D92
+	for <dri-devel@archiver.kernel.org>; Mon, 16 Mar 2026 20:10:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6364010E3E9;
-	Mon, 16 Mar 2026 19:57:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 587B110E4D5;
+	Mon, 16 Mar 2026 20:10:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="1Pjy+ZB3";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="UUc9DBG1";
 	dkim-atps=neutral
-Received: from DM1PR04CU001.outbound.protection.outlook.com
- (mail-centralusazon11010027.outbound.protection.outlook.com [52.101.61.27])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BBD6210E3E2
- for <dri-devel@lists.freedesktop.org>; Mon, 16 Mar 2026 19:57:20 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Ch1dR/VEEoFCdxrkMPbPV5Bb0xO2qvVHBuSFtN3QFBXldiebR7w0r6kLos/dJFYr4yebnwkpyLNhmQLsuOAKKShGJWgm+eGrLmTu2UBJEZt0Wy0pM6cyAM+QI++ucx71szczPIJZfUUR8xINfRrnQ0fSl2VKMDqnRkB/+i4IL2279umeEpCAIyEitU7T5yo4TYu98a9W2H8qZt7OJxutAdmbnGm5yKUY3j03+0XtpxDEkCTk6MnN1KIKRnBMGVmnAvcoi3VN1FiqnY3t31MQgwKXUtwLGAvI2MqUkD/2FHeZaXWPBao8cFIeiynik9+iewhjhTvCgcxF3liqeFBD0g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=6ej6z2yUNGtWCSHTzFcGRyc796sPwfsJeY67tndG6Uc=;
- b=GmfjxnvQe5ebIMVj3wBdSB/wuIFRkrX8U1i3BNlzKehRRhjeC4FyzJaBS/Yz20LUo9qcLhTLvuvyAetsjvIpHIJp/fbSg1NWpP5NXJ5lZsV+gH/4j/DTOJJ2Tpqm3wXBm/DOJzQbvJd2Tan8yRLoN8l4KahGGmXvuaa0aMAn9Wz/G/yknmY16aLFbDiUyzQFDh0+8zA7FN/1fGYZH4XQsK80RmEWvX2f+0oRpDXtxOocCzl4v3pkQ6MWMb+BTW7hCgRsT323CAK6QLmnWqSNMu9ohL+bqJvIqcfRHWGZkGf/BYBHa+HuWP2qXZFcWDScCcDlVBLtzjKwnySRonjmGg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6ej6z2yUNGtWCSHTzFcGRyc796sPwfsJeY67tndG6Uc=;
- b=1Pjy+ZB3cUb2d65ZBBDD3kq5N6AcuKNx0dag0KqUr4xOSv/9NWvNmVeXdgP7bG/3CucA0+UjmeKmo8U6YrLhMXhVQOgS+Qvb7IwlrVkKeNglQVIEme8pVpFK/jxNIFllWrA/34vPHbZSrdHRuG05qS6slc6+o8ChjeZO8aqnnNY=
-Received: from SJ0PR13CA0126.namprd13.prod.outlook.com (2603:10b6:a03:2c6::11)
- by IA1PR12MB6603.namprd12.prod.outlook.com (2603:10b6:208:3a1::17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.17; Mon, 16 Mar
- 2026 19:57:14 +0000
-Received: from CO1PEPF00012E83.namprd03.prod.outlook.com
- (2603:10b6:a03:2c6:cafe::e) by SJ0PR13CA0126.outlook.office365.com
- (2603:10b6:a03:2c6::11) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9700.24 via Frontend Transport; Mon,
- 16 Mar 2026 19:57:10 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- CO1PEPF00012E83.mail.protection.outlook.com (10.167.249.58) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9700.17 via Frontend Transport; Mon, 16 Mar 2026 19:57:14 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.17; Mon, 16 Mar
- 2026 14:57:11 -0500
-Received: from satlexmb07.amd.com (10.181.42.216) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 16 Mar
- 2026 14:57:11 -0500
-Received: from [172.19.71.207] (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
- Transport; Mon, 16 Mar 2026 14:57:10 -0500
-Message-ID: <48c3dc71-8162-1045-989f-5d5c6dea5cd1@amd.com>
-Date: Mon, 16 Mar 2026 12:57:05 -0700
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CB83510E4BE;
+ Mon, 16 Mar 2026 20:10:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1773691834; x=1805227834;
+ h=message-id:subject:from:to:cc:date:in-reply-to:
+ references:content-transfer-encoding:mime-version;
+ bh=ty5xUhInvoKJw/e7faRl28+8kUcSScJz8LSABd9pIDk=;
+ b=UUc9DBG1oiQAWqgg4wEZkygfy0a63ZA6eP9qaq57YlSMp4shzq4T6UhM
+ tyNaZswiRkse3B70jjAWQuDdPBinP/nKc0S5gCJmGetui/GCWCI54JdQI
+ Yj6OH1h8mQq6bUxRqM+pSL7OtrSkQVqVFivMeqsCJ8VkAi52N8NLCGb92
+ u7flctJyCpfXl1gpJGJ9Ouy/z82cPaQ0f0zrobmTaVNe3cYMJrqdEfEx3
+ ibHYr2hBprmbSIK+EHut2NeXOe3ILk0LhAk187pJyUwLVuMGZwHPQpbD9
+ vJxnDrsCSPTfEYkVLfCNjXMlIxnLAAOhj223cXA+5QflyDE4+6maYYrxV w==;
+X-CSE-ConnectionGUID: Z7co87W6RdasglS5lKsTkA==
+X-CSE-MsgGUID: s7K53DPuR2GjerFuo9QLFw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11731"; a="97328354"
+X-IronPort-AV: E=Sophos;i="6.23,124,1770624000"; d="scan'208";a="97328354"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+ by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Mar 2026 13:10:33 -0700
+X-CSE-ConnectionGUID: C+CBYj2lSDSiy8nPigcOLQ==
+X-CSE-MsgGUID: ISIEfI/7QHOuXTnbKgeOvw==
+X-ExtLoop1: 1
+Received: from zzombora-mobl1.ger.corp.intel.com (HELO [10.245.244.233])
+ ([10.245.244.233])
+ by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Mar 2026 13:10:31 -0700
+Message-ID: <99d0cdb184b5e67634f8306da0ffd7ffce2f041b.camel@linux.intel.com>
+Subject: Re: [PATCH 1/2] drm: Provide a drm_dev_release_barrier() function
+ to wait for device release callbacks
+From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
+To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, 
+ intel-xe@lists.freedesktop.org
+Cc: Matthew Brost <matthew.brost@intel.com>, Maarten Lankhorst	
+ <maarten.lankhorst@linux.intel.com>, Dave Airlie <airlied@gmail.com>,
+ Simona Vetter <simona.vetter@ffwll.ch>, dri-devel@lists.freedesktop.org
+Date: Mon, 16 Mar 2026 21:10:29 +0100
+In-Reply-To: <9a5f1dab-eeba-477a-84cc-8e565b9c5de6@amd.com>
+References: <20260316162002.13479-1-thomas.hellstrom@linux.intel.com>
+ <20260316162002.13479-2-thomas.hellstrom@linux.intel.com>
+ <9a5f1dab-eeba-477a-84cc-8e565b9c5de6@amd.com>
+Organization: Intel Sweden AB, Registration Number: 556189-6027
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Subject: Re: [PATCH V2] accel/amdxdna: Add debug prints for command submission
-Content-Language: en-US
-To: Mario Limonciello <mario.limonciello@amd.com>, <ogabbay@kernel.org>,
- <quic_jhugo@quicinc.com>, <dri-devel@lists.freedesktop.org>,
- <maciej.falkowski@linux.intel.com>
-CC: <linux-kernel@vger.kernel.org>, <max.zhen@amd.com>, <sonal.santan@amd.com>
-References: <20260316175642.1451749-1-lizhi.hou@amd.com>
- <1d2c1de6-3c2a-4c7e-b7a4-e3fbd5b8fdcb@amd.com>
-From: Lizhi Hou <lizhi.hou@amd.com>
-In-Reply-To: <1d2c1de6-3c2a-4c7e-b7a4-e3fbd5b8fdcb@amd.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-Received-SPF: None (SATLEXMB04.amd.com: lizhi.hou@amd.com does not designate
- permitted sender hosts)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF00012E83:EE_|IA1PR12MB6603:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7aaaf5c5-3ebc-46b5-fdd7-08de83963814
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|36860700016|376014|1800799024|22082099003|56012099003|18002099003;
-X-Microsoft-Antispam-Message-Info: 9JCxUxDYEXAwKZFQp1vOLudEnfQFIuUo2iD+EaUnKc3hu2/pFSXKYfcyhUridJX0swxa7MnqdCaOIC0j8pvF/1yLyawc6OM6v0CuWddhOIekF17K5nB3VFqsCI6CWuC1CdngwTB0XMm2SvigCC5tfte7ae7NcOOHjNiuJ8LYoaD4fWSdIN1W6suyPNBB1E/GK/1phSOoZ1JEvm7fZ/50ShHJYCipieyYmqH8mkBBBiA4MUoYJF8x9Ghx+2AOFHCNavUOAf4fBekTj1Np68oDUL8m62xa7GyAxtJVv1WtUBbZeYY0W8dE8tRWA99rmwB7Pdckrnm4WlcMfM/z7IH0ls4uV0gtsCvqIM7g2L6tku5k6tVsfNFCoJftUJ6+SbjrexqVCx0IZJgcmRsjOXSzCYXTc/f3+oY/o5E/H4pkbciOWF+CFdcmmUcr2TwTkc4woKC2szKnenTLr372M/QO2GJPMAj8DH/7Uf3SuTZh4VJrMoIuGp8FeV3et7wO/VT0RvpVQ0ydVX2rEvtBQVy89bahPSiz/YMgEg2gzeGOfk30IZe2SaykbTrZNKuJ16EPTdp5r6DRALNQ6kZWQoMBFbSMlMoyUdoPSOK6Epa1lUbebtHqao2a9bSCn9ZfTFJfU2DbKtKQBFfc45wyODrHX0Nwu+Q5u5lGSQqtZcZ+I97PXqjW0L7wPVjE4KCwMZgQso6GZ9abu9jnCmvD0oK3RcwYWWWQbVtg/WnXfE3IBmK+YkV5m71I+v7GtePPs5UjuAffb8oG8IwOWHU2f5CdQw==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(36860700016)(376014)(1800799024)(22082099003)(56012099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: xosraP8FubfqeUN5JVtC0Mx2UkYiJvFRYNtwsJiaGfnBdlrtBK7wSSvLV0tAOTZOCpiyU5eiYRBS7D03d+d/5Egy3Sxb80aJRXmmKhOwi9zrIMSRFvZbjjFXFfN2QpLdp2iQwh8AtL00KS7OIw0LZL0nN0HPCOwSaDO60TXXulOlE35ZA6LItjQfHvlmqtCXYqvVI6p37lQmVfKb3E5uk9HrW+9iYy+ukBmU7q8oHjAfMVBW5e+pCvoAc9dwnnNSSSEiyXnpQvpgzmWVV85UmR8NpivacjqCexXoUVPaFM8hU2SAm1r9j17ATxVh47zEqbZx5d+nFTLpCsUVha+mIGw4aSQC9yxWFcunqjz3gDRPsUXYJm0GB+sXFfZ+udAdbkrmGNH6U5Hc78IvpDRxA16OyxzlO9+ODFaSbzzQA1QvhGvIWimH3FFi43ZmyxxN
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Mar 2026 19:57:14.1092 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7aaaf5c5-3ebc-46b5-fdd7-08de83963814
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF00012E83.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6603
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -121,109 +75,157 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Applied to drm-misc-next
+On Mon, 2026-03-16 at 18:42 +0100, Christian K=C3=B6nig wrote:
+> On 3/16/26 17:20, Thomas Hellstr=C3=B6m wrote:
+> > If helper components, like for example drm_pagemap hold references
+> > to
+> > drm devices, it's typically possible for the drm driver module to
+> > be
+> > unloaded without that reference being dropped,=20
+>=20
+> That is an extremely bad idea to begin with, drm_devices should
+> reference the module who issued them.
 
-On 3/16/26 11:02, Mario Limonciello wrote:
->
->
-> On 3/16/26 12:56, Lizhi Hou wrote:
->> Add debug prints to help diagnose issues with incoming command 
->> submissions.
->>
->> Signed-off-by: Lizhi Hou <lizhi.hou@amd.com>
->
-> Reviewed-by: Mario Limonciello <mario.limonciello@amd.com>
->
->> ---
->>   drivers/accel/amdxdna/aie2_message.c | 34 ++++++++++++++++++++++++----
->>   1 file changed, 29 insertions(+), 5 deletions(-)
->>
->> diff --git a/drivers/accel/amdxdna/aie2_message.c 
->> b/drivers/accel/amdxdna/aie2_message.c
->> index b764c7e8816a..4ec591306854 100644
->> --- a/drivers/accel/amdxdna/aie2_message.c
->> +++ b/drivers/accel/amdxdna/aie2_message.c
->> @@ -1002,7 +1002,7 @@ int aie2_cmdlist_multi_execbuf(struct 
->> amdxdna_hwctx *hwctx,
->>       struct amdxdna_cmd_chain *payload;
->>       struct xdna_mailbox_msg msg;
->>       union exec_chain_req req;
->> -    u32 payload_len;
->> +    u32 payload_len, ccnt;
->>       u32 offset = 0;
->>       size_t size;
->>       int ret;
->> @@ -1011,12 +1011,24 @@ int aie2_cmdlist_multi_execbuf(struct 
->> amdxdna_hwctx *hwctx,
->>         op = amdxdna_cmd_get_op(cmd_abo);
->>       payload = amdxdna_cmd_get_payload(cmd_abo, &payload_len);
->> -    if (op != ERT_CMD_CHAIN || !payload ||
->> -        payload_len < struct_size(payload, data, 
->> payload->command_count))
->> +    if (op != ERT_CMD_CHAIN) {
->> +        XDNA_DBG(xdna, "Invalid op code %d", op);
->>           return -EINVAL;
->> +    }
->> +
->> +    if (!payload) {
->> +        XDNA_DBG(xdna, "Failed to get command payload");
->> +        return -EINVAL;
->> +    }
->> +
->> +    ccnt = payload->command_count;
->> +    if (payload_len < struct_size(payload, data, ccnt)) {
->> +        XDNA_DBG(xdna, "Invalid command count %d", ccnt);
->> +        return -EINVAL;
->> +    }
->>         op = ERT_INVALID_CMD;
->> -    for (i = 0; i < payload->command_count; i++) {
->> +    for (i = 0; i < ccnt; i++) {
->>           u32 boh = (u32)(payload->data[i]);
->>           struct amdxdna_gem_obj *abo;
->>   @@ -1035,19 +1047,26 @@ int aie2_cmdlist_multi_execbuf(struct 
->> amdxdna_hwctx *hwctx,
->>             offset += size;
->>       }
->> +
->> +    XDNA_DBG(xdna, "Total %d commands:", ccnt);
->> +    print_hex_dump_debug("cmdbufs: ", DUMP_PREFIX_OFFSET, 16, 4,
->> +                 cmdbuf_abo->mem.kva, offset, false);
->> +
->>       msg.opcode = EXEC_MSG_OPS(xdna)->get_chain_msg_op(op);
->>       if (msg.opcode == MSG_OP_MAX_OPCODE)
->>           return -EOPNOTSUPP;
->>         /* The offset is the accumulated total size of the cmd buffer */
->>       EXEC_MSG_OPS(xdna)->init_chain_req(&req, cmdbuf_abo->mem.dev_addr,
->> -                       offset, payload->command_count);
->> +                       offset, ccnt);
->>       drm_clflush_virt_range(cmdbuf_abo->mem.kva, offset);
->>         msg.handle = job;
->>       msg.notify_cb = notify_cb;
->>       msg.send_data = (u8 *)&req;
->>       msg.send_size = sizeof(req);
->> +    print_hex_dump_debug("cmdlist msg: ", DUMP_PREFIX_OFFSET, 16, 4,
->> +                 &req, msg.send_size, false);
->>       ret = xdna_mailbox_send_msg(chann, &msg, TX_TIMEOUT);
->>       if (ret) {
->>           XDNA_ERR(xdna, "Send message failed");
->> @@ -1076,6 +1095,9 @@ int aie2_cmdlist_single_execbuf(struct 
->> amdxdna_hwctx *hwctx,
->>       if (ret)
->>           return ret;
->>   +    print_hex_dump_debug("cmdbuf: ", DUMP_PREFIX_OFFSET, 16, 4,
->> +                 cmdbuf_abo->mem.kva, size, false);
->> +
->>       msg.opcode = EXEC_MSG_OPS(xdna)->get_chain_msg_op(op);
->>       if (msg.opcode == MSG_OP_MAX_OPCODE)
->>           return -EOPNOTSUPP;
->> @@ -1088,6 +1110,8 @@ int aie2_cmdlist_single_execbuf(struct 
->> amdxdna_hwctx *hwctx,
->>       msg.notify_cb = notify_cb;
->>       msg.send_data = (u8 *)&req;
->>       msg.send_size = sizeof(req);
->> +    print_hex_dump_debug("cmdlist msg: ", DUMP_PREFIX_OFFSET, 16, 4,
->> +                 &req, msg.send_size, false);
->>       ret = xdna_mailbox_send_msg(chann, &msg, TX_TIMEOUT);
->>       if (ret) {
->>           XDNA_ERR(hwctx->client->xdna, "Send message failed");
->
+They typically don't. If that were the case you wouldn't be able to
+rmmod a module and have device cleanup happen:
+
+module_exit();
+
+pci_unregister_driver()-><starts device removal>
+devm_release()-><drop drm device reference>
+drmm_release()
+...
+<module unloads>
+
+I was under the impression that this was the behaviour of most device
+drivers and also drm drivers if display isn't enabled.
+(used to work with xe but doesn't anymore for unknown reason).
+
+Module references are typically held by open files, display and dma-
+bufs, but not by devices.
+
+Like surely you can rmmod for example a serial device driver and have
+it implicitly unbind its devices, but not if a device have a file
+opened.=20
+
+>=20
+> > resulting in execution out
+> > of freed memory. Such components are therefore required to hold a
+> > module refcount on the module that created the drm device, and
+> > ensure
+> > that module reference is dropped after all references to the drm
+> > device are dropped.
+> >=20
+> > To relax that, drivers can keep a drm device-count and ensure that
+> > the
+> > module isn't unloaded until the drm device-count has dropped to
+> > zero
+> > and that the caller that decremented the last device-count has
+> > finished
+> > executing driver callbacks.
+>=20
+> Stop for a second. The question is why would anybody want to relax
+> that?
+>=20
+> That unbinding a driver from a device is separated from module
+> unloading is a design we had in Linux since the very beginning.
+>=20
+>=20
+And that is kept here, You can unbind and rebind a device at any time,
+the difference is that for a module whose devices are unused by user-
+space, a rmmod triggers an implicit unbind / cleanup instead of removal
+being blocked requiring an explicit unbind of all devices.
+
+Thanks,
+Thomas
+
+
+> Regards,
+> Christian.
+>=20
+> >=20
+> > To help with the latter, add a drm_dev_release_barrier() function.
+> > The function ensures that any caller that has started executing
+> > device release callbacks has also finished executing them.
+> >=20
+> > Use SRCU for the implementation.
+> >=20
+> > Signed-off-by: Thomas Hellstr=C3=B6m <thomas.hellstrom@linux.intel.com>
+> > ---
+> > =C2=A0drivers/gpu/drm/drm_drv.c | 25 +++++++++++++++++++++++++
+> > =C2=A0include/drm/drm_drv.h=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 1 +
+> > =C2=A02 files changed, 26 insertions(+)
+> >=20
+> > diff --git a/drivers/gpu/drm/drm_drv.c b/drivers/gpu/drm/drm_drv.c
+> > index 2915118436ce..9fa72adf173d 100644
+> > --- a/drivers/gpu/drm/drm_drv.c
+> > +++ b/drivers/gpu/drm/drm_drv.c
+> > @@ -898,21 +898,46 @@ struct drm_device *drm_dev_alloc(const struct
+> > drm_driver *driver,
+> > =C2=A0}
+> > =C2=A0EXPORT_SYMBOL(drm_dev_alloc);
+> > =C2=A0
+> > +DEFINE_STATIC_SRCU(drm_dev_release_srcu);
+> > +
+> > =C2=A0static void drm_dev_release(struct kref *ref)
+> > =C2=A0{
+> > =C2=A0	struct drm_device *dev =3D container_of(ref, struct
+> > drm_device, ref);
+> > +	int idx;
+> > =C2=A0
+> > =C2=A0	/* Just in case register/unregister was never called */
+> > =C2=A0	drm_debugfs_dev_fini(dev);
+> > =C2=A0
+> > +	idx =3D srcu_read_lock(&drm_dev_release_srcu);
+> > =C2=A0	if (dev->driver->release)
+> > =C2=A0		dev->driver->release(dev);
+> > =C2=A0
+> > =C2=A0	drm_managed_release(dev);
+> > +	srcu_read_unlock(&drm_dev_release_srcu, idx);
+> > =C2=A0
+> > =C2=A0	kfree(dev->managed.final_kfree);
+> > =C2=A0}
+> > =C2=A0
+> > +/**
+> > + * drm_dev_release_barrier() - Ensure drm device release callbacks
+> > are finished
+> > + *
+> > + * If a device release method or any of the drm managed release
+> > callbacks
+> > + * have been called for a device, wait until all of them have
+> > finished
+> > + * executing. This function can be used to help determine whether
+> > it's safe
+> > + * to unload a driver module.
+> > + *
+> > + * Assume for example the driver maintains a device count which is
+> > decremented
+> > + * using a drmm callback or a device release callback. From a drm
+> > device
+> > + * lifetime POV, it's then safe to unload the driver when that
+> > device-count
+> > + * has reached zero and drm_dev_release_barrier() has been called.
+> > + */
+> > +void drm_dev_release_barrier(void)
+> > +{
+> > +	synchronize_srcu(&drm_dev_release_srcu);
+> > +}
+> > +EXPORT_SYMBOL(drm_dev_release_barrier);
+> > +
+> > +
+> > =C2=A0/**
+> > =C2=A0 * drm_dev_get - Take reference of a DRM device
+> > =C2=A0 * @dev: device to take reference of or NULL
+> > diff --git a/include/drm/drm_drv.h b/include/drm/drm_drv.h
+> > index 42fc085f986d..b288a885cf45 100644
+> > --- a/include/drm/drm_drv.h
+> > +++ b/include/drm/drm_drv.h
+> > @@ -489,6 +489,7 @@ void drm_dev_exit(int idx);
+> > =C2=A0void drm_dev_unplug(struct drm_device *dev);
+> > =C2=A0int drm_dev_wedged_event(struct drm_device *dev, unsigned long
+> > method,
+> > =C2=A0			 struct drm_wedge_task_info *info);
+> > +void drm_dev_release_barrier(void);
+> > =C2=A0
+> > =C2=A0/**
+> > =C2=A0 * drm_dev_is_unplugged - is a DRM device unplugged
