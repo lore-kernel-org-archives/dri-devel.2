@@ -4,117 +4,127 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 29DF3F53D6C
-	for <dri-devel@archiver.kernel.org>; Mon, 16 Mar 2026 22:16:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 97583FB5E81
+	for <dri-devel@archiver.kernel.org>; Mon, 16 Mar 2026 22:39:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4929B10E3F8;
-	Mon, 16 Mar 2026 22:16:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E1F7410E401;
+	Mon, 16 Mar 2026 22:39:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=shazbot.org header.i=@shazbot.org header.b="eyO5nsRG";
-	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="guCypQjf";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="c4lEHNXz";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="XCA+rk36";
 	dkim-atps=neutral
-X-Greylist: delayed 315 seconds by postgrey-1.36 at gabe;
- Mon, 16 Mar 2026 22:16:12 UTC
-Received: from flow-a3-smtp.messagingengine.com
- (flow-a3-smtp.messagingengine.com [103.168.172.138])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EF93510E3F8;
- Mon, 16 Mar 2026 22:16:12 +0000 (UTC)
-Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
- by mailflow.phl.internal (Postfix) with ESMTP id 96E81138028E;
- Mon, 16 Mar 2026 18:10:56 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
- by phl-compute-01.internal (MEProxy); Mon, 16 Mar 2026 18:10:56 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shazbot.org; h=
- cc:cc:content-transfer-encoding:content-type:content-type:date
- :date:from:from:in-reply-to:in-reply-to:message-id:mime-version
- :references:reply-to:subject:subject:to:to; s=fm3; t=1773699056;
- x=1773706256; bh=pZj8f0JboyjKt94J8KB7OLIiCOoml43GOZ4w8rDpLPA=; b=
- eyO5nsRGgscBaSPTlSrjx8D8qsmxFZTD+YBT90C8JLtkSU+JG9otBsGP68/aDjfq
- Ip8/CY7pDqj8uLfl6tk9PaoCLmHFx9BmC+OLDsgQIKz5wruWwvglBIFTzX8Bgo1G
- D7tyDhfcq/yYvbxAZYbPlVlov+W1BUQwVVZx34myYfSzzczy+o0TvO2AJR+dEy1d
- h9Fy4zA0IHy3AyAu2lJw7cTPeRVsoH7Q9DZJUhPGVmEq8IZ5byXvr46eUf3RwYLV
- Pd21rN+O2sxo21UD0KoApMpHYwnhY5vI1CKlHqs6nb1Q0ON5mjBcz18/WvPyI4M2
- g7ed/wORmv3aHNEvlM9NEQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-transfer-encoding
- :content-type:content-type:date:date:feedback-id:feedback-id
- :from:from:in-reply-to:in-reply-to:message-id:mime-version
- :references:reply-to:subject:subject:to:to:x-me-proxy
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1773699056; x=
- 1773706256; bh=pZj8f0JboyjKt94J8KB7OLIiCOoml43GOZ4w8rDpLPA=; b=g
- uCypQjfxr+Zi7JxdTC/p3wGQ4VV0q/Wv3rf4QuOSSvRwPZ4hwWoKXSQwRlJppx/A
- eTD/kX8ytMBkqeeAHXi8QojGoDJPwhemKEl1A5BQyy+VTfQ0kjCklEhRU0D9TNU6
- QzoouUhJdY7Fi24kVLMS4vkfF5Xif+sxcGuZ+ZH9bmNOAZhg/6jHFnuxjrIUYo4Y
- sJAjmQ/c58h+MsTVokuL8c2t4xBbVGwnTgXIvKplEwnaY81NNzKXbPGa+zPU58N/
- vwQ/zZfUYT5zYdyXfBWrfC5sZSkqzhpuD1WACxXIM/TD7Jh2N1ZXy8qS+O1DtSBY
- h24uS6YuZ9c79L+rKNYRA==
-X-ME-Sender: <xms:73-4aYdtUUIQC679P0YPl8k6UZ10Tz8-qTD319yDZEtXusdBhZuXRA>
- <xme:73-4aTUav9FvduIIOmc0jldmINr5W_MhUsWQFGzP1fBm1dpf8ggOxSMvCMHniLmCu
- LbRPk360ujIo39hLA6fsP95YlnCLki5WcrUsiuRyEwh6NcxWlxF>
-X-ME-Received: <xmr:73-4aSY56rJyFtQwMFw-H9dfM29zbbMWxWkWrpi3kYaZ1kbqDyXdf5bHU5U>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefgedrtddtgddvleelheegucetufdoteggodetrf
- dotffvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfurfetoffkrfgpnffqhgenuceu
- rghilhhouhhtmecufedttdenucenucfjughrpeffhffvvefukfgjfhfogggtgfesthejre
- dtredtvdenucfhrhhomheptehlvgigucghihhllhhirghmshhonhcuoegrlhgvgiesshhh
- rgiisghothdrohhrgheqnecuggftrfgrthhtvghrnhepvdekfeejkedvudfhudfhteekud
- fgudeiteetvdeukedvheetvdekgfdugeevueeunecuvehluhhsthgvrhfuihiivgeptden
- ucfrrghrrghmpehmrghilhhfrhhomheprghlvgigsehshhgriigsohhtrdhorhhgpdhnsg
- gprhgtphhtthhopeehhedpmhhouggvpehsmhhtphhouhhtpdhrtghpthhtohepphhhrghh
- nhdqohhsshesrghvmhdruggvpdhrtghpthhtoheprghmugdqghhfgieslhhishhtshdrfh
- hrvggvuggvshhkthhophdrohhrghdprhgtphhtthhopegrphhprghrmhhorheslhhishht
- shdruhgsuhhnthhurdgtohhmpdhrtghpthhtohepsghpfhesvhhgvghrrdhkvghrnhgvlh
- drohhrghdprhgtphhtthhopegtvghphhdquggvvhgvlhesvhhgvghrrdhkvghrnhgvlhdr
- ohhrghdprhgtphhtthhopegtohgttghisehinhhrihgrrdhfrhdprhgtphhtthhopegumh
- dquggvvhgvlheslhhishhtshdrlhhinhhugidruggvvhdprhgtphhtthhopegurhhiqdgu
- vghvvghlsehlihhsthhsrdhfrhgvvgguvghskhhtohhprdhorhhgpdhrtghpthhtohepgh
- hfshdvsehlihhsthhsrdhlihhnuhigrdguvghv
-X-ME-Proxy: <xmx:73-4aQltNdDVIdEqvCmz7Mlt0qW50NA4CHgJQUMNlacMN4MGiVKHfA>
- <xmx:73-4acHdFw15OLpR73_B1AdIXJMG-pYssiD_C0T2dj2N-8ux7fVHFg>
- <xmx:73-4aU6P6J2BtdvPwSPzfrUNjz9-qYacHOOWBucSAMlha23fXDTcIg>
- <xmx:73-4aaO5YEqAXlnOLRO88GZx1RbxPW8QtXAeqZQNaqmxlgOL7PgFkQ>
- <xmx:8H-4abIvs_QYur641c9BpnDuFQ6ssCC-7-o-rPLEHWyRxStBDxJEr6SL>
-Feedback-ID: i03f14258:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 16 Mar 2026 18:10:52 -0400 (EDT)
-Date: Mon, 16 Mar 2026 16:10:50 -0600
-From: Alex Williamson <alex@shazbot.org>
-To: Philipp Hahn <phahn-oss@avm.de>
-Cc: amd-gfx@lists.freedesktop.org, apparmor@lists.ubuntu.com,
- bpf@vger.kernel.org, ceph-devel@vger.kernel.org, cocci@inria.fr,
- dm-devel@lists.linux.dev, dri-devel@lists.freedesktop.org,
- gfs2@lists.linux.dev, intel-gfx@lists.freedesktop.org,
- intel-wired-lan@lists.osuosl.org, iommu@lists.linux.dev,
- kvm@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-block@vger.kernel.org, linux-bluetooth@vger.kernel.org,
- linux-btrfs@vger.kernel.org, linux-cifs@vger.kernel.org,
- linux-clk@vger.kernel.org, linux-erofs@lists.ozlabs.org,
- linux-ext4@vger.kernel.org, linux-fsdevel@vger.kernel.org,
- linux-gpio@vger.kernel.org, linux-hyperv@vger.kernel.org,
- linux-input@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-leds@vger.kernel.org, linux-media@vger.kernel.org,
- linux-mips@vger.kernel.org, linux-mm@kvack.org,
- linux-modules@vger.kernel.org, linux-mtd@lists.infradead.org,
- linux-nfs@vger.kernel.org, linux-omap@vger.kernel.org,
- linux-phy@lists.infradead.org, linux-pm@vger.kernel.org,
- linux-rockchip@lists.infradead.org, linux-s390@vger.kernel.org,
- linux-scsi@vger.kernel.org, linux-sctp@vger.kernel.org,
- linux-security-module@vger.kernel.org, linux-sh@vger.kernel.org,
- linux-sound@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-trace-kernel@vger.kernel.org, linux-usb@vger.kernel.org,
- linux-wireless@vger.kernel.org, netdev@vger.kernel.org,
- ntfs3@lists.linux.dev, samba-technical@lists.samba.org,
- sched-ext@lists.linux.dev, target-devel@vger.kernel.org,
- tipc-discussion@lists.sourceforge.net, v9fs@lists.linux.dev,
- alex@shazbot.org
-Subject: Re: [PATCH 46/61] vfio: Prefer IS_ERR_OR_NULL over manual NULL check
-Message-ID: <20260316161050.01c82973@shazbot.org>
-In-Reply-To: <20260310-b4-is_err_or_null-v1-46-bd63b656022d@avm.de>
-References: <20260310-b4-is_err_or_null-v1-0-bd63b656022d@avm.de>
- <20260310-b4-is_err_or_null-v1-46-bd63b656022d@avm.de>
-X-Mailer: Claws Mail 4.3.1 (GTK 3.24.51; x86_64-pc-linux-gnu)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7957910E401
+ for <dri-devel@lists.freedesktop.org>; Mon, 16 Mar 2026 22:39:02 +0000 (UTC)
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 62GGRMlT3124561
+ for <dri-devel@lists.freedesktop.org>; Mon, 16 Mar 2026 22:39:02 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:date:from:message-id:mime-version
+ :subject:to; s=qcppdkim1; bh=4IbsLGrI1KKIjHx8jj+lvuMaQvi9KqTTUAq
+ 216gBs4E=; b=c4lEHNXzOMMt6Tsnrcv8LX2gDNa01bQ9WGJWzrcpWAwL8MrFHat
+ 8HAObURz4QPkv7sE2VBirGtBLz83IWik32HUQtRnH/3uaGCyU0zUp69xrSK4Hkxj
+ UQTS2nScvde5/iCi+5Gsj/TBRbSkUvlgGduDKwfBATFAweadu+REEmu4whhOL6N6
+ UVpNdKMqAWf91/11Wf4SWMTAVefTmoy7rWzNFluNky92zxhcIl+MeNbb/Eag2ARE
+ kAaSFtA2OKZGOf4kC4XQryTCBSRN3xyXTLS83XKGECezw85d/nvVxjG8rzadSDcu
+ ydAuS0CmTWYki9/waK7WBgv608mXq4yfipQ==
+Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com
+ [209.85.215.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4cxfsmjhse-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Mon, 16 Mar 2026 22:39:01 +0000 (GMT)
+Received: by mail-pg1-f200.google.com with SMTP id
+ 41be03b00d2f7-b6097ca315bso26867001a12.3
+ for <dri-devel@lists.freedesktop.org>; Mon, 16 Mar 2026 15:39:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1773700741; x=1774305541;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=4IbsLGrI1KKIjHx8jj+lvuMaQvi9KqTTUAq216gBs4E=;
+ b=XCA+rk36Zv8CNj3HKLI4qOc/LZxob1zkoqXmu2ZY8pah2158CfJtiXlrMumzKl5hpB
+ kPReoYEymOWL5k0krnfVcNG9gS+Hg4GDzqbuMyVoNiPU0ynxCCg42JoUISgi80Qp/+r2
+ i99l4COXXyfPHUhSV6I7nbPXTT+JIWQWqPFcda1ODjIIb15gn8+g/R8Bq1DxZeWDBxp2
+ KGklZbwJmRnR1dCF8rwMTeEebTLZFf5JNafZe5sf3A2IImqGQ3elTvK+bL2/8JupdICR
+ AreSkcpL3Zd8TaYyiOhWf4NHmf79uJ5cf2VKNWiN0MRXeAHEYU5kjMGze9HoMwb3GQ2r
+ chYA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1773700741; x=1774305541;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=4IbsLGrI1KKIjHx8jj+lvuMaQvi9KqTTUAq216gBs4E=;
+ b=jqN6E+zL9J0t/Bz8nTEYSGHalzAzlbYQSkcskWcUo0k7TWT2jEW50R+IbW8nabYdf3
+ zf69WO85Iw0MqHBPQlbNOci+VpOn+odZq+Kq657R0wagb5eb5Uvx/DiQYaX3RDswuWd4
+ IY2aia0rtZPCI1Rq3m3u2FDdn6nlU0slbr58p/WNoJJbgtXthIq21Yd78zhdLZtUtTOx
+ vB2u1vP0Y6IQrwN5mCflNpdwqFhi5lB7eo8prJoHcyLmtYrlA82CvJEQnWe0Se6nG6fT
+ TXhBEttjRnFPxluG4+NBFQxchNU3efJL1aZY4T7nrh39oM/i+yXl+wOwznvaAeJGchRZ
+ 1JZA==
+X-Gm-Message-State: AOJu0YyhYDBsPdgV3K3Dwqvt/BC4BEhHmn0R1lKj08uEqNltXeaLQC1I
+ aVCL0DZZbrfMht3Igd8OAtap+k/BtdOfBr5AnAps8btR/LbwOqMr0ONGAOaArJI3mD0MR+ghG/Z
+ 0xWl/w0/gN2LRNJ0x1UXudHJhiDhbCo4Cp6DnPbZ/ZQ3MJYTpgemge4+2d3jfYWqnayDDaeDi4X
+ cTZZk=
+X-Gm-Gg: ATEYQzyolnEC20Xi2h84DdKS+/sE8Tpt61cbVR/+KBy1jSb5F4HUo0yfg1sRKW/X68i
+ Nno3+pUXHjDbgyw6CbF3+OpPxWHZm2y3R7JtHkiKU5R7ee3PWt8MD0oo7vhNWY7pL8vPKQr0fE9
+ /7MysfMG3Wz53JADyvnhoQkQVU09SWGicEtxNNo/GJA2VFUlwqIwKS2J5hQs2+3dOws1MlnJbnL
+ 4l4t7Rc3aiKtr96V5RP6LeT4U+LPyJ3UpnVRXJoMbEm+j9HpLUAKmirGyqF7uCZGIwBTLaS58XZ
+ Q24RsOK/8Q63IIJ4TBZu/Qk7Czrr6rdtnfIeV61QpAJF9oz4pHGU4S036IXT0v6XxS5X1CHb7Zk
+ Asp4nRBYZm8xjKCLq0KMW6b+lhKJbLHeN
+X-Received: by 2002:a05:6a21:398d:b0:398:c4e6:fec1 with SMTP id
+ adf61e73a8af0-398eca9c789mr13168470637.23.1773700740991; 
+ Mon, 16 Mar 2026 15:39:00 -0700 (PDT)
+X-Received: by 2002:a05:6a21:398d:b0:398:c4e6:fec1 with SMTP id
+ adf61e73a8af0-398eca9c789mr13168449637.23.1773700740490; 
+ Mon, 16 Mar 2026 15:39:00 -0700 (PDT)
+Received: from localhost ([2601:1c0:5000:d5c:4ec8:83f5:8254:6891])
+ by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-82a072612e2sm18573605b3a.21.2026.03.16.15.38.59
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 16 Mar 2026 15:39:00 -0700 (PDT)
+From: Rob Clark <robin.clark@oss.qualcomm.com>
+To: dri-devel@lists.freedesktop.org
+Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+ David Airlie <airlied@gmail.com>, Dmitry Baryshkov <lumag@kernel.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ linux-kernel@vger.kernel.org (open list),
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Maxime Ripard <mripard@kernel.org>, Sean Paul <sean@poorly.run>,
+ Simona Vetter <simona@ffwll.ch>, Thomas Zimmermann <tzimmermann@suse.de>
+Subject: [RFC 0/2] drm: Add sysrq handler to kill GPU
+Date: Mon, 16 Mar 2026 15:38:48 -0700
+Message-ID: <20260316223855.711574-1-robin.clark@oss.qualcomm.com>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzE2MDE4NyBTYWx0ZWRfX+a4GhwkuuZC5
+ 3tPTsMjkdMWJOl8miIccmc7sZXdezzseY2FNyHbEdMAZsqwusl+4RCo03rXU8NK0K6fcuIN4RJL
+ A7HO+kFuzDwZ4fMLcAJUeVqw5M5o93z4q836uZ1rCn4hvF0YA3oSO8TesWDRJfuWs1ESZ0JBZt9
+ /ze93ePPr1OLt92BAizNLbEJOX9HjTZjwwLEM1g6/TewBtoYsUMIt9JjW37dHTiXzKXkfa3xajw
+ GMIsMX9oAFOGS7z5Ko5pBcoxoWZHYrR1l4koFlEoiBrSTW3WVvjq9112S9eTQ2vA+3GLtsijda1
+ 1joTU1KnSxf0raWY5ZQCbib1XMsTnEGpP2gwpRGGxB0A6MSBRio+XsdfcRiqJMQBm8IrLRnCcaG
+ Gc+fKdVewju3Y5RyE20MA4ThNJqvG5UvjoUmzrtuSBOqqwSaM1+qxevUSCOOU+5rhppaS+Aoexw
+ FKQIjPttQ++tADNIQyA==
+X-Proofpoint-GUID: krpcLvIorHUeuaMpHiFYBpfqXnRlWdK_
+X-Authority-Analysis: v=2.4 cv=V/hwEOni c=1 sm=1 tr=0 ts=69b88685 cx=c_pps
+ a=oF/VQ+ItUULfLr/lQ2/icg==:117 a=xqWC_Br6kY4A:10 a=Yq5XynenixoA:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=_K5XuSEh1TEqbUxoQ0s3:22 a=zUJ0Y04Mm8-B5XzwJDsA:9 a=3WC7DwWrALyhR5TkjVHa:22
+X-Proofpoint-ORIG-GUID: krpcLvIorHUeuaMpHiFYBpfqXnRlWdK_
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-03-16_06,2026-03-16_06,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 impostorscore=0 malwarescore=0 lowpriorityscore=0 adultscore=0
+ priorityscore=1501 clxscore=1015 phishscore=0 spamscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603160187
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -130,41 +140,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, 10 Mar 2026 12:49:12 +0100
-Philipp Hahn <phahn-oss@avm.de> wrote:
+Depending on contraints around preemption (ie. on what boundaries can
+the GPU preempt) and priority of other processes using the GPU, the
+compositor can get starved behind a long-running job.
 
-> Prefer using IS_ERR_OR_NULL() over using IS_ERR() and a manual NULL
-> check.
-> 
-> Change generated with coccinelle.
-> 
-> To: Alex Williamson <alex@shazbot.org>
-> Cc: kvm@vger.kernel.org
-> Cc: linux-kernel@vger.kernel.org
-> Signed-off-by: Philipp Hahn <phahn-oss@avm.de>
-> ---
->  drivers/vfio/vfio_main.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/vfio/vfio_main.c b/drivers/vfio/vfio_main.c
-> index 742477546b15d4dbaf9ebcfb2e67627db71521e0..d71922dfde5885967398deddec3e9e04b05adfec 100644
-> --- a/drivers/vfio/vfio_main.c
-> +++ b/drivers/vfio/vfio_main.c
-> @@ -923,7 +923,7 @@ vfio_ioctl_device_feature_mig_device_state(struct vfio_device *device,
->  
->  	/* Handle the VFIO_DEVICE_FEATURE_SET */
->  	filp = device->mig_ops->migration_set_state(device, mig.device_state);
-> -	if (IS_ERR(filp) || !filp)
-> +	if (IS_ERR_OR_NULL(filp))
->  		goto out_copy;
->  
->  	return vfio_ioct_mig_return_fd(filp, arg, &mig);
-> 
+This can be handled by a hangcheck timer that kills jobs that run too
+long, but then there is a conflict between legit long running jobs
+(opencl) and UI responsiveness.
 
-As others have expressed in general, this doesn't seem to be cleaner
-and tends to mask that we consider IS_ERR() and NULL as separate cases
-in the goto.  This code looks like it could use some refactoring, and
-likely that refactoring should handle the IS_ERR() and NULL cases
-separately, but conflating them here is not an improvement.  Thanks,
+This series adds a new sysrq key handler (SysRq-G because SysRq-g was
+already taken) that kills the current job running on the GPU.  So a
+longer hangcheck timer could be used but the user could still reclaim
+their "hung" desktop by using SysRq-G to kill the background GPU job.
 
-Alex
+Sending this out as RFC to see what others think of the idea.  Possibly
+the driver implementation should check how long the job has been
+running to make sure it is only killing a long running job.  Possibly
+we should kill the process behind the long running job, or at least
+mark the context as unusable to prevent it from spamming more long
+running jobs.  Etc.
+
+Rob Clark (2):
+  drm: Add sysrq key to kill current job on GPU
+  drm/msm: Add sysrq_kill handler
+
+ drivers/gpu/drm/Makefile        |  1 +
+ drivers/gpu/drm/drm_dev_sysrq.c | 67 +++++++++++++++++++++++++++++++++
+ drivers/gpu/drm/drm_drv.c       |  3 ++
+ drivers/gpu/drm/drm_internal.h  | 11 ++++++
+ drivers/gpu/drm/msm/msm_drv.c   | 12 ++++++
+ drivers/gpu/drm/msm/msm_gpu.c   | 18 +++++++++
+ drivers/gpu/drm/msm/msm_gpu.h   |  1 +
+ include/drm/drm_device.h        |  8 ++++
+ include/drm/drm_drv.h           |  7 ++++
+ 9 files changed, 128 insertions(+)
+ create mode 100644 drivers/gpu/drm/drm_dev_sysrq.c
+
+-- 
+2.53.0
+
