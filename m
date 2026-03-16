@@ -4,100 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 97B65F013C5
-	for <dri-devel@archiver.kernel.org>; Mon, 16 Mar 2026 08:03:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 36259F013C5
+	for <dri-devel@archiver.kernel.org>; Mon, 16 Mar 2026 08:03:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0B22F10E271;
-	Mon, 16 Mar 2026 08:03:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7AA3710E49D;
+	Mon, 16 Mar 2026 08:03:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="WCzmVbMB";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="hSgverlH";
 	dkim-atps=neutral
-Received: from mail-vs1-f49.google.com (mail-vs1-f49.google.com
- [209.85.217.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3199D10E271
- for <dri-devel@lists.freedesktop.org>; Mon, 16 Mar 2026 08:03:03 +0000 (UTC)
-Received: by mail-vs1-f49.google.com with SMTP id
- ada2fe7eead31-5ffe16290e2so823607137.3
- for <dri-devel@lists.freedesktop.org>; Mon, 16 Mar 2026 01:03:03 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1773648182; cv=none;
- d=google.com; s=arc-20240605;
- b=RYL1uCRPtkU+2p870H/bWhkqEMv16fzfQbYGtjO5VRzTwQkwud7swR+Jn6cIxHzqD5
- upqksgbX2pa+w1gmbHutzKZe/iWRKf7F2W/I1/0lrxECMQjayz/jBfI+G7EssWv2mzLh
- +Xd58gU/svSPMY8zHMX6ZIlYn6ZnmZvebs2jYUnT5pocbS5cbPMnp6aDrtLHzFNan3ni
- arswraGjD7w26oG6K1swlVmy4DMZX8LRsTaW8HRflWWKY6eZLhvgbEkXiiuLBVSWjovt
- tFhx9pNBiPWa6c+ZVERqwv5GDy1VQeN+/Da868ttgQHnTfQTSp1xdmfZPs6j/90Y0T/W
- Oh8g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=eRbmuWlGmZzWgA7efRphnlq71lwFWNCcHXTYn6AgAy4=;
- fh=bStgdRFaBgDkdoc1GdEV6Pp6pRLjla/AK9k0y5C9p+A=;
- b=dmrly6QxWYFoAbLeGpnUK5IDP+XKpw/e1jubarwPKGAr+8v8Qg/g6kanDPCE+ks1Ne
- V6gbCoOWpaXzjjjjTByMp1sSgiY/VhFoYDf0IDA5q+2vZQntXJ1AMDGCDkJOdJtbvN4u
- YzMY5wqK7ucXrAIpUmimUz1k8zOMxkkVgDjbRRBCRUzYKrZkb5LJ9dJb0MINuMKFGhBs
- /xBHWemM/hOfjEDnNS+cHo3NJfzx/QeqtgvO+KIEGI41VHPeOnviuMcIjWoCqp+J1n/S
- KznvfwPfWCUM7oibvjfqlQDBwn9arVw40X52GJHG2M34ONLpq/f2zZuBbWiYECk7JGK0
- 2QxQ==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1773648182; x=1774252982; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=eRbmuWlGmZzWgA7efRphnlq71lwFWNCcHXTYn6AgAy4=;
- b=WCzmVbMB2VZW2mRprs/EJQn8EUpCT24y+Nj770EBlIe0+astq26bqs0rQkTUrJVa+G
- t7dsvn2cKboVb+4kaqVNM3kHegtVq1zclCJc9EfNPeSBFj6qJFIZ1QxeYJYDUlZJdFbi
- UNsx58KmWiuTE+m5VjtOWUqCnpwWKPU7iCOcAnJR8n319SAUBSm4NvelftwK1cDUK8Dv
- 54w2CPtYgi57cku2ZKu6g56adb5slU41EmW4WtIiHWcPIxYBprAXolrNOH4SEPdOdMHM
- HRr1wc3oS9xmxyu+TkcRGE7tWLF9qWD1KOd2W4/fGlCbxh1IWWgIkGyF2Uzn8E+MhPK/
- qUAw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1773648182; x=1774252982;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=eRbmuWlGmZzWgA7efRphnlq71lwFWNCcHXTYn6AgAy4=;
- b=E0pxKL1CkoKnsynH3WOQTnc1DlEgsWxRMD2ACFo3hAwV35We2qoGxG5flNsnQ/XLXq
- 15vJfzt9yQGQ1dRuXu7S0QRKMvfs6x7Q6d7HtOy2QdHUfmOX7q1MaZ8BzE/cHkIFFl6A
- YixDK2Fwv7rqM+PuB1aDU9ZUsavGpuDpe54SEmg/+CfY59bKgsoBaBlakRZNJQ/nccKK
- 2QBXClWqaBWZPTTbj7qsym9zVv3TAlYZcO63cDy6InxRdFcjzlX7jGSQ8hb/w0lV6dLD
- bgnvOHQu+05IoVMSk9TlvMBZiio89s4rP+//Etn92cknXKWPaz4HHtL+01HYskRGINdp
- hG6Q==
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8227810E289
+ for <dri-devel@lists.freedesktop.org>; Mon, 16 Mar 2026 08:03:07 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id C9DC8600AE
+ for <dri-devel@lists.freedesktop.org>; Mon, 16 Mar 2026 08:03:06 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 94F7FC2BCB2
+ for <dri-devel@lists.freedesktop.org>; Mon, 16 Mar 2026 08:03:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1773648186;
+ bh=OPGhupo6k7Uc5ylSZDzCP6KD05oEItawAi06nEF6FNw=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+ b=hSgverlHOHpBTlT9fHgwTjZakIEOhlTss1q3QMnJ+68xV8CO9XN5rs9gKBuR7cta+
+ CR6N1vRbtLF8SSonIVnbXPOsxrOv6WwmafJrhEVf+62KNSOMmpXtACP+IVUKFf0BQ+
+ nW4zrF62kBcFnzRlpbNKZrolA9oO249k54oqwQr24+0KLIMjNqA6YzNwDkWj7XBrc/
+ or6BhbJN2wBosVwQjt/E87AsPXqye+mYFQg/Y7R4uGq27XWDAPKQS44zWpdLq+jmeY
+ ElRP74WVdHgxUSc7/FRrN1Ycv51rCXN493u7YjLnigrLamLX2inNt4ADmfI8sOCKhV
+ ncK9K3xZy9Ylw==
+Received: by mail-ed1-f51.google.com with SMTP id
+ 4fb4d7f45d1cf-6618bc129acso5363396a12.2
+ for <dri-devel@lists.freedesktop.org>; Mon, 16 Mar 2026 01:03:06 -0700 (PDT)
 X-Forwarded-Encrypted: i=1;
- AJvYcCWaehEIzsuwruPagS7xLqw1GADelYvHf53wkpf3d7w64MVCCaVHKi4Q+1XxmJr+YP3M3E1Ar6A8ucM=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwZ29AG99AvftN5bysNp3OlGm6cPS7aj9vQarb+GnmCNb53bT5H
- 1oKByA1foQ8Lk3XmjunbsToko8XoieMb1jIVUklqX/jL9z3BnVg9FFFHKhiOblOlxL7G8jfCCOA
- Mt0x9dTkbrjY4YarbeoXrlLgiEvBvDOM=
-X-Gm-Gg: ATEYQzyZwUgarzHXialjFCopOPdXEF1W+VJbF33vEGIQ0DBsJgGX3SYf40BJpm75Bxv
- CbQ06KFqFGaJS5AtZwbWcU1oAuOyRmEa8fdbpKVKML0HxkA0Izj/WfmUBGoZ9EPzauO+eP5u4P6
- Eb5SbYF7niBm4BN2hD9Lmilp8KarTGHdqRisg0zDNWNsvf3WVPqumQcbsJDEmFHoJJ194Uexnzo
- VTfQjzeaM5dKtaieTI/ecKpCTBplj5uyHEY5SGp+CXjqteQCJ3ihcrCpkoNA9JrEg7ILTUbwg3z
- D81eCFOU
-X-Received: by 2002:a05:6102:e07:b0:5f8:e47d:165 with SMTP id
- ada2fe7eead31-6020e20d416mr3737253137.8.1773648181650; Mon, 16 Mar 2026
- 01:03:01 -0700 (PDT)
+ AJvYcCUkejcNcq3K7cgaSNIt/BpXtByfvnkCGMAXak7f8QIhuC9EMyDZTvJID1Hx7X2T7Ese4tjxhq27opc=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yyqp8AQFF5xMKa1Ng2DNqSaaHWq7SBzlHAeBrYdPWomoWssIdH8
+ i6HVgo6GwuUOGN0sSKC9ZjRUKkycMhkAEtYQ6dPB26BOb/nnlxnw0prWz6d8oAZRxtwQ841UzlY
+ 1K7wY0r0TcNh09X6cNvWJlSuTEjFX6wE=
+X-Received: by 2002:a17:906:a14e:b0:b96:eee1:bb66 with SMTP id
+ a640c23a62f3a-b9764fc9b73mr615632566b.10.1773648184937; Mon, 16 Mar 2026
+ 01:03:04 -0700 (PDT)
 MIME-Version: 1.0
-References: <20260315144536.515032-1-mitltlatltl@gmail.com>
- <20260315144536.515032-2-mitltlatltl@gmail.com>
- <20260316-demonic-delicate-manul-8ffb80@quoll>
-In-Reply-To: <20260316-demonic-delicate-manul-8ffb80@quoll>
-From: Pengyu Luo <mitltlatltl@gmail.com>
-Date: Mon, 16 Mar 2026 16:02:36 +0800
-X-Gm-Features: AaiRm50gdkcfTDnMCdX8yuJBSODCuTTuvjktTUMybni_sKPxSjfZqKKen2r8Ekg
-Message-ID: <CAH2e8h4US7Ut=u3AW6bra9kUhCo15k+sWmVw40adVE-JQ+ayVg@mail.gmail.com>
-Subject: Re: [PATCH v3 1/2] dt-bindings: display: panel: Add Himax HX83121A
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+References: <20260314165421.1201790-1-zhengxingda@iscas.ac.cn>
+ <e716ebde-a4f3-4035-bb21-3c6ab2fe06a4@suse.de>
+In-Reply-To: <e716ebde-a4f3-4035-bb21-3c6ab2fe06a4@suse.de>
+From: Huacai Chen <chenhuacai@kernel.org>
+Date: Mon, 16 Mar 2026 16:02:55 +0800
+X-Gmail-Original-Message-ID: <CAAhV-H4Xt25LavPpiimFxS+BUSU_r-oNCFS=z5kqt8o6ei6XfQ@mail.gmail.com>
+X-Gm-Features: AaiRm51603GZoNqGVhZrHZ2eP2D70_RQhaBKKb42Xk030lU_xxFfmbJSvKFJo1M
+Message-ID: <CAAhV-H4Xt25LavPpiimFxS+BUSU_r-oNCFS=z5kqt8o6ei6XfQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/loongson: stop to set get_vblank_timestamp for 7A1000
+ CRTC
+To: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: Icenowy Zheng <zhengxingda@iscas.ac.cn>,
+ Sui Jingfeng <suijingfeng@loongson.cn>, 
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -115,29 +76,61 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Mar 16, 2026 at 3:44=E2=80=AFPM Krzysztof Kozlowski <krzk@kernel.or=
-g> wrote:
+Hi, Icenowy,
+
+On Mon, Mar 16, 2026 at 3:53=E2=80=AFPM Thomas Zimmermann <tzimmermann@suse=
+.de> wrote:
 >
-> On Sun, Mar 15, 2026 at 10:45:35PM +0800, Pengyu Luo wrote:
-> > HX83121A is a driver IC used to drive MIPI-DSI panels. It is found
-> > in HUAWEI Matebook E Go series (Gaokun2/3) with BOE or CSOT panels.
+>
+>
+> Am 14.03.26 um 17:54 schrieb Icenowy Zheng:
+> > As there's no known hardware capability about querying vblank on the
+> > 7A1000 display controller, setting get_vblank_timestamp will mislead th=
+e
+> > kernel about the support of DC-backed high precision vblank query.
 > >
-> > Signed-off-by: Pengyu Luo <mitltlatltl@gmail.com>
-> > Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> > Drop this function pointer in the CRTC function table for 7A1000.
+> >
+> > This solves a kernel warning when booting Linux 7.0-rc3 on a
+> > 3A4000+7A1000 Haier Boyue G51 laptop (with injected EDID for replicatin=
+g
+Please s/3A4000/Loongson-3A4000/g and s/7A1000/LS7A1000/g, thanks.
+
+Huacai
+
+> > the display timing set by the firmware).
+> >
+> > Signed-off-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+>
+> Acked-by: Thomas Zimmermann <tzimmermann@suse.de>
+>
 > > ---
-> > v3:
-> > - remove '|' from description (Krzysztof)
-> > - drop description for reset-gpios (Krzysztof)
+> >   drivers/gpu/drm/loongson/lsdc_crtc.c | 1 -
+> >   1 file changed, 1 deletion(-)
+> >
+> > diff --git a/drivers/gpu/drm/loongson/lsdc_crtc.c b/drivers/gpu/drm/loo=
+ngson/lsdc_crtc.c
+> > index 587fbe285e9ef..b3af8e0cdb15f 100644
+> > --- a/drivers/gpu/drm/loongson/lsdc_crtc.c
+> > +++ b/drivers/gpu/drm/loongson/lsdc_crtc.c
+> > @@ -721,7 +721,6 @@ static const struct drm_crtc_funcs ls7a1000_crtc_fu=
+ncs =3D {
+> >       .late_register =3D lsdc_crtc_late_register,
+> >       .enable_vblank =3D lsdc_crtc_enable_vblank,
+> >       .disable_vblank =3D lsdc_crtc_disable_vblank,
+> > -     .get_vblank_timestamp =3D drm_crtc_vblank_helper_get_vblank_times=
+tamp,
+> >       .atomic_print_state =3D lsdc_crtc_atomic_print_state,
+> >   };
+> >
 >
-> And all other changes?
+> --
+> --
+> Thomas Zimmermann
+> Graphics Driver Developer
+> SUSE Software Solutions Germany GmbH
+> Frankenstr. 146, 90461 N=C3=BCrnberg, Germany, www.suse.com
+> GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG N=C3=
+=BCrnberg)
 >
-> Why aren't you testing this code?
 >
-> NAK, drop the tag and request re-review.
->
-
-I see. I will send a new version later. I made changes to v1 binding by mis=
-take.
-
-Best wishes,
-Pengyu
