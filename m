@@ -4,53 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 70F70F506D0
-	for <dri-devel@archiver.kernel.org>; Mon, 16 Mar 2026 13:21:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2B8A6F506D1
+	for <dri-devel@archiver.kernel.org>; Mon, 16 Mar 2026 13:30:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BF35610E522;
-	Mon, 16 Mar 2026 13:21:29 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="BgHkyyN1";
-	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5639E10E522;
- Mon, 16 Mar 2026 13:21:28 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 846EE60018;
- Mon, 16 Mar 2026 13:21:27 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A192C19421;
- Mon, 16 Mar 2026 13:21:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1773667287;
- bh=r8Pt+Pp2Ftl++kbOelkEcmT75Oa144vnnykFTqZCrzY=;
- h=Date:Subject:Cc:To:From:References:In-Reply-To:From;
- b=BgHkyyN1QaslyLHvC+Ve2AC/4PCTdfxBB0nQW5SmFmq4vmvgATMSTFGi2guHWHrom
- NCwtnaRCBdxk596/kON8pWMkFEh73gt9eEsoTdPk+VjrxBlRG+6eqImRifqvZvWmrw
- gBnaWnJSQTnjdPds6RYkcnNB/+lkWxP5GlAoWLJI0cFTEbVaX8wtdk6FV2i0EDEInk
- B6tMCVeIEFUIyi2DnclChIItrMrXSeYxzKIKDxLdNz5Nu+Qfuh8kCS8dJ/bJbP5WHh
- BwB7QLxdCuf1PiTV47DUnC4iG/Qy8DyOBUXzsNxS7oJrQ2lLUn9qnBdkM1SZ30Bbyy
- GS2H+pUiOkAQA==
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 16 Mar 2026 13:21:23 +0100
-Message-Id: <DH47AVPEKN06.3BERUSJIB4M1R@kernel.org>
-Subject: Re: [PATCH 6/9] gpu: nova-core: generalize `flush_into_kvec` to
- `flush_into_vec`
-Cc: "Alice Ryhl" <aliceryhl@google.com>, "Alexandre Courbot"
- <acourbot@nvidia.com>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
- <simona@ffwll.ch>, <rust-for-linux@vger.kernel.org>,
- <nouveau@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>, "dri-devel"
- <dri-devel-bounces@lists.freedesktop.org>, "Gary Guo" <gary@garyguo.net>
-To: "Eliot Courtney" <ecourtney@nvidia.com>
-From: "Danilo Krummrich" <dakr@kernel.org>
-References: <20260227-rmcontrol-v1-0-86648e4869f9@nvidia.com>
- <20260227-rmcontrol-v1-6-86648e4869f9@nvidia.com>
- <093ca23e-7081-42db-a202-0a42c51741a3@kernel.org>
- <DGYL9FS1Z00X.2HEJ96J8R3OK4@kernel.org>
- <DH46IKESDQ3B.2GEUC479WDK3N@nvidia.com>
-In-Reply-To: <DH46IKESDQ3B.2GEUC479WDK3N@nvidia.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 46BE310E52B;
+	Mon, 16 Mar 2026 13:30:33 +0000 (UTC)
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 6CF9710E542;
+ Mon, 16 Mar 2026 13:30:32 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 357291477;
+ Mon, 16 Mar 2026 06:30:25 -0700 (PDT)
+Received: from [10.57.61.116] (unknown [10.57.61.116])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 9D4953F778;
+ Mon, 16 Mar 2026 06:30:22 -0700 (PDT)
+Message-ID: <2c7466f5-d952-4356-9b55-9d2ebb3471f2@arm.com>
+Date: Mon, 16 Mar 2026 13:30:19 +0000
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 50/61] iommu: Prefer IS_ERR_OR_NULL over manual NULL check
+To: Philipp Hahn <phahn-oss@avm.de>, amd-gfx@lists.freedesktop.org,
+ apparmor@lists.ubuntu.com, bpf@vger.kernel.org, ceph-devel@vger.kernel.org,
+ cocci@inria.fr, dm-devel@lists.linux.dev, dri-devel@lists.freedesktop.org,
+ gfs2@lists.linux.dev, intel-gfx@lists.freedesktop.org,
+ intel-wired-lan@lists.osuosl.org, iommu@lists.linux.dev,
+ kvm@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-block@vger.kernel.org, linux-bluetooth@vger.kernel.org,
+ linux-btrfs@vger.kernel.org, linux-cifs@vger.kernel.org,
+ linux-clk@vger.kernel.org, linux-erofs@lists.ozlabs.org,
+ linux-ext4@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+ linux-gpio@vger.kernel.org, linux-hyperv@vger.kernel.org,
+ linux-input@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-leds@vger.kernel.org, linux-media@vger.kernel.org,
+ linux-mips@vger.kernel.org, linux-mm@kvack.org,
+ linux-modules@vger.kernel.org, linux-mtd@lists.infradead.org,
+ linux-nfs@vger.kernel.org, linux-omap@vger.kernel.org,
+ linux-phy@lists.infradead.org, linux-pm@vger.kernel.org,
+ linux-rockchip@lists.infradead.org, linux-s390@vger.kernel.org,
+ linux-scsi@vger.kernel.org, linux-sctp@vger.kernel.org,
+ linux-security-module@vger.kernel.org, linux-sh@vger.kernel.org,
+ linux-sound@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-trace-kernel@vger.kernel.org, linux-usb@vger.kernel.org,
+ linux-wireless@vger.kernel.org, netdev@vger.kernel.org,
+ ntfs3@lists.linux.dev, samba-technical@lists.samba.org,
+ sched-ext@lists.linux.dev, target-devel@vger.kernel.org,
+ tipc-discussion@lists.sourceforge.net, v9fs@lists.linux.dev
+Cc: Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>
+References: <20260310-b4-is_err_or_null-v1-0-bd63b656022d@avm.de>
+ <20260310-b4-is_err_or_null-v1-50-bd63b656022d@avm.de>
+From: Robin Murphy <robin.murphy@arm.com>
+Content-Language: en-GB
+In-Reply-To: <20260310-b4-is_err_or_null-v1-50-bd63b656022d@avm.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,64 +72,56 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-(Cc: Gary)
+On 2026-03-10 11:49 am, Philipp Hahn wrote:
+> Prefer using IS_ERR_OR_NULL() over using IS_ERR() and a manual NULL
+> check.
 
-On Mon Mar 16, 2026 at 12:44 PM CET, Eliot Courtney wrote:
-> On Tue Mar 10, 2026 at 7:01 AM JST, Danilo Krummrich wrote:
->> On Mon Mar 9, 2026 at 10:57 PM CET, Danilo Krummrich wrote:
->>> On 2/27/2026 1:32 PM, Eliot Courtney wrote:
->>>> Add general `flush_into_vec` function. Add `flush_into_kvvec`
->>>> convenience wrapper alongside the existing `flush_into_kvec` function.
->>>> This is generally useful but immediately used for e.g. holding RM
->>>> control payloads, which can be large (~>=3D20 KiB).
->>>
->>> Why not just always use KVVec? It also seems that the KVec variant is n=
-ot used?
->>
->> (Besides its single usage in GspSequence, which wouldn't hurt to be a KV=
-Vec.)
->>
->>> If there's no reason for having both, I'd also just call this into_vec(=
-).
->
-> I think always using KVVec should be fine, thanks!
->
-> For the naming, I think `read_to_vec` may be more conventional for this
-> -- `into_vec` implies consuming the object, but if we want to keep the
-> warning in `Cmdq::receive_msg` if not all the data is consumed we need
-> to take &mut self.
+AFAICS it doesn't look possible for the argument to be anything other 
+than valid at both callsites, so *both* conditions here seem in fact to 
+be entirely redundant.
 
-I had another look at this and especially how the SBuffer you refer to is u=
-sed.
-Unfortunately, the underlying code is broken.
+> Change generated with coccinelle.
 
-driver_read_area() creates a reference to the whole DMA object, including t=
-he
-area the GSP might concurrently write to. This is undefined behavior. See a=
-lso
-commit commit 0073a17b4666 ("gpu: nova-core: gsp: fix UB in DmaGspMem point=
-er
-accessors"), where I fixed something similar.
+Please use coccinelle responsibly. Mechanical changes are great for 
+scripted API updates, but for cleanup, whilst it's ideal for *finding* 
+areas of code that are worth looking at, the code then wants actually 
+looking at, in its whole context, because meaningful cleanup often goes 
+deeper than trivial replacement.
 
-Additionally, even if it would only create a reference to the part of the b=
-uffer
-that can be considerd untouched by the GSP and hence suits for creating a
-reference, driver_read_area() and all subsequent callers would still need t=
-o be
-unsafe as they would need to promise to not keep the reference alive beyond=
- GSP
-accessing that memory region again.
+In particular, anywhere IS_ERR_OR_NULL() is genuinely relevant is 
+usually a sign of bad interface design, so if you're looking at this 
+then you really should be looking first and foremost to remove any 
+checks that are already unnecessary, and for the remainder, to see if 
+the thing being checked can be improved to not mix the two different 
+styles. That would be constructive and (usually) welcome cleanup. Simply 
+churning a bunch of code with this ugly macro that's arguably less 
+readable than what it replaces, not so much.
 
-(The situation is similar for driver_write_area().)
+Thanks,
+Robin.
 
-So, unfortunately, commit 75f6b1de8133 ("gpu: nova-core: gsp: Add GSP comma=
-nd
-queue bindings and handling") seems broken in this aspect.
+> To: Joerg Roedel <joro@8bytes.org>
+> To: Will Deacon <will@kernel.org>
+> To: Robin Murphy <robin.murphy@arm.com>
+> Cc: iommu@lists.linux.dev
+> Cc: linux-kernel@vger.kernel.org
+> Signed-off-by: Philipp Hahn <phahn-oss@avm.de>
+> ---
+>   drivers/iommu/omap-iommu.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/iommu/omap-iommu.c b/drivers/iommu/omap-iommu.c
+> index 8231d7d6bb6a9202025643639a6b28e6faa84659..500a42b57a997696ff37c76f028a717ab71d01f9 100644
+> --- a/drivers/iommu/omap-iommu.c
+> +++ b/drivers/iommu/omap-iommu.c
+> @@ -881,7 +881,7 @@ static int omap_iommu_attach(struct omap_iommu *obj, u32 *iopgd)
+>    **/
+>   static void omap_iommu_detach(struct omap_iommu *obj)
+>   {
+> -	if (!obj || IS_ERR(obj))
+> +	if (IS_ERR_OR_NULL(obj))
+>   		return;
+>   
+>   	spin_lock(&obj->iommu_lock);
+> 
 
-This needs to be fixed first, and I think we should probably create a copy =
-in
-driver_read_area() right away.
-
-I don't want to merge any code that builds on top of this before we have so=
-rted
-this out.
