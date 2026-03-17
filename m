@@ -4,33 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4BB8BFD8773
-	for <dri-devel@archiver.kernel.org>; Tue, 17 Mar 2026 13:48:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 547D0FD8775
+	for <dri-devel@archiver.kernel.org>; Tue, 17 Mar 2026 13:49:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AA6C610E653;
-	Tue, 17 Mar 2026 13:48:02 +0000 (UTC)
-Received: from psionic.psi5.com (psionic.psi5.com [185.187.169.70])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1A3E510E650;
- Tue, 17 Mar 2026 13:47:57 +0000 (UTC)
-Received: from localhost.localdomain (unknown
- [IPv6:2400:2410:b120:f200:2e09:4dff:fe00:2e9])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (Client did not present a certificate)
- by psionic.psi5.com (Postfix) with ESMTPSA id B1B2548A3B;
- Tue, 17 Mar 2026 14:47:54 +0100 (CET)
-From: Simon Richter <Simon.Richter@hogyros.de>
-To: intel-xe@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org
-Cc: Simon Richter <Simon.Richter@hogyros.de>
-Subject: [PATCH 2/2] drm/xe: Use same NUMA node for MEI interrupt
-Date: Tue, 17 Mar 2026 22:47:18 +0900
-Message-ID: <20260317134741.3420-3-Simon.Richter@hogyros.de>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260317134741.3420-1-Simon.Richter@hogyros.de>
-References: <20260317134741.3420-1-Simon.Richter@hogyros.de>
+	by gabe.freedesktop.org (Postfix) with ESMTP id B313F10E42E;
+	Tue, 17 Mar 2026 13:49:27 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=free.fr header.i=@free.fr header.b="oKrYnzvP";
+	dkim-atps=neutral
+Received: from smtp3-g21.free.fr (smtp3-g21.free.fr [212.27.42.3])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 755FE10E056;
+ Tue, 17 Mar 2026 13:31:28 +0000 (UTC)
+Received: from [192.168.0.32] (unknown [85.156.96.35])
+ (Authenticated sender: martin.peres@free.fr)
+ by smtp3-g21.free.fr (Postfix) with ESMTPSA id F19A913F88F;
+ Tue, 17 Mar 2026 14:31:13 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=free.fr;
+ s=smtp-20201208; t=1773754286;
+ bh=0pLkDuEPyGkbW23Epy9YpMe2BQ53axealeBhtQc1huA=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=oKrYnzvPEcaY8OmrqJOuaMMzh4EY+K2LMdV3p5egUigKeqArsuc8l6gxUHUZI8r5E
+ 3H8p1/Xpg1WhX4ljaI+Y3rexbgfcXkKLr+hTfW8mRU/+g+HXTnrkcBv6aoC8Zji4mp
+ V8lHd1e7JlnVy2oClEuu+c23fpiPd6SfqtEXR1BxGpc54TGsTf/E4ubhfoO9ZxSyL8
+ 0gyH8D6ia0HzWAB/wZX3x55Q7gFPSEghvwUC4qgcVzxT4P+RjbnZFmVUIbezH60+eW
+ RrzyJvjZ7RunpU8JpA+xXzm28tUkZp0HtV6skt7TpoZLT9h9QlIK09PRSNEKp1oVQz
+ tbbUh5PP0cSpw==
+Message-ID: <778d1150-e990-44d3-8797-0b38bc5c7c7a@free.fr>
+Date: Tue, 17 Mar 2026 15:31:13 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 2/2] gpu: nova-drm: rename nova to nova-drm
+To: Alexandre Courbot <acourbot@nvidia.com>,
+ Cheng-Yang Chou <yphbchou0911@gmail.com>
+Cc: aliceryhl@google.com, chia7712@gmail.com, dakr@kernel.org,
+ dri-devel@lists.freedesktop.org, gary@garyguo.net, jserv@ccns.ncku.edu.tw,
+ linux-kernel@vger.kernel.org, nouveau@lists.freedesktop.org, simona@ffwll.ch
+References: <e7539fd5-9a0d-4a06-aa02-ec3dcd235926@nvidia.com>
+ <20260317092304.424377-1-yphbchou0911@gmail.com>
+ <DH536IWQDX23.22R0P6FT091LH@nvidia.com>
+Content-Language: en-US
+From: Martin Roukala <martin.peres@free.fr>
+In-Reply-To: <DH536IWQDX23.22R0P6FT091LH@nvidia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Mailman-Approved-At: Tue, 17 Mar 2026 13:49:27 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -46,29 +63,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The xe driver does not define an irq domain for the GSC (which would
-automatically allocate the interrupt descriptors on the same NUMA node as
-the interrupt controller), so explicitly specify the same NUMA node that
-the PCI device is attached to.
+On 3/17/26 15:20, Alexandre Courbot wrote:
+> On Tue Mar 17, 2026 at 6:23 PM JST, Cheng-Yang Chou wrote:
+>> Rename the nova-drm driver directory from drivers/gpu/drm/nova/ to
+>> drivers/gpu/drm/nova-drm/ and the top-level source file from nova.rs
+>> to nova_drm.rs (matching the object name nova_drm.o) to follow the
+>> kebab-case naming convention already used by the auxiliary device name.
+>>
+>> Update MAINTAINERS, Kconfig, and Makefile references accordingly.
+>> Update the Kconfig help text to reflect the new module name nova-drm.
+>>
+>> Link: https://github.com/Rust-for-Linux/linux/issues/1228
+>> Signed-off-by: Cheng-Yang Chou <yphbchou0911@gmail.com>
+>> Reviewed-by: John Hubbard <jhubbard@nvidia.com>
+>> ---
+>> Changes in v3:
+>> - Rename subject line (John Hubbard)
+>>
+>>   MAINTAINERS                                            | 6 +++---
+>>   drivers/gpu/drm/Kconfig                                | 2 +-
+>>   drivers/gpu/drm/Makefile                               | 2 +-
+>>   drivers/gpu/drm/{nova => nova-drm}/Kconfig             | 2 +-
+>>   drivers/gpu/drm/nova-drm/Makefile                      | 3 +++
+>>   drivers/gpu/drm/{nova => nova-drm}/driver.rs           | 0
+>>   drivers/gpu/drm/{nova => nova-drm}/file.rs             | 0
+>>   drivers/gpu/drm/{nova => nova-drm}/gem.rs              | 0
+> 
+> That `drm/nova-drm` reads a bit awkwardly to me and feels unnecessary.
+> Even `tegra-drm` is in `drm/tegra`.
 
-Signed-off-by: Simon Richter <Simon.Richter@hogyros.de>
----
- drivers/gpu/drm/xe/xe_heci_gsc.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Same opinion here.
 
-diff --git a/drivers/gpu/drm/xe/xe_heci_gsc.c b/drivers/gpu/drm/xe/xe_heci_gsc.c
-index 3c4972a9922c..18d69d0dfba2 100644
---- a/drivers/gpu/drm/xe/xe_heci_gsc.c
-+++ b/drivers/gpu/drm/xe/xe_heci_gsc.c
-@@ -111,7 +111,7 @@ static int heci_gsc_irq_setup(struct xe_device *xe)
- 	struct xe_heci_gsc *heci_gsc = &xe->heci_gsc;
- 	int ret;
- 
--	heci_gsc->irq = irq_alloc_desc(0);
-+	heci_gsc->irq = irq_alloc_desc(dev_to_node(xe->drm.dev));
- 	if (heci_gsc->irq < 0) {
- 		drm_err(&xe->drm, "gsc irq error %d\n", heci_gsc->irq);
- 		return heci_gsc->irq;
--- 
-2.47.3
-
+Cheers,
+Martin (an old nouveau dev)
