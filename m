@@ -4,77 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B8D4FFD874E
-	for <dri-devel@archiver.kernel.org>; Tue, 17 Mar 2026 12:05:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C72B2FD875A
+	for <dri-devel@archiver.kernel.org>; Tue, 17 Mar 2026 12:18:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1BE5410E621;
-	Tue, 17 Mar 2026 12:05:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2BBEC10E623;
+	Tue, 17 Mar 2026 12:18:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=daniel.almeida@collabora.com header.b="X4FENUmD";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="oCrdV9kC";
 	dkim-atps=neutral
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
- [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7190810E621;
- Tue, 17 Mar 2026 12:05:22 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1773749120; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=aSw+ZeQVp4FS3UfPiEqEyugMGGLnaSaQcKspC0AqEmqbwfdQDgP0oaOeHaNNnCKrlwt/EXmXjEKDgqXPft0YiXuFajWf9uXrQEgvGmIHp+3X4+77aR6aVbSaPOwS3/AQJJRUKhYyyle1Q70XL5ZtUPD8pUL6WQmBBxLEzctjYUY=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1773749120;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=GPSSGoZxjNOsc4QauRfSOblkZpvnUtKAHmRJMvKZsAA=; 
- b=Wlv55XXfsZgssAYIbW1h4INPe2vnu0Q8aeMUPYt97frytQeAh9cautTk3QBwZdX0vu5z7ZC4laXeRvHIVZwFyqgoy7YmPtWDN4ti91uQ3JsCT4hMvvpMEFR3TFRDHEudFe82+nNvrkRLydzp4a1iuv1iIXTOgT9M+NZYmNRDOkg=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=daniel.almeida@collabora.com;
- dmarc=pass header.from=<daniel.almeida@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1773749119; 
- s=zohomail; d=collabora.com; i=daniel.almeida@collabora.com;
- h=Content-Type:Mime-Version:Subject:Subject:From:From:In-Reply-To:Date:Date:Cc:Cc:Content-Transfer-Encoding:Message-Id:Message-Id:References:To:To:Reply-To;
- bh=GPSSGoZxjNOsc4QauRfSOblkZpvnUtKAHmRJMvKZsAA=;
- b=X4FENUmDDmpp9SOgWVEu3f/Z/7wCfsbF1zis/K7TNYTtDLUa6/RSZlIP59UsgTGQ
- LtgQI8CQs5XQxOq52wXMzcNjFKkShLwS2/W4sSfz+gewafma+DfrB6rqxm0JaRifC2m
- blm5iCS7bI9liBo193ndM++QMxWMdK1qt2jx6/Ek=
-Received: by mx.zohomail.com with SMTPS id 1773749117110887.5184078065679;
- Tue, 17 Mar 2026 05:05:17 -0700 (PDT)
-Content-Type: text/plain;
-	charset=utf-8
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81\))
-Subject: Re: [RFC PATCH 02/12] drm/dep: Add DRM dependency queue layer
-From: Daniel Almeida <daniel.almeida@collabora.com>
-In-Reply-To: <abkQTEcRujrFLsdn@lstrano-desk.jf.intel.com>
-Date: Tue, 17 Mar 2026 09:04:56 -0300
-Cc: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>,
- intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Boris Brezillon <boris.brezillon@collabora.com>,
- Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- =?utf-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- =?utf-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Danilo Krummrich <dakr@kernel.org>, David Airlie <airlied@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Philipp Stanner <phasta@kernel.org>,
- Simona Vetter <simona@ffwll.ch>, Sumit Semwal <sumit.semwal@linaro.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, linux-kernel@vger.kernel.org,
- Sami Tolvanen <samitolvanen@google.com>,
- Jeffrey Vander Stoep <jeffv@google.com>, Alice Ryhl <aliceryhl@google.com>,
- Daniel Stone <daniels@collabora.com>,
- Alexandre Courbot <acourbot@nvidia.com>,
- John Hubbard <jhubbard@nvidia.com>, shashanks@nvidia.com,
- jajones@nvidia.com, Eliot Courtney <ecourtney@nvidia.com>,
- Joel Fernandes <joelagnelf@nvidia.com>,
- rust-for-linux <rust-for-linux@vger.kernel.org>
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <0722F4A2-EDA3-4CF6-A023-65A7EE23497C@collabora.com>
-References: <20260316043255.226352-1-matthew.brost@intel.com>
- <20260316043255.226352-3-matthew.brost@intel.com>
- <7A8108C7-7CF0-4EA4-95ED-8003502DC35A@collabora.com>
- <abjqfXERS6Xk4FAQ@lstrano-desk.jf.intel.com>
- <CANiq72=Y2g_5=iEzU1L07pMPYD+wVapJXpp9rvYXEzCKEs59Zw@mail.gmail.com>
- <abkQTEcRujrFLsdn@lstrano-desk.jf.intel.com>
-To: Matthew Brost <matthew.brost@intel.com>
-X-Mailer: Apple Mail (2.3826.700.81)
-X-ZohoMailClient: External
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6084510E623
+ for <dri-devel@lists.freedesktop.org>; Tue, 17 Mar 2026 12:18:58 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 0E1E54324A;
+ Tue, 17 Mar 2026 12:18:58 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 689C1C4CEF7;
+ Tue, 17 Mar 2026 12:18:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+ s=korg; t=1773749937;
+ bh=OIjCRjYtXl1XNA+iUL8vhY3vsna7MPuDUF9TjdXS7eM=;
+ h=Subject:To:Cc:From:Date:From;
+ b=oCrdV9kCGpgEmJd9rvNMKmMl0bhSxcDmFhFWx53rwh7nJxLaoRoIzWJJNG9z1giSC
+ DcbGbExWoQWGgsWxVgx+k5GBIqFCA6rd7/J4JngAEN4o4mJgODJqY2uxNDCM2I/mk3
+ MbbKJR2VJhn4vvNFzGFJXJhj1xglCkJATWK5nrvw=
+Subject: Patch "drm/ttm: Fix ttm_pool_beneficial_order() return type" has been
+ added to the 6.19-stable tree
+To: cascardo@igalia.com, christian.koenig@amd.com,
+ dri-devel@lists.freedesktop.org, gregkh@linuxfoundation.org,
+ tursulin@ursulin.net, tvrtko.ursulin@igalia.com
+Cc: <stable-commits@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Tue, 17 Mar 2026 13:12:17 +0100
+Message-ID: <2026031717-gothic-humorist-09f8@gregkh>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-stable: commit
+X-Patchwork-Hint: ignore 
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,97 +56,72 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Matthew,
 
-> I get it =E2=80=94 you=E2=80=99re a Rust zealot. You can do this in C =
-and enforce the
-> rules quite well.
->=20
-> RAII cannot describe ownership transfers of refs, nor can it express =
-who
-> owns what in multi-threaded components, as far as I know. Ref-tracking
-> and ownership need to be explicit.
->=20
-> I=E2=80=99m not going to reply to Rust vs C comments in this thread. =
-If you want
-> to talk about ownership, lifetimes, dma-fence enforcement, and =
-teardown
-> guarantees, sure.
->=20
-> If you want to build on top of a component that=E2=80=99s been tested =
-on a
-> production driver, great =E2=80=94 please join in. If you want to =
-figure out all
-> the pitfalls yourself, well=E2=80=A6 have fun.
->=20
-> Matt
->=20
+This is a note to let you know that I've just added the patch titled
 
-It is not about being a Rust zealot. I pointed out that your code has =
-issues.
-Every time you access the queue you have to use a special function =
-because the
-queue might be gone, how is this not a problem?
+    drm/ttm: Fix ttm_pool_beneficial_order() return type
 
-+ * However, there is a secondary hazard: a worker can be queued while =
-the
-+ * queue is in a "zombie" state =E2=80=94 refcount has already reached =
-zero and async
-+ * teardown is in flight, but the work item has not yet been disabled =
-by
-+ * free_work.  To guard against this every worker uses
-+ * drm_dep_queue_get_unless_zero() at entry; if the refcount is already =
-zero
-+ * the worker bails immediately without touching the queue state.
+to the 6.19-stable tree which can be found at:
+    http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
 
-At various points you document requirements that are simply comments. =
-Resource
-management is scattered all over the place, and it=E2=80=99s sometimes =
-even shared
-with drivers, whom you have no control over.
+The filename of the patch is:
+     drm-ttm-fix-ttm_pool_beneficial_order-return-type.patch
+and it can be found in the queue-6.19 subdirectory.
 
-+ * Drivers that set %DRM_DEP_QUEUE_FLAGS_BYPASS_SUPPORTED and wish to
-+ * serialise their own submit work against the bypass path must acquire =
-this
-+ * guard.  Without it, a concurrent caller of drm_dep_job_push() could =
-take
-+ * the bypass path and call ops->run_job() inline between the driver's
-+ * eligibility check and its corresponding action, producing a race.
+If you, or anyone else, feels it should not be added to the stable tree,
+please let <stable@vger.kernel.org> know about it.
 
-How is this not a problem? Again, you=E2=80=99re not in control of =
-driver code.
 
-+ * If set, the driver is responsible for freeing the job. If NULL,
+From 6e3f4514e3b432871ac81717d24f56b441857f77 Mon Sep 17 00:00:00 2001
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Date: Fri, 27 Feb 2026 12:49:01 +0000
+Subject: drm/ttm: Fix ttm_pool_beneficial_order() return type
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Same here.
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 
-Even if we take Rust out of the equation, how do you plan to solve these =
-things? Or
-do you consider them solved as is?
+commit 6e3f4514e3b432871ac81717d24f56b441857f77 upstream.
 
-I worry that we will find ourselves again at XDC in yet another =
-scheduler
-workshop to address the issues that will invariably come up with your =
-new
-design in a few years.
+Fix a nasty copy and paste bug, where the incorrect boolean return type of
+the ttm_pool_beneficial_order() helper had a consequence of avoiding
+direct reclaim too eagerly for drivers which use this feature (currently
+amdgpu).
 
-> If you want to build on top of a component that=E2=80=99s been tested =
-on a
-> production driver, great =E2=80=94 please join in. If you want to =
-figure out all
-> the pitfalls yourself, well=E2=80=A6 have fun.
+Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Fixes: 7e9c548d3709 ("drm/ttm: Allow drivers to specify maximum beneficial TTM pool size")
+Cc: Christian König <christian.koenig@amd.com>
+Cc: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+Cc: dri-devel@lists.freedesktop.org
+Cc: <stable@vger.kernel.org> # v6.19+
+Reviewed-by: Christian König <christian.koenig@amd.com>
+Signed-off-by: Tvrtko Ursulin <tursulin@ursulin.net>
+Link: https://lore.kernel.org/r/20260227124901.3177-1-tvrtko.ursulin@igalia.com
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+---
+ drivers/gpu/drm/ttm/ttm_pool_internal.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Note that I didn=E2=80=99t show up with a low-effort =E2=80=9Chey, how =
-about we rewrite
-this in Rust?=E2=80=9D. Instead, I linked to an actual Rust =
-implementation that I
-spent weeks painstakingly debugging, not to mention the time it took to =
-write
-it. Again, I suggest that you guys have a look, like I did with your =
-code. You
-might find things you end up liking there.=20
-
-=E2=80=94 Daniel
+diff --git a/drivers/gpu/drm/ttm/ttm_pool_internal.h b/drivers/gpu/drm/ttm/ttm_pool_internal.h
+index 82c4b7e56a99..24c179fd69d1 100644
+--- a/drivers/gpu/drm/ttm/ttm_pool_internal.h
++++ b/drivers/gpu/drm/ttm/ttm_pool_internal.h
+@@ -17,7 +17,7 @@ static inline bool ttm_pool_uses_dma32(struct ttm_pool *pool)
+ 	return pool->alloc_flags & TTM_ALLOCATION_POOL_USE_DMA32;
+ }
+ 
+-static inline bool ttm_pool_beneficial_order(struct ttm_pool *pool)
++static inline unsigned int ttm_pool_beneficial_order(struct ttm_pool *pool)
+ {
+ 	return pool->alloc_flags & 0xff;
+ }
+-- 
+2.53.0
 
 
 
+Patches currently in stable-queue which might be from tvrtko.ursulin@igalia.com are
+
+queue-6.19/drm-ttm-fix-ttm_pool_beneficial_order-return-type.patch
+queue-6.19/drm-amdgpu-userq-fix-reference-leak-in-amdgpu_userq_wait_ioctl.patch
