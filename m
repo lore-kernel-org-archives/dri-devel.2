@@ -4,60 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B81D3FED9EB
-	for <dri-devel@archiver.kernel.org>; Tue, 17 Mar 2026 16:40:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 38E7FFED9EC
+	for <dri-devel@archiver.kernel.org>; Tue, 17 Mar 2026 16:42:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1BE5410E2EC;
-	Tue, 17 Mar 2026 16:40:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 707E010E6EA;
+	Tue, 17 Mar 2026 16:42:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="QBCP/xWd";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="RXB2bP+k";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4555410E2E0;
- Tue, 17 Mar 2026 16:40:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1773765638; x=1805301638;
- h=from:date:to:cc:subject:in-reply-to:message-id:
- references:mime-version;
- bh=ErDoNqmdfvI8zEo6cscTenfa54srxtznU3JSlSnTm+g=;
- b=QBCP/xWdEiFOR7zaNnGrHysFlJ6fTdEZPHxEHR/DegDMv2LVOlzozalc
- Y0H5g9Y5IUdWLoTvLQB2cMvDboc5ob9hKXlVQYIARUNI2b3OJsO5zoA7l
- DXZEwBULxiiPwJfyOrD8U3gmRDlfxA/bvMj2+kG9QTnXvXeN/nZK5uhLK
- pnNLSM1txI6E9AzIdrf9iI2klStJ1HTzR8YQoHioBFO2u46sFEgrWHGbH
- 5B8s146xoF2ExegbhSBW6tL6xk3uWro5gspwthxz6JX7o7CC/ea+nlepO
- 7GhpViLyXuj3qK2CyOe2LQKO6pUkZNYizdQNtI63RKejJ0dXa/PyU4FDk Q==;
-X-CSE-ConnectionGUID: Q5fiJDvfQLqOnlwwencjAA==
-X-CSE-MsgGUID: 2OUsy/AtTvqzGntVSEDZDQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11732"; a="85882364"
-X-IronPort-AV: E=Sophos;i="6.23,126,1770624000"; d="scan'208";a="85882364"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
- by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Mar 2026 09:40:38 -0700
-X-CSE-ConnectionGUID: DmM292vxQDaDRmHOoodWLA==
-X-CSE-MsgGUID: YMttSmMAS6SvndZFtYU/hA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,126,1770624000"; d="scan'208";a="217997087"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.245.245.161])
- by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Mar 2026 09:40:33 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Tue, 17 Mar 2026 18:40:30 +0200 (EET)
-To: "David E. Box" <david.e.box@linux.intel.com>
-cc: thomas.hellstrom@linux.intel.com, rodrigo.vivi@intel.com, 
- irenic.rajneesh@gmail.com, srinivas.pandruvada@linux.intel.com, 
- intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- xi.pardee@linux.intel.com, Hans de Goede <hansg@kernel.org>, 
- LKML <linux-kernel@vger.kernel.org>, platform-driver-x86@vger.kernel.org
-Subject: Re: [PATCH 19/22] platform/x86/intel/pmc/ssram: Refactor memory
- barrier for reentrant probe
-In-Reply-To: <20260313015202.3660072-20-david.e.box@linux.intel.com>
-Message-ID: <73d77db4-d7bf-d62c-8245-e16aaec777b1@linux.intel.com>
-References: <20260313015202.3660072-1-david.e.box@linux.intel.com>
- <20260313015202.3660072-20-david.e.box@linux.intel.com>
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8D26510E70D
+ for <dri-devel@lists.freedesktop.org>; Tue, 17 Mar 2026 16:42:53 +0000 (UTC)
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+ by smtpout-04.galae.net (Postfix) with ESMTPS id 6A1A0C5505E;
+ Tue, 17 Mar 2026 16:43:15 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 400A95FC9A;
+ Tue, 17 Mar 2026 16:42:51 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
+ with ESMTPSA id 4220D10450641; Tue, 17 Mar 2026 17:42:46 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+ t=1773765770; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ content-transfer-encoding:in-reply-to:references;
+ bh=bLsc4+8qs5+50vcwjOtVmeMNN9UxwhJGOEwDZgFbCOM=;
+ b=RXB2bP+kuU66BG+G/eM5WL41ypHQeXLDBGCGUuyoibrZgwQqlGF18zD03uaz5B22bvHk1c
+ /m8/iSuUZPbGrJZSBh9sLU3NGrbZiHji9VwlnL0jEuYdNYlIqTTvokMC/4sSvj8uj8SyPj
+ o3ExMXqVsORT/LCC8SByfqg3XA1EhdE/PN8qAf8BqkcTeq2FHg0P3SV8kmXQN4G1i0s/+H
+ XL0U5C78QXnj1EezRAl/1jJQLD2X57055zA3BOTIFSq4iFNSXx/y5TPTkzEj66eVQJc395
+ Pt2GUY+VhV7GQ8q6g22oXurjHNONGe3igsChs1cyzT7sww6E/eVPLQ6y4edMSA==
+From: Luca Ceresoli <luca.ceresoli@bootlin.com>
+To: Maxime Ripard <mripard@kernel.org>, linux-kernel@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, Kory Maincent <kory.maincent@bootlin.com>
+Cc: Bajjuri Praneeth <praneeth@ti.com>, thomas.petazzoni@bootlin.com, 
+ Jyri Sarha <jyri.sarha@iki.fi>, 
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>
+In-Reply-To: <20260305155921.659550-1-kory.maincent@bootlin.com>
+References: <20260305155921.659550-1-kory.maincent@bootlin.com>
+Subject: Re: [PATCH] drm/tilcdc: Remove tilcdc_panel driver reintroduced by
+ a merge
+Message-Id: <177376576631.1805576.1908129871551790151.b4-ty@bootlin.com>
+Date: Tue, 17 Mar 2026 17:42:46 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.14.3
+X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,111 +67,24 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, 12 Mar 2026, David E. Box wrote:
 
-> From: Xi Pardee <xi.pardee@linux.intel.com>
+On Thu, 05 Mar 2026 16:59:19 +0100, Kory Maincent wrote:
+> The tilcdc_panel driver was removed by commit 8f1e1ab9c794 ("drm/tilcdc:
+> Remove tilcdc panel driver"), but was inadvertently reintroduced by the
+> merge commit 8b85987d3cf5 ("Merge drm/drm-next into drm-misc-next").
 > 
-> Switch the readiness synchronization from a global device_probed flag to
-> per-index devid publication.
-
-It would be nice if you could expand the synchronization explanation a 
-bit. It's mostly in the comments below but it wouldn't hurt to add it here 
-as well.
-
-> This is required because a subsequent patch
-> makes probe reentrant, so a single global flag can no longer reliably
-> signal completion.
+> The regression went unnoticed because standard git commands such as
+> 'git show' do not expose the change. It was only spotted via
+> 'git show --stat':
 > 
-> Signed-off-by: Xi Pardee <xi.pardee@linux.intel.com>
-> Signed-off-by: David E. Box <david.e.box@linux.intel.com>
-> ---
->  .../platform/x86/intel/pmc/ssram_telemetry.c  | 34 ++++++++-----------
->  1 file changed, 14 insertions(+), 20 deletions(-)
-> 
-> diff --git a/drivers/platform/x86/intel/pmc/ssram_telemetry.c b/drivers/platform/x86/intel/pmc/ssram_telemetry.c
-> index 7db98037c521..246efdcf6950 100644
-> --- a/drivers/platform/x86/intel/pmc/ssram_telemetry.c
-> +++ b/drivers/platform/x86/intel/pmc/ssram_telemetry.c
-> @@ -37,7 +37,6 @@ static const struct ssram_type pci_main = {
->  };
->  
->  static struct pmc_ssram_telemetry pmc_ssram_telems[3];
-> -static bool device_probed;
->  
->  static inline u64 get_base(void __iomem *addr, u32 offset)
->  {
-> @@ -52,8 +51,13 @@ static void pmc_ssram_get_devid_pwrmbase(void __iomem *ssram, unsigned int pmc_i
->  	pwrm_base = get_base(ssram, SSRAM_PWRM_OFFSET);
->  	devid = readw(ssram + SSRAM_DEVID_OFFSET);
->  
-> -	pmc_ssram_telems[pmc_idx].devid = devid;
->  	pmc_ssram_telems[pmc_idx].base_addr = pwrm_base;
-> +	/*
-> +	 * Memory barrier is used to ensure the correct write order between base_addr
-> +	 * and devid.
-> +	 */
-> +	smp_wmb();
-> +	pmc_ssram_telems[pmc_idx].devid = devid;
->  }
->  
->  static int
-> @@ -151,32 +155,28 @@ static int pmc_ssram_telemetry_pci_init(struct pci_dev *pcidev)
->   * * 0           - Success
->   * * -EAGAIN     - Probe function has not finished yet. Try again.
->   * * -EINVAL     - Invalid pmc_idx
-> - * * -ENODEV     - PMC device is not available
->   */
->  int pmc_ssram_telemetry_get_pmc_info(unsigned int pmc_idx,
->  				     struct pmc_ssram_telemetry *pmc_ssram_telemetry)
->  {
-> +	if (pmc_idx >= MAX_NUM_PMC)
-> +		return -EINVAL;
-> +
->  	/*
->  	 * PMCs are discovered in probe function. If this function is called before
-> -	 * probe function complete, the result would be invalid. Use device_probed
-> -	 * variable to avoid this case. Return -EAGAIN to inform the consumer to call
-> +	 * probe function complete, the result would be invalid. Use devid to avoid
-> +	 * this case. Return -EAGAIN to inform the consumer to call
->  	 * again later.
->  	 */
-> -	if (!device_probed)
-> +	if (!pmc_ssram_telems[pmc_idx].devid)
->  		return -EAGAIN;
->  
-> +	pmc_ssram_telemetry->devid = pmc_ssram_telems[pmc_idx].devid;
->  	/*
->  	 * Memory barrier is used to ensure the correct read order between
-> -	 * device_probed variable and PMC info.
-> +	 * devid variable and base_addr.
->  	 */
->  	smp_rmb();
-> -	if (pmc_idx >= MAX_NUM_PMC)
-> -		return -EINVAL;
-> -
-> -	if (!pmc_ssram_telems[pmc_idx].devid)
-> -		return -ENODEV;
-> -
-> -	pmc_ssram_telemetry->devid = pmc_ssram_telems[pmc_idx].devid;
->  	pmc_ssram_telemetry->base_addr = pmc_ssram_telems[pmc_idx].base_addr;
->  	return 0;
->  }
-> @@ -209,12 +209,6 @@ static int pmc_ssram_telemetry_probe(struct pci_dev *pcidev, const struct pci_de
->  		ret = -EINVAL;
->  
->  probe_finish:
+> [...]
 
-This label becomes pointless after the removal and the gotoers should just 
-return directly.
+Applied, thanks!
 
-> -	/*
-> -	 * Memory barrier is used to ensure the correct write order between PMC info
-> -	 * and device_probed variable.
-> -	 */
-> -	smp_wmb();
-> -	device_probed = true;
->  	return ret;
+[1/1] drm/tilcdc: Remove tilcdc_panel driver reintroduced by a merge
+      commit: 1d3864cf9cac2562d018f080982c231a64dc6cfd
 
+Best regards,
 -- 
- i.
+Luca Ceresoli <luca.ceresoli@bootlin.com>
 
