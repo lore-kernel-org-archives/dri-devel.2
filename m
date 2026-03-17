@@ -4,100 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1D393F3383D
-	for <dri-devel@archiver.kernel.org>; Tue, 17 Mar 2026 14:43:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AA121FB5EAD
+	for <dri-devel@archiver.kernel.org>; Tue, 17 Mar 2026 14:44:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 79C5710E6AF;
-	Tue, 17 Mar 2026 14:43:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 10A8310E191;
+	Tue, 17 Mar 2026 14:44:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="u2F49/bd";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="kPkW309+";
 	dkim-atps=neutral
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com
- [209.85.221.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4136D10E6B1
- for <dri-devel@lists.freedesktop.org>; Tue, 17 Mar 2026 14:43:48 +0000 (UTC)
-Received: by mail-wr1-f53.google.com with SMTP id
- ffacd0b85a97d-439c6fc2910so4424795f8f.0
- for <dri-devel@lists.freedesktop.org>; Tue, 17 Mar 2026 07:43:48 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1773758627; cv=none;
- d=google.com; s=arc-20240605;
- b=U+yuYZ/D4VmEmzAp3kmbC5JXeqhfxCnl591gxdlA631L0Ajim4ezSj4q1ggRWdwtIO
- TFuKu7Yc2VAx+wkWO62RV2jg2GUgblKG9qHI8AZmpsS3hmQ8CcpIR4v0Xab02koK7jQX
- r5euFN6o06cbZTMqwDkUnKAoSVUoONz2ajYKKYgsUT/vr+jdss87VOPO5SSY29f9oQDb
- qPLuN66QW/zrGqX69IpFBSKXq0P/xOFfBT6JLFGjV6UBvEBGqN0aACVEMhG9rZkEhrYY
- acIX1Vr6yFtRMtARndLYI4UM2u8Ugflij8G2qvh8GkAt21oBFQXB5/lICpjYQ8r5m4tX
- mlvg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=bAjDAgNxxOY8q2SKVtH3m76VLWJXframDsv7g4XZIBg=;
- fh=9TGpzbahGhfEb9lg4bv7/+SSw/pInZ9UEYvbchzoZdM=;
- b=iM43eGU00TtHPyS2m+V7yQhnZiPo5v2vLI63gVS0p9kS9flp5+OiBjGzuXwbN+tchn
- ftfEh8B5DWWj8LwfJvxnpMp/D4g3Mf4NjXgDFZzfJh2MSOlSTUkuAxTEKEgbaAAN9vmu
- XJeTvZ/+Tq4frf0dRYSTodOHBOLz3G+r8aHbyxCDGj68/GxPQVu9rn9O+OrT70O82z7U
- ANJRCxSvM8YlY+qjA5T3iaOfAA4X4bb7lJKqUA3KItAk40baOEjlysbH10oN+BJbI0k/
- 2hW06032kLwviIrKq5Ik+Gn+vhaKKdTm9VSOGJ3Rfk8MUxeP5BkIcCk2cIE4M55oF7fN
- i4XQ==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20251104; t=1773758627; x=1774363427;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=bAjDAgNxxOY8q2SKVtH3m76VLWJXframDsv7g4XZIBg=;
- b=u2F49/bd+AjvmjJFFb+C9h0/nwNL8ONFv8iQGHMWyL21bsrPiPs7MDoKL9jDDMzAp/
- 8LkE+YgNwUxq4lX2vuLTof/yYlMpqLP80V7tWIo7IdsyMAs/CtGBOIrk52moJben3PGX
- d+Jc3BoUecHR/s2ufmOrxGLmHWgJc9MyWXccrSAbl2flfqP/YDiMq5AuukeTxKunK748
- q6Wdct/HLCs7cosrWx9+ruxIDzh4wBx/qcDmTL0QJo6lXQeWITet5jjzHUsfWiUzP84Q
- juzfLv93ro50ZW20IGs5Rm7qNKB416mzQxbnS0jmunm3HbOrq9Re3yDnUbQxPm+9S1Ua
- wp+w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1773758627; x=1774363427;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=bAjDAgNxxOY8q2SKVtH3m76VLWJXframDsv7g4XZIBg=;
- b=aa12T2jdwVl6QSrRLcMwkqg9nFk2PW4gZ6MTaqyxDhovpjgokcu0oRff76B1PWhr+b
- IBBLciqXW5KPy0+PuLK3DVIyxcMoKBbFe+iJsqekRmEKLZ5jq8Z2505BADzfWLR1JqEJ
- lcbVsRWGLQNckmY+VBZCBaPhGmSoPpUfvizRqs7BHw8MHbppqE4wHL+QmL6tA8uG8dU3
- dRTf+EGdi708hXIKe+BKjwetO7rng5C93OkLmw8Vsmv5znro2qOr5u/PZiW2saBCbq5p
- onaWhETQ8J9YwX5m5lS4JfcB8GFZeacmzdARv5kqYHczxAfyxwdqHjfNqLWarX89zjBv
- Gnpg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCV+ewOgSiULyypONvo/9+dkHd2EFf6VvzemnjHBp6+K1QXiWUpWMnZ2a+UoD7IZC1/i5/wKN9g6SRo=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyWmArvV+Ls1EdxkSnrhEp9v8RWJX5uBddt0Dw/u7UkrwNhF8he
- HGNk58ta8hMWVFZEWLoCx6v0tLrb5C63Xzb5dXplPfeCN6Qiy6WHgUhRKQyJyuxThrNXhD86Pmn
- Jq3tLkcgtUs027XBJRnD98ht+YYN9sFPtrD4f62eP
-X-Gm-Gg: ATEYQzz0OrGNnusVtBEX+3uG92DRY5FVxJ5dpwJe8putbh1AUXuAglIbX+Aw7l5+TnX
- SDdpyxj1S+vkb+qmN7D4OlSWrPpbbkOe/PoQpF2U/kbS01yOCHAxzXMJ7n26JhQFlNgfLlu1yJl
- E9647RnVcMbo3DcU8/Ork4GVeKWnN5LzZen/rYBiH0TNUhMi9wNdM8mZinTIQW5PEdeEtaV/77X
- IrWnn+Blu8QAAJvWFrdo/ST57/ZvOfwVBocgqg3QuUB/nZfrX4iuYxABGfVSqTBVEw3UdoZADSP
- +RvlWv6md2Gadfb27ytZ5P+rl7XyqpP9x8Ndj/82BV/1ITknXmHR++fRsUfnDvxqWXOKRw==
-X-Received: by 2002:a05:6000:2089:b0:43b:498f:dcfb with SMTP id
- ffacd0b85a97d-43b498fdd7dmr7040022f8f.8.1773758625958; Tue, 17 Mar 2026
- 07:43:45 -0700 (PDT)
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E572D10E191
+ for <dri-devel@lists.freedesktop.org>; Tue, 17 Mar 2026 14:44:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=9nzDO8JHBjMy9LqMyHLjdL/DanHBIGqFXpaJScTCJtQ=; b=kPkW309+RbGupOYzxYbz0CwI8B
+ jEeGsg5RfC93jrywAcCL34e1cun4dqZs3klL8EDztT2qCwquFn+lHGmIREkefKmcP8GUQZgL2mXG4
+ djbLGdEgQAheNnsKH+o5Q67B+F3bb0E4ocgxAPTs9/E0K+QaauyLMxrdd82Jj2Lyq0HdghUhSIcXa
+ 5/aGP8YOr1JW/ivrCAbCMC59PwxSkF/i4FaVUFNmMTIjee1alVMKzxM+j5VbJevf8UpK8WUFbDm1y
+ qMpwaOfwiRfpasKIvS4VYtxK58ZuDzYCM1iHkDEMhWQnCRM3bL4Jv6UpARZkODTX9vQasW7n8DnUe
+ MH37YmVA==;
+Received: from gwsc.sc.usp.br ([143.107.225.16] helo=[172.24.4.78])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1w2Vet-002Joh-2k; Tue, 17 Mar 2026 15:44:35 +0100
+Message-ID: <14ad62c7-7046-4df6-8267-c868a9fde982@igalia.com>
+Date: Tue, 17 Mar 2026 11:44:25 -0300
 MIME-Version: 1.0
-References: <20260303162314.94363-1-dakr@kernel.org>
- <20260303162314.94363-5-dakr@kernel.org>
- <abj6I9c_2IR0cKJ6@google.com> <DH54VWW1RXMQ.34MLWMQ1ZE0I1@kernel.org>
-In-Reply-To: <DH54VWW1RXMQ.34MLWMQ1ZE0I1@kernel.org>
-From: Alice Ryhl <aliceryhl@google.com>
-Date: Tue, 17 Mar 2026 15:43:34 +0100
-X-Gm-Features: AaiRm52v56DZ-OgaA6yqn_n9aUY-kVhP1nzCEQDyDgheJLFTSiIY2bIqeepmrHw
-Message-ID: <CAH5fLghYV+k5=dYwxB7uRjfSMsE9_=JaOWeBZd_EdoeSQh4C1Q@mail.gmail.com>
-Subject: Re: [PATCH 4/8] rust: dma: introduce dma::CoherentInit for memory
- initialization
-To: Danilo Krummrich <dakr@kernel.org>
-Cc: acourbot@nvidia.com, ojeda@kernel.org, boqun@kernel.org, gary@garyguo.net, 
- bjorn3_gh@protonmail.com, lossin@kernel.org, a.hindborg@kernel.org, 
- tmgross@umich.edu, abdiel.janulgue@gmail.com, daniel.almeida@collabora.com, 
- robin.murphy@arm.com, driver-core@lists.linux.dev, 
- nouveau@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 2/5] pmdomain: bcm: bcm2835-power: Increase ASB control
+ timeout
+To: Stefan Wahren <wahrenst@gmx.net>,
+ Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
+ <sboyd@kernel.org>, Nicolas Saenz Julienne <nsaenz@kernel.org>,
+ Florian Fainelli <florian.fainelli@broadcom.com>,
+ Maxime Ripard <mripard@kernel.org>, Melissa Wen <mwen@igalia.com>,
+ Iago Toral Quiroga <itoral@igalia.com>,
+ Chema Casanova <jmcasanova@igalia.com>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>
+Cc: linux-clk@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ Broadcom internal kernel review list
+ <bcm-kernel-feedback-list@broadcom.com>, kernel-dev@igalia.com,
+ stable@vger.kernel.org, Ulf Hansson <ulf.hansson@linaro.org>,
+ Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>,
+ linux-pm@vger.kernel.org
+References: <20260312-v3d-power-management-v7-0-9f006a1d4c55@igalia.com>
+ <20260312-v3d-power-management-v7-2-9f006a1d4c55@igalia.com>
+ <bdae424d-f4b5-4181-9421-4393fe3ac8fb@gmx.net>
+From: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
+Content-Language: en-US
+Autocrypt: addr=mcanal@igalia.com; keydata=
+ xsBNBGcCwywBCADgTji02Sv9zjHo26LXKdCaumcSWglfnJ93rwOCNkHfPIBll85LL9G0J7H8
+ /PmEL9y0LPo9/B3fhIpbD8VhSy9Sqz8qVl1oeqSe/rh3M+GceZbFUPpMSk5pNY9wr5raZ63d
+ gJc1cs8XBhuj1EzeE8qbP6JAmsL+NMEmtkkNPfjhX14yqzHDVSqmAFEsh4Vmw6oaTMXvwQ40
+ SkFjtl3sr20y07cJMDe++tFet2fsfKqQNxwiGBZJsjEMO2T+mW7DuV2pKHr9aifWjABY5EPw
+ G7qbrh+hXgfT+njAVg5+BcLz7w9Ju/7iwDMiIY1hx64Ogrpwykj9bXav35GKobicCAwHABEB
+ AAHNIE1hw61yYSBDYW5hbCA8bWNhbmFsQGlnYWxpYS5jb20+wsCRBBMBCAA7FiEE+ORdfQEW
+ dwcppnfRP/MOinaI+qoFAmcCwywCGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgkQ
+ P/MOinaI+qoUBQgAqz2gzUP7K3EBI24+a5FwFlruQGtim85GAJZXToBtzsfGLLVUSCL3aF/5
+ O335Bh6ViSBgxmowIwVJlS/e+L95CkTGzIIMHgyUZfNefR2L3aZA6cgc9z8cfow62Wu8eXnq
+ GM/+WWvrFQb/dBKKuohfBlpThqDWXxhozazCcJYYHradIuOM8zyMtCLDYwPW7Vqmewa+w994
+ 7Lo4CgOhUXVI2jJSBq3sgHEPxiUBOGxvOt1YBg7H9C37BeZYZxFmU8vh7fbOsvhx7Aqu5xV7
+ FG+1ZMfDkv+PixCuGtR5yPPaqU2XdjDC/9mlRWWQTPzg74RLEw5sz/tIHQPPm6ROCACFls7A
+ TQRnAsMsAQgAxTU8dnqzK6vgODTCW2A6SAzcvKztxae4YjRwN1SuGhJR2isJgQHoOH6oCItW
+ Xc1CGAWnci6doh1DJvbbB7uvkQlbeNxeIz0OzHSiB+pb1ssuT31Hz6QZFbX4q+crregPIhr+
+ 0xeDi6Mtu+paYprI7USGFFjDUvJUf36kK0yuF2XUOBlF0beCQ7Jhc+UoI9Akmvl4sHUrZJzX
+ LMeajARnSBXTcig6h6/NFVkr1mi1uuZfIRNCkxCE8QRYebZLSWxBVr3h7dtOUkq2CzL2kRCK
+ T2rKkmYrvBJTqSvfK3Ba7QrDg3szEe+fENpL3gHtH6h/XQF92EOulm5S5o0I+ceREwARAQAB
+ wsB2BBgBCAAgFiEE+ORdfQEWdwcppnfRP/MOinaI+qoFAmcCwywCGwwACgkQP/MOinaI+qpI
+ zQf+NAcNDBXWHGA3lgvYvOU31+ik9bb30xZ7IqK9MIi6TpZqL7cxNwZ+FAK2GbUWhy+/gPkX
+ it2gCAJsjo/QEKJi7Zh8IgHN+jfim942QZOkU+p/YEcvqBvXa0zqW0sYfyAxkrf/OZfTnNNE
+ Tr+uBKNaQGO2vkn5AX5l8zMl9LCH3/Ieaboni35qEhoD/aM0Kpf93PhCvJGbD4n1DnRhrxm1
+ uEdQ6HUjWghEjC+Jh9xUvJco2tUTepw4OwuPxOvtuPTUa1kgixYyG1Jck/67reJzMigeuYFt
+ raV3P8t/6cmtawVjurhnCDuURyhUrjpRhgFp+lW8OGr6pepHol/WFIOQEg==
+In-Reply-To: <bdae424d-f4b5-4181-9421-4393fe3ac8fb@gmx.net>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,39 +101,79 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, Mar 17, 2026 at 3:40=E2=80=AFPM Danilo Krummrich <dakr@kernel.org> =
-wrote:
->
-> On Tue Mar 17, 2026 at 7:52 AM CET, Alice Ryhl wrote:
-> > On Tue, Mar 03, 2026 at 05:22:55PM +0100, Danilo Krummrich wrote:
-> >> Currently, dma::Coherent cannot safely provide (mutable) access to its
-> >> underlying memory because the memory might be concurrently accessed by=
- a
-> >> DMA device. This makes it difficult to safely initialize the memory
-> >> before handing it over to the hardware.
-> >>
-> >> Introduce dma::CoherentInit, a type that encapsulates a dma::Coherent
-> >> before its DMA address is exposed to the device. dma::CoherentInit can
-> >> guarantee exclusive access to the inner dma::Coherent and implement
-> >> Deref and DerefMut.
-> >>
-> >> Once the memory is properly initialized, dma::CoherentInit can be
-> >> converted into a regular dma::Coherent.
-> >>
-> >> Signed-off-by: Danilo Krummrich <dakr@kernel.org>
-> >
-> > overall LGTM
-> >
-> > Reviewed-by: Alice Ryhl <aliceryhl@google.com>
->
-> Gary and me concluded that dma::CoherentBox would probably be a better na=
-me for
-> what this structure represents. I.e. you can carry it around and use it s=
-imilar
-> to a "real" Box until it is converted to dma::Coherent in order to make i=
-t
-> available to the device.
->
-> Is your RB still valid with this rename?
+Hi Stefan,
 
-Yes.
+On 15/03/26 20:07, Stefan Wahren wrote:
+> Hi Maíra,
+> 
+> Am 12.03.26 um 22:34 schrieb Maíra Canal:
+>> The bcm2835_asb_control() function uses a tight polling loop to wait
+>> for the ASB bridge to acknowledge a request. During intensive workloads,
+>> this handshake intermittently fails for V3D's master ASB on BCM2711,
+>> resulting in "Failed to disable ASB master for v3d" errors during
+>> runtime PM suspend. As a consequence, the failed power-off leaves V3D in
+>> a broken state, leading to bus faults or system hangs on later accesses.
+>>
+>> As the timeout is insufficient in some scenarios, increase the polling
+>> timeout from 1us to 5us, which is still negligible in the context of a
+>> power domain transition. Also, move the start timestamp to after the
+>> MMIO write, as the write latency is counted against the timeout,
+>> reducing the effective wait time for the hardware to respond.
+>>
+>> Cc: stable@vger.kernel.org
+> I think, a Fixes tag would be helpful here. Also this fix should be the 
+> first patch of the series or separate.
+
+I'll send it separately with the Fixes tag. Thanks!
+
+>> Reviewed-by: Stefan Wahren <wahrenst@gmx.net>
+>> Signed-off-by: Maíra Canal <mcanal@igalia.com>
+>>
+>> ---
+>> To: Ulf Hansson <ulf.hansson@linaro.org>
+>> To: Ray Jui <rjui@broadcom.com>
+>> To: Scott Branden <sbranden@broadcom.com>
+>> Cc: linux-pm@vger.kernel.org
+> This looks unusual. Is this intended?
+
+As b4 doesn't support it natively, I used this strategy to send only
+this patch to the linux-pm mailing list and not the whole series.
+
+Best regards,
+- Maíra
+
+> 
+> Best regards
+>> ---
+>>   drivers/pmdomain/bcm/bcm2835-power.c | 5 ++---
+>>   1 file changed, 2 insertions(+), 3 deletions(-)
+>>
+>> diff --git a/drivers/pmdomain/bcm/bcm2835-power.c b/drivers/pmdomain/ 
+>> bcm/bcm2835-power.c
+>> index 
+>> 0450202bbee2513c9116a36abaa839b460550935..1815eb4ee69b9b672b5e314402f1cc9897c57dcb 100644
+>> --- a/drivers/pmdomain/bcm/bcm2835-power.c
+>> +++ b/drivers/pmdomain/bcm/bcm2835-power.c
+>> @@ -166,8 +166,6 @@ static int bcm2835_asb_control(struct 
+>> bcm2835_power *power, u32 reg, bool enable
+>>           break;
+>>       }
+>> -    start = ktime_get_ns();
+>> -
+>>       /* Enable the module's async AXI bridges. */
+>>       if (enable) {
+>>           val = readl(base + reg) & ~ASB_REQ_STOP;
+>> @@ -176,9 +174,10 @@ static int bcm2835_asb_control(struct 
+>> bcm2835_power *power, u32 reg, bool enable
+>>       }
+>>       writel(PM_PASSWORD | val, base + reg);
+>> +    start = ktime_get_ns();
+>>       while (!!(readl(base + reg) & ASB_ACK) == enable) {
+>>           cpu_relax();
+>> -        if (ktime_get_ns() - start >= 1000)
+>> +        if (ktime_get_ns() - start >= 5000)
+>>               return -ETIMEDOUT;
+>>       }
+>>
+> 
+
