@@ -4,43 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C72B2FD875A
-	for <dri-devel@archiver.kernel.org>; Tue, 17 Mar 2026 12:18:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F0A2CFD875D
+	for <dri-devel@archiver.kernel.org>; Tue, 17 Mar 2026 12:19:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2BBEC10E623;
-	Tue, 17 Mar 2026 12:18:59 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="oCrdV9kC";
-	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6084510E623
- for <dri-devel@lists.freedesktop.org>; Tue, 17 Mar 2026 12:18:58 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 0E1E54324A;
- Tue, 17 Mar 2026 12:18:58 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 689C1C4CEF7;
- Tue, 17 Mar 2026 12:18:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1773749937;
- bh=OIjCRjYtXl1XNA+iUL8vhY3vsna7MPuDUF9TjdXS7eM=;
- h=Subject:To:Cc:From:Date:From;
- b=oCrdV9kCGpgEmJd9rvNMKmMl0bhSxcDmFhFWx53rwh7nJxLaoRoIzWJJNG9z1giSC
- DcbGbExWoQWGgsWxVgx+k5GBIqFCA6rd7/J4JngAEN4o4mJgODJqY2uxNDCM2I/mk3
- MbbKJR2VJhn4vvNFzGFJXJhj1xglCkJATWK5nrvw=
-Subject: Patch "drm/ttm: Fix ttm_pool_beneficial_order() return type" has been
- added to the 6.19-stable tree
-To: cascardo@igalia.com, christian.koenig@amd.com,
- dri-devel@lists.freedesktop.org, gregkh@linuxfoundation.org,
- tursulin@ursulin.net, tvrtko.ursulin@igalia.com
-Cc: <stable-commits@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Tue, 17 Mar 2026 13:12:17 +0100
-Message-ID: <2026031717-gothic-humorist-09f8@gregkh>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6780310E42D;
+	Tue, 17 Mar 2026 12:19:26 +0000 (UTC)
+Received: from TWMBX01.aspeed.com (mail.aspeedtech.com [211.20.114.72])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3655010E42D
+ for <dri-devel@lists.freedesktop.org>; Tue, 17 Mar 2026 12:19:24 +0000 (UTC)
+Received: from TWMBX01.aspeed.com (192.168.0.62) by TWMBX01.aspeed.com
+ (192.168.0.62) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.10; Tue, 17 Mar
+ 2026 20:19:21 +0800
+Received: from [127.0.1.1] (192.168.10.13) by TWMBX01.aspeed.com
+ (192.168.0.62) with Microsoft SMTP Server id 15.2.1748.10 via Frontend
+ Transport; Tue, 17 Mar 2026 20:19:21 +0800
+From: Jammy Huang <jammy_huang@aspeedtech.com>
+Date: Tue, 17 Mar 2026 20:19:00 +0800
+Subject: [PATCH v2] drm/ast: DisplayPort edid supports 256 bytes
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-stable: commit
-X-Patchwork-Hint: ignore 
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-ID: <20260317-upstream_ast_dp_edid-v2-1-31166703c491@aspeedtech.com>
+X-B4-Tracking: v=1; b=H4sIALNGuWkC/4WNQQ6CMBBFr2JmbQ0tAaIr72EIGTqDzAJoOpVoC
+ He3cgGX7yX//Q2Uo7DC7bRB5FVUljmDO5/Ajzg/2QhlBle4uihtaV5BU2ScOtTUUeiYhEw1cI0
+ 0NEhlDXkaIg/yPrKPNvMompb4OV5W+7N/gqs11jhsqr7xxdX27o4amCmxHy9+maDd9/0LJNesh
+ 70AAAA=
+X-Change-ID: 20260313-upstream_ast_dp_edid-5fe6adf7ad36
+To: Dave Airlie <airlied@redhat.com>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Jocelyn Falempe <jfalempe@redhat.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+CC: <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>, "Jammy
+ Huang" <jammy_huang@aspeedtech.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1773749961; l=2289;
+ i=jammy_huang@aspeedtech.com; s=20251124; h=from:subject:message-id;
+ bh=wpmMxM5QpJ7hVAi29ctGpcPvvJxVELkq50UlpmK+n1M=;
+ b=IxBu9HasiKRWWPtTyKP5QRDNgXmdeZjGcavGV22Inz/klwPSh4QpDrlWxWcc1FgWZbwNCU4zV
+ Tr0dNw3SzBUC7/nCVOJO3wazPFguDM/AGOuJg04NAjxbWc4VAJ8sA0O
+X-Developer-Key: i=jammy_huang@aspeedtech.com; a=ed25519;
+ pk=E5YwijeJZZcuDR6srvwNlXrNHvLxwipUg3Mb/xxUF9o=
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,72 +60,71 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+DisplayPort supports EDID up to 256 bytes (blocks 0 and 1). Update the
+block check to allow these two blocks while returning 0 for any
+additional extension blocks.
 
-This is a note to let you know that I've just added the patch titled
+Furthermore, remove the manual EDID byte manipulation logic. The DRM
+core (drm_edid) already handles error correction and checksum
+validation.
 
-    drm/ttm: Fix ttm_pool_beneficial_order() return type
-
-to the 6.19-stable tree which can be found at:
-    http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
-
-The filename of the patch is:
-     drm-ttm-fix-ttm_pool_beneficial_order-return-type.patch
-and it can be found in the queue-6.19 subdirectory.
-
-If you, or anyone else, feels it should not be added to the stable tree,
-please let <stable@vger.kernel.org> know about it.
-
-
-From 6e3f4514e3b432871ac81717d24f56b441857f77 Mon Sep 17 00:00:00 2001
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Date: Fri, 27 Feb 2026 12:49:01 +0000
-Subject: drm/ttm: Fix ttm_pool_beneficial_order() return type
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-
-commit 6e3f4514e3b432871ac81717d24f56b441857f77 upstream.
-
-Fix a nasty copy and paste bug, where the incorrect boolean return type of
-the ttm_pool_beneficial_order() helper had a consequence of avoiding
-direct reclaim too eagerly for drivers which use this feature (currently
-amdgpu).
-
-Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Fixes: 7e9c548d3709 ("drm/ttm: Allow drivers to specify maximum beneficial TTM pool size")
-Cc: Christian König <christian.koenig@amd.com>
-Cc: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
-Cc: dri-devel@lists.freedesktop.org
-Cc: <stable@vger.kernel.org> # v6.19+
-Reviewed-by: Christian König <christian.koenig@amd.com>
-Signed-off-by: Tvrtko Ursulin <tursulin@ursulin.net>
-Link: https://lore.kernel.org/r/20260227124901.3177-1-tvrtko.ursulin@igalia.com
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Signed-off-by: Jammy Huang <jammy_huang@aspeedtech.com>
 ---
- drivers/gpu/drm/ttm/ttm_pool_internal.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ASPEED DisplayPort's EDID size can be 256 bytes at most. Thus, EDID
+blocks fetched can be 0 and 1.
+---
+Changes in v2:
+Becasue drm-edid will handle invalid EDID if happen, we have 2 changes
+below.
+- Return 0 for the number of block more than 1.
+- Remove modification of EDID
+- Link to v1: https://lore.kernel.org/r/20260313-upstream_ast_dp_edid-v1-1-2a75b7c091b2@aspeedtech.com
+---
+ drivers/gpu/drm/ast/ast_dp.c | 18 ++----------------
+ 1 file changed, 2 insertions(+), 16 deletions(-)
 
-diff --git a/drivers/gpu/drm/ttm/ttm_pool_internal.h b/drivers/gpu/drm/ttm/ttm_pool_internal.h
-index 82c4b7e56a99..24c179fd69d1 100644
---- a/drivers/gpu/drm/ttm/ttm_pool_internal.h
-+++ b/drivers/gpu/drm/ttm/ttm_pool_internal.h
-@@ -17,7 +17,7 @@ static inline bool ttm_pool_uses_dma32(struct ttm_pool *pool)
- 	return pool->alloc_flags & TTM_ALLOCATION_POOL_USE_DMA32;
- }
+diff --git a/drivers/gpu/drm/ast/ast_dp.c b/drivers/gpu/drm/ast/ast_dp.c
+index 9d07dad358c..282c694218c 100644
+--- a/drivers/gpu/drm/ast/ast_dp.c
++++ b/drivers/gpu/drm/ast/ast_dp.c
+@@ -88,8 +88,8 @@ static int ast_astdp_read_edid_block(void *data, u8 *buf, unsigned int block, si
+ 	int ret = 0;
+ 	unsigned int i;
  
--static inline bool ttm_pool_beneficial_order(struct ttm_pool *pool)
-+static inline unsigned int ttm_pool_beneficial_order(struct ttm_pool *pool)
- {
- 	return pool->alloc_flags & 0xff;
- }
+-	if (block > 0)
+-		return -EIO; /* extension headers not supported */
++	if (block > 1)
++		return 0;
+ 
+ 	/*
+ 	 * Protect access to I/O registers from concurrent modesetting
+@@ -154,20 +154,6 @@ static int ast_astdp_read_edid_block(void *data, u8 *buf, unsigned int block, si
+ 		ediddata[2] = ast_get_index_reg(ast, AST_IO_VGACRI, 0xda);
+ 		ediddata[3] = ast_get_index_reg(ast, AST_IO_VGACRI, 0xdb);
+ 
+-		if (i == 31) {
+-			/*
+-			 * For 128-bytes EDID_1.3,
+-			 * 1. Add the value of Bytes-126 to Bytes-127.
+-			 *		The Bytes-127 is Checksum. Sum of all 128bytes should
+-			 *		equal 0	(mod 256).
+-			 * 2. Modify Bytes-126 to be 0.
+-			 *		The Bytes-126 indicates the Number of extensions to
+-			 *		follow. 0 represents noextensions.
+-			 */
+-			ediddata[3] = ediddata[3] + ediddata[2];
+-			ediddata[2] = 0;
+-		}
+-
+ 		memcpy(buf, ediddata, min((len - i), 4));
+ 		buf += 4;
+ 	}
+
+---
+base-commit: 5ee8dbf54602dc340d6235b1d6aa17c0f283f48c
+change-id: 20260313-upstream_ast_dp_edid-5fe6adf7ad36
+
+Best regards,
 -- 
-2.53.0
+Jammy Huang <jammy_huang@aspeedtech.com>
 
-
-
-Patches currently in stable-queue which might be from tvrtko.ursulin@igalia.com are
-
-queue-6.19/drm-ttm-fix-ttm_pool_beneficial_order-return-type.patch
-queue-6.19/drm-amdgpu-userq-fix-reference-leak-in-amdgpu_userq_wait_ioctl.patch
