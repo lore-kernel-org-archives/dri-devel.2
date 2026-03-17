@@ -4,63 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C645DFD874D
-	for <dri-devel@archiver.kernel.org>; Tue, 17 Mar 2026 12:05:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B8D4FFD874E
+	for <dri-devel@archiver.kernel.org>; Tue, 17 Mar 2026 12:05:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2F76F10E620;
-	Tue, 17 Mar 2026 12:05:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1BE5410E621;
+	Tue, 17 Mar 2026 12:05:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="GsXFthx3";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=daniel.almeida@collabora.com header.b="X4FENUmD";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 103D710E620
- for <dri-devel@lists.freedesktop.org>; Tue, 17 Mar 2026 12:05:05 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 59B1E600AD;
- Tue, 17 Mar 2026 12:05:04 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id EFCB1C2BC86;
- Tue, 17 Mar 2026 12:05:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linux.dev; s=korg;
- t=1773749104; bh=1cQPW0r6BS+eEjsyt0XQrJVhTMBdg77G847AwAAPoC0=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=GsXFthx3981WkPcU81gMe2b5lwdU2tTbrQO6TDA909fUYNnRpDUfYLztkqptsS6zM
- Mlmg6I3r3IsVU8mkza/Oef5nVPY0H4D0gFDTX+ib2W0SpfCOPDWnxGNztpzIHENxks
- mFs3HK7qik6r1ExxPpme5afRyn/AbHqmALjYhwA8=
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
- (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id DFC20FD874D;
- Tue, 17 Mar 2026 12:05:03 +0000 (UTC)
-From: Alvin Sun <alvin.sun@linux.dev>
-Date: Tue, 17 Mar 2026 20:03:40 +0800
-Subject: [PATCH 1/2] drm/gpuvm: add name(), RawGpuVa and kernel_alloc_va()
- for debugfs
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260317-gpuvm-helpers-v1-1-00198fc6eeea@linux.dev>
-References: <20260317-gpuvm-helpers-v1-0-00198fc6eeea@linux.dev>
-In-Reply-To: <20260317-gpuvm-helpers-v1-0-00198fc6eeea@linux.dev>
-To: Danilo Krummrich <dakr@kernel.org>, 
- Matthew Brost <matthew.brost@intel.com>, 
- =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
- Alice Ryhl <aliceryhl@google.com>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Miguel Ojeda <ojeda@kernel.org>, 
- Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
- Trevor Gross <tmgross@umich.edu>
-Cc: dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org, 
- Alvin Sun <alvin.sun@linux.dev>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1773749102; l=3053;
- i=alvin.sun@linux.dev; s=20260317; h=from:subject:message-id;
- bh=1cQPW0r6BS+eEjsyt0XQrJVhTMBdg77G847AwAAPoC0=;
- b=hh3kP7Y+s26EUoQhcpPxRgdgkUcG/PQdcv6jvZUjcOpTa4Z89lKBGQWiaxADRQ+xtqmq3Ho8t
- Iz8745X0a90DQLQpljwK0yppC3Y2hiOl/ca4gWzihv26LqfunalJSZx
-X-Developer-Key: i=alvin.sun@linux.dev; a=ed25519;
- pk=CHcwQp8GSoj25V/L1ZWNSQjWp9eSIb0s9LKr0Nm3WuE=
-X-Endpoint-Received: by B4 Relay for alvin.sun@linux.dev/20260317 with
- auth_id=684
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
+ [136.143.188.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7190810E621;
+ Tue, 17 Mar 2026 12:05:22 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1773749120; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=aSw+ZeQVp4FS3UfPiEqEyugMGGLnaSaQcKspC0AqEmqbwfdQDgP0oaOeHaNNnCKrlwt/EXmXjEKDgqXPft0YiXuFajWf9uXrQEgvGmIHp+3X4+77aR6aVbSaPOwS3/AQJJRUKhYyyle1Q70XL5ZtUPD8pUL6WQmBBxLEzctjYUY=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1773749120;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=GPSSGoZxjNOsc4QauRfSOblkZpvnUtKAHmRJMvKZsAA=; 
+ b=Wlv55XXfsZgssAYIbW1h4INPe2vnu0Q8aeMUPYt97frytQeAh9cautTk3QBwZdX0vu5z7ZC4laXeRvHIVZwFyqgoy7YmPtWDN4ti91uQ3JsCT4hMvvpMEFR3TFRDHEudFe82+nNvrkRLydzp4a1iuv1iIXTOgT9M+NZYmNRDOkg=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=daniel.almeida@collabora.com;
+ dmarc=pass header.from=<daniel.almeida@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1773749119; 
+ s=zohomail; d=collabora.com; i=daniel.almeida@collabora.com;
+ h=Content-Type:Mime-Version:Subject:Subject:From:From:In-Reply-To:Date:Date:Cc:Cc:Content-Transfer-Encoding:Message-Id:Message-Id:References:To:To:Reply-To;
+ bh=GPSSGoZxjNOsc4QauRfSOblkZpvnUtKAHmRJMvKZsAA=;
+ b=X4FENUmDDmpp9SOgWVEu3f/Z/7wCfsbF1zis/K7TNYTtDLUa6/RSZlIP59UsgTGQ
+ LtgQI8CQs5XQxOq52wXMzcNjFKkShLwS2/W4sSfz+gewafma+DfrB6rqxm0JaRifC2m
+ blm5iCS7bI9liBo193ndM++QMxWMdK1qt2jx6/Ek=
+Received: by mx.zohomail.com with SMTPS id 1773749117110887.5184078065679;
+ Tue, 17 Mar 2026 05:05:17 -0700 (PDT)
+Content-Type: text/plain;
+	charset=utf-8
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81\))
+Subject: Re: [RFC PATCH 02/12] drm/dep: Add DRM dependency queue layer
+From: Daniel Almeida <daniel.almeida@collabora.com>
+In-Reply-To: <abkQTEcRujrFLsdn@lstrano-desk.jf.intel.com>
+Date: Tue, 17 Mar 2026 09:04:56 -0300
+Cc: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>,
+ intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ Boris Brezillon <boris.brezillon@collabora.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ =?utf-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ =?utf-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Danilo Krummrich <dakr@kernel.org>, David Airlie <airlied@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Philipp Stanner <phasta@kernel.org>,
+ Simona Vetter <simona@ffwll.ch>, Sumit Semwal <sumit.semwal@linaro.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, linux-kernel@vger.kernel.org,
+ Sami Tolvanen <samitolvanen@google.com>,
+ Jeffrey Vander Stoep <jeffv@google.com>, Alice Ryhl <aliceryhl@google.com>,
+ Daniel Stone <daniels@collabora.com>,
+ Alexandre Courbot <acourbot@nvidia.com>,
+ John Hubbard <jhubbard@nvidia.com>, shashanks@nvidia.com,
+ jajones@nvidia.com, Eliot Courtney <ecourtney@nvidia.com>,
+ Joel Fernandes <joelagnelf@nvidia.com>,
+ rust-for-linux <rust-for-linux@vger.kernel.org>
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <0722F4A2-EDA3-4CF6-A023-65A7EE23497C@collabora.com>
+References: <20260316043255.226352-1-matthew.brost@intel.com>
+ <20260316043255.226352-3-matthew.brost@intel.com>
+ <7A8108C7-7CF0-4EA4-95ED-8003502DC35A@collabora.com>
+ <abjqfXERS6Xk4FAQ@lstrano-desk.jf.intel.com>
+ <CANiq72=Y2g_5=iEzU1L07pMPYD+wVapJXpp9rvYXEzCKEs59Zw@mail.gmail.com>
+ <abkQTEcRujrFLsdn@lstrano-desk.jf.intel.com>
+To: Matthew Brost <matthew.brost@intel.com>
+X-Mailer: Apple Mail (2.3826.700.81)
+X-ZohoMailClient: External
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,97 +90,97 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Expose GPU VM name and kernel-reserved VA so drivers can dump GPU VA
-state in debugfs.
+Matthew,
 
-Signed-off-by: Alvin Sun <alvin.sun@linux.dev>
----
- rust/kernel/drm/gpuvm/mod.rs | 14 ++++++++++++++
- rust/kernel/drm/gpuvm/va.rs  | 37 +++++++++++++++++++++++++++++++++++++
- 2 files changed, 51 insertions(+)
+> I get it =E2=80=94 you=E2=80=99re a Rust zealot. You can do this in C =
+and enforce the
+> rules quite well.
+>=20
+> RAII cannot describe ownership transfers of refs, nor can it express =
+who
+> owns what in multi-threaded components, as far as I know. Ref-tracking
+> and ownership need to be explicit.
+>=20
+> I=E2=80=99m not going to reply to Rust vs C comments in this thread. =
+If you want
+> to talk about ownership, lifetimes, dma-fence enforcement, and =
+teardown
+> guarantees, sure.
+>=20
+> If you want to build on top of a component that=E2=80=99s been tested =
+on a
+> production driver, great =E2=80=94 please join in. If you want to =
+figure out all
+> the pitfalls yourself, well=E2=80=A6 have fun.
+>=20
+> Matt
+>=20
 
-diff --git a/rust/kernel/drm/gpuvm/mod.rs b/rust/kernel/drm/gpuvm/mod.rs
-index 20e512842dfc6..3186df9f740cf 100644
---- a/rust/kernel/drm/gpuvm/mod.rs
-+++ b/rust/kernel/drm/gpuvm/mod.rs
-@@ -165,6 +165,13 @@ pub fn as_raw(&self) -> *mut bindings::drm_gpuvm {
-         self.vm.get()
-     }
- 
-+    /// Returns the name of this GpuVm.
-+    #[inline]
-+    pub fn name(&self) -> &CStr {
-+        // SAFETY: The `name` field is immutable and points to a NUL-terminated string.
-+        unsafe { CStr::from_char_ptr((*self.as_raw()).name) }
-+    }
-+
-     /// The start of the VA space.
-     #[inline]
-     pub fn va_start(&self) -> u64 {
-@@ -188,6 +195,13 @@ pub fn va_range(&self) -> Range<u64> {
-         Range { start, end }
-     }
- 
-+    /// Returns the kernel-allocated VA for this GpuVm.
-+    #[inline]
-+    pub fn kernel_alloc_va(&self) -> &RawGpuVa {
-+        // SAFETY: The `self.as_raw()` is guaranteed to be a valid pointer to a drm_gpuvm.
-+        unsafe { RawGpuVa::from_raw(&raw mut (*self.as_raw()).kernel_alloc_node) }
-+    }
-+
-     /// Get or create the [`GpuVmBo`] for this gem object.
-     #[inline]
-     pub fn obtain(
-diff --git a/rust/kernel/drm/gpuvm/va.rs b/rust/kernel/drm/gpuvm/va.rs
-index a31122ff22282..8b8fd500b3c5f 100644
---- a/rust/kernel/drm/gpuvm/va.rs
-+++ b/rust/kernel/drm/gpuvm/va.rs
-@@ -81,6 +81,43 @@ pub fn vm_bo(&self) -> &GpuVmBo<T> {
-     }
- }
- 
-+/// Represents that a range of a GEM object is mapped in the kernel.
-+#[repr(transparent)]
-+pub struct RawGpuVa(Opaque<bindings::drm_gpuva>);
-+
-+impl RawGpuVa {
-+    /// Access this [`RawGpuVa`] from a raw pointer.
-+    ///
-+    /// # Safety
-+    ///
-+    /// For the duration of `'a`, the pointer must reference a valid `drm_gpuva`.
-+    #[inline]
-+    pub unsafe fn from_raw<'a>(ptr: *mut bindings::drm_gpuva) -> &'a Self {
-+        // SAFETY: `drm_gpuva` and `RawGpuVa` have the same layout.
-+        unsafe { &*(ptr.cast()) }
-+    }
-+
-+    /// Returns a raw pointer to underlying C value.
-+    #[inline]
-+    pub fn as_raw(&self) -> *mut bindings::drm_gpuva {
-+        self.0.get()
-+    }
-+
-+    /// Returns the address of this mapping in the GPU virtual address space.
-+    #[inline]
-+    pub fn addr(&self) -> u64 {
-+        // SAFETY: `self.as_raw()` is guaranteed to be a valid pointer to a `drm_gpuva`.
-+        unsafe { (*self.as_raw()).va.addr }
-+    }
-+
-+    /// Returns the length of this mapping.
-+    #[inline]
-+    pub fn length(&self) -> u64 {
-+        // SAFETY: `self.as_raw()` is guaranteed to be a valid pointer to a `drm_gpuva`.
-+        unsafe { (*self.as_raw()).va.range }
-+    }
-+}
-+
- /// A pre-allocated [`GpuVa`] object.
- ///
- /// # Invariants
+It is not about being a Rust zealot. I pointed out that your code has =
+issues.
+Every time you access the queue you have to use a special function =
+because the
+queue might be gone, how is this not a problem?
 
--- 
-2.43.0
++ * However, there is a secondary hazard: a worker can be queued while =
+the
++ * queue is in a "zombie" state =E2=80=94 refcount has already reached =
+zero and async
++ * teardown is in flight, but the work item has not yet been disabled =
+by
++ * free_work.  To guard against this every worker uses
++ * drm_dep_queue_get_unless_zero() at entry; if the refcount is already =
+zero
++ * the worker bails immediately without touching the queue state.
+
+At various points you document requirements that are simply comments. =
+Resource
+management is scattered all over the place, and it=E2=80=99s sometimes =
+even shared
+with drivers, whom you have no control over.
+
++ * Drivers that set %DRM_DEP_QUEUE_FLAGS_BYPASS_SUPPORTED and wish to
++ * serialise their own submit work against the bypass path must acquire =
+this
++ * guard.  Without it, a concurrent caller of drm_dep_job_push() could =
+take
++ * the bypass path and call ops->run_job() inline between the driver's
++ * eligibility check and its corresponding action, producing a race.
+
+How is this not a problem? Again, you=E2=80=99re not in control of =
+driver code.
+
++ * If set, the driver is responsible for freeing the job. If NULL,
+
+Same here.
+
+Even if we take Rust out of the equation, how do you plan to solve these =
+things? Or
+do you consider them solved as is?
+
+I worry that we will find ourselves again at XDC in yet another =
+scheduler
+workshop to address the issues that will invariably come up with your =
+new
+design in a few years.
+
+> If you want to build on top of a component that=E2=80=99s been tested =
+on a
+> production driver, great =E2=80=94 please join in. If you want to =
+figure out all
+> the pitfalls yourself, well=E2=80=A6 have fun.
+
+Note that I didn=E2=80=99t show up with a low-effort =E2=80=9Chey, how =
+about we rewrite
+this in Rust?=E2=80=9D. Instead, I linked to an actual Rust =
+implementation that I
+spent weeks painstakingly debugging, not to mention the time it took to =
+write
+it. Again, I suggest that you guys have a look, like I did with your =
+code. You
+might find things you end up liking there.=20
+
+=E2=80=94 Daniel
+
 
 
