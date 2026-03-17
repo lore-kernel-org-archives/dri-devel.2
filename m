@@ -4,68 +4,144 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 08D54F3380C
-	for <dri-devel@archiver.kernel.org>; Tue, 17 Mar 2026 08:12:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BB88AF3380C
+	for <dri-devel@archiver.kernel.org>; Tue, 17 Mar 2026 08:12:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4D07A10E558;
-	Tue, 17 Mar 2026 08:12:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2B2B510E55B;
+	Tue, 17 Mar 2026 08:12:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="YhVu0QWP";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="CyZrhPi0";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="v+IPKQBk";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="CyZrhPi0";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="v+IPKQBk";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EFD8A10E558
- for <dri-devel@lists.freedesktop.org>; Tue, 17 Mar 2026 08:12:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1773735140; x=1805271140;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=gSar/ZcMuK/0YBH76OngvipkYZaWuMPb2lH4klejFqs=;
- b=YhVu0QWPGFxeCOySlAq4x/JFBzi5NMH+FhTQNk2E2L5apjU9Nv1NRyyL
- 3WC7fjsFBa0qNssPslVz2AL+ZVodXdWoluERBQxOan7qE7o9Q+TS754X2
- Ui9kTguJJb55LrOM+POW9JwkGqFRXjujC8G6mOLOkY1EvBBB/KqIUxbnW
- k9LWzijo0o2xk1mtfdacJeWjnzbj4N8qgTKIT4n+OS/+9j2b9CgummsFk
- a1py36YtuNRFjNfVfDOd0TPC3kQHYsUDxOpkjbJrQqT6QEcP7LqjwYqg7
- oIn1eJqp51o4LvqO3tU1N1r5t5hNwAyZ+zUYEYeQ4+6TUOag2q40xads1 w==;
-X-CSE-ConnectionGUID: cq4t5MucTB6AF3guvh8iKQ==
-X-CSE-MsgGUID: d6q+L3iiTymGXnSTI2CV7w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11731"; a="74839027"
-X-IronPort-AV: E=Sophos;i="6.23,124,1770624000"; d="scan'208";a="74839027"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
- by fmvoesa108.fm.intel.com with ESMTP; 17 Mar 2026 01:12:19 -0700
-X-CSE-ConnectionGUID: XCsk+LsYRgKzmWIUjB9eZQ==
-X-CSE-MsgGUID: uj9YVm2HRemt0Yec5MgdXg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,124,1770624000"; d="scan'208";a="260091139"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost)
- ([10.245.245.99])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Mar 2026 01:12:14 -0700
-Date: Tue, 17 Mar 2026 10:12:11 +0200
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: Jani Nikula <jani.nikula@linux.intel.com>,
- Jammy Huang <jammy_huang@aspeedtech.com>, Dave Airlie <airlied@redhat.com>,
- Jocelyn Falempe <jfalempe@redhat.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] drm/ast: DisplayPort edid supports 256 bytes
-Message-ID: <abkM2-295MJO15ht@intel.com>
-References: <20260313-upstream_ast_dp_edid-v1-1-2a75b7c091b2@aspeedtech.com>
- <b0b1f644-ea5c-4636-99a0-28b040ed2fe0@suse.de>
- <ad40e82fc2e6501f1b6e1073c70a6f1c308c89a8@intel.com>
- <abj-J1yYsFymXmn5@intel.com>
- <7b91451a-7764-4822-b15b-47437592691f@suse.de>
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9ACBC10E55B
+ for <dri-devel@lists.freedesktop.org>; Tue, 17 Mar 2026 08:12:35 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 119DA5BCFD;
+ Tue, 17 Mar 2026 08:12:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1773735154; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=NyKQ78QCLczWMWY5jbCRULWa3VMryW1ZgsnwvuIcioE=;
+ b=CyZrhPi0ZMa7pe8TiBjjsDIDi37V6dHZXk5FyYBvR91bw1EgNhj8lQlMUCtU8dYvCqK+qs
+ 1/2C2hU+AYRKJ/WISiIsNwIUE+D4MHDqxw1jDXCJ4QYjPKPDslIzJCffyql4lHQcFnNxwR
+ tqZUabCoVNFEVqiWkws0scbmIBnpFvY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1773735154;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=NyKQ78QCLczWMWY5jbCRULWa3VMryW1ZgsnwvuIcioE=;
+ b=v+IPKQBkAXhOxl94M2tuXiqHgMn5iPVicr8ncrtX7M0cRg46jjZRjiyByRESHfPUEUpr0K
+ gAbHH3uv0mbIq9CQ==
+Authentication-Results: smtp-out2.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=CyZrhPi0;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=v+IPKQBk
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1773735154; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=NyKQ78QCLczWMWY5jbCRULWa3VMryW1ZgsnwvuIcioE=;
+ b=CyZrhPi0ZMa7pe8TiBjjsDIDi37V6dHZXk5FyYBvR91bw1EgNhj8lQlMUCtU8dYvCqK+qs
+ 1/2C2hU+AYRKJ/WISiIsNwIUE+D4MHDqxw1jDXCJ4QYjPKPDslIzJCffyql4lHQcFnNxwR
+ tqZUabCoVNFEVqiWkws0scbmIBnpFvY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1773735154;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=NyKQ78QCLczWMWY5jbCRULWa3VMryW1ZgsnwvuIcioE=;
+ b=v+IPKQBkAXhOxl94M2tuXiqHgMn5iPVicr8ncrtX7M0cRg46jjZRjiyByRESHfPUEUpr0K
+ gAbHH3uv0mbIq9CQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id AE5BD4273B;
+ Tue, 17 Mar 2026 08:12:33 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id e0YjKfEMuWlBVwAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Tue, 17 Mar 2026 08:12:33 +0000
+Message-ID: <607daaca-79ed-45b2-941e-1680a17618e8@suse.de>
+Date: Tue, 17 Mar 2026 09:12:33 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/4] drm: Introduce DRM_MODE_DUMB_KERNEL_MAP flag
+To: Chen-Yu Tsai <wenst@chromium.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+Cc: Rob Herring <robh@kernel.org>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, asahi@lists.linux.dev
+References: <20260317064049.696795-1-wenst@chromium.org>
+ <20260317064049.696795-3-wenst@chromium.org>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <20260317064049.696795-3-wenst@chromium.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <7b91451a-7764-4822-b15b-47437592691f@suse.de>
-X-Patchwork-Hint: comment
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ NEURAL_HAM_SHORT(-0.20)[-1.000];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ MIME_GOOD(-0.10)[text/plain]; MX_GOOD(-0.01)[];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FREEMAIL_TO(0.00)[chromium.org,linux.intel.com,kernel.org,gmail.com,ffwll.ch]; 
+ RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
+ FUZZY_RATELIMITED(0.00)[rspamd.com]; TO_DN_SOME(0.00)[];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; MIME_TRACE(0.00)[0:+];
+ ARC_NA(0.00)[]; FREEMAIL_ENVRCPT(0.00)[gmail.com];
+ RCVD_TLS_ALL(0.00)[]; DKIM_TRACE(0.00)[suse.de:+];
+ RCVD_COUNT_TWO(0.00)[2]; FROM_EQ_ENVFROM(0.00)[];
+ FROM_HAS_DN(0.00)[];
+ SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+ MID_RHS_MATCH_FROM(0.00)[];
+ RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+ RCPT_COUNT_SEVEN(0.00)[11];
+ ASN(0.00)[asn:32098, ipnet:2800::/6, country:US];
+ RCVD_VIA_SMTP_AUTH(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,
+ imap1.dmz-prg2.suse.org:rdns, suse.com:url, suse.de:dkim, suse.de:mid]
+X-Rspamd-Action: no action
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: 119DA5BCFD
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,88 +157,102 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, Mar 17, 2026 at 08:41:35AM +0100, Thomas Zimmermann wrote:
-> Hi
-> 
-> Am 17.03.26 um 08:09 schrieb Ville Syrjälä:
-> > On Mon, Mar 16, 2026 at 01:38:22PM +0200, Jani Nikula wrote:
-> >> On Mon, 16 Mar 2026, Thomas Zimmermann <tzimmermann@suse.de> wrote:
-> >>> Hi Jammy
-> >>>
-> >>> Am 13.03.26 um 11:04 schrieb Jammy Huang:
-> >>>> DisplayPort supports edid at most 256 bytes. Thus, allow it to fetch
-> >>>> edid block 0 and 1.
-> >>>>
-> >>>> Signed-off-by: Jammy Huang <jammy_huang@aspeedtech.com>
-> >>>> ---
-> >>>> ASPEED DisplayPort's EDID size can be 256 bytes at most. Thus, EDID
-> >>>> blocks fetched can be 0 and 1.
-> >>>> ---
-> >>>>    drivers/gpu/drm/ast/ast_dp.c | 2 +-
-> >>>>    1 file changed, 1 insertion(+), 1 deletion(-)
-> >>>>
-> >>>> diff --git a/drivers/gpu/drm/ast/ast_dp.c b/drivers/gpu/drm/ast/ast_dp.c
-> >>>> index 9d07dad358c..c938e1d6b1d 100644
-> >>>> --- a/drivers/gpu/drm/ast/ast_dp.c
-> >>>> +++ b/drivers/gpu/drm/ast/ast_dp.c
-> >>>> @@ -88,7 +88,7 @@ static int ast_astdp_read_edid_block(void *data, u8 *buf, unsigned int block, si
-> >>>>    	int ret = 0;
-> >>>>    	unsigned int i;
-> >>>>    
-> >>>> -	if (block > 0)
-> >>>> +	if (block > 1)
-> >>>>    		return -EIO; /* extension headers not supported */
-> >>> But see the code at [1]. It clears the number of extensions to zero and
-> >>> updates the checksum accordingly. This is required to make the shortened
-> >>> EDID work with DRM. If you leave this as-is, it will still clear support
-> >>> for any extension in block 1.
-> >>>
-> >>> See the table 2.4 in the VESA EDID 1.4 standard for the semantics. For
-> >>> 1.3, if the number of blocks is >2, the first extensions is a 'block map
-> >>> of the extensions'. This is useless, as it's not a data extension in
-> >>> itself.  In 1.4, the block map is optional. That code should clear the
-> >>> EDID's number of extensions to 0 or 1, depending on whether there is a
-> >>> block map to be expected.
-> >> I think long-term the goal should be for the kernel to not modify the
-> >> EDID, at all.
-> > I think as a short term goal it would be much better if all EDID
-> > mangling would be done by drm_edid.c rather than individual drivers.
-> 
-> We don't fix the EDID here, but work around a hardware limitation. I 
-> guess we could fix this automatically near edid_block_read() [1] if the 
-> driver clearly communicates this issue.  The read loop could then fix 
-> the header's checksum by itself.
+Hi
 
-edid_filter_invalid_blocks() already has the code to update
-the extension block count and fix up the checksum.
+Am 17.03.26 um 07:40 schrieb Chen-Yu Tsai:
+> From: Rob Herring <robh@kernel.org>
+>
+> Introduce a new flag, DRM_MODE_DUMB_KERNEL_MAP, for struct
+> drm_mode_create_dumb. This flag is for internal kernel use to indicate
+> if dumb buffer allocation needs a kernel mapping. This is needed only for
+> CMA where creating a kernel mapping or not has to be decided at allocation
+> time because creating a mapping on demand (with vmap()) is not guaranteed
+> to work. Several drivers are using CMA, but not the CMA helpers because
+> they distinguish between kernel and userspace allocations to create a
+> kernel mapping or not.
 
-So seems to me all we'd need is some way for the driver to
-indicate it simply cannot read the requested block (based on
-which edid_read_block() would return some other value than
-EDID_BLOCK_READ_FAIL), and then the fixup happens naturally.
+Any dumb allocation might require vmap. This is not limited to internal 
+buffers.Â  Because if the dumb buffer is shared with another driver, that 
+driver might require the vmap for displaying the buffer content. There 
+are enough of such drivers.
 
-Hmm. What happens if the driver returns "success" for the
-read, but just leaves the entire block zeroed? Looks to me
-like we should then end up with status==EDID_BLOCK_ZERO
-and the block will get treated as invalid and filtered out.
+>
+> Update the callers of drm_mode_dumb_create() to set
+> drm_mode_dumb_create.flags to appropriate defaults. Currently, flags can
+> be set to anything by userspace, but is unused within the kernel. Let's
+> force flags to zero (no kernel mapping) for userspace callers by default.
+> For in kernel clients, set DRM_MODE_DUMB_KERNEL_MAP by default. Drivers
+> can override this as needed.
+>
+> Signed-off-by: Rob Herring <robh@kernel.org>
+> [wenst@chromium.org: Emit warning if args->flags is not zero]
+> Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
+> ---
+> Changes since v1:
+> - Emit warning if args->flags is not zero
+> ---
+>   drivers/gpu/drm/drm_client.c       | 1 +
+>   drivers/gpu/drm/drm_dumb_buffers.c | 4 ++++
+>   include/uapi/drm/drm_mode.h        | 2 ++
+>   3 files changed, 7 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/drm_client.c b/drivers/gpu/drm/drm_client.c
+> index 46c465bce98c..1a57e7eadc0f 100644
+> --- a/drivers/gpu/drm/drm_client.c
+> +++ b/drivers/gpu/drm/drm_client.c
+> @@ -404,6 +404,7 @@ drm_client_buffer_create_dumb(struct drm_client_dev *client, u32 width, u32 heig
+>   	dumb_args.width = width;
+>   	dumb_args.height = height;
+>   	dumb_args.bpp = drm_format_info_bpp(info, 0);
+> +	dumb_args.flags = DRM_MODE_DUMB_KERNEL_MAP;
+>   	ret = drm_mode_create_dumb(dev, &dumb_args, client->file);
+>   	if (ret)
+>   		return ERR_PTR(ret);
+> diff --git a/drivers/gpu/drm/drm_dumb_buffers.c b/drivers/gpu/drm/drm_dumb_buffers.c
+> index e2b62e5fb891..ccdcc401d4dc 100644
+> --- a/drivers/gpu/drm/drm_dumb_buffers.c
+> +++ b/drivers/gpu/drm/drm_dumb_buffers.c
+> @@ -233,6 +233,10 @@ int drm_mode_create_dumb_ioctl(struct drm_device *dev,
+>   	struct drm_mode_create_dumb *args = data;
+>   	int err;
+>   
+> +	if (args->flags)
+> +		drm_warn(dev, "drm_mode_create_dumb.flags is not zero.\n");
 
-> Best regards
-> Thomas
-> 
-> [1] 
-> https://elixir.bootlin.com/linux/v6.19.8/source/drivers/gpu/drm/drm_edid.c#L2424
-> 
-> >
-> 
-> -- 
-> --
-> Thomas Zimmermann
-> Graphics Driver Developer
-> SUSE Software Solutions Germany GmbH
-> Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-> GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
-> 
+At most use drm_warn_once() to not let this spam the kernel log.
+
+> +	args->flags = 0;
+> +
+>   	err = drm_mode_create_dumb(dev, args, file_priv);
+>   	if (err) {
+>   		args->handle = 0;
+> diff --git a/include/uapi/drm/drm_mode.h b/include/uapi/drm/drm_mode.h
+> index 3693d82b5279..7d5f50e4af70 100644
+> --- a/include/uapi/drm/drm_mode.h
+> +++ b/include/uapi/drm/drm_mode.h
+> @@ -1272,6 +1272,8 @@ struct drm_mode_create_dumb {
+>   	__u64 size;
+>   };
+>   
+> +#define DRM_MODE_DUMB_KERNEL_MAP	(1<<0)	/* For internal kernel use */
+> +
+
+If this is an internal flag, it should not live in the UAPI header. 
+include/drm/drm_dumb_buffers.h would be a good place.
+
+Best regards
+Thomas
+
+>   /* set up for mmap of a dumb scanout buffer */
+>   struct drm_mode_map_dumb {
+>   	/** Handle for the object being mapped. */
 
 -- 
-Ville Syrjälä
-Intel
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 NÃ¼rnberg, Germany, www.suse.com
+GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG NÃ¼rnberg)
+
+
