@@ -4,78 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C31A4F3380C
-	for <dri-devel@archiver.kernel.org>; Tue, 17 Mar 2026 08:02:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AE6E0F3380B
+	for <dri-devel@archiver.kernel.org>; Tue, 17 Mar 2026 08:02:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 742AD10E4F6;
-	Tue, 17 Mar 2026 08:02:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1E73910E51E;
+	Tue, 17 Mar 2026 08:02:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Wt+BIeKW";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="fff9f8qR";
 	dkim-atps=neutral
-Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com
- [209.85.216.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DA91910E4F7
- for <dri-devel@lists.freedesktop.org>; Mon, 16 Mar 2026 12:08:37 +0000 (UTC)
-Received: by mail-pj1-f50.google.com with SMTP id
- 98e67ed59e1d1-35691a231a7so2540623a91.3
- for <dri-devel@lists.freedesktop.org>; Mon, 16 Mar 2026 05:08:37 -0700 (PDT)
+Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com
+ [209.85.215.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5B5B310E394
+ for <dri-devel@lists.freedesktop.org>; Tue, 17 Mar 2026 07:17:46 +0000 (UTC)
+Received: by mail-pg1-f172.google.com with SMTP id
+ 41be03b00d2f7-c741692db4cso19884a12.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 17 Mar 2026 00:17:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1773662917; x=1774267717; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=vmt6JmqfOvMD971meinjv4RPE5FU1VzZS/x4CNlI5L8=;
- b=Wt+BIeKWwQCpNdkRItFqtN1AumgnSOD2cz40AdpcqDEuvCbVOyhFFl1muX1Z/fmMte
- 3RNYiYTTOFBaOAVYMHvJcTlvA+bSPiY0Tr4jbVCTIBOCFQjjqF48xZbCqzcQU6BRdKlD
- 1SaBcsxIN39hBiQ/54Zr2IqQrmFOJyNLHH1SQf1nbXdReBvVKs+OETMdWoF3mz2St0pn
- 7JNKFnMkDKQEO9WKrMTNLYX3I0cI0AmQUKdijWDuKnCScUHw1J7mG7JNj0uqAdcjAYav
- nyMeU745/PziKMnfKlO+xm22BLSu3m7ZQij8ZQofofpYBKwW1CWqSkHjN9uc9adE5anR
- Vw6w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1773662917; x=1774267717;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=gmail.com; s=20230601; t=1773731866; x=1774336666; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=vmt6JmqfOvMD971meinjv4RPE5FU1VzZS/x4CNlI5L8=;
- b=tW1oxiWzV3A/eOgy88Zm0eTs5pv96AdVV3PyIE4N6MONIJLFYF0hYCr/SUPvtoi6o1
- MxAfv5WxO5wf93g6GEe4DUhqkPh+VBEcGnXog1VArMGkUidsoYC50GuzHscwlBEEQMZx
- jrB3KKQ1JoIrVo7cZpHDCT9L4ZjEhJr3YCf4AsMijTcbHoLG9pqG+H0VvBOZemzQH69V
- o88rGBJNgmlBOZlx/Xo4y9JJx2vu8DELIsWCIWTe2i6XY1WsIEd8ziAZJgpCj9b5S48I
- Z5y7EnKY9+zanN+1CcVZ8DWv6N9ZQEniJvWZ6eaSNjtO+Q0LYcj5qn0++g7jPY+5dakq
- 1/fQ==
+ bh=tFnPL5x7ivygrIkdRXEnLlp1R6tWrg85WLqUxl13qlY=;
+ b=fff9f8qRoJCz76KlUJybXKiUNKjWLFmyRUTnu7+749M0qWdI1kIJT0weeZttX8AJ6J
+ 34luqOZuloypqZIME59/ocOGMDzbsShrMpI8V329gwOc8NycpLxRGJbSRug8Ek9egvFM
+ hUIoSLqqYTFj0wm+a7Cinj92mk+7AWzS2bqqIV746T4shlD+o5DP0j/UA2mc6FYo7vOv
+ etv6FlOR8PBv0zuwAaG8/Dp6aIqgI18GgmP+V/VAJAlthqOrxcSzU5EiUEZXtZhHoulh
+ lbO3EIfx22Rr2GeVm9pdW+EX9HfuEAUGo1MfSB3BK6vkrd8KTXya0xLCRv5lTLdPiboa
+ GWuQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1773731866; x=1774336666;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=tFnPL5x7ivygrIkdRXEnLlp1R6tWrg85WLqUxl13qlY=;
+ b=cr/7QXoGLGsc/3k7kDb7tlORAWF+nLmYSaA15SdQKXDirG6DdHypn78jTKdg141ucp
+ jiMFkfCpdqipxoLWOCRFmvUMFcSJ4eOlbIJqXE9fv3whO1Ma4JoxhkhxSA+8kfjDYqFZ
+ g3AP5LhkKGPwBIwhTYB/9YtbS3/7LsbEagAFhTcsVvoHe5yKOGW8wM3IftpwybDooAt3
+ aTJIqVcIbbOBppV3zCrdUT1bWEPOCrraM3ZFbH3q0blCUzxbn04zIgeUTZ+4IQM5Uw1h
+ Ke77beK0pGT+yfYJHRq6IVeUEQbPm3QYrR51dUlrcB2u9YJ+9NRZPQ9kt6tzlZQ5SWwt
+ 3iDw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUthyvw0Rg2NX4BsuXcVvP9LghQw8tV+ir1+zCknRjZ0Jl00F+tt3ZeuouKfw6Zc1QJJ1MQ/mj0v24=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxqMPv2/c96Vy36xoe3UpsCHfn2oH00DRJoMUTtoe0i3+UgRb1V
- b8+MqgZQqRINh69d03ZtvzKkMipn0p9vpchHGSAnKGha+dqaSmGwjXx3
-X-Gm-Gg: ATEYQzwoYE4I6yAqhK7dZNCNW5gDbial/xXXn1GJH7kHZ1kSWVsqQsWPXTtbTBJ9fNr
- 4u1TfDseM4C9VAKiZ3FsOF7FSOsYzQWcrJWw8xmlA4CfS37gVvUMvatjc0MEvevZzENeeBDgUcL
- Bn5e2gNrzq6CmEAWBI2E6UOcQom50Nu9zp3JxXUeJ9ItNWXnbObdauyg3cVt1AqmNXpTum5IkH1
- aa8hjSNfhnRUebA15V6hf0X25tmxthKTQ7zBT6nIy6dEiRqYqzYr551gOgbxvasrakq7sfi+z+f
- VjkLPX4MorcRCK4raa8qavQyGkr9QbAFwrSh+gaxv3Yrk6q5lgvTgg7st7Ps6GfJFFGI3IJkd8w
- E1I9Z916n77zJqVrdCZEPTpLdMyrIPVHYMefX06Cqhd5MOrDDzQCw+8mEdNFlPpTWwqay2S315O
- vzhO1hJx2RznuUuvTw6zYl81aDNtbPIGRWdiSx0pqIcXKYuT2eFpWG77qmqLxwngM=
-X-Received: by 2002:a17:90b:1cc8:b0:358:db7b:f686 with SMTP id
- 98e67ed59e1d1-35a2206c05cmr11091492a91.26.1773662917159; 
- Mon, 16 Mar 2026 05:08:37 -0700 (PDT)
-Received: from eric-wcnlab.tail151456.ts.net
- ([2001:288:7001:1099:c21f:f7d6:f4bc:6198])
+ AJvYcCVAKK/GngHBkU+ZJ/aaSgS+uO/roDws8Q6JNaqZJ2r9v2ARWER8oyCFiN0mN4Bktkln68btcXedZno=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxsLH/G8NpixNGnFt2YnEDIMEB11CY70X2jPMSRkvl5nZ/wCjya
+ ooJ5DDSYQ19kfOPqCEkaUPl1m7Bi2dv4gtoDKSeKwkYQAOcT5NFmmhSE
+X-Gm-Gg: ATEYQzxkytuWvrJ+6bCEALmbnmCKbE+wxUiKn9Jx+5N+wetobH963ryQOAzmYZd0Ogq
+ g53oevjOvM6MGXfNzac/piiVdl+KNu4MpaEL3QuKXbms4p9wULZPC1eSPy+M/WloG9y5JPMk2gR
+ QiJaa1txYiNHOzR+RSTDkls/UZmdIzIIW444Zyx0/ikg79SP2L6mbUcOCZdpZvw80JP8PMX9Xvn
+ oD/XuSd42JLyP3gAzw2UV8Dg1XmgST6TJmkF7mTJt1riSKSDyMwqQyO3NsR+VAZzTlZWeikjA+P
+ MAodafkYJNhwYI+scLmF5C4aXdip8UyvTypL+fKikmV2Y6uRCfZwxiOZ4AIuQ2vsMFFEwsBxHiL
+ xzf6x2Yc42xIP4Am2Vo0mvED/VYGZYpgsOW5Ar4bpsYfQTQTPIQtMFnSocMOgzoxNSaaC96EpU5
+ EmWra7ir2NpCvMT38ME+j3hbSPiZ1UR4JDi5Jom0FKyWsyc2frbCo9seNz3OyEWR5BtTZhWPzM7
+ B3Dww==
+X-Received: by 2002:a05:6a21:888c:b0:35d:cc9a:8bc1 with SMTP id
+ adf61e73a8af0-39b7dfd49e4mr2000340637.27.1773731865863; 
+ Tue, 17 Mar 2026 00:17:45 -0700 (PDT)
+Received: from localhost.localdomain ([14.160.25.72])
  by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-35b9e36f45asm3240083a91.3.2026.03.16.05.08.34
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 16 Mar 2026 05:08:36 -0700 (PDT)
-From: Cheng-Yang Chou <yphbchou0911@gmail.com>
-To: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
- Alexandre Courbot <acourbot@nvidia.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Gary Guo <gary@garyguo.net>,
- John Hubbard <jhubbard@nvidia.com>
-Cc: nouveau@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Ching-Chun Huang <jserv@ccns.ncku.edu.tw>,
- Chia-Ping Tsai <chia7712@gmail.com>,
- Cheng-Yang Chou <yphbchou0911@gmail.com>
-Subject: [PATCH v2 0/2] gpu: nova: rename drivers and directory to use
- kebab-case convention
-Date: Mon, 16 Mar 2026 20:08:18 +0800
-Message-ID: <20260316120820.2117081-1-yphbchou0911@gmail.com>
-X-Mailer: git-send-email 2.48.1
+ d2e1a72fcca58-82a0725ca0asm18751443b3a.17.2026.03.17.00.17.41
+ (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+ Tue, 17 Mar 2026 00:17:45 -0700 (PDT)
+From: phucduc.bui@gmail.com
+To: geert@linux-m68k.org
+Cc: airlied@gmail.com, dri-devel@lists.freedesktop.org,
+ laurent.pinchart@ideasonboard.com, linux-kernel@vger.kernel.org,
+ linux-renesas-soc@vger.kernel.org, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, phucduc.bui@gmail.com, simona@ffwll.ch,
+ tzimmermann@suse.de, wsa+renesas@sang-engineering.com
+Subject: Re: [PATCH v2] drm: shmobile: Fix blank screen after resume when 
+Date: Tue, 17 Mar 2026 14:17:38 +0700
+Message-Id: <20260317071738.3660-1-phucduc.bui@gmail.com>
+X-Mailer: git-send-email 2.37.1 (Apple Git-137.1)
+In-Reply-To: <CAMuHMdUBwNtdhZYnA3+nwe-CEmrUdPu_K7923uMY5qi9edbkbg@mail.gmail.com>
+References: <CAMuHMdUBwNtdhZYnA3+nwe-CEmrUdPu_K7923uMY5qi9edbkbg@mail.gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 17 Mar 2026 08:02:43 +0000
@@ -94,48 +94,19 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Rename the nova-core and nova-drm drivers to follow kernel naming
-conventions before these names become UAPI (e.g. exposed via
-driver_override).
+Hi Geert,
 
-Changes in v2:
-- Also fix nova-drm driver description from "Nvidia Graphics" to
-  "NVIDIA Graphics and Compute" (John Hubbard)
-- Rename drivers/gpu/drm/nova/ directory to drivers/gpu/drm/nova-drm/
-  and nova.rs to nova_drm.rs to match the module name (Danilo Krummrich)
-- Link to v1:
-  https://lore.kernel.org/all/20260310062443.2763230-1-yphbchou0911@gmail.com/
+> Thank you, that explains the difference!
 
-Link: https://github.com/Rust-for-Linux/linux/issues/1228
+Thank you for your confirmation. I am glad that we were able to
+identify the root cause.
 
-Thanks,
-Cheng-Yang
+I also appreciate the support you and Morimoto-san have provided in
+the past. It is a pleasure to work with you again.
 
----
-Cheng-Yang Chou (2):
-  gpu: nova: rename drivers to use kebab-case convention
-  gpu: nova-drm: rename nova/ directory to nova-drm/
+If there are any further changes or improvements needed, please let
+me know and I will prepare a v3 accordingly.
 
- MAINTAINERS                                            | 6 +++---
- drivers/gpu/drm/Kconfig                                | 2 +-
- drivers/gpu/drm/Makefile                               | 2 +-
- drivers/gpu/drm/{nova => nova-drm}/Kconfig             | 2 +-
- drivers/gpu/drm/nova-drm/Makefile                      | 3 +++
- drivers/gpu/drm/{nova => nova-drm}/driver.rs           | 6 +++---
- drivers/gpu/drm/{nova => nova-drm}/file.rs             | 0
- drivers/gpu/drm/{nova => nova-drm}/gem.rs              | 0
- drivers/gpu/drm/{nova/nova.rs => nova-drm/nova_drm.rs} | 2 +-
- drivers/gpu/drm/nova/Makefile                          | 3 ---
- drivers/gpu/nova-core/nova_core.rs                     | 2 +-
- 11 files changed, 14 insertions(+), 14 deletions(-)
- rename drivers/gpu/drm/{nova => nova-drm}/Kconfig (84%)
- create mode 100644 drivers/gpu/drm/nova-drm/Makefile
- rename drivers/gpu/drm/{nova => nova-drm}/driver.rs (94%)
- rename drivers/gpu/drm/{nova => nova-drm}/file.rs (100%)
- rename drivers/gpu/drm/{nova => nova-drm}/gem.rs (100%)
- rename drivers/gpu/drm/{nova/nova.rs => nova-drm/nova_drm.rs} (92%)
- delete mode 100644 drivers/gpu/drm/nova/Makefile
+Best regards,
 
--- 
-2.48.1
-
+Phuc
