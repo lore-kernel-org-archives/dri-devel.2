@@ -4,46 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 357C3FB5EA3
-	for <dri-devel@archiver.kernel.org>; Tue, 17 Mar 2026 02:03:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AF9A9FB5EA4
+	for <dri-devel@archiver.kernel.org>; Tue, 17 Mar 2026 02:34:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9940810E40A;
-	Tue, 17 Mar 2026 02:03:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C203D10E2F5;
+	Tue, 17 Mar 2026 02:34:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=nxp.com header.i=@nxp.com header.b="KnQeHEDn";
+	dkim=pass (2048-bit key; unprotected) header.d=nxp.com header.i=@nxp.com header.b="gfNQtK/B";
 	dkim-atps=neutral
-Received: from MRWPR03CU001.outbound.protection.outlook.com
- (mail-francesouthazon11011056.outbound.protection.outlook.com
- [40.107.130.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 92BE710E40A
- for <dri-devel@lists.freedesktop.org>; Tue, 17 Mar 2026 02:03:23 +0000 (UTC)
+Received: from AM0PR83CU005.outbound.protection.outlook.com
+ (mail-westeuropeazon11010003.outbound.protection.outlook.com [52.101.69.3])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8804510E2F5
+ for <dri-devel@lists.freedesktop.org>; Tue, 17 Mar 2026 02:34:46 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=nfqjZHjPJq+eaHgvVKnJBR3xr8E9H/A1/3nTTYBaMWw75T3hE5AZGHHkmPZOUJuktJ26uKAbT7XIra3bLdwIk8/fJhr+qVx3XmPyMPtUkx7ugyROtkBmVaU2kU18JDFyK1bSICA5FI17unhUBqJhY15M+PicGuy5yK4NY89u7OPsC4tm6XsGUaF+Gtn0q40V+iGAzTC/THc9KCFd6FouvmimMwFRYPXzbjtC5OPcQ6HaQN4kyxvsnhpgKyYW554S4r/fTJf0UTgk8cXbBjce+K3XEB0mKbGwQ8fIQJ3L4cXeZ/8j2vF4c6f4C/PdMurbd35afIpmrb4xUCiU0hUM1w==
+ b=kz9dbH8lWYbriqfopSh4KYseUPWkByTpWkY7IX17ANqRcg/+EGFCPZ0nUSPta1Bw3I5gyPgJDTWxawch0dT7MFXZ8XhkSX62Fka2N3uQroRekO1dea1YkuMkcoqh0kMXHzWCAcQ0arzqNelvM53Hu40g0kyO3XvOQ9UZtxeowynwIlEdCZOABkvLPENnn8SeEQ3Y7hi8n37rBS8s75Jqds2yPOc1jq4TSqh4aHZ5ZDvcfP0af/idD0Dk1c3ap6pvRGPHmNNPQTNpAj9AL6vU7+Yiu4dSKHb5ZaWhI5KN3Q4uVxySHHk2FU4K1aVgQ8ouzPD8YVBJ+TfoSchKjCqqmw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=RloZfcIjhkzOh5FiHk4WnvscL0rxQffgDatArsL2VHc=;
- b=J2/Zyt1OXT9cJxKil2cw/AEMMZAbxi1x+iDICBlk6No0mbLUhKQpkU3xkLG/l7375uESFgfGVuBax8PVNKZyZCX2Bb34PiDztF16MngUdnGqlPiHFIQSdKB+KjKATLlK8mVJJGIXxWWC6Q4cQwTZHybWay+Nn8/UTOBs7IDxPJKcmoNcFhXrTlx3g7Dft8EB4sgKk22Y/MPONWrMsj3ofCjW94+2aQ15VArFofhJmaXWRuJSvQgVWZTjonrNDy4QbolF+vj9LcrSBGfImvl0G0zCYJuqaIqkjy2lrS8eI14HTBmPx9Sy5QKzAJQWsqk06jwFtZrH8jiw/hBrdlZfDQ==
+ bh=4ik1eKO6Vs1Pyyy14tGX/OfuUiJiX2+dF3mEexYA3bk=;
+ b=kcoE93tkjPfwPZl0TB81HOHLNHDOiUzW1kdOJ9SW7HW+XCphqVz4VQ+/snklZJHxeceEMwA07LuDDgE0vktkMQ2zvYdEwZngF4yzacL21E0OlYKHv7ruzBz9O4g0M5xlpkiNISfR2bzlNcflgJXYt18bLrm1uVj+XhoeDI3XVqJx/2MeLuwTYhaOVL5LJEJWTJsso+tI3KLZXC46uthkGLeiosy/lnqXF1PPFWEhzkmQREa2HnLqctUch9FmHuShsyPtK+Opwwg9GkpRM7jwvSzXyr1H2gnTNk6vdU1KkM5ulkKbmUb3BOBNYuvfHbeHdeycERzOtg+CCovAC4Vf0A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
  header.d=nxp.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=RloZfcIjhkzOh5FiHk4WnvscL0rxQffgDatArsL2VHc=;
- b=KnQeHEDnIL2JlKh353yL/SCtz51Kq/BRml/GBfzWj8Z0VaIt8QTIyQs1WozltjFJGQsL2USc7X343vHVclGeNeuEsuIyCrXqy7QaQLwW3/GDvDjP1aZ6HRCo9e2UyCMiDbcr1CI0Vz2BmdGnualp0DKHii1t/WYOu4fGaeUL/k6Gw3X2nRo/l29GwXSVG9RtTcFhnqfRPl2EdFx0LR/Xj+Spy0SrGpBYMPlkEKgDzY92CzTzw2z7aWZeaRRy5zDgX20ry1Fk8PhxnAfoi0CUd81NGFliAnzqGvlzcNgKp4qi3FpJ2ixlM7icJp5/aQdrq6Dvvc3/9FzybUol89PLlA==
+ bh=4ik1eKO6Vs1Pyyy14tGX/OfuUiJiX2+dF3mEexYA3bk=;
+ b=gfNQtK/BbyoQrww3r9j0qkIy3aofx037u4B7yV1sietRptCN046oegn1jVGgfugyqKxSiUb1Eg1mhJXkiYxHBOQsLuJkm0FdNf2ivQBRO/Zp1BAuk49k22JJw74QZ0pSNWYnH2P8IoL29GNhmJ+yWe9BlCFkBNoGiAdTgY+TR2XoUsHiIrNF4p4ISf8W27ADqoSo5KeMdYskisu0nU/WAYHZ9peIBpC38OKB2vpxXtVFIut2W62ggH53qVHAFU32K5H0tJDA+/yBucyEFgkx1/85S5Dkpt/EueFPpiqxSukpi0G7OiCZ/mj9J+BcnN67XSdHoEVjvNC/XB1aovU7hQ==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nxp.com;
 Received: from AM7PR04MB7046.eurprd04.prod.outlook.com (2603:10a6:20b:113::22)
- by PA2PR04MB10346.eurprd04.prod.outlook.com (2603:10a6:102:423::10)
+ by PAXPR04MB8928.eurprd04.prod.outlook.com (2603:10a6:102:20f::24)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9700.24; Tue, 17 Mar
- 2026 02:03:08 +0000
+ 2026 02:34:21 +0000
 Received: from AM7PR04MB7046.eurprd04.prod.outlook.com
  ([fe80::4609:64af:8a4b:fd64]) by AM7PR04MB7046.eurprd04.prod.outlook.com
  ([fe80::4609:64af:8a4b:fd64%3]) with mapi id 15.20.9700.021; Tue, 17 Mar 2026
- 02:03:08 +0000
-Message-ID: <df7006cb-d1dd-4a72-8ef0-2f27ca0143cd@nxp.com>
-Date: Tue, 17 Mar 2026 10:04:27 +0800
+ 02:34:32 +0000
+Message-ID: <c5fd18be-9537-424c-9c65-48d67ecfe266@nxp.com>
+Date: Tue, 17 Mar 2026 10:35:53 +0800
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH] drm/bridge: Fix refcount shown via debugfs for
  encoder_bridges_show()
@@ -58,84 +57,78 @@ To: Luca Ceresoli <luca.ceresoli@bootlin.com>,
 Cc: Marco Felsch <m.felsch@pengutronix.de>, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org
 References: <20260312-drm-misc-next-2026-03-05-fix-encoder-bridges-refcount-v1-1-b9ba3d844732@nxp.com>
- <DH0ZD9UFY68E.2C1ISONVIO42L@bootlin.com>
- <53c257df-9800-48ed-a975-d7bfe4d71be1@nxp.com>
- <DH1KCR43169Z.200HRE4K6DNRQ@bootlin.com>
- <61a51c05-7730-4b7a-85cf-5f03a7985408@nxp.com>
- <DH1U1NUNGZTO.13UP9EXCAC2P5@bootlin.com>
- <b25719e0-21d3-4919-b95e-22b22bdbb388@nxp.com>
- <DH45VL1LHCP3.2MWX4VKP46H04@bootlin.com>
+ <DH45WF6QQX3X.3197SDA7BFY30@bootlin.com>
 From: Liu Ying <victor.liu@nxp.com>
 Content-Language: en-US
-In-Reply-To: <DH45VL1LHCP3.2MWX4VKP46H04@bootlin.com>
+In-Reply-To: <DH45WF6QQX3X.3197SDA7BFY30@bootlin.com>
 Content-Type: text/plain; charset=UTF-8
-X-ClientProxiedBy: MA5PR01CA0019.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a01:177::16) To AM7PR04MB7046.eurprd04.prod.outlook.com
+X-ClientProxiedBy: SI1PR02CA0021.apcprd02.prod.outlook.com
+ (2603:1096:4:1f4::14) To AM7PR04MB7046.eurprd04.prod.outlook.com
  (2603:10a6:20b:113::22)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM7PR04MB7046:EE_|PA2PR04MB10346:EE_
-X-MS-Office365-Filtering-Correlation-Id: b2025c03-1645-4f0a-96fa-08de83c955b5
+X-MS-TrafficTypeDiagnostic: AM7PR04MB7046:EE_|PAXPR04MB8928:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0e0b12a5-f327-4c17-9710-08de83cdb8d1
 X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|376014|7416014|19092799006|1800799024|56012099003|22082099003|18002099003|921020;
-X-Microsoft-Antispam-Message-Info: ZPgwIzayO287ZWSOK2IX4HK2Ip4HHQwr8jym8nSVf9HhiIiCRuIDbe7nX1dv/k0ujMeZLvCZGB10cqpwOnPs0Cwd851xGKLqQ1fmqKd5cuo7+mloSZLBmRooshG252A71smaAkwo3TyeBN2yC4WmzmPF/0hcavcjXobaqgFjRhlW59GTxDXHn69Src6zYcNK6OAZyAUWt6DTHcfcnH2xtGLwn2n6nvDRCA7MNXEUK3nzfpNc/s+7oLl5pczYoP1MWgHJ+k1dwXlpQW2RxsOpGVKPIZj81Qau2ImcCcpvQ8MdPkmeQskPj7NAkBooKeIfQkL0UdYf0sPnVXm6dVkuLfUmyxB+hNmh96gEI6QFHkYxSgoBVfrvzfr9ab0YtehsP46S3AoB7Ccc5zX5gdFjThOegseU9tjiyZ9+QX5FqUUSeO/xoDcOcAD+lTRDuFwjbpAV/Zwkd+h5CRJLouOB7PGSbc4tGnsr4Xd65Mh/Y7qL+K7HYmpkoB4ESMGBHJyl6rXalNuVp+FPnssnuzn5CKObRnG5PvXeeSplQS7CupxVYEIhVfjW2Mh0EE+4LsAS+8HfvdLASK0jHaBBGORZMZ9ho/9w+k/ViGUFRkjLvH7kF4iOtsXDMsX0XOQdBlQv6kl+DDpS3/RZUrhoqru4XTBK8QMhelwoZ9SQBZMsU1OgkTmefmEYqOiOO8Pln2AI4tH8d8a4cO83lzrddXGrylBAmnD2MAzPpzfYu+Xx8Qk=
+ ARA:13230040|19092799006|366016|1800799024|7416014|376014|921020|56012099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: odYQ/wfy8HROBRM8hCfydnA2Rja8up4io+KP8IMvipSeSqGrv53mlN8qHnY7pcSIuU6dePxcfnBqoez85EBNQl50ltkXD50ySnRqZbB+AR78NGrT7q2i/+Hukwqm6y6SrAMg8WMaGiMtmdVrFUU652EG7d8hsiewNpOsJyrCO1Vak8ROQhjhu+MMiOA8I0QztU+eclVlmyWM73hCyrEto5G2uUpDpuqFXbUHYIWGlZw9WQqp3ldAJCKN9LKfTPlU5x8cx42J3y9Jf9bICrKu6cwXZre8BBNTjFUu/AlX9GGk9T8ksvs78Le74d52dbn1RZvqvDdPpyEpGhSTRjFbNheoAo2AlVd+QHiVpZ7k226UrRQsxtBp3UzjZuWcPgfDAZzzfJTF8HWg/UbXvq9L5d4lqp/dK5MDatv2+75nJ12UmmISe6Yx9ZWMZggNl+2vOeJQ5gREpHASDZRRsUcaSuZtyrq8oglj72H45Bl++EmijVlbzMgW+1SGXSc+SNS1l082l04lIw0xgbhOkpf/Bg8ZfMUO+QJuAmtLrFaUfotfV8GGM7WkKle+d99yk5mhRBPX9q86fg6CwYYkeneaV1Kga5MuG/Q1ddzO7/vdsgABAvnGYsEFRYlFcyJClPSeP/2uFZmN61e53mULNGcJWAEnjFuSTqHTIG2B+cRHvHLklF5RKYEPtN7PwyUYngdENShON0KJr3yIJVSwDk1jM+aA9vqCJVc+0G5ExtxYlDM=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:AM7PR04MB7046.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(7416014)(19092799006)(1800799024)(56012099003)(22082099003)(18002099003)(921020);
+ SFS:(13230040)(19092799006)(366016)(1800799024)(7416014)(376014)(921020)(56012099003)(18002099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?V0FZVWhQejFHQVJIcDlQeXRLbTBvVXczUmk5UUN1TklhT2h6c0F2QUorRFFm?=
- =?utf-8?B?ZW9XUjdVSlk1RFJidkZxQTFmTEQxZnVjVE9ZTVVIMnRnVzM5Um11a1cxUE5R?=
- =?utf-8?B?SVJHUWRWMTZGMm1NT091M2JENFNNMGJzdHc5ZDVKcnNScmVBc2FpQXNHUjFt?=
- =?utf-8?B?TTcxR1l2WnEzaFppQW9JYTB1NG81d09rdC9lZVNseU1YaXpNeGNKcFVLY0FR?=
- =?utf-8?B?eXhXT2RESHFpc3doTnowMVRtSnliTS9XVnJmVFZxM3JVcTBtQzl4SVFaWlM3?=
- =?utf-8?B?eEM1c0o5c1pOeXlsbS83TGE4dm93MGJkVVZoZHNmdlAwZDZoQ2N4aWJIQ1Bo?=
- =?utf-8?B?S3B0VDN5ZnllV3Q4Wmpxbi85UFgrMEpiV0RzdmJkZFlMZExQOG9yeTd1TEFR?=
- =?utf-8?B?eVJqY3VjTjh1NjBDbWRmTkF0OGZQeDhHeDF4enVWQkJYbmhYS0JCS292b2l1?=
- =?utf-8?B?NVd2c2VvWHMxUHlGMjZRTkptQTJwQ0o1d0lOVWt1d2VQTFh5SkkzUENURmpE?=
- =?utf-8?B?UlFkM0Z0bjNLR3luSTBtMXE1ZmUxWDJEa1ZjNUkvdGJBSWMvMGFwdjJaREZI?=
- =?utf-8?B?aWx5a09LWW9PV0dXck0yeVhEQmcvRGs5bGU5cytiUXJCOGxyT0hFa0lXMG9Q?=
- =?utf-8?B?YWx2cGlvcUZ1UGxmRTd3R3dhVEJYQTVhanRDTE9aN3ZCTnB1emYyTzFFMFkz?=
- =?utf-8?B?S0FPbGhFTkhQQncweU9Zc0xqTThRcUllbXVhZlRmTmlFQWN5amF4N0RYcytK?=
- =?utf-8?B?YWs4UFUvclN0dGpSSUxOQW9LcDV0U1VOWUlQMVQzYkdwRnVGbzhjeHJVVkVv?=
- =?utf-8?B?MzVUcUp6VmV6YnV1aXZ4emRodE1XNUF5b00rMkJQeDRtaVN2SkNGQVhNQTdm?=
- =?utf-8?B?M2pEUGhBTHNrakY0VzBHc3I3UWtOOFNmNVZsV1Q3bmJNQXpwL2pzZXdJbmJs?=
- =?utf-8?B?cFVGSmNTMkRoZXNVSkZuYUZVeGdxS2ppc3h5Mk5mQjNNV2JEL1pnNWcycVVz?=
- =?utf-8?B?K0JxTUVXZWltbTg3MWJKT1FUa0xCWmczTDdTNDdqbTJQNFR2d3VEVzVxcWd2?=
- =?utf-8?B?MzR1c056cjRSemxLZWVGd044Q1VlaFhjbjlTL0w4RW9lMVF5UU5kcWVFZE9k?=
- =?utf-8?B?TEliaUpQc2NGK3NGZW1tcS9tczJjeWNxbUV2ZGhtbGU2cm9XekVramd6QkFF?=
- =?utf-8?B?Z3ZZWkY1L1JlSmRuNDIxd05aeTdtT0ZlTXhJbTU0TnJUVFNxS3hjSUdFVjZN?=
- =?utf-8?B?WUkvaCtleWl1THBySS9wbkFpR2RWeGh4UjR4NHdWbkRuRE9aYm5oaVlORTFo?=
- =?utf-8?B?THhqemQ1Nnl3R2lQZkk4SStScWpwLzg2aGVoZ2t1VEdKYmhLYW9GaFJQRXdK?=
- =?utf-8?B?S1VNT2lzODQrQjRTWmdKQXhTRGFzMVVaZDZ5SFcrSjJOb3hTWXBuSjlsM01N?=
- =?utf-8?B?U3ZFblJWU2lNV3g0ZlQ4bTRnZGZrZEZEOGRHamFhMWJJcFpuWXR1ckNnSWl0?=
- =?utf-8?B?WWhsVDAxOE5TaklCNzRPaGM1Ym8raUd5eE10cUxNOWVoNkFnNmpkMDVCTU1O?=
- =?utf-8?B?Z0FPaitIOFdoSUhMUGlueFdnUWN6TDBmd2NPek9PMHZDWHdTT2ZIc004STIz?=
- =?utf-8?B?WHN0SlE0K3FMY3lyYXltazV3T2lJSTl2UjRYQVgvNHpCbDY4WGFBYlZGT1Q5?=
- =?utf-8?B?b2M4Nml3S0Ftc3EyK1ZPMlF4ZmRBdzNZRzZPcTRtWXNhM2libkNzckNRYXFO?=
- =?utf-8?B?dVVUdm51R3I2Zk5oV08xN2ZHQmRVY0pFUW4zTFRmRVdUMVFKWjQwemt2NUM1?=
- =?utf-8?B?UHVxSFIwa25zcHJhUUJqSFdPdUgvSWFZdG1uQWtMbzJCTStnSXU0QmczYmgv?=
- =?utf-8?B?T2RPV3MvTC9IYktHQ1hzZExIYnNDMVdTczlLNHZSS0tlUGM2NlNFVVNOT0lT?=
- =?utf-8?B?TENRRlE2a1dwS2lBMFk5dWV4bWdvZFIyZWEvYlB5N3BaTll4Y090amwyUlR3?=
- =?utf-8?B?MUpvWWVlN1JodEdnVEVjR3JRelJwTEpwWmVXZC9LZTV0MHBpeVp3SWRQSTVz?=
- =?utf-8?B?d2tzQS9adGhITU1aUksvQ2VLUnQzWGRYenM2ZjJnSVR3VDE1Rjg3VitXN254?=
- =?utf-8?B?Tm5IQ2N3QmZGcG9iVElxTkdtS2IyUGF6d1JZVEZsM2NyaURjM1dhZjEwaUJ0?=
- =?utf-8?B?akNucmlhMzZNZUk5emI1bkpSOHZEdVp4d3FOOVQ0bUl2ekVCNDR5N0xmSDZK?=
- =?utf-8?B?UTlERnIzLzQzQXNSblkzSlhKZ2I1WHhoTHlJQThIMTh2TExtOERJenN2U0RB?=
- =?utf-8?B?MDFZUXVXeFhzYmd4V3VCRC9id2twMjRnNUpPQTU4ZlJ1cDN2a1M2dz09?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bzBtSnBTSnVvSStHWWtVMmtCOE5VUzloTS96OEtibTA4MmtoRVJLUEJRZ3JZ?=
+ =?utf-8?B?UHJiUmRoejJSOFdKaWFCWWtFS3dNcnBjRm00Q3J5Y1B1bHdvVVU2RHhnRUcz?=
+ =?utf-8?B?Kzh4dEd3NkhWN3Znc1plVDl4VFIwcUIvT09scVMxL3M1QlF5UUpyRE9mOStE?=
+ =?utf-8?B?R3VoVWJtM1ZCM1lBbWRhVXFKWHlQdVRXbXlxVWpHUzUxM1Jvb1BpQ2Y4YVAy?=
+ =?utf-8?B?dEswVkNHM2RRTDNQcnprOHZzRXlKNXJBOHFxZ2FDaCtMTE9XTTRPT1B4bG5E?=
+ =?utf-8?B?R1lKQVV3VHVzMlEwKzZYRTJIRjd1TmhmUkNRYktBUWNIZS9xUm1FWTA3RXdn?=
+ =?utf-8?B?ZlFveUhGbHpjZUZGNU12MGVQRndvdXE4TkUxaExNeHdzT3dpeFJ6QThyYnhC?=
+ =?utf-8?B?Vjd2ZUUvOThpU0lNeUdwd2gzUmhpQUMyTXp1NjhMTWhKc2RDOTZ0Z0hTa0sr?=
+ =?utf-8?B?VEFRKzUrZENDLzJYdHc4SSs5WjR5ZGw3dzRTUmJ3WnhWNm1NQlpWdC92TTdh?=
+ =?utf-8?B?bnI5ODdaNURYR2Jtc3IwcWxqWVZWNmhZVUpubEo1R1JKRFJOT0k3Rnk4Zlk3?=
+ =?utf-8?B?VFpYUXJGSTN2RXNGUWlBYnhhS1JjMnRsSWJUNjEzNEc5R1RkRkVydnIrSXJa?=
+ =?utf-8?B?aFRwNlhQZm1HQmk0dU4wQk42OWRmT081NTI4cnNGRDRZdjc4clNXZVJiR3NS?=
+ =?utf-8?B?Uk14YVp0a2RacTZFMlpDeFBiQVJqbm1WSVByeEMvUkJxb29WVWcrUjlrS0lu?=
+ =?utf-8?B?c3NlSkllVHlrMllWUmpIZEpQU3pTYTZYc1pqK1dFWTdJLzhKd3NLaFdJMlUr?=
+ =?utf-8?B?YjdleXBLbEtCd2lwdlBJTDlDaXZEMHhlRW11ZGR0UzR0SkJqaFlmUHJqeEhj?=
+ =?utf-8?B?NXBweVRlRk9LZURWYnRCUFJpUDlQYjNTYjQxSlBmTUpJcGUxSk9Ec2Y5bjdI?=
+ =?utf-8?B?R0lVbmpncWtJT3VPTHlSZUx5UDRIMS9MdFVaMjRtUlFIL0ZOUVg5anlNTjdu?=
+ =?utf-8?B?KzEyd2tlekZ1dzVJMVByTDM4bGxqODJNUHl2WU9Mb3RTYldqc0pMU1djYmpD?=
+ =?utf-8?B?QlYrZHVhSUtNMEcrTUw3TkdZakdsNmJOb1dBSTBOUFY3QkpVcEtEZ3ltK09y?=
+ =?utf-8?B?Q21lV3pCMW9zZnRoRVpOYTNBWGdsQkJvOWxCRlZOdDFaZlpodVJQNDBMYUZG?=
+ =?utf-8?B?ZHFtSGZiZlBHaVc1dUpxMWpTb2orZFAvbDRBdytsam10eWpIQm9uV2ExaHk1?=
+ =?utf-8?B?SmtmYnJxYWEyNUtIdDdKa2RWYTlPb0ZvanJnbVJ3TkdZeGVYLzFZaG51QXRK?=
+ =?utf-8?B?VC9TZVZMV3p0ZjR6TWR0bVZsWUZqWnAvWFR1NVNqaFl0STlqRDhXQlV6VG42?=
+ =?utf-8?B?ZStaNFM4eGp4blRFWHI5ZUtRTDBNY21nTjdaWk5SbDdZZk0rSndvRXppejF2?=
+ =?utf-8?B?dTFWKzlZQ2Npcm5KWU5ZRzNrMDRYN0pqK2R6ZjJTTFdoZ3ArMW5rUGpTVUp6?=
+ =?utf-8?B?bzBHMkw3YlVzRjZ6dm54dnRBcGlQQ2JyUnV1aWRIcW5weWRaUGVvRm1qNWd0?=
+ =?utf-8?B?RmM2dk15Z0diVmptbDNFVGFVNFhWY1MzdGM4Q0Y2UGh4Z2pVbmluSGdvTjJl?=
+ =?utf-8?B?aGIyOEhxWG5CODRQcGxvMGRrQmlTVkJVN3RrZEtjWDRuSXpOSVRjK3RrOWZ4?=
+ =?utf-8?B?czhmVll5eTlkb1hHNGc3bGZlbXdxZTFNWXlVTXFaWGxYY2hUQ0pWMEErOE5k?=
+ =?utf-8?B?akt3eXBZb0c5aW51Qk44T0NiK3JZbVJQOGFsMlBCK1hrU0M5cTZwd3FsRmVo?=
+ =?utf-8?B?aFNweTVOcHJtWnhPKzh6QUtLWGY0Z3hxc2x5YlFUTXRhV1ZWYVVZZ3RHaTNj?=
+ =?utf-8?B?ei90SmJWMys4OENkUVBFc3FaUTVtUGZtNGg5RDgwNUtveWlyemd4NjdUVVA4?=
+ =?utf-8?B?TmYxUnBFOUxaU09nOVVjQVBrSm9LOTREaDAyNW93VG93ZEJLbzNKNWNsQ2xj?=
+ =?utf-8?B?NElaZy8zQlFIYmJlMFhGS2czSDJZVUkxeW9wSWNCRDlGR3AvblZqUU14dzIv?=
+ =?utf-8?B?Qi9tRUk2MXI4K2dNSElMZTZvZmVzbWhWOE1sUHgxanNxZS8yS3htVnhnanVp?=
+ =?utf-8?B?WHdYNUQxcGJONzBMWHdHdmhrcjIxc2dFUVVYdUdSeXQ2YmxHa0pQNmNHV0dp?=
+ =?utf-8?B?dXRzcGdGSEs4KzYwNFR2Q0Z4WTVLaGRxU1hndG5OMzFDZ1BRWkxkMnFPQkJ5?=
+ =?utf-8?B?aVV0LzNuWi9Td2pwcW45L0ptQmxWdzA4Wmtudy85NFpKK2ZXV3UxUnIzZnov?=
+ =?utf-8?B?UXUyL2hVT25QNmFGWjc2NTl6WmRoelAvTUFCd29NQVVDNjB0YmNnUT09?=
 X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b2025c03-1645-4f0a-96fa-08de83c955b5
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0e0b12a5-f327-4c17-9710-08de83cdb8d1
 X-MS-Exchange-CrossTenant-AuthSource: AM7PR04MB7046.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Mar 2026 02:03:08.5911 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Mar 2026 02:34:32.8471 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 3IlbCmh6KFoveNuDe9o1Gi7Y1iDu3ZJ7o1w7WuP6QSLVPJ4QWV3s9e++SLbEU9kgbUSFij61YXRwCOKIWpB5+g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA2PR04MB10346
+X-MS-Exchange-CrossTenant-UserPrincipalName: bjwUi8bibopZ0jezX0YawK+mrJ7jfOZdYJKQpvDsLSy0bqk6eLt5wwgAh1d9TvsBd8d2+0fLqHCQZrfKd6nO2w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR04MB8928
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -151,86 +144,112 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Mar 16, 2026 at 12:14:23PM +0100, Luca Ceresoli wrote:
-> Hello Liu, Maxime,
+On Mon, Mar 16, 2026 at 12:15:29PM +0100, Luca Ceresoli wrote:
+> Hello Liu,
+
+Hello Luca,
+
 > 
-> On Mon Mar 16, 2026 at 10:47 AM CET, Liu Ying wrote:
->>>>>>> @Maxime: based on the issue Liu is trying to work around, do you think it
->>>>>>> would make sense to go back to the initial approach for that series?
->>>>>>> I.e. drm_for_each_bridge_in_chain_scoped() grabs the chain lock, which is a
->>>>>>> superset of the per-bridge refcount, and thus the refcount can be dropped?
->>>>>>> This would remove the debugfs issue, slightly simplify
->>>>>>> drm_for_each_bridge_in_chain_scoped(), and introduce no new issues AFAIK.
->>>>>>
->>>>>> Just my take on the chain lock approach - I agree Maxime's comment on [v2]
->>>>>> that keeping the get/put is a better than using the chain lock to ensure
->>>>>> the refcount is correct.  The chain lock could be added later on if needed.
->>>>>
->>>>> Well, no, adding the chain mutex is necessary(*), otherwise Thread A could
->>>>> iterate over the chain while thread B is adding/removing bridges to/from
->>>>> the chain.
->>>>>
->>>>> And the chain mutex is a superset of the per-bridge refcount, so when
->>>>> adding the mutex the refcount inside drm_for_each_bridge_in_chain_scoped()
->>>>> becomes useless (and slightly hurting as it makes the refcount shown in
->>>>> debugfs inconsistent, as you noticed).
->>>>
->>>> For better code readability, I think keeping the get/put is fine even if
->>>> you add a lock
->>>
->>> The [v4] code with the removal of the extra refcount would not be more
->>> complex. It would be a bit less code (no need for the DEFINE_FREE and
->>> __free()). Maybe it'd need an extra comment to clarify when the
->>> drm_bridge_put() is called.
->>>
->>> [v4] https://lore.kernel.org/all/20260113-drm-bridge-alloc-encoder-chain-mutex-v4-4-60f3135adc45@bootlin.com/
->>>
->>>> (maybe RCU list is better than mutex, since the chain is
->>>> read often).  That follows the idea that you mentioned in [1]: "every
->>>> pointer to a drm_bridge stored somewhere is a reference to a bridge".
->>>
->>> That's true. However while it's an important pointer hygiene rule for
->>> device drivers, for core code it's OK to deviate when there is a reason.
->>>
->>>> Plus, seems no performance issue with the get/put, as discussed in [v2].
->>>
->>> I confirm performance is surely not an issue here.
->>>
->>> All that said, I'm OK with either option:
->>>
->>>  * no ref taken when the mutex is added
->>>  * ref taken when the mutex is added (as v4) + your patch to fix debugfs
+> On Thu Mar 12, 2026 at 7:05 AM CET, Liu Ying wrote:
+>> A typical bridge refcount value is 3 after a bridge chain is formed:
+>> - devm_drm_bridge_alloc() initializes the refcount value to be 1.
+>> - drm_bridge_add() gets an additional reference hence 2.
+>> - drm_bridge_attach() gets the third reference hence 3.
 >>
->> Maybe consider to take this patch first, since it doesn't hurt.
+>> This typical refcount value aligns with allbridges_show()'s behaviour.
+>> However, since encoder_bridges_show() uses
+>> drm_for_each_bridge_in_chain_scoped() to automatically get/put the
+>> bridge reference while iterating, a bogus reference is accidentally
+>> got when showing the wrong typical refcount value as 4 to users via
+>> debugfs.  Fix this by caching the refcount value returned from
+>> kref_read() while iterating and explicitly decreasing the cached
+>> refcount value by 1 before showing it to users.
+>>
+>> Fixes: bd57048e4576 ("drm/bridge: use drm_for_each_bridge_in_chain_scoped()")
+>> Signed-off-by: Liu Ying <victor.liu@nxp.com>
+>> ---
+>>  drivers/gpu/drm/drm_bridge.c | 32 ++++++++++++++++++++++++++------
+>>  1 file changed, 26 insertions(+), 6 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/drm_bridge.c b/drivers/gpu/drm/drm_bridge.c
+>> index f8b0333a0a3b..84fc3cfd17e0 100644
+>> --- a/drivers/gpu/drm/drm_bridge.c
+>> +++ b/drivers/gpu/drm/drm_bridge.c
+>> @@ -1567,14 +1567,18 @@ void devm_drm_put_bridge(struct device *dev, struct drm_bridge *bridge)
+>>  }
+>>  EXPORT_SYMBOL(devm_drm_put_bridge);
+>>
+>> -static void drm_bridge_debugfs_show_bridge(struct drm_printer *p,
+>> -					   struct drm_bridge *bridge,
+>> -					   unsigned int idx,
+>> -					   bool lingering)
+>> +static void __drm_bridge_debugfs_show_bridge(struct drm_printer *p,
+>> +					     struct drm_bridge *bridge,
+>> +					     unsigned int idx,
+>> +					     bool lingering,
+>> +					     bool scoped)
+>>  {
+>> +	unsigned int refcount = kref_read(&bridge->refcount);
+>> +
+>>  	drm_printf(p, "bridge[%u]: %ps\n", idx, bridge->funcs);
+>>
+>> -	drm_printf(p, "\trefcount: %u%s\n", kref_read(&bridge->refcount),
+>> +	drm_printf(p, "\trefcount: %u%s\n",
+>> +		   scoped ? --refcount : refcount,
 > 
-> Yes, especially as the current debugfs output is non-intuitive.
+> I'd s/--refcount/refcount - 1/ here, no point in modifying the value while
+> printing it.
 
-Agreed.
-
-> 
->> Even if
->> we end up with the first option, the refcount is supposed to be correct
->> anyway.
-> 
-> Well, if we apply this patch and then go for option 1 then this patch shall
-> be removed, or the refcount shown would be one-less than the expected
-> value, instead of one-more as it is now.
-
-I meant that if we go for option 1, then a single patch may introduce the
-protection for the chain with the mutex/RCU list(whatever), plus remove
-the change done by this patch.  This way, the refcount would be consistent
-over time.
+Well, maybe there is a point if we consider 'scoped == true', which means
+one reference should be dropped from the refcount.  In the future, if the
+refcount is used in this function multiple times, then we don't need to
+do 'refcount - 1' for each time with '--refcount'.  But, for now, since
+the refcount is just used for one time in this function, I'm fine with
+either '--refcount' or 'refcount - 1', please let me know your preference.
 
 > 
->> Luca, do you think this patch deserves at least an A-b tag from you if not
->> a R-b tag?
+>> @@ -1599,6 +1603,22 @@ static void drm_bridge_debugfs_show_bridge(struct drm_printer *p,
+>>  	drm_puts(p, "\n");
+>>  }
+>>
+>> +static void drm_bridge_debugfs_show_bridge(struct drm_printer *p,
+>> +					   struct drm_bridge *bridge,
+>> +					   unsigned int idx,
+>> +					   bool lingering)
+>> +{
+>> +	__drm_bridge_debugfs_show_bridge(p, bridge, idx, lingering, false);
+>> +}
+>> +
+>> +static void drm_bridge_debugfs_show_bridge_scoped(struct drm_printer *p,
+>> +						  struct drm_bridge *bridge,
+>> +						  unsigned int idx,
+>> +						  bool lingering)
+>> +{
+>> +	__drm_bridge_debugfs_show_bridge(p, bridge, idx, lingering, true);
+>> +}
 > 
-> I've been waiting a bit in case Maxime or someone else wanted to chime
-> in. I'm reviewing it now.
+> I think this should be much simpler and avoid a lot of the boilerplate
+> code: just add a 'bool scoped' argument to drm_bridge_debugfs_show_bridge()
+> and pass true/false as applicable.
 
-Thanks.
+Hm, I was thinking how to avoid the two bool arguments(lingering and
+scoped) for drm_bridge_debugfs_show_bridge(), because they make a function
+call look ugly - people have to go back to the function declaration to
+check which bool argument is which.  So, I came up with the boilerplate
+code, at least any function call has just one 'true' or 'false'.  I'm open
+to any better idea.  If you insist on adding a 'bool scoped' argument to
+drm_bridge_debugfs_show_bridge() is a good way to go, then I accept that
+and would follow - let me know your thoughts.
 
 > 
+> Or maybe an 'int offset' with an integer to be subtracted from the refcount
+> for diplaying, but that's probably overkill.
+
+Yes, that's overkill at least for now.  Dropping just one reference from
+the refcount is currently enough.
+
+> 
+> Best regards,
 > Luca
 > 
 > --
