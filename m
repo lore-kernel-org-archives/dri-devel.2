@@ -4,135 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 21197F3380F
-	for <dri-devel@archiver.kernel.org>; Tue, 17 Mar 2026 08:17:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 09119F33812
+	for <dri-devel@archiver.kernel.org>; Tue, 17 Mar 2026 08:24:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 84B1110E565;
-	Tue, 17 Mar 2026 08:17:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 54C9310E599;
+	Tue, 17 Mar 2026 08:24:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="Hk2hPlNy";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="QKBWMQJc";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="IYd1R93A";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="AgvvfFh0";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="kUag940w";
 	dkim-atps=neutral
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4E71010E565
- for <dri-devel@lists.freedesktop.org>; Tue, 17 Mar 2026 08:17:54 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A95B910E428;
+ Tue, 17 Mar 2026 08:24:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1773735848;
+ bh=gT7ZoGuzWlKneb2BYf5Iyt6DDVfn2FhJc0ZIANIIOO0=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=kUag940wB0JxjUlZuKvzUIjfCLfakoJAbc5OxyD+rmV4W0fpXuZA7VHWZYmRFFHv8
+ 98SlvE9Oe24nJCzdvzPES7TdTjE3fU22ZfzUrHkqqHlLXlZph5P+KgUJwRNfqH65Ad
+ 2bd2IDtVZLZJfZQUgHZtnFJ/Vd+SuZjmb6fZ2uWoQxyHAjqmcxfaLddgm/SWs0L2g9
+ 300WnHAliWndxGAgunhKcD10KQthuqQYSbKC9QS/9nqBAYpLu3npJ1oZ25ehWgVGhG
+ uix03hytZKhADeF7/Ag4UdF9NlBYykGsWqReZnqhOWs1jQkQOHXnsrMxyoC6Ku6pzP
+ meIqxkB8MrKxw==
+Received: from eldfell (unknown [194.136.85.206])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id E96CE4D240;
- Tue, 17 Mar 2026 08:17:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1773735473; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=f3+Qw7UEbsV3ZIy8gMyjCxdI0xUAAxkgpKQhOUkFwC8=;
- b=Hk2hPlNyI+16JED7DsC4x2fAZpq5sY0q6XW5RA+ODq+Y/n/kO59KqLVN5GPapgoXcYZ/Lr
- jSDI00iFSE28KA3c5TpgUP7i9TAfOImW+pRpYgAip4p0cAe459CeMKxn8a5+B6/B8cLd7M
- RdgI/p9fDQfES6AcMdJExIyfMC1U6eU=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1773735473;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=f3+Qw7UEbsV3ZIy8gMyjCxdI0xUAAxkgpKQhOUkFwC8=;
- b=QKBWMQJcwvjBPbK689CFwtvrZxu6DRiUxLSfLehpuJRzHHu/NHt9XgIluNXVcDREYlolr4
- RBYXy0pYjrNvS0Aw==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1773735472; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=f3+Qw7UEbsV3ZIy8gMyjCxdI0xUAAxkgpKQhOUkFwC8=;
- b=IYd1R93AechYWhOM1pBV6GbmoZU6qVHHSCZlbe06eR9z0MQXFGyxskkLmEP4t7n7FPmuK1
- ijtNo/tnk9kA1U54cIU3cNXui1KbwS2fR9mmqfFI2MxP2xC+ia83TFeAcHKnchDVUkMWnn
- QrCREHsi3Y4PkXhsn9Oc//AgaPYEdD0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1773735472;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=f3+Qw7UEbsV3ZIy8gMyjCxdI0xUAAxkgpKQhOUkFwC8=;
- b=AgvvfFh0v2YMEAXsnQAzSRDPqEVk+g6rewVFNhdzkMf5BO+wH/5hgZh38Ff0Sm1m9MSsuP
- ob80iCucV+wmKnCA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 8AA844273C;
- Tue, 17 Mar 2026 08:17:52 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id bXFyIDAOuWkyXQAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Tue, 17 Mar 2026 08:17:52 +0000
-Message-ID: <cd67129a-c529-4621-908b-75b8eac12ba3@suse.de>
-Date: Tue, 17 Mar 2026 09:17:52 +0100
+ key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256) (No client certificate requested)
+ (Authenticated sender: pq)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id BE8D617E0CF3;
+ Tue, 17 Mar 2026 09:24:07 +0100 (CET)
+Date: Tue, 17 Mar 2026 10:23:56 +0200
+From: Pekka Paalanen <pekka.paalanen@collabora.com>
+To: Harry Wentland <harry.wentland@amd.com>
+Cc: "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>,
+ dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, louis.chauvet@bootlin.com, mwen@igalia.com,
+ contact@emersion.fr, alex.hung@amd.com, daniels@collabora.com,
+ uma.shankar@intel.com, maarten.lankhorst@intel.com,
+ pranay.samala@intel.com, swati2.sharma@intel.com
+Subject: Re: [PATCH 01/10] drm/colorop: Add DRM_COLOROP_CSC_FF
+Message-ID: <20260317102356.76dadf78@eldfell>
+In-Reply-To: <cd9e1aa2-85b8-4add-a3b9-ba7acbd29f60@amd.com>
+References: <20260306165307.3233194-1-chaitanya.kumar.borah@intel.com>
+ <20260306165307.3233194-2-chaitanya.kumar.borah@intel.com>
+ <20260310163229.521186ab@eldfell>
+ <53c3f610-942c-46bf-be5f-a4c51625c358@intel.com>
+ <20260316105724.47d24409@eldfell>
+ <eaaea3f6-76ce-4b20-b7b1-b483594070cd@intel.com>
+ <20260316135349.06476e85@eldfell>
+ <0969dd82-0212-4fec-b693-e53c6ddd692c@amd.com>
+ <20260316180338.0b2f6923@eldfell>
+ <cd9e1aa2-85b8-4add-a3b9-ba7acbd29f60@amd.com>
+X-Mailer: Claws Mail 4.3.1 (GTK 3.24.49; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/ast: DisplayPort edid supports 256 bytes
-To: =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
-Cc: Jani Nikula <jani.nikula@linux.intel.com>,
- Jammy Huang <jammy_huang@aspeedtech.com>, Dave Airlie <airlied@redhat.com>,
- Jocelyn Falempe <jfalempe@redhat.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-References: <20260313-upstream_ast_dp_edid-v1-1-2a75b7c091b2@aspeedtech.com>
- <b0b1f644-ea5c-4636-99a0-28b040ed2fe0@suse.de>
- <ad40e82fc2e6501f1b6e1073c70a6f1c308c89a8@intel.com>
- <abj-J1yYsFymXmn5@intel.com> <7b91451a-7764-4822-b15b-47437592691f@suse.de>
- <abkM2-295MJO15ht@intel.com>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <abkM2-295MJO15ht@intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- NEURAL_HAM_SHORT(-0.20)[-0.999]; MIME_GOOD(-0.10)[text/plain];
- RCVD_VIA_SMTP_AUTH(0.00)[]; RCVD_TLS_ALL(0.00)[];
- ARC_NA(0.00)[]; MIME_TRACE(0.00)[0:+];
- RCPT_COUNT_SEVEN(0.00)[11];
- FUZZY_RATELIMITED(0.00)[rspamd.com];
- MID_RHS_MATCH_FROM(0.00)[]; FREEMAIL_ENVRCPT(0.00)[gmail.com];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FROM_HAS_DN(0.00)[];
- FREEMAIL_CC(0.00)[linux.intel.com,aspeedtech.com,redhat.com,kernel.org,gmail.com,ffwll.ch,lists.freedesktop.org,vger.kernel.org];
- TO_DN_SOME(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid, suse.de:email, suse.com:url,
- aspeedtech.com:email]
+Content-Type: multipart/signed; boundary="Sig_/TitsDUGOV_T1_aeLDWDGJbe";
+ protocol="application/pgp-signature"; micalg=pgp-sha256
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -148,105 +74,141 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi
+--Sig_/TitsDUGOV_T1_aeLDWDGJbe
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: quoted-printable
 
-Am 17.03.26 um 09:12 schrieb Ville Syrjälä:
-> On Tue, Mar 17, 2026 at 08:41:35AM +0100, Thomas Zimmermann wrote:
->> Hi
->>
->> Am 17.03.26 um 08:09 schrieb Ville Syrjälä:
->>> On Mon, Mar 16, 2026 at 01:38:22PM +0200, Jani Nikula wrote:
->>>> On Mon, 16 Mar 2026, Thomas Zimmermann <tzimmermann@suse.de> wrote:
->>>>> Hi Jammy
->>>>>
->>>>> Am 13.03.26 um 11:04 schrieb Jammy Huang:
->>>>>> DisplayPort supports edid at most 256 bytes. Thus, allow it to fetch
->>>>>> edid block 0 and 1.
->>>>>>
->>>>>> Signed-off-by: Jammy Huang <jammy_huang@aspeedtech.com>
->>>>>> ---
->>>>>> ASPEED DisplayPort's EDID size can be 256 bytes at most. Thus, EDID
->>>>>> blocks fetched can be 0 and 1.
->>>>>> ---
->>>>>>     drivers/gpu/drm/ast/ast_dp.c | 2 +-
->>>>>>     1 file changed, 1 insertion(+), 1 deletion(-)
->>>>>>
->>>>>> diff --git a/drivers/gpu/drm/ast/ast_dp.c b/drivers/gpu/drm/ast/ast_dp.c
->>>>>> index 9d07dad358c..c938e1d6b1d 100644
->>>>>> --- a/drivers/gpu/drm/ast/ast_dp.c
->>>>>> +++ b/drivers/gpu/drm/ast/ast_dp.c
->>>>>> @@ -88,7 +88,7 @@ static int ast_astdp_read_edid_block(void *data, u8 *buf, unsigned int block, si
->>>>>>     	int ret = 0;
->>>>>>     	unsigned int i;
->>>>>>     
->>>>>> -	if (block > 0)
->>>>>> +	if (block > 1)
->>>>>>     		return -EIO; /* extension headers not supported */
->>>>> But see the code at [1]. It clears the number of extensions to zero and
->>>>> updates the checksum accordingly. This is required to make the shortened
->>>>> EDID work with DRM. If you leave this as-is, it will still clear support
->>>>> for any extension in block 1.
->>>>>
->>>>> See the table 2.4 in the VESA EDID 1.4 standard for the semantics. For
->>>>> 1.3, if the number of blocks is >2, the first extensions is a 'block map
->>>>> of the extensions'. This is useless, as it's not a data extension in
->>>>> itself.  In 1.4, the block map is optional. That code should clear the
->>>>> EDID's number of extensions to 0 or 1, depending on whether there is a
->>>>> block map to be expected.
->>>> I think long-term the goal should be for the kernel to not modify the
->>>> EDID, at all.
->>> I think as a short term goal it would be much better if all EDID
->>> mangling would be done by drm_edid.c rather than individual drivers.
->> We don't fix the EDID here, but work around a hardware limitation. I
->> guess we could fix this automatically near edid_block_read() [1] if the
->> driver clearly communicates this issue.  The read loop could then fix
->> the header's checksum by itself.
-> edid_filter_invalid_blocks() already has the code to update
-> the extension block count and fix up the checksum.
+On Mon, 16 Mar 2026 13:59:57 -0400
+Harry Wentland <harry.wentland@amd.com> wrote:
 
-Great.
+> On 2026-03-16 12:03, Pekka Paalanen wrote:
+> > On Mon, 16 Mar 2026 10:36:44 -0400
+> > Harry Wentland <harry.wentland@amd.com> wrote:
+> >  =20
+> >> On 2026-03-16 07:53, Pekka Paalanen wrote: =20
+> >>> On Mon, 16 Mar 2026 16:04:32 +0530
+> >>> "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com> wrote:
+> >>>    =20
+> >>>> On 3/16/2026 2:27 PM, Pekka Paalanen wrote:   =20
 
->
-> So seems to me all we'd need is some way for the driver to
-> indicate it simply cannot read the requested block (based on
-> which edid_read_block() would return some other value than
-> EDID_BLOCK_READ_FAIL), and then the fixup happens naturally.
+...
 
-I was thinking of something like: return -ENXIO from the driver's helper 
-if the read is beyond the available blocks, and then return something 
-like EDID_BLOCK_READ_EOF, which triggers the header fix-up.  Note that 
-returning -EIO would still signal a real I/O error.
+> >>>>> Unfortunately, BT.601, BT.709 and BT.2020 define two separate thing=
+s each:
+> >>>>> - the YCbCr<->RGB conversion, and
+> >>>>> - the colorspace primaries (and white point, but that is the same f=
+or
+> >>>>>    them all).
+> >>>>>   =20
+> >>
+> >> Would it make sense to treat these as two separate things in terms
+> >> of colorops? =20
+> >=20
+> > Hi Harry,
+> >=20
+> > no, if your hardware not care. There are no semantics for the numbers
+> > in the UAPI, it's just whatever numbers, and mathematical operations on
+> > them.
+> >=20
+> > I suspect that your hardware does care, though, and actually has
+> > separate hardware elements for the YCbCr conversion and the colorspace
+> > conversion matrix. After all, one has to be able to put a LUT or a
+> > curve between the two to make sense.
+> >=20
+> > IOW, two different colorops, yes. But different colorop types? Maybe
+> > that depends on whether they would have the same colorop properties or
+> > not.
+> >  =20
+>=20
+> If I understand you correctly you're saying we can have a single
+> colorop type to represent either type. A client of the API needs
+> to understand what it's doing with the colorop and can use it
+> as either a YCbCr conversion matrix in the case of YCbCr-to-RGB
+> conversion, or an NPM for conversion of linear, normalized data
+> from one set of primaries to another.
+>=20
+> Is that understanding correct?
 
-Best regards
-Thomas
+Yes. It's mostly a question of taste, whether we want matrices
+conventionally used in different contexts in the same enum. I think
+it's fine.
 
->
-> Hmm. What happens if the driver returns "success" for the
-> read, but just leaves the entire block zeroed? Looks to me
-> like we should then end up with status==EDID_BLOCK_ZERO
-> and the block will get treated as invalid and filtered out.
->
->> Best regards
->> Thomas
->>
->> [1]
->> https://elixir.bootlin.com/linux/v6.19.8/source/drivers/gpu/drm/drm_edid.c#L2424
->>
->> -- 
->> --
->> Thomas Zimmermann
->> Graphics Driver Developer
->> SUSE Software Solutions Germany GmbH
->> Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
->> GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
->>
+> >> I have done some work on a CSC colorop and intend to send out the
+> >> patches in the next couple of days.
+> >>
+> >> https://gitlab.freedesktop.org/hwentland/linux/-/commits/csc-colorop
+> >>
+> >> It follows the drm_plane's COLOR_RANGE and COLOR_ENCODING semantic
+> >> and is only intended for YCbCr-to-RGB conversion, like the original
+> >> properties on the plane.
+> >>
+> >> For the colorspace conversion within RGB (e.g., BT709 to BT2020)
+> >> it might make sense then to have its own colorop if HW works on
+> >> pre-defined transformations, or use the CTM 3x3 or 3x4 matrix ops
+> >> if HW provides a flexible matrix.
+> >>
+> >> We might need to think about naming, since colorspace conversion (CSC)
+> >> right now seems to refer to both YCbCr conversion and primaries
+> >> conversion. =20
+> >=20
+> > Indeed.
+> >=20
+> > YCbCr conversion is usually a matrix operation. H.273 calls it
+> > MatrixCoefficients, but it also lists cases where you need the EOTF in
+> > the mix. I could go with "YCbCr coefficients". The pure matrix forms
+> > are used on electrical pixel values.
+> >=20
+> > The color space conversion matrices that are based on (Normalized)
+> > Primary Matrices (NPM) must be used on optical pixel values. NPM is the
+> > matrix that converts optical RGB values to CIE 1931 XYZ. For an
+> > RGB-to-RGB conversion you need one NPM and another inverse NPM chained.
+> >  =20
+>=20
+> This could be expressed in a single matrix, right?
 
--- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
+Naturally. y =3D N * (M * x) =3D (N * M) * x, where N, M are matrices and
+x, y are column vectors.
+
+> I intend to send out my patches as an RFC either way, but I think I
+> could just as well work with the CSC_FF colorop. I'll have a look at
+> basing my work on this.
 
 
+Thanks,
+pq
+
+
+> > I guess using CSC for the latter is not obvious enough because it has
+> > been used for the former (color model conversion) as well?
+> >=20
+> > How about "color-primary conversion"?
+> >=20
+> > I stole it from
+> > https://onlinelibrary.wiley.com/doi/pdf/10.1002/9780470994375.app8
+> >=20
+> >=20
+> > Thanks,
+> > pq
+
+--Sig_/TitsDUGOV_T1_aeLDWDGJbe
+Content-Type: application/pgp-signature
+Content-Description: OpenPGP digital signature
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmm5D5wACgkQI1/ltBGq
+qqcuPQ/8DYGoaFXGnbHDP5IYvChGSMwmWlF4ogMhGM/zuzrqL0Dr0pTpYhtlv6O6
+jQi8yCxmTBaCjhOeu+cZuP0JuaRJyfJtpyQvLN7YotPemQXzmHPvL3oEZMdPMPvP
+Uv41SUcr1JVLk+7J9jao+lhi9YzUI4WYKFLB73+RB6jpCdB+NUNL/wuRi2lEtFa/
+ZgvWCdEzU2ghTLVv5bj25/A4vTR/LVVhLBeGtfVKziVDlznfrmh1v3Wvxv3Gbw0x
+GsNz/Eu2Uv6DY5u610v6Nse2PiSksVaDALocdVvX4PBcI8wKs+kdEYb+EMigGrn3
+LcA2ACOQw2gsb1mbfo39yTv5g4kRzMPCqjAh3uHGdKShEDMar5LxCLK37KvvwDLx
+tvAEoDxonKZe+q8saGwpYs45Wg2v5tBGlU5tWM8J5FjnjVUvW9/hk4yjVrLB3Eqi
+aVVOHsrvNIyfqi20zeMOApPHCgSwM3Yt2PFZfmTL+hUbMrVwJB3LRcV56uOIigZS
+fl6tAvMab5+/yutxxWenMqJ/h24lqgFWpied6aIK0qEtx/Bhdy4WEU3lgouZL/OR
+Rjh1s8gvDfvu3Pw7Hc3ihVkYSOvX4hnbtTepiIsAbyhO0fQ1vREjONHBNiMimC3O
+ydTrB2Ok3B4k/b6TcLpGahkKrcP8kRShNdRhP4sqvOAfiKQKaMY=
+=LNQa
+-----END PGP SIGNATURE-----
+
+--Sig_/TitsDUGOV_T1_aeLDWDGJbe--
