@@ -4,88 +4,127 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0C145FED9E0
-	for <dri-devel@archiver.kernel.org>; Tue, 17 Mar 2026 14:56:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DC141FED9E3
+	for <dri-devel@archiver.kernel.org>; Tue, 17 Mar 2026 15:01:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7093310E3FC;
-	Tue, 17 Mar 2026 14:56:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3EAD410E4E8;
+	Tue, 17 Mar 2026 15:01:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Pw61+tJp";
+	dkim=pass (1024-bit key; unprotected) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="TlQHH5lV";
 	dkim-atps=neutral
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com
- [209.85.128.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0684C10E3FC
- for <dri-devel@lists.freedesktop.org>; Tue, 17 Mar 2026 14:56:51 +0000 (UTC)
-Received: by mail-wm1-f48.google.com with SMTP id
- 5b1f17b1804b1-4853f2826f7so61490595e9.1
- for <dri-devel@lists.freedesktop.org>; Tue, 17 Mar 2026 07:56:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1773759409; x=1774364209; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:subject:cc:to:from:date:from:to:cc:subject:date
- :message-id:reply-to;
- bh=fV0vsElu+7ZDP0k7EZQosqrMEMjbFMIbCAe1EPTu8LI=;
- b=Pw61+tJpY9hG/aPfRgW282RX3RujtlF9GAUx8/P9W/sa6dqj57+1TG3YUP91JfAmSV
- 9ZryN2EKZi/08kq46waJzBal2xAYkeefAViJX13qERt+7PNqLk1Hd/MM0LJjEO7ebSEP
- uZjGDQEbu/4reL11ekjxWnrzXYJggeSXZ104ShZKlvB1TYuSLuDGa/jxThcvEWQTY9md
- 83or+Iuee0wqWgvlYPvvpTAFJR1Slv8Pzu/v878MIaN2p2AFygs+4KR0viDNjDW4NXyn
- uK5KjRkbwaYi0+qEtIc6av+FKUCUJ5wIxGdON3qrsdaz5KvStMbRH2RQah3KO5peWiNi
- Ug9Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1773759409; x=1774364209;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=fV0vsElu+7ZDP0k7EZQosqrMEMjbFMIbCAe1EPTu8LI=;
- b=J1umcQRLdwDqhEX0Ve0BgjfIRKvmpoFhpBac5i31CYc0IDI7xc9GwO6uGmMxcRbNQF
- zqF5c3i+Y3BbN3dG/AtH3jsY0N7IpbbXI2U/8FfrowibcsANVvPmMNSreXrUiQDHLvQW
- HpZt4J6hS3DPpyPhejA3J+a7nKFesJAnZZZ5InwnFAmbV66bo0Bz2LLa4SzJ4fTp9u+S
- aF5tV91BGIA2veejyNtSGArrE24EqXUCplyF5RwGxw8R/vZ5lpupG0yxNHeRkhUUo5Eg
- yC+ucdNbUdeYkUKQ9p/eqQxOV58UH1jxyhHjbaaDS/iLO/F3J0gZrl5szwB5tC+h8XvK
- NUFg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWXWyi/WvW5RAYmJ1pWM28BjSXdhC9R1p7BLOkQWkVbUBe9Deopdz7HzQH80JH0cbF7LsJdVVvtZmI=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Ywr2SmWROXL8DCTNu1VkCdl/4K0j3Dm96deV3v1Td6j54x3mfuR
- 1LVD75Iyvz19jj4qxFw/d9nvb484iQY1uaGiPajb5UTM3PMQnbWt6ace
-X-Gm-Gg: ATEYQzxGKShI3H7CauPh+75bYWgATrbtqA7xT9Iz3/5k0qArLY60Qcq5njXTYBnxpou
- 9dvJFyE9R9wwYGemK7kU/vBKeeKd04PAre9hkgFEPsB8PlOLFjBPbTx6NpFxLovHBlSEaiqXMlF
- piekecWKJrVPEdmaxx+yIgnVw6jZsncoG2tEieytdna0dpmwtxtcjc8AAv3+mbnpuiQOecz7KO2
- TgOrkI953FN1/MiWPNIrZBD0UF9CKu12PO/CpSgGSy1Ticiv/5GK4VNfqbb/x9BJsd7Oldg9MHm
- Usnd6lAuAuAoiyOS8CY3J+Ddzpp08pPby0OghZ9kxnV+Uo83LGhhtPsdmSNQzDtJqCfjjmQVD68
- yGmbLdMBW0bIqXOtY2kUAHssCCzxAJPMEoF//FXOmHdYVOXj1trGezKJ/kbsgjqQSVmy42Q+jDA
- IFP3A33rgozBRVz0d3cWHv2DHBy80Bgc2Z5x2HVZTdhyXmXdh8mer/KSNpJ35+ALKQ
-X-Received: by 2002:a05:600c:1d1a:b0:485:3d00:efd with SMTP id
- 5b1f17b1804b1-485566cfacbmr307335885e9.7.1773759408795; 
- Tue, 17 Mar 2026 07:56:48 -0700 (PDT)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4856ea97e8esm74472665e9.5.2026.03.17.07.56.48
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 17 Mar 2026 07:56:48 -0700 (PDT)
-Date: Tue, 17 Mar 2026 14:56:47 +0000
-From: David Laight <david.laight.linux@gmail.com>
-To: "Arnd Bergmann" <arnd@arndb.de>
-Cc: "Matt Roper" <matthew.d.roper@intel.com>, "Arnd Bergmann"
- <arnd@kernel.org>, "Matthew Brost" <matthew.brost@intel.com>, Thomas
- =?UTF-8?B?SGVsbHN0csO2bQ==?= <thomas.hellstrom@linux.intel.com>, "Rodrigo
- Vivi" <rodrigo.vivi@intel.com>, "Dave Airlie" <airlied@gmail.com>, "Simona
- Vetter" <simona@ffwll.ch>, "Dnyaneshwar Bhadane"
- <dnyaneshwar.bhadane@intel.com>, "Lucas De Marchi" <demarchi@kernel.org>,
- "Tvrtko Ursulin" <tvrtko.ursulin@igalia.com>, "Umesh Nerlige Ramappa"
- <umesh.nerlige.ramappa@intel.com>, "Raag Jadav" <raag.jadav@intel.com>,
- "Niranjana Vishwanathapura" <niranjana.vishwanathapura@intel.com>,
- intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] drm/xe: use %z format string for ptrdiff_t
-Message-ID: <20260317145647.0d5de2a1@pumpkin>
-In-Reply-To: <e46c3681-6f5f-4a41-b5bf-72627b4ec87a@app.fastmail.com>
-References: <20260316224357.658520-1-arnd@kernel.org>
- <20260316225118.GD2729713@mdroper-desk1.amr.corp.intel.com>
- <e46c3681-6f5f-4a41-b5bf-72627b4ec87a@app.fastmail.com>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+Received: from OS0P286CU011.outbound.protection.outlook.com
+ (mail-japanwestazon11010026.outbound.protection.outlook.com [52.101.228.26])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E2FD510E576
+ for <dri-devel@lists.freedesktop.org>; Tue, 17 Mar 2026 15:01:04 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=FEKk+QvdOsLar/xHNQ9KpNfbmRLyc6C8CvGkec2qIOYx8OX6s7mECAPtJDgI5WdRuJEp8XqLGxiqCLulOVLixLLh2yR2UX/HnqwBV9ekQiokV6b86CnoCmvVuAF6kY89jMPZ3y5EIrl57ZXaw14WKMtZhImt6iKKm7f04L3ZrGuCW3IUcRJMU4ReFeFTWf5XBPZB84574ng0RuAYGvMS91n2lZIrp/+Vyhm3ZFB6EfGSLUzLFA3LuloeRDosM0N0nqQQWM/xgK6z7ZvjNTBJW5yDQEgO9P5zqI+yd9Lnky8rj1A6H2+7CYbVKTyndAqgSCWUhjTnEHZk5bPuoIT0Ow==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ySCxFwQCw9j7ZlK8Xt1MJiy3pERl4k171AoiftAPkWM=;
+ b=c2G9OQz4jPJA+b9WiwB8Dzusluf0rXUcG3VDnhLdTVM69gKWfZ2wnFtXQIrDKuCK19gStWAqWgNVsdGBIWqOUv0DEytJGAYY+JHLjddTUY0N0pA8Z6EJqG/UkDcSyxD51np0YRhRarDG4tWIrVCoZwtNqVrg8LVzb1KNpd+JMfg8Vzu4p3kF+2DAqwl2Pj0Ufko3pSgPbUpn/PjGsRlcDzQdBUful/LEa4nHCxhDVH5R75JccGiwvzQoeUPt77GkwZn/ZJdYHGBNUjz0Fqr9+NeLZ8toqr3HIw9OYbhWdqD4N3sa29DUuIMSxU8RV58SQu/G1OJM24twSRqCzueyCw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
+ header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ySCxFwQCw9j7ZlK8Xt1MJiy3pERl4k171AoiftAPkWM=;
+ b=TlQHH5lVHGoXVllUrY/ZN+phICpngvBotMifp248ZIkkG39h5d6WkhGmapStmZkHisRBwgm2GbjawDMwdtiXpOsENQMsc7hFvG/aXiQpPPp1FObWzOtkZFLjt7ELDcExvdqW0NwLqgL+VERWFqL7ccvaCIHAo52PhrTR9ncBuF8=
+Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com (2603:1096:400:3d0::7)
+ by TYCPR01MB11915.jpnprd01.prod.outlook.com (2603:1096:400:387::8)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9700.24; Tue, 17 Mar
+ 2026 15:01:01 +0000
+Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com
+ ([fe80::87d1:4928:d55:97de]) by TY3PR01MB11346.jpnprd01.prod.outlook.com
+ ([fe80::87d1:4928:d55:97de%4]) with mapi id 15.20.9723.018; Tue, 17 Mar 2026
+ 15:01:01 +0000
+From: Biju Das <biju.das.jz@bp.renesas.com>
+To: Hugo Villeneuve <hugo@hugovil.com>, biju.das.au <biju.das.au@gmail.com>
+CC: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, Geert
+ Uytterhoeven <geert+renesas@glider.be>, Chris Brandt
+ <Chris.Brandt@renesas.com>, Prabhakar Mahadev Lad
+ <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: RE: [PATCH 1/2] drm: renesas: rzg2l_mipi_dsi: Use fsleep() for 1ms
+ delay in D-PHY init
+Thread-Topic: [PATCH 1/2] drm: renesas: rzg2l_mipi_dsi: Use fsleep() for 1ms
+ delay in D-PHY init
+Thread-Index: AQHctgqoRUPN3p2KdE6QwNezekwI17WyzdOAgAAC/XA=
+Date: Tue, 17 Mar 2026 15:01:00 +0000
+Message-ID: <TY3PR01MB113462938CC04F72C5970ABB88641A@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+References: <20260317123610.329630-1-biju.das.jz@bp.renesas.com>
+ <20260317123610.329630-2-biju.das.jz@bp.renesas.com>
+ <20260317104719.e251fb0feb2e99b7569c2dc4@hugovil.com>
+In-Reply-To: <20260317104719.e251fb0feb2e99b7569c2dc4@hugovil.com>
+Accept-Language: en-GB, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=bp.renesas.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: TY3PR01MB11346:EE_|TYCPR01MB11915:EE_
+x-ms-office365-filtering-correlation-id: e35991a2-d53a-4d97-2ff4-08de843600d4
+x-ld-processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|366016|376014|7416014|1800799024|56012099003|18002099003|22082099003|38070700021;
+x-microsoft-antispam-message-info: pELL50HaKPwHGIb6ZGNrRknGxXquJkht5iBmIqrSx7Mh4kyHEErh4bHr0B4WA9oJsgQzNfvBCO34ZsRgUsxfiB8DE1jSzf6w1TzLZxb2KSiynpfHpVOdZDhZIKXR0YWW/o++8zrb7vlsrMgqEj9RniCy4xjGEl5y9VAS23kFHJHMGwUoo8sQL8S5lJJUR6zuQNtct1hWaJRPjUHCJlsZ+eyBRpgOUeblgCyTLq+sD5ex2PUsbza+hOjRm/TUGm+yENDRUOE59PfjP2f0MueAZX9fvu8CzuAld12CuM1bJ9MG09DH8yE2Ml3sm/c+LVV2uyiCVhHIKBePDV38UPfRirHwX1mkba69WXXf1l6wyDSXC0ne6HWyB9UK9zeJjW74FVCAgfSCaILEjHmBhrvuYpB0PKq99tvsGSgL7qVT/ge+hAep1hLcqFj5HL019/Nvq82U8lGVBAMdLw99gLhqA8ut09pVMNq7nYlUy6/B82fNVHTINk1q8JHGOjajzjYWrGhgci/mLmUuHkmRuUfc4Xz0Y+USHmLDq4VnFfJ6/PePw0ACmsHPWSqB3jeHL5xAEruxpj/t1mdpkdQbAol4pmS4IoCX8vaM50mJgimLcqR5TaEf6N7CF1lQoClZwWCWDuAd9zJLfZD37z9lwtgooc2xHFN3XgkNd4+xlY85O3/fJBf/yo9fsshQ9FkvKFE/FLnx1SzyWHI2PzN9nzcnPzN9tH/ntXbLpSUL8Mr/O3vMrAwHdArrCVpqXPK1ZrZ5Y8jgNHFlzxFB5w+T/2E4v1OxlB2kMFc3xpYFkpGx5W8=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:TY3PR01MB11346.jpnprd01.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(376014)(7416014)(1800799024)(56012099003)(18002099003)(22082099003)(38070700021);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?WG0Ua5EMo72nWt2FhsSOqomOLlfiDAlOMaa5gIbD1mhdlg9rfHu0dQLlj4qH?=
+ =?us-ascii?Q?klbBnph/ZJ2cjzF3nr/r39UskMFKRGs08J46qi6XAm9Z/z33Wkptq490rLET?=
+ =?us-ascii?Q?bHB0RmmGUPHp2kaF+8QrnizhwAcXqko97McHe/bupL6m1lXrNSfvklNIMhUZ?=
+ =?us-ascii?Q?gHKgwSe1BtpJx1d97/88KFGeUkWxYdMh0rPM7MmLuAXcW0DII71ItFGH1KB2?=
+ =?us-ascii?Q?6PkiGdIuUj/EBstqd7YyS3nbf6Jewt8X5Q99WQRuyvE6/vKEKRrOf0neoVU2?=
+ =?us-ascii?Q?+gwjLiIF7wo40yWUhOKvh9bGJbtmi2pQ/p1fczeMXCvXeLrvhgaN9cthOf+w?=
+ =?us-ascii?Q?NrQdhZ4ZFSocIoCscwPK/9kSwIHhiGx9oPR8mPcI3ukzRHxAdb+Uqr5YPrVb?=
+ =?us-ascii?Q?TgzNEJSDC1jnyJKzcjmoCQaCdFZy38lotsUnaWdgmP0AA3l/26xZ1nMjCZXV?=
+ =?us-ascii?Q?n9/EZIkAEvE44VVHnk6t2t9u9EI/L/UaTVVwMCMOhWASnGkjDU6w9Das8JmF?=
+ =?us-ascii?Q?rV/NLEE7CUugKEuhcD/wsOubj3gPC9Mm5bZG5+I3PXEzoSI5HN51gG0OAbge?=
+ =?us-ascii?Q?StjCdsjCK/ATGJm8OioChfZRmQVbAf6f9I64s7H6h+2T6onaYSu6R3jJzpVP?=
+ =?us-ascii?Q?5n3rWsh8NKjt+zBzfGlK2XDAq6CqT27KS5an7WL1wBt6osaYylvxj6kPADZK?=
+ =?us-ascii?Q?kQ0mx1uv29hDZFj2bhc9qD+z6t5PJ+bOuu7vGL58eklPVhtjqyv4w5/9izfw?=
+ =?us-ascii?Q?YNmGGzzhqxYHTltpByNXUW4hmg7NGSxKHotg6t913KheM92lsbZiHwjSYL9n?=
+ =?us-ascii?Q?/ciP3MIt0WXJKJ2kvVwARmPYzTr8upmSqEXZIeUfxneqwyR7EBbDepXp6Gug?=
+ =?us-ascii?Q?G47JZM3NUn4yIVf3TZbrJq5R9KebIjt8vrXOo5IpX5yAqB6cwxtkYGOiFY9h?=
+ =?us-ascii?Q?YJIZkciDnKNP40vNTK4VRnxeaSVbZGJkFFWu/oIkhtxdfrZY3Ee+1GoOxUfi?=
+ =?us-ascii?Q?f5ioXOFBfFmBBuSl5ctZcMWdxgegOvq0Urn3Z5Gxz27CBEAIYkSLCc50cu1S?=
+ =?us-ascii?Q?QwZaNEHQbBg5oUwtCB1MEha3gAkv/VmFHRWJ51Se4ZtLtjNjpaVm0L3yL900?=
+ =?us-ascii?Q?2QXG3W5fVmQKUl/FjZpJqhmMH76EtEVdM0uvFmbDmHhuL8tV+tvazpQZdCZ0?=
+ =?us-ascii?Q?8X/eRC7CLEvFP5veqzP2YU8Q4dx7oFNpCrS5bL6+Slf4l0OjykUfRK5jDWRt?=
+ =?us-ascii?Q?U/fGwKbMhocl7mw8BChi8xiZpwE9X4LBLZQ0v07AyCRdM+xyS7zF1b0Odq50?=
+ =?us-ascii?Q?GY3iZ19Wqhj3XBVElp5KJL16TfT0UQEGaymr+1RXJYM0Q488uM93O52xdZ7Z?=
+ =?us-ascii?Q?qqw4at2bT4SZpn0Rbmh7YvOGovKJ6PVMer+FyWhF9Yau0yuPut+vfsJ6yok9?=
+ =?us-ascii?Q?hqkXRDyroVOV+BjGKPLPHl9EMb357clb2MRPiEjUZBuULnCmGNUcgNf2FK8G?=
+ =?us-ascii?Q?dMK/UxU3xB6YtDeAE0Rh45SoavaVbDQHVxr7D2cuVcEkxCTqjbys8mJgSL5D?=
+ =?us-ascii?Q?UkfC+cU1WpDO5yLfG7bZSDXOYAI0fA5K2kr9m66UD5+W749Trgg+NJePhXcw?=
+ =?us-ascii?Q?MFFXot7Z9wA40Ce1mPk5DhJnGM+xTAc7MTVjS9HN/mMR12qu07cMztWk6+sh?=
+ =?us-ascii?Q?QPE/L3rP6IbulfMqldwiy9Fh7zRGroM1YMkk2ICbA/6G3IOhLE1ESMLR3vag?=
+ =?us-ascii?Q?Dve2DzB33w=3D=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+X-OriginatorOrg: bp.renesas.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TY3PR01MB11346.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e35991a2-d53a-4d97-2ff4-08de843600d4
+X-MS-Exchange-CrossTenant-originalarrivaltime: 17 Mar 2026 15:01:00.9923 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: ls9x5zkGJfZHnXVCrBhNiJXZvhHXSBW5F/1JnKBnfsO+7UVYz2S/OImA/GjZNxOWcK9HwXu0chcULITtfv94RlGD2pGF94Tpksm/6t2toXM=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYCPR01MB11915
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,50 +140,38 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, 17 Mar 2026 00:07:57 +0100
-"Arnd Bergmann" <arnd@arndb.de> wrote:
+Hi Hugo,
 
-> On Mon, Mar 16, 2026, at 23:51, Matt Roper wrote:
-> > On Mon, Mar 16, 2026 at 11:43:46PM +0100, Arnd Bergmann wrote:  
-> >> From: Arnd Bergmann <arnd@arndb.de>
-> >> 
-> >> ptrdiff_t, size_t and long are the same size on all supported architectures,
-> >> but gcc requires the use of the %zx modifier instead of %lx. On 32-bit  
+Thanks for the feedback.
+
+> -----Original Message-----
+> From: Hugo Villeneuve <hugo@hugovil.com>
+> Sent: 17 March 2026 14:47
+> Subject: Re: [PATCH 1/2] drm: renesas: rzg2l_mipi_dsi: Use fsleep() for 1=
+ms delay in D-PHY init
+>=20
+> Hi Biju,
+>=20
+> On Tue, 17 Mar 2026 12:36:00 +0000
+> Biju <biju.das.au@gmail.com> wrote:
+>=20
+> > From: Biju Das <biju.das.jz@bp.renesas.com>
+>=20
+> The commit message seems confusing to me, indicating that you only change=
+d fsleep, but did not change
+> the delay? Maybe change it to indicate that you increase the delay from 1=
+us to 1ms, which is the real
+> reason of the change (why).
+>=20
 > >
-> > Nathan Chancellor just sent a fix here:
-> >
-> > https://lore.kernel.org/all/20260316-drm-xe-fix-32-bit-wformat-ptrdiff-v1-1-0108b10b2b6b@kernel.org/
-> >
-> > His solution uses %tx rather than %zx, which according to
-> > Documentation/core-api/printk-formats.rst sounds like it's probably the
-> > most accurate format string for this case?
-> >  
-> 
-> Right, Nathan's version is correct. I wasn't aware that size_t
-> and ptrdiff_t have different modifiers.
+> > Replace udelay(1) with fsleep(1000) in rzg2l_mipi_dsi_dphy_init() to
+>=20
+> Same here, the real reason of the change is to increase the delay, and th=
+is is not obviously stated.
 
-Consider:
-void foo(size_t len)
-{
-	char *p = malloc(len);
-	char *end = p + len;
-	ptrdiff_t diff = p - end;
-	printf("len %zu, diff %td\n", len, diff);
-	free(p);
-}
-Clearly foo(5) output "5 -5".
-But what about foo(5u << 29) on a 32bit system with a large unlimit and
-a big enough hole in the address space.
-More likely would be something running on an x86 in real mode.
-There malloc(65000) might be reasonable, so size_t would be unsigned int
-but ptrdiff_t would need to be a signed 32bit type.
+Agreed. I will update the commit message for increasing the delay from 1us =
+to 1 ms to
+match with the hardware manual.
 
-Of course, in linux, they are all 'long'.
-
-	David
-
-
-> 
->       Arnd
-> 
-
+Cheers,
+Biju
