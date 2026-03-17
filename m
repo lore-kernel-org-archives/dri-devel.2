@@ -4,42 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 74E04FF6E9B
-	for <dri-devel@archiver.kernel.org>; Tue, 17 Mar 2026 23:19:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3F842FF6E97
+	for <dri-devel@archiver.kernel.org>; Tue, 17 Mar 2026 23:29:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EE6F110E692;
-	Tue, 17 Mar 2026 23:19:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8C9C210E171;
+	Tue, 17 Mar 2026 23:29:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="SUEny50W";
+	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="MXMDiGrS";
 	dkim-atps=neutral
 Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
  [213.167.242.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B43C310E68A
- for <dri-devel@lists.freedesktop.org>; Tue, 17 Mar 2026 23:19:38 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 04E0310E171
+ for <dri-devel@lists.freedesktop.org>; Tue, 17 Mar 2026 23:29:55 +0000 (UTC)
 Received: from killaraus.ideasonboard.com
  (2001-14ba-703d-e500--2a1.rev.dnainternet.fi [IPv6:2001:14ba:703d:e500::2a1])
- by perceval.ideasonboard.com (Postfix) with UTF8SMTPSA id 4CA00DF3;
- Wed, 18 Mar 2026 00:18:25 +0100 (CET)
+ by perceval.ideasonboard.com (Postfix) with UTF8SMTPSA id 7360CB3;
+ Wed, 18 Mar 2026 00:28:41 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1773789505;
- bh=X7rmBsT/VLu4cXnU/1jFT5MXtJ/cKZy9Of0fz7nPLBw=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=SUEny50Wyw5/zZdrkDoyfpzv3I7P7Tz0bWwxfeDJN4LsMtl/W56c3GR0sEFAABm0X
- zddo7SYB/JLHfdwi6blfonUrbutHPOoZDWF7+11nUgR86L8dOOOGWYEFh93gubKF3j
- vIy66h9mC9DnjZTFUbabMmH7W8cmLMcTzeED6x4M=
-From: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
-To: dri-devel@lists.freedesktop.org
-Cc: linux-renesas-soc@vger.kernel.org,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
-Subject: [PATCH 4/4] drm: rcar-du: Don't leak device_link to CMM
-Date: Wed, 18 Mar 2026 01:19:30 +0200
-Message-ID: <20260317231930.595719-5-laurent.pinchart+renesas@ideasonboard.com>
-X-Mailer: git-send-email 2.52.0
-In-Reply-To: <20260317231930.595719-1-laurent.pinchart+renesas@ideasonboard.com>
-References: <20260317231930.595719-1-laurent.pinchart+renesas@ideasonboard.com>
+ s=mail; t=1773790121;
+ bh=10fbkQNfdwX5A27Z4ALHm7yHi4nhiv1bo993DzslWMI=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=MXMDiGrSdU9Qj6JpWul47oft3o47Du5hPaSnZqjPZzz+wiX7ficHtC9dy//br/eNz
+ I1QtB6lP2A2K9kXPWcWk7ufSGRrMLhbiLGa/Y570/VEUQ64r7SF/S20bKfrz29jmsM
+ N9Qt7ujsOxryFfpM4arSWhGHHVZCHk0zH2fVuo58=
+Date: Wed, 18 Mar 2026 01:29:52 +0200
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Biju Das <biju.das.jz@bp.renesas.com>
+Cc: "biju.das.au" <biju.das.au@gmail.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>,
+ Andy Yan <andy.yan@rock-chips.com>,
+ Douglas Anderson <dianders@chromium.org>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Jesse Van Gavere <jesseevg@gmail.com>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+ "linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>
+Subject: Re: [PATCH] drm/bridge: adv7511: Clear HPD IRQ before powering on
+ device during resume()
+Message-ID: <20260317232952.GD408929@killaraus.ideasonboard.com>
+References: <20251219104659.114032-1-biju.das.jz@bp.renesas.com>
+ <20260316140232.GB31616@killaraus.ideasonboard.com>
+ <TYCPR01MB113325ADBA0ACD1872BD4959B8640A@TYCPR01MB11332.jpnprd01.prod.outlook.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <TYCPR01MB113325ADBA0ACD1872BD4959B8640A@TYCPR01MB11332.jpnprd01.prod.outlook.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,198 +74,106 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The DU driver creates device_link instances between the DU and CMMs, but
-never deletes them. Fix it by introducing a rcar_du_cmm structure to
-group the CMM device and device_link, and deleting the links at cleanup
-time.
+On Mon, Mar 16, 2026 at 05:59:57PM +0000, Biju Das wrote:
+> On 16 March 2026 14:03, Laurent Pinchart wrote:
+> > On Fri, Dec 19, 2025 at 10:46:53AM +0000, Biju wrote:
+> > > From: Biju Das <biju.das.jz@bp.renesas.com>
+> > >
+> > > On RZ/G3E SMARC EVK using PSCI, s2ram powers down the SoC. Testing
+> > > ADV7535 IRQ configured as edge-triggered interrupt on RZ/G3E SMARC EVK
+> > > shows that it is missing HPD IRQ during system resume, as the status
+> > > change occurs before the IRQ/pincontrol resume. Once the status bit is
+> > > set, there won't be any further IRQ unless the status bit is cleared.
+> > >
+> > > Clear any pending HPD IRQs before powering on the ADV7535 device to
+> > > deliver HPD interrupts after resume().
+> > 
+> > This issue doesn't seem to be specific to the ADV7511. Any device that uses an edge-triggered
+> > interrupt could suffer from the same problem.
+> > Implementing a work around in the driver doesn't seem to be a solution that would scale.
+> 
+> I don't see any bridge device is complaining about similar issues in Linux kernel.
 
-Signed-off-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
----
- .../gpu/drm/renesas/rcar-du/rcar_du_crtc.c    | 16 +++++-----
- .../gpu/drm/renesas/rcar-du/rcar_du_crtc.h    |  3 +-
- drivers/gpu/drm/renesas/rcar-du/rcar_du_drv.h |  8 ++++-
- drivers/gpu/drm/renesas/rcar-du/rcar_du_kms.c | 29 ++++++++++++-------
- 4 files changed, 35 insertions(+), 21 deletions(-)
+This is exactly why this patch concerns me. The issue doesn't seem to be
+specific to the ADV7511, yet no other bridge driver implements anything
+similar. It seems to indicate something else is wrong.
 
-diff --git a/drivers/gpu/drm/renesas/rcar-du/rcar_du_crtc.c b/drivers/gpu/drm/renesas/rcar-du/rcar_du_crtc.c
-index 28a5aa5a14d8..7c36c30a75b6 100644
---- a/drivers/gpu/drm/renesas/rcar-du/rcar_du_crtc.c
-+++ b/drivers/gpu/drm/renesas/rcar-du/rcar_du_crtc.c
-@@ -513,13 +513,13 @@ static void rcar_du_cmm_setup(struct drm_crtc *crtc)
- 	struct rcar_du_crtc *rcrtc = to_rcar_crtc(crtc);
- 	struct rcar_cmm_config cmm_config = {};
- 
--	if (!rcrtc->cmm)
-+	if (!rcrtc->cmm->dev)
- 		return;
- 
- 	if (drm_lut)
- 		cmm_config.lut.table = (struct drm_color_lut *)drm_lut->data;
- 
--	rcar_cmm_setup(rcrtc->cmm, &cmm_config);
-+	rcar_cmm_setup(rcrtc->cmm->dev, &cmm_config);
- }
- 
- /* -----------------------------------------------------------------------------
-@@ -667,8 +667,8 @@ static void rcar_du_crtc_stop(struct rcar_du_crtc *rcrtc)
- 	if (rcar_du_has(rcrtc->dev, RCAR_DU_FEATURE_VSP1_SOURCE))
- 		rcar_du_vsp_disable(rcrtc);
- 
--	if (rcrtc->cmm)
--		rcar_cmm_disable(rcrtc->cmm);
-+	if (rcrtc->cmm->dev)
-+		rcar_cmm_disable(rcrtc->cmm->dev);
- 
- 	/*
- 	 * Select switch sync mode. This stops display operation and configures
-@@ -726,8 +726,8 @@ static void rcar_du_crtc_atomic_enable(struct drm_crtc *crtc,
- 	struct rcar_du_crtc_state *rstate = to_rcar_crtc_state(crtc->state);
- 	struct rcar_du_device *rcdu = rcrtc->dev;
- 
--	if (rcrtc->cmm)
--		rcar_cmm_enable(rcrtc->cmm);
-+	if (rcrtc->cmm->dev)
-+		rcar_cmm_enable(rcrtc->cmm->dev);
- 	rcar_du_crtc_get(rcrtc);
- 
- 	/*
-@@ -1300,8 +1300,8 @@ int rcar_du_crtc_create(struct rcar_du_group *rgrp, unsigned int swindex,
- 		return ret;
- 
- 	/* CMM might be disabled for this CRTC. */
--	if (rcdu->cmms[swindex]) {
--		rcrtc->cmm = rcdu->cmms[swindex];
-+	if (rcdu->cmms[swindex].dev) {
-+		rcrtc->cmm = &rcdu->cmms[swindex];
- 		rgrp->cmms_mask |= BIT(hwindex % 2);
- 
- 		drm_mode_crtc_set_gamma_size(crtc, CM2_LUT_SIZE);
-diff --git a/drivers/gpu/drm/renesas/rcar-du/rcar_du_crtc.h b/drivers/gpu/drm/renesas/rcar-du/rcar_du_crtc.h
-index 07a40b305be8..8857926e109a 100644
---- a/drivers/gpu/drm/renesas/rcar-du/rcar_du_crtc.h
-+++ b/drivers/gpu/drm/renesas/rcar-du/rcar_du_crtc.h
-@@ -19,6 +19,7 @@
- 
- #include <media/vsp1.h>
- 
-+struct rcar_du_cmm;
- struct rcar_du_group;
- struct rcar_du_vsp;
- 
-@@ -65,7 +66,7 @@ struct rcar_du_crtc {
- 	unsigned int vblank_count;
- 
- 	struct rcar_du_group *group;
--	struct device *cmm;
-+	struct rcar_du_cmm *cmm;
- 	struct rcar_du_vsp *vsp;
- 	unsigned int vsp_pipe;
- 
-diff --git a/drivers/gpu/drm/renesas/rcar-du/rcar_du_drv.h b/drivers/gpu/drm/renesas/rcar-du/rcar_du_drv.h
-index 9e160dede4e6..de9c6617a2d4 100644
---- a/drivers/gpu/drm/renesas/rcar-du/rcar_du_drv.h
-+++ b/drivers/gpu/drm/renesas/rcar-du/rcar_du_drv.h
-@@ -22,6 +22,7 @@
- 
- struct clk;
- struct device;
-+struct device_link;
- struct drm_bridge;
- struct drm_property;
- struct rcar_du_device;
-@@ -88,6 +89,11 @@ struct rcar_du_device_info {
- 	unsigned int lvds_clk_mask;
- };
- 
-+struct rcar_du_cmm {
-+	struct device *dev;
-+	struct device_link *link;
-+};
-+
- #define RCAR_DU_MAX_CRTCS		4
- #define RCAR_DU_MAX_GROUPS		DIV_ROUND_UP(RCAR_DU_MAX_CRTCS, 2)
- #define RCAR_DU_MAX_VSPS		4
-@@ -106,7 +112,7 @@ struct rcar_du_device {
- 	unsigned int num_crtcs;
- 
- 	struct rcar_du_group groups[RCAR_DU_MAX_GROUPS];
--	struct device *cmms[RCAR_DU_MAX_CRTCS];
-+	struct rcar_du_cmm cmms[RCAR_DU_MAX_CRTCS];
- 	struct rcar_du_vsp vsps[RCAR_DU_MAX_VSPS];
- 	struct drm_bridge *lvds[RCAR_DU_MAX_LVDS];
- 	struct drm_bridge *dsi[RCAR_DU_MAX_DSI];
-diff --git a/drivers/gpu/drm/renesas/rcar-du/rcar_du_kms.c b/drivers/gpu/drm/renesas/rcar-du/rcar_du_kms.c
-index 9a53b5a86c82..b2d0e4651e35 100644
---- a/drivers/gpu/drm/renesas/rcar-du/rcar_du_kms.c
-+++ b/drivers/gpu/drm/renesas/rcar-du/rcar_du_kms.c
-@@ -769,23 +769,23 @@ static int rcar_du_cmm_init(struct rcar_du_device *rcdu)
- 	}
- 
- 	for (i = 0; i < cells; ++i) {
--		struct device_node *cmm __free(device_node) = NULL;
-+		struct device_node *cmm_node __free(device_node) = NULL;
-+		struct rcar_du_cmm *cmm = &rcdu->cmms[i];
- 		struct platform_device *pdev;
--		struct device_link *link;
- 		int ret;
- 
--		cmm = of_parse_phandle(np, "renesas,cmms", i);
--		if (!cmm) {
-+		cmm_node = of_parse_phandle(np, "renesas,cmms", i);
-+		if (!cmm_node) {
- 			dev_err(rcdu->dev,
- 				"Failed to parse 'renesas,cmms' property\n");
- 			return -EINVAL;
- 		}
- 
--		if (!of_device_is_available(cmm))
-+		if (!of_device_is_available(cmm_node))
- 			/* It's fine to have a phandle to a non-enabled CMM. */
- 			continue;
- 
--		pdev = of_find_device_by_node(cmm);
-+		pdev = of_find_device_by_node(cmm_node);
- 		if (!pdev) {
- 			dev_err(rcdu->dev, "No device found for CMM%u\n", i);
- 			return -EINVAL;
-@@ -801,14 +801,15 @@ static int rcar_du_cmm_init(struct rcar_du_device *rcdu)
- 			return ret == -ENODEV ? 0 : ret;
- 		}
- 
--		rcdu->cmms[i] = &pdev->dev;
-+		cmm->dev = &pdev->dev;
- 
- 		/*
- 		 * Enforce suspend/resume ordering by making the CMM a provider
- 		 * of the DU: CMM is suspended after and resumed before the DU.
- 		 */
--		link = device_link_add(rcdu->dev, &pdev->dev, DL_FLAG_STATELESS);
--		if (!link) {
-+		cmm->link = device_link_add(rcdu->dev, cmm->dev,
-+					    DL_FLAG_STATELESS);
-+		if (!cmm->link) {
- 			dev_err(rcdu->dev,
- 				"Failed to create device link to CMM%u\n", i);
- 			return -EINVAL;
-@@ -823,8 +824,14 @@ static void rcar_du_modeset_cleanup(struct drm_device *dev, void *res)
- 	struct rcar_du_device *rcdu = to_rcar_du_device(dev);
- 	unsigned int i;
- 
--	for (i = 0; i < ARRAY_SIZE(rcdu->cmms); ++i)
--		put_device(rcdu->cmms[i]);
-+	for (i = 0; i < ARRAY_SIZE(rcdu->cmms); ++i) {
-+		struct rcar_du_cmm *cmm = &rcdu->cmms[i];
-+
-+		if (cmm->link)
-+			device_link_del(cmm->link);
-+
-+		put_device(cmm->dev);
-+	}
- }
- 
- int rcar_du_modeset_init(struct rcar_du_device *rcdu)
+I understand and agree with the analysis of the issue (although I find
+it weird that the interrupt controller or pin controller would be
+resumed after the ADV7511), but any device with an edge-triggered
+interrupt should then suffer from the same problem. This means it
+shouldn't be handled at individual drivers level, unless there's
+something I'm missing that makes the problem very specific to the
+ADV7511. Otherwise, a more generic solution is needed.
+
+> Looks like, other bridge devices do not have such restriction.
+>
+> > > Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
+> > > ---
+> > >  drivers/gpu/drm/bridge/adv7511/adv7511.h     |  1 +
+> > >  drivers/gpu/drm/bridge/adv7511/adv7511_drv.c | 32 ++++++++++++++++++++
+> > >  2 files changed, 33 insertions(+)
+> > >
+> > > diff --git a/drivers/gpu/drm/bridge/adv7511/adv7511.h
+> > > b/drivers/gpu/drm/bridge/adv7511/adv7511.h
+> > > index 8be7266fd4f4..03aa23836ca4 100644
+> > > --- a/drivers/gpu/drm/bridge/adv7511/adv7511.h
+> > > +++ b/drivers/gpu/drm/bridge/adv7511/adv7511.h
+> > > @@ -393,6 +393,7 @@ struct adv7511 {
+> > >  	bool cec_enabled_adap;
+> > >  	struct clk *cec_clk;
+> > >  	u32 cec_clk_freq;
+> > > +	bool suspended;
+> > >  };
+> > >
+> > >  static inline struct adv7511 *bridge_to_adv7511(struct drm_bridge
+> > > *bridge) diff --git a/drivers/gpu/drm/bridge/adv7511/adv7511_drv.c
+> > > b/drivers/gpu/drm/bridge/adv7511/adv7511_drv.c
+> > > index b9be86541307..8d9467187d7c 100644
+> > > --- a/drivers/gpu/drm/bridge/adv7511/adv7511_drv.c
+> > > +++ b/drivers/gpu/drm/bridge/adv7511/adv7511_drv.c
+> > > @@ -790,6 +790,25 @@ static void adv7511_bridge_atomic_enable(struct drm_bridge *bridge,
+> > >  	struct drm_connector_state *conn_state;
+> > >  	struct drm_crtc_state *crtc_state;
+> > >
+> > > +	if (adv->i2c_main->irq && adv->suspended) {
+> > > +		unsigned int irq;
+> > > +
+> > > +		/*
+> > > +		 * If ADV7511 IRQ is configured as edge triggered interrupt, it
+> > > +		 * will miss the IRQ during system resume as the status change
+> > > +		 * occurs before IRQ/pincontrol resume. Once the status bit is
+> > 
+> > That seems very platform-specific.
+> 
+> OK, I will reword something like. Is it ok for you?
+> 
+> The HPD status change occurs before the interrupt/pin control resume.
+> Once the status bit is set, there will be no further delivery of interrupts
+> unless the status bit is cleared. Therefore, clear the interrupt status bit
+> for further delivery of HPD interrupts.
+> 
+> > 
+> > > +		 * set there won't be any further IRQ unless the status bit is
+> > > +		 * cleared. So, clear the IRQ status bit for further delivery
+> > > +		 * of HPD IRQ.
+> > > +		 */
+> > > +		regmap_read(adv->regmap, ADV7511_REG_INT(0), &irq);
+> > > +		if (irq & ADV7511_INT0_HPD)
+> > > +			regmap_write(adv->regmap, ADV7511_REG_INT(0),
+> > > +				     ADV7511_INT0_HPD);
+> > 
+> > Why do you need to read and test the IRQ here ? If ADV7511_INT0_HPD isn't set, a write will be a no-op
+> > and will keep it cleared. If it is set, it will clear it. It seems that an unconditional
+> > 
+> > 		regmap_write(adv->regmap, ADV7511_REG_INT(0),
+> > 			     ADV7511_INT0_HPD);
+> > 
+> > should be enough.
+> 
+> Agreed, I will make this unconditional.
+
 -- 
 Regards,
 
 Laurent Pinchart
-
