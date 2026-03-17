@@ -4,53 +4,142 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 06A96FED9F8
-	for <dri-devel@archiver.kernel.org>; Tue, 17 Mar 2026 17:31:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0DB82FED9EF
+	for <dri-devel@archiver.kernel.org>; Tue, 17 Mar 2026 17:31:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6AD5F89083;
-	Tue, 17 Mar 2026 17:31:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4B7EF10E550;
+	Tue, 17 Mar 2026 17:31:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="bmwffuC/";
+	dkim=pass (1024-bit key; unprotected) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="UvglWKg5";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BBE8410E550
+Received: from OS0P286CU011.outbound.protection.outlook.com
+ (mail-japanwestazon11010048.outbound.protection.outlook.com [52.101.228.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AADD989083
  for <dri-devel@lists.freedesktop.org>; Tue, 17 Mar 2026 17:30:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1773768658;
- bh=U9CnMYSQ1Z+XBYqpSMqTX6JFNfnOGbn5Km7HbbDR/Bc=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=bmwffuC/py797z2nNDPkvTDf1oy0xdpwnQeYDQB/BHClI3v1LUX/QTxjWQAUDKmS4
- qu+bFArzvUNCfE62NDZWZ5sZCpR/st4JYDhjZxv2aG+dIV6YsKZQgj5oc8xDFJslCr
- QT3r4WzAcVE+awQUWAN8dRrhiWd9gM1w2GenSTlOCvOLTeC1QDPn8tMy/bOoUbOyjr
- jbxAhsEK3gD1+wkU94RjBHKyoPsvGxyYehGY4vHiQgnG6l3z+TDVHnNhl+CzZFqKJZ
- PG+ilvm/0pvDLKch0Ft+r4S4xXzeP8VNlo6P2StdOngmqGVRxpIklLWVh4V7quWZyV
- PdWYypB68WrRA==
-Received: from fedora (unknown [IPv6:2a01:e0a:2c:6930:d919:a6e:5ea1:8a9f])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
- server-digest SHA256) (No client certificate requested)
- (Authenticated sender: bbrezillon)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 227CA17E1005;
- Tue, 17 Mar 2026 18:30:58 +0100 (CET)
-Date: Tue, 17 Mar 2026 18:30:54 +0100
-From: Boris Brezillon <boris.brezillon@collabora.com>
-To: Pedro Demarchi Gomes <pedrodemargomes@gmail.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3] drm/shmem-helper: Fix Map huge page mapping in fault
- handler
-Message-ID: <20260317183054.5d7030ec@fedora>
-In-Reply-To: <20260316152152.1e20d35e@fedora>
-References: <20260316002649.211819-1-pedrodemargomes@gmail.com>
- <20260316152152.1e20d35e@fedora>
-Organization: Collabora
-X-Mailer: Claws Mail 4.3.1 (GTK 3.24.51; x86_64-redhat-linux-gnu)
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=kT3KVl6fHq4ituywX1eLi/dmJCnOOR7Y9kV2nPon7Xqbar1nlbaXJQdXLAoyFDH23tw1Fv0NJl+YO7i8mRPP0rLhCX557Kj6CP/ahBPa2dv3rclGp/QlD7YCKBiGOr+7ZJrnMyDfTrcKo5GTcxUbZRlFxqe2p8g8CD1n6otViqnEUmcfd9eOpBEsFXJNqAMux5npUfFEual50+8sUYxEGTXqkp6JUjdz/JxK73vgbBKNaBak9BebtxzMmMs4bcKsoUQnJ2bT+x8Yznzjpin70a6gsvxffLMv4G5K3dOb4zF24UqOzkPX8kphOLqKzW4JtVdSW6ciy6ktXHIigJW4rg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=HP3i6a2nE9DBcSe8rBnvfsx3VDxyCjiYe8k2OO/Zrpo=;
+ b=huY4lk4ecMqTUcG+eqP3GkojP76SMU4fzz6KVRGbmVUpseyhy3Mg3SfYQzPYFhW95wc9wA+w2njfIQj6PXXGE9Of7BG58AIxWw8kIFMo4wuEEvgaFtzfOJ8dYLBQxDdl6Y2qCqs3kt3EtFEYIqASGGxTa0gNWy5xkl7wFwZf7b4uixpsdhKdmd7arW870jhyvqHwUm//dZLqFItcFwMW7jaEOGJWKz6Q/JD2JQZNmkTb/hh6qicxoEuZNLfwPU1rcGszOmOMP9kj+B2gbAbmbwPZcZftjai6ukRWCi42LzdrXvWwApv3O5G6d/hbV/oiwJn2+fZAypT/ntK3SU/RxQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
+ header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=HP3i6a2nE9DBcSe8rBnvfsx3VDxyCjiYe8k2OO/Zrpo=;
+ b=UvglWKg5f2Fg+RpXX7YfzdixtCioQarqsSe9nP3lhA8H+lUj67cYLst3SLTfG4ZbefcABPqy+H9vPCucUjtXTk9JEZXW65NTvOGwgp1fu5HoQbR6raCp6GRD4YELr8LqJLsuFx6IdiLHp29wDVSyVqWJnZM5TtLFwSRgIn4e5Zo=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=bp.renesas.com;
+Received: from TY3PR01MB11948.jpnprd01.prod.outlook.com (2603:1096:400:409::5)
+ by TYYPR01MB10608.jpnprd01.prod.outlook.com (2603:1096:400:30a::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.19; Tue, 17 Mar
+ 2026 17:30:54 +0000
+Received: from TY3PR01MB11948.jpnprd01.prod.outlook.com
+ ([fe80::b718:17d0:6c0f:1495]) by TY3PR01MB11948.jpnprd01.prod.outlook.com
+ ([fe80::b718:17d0:6c0f:1495%6]) with mapi id 15.20.9700.025; Tue, 17 Mar 2026
+ 17:30:54 +0000
+Message-ID: <361e3831-d2aa-4471-8b19-34af661fa351@bp.renesas.com>
+Date: Tue, 17 Mar 2026 18:30:41 +0100
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 11/20] drm: renesas: rz-du: mipi_dsi: Add out_port to
+ OF data
+To: Biju Das <biju.das.jz@bp.renesas.com>,
+ Tommaso Merciai <tomm.merciai@gmail.com>, geert <geert@linux-m68k.org>,
+ "laurent.pinchart" <laurent.pinchart@ideasonboard.com>
+Cc: "linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
+ <sboyd@kernel.org>, "magnus.damm" <magnus.damm@gmail.com>,
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "linux-clk@vger.kernel.org" <linux-clk@vger.kernel.org>
+References: <cover.1770996493.git.tommaso.merciai.xr@bp.renesas.com>
+ <54edf1fa30f571686b55a4d67a2b100089739d10.1770996493.git.tommaso.merciai.xr@bp.renesas.com>
+ <TY3PR01MB1134613D59A93FC741A3715678641A@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+Content-Language: en-US
+From: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+In-Reply-To: <TY3PR01MB1134613D59A93FC741A3715678641A@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR4P281CA0321.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:eb::13) To TYCPR01MB11947.jpnprd01.prod.outlook.com
+ (2603:1096:400:3e1::6)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TY3PR01MB11948:EE_|TYYPR01MB10608:EE_
+X-MS-Office365-Filtering-Correlation-Id: d6cd4dc9-61a9-4570-d88f-08de844af0fb
+X-LD-Processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|376014|7416014|366016|7053199007|56012099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: jn+BNwAu3pDazUu3PKLiFckFzJJshPs54XT96TzK+aiA2EfTbZABMAC9jATxtTyJvmPJBDAI4s0jUePu5iFJ7SKyHyaKq6HI6K7S9dHyzfbVpAdYI2/onOAMqBYJu1jYJ9pzloDwbFT4ABckdjpMn3bBJqCPLrQoySkGYY8ePDdqZ6/V6r7GYQL8ip/uKGCyXsuVe6MiAJtK3QeL6u5TXk4bFpaaeIP75A3mZqucw81bqp+Jv+l4XhkBaDkoLLDEqe96MfkRW31IISnPrknNa/CoYA/latRr9/ptmfT/QtqnCBOnjEqEvDqYNbclxrLfEMiRruGKOUBY1ML/8N6AgDwedMfZrnpdHllifa8wQbSbHCaLixXQ8i0ju/4qxO0SBjpurp57qPedvBO7LzXDQUUkNZeDCxuOzwLcfiIfFI5dqF3ITwqgNUbD/iARvPrzQQee1fnXY1U5txrHoBTlGBuT81fZUDxmNSenWsw8SUtqko/BV+vZYV/udw9/ew7G0F1mlbI1UEFhs7dA3F1n6qg/A8Y/3VA3wtRwc6LjNeDCPZqpywPi8vYgTkOSwe4LzLoRVxYw1WMX5uQGm6+1/7hRgNYj7r2n6KqzTiqQbdqF1gDtaO4yiSXvr7bIy0dp5hB6rvwf6Ys0kEAQHZPD8vaXmWwfjZ0tuuJgfXfYCpsyspYmDmJtHXkojMwMzLHKWj7lxwDfSqR9yEmSgHE+CG5KdqmsoNWypkfB/sTNCeg=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:TY3PR01MB11948.jpnprd01.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(7416014)(366016)(7053199007)(56012099003)(18002099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Y2V2azU4TGxjU3lQNEpOaTlMSDR6clJXOWg3Ujg2WFlOVTBaK0pqSjNNS1Yw?=
+ =?utf-8?B?Rzg0MTVBVlVFVTZIQXkyeXVLcnJ3a2F2UFJTRGFOVFh0bjBJeXVoYldoQlpB?=
+ =?utf-8?B?UEZTSkFaNUt1Q2pQZG1yaDdPMzNSNDBJSVRLbC9FOXFoRUFBR2JYb1V4NnI5?=
+ =?utf-8?B?RHB2VE5JYUY3M2s2cWpCMnFlUzc5bVZVbzhoUlBKMkNBSDhETExDNU44M3Vp?=
+ =?utf-8?B?M2pHNEVsUHhYN0pGR2dvRW43dGpUTGxEWUpjbVkrQzVBTnU4Z0RiOFNtbk1Y?=
+ =?utf-8?B?Y25RMG4ySDdSWThMNSthVUxqSDV3cjhjOVpNMHR3bk9vWi9VbkVsTkx6Ly95?=
+ =?utf-8?B?emxuZXBuWDRHdlNocnhkdUREUEJnK3BaZTU1Mmg0SzhUYzdSQW53L09OeTRm?=
+ =?utf-8?B?aU5XQllaa0Z3Wk9ZTDJlbE5jYys4aXgvb0xNSnlHZE5ZU1I0YlA5NDJNb1Q5?=
+ =?utf-8?B?SnRjUWhzcjFYRkpiQmt6aUpURFc5R2o5anlCeHA5MGgzQVhuYmhFbm5qWDBW?=
+ =?utf-8?B?M3lQY3JIaWh4Rk5DckxxdkRnMkhiNHhtQVNhaklNMC9kQm83bGdKUGdFbnkr?=
+ =?utf-8?B?ZkZ4eTZUbkN1Mlh2RXpoTGplQ0Y0a1NRbmhESEpWeXpFUmd3ek44R2JZd2Za?=
+ =?utf-8?B?dWtVak1PNDdFaUV1aHdtaGxTcHVvTUlnVUVNYy85aktPdDJnblc2YUZEZjcy?=
+ =?utf-8?B?QnBheHN3QnJMa240M040czUzSC9qWWlIRDZ2eEp4dWZFZm5HRGdGWi8zYVlF?=
+ =?utf-8?B?V3JGY3pLTkIwcnhFK0ZuK042dTVHS25IUlZjSlBwMEovQ2pnbW5wNFFrUW1a?=
+ =?utf-8?B?aDVDYmJOdFFvY2RWYUNVMWFVaW5MMzVmZ0NVdGdwbE9wbURUakYvQWJEMHk2?=
+ =?utf-8?B?clh3TkJvdHFmUlpialE1UGRMSExkUk5PSnBpVy90K1VDZkZnYm5rcVhPd0dY?=
+ =?utf-8?B?aEF1cUJLdmdHRFkxL2EyVkJwZ3pQNnZ6RjgxRE16N21CdzN6bEtUT2xmMGFO?=
+ =?utf-8?B?czMrNS9qUVAyRlpzVXMwMnk3WGNTNldZOXpmMzQ0TjRMQWQvN0FWVnY3eC81?=
+ =?utf-8?B?NU5WaVNyNW5MMURaRXdTKzB2VFJRNHVmM2I5bktoUVpUN2ExeGw5YktCNzFN?=
+ =?utf-8?B?Q1VLTm9JK1JhajVGSmMrdUtlaFhLWWN6bUxCVi8xemFucUNwdzBmbEFyQllM?=
+ =?utf-8?B?VXRoaGc5Zk1vSUFTZ3cyMWZvWWNWcTVHejZiWm9RUEViZFVZMU42U1cyUTlR?=
+ =?utf-8?B?YnFYQzQyWmlqSU55S2NVakRlR3Zrbnc4NHRwWXhIYXpXTFNnNFVodnFhZkdK?=
+ =?utf-8?B?eW9TM20xbzZLWjI0L1N6Z2xOR1U4ek9mVHN0R2cwbGdnWVBzUTdxVUFzUEVY?=
+ =?utf-8?B?VFFldlpCQmsxekM4QzRyNDdTVnBDY1dPVzBQTmVQRzk2blp6S0hDWHZCWU1v?=
+ =?utf-8?B?RWpncDFxR3RPeDFhY0JzWWVuUUtSNmF5bEpiMWRXaE9QdHExQXVsbVAvMjB3?=
+ =?utf-8?B?NU5VWk0vNjROTllVQmszTGk2TDlSS3J6enliUUd0WEFTeUp6aFVBNGU1Unlk?=
+ =?utf-8?B?VEwvV1kvTFRSZWZDWGZpQjU4Umk0N2lod21DTEljbVEzTGNBQk9DbDIxR3Ey?=
+ =?utf-8?B?RTlCTHBTLzJraXhkalUvc1ByaFhncmVMRFVNY2MzRXFTTmw4bGtDd3JiYWhp?=
+ =?utf-8?B?MXFLb3ZjUTB5NlU2YTg1clRjUVVNT1pMSEZ1MjkxU095UGgvZ3lPQWd0SGlP?=
+ =?utf-8?B?UUZrd1hjK3hBMHFjcFFHWG5xNERzNlI0TnpyWStRNHFVM0VWUFp3dlVIRExw?=
+ =?utf-8?B?M21KZkZGdksrQmxkVmQ1ZWFweGJhWkovbXpJb2toS1o2R0w1UTF6R3ROb0Vx?=
+ =?utf-8?B?S1hIMlhreWkwSFBCUjF5aUJFMUQvcUxQcXBJZUJpR2RZUm45dzlOczVRUFJm?=
+ =?utf-8?B?R2wrWU16ajVFaUxGRkFiVTJWUHp6QjA3MFNicU9yRzNTVzVicjdyWnB1N01v?=
+ =?utf-8?B?QlRTYSsyMWFQdXlPaUplbDM5N09lM2dySExyMnVGWDBjUjhXam9IYzdNSUxJ?=
+ =?utf-8?B?c3BqWTBJcm95a1ZUazFQTG96YVNlNTlFUmtXUnJ0R09ENURXMHpnNCtPRXpS?=
+ =?utf-8?B?RnRjWmg0YW16S0w3NVpxTjBQYjFSUzFYQnJJQmFocklCa1dheWg1L1hrSUhK?=
+ =?utf-8?B?M0J6c25vT3pnWFBUZkJ2S05DRllsWG8zRHJtNE5VZERmWDNlWTdyeTBwZ1FB?=
+ =?utf-8?B?alcxQU5NV0lLdjIxUDJCaDF1Q1NIVXM2RDEvOVZOd3U5V2lLL2sxcnIzZjEz?=
+ =?utf-8?B?aDBHWlJTbXgxZEMweHRaZHBqbEZ6aDE4cUh0b1VzUFUxWFVwd1c1dTlYaytI?=
+ =?utf-8?Q?KDpP9awl8MsXdorRl8bpjCm+UBgOAQeRw010Y?=
+X-OriginatorOrg: bp.renesas.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d6cd4dc9-61a9-4570-d88f-08de844af0fb
+X-MS-Exchange-CrossTenant-AuthSource: TYCPR01MB11947.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Mar 2026 17:30:54.0052 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: QB04wIEOPSHX0liKSo1iP9QgyzXwYjxUt05Rz/6+egzN2LM0Et2r4QCBttd2K2hEWa+WkEpo8jJnZNxIneKvS/IrU6B+sF5fr/aoitLvZhMKoFhsnLwq7kIdLaEW/riI
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYYPR01MB10608
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,216 +155,121 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, 16 Mar 2026 15:21:52 +0100
-Boris Brezillon <boris.brezillon@collabora.com> wrote:
+Hi Biju,
+Thanks for your review.
 
-> On Sun, 15 Mar 2026 21:26:49 -0300
-> Pedro Demarchi Gomes <pedrodemargomes@gmail.com> wrote:
+On 3/17/26 13:50, Biju Das wrote:
+> Hi Tommaso,
 > 
-> > When running ./tools/testing/selftests/mm/split_huge_page_test multiple
-> > times with /sys/kernel/mm/transparent_hugepage/shmem_enabled and
-> > /sys/kernel/mm/transparent_hugepage/enabled set as always the following BUG
-> > occurs:
-> > 
-> > [  232.728858] ------------[ cut here ]------------
-> > [  232.729458] kernel BUG at mm/memory.c:2276!
-> > [  232.729726] Oops: invalid opcode: 0000 [#1] SMP DEBUG_PAGEALLOC KASAN PTI
-> > [  232.730217] CPU: 19 UID: 60578 PID: 1497 Comm: llvmpipe-9 Not tainted 7.0.0-rc1mm-new+ #19 PREEMPT(lazy)
-> > [  232.730855] Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.17.0-9.fc43 06/10/2025
-> > [  232.731360] RIP: 0010:walk_to_pmd+0x29e/0x3c0
-> > [  232.731569] Code: d8 5b 5d 41 5c 41 5d 41 5e 41 5f c3 cc cc cc cc 48 89 ea 48 89 de 4c 89 f7 e8 ae 85 ff ff 85 c0 0f 84 1f fe ff ff 31 db eb d0 <0f> 0b 48 89 ea 48 89 de 4c 89 f7 e8 92 8b ff ff 85 c0 75 e8 48 b8
-> > [  232.732614] RSP: 0000:ffff8881aa6ff9a8 EFLAGS: 00010282
-> > [  232.732991] RAX: 8000000142e002e7 RBX: ffff8881433cae10 RCX: dffffc0000000000
-> > [  232.733362] RDX: 0000000000000000 RSI: 00007fb47840b000 RDI: 8000000142e002e7
-> > [  232.733801] RBP: 00007fb47840b000 R08: 0000000000000000 R09: 1ffff110354dff46
-> > [  232.734168] R10: fffffbfff0cb921d R11: 00000000910da5ce R12: 1ffffffff0c1fcdd
-> > [  232.734459] R13: 1ffffffff0c23f36 R14: ffff888171628040 R15: 0000000000000000
-> > [  232.734861] FS:  00007fb4907f86c0(0000) GS:ffff888791f2c000(0000) knlGS:0000000000000000
-> > [  232.735265] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> > [  232.735548] CR2: 00007fb47840be00 CR3: 000000015e6dc000 CR4: 00000000000006f0
-> > [  232.736031] Call Trace:
-> > [  232.736273]  <TASK>
-> > [  232.736500]  get_locked_pte+0x1f/0xa0
-> > [  232.736878]  insert_pfn+0x9f/0x350
-> > [  232.737190]  ? __pfx_pat_pagerange_is_ram+0x10/0x10
-> > [  232.737614]  ? __pfx_insert_pfn+0x10/0x10
-> > [  232.737990]  ? __pfx_css_rstat_updated+0x10/0x10
-> > [  232.738281]  ? __pfx_pfn_modify_allowed+0x10/0x10
-> > [  232.738552]  ? lookup_memtype+0x62/0x180
-> > [  232.738761]  vmf_insert_pfn_prot+0x14b/0x340
-> > [  232.739012]  ? __pfx_vmf_insert_pfn_prot+0x10/0x10
-> > [  232.739247]  ? __pfx___might_resched+0x10/0x10
-> > [  232.739475]  drm_gem_shmem_fault.cold+0x18/0x39
-> > [  232.739677]  ? rcu_read_unlock+0x20/0x70
-> > [  232.739882]  __do_fault+0x251/0x7b0
-> > [  232.740028]  do_fault+0x6e1/0xc00
-> > [  232.740167]  ? __lock_acquire+0x590/0xc40
-> > [  232.740335]  handle_pte_fault+0x439/0x760
-> > [  232.740498]  ? mtree_range_walk+0x252/0xae0
-> > [  232.740669]  ? __pfx_handle_pte_fault+0x10/0x10
-> > [  232.740899]  __handle_mm_fault+0xa02/0xf30
-> > [  232.741066]  ? __pfx___handle_mm_fault+0x10/0x10
-> > [  232.741255]  ? find_vma+0xa1/0x120
-> > [  232.741403]  handle_mm_fault+0x2bf/0x8f0
-> > [  232.741564]  do_user_addr_fault+0x2d3/0xed0
-> > [  232.741736]  ? trace_page_fault_user+0x1bf/0x240
-> > [  232.741969]  exc_page_fault+0x87/0x120
-> > [  232.742124]  asm_exc_page_fault+0x26/0x30
-> > [  232.742288] RIP: 0033:0x7fb4d73ed546
-> > [  232.742441] Code: 66 41 0f 6f fb 66 44 0f 6d dc 66 44 0f 6f c6 66 41 0f 6d f1 66 0f 6c fc 66 45 0f 6c c1 66 44 0f 6f c9 66 0f 6d ca 66 0f db f0 <66> 0f df 04 08 66 44 0f 6c ca 66 45 0f db c2 66 44 0f df 10 66 44
-> > [  232.743193] RSP: 002b:00007fb4907f68a0 EFLAGS: 00010206
-> > [  232.743565] RAX: 00007fb47840aa00 RBX: 00007fb4d73ec070 RCX: 0000000000001400
-> > [  232.743871] RDX: 0000000000002800 RSI: 0000000000003c00 RDI: 0000000000000001
-> > [  232.744150] RBP: 0000000000000004 R08: 0000000000001400 R09: 00007fb4d73ec060
-> > [  232.744433] R10: 000055f0261a4288 R11: 00007fb4c013da40 R12: 0000000000000008
-> > [  232.744712] R13: 0000000000000000 R14: 4332322132212110 R15: 0000000000000004
-> > [  232.746616]  </TASK>
-> > [  232.746711] Modules linked in: nft_nat nft_masq veth bridge stp llc snd_seq_dummy snd_hrtimer snd_seq snd_seq_device snd_timer snd soundcore overlay rfkill nf_conntrack_netbios_ns nf_conntrack_broadcast nft_fib_inet nft_fib_ipv4 nft_fib_ipv6 nft_fib nft_reject_inet nf_reject_ipv4 nf_reject_ipv6 nft_reject nft_ct nft_chain_nat nf_nat nf_conntrack nf_defrag_ipv6 nf_defrag_ipv4 nf_tables qrtr ppdev 9pnet_virtio 9pnet parport_pc i2c_piix4 netfs pcspkr parport i2c_smbus joydev sunrpc vfat fat loop dm_multipath nfnetlink vsock_loopback vmw_vsock_virtio_transport_common vmw_vsock_vmci_transport zram lz4hc_compress vmw_vmci lz4_compress vsock e1000 bochs serio_raw ata_generic pata_acpi scsi_dh_rdac scsi_dh_emc scsi_dh_alua i2c_dev fuse qemu_fw_cfg
-> > [  232.749308] ---[ end trace 0000000000000000 ]---
-> > [  232.749507] RIP: 0010:walk_to_pmd+0x29e/0x3c0
-> > [  232.749692] Code: d8 5b 5d 41 5c 41 5d 41 5e 41 5f c3 cc cc cc cc 48 89 ea 48 89 de 4c 89 f7 e8 ae 85 ff ff 85 c0 0f 84 1f fe ff ff 31 db eb d0 <0f> 0b 48 89 ea 48 89 de 4c 89 f7 e8 92 8b ff ff 85 c0 75 e8 48 b8
-> > [  232.750428] RSP: 0000:ffff8881aa6ff9a8 EFLAGS: 00010282
-> > [  232.750645] RAX: 8000000142e002e7 RBX: ffff8881433cae10 RCX: dffffc0000000000
-> > [  232.750954] RDX: 0000000000000000 RSI: 00007fb47840b000 RDI: 8000000142e002e7
-> > [  232.751232] RBP: 00007fb47840b000 R08: 0000000000000000 R09: 1ffff110354dff46
-> > [  232.751514] R10: fffffbfff0cb921d R11: 00000000910da5ce R12: 1ffffffff0c1fcdd
-> > [  232.751837] R13: 1ffffffff0c23f36 R14: ffff888171628040 R15: 0000000000000000
-> > [  232.752124] FS:  00007fb4907f86c0(0000) GS:ffff888791f2c000(0000) knlGS:0000000000000000
-> > [  232.752441] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> > [  232.752674] CR2: 00007fb47840be00 CR3: 000000015e6dc000 CR4: 00000000000006f0
-> > [  232.752983] Kernel panic - not syncing: Fatal exception
-> > [  232.753510] Kernel Offset: disabled
-> > [  232.754643] ---[ end Kernel panic - not syncing: Fatal exception ]---
-> > 
-> > This happens when two concurrent page faults occur within the same PMD range.
-> > One fault installs a PMD mapping through vmf_insert_pfn_pmd(), while the other
-> > attempts to install a PTE mapping via vmf_insert_pfn(). The bug is
-> > triggered because a pmd_trans_huge is not expected when walking the page
-> > table inside vmf_insert_pfn.
-> > 
-> > Avoid this race by adding a huge_fault callback to drm_gem_shmem_vm_ops so that
-> > PMD-sized mappings are handled through the appropriate huge page fault path.
-> > 
-> > Fixes: 211b9a39f261 ("drm/shmem-helper: Map huge pages in fault handler")
-> > Signed-off-by: Pedro Demarchi Gomes <pedrodemargomes@gmail.com>
-> > ---
-> > 
-> > Changes in v3:
-> >  - Pass a try_pmd boolean parameter to drm_gem_shmem_any_fault
-> >  - Compile drm_gem_shmem_huge_fault only if CONFIG_ARCH_SUPPORTS_PMD_PFNMAP
-> > is defined to avoid a build warning
-> > 
-> > Changes in v2: https://lore.kernel.org/dri-devel/20260313141719.3949700-1-pedrodemargomes@gmail.com/
-> >  - Keep the #ifdef unindented
-> >  - Create drm_gem_shmem_any_fault to handle faults of any order and use
-> > drm_gem_shmem_[huge_]fault() as wrappers
-> > 
-> > v1: https://lore.kernel.org/all/20260312155027.1682606-1-pedrodemargomes@gmail.com/  
+> Thanks for the patch.
 > 
-> I've played a bit with the drm-misc-{next,fixes} versions (with the extra
-> pfn_mkwrite fixes on top for the -next variant), and below is my preferred
-> version (pfn insertion is all handled inside the try_insert_pfn() helper,
-> with order == PMD_ORDER specialized there).
+>> -----Original Message-----
+>> From: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+>> Sent: 13 February 2026 16:28
+>> To: Tommaso Merciai <tomm.merciai@gmail.com>; geert <geert@linux-m68k.org>; laurent.pinchart
+>> Subject: [PATCH v5 11/20] drm: renesas: rz-du: mipi_dsi: Add out_port to OF data
+>>
+>> Add `out_port` field to the `rzg2l_mipi_dsi_hw_info` structure to store the DSI output port index.
+>> RZ/G2L and RZ/V2H(P) use port 1 for DSI output, while RZ/G3E uses port 2.
+> 
+> Why RZ/G3E uses port 2 ?? why it cannot use port 1??
 
-One last thing, the subject should probably be "drm/shmem-helper: Fix
-huge page mapping in fault handler" (instead of "Fix Map huge page
-..."). Pedro, do you think you'll be able to send a v4 before the end
-of the week? I'd really like to have that fix in -rc5 or -rc6.
+I think input ports should be numbered before output ports.
+Also you [0] and Rob [1] agree on this on bindings patch.
+
+[0] 
+https://patchwork.kernel.org/project/linux-renesas-soc/patch/bcfe88f55ca42f45aaa3a364f293bd149b721701.1770996493.git.tommaso.merciai.xr@bp.renesas.com/
+
+[1] 
+https://patchwork.kernel.org/project/linux-renesas-soc/patch/9ae5c0d817ba697084be9022ad7fa20e9e167073.1770030493.git.tommaso.merciai.xr@bp.renesas.com/
+
+Kind Regards,
+Tommaso
+
 
 > 
-> --->8---  
+>>
+>> Update `rzg2l_mipi_dsi_host_attach()` and `rzg2l_mipi_dsi_probe()` to use this `out_port` from the OF
+>> data, facilitating future support for RZ/G3E SoC.
+>>
+>> Signed-off-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+>> ---
+>> v4->v5:
+>>   - No changes.
+>>
+>> v3->v4:
+>>   - No changes.
+>>
+>> v2->v3:
+>>   - No changes.
+>>
+>> v1->v2:
+>>   - No changes.
+>>
+>>   drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c | 9 +++++++--
+>>   1 file changed, 7 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c b/drivers/gpu/drm/renesas/rz-
+>> du/rzg2l_mipi_dsi.c
+>> index f74a0aa85ba8..8ea8594afee8 100644
+>> --- a/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c
+>> +++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c
+>> @@ -58,6 +58,7 @@ struct rzg2l_mipi_dsi_hw_info {
+>>   	u32 link_reg_offset;
+>>   	unsigned long min_dclk;
+>>   	unsigned long max_dclk;
+>> +	int out_port;
 > 
-> diff --git a/drivers/gpu/drm/drm_gem_shmem_helper.c b/drivers/gpu/drm/drm_gem_shmem_helper.c
-> index 7b5a49935ae4..f549cc040c7a 100644
-> --- a/drivers/gpu/drm/drm_gem_shmem_helper.c
-> +++ b/drivers/gpu/drm/drm_gem_shmem_helper.c
-> @@ -550,27 +550,27 @@ int drm_gem_shmem_dumb_create(struct drm_file *file, struct drm_device *dev,
->  }
->  EXPORT_SYMBOL_GPL(drm_gem_shmem_dumb_create);
->  
-> -static bool drm_gem_shmem_try_map_pmd(struct vm_fault *vmf, unsigned long addr,
-> -                                     struct page *page)
-> +static vm_fault_t try_insert_pfn(struct vm_fault *vmf, unsigned int order, unsigned long pfn)
->  {
-> +       if (!order) {
-> +               return vmf_insert_pfn(vmf->vma, vmf->address, pfn);
->  #ifdef CONFIG_ARCH_SUPPORTS_PMD_PFNMAP
-> -       unsigned long pfn = page_to_pfn(page);
-> -       unsigned long paddr = pfn << PAGE_SHIFT;
-> -       bool aligned = (addr & ~PMD_MASK) == (paddr & ~PMD_MASK);
-> +       } else if (order == PMD_ORDER) {
-> +               unsigned long paddr = pfn << PAGE_SHIFT;
-> +               bool aligned = (vmf->address & ~PMD_MASK) == (paddr & ~PMD_MASK);
->  
-> -       if (aligned &&
-> -           pmd_none(*vmf->pmd) &&
-> -           folio_test_pmd_mappable(page_folio(page))) {
-> -               pfn &= PMD_MASK >> PAGE_SHIFT;
-> -               if (vmf_insert_pfn_pmd(vmf, pfn, false) == VM_FAULT_NOPAGE)
-> -                       return true;
-> -       }
-> +               if (aligned &&
-> +                   folio_test_pmd_mappable(page_folio(pfn_to_page(pfn)))) {
-> +                       pfn &= PMD_MASK >> PAGE_SHIFT;
-> +                       return vmf_insert_pfn_pmd(vmf, pfn, false);
-> +               }
->  #endif
-> +       }
->  
-> -       return false;
-> +       return VM_FAULT_FALLBACK;
->  }
->  
-> -static vm_fault_t drm_gem_shmem_fault(struct vm_fault *vmf)
-> +static vm_fault_t drm_gem_shmem_any_fault(struct vm_fault *vmf, unsigned int order)
->  {
->         struct vm_area_struct *vma = vmf->vma;
->         struct drm_gem_object *obj = vma->vm_private_data;
-> @@ -581,6 +581,9 @@ static vm_fault_t drm_gem_shmem_fault(struct vm_fault *vmf)
->         pgoff_t page_offset;
->         unsigned long pfn;
->  
-> +       if (order && order != PMD_ORDER)
-> +               return VM_FAULT_FALLBACK;
-> +
->         /* Offset to faulty address in the VMA. */
->         page_offset = vmf->pgoff - vma->vm_pgoff;
->  
-> @@ -593,13 +596,8 @@ static vm_fault_t drm_gem_shmem_fault(struct vm_fault *vmf)
->                 goto out;
->         }
->  
-> -       if (drm_gem_shmem_try_map_pmd(vmf, vmf->address, pages[page_offset])) {
-> -               ret = VM_FAULT_NOPAGE;
-> -               goto out;
-> -       }
-> -
->         pfn = page_to_pfn(pages[page_offset]);
-> -       ret = vmf_insert_pfn(vma, vmf->address, pfn);
-> +       ret = try_insert_pfn(vmf, order, pfn);
->  
->   out:
->         dma_resv_unlock(shmem->base.resv);
-> @@ -607,6 +605,11 @@ static vm_fault_t drm_gem_shmem_fault(struct vm_fault *vmf)
->         return ret;
->  }
->  
-> +static vm_fault_t drm_gem_shmem_fault(struct vm_fault *vmf)
-> +{
-> +       return drm_gem_shmem_any_fault(vmf, 0);
-> +}
-> +
->  static void drm_gem_shmem_vm_open(struct vm_area_struct *vma)
->  {
->         struct drm_gem_object *obj = vma->vm_private_data;
-> @@ -643,6 +646,9 @@ static void drm_gem_shmem_vm_close(struct vm_area_struct *vma)
->  
->  const struct vm_operations_struct drm_gem_shmem_vm_ops = {
->         .fault = drm_gem_shmem_fault,
-> +#ifdef CONFIG_ARCH_SUPPORTS_PMD_PFNMAP
-> +       .huge_fault = drm_gem_shmem_any_fault,
-> +#endif
->         .open = drm_gem_shmem_vm_open,
->         .close = drm_gem_shmem_vm_close,
->  };
+> Can this value become negative? If not, use unsigned int or use u8.
+
+Ack will fix that.
+
+Thanks,
+Tommaso
+
+> 
+> Cheers,
+> Biju
+> 
+>>   	u8 features;
+>>   };
+>>
+>> @@ -1153,7 +1154,7 @@ static int rzg2l_mipi_dsi_host_attach(struct mipi_dsi_host *host,
+>>   	dsi->mode_flags = device->mode_flags;
+>>
+>>   	dsi->next_bridge = devm_drm_of_get_bridge(dsi->dev, dsi->dev->of_node,
+>> -						  1, 0);
+>> +						  dsi->info->out_port, 0);
+>>   	if (IS_ERR(dsi->next_bridge)) {
+>>   		ret = PTR_ERR(dsi->next_bridge);
+>>   		dev_err(dsi->dev, "failed to get next bridge: %d\n", ret); @@ -1394,7 +1395,9 @@ static
+>> int rzg2l_mipi_dsi_probe(struct platform_device *pdev)
+>>
+>>   	dsi->info = of_device_get_match_data(&pdev->dev);
+>>
+>> -	ret = drm_of_get_data_lanes_count_ep(dsi->dev->of_node, 1, 0, 1, 4);
+>> +	ret = drm_of_get_data_lanes_count_ep(dsi->dev->of_node,
+>> +					     dsi->info->out_port,
+>> +					     0, 1, 4);
+>>   	if (ret < 0)
+>>   		return dev_err_probe(dsi->dev, ret,
+>>   				     "missing or invalid data-lanes property\n"); @@ -1508,6 +1511,7 @@ static
+>> const struct rzg2l_mipi_dsi_hw_info rzv2h_mipi_dsi_info = {
+>>   	.link_reg_offset = 0,
+>>   	.min_dclk = 5440,
+>>   	.max_dclk = 187500,
+>> +	.out_port = 1,
+>>   	.features = RZ_MIPI_DSI_FEATURE_16BPP,  };
+>>
+>> @@ -1518,6 +1522,7 @@ static const struct rzg2l_mipi_dsi_hw_info rzg2l_mipi_dsi_info = {
+>>   	.link_reg_offset = 0x10000,
+>>   	.min_dclk = 5803,
+>>   	.max_dclk = 148500,
+>> +	.out_port = 1,
+>>   };
+>>
+>>   static const struct of_device_id rzg2l_mipi_dsi_of_table[] = {
+>> --
+>> 2.43.0
+> 
 
