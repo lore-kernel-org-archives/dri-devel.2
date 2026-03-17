@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D3EBFF6E9D
-	for <dri-devel@archiver.kernel.org>; Tue, 17 Mar 2026 23:05:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1FB9DFF6E97
+	for <dri-devel@archiver.kernel.org>; Tue, 17 Mar 2026 23:05:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D1A5710E45B;
-	Tue, 17 Mar 2026 23:05:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8144210E670;
+	Tue, 17 Mar 2026 23:05:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=nxp.com header.i=@nxp.com header.b="NiwyGukV";
+	dkim=pass (2048-bit key; unprotected) header.d=nxp.com header.i=@nxp.com header.b="nImkZ/F3";
 	dkim-atps=neutral
 Received: from DUZPR83CU001.outbound.protection.outlook.com
- (mail-northeuropeazon11012023.outbound.protection.outlook.com [52.101.66.23])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7F72E10E363;
- Tue, 17 Mar 2026 23:05:33 +0000 (UTC)
+ (mail-northeuropeazon11012058.outbound.protection.outlook.com [52.101.66.58])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8C3F410E284;
+ Tue, 17 Mar 2026 23:05:28 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=YM1E20D/dj/+2jj2Rqt7EQ0E0+PcQwYAu1HR1RofTqo0WUk4It5W8UGgIr9iaPUs6uMO3jmFxgdDk7BXvXBl6Jq5OA/l+1aSPB+dwi9i7Z28zkg6pSReZ51kIQwX3pFsL6LNZxKHetSY/QOG2DV6I/YWk+RNiduE70oR8HxGR8r0QAFYM0EGgLlZVsvtYUDnWxwBRmIR799KM1a2Hxoff46shFmIIrFz/UHYUS5jSy5VxZyZpRdLG6YFzVXUkC52m78BLop/Yx9gyfF1tqd5OUTLyXd4cdMYhDK5G2MZr8V+o0q57IDOfI0NNajFUUlHvKlhrZC3t62pw4zPdyyHdQ==
+ b=OxCgNEuwZSLsScz4tKxhUmwScYiWkJ0S8mmKsRned9J+6qvSegZFgO66TpE03ajXf57DwxKfeKuBDcjllpFlU4laPhSx/9vZQngpIxQ11x/BbOxoCaB0Xu0eBSKAkRLDRJzQGPkmG6R1vFRcLPia5xJz8fcju0EjrAs3CGVc7bhBu7sgHuIc07iHFOa4LqSUAFkjkZUYls5Gsh3UquikdnZDMf38IwT51SqIfXts9lgz1RPqME1tKzfQU969iMYl4fC0m490pMkkeYNUWxKj0TwsrepqGn3vDHZmJ9gxDHdMcMwESFt5veLTaVVWkWQ4IayQ/1g/VwSZuFbxC6yyDg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+bJTDeoqx2r+6LGA0A2AbZ34/TiNtswHPakqgqJ61YE=;
- b=lh3NTMt4vBF49ijz9W6cPD8je3TJq02YoKNAbtJIcJOQr6yMa5ieUKyXQ8XsddMeea4Tf5JDZxLBPs8P3GcXCVTw6TQvp1en/pkdSOma6O0uT9wjF6lEji07oHsu2q3bC0HhnlA88w4c/w7yV4IRt1rv55vyESYf+7KBE12HLIdcgo9lZYRXHzS6brwevEdxLwc7YRn3nyvESsljh083h//7/KR6n/FEkk4pfQdFYaEIi0In7n7SC2s6A/pc43Bgyuw3jXh/7k7LAMAWRxfLpnKFHOZaPFVUekXtILasjkqusFkKg/qW+Adn+Wr4LDnL+VvvyMc50fhlNSYBwIAHlg==
+ bh=dojJxYIcHAWaavMLLA54EwTbGG86Ri0c/DPsrBQcGPo=;
+ b=RnyqQa7CmJunmtA5L4YVflShiGCNHPSrw3nZJTrhgTe3VTqvebVXao1NI4n/RjRu5BUBQ5/6H9OiW8R1k79OobxdctKcL2CMWzSqy53rggqYnTM/lmjLvrac5xmaIx0ZMLzoCiLwLe9XyTVcKyqpLb83apsqh8SzNv7RS95fs1jBMV3bPCsJyD36HQ7JY9rgO1FrMRsqTjB69qzQ5oO7mJkKBv9zlBK/HesRvRhqcNH4zHL2QJpDR5OqU4Spu8nxoqkcA51zY/WEwMtC7rFek7dPRfOFTGs06njzIEQoCwDAKI7jT0GlP46p09pfXUhyO9k9Iv6rp1h3o55KIbpqzA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
  header.d=nxp.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+bJTDeoqx2r+6LGA0A2AbZ34/TiNtswHPakqgqJ61YE=;
- b=NiwyGukVgVIzOcwCFVRY2ipE/knNp4J27f8ffLPRJosZ4XMXYxmqxJVzuiaw35Yl6ffmlWySThmfvDaNCFvESqU7ZRhxkwLGFT6H1W6X1lVS4OyfBZ7KnPbHyi104wVgFTJyA+JSQuMaGJIE29G/S1tNogVhKZfbxud9cfbTLp5tb/M8mDsUkyR3StPD9eTO6ACAuR1ejnMsI/oSX48S7FMM9cAO/u6fHrOtiwnq/3yubnKp9LTeDTowFxfqoyCn35ERwU9GklsbsOz9TfXmMP7P9L9jtbJy1y/CeVuDgLdjFs+23ubc2zp1Buz25zgxygfv+howflhUnR5v8xQc4Q==
+ bh=dojJxYIcHAWaavMLLA54EwTbGG86Ri0c/DPsrBQcGPo=;
+ b=nImkZ/F3pyBUWn1GHlJ4c2z2NB2hvEZyovtkc99uSZnp4dh484tEaZIBa7I6wVQdXD1Z0s3awbmfsSroOqcYp2cW+Kf1VR1dqExKXoxBRUNpM3pxwj3O+ZSf3A6MSryAYXVWAIUkWEYE0gklUdJdYHEsJgxk7x69EYEaWFwi8zW9iEOcx0ZWGPTAjCfxqvaTenYxv/tzKDY1KoNOJa82lET0Nv2DMxiPOHWvUQz4K3kiRBJ4lH9rMvVt8/xW+GZgwXjG0VH7iQi3icE+sAknggGV1icvuSP20l66ehagdXJKQ7s9OlpRSOFf+T/5k5/n+oJMX3c2ZT2ZBeQZliNBrQ==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nxp.com;
 Received: from AM9PR04MB8585.eurprd04.prod.outlook.com (2603:10a6:20b:438::13)
- by VI1PR04MB7022.eurprd04.prod.outlook.com (2603:10a6:800:126::21)
+ by VI0PR04MB12032.eurprd04.prod.outlook.com (2603:10a6:800:311::18)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9700.25; Tue, 17 Mar
- 2026 23:05:29 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9700.27; Tue, 17 Mar
+ 2026 23:05:27 +0000
 Received: from AM9PR04MB8585.eurprd04.prod.outlook.com
  ([fe80::f010:fca8:7ef:62f4]) by AM9PR04MB8585.eurprd04.prod.outlook.com
  ([fe80::f010:fca8:7ef:62f4%4]) with mapi id 15.20.9700.022; Tue, 17 Mar 2026
- 23:05:29 +0000
+ 23:05:25 +0000
 From: Vladimir Oltean <vladimir.oltean@nxp.com>
 To: linux-phy@lists.infradead.org
 Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
@@ -54,80 +54,78 @@ Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
  linux-scsi@vger.kernel.org, linux-sunxi@lists.linux.dev,
  linux-tegra@vger.kernel.org, linux-usb@vger.kernel.org,
  netdev@vger.kernel.org, spacemit@lists.linux.dev,
- UNGLinuxDriver@microchip.com, Alim Akhtar <alim.akhtar@samsung.com>,
- Peter Griffin <peter.griffin@linaro.org>,
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
- "Martin K. Petersen" <martin.petersen@oracle.com>,
- Krzysztof Kozlowski <krzk@kernel.org>,
- Chanho Park <chanho61.park@samsung.com>
-Subject: [PATCH v4 phy-next 09/24] ufs: exynos: stop poking into struct phy
- guts
-Date: Wed, 18 Mar 2026 01:04:45 +0200
-Message-ID: <20260317230500.2056077-10-vladimir.oltean@nxp.com>
+ UNGLinuxDriver@microchip.com, Daniel Machon <daniel.machon@microchip.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>,
+ Steen Hegelund <Steen.Hegelund@microchip.com>
+Subject: [PATCH v4 phy-next 07/24] net: lan969x: include missing <linux/of.h>
+Date: Wed, 18 Mar 2026 01:04:43 +0200
+Message-ID: <20260317230500.2056077-8-vladimir.oltean@nxp.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260317230500.2056077-1-vladimir.oltean@nxp.com>
 References: <20260317230500.2056077-1-vladimir.oltean@nxp.com>
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-ClientProxiedBy: VI1PR0102CA0016.eurprd01.prod.exchangelabs.com
- (2603:10a6:802::29) To AM9PR04MB8585.eurprd04.prod.outlook.com
+X-ClientProxiedBy: BE1P281CA0440.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:b10:81::11) To AM9PR04MB8585.eurprd04.prod.outlook.com
  (2603:10a6:20b:438::13)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM9PR04MB8585:EE_|VI1PR04MB7022:EE_
-X-MS-Office365-Filtering-Correlation-Id: fc625275-68d0-492e-68c4-08de8479aeca
-X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
+X-MS-TrafficTypeDiagnostic: AM9PR04MB8585:EE_|VI0PR04MB12032:EE_
+X-MS-Office365-Filtering-Correlation-Id: 07e6ec25-c44e-42fa-4da7-08de8479ac22
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|19092799006|10070799003|7416014|376014|366016|56012099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: /yB9r4oovnzc1kx3G0wD7Tkap/WNSBxKwLJgTf3PljaWnWL+X3k51wGLyoHncvSN5hwyr2bC7lxUYLynUKkJ8VyFvH0hdVoGbhF8gP3VMJifSZTinjH5a1Upoi0Awk824um7IpY55DOyiR1hP4yOfv/nRq3ewBrwEfSbreXVUGRjJ1fMJ1R9iRHTFhuUsg8fjReVEbNGNZGJIQKepywhgJOoCb/mJIa+1AhECpaWRNyqp/+idH4CtfwDs9B1l5XKlgeo1xvIWTI082ZFEsFyhXnDGDFax/LNT74gDqU+sDQUBTWveB4fYpPWAdDHujILZMS92lvwjfKtqIdjju6byJFfELtyh8oVzkrHGGDrdtIzhLEccVUcF+bdtjDXOQ19dAxCnaWj8DkQqYuUoXjJgaiF7PtB+lbZ/YVu7Upz05guJixQaunn7BXYs97na56nTvgIxxVewngy6psvKR5Uto/a/joYV/6KcQ4yPb1Mm4MIk4lx7GMhhx1nh0jauY6+dLwSMQMWIaJFG6RTycGot0l2T7rkymAn8qYl74RkVjmNuEl9XYVR9pbvKyDABDhI9sDxiU+s3Hv6YvTvFotro4O0Cbj8ASp4CTjd8pLGLGjzkClXloVUqGHLfeDADPJcMJFdkHYeuIBfoRIbWnoMAXehbQRFe6bhKnLBwg9i+j23DdKbxm1Ep3tdVwlVlULzuLrOY/giMlHUDjmgE9BbahPibyR21XX/sTpYyzlm5hI=
+ ARA:13230040|1800799024|10070799003|376014|19092799006|7416014|366016|18002099003|56012099003|22082099003;
+X-Microsoft-Antispam-Message-Info: 2+XlJLDg7k2aO+SnOteEZSzPF6LAs3Lg2WnIgHyVolVG9WUYQ2Au/FbzrttkG37VOUiJs2G0aZ/xgUMvFaDq1NsRda0tidHNMh5K4b6Jpkzg0a3Ecia/aqUE6qxNytwqZSijMoH8AYq2y1n+fDoo9L6Sw+W44QueWjZs3NsW9pv5EnQN2PluyjRR6j+q6L9EqBHPBf9CE0SrAVU9PhcEBHil+59S8YSbnbkSkBm0Ti9aMo7tCV+iGt0D4u/Xi8tGxi4sxv2RlmZekWapxH29wDcf4S3Kh4WHfvgZbfh1lmbcF0/6xNns45Nz67AOTFGeVgvI/zlnSbPDhYor7/VHrCqoZkU3oS4EVLE8nE/WqPEXgx90n/+aQRKLNPo42ljNLEoMPvOcipTA8tElOv/8/Tr+uGfK77wFk8EW4+8OoPkmBtjit3wPa7Mhy2md2eiuGanwPbspdx6L26idKzjfTL1YTbWXRtbHTyYoetbFsQw9dV2ak3JguG4DnzCnfjtpaz5NzUwZYNx5dkRCyietM6BptrJGE1CRKgx8y7oeqNv2Ck5mNCpePQ7U/xuGhoTdFRMiNVAz6Z0muunuSAFl6j9KMwjzhLIeq/lpVqF2coQI1pqloykEpe5Uq2IEDPFJu34bauvUhA+QS9uxQ9BmOPRE2aY19TADnl739KGUXZ5VBrAJ1b+gT295eNL40GKd47Qgj/cN8wZypBKY0zwZa8TyXiRupvexm8U5PGAR5FA=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:AM9PR04MB8585.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(19092799006)(10070799003)(7416014)(376014)(366016)(56012099003)(22082099003)(18002099003);
+ SFS:(13230040)(1800799024)(10070799003)(376014)(19092799006)(7416014)(366016)(18002099003)(56012099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?a1p0F/nO5nYF1v4LO+A4In2eZzSaH3iXhry1y7MLw6n2hc7PYHnSEgIGL6xl?=
- =?us-ascii?Q?xGGVKXuWjfjGUusvNhr6RGX3YowbmKQdi0aNdjM5sSwVBRvtnK1CWG+sTShi?=
- =?us-ascii?Q?/X1RwwFb8jPSYoYBZyPynFl6B0wfkzQ4pgHoxGGoZTUY6+V2zy7BgZlrWgRI?=
- =?us-ascii?Q?QCOugLHKURy64YXs7EviKya81YfFaNA02JxXIT5ll3jjZd2q+HijMeuXQhEw?=
- =?us-ascii?Q?FMWKX3vr0fzNWZ9iZoDDrMw6utrWRJi6Drxvm9HO8nOmXPNKYytHhQjJgZ4I?=
- =?us-ascii?Q?IDs8dtT4gBp/9mVw67AZGuQ/w9U4xmIhEFqODWMdYgoLMUzfLf16zGorJ/C7?=
- =?us-ascii?Q?ZojGNtx7ErYtSq1dPpTZ3GDqkx+ykTe/DdhjFimExeIBfHJqrlq1vIvAoaF2?=
- =?us-ascii?Q?rGnV/UWQbvb7rvIJXJtUh4aUTqxm+plGyXrCo/xItBpo/1MsBdGwIB3C+dcu?=
- =?us-ascii?Q?5Iqia5vx25twf967KTEpM96CoyydQHBBMgn/79bzx5ecbLzzinc7uioMe8qs?=
- =?us-ascii?Q?OH3Ohu8pX7k/i8Gw5WxBPYMH61aJRyaWMbJZduX2Hquj19k0TygIaDNC0oWM?=
- =?us-ascii?Q?+3+oFzusXjGVGcJxqepjOGzs0I82EjM8tQ/RXNAXwtFHQ+xfYht9nk0upmJ7?=
- =?us-ascii?Q?7T9xPD/IAVYZkanOBzqGlZ2atsXAhb70jxOwrSuSeazU2fJZPE66cK8QqNiW?=
- =?us-ascii?Q?6v4KxhiAubTqPXy59WI93XY/8RQt09ZW1rin4SY+kWmevyGVHCSFfmi6LNF6?=
- =?us-ascii?Q?9ghmeddCQshv+SyD8YNSo79ZQZiI3tUsPZHyGIVKqGtHMvZGm1JGvrdVZj5P?=
- =?us-ascii?Q?29zXjkV+vJXmtV66vapcDbd8B1s5XU+BydHQYngF3Mco37wCg8/aNN9hba+O?=
- =?us-ascii?Q?MCt5X/iLdQ4NljDyrdlmSzrixO+ZDAsCJusc6BHE7Lxb63eqQrRWgvHdJiy9?=
- =?us-ascii?Q?vgychfLD5JdmbnuEjOQQHLn9+4/d6FKA+5v0SPbFxkMn/KzAYJPLdXont7ab?=
- =?us-ascii?Q?bSwmaj+KKv+11edG0+gHGs+RHqwOeTbGOjX1pryqQulhaeggCQb6Ubt+Wri4?=
- =?us-ascii?Q?md1y/R9pcy8quAefo8SDs8yXp36o0i1ES/zH7BvrDa9UQYNFTtCThFj3HB62?=
- =?us-ascii?Q?+2puMG0EzjuBOba5SpZRVglJoLNbhcb3kv27oahgjuQPVCaC1/CE3Z0cSUv9?=
- =?us-ascii?Q?fJoS1DzxUmP9qI/CbUpglorn57rZzujj05fmpuw169Zpy0KHe5Wp+S5jLLly?=
- =?us-ascii?Q?9FwstT2MgQvHTk/O2Wx+c8BeDqk607RW48fORsoFYPSeSM1ed5CpdWXljV6F?=
- =?us-ascii?Q?vCZhd3WNh5xx9am5KKBU8jRzHEP2fedDUYO3tS4OxeglZ7ksOItjQjpCZISy?=
- =?us-ascii?Q?e+Q951YSrDPXjMFdW3/KbuNxv4hih3MbIUwLEdZtfPzJcPmbZuHaoQkNaXLg?=
- =?us-ascii?Q?iQPmFCJvcJllp6a6zqbnMgj98/h/eWDHTlZe2gDUqlxR7Z7OL9YZc2GDGxGJ?=
- =?us-ascii?Q?ZnVrTUs2Hir+5OlZ9AI11E8JtUMRRA8nLmKxUFiY/aNq45OOCLjm2yiwXql6?=
- =?us-ascii?Q?3ABeUf6PjCohGcHJs8/qaV6wSmcMrjNaQd0uytYqVPdd4tWIGzDd7do0HCSL?=
- =?us-ascii?Q?KSkdcmLu3E1KwYlQCIGfvOL29C2s+EnBBnhk5gWMBs4G751nUUvaiQ2iR1B8?=
- =?us-ascii?Q?VtepDs4MUQr4jtMmIkimnV6DdT0Srst+x+WKGlIxwDyj07XRIg9FZOS5By/W?=
- =?us-ascii?Q?xIxdYwWRImWvFKTrkkrzhQXHM6h7ANFyofXhFnt4Z6yOrsKmr6e8nP+XYSxd?=
-X-MS-Exchange-AntiSpam-MessageData-1: s/wLtj9lh63lZv2y2otbjI5yYNelXvFMD2M=
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?XHKeTKS8j12NTZUsufnOgv9pj265DvSKTEaYUtdvHh08kGImILahxcae/iya?=
+ =?us-ascii?Q?Aw3IZev2/6j5xaO9jL6+MMxDQJkwFG/ORBLQjD2M2BrhQ5REIbeNKTlyxZyH?=
+ =?us-ascii?Q?Oi+7E4PhDcMZLtRVaQ48CUNGJgaXJ7aBONStGc6t1WEhTdZuPAQu67u82Ce7?=
+ =?us-ascii?Q?FXLd/BOcBILIDGVGI7qG//nEf9Azn/5a+HBS9GLmMYaZNUhNR+AVavKBxFN4?=
+ =?us-ascii?Q?nlVz50YVbVjnyiz572K2zaYmyJ6Ut78sT5EykN0IsHPoHmShXPFhpLxLtmr9?=
+ =?us-ascii?Q?4mR6kWne7+TtzpU6wPfVVHyU+qCeUTQzlL/JSUImhaND2rwdKxz0umelu1Tg?=
+ =?us-ascii?Q?N/4cCOAVP7hemEfL88v4vkHm0OQILYW+XuGXHacS5buRrzmhEYFmbJ9V+YMK?=
+ =?us-ascii?Q?145f4F3fEmrLOpMAY16xbWan9mHDcINwTJmrw6bWyB9ys7Bsx/8BOqHvPcd8?=
+ =?us-ascii?Q?uhBmHy1MrdOpKrO8FltBFoME8oOU7yTfSqoTlvYOOxOxqAKLKCSk6pBq7XKR?=
+ =?us-ascii?Q?GlqBRF354fVt5/JBaLxTDnxxAJw8tA1jkPKOnWEupUYm1KDKnnobVRQri3K0?=
+ =?us-ascii?Q?o1aQL4v8oP621asOVV6jrtCdoAvwCsXzP9kKuqDgK+WKSbAXfPtsLy+SEtUf?=
+ =?us-ascii?Q?gnqBduEZHomymszEgBdrFo7PaYBZc/vI9sBOg7BCJBgQdBafHkrWBNwbTwZb?=
+ =?us-ascii?Q?YV/Sie/Crdw7+vJ19uCHpBwQQgqK0CuIrilgawayMkzFUSWDk9GQ/As2Ji9y?=
+ =?us-ascii?Q?AadxBH7Eo6jzxx4ZI3/sMXW7TWqusoZKdMg4L85Yl1KrQc/ik8nwyXC3xmgc?=
+ =?us-ascii?Q?8AV3aNLeOUnMOFT17HEH3S3eGFdzMMfRcX3OQqn3tuouJ6bzAcNkDAiXpmFK?=
+ =?us-ascii?Q?T48VeJKzJ7E5wwSLsAqsp8LJaNfeDuG72LPM5brmKRYw+jMsNJCkgK/nSIcF?=
+ =?us-ascii?Q?yzwbIhtmRdpTtBTurBUkZ41eYHcSAwNRvJEFM+TA/Jcp8rk8ACHrmNTQjDDo?=
+ =?us-ascii?Q?AEpkIy3NlU0GyF8sX7pTfp1tvAIszcW4Afba4XaPBEVQS0PVHyt2T38h8/m1?=
+ =?us-ascii?Q?9069q3XMN3/HNtUwlliBw1DjLzcvMP7MgmoDKsCv6Mly0/X3kI/nPHT4b1Kz?=
+ =?us-ascii?Q?3E+sG/OFhaJyMCI13iGgLsxo7Fy0XJOezT0BTECVDx3KYKiCANoud8Igud9R?=
+ =?us-ascii?Q?eu3eAS5CBmFnyaDVUBQBUTtwUdlCcht5ccDOw4jqSfVItW2B4pD8QMIFQaal?=
+ =?us-ascii?Q?0R75yGsGZ0hHVLlBctOZvsjddBVVStidZcybISkjbDsedNk3e6YV+KJe6l2I?=
+ =?us-ascii?Q?laB3u4HK4FGEr3SMxCpr16FJCBJ0CFxZWbHX5pFaBx7tf2hbor3lL/VlQDEv?=
+ =?us-ascii?Q?4Tu4tnsp1sYQ9sskn08Lq++6Oeo3YiJda/cPYrLusqVIS19v4Kz6S1D2SQP9?=
+ =?us-ascii?Q?qDwaC+/ha+7f7SlfhNS1GZ0427YF4f9QQzsWCmTql29hskHh703lMFfpa15N?=
+ =?us-ascii?Q?lBaP1TQaxfS7xJzr/xB7/IP7AXibC64kirdOuccJ+r1pT3d9ImicyUckBrV6?=
+ =?us-ascii?Q?YV5Zuh/Q/QKeITl/xM4SRAoNKl4b53AKFH6EWCNZdWBKOocEp1ZThY13z7DA?=
+ =?us-ascii?Q?6w8pWrGMQWgd1zLLMFi3fnKlbZz1GCBcx/Dq4yyBzweNQ/IjY+IMrB4HCYjt?=
+ =?us-ascii?Q?MWnzE/NrrnCtCrNRj15c+gYm9NEKBg/kOvdTH9Csf23uTjiomFBFFPVtfJtm?=
+ =?us-ascii?Q?jtNH18Ssy8J6T9HPAQIptfTLrHPGUUB7vYlHpmW1EtYn2TKD/GqOHH22n43y?=
+X-MS-Exchange-AntiSpam-MessageData-1: vXcWKUGNPu0K/4r+vY8zjbyv6ypOtyW+FHI=
 X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: fc625275-68d0-492e-68c4-08de8479aeca
+X-MS-Exchange-CrossTenant-Network-Message-Id: 07e6ec25-c44e-42fa-4da7-08de8479ac22
 X-MS-Exchange-CrossTenant-AuthSource: AM9PR04MB8585.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Mar 2026 23:05:29.2900 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Mar 2026 23:05:24.9407 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: M5kEdmgdsjK7y1GDVvoDywjaKiy8JfU+Mtg15o8UnShsyoljDKytXgwAq+K4LRJV0Ww67kHEvTxmxP/ZRHfuAw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB7022
+X-MS-Exchange-CrossTenant-UserPrincipalName: i7yGhrGSepKsYUIQf2vFYOQUoZn0JQ800Pd2LW4KdCW5D08Ar+9ldQkyneZ11lcViZijqcBBuQoBxm6owllpeA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI0PR04MB12032
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -143,129 +141,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The Exynos host controller driver is clearly a PHY consumer (gets the
-ufs->phy using devm_phy_get()), but pokes into the guts of struct phy
-to get the generic_phy->power_count.
-
-The UFS core (specifically ufshcd_link_startup()) may call the variant
-operation exynos_ufs_pre_link() -> exynos_ufs_phy_init() multiple times
-if the link startup fails and needs to be retried.
-
-However ufs-exynos shouldn't be doing what it's doing, i.e. looking at
-the generic_phy->power_count, because in the general sense of the API, a
-single Generic PHY may have multiple consumers. If ufs-exynos looks at
-generic_phy->power_count, there's no guarantee that *ufs-exynos* is the
-one who previously bumped that power count. So it may be powering down
-the PHY on behalf of another consumer.
-
-The correct way in which this should be handled is ufs-exynos should
-*remember* whether it has initialized and powered up the PHY before, and
-power it down during link retries. Not rely on the power_count (which,
-btw, on the writer side is modified under &phy->mutex, but on the reader
-side is accessed unlocked). This is a discouraged pattern even if here
-it doesn't cause functional problems.
+This file is calling of_property_read_u32() without including the proper
+header for it. It is provided by <linux/phy/phy.h>, which wants to get
+rid of it.
 
 Signed-off-by: Vladimir Oltean <vladimir.oltean@nxp.com>
+Acked-by: Daniel Machon <daniel.machon@microchip.com>
 ---
-Cc: Alim Akhtar <alim.akhtar@samsung.com>
-Cc: Peter Griffin <peter.griffin@linaro.org>
-Cc: "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>
-Cc: "Martin K. Petersen" <martin.petersen@oracle.com>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Chanho Park <chanho61.park@samsung.com>
+Cc: Daniel Machon <daniel.machon@microchip.com>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>
+Cc: "David S. Miller" <davem@davemloft.net>
+Cc: Eric Dumazet <edumazet@google.com>
+Cc: Jakub Kicinski <kuba@kernel.org>
+Cc: Paolo Abeni <pabeni@redhat.com>
+Cc: Steen Hegelund <Steen.Hegelund@microchip.com>
 
-v3->v4: none
-v2->v3:
-- add Cc Chanho Park, author of commit 3d73b200f989 ("scsi: ufs:
-  ufs-exynos: Change ufs phy control sequence")
-v1->v2:
-- add better ufs->phy_powered_on handling in exynos_ufs_exit(),
-  exynos_ufs_suspend() and exynos_ufs_resume() which ensures we won't
-  enter a phy->power_count underrun condition
+v2->v4: none
+v1->v2: collect tag
 ---
- drivers/ufs/host/ufs-exynos.c | 24 ++++++++++++++++++++----
- drivers/ufs/host/ufs-exynos.h |  1 +
- 2 files changed, 21 insertions(+), 4 deletions(-)
+ drivers/net/ethernet/microchip/sparx5/lan969x/lan969x_rgmii.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/ufs/host/ufs-exynos.c b/drivers/ufs/host/ufs-exynos.c
-index 76fee3a79c77..274e53833571 100644
---- a/drivers/ufs/host/ufs-exynos.c
-+++ b/drivers/ufs/host/ufs-exynos.c
-@@ -963,9 +963,10 @@ static int exynos_ufs_phy_init(struct exynos_ufs *ufs)
+diff --git a/drivers/net/ethernet/microchip/sparx5/lan969x/lan969x_rgmii.c b/drivers/net/ethernet/microchip/sparx5/lan969x/lan969x_rgmii.c
+index 4e422ca50828..249114b40c42 100644
+--- a/drivers/net/ethernet/microchip/sparx5/lan969x/lan969x_rgmii.c
++++ b/drivers/net/ethernet/microchip/sparx5/lan969x/lan969x_rgmii.c
+@@ -4,6 +4,7 @@
+  * Copyright (c) 2024 Microchip Technology Inc. and its subsidiaries.
+  */
  
- 	phy_set_bus_width(generic_phy, ufs->avail_ln_rx);
++#include <linux/of.h>
+ #include "lan969x.h"
  
--	if (generic_phy->power_count) {
-+	if (ufs->phy_powered_on) {
- 		phy_power_off(generic_phy);
- 		phy_exit(generic_phy);
-+		ufs->phy_powered_on = false;
- 	}
- 
- 	ret = phy_init(generic_phy);
-@@ -979,6 +980,8 @@ static int exynos_ufs_phy_init(struct exynos_ufs *ufs)
- 	if (ret)
- 		goto out_exit_phy;
- 
-+	ufs->phy_powered_on = true;
-+
- 	return 0;
- 
- out_exit_phy:
-@@ -1527,6 +1530,9 @@ static void exynos_ufs_exit(struct ufs_hba *hba)
- {
- 	struct exynos_ufs *ufs = ufshcd_get_variant(hba);
- 
-+	if (!ufs->phy_powered_on)
-+		return;
-+
- 	phy_power_off(ufs->phy);
- 	phy_exit(ufs->phy);
- }
-@@ -1728,8 +1734,10 @@ static int exynos_ufs_suspend(struct ufs_hba *hba, enum ufs_pm_op pm_op,
- 	if (ufs->drv_data->suspend)
- 		ufs->drv_data->suspend(ufs);
- 
--	if (!ufshcd_is_link_active(hba))
-+	if (!ufshcd_is_link_active(hba) && ufs->phy_powered_on) {
- 		phy_power_off(ufs->phy);
-+		ufs->phy_powered_on = false;
-+	}
- 
- 	return 0;
- }
-@@ -1737,9 +1745,17 @@ static int exynos_ufs_suspend(struct ufs_hba *hba, enum ufs_pm_op pm_op,
- static int exynos_ufs_resume(struct ufs_hba *hba, enum ufs_pm_op pm_op)
- {
- 	struct exynos_ufs *ufs = ufshcd_get_variant(hba);
-+	int err;
- 
--	if (!ufshcd_is_link_active(hba))
--		phy_power_on(ufs->phy);
-+	if (!ufshcd_is_link_active(hba) && !ufs->phy_powered_on) {
-+		err = phy_power_on(ufs->phy);
-+		if (err) {
-+			dev_err(hba->dev, "Failed to power on PHY: %pe\n",
-+				ERR_PTR(err));
-+		} else {
-+			ufs->phy_powered_on = true;
-+		}
-+	}
- 
- 	exynos_ufs_config_smu(ufs);
- 	exynos_ufs_fmp_resume(hba);
-diff --git a/drivers/ufs/host/ufs-exynos.h b/drivers/ufs/host/ufs-exynos.h
-index abe7e472759e..683b9150e2ba 100644
---- a/drivers/ufs/host/ufs-exynos.h
-+++ b/drivers/ufs/host/ufs-exynos.h
-@@ -227,6 +227,7 @@ struct exynos_ufs {
- 	int avail_ln_rx;
- 	int avail_ln_tx;
- 	int rx_sel_idx;
-+	bool phy_powered_on;
- 	struct ufs_pa_layer_attr dev_req_params;
- 	struct ufs_phy_time_cfg t_cfg;
- 	ktime_t entry_hibern8_t;
+ /* Tx clock selectors */
 -- 
 2.43.0
 
