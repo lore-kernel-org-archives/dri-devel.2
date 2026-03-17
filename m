@@ -4,57 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 66BE0F33833
-	for <dri-devel@archiver.kernel.org>; Tue, 17 Mar 2026 10:05:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0952FFD706D
+	for <dri-devel@archiver.kernel.org>; Tue, 17 Mar 2026 10:19:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9CD0310E198;
-	Tue, 17 Mar 2026 10:05:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6EE1C10E495;
+	Tue, 17 Mar 2026 10:19:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="z/nZBfK8";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="L+a9A/1v";
 	dkim-atps=neutral
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C92AA10E198
- for <dri-devel@lists.freedesktop.org>; Tue, 17 Mar 2026 10:05:05 +0000 (UTC)
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-02.galae.net (Postfix) with ESMTPS id 316761A2E84;
- Tue, 17 Mar 2026 10:05:04 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id F0CC05FC9A;
- Tue, 17 Mar 2026 10:05:03 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id B7C1810450405; Tue, 17 Mar 2026 11:04:59 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1773741903; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding:in-reply-to:references;
- bh=I1PUYYA+kCa3SQEPsUk+ui1wHEWokk2KMQCSQD3wjGc=;
- b=z/nZBfK83C/z42Gy7D0i6aCgKJ3OvXcM6D7Zhe7QznTeulVjo01/rnrOfNUHaPEc+6vty2
- i6H961xgefwV0ipYpEgTYCCWXHsa4ErIBBkuXj3y1k9rFx5cjNL7AcAmuLbZJZbBf3FbHJ
- qLny+W0GmgTrADZK/PNDo0pni1R+6qzPJ+UAmEdwcWuPL7WVztce0W8hH7fHeVFaweaz63
- 9mZgFvhgmLbyypiXioo4ae+ad92irsZpQ42Dg9hXwqtAD7MokPDl8reQxvAIzk00yo/Clx
- Ox6ye6p+ufsTjRsr+ffPw8ERfWxrSaepczzFNUH6K3oGCwDIoUjzZqr19yPWTg==
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 61E0E10E495
+ for <dri-devel@lists.freedesktop.org>; Tue, 17 Mar 2026 10:19:34 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id 7DDCB600AD;
+ Tue, 17 Mar 2026 10:19:33 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 573A2C4CEF7;
+ Tue, 17 Mar 2026 10:19:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+ s=korg; t=1773742773;
+ bh=+UYckGZZN6NQTl2c2cTydojNQQNAcGEPsx+c2KwR6Bg=;
+ h=Subject:To:Cc:From:Date:From;
+ b=L+a9A/1vMNF+0hewIbC5FwIRVZSEJwyTV9tmrDbwdj0anC6t966wqIrlkGmfGNZo0
+ pLumgsO4AxzziUuEpaaiQWEzIP8+SZ6n5ITzNkcCs1NyZ4gJOCvf/dk0zmuawt0apI
+ NMNVCrtum7ECl502xTSSgAfpItxlw76psPYy+qYE=
+Subject: FAILED: patch "[PATCH] mm: Fix a hmm_range_fault() livelock /
+ starvation problem" failed to apply to 6.18-stable tree
+To: thomas.hellstrom@linux.intel.com, akpm@linux-foundation.org,
+ apopple@nvidia.com, dri-devel@lists.freedesktop.org, hch@lst.de,
+ jgg@mellanox.com, jgg@ziepe.ca, jhubbard@nvidia.com, leon@kernel.org,
+ matthew.brost@intel.com, rcampbell@nvidia.com, rodrigo.vivi@intel.com,
+ stable@vger.kernel.org
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Tue, 17 Mar 2026 11:19:27 +0100
+Message-ID: <2026031727-elective-spilt-6870@gregkh>
+MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
-Date: Tue, 17 Mar 2026 11:04:58 +0100
-Message-Id: <DH4Z0YY7GPKV.3EKN4U52NE63@bootlin.com>
-Cc: <linux-kernel@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <linux-tegra@vger.kernel.org>, <linux-media@vger.kernel.org>,
- <linux-staging@lists.linux.dev>
-To: "Svyatoslav Ryhel" <clamor95@gmail.com>, "Thierry Reding"
- <thierry.reding@gmail.com>, "Thierry Reding" <treding@nvidia.com>, "Mikko
- Perttunen" <mperttunen@nvidia.com>, "David Airlie" <airlied@gmail.com>,
- "Simona Vetter" <simona@ffwll.ch>, "Jonathan Hunter"
- <jonathanh@nvidia.com>, "Sowjanya Komatineni" <skomatineni@nvidia.com>,
- "Mauro Carvalho Chehab" <mchehab@kernel.org>, "Greg Kroah-Hartman"
- <gregkh@linuxfoundation.org>, "Hans Verkuil" <hverkuil+cisco@kernel.org>
-From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
-Subject: Re: [PATCH v7 00/15] tegra-video: add CSI support for Tegra20 and
- Tegra30
-X-Mailer: aerc 0.20.1
-References: <20260303084239.15007-1-clamor95@gmail.com>
- <CAPVz0n0+FDAsRxCaPy65_N5O0KKE0tQ=zQupEM6VAR5LPLuOcg@mail.gmail.com>
-In-Reply-To: <CAPVz0n0+FDAsRxCaPy65_N5O0KKE0tQ=zQupEM6VAR5LPLuOcg@mail.gmail.com>
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,132 +56,250 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu Mar 5, 2026 at 10:24 AM CET, Svyatoslav Ryhel wrote:
-> =D0=B2=D1=82, 3 =D0=B1=D0=B5=D1=80. 2026=E2=80=AF=D1=80. =D0=BE 10:42 Svy=
-atoslav Ryhel <clamor95@gmail.com> =D0=BF=D0=B8=D1=88=D0=B5:
->>
->> Add support for MIPI CSI device found in Tegra20 and Tegra30 SoC along
->> with a set of changes required for that.
->>
->> ---
->> Changes in v2:
->> - vi_sensor gated through csus
->> - TEGRA30_CLK_CLK_MAX moved to clk-tegra30
->> - adjusted commit titles and messages
->> - clk_register_clkdev dropped from pad clock registration
->> - removed tegra30-vi/vip and used tegra20 fallback
->> - added separate csi schema for tegra20-csi and tegra30-csi
->> - fixet number of VI channels
->> - adjusted tegra_vi_out naming
->> - fixed yuv_input_format to main_input_format
->> - MIPI calibration refsctored for Tegra114+ and added support for
->>   pre-Tegra114 to use CSI as a MIPI calibration device
->> - switched ENOMEM to EBUSY
->> - added check into tegra_channel_get_remote_csi_subdev
->> - moved avdd-dsi-csi-supply into CSI
->> - next_fs_sp_idx > next_fs_sp_value
->> - removed host1x_syncpt_incr from framecounted syncpoint
->> - csi subdev request moved before frame cycle
->>
->> Changes in v3:
->> - tegra20 and tegra30 csi schema merged
->> - removed unneeded properties and requirements from schema
->> - improved vendor specific properties description
->> - added tegra20 csus parent mux
->> - improved commit descriptions
->> - redesigned MIPI-calibration to expose less SoC related data into heade=
-r
->> - commit "staging: media: tegra-video: csi: add support for SoCs with in=
-tegrated
->>   MIPI calibration" dropped as unneeded
->> - improved tegra_channel_get_remote_device_subdev logic
->> - avdd-dsi-csi-supply moved from vi to csi for p2597 and p3450-0000
->> - software syncpoint counters switched to direct reading
->> - adjusted planar formats offset calculation
->>
->> Changes in v4:
->> - removed ifdefs from tegra_mipi_driver
->> - document Tegra132 MIPI calibration device
->> - switched to use BIT macro in tegra114-mipi
->> - pinctrl changes moved to a separate patch
->> - ERESTARTSYS workaround preserved for now
->> - tegra_mipi_add_provider replaced with devm_tegra_mipi_add_provider
->> - reworked bytesperline and sizeimage calculaion
->>
->> Changes in v5:
->> - dropped patch 1/24 of v4 since it was picked to pinctrl tree
->> - added reasoning for tegra132 comaptible into commit desctiption
->> - moved clocks into common section in tegra20-csi schema
->> - added note regarding ERESTARTSYS
->>
->> Changes in v6:
->> - dropped patches 1, 2, 3, 4, 10, 13, 21, 22 of v5 since they were picke=
-d
->> - rebased on top of linux next/master
->> - improved description of commit
->>   "staging: media: tegra-video: vi: adjust get_selection operation check=
-"
->>
->> Changes in v7:
->> - rebased on top of v7
->> - kzalloc > kzalloc_obj in mipi.c
->> ---
->>
->> Svyatoslav Ryhel (15):
->>   staging: media: tegra-video: expand VI and VIP support to Tegra30
->>   staging: media: tegra-video: vi: adjust get_selection operation check
->>   staging: media: tegra-video: vi: add flip controls only if no source
->>     controls are provided
->>   staging: media: tegra-video: csi: move CSI helpers to header
->>   gpu: host1x: convert MIPI to use operation function pointers
->>   staging: media: tegra-video: vi: improve logic of source requesting
->>   staging: media: tegra-video: csi: move avdd-dsi-csi-supply from VI to
->>     CSI
->>   staging: media: tegra-video: tegra20: set correct maximum width and
->>     height
->>   staging: media: tegra-video: tegra20: add support for second output of
->>     VI
->>   staging: media: tegra-video: tegra20: adjust format align calculations
->>   staging: media: tegra-video: tegra20: set VI HW revision
->>   staging: media: tegra-video: tegra20: increase maximum VI clock
->>     frequency
->>   staging: media: tegra-video: tegra20: expand format support with
->>     RAW8/10 and YUV422/YUV420p 1X16
->>   staging: media: tegra-video: tegra20: adjust luma buffer stride
->>   staging: media: tegra-video: add CSI support for Tegra20 and Tegra30
->>
->>  drivers/gpu/drm/tegra/dsi.c                 |   1 +
->>  drivers/gpu/host1x/Makefile                 |   1 +
->>  drivers/gpu/host1x/mipi.c                   | 592 +++-----------
->>  drivers/gpu/host1x/tegra114-mipi.c          | 483 ++++++++++++
->>  drivers/staging/media/tegra-video/Makefile  |   1 +
->>  drivers/staging/media/tegra-video/csi.c     |  64 +-
->>  drivers/staging/media/tegra-video/csi.h     |  22 +
->>  drivers/staging/media/tegra-video/tegra20.c | 820 +++++++++++++++++---
->>  drivers/staging/media/tegra-video/vi.c      |  58 +-
->>  drivers/staging/media/tegra-video/vi.h      |   6 +-
->>  drivers/staging/media/tegra-video/video.c   |   8 +-
->>  drivers/staging/media/tegra-video/vip.c     |   2 +-
->>  drivers/staging/media/tegra-video/vip.h     |   2 +-
->>  include/linux/host1x.h                      |  10 -
->>  include/linux/tegra-mipi-cal.h              |  57 ++
->>  15 files changed, 1482 insertions(+), 645 deletions(-)
->>  create mode 100644 drivers/gpu/host1x/tegra114-mipi.c
->>  create mode 100644 include/linux/tegra-mipi-cal.h
->>
->
-> Hello there!
->
-> May this patchset be picked if everyone is fine with it? v6 iteration
-> was hanging for a quite some time already without any actions, I have
-> rebased v7 onto linux-next but no other major changes were applied.
 
-FWIW I just tested this on v7.0-rc4 and tegra20 parallel capture still
-works as before, so my Tested-by is confirmed.
+The patch below does not apply to the 6.18-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-Luca
+To reproduce the conflict and resubmit, you may use the following commands:
 
---
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
+git checkout FETCH_HEAD
+git cherry-pick -x b570f37a2ce480be26c665345c5514686a8a0274
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026031727-elective-spilt-6870@gregkh' --subject-prefix 'PATCH 6.18.y' HEAD^..
+
+Possible dependencies:
+
+
+
+thanks,
+
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From b570f37a2ce480be26c665345c5514686a8a0274 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
+Date: Tue, 10 Feb 2026 12:56:53 +0100
+Subject: [PATCH] mm: Fix a hmm_range_fault() livelock / starvation problem
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+If hmm_range_fault() fails a folio_trylock() in do_swap_page,
+trying to acquire the lock of a device-private folio for migration,
+to ram, the function will spin until it succeeds grabbing the lock.
+
+However, if the process holding the lock is depending on a work
+item to be completed, which is scheduled on the same CPU as the
+spinning hmm_range_fault(), that work item might be starved and
+we end up in a livelock / starvation situation which is never
+resolved.
+
+This can happen, for example if the process holding the
+device-private folio lock is stuck in
+   migrate_device_unmap()->lru_add_drain_all()
+sinc lru_add_drain_all() requires a short work-item
+to be run on all online cpus to complete.
+
+A prerequisite for this to happen is:
+a) Both zone device and system memory folios are considered in
+   migrate_device_unmap(), so that there is a reason to call
+   lru_add_drain_all() for a system memory folio while a
+   folio lock is held on a zone device folio.
+b) The zone device folio has an initial mapcount > 1 which causes
+   at least one migration PTE entry insertion to be deferred to
+   try_to_migrate(), which can happen after the call to
+   lru_add_drain_all().
+c) No or voluntary only preemption.
+
+This all seems pretty unlikely to happen, but indeed is hit by
+the "xe_exec_system_allocator" igt test.
+
+Resolve this by waiting for the folio to be unlocked if the
+folio_trylock() fails in do_swap_page().
+
+Rename migration_entry_wait_on_locked() to
+softleaf_entry_wait_unlock() and update its documentation to
+indicate the new use-case.
+
+Future code improvements might consider moving
+the lru_add_drain_all() call in migrate_device_unmap() to be
+called *after* all pages have migration entries inserted.
+That would eliminate also b) above.
+
+v2:
+- Instead of a cond_resched() in hmm_range_fault(),
+  eliminate the problem by waiting for the folio to be unlocked
+  in do_swap_page() (Alistair Popple, Andrew Morton)
+v3:
+- Add a stub migration_entry_wait_on_locked() for the
+  !CONFIG_MIGRATION case. (Kernel Test Robot)
+v4:
+- Rename migrate_entry_wait_on_locked() to
+  softleaf_entry_wait_on_locked() and update docs (Alistair Popple)
+v5:
+- Add a WARN_ON_ONCE() for the !CONFIG_MIGRATION
+  version of softleaf_entry_wait_on_locked().
+- Modify wording around function names in the commit message
+  (Andrew Morton)
+
+Suggested-by: Alistair Popple <apopple@nvidia.com>
+Fixes: 1afaeb8293c9 ("mm/migrate: Trylock device page in do_swap_page")
+Cc: Ralph Campbell <rcampbell@nvidia.com>
+Cc: Christoph Hellwig <hch@lst.de>
+Cc: Jason Gunthorpe <jgg@mellanox.com>
+Cc: Jason Gunthorpe <jgg@ziepe.ca>
+Cc: Leon Romanovsky <leon@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>
+Cc: Matthew Brost <matthew.brost@intel.com>
+Cc: John Hubbard <jhubbard@nvidia.com>
+Cc: Alistair Popple <apopple@nvidia.com>
+Cc: linux-mm@kvack.org
+Cc: <dri-devel@lists.freedesktop.org>
+Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+Cc: <stable@vger.kernel.org> # v6.15+
+Reviewed-by: John Hubbard <jhubbard@nvidia.com> #v3
+Reviewed-by: Alistair Popple <apopple@nvidia.com>
+Link: https://patch.msgid.link/20260210115653.92413-1-thomas.hellstrom@linux.intel.com
+(cherry picked from commit a69d1ab971a624c6f112cea61536569d579c3215)
+Signed-off-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
+
+diff --git a/include/linux/migrate.h b/include/linux/migrate.h
+index 26ca00c325d9..d5af2b7f577b 100644
+--- a/include/linux/migrate.h
++++ b/include/linux/migrate.h
+@@ -65,7 +65,7 @@ bool isolate_folio_to_list(struct folio *folio, struct list_head *list);
+ 
+ int migrate_huge_page_move_mapping(struct address_space *mapping,
+ 		struct folio *dst, struct folio *src);
+-void migration_entry_wait_on_locked(softleaf_t entry, spinlock_t *ptl)
++void softleaf_entry_wait_on_locked(softleaf_t entry, spinlock_t *ptl)
+ 		__releases(ptl);
+ void folio_migrate_flags(struct folio *newfolio, struct folio *folio);
+ int folio_migrate_mapping(struct address_space *mapping,
+@@ -97,6 +97,14 @@ static inline int set_movable_ops(const struct movable_operations *ops, enum pag
+ 	return -ENOSYS;
+ }
+ 
++static inline void softleaf_entry_wait_on_locked(softleaf_t entry, spinlock_t *ptl)
++	__releases(ptl)
++{
++	WARN_ON_ONCE(1);
++
++	spin_unlock(ptl);
++}
++
+ #endif /* CONFIG_MIGRATION */
+ 
+ #ifdef CONFIG_NUMA_BALANCING
+diff --git a/mm/filemap.c b/mm/filemap.c
+index 6cd7974d4ada..406cef06b684 100644
+--- a/mm/filemap.c
++++ b/mm/filemap.c
+@@ -1379,14 +1379,16 @@ static inline int folio_wait_bit_common(struct folio *folio, int bit_nr,
+ 
+ #ifdef CONFIG_MIGRATION
+ /**
+- * migration_entry_wait_on_locked - Wait for a migration entry to be removed
+- * @entry: migration swap entry.
++ * softleaf_entry_wait_on_locked - Wait for a migration entry or
++ * device_private entry to be removed.
++ * @entry: migration or device_private swap entry.
+  * @ptl: already locked ptl. This function will drop the lock.
+  *
+- * Wait for a migration entry referencing the given page to be removed. This is
++ * Wait for a migration entry referencing the given page, or device_private
++ * entry referencing a dvice_private page to be unlocked. This is
+  * equivalent to folio_put_wait_locked(folio, TASK_UNINTERRUPTIBLE) except
+  * this can be called without taking a reference on the page. Instead this
+- * should be called while holding the ptl for the migration entry referencing
++ * should be called while holding the ptl for @entry referencing
+  * the page.
+  *
+  * Returns after unlocking the ptl.
+@@ -1394,7 +1396,7 @@ static inline int folio_wait_bit_common(struct folio *folio, int bit_nr,
+  * This follows the same logic as folio_wait_bit_common() so see the comments
+  * there.
+  */
+-void migration_entry_wait_on_locked(softleaf_t entry, spinlock_t *ptl)
++void softleaf_entry_wait_on_locked(softleaf_t entry, spinlock_t *ptl)
+ 	__releases(ptl)
+ {
+ 	struct wait_page_queue wait_page;
+@@ -1428,6 +1430,9 @@ void migration_entry_wait_on_locked(softleaf_t entry, spinlock_t *ptl)
+ 	 * If a migration entry exists for the page the migration path must hold
+ 	 * a valid reference to the page, and it must take the ptl to remove the
+ 	 * migration entry. So the page is valid until the ptl is dropped.
++	 * Similarly any path attempting to drop the last reference to a
++	 * device-private page needs to grab the ptl to remove the device-private
++	 * entry.
+ 	 */
+ 	spin_unlock(ptl);
+ 
+diff --git a/mm/memory.c b/mm/memory.c
+index 07778814b4a8..2f815a34d924 100644
+--- a/mm/memory.c
++++ b/mm/memory.c
+@@ -4763,7 +4763,8 @@ vm_fault_t do_swap_page(struct vm_fault *vmf)
+ 				unlock_page(vmf->page);
+ 				put_page(vmf->page);
+ 			} else {
+-				pte_unmap_unlock(vmf->pte, vmf->ptl);
++				pte_unmap(vmf->pte);
++				softleaf_entry_wait_on_locked(entry, vmf->ptl);
+ 			}
+ 		} else if (softleaf_is_hwpoison(entry)) {
+ 			ret = VM_FAULT_HWPOISON;
+diff --git a/mm/migrate.c b/mm/migrate.c
+index 1bf2cf8c44dd..2c3d489ecf51 100644
+--- a/mm/migrate.c
++++ b/mm/migrate.c
+@@ -500,7 +500,7 @@ void migration_entry_wait(struct mm_struct *mm, pmd_t *pmd,
+ 	if (!softleaf_is_migration(entry))
+ 		goto out;
+ 
+-	migration_entry_wait_on_locked(entry, ptl);
++	softleaf_entry_wait_on_locked(entry, ptl);
+ 	return;
+ out:
+ 	spin_unlock(ptl);
+@@ -532,10 +532,10 @@ void migration_entry_wait_huge(struct vm_area_struct *vma, unsigned long addr, p
+ 		 * If migration entry existed, safe to release vma lock
+ 		 * here because the pgtable page won't be freed without the
+ 		 * pgtable lock released.  See comment right above pgtable
+-		 * lock release in migration_entry_wait_on_locked().
++		 * lock release in softleaf_entry_wait_on_locked().
+ 		 */
+ 		hugetlb_vma_unlock_read(vma);
+-		migration_entry_wait_on_locked(entry, ptl);
++		softleaf_entry_wait_on_locked(entry, ptl);
+ 		return;
+ 	}
+ 
+@@ -553,7 +553,7 @@ void pmd_migration_entry_wait(struct mm_struct *mm, pmd_t *pmd)
+ 	ptl = pmd_lock(mm, pmd);
+ 	if (!pmd_is_migration_entry(*pmd))
+ 		goto unlock;
+-	migration_entry_wait_on_locked(softleaf_from_pmd(*pmd), ptl);
++	softleaf_entry_wait_on_locked(softleaf_from_pmd(*pmd), ptl);
+ 	return;
+ unlock:
+ 	spin_unlock(ptl);
+diff --git a/mm/migrate_device.c b/mm/migrate_device.c
+index 0a8b31939640..8079676c8f1f 100644
+--- a/mm/migrate_device.c
++++ b/mm/migrate_device.c
+@@ -176,7 +176,7 @@ static int migrate_vma_collect_huge_pmd(pmd_t *pmdp, unsigned long start,
+ 		}
+ 
+ 		if (softleaf_is_migration(entry)) {
+-			migration_entry_wait_on_locked(entry, ptl);
++			softleaf_entry_wait_on_locked(entry, ptl);
+ 			spin_unlock(ptl);
+ 			return -EAGAIN;
+ 		}
+
