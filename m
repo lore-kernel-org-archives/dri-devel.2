@@ -4,79 +4,154 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D59BFB5E90
-	for <dri-devel@archiver.kernel.org>; Tue, 17 Mar 2026 00:30:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B96AAFB5EA1
+	for <dri-devel@archiver.kernel.org>; Tue, 17 Mar 2026 00:58:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CBCA210E146;
-	Tue, 17 Mar 2026 00:30:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A6E7C10E331;
+	Tue, 17 Mar 2026 00:58:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="OXYEtCWg";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="XTNxl4wG";
 	dkim-atps=neutral
-Received: from mail-pf1-f175.google.com (mail-pf1-f175.google.com
- [209.85.210.175])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A4C2210E146
- for <dri-devel@lists.freedesktop.org>; Tue, 17 Mar 2026 00:30:52 +0000 (UTC)
-Received: by mail-pf1-f175.google.com with SMTP id
- d2e1a72fcca58-827270d50d4so4828910b3a.3
- for <dri-devel@lists.freedesktop.org>; Mon, 16 Mar 2026 17:30:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1773707452; x=1774312252; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=PMczMzhV3A2GonGYjmIFHjc1BY+/VEDhWUtNnoc7Cvo=;
- b=OXYEtCWgnK8G10o8ijAF0BWLaMWPSmsubL3GKmtoq1FRKn805MzI8e77F3kqwyIJBJ
- XyEEiMbLe2L7Q0tvXdvgQV49coHEm+dLtwV4hlFJC9Bvm4dg8YBBNW6sdq8kRdoku3iW
- MgFaprSaKMdV5iHylCTlOY2N9HFID1vUBHxdo2b1oVO3Jwi7gJcEo/9+F96kKKXde4vK
- rI7qo8PZ4WhLvomyFH3ZPIOcDYuRWb5eCB3SIj4+mV45dtWsP5ESJtFdtPJ5fHvmbWHr
- uAz0iwZgrhZ12x5yn/zQQBsd2kMHdCUjANa977+2poiejChqpzur4Gj0oRvYv7FXV3Wk
- rHBQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1773707452; x=1774312252;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=PMczMzhV3A2GonGYjmIFHjc1BY+/VEDhWUtNnoc7Cvo=;
- b=hLW1mLI46czRX6G5Kwh0NwPgCKFfmadCkgjjMg05P17G2iG+NH37Hdk6sln2EbLzk8
- twaG1sa2OnzoqPk/J3QdQV50dMYj+Hcch16S+IqoeWyk3b1rkbDC61lQ7Lm9i9c0s+wQ
- iu5uD4oR2oK4b1pwcSG0kAnhJMkgZD1jc9NNAIwfm+HfCLW5i982bD88c4Y65f3OR+Yc
- Ghj9p1HIvux4xZAx0wLTthyha9Mzriohk4XDNAG+I4oPvQdXXp7RhaemcOxG++5lnTxO
- TTjyj6omYIzfZkw8zOUGFrWM+JUhxrx5VOtLrxbie1P1fyovXejLmeBmw43I0PXyh3LD
- IRjg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWZe9lE4OzsxsRhtjTrMRwS7KJXfk6G19tRXfWztvs0aTARfeMUMrsj10mdCEJA6bdx+4tg9ikCAg0=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxCg/RWFpL76UsMF1CwroOHtGfXRXeMC2iSbaPpuE7bMC8i875Z
- ZuvwN2jhALU1iAxNyKhGCly1stv4HsH9dP6rN98AxdU4rPjR7bm8z/ah
-X-Gm-Gg: ATEYQzzintJpgEfzabDy+ZFa5Pvk8Hu57gaCCro85jhFMVe4LJtHzG1XXodn4PTf0IV
- h63MpaEbDfUlDruqMnM0DmYALwHwGJPJG6cWh/KfHTdr4gh78bgSMfQ/LL6kUF3mfcT7Fvo3erx
- ejVitDLe86J1dLPI6wvGQcC9mVxu470vlntzS+5MkBQsQSAnr+sUyzvr/118Znpq3keFp6Ufr/J
- Ocaui8KBxFfkFsTSvVytmlW47PdxXDKrsx3YvW9bNPg3W4y9b/Mb9AxwLuW5rM3F8eGJfa65Nw4
- tr9bHjluFBxLc1wi6pAjlscfnNOHtgHYr/yXdmLs6JjqRApmxl6J3gYxgZLeBloUbouQW6dZV3p
- qsT29NN2Y0+LoherMRz7fr2Z5xFC2WYEPuYY8N4p2WBve4pkqYHLk86VaDVUkquBGeuH6S+QM+b
- fs7pYYhQ8o3CkO5TRgi5AkjyQNB7uO8yUVYPlJiddICIbZn4Hr0+Z1DDk=
-X-Received: by 2002:aa7:8896:0:b0:823:1212:8e87 with SMTP id
- d2e1a72fcca58-82a198d7220mr13987513b3a.32.1773707452151; 
- Mon, 16 Mar 2026 17:30:52 -0700 (PDT)
-Received: from ryzen ([2601:644:8000:56f5::8bd])
- by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-82a0736deb4sm14420074b3a.44.2026.03.16.17.30.50
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 16 Mar 2026 17:30:51 -0700 (PDT)
-From: Rosen Penev <rosenp@gmail.com>
-To: linux-kernel@vger.kernel.org
-Cc: Jeff Hugo <jeff.hugo@oss.qualcomm.com>,
- Carl Vanderlip <carl.vanderlip@oss.qualcomm.com>,
- Oded Gabbay <ogabbay@kernel.org>, Kees Cook <kees@kernel.org>,
- "Gustavo A. R. Silva" <gustavoars@kernel.org>,
- linux-arm-msm@vger.kernel.org (open list:QUALCOMM CLOUD AI (QAIC) DRIVER),
- dri-devel@lists.freedesktop.org (open list:QUALCOMM CLOUD AI (QAIC) DRIVER),
- linux-hardening@vger.kernel.org (open list:KERNEL HARDENING (not covered by
- other areas):Keyword:\b__counted_by(_le|_be)?\b)
-Subject: [PATCH] accel/qaic: kcalloc + kzalloc to kzalloc
-Date: Mon, 16 Mar 2026 17:30:34 -0700
-Message-ID: <20260317003034.71618-1-rosenp@gmail.com>
-X-Mailer: git-send-email 2.53.0
+Received: from BL0PR03CU003.outbound.protection.outlook.com
+ (mail-eastusazon11012045.outbound.protection.outlook.com [52.101.53.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6484A10E06B;
+ Tue, 17 Mar 2026 00:58:32 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=dk5CprP2HTcQjOp0aoto1NSOFz98EUxDaRwHJfBBV4MqM3OsYKeQ8q7lIgv4WFGt9q7das5mF5bNNxy3hmQSgWULgIs2iqHZmpNcgMgHEjccmkMCFm1bO5LFvr6zycGyyklECCq/jrPt48jq+omGFITCPfH20eifStlwW+VBo8m6Xcv+0HPeUG/Qyod0c8XZ8GykNMSpCBdtS0UV/uIkU6v1ruIMprJo7yz5Gooe1eQCAN8p+tdaek6higM+5np0mOyhD6tdvtg+EmJm7HzjqvQL5hG7MkAyXRslGb6SB0vRNG4Bm+urY/ZHm+pz9lMTmRBNoHJ19Xnm1FwA3/WzAg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=t7lVJ2V/lJ22ZLVyzx9t1sVpDNY6GdHiePpfj4xcrnc=;
+ b=Snmeyf49KM2/bYFb9cBNq0whISLV2sH8gHNXWsvXfD1fPdz8oba6xdreOLovWh6L9aoj4PN0HnqvJXgY+nNGC9mCxOwm95ubnUmrONiohsomBbtkb8MtAZoHUgbJY0d+xckdfTVmy5NT9AerUpzwghsw41QDvApwfHUKTQ1Zknh/A+FDdk7COoXoIguKQqCRBuaaNMBsNgY+LfUtdG2AHnGRRX3uJCdZbY6iAxcOmKrtHcQLYho2kL+9tA8RQytCUbKuJrRPYJoSVihlYuFG4lrsmwta4T8ayN4TnyQseJv8bzXnoZZGIB2iWQrVHc9TPKt0OvUuh7wVCx4eJ61GxA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=t7lVJ2V/lJ22ZLVyzx9t1sVpDNY6GdHiePpfj4xcrnc=;
+ b=XTNxl4wGiHSU1SYd6sEqaBO8ORppZspSk4u9tW+h2eG5Rpa7RZAiRE/v/IWD9MUjtONO6osRpunE2gF3G8isq4RTlAJPcLAw8B2VcrvCmBZveA3Amc7VPRdQWmvdexIaQRI2HRA36J9LmNtd8updmwDhglFlzHRqQbf4Iefvo6DpTKBlpEseoESbAyHefW+utmL24dVaEOM/G9L0R1SEuUxQrCPNCSwC/HGppqj4gG5VT/5kfV2ZGongigdXrUQfvw/MWF16FHdCwZ6OeoYCvNiVzVDbmuXdRwLbO3N7nt67W+CV9mwX++R1toAuBYZXy8ikWsc/IxhFPxnhAjGSaw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from CH2PR12MB3990.namprd12.prod.outlook.com (2603:10b6:610:28::18)
+ by MW4PR12MB6779.namprd12.prod.outlook.com (2603:10b6:303:20f::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.14; Tue, 17 Mar
+ 2026 00:58:24 +0000
+Received: from CH2PR12MB3990.namprd12.prod.outlook.com
+ ([fe80::7de1:4fe5:8ead:5989]) by CH2PR12MB3990.namprd12.prod.outlook.com
+ ([fe80::7de1:4fe5:8ead:5989%6]) with mapi id 15.20.9723.016; Tue, 17 Mar 2026
+ 00:58:24 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 17 Mar 2026 09:58:19 +0900
+Message-Id: <DH4NEFIDGPRD.2DBE9RXHATRNX@nvidia.com>
+To: "Joel Fernandes" <joelagnelf@nvidia.com>
+Cc: <linux-kernel@vger.kernel.org>, "Miguel Ojeda" <ojeda@kernel.org>,
+ "Boqun Feng" <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>,
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
+ <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Alice
+ Ryhl" <aliceryhl@google.com>, "Trevor Gross" <tmgross@umich.edu>, "Danilo
+ Krummrich" <dakr@kernel.org>, "Dave Airlie" <airlied@redhat.com>, "Daniel
+ Almeida" <daniel.almeida@collabora.com>, "Koen Koning"
+ <koen.koning@linux.intel.com>, <dri-devel@lists.freedesktop.org>,
+ <nouveau@lists.freedesktop.org>, <rust-for-linux@vger.kernel.org>, "Nikola
+ Djukic" <ndjukic@nvidia.com>, "Maarten Lankhorst"
+ <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
+ "Thomas Zimmermann" <tzimmermann@suse.de>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Jonathan Corbet"
+ <corbet@lwn.net>, "Alex Deucher" <alexander.deucher@amd.com>,
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, "Jani Nikula"
+ <jani.nikula@linux.intel.com>, "Joonas Lahtinen"
+ <joonas.lahtinen@linux.intel.com>, "Rodrigo Vivi" <rodrigo.vivi@intel.com>,
+ "Tvrtko Ursulin" <tursulin@ursulin.net>, "Huang Rui" <ray.huang@amd.com>,
+ "Matthew Auld" <matthew.auld@intel.com>, "Matthew Brost"
+ <matthew.brost@intel.com>, "Lucas De Marchi" <lucas.demarchi@intel.com>,
+ =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ "Helge Deller" <deller@gmx.de>, "Alex Gaynor" <alex.gaynor@gmail.com>,
+ "Boqun Feng" <boqun.feng@gmail.com>, "John Hubbard" <jhubbard@nvidia.com>,
+ "Alistair Popple" <apopple@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>,
+ "Edwin Peer" <epeer@nvidia.com>, "Andrea Righi" <arighi@nvidia.com>, "Andy
+ Ritger" <aritger@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>, "Balbir Singh"
+ <balbirs@nvidia.com>, "Philipp Stanner" <phasta@kernel.org>, "Elle Rhumsaa"
+ <elle@weathered-steel.dev>, <alexeyi@nvidia.com>, "Eliot Courtney"
+ <ecourtney@nvidia.com>, <joel@joelfernandes.org>,
+ <linux-doc@vger.kernel.org>, <amd-gfx@lists.freedesktop.org>,
+ <intel-gfx@lists.freedesktop.org>, <intel-xe@lists.freedesktop.org>,
+ <linux-fbdev@vger.kernel.org>
+Subject: Re: [PATCH v12.1 1/1] rust: gpu: Add GPU buddy allocator bindings
+From: "Alexandre Courbot" <acourbot@nvidia.com>
+References: <DH48DNAQCE0Z.2EX23VD27CQVX@nvidia.com>
+ <c750e3ce-db4b-4cf4-9254-c381c118d103@nvidia.com>
+In-Reply-To: <c750e3ce-db4b-4cf4-9254-c381c118d103@nvidia.com>
+X-ClientProxiedBy: OS3P286CA0125.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:604:1f7::13) To CH2PR12MB3990.namprd12.prod.outlook.com
+ (2603:10b6:610:28::18)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH2PR12MB3990:EE_|MW4PR12MB6779:EE_
+X-MS-Office365-Filtering-Correlation-Id: 879c5e64-79e3-4afc-d90c-08de83c04a92
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|7416014|376014|10070799003|1800799024|366016|56012099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: z9Dd53bd/ZufP0rW9Fn/P3fFC+7gFIOyMccub1FflNAcbv0IEBOabKo8oL455L9JzrRfLHSt12nUtk47PPbrOsaeBZWL4yvK4UOexYegi2NQisDHmfcmqvmtJ8H2ql9Dah6f3VuAR0qj/BxXsCA2Cf2boq8841/oplEsXkZLvf0fgs1qU7bbS5Tr43p8+9Aqe+M1o5wz4BGZDJEnD1rdq1Yd0YJtQWW0B0zjEiqcALydKHTIzfTFDVC9TnDe2L21ya/vN6f6tRKvl6a+jZ97dlj373A+ljHkV41nXm3VBf7Rz7z2kKagUcd6JP5R4cI0vJIJgRZmMLcs0hpCZ+sUqLj+gEPLRj0tA/BaeXhbwb4Houmq4mtGCxhOERUQSGcdfKaa/VYomvg+/tpo2MIvnW2xpiO3znRy+FhZMCK2B5wf03wY0QYjdElDGYHGKuvAB0fNVp5NpnNfAmoDXRI7luIIrTlnNCvpbmcle8BUfJxSAswoAqcQZ0USm8CBOejVicUPPUHIOGFVnb5ZRbay59JGvzHVMDxcbCamYoQ5AdPbZE0ZEm+Aj6cqkVjtPngMexObEaJiN+81e3YLQ/nUfdT9RE9/sAU5D+uOr58DrhcUKIuqij2IZkjVr58qlcfcsLVMwvkrVtWcX53Mq68sFamR8E/HFY/bbPlTzUBfGsaMM/BForErLST0XM4WZ4AwqCSWXFFvZC2JwDps4aJm42pvzfNi2MXB7sKc4e8nopo=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CH2PR12MB3990.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(7416014)(376014)(10070799003)(1800799024)(366016)(56012099003)(22082099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?d0lLZ0VqZkVEVDQ1ckhvL0NHRUJsY0JLVlc3aTdyZkt5S09FdndGVzRxWjRs?=
+ =?utf-8?B?RXpwVzNGcHRkUmV6djJPU1lXYStsTGh6UHRjN1FndDNHZHZtWGcyMHlHMVR6?=
+ =?utf-8?B?YVpCL0UzS3JNV1R3eE9yVkQ3bkFhVXlVcUVVR0hJVFFOMkNRUnBxVjRFempv?=
+ =?utf-8?B?WVVhRHRHZVpHR2ZCVE1uUTNmeStuOUVCaE8zaFlTam5telkzZkFGcTdpNlBo?=
+ =?utf-8?B?YVlLYysvMi9JWHBvWWNyTmJnRGRHUkRZQjlPWXJCdUMyd2t1aHB0Q3VzMlVE?=
+ =?utf-8?B?S0pVeXQvNWlQWjIrM0gwc0RrbFJaZ2orMENLeG1KTVJENllvVkVuL1U4NnhV?=
+ =?utf-8?B?WjJjRjRnbWNOVktWR1VSNnpTS0tzSkR1dzMxcENJUDNTbmNGTlhpSXdNV2to?=
+ =?utf-8?B?Tld0VFhYSXk2aWxSdGtRNFdBb05IV29ldXltdVFEdEJud3B3R0hZYWNBU1VL?=
+ =?utf-8?B?clBxSE9PbVhtYmpqMjgzTFRzTUUwREFVUFUwU2Exbk9VUWw5a2cyTzRsbTgv?=
+ =?utf-8?B?YlFOZ1A4ZjVwVkQyYU9Bc25YQ1Q4UHJ5L1ZEcVNXa09iTUZhaHpNTnhYL3RD?=
+ =?utf-8?B?M0tJRFdzU0JGL1RIVTUrbkNXaGdLMktOSmZDbkVTRWVmQXZNVkdoZVNMT2Iz?=
+ =?utf-8?B?dnhXS1VLM1VncCtHWlVIeU9YN1k3Vm9NQkoyd0ZsSmZ5MDUyNlEyZEFPbzR0?=
+ =?utf-8?B?dUdmeVlacTdxbEphQkFsRzdqb2EzSk1MUjVKSjAyemprYVQ3SjVUTCtqbFVq?=
+ =?utf-8?B?WWRGZjVrWTNaNzA3eFRSM2dMVUVCSWhRc2hSRktYQjhQNzJxTVRUZmZkSEVu?=
+ =?utf-8?B?d3NVdzBQVTBKREZ3VSsvdzBGdEt0bFNrUis0bGNVOElmandIM3pxOFRPbklR?=
+ =?utf-8?B?dXF2bkhJWXlXQXRqOUt4WFAxUnFFaUVMbnltc3hBUlV1UHQwaURFcVh3clRQ?=
+ =?utf-8?B?TDh4bjBnaU9FMVp1MjlLeGhWVk41REdBQ1hVeWpUcExXbDJmQzIyMTUvdWY3?=
+ =?utf-8?B?ZC9aa3hldDBxZjdBamtCVi9oa05XZE95OXJBM3MvM0JOMmZKczhFaUZvbDV6?=
+ =?utf-8?B?bEI0VC9FUFNhb09MMjh6N3NQWW9NWWRlSis3RkVHdzVWVjZLN0ppUXFWVkJY?=
+ =?utf-8?B?ckRNUmJ6dFQycVdlbXR1SkFaYTZweXkvY1hsM3MxcFJ4b0RWMWU0b295NmxN?=
+ =?utf-8?B?SU03cXZDL2RZOHU4MyszV3BNWkE3WFY0dTg5OWNmUjVCTTRYSmhrRjhQWkVx?=
+ =?utf-8?B?UG5INnRNMXRZcCtoaXZFbU9lWFp1aE5lWTNMU2MwbHFjS1QzSnBVbE91Tk9E?=
+ =?utf-8?B?WUVWYU1NUVJxdHFmVWNrK3B2ZHNJUGN4T2JvSndxNGhqY0FKbnh3NmFiYnFn?=
+ =?utf-8?B?UU4rTjdjSU1pSU05WFdlMHBwdHhIb01ONlhpM253SHVocEpyQ1llS2RYUTRZ?=
+ =?utf-8?B?R2dvaHBkZXQ0dGViV3orVisvYlI4clIreTVDOXNTUHpHVTNzbHJGNkQrenF2?=
+ =?utf-8?B?eGNTZDIwbWIveWQ1NWg0QnNWOEFLelU4V3YySUs5MWF1TXNweWdvaU1JUkJy?=
+ =?utf-8?B?UjU1YkFqdDJHNHBHQnpNVzU3UFZPUDhZdENDQ05wekdjdGlXSisrd2VPWWNR?=
+ =?utf-8?B?OUlJUlYwQktzVWNmeHNsUmh1d1JYMFh0dkwwU0FkZTArZ09QangzdlFSekRD?=
+ =?utf-8?B?dlYwZGtFSXdWZXdZVmJISGwzMGtHZUFXeDR2VlFhR2RYeFBxL0wxazNnUlpm?=
+ =?utf-8?B?azlJWS9XYWVyb0tGbHdYTTkwQVpjOTMrNXdEZVE2S2NyMVJRcGlGMEdhK2U4?=
+ =?utf-8?B?M3p6UHkrRTFHMVpCZTVRYUxVVHdTNkRKSWhFZFE2Z0dzL0lEN1pnbDFySHEr?=
+ =?utf-8?B?YXk5RUhoN2ttcjdmVVlMS2ZFK21JN1hsWmZGVWlBeDlJUWs1M1Avc0o0SlNi?=
+ =?utf-8?B?TDNSTzVwbXkwSjdmaFIvRXdvK09qbldGRTdhOG8wa0RWUDNFSDUrMk1GRG5I?=
+ =?utf-8?B?MHZQcVBhWlMyYmJoUnJuMHBtZHZhNkR3S0hzaklJbmxtQmRsdHByRjM3V3lm?=
+ =?utf-8?B?b2ZHSmJDMm5zcDA2L3NqSDZDUy9reThLNUlRVFdzRzlmM3ptUjJiRWlOOU1p?=
+ =?utf-8?B?d05pdmR1MzFPK3ZhK25UUXBhaUZFTEhkN3ZSNHhrZTJNNk1qV2ZuSDVmOUhh?=
+ =?utf-8?B?MzJ6ZEJIbGRZTVpmb3RvSTlYcGR0a0prVmpJNEJMMDhzOENzakYzbU90SnMr?=
+ =?utf-8?B?VHRNV0ttbXNZa2Y2TTI0Y3luakpxdzlGZzBvdG10dDV0TzZncGlMNEp2TVhH?=
+ =?utf-8?B?QTRFQWc4Zjg1WVVWenZLUUJPYVhZWXQxS2g2Rmo5MWFYdVkxMkVERldHZXho?=
+ =?utf-8?Q?zpYP+4pXZQY7rNWf72X4pWYCEStPFIrKx3W/aNGbfJGb0?=
+X-MS-Exchange-AntiSpam-MessageData-1: 8M2gR4r5qYuE7Q==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 879c5e64-79e3-4afc-d90c-08de83c04a92
+X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB3990.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Mar 2026 00:58:24.4194 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Wz1zh8q56kNITw7RQzpxKdqqarqQ/5JMEPLDC2F8mml/hH79qJye7A8njpurr3rwsmyTofc/9ZvaR0KGmU8waQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB6779
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,61 +167,85 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Combine allocations by using a flexible array member.
+On Tue Mar 17, 2026 at 3:43 AM JST, Joel Fernandes wrote:
+<snip>
+>>> +//!     ptr::Alignment,
+>>> +//!     sizes::*, //
+>>> +//! };
+>>> +//!
+>>> +//! // Create a 1GB buddy allocator with 4KB minimum chunk size.
+>>> +//! let buddy =3D GpuBuddy::new(GpuBuddyParams {
+>>> +//!     base_offset: 0,
+>>> +//!     physical_memory_size: SZ_1G as u64,
+>>> +//!     chunk_size: SZ_4K,
+>>
+>> `chunk_size` is an interesting case. The C API uses a `u64`, but I think
+>> we can reasonably consider that we won't ever need chunks larger than
+>> 4GB (or can we :O). I'm actually ok with using a `usize` for this one.
+>>
+>> One of the first things the C code does is throwing an error if it is
+>> not a power of 2, so maybe we can even request an `Alignment`?
+>>
+>> I'm a bit torn as to whether we should use a `u64` to conform with the C
+>> API, but doing so would mean we cannot use an `Alignment`...
+>
+> I prefer to keep it simple and use `usize` for now. I cannot imagine
+> chunk_size ever exceeding 4GB, and given our stance on rejecting invalid
+> inputs, this sounds reasonable. Regarding `Alignment`, I still prefer
+> `usize` here since it makes the caller-side simpler and as you noted the
+> C code already does error-checking. Let's revisit if needed once this
+> lands.
 
-Use __counted_by for extra runtime analysis. Move counting variable
-assignment as required by __counted_by.
+I would like to insist a bit here re: Alignment. We are not trying to
+make the caller side simpler - we are trying to make it correct and to
+turn runtime failures into build-time ones as much as possible. This is
+a good case for that.
 
-Signed-off-by: Rosen Penev <rosenp@gmail.com>
----
- drivers/accel/qaic/qaic.h     | 4 ++--
- drivers/accel/qaic/qaic_drv.c | 7 ++-----
- 2 files changed, 4 insertions(+), 7 deletions(-)
+The additional burden, if you can call it so, to the caller is just in
+the initial call to `GpuBuddy::new` - i.e. typically once per driver.
+The most important API, `alloc_blocks`, will be unaffected - and
+actually this one already has one `Alignment` as a parameter, for the
+minimal block size! So if anything it would be illogical not to follow
+suit on the buddy's `block_size` parameter.
 
-diff --git a/drivers/accel/qaic/qaic.h b/drivers/accel/qaic/qaic.h
-index fa7a8155658c..e237020f6aa9 100644
---- a/drivers/accel/qaic/qaic.h
-+++ b/drivers/accel/qaic/qaic.h
-@@ -152,8 +152,6 @@ struct qaic_device {
- 	struct list_head	cntl_xfer_list;
- 	/* Synchronizes MHI control device transactions and its xfer list */
- 	struct mutex		cntl_mutex;
--	/* Array of DBC struct of this device */
--	struct dma_bridge_chan	*dbc;
- 	/* Work queue for tasks related to MHI control device */
- 	struct workqueue_struct	*cntl_wq;
- 	/* Synchronizes all the users of device during cleanup */
-@@ -206,6 +204,8 @@ struct qaic_device {
- 	void			*ssr_mhi_buf;
- 	/* DBC which is under SSR. Sentinel U32_MAX would mean that no SSR in progress */
- 	u32			ssr_dbc;
-+	/* Array of DBC struct of this device */
-+	struct dma_bridge_chan	dbc[] __counted_by(num_dbc);
- };
- 
- struct qaic_drm_device {
-diff --git a/drivers/accel/qaic/qaic_drv.c b/drivers/accel/qaic/qaic_drv.c
-index 63fb8c7b4abc..ab428ecd26f5 100644
---- a/drivers/accel/qaic/qaic_drv.c
-+++ b/drivers/accel/qaic/qaic_drv.c
-@@ -405,15 +405,12 @@ static struct qaic_device *create_qdev(struct pci_dev *pdev,
- 	struct drm_device *drm;
- 	int i, ret;
- 
--	qdev = devm_kzalloc(dev, sizeof(*qdev), GFP_KERNEL);
-+	qdev = devm_kzalloc(dev, struct_size(qdev, dbc, 16), GFP_KERNEL);
- 	if (!qdev)
- 		return NULL;
- 
--	qdev->dev_state = QAIC_OFFLINE;
- 	qdev->num_dbc = 16;
--	qdev->dbc = devm_kcalloc(dev, qdev->num_dbc, sizeof(*qdev->dbc), GFP_KERNEL);
--	if (!qdev->dbc)
--		return NULL;
-+	qdev->dev_state = QAIC_OFFLINE;
- 
- 	qddev = devm_drm_dev_alloc(&pdev->dev, &qaic_accel_driver, struct qaic_drm_device, drm);
- 	if (IS_ERR(qddev))
--- 
-2.53.0
+<snip>
+>>> +//! let (mut count, mut total) =3D (0u32, 0usize);
+>>> +//! for block in fragmented.iter() {
+>>> +//!     assert_eq!(block.size(), SZ_4M);
+>>> +//!     total +=3D block.size();
+>>> +//!     count +=3D 1;
+>>> +//! }
+>>
+>> Note that we can avoid mutable variables with this:
+>>
+>> //! let total_size: usize =3D fragmented.iter()
+>> //!      .inspect(|block| assert_eq!(block.size(), SZ_4M))
+>> //!      .map(|block| block.size())
+>> //!      .sum();
+>> //! assert_eq!(total_size, SZ_8M);
+>> //! assert_eq!(fragmented.iter().count(), 2);
+>>
+>> But your call as to whether this is an improvement.
+>
+> I feel the current for-loop version is slightly more readable,
+> especially in a doc example aimed at new users, so I'd like to keep
+> it as-is.
+
+Sounds good.
+
+<snip>
+>> For this parameter I am pretty sure we want to conform to the C API and
+>> use a `u64` - there is no benefit in not doing so, and buffers larger
+>> than 4GB *are* a reality nowadays, (maybe not for graphics, but this
+>> will also be used in compute scenarios).
+>
+> Agreed. Though, note this adds 7 more `as` usages, but I guess there's
+> nothing we can do till the IntoSafe stuff is moved to core rust, I think.
+
+How so? This parameter is just passed to the C function.
+
+If you are referring to the examples, then yes that's unfortunate but
+there are at least two ways where this could be eventually fixed (John's
+SZ_* rework and the IntoSafe stuff), so we can update these when either
+lands.
 
