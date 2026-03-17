@@ -4,43 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 54D94FF6E9C
-	for <dri-devel@archiver.kernel.org>; Tue, 17 Mar 2026 23:05:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4B5B8FF6E9E
+	for <dri-devel@archiver.kernel.org>; Tue, 17 Mar 2026 23:05:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A8C2210E406;
-	Tue, 17 Mar 2026 23:05:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9236110E5DA;
+	Tue, 17 Mar 2026 23:05:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=nxp.com header.i=@nxp.com header.b="YJtvOpEh";
+	dkim=pass (2048-bit key; unprotected) header.d=nxp.com header.i=@nxp.com header.b="mLc7Xza/";
 	dkim-atps=neutral
-Received: from DB3PR0202CU003.outbound.protection.outlook.com
- (mail-northeuropeazon11010014.outbound.protection.outlook.com [52.101.84.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 18AA010E1CA;
- Tue, 17 Mar 2026 23:05:16 +0000 (UTC)
+Received: from PA4PR04CU001.outbound.protection.outlook.com
+ (mail-francecentralazon11013052.outbound.protection.outlook.com
+ [40.107.162.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BEF7710E5DA;
+ Tue, 17 Mar 2026 23:05:24 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=H/GnQctZ2Nqp9eQ6XZm6vcHaDeU5CAOFSeimDIRrWi3JFAreLFm7WD5DYOuuTU+ZosxiHHrTaicUPwGkmEAULOVaMBrtbJr4/rkZNYO5tUYvtdEswEb05rL2bYV2IBd+GWsdKTnuRF84kNrJ/uJy3qGHSNPjlUhVAn4McwtNlGN8IUZWGbvDoUfsJ0cHCbtpAjL3n+52jzrRadv7bF/oZjwnXHHmMjgzfErYLrqFfO8xyWH2i+eDouY6G8ZaCX0JcB5jdbaHwJOQJrYD6DYiJrB3cOvOW/0aQqF27Idx0ziechASJWGq/Q1kZ1ipJjkrT9AIj4IZ4q4UKbDcyxmjfw==
+ b=wrwVERnyGcpZazYCH/svInMCzhx2VsYlhlF9hqL+hbMdet1YRJ1iDNDJRptgt5x2pIf+NMNuGU3q53I88koCrXHB1SaUlDFR/us2y1xTdXW6PSxnxOk9vfpCfZIW+C5OaXgAzWs+gMQ2cqzD1q2n4A3Y0EpRgWc3Sw7VbjwKUnbk3YGiKI15HM8eJ2wv4YS8QKmFzmKAGR1A8kojm12vvoLZgpU8dhJmuO9MtXT6IaYGV0eWlGHTX0fBkG78L0TIVgpdWPTgQdOkzS5x/xquKkucZx7Re7jVM6kWO8y2O0QDZ5OBbnAdwsqwj4w1wsBVO3Ajl7GMb55fS08W4CfzKg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=cxXKpcYQBR72MTHmkOKASUqNwMBJoLjOJWUQcjT2LOY=;
- b=goyCkoLuGkrCrQxkv92tzZ9PFQ/cFt9QOoSxYw251zSUsIVJuuikF5kUJYidcDyPudBf7b0M/wDOPDU8lHoMOgkbjZPOtvUuLFiDw6DPmVyuN+jxSSN8PvA/FDJ34Ih0za/tILKwn9R7wUW7fX+ol/4d2N37r7CMxv1txdTzPN+rI0WuDTBsuxOBAXHVS/pjI1LTwVSEWv3Mz2HRkofKHUfeI7Nh8+5WoKz4nJsAK5+BLJrXhyxW7b6OfvP+i5ThZJ4/yJ3lGXruzK7gJngyK2mG4wK6gX5i/aJGo1EgFGZcwCxiccpfSK93ip39hBdeTmwl7JTT2KTOZ6f4eRHSvg==
+ bh=RNymz2ero7En3sIVyesf+8sVX3P7/u+K2B58KDwDJQc=;
+ b=a4cSHfock3zNTMO4Old4gUELrEJIB1fY5QpeQVoouXBy7z/B7etJYCUljzXZpvLRdpvGRMJPAciD4QNIIANgsiwT5fpygkzLGkN+PDDYFgK0kxyDOU7MjN0PhVFHwNpTCc4GnFPWwMWKk70n8a0/9hdg39dElgLp9MPa64u7UOdBBZwZA/H3LYRP7HNHiJpdOgrKIr8ouKOjP53iwQD3jTuZ7RGQkCtlNfDocV7KQQkyxpkk5718nF8sOR9sGex0WR3SdVR6OOXcCFe5355HR156jDT3Y5wWHVyw3XTn66RQhKqqdfv1uDuUgpqHKqh3WeRkHcMVTdiyD4VkTnmRqw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
  header.d=nxp.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=cxXKpcYQBR72MTHmkOKASUqNwMBJoLjOJWUQcjT2LOY=;
- b=YJtvOpEhAUzagC/4k5KPbJptwI78h4L311bLAckqf/E8CL2vlvCvJvONivhKvly7aQExnCeyZVItfRzsIsK+5gYBohrIvGuUzdY6PQOLJpP/edGdf6fuO6C+0tlaQFCBP0TD/lcfuV/F2gKom2LU++iTUiRZ5aZ9YSZXo8WxO/JYvwOq38FEez4FgUKt+W4W1ATy/5iFDwUQrOdPdei8zv0MmDXqmIjtujIyNdYUggmK1Xfa84hzLPCDEuq0d9m/95/+Lbr92+wyhBDC+VD41la1fAzA14rdLGECZkBlpfR5jjnCWYcsagfs/BIFeJK06Ukf4LoHLKNTxr+hwtyRYQ==
+ bh=RNymz2ero7En3sIVyesf+8sVX3P7/u+K2B58KDwDJQc=;
+ b=mLc7Xza/HddSPaOTA0XlOwhbidSGdfAsp7mhtnpMKPSXi3FkaimguTwTlURus9devYgpppQrUoY4c9dVDIfVuoS3vsML+nXsgzinuz2BsDk7+ttXMxxwb0tWmeTN7OEMxX32ZfrqJlPqfuTrbMIGYZ932nk0vMJgJuoogLcbtgt/9SRcBjWcZZx+iDzirDlRVyj94SWTDYE637mqCqW4NFp1m8egrfE1k6c4OO++yYP+04gdttcZpaDHaIdCmWdx9WwJkwQ0hq9bgXskIsWyr3f9tV3XmFgmGjyGATfTKhAl3h0VYRkHi/s82afbOo0YNy+9kEMIT+U2Y2P74VlXlg==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nxp.com;
 Received: from AM9PR04MB8585.eurprd04.prod.outlook.com (2603:10a6:20b:438::13)
  by VI0PR04MB12032.eurprd04.prod.outlook.com (2603:10a6:800:311::18)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9700.27; Tue, 17 Mar
- 2026 23:05:16 +0000
+ 2026 23:05:24 +0000
 Received: from AM9PR04MB8585.eurprd04.prod.outlook.com
  ([fe80::f010:fca8:7ef:62f4]) by AM9PR04MB8585.eurprd04.prod.outlook.com
  ([fe80::f010:fca8:7ef:62f4%4]) with mapi id 15.20.9700.022; Tue, 17 Mar 2026
- 23:05:14 +0000
+ 23:05:21 +0000
 From: Vladimir Oltean <vladimir.oltean@nxp.com>
 To: linux-phy@lists.infradead.org
 Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
@@ -54,91 +55,87 @@ Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
  linux-scsi@vger.kernel.org, linux-sunxi@lists.linux.dev,
  linux-tegra@vger.kernel.org, linux-usb@vger.kernel.org,
  netdev@vger.kernel.org, spacemit@lists.linux.dev,
- UNGLinuxDriver@microchip.com, Bjorn Helgaas <bhelgaas@google.com>,
- Lorenzo Pieralisi <lpieralisi@kernel.org>,
- =?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
- Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
- Heiko Stuebner <heiko@sntech.de>, Shawn Guo <shawn.guo@linaro.org>,
- Yixun Lan <dlan@kernel.org>, Thierry Reding <thierry.reding@gmail.com>,
- Jonathan Hunter <jonathanh@nvidia.com>,
- Shawn Lin <shawn.lin@rock-chips.com>,
- Kevin Xie <kevin.xie@starfivetech.com>
-Subject: [PATCH v4 phy-next 02/24] PCI: Add missing headers transitively
- included by <linux/phy/phy.h>
-Date: Wed, 18 Mar 2026 01:04:38 +0200
-Message-ID: <20260317230500.2056077-3-vladimir.oltean@nxp.com>
+ UNGLinuxDriver@microchip.com, Geert Uytterhoeven <geert+renesas@glider.be>,
+ =?UTF-8?q?Andr=C3=A9=20Draszik?= <andre.draszik@linaro.org>,
+ Peter Griffin <peter.griffin@linaro.org>,
+ Tudor Ambarus <tudor.ambarus@linaro.org>,
+ Magnus Damm <magnus.damm@gmail.com>, Heiko Stuebner <heiko@sntech.de>
+Subject: [PATCH v4 phy-next 05/24] phy: add <linux/pm_runtime.h> where missing
+Date: Wed, 18 Mar 2026 01:04:41 +0200
+Message-ID: <20260317230500.2056077-6-vladimir.oltean@nxp.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260317230500.2056077-1-vladimir.oltean@nxp.com>
 References: <20260317230500.2056077-1-vladimir.oltean@nxp.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: VI1PR06CA0109.eurprd06.prod.outlook.com
- (2603:10a6:803:8c::38) To AM9PR04MB8585.eurprd04.prod.outlook.com
+X-ClientProxiedBy: VI1PR08CA0209.eurprd08.prod.outlook.com
+ (2603:10a6:802:15::18) To AM9PR04MB8585.eurprd04.prod.outlook.com
  (2603:10a6:20b:438::13)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: AM9PR04MB8585:EE_|VI0PR04MB12032:EE_
-X-MS-Office365-Filtering-Correlation-Id: 81840da2-a5fb-4f80-0963-08de8479a591
+X-MS-Office365-Filtering-Correlation-Id: bb6aa55f-4c92-46d7-273e-08de8479a9e5
+X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
  ARA:13230040|1800799024|10070799003|376014|19092799006|7416014|366016|18002099003|56012099003|22082099003;
-X-Microsoft-Antispam-Message-Info: OF0eleNT5vTvoX4Bq/1mlixOmI0vThv7gd4+a3MzJtJ9KhzqgXQ0p84gdDvzgjEaX8sYAkozHFmDzQTMIUNdzDRTxl0+EUuPKKnBm/FAEzWOV3hX9flmI/9oVKQmNQcRjq2jOZ+zif730yxlE+5YWkW8CG3grOryr+2mCVjlrcHdPzrHMbHfmvtexCLhk3qbdhUxz4GQixIVhFnkbE0GMWBUQMpP79jrsfcDO56EOshW84Z9lY+H4DDiHL66pWsHDnpQiN89nTpIdLYPSZbQYXo15VJrydADJfp+GJn6vWz5/LBNk5pfm9dRzqC+Qev/J2uSkwzL343m1Djyx+Fkz2Q4ZsLVMHdFwKFlZDkUv12SeJBMGBfvAVAtBai6a+jrW468i3+DMKYYFqEkZhcanvkYT3jcZuknIUACW3164ok07KY5fwqedGulQPOtgHuwIu4gWJezCxKN4m+fRYapGfOTbJkBHhQz59rldrVP5IDMfdE5bVYjius4PjN4s6+VQ62BcdauWeejMzQS4quVaKKCIBDw4m0ufiSGsM8NQ5sPU04VLK1Om/fo5plQ01Gs//wCEZ8g2iVDJHcPZVHrni70LxMq8Wo+fsf02BeQngT6VMp3XywpPECMydv5hX51XZsCWmNFg7I6mlTkFB/filpcvk/jn2fNrQ5wFLYtFsA4EoKu9fJ1wuhIZygfKTWT6d4eXxgzXnbjHDkh2Lk9XWaPAhcUHfqBJViBrlyRSSc=
+X-Microsoft-Antispam-Message-Info: yfY+z3uaxNxJ2/aDGbGKBTManrogTUXbZiO/DyRWP5mRE9tdGRgAFddwP2Az3g3sIqaZLu8n1iyCOKz9hqEZCk4UJKGyWJVnltHI0PkgutdgMkWh3kxzB7P5kw3595YdsevNJnZU+zvt3BN5UOJDLBtkbet+lgA1QgTAi041Si4/26Q5gX10JU8hOuUs4UDYoYn2esOKhSQOSVgwMHId2hnwlbv/9RtSppMMBQkD1mZkDvqCBSr9J3fUlVw6oxSeHkoRcHCQjlrDY2rag1SZlKnMBCFJCok7catuIyCdS0qWWWNRHXQQOoBaeBzacNGSxYqMWOYGOsXGaGIKs1nbZjrxBoe4t4nJTqZwE5UcjvjsJ/sjevj+wwan+OSr9vSEhcylT0A7SbPhdq549PPMmZDzG7kLtaJiudaYbLpDRH48kkQjZoVwIMJnwEjSQAFFJsJbaXpoH75CwR6q8Eqe1hc8P8DECCCT/iHmMw/43aPKSDUXlhj4bE3stz/9LviunHFGjsDqSOtzslhFQ3X8DAOQTs+usH/iKyDS7yeXpobUp7DiZZBuBgiNwUYilC00OWDz/Aux4Mn4wqu6lu0n+TdPda81jV+owxqcuiT1DzOoaB6gz6hTmV7xVK9fh2ALOeyCWhOsPVumGmHzIMYaHguxsRC6JOKQF8bCh4y+gTUxBWlQujuXlXInjE2vrCAS71A+X7IjX+mSEDHeisMP402glhSZP2wYdoDXdyiBB9k=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:AM9PR04MB8585.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
  SFS:(13230040)(1800799024)(10070799003)(376014)(19092799006)(7416014)(366016)(18002099003)(56012099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?L3Ywb0dBUHdmRkMvTUJsTjlNeFFldHhDYURBdzdnbmlYRTMvbkRSQ09jcGpi?=
- =?utf-8?B?SStGcEFuZCszT0M3MnJvaURZc0RMN1o4elFoZVZFMmVqejhMc1ZjbnRqU0R0?=
- =?utf-8?B?WWFFdlZvOE04TmNCZWJqMk9GSWp5Z0RpWUJNTjV2Z1lheGd1a0txaW1ERy9H?=
- =?utf-8?B?Um9yaGlTLzBiczJQbFlSQThzc1lzV1IrRmRPNEFwL3ZCZTIwcDU4UThJUFJD?=
- =?utf-8?B?OCtsRG5PVUJKeFByOVk3SVMyU2NFQkI1MEJwZ3ZPc01FY3lUQ05IUlplSHIx?=
- =?utf-8?B?aHRmaE55a09jQmNPM2h6U01TeTFzMVptalhGNWwxdkVoK2NoQ3YxZ1ZJbVA0?=
- =?utf-8?B?enZITTl5NzRNeVc0MEVHb1JSckowUzhnRXh5eEpxMlhZV0Npc3ZCVVN1WHFV?=
- =?utf-8?B?VURZSUoxdGdiYUhuS216ZUJydkRId0NweGVvQ0lCSElrY1RnekdITDBFWUth?=
- =?utf-8?B?RXBuVld3ZElSNmdaQjVGdStQK2czbG9LUHJjYUc5QS9OYWhQMUN0T3g3V0Q2?=
- =?utf-8?B?ZFAySFFZSU1Jd2FuYW5yZ3BDcCs2bElTQmxSbVNNOUlKMm1kVE91THFSUS9W?=
- =?utf-8?B?bFB4ZWdkd0hCaWxHVEtOQ1VIZC9lQmtVL1MrZEdHVG9jOG9PVlNURnRFK1g0?=
- =?utf-8?B?SkREU0tWNHovWWtOaVEzdWU4RHdoK0c1Y2l4Mm5UUFNwam1yUlIvWUlkMm1F?=
- =?utf-8?B?SzBsVGVFZm5adThQaHNxU0I0dzRhL25aZzlQbWV6eU0xYVBXRkw4WjJsbUdI?=
- =?utf-8?B?SUQvQ29sRk50UVhTRVV2QTZldW5NSWorNlAwbkZlK1lsQWNjRXlmNk92cWNw?=
- =?utf-8?B?OTluUW9ROWgraUtNdk5UYTZsSDFsWjlKZUpLRUFKNDJCb1pVQnkzaGZ6QkVU?=
- =?utf-8?B?R09RUkVpTElEVXk3MHpLWGJwQ0pOb2hyTnc2Y2Q0d01mUzVSaGl0SWlZRktJ?=
- =?utf-8?B?U2V4bEgrelVRdHEyZFRKSzJkT0taTktXQVhVREZvRExJZFNncjlPeERVUzhR?=
- =?utf-8?B?RDh3bnMyNjlocE05QkZRNzNYZEN1NGtPVVBhUWlMSDhkaXlQbmxRcjkzaEZz?=
- =?utf-8?B?dHdtQXl6bTdaYjZ2MnQ1T3A1TXR4WUltODR5VmMzQlRCVmJ1emZVMTZFY0dl?=
- =?utf-8?B?eXJ0Q1hobmd2YUZNZGp2T203S25PMUt3UlRGeXE3Ulp4eFVzTDRMUGxNMUhN?=
- =?utf-8?B?ZVhhMXZrT1ZWbFBhRXFycEhDdmlldDMvaUhrMUlLMzRDQ3RqVytETzlTSFRh?=
- =?utf-8?B?ekdCdSs0TjFMd21DVEl6VkFMNitzR1d2K21JR2tRNkZqUkpwSWJFSjhOemxm?=
- =?utf-8?B?Nmh3UVR3Tmhzb3kvMVNiY3pxWFlYdmlwY0prVlZLOEx1aWgzalFONGF2Z0NK?=
- =?utf-8?B?cEFJcmtpL2dOOE15UitTL2p5NWdJV0JVSmJaRHBlTFlQMVN6dzYxejFLdFlM?=
- =?utf-8?B?WVFJMWxDZlNMcUROUkV5MThGZU9XdmRjVkxScklxZnFiWGp3SHVMZDZCN1dH?=
- =?utf-8?B?dHRkaS9hd2RsYnlLSmo4QnNaeE9pUGp2SGN1L0NUN3RKcjlHL09zS3cxa2NK?=
- =?utf-8?B?VG8xMlp3Vy9uYWxJV2kwcjJtM0x2QTZ4bXp4MGlHMHQxc3RzeDFYcWszWE9l?=
- =?utf-8?B?S04rWmxjVEk2Mm9uejlmMytvamMxSHA5QzZ1T1Mxcmc2TDRGQ0lNTDBLc3M1?=
- =?utf-8?B?VDRUZXc0WlFkL2d3T3JnTFM2QVpMcDJNZ2sxRzlPbFY4azFUekpNUi9FQ241?=
- =?utf-8?B?UUd6Qmp5RUFjQkdURGFlWHhKcVJOZDBYMVRoYW4vT1l6MzNCL0JLblp4UHhz?=
- =?utf-8?B?MkZaanU1MGFZUWJhMkVIQ0NqT3hFRkRrVCtKMG11cHNCemZNTm8vS3Ava1Fr?=
- =?utf-8?B?VzVqV2NoU2lMOHBhcmVzc2ZYUVpvaGpWb1FTaWVUY1owZm1iek85eHpldnRN?=
- =?utf-8?B?QzFnRkQ1K0tBZCsvTHRpN3RsUkFZbW93ZnQ0SDFYRFJkTitJaWJxM0lQRm9s?=
- =?utf-8?B?eDNKdHpFUytuYTdwZ2Y2bEJiZWdhbzlxVFdLR1hPSUhoS2lheVBsaHhPeHRP?=
- =?utf-8?B?QlF1ZGVhWDF3RUF4d20xQlB4Yk1jREFoU2tTbSs2UWVDVCthRi9TT2R6bzZ0?=
- =?utf-8?B?TXRXYmdjUmxyd3VnTjZWNTFGOGRwaTdJREp4R1MrUngrVEJaRGp2Vkc0dWE0?=
- =?utf-8?B?YUY4MFBROWMzSGhOdmsyMXY1OVNSQ0VsKzFPZVJYSWNGeHBwMkVWa0dMclEx?=
- =?utf-8?B?bFlrZDBUL0VFVWVFbDVMY2toR1RuTkNQVUIwTmFkYjNGUjhuUFd5Mnl3Wmk3?=
- =?utf-8?B?ak1oL3BoQVYxRUExTzhNc2QvR0RUbnVTK3BTQWpwMUZoUTNWWmx2Y0xEQ2U0?=
- =?utf-8?Q?FOzAQ9Bqh/kpBijlyRg1G+dXax/hflIjGmkzM0YRnaM/H?=
-X-MS-Exchange-AntiSpam-MessageData-1: GO6GCMvrT9YXw1DMiJCD2CCUA/LtXqDkBwM=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cktFSVJMZkMvUDJpUnpER3cxeGM3N1FpUlNRd1VMWFVGaFpNNTU0bVNmeFNC?=
+ =?utf-8?B?YU9nRFZNQndZc0ZWMGZveVFZMk1EZVFQaFlobmQ5WVpOczgvTWIwc3VRNlJE?=
+ =?utf-8?B?ZFpEeGNkM2hER2pLS2l5cDZKSWpvK3NKWjhUZ3RxMW5lSTIwaWErZGFkb1BC?=
+ =?utf-8?B?N2pGSW1acXBtVUttcllaSThKU1RrSDc3d1MxM0U2ekUxYUEveFBlLzhkY1cx?=
+ =?utf-8?B?a1ZtaXd0Nm5CQ3QvRnNQdndnT2s0WEQ3Q0hiM1NDQlRpOHExUTVXZzhBZkEz?=
+ =?utf-8?B?YmpoN0wrTjZhSnFmK2VOWEo1TlMwbWN5bm1uMkhMZU5mdGZnaGpJSFlQRU1J?=
+ =?utf-8?B?UE84UzRtRkRCeXdNdGpYUjVtV3RlTGVxTlgwYkYzV1NvTVpsdm5PME42aFZF?=
+ =?utf-8?B?VXo1Si80TTdFK0Q0VVV1TlNQeUdKVmxDWU5BMVM1bDV0VXRycjFqS0xaQzdQ?=
+ =?utf-8?B?dDhnVjdNUm1kOGtiOXZjakcxdXNDNmF0NWVrSGIzSkNOMytibDM2VWRaY2o4?=
+ =?utf-8?B?cHgxMzhFNEtjV3hNaGJIUE9zVjdIdW5WYVdoQnFyYjE5eE5CQXZ4RDIrQ0xO?=
+ =?utf-8?B?eXZyb0hRaUJHaFFhdU1tSCtIRTdWMmpiaHVKcW95Yjg2bktFMXZFZmpPQkJW?=
+ =?utf-8?B?bTVFYlVWN3JRV1NLYXpCT29UZ1NWa3lvUHZKVnUwbVdKUHVFeXBhMEJqZ0Rv?=
+ =?utf-8?B?cnczNHluc1c5VHRCWnZuM1hHWnVhZzFiMGZuRTBLbVNmeE1oRk5LN0wrSjVw?=
+ =?utf-8?B?Zmg3cG5iWUV6SlBmbE04VlJmYmtwaXU0MTJaQUZ5STNYZnhYaXJFbGl3SFcz?=
+ =?utf-8?B?M1dtSkVaQldxQ1dWdUc0MVJ6WDFuUk1WVmZuM2xBYmpONnk0WEl3cGd4RDJY?=
+ =?utf-8?B?bStHN2p0dTd0eENZc3BzTWxWWXVYSTNzeXBXZVJTL29mUDMrSUlBeWtsTi9X?=
+ =?utf-8?B?V3JTNHZmUmhOSHBQZ1VNNVAzN3R1WjZjQytEUVdIV3R3aG5Qc2Y3TktScFpZ?=
+ =?utf-8?B?V1c5ZlZ5NzNQNVdwdUdHcDJIaVFFWTRobGZsdTZJT1E4eERwTE1lUi9IeG5N?=
+ =?utf-8?B?QU4zZ0tZVW5JVGoyV1BEZlEydG1FVDBOMFlqbklOcC9EV1ByQWVLWGVsV1lN?=
+ =?utf-8?B?WmxydXdmV2FGcUxKYm16SkhFVkFuYzdUR2FUR2JYZjBPZngwaEpiV3NJRUlD?=
+ =?utf-8?B?ZGlaSFR3WGpNcDJ4YmFNM2FnVENxVDJ1TFQxbjJvelIwRE9nZDJPY3A0c0FZ?=
+ =?utf-8?B?YUxPUDhWd2FZNHZjRmFFZTJQMkRMSFdTY1pHUEFtZHUrNzAxYk42U3JYNU10?=
+ =?utf-8?B?QmxYY0loanp4bUgwaUMzQmVGUE5vWFUyMXVlYTg3KzROTERqM2diNWx1MURJ?=
+ =?utf-8?B?K3p1M2V4L2FqOXBmWlhWc0N3N3RZU0tTSnYxYlpXWUxBRXl4ZCswL25zSVNV?=
+ =?utf-8?B?M1ZsTFp6NjcxSDVFN0NjQUI2cEx3ZXlUbzVaU0QwU0JZWE5iM3p4THc5MkpB?=
+ =?utf-8?B?eDJIK2k0ZUdGZURFQnBSaGtNVTUyWmxzOWlYZkNwRjhmR1FFQjNMaEEzeEJP?=
+ =?utf-8?B?bHI0aHVpVUpMUWNVTTR3RnBFRjQ4V0pkVThmM0pFQXdzQWpYYVhVQ01hS3RZ?=
+ =?utf-8?B?ZEVpVldVMUVua21HbmFBSVlMR3Z5QlhIQ2VUdUtFZk1HakJBcFAweC9WNjlB?=
+ =?utf-8?B?eU4xaExLdFdXOTNGbDYyZkU0T0I0U2hqS2NSVnR2ZDdCMW53R0JXKzkrMlJN?=
+ =?utf-8?B?SXNNdkNMOEp0YUlCdzFiQkpZRXpMSzQ3aVRpSGVTNGRnRi82YTlkVWJnbmVP?=
+ =?utf-8?B?aGtJUmZJTDdKUk9lWHJBblRob3lDYjNiaVBhY0RyQzF0aVhKSTdTWk9JRGJF?=
+ =?utf-8?B?eWJQZ2Jlc002Ui8wZzdaMVFuVndVVEtRU2tFcDRRQk8reVRwdW56VE9mU1M0?=
+ =?utf-8?B?QUJsSkxhSmRPS1FpcmZ6c3BJcHk4c2tzZVFQSVNTa3haZG84dVE1OGNmVlA2?=
+ =?utf-8?B?V3ZBZkljaW5lN09MTVI5VzhEcWpGSUJHbENBajJLTVJTREJSSHp4TTFUUldC?=
+ =?utf-8?B?a2FXWjVxb3cvemJCMlZDTzFWTUU4Yyt3RkVUVDBHMXlFQWI0YXkzSXNnVzdm?=
+ =?utf-8?B?T3BiaDRCbHltbG1hMXBtTlZ6YmRQaEJ4N2RiOFl4eGlndnhBL0wrSzlLeWRp?=
+ =?utf-8?B?cU9sMTRxVmM1Kzk2MHl3a3g5RnExRTFzcW1DNDhQRm4zV1NvK3p5TWU0VGx4?=
+ =?utf-8?B?MzNuTjJIM3hrMkR4OUMzYkQxTDJ0SVdqSUJIejNQcUdNNDFieVVkVElINCt5?=
+ =?utf-8?B?ZGFyL3RqZGxhT2gvWEQrUzFvTlNVcHZ2cFlNTDZNaXl1Z1Z0eG93ZTR4c0FE?=
+ =?utf-8?Q?/r7R4AXLuYdTIiXmAfGFeZlxxmwE0fjEHLxADOSBaH9Dc?=
+X-MS-Exchange-AntiSpam-MessageData-1: vcbr5AmI2Nt8bl1dHP/cMq6jrq2jQcugNKk=
 X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 81840da2-a5fb-4f80-0963-08de8479a591
+X-MS-Exchange-CrossTenant-Network-Message-Id: bb6aa55f-4c92-46d7-273e-08de8479a9e5
 X-MS-Exchange-CrossTenant-AuthSource: AM9PR04MB8585.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Mar 2026 23:05:13.9609 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Mar 2026 23:05:21.1223 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: hfsdV1PLjFRVyu2eVnCuZMi+vdKw+BmFj10J6U3t/eWylCZ96cxUzhdqfUFLd12zRDqDOPq8zsSFM7AeIOvV2g==
+X-MS-Exchange-CrossTenant-UserPrincipalName: Wh1uR0JS2Kn4AOmMNkynjPUDm5iiukA6M6SvkKuM+E9bfytiWpwWtmruX/3NMM3u5wokrts5ApSGQtr3/Y0CGQ==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI0PR04MB12032
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -155,160 +152,186 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The tegra as well as a few dwc PCI controller drivers uses PM runtime
-operations without including the required <linux/pm_runtime.h> header.
+It appears that the phy-mapphone-mdm6600, phy-qcom-snps-femto-v2,
+phy-rcar-gen3-pcie, r8a779f0-ether-serdes and phy-rockchip-typec drivers
+call runtime PM operations without including the proper header.
 
-Similarly, pcie-rockchip-host, pcie-starfive as well as a few dwc PCI
-controllers use the regulator consumer API without including
-<linux/regulator/consumer.h>.
-
-It seems these function prototypes were indirectly provided by
-<linux/phy/phy.h>, mostly by mistake (none of the functions it exports
-need it).
-
-Before the PHY header can drop the unnecessary includes, make sure the
-PCI controller drivers include what they use.
+This was provided by <linux/phy/phy.h> but no function exported by this
+header directly needs it. So we need to drop it from there, and fix up
+drivers that used to depend on that.
 
 Signed-off-by: Vladimir Oltean <vladimir.oltean@nxp.com>
-Acked-by: Bjorn Helgaas <bhelgaas@google.com>
+Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be> # renesas
+Reviewed-by: André Draszik <andre.draszik@linaro.org> # google
 ---
-Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>
-Cc: "Krzysztof Wilczyński" <kwilczynski@kernel.org>
-Cc: Manivannan Sadhasivam <mani@kernel.org>
-Cc: Rob Herring <robh@kernel.org>
-Cc: Bjorn Helgaas <bhelgaas@google.com>
+Cc: Peter Griffin <peter.griffin@linaro.org>
+Cc: "André Draszik" <andre.draszik@linaro.org>
+Cc: Tudor Ambarus <tudor.ambarus@linaro.org>
+Cc: Geert Uytterhoeven <geert+renesas@glider.be>
+Cc: Magnus Damm <magnus.damm@gmail.com>
 Cc: Heiko Stuebner <heiko@sntech.de>
-Cc: Shawn Guo <shawn.guo@linaro.org>
-Cc: Yixun Lan <dlan@kernel.org>
-Cc: Thierry Reding <thierry.reding@gmail.com>
-Cc: Jonathan Hunter <jonathanh@nvidia.com>
-Cc: Shawn Lin <shawn.lin@rock-chips.com>
-Cc: Kevin Xie <kevin.xie@starfivetech.com>
 
 v2->v4: none
-v1->v2: collect tag, adjust commit title
+v1->v2: collect tags
 ---
- drivers/pci/controller/dwc/pci-keystone.c     | 1 +
- drivers/pci/controller/dwc/pcie-dw-rockchip.c | 1 +
- drivers/pci/controller/dwc/pcie-histb.c       | 1 +
- drivers/pci/controller/dwc/pcie-qcom-ep.c     | 1 +
- drivers/pci/controller/dwc/pcie-spacemit-k1.c | 2 ++
- drivers/pci/controller/dwc/pcie-tegra194.c    | 1 +
- drivers/pci/controller/pci-tegra.c            | 1 +
- drivers/pci/controller/pcie-rockchip-host.c   | 1 +
- drivers/pci/controller/plda/pcie-starfive.c   | 1 +
- 9 files changed, 10 insertions(+)
+ drivers/phy/motorola/phy-mapphone-mdm6600.c    | 1 +
+ drivers/phy/phy-google-usb.c                   | 1 +
+ drivers/phy/qualcomm/phy-qcom-qmp-combo.c      | 1 +
+ drivers/phy/qualcomm/phy-qcom-qmp-usb-legacy.c | 1 +
+ drivers/phy/qualcomm/phy-qcom-qmp-usb.c        | 1 +
+ drivers/phy/qualcomm/phy-qcom-qmp-usbc.c       | 1 +
+ drivers/phy/qualcomm/phy-qcom-qusb2.c          | 1 +
+ drivers/phy/qualcomm/phy-qcom-snps-femto-v2.c  | 1 +
+ drivers/phy/renesas/phy-rcar-gen3-pcie.c       | 1 +
+ drivers/phy/renesas/r8a779f0-ether-serdes.c    | 1 +
+ drivers/phy/rockchip/phy-rockchip-typec.c      | 1 +
+ drivers/phy/ti/phy-tusb1210.c                  | 1 +
+ 12 files changed, 12 insertions(+)
 
-diff --git a/drivers/pci/controller/dwc/pci-keystone.c b/drivers/pci/controller/dwc/pci-keystone.c
-index 20fa4dadb82a..642e4c45eefc 100644
---- a/drivers/pci/controller/dwc/pci-keystone.c
-+++ b/drivers/pci/controller/dwc/pci-keystone.c
-@@ -24,6 +24,7 @@
- #include <linux/of_pci.h>
- #include <linux/phy/phy.h>
- #include <linux/platform_device.h>
-+#include <linux/pm_runtime.h>
- #include <linux/regmap.h>
- #include <linux/resource.h>
- #include <linux/signal.h>
-diff --git a/drivers/pci/controller/dwc/pcie-dw-rockchip.c b/drivers/pci/controller/dwc/pcie-dw-rockchip.c
-index 5b17da63151d..e0079ec108ab 100644
---- a/drivers/pci/controller/dwc/pcie-dw-rockchip.c
-+++ b/drivers/pci/controller/dwc/pcie-dw-rockchip.c
-@@ -21,6 +21,7 @@
- #include <linux/phy/phy.h>
- #include <linux/platform_device.h>
- #include <linux/regmap.h>
-+#include <linux/regulator/consumer.h>
- #include <linux/reset.h>
- 
- #include "../../pci.h"
-diff --git a/drivers/pci/controller/dwc/pcie-histb.c b/drivers/pci/controller/dwc/pcie-histb.c
-index a52071589377..432a54c5bfce 100644
---- a/drivers/pci/controller/dwc/pcie-histb.c
-+++ b/drivers/pci/controller/dwc/pcie-histb.c
-@@ -18,6 +18,7 @@
- #include <linux/pci.h>
- #include <linux/phy/phy.h>
- #include <linux/platform_device.h>
-+#include <linux/regulator/consumer.h>
- #include <linux/resource.h>
- #include <linux/reset.h>
- 
-diff --git a/drivers/pci/controller/dwc/pcie-qcom-ep.c b/drivers/pci/controller/dwc/pcie-qcom-ep.c
-index 18460f01b2c6..e417122da51d 100644
---- a/drivers/pci/controller/dwc/pcie-qcom-ep.c
-+++ b/drivers/pci/controller/dwc/pcie-qcom-ep.c
-@@ -19,6 +19,7 @@
- #include <linux/phy/phy.h>
- #include <linux/platform_device.h>
- #include <linux/pm_domain.h>
-+#include <linux/pm_runtime.h>
- #include <linux/regmap.h>
- #include <linux/reset.h>
- #include <linux/module.h>
-diff --git a/drivers/pci/controller/dwc/pcie-spacemit-k1.c b/drivers/pci/controller/dwc/pcie-spacemit-k1.c
-index be20a520255b..dbec159fd458 100644
---- a/drivers/pci/controller/dwc/pcie-spacemit-k1.c
-+++ b/drivers/pci/controller/dwc/pcie-spacemit-k1.c
-@@ -15,7 +15,9 @@
- #include <linux/mod_devicetable.h>
- #include <linux/phy/phy.h>
- #include <linux/platform_device.h>
-+#include <linux/pm_runtime.h>
- #include <linux/regmap.h>
-+#include <linux/regulator/consumer.h>
- #include <linux/reset.h>
- #include <linux/types.h>
- 
-diff --git a/drivers/pci/controller/dwc/pcie-tegra194.c b/drivers/pci/controller/dwc/pcie-tegra194.c
-index 06571d806ab3..3378a89580ab 100644
---- a/drivers/pci/controller/dwc/pcie-tegra194.c
-+++ b/drivers/pci/controller/dwc/pcie-tegra194.c
-@@ -27,6 +27,7 @@
- #include <linux/platform_device.h>
- #include <linux/pm_runtime.h>
- #include <linux/random.h>
-+#include <linux/regulator/consumer.h>
- #include <linux/reset.h>
- #include <linux/resource.h>
- #include <linux/types.h>
-diff --git a/drivers/pci/controller/pci-tegra.c b/drivers/pci/controller/pci-tegra.c
-index 512309763d1f..a2c1662b6e81 100644
---- a/drivers/pci/controller/pci-tegra.c
-+++ b/drivers/pci/controller/pci-tegra.c
-@@ -36,6 +36,7 @@
+diff --git a/drivers/phy/motorola/phy-mapphone-mdm6600.c b/drivers/phy/motorola/phy-mapphone-mdm6600.c
+index fd0e0cd1c1cf..ce1dad8c438d 100644
+--- a/drivers/phy/motorola/phy-mapphone-mdm6600.c
++++ b/drivers/phy/motorola/phy-mapphone-mdm6600.c
+@@ -17,6 +17,7 @@
+ #include <linux/of_platform.h>
  #include <linux/phy/phy.h>
  #include <linux/pinctrl/consumer.h>
++#include <linux/pm_runtime.h>
+ 
+ #define PHY_MDM6600_PHY_DELAY_MS	4000	/* PHY enable 2.2s to 3.5s */
+ #define PHY_MDM6600_ENABLED_DELAY_MS	8000	/* 8s more total for MDM6600 */
+diff --git a/drivers/phy/phy-google-usb.c b/drivers/phy/phy-google-usb.c
+index ab20bc20f19e..48cfa2e28347 100644
+--- a/drivers/phy/phy-google-usb.c
++++ b/drivers/phy/phy-google-usb.c
+@@ -16,6 +16,7 @@
+ #include <linux/of.h>
+ #include <linux/phy/phy.h>
+ #include <linux/platform_device.h>
++#include <linux/pm_runtime.h>
+ #include <linux/regmap.h>
+ #include <linux/reset.h>
+ #include <linux/usb/typec_mux.h>
+diff --git a/drivers/phy/qualcomm/phy-qcom-qmp-combo.c b/drivers/phy/qualcomm/phy-qcom-qmp-combo.c
+index 93f1aa10d400..b9ea7d058e93 100644
+--- a/drivers/phy/qualcomm/phy-qcom-qmp-combo.c
++++ b/drivers/phy/qualcomm/phy-qcom-qmp-combo.c
+@@ -16,6 +16,7 @@
+ #include <linux/of_graph.h>
+ #include <linux/phy/phy.h>
+ #include <linux/platform_device.h>
++#include <linux/pm_runtime.h>
+ #include <linux/regulator/consumer.h>
+ #include <linux/reset.h>
+ #include <linux/slab.h>
+diff --git a/drivers/phy/qualcomm/phy-qcom-qmp-usb-legacy.c b/drivers/phy/qualcomm/phy-qcom-qmp-usb-legacy.c
+index 8bf951b0490c..2bd5862c5ba8 100644
+--- a/drivers/phy/qualcomm/phy-qcom-qmp-usb-legacy.c
++++ b/drivers/phy/qualcomm/phy-qcom-qmp-usb-legacy.c
+@@ -16,6 +16,7 @@
+ #include <linux/of_address.h>
+ #include <linux/phy/phy.h>
+ #include <linux/platform_device.h>
++#include <linux/pm_runtime.h>
+ #include <linux/regulator/consumer.h>
+ #include <linux/reset.h>
+ #include <linux/slab.h>
+diff --git a/drivers/phy/qualcomm/phy-qcom-qmp-usb.c b/drivers/phy/qualcomm/phy-qcom-qmp-usb.c
+index b0ecd5ba2464..d88b8a415e85 100644
+--- a/drivers/phy/qualcomm/phy-qcom-qmp-usb.c
++++ b/drivers/phy/qualcomm/phy-qcom-qmp-usb.c
+@@ -15,6 +15,7 @@
+ #include <linux/of_address.h>
+ #include <linux/phy/phy.h>
+ #include <linux/platform_device.h>
++#include <linux/pm_runtime.h>
+ #include <linux/regulator/consumer.h>
+ #include <linux/reset.h>
+ #include <linux/slab.h>
+diff --git a/drivers/phy/qualcomm/phy-qcom-qmp-usbc.c b/drivers/phy/qualcomm/phy-qcom-qmp-usbc.c
+index c342479a3798..f62e1f6ecc07 100644
+--- a/drivers/phy/qualcomm/phy-qcom-qmp-usbc.c
++++ b/drivers/phy/qualcomm/phy-qcom-qmp-usbc.c
+@@ -16,6 +16,7 @@
+ #include <linux/of_address.h>
+ #include <linux/phy/phy.h>
+ #include <linux/platform_device.h>
++#include <linux/pm_runtime.h>
+ #include <linux/regmap.h>
+ #include <linux/regulator/consumer.h>
+ #include <linux/reset.h>
+diff --git a/drivers/phy/qualcomm/phy-qcom-qusb2.c b/drivers/phy/qualcomm/phy-qcom-qusb2.c
+index eb93015be841..191040f6d60f 100644
+--- a/drivers/phy/qualcomm/phy-qcom-qusb2.c
++++ b/drivers/phy/qualcomm/phy-qcom-qusb2.c
+@@ -14,6 +14,7 @@
+ #include <linux/of.h>
+ #include <linux/phy/phy.h>
+ #include <linux/platform_device.h>
++#include <linux/pm_runtime.h>
+ #include <linux/regmap.h>
+ #include <linux/regulator/consumer.h>
+ #include <linux/reset.h>
+diff --git a/drivers/phy/qualcomm/phy-qcom-snps-femto-v2.c b/drivers/phy/qualcomm/phy-qcom-snps-femto-v2.c
+index eb0b0f61d98e..8915fa250e81 100644
+--- a/drivers/phy/qualcomm/phy-qcom-snps-femto-v2.c
++++ b/drivers/phy/qualcomm/phy-qcom-snps-femto-v2.c
+@@ -12,6 +12,7 @@
+ #include <linux/of.h>
+ #include <linux/phy/phy.h>
+ #include <linux/platform_device.h>
++#include <linux/pm_runtime.h>
+ #include <linux/regmap.h>
+ #include <linux/regulator/consumer.h>
+ #include <linux/reset.h>
+diff --git a/drivers/phy/renesas/phy-rcar-gen3-pcie.c b/drivers/phy/renesas/phy-rcar-gen3-pcie.c
+index c0e5a4ac82de..3e2cf59ad480 100644
+--- a/drivers/phy/renesas/phy-rcar-gen3-pcie.c
++++ b/drivers/phy/renesas/phy-rcar-gen3-pcie.c
+@@ -11,6 +11,7 @@
+ #include <linux/of.h>
+ #include <linux/phy/phy.h>
+ #include <linux/platform_device.h>
++#include <linux/pm_runtime.h>
+ #include <linux/spinlock.h>
+ 
+ #define PHY_CTRL		0x4000		/* R8A77980 only */
+diff --git a/drivers/phy/renesas/r8a779f0-ether-serdes.c b/drivers/phy/renesas/r8a779f0-ether-serdes.c
+index 8a6b6f366fe3..c34427ac4fdb 100644
+--- a/drivers/phy/renesas/r8a779f0-ether-serdes.c
++++ b/drivers/phy/renesas/r8a779f0-ether-serdes.c
+@@ -12,6 +12,7 @@
+ #include <linux/phy.h>
+ #include <linux/phy/phy.h>
  #include <linux/platform_device.h>
 +#include <linux/pm_runtime.h>
  #include <linux/reset.h>
- #include <linux/sizes.h>
- #include <linux/slab.h>
-diff --git a/drivers/pci/controller/pcie-rockchip-host.c b/drivers/pci/controller/pcie-rockchip-host.c
-index ee1822ca01db..46adb4582fcc 100644
---- a/drivers/pci/controller/pcie-rockchip-host.c
-+++ b/drivers/pci/controller/pcie-rockchip-host.c
-@@ -24,6 +24,7 @@
- #include <linux/of_pci.h>
- #include <linux/phy/phy.h>
- #include <linux/platform_device.h>
-+#include <linux/regulator/consumer.h>
  
- #include "../pci.h"
- #include "pcie-rockchip.h"
-diff --git a/drivers/pci/controller/plda/pcie-starfive.c b/drivers/pci/controller/plda/pcie-starfive.c
-index 298036c3e7f9..22344cca167b 100644
---- a/drivers/pci/controller/plda/pcie-starfive.c
-+++ b/drivers/pci/controller/plda/pcie-starfive.c
-@@ -21,6 +21,7 @@
+ #define R8A779F0_ETH_SERDES_NUM			3
+diff --git a/drivers/phy/rockchip/phy-rockchip-typec.c b/drivers/phy/rockchip/phy-rockchip-typec.c
+index d9701b6106d5..0a318ccf1bbf 100644
+--- a/drivers/phy/rockchip/phy-rockchip-typec.c
++++ b/drivers/phy/rockchip/phy-rockchip-typec.c
+@@ -49,6 +49,7 @@
+ #include <linux/of_address.h>
+ #include <linux/of_platform.h>
  #include <linux/platform_device.h>
- #include <linux/pm_runtime.h>
++#include <linux/pm_runtime.h>
  #include <linux/regmap.h>
-+#include <linux/regulator/consumer.h>
  #include <linux/reset.h>
- #include "../../pci.h"
  
+diff --git a/drivers/phy/ti/phy-tusb1210.c b/drivers/phy/ti/phy-tusb1210.c
+index c3ae9d7948d7..b7080403e649 100644
+--- a/drivers/phy/ti/phy-tusb1210.c
++++ b/drivers/phy/ti/phy-tusb1210.c
+@@ -13,6 +13,7 @@
+ #include <linux/ulpi/regs.h>
+ #include <linux/gpio/consumer.h>
+ #include <linux/phy/ulpi_phy.h>
++#include <linux/pm_runtime.h>
+ #include <linux/power_supply.h>
+ #include <linux/property.h>
+ #include <linux/workqueue.h>
 -- 
 2.43.0
 
