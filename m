@@ -4,62 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 440EAF33804
-	for <dri-devel@archiver.kernel.org>; Tue, 17 Mar 2026 06:50:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B5FFAF33805
+	for <dri-devel@archiver.kernel.org>; Tue, 17 Mar 2026 06:52:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9C66910E33D;
-	Tue, 17 Mar 2026 06:50:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 06A0410E340;
+	Tue, 17 Mar 2026 06:52:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="HTXgldAm";
+	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="q3nF+TF3";
 	dkim-atps=neutral
-Received: from mail-wm1-f74.google.com (mail-wm1-f74.google.com
- [209.85.128.74])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0EA9910E33D
- for <dri-devel@lists.freedesktop.org>; Tue, 17 Mar 2026 06:50:03 +0000 (UTC)
-Received: by mail-wm1-f74.google.com with SMTP id
- 5b1f17b1804b1-485c45885e6so2064925e9.0
- for <dri-devel@lists.freedesktop.org>; Mon, 16 Mar 2026 23:50:02 -0700 (PDT)
+Received: from mail-ed1-f74.google.com (mail-ed1-f74.google.com
+ [209.85.208.74])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D532410E342
+ for <dri-devel@lists.freedesktop.org>; Tue, 17 Mar 2026 06:52:21 +0000 (UTC)
+Received: by mail-ed1-f74.google.com with SMTP id
+ 4fb4d7f45d1cf-6641f13b1c6so3388857a12.3
+ for <dri-devel@lists.freedesktop.org>; Mon, 16 Mar 2026 23:52:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20251104; t=1773730201; x=1774335001;
+ d=google.com; s=20251104; t=1773730340; x=1774335140;
  darn=lists.freedesktop.org; 
  h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
  :date:from:to:cc:subject:date:message-id:reply-to;
- bh=FxvRr8+lOBB6LohtXEdeEzhkagUanjKQw+ztADkvzGQ=;
- b=HTXgldAmjNEuLJXJQQVaOYJimOMnUWcQfGTYeZtWsr5FhMs0qf8S2n0H505xaAlSiU
- QdMmeXFiMEcGU4iES6nNG4C9br9dgSUodwiJMtGHnRl1l+S2UhXib5b7P2fTdcwyXU1A
- rY/gEPL1EjGa/sqqfGdIlYVs1VzB9Ht/KfBcW0NFEHhJ0BNTWym1Z8S7V+BkRm95/D4T
- PQsSGQi93lbCgR9IlE0KcksXYiT6dD00td9U1E8MExSbCN+m+0/McpUnH7VH5l1vSgXQ
- jbBlo55KHN/zFLwnObbRSzT8CsPRxVU7zKOqOD+i1LRsI3P/57jZgfyZhnEyn1kDESYE
- 3sGg==
+ bh=FV64adRB9qOuDZltuxVkHORmf9URma8WDk8N3r49JmA=;
+ b=q3nF+TF3VaiJ0tQYnhZzGu+ov+JTB6akvHBAQZAuujL2iB1HdsCc9BQJsS65PQpS2C
+ AGlyJn+pBwQ66Mx1WsDWSloxGXL9vlTGRUJ+pxcAwGDBtBpPeeBBwa0APq4fdSEH0Rs6
+ 0SbQl1ZRui1v/OJAVCZhxZBQ1WdgHtpnv6WFu/Du3pYui/8qfdZK5S+IQEsTonozLsSW
+ Xxcj1GA92nY/drszk5ZoV7hlY3aufHWGRjcD/ZmQBcXkl+YaoW48MLEdVidi+v5SvuzI
+ ILhKjolwh1+Den8S4LmaDZTH7YQrMqE53hYSOi/B1apz4Z8+MUy3Dr7pyzAaBmZRrFf4
+ L4OA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1773730201; x=1774335001;
+ d=1e100.net; s=20251104; t=1773730340; x=1774335140;
  h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
  :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=FxvRr8+lOBB6LohtXEdeEzhkagUanjKQw+ztADkvzGQ=;
- b=V/6uDHwz+dPljlSgIs94N4e6qgytjlJBI+d1VsBC9t4kXDMGYRaHQCsqU33s163s8R
- GfS/uV/z5kQViRGeRUOb5ZdTisgiZXW4FR5IHovfcJLJQDLEATMcak4tq3WWX2yaR428
- dBpe3wQQ/TSFm+y40phKqLziTiBontG0ACUAifHOonboUED26OQ0+aHfBq3a681BTjUP
- pNvPzezFh2/9B4/i9ITSx2JGDV/Gb05NFmkblmygMgQpktlHeHcSXeoHAKn6hxjOqcZ6
- 63MKPcbSCmJob2D8FVdyukdQLUbVY7e748GHLeYTfa/P+4um7Cki4+eZIJ3LVDPkBkWl
- Y4HA==
+ bh=FV64adRB9qOuDZltuxVkHORmf9URma8WDk8N3r49JmA=;
+ b=Rzq90zbEK98WdTBdSfeb6H76A7ekYGxprIWQ9fB3AHD/bhSJOK1k6NA5nfyPv+3s6X
+ CqIF1fv/4AtwcXnugdIe/n7r9krJM5FHIbjhf/oRpgh1bz9Gzw86Cj4fLP4hNIcCKeBz
+ X09gcEdbivujIVN1ww57B/NQgSzHsi8AG8pcnrYpTX92h3wzQhElVd08wjrXTuDQu0pw
+ QhQXfYVXCBu7bc7BoLX3LasWoP4V9LpqFO5zx6c58wa2GA4d3OUL2FezyX/U36lEvuDn
+ 4kllEFE04IDLBjTB9XyLqKA3qAEjObW21yavs+4IYtDvgnj5BkyuioNUoBetwPUp+3gO
+ +xYw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXHrlv22lwjeqpfn4P1hd12kSbI0aVLGFFdcn5RdjLyzb3h50djaKZpajMfeR9qYH02g3ghD6AYgb4=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyXlDlFR1QwGoFDqxcMY51Lam0rEb3UK0HBulC/QCv3KINNYNut
- APpWxt6d4b37JNUoakaIe+4B3c+0j/oW7rC+Jm8P2nHomDZu4a1Il5xddtpThgT7hPlbyztVZrw
- JGLg3Cy8+3uEI6NaIKA==
-X-Received: from wmop12.prod.google.com ([2002:a05:600c:468c:b0:485:40d2:1eb1])
+ AJvYcCWTYQyJFraBH1o4RyHXplKg0cfkMeretoQ2hdPh8yQ0rX5Fsu8/etfpzBrvUq+kpC7A7xPDM6NplUM=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yyk3/EIjlLySrcYWZ4968sde8j4IbXyQXgE8BfyKwC8jdsHvnFX
+ 3Nngd2SiLovXZn3843BB/tPXfV/JZ50r0He458YVLd3c9YioKY2pTySFT4x86S6OUuKfp8uAoQ1
+ 0WVHNUWcBVXvKC0vUYg==
+X-Received: from edrd8.prod.google.com ([2002:aa7:d688:0:b0:660:cd0d:914e])
  (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:600c:8519:b0:485:5812:bb9e with SMTP id
- 5b1f17b1804b1-4855812bbddmr300430745e9.0.1773730201517; 
- Mon, 16 Mar 2026 23:50:01 -0700 (PDT)
-Date: Tue, 17 Mar 2026 06:50:00 +0000
-In-Reply-To: <20260303162314.94363-3-dakr@kernel.org>
+ 2002:a05:6402:27ce:b0:663:8841:17c9 with SMTP id
+ 4fb4d7f45d1cf-663babc44ecmr8734757a12.10.1773730340157; 
+ Mon, 16 Mar 2026 23:52:20 -0700 (PDT)
+Date: Tue, 17 Mar 2026 06:52:19 +0000
+In-Reply-To: <20260303162314.94363-5-dakr@kernel.org>
 Mime-Version: 1.0
 References: <20260303162314.94363-1-dakr@kernel.org>
- <20260303162314.94363-3-dakr@kernel.org>
-Message-ID: <abj5mOYQAY290nqY@google.com>
-Subject: Re: [PATCH 2/8] rust: dma: add generalized container for types other
- than slices
+ <20260303162314.94363-5-dakr@kernel.org>
+Message-ID: <abj6I9c_2IR0cKJ6@google.com>
+Subject: Re: [PATCH 4/8] rust: dma: introduce dma::CoherentInit for memory
+ initialization
 From: Alice Ryhl <aliceryhl@google.com>
 To: Danilo Krummrich <dakr@kernel.org>
 Cc: acourbot@nvidia.com, ojeda@kernel.org, boqun@kernel.org, gary@garyguo.net, 
@@ -84,30 +84,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, Mar 03, 2026 at 05:22:53PM +0100, Danilo Krummrich wrote:
-> From: Gary Guo <gary@garyguo.net>
+On Tue, Mar 03, 2026 at 05:22:55PM +0100, Danilo Krummrich wrote:
+> Currently, dma::Coherent cannot safely provide (mutable) access to its
+> underlying memory because the memory might be concurrently accessed by a
+> DMA device. This makes it difficult to safely initialize the memory
+> before handing it over to the hardware.
 > 
-> Currently, `CoherentAllocation` is concecptually a DMA coherent container
-> of a slice of `[T]` of runtime-checked length. Generalize it by creating
-> `dma::Coherent<T>` which can hold any value of `T`.
-> `Coherent::alloc_with_attrs` is implemented but not yet exposed, as I
-> believe we should not expose the way to obtain an uninitialized coherent
-> region.
+> Introduce dma::CoherentInit, a type that encapsulates a dma::Coherent
+> before its DMA address is exposed to the device. dma::CoherentInit can
+> guarantee exclusive access to the inner dma::Coherent and implement
+> Deref and DerefMut.
 > 
-> `Coherent<[T]>` provides a `len` method instead of the previous `count()`
-> method to be consistent with methods on slices.
+> Once the memory is properly initialized, dma::CoherentInit can be
+> converted into a regular dma::Coherent.
 > 
-> The existing type is re-defined as a type alias of `Coherent<[T]>` to ease
-> transition. Methods in use are not yet removed.
-> 
-> Signed-off-by: Gary Guo <gary@garyguo.net>
 > Signed-off-by: Danilo Krummrich <dakr@kernel.org>
 
-I see you have both `size()` and `len()`. I think it would be clearer to
-rename `size()` to `len_bytes()`.
+overall LGTM
 
-Otherwise LGTM.
 Reviewed-by: Alice Ryhl <aliceryhl@google.com>
 
-Alice
+> +        let ptr = core::ptr::from_mut(&mut self[i]);
 
+&raw mut self[i].
+
+Alice
