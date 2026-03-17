@@ -4,95 +4,123 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CF354FED9E0
-	for <dri-devel@archiver.kernel.org>; Tue, 17 Mar 2026 15:18:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E988BFED9E3
+	for <dri-devel@archiver.kernel.org>; Tue, 17 Mar 2026 15:18:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2030210E5B6;
-	Tue, 17 Mar 2026 15:18:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3BE9B10E6CB;
+	Tue, 17 Mar 2026 15:18:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=fairphone.com header.i=@fairphone.com header.b="i8NtgZ/Y";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="4uK3UDnG";
 	dkim-atps=neutral
-Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com
- [209.85.218.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 547F510E648
- for <dri-devel@lists.freedesktop.org>; Tue, 17 Mar 2026 15:18:17 +0000 (UTC)
-Received: by mail-ej1-f43.google.com with SMTP id
- a640c23a62f3a-b97e5956208so77555866b.2
- for <dri-devel@lists.freedesktop.org>; Tue, 17 Mar 2026 08:18:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=fairphone.com; s=fair; t=1773760696; x=1774365496; darn=lists.freedesktop.org;
- h=in-reply-to:references:to:from:subject:cc:message-id:date
- :content-transfer-encoding:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=tLOIoVOvc3ULrd60PWM378GR2y4L4v7j9eb4/ygVlt8=;
- b=i8NtgZ/YoqJFe/ZU0nZys1MvmIRqdLUkw0zErawWDVTssyRUekf3yTVf9m4Nyc7ehW
- W+Xm3ry0yc1Z/c4V5Pap14ByiC0X/hGCdeVIdI0fsZKCrtmKUoUvFSd9Kgl9deYtWo2B
- VVBOS29iCEUOoHtLYXOvXdJ92XGx+RQfqiuFG5rCgwDX3kO4X0Wkq0lYnBcyQsXNCvE3
- 5zTPXwkignUfmrAZuBBnwJZP62jK6P55r48UjpvB7QANSfZ7QY71rCjsxY4pE4N6s/xc
- EVhRjj60gcfETNo1dYruuaieFBQ62GRQVZTNJXKG0OxARyTm6m1C+aGzgHOL9bfd/R1x
- qyZw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1773760696; x=1774365496;
- h=in-reply-to:references:to:from:subject:cc:message-id:date
- :content-transfer-encoding:mime-version:x-gm-gg:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to;
- bh=tLOIoVOvc3ULrd60PWM378GR2y4L4v7j9eb4/ygVlt8=;
- b=iicuId6Pjb3R2tmwvrn+fskDyySpEOue2BL5LK2fG7a46R/+3g4xeXbLBIyTa3BspN
- qjcCMnojA7TQIAWOrJe4U/l9F/8j6MssdUn/D+KEPbF/O/6svEFgnvyoCAutOTk8mNwH
- Mi74aekeLdNZy356I3NaIJkLkoGcbYXh2nN/BR75U/+O/owJWd4li6xhFnSxXRxXWCzb
- vMQCX7lN0CXzOZYc+seevyzB6OUQrZNANNFZARiQEQU46ADv+bpAIxZiHBGJ6Ev5TO1N
- Qupulhxheu/9qeyw4U1Bs8+gueWQX9CNd1rGUs2ICC4B7pQkS+5Ue945yuP7BrLRk06s
- xIAQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUQiBCFiGE43cp4YswtjsN5nk14FAb5m7oMSHWGgRaExCivIDoJyKblhbvgX8eg9mZIpDDqoj5EnMI=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yz44EH3ldPdoq6S53IGN4LCrW5vkIOFit33T+b1XTt97kpv1Rnp
- /3HIYZvFLbw3aovycGffUqczjhkWaD/nylLwG6EfQTkRGgIJKPhF7slkoWyiNe4bBUg=
-X-Gm-Gg: ATEYQzzN0jlK/FQf8Jv/deS6Apt92qgpJMlp+mdPYL7TUTIq991glyAbRaPJGb6y6hD
- MAivhgzZl7RVmOgOKYL4WSWCysXiDgNJc/VGTng58vNtJh2ri8xZU+oAkCrcGV9zsX6FpUz+Hj0
- BvjvmReubC7zuOZh8BMrS780mgN5DqYILZNoGEyPZpgs6O6hsaZrAQkSIrqpDufKZb1bsXMO5K/
- uNpCb1Gm7iZK9PXtnWyz2Gp3moFqJ29PFnmayGwXdHgXbtX5WlpoMyPhTzJZfBkhHURTeAsmrtz
- emSS1zoqgn2evYUFfDTULKX3aqTEQkIi4mqHJROCgqy9SQweC1aikvNtKkLiV2DJkyEdfBHYcYX
- VBf3JWGpEfyq9P6OW++KqP0qb/2IXo6R9gksyymX0FS4mLoHZnPJrygaUMi9sTmm566+8+JDxjk
- 8yefEbtBNSh6t7w+G25TfxnIJbtrcBxTrROw7JTcjhkKkSuKjov/pDdyKZGiA6M5xBscpp
-X-Received: by 2002:a17:907:8dcd:b0:b93:c5a9:a5e6 with SMTP id
- a640c23a62f3a-b976507af92mr1026443766b.2.1773760695505; 
- Tue, 17 Mar 2026 08:18:15 -0700 (PDT)
-Received: from localhost (144-178-202-139.static.ef-service.nl.
- [144.178.202.139]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-667aecbcc17sm115389a12.5.2026.03.17.08.18.14
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 17 Mar 2026 08:18:14 -0700 (PDT)
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 17 Mar 2026 16:18:13 +0100
-Message-Id: <DH55OTHPTVD0.3CEOFJJRR8A12@fairphone.com>
-Cc: "Luca Weiss" <luca.weiss@fairphone.com>, "yuanjiey"
- <yuanjie.yang@oss.qualcomm.com>, <robin.clark@oss.qualcomm.com>,
- <lumag@kernel.org>, <abhinav.kumar@linux.dev>, <jesszhan0024@gmail.com>,
- <sean@poorly.run>, <marijn.suijten@somainline.org>, <airlied@gmail.com>,
- <simona@ffwll.ch>, <krzysztof.kozlowski@linaro.org>,
- <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <freedreno@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
- <tingwei.zhang@oss.qualcomm.com>, <aiqun.yu@oss.qualcomm.com>,
- <yongxing.mou@oss.qualcomm.com>
-Subject: Re: [PATCH 1/2] drm/msm/dpu: fix mismatch between power and frequency
-From: "Luca Weiss" <luca.weiss@fairphone.com>
-To: "Dmitry Baryshkov" <dmitry.baryshkov@oss.qualcomm.com>, "Konrad Dybcio"
- <konrad.dybcio@oss.qualcomm.com>
-X-Mailer: aerc 0.21.0-0-g5549850facc2
-References: <CAO9ioeVrQ_TfU5-auxNHG=dL8VmeWtBaC_NE09UECodkYrFv-w@mail.gmail.com>
- <aWSv+kVV3G18I/NJ@yuanjiey.ap.qualcomm.com>
- <e5ebc660-e30e-4fcd-ace6-5a6c889e9a8a@oss.qualcomm.com>
- <4g6fyehdc3fejx3pzeysmghigazfei3jz2vmnvxrnqkkbtbxdb@bdlcddxlvbhl>
- <cb22367a-678c-431f-9f52-33663f4af9d7@oss.qualcomm.com>
- <jr4h4sx42dbxpknm5nkgj7ydpkivm4nglfz7ui4bjpom7wf6ub@spqb27d3ov2z>
- <DGSDE0ID17DQ.XQZNKZH5UKPO@fairphone.com>
- <g3dclilgoee6a2dyfqdvk67asjb4ptur5nc52iqqeqpiiourpv@46xstae5zsy3>
- <DH4WJ5KZ39MS.AHLMLFB8E0JW@fairphone.com>
- <3e5f80a6-d9bc-46ee-89ca-b1b2ba744493@oss.qualcomm.com>
- <necpphuujv4cyc33sf6eaaamh2hnub2poch7rjgvxzu6id62zw@rxotgr3rtbsb>
-In-Reply-To: <necpphuujv4cyc33sf6eaaamh2hnub2poch7rjgvxzu6id62zw@rxotgr3rtbsb>
+Received: from BN1PR04CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11010037.outbound.protection.outlook.com [52.101.56.37])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AA0C310E6B5
+ for <dri-devel@lists.freedesktop.org>; Tue, 17 Mar 2026 15:18:43 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=X1AvBKgVWMbQWdJYjE98Ne81PpOaKfvJPQl+FkeLvFYIblNEh8o8CoTuzlAwvLg2LWnEByl6/0GVWVQo8HVeXaCCRR6UO/8/o3/TYWodcvWcO9y+Ib4FhUvkpASqNbg46Hvk0bejR93mYKPUIwS7mwLVfyk8YXuiiqtgNnlrMm3Cr3uAPdMcwHQ1waJSGDHd8B9GiWBVfjGPjefOEStSCxhRoMAp3grI63E5/2nVgVK7Zv3QkUSM3RWoQkrJq8JUGah9MUzMTWabW1QJOGdJA7cbiddQRsRSwqFqdP7z5hL6eD/f8OpGa0FNQK6BMOUExFP8Hv3Xlv9fifDgcGpG3g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=VH2E1o6TsEeibyetBNQIq9oI4A261EAtrQD7wqV2U6k=;
+ b=o6GuKecoSx1FbwpWmDtFxGvrsNhFbfRLJBIzsFcEaf97lfZbIfA8l5jdzdne1eM/GKPoDOQFpyXR1emmnDYaGr2E7UG4e3dRCV6G5Fyyx2nBdu9jQdtNdJbm9nrg7ZVLlvCryWGbYC0We7TgvCxvOqPw5uddKJIF5lJ3THQohNYtG73e1KMazpgCtEb58c8Oikm41VGu0xrPnXuoO4+y7ADbIjAYyI8qNN+qqMHVNrijBFXr4+50cIE87DNWOj/l7yk3SO9PVBHxD7j99Noedhm2/hkaraKUW+gvbcoCyYLvU+I8ZQKJQnV0rXug1EN5iAXod67meFPZg3mE49/4MA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=VH2E1o6TsEeibyetBNQIq9oI4A261EAtrQD7wqV2U6k=;
+ b=4uK3UDnGMx+93gyVtouvjq6zxm4NyiHeKhr53XIHVqktk580RdBXsiGuyWZkPqa/eu8096agvmdFClep/Cw0sppQwil1DOwU6qujBqOfFITWXGXoq2CDGZCgDnwlBtxoL0vPLa6VjS81+okX1m3vUCMfgJtasty3AfuY0sUWYkk=
+Received: from CH0PR12MB5284.namprd12.prod.outlook.com (2603:10b6:610:d7::13)
+ by PH8PR12MB7232.namprd12.prod.outlook.com (2603:10b6:510:224::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.19; Tue, 17 Mar
+ 2026 15:18:38 +0000
+Received: from CH0PR12MB5284.namprd12.prod.outlook.com
+ ([fe80::c1d5:bb14:abc3:7fd1]) by CH0PR12MB5284.namprd12.prod.outlook.com
+ ([fe80::c1d5:bb14:abc3:7fd1%3]) with mapi id 15.20.9723.018; Tue, 17 Mar 2026
+ 15:18:37 +0000
+From: "Pillai, Aurabindo" <Aurabindo.Pillai@amd.com>
+To: Jani Nikula <jani.nikula@linux.intel.com>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
+CC: Simona Vetter <simona@ffwll.ch>, David Airlie <airlied@gmail.com>, Thomas
+ Zimmermann <tzimmermann@suse.de>, Maxime Ripard <mripard@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, "Deucher, Alexander"
+ <Alexander.Deucher@amd.com>
+Subject: Re: [PATCH] drm/edid: fix off-by-2 byte offsets in HF-SCDB parsing
+Thread-Topic: [PATCH] drm/edid: fix off-by-2 byte offsets in HF-SCDB parsing
+Thread-Index: AQHctYZgSoiwyIJRVkel0D+HmQGS/LWyabEAgABtowo=
+Date: Tue, 17 Mar 2026 15:18:37 +0000
+Message-ID: <CH0PR12MB5284F20EFAB2391B38A01E328B41A@CH0PR12MB5284.namprd12.prod.outlook.com>
+References: <20260316204907.3852592-1-aurabindo.pillai@amd.com>
+ <e5b8b6f910578d33220476045899f4199286add8@intel.com>
+In-Reply-To: <e5b8b6f910578d33220476045899f4199286add8@intel.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Enabled=True;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SetDate=2026-03-17T15:18:36.232Z;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Name=Open
+ Source; MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_ContentBits=1;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Method=Privileged; 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: CH0PR12MB5284:EE_|PH8PR12MB7232:EE_
+x-ms-office365-filtering-correlation-id: 4ad7f61f-4376-4bf4-9305-08de84387681
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|376014|1800799024|366016|8096899003|38070700021|7053199007|56012099003|22082099003|18002099003;
+x-microsoft-antispam-message-info: Yq3zRdVNhGwXCTGH5ue+U6EX4d82U57HIKLS1t2MOZRPnZg6oOmUyYt66UrZgCAJrygt+SmcleCDP++JtSaAs5rVgcO7HKfkf8QOEgIoZHq7KjBXJJrHmNzNApe7GMbzCvBrVo85lnc/ix6yOGS7uNUh2902E9kzLTvs8T43kv/T58OQ3FI9hVZl0m/L8UIK115I0QSv1cy5GXNwanQca/9iBRjDnSDVohoREReKKb6YcHNFAj0MdimiBQem5tWCQlHOK4C6PpEozwcOcixPIJawLrUQvlCQsUeeVA0kajogWpxkzGdRpFzA798sJzxS/wg8QUSZtwf1pvXCOC03EG1QNMC4v/l0YnyIer+zLd8bBApHn4+Ega1dIhQtwz1/Li6lEDiBZHgCPMGBXZRfumnnehFIZqQ9ssJF+Ls8aoGhGsX6LqvyzWtLoDzHBt7HAijWO9HVSSUzlf6+N5VwmVlgNYRebMB3tkCKWEO8xu/nmHMGk6mfN4LH492aOx+gPt2Vv3z6U+P1FfJMkP7blXObmxQQSlkmduo3ivOWr3A2crVnzIA5Ukw/3sWNuHXheJn3LomXyK4MRb9DfsM2bOMxN6VJQDY9fUSjujGlGUQalbM4C+xHT4Me4+2xhdSldKfw2po9gsDkWwtO1ziqDP9JqZCr/z5ae3BUtrJWtz5OdS+Hu7kNdG3W+77hDblp5hjQ6NzJ7ZRMMwfY8uWiJh7s14fHV1ehPkgiBtnBxDFXJoeW8cHtHn9OLAq8iO9iiQnf0ufAWB2p+ndteH8LoQbocIbuyTueWQ+acj6GR0Y=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CH0PR12MB5284.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(366016)(8096899003)(38070700021)(7053199007)(56012099003)(22082099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?6VNSILH7IjfSga+JZmlUULf9IrIA4vN0O4y8th+Tc4M345kd4X4DYRrBBxu1?=
+ =?us-ascii?Q?wW9FKkQ43O/K6e6X00Dj2hhJ350HdkI5pEJz0lqfwIEWaNwMZccpwahizD5d?=
+ =?us-ascii?Q?jE6r8gsdALyQ5zds+/XZI1ZMEc8KBAv+BkjcQCnsihdfpSA5/gRH3bX/bsQT?=
+ =?us-ascii?Q?PJDE4Q2Nd01rXz4+oMFa49/NEIHf8HNXyWH6mnN1Fz2mU8z/qydhccd1DQLU?=
+ =?us-ascii?Q?yvPEOpdBNplemAljvf9O6uvItbLmKkfg2pGLv76wNmn1VbpX+W7xTCu+t5uh?=
+ =?us-ascii?Q?snVKYQwnJvTOkjPBUbienstq7TuX8k3MY0vDgVrMkzL/8teJf44cMVugTSPE?=
+ =?us-ascii?Q?HvbMmOaFktyKnsyjNYjpjBZ4RM3LD3DsKDT7GMpFmbAu3GYGC2emkSbZ/tmu?=
+ =?us-ascii?Q?m2Jf9PmIk7FdzbtUsFWUFdITPAy3pzDCG+uPYkB6NWZ6gfYR4GQvGwVT/dGA?=
+ =?us-ascii?Q?OqmdYh6d5MHEbkDbHf/gl2tw8HTrWnExX/6cRZPymSrDm+8jsDdFtxwcH1o1?=
+ =?us-ascii?Q?6MveX6m1aChZB/v2Yo5isiT3RegVi4mKv93tc6T0WIHkNY7eearYAzG7kbdF?=
+ =?us-ascii?Q?pq0/hDQjzMajfhZ2IF5pcdcRQpNm9LelPVNwoksCnl/9D4rR2Qm+6SFeItpV?=
+ =?us-ascii?Q?vH78EymzFD3U1MxJwgmfqX4kv9L0F606apgem/aguhI/jMz0DDZtgN8aIEEs?=
+ =?us-ascii?Q?jqeixCtpXGJ8GmOwDszCT79VY4jgXVWFj4kuKgUb2wvZ+Uu3ckEnheQAGz4o?=
+ =?us-ascii?Q?2HF6Bnfd8LNogtKeXoXsuiB6G1QZZjRap6Ya1X9RZIQrI8heogRWdsDdPq2U?=
+ =?us-ascii?Q?IlztS4g/pqv1guGYle0LJvgxKJKlmc5kA+T2/1saa/5X1fc1fAHV2k4kmGtQ?=
+ =?us-ascii?Q?YMUN2fp3pTNEga1BFCfk0L2g6BfHGGk/J1Mx4lnItfHo/MQEtX77pvh9l4vN?=
+ =?us-ascii?Q?U95FHnGm1SX39APEpEmXvMnYgSloHo7qEcRZYHEUshczxMY4dUWB0HSbaDU8?=
+ =?us-ascii?Q?GQn7DDZ8TwJXgkHl7CE2K8P5NJVI9X3vdzNCs1wW+9608BiGEKZcPhSJb9p+?=
+ =?us-ascii?Q?ZJd0tJY272fHu2xbwt8h+J+SjP4ZtduxL1jv0spWXXE9Cl+lqHpuaBH4oivw?=
+ =?us-ascii?Q?eXkm0vwqi/NBjotT24sHhUUAnLRfHIflN1hTwkJ/mlduxMge8rcGj3pyICSz?=
+ =?us-ascii?Q?6Q4xlj/o5E/53dr3Mjtxrf7lQk6vjpXuQdiAqulQOEodQXSFACSYyVID/9Fd?=
+ =?us-ascii?Q?b0GaCjaHCdTcO0aKoON54WoD5/Qle8wlXek1ocKItWFcP1rGOeqgC4hpFhrV?=
+ =?us-ascii?Q?NENEPkw6mUpmDLDbgehCluMStln8SOJC5OspTZdCrcaMaFiG1H5dJkeHIdd+?=
+ =?us-ascii?Q?ZOhrHEHwmWBncAiXbzuYMecLjENy2nHXhUNfeb/6DUYF59qQJHPPf/7FQoZj?=
+ =?us-ascii?Q?hxHmsDMbLwsh226u2vc9QulKvnC2l50C7f5jm6MEh0PC4wG9v1PuzZbdgpnT?=
+ =?us-ascii?Q?1+geNgauFLadL7zaa7xntO3DNc/Q/vGft2Cmx+fMIQ/KjiGJNQ9Gdp43FctX?=
+ =?us-ascii?Q?7oV/OQl/o5ySCwm6HspYO43SAAuJjTIx6+fqn/nmsgSVP2dSy5Cmlhw6FIrv?=
+ =?us-ascii?Q?9MgIt9U+Fe/cQXXxeJAzHgGiUwnWB0GOgUaFK6lzbAWaRAZhzmPf1qVmb2XP?=
+ =?us-ascii?Q?4CrF0iXpuvoX7njDUHj1gUUKlH4H/QBhELBckhsyx/u2pE2c?=
+Content-Type: multipart/alternative;
+ boundary="_000_CH0PR12MB5284F20EFAB2391B38A01E328B41ACH0PR12MB5284namp_"
+MIME-Version: 1.0
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: CH0PR12MB5284.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4ad7f61f-4376-4bf4-9305-08de84387681
+X-MS-Exchange-CrossTenant-originalarrivaltime: 17 Mar 2026 15:18:37.4387 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: caTLLXbCjLZniZDUAsi79nuV6/BNMCEcXCmgP46ESAM2azbUtJGrZ3GtOmnkP3xqGcrjiwJFyzIMkTXLP8BORQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB7232
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,255 +136,630 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue Mar 17, 2026 at 4:16 PM CET, Dmitry Baryshkov wrote:
-> On Tue, Mar 17, 2026 at 09:59:28AM +0100, Konrad Dybcio wrote:
->> On 3/17/26 9:07 AM, Luca Weiss wrote:
->> > On Mon Mar 2, 2026 at 4:17 PM CET, Dmitry Baryshkov wrote:
->> >> On Mon, Mar 02, 2026 at 03:35:36PM +0100, Luca Weiss wrote:
->> >>> On Fri Feb 27, 2026 at 8:05 PM CET, Dmitry Baryshkov wrote:
->> >>>> On Fri, Feb 27, 2026 at 12:34:04PM +0100, Konrad Dybcio wrote:
->> >>>>> On 2/27/26 4:48 AM, Dmitry Baryshkov wrote:
->> >>>>>> On Thu, Feb 26, 2026 at 02:35:52PM +0100, Konrad Dybcio wrote:
->> >>>>>>> On 1/12/26 9:25 AM, yuanjiey wrote:
->> >>>>>>>> On Mon, Jan 12, 2026 at 09:38:41AM +0200, Dmitry Baryshkov wrot=
-e:
->> >>>>>>>>> On Mon, 12 Jan 2026 at 08:23, yuanjiey <yuanjie.yang@oss.qualc=
-omm.com> wrote:
->> >>>>>>>>>>
->> >>>>>>>>>> On Fri, Jan 09, 2026 at 05:22:37PM +0200, Dmitry Baryshkov wr=
-ote:
->> >>>>>>>>>>> On Fri, Jan 09, 2026 at 04:38:07PM +0800, yuanjie yang wrote=
-:
->> >>>>>>>>>>>> From: Yuanjie Yang <yuanjie.yang@oss.qualcomm.com>
->> >>>>>
->> >>>>> [...]
->> >>>>>
->> >>>>>> Please correct me if I'm wrong, if we drop dev_pm_opp_set() from
->> >>>>>> dpu_runtime_suspend, then we should be able to also skip setting =
-OPP
->> >>>>>> corner in dpu_runtime_resume(), because the previously set corner=
- should
->> >>>>>> be viable until drm/msm driver commits new state / new modes.
->> >>>>>
->> >>>>> That matches my understanding.
->> >>>>>
->> >>>>>> The only important issue is to set the corner before starting up =
-the
->> >>>>>> DPU, where we already have code to set MDP_CLK to the max frequen=
-cy.
->> >>>>>>
->> >>>>>> Which means, we only need to drop the dev_pm_set_rate call from t=
-he
->> >>>>>> dpu_runtime_suspend().
->> >>>>>
->> >>>>> I concur.
->> >>>>>
->> >>>>>>> For MDSS, we're currently generally describing the MDSS_AHB cloc=
-k, the
->> >>>>>>> GCC_AHB clock and the MDP clock (sounds wrong?) - there's not ev=
-en an OPP
->> >>>>>>
->> >>>>>> No. As far as I remember, MDP_CLK is necessary to access MDSS reg=
-isters
->> >>>>>> (see commit d2570ee67a47 ("drm/msm/mdss: generate MDSS data for M=
-DP5
->> >>>>>> platforms")), I don't remember if accessing HW_REV without MDP_CL=
-K
->> >>>>>> resulted in a zero reads or in a crash. At the same time it needs=
- to be
->> >>>>>> enabled to any rate, which means that for most of the operations
->> >>>>>> msm_mdss.c can rely on DPU keeping the clock up and running.
->> >>>>>>
->> >>>>>>> table.. The GCC clock is sourced from (and scaled by) the NoC, b=
-ut the
->> >>>>>>> MDSS_AHB one seems to have 3 actually configurable performance p=
-oints
->> >>>>>>> that neither we nor seemingly the downstream driver seem to real=
-ly care
->> >>>>>>> about (i.e. both just treat it as on/off). If we need to scale i=
-t, we
->> >>>>>>> should add an OPP table, if we don't, we should at least add req=
-uired-opps.
->> >>>>>>
->> >>>>>> I think, dispcc already has a minimal vote on the MMCX, which ful=
-fill
->> >>>>>> these needs.
->> >>>>>
->> >>>>> I have slightly mixed feelings, but I suppose that as we accepted =
-Commit
->> >>>>> e3e56c050ab6 ("soc: qcom: rpmhpd: Make power_on actually enable th=
-e domain"),
->> >>>>> we can generally agree that it makes sense that calling genpd->on(=
-) actually
->> >>>>> turns on the power indeed
->> >>>>>
->> >>>>> What I'm worried about is if the clock is pre-configured to run at=
- a high
->> >>>>> frequency from the bootloader (prepare_enable only sets the EN bit=
- in the RCG,
->> >>>>> and doesn't impact the state of M/N/D at a glance), we may get a b=
-rownout
->> >>>>>
->> >>>>> This rings the "downstream really did it better with putting clock=
- dvfs states
->> >>>>> into the clk driver" bell, but I suppose the way to fight this wou=
-ld be to
->> >>>>> simply set_rate(fmax) there too..
->> >>>>>
->> >>>>> I attempted an experiment with pulling out the plug. MMCX enabled =
-with the
->> >>>>> AHB clock off results in a read-as-zero. I tried really hard to di=
-sable the
->> >>>>> mdp clock, but it seems like the "shared_ops" reflect some sort of=
- "you
->> >>>>> *really* can't just disable it" type behavior (verified with debug=
-cc)
->> >>>>
->> >>>> I think, in 8996 it was possible to disable it. Not sure about
->> >>>> 8998/630/660.
->> >>>>
->> >>>>>
->> >>>>>
->> >>>>> There's a possible race condition if we don't do it:
->> >>>>>
->> >>>>> ------- bootloader --------
->> >>>>> configure display, mdp_clk=3Dturbo
->> >>>>> ------- linux -------------
->> >>>>> load rpmhpd     |
->> >>>>> load venus      |
->> >>>>> set mmcx=3Dlowsvs | mdp_clk is @ turbo
->> >>>>>                 | brownout
->> >>>>>                 |=20
->> >>>>>                 | <mdss would only probe here>
->> >>>>>
->> >>>>> *but* that should be made impossible because of .sync_state().
->> >>>>
->> >>>> Yep, sync_state should prevent MMCX or CX from dropping under the b=
-oot
->> >>>> level.
->> >>>>
->> >>>>>
->> >>>>> This may impact hacky setups like simplefb, but as the name implie=
-s,
->> >>>>> that's hacky.
->> >>>>>
->> >>>>> Relying on .sync_state() however will not cover the case if the md=
-ss
->> >>>>> module is removed and re-inserted later, possibly with mmcx disabl=
-ed
->> >>>>> entirely but the clock not parked at a sufficiently low rate.
->> >>>>>
->> >>>>>
->> >>>>> TLDR: reassess whether MDSS needs the MDP clock, if so, we should =
-just
->> >>>>> plug the MDP opp table into it and set_rate(fmax) during mdss init
->> >>>>
->> >>>> And what will drop it afterwards? MDSS will still vote on the MMCX =
-/ CX
->> >>>> level even though DPU will change the clock freq.
->> >>>>
->> >>>>>
->> >>>>>>> The MDP4/MDP5 drivers are probably wrong too in this regard, but=
- many
->> >>>>>>> targets supported by these may not even have OPP tables and are =
-generally
->> >>>>>>> not super high priority for spending time on.. that can, I'd kic=
-k down the
->> >>>>>>> road unless someone really wants to step up
->> >>>>>>
->> >>>>>> I'd really not bother with those two drivers, unless we start sei=
-ng
->> >>>>>> crashes. For MDP4 platforms we don't implement power domains at a=
-ll, no
->> >>>>>> interconnects, etc., which means that the system will never go to=
- a
->> >>>>>> lower power state.
->> >>>>>
->> >>>>> Right. Might be that 2030-something arrives and armv7 is gone befo=
-re someone
->> >>>>> randomly decides to work on that!
->> >>>>>
->> >>>>>> MDP5 platforms mostly don't have OPP tables. (I'm not counting MS=
-M8998 /
->> >>>>>> SDM630 / SDM660 here). MSM8917 / MSM8937 have only DSI tables, MS=
-M8976
->> >>>>>> has both MDP and DSI tables (my favourite MSM8996 has none). Prob=
-ably we
->> >>>>>> should start there by adding missing bits adding corresponding
->> >>>>>> dev_pm_set_rate() calls as required (as demostrated by the DPU dr=
-iver).
->> >>>>>
->> >>>>> A bit off-topic, but:
->> >>>>>
->> >>>>> drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.c
->> >>>>>
->> >>>>> 96 is in DPU. any other candidates that should be moved over?
->> >>>>
->> >>>> Let's go through them.
->> >>>>
->> >>>> All SoC except those currently supported in DPU require SMP (shared
->> >>>> memory pool) support to be ported from the MDP5 driver.
->> >>>>
->> >>>> Most of the remaining platforms (except MSM8994/92) also had HW cur=
-sor
->> >>>> implemented in a fancy way, in the LM rather than in a separate pip=
-e.
->> >>>> I'd really like to postpone those, possibly first completing migrat=
-ion
->> >>>> of the other platforms and dropping support for them from MDP5.
->> >>>>
->> >>>> 1.0  - old MSM8974
->> >>>>        I'd rather not touch it, it had bugs and I don't have HW
->> >>>> 1.1  - MSM8x26
->> >>>>        Probably Luca can better comment on it. Should be doable, bu=
-t I
->> >>>>        don't see upstream devices using display on it.
->> >>>
->> >>> I have at least two MSM8x26 (1x APQ8026 lg-lenok & 1x MSM8926 htc-me=
-mul)
->> >>> devices working with MDP5 fine. I should've probably upstreamed pane=
-l
->> >>> driver & dts but they haven't been high priority..
->> >>
->> >> I think I have been saying this: having a panel & dsi enabled in DT i=
-s
->> >> the only way for me to know that the display is working on this
->> >> platform. I'd really kindly ask you and other activists to get at lea=
-st
->> >> some panel drivers and corresponding DT bits upstream. It is really a=
-n
->> >> important flag for me.
->> >>
->> >> I can propose some kind of bounty for those getting MDSS+panel suppor=
-ted
->> >> in Qcom DT. (Beer at the next conf we meet? Some stickers for the
->> >> laptops and phones? M=C3=A4mmi?)
->> >=20
->> > Hm I realized yesterday (through trying it), that also MDSS is broken
->> > since the no-IOMMU codepath was removed from drm/msm. I thought this w=
-as
->> > only affecting GPU but it's also affecting MDSS/MDP5 :(
->> >=20
->> > So I guess no panel enablement anytime soon until the IOMMU situation =
-is
->> > sorted out, for both 8226 and 8974...
->>=20
->> If you're sure the panel drivers are good (e.g. they worked on 6.whateve=
-r
->> prior to drm/msm saying sayonara to carveout), I think no one would obje=
-ct
->> to have them merged separately, so that you don't have to wait until
->> who-knows-when and keep rebasing them by hand
+--_000_CH0PR12MB5284F20EFAB2391B38A01E328B41ACH0PR12MB5284namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+[Public]
+
+You're right - I missed the reserved bytes in the spec. Please discard the =
+patch.
+
+--
+
+Regards,
+Jay
+________________________________
+From: Jani Nikula <jani.nikula@linux.intel.com>
+Sent: Tuesday, March 17, 2026 4:45 AM
+To: Pillai, Aurabindo <Aurabindo.Pillai@amd.com>; dri-devel@lists.freedeskt=
+op.org <dri-devel@lists.freedesktop.org>
+Cc: Simona Vetter <simona@ffwll.ch>; David Airlie <airlied@gmail.com>; Thom=
+as Zimmermann <tzimmermann@suse.de>; Maxime Ripard <mripard@kernel.org>; Ma=
+arten Lankhorst <maarten.lankhorst@linux.intel.com>; Deucher, Alexander <Al=
+exander.Deucher@amd.com>
+Subject: Re: [PATCH] drm/edid: fix off-by-2 byte offsets in HF-SCDB parsing
+
+On Mon, 16 Mar 2026, Aurabindo Pillai <aurabindo.pillai@amd.com> wrote:
+> drm_parse_hdmi_forum_scds() used HF-VSDB byte offsets for both HF-VSDB
+> and HF-SCDB block types. HF-VSDB has a 4-byte header (1 tag_len +
+> 3 OUI) while HF-SCDB has a 2-byte header (1 tag_len + 1 ext_tag), so
+> all field accesses were off by 2 for the SCDB case.
+
+HF-SCDB has tag + ext tag + 2 reserved bytes, making the SCDS start at
+offset 4 in both cases.
+
+BR,
+Jani.
+
+
 >
-> +1. Please submit them and cc me so that I don't miss those.
+> This caused SCDC support, max TMDS clock, scrambling, FRL rate,
+> YCbCr420 deep color, and DSC capabilities to be read from wrong byte
+> positions when parsed from an HF-SCDB block.
+>
+> Fix by passing a pointer to the Version byte (first field after
+> block-specific headers) and an explicit length to the parsing
+> functions, so both block types use the same normalized layout:
+>  - HF-VSDB: data + 4, payload_len - 3 (skip tag_len + 3-byte OUI)
+>  - HF-SCDB: data + 2, payload_len - 1 (skip tag_len + 1-byte ext_tag)
+>
+> Signed-off-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
+> ---
+>  drivers/gpu/drm/drm_edid.c | 59 +++++++++++++++++++++-----------------
+>  1 file changed, 32 insertions(+), 27 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
+> index 26bb7710a462..13174876b04c 100644
+> --- a/drivers/gpu/drm/drm_edid.c
+> +++ b/drivers/gpu/drm/drm_edid.c
+> @@ -6143,45 +6143,45 @@ void drm_get_max_frl_rate(int max_frl_rate, u8 *m=
+ax_lanes, u8 *max_rate_per_lane
+>  }
+>
+>  static void drm_parse_ycbcr420_deep_color_info(struct drm_connector *con=
+nector,
+> -                                            const u8 *db)
+> +                                            const u8 *hf_scds)
+>  {
+>        u8 dc_mask;
+>        struct drm_hdmi_info *hdmi =3D &connector->display_info.hdmi;
+>
+> -     dc_mask =3D db[7] & DRM_EDID_YCBCR420_DC_MASK;
+> +     dc_mask =3D hf_scds[3] & DRM_EDID_YCBCR420_DC_MASK;
+>        hdmi->y420_dc_modes =3D dc_mask;
+>  }
+>
+>  static void drm_parse_dsc_info(struct drm_hdmi_dsc_cap *hdmi_dsc,
+> -                            const u8 *hf_scds)
+> +                            const u8 *hf_scds, int hf_scds_len)
+>  {
+> -     hdmi_dsc->v_1p2 =3D hf_scds[11] & DRM_EDID_DSC_1P2;
+> +     hdmi_dsc->v_1p2 =3D hf_scds[7] & DRM_EDID_DSC_1P2;
+>
+>        if (!hdmi_dsc->v_1p2)
+>                return;
+>
+> -     hdmi_dsc->native_420 =3D hf_scds[11] & DRM_EDID_DSC_NATIVE_420;
+> -     hdmi_dsc->all_bpp =3D hf_scds[11] & DRM_EDID_DSC_ALL_BPP;
+> +     hdmi_dsc->native_420 =3D hf_scds[7] & DRM_EDID_DSC_NATIVE_420;
+> +     hdmi_dsc->all_bpp =3D hf_scds[7] & DRM_EDID_DSC_ALL_BPP;
+>
+> -     if (hf_scds[11] & DRM_EDID_DSC_16BPC)
+> +     if (hf_scds[7] & DRM_EDID_DSC_16BPC)
+>                hdmi_dsc->bpc_supported =3D 16;
+> -     else if (hf_scds[11] & DRM_EDID_DSC_12BPC)
+> +     else if (hf_scds[7] & DRM_EDID_DSC_12BPC)
+>                hdmi_dsc->bpc_supported =3D 12;
+> -     else if (hf_scds[11] & DRM_EDID_DSC_10BPC)
+> +     else if (hf_scds[7] & DRM_EDID_DSC_10BPC)
+>                hdmi_dsc->bpc_supported =3D 10;
+>        else
+>                /* Supports min 8 BPC if DSC 1.2 is supported*/
+>                hdmi_dsc->bpc_supported =3D 8;
+>
+> -     if (cea_db_payload_len(hf_scds) >=3D 12 && hf_scds[12]) {
+> +     if (hf_scds_len >=3D 9 && hf_scds[8]) {
+>                u8 dsc_max_slices;
+>                u8 dsc_max_frl_rate;
+>
+> -             dsc_max_frl_rate =3D (hf_scds[12] & DRM_EDID_DSC_MAX_FRL_RA=
+TE_MASK) >> 4;
+> +             dsc_max_frl_rate =3D (hf_scds[8] & DRM_EDID_DSC_MAX_FRL_RAT=
+E_MASK) >> 4;
+>                drm_get_max_frl_rate(dsc_max_frl_rate, &hdmi_dsc->max_lane=
+s,
+>                                     &hdmi_dsc->max_frl_rate_per_lane);
+>
+> -             dsc_max_slices =3D hf_scds[12] & DRM_EDID_DSC_MAX_SLICES;
+> +             dsc_max_slices =3D hf_scds[8] & DRM_EDID_DSC_MAX_SLICES;
+>
+>                switch (dsc_max_slices) {
+>                case 1:
+> @@ -6219,13 +6219,13 @@ static void drm_parse_dsc_info(struct drm_hdmi_ds=
+c_cap *hdmi_dsc,
+>                }
+>        }
+>
+> -     if (cea_db_payload_len(hf_scds) >=3D 13 && hf_scds[13])
+> -             hdmi_dsc->total_chunk_kbytes =3D hf_scds[13] & DRM_EDID_DSC=
+_TOTAL_CHUNK_KBYTES;
+> +     if (hf_scds_len >=3D 10 && hf_scds[9])
+> +             hdmi_dsc->total_chunk_kbytes =3D hf_scds[9] & DRM_EDID_DSC_=
+TOTAL_CHUNK_KBYTES;
+>  }
+>
+>  /* Sink Capability Data Structure */
+>  static void drm_parse_hdmi_forum_scds(struct drm_connector *connector,
+> -                                   const u8 *hf_scds)
+> +                                   const u8 *hf_scds, int hf_scds_len)
+>  {
+>        struct drm_display_info *info =3D &connector->display_info;
+>        struct drm_hdmi_info *hdmi =3D &info->hdmi;
+> @@ -6236,9 +6236,9 @@ static void drm_parse_hdmi_forum_scds(struct drm_co=
+nnector *connector,
+>
+>        info->has_hdmi_infoframe =3D true;
+>
+> -     if (hf_scds[6] & 0x80) {
+> +     if (hf_scds[2] & 0x80) {
+>                hdmi->scdc.supported =3D true;
+> -             if (hf_scds[6] & 0x40)
+> +             if (hf_scds[2] & 0x40)
+>                        hdmi->scdc.read_request =3D true;
+>        }
+>
+> @@ -6251,11 +6251,11 @@ static void drm_parse_hdmi_forum_scds(struct drm_=
+connector *connector,
+>         * Lets check it out.
+>         */
+>
+> -     if (hf_scds[5]) {
+> +     if (hf_scds[1]) {
+>                struct drm_scdc *scdc =3D &hdmi->scdc;
+>
+>                /* max clock is 5000 KHz times block value */
+> -             max_tmds_clock =3D hf_scds[5] * 5000;
+> +             max_tmds_clock =3D hf_scds[1] * 5000;
+>
+>                if (max_tmds_clock > 340000) {
+>                        info->max_tmds_clock =3D max_tmds_clock;
+> @@ -6265,21 +6265,21 @@ static void drm_parse_hdmi_forum_scds(struct drm_=
+connector *connector,
+>                        scdc->scrambling.supported =3D true;
+>
+>                        /* Few sinks support scrambling for clocks < 340M =
+*/
+> -                     if ((hf_scds[6] & 0x8))
+> +                     if ((hf_scds[2] & 0x8))
+>                                scdc->scrambling.low_rates =3D true;
+>                }
+>        }
+>
+> -     if (hf_scds[7]) {
+> -             max_frl_rate =3D (hf_scds[7] & DRM_EDID_MAX_FRL_RATE_MASK) =
+>> 4;
+> +     if (hf_scds[3]) {
+> +             max_frl_rate =3D (hf_scds[3] & DRM_EDID_MAX_FRL_RATE_MASK) =
+>> 4;
+>                drm_get_max_frl_rate(max_frl_rate, &hdmi->max_lanes,
+>                                     &hdmi->max_frl_rate_per_lane);
+>        }
+>
+>        drm_parse_ycbcr420_deep_color_info(connector, hf_scds);
+>
+> -     if (cea_db_payload_len(hf_scds) >=3D 11 && hf_scds[11]) {
+> -             drm_parse_dsc_info(hdmi_dsc, hf_scds);
+> +     if (hf_scds_len >=3D 8 && hf_scds[7]) {
+> +             drm_parse_dsc_info(hdmi_dsc, hf_scds, hf_scds_len);
+>                dsc_support =3D true;
+>        }
+>
+> @@ -6444,9 +6444,14 @@ static void drm_parse_cea_ext(struct drm_connector=
+ *connector,
+>
+>                if (cea_db_is_hdmi_vsdb(db))
+>                        drm_parse_hdmi_vsdb_video(connector, data);
+> -             else if (cea_db_is_hdmi_forum_vsdb(db) ||
+> -                      cea_db_is_hdmi_forum_scdb(db))
+> -                     drm_parse_hdmi_forum_scds(connector, data);
+> +             else if (cea_db_is_hdmi_forum_vsdb(db))
+> +                     drm_parse_hdmi_forum_scds(connector,
+> +                                               data + 4,
+> +                                               cea_db_payload_len(db) - =
+3);
+> +             else if (cea_db_is_hdmi_forum_scdb(db))
+> +                     drm_parse_hdmi_forum_scds(connector,
+> +                                               data + 2,
+> +                                               cea_db_payload_len(db) - =
+1);
+>                else if (cea_db_is_microsoft_vsdb(db))
+>                        drm_parse_microsoft_vsdb(connector, data);
+>                else if (cea_db_is_y420cmdb(db))
 
-Including dts?
+--
+Jani Nikula, Intel
 
-The drivers themselves are bog-standard, I've generated them with
-linux-mdss-dsi-panel-driver-generator like it's done for most qcom
-phones/devices.
+--_000_CH0PR12MB5284F20EFAB2391B38A01E328B41ACH0PR12MB5284namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-But I can work on it.
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
+Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);" clas=
+s=3D"elementToProof">
+<div>
+<div style=3D"font-family: Calibri; text-align: left; color: rgb(0, 128, 0)=
+; margin-left: 5pt; font-size: 10pt;">
+[Public]</div>
+<br>
+</div>
+You're right - I missed the reserved bytes in the spec. Please discard the =
+patch.</div>
+<div class=3D"elementToProof" id=3D"Signature">
+<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
+Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);" clas=
+s=3D"elementToProof">
+<br>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);" class=3D"elementToProof">
+--</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);" class=3D"elementToProof">
+<br>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);" class=3D"elementToProof">
+Regards,</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);" class=3D"elementToProof">
+Jay<br>
+</div>
+</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Jani Nikula &lt;jani.=
+nikula@linux.intel.com&gt;<br>
+<b>Sent:</b> Tuesday, March 17, 2026 4:45 AM<br>
+<b>To:</b> Pillai, Aurabindo &lt;Aurabindo.Pillai@amd.com&gt;; dri-devel@li=
+sts.freedesktop.org &lt;dri-devel@lists.freedesktop.org&gt;<br>
+<b>Cc:</b> Simona Vetter &lt;simona@ffwll.ch&gt;; David Airlie &lt;airlied@=
+gmail.com&gt;; Thomas Zimmermann &lt;tzimmermann@suse.de&gt;; Maxime Ripard=
+ &lt;mripard@kernel.org&gt;; Maarten Lankhorst &lt;maarten.lankhorst@linux.=
+intel.com&gt;; Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;<br>
+<b>Subject:</b> Re: [PATCH] drm/edid: fix off-by-2 byte offsets in HF-SCDB =
+parsing</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">On Mon, 16 Mar 2026, Aurabindo Pillai &lt;aurabind=
+o.pillai@amd.com&gt; wrote:<br>
+&gt; drm_parse_hdmi_forum_scds() used HF-VSDB byte offsets for both HF-VSDB=
+<br>
+&gt; and HF-SCDB block types. HF-VSDB has a 4-byte header (1 tag_len +<br>
+&gt; 3 OUI) while HF-SCDB has a 2-byte header (1 tag_len + 1 ext_tag), so<b=
+r>
+&gt; all field accesses were off by 2 for the SCDB case.<br>
+<br>
+HF-SCDB has tag + ext tag + 2 reserved bytes, making the SCDS start at<br>
+offset 4 in both cases.<br>
+<br>
+BR,<br>
+Jani.<br>
+<br>
+<br>
+&gt;<br>
+&gt; This caused SCDC support, max TMDS clock, scrambling, FRL rate,<br>
+&gt; YCbCr420 deep color, and DSC capabilities to be read from wrong byte<b=
+r>
+&gt; positions when parsed from an HF-SCDB block.<br>
+&gt;<br>
+&gt; Fix by passing a pointer to the Version byte (first field after<br>
+&gt; block-specific headers) and an explicit length to the parsing<br>
+&gt; functions, so both block types use the same normalized layout:<br>
+&gt;&nbsp; - HF-VSDB: data + 4, payload_len - 3 (skip tag_len + 3-byte OUI)=
+<br>
+&gt;&nbsp; - HF-SCDB: data + 2, payload_len - 1 (skip tag_len + 1-byte ext_=
+tag)<br>
+&gt;<br>
+&gt; Signed-off-by: Aurabindo Pillai &lt;aurabindo.pillai@amd.com&gt;<br>
+&gt; ---<br>
+&gt;&nbsp; drivers/gpu/drm/drm_edid.c | 59 +++++++++++++++++++++-----------=
+------<br>
+&gt;&nbsp; 1 file changed, 32 insertions(+), 27 deletions(-)<br>
+&gt;<br>
+&gt; diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c<b=
+r>
+&gt; index 26bb7710a462..13174876b04c 100644<br>
+&gt; --- a/drivers/gpu/drm/drm_edid.c<br>
+&gt; +++ b/drivers/gpu/drm/drm_edid.c<br>
+&gt; @@ -6143,45 +6143,45 @@ void drm_get_max_frl_rate(int max_frl_rate, u8=
+ *max_lanes, u8 *max_rate_per_lane<br>
+&gt;&nbsp; }<br>
+&gt;&nbsp; <br>
+&gt;&nbsp; static void drm_parse_ycbcr420_deep_color_info(struct drm_connec=
+tor *connector,<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; const u8 *db)<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; const u8 *hf_scds)<br>
+&gt;&nbsp; {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u8 dc_mask;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct drm_hdmi_info *hdmi =
+=3D &amp;connector-&gt;display_info.hdmi;<br>
+&gt;&nbsp; <br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; dc_mask =3D db[7] &amp; DRM_EDID_YCBCR420_DC=
+_MASK;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; dc_mask =3D hf_scds[3] &amp; DRM_EDID_YCBCR4=
+20_DC_MASK;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; hdmi-&gt;y420_dc_modes =3D d=
+c_mask;<br>
+&gt;&nbsp; }<br>
+&gt;&nbsp; <br>
+&gt;&nbsp; static void drm_parse_dsc_info(struct drm_hdmi_dsc_cap *hdmi_dsc=
+,<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp; const u8 *hf_scds)<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp; const u8 *hf_scds, int hf_scds_len)<br>
+&gt;&nbsp; {<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; hdmi_dsc-&gt;v_1p2 =3D hf_scds[11] &amp; DRM=
+_EDID_DSC_1P2;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; hdmi_dsc-&gt;v_1p2 =3D hf_scds[7] &amp; DRM_=
+EDID_DSC_1P2;<br>
+&gt;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!hdmi_dsc-&gt;v_1p2)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; return;<br>
+&gt;&nbsp; <br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; hdmi_dsc-&gt;native_420 =3D hf_scds[11] &amp=
+; DRM_EDID_DSC_NATIVE_420;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; hdmi_dsc-&gt;all_bpp =3D hf_scds[11] &amp; D=
+RM_EDID_DSC_ALL_BPP;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; hdmi_dsc-&gt;native_420 =3D hf_scds[7] &amp;=
+ DRM_EDID_DSC_NATIVE_420;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; hdmi_dsc-&gt;all_bpp =3D hf_scds[7] &amp; DR=
+M_EDID_DSC_ALL_BPP;<br>
+&gt;&nbsp; <br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; if (hf_scds[11] &amp; DRM_EDID_DSC_16BPC)<br=
+>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; if (hf_scds[7] &amp; DRM_EDID_DSC_16BPC)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; hdmi_dsc-&gt;bpc_supported =3D 16;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; else if (hf_scds[11] &amp; DRM_EDID_DSC_12BP=
+C)<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; else if (hf_scds[7] &amp; DRM_EDID_DSC_12BPC=
+)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; hdmi_dsc-&gt;bpc_supported =3D 12;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; else if (hf_scds[11] &amp; DRM_EDID_DSC_10BP=
+C)<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; else if (hf_scds[7] &amp; DRM_EDID_DSC_10BPC=
+)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; hdmi_dsc-&gt;bpc_supported =3D 10;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; /* Supports min 8 BPC if DSC 1.2 is supported*/<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; hdmi_dsc-&gt;bpc_supported =3D 8;<br>
+&gt;&nbsp; <br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; if (cea_db_payload_len(hf_scds) &gt;=3D 12 &=
+amp;&amp; hf_scds[12]) {<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; if (hf_scds_len &gt;=3D 9 &amp;&amp; hf_scds=
+[8]) {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; u8 dsc_max_slices;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; u8 dsc_max_frl_rate;<br>
+&gt;&nbsp; <br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; dsc_max_frl_rate =3D (hf_scds[12] &amp; DRM_EDID_DSC_MAX_FRL_RATE_MASK)=
+ &gt;&gt; 4;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; dsc_max_frl_rate =3D (hf_scds[8] &amp; DRM_EDID_DSC_MAX_FRL_RATE_MASK) =
+&gt;&gt; 4;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; drm_get_max_frl_rate(dsc_max_frl_rate, &amp;hdmi_dsc-&g=
+t;max_lanes,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp=
+;hdmi_dsc-&gt;max_frl_rate_per_lane);<br>
+&gt;&nbsp; <br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; dsc_max_slices =3D hf_scds[12] &amp; DRM_EDID_DSC_MAX_SLICES;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; dsc_max_slices =3D hf_scds[8] &amp; DRM_EDID_DSC_MAX_SLICES;<br>
+&gt;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; switch (dsc_max_slices) {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; case 1:<br>
+&gt; @@ -6219,13 +6219,13 @@ static void drm_parse_dsc_info(struct drm_hdmi=
+_dsc_cap *hdmi_dsc,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; }<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt;&nbsp; <br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; if (cea_db_payload_len(hf_scds) &gt;=3D 13 &=
+amp;&amp; hf_scds[13])<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; hdmi_dsc-&gt;total_chunk_kbytes =3D hf_scds[13] &amp; DRM_EDID_DSC_TOTA=
+L_CHUNK_KBYTES;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; if (hf_scds_len &gt;=3D 10 &amp;&amp; hf_scd=
+s[9])<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; hdmi_dsc-&gt;total_chunk_kbytes =3D hf_scds[9] &amp; DRM_EDID_DSC_TOTAL=
+_CHUNK_KBYTES;<br>
+&gt;&nbsp; }<br>
+&gt;&nbsp; <br>
+&gt;&nbsp; /* Sink Capability Data Structure */<br>
+&gt;&nbsp; static void drm_parse_hdmi_forum_scds(struct drm_connector *conn=
+ector,<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; const u8 *hf_s=
+cds)<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; const u8 *hf_s=
+cds, int hf_scds_len)<br>
+&gt;&nbsp; {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct drm_display_info *inf=
+o =3D &amp;connector-&gt;display_info;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct drm_hdmi_info *hdmi =
+=3D &amp;info-&gt;hdmi;<br>
+&gt; @@ -6236,9 +6236,9 @@ static void drm_parse_hdmi_forum_scds(struct drm=
+_connector *connector,<br>
+&gt;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; info-&gt;has_hdmi_infoframe =
+=3D true;<br>
+&gt;&nbsp; <br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; if (hf_scds[6] &amp; 0x80) {<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; if (hf_scds[2] &amp; 0x80) {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; hdmi-&gt;scdc.supported =3D true;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; if (hf_scds[6] &amp; 0x40)<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; if (hf_scds[2] &amp; 0x40)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; hdmi-&g=
+t;scdc.read_request =3D true;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt;&nbsp; <br>
+&gt; @@ -6251,11 +6251,11 @@ static void drm_parse_hdmi_forum_scds(struct d=
+rm_connector *connector,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * Lets check it out.<b=
+r>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
+&gt;&nbsp; <br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; if (hf_scds[5]) {<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; if (hf_scds[1]) {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; struct drm_scdc *scdc =3D &amp;hdmi-&gt;scdc;<br>
+&gt;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; /* max clock is 5000 KHz times block value */<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; max_tmds_clock =3D hf_scds[5] * 5000;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; max_tmds_clock =3D hf_scds[1] * 5000;<br>
+&gt;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; if (max_tmds_clock &gt; 340000) {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; info-&g=
+t;max_tmds_clock =3D max_tmds_clock;<br>
+&gt; @@ -6265,21 +6265,21 @@ static void drm_parse_hdmi_forum_scds(struct d=
+rm_connector *connector,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; scdc-&g=
+t;scrambling.supported =3D true;<br>
+&gt;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Few =
+sinks support scrambling for clocks &lt; 340M */<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if ((hf_scds[6] &amp; 0=
+x8))<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if ((hf_scds[2] &amp; 0=
+x8))<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; scdc-&gt;scrambling.low_rates =3D =
+true;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; }<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt;&nbsp; <br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; if (hf_scds[7]) {<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; max_frl_rate =3D (hf_scds[7] &amp; DRM_EDID_MAX_FRL_RATE_MASK) &gt;&gt;=
+ 4;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; if (hf_scds[3]) {<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; max_frl_rate =3D (hf_scds[3] &amp; DRM_EDID_MAX_FRL_RATE_MASK) &gt;&gt;=
+ 4;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; drm_get_max_frl_rate(max_frl_rate, &amp;hdmi-&gt;max_la=
+nes,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp=
+;hdmi-&gt;max_frl_rate_per_lane);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; drm_parse_ycbcr420_deep_colo=
+r_info(connector, hf_scds);<br>
+&gt;&nbsp; <br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; if (cea_db_payload_len(hf_scds) &gt;=3D 11 &=
+amp;&amp; hf_scds[11]) {<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; drm_parse_dsc_info(hdmi_dsc, hf_scds);<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; if (hf_scds_len &gt;=3D 8 &amp;&amp; hf_scds=
+[7]) {<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; drm_parse_dsc_info(hdmi_dsc, hf_scds, hf_scds_len);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; dsc_support =3D true;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt;&nbsp; <br>
+&gt; @@ -6444,9 +6444,14 @@ static void drm_parse_cea_ext(struct drm_connec=
+tor *connector,<br>
+&gt;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; if (cea_db_is_hdmi_vsdb(db))<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; drm_par=
+se_hdmi_vsdb_video(connector, data);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; else if (cea_db_is_hdmi_forum_vsdb(db) ||<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; cea_db_is_hdmi_fo=
+rum_scdb(db))<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; drm_parse_hdmi_forum_sc=
+ds(connector, data);<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; else if (cea_db_is_hdmi_forum_vsdb(db))<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; drm_parse_hdmi_forum_sc=
+ds(connector,<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; data + 4,<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; cea_db_payload_le=
+n(db) - 3);<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; else if (cea_db_is_hdmi_forum_scdb(db))<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; drm_parse_hdmi_forum_sc=
+ds(connector,<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; data + 2,<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; cea_db_payload_le=
+n(db) - 1);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; else if (cea_db_is_microsoft_vsdb(db))<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; drm_par=
+se_microsoft_vsdb(connector, data);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; else if (cea_db_is_y420cmdb(db))<br>
+<br>
+-- <br>
+Jani Nikula, Intel<br>
+</div>
+</span></font></div>
+</body>
+</html>
 
-Regards
-Luca
+--_000_CH0PR12MB5284F20EFAB2391B38A01E328B41ACH0PR12MB5284namp_--
