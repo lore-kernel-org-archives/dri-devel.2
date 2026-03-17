@@ -4,113 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 465D5FEDA1A
-	for <dri-devel@archiver.kernel.org>; Tue, 17 Mar 2026 19:41:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 25D38FEDA1C
+	for <dri-devel@archiver.kernel.org>; Tue, 17 Mar 2026 19:49:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AA1AB10E1B3;
-	Tue, 17 Mar 2026 19:41:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6A9B910E255;
+	Tue, 17 Mar 2026 19:49:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="C/o80Yno";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=daniel.almeida@collabora.com header.b="GEVHPlTV";
 	dkim-atps=neutral
-Received: from mail-dl1-f54.google.com (mail-dl1-f54.google.com [74.125.82.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 174E010E1B3
- for <dri-devel@lists.freedesktop.org>; Tue, 17 Mar 2026 19:41:39 +0000 (UTC)
-Received: by mail-dl1-f54.google.com with SMTP id
- a92af1059eb24-128edc72f3eso436008c88.3
- for <dri-devel@lists.freedesktop.org>; Tue, 17 Mar 2026 12:41:39 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1773776498; cv=none;
- d=google.com; s=arc-20240605;
- b=guIB83ArV48pLPPl96sQOMcvc5YXL5PARa0kEbJrzqgX6wBiy4E+X/KA3l5cMrePO3
- yCU2XkWmSEoERtMT0QfKQFNXgmrUQHBUhCjOxUadobLGKhcO4G+qGfuhYZKNzY3dCoeD
- 68MNDcOZe7PM6EjkZutMV8AB/Y4lcKY/07VSwjheocj+kFdaLH5P2SMS8ddMi8yW1HHm
- TovGNsP+3NkD1LOkTlzgg3sW2gmZDTzgpEfOkZ/ZvmGtVq6DJDETnm1JPIGMvWuzQiuX
- jR77Sa8y8Er++Y9iQBb70YZRokMLybIb8/ISm5sPdSzRsddsD/ysrN19zWVXx6Wyxlff
- 8JQA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=wlFA6oh9h2Uqk0U3FytL3VE7dGDdOrHtz15OKY6zjA8=;
- fh=yS6SJr4N4vod5FcYD5x82QExKWewNh1HadNWudNXNK4=;
- b=dN97qQ/ozw3rCA+WXvqgMsHAP3x7NUsvJnh8VG0Swrp4+7AJNTgcXJekTXE8aTMJmj
- QAy2EhL+6pTSXhfvCbgTl6+GqScvK0B/rL0o0IXK52TE5Y/jpwhmqg/YO2ft+OxKf/0G
- WhAjGlPEUChJrfnwZ5rQCEgUnRCb1dxyKXllbR+Pw/gWEs8wpGPxsqxuHuakMXUc/tYi
- oMfiY0tD3cspYYfGkfDsQ9LP4EYTX8fOT0k60n7p6lMEWFpNZICUNMukjLF0OE5b2AEr
- kf8xdO6VS1OTOEWukwrGAtoisnIdeIHBuzMS4yR+CXsRIjNxjSwJmrqKN3h/OG+Rm7Gk
- n46g==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1773776498; x=1774381298; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=wlFA6oh9h2Uqk0U3FytL3VE7dGDdOrHtz15OKY6zjA8=;
- b=C/o80YnoVsKEcghoy3LfrSG48rHjFCA1DRi02BzMgMRuw3YrRfPj/LIt9WlUrHtJVc
- JHzYzjD+Agrn/akzS3eBqn4rEqQvwK5Xy+I4Q3afh8W5eGKPD+74OiSbzfopb1g7/Gb9
- PxMgcGXezJtx5PYPSXTQKJE0g2ByxOItDN37uQTrGwUCiRX5kRYqDM0Hlz1haVkKwOds
- NEcPTRf9ZXmikk1x6chX55gYHZAiMgPiZ7cz7GVCZQRTw2847mm63TLmsj6gC4f8dtPW
- Q8adLeepG5of7y8qtj7aKY4gVSekLg6Z/hRRjyppB3HYEbbbfbHYk0c5Eljmozuqnhga
- HzHQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1773776498; x=1774381298;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=wlFA6oh9h2Uqk0U3FytL3VE7dGDdOrHtz15OKY6zjA8=;
- b=Lnh561ZU5ljoPvxYqsJo4gvEEJ7zBIHD+e8Wn8VUPlT5q7lguP1HgCFI1ayX6XWP1y
- eNitcZaBguXpbUmFmHtsfmos2Izt2MGn1uwuzP5fCoPm8FYFxO68bwtnaQpMKDyRJcVW
- oOZVuI1/Zo98RPnUQaraQYMkNv/pl6oD8Vd7QsIxrHIbxVlLMDhAKMWuVmpLEIJvebGr
- 4Bbg1g8KCpjEOpPZjT5wdbc1F3OMjT9+GsxpUWX0GMoJLXz9df05Bahn5ln8cYPZSQ8I
- NU2U0gQ1XolXhxQS83TcvDbe6h2w7mS5AsRYUhZNs08qgoanrhjkH7T6w8G8+LUm9NYL
- 3n7A==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUnLgUJWvVK1lPGuRQp+giqmmmIZUImifWlHk/cxIV8B38qJlyR4YiRFpOT/a5oTtJuA6IW7+PYxDs=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwM64lz0Dfk001LkyNont6R2WKFEfwNr2tLL3S2LsoRF7qzGiVn
- j3z8nn7U6t6FY8a04NxTz/6WWqHjSOsfEuwHOv+w1O0Tekr1XFFjuVL9MIOunfrpS0gTG/0lqzT
- NbH0Un/vUZdW2bbSndvnBQjkO88mSk9U=
-X-Gm-Gg: ATEYQzzHNWdn+ovI1aAGdotAuwN4Uw/mg+pCY/hfHoNQb3gO20Ld9V2gWxRdFDIszlF
- /oga2u1Bx5fJSCJ8LHbQMk9pI7nrGWRBX7Kq60CYb0wSL+a9G2h9tG0naYsnlVAS2ca9wHRZH3J
- FU6sZHQwB6p7kW2IgS+Rnulu8PMOvSit+DHuU7hbbq/HATStIwAFOkK7tPgHybIthWpH6JkRbtD
- zK/6BCGxcCRza+SXRSBy8t6lUtuySdUmxQBWHslLAZ1PhGQxs0LdkNqCRB5/fSEDZjLF0JpAidj
- vwibUiuCH8ZRa8VNk5w+Q2MCfrz3o0nDpxJRCQMO8NGv0cNf67riWrY7a5wntnBQbgk3/2FxTGS
- IjSI0rxBBo/kndDYlYEbfEAE=
-X-Received: by 2002:a05:7300:dc8f:b0:2be:687:5dbc with SMTP id
- 5a478bee46e88-2c0e5267586mr145307eec.6.1773776498156; Tue, 17 Mar 2026
- 12:41:38 -0700 (PDT)
-MIME-Version: 1.0
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
+ [136.143.188.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C883410E1CD;
+ Tue, 17 Mar 2026 19:49:18 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1773776956; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=l6DHBX9OpXYx2XB4ahJu3nwGnmoTwJam6cKnRAFzGTaQcSM98cMNmNBISrvJ+k6FjatQyPJ1owo0waUt47F6M7hsnFp2GnRqte1o/3MZsUGDmaEYmfBi7F4S13oM8OU/nhgf1cejCg3aLoGk0EF+c3cBXDqF8S37TZmC/H4R2E0=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1773776956;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=qivz7z5qDkBFkveJZY7JZdTDWy+EWa/y0vLvNrlAvYg=; 
+ b=mDXdFPf/AHuN1pa1DMWNXURU3m/WOYGDdkz7paN8U/PV5llbqcy7xoBVaC4d2Qaa89oGVpKBW37tdBvBb5ZVA+VRYNw8hLnqbVayedaUB8VZYK1lTaijjVkZR6BNhpckj14Lrfc+pjjvYqjwJpFdOxD3Y6iJ+iLKRvpkyW9vrj0=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=daniel.almeida@collabora.com;
+ dmarc=pass header.from=<daniel.almeida@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1773776956; 
+ s=zohomail; d=collabora.com; i=daniel.almeida@collabora.com;
+ h=Content-Type:Mime-Version:Subject:Subject:From:From:In-Reply-To:Date:Date:Cc:Cc:Content-Transfer-Encoding:Message-Id:Message-Id:References:To:To:Reply-To;
+ bh=qivz7z5qDkBFkveJZY7JZdTDWy+EWa/y0vLvNrlAvYg=;
+ b=GEVHPlTVrYZDZ661G1DbPwdt/YWYF4U0fV0BRj22+t762Alt06x3gFn5pHrIV6vU
+ 0ZxnSF9aruXsJGKU4EytbL1eUd82Br2BKfBiGFe4hln8VTrQOBOkLD9B1YKzobANtcK
+ kx9vhVv8ejlfUbZI8qpYjDbNCTwYlo0S0014voLI=
+Received: by mx.zohomail.com with SMTPS id 1773776953256295.04566668878033;
+ Tue, 17 Mar 2026 12:49:13 -0700 (PDT)
+Content-Type: text/plain;
+	charset=utf-8
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81\))
+Subject: Re: [RFC PATCH 02/12] drm/dep: Add DRM dependency queue layer
+From: Daniel Almeida <daniel.almeida@collabora.com>
+In-Reply-To: <abmaDElHmbQkYy57@lstrano-desk.jf.intel.com>
+Date: Tue, 17 Mar 2026 16:48:53 -0300
+Cc: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ Boris Brezillon <boris.brezillon@collabora.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ =?utf-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ =?utf-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Danilo Krummrich <dakr@kernel.org>, David Airlie <airlied@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Philipp Stanner <phasta@kernel.org>,
+ Simona Vetter <simona@ffwll.ch>, Sumit Semwal <sumit.semwal@linaro.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, linux-kernel@vger.kernel.org,
+ Sami Tolvanen <samitolvanen@google.com>,
+ Jeffrey Vander Stoep <jeffv@google.com>, Alice Ryhl <aliceryhl@google.com>,
+ Daniel Stone <daniels@collabora.com>,
+ Alexandre Courbot <acourbot@nvidia.com>,
+ John Hubbard <jhubbard@nvidia.com>, shashanks@nvidia.com,
+ jajones@nvidia.com, Eliot Courtney <ecourtney@nvidia.com>,
+ Joel Fernandes <joelagnelf@nvidia.com>,
+ rust-for-linux <rust-for-linux@vger.kernel.org>
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <CC600DA5-968C-440B-8B4F-4E56576C7D5A@collabora.com>
 References: <20260316043255.226352-1-matthew.brost@intel.com>
  <20260316043255.226352-3-matthew.brost@intel.com>
  <7A8108C7-7CF0-4EA4-95ED-8003502DC35A@collabora.com>
  <abjqfXERS6Xk4FAQ@lstrano-desk.jf.intel.com>
- <CANiq72=Y2g_5=iEzU1L07pMPYD+wVapJXpp9rvYXEzCKEs59Zw@mail.gmail.com>
- <abkQTEcRujrFLsdn@lstrano-desk.jf.intel.com>
-In-Reply-To: <abkQTEcRujrFLsdn@lstrano-desk.jf.intel.com>
-From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Date: Tue, 17 Mar 2026 20:41:24 +0100
-X-Gm-Features: AaiRm53yINyatDJ_WJZjRpETpmBvLRs2cRRQIisdD6TKDINCtuP52WidZCuGK0o
-Message-ID: <CANiq72=gHArzFS=SkiZyPpEfSL+0AcU3ifKRnwfEyet42662PA@mail.gmail.com>
-Subject: Re: [RFC PATCH 02/12] drm/dep: Add DRM dependency queue layer
+ <abmaDElHmbQkYy57@lstrano-desk.jf.intel.com>
 To: Matthew Brost <matthew.brost@intel.com>
-Cc: Daniel Almeida <daniel.almeida@collabora.com>,
- intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- Boris Brezillon <boris.brezillon@collabora.com>,
- Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, 
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Danilo Krummrich <dakr@kernel.org>, David Airlie <airlied@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Philipp Stanner <phasta@kernel.org>, Simona Vetter <simona@ffwll.ch>, 
- Sumit Semwal <sumit.semwal@linaro.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- linux-kernel@vger.kernel.org, Sami Tolvanen <samitolvanen@google.com>, 
- Jeffrey Vander Stoep <jeffv@google.com>, Alice Ryhl <aliceryhl@google.com>, 
- Daniel Stone <daniels@collabora.com>, Alexandre Courbot <acourbot@nvidia.com>, 
- John Hubbard <jhubbard@nvidia.com>, shashanks@nvidia.com, jajones@nvidia.com, 
- Eliot Courtney <ecourtney@nvidia.com>, Joel Fernandes <joelagnelf@nvidia.com>, 
- rust-for-linux <rust-for-linux@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-Mailer: Apple Mail (2.3826.700.81)
+X-ZohoMailClient: External
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -126,37 +88,72 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, Mar 17, 2026 at 9:27=E2=80=AFAM Matthew Brost <matthew.brost@intel.=
-com> wrote:
->
-> I hate cut off in thteads.
->
-> I get it =E2=80=94 you=E2=80=99re a Rust zealot.
+I still need to digest your answers above, there's quite a bit of =
+information.
+Thanks for that. I'll do a pass on it tomorrow.
 
-Cut off? Zealot?
+>>> By the way:
+>>>=20
+>>> I invite you to have a look at this implementation [0]. It currently =
+works in real
+>>> hardware i.e.: our downstream "Tyr" driver for Arm Mali is using =
+that at the
+>>> moment. It is a mere prototype that we=E2=80=99ve put together to =
+test different
+>>> approaches, so it=E2=80=99s not meant to be a =E2=80=9Csolution=E2=80=9D=
+ at all. It=E2=80=99s a mere data point
+>>> for further discussion.
+>=20
+> I think some of the things I pointed out=E2=80=94async teardown, =
+bypass paths,
+> and dropping job refs in IRQ context=E2=80=94would still need to be =
+added,
+> though.
 
-Look, I got the email in my inbox, so I skimmed it to understand why I
-got it and why the Rust list was Cc'd. I happened to notice your
-(quite surprising) claims about Rust, so I decided to reply to a
-couple of those, since I proposed Rust for the kernel.
+That=E2=80=99s ok, I suppose we can find a way to add these things if =
+they=E2=80=99re
+needed in order to support other FW scheduling GPUs (i.e.: other than =
+Mali,
+which is the only thing I tested on, and Nova, which I assume has very =
+similar
+requirements).
 
-How is that a cut off and how does that make a maintainer a zealot?
+>=20
+>>>=20
+>>> Philip Stanner is working on this =E2=80=9CJob Queue=E2=80=9D =
+concept too, but from an upstream
+>>> perspective.
+>>>=20
+>>> [0]: =
+https://gitlab.freedesktop.org/panfrost/linux/-/merge_requests/61
+>=20
+> I scanned [0], it looks signicantly better than the post upstream. Let
+> me dig in a bit more.
+>=20
+> Matt
+> Matt
 
-Anyway, my understanding is that we agreed that the cleanup attribute
-in C doesn't enforce much of anything. We also agreed that it is
-important to think about ownership and lifetimes and to enforce the
-rules and to be disciplined. All good so far.
+One thing that is missing is that, at the moment, submit() is fallible =
+and
+there is no preallocation. This can be added to the current design =
+rather
+easily (i.e. by splitting into two different steps, a fallible prepare() =
+where
+rollback is possible, and an infallible commit(), or whatever names get
+chosen).
 
-Now, what I said is simply that Rust fundamentally improves the
-situation -- C "RAII" not doing so is not comparable. For instance,
-that statically enforcing things is a meaningful improvement over
-runtime approaches (which generally require to trigger an issue, and
-which in some cases are not suitable for production settings).
+Perhaps we can also split this into two types too, AtomicJobQueue and =
+JobQueue,
+where only the first one allows refs to be dropped in IRQ context; i.e.: =
+since
+we do not need this in Tyr, and not allowing this makes the design of =
+the
+"non-atomic" version much simpler. Or perhaps we can figure out a way to =
+ensure
+that we don't drop the last ref in IRQ context. I am just brainstorming =
+some
+ideas at this point, and again, I still need to go through your =
+explanations above.
 
-Really, I just said Rust would help with things you already stated you
-care about. And nobody claims "Rust solves everything" as you stated.
-So I don't see zealots here, and insulting others doesn't help your
-argument.
+=E2=80=94 Daniel
 
-Cheers,
-Miguel
