@@ -4,94 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9C2FFFED9EB
-	for <dri-devel@archiver.kernel.org>; Tue, 17 Mar 2026 16:49:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 45701FED9E8
+	for <dri-devel@archiver.kernel.org>; Tue, 17 Mar 2026 16:51:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0E0E210E0D0;
-	Tue, 17 Mar 2026 16:49:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 95EED10E6F4;
+	Tue, 17 Mar 2026 16:51:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="dRpzC9Xf";
+	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="AGVc1Xt8";
 	dkim-atps=neutral
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com
- [209.85.128.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ADA7B10E0D0
- for <dri-devel@lists.freedesktop.org>; Tue, 17 Mar 2026 16:49:56 +0000 (UTC)
-Received: by mail-wm1-f46.google.com with SMTP id
- 5b1f17b1804b1-4852f8ac7e9so70932195e9.1
- for <dri-devel@lists.freedesktop.org>; Tue, 17 Mar 2026 09:49:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1773766195; x=1774370995; darn=lists.freedesktop.org;
- h=to:references:message-id:content-transfer-encoding:cc:date
- :in-reply-to:from:subject:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=lgpjcbDB7G8Ltp9MmQbZQKZFro2nhljF0SDvfM2S37g=;
- b=dRpzC9XfWgeWUTAI43zYwnDKjzzmjWOggfgk0SSQJfm7IAuAklfJJY8q8wT2qdSma5
- lUucLDE4xLiCkSFS/6nLLKM3etdlYHNcmJIWpMnqAV+mBEZ3lcGNdGn7poYepPih/gZh
- rNMCx0YamZmFlN7hAhmn6Ycm5D6g5OimrZwGdbRTTGuyo2ccbdRYL1kbsmCzb5Wwwcw2
- QL2K5mzKL+GrLKt5ON4M/LzLULqupLot4PGPLmYN30V8Bvw5paPY+UO3cCnELKDov/FE
- H2juVQUwL5CqLB9QuKhHpf5RkpkLnhRQlJWu8Or2HDJNz+wZv8e90Ogn+CVRGIvwyPZx
- rqRQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1773766195; x=1774370995;
- h=to:references:message-id:content-transfer-encoding:cc:date
- :in-reply-to:from:subject:mime-version:x-gm-gg:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to;
- bh=lgpjcbDB7G8Ltp9MmQbZQKZFro2nhljF0SDvfM2S37g=;
- b=fzTPujeKJBx8SlkTRhtV+9Hy0pb7qM+a6kITpqbNhOGuRxT3gKtrlTyMZzlv692PiJ
- 0lDL32Q7PtZuiyNnroVSB2miEYejtUkp/zscqrGXhO8PH9SptLFvb5GtP612ux/UFg9C
- msa81DvwNfD/qkWpGgVN/1mB41FldKpI8s0MwPidKuHm0jXb/1wes7JQDbN2Ldt5HsJE
- g34ilDqcaQsaLprq1qDarPlpxjqCIlLkmPTcLpqiZZbeWAZHIHBCV2hw+DQKgbqJvkTZ
- e8oFDPwpyRfggi2h/yl2YdstlJQLaytv4/74Go+/5pEhwJxTpHqYEftJiRdwYq35aNII
- +KDA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUfuu1NiBxycYN7SAWaSdGCKSqKrrOhaXB/vXfXPSsI76gPELarSTaAcP2dm8/SB3mScK95DwGZbFc=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxVcofNNUGGJs8Qta+TuZR8wLZfXS0hji69PsgiYTFiUz1+Nld2
- 5E4vR8UJDFiX8TpVDKuz3MyRagxac/t0Ic/ubO/S/ZjWcQAK3qZvjwk7
-X-Gm-Gg: ATEYQzyzFvQQUGdFno99vT9+ofLDj9p+mtJSPnITMAhh/GHzJqGv6O4jwhbBis+cgob
- LVYJ768029/zkZ/EVAHnJ5lT4jCHleNrm+V2fZtVy1rOrlORlYA5VMAXFh8zaEaAbDALlOE4Gea
- zW4Z96PSzPkJLW1Nzd+DtFXyuKxctFG2Ozu2yDQoPUs4kAnU65rmOcUKfzK/aOPoQi0qHt01ao7
- 3eDs1ZJ2tZGOv1V/vl/v8yUQg3LPcKzmwMdsUzngwJKwxrT3KXrRlJizwVCmZOL3KcmkI7NujOB
- qbk2DBdloq+7ELSvBCCV5pBrU8gPPbtmVTp26pU2kPF1LP6HKYjSpBJHqsfhXVlztmbcG1ec9kf
- XEg1ipMEhptVNzoto8m3wK94xHHpcjKsVOvffJmHKqM5mC3wcGeCxm7upTzP+R4N4gkU2y4tnRj
- j4z2CnfifebF3kF1SUKDwSyM4KsBqUaF+kMl3qyAYNnpL86H6z3qLOvxEcB+K5nT0AuJz1M+InC
- SNCBwas0EPVUMCl7W//k2uJEZw=
-X-Received: by 2002:a05:600c:4585:b0:483:709e:f238 with SMTP id
- 5b1f17b1804b1-486f4479926mr3449905e9.29.1773766194877; 
- Tue, 17 Mar 2026 09:49:54 -0700 (PDT)
-Received: from smtpclient.apple (static.253.36.98.91.clients.your-server.de.
- [91.98.36.253]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-486f4623a26sm312025e9.7.2026.03.17.09.49.50
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Tue, 17 Mar 2026 09:49:54 -0700 (PDT)
-Content-Type: text/plain;
-	charset=utf-8
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3864.400.21\))
-Subject: Re: [PATCH v2] drm/bridge: dw-hdmi-qp: fix multi-channel audio output
-From: Christian Hewitt <christianshewitt@gmail.com>
-In-Reply-To: <DH56X74P9GC9.1O123S92J60RG@bootlin.com>
-Date: Tue, 17 Mar 2026 20:49:38 +0400
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
- Detlev Casanova <detlev.casanova@collabora.com>,
- Douglas Anderson <dianders@chromium.org>,
- Andy Yan <andy.yan@rock-chips.com>,
- Sugar Zhang <sugar.zhang@rock-chips.com>, Heiko Stuebner <heiko@sntech.de>,
- dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
- linux-kernel@vger.kernel.org
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <00EE3E21-F614-429B-ACB6-19AF64CF74B3@gmail.com>
-References: <20260228112822.4056354-1-christianshewitt@gmail.com>
- <DH56X74P9GC9.1O123S92J60RG@bootlin.com>
-To: Luca Ceresoli <luca.ceresoli@bootlin.com>
-X-Mailer: Apple Mail (2.3864.400.21)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 041DA10E35A
+ for <dri-devel@lists.freedesktop.org>; Tue, 17 Mar 2026 16:51:29 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 9428043F1F;
+ Tue, 17 Mar 2026 16:51:29 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C3219C4CEF7;
+ Tue, 17 Mar 2026 16:51:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+ s=korg; t=1773766289;
+ bh=YkXEYIH74A56mhfHo8kocYF0waTbnTtPT4gCDq7DILc=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=AGVc1Xt8VNAQFCNx6mZFG9maV6EngS7Ao5CWcaJY7AD+jHgO+vgoCCjZZY8d0ZN1V
+ Ts12XZk6SkA0C1v/EHxgaUDsQWEFcGQNrPa44yUsFSxsRKzd62S/15F6NjPX96wOUC
+ 5/IYPdfey4inKNiQa6VqbrApyOcLik4yvzuv8PMc=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, patches@lists.linux.dev,
+ Alistair Popple <apopple@nvidia.com>,
+ Ralph Campbell <rcampbell@nvidia.com>, Christoph Hellwig <hch@lst.de>,
+ Jason Gunthorpe <jgg@mellanox.com>, Jason Gunthorpe <jgg@ziepe.ca>,
+ Leon Romanovsky <leon@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Matthew Brost <matthew.brost@intel.com>,
+ John Hubbard <jhubbard@nvidia.com>, linux-mm@kvack.org,
+ dri-devel@lists.freedesktop.org,
+ =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>
+Subject: [PATCH 6.19 212/378] mm: Fix a hmm_range_fault() livelock /
+ starvation problem
+Date: Tue, 17 Mar 2026 17:32:49 +0100
+Message-ID: <20260317163014.806356728@linuxfoundation.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260317163006.959177102@linuxfoundation.org>
+References: <20260317163006.959177102@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,42 +68,224 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-> On 17 Mar 2026, at 8:16=E2=80=AFpm, Luca Ceresoli =
-<luca.ceresoli@bootlin.com> wrote:
->=20
-> Hello Christian,
->=20
-> On Sat Feb 28, 2026 at 12:28 PM CET, Christian Hewitt wrote:
->> From: Jonas Karlman <jonas@kwiboo.se>
->>=20
->> Channel Allocation (PB4) and Level Shift Information (PB5) are
->> configured with values from PB1 and PB2 due to the wrong offset
->> being used. This results in missing audio channels or incorrect
->> speaker placement when playing multi-channel audio.
->>=20
->> Use the correct offset to fix multi-channel audio output.
->>=20
->> Fixes: fd0141d1a8a2 ("drm/bridge: synopsys: Add audio support for =
-dw-hdmi-qp")
->> Reported-by: Christian Hewitt <christianshewitt@gmail.com>
->> Signed-off-by: Jonas Karlman <jonas@kwiboo.se>
->> Signed-off-by: Christian Hewitt <christianshewitt@gmail.com>
->> Reviewed-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
->=20
-> While applying this patch to drm-mics-fixes, checkpatch complains:
->=20
->  -:14: WARNING:BAD_REPORTED_BY_LINK: Reported-by: should be =
-immediately followed by Closes: with a URL to the report
->=20
-> You can send v3 with the link, or just reply with the link and I'll =
-take
-> care of adding it to the commit message.
+6.19-stable review patch.  If anyone has any objections, please let me know.
 
-Apologies, it looks like use of Reported-by was tightened since I last
-used it, and there=E2=80=99s no official report anywhere I can link to =
-(it was
-all done in private channels) so better to just drop it from the v2 =
-patch
-if that=E2=80=99s possible? - if not I can send a v3 without it.
+------------------
 
-Christian=
+From: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+
+commit b570f37a2ce480be26c665345c5514686a8a0274 upstream.
+
+If hmm_range_fault() fails a folio_trylock() in do_swap_page,
+trying to acquire the lock of a device-private folio for migration,
+to ram, the function will spin until it succeeds grabbing the lock.
+
+However, if the process holding the lock is depending on a work
+item to be completed, which is scheduled on the same CPU as the
+spinning hmm_range_fault(), that work item might be starved and
+we end up in a livelock / starvation situation which is never
+resolved.
+
+This can happen, for example if the process holding the
+device-private folio lock is stuck in
+   migrate_device_unmap()->lru_add_drain_all()
+sinc lru_add_drain_all() requires a short work-item
+to be run on all online cpus to complete.
+
+A prerequisite for this to happen is:
+a) Both zone device and system memory folios are considered in
+   migrate_device_unmap(), so that there is a reason to call
+   lru_add_drain_all() for a system memory folio while a
+   folio lock is held on a zone device folio.
+b) The zone device folio has an initial mapcount > 1 which causes
+   at least one migration PTE entry insertion to be deferred to
+   try_to_migrate(), which can happen after the call to
+   lru_add_drain_all().
+c) No or voluntary only preemption.
+
+This all seems pretty unlikely to happen, but indeed is hit by
+the "xe_exec_system_allocator" igt test.
+
+Resolve this by waiting for the folio to be unlocked if the
+folio_trylock() fails in do_swap_page().
+
+Rename migration_entry_wait_on_locked() to
+softleaf_entry_wait_unlock() and update its documentation to
+indicate the new use-case.
+
+Future code improvements might consider moving
+the lru_add_drain_all() call in migrate_device_unmap() to be
+called *after* all pages have migration entries inserted.
+That would eliminate also b) above.
+
+v2:
+- Instead of a cond_resched() in hmm_range_fault(),
+  eliminate the problem by waiting for the folio to be unlocked
+  in do_swap_page() (Alistair Popple, Andrew Morton)
+v3:
+- Add a stub migration_entry_wait_on_locked() for the
+  !CONFIG_MIGRATION case. (Kernel Test Robot)
+v4:
+- Rename migrate_entry_wait_on_locked() to
+  softleaf_entry_wait_on_locked() and update docs (Alistair Popple)
+v5:
+- Add a WARN_ON_ONCE() for the !CONFIG_MIGRATION
+  version of softleaf_entry_wait_on_locked().
+- Modify wording around function names in the commit message
+  (Andrew Morton)
+
+Suggested-by: Alistair Popple <apopple@nvidia.com>
+Fixes: 1afaeb8293c9 ("mm/migrate: Trylock device page in do_swap_page")
+Cc: Ralph Campbell <rcampbell@nvidia.com>
+Cc: Christoph Hellwig <hch@lst.de>
+Cc: Jason Gunthorpe <jgg@mellanox.com>
+Cc: Jason Gunthorpe <jgg@ziepe.ca>
+Cc: Leon Romanovsky <leon@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>
+Cc: Matthew Brost <matthew.brost@intel.com>
+Cc: John Hubbard <jhubbard@nvidia.com>
+Cc: Alistair Popple <apopple@nvidia.com>
+Cc: linux-mm@kvack.org
+Cc: <dri-devel@lists.freedesktop.org>
+Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+Cc: <stable@vger.kernel.org> # v6.15+
+Reviewed-by: John Hubbard <jhubbard@nvidia.com> #v3
+Reviewed-by: Alistair Popple <apopple@nvidia.com>
+Link: https://patch.msgid.link/20260210115653.92413-1-thomas.hellstrom@linux.intel.com
+(cherry picked from commit a69d1ab971a624c6f112cea61536569d579c3215)
+Signed-off-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+---
+ include/linux/migrate.h |   10 +++++++++-
+ mm/filemap.c            |   15 ++++++++++-----
+ mm/memory.c             |    3 ++-
+ mm/migrate.c            |    8 ++++----
+ mm/migrate_device.c     |    2 +-
+ 5 files changed, 26 insertions(+), 12 deletions(-)
+
+--- a/include/linux/migrate.h
++++ b/include/linux/migrate.h
+@@ -65,7 +65,7 @@ bool isolate_folio_to_list(struct folio
+ 
+ int migrate_huge_page_move_mapping(struct address_space *mapping,
+ 		struct folio *dst, struct folio *src);
+-void migration_entry_wait_on_locked(softleaf_t entry, spinlock_t *ptl)
++void softleaf_entry_wait_on_locked(softleaf_t entry, spinlock_t *ptl)
+ 		__releases(ptl);
+ void folio_migrate_flags(struct folio *newfolio, struct folio *folio);
+ int folio_migrate_mapping(struct address_space *mapping,
+@@ -97,6 +97,14 @@ static inline int set_movable_ops(const
+ 	return -ENOSYS;
+ }
+ 
++static inline void softleaf_entry_wait_on_locked(softleaf_t entry, spinlock_t *ptl)
++	__releases(ptl)
++{
++	WARN_ON_ONCE(1);
++
++	spin_unlock(ptl);
++}
++
+ #endif /* CONFIG_MIGRATION */
+ 
+ #ifdef CONFIG_NUMA_BALANCING
+--- a/mm/filemap.c
++++ b/mm/filemap.c
+@@ -1379,14 +1379,16 @@ repeat:
+ 
+ #ifdef CONFIG_MIGRATION
+ /**
+- * migration_entry_wait_on_locked - Wait for a migration entry to be removed
+- * @entry: migration swap entry.
++ * softleaf_entry_wait_on_locked - Wait for a migration entry or
++ * device_private entry to be removed.
++ * @entry: migration or device_private swap entry.
+  * @ptl: already locked ptl. This function will drop the lock.
+  *
+- * Wait for a migration entry referencing the given page to be removed. This is
++ * Wait for a migration entry referencing the given page, or device_private
++ * entry referencing a dvice_private page to be unlocked. This is
+  * equivalent to folio_put_wait_locked(folio, TASK_UNINTERRUPTIBLE) except
+  * this can be called without taking a reference on the page. Instead this
+- * should be called while holding the ptl for the migration entry referencing
++ * should be called while holding the ptl for @entry referencing
+  * the page.
+  *
+  * Returns after unlocking the ptl.
+@@ -1394,7 +1396,7 @@ repeat:
+  * This follows the same logic as folio_wait_bit_common() so see the comments
+  * there.
+  */
+-void migration_entry_wait_on_locked(softleaf_t entry, spinlock_t *ptl)
++void softleaf_entry_wait_on_locked(softleaf_t entry, spinlock_t *ptl)
+ 	__releases(ptl)
+ {
+ 	struct wait_page_queue wait_page;
+@@ -1428,6 +1430,9 @@ void migration_entry_wait_on_locked(soft
+ 	 * If a migration entry exists for the page the migration path must hold
+ 	 * a valid reference to the page, and it must take the ptl to remove the
+ 	 * migration entry. So the page is valid until the ptl is dropped.
++	 * Similarly any path attempting to drop the last reference to a
++	 * device-private page needs to grab the ptl to remove the device-private
++	 * entry.
+ 	 */
+ 	spin_unlock(ptl);
+ 
+--- a/mm/memory.c
++++ b/mm/memory.c
+@@ -4684,7 +4684,8 @@ vm_fault_t do_swap_page(struct vm_fault
+ 				unlock_page(vmf->page);
+ 				put_page(vmf->page);
+ 			} else {
+-				pte_unmap_unlock(vmf->pte, vmf->ptl);
++				pte_unmap(vmf->pte);
++				softleaf_entry_wait_on_locked(entry, vmf->ptl);
+ 			}
+ 		} else if (softleaf_is_hwpoison(entry)) {
+ 			ret = VM_FAULT_HWPOISON;
+--- a/mm/migrate.c
++++ b/mm/migrate.c
+@@ -499,7 +499,7 @@ void migration_entry_wait(struct mm_stru
+ 	if (!softleaf_is_migration(entry))
+ 		goto out;
+ 
+-	migration_entry_wait_on_locked(entry, ptl);
++	softleaf_entry_wait_on_locked(entry, ptl);
+ 	return;
+ out:
+ 	spin_unlock(ptl);
+@@ -531,10 +531,10 @@ void migration_entry_wait_huge(struct vm
+ 		 * If migration entry existed, safe to release vma lock
+ 		 * here because the pgtable page won't be freed without the
+ 		 * pgtable lock released.  See comment right above pgtable
+-		 * lock release in migration_entry_wait_on_locked().
++		 * lock release in softleaf_entry_wait_on_locked().
+ 		 */
+ 		hugetlb_vma_unlock_read(vma);
+-		migration_entry_wait_on_locked(entry, ptl);
++		softleaf_entry_wait_on_locked(entry, ptl);
+ 		return;
+ 	}
+ 
+@@ -552,7 +552,7 @@ void pmd_migration_entry_wait(struct mm_
+ 	ptl = pmd_lock(mm, pmd);
+ 	if (!pmd_is_migration_entry(*pmd))
+ 		goto unlock;
+-	migration_entry_wait_on_locked(softleaf_from_pmd(*pmd), ptl);
++	softleaf_entry_wait_on_locked(softleaf_from_pmd(*pmd), ptl);
+ 	return;
+ unlock:
+ 	spin_unlock(ptl);
+--- a/mm/migrate_device.c
++++ b/mm/migrate_device.c
+@@ -176,7 +176,7 @@ static int migrate_vma_collect_huge_pmd(
+ 		}
+ 
+ 		if (softleaf_is_migration(entry)) {
+-			migration_entry_wait_on_locked(entry, ptl);
++			softleaf_entry_wait_on_locked(entry, ptl);
+ 			spin_unlock(ptl);
+ 			return -EAGAIN;
+ 		}
+
+
