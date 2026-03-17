@@ -4,51 +4,129 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AC918FED9E0
-	for <dri-devel@archiver.kernel.org>; Tue, 17 Mar 2026 15:21:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A1CFCFED9E0
+	for <dri-devel@archiver.kernel.org>; Tue, 17 Mar 2026 15:22:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0996A10E10F;
-	Tue, 17 Mar 2026 15:21:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0C0E110E5B8;
+	Tue, 17 Mar 2026 15:22:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="qxEe2DnE";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="bkUg3+/G";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A42DB10E10F
- for <dri-devel@lists.freedesktop.org>; Tue, 17 Mar 2026 15:21:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1773760913;
- bh=HVmafZgBoeoiVvY3lnwIWzn8T+6u5QCQd/KhDZqlFc0=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=qxEe2DnEgxCi3CBkQtZYeU2pGCZxRFfj3zQJJoZzQIgQDmQlCG8SHKTcv/38oRNFy
- 5S4ymAJQPCLoOMkeOZbXboBx3248t9c7m0Kq1wnAaPUh6OxNx5Zb9OPyfxCDS36P+Y
- RfWS2DyaWtYs6wHOW8fIEG327QV/5vC1khxF7F11SapbsrAvhILXxMRvaLd6WYakXR
- u8/nhlEzTMY4EBQBghsHJvg9g19ibjj2W8KzJKdWUtiVjwWmL91KMzeBCcBQOJF71v
- 5M3eutiaGixEeGsmW1O0Z6dSSgRLdO6RG4pKETcBbX9bJcwAHTlZe11kWxBJbAryO5
- lEMUgXbRBl1TQ==
-Received: from fedora (unknown [IPv6:2a01:e0a:2c:6930:d919:a6e:5ea1:8a9f])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
- server-digest SHA256) (No client certificate requested)
- (Authenticated sender: bbrezillon)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id D4FF717E12AA;
- Tue, 17 Mar 2026 16:21:52 +0100 (CET)
-Date: Tue, 17 Mar 2026 16:21:47 +0100
-From: Boris Brezillon <boris.brezillon@collabora.com>
-To: "Christian =?UTF-8?B?S8O2bmln?=" <ckoenig.leichtzumerken@gmail.com>
-Cc: phasta@mailbox.org, aliceryhl@google.com, gary@garyguo.net,
- lossin@kernel.org, daniel.almeida@collabora.com, joelagnelf@nvidia.com,
- sumit.semwal@linaro.org, dri-devel@lists.freedesktop.org,
- linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org
-Subject: Re: [PATCH] dma-buf/dma_fence: be more defensive in dma_fence_release
-Message-ID: <20260317162147.4a7f03ff@fedora>
-In-Reply-To: <20260317144825.2318-1-christian.koenig@amd.com>
-References: <20260317144825.2318-1-christian.koenig@amd.com>
-Organization: Collabora
-X-Mailer: Claws Mail 4.3.1 (GTK 3.24.51; x86_64-redhat-linux-gnu)
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Received: from PH0PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11011055.outbound.protection.outlook.com [40.107.208.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4907810E6B4;
+ Tue, 17 Mar 2026 15:22:53 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=jBGbhtFfcr0aNwM9/ZrvpLyQJVY12G2rDh4TZn85MNx//UbZGRXd3umtRSPu8N7azIiSF909Zm66R2NBlT6dYQNAf/Af+vb4dQ17qRSHvqCYuJUX6Xd95N3sond65KvZ05JCOZB/EH1DnfVvChTEw6a92zjp/5W436py6n3BmyER0nhwZhSSW1ACIzHi81LXl4sya3ZnX1aMoKxX+4O5Yv/dxAJMnvTIozCAp8XPqBAhw3hS5TrmqbniXMn4c1H3bpS2kuof0Yetj07BESv7/dAwDpKzs/X+AGglKuxa8xlBcBT7O2xVT7mPWgXFNdp+gKQW9SqV8guYR+4ZN04f0g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=YbaNTsGKmAAAD/ux+ecqpDpq+XhbbyjtxvXeXZ7xSd0=;
+ b=ggDegNVUh5p9xi5c8Qrf2HrbvLaDG3OVSFSBJl0+ws8jURoWgkxIOlWRWRPlI9kt69JUtYor8fo8JslT6ifX0xcea8P4y9du6wUT2xgFtvY+g6FK/IiUg1LhbaFsMFgx0QW2b96+7EjAnO7zTn4VkuhlXUa1ItCkYbzugu0jcsdpU9WV9gU/d9med2jWlCE/AdJBvR1bhpLbGNJ5xSQ2r98QfeNW7H41NhAIykViIKdcCxcUTD8TuYLm+SsSkAoFApGN/CFkPvISm5PF9oJ8bJfde9baYXtEtvIs7tcgGPVpx6Rctw9Z2L+sN2eqQgpWp/C4DNKKR8C9XEMnGuZXqQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=YbaNTsGKmAAAD/ux+ecqpDpq+XhbbyjtxvXeXZ7xSd0=;
+ b=bkUg3+/GUzQ/jw3WWyIHRy0JPO2UCTuHxVVviJQqdoa5fbpst0PxQs8rMqX75Xndi3TM8sg9HSK93SUGx2tpDwKmJG0PF3vddlamNmtvlFJeBpoE39IzS3KPZKGwcMis8PfkcSEu4vZMWvHBSV2doyjkP86r4V63Sg2xhS1AXVnUIQUHJTiZ/F/vOfRrpcgD68hdMA3jgJtlSLvFuMZaB4WymWaUrgd19Zcg0aYyognPLEUg46M7tt0zN7fMXLcLXLn5vTkZEAperBHyfdTchsXzIVayThNfpfxY8PT3qxoq0eSPwVwNNOQ6m1hda1UDVqvY7kEiA3/Sxx84Ug6Vbw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from CH2PR12MB3990.namprd12.prod.outlook.com (2603:10b6:610:28::18)
+ by LV3PR12MB9260.namprd12.prod.outlook.com (2603:10b6:408:1b4::21)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.17; Tue, 17 Mar
+ 2026 15:22:46 +0000
+Received: from CH2PR12MB3990.namprd12.prod.outlook.com
+ ([fe80::7de1:4fe5:8ead:5989]) by CH2PR12MB3990.namprd12.prod.outlook.com
+ ([fe80::7de1:4fe5:8ead:5989%6]) with mapi id 15.20.9723.016; Tue, 17 Mar 2026
+ 15:22:46 +0000
 Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 18 Mar 2026 00:22:43 +0900
+Message-Id: <DH55S9CU9YCB.2Y3G50LUGSAZF@nvidia.com>
+Subject: Re: [PATCH v3 2/2] gpu: nova-drm: rename nova to nova-drm
+From: "Alexandre Courbot" <acourbot@nvidia.com>
+To: "Danilo Krummrich" <dakr@kernel.org>
+Cc: "Cheng-Yang Chou" <yphbchou0911@gmail.com>, <aliceryhl@google.com>,
+ <chia7712@gmail.com>, <dri-devel@lists.freedesktop.org>,
+ <gary@garyguo.net>, <jserv@ccns.ncku.edu.tw>,
+ <linux-kernel@vger.kernel.org>, <nouveau@lists.freedesktop.org>,
+ <simona@ffwll.ch>
+References: <e7539fd5-9a0d-4a06-aa02-ec3dcd235926@nvidia.com>
+ <20260317092304.424377-1-yphbchou0911@gmail.com>
+ <DH536IWQDX23.22R0P6FT091LH@nvidia.com>
+ <DH53WAJHTQFS.ZSO15BGJLQ8M@kernel.org>
+In-Reply-To: <DH53WAJHTQFS.ZSO15BGJLQ8M@kernel.org>
+X-ClientProxiedBy: TY4P301CA0023.JPNP301.PROD.OUTLOOK.COM
+ (2603:1096:405:2b1::15) To CH2PR12MB3990.namprd12.prod.outlook.com
+ (2603:10b6:610:28::18)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH2PR12MB3990:EE_|LV3PR12MB9260:EE_
+X-MS-Office365-Filtering-Correlation-Id: cc206692-0be5-427b-175f-08de84390ad0
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|7416014|376014|1800799024|10070799003|56012099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: djDRxr9/EPjpXpE+U8adfSMxYhCWWRs7PZI4pQz8E44CtaoKFrkAjY9O5U4yDD0o4bUlBiEC7yXtTrUhDEMzSUTZuPWpcbuW3yWd9MpLTBQeJ2B4r+sNqvkt4aOM1HOCGD0i0ZsCEJQwBarQLWcFfM2WDcYJ3qTpH/JvXLQ44bf0xMcbXkhjMUBZ3PzvcjQjOCx1sg05PSkEwcX1JurQTipQUgI+89i8R15gE2OVZYmczr3/mMPflLre96RmA/i4FcIYMCqzXVC4iVyCL/hu+kvKWUlCBuMh7gvYqiaAM8cI+5YBN0Ig7PwyKM2bKsrjLnpPZHQ4MaNMGEXxjMJuyRh5eoxUUw8NwANCqylDcQkg9FbrMTWBFgeM/elBMfHlQVQLiJA41T7nP/tA1YQrZHq7hx28r1wLGlh2+l01aj0S5xD8lMh+sKaXqAOG02pzvq18F/zYRjCs1iQ057Z3Ij6c72gOjEq6vfR7Qb9GpFhNz5rc+MRHMyjQfk5RICjy3+rA/xu5eIkyggEmjgp8Db1Zk1gIMmQioTmBgniXUP+c7MmnOhVFYunxh22kW8/V3zGghspVRMVCDPUrVdUxtziXbXuCxTxLkfByUVxPgzOqLMdq0R+w3ZruND2Qyybzwxf35DYAHQkzogZeeVHKBv5dC0/3E4f3daBj6/U3/5Li46ZX0ybS2MxvrmrKdzgX5+m31a4O1nwN2COSt6FegwIF17KpQymfocfucUVwLeE=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CH2PR12MB3990.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(7416014)(376014)(1800799024)(10070799003)(56012099003)(18002099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RlAydmE5Vk5WUWQwakxRL3NKYzJQVjBoWm5CWmg5Y1FXRkt2cXA4b2N0TDgv?=
+ =?utf-8?B?RFl3bHhmVTRWRVBqTmtrKzhCZnVFMVR1dXlTMWNrYzk2cXQ1QVBjTzBldU9R?=
+ =?utf-8?B?Tmk0WXhzd3RpSkVFWUY2eU1zNDVrN1hPRWhhZVM1VzJmSWh0c1dpVSt1V2Nq?=
+ =?utf-8?B?T0I5RTVLTkh5dC9JUlhSUUV6SitvS29uOTZBMDZpY1BqWTJaT2J6SWNNZjhK?=
+ =?utf-8?B?WDc4SlhDWlgyOXc1NjZLQkVPV1dhZ1ZOcXpxM3prM2dKLzYvTXBYUUVLK1Mv?=
+ =?utf-8?B?ejR2YlhWSVo1b0VvSGZpcVpXdTJ3d0xZbExyTytlYVRNSzVJcW53MnpNanpm?=
+ =?utf-8?B?QlcxaE1ocHNOTGtEakdXVHJieEI5Z1luSm5XWmlUY1Qrem9maTBobFYva3ZJ?=
+ =?utf-8?B?Sm8xVTJMRDFKa0NxMys5Wk45ZmUwck5sSU94VmIrT0xpdlVSZVkrYWlMYU1B?=
+ =?utf-8?B?R0tMOENxTnFncVJCVW5VNnlPa012d05Zb29EclhKV2lpSVljKzg4eG91cUZo?=
+ =?utf-8?B?Nm0zYUtsdVRtVEg4Q3p6dXlyRUd1aExBbS80OVFIaW1uYjRTbHRjQnBacmQ1?=
+ =?utf-8?B?UG5DMW5FK2dBKzNqakxrVjZtTE5KaTdpVStGeDJqekYrc1FLbUkxTm5nSkpx?=
+ =?utf-8?B?UlhnYnR1U2tmRUw2N3ZJMW5mZXZIdW96V1hqNXYzN3IybVo1elYwQ1NnQnZu?=
+ =?utf-8?B?S2tLcGI5WUpuUmNJekNrWXZlZU1PeVU2MFMzOGFSSkMrV3FNUW82T0t5R3Vu?=
+ =?utf-8?B?M2J6WEdZRHpnVkhMM2kva0g0WG9OU2l5TFE2ZHdYRWRTV2pDak1vQkRsSmZ3?=
+ =?utf-8?B?Q0FpRTlPWFJkVnFVTzJGYjhONjY1RzdxOG95T0FrWnhKTmIvSmx2S0xPVVlq?=
+ =?utf-8?B?U1VNRTJpNy9oUVYzczMwbTRQV0lZRzZkZGFwam9DYUJUMFF0aytDWnNDSXZH?=
+ =?utf-8?B?V3FUV3VNWnh3M29QRWNrNms1QnkvWlFrOWJEVUhGdURjRmowcStqR3VEcFpE?=
+ =?utf-8?B?WVFOd0ZleEFLMTBOTXlHOGJVSzZoNlpFKzgvU3Q0KzdDMDF4d2phQ3pCLy9a?=
+ =?utf-8?B?U2ljekZjaTZUTk5wcHdwakNULzNwNEJLbm02K2FHRGd1UHE1MXBRQ2JIWTRv?=
+ =?utf-8?B?UUVOQlNkVm9ncVlJSGFzYThka2xzSFY0S2NKZ1BoSFk4d0VQcVNIT0VST2or?=
+ =?utf-8?B?QW1FdC9PZ09vZUswc1JHVW1hcW5TaXV6eG9pK0JtNGNUTFpKT1Y2SmhVZnZP?=
+ =?utf-8?B?M3AwaTNnMDB2OS9VbmdyYUd5UkN5cVNRdVdHQWhjeVpjdkMrcHJ4TmZqbVE4?=
+ =?utf-8?B?U01ZQkExRkVzYVFLT203SmF6Ujg1Qk9sdlBlVGJ6NEFlOHpRUUxjQzViOFQy?=
+ =?utf-8?B?ZTNBeVovSkJJWHI5Z1JqR0ZqQnRReU5VME55WS82SDdYQlhZZnVsR0lrUlNP?=
+ =?utf-8?B?azhOWnR1ckFMMDQwSzIrOHBBT3p3SUUrL0txbmdGWEhySWpIczJFTGRyUnNU?=
+ =?utf-8?B?OG1GV0Vlb3UzZVRYamc0YjFRT0ZRTXRlTWhCSXhTREU0RFNFUmIzSFpxby90?=
+ =?utf-8?B?SmgwZkI3bWxZbGNHbGMxQWpNV3ozTmpOcEU1enRSWEhQT1VJWVl1czRvdTBN?=
+ =?utf-8?B?cU9oOGZ1TVJiYTRxakp3b09HS3ZKU0lMNVJkVTN0NDkwc0FzdnVqazE0RlBW?=
+ =?utf-8?B?OUxobWo3b3I1b1hYa1AwNWV1b0JKZjNmYnU4bnl1L1Z4QktScGxCWmM5MXl4?=
+ =?utf-8?B?SGdxVm1hZUR4SzlhbzFUTjVxZzJuVkt2UFZXVi9DRTBjZEx2QnlMUVo1clo1?=
+ =?utf-8?B?YXFSc2RTYno3OExpQmhMNFRhQnp4NGxwYmZFb1RLWUtqb1J3QnJ4RENYMHVr?=
+ =?utf-8?B?am1WUlZyU0UzOTRUb2lvNG5hSWhmZGNhMmxZZHF0SHNPMitPVm9xUFd6MTRz?=
+ =?utf-8?B?WExHWm1VejMrbDBucHNCNU0rMFZqa3M3bk1mTkRMbm53YTA2ZW9YRHFwK0px?=
+ =?utf-8?B?VmRLMXU0dHN4T05rRzc3dS9BTVQ1REsybVh4MkpLTFJmbnJ0ZnQxaFdBSFIv?=
+ =?utf-8?B?ZUQxUVJIbU1BNWt1Y1pVMjFGRmRST0tyelZOUDZjMmsyckZVTSsvTjZISTF3?=
+ =?utf-8?B?WVhJMVBaYUdyZnF6d1Zwck1NUFVkSVlteUV5V3B6cFd4S0xLUWVTNmxjbEtk?=
+ =?utf-8?B?YmZ2YmE4ZkNyWjVpWnhwSFZhdDg3QUdDcFdhUVF3WjJFRzJtSVVrSU8vZFhh?=
+ =?utf-8?B?WDZJc1N0SDNQSTRNN0lvYkRqTkNFUXRma1l3dlY0eWN2Rk5SVWlhRlBOMVZH?=
+ =?utf-8?B?ejRpSFp6a1JoazA1RDNZOXlHUFIzV2lTVVlNYk4yUnUxTndacjloMEtSd0Jn?=
+ =?utf-8?Q?/yjdqarXn6PwnEOpD+RIi6/A+u6760xdB6XIOny9vtgkU?=
+X-MS-Exchange-AntiSpam-MessageData-1: 6Sfgl4DtVdOQdQ==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: cc206692-0be5-427b-175f-08de84390ad0
+X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB3990.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Mar 2026 15:22:46.5492 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Qbwfa2/Z6BqpPgqXKkmVAN1IzS1H/95AT1OB/kdeBU2lsr+Y+SS72mer6wi8YUokQs+KrG7kxDUAyDrofII2Fw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR12MB9260
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,92 +142,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, 17 Mar 2026 15:48:25 +0100
-"Christian K=C3=B6nig" <ckoenig.leichtzumerken@gmail.com> wrote:
+On Tue Mar 17, 2026 at 10:53 PM JST, Danilo Krummrich wrote:
+> On Tue Mar 17, 2026 at 2:20 PM CET, Alexandre Courbot wrote:
+>> On Tue Mar 17, 2026 at 6:23 PM JST, Cheng-Yang Chou wrote:
+>>> Rename the nova-drm driver directory from drivers/gpu/drm/nova/ to
+>>> drivers/gpu/drm/nova-drm/ and the top-level source file from nova.rs
+>>> to nova_drm.rs (matching the object name nova_drm.o) to follow the
+>>> kebab-case naming convention already used by the auxiliary device name.
+>>>
+>>> Update MAINTAINERS, Kconfig, and Makefile references accordingly.
+>>> Update the Kconfig help text to reflect the new module name nova-drm.
+>>>
+>>> Link: https://github.com/Rust-for-Linux/linux/issues/1228
+>>> Signed-off-by: Cheng-Yang Chou <yphbchou0911@gmail.com>
+>>> Reviewed-by: John Hubbard <jhubbard@nvidia.com>
+>>> ---
+>>> Changes in v3:
+>>> - Rename subject line (John Hubbard)
+>>>
+>>>  MAINTAINERS                                            | 6 +++---
+>>>  drivers/gpu/drm/Kconfig                                | 2 +-
+>>>  drivers/gpu/drm/Makefile                               | 2 +-
+>>>  drivers/gpu/drm/{nova =3D> nova-drm}/Kconfig             | 2 +-
+>>>  drivers/gpu/drm/nova-drm/Makefile                      | 3 +++
+>>>  drivers/gpu/drm/{nova =3D> nova-drm}/driver.rs           | 0
+>>>  drivers/gpu/drm/{nova =3D> nova-drm}/file.rs             | 0
+>>>  drivers/gpu/drm/{nova =3D> nova-drm}/gem.rs              | 0
+>>
+>> That `drm/nova-drm` reads a bit awkwardly to me and feels unnecessary.
+>> Even `tegra-drm` is in `drm/tegra`.
+>
+> Well, that's why I named it "nova" in the first place, but I don't want
+> KBUILD_MODNAME to diverge from the directory name and I also don't want t=
+he
+> driver name to diverge from KBUILD_MODNAME.
 
-> In case of a refcounting bug dma_fence_release() can be called before the
-> fence was even signaled.
->=20
-> Previously the dma_fence framework then force signaled the fence to make
-> sure to unblock waiters, but that can potentially lead to random memory
-> corruption when the DMA operation continues. So be more defensive here and
-> pick the lesser evil.
->=20
-> Instead of force signaling the fence set an error code on the fence,
-> re-initialize the refcount to something large and taint the kernel.
->=20
-> This will leak memory and eventually can cause a deadlock when the fence
-> is never signaled, but at least we won't run into an use after free or
-> random memory corruption.
->=20
-> Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
-> ---
->  drivers/dma-buf/dma-fence.c | 18 ++++++++++++++----
->  1 file changed, 14 insertions(+), 4 deletions(-)
->=20
-> diff --git a/drivers/dma-buf/dma-fence.c b/drivers/dma-buf/dma-fence.c
-> index 1826ba73094c..8bf07685a053 100644
-> --- a/drivers/dma-buf/dma-fence.c
-> +++ b/drivers/dma-buf/dma-fence.c
-> @@ -593,14 +593,24 @@ void dma_fence_release(struct kref *kref)
->  		/*
->  		 * Failed to signal before release, likely a refcounting issue.
->  		 *
-> -		 * This should never happen, but if it does make sure that we
-> -		 * don't leave chains dangling. We set the error flag first
-> -		 * so that the callbacks know this signal is due to an error.
-> +		 * This should never happen, but if try to be defensive and take
-> +		 * the lesser evil. Initialize the refcount to something large,
-> +		 * but not so large that it can overflow.
-> +		 *
-> +		 * That will leak memory and could deadlock if the fence never
-> +		 * signals, but at least it doesn't cause an use after free or
-> +		 * random memory corruption.
-> +		 *
-> +		 * Also taint the kernel to note that it is rather unreliable to
-> +		 * continue.
->  		 */
->  		dma_fence_lock_irqsave(fence, flags);
->  		fence->error =3D -EDEADLK;
-> -		dma_fence_signal_locked(fence);
-> +		refcount_set(&fence->refcount.refcount, INT_MAX);
-
-I'm not convinced this is useful. If we leak the object, no one should
-have a ref to release anyway. This does raise a question though. The
-case we're trying to protect against is fence_callback being registered
-to this fence and waiting for an event to signal another proxy fence.
-How can the refcnt drop to zero in that case? Isn't the proxy supposed
-to own a ref on the fence. Before we go further, I'd like to understand
-what we're trying to do.
-
-The original discussion that led you to write this patch was about
-detecting when a fence emitter/producer would leave unsignalled fences
-behind, and the problem we have is when such unsignalled fences have
-observers waiting for a "signalled" event. If the refcnt drops to zero
-and the fence is released, we're already passed that point,
-unfortunately. It can be that:
-
-- the fence was never exposed -> this is fine
-- the fence was exposed but never observed -> this is broken, because if
-  it had been observed it would have led to a deadlock
-- the fence was exposed, observed for some time, but the observer got
-  bored, stopped waiting and:
-  * decided to go and execute its stuff anyway -> use-before-ready
-    situation
-  * gave up -> kinda okay, but we should still consider the fence
-    emitter broken
-- the fence observer registered a callback but didn't take a ref on the
-  object -> this is potential UAF on the dma_fence, which can also lead
-  to a VRAM/system-mem UAF if the emitter drops the dma_fence without
-  signalling, because of the auto-signal you're getting rid of in this
-  patch.  But the latter is just a side effect of the dma_fence UAF,
-  which I'm not convinced we should try to protect against.
-
->  		dma_fence_unlock_irqrestore(fence, flags);
-> +		rcu_read_unlock();
-> +		add_taint(TAINT_SOFTLOCKUP, LOCKDEP_STILL_OK);
-> +		return;
->  	}
-> =20
->  	ops =3D rcu_dereference(fence->ops);
-
+What is the rationale for that? I like consistency too, but also think
+it is not particularly difficult to figure out that "nova-drm" resides
+in "drm/nova".
