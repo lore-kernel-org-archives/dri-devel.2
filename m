@@ -4,152 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0CBFCFD8740
-	for <dri-devel@archiver.kernel.org>; Tue, 17 Mar 2026 11:19:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B3885FD8740
+	for <dri-devel@archiver.kernel.org>; Tue, 17 Mar 2026 11:20:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 658DD10E57C;
-	Tue, 17 Mar 2026 11:19:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 228A210E4CE;
+	Tue, 17 Mar 2026 11:20:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ghTxv3pk";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="XqNmkFbZ";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D443E10E4CE;
- Tue, 17 Mar 2026 11:19:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1773746369; x=1805282369;
- h=from:to:cc:subject:date:message-id:references:
- in-reply-to:content-transfer-encoding:mime-version;
- bh=Q9eLR6z5vIofgVXoRMhE55aWbGEEyFnfTGXBeS2g+hs=;
- b=ghTxv3pkZUd2EosPIMVkkuaShXNcOgG1JvsnsFS4NHb/iH8w/SZv2lcA
- ecJxJamuEwsUg6fjfQ6hg+DarYYFUuEf5PHzlHuMzjhf6j18/S0wvx8f4
- 1hhrIEbHu+z4fFUpAsAhRaS1w4d50C5PMlAaWBxtoeuY/X2BcYWDbUZMC
- 7q9uP2fWlPQbWVxsIwFvZ6PmorgwNXJ9xYg6QwEmFRXMPT8OpgyZewMzU
- rjNF5DMWaKqRcZ1hB3UGHsnhTgCi0RV+ecR1Qxjxmspc4E1cI52CzSpKn
- KiTV8uOfLbAtYR/8x9nDjMfJF/HePbk3bTcp5gsIyvb6XvjzoywfKYFQm w==;
-X-CSE-ConnectionGUID: a4jii+4DSI+XjmkXOmdKnw==
-X-CSE-MsgGUID: rxmCPNFYRhaO7Ny0bynjeQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11731"; a="73794211"
-X-IronPort-AV: E=Sophos;i="6.23,124,1770624000"; d="scan'208";a="73794211"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
- by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Mar 2026 04:19:29 -0700
-X-CSE-ConnectionGUID: znPiPnlcRX6JtPmw7jsJ7w==
-X-CSE-MsgGUID: v929hJjlQpildFsiP7rzyw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,124,1770624000"; d="scan'208";a="222463187"
-Received: from fmsmsx901.amr.corp.intel.com ([10.18.126.90])
- by orviesa007.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Mar 2026 04:19:29 -0700
-Received: from FMSMSX903.amr.corp.intel.com (10.18.126.92) by
- fmsmsx901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Tue, 17 Mar 2026 04:19:28 -0700
-Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
- FMSMSX903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37 via Frontend Transport; Tue, 17 Mar 2026 04:19:28 -0700
-Received: from BN1PR04CU002.outbound.protection.outlook.com (52.101.56.30) by
- edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Tue, 17 Mar 2026 04:19:27 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=EJdc2M6Skl6z5p/YwV/pRUDhYuV4/kyY5Asu7DXIMhiKAwR/NMLi1LeHhBgEwON9w+XUEYZEvscVNC9oML83No659nnsOUj9KPBQv4XpKhwU1YeEU+qxLcu2dnkI8OjEanUau5zubUImv1NbFZX+dRpjgzjldFRvgr80bJa4s7unKpg+4TWmWOwFYMIg3AeRLgJU4q/aYKWw1d9MEFOCBNt00lRhccyPR8n6mHIKUOOxCfs/CMzNO0yX0wUlWyWcH1qaelMEUiRTmi1HbUgaBYtFDHoB8pzM2zhzH+U3ArDPYm7eKwA/zGQ3M0TvaXVb5URc7QvxaeRPNvOMwAIVSw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=v1klFdhZtMWHo5N/xwkeS+wg7lqFoKtx7huHNBR3ZBo=;
- b=E94mrVyzZXcfuZ0hYEk/k1HravZuwKvgFb1tkGSuJmDK1Hih4/gG6/0/iLPqVwKMzpVH54FQPnMVMbwX90xcyGuPTa7cNtBiJkE7ftvrcTV4p3d3UMfkc9Dwvuc5hQ0fVnNQDqSYXDYRyLEZSfJdLycEqzpiqDOM/qi3NaNGziA0y0k6vqgTKzD2DkBni0x+TfDsq+VcSqxEM9Yxm94EZDwTiE66SHuPAOgxleKVVrZy5pXd+Zi3g5kqqlWlUiPepCgTN0lY7LmPOYdpyLn6Be5NRAPm1nAXt1Z/x1P76eVcLdXKP/HGP1CXQ3AKemWYsSxU8jNdlVruIbnpmjfgrQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Received: from SA3PR11MB8118.namprd11.prod.outlook.com (2603:10b6:806:2f1::13)
- by IA4PR11MB9250.namprd11.prod.outlook.com (2603:10b6:208:56e::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.16; Tue, 17 Mar
- 2026 11:19:19 +0000
-Received: from SA3PR11MB8118.namprd11.prod.outlook.com
- ([fe80::b2e3:da3f:6ad8:e9a5]) by SA3PR11MB8118.namprd11.prod.outlook.com
- ([fe80::b2e3:da3f:6ad8:e9a5%4]) with mapi id 15.20.9723.014; Tue, 17 Mar 2026
- 11:19:19 +0000
-From: "Gote, Nitin R" <nitin.r.gote@intel.com>
-To: "Gupta, Varun" <varun.gupta@intel.com>, "dri-devel@lists.freedesktop.org"
- <dri-devel@lists.freedesktop.org>
-CC: "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>,
- "christian.koenig@amd.com" <christian.koenig@amd.com>, "Auld, Matthew"
- <matthew.auld@intel.com>, "Yadav, Sanjay Kumar"
- <sanjay.kumar.yadav@intel.com>
-Subject: RE: [PATCH] drm/ttm: Fix spelling mistakes and comment style in
- ttm_resource.c
-Thread-Topic: [PATCH] drm/ttm: Fix spelling mistakes and comment style in
- ttm_resource.c
-Thread-Index: AQHctPllvsK0wU84RkOsX9xhqT/zz7WylMfw
-Date: Tue, 17 Mar 2026 11:19:19 +0000
-Message-ID: <SA3PR11MB81183DA9015A190BF2B8EDD9D041A@SA3PR11MB8118.namprd11.prod.outlook.com>
-References: <20260316035915.1403424-1-varun.gupta@intel.com>
-In-Reply-To: <20260316035915.1403424-1-varun.gupta@intel.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SA3PR11MB8118:EE_|IA4PR11MB9250:EE_
-x-ms-office365-filtering-correlation-id: 5d3fe2ab-1a00-4739-93b2-08de84170880
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|1800799024|376014|366016|38070700021|56012099003|18002099003|22082099003;
-x-microsoft-antispam-message-info: lC8wxSHaMcW+nZd5kwr0pnextFlYO8W4lJqljp7M+N/REcPS+ZddFICF8edStsgam7x1lhx4BAka3n8Kwz7WlMhu/0meQWmaEV/u+V19KRJhZHv0VvYw0zwNrvzJLwH0Za5Tj3WEYHynpJ7QNklWPSHfQr21WeR3qdSKk/CvMtQ67czpRQ+FNaP5puok7PRPbqTy2UWEALVdXkBEF39ux+EJRXtfDaAlrKwiT1Pxs893kUKS1ulY2JciouTbDSWFH3EqvxNrBuYahPZvvUXgTChhgox9SZXATRBsuQBW0EIWtKPXvWYM973eKEPMJ4jrSr68Os6SNZniORTNYj8NASStasX4xuUY7it8WSI5+yinoCRQpv5HsDI4lfkseJGM+0TiJFw7Be2go5KNAxwx7wmo9r4SqzYZcelNi7ad3frSkrOInwWHLHgzrMvSlA2chjKq2HBppJRd5NpNBg2PeC43RR02n39bSVu4l8Pg9p02Ec1NYYfQilClWQwMfuNYH4nl91WqOsVKbTSdGeOBYgjesNBKFyx8KPF9pIKM+JaWi0waouVbRE/oEpKIIFou0u+rvsEebned4SRcrklBFIL793Ed+O59eQaYjKMtal93hVP3IwIgDBfeu19In+tJCx0azAxjiWIwN6I9S3HxGO1U8BO8Fki2jD4/yrU3W3HGzp4DxeDRinl7ls98dQjMObuNBQkl0mubS760wM0J9Y+YIFekI/U4NB5rtU5S3oYdSG3/6EuPDIMiMleCG67HKV+cZXlNQcgAbDfeJCtUqCKc+oMbOeuJjIhV32KpWlQ=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SA3PR11MB8118.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(366016)(38070700021)(56012099003)(18002099003)(22082099003);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?4CA3ECFTQFk1lwqNc968015SlAEp3MwiV8sVwOLeedxYmw5aBaV+WR1L/ZcF?=
- =?us-ascii?Q?ALstDJtTU3ctj9yqU+XBYlJobhnHWG6GhTFG3gfXrWsL7jNhr1HJPHdSlW24?=
- =?us-ascii?Q?uLxQflfe7yk7Buu4F5igLtG1yH7+AO4Hvt6anZ3NWsiab510cjB0JRWXCDE6?=
- =?us-ascii?Q?BN5kBrFkUB4OTE+uIVHK7fH0+wpJ5BYJ1qFKOAockP5R7PZN2bvQ0vbLSKnj?=
- =?us-ascii?Q?LhhUFILbbiGJehgSndaWd3Ty4GlUBsCF7sX7u9GdnU+1IxMAiseo5ryTNYAK?=
- =?us-ascii?Q?6tlEqiYdOHn2SCGVjdw0q73g4TVg1yWE0zlBvNXhdrgfg7R3qJV8WAth+em8?=
- =?us-ascii?Q?rPbvxhlRgUtniAs/ZD6I1GJ3q3fPKjyWCl/f10qYcTX6m9Dwww+6CC6Y5B/E?=
- =?us-ascii?Q?OWCnADjb2Qht4d7uOGoZifY+9enjebDxPUsDLcTuvf5pjKs2Wo8YmTT5/br6?=
- =?us-ascii?Q?/r3mkT6/WQNZnOO2KKN+0qsYE9nnCDJIKzzfChqKOtFcbgul5bRmz9ePdF8m?=
- =?us-ascii?Q?X0f9Pb0/V0cTiELEgphoIBw6ICqI++S/A2Aty63syalhQi/8p+9NZyEDvzG7?=
- =?us-ascii?Q?S99rdriozKv8N2jDlNMXDOW27bTM5Vljy404hxsQtuotiWoTrmVJ0b2oZlt9?=
- =?us-ascii?Q?V1KVmJ1tHKpi6C8ngiPZpfvo9xVlrh3Do7KV+hZitZt4Bz2uWPkgmSwMzmUb?=
- =?us-ascii?Q?0XmRY84KXfIKitrqtmmd8r/zxQlXI7BmlGtnt3/+2YH1Y5VovXeaS/9igFqI?=
- =?us-ascii?Q?y8yNai0BiEmDcqkvca8Zd4X18JNb7OOzILgljSDvAYzMg4s4T9FFurpA89ex?=
- =?us-ascii?Q?n/3JUoG6h1Jwza4RG402ghlzZUFk+kPrB8/Rqt4MP3loKiy55p2k/KtFwdD9?=
- =?us-ascii?Q?P/mb6X+z0bhyrBaCDEjIpK18GZKT/vNAd7pnnFEl3x60qBwfCPC5+6SnN4T1?=
- =?us-ascii?Q?GDAxyv81cCk1ss9RCR8wT4lhHPEK+UAozW3LoWVwwKJwncd2syLjgccEdWtM?=
- =?us-ascii?Q?GYEo8IpBjpESl3lRZnK0bpOIZD0wBasagXpPy3DmXqJRToLPqKpTs+z9h/yk?=
- =?us-ascii?Q?2HwQHrVgtbWSaelAMOTaoxSMMUN0G0PbGnXkyJFUmXmk4UKgOpaNMI9GX4c5?=
- =?us-ascii?Q?abNvMIUyuDLh5B46a9ewl5jCwGr+dsNmOm/EPlrR62Fcx1L9c/Ivj9ZrRZQf?=
- =?us-ascii?Q?yziIi6iwHWqhKbP8j01I6N4j8Le7eay04Dcm19Ppo+lHPlwBJVGL06GYvxZI?=
- =?us-ascii?Q?jB2dNLcWKn6I90DT/K5ff7zbDLroEGf70pHtAoZgwgpiC8p6lXhcr48CRnB6?=
- =?us-ascii?Q?ZtbSi0Fw5+4O7R0THY1TxQgw40BmaYzNWZguyd0df4VqF0K+mgS/Zg7JcEof?=
- =?us-ascii?Q?ppbZdQT1AHO8AaLhnpdV7gH58CCyLtGUZ0rNOKU2hFgAhfJQ2pMbTWbus65l?=
- =?us-ascii?Q?QzJ2VG/JE7bM9vZbZwlQnkMTaywZB82UM9qpJlYfKxFsk5YYPsRMyjw3BuQo?=
- =?us-ascii?Q?su7EK9eL32kfYM/psTQkh4YnE5hnZlg0yvrF6YWtEEeyBv27rppRRJDGtHGJ?=
- =?us-ascii?Q?Pc7UObFzxAyAWWT7a++cfRpgCJlQdbkRJccH2ZJve2g3RjjP6WKjMCBMZG+0?=
- =?us-ascii?Q?h98UqmnZvrramUANQflgxxClP0wFVDHCgC7tnqU77Q5khwu1inmix0Bv1ah+?=
- =?us-ascii?Q?JQ1y6ntf2uCsKtQF13ndUG1KBWJu1NQuHhLxqTcyhrAdaoJd?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7668810E4CE
+ for <dri-devel@lists.freedesktop.org>; Tue, 17 Mar 2026 11:20:34 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id 89A5860008;
+ Tue, 17 Mar 2026 11:20:33 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 285C1C4CEF7;
+ Tue, 17 Mar 2026 11:20:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1773746433;
+ bh=Y3uwrOcPu06oEhfEuS3yt+e1QIbIZ7jihp3L5Nl6Dss=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=XqNmkFbZ16MEAQEDe1sTSFi6jePCYSf/uSQtV0jkaPWkk3bbbh8TiqgOI4f/8bfGI
+ hA/TRG6QqbtmVrW9RdkMLi6IXxFOyrJn5X5xuq27SPWlI/ZVFEwoa1MLu6u1T54ggG
+ tLy84hzKZs8gB8QEif/dfxrwSP1A7miazEGO/Ta9+6v1SeMjtlzpSgWTG2jJqWiRKU
+ GiqT0i4lOT08Xz+vNCSwo4vqot4wrI6gsBSvfjcN8R1vfXxQbSBv0pDwMG2hjI4C+c
+ +7P2CC7613MJJPBigDrtPoeYjep6uUxJD0IJGVKaEF1FXpL8u8qKTJMLgRWNb1KQ21
+ ckWyqnxeyM+Ow==
+Message-ID: <69f4eb09-efbd-4bd1-81b8-963b78e1a3a3@kernel.org>
+Date: Tue, 17 Mar 2026 12:20:26 +0100
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: NFuLzUsmPq6nGLMx416k+1syddmFQStfbo5ZK7mBmFuAHPz8SA9P6iA1i9fkVJT7lte563TCQdMkdRcriBmFSiMTgQ6gEur6PwZLFBdUFGyj3jxqmt737VzG9KvlgcAco8Lc/lHNCDrAwvTWu1kpH7KrjRDS8v3bO0FrYuuISG8n9dfJY7dz9hDRYZN9JqBcaV9WeAFdpHOIPsLei/r4kEx73LFBOLmq2AunZPbu56S9bNxc/E7ENH996YQLQ0tydFAOSHNQZAahWymkFyX267zJQbavLryl6xzyJdP2ak6bstacxVGWqKjoKbSiUbtO3BuYNej9O85rX40ebql+vg==
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SA3PR11MB8118.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5d3fe2ab-1a00-4739-93b2-08de84170880
-X-MS-Exchange-CrossTenant-originalarrivaltime: 17 Mar 2026 11:19:19.4379 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: JivWLDOVSwqJ+tFOzUiMxCpeOzCllwrwCj7rBVoCpFul4Q/k+qoPRr2o9yeBnuQgJ459i8dpmfnFUVk8Ca7P/Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA4PR11MB9250
-X-OriginatorOrg: intel.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 0/5] kunit: Add support for suppressing warning
+ backtraces
+Content-Language: en-US
+To: Albert Esteve <aesteve@redhat.com>, Arnd Bergmann <arnd@arndb.de>,
+ Brendan Higgins <brendan.higgins@linux.dev>, David Gow <david@davidgow.net>,
+ Rae Moar <raemoar63@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ Peter Zijlstra <peterz@infradead.org>
+Cc: linux-kernel@vger.kernel.org, linux-arch@vger.kernel.org,
+ linux-kselftest@vger.kernel.org, kunit-dev@googlegroups.com,
+ dri-devel@lists.freedesktop.org, workflows@vger.kernel.org,
+ linux-doc@vger.kernel.org, Alessandro Carminati <acarmina@redhat.com>,
+ Guenter Roeck <linux@roeck-us.net>, Kees Cook <kees@kernel.org>,
+ Linux Kernel Functional Testing <lkft@linaro.org>,
+ Dan Carpenter <dan.carpenter@linaro.org>, =?UTF-8?Q?Ma=C3=ADra_Canal?=
+ <mcanal@igalia.com>, Simona Vetter <simona.vetter@ffwll.ch>
+References: <20260317-kunit_add_support-v6-0-dd22aeb3fe5d@redhat.com>
+From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+In-Reply-To: <20260317-kunit_add_support-v6-0-dd22aeb3fe5d@redhat.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -165,127 +73,223 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On 3/17/26 10:24, Albert Esteve wrote:
+> Some unit tests intentionally trigger warning backtraces by passing bad
+> parameters to kernel API functions. Such unit tests typically check the
+> return value from such calls, not the existence of the warning backtrace.
+> 
+> Such intentionally generated warning backtraces are neither desirable
+> nor useful for a number of reasons:
+> - They can result in overlooked real problems.
+> - A warning that suddenly starts to show up in unit tests needs to be
+>   investigated and has to be marked to be ignored, for example by
+>   adjusting filter scripts. Such filters are ad hoc because there is
+>   no real standard format for warnings. On top of that, such filter
+>   scripts would require constant maintenance.
+> 
+> One option to address the problem would be to add messages such as
+> "expected warning backtraces start/end here" to the kernel log.
+> However, that would again require filter scripts, might result in
+> missing real problematic warning backtraces triggered while the test
+> is running, and the irrelevant backtrace(s) would still clog the
+> kernel log.
+> 
+> Solve the problem by providing a means to identify and suppress specific
+> warning backtraces while executing test code. Support suppressing multiple
+> backtraces while at the same time limiting changes to generic code to the
+> absolute minimum.
+> 
+> Overview:
+> Patch#1 Introduces the suppression infrastructure.
+> Patch#2 Mitigate the impact at WARN*() sites.
+> Patch#3 Adds selftests to validate the functionality.
+> Patch#4 Demonstrates real-world usage in the DRM subsystem.
+> Patch#5 Documents the new API and usage guidelines.
+> 
+> Design Notes:
+> The objective is to suppress unwanted WARN*() generated messages.
+> 
+> Although most major architectures share common bug handling via `lib/bug.c`
+> and `report_bug()`, some minor or legacy architectures still rely on their
+> own platform-specific handling. This divergence must be considered in any
+> such feature. Additionally, a key challenge in implementing this feature is
+> the fragmentation of `WARN*()` messages emission: specific part in the
+> macro, common with BUG*() part in the exception handler.
+> As a result, any intervention to suppress the message must occur before the
+> illegal instruction.
+> 
+> Lessons from the Previous Attempt
+> In earlier iterations, suppression logic was added inside the
+> `__report_bug()` function to intercept WARN*() messages not producing
+> messages in the macro.
+> To implement the check in the bug handler code, two strategies were
+> considered:
+> 
+> * Strategy #1: Use `kallsyms` to infer the originating functionid, namely
+>   a pointer to the function. Since in any case, the user interface relies
+>   on function names, they must be translated in addresses at suppression-
+>   time or at check-time.
+>   Assuming to translate at suppression-time, the `kallsyms` subsystem needs
+>   to be used to determine the symbol address from the name, and again to
+>   produce the functionid from `bugaddr`. This approach proved unreliable
+>   due to compiler-induced transformations such as inlining, cloning, and
+>   code fragmentation. Attempts to preventing them is also unconvenient
+>   because several `WARN()` sites are in functions intentionally declared
+>   as `__always_inline`.
+> 
+> * Strategy #2: Store function name `__func__` in `struct bug_entry` in
+>   the `__bug_table`. This implementation was used in the previous version.
+>   However, `__func__` is a compiler-generated symbol, which complicates
+>   relocation and linking in position-independent code. Workarounds such as
+>   storing offsets from `.rodata` or embedding string literals directly into
+>   the table would have significantly either increased complexity or
+>   increase the __bug_table size.
+>   Additionally, architectures not using the unified `BUG()` path would
+>   still require ad-hoc handling. Because current WARN*() message production
+>   strategy, a few WARN*() macros still need a check to suppress the part of
+>   the message produced in the macro itself.
+> 
+> As a result, previous version proposed a per-macro solution, which offers
+> better control on where the suppression logic is applied.
+> 
+> For this iteration, the `__report_bug()` centralized approach was
+> revisited after the discussion in the previous version [1].
 
-> Correct several spelling mistakes and textual inconsistencies in kdoc com=
-ments
-> and inline comments.
->=20
-> Suggested-by: Sanjay Yadav <sanjay.kumar.yadav@intel.com>
-> Signed-off-by: Varun Gupta <varun.gupta@intel.com>
-> ---
->  drivers/gpu/drm/ttm/ttm_resource.c | 28 ++++++++++++++--------------
->  1 file changed, 14 insertions(+), 14 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/ttm/ttm_resource.c
-> b/drivers/gpu/drm/ttm/ttm_resource.c
-> index 192fca24f37e..9f36631d48b6 100644
-> --- a/drivers/gpu/drm/ttm/ttm_resource.c
-> +++ b/drivers/gpu/drm/ttm/ttm_resource.c
-> @@ -37,7 +37,7 @@
->  #include <drm/drm_print.h>
->  #include <drm/drm_util.h>
->=20
-> -/* Detach the cursor from the bulk move list*/
-> +/* Detach the cursor from the bulk move list */
->  static void
->  ttm_resource_cursor_clear_bulk(struct ttm_resource_cursor *cursor)  { @@=
- -
-> 105,9 +105,9 @@ void ttm_resource_cursor_init(struct ttm_resource_cursor
-> *cursor,
->   * ttm_resource_cursor_fini() - Finalize the LRU list cursor usage
->   * @cursor: The struct ttm_resource_cursor to finalize.
->   *
-> - * The function pulls the LRU list cursor off any lists it was previusly
-> + * The function pulls the LRU list cursor off any lists it was
-> + previously
->   * attached to. Needs to be called with the LRU lock held. The function
-> - * can be called multiple times after eachother.
-> + * can be called multiple times after each other.
->   */
->  void ttm_resource_cursor_fini(struct ttm_resource_cursor *cursor)  { @@ =
--
-> 317,10 +317,10 @@ void ttm_resource_move_to_lru_tail(struct ttm_resource
-> *res)  }
->=20
->  /**
-> - * ttm_resource_init - resource object constructure
-> - * @bo: buffer object this resources is allocated for
-> + * ttm_resource_init - resource object constructor
-> + * @bo: buffer object this resource is allocated for
->   * @place: placement of the resource
-> - * @res: the resource object to inistilize
-> + * @res: the resource object to initialize
->   *
->   * Initialize a new resource object. Counterpart of ttm_resource_fini().
->   */
-> @@ -435,7 +435,7 @@ EXPORT_SYMBOL(ttm_resource_free);
->   * @size: How many bytes the new allocation needs.
->   *
->   * Test if @res intersects with @place and @size. Used for testing if ev=
-ictions
-> - * are valueable or not.
-> + * are valuable or not.
->   *
->   * Returns true if the res placement intersects with @place and @size.
->   */
-> @@ -513,7 +513,7 @@ void ttm_resource_set_bo(struct ttm_resource *res,
->   * @bdev: ttm device this manager belongs to
->   * @size: size of managed resources in arbitrary units
->   *
-> - * Initialise core parts of a manager object.
-> + * Initialize core parts of a manager object.
->   */
->  void ttm_resource_manager_init(struct ttm_resource_manager *man,
->  			       struct ttm_device *bdev,
-> @@ -536,8 +536,8 @@ EXPORT_SYMBOL(ttm_resource_manager_init);
->  /*
->   * ttm_resource_manager_evict_all
->   *
-> - * @bdev - device to use
-> - * @man - manager to use
-> + * @bdev: device to use
-> + * @man: manager to use
->   *
->   * Evict all the objects out of a memory manager until it is empty.
->   * Part of memory manager cleanup sequence.
-> @@ -882,7 +882,7 @@ ttm_kmap_iter_linear_io_init(struct
-> ttm_kmap_iter_linear_io *iter_io,
->=20
->  /**
->   * ttm_kmap_iter_linear_io_fini - Clean up an iterator for linear io mem=
-ory
-> - * @iter_io: The iterator to initialize
-> + * @iter_io: The iterator to finalize
->   * @bdev: The TTM device
->   * @mem: The ttm resource representing the iomap.
->   *
-> @@ -921,15 +921,15 @@ DEFINE_SHOW_ATTRIBUTE(ttm_resource_manager);
->  /**
->   * ttm_resource_manager_create_debugfs - Create debugfs entry for specif=
-ied
->   * resource manager.
-> - * @man: The TTM resource manager for which the debugfs stats file be cr=
-eates
-> + * @man: The TTM resource manager for which the debugfs stats file to
-> + be created
->   * @parent: debugfs directory in which the file will reside
->   * @name: The filename to create.
->   *
-> - * This function setups up a debugfs file that can be used to look
-> + * This function sets up a debugfs file that can be used to look
->   * at debug statistics of the specified ttm_resource_manager.
->   */
->  void ttm_resource_manager_create_debugfs(struct ttm_resource_manager
-> *man,
-> -					 struct dentry * parent,
-> +					 struct dentry *parent,
+Discussion with PeterZ, who is not CC'd here? (did it now for my reply).
 
-LGTM,
-Reviewed-by: Nitin Gote <nitin.r.gote@intel.com>
+> However, again this approach did not work because:
+> - Some warning output is generated directly in the macros before calling
+>   the centralized functions (e.g., `__warn_printk()` in `__WARN_printf()`)
+> - Functions in the warning path like `warn_slowpath_fmt()` are marked
+>   `__always_inline`, making it difficult to intercept early enough
+> - So, by the time `__report_bug()` is called, output has already been written
+>   to the console, making suppression ineffective
+> 
+> Current Proposal: Check Directly in the `WARN()` Macros.
+> This avoids the need for function symbol resolution or ELF section
+> modification.
+> Suppression is implemented directly in the `WARN*()` macros.
 
->  					 const char *name)
->  {
->  #if defined(CONFIG_DEBUG_FS)
+So does that bloat every warn/bug site (as Peter objected to) or not?
+And is it compatible with x86? I see you modify include/asm-generic/bug.h
+but x86 has its own version of e.g. __WARN_printf ?
+
+> A helper function, `__kunit_is_suppressed_warning()`, is used to determine
+> whether suppression applies. It is marked as `noinstr`, since some `WARN*()`
+> sites reside in non-instrumentable sections. The function uses a static
+> branch for the fast path check (which is `noinstr`-safe), and only calls
+> the actual suppression check (which uses `strcmp`, and is surrounded by
+> instrumentation_begin()/end() calls) when suppressions are active.
+> The list of suppressed warnings is protected with RCU (Read-Copy-Update)
+> to allow concurrent read access without locks.
+> 
+> To minimize runtime impact when no suppressions are active, static branching
+> is used via a static key (`kunit_suppress_warnings_key`). The branch is
+> automatically enabled when the first suppression starts and disabled when the
+> last suppression ends, tracked via an atomic counter. This keeps the suppression
+> check code out-of-line, reducing code bloat at each `WARN*()` site while
+> maintaining minimal runtime overhead in the common case (no active suppressions).
+> 
+> This series is based on the RFC patch and subsequent discussion at
+> https://patchwork.kernel.org/project/linux-kselftest/patch/02546e59-1afe-4b08-ba81-d94f3b691c9a@moroto.mountain/
+> and offers a more comprehensive solution of the problem discussed there.
+> 
+> [1] https://lore.kernel.org/all/CAGegRW76X8Fk_5qqOBw_aqBwAkQTsc8kXKHEuu9ECeXzdJwMSw@mail.gmail.com/
+> 
+> Changes since RFC:
+> - Introduced CONFIG_KUNIT_SUPPRESS_BACKTRACE
+> - Minor cleanups and bug fixes
+> - Added support for all affected architectures
+> - Added support for counting suppressed warnings
+> - Added unit tests using those counters
+> - Added patch to suppress warning backtraces in dev_addr_lists tests
+> 
+> Changes since v1:
+> - Rebased to v6.9-rc1
+> - Added Tested-by:, Acked-by:, and Reviewed-by: tags
+>   [I retained those tags since there have been no functional changes]
+> - Introduced KUNIT_SUPPRESS_BACKTRACE configuration option, enabled by
+>   default.
+> 
+> Changes since v2:
+> - Rebased to v6.9-rc2
+> - Added comments to drm warning suppression explaining why it is needed.
+> - Added patch to move conditional code in arch/sh/include/asm/bug.h
+>   to avoid kerneldoc warning
+> - Added architecture maintainers to Cc: for architecture specific patches
+> - No functional changes
+> 
+> Changes since v3:
+> - Rebased to v6.14-rc6
+> - Dropped net: "kunit: Suppress lock warning noise at end of dev_addr_lists tests"
+>   since 3db3b62955cd6d73afde05a17d7e8e106695c3b9
+> - Added __kunit_ and KUNIT_ prefixes.
+> - Tested on interessed architectures.
+> 
+> Changes since v4:
+> - Rebased to v6.15-rc7
+> - Dropped all code in __report_bug()
+> - Moved all checks in WARN*() macros.
+> - Dropped all architecture specific code.
+> - Made __kunit_is_suppressed_warning nice to noinstr functions.
+> 
+> Changes since v5:
+> - Rebased to v7.0-rc3
+> - Added RCU protection for the suppressed warnings list.
+> - Added static key and branching optimization.
+> - Removed custom `strcmp` implementation and reworked
+>   __kunit_is_suppressed_warning() entrypoint function.
+> 
+> Alessandro Carminati (2):
+>   bug/kunit: Core support for suppressing warning backtraces
+>   bug/kunit: Suppressing warning backtraces reduced impact on WARN*()
+>     sites
+> 
+> Guenter Roeck (3):
+>   Add unit tests to verify that warning backtrace suppression works.
+>   drm: Suppress intentional warning backtraces in scaling unit tests
+>   kunit: Add documentation for warning backtrace suppression API
+> 
+>  Documentation/dev-tools/kunit/usage.rst |  30 ++++++-
+>  drivers/gpu/drm/tests/drm_rect_test.c   |  16 ++++
+>  include/asm-generic/bug.h               |  48 +++++++----
+>  include/kunit/bug.h                     |  62 ++++++++++++++
+>  include/kunit/test.h                    |   1 +
+>  lib/kunit/Kconfig                       |   9 ++
+>  lib/kunit/Makefile                      |   9 +-
+>  lib/kunit/backtrace-suppression-test.c  | 105 ++++++++++++++++++++++++
+>  lib/kunit/bug.c                         |  54 ++++++++++++
+>  9 files changed, 316 insertions(+), 18 deletions(-)
+>  create mode 100644 include/kunit/bug.h
+>  create mode 100644 lib/kunit/backtrace-suppression-test.c
+>  create mode 100644 lib/kunit/bug.c
+> 
 > --
-> 2.43.0
+> 2.34.1
+> 
+> ---
+> Alessandro Carminati (2):
+>       bug/kunit: Core support for suppressing warning backtraces
+>       bug/kunit: Suppressing warning backtraces reduced impact on WARN*() sites
+> 
+> Guenter Roeck (3):
+>       Add unit tests to verify that warning backtrace suppression works.
+>       drm: Suppress intentional warning backtraces in scaling unit tests
+>       kunit: Add documentation for warning backtrace suppression API
+> 
+>  Documentation/dev-tools/kunit/usage.rst |  30 ++++++++-
+>  drivers/gpu/drm/tests/drm_rect_test.c   |  16 +++++
+>  include/asm-generic/bug.h               |  44 ++++++++-----
+>  include/kunit/bug.h                     |  61 ++++++++++++++++++
+>  include/kunit/test.h                    |   1 +
+>  lib/kunit/Kconfig                       |   9 +++
+>  lib/kunit/Makefile                      |   9 ++-
+>  lib/kunit/backtrace-suppression-test.c  | 109 ++++++++++++++++++++++++++++++++
+>  lib/kunit/bug.c                         |  71 +++++++++++++++++++++
+>  9 files changed, 332 insertions(+), 18 deletions(-)
+> ---
+> base-commit: 80234b5ab240f52fa45d201e899e207b9265ef91
+> change-id: 20260312-kunit_add_support-2f35806b19dd
+> 
+> Best regards,
 
