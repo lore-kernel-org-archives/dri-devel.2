@@ -4,65 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CAC42FD877E
-	for <dri-devel@archiver.kernel.org>; Tue, 17 Mar 2026 14:33:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 43408FB5EAD
+	for <dri-devel@archiver.kernel.org>; Tue, 17 Mar 2026 14:40:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3D21810E695;
-	Tue, 17 Mar 2026 14:33:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8AF2310E259;
+	Tue, 17 Mar 2026 14:40:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="HF1ZiEVK";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="YET4X8Al";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DEE6610E66B;
- Tue, 17 Mar 2026 14:33:19 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D706410E259;
+ Tue, 17 Mar 2026 14:40:33 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 8D3214169B;
- Tue, 17 Mar 2026 14:33:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3FB59C4CEF7;
- Tue, 17 Mar 2026 14:33:14 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 15E4660018;
+ Tue, 17 Mar 2026 14:40:33 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D8DAC2BC86;
+ Tue, 17 Mar 2026 14:40:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1773757999;
- bh=UMKGlEB6GEb6d3+ga9RF5Uym94ud3HWbnp9OP+wid2Q=;
+ s=k20201202; t=1773758432;
+ bh=EvYCcTW9OZ4w+eYnCud94ZVVBQFcEHeOk0Qf21v1cWs=;
  h=Date:Subject:Cc:To:From:References:In-Reply-To:From;
- b=HF1ZiEVKHe1ymrCoIKfF8q078IFJHcAcjYeIk1K5k/X6OPIHqRshn79IVh/mcojhc
- Qkl72/vCSsXRxwiK010QnUwPMfPCjYLEkdjOF4b0a3HG+9qyQRiEc6+Rr1SpQ33Gts
- KpZOTikBPCsb2OpgbWLjO8GfkhCkhNPPyZGDYozdrBNOppFo624sX6QOlNNVhmsIXs
- vYMqlNWWVGebdNOPNDxH5+n+W4Uc8rTkNT5i/mpH7xsVZYGFvXYUrtTwCnddqPSCAM
- EWlA1c1eDfUW7hPp9kFlaCSIPTR5jMzZN/pjtbwcBFys0XRPU2/oBE3n9e6o+JdNKf
- KVZnlBDjxvL7w==
+ b=YET4X8Al0E7xW+qNdPitpEBKm67SGfBeakvvFwPWtHFId/MrUTmacfbxc+Dvtprp7
+ l89HGwLfRbb6UNAOtar9lV10fYIY9tfSp2yohZK/tLKjgJ2Fxl2w+vYDgYbHs7piq4
+ 7et28Wse4LWMT3UF5yDw6KlqDutJ/VxXIED6eesTZVsCerJSN1+x6i0D/b83uX9qKB
+ 6ykLvlCHefbUiVxdUo2c3SWCGT363ZQZ0xekXjun0eLrlRFBXZPxjL8yRaA9dCUwcs
+ ZtCa2MkNk1ReLDHuZBhvC+39B0/Hj8mR8tTAigYX8f4GM078sQ5rYPvGV03tah/F+m
+ lhT176bR0fCtw==
 Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Date: Tue, 17 Mar 2026 15:33:13 +0100
-Message-Id: <DH54QCVVTUZD.3L5VPUW8B38V5@kernel.org>
-Subject: Re: [RFC PATCH 02/12] drm/dep: Add DRM dependency queue layer
-Cc: "Matthew Brost" <matthew.brost@intel.com>,
- <intel-xe@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>, "Boris
- Brezillon" <boris.brezillon@collabora.com>, "Tvrtko Ursulin"
- <tvrtko.ursulin@igalia.com>, "Rodrigo Vivi" <rodrigo.vivi@intel.com>,
- =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, "David Airlie"
- <airlied@gmail.com>, "Maarten Lankhorst"
- <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
- "Philipp Stanner" <phasta@kernel.org>, "Simona Vetter" <simona@ffwll.ch>,
- "Sumit Semwal" <sumit.semwal@linaro.org>, "Thomas Zimmermann"
- <tzimmermann@suse.de>, <linux-kernel@vger.kernel.org>, "Sami Tolvanen"
- <samitolvanen@google.com>, "Jeffrey Vander Stoep" <jeffv@google.com>,
- "Alice Ryhl" <aliceryhl@google.com>, "Daniel Stone"
- <daniels@collabora.com>, "Alexandre Courbot" <acourbot@nvidia.com>, "John
- Hubbard" <jhubbard@nvidia.com>, <shashanks@nvidia.com>,
- <jajones@nvidia.com>, "Eliot Courtney" <ecourtney@nvidia.com>, "Joel
- Fernandes" <joelagnelf@nvidia.com>, "rust-for-linux"
- <rust-for-linux@vger.kernel.org>, "Miguel Ojeda"
- <miguel.ojeda.sandonis@gmail.com>
-To: "Daniel Almeida" <daniel.almeida@collabora.com>
+Date: Tue, 17 Mar 2026 15:40:28 +0100
+Message-Id: <DH54VWW1RXMQ.34MLWMQ1ZE0I1@kernel.org>
+Subject: Re: [PATCH 4/8] rust: dma: introduce dma::CoherentInit for memory
+ initialization
+Cc: <acourbot@nvidia.com>, <ojeda@kernel.org>, <boqun@kernel.org>,
+ <gary@garyguo.net>, <bjorn3_gh@protonmail.com>, <lossin@kernel.org>,
+ <a.hindborg@kernel.org>, <tmgross@umich.edu>, <abdiel.janulgue@gmail.com>,
+ <daniel.almeida@collabora.com>, <robin.murphy@arm.com>,
+ <driver-core@lists.linux.dev>, <nouveau@lists.freedesktop.org>,
+ <dri-devel@lists.freedesktop.org>, <rust-for-linux@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>
+To: "Alice Ryhl" <aliceryhl@google.com>
 From: "Danilo Krummrich" <dakr@kernel.org>
-References: <20260316043255.226352-1-matthew.brost@intel.com>
- <20260316043255.226352-3-matthew.brost@intel.com>
- <7A8108C7-7CF0-4EA4-95ED-8003502DC35A@collabora.com>
- <DH524YJD4UD3.HLHJP0AM401N@kernel.org>
- <974E3052-FCA8-4985-A37D-A1F49C06A77C@collabora.com>
-In-Reply-To: <974E3052-FCA8-4985-A37D-A1F49C06A77C@collabora.com>
+References: <20260303162314.94363-1-dakr@kernel.org>
+ <20260303162314.94363-5-dakr@kernel.org> <abj6I9c_2IR0cKJ6@google.com>
+In-Reply-To: <abj6I9c_2IR0cKJ6@google.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,76 +64,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue Mar 17, 2026 at 3:25 PM CET, Daniel Almeida wrote:
->
->
->> On 17 Mar 2026, at 09:31, Danilo Krummrich <dakr@kernel.org> wrote:
+On Tue Mar 17, 2026 at 7:52 AM CET, Alice Ryhl wrote:
+> On Tue, Mar 03, 2026 at 05:22:55PM +0100, Danilo Krummrich wrote:
+>> Currently, dma::Coherent cannot safely provide (mutable) access to its
+>> underlying memory because the memory might be concurrently accessed by a
+>> DMA device. This makes it difficult to safely initialize the memory
+>> before handing it over to the hardware.
 >>=20
->> On Tue Mar 17, 2026 at 3:47 AM CET, Daniel Almeida wrote:
->>> I agree with what Danilo said below, i.e.:  IMHO, with the direction th=
-at DRM
->>> is going, it is much more ergonomic to add a Rust component with a nice=
- C
->>> interface than doing it the other way around.
+>> Introduce dma::CoherentInit, a type that encapsulates a dma::Coherent
+>> before its DMA address is exposed to the device. dma::CoherentInit can
+>> guarantee exclusive access to the inner dma::Coherent and implement
+>> Deref and DerefMut.
 >>=20
->> This is not exactly what I said. I was talking about the maintainance as=
-pects
->> and that a Rust Jobqueue implementation (for the reasons explained in my=
- initial
->> reply) is easily justifiable in this aspect, whereas another C implement=
-ation,
->> that does *not* replace the existing DRM scheduler entirely, is much har=
-der to
->> justify from a maintainance perspective.
->
-> Ok, I misunderstood your point a bit.
->
+>> Once the memory is properly initialized, dma::CoherentInit can be
+>> converted into a regular dma::Coherent.
 >>=20
->> I'm also not sure whether a C interface from the Rust side is easy to es=
-tablish.
->> We don't want to limit ourselves in terms of language capabilities for t=
-his and
->> passing through all the additional infromation Rust carries in the type =
-system
->> might not be straight forward.
->>=20
->> It would be an experiment, and it was one of the ideas behind the Rust J=
-obqueue
->> to see how it turns if we try. Always with the fallback of having C
->> infrastructure as an alternative when it doesn't work out well.
+>> Signed-off-by: Danilo Krummrich <dakr@kernel.org>
 >
-> From previous experience in doing Rust to C FFI in NVK, I don=E2=80=99t s=
-ee, at
-> first, why this can=E2=80=99t work. But I agree with you, there may very =
-well be
-> unanticipated things here and this part is indeed an experiment. No argum=
-ent
-> from me here.
+> overall LGTM
 >
->>=20
->> Having this said, I don't see an issue with the drm_dep thing going forw=
-ard if
->> there is a path to replacing DRM sched entirely.
->
-> The issues I pointed out remain. Even if the plan is to have drm_dep + Jo=
-bQueue
-> (and no drm_sched). I feel that my point of considering doing it in Rust =
-remains.
+> Reviewed-by: Alice Ryhl <aliceryhl@google.com>
 
-I mean, as mentioned below, we should have a Rust Jobqueue as independent
-component. Or are you saying you'd consdider having only a Rust component w=
-ith a
-C API eventually? If so, that'd be way too early to consider for various
-reasons.
+Gary and me concluded that dma::CoherentBox would probably be a better name=
+ for
+what this structure represents. I.e. you can carry it around and use it sim=
+ilar
+to a "real" Box until it is converted to dma::Coherent in order to make it
+available to the device.
 
->> The Rust component should remain independent from this for the reasons m=
-entioned
->> in [1].
->>=20
->> [1] https://lore.kernel.org/dri-devel/DH51W6XRQXYX.3M30IRYIWZLFG@kernel.=
-org/
+Is your RB still valid with this rename?
+
+>> +        let ptr =3D core::ptr::from_mut(&mut self[i]);
 >
-> Ok
+> &raw mut self[i].
 >
-> =E2=80=94 Daniel
+> Alice
 
