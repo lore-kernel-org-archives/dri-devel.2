@@ -4,85 +4,135 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D5C08FD8769
-	for <dri-devel@archiver.kernel.org>; Tue, 17 Mar 2026 13:37:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B62AAFD876D
+	for <dri-devel@archiver.kernel.org>; Tue, 17 Mar 2026 13:41:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 361D010E64B;
-	Tue, 17 Mar 2026 13:37:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 17FCF10E3C0;
+	Tue, 17 Mar 2026 13:41:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=resnulli-us.20230601.gappssmtp.com header.i=@resnulli-us.20230601.gappssmtp.com header.b="fPNhBPaR";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="VlfdAPxu";
 	dkim-atps=neutral
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com
- [209.85.128.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 301A710E64B
- for <dri-devel@lists.freedesktop.org>; Tue, 17 Mar 2026 13:37:06 +0000 (UTC)
-Received: by mail-wm1-f47.google.com with SMTP id
- 5b1f17b1804b1-48374014a77so62973055e9.3
- for <dri-devel@lists.freedesktop.org>; Tue, 17 Mar 2026 06:37:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=resnulli-us.20230601.gappssmtp.com; s=20230601; t=1773754625; x=1774359425;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date:from:to
- :cc:subject:date:message-id:reply-to;
- bh=bvyHox0ngaRcTYY5mmOslDzHoAOd+VMSoOGA/5ZJGB4=;
- b=fPNhBPaRqb4D90LfWHfVxUH+JxHs2MlTVqm/pnZ3avmmOkbSpfCjlOVzgSh5uPUE8f
- dWiqO0nOVUEQiDzRy6XSg8k6HPdhSacmDb01Y5gJPESdvuP+GPOVQoYkUcMY+XXsBT+R
- JIIfNrIQkj9UatWhL0/bBwdQTTIHo4DyNfCZN7oTFWt4oQFPp7roQjTsRTAXdjgNFr9X
- misHu3AhSPWQkuB5sdGYWDfASJq4XRdoBDY++HarIXHUlJTkCYvBynkoExgT6mr59miF
- 3lRG2bZTuGtVNVo/S2z6VT8JcE/52OATrnq3Zt7plZK0tsnMOPkgz7XzQ9udXAlN5Wun
- bgxg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1773754625; x=1774359425;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=bvyHox0ngaRcTYY5mmOslDzHoAOd+VMSoOGA/5ZJGB4=;
- b=Qn0YH8d6WAIog4DrEV2vohrsSYUa8VnSf3pJRLPDaG7r5NCAiVe5BXcud1ammV2KTN
- tXEGv1aNayBlVTlVChwzDysOyvQGBKNx5rT8kD3lvTDdi+HCDHyfZ0T+o2ERFxFiLmCG
- e1OqC/lgokJZ+bkW54C50i+d7l0ocJGFT5AswFdlaroP9jkgDVYx7n7dhRaOuMc3OIVq
- eEgINUCxa8eKoYG8KvBwtZTw/7hGkkprsIaTz9zTBI0Rq2rvaC6b8MyXlKRQDSQv19SG
- pIzr2e2to2y+SM06AQOb6d9f+4LfljDiVrT3mn7VAeF2Md0J4rIHC3hCFB641icCyxg5
- nZtg==
-X-Gm-Message-State: AOJu0YxTQWGjZfU4GtCSJSiXFmYFrkRJZSc3qAFHOBXUM6GQCLlsSYqC
- ITOB+V3e+7dMkdQ+fmWUgKGISGYyVbNOIkFw0lQ2gqcXF3vMM/AJBDiwdxcWnSdmaOY=
-X-Gm-Gg: ATEYQzxa+eXoE5q8PtleHY+t+rX/4cR0fzoSxcV1D+xU0TrCbisgMGEvtJm9wjbDpRu
- SHLgTdERy1N2EDcrtuUckvwr+p58oXSJDr7aw3uYRkVCEtnlb1lmt5dhy9cUNLbr3vgnP4Upoc8
- 2/u4+z9gpXkswjpY8fIOoco7GAQgcHpPMf08QfbuVgPPlSA0qJ/aKN1ZErK/uUBQL85LqW8RSSx
- +2+IVhnn58RlOgbcxKffJEvfDO9IBEiuplddBxEuPK9TyHom18jvEj11M/D/+fRHsRFAU7Doc4P
- 9JkZcC7HZQ5DgWrAMy2zAqWAKXUhWWCzgkQjNgcxoHXkqF0IFLx3UO/0EBvBQCuO2DKNx2BseOS
- 3iK9GkiN8yNmJIOyht/sRTA+m6zoZE7F/yA9ItBZ2c2XCC3lW/gHdzPYBVVkr1faQ1eliMfDCFt
- gbAUgsp4rXQMP9WysEfR7PjahuR2oQnRk=
-X-Received: by 2002:a05:600c:a011:b0:485:6cd3:f7ac with SMTP id
- 5b1f17b1804b1-4856ce33d33mr90044845e9.20.1773754625122; 
- Tue, 17 Mar 2026 06:37:05 -0700 (PDT)
-Received: from FV6GYCPJ69 ([85.163.81.98]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4856eaa3b66sm76702495e9.11.2026.03.17.06.37.03
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 17 Mar 2026 06:37:04 -0700 (PDT)
-Date: Tue, 17 Mar 2026 14:37:02 +0100
-From: Jiri Pirko <jiri@resnulli.us>
-To: Mostafa Saleh <smostafa@google.com>
-Cc: dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, 
- iommu@lists.linux.dev, linux-media@vger.kernel.org, sumit.semwal@linaro.org, 
- benjamin.gaignard@collabora.com, Brian.Starkey@arm.com, jstultz@google.com,
- tjmercier@google.com, 
- christian.koenig@amd.com, m.szyprowski@samsung.com, robin.murphy@arm.com,
- jgg@ziepe.ca, 
- leon@kernel.org, sean.anderson@linux.dev, ptesarik@suse.com, 
- catalin.marinas@arm.com, aneesh.kumar@kernel.org, suzuki.poulose@arm.com, 
- steven.price@arm.com, thomas.lendacky@amd.com, john.allen@amd.com, 
- ashish.kalra@amd.com, suravee.suthikulpanit@amd.com, linux-coco@lists.linux.dev
-Subject: Re: [PATCH net-next v3 0/2] dma-buf: heaps: system: add an option to
- allocate explicitly decrypted memory
-Message-ID: <xdy5anped2koy47cuxbbqocyypisl7lagwvpuokpzpggohk2dp@yilc5ihictph>
-References: <20260305123641.164164-1-jiri@resnulli.us>
- <ablV_f_l7wD2m63E@google.com>
+Received: from BN1PR04CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11010032.outbound.protection.outlook.com [52.101.56.32])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 91FF310E3C0;
+ Tue, 17 Mar 2026 13:41:53 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=OIWxlD6cLfKyGnSZRD9yeHZgC0+Y7BkrwkG+kW8MHCDtNRSgD+nxZmsZzqpGdAMphQQCmLj5/+TIBTN5dPEFZ7gKBjPCPYYRVaI0Ilbu9OkxWsQsG5tPr1PWToWDLe6Hh/eIDELajsGeHT0ANDJ/owYFKs38Hb7lFr74Oo4ogQijyxKce6FTsVaZpNuvdYVvGUbmclwa13FXRJD8bdLqiuT4D/CrzDMVtvDn6VlI3sF694/1tsDnY0P4zDQtFQj20s+g3lKkT7H/dfaNpSq3P3HgPGQzmiBHjr9C3+lI4s0AEAxW+2meQlVyd1P7SENyZbUKSpBt6Z2HZckvuVF56A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Wp/y7tBfQmT5wBUuX3TzevFjxhMwBPiOg76aryv31+4=;
+ b=kucz6vcK3qv0REKgToDgn6xEN4CdX94vQlXbSodKpaAGba1VlRIq7taD8iXvo1m+bYa9z320Z5OOWk74NMmFntSU8m6shgAWAgjj6rSIfZgelXXuE8dmg6p3FOOVmO83od/p2HF52QW27IPzJJWXTz6AubMQPimacJW7gQAX3POmJWbPVEi0+AlMyKNNwTCSwj6tnHgJSsks6+4ZdlV+p71VTbW447wLtyHe09gAbMcM2OjFk+a6dnhxklDsDsGw1bXOy5rKoLonODu+hGMBGwzfck1Z/IC4DfsCaE7cUMO1e4qMtfjjxYVoqioMA2KH66Q81IwSHVB/gS0e9CcHKg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Wp/y7tBfQmT5wBUuX3TzevFjxhMwBPiOg76aryv31+4=;
+ b=VlfdAPxuI2ojHRRKoaAOZsxdm0KlihFAnXFYSMJTyLwhXiXVrzbKmXGDfRZjcyNmRvul1VXNYkq/GCp2xBVisBgVC2M6iwG+vYqTC4/tW0/CGcMBDzYGJajROO7vshK6eq14x4AxW8wGTo9oyoD+6WFskD034j+RkjJPAALwfJ6lMTkdPTvn1nglkyLM1bCt/b3MsKQ3uTBr0C6Y4iD0VD0vTDHMuMMiH8KjuFZ4ZSutVYt3NxETaAGc2xuiWMcnvOg+pbYd7jd/kmPm9Fgtk4kv68jIIjxL9a7GIHlCXc2lVpdfEaxLxTdzeMJaS5IaEKPRMEEtNeJY7wfWmWybag==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from CH2PR12MB3990.namprd12.prod.outlook.com (2603:10b6:610:28::18)
+ by DS0PR12MB6630.namprd12.prod.outlook.com (2603:10b6:8:d2::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.19; Tue, 17 Mar
+ 2026 13:41:47 +0000
+Received: from CH2PR12MB3990.namprd12.prod.outlook.com
+ ([fe80::7de1:4fe5:8ead:5989]) by CH2PR12MB3990.namprd12.prod.outlook.com
+ ([fe80::7de1:4fe5:8ead:5989%6]) with mapi id 15.20.9723.016; Tue, 17 Mar 2026
+ 13:41:47 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 17 Mar 2026 22:41:43 +0900
+Message-Id: <DH53MXEAVB0Q.2SXHCQTW8WG2Y@nvidia.com>
+From: "Alexandre Courbot" <acourbot@nvidia.com>
+To: "Danilo Krummrich" <dakr@kernel.org>
+Cc: "Eliot Courtney" <ecourtney@nvidia.com>, "Alice Ryhl"
+ <aliceryhl@google.com>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
+ <simona@ffwll.ch>, <rust-for-linux@vger.kernel.org>,
+ <nouveau@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>, "dri-devel"
+ <dri-devel-bounces@lists.freedesktop.org>, "Gary Guo" <gary@garyguo.net>
+Subject: Re: [PATCH 6/9] gpu: nova-core: generalize `flush_into_kvec` to
+ `flush_into_vec`
+References: <20260227-rmcontrol-v1-0-86648e4869f9@nvidia.com>
+ <20260227-rmcontrol-v1-6-86648e4869f9@nvidia.com>
+ <093ca23e-7081-42db-a202-0a42c51741a3@kernel.org>
+ <DGYL9FS1Z00X.2HEJ96J8R3OK4@kernel.org>
+ <DH46IKESDQ3B.2GEUC479WDK3N@nvidia.com>
+ <DH47AVPEKN06.3BERUSJIB4M1R@kernel.org>
+ <DH4OM17DJ47V.3NJG7G02O7P1L@nvidia.com>
+ <DH4ZZD12V0R6.2G7IIL87QTK0S@kernel.org>
+In-Reply-To: <DH4ZZD12V0R6.2G7IIL87QTK0S@kernel.org>
+X-ClientProxiedBy: TY4PR01CA0121.jpnprd01.prod.outlook.com
+ (2603:1096:405:379::19) To CH2PR12MB3990.namprd12.prod.outlook.com
+ (2603:10b6:610:28::18)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <ablV_f_l7wD2m63E@google.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH2PR12MB3990:EE_|DS0PR12MB6630:EE_
+X-MS-Office365-Filtering-Correlation-Id: fd102abd-0150-4021-c25d-08de842aef2d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|376014|7416014|10070799003|1800799024|22082099003|56012099003|18002099003;
+X-Microsoft-Antispam-Message-Info: zBDtWaP+anD8aGy9h6eNV941mpmR+l68v7YIOFqprXMS7bKO0gcgwqbLQ/PGg4g69U8N8SP39aneXdr2MNBItun8ExtnIRv2Lf/iAeFbLBG9HQZnnEXvIF0V+zoN/xU60MKGU/fFgvYXmaO5yC9iixRKTEXTRNwU0bX0Gt7v2qEf9ePIE5bQtZiXwlE0QYqQoj2SyQ18CxIAqEQo5LtDbPENIL3+RUrbXeHnrzY44zPUr+PeH53RkLU3qnqM7+ZQrOT/cB9DfYgdo5l0ISXQ/IkBA8whp+AqHuZr+MUOGchSec/mF7QBNjL/Lwl3vWsOenng/2Sc/9NqzyXUsjjiM/faRLmU5Lz7Tge2JlDgcA2Sapu30wYg9BeMG9D/TSZcglVJLDAQvi/KyaGE5OstBQMv9N15wZMycvBYfAmyqL0X46/Zgs3oJI8EOHQuQftWKWIzx0br8zWM2ZdiuvG20optOKuxgkQGZ2pAowQObNxzHF988PHktMUZi6qKLDDhPfNH39kNIm+MCIULgNxeTsGYOQLrZsRPuvJMst8h/yVXSvlh+33vP2KT7VaxxlCHUQMSGgLGdp5hMtEkyxZ2n0hEByA6+Znhiot8i/GHJ68fg00gS+8NK5yuh1iLJNm44EUutlvvya7jE8GLgvm0nSrVJhGSNJwx/qxBrzUaJ+8fdSWKgB0beHMdbGFLtFsM/xLaLPVDZQpK7VrkJ9THGIRNqBxhC9NxMK9i4nGOwec=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CH2PR12MB3990.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(376014)(7416014)(10070799003)(1800799024)(22082099003)(56012099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?QWR6Q1pyMm1OMUxvSXlZcUdsSlJBM0RxSHpnRnZNbDFOOXBUa2FhRGgrSEpx?=
+ =?utf-8?B?ZVh1ajRRalV4Y0tlb2ZiRWdyUXJwNnNyYVlyblZpVGN5WUtwNXhHSUwycjZP?=
+ =?utf-8?B?UmVjdnRkUC9yV2M4ajdmUnBOdUh1anZyMzVEVURHOUlQWkgyMWVUNm8wVXRV?=
+ =?utf-8?B?bWQ1djVDeHlWUjJUclp6Q2dUOUlnejVRRmZWd3o3TXkrNTZnbW9pdmQzNGRz?=
+ =?utf-8?B?NEN5ZlAzU0FqUUZQaHRFVGpMVTJsc3MyUXlBb0w2ZWVrMmdhTWxHbzJCVGg5?=
+ =?utf-8?B?MCtYTTI0cW0reWhQVVV4Mzhvbi96aVVQbmhjZGhTYk9HSWpwaTBwMldQaTNy?=
+ =?utf-8?B?MXA5bGh3cTV5eXhoZlF3M3hROXNWZWJmNmg3MzhlTEJjWGVhSUQrOVVCazR5?=
+ =?utf-8?B?MGNpTi9XUmtvUVA3SEZ3MktDdm1pNEJVc1FGbGVFSFdTTFlRcjhhc3I2Y2VF?=
+ =?utf-8?B?aWovSnJpdHZ3OE1lcDJQckNoVWdXKytJNllLVGNlSy9Ja0NzM1FkTGtNQUhm?=
+ =?utf-8?B?TExEbThrRDJ3aEJjbXlsNG1rNDNtYWNKUngzVlgrVW1JZE9ER0VzeWtoay81?=
+ =?utf-8?B?T3BHS1AvY2I5K0xkUjMwMWg1U214THBZbHl3T0tJWVRzaHU4NUxJZkc2Wkdy?=
+ =?utf-8?B?M0JVSmVJVTFBSHBqNW04cTlOYWFRYkNIK0FRSG8zL3dDekJ6ZXhqUmdmOWZv?=
+ =?utf-8?B?dnFCYXlRRHZXZTJSdzY1UzBJQkNxVjdXeTd5L01STWQyWTB2b1NXTlRVVlFn?=
+ =?utf-8?B?dExsOU96MldGcUNEYytFSkJMZFFoZ04xZ1UrQVp3ejk1WnA2bHErQ0U5elh5?=
+ =?utf-8?B?WlpOeGVwR2dEY3U0bVRZdWVpR2Z6RUZzL0NOa28zNHJDdHpSMjhGY0JUbHI4?=
+ =?utf-8?B?RC9Cb3lSSnVJcUdYUWNjNmd3NjcySTFBdEZCdXBjNjRtTU5ZUm4vZTBPN2hn?=
+ =?utf-8?B?VzdIMFg5WUhUOE5KUldHVllpRU1XZVJYbnhYZkZrZFN5eTlJQm4xSmp3eEcw?=
+ =?utf-8?B?aDIraTJxcjI4bEc0VHFPWENkNjEyd3BhUTlyQjRUbGJxMHJtVnVscVpPTC96?=
+ =?utf-8?B?cENiRjVKbnkzdURINkUzdjhmL1BNK3pUSnZOYWc4ZnloYVE4QVdlUitDWFhw?=
+ =?utf-8?B?b29zSC9LeVlPTUF0bnByeGpRVE5ISGx6aGhWNWJ4RDdaQnduZ0dFRzhKenBE?=
+ =?utf-8?B?UVZCcmpjNmsremlKSk5kMUcxNUNSTS9hUlkwWFZFdmc5RjV3aHhhQ2xaYXph?=
+ =?utf-8?B?Rmt3UFFvdUZUQmx6N0lXQ09SOC9YZUNXUjc0YTZRYWZJK09pck5xQWhMLzhw?=
+ =?utf-8?B?Mkc5OUw1b2Ixd3ZjZ0pkUUVNZFZvMGtUWlBKOVZ0c01GdkhLN3NteGZ2cCt5?=
+ =?utf-8?B?YUdCcFdKVmRCSjhlLzhwQUl2SXpsRDFRbkdnVm1ab0NSRFFsZE9PSkpkSmFT?=
+ =?utf-8?B?bmlBZEhua2FzcjAvbmt5VzN1ajl1MTBsRTZzak9yUlZGUXFLK1Z0b1dNMVpR?=
+ =?utf-8?B?L0NMZWxGUFJKYUFYRTlHL1FZejlOc0xMbWo3TytzVVVYVzJPSUFTMTNXN2NG?=
+ =?utf-8?B?ZDErcU12UkJFRkRrdzlnb21MYjZZUFV6VnN6RGlvSTA5M1UrWlFCQ0p3dGdj?=
+ =?utf-8?B?L0tucUxjelZYTmdkU2RGZTlBV1RFS0RiYTZvdkFFeEdqK21TMmwrbFJDSG84?=
+ =?utf-8?B?bCsrMUVpaHhQcldOQjJXcDkxQUx4b0ZVa0VGSVRBYk5nSEpLVmpNQW52dHpT?=
+ =?utf-8?B?WVB1enVWenZwUHpVeHIwTUsrdEoyRVUwQjdOTlZ4WWhOWUFySTFrdnZzRUFZ?=
+ =?utf-8?B?aS9sUFBybEdKcTRNZVM3Rm1haWlVQzU0RlZhVFhVaXM0OVBvWk5kaSt0cGF3?=
+ =?utf-8?B?SDhVOS9ocWVhbHZJV2lZbThJTnJ5Ukhic3RVOFlHMTVUVWdadXA1TEhJZ3Ey?=
+ =?utf-8?B?SDZGa3VjSHF5Kzdldyt5bHJVU1lQV25LdkQyRkgwWXdxQk1MVXg3cjJVMStX?=
+ =?utf-8?B?dnVjVjRGUnBQTDgrMnJzZ1JGWEtXMStrUjI2RSsvK0NRR2V1VldOUU9qZlAz?=
+ =?utf-8?B?eHpjQ2I2bWYwQy9adVhmODdobi9KNlNiZHFJSHEzN2pucjBSVDJqenVpT1pS?=
+ =?utf-8?B?Z2MyeDZYNEMzRU5GckZyVTl3QnNpWnRXcUw5TWJGVkVpOE53amU2WjQweW8x?=
+ =?utf-8?B?UjMraTNTeE1OYkZwd01EMkxYaU1wNHRoS29CdmNOcTl5MFU4Q0w3cXkxa1Q4?=
+ =?utf-8?B?MU5xZERVRGJXNXZHQnpyMk8xbXV1YnhDMXAyTDQvOURzcjIwTGhsV2Q0eldT?=
+ =?utf-8?B?cjBnQ0VBSm5rSk1PV3Bwa05Nd3NvbTBtcElzamh5cy9LN1NyWTFrQ3IxZkNM?=
+ =?utf-8?Q?4PBcdvWkMgc9+e2O70EJqG61ABVEzHhRJnKOqY0C8oJMU?=
+X-MS-Exchange-AntiSpam-MessageData-1: IKBPf0pQHV4YXA==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: fd102abd-0150-4021-c25d-08de842aef2d
+X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB3990.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Mar 2026 13:41:47.6200 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: v13ZMCOmBeYdvNjNd7HW3Rd0hWoN2OhCCU/pjZKk5X3AvSyJNEH5oqMF4lmwEa+pVCPeoz52YRCdrBQEqi7AhA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB6630
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,78 +148,156 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Tue, Mar 17, 2026 at 02:24:13PM +0100, smostafa@google.com wrote:
->Hi Jiri,
+On Tue Mar 17, 2026 at 7:49 PM JST, Danilo Krummrich wrote:
+> On Tue Mar 17, 2026 at 2:55 AM CET, Alexandre Courbot wrote:
+>> We shouldn't be doing that - I think we are limited by the current
+>> CoherentAllocation API though. But IIUC this is something that I/O
+>> projections will allow us to handle properly?
 >
->On Thu, Mar 05, 2026 at 01:36:39PM +0100, Jiri Pirko wrote:
->> From: Jiri Pirko <jiri@nvidia.com>
->> 
->> Confidential computing (CoCo) VMs/guests, such as AMD SEV and Intel TDX,
->> run with encrypted/protected memory which creates a challenge
->> for devices that do not support DMA to it (no TDISP support).
->> 
->> For kernel-only DMA operations, swiotlb bounce buffering provides a
->> transparent solution by copying data through decrypted memory.
->> However, the only way to get this memory into userspace is via the DMA
->> API's dma_alloc_pages()/dma_mmap_pages() type interfaces which limits
->> the use of the memory to a single DMA device, and is incompatible with
->> pin_user_pages().
->> 
->> These limitations are particularly problematic for the RDMA subsystem
->> which makes heavy use of pin_user_pages() and expects flexible memory
->> usage between many different DMA devices.
->> 
->> This patch series enables userspace to explicitly request decrypted
->> (shared) memory allocations from the dma-buf system heap.
->> Userspace can mmap this memory and pass the dma-buf fd to other
->> existing importers such as RDMA or DRM devices to access the
->> memory. The DMA API is improved to allow the dma heap exporter to DMA
->> map the shared memory to each importing device.
+> Why do we need projections to avoid UB here? driver_read_area() already e=
+ven
+> peeks into the firmware abstraction layer, which is where MsgqData techni=
+cally
+> belongs into (despite being trivial).
 >
->I have been looking into a similar problem with restricted-dma[1] and
->the inability of the DMA API to recognize that a block of memory is
->already decrypted.
+> 	let gsp_mem =3D &unsafe { self.0.as_slice(0, 1) }.unwrap()[0];
+> 	let data =3D &gsp_mem.gspq.msgq.data;
 >
->However, in your case, adding a new attr “DMA_ATTR_CC_DECRYPTED” works
->well as dma-buf owns the memory, and is both responsible for the
->set_memory_decrypted() and passing the DMA attrs.
+> Why do we need I/O projections to do raw pointer arithmetic where creatin=
+g a
+> reference is UB?
 >
->On the other hand, for restricted-dma, the memory decryption is deep
->in the DMA direct memory allocation and the DMA API callers (for ex
->virtio drivers) are clueless about it and can’t pass any attrs.
->My proposal was specific to restricted-dma and won’t work for your case.
->
->I am wondering if the kernel should have a more solid, unified method
->for identifying already-decrypted memory instead. Perhaps we need a
->way for the DMA API to natively recognize the encryption state of a
->physical page (working alongside force_dma_unencrypted(dev)), rather
->than relying on caller-provided attributes?
+> (Eventually, we want to use IoView of course, as this is a textbook examp=
+le of
+> what I proposed IoSlice for.)
 
-I actually had it originally implemented probably in the similar way you
-suggest. I had a bit in page/folio struct to indicate the
-"shared/decrypted" state. However I was told that adding such bit is
-basically a no-go. Isn't that right?
-
+Limiting the amount of `unsafe`s, but I guess we can live with that as
+this is going to be short-term anyway.
 
 >
->[1] https://lore.kernel.org/all/20260305170335.963568-1-smostafa@google.com/
+> Another option in the meantime would be / have been to use dma_read!() an=
+d
+> extract (copy) the data right away in driver_read_area(), which I'd proba=
+bly
+> prefer over raw pointer arithmetic.
+
+I'd personally like to keep the current "no-copy" approach as it
+implements the right reference discipline (i.e. you need a mutable
+reference to update the read pointer, which cannot be done if the buffer
+is read by the driver) and moving to copy semantics would open a window
+of opportunity to mess with that balance further (on top of requiring
+bigger code changes that will be temporary).
+
 >
->Thanks,
->Mostafa
+> But in any case, this can (and should) be fixed even without IoView.
 >
+> Besides that, nothing prevents us doing the same thing I did for gsp_writ=
+e_ptr()
+> in the meantime to not break out of the firmware abstraction layer.
 >
->> 
->> Jiri Pirko (2):
->>   dma-mapping: introduce DMA_ATTR_CC_DECRYPTED for pre-decrypted memory
->>   dma-buf: heaps: system: add system_cc_decrypted heap for explicitly
->>     decrypted memory
->> 
->>  drivers/dma-buf/heaps/system_heap.c | 103 ++++++++++++++++++++++++++--
->>  include/linux/dma-mapping.h         |   6 ++
->>  include/trace/events/dma.h          |   3 +-
->>  kernel/dma/direct.h                 |  14 +++-
->>  4 files changed, 117 insertions(+), 9 deletions(-)
->> 
->> -- 
->> 2.51.1
->> 
+>> This is guaranteed by the inability to update the CPU read pointer for
+>> as long as the slices exists.
+>
+> Fair enough.
+>
+>> Unless we decide to not trust the GSP, but that would be opening a whole
+>> new can of worms.
+>
+> I thought about this as well, and I think it's fine. The safety comment w=
+ithin
+> the function has to justify why the device won't access the memory. If th=
+e
+> device does so regardless, it's simply a bug.
+>
+>>> I don't want to merge any code that builds on top of this before we hav=
+e sorted
+>>> this out.
+>>
+>> If what I have written above is correct, then the fix should simply be
+>> to use I/O projections to create properly-bounded references.
+>
+> I still don't think we need I/O projections for a reasonable fix and I al=
+so
+> don't agree that we should keep UB until new features land.
+
+I have the following (modulo missing safety comments) to fix
+`driver_read_area` - does it look acceptable to you? If so I'll go
+ahead and fix `driver_write_area` as well.
+
+diff --git a/drivers/gpu/nova-core/gsp/cmdq.rs b/drivers/gpu/nova-core/gsp/=
+cmdq.rs
+index efa1aab1568f..3bddb5a2923f 100644
+--- a/drivers/gpu/nova-core/gsp/cmdq.rs
++++ b/drivers/gpu/nova-core/gsp/cmdq.rs
+@@ -296,24 +296,53 @@ fn driver_write_area_size(&self) -> usize {
+         let tx =3D self.gsp_write_ptr() as usize;
+         let rx =3D self.cpu_read_ptr() as usize;
+
++        // Pointer to the start of the GSP message queue.
++        //
+         // SAFETY:
+-        // - The `CoherentAllocation` contains exactly one object.
+-        // - We will only access the driver-owned part of the shared memor=
+y.
+-        // - Per the safety statement of the function, no concurrent acces=
+s will be performed.
+-        let gsp_mem =3D &unsafe { self.0.as_slice(0, 1) }.unwrap()[0];
+-        let data =3D &gsp_mem.gspq.msgq.data;
++        // - `self.0` contains exactly one element.
++        // - `gspq.msgq.data[0]` is within the bounds of that element.
++        let data =3D unsafe { &raw const (*self.0.start_ptr()).gspq.msgq.d=
+ata[0] };
++
++        // Safety/Panic comments to be referenced by the code below.
++        //
++        // SAFETY[1]:
++        // - `data` contains `MSGQ_NUM_PAGES` elements.
++        // - The area starting at `rx` and ending at `tx - 1` modulo `MSGQ=
+_NUM_PAGES`,
++        //   inclusive, belongs to the driver for reading and is not acces=
+sed concurrently by
++        //   the GSP.
++        //
++        // PANIC[1]:
++        // - Per the invariant of `cpu_read_ptr`, `rx < MSGQ_NUM_PAGES`.
++        // - Per the invariant of `gsp_write_ptr`, `tx < MSGQ_NUM_PAGES`.
+
+-        // The area starting at `rx` and ending at `tx - 1` modulo MSGQ_NU=
+M_PAGES, inclusive,
+-        // belongs to the driver for reading.
+-        // PANIC:
+-        // - per the invariant of `cpu_read_ptr`, `rx < MSGQ_NUM_PAGES`
+-        // - per the invariant of `gsp_write_ptr`, `tx < MSGQ_NUM_PAGES`
+         if rx <=3D tx {
+             // The area is contiguous.
+-            (&data[rx..tx], &[])
++            (
++                // SAFETY: See SAFETY[1].
++                //
++                // PANIC:
++                // - See PANIC[1].
++                // - Per the branch test, `rx <=3D tx`.
++                unsafe { core::slice::from_raw_parts(data.add(rx), tx - rx=
+) },
++                &[],
++            )
+         } else {
+             // The area is discontiguous.
+-            (&data[rx..], &data[..tx])
++            (
++                // SAFETY: See SAFETY[1].
++                //
++                // PANIC: See PANIC[1].
++                unsafe {
++                    core::slice::from_raw_parts(
++                        data.add(rx),
++                        num::u32_as_usize(MSGQ_NUM_PAGES) - rx,
++                    )
++                },
++                // SAFETY: See SAFETY[1].
++                //
++                // PANIC: See PANIC[1].
++                unsafe { core::slice::from_raw_parts(data, tx) },
++            )
+         }
+     }
