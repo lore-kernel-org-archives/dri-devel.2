@@ -4,56 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 83F79FD8777
-	for <dri-devel@archiver.kernel.org>; Tue, 17 Mar 2026 14:19:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5D73FFD877D
+	for <dri-devel@archiver.kernel.org>; Tue, 17 Mar 2026 14:19:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 43B8F10E66C;
-	Tue, 17 Mar 2026 14:19:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9D7B110E67E;
+	Tue, 17 Mar 2026 14:19:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Npf4sjCd";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="NpfGFV+M";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9E1AB10E674;
- Tue, 17 Mar 2026 14:19:26 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A0B0710E686;
+ Tue, 17 Mar 2026 14:19:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1773757167; x=1805293167;
+ t=1773757169; x=1805293169;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=0K6Ph3bJoAhgXeJQ/xLzevkk2eibpDETYN3Jmhkk6j4=;
- b=Npf4sjCdAAbJ5AG2LOyrQueKciAAK16qyQJ1SrYiIbOzz7aN7t0koOPy
- jcRMTC+puTLpcOxN6LZY13gUYkylHOSJiO2y+aSAjqzf8nHbRplnGcbE1
- yKjIdbwhcs6ym6nwPp9+XzaNgKbH5Q815TKw7XVpAtt98kpvQ5+ou91mw
- gnipvRJBeHMLSpozD73tkppFbMgpOvsO7M/MH7cIvzbhu7ritLSkMsAG5
- UfCmw5kzqqquypU4utGID4QuSZfu0LxPlqmRcAdgnmNXn6luKSG63J0UH
- O8Bf9yyGb82E9dPDJYPO1ytOjA89axcL6AEcmst2ewhV1glqgxCHqVlFf Q==;
-X-CSE-ConnectionGUID: eznosEJfQ3eySVaBxkcYyQ==
-X-CSE-MsgGUID: vOiuglDSQJCdSeZ+Eb7mWg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11732"; a="74973140"
-X-IronPort-AV: E=Sophos;i="6.23,124,1770624000"; d="scan'208";a="74973140"
+ bh=Cl0mFV0d7COkPjBdW7a6kGa1YCGJO0GYnCCCL4DYXbM=;
+ b=NpfGFV+MdeOfyzj1sgWFKJWNSraaRb3jK26XAmfrbjmcn1ubTJRJln9m
+ DQRrIePt0cIK6LAoBDNGaIQ1kMrpEHbLMoOyjB6ZwUGOy6Y7KSRlaPXOu
+ 9aDVAOpvyGXLFr31pZs0Ims5MjYC30ZNdVrRSxD83uebeb8z0cHNXuJvX
+ dbzWkLDRuonqP7b7cAnVIkbZR6QS3PT6URMJyE1JCm9a963V1mcuvkHW0
+ L+To0SzBFZkLEqGTIrMWPQ1kemBZ2i0mhCrmxOWN7T67XKPvFwS/dJRbA
+ /xV6hLpqieCXzCCwBAChbL/jtQ+B3BMs4jMAGaBDWWOnfkXP5Yr+is2BK w==;
+X-CSE-ConnectionGUID: CIt+e4A9RMW86QUUVVD81w==
+X-CSE-MsgGUID: BFWGPr6RTjCEbL1ULc69Cg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11732"; a="74973148"
+X-IronPort-AV: E=Sophos;i="6.23,124,1770624000"; d="scan'208";a="74973148"
 Received: from orviesa001.jf.intel.com ([10.64.159.141])
  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Mar 2026 07:19:27 -0700
-X-CSE-ConnectionGUID: /y5uuFuSSvurW3TIUsBOpg==
-X-CSE-MsgGUID: qznoJMPEQ9ee7gu6YSjcXA==
+ 17 Mar 2026 07:19:29 -0700
+X-CSE-ConnectionGUID: cTMKT0RkRUy6YYOMJeI1dA==
+X-CSE-MsgGUID: jh5TpPzgQjudEZIo6KNGLQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,124,1770624000"; d="scan'208";a="260184985"
+X-IronPort-AV: E=Sophos;i="6.23,124,1770624000"; d="scan'208";a="260184989"
 Received: from dhhellew-desk2.ger.corp.intel.com (HELO fedora)
  ([10.245.245.163])
  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Mar 2026 07:19:25 -0700
+ 17 Mar 2026 07:19:27 -0700
 From: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
 To: intel-xe@lists.freedesktop.org
 Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Maarten Lankhorst <dev@lankhorst.se>,
+ Simona Vetter <simona.vetter@ffwll.ch>,
  Matthew Brost <matthew.brost@intel.com>,
  Matthew Auld <matthew.auld@intel.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
  dri-devel@lists.freedesktop.org
-Subject: [PATCH v2 2/3] drm/ttm: Avoid invoking the OOM killer when reading
- back swapped content
-Date: Tue, 17 Mar 2026 15:18:55 +0100
-Message-ID: <20260317141856.237876-3-thomas.hellstrom@linux.intel.com>
+Subject: [PATCH v2 3/3] drm/ttm: Update the struct ttm_operation_ctx kerneldoc
+Date: Tue, 17 Mar 2026 15:18:56 +0100
+Message-ID: <20260317141856.237876-4-thomas.hellstrom@linux.intel.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260317141856.237876-1-thomas.hellstrom@linux.intel.com>
 References: <20260317141856.237876-1-thomas.hellstrom@linux.intel.com>
@@ -75,85 +74,63 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-In situations where the system is very short on RAM, the shmem
-readback from swap-space may invoke the OOM killer.
+Update the kerneldoc with a more elaborate description of some members,
+including the gfp_retry_mayfail member. Use inline kerneldoc.
 
-However, since this might be a recoverable situation where the caller
-is indicating this by setting
-struct ttm_operation_ctx::gfp_retry_mayfail to true, adjust the gfp
-value used by the allocation accordingly.
-
+Suggested-by: Simona Vetter <simona.vetter@ffwll.ch>
 Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-Reviewed-by: Maarten Lankhorst <dev@lankhorst.se>
 ---
- drivers/gpu/drm/ttm/ttm_backup.c | 6 ++++--
- drivers/gpu/drm/ttm/ttm_pool.c   | 5 ++++-
- include/drm/ttm/ttm_backup.h     | 2 +-
- 3 files changed, 9 insertions(+), 4 deletions(-)
+ include/drm/ttm/ttm_bo.h | 28 +++++++++++++++++++---------
+ 1 file changed, 19 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/gpu/drm/ttm/ttm_backup.c b/drivers/gpu/drm/ttm/ttm_backup.c
-index 6bd4c123d94c..81df4cb5606b 100644
---- a/drivers/gpu/drm/ttm/ttm_backup.c
-+++ b/drivers/gpu/drm/ttm/ttm_backup.c
-@@ -44,18 +44,20 @@ void ttm_backup_drop(struct file *backup, pgoff_t handle)
-  * @dst: The struct page to copy into.
-  * @handle: The handle returned when the page was backed up.
-  * @intr: Try to perform waits interruptible or at least killable.
-+ * @additional_gfp: GFP mask to add to the default GFP mask if any.
+diff --git a/include/drm/ttm/ttm_bo.h b/include/drm/ttm/ttm_bo.h
+index bca3a8849d47..8310bc3d55f9 100644
+--- a/include/drm/ttm/ttm_bo.h
++++ b/include/drm/ttm/ttm_bo.h
+@@ -167,24 +167,34 @@ struct ttm_bo_kmap_obj {
+ /**
+  * struct ttm_operation_ctx
   *
-  * Return: 0 on success, Negative error code on failure, notably
-  * -EINTR if @intr was set to true and a signal is pending.
+- * @interruptible: Sleep interruptible if sleeping.
+- * @no_wait_gpu: Return immediately if the GPU is busy.
+- * @gfp_retry_mayfail: Set the __GFP_RETRY_MAYFAIL when allocation pages.
+- * @allow_res_evict: Allow eviction of reserved BOs. Can be used when multiple
+- * BOs share the same reservation object.
+- * faults. Should only be used by TTM internally.
+- * @resv: Reservation object to allow reserved evictions with.
+- * @bytes_moved: Statistics on how many bytes have been moved.
+- *
+  * Context for TTM operations like changing buffer placement or general memory
+  * allocation.
   */
- int ttm_backup_copy_page(struct file *backup, struct page *dst,
--			 pgoff_t handle, bool intr)
-+			 pgoff_t handle, bool intr, gfp_t additional_gfp)
- {
- 	struct address_space *mapping = backup->f_mapping;
- 	struct folio *from_folio;
- 	pgoff_t idx = ttm_backup_handle_to_shmem_idx(handle);
+ struct ttm_operation_ctx {
++	/** @interruptible: Sleep interruptible if sleeping. */
+ 	bool interruptible;
++	/** @no_wait_gpu: Return immediately if the GPU is busy. */
+ 	bool no_wait_gpu;
++	/**
++	 * @gfp_retry_mayfail: Use __GFP_RETRY_MAYFAIL | __GFP_NOWARN
++	 * when allocation pages. This is to avoid invoking the OOM
++	 * killer when populating a buffer object, in order to
++	 * forward the error for it to be dealt with.
++	 */
+ 	bool gfp_retry_mayfail;
++	/**
++	 * @allow_res_evict: Allow eviction of reserved BOs. Can be used
++	 * when multiple BOs share the same reservation object @resv.
++	 */
+ 	bool allow_res_evict;
++	/**
++	 * @resv: Reservation object to be used together with
++	 * @allow_res_evict.
++	 */
+ 	struct dma_resv *resv;
++	/**
++	 * @bytes_moved: Statistics on how many bytes have been moved.
++	 */
+ 	uint64_t bytes_moved;
+ };
  
--	from_folio = shmem_read_folio(mapping, idx);
-+	from_folio = shmem_read_folio_gfp(mapping, idx, mapping_gfp_mask(mapping)
-+					  | additional_gfp);
- 	if (IS_ERR(from_folio))
- 		return PTR_ERR(from_folio);
- 
-diff --git a/drivers/gpu/drm/ttm/ttm_pool.c b/drivers/gpu/drm/ttm/ttm_pool.c
-index 8fa9e09f6ee5..aa41099c5ecf 100644
---- a/drivers/gpu/drm/ttm/ttm_pool.c
-+++ b/drivers/gpu/drm/ttm/ttm_pool.c
-@@ -530,6 +530,8 @@ static int ttm_pool_restore_commit(struct ttm_pool_tt_restore *restore,
- 		p = first_page[i];
- 		if (ttm_backup_page_ptr_is_handle(p)) {
- 			unsigned long handle = ttm_backup_page_ptr_to_handle(p);
-+			gfp_t additional_gfp = ctx->gfp_retry_mayfail ?
-+				__GFP_RETRY_MAYFAIL | __GFP_NOWARN : 0;
- 
- 			if (IS_ENABLED(CONFIG_FAULT_INJECTION) && ctx->interruptible &&
- 			    should_fail(&backup_fault_inject, 1)) {
-@@ -543,7 +545,8 @@ static int ttm_pool_restore_commit(struct ttm_pool_tt_restore *restore,
- 			}
- 
- 			ret = ttm_backup_copy_page(backup, restore->alloced_page + i,
--						   handle, ctx->interruptible);
-+						   handle, ctx->interruptible,
-+						   additional_gfp);
- 			if (ret)
- 				break;
- 
-diff --git a/include/drm/ttm/ttm_backup.h b/include/drm/ttm/ttm_backup.h
-index c33cba111171..29b9c855af77 100644
---- a/include/drm/ttm/ttm_backup.h
-+++ b/include/drm/ttm/ttm_backup.h
-@@ -56,7 +56,7 @@ ttm_backup_page_ptr_to_handle(const struct page *page)
- void ttm_backup_drop(struct file *backup, pgoff_t handle);
- 
- int ttm_backup_copy_page(struct file *backup, struct page *dst,
--			 pgoff_t handle, bool intr);
-+			 pgoff_t handle, bool intr, gfp_t additional_gfp);
- 
- s64
- ttm_backup_backup_page(struct file *backup, struct page *page,
 -- 
 2.53.0
 
