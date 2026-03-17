@@ -4,45 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 86CB4FED9E4
-	for <dri-devel@archiver.kernel.org>; Tue, 17 Mar 2026 15:40:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A6DABFED9E4
+	for <dri-devel@archiver.kernel.org>; Tue, 17 Mar 2026 15:42:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E8E1B10E6D1;
-	Tue, 17 Mar 2026 15:40:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0D79310E62D;
+	Tue, 17 Mar 2026 15:42:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="PmxBHKrY";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="FinEDihE";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1CE7410E552
- for <dri-devel@lists.freedesktop.org>; Tue, 17 Mar 2026 15:40:21 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 9EFA040337;
- Tue, 17 Mar 2026 15:40:21 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E75A2C4CEF7;
- Tue, 17 Mar 2026 15:40:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1773762021;
- bh=RbyKYx3ZltiVONewaa+6ZOG0VhY4IhEX8bM8BbZm0j8=;
- h=Subject:To:Cc:From:Date:From;
- b=PmxBHKrY9PX6Cvpr1C55nHd5fkGE18WYKIkiV2dC6Mob6NMwwPvFjbAc9rvCKMDfl
- ef4Y4Dy6dEgjaMsZ6jxKb23TxJE+BwGNwSVLXtSDtVoJ8ctsl0M9MxCAuEevsMx74O
- 2wTRrSJWu9MkzTYpHjfwCjWZvkYaiSfkQs8IIkvQ=
-Subject: Patch "mm: Fix a hmm_range_fault() livelock / starvation problem" has
- been added to the 6.18-stable tree
-To: akpm@linux-foundation.org, apopple@nvidia.com,
- dri-devel@lists.freedesktop.org, gregkh@linuxfoundation.org, hch@lst.de,
- jgg@mellanox.com, jgg@ziepe.ca, jhubbard@nvidia.com, leon@kernel.org,
- linux-mm@kvack.org, matthew.brost@intel.com, rcampbell@nvidia.com,
- rodrigo.vivi@intel.com, thomas.hellstrom@linux.intel.com
-Cc: <stable-commits@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Tue, 17 Mar 2026 16:38:58 +0100
-Message-ID: <2026031757-jackknife-bacterium-3840@gregkh>
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1EB1D10E6C4;
+ Tue, 17 Mar 2026 15:42:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1773762159; x=1805298159;
+ h=from:date:to:cc:subject:in-reply-to:message-id:
+ references:mime-version;
+ bh=iX6jD1U9gQtTUg8EF6Th7PnyhGEYgd3XdX2n0E4+RHw=;
+ b=FinEDihEVU/nY7MChX1X/w1V26CyUZSy7YumRvRCwqQNhE9+SOi18qRi
+ QchW2EQuQkIa1m5CVqUs/tOculam4M5UY4KmpbrKvhtcsWI/2fysbcuvO
+ qERiYL33O0xittZxU4uPjhigQ5yDLWq9IRFkTNEeYtAMhryuB2OxQFSFh
+ 9Ma/AV/e9LzyRndBY5H4+FTIgTkGQEybCs6QG4s5MwKF9/w2E9Nr3Txp3
+ 2OC6l0WNLhZmtyBywbDd0LbfLi9N3d+90IQB2jojLr/xGZoRDBGqFw1GJ
+ /Gt9Hf9wLvc6olIucvUeZzbnnihfolR1uOieXLhgKNbApiR/xUEz+TmWX A==;
+X-CSE-ConnectionGUID: Y7qwPfxfR8G3/R0enkyG9Q==
+X-CSE-MsgGUID: R98WAHvRTYeaIgTr1D2g7Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11732"; a="74830741"
+X-IronPort-AV: E=Sophos;i="6.23,126,1770624000"; d="scan'208";a="74830741"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+ by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Mar 2026 08:42:38 -0700
+X-CSE-ConnectionGUID: mW/yk7ndQGKNkDUZD61GPw==
+X-CSE-MsgGUID: IT8GJBksQWyz7A4Zk+2gJg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,126,1770624000"; d="scan'208";a="226989845"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.245.245.161])
+ by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Mar 2026 08:42:33 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Tue, 17 Mar 2026 17:42:30 +0200 (EET)
+To: "David E. Box" <david.e.box@linux.intel.com>
+cc: thomas.hellstrom@linux.intel.com, rodrigo.vivi@intel.com, 
+ irenic.rajneesh@gmail.com, srinivas.pandruvada@linux.intel.com, 
+ intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ xi.pardee@linux.intel.com, Hans de Goede <hansg@kernel.org>, 
+ LKML <linux-kernel@vger.kernel.org>, platform-driver-x86@vger.kernel.org
+Subject: Re: [PATCH 10/22] platform/x86/intel/pmt: Move header decode into
+ common helper
+In-Reply-To: <20260313015202.3660072-11-david.e.box@linux.intel.com>
+Message-ID: <b429177a-178e-f72d-c591-4f1eaa9d8fea@linux.intel.com>
+References: <20260313015202.3660072-1-david.e.box@linux.intel.com>
+ <20260313015202.3660072-11-david.e.box@linux.intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-stable: commit
-X-Patchwork-Hint: ignore 
+Content-Type: text/plain; charset=US-ASCII
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,184 +73,236 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On Thu, 12 Mar 2026, David E. Box wrote:
 
-This is a note to let you know that I've just added the patch titled
+> Unify PMT discovery table parsing by moving header decode logic into the
+> class driver. A new helper, pmt_read_header(), now fills in the standard
+> header fields from the discovery table, replacing the per-namespace
+> pmt_header_decode callbacks in telemetry and crashlog.
+> 
+> This centralizes the discovery table bit-field definitions in class.h,
+> removes duplicate decode code from telemetry and crashlog, and prepares the
+> PMT class for additional discovery sources.
+> 
+> Signed-off-by: David E. Box <david.e.box@linux.intel.com>
+> ---
+>  drivers/platform/x86/intel/pmt/class.c     | 38 +++++++++++++++-------
+>  drivers/platform/x86/intel/pmt/class.h     | 15 +++++++--
+>  drivers/platform/x86/intel/pmt/crashlog.c  | 17 ----------
+>  drivers/platform/x86/intel/pmt/telemetry.c | 26 ---------------
+>  4 files changed, 40 insertions(+), 56 deletions(-)
+> 
+> diff --git a/drivers/platform/x86/intel/pmt/class.c b/drivers/platform/x86/intel/pmt/class.c
+> index 9b315334a69b..a4d6ffed2fed 100644
+> --- a/drivers/platform/x86/intel/pmt/class.c
+> +++ b/drivers/platform/x86/intel/pmt/class.c
+> @@ -8,6 +8,7 @@
+>   * Author: "Alexander Duyck" <alexander.h.duyck@linux.intel.com>
+>   */
+>  
+> +#include <linux/bitfield.h>
+>  #include <linux/kernel.h>
+>  #include <linux/log2.h>
+>  #include <linux/intel_vsec.h>
+> @@ -368,26 +369,41 @@ static int intel_pmt_dev_register(struct intel_pmt_entry *entry,
+>  	return ret;
+>  }
+>  
+> -int intel_pmt_dev_create(struct intel_pmt_entry *entry, struct intel_pmt_namespace *ns,
+> -			 struct intel_vsec_device *intel_vsec_dev, int idx)
+> +static int pmt_read_header(struct intel_vsec_device *ivdev, int idx,
+> +			   struct intel_pmt_entry *entry)
+>  {
+> -	struct device *dev = &intel_vsec_dev->auxdev.dev;
+> -	struct resource	*disc_res;
+> -	int ret;
+> +	struct intel_pmt_header *header = &entry->header;
+> +	struct device *dev = &ivdev->auxdev.dev;
+> +	u64 headers[2];
+>  
+> -	disc_res = &intel_vsec_dev->resource[idx];
+> -
+> -	entry->disc_table = devm_ioremap_resource(dev, disc_res);
+> +	entry->disc_table = devm_ioremap_resource(dev, &ivdev->resource[idx]);
+>  	if (IS_ERR(entry->disc_table))
+>  		return PTR_ERR(entry->disc_table);
+>  
+> +	memcpy_fromio(headers, entry->disc_table, 2 * sizeof(u64));
+> +
+> +	header->access_type = FIELD_GET(PMT_ACCESS_TYPE, headers[0]);
+> +	header->telem_type = FIELD_GET(PMT_TELEM_TYPE, headers[0]);
+> +	/* Size is measured in DWORDS, but accessor returns bytes */
+> +	header->size = PMT_GET_SIZE(FIELD_GET(PMT_SIZE, headers[0]));
 
-    mm: Fix a hmm_range_fault() livelock / starvation problem
+IMO, the FIELD_GET() could be done within the macro as the macro itself 
+is PMT SIZE specific.
 
-to the 6.18-stable tree which can be found at:
-    http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
+Perhaps name it such that the name indicates unit as you currently end up 
+using comments to explain that.
 
-The filename of the patch is:
-     mm-fix-a-hmm_range_fault-livelock-starvation-problem.patch
-and it can be found in the queue-6.18 subdirectory.
+> +	header->guid = FIELD_GET(PMT_GUID32, headers[0]);
+> +	header->base_offset = FIELD_GET(PMT_BASE_OFFSET, headers[1]);
+> +
+> +	return 0;
+> +}
+> +
+> +int intel_pmt_dev_create(struct intel_pmt_entry *entry, struct intel_pmt_namespace *ns,
+> +			 struct intel_vsec_device *intel_vsec_dev, int idx)
+> +{
+> +	int ret;
+> +
+>  	if (ns->pmt_pre_decode) {
+>  		ret = ns->pmt_pre_decode(intel_vsec_dev, entry);
+>  		if (ret)
+>  			return ret;
+>  	}
+>  
+> -	ret = ns->pmt_header_decode(entry, dev);
+> +	ret = pmt_read_header(intel_vsec_dev, idx, entry);
+>  	if (ret)
+>  		return ret;
+>  
+> @@ -397,11 +413,11 @@ int intel_pmt_dev_create(struct intel_pmt_entry *entry, struct intel_pmt_namespa
+>  			return ret;
+>  	}
+>  
+> -	ret = intel_pmt_populate_entry(entry, intel_vsec_dev, disc_res);
+> +	ret = intel_pmt_populate_entry(entry, intel_vsec_dev, &intel_vsec_dev->resource[idx]);
+>  	if (ret)
+>  		return ret;
+>  
+> -	return intel_pmt_dev_register(entry, ns, dev);
+> +	return intel_pmt_dev_register(entry, ns, &intel_vsec_dev->auxdev.dev);
+>  }
+>  EXPORT_SYMBOL_NS_GPL(intel_pmt_dev_create, "INTEL_PMT");
+>  
+> diff --git a/drivers/platform/x86/intel/pmt/class.h b/drivers/platform/x86/intel/pmt/class.h
+> index 8a0db0ef58c1..06f90c7ce6b3 100644
+> --- a/drivers/platform/x86/intel/pmt/class.h
+> +++ b/drivers/platform/x86/intel/pmt/class.h
+> @@ -11,6 +11,19 @@
+>  
+>  #include "telemetry.h"
+>  
+> +/* PMT Discovery Table DWORD 1 */
+> +#define PMT_ACCESS_TYPE		GENMASK_ULL(3, 0)
+> +#define PMT_TELEM_TYPE		GENMASK_ULL(7, 4)
+> +#define PMT_SIZE		GENMASK_ULL(27, 12)
+> +#define PMT_GUID32		GENMASK_ULL(63, 32)
+> +
+> +/* PMT Discovery Table DWORD 2 */
+> +#define PMT_BASE_OFFSET		GENMASK_ULL(31, 0)
+> +#define PMT_TELE_ID		GENMASK_ULL(63, 32)
+> +
+> +/* Get size bytes from DWORDs */
+> +#define PMT_GET_SIZE(v)		((v) << 2)
 
-If you, or anyone else, feels it should not be added to the stable tree,
-please let <stable@vger.kernel.org> know about it.
+Use (v) * sizeof(u32) or something along those lines.
 
+> +
+>  /* PMT access types */
+>  #define ACCESS_BARID		2
+>  #define ACCESS_LOCAL		3
+> @@ -61,8 +74,6 @@ struct intel_pmt_entry {
+>  struct intel_pmt_namespace {
+>  	const char *name;
+>  	struct xarray *xa;
+> -	int (*pmt_header_decode)(struct intel_pmt_entry *entry,
+> -				 struct device *dev);
+>  	int (*pmt_pre_decode)(struct intel_vsec_device *ivdev,
+>  			      struct intel_pmt_entry *entry);
+>  	int (*pmt_post_decode)(struct intel_vsec_device *ivdev,
+> diff --git a/drivers/platform/x86/intel/pmt/crashlog.c b/drivers/platform/x86/intel/pmt/crashlog.c
+> index f936daf99e4d..67795e2cb1ed 100644
+> --- a/drivers/platform/x86/intel/pmt/crashlog.c
+> +++ b/drivers/platform/x86/intel/pmt/crashlog.c
+> @@ -516,28 +516,11 @@ static int pmt_crashlog_pre_decode(struct intel_vsec_device *ivdev,
+>  	return 0;
+>  }
+>  
+> -static int pmt_crashlog_header_decode(struct intel_pmt_entry *entry,
+> -				      struct device *dev)
+> -{
+> -	void __iomem *disc_table = entry->disc_table;
+> -	struct intel_pmt_header *header = &entry->header;
+> -
+> -	header->access_type = GET_ACCESS(readl(disc_table));
+> -	header->guid = readl(disc_table + GUID_OFFSET);
+> -	header->base_offset = readl(disc_table + BASE_OFFSET);
+> -
+> -	/* Size is measured in DWORDS, but accessor returns bytes */
+> -	header->size = GET_SIZE(readl(disc_table + SIZE_OFFSET));
 
-From b570f37a2ce480be26c665345c5514686a8a0274 Mon Sep 17 00:00:00 2001
-From: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-Date: Tue, 10 Feb 2026 12:56:53 +0100
-Subject: mm: Fix a hmm_range_fault() livelock / starvation problem
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+The macros become unused after this but were not removed?
 
-From: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+Overall, this change is nice consolidation. :-)
 
-commit b570f37a2ce480be26c665345c5514686a8a0274 upstream.
+-- 
+ i.
 
-If hmm_range_fault() fails a folio_trylock() in do_swap_page,
-trying to acquire the lock of a device-private folio for migration,
-to ram, the function will spin until it succeeds grabbing the lock.
+> -
+> -	return 0;
+> -}
+> -
+>  static DEFINE_XARRAY_ALLOC(crashlog_array);
+>  static struct intel_pmt_namespace pmt_crashlog_ns = {
+>  	.name = "crashlog",
+>  	.xa = &crashlog_array,
+>  	.pmt_pre_decode = pmt_crashlog_pre_decode,
+> -	.pmt_header_decode = pmt_crashlog_header_decode,
+>  };
+>  
+>  /*
+> diff --git a/drivers/platform/x86/intel/pmt/telemetry.c b/drivers/platform/x86/intel/pmt/telemetry.c
+> index d22f633638be..80773e3c3efa 100644
+> --- a/drivers/platform/x86/intel/pmt/telemetry.c
+> +++ b/drivers/platform/x86/intel/pmt/telemetry.c
+> @@ -27,14 +27,6 @@
+>  
+>  #include "class.h"
+>  
+> -#define TELEM_SIZE_OFFSET	0x0
+> -#define TELEM_GUID_OFFSET	0x4
+> -#define TELEM_BASE_OFFSET	0x8
+> -#define TELEM_ACCESS(v)		((v) & GENMASK(3, 0))
+> -#define TELEM_TYPE(v)		(((v) & GENMASK(7, 4)) >> 4)
+> -/* size is in bytes */
+> -#define TELEM_SIZE(v)		(((v) & GENMASK(27, 12)) >> 10)
+> -
+>  /* Used by client hardware to identify a fixed telemetry entry*/
+>  #define TELEM_CLIENT_FIXED_BLOCK_GUID	0x10000000
+>  
+> @@ -69,23 +61,6 @@ static bool pmt_telem_region_overlaps(struct device *dev, u32 guid, u32 type)
+>  	return false;
+>  }
+>  
+> -static int pmt_telem_header_decode(struct intel_pmt_entry *entry,
+> -				   struct device *dev)
+> -{
+> -	void __iomem *disc_table = entry->disc_table;
+> -	struct intel_pmt_header *header = &entry->header;
+> -
+> -	header->access_type = TELEM_ACCESS(readl(disc_table));
+> -	header->guid = readl(disc_table + TELEM_GUID_OFFSET);
+> -	header->base_offset = readl(disc_table + TELEM_BASE_OFFSET);
+> -
+> -	/* Size is measured in DWORDS, but accessor returns bytes */
+> -	header->size = TELEM_SIZE(readl(disc_table));
+> -	header->telem_type = TELEM_TYPE(readl(entry->disc_table));
+> -
+> -	return 0;
+> -}
+> -
+>  static int pmt_telem_post_decode(struct intel_vsec_device *ivdev,
+>  				 struct intel_pmt_entry *entry)
+>  {
+> @@ -135,7 +110,6 @@ static DEFINE_XARRAY_ALLOC(telem_array);
+>  static struct intel_pmt_namespace pmt_telem_ns = {
+>  	.name = "telem",
+>  	.xa = &telem_array,
+> -	.pmt_header_decode = pmt_telem_header_decode,
+>  	.pmt_post_decode = pmt_telem_post_decode,
+>  	.pmt_add_endpoint = pmt_telem_add_endpoint,
+>  };
+> 
 
-However, if the process holding the lock is depending on a work
-item to be completed, which is scheduled on the same CPU as the
-spinning hmm_range_fault(), that work item might be starved and
-we end up in a livelock / starvation situation which is never
-resolved.
-
-This can happen, for example if the process holding the
-device-private folio lock is stuck in
-   migrate_device_unmap()->lru_add_drain_all()
-sinc lru_add_drain_all() requires a short work-item
-to be run on all online cpus to complete.
-
-A prerequisite for this to happen is:
-a) Both zone device and system memory folios are considered in
-   migrate_device_unmap(), so that there is a reason to call
-   lru_add_drain_all() for a system memory folio while a
-   folio lock is held on a zone device folio.
-b) The zone device folio has an initial mapcount > 1 which causes
-   at least one migration PTE entry insertion to be deferred to
-   try_to_migrate(), which can happen after the call to
-   lru_add_drain_all().
-c) No or voluntary only preemption.
-
-This all seems pretty unlikely to happen, but indeed is hit by
-the "xe_exec_system_allocator" igt test.
-
-Resolve this by waiting for the folio to be unlocked if the
-folio_trylock() fails in do_swap_page().
-
-Rename migration_entry_wait_on_locked() to
-softleaf_entry_wait_unlock() and update its documentation to
-indicate the new use-case.
-
-Future code improvements might consider moving
-the lru_add_drain_all() call in migrate_device_unmap() to be
-called *after* all pages have migration entries inserted.
-That would eliminate also b) above.
-
-v2:
-- Instead of a cond_resched() in hmm_range_fault(),
-  eliminate the problem by waiting for the folio to be unlocked
-  in do_swap_page() (Alistair Popple, Andrew Morton)
-v3:
-- Add a stub migration_entry_wait_on_locked() for the
-  !CONFIG_MIGRATION case. (Kernel Test Robot)
-v4:
-- Rename migrate_entry_wait_on_locked() to
-  softleaf_entry_wait_on_locked() and update docs (Alistair Popple)
-v5:
-- Add a WARN_ON_ONCE() for the !CONFIG_MIGRATION
-  version of softleaf_entry_wait_on_locked().
-- Modify wording around function names in the commit message
-  (Andrew Morton)
-
-Suggested-by: Alistair Popple <apopple@nvidia.com>
-Fixes: 1afaeb8293c9 ("mm/migrate: Trylock device page in do_swap_page")
-Cc: Ralph Campbell <rcampbell@nvidia.com>
-Cc: Christoph Hellwig <hch@lst.de>
-Cc: Jason Gunthorpe <jgg@mellanox.com>
-Cc: Jason Gunthorpe <jgg@ziepe.ca>
-Cc: Leon Romanovsky <leon@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>
-Cc: Matthew Brost <matthew.brost@intel.com>
-Cc: John Hubbard <jhubbard@nvidia.com>
-Cc: Alistair Popple <apopple@nvidia.com>
-Cc: linux-mm@kvack.org
-Cc: <dri-devel@lists.freedesktop.org>
-Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-Cc: <stable@vger.kernel.org> # v6.15+
-Reviewed-by: John Hubbard <jhubbard@nvidia.com> #v3
-Reviewed-by: Alistair Popple <apopple@nvidia.com>
-Link: https://patch.msgid.link/20260210115653.92413-1-thomas.hellstrom@linux.intel.com
-(cherry picked from commit a69d1ab971a624c6f112cea61536569d579c3215)
-Signed-off-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
-Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
----
- include/linux/migrate.h |    8 ++++++++
- mm/filemap.c            |   13 +++++++++----
- mm/memory.c             |    3 ++-
- 3 files changed, 19 insertions(+), 5 deletions(-)
-
---- a/include/linux/migrate.h
-+++ b/include/linux/migrate.h
-@@ -97,6 +97,14 @@ static inline int set_movable_ops(const
- 	return -ENOSYS;
- }
- 
-+static inline void migration_entry_wait_on_locked(swp_entry_t entry, spinlock_t *ptl)
-+	__releases(ptl)
-+{
-+	WARN_ON_ONCE(1);
-+
-+	spin_unlock(ptl);
-+}
-+
- #endif /* CONFIG_MIGRATION */
- 
- #ifdef CONFIG_NUMA_BALANCING
---- a/mm/filemap.c
-+++ b/mm/filemap.c
-@@ -1386,14 +1386,16 @@ repeat:
- 
- #ifdef CONFIG_MIGRATION
- /**
-- * migration_entry_wait_on_locked - Wait for a migration entry to be removed
-- * @entry: migration swap entry.
-+ * migration_entry_wait_on_locked - Wait for a migration entry or
-+ * device_private entry to be removed.
-+ * @entry: migration or device_private swap entry.
-  * @ptl: already locked ptl. This function will drop the lock.
-  *
-- * Wait for a migration entry referencing the given page to be removed. This is
-+ * Wait for a migration entry referencing the given page, or device_private
-+ * entry referencing a dvice_private page to be unlocked. This is
-  * equivalent to folio_put_wait_locked(folio, TASK_UNINTERRUPTIBLE) except
-  * this can be called without taking a reference on the page. Instead this
-- * should be called while holding the ptl for the migration entry referencing
-+ * should be called while holding the ptl for @entry referencing
-  * the page.
-  *
-  * Returns after unlocking the ptl.
-@@ -1435,6 +1437,9 @@ void migration_entry_wait_on_locked(swp_
- 	 * If a migration entry exists for the page the migration path must hold
- 	 * a valid reference to the page, and it must take the ptl to remove the
- 	 * migration entry. So the page is valid until the ptl is dropped.
-+	 * Similarly any path attempting to drop the last reference to a
-+	 * device-private page needs to grab the ptl to remove the device-private
-+	 * entry.
- 	 */
- 	spin_unlock(ptl);
- 
---- a/mm/memory.c
-+++ b/mm/memory.c
-@@ -4642,7 +4642,8 @@ vm_fault_t do_swap_page(struct vm_fault
- 				unlock_page(vmf->page);
- 				put_page(vmf->page);
- 			} else {
--				pte_unmap_unlock(vmf->pte, vmf->ptl);
-+				pte_unmap(vmf->pte);
-+				migration_entry_wait_on_locked(entry, vmf->ptl);
- 			}
- 		} else if (is_hwpoison_entry(entry)) {
- 			ret = VM_FAULT_HWPOISON;
-
-
-Patches currently in stable-queue which might be from thomas.hellstrom@linux.intel.com are
-
-queue-6.18/mm-fix-a-hmm_range_fault-livelock-starvation-problem.patch
