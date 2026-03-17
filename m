@@ -4,137 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2F5D5FED9EA
-	for <dri-devel@archiver.kernel.org>; Tue, 17 Mar 2026 16:17:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AE0DFFED9EC
+	for <dri-devel@archiver.kernel.org>; Tue, 17 Mar 2026 16:25:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 741CB10E6E6;
-	Tue, 17 Mar 2026 16:17:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 15AD310E35B;
+	Tue, 17 Mar 2026 16:25:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="fjFmJRpX";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ElHu7ju9";
 	dkim-atps=neutral
-Received: from TYVP286CU001.outbound.protection.outlook.com
- (mail-japaneastazon11011063.outbound.protection.outlook.com [52.101.125.63])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 709B510E6E6
- for <dri-devel@lists.freedesktop.org>; Tue, 17 Mar 2026 16:16:58 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=av0auXOzYgedRxHbmSZQJUxqKIEz/t1/I53kG+SdgZNprcPu7TImKXBoMHaAOVuW/zxb7d0rLVO2xAdpBYz/7Nfb57bCHAWFqa66lM1CyrRqwBtsPui2fne8zXmAZkIesFaBIxLaSj6SyQWA8a8ikmH1CZcMTSsrhqpHAzGz/4itNAsVz85rjs8pxKg2XnzbubDfb1Feh4lpTfkfMWDX4z5oCKmaSoB1WyXQyYZfrBuRy+2ofMKll9W9W6xURT88eG/aWxKYQSBgvwGkDV5HrbNkQaRggI7Fy8ORX46+F7H6MV9p9JfSdSShbwcTwG37PyYI3mV3JHKLx21LvjIVTQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=LF5zvAmA9no+VwqOgAUs4z5WVT2c09MRMfHB+VZ9668=;
- b=hm4bvAPkmjtlRiuswGiX6Bj7qVTjoaXTEd8bMdCSgGKs3cf7A224FNngO7DlZ1R7TQktZLmukLHSmSX53kGNqFmMGXUCLFvO5lupxBL+PZ6Fdf8TyabLW9BdHnFnXupM6O1CcC+rTWEzLMNlFGtRJ04E6SIH+rt3U1UuwYqZqPu+IqHpCqCwQh5FeZiqe2TJIRBkiBcfdMwkVYUg3MvqXcCr/WTAy5Qd0Zs1KKEXE5aad92AR9UINoKujhj5SSZJrdGAPswuzmyoAbd6ebykTfPDgh5Gs++2CxUeyqOV+jLts+Hn5Hekoy0foKbCVOPikmDFhOjd2RZRfnzhIyVPZg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
- header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=LF5zvAmA9no+VwqOgAUs4z5WVT2c09MRMfHB+VZ9668=;
- b=fjFmJRpX6mrhfD0GyjzGa4rIgUbcHcU+X/9Emw0Q2AM3sgj9d1DvSHW+0fat2XtaTVM7F2QgoDN/A5VQN+164ipk0++ilvxiHBBLQO8crPs0BLovwi7upWL7Y47VyNTUgLM+66Txh3GeaB34RVq0BSs0T/jOyMdwraJyZW0KiTU=
-Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com (2603:1096:400:3d0::7)
- by TY4PR01MB13382.jpnprd01.prod.outlook.com (2603:1096:405:1d8::13)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.19; Tue, 17 Mar
- 2026 16:16:53 +0000
-Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com
- ([fe80::87d1:4928:d55:97de]) by TY3PR01MB11346.jpnprd01.prod.outlook.com
- ([fe80::87d1:4928:d55:97de%4]) with mapi id 15.20.9723.018; Tue, 17 Mar 2026
- 16:16:53 +0000
-From: Biju Das <biju.das.jz@bp.renesas.com>
-To: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>, biju.das.au
- <biju.das.au@gmail.com>
-CC: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Philipp Zabel
- <p.zabel@pengutronix.de>, "dri-devel@lists.freedesktop.org"
- <dri-devel@lists.freedesktop.org>, "linux-renesas-soc@vger.kernel.org"
- <linux-renesas-soc@vger.kernel.org>, "linux-kernel@vger.kernel.org"
- <linux-kernel@vger.kernel.org>, Geert Uytterhoeven <geert+renesas@glider.be>, 
- Chris Brandt <Chris.Brandt@renesas.com>, Hugo Villeneuve <hugo@hugovil.com>,
- Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Subject: RE: [PATCH 2/2] drm: renesas: rzg2l_mipi_dsi: Fix the power-on
- sequence
-Thread-Topic: [PATCH 2/2] drm: renesas: rzg2l_mipi_dsi: Fix the power-on
- sequence
-Thread-Index: AQHctgqqun0iZdWPQkGCYHsU3REA1bWy43sAgAAA/WA=
-Date: Tue, 17 Mar 2026 16:16:53 +0000
-Message-ID: <TY3PR01MB11346D6653F7D175B4625C0348641A@TY3PR01MB11346.jpnprd01.prod.outlook.com>
-References: <20260317123610.329630-1-biju.das.jz@bp.renesas.com>
- <20260317123610.329630-3-biju.das.jz@bp.renesas.com>
- <abl7ovx8e7zToQfp@tom-desktop>
-In-Reply-To: <abl7ovx8e7zToQfp@tom-desktop>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=bp.renesas.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: TY3PR01MB11346:EE_|TY4PR01MB13382:EE_
-x-ms-office365-filtering-correlation-id: 5dea1be4-9401-41c2-3cd7-08de84409a12
-x-ld-processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|366016|376014|7416014|1800799024|18002099003|22082099003|56012099003|38070700021;
-x-microsoft-antispam-message-info: 4DrdPofDCikCeGcmCGl1TFasmaJB7Ly7E6DNOi2m+W+MsJFD8cXipWxnEMuL/mTO8kXUOhG7zt4of+MBzkE7HKKreJhUuSByp63TdVDNduFa6qebiyuTuAp/O3Y/obvMkftl3EwbpoHKqLuCtykuMbrUEcnFHK7bWv8ePhrrFJJbp9xl1IP0XhTAU9W3Q3Q1PyO5PVeJSZmtlWb76PwhGiuAggZsTltFYKPsG+U4LWovVeanR6WZ/2QbQJnffGbEC5OYkar6jXQx6NNjbvPNQOAqow5nWNruDoqMsL45K19XUQJ+ZlLlCQpkx1RC/QEd5Rv4ZckOvwzodi/gxKOW3411d4bryE/AG4WFdQHnnIfsX9xlKwWK/JnN22009qc3kOIA8xtc5QjWbytSrVOj5DiMOielfRqogOnzEMJbPxqDLBss71V8wjsDCjpm4aC458WfB+hkHIm8qoeUQyIEbxk5SrzeSJ6RlutYfZCG9EX0I63Q/y/pMOJQnsB5+LYuHzL2J6dNLAEtj/X+dgpu6hAK0NwEmisIAN9scE6uby98bYq7wXPCTsm8B5uHJR9UncNy/DsB4Pd2gDvVUH34YM+eXpliKr/7Fs/W5ATf0g1up27yE2FJmoTNN2kUE7Mm2KMi3294Mo3eha0zaDjVO2u8FW3tHOAH+arNpFKyIWKa5YvVE3ahN6QSVkjiiGcya4avFxR4UvS2ocJL2cHukMeg+HAZv2G5jXYP6bKLvtuTyKPpZf/Z+OCfBysH8CXO1AIOLn+/cMbE4CAu6Td6EuMYO2VB9UdPFUzRzOdPHnk=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:TY3PR01MB11346.jpnprd01.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(7416014)(1800799024)(18002099003)(22082099003)(56012099003)(38070700021);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?aXJ6R1M5MGdHcENSRHVZYWZaT3l6eDVCcFFSZ25tSlRVSkFwbzIyWEtncm9m?=
- =?utf-8?B?c2FSQU9rQjZTQkI0bUJ4UUdzOG5nU0sxcllOU3dKNER1aitsN2l6NDh6Uzgy?=
- =?utf-8?B?L0JFblp5S1oraHNnWlRoL0RTNEFFMklReDhwTHh0MDl3SnNBV2dTSGY2RmE5?=
- =?utf-8?B?bkcyWXVzVUtVdlBHUXlwT003UXd3aC9hY3NtYjRBL2wvdExianJGcUFJUnBK?=
- =?utf-8?B?SXJIYyswRE9qVWdkMXJFRDd4QWZhZlBNYi9JSzhxYU9vbTdXbk93bnU0K1hZ?=
- =?utf-8?B?RkhMUlQvbzJtRnhJdmxIalRyVVpualVyU1QrUVJhRnorMVdhbGVhbmxEMzV3?=
- =?utf-8?B?MlEyODhGZ1dPUzE5RlBlbFdhaCtNb2FTZUxXbHFQM0lPWG1mS1l1RDdXcHVN?=
- =?utf-8?B?TjVXcW1hOWo4UmliMjQ3cXNtUDNiTFJXbEF2R3VOMXh6TGRNRmJxNDhWd1hy?=
- =?utf-8?B?bFR0by9pN0pQTHYzMkxrRDNkUnhLUWszN21FNE0rcFBYaWNjZVg2dnZDVFk4?=
- =?utf-8?B?WnRYVStseE9ickV0RytLV1loK1BJenFIN2cyRGhWTXhmSnppYVk1dk9HSmox?=
- =?utf-8?B?cW9JMkhPbjZLWnUwTWY2NUtySlZiZmM5MTh4T3JNTStXcjRyb0JtN0RVS2Fx?=
- =?utf-8?B?TVo2TmcvT21jQXpNTGdTSTg1TGMxek15ZHp4Wk5aOUpTSk55UkNpd2ZKVmxs?=
- =?utf-8?B?VjlXeGxXSy9ualE1cXFKaDY0WHNSMjdIMVdkZWxGeEkrRkFRc0l3T3RHUEVH?=
- =?utf-8?B?c0w5L1VKTUNJeGNtUjdYblg3K2gwVFVibVdSWUcxL1V0TXNITmMrelRUMGQx?=
- =?utf-8?B?RksyaVVYVXk3TkljSTk1SStUdFFud1hmeUE3bzJLTm9XeExuVXpCYjM3bGtW?=
- =?utf-8?B?N3VmcDhyMHBjc0JzMCtLK0dRWTJHTzI1UGRqMWY2bk5ja3d6V1ltT2pvMUxL?=
- =?utf-8?B?NHkyenlJWjRQZzI3SmhMZ2VxaFcxZWpnTHVvM0JXY3VQVUJJeWlJY0ZyZ0Ur?=
- =?utf-8?B?NGdaVktZRmNyNzBlMyt3WnNWeG9oVU5GTVQxVmJxOWhrbnNrd2V4akpFV1ZM?=
- =?utf-8?B?NmdaYzVXZjVsNUk0Y0RpTlE5cXMwS3Q2ZDU5MGVIS3JRVmF1eGp0Z3k4bngv?=
- =?utf-8?B?NTA5M0dmNHVNTm9oTlFtK1EweWFlSUZrYkxlcVBXd0JaQVpaa1FLWFFTNEZJ?=
- =?utf-8?B?b3krMmtXMUI0N2l1UklnaWE1aXhRMkJleDFYOHp2T0dvQjFIWUZJNUpTVVN4?=
- =?utf-8?B?S2N5QjdpZ1FKL2IxempKY0NlZ0dWd0o0WXFjNkhVWVZYU2xKWHVvRld6K0FG?=
- =?utf-8?B?cTFPWGdFelB3WisyNDhQK3FacDhOb05jT3BObW4wZ05xZFBaaWw4d2dJamsr?=
- =?utf-8?B?K3JUZ2VORmM5UksxNGdHeFpsVjQzWmFPc3poc2luVWhrUU9DZy9HM3o2REQw?=
- =?utf-8?B?emVjSUplbXE5amgxVkp0YzZzVDJ5SWF2d0o3eDY5SEpCSE02SmIrWWtRVmM3?=
- =?utf-8?B?Skx0dUlRd240UjNnbmNCVXMxblhyQkNzUnZrS2VMV2l2ZEc5SlBHZHFUa1p4?=
- =?utf-8?B?TCs2a2ZWVlhqcHRERnQwZFVkakh4NERQVE90VjZ0b1A3LzA1SmZpdUhMa0x4?=
- =?utf-8?B?bnZMd3NDTnhZTjBsb0dkcktuenlYZ0F5dkhScWxqOVI1YU94Vy9wZmk5dGxJ?=
- =?utf-8?B?VVlWTkpPdFVrZ2JyVUlNZUVQYWFmZmtUVlhLeG1YbXJmMTE2NTA0L2RhampH?=
- =?utf-8?B?M2JFakhsT3F5SFNZZFdBamFyQlVnRTEwUFU1Z1VoSTk5Qk95TTdkaVF3SXBR?=
- =?utf-8?B?NWN4M2hxQ05FZEhCamxiSElIZVpSRFhaK0xRU2RkQllOTTJRdnhVQ21DNllq?=
- =?utf-8?B?N0tuV0lGb3VGYVFLM2VVWVMzMHBZL0tzbUoyVEhDQzhVTTlpUlZZOTY3TldC?=
- =?utf-8?B?N1RhQ1JrOGtzR0hpY1FuL2N4M2w3Smp4dnBJMlQvT1AzWjJ5c1ZhMHJ0ZWtu?=
- =?utf-8?B?SXM2TEtFSUthUHFiazdESVhETE1xdjJEZHlxK0tvZWdkb2xsN2tzUUN4dktr?=
- =?utf-8?B?eURpb3JhSXVkVzR2bGtUbDlvNWlhc2o2Qjg5ckxaU2NCNlRwNFF6TUhqTm1E?=
- =?utf-8?B?Q1p3eHFBWkVOT3lzRThtTVhOQ3RjbXg0eVk3WFp4dVMxRWtxYWNIRDl1S1pj?=
- =?utf-8?B?VWcxcDg2RDlzWENyajdua0NIRHErVnlkU29TSm5uZjRZMGRWUjQyVzlaM0F1?=
- =?utf-8?B?NXp3VE50bGxWU0l5aXBuRFhhRnVxTjRhZVJlYnY1SmRCWjFQY3owZzMvaCto?=
- =?utf-8?B?YlJpQlExSWQ2V0xwR1BFaW8vWUNIZU9zWUd3Rkh1OUdKNVY0aGF2UT09?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C140010E35B;
+ Tue, 17 Mar 2026 16:25:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1773764705; x=1805300705;
+ h=from:date:to:cc:subject:in-reply-to:message-id:
+ references:mime-version;
+ bh=qfZJRqYvci3qCzGA5pILDu7NJ6MhVGQQv8j1p3t41xw=;
+ b=ElHu7ju94rHoPW/Ip+t6CQp3W3ycR/ZN5zGXGhyKi4vQXqssS3yMdxA9
+ 2VyoQnj9d1SiQTglDHnkzIqn59u23c+rPOYky4qq6Rk2JLMOZ3teoa1Qt
+ eojFbpUSGQhcrUZSl1KiKi7S/8IbVJmBMYvuIMHx6BXoZOoI8WegEocqy
+ Y3oa7soRNehADe5XQTwv/d4YRSvpPHXFRLvTD+ax81gmziu9NTjpG2Al6
+ JYVlbe3LhXlZMINhsCIavFpBmhLI7/PH9u7g+gVooGRf/LIE8Nvn1IDUD
+ cAs2pegw0nFQjvH0A9OiSzLyHnidGY+ADhhJkyHS2WKWNzU8tjz7p63JF g==;
+X-CSE-ConnectionGUID: NbSSwu+wRYWh/1HezjKQRw==
+X-CSE-MsgGUID: 2nCTqU15TtWDx6ij24vyMQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11732"; a="92374066"
+X-IronPort-AV: E=Sophos;i="6.23,126,1770624000"; d="scan'208";a="92374066"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+ by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Mar 2026 09:25:04 -0700
+X-CSE-ConnectionGUID: w01k2Lq0T4CR4FNrq2erBg==
+X-CSE-MsgGUID: VWEu8scZTSKEQpXbW0DZcQ==
+X-ExtLoop1: 1
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.245.245.161])
+ by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Mar 2026 09:25:00 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Tue, 17 Mar 2026 18:24:56 +0200 (EET)
+To: "David E. Box" <david.e.box@linux.intel.com>
+cc: thomas.hellstrom@linux.intel.com, rodrigo.vivi@intel.com, 
+ irenic.rajneesh@gmail.com, srinivas.pandruvada@linux.intel.com, 
+ intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ xi.pardee@linux.intel.com, Hans de Goede <hansg@kernel.org>, 
+ LKML <linux-kernel@vger.kernel.org>, platform-driver-x86@vger.kernel.org
+Subject: Re: [PATCH 14/22] platform/x86/intel/pmc: Add ACPI PWRM telemetry
+ driver for Nova Lake S
+In-Reply-To: <20260313015202.3660072-15-david.e.box@linux.intel.com>
+Message-ID: <1b2d8f52-7b63-3c35-9400-cdd0f07984b6@linux.intel.com>
+References: <20260313015202.3660072-1-david.e.box@linux.intel.com>
+ <20260313015202.3660072-15-david.e.box@linux.intel.com>
 MIME-Version: 1.0
-X-OriginatorOrg: bp.renesas.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TY3PR01MB11346.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5dea1be4-9401-41c2-3cd7-08de84409a12
-X-MS-Exchange-CrossTenant-originalarrivaltime: 17 Mar 2026 16:16:53.0628 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: xGulTlyRTXt72p53wofuHtQeA0HyFpdQvG/Wi/tzQXBvWBNCv0mu4KFFFr0KNf143iWwoi/qD9av84jtycYPmk7QAKh8/P0zq0A+V82yLo4=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY4PR01MB13382
+Content-Type: text/plain; charset=US-ASCII
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -150,117 +72,354 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-SGkgVG9tbWFzbyBNZXJjaWFpLA0KDQo+IC0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQo+IEZy
-b206IFRvbW1hc28gTWVyY2lhaSA8dG9tbWFzby5tZXJjaWFpLnhyQGJwLnJlbmVzYXMuY29tPg0K
-PiBTZW50OiAxNyBNYXJjaCAyMDI2IDE2OjA1DQo+IFN1YmplY3Q6IFJlOiBbUEFUQ0ggMi8yXSBk
-cm06IHJlbmVzYXM6IHJ6ZzJsX21pcGlfZHNpOiBGaXggdGhlIHBvd2VyLW9uIHNlcXVlbmNlDQo+
-IA0KPiBIaSBCaWp1LA0KPiBUaGFua3MgZm9yIHlvdXIgcGF0Y2guDQo+IA0KPiBPbiBUdWUsIE1h
-ciAxNywgMjAyNiBhdCAxMjozNjowMVBNICswMDAwLCBCaWp1IHdyb3RlOg0KPiA+IEZyb206IEJp
-anUgRGFzIDxiaWp1LmRhcy5qekBicC5yZW5lc2FzLmNvbT4NCj4gPg0KPiA+IE1vdmUgcmVzZXRf
-Y29udHJvbF9kZWFzc2VydCgpIGFuZCByZXNldF9jb250cm9sX2Fzc2VydCgpIGZyb20NCj4gPiBy
-emcybF9taXBpX2RzaV9kcGh5X2luaXQoKS9yemcybF9taXBpX2RzaV9kcGh5X2V4aXQoKSB0bw0K
-PiA+IGF0b21pY19wcmVfZW5hYmxlKCkgYW5kIGF0b21pY19wb3N0X2Rpc2FibGUoKSByZXNwZWN0
-aXZlbHksIGFuZCBtb3ZlDQo+ID4gcnpnMmxfbWlwaV9kc2lfc2V0X2Rpc3BsYXlfdGltaW5nKCkg
-ZnJvbSBhdG9taWNfcHJlX2VuYWJsZSgpIHRvDQo+ID4gYXRvbWljX2VuYWJsZSgpLCB0byBhbGln
-biB3aXRoIHRoZSBwb3dlci1vbiBzZXF1ZW5jZSBkZXNjcmliZWQgaW4NCj4gPiBGaWd1cmUgMzQu
-NSBvZiBzZWN0aW9uICIzNC40LjIuMSBSZXNldCIgb2YgdGhlIFJaL0cyTCBoYXJkd2FyZSBtYW51
-YWwNCj4gPiBSZXYuMS41MCBNYXkgMjAyNS4NCj4gPg0KPiA+IEFjY29yZGluZyB0byB0aGUgaGFy
-ZHdhcmUgbWFudWFsLCBMSU5LIHJlZ2lzdGVycyBtdXN0IGJlIHdyaXR0ZW4NCj4gPiBiZWZvcmUg
-ZGVhc3NlcnRpbmcgQ01OX1JTVEIsIGFuZCB0aGUgMW1zIGRlbGF5IGlzIHJldGFpbmVkIGluDQo+
-ID4gYXRvbWljX3ByZV9lbmFibGUoKSBhZnRlciB0aGUgZGVhc3NlcnQuDQo+ID4NCj4gPiBTaWdu
-ZWQtb2ZmLWJ5OiBCaWp1IERhcyA8YmlqdS5kYXMuanpAYnAucmVuZXNhcy5jb20+DQo+ID4gLS0t
-DQo+ID4gIC4uLi9ncHUvZHJtL3JlbmVzYXMvcnotZHUvcnpnMmxfbWlwaV9kc2kuYyAgICB8IDI3
-ICsrKysrKysrKysrLS0tLS0tLS0NCj4gPiAgMSBmaWxlIGNoYW5nZWQsIDE2IGluc2VydGlvbnMo
-KyksIDExIGRlbGV0aW9ucygtKQ0KPiA+DQo+ID4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2Ry
-bS9yZW5lc2FzL3J6LWR1L3J6ZzJsX21pcGlfZHNpLmMNCj4gPiBiL2RyaXZlcnMvZ3B1L2RybS9y
-ZW5lc2FzL3J6LWR1L3J6ZzJsX21pcGlfZHNpLmMNCj4gPiBpbmRleCBlNTNiNDhlNGRlNTYuLjkw
-NTNjZTAzN2I3NSAxMDA2NDQNCj4gPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vcmVuZXNhcy9yei1k
-dS9yemcybF9taXBpX2RzaS5jDQo+ID4gKysrIGIvZHJpdmVycy9ncHUvZHJtL3JlbmVzYXMvcnot
-ZHUvcnpnMmxfbWlwaV9kc2kuYw0KPiA+IEBAIC00ODQsNyArNDg0LDYgQEAgc3RhdGljIGludCBy
-emcybF9taXBpX2RzaV9kcGh5X2luaXQoc3RydWN0IHJ6ZzJsX21pcGlfZHNpICpkc2ksDQo+ID4g
-IAl1MzIgZHBoeXRpbTE7DQo+ID4gIAl1MzIgZHBoeXRpbTI7DQo+ID4gIAl1MzIgZHBoeXRpbTM7
-DQo+ID4gLQlpbnQgcmV0Ow0KPiA+DQo+ID4gIAkvKiBBbGwgRFNJIGdsb2JhbCBvcGVyYXRpb24g
-dGltaW5ncyBhcmUgc2V0IHdpdGggcmVjb21tZW5kZWQgc2V0dGluZyAqLw0KPiA+ICAJZm9yIChp
-ID0gMDsgaSA8IEFSUkFZX1NJWkUocnpnMmxfbWlwaV9kc2lfZ2xvYmFsX3RpbWluZ3MpOyArK2kp
-IHsgQEANCj4gPiAtNTI0LDEyICs1MjMsNiBAQCBzdGF0aWMgaW50IHJ6ZzJsX21pcGlfZHNpX2Rw
-aHlfaW5pdChzdHJ1Y3QgcnpnMmxfbWlwaV9kc2kgKmRzaSwNCj4gPiAgCXJ6ZzJsX21pcGlfZHNp
-X3BoeV93cml0ZShkc2ksIERTSURQSFlUSU0yLCBkcGh5dGltMik7DQo+ID4gIAlyemcybF9taXBp
-X2RzaV9waHlfd3JpdGUoZHNpLCBEU0lEUEhZVElNMywgZHBoeXRpbTMpOw0KPiA+DQo+ID4gLQly
-ZXQgPSByZXNldF9jb250cm9sX2RlYXNzZXJ0KGRzaS0+cnN0Yyk7DQo+ID4gLQlpZiAocmV0IDwg
-MCkNCj4gPiAtCQlyZXR1cm4gcmV0Ow0KPiA+IC0NCj4gPiAtCWZzbGVlcCgxMDAwKTsNCj4gPiAt
-DQo+ID4gIAlyZXR1cm4gMDsNCj4gPiAgfQ0KPiA+DQo+ID4gQEAgLTU0MSw4ICs1MzQsNiBAQCBz
-dGF0aWMgdm9pZCByemcybF9taXBpX2RzaV9kcGh5X2V4aXQoc3RydWN0DQo+ID4gcnpnMmxfbWlw
-aV9kc2kgKmRzaSkNCj4gPg0KPiA+ICAJZHBoeWN0cmwwICY9IH4oRFNJRFBIWUNUUkwwX0VOX0xE
-TzEyMDAgfCBEU0lEUEhZQ1RSTDBfRU5fQkdSKTsNCj4gPiAgCXJ6ZzJsX21pcGlfZHNpX3BoeV93
-cml0ZShkc2ksIERTSURQSFlDVFJMMCwgZHBoeWN0cmwwKTsNCj4gPiAtDQo+ID4gLQlyZXNldF9j
-b250cm9sX2Fzc2VydChkc2ktPnJzdGMpOw0KPiA+ICB9DQo+ID4NCj4gPiAgc3RhdGljIGludCBy
-emcybF9kcGh5X2NvbmZfY2xrcyhzdHJ1Y3QgcnpnMmxfbWlwaV9kc2kgKmRzaSwgdW5zaWduZWQN
-Cj4gPiBsb25nIG1vZGVfZnJlcSwgQEAgLTEwMzAsMjQgKzEwMjEsMzcgQEAgc3RhdGljIHZvaWQg
-cnpnMmxfbWlwaV9kc2lfYXRvbWljX3ByZV9lbmFibGUoc3RydWN0DQo+IGRybV9icmlkZ2UgKmJy
-aWRnZSwNCj4gPiAgCWNvbm5lY3RvciA9IGRybV9hdG9taWNfZ2V0X25ld19jb25uZWN0b3JfZm9y
-X2VuY29kZXIoc3RhdGUsIGJyaWRnZS0+ZW5jb2Rlcik7DQo+ID4gIAljcnRjID0gZHJtX2F0b21p
-Y19nZXRfbmV3X2Nvbm5lY3Rvcl9zdGF0ZShzdGF0ZSwgY29ubmVjdG9yKS0+Y3J0YzsNCj4gPiAg
-CW1vZGUgPSAmZHJtX2F0b21pY19nZXRfbmV3X2NydGNfc3RhdGUoc3RhdGUsIGNydGMpLT5hZGp1
-c3RlZF9tb2RlOw0KPiA+IC0NCj4gPiAgCXJldCA9IHJ6ZzJsX21pcGlfZHNpX3N0YXJ0dXAoZHNp
-LCBtb2RlKTsNCj4gPiAgCWlmIChyZXQgPCAwKQ0KPiA+ICAJCXJldHVybjsNCj4gPg0KPiA+IC0J
-cnpnMmxfbWlwaV9kc2lfc2V0X2Rpc3BsYXlfdGltaW5nKGRzaSwgbW9kZSk7DQo+ID4gKwlyZXQg
-PSByZXNldF9jb250cm9sX2RlYXNzZXJ0KGRzaS0+cnN0Yyk7DQo+ID4gKwlpZiAocmV0IDwgMCkN
-Cj4gPiArCQlyZXR1cm47DQo+ID4gKw0KPiA+ICsJaWYgKGRzaS0+cnN0YykNCj4gPiArCQlmc2xl
-ZXAoMTAwMCk7DQo+IA0KPiBXaGF0IGFib3V0Pw0KPiANCj4gCWlmIChkc2ktPnJzdGMpIHsNCj4g
-CSAgICByZXQgPSByZXNldF9jb250cm9sX2RlYXNzZXJ0KGRzaS0+cnN0Yyk7DQo+IAkgICAgaWYg
-KHJldCA8IDApDQo+IAkJcmV0dXJuOw0KPiANCj4gCSAgICBmc2xlZXAoMTAwMCk7DQo+IAl9DQoN
-Ck9LLg0KDQo+IA0KPiANCj4gPiAgfQ0KPiA+DQo+ID4gIHN0YXRpYyB2b2lkIHJ6ZzJsX21pcGlf
-ZHNpX2F0b21pY19lbmFibGUoc3RydWN0IGRybV9icmlkZ2UgKmJyaWRnZSwNCj4gPiAgCQkJCQkg
-c3RydWN0IGRybV9hdG9taWNfc3RhdGUgKnN0YXRlKSAgew0KPiA+ICAJc3RydWN0IHJ6ZzJsX21p
-cGlfZHNpICpkc2kgPSBicmlkZ2VfdG9fcnpnMmxfbWlwaV9kc2koYnJpZGdlKTsNCj4gPiArCWNv
-bnN0IHN0cnVjdCBkcm1fZGlzcGxheV9tb2RlICptb2RlOw0KPiA+ICsJc3RydWN0IGRybV9jb25u
-ZWN0b3IgKmNvbm5lY3RvcjsNCj4gPiArCXN0cnVjdCBkcm1fY3J0YyAqY3J0YzsNCj4gPiAgCWlu
-dCByZXQ7DQo+ID4NCj4gPiAgCXJldCA9IHJ6ZzJsX21pcGlfZHNpX3N0YXJ0X2hzX2Nsb2NrKGRz
-aSk7DQo+ID4gIAlpZiAocmV0IDwgMCkNCj4gPiAgCQlnb3RvIGVycl9zdG9wOw0KPiA+DQo+ID4g
-Kwljb25uZWN0b3IgPSBkcm1fYXRvbWljX2dldF9uZXdfY29ubmVjdG9yX2Zvcl9lbmNvZGVyKHN0
-YXRlLCBicmlkZ2UtPmVuY29kZXIpOw0KPiA+ICsJY3J0YyA9IGRybV9hdG9taWNfZ2V0X25ld19j
-b25uZWN0b3Jfc3RhdGUoc3RhdGUsIGNvbm5lY3RvciktPmNydGM7DQo+ID4gKwltb2RlID0gJmRy
-bV9hdG9taWNfZ2V0X25ld19jcnRjX3N0YXRlKHN0YXRlLCBjcnRjKS0+YWRqdXN0ZWRfbW9kZTsN
-Cj4gPiArDQo+ID4gKwlyemcybF9taXBpX2RzaV9zZXRfZGlzcGxheV90aW1pbmcoZHNpLCBtb2Rl
-KTsNCj4gPiArDQo+IA0KPiBNYW51YWwvUGF0Y2ggc2F5cyB0aGF0IExJTksgcmVnaXN0ZXJzIG11
-c3QgYmUgd3JpdHRlbiBiZWZvcmUgZGVhc3NlcnRpbmcgQ01OX1JTVEI6DQoNCk5PVCBBTEwuDQoN
-Ck9ubHkgdGhlc2UgbGluayByZWdpc3RlcnMuDQoNCuKIkiBUWFNFVFINCuKIkiBVTFBTU0VUUg0K
-4oiSIERTSVNFVFINCuKIkiBDTFNUUFRTRVRSDQriiJIgTFBUUk5TVFNFVFINCg0KPiANCj4gICBh
-dG9taWNfcHJlX2VuYWJsZSgpOg0KPiAJICBzdGFydHVwKCkgICAgICAgICAgICAgICAgICAoRikg
-UEhZIHRpbWluZyByZWdzICsgTElOSw0KPiAJICBzZXRfZGlzcGxheV90aW1pbmcoKSAgICAgICAo
-Rikgd3JpdGluZyBWSUNIMSogKExJTksgcmVncykNCg0KVGhpcyBpcyBub3QgRi4gVGhpcyBpcyBh
-ZnRlciBzdGFydGluZyBIUyBDTEsuDQoNCj4gCSAgcmVzZXRfY29udHJvbF9kZWFzc2VydCgpICAg
-KEcpDQo+IAkgIGZzbGVlcCgxMDAwKSAgICAgICAgICAgICAgIChIKQ0KPiANCj4gQmVmb3JlIHRo
-aXMgc2VyaWVzIHdlIGhhdmU6DQo+IA0KPiAgIGF0b21pY19wcmVfZW5hYmxlKCk6DQo+ICAgICBz
-dGFydHVwKCkNCj4gICAgICAgZHBoeV9pbml0KCkNCj4gICAgICAgICB3cml0ZSBEU0lEUEhZVElN
-eCAgICAgICAgIChGKSBQSFkgdGltaW5nIHJlZ3MNCj4gICAgICAgICByZXNldF9jb250cm9sX2Rl
-YXNzZXJ0KCkgIChHKSBkZWFzc2VydCBDTU5fUlNUQg0KPiAgICAgICAgIHVkZWxheSgxKSAgICAg
-ICAgICAgICAgICAgKEgpDQo+ICAgICBzZXRfZGlzcGxheV90aW1pbmcoKSAgICAgICAgICAoRikg
-d3JpdGluZyBWSUNIMSogKExJTksgcmVncykNCg0KVGhpcyBpcyBub3QgRi4gVGhpcyBpcyBhZnRl
-ciBzdGFydGluZyBIUyBDTEsuDQoNCj4gDQo+IA0KPiBNb3Zpbmcgc2V0X2Rpc3BsYXlfdGltaW5n
-KCkgaGVyZSB5b3UgYXJlIHNldHRpbmcgTElOSyByZWdzIGFmdGVyDQo+IHJlc2V0X2NvbnRyb2xf
-ZGVhc3NlcnQoKSBhbmQgdGhlIHNlcXVlbmNlIHdpbGwgYmU6DQo+IA0KPiAgYXRvbWljX3ByZV9l
-bmFibGUoKToNCj4gCSBzdGFydHVwKCkJCSAgKEYpIFBIWSB0aW1pbmcgcmVncyArIExJTksNCj4g
-CSByZXNldF9jb250cm9sX2RlYXNzZXJ0KCkgKEcpIENNTl9SU1RCIGRlYXNzZXJ0DQo+IAkgZnNs
-ZWVwKDEwMDApICAgICAgICAgICAgIChIKSB3YWl0IDFtcw0KPiANCj4gIGF0b21pY19lbmFibGUo
-KToNCj4gCSBzdGFydF9oc19jbG9jaygpDQo+IAkgc2V0X2Rpc3BsYXlfdGltaW5nKCkgICAgIChG
-KSB3cml0aW5nIFZJQ0gxKiAoTElOSyByZWdzKQ0KDQpUaGlzIGlzIG5vdCBGLiBJdCBpcyBhZnRl
-ciBzdGFydGluZyBIU0NMSyBhbmQgaXQgaXMgYXMgcGVyIGhhcmR3YXJlIG1hbnVhbC4NCg0KPiAJ
-IHN0YXJ0X3ZpZGVvKCkNCj4gDQo+IEkgdGhpbmsgdG8gcHJvdmlkZSB0aGUgcmlnaHQgc2VxdWVu
-Y2Ugd2UgbmVlZCB0byBqdXN0IG1vdmUNCj4gDQo+IAlyZXNldF9jb250cm9sX2RlYXNzZXJ0KGRz
-aS0+cnN0Yyk7DQo+IA0KPiBGcm9tIHJ6ZzJsX21pcGlfZHNpX2RwaHlfaW5pdCgpIHRvIHJ6ZzJs
-X21pcGlfZHNpX2F0b21pY19wcmVfZW5hYmxlKCkNCj4ganVzdCBhZnRlciByemcybF9taXBpX2Rz
-aV9zZXRfZGlzcGxheV90aW1pbmcoKSBjYWxsLg0KPiANCj4gDQo+ID4gIAlyZXQgPSByemcybF9t
-aXBpX2RzaV9zdGFydF92aWRlbyhkc2kpOw0KPiA+ICAJaWYgKHJldCA8IDApDQo+ID4gIAkJZ290
-byBlcnJfc3RvcF9jbG9jazsNCj4gPiBAQCAtMTA3NCw2ICsxMDc4LDcgQEAgc3RhdGljIHZvaWQN
-Cj4gPiByemcybF9taXBpX2RzaV9hdG9taWNfcG9zdF9kaXNhYmxlKHN0cnVjdCBkcm1fYnJpZGdl
-ICpicmlkZ2UsICB7DQo+ID4gIAlzdHJ1Y3QgcnpnMmxfbWlwaV9kc2kgKmRzaSA9IGJyaWRnZV90
-b19yemcybF9taXBpX2RzaShicmlkZ2UpOw0KPiA+DQo+ID4gKwlyZXNldF9jb250cm9sX2Fzc2Vy
-dChkc2ktPnJzdGMpOw0KPiA+ICAJcnpnMmxfbWlwaV9kc2lpX3N0b3AoZHNpKTsNCj4gDQo+IHJ6
-ZzJsX21pcGlfZHNpX3N0b3AoKSBpcyB3cml0aW5nIERTSURQSFlDVFJMMCByZWcgdmlhIGRwaHlf
-ZXhpdCgpLg0KPiBJIHRoaW5rIHRoZSByaWdodCBvcmRlciBzaG91bGQgYmU6DQo+IA0KPiAJcnpn
-MmxfbWlwaV9kc2lpX3N0b3AoZHNpKTsNCj4gCXJlc2V0X2NvbnRyb2xfYXNzZXJ0KGRzaS0+cnN0
-Yyk7DQoNCi5hdG9taWNfcHJlX2VuYWJsZSgpDQoNCmRzaV9zdGFydCgpDQpyZXNldF9kZWFzc2Vy
-dCgpLS0+Rw0KDQouYXRvbWljX3Bvc3RfZGlzYmFsZSgpDQoNCkp1c3Qgb3Bwb3NpdGUgb2YgYXRv
-bWljX3ByZV9lbmFibGUoKQ0KcmVzZXRfYXNzZXJ0KCktLT5HDQpkc2lfc3RvcCgpDQoNCg0KQ2hl
-ZXJzLA0KQmlqdQ0K
+On Thu, 12 Mar 2026, David E. Box wrote:
+
+> Add an ACPI-based PMC PWRM telemetry driver for Nova Lake S. The driver
+> locates PMT discovery data in _DSD under the Intel VSEC UUID, parses it,
+> and registers telemetry regions with the PMT/VSEC framework so PMC
+> telemetry is exposed via existing PMT interfaces.
+> 
+> Export pmc_parse_telem_dsd() and pmc_find_telem_guid() to support ACPI
+> discovery in other PMC drivers (e.g., ssram_telemetry) without duplicating
+> ACPI parsing logic. Also export acpi_disc_t typedef from core.h for callers
+> to properly declare discovery table arrays.
+> 
+> Selected by INTEL_PMC_CORE. Existing PCI functionality is preserved.
+> 
+> Signed-off-by: David E. Box <david.e.box@linux.intel.com>
+> ---
+>  drivers/platform/x86/intel/pmc/Kconfig        |  14 ++
+>  drivers/platform/x86/intel/pmc/Makefile       |   2 +
+>  drivers/platform/x86/intel/pmc/core.h         |  12 +
+>  .../platform/x86/intel/pmc/pwrm_telemetry.c   | 227 ++++++++++++++++++
+>  4 files changed, 255 insertions(+)
+>  create mode 100644 drivers/platform/x86/intel/pmc/pwrm_telemetry.c
+> 
+> diff --git a/drivers/platform/x86/intel/pmc/Kconfig b/drivers/platform/x86/intel/pmc/Kconfig
+> index 0f19dc7edcf9..937186b0b5dd 100644
+> --- a/drivers/platform/x86/intel/pmc/Kconfig
+> +++ b/drivers/platform/x86/intel/pmc/Kconfig
+> @@ -9,6 +9,7 @@ config INTEL_PMC_CORE
+>  	depends on ACPI
+>  	depends on INTEL_PMT_TELEMETRY
+>  	select INTEL_PMC_SSRAM_TELEMETRY
+> +	select INTEL_PMC_PWRM_TELEMETRY
+>  	help
+>  	  The Intel Platform Controller Hub for Intel Core SoCs provides access
+>  	  to Power Management Controller registers via various interfaces. This
+> @@ -39,3 +40,16 @@ config INTEL_PMC_SSRAM_TELEMETRY
+>  	  (including sysfs).
+>  
+>  	  This option is selected by INTEL_PMC_CORE.
+> +
+> +config INTEL_PMC_PWRM_TELEMETRY
+> +	tristate
+> +	help
+> +	  This driver discovers PMC PWRM telemetry regions described in ACPI
+> +	  _DSD and registers them with the Intel VSEC framework as Intel PMT
+> +	  telemetry devices.
+> +
+> +	  It validates the ACPI discovery data and publishes the discovered
+> +	  regions so they can be accessed through the Intel PMT telemetry
+> +	  interfaces (including sysfs).
+> +
+> +	  This option is selected by INTEL_PMC_CORE.
+> diff --git a/drivers/platform/x86/intel/pmc/Makefile b/drivers/platform/x86/intel/pmc/Makefile
+> index bb960c8721d7..fdbb768f7b09 100644
+> --- a/drivers/platform/x86/intel/pmc/Makefile
+> +++ b/drivers/platform/x86/intel/pmc/Makefile
+> @@ -12,3 +12,5 @@ obj-$(CONFIG_INTEL_PMC_CORE)		+= intel_pmc_core_pltdrv.o
+>  # Intel PMC SSRAM driver
+>  intel_pmc_ssram_telemetry-y		+= ssram_telemetry.o
+>  obj-$(CONFIG_INTEL_PMC_SSRAM_TELEMETRY)	+= intel_pmc_ssram_telemetry.o
+> +intel_pmc_pwrm_telemetry-y		+= pwrm_telemetry.o
+> +obj-$(CONFIG_INTEL_PMC_PWRM_TELEMETRY)	+= intel_pmc_pwrm_telemetry.o
+> diff --git a/drivers/platform/x86/intel/pmc/core.h b/drivers/platform/x86/intel/pmc/core.h
+> index 118c8740ad3a..284aced99f72 100644
+> --- a/drivers/platform/x86/intel/pmc/core.h
+> +++ b/drivers/platform/x86/intel/pmc/core.h
+> @@ -562,6 +562,8 @@ int pmc_core_pmt_get_blk_sub_req(struct pmc_dev *pmcdev, struct pmc *pmc,
+>  extern const struct file_operations pmc_core_substate_req_regs_fops;
+>  extern const struct file_operations pmc_core_substate_blk_req_fops;
+>  
+> +extern const guid_t intel_vsec_guid;
+
+Please make sure type is available in this file, not only throught the C 
+file includes.
+
+> +
+>  #define pmc_for_each_mode(mode, pmc)						\
+>  	for (unsigned int __i = 0, __cond;					\
+>  	     __cond = __i < (pmc)->num_lpm_modes,				\
+> @@ -583,4 +585,14 @@ static const struct file_operations __name ## _fops = {			\
+>  	.release	= single_release,				\
+>  }
+>  
+> +struct intel_vsec_header;
+> +union acpi_object;
+> +
+> +/* Avoid checkpatch warning */
+> +typedef u32 (*acpi_disc_t)[4];
+> +
+> +int pmc_parse_telem_dsd(union acpi_object *obj,
+> +			struct intel_vsec_header *header,
+> +			acpi_disc_t *acpi_disc);
+> +union acpi_object *pmc_find_telem_guid(union acpi_object *dsd);
+>  #endif /* PMC_CORE_H */
+> diff --git a/drivers/platform/x86/intel/pmc/pwrm_telemetry.c b/drivers/platform/x86/intel/pmc/pwrm_telemetry.c
+> new file mode 100644
+> index 000000000000..25ca6979c214
+> --- /dev/null
+> +++ b/drivers/platform/x86/intel/pmc/pwrm_telemetry.c
+> @@ -0,0 +1,227 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +/*
+> + * Intel PMC PWRM ACPI driver
+> + *
+> + * Copyright (C) 2025, Intel Corporation
+> + */
+> +
+> +#include <linux/acpi.h>
+> +#include <linux/bitfield.h>
+> +#include <linux/device.h>
+> +#include <linux/err.h>
+> +#include <linux/errno.h>
+> +#include <linux/intel_vsec.h>
+> +#include <linux/mod_devicetable.h>
+> +#include <linux/module.h>
+> +#include <linux/platform_device.h>
+> +#include <linux/resource.h>
+> +#include <linux/slab.h>
+> +#include <linux/types.h>
+> +#include <linux/uuid.h>
+> +
+> +#include "core.h"
+> +
+> +#define ENTRY_LEN		5
+> +
+> +/* DWORD2 */
+> +#define DVSEC_ID_MASK		GENMASK(15, 0)
+
+GENMASK() needs include too.
+
+> +#define NUM_ENTRIES_MASK	GENMASK(23, 16)
+> +#define ENTRY_SIZE_MASK		GENMASK(31, 24)
+> +
+> +/* DWORD3 */
+> +#define TBIR_MASK		GENMASK(2, 0)
+> +#define DISC_TBL_OFF_MASK	GENMASK(31, 3)
+> +
+> +const guid_t intel_vsec_guid =
+> +	GUID_INIT(0x294903fb, 0x634d, 0x4fc7, 0xaf, 0x1f, 0x0f, 0xb9,
+> +		  0x56, 0xb0, 0x4f, 0xc1);
+> +
+> +static bool is_valid_entry(union acpi_object *pkg)
+> +{
+> +	int i;
+> +
+> +	if (!pkg || pkg->type != ACPI_TYPE_PACKAGE || pkg->package.count != ENTRY_LEN)
+> +		return false;
+> +
+> +	if (pkg->package.elements[0].type != ACPI_TYPE_STRING)
+> +		return false;
+> +
+> +	for (i = 1; i < ENTRY_LEN; i++)
+> +		if (pkg->package.elements[i].type != ACPI_TYPE_INTEGER)
+> +			return false;
+> +
+> +	return true;
+> +}
+> +
+> +int pmc_parse_telem_dsd(union acpi_object *obj,
+> +			struct intel_vsec_header *header,
+> +			u32 (**acpi_disc)[4])
+> +{
+> +	union acpi_object *vsec_pkg;
+> +	union acpi_object *disc_pkg;
+> +	u64 hdr0;
+> +	u64 hdr1;
+
+u64 hdr0, hdr1;
+
+> +	int num_regions;
+> +	int i;
+> +
+> +	if (!header)
+> +		return -EINVAL;
+> +
+> +	if (!obj || obj->type != ACPI_TYPE_PACKAGE || obj->package.count != 2)
+> +		return -EINVAL;
+> +
+> +	/* First Package is DVSEC info */
+> +	vsec_pkg = &obj->package.elements[0];
+> +	if (!is_valid_entry(vsec_pkg))
+> +		return -EINVAL;
+> +
+> +	hdr0 = vsec_pkg->package.elements[3].integer.value;
+> +	hdr1 = vsec_pkg->package.elements[4].integer.value;
+> +
+> +	header->id          = FIELD_GET(DVSEC_ID_MASK, hdr0);
+> +	header->num_entries = FIELD_GET(NUM_ENTRIES_MASK, hdr0);
+> +	header->entry_size  = FIELD_GET(ENTRY_SIZE_MASK, hdr0);
+> +	header->tbir        = FIELD_GET(TBIR_MASK, hdr1);
+> +	header->offset      = FIELD_GET(DISC_TBL_OFF_MASK, hdr1);
+> +
+> +	/* Second Package contains the discovery tables */
+> +	disc_pkg = &obj->package.elements[1];
+> +	if (disc_pkg->type != ACPI_TYPE_PACKAGE || disc_pkg->package.count < 1)
+> +		return -EINVAL;
+> +
+> +	num_regions = disc_pkg->package.count;
+> +	if (header->num_entries != num_regions)
+> +		return -EINVAL;
+> +
+> +	*acpi_disc = kmalloc_array(num_regions, sizeof(**acpi_disc), GFP_KERNEL);
+> +	if (!*acpi_disc)
+> +		return -ENOMEM;
+> +
+> +	for (i = 0; i < num_regions; i++) {
+> +		union acpi_object *pkg;
+> +		u64 value;
+> +		int j;
+> +
+> +		pkg = &disc_pkg->package.elements[i];
+> +		if (!is_valid_entry(pkg)) {
+> +			kfree(*acpi_disc);
+> +			return -EINVAL;
+> +		}
+> +
+> +		/* Element 0 is a descriptive string; DWORD values start at index 1. */
+> +		for (j = 1; j < ENTRY_LEN; j++) {
+> +			value = pkg->package.elements[j].integer.value;
+> +			if (value > U32_MAX) {
+> +				kfree(*acpi_disc);
+> +				return -ERANGE;
+> +			}
+> +
+> +			(*acpi_disc)[i][j - 1] = value;
+> +		}
+> +	}
+> +
+> +	return 0;
+
+Should this function return err ptrs instead?
+
+Consider also using __free() + no_free_ptr().
+
+> +}
+> +EXPORT_SYMBOL_NS_GPL(pmc_parse_telem_dsd, "INTEL_PMC_CORE");
+> +
+> +union acpi_object *pmc_find_telem_guid(union acpi_object *dsd)
+> +{
+> +	int i;
+> +
+> +	if (!dsd || dsd->type != ACPI_TYPE_PACKAGE)
+> +		return NULL;
+> +
+> +	for (i = 0; i + 1 < dsd->package.count; i += 2) {
+> +		union acpi_object *uuid_obj, *data_obj;
+> +		guid_t uuid;
+> +
+> +		uuid_obj = &dsd->package.elements[i];
+> +		data_obj = &dsd->package.elements[i + 1];
+> +
+> +		if (uuid_obj->type != ACPI_TYPE_BUFFER ||
+> +		    uuid_obj->buffer.length != 16)
+> +			continue;
+> +
+> +		memcpy(&uuid, uuid_obj->buffer.pointer, 16);
+> +		if (guid_equal(&uuid, &intel_vsec_guid))
+> +			return data_obj;
+> +	}
+> +
+> +	return NULL;
+> +}
+> +EXPORT_SYMBOL_NS_GPL(pmc_find_telem_guid, "INTEL_PMC_CORE");
+> +
+> +static int pmc_pwrm_acpi_probe(struct platform_device *pdev)
+> +{
+> +	struct acpi_buffer buf = { ACPI_ALLOCATE_BUFFER, NULL };
+> +	acpi_handle handle = ACPI_HANDLE(&pdev->dev);
+> +	struct intel_vsec_header header;
+> +	struct intel_vsec_header *headers[2] = { &header, NULL };
+> +	struct intel_vsec_platform_info info = { };
+> +	struct device *dev = &pdev->dev;
+> +	struct resource *res;
+> +	u32 (*acpi_disc)[4];
+> +	union acpi_object *dsd;
+> +	acpi_status status;
+> +	int ret;
+> +
+> +	if (!handle)
+> +		return -ENODEV;
+> +
+> +	status = acpi_evaluate_object(handle, "_DSD", NULL, &buf);
+> +	if (ACPI_FAILURE(status))
+> +		return dev_err_probe(dev, -ENODEV, "Could not evaluate _DSD: %s\n",
+> +				     acpi_format_exception(status));
+
+Braces.
+
+> +
+> +	dsd = pmc_find_telem_guid(buf.pointer);
+> +	if (!dsd) {
+> +		ret = -ENODEV;
+> +		goto cleanup_acpi_buf;
+> +	}
+> +
+> +	ret = pmc_parse_telem_dsd(dsd, &header, &acpi_disc);
+> +	if (ret)
+> +		goto cleanup_acpi_buf;
+> +
+> +	res = platform_get_resource(pdev, IORESOURCE_MEM, header.tbir);
+> +	if (!res) {
+> +		ret = -EINVAL;
+> +		goto cleanup_acpi_disc;
+> +	}
+> +
+> +	info.headers = headers;
+> +	info.caps = VSEC_CAP_TELEMETRY;
+> +	info.acpi_disc = acpi_disc;
+> +	info.src = INTEL_VSEC_DISC_ACPI;
+> +	info.base_addr = res->start;
+> +
+> +	ret = intel_vsec_register(&pdev->dev, &info);
+> +
+> +cleanup_acpi_disc:
+> +	kfree(acpi_disc);
+> +cleanup_acpi_buf:
+> +	ACPI_FREE(buf.pointer);
+
+My impression is that these days kfree() is used directly.
+
+Both look like they could use __free().
+
+> +
+> +	return ret;
+> +}
+> +
+> +static const struct acpi_device_id pmc_pwrm_acpi_ids[] = {
+> +	{ "INTC1122", 0 }, /* Nova Lake */
+> +	{ "INTC1129", 0 }, /* Nova Lake */
+> +	{ }
+> +};
+> +MODULE_DEVICE_TABLE(acpi, pmc_pwrm_acpi_ids);
+> +
+> +static struct platform_driver pmc_pwrm_acpi_driver = {
+> +	.probe = pmc_pwrm_acpi_probe,
+> +	.driver = {
+> +		.name = "intel_pmc_pwrm_acpi",
+> +		.acpi_match_table = ACPI_PTR(pmc_pwrm_acpi_ids),
+> +	},
+> +};
+> +module_platform_driver(pmc_pwrm_acpi_driver);
+> +
+> +MODULE_AUTHOR("David E. Box <david.e.box@linux.intel.com>");
+> +MODULE_DESCRIPTION("Intel PMC PWRM ACPI driver");
+> +MODULE_LICENSE("GPL");
+> +MODULE_IMPORT_NS("INTEL_VSEC");
+> 
+
+-- 
+ i.
+
