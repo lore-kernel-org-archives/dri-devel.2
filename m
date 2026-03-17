@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 22377FF6E9D
-	for <dri-devel@archiver.kernel.org>; Tue, 17 Mar 2026 23:05:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9764DFF6E9F
+	for <dri-devel@archiver.kernel.org>; Tue, 17 Mar 2026 23:05:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6D8E010E67F;
-	Tue, 17 Mar 2026 23:05:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E8A6D10E68C;
+	Tue, 17 Mar 2026 23:05:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=nxp.com header.i=@nxp.com header.b="ZfJ8HToW";
+	dkim=pass (2048-bit key; unprotected) header.d=nxp.com header.i=@nxp.com header.b="W0v405Xu";
 	dkim-atps=neutral
-Received: from AM0PR83CU005.outbound.protection.outlook.com
- (mail-westeuropeazon11010060.outbound.protection.outlook.com [52.101.69.60])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3FF7910E5D7;
- Tue, 17 Mar 2026 23:05:39 +0000 (UTC)
+Received: from OSPPR02CU001.outbound.protection.outlook.com
+ (mail-norwayeastazon11013068.outbound.protection.outlook.com [40.107.159.68])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4FFE410E672;
+ Tue, 17 Mar 2026 23:05:50 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=OsRTsX/p7sBltPLPbD9rf/1Yvtz+fxix+F8a5RK2nwtPOTj62J6uSXLbclcKE8mS8IBOZ8sQmYonyhweTO3JwP2nu8r9zgIIPo7MNn600P8gidH4dJx62vBMSimPxvSTukBh8+zvKGfeWpNb2XjciHzov+dcVuYYjq7vSXVG4yMVR+/eI4Tx2jIb1qeyo5b4pqZFOiZgryJvOjzHBRHRVQ1HQr3WUuo5q+p8RBcYJHNw+pHQQxf+Y/XS5Zha/Vyy1ggVVMDLyZz9AUB5aQoptzR9s2WUo+A5De0y3VYMm1ZAPL4+Sm3G2bvoiDSHgQtqh+5XpmM9CP7M6SZI6Z9a5A==
+ b=Jh36Mrx+dGIKExvlczg3ka433K0gc6M+98vBG4ac2lI88TGuyK48n4Ke3hYC8o1a3dk6L3d34/0n5cFzvVQRzPmFI6AVNXkaHDa6UPqxJOERMawsZQE7zWeyoBHiTuDX8II+7nqpB65ocLDHEZK+W/SPni+VRErKrSrKTsT3wt8175HURCBuEZ/6jYlOm9QphrPhEbyojAqShzMs3hcleW13VU0mXg4VbJA7wrWSAtK+ub5GoQqw/E95BsxzKsZgrmWHs/32gCKQxCdJzevYBg/+NdgkECpUPxbZvxdgE3Xo7JtBnv/eFNSnBFFmXM517h7q12pAA5iaatJ00JgUIQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=9Ue3Wn37qfK9s/zGyTOjZU5aBWxkrVYsgwHCf0nZRaY=;
- b=WBYhGyVWNMM0nRzEug9HcDFVsfN3VajOb+AoP5ScKE25J4ARdnl+l74oFSBciIx3zR8nR7MnrDx/d7tfqFTinKVGi5TrFYg+ozQOHL7VPZK7RqteVcqc8xz5zNN5EZu6CjgAp5e0OjqGcst5Vl2xVUEHMCF7wPT/Zr30jc6b8Ob/g1H0SYaZ8BK3DBFbL4X5q/Wbe647Fbp9l56A91yFgb3bl8CRQCCRUn22wWjTyv31smKW1/ULPDmoOM4Wos/ezbGJ93m/BLGcxI4XkGbPR2faNpeMsXAL9AfFv+9vdbRHRwFNhFB4ylFRi6lxFC6Nw1+J7PS/eIfUOrqGYvfLug==
+ bh=UmFL3OIsphQVPzjVltHmsP8p6mnZJ7zVcKxsLSLxOos=;
+ b=xZrmf4qrEEJsZ4N9PeubV5RnM8se5JpEztSa+4hxtvPddbEFjik6cyXBJGi7evtb/MN7RUWVKeCOSdobhBHGjEaejJgq3fT/OWbvnmAr6EJ+QTppE+FqwMtU5e/dhsYADWG/QeogZgvwr5qb1zAPZ6xwUuQ/36l3kEs00lqfep2AQQ9DGSAUYEJPoOeINq4RjRMzqu0VmnWAWWweLG9G7Cs5hSb2De1JoWPO8W0Lg3fg441wpK9EIzt6wdBjAmBKPD9N+ZBzbHhMMArxO3hkYp8TKwlEyjosNMIb9GjU1cV/+Apin0V9jzRPj1xq9bxR2k+bhBLSzsRj80cfl89APg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
  header.d=nxp.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9Ue3Wn37qfK9s/zGyTOjZU5aBWxkrVYsgwHCf0nZRaY=;
- b=ZfJ8HToWjDeBP4RBnJ7CgNL2BkPXk6ElRKew1uVScFRAwTShGtToFqH784Ma93EcfqZehk+DGgJ+eWYQoyfBbuDw8OZcW8wm2I1U6YMefKKlk5TpoPQKP8DuRLH/ZB7LdZb5OW9PJIUxYfNrrRqQqXAnpiTBJN7CP6bUifdqqV2aZxwLnX2rW2B8CMSskUjgbULUSr0Zp9vNKKmP5fz6Y4Zp1gn1hRXHLCybxJao1USjFmU3MTwJnuTL0FBTWdFtHL6h5hYtLzOyLf0o92XQl+WEHUmDDyasIb8W5uKRuEFR/6RePPaiXMi3d4vhCdG/eHrvMLzw+KwuHbkbnuzfjw==
+ bh=UmFL3OIsphQVPzjVltHmsP8p6mnZJ7zVcKxsLSLxOos=;
+ b=W0v405Xu8z9TbgPsaJZH1f+r5h7o2J2wdSoev17ExpTo2dW11dVLuLqyiemf1u3lKFUcuagaapMWzN4wlCjW7vgBdG5kB0d8edVM+Nwcyd8mVKJxrM4Y5s7z6VK//kXke9KbQTeQYjJ1qU1IvQPkD86OipAf5+dedFyep1ItAia2KljAfeDdkt22nNfdgrk7qoeLpECyGI57muCiZSEUwGZ+fpwoRZUlZVGYu532fGGGmTayRXO4j6d+vvlzXV35QF90gvZag7tJXD6jHh+e5QB5DIUQA/Ij1gfajlJXET4uXDYiOjt/lisUJES3T95hEHHZykb96wqgGTn321HLWw==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nxp.com;
 Received: from AM9PR04MB8585.eurprd04.prod.outlook.com (2603:10a6:20b:438::13)
  by DBBPR04MB7643.eurprd04.prod.outlook.com (2603:10a6:10:203::11)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9700.27; Tue, 17 Mar
- 2026 23:05:35 +0000
+ 2026 23:05:47 +0000
 Received: from AM9PR04MB8585.eurprd04.prod.outlook.com
  ([fe80::f010:fca8:7ef:62f4]) by AM9PR04MB8585.eurprd04.prod.outlook.com
  ([fe80::f010:fca8:7ef:62f4%4]) with mapi id 15.20.9700.022; Tue, 17 Mar 2026
- 23:05:35 +0000
+ 23:05:47 +0000
 From: Vladimir Oltean <vladimir.oltean@nxp.com>
 To: linux-phy@lists.infradead.org
 Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
@@ -54,74 +54,80 @@ Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
  linux-scsi@vger.kernel.org, linux-sunxi@lists.linux.dev,
  linux-tegra@vger.kernel.org, linux-usb@vger.kernel.org,
  netdev@vger.kernel.org, spacemit@lists.linux.dev,
- UNGLinuxDriver@microchip.com,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Subject: [PATCH v4 phy-next 12/24] phy: move provider API out of public
- <linux/phy/phy.h>
-Date: Wed, 18 Mar 2026 01:04:48 +0200
-Message-ID: <20260317230500.2056077-13-vladimir.oltean@nxp.com>
+ UNGLinuxDriver@microchip.com, Geert Uytterhoeven <geert+renesas@glider.be>,
+ Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
+ Michael Dege <michael.dege@renesas.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>,
+ "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
+Subject: [PATCH v4 phy-next 18/24] net: renesas: rswitch: include PHY provider
+ header
+Date: Wed, 18 Mar 2026 01:04:54 +0200
+Message-ID: <20260317230500.2056077-19-vladimir.oltean@nxp.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260317230500.2056077-1-vladimir.oltean@nxp.com>
 References: <20260317230500.2056077-1-vladimir.oltean@nxp.com>
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-ClientProxiedBy: VI1P194CA0057.EURP194.PROD.OUTLOOK.COM
- (2603:10a6:803:3c::46) To AM9PR04MB8585.eurprd04.prod.outlook.com
+X-ClientProxiedBy: WA2P291CA0031.POLP291.PROD.OUTLOOK.COM
+ (2603:10a6:1d0:1f::12) To AM9PR04MB8585.eurprd04.prod.outlook.com
  (2603:10a6:20b:438::13)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: AM9PR04MB8585:EE_|DBBPR04MB7643:EE_
-X-MS-Office365-Filtering-Correlation-Id: 618a8f88-7906-4719-3188-08de8479b25f
+X-MS-Office365-Filtering-Correlation-Id: 3751659f-7adf-4732-dc74-08de8479b993
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|19092799006|10070799003|1800799024|376014|7416014|366016|13003099007|22082099003|18002099003|56012099003|18092099006;
-X-Microsoft-Antispam-Message-Info: Q2lwdUu0ILWFz9Qk7iBEEiCeGARm/CXrAje6WfdXbNOB5bs4dfF4fO/NAv3MNycP5mDDgQO/ILMkNsxyN31T4dVgCQNsQwQjoT0oU75MtsLCaZS1216kapbwb3rW2j6rn9qe1nj9hYnk3qXsmGZtlhKSQQu9C9zvEZski/V7NWFgTCZwoeyqF3wy6mQjOz36ivq5+fNiItWDCUMbFxZPZeYbYBKWeXKtvguz9GpQPeG5yYy0KBnTofd90AcpOiV+f/90ukEhiu5UfHc+S78qPx3M2Hopdp89l4RdleK+/Xtl9WqhaixF0PGrn7DrsvMhmCLTpjeK/n17Gx024nIRDBt9AVzaUL7p9eucV2Jahl7ctQMMpIkuqGCvts2cD/rAhjCjU6B81RF+cKQYNbBgbDpMcFKROQS/Fd/m1t6JtLBGKS4lk/Km/QkauRjQa2Bc0EZ2Ftm74h93LGyhEWpZ+4VH9RIASShm3pwq5xK6on5lNcGZHNdVkJQUEfGslrOozJJm9b5StJhktoUhRazwCETE0B9cXxAGkoRRoiUByqz9v611a3VxmLJefMHI6D+1PBnh2XS7UZLiapOstUR8VEieEaM1SVUz8gPi57e5kXFPe8+sgtoWYotRuvdI7RnywwdVig+v01h1DlrtVrw4ZS1HFlT/t5t95vynrI1/ESQbL+gunUvSEskie49Kvgy8
+ ARA:13230040|19092799006|10070799003|1800799024|376014|7416014|366016|22082099003|18002099003|56012099003;
+X-Microsoft-Antispam-Message-Info: GrBvYTI28sqeVNDc49yFjHU/FuRLf/MNRSJ4D7jsoQMO51DsEnNnC9FP1WpJ1ltTOtOQtzIM7Tea6fsAs6hpQ0SpkNXy0vFm3msjLXxXeuZetDEKU2uf+f396AdJ0jRFlN/M0FPES4TThJLpmT3H0cdSH/ZkcdSsVk3t/EqE4ViE8pz08cTfDO7M3MZdUXYPkr5dl4aCzYSDz+ab9myN/m3BtCXVWVImKBmfmkUgS4V8DUU5sPv7C0Hi0BuxK48eP3XdBhWhNcdL4vff2hh54JD/Uy0tcvBzKovRw5UKCBEpdapgIpAge/ojZZlyDI4LCDkV5LNpnqwqCZJSOytfC5ebMlIL+HrXCygKxhezXWEkb6t05Rr8Y87e6r9uvKebfahdL4ioR7xgZxMjP6FkxRTBo2+raTb3kyJ2zzXiFwDDEHKwSrThiUx27D53giIuRRRKTjQWRvj48IXE1UuRjHv4E56EUtRUXOxIOfwkpBq/m+1+jvMz7KVtHaOYRbysUurqhFLVMLZ4BpIapNDKehPNesiaO9pEjstJ4bUn4GnkIt9l14lVw8DJGcckJxj3PFitGizFdowJHVvChLAfNhLGApFN+Af4zKCs/DVJBvSBgqfS406TY8rqJihiAWtI+TaD+r3lEl6ySadJ54kP8XWkdIdJGG2iICMuMKlPlJUGL2aanlVZ7Dsi29gaVE05/Xu6OcZmX1m2zct885+k74mo8EqU+VJwBRMHF+PzRfc=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:AM9PR04MB8585.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(19092799006)(10070799003)(1800799024)(376014)(7416014)(366016)(13003099007)(22082099003)(18002099003)(56012099003)(18092099006);
+ SFS:(13230040)(19092799006)(10070799003)(1800799024)(376014)(7416014)(366016)(22082099003)(18002099003)(56012099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?Ame0Lp4JzaasMOi5W8PVW/s3CKfFDmbxHcG7fzgherAsvAcqOuegwHRIENF9?=
- =?us-ascii?Q?m0D8qepmF4Rj5DZrYNlzML4fF3tD2yi+ZM3fT25etPvX1+BjibsI8StL01mx?=
- =?us-ascii?Q?A/9XAR/+RvYv4pOD+vaAw5pV07UgvswrMGKMSHACauDi5yaidjL7eIUTKKBR?=
- =?us-ascii?Q?yOVhbtra+n5wwDk3hKmFSVD4SDgYAN++pMrA56wB/ENP4mEWCTnFbI37v9kJ?=
- =?us-ascii?Q?2BOAKRhjx6+Fd7e4u/9seJdShMpXeIehYiDIZAoBe2uKbvD7vVNcvw3/waMC?=
- =?us-ascii?Q?lBnCD9Ae0ifNJ6W+aUxhHaCqCrbI1f/CLxve29YOTSF/YNZxsnCBiH8GqEZx?=
- =?us-ascii?Q?8PwrcixwjgSeMz/fZ91KY+eia84Nq1jXHkDPTQmnJ3/LA/SAXi1SJJCIxN+G?=
- =?us-ascii?Q?81b40KF8ABIHVCSJ1dsHyNkEmpyeHV3ivexGCcHgImgA8pRd+w83IsHg/p96?=
- =?us-ascii?Q?nHFGgFcFERjjb/eZU/BRl/18WkVxfUPvKNRQ5w8sv2KxYnNfmTwUn4TpROkG?=
- =?us-ascii?Q?SBGn5B7FVej6gg8pVgfVsVLfJpz4y2KHBfgc48j90yd5ZlaF+7BMT/sHZuj5?=
- =?us-ascii?Q?gCkxZEqS5bqx1C8UUjq9OviHQDZrOYf2gTqvQCmBcLHCoPlLt3DAks8Ymirt?=
- =?us-ascii?Q?3f/walEIHqOKQTr2v407+tGX4fg+bdWZLOXr3hRWx1I5aOBI0EN2q1WyFBk7?=
- =?us-ascii?Q?4zQylpLBKfDrLynn6tgvFYYhyj6PCmhBISEnBgNXfOWuA1I18DbJiCE3gcdE?=
- =?us-ascii?Q?8i2N3szgQNRHurdoip1rVVBHVgIH9+0jThgvT9eL2dvtkxoQ29F+QtTLb3/J?=
- =?us-ascii?Q?Mjf4cYjQTa2WqtePCMHHRjlLbAovmRFqYhZzK1SUFCy9t4z2HFZ9HCd18kVr?=
- =?us-ascii?Q?t/SbSbkxETusNofDMAia/lE90c7e9qrECHtRinPhUrzedbt/dkrPuh2RtK6p?=
- =?us-ascii?Q?J87mhj1OXlerWRGfzqzNQf49SNjTKjtvezVfTdiwIjXH6CvDydl3AOwehyBz?=
- =?us-ascii?Q?n4RtlPh3UlXy0fKpsOmcOHMJPjdq51Z19BE3sH4Yr+/kkmTl2uB69aKoQUI7?=
- =?us-ascii?Q?A0NwK67ZnnczFyDR9YW/KoKm+ViBfaAygRKhpcvpehgCstKizJTr6kCyzYq7?=
- =?us-ascii?Q?STXJl0T+qbRVHXa4fqQRR6ga+tSGeITWqN4a3xdFT8ohrSiKDCN5K1IHazA0?=
- =?us-ascii?Q?SwiYvUxGHUHI2sQbmt6zUsvnRGOfnCuVlKG4aqCi483SvgIy9fOt/z3ZwdVn?=
- =?us-ascii?Q?hrfwUgQz02v3FWCJmkj7OLEgnSa9/2SurDoVf2H6wRgxL6No1LX7Y5+mzlUB?=
- =?us-ascii?Q?VJOD7nOh3fwDTlwM4K/7xp9bfZYnFdtIm5xY/1ZJVI/FMikcoMTkQ4IlMqyY?=
- =?us-ascii?Q?l57084fuEQJuABdCp+51fiuD9t0m5/f5MLS9urjusshDmpMIXZOj0QihaUFX?=
- =?us-ascii?Q?JJRGXMhw11gDrDCYDA+xQu3bIcloHUsVALWeeUzsuETz9KwJ2/vbOZTggWO1?=
- =?us-ascii?Q?JDRlF10QCasrMvOa4vN0QVojgRCqP+ML1zvWeJKDfozYx1riTpNv0ZQ1LaUc?=
- =?us-ascii?Q?OZ6rY4hAcGUUOX6p9OZA1xti6gj3w6bTElW9iUYFIMlNuEF3aMjUQKJtzURg?=
- =?us-ascii?Q?0bxqEq0L7xiqIDaTRveKwaDpW0WdDZvr8/Aw4rTHO4FyAl9ZA+DujFwCL31U?=
- =?us-ascii?Q?brf/drf2daBEk+iQ84NplwfiK5rBzN2zQPjqLXt3egw9hxd+36os77en2fWF?=
- =?us-ascii?Q?MNo8i3lIJUq6GwedGCICJq57Gp3jk0iRxS3tq46pGyMTsEHvh7+JYZuOvOT0?=
-X-MS-Exchange-AntiSpam-MessageData-1: DF7gB8nLPLdfCLRXLSPu+Q0kdHmmYyarP8A=
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?qWkLggUgX+mSxhUXZ2yubTE8WZgOM8E/7sklMuZDOvkYnj+4xonkLjqZS2z/?=
+ =?us-ascii?Q?+LF/aUfIbK7GOJl2+zCB/MI+8MI0ASp1SPObPIlReOFsghsmIx7WYwr/w3i6?=
+ =?us-ascii?Q?0VpkRrcT+rPuvjb1ktpUV2/wxFh8igTifXWvs7Vm+KA9xDEMzjPDvtKC0qcC?=
+ =?us-ascii?Q?VSYTaEmL5SyTCcL6BjSb23LCG/TUUjbLcuZCvfu7r15YTKRVYq7d0yqkHuex?=
+ =?us-ascii?Q?Vn+Asr9WzYkIOxpcqRw1U3TGfuAeAzYaKx/7j5/d74xzIlJYzqT9QQda8WLd?=
+ =?us-ascii?Q?QKwRpOd5VwxDfvAMv7Op+7/IgwTfRNOnlpX62uQ0ZywOw7+eiHI/YuJZ+ZZA?=
+ =?us-ascii?Q?VoVwElHmNGA1D7BeQ1t+W9XmuAgiAtwZypcAQib3pxlfFPvtyXPuDJk23RlQ?=
+ =?us-ascii?Q?wYmbHMI9Fa0rRGeEmXObF9iDGxn/w0pWkHcPmPAnCGowGjnl9D+dKSDMI/Lz?=
+ =?us-ascii?Q?PuhyneTFGsyV8Ou9YyGq7uWqw2rsI+Q8rztm58C9BxijdaNK+tdQ0dNL3IBU?=
+ =?us-ascii?Q?1qwO/F9mXoS2COJ0hJr0dqGFHhfRUEaBmHAHMLLVfEqFmkFQ5ou7wqcreTO8?=
+ =?us-ascii?Q?87rJOVWbEuJbRJHVUtdQGTPTU7+eORJk4RrigjafOAXEZtdVvQtQBERvBjVZ?=
+ =?us-ascii?Q?FseQzWUUPjaIsx0JzhLtPNw9H+jklILizBwqu483KgtA9EPuO3KtX7dI6vy9?=
+ =?us-ascii?Q?Z1HjsAbBU8N8THg48DoJCEZO1upeAVrL+2FTWk9aXenCkSMRRN8CTOyk4QZn?=
+ =?us-ascii?Q?XtPPTjCz4SdFPjPXfUk7Aa6lLCPdizOAmuCi+lR6BG03oTaWG90/FEMvtIhc?=
+ =?us-ascii?Q?cGKUfcdkT5TWWHMSwmBfFowOT0jica8kfiO1D5zox+Uy6OKQgphWxQUECogA?=
+ =?us-ascii?Q?XZxfBbs3xLdrvu2Q61NN6FDgKS/gTMiQhGeLi96CMXuZWUAcCfXQLrX2jS5F?=
+ =?us-ascii?Q?nBQoc0CcjfSq/x4u0Sl/x0lHl8jUpWGQBxs35wHUhSUXTtGQn1ZJOcBHkcKM?=
+ =?us-ascii?Q?gRKhfZasODNp+5I+ttj7NAm1DDsOt1Qgubm2Ox7tDFrLBl7WBkWKWB236Kt/?=
+ =?us-ascii?Q?9vZ18WB/ER/57Pdpr7omDwVmABNSZUD21iwdrfUvQF5PEIIg3cB5LvFyfIkP?=
+ =?us-ascii?Q?I9eIgHapsJQhhfNzhT19FXQuOE9NpWEHLkxKejBlVIhVBnfg4QqI+iycmlP8?=
+ =?us-ascii?Q?XV0qoFmBUdcI4sx7Hmi+Bk+tm7wulGRUsd2Ar5oKsijZEIMD1tc7op4sUrAv?=
+ =?us-ascii?Q?Lk4+jzr1n04Ys0yEEtQLi/BaxRlNWwpYC1T4PP4bRFlSphxpFpbw54O42wj9?=
+ =?us-ascii?Q?DvM8C2/d4fwZc6oMamnpHN2O7yBWBipcxXJsDfty3D5hLU2n9RoebI5AAQsp?=
+ =?us-ascii?Q?hnhbXPqUVzhxb2RXYWR4K/52jN8OYguy0lWCh9MD2D4lId/ow3t8C9IMv/QI?=
+ =?us-ascii?Q?0WPOBmY2QjMogXWQoA8zesmDFugCJ4dAsu3G8YKdIq+6ppXoJqXM6Cq0hRGC?=
+ =?us-ascii?Q?ysKYP/NUxO3Xht+KMg6luj8Q/V7BEbmPQpYdaeia4xIadPRk1yEEk67oAF/J?=
+ =?us-ascii?Q?L0krGKQuy61SRDg4fk6P8u7Xpo5U2+wrH8nn2whmEyN/u3OtUMW6hZ2YSY8c?=
+ =?us-ascii?Q?ruDUNIKGbGA47Fyc6bvCOwv2HVw1xEgAadKV3QrT2gtOsOkoIjZ5LhIFJO+4?=
+ =?us-ascii?Q?va13eMZftm+dlef1vjO58giaHNQmAm+p+axceAyUDoe5fpVJmPSxok8kwq20?=
+ =?us-ascii?Q?w1HoLUWimgImSr8HmUX2UyLJdrAmw2v9PyGvBqe1bWdo3vmIDi5uZr2YE35g?=
+X-MS-Exchange-AntiSpam-MessageData-1: v16+JRytZRLYLX6a4omV0UsRJEFL6BkAfT8=
 X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 618a8f88-7906-4719-3188-08de8479b25f
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3751659f-7adf-4732-dc74-08de8479b993
 X-MS-Exchange-CrossTenant-AuthSource: AM9PR04MB8585.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Mar 2026 23:05:35.5239 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Mar 2026 23:05:47.5939 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: JJuKeS9HcdEL/N55PR7dsTbMIOO/erU1kOljn1L30/T0yrcOpoqYKWR6SNFNeM0yQlLdoB7gGBJUmOFiT3O0dQ==
+X-MS-Exchange-CrossTenant-UserPrincipalName: QXEa56/Fh1Nsr/mW8AajLTXLfy8hZJJMnHs+L2vKCsvdUcwMN8gI0vkfZopyvZDwBU5sQe7H4dVSBK+5iLySdw==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBBPR04MB7643
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -138,1049 +144,85 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The major goal is to hide the contents of struct phy from consumer
-drivers.
+As a PHY consumer driver, the Renesas rswitch dereferences internal
+fields of struct phy, something which shouldn't be done, as that is
+going to be made an opaque pointer.
 
-The idea with "phy-props.h" is that both consumers and providers make
-use of some data types. So both headers include "phy-props.h".
+It is quite clearly visible that the driver is tightly coupled with the
+drivers/phy/renesas/r8a779f0-ether-serdes.c, which puts heavy pressure
+on the Generic PHY subsystem.
 
-Some slight points of contention.
+This was discussed before here:
+https://lore.kernel.org/linux-phy/20260211194541.cdmibrpfn6ej6e74@skbuf/
 
-1. phy_set_bus_width(): Vinod explains that despite the current caller
-   situation (9 providers, 1 consumer), it is a consumer API function.
+but to summarize, it is generally expected that when a Generic PHY
+function is called, it takes effect immediately. When this doesn't
+happen, the PHY provider driver must change its implementation rather
+than the consumer be made to work around it. PHY providers which rely on
+a hardcoded call sequence in the consumer are just lazy and wrong.
 
-   The use case is that the controller (for example UFS) may have
-   limitations and should set the expected lanes to be used and width on
-   those lanes. A number of Generic PHYs can support multiple lanes and
-   multiple width so this is way for controller telling I am using this
-   configuration.
+The most obvious example is commit 5cb630925b49 ("net: renesas: rswitch:
+Add phy_power_{on,off}() calling"). Problem description:
+- Ethernet PHYs may change phydev->interface. When this happens, the
+  SerDes must learn of the new phydev->interface using phy_set_mode_ext().
+- drivers/phy/renesas/r8a779f0-ether-serdes.c implements phy_set_mode_ext(),
+  but this only caches the mode and submode into channel->phy_interface
+  and applies this to hardware during phy_power_on().
 
-2. phy-provider.h should go to include/linux/phy/ or to drivers/phy/?
-   We do have 3 PHY providers outside of drivers/phy/:
+The commit author decided to work around this at the consumer site, by
+power cycling the PHY for the configuration to take effect.
 
-   drivers/media/platform/sunxi/sun8i-a83t-mipi-csi2/sun8i_a83t_dphy.c
-   drivers/gpu/drm/rockchip/dw-mipi-dsi-rockchip.c
-   drivers/pinctrl/tegra/pinctrl-tegra-xusb.c
+This had a worse implication from an API perspective in subsequent
+commit 053f13f67be6 ("rswitch: Fix imbalance phy_power_off() calling").
+It was observed that phy_power_on() and phy_power_off() calls need to be
+balanced, and so, the consumer decided to start looking at the struct
+phy :: power_count (the technical reason why I'm making this change).
 
-   but the practice is not encouraged, and with time, these should be
-   moved to the subsystem. This is not something that I can do now.
+This is also wrong from an API perspective because
+- a consumer should only care about its own vote on the PHY power state.
+  If this is a multi-port submode like QSGMII, a single phy_power_off()
+  call will not actually turn the PHY off (nor should it).
+- the power_count is written under the &phy->mutex, but read unlocked
+  here.
 
-3. We can no longer tolerate static inline helpers. Allowing these would
-   make it impossible to hide the struct phy definition from consumers.
-   I've made phy_get_mode(), phy_get_bus_width(), phy_set_bus_width()
-   exported symbols in drivers/phy/phy-core.c.
-
-4. This is not a change without side effects. In the transition we are
-   no longer providing <linux/pm_runtime.h> at all, and
-   <linux/regulator/consumer.h> to PHY consumer drivers. However, the
-   in-tree dependencies should all have been resolved. Also, the
-   movement of phy-provider.h to drivers/phy/ is at least "interesting"
-   for out of tree PHY provider drivers (this header is not deployed by
-   make headers_install). However, it seems to be what Vinod is looking
-   to see.
-
-For temporary compatibility, keep including the provider header. This
-will be removed when abuses are all gotten rid of.
+The rswitch and r8a779f0-ether-serdes drivers both need to be completely
+rethought in terms of Generic PHY API call sequence. There is no quick
+fix to apply. Just include the PHY provider API along with the consumer
+one, to keep working as before when struct phy will be made an opaque
+pointer to normal PHY consumers. But this is a bad offender (and it's
+not even a provider) so add a FIXME.
 
 Signed-off-by: Vladimir Oltean <vladimir.oltean@nxp.com>
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
 ---
-v2->v4: none
-v1->v2:
-- collect tag
-- fix path to phy-provider.h
-- update commit message with the 4th point of contention
----
- drivers/phy/phy-core.c        |  34 +++
- drivers/phy/phy-provider.h    | 256 +++++++++++++++++
- include/linux/phy/phy-props.h |  75 +++++
- include/linux/phy/phy.h       | 497 +++++++---------------------------
- 4 files changed, 456 insertions(+), 406 deletions(-)
- create mode 100644 drivers/phy/phy-provider.h
- create mode 100644 include/linux/phy/phy-props.h
+Cc: Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>
+Cc: Michael Dege <michael.dege@renesas.com>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>
+Cc: "David S. Miller" <davem@davemloft.net>
+Cc: Eric Dumazet <edumazet@google.com>
+Cc: Jakub Kicinski <kuba@kernel.org>
+Cc: Paolo Abeni <pabeni@redhat.com>
+Cc: Geert Uytterhoeven <geert+renesas@glider.be>
+Cc: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
 
-diff --git a/drivers/phy/phy-core.c b/drivers/phy/phy-core.c
-index 21aaf2f76e53..a1aff00fba7c 100644
---- a/drivers/phy/phy-core.c
-+++ b/drivers/phy/phy-core.c
-@@ -20,6 +20,22 @@
- #include <linux/pm_runtime.h>
- #include <linux/regulator/consumer.h>
+v2->v4: none
+v1->v2: collect tag
+---
+ drivers/net/ethernet/renesas/rswitch_main.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/net/ethernet/renesas/rswitch_main.c b/drivers/net/ethernet/renesas/rswitch_main.c
+index 6fe964816322..132be5f15073 100644
+--- a/drivers/net/ethernet/renesas/rswitch_main.c
++++ b/drivers/net/ethernet/renesas/rswitch_main.c
+@@ -27,6 +27,7 @@
+ #include <linux/spinlock.h>
+ #include <linux/sys_soc.h>
  
-+#define	to_phy(a)	(container_of((a), struct phy, dev))
-+
-+/**
-+ * struct phy_lookup - PHY association in list of phys managed by the phy driver
-+ * @node: list node
-+ * @dev_id: the device of the association
-+ * @con_id: connection ID string on device
-+ * @phy: the phy of the association
-+ */
-+struct phy_lookup {
-+	struct list_head node;
-+	const char *dev_id;
-+	const char *con_id;
-+	struct phy *phy;
-+};
-+
- static void phy_release(struct device *dev);
- static const struct class phy_class = {
- 	.name = "phy",
-@@ -606,6 +622,24 @@ int phy_validate(struct phy *phy, enum phy_mode mode, int submode,
- }
- EXPORT_SYMBOL_GPL(phy_validate);
++#include "../../../phy/phy-provider.h" /* FIXME */
+ #include "rswitch.h"
+ #include "rswitch_l2.h"
  
-+enum phy_mode phy_get_mode(struct phy *phy)
-+{
-+	return phy->attrs.mode;
-+}
-+EXPORT_SYMBOL_GPL(phy_get_mode);
-+
-+int phy_get_bus_width(struct phy *phy)
-+{
-+	return phy->attrs.bus_width;
-+}
-+EXPORT_SYMBOL_GPL(phy_get_bus_width);
-+
-+void phy_set_bus_width(struct phy *phy, int bus_width)
-+{
-+	phy->attrs.bus_width = bus_width;
-+}
-+EXPORT_SYMBOL_GPL(phy_set_bus_width);
-+
- /**
-  * _of_phy_get() - lookup and obtain a reference to a phy by phandle
-  * @np: device_node for which to get the phy
-diff --git a/drivers/phy/phy-provider.h b/drivers/phy/phy-provider.h
-new file mode 100644
-index 000000000000..0637278a2d8d
---- /dev/null
-+++ b/drivers/phy/phy-provider.h
-@@ -0,0 +1,256 @@
-+/* SPDX-License-Identifier: GPL-2.0-or-later */
-+/*
-+ * phy-provider.h -- Generic PHY provider API
-+ *
-+ * Copyright (C) 2013 Texas Instruments Incorporated - http://www.ti.com
-+ *
-+ * Author: Kishon Vijay Abraham I <kishon@ti.com>
-+ */
-+#ifndef __PHY_PROVIDER_H
-+#define __PHY_PROVIDER_H
-+
-+#include <linux/err.h>
-+#include <linux/of.h>
-+#include <linux/device.h>
-+#include <linux/regulator/consumer.h>
-+#include <linux/phy/phy-props.h>
-+
-+struct phy;
-+
-+/**
-+ * struct phy_ops - set of function pointers for performing phy operations
-+ * @init: operation to be performed for initializing phy
-+ * @exit: operation to be performed while exiting
-+ * @power_on: powering on the phy
-+ * @power_off: powering off the phy
-+ * @set_mode: set the mode of the phy
-+ * @set_media: set the media type of the phy (optional)
-+ * @set_speed: set the speed of the phy (optional)
-+ * @reset: resetting the phy
-+ * @calibrate: calibrate the phy
-+ * @notify_phystate: notify and configure the phy for a particular state
-+ * @release: ops to be performed while the consumer relinquishes the PHY
-+ * @owner: the module owner containing the ops
-+ */
-+struct phy_ops {
-+	int	(*init)(struct phy *phy);
-+	int	(*exit)(struct phy *phy);
-+	int	(*power_on)(struct phy *phy);
-+	int	(*power_off)(struct phy *phy);
-+	int	(*set_mode)(struct phy *phy, enum phy_mode mode, int submode);
-+	int	(*set_media)(struct phy *phy, enum phy_media media);
-+	int	(*set_speed)(struct phy *phy, int speed);
-+
-+	/**
-+	 * @configure:
-+	 *
-+	 * Optional.
-+	 *
-+	 * Used to change the PHY parameters. phy_init() must have
-+	 * been called on the phy.
-+	 *
-+	 * Returns: 0 if successful, an negative error code otherwise
-+	 */
-+	int	(*configure)(struct phy *phy, union phy_configure_opts *opts);
-+
-+	/**
-+	 * @validate:
-+	 *
-+	 * Optional.
-+	 *
-+	 * Used to check that the current set of parameters can be
-+	 * handled by the phy. Implementations are free to tune the
-+	 * parameters passed as arguments if needed by some
-+	 * implementation detail or constraints. It must not change
-+	 * any actual configuration of the PHY, so calling it as many
-+	 * times as deemed fit by the consumer must have no side
-+	 * effect.
-+	 *
-+	 * Returns: 0 if the configuration can be applied, an negative
-+	 * error code otherwise
-+	 */
-+	int	(*validate)(struct phy *phy, enum phy_mode mode, int submode,
-+			    union phy_configure_opts *opts);
-+	int	(*reset)(struct phy *phy);
-+	int	(*calibrate)(struct phy *phy);
-+
-+	/* notify phy connect status change */
-+	int	(*connect)(struct phy *phy, int port);
-+	int	(*disconnect)(struct phy *phy, int port);
-+
-+	int	(*notify_phystate)(struct phy *phy, union phy_notify state);
-+	void	(*release)(struct phy *phy);
-+	struct module *owner;
-+};
-+
-+/**
-+ * struct phy_attrs - represents phy attributes
-+ * @bus_width: Data path width implemented by PHY
-+ * @max_link_rate: Maximum link rate supported by PHY (units to be decided by producer and consumer)
-+ * @mode: PHY mode
-+ */
-+struct phy_attrs {
-+	u32			bus_width;
-+	u32			max_link_rate;
-+	enum phy_mode		mode;
-+};
-+
-+/**
-+ * struct phy - represents the phy device
-+ * @dev: phy device
-+ * @id: id of the phy device
-+ * @ops: function pointers for performing phy operations
-+ * @mutex: mutex to protect phy_ops
-+ * @lockdep_key: lockdep information for this mutex
-+ * @init_count: used to protect when the PHY is used by multiple consumers
-+ * @power_count: used to protect when the PHY is used by multiple consumers
-+ * @attrs: used to specify PHY specific attributes
-+ * @pwr: power regulator associated with the phy
-+ * @debugfs: debugfs directory
-+ */
-+struct phy {
-+	struct device		dev;
-+	int			id;
-+	const struct phy_ops	*ops;
-+	struct mutex		mutex;
-+	struct lock_class_key	lockdep_key;
-+	int			init_count;
-+	int			power_count;
-+	struct phy_attrs	attrs;
-+	struct regulator	*pwr;
-+	struct dentry		*debugfs;
-+};
-+
-+/**
-+ * struct phy_provider - represents the phy provider
-+ * @dev: phy provider device
-+ * @children: can be used to override the default (dev->of_node) child node
-+ * @owner: the module owner having of_xlate
-+ * @list: to maintain a linked list of PHY providers
-+ * @of_xlate: function pointer to obtain phy instance from phy pointer
-+ */
-+struct phy_provider {
-+	struct device		*dev;
-+	struct device_node	*children;
-+	struct module		*owner;
-+	struct list_head	list;
-+	struct phy *(*of_xlate)(struct device *dev,
-+				const struct of_phandle_args *args);
-+};
-+
-+#define	of_phy_provider_register(dev, xlate)	\
-+	__of_phy_provider_register((dev), NULL, THIS_MODULE, (xlate))
-+
-+#define	devm_of_phy_provider_register(dev, xlate)	\
-+	__devm_of_phy_provider_register((dev), NULL, THIS_MODULE, (xlate))
-+
-+#define of_phy_provider_register_full(dev, children, xlate) \
-+	__of_phy_provider_register(dev, children, THIS_MODULE, xlate)
-+
-+#define devm_of_phy_provider_register_full(dev, children, xlate) \
-+	__devm_of_phy_provider_register(dev, children, THIS_MODULE, xlate)
-+
-+static inline void phy_set_drvdata(struct phy *phy, void *data)
-+{
-+	dev_set_drvdata(&phy->dev, data);
-+}
-+
-+static inline void *phy_get_drvdata(struct phy *phy)
-+{
-+	return dev_get_drvdata(&phy->dev);
-+}
-+
-+#if IS_ENABLED(CONFIG_GENERIC_PHY)
-+struct phy *phy_create(struct device *dev, struct device_node *node,
-+		       const struct phy_ops *ops);
-+struct phy *devm_phy_create(struct device *dev, struct device_node *node,
-+			    const struct phy_ops *ops);
-+void phy_destroy(struct phy *phy);
-+void devm_phy_destroy(struct device *dev, struct phy *phy);
-+
-+struct phy_provider *
-+__of_phy_provider_register(struct device *dev, struct device_node *children,
-+			   struct module *owner,
-+			   struct phy *(*of_xlate)(struct device *dev,
-+						   const struct of_phandle_args *args));
-+struct phy_provider *
-+__devm_of_phy_provider_register(struct device *dev, struct device_node *children,
-+				struct module *owner,
-+				struct phy *(*of_xlate)(struct device *dev,
-+							const struct of_phandle_args *args));
-+void of_phy_provider_unregister(struct phy_provider *phy_provider);
-+void devm_of_phy_provider_unregister(struct device *dev,
-+				     struct phy_provider *phy_provider);
-+int phy_create_lookup(struct phy *phy, const char *con_id, const char *dev_id);
-+void phy_remove_lookup(struct phy *phy, const char *con_id, const char *dev_id);
-+struct phy *of_phy_simple_xlate(struct device *dev,
-+				const struct of_phandle_args *args);
-+#else
-+static inline struct phy *phy_create(struct device *dev,
-+				     struct device_node *node,
-+				     const struct phy_ops *ops)
-+{
-+	return ERR_PTR(-ENOSYS);
-+}
-+
-+static inline struct phy *devm_phy_create(struct device *dev,
-+					  struct device_node *node,
-+					  const struct phy_ops *ops)
-+{
-+	return ERR_PTR(-ENOSYS);
-+}
-+
-+static inline void phy_destroy(struct phy *phy)
-+{
-+}
-+
-+static inline void devm_phy_destroy(struct device *dev, struct phy *phy)
-+{
-+}
-+
-+static inline struct phy_provider *
-+__of_phy_provider_register(struct device *dev, struct device_node *children,
-+			   struct module *owner,
-+			   struct phy *(*of_xlate)(struct device *dev,
-+						   const struct of_phandle_args *args))
-+{
-+	return ERR_PTR(-ENOSYS);
-+}
-+
-+static inline struct phy_provider *
-+__devm_of_phy_provider_register(struct device *dev, struct device_node *children,
-+				struct module *owner,
-+				struct phy *(*of_xlate)(struct device *dev,
-+							const struct of_phandle_args *args))
-+{
-+	return ERR_PTR(-ENOSYS);
-+}
-+
-+static inline void of_phy_provider_unregister(struct phy_provider *phy_provider)
-+{
-+}
-+
-+static inline void devm_of_phy_provider_unregister(struct device *dev,
-+						   struct phy_provider *phy_provider)
-+{
-+}
-+
-+static inline int phy_create_lookup(struct phy *phy, const char *con_id,
-+				    const char *dev_id)
-+{
-+	return 0;
-+}
-+
-+static inline void phy_remove_lookup(struct phy *phy, const char *con_id,
-+				     const char *dev_id)
-+{
-+}
-+
-+static inline struct phy *of_phy_simple_xlate(struct device *dev,
-+					      const struct of_phandle_args *args)
-+{
-+	return ERR_PTR(-ENOSYS);
-+}
-+#endif /* IS_ENABLED(CONFIG_GENERIC_PHY) */
-+
-+#endif /* __PHY_PROVIDER_H */
-diff --git a/include/linux/phy/phy-props.h b/include/linux/phy/phy-props.h
-new file mode 100644
-index 000000000000..11f36738165f
---- /dev/null
-+++ b/include/linux/phy/phy-props.h
-@@ -0,0 +1,75 @@
-+/* SPDX-License-Identifier: GPL-2.0-or-later */
-+/*
-+ * phy-provider.h -- Generic PHY properties
-+ *
-+ * Copyright (C) 2013 Texas Instruments Incorporated - http://www.ti.com
-+ *
-+ * Author: Kishon Vijay Abraham I <kishon@ti.com>
-+ */
-+#ifndef __PHY_PROPS_H
-+#define __PHY_PROPS_H
-+
-+#include <linux/phy/phy-dp.h>
-+#include <linux/phy/phy-hdmi.h>
-+#include <linux/phy/phy-lvds.h>
-+#include <linux/phy/phy-mipi-dphy.h>
-+
-+enum phy_mode {
-+	PHY_MODE_INVALID,
-+	PHY_MODE_USB_HOST,
-+	PHY_MODE_USB_HOST_LS,
-+	PHY_MODE_USB_HOST_FS,
-+	PHY_MODE_USB_HOST_HS,
-+	PHY_MODE_USB_HOST_SS,
-+	PHY_MODE_USB_DEVICE,
-+	PHY_MODE_USB_DEVICE_LS,
-+	PHY_MODE_USB_DEVICE_FS,
-+	PHY_MODE_USB_DEVICE_HS,
-+	PHY_MODE_USB_DEVICE_SS,
-+	PHY_MODE_USB_OTG,
-+	PHY_MODE_UFS_HS_A,
-+	PHY_MODE_UFS_HS_B,
-+	PHY_MODE_PCIE,
-+	PHY_MODE_ETHERNET,
-+	PHY_MODE_MIPI_DPHY,
-+	PHY_MODE_SATA,
-+	PHY_MODE_LVDS,
-+	PHY_MODE_DP,
-+	PHY_MODE_HDMI,
-+};
-+
-+enum phy_media {
-+	PHY_MEDIA_DEFAULT,
-+	PHY_MEDIA_SR,
-+	PHY_MEDIA_DAC,
-+};
-+
-+enum phy_ufs_state {
-+	PHY_UFS_HIBERN8_ENTER,
-+	PHY_UFS_HIBERN8_EXIT,
-+};
-+
-+union phy_notify {
-+	enum phy_ufs_state ufs_state;
-+};
-+
-+/**
-+ * union phy_configure_opts - Opaque generic phy configuration
-+ *
-+ * @mipi_dphy:	Configuration set applicable for phys supporting
-+ *		the MIPI_DPHY phy mode.
-+ * @dp:		Configuration set applicable for phys supporting
-+ *		the DisplayPort protocol.
-+ * @lvds:	Configuration set applicable for phys supporting
-+ *		the LVDS phy mode.
-+ * @hdmi:	Configuration set applicable for phys supporting
-+ *		the HDMI phy mode.
-+ */
-+union phy_configure_opts {
-+	struct phy_configure_opts_mipi_dphy	mipi_dphy;
-+	struct phy_configure_opts_dp		dp;
-+	struct phy_configure_opts_lvds		lvds;
-+	struct phy_configure_opts_hdmi		hdmi;
-+};
-+
-+#endif /* __PHY_PROPS_H */
-diff --git a/include/linux/phy/phy.h b/include/linux/phy/phy.h
-index ea47975e288a..f208edd25afe 100644
---- a/include/linux/phy/phy.h
-+++ b/include/linux/phy/phy.h
-@@ -1,246 +1,38 @@
- /* SPDX-License-Identifier: GPL-2.0-or-later */
- /*
-- * phy.h -- generic phy header file
-+ * phy.h -- Generic PHY consumer API
-  *
-  * Copyright (C) 2013 Texas Instruments Incorporated - http://www.ti.com
-  *
-  * Author: Kishon Vijay Abraham I <kishon@ti.com>
-  */
- 
--#ifndef __DRIVERS_PHY_H
--#define __DRIVERS_PHY_H
-+#ifndef __PHY_CONSUMER_H
-+#define __PHY_CONSUMER_H
- 
--#include <linux/err.h>
--#include <linux/of.h>
--#include <linux/device.h>
--#include <linux/pm_runtime.h>
--#include <linux/regulator/consumer.h>
-+#include <linux/phy/phy-props.h>
- 
--#include <linux/phy/phy-dp.h>
--#include <linux/phy/phy-hdmi.h>
--#include <linux/phy/phy-lvds.h>
--#include <linux/phy/phy-mipi-dphy.h>
-+#include "../../../drivers/phy/phy-provider.h"
- 
-+struct device;
-+struct device_node;
- struct phy;
- 
--enum phy_mode {
--	PHY_MODE_INVALID,
--	PHY_MODE_USB_HOST,
--	PHY_MODE_USB_HOST_LS,
--	PHY_MODE_USB_HOST_FS,
--	PHY_MODE_USB_HOST_HS,
--	PHY_MODE_USB_HOST_SS,
--	PHY_MODE_USB_DEVICE,
--	PHY_MODE_USB_DEVICE_LS,
--	PHY_MODE_USB_DEVICE_FS,
--	PHY_MODE_USB_DEVICE_HS,
--	PHY_MODE_USB_DEVICE_SS,
--	PHY_MODE_USB_OTG,
--	PHY_MODE_UFS_HS_A,
--	PHY_MODE_UFS_HS_B,
--	PHY_MODE_PCIE,
--	PHY_MODE_ETHERNET,
--	PHY_MODE_MIPI_DPHY,
--	PHY_MODE_SATA,
--	PHY_MODE_LVDS,
--	PHY_MODE_DP,
--	PHY_MODE_HDMI,
--};
--
--enum phy_media {
--	PHY_MEDIA_DEFAULT,
--	PHY_MEDIA_SR,
--	PHY_MEDIA_DAC,
--};
--
--enum phy_ufs_state {
--	PHY_UFS_HIBERN8_ENTER,
--	PHY_UFS_HIBERN8_EXIT,
--};
--
--union phy_notify {
--	enum phy_ufs_state ufs_state;
--};
--
--/**
-- * union phy_configure_opts - Opaque generic phy configuration
-- *
-- * @mipi_dphy:	Configuration set applicable for phys supporting
-- *		the MIPI_DPHY phy mode.
-- * @dp:		Configuration set applicable for phys supporting
-- *		the DisplayPort protocol.
-- * @lvds:	Configuration set applicable for phys supporting
-- *		the LVDS phy mode.
-- * @hdmi:	Configuration set applicable for phys supporting
-- *		the HDMI phy mode.
-- */
--union phy_configure_opts {
--	struct phy_configure_opts_mipi_dphy	mipi_dphy;
--	struct phy_configure_opts_dp		dp;
--	struct phy_configure_opts_lvds		lvds;
--	struct phy_configure_opts_hdmi		hdmi;
--};
--
--/**
-- * struct phy_ops - set of function pointers for performing phy operations
-- * @init: operation to be performed for initializing phy
-- * @exit: operation to be performed while exiting
-- * @power_on: powering on the phy
-- * @power_off: powering off the phy
-- * @set_mode: set the mode of the phy
-- * @set_media: set the media type of the phy (optional)
-- * @set_speed: set the speed of the phy (optional)
-- * @reset: resetting the phy
-- * @calibrate: calibrate the phy
-- * @notify_phystate: notify and configure the phy for a particular state
-- * @release: ops to be performed while the consumer relinquishes the PHY
-- * @owner: the module owner containing the ops
-- */
--struct phy_ops {
--	int	(*init)(struct phy *phy);
--	int	(*exit)(struct phy *phy);
--	int	(*power_on)(struct phy *phy);
--	int	(*power_off)(struct phy *phy);
--	int	(*set_mode)(struct phy *phy, enum phy_mode mode, int submode);
--	int	(*set_media)(struct phy *phy, enum phy_media media);
--	int	(*set_speed)(struct phy *phy, int speed);
--
--	/**
--	 * @configure:
--	 *
--	 * Optional.
--	 *
--	 * Used to change the PHY parameters. phy_init() must have
--	 * been called on the phy.
--	 *
--	 * Returns: 0 if successful, an negative error code otherwise
--	 */
--	int	(*configure)(struct phy *phy, union phy_configure_opts *opts);
--
--	/**
--	 * @validate:
--	 *
--	 * Optional.
--	 *
--	 * Used to check that the current set of parameters can be
--	 * handled by the phy. Implementations are free to tune the
--	 * parameters passed as arguments if needed by some
--	 * implementation detail or constraints. It must not change
--	 * any actual configuration of the PHY, so calling it as many
--	 * times as deemed fit by the consumer must have no side
--	 * effect.
--	 *
--	 * Returns: 0 if the configuration can be applied, an negative
--	 * error code otherwise
--	 */
--	int	(*validate)(struct phy *phy, enum phy_mode mode, int submode,
--			    union phy_configure_opts *opts);
--	int	(*reset)(struct phy *phy);
--	int	(*calibrate)(struct phy *phy);
--
--	/* notify phy connect status change */
--	int	(*connect)(struct phy *phy, int port);
--	int	(*disconnect)(struct phy *phy, int port);
--
--	int	(*notify_phystate)(struct phy *phy, union phy_notify state);
--	void	(*release)(struct phy *phy);
--	struct module *owner;
--};
--
--/**
-- * struct phy_attrs - represents phy attributes
-- * @bus_width: Data path width implemented by PHY
-- * @max_link_rate: Maximum link rate supported by PHY (units to be decided by producer and consumer)
-- * @mode: PHY mode
-- */
--struct phy_attrs {
--	u32			bus_width;
--	u32			max_link_rate;
--	enum phy_mode		mode;
--};
--
--/**
-- * struct phy - represents the phy device
-- * @dev: phy device
-- * @id: id of the phy device
-- * @ops: function pointers for performing phy operations
-- * @mutex: mutex to protect phy_ops
-- * @lockdep_key: lockdep information for this mutex
-- * @init_count: used to protect when the PHY is used by multiple consumers
-- * @power_count: used to protect when the PHY is used by multiple consumers
-- * @attrs: used to specify PHY specific attributes
-- * @pwr: power regulator associated with the phy
-- * @debugfs: debugfs directory
-- */
--struct phy {
--	struct device		dev;
--	int			id;
--	const struct phy_ops	*ops;
--	struct mutex		mutex;
--	struct lock_class_key	lockdep_key;
--	int			init_count;
--	int			power_count;
--	struct phy_attrs	attrs;
--	struct regulator	*pwr;
--	struct dentry		*debugfs;
--};
--
--/**
-- * struct phy_provider - represents the phy provider
-- * @dev: phy provider device
-- * @children: can be used to override the default (dev->of_node) child node
-- * @owner: the module owner having of_xlate
-- * @list: to maintain a linked list of PHY providers
-- * @of_xlate: function pointer to obtain phy instance from phy pointer
-- */
--struct phy_provider {
--	struct device		*dev;
--	struct device_node	*children;
--	struct module		*owner;
--	struct list_head	list;
--	struct phy * (*of_xlate)(struct device *dev,
--				 const struct of_phandle_args *args);
--};
--
--/**
-- * struct phy_lookup - PHY association in list of phys managed by the phy driver
-- * @node: list node
-- * @dev_id: the device of the association
-- * @con_id: connection ID string on device
-- * @phy: the phy of the association
-- */
--struct phy_lookup {
--	struct list_head node;
--	const char *dev_id;
--	const char *con_id;
--	struct phy *phy;
--};
--
--#define	to_phy(a)	(container_of((a), struct phy, dev))
--
--#define	of_phy_provider_register(dev, xlate)	\
--	__of_phy_provider_register((dev), NULL, THIS_MODULE, (xlate))
--
--#define	devm_of_phy_provider_register(dev, xlate)	\
--	__devm_of_phy_provider_register((dev), NULL, THIS_MODULE, (xlate))
--
--#define of_phy_provider_register_full(dev, children, xlate) \
--	__of_phy_provider_register(dev, children, THIS_MODULE, xlate)
--
--#define devm_of_phy_provider_register_full(dev, children, xlate) \
--	__devm_of_phy_provider_register(dev, children, THIS_MODULE, xlate)
--
--static inline void phy_set_drvdata(struct phy *phy, void *data)
--{
--	dev_set_drvdata(&phy->dev, data);
--}
--
--static inline void *phy_get_drvdata(struct phy *phy)
--{
--	return dev_get_drvdata(&phy->dev);
--}
--
- #if IS_ENABLED(CONFIG_GENERIC_PHY)
-+struct phy *phy_get(struct device *dev, const char *string);
-+struct phy *devm_phy_get(struct device *dev, const char *string);
-+struct phy *devm_phy_optional_get(struct device *dev, const char *string);
-+struct phy *devm_of_phy_get(struct device *dev, struct device_node *np,
-+			    const char *con_id);
-+struct phy *devm_of_phy_optional_get(struct device *dev, struct device_node *np,
-+				     const char *con_id);
-+struct phy *devm_of_phy_get_by_index(struct device *dev, struct device_node *np,
-+				     int index);
-+void of_phy_put(struct phy *phy);
-+void phy_put(struct device *dev, struct phy *phy);
-+void devm_phy_put(struct device *dev, struct phy *phy);
-+struct phy *of_phy_get(struct device_node *np, const char *con_id);
-+
- int phy_pm_runtime_get(struct phy *phy);
- int phy_pm_runtime_get_sync(struct phy *phy);
- void phy_pm_runtime_put(struct phy *phy);
-@@ -257,59 +49,69 @@ int phy_set_speed(struct phy *phy, int speed);
- int phy_configure(struct phy *phy, union phy_configure_opts *opts);
- int phy_validate(struct phy *phy, enum phy_mode mode, int submode,
- 		 union phy_configure_opts *opts);
--
--static inline enum phy_mode phy_get_mode(struct phy *phy)
--{
--	return phy->attrs.mode;
--}
-+enum phy_mode phy_get_mode(struct phy *phy);
- int phy_reset(struct phy *phy);
- int phy_calibrate(struct phy *phy);
- int phy_notify_connect(struct phy *phy, int port);
- int phy_notify_disconnect(struct phy *phy, int port);
- int phy_notify_state(struct phy *phy, union phy_notify state);
--static inline int phy_get_bus_width(struct phy *phy)
-+int phy_get_bus_width(struct phy *phy);
-+void phy_set_bus_width(struct phy *phy, int bus_width);
-+#else
-+static inline struct phy *phy_get(struct device *dev, const char *string)
- {
--	return phy->attrs.bus_width;
-+	return ERR_PTR(-ENOSYS);
- }
--static inline void phy_set_bus_width(struct phy *phy, int bus_width)
-+
-+static inline struct phy *devm_phy_get(struct device *dev, const char *string)
- {
--	phy->attrs.bus_width = bus_width;
-+	return ERR_PTR(-ENOSYS);
- }
--struct phy *phy_get(struct device *dev, const char *string);
--struct phy *devm_phy_get(struct device *dev, const char *string);
--struct phy *devm_phy_optional_get(struct device *dev, const char *string);
--struct phy *devm_of_phy_get(struct device *dev, struct device_node *np,
--			    const char *con_id);
--struct phy *devm_of_phy_optional_get(struct device *dev, struct device_node *np,
--				     const char *con_id);
--struct phy *devm_of_phy_get_by_index(struct device *dev, struct device_node *np,
--				     int index);
--void of_phy_put(struct phy *phy);
--void phy_put(struct device *dev, struct phy *phy);
--void devm_phy_put(struct device *dev, struct phy *phy);
--struct phy *of_phy_get(struct device_node *np, const char *con_id);
--struct phy *of_phy_simple_xlate(struct device *dev,
--				const struct of_phandle_args *args);
--struct phy *phy_create(struct device *dev, struct device_node *node,
--		       const struct phy_ops *ops);
--struct phy *devm_phy_create(struct device *dev, struct device_node *node,
--			    const struct phy_ops *ops);
--void phy_destroy(struct phy *phy);
--void devm_phy_destroy(struct device *dev, struct phy *phy);
--struct phy_provider *__of_phy_provider_register(struct device *dev,
--	struct device_node *children, struct module *owner,
--	struct phy * (*of_xlate)(struct device *dev,
--				 const struct of_phandle_args *args));
--struct phy_provider *__devm_of_phy_provider_register(struct device *dev,
--	struct device_node *children, struct module *owner,
--	struct phy * (*of_xlate)(struct device *dev,
--				 const struct of_phandle_args *args));
--void of_phy_provider_unregister(struct phy_provider *phy_provider);
--void devm_of_phy_provider_unregister(struct device *dev,
--	struct phy_provider *phy_provider);
--int phy_create_lookup(struct phy *phy, const char *con_id, const char *dev_id);
--void phy_remove_lookup(struct phy *phy, const char *con_id, const char *dev_id);
--#else
-+
-+static inline struct phy *devm_phy_optional_get(struct device *dev,
-+						const char *string)
-+{
-+	return NULL;
-+}
-+
-+static inline struct phy *devm_of_phy_get(struct device *dev,
-+					  struct device_node *np,
-+					  const char *con_id)
-+{
-+	return ERR_PTR(-ENOSYS);
-+}
-+
-+static inline struct phy *devm_of_phy_optional_get(struct device *dev,
-+						   struct device_node *np,
-+						   const char *con_id)
-+{
-+	return NULL;
-+}
-+
-+static inline struct phy *devm_of_phy_get_by_index(struct device *dev,
-+						   struct device_node *np,
-+						   int index)
-+{
-+	return ERR_PTR(-ENOSYS);
-+}
-+
-+static inline void of_phy_put(struct phy *phy)
-+{
-+}
-+
-+static inline void phy_put(struct device *dev, struct phy *phy)
-+{
-+}
-+
-+static inline void devm_phy_put(struct device *dev, struct phy *phy)
-+{
-+}
-+
-+static inline struct phy *of_phy_get(struct device_node *np, const char *con_id)
-+{
-+	return ERR_PTR(-ENOSYS);
-+}
-+
- static inline int phy_pm_runtime_get(struct phy *phy)
- {
- 	if (!phy)
-@@ -388,61 +190,59 @@ static inline int phy_set_speed(struct phy *phy, int speed)
- 	return -ENODEV;
- }
- 
--static inline enum phy_mode phy_get_mode(struct phy *phy)
--{
--	return PHY_MODE_INVALID;
--}
--
--static inline int phy_reset(struct phy *phy)
-+static inline int phy_configure(struct phy *phy,
-+				union phy_configure_opts *opts)
- {
- 	if (!phy)
- 		return 0;
- 	return -ENOSYS;
- }
- 
--static inline int phy_calibrate(struct phy *phy)
-+static inline int phy_validate(struct phy *phy, enum phy_mode mode, int submode,
-+			       union phy_configure_opts *opts)
- {
- 	if (!phy)
- 		return 0;
- 	return -ENOSYS;
- }
- 
--static inline int phy_notify_connect(struct phy *phy, int index)
-+static inline enum phy_mode phy_get_mode(struct phy *phy)
-+{
-+	return PHY_MODE_INVALID;
-+}
-+
-+static inline int phy_reset(struct phy *phy)
- {
- 	if (!phy)
- 		return 0;
- 	return -ENOSYS;
- }
- 
--static inline int phy_notify_disconnect(struct phy *phy, int index)
-+static inline int phy_calibrate(struct phy *phy)
- {
- 	if (!phy)
- 		return 0;
- 	return -ENOSYS;
- }
- 
--static inline int phy_notify_state(struct phy *phy, union phy_notify state)
-+static inline int phy_notify_connect(struct phy *phy, int index)
- {
- 	if (!phy)
- 		return 0;
- 	return -ENOSYS;
- }
- 
--static inline int phy_configure(struct phy *phy,
--				union phy_configure_opts *opts)
-+static inline int phy_notify_disconnect(struct phy *phy, int index)
- {
- 	if (!phy)
- 		return 0;
--
- 	return -ENOSYS;
- }
- 
--static inline int phy_validate(struct phy *phy, enum phy_mode mode, int submode,
--			       union phy_configure_opts *opts)
-+static inline int phy_notify_state(struct phy *phy, union phy_notify state)
- {
- 	if (!phy)
- 		return 0;
--
- 	return -ENOSYS;
- }
- 
-@@ -453,122 +253,7 @@ static inline int phy_get_bus_width(struct phy *phy)
- 
- static inline void phy_set_bus_width(struct phy *phy, int bus_width)
- {
--	return;
--}
--
--static inline struct phy *phy_get(struct device *dev, const char *string)
--{
--	return ERR_PTR(-ENOSYS);
--}
--
--static inline struct phy *devm_phy_get(struct device *dev, const char *string)
--{
--	return ERR_PTR(-ENOSYS);
--}
--
--static inline struct phy *devm_phy_optional_get(struct device *dev,
--						const char *string)
--{
--	return NULL;
--}
--
--static inline struct phy *devm_of_phy_get(struct device *dev,
--					  struct device_node *np,
--					  const char *con_id)
--{
--	return ERR_PTR(-ENOSYS);
--}
--
--static inline struct phy *devm_of_phy_optional_get(struct device *dev,
--						   struct device_node *np,
--						   const char *con_id)
--{
--	return NULL;
--}
--
--static inline struct phy *devm_of_phy_get_by_index(struct device *dev,
--						   struct device_node *np,
--						   int index)
--{
--	return ERR_PTR(-ENOSYS);
--}
--
--static inline void of_phy_put(struct phy *phy)
--{
--}
--
--static inline void phy_put(struct device *dev, struct phy *phy)
--{
--}
--
--static inline void devm_phy_put(struct device *dev, struct phy *phy)
--{
--}
--
--static inline struct phy *of_phy_get(struct device_node *np, const char *con_id)
--{
--	return ERR_PTR(-ENOSYS);
--}
--
--static inline struct phy *of_phy_simple_xlate(struct device *dev,
--					      const struct of_phandle_args *args)
--{
--	return ERR_PTR(-ENOSYS);
--}
--
--static inline struct phy *phy_create(struct device *dev,
--				     struct device_node *node,
--				     const struct phy_ops *ops)
--{
--	return ERR_PTR(-ENOSYS);
--}
--
--static inline struct phy *devm_phy_create(struct device *dev,
--					  struct device_node *node,
--					  const struct phy_ops *ops)
--{
--	return ERR_PTR(-ENOSYS);
--}
--
--static inline void phy_destroy(struct phy *phy)
--{
--}
--
--static inline void devm_phy_destroy(struct device *dev, struct phy *phy)
--{
--}
--
--static inline struct phy_provider *__of_phy_provider_register(
--	struct device *dev, struct device_node *children, struct module *owner,
--	struct phy * (*of_xlate)(struct device *dev,
--				 const struct of_phandle_args *args))
--{
--	return ERR_PTR(-ENOSYS);
--}
--
--static inline struct phy_provider *__devm_of_phy_provider_register(struct device
--	*dev, struct device_node *children, struct module *owner,
--	struct phy * (*of_xlate)(struct device *dev,
--				 const struct of_phandle_args *args))
--{
--	return ERR_PTR(-ENOSYS);
--}
--
--static inline void of_phy_provider_unregister(struct phy_provider *phy_provider)
--{
--}
--
--static inline void devm_of_phy_provider_unregister(struct device *dev,
--	struct phy_provider *phy_provider)
--{
--}
--static inline int
--phy_create_lookup(struct phy *phy, const char *con_id, const char *dev_id)
--{
--	return 0;
- }
--static inline void phy_remove_lookup(struct phy *phy, const char *con_id,
--				     const char *dev_id) { }
--#endif
-+#endif /* IS_ENABLED(CONFIG_GENERIC_PHY) */
- 
--#endif /* __DRIVERS_PHY_H */
-+#endif /* __PHY_CONSUMER_H */
 -- 
 2.43.0
 
