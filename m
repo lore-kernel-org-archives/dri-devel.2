@@ -4,148 +4,187 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A85DBFF6E91
-	for <dri-devel@archiver.kernel.org>; Tue, 17 Mar 2026 22:04:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 89F36FF6E9A
+	for <dri-devel@archiver.kernel.org>; Tue, 17 Mar 2026 23:05:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CC3B210E645;
-	Tue, 17 Mar 2026 22:04:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DF87B10E11B;
+	Tue, 17 Mar 2026 23:05:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="sM9rUq2k";
+	dkim=pass (2048-bit key; unprotected) header.d=nxp.com header.i=@nxp.com header.b="U8orY4EU";
 	dkim-atps=neutral
-Received: from CH5PR02CU005.outbound.protection.outlook.com
- (mail-northcentralusazon11012045.outbound.protection.outlook.com
- [40.107.200.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9140410E215;
- Tue, 17 Mar 2026 22:04:12 +0000 (UTC)
+Received: from DB3PR0202CU003.outbound.protection.outlook.com
+ (mail-northeuropeazon11010014.outbound.protection.outlook.com [52.101.84.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9128010E1CA;
+ Tue, 17 Mar 2026 23:05:15 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=O3EFgHhGAgOIiwDEtShHDDQVWgiW1XwUTnphupJeC+9VmQrth2CW9dbODXlASVP9r4SH3UWZPpoLXXPJMO3epjrajhsSqCKRA9fHt6wEanKy08lJ867zfMEikUsOeTTd0q9u8bvvVjWspTsi4iHWoVipOB/pOOrbKrMxL7Aa86EgKvYO+wM05bQeqgTM/srVxNpLFyIqd1mlFq+8ycC2422HjawKyCKUD13ZzmTJR433ZSD/jridNa7wQpx9IKZTGG48pwaC9sWWgQNNXWUVy1zs2jIUBWPWqqcoOhuGJ3bcTNB1tCTssJrhdKvnJgotHkociUg4YcEZuB6NTtA4rQ==
+ b=cg6GZ4e2GWPfOMgLvzVqHyzosjso6V5SR6tnMDNLGCr9IQ6pk87F5uy+J9vN2aGuRWdoOzxTO6p8G2EojjmjzBR0ulXlW/pQRwJYcFwHPx714rn0LOpzZyOW7YU/26Y8qsowtxT3p4p6UKvmOpF6byj/2iAk+9QGmi9NFpeoZ6rdXwqsNR2t1N/kyQeYvSCkqgu1BQzC99gfVgVt759kUu50/WSDC4KZ8Hw/28tP3bduYp+iQ6iafx4CGtZbmhcoEt0bLa8k+0FgeMAOjCoy203qfJ+VLKF9+LrrSXzl0t6AZt2XQCfWNxaXjAfJCL8chgbaLf7ZQv/HBygmD/99Fg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=o4cC4zbmXg9Q6JsU7V0RmVEkLBC+umFayt/cbHpb2wI=;
- b=dv1/s8Ms70j8HgiAn+pEi2Zye7myHwlhWtt049EwgLR+6Y19NiBcc9SvIfFHjLQ8rrHjBL2q8OfAL511ob0ZV0EJfSs7qy2dty3yKwi1sNfHDebE7MtP9z0MrrYHIs4D33aAHh9gCw6hLt04Uq55F21T2f4gKwAJ6xqfWRQK7qNDQm88/e8nFKj2wNV6ioWq4UnaygyFdAsar+cH3RN4JG+di5R9fJ7le5FxsOMjSbDMmjqBMnHODH/WLKuGQ32vFit71eTRKk0bs3/yskCI+M5c2oK/dsvF58DP159X/SJqgalDghDCxvPegIIq/XVBc9c3P59ZM8eBuQMPI3xRwg==
+ bh=KiGvsFPp21si6cwbWtVXt1UokAtKqJphhf9HvPfKAQQ=;
+ b=SyrhgLfZeEePZWB+xGXvVaQeycCtycE9GrZQQL/2X2bC7Z13TTHCYDZcHMsU11HgM0KZNjyVnMtgyaU3yfUEjNCndWz0GkX64v5uLLi6qZh86xHtlKUBUkSAtFmb+GzgvDXXNNNefWMOh9R4nu7XtiBhi/e0E6t2wbq3lOFZpeOA1uUUFAMpjGXoGY9+0eXWNKgJpMp+JUSgtQS/EdhFIpaZvM0Cgvr+cD5tY9wsolaDXCZSi8BtleRF3flub51hM1AKiRzmBN+7ICTQzY6BRvLsPumIisSQvKw4tChDCKKyCo3Kc217cyq19cM/rfjZOKLOEu1DPk23NQNtda2epw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=o4cC4zbmXg9Q6JsU7V0RmVEkLBC+umFayt/cbHpb2wI=;
- b=sM9rUq2kFC41yCGW5Kp9BRdzJ3OqbkliaLOzekp+89XYgDs/DibYUtnaGb+b7qfGd6zahvFn0QdgDN2iNUTNmBn7WW2GYmaRBhDIbL6HZM1+LnZmNInY6WJp31EvIccUZtCVYLlLzgA0XZO93KxucLP49/KEpUsqF+lEvwlX03wJb1N3f/0E9aUSnhF4H/YNgAYCmSzTbhDM1SoNUwcQHj/lQj422Lic9r8PZGQPGAmndVRntNr+nYoY/Ag3TXu02nsUcbbtaiS576xRpXEc351OnaBIUEr+605Jn/qbzHu80tgmn8b9VrS0y1Nouaj54ZhaevWINseg9BjaU4YuUg==
+ bh=KiGvsFPp21si6cwbWtVXt1UokAtKqJphhf9HvPfKAQQ=;
+ b=U8orY4EUK3+5Qc780jfaETne5HpoSTUdFHxqM4tzFUTk2PdknrKNams+UZqrbxNuCUxxn89Ne6X514OkshBm6vzj4QtWnGDZnW1Y2BM6hKlYdHCjQxfBNkxjdRSfuCLC3DiA0t7JfOxM2iClk0F81qPvWRagkbHaTXwoWVWI1MPcPL83eMjLIsqGqAb4cpMte0vErUsn/+yCEydPuZmpxuHrLnI1d1aRIOSZlpBRr+MFxgjfzhcgDwzomVTSZTTaJGlB4O5FV6qlfcruRcFT2q4N9x8GyZ5p5U6soFzaOwxzX9qRYTz/gqi1NNXtbfZO8XvXQP9PGK7Egp4jKB1tkw==
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DS0PR12MB6486.namprd12.prod.outlook.com (2603:10b6:8:c5::21) by
- DM4PR12MB9735.namprd12.prod.outlook.com (2603:10b6:8:225::8) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9723.16; Tue, 17 Mar 2026 22:04:02 +0000
-Received: from DS0PR12MB6486.namprd12.prod.outlook.com
- ([fe80::88a9:f314:c95f:8b33]) by DS0PR12MB6486.namprd12.prod.outlook.com
- ([fe80::88a9:f314:c95f:8b33%4]) with mapi id 15.20.9723.014; Tue, 17 Mar 2026
- 22:04:02 +0000
-From: Joel Fernandes <joelagnelf@nvidia.com>
-To: linux-kernel@vger.kernel.org
-Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
- Gary Guo <gary@garyguo.net>,
- =?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
- Danilo Krummrich <dakr@kernel.org>, Dave Airlie <airlied@redhat.com>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Koen Koning <koen.koning@linux.intel.com>, dri-devel@lists.freedesktop.org,
- rust-for-linux@vger.kernel.org, Nikola Djukic <ndjukic@nvidia.com>,
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from AM9PR04MB8585.eurprd04.prod.outlook.com (2603:10a6:20b:438::13)
+ by VI0PR04MB12032.eurprd04.prod.outlook.com (2603:10a6:800:311::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9700.27; Tue, 17 Mar
+ 2026 23:05:12 +0000
+Received: from AM9PR04MB8585.eurprd04.prod.outlook.com
+ ([fe80::f010:fca8:7ef:62f4]) by AM9PR04MB8585.eurprd04.prod.outlook.com
+ ([fe80::f010:fca8:7ef:62f4%4]) with mapi id 15.20.9700.022; Tue, 17 Mar 2026
+ 23:05:09 +0000
+From: Vladimir Oltean <vladimir.oltean@nxp.com>
+To: linux-phy@lists.infradead.org
+Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
+ linux-can@vger.kernel.org, linux-gpio@vger.kernel.org,
+ linux-ide@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, linux-pci@vger.kernel.org,
+ linux-renesas-soc@vger.kernel.org, linux-riscv@lists.infradead.org,
+ linux-rockchip@lists.infradead.org, linux-samsung-soc@vger.kernel.org,
+ linux-scsi@vger.kernel.org, linux-sunxi@lists.linux.dev,
+ linux-tegra@vger.kernel.org, linux-usb@vger.kernel.org,
+ netdev@vger.kernel.org, spacemit@lists.linux.dev,
+ UNGLinuxDriver@microchip.com, Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ =?UTF-8?q?Andr=C3=A9=20Draszik?= <andre.draszik@linaro.org>,
+ Andrew Lunn <andrew+netdev@lunn.ch>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Andy Yan <andy.yan@rock-chips.com>, Bjorn Helgaas <bhelgaas@google.com>,
+ Chanho Park <chanho61.park@samsung.com>, Chen-Yu Tsai <wens@kernel.org>,
+ Claudiu Beznea <claudiu.beznea@tuxon.dev>,
+ Damien Le Moal <dlemoal@kernel.org>,
+ Daniel Machon <daniel.machon@microchip.com>,
+ David Airlie <airlied@gmail.com>, "David S. Miller" <davem@davemloft.net>,
+ Dmitry Baryshkov <lumag@kernel.org>, Eric Dumazet <edumazet@google.com>,
+ Fabio Estevam <festevam@gmail.com>, Frank Li <Frank.Li@nxp.com>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ =?UTF-8?q?Heiko=20St=C3=BCbner?= <heiko@sntech.de>,
+ Inki Dae <inki.dae@samsung.com>, Jagan Teki <jagan@amarulasolutions.com>,
+ Jakub Kicinski <kuba@kernel.org>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Joe Perches <joe@perches.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jonathan Hunter <jonathanh@nvidia.com>,
+ Kevin Xie <kevin.xie@starfivetech.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+ =?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Linus Walleij <linusw@kernel.org>,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Magnus Damm <magnus.damm@gmail.com>,
+ Manivannan Sadhasivam <mani@kernel.org>,
+ Marc Kleine-Budde <mkl@pengutronix.de>,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Markus Schneider-Pargmann <msp@baylibre.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
  Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Jonathan Corbet <corbet@lwn.net>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, Huang Rui <ray.huang@amd.com>,
- Matthew Auld <matthew.auld@intel.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Lucas De Marchi <lucas.demarchi@intel.com>,
- =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Helge Deller <deller@gmx.de>, Alex Gaynor <alex.gaynor@gmail.com>,
- Boqun Feng <boqun.feng@gmail.com>, John Hubbard <jhubbard@nvidia.com>,
- Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
- Edwin Peer <epeer@nvidia.com>, Alexandre Courbot <acourbot@nvidia.com>,
- Andrea Righi <arighi@nvidia.com>, Andy Ritger <aritger@nvidia.com>,
- Zhi Wang <zhiw@nvidia.com>, Balbir Singh <balbirs@nvidia.com>,
- Philipp Stanner <phasta@kernel.org>,
- Elle Rhumsaa <elle@weathered-steel.dev>, alexeyi@nvidia.com,
- Eliot Courtney <ecourtney@nvidia.com>, joel@joelfernandes.org,
- linux-doc@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- linux-fbdev@vger.kernel.org, Joel Fernandes <joelagnelf@nvidia.com>
-Subject: [PATCH v13 1/2] rust: gpu: Add GPU buddy allocator bindings
-Date: Tue, 17 Mar 2026 18:03:22 -0400
-Message-Id: <20260317220323.1909618-2-joelagnelf@nvidia.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260317220323.1909618-1-joelagnelf@nvidia.com>
-References: <20260308180407.3988286-1-joelagnelf@nvidia.com>
- <20260317220323.1909618-1-joelagnelf@nvidia.com>
+ Michael Dege <michael.dege@renesas.com>,
+ Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Niklas Cassel <cassel@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Peter Chen <peter.chen@kernel.org>,
+ Peter Griffin <peter.griffin@linaro.org>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Robert Foss <rfoss@kernel.org>,
+ Rob Herring <robh@kernel.org>,
+ "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>,
+ Samuel Holland <samuel@sholland.org>, Sandy Huang <hjc@rock-chips.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>, Sean Paul <sean@poorly.run>,
+ Sebastian Reichel <sre@kernel.org>, Shawn Guo <shawn.guo@linaro.org>,
+ Shawn Lin <shawn.lin@rock-chips.com>, Simona Vetter <simona@ffwll.ch>,
+ Steen Hegelund <Steen.Hegelund@microchip.com>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Tudor Ambarus <tudor.ambarus@linaro.org>,
+ Vincent Mailhol <mailhol@kernel.org>, Yixun Lan <dlan@kernel.org>,
+ Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>
+Subject: [PATCH v4 phy-next 00/24] Split Generic PHY consumer and provider API
+Date: Wed, 18 Mar 2026 01:04:36 +0200
+Message-ID: <20260317230500.2056077-1-vladimir.oltean@nxp.com>
+X-Mailer: git-send-email 2.43.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: BLAPR05CA0024.namprd05.prod.outlook.com
- (2603:10b6:208:36e::20) To DS0PR12MB6486.namprd12.prod.outlook.com
- (2603:10b6:8:c5::21)
+X-ClientProxiedBy: VIXP296CA0011.AUTP296.PROD.OUTLOOK.COM
+ (2603:10a6:800:2a9::10) To AM9PR04MB8585.eurprd04.prod.outlook.com
+ (2603:10a6:20b:438::13)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB6486:EE_|DM4PR12MB9735:EE_
-X-MS-Office365-Filtering-Correlation-Id: 86ae3b23-014d-4836-f81e-08de8471192a
+X-MS-TrafficTypeDiagnostic: AM9PR04MB8585:EE_|VI0PR04MB12032:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6a4c9e65-42d1-4802-deee-08de8479a26d
+X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|7416014|366016|56012099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: klCF7Vkt9ky5HhvLmU4Y4ReXzblKdkv4sA37yKExNZq6rci4JA017Qv7N0g46P5tUcjdF5/8410ym2bsH9YOuMxXJmQ3RVgT1S4jVjm0mUkoAVJ2zKqhImejpLjgHrNXUZ4mnfNz1408RqteiTJ+NfamNBhRpJ7bpkYiuP3kuqeefE6NmBtiAwcsUbPgjRaCJ9mQkO0eGHeOzlr3+yRWyLHoIzwGncHNHxDBxgVO77d0kFMKUueWT3UjILszaQik+YBgkCCm3MD5lmLa9bFhs0HvK5HGSMA32XrXWTrXs/xso2ZA/bSwYlB4i0HuiZUybVok5SjQUY34x024jFL/2A1HUHWJV2CW0OlaYzx2kPqAl4e8hsiFnsaYku6uZ45jU3RzPt3Anfw0IKzEK7wUBxvWVZgwgkJkPmWuzKKFJXTndPW3HlCkUgbMwA1sV47MduQGPnpCi5A3/Y5E6q0H9ApGKpL0FvKi7gbdAPneZ+9GngT5V5ZU8qxPtYwUx9sQSm+jzTqJB7L9qP42hjZt7oOdWyfLOf58uKdIOV+Fe9uy5qtKQLeEubzo5B7IzgLWOgduFeaIDRVJbbJj9bg/AwKhGf2DvGkX19p1zAYN7qVDCCrLcElW8DTnISYz3RNIOjbXDcC30G/DL1/rSpoa21mgkvwlrRqXQ1qvt16Muwc2hdB3wSa9L1TE62ni/MiyQDp++VU8CNUKgy7G77Qnu7w6xQ9OUOzG3NN0zvpGoyY=
+ ARA:13230040|1800799024|10070799003|376014|19092799006|7416014|366016|18002099003|56012099003;
+X-Microsoft-Antispam-Message-Info: 3KhjSoDcvB9RnM7jrs988Vf/tlDrelt92ZVV4FkO/KThXKMLTyG6Viqy6BsKLuloyvTro4L1J9VViO2VOimG1OQgYoj2d3Q+UALt6/OpJcAQ4Klvkv8hNW2u6hvpFVbse3MlIg0q/3IyLd/0RZZ3vGMOi4PWyIZftVSj+OKx80Hue1pj8tZPKaGzE8NwRncpBOtNkDR87sPJM4fR57BhASIQdNbHvKNQ5crQN+FVkLpuwZWQ2v2xwDYvipQiArRbofxOvHzBaMrDgocuRtlva/BzY6+7rsQmhyNgsMNPso3tJ8Pv8JTpVg9UXz3/TA8pwPtDvo/QJSUJGFfHHKOKW5NoWW7NvW2MOC0uwcPwUx2mxtuDeqp1DqTJEoBirb1aZoOt76cjERfXW2AHypI3x3txU1si7D0dNIwc7zQp4ItVFl4DkCCyq9X4bWypC2Y2UWulVhkG7nTunKyuVV6YHlDFZdaQifzvH2q4sXXnxNG3j5yyeuO5RHD3YS87kTsIH7FcS4HxmpFPVvRbQ5ablDxLMz6QuYogtDyePy9FT5zZN1Kp5R7ZVO1sAfCCh4h5fgLCEcKwGD9+caAUNYtqy1pe2YdUldzQRqP3VjB+neaJUFYS8LA/mno9Tf2ayttg8yQTBRqIrwknO7+h43BYrxV9B46eRTvcoH0EhtY/FeHOzY2NB9ITaekkpGxTNSDAt//BmAjkVVpfmUU0C9sQfatBwiT7i9wxlk8mFbIjo4u07KTbFVFbQhivSlHb7jHk
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS0PR12MB6486.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(7416014)(366016)(56012099003)(22082099003)(18002099003);
+ IPV:NLI; SFV:NSPM; H:AM9PR04MB8585.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(10070799003)(376014)(19092799006)(7416014)(366016)(18002099003)(56012099003);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?soNCTJCju8g17MCjxdESWmq4m4qPUfxyxzVN4UEDGE/BlNSzIP/8bQt2Lc9J?=
- =?us-ascii?Q?+befQGWPpuIL7KN+cpMY3fYi3NhI6zZ5pk5qUKz721k3WmPunCK/Ogua9ttL?=
- =?us-ascii?Q?sByg/lsw4N6wzfxWbJ+dBHOxqvDzD3Nb613owN4kTO2MHpBdoH1ShYypVPBV?=
- =?us-ascii?Q?V2GGp5FviakzcyB5rIKp1Cygj0LfBtNB1a3SCs1rTv+RBKbYSledF0m02dJB?=
- =?us-ascii?Q?a/nlCMh3/FBH47Tq62Af62o8H/1kSoTD564JdfQ2J/8wrMpuZ/NOY80hOdi3?=
- =?us-ascii?Q?bFNGcXTFlMCxnsZgRp6Q/L6MaRNIBaHc7B3b5pLgOgO4OVqjloXX4j+M0vtN?=
- =?us-ascii?Q?rgy5dYd+0Zkg7y94BA60iZ3u51S1YjW2oksYfbrapnGK7qPyqcSfbLQy9Yus?=
- =?us-ascii?Q?LQJSaz/6/zkAnMM/Sv1E+9Kfo+OjQNyXwHBHL1ukUWk9JtCxZ0vBi90i6fdO?=
- =?us-ascii?Q?I0slCq53OZNoCP8ARdQfTXKhaL+EoCac+kJVGTORC2/R9lMlKDAF2XObq56x?=
- =?us-ascii?Q?pU2zxa+woHPHsJZuDv6MvLE4Q+bbCPPWP1U/ZUS4d5YbSy7BT0fCFFXgDHRk?=
- =?us-ascii?Q?jhMCosMa/i+VTjq3j9jflw7/ciAw2lxcUfVbncoGKMGKGut3rfCOsG6hA3UR?=
- =?us-ascii?Q?mQakpSeOi7SU/FRcNZzkHJrksUjuu2abGtziCNTjuy3ijpua16j3EehLfSkn?=
- =?us-ascii?Q?7F90BZYjuwHq/pn3GrBsvZTtA1W76v+XCkvP4CxMZzhqYetp6dka76o4YeMn?=
- =?us-ascii?Q?WzksEZBj6EGjtIVkM3hE2jqkaBxndb8FMaGp+WA+Bc8MEsMUK4zlodQqV/Gp?=
- =?us-ascii?Q?jg4qcu7Lc/loVsysctL4hrakygemwaJ+XOBJI8tV4qNP4sks73dyFlgIR4iR?=
- =?us-ascii?Q?Go72r5BF6QWVB6SfsfRdYEtu9wjwtCLToGor9rEPBcuEExjZy8DAJFnzRBkB?=
- =?us-ascii?Q?lQ4H1EohoLNnPJYsXPa2Vr3mN8rA6ZSZiWMZbAfgufGeNgVm3uRVW9KjKdXA?=
- =?us-ascii?Q?GmWPctV58pDfzCBjsAK8dOga4OFKKmV7rjnttosJtwBDcWOYKiVIZxxc/YBP?=
- =?us-ascii?Q?kfyy3QDEUC3uJhQ4kNCV1oomd2y/2FAI23Bjb3snxzI64FLlr7rwfk5em1/M?=
- =?us-ascii?Q?g4xpn1ndUs1VrCSbBL51dZZmA7tZqdAeeV2L3mZikpPgJqRYSzXLeF/wplGF?=
- =?us-ascii?Q?XXvNyuvl9svv+0RKQZufmffKAmKDC8muGjxcN4ZTAdMkdFy2Cd71oZPZ/5RA?=
- =?us-ascii?Q?xvXrs08gaPdKhwlQM5nBNhNUvGr0FLY49V2hk6L8vQa3hddTD887IW9ec/vA?=
- =?us-ascii?Q?j/Qu7rk9Czla+Q9RFWoxmE/eYL2Dl8GYCpHU+utXByyeAunTGlqeYf5JWoXy?=
- =?us-ascii?Q?KI4KHL97DnLhYBNVWOgdwk3x2tRgKwBw90Yz4WIn9783Scd1Jkgf5uCX3u5z?=
- =?us-ascii?Q?DY6junb4ahjHeBWc/ySTUIdSfnpZtp/l/xCEnCstTPoYtH+427BHTGP12ecc?=
- =?us-ascii?Q?NqQgpocurRbRVPRoC1g9dJ4hTf22bUWw/zNyMM/QS4ZF57FliGsCLjYfc/yf?=
- =?us-ascii?Q?UQgh76LKUQtnIr8ot5PPuUt99S+H3V1TyqcMzcysZsV0s2IHaqla3XSRhfXj?=
- =?us-ascii?Q?rv9snhGwcVVHFNy0FZJXizad/Pl6AATHzURn/eDs4id8rsToSOdkkUpcvKYb?=
- =?us-ascii?Q?Fb+oSXhNqBbm1/63pXuwZ0o1tOg6DVryVzND1psoOg3Ddwr+Uqzdx8dZ7cpo?=
- =?us-ascii?Q?eis+hWxJCA=3D=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 86ae3b23-014d-4836-f81e-08de8471192a
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6486.namprd12.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cjZ1cW43bG9zSVJJWGgwZDBHdlhjOFE2ZDAwOVhpTzRJS2FHTVhYSWhDbmVG?=
+ =?utf-8?B?NzMrWGRvaDFacWFlZExGS3BzSytZM2FoNm9MMHFNRExYZWMwWUllOW5HTzVK?=
+ =?utf-8?B?TlZBVkNWSXRIQllRc2pZNkE4WUhhZWl2V0N0ZWNuSUJ4akJRbzFrK2p2YURU?=
+ =?utf-8?B?N0h1NTIycnZSZUI0NFU1Ny9kTnRacldJaTNtUFY0bXJHL3MrbjRMQklWQ2VL?=
+ =?utf-8?B?M3o4Rys1Umxpb1Z5Nkk4ZDRCS3MrOVBoSHl2U3VOS3MzdlJXNnZsUHVUa0c5?=
+ =?utf-8?B?RkZVZmJTWlcwT3EydEVXQWE3ajBmbUdOcHcwMVdGMXpXamt4dkhXV2x6cjNn?=
+ =?utf-8?B?U0YzK3VmUWhuMFlCQUcvaVZ0dStXWGNFUitwSmdHMy9jZEZwZXp2UnJwdnVa?=
+ =?utf-8?B?bjAzVG1FTHdaK2t0dEsvUlNxbnp4YndZQWZGcnlydzVINFI3TXdHc0IxRkJY?=
+ =?utf-8?B?UjNqSHFidGtzcG1pUUNaL3o1N1MzM2RuZ0JJRWxBLzZjTlg0T0VGQmZORkU0?=
+ =?utf-8?B?UFJwK1FzQlp3WVh3WTlUVURuZzU0QURxeCtPVzYzd01SODBWdWhKVG5HSUZK?=
+ =?utf-8?B?UUd6MWVjMWdvdTRFd3RzS2JqSFYzU1R2VjRMTTZzOFdjVXV0b0JVT1JPaFdD?=
+ =?utf-8?B?SFJhU0U1eWMzTHJDRlNyOEFzWjcrQ2ZIU0N3VTZIUWVCQ2hSREdmZDgxZVJV?=
+ =?utf-8?B?OHo2OGwzTFpHaFVTZEs3ZnErcFBEWGJtMmx3YjE4M0FFVnlzayt3TWFBbnlZ?=
+ =?utf-8?B?U01VTVFac0luWTI3b0dqM3lGTHhYL0t6QjFhdE9pRjRNSUNuTkhmTGFRM2Jy?=
+ =?utf-8?B?NnlXaXRFR0ZPbElRMS9oaWdObm4rcS9aSXZaR0g3Z1pYbVFqYlZiaWdodkNa?=
+ =?utf-8?B?QmNvYkdZLzc5Tm1GM01JL0tLS2xXanhRWCtsU2o3TENIYTRjSzdWdEpSblMr?=
+ =?utf-8?B?QUZKdzZma2dOeGxFcUg5Y3lNVkwzcGdmYXdldVdKa3ZEZTdZTlJjQ2s3K1kz?=
+ =?utf-8?B?RGl4cnVKNWt6a0JmNWZRUXU2dFBCV0t5cXpyTEhvSFQvS3hTSFZXb0d2REpJ?=
+ =?utf-8?B?eVFSV2h5SzFKb2JzZjJnR3JBSTRCd1UrL2VqcDA4QWlTOU5qb0ZyV3RPYWtq?=
+ =?utf-8?B?L2wyRkNpRTJ4U01hb2xGZkE3MDV6bjc3YnNHTUVFWGprNHFlbXhJcDhQNmJ1?=
+ =?utf-8?B?YmFkelZ2bHRDRDdEUmhjbVA4RXJqUmFhR1RRV2tpSS9VV25ENG1qYVY4eWZI?=
+ =?utf-8?B?cUh5UGlRWGV3VXNMZFhVM3Z2NzVvMkN0d0UzMFk0KzlFQ3RENHM3dmFaeHpM?=
+ =?utf-8?B?aVVkZy81SG42WlNqVStzVkc4OTB1SzRXNEE1WFBwRmVLaGZ2S1ZEdHVmRFlJ?=
+ =?utf-8?B?NnkrZzZ4ekRXTENPaFlCNFJUNFRzamJkRm5qQU1ycEY5UUpCMzZXcFBQOGFo?=
+ =?utf-8?B?SjAzRUhob2xxK25OT1NySzg1S1djbGw4dTMwRFQ2SERDbUcvQXI5aUVxL3Vr?=
+ =?utf-8?B?eklUVGxKUWtKL3BDRWVaVUx0NDl0UStKYldCbXpPQ3d2bWh6Q1NLWGxDaGcx?=
+ =?utf-8?B?bGJxeklRVnRSajlXV3RzUkZQMGg1VmxVV2UwME1ubmcrSjdINmxlM09MVi9x?=
+ =?utf-8?B?Wk5WaXpGZFhiQzFqOWhFeHUwZUkvRnYrWU9GTnQ2dEt3RXhndzQ0eU9uMEZ5?=
+ =?utf-8?B?TDNWUDlBL3l2ZVZzSW1ucU5yTllOdDRQTWVmNWhQZ3RORkd1VStTMWxDWjdY?=
+ =?utf-8?B?dy9yY3k3QzFxODhxd3I1eHVaZ3FlckszZERVOHF5TkNBemNWWENLYkJvTnVZ?=
+ =?utf-8?B?Q1g1bklINnBqVVNtTlI0Z0hXeEh0OEFRN0N4NFlFWGt1WjFmSGlWbzBmMnoy?=
+ =?utf-8?B?MHFNYm9ndlZkWUFna0djQ3BneFppQVYxb0ZMT29OZ3ducUtqWUdHaE82YjVj?=
+ =?utf-8?B?ak1Ick90cUUxVUdNQTFvbUJ6R2liMU9ycEVOcU1pSWc5cXAxaWJzakJtQ3Jm?=
+ =?utf-8?B?cW9xKzBKRFh6eGJRVXQyaHFVZVBOWEQyRDZTbDYvQnNZTHd1Yk40WS9FWWQy?=
+ =?utf-8?B?Ty9lVFRnSzZiL3hxK0JVWE1uWDArd3o4cDUwQmdKTnM1Zm1kNlU0a0NOTFBa?=
+ =?utf-8?B?bFQxNzlEVFFtbStwNVk3b2U3V1ZPYk9ucWNiU3hIMU9FNzZOWmRmbW8vVWFE?=
+ =?utf-8?B?RFN5Rm8xT2g4RDBEM2UyTzZjQkcrM2R2UC91WUd4WFlrWDZlSFdibzBQWEFG?=
+ =?utf-8?B?OUZ5S1ZIVHZ6WE5ldnFBYWlpV3F0dUhoaFhtVjVOUDJNeDhhbEtzRnF5TkVX?=
+ =?utf-8?B?bjJ0ZEYrZkl5UnkralN5QlNxbjRlN0kxa09kZ2lXTDhVYjFMOEYvL2Fxd01Q?=
+ =?utf-8?Q?lk5jLVZ5iOgcj1vqZQ1O1GkjZvh712O9KknBLg6QiXDdG?=
+X-MS-Exchange-AntiSpam-MessageData-1: /me9eccM7NImsQ5IHMJxA9p1hh1N9NrbV3g=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6a4c9e65-42d1-4802-deee-08de8479a26d
+X-MS-Exchange-CrossTenant-AuthSource: AM9PR04MB8585.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Mar 2026 22:04:02.4188 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Mar 2026 23:05:09.2858 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: f+TuuDcnatm/BgRTcKLHuALExf0yTaS+zI/SNxEu6clF2HR02LpukftOi6AthwNHvFTN01LOfgYA57G8a8mzXw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB9735
+X-MS-Exchange-CrossTenant-UserPrincipalName: EkDaZJ4Uz6lBVCyGqw5I13Rw1tPIVN6TM1Y2pvSqz+LPTKd/7gJ1fqV4nXzO7ogHmnJyN2Wnv5BN0FckipnSUg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI0PR04MB12032
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -161,774 +200,417 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add safe Rust abstractions over the Linux kernel's GPU buddy
-allocator for physical memory management. The GPU buddy allocator
-implements a binary buddy system useful for GPU physical memory
-allocation. nova-core will use it for physical memory allocation.
+The biggest problem requiring this split is the fact that consumer
+drivers poke around in struct phy, accessing fields which shouldn't be
+visible to them. Follow the example of mux, gpio, iio, spi offload,
+pwrsec, pinctrl and regulator, which each expose separate headers for
+consumers and providers.
 
-Cc: Nikola Djukic <ndjukic@nvidia.com>
-Signed-off-by: Joel Fernandes <joelagnelf@nvidia.com>
----
- MAINTAINERS                     |   6 +
- rust/bindings/bindings_helper.h |  11 +
- rust/helpers/gpu.c              |  23 ++
- rust/helpers/helpers.c          |   1 +
- rust/kernel/gpu.rs              |   6 +
- rust/kernel/gpu/buddy.rs        | 622 ++++++++++++++++++++++++++++++++
- rust/kernel/lib.rs              |   2 +
- 7 files changed, 671 insertions(+)
- create mode 100644 rust/helpers/gpu.c
- create mode 100644 rust/kernel/gpu.rs
- create mode 100644 rust/kernel/gpu/buddy.rs
+Some off-list discussions were had with Vinod Koul regarding the 3 PHY
+providers outside the drivers/phy/ subsystem. It was agreed that it is
+desirable to relocate them to drivers/phy/, rather than to publish
+phy-provider.h to include/linux/phy/ for liberal use. Only phy.h and
+(new) phy-props.h - consumer-facing headers - stay there.
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index e847099efcc2..cd9505d3be60 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -8531,7 +8531,10 @@ T:	git https://gitlab.freedesktop.org/drm/rust/kernel.git
- F:	drivers/gpu/drm/nova/
- F:	drivers/gpu/drm/tyr/
- F:	drivers/gpu/nova-core/
-+F:	rust/helpers/gpu.c
- F:	rust/kernel/drm/
-+F:	rust/kernel/gpu.rs
-+F:	rust/kernel/gpu/
- 
- DRM DRIVERS FOR ALLWINNER A10
- M:	Chen-Yu Tsai <wens@kernel.org>
-@@ -8952,6 +8955,9 @@ F:	drivers/gpu/drm/drm_buddy.c
- F:	drivers/gpu/tests/gpu_buddy_test.c
- F:	include/drm/drm_buddy.h
- F:	include/linux/gpu_buddy.h
-+F:	rust/helpers/gpu.c
-+F:	rust/kernel/gpu.rs
-+F:	rust/kernel/gpu/
- 
- DRM AUTOMATED TESTING
- M:	Helen Koike <helen.fornazier@gmail.com>
-diff --git a/rust/bindings/bindings_helper.h b/rust/bindings/bindings_helper.h
-index 083cc44aa952..dbb765a9fdbd 100644
---- a/rust/bindings/bindings_helper.h
-+++ b/rust/bindings/bindings_helper.h
-@@ -29,6 +29,7 @@
- #include <linux/hrtimer_types.h>
- 
- #include <linux/acpi.h>
-+#include <linux/gpu_buddy.h>
- #include <drm/drm_device.h>
- #include <drm/drm_drv.h>
- #include <drm/drm_file.h>
-@@ -146,6 +147,16 @@ const vm_flags_t RUST_CONST_HELPER_VM_MIXEDMAP = VM_MIXEDMAP;
- const vm_flags_t RUST_CONST_HELPER_VM_HUGEPAGE = VM_HUGEPAGE;
- const vm_flags_t RUST_CONST_HELPER_VM_NOHUGEPAGE = VM_NOHUGEPAGE;
- 
-+#if IS_ENABLED(CONFIG_GPU_BUDDY)
-+const unsigned long RUST_CONST_HELPER_GPU_BUDDY_RANGE_ALLOCATION = GPU_BUDDY_RANGE_ALLOCATION;
-+const unsigned long RUST_CONST_HELPER_GPU_BUDDY_TOPDOWN_ALLOCATION = GPU_BUDDY_TOPDOWN_ALLOCATION;
-+const unsigned long RUST_CONST_HELPER_GPU_BUDDY_CONTIGUOUS_ALLOCATION =
-+								GPU_BUDDY_CONTIGUOUS_ALLOCATION;
-+const unsigned long RUST_CONST_HELPER_GPU_BUDDY_CLEAR_ALLOCATION = GPU_BUDDY_CLEAR_ALLOCATION;
-+const unsigned long RUST_CONST_HELPER_GPU_BUDDY_CLEARED = GPU_BUDDY_CLEARED;
-+const unsigned long RUST_CONST_HELPER_GPU_BUDDY_TRIM_DISABLE = GPU_BUDDY_TRIM_DISABLE;
-+#endif
-+
- #if IS_ENABLED(CONFIG_ANDROID_BINDER_IPC_RUST)
- #include "../../drivers/android/binder/rust_binder.h"
- #include "../../drivers/android/binder/rust_binder_events.h"
-diff --git a/rust/helpers/gpu.c b/rust/helpers/gpu.c
-new file mode 100644
-index 000000000000..38b1a4e6bef8
---- /dev/null
-+++ b/rust/helpers/gpu.c
-@@ -0,0 +1,23 @@
-+// SPDX-License-Identifier: GPL-2.0
-+
-+#include <linux/gpu_buddy.h>
-+
-+#ifdef CONFIG_GPU_BUDDY
-+
-+__rust_helper u64 rust_helper_gpu_buddy_block_offset(const struct gpu_buddy_block *block)
-+{
-+	return gpu_buddy_block_offset(block);
-+}
-+
-+__rust_helper unsigned int rust_helper_gpu_buddy_block_order(struct gpu_buddy_block *block)
-+{
-+	return gpu_buddy_block_order(block);
-+}
-+
-+__rust_helper u64 rust_helper_gpu_buddy_block_size(struct gpu_buddy *mm,
-+						   struct gpu_buddy_block *block)
-+{
-+	return gpu_buddy_block_size(mm, block);
-+}
-+
-+#endif /* CONFIG_GPU_BUDDY */
-diff --git a/rust/helpers/helpers.c b/rust/helpers/helpers.c
-index 724fcb8240ac..a53929ce52a3 100644
---- a/rust/helpers/helpers.c
-+++ b/rust/helpers/helpers.c
-@@ -32,6 +32,7 @@
- #include "err.c"
- #include "irq.c"
- #include "fs.c"
-+#include "gpu.c"
- #include "io.c"
- #include "jump_label.c"
- #include "kunit.c"
-diff --git a/rust/kernel/gpu.rs b/rust/kernel/gpu.rs
-new file mode 100644
-index 000000000000..1dc5d0c8c09d
---- /dev/null
-+++ b/rust/kernel/gpu.rs
-@@ -0,0 +1,6 @@
-+// SPDX-License-Identifier: GPL-2.0
-+
-+//! GPU subsystem abstractions.
-+
-+#[cfg(CONFIG_GPU_BUDDY = "y")]
-+pub mod buddy;
-diff --git a/rust/kernel/gpu/buddy.rs b/rust/kernel/gpu/buddy.rs
-new file mode 100644
-index 000000000000..af99d66832fd
---- /dev/null
-+++ b/rust/kernel/gpu/buddy.rs
-@@ -0,0 +1,622 @@
-+// SPDX-License-Identifier: GPL-2.0
-+
-+//! GPU buddy allocator bindings.
-+//!
-+//! C header: [`include/linux/gpu_buddy.h`](srctree/include/linux/gpu_buddy.h)
-+//!
-+//! This module provides Rust abstractions over the Linux kernel's GPU buddy
-+//! allocator, which implements a binary buddy memory allocator.
-+//!
-+//! The buddy allocator manages a contiguous address space and allocates blocks
-+//! in power-of-two sizes, useful for GPU physical memory management.
-+//!
-+//! # Examples
-+//!
-+//! Create a buddy allocator and perform a basic range allocation:
-+//!
-+//! ```
-+//! use kernel::{
-+//!     gpu::buddy::{
-+//!         GpuBuddy,
-+//!         GpuBuddyAllocFlags,
-+//!         GpuBuddyAllocMode,
-+//!         GpuBuddyParams, //
-+//!     },
-+//!     prelude::*,
-+//!     ptr::Alignment,
-+//!     sizes::*, //
-+//! };
-+//!
-+//! // Create a 1GB buddy allocator with 4KB minimum chunk size.
-+//! let buddy = GpuBuddy::new(GpuBuddyParams {
-+//!     base_offset: 0,
-+//!     physical_memory_size: SZ_1G as u64,
-+//!     chunk_size: Alignment::new::<SZ_4K>(),
-+//! })?;
-+//!
-+//! assert_eq!(buddy.size(), SZ_1G as u64);
-+//! assert_eq!(buddy.chunk_size(), Alignment::new::<SZ_4K>());
-+//! let initial_free = buddy.free_memory();
-+//!
-+//! // Allocate 16MB. Block lands at the top of the address range.
-+//! let allocated = KBox::pin_init(
-+//!     buddy.alloc_blocks(
-+//!         GpuBuddyAllocMode::Simple,
-+//!         SZ_16M as u64,
-+//!         Alignment::new::<SZ_16M>(),
-+//!         GpuBuddyAllocFlags::default(),
-+//!     ),
-+//!     GFP_KERNEL,
-+//! )?;
-+//! assert_eq!(buddy.free_memory(), initial_free - SZ_16M as u64);
-+//!
-+//! let block = allocated.iter().next().expect("expected one block");
-+//! assert_eq!(block.offset(), (SZ_1G - SZ_16M) as u64);
-+//! assert_eq!(block.order(), 12); // 2^12 pages = 16MB
-+//! assert_eq!(block.size(), SZ_16M as u64);
-+//! assert_eq!(allocated.iter().count(), 1);
-+//!
-+//! // Dropping the allocation returns the range to the buddy allocator.
-+//! drop(allocated);
-+//! assert_eq!(buddy.free_memory(), initial_free);
-+//! # Ok::<(), Error>(())
-+//! ```
-+//!
-+//! Top-down allocation allocates from the highest addresses:
-+//!
-+//! ```
-+//! # use kernel::{
-+//! #     gpu::buddy::{GpuBuddy, GpuBuddyAllocMode, GpuBuddyAllocFlags, GpuBuddyParams},
-+//! #     prelude::*,
-+//! #     ptr::Alignment,
-+//! #     sizes::*, //
-+//! # };
-+//! # let buddy = GpuBuddy::new(GpuBuddyParams {
-+//! #     base_offset: 0,
-+//! #     physical_memory_size: SZ_1G as u64,
-+//! #     chunk_size: Alignment::new::<SZ_4K>(),
-+//! # })?;
-+//! # let initial_free = buddy.free_memory();
-+//! let topdown = KBox::pin_init(
-+//!     buddy.alloc_blocks(
-+//!         GpuBuddyAllocMode::TopDown,
-+//!         SZ_16M as u64,
-+//!         Alignment::new::<SZ_16M>(),
-+//!         GpuBuddyAllocFlags::default(),
-+//!     ),
-+//!     GFP_KERNEL,
-+//! )?;
-+//! assert_eq!(buddy.free_memory(), initial_free - SZ_16M as u64);
-+//!
-+//! let block = topdown.iter().next().expect("expected one block");
-+//! assert_eq!(block.offset(), (SZ_1G - SZ_16M) as u64);
-+//! assert_eq!(block.order(), 12);
-+//! assert_eq!(block.size(), SZ_16M as u64);
-+//!
-+//! // Dropping the allocation returns the range to the buddy allocator.
-+//! drop(topdown);
-+//! assert_eq!(buddy.free_memory(), initial_free);
-+//! # Ok::<(), Error>(())
-+//! ```
-+//!
-+//! Non-contiguous allocation can fill fragmented memory by returning multiple
-+//! blocks:
-+//!
-+//! ```
-+//! # use kernel::{
-+//! #     gpu::buddy::{
-+//! #         GpuBuddy, GpuBuddyAllocFlags, GpuBuddyAllocMode, GpuBuddyParams,
-+//! #     },
-+//! #     prelude::*,
-+//! #     ptr::Alignment,
-+//! #     sizes::*, //
-+//! # };
-+//! # let buddy = GpuBuddy::new(GpuBuddyParams {
-+//! #     base_offset: 0,
-+//! #     physical_memory_size: SZ_1G as u64,
-+//! #     chunk_size: Alignment::new::<SZ_4K>(),
-+//! # })?;
-+//! # let initial_free = buddy.free_memory();
-+//! // Create fragmentation by allocating 4MB blocks at [0,4M) and [8M,12M).
-+//! let frag1 = KBox::pin_init(
-+//!     buddy.alloc_blocks(
-+//!         GpuBuddyAllocMode::Range { start: 0, end: SZ_4M as u64 },
-+//!         SZ_4M as u64,
-+//!         Alignment::new::<SZ_4M>(),
-+//!         GpuBuddyAllocFlags::default(),
-+//!     ),
-+//!     GFP_KERNEL,
-+//! )?;
-+//! assert_eq!(buddy.free_memory(), initial_free - SZ_4M as u64);
-+//!
-+//! let frag2 = KBox::pin_init(
-+//!     buddy.alloc_blocks(
-+//!         GpuBuddyAllocMode::Range {
-+//!             start: SZ_8M as u64,
-+//!             end: (SZ_8M + SZ_4M) as u64,
-+//!         },
-+//!         SZ_4M as u64,
-+//!         Alignment::new::<SZ_4M>(),
-+//!         GpuBuddyAllocFlags::default(),
-+//!     ),
-+//!     GFP_KERNEL,
-+//! )?;
-+//! assert_eq!(buddy.free_memory(), initial_free - SZ_8M as u64);
-+//!
-+//! // Allocate 8MB, this returns 2 blocks from the holes.
-+//! let fragmented = KBox::pin_init(
-+//!     buddy.alloc_blocks(
-+//!         GpuBuddyAllocMode::Range { start: 0, end: SZ_16M as u64 },
-+//!         SZ_8M as u64,
-+//!         Alignment::new::<SZ_4M>(),
-+//!         GpuBuddyAllocFlags::default(),
-+//!     ),
-+//!     GFP_KERNEL,
-+//! )?;
-+//! assert_eq!(buddy.free_memory(), initial_free - SZ_16M as u64);
-+//!
-+//! let (mut count, mut total) = (0u32, 0u64);
-+//! for block in fragmented.iter() {
-+//!     assert_eq!(block.size(), SZ_4M as u64);
-+//!     total += block.size();
-+//!     count += 1;
-+//! }
-+//! assert_eq!(total, SZ_8M as u64);
-+//! assert_eq!(count, 2);
-+//! # Ok::<(), Error>(())
-+//! ```
-+//!
-+//! Contiguous allocation fails when only fragmented space is available:
-+//!
-+//! ```
-+//! # use kernel::{
-+//! #     gpu::buddy::{
-+//! #         GpuBuddy, GpuBuddyAllocFlag, GpuBuddyAllocFlags, GpuBuddyAllocMode, GpuBuddyParams,
-+//! #     },
-+//! #     prelude::*,
-+//! #     ptr::Alignment,
-+//! #     sizes::*, //
-+//! # };
-+//! // Create a small 16MB buddy allocator with fragmented memory.
-+//! let small = GpuBuddy::new(GpuBuddyParams {
-+//!     base_offset: 0,
-+//!     physical_memory_size: SZ_16M as u64,
-+//!     chunk_size: Alignment::new::<SZ_4K>(),
-+//! })?;
-+//!
-+//! let _hole1 = KBox::pin_init(
-+//!     small.alloc_blocks(
-+//!         GpuBuddyAllocMode::Range { start: 0, end: SZ_4M as u64 },
-+//!         SZ_4M as u64,
-+//!         Alignment::new::<SZ_4M>(),
-+//!         GpuBuddyAllocFlags::default(),
-+//!     ),
-+//!     GFP_KERNEL,
-+//! )?;
-+//!
-+//! let _hole2 = KBox::pin_init(
-+//!     small.alloc_blocks(
-+//!         GpuBuddyAllocMode::Range {
-+//!             start: SZ_8M as u64,
-+//!             end: (SZ_8M + SZ_4M) as u64,
-+//!         },
-+//!         SZ_4M as u64,
-+//!         Alignment::new::<SZ_4M>(),
-+//!         GpuBuddyAllocFlags::default(),
-+//!     ),
-+//!     GFP_KERNEL,
-+//! )?;
-+//!
-+//! // 8MB contiguous should fail, only two non-contiguous 4MB holes exist.
-+//! let result = KBox::pin_init(
-+//!     small.alloc_blocks(
-+//!         GpuBuddyAllocMode::Simple,
-+//!         SZ_8M as u64,
-+//!         Alignment::new::<SZ_4M>(),
-+//!         GpuBuddyAllocFlag::Contiguous,
-+//!     ),
-+//!     GFP_KERNEL,
-+//! );
-+//! assert!(result.is_err());
-+//! # Ok::<(), Error>(())
-+//! ```
-+
-+use crate::{
-+    bindings,
-+    clist_create,
-+    error::to_result,
-+    interop::list::CListHead,
-+    new_mutex,
-+    prelude::*,
-+    ptr::Alignment,
-+    sync::{
-+        lock::mutex::MutexGuard,
-+        Arc,
-+        Mutex, //
-+    },
-+    types::Opaque, //
-+};
-+
-+/// Allocation mode for the GPU buddy allocator.
-+///
-+/// The mode determines the primary allocation strategy. Modes are mutually
-+/// exclusive: an allocation is either simple, range-constrained, or top-down.
-+///
-+/// Orthogonal modifier flags (e.g., contiguous, clear) are specified separately
-+/// via [`GpuBuddyAllocFlags`].
-+#[derive(Copy, Clone, Debug, PartialEq, Eq)]
-+pub enum GpuBuddyAllocMode {
-+    /// Simple allocation without constraints.
-+    Simple,
-+    /// Range-based allocation between `start` and `end` addresses.
-+    Range {
-+        /// Start of the allocation range.
-+        start: u64,
-+        /// End of the allocation range.
-+        end: u64,
-+    },
-+    /// Allocate from top of address space downward.
-+    TopDown,
-+}
-+
-+impl GpuBuddyAllocMode {
-+    // Returns the C flags corresponding to the allocation mode.
-+    fn into_flags(self) -> usize {
-+        match self {
-+            Self::Simple => 0,
-+            Self::Range { .. } => bindings::GPU_BUDDY_RANGE_ALLOCATION,
-+            Self::TopDown => bindings::GPU_BUDDY_TOPDOWN_ALLOCATION,
-+        }
-+    }
-+
-+    // Extracts the range start/end, defaulting to (0, 0) for non-range modes.
-+    fn range(self) -> (u64, u64) {
-+        match self {
-+            Self::Range { start, end } => (start, end),
-+            _ => (0, 0),
-+        }
-+    }
-+}
-+
-+crate::impl_flags!(
-+    /// Modifier flags for GPU buddy allocation.
-+    ///
-+    /// These flags can be combined with any [`GpuBuddyAllocMode`] to control
-+    /// additional allocation behavior.
-+    #[derive(Clone, Copy, Default, PartialEq, Eq)]
-+    pub struct GpuBuddyAllocFlags(u32);
-+
-+    /// Individual modifier flag for GPU buddy allocation.
-+    #[derive(Clone, Copy, PartialEq, Eq)]
-+    pub enum GpuBuddyAllocFlag {
-+        /// Allocate physically contiguous blocks.
-+        Contiguous = bindings::GPU_BUDDY_CONTIGUOUS_ALLOCATION as u32,
-+
-+        /// Request allocation from cleared (zeroed) memory.
-+        Clear = bindings::GPU_BUDDY_CLEAR_ALLOCATION as u32,
-+
-+        /// Disable trimming of partially used blocks.
-+        TrimDisable = bindings::GPU_BUDDY_TRIM_DISABLE as u32,
-+    }
-+);
-+
-+/// Parameters for creating a GPU buddy allocator.
-+pub struct GpuBuddyParams {
-+    /// Base offset (in bytes) where the managed memory region starts.
-+    /// Allocations will be offset by this value.
-+    pub base_offset: u64,
-+    /// Total physical memory size (in bytes) managed by the allocator.
-+    pub physical_memory_size: u64,
-+    /// Minimum allocation unit / chunk size, must be >= 4KB.
-+    pub chunk_size: Alignment,
-+}
-+
-+/// Inner structure holding the actual buddy allocator.
-+///
-+/// # Synchronization
-+///
-+/// The C `gpu_buddy` API requires synchronization (see `include/linux/gpu_buddy.h`).
-+/// Internal locking ensures all allocator and free operations are properly
-+/// synchronized, preventing races between concurrent allocations and the
-+/// freeing that occurs when [`AllocatedBlocks`] is dropped.
-+///
-+/// # Invariants
-+///
-+/// The inner [`Opaque`] contains an initialized buddy allocator.
-+#[pin_data(PinnedDrop)]
-+struct GpuBuddyInner {
-+    #[pin]
-+    inner: Opaque<bindings::gpu_buddy>,
-+
-+    // TODO: Replace `Mutex<()>` with `Mutex<Opaque<..>>` once `Mutex::new()`
-+    // accepts `impl PinInit<T>`.
-+    #[pin]
-+    lock: Mutex<()>,
-+    /// Cached creation parameters (do not change after init).
-+    params: GpuBuddyParams,
-+}
-+
-+impl GpuBuddyInner {
-+    /// Create a pin-initializer for the buddy allocator.
-+    fn new(params: GpuBuddyParams) -> impl PinInit<Self, Error> {
-+        let size = params.physical_memory_size;
-+        let chunk_size = params.chunk_size;
-+
-+        // INVARIANT: `gpu_buddy_init` returns 0 on success, at which point the
-+        // `gpu_buddy` structure is initialized and ready for use with all
-+        // `gpu_buddy_*` APIs. `try_pin_init!` only completes if all fields succeed,
-+        // so the invariant holds when construction finishes.
-+        try_pin_init!(Self {
-+            inner <- Opaque::try_ffi_init(|ptr| {
-+                // SAFETY: `ptr` points to valid uninitialized memory from the pin-init
-+                // infrastructure. `gpu_buddy_init` will initialize the structure.
-+                to_result(unsafe { bindings::gpu_buddy_init(ptr, size, chunk_size.as_usize() as u64) })
-+            }),
-+            lock <- new_mutex!(()),
-+            params,
-+        })
-+    }
-+
-+    /// Lock the mutex and return a guard for accessing the allocator.
-+    fn lock(&self) -> GpuBuddyGuard<'_> {
-+        GpuBuddyGuard {
-+            inner: self,
-+            _guard: self.lock.lock(),
-+        }
-+    }
-+}
-+
-+#[pinned_drop]
-+impl PinnedDrop for GpuBuddyInner {
-+    fn drop(self: Pin<&mut Self>) {
-+        let guard = self.lock();
-+
-+        // SAFETY: Per the type invariant, `inner` contains an initialized
-+        // allocator. `guard` provides exclusive access.
-+        unsafe {
-+            bindings::gpu_buddy_fini(guard.as_raw());
-+        }
-+    }
-+}
-+
-+// SAFETY: `GpuBuddyInner` can be sent between threads.
-+unsafe impl Send for GpuBuddyInner {}
-+
-+// SAFETY: `GpuBuddyInner` is `Sync` because `GpuBuddyInner::lock`
-+// serializes all access to the C allocator, preventing data races.
-+unsafe impl Sync for GpuBuddyInner {}
-+
-+// Guard that proves the lock is held, enabling access to the allocator.
-+// The `_guard` holds the lock for the duration of this guard's lifetime.
-+struct GpuBuddyGuard<'a> {
-+    inner: &'a GpuBuddyInner,
-+    _guard: MutexGuard<'a, ()>,
-+}
-+
-+impl GpuBuddyGuard<'_> {
-+    /// Get a raw pointer to the underlying C `gpu_buddy` structure.
-+    fn as_raw(&self) -> *mut bindings::gpu_buddy {
-+        self.inner.inner.get()
-+    }
-+}
-+
-+/// GPU buddy allocator instance.
-+///
-+/// This structure wraps the C `gpu_buddy` allocator using reference counting.
-+/// The allocator is automatically cleaned up when all references are dropped.
-+///
-+/// Refer to the module-level documentation for usage examples.
-+pub struct GpuBuddy(Arc<GpuBuddyInner>);
-+
-+impl GpuBuddy {
-+    /// Create a new buddy allocator.
-+    ///
-+    /// Creates a buddy allocator that manages a contiguous address space of the given
-+    /// size, with the specified minimum allocation unit (chunk_size must be at least 4KB).
-+    pub fn new(params: GpuBuddyParams) -> Result<Self> {
-+        Arc::pin_init(GpuBuddyInner::new(params), GFP_KERNEL).map(Self)
-+    }
-+
-+    /// Get the base offset for allocations.
-+    pub fn base_offset(&self) -> u64 {
-+        self.0.params.base_offset
-+    }
-+
-+    /// Get the chunk size (minimum allocation unit).
-+    pub fn chunk_size(&self) -> Alignment {
-+        self.0.params.chunk_size
-+    }
-+
-+    /// Get the total managed size.
-+    pub fn size(&self) -> u64 {
-+        self.0.params.physical_memory_size
-+    }
-+
-+    /// Get the available (free) memory in bytes.
-+    pub fn free_memory(&self) -> u64 {
-+        let guard = self.0.lock();
-+
-+        // SAFETY: Per the type invariant, `inner` contains an initialized allocator.
-+        // `guard` provides exclusive access.
-+        unsafe { (*guard.as_raw()).avail }
-+    }
-+
-+    /// Allocate blocks from the buddy allocator.
-+    ///
-+    /// Returns a pin-initializer for [`AllocatedBlocks`].
-+    pub fn alloc_blocks(
-+        &self,
-+        mode: GpuBuddyAllocMode,
-+        size: u64,
-+        min_block_size: Alignment,
-+        flags: impl Into<GpuBuddyAllocFlags>,
-+    ) -> impl PinInit<AllocatedBlocks, Error> {
-+        let buddy_arc = Arc::clone(&self.0);
-+        let (start, end) = mode.range();
-+        let mode_flags = mode.into_flags();
-+        let modifier_flags = u32::from(flags.into()) as usize;
-+
-+        // Create pin-initializer that initializes list and allocates blocks.
-+        try_pin_init!(AllocatedBlocks {
-+            buddy: buddy_arc,
-+            list <- CListHead::new(),
-+            _: {
-+                // Reject zero-sized or inverted ranges.
-+                if let GpuBuddyAllocMode::Range { start, end } = mode {
-+                    if end <= start {
-+                        Err::<(), Error>(EINVAL)?;
-+                    }
-+                }
-+
-+                // Lock while allocating to serialize with concurrent frees.
-+                let guard = buddy.lock();
-+
-+                // SAFETY: Per the type invariant, `inner` contains an initialized
-+                // allocator. `guard` provides exclusive access.
-+                to_result(unsafe {
-+                    bindings::gpu_buddy_alloc_blocks(
-+                        guard.as_raw(),
-+                        start,
-+                        end,
-+                        size,
-+                        min_block_size.as_usize() as u64,
-+                        list.as_raw(),
-+                        mode_flags | modifier_flags,
-+                    )
-+                })?
-+            }
-+        })
-+    }
-+}
-+
-+/// Allocated blocks from the buddy allocator with automatic cleanup.
-+///
-+/// This structure owns a list of allocated blocks and ensures they are
-+/// automatically freed when dropped. Use `iter()` to iterate over all
-+/// allocated blocks.
-+///
-+/// # Invariants
-+///
-+/// - `list` is an initialized, valid list head containing allocated blocks.
-+#[pin_data(PinnedDrop)]
-+pub struct AllocatedBlocks {
-+    #[pin]
-+    list: CListHead,
-+    buddy: Arc<GpuBuddyInner>,
-+}
-+
-+impl AllocatedBlocks {
-+    /// Check if the block list is empty.
-+    pub fn is_empty(&self) -> bool {
-+        // An empty list head points to itself.
-+        !self.list.is_linked()
-+    }
-+
-+    /// Iterate over allocated blocks.
-+    ///
-+    /// Returns an iterator yielding [`AllocatedBlock`] values. Each [`AllocatedBlock`]
-+    /// borrows `self` and is only valid for the duration of that borrow.
-+    pub fn iter(&self) -> impl Iterator<Item = AllocatedBlock<'_>> + '_ {
-+        // SAFETY:
-+        // - Per the type invariant, `list` is an initialized sentinel `list_head`
-+        //   and is not concurrently modified (we hold a `&self` borrow).
-+        // - The list contains `gpu_buddy_block` items linked via
-+        //   `__bindgen_anon_1.link`.
-+        // - `Block` is `#[repr(transparent)]` over `gpu_buddy_block`.
-+        let head = self.list.as_raw();
-+        let clist = clist_create!(unsafe {
-+            head,
-+            Block,
-+            bindings::gpu_buddy_block,
-+            __bindgen_anon_1.link
-+        });
-+
-+        clist
-+            .iter()
-+            .map(|this| AllocatedBlock { this, blocks: self })
-+    }
-+}
-+
-+#[pinned_drop]
-+impl PinnedDrop for AllocatedBlocks {
-+    fn drop(self: Pin<&mut Self>) {
-+        let guard = self.buddy.lock();
-+
-+        // SAFETY:
-+        // - list is valid per the type's invariants.
-+        // - guard provides exclusive access to the allocator.
-+        unsafe {
-+            bindings::gpu_buddy_free_list(guard.as_raw(), self.list.as_raw(), 0);
-+        }
-+    }
-+}
-+
-+/// A GPU buddy block.
-+///
-+/// Transparent wrapper over C `gpu_buddy_block` structure. This type is returned
-+/// as references during iteration over [`AllocatedBlocks`].
-+///
-+/// # Invariants
-+///
-+/// The inner [`Opaque`] contains a valid, allocated `gpu_buddy_block`.
-+#[repr(transparent)]
-+struct Block(Opaque<bindings::gpu_buddy_block>);
-+
-+impl Block {
-+    /// Get a raw pointer to the underlying C block.
-+    fn as_raw(&self) -> *mut bindings::gpu_buddy_block {
-+        self.0.get()
-+    }
-+
-+    /// Get the block's raw offset in the buddy address space (without base offset).
-+    fn offset(&self) -> u64 {
-+        // SAFETY: `self.as_raw()` is valid per the type's invariants.
-+        unsafe { bindings::gpu_buddy_block_offset(self.as_raw()) }
-+    }
-+
-+    /// Get the block order.
-+    fn order(&self) -> u32 {
-+        // SAFETY: `self.as_raw()` is valid per the type's invariants.
-+        unsafe { bindings::gpu_buddy_block_order(self.as_raw()) }
-+    }
-+}
-+
-+// SAFETY: `Block` is a wrapper around `gpu_buddy_block` which can be
-+// sent across threads safely.
-+unsafe impl Send for Block {}
-+
-+// SAFETY: `Block` is only accessed through shared references after
-+// allocation, and thus safe to access concurrently across threads.
-+unsafe impl Sync for Block {}
-+
-+/// A buddy block paired with its owning [`AllocatedBlocks`] context.
-+///
-+/// Unlike a raw block, which only knows its offset within the buddy address
-+/// space, an [`AllocatedBlock`] also has access to the allocator's `base_offset`
-+/// and `chunk_size`, enabling it to compute absolute offsets and byte sizes.
-+///
-+/// Returned by [`AllocatedBlocks::iter()`].
-+pub struct AllocatedBlock<'a> {
-+    this: &'a Block,
-+    blocks: &'a AllocatedBlocks,
-+}
-+
-+impl AllocatedBlock<'_> {
-+    /// Get the block's offset in the address space.
-+    ///
-+    /// Returns the absolute offset including the allocator's base offset.
-+    /// This is the actual address to use for accessing the allocated memory.
-+    pub fn offset(&self) -> u64 {
-+        self.blocks.buddy.params.base_offset + self.this.offset()
-+    }
-+
-+    /// Get the block order (size = chunk_size << order).
-+    pub fn order(&self) -> u32 {
-+        self.this.order()
-+    }
-+
-+    /// Get the block's size in bytes.
-+    pub fn size(&self) -> u64 {
-+        (self.blocks.buddy.params.chunk_size.as_usize() as u64) << self.this.order()
-+    }
-+}
-diff --git a/rust/kernel/lib.rs b/rust/kernel/lib.rs
-index bdcf632050ee..2652933e585f 100644
---- a/rust/kernel/lib.rs
-+++ b/rust/kernel/lib.rs
-@@ -102,6 +102,8 @@
- pub mod firmware;
- pub mod fmt;
- pub mod fs;
-+#[cfg(CONFIG_GPU_BUDDY = "y")]
-+pub mod gpu;
- #[cfg(CONFIG_I2C = "y")]
- pub mod i2c;
- pub mod id_pool;
+The hope is that developers get a hint when they need to include the
+wrong header to get their job done.
+
+If that fails, patch 24/24 adds a regex in the MAINTAINERS entry that
+ensures linux-phy is copied on all Generic PHY patches, for an extra set
+of eyes.
+
+The series is formatted on linux-phy/next for build testing, but is
+intended to be applied on top of commit
+https://git.kernel.org/pub/scm/linux/kernel/git/netdev/net-next.git/commit/?id=4ff5801f45b494ad8251a16ec06c9f303ed3b9a0
+which is v7.0-rc1 + 1 patch, and then merged into linux-phy/next.
+The idea being that it's better to resolve the merge conflict early.
+There are 4 expected conflicts, details in the conflicting patches
+(21/24 and 22/24).
+
+Requested merge strategy, I hope this works for everyone:
+- Subsystem maintainers ACK their affected portions
+- Entire series goes through linux-phy
+- linux-phy provides stable tag
+- (optionally) Said tag is merged back into affected subsystem 'next'
+  branches. Those who prefer can handle merge conflicts when they send
+  their PR.
+
+Detailed change log in patches, summary below.
+
+v3->v4:
+- fix build breakage in drivers/phy/qualcomm/phy-qcom-ipq806x-sata.c and
+  include/linux/phy/tegra/xusb.h added by patch 22/24
+v2->v3:
+- remove unused variable in PCI after device link removal
+- update MAINTAINERS regex pattern to escape forward slashes
+- add more people to CC list
+- provide conflict resolution
+v1->v2:
+- split "phy: include PHY provider header" into smaller chunks to work
+  around mailing list moderation due to patch size
+- improve MAINTAINERS regex pattern
+- make all PHY attribute helpers NULL-tolerant. Not just the new
+  phy_get_bus_width(), but also retroactively, the existing ones.
+- fixed the temporary include path from <linux/phy/phy.h> to
+  "phy-provider.h", removed anyway by the end of the series
+- logical bug fixes in the PCI controller <-> PHY device link removal
+  and Exynos UFS PHY API rework
+
+In case anyone wants to test the series, here it is on top of linux-phy/next:
+https://github.com/vladimiroltean/linux/tree/phy-split-consumer-provider-v4
+
+I've also test-applied it on v7.0-rc1 and provided conflict resolution
+with net-next and with linux-phy/next:
+https://github.com/vladimiroltean/linux/commits/phy-split-consumer-provider-v4-merge/
+
+v3 at:
+https://lore.kernel.org/linux-phy/20260309190842.927634-1-vladimir.oltean@nxp.com/
+v2 at:
+https://lore.kernel.org/linux-phy/20260308114009.2546587-1-vladimir.oltean@nxp.com/
+v1 at:
+https://lore.kernel.org/linux-phy/20260304175735.2660419-13-vladimir.oltean@nxp.com/
+
+Cc: Abhinav Kumar <abhinav.kumar@linux.dev>
+Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>
+Cc: "André Draszik" <andre.draszik@linaro.org>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>
+Cc: Andy Yan <andy.yan@rock-chips.com>
+Cc: Bjorn Helgaas <bhelgaas@google.com>
+Cc: Chanho Park <chanho61.park@samsung.com>
+Cc: Chen-Yu Tsai <wens@kernel.org>
+Cc: Claudiu Beznea <claudiu.beznea@tuxon.dev>
+Cc: Damien Le Moal <dlemoal@kernel.org>
+Cc: Daniel Machon <daniel.machon@microchip.com>
+Cc: David Airlie <airlied@gmail.com>
+Cc: "David S. Miller" <davem@davemloft.net>
+Cc: Dmitry Baryshkov <lumag@kernel.org>
+Cc: Eric Dumazet <edumazet@google.com>
+Cc: Fabio Estevam <festevam@gmail.com>
+Cc: Frank Li <Frank.Li@nxp.com>
+Cc: Geert Uytterhoeven <geert+renesas@glider.be>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: "Heiko Stübner" <heiko@sntech.de>
+Cc: Inki Dae <inki.dae@samsung.com>
+Cc: Jagan Teki <jagan@amarulasolutions.com>
+Cc: Jakub Kicinski <kuba@kernel.org>
+Cc: Jernej Skrabec <jernej.skrabec@gmail.com>
+Cc: Jessica Zhang <jesszhan0024@gmail.com>
+Cc: Joe Perches <joe@perches.com>
+Cc: Jonas Karlman <jonas@kwiboo.se>
+Cc: Jonathan Hunter <jonathanh@nvidia.com>
+Cc: Kevin Xie <kevin.xie@starfivetech.com>
+Cc: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Cc: "Krzysztof Wilczyński" <kwilczynski@kernel.org>
+Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
+Cc: Linus Walleij <linusw@kernel.org>
+Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Cc: Magnus Damm <magnus.damm@gmail.com>
+Cc: Manivannan Sadhasivam <mani@kernel.org>
+Cc: Marc Kleine-Budde <mkl@pengutronix.de>
+Cc: Marek Szyprowski <m.szyprowski@samsung.com>
+Cc: Marijn Suijten <marijn.suijten@somainline.org>
+Cc: Markus Schneider-Pargmann <msp@baylibre.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Maxime Ripard <mripard@kernel.org>
+Cc: Michael Dege <michael.dege@renesas.com>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>
+Cc: Nicolas Ferre <nicolas.ferre@microchip.com>
+Cc: Niklas Cassel <cassel@kernel.org>
+Cc: Paolo Abeni <pabeni@redhat.com>
+Cc: Pengutronix Kernel Team <kernel@pengutronix.de>
+Cc: Peter Chen <peter.chen@kernel.org>
+Cc: Peter Griffin <peter.griffin@linaro.org>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>
+Cc: Robert Foss <rfoss@kernel.org>
+Cc: Rob Herring <robh@kernel.org>
+Cc: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
+Cc: Samuel Holland <samuel@sholland.org>
+Cc: Sandy Huang <hjc@rock-chips.com>
+Cc: Sascha Hauer <s.hauer@pengutronix.de>
+Cc: Sean Paul <sean@poorly.run>
+Cc: Sebastian Reichel <sre@kernel.org>
+Cc: Shawn Guo <shawn.guo@linaro.org>
+Cc: Shawn Lin <shawn.lin@rock-chips.com>
+Cc: Simona Vetter <simona@ffwll.ch>
+Cc: Steen Hegelund <Steen.Hegelund@microchip.com>
+Cc: Thierry Reding <thierry.reding@gmail.com>
+Cc: Thinh Nguyen <Thinh.Nguyen@synopsys.com>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: Tudor Ambarus <tudor.ambarus@linaro.org>
+Cc: Vincent Mailhol <mailhol@kernel.org>
+Cc: Yixun Lan <dlan@kernel.org>
+Cc: Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>
+
+Vladimir Oltean (24):
+  ata: add <linux/pm_runtime.h> where missing
+  PCI: Add missing headers transitively included by <linux/phy/phy.h>
+  usb: add missing headers transitively included by <linux/phy/phy.h>
+  drm: add <linux/pm_runtime.h> where missing
+  phy: add <linux/pm_runtime.h> where missing
+  phy: spacemit: include missing <linux/phy/phy.h>
+  net: lan969x: include missing <linux/of.h>
+  PCI: Remove device links to PHY
+  ufs: exynos: stop poking into struct phy guts
+  drm/rockchip: dw_hdmi: avoid direct dereference of phy->dev.of_node
+  drm/msm/dp: remove debugging prints with internal struct phy state
+  phy: move provider API out of public <linux/phy/phy.h>
+  phy: make phy_get_mode(), phy_(get|set)_bus_width() NULL tolerant
+  phy: introduce phy_get_max_link_rate() helper for consumers
+  drm/rockchip: dsi: include PHY provider header
+  drm: bridge: cdns-mhdp8546: use consumer API for getting PHY bus width
+  media: sunxi: a83-mips-csi2: include PHY provider header
+  net: renesas: rswitch: include PHY provider header
+  pinctrl: tegra-xusb: include PHY provider header
+  power: supply: cpcap-charger: include missing <linux/property.h>
+  phy: include PHY provider header (1/2)
+  phy: include PHY provider header (2/2)
+  phy: remove temporary provider compatibility from consumer header
+  MAINTAINERS: add regexes for linux-phy
+
+ MAINTAINERS                                   |  11 +
+ drivers/ata/ahci.c                            |   1 +
+ drivers/ata/ahci_brcm.c                       |   1 +
+ drivers/ata/ahci_ceva.c                       |   1 +
+ drivers/ata/ahci_qoriq.c                      |   1 +
+ drivers/ata/libahci.c                         |   1 +
+ .../drm/bridge/analogix/analogix_dp_core.c    |   1 +
+ .../drm/bridge/cadence/cdns-mhdp8546-core.c   |   7 +-
+ drivers/gpu/drm/bridge/nwl-dsi.c              |   1 +
+ drivers/gpu/drm/bridge/samsung-dsim.c         |   1 +
+ drivers/gpu/drm/bridge/synopsys/dw-dp.c       |   2 +-
+ drivers/gpu/drm/msm/dp/dp_aux.c               |   1 +
+ drivers/gpu/drm/msm/dp/dp_ctrl.c              |  18 -
+ drivers/gpu/drm/rockchip/cdn-dp-core.c        |   1 +
+ .../gpu/drm/rockchip/dw-mipi-dsi-rockchip.c   |   1 +
+ drivers/gpu/drm/rockchip/dw_hdmi-rockchip.c   |  25 +-
+ .../sun8i-a83t-mipi-csi2/sun8i_a83t_dphy.c    |   2 +-
+ drivers/net/can/at91_can.c                    |   3 +-
+ drivers/net/can/flexcan/flexcan-core.c        |   3 +-
+ drivers/net/can/m_can/m_can_platform.c        |   3 +-
+ drivers/net/can/rcar/rcar_canfd.c             |   3 +-
+ .../microchip/sparx5/lan969x/lan969x_rgmii.c  |   1 +
+ drivers/net/ethernet/renesas/rswitch_main.c   |   1 +
+ .../controller/cadence/pcie-cadence-plat.c    |   4 -
+ drivers/pci/controller/cadence/pcie-cadence.c |  16 +-
+ drivers/pci/controller/cadence/pcie-cadence.h |   2 -
+ drivers/pci/controller/dwc/pci-dra7xx.c       |  16 -
+ drivers/pci/controller/dwc/pci-keystone.c     |  32 +-
+ drivers/pci/controller/dwc/pcie-dw-rockchip.c |   1 +
+ drivers/pci/controller/dwc/pcie-histb.c       |   1 +
+ drivers/pci/controller/dwc/pcie-qcom-ep.c     |   1 +
+ drivers/pci/controller/dwc/pcie-spacemit-k1.c |   2 +
+ drivers/pci/controller/dwc/pcie-tegra194.c    |   1 +
+ drivers/pci/controller/pci-tegra.c            |   1 +
+ drivers/pci/controller/pcie-rockchip-host.c   |   1 +
+ drivers/pci/controller/plda/pcie-starfive.c   |   1 +
+ drivers/phy/allwinner/phy-sun4i-usb.c         |   3 +-
+ drivers/phy/allwinner/phy-sun50i-usb3.c       |   3 +-
+ drivers/phy/allwinner/phy-sun6i-mipi-dphy.c   |   4 +-
+ drivers/phy/allwinner/phy-sun9i-usb.c         |   3 +-
+ drivers/phy/amlogic/phy-meson-axg-mipi-dphy.c |   2 +
+ .../amlogic/phy-meson-axg-mipi-pcie-analog.c  |   3 +-
+ drivers/phy/amlogic/phy-meson-axg-pcie.c      |   2 +
+ .../amlogic/phy-meson-g12a-mipi-dphy-analog.c |   3 +-
+ drivers/phy/amlogic/phy-meson-g12a-usb2.c     |   2 +
+ .../phy/amlogic/phy-meson-g12a-usb3-pcie.c    |   3 +-
+ drivers/phy/amlogic/phy-meson-gxl-usb2.c      |   3 +-
+ drivers/phy/amlogic/phy-meson8-hdmi-tx.c      |   3 +-
+ drivers/phy/amlogic/phy-meson8b-usb2.c        |   3 +-
+ drivers/phy/apple/atc.c                       |   3 +-
+ drivers/phy/broadcom/phy-bcm-cygnus-pcie.c    |   3 +-
+ drivers/phy/broadcom/phy-bcm-kona-usb2.c      |   4 +-
+ drivers/phy/broadcom/phy-bcm-ns-usb2.c        |   3 +-
+ drivers/phy/broadcom/phy-bcm-ns-usb3.c        |   3 +-
+ drivers/phy/broadcom/phy-bcm-ns2-pcie.c       |   3 +-
+ drivers/phy/broadcom/phy-bcm-ns2-usbdrd.c     |   3 +-
+ drivers/phy/broadcom/phy-bcm-sr-pcie.c        |   3 +-
+ drivers/phy/broadcom/phy-bcm-sr-usb.c         |   3 +-
+ drivers/phy/broadcom/phy-bcm63xx-usbh.c       |   3 +-
+ drivers/phy/broadcom/phy-brcm-sata.c          |   3 +-
+ drivers/phy/broadcom/phy-brcm-usb.c           |   2 +-
+ drivers/phy/cadence/cdns-dphy-rx.c            |   3 +-
+ drivers/phy/cadence/cdns-dphy.c               |   4 +-
+ drivers/phy/cadence/phy-cadence-salvo.c       |   3 +-
+ drivers/phy/cadence/phy-cadence-sierra.c      |   3 +-
+ drivers/phy/cadence/phy-cadence-torrent.c     |   3 +-
+ drivers/phy/canaan/phy-k230-usb.c             |   3 +-
+ drivers/phy/eswin/phy-eic7700-sata.c          |   3 +-
+ .../phy/freescale/phy-fsl-imx8-mipi-dphy.c    |   3 +-
+ drivers/phy/freescale/phy-fsl-imx8m-pcie.c    |   4 +-
+ drivers/phy/freescale/phy-fsl-imx8mq-usb.c    |   3 +-
+ drivers/phy/freescale/phy-fsl-imx8qm-hsio.c   |   6 +-
+ .../phy/freescale/phy-fsl-imx8qm-lvds-phy.c   |   3 +-
+ drivers/phy/freescale/phy-fsl-lynx-28g.c      |   3 +-
+ drivers/phy/hisilicon/phy-hi3660-usb3.c       |   3 +-
+ drivers/phy/hisilicon/phy-hi3670-pcie.c       |   3 +-
+ drivers/phy/hisilicon/phy-hi3670-usb3.c       |   3 +-
+ drivers/phy/hisilicon/phy-hi6220-usb.c        |   3 +-
+ drivers/phy/hisilicon/phy-hisi-inno-usb2.c    |   4 +-
+ drivers/phy/hisilicon/phy-histb-combphy.c     |   3 +-
+ drivers/phy/hisilicon/phy-hix5hd2-sata.c      |   3 +-
+ drivers/phy/ingenic/phy-ingenic-usb.c         |   3 +-
+ drivers/phy/intel/phy-intel-keembay-emmc.c    |   3 +-
+ drivers/phy/intel/phy-intel-keembay-usb.c     |   3 +-
+ drivers/phy/intel/phy-intel-lgm-combo.c       |   4 +-
+ drivers/phy/intel/phy-intel-lgm-emmc.c        |   3 +-
+ drivers/phy/lantiq/phy-lantiq-rcu-usb2.c      |   3 +-
+ drivers/phy/lantiq/phy-lantiq-vrx200-pcie.c   |   4 +-
+ drivers/phy/marvell/phy-armada375-usb2.c      |   3 +-
+ drivers/phy/marvell/phy-armada38x-comphy.c    |   3 +-
+ drivers/phy/marvell/phy-berlin-sata.c         |   3 +-
+ drivers/phy/marvell/phy-berlin-usb.c          |   3 +-
+ drivers/phy/marvell/phy-mmp3-hsic.c           |   3 +-
+ drivers/phy/marvell/phy-mmp3-usb.c            |   3 +-
+ drivers/phy/marvell/phy-mvebu-a3700-comphy.c  |   3 +-
+ drivers/phy/marvell/phy-mvebu-a3700-utmi.c    |   3 +-
+ drivers/phy/marvell/phy-mvebu-cp110-comphy.c  |   3 +-
+ drivers/phy/marvell/phy-mvebu-cp110-utmi.c    |   3 +-
+ drivers/phy/marvell/phy-mvebu-sata.c          |   3 +-
+ drivers/phy/marvell/phy-pxa-28nm-hsic.c       |   3 +-
+ drivers/phy/marvell/phy-pxa-28nm-usb2.c       |   3 +-
+ drivers/phy/marvell/phy-pxa-usb.c             |   3 +-
+ drivers/phy/mediatek/phy-mtk-dp.c             |   3 +-
+ drivers/phy/mediatek/phy-mtk-hdmi-mt8195.c    |   1 -
+ drivers/phy/mediatek/phy-mtk-hdmi.h           |   3 +-
+ drivers/phy/mediatek/phy-mtk-mipi-csi-0-5.c   |   2 +-
+ drivers/phy/mediatek/phy-mtk-mipi-dsi.h       |   3 +-
+ drivers/phy/mediatek/phy-mtk-pcie.c           |   2 +-
+ drivers/phy/mediatek/phy-mtk-tphy.c           |   2 +-
+ drivers/phy/mediatek/phy-mtk-ufs.c            |   2 +-
+ drivers/phy/mediatek/phy-mtk-xfi-tphy.c       |   2 +-
+ drivers/phy/mediatek/phy-mtk-xsphy.c          |   2 +-
+ drivers/phy/microchip/lan966x_serdes.c        |   4 +-
+ drivers/phy/microchip/sparx5_serdes.c         |   2 +-
+ drivers/phy/motorola/phy-cpcap-usb.c          |   3 +-
+ drivers/phy/motorola/phy-mapphone-mdm6600.c   |   5 +-
+ drivers/phy/mscc/phy-ocelot-serdes.c          |   3 +-
+ drivers/phy/nuvoton/phy-ma35d1-usb2.c         |   3 +-
+ drivers/phy/phy-airoha-pcie.c                 |   2 +-
+ drivers/phy/phy-can-transceiver.c             |   3 +-
+ drivers/phy/phy-core-mipi-dphy.c              |   4 +-
+ drivers/phy/phy-core.c                        |  52 ++
+ drivers/phy/phy-google-usb.c                  |   4 +-
+ drivers/phy/phy-lpc18xx-usb-otg.c             |   3 +-
+ drivers/phy/phy-nxp-ptn3222.c                 |   3 +-
+ drivers/phy/phy-pistachio-usb.c               |   4 +-
+ drivers/phy/phy-provider.h                    | 256 +++++++++
+ drivers/phy/phy-snps-eusb2.c                  |   2 +
+ drivers/phy/phy-xgene.c                       |   3 +-
+ drivers/phy/qualcomm/phy-ath79-usb.c          |   3 +-
+ drivers/phy/qualcomm/phy-qcom-apq8064-sata.c  |   3 +-
+ drivers/phy/qualcomm/phy-qcom-edp.c           |   3 +-
+ .../phy/qualcomm/phy-qcom-eusb2-repeater.c    |   3 +-
+ drivers/phy/qualcomm/phy-qcom-ipq4019-usb.c   |   3 +-
+ drivers/phy/qualcomm/phy-qcom-ipq806x-sata.c  |   3 +-
+ drivers/phy/qualcomm/phy-qcom-ipq806x-usb.c   |   3 +-
+ drivers/phy/qualcomm/phy-qcom-m31-eusb2.c     |   2 +
+ drivers/phy/qualcomm/phy-qcom-m31.c           |   3 +-
+ drivers/phy/qualcomm/phy-qcom-pcie2.c         |   3 +-
+ drivers/phy/qualcomm/phy-qcom-qmp-combo.c     |   4 +-
+ .../phy/qualcomm/phy-qcom-qmp-pcie-msm8996.c  |   3 +-
+ drivers/phy/qualcomm/phy-qcom-qmp-pcie.c      |   3 +-
+ drivers/phy/qualcomm/phy-qcom-qmp-ufs.c       |   3 +-
+ .../phy/qualcomm/phy-qcom-qmp-usb-legacy.c    |   4 +-
+ drivers/phy/qualcomm/phy-qcom-qmp-usb.c       |   4 +-
+ drivers/phy/qualcomm/phy-qcom-qmp-usbc.c      |   4 +-
+ drivers/phy/qualcomm/phy-qcom-qusb2.c         |   5 +-
+ drivers/phy/qualcomm/phy-qcom-sgmii-eth.c     |   3 +-
+ drivers/phy/qualcomm/phy-qcom-snps-femto-v2.c |   4 +-
+ .../phy/qualcomm/phy-qcom-uniphy-pcie-28lp.c  |   3 +-
+ drivers/phy/qualcomm/phy-qcom-usb-hs-28nm.c   |   3 +-
+ drivers/phy/qualcomm/phy-qcom-usb-hs.c        |   3 +-
+ drivers/phy/qualcomm/phy-qcom-usb-hsic.c      |   3 +-
+ drivers/phy/qualcomm/phy-qcom-usb-ss.c        |   3 +-
+ drivers/phy/ralink/phy-mt7621-pci.c           |   3 +-
+ drivers/phy/ralink/phy-ralink-usb.c           |   3 +-
+ drivers/phy/realtek/phy-rtk-usb2.c            |   3 +-
+ drivers/phy/realtek/phy-rtk-usb3.c            |   3 +-
+ drivers/phy/renesas/phy-rcar-gen2.c           |   3 +-
+ drivers/phy/renesas/phy-rcar-gen3-pcie.c      |   4 +-
+ drivers/phy/renesas/phy-rcar-gen3-usb2.c      |   3 +-
+ drivers/phy/renesas/phy-rcar-gen3-usb3.c      |   3 +-
+ drivers/phy/renesas/phy-rzg3e-usb3.c          |   3 +-
+ drivers/phy/renesas/r8a779f0-ether-serdes.c   |   4 +-
+ drivers/phy/rockchip/phy-rockchip-dp.c        |   3 +-
+ drivers/phy/rockchip/phy-rockchip-dphy-rx0.c  |   3 +-
+ drivers/phy/rockchip/phy-rockchip-emmc.c      |   3 +-
+ .../phy/rockchip/phy-rockchip-inno-csidphy.c  |   3 +-
+ .../phy/rockchip/phy-rockchip-inno-dsidphy.c  |   4 +-
+ drivers/phy/rockchip/phy-rockchip-inno-hdmi.c |   2 +
+ drivers/phy/rockchip/phy-rockchip-inno-usb2.c |   3 +-
+ .../rockchip/phy-rockchip-naneng-combphy.c    |   3 +-
+ drivers/phy/rockchip/phy-rockchip-pcie.c      |   2 +-
+ .../phy/rockchip/phy-rockchip-samsung-dcphy.c |   3 +-
+ .../phy/rockchip/phy-rockchip-samsung-hdptx.c |   2 +
+ .../phy/rockchip/phy-rockchip-snps-pcie3.c    |   3 +-
+ drivers/phy/rockchip/phy-rockchip-typec.c     |   5 +-
+ drivers/phy/rockchip/phy-rockchip-usb.c       |   3 +-
+ drivers/phy/rockchip/phy-rockchip-usbdp.c     |   2 +
+ drivers/phy/samsung/phy-exynos-dp-video.c     |   3 +-
+ drivers/phy/samsung/phy-exynos-mipi-video.c   |   3 +-
+ drivers/phy/samsung/phy-exynos-pcie.c         |   3 +-
+ drivers/phy/samsung/phy-exynos4210-usb2.c     |   3 +-
+ drivers/phy/samsung/phy-exynos4x12-usb2.c     |   3 +-
+ drivers/phy/samsung/phy-exynos5-usbdrd.c      |   2 +
+ drivers/phy/samsung/phy-exynos5250-sata.c     |   3 +-
+ drivers/phy/samsung/phy-exynos5250-usb2.c     |   3 +-
+ drivers/phy/samsung/phy-s5pv210-usb2.c        |   3 +-
+ drivers/phy/samsung/phy-samsung-ufs.c         |   2 +-
+ drivers/phy/samsung/phy-samsung-ufs.h         |   3 +-
+ drivers/phy/samsung/phy-samsung-usb2.c        |   2 +
+ drivers/phy/samsung/phy-samsung-usb2.h        |   3 +-
+ drivers/phy/socionext/phy-uniphier-ahci.c     |   3 +-
+ drivers/phy/socionext/phy-uniphier-pcie.c     |   3 +-
+ drivers/phy/socionext/phy-uniphier-usb2.c     |   3 +-
+ drivers/phy/socionext/phy-uniphier-usb3hs.c   |   3 +-
+ drivers/phy/socionext/phy-uniphier-usb3ss.c   |   3 +-
+ drivers/phy/sophgo/phy-cv1800-usb2.c          |   3 +-
+ drivers/phy/spacemit/phy-k1-pcie.c            |   4 +-
+ drivers/phy/spacemit/phy-k1-usb2.c            |   2 +
+ drivers/phy/st/phy-miphy28lp.c                |   4 +-
+ drivers/phy/st/phy-spear1310-miphy.c          |   3 +-
+ drivers/phy/st/phy-spear1340-miphy.c          |   3 +-
+ drivers/phy/st/phy-stih407-usb.c              |   3 +-
+ drivers/phy/st/phy-stm32-combophy.c           |   3 +-
+ drivers/phy/st/phy-stm32-usbphyc.c            |   2 +
+ drivers/phy/starfive/phy-jh7110-dphy-rx.c     |   3 +-
+ drivers/phy/starfive/phy-jh7110-dphy-tx.c     |   3 +-
+ drivers/phy/starfive/phy-jh7110-pcie.c        |   3 +-
+ drivers/phy/starfive/phy-jh7110-usb.c         |   3 +-
+ drivers/phy/sunplus/phy-sunplus-usb2.c        |   3 +-
+ drivers/phy/tegra/phy-tegra194-p2u.c          |   3 +-
+ drivers/phy/tegra/xusb-tegra124.c             |   2 +-
+ drivers/phy/tegra/xusb-tegra186.c             |   2 +-
+ drivers/phy/tegra/xusb-tegra210.c             |   2 +-
+ drivers/phy/tegra/xusb.c                      |   2 +-
+ drivers/phy/ti/phy-am654-serdes.c             |   3 +-
+ drivers/phy/ti/phy-da8xx-usb.c                |   3 +-
+ drivers/phy/ti/phy-dm816x-usb.c               |   3 +-
+ drivers/phy/ti/phy-gmii-sel.c                 |   3 +-
+ drivers/phy/ti/phy-omap-usb2.c                |   3 +-
+ drivers/phy/ti/phy-ti-pipe3.c                 |   3 +-
+ drivers/phy/ti/phy-tusb1210.c                 |   1 +
+ drivers/phy/ti/phy-twl4030-usb.c              |   3 +-
+ drivers/phy/xilinx/phy-zynqmp.c               |   4 +-
+ drivers/pinctrl/tegra/pinctrl-tegra-xusb.c    |   2 +-
+ drivers/power/supply/cpcap-charger.c          |   1 +
+ drivers/ufs/host/ufs-exynos.c                 |  24 +-
+ drivers/ufs/host/ufs-exynos.h                 |   1 +
+ drivers/usb/chipidea/ci_hdrc_imx.c            |   1 +
+ drivers/usb/core/hcd.c                        |   1 +
+ drivers/usb/dwc3/dwc3-generic-plat.c          |   1 +
+ drivers/usb/dwc3/gadget.c                     |   1 +
+ include/linux/phy/phy-props.h                 |  75 +++
+ include/linux/phy/phy-sun4i-usb.h             |   2 +-
+ include/linux/phy/phy.h                       | 497 ++++--------------
+ include/linux/phy/tegra/xusb.h                |   1 +
+ include/linux/phy/ulpi_phy.h                  |   2 +-
+ 238 files changed, 942 insertions(+), 705 deletions(-)
+ create mode 100644 drivers/phy/phy-provider.h
+ create mode 100644 include/linux/phy/phy-props.h
+
 -- 
-2.34.1
+2.43.0
 
