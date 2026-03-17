@@ -4,104 +4,136 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9AED0FEDA03
-	for <dri-devel@archiver.kernel.org>; Tue, 17 Mar 2026 18:29:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DC6F9FEDA07
+	for <dri-devel@archiver.kernel.org>; Tue, 17 Mar 2026 18:43:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CF63E10E3C4;
-	Tue, 17 Mar 2026 18:29:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4D55710E400;
+	Tue, 17 Mar 2026 18:43:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="nNBQb6wT";
+	dkim=pass (1024-bit key; unprotected) header.d=microsoft.com header.i=@microsoft.com header.b="VdQtJMlC";
 	dkim-atps=neutral
-Received: from mail-lf1-f51.google.com (mail-lf1-f51.google.com
- [209.85.167.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3D0BE10E361
- for <dri-devel@lists.freedesktop.org>; Tue, 17 Mar 2026 18:29:46 +0000 (UTC)
-Received: by mail-lf1-f51.google.com with SMTP id
- 2adb3069b0e04-5a12c19affeso297838e87.1
- for <dri-devel@lists.freedesktop.org>; Tue, 17 Mar 2026 11:29:46 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1773772184; cv=none;
- d=google.com; s=arc-20240605;
- b=RPIXFnoN1Pn0KYJi7PJDxpcwLzfv8d/pm4ABtJSefuw7ax7VaHeP9mnLFrukTu3Z8+
- oEAmPQa1p1XXCZnOdxsNlZLf9E6fyyrgzwaoPAPiUjJ0if+logJ2hbRZHJKs3DnnD6+o
- x3ORGnNXkeglR0UpCmE47VCNaHxt5pwGLs/lN4YUvaaJwQ042zasW9Drv21t/r4745qD
- Ef8azI+sGki50EyriWe3Ujrf5rOemyPsDbr7Xiw9YJbwxrWOMD3Dfvku9E6I/nPv5TCY
- Np/nThBc4Oob3Gk8zPaqkXyQRbDVozFBOEXeeTSsDG3eG9tBBt15SEbvLgBTsoFnT7d2
- L0bg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=ReTvBCd8P9yyzfq3HfeJmsA/gm4KeOu6IvS40zFKzQ8=;
- fh=avESJORqq8HHF11NFmBZqbUzUlSDAyKb1fa9etfEXnE=;
- b=GlP6Yo91lnW4RFqaOfwHF2pNArPo6iphmrU3mo7MN3W1/h7NAkx6hlzUmCIHzN6hdA
- 4wsTUlxw8WPNYbdJsk5/wac4rykeJVc+wkP+mECojHUd0veIaSpxbutxT67DixEFNUb/
- yG/6HiV1Qx3cq0xmnV14jMjYvCSlXGUt3LN+E6AEBeF8J2T+AQvtEN5L/bFwX66QGzkt
- 3QjlMOzQM0SvzOFBNeaA/aJnramI7yu61907XGxX89hd/Yx2VzDnKLVtC2i7fZNS7Uxq
- Ky0jYHVXC5Ncl3fhHGFZ6iDWAz+hhluYr+P5AUDcJK0cNLMm8zJgLvIT9O1UBkiUbEZf
- LLzA==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1773772184; x=1774376984; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=ReTvBCd8P9yyzfq3HfeJmsA/gm4KeOu6IvS40zFKzQ8=;
- b=nNBQb6wTGZmHGlMZJvQnRyF4HVT2ySy5BL+jfOcjK2EQX/bEidIsRprONsF19FMxUv
- odkZeOCp4i0snoBEozYa84RU7guVIXh0givr7VwibcECN9AxeXsxRmg3v8MNIkinEZDR
- 8JFVgTtn0z5OAXYPIjYwsaJXZ45oDqcpp/gk31de6M4k1rJxXZHS662eowuR3ekDfTgo
- mH+o3lk0vuLFSWigmnqVbqJRWkNWcYuPNBNLLH871ei2t7DD+2Wf/UJXUUWRq+xZvGtP
- 3kop6V1DqKTHXWR7jy59vT6cR/IwoOpSnVCpwaKQYPXyMeSywhYh1rVWhM64tMAdHw2n
- bxVA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1773772184; x=1774376984;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=ReTvBCd8P9yyzfq3HfeJmsA/gm4KeOu6IvS40zFKzQ8=;
- b=rMyLALU6W7wnW28nLRbs4HwvQxRRn13DbaCDHNZ4LAolRVJOB/de9Av81FzigSrgZt
- PzxqVJKeqwwaW0VJXL6zDqXoAxiocly4Nr9Syr7wTOMljIEEetCYiqx2tKS41FX3WSzi
- gdVNrV7I2em9lN2rBqhtflM0LA+2r3+207ZvKOTyNa3bkFdM7Cj43w6TiQcoOKjHiyR+
- q0faCjX4j2mRpsXBtTupZ1c8ToeN/ECAuDH2uaMVLd2qSkwi24GgDtzx9CFi5R5JsCpt
- ZxwbPchulti4RQn5OnO+r/S7FTe+NfUUxxGyBc+5Ve6xhEcdXdnXRUnc7695tdZpxfdT
- RfXg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXYlLv686VTpOSQFaPoAGEf5UHNji2KP8557QxlvphAI/X8vMm0I/kGBa1SN5Ovrai/65cpXwnTeDM=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwzACO4BNQzMGfMkHubVp+hg+H4pFsY7M0RrxlAbxbFBxUQcocV
- QCNcIQ9wLZiD7BU+aBf5rL07tJ79iXwc8ViIIFiJT/CU36m0oZUyJYB83TEU7p2zrR6oVKh06gK
- jdcvDDiAa7yllNMu6PJY557ZZg1WK9EY=
-X-Gm-Gg: ATEYQzxpTNXEIP4LyDanto1+b/pEaMdYCXOZhADsYhaRH4hjUUOFarzoIKbrtdbq04w
- RrKYrV9yjBCehIKNTy3bbndi4zTLwIuRaSWdn2jL5lGT2Fv5XOuP0/qubAFppApWspjcxY2S0Lr
- VDP4K/6PGvYgWOmkdqayZXepPtpZOa/aM/VnSoetQRRZFwPPnJykZdsgbY7cofxqYGl/ag/qp+k
- 0des/h3XDGx9ySXL5aTWiZqevAJPHm8pY1v+dO2UJSuNQOSMQac6eAQasZcQl/vUiva40aKwgPM
- /4nlecbp4LW3UDj42QxRKWOOQkmFwQReD0BYT2D/mE0mmaKsyFu5GpDbKfDvBZif/xJs
-X-Received: by 2002:a05:6512:2313:b0:5a2:7901:a513 with SMTP id
- 2adb3069b0e04-5a27901a7camr426839e87.7.1773772184154; Tue, 17 Mar 2026
- 11:29:44 -0700 (PDT)
-MIME-Version: 1.0
-References: <20260317-ch13726a-v2-0-28aa46bcd6d0@gmail.com>
- <20260317-ch13726a-v2-1-28aa46bcd6d0@gmail.com>
- <20260317-helpful-proficient-pronghorn-ef5e1f@quoll>
- <CALHNRZ-hvAY5EzLMb1To8+pdtE3GUCDZZu6SddoUd5dZxTjnVw@mail.gmail.com>
-In-Reply-To: <CALHNRZ-hvAY5EzLMb1To8+pdtE3GUCDZZu6SddoUd5dZxTjnVw@mail.gmail.com>
-From: Aaron Kling <webgeek1234@gmail.com>
-Date: Tue, 17 Mar 2026 13:29:32 -0500
-X-Gm-Features: AaiRm50HgqgjbuPX-50F3bbn8pQSL_8CmnvMBK9-YO7OK126DaYdRACviZGF9CY
-Message-ID: <CALHNRZ_B+W6-OmBY5ZkfQyEfPDjhr5R+aDpTLm=byJuMduV0fQ@mail.gmail.com>
-Subject: Re: [PATCH v2 1/2] dt-bindings: display: panel: Add ChipWealth
- CH13726A AMOLED driver bindings
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, 
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Teguh Sobirin <teguh@sobir.in>
-Content-Type: text/plain; charset="UTF-8"
+Received: from SA9PR02CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11023093.outbound.protection.outlook.com
+ [40.93.196.93])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9361610E400
+ for <dri-devel@lists.freedesktop.org>; Tue, 17 Mar 2026 18:43:28 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Bn91dvXxOmhnS4CHHtVhOkVeY+q8qKY6Gl4gol2XE40z68hfBY+8FICHtqiBcAthsj/mX2BiHCu5PLDfWF9uhRdg8NCM0bfvPEloBVCv/yoNU7isW/SNU/ZjLhQxOrjTGE5aqvz5KcQiuea6f2Ek7ZV9eaWQ+z0a3i/WTpuobKpn541HugoyrCcBRy5Ey/0A0YMUa5+tsOD9rQzjOBZ5VA9yEIPYVC+w5BDf2SA43rnUjDrH4yUIM+TZTKeKg0mVNz0etophKtK7fpiSNHDxuEodjQ8SYgywDG93nYVzvKHQjOTc1ctTVusBs4yoyk5DZ4OUxAPU+OZEW/P8vgf4Rg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=sFKqUgXkLsfQcVsJ5CBTFejgTAVmjrCAy8pEbpvnDUY=;
+ b=M2mb9ZnMq0Bp7iiy6CTfmV86MgHAofT0IA7p3B3m8ZJ9tnuTgk0QbyPzlkdAu4nWVFuuN+Sb3wGVBoc/vQbtiSVwI0AnbHDcZUQXMP8vk79vYrtBYh7oetvBaAHUjCJvN8TSpSRdyRwctoV6EKYH/YHnhoKM0eaQIc8mcGqrz1QDr9cEwo7e9gOt8d7eqmcJzkre/0fbZ47d6ADWwXqxQ0zV2PlrUnMw0WSEd0eYoFvUKsqZLVGStW+lI3L2lIftN9h+bRLsX2EilQrWpRJQYwsDntHCEa5sqSzBCTQwkGLvHH/3j0Ir2GzdKUdvPqjWPHjG/Ox09WHy/a6wCmtZSw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=microsoft.com; dmarc=pass action=none
+ header.from=microsoft.com; dkim=pass header.d=microsoft.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=sFKqUgXkLsfQcVsJ5CBTFejgTAVmjrCAy8pEbpvnDUY=;
+ b=VdQtJMlC/f7c3MC2KklpctvumJKdG9/+YfTvurJZofk5tiFg2quNUpy4S9Sbpat0EEBidypyx6RM5cdhEeA5DkpheVKl9obUG0RQpXqgghGNwHDq19SyCfNtnmpn0pqfpvjJnvQiBbdi4CsrseVRYY6u4gV6kyH47469NZ8YrbU=
+Received: from SA1PR21MB6683.namprd21.prod.outlook.com (2603:10b6:806:4a4::6)
+ by LV5PR21MB4944.namprd21.prod.outlook.com (2603:10b6:408:304::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.8; Tue, 17 Mar
+ 2026 18:43:24 +0000
+Received: from SA1PR21MB6683.namprd21.prod.outlook.com
+ ([fe80::879f:eec1:ca0e:d219]) by SA1PR21MB6683.namprd21.prod.outlook.com
+ ([fe80::879f:eec1:ca0e:d219%3]) with mapi id 15.20.9723.008; Tue, 17 Mar 2026
+ 18:43:19 +0000
+From: Long Li <longli@microsoft.com>
+To: "mhklinux@outlook.com" <mhklinux@outlook.com>, "drawat.floss@gmail.com"
+ <drawat.floss@gmail.com>, "maarten.lankhorst@linux.intel.com"
+ <maarten.lankhorst@linux.intel.com>, "mripard@kernel.org"
+ <mripard@kernel.org>, "tzimmermann@suse.de" <tzimmermann@suse.de>,
+ "airlied@gmail.com" <airlied@gmail.com>, "simona@ffwll.ch" <simona@ffwll.ch>, 
+ KY Srinivasan <kys@microsoft.com>, Haiyang Zhang <haiyangz@microsoft.com>,
+ "wei.liu@kernel.org" <wei.liu@kernel.org>, Dexuan Cui <DECUI@microsoft.com>,
+ "ryasuoka@redhat.com" <ryasuoka@redhat.com>, "jfalempe@redhat.com"
+ <jfalempe@redhat.com>
+CC: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "linux-hyperv@vger.kernel.org" <linux-hyperv@vger.kernel.org>,
+ "stable@vger.kernel.org" <stable@vger.kernel.org>
+Subject: RE: [EXTERNAL] [PATCH 2/2] drm/hyperv: During panic do VMBus unload
+ after frame buffer is flushed
+Thread-Topic: [EXTERNAL] [PATCH 2/2] drm/hyperv: During panic do VMBus unload
+ after frame buffer is flushed
+Thread-Index: AQHcmZIQtxt9JG8bZkCPM2etCipilbWzSHcA
+Date: Tue, 17 Mar 2026 18:43:19 +0000
+Message-ID: <SA1PR21MB66838F5A06CB286CB3DCE287CE41A@SA1PR21MB6683.namprd21.prod.outlook.com>
+References: <20260209070201.1492-1-mhklinux@outlook.com>
+ <20260209070201.1492-2-mhklinux@outlook.com>
+In-Reply-To: <20260209070201.1492-2-mhklinux@outlook.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_ActionId=81bd080a-a735-4d31-8c36-5a4ff1b0442c;
+ MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_ContentBits=0;
+ MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Enabled=true;
+ MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Method=Standard;
+ MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Name=Internal;
+ MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_SetDate=2026-03-17T18:42:27Z;
+ MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_SiteId=72f988bf-86f1-41af-91ab-2d7cd011db47;
+ MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Tag=10, 3, 0, 1;
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=microsoft.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: SA1PR21MB6683:EE_|LV5PR21MB4944:EE_
+x-ms-office365-filtering-correlation-id: df8c6b25-ba80-49a7-52a2-08de84550f2f
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|366016|1800799024|7416014|376014|56012099003|22082099003|18002099003|921020|38070700021;
+x-microsoft-antispam-message-info: O/hY/pSDmKLl0/VosDb8G0r3Vzftr/+Weq6EcjU4NRN5AMgM6M6kmvlKJEfowImZvPF+aDevknx1Bamdtewk1p5qC4ICtwEy421duxe3GYr+8YAh8kRjtdcazyx6Ih2b6IOjQ2KPQRL+uc9GoqYNZ1GKSF9XXcWR86CQYzWEMx5vR+WDf8bU3IjW10hGfdTgQLchFBkNYAxZ7r+rsQuveKyjjiL2GrKruLBstDzFz0hxwIn6BSaq+8YhcUDp2zQ5tgHJq9XITFtof10HNso56Adaj3AWGUzuB7LuDwFjivIquX+0ugr7W0Wv7sPov5ZhuV+LgEisoijLfhngEwWxPozJmU/ee2RmeqEOKE+ERQtysEOSajQZiPRj9jXChDOZyOf7/Pdr91QzcGxRa8Ohtc3YEYvWQgLQv8HuccIVy19xCjpsnIwcV8GnofISkHKQ5wSxgAB7etUX6HZXpegvpyEF6f17u8Ka+mAs4/SrIaZUkw2wwncnsaW3DLqN5tmtI5WHCfrORLzQIpD/D/95kydPua3EtYjucUHHLqGDUwKgwFtLb9ZC5EY0OaxtTO/8VDBsL2QqeRM+pObVJudPFKITFrmaRnVpXXwg0CyoFj4+vP6RC+5FPJhp9JPvFe1ygbdvEcFouUpto5D5gu60WAkWqBFUV+gsRXSkVsZY0HHEmZD7AeQ+Fu6MBTSryV4WZrt/2XdprNPFJmmao6F3Amx+wpfr2o6whvl7fitbof9z2ThCqLF9feY2jlzeTOYxx4rY3+Iave4RnnvxEEIw2GWKOGpzRNRz4ZphGFsjfcjSZih0ncR0GhEN1Og2xWPg
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SA1PR21MB6683.namprd21.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(7416014)(376014)(56012099003)(22082099003)(18002099003)(921020)(38070700021);
+ DIR:OUT; SFP:1102; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?dIyt6MvgxAGZxsDmM14ipJ8BhF6/gYN+S1jt/8/ycUlEnpU0fvwiSkAHy+vA?=
+ =?us-ascii?Q?iBAJCYYHJ8yyMWN0Sda8KQGyl3EpRPK0ZnvPumFBIGGRP9rYJ9+t5U3bvJpq?=
+ =?us-ascii?Q?LabVh29MPPvY65o7YNdtpYTMWvD/pTOjJTECtHtVke8V93QsmqlIuF1VRM81?=
+ =?us-ascii?Q?5ez+HFkxNmdv7m06LbJt2T1MrukYBk9sz29+gp/hVLeqB1iEx8i6UkIo50L1?=
+ =?us-ascii?Q?xk2BeTYOeWMJXOm5NHfyJcdSIWG0uCfWdBg+Q15ATQGYNgecvimhXaXWtsYU?=
+ =?us-ascii?Q?7MVau63du54bvw2Vyw0XYxGe9beaLCrfc9PnknmluIcvUCfv9ONQW8Tfzl3r?=
+ =?us-ascii?Q?vRl5vuHJmgO9TPLs/5XET1X8vAsAZlG9hCQkOAbPhLb6cHr5eGqwPqjAciYF?=
+ =?us-ascii?Q?PxwTgdkEiocxtvG6Mic7zEdfFNrzbwXS2MXrmT+FFQ3lDdIOuAodepcSf/jO?=
+ =?us-ascii?Q?y7UiaWEX5MBwWfSzmGupnswVlU0HhN2vcCvFd4MrLlymseXYoax3CgtLqw5g?=
+ =?us-ascii?Q?6QQhrNcmHQNvy7wpyk0LHRB2gMudPmBZJh0fap41/htgkeNVJTolg2WPlToM?=
+ =?us-ascii?Q?rgw2PN/kuBtU3GG/Eg+UtX3hZPLjabG4M5W6RYdkpEgfLE/Qg+XCPBmqXFwm?=
+ =?us-ascii?Q?dcO40EzP/l5NjkTwYQXUMwPcHvvefDEtp9gEJfKlEE/giMrOiSX9oKQQBgZZ?=
+ =?us-ascii?Q?caAJwFFYyzI73fG9NRK+ReVLitDM1RGXevfmqWsWtdatcKkNrSVb6mKHO/lE?=
+ =?us-ascii?Q?n0m/OQIBNAtzh1+ET7J2pQ2Nyi+PncbX9Mg4PAW6U8L+iDGoS1zG66BKLrDh?=
+ =?us-ascii?Q?ZLbxFzNbW9WYqoI3HU3IzYm8djM99vgj8eIOEGxkRxQ5j+K83BZVfmFPBl0D?=
+ =?us-ascii?Q?ZyPjdySKZkSRrs3BTV0XdymnPUZ4a66B6SECWDmGLgn16TK/TugNJ3oqif25?=
+ =?us-ascii?Q?YyJMuVfjT6emaFihTWI71Pg56fEu0ln/YabTT4z8tUWEB+uzG5Uvw6oEKlYP?=
+ =?us-ascii?Q?GTj/Zc7ZazMCY+HQ31o5FHwHzoKCueA1lJjQRkGmCgJGypea3GrP+khBc03B?=
+ =?us-ascii?Q?3d0ELDsC/Q1E7KBnp7LLOUThYtp+eu4uhLG3VrkAvcQHMRurZgfuQ2YaaAiP?=
+ =?us-ascii?Q?RaYoZK9xU0WES4I0GakUG0jd5uVKJ7Z/ErxnZcPLRWwYjkGjcKy81OD3ALK+?=
+ =?us-ascii?Q?kMUzcCkEUsUJfkx+/TAv5UI2uorRycBqOnxK0ZvBzIfA8ugX5KYoQPp4sj62?=
+ =?us-ascii?Q?NcFwuXrzugf8CZhVuWkarHrnV7TxCBypmaH9jre/2qdjY2nhbIJNWByzG2Oo?=
+ =?us-ascii?Q?cIxMyjpRisBXYFBtYaeCRWvBx/c/Rx+JPqZ8F5haNDQJoY07u0Y4FS6nK1sb?=
+ =?us-ascii?Q?PM1V9eAFGOjDbdy+nfAVkYtnmJGDXmFFc0VMUmNFanubqAZjVRRDI42VqVDr?=
+ =?us-ascii?Q?igaH6woy7Wcs3GJbfyUP9c3fLUcDjnn72ADXO3ob50qW+CoXhaG1LJymM14j?=
+ =?us-ascii?Q?HZNRuqT92Rkc/AVuaJ31Ak4Nrqq141GnMpJY+2q8MXnMMNfy7of5andsp2yw?=
+ =?us-ascii?Q?dGERKL1fiXNB2uYOF3gLx0S89eZjsnljIQeYPcyt1V9rG/N1ZehJMiuUYOc+?=
+ =?us-ascii?Q?NVHeKnDNrcKuSxMB/sPTnVEZVMPXsc3Odi/eMy8zCPmGC0WpECCBm6pBDZzg?=
+ =?us-ascii?Q?7o/k/FOcHlie3cuC5mxAOc7QHCUbGbHLrpmzQBykRRJNrtMI?=
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-OriginatorOrg: microsoft.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: SA1PR21MB6683.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: df8c6b25-ba80-49a7-52a2-08de84550f2f
+X-MS-Exchange-CrossTenant-originalarrivaltime: 17 Mar 2026 18:43:19.4737 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 72f988bf-86f1-41af-91ab-2d7cd011db47
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 2axIL38ql/rxmM9KCdq2YWUe2kqrJlJCpztFK7tA3jGRWLkwmG8Fl5b8FajR69PbyP7WSZFgY5iKRRLiopHmDg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV5PR21MB4944
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,124 +149,108 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, Mar 17, 2026 at 12:59=E2=80=AFPM Aaron Kling <webgeek1234@gmail.com=
-> wrote:
->
-> On Tue, Mar 17, 2026 at 2:33=E2=80=AFAM Krzysztof Kozlowski <krzk@kernel.=
-org> wrote:
-> >
-> > On Tue, Mar 17, 2026 at 12:23:07AM -0500, Aaron Kling wrote:
-> > > The Chip Wealth Technology CH13726A display driver is a single chip
-> > > solution for AMOLED using MIPI-DSI. This is used for the AYN Thor bot=
-tom
-> > > panel.
-> >
-> > A nit, subject: drop second/last, redundant "bindings". The
-> > "dt-bindings" prefix is already stating that these are bindings.
-> > See also:
-> > https://elixir.bootlin.com/linux/v6.17-rc3/source/Documentation/devicet=
-ree/bindings/submitting-patches.rst#L18
->
-> Ack
->
-> > Also drop all references to "display driver", even if you meant hardwar=
-e
-> > thing.  Driver in hardware is suitable only to motors, haptics and LEDs=
-,
-> > but not to displays. AMOLED driver is fine, display driver too confusin=
-g.
->
-> Per the data sheet [0], my understanding is that the ch13726 is a
-> ddic, a display driver integrated circuit, which is a class of generic
-> chip that gets bundled with multiple panels. This data sheet doesn't
-> use the specific term ddic, but others I'm working on do and the term
-> crept across for consistency. I can change the description to avoid
-> confusion, Is 'AMOLED driver' enough to imply that this is a common
-> chip supporting multiple panels?
+>=20
+> In a VM, Linux panic information (reason for the panic, stack trace,
+> etc.) may be written to a serial console and/or a virtual frame buffer fo=
+r a
+> graphics console. The latter may need to be flushed back to the host hype=
+rvisor
+> for display.
+>=20
+> The current Hyper-V DRM driver for the frame buffer does the flushing
+> *after* the VMBus connection has been unloaded, such that panic messages =
+are
+> not displayed on the graphics console. A user with a Hyper-V graphics con=
+sole is
+> left with just a hung empty screen after a panic. The enhanced control th=
+at DRM
+> provides over the panic display in the graphics console is similarly non-=
+functional.
+>=20
+> Commit 3671f3777758 ("drm/hyperv: Add support for drm_panic") added the
+> Hyper-V DRM driver support to flush the virtual frame buffer. It provided
+> necessary functionality but did not handle the sequencing problem with VM=
+Bus
+> unload.
+>=20
+> Fix the full problem by using VMBus functions to suppress the VMBus unloa=
+d that
+> is normally done by the VMBus driver in the panic path. Then after the fr=
+ame
+> buffer has been flushed, do the VMBus unload so that a kdump kernel can s=
+tart
+> cleanly. As expected, CONFIG_DRM_PANIC must be selected for these changes=
+ to
+> have effect. As a side benefit, the enhanced features of the DRM panic pa=
+th are
+> also functional.
+>=20
+> Fixes: 3671f3777758 ("drm/hyperv: Add support for drm_panic")
+> Signed-off-by: Michael Kelley <mhklinux@outlook.com>
 
-Sorry, forgot to actually paste the link [0] in my last reply. Adding now.
+Reviewed-by: Long Li <longli@microsoft.com>
 
-> > >
-> > > Signed-off-by: Aaron Kling <webgeek1234@gmail.com>
-> > > ---
-> > >  .../display/panel/chipwealth,ch13726a.yaml         | 66 ++++++++++++=
-++++++++++
-> > >  1 file changed, 66 insertions(+)
-> > >
-> > > diff --git a/Documentation/devicetree/bindings/display/panel/chipweal=
-th,ch13726a.yaml b/Documentation/devicetree/bindings/display/panel/chipweal=
-th,ch13726a.yaml
-> > > new file mode 100644
-> > > index 0000000000000000000000000000000000000000..b490c6757bb98c0752ded=
-78b8fea3aaec853c7b2
-> > > --- /dev/null
-> > > +++ b/Documentation/devicetree/bindings/display/panel/chipwealth,ch13=
-726a.yaml
-> > > @@ -0,0 +1,66 @@
-> > > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> > > +%YAML 1.2
-> > > +---
-> > > +$id: http://devicetree.org/schemas/display/panel/chipwealth,ch13726a=
-.yaml#
-> > > +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> > > +
-> > > +title: Chip Wealth Technology CH13726A display driver
-> > > +
-> > > +maintainers:
-> > > +  - Neil Armstrong <neil.armstrong@linaro.org>
-> > > +
-> > > +description:
-> > > +  Chip Wealth Technology CH13726A is a single-chip solution
-> > > +  for AMOLED connected using a MIPI-DSI video interface.
-> > > +
-> > > +allOf:
-> > > +  - $ref: panel-common.yaml#
-> > > +
-> > > +properties:
-> > > +  compatible:
-> > > +    const: ayntec,thor-panel-bottom
-> >
-> > Why compatible is completely different than commit msg, description and
-> > title are saying?
->
-> See above for the general explanation. I don't know what the panel
-> part number for this is, the only thing the odm described was the
-> ddic. So I'm describing where the panel is used. There is precedence
-> for this, for example rocktech,jh057n00900 containing
-> gameforce,chi-panel. The downstream driver code I based on also
-> supports displays from retroidpocket, so I'm also trying to leave a
-> simple path for those to be added, should someone care to.
->
-> > > +
-> > > +  port: true
-> >
-> > This goes before reset-gpios
->
-> Ack
->
-> > > +  reg:
-> > > +    maxItems: 1
-> > > +    description: DSI virtual channel
-> > > +
-> > > +  vdd-supply: true
-> > > +  vddio-supply: true
-> > > +  vdd1v2-supply: true
-> > > +  avdd-supply: true
-> > > +
-> > > +  reset-gpios: true
-> > > +
-> >
-> > Drop blank line here (it is port+reset-gpios+rotation in three lines).
->
-> Ack
->
-> >
-> > > +  rotation: true
-> > > +
-> >
-> > Best regards,
-> > Krzysztof
-> >
-Aaron
+> ---
+>  drivers/gpu/drm/hyperv/hyperv_drm_drv.c     |  4 ++++
+>  drivers/gpu/drm/hyperv/hyperv_drm_modeset.c | 15 ++++++++-------
+>  2 files changed, 12 insertions(+), 7 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/hyperv/hyperv_drm_drv.c
+> b/drivers/gpu/drm/hyperv/hyperv_drm_drv.c
+> index 06b5d96e6eaf..79e51643be67 100644
+> --- a/drivers/gpu/drm/hyperv/hyperv_drm_drv.c
+> +++ b/drivers/gpu/drm/hyperv/hyperv_drm_drv.c
+> @@ -150,6 +150,9 @@ static int hyperv_vmbus_probe(struct hv_device *hdev,
+>  		goto err_free_mmio;
+>  	}
+>=20
+> +	/* If DRM panic path is stubbed out VMBus code must do the unload */
+> +	if (IS_ENABLED(CONFIG_DRM_PANIC) &&
+> IS_ENABLED(CONFIG_PRINTK))
+> +		vmbus_set_skip_unload(true);
+>  	drm_client_setup(dev, NULL);
+>=20
+>  	return 0;
+> @@ -169,6 +172,7 @@ static void hyperv_vmbus_remove(struct hv_device
+> *hdev)
+>  	struct drm_device *dev =3D hv_get_drvdata(hdev);
+>  	struct hyperv_drm_device *hv =3D to_hv(dev);
+>=20
+> +	vmbus_set_skip_unload(false);
+>  	drm_dev_unplug(dev);
+>  	drm_atomic_helper_shutdown(dev);
+>  	vmbus_close(hdev->channel);
+> diff --git a/drivers/gpu/drm/hyperv/hyperv_drm_modeset.c
+> b/drivers/gpu/drm/hyperv/hyperv_drm_modeset.c
+> index 7978f8c8108c..d48ca6c23b7c 100644
+> --- a/drivers/gpu/drm/hyperv/hyperv_drm_modeset.c
+> +++ b/drivers/gpu/drm/hyperv/hyperv_drm_modeset.c
+> @@ -212,15 +212,16 @@ static void hyperv_plane_panic_flush(struct
+> drm_plane *plane)
+>  	struct hyperv_drm_device *hv =3D to_hv(plane->dev);
+>  	struct drm_rect rect;
+>=20
+> -	if (!plane->state || !plane->state->fb)
+> -		return;
+> +	if (plane->state && plane->state->fb) {
+> +		rect.x1 =3D 0;
+> +		rect.y1 =3D 0;
+> +		rect.x2 =3D plane->state->fb->width;
+> +		rect.y2 =3D plane->state->fb->height;
+>=20
+> -	rect.x1 =3D 0;
+> -	rect.y1 =3D 0;
+> -	rect.x2 =3D plane->state->fb->width;
+> -	rect.y2 =3D plane->state->fb->height;
+> +		hyperv_update_dirt(hv->hdev, &rect);
+> +	}
+>=20
+> -	hyperv_update_dirt(hv->hdev, &rect);
+> +	vmbus_initiate_unload(true);
+>  }
+>=20
+>  static const struct drm_plane_helper_funcs hyperv_plane_helper_funcs =3D=
+ {
+> --
+> 2.25.1
 
-[0] https://www.scribd.com/document/910879274/CH13726A-SPEC-V0-0
