@@ -4,134 +4,161 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 17F4BFEDA00
-	for <dri-devel@archiver.kernel.org>; Tue, 17 Mar 2026 18:43:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6D353FEDA09
+	for <dri-devel@archiver.kernel.org>; Tue, 17 Mar 2026 18:44:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7D3FB10E412;
-	Tue, 17 Mar 2026 18:43:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BCA2A10E42A;
+	Tue, 17 Mar 2026 18:44:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=microsoft.com header.i=@microsoft.com header.b="PDA+XxDl";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="Wd4lxMzP";
 	dkim-atps=neutral
-Received: from BYAPR05CU005.outbound.protection.outlook.com
- (mail-westusazon11020133.outbound.protection.outlook.com [52.101.85.133])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 90CC810E412
- for <dri-devel@lists.freedesktop.org>; Tue, 17 Mar 2026 18:43:47 +0000 (UTC)
+Received: from SA9PR02CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11013052.outbound.protection.outlook.com
+ [40.93.196.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4048010E415;
+ Tue, 17 Mar 2026 18:44:11 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=npWmKGLmQUiH/PRvbkI94e/rphU4K5SI4trl0CJzORwCv4lBXh7NlbVGozAv4uv0HoJaaD0j6nvh943vybkecC7QzfJWXBgz+JcDq3a2Q5UDmpnxwegWxYX5OxBPgtY3rcvgOJty4tZtjGTxvUaPkYa316PjH8V4znyV/58HMbLqKcZcn7vYS61tG6LvwLwm7onn3UbZM+5m2RXDdtOBD3+GETQSQWnk639TyxaFcnnK6y8sy3y1i62iZYjsaFFWQYibFYReHw6KkmNaCJYQ7eYC5kkrol+mpyIbzxUxiAua1N2EDIF/1gK+V5Sh4yq0AnoXUct3MyDg6M1g2v7zzg==
+ b=aStnPmNYY5PssoZNlaigTLa5UCWtjI9YxpyMnwhVfWWFGk9Wbht8uL+FsmQV06quRTPQJOV3GvjIEdjSgmkoWn6sjfDU7cqmwvC8y5FgM4bqcvDzfsXRRAFY1Pa7VrZpGtpmpJg3NTs5biGUpaLchi57fBntVqh6x17fVaFqoQ1n/vT9XUSKpPWst2sgBvp1dERulmNAKc4GRxmbWzpSLrthn0tMOUFRia2203CjwgQ81BKldxEaG9jD7HjxkbSPwGuCzKLKiLOdDODlWDNb1y5rII+JnmT+eQlpsuRiGyt3ukDQULAHile2Yk04qEWg48ZjwCJHVcR/u78GpoK/Ag==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=onHxDYRXEFvNufyMepXViytnM+yen1oyBJbZIt2O2jo=;
- b=m1J7qpNpy77axiV7P3zeV3GUOfnVNS1BFCGRMkco1wAiDWoJ4WgWvBaEOvH8AD0ZFJbY7yUGyeJn+g/pYB6h4Fz1rUwJQD19eVd0LjJH7z99maz1LeFjMMUya02261pL9U0HkPRozI375mJ61mT+qqnssMJt1gRYVsUf/WSEebFWj9j5Lj8+yQnshHCXSI/duQOJJ5NgvkpkWg7XfYa+Wqbu1etDe+LPc1+S9HDNe2MXQq/3xIpfTJmICTxwlgJr0KN5rf/XjkWRadzAIHkriFLtaW6Ae7lA7lr66+00FGtjL8FRBLcHOG1i+lwoDABhKR/JPyTzVWeoZA6+y7NcVA==
+ bh=EOoLtISl9MBcOfcFNylXhHlzxLrgX/ri5ArQb1wc57Y=;
+ b=YcybpSGU07/eNkSJpcUXHONnctYvH7YNy1AZZILmo4/XYqrAdNvLkkfIrJlGXz0x/nmYCl25ftAvFdqGQqmP+JbGd740AnjnzlwY2XoJAEe8XEguPelyDVR7gHdFnqoXf4URvtACLjkW+5G8qjts64JduDdggYnQ1KU00MiCWY6CHhRC8+WEBLKQm+0l3JEHL+y2IJkiwZi0U2aHcP5dUVOicoYKInb3tMZuyQ+Aht7u+KCPqmQhcOikyYvoj84ZTOMeItkcHuNBoIfy4yt64xGw+7hgbSYp3MmxtlJzz3RDGtvmme7i7Y/dopxQtmWYPJZbFiGTYsrbCBcgOUIPxw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=microsoft.com; dmarc=pass action=none
- header.from=microsoft.com; dkim=pass header.d=microsoft.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=onHxDYRXEFvNufyMepXViytnM+yen1oyBJbZIt2O2jo=;
- b=PDA+XxDlwUnzHzk0Ql6rEtXSaLQIHriR7lf1kb7T6Q+BHP7rKvvqJRE3Hih1QUWdfRs2edr1HkS8nXtjhsYphU05oGP10bMxxFXn2uIrGIhw8eR4n4d5fA8VpPjsrfdUyrY7EclucRlYvCxWONKcFFtV0zWFdEJNuCwEiOz39E0=
-Received: from SA1PR21MB6683.namprd21.prod.outlook.com (2603:10b6:806:4a4::6)
- by LV5PR21MB4944.namprd21.prod.outlook.com (2603:10b6:408:304::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.8; Tue, 17 Mar
- 2026 18:43:44 +0000
-Received: from SA1PR21MB6683.namprd21.prod.outlook.com
- ([fe80::879f:eec1:ca0e:d219]) by SA1PR21MB6683.namprd21.prod.outlook.com
- ([fe80::879f:eec1:ca0e:d219%3]) with mapi id 15.20.9723.008; Tue, 17 Mar 2026
- 18:43:39 +0000
-From: Long Li <longli@microsoft.com>
-To: "mhklinux@outlook.com" <mhklinux@outlook.com>, "drawat.floss@gmail.com"
- <drawat.floss@gmail.com>, "maarten.lankhorst@linux.intel.com"
- <maarten.lankhorst@linux.intel.com>, "mripard@kernel.org"
- <mripard@kernel.org>, "tzimmermann@suse.de" <tzimmermann@suse.de>,
- "airlied@gmail.com" <airlied@gmail.com>, "simona@ffwll.ch" <simona@ffwll.ch>, 
- KY Srinivasan <kys@microsoft.com>, Haiyang Zhang <haiyangz@microsoft.com>,
- "wei.liu@kernel.org" <wei.liu@kernel.org>, Dexuan Cui <DECUI@microsoft.com>,
- "ryasuoka@redhat.com" <ryasuoka@redhat.com>, "jfalempe@redhat.com"
- <jfalempe@redhat.com>
-CC: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "linux-hyperv@vger.kernel.org" <linux-hyperv@vger.kernel.org>,
- "stable@vger.kernel.org" <stable@vger.kernel.org>
-Subject: RE: [EXTERNAL] [PATCH 1/2] Drivers: hv: vmbus: Provide option to skip
- VMBus unload on panic
-Thread-Topic: [EXTERNAL] [PATCH 1/2] Drivers: hv: vmbus: Provide option to
- skip VMBus unload on panic
-Thread-Index: AQHcmZIP2DJLtGI0y0OGUoKeKTpA17WzSL0Q
-Date: Tue, 17 Mar 2026 18:43:39 +0000
-Message-ID: <SA1PR21MB6683540B9B3CCC1F605612F0CE41A@SA1PR21MB6683.namprd21.prod.outlook.com>
-References: <20260209070201.1492-1-mhklinux@outlook.com>
-In-Reply-To: <20260209070201.1492-1-mhklinux@outlook.com>
-Accept-Language: en-US
+ bh=EOoLtISl9MBcOfcFNylXhHlzxLrgX/ri5ArQb1wc57Y=;
+ b=Wd4lxMzPZOQvu3d2+AyZcxjQDqOc3jKqk7ISQX3BUrU+PC0Zom+5Qy7+V1pWUC1ROEM0935GFggjN+GWfdd659cdcN2MA2eVuvt+Q6lTfQdqMCTChzyU6KJj/CmfajCVBF8DCnGM6SsRRWyJcANsUNjB7otrMb6cOY0LIwevymhm5/+v5TZHGYnPZ9FMw1T1jAkDm1xZ9R958m2ZC+8V9HEDq0DE+kjjex9zJGCZi9o+JIdwRhaMcpuRkThMnzaqB+YvSL/wbBGAwiBRKGEY50nwpXtNpUzUKFHMPNw2k1c/HmseI4lLUM19oGyhcksb/+i4XFFFWE0XhbjRXP629w==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DS0PR12MB6486.namprd12.prod.outlook.com (2603:10b6:8:c5::21) by
+ CY1PR12MB9697.namprd12.prod.outlook.com (2603:10b6:930:107::6) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9723.19; Tue, 17 Mar 2026 18:44:05 +0000
+Received: from DS0PR12MB6486.namprd12.prod.outlook.com
+ ([fe80::88a9:f314:c95f:8b33]) by DS0PR12MB6486.namprd12.prod.outlook.com
+ ([fe80::88a9:f314:c95f:8b33%4]) with mapi id 15.20.9723.014; Tue, 17 Mar 2026
+ 18:44:05 +0000
+Message-ID: <893f5393-70e8-4213-b0d1-57e4fc9c68ab@nvidia.com>
+Date: Tue, 17 Mar 2026 14:44:01 -0400
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v12.1 1/1] rust: gpu: Add GPU buddy allocator bindings
+To: Alexandre Courbot <acourbot@nvidia.com>, John Hubbard <jhubbard@nvidia.com>
+Cc: linux-kernel@vger.kernel.org, Miguel Ojeda <ojeda@kernel.org>,
+ Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
+ =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
+ Danilo Krummrich <dakr@kernel.org>, Dave Airlie <airlied@redhat.com>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Koen Koning <koen.koning@linux.intel.com>, dri-devel@lists.freedesktop.org,
+ nouveau@lists.freedesktop.org, rust-for-linux@vger.kernel.org,
+ Nikola Djukic <ndjukic@nvidia.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Jonathan Corbet <corbet@lwn.net>, Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
+ <tursulin@ursulin.net>, Huang Rui <ray.huang@amd.com>,
+ Matthew Auld <matthew.auld@intel.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Lucas De Marchi <lucas.demarchi@intel.com>,
+ =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Helge Deller <deller@gmx.de>, Alex Gaynor <alex.gaynor@gmail.com>,
+ Boqun Feng <boqun.feng@gmail.com>, Alistair Popple <apopple@nvidia.com>,
+ Timur Tabi <ttabi@nvidia.com>, Edwin Peer <epeer@nvidia.com>,
+ Andrea Righi <arighi@nvidia.com>, Andy Ritger <aritger@nvidia.com>,
+ Zhi Wang <zhiw@nvidia.com>, Balbir Singh <balbirs@nvidia.com>,
+ Philipp Stanner <phasta@kernel.org>, Elle Rhumsaa
+ <elle@weathered-steel.dev>, alexeyi@nvidia.com,
+ Eliot Courtney <ecourtney@nvidia.com>, joel@joelfernandes.org,
+ linux-doc@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ linux-fbdev@vger.kernel.org
+References: <20260308180407.3988286-1-joelagnelf@nvidia.com>
+ <20260309135338.3919996-1-joelagnelf@nvidia.com>
+ <20260309135338.3919996-2-joelagnelf@nvidia.com>
+ <DH48DNAQCE0Z.2EX23VD27CQVX@nvidia.com>
+ <efc10902-2ee9-4cb3-a4cc-442998eef01a@nvidia.com>
+ <DH4NHGJ54F7M.2R42KYTV1700M@nvidia.com>
 Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_ActionId=b657ea06-fa6f-438d-ba50-8c59d1327667;
- MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_ContentBits=0;
- MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Enabled=true;
- MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Method=Standard;
- MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Name=Internal;
- MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_SetDate=2026-03-17T18:43:26Z;
- MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_SiteId=72f988bf-86f1-41af-91ab-2d7cd011db47;
- MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Tag=10, 3, 0, 1;
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=microsoft.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SA1PR21MB6683:EE_|LV5PR21MB4944:EE_
-x-ms-office365-filtering-correlation-id: 7857cb80-929b-4b58-0e94-08de84551b1b
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|366016|1800799024|7416014|376014|56012099003|22082099003|18002099003|921020|38070700021;
-x-microsoft-antispam-message-info: J3k77ow+lbglxnMVR+d1woqvjmddSEQKW8lPOHQSjMV8xWcQmbq7pZP2+tQgNqjBPN769hRW4proWfNcqEiy7vGxPZDX4VrrlXAo5LHq0HSTQFXEnh8FMMozd3uS0VWmqsbLkO319lrMMO0RNHl9swEnAclhgzEiFMtt8u+e1bWhIUvDAS/gMXQTdWcGT20EMupJ+yWHQ86H4V+lw6FZzcEdZaUsndcoa5S1uiH8KGCwe2JsV/mqCIbeciHi/sXcrkZsxRAc8Wxs52e89OtXPsjRqzGAZbGTuojiQDqL2d0Ec0p7tiumJKJVLEdRL9QnU6w++6vbtO576vOCNXUzJQI6zWRPwszRVSywBdemhrnGSuQlvFvOsLjEEbLesZbTVKebZ6gzfrjU9QJZ127fYwYUtbCL3k8tWEnzyQFZPoxSjfNoANid9CgAuaKAJyQGa4MeNWz/ZTXvYgGwVwvMNwqVNVskhxFzLD6mP8/7hUwac1dv04M5Yv8rQfhOzeekq+UUG652IwzyMTZNXFqpaL1Q78xxGqUYR0JP8JieAcKA1Pgqj948wAbwVRjUMS4f1bYh3OWwAJ/dGcC3/YJr4APzWTwbsD7H3COZuSQSpc5sT0EM48BC0VYJ/m0SWTDgEKpkBHHdnb4zSNJlwELvjP3g6mX99//biXRjgNjQI7ZQdatfZcEJFnQH4B2fU2Rk5Qxi0dFYtfpWErbMXAO78N38BE3NaCUtPjgx/JY5iz61D990foiw52550cyIub49+bSpAA994KKkKv+S43EIZsdRKnFiTLJQ6dnoY+7d/nJ7U1r6wY7tiTPtU8KwnUtY
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SA1PR21MB6683.namprd21.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(7416014)(376014)(56012099003)(22082099003)(18002099003)(921020)(38070700021);
- DIR:OUT; SFP:1102; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?V3vR79mN0Z7MY+d8+aMlpgZmajgGM4ax8Hfbqv9V0iMLBdWakVJM6CMIJrpU?=
- =?us-ascii?Q?54myaFx4qm1A57JO9ncRwyOc0+z+ImiqMAswbnFl8wndXixNCPgNekfkN2fH?=
- =?us-ascii?Q?dzNTM5pdS93hXaukMF5FjVP2J61wVQin6Oj+Im4Q9vNoGWdRFJefPu0OjIr+?=
- =?us-ascii?Q?Exu/7MM0rQ9I/XkpQIw5/80eYDXKrqFZNtDWfFgWtj1M6W7HthnK1ehLFKdR?=
- =?us-ascii?Q?I7yOnVFXJw3Wm2olnhkvVZA2344tR4M/pFp9p+/Oq6o1kioeMEhNvv7YjQRV?=
- =?us-ascii?Q?zcgb1V1auhqtg/t1SiaqdJ/+wT91b9jMXjpxqSbtgaGYnzJ2ARbEAa2XWyZ4?=
- =?us-ascii?Q?DctC4Irp/3UsTTcT6NHLnb7S/SemBX5H5PrJEsrJw8zf0+zwwqYsFKOZ5WCr?=
- =?us-ascii?Q?jCMioOQ/t6I1vVNOsO993ScCNaXuFOmd5U6/3VFDLaHuXfnJJcVpANdHe1uG?=
- =?us-ascii?Q?J9GRBowbPUDD7xeany/CtaLZOv2ZuoE4qtv3VUJF+r8HwKXgzWZLu0AJzJG4?=
- =?us-ascii?Q?dMvRYeQA6TlVLJuwBgWL0xdJ+FfEKzQYU6XzxPHGdmxgysk5HKC970opM8lB?=
- =?us-ascii?Q?52SI4YACuV/WqzdJ1ZY0KBkmpquGEMmNmKYwY1oVH++XeUM1hgjCSlqoZ+4/?=
- =?us-ascii?Q?Qdf+U7UL5K7ZokvNMIBZyEourAz928VjFWn0tuKygYOpAUW9ADJGBzRZdE97?=
- =?us-ascii?Q?3aq1AvwqX1QbZd6OSECsqZPVbBV+FD2/frCe7ByA6+A1T05fv8XfJripi+V/?=
- =?us-ascii?Q?AGz+ukGFmVP4nCzUaCuGBiSB5xvBlfS6vRmW7dzkyhqq2gKjHm0U8zrf5622?=
- =?us-ascii?Q?olaqQZqtgxUICMWIJKXHFd2Ar4fr0YDzhVSvEv507xkR7WIaGT3iXpSGrIEe?=
- =?us-ascii?Q?NLzZOsprR9ZBK0s8hzrsdY/UivW8wHSqGT3SLo8z5Yff3ncjPSIm9/ki9orL?=
- =?us-ascii?Q?D0tVaRUamI85n3+1YQ6JLgJWc6VWxKumVkn4NWU5ggLgAJcswfdKMX/lNq2T?=
- =?us-ascii?Q?x6gX87/vAcNukAS382Cj0NNJ+zF1JOuuQhcQNp8lpPoklX8HDQyvjsIE+oB8?=
- =?us-ascii?Q?u44cRhsuw7DVe9PuQv1fg6oZREzb3skqGIpEQ95+4uKo28eI9j41B68T71OX?=
- =?us-ascii?Q?5PGLrXN2D6HIDFOFm2NSVqAxTZP0T7hbKFMdbkV4+f4Dfp13Z8cEMil9le1z?=
- =?us-ascii?Q?LWgeRvcmFKzzTAEr91DhZOspaIF8Wwc29pj2XFfOL8r6cUa+sgVJ5/puoVl/?=
- =?us-ascii?Q?0eRwT0s+sgECNhobLznCdQeZdH0Yo4t+7k5lQqnMcWjGEhiOhTRQmPBr5lfD?=
- =?us-ascii?Q?Y3BjLI58rtudc7qQHekW5ytr/8OUYYvAJcNh6NIRPy38u2rruAKgtftobdwu?=
- =?us-ascii?Q?3y32C9pYrzE5ywx2D0F3gtEMxImYf/sEkXI+/nhOiR8DKkz2wjhDFr38qbmz?=
- =?us-ascii?Q?xbZNDGXWeElgvLoN6V9z7ffWPsOo2keRKAo5iJDthFW/3SWXgOOUPxTe2nQO?=
- =?us-ascii?Q?t+oM/9ze+wm1wG6/VNzp5BwLtXWbZ75LNemUUc0XHA996acfMPdciz5n/a0S?=
- =?us-ascii?Q?vnQcW64izN7Wq5H98uM77yaHaTQnVKao2Mhg0pTx8RpUpAdThGTXFom1SCSM?=
- =?us-ascii?Q?JzEd8gOjbA51cO8GGrvHcngo1ZmNEc0ryRWCfTttxOkePf3mQi7HltzD4f7d?=
- =?us-ascii?Q?0qCSyVfo6A6FdQrNYWji2NZ3DUbawd0888GWQllfcU9dLu1w?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+From: Joel Fernandes <joelagnelf@nvidia.com>
+In-Reply-To: <DH4NHGJ54F7M.2R42KYTV1700M@nvidia.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: BLAPR03CA0063.namprd03.prod.outlook.com
+ (2603:10b6:208:329::8) To DS0PR12MB6486.namprd12.prod.outlook.com
+ (2603:10b6:8:c5::21)
 MIME-Version: 1.0
-X-OriginatorOrg: microsoft.com
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS0PR12MB6486:EE_|CY1PR12MB9697:EE_
+X-MS-Office365-Filtering-Correlation-Id: 35125e81-1dc6-4024-1998-08de84552a4d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|7416014|376014|1800799024|18002099003|22082099003|56012099003;
+X-Microsoft-Antispam-Message-Info: c8yfyJwX7fTBlvEixSYsgMGa5Yb39CukiFZfnEhsgDd3HSCuPvhCmtlNEewoYmQonbdtc+645GCQs3Tg3KpTDnM6vxWXJNU2qDFZjd4Pt/LYckaMVzUSte/JwyIJNzFoTrxT1zQgN+LS/clsXeEs0aWi9hlS/Di4uNRsjq9i6ZcUCsDZXtTpPxx8VaYAIPXMBcjihRInVR2IA80eB1Jm9xy516fJ6O/Vz0lRXkMBn3r7SkvI/WmOG3odT1K7BVK6wuPrmJdUb7yJMidi1Y1VyOXlNcCzpsuLvB+eBZBCyqyoBzeyu4ITiyv/6DSKlvkNzPDmMliF9GwfrAO1cD4QEIACuBETQZgpSqmQlNUUhHYfAtB4EQ8WbB67NLZgYvcQvSM52dVI72l+Z/hVq5ClW3ZW3VfGXUD7IDlpuEnm46lHMvlfOs6WEV+L6MqQxDW2AlEY9wreszWMZf67vcDmAlqbODXXtKMz1VM15RjtCMSn2LjoqviiggD9l7Y8tkGQqB7/61W3j18TQkYLWjic/k2RcU+YeB7cBBvmAS3Zb3rcHJZtpwOYJiYW1Go6XsmRE8p4e69BufssQ10wj98cP1Ud88J930HYfErvMdbNGp+Q83l5PUl/nEjE64xiy5c+n1Xv9XPyA3b+S9a8oYmSRltzD7ZWmywhb4bID5Eum0rBPCXxHlh6UzXFGe7/wM+hN4+tCLIsiPKl7eTjSdns5c0LsFdD+VSIt32uLtdWcpA=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS0PR12MB6486.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(7416014)(376014)(1800799024)(18002099003)(22082099003)(56012099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?N1RwRHdUMXVOUGVlOGRkcFhxNmFmUDY3YlREUzlMTHlXbmJUTmJrTWlhUUFh?=
+ =?utf-8?B?ZEd4SEhuS1hPU0dubmYzcUZyUmRNNmh5OHZ0aXVtaFRjUFNFOTdNSmdWVzc5?=
+ =?utf-8?B?bEYzSTRRYitSQU1vOThEWGlCN3FCanljcEYrY01GUWs2WkxmZlRFWHlWNjYz?=
+ =?utf-8?B?Y0hZd2RIQlM5NDE0bmQ3L1lTRUtYTlkvMkdkYkV6N013YWNUaTF4eWVjUGZP?=
+ =?utf-8?B?UlpJaG9DL2RjQnZkUjR0cW9Ib0ljZ2VBOXFNOXlwaDFaWnpQTWZJWTBSQlY5?=
+ =?utf-8?B?Wnkwd2J1WlRUbEZlckc5NC9SWkFSbzhpQzRpU29BemJkdVBHczY0V1dYdkFC?=
+ =?utf-8?B?RnVCelJFMHY2aUZRLzBLc2VXeHRJeUh3a0ZkMmhTWE5zRDZ0L20xMTQwMnQy?=
+ =?utf-8?B?aDgvMXJzTmJLRkE5OVRkVnhSKzVwakhnVU1xTXNpRVBQdHd0OXZTUkRQSC8y?=
+ =?utf-8?B?NUhoNVNtUHIzdENML09URUg0OXZacWJ4U3BxTXhSQmpXWlpiak5nS1F2Qy8w?=
+ =?utf-8?B?aVdGcnZFUmMvSW8xWEdBemw4blVDR3lKMUU5Sk51QUZhYXluSXJtcGRmZlVl?=
+ =?utf-8?B?UDdzRSs2VUdTYXovUWxuaGZ3UlNpU01XWlNVTEI4UGcvMU5TMWdWdW9Qdjdm?=
+ =?utf-8?B?bjY0bTc5UDAyczlSUEtqTGVJaWEyY3duWnlxc0RiQU15czdwR1ppTVZQWS9y?=
+ =?utf-8?B?eHUrRzJDRThEdTU2bVFMN3Frb1NGdHovaHJ1RFY3Z1NiS043RGxBYyswOTBB?=
+ =?utf-8?B?VTZ1N1BEa01icGNaQjNzU2RGRzBPbUwxbm83UWs4MEI1b2p6UmtrdHZOemRk?=
+ =?utf-8?B?S3hvUXh1WFpWditWZHgyNmowRzhrdE5BdXJ3R3ZrTjdGUXRjU2h6NGlHQ0hC?=
+ =?utf-8?B?RjMrOFRrcndwQjNVWkZ5elRFdy92TWxQWVFIcmFseVVJdmVxbnFXalp5NmR0?=
+ =?utf-8?B?a2YrVmpQMCtMY0piU3RHUjllRCs3ZGZaUCtwZlZDSEhuTGMrdHVvNW4rOWhV?=
+ =?utf-8?B?Wkp2OEZhc1FlM2dvd1JaZVVnY2pWa3dZUXJ1UUVDcHJWZEorYmRpY01UWXF3?=
+ =?utf-8?B?VkN4M0ZGQXNIRi95UzZsMWJnZS9tZ3NoUmd5VXlnWkl2WW92dGJ1bU5vWjlU?=
+ =?utf-8?B?ZTBGK2MvcTdsekJhSzNmb2g0S2hIRmZpazVIMDZtOTZ2SEhxZFFJMlRsSXEz?=
+ =?utf-8?B?Wm8xUUxIQmU3NWsxV1JoOE9KZ0dZY0FROFRJWWwvMkZUMUxCSXkvd1JPS0dN?=
+ =?utf-8?B?ZlRRNVhQQzN1MjFBdHNPTWhKdVlzWEhTcUdWK3N2ZEJYdENHMmFGSytMeU1Q?=
+ =?utf-8?B?NnA2dzRiTVVsWE80WE5veDNBdXRZOGVRK1N3UGpibnNhVUxIV2loVEMxdXVI?=
+ =?utf-8?B?MmkzZE0zeHN5bmR1TVl3a0R0cnBaZUN3R2J0NEpjRmxZYjUwbGZzUHg4ZHRV?=
+ =?utf-8?B?Qk8wOUc4TGdyM2hRTnVOT3NaYm9hNE95UWtKMTdVYnRlUTFIMlNNUGJZKzc4?=
+ =?utf-8?B?SHFqbTBFLzkzTmJYYzM5cXRxQlB5ZTY5cXA1RjRJOGNPRnA2Y0REUm9IZmhE?=
+ =?utf-8?B?SXkvK2Z6UVZ1MXlta1IvRm1WVnFEWldhQ3pQY21RK3pZazRGdFlvUjRjcVN0?=
+ =?utf-8?B?cG8wVVExWlU1YWozTFNqQU9VZk5jN2I1UkliamYrY2lvdnRSb1VKTVo3aG93?=
+ =?utf-8?B?MmRwUDlOZnprVncySkYyc2NnaWVQbHUxL2NOazBFOWIvcU5vTENZOTdWb0pQ?=
+ =?utf-8?B?SGVsVWZ3THlXQm95UHMyZXZzbTdjZW1oeWxHUFRNRjI2SmNaVks3a2Mva1FM?=
+ =?utf-8?B?UVhOLzl6a05rNTVvb00zWTFmaWM5NmdHZ3c3Y2tFSXNGMnVJRy92ZVJtUkpv?=
+ =?utf-8?B?SXlSakUxN2ptRXE3aWJrZ1J2bC94alRWbjd2UlhPNGR0NGVGZ1Yxd1RyOTZv?=
+ =?utf-8?B?TmRoL0ZnK3dtQlJXaWl0T1Q4M3NzeTUxMEFFeWdveWR3em9CVDYxYndGQVNx?=
+ =?utf-8?B?SUNXMGVVRzFQMWU3ejQrd0FReUpLQ0NTQitHT043Vk80dW1KdFZ3amFBYzlO?=
+ =?utf-8?B?VSsrU1N6UzhYZXV0aW9iaUppcXBwN3BMeWo3SU84amtaMnozQmhIbll4WWNt?=
+ =?utf-8?B?ZktXTG9EbGNRU1VWVGlxN2tpUlRlbGYvOHFKWW5sZExUK0t2SExqN1lUakFr?=
+ =?utf-8?B?eUlPTzN0RW1iTTlUOVlkMmFXeEQySHg3ejJJZVk0Yi94M1pMRlgrM0tQUE9L?=
+ =?utf-8?B?YVYySy9KUjJhOGhpWEQxOUg3S2F4MUhSaHBrNTdzMzhNOXRNUTQxUGtFdlE2?=
+ =?utf-8?B?WWhGeFNxdWZheE9LSTJTd2ZoSzFHb3M4UCt3U2dHOW81YWFOTE9EUT09?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 35125e81-1dc6-4024-1998-08de84552a4d
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6486.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SA1PR21MB6683.namprd21.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7857cb80-929b-4b58-0e94-08de84551b1b
-X-MS-Exchange-CrossTenant-originalarrivaltime: 17 Mar 2026 18:43:39.4920 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 72f988bf-86f1-41af-91ab-2d7cd011db47
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: cV3f/ei1hFtZn0u/CO2gRFG4MXTCk2uZt/XNnRSfz9P5ig0cdjcotNIt1lIw8wuoqJ5ouDsKpTNDYHOEgif3xA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV5PR21MB4944
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Mar 2026 18:44:05.3957 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: WVeF3l2EiGWT8xpowJ11QeMRMW1P9zgAxvZnxeONRMkGOHjKKmE31z8qQVL/pkyDX6uzlOpvo3Clw3S/AdBw4g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY1PR12MB9697
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -147,139 +174,52 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
->=20
-> Currently, VMBus code initiates a VMBus unload in the panic path so that =
-if a
-> kdump kernel is loaded, it can start fresh in setting up its own VMBus co=
-nnection.
-> However, a driver for the VMBus virtual frame buffer may need to flush di=
-rty
-> portions of the frame buffer back to the Hyper-V host so that panic infor=
-mation is
-> visible in the graphics console. To support such flushing, provide export=
-ed
-> functions for the frame buffer driver to specify that the VMBus unload sh=
-ould not
-> be done by the VMBus driver, and to initiate the VMBus unload itself.
-> Together these allow a frame buffer driver to delay the VMBus unload unti=
-l after
-> it has completed the flush.
->=20
-> Ideally, the VMBus driver could use its own panic-path callback to do the=
- unload
-> after all frame buffer drivers have finished. But DRM frame buffer driver=
-s use the
-> kmsg dump callback, and there are no callbacks after that in the panic pa=
-th.
-> Hence this somewhat messy approach to properly sequencing the frame buffe=
-r
-> flush and the VMBus unload.
->=20
-> Fixes: 3671f3777758 ("drm/hyperv: Add support for drm_panic")
-> Signed-off-by: Michael Kelley <mhklinux@outlook.com>
-
-Reviewed-by: Long Li <longli@microsoft.com>
 
 
-> ---
->  drivers/hv/channel_mgmt.c |  1 +
->  drivers/hv/hyperv_vmbus.h |  1 -
->  drivers/hv/vmbus_drv.c    | 25 ++++++++++++++++++-------
->  include/linux/hyperv.h    |  3 +++
->  4 files changed, 22 insertions(+), 8 deletions(-)
->=20
-> diff --git a/drivers/hv/channel_mgmt.c b/drivers/hv/channel_mgmt.c index
-> 74fed2c073d4..5de83676dbad 100644
-> --- a/drivers/hv/channel_mgmt.c
-> +++ b/drivers/hv/channel_mgmt.c
-> @@ -944,6 +944,7 @@ void vmbus_initiate_unload(bool crash)
->  	else
->  		vmbus_wait_for_unload();
->  }
-> +EXPORT_SYMBOL_GPL(vmbus_initiate_unload);
->=20
->  static void vmbus_setup_channel_state(struct vmbus_channel *channel,
->  				      struct vmbus_channel_offer_channel *offer)
-> diff --git a/drivers/hv/hyperv_vmbus.h b/drivers/hv/hyperv_vmbus.h index
-> cdbc5f5c3215..5d3944fc93ae 100644
-> --- a/drivers/hv/hyperv_vmbus.h
-> +++ b/drivers/hv/hyperv_vmbus.h
-> @@ -440,7 +440,6 @@ void hv_vss_deinit(void);  int hv_vss_pre_suspend(voi=
-d);
-> int hv_vss_pre_resume(void);  void hv_vss_onchannelcallback(void *context=
-); -
-> void vmbus_initiate_unload(bool crash);
->=20
->  static inline void hv_poll_channel(struct vmbus_channel *channel,
->  				   void (*cb)(void *))
-> diff --git a/drivers/hv/vmbus_drv.c b/drivers/hv/vmbus_drv.c index
-> 6785ad63a9cb..97dfa529d250 100644
-> --- a/drivers/hv/vmbus_drv.c
-> +++ b/drivers/hv/vmbus_drv.c
-> @@ -69,19 +69,29 @@ bool vmbus_is_confidential(void)  }
-> EXPORT_SYMBOL_GPL(vmbus_is_confidential);
->=20
-> +static bool skip_vmbus_unload;
-> +
-> +/*
-> + * Allow a VMBus framebuffer driver to specify that in the case of a
-> +panic,
-> + * it will do the VMbus unload operation once it has flushed any dirty
-> + * portions of the framebuffer to the Hyper-V host.
-> + */
-> +void vmbus_set_skip_unload(bool skip)
-> +{
-> +	skip_vmbus_unload =3D skip;
-> +}
-> +EXPORT_SYMBOL_GPL(vmbus_set_skip_unload);
-> +
->  /*
->   * The panic notifier below is responsible solely for unloading the
->   * vmbus connection, which is necessary in a panic event.
-> - *
-> - * Notice an intrincate relation of this notifier with Hyper-V
-> - * framebuffer panic notifier exists - we need vmbus connection alive
-> - * there in order to succeed, so we need to order both with each other
-> - * [see hvfb_on_panic()] - this is done using notifiers' priorities.
->   */
->  static int hv_panic_vmbus_unload(struct notifier_block *nb, unsigned lon=
-g val,
->  			      void *args)
->  {
-> -	vmbus_initiate_unload(true);
-> +	if (!skip_vmbus_unload)
-> +		vmbus_initiate_unload(true);
-> +
->  	return NOTIFY_DONE;
->  }
->  static struct notifier_block hyperv_panic_vmbus_unload_block =3D { @@ -2=
-848,7
-> +2858,8 @@ static void hv_crash_handler(struct pt_regs *regs)  {
->  	int cpu;
->=20
-> -	vmbus_initiate_unload(true);
-> +	if (!skip_vmbus_unload)
-> +		vmbus_initiate_unload(true);
->  	/*
->  	 * In crash handler we can't schedule synic cleanup for all CPUs,
->  	 * doing the cleanup for current CPU only. This should be sufficient di=
-ff --
-> git a/include/linux/hyperv.h b/include/linux/hyperv.h index
-> dfc516c1c719..b0502a336eb3 100644
-> --- a/include/linux/hyperv.h
-> +++ b/include/linux/hyperv.h
-> @@ -1334,6 +1334,9 @@ int vmbus_allocate_mmio(struct resource **new,
-> struct hv_device *device_obj,
->  			bool fb_overlap_ok);
->  void vmbus_free_mmio(resource_size_t start, resource_size_t size);
->=20
-> +void vmbus_initiate_unload(bool crash); void vmbus_set_skip_unload(bool
-> +skip);
-> +
->  /*
->   * GUID definitions of various offer types - services offered to the gue=
-st.
->   */
-> --
-> 2.25.1
+On 3/16/2026 9:02 PM, Alexandre Courbot wrote:
+> On Tue Mar 17, 2026 at 3:51 AM JST, John Hubbard wrote:
+>> On 3/16/26 6:12 AM, Alexandre Courbot wrote:
+>>> On Mon Mar 9, 2026 at 10:53 PM JST, Joel Fernandes wrote:
+>> ...
+>>>> +//! // Create a 1GB buddy allocator with 4KB minimum chunk size.
+>>>> +//! let buddy = GpuBuddy::new(GpuBuddyParams {
+>>>> +//!     base_offset: 0,
+>>>> +//!     physical_memory_size: SZ_1G as u64,
+>>>> +//!     chunk_size: SZ_4K,
+>>>
+>>> `chunk_size` is an interesting case. The C API uses a `u64`, but I think
+>>> we can reasonably consider that we won't ever need chunks larger than
+>>> 4GB (or can we :O). I'm actually ok with using a `usize` for this one.
+>>>
+>>> One of the first things the C code does is throwing an error if it is
+>>> not a power of 2, so maybe we can even request an `Alignment`?
+>>>
+>>> I'm a bit torn as to whether we should use a `u64` to conform with the C
+>>> API, but doing so would mean we cannot use an `Alignment`...
+>>
+>> Alex, have you seen my Alignment patch [1], for that? It's sitting 
+>> around with only Miguel having responded, but seems like exactly
+>> what you're talking about here.
+> 
+> Not exactly - this patch provides a shortcut for creating an Alignment
+> from a u64, but it doesn't allow to store alignments larger than 4GB on
+> a 32-bit architecture since the value itself is still stored as a `usize`.
+> 
+> But that's really a theoretical worry of mine anyway - nobody will ever
+> work with buffers larger than 4GB on a 32-bit arch to begin with.
+
+I think we don't have to worry about chunk size ever exceeding 4GB. Such a large
+minimum size will cause massive fragmentation, essentially defeating the purpose
+of a buddy allocator and not even for work for any VRAM with < 4GB memory anyway.
+
+Per Alex's other email, I will switch this to Alignment to constrain the
+alignment requirement. I agree now that the robustness of doing so is worth it.
+
+thanks,
+
+--
+Joel Fernandes
+
+
+
 
