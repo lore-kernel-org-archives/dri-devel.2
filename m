@@ -4,67 +4,146 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D6D8AFF6E7D
-	for <dri-devel@archiver.kernel.org>; Tue, 17 Mar 2026 20:43:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 13C9FFF6E7D
+	for <dri-devel@archiver.kernel.org>; Tue, 17 Mar 2026 20:45:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 41B2110E67D;
-	Tue, 17 Mar 2026 20:43:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6EF5610E356;
+	Tue, 17 Mar 2026 20:45:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="EIO7mwrV";
+	dkim=pass (1024-bit key; unprotected) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="j2z4u0bg";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DA97A10E362;
- Tue, 17 Mar 2026 20:43:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1773780213;
- bh=s8wHOKxEu/f0ugUhVWf/KplhmpeCQHsCD28fPopS/Kw=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=EIO7mwrV79dXQtMPxq/uCAzgBffIw2LHnt5TVKHyB2qCoecGVyOEQJLxXbGhAdkib
- 2hyBPhW5QRmvHzgrWYLV+a1sOAoqadQUqlC3UIRR8uNNEwcrHUCfkD/+wO0ucGdgae
- rp3KWcF/3D5aiFaRXnVDw9kxmQ8bBb3iqVz8RlMf6iz9NisdLbbZf93xhmgEitfTDv
- l1pZbIaSdv8vsfDuHjqtjWTsiRNlhnUQBXUIhbCD383rDsS+1p6Cpyc0u2o+tz02lC
- 9wYu8iSvAYnIAg86zdUJ7jfHUKEolHa5ipEdEZHlazL2jSVTnRlB9zlwDaznG7Z4q6
- 9kNYFPAWIH2YQ==
-Received: from fedora (unknown [IPv6:2a01:e0a:2c:6930:d919:a6e:5ea1:8a9f])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
- server-digest SHA256) (No client certificate requested)
- (Authenticated sender: bbrezillon)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 8305717E04DC;
- Tue, 17 Mar 2026 21:43:32 +0100 (CET)
-Date: Tue, 17 Mar 2026 21:43:20 +0100
-From: Boris Brezillon <boris.brezillon@collabora.com>
-To: Matthew Brost <matthew.brost@intel.com>
-Cc: Daniel Almeida <daniel.almeida@collabora.com>,
- <intel-xe@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>, Tvrtko
- Ursulin <tvrtko.ursulin@igalia.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Thomas =?UTF-8?B?SGVsbHN0csO2bQ==?= <thomas.hellstrom@linux.intel.com>,
- Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>, Danilo Krummrich
- <dakr@kernel.org>, David Airlie <airlied@gmail.com>, Maarten Lankhorst
+Received: from TYVP286CU001.outbound.protection.outlook.com
+ (mail-japaneastazon11011017.outbound.protection.outlook.com [52.101.125.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5BE5010E356
+ for <dri-devel@lists.freedesktop.org>; Tue, 17 Mar 2026 20:45:23 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=UdpWtpEpejS65qbLyQqgKblKLQea5C+ppcxOgNoMxH0ymTTN8n85yzdvAhz5hFRJuC4dy+bVT1CykiNlUOB9PEKTeVw/8M2Ekl0f+m2Xpoj1MiRMuif9rEzO9FNS7XfVT4qD6u4ZEF09o/mRKu5+0zlMIV5bAq1G3beSYeLO76RtqSvf5fv8tOnPifhTxauzbXv+s59KldwITswXdlvod5cCB4+hbF3ImvNK0f3Ye4HGgIUg5XuHei17eW3mowDapsdR8vszqAi322TwozR+fnzIyqIAoQBDucw8/ecfVPga3Lz6ahwQMHT1iu36ED0hO9YLvj3Kad+QyRtjDd8+lQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=LP4E8qcEkmfzkpkQEQudfbNtUuqnGyYB/xwEllsu3Tg=;
+ b=qjBW/sLUaBSxP+4IDG+mE2KrPZ3Z40/JzymH9FQDJmlsI60jqGWnxG0LCVtsD4Qktdk2ulcNbQNObwGyA+Qgm6C9d76HRnBFgNIrWb4cIgkfQnEF3nmxnRZFr03TLOkqBSc4L9HVrAltEJDoY269YGT8LnQz8zOC9+VOSZBdvL0jfbpQ/JOy2FRvfsvi+pRsqBsWiuMxsYz2ncxb9w0c0Yh/d2qmVwWFED/3ZnS4u612OcNwlgAhDoGUHWFDismWkZypnnyuA5ncR929K9fxB3K0mkLrc+J92aP2dAvDJdX/UPFG9gdJWRFi3ocg55lW4hzQQle9GUlx6gGTB+QYCQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
+ header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=LP4E8qcEkmfzkpkQEQudfbNtUuqnGyYB/xwEllsu3Tg=;
+ b=j2z4u0bgFrQjx2XbjVI0HmbPsqSAGXEFdd+XkLL6vXBahX2bTg//alKGJ6tGGRRZS+/PeSpFoJeHqzyjQpJ7lZSrBUgxbGtQcpi1ArA+6NeIS+CGJo+HyK2apRXomq5LYxEHodYvFxgIchkuWmEaoBH3kgs46Fr06P+YNVvRL3E=
+Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com (2603:1096:400:3d0::7)
+ by OS9PR01MB12554.jpnprd01.prod.outlook.com (2603:1096:604:2fa::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.19; Tue, 17 Mar
+ 2026 20:45:19 +0000
+Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com
+ ([fe80::87d1:4928:d55:97de]) by TY3PR01MB11346.jpnprd01.prod.outlook.com
+ ([fe80::87d1:4928:d55:97de%4]) with mapi id 15.20.9723.018; Tue, 17 Mar 2026
+ 20:45:19 +0000
+From: Biju Das <biju.das.jz@bp.renesas.com>
+To: Biju Das <biju.das.jz@bp.renesas.com>, Hugo Villeneuve <hugo@hugovil.com>
+CC: biju.das.au <biju.das.au@gmail.com>, Maarten Lankhorst
  <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Philipp Stanner <phasta@kernel.org>, Simona Vetter <simona@ffwll.ch>,
- "Sumit Semwal" <sumit.semwal@linaro.org>, Thomas Zimmermann
- <tzimmermann@suse.de>, <linux-kernel@vger.kernel.org>, Sami Tolvanen
- <samitolvanen@google.com>, Jeffrey Vander Stoep <jeffv@google.com>, Alice
- Ryhl <aliceryhl@google.com>, Daniel Stone <daniels@collabora.com>,
- Alexandre Courbot <acourbot@nvidia.com>, John Hubbard
- <jhubbard@nvidia.com>, <shashanks@nvidia.com>, <jajones@nvidia.com>, Eliot
- Courtney <ecourtney@nvidia.com>, Joel Fernandes <joelagnelf@nvidia.com>,
- rust-for-linux <rust-for-linux@vger.kernel.org>
-Subject: Re: [RFC PATCH 02/12] drm/dep: Add DRM dependency queue layer
-Message-ID: <20260317214320.74e6c130@fedora>
-In-Reply-To: <abmaDElHmbQkYy57@lstrano-desk.jf.intel.com>
-References: <20260316043255.226352-1-matthew.brost@intel.com>
- <20260316043255.226352-3-matthew.brost@intel.com>
- <7A8108C7-7CF0-4EA4-95ED-8003502DC35A@collabora.com>
- <abjqfXERS6Xk4FAQ@lstrano-desk.jf.intel.com>
- <abmaDElHmbQkYy57@lstrano-desk.jf.intel.com>
-Organization: Collabora
-X-Mailer: Claws Mail 4.3.1 (GTK 3.24.51; x86_64-redhat-linux-gnu)
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Philipp Zabel <p.zabel@pengutronix.de>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, Geert
+ Uytterhoeven <geert+renesas@glider.be>, Chris Brandt
+ <Chris.Brandt@renesas.com>, Prabhakar Mahadev Lad
+ <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: RE: [PATCH 2/2] drm: renesas: rzg2l_mipi_dsi: Fix the power-on
+ sequence
+Thread-Topic: [PATCH 2/2] drm: renesas: rzg2l_mipi_dsi: Fix the power-on
+ sequence
+Thread-Index: AQHctgqqun0iZdWPQkGCYHsU3REA1bWy0bQAgAAAR5CAAAU4AIAAAlBAgAAMHwCAAAKV8IAAKhgAgAAL7iCAAAQdgIAAAHBggAAJ1DA=
+Date: Tue, 17 Mar 2026 20:45:18 +0000
+Message-ID: <TY3PR01MB113468B9FA7772E65C999E9E08641A@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+References: <20260317123610.329630-1-biju.das.jz@bp.renesas.com>
+ <20260317123610.329630-3-biju.das.jz@bp.renesas.com>
+ <20260317110112.338259354289bb60a57fc259@hugovil.com>
+ <TY3PR01MB113462F9E8CEA0506984299768641A@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+ <20260317112052.3dc4b56b42b906381df80e94@hugovil.com>
+ <TY3PR01MB1134627E19FCEA40819F8C6578641A@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+ <20260317121232.39b1728e4d53d7243856a403@hugovil.com>
+ <TY3PR01MB11346B55F3F5C28FE9E763AF48641A@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+ <20260317145226.b84c29335c5badfdd257d0df@hugovil.com>
+ <TY3PR01MB113469B2E916BDD343BD516F78641A@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+ <20260317154951.2670d458fae59adcffa0d497@hugovil.com>
+ <TY3PR01MB11346CB2BD3779E8E0D7F67FB8641A@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+In-Reply-To: <TY3PR01MB11346CB2BD3779E8E0D7F67FB8641A@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+Accept-Language: en-GB, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=bp.renesas.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: TY3PR01MB11346:EE_|OS9PR01MB12554:EE_
+x-ms-office365-filtering-correlation-id: eabb41a6-81d0-440c-8a23-08de846619f3
+x-ld-processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|366016|1800799024|376014|7416014|38070700021|18002099003|56012099003|22082099003;
+x-microsoft-antispam-message-info: MRtzkwhiZOl3u2qXK7MJ3ddFzdQSI2GtsJZerrRSJVEiESxEDbwAH8fr2JwUHr2BWesyLtmgWb87RZGhCHdEzQhjgWBcJyn+Rp9npSboLW/aZRz0JmaYdQ09rG3Ytx6wmHc0JfHDULGmLMtniswACnD2odyOVreTpUJxq/M0rKjrB7fvv1OWK6F2XZVxadgmbt7Bae/ur1VzftSbn2Qu/lzWLJVVh91QLKEl2BwqwUCbW6hAPpWCEVx4QvNwPZmHJQl4CjUZjzKW3VG2hUWxQxT7PooiD9LnIkwre/XL9wn4V3CL7RfrWmswJWBi3qgfKTUx9aeXHPu5KCPXyYzSbyK51Zc5cjLQMZuiTlaCEe29UjScS6A8wwIvwqGJP7+23CY4W+vzBd2BZAp/aiz0mCqFgH8PLIUEzM0G/H0yOgPrGia8FHk/irCubCDecwbp4pnJXYuaXy4o21bgayu21ovMqWHQDAe1FOSH5q8jhyQoPKJhgh4kmh6l1+UucoIxiVWEFK3keFZYgc/IlO8QbOg9yO3sjGao+bVT9kGsC0ummDNtXya5nbAEQo7Ko6/ByTzMVIqrautdfPiqITvMFI7lfcAcDOYD3VNXXQvq6GE4oz1a7YzBFM3H1r92YdOcfE8PCLPpHDv/Phpg41GdJDS1Qahpu3R9+k5e35sS5Mo/LmqGyiVBntoMls+Xk24SLEaRfmZjDR13yGi5kHFCLfICfzmY7Ab9sKHTIVpDqJ1Y5g+Z3D+b7hAXY+qrUbYK6eLF2lnzUfoWgTAFu6sOo6dY6I0LXLfGzyP/EPE8/X4=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:TY3PR01MB11346.jpnprd01.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(376014)(7416014)(38070700021)(18002099003)(56012099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?UnRlbXdlVCtrbldDUll6Tldqa0kxTEl2R0Y4YWM1MXVuaGhaN3NBZGkyanpa?=
+ =?utf-8?B?ZzhaZ3lWTlFQSGZVb1l5UWg0a2xieE14S1ZDdEpmQ3hQZERXZFVOSVcyczRI?=
+ =?utf-8?B?R1VUeUxFRUl5bzY4a3dMZXRwaHBHRU5mcUFMUVM1LzQ0bDJldE1OTE5oYWRU?=
+ =?utf-8?B?T09WMGNJYXpNc0NBZTFYanQxUUJuUTZiaGZIS09UTFJBSHdOMzJyT2gyRHA0?=
+ =?utf-8?B?NFBZaFJLUjZ5L0lLT09Nd3R3aTBRU0NGWS9JSlNia1cyeFhkZTBqa2NiaEYr?=
+ =?utf-8?B?clBQL2c2VEJadjROR21yRXV3c01NWWRuK29kUHlQeVM3UUcyL1VBOEVjc1RK?=
+ =?utf-8?B?em1aZHo5dlpiTlVqV3puU1dsb3c5OHNMWnFqaDRvalJ3TXJFRzN0TzFVWkZk?=
+ =?utf-8?B?QmJZUFMrTUxrZVAxV1NucHFzTHFKbU90M0o0Uy9VdTJIQ2srUTFaTHFVMTJs?=
+ =?utf-8?B?dUQvbnpaWE5wSlpQb0s5ZTd1QU9qNDV0QnNLY2dVVlIyK3BMNFo5c2d0MnJF?=
+ =?utf-8?B?UFFDdFlQa3l4Vm5Tc0xCbFErcDYvQ0JDRGRBakovL3UveVZBdEdpMWpIL2Zw?=
+ =?utf-8?B?bmNlZHJmbGgvaDRzTHI5c25mZWg1Y0tVUzN3T3RjZnBlbUJaSzBNQ2JUSXRK?=
+ =?utf-8?B?OFpkQ1hXeWhydUUwRzM1cTJ3bU5OYkJ5NVpEWXFFUEsra3V4R1M1ajgwTWJ3?=
+ =?utf-8?B?a2doTGhMRFNTNVU3SUVzbUNDcGwzTGxxQjViQU1OMzJrTVN1SXZaeDlPOXow?=
+ =?utf-8?B?YmhqVXlFeVRIc3AzVWo2RlNZSHhaKzJadkp5eWJvQlVuaWk3cnZ1WS9xZkdn?=
+ =?utf-8?B?c3p6YmJ4b21uZEY4Y21xUGJKY2lqdTFORFRyQXZxbWM3aXFBeXBEa2NiWi85?=
+ =?utf-8?B?TllxZGl5S0xrMW5zcEgzM0hhRU1mZ24rbmpvV1NmOVIzM1ZCU0Jma3dpaUJn?=
+ =?utf-8?B?Rkp1K0VKRE9BN2NvamZackRmN2hNNGk2QnRTdHc3ZndJV1YvN2ZpVDdrSEw3?=
+ =?utf-8?B?UEpDYWxnNmJ3N1VFR0dDTWFjbmRyeXkrUGRUanZmTTJLS2FaeEJLeWo5RjlG?=
+ =?utf-8?B?ZXIyWXdZdlVjMTBvbzc4YzF0SjVMeDRIN1RjTitBWXhxSWNJMm1DL2pYZ2c0?=
+ =?utf-8?B?bjdhOUFiK0M5OGFMVlBtTkIzU2pjMVk4dVdWVlRhT0ZRb2Q0VkNsTHJzYUVI?=
+ =?utf-8?B?enY4UjRaaWFyTmpXTEoxSCswNTNtR01uQ0VCRFJmTVhodmxMeGh5S1Z5UmNR?=
+ =?utf-8?B?Y2dud0k4ODZPUXI5c1BFZG14bzE5MmVyL0EvNjdvSUlzYk9ZQTZCUVd5RW9R?=
+ =?utf-8?B?SWptZGlUck9YL3lEZDNPTFNiMVBmU2JXYklDNkJoNDNLbjBHQkRlNmFEdXdh?=
+ =?utf-8?B?ZTdrZG1FNjlsZStKQXJ5SmpzYXYzTjVldFpQa1NLeDcyc01ML0pRemZQN3JZ?=
+ =?utf-8?B?UXBFeWUwTXpHejdua2UwREsxajJmRGVqWTQ2WFFwaG16YXo5K0dPUlFBVm1Q?=
+ =?utf-8?B?QWMrTzROS1BYU0VQaWVTUUhNWW0yY0YvL2hIS2Q5YVJUb01ZbjZQZUhzZlgy?=
+ =?utf-8?B?b01xUy9kdlh6WndMUG1QL0NTYm1hMGlMc090N2orMXdXeEZqaW5sRUtmYXl3?=
+ =?utf-8?B?cEVsWEJXRVQ5SjQ0bWdwUkhTYnNKY056c1hMaGRmRDUzQXFkUVhIRXBXckV4?=
+ =?utf-8?B?WnZEandFZTk4UlhYNGt3Uk1lTGJINTlzZzVnQ0NvOVY4S2hDSlRxS1pCUnJZ?=
+ =?utf-8?B?Qko4LzVTaVltT1g2ck83enlRWVVOOWxhTmp2V3Qwc3poVXdwUmpuTCtMSWZw?=
+ =?utf-8?B?UjhwdVpBSzcySW5KVmxnWkU4RVZDRkMxOW1vT3YxTmNYRTBZelV2dTRGV3pq?=
+ =?utf-8?B?di9kdy92RjBFYWFLZElKb0hSNzFqYkpzU2duQy9lUklSRHNCV0cwYnRUVHl2?=
+ =?utf-8?B?YkpYMVhuR0FKVWVjQ2tiSEdQN2VTODVoN2MxZWFjelR3RUJ1NHA0ZVRmTENp?=
+ =?utf-8?B?bDFHc2phRjk1NDM5cVQvQk5YWExlQWwxZ1orVmJKSC9MQlgyUEp5aXppc2dH?=
+ =?utf-8?B?VXlZRVdEVHgvVVp2dmhJYk1qcUx5ajBDN0xzeHBSMnJaWlJZV3RvdG1LbjFj?=
+ =?utf-8?B?c3I2TzBCTzZBUWFKUkQwZ0R4N3pIOVN3cVRWeUl4VFBSd2M3VXhNSUtKV2My?=
+ =?utf-8?B?ajZZTUNvTnFVdTMwZjRQSXlPNWs0dDU1em9TOEZMZWUzWTlFeVJndEpVejY0?=
+ =?utf-8?B?VHIzMG9vODg1TUZ1M3dKOXhXQXFTVFdXeDM1YTUvdUVHTGZQMW5Wc1JjV3dN?=
+ =?utf-8?B?RVVqVVV1elFYbzBPdGlGY3pIeFhtUy8yY3NPZEhZdlhCMkNjS2JQQT09?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+X-OriginatorOrg: bp.renesas.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TY3PR01MB11346.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: eabb41a6-81d0-440c-8a23-08de846619f3
+X-MS-Exchange-CrossTenant-originalarrivaltime: 17 Mar 2026 20:45:18.9526 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: aarArWLffhO0yObIzhnZtOHj9EV51NCwBnggL9sVyeBG3I92fz5u4dvwpXlMR4fxTWyA9HSRnfTkH3dxIQLieV6gLQoIS26EGijcA4/1CGg=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: OS9PR01MB12554
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,293 +159,236 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Matthew,
-
-Just a few drive-by comments.
-
-On Tue, 17 Mar 2026 11:14:36 -0700
-Matthew Brost <matthew.brost@intel.com> wrote:
-
-> > > > Timeout Detection and Recovery (TDR): a per-queue delayed work item
-> > > > fires when the head pending job exceeds q->job.timeout jiffies, cal=
-ling
-> > > > ops->timedout_job(). drm_dep_queue_trigger_timeout() forces immedia=
-te
-> > > > expiry for device teardown.
-> > > >=20
-> > > > IRQ-safe completion: queues flagged DRM_DEP_QUEUE_FLAGS_JOB_PUT_IRQ=
-_SAFE
-> > > > allow drm_dep_job_done() to be called from hardirq context (e.g. a
-> > > > dma_fence callback). Dependency cleanup is deferred to process cont=
-ext
-> > > > after ops->run_job() returns to avoid calling xa_destroy() from IRQ.
-> > > >=20
-> > > > Zombie-state guard: workers use kref_get_unless_zero() on entry and
-> > > > bail immediately if the queue refcount has already reached zero and
-> > > > async teardown is in flight, preventing use-after-free. =20
-> > >=20
-> > > In rust, when you queue work, you have to pass a reference-counted po=
-inter
-> > > (Arc<T>). We simply never have this problem in a Rust design. If ther=
-e is work
-> > > queued, the queue is alive.
-> > >=20
-> > > By the way, why can=E2=80=99t we simply require synchronous teardowns=
-? =20
->=20
-> Consider the case where the DRM dep queue=E2=80=99s refcount drops to zer=
-o, but
-> the device firmware still holds references to the associated queue.
-> These are resources that must be torn down asynchronously. In Xe, I need
-> to send two asynchronous firmware commands before I can safely remove
-> the memory associated with the queue (faulting on this kind of global
-> memory will take down the device) and recycle the firmware ID tied to
-> the queue. These async commands are issued on the driver side, on the
-> DRM dep queue=E2=80=99s workqueue as well.
-
-Asynchronous teardown is okay, but I'm not too sure using the refcnt to
-know that the queue is no longer usable is the way to go. To me the
-refcnt is what determines when the SW object is no longer referenced by
-any other item in the code, and a work item acting on the queue counts
-as one owner of this queue. If you want to cancel the work in order to
-speed up the destruction of the queue, you can call
-{cancel,disable}_work[_sync](), and have the ref dropped if the
-cancel/disable was effective. Multi-step teardown is also an option,
-but again, the state of the queue shouldn't be determined from its
-refcnt IMHO.
-
->=20
-> Now consider a scenario where something goes wrong and those firmware
-> commands never complete, and a device reset is required to recover. The
-> driver=E2=80=99s per-queue tracking logic stops all queues (including zom=
-bie
-> ones), determines which commands were lost, cleans up the side effects
-> of that lost state, and then restarts all queues. That is how we would
-> end up in this work item with a zombie queue. The restart logic could
-> probably be made smart enough to avoid queueing work for zombie queues,
-> but in my opinion it=E2=80=99s safe enough to use kref_get_unless_zero() =
-in the
-> work items.
-
-Well, that only works for single-step teardown, or when you enter the
-last step. At which point, I'm not too sure it's significantly better
-than encoding the state of the queue through a separate field, and have
-the job queue logic reject new jobs if the queue is no longer usable
-(shouldn't even be exposed to userland at this point though).
-
->=20
-> It should also be clear that a DRM dep queue is primarily intended to be
-> embedded inside the driver=E2=80=99s own queue object, even though it is =
-valid
-> to use it as a standalone object. The async teardown flows are also
-> optional features.
->=20
-> Let=E2=80=99s also consider a case where you do not need the async firmwa=
-re
-> flows described above, but the DRM dep queue is still embedded in a
-> driver-side object that owns memory via dma-resv. The final queue put
-> may occur in IRQ context (DRM dep avoids kicking a worker just to drop a
-> refi as opt in), or in the reclaim path (any scheduler workqueue is the
-> reclaim path). In either case, you cannot free memory there taking a
-> dma-resv lock, which is why all DRM dep queues ultimately free their
-> resources in a work item outside of reclaim. Many drivers already follow
-> this pattern, but in DRM dep this behavior is built-in.
-
-I agree deferred cleanup is the way to go.
-
->=20
-> So I don=E2=80=99t think Rust natively solves these types of problems, al=
-though
-> I=E2=80=99ll concede that it does make refcounting a bit more sane.
-
-Rust won't magically defer the cleanup, nor will it dictate how you want
-to do the queue teardown, those are things you need to implement. But it
-should give visibility about object lifetimes, and guarantee that an
-object that's still visible to some owners is usable (the notion of
-usable is highly dependent on the object implementation).
-
-Just a purely theoretical example of a multi-step queue teardown that
-might be possible to encode in rust:
-
-- MyJobQueue<Usable>: The job queue is currently exposed and usable.
-  There's a ::destroy() method consuming 'self' and returning a
-  MyJobQueue<Destroyed> object
-- MyJobQueue<Destroyed>: The user asked for the workqueue to be
-  destroyed. No new job can be pushed. Existing jobs that didn't make
-  it to the FW queue are cancelled, jobs that are in-flight are
-  cancelled if they can, or are just waited upon if they can't. When
-  the whole destruction step is done, ::destroyed() is called, it
-  consumes 'self' and returns a MyJobQueue<Inactive> object.
-- MyJobQueue<Inactive>: The queue is no longer active (HW doesn't have
-  any resources on this queue). It's ready to be cleaned up.
-  ::cleanup() (or just ::drop()) defers the cleanup of some inner
-  object that has been passed around between the various
-  MyJobQueue<State> wrappers.
-
-Each of the state transition can happen asynchronously. A state
-transition consumes the object in one state, and returns a new object
-in its new state. None of the transition involves dropping a refcnt,
-ownership is just transferred. The final MyJobQueue<Inactive> object is
-the object we'll defer cleanup on.
-
-It's a very high-level view of one way this can be implemented (I'm
-sure there are others, probably better than my suggestion) in order to
-make sure the object doesn't go away without the compiler enforcing
-proper state transitions.
-
-> > > > +/**
-> > > > + * DOC: DRM dependency fence
-> > > > + *
-> > > > + * Each struct drm_dep_job has an associated struct drm_dep_fence =
-that
-> > > > + * provides a single dma_fence (@finished) signalled when the hard=
-ware
-> > > > + * completes the job.
-> > > > + *
-> > > > + * The hardware fence returned by &drm_dep_queue_ops.run_job is st=
-ored as
-> > > > + * @parent. @finished is chained to @parent via drm_dep_job_done_c=
-b() and
-> > > > + * is signalled once @parent signals (or immediately if run_job() =
-returns
-> > > > + * NULL or an error). =20
-> > >=20
-> > > I thought this fence proxy mechanism was going away due to recent wor=
-k being
-> > > carried out by Christian?
-> > >  =20
->=20
-> Consider the case where a driver=E2=80=99s hardware fence is implemented =
-as a
-> dma-fence-array or dma-fence-chain. You cannot install these types of
-> fences into a dma-resv or into syncobjs, so a proxy fence is useful
-> here.
-
-Hm, so that's a driver returning a dma_fence_array/chain through
-::run_job()? Why would we not want to have them directly exposed and
-split up into singular fence objects at resv insertion time (I don't
-think syncobjs care, but I might be wrong). I mean, one of the point
-behind the container extraction is so fences coming from the same
-context/timeline can be detected and merged. If you insert the
-container through a proxy, you're defeating the whole fence merging
-optimization.
-
-The second thing is that I'm not sure drivers were ever supposed to
-return fence containers in the first place, because the whole idea
-behind a fence context is that fences are emitted/signalled in
-seqno-order, and if the fence is encoding the state of multiple
-timelines that progress at their own pace, it becomes tricky to control
-that. I guess if it's always the same set of timelines that are
-combined, that would work.
-
-> One example is when a single job submits work to multiple rings
-> that are flipped in hardware at the same time.
-
-We do have that in Panthor, but that's all explicit: in a single
-SUBMIT, you can have multiple jobs targeting different queues, each of
-them having their own set of deps/signal ops. The combination of all the
-signal ops into a container is left to the UMD. It could be automated
-kernel side, but that would be a flag on the SIGNAL op leading to the
-creation of a fence_array containing fences from multiple submitted
-jobs, rather than the driver combining stuff in the fence it returns in
-::run_job().
-
->=20
-> Another case is late arming of hardware fences in run_job (which many
-> drivers do). The proxy fence is immediately available at arm time and
-> can be installed into dma-resv or syncobjs even though the actual
-> hardware fence is not yet available. I think most drivers could be
-> refactored to make the hardware fence immediately available at run_job,
-> though.
-
-Yep, I also think we can arm the driver fence early in the case of
-JobQueue. The reason it couldn't be done before is because the
-scheduler was in the middle, deciding which entity to pull the next job
-from, which was changing the seqno a job driver-fence would be assigned
-(you can't guess that at queue time in that case).
-
-[...]
-
-> > > > + * **Reference counting**
-> > > > + *
-> > > > + * Jobs and queues are both reference counted.
-> > > > + *
-> > > > + * A job holds a reference to its queue from drm_dep_job_init() un=
-til
-> > > > + * drm_dep_job_put() drops the job's last reference and its releas=
-e callback
-> > > > + * runs. This ensures the queue remains valid for the entire lifet=
-ime of any
-> > > > + * job that was submitted to it.
-> > > > + *
-> > > > + * The queue holds its own reference to a job for as long as the j=
-ob is
-> > > > + * internally tracked: from the moment the job is added to the pen=
-ding list
-> > > > + * in drm_dep_queue_run_job() until drm_dep_job_done() kicks the p=
-ut_job
-> > > > + * worker, which calls drm_dep_job_put() to release that reference=
-. =20
-> > >=20
-> > > Why not simply keep track that the job was completed, instead of reli=
-nquishing
-> > > the reference? We can then release the reference once the job is clea=
-ned up
-> > > (by the queue, using a worker) in process context. =20
->=20
-> I think that=E2=80=99s what I=E2=80=99m doing, while also allowing an opt=
--in path to
-> drop the job reference when it signals (in IRQ context)
-
-Did you mean in !IRQ (or !atomic) context here? Feels weird to not
-defer the cleanup when you're in an IRQ/atomic context, but defer it
-when you're in a thread context.
-
-> so we avoid
-> switching to a work item just to drop a ref. That seems like a
-> significant win in terms of CPU cycles.
-
-Well, the cleanup path is probably not where latency matters the most.
-It's adding scheduling overhead, sure, but given all the stuff we defer
-already, I'm not too sure we're at saving a few cycles to get the
-cleanup done immediately. What's important to have is a way to signal
-fences in an atomic context, because this has an impact on latency.
-
-[...]
-
-> > > > + /*
-> > > > + * Drop all input dependency fences now, in process context, befor=
-e the
-> > > > + * final job put. Once the job is on the pending list its last ref=
-erence
-> > > > + * may be dropped from a dma_fence callback (IRQ context), where c=
-alling
-> > > > + * xa_destroy() would be unsafe.
-> > > > + */ =20
-> > >=20
-> > > I assume that =E2=80=9Cpending=E2=80=9D is the list of jobs that have=
- been handed to the driver
-> > > via ops->run_job()?
-> > >=20
-> > > Can=E2=80=99t this problem be solved by not doing anything inside a d=
-ma_fence callback
-> > > other than scheduling the queue worker?
-> > >  =20
->=20
-> Yes, this code is required to support dropping job refs directly in the
-> dma-fence callback (an opt-in feature). Again, this seems like a
-> significant win in terms of CPU cycles, although I haven=E2=80=99t collec=
-ted
-> data yet.
-
-If it significantly hurts the perf, I'd like to understand why, because
-to me it looks like pure-cleanup (no signaling involved), and thus no
-other process waiting for us to do the cleanup. The only thing that
-might have an impact is how fast you release the resources, and given
-it's only a partial cleanup (xa_destroy() still has to be deferred), I'd
-like to understand which part of the immediate cleanup is causing a
-contention (basically which kind of resources the system is starving of)
-
-Regards,
-
-Boris
+DQoNCj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4gRnJvbTogZHJpLWRldmVsIDxkcmkt
+ZGV2ZWwtYm91bmNlc0BsaXN0cy5mcmVlZGVza3RvcC5vcmc+IE9uIEJlaGFsZiBPZiBCaWp1IERh
+cw0KPiBTZW50OiAxNyBNYXJjaCAyMDI2IDIwOjExDQo+IFRvOiBIdWdvIFZpbGxlbmV1dmUgPGh1
+Z29AaHVnb3ZpbC5jb20+DQo+IENjOiBiaWp1LmRhcy5hdSA8YmlqdS5kYXMuYXVAZ21haWwuY29t
+PjsgTWFhcnRlbiBMYW5raG9yc3QgPG1hYXJ0ZW4ubGFua2hvcnN0QGxpbnV4LmludGVsLmNvbT47
+IE1heGltZQ0KPiBSaXBhcmQgPG1yaXBhcmRAa2VybmVsLm9yZz47IFRob21hcyBaaW1tZXJtYW5u
+IDx0emltbWVybWFubkBzdXNlLmRlPjsgRGF2aWQgQWlybGllDQo+IDxhaXJsaWVkQGdtYWlsLmNv
+bT47IFNpbW9uYSBWZXR0ZXIgPHNpbW9uYUBmZndsbC5jaD47IFBoaWxpcHAgWmFiZWwgPHAuemFi
+ZWxAcGVuZ3V0cm9uaXguZGU+OyBkcmktDQo+IGRldmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9yZzsg
+bGludXgtcmVuZXNhcy1zb2NAdmdlci5rZXJuZWwub3JnOyBsaW51eC1rZXJuZWxAdmdlci5rZXJu
+ZWwub3JnOyBHZWVydA0KPiBVeXR0ZXJob2V2ZW4gPGdlZXJ0K3JlbmVzYXNAZ2xpZGVyLmJlPjsg
+Q2hyaXMgQnJhbmR0IDxDaHJpcy5CcmFuZHRAcmVuZXNhcy5jb20+OyBQcmFiaGFrYXIgTWFoYWRl
+diBMYWQNCj4gPHByYWJoYWthci5tYWhhZGV2LWxhZC5yakBicC5yZW5lc2FzLmNvbT4NCj4gU3Vi
+amVjdDogUkU6IFtQQVRDSCAyLzJdIGRybTogcmVuZXNhczogcnpnMmxfbWlwaV9kc2k6IEZpeCB0
+aGUgcG93ZXItb24gc2VxdWVuY2UNCj4gDQo+IEhpIEh1Z28sDQo+IA0KPiA+IC0tLS0tT3JpZ2lu
+YWwgTWVzc2FnZS0tLS0tDQo+ID4gRnJvbTogZHJpLWRldmVsIDxkcmktZGV2ZWwtYm91bmNlc0Bs
+aXN0cy5mcmVlZGVza3RvcC5vcmc+IE9uIEJlaGFsZiBPZg0KPiA+IEh1Z28gVmlsbGVuZXV2ZQ0K
+PiA+IFNlbnQ6IDE3IE1hcmNoIDIwMjYgMTk6NTANCj4gPiBTdWJqZWN0OiBSZTogW1BBVENIIDIv
+Ml0gZHJtOiByZW5lc2FzOiByemcybF9taXBpX2RzaTogRml4IHRoZQ0KPiA+IHBvd2VyLW9uIHNl
+cXVlbmNlDQo+ID4NCj4gPiBIaSBCaWp1LA0KPiA+DQo+ID4gT24gVHVlLCAxNyBNYXIgMjAyNiAx
+OTozNzozNSArMDAwMA0KPiA+IEJpanUgRGFzIDxiaWp1LmRhcy5qekBicC5yZW5lc2FzLmNvbT4g
+d3JvdGU6DQo+ID4NCj4gPiA+IEhpIEh1Z28sDQo+ID4gPg0KPiA+ID4gPiAtLS0tLU9yaWdpbmFs
+IE1lc3NhZ2UtLS0tLQ0KPiA+ID4gPiBGcm9tOiBkcmktZGV2ZWwgPGRyaS1kZXZlbC1ib3VuY2Vz
+QGxpc3RzLmZyZWVkZXNrdG9wLm9yZz4gT24NCj4gPiA+ID4gQmVoYWxmIE9mIEh1Z28gVmlsbGVu
+ZXV2ZQ0KPiA+ID4gPiBTZW50OiAxNyBNYXJjaCAyMDI2IDE4OjUyDQo+ID4gPiA+IFN1YmplY3Q6
+IFJlOiBbUEFUQ0ggMi8yXSBkcm06IHJlbmVzYXM6IHJ6ZzJsX21pcGlfZHNpOiBGaXggdGhlDQo+
+ID4gPiA+IHBvd2VyLW9uIHNlcXVlbmNlDQo+ID4gPiA+DQo+ID4gPiA+IEhpIEJpanUsDQo+ID4g
+PiA+DQo+ID4gPiA+IE9uIFR1ZSwgMTcgTWFyIDIwMjYgMTY6MzY6MDUgKzAwMDAgQmlqdSBEYXMN
+Cj4gPiA+ID4gPGJpanUuZGFzLmp6QGJwLnJlbmVzYXMuY29tPiB3cm90ZToNCj4gPiA+ID4NCj4g
+PiA+ID4gPiBIaSBIdWdvLA0KPiA+ID4gPiA+DQo+ID4gPiA+ID4gPiAtLS0tLU9yaWdpbmFsIE1l
+c3NhZ2UtLS0tLQ0KPiA+ID4gPiA+ID4gRnJvbTogZHJpLWRldmVsIDxkcmktZGV2ZWwtYm91bmNl
+c0BsaXN0cy5mcmVlZGVza3RvcC5vcmc+IE9uDQo+ID4gPiA+ID4gPiBCZWhhbGYgT2YgSHVnbyBW
+aWxsZW5ldXZlDQo+ID4gPiA+ID4gPiBTZW50OiAxNyBNYXJjaCAyMDI2IDE2OjEzDQo+ID4gPiA+
+ID4gPiBTdWJqZWN0OiBSZTogW1BBVENIIDIvMl0gZHJtOiByZW5lc2FzOiByemcybF9taXBpX2Rz
+aTogRml4IHRoZQ0KPiA+ID4gPiA+ID4gcG93ZXItb24gc2VxdWVuY2UNCj4gPiA+ID4gPiA+DQo+
+ID4gPiA+ID4gPiBIaSBCaWp1LA0KPiA+ID4gPiA+ID4NCj4gPiA+ID4gPiA+IE9uIFR1ZSwgMTcg
+TWFyIDIwMjYgMTU6NDU6MjkgKzAwMDAgQmlqdSBEYXMNCj4gPiA+ID4gPiA+IDxiaWp1LmRhcy5q
+ekBicC5yZW5lc2FzLmNvbT4gd3JvdGU6DQo+ID4gPiA+ID4gPg0KPiA+ID4gPiA+ID4gPiBIaSBI
+dWdvLA0KPiA+ID4gPiA+ID4gPg0KPiA+ID4gPiA+ID4gPiA+IC0tLS0tT3JpZ2luYWwgTWVzc2Fn
+ZS0tLS0tDQo+ID4gPiA+ID4gPiA+ID4gRnJvbTogZHJpLWRldmVsIDxkcmktZGV2ZWwtYm91bmNl
+c0BsaXN0cy5mcmVlZGVza3RvcC5vcmc+DQo+ID4gPiA+ID4gPiA+ID4gT24gQmVoYWxmIE9mIEh1
+Z28gVmlsbGVuZXV2ZQ0KPiA+ID4gPiA+ID4gPiA+IFNlbnQ6IDE3IE1hcmNoIDIwMjYgMTU6MjEN
+Cj4gPiA+ID4gPiA+ID4gPiBTdWJqZWN0OiBSZTogW1BBVENIIDIvMl0gZHJtOiByZW5lc2FzOiBy
+emcybF9taXBpX2RzaTogRml4DQo+ID4gPiA+ID4gPiA+ID4gdGhlIHBvd2VyLW9uIHNlcXVlbmNl
+DQo+ID4gPiA+ID4gPiA+ID4NCj4gPiA+ID4gPiA+ID4gPiBIaSBCaWp1LA0KPiA+ID4gPiA+ID4g
+PiA+DQo+ID4gPiA+ID4gPiA+ID4gT24gVHVlLCAxNyBNYXIgMjAyNiAxNToxMzowNyArMDAwMCBC
+aWp1IERhcw0KPiA+ID4gPiA+ID4gPiA+IDxiaWp1LmRhcy5qekBicC5yZW5lc2FzLmNvbT4gd3Jv
+dGU6DQo+ID4gPiA+ID4gPiA+ID4NCj4gPiA+ID4gPiA+ID4gPiA+IEhpIEh1Z28sDQo+ID4gPiA+
+ID4gPiA+ID4gPg0KPiA+ID4gPiA+ID4gPiA+ID4gVGhhbmtzIGZvciB0aGUgZmVlZGJhY2suDQo+
+ID4gPiA+ID4gPiA+ID4gPg0KPiA+ID4gPiA+ID4gPiA+ID4gPiAtLS0tLU9yaWdpbmFsIE1lc3Nh
+Z2UtLS0tLQ0KPiA+ID4gPiA+ID4gPiA+ID4gPiBGcm9tOiBkcmktZGV2ZWwNCj4gPiA+ID4gPiA+
+ID4gPiA+ID4gPGRyaS1kZXZlbC1ib3VuY2VzQGxpc3RzLmZyZWVkZXNrdG9wLm9yZz4gT24gQmVo
+YWxmIE9mDQo+ID4gPiA+ID4gPiA+ID4gPiA+IEh1Z28gVmlsbGVuZXV2ZQ0KPiA+ID4gPiA+ID4g
+PiA+ID4gPiBTZW50OiAxNyBNYXJjaCAyMDI2IDE1OjAxDQo+ID4gPiA+ID4gPiA+ID4gPiA+IFN1
+YmplY3Q6IFJlOiBbUEFUQ0ggMi8yXSBkcm06IHJlbmVzYXM6IHJ6ZzJsX21pcGlfZHNpOg0KPiA+
+ID4gPiA+ID4gPiA+ID4gPiBGaXggdGhlIHBvd2VyLW9uIHNlcXVlbmNlDQo+ID4gPiA+ID4gPiA+
+ID4gPiA+DQo+ID4gPiA+ID4gPiA+ID4gPiA+IEhpIEJpanUsDQo+ID4gPiA+ID4gPiA+ID4gPiA+
+DQo+ID4gPiA+ID4gPiA+ID4gPiA+IE9uIFR1ZSwgMTcgTWFyIDIwMjYgMTI6MzY6MDEgKzAwMDAg
+QmlqdQ0KPiA+ID4gPiA+ID4gPiA+ID4gPiA8YmlqdS5kYXMuYXVAZ21haWwuY29tPg0KPiA+ID4g
+PiA+ID4gPiA+ID4gPiB3cm90ZToNCj4gPiA+ID4gPiA+ID4gPiA+ID4NCj4gPiA+ID4gPiA+ID4g
+PiA+ID4gPiBGcm9tOiBCaWp1IERhcyA8YmlqdS5kYXMuanpAYnAucmVuZXNhcy5jb20+DQo+ID4g
+PiA+ID4gPiA+ID4gPiA+ID4NCj4gPiA+ID4gPiA+ID4gPiA+ID4gPiBNb3ZlIHJlc2V0X2NvbnRy
+b2xfZGVhc3NlcnQoKSBhbmQNCj4gPiA+ID4gPiA+ID4gPiA+ID4gPiByZXNldF9jb250cm9sX2Fz
+c2VydCgpIGZyb20NCj4gPiA+ID4gPiA+ID4gPiA+ID4gPiByemcybF9taXBpX2RzaV9kcGh5X2lu
+aXQoKS9yemcybF9taXBpX2RzaV9kcGh5X2V4aXQoDQo+ID4gPiA+ID4gPiA+ID4gPiA+ID4gKQ0K
+PiA+ID4gPiA+ID4gPiA+ID4gPiA+IHRvDQo+ID4gPiA+ID4gPiA+ID4gPiA+ID4gYXRvbWljX3By
+ZV9lbmFibGUoKSBhbmQgYXRvbWljX3Bvc3RfZGlzYWJsZSgpDQo+ID4gPiA+ID4gPiA+ID4gPiA+
+ID4gcmVzcGVjdGl2ZWx5LCBhbmQgbW92ZQ0KPiA+ID4gPiA+ID4gPiA+ID4gPiA+IHJ6ZzJsX21p
+cGlfZHNpX3NldF9kaXNwbGF5X3RpbWluZygpIGZyb20NCj4gPiA+ID4gPiA+ID4gPiA+ID4gPiBh
+dG9taWNfcHJlX2VuYWJsZSgpIHRvIGF0b21pY19lbmFibGUoKSwgdG8gYWxpZ24NCj4gPiA+ID4g
+PiA+ID4gPiA+ID4gPiB3aXRoIHRoZSBwb3dlci1vbiBzZXF1ZW5jZSBkZXNjcmliZWQgaW4gRmln
+dXJlIDM0LjUNCj4gPiA+ID4gPiA+ID4gPiA+ID4gPiBvZiBzZWN0aW9uDQo+ID4gPiA+ID4gPiA+
+ID4gPiA+ID4gIjM0LjQuMi4xIFJlc2V0IiBvZiB0aGUgUlovRzJMIGhhcmR3YXJlIG1hbnVhbA0K
+PiA+ID4gPiA+ID4gPiA+ID4gPiA+IFJldi4xLjUwIE1heSAyMDI1Lg0KPiA+ID4gPiA+ID4gPiA+
+ID4gPiA+DQo+ID4gPiA+ID4gPiA+ID4gPiA+ID4gQWNjb3JkaW5nIHRvIHRoZSBoYXJkd2FyZSBt
+YW51YWwsIExJTksgcmVnaXN0ZXJzDQo+ID4gPiA+ID4gPiA+ID4gPiA+ID4gbXVzdCBiZSB3cml0
+dGVuIGJlZm9yZSBkZWFzc2VydGluZyBDTU5fUlNUQiwgYW5kIHRoZQ0KPiA+ID4gPiA+ID4gPiA+
+ID4gPiA+IDFtcyBkZWxheSBpcyByZXRhaW5lZCBpbg0KPiA+ID4gPiA+ID4gPiA+ID4gPiA+IGF0
+b21pY19wcmVfZW5hYmxlKCkgYWZ0ZXIgdGhlIGRlYXNzZXJ0Lg0KPiA+ID4gPiA+ID4gPiA+ID4g
+PiA+DQo+ID4gPiA+ID4gPiA+ID4gPiA+ID4gU2lnbmVkLW9mZi1ieTogQmlqdSBEYXMgPGJpanUu
+ZGFzLmp6QGJwLnJlbmVzYXMuY29tPg0KPiA+ID4gPiA+ID4gPiA+ID4gPg0KPiA+ID4gPiA+ID4g
+PiA+ID4gPiBTZWVtcyB0byBtZSBsaWtlIHRoaXMgc2hvdWxkIGJlIGJhY2twb3J0ZWQgdG8gc3Rh
+YmxlDQo+ID4gPiA+ID4gPiA+ID4gPiA+IGJyYW5jaGVzIChtaXNzaW5nIEZpeGVzIC8gQ2M6IHN0
+YWJsZQ0KPiA+ID4gPiA+ID4gdGFncyk/DQo+ID4gPiA+ID4gPiA+ID4gPg0KPiA+ID4gPiA+ID4g
+PiA+ID4gT0ssIHdpbGwgYWRkIGZpeGVzL3N0YWJsZSB0YWdzLg0KPiA+ID4gPiA+ID4gPiA+ID4N
+Cj4gPiA+ID4gPiA+ID4gPiA+ID4NCj4gPiA+ID4gPiA+ID4gPiA+ID4NCj4gPiA+ID4gPiA+ID4g
+PiA+ID4gPiAtLS0NCj4gPiA+ID4gPiA+ID4gPiA+ID4gPiAgLi4uL2dwdS9kcm0vcmVuZXNhcy9y
+ei1kdS9yemcybF9taXBpX2RzaS5jICAgIHwgMjcgKysrKysrKysrKystLS0tLS0tLQ0KPiA+ID4g
+PiA+ID4gPiA+ID4gPiA+ICAxIGZpbGUgY2hhbmdlZCwgMTYgaW5zZXJ0aW9ucygrKSwgMTEgZGVs
+ZXRpb25zKC0pDQo+ID4gPiA+ID4gPiA+ID4gPiA+ID4NCj4gPiA+ID4gPiA+ID4gPiA+ID4gPiBk
+aWZmIC0tZ2l0DQo+ID4gPiA+ID4gPiA+ID4gPiA+ID4gYS9kcml2ZXJzL2dwdS9kcm0vcmVuZXNh
+cy9yei1kdS9yemcybF9taXBpX2RzaS5jDQo+ID4gPiA+ID4gPiA+ID4gPiA+ID4gYi9kcml2ZXJz
+L2dwdS9kcm0vcmVuZXNhcy9yei1kdS9yemcybF9taXBpX2RzaS5jDQo+ID4gPiA+ID4gPiA+ID4g
+PiA+ID4gaW5kZXggZTUzYjQ4ZTRkZTU2Li45MDUzY2UwMzdiNzUgMTAwNjQ0DQo+ID4gPiA+ID4g
+PiA+ID4gPiA+ID4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL3JlbmVzYXMvcnotZHUvcnpnMmxfbWlw
+aV9kc2kuYw0KPiA+ID4gPiA+ID4gPiA+ID4gPiA+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9yZW5l
+c2FzL3J6LWR1L3J6ZzJsX21pcGlfZHNpLmMNCj4gPiA+ID4gPiA+ID4gPiA+ID4gPiBAQCAtNDg0
+LDcgKzQ4NCw2IEBAIHN0YXRpYyBpbnQgcnpnMmxfbWlwaV9kc2lfZHBoeV9pbml0KHN0cnVjdCBy
+emcybF9taXBpX2RzaQ0KPiAqZHNpLA0KPiA+ID4gPiA+ID4gPiA+ID4gPiA+ICAJdTMyIGRwaHl0
+aW0xOw0KPiA+ID4gPiA+ID4gPiA+ID4gPiA+ICAJdTMyIGRwaHl0aW0yOw0KPiA+ID4gPiA+ID4g
+PiA+ID4gPiA+ICAJdTMyIGRwaHl0aW0zOw0KPiA+ID4gPiA+ID4gPiA+ID4gPiA+IC0JaW50IHJl
+dDsNCj4gPiA+ID4gPiA+ID4gPiA+ID4gPg0KPiA+ID4gPiA+ID4gPiA+ID4gPiA+ICAJLyogQWxs
+IERTSSBnbG9iYWwgb3BlcmF0aW9uIHRpbWluZ3MgYXJlIHNldCB3aXRoIHJlY29tbWVuZGVkIHNl
+dHRpbmcgKi8NCj4gPiA+ID4gPiA+ID4gPiA+ID4gPiAgCWZvciAoaSA9IDA7IGkgPA0KPiA+ID4g
+PiA+ID4gPiA+ID4gPiA+IEFSUkFZX1NJWkUocnpnMmxfbWlwaV9kc2lfZ2xvYmFsX3RpbWluZ3Mp
+Ow0KPiA+ID4gPiA+ID4gPiA+ID4gPiA+ICsraSkgeyBAQA0KPiA+ID4gPiA+ID4gPiA+ID4gPiA+
+IC01MjQsMTIgKzUyMyw2IEBAIHN0YXRpYyBpbnQgcnpnMmxfbWlwaV9kc2lfZHBoeV9pbml0KHN0
+cnVjdCByemcybF9taXBpX2RzaSAqZHNpLA0KPiA+ID4gPiA+ID4gPiA+ID4gPiA+ICAJcnpnMmxf
+bWlwaV9kc2lfcGh5X3dyaXRlKGRzaSwgRFNJRFBIWVRJTTIsIGRwaHl0aW0yKTsNCj4gPiA+ID4g
+PiA+ID4gPiA+ID4gPiAgCXJ6ZzJsX21pcGlfZHNpX3BoeV93cml0ZShkc2ksIERTSURQSFlUSU0z
+LA0KPiA+ID4gPiA+ID4gPiA+ID4gPiA+IGRwaHl0aW0zKTsNCj4gPiA+ID4gPiA+ID4gPiA+ID4g
+Pg0KPiA+ID4gPiA+ID4gPiA+ID4gPiA+IC0JcmV0ID0gcmVzZXRfY29udHJvbF9kZWFzc2VydChk
+c2ktPnJzdGMpOw0KPiA+ID4gPiA+ID4gPiA+ID4gPiA+IC0JaWYgKHJldCA8IDApDQo+ID4gPiA+
+ID4gPiA+ID4gPiA+ID4gLQkJcmV0dXJuIHJldDsNCj4gPiA+ID4gPiA+ID4gPiA+ID4gPiAtDQo+
+ID4gPiA+ID4gPiA+ID4gPiA+ID4gLQlmc2xlZXAoMTAwMCk7DQo+ID4gPiA+ID4gPiA+ID4gPiA+
+ID4gLQ0KPiA+ID4gPiA+ID4gPiA+ID4gPiA+ICAJcmV0dXJuIDA7DQo+ID4gPiA+ID4gPiA+ID4g
+PiA+ID4gIH0NCj4gPiA+ID4gPiA+ID4gPiA+ID4gPg0KPiA+ID4gPiA+ID4gPiA+ID4gPiA+IEBA
+IC01NDEsOCArNTM0LDYgQEAgc3RhdGljIHZvaWQNCj4gPiA+ID4gPiA+ID4gPiA+ID4gPiByemcy
+bF9taXBpX2RzaV9kcGh5X2V4aXQoc3RydWN0IHJ6ZzJsX21pcGlfZHNpICpkc2kpDQo+ID4gPiA+
+ID4gPiA+ID4gPiA+ID4NCj4gPiA+ID4gPiA+ID4gPiA+ID4gPiAgCWRwaHljdHJsMCAmPSB+KERT
+SURQSFlDVFJMMF9FTl9MRE8xMjAwIHwgRFNJRFBIWUNUUkwwX0VOX0JHUik7DQo+ID4gPiA+ID4g
+PiA+ID4gPiA+ID4gIAlyemcybF9taXBpX2RzaV9waHlfd3JpdGUoZHNpLCBEU0lEUEhZQ1RSTDAs
+DQo+ID4gPiA+ID4gPiA+ID4gPiA+ID4gZHBoeWN0cmwwKTsNCj4gPiA+ID4gPiA+ID4gPiA+ID4g
+PiAtDQo+ID4gPiA+ID4gPiA+ID4gPiA+ID4gLQlyZXNldF9jb250cm9sX2Fzc2VydChkc2ktPnJz
+dGMpOw0KPiA+ID4gPiA+ID4gPiA+ID4gPiA+ICB9DQo+ID4gPiA+ID4gPiA+ID4gPiA+ID4NCj4g
+PiA+ID4gPiA+ID4gPiA+ID4gPiAgc3RhdGljIGludCByemcybF9kcGh5X2NvbmZfY2xrcyhzdHJ1
+Y3QNCj4gPiA+ID4gPiA+ID4gPiA+ID4gPiByemcybF9taXBpX2RzaSAqZHNpLCB1bnNpZ25lZCBs
+b25nIG1vZGVfZnJlcSwgQEANCj4gPiA+ID4gPiA+ID4gPiA+ID4gPiAtMTAzMCwyNCArMTAyMSwz
+NyBAQCBzdGF0aWMgdm9pZA0KPiA+ID4gPiA+ID4gPiA+ID4gPiA+IHJ6ZzJsX21pcGlfZHNpX2F0
+b21pY19wcmVfZW5hYmxlKHN0cnVjdA0KPiA+ID4gPiA+ID4gPiA+ID4gPiBkcm1fYnJpZGdlICpi
+cmlkZ2UsDQo+ID4gPiA+ID4gPiA+ID4gPiA+ID4gIAljb25uZWN0b3IgPSBkcm1fYXRvbWljX2dl
+dF9uZXdfY29ubmVjdG9yX2Zvcl9lbmNvZGVyKHN0YXRlLCBicmlkZ2UtPmVuY29kZXIpOw0KPiA+
+ID4gPiA+ID4gPiA+ID4gPiA+ICAJY3J0YyA9IGRybV9hdG9taWNfZ2V0X25ld19jb25uZWN0b3Jf
+c3RhdGUoc3RhdGUsIGNvbm5lY3RvciktPmNydGM7DQo+ID4gPiA+ID4gPiA+ID4gPiA+ID4gIAlt
+b2RlID0gJmRybV9hdG9taWNfZ2V0X25ld19jcnRjX3N0YXRlKHN0YXRlLA0KPiA+ID4gPiA+ID4g
+PiA+ID4gPiA+IGNydGMpLT5hZGp1c3RlZF9tb2RlOw0KPiA+ID4gPiA+ID4gPiA+ID4gPiA+IC0N
+Cj4gPiA+ID4gPiA+ID4gPiA+ID4NCj4gPiA+ID4gPiA+ID4gPiA+ID4gVGhpcyBpcyBub3QgcmVs
+YXRlZCB0byB5b3VyIGNvbW1pdCBtZXNzYWdlIChjb2Rpbmcgc3R5bGUgY2hhbmdlKS4NCj4gPiA+
+ID4gPiA+ID4gPiA+DQo+ID4gPiA+ID4gPiA+ID4gPiBBY2suIFdpbGwgcmVzdG9yZSBpdC4NCj4g
+PiA+ID4gPiA+ID4gPiA+DQo+ID4gPiA+ID4gPiA+ID4gPiA+DQo+ID4gPiA+ID4gPiA+ID4gPiA+
+DQo+ID4gPiA+ID4gPiA+ID4gPiA+ID4gIAlyZXQgPSByemcybF9taXBpX2RzaV9zdGFydHVwKGRz
+aSwgbW9kZSk7DQo+ID4gPiA+ID4gPiA+ID4gPiA+ID4gIAlpZiAocmV0IDwgMCkNCj4gPiA+ID4g
+PiA+ID4gPiA+ID4gPiAgCQlyZXR1cm47DQo+ID4gPiA+ID4gPiA+ID4gPiA+ID4NCj4gPiA+ID4g
+PiA+ID4gPiA+ID4gPiAtCXJ6ZzJsX21pcGlfZHNpX3NldF9kaXNwbGF5X3RpbWluZyhkc2ksIG1v
+ZGUpOw0KPiA+ID4gPiA+ID4gPiA+ID4gPiA+ICsJcmV0ID0gcmVzZXRfY29udHJvbF9kZWFzc2Vy
+dChkc2ktPnJzdGMpOw0KPiA+ID4gPiA+ID4gPiA+ID4gPiA+ICsJaWYgKHJldCA8IDApDQo+ID4g
+PiA+ID4gPiA+ID4gPiA+ID4gKwkJcmV0dXJuOw0KPiA+ID4gPiA+ID4gPiA+ID4gPiA+ICsNCj4g
+PiA+ID4gPiA+ID4gPiA+ID4gPiArCWlmIChkc2ktPnJzdGMpDQo+ID4gPiA+ID4gPiA+ID4gPiA+
+DQo+ID4gPiA+ID4gPiA+ID4gPiA+IFRoaXMgc2VlbXMgbmV3IGFuZCBub3QgZG9jdW1lbnRlZCBp
+biB0aGUgY29tbWl0IG1lc3NhZ2U/IElzIHRoaXMgYSBmaXg/DQo+ID4gPiA+ID4gPiA+ID4gPg0K
+PiA+ID4gPiA+ID4gPiA+ID4gUlovVjJIIGRvZXMgbm90IG5lZWQgdGhpcyBhcyBpdCB1c2VzIGRp
+ZmZlcmVudCBJUC4NCj4gPiA+ID4gPiA+ID4gPiA+IFByZXZpb3VzbHkNCj4gPiA+ID4gPiA+ID4g
+PiA+IGZzbGVlcCgpIGlzIGluIFJaL0cyTCBzcGVjaWZpYyBmdW5jdGlvbi4gSSB3aWxsIHVwZGF0
+ZQ0KPiA+ID4gPiA+ID4gPiA+ID4gY29tbWl0IGRlc2NyaXB0aW9uIGZvciB0aGlzDQo+ID4gY2hh
+bmdlLg0KPiA+ID4gPiA+ID4gPiA+DQo+ID4gPiA+ID4gPiA+ID4gU3VnZ2VzdGlvbjogbWF5YmUg
+bW92ZSB0aGlzIHRvIGEgc2VwYXJhdGUgcGF0Y2gsIHRvIGZhY2lsaXRhdGUgcmV2aWV3L3VuZGVy
+c3RhbmRpbmcuLi4NCj4gPiA+ID4gPiA+ID4NCj4gPiA+ID4gPiA+ID4gVGhlIG9ubHkgd2F5IGlz
+IHRvIGludHJvZHVjZSBhIG5ldyBjYWxsYmFjayB0byBoYW5kbGUgaXQgZm9yIFJaL0cyTCBTb0Mu
+DQo+ID4gPiA+ID4gPiA+IFRoZW4gd2Ugd29uJ3QgYmUgYWJsZSB0byBhcHBseSBmaXhlcyB0YWcg
+YXMgaXQgaXMgbm90IGZpeGluZyBhbnl0aGluZy4NCj4gPiA+ID4gPiA+DQo+ID4gPiA+ID4gPiBJ
+IGFtIG5vdCBzdXJlIHdoYXQgeW91IG1lYW4gYnkgdGhhdCBjYWxsYmFjaz8gSG93IGEgY2FsbGJh
+Y2sNCj4gPiA+ID4gPiA+IGlzIG5lZWRlZCBvbmx5IGlmIHlvdSBzcGxpdCB0aGUNCj4gPiA+ID4g
+cGF0Y2g/DQo+ID4gPiA+ID4NCj4gPiA+ID4gPiBZb3UgY2Fubm90IHNwbGl0IHRoZSBwYXRjaC4N
+Cj4gPiA+ID4gPg0KPiA+ID4gPiA+IEJlZm9yZToNCj4gPiA+ID4gPiAgIGF0b21pY19wcmVfZW5h
+YmxlKCk6DQo+ID4gPiA+ID4gICAgIHN0YXJ0dXAoKQ0KPiA+ID4gPiA+ICAgICAgIGRwaHlfaW5p
+dCgpDQo+ID4gPiA+ID4gICAgICAgICB3cml0ZSBEU0lEUEhZVElNeCAgICAgICAgIChGKSBQSFkg
+dGltaW5nIHJlZ3MNCj4gPiA+ID4gPiAgICAgICAgIHJlc2V0X2NvbnRyb2xfZGVhc3NlcnQoKSAg
+KEcpIGRlYXNzZXJ0IENNTl9SU1RCDQo+ID4gPiA+ID4gICAgICAgICB1ZGVsYXkoMSkgICAgICAg
+ICAgICAgICAgIChIKQ0KPiA+ID4gPiA+IAkgIHNldHRpbmcgYmVsb3cgbGluayByZWdpc3RlcnMN
+Cj4gPiA+ID4gPiAgICAgICAgIOKIkiBUWFNFVFINCj4gPiA+ID4gPiAJICDiiJIgVUxQU1NFVFIN
+Cj4gPiA+ID4gPiAgICAgICAgIOKIkiBEU0lTRVRSDQo+ID4gPiA+ID4gICAgICAgICDiiJIgQ0xT
+VFBUU0VUUg0KPiA+ID4gPiA+ICAgICAgICAg4oiSIExQVFJOU1RTRVRSDQo+ID4gPiA+ID4NCj4g
+PiA+ID4gPiBDdXJyZW50IHBhdGNoOg0KPiA+ID4gPiA+DQo+ID4gPiA+ID4gYXRvbWljX3ByZV9l
+bmFibGUoKToNCj4gPiA+ID4gPiAgICAgc3RhcnR1cCgpDQo+ID4gPiA+ID4gICAgICAgZHBoeV9p
+bml0KCkNCj4gPiA+ID4gPiAgICAgICAgIHdyaXRlIERTSURQSFlUSU14ICAgICAgICAgKEYpIFBI
+WSB0aW1pbmcgcmVncw0KPiA+ID4gPiA+IAlzZXR0aW5nIGJlbG93IGxpbmsgcmVnaXN0ZXJzDQo+
+ID4gPiA+ID4gICAgICAgICDiiJIgVFhTRVRSDQo+ID4gPiA+ID4gCSAg4oiSIFVMUFNTRVRSDQo+
+ID4gPiA+ID4gICAgICAgICDiiJIgRFNJU0VUUg0KPiA+ID4gPiA+ICAgICAgICAg4oiSIENMU1RQ
+VFNFVFINCj4gPiA+ID4gPiAgICAgICAgIOKIkiBMUFRSTlNUU0VUUg0KPiA+ID4gPiA+DQo+ID4g
+PiA+ID4gICAgICAgcmVzZXRfY29udHJvbF9kZWFzc2VydCgpICAoRykgZGVhc3NlcnQgQ01OX1JT
+VEINCj4gPiA+ID4gPiAgICAgICBmc2xlZXAoMTAwMCkgICAgICAgICAgICAgIChIKQ0KPiA+ID4g
+PiA+DQo+ID4gPiA+ID4gPg0KPiA+ID4gPiA+ID4gSW4gdGhpcyBvcmlnaW5hbCBwYXRjaCB5b3Ug
+dGVzdCBmb3IgdGhlIHZhbGlkaXR5IG9mIGRzaS0+cnN0Yw0KPiA+ID4gPiA+ID4gdG8gZGV0ZXJt
+aW5lIGlmIHlvdSBhcHBseSB0aGUgZGVsYXkgb3Igbm90LiBTbyBpbiB0aGUgY2FzZSBvZg0KPiA+
+ID4gPiA+ID4gUlovVjJILCBJIHVuZGVyc3RhbmQgdGhhdCBpdCBpcw0KPiA+IE5VTEw/DQo+ID4g
+PiA+ID4NCj4gPiA+ID4gPiBZZXMsIHRoYXQgaXMgY29ycmVjdC4NCj4gPiA+ID4gPg0KPiA+ID4g
+PiA+ID4NCj4gPiA+ID4gPiA+ID4gQ3VycmVudGx5IHRoaXMgaXMgb3B0aW9uYWwgcmVzZXQsIGFu
+ZCBpdCBpcyBuby1vcCBmb3IgUlovVjJILg0KPiA+ID4gPiA+ID4NCj4gPiA+ID4gPiA+IERvZXMg
+dGhpcyBtZWFucyB0aGF0IHRoZSBjYWxsIHRvDQo+ID4gPiA+ID4gPiByZXNldF9jb250cm9sX2Rl
+YXNzZXJ0KGRzaS0+cnN0Yykgc2hvdWxkIG5vdCBvY2N1ciBmb3INCj4gPiBSWi9WMkg/DQo+ID4g
+PiA+ID4NCj4gPiA+ID4gPiByZXNldF9jb250cm9sX2RlYXNzZXJ0KGRzaS0+cnN0Yykgd2lsbCBy
+ZXR1cm4gaW1tZWRpYXRlbHkgYXMgaXQgaXMgbnVsbC4NCj4gPiA+ID4gPg0KPiA+ID4gPiA+IG9y
+DQo+ID4gPiA+ID4NCj4gPiA+ID4gPiBXZSBjb3VsZCBhZGQgdGhpcyBjaGVjayBpbnN0ZWFkDQo+
+ID4gPiA+ID4NCj4gPiA+ID4gPiAJaWYgKGRzaS0+cnN0Yykgew0KPiA+ID4gPiA+IAkgICAgcmV0
+ID0gcmVzZXRfY29udHJvbF9kZWFzc2VydChkc2ktPnJzdGMpOw0KPiA+ID4gPiA+IAkgICAgaWYg
+KHJldCA8IDApDQo+ID4gPiA+ID4gCQlyZXR1cm47DQo+ID4gPiA+ID4NCj4gPiA+ID4gPiAJICAg
+IGZzbGVlcCgxMDAwKTsNCj4gPiA+ID4gPiAJfQ0KPiA+ID4gPg0KPiA+ID4gPiBZZXMsIGxpa2Ug
+VG9tbWFzbyBzdWdnZXN0ZWQuDQo+ID4gPiA+DQo+ID4gPiA+IEJ1dCBJIGRvbid0IHNlZSB3aHkg
+eW91IGNhbm5vdCBzaW1wbHkgaW1wbGVtZW50IChzcGxpdCkgdGhpcw0KPiA+ID4gPiBjaGFuZ2Ug
+YXMgYSBzZXBhcmF0ZSBjb21taXQganVzdCBhZnRlciBjb21taXQgIzEsIG9yIGFmdGVyIGNvbW1p
+dCAjMj8NCj4gPiA+ID4NCj4gPiA+ID4gVGhpcyBzZWVtcyBsaWtlIGFuIG9wdGltaXphdGlvbiBm
+b3IgUlovVjJILCBzbyBJIHRoaW5rIGl0IGRvZXNudA0KPiA+ID4gPiByZWFsbHkgbWF0dGVyIGlm
+IGl0IGRvZXMgbm90IGdvIHRvIHN0YWJsZSBicmFuY2hlcz8NCj4gPiA+DQo+ID4gPiBQcmV2aW91
+c2x5IFJaL1YySCBkbyBub3QgY2FsbCByZXNldF9jb250cm9sX2RlYXNzZXJ0KGRzaS0+cnN0Yykg
+YXMNCj4gPiA+IGl0IGlzIGNhbGxlZCBmcm9tIFNvQy1zcGVjaWZpYyBmdW5jdGlvbi4NCj4gPg0K
+PiA+IE9rLCBzbyB0aGlzIGNoYW5nZSBjb3VsZCBiZSBzcGxpdCwgaWYgeW91IHdhbnQsIGFzIGNv
+bW1pdCAjMy4gVGhpcw0KPiA+IHdvdWxkIG1ha2UgY29tbWl0ICMyIGVhc2llciB0byB1bmRlcnN0
+YW5kIElNSE8uDQo+IA0KPiANCj4gYXRvbWljX3ByZV9lbmFibGUoKToNCj4gCXN0YXJ0dXAoKQ0K
+PiAJCWRwaHlfaW5pdCgpIC0+IFNvQyBzcGVjaWZpYw0KPiAJCXdyaXRlIERTSURQSFlUSU14ICAg
+ICAgICAgKEYpIFBIWSB0aW1pbmcgcmVncw0KPiANCj4gVGhlIGJlbG93IGNhbGxzIGFyZSBpbiBj
+b21tb24gcGF0aC4gU28sIG5vIHdheSB5b3UgY2FuIHNwbGl0Lg0KPiAJc2V0dGluZyBiZWxvdyBs
+aW5rIHJlZ2lzdGVycw0KPiAJCSAgIOKIkiBUWFNFVFINCj4gCQkgICDiiJIgVUxQU1NFVFINCj4g
+CQkgICDiiJIgRFNJU0VUUg0KPiAJCSAgIOKIkiBDTFNUUFRTRVRSDQo+IAkJICAg4oiSIExQVFJO
+U1RTRVRSDQo+IAlyZXNldF9jb250cm9sX2RlYXNzZXJ0KCkgIChHKSBkZWFzc2VydCBDTU5fUlNU
+Qg0KPiAJZnNsZWVwKDEwMDApICAgICAgICAgICAgICAoSCkNCj4gDQo+IFBhdGNoIzEgMXVzZWMg
+dG8gMSBtc2VjDQo+IFBhdGNoIzIgTW92ZSByemcybF9taXBpX2RzaV9zZXRfZGlzcGxheV90aW1p
+bmcoKSB0byByemcybF9taXBpX2RzaV9hdG9taWNfZW5hYmxlKCkNCj4gICAgICAgICBhZnRlciBz
+dGFydGluZyBocyBjbG9jay4NCj4gUGF0Y2gjMyBNb3ZlIHJlc2V0IGFzc2VydC9kZWFzc2VydCBm
+cm9tIHJ6ZzJsX21pcGlfZHNpX2RwaHlfe2luaXQsIGV4aXR9IHRvDQo+ICAgICAgICAgcnpnMmxf
+bWlwaV9kc2lfYXRvbWljX3ByZV9lbmFibGUgYW5kIHJ6ZzJsX21pcGlfZHNpX2F0b21pY19wb3N0
+X2Rpc2FibGUsDQo+ICAgICAgICAgd2l0aCBhIGd1YXJkIGZvciBSWi9WMkggYnkgY2hlY2tpbmcg
+KGRzaS0+cnN0YyksIGFzIGl0IGlzIGluIHRoZSBjb21tb24gcGF0aC4NCj4gCSAgTGlrZSBwcmV2
+aW91cyBjYXNlIGFzc2VydC9kZWFzc2VydCB3b24ndCBiZSBjYWxsZWQuDQo+IA0KPiBBcmUgeW91
+IE9LPw0KDQpJIHdpbGwgc2VuZCBuZXh0IHZlcnNpb24gbGlrZSBiZWxvdzoNCg0KUGF0Y2gjMSAx
+dXNlYyB0byAxIG1zZWMNCg0KUGF0Y2gjMiBNb3ZlIHJ6ZzJsX21pcGlfZHNpX3NldF9kaXNwbGF5
+X3RpbWluZygpIHRvIHJ6ZzJsX21pcGlfZHNpX2F0b21pY19lbmFibGUoKQ0KICAgICAgICAgYWZ0
+ZXIgc3RhcnRpbmcgaHMgY2xvY2suDQoNClBhdGNoIzMgTW92ZSByZXNldF9kZWFzc2VydCBmcm9t
+IHBoeV9pbml0IHRvIHJ6ZzJsX21pcGlfZHNpX2F0b21pY19wcmVfZW5hYmxlKCkgd2l0aCBiZWxv
+dyBjaGFuZ2UNCg0KCWlmIChkc2ktPnJzdGMpIHsNCgkgICAgcmV0ID0gcmVzZXRfY29udHJvbF9k
+ZWFzc2VydChkc2ktPnJzdGMpOw0KCSAgICBpZiAocmV0IDwgMCkNCgkJCXJldHVybjsNCgkJZnNs
+ZWVwKDEwMDApOw0KIAl9DQoNClBhdGNoIzQgTW92ZSByZXNldF9hc3NlcnQgZnJvbSBwaHlfZXhp
+dCB0byByemcybF9taXBpX2RzaV9hdG9taWNfcG9zdF9kaXNhYmxlKCkgdG8gbWFrZQ0KICAgICAg
+ICB0aGUgYmFsYW5jZWQgb3BlcmF0aW9ucy4NCg0KQ2hlZXJzLA0KQmlqdQ0KDQo=
