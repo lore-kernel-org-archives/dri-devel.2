@@ -4,61 +4,85 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 09119F33812
-	for <dri-devel@archiver.kernel.org>; Tue, 17 Mar 2026 08:24:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 61A46F3380F
+	for <dri-devel@archiver.kernel.org>; Tue, 17 Mar 2026 08:26:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 54C9310E599;
-	Tue, 17 Mar 2026 08:24:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C55A710E428;
+	Tue, 17 Mar 2026 08:26:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="kUag940w";
+	dkim=pass (2048-bit key; unprotected) header.d=resnulli-us.20230601.gappssmtp.com header.i=@resnulli-us.20230601.gappssmtp.com header.b="WkaUyXTv";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A95B910E428;
- Tue, 17 Mar 2026 08:24:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1773735848;
- bh=gT7ZoGuzWlKneb2BYf5Iyt6DDVfn2FhJc0ZIANIIOO0=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=kUag940wB0JxjUlZuKvzUIjfCLfakoJAbc5OxyD+rmV4W0fpXuZA7VHWZYmRFFHv8
- 98SlvE9Oe24nJCzdvzPES7TdTjE3fU22ZfzUrHkqqHlLXlZph5P+KgUJwRNfqH65Ad
- 2bd2IDtVZLZJfZQUgHZtnFJ/Vd+SuZjmb6fZ2uWoQxyHAjqmcxfaLddgm/SWs0L2g9
- 300WnHAliWndxGAgunhKcD10KQthuqQYSbKC9QS/9nqBAYpLu3npJ1oZ25ehWgVGhG
- uix03hytZKhADeF7/Ag4UdF9NlBYykGsWqReZnqhOWs1jQkQOHXnsrMxyoC6Ku6pzP
- meIqxkB8MrKxw==
-Received: from eldfell (unknown [194.136.85.206])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
- server-digest SHA256) (No client certificate requested)
- (Authenticated sender: pq)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id BE8D617E0CF3;
- Tue, 17 Mar 2026 09:24:07 +0100 (CET)
-Date: Tue, 17 Mar 2026 10:23:56 +0200
-From: Pekka Paalanen <pekka.paalanen@collabora.com>
-To: Harry Wentland <harry.wentland@amd.com>
-Cc: "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>,
- dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, louis.chauvet@bootlin.com, mwen@igalia.com,
- contact@emersion.fr, alex.hung@amd.com, daniels@collabora.com,
- uma.shankar@intel.com, maarten.lankhorst@intel.com,
- pranay.samala@intel.com, swati2.sharma@intel.com
-Subject: Re: [PATCH 01/10] drm/colorop: Add DRM_COLOROP_CSC_FF
-Message-ID: <20260317102356.76dadf78@eldfell>
-In-Reply-To: <cd9e1aa2-85b8-4add-a3b9-ba7acbd29f60@amd.com>
-References: <20260306165307.3233194-1-chaitanya.kumar.borah@intel.com>
- <20260306165307.3233194-2-chaitanya.kumar.borah@intel.com>
- <20260310163229.521186ab@eldfell>
- <53c3f610-942c-46bf-be5f-a4c51625c358@intel.com>
- <20260316105724.47d24409@eldfell>
- <eaaea3f6-76ce-4b20-b7b1-b483594070cd@intel.com>
- <20260316135349.06476e85@eldfell>
- <0969dd82-0212-4fec-b693-e53c6ddd692c@amd.com>
- <20260316180338.0b2f6923@eldfell>
- <cd9e1aa2-85b8-4add-a3b9-ba7acbd29f60@amd.com>
-X-Mailer: Claws Mail 4.3.1 (GTK 3.24.49; x86_64-pc-linux-gnu)
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com
+ [209.85.128.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6860210E424
+ for <dri-devel@lists.freedesktop.org>; Tue, 17 Mar 2026 08:26:26 +0000 (UTC)
+Received: by mail-wm1-f49.google.com with SMTP id
+ 5b1f17b1804b1-4852afd42ceso46961555e9.2
+ for <dri-devel@lists.freedesktop.org>; Tue, 17 Mar 2026 01:26:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=resnulli-us.20230601.gappssmtp.com; s=20230601; t=1773735985; x=1774340785;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=xf2CUvi8YSfRB4MbEru11u5aBtMS7TuUP2oF3ZpZ3ic=;
+ b=WkaUyXTvcGPBlvcWXP+yjKjwqpq5IQGrSNn5fwStULeY4v98OGD3dj7aSZ0dcvtLqr
+ 7pUewTQ6x0Gh3kZdNnFlh9crtr2PvjSf362yAQu/ZDeaHRCnJ6lIHhRVmNl9q4M4xwVl
+ poHWqgAtp4e8xCW65BStNbMkH7IarxVieXMbL+Qg22B7QZkADLl3zVMBWQReIDks/ufh
+ HvwDjprsZCheUthm2Kxsqwt5b9Pb9LbvSgK+Fwdbk2n/Yq8+EC747WP9kbqxCNhlRsAu
+ h+fWsj3kkQshObPXKNUpQCZ8zMEEnMyo0r1hmK0ZTOGyCevXTBKsTpzzxMIZ5x43OvxM
+ SF+A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1773735985; x=1774340785;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=xf2CUvi8YSfRB4MbEru11u5aBtMS7TuUP2oF3ZpZ3ic=;
+ b=j3wdPLOHFZrv0AVpdDa/NfHyopE2aJO+P8mCqQcowmiCR+7oCWtQlI3BknnuzFbqjV
+ uYB+Stsa51qpm7Mqc7W2D2+ZPg1daOAlIT8oQqJPGG1dUZxuaw8Kx8diZTR61dSzBF2F
+ EwdGqga1j17KuG1k6DBzuesgGoEiDKFTR3U7oyOkiyQ0XlK+boVi7nuGz193GINl6W/p
+ 5PyPidOaLzjIJV/85km8QsOFpkUmJ+TIsOgfwXUOR7Gr3cJffUV4qh3l0XbN0Vf7j5XA
+ 7nqyC+rHHmAqJBxZN1ITDcNtOID1p3Ppmsb0Yvnye42SPyOQHI4PnPu9Y5lXWsL28ga1
+ 6crQ==
+X-Gm-Message-State: AOJu0YxvDpepc7X0tJlMk04R23JhlHtAozuP3Sj/T8evQo710SbLg5ER
+ TafGZ9zAQzbDbLV3h0ZuzqnF+JP6KiKNq2zZc/Y/6ZgiNOiHczqL5a3/sdvi1hGbDBk=
+X-Gm-Gg: ATEYQzzw5i7+MDuqtAqIzmGLZhlM5wYTtT7dHadsjsM/Ok/Z5XrdUku44Mg3pAZUBB3
+ cdD81SMpxSIQqpQrxHsYPSVJ4LqsM/JoGaX/hBALl6V1GcT0Gvh+sqGYnPH9gOo7BJK9SjJyVRm
+ mw/O1D/0GWtMRBDa87i6QSzXRjhcHrHDJidewtWbrBM3ZHt+fLkAa/2JdhdU4KEabVTn7ruDn1m
+ 4vPWwTsB07oycima42TxoUKymHRwwIVFUhdDFWHhTK26VEwDQYAohsXYeD5dnmKzYf5KKkbKulV
+ OyK7XIkwzTonB2bmXn2dCep3jSFBzMcfPodAqoiUnn/vBm0IuwKrNdHfypXH/EFqllDKRq+hnQC
+ 3xue/r/7TehtHBruNL7BXCs5OKCkJq5CA4qDJteWM4GN3XRfS+63vsC1RQmcRVZWua3WhPn5hXU
+ fBO8iC5nYlzujMIJPf7i7ZoeHtMpxBuM24c+G91IVohqI=
+X-Received: by 2002:a05:600c:c8f:b0:485:3c05:24dc with SMTP id
+ 5b1f17b1804b1-48556710c02mr263331735e9.33.1773735985061; 
+ Tue, 17 Mar 2026 01:26:25 -0700 (PDT)
+Received: from FV6GYCPJ69 ([2001:1ae9:6084:ab00:81f8:c391:4972:647b])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4856ea97e8esm52842845e9.5.2026.03.17.01.26.23
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 17 Mar 2026 01:26:24 -0700 (PDT)
+Date: Tue, 17 Mar 2026 09:26:21 +0100
+From: Jiri Pirko <jiri@resnulli.us>
+To: Robin Murphy <robin.murphy@arm.com>
+Cc: dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, 
+ iommu@lists.linux.dev, linux-media@vger.kernel.org, sumit.semwal@linaro.org, 
+ benjamin.gaignard@collabora.com, Brian.Starkey@arm.com, jstultz@google.com,
+ tjmercier@google.com, 
+ christian.koenig@amd.com, m.szyprowski@samsung.com, jgg@ziepe.ca,
+ leon@kernel.org, 
+ sean.anderson@linux.dev, ptesarik@suse.com, catalin.marinas@arm.com, 
+ aneesh.kumar@kernel.org, suzuki.poulose@arm.com, steven.price@arm.com, 
+ thomas.lendacky@amd.com, john.allen@amd.com, ashish.kalra@amd.com, 
+ suravee.suthikulpanit@amd.com, linux-coco@lists.linux.dev
+Subject: Re: [PATCH v4 1/2] dma-mapping: introduce DMA_ATTR_CC_DECRYPTED for
+ pre-decrypted memory
+Message-ID: <lufy3ppgiy7637iravgzabajj67chmqvg22qc3fd2yqe2p33ws@b54vibhehth2>
+References: <20260316125857.617836-1-jiri@resnulli.us>
+ <20260316125857.617836-2-jiri@resnulli.us>
+ <15fcfa5e-c4b9-4b56-8f84-20dd5f66d643@arm.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="Sig_/TitsDUGOV_T1_aeLDWDGJbe";
- protocol="application/pgp-signature"; micalg=pgp-sha256
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <15fcfa5e-c4b9-4b56-8f84-20dd5f66d643@arm.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,141 +98,195 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
---Sig_/TitsDUGOV_T1_aeLDWDGJbe
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: quoted-printable
+Mon, Mar 16, 2026 at 07:25:55PM +0100, robin.murphy@arm.com wrote:
+>On 2026-03-16 12:58 pm, Jiri Pirko wrote:
+>> From: Jiri Pirko <jiri@nvidia.com>
+>> 
+>> Current CC designs don't place a vIOMMU in front of untrusted devices.
+>> Instead, the DMA API forces all untrusted device DMA through swiotlb
+>> bounce buffers (is_swiotlb_force_bounce()) which copies data into
+>> decrypted memory on behalf of the device.
+>> 
+>> When a caller has already arranged for the memory to be decrypted
+>> via set_memory_decrypted(), the DMA API needs to know so it can map
+>> directly using the unencrypted physical address rather than bounce
+>> buffering. Following the pattern of DMA_ATTR_MMIO, add
+>> DMA_ATTR_CC_DECRYPTED for this purpose. Like the MMIO case, only the
+>> caller knows what kind of memory it has and must inform the DMA API
+>> for it to work correctly.
+>
+>Echoing Jason's point, if the intent of this is to indicate shared memory,
+>please call it DMA_ATTR_CC_SHARED. Yes, some of the existing APIs are badly
+>named because they conflated intent with implementation details; that is no
+>reason to keep wilfully making the same mistake.
+>
+>At least with Arm CCA, the architecture enforces *confidentiality* pretty
+>much orthogonally to encryption - if your threat model excludes physical
+>attacks against DRAM, you can still have Realms isolated from each other (and
+>of course other execution states) without even implementing the memory
+>encryption feature; conversely if you do have it, then even all the
+>shared/host memory may still be physically encrypted, it just has its own
+>context (key) distinct from the Realm ones. Similarly, while it's not a
+>"true" CoCo environment, pKVM has a similar notion of shared vs. private
+>which can benefit from piggy-backing off much of the CoCo infrastructure in
+>places like the DMA layer, but has nothing whatsoever to do with actual
+>encryption.
+>
+>Furthermore, "shared" is just shorter and more readable, even before I invoke
+>the previous discussion of why it should be "unencrypted" rather than
+>"decrypted" anyway ;)
 
-On Mon, 16 Mar 2026 13:59:57 -0400
-Harry Wentland <harry.wentland@amd.com> wrote:
-
-> On 2026-03-16 12:03, Pekka Paalanen wrote:
-> > On Mon, 16 Mar 2026 10:36:44 -0400
-> > Harry Wentland <harry.wentland@amd.com> wrote:
-> >  =20
-> >> On 2026-03-16 07:53, Pekka Paalanen wrote: =20
-> >>> On Mon, 16 Mar 2026 16:04:32 +0530
-> >>> "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com> wrote:
-> >>>    =20
-> >>>> On 3/16/2026 2:27 PM, Pekka Paalanen wrote:   =20
-
-...
-
-> >>>>> Unfortunately, BT.601, BT.709 and BT.2020 define two separate thing=
-s each:
-> >>>>> - the YCbCr<->RGB conversion, and
-> >>>>> - the colorspace primaries (and white point, but that is the same f=
-or
-> >>>>>    them all).
-> >>>>>   =20
-> >>
-> >> Would it make sense to treat these as two separate things in terms
-> >> of colorops? =20
-> >=20
-> > Hi Harry,
-> >=20
-> > no, if your hardware not care. There are no semantics for the numbers
-> > in the UAPI, it's just whatever numbers, and mathematical operations on
-> > them.
-> >=20
-> > I suspect that your hardware does care, though, and actually has
-> > separate hardware elements for the YCbCr conversion and the colorspace
-> > conversion matrix. After all, one has to be able to put a LUT or a
-> > curve between the two to make sense.
-> >=20
-> > IOW, two different colorops, yes. But different colorop types? Maybe
-> > that depends on whether they would have the same colorop properties or
-> > not.
-> >  =20
->=20
-> If I understand you correctly you're saying we can have a single
-> colorop type to represent either type. A client of the API needs
-> to understand what it's doing with the colorop and can use it
-> as either a YCbCr conversion matrix in the case of YCbCr-to-RGB
-> conversion, or an NPM for conversion of linear, normalized data
-> from one set of primaries to another.
->=20
-> Is that understanding correct?
-
-Yes. It's mostly a question of taste, whether we want matrices
-conventionally used in different contexts in the same enum. I think
-it's fine.
-
-> >> I have done some work on a CSC colorop and intend to send out the
-> >> patches in the next couple of days.
-> >>
-> >> https://gitlab.freedesktop.org/hwentland/linux/-/commits/csc-colorop
-> >>
-> >> It follows the drm_plane's COLOR_RANGE and COLOR_ENCODING semantic
-> >> and is only intended for YCbCr-to-RGB conversion, like the original
-> >> properties on the plane.
-> >>
-> >> For the colorspace conversion within RGB (e.g., BT709 to BT2020)
-> >> it might make sense then to have its own colorop if HW works on
-> >> pre-defined transformations, or use the CTM 3x3 or 3x4 matrix ops
-> >> if HW provides a flexible matrix.
-> >>
-> >> We might need to think about naming, since colorspace conversion (CSC)
-> >> right now seems to refer to both YCbCr conversion and primaries
-> >> conversion. =20
-> >=20
-> > Indeed.
-> >=20
-> > YCbCr conversion is usually a matrix operation. H.273 calls it
-> > MatrixCoefficients, but it also lists cases where you need the EOTF in
-> > the mix. I could go with "YCbCr coefficients". The pure matrix forms
-> > are used on electrical pixel values.
-> >=20
-> > The color space conversion matrices that are based on (Normalized)
-> > Primary Matrices (NPM) must be used on optical pixel values. NPM is the
-> > matrix that converts optical RGB values to CIE 1931 XYZ. For an
-> > RGB-to-RGB conversion you need one NPM and another inverse NPM chained.
-> >  =20
->=20
-> This could be expressed in a single matrix, right?
-
-Naturally. y =3D N * (M * x) =3D (N * M) * x, where N, M are matrices and
-x, y are column vectors.
-
-> I intend to send out my patches as an RFC either way, but I think I
-> could just as well work with the CSC_FF colorop. I'll have a look at
-> basing my work on this.
+Okay, fair points. I'll rename it to shared for "v5". Thanks!
 
 
-Thanks,
-pq
+>
+>> Signed-off-by: Jiri Pirko <jiri@nvidia.com>
+>> ---
+>> v3->v4:
+>> - added some sanity checks to dma_map_phys and dma_unmap_phys
+>> - enhanced documentation of DMA_ATTR_CC_DECRYPTED attr
+>> v1->v2:
+>> - rebased on top of recent dma-mapping-fixes
+>> ---
+>>   include/linux/dma-mapping.h | 10 ++++++++++
+>>   include/trace/events/dma.h  |  3 ++-
+>>   kernel/dma/direct.h         | 14 +++++++++++---
+>>   kernel/dma/mapping.c        | 13 +++++++++++--
+>>   4 files changed, 34 insertions(+), 6 deletions(-)
+>> 
+>> diff --git a/include/linux/dma-mapping.h b/include/linux/dma-mapping.h
+>> index 29973baa0581..476964d2b22f 100644
+>> --- a/include/linux/dma-mapping.h
+>> +++ b/include/linux/dma-mapping.h
+>> @@ -85,6 +85,16 @@
+>>    * a cacheline must have this attribute for this to be considered safe.
+>>    */
+>>   #define DMA_ATTR_CPU_CACHE_CLEAN	(1UL << 11)
+>> +/*
+>> + * DMA_ATTR_CC_DECRYPTED: Indicates the DMA mapping is decrypted (shared) for
+>> + * confidential computing guests. For normal system memory the caller must have
+>> + * called set_memory_decrypted(), and pgprot_decrypted must be used when
+>> + * creating CPU PTEs for the mapping. The same decrypted semantic may be passed
+>> + * to the vIOMMU when it sets up the IOPTE. For MMIO use together with
+>
+>That being "the vIOMMU" that you said doesn't exist, and which is explicitly
+>not supported?...
+
+Yeah, I wanted to draw the full picture. I can put a not like "(when it
+is going to be introduced)" or something like that to be clear.
 
 
-> > I guess using CSC for the latter is not obvious enough because it has
-> > been used for the former (color model conversion) as well?
-> >=20
-> > How about "color-primary conversion"?
-> >=20
-> > I stole it from
-> > https://onlinelibrary.wiley.com/doi/pdf/10.1002/9780470994375.app8
-> >=20
-> >=20
-> > Thanks,
-> > pq
+>
+>> + * DMA_ATTR_MMIO to indicate decrypted MMIO. Unless DMA_ATTR_MMIO is provided
+>> + * a struct page is required.
+>> + */
+>> +#define DMA_ATTR_CC_DECRYPTED	(1UL << 12)
+>>   /*
+>>    * A dma_addr_t can hold any valid DMA or bus address for the platform.  It can
+>> diff --git a/include/trace/events/dma.h b/include/trace/events/dma.h
+>> index 33e99e792f1a..b8082d5177c4 100644
+>> --- a/include/trace/events/dma.h
+>> +++ b/include/trace/events/dma.h
+>> @@ -32,7 +32,8 @@ TRACE_DEFINE_ENUM(DMA_NONE);
+>>   		{ DMA_ATTR_ALLOC_SINGLE_PAGES, "ALLOC_SINGLE_PAGES" }, \
+>>   		{ DMA_ATTR_NO_WARN, "NO_WARN" }, \
+>>   		{ DMA_ATTR_PRIVILEGED, "PRIVILEGED" }, \
+>> -		{ DMA_ATTR_MMIO, "MMIO" })
+>> +		{ DMA_ATTR_MMIO, "MMIO" }, \
+>> +		{ DMA_ATTR_CC_DECRYPTED, "CC_DECRYPTED" })
+>>   DECLARE_EVENT_CLASS(dma_map,
+>>   	TP_PROTO(struct device *dev, phys_addr_t phys_addr, dma_addr_t dma_addr,
+>> diff --git a/kernel/dma/direct.h b/kernel/dma/direct.h
+>> index e89f175e9c2d..c047a9d0fda3 100644
+>> --- a/kernel/dma/direct.h
+>> +++ b/kernel/dma/direct.h
+>> @@ -84,16 +84,24 @@ static inline dma_addr_t dma_direct_map_phys(struct device *dev,
+>>   	dma_addr_t dma_addr;
+>>   	if (is_swiotlb_force_bounce(dev)) {
+>> -		if (attrs & DMA_ATTR_MMIO)
+>> -			return DMA_MAPPING_ERROR;
+>> +		if (!(attrs & DMA_ATTR_CC_DECRYPTED)) {
+>> +			if (attrs & DMA_ATTR_MMIO)
+>> +				return DMA_MAPPING_ERROR;
+>> -		return swiotlb_map(dev, phys, size, dir, attrs);
+>> +			return swiotlb_map(dev, phys, size, dir, attrs);
+>> +		}
+>> +	} else if (attrs & DMA_ATTR_CC_DECRYPTED) {
+>> +		return DMA_MAPPING_ERROR;
+>>   	}
+>>   	if (attrs & DMA_ATTR_MMIO) {
+>>   		dma_addr = phys;
+>>   		if (unlikely(!dma_capable(dev, dma_addr, size, false)))
+>>   			goto err_overflow;
+>> +	} else if (attrs & DMA_ATTR_CC_DECRYPTED) {
+>> +		dma_addr = phys_to_dma_unencrypted(dev, phys);
+>> +		if (unlikely(!dma_capable(dev, dma_addr, size, false)))
+>> +			goto err_overflow;
+>>   	} else {
+>>   		dma_addr = phys_to_dma(dev, phys);
+>>   		if (unlikely(!dma_capable(dev, dma_addr, size, true)) ||
+>> diff --git a/kernel/dma/mapping.c b/kernel/dma/mapping.c
+>> index 3928a509c44c..abb0c88b188b 100644
+>> --- a/kernel/dma/mapping.c
+>> +++ b/kernel/dma/mapping.c
+>> @@ -157,6 +157,7 @@ dma_addr_t dma_map_phys(struct device *dev, phys_addr_t phys, size_t size,
+>>   {
+>>   	const struct dma_map_ops *ops = get_dma_ops(dev);
+>>   	bool is_mmio = attrs & DMA_ATTR_MMIO;
+>> +	bool is_cc_decrypted = attrs & DMA_ATTR_CC_DECRYPTED;
+>>   	dma_addr_t addr = DMA_MAPPING_ERROR;
+>>   	BUG_ON(!valid_dma_direction(dir));
+>> @@ -165,8 +166,11 @@ dma_addr_t dma_map_phys(struct device *dev, phys_addr_t phys, size_t size,
+>>   		return DMA_MAPPING_ERROR;
+>>   	if (dma_map_direct(dev, ops) ||
+>> -	    (!is_mmio && arch_dma_map_phys_direct(dev, phys + size)))
+>> +	    (!is_mmio && !is_cc_decrypted &&
+>> +	     arch_dma_map_phys_direct(dev, phys + size)))
+>>   		addr = dma_direct_map_phys(dev, phys, size, dir, attrs);
+>> +	else if (is_cc_decrypted)
+>> +		return DMA_MAPPING_ERROR;
+>>   	else if (use_dma_iommu(dev))
+>
+>...although, why *shouldn't* this be allowed with a vIOMMU? (Especially given
+>that a vIOMMU for untrusted devices can be emulated by the host VMM without
+>the CoCo hypervisor having to care at all - again, at least on Arm and other
+>architectures where IOMMUs are regular driver model devices)
 
---Sig_/TitsDUGOV_T1_aeLDWDGJbe
-Content-Type: application/pgp-signature
-Content-Description: OpenPGP digital signature
+Well, when iommu path is able to consume the attr, this restriction
+should be lifted. This is basically a sanity check for the
+dma_map_phys() caller.
 
------BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmm5D5wACgkQI1/ltBGq
-qqcuPQ/8DYGoaFXGnbHDP5IYvChGSMwmWlF4ogMhGM/zuzrqL0Dr0pTpYhtlv6O6
-jQi8yCxmTBaCjhOeu+cZuP0JuaRJyfJtpyQvLN7YotPemQXzmHPvL3oEZMdPMPvP
-Uv41SUcr1JVLk+7J9jao+lhi9YzUI4WYKFLB73+RB6jpCdB+NUNL/wuRi2lEtFa/
-ZgvWCdEzU2ghTLVv5bj25/A4vTR/LVVhLBeGtfVKziVDlznfrmh1v3Wvxv3Gbw0x
-GsNz/Eu2Uv6DY5u610v6Nse2PiSksVaDALocdVvX4PBcI8wKs+kdEYb+EMigGrn3
-LcA2ACOQw2gsb1mbfo39yTv5g4kRzMPCqjAh3uHGdKShEDMar5LxCLK37KvvwDLx
-tvAEoDxonKZe+q8saGwpYs45Wg2v5tBGlU5tWM8J5FjnjVUvW9/hk4yjVrLB3Eqi
-aVVOHsrvNIyfqi20zeMOApPHCgSwM3Yt2PFZfmTL+hUbMrVwJB3LRcV56uOIigZS
-fl6tAvMab5+/yutxxWenMqJ/h24lqgFWpied6aIK0qEtx/Bhdy4WEU3lgouZL/OR
-Rjh1s8gvDfvu3Pw7Hc3ihVkYSOvX4hnbtTepiIsAbyhO0fQ1vREjONHBNiMimC3O
-ydTrB2Ok3B4k/b6TcLpGahkKrcP8kRShNdRhP4sqvOAfiKQKaMY=
-=LNQa
------END PGP SIGNATURE-----
+>
+>>   		addr = iommu_dma_map_phys(dev, phys, size, dir, attrs);
+>>   	else if (ops->map_phys)
+>
+>Or indeed any other non-direct ops? Obviously all the legacy architectures
+>like Alpha are never going to see this or care, but I could imagine Xen and
+>possibly PowerPC might.
 
---Sig_/TitsDUGOV_T1_aeLDWDGJbe--
+Same here.
+
+
+>
+>Thanks,
+>Robin.
+>
+>> @@ -203,11 +207,16 @@ void dma_unmap_phys(struct device *dev, dma_addr_t addr, size_t size,
+>>   {
+>>   	const struct dma_map_ops *ops = get_dma_ops(dev);
+>>   	bool is_mmio = attrs & DMA_ATTR_MMIO;
+>> +	bool is_cc_decrypted = attrs & DMA_ATTR_CC_DECRYPTED;
+>>   	BUG_ON(!valid_dma_direction(dir));
+>> +
+>>   	if (dma_map_direct(dev, ops) ||
+>> -	    (!is_mmio && arch_dma_unmap_phys_direct(dev, addr + size)))
+>> +	    (!is_mmio && !is_cc_decrypted &&
+>> +	     arch_dma_unmap_phys_direct(dev, addr + size)))
+>>   		dma_direct_unmap_phys(dev, addr, size, dir, attrs);
+>> +	else if (is_cc_decrypted)
+>> +		return;
+>>   	else if (use_dma_iommu(dev))
+>>   		iommu_dma_unmap_phys(dev, addr, size, dir, attrs);
+>>   	else if (ops->unmap_phys)
+>
