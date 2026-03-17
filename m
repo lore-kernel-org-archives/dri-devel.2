@@ -4,56 +4,148 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 47411FD875A
-	for <dri-devel@archiver.kernel.org>; Tue, 17 Mar 2026 12:19:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 33BB5FD875A
+	for <dri-devel@archiver.kernel.org>; Tue, 17 Mar 2026 12:24:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A5D8210E4B2;
-	Tue, 17 Mar 2026 12:19:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9873F10E2D4;
+	Tue, 17 Mar 2026 12:24:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="GypqWCLI";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="CWuV4W9S";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="HHfVXFS3";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="CWuV4W9S";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="HHfVXFS3";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C6B8510E351;
- Tue, 17 Mar 2026 12:19:51 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id ACA35435A8;
- Tue, 17 Mar 2026 12:19:51 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 55742C19425;
- Tue, 17 Mar 2026 12:19:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1773749991;
- bh=UieOFz+D2vIk/mOObD9j/eJjAo9MB/imC/AN8dxznY4=;
- h=Date:Cc:To:From:Subject:References:In-Reply-To:From;
- b=GypqWCLIUZRr3YpzzpXxvFJgnKC/RpOFtaklY2O070qzJoxx0spGlxX76DiSUCrT1
- x9ro2LeLhjocJDxuO2p3patgylJtH2Mf7+Rmyt4QNjihfsDnmIlp/J5YTQiOXCnJt/
- eNMER8E7IcqEirBQ7w3C/KfnlDS/lTMCI5kdd73Upc9GC7NDI+0t4JS8wUDW3bJYBr
- Hn1y2+xOfbSSRWD0sPW+/v+vAETSuxkjoHTNmZh7LeK9k07A5BhJaM/EOrIKtMhL0u
- NAf4TqmPfOw4HPC66eNDp4sDQaCqp0llIpfaP36VnytHgDohya6KxC6sjUQoueOpRY
- BLWuCrxQ1GUnA==
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 17 Mar 2026 13:19:47 +0100
-Message-Id: <DH51W6XRQXYX.3M30IRYIWZLFG@kernel.org>
-Cc: <intel-xe@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- "Boris Brezillon" <boris.brezillon@collabora.com>, "Tvrtko Ursulin"
- <tvrtko.ursulin@igalia.com>, "Rodrigo Vivi" <rodrigo.vivi@intel.com>,
- =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, "David Airlie"
- <airlied@gmail.com>, "Maarten Lankhorst"
- <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
- "Philipp Stanner" <phasta@kernel.org>, "Simona Vetter" <simona@ffwll.ch>,
- "Sumit Semwal" <sumit.semwal@linaro.org>, "Thomas Zimmermann"
- <tzimmermann@suse.de>, <linux-kernel@vger.kernel.org>, "Miguel Ojeda"
- <miguel.ojeda.sandonis@gmail.com>
-To: "Matthew Brost" <matthew.brost@intel.com>
-From: "Danilo Krummrich" <dakr@kernel.org>
-Subject: Re: [RFC PATCH 02/12] drm/dep: Add DRM dependency queue layer
-References: <20260316043255.226352-1-matthew.brost@intel.com>
- <20260316043255.226352-3-matthew.brost@intel.com>
- <DH44U26ZLJS2.3DTS9D6PA0IL4@kernel.org>
- <abjiTQe4/mRQ8wyA@lstrano-desk.jf.intel.com>
-In-Reply-To: <abjiTQe4/mRQ8wyA@lstrano-desk.jf.intel.com>
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AC83310E2D4
+ for <dri-devel@lists.freedesktop.org>; Tue, 17 Mar 2026 12:24:39 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 274755BCC6;
+ Tue, 17 Mar 2026 12:24:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1773750278; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=piWa4QJetmgkzTmrwsJCLmXyV+O7+jApdEUH4ceN9Kk=;
+ b=CWuV4W9SAGtmEk5nkMr+dEegXhKfjZZgJlF7F/nTWJzcE7iPqH7D//F3pMeBkvQxFdgyJh
+ vCAIlxekyEwqYXXSaTT4lxpLfcGbalezYe+yav3VPM28YQxhCjy9wYZk6Tf5/oTn3D6XJO
+ 0uVhUa2bn99CqDJj19eUUN9wqV0uACg=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1773750278;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=piWa4QJetmgkzTmrwsJCLmXyV+O7+jApdEUH4ceN9Kk=;
+ b=HHfVXFS3msNj3E3dgCb2JMHWL7bjEZjtpwhYCfs31D09sz+uPalcD+iRTRAUNAGp6OUyJo
+ kbRCxOVBOKS9xACg==
+Authentication-Results: smtp-out2.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=CWuV4W9S;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=HHfVXFS3
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1773750278; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=piWa4QJetmgkzTmrwsJCLmXyV+O7+jApdEUH4ceN9Kk=;
+ b=CWuV4W9SAGtmEk5nkMr+dEegXhKfjZZgJlF7F/nTWJzcE7iPqH7D//F3pMeBkvQxFdgyJh
+ vCAIlxekyEwqYXXSaTT4lxpLfcGbalezYe+yav3VPM28YQxhCjy9wYZk6Tf5/oTn3D6XJO
+ 0uVhUa2bn99CqDJj19eUUN9wqV0uACg=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1773750278;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=piWa4QJetmgkzTmrwsJCLmXyV+O7+jApdEUH4ceN9Kk=;
+ b=HHfVXFS3msNj3E3dgCb2JMHWL7bjEZjtpwhYCfs31D09sz+uPalcD+iRTRAUNAGp6OUyJo
+ kbRCxOVBOKS9xACg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id CFD924273B;
+ Tue, 17 Mar 2026 12:24:37 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id rvRaMQVIuWmVfAAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Tue, 17 Mar 2026 12:24:37 +0000
+Message-ID: <ada8ca6f-a2f2-4f8c-b916-f6dc24db6db5@suse.de>
+Date: Tue, 17 Mar 2026 13:24:37 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/4] drm: Introduce DRM_MODE_DUMB_KERNEL_MAP flag
+To: wens@kernel.org
+Cc: Chen-Yu Tsai <wenst@chromium.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, asahi@lists.linux.dev
+References: <20260317064049.696795-1-wenst@chromium.org>
+ <20260317064049.696795-3-wenst@chromium.org>
+ <607daaca-79ed-45b2-941e-1680a17618e8@suse.de>
+ <CAGb2v66D3=s9c8oJyYEAK90A4SekW6FjLUpWBGRHnJwtfMvUeg@mail.gmail.com>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <CAGb2v66D3=s9c8oJyYEAK90A4SekW6FjLUpWBGRHnJwtfMvUeg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ MX_GOOD(-0.01)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com];
+ FUZZY_RATELIMITED(0.00)[rspamd.com];
+ RCPT_COUNT_TWELVE(0.00)[12];
+ RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
+ MIME_TRACE(0.00)[0:+]; ARC_NA(0.00)[];
+ FREEMAIL_CC(0.00)[chromium.org,linux.intel.com,kernel.org,gmail.com,ffwll.ch,ideasonboard.com,lists.freedesktop.org,vger.kernel.org,lists.infradead.org,lists.linux.dev];
+ DKIM_TRACE(0.00)[suse.de:+]; TO_DN_SOME(0.00)[];
+ SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+ RCVD_COUNT_TWO(0.00)[2]; FROM_EQ_ENVFROM(0.00)[];
+ FROM_HAS_DN(0.00)[]; RCVD_TLS_ALL(0.00)[];
+ DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+ RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+ MID_RHS_MATCH_FROM(0.00)[];
+ ASN(0.00)[asn:32098, ipnet:2800::/6, country:US];
+ RCVD_VIA_SMTP_AUTH(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid, suse.de:dkim, suse.de:email,
+ imap1.dmz-prg2.suse.org:helo, imap1.dmz-prg2.suse.org:rdns, suse.com:url,
+ chromium.org:email]
+X-Rspamd-Action: no action
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: 274755BCC6
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,156 +161,135 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue Mar 17, 2026 at 6:10 AM CET, Matthew Brost wrote:
-> On Mon, Mar 16, 2026 at 11:25:23AM +0100, Danilo Krummrich wrote:
->> The reason I proposed a new component for Rust, is basically what you al=
-so wrote
->> in your cover letter, plus the fact that it prevents us having to build =
-a Rust
->> abstraction layer to the DRM GPU scheduler.
->>=20
->> The latter I identified as pretty questionable as building another abstr=
-action
->> layer on top of some infrastructure is really something that you only wa=
-nt to do
->> when it is mature enough in terms of lifetime and ownership model.
->>=20
->
-> I personally don=E2=80=99t think the language matters that much. I care a=
-bout
-> lifetime, ownership, and teardown semantics. I believe I=E2=80=99ve made =
-this
-> clear in C, so the Rust bindings should be trivial.
+Hi
 
-No, they won't be trivial -- in fact, in the case of the Jobqueue they may =
-even
-end up being more complicated than a native implementation.
-
-We still want to build the object model around it that allows us to catch m=
-ost
-of the pitfalls at compile time rather than runtime.
-
-For instance, there has been a proposal of having specific work and workque=
-ue
-types that ensure not to violate DMA fence rules, which the Jobqueue can ad=
-opt.
-
-We can also use Klint to ensure correctness for those types at compile time=
-.
-
-So, I can easily see this becoming more complicated when we have to go thro=
-ugh
-an FFI layer that makes us loose additional type information / guarantees.
-
-Anyways, I don't want to argue about this. I don't know why the whole threa=
-d
-took this direction.
-
-This is not about C vs. Rust, and I see the Rust component to be added
-regardless of this effort.
-
-The question for me is whether we want to have a second component besides t=
-he
-GPU scheduler on the C side or not.
-
-If we can replace the existing scheduler entirely and rework all the driver=
-s
-that'd be great and you absolutely have my blessing.
-
-But, I don't want to end up in a situation where this is landed, one or two
-drivers are converted, and everything else is left behind in terms of
-maintainance / maintainer commitment.
-
->> My point is, the justification for a new Jobqueue component in Rust I co=
-nsider
->> given by the fact that it allows us to avoid building another abstractio=
-n layer
->> on top of DRM sched. Additionally, DRM moves to Rust and gathering exper=
-ience
->> with building native Rust components seems like a good synergy in this c=
-ontext.
+Am 17.03.26 um 11:58 schrieb Chen-Yu Tsai:
+> On Tue, Mar 17, 2026 at 4:12 PM Thomas Zimmermann <tzimmermann@suse.de> wrote:
+>> Hi
 >>
+>> Am 17.03.26 um 07:40 schrieb Chen-Yu Tsai:
+>>> From: Rob Herring <robh@kernel.org>
+>>>
+>>> Introduce a new flag, DRM_MODE_DUMB_KERNEL_MAP, for struct
+>>> drm_mode_create_dumb. This flag is for internal kernel use to indicate
+>>> if dumb buffer allocation needs a kernel mapping. This is needed only for
+>>> CMA where creating a kernel mapping or not has to be decided at allocation
+>>> time because creating a mapping on demand (with vmap()) is not guaranteed
+>>> to work. Several drivers are using CMA, but not the CMA helpers because
+>>> they distinguish between kernel and userspace allocations to create a
+>>> kernel mapping or not.
+>> Any dumb allocation might require vmap. This is not limited to internal
+>> buffers.  Because if the dumb buffer is shared with another driver, that
+>> driver might require the vmap for displaying the buffer content. There
+>> are enough of such drivers.
+> By sharing, do you mean exported via PRIME then imported by another device?
+> Or just passing around GEM objects within the kernel?
+
+I mean PRIME/dma-buf sharing.
+
 >
-> If I knew Rust off-hand, I would have written it in Rust :). Perhaps
-> this is an opportunity to learn. But I think the Rust vs. C holy war
-> isn=E2=80=99t in scope here. The real questions are what semantics we wan=
-t, the
-> timeline, and maintainability. Certainly more people know C, and most
-> drivers are written in C, so having the common component in C makes more
-> sense at this point, in my opinion. If the objection is really about the
-> language, I=E2=80=99ll rewrite it in Rust.
+> And could you provide an example?
 
-Again, I'm not talking about Rust vs. C. I'm talking about why a new Rust
-component is much easier to justify maintainance wise than a new C componen=
-t is.
+Create a dumb GEM buffer on one of those CMA devices and mirror it to a 
+display or udl device.  These devices have no means of scanning out the 
+provided buffer directly, so their drivers vmap the buffer and copy the 
+pixel data into their internal memory (via a peripheral bus). The vmap 
+call happens via the kernel's internal dma-buf interfaces. Hence any 
+driver needs support for vmap if it wants to support this use case.
 
-That is, the existing infrastructure has problems we don't want to build on=
- top
-of and the abstraction ends up being of a similar magnitude as a native
-implementation.
+Best regards
+Thomas
 
-A new C implementation alongside the existing one is a whole different ques=
-tion.
-
->> Having that said, the obvious question for me for this series is how drm=
-_dep
->> fits into the bigger picture.
->>=20
->> I.e. what is the maintainance strategy?
+>
+>>> Update the callers of drm_mode_dumb_create() to set
+>>> drm_mode_dumb_create.flags to appropriate defaults. Currently, flags can
+>>> be set to anything by userspace, but is unused within the kernel. Let's
+>>> force flags to zero (no kernel mapping) for userspace callers by default.
+>>> For in kernel clients, set DRM_MODE_DUMB_KERNEL_MAP by default. Drivers
+>>> can override this as needed.
+>>>
+>>> Signed-off-by: Rob Herring <robh@kernel.org>
+>>> [wenst@chromium.org: Emit warning if args->flags is not zero]
+>>> Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
+>>> ---
+>>> Changes since v1:
+>>> - Emit warning if args->flags is not zero
+>>> ---
+>>>    drivers/gpu/drm/drm_client.c       | 1 +
+>>>    drivers/gpu/drm/drm_dumb_buffers.c | 4 ++++
+>>>    include/uapi/drm/drm_mode.h        | 2 ++
+>>>    3 files changed, 7 insertions(+)
+>>>
+>>> diff --git a/drivers/gpu/drm/drm_client.c b/drivers/gpu/drm/drm_client.c
+>>> index 46c465bce98c..1a57e7eadc0f 100644
+>>> --- a/drivers/gpu/drm/drm_client.c
+>>> +++ b/drivers/gpu/drm/drm_client.c
+>>> @@ -404,6 +404,7 @@ drm_client_buffer_create_dumb(struct drm_client_dev *client, u32 width, u32 heig
+>>>        dumb_args.width = width;
+>>>        dumb_args.height = height;
+>>>        dumb_args.bpp = drm_format_info_bpp(info, 0);
+>>> +     dumb_args.flags = DRM_MODE_DUMB_KERNEL_MAP;
+>>>        ret = drm_mode_create_dumb(dev, &dumb_args, client->file);
+>>>        if (ret)
+>>>                return ERR_PTR(ret);
+>>> diff --git a/drivers/gpu/drm/drm_dumb_buffers.c b/drivers/gpu/drm/drm_dumb_buffers.c
+>>> index e2b62e5fb891..ccdcc401d4dc 100644
+>>> --- a/drivers/gpu/drm/drm_dumb_buffers.c
+>>> +++ b/drivers/gpu/drm/drm_dumb_buffers.c
+>>> @@ -233,6 +233,10 @@ int drm_mode_create_dumb_ioctl(struct drm_device *dev,
+>>>        struct drm_mode_create_dumb *args = data;
+>>>        int err;
+>>>
+>>> +     if (args->flags)
+>>> +             drm_warn(dev, "drm_mode_create_dumb.flags is not zero.\n");
+>> At most use drm_warn_once() to not let this spam the kernel log.
+> Sure.
+>
+>>> +     args->flags = 0;
+>>> +
+>>>        err = drm_mode_create_dumb(dev, args, file_priv);
+>>>        if (err) {
+>>>                args->handle = 0;
+>>> diff --git a/include/uapi/drm/drm_mode.h b/include/uapi/drm/drm_mode.h
+>>> index 3693d82b5279..7d5f50e4af70 100644
+>>> --- a/include/uapi/drm/drm_mode.h
+>>> +++ b/include/uapi/drm/drm_mode.h
+>>> @@ -1272,6 +1272,8 @@ struct drm_mode_create_dumb {
+>>>        __u64 size;
+>>>    };
+>>>
+>>> +#define DRM_MODE_DUMB_KERNEL_MAP     (1<<0)  /* For internal kernel use */
+>>> +
+>> If this is an internal flag, it should not live in the UAPI header.
+>> include/drm/drm_dumb_buffers.h would be a good place.
+> Makes sense.
+>
+>
+> Thanks
+> ChenYu
+>
+>> Best regards
+>> Thomas
 >>
->
-> I will commit to maintaining code I believe in, and immediately write
-> the bindings on top of this so they=E2=80=99re maintained from day one.
+>>>    /* set up for mmap of a dumb scanout buffer */
+>>>    struct drm_mode_map_dumb {
+>>>        /** Handle for the object being mapped. */
+>> --
+>> --
+>> Thomas Zimmermann
+>> Graphics Driver Developer
+>> SUSE Software Solutions Germany GmbH
+>> Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+>> GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
+>>
+>>
 
-This I am sure about, but what about the existing scheduler infrastructure?=
- Are
-you going to keep this up as well?
+-- 
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
 
-Who keeps supporting it for all the drivers that can't switch (due to not h=
-aving
-firmware queues) or simply did not switch yet?
 
->> Do we want to support three components allowing users to do the same thi=
-ng? What
->> happens to DRM sched for 1:1 entity / scheduler relationships?
->>=20
->> Is it worth? Do we have enough C users to justify the maintainance of ye=
-t
->> another component? (Again, DRM moves into the direction of Rust drivers,=
- so I
->> don't know how many new C drivers we will see.) I.e. having this compone=
-nt won't
->> get us rid of the majority of DRM sched users.
->>=20
->
-> Actually, with [1], I=E2=80=99m fairly certain that pretty much every dri=
-ver
-> could convert to this new code. Part of the problem, though, is that
-> when looking at this, multiple drivers clearly break dma-fencing rules,
-> so an annotated component like DRM dep would explode their drivers. Not
-> to mention the many driver-side hacks that each individual driver would
-> need to drop (e.g., I would not be receptive to any driver directly
-> touching drm_dep object structs).
-
-I thought the API can't be abused? :) How would you prevent drivers doing t=
-his
-in practice? They need to have the struct definition, and once they have it=
-, you
-can't do anything about them peeking internals, if not caught through revie=
-w.
-
-> Maintainable, as I understand every single LOC, with verbose documentatio=
-n
-> (generated with Copilot, but I=E2=80=99ve reviewed it multiple times and =
-it=E2=80=99s
-> correct), etc.
-
-I'm not sure this is the core criteria for evaluating whether something is
-maintainable or not.
-
-To be honest, this does not sound very community focused.
-
-> Regardless, given all of the above, at a minimum my driver needs to move
-> on one way or another.
-
-Your driver? What do you mean with "it has to move"?
