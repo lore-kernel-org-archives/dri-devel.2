@@ -4,42 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 97BCDFED9EA
-	for <dri-devel@archiver.kernel.org>; Tue, 17 Mar 2026 16:04:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4CA2BFED9E7
+	for <dri-devel@archiver.kernel.org>; Tue, 17 Mar 2026 16:04:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BB4FF10E6E3;
-	Tue, 17 Mar 2026 16:04:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 19EE810E700;
+	Tue, 17 Mar 2026 16:04:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="5KQlqASm";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Sq0FZvEA";
 	dkim-atps=neutral
-Received: from SJ2PR03CU001.outbound.protection.outlook.com
- (mail-westusazon11012036.outbound.protection.outlook.com [52.101.43.36])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8DF0F10E587;
- Tue, 17 Mar 2026 16:04:21 +0000 (UTC)
+Received: from BN8PR05CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11011044.outbound.protection.outlook.com [52.101.57.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3772E10E6EF;
+ Tue, 17 Mar 2026 16:04:27 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ofzfnW6JTxBmV7p/Y2g1HP+GLMjVtm4+JMYZC/7uYD0BHkmUr4Bw2GOVCfietfIst6EGXL1dG/Pwby4mx7hjqs0IsdqU23QqgFLquvkMAx0oiwbGVN6B4vlv50DCm4FZmhSC5bjn+L2zVJ4iAfcTs1IE8Pr43ltSSF/E8LjFrf113A+c0GVziqoeoK6cHP8qXYp0sTYCuumXTWcPrHkOaB9H/byDeTMK08CMMUhQseZBwoN79IPIH0C37eg0t6B9wPjfqm1dB5znBoQlQ3LtXhet7ri8+og6Ds6DQYq5hEjBl+FzTuV7D2doN7Q+gBF3ZyALtEV6Lo3T/5UR7VXTaw==
+ b=iRFRcxk8DTuYVxdTt8DEA4Z0B4EfoTbGH+hoX2Ts8xWnol7obtA5/yZoSylucvxqUorztZJ+pyZtGthhjJXiHNd/EzMTPkLwX/2zgb1KVZX4+PKQz6jE1kWktTYyxoAK74n5MNUbUpd2vEWDzpTOLfuXmeTgID1kACe0bo22wN1jFGVclS6X38Hh/nw0Dwp8w4vf0GGHCC9e5swKtQ4EBTcrX0PV8xe4idRveSkYe4V2M4EKbJrIK04TOZTWyoJCVFH0JggOquPdvzOzrJiCyWkOPfzmt76XqTO9+m1s4dXlZgKHG8qXY4daQIoxCeUlKL4micUGKeoH/v2Sn4Y6sw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=OdsnV+4E0mAjOV5b7yuDU1mAEyldq7U7U+idMnhzY94=;
- b=kErI3VCq7cLlxghGZdi64i/iyiaOZ4K6UgqjuQSaf2ALGsHiIMwgUBZrEZv7Ok9ZuiABoT8BD6WIADPMeqyJ4oO5+1jtijEYkGFVI2YUetWkbCG45biaOTF64JOtT3tB7wHI0SP0mI6rMstWyeg1GJC/aUvV7lQwweymOinSekZmGozzlSd1w2NKtdyx5rvYqZgSc6qdokfdJx2La8IXNClhDevH1GZzsA5mgmnSsUoW5t05iFM3n50b8u+qxy6V8esmVvRossALRM0JPhCFfiY6AIh4cC2zgHrPoc3nz4Z7B1J2nT279hnZPE4pZnAQu9odIClNtsV2UMlU+5Zh+g==
+ bh=gOaRfrM45e97F0mGmk9xdqUGEehYHB3nuI/ymZL72v4=;
+ b=FgKy9jOspyACf7Qnb018kbBsiv/6TDC1JaPz9CYJYCSDz7VPwKkCJSjSYPZ5VQQGRPvBjmTImcT/pxsPidHPTdSuSu8JDQstLfVn9aLRnRVDYugt5VygH/OMD3IZGVShSvD3lZZ+k6DbBMUp7qQxg7TEBsWkEZxNjUdDBgcX+x0UmPD5EUiwozwY8eUfXpsPLdWciW6lV4TwNR0zqtKBu2SM/00h7qujeF15rFtyERMo9td/SoDe8WOeXQUv+Rk5KAt0XXWy8UJk3IzWHsvU6+cv7eZ6wkiCb3pHsqQsfXW7EtvsLA5lAacCyX2mFERze9xDbxfVKUCeVtPiQX3CLw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=OdsnV+4E0mAjOV5b7yuDU1mAEyldq7U7U+idMnhzY94=;
- b=5KQlqASmokSHuS0te7lhx2MyCG/VNzk66aHq9DAeVc6sV85U/e2owkIfo41GJTTrMQOZr4utDWbzBmh1z2N9NV4Zgjk9MTyOUtOWtT54VBB/B7bCC2lCGvS4GIHNiCYCb5GLHJBQUW/sGN5eQfl+217HNn6uvEsZ+55FAxI4ye8=
-Received: from BY3PR05CA0029.namprd05.prod.outlook.com (2603:10b6:a03:254::34)
- by BY5PR12MB4050.namprd12.prod.outlook.com (2603:10b6:a03:207::10)
+ bh=gOaRfrM45e97F0mGmk9xdqUGEehYHB3nuI/ymZL72v4=;
+ b=Sq0FZvEA5/B6W66FNapqNWrQZGkglTzqJXJpyvpwEi+vv5NXGtOq/2ZY5jEsQqIRsUSreJ0iXn+u/stwie7BxQ+XbUrIS0WpYPe3fVll4RrIP5hqkl1qiLWb2cFveaV3ROqnG1PK9hvkHN0la4SleSHo1toLWs9FNcuAtu6UyG4=
+Received: from SJ0PR03CA0156.namprd03.prod.outlook.com (2603:10b6:a03:338::11)
+ by LV3PR12MB9165.namprd12.prod.outlook.com (2603:10b6:408:19f::10)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.19; Tue, 17 Mar
- 2026 16:04:15 +0000
-Received: from CO1PEPF000075F4.namprd03.prod.outlook.com
- (2603:10b6:a03:254:cafe::22) by BY3PR05CA0029.outlook.office365.com
- (2603:10b6:a03:254::34) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9723.19 via Frontend Transport; Tue,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.16; Tue, 17 Mar
+ 2026 16:04:20 +0000
+Received: from CO1PEPF000075EF.namprd03.prod.outlook.com
+ (2603:10b6:a03:338:cafe::3f) by SJ0PR03CA0156.outlook.office365.com
+ (2603:10b6:a03:338::11) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9700.22 via Frontend Transport; Tue,
  17 Mar 2026 16:04:15 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
@@ -48,59 +48,54 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- CO1PEPF000075F4.mail.protection.outlook.com (10.167.249.43) with Microsoft
+ CO1PEPF000075EF.mail.protection.outlook.com (10.167.249.38) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9700.17 via Frontend Transport; Tue, 17 Mar 2026 16:04:15 +0000
-Received: from SATLEXMB03.amd.com (10.181.40.144) by satlexmb07.amd.com
+ 15.20.9700.17 via Frontend Transport; Tue, 17 Mar 2026 16:04:19 +0000
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.17; Tue, 17 Mar
- 2026 11:04:03 -0500
-Received: from satlexmb07.amd.com (10.181.42.216) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 17 Mar
- 2026 11:04:02 -0500
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Tue, 17 Mar
+ 2026 11:04:05 -0500
 Received: from hwentlanryzen (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
- Transport; Tue, 17 Mar 2026 11:04:02 -0500
+ Transport; Tue, 17 Mar 2026 11:04:05 -0500
 From: Harry Wentland <harry.wentland@amd.com>
 To: <dri-devel@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>
-Subject: [RFC PATCH 04/10] drm/vkms: Add CSC colorop support
-Date: Tue, 17 Mar 2026 12:03:44 -0400
-Message-ID: <20260317160350.229028-5-harry.wentland@amd.com>
+Subject: [RFC PATCH 08/10] drm/amd/display: Check CSC colorop bypass before
+ programming
+Date: Tue, 17 Mar 2026 12:03:48 -0400
+Message-ID: <20260317160350.229028-9-harry.wentland@amd.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260317160350.229028-1-harry.wentland@amd.com>
 References: <20260317160350.229028-1-harry.wentland@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-Received-SPF: None (SATLEXMB03.amd.com: harry.wentland@amd.com does not
- designate permitted sender hosts)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF000075F4:EE_|BY5PR12MB4050:EE_
-X-MS-Office365-Filtering-Correlation-Id: cf1888a6-16ef-459a-23fb-08de843ed661
+X-MS-TrafficTypeDiagnostic: CO1PEPF000075EF:EE_|LV3PR12MB9165:EE_
+X-MS-Office365-Filtering-Correlation-Id: f99a36d6-aad3-4b14-1a58-08de843ed8e7
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700016|82310400026|376014|1800799024|22082099003|18002099003|56012099003;
-X-Microsoft-Antispam-Message-Info: LBsA8HqOkiGe6g8g6hjav4Q1gm0G/34G6wivFJvh6j083Yw5wOqQyCmKuCjls5hFomXFMKjQkhdJrR/XPP8WNj4LnKaeS1wi80fiSoEjePTmWWLt+skUCmNteTy5m4QsHIGl5NIx1orbzupMhs6jfwQmZxM4wWuiVZLxmPfVUYK6SPNDS9w+kqV+F7zYMuP6VF07AWblW4B5Koa2bZH8QHg0zBT7AT/kTVLAuAVv1Vn+NTu3J30Z619SvLCwpSLB2srLpbIPzt2BLlorMm88i+OlW8auFN/j0q2uriRGLZ6Ns9fudJBWKKbcefj5XOsC4q1Z4COa0x9OUJgagPI9DTIuCXm7mJGXg6GGSyUAgJwpVn/eQXtIFQ8Nlg38N0Y/un6PvcPTFAC3TXK/5IQnvxfJnjpV1JdWud2Jxr2HwIaJ1v6l7sFPEe8565bss2yrRXtTTzAPT2UNnlk19iB+e45B6rivZEiZ7dyTb4xGcZJFfKbyB5u62U8hjzNpiNMqZW98PpkhoJkSejG12FjB30K/YTLL30FmHdhS545GEUl2uDxgmq6kc7TWYDx30II5j7R3K1QcJYe0dcL0x0gthjwFrV8bAMg3K4UBmLCkycSyNCZHod5wdxUNcAPiCymjykZW5m9Vo1eR0s4RcLyEzun3igEl2EM1/+ofxh/SGf6NqtEV3QF0uiLvPqjMDgr+NQLo8ksnd0MlVTP2iOCNwgEzNCOYJD/S0wFBvYeSvzeGpqir7LhFbnAUtSn3imsVs2kGot+t+APn6FdNwNzCFw==
+ ARA:13230040|376014|82310400026|1800799024|36860700016|18002099003|22082099003|56012099003;
+X-Microsoft-Antispam-Message-Info: Ei/9EO0nm/yC4yiI/J7eDHds/mAK4OIXAVwm7TUlLm/ROCQpgY+kMRaX1BMfvMRErUtQQGGt4X1EtTbALmi2Jh3A/SGrXpQrme0nKVqKOCylGITUXgGQBf887TS3EaDiYx+fDszbC8SerRSUrpJgI58FrVDLA5LHLviUlRtXFAEjC4zqrH10SBZlq3/oDP0bbeMFJQ5xu+XUxKXvvdJA29YG+WlRnL6ZUR1bqkKBd+V9OrWAdKB+LiXZlFJjs/ubK1TWOvkhfj8y4EM2xCakqHN6M8Nu7QHiZ2xRFr5kX90BuiHeFsSWeVrTumgV9bWlCtUc0VCJu6qT6LAxYX7Ct/jviXgS/Xnf0cZTm0uWVt2hYVEX24CNi1i15f+ZJTOZrCvzSlR0jbmdQL3lULgSkHgYZzSzd1jVJPtG9FTm7e0RfmeO+FGn9cXHWC+bvsfwdhxDSayqs4WNKcb0VX51O2kO2BEAv7DouS1qWVQJu8nYMyoOWG1yRKwSwiz0m1b5HkgiOmyb6L497uNSY7JWUBsmX27IKhs2MDyFNrbmD7tNXxYzzH68MhvpkEyuEhOMEazUPgNIkoJ3OKu83lTAOfi0PHs28jC5zGIlg524/fKHkOiYup8XwuhKi3yo2k1Aks1BSwIz9EMkPZ8usNdysh40dOexQbGpblv0FuyYUw/395Rb0utrLBthy0u6sY2OCxSplTYesXDZ/aWL+1Anw0PsTriymwMTu7hzro4B4F05nudzJ1C+nveQ6Vg2X3wx7RR+iftPXus42DCIrMohJg==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700016)(82310400026)(376014)(1800799024)(22082099003)(18002099003)(56012099003);
+ SFS:(13230040)(376014)(82310400026)(1800799024)(36860700016)(18002099003)(22082099003)(56012099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: XIpYF3S3QnxU+B4LR95cdCNPvaz7uc1CpBWnJjmB8BmqZCqifyar5/QcCfz/16n3E0rl2G3lW1wKXvisbsO/FiYShsWNNHD02dXhUP3mZmJJQ28owrAchcmZLzsY55pA6asa2vl4QK9Xr9S1t5fC3TjoHjILErzzb7U4QQLxKJamZyNFOIHCqrBI+RkVom3G7b4mmKBmOqWHTj/Wn4KilxJzvTlOMNaLEJ07yZtNHv1sJdLb/hRoq+ay1frxNi0Z/PG2TAi6utQfGYc1r7tCjRi1RXNDgXZOk+hHFjtiTyzieAaTKBjuF0ICKwURaPeLSvaWYKqzgxERo0440F8Ync7RY6NENTekRIPKe3UuxMPqYfTNK+9HAKemlCu9uAg+FjTiRspkjIyWru9Fsezl0un/r0m0MgpddW5BLoFUNnWmaMhJVL7hWWSK3Vg65BPN
+X-MS-Exchange-AntiSpam-MessageData-0: 76q3KLAmqDmYYbRudbDyHz6y7ogy7EDRBXgRpcgbGUUCLaJ37UxT816csqc4gu5tMHMqGNNNiFXBq0V/VIUWBHhCf/lUU97rQQ5MDalhC9boP+dOdKkn5OSpOz5jnsvTYEhTemmfaiUscZwzNbru36MYkfBCjs+4pD0ICLYcqzU9dEr76hv/a2+Ui1ele25OWKcqW34148H22BFPcphzqedSxs5nmtd5jbvv3V/qoDSSKmiAO3iT03r11LLQcxDatTBgbeI7Inui38s5KN/qRv8BdZzoUsNmhL7IxVEZnCF3gebOOJ5FLdlldn2HjtycZUWeSsSeHgUWkCmurUB9WuQunP0bh1NFISRk1iehD6EvqvcP6H7JuFTub1zgo/wzqFbaqDZ20Q1tPa6dKuWvfRXlzXXGNHW/jYak3Uc5TkwrURmkm5ifcD9+15KD1wH1
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Mar 2026 16:04:15.1575 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: cf1888a6-16ef-459a-23fb-08de843ed661
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Mar 2026 16:04:19.4302 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f99a36d6-aad3-4b14-1a58-08de843ed8e7
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF000075F4.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF000075EF.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4050
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR12MB9165
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,146 +111,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add CSC (Color Space Conversion) colorop as the first operation in the
-VKMS color pipeline. This colorop handles YUV-to-RGB conversion with
-support for BT.601, BT.709, and BT.2020 encoding standards and both
-limited and full range.
+The __set_dm_plane_colorop_csc() function was unconditionally
+programming the CSC (color space conversion) even when the bypass
+property was set. This meant that even when userspace set BYPASS=1,
+the hardware would still use the CSC.
 
-The CSC colorop supports bypass mode for RGB-only workflows. The actual
-YUV conversion is performed by the existing conversion_matrix path in
-the format reading functions, so the CSC colorop in the compositor is
-a no-op that just validates the configuration.
+Add a check for colorop_state->bypass and reset dc_plane_state->color_space
+to COLOR_SPACE_UNKNOWN when CSC is bypassed, properly indicating that no
+YUV->RGB conversion should be performed by the hardware.
 
-Increase MAX_COLOR_PIPELINE_OPS from 4 to 5 to accommodate the new
-CSC colorop at the front of the pipeline.
+This matches the behavior of other colorops in the pipeline which
+respect the bypass property.
 
 Co-developed by Claude Sonnet 4.5.
 
 Signed-off-by: Harry Wentland <harry.wentland@amd.com>
 ---
- drivers/gpu/drm/vkms/vkms_colorop.c  | 64 +++++++++++++++++++---------
- drivers/gpu/drm/vkms/vkms_composer.c |  5 +++
- 2 files changed, 49 insertions(+), 20 deletions(-)
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/drivers/gpu/drm/vkms/vkms_colorop.c b/drivers/gpu/drm/vkms/vkms_colorop.c
-index 071f3a8d2e7c..429491581008 100644
---- a/drivers/gpu/drm/vkms/vkms_colorop.c
-+++ b/drivers/gpu/drm/vkms/vkms_colorop.c
-@@ -16,7 +16,7 @@ static const struct drm_colorop_funcs vkms_colorop_funcs = {
- 	.destroy = drm_colorop_destroy,
- };
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
+index 0d58eb45552d..79ca7e891244 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
+@@ -1931,6 +1931,12 @@ __set_dm_plane_colorop_csc(struct drm_plane_state *plane_state,
+ 	if (IS_ERR(colorop_state))
+ 		return PTR_ERR(colorop_state);
  
--#define MAX_COLOR_PIPELINE_OPS 4
-+#define MAX_COLOR_PIPELINE_OPS 5
- 
- static int vkms_initialize_color_pipeline(struct drm_plane *plane, struct drm_prop_enum_list *list)
- {
-@@ -27,7 +27,31 @@ static int vkms_initialize_color_pipeline(struct drm_plane *plane, struct drm_pr
- 
- 	memset(ops, 0, sizeof(ops));
- 
--	/* 1st op: 1d curve */
-+	/* 1st op: CSC (YUV to RGB conversion) */
-+	ops[i] = kzalloc_obj(*ops[i]);
-+	if (!ops[i]) {
-+		drm_err(dev, "KMS: Failed to allocate colorop\n");
-+		ret = -ENOMEM;
-+		goto cleanup;
++	/* If CSC is in bypass, reset color_space to unknown (no conversion) */
++	if (colorop_state->bypass) {
++		dc_plane_state->color_space = COLOR_SPACE_UNKNOWN;
++		return 0;
 +	}
 +
-+	ret = drm_plane_colorop_csc_init(dev, ops[i], plane, &vkms_colorop_funcs,
-+					 BIT(DRM_COLOR_YCBCR_BT601) |
-+					 BIT(DRM_COLOR_YCBCR_BT709) |
-+					 BIT(DRM_COLOR_YCBCR_BT2020),
-+					 BIT(DRM_COLOR_YCBCR_LIMITED_RANGE) |
-+					 BIT(DRM_COLOR_YCBCR_FULL_RANGE),
-+					 DRM_COLOR_YCBCR_BT709,
-+					 DRM_COLOR_YCBCR_LIMITED_RANGE,
-+					 DRM_COLOROP_FLAG_ALLOW_BYPASS);
-+	if (ret)
-+		goto cleanup;
-+
-+	list->type = ops[i]->base.id;
-+
-+	i++;
-+
-+	/* 2nd op: 1d curve */
- 	ops[i] = kzalloc_obj(*ops[i]);
- 	if (!ops[i]) {
- 		drm_err(dev, "KMS: Failed to allocate colorop\n");
-@@ -41,23 +65,6 @@ static int vkms_initialize_color_pipeline(struct drm_plane *plane, struct drm_pr
- 	if (ret)
- 		goto cleanup;
- 
--	list->type = ops[i]->base.id;
--
--	i++;
--
--	/* 2nd op: 3x4 matrix */
--	ops[i] = kzalloc_obj(*ops[i]);
--	if (!ops[i]) {
--		drm_err(dev, "KMS: Failed to allocate colorop\n");
--		ret = -ENOMEM;
--		goto cleanup;
--	}
--
--	ret = drm_plane_colorop_ctm_3x4_init(dev, ops[i], plane, &vkms_colorop_funcs,
--					     DRM_COLOROP_FLAG_ALLOW_BYPASS);
--	if (ret)
--		goto cleanup;
--
- 	drm_colorop_set_next_property(ops[i - 1], ops[i]);
- 
- 	i++;
-@@ -79,7 +86,24 @@ static int vkms_initialize_color_pipeline(struct drm_plane *plane, struct drm_pr
- 
- 	i++;
- 
--	/* 4th op: 1d curve */
-+	/* 4th op: 3x4 matrix */
-+	ops[i] = kzalloc_obj(*ops[i]);
-+	if (!ops[i]) {
-+		drm_err(dev, "KMS: Failed to allocate colorop\n");
-+		ret = -ENOMEM;
-+		goto cleanup;
-+	}
-+
-+	ret = drm_plane_colorop_ctm_3x4_init(dev, ops[i], plane, &vkms_colorop_funcs,
-+					     DRM_COLOROP_FLAG_ALLOW_BYPASS);
-+	if (ret)
-+		goto cleanup;
-+
-+	drm_colorop_set_next_property(ops[i - 1], ops[i]);
-+
-+	i++;
-+
-+	/* 5th op: 1d curve */
- 	ops[i] = kzalloc_obj(*ops[i]);
- 	if (!ops[i]) {
- 		drm_err(dev, "KMS: Failed to allocate colorop\n");
-diff --git a/drivers/gpu/drm/vkms/vkms_composer.c b/drivers/gpu/drm/vkms/vkms_composer.c
-index cd85de4ffd03..1c7dba35dc3f 100644
---- a/drivers/gpu/drm/vkms/vkms_composer.c
-+++ b/drivers/gpu/drm/vkms/vkms_composer.c
-@@ -15,6 +15,7 @@
- #include <kunit/visibility.h>
- 
- #include "vkms_composer.h"
-+#include "vkms_formats.h"
- #include "vkms_luts.h"
- 
- static u16 pre_mul_blend_channel(u16 src, u16 dst, u16 alpha)
-@@ -187,6 +188,10 @@ static void apply_colorop(struct pixel_argb_s32 *pixel, struct drm_colorop *colo
- 		if (colorop_state->data)
- 			apply_3x4_matrix(pixel,
- 					 (struct drm_color_ctm_3x4 *)colorop_state->data->data);
-+	} else if (colorop->type == DRM_COLOROP_CSC) {
-+		/* CSC conversion already handled by YUV read functions via conversion_matrix.
-+		 * By the time we reach this colorop, pixels are already in RGB.
-+		 */
- 	}
- }
- 
+ 	encoding = colorop_state->color_encoding;
+ 	range = colorop_state->color_range;
+ 	full_range = (range == DRM_COLOR_YCBCR_FULL_RANGE);
 -- 
 2.53.0
 
