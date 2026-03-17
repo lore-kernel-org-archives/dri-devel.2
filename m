@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5C275FF6E9A
-	for <dri-devel@archiver.kernel.org>; Tue, 17 Mar 2026 23:05:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ACA25FF6E9E
+	for <dri-devel@archiver.kernel.org>; Tue, 17 Mar 2026 23:05:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B7B3410E2FB;
-	Tue, 17 Mar 2026 23:05:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2578B10E66E;
+	Tue, 17 Mar 2026 23:05:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=nxp.com header.i=@nxp.com header.b="erQk5dBs";
+	dkim=pass (2048-bit key; unprotected) header.d=nxp.com header.i=@nxp.com header.b="ejCzzTKs";
 	dkim-atps=neutral
-Received: from PA4PR04CU001.outbound.protection.outlook.com
- (mail-francecentralazon11013052.outbound.protection.outlook.com
- [40.107.162.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4ACBC10E5DA;
- Tue, 17 Mar 2026 23:05:25 +0000 (UTC)
+Received: from DUZPR83CU001.outbound.protection.outlook.com
+ (mail-northeuropeazon11012023.outbound.protection.outlook.com [52.101.66.23])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DBBD110E363;
+ Tue, 17 Mar 2026 23:05:33 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=EPp4Oue2aZREFIN8T9B+XsSFJzH/PULZO1XO+kYA3fg1ws0nSrtpkS0kZVGfdC0nScNlmXWyhWepoaroOG01IjdS70Nqd/Mt1ADi7eQhYY+tm0wp/dj1C2Gt0TbsrvI8uFVHJOeNTUMSNK+SwD5yvBGiwptATJ4FlmOnl4V8fTHwYKIFJtv2SDNqEFiB1w5mgJDn7+wNvLs9kr3DuHn8MoHFT4zhYBOCL9yo9gi0CwlyeQhCe5YFUiFl6zTxi4jabKbYXMokiW3vhZHKyLRn8bEY2050zNwAoV0TTRmorXpsA2ONJ+5fTc8LlwJ94vH3+i4XFWrkw/h1z6PNlsDamA==
+ b=uop+/OUFPzi21FkaWwVgOsl9+NXLqYTdd9aLSC8mvV3SWgVYfnB/niz7gFiBzcUJhvKyTA23rKSfYUoPEURX3FqTuW4p7ewYbzsqJGwIO3wdE1faaA7NLZhIRNWxQvujYuazUgS+wrAjAds+Ex/Jw/5N7qWzPwh1v3hjYrn0yi4fWGrssxGWr6/7xu62CM6XGNodqW7WSxsDc0ldpOzpxEGGUa+OTDwa781CdZ827n5nZuIPI3HmXLGC5U0mgUNm3qdspbo7b8Bve8DlIXjAbhqizq7c8FaCNTYIxObrx3RirH8UWeNlKEfV0gRClHPO/qhCUVgIVYIcqyn1lOXQpQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=bVCZxFMmrHcxPEw199KrXpsyKqfxBTx39LMKrT8fVBA=;
- b=wlSzfCfvvOZanoCxuxLKubb1f+cYWLNFZq6gPmUfunZHvhMtmUXVZtoi9LH9hx1jSVAE7ZzE3tNH8s/XZmUgaMsdOboqc1/CA899Yf3bV/qNdS2iyH4FDrslwx6oc4kN8F7xESbEh4APJ2bI6/HjUf/QD8RD5ORTKkgt3xuyPvKCONY+yEiWGIwsTe5dOL8uLn6MEfnU/MDuNi3Y66wMQj3+5O1/9k8fGYPuFynVuikWI3NRvdHJLDqBwFOfZvaxY9aaPqeHNT1Kc0dSMUxZxDnjaJpc2rqfFj/ZWzgKQCoXo3jhitI2fOS5kfwK2ffsrs6f/+vqFeHhyPOjNTUmlQ==
+ bh=lj7gQiNNffFQp3eOaqRbNXvhydrUb1dJBJh1TF999t4=;
+ b=gZQVS1+GUGI3ZMSwF9exLRF7kMW+ZvQ0X0bZD/i39I/pljduBHt2kEgtyLDTrcDJpcxUopuPcIWaMF7zbtPNh+O5HJjH4puVEF7Gml5OoY8CIiEFFW8Em4gBlSkQXi0gUAHKS9bNG+lWVkJUkQYKonr8WRwz7zaULqjVPsJZ9GAgfavbLuQCRn16+aAKYU4QXQaG+8IC/BWr8TVkLdHvBPF8qf6aIW+5lpGywvG+Dhvph+WeeBmXdahhwKa6QDlS8HeJe6UhQSDn3w2leRM3TIb8tCzgGpc33q1eKyepU9L9SvOR7roDSqV43sDfGXP12AjrA6Uo+VCBGKVrqzjU5A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
  header.d=nxp.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=bVCZxFMmrHcxPEw199KrXpsyKqfxBTx39LMKrT8fVBA=;
- b=erQk5dBsuR3bQHzKWnDCyZD1sR8hvNTeqoyjeRbZ+LXSt0PyAdTEDd2Gs/DPkI9Z/l74tGgUjeCZlR4t5daBaXFJ8Y3M3piiQwqn55inIcjXzpiNBqQPjkr5xf3/yQ03QMx9qTPeG91oPMpICtgSN1bCZ5LaoHcVz+/ofhTWNI5PVaku2kY6LVH421O0j7h8JqWCfPTns34AeVXNbXy781Ll2/5yrHyTp+Qh5BihU41JXJAiOte9E8bXhqViLzL2EhoFsxE1DEoFPPIFI+HQ3L/d5rfX+JvTZiHWkWY8oD9EqvohvEprMFX0YQ2QWe1lLBZEx/6bLrHNayxaANz+Qw==
+ bh=lj7gQiNNffFQp3eOaqRbNXvhydrUb1dJBJh1TF999t4=;
+ b=ejCzzTKsoeukpKT0S3as9jI7Q57jtWr6L9Lzeh87z2b1KCsmPqCi6zJciqiWsDzjDIr7/XIMQYd4MN4RfpaENVIvLnZXtDo5a07wY5oTC8oqHzcX2BPaSzuWPAzDKYnrUZzh7nGmdRHrsexpdywXeJxYeCIkTy9GcCO9xZ6v8BSh4B3ICY2P7ifw6l/O6ZKtCA1QcAwrPy85Df18jPvLGbSJmwy3Yf5JsF2Xqu/OOqEZa5pxtyhhUFrMaq6IZtGWo53zgdehdtOGwLs3Nu50dZlSk201QanqB9GKVrDq5JA8cXYv6TZ7uFw7y94jFbAFXUC0MAQ47Fp1l0nyeV2/Bg==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nxp.com;
 Received: from AM9PR04MB8585.eurprd04.prod.outlook.com (2603:10a6:20b:438::13)
- by VI0PR04MB12032.eurprd04.prod.outlook.com (2603:10a6:800:311::18)
+ by VI1PR04MB7022.eurprd04.prod.outlook.com (2603:10a6:800:126::21)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9700.27; Tue, 17 Mar
- 2026 23:05:25 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9700.25; Tue, 17 Mar
+ 2026 23:05:31 +0000
 Received: from AM9PR04MB8585.eurprd04.prod.outlook.com
  ([fe80::f010:fca8:7ef:62f4]) by AM9PR04MB8585.eurprd04.prod.outlook.com
  ([fe80::f010:fca8:7ef:62f4%4]) with mapi id 15.20.9700.022; Tue, 17 Mar 2026
- 23:05:22 +0000
+ 23:05:31 +0000
 From: Vladimir Oltean <vladimir.oltean@nxp.com>
 To: linux-phy@lists.infradead.org
 Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
@@ -55,74 +54,89 @@ Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
  linux-scsi@vger.kernel.org, linux-sunxi@lists.linux.dev,
  linux-tegra@vger.kernel.org, linux-usb@vger.kernel.org,
  netdev@vger.kernel.org, spacemit@lists.linux.dev,
- UNGLinuxDriver@microchip.com, Yixun Lan <dlan@kernel.org>
-Subject: [PATCH v4 phy-next 06/24] phy: spacemit: include missing
- <linux/phy/phy.h>
-Date: Wed, 18 Mar 2026 01:04:42 +0200
-Message-ID: <20260317230500.2056077-7-vladimir.oltean@nxp.com>
+ UNGLinuxDriver@microchip.com, Heiko Stueber <heiko@sntech.de>,
+ Sandy Huang <hjc@rock-chips.com>, Andy Yan <andy.yan@rock-chips.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+Subject: [PATCH v4 phy-next 10/24] drm/rockchip: dw_hdmi: avoid direct
+ dereference of phy->dev.of_node
+Date: Wed, 18 Mar 2026 01:04:46 +0200
+Message-ID: <20260317230500.2056077-11-vladimir.oltean@nxp.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260317230500.2056077-1-vladimir.oltean@nxp.com>
 References: <20260317230500.2056077-1-vladimir.oltean@nxp.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: VE1PR03CA0047.eurprd03.prod.outlook.com
- (2603:10a6:803:118::36) To AM9PR04MB8585.eurprd04.prod.outlook.com
+X-ClientProxiedBy: VI1PR06CA0178.eurprd06.prod.outlook.com
+ (2603:10a6:803:c8::35) To AM9PR04MB8585.eurprd04.prod.outlook.com
  (2603:10a6:20b:438::13)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM9PR04MB8585:EE_|VI0PR04MB12032:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9477f939-8a49-4bc3-640e-08de8479ab03
+X-MS-TrafficTypeDiagnostic: AM9PR04MB8585:EE_|VI1PR04MB7022:EE_
+X-MS-Office365-Filtering-Correlation-Id: a2d73884-a1e3-4fea-dfd6-08de8479afd9
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|10070799003|376014|19092799006|7416014|366016|18002099003|56012099003|22082099003;
-X-Microsoft-Antispam-Message-Info: ks+owPAXPwIGJ8mbE12BLS3BQtURRjqLLF0ErzoO/+5E7wH+Nhx+NTJrUwddr29zTIsZFnwVQFBj2xTw00D5COy2p9PxGqiaaTBntEtwJ4X2i9ObB1TkfZIJrTDzH0VqMCfjTPKp2V4fP0h5uFwbRKGn6xELotPzTymnsBcuShtfQGJLhx7T9FebpbIBgxXXvNQCn8aruEHjU42rI9FgcnQ5OURuboMGT6pwEx82VsDsTGsjjUxOZ3ErlAyW1Yh04F47G37WWYkMrrpAcJYfiynkW5lexXuyyG4Jo8WvRXftXxDac0BmXbgCL+E3weh2ZEQoN0vl336zhrgedJPoavf9UJ2l1TQCKaISL0FvyGi+nXZuOvDOyZZGR9loql1X9gnYw7SVTu+e4h8drDQTbvlu5csRWwdYVQWjeiOed9KCmtnjORuBZ+jl6jpGSV2pUbvpLtDq+P60iJYHfZsYhrAajNBC37QRD2SpIxD80bo6t7KUOhK80bXcKneKLnHxwteu3eAgjag06/KBbVqGjHw2aFnFwg0v9s+p5VPC+GG4A789UpBpUF6Hi6nIuBTGrsTk20HbJLJe1QoiGbDJxcZrt73weZu5yuMUPnrckpnNJ7Zvhevpzz/khT6D8qpB9kBNAUrJnSfro6Umxe47JqUTjuqAk6yk5yRPgsXaqIwwq3Wb2/wHZ2NtEMJ0iK8VUhG97J+mJRb99xBRy/pe8ROsNoyzzUXtJKAEiWvbqRA=
+ ARA:13230040|1800799024|19092799006|10070799003|7416014|376014|366016|56012099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: 0OwxsAGG/7nAUXTZVN9Bn5YrvZ7eteunuZEDyTt3hRBhIc6WO0dIDR3iXoQqzsxoo8XbG4M2cAuJEhCU5bTKdJQ93C3T1i5hiK8mAkBGFVAcsGY9GNHcLk62JYxNb0Z599EQ1ym2jRY8R2hsxdAL1pk25HzluiIhQhk7TpIoJh28V5GIPwppPe/FQ+SNBXTPpi3Utjik8sCJVxGVTJZpDzf6NgmEnpja4LIQkaOfkvyJ94axWVMsx7zwh0chTl+75a8uwx5GawZrobT9eeb8DHQmlVe+TN3IQ6Q5dfDTZSRiNVQlwWlvP1X5fuEIbquzLJG5a8+IufKRGMSjsQGZAGRpfIZqcJRpJaNnbQhRojNtiv1IaxazD0JidTh2fyroylLZD3ahxZ2WBOHfaFc0ckg0SBEL2qa0YzB6IR8PCZfiDRLQXiuBCXS44HewUmMFuepE5rNYa21kr+2XlaCviX3qVvmb7UvagsdDGZEBOaqueP8jLtPaoq3Ee2QHbdlwzELbG2fglMzSz0RIvM7TUHhXQDsJSQaa68ogcl/sbPB35+XvWCMd1yC/S87/1QMqsSuhzFrecgP3pSU1nURXV7OCIiw8KJBhwRjz+rDTFnlVSivO+A6yy6I5VvDjO85tA5ps4PVY7uPe18PgAFOVincrT3ZSOoO0vnwYpSMcWLS/uXMHxFP5SHimq+LQPKyxtxg15lhCMNXJz9ZiIjkVz7hPAqY0KRKnevVwV8KdpV0=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:AM9PR04MB8585.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(10070799003)(376014)(19092799006)(7416014)(366016)(18002099003)(56012099003)(22082099003);
+ SFS:(13230040)(1800799024)(19092799006)(10070799003)(7416014)(376014)(366016)(56012099003)(22082099003)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?jpgY6y3zQdKy/hS6jVYYBWXz7YLZzfbQYhQeEOsxsx2jiBXdLnYoeuc0rfB5?=
- =?us-ascii?Q?hFU2PIkOMS1Uy2hiolw0Sn6F7MUZ7wlJsc1lFzgR1CaVzhLv+NJDm329gMnZ?=
- =?us-ascii?Q?/vmOwaq7oPhs/syPZlO3Mzx+HrVHV0qZt1TNc2vNHocJr5Z3JCXVpHivrmlc?=
- =?us-ascii?Q?+f4YPM0dn5MY67L7SgmJyQldTYkJMPItOSPXECFDHqAzPoPdXZdjpzXNRxUj?=
- =?us-ascii?Q?1KzvKn9JEf3JKn5Bt/IIObyV88ms2o9cNW0Z6Ds5sYJVOWa9HkyyhDIc3BXI?=
- =?us-ascii?Q?TjyanaVMDFM8pzLZrrAkPRDACoX3aK801x0pPtUzIGWm1RRPeMCx/y+0PPSa?=
- =?us-ascii?Q?xTY8gN+9QzcfmMMj5ADBibkNrwvywc/RfhSGhPnH+RXWqZ+NSlFXMCrt9e5y?=
- =?us-ascii?Q?PkcFRq5+ikbNfLQBsm47Dcknwf/2lEm6Mk/xzHEMRv+dI6ymCUKRujtvzgFB?=
- =?us-ascii?Q?3mwMzPND0/LpmpdpyrXNojRHoYpdOF/GemR36gIoPe4PDbQEEaOAGZ3N/Fhx?=
- =?us-ascii?Q?yW7LWnhGBMT0iCY19mNAGa7GVG0zaNEdWOqv1TiWWE991vwf+zDoc29Cv8S5?=
- =?us-ascii?Q?ySAJY0i+3tByeAvuyT4nL3VP4/4c2IFxx5FWASBeV4UD5qMPWLzOh1Q9K5+s?=
- =?us-ascii?Q?2yXRLNXX2Rn2Z5Oc2XVBGIrJFC/NMw8xENPe2tU9WH74fHBuQIfV/UbMU8AS?=
- =?us-ascii?Q?jIMmAaQ1iULcuQW7LTTlevJvZEV+ZC/ro6RGY8d8rbcXiZ4xMKfhk/VN0Fkr?=
- =?us-ascii?Q?o4rqfMQNCRueyBfuAr613WLnB1F8h3EHJxcluvhv11EWcagw92mPBTK3a2/f?=
- =?us-ascii?Q?HChCZ282qQlv95WyZQqzDglknMNYjYwBmdb3S4oGZfkZbya4cxdIR6UXheZ3?=
- =?us-ascii?Q?a3Lw7AgYbAgkz6ZBYEwLQtbJfMxPs7iZ2QLt1CZo+pOtk84o4UPTtiMqzAYN?=
- =?us-ascii?Q?NuZ+32DKbFs5NGlMCM1fCLcRA0aAceohQDY0gfgKaL/uRE/iBb2lCk9zj73D?=
- =?us-ascii?Q?dJeMUmyXV1M6R9muqQVFCuLHnkL+yJ/BHRGgxKyUcLQNdjPkVzbRPG1RoPB1?=
- =?us-ascii?Q?B+r2HOiA/pZhe1GC5lOQdECY0kWqaPbsjJXC2MdtTlfMnANdlbShZcsKX1xp?=
- =?us-ascii?Q?koYYZJGpFGZFHID/RWpXm07LLR2F30zWeCnpGkxbrzEu7KykwKAzgn8kl5t2?=
- =?us-ascii?Q?bRYsj6Wf86F4SDlZFdQgHDP0C4mthC+p9zt+6HQjmn2HV87rnpEoCgbLx+qb?=
- =?us-ascii?Q?s0c55YqSZzt2G0VELI348v8yB1PUa4WXRJvpfNd5V3GuBMk77zrdfJaxoVge?=
- =?us-ascii?Q?V+wBZAu65nHRSv+alg3nwj2gbXngKWk5MFxwKRqEktv93LuesQklfcMFlqF1?=
- =?us-ascii?Q?vvS1uCV2E2Pg9ml4m+zgcsG1b011H1ZI+C9WI2RqPJymRYr3cr4/B0MDotP7?=
- =?us-ascii?Q?5jfXMpQaWD7GWDxWYBc0OKNWtB509f5fQi1FxK+Gsch7tP8vf1hZiHZzS7rg?=
- =?us-ascii?Q?WB4bhNGvqhjzMMN9L0W73EDUj1/swdegxAi5f0vzqJ0+9bIk79NJ5QyoDMC1?=
- =?us-ascii?Q?iPJtF5M7xD4BAACZYimZZi0ZW7iR2saJKXc4CFvbtGFjPiCnB5vIk2WcP9Mj?=
- =?us-ascii?Q?UeaMcnkhF7sq1KEFtyPvpUSr6jxWOZV4WCxc61adIdhNKURIvQYOkgncE/vX?=
- =?us-ascii?Q?Yl0eXbETs0IhdwKTL+S9na6uqcagZVwdQOv1eC1kqF0WQ/aDnjQCbwtX0RV6?=
- =?us-ascii?Q?sjFbJCU1olGUGYcou9/HDFJAKlRx0y3paBsvJGDNuifTxtH+6K/wBoAoPylY?=
-X-MS-Exchange-AntiSpam-MessageData-1: 7/FSgdA3FRkB5XZuZIzne4yCiOJUM5WmGWo=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RXErRnEycnRzRS8zTVVpUmUwbDBOT0l1Y2NyR2U4dW0zWUNKOVJiaEYrSVNI?=
+ =?utf-8?B?TEFka082UE9Bb3IxeGwwbGxyRFNJbGx2QVhOekJKVE1hMTRPcjhsdHQ0Qkg0?=
+ =?utf-8?B?VFhTWnVWSnlxd2tTbjh6cjZ6UHJDckVHYWFESVBVZEMySWdjbW5MWFE5WnZK?=
+ =?utf-8?B?UGFoazlRdE04RVNnbjYyb2hRcUlaaXF6ZC9sTUV1QUdpZXY3WHFDWk91T09F?=
+ =?utf-8?B?VlFrYkZhYXlNTTBDSXFUOU1ETlgraktsRFk0TGlsT3JxelZqSk1mMkY5dm1j?=
+ =?utf-8?B?OU9tM0VSNisxYWMrcERKS3NFZXVObVQybTZUS2Vnb3h6aDlDWkw0azhxZUF4?=
+ =?utf-8?B?ZzNiWTVPUThnWmt2V2QyVmp0Ylh3V2NXU3BqaVAxUFlWa0hhRzRnbG9TdnlQ?=
+ =?utf-8?B?MGFNYUxmTFRXbVhlOWxEN2U3eTZRaWxTSS81MjVua29KQmlsdk1nTFhCdG1V?=
+ =?utf-8?B?aFVCcUQyUmZHUE5VS2IwTlRqbVNuOWgwM2gvK2dydjExOUoyeWVkSDhTdk1F?=
+ =?utf-8?B?TmFmVkQxVVRTU1FvUlIvOGhkQkFySnNsbEFaZTdFSjJOOGZvM1JtMXpYbnJw?=
+ =?utf-8?B?SkxKTUZYMVBDa1dkOEpRSk9wQ084Ukx5SUtUSTIzZ1dKOTlqYjczbTNUMy9R?=
+ =?utf-8?B?UWhqL2JhdUhoeStaWUdTSHE2b2h6UXRNd2ZqVUpESXhka1pkQTkvWFJmZ3lN?=
+ =?utf-8?B?MlpFYUxYZFJxMmMybXdPd3dHQTBqOGN5VlZ5UEljSDZVcDBJRklWZ3FEZ1hu?=
+ =?utf-8?B?YkRjRm43Z1ZUclh1SU5zUVlCSDk0bkJRQlRDUmlwWTJIUzFnL1RZblhEeTE0?=
+ =?utf-8?B?Mmp0S3VVMDRrek4wN0MydlRCMHpMVmYrK2EwM0dOTHdTU2dRVTJGWENvUlFm?=
+ =?utf-8?B?bC8yaWlEOE5ERWg1ZjZzRmcycWFCUXVWSjRpUVg4ZnpPQnFWL2hYWkU2Tm10?=
+ =?utf-8?B?aEd6aGNtUXcrdm5raEdUd1F6MFhtUU05RTdpb055WTZPODhkVUp6UCtmWEli?=
+ =?utf-8?B?TlNHWjNlR01TeE9sN3ZOQW9zQXVOMmRkRFZBRVA3NmR0UlkvYmlVVFNaMlJ0?=
+ =?utf-8?B?QzkrNUxDV0NHV3RxcVA1MXVmQlZ4N0M2RWlYRTdGME5HUjZwUGlYdEpGTkYv?=
+ =?utf-8?B?Yk81c1ExU3NsUDQvaHZsbmQ4NGVNK1JQVmRJdENKRXkxc3UwbllSY3BPc3RU?=
+ =?utf-8?B?bUpNbkk0SjM2UDh6QlErYU1kbVp3OUs2U0Y1YmxENmNrVlRsU3haWGR4NGRL?=
+ =?utf-8?B?SmxCZ1Z1NXIzNzE1NmZOWm90SmlXVVVJSUF0dVhsYVMwbHZOYnlYdXVham9H?=
+ =?utf-8?B?SEtINVJ1cGthNHJyZzA0MkV3RExYQnovaWlTdm9oM1VYN1RJTkNTcXplOXdz?=
+ =?utf-8?B?TDRCTU9ZSE14R1hIekFGZ01EcEFGNVZHajhTWmJzYi9nTGQ4M0xBdHJTdEF1?=
+ =?utf-8?B?K05ZakViQzN1dkJOQTRVRS9JdGV4b0YvSlVabmZ5dXZPOFpoY01uaVlvTGd1?=
+ =?utf-8?B?QVVJWjdHbE11VTBjdnVBek9vYW41SHcwbTBkYk8yakoydmVnTkphV1FVMWVh?=
+ =?utf-8?B?VVVBeW5sKzk2Uk4wWDFNK1FnNzZwSEN6YlhsM293ZXZySGJsMTVrRHZLWGJx?=
+ =?utf-8?B?VE93TWJoUFVpQ2NxZ0owcS9ORDY2S0pkRlFsTFVpNTFkYzBGaERURHRwZWcv?=
+ =?utf-8?B?VllkWU9uNm4xaTJpMnNwd3Q5N2VZa3dMcXpoVUVNa1VMUDJYcUljYTREbXB6?=
+ =?utf-8?B?ZGs2Y3ZEWmRISXBpaDdlY1IrM3RONG1hRVhycUc4YlJvSXFBbkNzdTNvN3dV?=
+ =?utf-8?B?SFdJMlpqcVJGbGwvSi9rVERDRXVTN1QxdDNJeVdtbkpTbE44clFKczlBeHQ0?=
+ =?utf-8?B?V1RPeVp5RXdLNFlIVGhaa2tTQWNST1l6OXJuVkFQWTUxZTB6VmNKTlV4NkF5?=
+ =?utf-8?B?K1Z2bU1xTkRZSlJQemxQczdyMFdTcUlKZkZJQ1FReE4rSG5sZFIxSHU1Vktw?=
+ =?utf-8?B?U0FadlcxenNZRThuRUphdnErZ0g5R1RGSlUxMnV6S2ZqaEpIdjBTTVppVWFi?=
+ =?utf-8?B?cXkzc0JncndpTGJjSUJjek5NOGlQeGNkdEplNUlWbmZGQk05TGlxS0ZFVERF?=
+ =?utf-8?B?azYxRVppZkNCMFlDekRzdDA0cEpFUmJtMTZodEZJQy9LN0tGWm1HQytxZTQw?=
+ =?utf-8?B?akZCa3V4YXlDMFVCNXlYVkJZK3dtbTd4Wml1dmpCZWRlcUpqdlpLQnM4WGgv?=
+ =?utf-8?B?YStOMDBxU3Btd3dKWXRFTlBBSTFuZDQ1bHVUU3JxSndxN29tZ2NTNE1MbWg1?=
+ =?utf-8?B?M2pxNlR2ZlNySkdhSzFNVEV6YmJMZjhtMjY5TEpoemIvYm94ZEQrZ3MyeUYz?=
+ =?utf-8?Q?PkoEPU5HTohozV5vLheWfVA8fCZpB8vhdLTOvDUlEwH1z?=
+X-MS-Exchange-AntiSpam-MessageData-1: hXzpyB+kVTINXBQmJk7CMcxx97nhusc2S/Y=
 X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9477f939-8a49-4bc3-640e-08de8479ab03
+X-MS-Exchange-CrossTenant-Network-Message-Id: a2d73884-a1e3-4fea-dfd6-08de8479afd9
 X-MS-Exchange-CrossTenant-AuthSource: AM9PR04MB8585.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Mar 2026 23:05:22.9345 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Mar 2026 23:05:31.0930 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 3ZYQPdGWyz8C5yOxAkaRFoDySsAnnLgZayIPLpkdEtembsKMI/iwhoTv3/4rgQ+8Fft2vvkqE7Mf0k3sNGjWKA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI0PR04MB12032
+X-MS-Exchange-CrossTenant-UserPrincipalName: WrgyRr+J0ffjYm3Be8DLa6pdiDMS3kGaXp8An1Pz7ke4c9oOCf8OzJ3DVxvOhyfEBKsZGfiAN+0HRjen6PxLlA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB7022
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -138,30 +152,104 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This driver relies on a transitive inclusion of the PHY API header
-through the USB headers.
+The dw_hdmi-rockchip driver validates pixel clock rates against the
+HDMI PHY's internal clock provider on certain SoCs like RK3328.
+This is currently achieved by dereferencing hdmi->phy->dev.of_node
+to obtain the provider node, which violates the Generic PHY API's
+encapsulation (the goal is for struct phy to be an opaque pointer
+with a hidden definition, to be interacted with only using API
+functions or NULL pointer checks, for the case where optional variants
+of phy_get() did not find a PHY).
+
+Refactor dw_hdmi_rockchip_bind() to perform a manual phandle lookup
+on the "hdmi" PHY index within the controller's DT node. This provides
+a parallel path to the clock provider's OF node without relying on the
+internal structure of the struct phy handle.
 
 Signed-off-by: Vladimir Oltean <vladimir.oltean@nxp.com>
+Reviewed-by: Heiko Stueber <heiko@sntech.de>
 ---
-Cc: Yixun Lan <dlan@kernel.org>
+Cc: Sandy Huang <hjc@rock-chips.com>
+Cc: "Heiko Stübner" <heiko@sntech.de>
+Cc: Andy Yan <andy.yan@rock-chips.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Cc: Maxime Ripard <mripard@kernel.org>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: David Airlie <airlied@gmail.com>
+Cc: Simona Vetter <simona@ffwll.ch>
 
-v1->v4: none
+v3->v4: add commit message clarification of what is understood by
+        "opaque pointer"
+v1->v3: none
 ---
- drivers/phy/spacemit/phy-k1-usb2.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/gpu/drm/rockchip/dw_hdmi-rockchip.c | 25 ++++++++++++---------
+ 1 file changed, 15 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/phy/spacemit/phy-k1-usb2.c b/drivers/phy/spacemit/phy-k1-usb2.c
-index 342061380012..14a02f554810 100644
---- a/drivers/phy/spacemit/phy-k1-usb2.c
-+++ b/drivers/phy/spacemit/phy-k1-usb2.c
-@@ -9,6 +9,7 @@
- #include <linux/bitfield.h>
- #include <linux/clk.h>
- #include <linux/iopoll.h>
-+#include <linux/phy/phy.h>
- #include <linux/platform_device.h>
- #include <linux/regmap.h>
- #include <linux/usb/of.h>
+diff --git a/drivers/gpu/drm/rockchip/dw_hdmi-rockchip.c b/drivers/gpu/drm/rockchip/dw_hdmi-rockchip.c
+index 0dc1eb5d2ae3..7abb42e486c0 100644
+--- a/drivers/gpu/drm/rockchip/dw_hdmi-rockchip.c
++++ b/drivers/gpu/drm/rockchip/dw_hdmi-rockchip.c
+@@ -537,21 +537,22 @@ static int dw_hdmi_rockchip_bind(struct device *dev, struct device *master,
+ 				 void *data)
+ {
+ 	struct platform_device *pdev = to_platform_device(dev);
++	struct device_node *np = dev_of_node(dev);
+ 	struct dw_hdmi_plat_data *plat_data;
+ 	const struct of_device_id *match;
+ 	struct drm_device *drm = data;
+ 	struct drm_encoder *encoder;
+ 	struct rockchip_hdmi *hdmi;
+-	int ret;
++	int ret, index;
+ 
+-	if (!pdev->dev.of_node)
++	if (!np)
+ 		return -ENODEV;
+ 
+ 	hdmi = devm_kzalloc(&pdev->dev, sizeof(*hdmi), GFP_KERNEL);
+ 	if (!hdmi)
+ 		return -ENOMEM;
+ 
+-	match = of_match_node(dw_hdmi_rockchip_dt_ids, pdev->dev.of_node);
++	match = of_match_node(dw_hdmi_rockchip_dt_ids, np);
+ 	plat_data = devm_kmemdup(&pdev->dev, match->data,
+ 					     sizeof(*plat_data), GFP_KERNEL);
+ 	if (!plat_data)
+@@ -564,9 +565,9 @@ static int dw_hdmi_rockchip_bind(struct device *dev, struct device *master,
+ 	plat_data->priv_data = hdmi;
+ 	encoder = &hdmi->encoder.encoder;
+ 
+-	encoder->possible_crtcs = drm_of_find_possible_crtcs(drm, dev->of_node);
++	encoder->possible_crtcs = drm_of_find_possible_crtcs(drm, np);
+ 	rockchip_drm_encoder_set_crtc_endpoint_id(&hdmi->encoder,
+-						  dev->of_node, 0, 0);
++						  np, 0, 0);
+ 
+ 	/*
+ 	 * If we failed to find the CRTC(s) which this encoder is
+@@ -588,13 +589,17 @@ static int dw_hdmi_rockchip_bind(struct device *dev, struct device *master,
+ 		return dev_err_probe(hdmi->dev, ret, "failed to get phy\n");
+ 	}
+ 
+-	if (hdmi->phy) {
++	index = of_property_match_string(np, "phy-names", "hdmi");
++	if (index >= 0) {
+ 		struct of_phandle_args clkspec;
+ 
+-		clkspec.np = hdmi->phy->dev.of_node;
+-		hdmi->hdmiphy_clk = of_clk_get_from_provider(&clkspec);
+-		if (IS_ERR(hdmi->hdmiphy_clk))
+-			hdmi->hdmiphy_clk = NULL;
++		if (!of_parse_phandle_with_args(np, "phys", "#phy-cells", index,
++						&clkspec)) {
++			hdmi->hdmiphy_clk = of_clk_get_from_provider(&clkspec);
++			of_node_put(clkspec.np);
++			if (IS_ERR(hdmi->hdmiphy_clk))
++				hdmi->hdmiphy_clk = NULL;
++		}
+ 	}
+ 
+ 	if (hdmi->chip_data == &rk3568_chip_data) {
 -- 
 2.43.0
 
