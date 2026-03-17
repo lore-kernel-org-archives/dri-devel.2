@@ -4,63 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2E8D1FD875A
-	for <dri-devel@archiver.kernel.org>; Tue, 17 Mar 2026 12:31:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B691EFD875F
+	for <dri-devel@archiver.kernel.org>; Tue, 17 Mar 2026 12:36:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8A2FC10E582;
-	Tue, 17 Mar 2026 12:31:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2636C10E5C2;
+	Tue, 17 Mar 2026 12:36:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="vFuhshYd";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Dj6AZHdq";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E5F9A10E582;
- Tue, 17 Mar 2026 12:31:20 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 7C98A43E44;
- Tue, 17 Mar 2026 12:31:20 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 081FFC4CEF7;
- Tue, 17 Mar 2026 12:31:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1773750680;
- bh=56angGCweoGn9FLhrMkqisw0KYpqcITVs2BooUSEKc4=;
- h=Date:Subject:Cc:To:From:References:In-Reply-To:From;
- b=vFuhshYdAtDydW8t1pwnRKL59aVXpcHA4tI0XQjWcT+xnVXNigksOjybgBMxFmdpo
- jXhC8dYlvzBSI2m1LCctuEUF23MEYphII0zp5NMl8V3W6egS2GjKAUH6QsXAWv+b8q
- rfSnM/ralK5e3V3ik+V9EamLu4k3wnJ3Sk2wSF3sHB59CGa2DfGGXc5iGk2rvG/WOf
- RQ+mT3D017NDBhZlRbQ25BzolqfHihko3nH0Xup75loBIyI9InyYnnrwHYD8Q4xqk9
- oxT/+JC0nGk7nHv7Offax699j+T95jHi1cPtpz07gg+gdMCSYOZBFRyMVuS319qSTS
- kdV+tQm/JInTg==
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 17 Mar 2026 13:31:14 +0100
-Message-Id: <DH524YJD4UD3.HLHJP0AM401N@kernel.org>
-Subject: Re: [RFC PATCH 02/12] drm/dep: Add DRM dependency queue layer
-Cc: "Matthew Brost" <matthew.brost@intel.com>,
- <intel-xe@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>, "Boris
- Brezillon" <boris.brezillon@collabora.com>, "Tvrtko Ursulin"
- <tvrtko.ursulin@igalia.com>, "Rodrigo Vivi" <rodrigo.vivi@intel.com>,
- =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, "David Airlie"
- <airlied@gmail.com>, "Maarten Lankhorst"
- <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
- "Philipp Stanner" <phasta@kernel.org>, "Simona Vetter" <simona@ffwll.ch>,
- "Sumit Semwal" <sumit.semwal@linaro.org>, "Thomas Zimmermann"
- <tzimmermann@suse.de>, <linux-kernel@vger.kernel.org>, "Sami Tolvanen"
- <samitolvanen@google.com>, "Jeffrey Vander Stoep" <jeffv@google.com>,
- "Alice Ryhl" <aliceryhl@google.com>, "Daniel Stone"
- <daniels@collabora.com>, "Alexandre Courbot" <acourbot@nvidia.com>, "John
- Hubbard" <jhubbard@nvidia.com>, <shashanks@nvidia.com>,
- <jajones@nvidia.com>, "Eliot Courtney" <ecourtney@nvidia.com>, "Joel
- Fernandes" <joelagnelf@nvidia.com>, "rust-for-linux"
- <rust-for-linux@vger.kernel.org>, "Miguel Ojeda"
- <miguel.ojeda.sandonis@gmail.com>
-To: "Daniel Almeida" <daniel.almeida@collabora.com>
-From: "Danilo Krummrich" <dakr@kernel.org>
-References: <20260316043255.226352-1-matthew.brost@intel.com>
- <20260316043255.226352-3-matthew.brost@intel.com>
- <7A8108C7-7CF0-4EA4-95ED-8003502DC35A@collabora.com>
-In-Reply-To: <7A8108C7-7CF0-4EA4-95ED-8003502DC35A@collabora.com>
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com
+ [209.85.221.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C5B2210E5C2
+ for <dri-devel@lists.freedesktop.org>; Tue, 17 Mar 2026 12:36:15 +0000 (UTC)
+Received: by mail-wr1-f54.google.com with SMTP id
+ ffacd0b85a97d-43b4d73463dso419419f8f.3
+ for <dri-devel@lists.freedesktop.org>; Tue, 17 Mar 2026 05:36:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1773750974; x=1774355774; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=M4lFHCL1tyYPIUcCrRlaru3igXJSxxHN0zRr+ZhxeaE=;
+ b=Dj6AZHdqHUMeHaQT2avhfAsVLj9BJWKP45/A35X+9ZPsu48d/EmMNniXkecec0eqDf
+ zerchhiESzP+1G/Dz0Vu+V5TuTSx3cT3JKOl005moaKrWG98KMlTZMuvpcdbKA0ENsN+
+ 6Fo5xEuJi/vujcbrY8zeBz90xmfUMNHZKD9BbutB2R28I5HovE429B6d53eIJaVM/Dbj
+ 8RJG9TRfqZa4FbUnNk6CKGWARBo5Eljd4HGRDcLOpYRxWXpKw7+sfdQzWWzVWAhKdhxu
+ OTCuKtkmGD53m1SQqfvB5YEJN/yqDBi64Q2UnJ+BI9is1rJj1uokKdJcQRoKeZOM1bBV
+ CSmA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1773750974; x=1774355774;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=M4lFHCL1tyYPIUcCrRlaru3igXJSxxHN0zRr+ZhxeaE=;
+ b=Ge8Ecdlyw53JD/sup98RBWRE3LXY/9HvQbt3rfAM5SawtRmjt9jrw8jHab+MrAIGr/
+ YVtCwVzWtnJxrjyE1K1HYNIn2oN+HDUpQCeWlP1xp8BVli4EV9uZ7+tizp1PlUDnT+Ev
+ RxCOgAfvAlnuz7WSdjhh5SqD0E7v7GDUTUlSCFdcDqS86+wMj3wNqvE9JxnjuZiEVPcH
+ iH77xoBeojKKjDkdVkpCFIZuRC7+5HNNQTmdh70ilWk5PoN/v3V2OzKedKiLxhk7J6dH
+ v94aKZsD7DoQaLSYm0v0AOGMpHPIeyPT5EdYVNSwxI4uXGqS4538mYq6mPx6p6khau83
+ 6shQ==
+X-Gm-Message-State: AOJu0YwHEJc+svDJSHGNwtzYQhIMNJIqfXDUQlYRuCJCnn/TvZchAhCU
+ oMFudFj5yjHq8GGAxTkYGoowxIW5MADNQJs+bvOgHORKQ4eSs4nB4Xbq
+X-Gm-Gg: ATEYQzzgGzny+lkPCcR369CCzGvb6na8s1avCdGibzWp52sP8keqe3wvtcKBbeom85K
+ cLcxnSzsggKwKKz9Ig9ALao/DpmYHxbCeI9Qh6DLLSpdT7b2qrvCw5ZcXfVWqlKIi+J3ZosXRs3
+ jAE+bo61py+aW7XicUGeS/Pw/p62DcbmKLqFa5gimtDszjraxlgnLx7hB7058L+I7PLM95sgzDU
+ ZKPYHhlH6IXqDuqi6xTsB5LX04r6LLNz1a7JMPppBoZL8/I8/JUhMWWcyTxbZ97Vbmd4CkGpaMy
+ GdouD/TlwALB/C1HOQERh7f0gnHokb162/3GOFSL6Wiq8mS5CMQxSDk2I1AdvNq09YAx3Z1bxwi
+ Fbos5SIOTGF60KdYQBvE+5e4Bq5UeUqMcoF3bijv0P0Y7Bcw4Ajlh2l6/F0UHFKfe4YlX8A8f1L
+ f6cWWKJDDkttQtvHofFylZ2JCy+DE0FFZDeymSHZ55n9hh4kA5
+X-Received: by 2002:a05:6000:2003:b0:435:9cd5:bb2a with SMTP id
+ ffacd0b85a97d-43a04d8736fmr29772032f8f.24.1773750973905; 
+ Tue, 17 Mar 2026 05:36:13 -0700 (PDT)
+Received: from localhost.localdomain
+ ([2a00:23c4:a758:8a01:e16b:fc56:e220:9aa9])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-43b4f845841sm3247444f8f.11.2026.03.17.05.36.12
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 17 Mar 2026 05:36:13 -0700 (PDT)
+From: Biju <biju.das.au@gmail.com>
+X-Google-Original-From: Biju <biju.das.jz@bp.renesas.com>
+To: Biju Das <biju.das.jz@bp.renesas.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Philipp Zabel <p.zabel@pengutronix.de>
+Cc: dri-devel@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Geert Uytterhoeven <geert+renesas@glider.be>,
+ Chris Brandt <chris.brandt@renesas.com>,
+ Hugo Villeneuve <hugo@hugovil.com>,
+ Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+ Biju Das <biju.das.au@gmail.com>
+Subject: [PATCH 0/2] Improvements on RZ/G2L MIPI DSI driver
+Date: Tue, 17 Mar 2026 12:35:59 +0000
+Message-ID: <20260317123610.329630-1-biju.das.jz@bp.renesas.com>
+X-Mailer: git-send-email 2.43.0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,42 +94,25 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue Mar 17, 2026 at 3:47 AM CET, Daniel Almeida wrote:
-> I agree with what Danilo said below, i.e.:  IMHO, with the direction that=
- DRM
-> is going, it is much more ergonomic to add a Rust component with a nice C
-> interface than doing it the other way around.
+From: Biju Das <biju.das.jz@bp.renesas.com>
 
-This is not exactly what I said. I was talking about the maintainance aspec=
-ts
-and that a Rust Jobqueue implementation (for the reasons explained in my in=
-itial
-reply) is easily justifiable in this aspect, whereas another C implementati=
-on,
-that does *not* replace the existing DRM scheduler entirely, is much harder=
- to
-justify from a maintainance perspective.
+Hi All,
 
-I'm also not sure whether a C interface from the Rust side is easy to estab=
-lish.
-We don't want to limit ourselves in terms of language capabilities for this=
- and
-passing through all the additional infromation Rust carries in the type sys=
-tem
-might not be straight forward.
+Enhance RZ/G2L MIPI DSI driver based on "Figure 34.5 Power on sequence",
+on section "34.4.2.1 Reset" of the RZ/G2L hardware manual Rev.1.50 May,
+2025.
 
-It would be an experiment, and it was one of the ideas behind the Rust Jobq=
-ueue
-to see how it turns if we try. Always with the fallback of having C
-infrastructure as an alternative when it doesn't work out well.
+As per the hardware manual, it is required to wait >= 1msec after
+deasserting the CMN_RSTB signal, and writing to DSI PHY timing registers
+and few LINK registers should be done before deasserting the CMN_RSTB.
 
-Having this said, I don't see an issue with the drm_dep thing going forward=
- if
-there is a path to replacing DRM sched entirely.
+Biju Das (2):
+  drm: renesas: rzg2l_mipi_dsi: Use fsleep() for 1ms delay in D-PHY init
+  drm: renesas: rzg2l_mipi_dsi: Fix the power-on sequence
 
-The Rust component should remain independent from this for the reasons ment=
-ioned
-in [1].
+ .../gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c    | 27 +++++++++++--------
+ 1 file changed, 16 insertions(+), 11 deletions(-)
 
-[1] https://lore.kernel.org/dri-devel/DH51W6XRQXYX.3M30IRYIWZLFG@kernel.org=
-/
+-- 
+2.43.0
+
