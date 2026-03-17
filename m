@@ -4,55 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2D904FD7077
-	for <dri-devel@archiver.kernel.org>; Tue, 17 Mar 2026 10:49:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2FF14FD7075
+	for <dri-devel@archiver.kernel.org>; Tue, 17 Mar 2026 10:58:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 60F5810E1ED;
-	Tue, 17 Mar 2026 10:49:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5E11310E5CB;
+	Tue, 17 Mar 2026 10:58:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="GEuFQVpp";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Vcq0OXS4";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6FDBB10E1ED;
- Tue, 17 Mar 2026 10:49:57 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A288210E5CB
+ for <dri-devel@lists.freedesktop.org>; Tue, 17 Mar 2026 10:58:19 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id BB66560008;
- Tue, 17 Mar 2026 10:49:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6534BC4CEF7;
- Tue, 17 Mar 2026 10:49:54 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 087B640D8E
+ for <dri-devel@lists.freedesktop.org>; Tue, 17 Mar 2026 10:58:19 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC83AC19425
+ for <dri-devel@lists.freedesktop.org>; Tue, 17 Mar 2026 10:58:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1773744596;
- bh=zIXYt4MiSYtrZ/ljb1b2PTErSHLZeJRlzjd8rOa85Wg=;
- h=Date:Subject:Cc:To:From:References:In-Reply-To:From;
- b=GEuFQVppox1B2Wla3Jmq+DSI1wc+jSic+ZFpjguH/c0Y6jc/xEAAvM9W9lDReDO6n
- NaV0/NQZVi9MTci/Pas8fUNCManAhUactuZSJn6qPbaKpymRdyOWbpzNUdXfheg5hv
- 9ZF9ntagjKViTR70j5YWJQtq0UqriEHQtEz5+vKMeId9wLJuY9k2TBMI6YanzhhfmR
- C7c6VfHqh1S64pcT6Po9NoiUAV/pnh+lKhWzJUgR3gdpqxOFG+U/sZs5iHf5eeZjLO
- L/FMR3W68MDybsNM7j7aF5sUZKn4pkpcmg7UwTD+xfZ5D4kCH7c2/jemFHvP/JDsen
- VEcw+34dTequA==
-Mime-Version: 1.0
+ s=k20201202; t=1773745098;
+ bh=joGJmAWA0eGhDv45V0acMmM+Twim6ySRxLxTwCpiu+k=;
+ h=References:In-Reply-To:Reply-To:From:Date:Subject:To:Cc:From;
+ b=Vcq0OXS4/9IQg2M5dxJl7EE40YHP+sa5Quusaa7NcUXeIZHsy9OU3B4LlPbSzb/6M
+ PplQb/wJk+GZHMROhoyDg7CStesC6ChMNojmpUMLNge0i4D8gpPJuA7yKGrz3fMJeL
+ 3f8Xc8cUUxhO15Zr+mHTCO5taLtU5HpuyO3xWC3TWCtn3JBL8BRx9TNgA2ZdPsO4Y+
+ DJqG/hm6TVDsER3nvAurL5CH4vuCx38/Jc1lceL9zthu2GXl/Cd8YTE0TXnqoEOF57
+ v/fLmMPUBsHXaKFzkqMMZzurtYi73f5nJdIv9Spv5edj9E/O78m3i0/e62AlQjtnp1
+ m9EkVlWM1N8QA==
+Received: by mail-lj1-f177.google.com with SMTP id
+ 38308e7fff4ca-38ad12fb595so4784111fa.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 17 Mar 2026 03:58:18 -0700 (PDT)
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWs7P28/nrHpytmPbzyopIgm8tuWYYuW+8vJJgQV2BiGlDccTPrqkLF/HLoXLDPf/3NYy7IEZflxQk=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxyO/Ito3jXFMQJElIsAspekumfNNJUY2b9AwJB7LmGJfXgduoR
+ zG04tuEK4rXPF4jhpONsAqNSIqmjgyZ2k1YCDMbj4kv1H6WEhaoc0aMGDshuOUCcEwkFY9QFgOG
+ zrtdLKwb0lGUydOCuO49Bu6UDXsVyjc0=
+X-Received: by 2002:a05:651c:f04:b0:387:b72:816a with SMTP id
+ 38308e7fff4ca-38ace817266mr9712241fa.3.1773745097248; Tue, 17 Mar 2026
+ 03:58:17 -0700 (PDT)
+MIME-Version: 1.0
+References: <20260317064049.696795-1-wenst@chromium.org>
+ <20260317064049.696795-3-wenst@chromium.org>
+ <607daaca-79ed-45b2-941e-1680a17618e8@suse.de>
+In-Reply-To: <607daaca-79ed-45b2-941e-1680a17618e8@suse.de>
+From: Chen-Yu Tsai <wens@kernel.org>
+Date: Tue, 17 Mar 2026 18:58:04 +0800
+X-Gmail-Original-Message-ID: <CAGb2v66D3=s9c8oJyYEAK90A4SekW6FjLUpWBGRHnJwtfMvUeg@mail.gmail.com>
+X-Gm-Features: AaiRm51eS0mRfq2Cbo6u_Rt7Bxck_f3oX14wByjZaXlGaiH47T5oEGbz3iu-Y5Y
+Message-ID: <CAGb2v66D3=s9c8oJyYEAK90A4SekW6FjLUpWBGRHnJwtfMvUeg@mail.gmail.com>
+Subject: Re: [PATCH v2 2/4] drm: Introduce DRM_MODE_DUMB_KERNEL_MAP flag
+To: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: Chen-Yu Tsai <wenst@chromium.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, 
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ asahi@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 17 Mar 2026 11:49:53 +0100
-Message-Id: <DH4ZZD12V0R6.2G7IIL87QTK0S@kernel.org>
-Subject: Re: [PATCH 6/9] gpu: nova-core: generalize `flush_into_kvec` to
- `flush_into_vec`
-Cc: "Eliot Courtney" <ecourtney@nvidia.com>, "Alice Ryhl"
- <aliceryhl@google.com>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
- <simona@ffwll.ch>, <rust-for-linux@vger.kernel.org>,
- <nouveau@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>, "dri-devel"
- <dri-devel-bounces@lists.freedesktop.org>, "Gary Guo" <gary@garyguo.net>
-To: "Alexandre Courbot" <acourbot@nvidia.com>
-From: "Danilo Krummrich" <dakr@kernel.org>
-References: <20260227-rmcontrol-v1-0-86648e4869f9@nvidia.com>
- <20260227-rmcontrol-v1-6-86648e4869f9@nvidia.com>
- <093ca23e-7081-42db-a202-0a42c51741a3@kernel.org>
- <DGYL9FS1Z00X.2HEJ96J8R3OK4@kernel.org>
- <DH46IKESDQ3B.2GEUC479WDK3N@nvidia.com>
- <DH47AVPEKN06.3BERUSJIB4M1R@kernel.org>
- <DH4OM17DJ47V.3NJG7G02O7P1L@nvidia.com>
-In-Reply-To: <DH4OM17DJ47V.3NJG7G02O7P1L@nvidia.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,61 +76,133 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: wens@kernel.org
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue Mar 17, 2026 at 2:55 AM CET, Alexandre Courbot wrote:
-> We shouldn't be doing that - I think we are limited by the current
-> CoherentAllocation API though. But IIUC this is something that I/O
-> projections will allow us to handle properly?
-
-Why do we need projections to avoid UB here? driver_read_area() already eve=
-n
-peeks into the firmware abstraction layer, which is where MsgqData technica=
-lly
-belongs into (despite being trivial).
-
-	let gsp_mem =3D &unsafe { self.0.as_slice(0, 1) }.unwrap()[0];
-	let data =3D &gsp_mem.gspq.msgq.data;
-
-Why do we need I/O projections to do raw pointer arithmetic where creating =
-a
-reference is UB?
-
-(Eventually, we want to use IoView of course, as this is a textbook example=
- of
-what I proposed IoSlice for.)
-
-Another option in the meantime would be / have been to use dma_read!() and
-extract (copy) the data right away in driver_read_area(), which I'd probabl=
-y
-prefer over raw pointer arithmetic.
-
-But in any case, this can (and should) be fixed even without IoView.
-
-Besides that, nothing prevents us doing the same thing I did for gsp_write_=
-ptr()
-in the meantime to not break out of the firmware abstraction layer.
-
-> This is guaranteed by the inability to update the CPU read pointer for
-> as long as the slices exists.
-
-Fair enough.
-
-> Unless we decide to not trust the GSP, but that would be opening a whole
-> new can of worms.
-
-I thought about this as well, and I think it's fine. The safety comment wit=
-hin
-the function has to justify why the device won't access the memory. If the
-device does so regardless, it's simply a bug.
-
->> I don't want to merge any code that builds on top of this before we have=
- sorted
->> this out.
+On Tue, Mar 17, 2026 at 4:12=E2=80=AFPM Thomas Zimmermann <tzimmermann@suse=
+.de> wrote:
 >
-> If what I have written above is correct, then the fix should simply be
-> to use I/O projections to create properly-bounded references.
+> Hi
+>
+> Am 17.03.26 um 07:40 schrieb Chen-Yu Tsai:
+> > From: Rob Herring <robh@kernel.org>
+> >
+> > Introduce a new flag, DRM_MODE_DUMB_KERNEL_MAP, for struct
+> > drm_mode_create_dumb. This flag is for internal kernel use to indicate
+> > if dumb buffer allocation needs a kernel mapping. This is needed only f=
+or
+> > CMA where creating a kernel mapping or not has to be decided at allocat=
+ion
+> > time because creating a mapping on demand (with vmap()) is not guarante=
+ed
+> > to work. Several drivers are using CMA, but not the CMA helpers because
+> > they distinguish between kernel and userspace allocations to create a
+> > kernel mapping or not.
+>
+> Any dumb allocation might require vmap. This is not limited to internal
+> buffers.  Because if the dumb buffer is shared with another driver, that
+> driver might require the vmap for displaying the buffer content. There
+> are enough of such drivers.
 
-I still don't think we need I/O projections for a reasonable fix and I also
-don't agree that we should keep UB until new features land.
+By sharing, do you mean exported via PRIME then imported by another device?
+Or just passing around GEM objects within the kernel?
+
+And could you provide an example?
+
+> > Update the callers of drm_mode_dumb_create() to set
+> > drm_mode_dumb_create.flags to appropriate defaults. Currently, flags ca=
+n
+> > be set to anything by userspace, but is unused within the kernel. Let's
+> > force flags to zero (no kernel mapping) for userspace callers by defaul=
+t.
+> > For in kernel clients, set DRM_MODE_DUMB_KERNEL_MAP by default. Drivers
+> > can override this as needed.
+> >
+> > Signed-off-by: Rob Herring <robh@kernel.org>
+> > [wenst@chromium.org: Emit warning if args->flags is not zero]
+> > Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
+> > ---
+> > Changes since v1:
+> > - Emit warning if args->flags is not zero
+> > ---
+> >   drivers/gpu/drm/drm_client.c       | 1 +
+> >   drivers/gpu/drm/drm_dumb_buffers.c | 4 ++++
+> >   include/uapi/drm/drm_mode.h        | 2 ++
+> >   3 files changed, 7 insertions(+)
+> >
+> > diff --git a/drivers/gpu/drm/drm_client.c b/drivers/gpu/drm/drm_client.=
+c
+> > index 46c465bce98c..1a57e7eadc0f 100644
+> > --- a/drivers/gpu/drm/drm_client.c
+> > +++ b/drivers/gpu/drm/drm_client.c
+> > @@ -404,6 +404,7 @@ drm_client_buffer_create_dumb(struct drm_client_dev=
+ *client, u32 width, u32 heig
+> >       dumb_args.width =3D width;
+> >       dumb_args.height =3D height;
+> >       dumb_args.bpp =3D drm_format_info_bpp(info, 0);
+> > +     dumb_args.flags =3D DRM_MODE_DUMB_KERNEL_MAP;
+> >       ret =3D drm_mode_create_dumb(dev, &dumb_args, client->file);
+> >       if (ret)
+> >               return ERR_PTR(ret);
+> > diff --git a/drivers/gpu/drm/drm_dumb_buffers.c b/drivers/gpu/drm/drm_d=
+umb_buffers.c
+> > index e2b62e5fb891..ccdcc401d4dc 100644
+> > --- a/drivers/gpu/drm/drm_dumb_buffers.c
+> > +++ b/drivers/gpu/drm/drm_dumb_buffers.c
+> > @@ -233,6 +233,10 @@ int drm_mode_create_dumb_ioctl(struct drm_device *=
+dev,
+> >       struct drm_mode_create_dumb *args =3D data;
+> >       int err;
+> >
+> > +     if (args->flags)
+> > +             drm_warn(dev, "drm_mode_create_dumb.flags is not zero.\n"=
+);
+>
+> At most use drm_warn_once() to not let this spam the kernel log.
+
+Sure.
+
+> > +     args->flags =3D 0;
+> > +
+> >       err =3D drm_mode_create_dumb(dev, args, file_priv);
+> >       if (err) {
+> >               args->handle =3D 0;
+> > diff --git a/include/uapi/drm/drm_mode.h b/include/uapi/drm/drm_mode.h
+> > index 3693d82b5279..7d5f50e4af70 100644
+> > --- a/include/uapi/drm/drm_mode.h
+> > +++ b/include/uapi/drm/drm_mode.h
+> > @@ -1272,6 +1272,8 @@ struct drm_mode_create_dumb {
+> >       __u64 size;
+> >   };
+> >
+> > +#define DRM_MODE_DUMB_KERNEL_MAP     (1<<0)  /* For internal kernel us=
+e */
+> > +
+>
+> If this is an internal flag, it should not live in the UAPI header.
+> include/drm/drm_dumb_buffers.h would be a good place.
+
+Makes sense.
+
+
+Thanks
+ChenYu
+
+> Best regards
+> Thomas
+>
+> >   /* set up for mmap of a dumb scanout buffer */
+> >   struct drm_mode_map_dumb {
+> >       /** Handle for the object being mapped. */
+>
+> --
+> --
+> Thomas Zimmermann
+> Graphics Driver Developer
+> SUSE Software Solutions Germany GmbH
+> Frankenstr. 146, 90461 N=C3=BCrnberg, Germany, www.suse.com
+> GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG N=C3=
+=BCrnberg)
+>
+>
