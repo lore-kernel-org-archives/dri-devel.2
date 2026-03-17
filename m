@@ -4,59 +4,147 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4C7C1FED9E7
-	for <dri-devel@archiver.kernel.org>; Tue, 17 Mar 2026 15:26:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4D80CFED9E7
+	for <dri-devel@archiver.kernel.org>; Tue, 17 Mar 2026 15:30:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6D29610E6C1;
-	Tue, 17 Mar 2026 15:26:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B4C4210E648;
+	Tue, 17 Mar 2026 15:30:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="LV9CrB0Z";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="H5hq37/Q";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="TiYzxk+O";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3EB1110E6C0;
- Tue, 17 Mar 2026 15:26:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1773761215; x=1805297215;
- h=message-id:subject:from:to:cc:date:in-reply-to:
- references:content-transfer-encoding:mime-version;
- bh=v1OvKghRX2ESObae5vdWaRCCIYCn9FXW4gCQirUeZsQ=;
- b=LV9CrB0Z5dcfNLDBdzBE0O36t8IlEjXSmdcLgPbP9ltJWmgK4HnKuRzM
- fG77T3TtyYFLL76LTBSyZJWB6anxqjqbBbdP7XxdipAfSVwWh+WgMnDOf
- KBhNLXDLtiO12pZT6Ft1SYJ9nDEl6H6MRspodR6L/9fj6AUQqhWoDswKL
- k/a5JtdgR65/XzkS/K9vCDqUjsj4cAQ1MjXh0Dw9j5Ix42692OUKssGeq
- 4iP8BsK5aFG4zbC0LHL2t+0gKpXXx6LpCGnrcPlvpS8gb88Q2ip0eF5GT
- yEbmjdKnogA2/AOENSPrBGbXrKital56JNSI349JPDsUrAo8ncgeGQqfz w==;
-X-CSE-ConnectionGUID: +8OQuXbERxusjvAdfkWTcQ==
-X-CSE-MsgGUID: GfKyw4CRQ2CVBaSTsGZoeA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11732"; a="92368345"
-X-IronPort-AV: E=Sophos;i="6.23,126,1770624000"; d="scan'208";a="92368345"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
- by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Mar 2026 08:26:55 -0700
-X-CSE-ConnectionGUID: 0lQsp22gTAW6x5zEyEJUjg==
-X-CSE-MsgGUID: OuCBlZZHT1++j21h29/mGg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,126,1770624000"; d="scan'208";a="227267702"
-Received: from dhhellew-desk2.ger.corp.intel.com (HELO [10.245.245.163])
- ([10.245.245.163])
- by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Mar 2026 08:26:53 -0700
-Message-ID: <e61e64c796ccfb17ae673331a3df4b877bf42d82.camel@linux.intel.com>
-Subject: Re: [PATCH v2 1/1] drm: Fix use-after-free on framebuffers and
- property blobs when calling drm_dev_unplug
-From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
-To: Maarten Lankhorst <dev@lankhorst.se>, dri-devel@lists.freedesktop.org
-Cc: intel-xe@lists.freedesktop.org
-Date: Tue, 17 Mar 2026 16:26:51 +0100
-In-Reply-To: <20260313151728.14990-4-dev@lankhorst.se>
-References: <20260313151728.14990-3-dev@lankhorst.se>
- <20260313151728.14990-4-dev@lankhorst.se>
-Organization: Intel Sweden AB, Registration Number: 556189-6027
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3111B10E648
+ for <dri-devel@lists.freedesktop.org>; Tue, 17 Mar 2026 15:30:10 +0000 (UTC)
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 62HAju62254210
+ for <dri-devel@lists.freedesktop.org>; Tue, 17 Mar 2026 15:30:09 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=qcppdkim1; bh=2hqyYSaS4VrNG8NPTYVWAJ
+ QabhTTesNn0LmRhzY1g/g=; b=H5hq37/Q+b4kSAPhz0LvTLga3y5Z3DySsip5rD
+ rI6qq0EYC7pMNfVUQQs3G7IwOLqLAO6k9l44iMOSKxYJb4kvkLH1wIZkJlO91JrC
+ qXrS6KhW8l6rJvepHOYFmRh6cS+Ir5wf/oBOHF4k83LQRthaCLbrBnlYNbqV0SGY
+ b86Yf8F9uTVbqIq/peKr3EjyeNUn+D2+vbqw3gsWz4rons4P95x46TmZxamf+4bA
+ U2SHzmDKAsPQUFQlxBVFd6NAX/93xR5HWvIB6dM3Q+N50in3p7YwBS4k+HZ2+cUz
+ N3fFAvxisIWutYtl6f9IYLr/Rxa3y04t3zmmVXYOfSzpY5RA==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
+ [209.85.222.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4cy5g8h11a-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Tue, 17 Mar 2026 15:30:09 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id
+ af79cd13be357-8cdb995a1bfso3936241185a.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 17 Mar 2026 08:30:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1773761409; x=1774366209;
+ darn=lists.freedesktop.org; 
+ h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+ :date:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=2hqyYSaS4VrNG8NPTYVWAJQabhTTesNn0LmRhzY1g/g=;
+ b=TiYzxk+Oh5avOap6PhlSOIVax0WTvsq37YVahhhUahwdfn8Xr5xTn5+0Elygf/RoPz
+ vls1GeSAyok+tGqVtInBgJzWp9+cLcIDWtv8wuY8eYOeBeYCiR4/Tg7UXBOHfjlqUa3k
+ uV7Hubg00Xq6Vxo0lzDjaHVMb4/BtJPKNSBm/o9r3lT7nIn9hzjqmpyRDoHAiYNxponq
+ 80hzql3TNHWCtRsHq6zTUcCXmsXvvXTtWcZ7GU0v0ixp8RPyZ81iSqpUv5J9Z+X/gD3h
+ SENhKz6DDc5YMFuVoa3BguFRrumaHEXqAh9EWJjwbxeM026tnR7lHTPztGI8wFjqqajg
+ l/YA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1773761409; x=1774366209;
+ h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+ :date:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=2hqyYSaS4VrNG8NPTYVWAJQabhTTesNn0LmRhzY1g/g=;
+ b=i6FzvR8di7cfvlvTCt1z1C88Mf2P76nMXI0uzAqNRedUm5N2DRakOnalWrYzWOBRRL
+ gO0TkY2OuAHhV2J7nrilqpuUOBrDgXvJ7iyeR5ufIwO2oBMpcrtIk/dOGwSiKlpaU0EB
+ zbcJDuCTUe/lFe5mvdTlO7V/obFSs07c/EwNbpXgUgqs2hWr89CeIY639cKp1T5AOg+z
+ FDegzJC4dWUoROKiRuidH4Z5nNxBghhzgffKH25NjTnDnKcMDJI307AkfUc11Fv2NVR1
+ Dzh6XdCwn90nk+1Kp1kFG1jzlsRZ2xMHxS3TcGUKg4PW0ZDxekYVGXCZ8r8bU/yJinmM
+ qlVw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXtJbrgcKA3zD05qn4j1BDt0LVR91u+sxhfI58Snp8K4+72IAJ77e3n585osNcNnQCKMAB0AeKc6dM=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxrWwCWYVVTBu6FV7yoKado2eChpXvTJ6llbKSLOabaotlpqdxV
+ +uWpfS6i2lLDJadzKW/vY8dEIXniaS8inrjg4eSUmE4CMUFJx1JWr0v/8SZIjx2iTP2F1ArcqyY
+ vcaUBrzuJN2lSNSU+GdpMuYaUqXaGCeR0Z0RaCNHTdYzW4DQ9932O08Let0bircJJvdAU/IU=
+X-Gm-Gg: ATEYQzwNBdocmQuWXNk/M48AgFi6LwgxH4dk2iUL5xaCcPh39W6MlUjRJ8AKdPYR8tx
+ A2LZhU18vFM9k7EZ/zd7JP/DYk3dFJZppnJ+L7Ogu9y/AP1e3uNTkVm3jSL13vIcQY4cindYpTd
+ 4zQ0UBmbxXCR/buWvOxObVqLyBMId+oLohLyTVequz0R+5NBLSY9xFPg25sCVOEb+XsiUjJDBUd
+ B03s1ia7V8tBoId///GmAItcBvXD9C2YON0h2Az3J86+mw64r8TwCweb0ZqXXHs4K3eTx0MNJbc
+ IBWMyyV1DS3kWnzP3nqOxV2nYe2V0GabQc/PTZw8ZBQg52y1wx6A/Exxh3LkDcA9YAnAR52w0wf
+ 0RTOZnMMWzltP6F33qUwLb0bPC49GdJA4X6PvPSvhItr+dn9xWnoSePWQSmYqayIwZ2+axepojU
+ ZwOrBRHhwLcD5V7gf9///Mt8E7Ye9qqdTY/2E=
+X-Received: by 2002:a05:620a:40d3:b0:8cd:97a7:a343 with SMTP id
+ af79cd13be357-8cdb5aa4d3bmr2317517685a.36.1773761408483; 
+ Tue, 17 Mar 2026 08:30:08 -0700 (PDT)
+X-Received: by 2002:a05:620a:40d3:b0:8cd:97a7:a343 with SMTP id
+ af79cd13be357-8cdb5aa4d3bmr2317499585a.36.1773761407484; 
+ Tue, 17 Mar 2026 08:30:07 -0700 (PDT)
+Received: from umbar.lan
+ (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-5a15602e630sm4121394e87.26.2026.03.17.08.30.06
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 17 Mar 2026 08:30:06 -0700 (PDT)
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Date: Tue, 17 Mar 2026 17:30:05 +0200
+Subject: [PATCH] drm/msm/dpu: don't try using 2 LMs if only one DSC is
+ available
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260317-fix-3d-dsc-v1-1-88b54f62f659@oss.qualcomm.com>
+X-B4-Tracking: v=1; b=H4sIAHxzuWkC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzMDY0Nz3bTMCl3jFN2U4mRdkyQDc2NLc/PURENLJaCGgqJUoCzYsOjY2lo
+ AMZ+5QVwAAAA=
+X-Change-ID: 20260317-fix-3d-dsc-4b073977ea19
+To: Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Luca Weiss <luca.weiss@fairphone.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1391;
+ i=dmitry.baryshkov@oss.qualcomm.com; h=from:subject:message-id;
+ bh=fiS+v1HmnasQUzAggFrQFAVyqQDaaFzdUqmjR23RuOE=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBpuXN+ZPtoJCWvlZeEDtkMzjrM4xDUmcWGMh1aJ
+ 84QuQJnQi2JATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCablzfgAKCRCLPIo+Aiko
+ 1cA/B/9vDg1tz2ba7zdh/eaW1Eh0xRGsoAKWUcd6aD2nkw2Mhc0O3uHDvwxwQ5bgsLKLz7jTU2G
+ R3Ej03EzgJvClrTVEthrh7FIb7Df4xaTuHwvAop5em5NKPC/VX8MvAkFDIEFQFqiAbQQYRQY8hp
+ OCYiX0gvhQfS7RIhJOYaWMd3/k7X54I8cMxq92LHVWRJj8davFeBCfGJ3FKypAvP6PftIV/8jKx
+ 6wP2Cp5IVnBqx1a+DYhcDu6cv3w0B0mvWEe0LJG+rSGsHso7awlWo+/RiXPBbh2N9b9Ut8jqHzK
+ hvNm/SFao2/2VY/Vx9vGYZBNQaCaZArOritgb7HHi0twJ6Lv
+X-Developer-Key: i=dmitry.baryshkov@oss.qualcomm.com; a=openpgp;
+ fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
+X-Proofpoint-GUID: cak4svr3HzTU2uIb2CFfBQwrkWjRYIOu
+X-Authority-Analysis: v=2.4 cv=EeTFgfmC c=1 sm=1 tr=0 ts=69b97381 cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=LbxHV1oPoWewQDzF:21 a=xqWC_Br6kY4A:10
+ a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=VwQbUJbxAAAA:8 a=6H0WHjuAAAAA:8 a=EUspDBNiAAAA:8 a=yYukBbz9-KCo0coATbYA:9
+ a=QEXdDO2ut3YA:10 a=PEH46H7Ffwr30OY-TuGO:22 a=Soq9LBFxuPC4vsCAQt-j:22
+X-Proofpoint-ORIG-GUID: cak4svr3HzTU2uIb2CFfBQwrkWjRYIOu
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzE3MDEzNyBTYWx0ZWRfX+Xq9JxE2rhr9
+ osCKVIS8pmX+r2MQVbT+TeooMzTE+dq3djknrxzTRFclVD4KpjyN5mLYohhAhQtqww2QOe9lbGc
+ y/ApKwUjZXu3YCRbrOCwgF/srzkQJ0qoV5CJNg7cTziZhW7MX6YVvFBkpAM+HaX7sQdL7wVGwxe
+ 09k6Eia0roJgIb4gLbn0Vw8DdAhmgbdXcDoEKfTsdLTVM+EhLyaqw/QJps0lgamQTwZc6SrZ974
+ 40EAbdWHCqHzCHwJ1BwS9O7sE3r7RF4IcPqYAE8laS0mXrglN79WMcEHFm8mr5VCWPbRQ+h9l9Q
+ +PqoVo4Un4k4rHIhjr3B2Dg3fRcjVNCQDSn8VsrdoIdqECpukwsKJA7yjqdyhQQgcxyr3RB/Ye1
+ wLGn4dnH8wNGqBumpYYs+F5dvKTI6C1Q9HwLUm7M5owF8bl9vp5bMKPt4Sy8tA5kd6Wk1Lbxm3Z
+ B2HbbDuyhuPd+vSOKwg==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-03-17_02,2026-03-17_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 lowpriorityscore=0 bulkscore=0 adultscore=0 spamscore=0
+ phishscore=0 impostorscore=0 priorityscore=1501 malwarescore=0 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603170137
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,339 +160,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, 2026-03-13 at 16:17 +0100, Maarten Lankhorst wrote:
-> When trying to do a rather aggressive test of igt's "xe_module_load
-> --r reload" with a full desktop environment and game running I
-> noticed
-> a few OOPSes when dereferencing freed pointers, related to
-> framebuffers and property blobs after the compositor exits.
->=20
-> Solve this by guarding the freeing in drm_file with
-> drm_dev_enter/exit,
-> and immediately put the references from struct drm_file objects
-> during
-> drm_dev_unplug().
->=20
-> Related warnings for framebuffers on the subtest:
-> [=C2=A0 739.713076] ------------[ cut here ]------------
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0 WARN_ON(!list_empty(&dev->mode_config.fb_list))
-> [=C2=A0 739.713079] WARNING: drivers/gpu/drm/drm_mode_config.c:584 at
-> drm_mode_config_cleanup+0x30b/0x320 [drm], CPU#12:
-> xe_module_load/13145
-> ....
-> [=C2=A0 739.713328] Call Trace:
-> [=C2=A0 739.713330]=C2=A0 <TASK>
-> [=C2=A0 739.713335]=C2=A0 ? intel_pmdemand_destroy_state+0x11/0x20 [xe]
-> [=C2=A0 739.713574]=C2=A0 ? intel_atomic_global_obj_cleanup+0xe4/0x1a0 [x=
-e]
-> [=C2=A0 739.713794]=C2=A0 intel_display_driver_remove_noirq+0x51/0xb0 [xe=
-]
-> [=C2=A0 739.714041]=C2=A0 xe_display_fini_early+0x33/0x50 [xe]
-> [=C2=A0 739.714284]=C2=A0 devm_action_release+0xf/0x20
-> [=C2=A0 739.714294]=C2=A0 devres_release_all+0xad/0xf0
-> [=C2=A0 739.714301]=C2=A0 device_unbind_cleanup+0x12/0xa0
-> [=C2=A0 739.714305]=C2=A0 device_release_driver_internal+0x1b7/0x210
-> [=C2=A0 739.714311]=C2=A0 device_driver_detach+0x14/0x20
-> [=C2=A0 739.714315]=C2=A0 unbind_store+0xa6/0xb0
-> [=C2=A0 739.714319]=C2=A0 drv_attr_store+0x21/0x30
-> [=C2=A0 739.714322]=C2=A0 sysfs_kf_write+0x48/0x60
-> [=C2=A0 739.714328]=C2=A0 kernfs_fop_write_iter+0x16b/0x240
-> [=C2=A0 739.714333]=C2=A0 vfs_write+0x266/0x520
-> [=C2=A0 739.714341]=C2=A0 ksys_write+0x72/0xe0
-> [=C2=A0 739.714345]=C2=A0 __x64_sys_write+0x19/0x20
-> [=C2=A0 739.714347]=C2=A0 x64_sys_call+0xa15/0xa30
-> [=C2=A0 739.714355]=C2=A0 do_syscall_64+0xd8/0xab0
-> [=C2=A0 739.714361]=C2=A0 entry_SYSCALL_64_after_hwframe+0x4b/0x53
->=20
-> and
->=20
-> [=C2=A0 739.714459] ------------[ cut here ]------------
-> [=C2=A0 739.714461] xe 0000:67:00.0: [drm] drm_WARN_ON(!list_empty(&fb-
-> >filp_head))
-> [=C2=A0 739.714464] WARNING: drivers/gpu/drm/drm_framebuffer.c:833 at
-> drm_framebuffer_free+0x6c/0x90 [drm], CPU#12: xe_module_load/13145
-> [=C2=A0 739.714715] RIP: 0010:drm_framebuffer_free+0x7a/0x90 [drm]
-> ...
-> [=C2=A0 739.714869] Call Trace:
-> [=C2=A0 739.714871]=C2=A0 <TASK>
-> [=C2=A0 739.714876]=C2=A0 drm_mode_config_cleanup+0x26a/0x320 [drm]
-> [=C2=A0 739.714998]=C2=A0 ? __drm_printfn_seq_file+0x20/0x20 [drm]
-> [=C2=A0 739.715115]=C2=A0 ? drm_mode_config_cleanup+0x207/0x320 [drm]
-> [=C2=A0 739.715235]=C2=A0 intel_display_driver_remove_noirq+0x51/0xb0 [xe=
-]
-> [=C2=A0 739.715576]=C2=A0 xe_display_fini_early+0x33/0x50 [xe]
-> [=C2=A0 739.715821]=C2=A0 devm_action_release+0xf/0x20
-> [=C2=A0 739.715828]=C2=A0 devres_release_all+0xad/0xf0
-> [=C2=A0 739.715843]=C2=A0 device_unbind_cleanup+0x12/0xa0
-> [=C2=A0 739.715850]=C2=A0 device_release_driver_internal+0x1b7/0x210
-> [=C2=A0 739.715856]=C2=A0 device_driver_detach+0x14/0x20
-> [=C2=A0 739.715860]=C2=A0 unbind_store+0xa6/0xb0
-> [=C2=A0 739.715865]=C2=A0 drv_attr_store+0x21/0x30
-> [=C2=A0 739.715868]=C2=A0 sysfs_kf_write+0x48/0x60
-> [=C2=A0 739.715873]=C2=A0 kernfs_fop_write_iter+0x16b/0x240
-> [=C2=A0 739.715878]=C2=A0 vfs_write+0x266/0x520
-> [=C2=A0 739.715886]=C2=A0 ksys_write+0x72/0xe0
-> [=C2=A0 739.715890]=C2=A0 __x64_sys_write+0x19/0x20
-> [=C2=A0 739.715893]=C2=A0 x64_sys_call+0xa15/0xa30
-> [=C2=A0 739.715900]=C2=A0 do_syscall_64+0xd8/0xab0
-> [=C2=A0 739.715905]=C2=A0 entry_SYSCALL_64_after_hwframe+0x4b/0x53
->=20
-> and then finally file close blows up:
->=20
-> [=C2=A0 743.186530] Oops: general protection fault, probably for non-
-> canonical address 0xdead000000000122: 0000 [#1] SMP
-> [=C2=A0 743.186535] CPU: 3 UID: 1000 PID: 3453 Comm: kwin_wayland Tainted=
-:
-> G=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 W=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 7.0.0-rc1-valkyria+ #110 PREEMPT_{RT,(laz=
-y)}
-> [=C2=A0 743.186537] Tainted: [W]=3DWARN
-> [=C2=A0 743.186538] Hardware name: Gigabyte Technology Co., Ltd. X299
-> AORUS Gaming 3/X299 AORUS Gaming 3-CF, BIOS F8n 12/06/2021
-> [=C2=A0 743.186539] RIP: 0010:drm_framebuffer_cleanup+0x55/0xc0 [drm]
-> [=C2=A0 743.186588] Code: d8 72 73 0f b6 42 05 ff c3 39 c3 72 e8 49 8d bd
-> 50 07 00 00 31 f6 e8 3a 80 d3 e1 49 8b 44 24 10 49 8d 7c 24 08 49 8b
-> 54 24 08 <48> 3b 38 0f 85 95 7f 02 00 48 3b 7a 08 0f 85 8b 7f 02 00
-> 48 89 42
-> [=C2=A0 743.186589] RSP: 0018:ffffc900085e3cf8 EFLAGS: 00010202
-> [=C2=A0 743.186591] RAX: dead000000000122 RBX: 0000000000000001 RCX:
-> ffffffff8217ed03
-> [=C2=A0 743.186592] RDX: dead000000000100 RSI: 0000000000000000 RDI:
-> ffff88814675ba08
-> [=C2=A0 743.186593] RBP: ffffc900085e3d10 R08: 0000000000000000 R09:
-> 0000000000000000
-> [=C2=A0 743.186593] R10: 0000000000000000 R11: 0000000000000000 R12:
-> ffff88814675ba00
-> [=C2=A0 743.186594] R13: ffff88810d778000 R14: ffff888119f6dca0 R15:
-> ffff88810c660bb0
-> [=C2=A0 743.186595] FS:=C2=A0 00007ff377d21280(0000) GS:ffff888cec3f8000(=
-0000)
-> knlGS:0000000000000000
-> [=C2=A0 743.186596] CS:=C2=A0 0010 DS: 0000 ES: 0000 CR0: 000000008005003=
-3
-> [=C2=A0 743.186596] CR2: 000055690b55e000 CR3: 0000000113586003 CR4:
-> 00000000003706f0
-> [=C2=A0 743.186597] Call Trace:
-> [=C2=A0 743.186598]=C2=A0 <TASK>
-> [=C2=A0 743.186603]=C2=A0 intel_user_framebuffer_destroy+0x12/0x90 [xe]
-> [=C2=A0 743.186722]=C2=A0 drm_framebuffer_free+0x3a/0x90 [drm]
-> [=C2=A0 743.186750]=C2=A0 ? trace_hardirqs_on+0x5f/0x120
-> [=C2=A0 743.186754]=C2=A0 drm_mode_object_put+0x51/0x70 [drm]
-> [=C2=A0 743.186786]=C2=A0 drm_fb_release+0x105/0x190 [drm]
-> [=C2=A0 743.186812]=C2=A0 ? rt_mutex_slowunlock+0x3aa/0x410
-> [=C2=A0 743.186817]=C2=A0 ? rt_spin_lock+0xea/0x1b0
-> [=C2=A0 743.186819]=C2=A0 drm_file_free+0x1e0/0x2c0 [drm]
-> [=C2=A0 743.186843]=C2=A0 drm_release_noglobal+0x91/0xf0 [drm]
-> [=C2=A0 743.186865]=C2=A0 __fput+0x100/0x2e0
-> [=C2=A0 743.186869]=C2=A0 fput_close_sync+0x40/0xa0
-> [=C2=A0 743.186870]=C2=A0 __x64_sys_close+0x3e/0x80
-> [=C2=A0 743.186873]=C2=A0 x64_sys_call+0xa07/0xa30
-> [=C2=A0 743.186879]=C2=A0 do_syscall_64+0xd8/0xab0
-> [=C2=A0 743.186881]=C2=A0 entry_SYSCALL_64_after_hwframe+0x4b/0x53
-> [=C2=A0 743.186882] RIP: 0033:0x7ff37e567732
-> [=C2=A0 743.186884] Code: 08 0f 85 a1 38 ff ff 49 89 fb 48 89 f0 48 89 d7
-> 48 89 ce 4c 89 c2 4d 89 ca 4c 8b 44 24 08 4c 8b 4c 24 10 4c 89 5c 24
-> 08 0f 05 <c3> 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 00 f3 0f 1e fa 55
-> bf 01 00
-> [=C2=A0 743.186885] RSP: 002b:00007ffc818169a8 EFLAGS: 00000246 ORIG_RAX:
-> 0000000000000003
-> [=C2=A0 743.186886] RAX: ffffffffffffffda RBX: 00007ffc81816a30 RCX:
-> 00007ff37e567732
-> [=C2=A0 743.186887] RDX: 0000000000000000 RSI: 0000000000000000 RDI:
-> 0000000000000012
-> [=C2=A0 743.186888] RBP: 00007ffc818169d0 R08: 0000000000000000 R09:
-> 0000000000000000
-> [=C2=A0 743.186889] R10: 0000000000000000 R11: 0000000000000246 R12:
-> 000055d60a7996e0
-> [=C2=A0 743.186889] R13: 00007ffc81816a90 R14: 00007ffc81816a90 R15:
-> 000055d60a782a30
-> [=C2=A0 743.186892]=C2=A0 </TASK>
-> [=C2=A0 743.186893] Modules linked in: rfcomm snd_hrtimer xt_CHECKSUM
-> xt_MASQUERADE xt_conntrack ipt_REJECT nf_reject_ipv4 xt_tcpudp
-> xt_addrtype nft_compat x_tables nft_chain_nat nf_nat nf_conntrack
-> nf_defrag_ipv6 nf_defrag_ipv4 nf_tables overlay cfg80211 bnep
-> mtd_intel_dg snd_hda_codec_intelhdmi mtd snd_hda_codec_hdmi nls_utf8
-> mxm_wmi intel_wmi_thunderbolt gigabyte_wmi wmi_bmof xe drm_gpuvm
-> drm_gpusvm_helper i2c_algo_bit drm_buddy drm_ttm_helper ttm video
-> drm_suballoc_helper gpu_sched drm_client_lib drm_exec
-> drm_display_helper cec drm_kunit_helpers drm_kms_helper kunit
-> x86_pkg_temp_thermal intel_powerclamp coretemp snd_hda_codec_alc882
-> snd_hda_codec_realtek_lib snd_hda_codec_generic snd_hda_intel
-> snd_soc_avs snd_soc_hda_codec snd_hda_ext_core snd_hda_codec
-> snd_hwdep snd_hda_core snd_intel_dspcfg snd_soc_core snd_compress
-> ac97_bus snd_pcm snd_seq snd_seq_device snd_timer i2c_i801 i2c_mux
-> snd i2c_smbus btusb btrtl btbcm btmtk btintel bluetooth ecdh_generic
-> rfkill ecc mei_me mei ioatdma dca wmi nfsd drm i2c_dev fuse nfnetlink
-> [=C2=A0 743.186938] ---[ end trace 0000000000000000 ]---
->=20
-> And for property blobs:
->=20
-> void drm_mode_config_cleanup(struct drm_device *dev)
-> {
-> ...
-> 	list_for_each_entry_safe(blob, bt, &dev-
-> >mode_config.property_blob_list,
-> 				 head_global) {
-> 		drm_property_blob_put(blob);
-> 	}
->=20
-> Resulting in:
->=20
-> [=C2=A0 371.072940] BUG: unable to handle page fault for address:
-> 000001ffffffffff
-> [=C2=A0 371.072944] #PF: supervisor read access in kernel mode
-> [=C2=A0 371.072945] #PF: error_code(0x0000) - not-present page
-> [=C2=A0 371.072947] PGD 0 P4D 0
-> [=C2=A0 371.072950] Oops: Oops: 0000 [#1] SMP
-> [=C2=A0 371.072953] CPU: 0 UID: 1000 PID: 3693 Comm: kwin_wayland Not
-> tainted 7.0.0-rc1-valkyria+ #111 PREEMPT_{RT,(lazy)}
-> [=C2=A0 371.072956] Hardware name: Gigabyte Technology Co., Ltd. X299
-> AORUS Gaming 3/X299 AORUS Gaming 3-CF, BIOS F8n 12/06/2021
-> [=C2=A0 371.072957] RIP: 0010:drm_property_destroy_user_blobs+0x3b/0x90
-> [drm]
-> [=C2=A0 371.073019] Code: 00 00 48 83 ec 10 48 8b 86 30 01 00 00 48 39 c3
-> 74 59 48 89 c2 48 8d 48 c8 48 8b 00 4c 8d 60 c8 eb 04 4c 8d 60 c8 48
-> 8b 71 40 <48> 39 16 0f 85 39 32 01 00 48 3b 50 08 0f 85 2f 32 01 00
-> 48 89 70
-> [=C2=A0 371.073021] RSP: 0018:ffffc90006a73de8 EFLAGS: 00010293
-> [=C2=A0 371.073022] RAX: 000001ffffffffff RBX: ffff888118a1a930 RCX:
-> ffff8881b92355c0
-> [=C2=A0 371.073024] RDX: ffff8881b92355f8 RSI: 000001ffffffffff RDI:
-> ffff888118be4000
-> [=C2=A0 371.073025] RBP: ffffc90006a73e08 R08: ffff8881009b7300 R09:
-> ffff888cecc5b000
-> [=C2=A0 371.073026] R10: ffffc90006a73e90 R11: 0000000000000002 R12:
-> 000001ffffffffc7
-> [=C2=A0 371.073027] R13: ffff888118a1a980 R14: ffff88810b366d20 R15:
-> ffff888118a1a970
-> [=C2=A0 371.073028] FS:=C2=A0 00007f1faccbb280(0000) GS:ffff888cec2db000(=
-0000)
-> knlGS:0000000000000000
-> [=C2=A0 371.073029] CS:=C2=A0 0010 DS: 0000 ES: 0000 CR0: 000000008005003=
-3
-> [=C2=A0 371.073030] CR2: 000001ffffffffff CR3: 000000010655c001 CR4:
-> 00000000003706f0
-> [=C2=A0 371.073031] Call Trace:
-> [=C2=A0 371.073033]=C2=A0 <TASK>
-> [=C2=A0 371.073036]=C2=A0 drm_file_free+0x1df/0x2a0 [drm]
-> [=C2=A0 371.073077]=C2=A0 drm_release_noglobal+0x7a/0xe0 [drm]
-> [=C2=A0 371.073113]=C2=A0 __fput+0xe2/0x2b0
-> [=C2=A0 371.073118]=C2=A0 fput_close_sync+0x40/0xa0
-> [=C2=A0 371.073119]=C2=A0 __x64_sys_close+0x3e/0x80
-> [=C2=A0 371.073122]=C2=A0 x64_sys_call+0xa07/0xa30
-> [=C2=A0 371.073126]=C2=A0 do_syscall_64+0xc0/0x840
-> [=C2=A0 371.073130]=C2=A0 entry_SYSCALL_64_after_hwframe+0x4b/0x53
-> [=C2=A0 371.073132] RIP: 0033:0x7f1fb3501732
-> [=C2=A0 371.073133] Code: 08 0f 85 a1 38 ff ff 49 89 fb 48 89 f0 48 89 d7
-> 48 89 ce 4c 89 c2 4d 89 ca 4c 8b 44 24 08 4c 8b 4c 24 10 4c 89 5c 24
-> 08 0f 05 <c3> 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 00 f3 0f 1e fa 55
-> bf 01 00
-> [=C2=A0 371.073135] RSP: 002b:00007ffe8e6f0278 EFLAGS: 00000246 ORIG_RAX:
-> 0000000000000003
-> [=C2=A0 371.073136] RAX: ffffffffffffffda RBX: 00007ffe8e6f0300 RCX:
-> 00007f1fb3501732
-> [=C2=A0 371.073137] RDX: 0000000000000000 RSI: 0000000000000000 RDI:
-> 0000000000000012
-> [=C2=A0 371.073138] RBP: 00007ffe8e6f02a0 R08: 0000000000000000 R09:
-> 0000000000000000
-> [=C2=A0 371.073139] R10: 0000000000000000 R11: 0000000000000246 R12:
-> 00005585ba46eea0
-> [=C2=A0 371.073140] R13: 00007ffe8e6f0360 R14: 00007ffe8e6f0360 R15:
-> 00005585ba458a30
-> [=C2=A0 371.073143]=C2=A0 </TASK>
-> [=C2=A0 371.073144] Modules linked in: rfcomm snd_hrtimer xt_addrtype
-> xt_CHECKSUM xt_MASQUERADE xt_conntrack ipt_REJECT nf_reject_ipv4
-> xt_tcpudp nft_compat x_tables nft_chain_nat nf_nat nf_conntrack
-> nf_defrag_ipv6 nf_defrag_ipv4 nf_tables overlay cfg80211 bnep
-> snd_hda_codec_intelhdmi snd_hda_codec_hdmi mtd_intel_dg mtd nls_utf8
-> wmi_bmof mxm_wmi gigabyte_wmi intel_wmi_thunderbolt xe drm_gpuvm
-> drm_gpusvm_helper i2c_algo_bit drm_buddy drm_ttm_helper ttm video
-> drm_suballoc_helper gpu_sched drm_client_lib drm_exec
-> drm_display_helper cec drm_kunit_helpers drm_kms_helper kunit
-> x86_pkg_temp_thermal intel_powerclamp coretemp snd_hda_codec_alc882
-> snd_hda_codec_realtek_lib snd_hda_codec_generic snd_hda_intel
-> snd_soc_avs snd_soc_hda_codec snd_hda_ext_core snd_hda_codec
-> snd_hwdep snd_hda_core snd_intel_dspcfg snd_soc_core snd_compress
-> ac97_bus snd_pcm snd_seq snd_seq_device snd_timer i2c_i801 btusb
-> i2c_mux i2c_smbus btrtl snd btbcm btmtk btintel bluetooth
-> ecdh_generic rfkill ecc mei_me mei ioatdma dca wmi nfsd drm i2c_dev
-> fuse nfnetlink
-> [=C2=A0 371.073198] CR2: 000001ffffffffff
-> [=C2=A0 371.073199] ---[ end trace 0000000000000000 ]---
->=20
-> Add a guard around file close, and ensure the warnings from
-> drm_mode_config
-> do not trigger. Fix those by allowing an open reference to the file
-> descriptor
-> and cleaning up the file linked list entry in
-> drm_mode_config_cleanup().
->=20
-> Cc: Thomas Hellstr=C3=B6m <thomas.hellstrom@linux.intel.com>
-> Signed-off-by: Maarten Lankhorst <dev@lankhorst.se>
-> ---
-> =C2=A0drivers/gpu/drm/drm_file.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0 | 5 ++++-
-> =C2=A0drivers/gpu/drm/drm_mode_config.c | 9 ++++++---
-> =C2=A02 files changed, 10 insertions(+), 4 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/drm_file.c b/drivers/gpu/drm/drm_file.c
-> index ec820686b3021..f52141f842a1f 100644
-> --- a/drivers/gpu/drm/drm_file.c
-> +++ b/drivers/gpu/drm/drm_file.c
-> @@ -233,6 +233,7 @@ static void drm_events_release(struct drm_file
-> *file_priv)
-> =C2=A0void drm_file_free(struct drm_file *file)
-> =C2=A0{
-> =C2=A0	struct drm_device *dev;
-> +	int idx;
-> =C2=A0
-> =C2=A0	if (!file)
-> =C2=A0		return;
-> @@ -249,9 +250,11 @@ void drm_file_free(struct drm_file *file)
-> =C2=A0
-> =C2=A0	drm_events_release(file);
-> =C2=A0
-> -	if (drm_core_check_feature(dev, DRIVER_MODESET)) {
-> +	if (drm_core_check_feature(dev, DRIVER_MODESET) &&
-> +	=C2=A0=C2=A0=C2=A0 drm_dev_enter(dev, &idx)) {
-> =C2=A0		drm_fb_release(file);
-> =C2=A0		drm_property_destroy_user_blobs(dev, file);
-> +		drm_dev_exit(idx);
-> =C2=A0	}
-> =C2=A0
-> =C2=A0	if (drm_core_check_feature(dev, DRIVER_SYNCOBJ))
-> diff --git a/drivers/gpu/drm/drm_mode_config.c
-> b/drivers/gpu/drm/drm_mode_config.c
-> index 84ae8a23a3678..e349418978f79 100644
-> --- a/drivers/gpu/drm/drm_mode_config.c
-> +++ b/drivers/gpu/drm/drm_mode_config.c
-> @@ -583,10 +583,13 @@ void drm_mode_config_cleanup(struct drm_device
-> *dev)
-> =C2=A0	 */
-> =C2=A0	WARN_ON(!list_empty(&dev->mode_config.fb_list));
-> =C2=A0	list_for_each_entry_safe(fb, fbt, &dev->mode_config.fb_list,
-> head) {
-> -		struct drm_printer p =3D drm_dbg_printer(dev,
-> DRM_UT_KMS, "[leaked fb]");
-> +		if (list_empty(&fb->filp_head) ||
-> drm_framebuffer_read_refcount(fb) > 1) {
+Current topology code will try using 2 LMs with just one DSC, which
+breaks cases like SC7280 / Fairphone5. Forbid using 2 LMs split in such
+a case.
 
-This looks a bit scary. Can someone manipulate the fb_list and even
-free fbs while we are iterating? Or is all other manipulation blocked
-by the device being unplugged?
+Fixes: 1ce69c265a53 ("drm/msm/dpu: move resource allocation to CRTC")
+Reported-by: Luca Weiss <luca.weiss@fairphone.com>
+Closes: https://lore.kernel.org/r/DH1IKLU0YZYU.2SW4WYO7H3H4R@fairphone.com/
+Tested-by: Luca Weiss <luca.weiss@fairphone.com> # qcm6490-fairphone-fp5
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+---
+ drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+index 6bf7c46379ae..96b67ea3fb4c 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+@@ -1410,7 +1410,8 @@ static struct msm_display_topology dpu_crtc_get_topology(
+ 		topology.num_lm = 2;
+ 	else if (topology.num_dsc == 2)
+ 		topology.num_lm = 2;
+-	else if (dpu_kms->catalog->caps->has_3d_merge)
++	else if (dpu_kms->catalog->caps->has_3d_merge &&
++		 topology.num_dsc == 0)
+ 		topology.num_lm = (mode->hdisplay > MAX_HDISPLAY_SPLIT) ? 2 : 1;
+ 	else
+ 		topology.num_lm = 1;
 
-> +			struct drm_printer p =3D drm_dbg_printer(dev,
-> DRM_UT_KMS, "[leaked fb]");
-> =C2=A0
-> -		drm_printf(&p, "framebuffer[%u]:\n", fb->base.id);
-> -		drm_framebuffer_print_info(&p, 1, fb);
-> +			drm_printf(&p, "framebuffer[%u]:\n", fb-
-> >base.id);
-> +			drm_framebuffer_print_info(&p, 1, fb);
-> +		}
-> +		list_del_init(&fb->filp_head);
-> =C2=A0		drm_framebuffer_free(&fb->base.refcount);
-> =C2=A0	}
-> =C2=A0
+---
+base-commit: 50c4a49f7292b33b454ea1a16c4f77d6965405dc
+change-id: 20260317-fix-3d-dsc-4b073977ea19
+
+Best regards,
+-- 
+With best wishes
+Dmitry
+
