@@ -4,44 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90789FD874D
-	for <dri-devel@archiver.kernel.org>; Tue, 17 Mar 2026 12:05:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3A9FFFD8752
+	for <dri-devel@archiver.kernel.org>; Tue, 17 Mar 2026 12:05:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F297710E615;
-	Tue, 17 Mar 2026 12:05:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 01FD710E61C;
+	Tue, 17 Mar 2026 12:05:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="gCjiYj/c";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="qjZGiuJL";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B492F10E615
- for <dri-devel@lists.freedesktop.org>; Tue, 17 Mar 2026 12:05:04 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1014810E61C
+ for <dri-devel@lists.freedesktop.org>; Tue, 17 Mar 2026 12:05:05 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 098D443905;
+ by tor.source.kernel.org (Postfix) with ESMTP id 6677360127;
  Tue, 17 Mar 2026 12:05:04 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id D82A7C19425;
- Tue, 17 Mar 2026 12:05:03 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 0BE2CC2BCB1;
+ Tue, 17 Mar 2026 12:05:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linux.dev; s=korg;
- t=1773749103; bh=aS0AQ+DX9KeA6AMbU2CAybn1XXydzrY13XlyF6pIjOw=;
- h=From:Subject:Date:To:Cc:From;
- b=gCjiYj/cv6CgJO0Bf+xbgXmDPXO9mRO80snRfHUCMyx0f898ybUVo55jHfKLjfVkM
- 9L/6TRWh5PChSE0JbaeuA4IVbR9AUz/EP6jniekRmUWH5ABU8830umIRqOKQRvUbCv
- I2brS/Mq5D8TBV45JWBLVSXvp7sKwwpKY0EixPLE=
+ t=1773749104; bh=Spvb1UU2bxG11YpOXQvMhT8OSF/chs/BSvBYCgTW/Ss=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+ b=qjZGiuJLf3/tn5qoQohJCc4tutmNSSLmI6ZwqHzwccOYv+PhuIFAg3aEh78fgtfd5
+ rX5QCs48LBVl63zCDfHKEaAWSlgv1BkDlRihwaFuk27WxchAHH/JmbsAkwU0TeMNca
+ 5UZeVqub3+D2G3T1hE4xGSbg9sD/flrPYo7vBbhE=
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id CB8B2FD874E;
- Tue, 17 Mar 2026 12:05:03 +0000 (UTC)
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 009ECFD8752;
+ Tue, 17 Mar 2026 12:05:04 +0000 (UTC)
 From: Alvin Sun <alvin.sun@linux.dev>
-Subject: [PATCH 0/2] drm/gpuvm: add debugfs utilities for GPU VA state dumping
-Date: Tue, 17 Mar 2026 20:03:39 +0800
-Message-Id: <20260317-gpuvm-helpers-v1-0-00198fc6eeea@linux.dev>
+Date: Tue, 17 Mar 2026 20:03:41 +0800
+Subject: [PATCH 2/2] drm/gpuvm: add GpuVaIter and va_mappings() for debugfs
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIACFDuWkC/02OywrCMBBFf6XM2il5tGktIv6HuEjSsUb6MmmDI
- P67wbpweQbOPfOCQN5RgCZ7gafogpvGBHyXgb3psSN0bWIQTCgmeYXdvMYBb9TP5AOKujUkjGT
- SCEjO7Onqnt+982VjT481zS7bEYwOhHYaBrc0Waxyht4W8J9rshQrORf1L+bXsKCp+N5qKyrdq
- iZ+jYFC0D/lcNg+ZEowqYo651yqsiyQ432iXncj9dfTGF3rdJ7yxyNc3u8P4uenSf8AAAA=
-X-Change-ID: 20260317-gpuvm-helpers-28dbe2b303b2
+Message-Id: <20260317-gpuvm-helpers-v1-2-00198fc6eeea@linux.dev>
+References: <20260317-gpuvm-helpers-v1-0-00198fc6eeea@linux.dev>
+In-Reply-To: <20260317-gpuvm-helpers-v1-0-00198fc6eeea@linux.dev>
 To: Danilo Krummrich <dakr@kernel.org>, 
  Matthew Brost <matthew.brost@intel.com>, 
  =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
@@ -54,11 +51,11 @@ To: Danilo Krummrich <dakr@kernel.org>,
 Cc: dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org, 
  Alvin Sun <alvin.sun@linux.dev>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1773749102; l=1764;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1773749102; l=3147;
  i=alvin.sun@linux.dev; s=20260317; h=from:subject:message-id;
- bh=aS0AQ+DX9KeA6AMbU2CAybn1XXydzrY13XlyF6pIjOw=;
- b=Fqxw7Hamhyb2RexD2o4WMZ4spA4S1bQc2Z7iI/S/FQk9eIyMejQYQT+S4cMB365ongnsABhh+
- Coje7864LlJAxMy7hYBCuACCxxLr0azNcI2odnc+Yow1+AT4oXILCku
+ bh=Spvb1UU2bxG11YpOXQvMhT8OSF/chs/BSvBYCgTW/Ss=;
+ b=V6TKsT27fnH+byF3jmh0dtSkdFUV2SfXMSCFWIniMZEF46nlzSMUI+AMohlqThDzMXs4uC8Ws
+ 7iOycv8gmuPC29SCyfZfmiJ++jaXmAeF6VIU2m9wc1TpMwsgl0PjCns
 X-Developer-Key: i=alvin.sun@linux.dev; a=ed25519;
  pk=CHcwQp8GSoj25V/L1ZWNSQjWp9eSIb0s9LKr0Nm3WuE=
 X-Endpoint-Received: by B4 Relay for alvin.sun@linux.dev/20260317 with
@@ -78,42 +75,105 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This patch series adds helper APIs to enable GPU drivers to implement
-debugfs interfaces [1] [2] that expose GPU VA mapping state for
-inspection and debugging purposes.
+Add an iterator over VA mappings so drivers can walk and dump GPU VA
+state in debugfs.
 
-Dependencies:
-- [PATCH v12 0/1] rust: interop: Add list module for C linked list interface
-https://lore.kernel.org/rust-for-linux/20260306203648.1136554-1-joelagnelf@nvidia.com/
-- [PATCH v4 0/6] Rust GPUVM immediate mode
-https://lore.kernel.org/rust-for-linux/20260130-gpuvm-rust-v4-0-8364d104ff40@google.com/
-
-Link: https://gitlab.freedesktop.org/panfrost/linux/-/issues/11 [1]
-Link: https://gitlab.freedesktop.org/panfrost/linux/-/merge_requests/59 [2]
 Signed-off-by: Alvin Sun <alvin.sun@linux.dev>
 ---
-Alvin Sun (2):
-      drm/gpuvm: add name(), RawGpuVa and kernel_alloc_va() for debugfs
-      drm/gpuvm: add GpuVaIter and va_mappings() for debugfs
+ rust/kernel/drm/gpuvm/mod.rs |  6 +++++
+ rust/kernel/drm/gpuvm/va.rs  | 53 ++++++++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 59 insertions(+)
 
- rust/kernel/drm/gpuvm/mod.rs | 20 ++++++++++
- rust/kernel/drm/gpuvm/va.rs  | 90 ++++++++++++++++++++++++++++++++++++++++++++
- 2 files changed, 110 insertions(+)
----
-base-commit: 34cb4f916af10153c87fabaf6c34e4cafa170427
-change-id: 20260317-gpuvm-helpers-28dbe2b303b2
-prerequisite-change-id: 20251128-gpuvm-rust-b719cac27ad6:v4
-prerequisite-patch-id: 94679c36e594a7d6fc9279dad5419f5558f2302b
-prerequisite-patch-id: 03b672e1e2c07d677326d64de7fccc6092ea6812
-prerequisite-patch-id: 3c1a4c6eec5faaa1a70de53581bd7ae5ab7bc324
-prerequisite-patch-id: 3712380c7bfdf784b6aca146864576cd76bc9a72
-prerequisite-patch-id: 3149e1016beefce815c860d4b64e7c1bb7589f15
-prerequisite-patch-id: 23467ae9a31746a6c44678e0054f1442c6a5ac06
-prerequisite-message-id: <<20260306203648.1136554-1-joelagnelf@nvidia.com>>
-prerequisite-patch-id: 9bc17713af35e5f2744ac55157e2b5078eae77cc
+diff --git a/rust/kernel/drm/gpuvm/mod.rs b/rust/kernel/drm/gpuvm/mod.rs
+index 3186df9f740cf..41b99d468f9d9 100644
+--- a/rust/kernel/drm/gpuvm/mod.rs
++++ b/rust/kernel/drm/gpuvm/mod.rs
+@@ -301,6 +301,12 @@ pub fn data(&mut self) -> &mut T {
+         // SAFETY: By the type invariants we may access `core`.
+         unsafe { &mut *self.0.data.get() }
+     }
++
++    /// Returns an iterator over the VA mappings in this GpuVm.
++    #[inline]
++    pub fn va_mappings(&self) -> GpuVaIter<'_, T> {
++        GpuVaIter::new(&self.0)
++    }
+ }
+ 
+ impl<T: DriverGpuVm> Deref for GpuVmCore<T> {
+diff --git a/rust/kernel/drm/gpuvm/va.rs b/rust/kernel/drm/gpuvm/va.rs
+index 8b8fd500b3c5f..3210047f880e3 100644
+--- a/rust/kernel/drm/gpuvm/va.rs
++++ b/rust/kernel/drm/gpuvm/va.rs
+@@ -1,6 +1,14 @@
+ // SPDX-License-Identifier: GPL-2.0 OR MIT
+ 
+ use super::*;
++use crate::interop::list::{
++    CList,
++    CListIter, //
++};
++use core::{
++    marker::PhantomData,
++    mem::offset_of, //
++};
+ 
+ /// Represents that a range of a GEM object is mapped in this [`GpuVm`] instance.
+ ///
+@@ -118,6 +126,51 @@ pub fn length(&self) -> u64 {
+     }
+ }
+ 
++const DRM_GPUVA_LIST_ENTRY_OFFSET: usize = offset_of!(bindings::drm_gpuva, rb.entry);
++type RawGpuVaIter<'a> = CListIter<'a, RawGpuVa, DRM_GPUVA_LIST_ENTRY_OFFSET>;
++
++/// An iterator over the VA mappings in a [`GpuVm`].
++pub struct GpuVaIter<'a, T: DriverGpuVm> {
++    raw_gpuva_iter: RawGpuVaIter<'a>,
++    kern_gpuva_ptr: *mut bindings::drm_gpuva,
++    _marker: PhantomData<&'a T>,
++}
++
++impl<'a, T: DriverGpuVm> GpuVaIter<'a, T> {
++    #[inline]
++    pub(crate) fn new(gpuvm: &'a GpuVm<T>) -> Self {
++        // SAFETY: `gpuvm` is valid.
++        let head = unsafe { &raw mut (*gpuvm.as_raw()).rb.list };
++        // SAFETY: `head` is a valid pointer to a drm_gpuva list head.
++        let clist = unsafe { CList::<RawGpuVa, DRM_GPUVA_LIST_ENTRY_OFFSET>::from_raw(head) };
++        let kern_gpuva_ptr = gpuvm.kernel_alloc_va().as_raw();
++
++        Self {
++            raw_gpuva_iter: clist.iter(),
++            kern_gpuva_ptr,
++            _marker: PhantomData,
++        }
++    }
++}
++
++impl<'a, T: DriverGpuVm> Iterator for GpuVaIter<'a, T> {
++    type Item = &'a GpuVa<T>;
++
++    #[inline]
++    fn next(&mut self) -> Option<Self::Item> {
++        let mut curr = self.raw_gpuva_iter.next()?;
++
++        if curr.as_raw() == self.kern_gpuva_ptr {
++            // Skip kernel reserved node.
++            curr = self.raw_gpuva_iter.next()?;
++        }
++
++        // SAFETY: We have skipped the kernel reserved node, all remaining
++        // entries are valid GpuVa<T> instances.
++        Some(unsafe { GpuVa::from_raw(curr.as_raw()) })
++    }
++}
++
+ /// A pre-allocated [`GpuVa`] object.
+ ///
+ /// # Invariants
 
-Best regards,
 -- 
-Alvin Sun <alvin.sun@linux.dev>
+2.43.0
 
 
