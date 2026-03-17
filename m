@@ -4,61 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D9602F33805
-	for <dri-devel@archiver.kernel.org>; Tue, 17 Mar 2026 06:47:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 440EAF33804
+	for <dri-devel@archiver.kernel.org>; Tue, 17 Mar 2026 06:50:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E3BF210E336;
-	Tue, 17 Mar 2026 06:47:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9C66910E33D;
+	Tue, 17 Mar 2026 06:50:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="k21xIKlT";
+	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="HTXgldAm";
 	dkim-atps=neutral
 Received: from mail-wm1-f74.google.com (mail-wm1-f74.google.com
  [209.85.128.74])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1682210E336
- for <dri-devel@lists.freedesktop.org>; Tue, 17 Mar 2026 06:47:17 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0EA9910E33D
+ for <dri-devel@lists.freedesktop.org>; Tue, 17 Mar 2026 06:50:03 +0000 (UTC)
 Received: by mail-wm1-f74.google.com with SMTP id
- 5b1f17b1804b1-4853a9467c5so29951425e9.2
- for <dri-devel@lists.freedesktop.org>; Mon, 16 Mar 2026 23:47:16 -0700 (PDT)
+ 5b1f17b1804b1-485c45885e6so2064925e9.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 16 Mar 2026 23:50:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20251104; t=1773730035; x=1774334835;
+ d=google.com; s=20251104; t=1773730201; x=1774335001;
  darn=lists.freedesktop.org; 
  h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
  :date:from:to:cc:subject:date:message-id:reply-to;
- bh=+LfXYyK2K5YV7GwOcQbmsbmYUjdllavbSwogkW6CuYU=;
- b=k21xIKlTd1Pm5qrLJvqROOCXenDBDvKedLnV+fmYY/mZe9v20KbLamFUmyvOVXL/L3
- j1giKNtnxkQ6AaKTy8yw8YXPcTYBNMDHXdZmYldya5fNbd3s5DsEAr3QUpxxWsX17ada
- nqdqzioeS9OhYnGEW3j/CT1Qp3Z20m41NHYfxmNFSdPp+kZNdBQoapYUL+4GRISa1sO9
- Lk986fWNUwgvksMoRxHR2kCEDWgiIrQ+Gd6TuzIDO20n2rBUmPzs5aJrtBPu23cPH0uo
- +/RPpMW+XTOiAKrGmxc/MK1ezXN6gcZekAxArHkWaAyDZq2K21dTk9kS8fHgJIqhjJhk
- VYCQ==
+ bh=FxvRr8+lOBB6LohtXEdeEzhkagUanjKQw+ztADkvzGQ=;
+ b=HTXgldAmjNEuLJXJQQVaOYJimOMnUWcQfGTYeZtWsr5FhMs0qf8S2n0H505xaAlSiU
+ QdMmeXFiMEcGU4iES6nNG4C9br9dgSUodwiJMtGHnRl1l+S2UhXib5b7P2fTdcwyXU1A
+ rY/gEPL1EjGa/sqqfGdIlYVs1VzB9Ht/KfBcW0NFEHhJ0BNTWym1Z8S7V+BkRm95/D4T
+ PQsSGQi93lbCgR9IlE0KcksXYiT6dD00td9U1E8MExSbCN+m+0/McpUnH7VH5l1vSgXQ
+ jbBlo55KHN/zFLwnObbRSzT8CsPRxVU7zKOqOD+i1LRsI3P/57jZgfyZhnEyn1kDESYE
+ 3sGg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1773730035; x=1774334835;
+ d=1e100.net; s=20251104; t=1773730201; x=1774335001;
  h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
  :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=+LfXYyK2K5YV7GwOcQbmsbmYUjdllavbSwogkW6CuYU=;
- b=Nc81xulDVMugUbLL2rB238nQHx2MyNbhsz5S7/mBJxbOxXi7TLv6gMYhEKIodcMYcM
- gRRf6Nvcp21oI0agjgc50yilnzMhndzmsvRtAoRTNPAkrMrtBe1Wbft+p1Pl4WVLo+7q
- viauK5UcIXhNpySXSLosCOTlgM7CbVShYtsx+D1KjKKoV3JsvgRVdgNCEr3DgTdeLnyk
- cHEQ6alVN4gta74urbb/UoIGQo8ZIdY634d2IBGNdbCZZQrzz6hVmekIHpv50wPC3SwD
- SWMNUewzc/JbUqNORvvyXnDctDqq0Z5uNPHcACeej+kSPvHVj//0eee8bcEHRJ0hT8ke
- HTcw==
+ bh=FxvRr8+lOBB6LohtXEdeEzhkagUanjKQw+ztADkvzGQ=;
+ b=V/6uDHwz+dPljlSgIs94N4e6qgytjlJBI+d1VsBC9t4kXDMGYRaHQCsqU33s163s8R
+ GfS/uV/z5kQViRGeRUOb5ZdTisgiZXW4FR5IHovfcJLJQDLEATMcak4tq3WWX2yaR428
+ dBpe3wQQ/TSFm+y40phKqLziTiBontG0ACUAifHOonboUED26OQ0+aHfBq3a681BTjUP
+ pNvPzezFh2/9B4/i9ITSx2JGDV/Gb05NFmkblmygMgQpktlHeHcSXeoHAKn6hxjOqcZ6
+ 63MKPcbSCmJob2D8FVdyukdQLUbVY7e748GHLeYTfa/P+4um7Cki4+eZIJ3LVDPkBkWl
+ Y4HA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVmUuKD9BTycpkNuxuvlAQhH7XO3iRm6enlp4eC9JYffHbOV3G4p/YiQt4IMGXgM6hk8fdrj9r6+DA=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwiKoPzx8teK2MN2v6X6fSiv+VfadE0bVN/oqUrUDmC8WDQMDc8
- z2mYxd5dK2hf/T1lu7URJlYM1xz/ThuEODyu/LW/KPxn9GYLmMJcoP/OsrIxBrdZuJPyv9uQUEg
- 9Yv14sUR8ibT34+ZU1Q==
-X-Received: from wmpj3.prod.google.com ([2002:a05:600c:4883:b0:483:509d:729b])
+ AJvYcCXHrlv22lwjeqpfn4P1hd12kSbI0aVLGFFdcn5RdjLyzb3h50djaKZpajMfeR9qYH02g3ghD6AYgb4=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyXlDlFR1QwGoFDqxcMY51Lam0rEb3UK0HBulC/QCv3KINNYNut
+ APpWxt6d4b37JNUoakaIe+4B3c+0j/oW7rC+Jm8P2nHomDZu4a1Il5xddtpThgT7hPlbyztVZrw
+ JGLg3Cy8+3uEI6NaIKA==
+X-Received: from wmop12.prod.google.com ([2002:a05:600c:468c:b0:485:40d2:1eb1])
  (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:600c:8a0c:20b0:485:54cd:6e4e with SMTP id
- 5b1f17b1804b1-485566facebmr200570335e9.18.1773730035474; 
- Mon, 16 Mar 2026 23:47:15 -0700 (PDT)
-Date: Tue, 17 Mar 2026 06:47:14 +0000
-In-Reply-To: <20260303162314.94363-4-dakr@kernel.org>
+ 2002:a05:600c:8519:b0:485:5812:bb9e with SMTP id
+ 5b1f17b1804b1-4855812bbddmr300430745e9.0.1773730201517; 
+ Mon, 16 Mar 2026 23:50:01 -0700 (PDT)
+Date: Tue, 17 Mar 2026 06:50:00 +0000
+In-Reply-To: <20260303162314.94363-3-dakr@kernel.org>
 Mime-Version: 1.0
 References: <20260303162314.94363-1-dakr@kernel.org>
- <20260303162314.94363-4-dakr@kernel.org>
-Message-ID: <abj48uggZonBXPsf@google.com>
-Subject: Re: [PATCH 3/8] rust: dma: add zeroed constructor to `Coherent`
+ <20260303162314.94363-3-dakr@kernel.org>
+Message-ID: <abj5mOYQAY290nqY@google.com>
+Subject: Re: [PATCH 2/8] rust: dma: add generalized container for types other
+ than slices
 From: Alice Ryhl <aliceryhl@google.com>
 To: Danilo Krummrich <dakr@kernel.org>
 Cc: acourbot@nvidia.com, ojeda@kernel.org, boqun@kernel.org, gary@garyguo.net, 
@@ -83,15 +84,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, Mar 03, 2026 at 05:22:54PM +0100, Danilo Krummrich wrote:
+On Tue, Mar 03, 2026 at 05:22:53PM +0100, Danilo Krummrich wrote:
 > From: Gary Guo <gary@garyguo.net>
 > 
-> These constructors create a coherent container of a single object
-> instead of slice. They are named `zeroed` and `zeroed_with_attrs` to
-> emphasis that they are created initialized zeroed. It is intended that
-> there'll be new constructors that take `PinInit` instead of zeroing.
+> Currently, `CoherentAllocation` is concecptually a DMA coherent container
+> of a slice of `[T]` of runtime-checked length. Generalize it by creating
+> `dma::Coherent<T>` which can hold any value of `T`.
+> `Coherent::alloc_with_attrs` is implemented but not yet exposed, as I
+> believe we should not expose the way to obtain an uninitialized coherent
+> region.
+> 
+> `Coherent<[T]>` provides a `len` method instead of the previous `count()`
+> method to be consistent with methods on slices.
+> 
+> The existing type is re-defined as a type alias of `Coherent<[T]>` to ease
+> transition. Methods in use are not yet removed.
 > 
 > Signed-off-by: Gary Guo <gary@garyguo.net>
 > Signed-off-by: Danilo Krummrich <dakr@kernel.org>
 
+I see you have both `size()` and `len()`. I think it would be clearer to
+rename `size()` to `len_bytes()`.
+
+Otherwise LGTM.
 Reviewed-by: Alice Ryhl <aliceryhl@google.com>
+
+Alice
+
