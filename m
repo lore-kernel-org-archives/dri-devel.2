@@ -4,75 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 25D38FEDA1C
-	for <dri-devel@archiver.kernel.org>; Tue, 17 Mar 2026 19:49:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5C6A3FEDA1B
+	for <dri-devel@archiver.kernel.org>; Tue, 17 Mar 2026 19:49:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6A9B910E255;
-	Tue, 17 Mar 2026 19:49:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BF62C10E1CD;
+	Tue, 17 Mar 2026 19:49:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=daniel.almeida@collabora.com header.b="GEVHPlTV";
+	dkim=pass (1024-bit key; unprotected) header.d=hugovil.com header.i=@hugovil.com header.b="A3evknzh";
 	dkim-atps=neutral
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
- [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C883410E1CD;
- Tue, 17 Mar 2026 19:49:18 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1773776956; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=l6DHBX9OpXYx2XB4ahJu3nwGnmoTwJam6cKnRAFzGTaQcSM98cMNmNBISrvJ+k6FjatQyPJ1owo0waUt47F6M7hsnFp2GnRqte1o/3MZsUGDmaEYmfBi7F4S13oM8OU/nhgf1cejCg3aLoGk0EF+c3cBXDqF8S37TZmC/H4R2E0=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1773776956;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=qivz7z5qDkBFkveJZY7JZdTDWy+EWa/y0vLvNrlAvYg=; 
- b=mDXdFPf/AHuN1pa1DMWNXURU3m/WOYGDdkz7paN8U/PV5llbqcy7xoBVaC4d2Qaa89oGVpKBW37tdBvBb5ZVA+VRYNw8hLnqbVayedaUB8VZYK1lTaijjVkZR6BNhpckj14Lrfc+pjjvYqjwJpFdOxD3Y6iJ+iLKRvpkyW9vrj0=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=daniel.almeida@collabora.com;
- dmarc=pass header.from=<daniel.almeida@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1773776956; 
- s=zohomail; d=collabora.com; i=daniel.almeida@collabora.com;
- h=Content-Type:Mime-Version:Subject:Subject:From:From:In-Reply-To:Date:Date:Cc:Cc:Content-Transfer-Encoding:Message-Id:Message-Id:References:To:To:Reply-To;
- bh=qivz7z5qDkBFkveJZY7JZdTDWy+EWa/y0vLvNrlAvYg=;
- b=GEVHPlTVrYZDZ661G1DbPwdt/YWYF4U0fV0BRj22+t762Alt06x3gFn5pHrIV6vU
- 0ZxnSF9aruXsJGKU4EytbL1eUd82Br2BKfBiGFe4hln8VTrQOBOkLD9B1YKzobANtcK
- kx9vhVv8ejlfUbZI8qpYjDbNCTwYlo0S0014voLI=
-Received: by mx.zohomail.com with SMTPS id 1773776953256295.04566668878033;
- Tue, 17 Mar 2026 12:49:13 -0700 (PDT)
-Content-Type: text/plain;
-	charset=utf-8
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81\))
-Subject: Re: [RFC PATCH 02/12] drm/dep: Add DRM dependency queue layer
-From: Daniel Almeida <daniel.almeida@collabora.com>
-In-Reply-To: <abmaDElHmbQkYy57@lstrano-desk.jf.intel.com>
-Date: Tue, 17 Mar 2026 16:48:53 -0300
-Cc: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Boris Brezillon <boris.brezillon@collabora.com>,
- Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- =?utf-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- =?utf-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Danilo Krummrich <dakr@kernel.org>, David Airlie <airlied@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Philipp Stanner <phasta@kernel.org>,
- Simona Vetter <simona@ffwll.ch>, Sumit Semwal <sumit.semwal@linaro.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, linux-kernel@vger.kernel.org,
- Sami Tolvanen <samitolvanen@google.com>,
- Jeffrey Vander Stoep <jeffv@google.com>, Alice Ryhl <aliceryhl@google.com>,
- Daniel Stone <daniels@collabora.com>,
- Alexandre Courbot <acourbot@nvidia.com>,
- John Hubbard <jhubbard@nvidia.com>, shashanks@nvidia.com,
- jajones@nvidia.com, Eliot Courtney <ecourtney@nvidia.com>,
- Joel Fernandes <joelagnelf@nvidia.com>,
- rust-for-linux <rust-for-linux@vger.kernel.org>
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <CC600DA5-968C-440B-8B4F-4E56576C7D5A@collabora.com>
-References: <20260316043255.226352-1-matthew.brost@intel.com>
- <20260316043255.226352-3-matthew.brost@intel.com>
- <7A8108C7-7CF0-4EA4-95ED-8003502DC35A@collabora.com>
- <abjqfXERS6Xk4FAQ@lstrano-desk.jf.intel.com>
- <abmaDElHmbQkYy57@lstrano-desk.jf.intel.com>
-To: Matthew Brost <matthew.brost@intel.com>
-X-Mailer: Apple Mail (2.3826.700.81)
-X-ZohoMailClient: External
+Received: from mail.hugovil.com (mail.hugovil.com [162.243.120.170])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EB40D10E1CD
+ for <dri-devel@lists.freedesktop.org>; Tue, 17 Mar 2026 19:49:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=hugovil.com
+ ; s=default;
+ h=Content-Transfer-Encoding:Mime-Version:Message-Id:Subject:Cc:
+ To:From:Date:subject:date:message-id:reply-to;
+ bh=UajxUvnJteCR2aLz+P2+Z+nPCZyF8DFquT2mGrIUmsk=; b=A3evknzhpbDH2WLxXkkH6/NKPJ
+ SgNfilv+Zk1tMBS1xsTgE6rqep+js3JZ/MjWqC2xnWmN13tntagQOlVALNq9afbDQHsNGzzUhXYy7
+ eN33aYeyDcdfSXSxX6ngE2ezvon4wlQcl6v86WXfTg83d3mSm9s2GTtY2POydUte2ty0=;
+Received: from modemcable061.19-161-184.mc.videotron.ca ([184.161.19.61]
+ helo=debian-lenovo) by mail.hugovil.com with esmtpa (Exim 4.98.2)
+ (envelope-from <hugo@hugovil.com>) id 1w2aQJ-000000005ZT-42LN;
+ Tue, 17 Mar 2026 15:49:52 -0400
+Date: Tue, 17 Mar 2026 15:49:51 -0400
+From: Hugo Villeneuve <hugo@hugovil.com>
+To: Biju Das <biju.das.jz@bp.renesas.com>
+Cc: biju.das.au <biju.das.au@gmail.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Philipp Zabel <p.zabel@pengutronix.de>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, Geert
+ Uytterhoeven <geert+renesas@glider.be>, Chris Brandt
+ <Chris.Brandt@renesas.com>, Prabhakar Mahadev Lad
+ <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: Re: [PATCH 2/2] drm: renesas: rzg2l_mipi_dsi: Fix the power-on
+ sequence
+Message-Id: <20260317154951.2670d458fae59adcffa0d497@hugovil.com>
+In-Reply-To: <TY3PR01MB113469B2E916BDD343BD516F78641A@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+References: <20260317123610.329630-1-biju.das.jz@bp.renesas.com>
+ <20260317123610.329630-3-biju.das.jz@bp.renesas.com>
+ <20260317110112.338259354289bb60a57fc259@hugovil.com>
+ <TY3PR01MB113462F9E8CEA0506984299768641A@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+ <20260317112052.3dc4b56b42b906381df80e94@hugovil.com>
+ <TY3PR01MB1134627E19FCEA40819F8C6578641A@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+ <20260317121232.39b1728e4d53d7243856a403@hugovil.com>
+ <TY3PR01MB11346B55F3F5C28FE9E763AF48641A@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+ <20260317145226.b84c29335c5badfdd257d0df@hugovil.com>
+ <TY3PR01MB113469B2E916BDD343BD516F78641A@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Spam_score: -2.0
+X-Spam_bar: --
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,72 +74,249 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-I still need to digest your answers above, there's quite a bit of =
-information.
-Thanks for that. I'll do a pass on it tomorrow.
+Hi Biju,
 
->>> By the way:
->>>=20
->>> I invite you to have a look at this implementation [0]. It currently =
-works in real
->>> hardware i.e.: our downstream "Tyr" driver for Arm Mali is using =
-that at the
->>> moment. It is a mere prototype that we=E2=80=99ve put together to =
-test different
->>> approaches, so it=E2=80=99s not meant to be a =E2=80=9Csolution=E2=80=9D=
- at all. It=E2=80=99s a mere data point
->>> for further discussion.
->=20
-> I think some of the things I pointed out=E2=80=94async teardown, =
-bypass paths,
-> and dropping job refs in IRQ context=E2=80=94would still need to be =
-added,
-> though.
+On Tue, 17 Mar 2026 19:37:35 +0000
+Biju Das <biju.das.jz@bp.renesas.com> wrote:
 
-That=E2=80=99s ok, I suppose we can find a way to add these things if =
-they=E2=80=99re
-needed in order to support other FW scheduling GPUs (i.e.: other than =
-Mali,
-which is the only thing I tested on, and Nova, which I assume has very =
-similar
-requirements).
+> Hi Hugo,
+> 
+> > -----Original Message-----
+> > From: dri-devel <dri-devel-bounces@lists.freedesktop.org> On Behalf Of Hugo Villeneuve
+> > Sent: 17 March 2026 18:52
+> > Subject: Re: [PATCH 2/2] drm: renesas: rzg2l_mipi_dsi: Fix the power-on sequence
+> > 
+> > Hi Biju,
+> > 
+> > On Tue, 17 Mar 2026 16:36:05 +0000
+> > Biju Das <biju.das.jz@bp.renesas.com> wrote:
+> > 
+> > > Hi Hugo,
+> > >
+> > > > -----Original Message-----
+> > > > From: dri-devel <dri-devel-bounces@lists.freedesktop.org> On Behalf
+> > > > Of Hugo Villeneuve
+> > > > Sent: 17 March 2026 16:13
+> > > > Subject: Re: [PATCH 2/2] drm: renesas: rzg2l_mipi_dsi: Fix the
+> > > > power-on sequence
+> > > >
+> > > > Hi Biju,
+> > > >
+> > > > On Tue, 17 Mar 2026 15:45:29 +0000
+> > > > Biju Das <biju.das.jz@bp.renesas.com> wrote:
+> > > >
+> > > > > Hi Hugo,
+> > > > >
+> > > > > > -----Original Message-----
+> > > > > > From: dri-devel <dri-devel-bounces@lists.freedesktop.org> On
+> > > > > > Behalf Of Hugo Villeneuve
+> > > > > > Sent: 17 March 2026 15:21
+> > > > > > Subject: Re: [PATCH 2/2] drm: renesas: rzg2l_mipi_dsi: Fix the
+> > > > > > power-on sequence
+> > > > > >
+> > > > > > Hi Biju,
+> > > > > >
+> > > > > > On Tue, 17 Mar 2026 15:13:07 +0000 Biju Das
+> > > > > > <biju.das.jz@bp.renesas.com> wrote:
+> > > > > >
+> > > > > > > Hi Hugo,
+> > > > > > >
+> > > > > > > Thanks for the feedback.
+> > > > > > >
+> > > > > > > > -----Original Message-----
+> > > > > > > > From: dri-devel <dri-devel-bounces@lists.freedesktop.org> On
+> > > > > > > > Behalf Of Hugo Villeneuve
+> > > > > > > > Sent: 17 March 2026 15:01
+> > > > > > > > Subject: Re: [PATCH 2/2] drm: renesas: rzg2l_mipi_dsi: Fix
+> > > > > > > > the power-on sequence
+> > > > > > > >
+> > > > > > > > Hi Biju,
+> > > > > > > >
+> > > > > > > > On Tue, 17 Mar 2026 12:36:01 +0000 Biju
+> > > > > > > > <biju.das.au@gmail.com>
+> > > > > > > > wrote:
+> > > > > > > >
+> > > > > > > > > From: Biju Das <biju.das.jz@bp.renesas.com>
+> > > > > > > > >
+> > > > > > > > > Move reset_control_deassert() and reset_control_assert()
+> > > > > > > > > from
+> > > > > > > > > rzg2l_mipi_dsi_dphy_init()/rzg2l_mipi_dsi_dphy_exit() to
+> > > > > > > > > atomic_pre_enable() and atomic_post_disable()
+> > > > > > > > > respectively, and move
+> > > > > > > > > rzg2l_mipi_dsi_set_display_timing() from
+> > > > > > > > > atomic_pre_enable() to atomic_enable(), to align with the
+> > > > > > > > > power-on sequence described in Figure 34.5 of section
+> > > > > > > > > "34.4.2.1 Reset" of the RZ/G2L hardware manual
+> > > > > > > > > Rev.1.50 May 2025.
+> > > > > > > > >
+> > > > > > > > > According to the hardware manual, LINK registers must be
+> > > > > > > > > written before deasserting CMN_RSTB, and the 1ms delay is
+> > > > > > > > > retained in
+> > > > > > > > > atomic_pre_enable() after the deassert.
+> > > > > > > > >
+> > > > > > > > > Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
+> > > > > > > >
+> > > > > > > > Seems to me like this should be backported to stable
+> > > > > > > > branches (missing Fixes / Cc: stable
+> > > > tags)?
+> > > > > > >
+> > > > > > > OK, will add fixes/stable tags.
+> > > > > > >
+> > > > > > > >
+> > > > > > > >
+> > > > > > > > > ---
+> > > > > > > > >  .../gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c    | 27 +++++++++++--------
+> > > > > > > > >  1 file changed, 16 insertions(+), 11 deletions(-)
+> > > > > > > > >
+> > > > > > > > > diff --git
+> > > > > > > > > a/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c
+> > > > > > > > > b/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c
+> > > > > > > > > index e53b48e4de56..9053ce037b75 100644
+> > > > > > > > > --- a/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c
+> > > > > > > > > +++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c
+> > > > > > > > > @@ -484,7 +484,6 @@ static int rzg2l_mipi_dsi_dphy_init(struct rzg2l_mipi_dsi *dsi,
+> > > > > > > > >  	u32 dphytim1;
+> > > > > > > > >  	u32 dphytim2;
+> > > > > > > > >  	u32 dphytim3;
+> > > > > > > > > -	int ret;
+> > > > > > > > >
+> > > > > > > > >  	/* All DSI global operation timings are set with recommended setting */
+> > > > > > > > >  	for (i = 0; i <
+> > > > > > > > > ARRAY_SIZE(rzg2l_mipi_dsi_global_timings);
+> > > > > > > > > ++i) { @@
+> > > > > > > > > -524,12 +523,6 @@ static int rzg2l_mipi_dsi_dphy_init(struct rzg2l_mipi_dsi *dsi,
+> > > > > > > > >  	rzg2l_mipi_dsi_phy_write(dsi, DSIDPHYTIM2, dphytim2);
+> > > > > > > > >  	rzg2l_mipi_dsi_phy_write(dsi, DSIDPHYTIM3, dphytim3);
+> > > > > > > > >
+> > > > > > > > > -	ret = reset_control_deassert(dsi->rstc);
+> > > > > > > > > -	if (ret < 0)
+> > > > > > > > > -		return ret;
+> > > > > > > > > -
+> > > > > > > > > -	fsleep(1000);
+> > > > > > > > > -
+> > > > > > > > >  	return 0;
+> > > > > > > > >  }
+> > > > > > > > >
+> > > > > > > > > @@ -541,8 +534,6 @@ static void
+> > > > > > > > > rzg2l_mipi_dsi_dphy_exit(struct rzg2l_mipi_dsi *dsi)
+> > > > > > > > >
+> > > > > > > > >  	dphyctrl0 &= ~(DSIDPHYCTRL0_EN_LDO1200 | DSIDPHYCTRL0_EN_BGR);
+> > > > > > > > >  	rzg2l_mipi_dsi_phy_write(dsi, DSIDPHYCTRL0, dphyctrl0);
+> > > > > > > > > -
+> > > > > > > > > -	reset_control_assert(dsi->rstc);
+> > > > > > > > >  }
+> > > > > > > > >
+> > > > > > > > >  static int rzg2l_dphy_conf_clks(struct rzg2l_mipi_dsi
+> > > > > > > > > *dsi, unsigned long mode_freq, @@ -1030,24 +1021,37 @@
+> > > > > > > > > static void rzg2l_mipi_dsi_atomic_pre_enable(struct
+> > > > > > > > drm_bridge *bridge,
+> > > > > > > > >  	connector = drm_atomic_get_new_connector_for_encoder(state, bridge->encoder);
+> > > > > > > > >  	crtc = drm_atomic_get_new_connector_state(state, connector)->crtc;
+> > > > > > > > >  	mode = &drm_atomic_get_new_crtc_state(state,
+> > > > > > > > > crtc)->adjusted_mode;
+> > > > > > > > > -
+> > > > > > > >
+> > > > > > > > This is not related to your commit message (coding style change).
+> > > > > > >
+> > > > > > > Ack. Will restore it.
+> > > > > > >
+> > > > > > > >
+> > > > > > > >
+> > > > > > > > >  	ret = rzg2l_mipi_dsi_startup(dsi, mode);
+> > > > > > > > >  	if (ret < 0)
+> > > > > > > > >  		return;
+> > > > > > > > >
+> > > > > > > > > -	rzg2l_mipi_dsi_set_display_timing(dsi, mode);
+> > > > > > > > > +	ret = reset_control_deassert(dsi->rstc);
+> > > > > > > > > +	if (ret < 0)
+> > > > > > > > > +		return;
+> > > > > > > > > +
+> > > > > > > > > +	if (dsi->rstc)
+> > > > > > > >
+> > > > > > > > This seems new and not documented in the commit message? Is this a fix?
+> > > > > > >
+> > > > > > > RZ/V2H does not need this as it uses different IP. Previously
+> > > > > > > fsleep() is in RZ/G2L specific function. I will update commit description for this change.
+> > > > > >
+> > > > > > Suggestion: maybe move this to a separate patch, to facilitate review/understanding...
+> > > > >
+> > > > > The only way is to introduce a new callback to handle it for RZ/G2L SoC.
+> > > > > Then we won't be able to apply fixes tag as it is not fixing anything.
+> > > >
+> > > > I am not sure what you mean by that callback? How a callback is needed only if you split the
+> > patch?
+> > >
+> > > You cannot split the patch.
+> > >
+> > > Before:
+> > >   atomic_pre_enable():
+> > >     startup()
+> > >       dphy_init()
+> > >         write DSIDPHYTIMx         (F) PHY timing regs
+> > >         reset_control_deassert()  (G) deassert CMN_RSTB
+> > >         udelay(1)                 (H)
+> > > 	  setting below link registers
+> > >         − TXSETR
+> > > 	  − ULPSSETR
+> > >         − DSISETR
+> > >         − CLSTPTSETR
+> > >         − LPTRNSTSETR
+> > >
+> > > Current patch:
+> > >
+> > > atomic_pre_enable():
+> > >     startup()
+> > >       dphy_init()
+> > >         write DSIDPHYTIMx         (F) PHY timing regs
+> > > 	setting below link registers
+> > >         − TXSETR
+> > > 	  − ULPSSETR
+> > >         − DSISETR
+> > >         − CLSTPTSETR
+> > >         − LPTRNSTSETR
+> > >
+> > >       reset_control_deassert()  (G) deassert CMN_RSTB
+> > >       fsleep(1000)              (H)
+> > >
+> > > >
+> > > > In this original patch you test for the validity of dsi->rstc to
+> > > > determine if you apply the delay or not. So in the case of RZ/V2H, I understand that it is NULL?
+> > >
+> > > Yes, that is correct.
+> > >
+> > > >
+> > > > > Currently this is optional reset, and it is no-op for RZ/V2H.
+> > > >
+> > > > Does this means that the call to reset_control_deassert(dsi->rstc) should not occur for RZ/V2H?
+> > >
+> > > reset_control_deassert(dsi->rstc) will return immediately as it is null.
+> > >
+> > > or
+> > >
+> > > We could add this check instead
+> > >
+> > > 	if (dsi->rstc) {
+> > > 	    ret = reset_control_deassert(dsi->rstc);
+> > > 	    if (ret < 0)
+> > > 		return;
+> > >
+> > > 	    fsleep(1000);
+> > > 	}
+> > 
+> > Yes, like Tommaso suggested.
+> > 
+> > But I don't see why you cannot simply implement (split) this change as a separate commit just after
+> > commit #1, or after commit #2?
+> > 
+> > This seems like an optimization for RZ/V2H, so I think it doesnt really matter if it does not go to
+> > stable branches?
+> 
+> Previously RZ/V2H do not call reset_control_deassert(dsi->rstc) as it is called from SoC-specific
+> function.
 
->=20
->>>=20
->>> Philip Stanner is working on this =E2=80=9CJob Queue=E2=80=9D =
-concept too, but from an upstream
->>> perspective.
->>>=20
->>> [0]: =
-https://gitlab.freedesktop.org/panfrost/linux/-/merge_requests/61
->=20
-> I scanned [0], it looks signicantly better than the post upstream. Let
-> me dig in a bit more.
->=20
-> Matt
-> Matt
+Ok, so this change could be split, if you want, as commit #3. This would make commit #2
+easier to understand IMHO.
 
-One thing that is missing is that, at the moment, submit() is fallible =
-and
-there is no preallocation. This can be added to the current design =
-rather
-easily (i.e. by splitting into two different steps, a fallible prepare() =
-where
-rollback is possible, and an infallible commit(), or whatever names get
-chosen).
+Thank you for the clarifications.
 
-Perhaps we can also split this into two types too, AtomicJobQueue and =
-JobQueue,
-where only the first one allows refs to be dropped in IRQ context; i.e.: =
-since
-we do not need this in Tyr, and not allowing this makes the design of =
-the
-"non-atomic" version much simpler. Or perhaps we can figure out a way to =
-ensure
-that we don't drop the last ref in IRQ context. I am just brainstorming =
-some
-ideas at this point, and again, I still need to go through your =
-explanations above.
-
-=E2=80=94 Daniel
-
+Hugo Villeneuve <hugo@hugovil.com>
