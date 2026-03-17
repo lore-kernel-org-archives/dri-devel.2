@@ -4,57 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 43DA8F33806
-	for <dri-devel@archiver.kernel.org>; Tue, 17 Mar 2026 07:00:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 83C68F33807
+	for <dri-devel@archiver.kernel.org>; Tue, 17 Mar 2026 07:09:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9801F10E33E;
-	Tue, 17 Mar 2026 07:00:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C3BD010E34B;
+	Tue, 17 Mar 2026 07:09:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="AxNuCHOX";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="bjP/Zt2L";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3726410E33E
- for <dri-devel@lists.freedesktop.org>; Tue, 17 Mar 2026 07:00:30 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4923F10E34B
+ for <dri-devel@lists.freedesktop.org>; Tue, 17 Mar 2026 07:09:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1773730830; x=1805266830;
+ t=1773731382; x=1805267382;
  h=date:from:to:cc:subject:message-id:references:
  mime-version:content-transfer-encoding:in-reply-to;
- bh=b5PhsqhAXOYswCLGJkKFJNFv2TuhUjxWSaUU9dG1HCg=;
- b=AxNuCHOXB7KddmAzti9Z9VlfR21141DlaclF83ccw+J9RPXLIBAdR/5t
- Jdopu03MlxK6RwJtEh0LEsAfPhfEh2X6xl/d00h/SAaFgu+Q9CEwSs91w
- CRBhk9ArxIK6W9jbRwNOifJdbHUAbpstORSep1XaO9HE/3MUSetx7HEyK
- ho6Vy5h8qCVy2hYEbRQGW/WcAT7juYEPOzTZnJ0ZvTvGwnznH8lG1RISg
- XmO7BVsSlVzq9LT0v3pFaJgruCOPRmS8/YAiwsWtJtdE5/mtRtrGaFuef
- usiRzfUWWi37sQjd3TKPRrqWLKA3MfY8aEspGCBllLDornD92CvAqzTt8 g==;
-X-CSE-ConnectionGUID: KJ3nP1q6TwuiKPcltSwXzw==
-X-CSE-MsgGUID: fw865ViqQfueT/iPD+Q25A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11731"; a="92137547"
-X-IronPort-AV: E=Sophos;i="6.23,124,1770624000"; d="scan'208";a="92137547"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
- by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Mar 2026 00:00:29 -0700
-X-CSE-ConnectionGUID: w5y3+OfLQm+TgvgjYCUF7w==
-X-CSE-MsgGUID: X23hVS9aTdqQ1h2r+5VgEA==
+ bh=ydlq9iZT7pXZv1FbMyd6TdpJuscB6ziFp9CUv6mPs+0=;
+ b=bjP/Zt2Lh//2qa2CEU1Nzrspk5alNYzebs4rU4x52ftB/YwxNzc0yghl
+ qzPZXOpGF/u+b77hWHd3psk6g9f4v0Sb2jbtAli/0bdZpRcph4cew1coH
+ lczEfNgaK04hYf8mZNVUKrBOwaBn9nkxIKavH66oJ6aaUaGo1ZJlHd312
+ GhxlYkPVspGjKbDDhg24E9DJrvyfSknFU2FIXtaAIR/y82DTQepAJvIFi
+ P8kEOfiRA/MGawqy+ZOEsIAHDpE2D7OCZzYQ0fQl+mTo+kDXfAEr40YoA
+ KcxY519/3C0BkpEeiGDjEthIyzIg+AoCt+2/adlwPD3/9x7Gf95erhehh w==;
+X-CSE-ConnectionGUID: ufxEDksxTdKYMiRpuSwnZg==
+X-CSE-MsgGUID: viW74/NjQKS9hZQtiN1LQg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11731"; a="62321764"
+X-IronPort-AV: E=Sophos;i="6.23,124,1770624000"; d="scan'208";a="62321764"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+ by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Mar 2026 00:09:41 -0700
+X-CSE-ConnectionGUID: 2rl5YYinR4qS/QnWc+E1oA==
+X-CSE-MsgGUID: q2NQSYzSTIKk/IPjh2pz+w==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,124,1770624000"; d="scan'208";a="221198127"
+X-IronPort-AV: E=Sophos;i="6.23,124,1770624000"; d="scan'208";a="218346746"
 Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost)
  ([10.245.245.99])
- by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Mar 2026 00:00:27 -0700
-Date: Tue, 17 Mar 2026 09:00:24 +0200
+ by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Mar 2026 00:09:30 -0700
+Date: Tue, 17 Mar 2026 09:09:27 +0200
 From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Austin Hu <austin.hu@intel.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- robin.clark@oss.qualcomm.com
-Subject: Re: [PATCH] drm/atomic: clear the state of plane which is unused.
-Message-ID: <abj79EU0bMEkcSD3@intel.com>
-References: <20260316225507.392191-1-austin.hu@intel.com>
+To: Jani Nikula <jani.nikula@linux.intel.com>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>,
+ Jammy Huang <jammy_huang@aspeedtech.com>, Dave Airlie <airlied@redhat.com>,
+ Jocelyn Falempe <jfalempe@redhat.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] drm/ast: DisplayPort edid supports 256 bytes
+Message-ID: <abj-J1yYsFymXmn5@intel.com>
+References: <20260313-upstream_ast_dp_edid-v1-1-2a75b7c091b2@aspeedtech.com>
+ <b0b1f644-ea5c-4636-99a0-28b040ed2fe0@suse.de>
+ <ad40e82fc2e6501f1b6e1073c70a6f1c308c89a8@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260316225507.392191-1-austin.hu@intel.com>
+In-Reply-To: <ad40e82fc2e6501f1b6e1073c70a6f1c308c89a8@intel.com>
 X-Patchwork-Hint: comment
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
  krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
@@ -73,123 +80,51 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Mar 16, 2026 at 03:55:07PM -0700, Austin Hu wrote:
-> Some libdrm user mode apps (including compositor) disable unused
-> plane with its previously binded CRTC or frame buffer object, but
-> may not reset its properties like src/dst coordinates, so that some
-> values of the unused plane state would be sticky. And even with
-> some Display Engine IP like Intel, a plane disabled from user mode
-> in current frame may be linked with another plane (e.g. to DMA Y or
-> UV semi-planar buffer) in KMD driver, so that its sticky UAPI
-> settings mismatch with the ones programmed to registers.
+On Mon, Mar 16, 2026 at 01:38:22PM +0200, Jani Nikula wrote:
+> On Mon, 16 Mar 2026, Thomas Zimmermann <tzimmermann@suse.de> wrote:
+> > Hi Jammy
+> >
+> > Am 13.03.26 um 11:04 schrieb Jammy Huang:
+> >> DisplayPort supports edid at most 256 bytes. Thus, allow it to fetch
+> >> edid block 0 and 1.
+> >>
+> >> Signed-off-by: Jammy Huang <jammy_huang@aspeedtech.com>
+> >> ---
+> >> ASPEED DisplayPort's EDID size can be 256 bytes at most. Thus, EDID
+> >> blocks fetched can be 0 and 1.
+> >> ---
+> >>   drivers/gpu/drm/ast/ast_dp.c | 2 +-
+> >>   1 file changed, 1 insertion(+), 1 deletion(-)
+> >>
+> >> diff --git a/drivers/gpu/drm/ast/ast_dp.c b/drivers/gpu/drm/ast/ast_dp.c
+> >> index 9d07dad358c..c938e1d6b1d 100644
+> >> --- a/drivers/gpu/drm/ast/ast_dp.c
+> >> +++ b/drivers/gpu/drm/ast/ast_dp.c
+> >> @@ -88,7 +88,7 @@ static int ast_astdp_read_edid_block(void *data, u8 *buf, unsigned int block, si
+> >>   	int ret = 0;
+> >>   	unsigned int i;
+> >>   
+> >> -	if (block > 0)
+> >> +	if (block > 1)
+> >>   		return -EIO; /* extension headers not supported */
+> >
+> > But see the code at [1]. It clears the number of extensions to zero and 
+> > updates the checksum accordingly. This is required to make the shortened 
+> > EDID work with DRM. If you leave this as-is, it will still clear support 
+> > for any extension in block 1.
+> >
+> > See the table 2.4 in the VESA EDID 1.4 standard for the semantics. For 
+> > 1.3, if the number of blocks is >2, the first extensions is a 'block map 
+> > of the extensions'. This is useless, as it's not a data extension in 
+> > itself.  In 1.4, the block map is optional. That code should clear the 
+> > EDID's number of extensions to 0 or 1, depending on whether there is a 
+> > block map to be expected.
 > 
-> So clear the unused plane state during each atomic commit, to make
-> sure each plane state is up to date. This change might be
-> unnecessary if user mode already clears plane property, but keep it
-> just in case.
+> I think long-term the goal should be for the kernel to not modify the
+> EDID, at all.
 
-The kernel isn't allowed to magically change the value of
-properties set by userspace, apart from a few special cases.
-
-No idea what you're actually trying to fix here, but sounds
-like your userspace might be broken and needs to be fixed.
-
-> 
-> Signed-off-by: Austin Hu <austin.hu@intel.com>
-> ---
->  drivers/gpu/drm/drm_atomic.c | 62 ++++++++++++++++++++++++++++++++++--
->  1 file changed, 59 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
-> index dd9f27cfe991..0ce57e540a86 100644
-> --- a/drivers/gpu/drm/drm_atomic.c
-> +++ b/drivers/gpu/drm/drm_atomic.c
-> @@ -690,6 +690,59 @@ plane_switching_crtc(const struct drm_plane_state *old_plane_state,
->  	return true;
->  }
->  
-> +/**
-> + * drm_atomic_plane_state_reset - reset plane state
-> + * @plane: plane to reset
-> + * @plane_state: plane state to reset
-> + *
-> + * This function resets the plane state to its default values, after
-> + * the plane is disabled or when the plane state is no longer valid.
-> + */
-> +static int drm_atomic_plane_state_reset(struct drm_plane *plane,
-> +				      struct drm_plane_state *plane_state)
-> +{
-> +	int ret;
-> +
-> +	ret = drm_atomic_set_crtc_for_plane(plane_state, NULL);
-> +	if (ret != 0)
-> +		return ret;
-> +
-> +	drm_atomic_set_fb_for_plane(plane_state, NULL);
-> +
-> +	plane_state->crtc_x = 0;
-> +	plane_state->crtc_y = 0;
-> +	plane_state->crtc_w = 0;
-> +	plane_state->crtc_h = 0;
-> +	plane_state->src_x = 0;
-> +	plane_state->src_y = 0;
-> +	plane_state->src_w = 0;
-> +	plane_state->src_h = 0;
-> +
-> +	plane_state->alpha = 0;
-> +	plane_state->pixel_blend_mode = 0;
-> +	plane_state->rotation = 0;
-> +	plane_state->zpos = 0;
-> +	plane_state->color_encoding = 0;
-> +	plane_state->color_range = 0;
-> +
-> +	drm_atomic_set_colorop_for_plane(plane_state, NULL);
-> +
-> +	bool replaced = false;
-> +
-> +	ret = drm_property_replace_blob_from_id(
-> +		plane->dev, &plane_state->fb_damage_clips, 0, -1, -1,
-> +		sizeof(struct drm_mode_rect), &replaced);
-> +	if (ret)
-> +		return ret;
-> +
-> +	plane_state->scaling_filter = 0;
-> +	plane_state->hotspot_x = 0;
-> +	plane_state->hotspot_y = 0;
-> +	plane_state->visible = false;
-> +
-> +	return 0;
-> +}
-> +
->  /**
->   * drm_atomic_plane_check - check plane state
->   * @old_plane_state: old plane state to check
-> @@ -701,7 +754,7 @@ plane_switching_crtc(const struct drm_plane_state *old_plane_state,
->   * Zero on success, error code on failure
->   */
->  static int drm_atomic_plane_check(const struct drm_plane_state *old_plane_state,
-> -				  const struct drm_plane_state *new_plane_state)
-> +				  struct drm_plane_state *new_plane_state)
->  {
->  	struct drm_plane *plane = new_plane_state->plane;
->  	struct drm_crtc *crtc = new_plane_state->crtc;
-> @@ -721,9 +774,12 @@ static int drm_atomic_plane_check(const struct drm_plane_state *old_plane_state,
->  		return -EINVAL;
->  	}
->  
-> -	/* if disabled, we don't care about the rest of the state: */
-> +	/*
-> +	 * if disabled, we don't care about the rest of the state:
-> +	 * but clear the plane state.
-> +	 */
->  	if (!crtc)
-> -		return 0;
-> +		return drm_atomic_plane_state_reset(plane, new_plane_state);
->  
->  	/* Check whether this plane is usable on this CRTC */
->  	if (!(plane->possible_crtcs & drm_crtc_mask(crtc))) {
-> -- 
-> 2.34.1
+I think as a short term goal it would be much better if all EDID
+mangling would be done by drm_edid.c rather than individual drivers.
 
 -- 
 Ville Syrjälä
