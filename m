@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 41B3FFF6E9E
-	for <dri-devel@archiver.kernel.org>; Tue, 17 Mar 2026 23:06:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2C8E9FF6E9A
+	for <dri-devel@archiver.kernel.org>; Tue, 17 Mar 2026 23:06:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E5A1F10E686;
-	Tue, 17 Mar 2026 23:06:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2A40A10E687;
+	Tue, 17 Mar 2026 23:06:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=nxp.com header.i=@nxp.com header.b="FxiDZhiN";
+	dkim=pass (2048-bit key; unprotected) header.d=nxp.com header.i=@nxp.com header.b="CrzP98zy";
 	dkim-atps=neutral
 Received: from AM0PR02CU008.outbound.protection.outlook.com
- (mail-westeuropeazon11013070.outbound.protection.outlook.com [52.101.72.70])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4CFAA10E672;
- Tue, 17 Mar 2026 23:06:03 +0000 (UTC)
+ (mail-westeuropeazon11013012.outbound.protection.outlook.com [52.101.72.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8F3D710E5D7;
+ Tue, 17 Mar 2026 23:05:57 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=xHrEMWt4IfRZ239bQyHZ/p+l827kY40aNR7Vw/80h5uyg1hHMb0ODpUKBUbBHMiEskJWvAhHtK9qR9RF5K84dnvhSc+qidZsxHDYz38Zy1v6aeMM04U/IBpHeUmVPZXRtQRqgNrLqzRWKBW8dAzC2bPNsm1sPw+phKdcqVoe6W8cwyUYmAq7EcLfaS3JKTRS+MhCNn0b5LYNnIZuzC9RX5Dh9jJY3kvCZjKR/1jMy6tOge5K5tRhUDnbOwXo4r0EsA5o4GHbl7GUBeIsKseTvcuDvw7WBnuNf+/4AhtpX6c6wHHYRw98wCEQFmBMiRjwgi2M9Rk/6lz9pMXK7EYVZw==
+ b=XCsgyFiZIToTMBBxiRoSOJNJcUgRp26pSWBlFs4liNUpowtWcrYPLz6rnsYFY2Ys7bHx8dAltZDpKHtPfBNH0JrRIWj/sKQ/EsQcbfBgYPgijV6gN81kw8F03kmaLw/Z5cPXolCkweYN86620p52Ep4MTSDxitD9HpGSv1GMOTkRx6OBiPOKxnydYpH4l7qnWwaULlBQfFXTPv2VZnEIypvDL5m8ZUdv1Fodp50WlyltTkfXXk1Znpf5pPASL41cwttiHYmGeBj8ppMH6IwFUJToL1IIVXNwsONwuBoMuEjIhsy8RttjXsmfMlXnD5DIiooIDwP6dCOQzEVB4XrOEg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=E8Hn/LMKXfQtV3rgy7V0S9c2vIPq86UUMXtQNhoA2vk=;
- b=JxkTAS2RQeju6I8uPgYsJ7vEK9YJ1XNvRe80/U7sSAxSl9+LJ3vbiQKYHTVjsZ1CMQHxv4mT/U1IcxzzGrl3cS5Suz5SWnQI+qLin6CWzPrT0EP0WM57NBdsMjXuBBVtpMUt1rXX5VW1pmoEIb0Mcom3kXADBM/u4XhXU9sjkJnV+n6NxInLvI1L6OGbNvYR/HdISDBxdRBWWwwHMBUyFjS4Y3D6OcvWuKKucUyUjGTJ1RrhRHh/jO00W4ZLhm83yOgB85Vb1FmFrXCYmk0UCeeYpIgcIFkkzinXN2lwQlnNnxogDVj5/fXLAj/tXhVTCkbBTX7lmcQokvXfs+e9Mw==
+ bh=/PNFSwA2HpofViFk3LRph7tcQreLF/feDPJ3qdnXJtk=;
+ b=HBoXh1BbRObh4FCYjzwPEq0gj/3oNCwqdkeA4Ugfi2TRKIWYp4M0E/GxociPbirguWjDHnFdHx5iR0QlzdMC9vQCJBlxqy0N71LknqVcO+aEVWPLlh78wuSc6l2FCJXA3a4Q7wgp+cUckL5jPMC5ZuUl6XzeVWbOlgTTVFqwktfA6fFJeurtVN3gpNmY/An5qidhXjZ3IUjguN97pymYa1P0MZ1vhHvUmVE+jUa6JI4PaU0soGkAq0Jn2Go7n94U/StYaZMB3AHR3GfHxSIg2kFFNc2oaJo0OvsXSxd+tl3xQxNNdYnuwmF6OoG5CcB5CIl3YC97U/l1HH8wBWDPuA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
  header.d=nxp.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=E8Hn/LMKXfQtV3rgy7V0S9c2vIPq86UUMXtQNhoA2vk=;
- b=FxiDZhiN6GicpbqBomAvjrIobbc9qM5iRhGg23oBW6gPE7tl4CMo/ThtY0qiqb3RiRJVSnbMZxqSptCueajXEGIS9Y/g18eClQO45POj3APxYjR8l5HGA+BBXybTkbykkCMPBBXiMKCtWImLwCgjobyiIIkTV+hnk2Ow5Y2zAjeDBFF4k/gO6m7VTWcIYakTbONes8Rj3ULU89kK8gnqZtSaXrPnluWzrMhzRLwLAN0lx/pnrDT8QNFdCqfOq03WtCY9RpVN9YpQLvqlJ703ErZdGG/zQVQ8JSftFRiRGoK6aOesUdjGFjsdm+IsLQjVTT2ory2mXgRajnZO2DUkuQ==
+ bh=/PNFSwA2HpofViFk3LRph7tcQreLF/feDPJ3qdnXJtk=;
+ b=CrzP98zyQ0KM97fkDaqZV/LCmlwOpbdKUlodt3Wk41b+r8A9i6VfA6ySGS8peImDSZPzzu7VjhAVQLLmdYFYvml3p+GnAbKC1PTpGlQ3vnMPHVCvXQqGK8VrC2syzxE5PxvR33upNafrVFkV6KgmIH3ZXpSm/2Mh4v6Nc7v+7vWY/bGY0q/TZUpKLYlgZZ1AGv2qFoLJBnwpVv/BQfznovye9enUNEXUwQ/Jx7VB2tjXo7+PqSXmz6P6EqUGZ/6Lek2nm+rovvGYjfxmxZI+7TbBYerBVrndGSueRGXgaYpS0U4bWgLVEl6SUeKkySpzv/00Spgqwcfbm27ujsZLnA==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nxp.com;
 Received: from AM9PR04MB8585.eurprd04.prod.outlook.com (2603:10a6:20b:438::13)
  by DBBPR04MB7643.eurprd04.prod.outlook.com (2603:10a6:10:203::11)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9700.27; Tue, 17 Mar
- 2026 23:06:00 +0000
+ 2026 23:05:51 +0000
 Received: from AM9PR04MB8585.eurprd04.prod.outlook.com
  ([fe80::f010:fca8:7ef:62f4]) by AM9PR04MB8585.eurprd04.prod.outlook.com
  ([fe80::f010:fca8:7ef:62f4%4]) with mapi id 15.20.9700.022; Tue, 17 Mar 2026
- 23:06:00 +0000
+ 23:05:51 +0000
 From: Vladimir Oltean <vladimir.oltean@nxp.com>
 To: linux-phy@lists.infradead.org
 Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
@@ -54,72 +54,75 @@ Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
  linux-scsi@vger.kernel.org, linux-sunxi@lists.linux.dev,
  linux-tegra@vger.kernel.org, linux-usb@vger.kernel.org,
  netdev@vger.kernel.org, spacemit@lists.linux.dev,
- UNGLinuxDriver@microchip.com, Joe Perches <joe@perches.com>
-Subject: [PATCH v4 phy-next 24/24] MAINTAINERS: add regexes for linux-phy
-Date: Wed, 18 Mar 2026 01:05:00 +0200
-Message-ID: <20260317230500.2056077-25-vladimir.oltean@nxp.com>
+ UNGLinuxDriver@microchip.com,
+ Sebastian Reichel <sebastian.reichel@collabora.com>,
+ Sebastian Reichel <sre@kernel.org>
+Subject: [PATCH v4 phy-next 20/24] power: supply: cpcap-charger: include
+ missing <linux/property.h>
+Date: Wed, 18 Mar 2026 01:04:56 +0200
+Message-ID: <20260317230500.2056077-21-vladimir.oltean@nxp.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260317230500.2056077-1-vladimir.oltean@nxp.com>
 References: <20260317230500.2056077-1-vladimir.oltean@nxp.com>
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-ClientProxiedBy: VI1PR0102CA0041.eurprd01.prod.exchangelabs.com
- (2603:10a6:803::18) To AM9PR04MB8585.eurprd04.prod.outlook.com
+X-ClientProxiedBy: WA2P291CA0020.POLP291.PROD.OUTLOOK.COM
+ (2603:10a6:1d0:1e::9) To AM9PR04MB8585.eurprd04.prod.outlook.com
  (2603:10a6:20b:438::13)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: AM9PR04MB8585:EE_|DBBPR04MB7643:EE_
-X-MS-Office365-Filtering-Correlation-Id: 79462e4b-d455-47bf-f634-08de8479c11f
+X-MS-Office365-Filtering-Correlation-Id: 99ed852d-391a-4e06-12be-08de8479bc40
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
  ARA:13230040|19092799006|10070799003|1800799024|376014|7416014|366016|22082099003|18002099003|56012099003;
-X-Microsoft-Antispam-Message-Info: YespgONs2DDl7GOcblybxKGg6iHJbD8qjQ7M/RLDZ2LcEJvP+P5re7NN3orYg8lOZ8y6yNmPJYa+sN4P6teiwZ0+niMg3O+Qj7VGSVYj+AVUemPFJntcYvueai6lhGShGOqAAePfHVpW5Hd2b7UIQ5lADcn+Sq4FRqKQSPhEtACC0k0DSl/ObKQAEcCuZezKy07lRktFyHBm1WQGI2sP6HwMiJzfvZM2Qk3om9FMHMC2AvfzphySS2mgkg2WdrSAMFRS50GPNiqRZUqLrjnWWA6EWXikWNKaBoEwgNZKXlAAv7pzZtMpC/JrukGGry8Kd+DL75Re+8jZNOIoDPURQrSoG8ilgmizF1AcGSSA0j139TOqyUEO2OuXk55OEXFp+Fmv4G5y3WbzfzJ4sUXIVo/AMhJ0cUkZwuN6R74yVsB7fAJZgm395ZCNMS2zQ28atWx+QWwjK8UFNgMU5N/fLXq/uKm8okMkgJBt8C/LWjB5Nqjo+gtJ/M2nm18mENHA8HqBuqanP/1KsJSFmThAgevKu8jR33v8ZsUvYVTgIIW1UCvFirxTO6DH+cjAwlrmdwNDb4FecltaqMHEPsKDKXgH+wfLXjwFu7O8Ju7cvl0Fp8+mJNVBR40T1AMLefsPKZumcoSV2g0kbpm7FE7WwWW9GsVGp3ORqrLjsZ60FO64xotYQY5bA1YavooKOaJYMhvFQU9DpWdykdF4swI9MrTv1VIWWauJr824sIcYuBE=
+X-Microsoft-Antispam-Message-Info: W3kLTDtOGKfDop7ROu+UXPZLpfGqOyj3oHTYBHOIVa8ln5+4i/HSj1SsT1ltmfvzTp/cH1HSBziII4nj0mYwLulwf2ruhlrXPPRhgCU31SnIBSTXtK5I0yL2cd+ZkQbKm9TFIxQ4rWZ3CRjxbOqKdZpAS9P6pMQXux+sG2DIzCXuiMLYZAojAQSDm4eHneWdV+5uwkeDrMthniBJpxNWnkr2w7HaZt2qnXYp/sykqvf1uV/yuRxnrfh4bk38cAZ75569MzDm0+ohn8aT1m5KUWSE5Kzz1IVD6Bjb3FrJZtRb9Z6fhsPdgdQUvpEe1Gg0ftv/cYzb8V1f2D8dinvbKH66UEOGDxpMUqQVyudzQ+oMehxbeREf5nfVxo0lUqvI1Kq/gq+FLvehyO4MUBWwt/czpEBlpkGG86X1VnJ3U8Z8F7WxATRGrWCKIKHljE3hQflo+43DRb7PwI3c6tg31x+8EaRx7eL9oL2QBFfWBYHJhOCQZrig/FWERqBcMMyFB+FeCWCVz7DGIKIQYowRD0bP67MkvrPFgB49USTdqcV8egqG/qwafjM9CNGzQFp88G1+5uCfx0M8IyIqiW5qohp/BfIG0yZcQptT92TirRK7SH312RkAgdt9LP2Gg2hC2Lh3h4Og0AErLDDd2ZuJ2/s55meXCn7rnGboe2I+CzTaWtonl+MLwnvYj6p0zSwVnIoTqq4ya7Y8XJ3JvncKnQSXBLunBOyUKDprF56vjQs=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:AM9PR04MB8585.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
  SFS:(13230040)(19092799006)(10070799003)(1800799024)(376014)(7416014)(366016)(22082099003)(18002099003)(56012099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?594FUG5RmhKOO6XFFiU6HjEcrYvACWipdketJ3hfr/2KkPusQUr6eN3tF2pq?=
- =?us-ascii?Q?swwZH+MSB6Qa92LO7jG5/vHdSKkf1DAA2ap5LLQoC27QnvdWFUm55UPOnzO/?=
- =?us-ascii?Q?doMNmw1QgkPmSC7fBWCZZ18R272IRjN0rij9wY6YDl124nIKk0eGx/R9gA+d?=
- =?us-ascii?Q?bkqKrwUpiuPiSLUtU9qPOgc8XPgW2fIk7U6nlgLGrl5+Vd09l7DrNGhN1FcI?=
- =?us-ascii?Q?b2tqGgoC2UmGYALMTL0U5hZd0Dp+FaqalVW1/go3npaJtu3wa1ZwjmyV936K?=
- =?us-ascii?Q?0qnevCH0IFxuIwMfKEPxioJQ15yq3OAhuqjiuu6Zc0PPqUk+k+/nH+dkmCvl?=
- =?us-ascii?Q?fyzfLXMOAsJX21FO7Hbds4vGqoag+9N2nkfhQj8XFGX1EuRLOCdkiplr2hTL?=
- =?us-ascii?Q?A0pzknC4g4xTfoQbF4o2FprMHW6LeaxuzvObQnr+9XrjwFvsvLG2UO4vG52n?=
- =?us-ascii?Q?p1P92TIXB8XjvBG68remkpLDPcZ4+21/0EVm5xIOYOSJsRmJ1jbVYTPkgi1Q?=
- =?us-ascii?Q?3jpb+TzQbYXMfhaG1FCRUK8fto04GLsAHIEXDx3WAL8gcPX9QdH6qVvRGmFp?=
- =?us-ascii?Q?x9xDvihB3yxgwl1HCyFzHayN2wZDX9Y3yYA3Fqnr388l+ngzrUaLoXtspClM?=
- =?us-ascii?Q?XC5vEEB4ukutkyjIROegku3OfKFworWONjZy2SJjSqaOPVoqs42GnLE/h/U0?=
- =?us-ascii?Q?NgG7Q01c3yz6A7VTA+33pP9JdFYc12GgdoIw77N2qQO8Vo/umIW8warl28tx?=
- =?us-ascii?Q?3Uxaq5f6T7zcQMV2uiWPUTGtjwbcfu5KybeooVFpZzB3mQBC0sQdIOwOwZqU?=
- =?us-ascii?Q?scFwmQvnzD+jOAv20TD5FBOW49OWw4Q0wqM3Iab5Jfri4mtpIe1xRPU2eviw?=
- =?us-ascii?Q?0uMERKJNkOlEiSZRijbswHDBUQzLO+iDivkIqiWnq6xeEWP3yjyGqIq+OdS5?=
- =?us-ascii?Q?ItW7++uqeRrIclH+AUj8iOUQzjZBSsb+adEWUB2M0Esgo9bE6vjle5H1WMyu?=
- =?us-ascii?Q?2GVBc0vHdQfjlsG7Ylgx7FaK2KyyagF3dTNEx4XP+5uKMdJt90PbvOyXeWSv?=
- =?us-ascii?Q?Ma5R4IQyx143YMq5qOHOBiF27PwpbOtb7RAyeNXqoEe4AfLLYAwXi8p8eUea?=
- =?us-ascii?Q?YgrEZu/xNgTRQyJf8B31nOiE6jkGawq1M1k05BdKhKTlYQrAyeVAKOvABBeF?=
- =?us-ascii?Q?ARh+TzOu9zYPW8PS3YMY/M2deCn4rGhqD8B0Bg7fXf6fQSU4WqsWjFn9Ugia?=
- =?us-ascii?Q?fTxefy+G3Atza7+o1LG1cKQsOTb7lWNWv1C5e1iXNZHrSMqh5ZB4IKDJOhfX?=
- =?us-ascii?Q?y+6zS1qCoCvcA08JifGindOhIiOmHL/vCOZ03zpRVxHhz0ayKP/848GPLzcQ?=
- =?us-ascii?Q?WJEeDiLBLvHqknbOVjuJbcyYaNX4zkNVZGbGbpnK5uzlyyWhLc6Xo7fmpYZo?=
- =?us-ascii?Q?RApqTA4sUv+3TUU9RoWoGSWOn9WVSJZVoeAyaN0zSf4PrVVnvwitkDYtl6zv?=
- =?us-ascii?Q?M8oEO3BxJRGoGN/RrnTY3+J5f07WV0rETfcG4OT2F7pS7sSbKs3Y8kqE5gzD?=
- =?us-ascii?Q?pYFEg6vjLtd2R4k+EQuYK0HjY9GFffbQETwOhQ9/pqQ2hFC12RxYZYInE18N?=
- =?us-ascii?Q?cU9HqTMxyX8bEoo68ACw87IvIB1u46pg/0o6aRKy9IkRYg1/sR6ABqSEoVp5?=
- =?us-ascii?Q?ztonKsnrWM1YcSaM2d59f+ffq4qEcDLXTLC6IbzLa4WEVYnhlxdFEBhC0BdY?=
- =?us-ascii?Q?auBZ1aLx4dth6tyn/kc6ap544OHglYlJ/ARKrgIXOwp1clntAUQ3mIGTlzQc?=
-X-MS-Exchange-AntiSpam-MessageData-1: 7NTM5pggdFSJZ2cCYG8wK+kUHaPXZd8bZwg=
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?pe2aT+C6QNpeaTde4EWUROgTDZ/90umtxs+CaVwPgXP/+lXKjhNgsDY2H2uU?=
+ =?us-ascii?Q?YsF8Z0oqEbOTWSw0LbO7A1UPgn/OWadSu8f09TDoA6IMEVZIadIBxeVvEN86?=
+ =?us-ascii?Q?CNy3PMnXiTA+jH3LlMCG1c6DzSs0kBY0JvKcjw7gsT2X7yTWYT4MqHwd7++a?=
+ =?us-ascii?Q?FO+kPwd3EUv5SnFWp6K4JofkKIugXSWvWlsfJyT+YN085Q/cEDSMOYAexzGz?=
+ =?us-ascii?Q?bdbwU6s88mZg2rD/Il+DZBEzjlwYSaqijeRA7OdvS0RsuF/Ks7ZI9ixwA2GQ?=
+ =?us-ascii?Q?J+ktFz1OZyQCRDtfTi4HZDeI95y5xC2Rzgxo1t2k9BFn70p396msyPkcx1Oq?=
+ =?us-ascii?Q?i8sJHW26no92wjr38tg96mYSdPqJDbL/cRLLokFq/k56vWl9Oa5qyGOb14lW?=
+ =?us-ascii?Q?MLGxaQXmUAJtU2tsLoVT4eBW970vKkaGwP8foxsRkpEU5x6eI4Vyl+hlSVLw?=
+ =?us-ascii?Q?VTgXx6sf4mPjypfSNtEvHeso2MaHGcN/NQ5NznQ+DLc1xulrxJUMqC2MXdV2?=
+ =?us-ascii?Q?CPkWsgYmp2EWko5jsdUv/+YQBT+1dmrnlxzSA0iENAr8l31tICtgz1hQf0RD?=
+ =?us-ascii?Q?B3Nw0pQKgfWIQsytCa1X4zc7+uP+aEoM0dUHv9UH1ed3AIZdR1UxQT/FnMU7?=
+ =?us-ascii?Q?Usdt0V3dgDBXfZgq1v4FwTFksT/LGbgl5jgNdT4mN1oEZMBDFcOtxaMqg11G?=
+ =?us-ascii?Q?Pf0FSSMk5AlsWzzv/880YhRTaCAxDfk1hp+6WUcPagc8hIc3NwfSNv+Y5VF0?=
+ =?us-ascii?Q?KI0E2nk6/xcpC41nLQ3AJNjdjrktzkgsJWJz+dffLW9iIIInK8Wj7NfP/nwV?=
+ =?us-ascii?Q?3TO7g0tm487OF2ia5si6Nx8Hp+vzLU4a1bvyyKBeS4YPs/IkHfg55CoDa0s6?=
+ =?us-ascii?Q?vOlm/n1ktmg9cRlRX7aO2ty0EDCR0XRr0Bbx+jsJv+I4bXGyekzbkYba94cn?=
+ =?us-ascii?Q?30MuYIfur0Rpd2LO+y2oozu4+EW0mdj1fgB3WNiPXAAY8yHe/Cn4FID4tFxP?=
+ =?us-ascii?Q?YXNXIOVaR5PGiEY+Qd/x+IdpwBSbSKCblIKWAI3K+BWgkw3iCHekncy38zgt?=
+ =?us-ascii?Q?S9robjR7dLhueFOVLbtuAc9eMI/EqL9iiu3tPQblsdEHLWxqsT1xFURw0s5o?=
+ =?us-ascii?Q?XByS+8eYszE0u9mOzFGHceG3l5UHUPnZPf5zx/PS+0Rtncsyy3mZLkHLjd14?=
+ =?us-ascii?Q?Kzxi+E/ZgHh3v3rN+Atg98+SLo5+pgpz5bcArnfuqbuIt7C7MIq3/A9Kdf+G?=
+ =?us-ascii?Q?Vw9Wcgmg+ggykMbF16XtO81KrW3Psmc/lVwptEn/69DmXGk5AIt/eOsa5BQG?=
+ =?us-ascii?Q?A3oH3dVHloL1D3H0wdYW+8Karf1h+uxklX/cVEMRmE139JN65E8PDO9M9hTV?=
+ =?us-ascii?Q?f1fYXv5lC6Hy0L3HOo0SG9D9ErVEXXAjXXDFywVEA4Gbm1krj7SeGwN4sWIj?=
+ =?us-ascii?Q?/GhQTJ2FajP8HbxyjyMed3ETkD0t1BPSwQtNuVR0RISSWkQNXFLV51agJ408?=
+ =?us-ascii?Q?TOamzvwz9S3xy3/u/xRkZ9g/bHfBvssKmK4ZeIfJUkh7y6Z2uscF3HKS1J4j?=
+ =?us-ascii?Q?0xH/SzGhsAWUdapVz4ATofwq+p/XY/0hvgoxER5s+jJvXhxNkH2VC7StVvyT?=
+ =?us-ascii?Q?hxZTlbmZtunGJnSTuwaEPLvpyGa2NTgJ8yGr9PxRbJCACmnmySJxE/yyDOYO?=
+ =?us-ascii?Q?YdxOvnDsS51DIi3btefY6E/PLjebFEk3xIaNmxAqyjVW2PTKTAX1HczwNfTr?=
+ =?us-ascii?Q?k4MkdljtJmYCWUgfoT+PRpJ2QQRXM7+YW9LcYb9QOaEK89ZTtGSXJ1up7BB6?=
+X-MS-Exchange-AntiSpam-MessageData-1: 1n/YKV0lq/MVnPHdSydc5vOjXWrS7Jb/iGI=
 X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 79462e4b-d455-47bf-f634-08de8479c11f
+X-MS-Exchange-CrossTenant-Network-Message-Id: 99ed852d-391a-4e06-12be-08de8479bc40
 X-MS-Exchange-CrossTenant-AuthSource: AM9PR04MB8585.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Mar 2026 23:06:00.1618 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Mar 2026 23:05:51.8563 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: iYq8izQWzR6T+6vW2KgHfT/LjN0LUr1zqCB5fJRSZCO1H5KcrLyYIv/qB3cmRPsswAjziyoG4axbKjD5PmMfsg==
+X-MS-Exchange-CrossTenant-UserPrincipalName: EVLVbrrrdqB/4lNQZDZe3BB7V47q5+QhYd0VvSs8uX2avlO2h6Vm6nlpUXcBO/zo8y0p7pAQO35Na9HgWxQtAA==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBBPR04MB7643
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -136,74 +139,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Some pragmatic shortcuts are being taken by PHY consumer driver authors,
-which put a burden on the framework. A lot of these can be caught during
-review.
+This file uses dev_fwnode() without including the proper header for it,
+relying on transitive header inclusion from:
 
-Make sure the linux-phy list is copied on as many keywords that regexes
-can reasonably catch.
+drivers/power/supply/cpcap-charger.c
+- include/linux/phy/omap_usb.h
+  - include/linux/usb/phy_companion.h
+    - include/linux/usb/otg.h
+      - include/linux/phy/phy.h
+        - drivers/phy/phy-provider.h
+          - include/linux/of.h
+            - include/linux/property.h
 
-Some considerations that led to this solution and not a simpler one:
-- Consumers may be located anywhere, and their file naming provides no
-  indication whatsoever that they are PHY API consumers.
-- The network PHY API has similarly sounding API: phy_start(),
-  phy_connect(), etc. Similarly, matching on "phy" would hit
-  phys_addr_t, "cryptography", etc.
-- The header files themselves need attention to avoid matching on
-  include/linux/phy.h (network PHY), include/linux/usb/phy.h,
-  drivers/net/vendor/device/phy.h, etc.
-- At least for a transitional period, I suppose developers will still
-  try to add PHY providers outside the subsystem (which is discouraged).
-
-So I used \b to try to match on actual word boundaries and I went for
-listing all markers of PHY API use as they may appear in patch contexts.
-
-Bit rot is a valid concern. I will add a test to the build automation
-that newly introduced struct and function names in include/linux/phy.h,
-include/linux/phy-props.h and drivers/phy/phy-provider.h are matched by
-the MAINTAINERS entry K: patterns.
-
-The keyword patterns were written with great help from Joe Perches
-<joe@perches.com>.
+With the future removal of drivers/phy/phy-provider.h from
+include/linux/phy/phy.h, this transitive inclusion would break.
 
 Signed-off-by: Vladimir Oltean <vladimir.oltean@nxp.com>
+Acked-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 ---
-Cc: Joe Perches <joe@perches.com>
+Cc: Sebastian Reichel <sre@kernel.org>
 
-v3->v4: none
-v2->v3:
-- escape forward slash in linux/phy/phy.h in regex pattern:
-  https://lore.kernel.org/linux-phy/9fd14d166e860f26febfbc9061a6dcae6a166961.camel@perches.com/
-v1->v2:
-- split into multiple regex patterns
-- use matching-only (insted of capturing) regex patterns
-- adjust commit message to reflect the Q&A from v1
+v2->v4: none
+v1->v2: collect tag
 ---
- MAINTAINERS | 11 +++++++++++
- 1 file changed, 11 insertions(+)
+ drivers/power/supply/cpcap-charger.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 55af015174a5..cd920f14abde 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -10713,6 +10713,17 @@ F:	Documentation/devicetree/bindings/phy/
- F:	drivers/phy/
- F:	include/dt-bindings/phy/
- F:	include/linux/phy/
-+K:	(?:linux\/phy\/phy\.h|phy-props\.h|phy-provider\.h)
-+K:	\b(?:__)?(?:devm_)?(?:of_)?phy_(?:create|destroy|provider_(?:un)?register)\b
-+K:	\bphy_(?:create|remove)_lookup\b
-+K:	\bphy_(?:get|set)_drvdata\b
-+K:	\b(?:devm_)?(?:of_)?phy_(?:optional_)?(?:get|put)(?:_by_index)?\b
-+K:	\bphy_pm_runtime_(?:get|put)(?:_sync)?\b
-+K:	\bphy_(?:init|exit|power_(?:on|off))\b
-+K:	\bphy_(?:get|set)_(?:mode(?:_ext)?|media|speed|bus_width|max_link_rate)\b
-+K:	\bphy_(?:reset|configure|validate|calibrate)\b
-+K:	\bphy_notify_(?:connect|disconnect|state)\b
-+K:	\bstruct\s+phy(?:_ops|_attrs|_lookup|_provider)?\b
+diff --git a/drivers/power/supply/cpcap-charger.c b/drivers/power/supply/cpcap-charger.c
+index d0c3008db534..24221244b45b 100644
+--- a/drivers/power/supply/cpcap-charger.c
++++ b/drivers/power/supply/cpcap-charger.c
+@@ -21,6 +21,7 @@
+ #include <linux/mod_devicetable.h>
+ #include <linux/platform_device.h>
+ #include <linux/power_supply.h>
++#include <linux/property.h>
+ #include <linux/regmap.h>
  
- GENERIC PINCTRL I2C DEMULTIPLEXER DRIVER
- M:	Wolfram Sang <wsa+renesas@sang-engineering.com>
+ #include <linux/gpio/consumer.h>
 -- 
 2.43.0
 
