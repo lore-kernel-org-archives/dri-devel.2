@@ -4,124 +4,111 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BABCCF33807
-	for <dri-devel@archiver.kernel.org>; Tue, 17 Mar 2026 07:11:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 45E14F33804
+	for <dri-devel@archiver.kernel.org>; Tue, 17 Mar 2026 07:17:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C966810E34E;
-	Tue, 17 Mar 2026 07:11:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6D59510E34C;
+	Tue, 17 Mar 2026 07:17:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="f63thI5r";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="eNcBzaHS";
 	dkim-atps=neutral
-Received: from SJ2PR03CU001.outbound.protection.outlook.com
- (mail-westusazon11012008.outbound.protection.outlook.com [52.101.43.8])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3C33310E34C;
- Tue, 17 Mar 2026 07:11:27 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Q7nLgsPvyyCRhDBK0gzAVsRDxTi4NwtsacoUtkA/AIkCnNAj5ID1Htzent4iOatR5Ia7LrcrmySplW/RazaIJnr7vV0pbTopScNNg5sJO8cXAuUpEJABqxcu5/9JwJPpUcvLUkGk2mmBwSgXmBdq3a3k63ckLqEHsbFIERYYlrxeq+M+VF2QK4msTWVpXhdO0OF/yymoIA/gaCvzVKn5l3x0hKoEowmBXJ2v0K1Ijc+7QQy9rDNeoDDwbXW5oophi9JGNsFDxoK7eOusCtloi78l2PqBL+1bSSf5WhBATYahJGq0jsUZydIFqGtT5jOZqMr7X+nEl8ziVU4rrc6Wrw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=x0NWFChTFWjgyibdT4NQM2vbwx9Hv9q0BGp5i7uerog=;
- b=p3PWjfjCgy/gayo1tUlIKvUPma/T3xl5oC4Shm8vVDMQCASi8/BeT124z28PwthShq9EhKKvfALnCT9U/BlGL/7cwnBhnVtY3VrbUszd2UwuMzPLAgoDBRbqpXHEyIpYlzC7p3HP9Xl5LiYO3rEaeful/B5tieXoV/bIKVNmWjpKf/I0EYgNxDk/tWblJFMH5/4+xXCoXNRYQSvyrcCxrBT5bGBH6+GYxwBbD+KZqVPKM1hb/auZTx5h1d48uBr0wGqkUX0VQAOeTQHi9GOqrogJUn5e87EoKcdKVbA0bYrsEc9fYX7UDgN3qH2rWJF5iSuymcjhJRuxPgEoW5Lrew==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=x0NWFChTFWjgyibdT4NQM2vbwx9Hv9q0BGp5i7uerog=;
- b=f63thI5r5qTt9u5Pp0segb0vgM44jSpYr0uKmPlXzYkOQFeZ+YHjHfvnlhiMgADYOK4p7c+XjzxFPfzM0i0i7ddSGCJ8fE1AtIVpXZNUJYtPLuJD7OUUbm4YHME4zeBJij095c/lm0UuIfcZGGoEgQxv3LBod4jiDlAeKqYAlv4=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by MN0PR12MB6080.namprd12.prod.outlook.com (2603:10b6:208:3c8::10)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.14; Tue, 17 Mar
- 2026 07:11:23 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.20.9723.016; Tue, 17 Mar 2026
- 07:11:23 +0000
-Message-ID: <8aea894a-1dd3-48d3-b21e-23b8c2796e0b@amd.com>
-Date: Tue, 17 Mar 2026 08:11:17 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu/userq: refactor MQD init into per-IP helpers
-To: Junrui Luo <moonafterrain@outlook.com>,
- Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, "Liang, Prike" <Prike.Liang@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Markus Elfring <Markus.Elfring@web.de>
-References: <SYBPR01MB7881D8124681BC48D009E222AF41A@SYBPR01MB7881.ausprd01.prod.outlook.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <SYBPR01MB7881D8124681BC48D009E222AF41A@SYBPR01MB7881.ausprd01.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR4P281CA0277.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:e6::9) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+Received: from mail-dl1-f51.google.com (mail-dl1-f51.google.com [74.125.82.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 28E1310E356
+ for <dri-devel@lists.freedesktop.org>; Tue, 17 Mar 2026 07:17:41 +0000 (UTC)
+Received: by mail-dl1-f51.google.com with SMTP id
+ a92af1059eb24-127148c2112so215731c88.3
+ for <dri-devel@lists.freedesktop.org>; Tue, 17 Mar 2026 00:17:41 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1773731860; cv=none;
+ d=google.com; s=arc-20240605;
+ b=Qcv3vIHFYKBS9tKk0k51CdXtJxWWlyaqiZ4cAPt1YVjuEfImPLh0kncbqokQFM2322
+ kKJnAtbyjXyHdw8sn9T3g37RifTUq1B1RfAiAFdS570Y5WyB1kMzqr/m+7WSQaI9yq4Z
+ bsGLuwXE2db1YRIDyAgvaxGpDkro3vqV9EYQDIis79ttX1LXLf4yfIU8D2kObeyRF1o+
+ uE6TNX1JIWsivNXrS7+P2p677ENbdOd5sx6xjxJWRvmZoTP+vP7GdIvf9V+X966pN7cX
+ wZf0YP7y7WODfGnQOj18YWG2tnopscOk1/YgEv2xTLw/+UAtyUoWBlS2LDvpV/4O1D+p
+ 5ACQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=JRjFojoQ+ay0ef4If4kUCgywrpzkrXMMzGRlp08g/yk=;
+ fh=RWyMKcPXBrWwvkWa8ZxBoWoZthXiRvCfhTLiZm3omnE=;
+ b=MsS/PAqVScFXah7CUJ7LMGuZbxP6NXPGZ2LeuHut1O/WLu1f/dBm4WDEc2CLJVNQ9h
+ 6nJ3kx5H9/qinVf0J6Tu7Gk5/QqGMqdlNECnn4vKnodZJEBUmx6XPT3kVpaf1w4PdAgt
+ chpIjB1MoflPJxvC+XDyJ1axVhN4aWL9XJLOD9ZsmcTq78g3FwTKPsnwyPST/3d2+CNn
+ 2+se38GWtVEiS4667SRQuc4fBmQUVDqAZKIk4cD+2vODy2IcKz3/0CK9WTHukPM4/XIY
+ 2HObf4zSK3T6+NHoCLzz+9g66PsMvYAQ+fpiCM06mC+3+Y4Kmt9SBd3+vkT/bXlPZV69
+ jK1Q==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1773731860; x=1774336660; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=JRjFojoQ+ay0ef4If4kUCgywrpzkrXMMzGRlp08g/yk=;
+ b=eNcBzaHSXi12uck3uK7rd1qtEWdT1GBouy444mwDFT7j9oAPJl2vpAseB0cOVhA42x
+ +9gmsGnqLkyZhtFdXEvmu7yOLCxdkTSCQPY1ZYVrgTgzAIL9I3GtrBTRn0QE1cHVbMKV
+ n1xN7IdAuAqeAIdEbIi5PC7zvh630eaW+IJ8MGITiylQvoRGmxZEftq7ZMPTR8tym57x
+ u3ufufPoSMGTArwXNQD0NZjaG9iP6PdLkYdeGTLIgONYR9y7Be7HhB3+CyQJWrNrXU9E
+ cofOcI2mQP71B+duyYnsKHNhJkNKU/xcKpiVkqc1UwYpJcOvKVMyFl4qGOqVkQzsgcpV
+ XSAw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1773731860; x=1774336660;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=JRjFojoQ+ay0ef4If4kUCgywrpzkrXMMzGRlp08g/yk=;
+ b=h3skfU5f9ApTCjF20WcJXBqJo+4Xwl18DsFwjkoNPANnGnb3j1Qsv1YI6p248n+qcZ
+ J8I9fMUm+2MZqnQRAHprPRS6oT15sXIBXyb9ZPEuKByqdEN33P70JCOfdPlofQPZQAes
+ /o7PEtV347d0qqfc/EFyy3SgdinY7b8prD77trYRLxq6viWMA/+lLaFCYPKlp/h3DSZK
+ mXZaxCLkYlwIz41sNYwMpy1kPqsMOt8a94BV/LpZ3NDl9rG+K6uxocLjCPrvATjmCZuA
+ oLtygG1Cv1yvNNGjU6nM3xmAkVGIb8muXAqjfXpJ8EmzhiBBDYKGXOalEteEG1ImR7G/
+ c/ug==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWaUbKbVQUHUo5WHRqd3MGhEk6KmQKnxlTWxiVEsbaRolDKOofqXKsZSWD9vKpomuXkiWLy9CgPP1U=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YySxew1OCC4R5CfYeAlf4x2tEp29uelonBxUiSTNE4ZckX1fb0g
+ km/qMTYh4hRaiKhARPwUQ11lqZ8LiSDnGnyEhO0SRjkFL27BtrvxHFCz5FkYnXd6cEFt7y/oZkC
+ mBv/48IYg8IeYhogi3dhZbbncuCMAP7c=
+X-Gm-Gg: ATEYQzz16h3CrnyrlvX694ZvBlUJ4ayhtawAoSEskdCKo6oG19jXFD9gzHvSkMRAfcV
+ i58f1iJr6ngyw6s6l2Xk2ge+azMN3iXML/PZx5JrQl6F7NfA9YJkrin2YzSBne8vIuZJipGMp8+
+ Rt6E0AS/3A3LBBePAHQWOONh1gItvGb9woFXgJujGitfrIURZU5eopktquzWyP5SUzKzaUuzF/B
+ ZEsn2VrTOoLQlqAReEQl0akccb1k9VGolIW2uGZ3ZP+IGwCt26/m9ItimgKzSL0E4+Hxd7LD91b
+ ntoB09aBUpZLOU0v7qwC3l7MweaklppSmgeKVa9UmgWn8Y/pq1u0UYLSCV3BYGsmoJXNU13Hfkh
+ HLLaYnU89tZh1frOTDb92vsY=
+X-Received: by 2002:a05:693c:2b17:b0:2be:6e6:e479 with SMTP id
+ 5a478bee46e88-2bea539710emr3854426eec.2.1773731860241; Tue, 17 Mar 2026
+ 00:17:40 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|MN0PR12MB6080:EE_
-X-MS-Office365-Filtering-Correlation-Id: c864ca2f-c083-42b3-8953-08de83f46538
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|366016|376014|18002099003|22082099003|56012099003|7053199007;
-X-Microsoft-Antispam-Message-Info: Sp4D8Wdsp4Elgrrk7rJ2p/2CjzpLisxo86MsorDpOZImtPN5CIzwTJBdBzepbRCa6Pvqn6XNOfL1gn9xOZhoEqK9kspNztbu9pNWYvQLvCn1kuHR5mIA0Aj3dWGrubTS7zkSyMlhyLX9moS4BchfukYDoMGGldKjAh0x32C1m8g9wvD3CPKEdknY6IAnQyMav3HUjyt3c7FbzO6LKaeTBRlxeumKB7TKtuBlfilOKJzP8BNBiBl8bLRXmLffTeZVFBFE+TSyKbZpArvFFJZunG9PV56XYbeqYlMKi5FrKWIXPX9RYm09iJG5N0rflOa/X6/zX4IIJht+r0LWwaklNbXms4tpNcbSu7PKy1s7jjsv+HZPw36h6DWNVziyjOxHrDPvQBYUHnGBM3eKy4D9KW5DKjdYQ/hLSX6HcRjlKEyfhs8ujhcYC0KeOCCmtZRc26WsFhncZcqFRcv7sI5xM2LlejAugqM8WvueNB96Or8MVFcH/RHLIaxDwmebki3cheAg5kMVQyfrQxCBoJ1qLpbJY0jCfq5NMsW4ebzTdnHfmExAJp0zWpChdRfN/eoDXQC4qNq9E53RUaa3kMiRcm+P1PDS6mhde5T+t62mcYhONOW4ODmEffpE7pppMQ+YjTI1YZVVJcV6bPi3xnRzOr8BzLXKw/4qfJcAayLn6JZGUMAy59AcyfkM9LcIyj0VAABQ7kzpp6SE6b8vS2JS8FMv9orj22Zn9XS0OMfn+l/eqk5/1fByAhjs5s/k1QB4
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014)(18002099003)(22082099003)(56012099003)(7053199007);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VTVlWHE1VDB4V3hzYXkrNXlHOERtQ1dPdEV2RWhTWEMyK3h6L2JjT0RxVWor?=
- =?utf-8?B?V1FMOG55OVFzNkhmQi9tb0xSNHBxSUZ1L0puMlJVNnRBNEJnZXhqWXcrVVJY?=
- =?utf-8?B?aERZVnl1Z2NENDZOdnR6YU5PM1J5Z1MxVG9CdXJuSjlsMkphZmIvb1huVkln?=
- =?utf-8?B?WmhZRmZsTUh6VXZZbDZiRWRaY0pXdnEvREY4QnJISm9EY21Qd2x3dUZlRWIw?=
- =?utf-8?B?KzYya0hUVGZ2V3dsWUMrZVU0VFBOMzk5QW1WOGpFWGltMXJHYzVEbStjQXFK?=
- =?utf-8?B?NUNwcTJPbWNlRTJFZm9lZ005MUczVjdUKzRkWGJzSk5FQlpRWXdHSm5iTUwr?=
- =?utf-8?B?UTFLNHlnUE1NTmtGUWVoOUI3YXZnaWFDemRaaGU4RjJXZTg1OWZ3QkJQSFVN?=
- =?utf-8?B?bUI4WGhwWExqbllBTTQwN1JvZFlPdVFqVXI1d1FmREpic3JEVTg1dnZFNE53?=
- =?utf-8?B?djgvZXREM21UWlJoV0pLcU15a1p1cklxNU0zcjN2QjdUZnJLZFNkV2ZzbUZq?=
- =?utf-8?B?SFQ2N2V1V0RKWitVemRnNlVBdVFLclhkeDYvMitPRGd1aGhDSnZYeTFtKzZC?=
- =?utf-8?B?TzVLWGkrb3hkUnNmaUphUEU5bjFzb252NDh0V1dxR1lZeXl3elc2T0NncFk4?=
- =?utf-8?B?NTVkelF4NlBmTG9Fb21JYkc3aFB0USt5ZE1uWGpWU2hvd29ZTDZzT0R2KzM0?=
- =?utf-8?B?YzJ0YTAvTDZXRjUxak9BaytibmJXZVd4Nk0xTkQvdTBXREllVCtmYjRqc0NT?=
- =?utf-8?B?M3VMUlJyYzVkN0FaYUw1T3Zld3NlTUhYYlZzUEUrRGQ5ekdqV29OTklOWkMz?=
- =?utf-8?B?dE9vaFViSHA4U1NoREZwTkhCeTBIYUpyc0dLTm1XaG40a1FnWnVEWTAxaDhT?=
- =?utf-8?B?RzhkUHpsdEs3NXZUem1kY1VWcFdJSTIwcC9BY2FGZUtSUU1SUU54Z2d4dnR5?=
- =?utf-8?B?czBvRkQyVEM4RzNBclh0ZmlycWlNSkJSMHFiZVRxMk9UUkxJWUhjR0RFU08v?=
- =?utf-8?B?MlVxN0JYU251N2VRdVo3bURMRTlJUFFYWlR0dW5iSUxnL3ZtNUgyb0EwUzlS?=
- =?utf-8?B?Yyswd0tNZFM0aElZVzdBcG9zaXpkekw0MGpsTGxRbDM0RlMwRk52QnpRbjF5?=
- =?utf-8?B?bXBibDdUc2dTMGxLanNLemFGYTRXajVYd3V2MDlqVzBBdExXdFF4S2IxVGZk?=
- =?utf-8?B?U1pMdnFkL1hSdWxtR3NpeC92ekd6SG9tZmFSN1RoU3JvbDlLS1RzODJmOGdM?=
- =?utf-8?B?ZmlnVHhOTTE1ZnNpT2Q5WXpDUmxkQTlOcS9rcmdCWlllRWppUUFYaCsvV0gy?=
- =?utf-8?B?NTNqVTN6MW5ucXhRV2ZCS1djRHBMaEtyZ2lFRC9HSmpqOGI2eUFldk16YVB0?=
- =?utf-8?B?ZkRTMUJLMjNsVmFHN2U1TTRIQlI2S3B4M0FBMGY2dzdyZThqZW82Y1NueWdi?=
- =?utf-8?B?bXhWcnk0NHhFbjhXb1FoUGlqQkNnb0lFSHRqUDVxSDk3SkRPeU5VY3Rua0Na?=
- =?utf-8?B?ckJ3eGVyMGNYWVpJd1VoTS9Nd3pDVkZIMU5mVU91UnBxQkovcnpYbEZMakdM?=
- =?utf-8?B?Y3VBVFZqOHgyVGowVGRjZWpBKzdwdjd5bk5zUXViNnozNjBjT1g1K1NDcHR2?=
- =?utf-8?B?WTU4VmxaS05sTVZ2N0J6K2tENWZQZG1DYjRVRDRiZnFCUWR6SFVhUVZmRGJI?=
- =?utf-8?B?Z0Z4QUcrQy9nTGRxSUx5czhmN0NoSjlCcHNjcDM3TE4zQkVpeUNHUkxCR1Vy?=
- =?utf-8?B?eEtJMWlzamt5QXZyMGF2M3ErNjhER05zWkEvTE5FM0JiMytzUFJBZ2hYVnFp?=
- =?utf-8?B?Tlg3NXQ5WCtRSyt5cUsvRU8xblBkTXg0VFFadkxDTnJja081Z29jYmFSWWh2?=
- =?utf-8?B?by9OVUFDZkpyL0xla0E1cEtIZ2d2MXVjRnRkdmFreW5JbTFtdzlzcXRybFlP?=
- =?utf-8?B?aDV5Z2h6VXZVWnpZSjQ5WXpZeTR3Zk9IdnJDeG1Ha0Q4SmJEMkh1V2EyeWV2?=
- =?utf-8?B?bHoySjBMRGpiSGJlL1RWdS92Mlo3aVh5ZUVrY0tNR2VJajBUaU05Zk5oZktY?=
- =?utf-8?B?azJ6ai9pd3pGVm9XT3NORFV6WmgrMThQTnQ2cEhwQ2E0ZDdEeFIvK1c0VGhG?=
- =?utf-8?B?S0w2V2FzNjFQdTkyVUgwMHpycENaMTZGOUpWTktDY0ErZHYrTlJpbks0ZXZV?=
- =?utf-8?B?di9YQ0lndWNIbisxQ3U3aGlPeXQ1dTBmU2tmSGJpZTBqd1huNjZ0VjlRVklD?=
- =?utf-8?B?WVRNUW9GZ3ltOHlpdXVxUTA5RDVYUDFJakhFbk9Ub3p2SWxrQ0pGRDZxelY4?=
- =?utf-8?Q?TOPGv2XV7M7Sb4IBoA?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c864ca2f-c083-42b3-8953-08de83f46538
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Mar 2026 07:11:22.9462 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: T6sXBGOlezwu1XvjuCOyWFaCn1kvlOkQNVG6ZfrDn8MzDvwe6ZQkNaOSTU0J4Ca1
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6080
+References: <20260316043255.226352-1-matthew.brost@intel.com>
+ <20260316043255.226352-3-matthew.brost@intel.com>
+ <7A8108C7-7CF0-4EA4-95ED-8003502DC35A@collabora.com>
+ <abjqfXERS6Xk4FAQ@lstrano-desk.jf.intel.com>
+In-Reply-To: <abjqfXERS6Xk4FAQ@lstrano-desk.jf.intel.com>
+From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Date: Tue, 17 Mar 2026 08:17:27 +0100
+X-Gm-Features: AaiRm53oFtZ4LcqzAMb48PPD1CPMNBFJZZjv3_kfdhsd5ZRjk5fQUoV8uzzbJKY
+Message-ID: <CANiq72=Y2g_5=iEzU1L07pMPYD+wVapJXpp9rvYXEzCKEs59Zw@mail.gmail.com>
+Subject: Re: [RFC PATCH 02/12] drm/dep: Add DRM dependency queue layer
+To: Matthew Brost <matthew.brost@intel.com>
+Cc: Daniel Almeida <daniel.almeida@collabora.com>,
+ intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ Boris Brezillon <boris.brezillon@collabora.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Danilo Krummrich <dakr@kernel.org>, David Airlie <airlied@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Philipp Stanner <phasta@kernel.org>, Simona Vetter <simona@ffwll.ch>, 
+ Sumit Semwal <sumit.semwal@linaro.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ linux-kernel@vger.kernel.org, Sami Tolvanen <samitolvanen@google.com>, 
+ Jeffrey Vander Stoep <jeffv@google.com>, Alice Ryhl <aliceryhl@google.com>, 
+ Daniel Stone <daniels@collabora.com>, Alexandre Courbot <acourbot@nvidia.com>, 
+ John Hubbard <jhubbard@nvidia.com>, shashanks@nvidia.com, jajones@nvidia.com, 
+ Eliot Courtney <ecourtney@nvidia.com>, Joel Fernandes <joelagnelf@nvidia.com>, 
+ rust-for-linux <rust-for-linux@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -137,259 +124,38 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 3/17/26 04:14, Junrui Luo wrote:
-> The three IP-type branches in mes_userq_mqd_create() share a repeated
-> pattern. Extract each branch into a dedicated helper function and
-> introduce mes_userq_mqd_read() to deduplicate the common
-> memdup_user + size check logic.
-> 
-> Each helper uses __free(kfree) for cleanup of the memdup'd
-> MQD struct.
+On Tue, Mar 17, 2026 at 6:46=E2=80=AFAM Matthew Brost <matthew.brost@intel.=
+com> wrote:
+>
+> You can do RAII in C - see cleanup.h. Clear object lifetimes and
+> ownership are what is important. Disciplined coding is the only to do
+> this regardless of language. RAII doesn't help with help with bad object
+> models / ownership / lifetime models either.
 
-Please don't that just looks absolutely messy.
+"Ownership", "lifetimes" and being "disciplined" *is* what Rust helps
+with. That is the whole point (even if there are other advantages).
 
-__free(kfree) should only be used with kmalloc() and not like that.
+Yes, the cleanup attribute is nice, but even the whole `CLASS` thing
+is meant to simplify code. Simplifying code does reduce bugs in
+general, but it doesn't solve anything fundamental. Even if we had C++
+and full-fledged smart pointers and so on, it doesn't improve
+meaningfully the situation -- one can still mess things up very easily
+with them.
 
-Regards,
-Christian.
+And yes, sanitizers and lockdep and runtime solutions that require to
+trigger paths are amazing, but not anywhere close to enforcing
+something statically.
 
-> 
-> Link: https://lore.kernel.org/all/SYBPR01MB7881A279A361F81B670CDEEAAF42A@SYBPR01MB7881.ausprd01.prod.outlook.com/
-> Suggested-by: Markus Elfring <Markus.Elfring@web.de>
-> Suggested-by: Prike Liang <Prike.Liang@amd.com>
-> Signed-off-by: Junrui Luo <moonafterrain@outlook.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/mes_userqueue.c | 205 +++++++++++++++--------------
->  1 file changed, 108 insertions(+), 97 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c b/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
-> index faac21ee5739..0d7ccecf7c1e 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
-> @@ -272,6 +272,105 @@ static int mes_userq_detect_and_reset(struct amdgpu_device *adev,
->  	return r;
->  }
->  
-> +static void *mes_userq_mqd_read(struct drm_amdgpu_userq_in *mqd_user,
-> +				size_t size, const char *ip_name)
-> +{
-> +	void *mqd;
-> +
-> +	if (mqd_user->mqd_size != size || !mqd_user->mqd) {
-> +		DRM_ERROR("Invalid %s MQD\n", ip_name);
-> +		return ERR_PTR(-EINVAL);
-> +	}
-> +
-> +	mqd = memdup_user(u64_to_user_ptr(mqd_user->mqd), size);
-> +	if (IS_ERR(mqd)) {
-> +		DRM_ERROR("Failed to read %s user MQD\n", ip_name);
-> +		return ERR_PTR(-ENOMEM);
-> +	}
-> +
-> +	return mqd;
-> +}
-> +
-> +static int mes_userq_mqd_init_compute(struct amdgpu_device *adev,
-> +				      struct amdgpu_usermode_queue *queue,
-> +				      struct drm_amdgpu_userq_in *mqd_user,
-> +				      struct amdgpu_mqd_prop *userq_props)
-> +{
-> +	struct drm_amdgpu_userq_mqd_compute_gfx11 *mqd __free(kfree) =
-> +		mes_userq_mqd_read(mqd_user, sizeof(*mqd), "compute");
-> +	int r;
-> +
-> +	if (IS_ERR(mqd))
-> +		return PTR_ERR(mqd);
-> +
-> +	r = amdgpu_userq_input_va_validate(adev, queue, mqd->eop_va, 2048);
-> +	if (r)
-> +		return r;
-> +
-> +	userq_props->eop_gpu_addr = mqd->eop_va;
-> +	userq_props->hqd_pipe_priority = AMDGPU_GFX_PIPE_PRIO_NORMAL;
-> +	userq_props->hqd_queue_priority = AMDGPU_GFX_QUEUE_PRIORITY_MINIMUM;
-> +	userq_props->hqd_active = false;
-> +	userq_props->tmz_queue =
-> +		mqd_user->flags & AMDGPU_USERQ_CREATE_FLAGS_QUEUE_SECURE;
-> +	return 0;
-> +}
-> +
-> +static int mes_userq_mqd_init_gfx(struct amdgpu_device *adev,
-> +				  struct amdgpu_usermode_queue *queue,
-> +				  struct drm_amdgpu_userq_in *mqd_user,
-> +				  struct amdgpu_mqd_prop *userq_props)
-> +{
-> +	struct drm_amdgpu_userq_mqd_gfx11 *mqd __free(kfree) =
-> +		mes_userq_mqd_read(mqd_user, sizeof(*mqd), "GFX");
-> +	struct amdgpu_gfx_shadow_info shadow_info;
-> +	int r;
-> +
-> +	if (IS_ERR(mqd))
-> +		return PTR_ERR(mqd);
-> +
-> +	if (adev->gfx.funcs->get_gfx_shadow_info)
-> +		adev->gfx.funcs->get_gfx_shadow_info(adev, &shadow_info, true);
-> +	else
-> +		return -EINVAL;
-> +
-> +	userq_props->shadow_addr = mqd->shadow_va;
-> +	userq_props->csa_addr = mqd->csa_va;
-> +	userq_props->tmz_queue =
-> +		mqd_user->flags & AMDGPU_USERQ_CREATE_FLAGS_QUEUE_SECURE;
-> +
-> +	r = amdgpu_userq_input_va_validate(adev, queue, mqd->shadow_va,
-> +					   shadow_info.shadow_size);
-> +	if (r)
-> +		return r;
-> +
-> +	r = amdgpu_userq_input_va_validate(adev, queue, mqd->csa_va,
-> +					   shadow_info.csa_size);
-> +	if (r)
-> +		return r;
-> +	return 0;
-> +}
-> +
-> +static int mes_userq_mqd_init_sdma(struct amdgpu_device *adev,
-> +				   struct amdgpu_usermode_queue *queue,
-> +				   struct drm_amdgpu_userq_in *mqd_user,
-> +				   struct amdgpu_mqd_prop *userq_props)
-> +{
-> +	struct drm_amdgpu_userq_mqd_sdma_gfx11 *mqd __free(kfree) =
-> +		mes_userq_mqd_read(mqd_user, sizeof(*mqd), "SDMA");
-> +	int r;
-> +
-> +	if (IS_ERR(mqd))
-> +		return PTR_ERR(mqd);
-> +
-> +	r = amdgpu_userq_input_va_validate(adev, queue, mqd->csa_va, 32);
-> +	if (r)
-> +		return r;
-> +
-> +	userq_props->csa_addr = mqd->csa_va;
-> +	return 0;
-> +}
-> +
->  static int mes_userq_mqd_create(struct amdgpu_usermode_queue *queue,
->  				struct drm_amdgpu_userq_in *args_in)
->  {
-> @@ -306,104 +405,16 @@ static int mes_userq_mqd_create(struct amdgpu_usermode_queue *queue,
->  	userq_props->doorbell_index = queue->doorbell_index;
->  	userq_props->fence_address = queue->fence_drv->gpu_addr;
->  
-> -	if (queue->queue_type == AMDGPU_HW_IP_COMPUTE) {
-> -		struct drm_amdgpu_userq_mqd_compute_gfx11 *compute_mqd;
-> -
-> -		if (mqd_user->mqd_size != sizeof(*compute_mqd)) {
-> -			DRM_ERROR("Invalid compute IP MQD size\n");
-> -			r = -EINVAL;
-> -			goto free_mqd;
-> -		}
-> -
-> -		compute_mqd = memdup_user(u64_to_user_ptr(mqd_user->mqd), mqd_user->mqd_size);
-> -		if (IS_ERR(compute_mqd)) {
-> -			DRM_ERROR("Failed to read user MQD\n");
-> -			r = -ENOMEM;
-> -			goto free_mqd;
-> -		}
-> -
-> -		r = amdgpu_userq_input_va_validate(adev, queue, compute_mqd->eop_va,
-> -						   2048);
-> -		if (r) {
-> -			kfree(compute_mqd);
-> -			goto free_mqd;
-> -		}
-> -
-> -		userq_props->eop_gpu_addr = compute_mqd->eop_va;
-> -		userq_props->hqd_pipe_priority = AMDGPU_GFX_PIPE_PRIO_NORMAL;
-> -		userq_props->hqd_queue_priority = AMDGPU_GFX_QUEUE_PRIORITY_MINIMUM;
-> -		userq_props->hqd_active = false;
-> -		userq_props->tmz_queue =
-> -			mqd_user->flags & AMDGPU_USERQ_CREATE_FLAGS_QUEUE_SECURE;
-> -		kfree(compute_mqd);
-> -	} else if (queue->queue_type == AMDGPU_HW_IP_GFX) {
-> -		struct drm_amdgpu_userq_mqd_gfx11 *mqd_gfx_v11;
-> -		struct amdgpu_gfx_shadow_info shadow_info;
-> -
-> -		if (adev->gfx.funcs->get_gfx_shadow_info) {
-> -			adev->gfx.funcs->get_gfx_shadow_info(adev, &shadow_info, true);
-> -		} else {
-> -			r = -EINVAL;
-> -			goto free_mqd;
-> -		}
-> -
-> -		if (mqd_user->mqd_size != sizeof(*mqd_gfx_v11) || !mqd_user->mqd) {
-> -			DRM_ERROR("Invalid GFX MQD\n");
-> -			r = -EINVAL;
-> -			goto free_mqd;
-> -		}
-> -
-> -		mqd_gfx_v11 = memdup_user(u64_to_user_ptr(mqd_user->mqd), mqd_user->mqd_size);
-> -		if (IS_ERR(mqd_gfx_v11)) {
-> -			DRM_ERROR("Failed to read user MQD\n");
-> -			r = -ENOMEM;
-> -			goto free_mqd;
-> -		}
-> -
-> -		userq_props->shadow_addr = mqd_gfx_v11->shadow_va;
-> -		userq_props->csa_addr = mqd_gfx_v11->csa_va;
-> -		userq_props->tmz_queue =
-> -			mqd_user->flags & AMDGPU_USERQ_CREATE_FLAGS_QUEUE_SECURE;
-> -
-> -		r = amdgpu_userq_input_va_validate(adev, queue, mqd_gfx_v11->shadow_va,
-> -						   shadow_info.shadow_size);
-> -		if (r) {
-> -			kfree(mqd_gfx_v11);
-> -			goto free_mqd;
-> -		}
-> -		r = amdgpu_userq_input_va_validate(adev, queue, mqd_gfx_v11->csa_va,
-> -						   shadow_info.csa_size);
-> -		if (r) {
-> -			kfree(mqd_gfx_v11);
-> -			goto free_mqd;
-> -		}
-> -
-> -		kfree(mqd_gfx_v11);
-> -	} else if (queue->queue_type == AMDGPU_HW_IP_DMA) {
-> -		struct drm_amdgpu_userq_mqd_sdma_gfx11 *mqd_sdma_v11;
-> +	if (queue->queue_type == AMDGPU_HW_IP_COMPUTE)
-> +		r = mes_userq_mqd_init_compute(adev, queue, mqd_user,
-> +					       userq_props);
-> +	else if (queue->queue_type == AMDGPU_HW_IP_GFX)
-> +		r = mes_userq_mqd_init_gfx(adev, queue, mqd_user, userq_props);
-> +	else if (queue->queue_type == AMDGPU_HW_IP_DMA)
-> +		r = mes_userq_mqd_init_sdma(adev, queue, mqd_user, userq_props);
->  
-> -		if (mqd_user->mqd_size != sizeof(*mqd_sdma_v11) || !mqd_user->mqd) {
-> -			DRM_ERROR("Invalid SDMA MQD\n");
-> -			r = -EINVAL;
-> -			goto free_mqd;
-> -		}
-> -
-> -		mqd_sdma_v11 = memdup_user(u64_to_user_ptr(mqd_user->mqd), mqd_user->mqd_size);
-> -		if (IS_ERR(mqd_sdma_v11)) {
-> -			DRM_ERROR("Failed to read sdma user MQD\n");
-> -			r = -ENOMEM;
-> -			goto free_mqd;
-> -		}
-> -		r = amdgpu_userq_input_va_validate(adev, queue, mqd_sdma_v11->csa_va,
-> -						   32);
-> -		if (r) {
-> -			kfree(mqd_sdma_v11);
-> -			goto free_mqd;
-> -		}
-> -
-> -		userq_props->csa_addr = mqd_sdma_v11->csa_va;
-> -		kfree(mqd_sdma_v11);
-> -	}
-> +	if (r)
-> +		goto free_mqd;
->  
->  	queue->userq_prop = userq_props;
->  
-> 
-> ---
-> base-commit: 0079dcb07e98346c0722f376ae3436cd28a71fdd
-> change-id: 20260317-fixes-c80fd658c7d5
-> 
-> Best regards,
+The fact that `unsafe` exists doesn't mean "Rust doesn't solve
+anything". Quite the opposite: the goal is to provide safe
+abstractions where possible, i.e. we minimize the need for `unsafe`.
+And for the cases where there is no other way around it, the toolchain
+will force you to write an explanation for your `unsafe` usage. Then
+maintainers and reviewers will have to agree with your argument for
+it.
 
+In particular, it is not something that gets routinely (and
+implicitly) used every second line like we do in C.
+
+Cheers,
+Miguel
