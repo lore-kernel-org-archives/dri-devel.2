@@ -4,123 +4,133 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2BBBCFB5EA0
-	for <dri-devel@archiver.kernel.org>; Tue, 17 Mar 2026 01:47:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 02605FB5EA5
+	for <dri-devel@archiver.kernel.org>; Tue, 17 Mar 2026 01:55:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8B11D10E3E3;
-	Tue, 17 Mar 2026 01:47:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 70D9D10E207;
+	Tue, 17 Mar 2026 01:55:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="lyt9MKLK";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="dFAv5pFQ";
 	dkim-atps=neutral
-Received: from SN4PR0501CU005.outbound.protection.outlook.com
- (mail-southcentralusazon11011052.outbound.protection.outlook.com
- [40.93.194.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6F41710E340;
- Tue, 17 Mar 2026 01:47:20 +0000 (UTC)
+Received: from BL2PR02CU003.outbound.protection.outlook.com
+ (mail-eastusazon11011060.outbound.protection.outlook.com [52.101.52.60])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 56E1010E207;
+ Tue, 17 Mar 2026 01:55:27 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=eLCSvFuaS89jAko8bZFideyMrBbXdftB7VSh/AEK9v4fsj6pHTuBfCmkqR5YjsfdCXMQJAliKaQm6/cYwID9fCIezcK0uuRlQf3cMFa7xXpseXRGtWdWOPPV4qGsXiYtNqGq/QOubFyEFIS8o0yYSl23a0wKnKz4VQ4K5/rvSzTc8phZTcX2QM3X27Gch7TeAgZv7X40ncydDISQDQWg3jHkP30BKX7qVwYlq228yhtkAYxAO89817fx/9UWMjapih1bfaTDSSetH57RE+lsqCGXexiUQKesgrdwog1+W1ZFOxMJTal2AOIhnHeDBWMekFmrUcDor5EZHJjzH5vDQg==
+ b=imAt5k0QEYK1PJrt+ihR2Nr0L3kcj2cRyvmlT4Q0GFSjtGrs/Q6JDFudJ0Y0f1CaaX3B0X8B5doY6Ab0noOzCKB72lmqrLp0DGfmpz2+ZUBuSJEr1m0pHWbkMo/kXU2FYmxLvsRNu6MTq/VAiMwbdD4Q3Vx17T1QuTLMyZ7S09jr45IlnzIfCAA0oZvT3sUBhJVUL8iMb5w2aXTDW5KDItguDARgmvodTL1aL9PB6SzWzwmHAOUG4pHPrcFUem4PR09f9gZBcnIG3GsckQlbPy9cVve4yzR8R1DelPknWo0p83JspSKWGIGPGNDYWCsOi4uFINGRg1bwYzy9i3LeMQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=WqLFMk9+ZUg+sj9Eb/OVfR1CoLnZhCFlaQW4EVz1vbg=;
- b=hQHJm+FxKWctn8X4H/17PbSkqk+BRQL8V4qwDO9t+4CDnxCj0wzM3I1AFYwTbynVDHchg6OR96pIsgLOnjsHP8VIML1+5C9cWJiI9M7mlFQNgb4EiRENSBcvTl2Pq8tuIjeq3vxo43sp8swj669fcrUxtFBVa1z/jUuzr5x/C5OC82r1mYCcRGBcSAgzJ60DxXHQdi/bvpRQTkeXAzA3iDOxjxxbGNI4bNoBJARYVehorNMTPcHUJ8y+tAH6DFUI92jFKHY8qW9BeSY7NdAiDnr3puTtzCBxS/8XpjRMhGtOYQWqO8Br9/5hb4bydQmvkxLgyLRZGxZE20k1oHqX2g==
+ bh=NFPPgihVuLl+GK5j4Uo7cjG9EwX7oRttxbgsHPDIEi0=;
+ b=aEGBKmoxzQvqpMwyrPtvLIEaU2tLKbiYqQWw0OidBz3dPuXBnmHP7yx/T+93AgnmvreHl7DbMX+ZYGI53/Zr7hZh9I9ZlJa12hiBLhekOTjgZWUoM7yIho5j2N0u4ruSK57ZPcB/dYd5PXyvOzDNbFuGKXzPgi9F48bzJiw+6vUOQ8DaTVAvQp3CxDwR1TC7beO2KnW84W/g3C7xKAhVn9r5WoDzpVMcGyUmGzEeoLntPRTKP7a2/JvOP1rKi1p0azONQhY+D/7JDg4zyvGghzyXN6l1uvwK8L/GQ+XkywhEaVyFvZFr4UFAiJ4epixynHazl61nmgp5MOSyCJkMew==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WqLFMk9+ZUg+sj9Eb/OVfR1CoLnZhCFlaQW4EVz1vbg=;
- b=lyt9MKLK0v+JfgXCBoFlw77k8YHAwC8gl+qvjJHQGXwUCVFeqoCeu9l1BfJ+5wVkZ4icqpH19wZIXuZPxipwrVKc1xrWLI033QNLXHI1d66krBVP/oeyAo5GHRVIrisQmA4yMVwr/CPH8A4kwDMb52PtUCOubkxEbJWloDUPp+/zns47nzlCtrbNCwtlDrE+dgG/Hjg/lhlh7GqiTv1yiCyRqW1hUDHz5d1HUfFXXsB7pz5SksXQPbJdIWWKp1oZbcXbhRqKWO8CU2HqmKvsX118EyxNXL5uPQrbCqfAxzvevGdUuuYXjeVyZ8votvHU9h2oYQE2BqIhdhKnOdWW7Q==
+ bh=NFPPgihVuLl+GK5j4Uo7cjG9EwX7oRttxbgsHPDIEi0=;
+ b=dFAv5pFQdBjz0FuT94TgaF8Fneja5X1nu/VaGJbhuazAUz0NzREefGGhh/1YSX9XiAc3+aBJM3tHCl8rsGoi8D8EfYg+SOuwT7acYQYG/GHyCZoFhHpEJ1YR7r2W6ES7xoG/BIsmelGyn6n90+xkn4CiUGdJqzJJh/UQkcD9azBwNVqyxdru9YLlb6F0yita9y1Y1Mr5j5EvL2xYt7Jito+pT6oxHkpXhH8cClO2CEQOx1RyQprMSLXqmektC5/j0Oglu6YtwJQBPFE4VBQaRNOud/ta5Qg5USfU2ASyFDiwszn+ytaCFy53dXBCXquWe8aJJGPTiL9iNo1ZtwVuFQ==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DS0PR12MB7726.namprd12.prod.outlook.com (2603:10b6:8:130::6) by
- SJ2PR12MB9211.namprd12.prod.outlook.com (2603:10b6:a03:55e::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.16; Tue, 17 Mar
- 2026 01:47:13 +0000
-Received: from DS0PR12MB7726.namprd12.prod.outlook.com
- ([fe80::5807:8e24:69b0:f6c0]) by DS0PR12MB7726.namprd12.prod.outlook.com
- ([fe80::5807:8e24:69b0:f6c0%4]) with mapi id 15.20.9723.018; Tue, 17 Mar 2026
- 01:47:12 +0000
-Date: Tue, 17 Mar 2026 12:47:07 +1100
-From: Alistair Popple <apopple@nvidia.com>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Jordan Niethe <jniethe@nvidia.com>, linux-mm@kvack.org, 
- balbirs@nvidia.com, matthew.brost@intel.com, akpm@linux-foundation.org, 
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, ziy@nvidia.com, 
- lorenzo.stoakes@oracle.com, lyude@redhat.com, dakr@kernel.org,
- airlied@gmail.com, 
- simona@ffwll.ch, rcampbell@nvidia.com, mpenttil@redhat.com, jgg@nvidia.com, 
- willy@infradead.org, linuxppc-dev@lists.ozlabs.org,
- intel-xe@lists.freedesktop.org, 
- jgg@ziepe.ca, Felix.Kuehling@amd.com, jhubbard@nvidia.com, maddy@linux.ibm.com,
- mpe@ellerman.id.au, ying.huang@linux.alibaba.com
-Subject: Re: [PATCH v6 00/13] Remove device private pages from physical
- address space
-Message-ID: <abiloqDpIs046DJJ@nvdebian.thelocal>
-References: <20260202113642.59295-1-jniethe@nvidia.com>
- <4b5b222a-18e8-4d48-9acb-39e5bfe4e5f7@kernel.org>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <4b5b222a-18e8-4d48-9acb-39e5bfe4e5f7@kernel.org>
-X-ClientProxiedBy: SYCPR01CA0006.ausprd01.prod.outlook.com
- (2603:10c6:10:31::18) To DS0PR12MB7726.namprd12.prod.outlook.com
- (2603:10b6:8:130::6)
+Received: from CH2PR12MB3990.namprd12.prod.outlook.com (2603:10b6:610:28::18)
+ by PH7PR12MB9075.namprd12.prod.outlook.com (2603:10b6:510:2f0::20)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.17; Tue, 17 Mar
+ 2026 01:55:20 +0000
+Received: from CH2PR12MB3990.namprd12.prod.outlook.com
+ ([fe80::7de1:4fe5:8ead:5989]) by CH2PR12MB3990.namprd12.prod.outlook.com
+ ([fe80::7de1:4fe5:8ead:5989%6]) with mapi id 15.20.9723.016; Tue, 17 Mar 2026
+ 01:55:19 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 17 Mar 2026 10:55:16 +0900
+Message-Id: <DH4OM17DJ47V.3NJG7G02O7P1L@nvidia.com>
+To: "Danilo Krummrich" <dakr@kernel.org>
+Cc: "Eliot Courtney" <ecourtney@nvidia.com>, "Alice Ryhl"
+ <aliceryhl@google.com>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
+ <simona@ffwll.ch>, <rust-for-linux@vger.kernel.org>,
+ <nouveau@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>, "dri-devel"
+ <dri-devel-bounces@lists.freedesktop.org>, "Gary Guo" <gary@garyguo.net>
+Subject: Re: [PATCH 6/9] gpu: nova-core: generalize `flush_into_kvec` to
+ `flush_into_vec`
+From: "Alexandre Courbot" <acourbot@nvidia.com>
+References: <20260227-rmcontrol-v1-0-86648e4869f9@nvidia.com>
+ <20260227-rmcontrol-v1-6-86648e4869f9@nvidia.com>
+ <093ca23e-7081-42db-a202-0a42c51741a3@kernel.org>
+ <DGYL9FS1Z00X.2HEJ96J8R3OK4@kernel.org>
+ <DH46IKESDQ3B.2GEUC479WDK3N@nvidia.com>
+ <DH47AVPEKN06.3BERUSJIB4M1R@kernel.org>
+In-Reply-To: <DH47AVPEKN06.3BERUSJIB4M1R@kernel.org>
+X-ClientProxiedBy: TYCP286CA0065.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:400:31a::6) To CH2PR12MB3990.namprd12.prod.outlook.com
+ (2603:10b6:610:28::18)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB7726:EE_|SJ2PR12MB9211:EE_
-X-MS-Office365-Filtering-Correlation-Id: dedbbaed-1e2f-4898-3a3f-08de83c71bed
+X-MS-TrafficTypeDiagnostic: CH2PR12MB3990:EE_|PH7PR12MB9075:EE_
+X-MS-Office365-Filtering-Correlation-Id: c2a25909-6edb-42c4-52e0-08de83c83e54
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|7416014|1800799024|366016|56012099003|22082099003|18002099003|7053199007;
-X-Microsoft-Antispam-Message-Info: CjDNrj2eQPB52NLcmbunxPooRt6DyWXjpm2XJzuDguL8u+eHhUY9ZvqhBE5UpTqBA+Ev/XyvmZKsYe9eUVmVjDXW0e3wM2fc4j5JIcp4Axli1PvusQyfBwjlURHXIdjSJeIYe85BZ/aQ/baIKGVvYuw7mGhidMpVVATqrYB0qyuFjWIhpVxeimVSj6M8PbTKs9YKDc2vpSieZcc8j+CUueec/8LvsO4hwE4AVP5slc6stz38BZ2lm0/TRmWD7ePExFVVAODScich/zMQoOlWsJ/3hJ7axc6apaZG1pNuw14Qq/nDPme674hho1hil40p1YYneDW7TCvNN8FcE7wLTZbUmidvTbnCieOtqLx4sE6hjQfwgFi1Z+Or4CTeCPaahBAmJ43EUCbahb8/HmFijceU7c4Hij/BOXIH3h0C7TUrwwLY5wi0jcAc6H7nra9XM3v5B21ATK5d1ycfciz8arNy/Ux23ZXgm9yLsPlQL+nSL8thJJWPfwXFFbcFqQBPYklmwYRWrcgdU4Idsm+p1oaxsah7dViNAfeQgD5+YmTH3QwVf7Mn7JhZYh9EZYyGujkzeLhuEgHF/DppL8Sk/gt+vc9t/PYzIhQpBkMX+3xMgrJuGU+7OqmGwJP6vYjE2z/1afeptIxshFItOizrlZIeV+1SAiaJO4CvEoFqcLfWXIR2mIiArwbmS3mZLgVu0jH3vqQHoE9+Uem011CbG/39RnM86IF5JLt99h49kKc=
+ ARA:13230040|376014|7416014|1800799024|10070799003|366016|22082099003|18002099003|56012099003;
+X-Microsoft-Antispam-Message-Info: TmcHBU417yQUKbUNn2qTw19yhR57jcJBkyhz4r6YYkGlvn7Mey7FC1owQOg/H44qteucDaCgR3JO+F9R0TCxAbnDtDW1/YMounAKyIt0+0/9xNvTDFiADhuTheYP+4T1Eru6A74JjS9qt3vp9Sf72f2YeQ9ymH3FOHQ73NbK1t4Yy5op85pUyMwDShbLHxr41OP5cir91yQ47YTfhzRGQ01h7Ltg+rMRC2h5AgVj1Tloq1sRL9PXALz6cfcvDwQoqWAXUOXkCyHUusxT1S/02tTEa/OxYbW5SIspk7ikkrnaXnsXRqrGl0yk0lojGhQ6vDTLOhFaptkwzicqeinE4bvrtMPBIw8+BXX8u98jn8YFjAG8TeFMW4qLEVj+srULXo/t7HaEsP5pMHZHTGy44TMA5tt5xR5WXXIWBlF/W82Cnne4SCJVoNWyHhA9HHl4OP5XHPWj7H5+c0TV/1Gy1Dju65xGuoBktZiN/iYOxVW4rgPO4QPQ/TuYHiK6Z9IfZ1ogG5Z3Xl1pKMudc40RNd3NjtT1jEGrvyUbFln6tvAk1fNWRwwP2CBzZcmoJcmMiQTqTVBHkKSgtVw+Difzxbwxj8GiqY+eEN53RiwIljtjn/XISpHVvWirlTmE/Rvy8vJuNq/vJriimMxITf71Rfd8FFALGqtyyCz3BisfvS+gX/rFuL/SFfpKL7rw4nbvC9DRBlrVbJlmGxOS1ShqemkYhUjFzP3+BaCiIrdpSw0=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS0PR12MB7726.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(7416014)(1800799024)(366016)(56012099003)(22082099003)(18002099003)(7053199007);
+ IPV:NLI; SFV:NSPM; H:CH2PR12MB3990.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(7416014)(1800799024)(10070799003)(366016)(22082099003)(18002099003)(56012099003);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?z2EEBSRYrvMoLVMk0fLBhZukIfBlXVFBBhT5KqOzb1kXtyDkQKDK09bMp0Hg?=
- =?us-ascii?Q?7Fo5IDU1l8wNjzptJ5Aq3wSy3+Fhwxyz8TURTCWf+HpRd4bOP1nt1YFmAA6m?=
- =?us-ascii?Q?dewdk9tKFQ+njJBWxJYew0RY+f5eKowXGZhxDaVaJTqrtXbfgbQedKhfPBGa?=
- =?us-ascii?Q?p98U1hOrLc5Q5/hQnCptWtNFeRJaqHdzh4fyNNoQGDXhCWdEtjmQRPDLGs7Z?=
- =?us-ascii?Q?QArKT9rYtCJrIKkOBdlg9LXoQtyUFQrW9DwRr/J9+zTTKIq+KfUGv5IXk2Tf?=
- =?us-ascii?Q?NaOlc+MDZI3IKLzAOd7BU8sUiN6iZxTxPbjnk7LaDjt4qxFfbFhnxcaeWW9c?=
- =?us-ascii?Q?7erMNxJiWO3cXJ9/SE8KLLlJL2Rv/7YkLR+9zU4G6SOmkT4+U+CpUxaEMuJW?=
- =?us-ascii?Q?Fpft7OhjvEsZiKpm3um15MQlfLcf9Jk3siWITMSkecvtq++hMkCoEQ9l0Pzt?=
- =?us-ascii?Q?pZF0PmaGhPBwBvN8/DOErqIXsmdou2dwzlUrPq7C/4wiLRg8zDfVgG7aNGHJ?=
- =?us-ascii?Q?HaTRHRasCh53Oz9K8UQ82apQXrrnkHWy/Wm11auCtBMIieHGhX0jf0AOiWgQ?=
- =?us-ascii?Q?i5hzgFWJheIIuXqah8CokpUEMPvD+/MrkwTKMJektGLt8vTjbAHrPHe5ElWh?=
- =?us-ascii?Q?y4uR2Xv7xOqs9nIMb4kMOjlNccUL2IYYZs7MwMZFrYGDS6giDfw8z1mFjl5r?=
- =?us-ascii?Q?9o6OgchmYTCxZMMsLpE8K2uETbmCGg2GcLGpXAHrfCZaGlKH4hWlsYhIurf6?=
- =?us-ascii?Q?UVCTcN/0vQxiJq7QuehiJ67aNpQh59aFazi6PBS7LJ+gDoJIGH87FHqyO2l/?=
- =?us-ascii?Q?JD0yv7Ph/5PDGoMky/2F8WRWy7lh4tMz5iRdzP4b9JyDCZepMZREEaDmBlPp?=
- =?us-ascii?Q?4I3585oNrNuIOgLKy60AErm0jaudGRiDStOszPON2nWXw+ChaNk0MvPfYrEz?=
- =?us-ascii?Q?BG169Wbkk9zENl1vzqw3ebIeNC+kflC+/98KxUZ9OdsTznTK6FEsBZhnCfNC?=
- =?us-ascii?Q?cERv4qluRTE17dPMI8FjYbvZM37M8zdDSbFXcO42aEJ3t4/pA8oIT/A11YF5?=
- =?us-ascii?Q?DuFnjVVFzrKcgIz+iXmLKTLqkVxUrioX4FOa2IJcq7RomhjDODqVF3HmPcLE?=
- =?us-ascii?Q?JTezTkyd5StBEPLBxW9AsU+teFwNI2HJaBA5qLvOqZ5YrK7Tnm1A9vD0bvgo?=
- =?us-ascii?Q?A7hNaSR+BjBHKUPIgZpEhAtM3huIs+VyPa034t37rpe0Ucj0DilS+AnNmtcE?=
- =?us-ascii?Q?yNcSGdpKTKWmY6ceZq99J/hywxrxpSdotKc6x6fn4NlG1Vz2gi/Cy67dXAVJ?=
- =?us-ascii?Q?Qu2iShz4wR/0ShHy53/iihfKfSnDrZ/OdkBCfdGxy8sqYFqq5cjiX4orQtzE?=
- =?us-ascii?Q?ejgpFlHvC3hOup2+bf28fWFtof6m1vFuJbPQcrDHJFaSjiyAyWc49PFcTrnJ?=
- =?us-ascii?Q?mF08J99ERZ/iajRlPwAr3CAileU553r5E7Jm23/rBRx3R5jCy/SeA4UEmS7o?=
- =?us-ascii?Q?yyc6G1LD/r9L3LKfn0hkYlcwY9am/THkSacl3u9zeJaVfwQy71qVtebgl4Jf?=
- =?us-ascii?Q?p5nZ175NeORg1NjDW56jJZB6/U29eQfSWtivTSMnZxoMKDYDZ5en67p/+WDd?=
- =?us-ascii?Q?FFE4lbmQtbWdEsK1dSWc18TaBc0R6pc/Quvh5vk4kovDJQVAbExYv2LGn95W?=
- =?us-ascii?Q?7/bpK6dlsBluipYikNBQOYY90qtuTSWbzTR97a1HePk0qeWsC8sH1GjCCZwg?=
- =?us-ascii?Q?0Q3t+VaKoQ=3D=3D?=
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NzU3T2g1RXB2WHg0dXhQdWluN3YrcTVHV2NacTFycWZ6VVhIdkxEaUdrWjFX?=
+ =?utf-8?B?dTVCd0o0c2lSaWwybjVNY3RXWWpaWXNCR1B3dDRLN0hvenJLSm1Wc2ZFMEZL?=
+ =?utf-8?B?LzhYdHR6NW9rL2NuRStqTmR6Q3NYRUxGdXZ3bkZtYm14bllUTjdFT0dleEx1?=
+ =?utf-8?B?SlJjaHA1UHRVRHhLS2E0WWxsbHdsaFN5TmFtVUhMY3FmNVZLc0Q0WnZYNlBs?=
+ =?utf-8?B?QXNIYi9tQzRUYU1XYW92NDNhVlVEeExhUmRsWWFiblltQlFteFhoclNOcWsz?=
+ =?utf-8?B?Mm5iaGh2RWJUVUlLL1o2eGlFSVhhampOaGlGekorTjFRTEY1U3VrWUw3TXpJ?=
+ =?utf-8?B?d1BEbzAyWmczT3JmY1lBNm1CN2piT3hwNExaL05oTXRtcDhac09XR293ZUpM?=
+ =?utf-8?B?Qytjb2ozcGcrQml3WDN5YUpsUlRhMDhuMWIrbTRSTXF4TFU3WmVVWVo3OVdo?=
+ =?utf-8?B?a2VROWhRbHlMa2hFTGJIcFNWVWIyYllTTDN5a0Uvc2lMU3VQYVFLZ3VrQ3BZ?=
+ =?utf-8?B?UVFWVzBubmgvOFIyQ3dtSTc4cXVtcjg0QzlhL1BkTS9aV2RTdC9MblhNNmVQ?=
+ =?utf-8?B?anJnNlZCOTVqbzVGRGhsYXlaVmFpSjIxemdZVk4xRllQeWVYVmZXWU1yWWF5?=
+ =?utf-8?B?dk4yakI3ZkpjVFNxYTBZUGdWeDRZUVNIdk1IcjB5c21RaGE1SjdrV2QyV0xO?=
+ =?utf-8?B?QnpQZm1ibDJndk5XZWRrQ3Z2aGFMbjhEaFVOMGpVMEoxY0R2ME0vSCtsd0Zj?=
+ =?utf-8?B?RG1hRHF5WUx6bndLakVEeVVTR2R4eWlCZkUvbGRzVkFtazl6REpyY1BVT1JQ?=
+ =?utf-8?B?Z3dpNGJXL3p5elZ0bVBYdDJHUmtmcng2eEVhNWgzTXpXNUlWVWN2ZEtwdTdJ?=
+ =?utf-8?B?bEY5UVhBeDBqRlpMY2dtblVhNjJyeEE5MWV4YUhNRzJLS0ZaRzhySHZscVNy?=
+ =?utf-8?B?Z3duYjNLSHMybDRCREcweXlLTkRwMHM2dTN6UUtKYzhXN2FEWTdEMUM2WmxQ?=
+ =?utf-8?B?WVhuOWh4Ri9JQit5NktyTHlMUmxFQWFZN2ExU1dJV2NVQ0JRNE9UbFlHYmNP?=
+ =?utf-8?B?WCtGZG9vNFZzaGc5eEMwT3RHUzVWSWsra1FiMzdnOEdoYUg2eGtTblpMd2Vi?=
+ =?utf-8?B?Z3FoWkhzVHpKaVFwczNWMzIvaVdUVjg5U2xuenhDMW9oODEvTUFxb2NLN2Ji?=
+ =?utf-8?B?RGlkdWcrSDY2Skp2cTB6ckRoOTlqOTFWSXhNcXdxUi9uYXNlNEJKUXdFMHNU?=
+ =?utf-8?B?L25tQjUvMG0vdThSWGlxUzEvUmtsSVZ1R3NuVFZudWZMdXJodzVvdjR2M2hv?=
+ =?utf-8?B?dHo5TE5PM1IxZmthQVB2RkNVT3FEakY5MmhWRFJZc2orZTNRZWt0T0JVWFhW?=
+ =?utf-8?B?WUFTUlFnOGwySytjTk5zbldibS9EaExYYmdkdTVDSC90aHU4R0Voc2RzdzFG?=
+ =?utf-8?B?enhDTjJlcFBTTmZQZytPSXZsVnFtbFdmMHZlSWVzd2M2S3Q0Y2RPRXN6WXJ2?=
+ =?utf-8?B?M040WnBuWWNUTEpaMDNEcEx0Z3oxSVlPanJIazdGRXZPbHRITXBtWEd6RU9s?=
+ =?utf-8?B?aDZ5Tmo2MndpanFFTXJjbkJoSnorVWEzQlF3c3JIU3pVSVIvTEkyQnkvcGtr?=
+ =?utf-8?B?NUpWbUdlT253TzJSeHcrL0RsdVpaTllYNUFJMHBGWDJwTXQrajNoM21DWUhI?=
+ =?utf-8?B?WkV3ZlI0Mmt3RHVJY2xLZkJJbGhwQlpQWnAzWUQzTFdYbWhMUjJsOG9PSjlD?=
+ =?utf-8?B?MURmalJQOTd5b1lPZ3FhZC9qL001VXdscitkT1BhUGF3QW5QdHp2R1RGTkJO?=
+ =?utf-8?B?bWxxZUorK2drNTIwSzBaTEZDc0dQMGZGd2xNZEVyeERjbkplU2llaDRXdXBL?=
+ =?utf-8?B?aUJXZVN0Q1dVY2JFejc5d01JOWdLYnFmb3N0T1MraW5HU2tsVjlzL3JRaHRB?=
+ =?utf-8?B?Z3Jlemd3OXVjYWFSM0ZIMi9hU1hoeU1PMFBDdlI3RnBYdXluU0hONGRDNG0v?=
+ =?utf-8?B?WkZzMy9jM3dEYm11azZPczhXU1FiVWFRdXBaejNPcjd6bzFyemQzVS8zZWNs?=
+ =?utf-8?B?U1ZSa0ozclpSc2M3blgxUVYxVm0zVEtqZlBJVVdSeW5vb2VoNk9Qd1ozeEVB?=
+ =?utf-8?B?S0RLbVBybmFTVTliaXVqUFd6dHdvOFZyNEdVQTNSSi9waEk4eDZpTnlIczVZ?=
+ =?utf-8?B?YUhLc1pmYjc1WVl3Qks0dXY3Vnl0SjR6VGUvcDB1SUlEeWU1K04vODg3SXJa?=
+ =?utf-8?B?Qy9BSVJNbEh1a0ZmZnlGOUxBdjd0WXBvZEZzQkM1NTg4V1JQQmNVa2EvV0hK?=
+ =?utf-8?B?akE3Q0tXS09xcmtndDNqTHNyVTRRdnRGQ1crTmRhNk9WckttT1FiWmFYNEgz?=
+ =?utf-8?Q?oyUhBgrev9TF2cIWQhrO4MEwiyAtAxBnFQvL7AqDjwY4k?=
+X-MS-Exchange-AntiSpam-MessageData-1: ZHE6pPVbmGAFfA==
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: dedbbaed-1e2f-4898-3a3f-08de83c71bed
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB7726.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c2a25909-6edb-42c4-52e0-08de83c83e54
+X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB3990.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Mar 2026 01:47:12.8096 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Mar 2026 01:55:19.7715 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: EBSjYxjZlePcVzj5bdncuIz3kU08oO3AxlKIRVIwuGGjaJQQRBfIVTNrXFhbOxHEkYXrIY7CgmkpHBLwigxZ+A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB9211
+X-MS-Exchange-CrossTenant-UserPrincipalName: AkKREbT9syghqNR8Ya0oTpDyRo30huNyvd6JfJvTVKUfxkn6b35SzP0WTZnnLwYld9LDBmZT1YGlfVrAF1uQ2Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB9075
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,145 +146,97 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 2026-03-07 at 03:16 +1100, "David Hildenbrand (Arm)" <david@kernel.org> wrote...
-> On 2/2/26 12:36, Jordan Niethe wrote:
-> > Introduction
-> > ------------
-> > 
-> > The existing design of device private memory imposes limitations which
-> > render it non functional for certain systems and configurations where
-> > the physical address space is limited. 
-> > 
-> > Limited available address space
-> > -------------------------------
-> > 
-> > Device private memory is implemented by first reserving a region of the
-> > physical address space. This is a problem. The physical address space is
-> > not a resource that is directly under the kernel's control. Availability
-> > of suitable physical address space is constrained by the underlying
-> > hardware and firmware and may not always be available. 
-> > 
-> > Device private memory assumes that it will be able to reserve a device
-> > memory sized chunk of physical address space. However, there is nothing
-> > guaranteeing that this will succeed, and there a number of factors that
-> > increase the likelihood of failure. We need to consider what else may
-> > exist in the physical address space. It is observed that certain VM
-> > configurations place very large PCI windows immediately after RAM. Large
-> > enough that there is no physical address space available at all for
-> > device private memory. This is more likely to occur on 43 bit physical
-> > width systems which have less physical address space.
-> > 
-> > The fundamental issue is the physical address space is not a resource
-> > the kernel can rely on being to allocate from at will.  
-> > 
-> > New implementation
-> > ------------------
-> > 
-> > This series changes device private memory so that it does not require
-> > allocation of physical address space and these problems are avoided.
-> > Instead of using the physical address space, we introduce a "device
-> > private address space" and allocate from there.
-> > 
-> > A consequence of placing the device private pages outside of the
-> > physical address space is that they no longer have a PFN. However, it is
-> > still necessary to be able to look up a corresponding device private
-> > page from a device private PTE entry, which means that we still require
-> > some way to index into this device private address space. Instead of a
-> > PFN, device private pages use an offset into this device private address
-> > space to look up device private struct pages.
-> > 
-> > The problem that then needs to be addressed is how to avoid confusing
-> > these device private offsets with PFNs. It is the limited usage
-> > of the device private pages themselves which make this possible. A
-> > device private page is only used for userspace mappings, we do not need
-> > to be concerned with them being used within the mm more broadly. This
-> > means that the only way that the core kernel looks up these pages is via
-> > the page table, where their PTE already indicates if they refer to a
-> > device private page via their swap type, e.g.  SWP_DEVICE_WRITE. We can
-> > use this information to determine if the PTE contains a PFN which should
-> > be looked up in the page map, or a device private offset which should be
-> > looked up elsewhere.
-> > 
-> > This applies when we are creating PTE entries for device private pages -
-> > because they have their own type there are already must be handled
-> > separately, so it is a small step to convert them to a device private
-> > PFN now too.
-> > 
-> > The first part of the series updates callers where device private
-> > offsets might now be encountered to track this extra state.
-> > 
-> > The last patch contains the bulk of the work where we change how we
-> > convert between device private pages to device private offsets and then
-> > use a new interface for allocating device private pages without the need
-> > for reserving physical address space.
-> > 
-> > By removing the device private pages from the physical address space,
-> > this series also opens up the possibility to moving away from tracking
-> > device private memory using struct pages in the future. This is
-> > desirable as on systems with large amounts of memory these device
-> > private struct pages use a signifiant amount of memory and take a
-> > significant amount of time to initialize.
-> 
-> I now went through all of the patches (skimming a bit over some parts
-> that need splitting or rework).
+On Mon Mar 16, 2026 at 9:21 PM JST, Danilo Krummrich wrote:
+> (Cc: Gary)
+>
+> On Mon Mar 16, 2026 at 12:44 PM CET, Eliot Courtney wrote:
+>> On Tue Mar 10, 2026 at 7:01 AM JST, Danilo Krummrich wrote:
+>>> On Mon Mar 9, 2026 at 10:57 PM CET, Danilo Krummrich wrote:
+>>>> On 2/27/2026 1:32 PM, Eliot Courtney wrote:
+>>>>> Add general `flush_into_vec` function. Add `flush_into_kvvec`
+>>>>> convenience wrapper alongside the existing `flush_into_kvec` function=
+.
+>>>>> This is generally useful but immediately used for e.g. holding RM
+>>>>> control payloads, which can be large (~>=3D20 KiB).
+>>>>
+>>>> Why not just always use KVVec? It also seems that the KVec variant is =
+not used?
+>>>
+>>> (Besides its single usage in GspSequence, which wouldn't hurt to be a K=
+VVec.)
+>>>
+>>>> If there's no reason for having both, I'd also just call this into_vec=
+().
+>>
+>> I think always using KVVec should be fine, thanks!
+>>
+>> For the naming, I think `read_to_vec` may be more conventional for this
+>> -- `into_vec` implies consuming the object, but if we want to keep the
+>> warning in `Cmdq::receive_msg` if not all the data is consumed we need
+>> to take &mut self.
+>
+> I had another look at this and especially how the SBuffer you refer to is=
+ used.
+> Unfortunately, the underlying code is broken.
+>
+> driver_read_area() creates a reference to the whole DMA object, including=
+ the
+> area the GSP might concurrently write to. This is undefined behavior. See=
+ also
+> commit commit 0073a17b4666 ("gpu: nova-core: gsp: fix UB in DmaGspMem poi=
+nter
+> accessors"), where I fixed something similar.
 
-Thanks David for taking the time to do a thorough review. I will let Jordan
-respond to most of the comments but wanted to add some of my own as I helped
-with the initial idea.
+We shouldn't be doing that - I think we are limited by the current
+CoherentAllocation API though. But IIUC this is something that I/O
+projections will allow us to handle properly?
 
-> In general, a noble goal and a reasonable approach.
-> 
-> But I get the sense that we are just hacking in yet another zone-device
-> thing. This series certainly makes core-mm more complicated. I provided
-> some inputs on how to make some things less hacky, and will provide
-> further input as you move forward.
+>
+> Additionally, even if it would only create a reference to the part of the=
+ buffer
+> that can be considerd untouched by the GSP and hence suits for creating a
+> reference, driver_read_area() and all subsequent callers would still need=
+ to be
+> unsafe as they would need to promise to not keep the reference alive beyo=
+nd GSP
+> accessing that memory region again.
 
-I disagree - this isn't hacking in another/new zone-device thing it is cleaning
-up/reworking a pre-existing zone-device thing (DEVICE_PRIVATE pages). My initial
-hope was it wouldn't actually involve too much churn on the core-mm side.
+This is guaranteed by the inability to update the CPU read pointer for
+as long as the slices exists.
 
-It seems that didn't work quite as well as hoped as there are a few places in
-core-mm where we use raw pfns without actually accessing them rather than using
-the page/folio. Notably page_vma_mapped in patch 5.
+To expand a bit: `driver_read_area` returns a slice to the area of the
+DMA object that the GSP is guaranteed *not* to write into until the
+driver updates the CPU read pointer.
 
-But overall this is about replacing pfn_to_page()/page_to_pfn() with
-device-private specific variants, as callers *must* already know when they
-are dealing with a device-private pfn and treat it specially today (whether
-explicitly or implicitly). Callers/callees already can't just treat a
-device-private pfn normally as accessing the pfn will cause machine checks and
-the associated page is a zone-device page so doesn't behave like a normal struct
-page.
+This area is between the CPU read pointer (which signals the next bytes
+the CPU has to read, and which the GSP won't cross) and the GSP write
+pointer (i.e. the next page to be written by the GSP).
 
-> We really have to minimize the impact, otherwise we'll just keep
-> breaking stuff all the time when we forget a single test for
-> device-private pages in one magical path.
+Everything in this zone is data that the GSP has already written but the
+driver hasn't read yet at the time of the call.
 
-As noted above this is already the case - all paths whether explicitly or
-implicitly (or just fogotten ... hard to tell) need to consider device-private
-pages and possibly treat them differently. Even today some magical path that
-somehow gets a device-private pfn/page and tries to use it as a normal page/pfn
-will probably break as they don't actually correspond to physical addresses that
-actually exist and the struct pages are special.
+The CPU read pointer cannot be updated for as long as the returned
+slices exist - the slices hold a reference to the `DmaGspMem`, and
+updating the read pointer requires a mutable reference to the same
+`DmaGspMem`.
 
-So any core-mm churn is really just making this more explicit, but this series
-doesn't add any new requirements.
+Meanwhile, the GSP can keep writing data while the slice exists but that
+data will be past the area of the slice, and the GSP will never write
+past the CPU read pointer.
 
-My bigger aim here is to use this as a stepping stone to removing device-private
-pages as they just contain a bunch of redundant information from a device driver
-perspective that introduces a lot of metadata management overhead.
+So the data in the returned slices is guaranteed to be there at the time
+of the call, and immutable for as long as the slices exist. Thus, they
+can be provided by a safe method.
 
-> I am not 100% sure how much the additional tests for device-private
-> pages all over the place will cost us. At least it can get compiled out,
-> but most distros will just always have it compiled in.
+Unless we decide to not trust the GSP, but that would be opening a whole
+new can of worms.
 
-I didn't notice too many extra checks outside of the migration entry path. But
-if perf is a concern there I think we could move those checks to device-private
-specific paths. From memory Jordan did this more as a convenience. Will go look
-a bit deeper for any other checks we might have added.
+> I don't want to merge any code that builds on top of this before we have =
+sorted
+> this out.
 
- - Alistair
-
-> -- 
-> Cheers,
-> 
-> David
+If what I have written above is correct, then the fix should simply be
+to use I/O projections to create properly-bounded references. Any more
+immediate fix would need to be much more intrusive and require a
+refactoring that is imho more risky than carrying on for a bit with the
+current behavior.
