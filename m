@@ -4,58 +4,135 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4838FF33809
-	for <dri-devel@archiver.kernel.org>; Tue, 17 Mar 2026 08:15:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 21197F3380F
+	for <dri-devel@archiver.kernel.org>; Tue, 17 Mar 2026 08:17:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9225F10E55C;
-	Tue, 17 Mar 2026 08:15:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 84B1110E565;
+	Tue, 17 Mar 2026 08:17:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="Tbd2EQFo";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="Hk2hPlNy";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="QKBWMQJc";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="IYd1R93A";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="AgvvfFh0";
 	dkim-atps=neutral
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A6FED10E426
- for <dri-devel@lists.freedesktop.org>; Tue, 17 Mar 2026 08:15:36 +0000 (UTC)
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-03.galae.net (Postfix) with ESMTPS id 5486D4E4263E;
- Tue, 17 Mar 2026 08:15:35 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 205915FC9A;
- Tue, 17 Mar 2026 08:15:35 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id E791D1045035D; Tue, 17 Mar 2026 09:15:31 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1773735334; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding:in-reply-to:references;
- bh=/KvbmOvCMwXMd8Y01EHjxoYBy0bzMdwstlWWPIFixJA=;
- b=Tbd2EQFoFMYhFFfWZ/sYqS0VcPBZKEnCW6wHWcMHju+728aUy2k7q566VMarfvY1DF0eS9
- WlrOoxaN5f7ijKlWgZ0a6D0A3S6bnm+bYPphGVPxhmIibjDcZtvK/yw9wwTchgJzbIw5JN
- zs1FYosCa9sJuO/tjei56x2rM/uww8DWbKJovouATGzXALSDCGzebdx8QVtsZKjd/LidaN
- /VDYjiOkUECDLCpsaASXSRSQNqR4JjBaF4uXlkTcC1vkz6Ok5KLRUUD9CFoYWb+eLApHmV
- PY/CArMvOJlxJY1HJeAc9zPgjElr13dd5d7gtZ4+dYcn1T+kpN0EKZrDxgcPsg==
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 17 Mar 2026 09:15:31 +0100
-Message-Id: <DH4WP68B4M0T.3LUVBC71NSA3N@bootlin.com>
-From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
-Subject: Re: [PATCH] drm/bridge: Fix refcount shown via debugfs for
- encoder_bridges_show()
-Cc: "Marco Felsch" <m.felsch@pengutronix.de>,
- <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
-To: "Liu Ying" <victor.liu@nxp.com>, "Andrzej Hajda"
- <andrzej.hajda@intel.com>, "Neil Armstrong" <neil.armstrong@linaro.org>,
- "Robert Foss" <rfoss@kernel.org>, "Laurent Pinchart"
- <Laurent.pinchart@ideasonboard.com>, "Jonas Karlman" <jonas@kwiboo.se>,
- "Jernej Skrabec" <jernej.skrabec@gmail.com>, "Maarten Lankhorst"
- <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
- "Thomas Zimmermann" <tzimmermann@suse.de>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>
-X-Mailer: aerc 0.20.1
-References: <20260312-drm-misc-next-2026-03-05-fix-encoder-bridges-refcount-v1-1-b9ba3d844732@nxp.com>
- <DH45WF6QQX3X.3197SDA7BFY30@bootlin.com>
- <c5fd18be-9537-424c-9c65-48d67ecfe266@nxp.com>
-In-Reply-To: <c5fd18be-9537-424c-9c65-48d67ecfe266@nxp.com>
-X-Last-TLS-Session-Version: TLSv1.3
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4E71010E565
+ for <dri-devel@lists.freedesktop.org>; Tue, 17 Mar 2026 08:17:54 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id E96CE4D240;
+ Tue, 17 Mar 2026 08:17:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1773735473; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=f3+Qw7UEbsV3ZIy8gMyjCxdI0xUAAxkgpKQhOUkFwC8=;
+ b=Hk2hPlNyI+16JED7DsC4x2fAZpq5sY0q6XW5RA+ODq+Y/n/kO59KqLVN5GPapgoXcYZ/Lr
+ jSDI00iFSE28KA3c5TpgUP7i9TAfOImW+pRpYgAip4p0cAe459CeMKxn8a5+B6/B8cLd7M
+ RdgI/p9fDQfES6AcMdJExIyfMC1U6eU=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1773735473;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=f3+Qw7UEbsV3ZIy8gMyjCxdI0xUAAxkgpKQhOUkFwC8=;
+ b=QKBWMQJcwvjBPbK689CFwtvrZxu6DRiUxLSfLehpuJRzHHu/NHt9XgIluNXVcDREYlolr4
+ RBYXy0pYjrNvS0Aw==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1773735472; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=f3+Qw7UEbsV3ZIy8gMyjCxdI0xUAAxkgpKQhOUkFwC8=;
+ b=IYd1R93AechYWhOM1pBV6GbmoZU6qVHHSCZlbe06eR9z0MQXFGyxskkLmEP4t7n7FPmuK1
+ ijtNo/tnk9kA1U54cIU3cNXui1KbwS2fR9mmqfFI2MxP2xC+ia83TFeAcHKnchDVUkMWnn
+ QrCREHsi3Y4PkXhsn9Oc//AgaPYEdD0=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1773735472;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=f3+Qw7UEbsV3ZIy8gMyjCxdI0xUAAxkgpKQhOUkFwC8=;
+ b=AgvvfFh0v2YMEAXsnQAzSRDPqEVk+g6rewVFNhdzkMf5BO+wH/5hgZh38Ff0Sm1m9MSsuP
+ ob80iCucV+wmKnCA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 8AA844273C;
+ Tue, 17 Mar 2026 08:17:52 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id bXFyIDAOuWkyXQAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Tue, 17 Mar 2026 08:17:52 +0000
+Message-ID: <cd67129a-c529-4621-908b-75b8eac12ba3@suse.de>
+Date: Tue, 17 Mar 2026 09:17:52 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/ast: DisplayPort edid supports 256 bytes
+To: =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
+Cc: Jani Nikula <jani.nikula@linux.intel.com>,
+ Jammy Huang <jammy_huang@aspeedtech.com>, Dave Airlie <airlied@redhat.com>,
+ Jocelyn Falempe <jfalempe@redhat.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+References: <20260313-upstream_ast_dp_edid-v1-1-2a75b7c091b2@aspeedtech.com>
+ <b0b1f644-ea5c-4636-99a0-28b040ed2fe0@suse.de>
+ <ad40e82fc2e6501f1b6e1073c70a6f1c308c89a8@intel.com>
+ <abj-J1yYsFymXmn5@intel.com> <7b91451a-7764-4822-b15b-47437592691f@suse.de>
+ <abkM2-295MJO15ht@intel.com>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <abkM2-295MJO15ht@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ NEURAL_HAM_SHORT(-0.20)[-0.999]; MIME_GOOD(-0.10)[text/plain];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; RCVD_TLS_ALL(0.00)[];
+ ARC_NA(0.00)[]; MIME_TRACE(0.00)[0:+];
+ RCPT_COUNT_SEVEN(0.00)[11];
+ FUZZY_RATELIMITED(0.00)[rspamd.com];
+ MID_RHS_MATCH_FROM(0.00)[]; FREEMAIL_ENVRCPT(0.00)[gmail.com];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FROM_HAS_DN(0.00)[];
+ FREEMAIL_CC(0.00)[linux.intel.com,aspeedtech.com,redhat.com,kernel.org,gmail.com,ffwll.ch,lists.freedesktop.org,vger.kernel.org];
+ TO_DN_SOME(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid, suse.de:email, suse.com:url,
+ aspeedtech.com:email]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,136 +148,105 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue Mar 17, 2026 at 3:35 AM CET, Liu Ying wrote:
-> On Mon, Mar 16, 2026 at 12:15:29PM +0100, Luca Ceresoli wrote:
->> Hello Liu,
->
-> Hello Luca,
->
+Hi
+
+Am 17.03.26 um 09:12 schrieb Ville Syrjälä:
+> On Tue, Mar 17, 2026 at 08:41:35AM +0100, Thomas Zimmermann wrote:
+>> Hi
 >>
->> On Thu Mar 12, 2026 at 7:05 AM CET, Liu Ying wrote:
->>> A typical bridge refcount value is 3 after a bridge chain is formed:
->>> - devm_drm_bridge_alloc() initializes the refcount value to be 1.
->>> - drm_bridge_add() gets an additional reference hence 2.
->>> - drm_bridge_attach() gets the third reference hence 3.
->>>
->>> This typical refcount value aligns with allbridges_show()'s behaviour.
->>> However, since encoder_bridges_show() uses
->>> drm_for_each_bridge_in_chain_scoped() to automatically get/put the
->>> bridge reference while iterating, a bogus reference is accidentally
->>> got when showing the wrong typical refcount value as 4 to users via
->>> debugfs.  Fix this by caching the refcount value returned from
->>> kref_read() while iterating and explicitly decreasing the cached
->>> refcount value by 1 before showing it to users.
->>>
->>> Fixes: bd57048e4576 ("drm/bridge: use drm_for_each_bridge_in_chain_scop=
-ed()")
->>> Signed-off-by: Liu Ying <victor.liu@nxp.com>
->>> ---
->>>  drivers/gpu/drm/drm_bridge.c | 32 ++++++++++++++++++++++++++------
->>>  1 file changed, 26 insertions(+), 6 deletions(-)
->>>
->>> diff --git a/drivers/gpu/drm/drm_bridge.c b/drivers/gpu/drm/drm_bridge.=
-c
->>> index f8b0333a0a3b..84fc3cfd17e0 100644
->>> --- a/drivers/gpu/drm/drm_bridge.c
->>> +++ b/drivers/gpu/drm/drm_bridge.c
->>> @@ -1567,14 +1567,18 @@ void devm_drm_put_bridge(struct device *dev, st=
-ruct drm_bridge *bridge)
->>>  }
->>>  EXPORT_SYMBOL(devm_drm_put_bridge);
->>>
->>> -static void drm_bridge_debugfs_show_bridge(struct drm_printer *p,
->>> -					   struct drm_bridge *bridge,
->>> -					   unsigned int idx,
->>> -					   bool lingering)
->>> +static void __drm_bridge_debugfs_show_bridge(struct drm_printer *p,
->>> +					     struct drm_bridge *bridge,
->>> +					     unsigned int idx,
->>> +					     bool lingering,
->>> +					     bool scoped)
->>>  {
->>> +	unsigned int refcount =3D kref_read(&bridge->refcount);
->>> +
->>>  	drm_printf(p, "bridge[%u]: %ps\n", idx, bridge->funcs);
->>>
->>> -	drm_printf(p, "\trefcount: %u%s\n", kref_read(&bridge->refcount),
->>> +	drm_printf(p, "\trefcount: %u%s\n",
->>> +		   scoped ? --refcount : refcount,
->>
->> I'd s/--refcount/refcount - 1/ here, no point in modifying the value whi=
-le
->> printing it.
+>> Am 17.03.26 um 08:09 schrieb Ville Syrjälä:
+>>> On Mon, Mar 16, 2026 at 01:38:22PM +0200, Jani Nikula wrote:
+>>>> On Mon, 16 Mar 2026, Thomas Zimmermann <tzimmermann@suse.de> wrote:
+>>>>> Hi Jammy
+>>>>>
+>>>>> Am 13.03.26 um 11:04 schrieb Jammy Huang:
+>>>>>> DisplayPort supports edid at most 256 bytes. Thus, allow it to fetch
+>>>>>> edid block 0 and 1.
+>>>>>>
+>>>>>> Signed-off-by: Jammy Huang <jammy_huang@aspeedtech.com>
+>>>>>> ---
+>>>>>> ASPEED DisplayPort's EDID size can be 256 bytes at most. Thus, EDID
+>>>>>> blocks fetched can be 0 and 1.
+>>>>>> ---
+>>>>>>     drivers/gpu/drm/ast/ast_dp.c | 2 +-
+>>>>>>     1 file changed, 1 insertion(+), 1 deletion(-)
+>>>>>>
+>>>>>> diff --git a/drivers/gpu/drm/ast/ast_dp.c b/drivers/gpu/drm/ast/ast_dp.c
+>>>>>> index 9d07dad358c..c938e1d6b1d 100644
+>>>>>> --- a/drivers/gpu/drm/ast/ast_dp.c
+>>>>>> +++ b/drivers/gpu/drm/ast/ast_dp.c
+>>>>>> @@ -88,7 +88,7 @@ static int ast_astdp_read_edid_block(void *data, u8 *buf, unsigned int block, si
+>>>>>>     	int ret = 0;
+>>>>>>     	unsigned int i;
+>>>>>>     
+>>>>>> -	if (block > 0)
+>>>>>> +	if (block > 1)
+>>>>>>     		return -EIO; /* extension headers not supported */
+>>>>> But see the code at [1]. It clears the number of extensions to zero and
+>>>>> updates the checksum accordingly. This is required to make the shortened
+>>>>> EDID work with DRM. If you leave this as-is, it will still clear support
+>>>>> for any extension in block 1.
+>>>>>
+>>>>> See the table 2.4 in the VESA EDID 1.4 standard for the semantics. For
+>>>>> 1.3, if the number of blocks is >2, the first extensions is a 'block map
+>>>>> of the extensions'. This is useless, as it's not a data extension in
+>>>>> itself.  In 1.4, the block map is optional. That code should clear the
+>>>>> EDID's number of extensions to 0 or 1, depending on whether there is a
+>>>>> block map to be expected.
+>>>> I think long-term the goal should be for the kernel to not modify the
+>>>> EDID, at all.
+>>> I think as a short term goal it would be much better if all EDID
+>>> mangling would be done by drm_edid.c rather than individual drivers.
+>> We don't fix the EDID here, but work around a hardware limitation. I
+>> guess we could fix this automatically near edid_block_read() [1] if the
+>> driver clearly communicates this issue.  The read loop could then fix
+>> the header's checksum by itself.
+> edid_filter_invalid_blocks() already has the code to update
+> the extension block count and fix up the checksum.
+
+Great.
+
 >
-> Well, maybe there is a point if we consider 'scoped =3D=3D true', which m=
-eans
-> one reference should be dropped from the refcount.  In the future, if the
-> refcount is used in this function multiple times, then we don't need to
-> do 'refcount - 1' for each time with '--refcount'.  But, for now, since
-> the refcount is just used for one time in this function, I'm fine with
-> either '--refcount' or 'refcount - 1', please let me know your preference=
-.
+> So seems to me all we'd need is some way for the driver to
+> indicate it simply cannot read the requested block (based on
+> which edid_read_block() would return some other value than
+> EDID_BLOCK_READ_FAIL), and then the fixup happens naturally.
 
-My preference is to not use the '--' operator. I tend to avoid it in
-function/macros parameters because it can be tricky with macros, and I
-admit I had to double check to find out drm_printf() is not a macro (but it
-could become at some point).
+I was thinking of something like: return -ENXIO from the driver's helper 
+if the read is beyond the available blocks, and then return something 
+like EDID_BLOCK_READ_EOF, which triggers the header fix-up.  Note that 
+returning -EIO would still signal a real I/O error.
 
-So my preference is for 'refcount - 1'. Or, if you prefer, decrement just
-after the assignment:
+Best regards
+Thomas
 
-	unsigned int refcount =3D kref_read(&bridge->refcount);
-+	refcount =3D scoped ? refcount - 1 : refcount;
-
-But anyway this is a minor detail, go for whatever seems best to you.
-
->>> @@ -1599,6 +1603,22 @@ static void drm_bridge_debugfs_show_bridge(struc=
-t drm_printer *p,
->>>  	drm_puts(p, "\n");
->>>  }
->>>
->>> +static void drm_bridge_debugfs_show_bridge(struct drm_printer *p,
->>> +					   struct drm_bridge *bridge,
->>> +					   unsigned int idx,
->>> +					   bool lingering)
->>> +{
->>> +	__drm_bridge_debugfs_show_bridge(p, bridge, idx, lingering, false);
->>> +}
->>> +
->>> +static void drm_bridge_debugfs_show_bridge_scoped(struct drm_printer *=
-p,
->>> +						  struct drm_bridge *bridge,
->>> +						  unsigned int idx,
->>> +						  bool lingering)
->>> +{
->>> +	__drm_bridge_debugfs_show_bridge(p, bridge, idx, lingering, true);
->>> +}
->>
->> I think this should be much simpler and avoid a lot of the boilerplate
->> code: just add a 'bool scoped' argument to drm_bridge_debugfs_show_bridg=
-e()
->> and pass true/false as applicable.
 >
-> Hm, I was thinking how to avoid the two bool arguments(lingering and
-> scoped) for drm_bridge_debugfs_show_bridge(), because they make a functio=
-n
-> call look ugly - people have to go back to the function declaration to
-> check which bool argument is which.  So, I came up with the boilerplate
-> code, at least any function call has just one 'true' or 'false'.  I'm ope=
-n
-> to any better idea.  If you insist on adding a 'bool scoped' argument to
-> drm_bridge_debugfs_show_bridge() is a good way to go, then I accept that
-> and would follow - let me know your thoughts.
+> Hmm. What happens if the driver returns "success" for the
+> read, but just leaves the entire block zeroed? Looks to me
+> like we should then end up with status==EDID_BLOCK_ZERO
+> and the block will get treated as invalid and filtered out.
+>
+>> Best regards
+>> Thomas
+>>
+>> [1]
+>> https://elixir.bootlin.com/linux/v6.19.8/source/drivers/gpu/drm/drm_edid.c#L2424
+>>
+>> -- 
+>> --
+>> Thomas Zimmermann
+>> Graphics Driver Developer
+>> SUSE Software Solutions Germany GmbH
+>> Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+>> GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
+>>
 
-Here I really think adding a dozen lines of boilerplate code for such a
-simple think is bad for maintainability/readability. The code is simple
-enough that two bools (or 1 bool + an int offset) will be readable. If/when
-the needs will become more complex, code can be made more sophisticated
-accordingly.
-
-Luca
-
+-- 
 --
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
+
+
