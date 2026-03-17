@@ -4,49 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BBE8CFED9EB
-	for <dri-devel@archiver.kernel.org>; Tue, 17 Mar 2026 16:56:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 989ACFED9EF
+	for <dri-devel@archiver.kernel.org>; Tue, 17 Mar 2026 16:57:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 149C610E702;
-	Tue, 17 Mar 2026 16:56:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0234910E2D3;
+	Tue, 17 Mar 2026 16:57:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="dqAfsSjW";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="idlYn6ci";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6EA1B10E6EF
- for <dri-devel@lists.freedesktop.org>; Tue, 17 Mar 2026 16:56:39 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 92C5460008;
- Tue, 17 Mar 2026 16:56:38 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A57DBC4CEF7;
- Tue, 17 Mar 2026 16:56:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1773766598;
- bh=MDUbQW9ejEv9xsA/W6qj/mSPjWub6qFlZbZxHay44fY=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=dqAfsSjWWXlL/M6qHR3m3AdjhO51aIC60RVHuUhunByflTAz33JjVrMRmU+5HwZ6+
- Gg7rEQcDS8cFOTedm/ciiP+AAqr4hhDA4R8DfKi42cRs0xNXQyJ/agcorJouHh8aC3
- HawjeP7ysgxTMkr3osmHgjG3QfxA0DkqnWwTEZmg=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, patches@lists.linux.dev,
- Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Thadeu Lima de Souza Cascardo <cascardo@igalia.com>,
- dri-devel@lists.freedesktop.org, Tvrtko Ursulin <tursulin@ursulin.net>
-Subject: [PATCH 6.19 281/378] drm/ttm: Fix ttm_pool_beneficial_order() return
- type
-Date: Tue, 17 Mar 2026 17:33:58 +0100
-Message-ID: <20260317163017.342447546@linuxfoundation.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260317163006.959177102@linuxfoundation.org>
-References: <20260317163006.959177102@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 72DD510E2D3
+ for <dri-devel@lists.freedesktop.org>; Tue, 17 Mar 2026 16:57:16 +0000 (UTC)
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+ by smtpout-03.galae.net (Postfix) with ESMTPS id E5F5B4E426D5;
+ Tue, 17 Mar 2026 16:57:14 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+ by smtpout-01.galae.net (Postfix) with ESMTPS id B434D5FC9A;
+ Tue, 17 Mar 2026 16:57:14 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
+ with ESMTPSA id 03FB11045064F; Tue, 17 Mar 2026 17:57:08 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+ t=1773766634; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ content-transfer-encoding:in-reply-to:references;
+ bh=2QiYV0F71/XCbw152RM6X3SUP+u3rVdD48n9j2zpTNo=;
+ b=idlYn6cirZQnbwBwMFIxbmUFgeiBkSiCXnt8aVYNf+2yhH97aVLl6ldyVeuLNBCrZdriKU
+ Jbq8XCY/S96PtASuWvwO+2dnTIDsJfyyEUIiadCsIDHz5G8VD6dbRPqdwK0XsFSMd1MHf4
+ bLkZRLBdhTXZ0x3zWpKXrI0znwOK1L+mb9GYad+Ihvn+f5VeWpDyNMltxgoofNxtzeqeu6
+ lA3csGHOt1pbsmyXO72cWO/4MQPxXnLpnSougWijkGOImQ3486aaapZlH42oyGYgtmaYHb
+ RLdgon4Zu0EOT3J3VhxJkEEnaPM9RIWFiJGFd74VFSkQX6OSWg2TzlTqrXQL/A==
+From: Luca Ceresoli <luca.ceresoli@bootlin.com>
+To: Herve Codina <herve.codina@bootlin.com>, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Kory Maincent <kory.maincent@bootlin.com>
+Cc: Bajjuri Praneeth <praneeth@ti.com>, kernel test robot <lkp@intel.com>, 
+ thomas.petazzoni@bootlin.com, Jyri Sarha <jyri.sarha@iki.fi>, 
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+In-Reply-To: <20260305163907.717719-1-kory.maincent@bootlin.com>
+References: <20260305163907.717719-1-kory.maincent@bootlin.com>
+Subject: Re: [PATCH] drm/tilcdc: Fix type mismatch
+Message-Id: <177376662887.1844168.2498672453922409208.b4-ty@bootlin.com>
+Date: Tue, 17 Mar 2026 17:57:08 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.14.3
+X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,48 +67,21 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-6.19-stable review patch.  If anyone has any objections, please let me know.
 
-------------------
+On Thu, 05 Mar 2026 17:39:06 +0100, Kory Maincent wrote:
+> cpu_to_be32() returns a __be32 big-endian value, but the compound literals
+> passed to tilcdc_panel_update_prop() were typed as u32. This causes a
+> sparse type mismatch warning. Fix it by using __be32 as the compound
+> literal type to match the return type of cpu_to_be32().
+> 
+> 
 
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Applied, thanks!
 
-commit 6e3f4514e3b432871ac81717d24f56b441857f77 upstream.
+[1/1] drm/tilcdc: Fix type mismatch
+      commit: 27a39e135f5c1ceaf73e64648eccdb42b751d5c7
 
-Fix a nasty copy and paste bug, where the incorrect boolean return type of
-the ttm_pool_beneficial_order() helper had a consequence of avoiding
-direct reclaim too eagerly for drivers which use this feature (currently
-amdgpu).
-
-Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Fixes: 7e9c548d3709 ("drm/ttm: Allow drivers to specify maximum beneficial TTM pool size")
-Cc: Christian König <christian.koenig@amd.com>
-Cc: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
-Cc: dri-devel@lists.freedesktop.org
-Cc: <stable@vger.kernel.org> # v6.19+
-Reviewed-by: Christian König <christian.koenig@amd.com>
-Signed-off-by: Tvrtko Ursulin <tursulin@ursulin.net>
-Link: https://lore.kernel.org/r/20260227124901.3177-1-tvrtko.ursulin@igalia.com
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
----
- drivers/gpu/drm/ttm/ttm_pool_internal.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/ttm/ttm_pool_internal.h b/drivers/gpu/drm/ttm/ttm_pool_internal.h
-index 82c4b7e56a99..24c179fd69d1 100644
---- a/drivers/gpu/drm/ttm/ttm_pool_internal.h
-+++ b/drivers/gpu/drm/ttm/ttm_pool_internal.h
-@@ -17,7 +17,7 @@ static inline bool ttm_pool_uses_dma32(struct ttm_pool *pool)
- 	return pool->alloc_flags & TTM_ALLOCATION_POOL_USE_DMA32;
- }
- 
--static inline bool ttm_pool_beneficial_order(struct ttm_pool *pool)
-+static inline unsigned int ttm_pool_beneficial_order(struct ttm_pool *pool)
- {
- 	return pool->alloc_flags & 0xff;
- }
+Best regards,
 -- 
-2.53.0
-
-
+Luca Ceresoli <luca.ceresoli@bootlin.com>
 
