@@ -4,63 +4,84 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8E728F3381E
-	for <dri-devel@archiver.kernel.org>; Tue, 17 Mar 2026 09:00:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B81A5F3381B
+	for <dri-devel@archiver.kernel.org>; Tue, 17 Mar 2026 09:25:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E625A10E212;
-	Tue, 17 Mar 2026 09:00:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 27E5C10E1A7;
+	Tue, 17 Mar 2026 09:25:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="TYKkoxTx";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="FfebmK8Q";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 655F910E4FD;
- Tue, 17 Mar 2026 09:00:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1773738013; x=1805274013;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=bVbMadnnMyfKG/7TEsblf9Dge4ig7t6X4Lm9Om8SJL4=;
- b=TYKkoxTxvRSZq7Az9qVdpjSnFML92GkKuquX+UInY6BNpwwjtRj59JRh
- irY9bpqX2TCZ6Qc3pz7+/z1U/kfd8OTwdzoqkf3X5OU1PBwsC30T72Omh
- grxdJuEAaSg8PVzciTcotpsi0XvQJgKnm3Gp4VFRWYsod4/gRtjqC+XgR
- w+pkvHfsV4kN5NY7AmfR5fVUsdOnTEu1gWmjA+WjkwMTmmpMs22S6WBE6
- o2Vgf3Nm9BeFsZm4OMptuV+x1+sl4C3sVQbQCuSpUXAQmL69ZNaaMFzo8
- tPW+DtIzNnEBV8C/FF+xqst1zsZU9LLQ0fvI1z5N1CcdcIuIYf+g1nAyQ g==;
-X-CSE-ConnectionGUID: S+r3UHgsS1uZg7pPIMU8Rw==
-X-CSE-MsgGUID: 1yHjwjgsTNa66r+w8Xs4/g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11731"; a="74652984"
-X-IronPort-AV: E=Sophos;i="6.23,124,1770624000"; d="scan'208";a="74652984"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
- by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Mar 2026 02:00:12 -0700
-X-CSE-ConnectionGUID: ExA7lnRtRMmzYBYpc1rwEg==
-X-CSE-MsgGUID: COZv2xRRS8OgN389NvNenw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,124,1770624000"; d="scan'208";a="226879168"
-Received: from krybak-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.245.246.32])
- by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Mar 2026 02:00:08 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Mark Brown <broonie@kernel.org>, Simona Vetter <simona.vetter@ffwll.ch>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi
- <rodrigo.vivi@intel.com>, Intel Graphics
- <intel-gfx@lists.freedesktop.org>, DRI <dri-devel@lists.freedesktop.org>
-Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, =?utf-8?Q?Jo?=
- =?utf-8?Q?s=C3=A9?= Roberto
- de Souza <jose.souza@intel.com>, Lionel Landwerlin
- <lionel.g.landwerlin@intel.com>, Linux Next Mailing List
- <linux-next@vger.kernel.org>
-Subject: Re: linux-next: build failure after merge of the drm-intel tree
-In-Reply-To: <abg6u6o_Pjxkvi0A@sirena.org.uk>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <abg6u6o_Pjxkvi0A@sirena.org.uk>
-Date: Tue, 17 Mar 2026 11:00:05 +0200
-Message-ID: <b11ec646ffb147524dcf48dfc8540475b93054e3@intel.com>
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0890910E1E4
+ for <dri-devel@lists.freedesktop.org>; Tue, 17 Mar 2026 09:25:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1773739507;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=v2L3IsKbVCXlEY8N3babcTFT7cMuipE4uuM+dNpsWbk=;
+ b=FfebmK8Qa5qTkWuqy06+J2WjF0PCPgSmgUe19XV4Kq7wkxXQRRit0e0TBU9qoqPC9gY4xm
+ 9eRESy4fq2iAV+1uhQTjJr4Iff3mtKq86L0R7AJIZ9Z5NrrpnXMkvmvOrf4/IhQ2hd2UwP
+ wrPbF0s+XcWYM/n23zc6vLy9EwCKqyI=
+Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-638-ulCBqY83NIKoaRAp6HatOg-1; Tue,
+ 17 Mar 2026 05:25:01 -0400
+X-MC-Unique: ulCBqY83NIKoaRAp6HatOg-1
+X-Mimecast-MFC-AGG-ID: ulCBqY83NIKoaRAp6HatOg_1773739497
+Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com
+ (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 0D93F1944EB8; Tue, 17 Mar 2026 09:24:56 +0000 (UTC)
+Received: from [192.168.1.153] (unknown [10.45.224.69])
+ by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 659B8180035F; Tue, 17 Mar 2026 09:24:46 +0000 (UTC)
+From: Albert Esteve <aesteve@redhat.com>
+Subject: [PATCH v6 0/5] kunit: Add support for suppressing warning backtraces
+Date: Tue, 17 Mar 2026 10:24:40 +0100
+Message-Id: <20260317-kunit_add_support-v6-0-dd22aeb3fe5d@redhat.com>
 MIME-Version: 1.0
-Content-Type: text/plain
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/zXMTQrCMBBA4auUWZuSpCT+rLyHSBmbqR2kSZmkI
+ pTe3SC4/BbvbZBJmDJcmg2E3pw5xQp/aGCYMD5JcagGq63XnbHqtUYuPYbQ53VZkhRlx86dtH+
+ YcwhQu0Vo5M/vebtXj5JmVSYh/J+cdtabzh6da433xmllFA4oM0e8CoUJSzukGfb9C1wN+oyhA
+ AAA
+X-Change-ID: 20260312-kunit_add_support-2f35806b19dd
+To: Arnd Bergmann <arnd@arndb.de>, 
+ Brendan Higgins <brendan.higgins@linux.dev>, David Gow <david@davidgow.net>, 
+ Rae Moar <raemoar63@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>
+Cc: linux-kernel@vger.kernel.org, linux-arch@vger.kernel.org, 
+ linux-kselftest@vger.kernel.org, kunit-dev@googlegroups.com, 
+ dri-devel@lists.freedesktop.org, workflows@vger.kernel.org, 
+ linux-doc@vger.kernel.org, Alessandro Carminati <acarmina@redhat.com>, 
+ Guenter Roeck <linux@roeck-us.net>, Kees Cook <kees@kernel.org>, 
+ Albert Esteve <aesteve@redhat.com>, 
+ Linux Kernel Functional Testing <lkft@linaro.org>, 
+ Dan Carpenter <dan.carpenter@linaro.org>, 
+ =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>, 
+ Kees Cook <kees@kernel.org>, Simona Vetter <simona.vetter@ffwll.ch>, 
+ David Gow <david@davidgow.net>
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1773739485; l=10237;
+ i=aesteve@redhat.com; s=20260303; h=from:subject:message-id;
+ bh=bJiw2fCIyVOW1mxKKbHzwEUXYne2FJgUTUWqzDnzFLo=;
+ b=ABn9We0fiidxQc8J1WKKczkQopcxc+TgYe29t+Mbi0bdyZsh54tNUBtocIUQu97QBwx+fodNA
+ 35vFRYe7M8cB0fst+v+36X3BN8jeMbdyIRgTZSkgh0ybmyPUYvVWTRg
+X-Developer-Key: i=aesteve@redhat.com; a=ed25519;
+ pk=YSFz6sOHd2L45+Fr8DIvHTi6lSIjhLZ5T+rkxspJt1s=
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
+X-Mimecast-MFC-PROC-ID: kPxZ_6vZe5oaBIkx0l7Idt4te-jUW7i2rDAr8VaicYA_1773739497
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,32 +97,217 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, 16 Mar 2026, Mark Brown <broonie@kernel.org> wrote:
-> Hi all,
->
-> After merging the drm-intel tree, today's linux-next build (x86_64
-> allmodconfig) failed like this:
->
-> /tmp/next/build/drivers/gpu/drm/xe/xe_lrc.c: In function 'xe_lrc_ctx_init':
-> /tmp/next/build/drivers/gpu/drm/xe/xe_lrc.c:1554:43: error: implicit declaration of function '_MASKED_BIT_ENABLE'; did you mean 'REG_MASKED_FIELD_ENABLE'? [-Wimplicit-function-declaration]
->  1554 |                 state_cache_perf_fix[2] = _MASKED_BIT_ENABLE(DISABLE_STATE_CACHE_PERF_FIX);
->       |                                           ^~~~~~~~~~~~~~~~~~
->       |                                           REG_MASKED_FIELD_ENABLE
->
-> This is caused by an interaction with:
->
->    0e07b16371b6e (drm/xe: Allow per queue programming of COMMON_SLICE_CHICKEN3 bit13)
->
-> from the drm tree and is obviously related to:
->
->    https://lore.kernel.org/r/abFpM1FHgzgARB88@sirena.org.uk
->
-> This has been broken for almost a week now and just keeps getting worse.
+Some unit tests intentionally trigger warning backtraces by passing bad
+parameters to kernel API functions. Such unit tests typically check the
+return value from such calls, not the existence of the warning backtrace.
 
-Will be fixed real soon now. Sorry for the delay.
+Such intentionally generated warning backtraces are neither desirable
+nor useful for a number of reasons:
+- They can result in overlooked real problems.
+- A warning that suddenly starts to show up in unit tests needs to be
+  investigated and has to be marked to be ignored, for example by
+  adjusting filter scripts. Such filters are ad hoc because there is
+  no real standard format for warnings. On top of that, such filter
+  scripts would require constant maintenance.
 
-BR,
-Jani.
+One option to address the problem would be to add messages such as
+"expected warning backtraces start/end here" to the kernel log.
+However, that would again require filter scripts, might result in
+missing real problematic warning backtraces triggered while the test
+is running, and the irrelevant backtrace(s) would still clog the
+kernel log.
 
+Solve the problem by providing a means to identify and suppress specific
+warning backtraces while executing test code. Support suppressing multiple
+backtraces while at the same time limiting changes to generic code to the
+absolute minimum.
+
+Overview:
+Patch#1 Introduces the suppression infrastructure.
+Patch#2 Mitigate the impact at WARN*() sites.
+Patch#3 Adds selftests to validate the functionality.
+Patch#4 Demonstrates real-world usage in the DRM subsystem.
+Patch#5 Documents the new API and usage guidelines.
+
+Design Notes:
+The objective is to suppress unwanted WARN*() generated messages.
+
+Although most major architectures share common bug handling via `lib/bug.c`
+and `report_bug()`, some minor or legacy architectures still rely on their
+own platform-specific handling. This divergence must be considered in any
+such feature. Additionally, a key challenge in implementing this feature is
+the fragmentation of `WARN*()` messages emission: specific part in the
+macro, common with BUG*() part in the exception handler.
+As a result, any intervention to suppress the message must occur before the
+illegal instruction.
+
+Lessons from the Previous Attempt
+In earlier iterations, suppression logic was added inside the
+`__report_bug()` function to intercept WARN*() messages not producing
+messages in the macro.
+To implement the check in the bug handler code, two strategies were
+considered:
+
+* Strategy #1: Use `kallsyms` to infer the originating functionid, namely
+  a pointer to the function. Since in any case, the user interface relies
+  on function names, they must be translated in addresses at suppression-
+  time or at check-time.
+  Assuming to translate at suppression-time, the `kallsyms` subsystem needs
+  to be used to determine the symbol address from the name, and again to
+  produce the functionid from `bugaddr`. This approach proved unreliable
+  due to compiler-induced transformations such as inlining, cloning, and
+  code fragmentation. Attempts to preventing them is also unconvenient
+  because several `WARN()` sites are in functions intentionally declared
+  as `__always_inline`.
+
+* Strategy #2: Store function name `__func__` in `struct bug_entry` in
+  the `__bug_table`. This implementation was used in the previous version.
+  However, `__func__` is a compiler-generated symbol, which complicates
+  relocation and linking in position-independent code. Workarounds such as
+  storing offsets from `.rodata` or embedding string literals directly into
+  the table would have significantly either increased complexity or
+  increase the __bug_table size.
+  Additionally, architectures not using the unified `BUG()` path would
+  still require ad-hoc handling. Because current WARN*() message production
+  strategy, a few WARN*() macros still need a check to suppress the part of
+  the message produced in the macro itself.
+
+As a result, previous version proposed a per-macro solution, which offers
+better control on where the suppression logic is applied.
+
+For this iteration, the `__report_bug()` centralized approach was
+revisited after the discussion in the previous version [1].
+However, again this approach did not work because:
+- Some warning output is generated directly in the macros before calling
+  the centralized functions (e.g., `__warn_printk()` in `__WARN_printf()`)
+- Functions in the warning path like `warn_slowpath_fmt()` are marked
+  `__always_inline`, making it difficult to intercept early enough
+- So, by the time `__report_bug()` is called, output has already been written
+  to the console, making suppression ineffective
+
+Current Proposal: Check Directly in the `WARN()` Macros.
+This avoids the need for function symbol resolution or ELF section
+modification.
+Suppression is implemented directly in the `WARN*()` macros.
+
+A helper function, `__kunit_is_suppressed_warning()`, is used to determine
+whether suppression applies. It is marked as `noinstr`, since some `WARN*()`
+sites reside in non-instrumentable sections. The function uses a static
+branch for the fast path check (which is `noinstr`-safe), and only calls
+the actual suppression check (which uses `strcmp`, and is surrounded by
+instrumentation_begin()/end() calls) when suppressions are active.
+The list of suppressed warnings is protected with RCU (Read-Copy-Update)
+to allow concurrent read access without locks.
+
+To minimize runtime impact when no suppressions are active, static branching
+is used via a static key (`kunit_suppress_warnings_key`). The branch is
+automatically enabled when the first suppression starts and disabled when the
+last suppression ends, tracked via an atomic counter. This keeps the suppression
+check code out-of-line, reducing code bloat at each `WARN*()` site while
+maintaining minimal runtime overhead in the common case (no active suppressions).
+
+This series is based on the RFC patch and subsequent discussion at
+https://patchwork.kernel.org/project/linux-kselftest/patch/02546e59-1afe-4b08-ba81-d94f3b691c9a@moroto.mountain/
+and offers a more comprehensive solution of the problem discussed there.
+
+[1] https://lore.kernel.org/all/CAGegRW76X8Fk_5qqOBw_aqBwAkQTsc8kXKHEuu9ECeXzdJwMSw@mail.gmail.com/
+
+Changes since RFC:
+- Introduced CONFIG_KUNIT_SUPPRESS_BACKTRACE
+- Minor cleanups and bug fixes
+- Added support for all affected architectures
+- Added support for counting suppressed warnings
+- Added unit tests using those counters
+- Added patch to suppress warning backtraces in dev_addr_lists tests
+
+Changes since v1:
+- Rebased to v6.9-rc1
+- Added Tested-by:, Acked-by:, and Reviewed-by: tags
+  [I retained those tags since there have been no functional changes]
+- Introduced KUNIT_SUPPRESS_BACKTRACE configuration option, enabled by
+  default.
+
+Changes since v2:
+- Rebased to v6.9-rc2
+- Added comments to drm warning suppression explaining why it is needed.
+- Added patch to move conditional code in arch/sh/include/asm/bug.h
+  to avoid kerneldoc warning
+- Added architecture maintainers to Cc: for architecture specific patches
+- No functional changes
+
+Changes since v3:
+- Rebased to v6.14-rc6
+- Dropped net: "kunit: Suppress lock warning noise at end of dev_addr_lists tests"
+  since 3db3b62955cd6d73afde05a17d7e8e106695c3b9
+- Added __kunit_ and KUNIT_ prefixes.
+- Tested on interessed architectures.
+
+Changes since v4:
+- Rebased to v6.15-rc7
+- Dropped all code in __report_bug()
+- Moved all checks in WARN*() macros.
+- Dropped all architecture specific code.
+- Made __kunit_is_suppressed_warning nice to noinstr functions.
+
+Changes since v5:
+- Rebased to v7.0-rc3
+- Added RCU protection for the suppressed warnings list.
+- Added static key and branching optimization.
+- Removed custom `strcmp` implementation and reworked
+  __kunit_is_suppressed_warning() entrypoint function.
+
+Alessandro Carminati (2):
+  bug/kunit: Core support for suppressing warning backtraces
+  bug/kunit: Suppressing warning backtraces reduced impact on WARN*()
+    sites
+
+Guenter Roeck (3):
+  Add unit tests to verify that warning backtrace suppression works.
+  drm: Suppress intentional warning backtraces in scaling unit tests
+  kunit: Add documentation for warning backtrace suppression API
+
+ Documentation/dev-tools/kunit/usage.rst |  30 ++++++-
+ drivers/gpu/drm/tests/drm_rect_test.c   |  16 ++++
+ include/asm-generic/bug.h               |  48 +++++++----
+ include/kunit/bug.h                     |  62 ++++++++++++++
+ include/kunit/test.h                    |   1 +
+ lib/kunit/Kconfig                       |   9 ++
+ lib/kunit/Makefile                      |   9 +-
+ lib/kunit/backtrace-suppression-test.c  | 105 ++++++++++++++++++++++++
+ lib/kunit/bug.c                         |  54 ++++++++++++
+ 9 files changed, 316 insertions(+), 18 deletions(-)
+ create mode 100644 include/kunit/bug.h
+ create mode 100644 lib/kunit/backtrace-suppression-test.c
+ create mode 100644 lib/kunit/bug.c
+
+--
+2.34.1
+
+---
+Alessandro Carminati (2):
+      bug/kunit: Core support for suppressing warning backtraces
+      bug/kunit: Suppressing warning backtraces reduced impact on WARN*() sites
+
+Guenter Roeck (3):
+      Add unit tests to verify that warning backtrace suppression works.
+      drm: Suppress intentional warning backtraces in scaling unit tests
+      kunit: Add documentation for warning backtrace suppression API
+
+ Documentation/dev-tools/kunit/usage.rst |  30 ++++++++-
+ drivers/gpu/drm/tests/drm_rect_test.c   |  16 +++++
+ include/asm-generic/bug.h               |  44 ++++++++-----
+ include/kunit/bug.h                     |  61 ++++++++++++++++++
+ include/kunit/test.h                    |   1 +
+ lib/kunit/Kconfig                       |   9 +++
+ lib/kunit/Makefile                      |   9 ++-
+ lib/kunit/backtrace-suppression-test.c  | 109 ++++++++++++++++++++++++++++++++
+ lib/kunit/bug.c                         |  71 +++++++++++++++++++++
+ 9 files changed, 332 insertions(+), 18 deletions(-)
+---
+base-commit: 80234b5ab240f52fa45d201e899e207b9265ef91
+change-id: 20260312-kunit_add_support-2f35806b19dd
+
+Best regards,
 -- 
-Jani Nikula, Intel
+Albert Esteve <aesteve@redhat.com>
+
