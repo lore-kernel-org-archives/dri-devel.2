@@ -4,56 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9A947FD877B
-	for <dri-devel@archiver.kernel.org>; Tue, 17 Mar 2026 14:10:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C0C59FD877B
+	for <dri-devel@archiver.kernel.org>; Tue, 17 Mar 2026 14:12:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8382E10E5C9;
-	Tue, 17 Mar 2026 14:10:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2393A10E667;
+	Tue, 17 Mar 2026 14:12:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="k81ps8L6";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="umIhIeNu";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7868510E5C9;
- Tue, 17 Mar 2026 14:10:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1773756603;
- bh=mMG2aIP3veFf7ab9T5YQWN4fAdSMBTKrwwcb3rV/1Vo=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=k81ps8L6xl/vmDTgwo5kRzeLTZ9zFEhe8T6kZns2BjLbGbTjKK+AeUjfpLPMfvqTr
- Uof02h6zowgPkVbhfImsV+QT6bnkTr+O+KAXnXp1kILu5qIPalDe4AnH58uXWvDFr8
- go5wWkHo78hZBrrlrLQXjt4oOG/zWcXgYqHXgFYeKRxj92SE14JM2kNPwNGFr5Vz6Q
- m8ZUItFHemtXNLT1795YyyZTIHoae4mD5YpqB0pVkMU214zMBnRtgj5CjvoQiBg6TZ
- wq0o3g02qJwbCT23VsFjfNWRsWpxB77KIfnYPeD+0vc7SK1Byf4K4PScwGchICrLCr
- icQkPXxbHZ97w==
-Received: from eldfell (unknown [194.136.85.206])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
- server-digest SHA256) (No client certificate requested)
- (Authenticated sender: pq)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 48F9B17E0FA3;
- Tue, 17 Mar 2026 15:10:03 +0100 (CET)
-Date: Tue, 17 Mar 2026 16:09:51 +0200
-From: Pekka Paalanen <pekka.paalanen@collabora.com>
-To: "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>
-Cc: Harry Wentland <harry.wentland@amd.com>,
- <dri-devel@lists.freedesktop.org>, <intel-gfx@lists.freedesktop.org>,
- <intel-xe@lists.freedesktop.org>, <louis.chauvet@bootlin.com>,
- <mwen@igalia.com>, <contact@emersion.fr>, <alex.hung@amd.com>,
- <daniels@collabora.com>, <uma.shankar@intel.com>,
- <maarten.lankhorst@intel.com>, <pranay.samala@intel.com>,
- <swati2.sharma@intel.com>
-Subject: Re: [PATCH 01/10] drm/colorop: Add DRM_COLOROP_CSC_FF
-Message-ID: <20260317160951.407ee82a@eldfell>
-In-Reply-To: <306d456f-4015-4b28-9fd8-b671d4c01929@intel.com>
-References: <20260306165307.3233194-1-chaitanya.kumar.borah@intel.com>
- <20260306165307.3233194-2-chaitanya.kumar.borah@intel.com>
- <3cc8bd83-8a19-488b-b5bf-b71f75c18e74@amd.com>
- <306d456f-4015-4b28-9fd8-b671d4c01929@intel.com>
-X-Mailer: Claws Mail 4.3.1 (GTK 3.24.49; x86_64-pc-linux-gnu)
-MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="Sig_/UXs5mYAJtEir5IyuCBoLZVW";
- protocol="application/pgp-signature"; micalg=pgp-sha256
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DD40B10E667;
+ Tue, 17 Mar 2026 14:12:36 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id E33A9600AD;
+ Tue, 17 Mar 2026 14:12:35 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 83238C2BC86;
+ Tue, 17 Mar 2026 14:12:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1773756755;
+ bh=FscJp8fG6/l83AWDASulx8S69mr3uwYUZpt32gs0Ptw=;
+ h=Date:To:From:Subject:Cc:References:In-Reply-To:From;
+ b=umIhIeNuzdhtwil6ASCwtsWdIyDJpercr08h66jww0KNnwbqEWtwZQaOgYun3z3+i
+ SwVaFifNZFhgMZp2a48ixPM63X5gMGJz5J3mavRhy7WDDdkSTYkgN0Bixur4Xf17H3
+ 3f/SYlzsUZuoVp9n6XKQUmnOoG3/BANhCRFshl8qW7i7ie5VI914e5uZGRO6HBLXvP
+ DWiOV6u55l3WYGVIAhd9ENbYnZQTT79/PEjfRKgkSepRy7E3ftM8bJqk7hfEg0Q7/h
+ G5GupwB4kDPRwQuoc7cDmzR373kdHiED+NWY9oK2S2u9/zPTA9wQSN9zqLsDDWv0ss
+ //XXE1AY+DWXQ==
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 17 Mar 2026 15:12:32 +0100
+Message-Id: <DH54AITP8HBY.PPSYM4FA2DZI@kernel.org>
+To: "Alexandre Courbot" <acourbot@nvidia.com>
+From: "Danilo Krummrich" <dakr@kernel.org>
+Subject: Re: [PATCH 6/9] gpu: nova-core: generalize `flush_into_kvec` to
+ `flush_into_vec`
+Cc: "Eliot Courtney" <ecourtney@nvidia.com>, "Alice Ryhl"
+ <aliceryhl@google.com>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
+ <simona@ffwll.ch>, <rust-for-linux@vger.kernel.org>,
+ <nouveau@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>, "dri-devel"
+ <dri-devel-bounces@lists.freedesktop.org>, "Gary Guo" <gary@garyguo.net>
+References: <20260227-rmcontrol-v1-0-86648e4869f9@nvidia.com>
+ <20260227-rmcontrol-v1-6-86648e4869f9@nvidia.com>
+ <093ca23e-7081-42db-a202-0a42c51741a3@kernel.org>
+ <DGYL9FS1Z00X.2HEJ96J8R3OK4@kernel.org>
+ <DH46IKESDQ3B.2GEUC479WDK3N@nvidia.com>
+ <DH47AVPEKN06.3BERUSJIB4M1R@kernel.org>
+ <DH4OM17DJ47V.3NJG7G02O7P1L@nvidia.com>
+ <DH4ZZD12V0R6.2G7IIL87QTK0S@kernel.org>
+ <DH53MXEAVB0Q.2SXHCQTW8WG2Y@nvidia.com>
+In-Reply-To: <DH53MXEAVB0Q.2SXHCQTW8WG2Y@nvidia.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,79 +70,186 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
---Sig_/UXs5mYAJtEir5IyuCBoLZVW
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: quoted-printable
+On Tue Mar 17, 2026 at 2:41 PM CET, Alexandre Courbot wrote:
+> On Tue Mar 17, 2026 at 7:49 PM JST, Danilo Krummrich wrote:
+>> On Tue Mar 17, 2026 at 2:55 AM CET, Alexandre Courbot wrote:
+>>> We shouldn't be doing that - I think we are limited by the current
+>>> CoherentAllocation API though. But IIUC this is something that I/O
+>>> projections will allow us to handle properly?
+>>
+>> Why do we need projections to avoid UB here? driver_read_area() already =
+even
+>> peeks into the firmware abstraction layer, which is where MsgqData techn=
+ically
+>> belongs into (despite being trivial).
+>>
+>> 	let gsp_mem =3D &unsafe { self.0.as_slice(0, 1) }.unwrap()[0];
+>> 	let data =3D &gsp_mem.gspq.msgq.data;
+>>
+>> Why do we need I/O projections to do raw pointer arithmetic where creati=
+ng a
+>> reference is UB?
+>>
+>> (Eventually, we want to use IoView of course, as this is a textbook exam=
+ple of
+>> what I proposed IoSlice for.)
+>
+> Limiting the amount of `unsafe`s, but I guess we can live with that as
+> this is going to be short-term anyway.
 
-On Tue, 17 Mar 2026 17:59:27 +0530
-"Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com> wrote:
+Of course it is going to be better with IoSlice, but limiting the number of
+unsafe calls regardless is a bit pointless if the "safe" ones can cause
+undefined behavior. :)
 
-> AFAIU, the block I wanted to represent is Full Range YCbCr -> Full Range=
-=20
-> RGB. We have the following configuration in our plane.
->=20
-> [YUV range correction Block] -> [Degamma LUT] -> [PRESET CSC] -> [Gamma L=
-UT]
->=20
-> With the legacy "COLOR RANGE" property, selecting limited range enabled=20
-> the YUV range correction block.
->=20
-> I still need to figure out what use-case does the degamma LUT in between=
-=20
-> the Range correction block and the Preset CSC serve since YCbCr to RGB=20
-> conversion will take place in non-linear domain. But it makes me wonder=20
+>> Another option in the meantime would be / have been to use dma_read!() a=
+nd
+>> extract (copy) the data right away in driver_read_area(), which I'd prob=
+ably
+>> prefer over raw pointer arithmetic.
+>
+> I'd personally like to keep the current "no-copy" approach as it
+> implements the right reference discipline (i.e. you need a mutable
+> reference to update the read pointer, which cannot be done if the buffer
+> is read by the driver) and moving to copy semantics would open a window
+> of opportunity to mess with that balance further (on top of requiring
+> bigger code changes that will be temporary).
 
-Hi Chaitanya,
+I don't even know if we want them to be temporary, i.e. we can copy right a=
+way
+and IoSlice would still be an improvement in order to make the copy in the =
+first
+place.
 
-yes, that is peculiar indeed. At least "Degamma LUT" is usable with RGB
-framebuffers.
+Also, you say "no-copy", but that's not true, we do copy eventually. In fac=
+t,
+the whole point of this patch is to copy this buffer into a KVVec.
 
-> if we can have "COLOR ENCODING" and "COLOR RANGE" property within the=20
-> same colorop like you have been implementing in [1] or should they be=20
-> represented by separate colorops.
+So, why not copy it right away with dma_read!() (later replaced with an IoS=
+lice
+copy) and then process it further?
 
-If there is another operation in between (Degamma LUT) that you want to
-expose, then range-conversion and fixed-matrix operations need to have
-their own colorops. The chain of colorops cannot go backwards.
+I am also very sceptical of the "holding on to the reference prevents the r=
+ead
+pointer update" argument. Once we have a copy, there is no need not to upda=
+te
+the read pointer anymore in the first place, no?
 
-OTOH, if there is a single hardware operation that does both
-range-conversion and fixed-matrix, then there is no problem for a
-driver to translate the pair of colorops into hardware configuration.
-So it sounds like they should be defined as separate colorops, and then
-drivers usually expose them together. Unless the hardware cannot do all
-combinations of their values.
+>> But in any case, this can (and should) be fixed even without IoView.
+>>
+>> Besides that, nothing prevents us doing the same thing I did for gsp_wri=
+te_ptr()
+>> in the meantime to not break out of the firmware abstraction layer.
+>>
+>>> This is guaranteed by the inability to update the CPU read pointer for
+>>> as long as the slices exists.
+>>
+>> Fair enough.
+>>
+>>> Unless we decide to not trust the GSP, but that would be opening a whol=
+e
+>>> new can of worms.
+>>
+>> I thought about this as well, and I think it's fine. The safety comment =
+within
+>> the function has to justify why the device won't access the memory. If t=
+he
+>> device does so regardless, it's simply a bug.
+>>
+>>>> I don't want to merge any code that builds on top of this before we ha=
+ve sorted
+>>>> this out.
+>>>
+>>> If what I have written above is correct, then the fix should simply be
+>>> to use I/O projections to create properly-bounded references.
+>>
+>> I still don't think we need I/O projections for a reasonable fix and I a=
+lso
+>> don't agree that we should keep UB until new features land.
+>
+> I have the following (modulo missing safety comments) to fix
+> `driver_read_area` - does it look acceptable to you? If so I'll go
+> ahead and fix `driver_write_area` as well.
 
+Not pretty (which is of course not on you :), but looks correct.
 
-Thanks,
-pq
+I still feel like we should just copy right away, as mentioned above.
 
-> Uma please weigh in if you have something to add or disagree with.
->=20
-> =3D=3D
-> Chaitanya
->=20
-> [1] https://gitlab.freedesktop.org/hwentland/linux/-/commits/csc-colorop
->=20
+> diff --git a/drivers/gpu/nova-core/gsp/cmdq.rs b/drivers/gpu/nova-core/gs=
+p/cmdq.rs
+> index efa1aab1568f..3bddb5a2923f 100644
+> --- a/drivers/gpu/nova-core/gsp/cmdq.rs
+> +++ b/drivers/gpu/nova-core/gsp/cmdq.rs
+> @@ -296,24 +296,53 @@ fn driver_write_area_size(&self) -> usize {
+>          let tx =3D self.gsp_write_ptr() as usize;
+>          let rx =3D self.cpu_read_ptr() as usize;
+>
+> +        // Pointer to the start of the GSP message queue.
+> +        //
+>          // SAFETY:
+> -        // - The `CoherentAllocation` contains exactly one object.
+> -        // - We will only access the driver-owned part of the shared mem=
+ory.
+> -        // - Per the safety statement of the function, no concurrent acc=
+ess will be performed.
+> -        let gsp_mem =3D &unsafe { self.0.as_slice(0, 1) }.unwrap()[0];
+> -        let data =3D &gsp_mem.gspq.msgq.data;
+> +        // - `self.0` contains exactly one element.
+> +        // - `gspq.msgq.data[0]` is within the bounds of that element.
+> +        let data =3D unsafe { &raw const (*self.0.start_ptr()).gspq.msgq=
+.data[0] };
+> +
+> +        // Safety/Panic comments to be referenced by the code below.
+> +        //
+> +        // SAFETY[1]:
+> +        // - `data` contains `MSGQ_NUM_PAGES` elements.
+> +        // - The area starting at `rx` and ending at `tx - 1` modulo `MS=
+GQ_NUM_PAGES`,
+> +        //   inclusive, belongs to the driver for reading and is not acc=
+essed concurrently by
+> +        //   the GSP.
+> +        //
+> +        // PANIC[1]:
+> +        // - Per the invariant of `cpu_read_ptr`, `rx < MSGQ_NUM_PAGES`.
+> +        // - Per the invariant of `gsp_write_ptr`, `tx < MSGQ_NUM_PAGES`=
+.
+>
+> -        // The area starting at `rx` and ending at `tx - 1` modulo MSGQ_=
+NUM_PAGES, inclusive,
+> -        // belongs to the driver for reading.
+> -        // PANIC:
+> -        // - per the invariant of `cpu_read_ptr`, `rx < MSGQ_NUM_PAGES`
+> -        // - per the invariant of `gsp_write_ptr`, `tx < MSGQ_NUM_PAGES`
+>          if rx <=3D tx {
+>              // The area is contiguous.
+> -            (&data[rx..tx], &[])
+> +            (
+> +                // SAFETY: See SAFETY[1].
+> +                //
+> +                // PANIC:
+> +                // - See PANIC[1].
+> +                // - Per the branch test, `rx <=3D tx`.
+> +                unsafe { core::slice::from_raw_parts(data.add(rx), tx - =
+rx) },
+> +                &[],
+> +            )
+>          } else {
+>              // The area is discontiguous.
+> -            (&data[rx..], &data[..tx])
+> +            (
+> +                // SAFETY: See SAFETY[1].
+> +                //
+> +                // PANIC: See PANIC[1].
+> +                unsafe {
+> +                    core::slice::from_raw_parts(
+> +                        data.add(rx),
+> +                        num::u32_as_usize(MSGQ_NUM_PAGES) - rx,
+> +                    )
+> +                },
+> +                // SAFETY: See SAFETY[1].
+> +                //
+> +                // PANIC: See PANIC[1].
+> +                unsafe { core::slice::from_raw_parts(data, tx) },
+> +            )
+>          }
+>      }
 
---Sig_/UXs5mYAJtEir5IyuCBoLZVW
-Content-Type: application/pgp-signature
-Content-Description: OpenPGP digital signature
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmm5YK8ACgkQI1/ltBGq
-qqcFqxAAnavVQ1zVA7R6Az97rZC3PV0R3XsvTaucqdizvayLaJCdHHV8mjxfY4hi
-6nXBsiY8SF+kfQ/mA4P3Q/YVHq20EiCON7MxRPwUOh8A0ag0tGVKLTXd9diOSOZV
-Oh5N9WNhVaabMKeI1Zg3q0eMDFtRU5BJSTq65LrBGfT+5OUaZtFCjoB3lwiI2j8t
-3c5mh0sjefM/lFTcjMHWUtajI8NT4Mgf8sD/U37x5hsQ9z7EDISCTpOX2tKYSmXJ
-DQs+DdiObC2a/OR1+BhS1NQDlLoqLCVYCXkwJtWIliw2oZXlCFGf5NU4vFGvT0qT
-KIDwS3xhzY+CdBuJG0D2tiSBDDOF4KEUrtgTDsg1Tq91YB9JzHRLlUZacSozSTFw
-WwHO6VTSnj+od+n6s1C/2Cbx3XGOEKCcZdqFRny5vOCw+vhX2ivMj1vdoZ3KMFE5
-P/Bn0ZH3eNF2nylJq05zaBPLqYMXVrWGw2Rm6wjqGCY4DbIg/9yYju3HoX5ciDay
-8MwudEHYarA2M9mD1kjDn8ENZNSOoHNWZezxB9b20k+h0TyJqLRz4YcCMvaUx6zL
-lSgbQakIOdCymLUsf902ZoqWa1uVzbaEBgvI5tuzEYC8d29ue/MzAhO1P+S1UbPx
-5XlMufUag0dMoMUJ89nOP/dh4i0RRZxXhZSVDVy52idTuJ7+BuM=
-=+5uI
------END PGP SIGNATURE-----
-
---Sig_/UXs5mYAJtEir5IyuCBoLZVW--
