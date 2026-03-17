@@ -4,89 +4,140 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 78C57F3380B
-	for <dri-devel@archiver.kernel.org>; Tue, 17 Mar 2026 07:47:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 069B3F3380B
+	for <dri-devel@archiver.kernel.org>; Tue, 17 Mar 2026 07:50:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 81A5610E4B7;
-	Tue, 17 Mar 2026 07:47:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6C57010E41E;
+	Tue, 17 Mar 2026 07:50:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=fairphone.com header.i=@fairphone.com header.b="nVzIsZ8u";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="E/suArKx";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="y7dFrJv1";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="mJXdTibV";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="e1DlgCO/";
 	dkim-atps=neutral
-Received: from mail-ed1-f49.google.com (mail-ed1-f49.google.com
- [209.85.208.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3E1FE10E510
- for <dri-devel@lists.freedesktop.org>; Tue, 17 Mar 2026 07:47:14 +0000 (UTC)
-Received: by mail-ed1-f49.google.com with SMTP id
- 4fb4d7f45d1cf-6615c766e60so8624106a12.3
- for <dri-devel@lists.freedesktop.org>; Tue, 17 Mar 2026 00:47:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=fairphone.com; s=fair; t=1773733633; x=1774338433; darn=lists.freedesktop.org;
- h=in-reply-to:references:to:from:subject:cc:message-id:date
- :content-transfer-encoding:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=URtMf0QMNmyDbkNY3uQV2w4aEQAMl03HuCtwS6fp77Y=;
- b=nVzIsZ8u20CfwbRMgDEOfplT7vosIKpOw8YA72qixRPJDDNnhPMIi8tmfn0USZjuJF
- Bu0atyZupaX+D3J4PpN4Bj1VzFXU+iJPrvFG91RbzNVKLdFuz8VnaqMAFK3AELJN9Nkc
- eyfG3D7i6sctaF7C6RzSmpT+RvOOR4nFL2gwQygUHeCf6b4Bfw6HGQUvzcY8AmVVGxy6
- KNfgDLJ/e2ta1BMkUhVGyp5EGFaGgMTdywY8LTRffENIGJujqZIIiw6ii76m95zoRQP5
- v8x4sq+/pzGHPCgUUofrjq1uUCt5KP4xR33R4MagBCFSou6j85ciAfaI4hfpDMiPQCKB
- //jQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1773733633; x=1774338433;
- h=in-reply-to:references:to:from:subject:cc:message-id:date
- :content-transfer-encoding:mime-version:x-gm-gg:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to;
- bh=URtMf0QMNmyDbkNY3uQV2w4aEQAMl03HuCtwS6fp77Y=;
- b=I71QY4o3hZkxUbTfFA3wdJbORsKDhEpoD/3N+wZUlQ3yBFzM9lX/C1cmcItPBSvlLd
- C3D4OSYV/apybWfccPBt+ARKpXh4VoVQNPTjtgbC+41JNA1PxzkGK5Ftcu6MqxL2L0Yc
- UJmiTEPMtJXq3XGEnnVq2ZdvFkUkNwo/6+snLNGs2p1jhQCq03TNPfn0Y6F1OYtPoquI
- 5yL1ZRxfhYpBfmIYFfXMHY+RDKDJk+TsfCRjzCOpvWxFmL6ZLuyCPfV78JjXDaoE4KFn
- CLfjvP7pAeJBwVlwossYAgh2FRG5lUjevY5ANcd2YeLBEU31pS+9OC8n2+TT0wWiicT0
- SrNQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXATJEg9b9ORolxyVrVPcWl4Xnuv5Q3RltM5XscMnpYgDrFVVtOTw0WNKu+Lunprf1YqI96rSYxv+g=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwLWM2d8LlFoXWwIf1Q8ZHKu1GIjZu5lFsTQgaJbMnRO5bp8xdH
- 8rXmmjUSFvAuXxyA08gVo9JmZDYnFcB5FevW8lu1MINjcng9cy+uIGoRKdvO/rCbbwU=
-X-Gm-Gg: ATEYQzzaJFFgROYRK0kZnjSLRBfI/gZ4JXAi5mnd7N8pH/jymPipRA0K45I919dGQZy
- 8ed0OTKjXOht816MnfxgVUF+JVQgM8hbqbXlJP6JMT8SsAmqchcZ7DUNgJWpOTl65sx5Uie8SDR
- j2tQsZ6A1WqmM87xrL8+P+qdPARDbByHQ0cxZuhdrkL251AXA1/YaGvOZLngy1hP+0gQ6rrZKIz
- qvToAvP569vTIaKoiPKHYjKSocAizQTUgOErm14jKaip+EjQhdwAXCgCerMy1hYrWoaPoRHkNSi
- 71tW8XCMoIyiG57Zsat173eAk0EzWh9RJJfX3eja3KRDybFCwO1NZB5dKK4FNEK+uCtx2bWFis0
- FsWFzZc6YlGgSLr5AAcp1Ga5/eQshiAj8dazIvlTBEXetVEp5yVi/gfGmQedUxkyKgQDvlVVcbR
- g2zy62aqnUSiIBmYJLz+IZHOKhZ6Jjivc1G4n5XtDD6eWzayHyIX7baXv1dPjmEbIpRm/9
-X-Received: by 2002:a05:6402:27c7:b0:665:20dc:cb44 with SMTP id
- 4fb4d7f45d1cf-66520dceb70mr4727389a12.29.1773733632583; 
- Tue, 17 Mar 2026 00:47:12 -0700 (PDT)
-Received: from localhost (144-178-202-138.static.ef-service.nl.
- [144.178.202.138]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-6670b92e7e0sm985353a12.11.2026.03.17.00.47.11
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 17 Mar 2026 00:47:11 -0700 (PDT)
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 17 Mar 2026 08:47:11 +0100
-Message-Id: <DH4W3H5N4HQG.GAHFYE9XGEI5@fairphone.com>
-Cc: "Mahadevan P" <mahadevan.p@oss.qualcomm.com>, "Rob Clark"
- <robin.clark@oss.qualcomm.com>, "Dmitry Baryshkov" <lumag@kernel.org>,
- "Abhinav Kumar" <abhinav.kumar@linux.dev>, "Jessica Zhang"
- <jesszhan0024@gmail.com>, "Sean Paul" <sean@poorly.run>, "Marijn Suijten"
- <marijn.suijten@somainline.org>, "David Airlie" <airlied@gmail.com>,
- "Simona Vetter" <simona@ffwll.ch>, "Krishna Manikandan"
- <quic_mkrishn@quicinc.com>, <linux-arm-msm@vger.kernel.org>,
- <dri-devel@lists.freedesktop.org>, <freedreno@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>, <regressions@lists.linux.dev>
-Subject: Re: [PATCH v2] drm/msm/disp/dpu: add merge3d support for sc7280
-From: "Luca Weiss" <luca.weiss@fairphone.com>
-To: "Dmitry Baryshkov" <dmitry.baryshkov@oss.qualcomm.com>, "Luca Weiss"
- <luca.weiss@fairphone.com>
-X-Mailer: aerc 0.21.0-0-g5549850facc2
-References: <20260101-4k-v2-1-712ae3c1f816@oss.qualcomm.com>
- <DH1IKLU0YZYU.2SW4WYO7H3H4R@fairphone.com>
- <tbi5mwg4jt5scvr76lpzpvi5zj3kn3entoorsd4dior4g23czd@xtobadslhfrz>
- <DH437ESQRIAF.2336WF7XZBTI@fairphone.com>
- <twm2kcouzbwew4md27f3o36q5odpctlfugmkakxom7b2ittftg@qb7golmack6c>
-In-Reply-To: <twm2kcouzbwew4md27f3o36q5odpctlfugmkakxom7b2ittftg@qb7golmack6c>
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C867A10E41E
+ for <dri-devel@lists.freedesktop.org>; Tue, 17 Mar 2026 07:50:28 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id EEC855BCFD;
+ Tue, 17 Mar 2026 07:50:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1773733827; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=0jqeWLZF9LWBA0nCW1as1//YWZS2lVoteirgcgt8xbs=;
+ b=E/suArKx8KdXbQlgiXOlmAARLPkPVwPg6Xd4RyjBpsPdlcfecIFX5GG5QBqZUoOxQOCJQN
+ vYVG1CdIY9qu1fErcg6xp2MhPaYF6qMdt0jwJlYNKWahmGVVpuS5uw3lrBsyRTxSqjjL5P
+ 34rbU44PdMOAAkkMlW9TAl8w+GXKsFQ=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1773733827;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=0jqeWLZF9LWBA0nCW1as1//YWZS2lVoteirgcgt8xbs=;
+ b=y7dFrJv1sEMegeF38anN47hLZsUBVEP3kGcpBtBJV0DNvqKJ3Z66f95qjqYugDiji7iOBd
+ wj7xqimSIl2xg/Dw==
+Authentication-Results: smtp-out2.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=mJXdTibV;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b="e1DlgCO/"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1773733826; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=0jqeWLZF9LWBA0nCW1as1//YWZS2lVoteirgcgt8xbs=;
+ b=mJXdTibV44//V5o8SFWGiMLmO4SRhZvh6fkBBm8uGxkXxgSaL7s2zIc4PIjSYnkuS6RDpZ
+ Jz06r4M8013X2PAczXMxZ3rDaZs5srp3lAHfrorhFB8f+mlRWL1C7HQhplgQaKHdvtIlGw
+ sWvWttmbOb5BqaAbI1GLbfrricLqTQA=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1773733826;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=0jqeWLZF9LWBA0nCW1as1//YWZS2lVoteirgcgt8xbs=;
+ b=e1DlgCO//Pm/OCoq/q37Xx3EftE1FahXZkPMfpxSC2JzL3ytZ+iogaSBRRVSoDzdlnUHgR
+ MeAiyZbXUenOl1CQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id BABBF4273B;
+ Tue, 17 Mar 2026 07:50:26 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id v7EbLMIHuWkOQAAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Tue, 17 Mar 2026 07:50:26 +0000
+Message-ID: <417d8e12-6362-4039-9466-1d67da2f2e0a@suse.de>
+Date: Tue, 17 Mar 2026 08:50:26 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/gem-dma: set VM_DONTDUMP for mmap
+To: Chen-Yu Tsai <wenst@chromium.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20260317040034.617585-1-wenst@chromium.org>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <20260317040034.617585-1-wenst@chromium.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ NEURAL_HAM_SHORT(-0.20)[-1.000];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ MIME_GOOD(-0.10)[text/plain]; MX_GOOD(-0.01)[];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FREEMAIL_TO(0.00)[chromium.org,linux.intel.com,kernel.org,gmail.com,ffwll.ch]; 
+ FUZZY_RATELIMITED(0.00)[rspamd.com];
+ RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
+ TO_DN_SOME(0.00)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ MIME_TRACE(0.00)[0:+]; ARC_NA(0.00)[];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com]; RCVD_TLS_ALL(0.00)[];
+ DKIM_TRACE(0.00)[suse.de:+]; RCVD_COUNT_TWO(0.00)[2];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+ MID_RHS_MATCH_FROM(0.00)[];
+ RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+ RCPT_COUNT_SEVEN(0.00)[7];
+ ASN(0.00)[asn:32098, ipnet:2800::/6, country:US];
+ RCVD_VIA_SMTP_AUTH(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url, suse.de:mid, suse.de:dkim,
+ suse.de:email, imap1.dmz-prg2.suse.org:helo, imap1.dmz-prg2.suse.org:rdns]
+X-Rspamd-Action: no action
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: EEC855BCFD
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,83 +153,57 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon Mar 16, 2026 at 8:54 PM CET, Dmitry Baryshkov wrote:
-> On Mon, Mar 16, 2026 at 10:08:47AM +0100, Luca Weiss wrote:
->> Hi Dmitry,
->>=20
->> On Fri Mar 13, 2026 at 6:14 PM CET, Dmitry Baryshkov wrote:
->> > On Fri, Mar 13, 2026 at 09:33:18AM +0100, Luca Weiss wrote:
->> >> Hi Mahadevan,
->> >>=20
->> >> On Thu Jan 1, 2026 at 6:04 AM CET, Mahadevan P wrote:
->> >> > On SC7280 targets, display modes with a width greater than the
->> >> > max_mixer_width (2400) are rejected during mode validation when
->> >> > merge3d is disabled. This limitation exists because, without a
->> >> > 3D merge block, two layer mixers cannot be combined(non-DSC interfa=
-ce),
->> >> > preventing large layers from being split across mixers. As a result=
-,
->> >> > higher resolution modes cannot be supported.
->> >> >
->> >> > Enable merge3d support on SC7280 to allow combining streams from
->> >> > two layer mixers into a single non-DSC interface. This capability
->> >> > removes the width restriction and enables buffer sizes beyond the
->> >> > 2400-pixel limit.
->> >> >
->> >> > Fixes: 591e34a091d1 ("drm/msm/disp/dpu1: add support for display fo=
-r SC7280 target")
->> >> > Signed-off-by: Mahadevan P <mahadevan.p@oss.qualcomm.com>
->> >>=20
->> >> This patch is causing display regression on QCM6490 fairphone-fp5.
->> >>=20
->> >> With this patch in 7.0-rc3 (or 6.18.16) there's just pink noise on th=
-e
->> >> screen. When reverting this patch everything becomes working again.
->> >>=20
->> >> See also https://salsa.debian.org/Mobian-team/devices/kernels/qcom-li=
-nux/-/issues/41
->> >>=20
->> >> @Dmitry: Can we revert this for later 7.0-rc, in case it's not fixed
->> >> quickly?
->> >
->> > Could you please provide the resource allocation parts of
->> > debugfs/dri/0/state for both working and non-working cases?
->>=20
->> Broken (with the patch)
->
->> resource mapping:
->>         pingpong=3D# # 68 68 - - - - - - - - -=20
->>         mixer=3D# - 68 68 - - - -=20
->>         ctl=3D68 # # # - - - -=20
->>         dspp=3D# - - - - - - -=20
->>         dsc=3D68 - - - - - - -=20
->>         cdm=3D#=20
->>         sspp=3D# - - - - - - - # # # - - - - -=20
->>         cwb=3D- - - -=20
->
-> I see. It tries to use two mixers with a single DSC. What about someting
-> as simple as:
->
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/m=
-sm/disp/dpu1/dpu_crtc.c
-> index 0f4921b1a892..cbb7caa194c1 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-> @@ -1410,7 +1410,8 @@ static struct msm_display_topology dpu_crtc_get_top=
-ology(
->  		topology.num_lm =3D 2;
->  	else if (topology.num_dsc =3D=3D 2)
->  		topology.num_lm =3D 2;
-> -	else if (dpu_kms->catalog->caps->has_3d_merge)
-> +	else if (dpu_kms->catalog->caps->has_3d_merge &&
-> +		 topology.num_dsc =3D=3D 0)
->  		topology.num_lm =3D (mode->hdisplay > MAX_HDISPLAY_SPLIT) ? 2 : 1;
->  	else
->  		topology.num_lm =3D 1;
 
-Thanks Dmitry, this also resolves the issue!
 
-Tested-by: Luca Weiss <luca.weiss@fairphone.com> # qcm6490-fairphone-fp5
+Am 17.03.26 um 05:00 schrieb Chen-Yu Tsai:
+> When the mmap function was converted from a file op to a GEM object
+> function in commit f5ca8eb6f9bd ("drm/cma-helper: Implement mmap as GEM
+> CMA object functions") some VM flags were not lifted from drm_gem_mmap():
+>
+>    - VM_IO
+>    - VM_DONTEXPAND
+>    - VM_DONTDUMP
+>
+> VM_DONTEXPAND was added back in commit 59f39bfa6553 ("drm/cma-helper:
+> Set VM_DONTEXPAND for mmap"). VM_IO doesn't make sense since these are
+> memory buffers, while "IO tells people not to look at these pages
+> (accesses can have side effects)".
+>
+> Add back VM_DONTDUMP. This matches the behavior of most other GEM
+> implementations.
+>
+> Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
 
-Regards
-Luca
+I think it makes sense to not dump these buffers.
+
+Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
+
+> ---
+> Cc: Thomas Zimmermann <tzimmermann@suse.de>
+> ---
+>   drivers/gpu/drm/drm_gem_dma_helper.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/drm_gem_dma_helper.c b/drivers/gpu/drm/drm_gem_dma_helper.c
+> index ecb9746f4da8..1911bf6a6a3e 100644
+> --- a/drivers/gpu/drm/drm_gem_dma_helper.c
+> +++ b/drivers/gpu/drm/drm_gem_dma_helper.c
+> @@ -534,7 +534,7 @@ int drm_gem_dma_mmap(struct drm_gem_dma_object *dma_obj, struct vm_area_struct *
+>   	 * the whole buffer.
+>   	 */
+>   	vma->vm_pgoff -= drm_vma_node_start(&obj->vma_node);
+> -	vm_flags_mod(vma, VM_DONTEXPAND, VM_PFNMAP);
+> +	vm_flags_mod(vma, VM_DONTDUMP | VM_DONTEXPAND, VM_PFNMAP);
+>   
+>   	if (dma_obj->map_noncoherent) {
+>   		vma->vm_page_prot = vm_get_page_prot(vma->vm_flags);
+
+-- 
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
+
+
