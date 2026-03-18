@@ -4,34 +4,34 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2B77B10775E6
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EF08310775E1
 	for <dri-devel@archiver.kernel.org>; Wed, 18 Mar 2026 16:24:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9701210E42C;
-	Wed, 18 Mar 2026 16:24:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 42DA410E458;
+	Wed, 18 Mar 2026 16:24:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="N0h054st";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="CVizvEnR";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 11A4210E371;
- Wed, 18 Mar 2026 16:24:26 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 51E9210E42C;
+ Wed, 18 Mar 2026 16:24:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
- h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:
- Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:Content-Description:
- Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
- In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
+ Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=vxWaD0qDsBY6LcEF+MujBVsqrZxJUHb0f0hSzzVajWo=; b=N0h054sttJooVxvVQGWDzojDGv
- Zf72DAWR/O047nJTaqsXNSDYTR+mag8d4h5tqnzLOASHciMjC6d2qHS9ENUby6YJeVKBnGh0UG/El
- MSgXzE3vcH15ZTugdteIOpcwyRTaxPc3LM/BEZ9v/AOppuqyiTFfoaSCzVT4xK47nqlFZNIK+brjK
- eJSKbWbRdyda0uPvVGoM4npY09m/+S3mv7h9zAUmbN9sAiNp9UUICfxobdcSuOaLkf9CxOuY9i57P
- ZmR+TelqUhLVsksQ+QhIz57h/GrIt08TDtf0JynxnwrX4vU0akk+hiqbTJky2OrbTmYAevq5wOhSn
- u0V9HSmg==;
+ bh=GYf3S03ywfT6Zbn0KxwuVTuTbGZ2BA4UOnyb4AVQNBI=; b=CVizvEnRUFo2Ee+xY8YJm6Lcvd
+ QvSnxQ9eERPBUJWtt5t0FeNneLAnLrqygEEduQnZpjNymoiSIXzjrgiUTVN9N9I+IN37KRuwTrt4C
+ XGA7IJP1fn9gW6amv9eJJO64ZftWQA6S4IUOHsqEv+5SB4NjTvtnsqL12LV6e0szUqhTQXzs2TaW/
+ L84MDrmI3Zw+CtgljYXwen2tZgmahrkjt4YoUR8ADCIxzHIj/4p3wTfpk5HES+bdJsFlEVTbhVuQv
+ r8KUumH7th8U8kvC6wPbfRf1XgXhBnhxMdxzD91VnWktRnnTDvDys55eS/G8cLVi+lEAX+7Ptf6MO
+ rHLbTLvg==;
 Received: from [186.208.74.38] (helo=killbill.home)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1w2tga-002siJ-PF; Wed, 18 Mar 2026 17:23:57 +0100
+ id 1w2tgm-002siJ-Eg; Wed, 18 Mar 2026 17:24:08 +0100
 From: Melissa Wen <mwen@igalia.com>
 To: airlied@gmail.com, alexander.deucher@amd.com, christian.koenig@amd.com,
  harry.wentland@amd.com, maarten.lankhorst@linux.intel.com,
@@ -42,10 +42,13 @@ Cc: Alex Hung <alex.hung@amd.com>,
  Simon Ser <contact@emersion.fr>, Uma Shankar <uma.shankar@intel.com>,
  Xaver Hugl <xaver.hugl@kde.org>, amd-gfx@lists.freedesktop.org,
  kernel-dev@igalia.com, dri-devel@lists.freedesktop.org
-Subject: [PATCH 0/2] drm/atomic: track colorop changes of a given plane
-Date: Wed, 18 Mar 2026 13:12:36 -0300
-Message-ID: <20260318162348.299807-1-mwen@igalia.com>
+Subject: [PATCH 2/2] drm/amd/display: use plane color_mgmt_changed to track
+ colorop changes
+Date: Wed, 18 Mar 2026 13:12:38 -0300
+Message-ID: <20260318162348.299807-3-mwen@igalia.com>
 X-Mailer: git-send-email 2.51.0
+In-Reply-To: <20260318162348.299807-1-mwen@igalia.com>
+References: <20260318162348.299807-1-mwen@igalia.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -63,34 +66,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Similar to what is done for tracking CRTC color mgmt property changes
-with CRTC `color_mgmt_changed` flag, track colorop updates of a given
-plane color pipeline by setting plane `color_mgmt_changed` flag. Also
-true if setting a different color pipeline to a given plane. That way,
-the driver can react accordingly and update their color blocks.
+Ensure the driver tracks changes in any colorop property of a plane
+color pipeline by using the same mechanism of CRTC color management and
+update plane color blocks when any colorop property changes. It fixes an
+issue observed on gamescope settings for night mode which is done via
+shaper/3D-LUT updates.
 
-This small series fix shaper/3D LUT updates when changing night mode
-settings on gamescope with a custom branch that supports
-`COLOR_PIPELINE`[1].
+Signed-off-by: Melissa Wen <mwen@igalia.com>
+---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-This series doesn't cover 1D/3D LUT interpolation, since it's documented
-as read-only properties.
-
-Let me know your thoughts!
-
-[1] https://github.com/ValveSoftware/gamescope/pull/2113
-
-Melissa Wen
-
-Melissa Wen (2):
-  drm/atomic: track individual colorop updates
-  drm/amd/display: use plane color_mgmt_changed to track colorop changes
-
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  6 ++-
- drivers/gpu/drm/drm_atomic_uapi.c             | 53 +++++++++++++++----
- include/drm/drm_atomic_uapi.h                 |  2 +-
- 3 files changed, 48 insertions(+), 13 deletions(-)
-
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index dfe95c9b8746..dc3f284d0834 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -9955,7 +9955,7 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_state *state,
+ 			continue;
+ 
+ 		bundle->surface_updates[planes_count].surface = dc_plane;
+-		if (new_pcrtc_state->color_mgmt_changed) {
++		if (new_pcrtc_state->color_mgmt_changed || new_plane_state->color_mgmt_changed) {
+ 			bundle->surface_updates[planes_count].gamma = &dc_plane->gamma_correction;
+ 			bundle->surface_updates[planes_count].in_transfer_func = &dc_plane->in_transfer_func;
+ 			bundle->surface_updates[planes_count].gamut_remap_matrix = &dc_plane->gamut_remap_matrix;
+@@ -11695,6 +11695,10 @@ static bool should_reset_plane(struct drm_atomic_state *state,
+ 	if (new_crtc_state->color_mgmt_changed)
+ 		return true;
+ 
++	/* Plane color pipeline or its colorop changes. */
++	if (new_plane_state->color_mgmt_changed)
++		return true;
++
+ 	/*
+ 	 * On zpos change, planes need to be reordered by removing and re-adding
+ 	 * them one by one to the dc state, in order of descending zpos.
 -- 
 2.51.0
 
