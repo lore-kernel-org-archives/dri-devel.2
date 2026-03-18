@@ -4,125 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B0D4FFCD0D2
-	for <dri-devel@archiver.kernel.org>; Wed, 18 Mar 2026 08:21:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 84CB3FCD0D2
+	for <dri-devel@archiver.kernel.org>; Wed, 18 Mar 2026 08:26:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0A4CA10E737;
-	Wed, 18 Mar 2026 08:21:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DB2A610E73A;
+	Wed, 18 Mar 2026 08:26:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="FLDrvCrg";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="YtFM2TBm";
 	dkim-atps=neutral
-Received: from CO1PR03CU002.outbound.protection.outlook.com
- (mail-westus2azon11010032.outbound.protection.outlook.com [52.101.46.32])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0E4B910E737
- for <dri-devel@lists.freedesktop.org>; Wed, 18 Mar 2026 08:21:42 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=jEc9b2v+ZDo2uaDh4q43NssfLDpq4CDYLq6oRNMIwFz+Kec0XZINIc0O4l7ZFv0xJAygiWoLqcj1nmNEjDkFPkprZ1QCnRMmyS15/qOQ5GpS9oAaC6nz3HFEKlgEvam7hV4LGnJ/cwqS9Jd2NpYBsZmWKIE9qtq1r9r4lnpfBeHWalGz6TITE1EFZXcm+BuRvkczT400hzivAP3sB5ICeur8rzQwFXVLWfwo7G44FvbZ+rubXrhoXEnrAXJU9zOaBkLVdJeXMpeY6riQ/fSesh+rfsws/U1B8qBuio9NJUjGBjGwbVwO7jQQd0DvQyI9uL2ZRPz4O33Mog+3M7m6Og==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=clmqi+7yDCnyreBPUAIP/mNVfOPKtXF2ycLUwzk6Ap8=;
- b=IS0k1msay6bF/LgR3U57RHyhA2yaIFiJDAXj32D9eU8vBDXRs1zWCUJdNi9wa8eRUHYUbMy537L/dXcvc17i4ctjGvf9qWtaYoAcL3eO8x0XLvKi3Qdk003V0HVjzlOyrM9e18nnWIgmus+gdt8mSmo9BPiJpYlGA6RytH4QjDBQvh6oQU74YKO/ZFVndS36y8BOBa2iuC4BLe0/aLMYhiACwWX06+Ze8kYmDshf0yq7qerFJVUZPItB1WItasnsbNS4nsGt4vaho0P6t84pDHYwy0EVWMLBE9l+95SwV+EV351A9Up5NTPYyzcEt+JdXk+2KpWKryqOIphDOrbKNQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=clmqi+7yDCnyreBPUAIP/mNVfOPKtXF2ycLUwzk6Ap8=;
- b=FLDrvCrgTfVKt0FoAOjgVvLIhpnrnFvMZQ3rQUyrYrn+MFKNTVQWQkZIwmVZgJ8sn69RMRb3gzkMRSX0hlFXeihV4Zd978WbgtYD10U8KoYd3rkk5KJrSfZzLemHdP7jmWJqGbnQQCV14BUuACCBWjtm7YJitnZztCiWamlt5SU=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by DS0PR12MB6581.namprd12.prod.outlook.com (2603:10b6:8:d3::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.19; Wed, 18 Mar
- 2026 08:21:38 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.20.9723.016; Wed, 18 Mar 2026
- 08:21:38 +0000
-Message-ID: <3e7ce7bb-75ab-4f73-8a5d-dabd5d56cd61@amd.com>
-Date: Wed, 18 Mar 2026 09:21:34 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] dma-buf/dma_fence: be more defensive in dma_fence_release
-To: Boris Brezillon <boris.brezillon@collabora.com>
-Cc: phasta@mailbox.org, aliceryhl@google.com, gary@garyguo.net,
- lossin@kernel.org, daniel.almeida@collabora.com, joelagnelf@nvidia.com,
- sumit.semwal@linaro.org, dri-devel@lists.freedesktop.org,
- linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org
-References: <20260317144825.2318-1-christian.koenig@amd.com>
- <20260317162147.4a7f03ff@fedora>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260317162147.4a7f03ff@fedora>
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 50E9010E73A
+ for <dri-devel@lists.freedesktop.org>; Wed, 18 Mar 2026 08:26:02 +0000 (UTC)
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+ by smtpout-04.galae.net (Postfix) with ESMTPS id 07737C5506E;
+ Wed, 18 Mar 2026 08:26:25 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 855E560050;
+ Wed, 18 Mar 2026 08:26:00 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
+ with ESMTPSA id 69200104506B6; Wed, 18 Mar 2026 09:25:49 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+ t=1773822354; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ content-transfer-encoding:in-reply-to:references;
+ bh=jklowRBIPrCpmZeab4ftNAYk2L8Ww36BQPRSWzmduYY=;
+ b=YtFM2TBm2PeYawvnlspTLypBD26nCAy/B9Aqc97kiwaiRGktFVvylPIlk7WDmy3MEa+CtI
+ tFlJMVpUTK0umXdwlv5qsMeWGRwfrQYT4NSorvQbtsCsfVGZa6vRtk6PSZFlHfQlsSc3FW
+ LeQVygXVPI0byOEHL91genAAQWuaQnOvN05qGompN93+XPevrIkPkVRYiCowqZya+hfArZ
+ HoSQTLqqGG02Ntnp0g33Wm5OEzb8RnOL7ecum8ZFK+9SJ+AVQ0gKn0wBm/JIZ9LSCVqzTU
+ IYhAux+aLh/jnx1yJmyvDzCyRpBJJXOJm9/crVFEqwEqo8BBj6VIyi7CrQ3xig==
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: BN9PR03CA0953.namprd03.prod.outlook.com
- (2603:10b6:408:108::28) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DS0PR12MB6581:EE_
-X-MS-Office365-Filtering-Correlation-Id: ede7a74f-5708-432a-e6fc-08de84c76038
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|376014|7416014|1800799024|18002099003|56012099003|22082099003;
-X-Microsoft-Antispam-Message-Info: 3diwPPhckn6PEGAZAptmjeavQbqBRlfPBIf0hDWpZ/CCdrCZGOkV366ruUOGtht519Fo4LvSti5gSyww0Eb77fBsy03/zS8My4L6piI8XACRmJB1mj7y90oVVp4/EuPnuM9YOmLuKuds0ubkO5VsIl4a5cFaYy2LlrluxnJoWKvU9icf18foc8kBBGo5deifuEZuq0FIMzkS07AZlw3iHgY6K+qSIJlru//BI+PomD7JPk138f+BSuYWyBSZv/81DNJAQrmf7LJFOEGhN6u69x84t7LK42itd7o2mazfg9L2TOYWoGFx2sYuSKj48guaITNcKLLKZAHmcwWBsGHTqb8irQ9A1sOQ9m4o2EXJ/1VDuWzpktNANcuDd9z4uFBcnXyzgxpdkxFRAlU3DxuJxngFrN8K9aeusg98vvc6iZwiPkKiR81fibA+TFICZVUs9PsYCrWWsaPortSCQnnHYd28dDtDmLHKd/q494m9k438OhUeZb77ypMEsfiSfmpFXWPTJwEYLZvEMLLPejxnM9CfoRVjxZUtck+qBFwwUcgqzpB3PlQXtY7NpbyDbDwrIL2+YuWKq/Yy3lHD0cbPooo3x6GQN7/1E8PX6oX6pR4uoxlaCoMXL8pM7CygDTPnaUyLsuu9VpR/Afuum1Gtvfh9/PIakBCF50SQBEF6RjnMxVS5BbLoxixuRKf7E2u9sxUwKQb+owlNYyScCOXyV+nbw3MUJDpIK4ieUgseYZ0=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(7416014)(1800799024)(18002099003)(56012099003)(22082099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Mmlua0FWbmJVOXBDQXljeUdsRzVvcHBIRUV3M1VKenFucXdPUU9JSi9ZOTZy?=
- =?utf-8?B?clozM1dtRkZma01teUFsWWVzbmRRaDd1L1daOURlQ0R6V2JCd3B1cDBwN1JW?=
- =?utf-8?B?NVRsbVpTaW9DemlkMVJRbHVLeUZVeVlhZnJETktSQkxSbG9ZT3hEejV3UVMz?=
- =?utf-8?B?MG1Fdk1DS0JtNWp1Sk5tOW90cmlVM1FaTHRyd2JNdi9qNDRUMTQyalppUUdX?=
- =?utf-8?B?eVRpblU0dFAzcVVBd1cvNXFZcmF4OVVBY2UzdjFod2J1cmRqR21FTHNMZDNn?=
- =?utf-8?B?c1hzY3FFUFo4elo3ZzdaRU5VMUw3c2RvdlN6dWFLRlA5Z285YmlZWU8yV2pn?=
- =?utf-8?B?Y2d1aml0TU5lVkovSHRTRUFSZDBkZm56ek11eExmZ3l1MExSUTJZaDlXOXBW?=
- =?utf-8?B?SmcrZ2lPb2krb2RaNXAwM0I1T1lyc0hPSFJSbUNCQkZlMFRYblNjdEVYYU9U?=
- =?utf-8?B?aDd0OXpIY1A4aVRNdTFZNFFGUWdUeGtqWHhaNVZPQ2dvVzlTbUNkOFNIZTZv?=
- =?utf-8?B?UXRrRWFEVnZLb1hkcFBsOXVBTGsydjZTQ0FHK3RwVkQ2RG9GeVNIRTAwOTZX?=
- =?utf-8?B?ZU5mWVE3aGl6RnBrOTY3Z090UUxHVFdpRG43TjMxelFSRU8zUit0bzA5NVZx?=
- =?utf-8?B?cDdwYWkxcEJra2dJNUJYWjR5clFkdmsrcWltTzluTVpuMHlxcUpQTm5uam92?=
- =?utf-8?B?bEtTK2JiTm1aU0dvczZqM1Vxd1k4RzlaZnJVSVpMUTZKLzFVKzU5bXZDUXlR?=
- =?utf-8?B?VE1xQkhwK3pyTCtYNFUyWENsUjlLd0JKUWl1dmIvNlljZ3J1V1h2c0ZKV2tD?=
- =?utf-8?B?ZDdodU5lbFYwTWhUak9rWkloNEtycCtaN3lvWVZWVmZQVk16UlZ2emFmVkNq?=
- =?utf-8?B?L0tqcUVZcG1MQTV0VFRTbitSaCtiTGZYWFkyTUpjbTMyNGx0S1d2NWlpMFF3?=
- =?utf-8?B?UmhQU3ZBbGRadlExSVh2RGdIQkNxZGlaVWZXQWV2dUxwNGtDWGpPUzE1cmlS?=
- =?utf-8?B?bkJsUWhPbkpPQzZGL1N1RXlpUCtmWklTT1VpeXlOcXc0blQ1bmRjZWdScXY3?=
- =?utf-8?B?SFNmVDlGaWF3dkFrUU1Bc3pEZ1FxWTdWN3NMaytUcW84NmlVY1JoMDd5b3Fv?=
- =?utf-8?B?cE5YMU1iMnI0Q2NSN1VockdYeHI0c2Z6dDQreHJqQnEyZWFEM1dFa2RzZllR?=
- =?utf-8?B?bWxVdkhacGJaYk9ZVG5kRFZYTDNQZGJyb3VuL0x1R1JMSkkrTkYrekVZSllF?=
- =?utf-8?B?SXduM2h1ZHM4SXBnSDdkMjkvcXZia2p4ZVdWQ09EUHppbmsrdU9JN2lSQ0pM?=
- =?utf-8?B?U01KMkIzZHFGQ3ZMWHBWYU9lVEc0VyttNzZnQ0dzRnJKOFN0SzNBeVNVY2U5?=
- =?utf-8?B?bnpCYWl5amRCellIYWZsa0RPZXhrU09seE5FdDZVYXR6TVQ2K2kxbldzWnJV?=
- =?utf-8?B?eFlDTWUwcTJrVUlWRVVzTjl2bVEzTUtvdDJlSktmS21VT01iN2o5OS9wTHZq?=
- =?utf-8?B?dTVobUt4SUpBYzBFQTNMOXlYbEt3NnNoWTkwcWNzZ1lhd3ZlQ1lzb0I2ZkFt?=
- =?utf-8?B?b1dlek5PRTBrcjhrZXlwWFVOZ2RCNGZIT0YxV2dKZUNLUXFBT0d0eWNpeEVl?=
- =?utf-8?B?am1LazJONUtUVnJreEhUR05lUXlLOGMyeVlsbzFPSlI4Q05qcllrd1o5MFhG?=
- =?utf-8?B?WTh6cmpDL2MvazE1Q0E0QUtubGw3TDh5NHV0bEx5ZUlpTDlVeDNmcXUySjFv?=
- =?utf-8?B?MEFnUmlKbjZMNlVsU3JaOENxMDc3dFU3cm9zMmpqQVdXLzk1WWRYeEFGaExE?=
- =?utf-8?B?NmZtdXk2eElxMmFDQnNLalZ0MFlpSDRvL1FvMHVBWnc3Y1dHUUhYdkpjYkN0?=
- =?utf-8?B?dExjaExFTUtjdC8vcmFpTUxpWFlUdXJOb3NHTHllMC9RaU1aaFlvV0NlZHFB?=
- =?utf-8?B?VnF5V0NCck03eUo3QmNYUjdJQXowZ2VTZVhnK2RLbDZxODIrQmpuZ1dtT0hy?=
- =?utf-8?B?SDBDL3Jsa1ZZZm9PVTRqYUN6R0NDQ2I2Sms0bG16cUxjNjErTjgzRzNncHZo?=
- =?utf-8?B?WjFYNDU5SERNRS9uN2ZOcGpLeVAzbytNdXE4S2Q0YWVSSmhSTVFUcEpJWUV5?=
- =?utf-8?B?TXJVOThoUm05NDI1dkpnN09takwvSzVzVFdTQWErbVNxMG0zZXFoRThPekUz?=
- =?utf-8?B?aWNiVUsxKzEydzc5NVM4VmFFdnAzcm5zU2ZZekU5SFF1WkRWV1kxaDF0SnBw?=
- =?utf-8?B?OXFBdldBdkQzaytnSFRTQS8zM0JCbG5IOC9FRDRtTk9BMytGT3JCbnV6VW9D?=
- =?utf-8?Q?LN21MoAGuqxbNU9Vou?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ede7a74f-5708-432a-e6fc-08de84c76038
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Mar 2026 08:21:38.4676 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: bkUX1uO8rfQLUDt64voDQdpn5IcXFjhIfNZrxV1VLRiPQmwRbE7C3nE2kPDbzUOt
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB6581
+Date: Wed, 18 Mar 2026 09:25:48 +0100
+Message-Id: <DH5RJL3Z3PJM.8IS8TN7NNCVP@bootlin.com>
+From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
+Subject: Re: [PATCH v3] drm/bridge: Fix refcount shown via debugfs for
+ encoder_bridges_show()
+Cc: "Marco Felsch" <m.felsch@pengutronix.de>,
+ <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
+To: "Liu Ying" <victor.liu@nxp.com>, "Andrzej Hajda"
+ <andrzej.hajda@intel.com>, "Neil Armstrong" <neil.armstrong@linaro.org>,
+ "Robert Foss" <rfoss@kernel.org>, "Laurent Pinchart"
+ <Laurent.pinchart@ideasonboard.com>, "Jonas Karlman" <jonas@kwiboo.se>,
+ "Jernej Skrabec" <jernej.skrabec@gmail.com>, "Maarten Lankhorst"
+ <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
+ "Thomas Zimmermann" <tzimmermann@suse.de>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>
+X-Mailer: aerc 0.20.1
+References: <20260318-drm-misc-next-2026-03-05-fix-encoder-bridges-refcount-v3-1-147fea581279@nxp.com>
+In-Reply-To: <20260318-drm-misc-next-2026-03-05-fix-encoder-bridges-refcount-v3-1-147fea581279@nxp.com>
+X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -138,116 +69,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 3/17/26 16:21, Boris Brezillon wrote:
-> On Tue, 17 Mar 2026 15:48:25 +0100
-> "Christian König" <ckoenig.leichtzumerken@gmail.com> wrote:
-> 
->> In case of a refcounting bug dma_fence_release() can be called before the
->> fence was even signaled.
->>
->> Previously the dma_fence framework then force signaled the fence to make
->> sure to unblock waiters, but that can potentially lead to random memory
->> corruption when the DMA operation continues. So be more defensive here and
->> pick the lesser evil.
->>
->> Instead of force signaling the fence set an error code on the fence,
->> re-initialize the refcount to something large and taint the kernel.
->>
->> This will leak memory and eventually can cause a deadlock when the fence
->> is never signaled, but at least we won't run into an use after free or
->> random memory corruption.
->>
->> Signed-off-by: Christian König <christian.koenig@amd.com>
->> ---
->>  drivers/dma-buf/dma-fence.c | 18 ++++++++++++++----
->>  1 file changed, 14 insertions(+), 4 deletions(-)
->>
->> diff --git a/drivers/dma-buf/dma-fence.c b/drivers/dma-buf/dma-fence.c
->> index 1826ba73094c..8bf07685a053 100644
->> --- a/drivers/dma-buf/dma-fence.c
->> +++ b/drivers/dma-buf/dma-fence.c
->> @@ -593,14 +593,24 @@ void dma_fence_release(struct kref *kref)
->>  		/*
->>  		 * Failed to signal before release, likely a refcounting issue.
->>  		 *
->> -		 * This should never happen, but if it does make sure that we
->> -		 * don't leave chains dangling. We set the error flag first
->> -		 * so that the callbacks know this signal is due to an error.
->> +		 * This should never happen, but if try to be defensive and take
->> +		 * the lesser evil. Initialize the refcount to something large,
->> +		 * but not so large that it can overflow.
->> +		 *
->> +		 * That will leak memory and could deadlock if the fence never
->> +		 * signals, but at least it doesn't cause an use after free or
->> +		 * random memory corruption.
->> +		 *
->> +		 * Also taint the kernel to note that it is rather unreliable to
->> +		 * continue.
->>  		 */
->>  		dma_fence_lock_irqsave(fence, flags);
->>  		fence->error = -EDEADLK;
->> -		dma_fence_signal_locked(fence);
->> +		refcount_set(&fence->refcount.refcount, INT_MAX);
-> 
-> I'm not convinced this is useful. If we leak the object, no one should
-> have a ref to release anyway. This does raise a question though. The
-> case we're trying to protect against is fence_callback being registered
-> to this fence and waiting for an event to signal another proxy fence.
+On Wed Mar 18, 2026 at 6:26 AM CET, Liu Ying wrote:
+> A typical bridge refcount value is 3 after a bridge chain is formed:
+> - devm_drm_bridge_alloc() initializes the refcount value to be 1.
+> - drm_bridge_add() gets an additional reference hence 2.
+> - drm_bridge_attach() gets the third reference hence 3.
+>
+> This typical refcount value aligns with allbridges_show()'s behaviour.
+> However, since encoder_bridges_show() uses
+> drm_for_each_bridge_in_chain_scoped() to automatically get/put the
+> bridge reference while iterating, a bogus reference is accidentally
+> got when showing the wrong typical refcount value as 4 to users via
+> debugfs.  Fix this by caching the refcount value returned from
+> kref_read() while iterating and explicitly decreasing the cached
+> refcount value by 1 before showing it to users.
+>
+> Fixes: bd57048e4576 ("drm/bridge: use drm_for_each_bridge_in_chain_scoped=
+()")
+> Signed-off-by: Liu Ying <victor.liu@nxp.com>
 
-Not quite. The real problematic case is that it is necessary to wait for a fence to signal with tons of memory management locks held.
+Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+Tested-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 
-So it can be that a simple memory allocation cycles back and depends on the fence to signal.
+Thanks!
 
-> How can the refcnt drop to zero in that case? Isn't the proxy supposed
-> to own a ref on the fence. Before we go further, I'd like to understand
-> what we're trying to do.
+Luca
 
-Well we are in C here, so its simply coding errors. An unecessary dma_fence_put() in an error path is enough to trigger this.
-
-> The original discussion that led you to write this patch was about
-> detecting when a fence emitter/producer would leave unsignalled fences
-> behind, and the problem we have is when such unsignalled fences have
-> observers waiting for a "signalled" event. If the refcnt drops to zero
-> and the fence is released, we're already passed that point,
-> unfortunately.
-
-Well that is not quite correct.
-
-The most common problem is that we have unbalanced dma_fence_get()/dma_fence_put() and we end up in dma_fence_release() before the issuer of the dma_fence has a chance to signal it.
-
-See the main purpose of DMA fences is to prevent releasing memory back into the core memory management before the DMA operation is completed.
-
-So when a DMA fence signals to early it means that the HW is still writing to that memory but we already potentially re-using the memory ending in random memory corruption.
-
-UAF issues are harmless compared to that.
-
-Regards,
-Christian.
-
-> It can be that:
-> 
-> - the fence was never exposed -> this is fine
-> - the fence was exposed but never observed -> this is broken, because if
->   it had been observed it would have led to a deadlock
-> - the fence was exposed, observed for some time, but the observer got
->   bored, stopped waiting and:
->   * decided to go and execute its stuff anyway -> use-before-ready
->     situation
->   * gave up -> kinda okay, but we should still consider the fence
->     emitter broken
-> - the fence observer registered a callback but didn't take a ref on the
->   object -> this is potential UAF on the dma_fence, which can also lead
->   to a VRAM/system-mem UAF if the emitter drops the dma_fence without
->   signalling, because of the auto-signal you're getting rid of in this
->   patch.  But the latter is just a side effect of the dma_fence UAF,
->   which I'm not convinced we should try to protect against.
-> 
->>  		dma_fence_unlock_irqrestore(fence, flags);
->> +		rcu_read_unlock();
->> +		add_taint(TAINT_SOFTLOCKUP, LOCKDEP_STILL_OK);
->> +		return;
->>  	}
->>  
->>  	ops = rcu_dereference(fence->ops);
-> 
-
+--
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
