@@ -4,59 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A29EAFCD0D2
-	for <dri-devel@archiver.kernel.org>; Wed, 18 Mar 2026 08:28:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6D6C8FCD0D9
+	for <dri-devel@archiver.kernel.org>; Wed, 18 Mar 2026 08:28:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1856610E744;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3A4EE10E745;
 	Wed, 18 Mar 2026 08:28:30 +0000 (UTC)
-Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
- by gabe.freedesktop.org (Postfix) with ESMTP id 8F30F10E0BF
- for <dri-devel@lists.freedesktop.org>; Wed, 18 Mar 2026 07:58:13 +0000 (UTC)
-Received: from loongson.cn (unknown [10.20.42.129])
- by gateway (Coremail) with SMTP id _____8AxDMMLW7ppED8cAA--.16548S3;
- Wed, 18 Mar 2026 15:58:03 +0800 (CST)
-Received: from [10.20.42.129] (unknown [10.20.42.129])
- by front1 (Coremail) with SMTP id qMiowJBxacECW7ppzJ1XAA--.22267S3;
- Wed, 18 Mar 2026 15:57:58 +0800 (CST)
-Subject: Re: [PATCH] MAINTAINERS: Update GPU driver maintainer information
-To: Huacai Chen <chenhuacai@kernel.org>
-Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Mingcong Bai <jeffbai@aosc.io>, Xi Ruoyao <xry111@xry111.site>,
- Xuefeng Li <lixuefeng@loongson.cn>, dri-devel@lists.freedesktop.org
-References: <20260318071307.3682-1-lvjianmin@loongson.cn>
- <CAAhV-H7PmqY_cbU7Kp-DOL+H_urD45-8CR1kJsXXUoJ4DXgtqg@mail.gmail.com>
-From: Jianmin Lv <lvjianmin@loongson.cn>
-Message-ID: <5bf210fa-3f8a-ab4d-f23a-e9fccc4b660c@loongson.cn>
-Date: Wed, 18 Mar 2026 15:50:30 +0800
-User-Agent: Mozilla/5.0 (X11; Linux loongarch64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=lcfc-corp-partner-google-com.20230601.gappssmtp.com header.i=@lcfc-corp-partner-google-com.20230601.gappssmtp.com header.b="YJSgqMYi";
+	dkim-atps=neutral
+Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com
+ [209.85.216.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 416F710E0A3
+ for <dri-devel@lists.freedesktop.org>; Wed, 18 Mar 2026 04:24:20 +0000 (UTC)
+Received: by mail-pj1-f49.google.com with SMTP id
+ 98e67ed59e1d1-35a1cc6e478so3469834a91.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 17 Mar 2026 21:24:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=lcfc-corp-partner-google-com.20230601.gappssmtp.com; s=20230601; t=1773807860;
+ x=1774412660; darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=KgGwSskRp/s+tWVy4f+gDNVCOk4Xt/1XzAPz7N2eRjM=;
+ b=YJSgqMYiBYjiTzu/dIeqp3HmII1d6Toag9SYbMYKWsX2zhZJ5O79ZxSE8bV0hXBPG4
+ nTNGgVTcSvsfzzZbQY6POz2Wxs9hWyJVB5m86IHlcApUBNUasVjFIf5LKGRO8IVDy4Ys
+ DVbceotPEctD7bTAD1nSKaZxwYcNn1GeaOGyOOrGg3J9S3gFWK9G4lY0neDpDL+Y9Iyd
+ DURgNGzhNJbWzGi5p3NG4sfo5YfJH7dpzk2CL0uAwWgthh84ow902uslhArTGfJ6/yav
+ ECXzmoLIsMvKw7ec8ONiIw40Jv5MLXq9e0WBZDplYXH0T7bId2QDE5gqrA+7LqeBSl88
+ p/Hg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1773807860; x=1774412660;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=KgGwSskRp/s+tWVy4f+gDNVCOk4Xt/1XzAPz7N2eRjM=;
+ b=Pu7zTYsmc5xtqICLKq4HGpigsz2iSo+3MUBLk5m6z4b52Nt/N1AgDGrd6m6+vJ+JgH
+ VOZxqegJolu4El2YkDj8gb4tx1EOJErTpjQXAry9bZyF1DDHsXukwpnWkSnzyJ90XBCu
+ dEeU+qCfNlZxf6Hg5hQzR/RiQc0gj0hmz47SIZXQWegT80zbSodZ3fHTQYkG53HBVdT8
+ evckEjSNl3Gy+AfaPqt45DvNEriUdU0vl+9tzBT5Hx1Oy1DykZhTuRFATkoow2rDgTHU
+ NSBYt+NoiRg42XkS889gaTIjTwB8hdNlVm0jNGZFKczHoscaMe5PuOSG6NGu+UmbZg1x
+ t9dg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUwvGsGkWvDnfeXYytHpz3lnBsaFMoYlV9mOCgnnCDYBdzB0k9jOO7+v33QzpTuKh9D0cnsxTShrW0=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzyykfB+m8Fn4RUEV+TjeoORMRTtL/4fMHTCdxdNzWARDMEp+V7
+ hrpje2D8jFEEoM9FKq7W2HDxHI1sdtrEIFRXNgvDDqhlZAlwqqOjEOTRJjFUDpwSlE0=
+X-Gm-Gg: ATEYQzzqq/NKio9zKbJ7csBvcubZ2EZedhf3SoOUsUoH6xRdrXFTBG/eIdM9OZMO7LL
+ 9y8rDBSzFFldGi9zaAT1hkzcXs+EWpGB6Vc96yTKgbzDbv0K3xDxGimTShvyJGgE3cI1fzLwDvY
+ vUNZSr7ut8R74kbjYaCvnmNXZT7eMHNun1+JpdyygIMMTgMr4gMTE7HR8/1SCPUQKd4xbSAqHB6
+ MOcGrkA7UESrzw38YgG3ZeLB2fdbD/6GkdVIa/InQfILEEZDD9ddlKx/YpRcfURt+rnfFcYrqCL
+ fNM5HqXyvLHjvtq3KnecKWscH099UJpiwgqL402geWNUeI7F29/rpRuRt+NfyED4LL/d7R98Bp6
+ vv6+u068YojFpqd5UVkGRBrAhfbp9a6m0EXccy2+jxXbmxfHzlgjT97+uqBptqlxHAJ3xtEA08T
+ +M7p0nWpRqyUEPwJu/3V6Yck/9ZyHas0POVoXW9QafThEVaFPjwz5bueiUghqRLSXudapIj+j4Q
+ SPCeO3g+A==
+X-Received: by 2002:a17:90b:2d92:b0:35b:97ba:acee with SMTP id
+ 98e67ed59e1d1-35bb9f31e42mr1693193a91.17.1773807859732; 
+ Tue, 17 Mar 2026 21:24:19 -0700 (PDT)
+Received: from thinkpad.. (211-21-152-94.hinet-ip.hinet.net. [211.21.152.94])
+ by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-35bba5a2b09sm967768a91.11.2026.03.17.21.24.16
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 17 Mar 2026 21:24:19 -0700 (PDT)
+From: Alvin1 Chen <alvin1.chen@lcfc.corp-partner.google.com>
+To: dianders@chromium.org,
+	neil.armstrong@linaro.org
+Cc: jesszhan0024@gmail.com, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, tzimmermann@suse.de, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org,
+ Alvin1 Chen <alvin1.chen@lcfc.corp-partner.google.com>
+Subject: [PATCH] drm/panel-edp: Add 3 panels used by MT8189 Chromebooks
+Date: Wed, 18 Mar 2026 12:24:13 +0800
+Message-Id: <20260318042413.2891692-1-alvin1.chen@lcfc.corp-partner.google.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-In-Reply-To: <CAAhV-H7PmqY_cbU7Kp-DOL+H_urD45-8CR1kJsXXUoJ4DXgtqg@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: qMiowJBxacECW7ppzJ1XAA--.22267S3
-X-CM-SenderInfo: 5oymxthqpl0qxorr0wxvrqhubq/
-X-Coremail-Antispam: 1Uk129KBj93XoW7urWfCw15Aw1fCw4UWF17urX_yoW8CFy3pr
- Z3Ga4akrsrJF4fAwsIqa47ZFWYq3yrArZ8Wr4Dt3s3ur90vwn8tF4UJa15Ka9rXFyrKFW2
- ywn2kayIka13GFXCm3ZEXasCq-sJn29KB7ZKAUJUUUU7529EdanIXcx71UUUUU7KY7ZEXa
- sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
- 0xBIdaVrnRJUUUPIb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
- IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
- e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
- 0_Jr0_Gr1l84ACjcxK6I8E87Iv67AKxVWxJVW8Jr1l84ACjcxK6I8E87Iv6xkF7I0E14v2
- 6r4UJVWxJr1ln4kS14v26r1Y6r17M2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6xkI12
- xvs2x26I8E6xACxx1l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r12
- 6r1DMcIj6I8E87Iv67AKxVW8JVWxJwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr4
- 1lc7I2V7IY0VAS07AlzVAYIcxG8wCY1x0262kKe7AKxVWUAVWUtwCF04k20xvY0x0EwIxG
- rwCFx2IqxVCFs4IE7xkEbVWUJVW8JwCFI7km07C267AKxVWUXVWUAwC20s026c02F40E14
- v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkG
- c2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI
- 0_Jr0_Gr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r4j6F4U
- MIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x07j7BMNUUU
- UU=
 X-Mailman-Approved-At: Wed, 18 Mar 2026 08:28:25 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -73,58 +92,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Ok, I'll re-submit it later, thanks.
+Add a few generic edp panels used by mt8189 chromebooks.
 
-On 2026/3/18 下午3:40, Huacai Chen wrote:
-> Hi, Jianmin,
-> 
-> On Wed, Mar 18, 2026 at 3:20 PM Jianmin Lv <lvjianmin@loongson.cn> wrote:
->>
->> From: lvjianmin <lvjianmin@loongson.cn>
->>
->> I and Qianhai are GPU R&D engineers at Loongson, specializing
->> in kernel driver development. We understand that the current
->> Loongson GPU driver lacks dedicated maintenance resources
->> because of some reasons.
->>
->> As Loongson GPU driver developers, we have both the capability
->> and the responsibility to continuously maintain the Loongson
->> GPU driver, ensuring minimal impact on its users. After internal
->> discussions, our team has decided to recommend me and Qianhai
->> to take over the maintenance responsibilities, and recommend
->> Huacai, Mingcong and Ruoyao to help to review.
->>
->> And We'll continue to maintain it for current supported chips
->> and drive future updates according to chip support plan.
->>
->> Signed-off-by: lvjianmin <lvjianmin@loongson.cn>
-> Congratulations and thank you for inviting me as a reviewer, but
-> please re-submit the patch on top of upstream repo.
-> 
-> Huacai
-> 
->>
->> diff --git a/MAINTAINERS b/MAINTAINERS
->> index 837db4f7bcca..b4d7c4089e95 100644
->> --- a/MAINTAINERS
->> +++ b/MAINTAINERS
->> @@ -8626,9 +8626,13 @@ F:       drivers/gpu/drm/lima/
->>   F:     include/uapi/drm/lima_drm.h
->>
->>   DRM DRIVERS FOR LOONGSON
->> -M:     Sui Jingfeng <suijingfeng@loongson.cn>
->> +M:     Jianmin Lv <lvjianmin@loongson.cn>
->> +M:     Qianhai Wu <wuqianhai@loongson.cn>
->> +R:     Huacai Chen <chenhuacai@kernel.org>
->> +R:     Mingcong Bai <jeffbai@aosc.io>
->> +R:     Xi Ruoyao <xry111@xry111.site>
->>   L:     dri-devel@lists.freedesktop.org
->> -S:     Supported
->> +S:     Maintained
->>   T:     git https://gitlab.freedesktop.org/drm/misc/kernel.git
->>   F:     drivers/gpu/drm/loongson/
->>
->> --
->> 2.31.1
->>
+BOE: NV153WUM-N42
+CMN: N153JCA-ELK
+CSW: MNF307QS3-2
+
+Signed-off-by: Alvin1 Chen <alvin1.chen@lcfc.corp-partner.google.com>
+---
+ drivers/gpu/drm/panel/panel-edp.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/drivers/gpu/drm/panel/panel-edp.c b/drivers/gpu/drm/panel/panel-edp.c
+index 679f4af5246d..211fd0d06bf1 100644
+--- a/drivers/gpu/drm/panel/panel-edp.c
++++ b/drivers/gpu/drm/panel/panel-edp.c
+@@ -1991,6 +1991,7 @@ static const struct edp_panel_entry edp_panels[] = {
+ 	EDP_PANEL_ENTRY('B', 'O', 'E', 0x0cfa, &delay_200_500_e50, "NV116WHM-A4D"),
+ 	EDP_PANEL_ENTRY('B', 'O', 'E', 0x0d45, &delay_200_500_e80, "NV116WHM-N4B"),
+ 	EDP_PANEL_ENTRY('B', 'O', 'E', 0x0d73, &delay_200_500_e80, "NE140WUM-N6S"),
++	EDP_PANEL_ENTRY('B', 'O', 'E', 0x0db3, &delay_200_500_e80, "NV153WUM-N42"),
+ 	EDP_PANEL_ENTRY('B', 'O', 'E', 0x0ddf, &delay_200_500_e80, "NV116WHM-T01"),
+ 
+ 	EDP_PANEL_ENTRY('C', 'M', 'N', 0x1130, &delay_200_500_e50, "N116BGE-EB2"),
+@@ -2026,6 +2027,7 @@ static const struct edp_panel_entry edp_panels[] = {
+ 	EDP_PANEL_ENTRY('C', 'M', 'N', 0x14d6, &delay_200_500_e80_d50, "N140BGA-EA4"),
+ 	EDP_PANEL_ENTRY('C', 'M', 'N', 0x14e5, &delay_200_500_e80_d50, "N140HGA-EA1"),
+ 	EDP_PANEL_ENTRY('C', 'M', 'N', 0x1565, &delay_200_500_e80, "N156HCA-EAB"),
++	EDP_PANEL_ENTRY('C', 'M', 'N', 0x156b, &delay_200_500_e80_d50, "N153JCA-ELK"),
+ 	EDP_PANEL_ENTRY('C', 'M', 'N', 0x162b, &delay_200_500_e80_d50, "N160JCE-ELL"),
+ 	EDP_PANEL_ENTRY('C', 'M', 'N', 0x7402, &delay_200_500_e200_d50, "N116BCA-EAK"),
+ 
+@@ -2044,6 +2046,7 @@ static const struct edp_panel_entry edp_panels[] = {
+ 	EDP_PANEL_ENTRY('C', 'S', 'W', 0x146e, &delay_80_500_e50_d50, "MNE007QB3-1"),
+ 	EDP_PANEL_ENTRY('C', 'S', 'W', 0x147c, &delay_200_500_e50_d100, "MNE007QB3-1"),
+ 	EDP_PANEL_ENTRY('C', 'S', 'W', 0x1519, &delay_200_500_e80_d50, "MNF601BS1-3"),
++	EDP_PANEL_ENTRY('C', 'S', 'W', 0x1529, &delay_200_500_e80_d50, "MNF307QS3-2"),
+ 
+ 	EDP_PANEL_ENTRY('E', 'T', 'C', 0x0000, &delay_50_500_e200_d200_po2e335, "LP079QX1-SP0V"),
+ 
+-- 
+2.34.1
 
