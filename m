@@ -4,57 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4D5AD103E197
-	for <dri-devel@archiver.kernel.org>; Wed, 18 Mar 2026 15:25:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90F97103E19D
+	for <dri-devel@archiver.kernel.org>; Wed, 18 Mar 2026 15:27:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B949510E708;
-	Wed, 18 Mar 2026 15:25:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D82C410E714;
+	Wed, 18 Mar 2026 15:27:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="I4w94R6l";
+	dkim=pass (2048-bit key; secure) header.d=kde.org header.i=@kde.org header.b="mJ0t/PXw";
 	dkim-atps=neutral
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
- [213.167.242.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2221610E708
- for <dri-devel@lists.freedesktop.org>; Wed, 18 Mar 2026 15:25:37 +0000 (UTC)
-Received: from killaraus.ideasonboard.com
- (2001-14ba-703d-e500--2a1.rev.dnainternet.fi [IPv6:2001:14ba:703d:e500::2a1])
- by perceval.ideasonboard.com (Postfix) with UTF8SMTPSA id 9F349460;
- Wed, 18 Mar 2026 16:24:22 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1773847462;
- bh=EvRalwX2ntkbXZJQ1JFLu87v3wLuX2lWaocS5pxY0iY=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=I4w94R6lkXRcA8DjzP/FlxDWi6EjYqb7DT1HbLjRytTyzKpp/uq485r7z5sSVf5wA
- MuPWFMGC6Bz4mAfUJ6ISl+ZTtsMy/DRbsegEAfnO3OfyjRLFXKhHwpShI0JU45q7fN
- IIXH2xXaj43xmwZKTP97oOlugpTNb208oHdCcAGU=
-Date: Wed, 18 Mar 2026 17:25:33 +0200
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Cc: Biju Das <biju.das.jz@bp.renesas.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Anitha Chrisanthus <anitha.chrisanthus@intel.com>,
- Linus Walleij <linusw@kernel.org>,
- Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>,
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Magnus Damm <magnus.damm@gmail.com>,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- Hui Pu <Hui.Pu@gehealthcare.com>, Ian Ray <ian.ray@gehealthcare.com>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
- dri-devel@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 3/4] drm: rcar-du: encoder: convert to
- of_drm_find_and_get_bridge()
-Message-ID: <20260318152533.GA633439@killaraus.ideasonboard.com>
-References: <20260318-drm-bridge-alloc-getput-drm_of_find_bridge-4-v3-0-10f502520357@bootlin.com>
- <20260318-drm-bridge-alloc-getput-drm_of_find_bridge-4-v3-3-10f502520357@bootlin.com>
+Received: from letterbox.kde.org (letterbox.kde.org [46.43.1.242])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9BC6310E465
+ for <dri-devel@lists.freedesktop.org>; Wed, 18 Mar 2026 15:27:03 +0000 (UTC)
+Received: from mail-yx1-f43.google.com (mail-yx1-f43.google.com
+ [74.125.224.43]) (Authenticated sender: zamundaaa)
+ by letterbox.kde.org (Postfix) with ESMTPSA id 9873132349C
+ for <dri-devel@lists.freedesktop.org>; Wed, 18 Mar 2026 15:27:00 +0000 (GMT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kde.org; s=users;
+ t=1773847620; bh=XUl21vHhL+LbY2Xi3MlPdKDu1f5OFFZcciY5bcT+eJ4=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+ b=mJ0t/PXwsJ5MZru79gI3vdPzoMKbSsNQw4J6O1GtbTPrr/d8BXQgdevEwMUT/Ae7L
+ LCNs+QnplmfSsN4znSD4vf/2Uv7eqEhhnOqdTGuKc3zP9cDzJ7IQTR+Q92zQJ8kJZb
+ cQotS9P/SLkWJJTstHzPZnhrGWQ1MTsGt2n+xQvDay6yt0rHfOms5z2MOnHJ6s36xM
+ KB+czM8S+sR5LZghEVI+pTb0HSn8VSRPzSMVdrlWjrOYExCiKzqWyNAL3GUGA5alJh
+ Gz9UMdUw9NUfm/FI8LRrhIBIaD7n7g80loh9zKKVlOVzz/KEkU2dfzikB9HtF9HGTO
+ YO013G6RxPz6A==
+Received: by mail-yx1-f43.google.com with SMTP id
+ 956f58d0204a3-64ad9fabd08so67991d50.2
+ for <dri-devel@lists.freedesktop.org>; Wed, 18 Mar 2026 08:27:00 -0700 (PDT)
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWZVow8Hd5BnKyXjp5/JDyG7IjJ1sl6UXRa4NyK20r1OjGVFUY5e/3kxtopLB8VnpPPak4QprRKL/Y=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxHQs6c+0Ety184aM/BreGSyFaxDp89v//2mKFhHP0VDCeKTc78
+ VMzehEshZEyL+3TGo1XxoyE23jSWR0h4WRUD4bYmmm6tlguBmoW40pKYSC+eaQPWMPB28k/uKfT
+ WvM4SU+MWFLBd2U+bmnymLLLyJnt6KtQ=
+X-Received: by 2002:a05:690e:4293:20b0:64c:e7a0:7eb8 with SMTP id
+ 956f58d0204a3-64e9134c59fmr3433276d50.24.1773847619255; Wed, 18 Mar 2026
+ 08:26:59 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260318-drm-bridge-alloc-getput-drm_of_find_bridge-4-v3-3-10f502520357@bootlin.com>
+References: <20260223-atomic-v10-0-f59c8def2e70@intel.com>
+ <1a4462b8-def9-4474-8382-6e99b7c8276d@intel.com>
+ <aZ1OIDsVfFvyHUK5@intel.com> <5f04b5f1-744e-449e-9a45-00fd477256fc@intel.com>
+ <aZ1lbnop84k4du6N@intel.com>
+ <f155fae0285684108e92887e963358ea0ea158e9@intel.com>
+ <1a39b9d5-ed57-4f6b-a4e2-9e26a2734c32@intel.com>
+ <21d7edcec1b6fd767b066de4ec6734cea8992904@intel.com>
+In-Reply-To: <21d7edcec1b6fd767b066de4ec6734cea8992904@intel.com>
+From: Xaver Hugl <xaver.hugl@kde.org>
+Date: Wed, 18 Mar 2026 16:26:48 +0100
+X-Gmail-Original-Message-ID: <CAFZQkGy=P_kymzU5CdsFth9cKmyQQuWZhy5BRryf0gxULhJX=g@mail.gmail.com>
+X-Gm-Features: AaiRm51I2NGi-OkAtLpMwOYBB8XOow-ApWX-oWt-BkyKRFoBuRHFjzKq2mpknrI
+Message-ID: <CAFZQkGy=P_kymzU5CdsFth9cKmyQQuWZhy5BRryf0gxULhJX=g@mail.gmail.com>
+Subject: Re: [PATCH v10 0/7] User readable error codes on atomic_ioctl failure
+To: Jani Nikula <jani.nikula@linux.intel.com>
+Cc: "Murthy, Arun R" <arun.r.murthy@intel.com>, 
+ =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, harry.wentland@amd.com,
+ uma.shankar@intel.com, 
+ louis.chauvet@bootlin.com, naveen1.kumar@intel.com, 
+ ramya.krishna.yella@intel.com, dri-devel@lists.freedesktop.org, 
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
+ Suraj Kandpal <suraj.kandpal@intel.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,153 +84,19 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Luca,
+Am Di., 24. Feb. 2026 um 13:07 Uhr schrieb Jani Nikula
+<jani.nikula@linux.intel.com>:
+> Yes. But we can't guarantee all drivers will report the *same* first
+> error in the same circumstances. We can't guarantee we will maintain the
+> *same* first error over time, we can't make that promise without
+> painting ourselves in the corner wrt driver maintenance.
 
-Thank you for the patch.
+That's ok. The point of the error code is to reduce the combinatorial
+explosion of possible configurations compositors have to test in order
+to get a working configuration, but they're still expected to do (if
+necessary) many atomic tests in series, especially when modesets are
+involved. If the first reported error changes, it should still
+eventually reach a working configuration, even if it may take more or
+less time than before.
 
-On Wed, Mar 18, 2026 at 10:39:37AM +0100, Luca Ceresoli wrote:
-> of_drm_find_bridge() is deprecated. Move to its replacement
-> of_drm_find_and_get_bridge() which gets a bridge reference, and ensure it
-> is put when done.
-> 
-> We need to handle the two cases: when a panel_bridge is added and when it
-> isn't. So:
-> 
->  * in the 'else' case a panel_bridge is not added and bridge is found: use
->    of_drm_find_and_get_bridge() to get a reference to the found bridge
->  * in the 'then' case a panel_bridge is found using a devm function which
->    already takes a refcount and will put it on removal, but we need to take
->    another so the following code in this function always get exactly one
->    reference that it needs to put
-> 
-> In order to put the reference, add the needed drm_bridge_put() calls in the
-> existing cleanup function.
-> 
-> Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
-> ---
->  drivers/gpu/drm/renesas/rcar-du/rcar_du_encoder.c | 28 ++++++++++++++++++-----
->  drivers/gpu/drm/renesas/rcar-du/rcar_du_encoder.h |  1 +
->  drivers/gpu/drm/renesas/rcar-du/rcar_du_kms.c     |  2 ++
->  3 files changed, 25 insertions(+), 6 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/renesas/rcar-du/rcar_du_encoder.c b/drivers/gpu/drm/renesas/rcar-du/rcar_du_encoder.c
-> index 7ecec7b04a8d..5789fc75092f 100644
-> --- a/drivers/gpu/drm/renesas/rcar-du/rcar_du_encoder.c
-> +++ b/drivers/gpu/drm/renesas/rcar-du/rcar_du_encoder.c
-> @@ -51,7 +51,7 @@ int rcar_du_encoder_init(struct rcar_du_device *rcdu,
->  {
->  	struct rcar_du_encoder *renc;
->  	struct drm_connector *connector;
-> -	struct drm_bridge *bridge;
-> +	struct drm_bridge *bridge __free(drm_bridge_put) = NULL;
->  	int ret;
->  
->  	/*
-> @@ -69,20 +69,26 @@ int rcar_du_encoder_init(struct rcar_du_device *rcdu,
->  
->  		bridge = devm_drm_panel_bridge_add_typed(rcdu->dev, panel,
->  							 DRM_MODE_CONNECTOR_DPI);
-> -		if (IS_ERR(bridge))
-> -			return PTR_ERR(bridge);
-> +		if (IS_ERR(bridge)) {
-> +			// Inhibit the cleanup action on an ERR_PTR
-
-C-style comments.
-
-Shouldn't drm_bridge_put() be extended to be a no-op when called on an
-ERR_PTR ?
-
-> +			ret = PTR_ERR(bridge);
-> +			bridge = NULL;
-> +			return ret;
-> +		}
-> +
-
-A comment here would be good.
-
-		/*
-		 * The reference taken by devm_drm_panel_bridge_add_typed() is
-		 * released automatically. Take a second one for the __free()
-		 * when this function will return.
-		 */
-
-> +		drm_bridge_get(bridge);
->  	} else {
-> -		bridge = of_drm_find_bridge(enc_node);
-> +		bridge = of_drm_find_and_get_bridge(enc_node);
->  		if (!bridge)
->  			return -EPROBE_DEFER;
->  
->  		if (output == RCAR_DU_OUTPUT_LVDS0 ||
->  		    output == RCAR_DU_OUTPUT_LVDS1)
-> -			rcdu->lvds[output - RCAR_DU_OUTPUT_LVDS0] = bridge;
-> +			rcdu->lvds[output - RCAR_DU_OUTPUT_LVDS0] = drm_bridge_get(bridge);
-
-Line wrap.
-
->  
->  		if (output == RCAR_DU_OUTPUT_DSI0 ||
->  		    output == RCAR_DU_OUTPUT_DSI1)
-> -			rcdu->dsi[output - RCAR_DU_OUTPUT_DSI0] = bridge;
-> +			rcdu->dsi[output - RCAR_DU_OUTPUT_DSI0] = drm_bridge_get(bridge);
-
-Same.
-
->  	}
->  
->  	/*
-> @@ -135,3 +141,13 @@ int rcar_du_encoder_init(struct rcar_du_device *rcdu,
->  
->  	return drm_connector_attach_encoder(connector, &renc->base);
->  }
-> +
-> +void rcar_du_encoder_cleanup(struct rcar_du_device *rcdu)
-> +{
-> +	int i;
-
-i is never negative, make it unsigned.
-
-> +
-> +	for (i = 0; i < RCAR_DU_MAX_LVDS; i++)
-
-Use ARRAY_SIZE() here.
-
-> +		drm_bridge_put(rcdu->lvds[i]);
-> +	for (i = 0; i < RCAR_DU_MAX_DSI; i++)
-
-Same here.
-
-I have tested the patch and it seems to behave fine.
-
-> +		drm_bridge_put(rcdu->dsi[i]);
-> +}
-> diff --git a/drivers/gpu/drm/renesas/rcar-du/rcar_du_encoder.h b/drivers/gpu/drm/renesas/rcar-du/rcar_du_encoder.h
-> index e5ec8fbb3979..b2b5e93f30f8 100644
-> --- a/drivers/gpu/drm/renesas/rcar-du/rcar_du_encoder.h
-> +++ b/drivers/gpu/drm/renesas/rcar-du/rcar_du_encoder.h
-> @@ -25,5 +25,6 @@ struct rcar_du_encoder {
->  int rcar_du_encoder_init(struct rcar_du_device *rcdu,
->  			 enum rcar_du_output output,
->  			 struct device_node *enc_node);
-> +void rcar_du_encoder_cleanup(struct rcar_du_device *rcdu);
->  
->  #endif /* __RCAR_DU_ENCODER_H__ */
-> diff --git a/drivers/gpu/drm/renesas/rcar-du/rcar_du_kms.c b/drivers/gpu/drm/renesas/rcar-du/rcar_du_kms.c
-> index 60e6f43b8ab2..82d16a999ee6 100644
-> --- a/drivers/gpu/drm/renesas/rcar-du/rcar_du_kms.c
-> +++ b/drivers/gpu/drm/renesas/rcar-du/rcar_du_kms.c
-> @@ -836,6 +836,8 @@ static void rcar_du_modeset_cleanup(struct drm_device *dev, void *res)
->  
->  	for (i = 0; i < ARRAY_SIZE(rcdu->cmms); ++i)
->  		platform_device_put(rcdu->cmms[i]);
-> +
-> +	rcar_du_encoder_cleanup(rcdu);
->  }
->  
->  int rcar_du_modeset_init(struct rcar_du_device *rcdu)
-> 
-
--- 
-Regards,
-
-Laurent Pinchart
+- Xaver
