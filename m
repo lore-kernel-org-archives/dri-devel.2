@@ -4,51 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3FB91107760E
-	for <dri-devel@archiver.kernel.org>; Wed, 18 Mar 2026 19:50:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D7D43107760E
+	for <dri-devel@archiver.kernel.org>; Wed, 18 Mar 2026 19:50:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B5F7510E731;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B103E10E43B;
 	Wed, 18 Mar 2026 19:50:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=adishatz.org header.i=@adishatz.org header.b="p8CLN+8F";
+	dkim=pass (2048-bit key; secure) header.d=pm.me header.i=@pm.me header.b="qW/She3I";
 	dkim-atps=neutral
-X-Greylist: delayed 376 seconds by postgrey-1.36 at gabe;
- Wed, 18 Mar 2026 11:03:17 UTC
-Received: from adishatz.org (ns314768.ip-37-187-26.eu [37.187.26.192])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DA95810E7CB;
- Wed, 18 Mar 2026 11:03:17 +0000 (UTC)
-Received: from p-si-bellegarde.ad.iut-nantes.univ-nantes.prive
- (235.33.83.79.rev.sfr.net [79.83.33.235])
- by adishatz.org (Postfix) with ESMTPSA id D10344C01D7;
- Wed, 18 Mar 2026 11:56:57 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=adishatz.org;
- s=mail; t=1773831418;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=BGfJw6XwE9tAljPxpX4xQiqwZDvXpIL/LNmJcXZ1cQw=;
- b=p8CLN+8FZxrOpaurp3R9Q+94Tc7Jek+VWcLxwoWpAYcFa8WQ+jXO2aDaAm9mgnwhV6gEj7
- igx/Eavip08P41dMHnmGLYeTbq2oZAEo7Fr6MDOpS4bXsb8sfRhA/0HpHF7uScoP7wY5/F
- wLQ74urq4Z1AjEAfliX2t+Tp7xCAlqSW22eTYL7Cm1L/FwugwZdPQi9vsT9eAWeN611JpY
- AsWwaV4Oh0M+1q9m8uy37mJiE00BgpL3GI0JH7M8UB9SVhKvIzfFpk7aTXUO7Zk7lfx7OU
- nYrnNvduKomgZpksOuHx6ijOKE8+NWDxsisDG7j/PqQBO4EVQwRT3mMBABrdEQ==
-Authentication-Results: ORIGINATING; auth=pass smtp.auth=cedric.bellegarde
- smtp.mailfrom=cedric.bellegarde@adishatz.org
-From: =?UTF-8?q?C=C3=A9dric=20Bellegarde?= <cedric.bellegarde@adishatz.org>
-To: robin.clark@oss.qualcomm.com
-Cc: lumag@kernel.org, abhinav.kumar@linux.dev, jesszhan0024@gmail.com,
- sean@poorly.run, marijn.suijten@somainline.org, airlied@gmail.com,
- simona@ffwll.ch, antomani103@gmail.com, mitltlatltl@gmail.com,
- krzk@kernel.org, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org,
- =?UTF-8?q?C=C3=A9dric=20Bellegarde?= <cedric.bellegarde@adishatz.org>
-Subject: [PATCH] drm/msm/dsi: fix race between cmd transfer and host power off
-Date: Wed, 18 Mar 2026 11:56:35 +0100
-Message-ID: <20260318105635.270949-1-cedric.bellegarde@adishatz.org>
-X-Mailer: git-send-email 2.53.0
+X-Greylist: delayed 7678 seconds by postgrey-1.36 at gabe;
+ Wed, 18 Mar 2026 09:41:01 UTC
+Received: from mail-4316.protonmail.ch (mail-4316.protonmail.ch [185.70.43.16])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8AD2410E78D;
+ Wed, 18 Mar 2026 09:41:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+ s=protonmail3; t=1773826859; x=1774086059;
+ bh=O8NvNXddRHC58zg8IZi+YXxbSeJrGgRudFwpnQQCLOI=;
+ h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+ Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+ b=qW/She3IcHNH9eyby4cVencADqZlqCCAecmUBWR7bGPfXEa+hxFyeA1tc7gKb2mfV
+ geKtdAj3FkZjv0aUjxFXoQ1qKhSucsvYkIM7+D6vnSqyckR7S1rqfK/IObGWVN9Cmk
+ OlrgH2IbSQnox200PTBnf5Id5+UvHqj76UQmvn44U9W3i2DocmzrGMVkmC0B4Rhtdb
+ FTvTvkGMHWHpcpvPAMYEwbjgvfG4lDTQnaRdgGelCECL9c7S3fWaAHe5Tv1i8jQ5uD
+ NR97KNKNUwXWWEpCrSY3dtV0t0Jltg1ZDR2VneJ4yaIo/5znDrKa0E1BzgCYFFKV0J
+ p8XxSDpNLtddQ==
+Date: Wed, 18 Mar 2026 09:40:55 +0000
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>
+From: Alexander Koskovich <akoskovich@pm.me>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ Alexander Koskovich <akoskovich@pm.me>
+Subject: [PATCH 0/3] drm/msm: add RGB101010 pixel format and fix 10-bit DSC
+ timing
+Message-ID: <20260318-dsi-rgb101010-support-v1-0-6021eb79e796@pm.me>
+Feedback-ID: 37836894:user:proton
+X-Pm-Message-ID: d5e723548ab3334420aaaa0fc3e529ba89d8c0c5
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Wed, 18 Mar 2026 19:50:21 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -66,117 +64,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The transfer function dsi_host_transfer() guards against the DSI host
-being inactive by checking msm_host->power_on. However, power_on is
-cleared at the end of msm_dsi_host_power_off(), after clocks have
-already been disabled. This creates a window where a concurrent DCS
-command (e.g. a brightness update from the backlight driver) can pass
-the power_on check, call xfer_prepare()/xfer_restore(), and toggle
-link clocks that are already being torn down, leaving
-disp_cc_mdss_byte0_clk stuck in the 'on' state.
+This series adds support for the RGB101010 (30bpp) pixel format and
+fixes a DSC timing bug exposed by non 8 bit panels.
 
-Checking enabled instead of power_on closes the race by rejecting
-transfers as soon as the bridge starts tearing down, before any clocks
-are touched.
+Tested on the BOE BF068MWM-TD0 panel (10 bit DSC) on the Nothing
+Phone (3a).
 
-[11816.846734] disp_cc_mdss_byte0_clk status stuck at 'on'
-[11816.846752] WARNING: CPU: 4 PID: 26399 at drivers/clk/qcom/clk-branch.c:=
-88 clk_branch_toggle+0x128/0x178
-[11816.861715] Modules linked in: rfcomm rmnet algif_hash algif_skcipher q6=
-asm_dai q6voice_dai q6routing q6afe_dai q6voice q6adm q6cvp q6afe q6asm q6m=
-vm q6cvs q6voice_common snd_q6dsp_common q6core bnep gpio_wcd934x snd_soc_w=
-cd934x snd_soc_wcd_mbhc soundwire_qcom snd_soc_wcd_classh venus_enc venus_d=
-ec imx371 wcd934x regmap_slimbus imx376 lc898217xc videobuf2_dma_contig fas=
-trpc v4l2_cci qrtr_smd rpmsg_ctrl hci_uart btqca btbcm bluetooth ecdh_gener=
-ic ecc pwrseq_core snd_soc_max98927 qcom_camss ath10k_snoc videobuf2_dma_sg=
- snd_soc_sdm845 videobuf2_memops venus_core ath10k_core qcom_smbx leds_qcom=
-_flash snd_soc_rt5663 leds_qcom_lpg ath v4l2_mem2mem snd_soc_qcom_sdw video=
-buf2_v4l2 v4l2_fwnode videobuf2_common v4l2_async snd_soc_qcom_common bq27x=
-xx_battery_i2c qcom_pbs bq27xxx_battery led_class_multicolor mac80211 snd_s=
-oc_rl6231 rtc_pm8xxx libarc4 soundwire_bus videodev qcom_stats qcom_spmi_rr=
-adc reset_qcom_pdc i2c_qcom_cci cfg80211 camcc_sdm845 rfkill mc qcom_rng ip=
-a qcom_q6v5_mss slim_qcom_ngd_ctrl qcom_wdt icc_bwmon qrtr
-[11816.861812]  qcom_q6v5_pas qcom_pil_info qcom_q6v5 qcom_sysmon qcom_comm=
-on qcom_glink_smem joydev zram zsmalloc uhid uinput nft_reject_inet nft_rej=
-ect nf_reject_ipv6 nf_reject_ipv4 nft_ct nf_conntrack nf_defrag_ipv6 nf_def=
-rag_ipv4 nf_tables fuse nfnetlink ipv6 qcom_spmi_haptics rmi_i2c rmi_core
-[11816.978965] CPU: 4 UID: 0 PID: 26399 Comm: (sd-bright) Tainted: G       =
- W           6.16.7-sdm845 #1000-postmarketos-qcom-sdm845 PREEMPT
-[11816.991580] Tainted: [W]=3DWARN
-[11816.994637] Hardware name: OnePlus 6 (DT)
-[11816.998735] pstate: 604000c5 (nZCv daIF +PAN -UAO -TCO -DIT -SSBS BTYPE=
-=3D--)
-[11817.005844] pc : clk_branch_toggle+0x128/0x178
-[11817.010384] lr : clk_branch_toggle+0x124/0x178
-[11817.014956] sp : ffff8000991f3970
-[11817.018358] x29: ffff8000991f3980 x28: ffff0000dad38000 x27: 00000000000=
-00000
-[11817.025634] x26: 0000000000000000 x25: 0000000000000000 x24: 00000000000=
-00000
-[11817.032887] x23: 0000000000000000 x22: ffffa63e2af42178 x21: ffffa63e2b5=
-6e128
-[11817.040169] x20: ffffa63e29da5a90 x19: 0000000000000000 x18: 00000000000=
-00003
-[11817.047451] x17: 0000000000000000 x16: 000000000000000c x15: 00000000000=
-00003
-[11817.054701] x14: ffffa63e2b2f6a10 x13: 0000000000000003 x12: 00000000000=
-00003
-[11817.061982] x11: 00000000ffffefff x10: c0000000ffffefff x9 : e43cc05c499=
-6c100
-[11817.069260] x8 : e43cc05c4996c100 x7 : 7461206b63757473 x6 : 00000000000=
-00027
-[11817.076511] x5 : ffffa63e2b8726d3 x4 : ffffa63e2ae146c4 x3 : 00000000000=
-00000
-[11817.083792] x2 : 0000000000000000 x1 : ffff8000991f3710 x0 : 00000000fff=
-ffff0
-[11817.091042] Call trace:
-[11817.093572]  clk_branch_toggle+0x128/0x178 (P)
-[11817.098112]  clk_branch2_disable+0x28/0x40
-[11817.102308]  clk_core_disable+0x64/0x1b8
-[11817.106358]  clk_core_disable_lock+0x90/0x120
-[11817.110810]  clk_disable+0x2c/0x40
-[11817.114298]  dsi_link_clk_disable_6g+0x78/0x98
-[11817.118871]  msm_dsi_host_xfer_restore+0xf0/0x120
-[11817.123667]  msm_dsi_manager_cmd_xfer+0xfc/0x178
-[11817.128411]  dsi_host_transfer+0x48/0x110
-[11817.132509]  mipi_dsi_dcs_set_display_brightness_large+0x8c/0xd0
-[11817.138651]  sofef00_panel_bl_update_status+0x3c/0x60
-[11817.143802]  backlight_device_set_brightness+0x88/0x128
-[11817.149124]  brightness_store+0x64/0xa8
-[11817.153082]  dev_attr_store+0x24/0x40
-[11817.156835]  sysfs_kf_write+0x8c/0xb8
-[11817.160591]  kernfs_fop_write_iter+0xe4/0x190
-[11817.165073]  do_iter_readv_writev+0x168/0x1c8
-[11817.169515]  vfs_writev+0x16c/0x378
-[11817.173122]  do_writev+0x84/0x130
-[11817.176523]  __arm64_sys_writev+0x2c/0x40
-[11817.180618]  invoke_syscall+0x48/0x100
-[11817.184460]  el0_svc_common+0x88/0xe8
-[11817.188217]  do_el0_svc+0x28/0x40
-[11817.191621]  el0_svc+0x38/0x88
-[11817.194766]  el0t_64_sync_handler+0x78/0x108
-[11817.199161]  el0t_64_sync+0x198/0x1a0
+Note, I'd appreciate a comment on the INTF timing change from someone
+at QCOM who knows the DPU hardware a bit better, this appears to be
+what downstream is doing regardless of bpp, but let me know if there's
+a better solution here.
 
-Signed-off-by: C=C3=A9dric Bellegarde <cedric.bellegarde@adishatz.org>
+Signed-off-by: Alexander Koskovich <akoskovich@pm.me>
 ---
- drivers/gpu/drm/msm/dsi/dsi_host.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Alexander Koskovich (3):
+      drm/mipi-dsi: add RGB101010 pixel format
+      drm/msm/dsi: Add support for RGB101010 pixel format
+      drm/msm/dpu: fix video mode DSC INTF timing width for non 8 bit panel=
+s
 
-diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/d=
-si_host.c
-index 4d75529c0e85..f66f138cfba0 100644
---- a/drivers/gpu/drm/msm/dsi/dsi_host.c
-+++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
-@@ -1652,7 +1652,7 @@ static ssize_t dsi_host_transfer(struct mipi_dsi_host=
- *host,
- 	struct msm_dsi_host *msm_host =3D to_msm_dsi_host(host);
- 	int ret;
-=20
--	if (!msg || !msm_host->power_on)
-+	if (!msg || !msm_host->enabled)
- 		return -EINVAL;
-=20
- 	mutex_lock(&msm_host->cmd_mutex);
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c | 12 +++++++-----
+ drivers/gpu/drm/msm/dsi/dsi_host.c                   |  2 ++
+ drivers/gpu/drm/msm/registers/display/dsi.xml        |  4 +++-
+ include/drm/drm_mipi_dsi.h                           |  4 ++++
+ 4 files changed, 16 insertions(+), 6 deletions(-)
+---
+base-commit: f338e77383789c0cae23ca3d48adcc5e9e137e3c
+change-id: 20260318-dsi-rgb101010-support-4956b1cd8657
+
+Best regards,
 --=20
-2.53.0
+Alexander Koskovich <akoskovich@pm.me>
+
 
