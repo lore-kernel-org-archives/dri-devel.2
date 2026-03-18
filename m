@@ -4,52 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 77A37FCD0BE
-	for <dri-devel@archiver.kernel.org>; Wed, 18 Mar 2026 06:16:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 450E6FCD0C1
+	for <dri-devel@archiver.kernel.org>; Wed, 18 Mar 2026 06:42:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E28EE10E688;
-	Wed, 18 Mar 2026 06:16:41 +0000 (UTC)
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F3B7810E688
- for <dri-devel@lists.freedesktop.org>; Wed, 18 Mar 2026 06:16:40 +0000 (UTC)
-Received: from edelgard.fodlan.icenowy.me (unknown [112.94.100.43])
- by APP-03 (Coremail) with SMTP id rQCowAB3ldxAQ7ppkbz+Cg--.16905S2;
- Wed, 18 Mar 2026 14:16:33 +0800 (CST)
-Message-ID: <8b52a9190a237a8bb94a23bf06b6a0589394f553.camel@iscas.ac.cn>
-Subject: Re: [PATCH] drm/loongson: stop to set get_vblank_timestamp for
- 7A1000 CRTC
-From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-To: Thomas Zimmermann <tzimmermann@suse.de>, Sui Jingfeng	
- <suijingfeng@loongson.cn>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>,  Maxime Ripard <mripard@kernel.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Date: Wed, 18 Mar 2026 14:16:31 +0800
-In-Reply-To: <e716ebde-a4f3-4035-bb21-3c6ab2fe06a4@suse.de>
-References: <20260314165421.1201790-1-zhengxingda@iscas.ac.cn>
- <e716ebde-a4f3-4035-bb21-3c6ab2fe06a4@suse.de>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8A91810E070;
+	Wed, 18 Mar 2026 06:42:57 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ij1csOO1";
+	dkim-atps=neutral
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3190810E070;
+ Wed, 18 Mar 2026 06:42:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1773816177; x=1805352177;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=sEs7P2PcLE3PTFFUlLNl7o4OCIkXogd8/YHkTz7eGi0=;
+ b=ij1csOO12IutEk+dQJJrxot6iEaEJ17p6RH4mHZM0pRDJrILWsW3LHb3
+ Z6TjxR/ZLvtKhlw1P4dkuimXO/MCeqk/UCibpTsYfP3nUXQf70z2hRlO2
+ MXesYx5KgjmLbcRqER5je9lPDqWr9HwHXcLIbPqHsuSqM7bJELGC96/Q3
+ MmxoaJAhWn2/96tTsbtGcpmfQyduGgK/g9aJLj3/5c+MMQuQnY2UMdbC4
+ CVTzfqCT4bea9Ph5vSAAZssYqhdpg0K/VC+76/SsLESUOyVsKzrHE4YEE
+ 0P5qj4E7vgbTdaBxvxUXg+dtNufjaAP4HP0Ta11/Y2MwUvBkrdR9dzdzz A==;
+X-CSE-ConnectionGUID: lS8c/VzzSnunicyaEum7DQ==
+X-CSE-MsgGUID: 4tyv1aV6R3iBUlomj0J3lQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11732"; a="78723323"
+X-IronPort-AV: E=Sophos;i="6.23,127,1770624000"; d="scan'208";a="78723323"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+ by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Mar 2026 23:42:57 -0700
+X-CSE-ConnectionGUID: Pc2BJN2RQ/qMTLW7oD6Hng==
+X-CSE-MsgGUID: zxAthQa5RqSuk09uw1MKmQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,127,1770624000"; d="scan'208";a="227464484"
+Received: from jraag-z790m-itx-wifi.iind.intel.com ([10.190.239.23])
+ by orviesa005.jf.intel.com with ESMTP; 17 Mar 2026 23:42:52 -0700
+From: Mallesh Koujalagi <mallesh.koujalagi@intel.com>
+To: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ rodrigo.vivi@intel.com
+Cc: andrealmeid@igalia.com, christian.koenig@amd.com, airlied@gmail.com,
+ simona.vetter@ffwll.ch, mripard@kernel.org, anshuman.gupta@intel.com,
+ badal.nilawar@intel.com, riana.tauro@intel.com, karthik.poosa@intel.com,
+ sk.anirban@intel.com, raag.jadav@intel.com,
+ Mallesh Koujalagi <mallesh.koujalagi@intel.com>
+Subject: [PATCH v2 0/5] Introduce cold reset recovery method
+Date: Wed, 18 Mar 2026 12:10:17 +0530
+Message-ID: <20260318064016.374656-7-mallesh.koujalagi@intel.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-X-CM-TRANSID: rQCowAB3ldxAQ7ppkbz+Cg--.16905S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxCFWxCF4UXryrAw1fAry7Jrb_yoW5Gw1kpF
- sFkr12yrWvqFyaywnrJF18Zayru3yrJF97WF13tw1ak39Iqrn7AF10yr4a93W7Xrn7u3yS
- qrnFgr1YkFsa9aUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUUkFb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
- 0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
- A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xII
- jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I
- 8E87Iv6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI
- 64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8Jw
- Am72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lc7CjxVAaw2AFwI0_JF0_Jw1l42xK
- 82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGw
- C20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48J
- MIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMI
- IF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E
- 87Iv6xkF7I0E14v26r1j6r4UYxBIdaVFxhVjvjDU0xZFpf9x07bYYLPUUUUU=
-X-Originating-IP: [112.94.100.43]
-X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,69 +70,102 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-=E5=9C=A8 2026-03-16=E4=B8=80=E7=9A=84 08:53 +0100=EF=BC=8CThomas Zimmerman=
-n=E5=86=99=E9=81=93=EF=BC=9A
->=20
->=20
-> Am 14.03.26 um 17:54 schrieb Icenowy Zheng:
-> > As there's no known hardware capability about querying vblank on
-> > the
-> > 7A1000 display controller, setting get_vblank_timestamp will
-> > mislead the
-> > kernel about the support of DC-backed high precision vblank query.
-> >=20
-> > Drop this function pointer in the CRTC function table for 7A1000.
-> >=20
-> > This solves a kernel warning when booting Linux 7.0-rc3 on a
-> > 3A4000+7A1000 Haier Boyue G51 laptop (with injected EDID for
-> > replicating
-> > the display timing set by the firmware).
-> >=20
-> > Signed-off-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
->=20
-> Acked-by: Thomas Zimmermann <tzimmermann@suse.de>
+This series builds on top of Introduce Xe Uncorrectable Error Handling[1]
+and adds support for handling power management unit (PMU) errors
+that require a complete device power cycle to recover.
 
-Well, is my following understand right?
+Certain PMU error conditions leave the device in a persistent hardware
+error state that cannot be cleared through existing recovery mechanisms
+such as driver reload or PCIe reset. In these cases, functionality can
+only be restored by performing a cold reset (complete power cycle).
 
-- A hardware that does not have hardware vblank timing/counting ability
-shouldn't set .get_vblank_timestamp .
-- A hardware that supports vblank counting but not timing should set
-.get_vblank_timestamp to the
-drm_crtc_vblank_helper_get_vblank_timestamp helper to allow vblank
-timing estimate with counter.
+To support this, the series introduces a new DRM wedging recovery
+method, DRM_WEDGE_RECOVERY_COLD_RESET (BIT(4)). When a device is wedged
+with this method, the DRM core notifies userspace via a uevent that a cold
+reset is required. This allows userspace to take appropriate action to
+power-cycle the device.
 
-(P.S. There's a DisplayCurrentLocation register that is valid for
-7A1000, which returns the current X and Y positions; but I wonder
-whether this is meaningful for vblank querying.
-In addition, this DC looks quite similar to Verisilicon DCNano, which
-was used by i.MX8ULP (although many functionality on the i.MX8ULP
-manual is missing, things until cursor0 match between LS7A2000 manual
-and i.MX8ULP manual). I wonder whether NXP people abandoned the
-mainlining of DCNano driver because of drm/loongson?)
+Example uevent received:
+  SUBSYSTEM=drm
+  WEDGED=cold-reset
+  DEVPATH=/devices/.../drm/card0
 
-P.S.2. I saw that Sui Jingfeng's mailbox is bouncing and the driver is
-going to be orphaned. If he wouldn't react with other ways, maybe I
-could try to maintain this driver? I have Loongson-3A4000 + LS7A1000
-and Loongson-3A6000 + LS7A2000 hardwares at home.
+The cold reset recovery path can be exercised through the debugfs
+interface:
 
->=20
-> > ---
-> > =C2=A0 drivers/gpu/drm/loongson/lsdc_crtc.c | 1 -
-> > =C2=A0 1 file changed, 1 deletion(-)
-> >=20
-> > diff --git a/drivers/gpu/drm/loongson/lsdc_crtc.c
-> > b/drivers/gpu/drm/loongson/lsdc_crtc.c
-> > index 587fbe285e9ef..b3af8e0cdb15f 100644
-> > --- a/drivers/gpu/drm/loongson/lsdc_crtc.c
-> > +++ b/drivers/gpu/drm/loongson/lsdc_crtc.c
-> > @@ -721,7 +721,6 @@ static const struct drm_crtc_funcs
-> > ls7a1000_crtc_funcs =3D {
-> > =C2=A0=C2=A0	.late_register =3D lsdc_crtc_late_register,
-> > =C2=A0=C2=A0	.enable_vblank =3D lsdc_crtc_enable_vblank,
-> > =C2=A0=C2=A0	.disable_vblank =3D lsdc_crtc_disable_vblank,
-> > -	.get_vblank_timestamp =3D
-> > drm_crtc_vblank_helper_get_vblank_timestamp,
-> > =C2=A0=C2=A0	.atomic_print_state =3D lsdc_crtc_atomic_print_state,
-> > =C2=A0 };
-> > =C2=A0=20
+  echo 1 > /sys/kernel/debug/dri/N/trigger_punit_error
+
+This triggers the PMU error handler, wedges the device using the cold
+reset recovery method, and emits the corresponding uevent to userspace.
+
+Detailed description in commit message.
+
+[1] https://patchwork.freedesktop.org/series/160482/
+This patch series introduces a call to xe_punit_error_handler() from
+within handle_soc_internal_errors() when PMU errors detected.
+
+v2:
+- Add use case: Handling errors from power management unit,
+  which requires a complete power cycle (cold reset)
+  to recover. (Christian)
+- Add several instead of number to avoid update. (Jani)
+
+Cc: André Almeida <andrealmeid@igalia.com>
+Cc: Christian König <christian.koenig@amd.com>
+Cc: David Airlie <airlied@gmail.com>
+Cc: Simona Vetter <simona.vetter@ffwll.ch>
+Cc: Maxime Ripard <mripard@kernel.org>
+
+Mallesh Koujalagi (4):
+  drm: Add DRM_WEDGE_RECOVERY_COLD_RESET for power management unit error
+  drm/doc: Document DRM_WEDGE_RECOVERY_COLD_RESET recovery method
+  drm/xe: Add handler for power management unit errors which require
+    cold-reset
+  drm/xe/debugfs: Add interface to trigger power management unit error
+    handler
+
+Riana Tauro (1):
+  Introduce Xe Uncorrectable Error Handling
+
+ Documentation/gpu/drm-uapi.rst                |  73 +++-
+ drivers/gpu/drm/drm_drv.c                     |   2 +
+ drivers/gpu/drm/xe/Makefile                   |   4 +
+ drivers/gpu/drm/xe/regs/xe_sysctrl_regs.h     |  36 ++
+ drivers/gpu/drm/xe/xe_debugfs.c               |  38 ++
+ drivers/gpu/drm/xe/xe_device.c                |  15 +
+ drivers/gpu/drm/xe/xe_device.h                |  15 +
+ drivers/gpu/drm/xe/xe_device_types.h          |  12 +
+ drivers/gpu/drm/xe/xe_gt.c                    |  11 +-
+ drivers/gpu/drm/xe/xe_guc_submit.c            |   9 +-
+ drivers/gpu/drm/xe/xe_hw_error.c              |  27 ++
+ drivers/gpu/drm/xe/xe_hw_error.h              |   1 +
+ drivers/gpu/drm/xe/xe_pci.c                   |   5 +
+ drivers/gpu/drm/xe/xe_pci_error.c             | 111 +++++
+ drivers/gpu/drm/xe/xe_pci_types.h             |   1 +
+ drivers/gpu/drm/xe/xe_ras.c                   | 332 +++++++++++++++
+ drivers/gpu/drm/xe/xe_ras.h                   |  16 +
+ drivers/gpu/drm/xe/xe_ras_types.h             | 282 +++++++++++++
+ drivers/gpu/drm/xe/xe_survivability_mode.c    |  12 +-
+ drivers/gpu/drm/xe/xe_sysctrl.c               |  80 ++++
+ drivers/gpu/drm/xe/xe_sysctrl.h               |  13 +
+ drivers/gpu/drm/xe/xe_sysctrl_mailbox.c       | 390 ++++++++++++++++++
+ drivers/gpu/drm/xe/xe_sysctrl_mailbox.h       |  35 ++
+ drivers/gpu/drm/xe/xe_sysctrl_mailbox_types.h |  55 +++
+ drivers/gpu/drm/xe/xe_sysctrl_types.h         |  33 ++
+ include/drm/drm_device.h                      |   1 +
+ 26 files changed, 1600 insertions(+), 9 deletions(-)
+ create mode 100644 drivers/gpu/drm/xe/regs/xe_sysctrl_regs.h
+ create mode 100644 drivers/gpu/drm/xe/xe_pci_error.c
+ create mode 100644 drivers/gpu/drm/xe/xe_ras.c
+ create mode 100644 drivers/gpu/drm/xe/xe_ras.h
+ create mode 100644 drivers/gpu/drm/xe/xe_ras_types.h
+ create mode 100644 drivers/gpu/drm/xe/xe_sysctrl.c
+ create mode 100644 drivers/gpu/drm/xe/xe_sysctrl.h
+ create mode 100644 drivers/gpu/drm/xe/xe_sysctrl_mailbox.c
+ create mode 100644 drivers/gpu/drm/xe/xe_sysctrl_mailbox.h
+ create mode 100644 drivers/gpu/drm/xe/xe_sysctrl_mailbox_types.h
+ create mode 100644 drivers/gpu/drm/xe/xe_sysctrl_types.h
+
+-- 
+2.34.1
 
