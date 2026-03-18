@@ -4,155 +4,136 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 156D010854DC
-	for <dri-devel@archiver.kernel.org>; Wed, 18 Mar 2026 09:36:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B4FC610854DB
+	for <dri-devel@archiver.kernel.org>; Wed, 18 Mar 2026 09:39:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 438D410E77D;
-	Wed, 18 Mar 2026 09:36:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 22BFD10E786;
+	Wed, 18 Mar 2026 09:39:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Kn+UvlwF";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="k0fdbjwC";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="YkFxmJQl";
 	dkim-atps=neutral
-Received: from CO1PR03CU002.outbound.protection.outlook.com
- (mail-westus2azon11010029.outbound.protection.outlook.com [52.101.46.29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 38D0410E775;
- Wed, 18 Mar 2026 09:36:05 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=HeXvCmIcG9vBEyPRIrktB3mZxYM8KABXcej7E8V6PNOF2B7wYuwwSbxWeZggoXp5+GyF0+1Ubz7XjEHKTdI7nCRTWLRbMITl1pJlcU0vXOFHLgQFlseowEMTlgrmmk5O41bWQIqZdJdNta3R39nVl0T7kcMre36VWlV4FKLdGMy1+hJ/8AF+joIz1Y1oyoKFQyPxOtSCAAWJAcqVY+OneXdrrT6Ej3KY2ARpCpQsbPGm08i+pjX/3Z6cC6RpicXVHpgdUif14/4lS2BMXClyOuE8Zwo9wl/o38RruzxbD7Km5TDcO//EF6vlwEnjLbl3Tquxd+JTcNkhx4Evh8fZKw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=WBZGeXfcT5hGu1lP9x2cAzc913fAJXkKlIkeqqZP+TE=;
- b=ylm4jLzIYiFLlQzRxozYfbISblLG6dLBy2CmHlswAylNHz8xC1sOEpOa+OREfFNKje2FKns9ZrOVIgwrifR0qb0Eb8wWPbuPsHt0PCRWtKgutNk6kcebmuRodIiN2O1sYqkosIc1ksrpV/eMPyoP/7co+Q/YVwQG1nBJtvhY9ZhmyC1A8iJi7Giv8qqCuuQhRDkCxJJlt1knk3sZis/A0WZe/hyMOpMEwl//GttAvtAnkWibbFnZE5pcfTlMHCVJ6JabbuATtvNe9vpBB9ml7m+sFlxSuz6mQjO3DndNmGEiBsuyojLkDFGFaWJ0w0Njx+GlyTAVz3POTOz/XWKkMQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WBZGeXfcT5hGu1lP9x2cAzc913fAJXkKlIkeqqZP+TE=;
- b=Kn+UvlwFjh9gK1h2qXC1DxJwOZXeoaEpeeZZreh2Buvr/5WVJs1Ri1p5LHGP5kpfPxl9HYWOI0aXw/ow4Pi/A/DE5F1p56Xd64fdBTDBSgBGF7AMbPkRoJS70/ZjE8XmeOXkMf7iTqRcRv7DsuomBXQwxTplELIeypOXXQYFZJA=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by BY5PR12MB4273.namprd12.prod.outlook.com (2603:10b6:a03:212::16)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.19; Wed, 18 Mar
- 2026 09:36:01 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.20.9723.016; Wed, 18 Mar 2026
- 09:36:01 +0000
-Message-ID: <b5e88f9d-eb6b-4ad8-b40f-46d1a61979c9@amd.com>
-Date: Wed, 18 Mar 2026 10:35:36 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v13 2/2] MAINTAINERS: gpu: buddy: Update reviewer
-To: Joel Fernandes <joelagnelf@nvidia.com>, linux-kernel@vger.kernel.org
-Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
- Gary Guo <gary@garyguo.net>, =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?=
- <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>,
- Andreas Hindborg <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
- Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>,
- Dave Airlie <airlied@redhat.com>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Koen Koning <koen.koning@linux.intel.com>, dri-devel@lists.freedesktop.org,
- rust-for-linux@vger.kernel.org, Nikola Djukic <ndjukic@nvidia.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3F81D10E789
+ for <dri-devel@lists.freedesktop.org>; Wed, 18 Mar 2026 09:39:34 +0000 (UTC)
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 62I96Otu2296076
+ for <dri-devel@lists.freedesktop.org>; Wed, 18 Mar 2026 09:39:33 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=NGtj5gt0oKKUD1rTumE2x6d/
+ /ytfFsPqqr53mwIxXig=; b=k0fdbjwCeGqpazUS6OiQplnhyJoWwl30VNT8B/Tb
+ vNwta5XUYhLGsXnNtMf8lqfMpXjD0TgzqGIB82MgwKULGP+w7D4/GSV1FnAS/dSi
+ Zk0SXjhhlT9jv1OHctrsY9gjVHmm4b1w2T8jR05j39HvRP1B6U5NpgddYIwAPdCt
+ 7AYaVbNHEjgdw+qljzsz1EDg4ErssBV1dz4rvWxy9T8fNZuveFQ40zZY8+qiCVO3
+ e0Ms/aw2hLiZreQ+ASd9gXiZuGMNyw5WBEJmTFFDKv3EFu3cV+3HRSavnh6w2ANC
+ LqYHgD9qxHKA4e3z9n8GPd5iB1i7jdYv34okg1d537DBLA==
+Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com
+ [209.85.160.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4cya83ur74-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Wed, 18 Mar 2026 09:39:33 +0000 (GMT)
+Received: by mail-qt1-f199.google.com with SMTP id
+ d75a77b69052e-50920055f0aso46174481cf.1
+ for <dri-devel@lists.freedesktop.org>; Wed, 18 Mar 2026 02:39:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1773826773; x=1774431573;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=NGtj5gt0oKKUD1rTumE2x6d//ytfFsPqqr53mwIxXig=;
+ b=YkFxmJQlOqJrfqwLco/JCfWvLTVWKWFguQtpd44P8rtgUOXUR0hyz88TXt/F3pLAU+
+ ltKOPjqFyBvrjaQ9ax5cqN4+9IWk4ebvBQlhWhgajQ8xKkVtV4BTKVInO7MFuU2vNs8b
+ 8fU+Ism0IS7Dz+IqCMV2nue/6iAke0h7xZnmsIhA0RQXmuiIzYClm/CYk79YMF1vT70u
+ 2ZN5gfK9hgETr9sujieP19MGgXHHP0vuatptpyczGF8kZ3u8S1ahBdAfzcYe8PAOJux1
+ l5UOfU06JznLcymT3w9kKgt71c3nSq6TvD41c0nvr+lCA5zrrRlklPOQeuUk3j4rwHdt
+ q6tg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1773826773; x=1774431573;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=NGtj5gt0oKKUD1rTumE2x6d//ytfFsPqqr53mwIxXig=;
+ b=hvO05ERB5pBrlHnuzsGpsUv4qQf9RqvbAq7nFl7ZL8oi8+Byxw4YIVTw1wMl+2rTSq
+ 0P/c0LxBKTwIbgYgto3dZrYOHmw8P1msUi/gNuli9D1L4Ejid/xrRWLnf8VHenZ5EZqu
+ CrbcpCJIoGz5W5FLfzGbHsJpkA/zrT015/u1fADEdDp8IuPAy8Su9HtIqwK/4PobpcHh
+ SQwQLzJ5OW65jsQLPeymC98zOLMx+Rn2bDPMQLLwnYbwdshuIIiMDrtzL2TXcHjmHyX/
+ PGYyZljEQ5Wl2pGbQfCPJYJjbeetX6Y154rcEvWMVOQVZrOaCNloxL+jeViAuuzTgIAo
+ 2l9w==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVyYlWIzR13R3EKykmIkAsvKkPoR4HH+N9SuyqbpkH9981LX8EkJ8BRL+uKAPEQ4sD+/jgS+9Kt9Hk=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yx9zK1YqnuMq95ooHHlGrF7Cz7ECJSQ6QL2UqCnQjAqYlldaL6R
+ Wv8kuVq5zYYEW+ZqtxSzs+0aZ75QjHDbjOQ8jfOiLfCwohR86lU5huzcY7j3ofFj2uGiXvUdkOC
+ +A3JUjoG7lX6AGu1JlTnsup/fixmJB+16rNTOK4Ky1cejEh1jJFqlScbKSnEzjCHsjN1sB/k=
+X-Gm-Gg: ATEYQzzeYbfp9h3CEBICJ+/ACj12cdAITZ+YszJ/uTGtnid3UEY+EvDeWaJ8R1dM3Vn
+ E1Zm5nUOphm5PAyW8/EE33kX+mnkO3uz9wQi1TB/Sc9Jc2xqV23F6jyQt5MZyt+k3xnkXFKEtgM
+ HPHyBcrELPLcnWfVpI551bxlwUMuB8hXLq9PG1219Orpyc3FAoulCI1xPCVkPxiL1WwbBmNd4Dk
+ SZYKPJVUOy9gTCkEFQQl8f5jnEGzYeOJZ9X7okQK3qKi/s/HcjKdUb35MqSp/J59gpkX9y4jMBM
+ aTnNCuWkkyV7nnCjlXh2sEgSqxytTfBMq9Ivv60NIPAPqT8jRE2oFTyPAu50Vinqyb6EeF7lGXj
+ y95Dia0Rv5LuiutqYD5nAuC0DDYxfI0UtFTwJh1c85YdlcRspfgt5Ir+fLUF0a0CRe8U4c39Gm0
+ 5a2tYQ1+fwY5VSbkVOK0CZfaECImVohBf93uc=
+X-Received: by 2002:a05:622a:198e:b0:509:21eb:4722 with SMTP id
+ d75a77b69052e-50b14916944mr26302091cf.39.1773826772504; 
+ Wed, 18 Mar 2026 02:39:32 -0700 (PDT)
+X-Received: by 2002:a05:622a:198e:b0:509:21eb:4722 with SMTP id
+ d75a77b69052e-50b14916944mr26302001cf.39.1773826771968; 
+ Wed, 18 Mar 2026 02:39:31 -0700 (PDT)
+Received: from umbar.lan
+ (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+ by smtp.gmail.com with ESMTPSA id
+ 38308e7fff4ca-38bd517e0fesm4481011fa.14.2026.03.18.02.39.30
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 18 Mar 2026 02:39:30 -0700 (PDT)
+Date: Wed, 18 Mar 2026 11:39:29 +0200
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Alexander Koskovich <akoskovich@pm.me>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Jonathan Corbet <corbet@lwn.net>, Alex Deucher <alexander.deucher@amd.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
- <tursulin@ursulin.net>, Huang Rui <ray.huang@amd.com>,
- Matthew Auld <matthew.auld@intel.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Lucas De Marchi <lucas.demarchi@intel.com>,
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Helge Deller <deller@gmx.de>, Alex Gaynor <alex.gaynor@gmail.com>,
- Boqun Feng <boqun.feng@gmail.com>, John Hubbard <jhubbard@nvidia.com>,
- Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
- Edwin Peer <epeer@nvidia.com>, Alexandre Courbot <acourbot@nvidia.com>,
- Andrea Righi <arighi@nvidia.com>, Andy Ritger <aritger@nvidia.com>,
- Zhi Wang <zhiw@nvidia.com>, Balbir Singh <balbirs@nvidia.com>,
- Philipp Stanner <phasta@kernel.org>, Elle Rhumsaa
- <elle@weathered-steel.dev>, alexeyi@nvidia.com,
- Eliot Courtney <ecourtney@nvidia.com>, joel@joelfernandes.org,
- linux-doc@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- linux-fbdev@vger.kernel.org
-References: <20260308180407.3988286-1-joelagnelf@nvidia.com>
- <20260317220323.1909618-1-joelagnelf@nvidia.com>
- <20260317220323.1909618-3-joelagnelf@nvidia.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260317220323.1909618-3-joelagnelf@nvidia.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR2P281CA0058.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:93::9) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
+Subject: Re: [PATCH 2/2] drm/msm/dsi: support DSC configurations with
+ slice_per_pkt > 1
+Message-ID: <w74ctaczp3ty7wil2sfkztc6wvuppgpyff4tw4dze34irvfmlx@e5f36rzqmp6i>
+References: <20260318-dsi-dsc-slice-per-pkt-v1-0-1bd66b7f9e0c@pm.me>
+ <20260318-dsi-dsc-slice-per-pkt-v1-2-1bd66b7f9e0c@pm.me>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|BY5PR12MB4273:EE_
-X-MS-Office365-Filtering-Correlation-Id: 45fa78bf-2c75-4232-bca4-08de84d1c434
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|7416014|1800799024|376014|7053199007|18002099003|56012099003|22082099003;
-X-Microsoft-Antispam-Message-Info: zhPV8t2V5Y5qEse/lQae6yHBsPqE4arh7JJgqtFuvuEC+Ka1oYZGolq+6A9RkHgANCMBEYFgmIW2quU8GJKWrbmbBzIG6YKKN7ZUX5eUvjWtDADnDB0nb7WRYEfifRET9UUAU5cqmAOCTDy8ll71G8eotHjiCw5rXKN7RZzvi4N1T5Vb5R5/lLVFaLmXmFwZM5slnfxkE0qWs7jxdfrzsv5niP88Se72b1FEr0wiMmOSCj0q/p9iXNwLRoal0K/TruOv0lstMgdQZLvo0PWWQnBYKUpFSdloFf88B/l9PHV55AmSE3iPAEUPd5ZrWLdrveejLYFzj7d9pORyzPwrt0fgtoNy7UW/xkNEManXn6Mpid+id2t12Nr/ssigQM8WVQqjXnE0xO8RyUDIZQDqKqfIfXqQLYiJtHGkthFJBwFXmm6c4CefqoyXIH9Fx86k/vHFugbvw8ZGO7W/Qyk8UdtOzt1tGHmnMJIKqzBvuswdLTkVYr07+jwnOEWP+Lw8kfVtWoCmhXEntnCCWGLVU1bCefBH2BdoG+7Cn1fpOVOdCDQMSzKsJthHyQTyt3gnkiAAMdAnJZH/O1RGY9AXZGwJ0Q0vJ6dRLChmf6SCCqdK65SBE4sA7UlQUiIQ2Cu/RYj4BBLfKw522bxxSYVTtqiLYxaV+wrBxY48kChwSNsMGjFGotjONn6WEgKpiwjj
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(7416014)(1800799024)(376014)(7053199007)(18002099003)(56012099003)(22082099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MUFlZE1SREVyR0VsZ3lDcSt6b3pWejNqck53dXltZ2gzbThiK1FSVDlVYTJO?=
- =?utf-8?B?WFppcjVNKzV4ek9idC80VDBmQWtWbW81RHVXME5ubHRHUm1OaUM0UGVrTTB6?=
- =?utf-8?B?d3N5Y3VDSWtaZW11SkFjMkNKMVd6K1E5RkdBeExDdXR4UlBxWVFMd1h0MjZi?=
- =?utf-8?B?THFtRnM4QzBBNXhtTFVQTjZIdFozRFRGS2p6YWlLOHZNeURnbHROa0p6aXdL?=
- =?utf-8?B?WWhnRW5ScW9qMjRONGJDNHFWSDkvYm52MEdDNEVrYUFVZ2FWYUwrMWdMT0h0?=
- =?utf-8?B?ckpZZG9WZjZvOG5ZbW9LanI5cmdCaUt1WVk5YmpUcWFRajdCd1BGNjRqbkg5?=
- =?utf-8?B?dUVtbFJSa01SandpQ1hqdDFoN3JYVnZhcmI5clpRa3JKbmQwb2ZLSW82dWI5?=
- =?utf-8?B?NkFpOGpnK21CYnd0RWVsdVVFanpYejJIbEVFOW1id3p5Ti9SWEo3NHpkcTJ6?=
- =?utf-8?B?dzlZcmd0MFVoQzdacyt3VzRjV1E3WWRDcE1kanBVZWcwdk0xVlJKb0V4Wmp5?=
- =?utf-8?B?ZlBxcnllcjlaUFFiQUp6WmtEYnl2NjJSdWt1L2VwMEtxWGRidlMrSGc2STFa?=
- =?utf-8?B?R1JoSGtwZldBNzN4Vi9ZcEphc3p2aGtIQjVOVmQrUW1SVmdpN2pYbHZKemVa?=
- =?utf-8?B?SnY2Qmw4ZHpaaFZ3b0xmZllxMDNRQklVYW1vUm1XNTlRa2FzT3BhQmlCVUto?=
- =?utf-8?B?TXh3WTU2QVR3aS9IVmRoK21sU1lPK0t1Y0VYMitpSEVDVTFYbG1vZFVhTnpi?=
- =?utf-8?B?ZzhKMEt0Wm1Va3FlWkVucnF0SFBIK2pZK2hwcnNEL2JDTGtxYXZURGNIK1FV?=
- =?utf-8?B?ZWt5YzcyMkEyUURFNHp4U2JCSVBJdWlLR01rODFuVnVsSHZMUnNqMkdEeFhG?=
- =?utf-8?B?NFMvbm9lQ05IelZoTzFnNHBockZXNmVjTExIOUZBRHZwRzZWdFFQZ3V5akhX?=
- =?utf-8?B?eW1Cd2Y4WTNhbHk4cEhKY3VQTUp2SUN3SkNZbUVxd3J0SE5XWWNUcHlpZUtV?=
- =?utf-8?B?UWlBRnJvM1ZtcEJaMDJkdEQyTHUreGxzODZZcm1FNlY2eFFMWEdiT0d3NCsr?=
- =?utf-8?B?bG9oRktEbStneVNMcytya3NOVFNBajVxekVZMHJ0TlVMTW0rSHRRZ3lVTkdB?=
- =?utf-8?B?RlNKZjNoRFJuSGhiMlFOeTdNQnFTaDhVeEZ6bmd2MzU4L2tLc0YwYVhTVy9P?=
- =?utf-8?B?ZTVqWW5VVnBaS0hGRE1MUnNML09VOWo4bEhFSjZBMS82eXRJdFNqdlczTGdQ?=
- =?utf-8?B?Zk4xNldJcUxiSEZsY1Rtb0dqVkVpbkpSTkhFMDdzZ0lHMy85azZYVk9pZS9R?=
- =?utf-8?B?NXZTcVNvZmowQktocHpXbDNXQ1BEVGdRUEdtd1hvb3hGalNacEZpN2V4L09p?=
- =?utf-8?B?Sk9FVFE2NW9CN255S2h3eUNCTWdHeTNnbyt6eEJ2YWV6VE5zVEx3VHZ5bGFH?=
- =?utf-8?B?UWhhZStYZVliamhBRFUwcW1tQjlJRG5YR09IaENRQzlGaVFDOHNBeUh4bTVY?=
- =?utf-8?B?UFFTQngvK3pWU0Zkc2dYZkNKVXgvRnRGZ2lDWmYyRk8yN1ZKRlpwV2gyc2d5?=
- =?utf-8?B?K29BYVBHZlQyUXNhL01zbnBOREtvMFhOa3prTkRkNTliWGFSekw1UGlzOWdt?=
- =?utf-8?B?dE5YNmFpY1VCdU9tdE9uWHBjV1owaW01MzNzYWdSVVkxUWtMZEJxSGRTcjcz?=
- =?utf-8?B?cDdEOVgzd0Fjc1huMndkVHJSdVZaNzNONTBXMVNYN0RjM3RBbjVxNFJSdHM5?=
- =?utf-8?B?L0dXclg0bjBpTXh6TGh4b0JYMEFLL3NqenZvSjM0R2hNQ2E4MzQ2cDdYZmN0?=
- =?utf-8?B?UVIrbHJBa3NWZXJDbDg3c3lUeFE2YnpKZ2tIYmVqUG1aSUVudnFWdFRsaEhU?=
- =?utf-8?B?VEgxbitaVlNFdm9rTUkrRE1UZm9JZHVzTFNON2kyblhoVE1sSzBSU05ncDFR?=
- =?utf-8?B?VklCOUhqRllQR2tYYkxoSVdoWFJ2Vi94WStDMFBtN0hKQzdJUnh6ZElGN1Fj?=
- =?utf-8?B?QVlwb2lRTzF6Q01zWDVxV3RvQ09DanJMNzBybnR0UjBHYmY2bnIrU2xGYkJP?=
- =?utf-8?B?ZWZVdS9zdml3ak1PS0JRZlJydmxKRE05VGNJcjJGbFkvUjV1Vzl2eXJKQjZu?=
- =?utf-8?B?ZDQ4NW9heERVa3BZUnI2ZllDSGdWOTNOOEF0TTEzdS9uYXgvR3JOakhQeDZ1?=
- =?utf-8?B?WXFVc0x4YmFKZWU4Y0RCSkxVSDJUV0lmWUFhMFZ5cHpQc3NtRnR6dmRnRkFp?=
- =?utf-8?B?dGZDdVcxME40OEdDaDRMR2FQcFlDbVN3bUN4YVA0L2QxOVJzWk5mNnY1YXJj?=
- =?utf-8?Q?7odK+yum9/OGvZAkLY?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 45fa78bf-2c75-4232-bca4-08de84d1c434
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Mar 2026 09:36:01.0257 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: AmzxZDkGDawqzNevS4bSzNuXc5vmJFZfojU8MRVRCdH0VV18LQo3fZ3g08n8inma
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4273
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260318-dsi-dsc-slice-per-pkt-v1-2-1bd66b7f9e0c@pm.me>
+X-Proofpoint-ORIG-GUID: 6ckCNHw2yujHtRPO79ydqAtWZ_uOmGxK
+X-Proofpoint-GUID: 6ckCNHw2yujHtRPO79ydqAtWZ_uOmGxK
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzE4MDA4MCBTYWx0ZWRfX+Le5zmlKHfVM
+ 89MqN6mSe9hwWiIyD/mbIciBzpuTpYyNS3od7enjEma/jN/tfwx1nS2pZAgmFi5cBIRAOFNRNpy
+ Phs3nqVRb/KpP6yy3eGNbpnaRbrkSLOfHRYBhoMikBfPGhBij76XTHCbZHF3ICC5plAAZoFu6uj
+ xOHOftGkeNsP7A2zPBKbDuqCycVf5ZxXP7CbILoMgQFYjmsUcg/8OUWsezIvi2pM8tS0JlmWyVZ
+ lGemYR1lbptOHpaPnBJtUl/P5M7VVW8Xpo3o2oZ3BcvuUdpX/v9sk1McGpRi09LNo7YolE511zi
+ rJ1bUv9IRbfg/thWLZJwUQ6MUXfEcn7NOrYH8rMKmE+kP43sxeKNlJuavbC6HeHptbHI9O7erLm
+ 5CH5ybSaEOdhO3ImJSzkTSnIDpwd7VfUZ4bXAArFvPOeVT7xQ+UxKviDDJocBPFNLao+RA9SHO9
+ 2YT+zft5Hc/JhRE1wDA==
+X-Authority-Analysis: v=2.4 cv=Y8n1cxeN c=1 sm=1 tr=0 ts=69ba72d5 cx=c_pps
+ a=WeENfcodrlLV9YRTxbY/uA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=VwQbUJbxAAAA:8
+ a=RAbU-raeAAAA:8 a=Q6o_JRKf7zH18ftsKlAA:9 a=CjuIK1q_8ugA:10
+ a=kacYvNCVWA4VmyqE58fU:22 a=JiizpSU_mAIq9zsZDqn2:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-03-17_05,2026-03-17_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 adultscore=0 bulkscore=0 impostorscore=0 phishscore=0
+ clxscore=1015 lowpriorityscore=0 malwarescore=0 spamscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603180080
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -168,30 +149,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 3/17/26 23:03, Joel Fernandes wrote:
-> Christian Koenig mentioned he'd like to step down from the reviewer
-> role for the GPU buddy allocator. Joel Fernandes is stepping in as
-> reviewer with agreement from Matthew Auld and Arun Pravin.
+On Wed, Mar 18, 2026 at 07:33:03AM +0000, Alexander Koskovich wrote:
+> Some panels support multiple slice to be sent in a single DSC packet and
+> this feature is a must for specific panels, such as the JDI LPM026M648C.
 > 
-> Signed-off-by: Joel Fernandes <joelagnelf@nvidia.com>
+> Use the MIPI_DSI_MODE_DSC_ALL_SLICES_IN_PKT flag to derive slice_per_pkt
+> from slice_count, note that most panels are expected to just work with
+> just one slice per packet.
+> 
+> This change was originally authored by Jonathan Marek:
+> https://lore.kernel.org/all/20231114174218.19765-3-jonathan@marek.ca
 
-Acked-by: Christian König <christian.koenig@amd.com>
+This is a wrong way to give attribution. Either please retain the author
+and Jonathan's SoB or use Co-developed-by and still Jonathan's SoB.
 
+The patch looks good to me.
+
+> 
+> Signed-off-by: Alexander Koskovich <akoskovich@pm.me>
 > ---
->  MAINTAINERS | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+>  drivers/gpu/drm/msm/dsi/dsi_host.c | 25 ++++++++++---------------
+>  1 file changed, 10 insertions(+), 15 deletions(-)
 > 
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index cd9505d3be60..3353cbf98be1 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -8946,7 +8946,7 @@ F:	include/drm/ttm/
->  GPU BUDDY ALLOCATOR
->  M:	Matthew Auld <matthew.auld@intel.com>
->  M:	Arun Pravin <arunpravin.paneerselvam@amd.com>
-> -R:	Christian Koenig <christian.koenig@amd.com>
-> +R:	Joel Fernandes <joelagnelf@nvidia.com>
->  L:	dri-devel@lists.freedesktop.org
->  S:	Maintained
->  T:	git https://gitlab.freedesktop.org/drm/misc/kernel.git
 
+-- 
+With best wishes
+Dmitry
