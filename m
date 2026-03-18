@@ -4,156 +4,114 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ED9F2FCD0C4
-	for <dri-devel@archiver.kernel.org>; Wed, 18 Mar 2026 13:31:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 38F60103E179
+	for <dri-devel@archiver.kernel.org>; Wed, 18 Mar 2026 13:39:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3D76010E200;
-	Wed, 18 Mar 2026 13:31:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A19CA10E029;
+	Wed, 18 Mar 2026 13:39:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="ODihMFd0";
+	dkim=pass (1024-bit key; unprotected) header.d=ti.com header.i=@ti.com header.b="p3aEpQ//";
 	dkim-atps=neutral
-Received: from CWXP265CU008.outbound.protection.outlook.com
- (mail-ukwestazon11020076.outbound.protection.outlook.com [52.101.195.76])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4027810E200;
- Wed, 18 Mar 2026 13:31:54 +0000 (UTC)
+Received: from CH5PR02CU005.outbound.protection.outlook.com
+ (mail-northcentralusazon11012070.outbound.protection.outlook.com
+ [40.107.200.70])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F244210E121
+ for <dri-devel@lists.freedesktop.org>; Wed, 18 Mar 2026 13:39:46 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Ycxnemnl44b0t3uEjbWLPiSNjHlYG+HxU1LCr/6hsYXd4/8eW/WnVJTucp6CTWJCy19RVAmojYpMZ64zgpHMeZmuUQOtRC1qhtyqNjfIgtWE6GJ1qoLVw9sS6GtDnKhZWDbM6q98mjnQkNoW9Nka9Zss8ryukjuFp47bZG1FoMwfGp5Gj7/h7xO+TTwFu8D6sCBk0lyiK1AuI4kpMMTy9u/BX/vXrpo8h6V19TfC1I1IhwzMMRaZ0EbLjUW9keqsHXFKXur2J47FKuKZPnrTk8VQ7nL8+4YD6E4y+BMigflYRA4wEO36i3hNGMAbxRRSK6D7YuFtmOVqn9ri5OeLdA==
+ b=E2VbaRV3QW9AKB/RhslRlpBrlAVerVdYOSPX8AyErWYbSlLQ66fRCBIYY4a3DbL9ah/IoyIMwGqN0VBhiZKf2Bg8e//ejkO1LCdI3z2RUngRHntoe/F7ZZcnx25cgLiJnY5rgwsTrW9YNCroNEB0WVikf8z8jXNzhcNPiIGzLPMRQj7IQIfJw16bEthjv8tGlZGu5DUwQm8ua4A5GU3CQl5icgdEF19S9Nn0EIfi8NXvndp4c61piZdc98IFlEBX4Csl/Sg0q745Dwzosa7+WC2RDLckW3HAFdyYAQxWt84xRBfBqZb2hjfE6ZDDwt7snusyZi2HWAIHg4aYTrwUrQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=iE/SZ4is6qP7GdR+zljFgyHRAIhVcJTHNA3oOC/SGHY=;
- b=ECNor2LirfJ4cc644a65NK9MRpFUJMSLIetnm6ZsDJ8K4AsALrlCZR9yTs+hFnOcqrJPrRyU/G0rT5JASbtwGODmpCSll84Os2+TadWISFC811UgW+g8MixLqDeeeyDEybAv7GsWROZ/+TKYvq8CsbbY3Vxt2NlR2/mSHmYnCMALoHCLGNB9u12r1A8JVBjdKcPo3VRo413VRc/aU/L5iAGSuioGtcIUfFVJryVOdJInkA1VBS0+UpbQC4Z0XI/FFtNxAPyUukSgJCcNdKuslLFarG+JXtX4GUiZrV22b2ROd5MylReaqSFUVgQ+p3Mmn4S3sUZSs66aWWKP7QGMqA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
- dkim=pass header.d=garyguo.net; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
- s=selector1;
+ bh=uRzUmKTCi5FMuHi4oP6zMA75DNv6Nb7heTk6U5Tt3eI=;
+ b=VZlAuSIz0y75V2XIH/eMu7/ou2foyaOVVWMcrvWhYLJGPREgwWsPWk9vViKM3q65HOL4HqMjhGrWi6+a6pCh1/XPit+afodJYCdjU3x+5Hp2Yh+7GBSQR7uYBiLsEE4RehjZ1o1zQTqWAFhQunwB3XQmUyP3uaRqlRlbOq8wkE/nnvytPBvwOvZ0euvmDlQ2Bfkq5TB8eSQ8ZdTU5exIh1mr0hmDqlrNkmjtW6iWGHG4x70FQigbqPbtAIsBdIwJrsOAWhMSCO8/kVarrqOij0B+HyLVt//XoU9YcYtijMiMmp6ibdtiINgfcwra528hWJF1hZgd5MOxB7C56x+XKg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 198.47.21.194) smtp.rcpttodomain=ideasonboard.com smtp.mailfrom=ti.com;
+ dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=iE/SZ4is6qP7GdR+zljFgyHRAIhVcJTHNA3oOC/SGHY=;
- b=ODihMFd0bTnOsO5wh0aXQfd7DddYCNtmvVUUHhPCrijmVxEi5GokOiF7eM0qv46CCtKn88ikfGs1Kyvpd8zOuO9bJT2JPnahhndWRF9tL9Tjlm2ABmnUSiKLFenFJu+9iHyqeQaCflvip90+ihCJeqEM5p5LiI5duh6KI2bVttE=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=garyguo.net;
-Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:488::16)
- by LO0P265MB3146.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:15d::14)
+ bh=uRzUmKTCi5FMuHi4oP6zMA75DNv6Nb7heTk6U5Tt3eI=;
+ b=p3aEpQ//72LqISsgKdoIbBcRs8J1WZ06zDqB50YB8vG8EdXf034VpqDWPpDg0nWkuHF1tGVMZcuOdlc5lz6Q7vCU6rTbnEdTzQjBTRRX8vt/9sFKp/QmQuPHyPN4bx80bHFAlfTpsxh6vl4bVxPfZYvk1YtkzVeir4WQ8kMG9jA=
+Received: from BN1PR10CA0028.namprd10.prod.outlook.com (2603:10b6:408:e0::33)
+ by SJ0PR10MB5630.namprd10.prod.outlook.com (2603:10b6:a03:3d2::18)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.19; Wed, 18 Mar
- 2026 13:31:50 +0000
-Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- ([fe80::1c3:ceba:21b4:9986]) by LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- ([fe80::1c3:ceba:21b4:9986%5]) with mapi id 15.20.9723.018; Wed, 18 Mar 2026
- 13:31:50 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 18 Mar 2026 13:31:46 +0000
-Message-Id: <DH5Y1UR318WP.VNY18WXEZHDI@garyguo.net>
-To: "Alice Ryhl" <aliceryhl@google.com>, "Joel Fernandes"
- <joelagnelf@nvidia.com>
-Cc: <linux-kernel@vger.kernel.org>, "Miguel Ojeda" <ojeda@kernel.org>,
- "Boqun Feng" <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>,
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
- <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Trevor
- Gross" <tmgross@umich.edu>, "Alex Gaynor" <alex.gaynor@gmail.com>, "Danilo
- Krummrich" <dakr@kernel.org>, "Dave Airlie" <airlied@redhat.com>, "David
- Airlie" <airlied@gmail.com>, "Maarten Lankhorst"
- <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
- "Thomas Zimmermann" <tzimmermann@suse.de>, "Simona Vetter"
- <simona@ffwll.ch>, "Daniel Almeida" <daniel.almeida@collabora.com>, "Koen
- Koning" <koen.koning@linux.intel.com>, "Nikola Djukic"
- <ndjukic@nvidia.com>, "Alexandre Courbot" <acourbot@nvidia.com>, "Philipp
- Stanner" <phasta@kernel.org>, "Elle Rhumsaa" <elle@weathered-steel.dev>,
- "Jonathan Corbet" <corbet@lwn.net>, "Alex Deucher"
- <alexander.deucher@amd.com>, =?utf-8?q?Christian_K=C3=B6nig?=
- <christian.koenig@amd.com>, "Jani Nikula" <jani.nikula@linux.intel.com>,
- "Joonas Lahtinen" <joonas.lahtinen@linux.intel.com>, "Rodrigo Vivi"
- <rodrigo.vivi@intel.com>, "Tvrtko Ursulin" <tursulin@ursulin.net>, "Huang
- Rui" <ray.huang@amd.com>, "Matthew Auld" <matthew.auld@intel.com>, "Matthew
- Brost" <matthew.brost@intel.com>, "Lucas De Marchi"
- <lucas.demarchi@intel.com>, =?utf-8?q?Thomas_Hellstr=C3=B6m?=
- <thomas.hellstrom@linux.intel.com>, "Helge Deller" <deller@gmx.de>, "John
- Hubbard" <jhubbard@nvidia.com>, "Alistair Popple" <apopple@nvidia.com>,
- "Timur Tabi" <ttabi@nvidia.com>, "Edwin Peer" <epeer@nvidia.com>, "Andrea
- Righi" <arighi@nvidia.com>, "Andy Ritger" <aritger@nvidia.com>, "Zhi Wang"
- <zhiw@nvidia.com>, "Balbir Singh" <balbirs@nvidia.com>,
- <alexeyi@nvidia.com>, "Eliot Courtney" <ecourtney@nvidia.com>,
- <dri-devel@lists.freedesktop.org>, <rust-for-linux@vger.kernel.org>,
- <linux-doc@vger.kernel.org>, <amd-gfx@lists.freedesktop.org>,
- <intel-gfx@lists.freedesktop.org>, <intel-xe@lists.freedesktop.org>,
- <linux-fbdev@vger.kernel.org>
-Subject: Re: [PATCH v13 1/1] rust: interop: Add list module for C linked
- list interface
-From: "Gary Guo" <gary@garyguo.net>
-X-Mailer: aerc 0.21.0
-References: <20260317201710.934932-1-joelagnelf@nvidia.com>
- <20260317201710.934932-2-joelagnelf@nvidia.com>
- <46986da6-8c89-475c-8561-964adaa7d034@nvidia.com>
- <abppV3e91iVzplcv@google.com>
-In-Reply-To: <abppV3e91iVzplcv@google.com>
-X-ClientProxiedBy: VI1P194CA0052.EURP194.PROD.OUTLOOK.COM
- (2603:10a6:803:3c::41) To LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:488::16)
+ 2026 13:39:44 +0000
+Received: from BL6PEPF00020E60.namprd04.prod.outlook.com
+ (2603:10b6:408:e0:cafe::c5) by BN1PR10CA0028.outlook.office365.com
+ (2603:10b6:408:e0::33) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9700.27 via Frontend Transport; Wed,
+ 18 Mar 2026 13:39:32 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.21.194)
+ smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none; dmarc=pass
+ action=none header.from=ti.com;
+Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
+ 198.47.21.194 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.21.194; helo=flwvzet200.ext.ti.com; pr=C
+Received: from flwvzet200.ext.ti.com (198.47.21.194) by
+ BL6PEPF00020E60.mail.protection.outlook.com (10.167.249.21) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9723.19 via Frontend Transport; Wed, 18 Mar 2026 13:39:42 +0000
+Received: from DFLE208.ent.ti.com (10.64.6.66) by flwvzet200.ext.ti.com
+ (10.248.192.31) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Wed, 18 Mar
+ 2026 08:39:41 -0500
+Received: from DFLE202.ent.ti.com (10.64.6.60) by DFLE208.ent.ti.com
+ (10.64.6.66) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Wed, 18 Mar
+ 2026 08:39:41 -0500
+Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DFLE202.ent.ti.com
+ (10.64.6.60) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20 via Frontend
+ Transport; Wed, 18 Mar 2026 08:39:41 -0500
+Received: from [172.24.233.62] (devarsh-precision-tower-3620.dhcp.ti.com
+ [172.24.233.62])
+ by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 62IDdavH909978;
+ Wed, 18 Mar 2026 08:39:37 -0500
+Message-ID: <db9c7a49-6e1b-4ddd-a4ca-721a2c1419cd@ti.com>
+Date: Wed, 18 Mar 2026 19:09:36 +0530
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/bridge: sii902x: Add audio context to suspend/resume
+ routine
+To: Sen Wang <sen@ti.com>, <andrzej.hajda@intel.com>,
+ <neil.armstrong@linaro.org>, <rfoss@kernel.org>, <airlied@gmail.com>,
+ <maarten.lankhorst@linux.intel.com>, <mripard@kernel.org>,
+ <tzimmermann@suse.de>, <dri-devel@lists.freedesktop.org>,
+ <jani.nikula@intel.com>, <simona@ffwll.ch>, <linux-kernel@vger.kernel.org>
+CC: <tomi.valkeinen@ideasonboard.com>, <r-donadkar@ti.com>, <s-jain1@ti.com>
+References: <20260211211018.149916-1-sen@ti.com>
+Content-Language: en-US
+From: Devarsh Thakkar <devarsht@ti.com>
+In-Reply-To: <20260211211018.149916-1-sen@ti.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LOVP265MB8871:EE_|LO0P265MB3146:EE_
-X-MS-Office365-Filtering-Correlation-Id: a38b5ff7-0185-4403-b4de-08de84f2b610
+X-MS-TrafficTypeDiagnostic: BL6PEPF00020E60:EE_|SJ0PR10MB5630:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4285f3e5-68b2-4328-2c1f-08de84f3cfac
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|376014|7416014|1800799024|13003099007|18002099003|56012099003|22082099003;
-X-Microsoft-Antispam-Message-Info: kxEdSKVFVdn47/Y3txtisW6tm7TmQ50M1tL5IBiVE2wdANCPkk4+zFzAWXJ4ACRpjg4dGSjHQdhAeJ0c66Nt8MX3ECMq9+G2ZjO+4zyc27ie9t6dv5eqIYfWK+pnbX0AnxHF2F4mqaJ6eHRvwNlbGd5UMQ3PeFQuMQ8Ffww4Q+T1R3Rnrmp5JNA1QiNCNVucVj71+4yDdilWWLcuh1Ve25bui/c8FHyeZzib50IKt1U7Xj30geWz/VQ/iUn5grPjozPz45i3fzzEaH9pM4CIpU6R/q3ne3aKGMqfZCksdOGD56QQ7Q2iAbSgEQxvuzjy9tKkjGgHGNCa3GLlgeYhyR/7UnM2TSKNJI2prEnQ/O58BWJGUEGmRbKD+IxvYdjLAj2GaIpK+p4LYWqrWtiTfAJIk4sQ+2fC/1z3gwQ3VXxR6Z7MTeKH5Rs/vQuetRfx1/EIq61OPbKrJD2g8ZdDTj0IIonRZsiqPwIZZrl7QceKMIHyJFpjqI9FdRcNpPDeHN6UtfYyjQOhnQ/idAgbLnkW0rx5cbBSsyj+jfQKfObnEqVuNGzpfoZlhU0ePNRkEelWsgz2VxR8WpFU4LBZweLMFsvsSumzWwTSS2WIffox04AAwHtXbhIC3nCHJHSOumRakCdIVJQzen8qs6CzeOFQf6YnhOpN3pmhI6qnf5de6MHkOUslbJyO7wH13dfVxkZC7TIkR3AYgPCXECojxnhrqIQCgCFCxjolfEwZKZ8=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(7416014)(1800799024)(13003099007)(18002099003)(56012099003)(22082099003);
- DIR:OUT; SFP:1102; 
+ ARA:13230040|7416014|376014|82310400026|1800799024|36860700016|921020|18002099003|56012099003|22082099003;
+X-Microsoft-Antispam-Message-Info: H3qnOm2HiRfd6dE7Sj7+i6PGSmfddwWF949E0awpRHuWZ6A7emQJpaYMPm6m12nf8vFfM0ggBE2/rjCRmHUtANfpPoUPJJ1MALJc7h3b4kwNp2YdO+Upq55Ken2bStM/+Q/0VEDC6HyWZEnJ7GhPmLWeun3OO57ZCloMLCqGTYbjoCuFhdovLrrhs2BDa0WfsOoJCauIDD99+1woAJA7iQOWV0QU3hyXLJd1+lhmGFEe+A2JhzJLurSC66yzdu7JyicvfaiUvYacKaqx1by3mK5K21p495CKQO3AiUwVS2q11OFk7Rv6l2xD9T1JoTALNypxzuOh6nNPIa2/6ENaR4vlQNuNLuH4+DmNbcnN9I93tHue2c0SPBXJexFKwHn1jX0DsVYcygCb2TzUIf8pRHRJjPG90ZNHdnsiWRw0WtFfgw+1tRK2JBDkJafVpSgsduapYywYimIOUB+i8xjKxRz/XGBTDSzMavYDGT0bF12qmfH03hWZGd5/o4qj7V5kZOOHP6pFX4CsZZjtOddZIps346w5O9VpupDj+GYIWU8F81nTbbLKIeDUuXDTlhKoz/g41Bb2ADaEDFjb6eqQPpq22lC1zu54Dj4BV4UeYETgcXuSIPHBljKivMEjYuqm3It4Qw25jbXyufSk6D6Nr6GLVYHfEoL0szwf8YTXf2H59C9l2G3ppNFLuFtnib0kt2fN77SKu9UK8ZK9+TeqyOM0FtBIc4wHYDdTCIOh8qDsfKfPwgERVcFMEbojbWL5POYPgdRthrVcEszAMaLZFdKI5Dx5Zleexufj5GQupFqIu7zCoKfX8dd3C9lnuVgP
+X-Forefront-Antispam-Report: CIP:198.47.21.194; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:flwvzet200.ext.ti.com; PTR:ErrorRetry; CAT:NONE;
+ SFS:(13230040)(7416014)(376014)(82310400026)(1800799024)(36860700016)(921020)(18002099003)(56012099003)(22082099003);
+ DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZUh3MGp2dUFhb3J1K2FzVDNMU21EYzFzYUFJN2lDNHRiQjlwbkZVd2o1NDZl?=
- =?utf-8?B?NVhkaHJMU0E5N1VVNmEvK0t3bit3VHd3WUpqSXlZS2Jsa1kwdHdlbHhiczZP?=
- =?utf-8?B?bGZ4ai91WW9zQWcyWm4rb2JmMEoxOWxrK0U3ekhVaEFoZnVxT3J1V0lnZFdz?=
- =?utf-8?B?Zy9nZ1NEUWxqenhZQ3lDaG9UOGhXU1lPSzFhRVg0dVRLN1lobWJyd0N3TjBl?=
- =?utf-8?B?R0MxdWJYRGJ3ZEYzbmNIelpwWllDUzdBRkpjQ2I1c0o1c3Fld2ZtWlZrdnJV?=
- =?utf-8?B?ZGRLTmNXSnNnYklFazNiREIzSFdOYmZUZHp2dndKVzBxYVhTMTNLZS9CR3Br?=
- =?utf-8?B?ZURrVWJNRS9IenhTZ3JPaDBMZUFvbzJUWjJYRlhGbWNuTDQ2bDlybUFwNC85?=
- =?utf-8?B?NERBblVpQkRiYWZXOEJ0NTlSb0hGN2RDY1EyQmdoUlYyRnVqUXdhRnAzSGNt?=
- =?utf-8?B?cGErY0F3b0ZqUnc2Mm5TRTIzZWpHZm5OckZkK0o0aHFYeU5idHIyVDd2SDNH?=
- =?utf-8?B?TkZDNWoxTXBQYUdUVVZiWkRwdkxvUUxjdEVvYlh2UjBQeEtwMjB5WnRPRUdD?=
- =?utf-8?B?ZE51ZitVMFN0SVo5V3NHY3FHMGs4R0VzTDNOcFZJTk0rTVdLK3FucTdzN09z?=
- =?utf-8?B?N21rYmZhRERHeW0yR2FzVWN1WVlpcW55WHJCMXB0NUhvY0hNL0xmK0grZE4z?=
- =?utf-8?B?b3YxazM3TmtMQ1ZuMjJHeWpNeDVJL0Rqa0R3QWlwckxObWprS2VBWlFIVmEy?=
- =?utf-8?B?N0RzYkhIc1d3ZDc1YVBQL0k3WE5EU0JyZGtuTDE4ak9LSnk4WUMzYkh4bHVG?=
- =?utf-8?B?eGJJbDF5UEFUNXFqS08veWpDWk53b1JyR1pjZmtUREo3eHo4Vk1WOGRlaXlL?=
- =?utf-8?B?NFFkMkJxNThKTDdxVHFJMi82YzlZSE82bjR1UnE5RXU4TEp4U2VZaUM5S1gr?=
- =?utf-8?B?MTh1YzZVRG1TYUg4U0VNdVFlVC9sM0ExRFovTUN6Ym1MMkcyRFBnZkpGYVBs?=
- =?utf-8?B?S3Aybm43dGhuendlOEx6YThEZmV2UitFcEZ5eHhLdG1kRk9FSjFvMWNxK1Uw?=
- =?utf-8?B?Qm1xOTFYOE9aM0gwMjYzUk5yK1E5bW1jc2ZPSVBGOSswV3p0WlVkUWhLQ3lE?=
- =?utf-8?B?ajZyaE1qcWRrL0phWUpkRkZ1QTJCODhOZFovaXdmcDZFRCtvbUo5NzVnME5N?=
- =?utf-8?B?SnJqdytHVVdtaGdDUUhJc1QxaUV0a3p6OG92Vy9tSThMT2lVQ25tTXk0bGdK?=
- =?utf-8?B?N2tKalhrSDV0VHFjd0RPbGM2NHRKNkpnZ3A3THpBR0dQVkxwTEhmNE54S0Uw?=
- =?utf-8?B?LzdYdnRkeXFObXBBTTVhWU9FUXNNd1Y5U1hjWFFkamtLWW56eTVtbitidXFU?=
- =?utf-8?B?UTFQbFhadFhEZzFLZk1MRk1Sc2NKZTRXMU9OV09EZXZTdzlXeVZPNEdmTERo?=
- =?utf-8?B?UVF0ZGlYNFg0UUFIVTFpY1VxZzEzQ1pHTDVmRkFDTC9YTllsdXBPMmgrNG0w?=
- =?utf-8?B?V0cvdXIyeUlZZ1pnb0s2V21uQkxidjg0ZUJHYmhGNlZldW9NZDhJdDlRUkJi?=
- =?utf-8?B?ellscG1pK2pncFdvdFFvTkRaMUI5R0ZCVGhpa0gwQ1JZUnNHM2JqY0V2dmlw?=
- =?utf-8?B?aXIxenJKRWNMUzFjTXFZVytleFAzY0ZXWjIyeEs4WmJQcmx3eEFCa3BOeU9q?=
- =?utf-8?B?Wm1VNnI3SDJyYnN3cERzMGRtT0ZDUllqMGsyUXQrU0hobVBKdGRVb1R3dndl?=
- =?utf-8?B?VFpnL1NtdXNFRVNjajlBdXcvVisrN3NIQ2R4MVVGY0NYcHVJdnpWMzVhZzJn?=
- =?utf-8?B?UXJISWNrNEhIQVhkME5DQnFFK0g4NVFQWDFoWDk3bndjWmtRUTNMdjYrOTI0?=
- =?utf-8?B?YzUzdWRKQllaOXN2RGZ6YVc3UFdCVWpUVS9ydG94SXl2MEtCcmRqdnU2aWZh?=
- =?utf-8?B?VXdEaGg3b3dkZDYxaHpBVXFOdGZEQkF5ZCtWZGxvaGpOajFQK1NKSTBFbVA4?=
- =?utf-8?B?R0VtKzB5Z1JLb3VLUk0xTHlxYkJuZG9qMmxxS2JyT0NkNXZwSTREUUtSK1By?=
- =?utf-8?B?S0I2WkU0UnpmZXAvSGc3VjhMdUxHMHl2Q3g3U2Z2eWNzdnRWVkphQWlIYmVE?=
- =?utf-8?B?K1VNNHBvV3dlNVNsZE1TUWRNWjRWeGFrWWVXNjYyMVo5aUQwd2Y3RGxibVE0?=
- =?utf-8?B?dnFGd1g5UXRiaE5PUXJEZHFuU0NuMUxJRk96QzVkZG0zT3lVYTU4S0ZSbzl1?=
- =?utf-8?B?WUtON2x6WXpiRVRQM1dVMGN6a0hsajcreXhZNWVuS3BuS0tFdUpZUDRrQWh6?=
- =?utf-8?Q?B8Ge7X5xh9Pox8eZHJ?=
-X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: a38b5ff7-0185-4403-b4de-08de84f2b610
-X-MS-Exchange-CrossTenant-AuthSource: LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Mar 2026 13:31:50.5642 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: E5YStbEOaO5CKMO2Vcr9VB+joSwSOEe0ysDbn+13CqaguEm1dqMgo33RyHPvCeC7zzexF0P3oXSpSptLTpvoVA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO0P265MB3146
+X-MS-Exchange-AntiSpam-MessageData-0: 0ohrlAx/j/brx6lMLZ0+CNfGQe3ZlnWpMg7ZSQO8xTDS3TPeI+vO1ZfGCFhjOANpJRnFm2buQfCTA7mLl/CX+/kb5uC+wpGY317NjEu0b3x4+FFKzd+fhIojkl8PoN3cFs2jlXFqJIQHUdlCM/PecDaxo0xYfoNi60H9om+3+7RmLom73EASyAYeH1ScpPkzGek1pai6dgZ2m1EWtQiOQbf4A2WAifsAUUs7MjJ2+H3L4UEYzMl+tB8t4jOBdNYzRh367JzqPCJTyYR+G8TL1iFeiyNu91PvnDm4IjkGv0/IelHZn/LbpljnovYUFqKH91gafUE645tUTkM4oszzqLIDi7O0p2Q2W0elZdsbeP/kPUE2yeQpbsfKXKusmQmLwsLTSpyONAIPhShIoEXhYyDMOCbqdQTTeAQDdcrH3WccV9WGXZil439Am3Sz5BrX
+X-OriginatorOrg: ti.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Mar 2026 13:39:42.8023 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4285f3e5-68b2-4328-2c1f-08de84f3cfac
+X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7; Ip=[198.47.21.194];
+ Helo=[flwvzet200.ext.ti.com]
+X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF00020E60.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR10MB5630
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -169,70 +127,186 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed Mar 18, 2026 at 8:59 AM GMT, Alice Ryhl wrote:
-> On Tue, Mar 17, 2026 at 04:18:46PM -0400, Joel Fernandes wrote:
->>=20
->>=20
->> On 3/17/2026 4:17 PM, Joel Fernandes wrote:
->> > Add a new module `kernel::interop::list` for working with C's doubly
->> > circular linked lists. Provide low-level iteration over list nodes.
->> >=20
->> > Typed iteration over actual items is provided with a `clist_create`
->> > macro to assist in creation of the `CList` type.
->> >=20
->> > Cc: Nikola Djukic <ndjukic@nvidia.com>
->> > Reviewed-by: Daniel Almeida <daniel.almeida@collabora.com>
->> > Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
->> > Acked-by: Alexandre Courbot <acourbot@nvidia.com>
->> > Acked-by: Gary Guo <gary@garyguo.net>
->> > Acked-by: Miguel Ojeda <ojeda@kernel.org>
->> > Signed-off-by: Joel Fernandes <joelagnelf@nvidia.com>
->> > ---
->> >  MAINTAINERS                 |   8 +
->> >  rust/helpers/helpers.c      |   1 +
->> >  rust/helpers/list.c         |  17 ++
->> >  rust/kernel/interop.rs      |   9 +
->> >  rust/kernel/interop/list.rs | 342 +++++++++++++++++++++++++++++++++++=
-+
->> >  rust/kernel/lib.rs          |   2 +
->> >  6 files changed, 379 insertions(+)
->> >  create mode 100644 rust/helpers/list.c
->> >  create mode 100644 rust/kernel/interop.rs
->> >  create mode 100644 rust/kernel/interop/list.rs
->> >=20
->> > diff --git a/MAINTAINERS b/MAINTAINERS
->> > index 4bd6b538a51f..e847099efcc2 100644
->> > --- a/MAINTAINERS
->> > +++ b/MAINTAINERS
->> > @@ -23251,6 +23251,14 @@ T:	git https://github.com/Rust-for-Linux/linu=
-x.git alloc-next
->> >  F:	rust/kernel/alloc.rs
->> >  F:	rust/kernel/alloc/
->> > =20
->> > +RUST [INTEROP]
->> > +M:	Joel Fernandes <joelagnelf@nvidia.com>
->> > +M:	Alexandre Courbot <acourbot@nvidia.com>
->> > +L:	rust-for-linux@vger.kernel.org
->> > +S:	Maintained
->> > +T:	git https://github.com/Rust-for-Linux/linux.git interop-next
->> > +F:	rust/kernel/interop/
->>=20
->> Sorry, I forgot to add an additional F: for the rust/kernel/interop.rs f=
-ile.
->> Danilo/Miguel, do you mind adding this when applying?
->
-> I think you should consider a mod.rs file to avoid this. It's tiny, and
-> just re-exports submodules, so I don't think the "mod.rs name in file
-> view" concern is that big, and IMO having files related to interop/
-> inside the directory is much better than having them outside.
->
-> Alice
+Hi Sen,
 
-I wanted this for all modules in general. For modules that grow into multip=
-le
-files we should really use mod.rs and avoid both module_name.rs and the
-module_name directory.
+Thanks for the patch.
 
-Best,
-Gary
+On 12/02/26 02:40, Sen Wang wrote:
+> The sii902x driver has existing suspend/resume handlers that save and
+> restore video-related register context (TPI mode and interrupts), but
+> these handlers were not saving/restoring audio configuration registers.
+> This caused HDMI audio to stop working after system suspend/resume cycles.
+> 
+> Therefore add audio-related register context to the existing
+> suspend/resume handlers when audio context needs to be saved/restored. As
+> well as mclk for the sake of power saving, in the case of sii902x being
+> the frame producer.
+> 
+> The audio context is only saved/restored when audio.active is true,
+> avoiding unnecessary register access when audio is not in use.
+> 
+> Tested on TI SK-AM62P-LP board with HDMI audio playback across multiple
+> suspend/resume cycles.
+> 
+> Signed-off-by: Sen Wang <sen@ti.com>
+> ---
+>   drivers/gpu/drm/bridge/sii902x.c | 91 +++++++++++++++++++++++++++++++-
+>   1 file changed, 90 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/bridge/sii902x.c b/drivers/gpu/drm/bridge/sii902x.c
+> index 134657041799..fd38a6ae86b2 100644
+> --- a/drivers/gpu/drm/bridge/sii902x.c
+> +++ b/drivers/gpu/drm/bridge/sii902x.c
+> @@ -192,6 +192,13 @@ struct sii902x {
+>   		struct platform_device *pdev;
+>   		struct clk *mclk;
+>   		u32 i2s_fifo_sequence[4];
+> +		bool active;
+> +		/* Audio register context for save/resume */
+> +		unsigned int ctx_i2s_input_config;
+> +		unsigned int ctx_audio_config_byte2;
+> +		unsigned int ctx_audio_config_byte3;
+> +		u8 ctx_i2s_stream_header[SII902X_TPI_I2S_STRM_HDR_SIZE];
+> +		u8 ctx_audio_infoframe[SII902X_TPI_MISC_INFOFRAME_SIZE];
+>   	} audio;
+>   };
+>   
+> @@ -764,6 +771,8 @@ static int sii902x_audio_hw_params(struct device *dev, void *data,
+>   	if (ret)
+>   		goto out;
+>   
+> +	sii902x->audio.active = true;
+> +
+>   	dev_dbg(dev, "%s: hdmi audio enabled\n", __func__);
+>   out:
+>   	mutex_unlock(&sii902x->mutex);
+> @@ -786,6 +795,8 @@ static void sii902x_audio_shutdown(struct device *dev, void *data)
+>   	regmap_write(sii902x->regmap, SII902X_TPI_AUDIO_CONFIG_BYTE2_REG,
+>   		     SII902X_TPI_AUDIO_INTERFACE_DISABLE);
+>   
+> +	sii902x->audio.active = false;
+> +
+>   	mutex_unlock(&sii902x->mutex);
+>   
+>   	clk_disable_unprepare(sii902x->audio.mclk);
+> @@ -1081,7 +1092,7 @@ static int __maybe_unused sii902x_resume(struct device *dev)
+>   {
+>   	struct sii902x *sii902x = dev_get_drvdata(dev);
+>   	unsigned int tpi_reg, status;
+> -	int ret;
+> +	int ret, i;
+>   
+>   	ret = regmap_read(sii902x->regmap, SII902X_REG_TPI_RQB, &tpi_reg);
+>   	if (ret)
+> @@ -1109,7 +1120,62 @@ static int __maybe_unused sii902x_resume(struct device *dev)
+>   	regmap_read(sii902x->regmap, SII902X_INT_STATUS, &status);
+>   	regmap_write(sii902x->regmap, SII902X_INT_STATUS, status);
+>   
+> +	/*
+> +	 * Restore audio context if audio was active before suspend,
+> +	 * in the matching order of sii902x_audio_hw_params()
+> +	 * initialization
+> +	 */
+> +	if (sii902x->audio.active) {
+> +		/* Re-enable mclk */
+> +		ret = clk_prepare_enable(sii902x->audio.mclk);
+> +		if (ret) {
+> +			dev_err(dev, "Failed to re-enable mclk: %d\n", ret);
+> +			return ret;
+> +		}
+> +
+> +		ret = regmap_write(sii902x->regmap, SII902X_TPI_AUDIO_CONFIG_BYTE2_REG,
+> +				   sii902x->audio.ctx_audio_config_byte2);
+> +		if (ret)
+> +			goto err_audio_resume;
+> +
+> +		ret = regmap_write(sii902x->regmap, SII902X_TPI_I2S_INPUT_CONFIG_REG,
+> +				   sii902x->audio.ctx_i2s_input_config);
+> +		if (ret)
+> +			goto err_audio_resume;
+> +
+> +		for (i = 0; i < ARRAY_SIZE(sii902x->audio.i2s_fifo_sequence) &&
+> +		     sii902x->audio.i2s_fifo_sequence[i]; i++) {
+> +			ret = regmap_write(sii902x->regmap,
+> +					   SII902X_TPI_I2S_ENABLE_MAPPING_REG,
+> +					   sii902x->audio.i2s_fifo_sequence[i]);
+> +			if (ret)
+> +				goto err_audio_resume;
+> +		}
+> +
+> +		ret = regmap_write(sii902x->regmap, SII902X_TPI_AUDIO_CONFIG_BYTE3_REG,
+> +				   sii902x->audio.ctx_audio_config_byte3);
+> +		if (ret)
+> +			goto err_audio_resume;
+> +
+> +		ret = regmap_bulk_write(sii902x->regmap, SII902X_TPI_I2S_STRM_HDR_BASE,
+> +					sii902x->audio.ctx_i2s_stream_header,
+> +					SII902X_TPI_I2S_STRM_HDR_SIZE);
+> +		if (ret)
+> +			goto err_audio_resume;
+> +
+> +		ret = regmap_bulk_write(sii902x->regmap, SII902X_TPI_MISC_INFOFRAME_BASE,
+> +					sii902x->audio.ctx_audio_infoframe,
+> +					SII902X_TPI_MISC_INFOFRAME_SIZE);
+> +		if (ret)
+> +			goto err_audio_resume;
+> +	}
+> +
+>   	return 0;
+> +
+> +err_audio_resume:
+> +	clk_disable_unprepare(sii902x->audio.mclk);
+> +	dev_err(dev, "Failed to restore audio registers: %d\n", ret);
+> +	return ret;
+>   }
+>   
+>   static int __maybe_unused sii902x_suspend(struct device *dev)
+> @@ -1122,6 +1188,29 @@ static int __maybe_unused sii902x_suspend(struct device *dev)
+>   	regmap_read(sii902x->regmap, SII902X_INT_ENABLE,
+>   		    &sii902x->ctx_interrupt);
+>   
+> +	/*
+> +	 * Save audio context if audio is active, and
+> +	 * in the matching order of sii902x_audio_hw_params()
+> +	 * initialization
+> +	 */
+> +	if (sii902x->audio.active) {
+> +		regmap_read(sii902x->regmap, SII902X_TPI_AUDIO_CONFIG_BYTE2_REG,
+> +			    &sii902x->audio.ctx_audio_config_byte2);
+> +		regmap_read(sii902x->regmap, SII902X_TPI_I2S_INPUT_CONFIG_REG,
+> +			    &sii902x->audio.ctx_i2s_input_config);
+> +		regmap_read(sii902x->regmap, SII902X_TPI_AUDIO_CONFIG_BYTE3_REG,
+> +			    &sii902x->audio.ctx_audio_config_byte3);
+> +		regmap_bulk_read(sii902x->regmap, SII902X_TPI_I2S_STRM_HDR_BASE,
+> +				 sii902x->audio.ctx_i2s_stream_header,
+> +				 SII902X_TPI_I2S_STRM_HDR_SIZE);
+> +		regmap_bulk_read(sii902x->regmap, SII902X_TPI_MISC_INFOFRAME_BASE,
+> +				 sii902x->audio.ctx_audio_infoframe,
+> +				 SII902X_TPI_MISC_INFOFRAME_SIZE);
+> +
+
+
+In resume path you were checking failure for each regmap_write I guess 
+similar approach is needed here if going with register reads, so in case 
+one or more regmap_read/regmap_bulk_read fails you can return error with 
+dev_err message.
+
+But I think even better approach would be to cache the corresponding reg 
+values to corresponding struct members during hw_params callback itself 
+given all the parameters being used sii902x->audio.ctx do not change 
+between hw_params callback and suspend callback as all these params are 
+stream related? , If so that would avoid costly i2c operations for 
+reading register values which can be skipped in this function.
+
+> +		/* Disable mclk during suspend */
+> +		clk_disable_unprepare(sii902x->audio.mclk);
+> +	}
+> +
+
+
+audio.active should be cleared here or do we need to call audio_shutdown 
+explicitly?
+
+Regards
+Devarsh
 
