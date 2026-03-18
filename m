@@ -4,54 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 83B3110775EB
-	for <dri-devel@archiver.kernel.org>; Wed, 18 Mar 2026 17:31:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE96110775EB
+	for <dri-devel@archiver.kernel.org>; Wed, 18 Mar 2026 17:40:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D2E9210E048;
-	Wed, 18 Mar 2026 17:31:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 221A510E02A;
+	Wed, 18 Mar 2026 17:40:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="H5oju7pE";
+	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="jVX5SNkC";
 	dkim-atps=neutral
-X-Greylist: delayed 503 seconds by postgrey-1.36 at gabe;
- Wed, 18 Mar 2026 17:31:33 UTC
-Received: from out-178.mta0.migadu.com (out-178.mta0.migadu.com
- [91.218.175.178])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 90DAF10E048
- for <dri-devel@lists.freedesktop.org>; Wed, 18 Mar 2026 17:31:33 +0000 (UTC)
-Message-ID: <7281dcf3-5c1a-47fa-81d1-ebf701d2cf81@linux.dev>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
- t=1773854588;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=CYoPax5mqwIw5G3G7ET6tQeFG7dwat+EWpbQH2Fc/Zw=;
- b=H5oju7pEo7Q8hLCYKgRkDicRHD/7dCfdO0ZlJzw4ZMolhJdwL6jOG92eggbX5jgIuLHEGU
- ZmSiyrLLArHLcufFo4OEwa955gcQqMBeNy5Vk5cGaiRfokPKSW2QFTBZDyAMhnyYYDOjvQ
- s5L7lX63yr03Fwf0dRvr/VOVoE5rglY=
-Date: Wed, 18 Mar 2026 18:23:04 +0100
-MIME-Version: 1.0
-Subject: Re: [PATCH] drm/sched: Add new KUnit test suite for concurrent job
- submission
-To: Tvrtko Ursulin <tursulin@ursulin.net>, Philipp Stanner <phasta@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Matthew Brost <matthew.brost@intel.com>, Danilo Krummrich <dakr@kernel.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
+ [213.167.242.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2D91610E02A
+ for <dri-devel@lists.freedesktop.org>; Wed, 18 Mar 2026 17:40:03 +0000 (UTC)
+Received: from killaraus.ideasonboard.com
+ (2001-14ba-703d-e500--2a1.rev.dnainternet.fi [IPv6:2001:14ba:703d:e500::2a1])
+ by perceval.ideasonboard.com (Postfix) with UTF8SMTPSA id 88D7B460;
+ Wed, 18 Mar 2026 18:38:48 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+ s=mail; t=1773855528;
+ bh=AfoBKJ899kYDC02RCdrWGnp38KlkLKQkFxjJaZg3Z0M=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=jVX5SNkCqRiiVm1FzFn2Awdxhb9SvVwO1DTVKpsoLXblHvzYdeXoEKJ1WHXR69X6o
+ +HX488OEcUAkSJZ8qCVsgs4W1kNBEZ5J/M+uRvdQlUU9g7E7fqAOh6dlFIJqMXmb/g
+ 3YI85z0ZEsKFdRAp5wDNwNZ8uDCQiE35jUQbl8Po=
+Date: Wed, 18 Mar 2026 19:40:00 +0200
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Robert Foss <rfoss@kernel.org>, Jonas Karlman <jonas@kwiboo.se>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-References: <20260219140711.3296237-1-marco.pagani@linux.dev>
- <e215efdd-c547-4ce4-affe-7198ed37c2a6@ursulin.net>
- <4793f2a5-9b08-4cd8-8e1e-d8a3a7125299@linux.dev>
- <3ac5825a-95e3-4b9a-aa7e-9b0107fa7b6b@ursulin.net>
-Content-Language: en-US
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
- include these headers.
-From: Marco Pagani <marco.pagani@linux.dev>
-In-Reply-To: <3ac5825a-95e3-4b9a-aa7e-9b0107fa7b6b@ursulin.net>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Migadu-Flow: FLOW_OUT
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Tomi Valkeinen <tomi.valkeinen@ti.com>,
+ Boris Brezillon <boris.brezillon@collabora.com>,
+ Sam Ravnborg <sam@ravnborg.org>,
+ Sebastian Reichel <sebastian.reichel@collabora.com>,
+ Yongxing Mou <yongxing.mou@oss.qualcomm.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/2] drm/bridge: display-connector: trigger initial HPD
+ event for DP
+Message-ID: <20260318174000.GK633439@killaraus.ideasonboard.com>
+References: <20260314-dp-connector-hpd-v1-0-786044cedc17@oss.qualcomm.com>
+ <20260314-dp-connector-hpd-v1-2-786044cedc17@oss.qualcomm.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260314-dp-connector-hpd-v1-2-786044cedc17@oss.qualcomm.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,502 +68,100 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Hi Dmitry,
 
+Thank you for the patch.
 
-On 18/03/2026 11:51, Tvrtko Ursulin wrote:
+On Sat, Mar 14, 2026 at 02:43:12AM +0200, Dmitry Baryshkov wrote:
+> If the DisplayPort drivers use display-connector for the HPD detection,
+> the internal HPD state machine might be not active and thus the hardware
+> might be not able to handle cable detection correctly. Instead it will
+> depend on the externall HPD notifications to set the cable state,
+> bypassing the internal HPD state machine (for example this is the case
+> for the msm DP driver).
 > 
-> On 17/03/2026 17:04, Marco Pagani wrote:
->> On 23/02/2026 17:25, Tvrtko Ursulin wrote:
->>>
->>> On 19/02/2026 14:07, Marco Pagani wrote:
->>>> Add a new test suite to simulate concurrent job submissions to the DRM
->>>> scheduler. The suite includes two initial test cases: (i) a primary test
->>>> case for parallel job submission and (ii) a secondary test case for
->>>> interleaved job submission and completion. In the first test case, worker
->>>> threads concurrently submit jobs to the scheduler and then the timeline is
->>>> manually advanced. In the second test case, worker threads periodically
->>>> submit a sequence of jobs to the mock scheduler. Periods are chosen as
->>>> harmonic, starting from a base period, to allow interleaving between
->>>> submission and completion. To avoid impractically large execution times,
->>>> periods are cycled. The timeline is advanced automatically when the jobs
->>>> completes. This models how job submission from userspace (in process
->>>> context) may interleave with job completion (hrtimer callback interrupt
->>>> context, in the test case) by a physical device.
->>>>
->>>> Signed-off-by: Marco Pagani <marco.pagani@linux.dev>
->>>> ---
->>>> Changes in v1:
->>>> - Split the original suite into two test cases (Tvrtko Ursulin).
->>>> - General test refactoring and variable renaming for clarity.
->>>> - Changed parameters to have a fairer workload distribution.
->>>> - Improved cleanup logic.
->>>> - Added kunit_info() prints for tracing workers.
->>>> ---
->>>>    drivers/gpu/drm/scheduler/tests/tests_basic.c | 338 ++++++++++++++++++
->>>>    1 file changed, 338 insertions(+)
->>>>
->>>> diff --git a/drivers/gpu/drm/scheduler/tests/tests_basic.c b/drivers/gpu/drm/scheduler/tests/tests_basic.c
->>>> index 82a41a456b0a..391edcbaf43a 100644
->>>> --- a/drivers/gpu/drm/scheduler/tests/tests_basic.c
->>>> +++ b/drivers/gpu/drm/scheduler/tests/tests_basic.c
->>>> @@ -2,6 +2,8 @@
->>>>    /* Copyright (c) 2025 Valve Corporation */
->>>>    
->>>>    #include <linux/delay.h>
->>>> +#include <linux/completion.h>
->>>> +#include <linux/workqueue.h>
->>>>    
->>>>    #include "sched_tests.h"
->>>>    
->>>> @@ -235,6 +237,341 @@ static void drm_sched_basic_cancel(struct kunit *test)
->>>>    	KUNIT_ASSERT_EQ(test, job->hw_fence.error, -ECANCELED);
->>>>    }
->>>>    
->>>> +struct sched_concurrent_context {
->>>> +	struct drm_mock_scheduler *sched;
->>>> +	struct workqueue_struct *sub_wq;
->>>> +	struct kunit *test;
->>>> +	struct completion wait_go;
->>>> +};
->>>> +
->>>> +KUNIT_DEFINE_ACTION_WRAPPER(drm_mock_sched_fini_wrap, drm_mock_sched_fini,
->>>> +			    struct drm_mock_scheduler *);
->>>> +
->>>> +KUNIT_DEFINE_ACTION_WRAPPER(drm_mock_sched_entity_free_wrap, drm_mock_sched_entity_free,
->>>> +			    struct drm_mock_sched_entity *);
->>>> +
->>>> +static void complete_destroy_workqueue(void *context)
->>>> +{
->>>> +	struct sched_concurrent_context *ctx = (struct sched_concurrent_context *)context;
->>>> +
->>>> +	complete_all(&ctx->wait_go);
->>>> +
->>>> +	destroy_workqueue(ctx->sub_wq);
->>>> +}
->>>> +
->>>> +static int drm_sched_concurrent_init(struct kunit *test)
->>>> +{
->>>> +	struct sched_concurrent_context *ctx;
->>>> +	int ret;
->>>> +
->>>> +	ctx = kunit_kzalloc(test, sizeof(*ctx), GFP_KERNEL);
->>>> +	KUNIT_ASSERT_NOT_NULL(test, ctx);
->>>> +
->>>> +	init_completion(&ctx->wait_go);
->>>> +
->>>> +	ctx->sched = drm_mock_sched_new(test, MAX_SCHEDULE_TIMEOUT);
->>>> +
->>>> +	ret = kunit_add_action_or_reset(test, drm_mock_sched_fini_wrap, ctx->sched);
->>>> +	KUNIT_ASSERT_EQ(test, ret, 0);
->>>> +
->>>> +	/* Use an unbounded workqueue to maximize job submission concurrency */
->>>> +	ctx->sub_wq = alloc_workqueue("drm-sched-submitters-wq", WQ_UNBOUND,
->>>> +				      WQ_UNBOUND_MAX_ACTIVE);
->>>> +	KUNIT_ASSERT_NOT_NULL(test, ctx->sub_wq);
->>>> +
->>>> +	ret = kunit_add_action_or_reset(test, complete_destroy_workqueue, ctx);
->>>> +	KUNIT_ASSERT_EQ(test, ret, 0);
->>>> +
->>>> +	ctx->test = test;
->>>> +	test->priv = ctx;
->>>> +
->>>> +	return 0;
->>>> +}
->>>> +
->>>> +struct drm_sched_parallel_params {
->>>> +	const char *description;
->>>> +	unsigned int num_jobs;
->>>> +	unsigned int num_workers;
->>>> +};
->>>> +
->>>> +static const struct drm_sched_parallel_params drm_sched_parallel_cases[] = {
->>>> +	{
->>>> +		.description = "Workers submitting multiple jobs against a single entity",
->>>
->>> Each worker has own entity so the description is a bit confusing.
->>
->> Right, I'll change it "Multiple workers submitting multiple jobs from their entity"
->> as you suggested in the following email.
->>
->>>> +		.num_jobs = 4,
->>>> +		.num_workers = 16,
->>>> +	},
->>>> +};
->>>> +
->>>> +static void
->>>> +drm_sched_parallel_desc(const struct drm_sched_parallel_params *params, char *desc)
->>>> +{
->>>> +	strscpy(desc, params->description, KUNIT_PARAM_DESC_SIZE);
->>>> +}
->>>> +
->>>> +KUNIT_ARRAY_PARAM(drm_sched_parallel, drm_sched_parallel_cases, drm_sched_parallel_desc);
->>>> +
->>>> +struct parallel_worker {
->>>> +	struct work_struct work;
->>>> +	struct sched_concurrent_context *ctx;
->>>> +	struct drm_mock_sched_entity *entity;
->>>> +	struct drm_mock_sched_job **jobs;
->>>> +	unsigned int id;
->>>> +};
->>>> +
->>>> +static void drm_sched_parallel_worker(struct work_struct *work)
->>>> +{
->>>> +	const struct drm_sched_parallel_params *params;
->>>> +	struct sched_concurrent_context *test_ctx;
->>>> +	struct parallel_worker *worker;
->>>> +	unsigned int i;
->>>> +
->>>> +	worker = container_of(work, struct parallel_worker, work);
->>>> +	test_ctx = worker->ctx;
->>>> +	params = test_ctx->test->param_value;
->>>> +
->>>> +	wait_for_completion(&test_ctx->wait_go);
->>>> +
->>>> +	kunit_info(test_ctx->test, "Parallel worker %u started\n", worker->id);
->>>> +
->>>> +	for (i = 0; i < params->num_jobs; i++)
->>>> +		drm_mock_sched_job_submit(worker->jobs[i]);
->>>> +}
->>>> +
->>>> +/*
->>>> + * Spawns workers that submit a sequence of jobs to the mock scheduler.
->>>> + * Once all jobs are submitted, the timeline is manually advanced.
->>>> + */
->>>> +static void drm_sched_parallel_submit_test(struct kunit *test)
->>>> +{
->>>> +	struct sched_concurrent_context *ctx = test->priv;
->>>> +	const struct drm_sched_parallel_params *params = test->param_value;
->>>> +	struct parallel_worker *workers;
->>>> +	unsigned int i, j, completed_jobs;
->>>> +	bool done;
->>>> +	int ret;
->>>> +
->>>> +	workers = kunit_kcalloc(test, params->num_workers, sizeof(*workers),
->>>> +				GFP_KERNEL);
->>>> +	KUNIT_ASSERT_NOT_NULL(test, workers);
->>>> +
->>>> +	/*
->>>> +	 * Init workers only after all jobs and entities have been successfully
->>>> +	 * allocated. In this way, the cleanup logic for when an assertion fail
->>>> +	 * can be simplified.
->>>> +	 */
->>>> +	for (i = 0; i < params->num_workers; i++) {
->>>> +		workers[i].id = i;
->>>> +		workers[i].ctx = ctx;
->>>> +		workers[i].entity = drm_mock_sched_entity_new(test,
->>>> +							      DRM_SCHED_PRIORITY_NORMAL,
->>>> +							      ctx->sched);
->>>> +
->>>> +		ret = kunit_add_action_or_reset(test, drm_mock_sched_entity_free_wrap,
->>>> +						workers[i].entity);
->>>> +		KUNIT_ASSERT_EQ(test, ret, 0);
->>>> +
->>>> +		workers[i].jobs = kunit_kcalloc(test, params->num_jobs,
->>>> +						sizeof(*workers[i].jobs), GFP_KERNEL);
->>>> +		KUNIT_ASSERT_NOT_NULL(test, workers[i].jobs);
->>>> +
->>>> +		for (j = 0; j < params->num_jobs; j++)
->>>> +			workers[i].jobs[j] = drm_mock_sched_job_new(test,
->>>> +								    workers[i].entity);
->>>> +	}
->>>> +
->>>> +	for (i = 0; i < params->num_workers; i++) {
->>>> +		INIT_WORK(&workers[i].work, drm_sched_parallel_worker);
->>>> +		queue_work(ctx->sub_wq, &workers[i].work);
->>>> +	}
->>>> +
->>>> +	complete_all(&ctx->wait_go);
->>>> +	flush_workqueue(ctx->sub_wq);
->>>> +
->>>> +	for (i = 0; i < params->num_workers; i++) {
->>>> +		for (j = 0; j < params->num_jobs; j++) {
->>>> +			done = drm_mock_sched_job_wait_scheduled(workers[i].jobs[j],
->>>> +								 HZ);
->>>> +			KUNIT_ASSERT_TRUE(test, done);
->>>> +
->>>> +			done = drm_mock_sched_job_is_finished(workers[i].jobs[j]);
->>>> +			KUNIT_ASSERT_FALSE(test, done);
->>>
->>> This second assert does not seem to be bringing much value, but instead
->>> makes the reader ask themselves why it is there. Remove it?
->>>
->>> Hmm in fact this whole loop could be removed. All that it is needed
->>> below is to wait for the last job to be completed.
->>
->> I'll reply to this in the following mail since Philip joined the conversation.
->>   
->>>> +		}
->>>> +	}
->>>> +
->>>> +	completed_jobs = drm_mock_sched_advance(ctx->sched,
->>>> +						params->num_workers * params->num_jobs);
->>>> +	KUNIT_ASSERT_EQ(test, completed_jobs, params->num_workers * params->num_jobs);
->>>> +
->>>> +	for (i = 0; i < params->num_workers; i++) {
->>>> +		for (j = 0; j < params->num_jobs; j++) {
->>>> +			done = drm_mock_sched_job_is_finished(workers[i].jobs[j]);
->>>> +			KUNIT_ASSERT_TRUE(test, done);
->>>> +		}
->>>> +	}
->>>
->>> So here, after advancing you just need to wait on the last job to complete.
->>>
->>> Not a deal breaker to have it verbose but usually the less is better and
->>> easier to spot the key thing being tested and what are the functional steps.
->>>
->>>> +}
->>>> +
->>>> +struct drm_sched_interleaved_params {
->>>> +	const char *description;
->>>> +	unsigned int job_base_period_us;
->>>> +	unsigned int periods_cycle;
->>>> +	unsigned int num_jobs;
->>>> +	unsigned int num_workers;
->>>> +};
->>>> +
->>>> +static const struct drm_sched_interleaved_params drm_sched_interleaved_cases[] = {
->>>> +	{
->>>> +		.description = "Workers submitting single jobs against a single entity",
->>>
->>> As with the parallel description.
->>
->> Agreed.
->>   
->>>> +		.job_base_period_us = 100,
->>>> +		.periods_cycle = 10,
->>>> +		.num_jobs = 1,
->>>> +		.num_workers = 32,
->>>> +	},
->>>> +	{
->>>> +		.description = "Workers submitting multiple jobs against a single entity",
->>>> +		.job_base_period_us = 100,
->>>> +		.periods_cycle = 10,
->>>> +		.num_jobs = 4,
->>>> +		.num_workers = 16,
->>>> +	},
->>>> +};
->>>> +
->>>> +static void
->>>> +drm_sched_interleaved_desc(const struct drm_sched_interleaved_params *params, char *desc)
->>>> +{
->>>> +	strscpy(desc, params->description, KUNIT_PARAM_DESC_SIZE);
->>>> +}
->>>> +
->>>> +KUNIT_ARRAY_PARAM(drm_sched_interleaved, drm_sched_interleaved_cases,
->>>> +		  drm_sched_interleaved_desc);
->>>> +
->>>> +struct interleaved_worker {
->>>> +	struct work_struct work;
->>>> +	struct sched_concurrent_context *ctx;
->>>> +	struct drm_mock_sched_entity *entity;
->>>> +	struct drm_mock_sched_job **jobs;
->>>> +	unsigned int id;
->>>> +	unsigned int period_us;
->>>> +	unsigned int timeout_us;
->>>> +};
->>>> +
->>>> +static void drm_sched_interleaved_worker(struct work_struct *work)
->>>> +{
->>>> +	const struct drm_sched_interleaved_params *params;
->>>> +	struct sched_concurrent_context *test_ctx;
->>>> +	struct interleaved_worker *worker;
->>>> +	unsigned int i;
->>>> +	bool done;
->>>> +
->>>> +	worker = container_of(work, struct interleaved_worker, work);
->>>> +	test_ctx = worker->ctx;
->>>> +	params = test_ctx->test->param_value;
->>>> +
->>>> +	wait_for_completion(&test_ctx->wait_go);
->>>> +
->>>> +	kunit_info(test_ctx->test, "Interleaved worker %u with period %u us started\n",
->>>> +		   worker->id, worker->period_us);
->>>> +
->>>> +	/* Release jobs as a periodic sequence */
->>>> +	for (i = 0; i < params->num_jobs; i++) {
->>>> +		drm_mock_sched_job_set_duration_us(worker->jobs[i], worker->period_us);
->>>> +		drm_mock_sched_job_submit(worker->jobs[i]);
->>>> +
->>>> +		done = drm_mock_sched_job_wait_finished(worker->jobs[i],
->>>> +							usecs_to_jiffies(worker->timeout_us));
->>>> +		if (!done)
->>>> +			kunit_info(test_ctx->test, "Job %u of worker %u timedout\n",
->>>> +				   i, worker->id);
->>>> +	}
->>>> +}
->>>> +
->>>> +/*
->>>> + * Spawns workers that submit a periodic sequence of jobs to the mock scheduler.
->>>> + * Uses harmonic periods to allow interleaving and cycles through them to prevent
->>>> + * excessively large execution times. Since the scheduler serializes jobs from all
->>>> + * workers, the timeout is set to the hyperperiod with a 2x safety factor. Entities
->>>> + * and jobs are pre-allocated in the main thread to avoid using KUnit assertions in
->>>> + * the workers.
->>>> + */
->>>> +static void drm_sched_interleaved_submit_test(struct kunit *test)
->>>> +{
->>>> +	struct sched_concurrent_context *ctx = test->priv;
->>>> +	const struct drm_sched_interleaved_params *params = test->param_value;
->>>> +	struct interleaved_worker *workers;
->>>> +	unsigned int period_max_us, timeout_us;
->>>> +	unsigned int i, j;
->>>> +	bool done;
->>>> +	int ret;
->>>> +
->>>> +	workers = kunit_kcalloc(test, params->num_workers, sizeof(*workers),
->>>> +				GFP_KERNEL);
->>>> +	KUNIT_ASSERT_NOT_NULL(test, workers);
->>>> +
->>>> +	period_max_us = params->job_base_period_us * (1 << params->periods_cycle);
->>>> +	timeout_us = params->num_workers * period_max_us * 2;
->>>> +
->>>> +	/*
->>>> +	 * Init workers only after all jobs and entities have been successfully
->>>> +	 * allocated. In this way, the cleanup logic for when an assertion fail
->>>> +	 * can be simplified.
->>>> +	 */
->>>> +	for (i = 0; i < params->num_workers; i++) {
->>>> +		workers[i].id = i;
->>>> +		workers[i].ctx = ctx;
->>>> +		workers[i].timeout_us = timeout_us;
->>>> +
->>>> +		if (i % params->periods_cycle == 0)
->>>> +			workers[i].period_us = params->job_base_period_us;
->>>> +		else
->>>> +			workers[i].period_us = workers[i - 1].period_us * 2;
->>>
->>> Are the two if statements effectively equivalent to:
->>>
->>>    period_us = params->job_base_period_us << (i % params->periods_cycle);
->>>
->>> ?
->>
->> Yes. Actually, I was very undecided between using the closed form and the
->> iterative form. In the end, I went with the iterative one because I thought
->> it would be easier to understand and maintain, and this code is not
->> performance-critical. However, I don't have a strong opinion on this.
->> Either way works for me.
+> However if the cable has been plugged before the HPD IRQ has been
+> enabled, there will be no HPD event coming. The drivers might fail
+> detection in such a case. Trigger the HPD notification after enabling
+> the HPD IRQ, propagating the cable insertion state.
+
+The explanation makes sense, but it sounds like to could apply the same
+way to HDMI. What am I missing ?
+
+Also, wouldn't it be better if the DRM core interrogated the state of
+the HPD signal when enabling HPD, instead of relying on all drivers to
+implement something similar as this patch ?
+
+> Fixes: 2e2bf3a5584d ("drm/bridge: display-connector: add DP support")
+> Reported-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> ---
+>  drivers/gpu/drm/bridge/display-connector.c | 19 +++++++++++++++++++
+>  1 file changed, 19 insertions(+)
 > 
-> AFAIR, and maybe it is just me, the if-else version with referencing the 
-> previous (i - 1) period took me some time to figure out what it is 
-> about. My version is obvious to me that it is a repeating cycle (modulo 
-> operator) of doubling intervals (<<).
-
-Right, a for loop with (i - 1) can indeed be confusing. I'll take that
-into account.
-
->>
->>> Also, do you have an idea how to locally calculate a suitable
->>> periods_cycle instead of having to come up with a number in the
->>> drm_sched_interleaved_params array. Just strikes me as hard to know what
->>> to put in there if someone would want to add a test.
->>
->> Please see below.
->>   
->>>> +
->>>> +		workers[i].entity = drm_mock_sched_entity_new(test,
->>>> +							      DRM_SCHED_PRIORITY_NORMAL,
->>>> +							      ctx->sched);
->>>> +
->>>> +		ret = kunit_add_action_or_reset(test, drm_mock_sched_entity_free_wrap,
->>>> +						workers[i].entity);
->>>> +		KUNIT_ASSERT_EQ(test, ret, 0);
->>>> +
->>>> +		workers[i].jobs = kunit_kcalloc(test, params->num_jobs,
->>>> +						sizeof(*workers[i].jobs), GFP_KERNEL);
->>>> +		KUNIT_ASSERT_NOT_NULL(test, workers[i].jobs);
->>>> +
->>>> +		for (j = 0; j < params->num_jobs; j++) {
->>>> +			workers[i].jobs[j] = drm_mock_sched_job_new(test,
->>>> +								    workers[i].entity);
->>>> +			done = drm_mock_sched_job_is_finished(workers[i].jobs[j]);
->>>> +			KUNIT_ASSERT_FALSE(test, done);
->>>
->>> Same as above, this is asserted by a basic test case so I'd just remove it.
->>>
->>>> +		}
->>>> +	}
->>>> +
->>>> +	for (i = 0; i < params->num_workers; i++) {
->>>> +		INIT_WORK(&workers[i].work, drm_sched_interleaved_worker);
->>>> +		queue_work(ctx->sub_wq, &workers[i].work);
->>>> +	}
->>>> +
->>>> +	complete_all(&ctx->wait_go);
->>>> +	flush_workqueue(ctx->sub_wq);
->>>> +
->>>> +	for (i = 0; i < params->num_workers; i++) {
->>>> +		for (j = 0; j < params->num_jobs; j++) {
->>>> +			done = drm_mock_sched_job_is_finished(workers[i].jobs[j]);
->>>> +			KUNIT_ASSERT_TRUE(test, done);
->>>> +		}
->>>> +	}
->>>
->>> Here as well you could wait just for the last job per worker.
->>>
->>> On the overal submission pattern - Don't you end up with a very uneven
->>> activity between the workers? Because the job duration is doubling and
->>> workers are single-shot, once the low index workers are done they are
->>> done, and all that remains are the higher ones, and so the wave of fewer
->>> and fewer active workers continues. Low index worker do not end up
->>> racing with the job completions of the high index workers but only
->>> between themselves, and even that with the cycle=10 workers=16 case is
->>> even more limited.
->>
->> Good point.
->>
->>> Alternative approach could be to set a per test time budget and just
->>> keep the workers submitting until over. It would be simpler to
->>> understand and there would be more submit/complete overlap.
->>
->> I agree. Using a test time budget and having workers continuously
->> submit jobs until it expires would make better use of the test time.
->> I'm thinking that the simplest and most straightforward approach would
->> be to cyclically distribute periods among workers until they reach the
->> the largest possibile value below test duration, which would coincide
->> with the hyperperiod. This would also solve the issue of selecting a
->> suitable periods_cycle parameter that you mentioned earlier.
->> In practice, something like this:
->>
->> drm_sched_interleaved_params [...]
->> {
->>          .num_workers = N
->>          .test_max_time = T
->>          .job_base_period_us = P         /* Small GPU job, 100 us */
->> }
->>
->> period_us = job_base_period_us;
->> for (i = 0; i < params->num_workers; i++) {
->>          workers[i].period_us = period_us;
->>          period_us *= 2;
->>          if (period_us > test_max_time)
->>                  period_us = job_base_period_us;
->> }
->>
->>
->> What do you think?
+> diff --git a/drivers/gpu/drm/bridge/display-connector.c b/drivers/gpu/drm/bridge/display-connector.c
+> index 6bb1134f75c3..f7a5bfd9c075 100644
+> --- a/drivers/gpu/drm/bridge/display-connector.c
+> +++ b/drivers/gpu/drm/bridge/display-connector.c
+> @@ -12,6 +12,7 @@
+>  #include <linux/of.h>
+>  #include <linux/platform_device.h>
+>  #include <linux/regulator/consumer.h>
+> +#include <linux/workqueue.h>
+>  
+>  #include <drm/drm_atomic_helper.h>
+>  #include <drm/drm_bridge.h>
+> @@ -25,6 +26,8 @@ struct display_connector {
+>  
+>  	struct regulator	*supply;
+>  	struct gpio_desc	*ddc_en;
+> +
+> +	struct work_struct	hpd_work;
+>  };
+>  
+>  static inline struct display_connector *
+> @@ -92,15 +95,29 @@ static void display_connector_hpd_enable(struct drm_bridge *bridge)
+>  	struct display_connector *conn = to_display_connector(bridge);
+>  
+>  	enable_irq(conn->hpd_irq);
+> +
+> +	if (conn->bridge.type == DRM_MODE_CONNECTOR_DisplayPort)
+> +		schedule_work(&conn->hpd_work);
+>  }
+>  
+>  static void display_connector_hpd_disable(struct drm_bridge *bridge)
+>  {
+>  	struct display_connector *conn = to_display_connector(bridge);
+>  
+> +	if (conn->bridge.type == DRM_MODE_CONNECTOR_DisplayPort)
+> +		cancel_work_sync(&conn->hpd_work);
+> +
+>  	disable_irq(conn->hpd_irq);
+>  }
+>  
+> +static void display_connector_hpd_work(struct work_struct *work)
+> +{
+> +	struct display_connector *conn = container_of(work, struct display_connector, hpd_work);
+> +	struct drm_bridge *bridge = &conn->bridge;
+> +
+> +	drm_bridge_hpd_notify(bridge, display_connector_detect(bridge));
+> +}
+> +
+>  static const struct drm_edid *display_connector_edid_read(struct drm_bridge *bridge,
+>  							  struct drm_connector *connector)
+>  {
+> @@ -395,6 +412,8 @@ static int display_connector_probe(struct platform_device *pdev)
+>  		conn->bridge.ops |= DRM_BRIDGE_OP_DETECT;
+>  	if (conn->hpd_irq >= 0)
+>  		conn->bridge.ops |= DRM_BRIDGE_OP_HPD;
+> +	if (conn->hpd_irq >= 0 && type == DRM_MODE_CONNECTOR_DisplayPort)
+> +		INIT_WORK(&conn->hpd_work, display_connector_hpd_work);
+>  
+>  	dev_dbg(&pdev->dev,
+>  		"Found %s display connector '%s' %s DDC bus and %s HPD GPIO (ops 0x%x)\n",
 > 
-> 
-> Again some time has passed so rather than going to re-read your patch I 
-> will go from memory. IIRC I was thinking something really dumb and 100% 
-> time bound with no need to think when coding and reviewing. Each thread 
-> simply does:
-> 
-> ktime_t start = ktime_get();
-> 
-> do {
->   .. thread doing its submission pattern thing ..
-> } while (ktime_to_ms(ktime_sub(ktime_get(), start)) < test->time_ms);
-> 
-> May miss the time target by a job period_us but who cares.
 
-Sorry for the delay. I got pulled into other things. I left out the worker
-execution part since we already agreed on that. Instead, I've replied with
-some pseudocode describing a new strategy for period assignments from test
-parameters that takes into account your comments.
+-- 
+Regards,
 
-Thanks,
-Marco
-
-
-
+Laurent Pinchart
