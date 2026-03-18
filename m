@@ -4,61 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3F842FF6E97
-	for <dri-devel@archiver.kernel.org>; Tue, 17 Mar 2026 23:29:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9AB4AFD8779
+	for <dri-devel@archiver.kernel.org>; Wed, 18 Mar 2026 00:08:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8C9C210E171;
-	Tue, 17 Mar 2026 23:29:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CA90610E5F9;
+	Wed, 18 Mar 2026 00:08:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="MXMDiGrS";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="N4TtEpuj";
 	dkim-atps=neutral
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
- [213.167.242.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 04E0310E171
- for <dri-devel@lists.freedesktop.org>; Tue, 17 Mar 2026 23:29:55 +0000 (UTC)
-Received: from killaraus.ideasonboard.com
- (2001-14ba-703d-e500--2a1.rev.dnainternet.fi [IPv6:2001:14ba:703d:e500::2a1])
- by perceval.ideasonboard.com (Postfix) with UTF8SMTPSA id 7360CB3;
- Wed, 18 Mar 2026 00:28:41 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1773790121;
- bh=10fbkQNfdwX5A27Z4ALHm7yHi4nhiv1bo993DzslWMI=;
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D377110E5F9;
+ Wed, 18 Mar 2026 00:08:41 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id A3815403E7;
+ Wed, 18 Mar 2026 00:08:41 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F9F3C19425;
+ Wed, 18 Mar 2026 00:08:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1773792521;
+ bh=D1D/7ldl9hLSp78iQ6WgbBNELMb7wmGvz53rwt7WaEU=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=MXMDiGrSdU9Qj6JpWul47oft3o47Du5hPaSnZqjPZzz+wiX7ficHtC9dy//br/eNz
- I1QtB6lP2A2K9kXPWcWk7ufSGRrMLhbiLGa/Y570/VEUQ64r7SF/S20bKfrz29jmsM
- N9Qt7ujsOxryFfpM4arSWhGHHVZCHk0zH2fVuo58=
-Date: Wed, 18 Mar 2026 01:29:52 +0200
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Biju Das <biju.das.jz@bp.renesas.com>
-Cc: "biju.das.au" <biju.das.au@gmail.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>,
- Andy Yan <andy.yan@rock-chips.com>,
- Douglas Anderson <dianders@chromium.org>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Jesse Van Gavere <jesseevg@gmail.com>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>,
- "linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>
-Subject: Re: [PATCH] drm/bridge: adv7511: Clear HPD IRQ before powering on
- device during resume()
-Message-ID: <20260317232952.GD408929@killaraus.ideasonboard.com>
-References: <20251219104659.114032-1-biju.das.jz@bp.renesas.com>
- <20260316140232.GB31616@killaraus.ideasonboard.com>
- <TYCPR01MB113325ADBA0ACD1872BD4959B8640A@TYCPR01MB11332.jpnprd01.prod.outlook.com>
+ b=N4TtEpuj2ofpYYk614ICJN/q/4cwIC81dgWQ31X3yLNCti+3QoqhZM0r8zR5rIf9M
+ t7lZCqMWE5kEnZNPdemPxbCW8s7TWlN++s2eLVs4j19SHDykH3XmCoQK8dICIhrs12
+ 4Hno4caRMYbSYYGI34r65e3k7DCErH/eUDaQxo1OZ/cLhM0LWBt/R6Ds9ZdQPZZKZt
+ H/9YX1l79o6IxDlL4SG4B3WHft/1wgmCeCyqZUCv+u110APJZ76fDP+YvD8DuYm7xC
+ 4h9FFiEAcgzGl3j6zj76uHKrfPMWUIZudEi0e5bWkdd4FTwZ9Td5lIEgbwv8KJkEfn
+ WJK12HSUQwc4g==
+Date: Wed, 18 Mar 2026 08:08:39 +0800
+From: Yixun Lan <dlan@kernel.org>
+To: Vladimir Oltean <vladimir.oltean@nxp.com>
+Cc: linux-phy@lists.infradead.org, Vinod Koul <vkoul@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
+ linux-can@vger.kernel.org, linux-gpio@vger.kernel.org,
+ linux-ide@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, linux-pci@vger.kernel.org,
+ linux-renesas-soc@vger.kernel.org, linux-riscv@lists.infradead.org,
+ linux-rockchip@lists.infradead.org,
+ linux-samsung-soc@vger.kernel.org, linux-scsi@vger.kernel.org,
+ linux-sunxi@lists.linux.dev, linux-tegra@vger.kernel.org,
+ linux-usb@vger.kernel.org, netdev@vger.kernel.org,
+ spacemit@lists.linux.dev, UNGLinuxDriver@microchip.com
+Subject: Re: [PATCH v4 phy-next 06/24] phy: spacemit: include missing
+ <linux/phy/phy.h>
+Message-ID: <20260318000839-GKB453922@kernel.org>
+References: <20260317230500.2056077-1-vladimir.oltean@nxp.com>
+ <20260317230500.2056077-7-vladimir.oltean@nxp.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <TYCPR01MB113325ADBA0ACD1872BD4959B8640A@TYCPR01MB11332.jpnprd01.prod.outlook.com>
+In-Reply-To: <20260317230500.2056077-7-vladimir.oltean@nxp.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,106 +70,38 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Mar 16, 2026 at 05:59:57PM +0000, Biju Das wrote:
-> On 16 March 2026 14:03, Laurent Pinchart wrote:
-> > On Fri, Dec 19, 2025 at 10:46:53AM +0000, Biju wrote:
-> > > From: Biju Das <biju.das.jz@bp.renesas.com>
-> > >
-> > > On RZ/G3E SMARC EVK using PSCI, s2ram powers down the SoC. Testing
-> > > ADV7535 IRQ configured as edge-triggered interrupt on RZ/G3E SMARC EVK
-> > > shows that it is missing HPD IRQ during system resume, as the status
-> > > change occurs before the IRQ/pincontrol resume. Once the status bit is
-> > > set, there won't be any further IRQ unless the status bit is cleared.
-> > >
-> > > Clear any pending HPD IRQs before powering on the ADV7535 device to
-> > > deliver HPD interrupts after resume().
-> > 
-> > This issue doesn't seem to be specific to the ADV7511. Any device that uses an edge-triggered
-> > interrupt could suffer from the same problem.
-> > Implementing a work around in the driver doesn't seem to be a solution that would scale.
-> 
-> I don't see any bridge device is complaining about similar issues in Linux kernel.
+Hi Vladimir, 
 
-This is exactly why this patch concerns me. The issue doesn't seem to be
-specific to the ADV7511, yet no other bridge driver implements anything
-similar. It seems to indicate something else is wrong.
+On 01:04 Wed 18 Mar     , Vladimir Oltean wrote:
+> This driver relies on a transitive inclusion of the PHY API header
+> through the USB headers.
+> 
+> Signed-off-by: Vladimir Oltean <vladimir.oltean@nxp.com>
+Reviewed-by: Yixun Lan <dlan@kernel.org>
 
-I understand and agree with the analysis of the issue (although I find
-it weird that the interrupt controller or pin controller would be
-resumed after the ADV7511), but any device with an edge-triggered
-interrupt should then suffer from the same problem. This means it
-shouldn't be handled at individual drivers level, unless there's
-something I'm missing that makes the problem very specific to the
-ADV7511. Otherwise, a more generic solution is needed.
-
-> Looks like, other bridge devices do not have such restriction.
->
-> > > Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
-> > > ---
-> > >  drivers/gpu/drm/bridge/adv7511/adv7511.h     |  1 +
-> > >  drivers/gpu/drm/bridge/adv7511/adv7511_drv.c | 32 ++++++++++++++++++++
-> > >  2 files changed, 33 insertions(+)
-> > >
-> > > diff --git a/drivers/gpu/drm/bridge/adv7511/adv7511.h
-> > > b/drivers/gpu/drm/bridge/adv7511/adv7511.h
-> > > index 8be7266fd4f4..03aa23836ca4 100644
-> > > --- a/drivers/gpu/drm/bridge/adv7511/adv7511.h
-> > > +++ b/drivers/gpu/drm/bridge/adv7511/adv7511.h
-> > > @@ -393,6 +393,7 @@ struct adv7511 {
-> > >  	bool cec_enabled_adap;
-> > >  	struct clk *cec_clk;
-> > >  	u32 cec_clk_freq;
-> > > +	bool suspended;
-> > >  };
-> > >
-> > >  static inline struct adv7511 *bridge_to_adv7511(struct drm_bridge
-> > > *bridge) diff --git a/drivers/gpu/drm/bridge/adv7511/adv7511_drv.c
-> > > b/drivers/gpu/drm/bridge/adv7511/adv7511_drv.c
-> > > index b9be86541307..8d9467187d7c 100644
-> > > --- a/drivers/gpu/drm/bridge/adv7511/adv7511_drv.c
-> > > +++ b/drivers/gpu/drm/bridge/adv7511/adv7511_drv.c
-> > > @@ -790,6 +790,25 @@ static void adv7511_bridge_atomic_enable(struct drm_bridge *bridge,
-> > >  	struct drm_connector_state *conn_state;
-> > >  	struct drm_crtc_state *crtc_state;
-> > >
-> > > +	if (adv->i2c_main->irq && adv->suspended) {
-> > > +		unsigned int irq;
-> > > +
-> > > +		/*
-> > > +		 * If ADV7511 IRQ is configured as edge triggered interrupt, it
-> > > +		 * will miss the IRQ during system resume as the status change
-> > > +		 * occurs before IRQ/pincontrol resume. Once the status bit is
-> > 
-> > That seems very platform-specific.
+> ---
+> Cc: Yixun Lan <dlan@kernel.org>
 > 
-> OK, I will reword something like. Is it ok for you?
+> v1->v4: none
+> ---
+>  drivers/phy/spacemit/phy-k1-usb2.c | 1 +
+>  1 file changed, 1 insertion(+)
 > 
-> The HPD status change occurs before the interrupt/pin control resume.
-> Once the status bit is set, there will be no further delivery of interrupts
-> unless the status bit is cleared. Therefore, clear the interrupt status bit
-> for further delivery of HPD interrupts.
+> diff --git a/drivers/phy/spacemit/phy-k1-usb2.c b/drivers/phy/spacemit/phy-k1-usb2.c
+> index 342061380012..14a02f554810 100644
+> --- a/drivers/phy/spacemit/phy-k1-usb2.c
+> +++ b/drivers/phy/spacemit/phy-k1-usb2.c
+> @@ -9,6 +9,7 @@
+>  #include <linux/bitfield.h>
+>  #include <linux/clk.h>
+>  #include <linux/iopoll.h>
+> +#include <linux/phy/phy.h>
+>  #include <linux/platform_device.h>
+>  #include <linux/regmap.h>
+>  #include <linux/usb/of.h>
+> -- 
+> 2.43.0
 > 
-> > 
-> > > +		 * set there won't be any further IRQ unless the status bit is
-> > > +		 * cleared. So, clear the IRQ status bit for further delivery
-> > > +		 * of HPD IRQ.
-> > > +		 */
-> > > +		regmap_read(adv->regmap, ADV7511_REG_INT(0), &irq);
-> > > +		if (irq & ADV7511_INT0_HPD)
-> > > +			regmap_write(adv->regmap, ADV7511_REG_INT(0),
-> > > +				     ADV7511_INT0_HPD);
-> > 
-> > Why do you need to read and test the IRQ here ? If ADV7511_INT0_HPD isn't set, a write will be a no-op
-> > and will keep it cleared. If it is set, it will clear it. It seems that an unconditional
-> > 
-> > 		regmap_write(adv->regmap, ADV7511_REG_INT(0),
-> > 			     ADV7511_INT0_HPD);
-> > 
-> > should be enough.
-> 
-> Agreed, I will make this unconditional.
 
 -- 
-Regards,
-
-Laurent Pinchart
+Yixun Lan (dlan)
