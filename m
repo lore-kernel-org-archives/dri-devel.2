@@ -4,72 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AD787107761F
-	for <dri-devel@archiver.kernel.org>; Wed, 18 Mar 2026 21:29:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DF72210854C9
+	for <dri-devel@archiver.kernel.org>; Wed, 18 Mar 2026 21:52:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 060FC10E478;
-	Wed, 18 Mar 2026 21:29:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 189AC10E062;
+	Wed, 18 Mar 2026 21:52:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="FTJUlTa4";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="Qp/7XfNq";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AA45810E44A
- for <dri-devel@lists.freedesktop.org>; Wed, 18 Mar 2026 21:28:55 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 491A844705;
- Wed, 18 Mar 2026 21:28:55 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id DDCD6C2BCB2;
- Wed, 18 Mar 2026 21:28:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1773869335;
- bh=Nuq2wHrBLxuZGeUJfMISr8VzFOYB9FUSVrFySOsLydM=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
- b=FTJUlTa4tXGhsUDNGGaxMzEgU46r46vdFVX4r0Xt4DIpJY7eU7Xhh75HW9PVI8a2Q
- 66px+pIH7sLL8oI/qp9+GyAxvtGn8Lk6H2i+eUzn7Cg5COV/J36FshAxsDXHWjYHpA
- AiUmrAGJgC+6bpHtPJ91GpikIXZvWoCf58F/wx/Maf3tEiuTgDWBCdYmuTmWm76qFZ
- ixVPhN4Vgc4gPus7uXS+TQIEHS0U+vUyW/CRydvf1sljGu+krIWMlJug8tgjArJXIg
- F7DQ6Ghd9T1w0hLj1Kg7uSNekothNNoEAZ89A8jICJ+tQK7ezkhjSVTRi4qPlaAWaL
- siBq+jiAAonXw==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
- (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id D1246103E19D;
- Wed, 18 Mar 2026 21:28:54 +0000 (UTC)
-From: Cristian Cozzolino via B4 Relay
- <devnull+cristian_ci.protonmail.com@kernel.org>
-Date: Wed, 18 Mar 2026 23:28:12 +0100
-Subject: [PATCH v2 4/6] arm64: dts: qcom: msm8953-flipkart-rimob: Enable
- WiFi/Bluetooth
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260318-rimob-new-features-v2-4-c1bf8917449e@protonmail.com>
-References: <20260318-rimob-new-features-v2-0-c1bf8917449e@protonmail.com>
-In-Reply-To: <20260318-rimob-new-features-v2-0-c1bf8917449e@protonmail.com>
-To: Neil Armstrong <neil.armstrong@linaro.org>, 
- Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
- ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org, 
- Cristian Cozzolino <cristian_ci@protonmail.com>, 
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1773872973; l=1054;
- i=cristian_ci@protonmail.com; s=20250620; h=from:subject:message-id;
- bh=6UxEpTqIgt97+bwFQnzTPs55o7CpwXQMc+N7/T2z61k=;
- b=vNrlA/gZO2iPAgTwpJ1VBrVr7t5Hoeaf3zxKm/IvwbzkjokfieSQxjmygQ0DuHoHfPNUnM2qm
- 5KSWzzjjGQRDoR+HgUfn9Km6kK4kL6iQCOm1gUk4PbBz0l6q+1bB2iD
-X-Developer-Key: i=cristian_ci@protonmail.com; a=ed25519;
- pk=xH5IvIPUNHV1Q8R0/pq2CfuVFR/wTiAyuyi6IwedjZY=
-X-Endpoint-Received: by B4 Relay for cristian_ci@protonmail.com/20250620
- with auth_id=438
-X-Original-From: Cristian Cozzolino <cristian_ci@protonmail.com>
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 786BB10E062
+ for <dri-devel@lists.freedesktop.org>; Wed, 18 Mar 2026 21:52:39 +0000 (UTC)
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+ by smtpout-03.galae.net (Postfix) with ESMTPS id 2AE9E4E426FA;
+ Wed, 18 Mar 2026 21:52:36 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+ by smtpout-01.galae.net (Postfix) with ESMTPS id DA5346004F;
+ Wed, 18 Mar 2026 21:52:35 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
+ with ESMTPSA id F197010450599; Wed, 18 Mar 2026 22:52:27 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+ t=1773870754; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ content-transfer-encoding:in-reply-to:references;
+ bh=hWDGumjNeG1y9SM0/jlZ31MlASAIa2Shc7waG7yET5E=;
+ b=Qp/7XfNqeiRlS2+FBFlAtJhAPg1H9lzngRLAmk7YMdnDETz5Ii0gzMXoDaPoiIm5JqXBz+
+ SP+F1t8MBRVtuKOMECJJDob2CZbvKJN7ciyNAn0BRWjEQp9qLjTe/eUPrtWlPQoxpjaUPa
+ /3FJgnvCwUSMiKo+z05es+JDYa+Up2B6Iqn0h2m4VuuGSeAAenVZtRFSMp3VFuB4RBVI7n
+ EGXNktIavNFYIru59l1A7GHcROoZf+jC5AarvH8/56cbv7Kf46QGs11U3A2aQxzvSlQmbG
+ W1SJ+yOmhDoyHj0e9x5uVtn2kWEXvedAjYDoEmUgA+r2YjRbKtgcQ239VNKQZA==
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 18 Mar 2026 22:52:26 +0100
+Message-Id: <DH68P6XTTTTP.10WUEJQMP1OC9@bootlin.com>
+Subject: Re: [PATCH v2] drm/bridge: dw-hdmi-qp: fix multi-channel audio output
+Cc: "Andrzej Hajda" <andrzej.hajda@intel.com>, "Neil Armstrong"
+ <neil.armstrong@linaro.org>, "Robert Foss" <rfoss@kernel.org>, "Laurent
+ Pinchart" <Laurent.pinchart@ideasonboard.com>, "Jonas Karlman"
+ <jonas@kwiboo.se>, "Jernej Skrabec" <jernej.skrabec@gmail.com>, "Maarten
+ Lankhorst" <maarten.lankhorst@linux.intel.com>, "Maxime Ripard"
+ <mripard@kernel.org>, "Thomas Zimmermann" <tzimmermann@suse.de>, "David
+ Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Dmitry
+ Baryshkov" <dmitry.baryshkov@oss.qualcomm.com>, "Detlev Casanova"
+ <detlev.casanova@collabora.com>, "Douglas Anderson"
+ <dianders@chromium.org>, "Andy Yan" <andy.yan@rock-chips.com>, "Sugar
+ Zhang" <sugar.zhang@rock-chips.com>, "Heiko Stuebner" <heiko@sntech.de>,
+ <dri-devel@lists.freedesktop.org>, <linux-rockchip@lists.infradead.org>,
+ <linux-kernel@vger.kernel.org>
+To: "Cristian Ciocaltea" <cristian.ciocaltea@collabora.com>, "Christian
+ Hewitt" <christianshewitt@gmail.com>
+From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
+X-Mailer: aerc 0.20.1
+References: <20260228112822.4056354-1-christianshewitt@gmail.com>
+ <DH56X74P9GC9.1O123S92J60RG@bootlin.com>
+ <00EE3E21-F614-429B-ACB6-19AF64CF74B3@gmail.com>
+ <DH58MAETGDMM.2QS6VJDQ7UXIV@bootlin.com>
+ <0895dfa0-9527-41b1-b991-a2bd6e0c549b@collabora.com>
+In-Reply-To: <0895dfa0-9527-41b1-b991-a2bd6e0c549b@collabora.com>
+X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,47 +74,33 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: cristian_ci@protonmail.com
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Cristian Cozzolino <cristian_ci@protonmail.com>
+Hello Cristian,
 
-Configure and enable the WCNSS which provides WiFi and Bluetooth on this
-device using the WCN3660B chip.
+On Wed Mar 18, 2026 at 7:12 PM CET, Cristian Ciocaltea wrote:
+>> So now this patch is on drm-misc-fixes, but drm-misc-fixes and
+>> drm-misc-next are now conflicting because of other changes by Cristian
+>> Ciocaltea applied in the meanwhile to drm-misc-next, and particularly
+>> commit 3ea699b56d31 ("drm/bridge: dw-hdmi-qp: Rework Audio InfoFrame
+>> handler").
+>>
+>> Cristian, Christian (heh), Jonas, could you please check whether the cod=
+e
+>> on drm-misc-next has or not the bug that is fixed here? And if it still
+>> has, send a fix based on current drm-misc-next?
+>
+> The conflicting commit in drm-misc-next (i.e. 3ea699b56d31) implicitly re=
+solves
+> this audio related issue as well, hence there is no need for any further =
+action.
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Signed-off-by: Cristian Cozzolino <cristian_ci@protonmail.com>
----
- arch/arm64/boot/dts/qcom/msm8953-flipkart-rimob.dts | 15 +++++++++++++++
- 1 file changed, 15 insertions(+)
+Good to know! Thanks for checking.
 
-diff --git a/arch/arm64/boot/dts/qcom/msm8953-flipkart-rimob.dts b/arch/arm64/boot/dts/qcom/msm8953-flipkart-rimob.dts
-index de287c8e9686..63e2c057319d 100644
---- a/arch/arm64/boot/dts/qcom/msm8953-flipkart-rimob.dts
-+++ b/arch/arm64/boot/dts/qcom/msm8953-flipkart-rimob.dts
-@@ -327,3 +327,18 @@ &usb3 {
- &usb3_dwc3 {
- 	dr_mode = "peripheral";
- };
-+
-+&wcnss {
-+	vddpx-supply = <&pm8953_l5>;
-+
-+	status = "okay";
-+};
-+
-+&wcnss_iris {
-+	compatible = "qcom,wcn3660b";
-+
-+	vddxo-supply = <&pm8953_l7>;
-+	vddrfa-supply = <&pm8953_l19>;
-+	vddpa-supply = <&pm8953_l9>;
-+	vdddig-supply = <&pm8953_l5>;
-+};
+Luca
 
--- 
-2.53.0
-
-
+--
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
