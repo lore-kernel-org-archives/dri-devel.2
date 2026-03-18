@@ -4,53 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D10D0103E181
-	for <dri-devel@archiver.kernel.org>; Wed, 18 Mar 2026 13:50:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 86C34103E17D
+	for <dri-devel@archiver.kernel.org>; Wed, 18 Mar 2026 13:51:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4704F10E060;
-	Wed, 18 Mar 2026 13:50:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EC01410E528;
+	Wed, 18 Mar 2026 13:51:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="btFhB8po";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="iuaCdyCS";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A430D10E060
- for <dri-devel@lists.freedesktop.org>; Wed, 18 Mar 2026 13:50:40 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9718710E528;
+ Wed, 18 Mar 2026 13:51:03 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 658DB43C65;
- Wed, 18 Mar 2026 13:50:40 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 04547C2BCB3;
- Wed, 18 Mar 2026 13:50:37 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 7D5FE4073C;
+ Wed, 18 Mar 2026 13:51:03 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1BB9AC19424;
+ Wed, 18 Mar 2026 13:51:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1773841840;
- bh=jhB3DWDEA1NFx6pzHikBFnyaa+AFvM0zZrQojID9DCA=;
+ s=k20201202; t=1773841863;
+ bh=QBgmPOxk+0qXhIYdcKT5w9xflL+wT4LVz36mjivnjUE=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=btFhB8poKI9Qb3uJjMel3dPYXQFyEI9WskA+rtp+yBagaJZXkdtWLwWBwIZ6GODaq
- FfhnDrPptYjakbKzNQr9JtjlR0RDn6udgo64Ge6FLmhjKvwJ/eG8oFIytnvYQWBIkE
- qwP2fQpyQHewxh74nwtLBElfRqzuqNco19p/eHlxCErA2YjIh/1biftOO5OM+w7oPu
- o1SfdYc/4RU9CDdwyCoqL59NRjykxFdvi0JT+zIjOSZKLWlp4hGLedYqKgYnJP7vzX
- F2TUFh3Z71vk9+Q5dFxsQ6xfIq/gMHd7oKN0oFDds94+rt+HtBe96oGyU6pc4/s4tG
- bk8DCpOEVLn3Q==
+ b=iuaCdyCSEXxn6rl/jCDnLw1LBCXjlFl+dwMARbjCY4r1iwCtfsaa8SWKpCg6+AYRy
+ Rm0i/5bHaDR4O/2v6QMwwxuAfvMRMs9uxI1zy5BIlQlLAQCOK1ZUkORPe+XBTrPFeJ
+ luWR4MefLhTl8UJRyDTzP/r/s5LgZP7nii/b2fb6pgvyy3f/3dPVw9sJK6dgtpSuKE
+ BoqmqAepu5or2u6lqdtBhcCkwgd1/9ORF0Yuf3/cC7GT9e/kutJpkmsv6fzl7QOjXu
+ eB3QS9du0OHEThxk1i8PwEAw4C6qNngbZ8MIPAyw61NWDYPGHPAbJYPgjaFufR4k3+
+ vZli2PDAZgmjg==
 From: Bjorn Andersson <andersson@kernel.org>
-To: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>,
- Jingoo Han <jingoohan1@gmail.com>, Pavel Machek <pavel@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Kiran Gunda <quic_kgunda@quicinc.com>,
- Helge Deller <deller@gmx.de>, Luca Weiss <luca@lucaweiss.eu>,
- Konrad Dybcio <konradybcio@kernel.org>, Eugene Lepshy <fekz115@gmail.com>,
- Gianluca Boiano <morf3089@gmail.com>,
- Alejandro Tafalla <atafalla@dnyon.com>,
- =?UTF-8?q?Barnab=C3=A1s=20Cz=C3=A9m=C3=A1n?= <barnabas.czeman@mainlining.org>
-Cc: dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, linux-fbdev@vger.kernel.org,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: Re: (subset) [PATCH v3 0/7] Fix PMI8994 WLED ovp values and more
-Date: Wed, 18 Mar 2026 08:50:04 -0500
-Message-ID: <177384182881.14526.6236464092813322738.b4-ty@kernel.org>
+To: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Ayushi Makhija <quic_amakhija@quicinc.com>
+Cc: dmitry.baryshkov@oss.qualcomm.com, sean@poorly.run,
+ marijn.suijten@somainline.org, robh@kernel.org, robh+dt@kernel.org,
+ krzk+dt@kernel.org, konradybcio@kernel.org, conor+dt@kernel.org,
+ andrzej.hajda@intel.com, neil.armstrong@linaro.org, rfoss@kernel.org,
+ Laurent.pinchart@ideasonboard.com, jonathan@marek.ca, jonas@kwiboo.se,
+ jernej.skrabec@gmail.com, quic_rajeevny@quicinc.com,
+ quic_vproddut@quicinc.com, Rob Clark <robin.clark@oss.qualcomm.com>
+Subject: Re: [PATCH v7 0/2] Add DSI display support for QCS8300 target
+Date: Wed, 18 Mar 2026 08:50:19 -0500
+Message-ID: <177384182912.14526.10589372231190433996.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260116-pmi8950-wled-v3-0-e6c93de84079@mainlining.org>
-References: <20260116-pmi8950-wled-v3-0-e6c93de84079@mainlining.org>
+In-Reply-To: <20260217090955.2446470-1-quic_amakhija@quicinc.com>
+References: <20260217090955.2446470-1-quic_amakhija@quicinc.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -70,22 +66,20 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
-On Fri, 16 Jan 2026 08:07:32 +0100, Barnabás Czémán wrote:
-> This patch series fixes supported ovp values related to pmi8994 wled
-> and set same configuration for pmi8950 wled.
-> It also corrects wled related properties in xiaomi-daisy, xiaomi-land and
-> in xiaomi-vince.
+On Tue, 17 Feb 2026 14:39:53 +0530, Ayushi Makhija wrote:
+> This series enables the support for DSI to DP bridge port
+> (labeled as DSI0) of the Qualcomm's QCS8300 Ride platform.
 > 
+> QCS8300 SoC has DSI controller v2.5.1 and DSI PHY v4.2.
+> The Ride platform is having ANX7625 DSI to DP bridge chip from Analogix.
 > 
 
 Applied, thanks!
 
-[5/7] arm64: dts: qcom: msm8953-xiaomi-vince: correct wled ovp value
-      commit: 9e87f0eaadccc3fecdf3c3c0334e05694804b5f5
-[6/7] arm64: dts: qcom: msm8937-xiaomi-land: correct wled ovp value
-      commit: 9bc4b18a425e8cf1bca190a136a11c3be516f513
-[7/7] arm64: dts: qcom: msm8953-xiaomi-daisy: fix backlight
-      commit: 7131f6d909a6546329b71f2bacfdc60cb3e6020e
+[1/2] arm64: dts: qcom: qcs8300: add Display Serial Interface device nodes
+      commit: a5a3b6977ab7a42681f297a74ac49779a82328c7
+[2/2] arm64: dts: qcom: qcs8300-ride: add anx7625 DSI to DP bridge node
+      commit: 20eedeaa4fa04d059e5c054ca37bc34b1089c43a
 
 Best regards,
 -- 
