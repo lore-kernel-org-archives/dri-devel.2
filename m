@@ -4,128 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 87B6D103E167
-	for <dri-devel@archiver.kernel.org>; Wed, 18 Mar 2026 11:41:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1DDA9103E166
+	for <dri-devel@archiver.kernel.org>; Wed, 18 Mar 2026 11:45:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F05D010E23D;
-	Wed, 18 Mar 2026 11:41:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 869AB10E32F;
+	Wed, 18 Mar 2026 11:45:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="aR+CPrtf";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="pVWgczWt";
 	dkim-atps=neutral
-Received: from TYVP286CU001.outbound.protection.outlook.com
- (mail-japaneastazon11011015.outbound.protection.outlook.com [52.101.125.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5DAF510E23D
- for <dri-devel@lists.freedesktop.org>; Wed, 18 Mar 2026 11:41:27 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=y8E6ohzFsgKhX9fJ98gj1sdMftD0De+/Re/Wv2nyRc9QMpODVaVU/AsVH5PSTp9Qv8SbMQSSouaTEErS3/6KSW8KVfmYp22ub7tnu6nBrdFCHURYfLf8R+tiiTVFDKwI0PlzK5mBH6Lby49YfDvk8ITYSNmsXnA80u39TytXxjBpHS5ULiD2H2EK6Ykx5F2tJlcHyx4MkM3p3AqXmbeUgfXRwqW82hQiz7Q7KpVNnINLAF1Z2+Rd8NazHZoqJJwyNDeVRqWUJYi73QgJlISP6y43ZJv4W5wQEshvOBm2pc2I5kK9EdxFzSVESRQpUEQQ5IUL39uWvdeUglZ3O2w+8Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=1Tgaw3PZ/YNw5jEMNfJEpTX2xoZxXqocIX5VkQYhrVw=;
- b=EAiDlMEehs6RS/Ei1hrmLkPyU4wNLFBKTffqUNLuW9KwIkMM4qdz/AiXbmWsQlO6q3vjK8W33yCspHtyEIx8KlB8Nq4VkFOa+qAEL6AWLULhaaXVxXfZw8dCdJCRsT8cjTvbNtTmC0sMAyh3kovP3uMUg/JfsBtPOw/z02Lip13W4sndKsTpldyXQwLh8Ic6zuIJNGNGMdWLxyqbyCWcnbfGH6mduW1aTN1R6w556WkYAI4SEyG//gFa32gWBWpyS5Tswa9LqlvqQNtzv/sImX8EerMtX25KPOOF7H7iVy1D0slS3zqA5/ybfy9eVDTqKiIkRZx4qwo/6a0jvitmaQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
- header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1Tgaw3PZ/YNw5jEMNfJEpTX2xoZxXqocIX5VkQYhrVw=;
- b=aR+CPrtfbMINc+G9e4YNWU15DjfNMYftBM3xDw7fHkWD+5WSVveC2I1PiotAoIH6wkVOMuuNrguBLqlt/qLIzOps3/zzzW19CnTznqZeCtrA1D7zmtw3JTh3LxZyQDSEhWB9o/+bmEeBIVuScXI9+TrwFYi/DBF0wH6Yu1RNQL0=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=bp.renesas.com;
-Received: from TYCPR01MB11947.jpnprd01.prod.outlook.com (2603:1096:400:3e1::6)
- by OSAPR01MB7374.jpnprd01.prod.outlook.com (2603:1096:604:143::9)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.19; Wed, 18 Mar
- 2026 11:41:23 +0000
-Received: from TYCPR01MB11947.jpnprd01.prod.outlook.com
- ([fe80::33f1:f7cd:46be:e4d8]) by TYCPR01MB11947.jpnprd01.prod.outlook.com
- ([fe80::33f1:f7cd:46be:e4d8%5]) with mapi id 15.20.9723.018; Wed, 18 Mar 2026
- 11:41:23 +0000
-Message-ID: <acf665d1-d8c4-4f47-9ce2-5100485055e0@bp.renesas.com>
-Date: Wed, 18 Mar 2026 12:41:16 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/4] drm: rcar-du: Ensure correct suspend/resume ordering
- with VSP
-To: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
- dri-devel@lists.freedesktop.org
-Cc: linux-renesas-soc@vger.kernel.org,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-References: <20260317231930.595719-1-laurent.pinchart+renesas@ideasonboard.com>
- <20260317231930.595719-2-laurent.pinchart+renesas@ideasonboard.com>
-Content-Language: en-US
-From: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
-In-Reply-To: <20260317231930.595719-2-laurent.pinchart+renesas@ideasonboard.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR2P281CA0034.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:14::21) To TYCPR01MB11947.jpnprd01.prod.outlook.com
- (2603:1096:400:3e1::6)
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8E40910E3F2
+ for <dri-devel@lists.freedesktop.org>; Wed, 18 Mar 2026 11:45:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1773834333;
+ bh=VVR+rPozuCmk3fPCcBrJvk79JKneXnM9ifrXxXuvJ4U=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=pVWgczWtgCHVgkRPxEQZNHzYnyLFhtuMrjua5Yi0+nf1fMXxgUjQtqq8T9gQwFR0u
+ R/6NRF1fhxYpI1AqWZehaxh5hq/Z5MrhE/gRslOTxBAMy03lT4dGfOk5wEna+FYHub
+ VyQv3ZD/Sw5HYWTr5iKTj+wPfhI3kmI/HmMBSdn5+6N9/lVKkBhVx6IVYsyg5zCbMe
+ sZnxthWs1kKiNW8sDAys/SPfJ2q3PGiEQdxIa2aP45VdZGwkoQUrBH2txvLjyaiozP
+ F73+zMsEpJMoTP6g4AYIsNvcOZvCxgXsRtOU/dBQrwhzeHFyTl4jqm66wzRKptDPHK
+ BbuN/ZHfp6Cnw==
+Received: from fedora (unknown [IPv6:2a01:e0a:2c:6930:d919:a6e:5ea1:8a9f])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256) (No client certificate requested)
+ (Authenticated sender: bbrezillon)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id E7B7C17E137B;
+ Wed, 18 Mar 2026 12:45:32 +0100 (CET)
+Date: Wed, 18 Mar 2026 12:45:29 +0100
+From: Boris Brezillon <boris.brezillon@collabora.com>
+To: Pedro Demarchi Gomes <pedrodemargomes@gmail.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3] drm/shmem-helper: Fix Map huge page mapping in fault
+ handler
+Message-ID: <20260318124529.1269ffc7@fedora>
+In-Reply-To: <abqHvvsyL5BPA_cn@fedora>
+References: <20260316002649.211819-1-pedrodemargomes@gmail.com>
+ <20260316152152.1e20d35e@fedora> <20260317183054.5d7030ec@fedora>
+ <20260318111649.2912818b@fedora> <abqHvvsyL5BPA_cn@fedora>
+Organization: Collabora
+X-Mailer: Claws Mail 4.3.1 (GTK 3.24.51; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TYCPR01MB11947:EE_|OSAPR01MB7374:EE_
-X-MS-Office365-Filtering-Correlation-Id: 37dd472e-cea5-4ff9-8091-08de84e3481b
-X-LD-Processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|366016|1800799024|56012099003|22082099003|7053199007|18002099003;
-X-Microsoft-Antispam-Message-Info: 6dMpO5DhKwsfRQoxCr5ReVIWYwWDGON/d76ipmI/xM51/xzLyxV/U+8yI1ueQXVPtiz8Q/3TROxmdgpsB+tsXij49D5W7oMs6fu/RLOcoPI/BcLfUinickry/tWgjiog12GMo1EBISbtsYft6x5RKEnGmMxgdJIApnKWRn004SUMpAPEkq4miYPih5BY9rpvlBC8tEMci6hJukBKG3agdL044cIVo3xaL2iYsnGJTSjFj3NCvfA48aGTnGnD8aWfVSIBmR/BGVDK252W88irIDCs7SjRuapCfwnsl8s0Am67vKB3otIqxgtnBGp4A5DD5NUiZ9ZOD/S2ut3UhrOYC57oxfOhjy4/Cmd9DhwzlV/WzVV6rhO7FuUBpsC+i97SesbX3LSBXj3YiiGeLtKeOlggYdzgSKgvNH8LKZgR6XOljtwZRBo7Lf1MpksphQXbovgOdlMSx4Pup4GPQhELfigLwWbWOjXnTZNmQnZhWA32Jiw2YdM8pWw47ms1kiQ3Qu6X6NvyuWePSJ9mnf6yEtMfh32VKf+tOCf9bc97hdWRppNwYiPGCzOhmhDzyePXlAqOChOpT7GwdZywsS2HhPtqRYvjGvEK+eQgBFAMU6hgyOlK/gQ5caXtKSYM6ImF+NRHH3KFObYijpIjPxAi7JHN6fa5PNe/eGzpHjqIIql3IM7jxROJrPU6+DSR3ZAHQzZRXendWwrchifW4Im5IYomPyd/9Z3xQwyi+Nf2WTE=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:TYCPR01MB11947.jpnprd01.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(366016)(1800799024)(56012099003)(22082099003)(7053199007)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UDRiTUpRTnNPcU1iYVNsaVQ3dnNJQ09SOEViUkNHMWJxRVgxZk5pOWkwSERD?=
- =?utf-8?B?YnF2YlQ2NmRXcmZJNTBuYXRwakVkaGxvSUNYWWFwQjdkZm96NlN3Ti9PRUpB?=
- =?utf-8?B?M05sTVM3cjVIV0R0eE9XaCtxYXh6VVVMc2hCbXdtYU5QWkZpYyt6VDd4ZTAx?=
- =?utf-8?B?WHpBaGxwd3FoMmVGb1c0YUZQeFBoanNkWWQ4SG1YVlZMcU1aWDVDY2hIdTJ1?=
- =?utf-8?B?TnR2QUxCYk5sZUs4bFlVUUpwSmJ5cHZqcVpDVXdTaDNDcFByenBMZHgrVis2?=
- =?utf-8?B?QWcvM0JmbTVZSG1Da0JlYWF5L0xla1ZublRDdFF6RHNjc25qZ3F5bWJTd1dB?=
- =?utf-8?B?V2t3ZXpvSFM0cjJYN3NQT1Vma051c0R4akk5WGx1Q01TR3E4TUhaTW5rcFhJ?=
- =?utf-8?B?UHgrOXZxQnJoUTdycDhGNkJla1hwWlpCWVNkS2RlL2xXYmVRRTRnM2VGaEw2?=
- =?utf-8?B?WGMyajdWM0pPdHRFSXNSZEFaeC9qREZsMkhUSnVybHYwYVR0eVJDaEVKc3Bw?=
- =?utf-8?B?aFdTQzQyMzYyTFIraGxBZ3g5aGc1Yll4YVdkSTFWQ1J2OGFZejMvN3dUSVFq?=
- =?utf-8?B?dFJ1SHczWHJSZEltcHUrN3NIeDNQVG9QZDRyNDJXN1IyWWo2KzlHdkZhR0FB?=
- =?utf-8?B?RHRCK1dSZFovYVVpNWt6VlVCQWdvbThnYUxEYlk5U1J5ak5EWWhnWnBCRnlF?=
- =?utf-8?B?K3oycWFBeWVuT3o5YW5hdkZ1RGlUaDVxMlB4M0Q4WjY3cW5kM3FVTzhaMVVl?=
- =?utf-8?B?V3dZUjMzM2JKRHVPd2UzVGEyS2pHV1R0R0hEMk5odU9qemxiSEJ4UDZsMS9t?=
- =?utf-8?B?aGUyWGt5SndzbTZRdll1WXlxSWFZMld3YXNjZ3YvbnphVk80VzBSdFNYSmk5?=
- =?utf-8?B?RnRBSlg3RkhWNHVScDNWd3d5dTc2MGhJYW13SnZQajhaWWV0S1ZnM0R4L2lj?=
- =?utf-8?B?c2ltckh4cGlEVjhGcEVXcHdtTlJkeGd1WDE3dFRoSEZZVmUrdDZuR0NoZmFG?=
- =?utf-8?B?TzA3aUxlQlBKNHdkWmltSHVPVm5sQlp3RWprcmtkOFdEYVVrd1pRMkh4RGs1?=
- =?utf-8?B?VkVYMmxnc0oxYkJDNTdMY0FrNlNUNWZ4VU5jRzZoV2paUGxGQVFrbys1ck5l?=
- =?utf-8?B?NElmTUVQWmpOY2tqcC8vT0h6clJIVVlIS203WXoxK0p3a1VCQU5RMWgvTHJj?=
- =?utf-8?B?MjUvSHdNejRXT0xDcWd2RjhTTHd3MzhIaVk3a3hFTHVCL3hiZVJRTmVnZ1pF?=
- =?utf-8?B?MWZuMzQ0K3VTYlFZWDAvVFNHdjJ4KzRmSWNTREtLdlVXUmxySDgzemdCVW5u?=
- =?utf-8?B?bHBiWkhWc0pYTVFvYnRqWEg1RWovMWpBK25sT2NYaURPWklKZ3l6RXVmdGd3?=
- =?utf-8?B?eUxkUXlSRkhHTTF1U3FDdEVHNllxOGVJRExBME0xNmNoNjNSVjQwOEdxa1Zo?=
- =?utf-8?B?YnVGSE1OdjVleUlyaitMYXc1MzNaaVNucjBxc1BBd3BFVjQzcUxxRm9lUDg5?=
- =?utf-8?B?Q2N6bHRkaUZaazAvU2g0a25RNURTN3NZNGY4ME82ZE9RazJYSzZ5RWVlK3ZC?=
- =?utf-8?B?bmVLeCtUUjR4dms3UEVxbEZ6Q0xDVlY2b3Yxekd0RlhlcXByZzFxUHZJNzFJ?=
- =?utf-8?B?cWR3aW9EWTVKVll6VWtTSlR0UStMd2ZWeHF0VFQ5OEp3QTZwOEg3UjVJNmtu?=
- =?utf-8?B?ai9mVmhzcktEMzVPTTE3U3VjMVZTQ00zQ2lkVEQybExwZzVscFhwWDVRUEtW?=
- =?utf-8?B?bVV5a0Q3UVRPL2ZmN2Rid2E4QjJkVVpJcVhmU05FczkwV1drK29zSm4vbE9U?=
- =?utf-8?B?NlVlRVExbjlpU3VhdGhaTjUyZWhtWTd2SGZWbm1VWjJ1UWtPVFdBUmQvdEFa?=
- =?utf-8?B?cnBwVURUNDNxNEc0eThZK3FlRVkrbnFJMytBRThmSWpNMGlvbytsOVNSL3hh?=
- =?utf-8?B?bkdBT0xDMmtqUmhmaDVNVGF2ZjlPV0R1Z1ZxbWJOSHJrWkJNVlFPSUZ5S1Y0?=
- =?utf-8?B?QUx6V3dUV2dSMlhha3dKS0RPZnIydXR3RGkzYlJZai9rTE51MEZQOWJQY2I4?=
- =?utf-8?B?SDB1WXVmRzNvcnVZdFBTN1RSRkMvV0o4d3RRWVpKV2FTTGFSRVJodUhYZ0hq?=
- =?utf-8?B?K2lrdFdtMld4RTVGNHhuNU1xNWpDRkVML1Y4b1AvaEE3eHBwYmRLRGczMm9u?=
- =?utf-8?B?Z0txQlhXN01hcVQxVVNCcHpNREpETXlrbXVRR244Tm5kNXFwek5YM2ZKMERR?=
- =?utf-8?B?aS9ZTW1RbWtkQnd2OWRZcENOMlNEZFhQRHJSblNlb0dFOW94SXJGOWRuZjhN?=
- =?utf-8?B?d2lYcGsxVXY2WnFNaVk4QTNpbnJJV1dPcXVPbG1VdWR2WjZVUjNVRi9FQTlS?=
- =?utf-8?Q?qn3eVN4qCi3SYrxvP/yPBHtHFCsOGD4MUOgbo?=
-X-OriginatorOrg: bp.renesas.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 37dd472e-cea5-4ff9-8091-08de84e3481b
-X-MS-Exchange-CrossTenant-AuthSource: TYCPR01MB11947.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Mar 2026 11:41:23.6254 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ChmmKaTjWxmt2rpRHDjXjkcicDAEN+H6a2hmC7VEL0XYusfblqvjLGxYtCSLdkAsaOvjIw/wtC6/sWr1WdfHtEW8WjxOhEfaOuObV4vDUO/LPA/eiJCqeLURf4o4ERAm
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: OSAPR01MB7374
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -141,91 +67,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Laurent,
-Thanks for your patch.
+On Wed, 18 Mar 2026 08:14:31 -0300
+Pedro Demarchi Gomes <pedrodemargomes@gmail.com> wrote:
 
-On 3/18/26 00:19, Laurent Pinchart wrote:
-> The VSP serves as an interface to memory and a compositor to the DU. It
-> therefore needs to be suspended after and resumed before the DU, to be
-> properly stopped and restarted in a controlled fashion driven by the DU
-> driver. This currently works by chance. Avoid relying on luck by
-> enforcing the correct suspend/resume ordering with device links.
+> On Wed, Mar 18, 2026 at 11:16:49AM +0100, Boris Brezillon wrote:
+> > On Tue, 17 Mar 2026 18:30:54 +0100
+> > Boris Brezillon <boris.brezillon@collabora.com> wrote:
+> >   
+> > > > 
+> > > > I've played a bit with the drm-misc-{next,fixes} versions (with the extra
+> > > > pfn_mkwrite fixes on top for the -next variant), and below is my preferred
+> > > > version (pfn insertion is all handled inside the try_insert_pfn() helper,
+> > > > with order == PMD_ORDER specialized there).    
+> > > 
+> > > One last thing, the subject should probably be "drm/shmem-helper: Fix
+> > > huge page mapping in fault handler" (instead of "Fix Map huge page
+> > > ..."). Pedro, do you think you'll be able to send a v4 before the end
+> > > of the week? I'd really like to have that fix in -rc5 or -rc6.  
+> > 
+> > If you can't, please let me know, I'll post a new version for you.  
 > 
+> Should I send a patch for the drm-misc-{next,fixes}, or v7.0-rc4?
 
-Same here.
-I've tested similar changes on RZ/G3E, s2ram and s2idle works fine.
+The patch should be against drm-misc-fixes, and if you can port it to
+drm-misc-next and share the diff, that would be helpful for the merge
+conflict resolution.
 
-Tested-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
-Reviewed-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+> I am planning to send it today.
 
-Kind Regards,
-Tommaso
-
-> Signed-off-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
-> ---
->   drivers/gpu/drm/renesas/rcar-du/rcar_du_vsp.c | 16 ++++++++++++++++
->   drivers/gpu/drm/renesas/rcar-du/rcar_du_vsp.h |  2 ++
->   2 files changed, 18 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/renesas/rcar-du/rcar_du_vsp.c b/drivers/gpu/drm/renesas/rcar-du/rcar_du_vsp.c
-> index 94c22d2db197..a4a49dcd8233 100644
-> --- a/drivers/gpu/drm/renesas/rcar-du/rcar_du_vsp.c
-> +++ b/drivers/gpu/drm/renesas/rcar-du/rcar_du_vsp.c
-> @@ -20,6 +20,7 @@
->   #include <drm/drm_vblank.h>
->   
->   #include <linux/bitops.h>
-> +#include <linux/device.h>
->   #include <linux/dma-mapping.h>
->   #include <linux/of_platform.h>
->   #include <linux/platform_device.h>
-> @@ -458,6 +459,9 @@ static void rcar_du_vsp_cleanup(struct drm_device *dev, void *res)
->   
->   	kfree(vsp->planes);
->   
-> +	if (vsp->link)
-> +		device_link_del(vsp->link);
-> +
->   	put_device(vsp->vsp);
->   }
->   
-> @@ -482,6 +486,18 @@ int rcar_du_vsp_init(struct rcar_du_vsp *vsp, struct device_node *np,
->   	if (ret < 0)
->   		return ret;
->   
-> +	/*
-> +	 * Enforce suspend/resume ordering between the DU (consumer) and the
-> +	 * VSP (supplier). The DU will be suspended before and resume after the
-> +	 * VSP.
-> +	 */
-> +	vsp->link = device_link_add(rcdu->dev, vsp->vsp, DL_FLAG_STATELESS);
-> +	if (!vsp->link) {
-> +		dev_err(rcdu->dev, "Failed to create device link to VSP %s\n",
-> +			dev_name(vsp->vsp));
-> +		return -EINVAL;
-> +	}
-> +
->   	ret = vsp1_du_init(vsp->vsp);
->   	if (ret < 0)
->   		return ret;
-> diff --git a/drivers/gpu/drm/renesas/rcar-du/rcar_du_vsp.h b/drivers/gpu/drm/renesas/rcar-du/rcar_du_vsp.h
-> index 67630f0b6599..a6731249db34 100644
-> --- a/drivers/gpu/drm/renesas/rcar-du/rcar_du_vsp.h
-> +++ b/drivers/gpu/drm/renesas/rcar-du/rcar_du_vsp.h
-> @@ -12,6 +12,7 @@
->   
->   #include <drm/drm_plane.h>
->   
-> +struct device_link;
->   struct drm_framebuffer;
->   struct rcar_du_format_info;
->   struct rcar_du_vsp;
-> @@ -26,6 +27,7 @@ struct rcar_du_vsp_plane {
->   struct rcar_du_vsp {
->   	unsigned int index;
->   	struct device *vsp;
-> +	struct device_link *link;
->   	struct rcar_du_device *dev;
->   	struct rcar_du_vsp_plane *planes;
->   	unsigned int num_planes;
-
+Thanks!
