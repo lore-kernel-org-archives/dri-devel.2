@@ -4,121 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 715A5107760E
-	for <dri-devel@archiver.kernel.org>; Wed, 18 Mar 2026 19:35:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3FB91107760E
+	for <dri-devel@archiver.kernel.org>; Wed, 18 Mar 2026 19:50:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D6A4510E79F;
-	Wed, 18 Mar 2026 19:35:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B5F7510E731;
+	Wed, 18 Mar 2026 19:50:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=ti.com header.i=@ti.com header.b="OgtMdajj";
+	dkim=pass (2048-bit key; secure) header.d=adishatz.org header.i=@adishatz.org header.b="p8CLN+8F";
 	dkim-atps=neutral
-Received: from CY7PR03CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11010015.outbound.protection.outlook.com
- [40.93.198.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4772910E771
- for <dri-devel@lists.freedesktop.org>; Wed, 18 Mar 2026 19:35:41 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=FwCC2cJHebG1aWDtI74Cxix2bM/PtsmYVDEWDWM4A8PM5HTDp/7adcPdGK1lM2a5ZZB92U47HH1ISqNTe2uquDZfYXUCuCcT9xd/BZIOiKT3jnrpEpHeEvpj5CLtGXGP75QgGDbF8hyn1HWI6/Inz2otpdKFolBa+nzTdUATdR9ZkT9Oo6aRLLZ/XdBhbOFv0LSDvBbaogfDnJghszYYQrT1vvDTzNg8SX00WcNehd/R3X20P9aDXGlepM8OEFmuTITQJ/duDAIZOO1EKA0OPgVNAVsHzVD1vLOoaMNtVAK6VizAabb18mm7Rhv4SQs4oKycCcK9/SaIuuR/f8AYew==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8bZReghmC4KXB97a/VHVPiUZshAiQOuYEOdn2rsYVAU=;
- b=xC8WAhXUtyzuHsFyByB+jOoGGaOLSoEF2rNfOLQy7fY7rW1GGgw3BCKYk4lDFVMy1v9CGO9+pfB9OQ4l7c8pnNYv9xFEABjF1rhLcfn2LT8iDCdXYVxCok4nO153m6sFEzLr62X4oSfkdJI4f0HqPfacdvpdDHb4Y9IrBTs/qmS6ctd8NkXIDkHMYN8rZQWQ8dHF3re0oN4EnZv84gaqeyNEcWVoYaE4urah5QH6E5WoM7nwfI1I9Kn1GDoTIvwB2ibFUZ0AyvM/UacyAqg4Y8MPYVrHLdY+ED1UZGvZ4jFZo6ZQbFSYxD9POT7iV98rxx3ibr2MfxBD0Q5CA5xDTQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.23.194) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
- dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8bZReghmC4KXB97a/VHVPiUZshAiQOuYEOdn2rsYVAU=;
- b=OgtMdajj7UW8eHBTdtYB3GbzVkQ+sNVIkbaspH3nX1Gmcwbh4/5b57Whur9Lg1Zcu4xi8JPSM4/geypd9Qt5LLtZOpydUCP9WTGkBgedR5LWaGA75eWNgD4SDfp0NnWotNP3aXkx9e8ulIC73s2gqP/McPdbC9hLe+GrXO9rI+0=
-Received: from SJ0PR13CA0014.namprd13.prod.outlook.com (2603:10b6:a03:2c0::19)
- by SJ5PPF4D4E723EA.namprd10.prod.outlook.com
- (2603:10b6:a0f:fc02::79f) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.19; Wed, 18 Mar
- 2026 19:35:35 +0000
-Received: from SJ1PEPF00001CEB.namprd03.prod.outlook.com
- (2603:10b6:a03:2c0:cafe::e5) by SJ0PR13CA0014.outlook.office365.com
- (2603:10b6:a03:2c0::19) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9723.19 via Frontend Transport; Wed,
- 18 Mar 2026 19:35:31 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.23.194)
- smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none; dmarc=pass
- action=none header.from=ti.com;
-Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.23.194 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.23.194; helo=lewvzet200.ext.ti.com; pr=C
-Received: from lewvzet200.ext.ti.com (198.47.23.194) by
- SJ1PEPF00001CEB.mail.protection.outlook.com (10.167.242.27) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9723.19 via Frontend Transport; Wed, 18 Mar 2026 19:35:35 +0000
-Received: from DLEE213.ent.ti.com (157.170.170.116) by lewvzet200.ext.ti.com
- (10.4.14.103) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Wed, 18 Mar
- 2026 14:35:34 -0500
-Received: from DLEE207.ent.ti.com (157.170.170.95) by DLEE213.ent.ti.com
- (157.170.170.116) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Wed, 18 Mar
- 2026 14:35:33 -0500
-Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DLEE207.ent.ti.com
- (157.170.170.95) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20 via Frontend
- Transport; Wed, 18 Mar 2026 14:35:33 -0500
-Received: from [128.247.81.183] (ltpf5gwk6l.dhcp.ti.com [128.247.81.183] (may
- be forged))
- by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 62IJZX07880362;
- Wed, 18 Mar 2026 14:35:33 -0500
-Message-ID: <e6497541-f3e7-4533-a188-9d422cb34d74@ti.com>
-Date: Wed, 18 Mar 2026 14:35:33 -0500
+X-Greylist: delayed 376 seconds by postgrey-1.36 at gabe;
+ Wed, 18 Mar 2026 11:03:17 UTC
+Received: from adishatz.org (ns314768.ip-37-187-26.eu [37.187.26.192])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DA95810E7CB;
+ Wed, 18 Mar 2026 11:03:17 +0000 (UTC)
+Received: from p-si-bellegarde.ad.iut-nantes.univ-nantes.prive
+ (235.33.83.79.rev.sfr.net [79.83.33.235])
+ by adishatz.org (Postfix) with ESMTPSA id D10344C01D7;
+ Wed, 18 Mar 2026 11:56:57 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=adishatz.org;
+ s=mail; t=1773831418;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=BGfJw6XwE9tAljPxpX4xQiqwZDvXpIL/LNmJcXZ1cQw=;
+ b=p8CLN+8FZxrOpaurp3R9Q+94Tc7Jek+VWcLxwoWpAYcFa8WQ+jXO2aDaAm9mgnwhV6gEj7
+ igx/Eavip08P41dMHnmGLYeTbq2oZAEo7Fr6MDOpS4bXsb8sfRhA/0HpHF7uScoP7wY5/F
+ wLQ74urq4Z1AjEAfliX2t+Tp7xCAlqSW22eTYL7Cm1L/FwugwZdPQi9vsT9eAWeN611JpY
+ AsWwaV4Oh0M+1q9m8uy37mJiE00BgpL3GI0JH7M8UB9SVhKvIzfFpk7aTXUO7Zk7lfx7OU
+ nYrnNvduKomgZpksOuHx6ijOKE8+NWDxsisDG7j/PqQBO4EVQwRT3mMBABrdEQ==
+Authentication-Results: ORIGINATING; auth=pass smtp.auth=cedric.bellegarde
+ smtp.mailfrom=cedric.bellegarde@adishatz.org
+From: =?UTF-8?q?C=C3=A9dric=20Bellegarde?= <cedric.bellegarde@adishatz.org>
+To: robin.clark@oss.qualcomm.com
+Cc: lumag@kernel.org, abhinav.kumar@linux.dev, jesszhan0024@gmail.com,
+ sean@poorly.run, marijn.suijten@somainline.org, airlied@gmail.com,
+ simona@ffwll.ch, antomani103@gmail.com, mitltlatltl@gmail.com,
+ krzk@kernel.org, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org,
+ =?UTF-8?q?C=C3=A9dric=20Bellegarde?= <cedric.bellegarde@adishatz.org>
+Subject: [PATCH] drm/msm/dsi: fix race between cmd transfer and host power off
+Date: Wed, 18 Mar 2026 11:56:35 +0100
+Message-ID: <20260318105635.270949-1-cedric.bellegarde@adishatz.org>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/bridge: sii902x: Add audio context to suspend/resume
- routine
-To: "Thakkar, Devarsh" <devarsht@ti.com>, "andrzej.hajda@intel.com"
- <andrzej.hajda@intel.com>, "neil.armstrong@linaro.org"
- <neil.armstrong@linaro.org>, "rfoss@kernel.org" <rfoss@kernel.org>,
- "airlied@gmail.com" <airlied@gmail.com>, "maarten.lankhorst@linux.intel.com"
- <maarten.lankhorst@linux.intel.com>, "mripard@kernel.org"
- <mripard@kernel.org>, "tzimmermann@suse.de" <tzimmermann@suse.de>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "jani.nikula@intel.com" <jani.nikula@intel.com>, "simona@ffwll.ch"
- <simona@ffwll.ch>, "linux-kernel@vger.kernel.org"
- <linux-kernel@vger.kernel.org>
-CC: "Donadkar, Rishikesh" <r-donadkar@ti.com>, "Jain, Swamil" <s-jain1@ti.com>
-References: <20260211211018.149916-1-sen@ti.com>
- <db9c7a49-6e1b-4ddd-a4ca-721a2c1419cd@ti.com>
-Content-Language: en-US
-From: "Wang, Sen" <sen@ti.com>
-In-Reply-To: <db9c7a49-6e1b-4ddd-a4ca-721a2c1419cd@ti.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF00001CEB:EE_|SJ5PPF4D4E723EA:EE_
-X-MS-Office365-Filtering-Correlation-Id: 96e876e5-e951-4b73-d77d-08de852586da
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|1800799024|7416014|376014|36860700016|921020|56012099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: 3ty0pO6gRrMqA2BBaoCyzDX8xOneuodkLGqIwMvKW0WMXu9VHspEYsmz/rwEzPRbndZM5f4sCVQvccto/Vhw+MfD3wWtVD0i3m7IRMM03vkuwXRghP7l4xR0jNB4qnLaI5+KeKR/K12bL71F7C1UESYvICI8fax60g9Z2l8hTrlmpQ8KpdCgMneua+au+xbDbwpalKaKkGtWGBZR2NNc0P3A3Hwl2yjUJiKauy6FF+9ZYwYqU2XIwNXLm4K0lS6CJ9ICvnXs8VbI4BmK365pY16XgOcXSdYrkUPzZXxoQgfubwVV1zO8zfI7Haeg0J5C5Z+5qNnjEXnFm4DYXQcDDMYOmm5KnOMHnlWSUOgv6SqoLoO1urumRFAIMWfRYCiQmDvwv+C5D5M5x/5qUSV30mBwCyrQVEv0MG5Z5aKy2DEADWBtUielHNe7Oxe6xprlgp0LvlEut3tpMmw67H1p2s0HW0hDJcaV6gJHrpj5+3C0OBo4QSXH5rAqQ1zJE3LfFQn8zWdol1ccEpLZM7PkhS6/QX+TQAiQcIoLoZQpQW75A1OF5DNHvbTK3soOPSXvTXauvDfc2ZQnYzye/uKb1dlWW3WfFooODGW4y6jOlOHZxALtDeJchCNCUmMxydzHDy4OZLk/NF7LTCTWLZajurS3swZxcG853YF2rV6i0An7tsTB8IvjeRzr+Gi55Ta2dDAi5poGnzACcW7vNLDczOsMudhHdZvH1JV5axuRAEdEzOOBWdjXRxcJF9r+QHMeq8EMzf8Xc9leF93FGhoXo10QUkDIfvpIhEN0XnRf43W/sY81774CZyQ7Mehf8sPE
-X-Forefront-Antispam-Report: CIP:198.47.23.194; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:lewvzet200.ext.ti.com; PTR:InfoDomainNonexistent;
- CAT:NONE;
- SFS:(13230040)(82310400026)(1800799024)(7416014)(376014)(36860700016)(921020)(56012099003)(22082099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: pg63bBtWBHAsFgpA5k/+Ay/vPV3FVZEGXpuemoTsgjHYRHiZKjBb2MiBmjlOQRcxVvMLPCya2YdibYPxWFUk5O24oDyoiCsZHFDHUQudbShr+nxqlk28ggFwndDCCZ/z0vG3AXt7xq8KexlFibXCua8Rhi2tXjMcwARVd3UL3l+YrXWPueNcEzuJejR6kvDgvZ40PgvLgESLxQOuGYaSfvp2AnwWT6fsLjHIAIWjI/qLpBkKyyJp3d9TyPTkKvtE5R2LZbCWBJw/O/WxKonHkOhClAjhirviVyLpEQvXV7WYP83Dbtj3If+yztuPoPXzYypELXrVcDO0GovX1/F+xR01/asvLf2jTU7iI8BtJgtGNd8gaBkmPGTEELSi6R5hadiP4hRhKsXPFub0zzT4kr8Va+3Nci5UV+c+Mi0ES+oUlY3uzvN/1heWGdyRH4/3
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Mar 2026 19:35:35.4729 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 96e876e5-e951-4b73-d77d-08de852586da
-X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7; Ip=[198.47.23.194];
- Helo=[lewvzet200.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF00001CEB.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ5PPF4D4E723EA
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+X-Mailman-Approved-At: Wed, 18 Mar 2026 19:50:21 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,216 +66,117 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Devarsh,
+The transfer function dsi_host_transfer() guards against the DSI host
+being inactive by checking msm_host->power_on. However, power_on is
+cleared at the end of msm_dsi_host_power_off(), after clocks have
+already been disabled. This creates a window where a concurrent DCS
+command (e.g. a brightness update from the backlight driver) can pass
+the power_on check, call xfer_prepare()/xfer_restore(), and toggle
+link clocks that are already being torn down, leaving
+disp_cc_mdss_byte0_clk stuck in the 'on' state.
 
-Thanks for the review.
+Checking enabled instead of power_on closes the race by rejecting
+transfers as soon as the bridge starts tearing down, before any clocks
+are touched.
 
-On 3/18/2026 8:39 AM, Thakkar, Devarsh wrote:
-> Hi Sen,
-> 
-> Thanks for the patch.
-> 
-> On 12/02/26 02:40, Sen Wang wrote:
->> The sii902x driver has existing suspend/resume handlers that save and
->> restore video-related register context (TPI mode and interrupts), but
->> these handlers were not saving/restoring audio configuration registers.
->> This caused HDMI audio to stop working after system suspend/resume cycles.
->>
->> Therefore add audio-related register context to the existing
->> suspend/resume handlers when audio context needs to be saved/restored. As
->> well as mclk for the sake of power saving, in the case of sii902x being
->> the frame producer.
->>
->> The audio context is only saved/restored when audio.active is true,
->> avoiding unnecessary register access when audio is not in use.
->>
->> Tested on TI SK-AM62P-LP board with HDMI audio playback across multiple
->> suspend/resume cycles.
->>
->> Signed-off-by: Sen Wang <sen@ti.com>
->> ---
->>    drivers/gpu/drm/bridge/sii902x.c | 91 +++++++++++++++++++++++++++++++-
->>    1 file changed, 90 insertions(+), 1 deletion(-)
->>
->> diff --git a/drivers/gpu/drm/bridge/sii902x.c b/drivers/gpu/drm/bridge/sii902x.c
->> index 134657041799..fd38a6ae86b2 100644
->> --- a/drivers/gpu/drm/bridge/sii902x.c
->> +++ b/drivers/gpu/drm/bridge/sii902x.c
->> @@ -192,6 +192,13 @@ struct sii902x {
->>    		struct platform_device *pdev;
->>    		struct clk *mclk;
->>    		u32 i2s_fifo_sequence[4];
->> +		bool active;
->> +		/* Audio register context for save/resume */
->> +		unsigned int ctx_i2s_input_config;
->> +		unsigned int ctx_audio_config_byte2;
->> +		unsigned int ctx_audio_config_byte3;
->> +		u8 ctx_i2s_stream_header[SII902X_TPI_I2S_STRM_HDR_SIZE];
->> +		u8 ctx_audio_infoframe[SII902X_TPI_MISC_INFOFRAME_SIZE];
->>    	} audio;
->>    };
->>    
->> @@ -764,6 +771,8 @@ static int sii902x_audio_hw_params(struct device *dev, void *data,
->>    	if (ret)
->>    		goto out;
->>    
->> +	sii902x->audio.active = true;
->> +
->>    	dev_dbg(dev, "%s: hdmi audio enabled\n", __func__);
->>    out:
->>    	mutex_unlock(&sii902x->mutex);
->> @@ -786,6 +795,8 @@ static void sii902x_audio_shutdown(struct device *dev, void *data)
->>    	regmap_write(sii902x->regmap, SII902X_TPI_AUDIO_CONFIG_BYTE2_REG,
->>    		     SII902X_TPI_AUDIO_INTERFACE_DISABLE);
->>    
->> +	sii902x->audio.active = false;
->> +
->>    	mutex_unlock(&sii902x->mutex);
->>    
->>    	clk_disable_unprepare(sii902x->audio.mclk);
->> @@ -1081,7 +1092,7 @@ static int __maybe_unused sii902x_resume(struct device *dev)
->>    {
->>    	struct sii902x *sii902x = dev_get_drvdata(dev);
->>    	unsigned int tpi_reg, status;
->> -	int ret;
->> +	int ret, i;
->>    
->>    	ret = regmap_read(sii902x->regmap, SII902X_REG_TPI_RQB, &tpi_reg);
->>    	if (ret)
->> @@ -1109,7 +1120,62 @@ static int __maybe_unused sii902x_resume(struct device *dev)
->>    	regmap_read(sii902x->regmap, SII902X_INT_STATUS, &status);
->>    	regmap_write(sii902x->regmap, SII902X_INT_STATUS, status);
->>    
->> +	/*
->> +	 * Restore audio context if audio was active before suspend,
->> +	 * in the matching order of sii902x_audio_hw_params()
->> +	 * initialization
->> +	 */
->> +	if (sii902x->audio.active) {
->> +		/* Re-enable mclk */
->> +		ret = clk_prepare_enable(sii902x->audio.mclk);
->> +		if (ret) {
->> +			dev_err(dev, "Failed to re-enable mclk: %d\n", ret);
->> +			return ret;
->> +		}
->> +
->> +		ret = regmap_write(sii902x->regmap, SII902X_TPI_AUDIO_CONFIG_BYTE2_REG,
->> +				   sii902x->audio.ctx_audio_config_byte2);
->> +		if (ret)
->> +			goto err_audio_resume;
->> +
->> +		ret = regmap_write(sii902x->regmap, SII902X_TPI_I2S_INPUT_CONFIG_REG,
->> +				   sii902x->audio.ctx_i2s_input_config);
->> +		if (ret)
->> +			goto err_audio_resume;
->> +
->> +		for (i = 0; i < ARRAY_SIZE(sii902x->audio.i2s_fifo_sequence) &&
->> +		     sii902x->audio.i2s_fifo_sequence[i]; i++) {
->> +			ret = regmap_write(sii902x->regmap,
->> +					   SII902X_TPI_I2S_ENABLE_MAPPING_REG,
->> +					   sii902x->audio.i2s_fifo_sequence[i]);
->> +			if (ret)
->> +				goto err_audio_resume;
->> +		}
->> +
->> +		ret = regmap_write(sii902x->regmap, SII902X_TPI_AUDIO_CONFIG_BYTE3_REG,
->> +				   sii902x->audio.ctx_audio_config_byte3);
->> +		if (ret)
->> +			goto err_audio_resume;
->> +
->> +		ret = regmap_bulk_write(sii902x->regmap, SII902X_TPI_I2S_STRM_HDR_BASE,
->> +					sii902x->audio.ctx_i2s_stream_header,
->> +					SII902X_TPI_I2S_STRM_HDR_SIZE);
->> +		if (ret)
->> +			goto err_audio_resume;
->> +
->> +		ret = regmap_bulk_write(sii902x->regmap, SII902X_TPI_MISC_INFOFRAME_BASE,
->> +					sii902x->audio.ctx_audio_infoframe,
->> +					SII902X_TPI_MISC_INFOFRAME_SIZE);
->> +		if (ret)
->> +			goto err_audio_resume;
->> +	}
->> +
->>    	return 0;
->> +
->> +err_audio_resume:
->> +	clk_disable_unprepare(sii902x->audio.mclk);
->> +	dev_err(dev, "Failed to restore audio registers: %d\n", ret);
->> +	return ret;
->>    }
->>    
->>    static int __maybe_unused sii902x_suspend(struct device *dev)
->> @@ -1122,6 +1188,29 @@ static int __maybe_unused sii902x_suspend(struct device *dev)
->>    	regmap_read(sii902x->regmap, SII902X_INT_ENABLE,
->>    		    &sii902x->ctx_interrupt);
->>    
->> +	/*
->> +	 * Save audio context if audio is active, and
->> +	 * in the matching order of sii902x_audio_hw_params()
->> +	 * initialization
->> +	 */
->> +	if (sii902x->audio.active) {
->> +		regmap_read(sii902x->regmap, SII902X_TPI_AUDIO_CONFIG_BYTE2_REG,
->> +			    &sii902x->audio.ctx_audio_config_byte2);
->> +		regmap_read(sii902x->regmap, SII902X_TPI_I2S_INPUT_CONFIG_REG,
->> +			    &sii902x->audio.ctx_i2s_input_config);
->> +		regmap_read(sii902x->regmap, SII902X_TPI_AUDIO_CONFIG_BYTE3_REG,
->> +			    &sii902x->audio.ctx_audio_config_byte3);
->> +		regmap_bulk_read(sii902x->regmap, SII902X_TPI_I2S_STRM_HDR_BASE,
->> +				 sii902x->audio.ctx_i2s_stream_header,
->> +				 SII902X_TPI_I2S_STRM_HDR_SIZE);
->> +		regmap_bulk_read(sii902x->regmap, SII902X_TPI_MISC_INFOFRAME_BASE,
->> +				 sii902x->audio.ctx_audio_infoframe,
->> +				 SII902X_TPI_MISC_INFOFRAME_SIZE);
->> +
-> 
-> 
-> In resume path you were checking failure for each regmap_write I guess
-> similar approach is needed here if going with register reads, so in case
-> one or more regmap_read/regmap_bulk_read fails you can return error with
-> dev_err message.
-> 
+[11816.846734] disp_cc_mdss_byte0_clk status stuck at 'on'
+[11816.846752] WARNING: CPU: 4 PID: 26399 at drivers/clk/qcom/clk-branch.c:=
+88 clk_branch_toggle+0x128/0x178
+[11816.861715] Modules linked in: rfcomm rmnet algif_hash algif_skcipher q6=
+asm_dai q6voice_dai q6routing q6afe_dai q6voice q6adm q6cvp q6afe q6asm q6m=
+vm q6cvs q6voice_common snd_q6dsp_common q6core bnep gpio_wcd934x snd_soc_w=
+cd934x snd_soc_wcd_mbhc soundwire_qcom snd_soc_wcd_classh venus_enc venus_d=
+ec imx371 wcd934x regmap_slimbus imx376 lc898217xc videobuf2_dma_contig fas=
+trpc v4l2_cci qrtr_smd rpmsg_ctrl hci_uart btqca btbcm bluetooth ecdh_gener=
+ic ecc pwrseq_core snd_soc_max98927 qcom_camss ath10k_snoc videobuf2_dma_sg=
+ snd_soc_sdm845 videobuf2_memops venus_core ath10k_core qcom_smbx leds_qcom=
+_flash snd_soc_rt5663 leds_qcom_lpg ath v4l2_mem2mem snd_soc_qcom_sdw video=
+buf2_v4l2 v4l2_fwnode videobuf2_common v4l2_async snd_soc_qcom_common bq27x=
+xx_battery_i2c qcom_pbs bq27xxx_battery led_class_multicolor mac80211 snd_s=
+oc_rl6231 rtc_pm8xxx libarc4 soundwire_bus videodev qcom_stats qcom_spmi_rr=
+adc reset_qcom_pdc i2c_qcom_cci cfg80211 camcc_sdm845 rfkill mc qcom_rng ip=
+a qcom_q6v5_mss slim_qcom_ngd_ctrl qcom_wdt icc_bwmon qrtr
+[11816.861812]  qcom_q6v5_pas qcom_pil_info qcom_q6v5 qcom_sysmon qcom_comm=
+on qcom_glink_smem joydev zram zsmalloc uhid uinput nft_reject_inet nft_rej=
+ect nf_reject_ipv6 nf_reject_ipv4 nft_ct nf_conntrack nf_defrag_ipv6 nf_def=
+rag_ipv4 nf_tables fuse nfnetlink ipv6 qcom_spmi_haptics rmi_i2c rmi_core
+[11816.978965] CPU: 4 UID: 0 PID: 26399 Comm: (sd-bright) Tainted: G       =
+ W           6.16.7-sdm845 #1000-postmarketos-qcom-sdm845 PREEMPT
+[11816.991580] Tainted: [W]=3DWARN
+[11816.994637] Hardware name: OnePlus 6 (DT)
+[11816.998735] pstate: 604000c5 (nZCv daIF +PAN -UAO -TCO -DIT -SSBS BTYPE=
+=3D--)
+[11817.005844] pc : clk_branch_toggle+0x128/0x178
+[11817.010384] lr : clk_branch_toggle+0x124/0x178
+[11817.014956] sp : ffff8000991f3970
+[11817.018358] x29: ffff8000991f3980 x28: ffff0000dad38000 x27: 00000000000=
+00000
+[11817.025634] x26: 0000000000000000 x25: 0000000000000000 x24: 00000000000=
+00000
+[11817.032887] x23: 0000000000000000 x22: ffffa63e2af42178 x21: ffffa63e2b5=
+6e128
+[11817.040169] x20: ffffa63e29da5a90 x19: 0000000000000000 x18: 00000000000=
+00003
+[11817.047451] x17: 0000000000000000 x16: 000000000000000c x15: 00000000000=
+00003
+[11817.054701] x14: ffffa63e2b2f6a10 x13: 0000000000000003 x12: 00000000000=
+00003
+[11817.061982] x11: 00000000ffffefff x10: c0000000ffffefff x9 : e43cc05c499=
+6c100
+[11817.069260] x8 : e43cc05c4996c100 x7 : 7461206b63757473 x6 : 00000000000=
+00027
+[11817.076511] x5 : ffffa63e2b8726d3 x4 : ffffa63e2ae146c4 x3 : 00000000000=
+00000
+[11817.083792] x2 : 0000000000000000 x1 : ffff8000991f3710 x0 : 00000000fff=
+ffff0
+[11817.091042] Call trace:
+[11817.093572]  clk_branch_toggle+0x128/0x178 (P)
+[11817.098112]  clk_branch2_disable+0x28/0x40
+[11817.102308]  clk_core_disable+0x64/0x1b8
+[11817.106358]  clk_core_disable_lock+0x90/0x120
+[11817.110810]  clk_disable+0x2c/0x40
+[11817.114298]  dsi_link_clk_disable_6g+0x78/0x98
+[11817.118871]  msm_dsi_host_xfer_restore+0xf0/0x120
+[11817.123667]  msm_dsi_manager_cmd_xfer+0xfc/0x178
+[11817.128411]  dsi_host_transfer+0x48/0x110
+[11817.132509]  mipi_dsi_dcs_set_display_brightness_large+0x8c/0xd0
+[11817.138651]  sofef00_panel_bl_update_status+0x3c/0x60
+[11817.143802]  backlight_device_set_brightness+0x88/0x128
+[11817.149124]  brightness_store+0x64/0xa8
+[11817.153082]  dev_attr_store+0x24/0x40
+[11817.156835]  sysfs_kf_write+0x8c/0xb8
+[11817.160591]  kernfs_fop_write_iter+0xe4/0x190
+[11817.165073]  do_iter_readv_writev+0x168/0x1c8
+[11817.169515]  vfs_writev+0x16c/0x378
+[11817.173122]  do_writev+0x84/0x130
+[11817.176523]  __arm64_sys_writev+0x2c/0x40
+[11817.180618]  invoke_syscall+0x48/0x100
+[11817.184460]  el0_svc_common+0x88/0xe8
+[11817.188217]  do_el0_svc+0x28/0x40
+[11817.191621]  el0_svc+0x38/0x88
+[11817.194766]  el0t_64_sync_handler+0x78/0x108
+[11817.199161]  el0t_64_sync+0x198/0x1a0
 
-Okay sounds good, I'll add that precaution checks as well.
+Signed-off-by: C=C3=A9dric Bellegarde <cedric.bellegarde@adishatz.org>
+---
+ drivers/gpu/drm/msm/dsi/dsi_host.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-> But I think even better approach would be to cache the corresponding reg
-> values to corresponding struct members during hw_params callback itself
-> given all the parameters being used sii902x->audio.ctx do not change
-> between hw_params callback and suspend callback as all these params are
-> stream related? , If so that would avoid costly i2c operations for
-> reading register values which can be skipped in this function.
-> 
-
-I tried using regcache on the context save/restore, but there is 
-definitely some state machine write sequence that I'm struggling to 
-isolate. The moment I changed the flow from the init route, context 
-save/restore no longer works.
-
-The driver is definitely too scuffed to go through this kind of major 
-revision if we wanted to incorporate regcache. So unfortunately this is 
-the second best option to consider.
-
->> +		/* Disable mclk during suspend */
->> +		clk_disable_unprepare(sii902x->audio.mclk);
->> +	}
->> +
-> 
-> 
-> audio.active should be cleared here or do we need to call audio_shutdown
-> explicitly?
-> 
-This is a bad wording on my part, audio.active indicates an active 
-stream. Stream status should be preserved and resumes playback on
-context restore.
-
-Also my apologies on sending an incomplete patch, looks like there's
-a prerequisite patch sitting in vendor kernel that was never upstreamed.
-Will clean it up and send a new patch altogether.
-
-Best,
-Sen Wang
-
-> Regards
-> Devarsh
-> 
+diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/d=
+si_host.c
+index 4d75529c0e85..f66f138cfba0 100644
+--- a/drivers/gpu/drm/msm/dsi/dsi_host.c
++++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
+@@ -1652,7 +1652,7 @@ static ssize_t dsi_host_transfer(struct mipi_dsi_host=
+ *host,
+ 	struct msm_dsi_host *msm_host =3D to_msm_dsi_host(host);
+ 	int ret;
+=20
+-	if (!msg || !msm_host->power_on)
++	if (!msg || !msm_host->enabled)
+ 		return -EINVAL;
+=20
+ 	mutex_lock(&msm_host->cmd_mutex);
+--=20
+2.53.0
 
