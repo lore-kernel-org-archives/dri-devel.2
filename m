@@ -4,79 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8F194103E160
-	for <dri-devel@archiver.kernel.org>; Wed, 18 Mar 2026 11:14:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A116B103E160
+	for <dri-devel@archiver.kernel.org>; Wed, 18 Mar 2026 11:20:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0411110E0F1;
-	Wed, 18 Mar 2026 11:14:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 479C710E718;
+	Wed, 18 Mar 2026 11:20:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Jyk3QJ2z";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="KE88e9PE";
 	dkim-atps=neutral
-Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com
- [74.125.82.179])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B213B10E0F1
- for <dri-devel@lists.freedesktop.org>; Wed, 18 Mar 2026 11:14:37 +0000 (UTC)
-Received: by mail-dy1-f179.google.com with SMTP id
- 5a478bee46e88-2c0d36f3888so2732921eec.0
- for <dri-devel@lists.freedesktop.org>; Wed, 18 Mar 2026 04:14:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1773832477; x=1774437277; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=WSatfPeC0eHRV2MFnc3PDRkxRbQqib0YssmyZ7gUdhk=;
- b=Jyk3QJ2zedH5FmAjaG1DRTpU5cSg8HwtIilQoqK+ZLNnkr+wExKXAv/UuUk9ufbHdr
- pZT1H6vQO1ra++aTnwYgymgfPBIZhVTjsI6xV7di76zRUt2lF7FqQS/uwNngrDqF2sZc
- kEL9fPYHBFGuAaLrWCA1SNxarl1x8rYFQWyxzp9xLU12nLMQOqgmz5HJMf8+qK+DKq3v
- 6Lp3z9FU4iDqArQxRJ65lTBpGA9JYK7VdfakDEhd+v/IjYtKPMcfYQoiziCu/NKG8gQ7
- Im18zIVxM4rHDnlhiDlnUPh0vYuE9WBgqZBjWyj8lCCv6YhYu7rCMToi++Il01gupryQ
- oqjQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1773832477; x=1774437277;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=WSatfPeC0eHRV2MFnc3PDRkxRbQqib0YssmyZ7gUdhk=;
- b=sA214GLjeieKgkkAja9xm69/P2mM/Y3DLkY7a4AMaw/Hokci4aPzKi2V4WynNqxZlL
- em78lkuhIZSb4tOTnCJFeqYmmcKD+AefNA4sLVYfWmaElYRy6nJ5DY5Je467QPGZRtZ0
- q/9+WMVpv8hvJ1kCT8QMro7Vxy9r9zasmMHHRX0Y7tLUROyJBkqZcQhdhxMF/Q6lfMnu
- nGcSDpJVSNIWsvG3XXP9v6L4SWziVsXRJZ94Ki+yNQ2xeO3hgNG8X3nvDc3XuM1rICv4
- vAUVpt7enDjVD+FOuaFmEQxwYR3WWD+92NhLnMNYRuRKlURjEyqmBWJyonkKudhSxtNn
- GpRA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXy+DGfQJPH6EIbn6jC9hFvbfNbXXzaAtsIuly1J+sl3zl6r/FwqEywveUsqArL59j7mxJP1MMx1Z0=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yzix8yeN5EudRn9UaK2LlR6dPAAfjKXW0faRisnzgG6ohIBvHuz
- AtHK5n2KbcdiT8HCCfglJaOoDvTjT2kQwuAhkhypgLYycKjbAwKyzzk+
-X-Gm-Gg: ATEYQzzfPCJTGf7HIHkMtLDVjMWhG2yb4lbpbFxLuRBpRZyKyEsWf7+wqky/64kzmMp
- Iq2ddDh9TiNu40jB8fzXevmMPG4OIUP+ujQvaQoWZxSy37b58SrfhSUcZ1luQfGaahnmEDN/Agm
- bMJn8S2R30hbB4CuSlvwZfqr6NruBxgenhOlzRpxXb7TszdMxZqMctq7FY/rw3mNCkwchrtUYgj
- zLIkDK6ptXdR6XiWuhUU1Y/KjAcSIsAM+AOvXkC38ak4aNQq0ce6JxvohhH6ryyB2XslkwnzUDt
- 0K1y/lYbiiuN6hRj+rSZnedvl0sAwkIFuYFq87Ub5gAO51pDwlsFHU2V7y9ptOPFQ2PDwJuGtph
- 47xvCwjNe74eYi+EXuX8FaH1uN+PfwxwkKLIVZlNlprKlvPvWe9zm9wmc+3c9Od0/NJpYQXwbf6
- Ywg4tdi+1SWVVwOLbMsw7dwCpz7hj7UGMgGn7+LRTdPUEDvtsoMg0SUKU=
-X-Received: by 2002:a05:693c:3011:b0:2be:fe8:8b0d with SMTP id
- 5a478bee46e88-2c0e5193929mr1379829eec.22.1773832476704; 
- Wed, 18 Mar 2026 04:14:36 -0700 (PDT)
-Received: from fedora ([177.73.136.69]) by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-2c0e536896csm3604281eec.3.2026.03.18.04.14.33
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 18 Mar 2026 04:14:36 -0700 (PDT)
-Date: Wed, 18 Mar 2026 08:14:31 -0300
-From: Pedro Demarchi Gomes <pedrodemargomes@gmail.com>
-To: Boris Brezillon <boris.brezillon@collabora.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3] drm/shmem-helper: Fix Map huge page mapping in fault
- handler
-Message-ID: <abqHvvsyL5BPA_cn@fedora>
-References: <20260316002649.211819-1-pedrodemargomes@gmail.com>
- <20260316152152.1e20d35e@fedora> <20260317183054.5d7030ec@fedora>
- <20260318111649.2912818b@fedora>
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 302DD10E70D;
+ Wed, 18 Mar 2026 11:20:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=JanA/2zZHMXyx7fH3vCfbO7hGHIw8EbQlWf2MIpaceo=; b=KE88e9PEvvCAIFUz5D3uwwpV6K
+ WLxWeCiZZTpORLHaZrWTJXRgKwQg9qAn3Khe8Ah0gkpP1SDvxuxFO6pxuLxuWv4gAmEuybtevDnxR
+ aXnFAMFhrsMucGxecPzF9Yq3oH6xgY74GFxse8BQ2kY1ICSI7PKJD5gt/0Y7w0pF4L9382UN+SK5T
+ KSazDW6dQExblM9TRjKnTj6H0CdxqcijxGe42RF+PMrQyGAAuqbxI3/tnAUp24PMi6Zv9rEuyKC1z
+ Hz0jK56p1KyXtFV/UE1mVo8menlM49nS/6/bmrmm1ZgL/dZFJCj/cKYIpdrs199DH0R29KrjehukM
+ 4GFqiYiQ==;
+Received: from [186.208.74.38] (helo=[192.168.18.14])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1w2owD-002kcI-9S; Wed, 18 Mar 2026 12:19:45 +0100
+Message-ID: <41100150-a533-4efa-a04a-b015fdfc5622@igalia.com>
+Date: Wed, 18 Mar 2026 08:19:39 -0300
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260318111649.2912818b@fedora>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/drm_atomic: duplicate colorop states if plane color
+ pipeline in use
+To: "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ airlied@gmail.com, simona@ffwll.ch, contact@emersion.fr,
+ harry.wentland@amd.com, alex.hung@amd.com, sebastian.wick@redhat.com,
+ daniels@collabora.com
+Cc: Uma Shankar <uma.shankar@intel.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+References: <20260316210055.234498-1-mwen@igalia.com>
+ <9c04afcc-cf00-4dfb-b358-414da5c13f4b@intel.com>
+Content-Language: en-US
+From: Melissa Wen <mwen@igalia.com>
+In-Reply-To: <9c04afcc-cf00-4dfb-b358-414da5c13f4b@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,22 +67,125 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Mar 18, 2026 at 11:16:49AM +0100, Boris Brezillon wrote:
-> On Tue, 17 Mar 2026 18:30:54 +0100
-> Boris Brezillon <boris.brezillon@collabora.com> wrote:
-> 
-> > > 
-> > > I've played a bit with the drm-misc-{next,fixes} versions (with the extra
-> > > pfn_mkwrite fixes on top for the -next variant), and below is my preferred
-> > > version (pfn insertion is all handled inside the try_insert_pfn() helper,
-> > > with order == PMD_ORDER specialized there).  
-> > 
-> > One last thing, the subject should probably be "drm/shmem-helper: Fix
-> > huge page mapping in fault handler" (instead of "Fix Map huge page
-> > ..."). Pedro, do you think you'll be able to send a v4 before the end
-> > of the week? I'd really like to have that fix in -rc5 or -rc6.
-> 
-> If you can't, please let me know, I'll post a new version for you.
 
-Should I send a patch for the drm-misc-{next,fixes}, or v7.0-rc4?
-I am planning to send it today.
+
+On 18/03/2026 06:21, Borah, Chaitanya Kumar wrote:
+>
+>
+> On 3/17/2026 2:22 AM, Melissa Wen wrote:
+>> For suspend/resume to work correctly, do for colorop state the same we
+>> do for plane/crtc/connector states: duplicate the state of colorops in a
+>> color pipeline if it's in use by a given plane when suspending and
+>> restore cached colorop states when resuming.
+>>
+>> Fixes: 2afc3184f3b3 ("drm/plane: Add COLOR PIPELINE property")
+>> Signed-off-by: Melissa Wen <mwen@igalia.com>
+>> ---
+>>
+>> Hi,
+>>
+>> I've been working on making gamescope use KMS plane color API, instead
+>> of AMD driver-specific color properties [1] and I found this issue
+>> during Steam Deck suspend/resume process.
+>>
+>> Initially I thought I should also set plane color_mgmt_changed to make
+>> AMD driver reprogram the color state, but looks like it's not needed
+>> (still testing). Therefore, I think the change here is enough to fix it.
+>>
+>> It applies on top of drm-misc-next and is inspired by commit
+>> 6955d6bca053 ("drm/atomic: Add affected colorops with affected planes").
+>>
+>> [1] https://github.com/ValveSoftware/gamescope/pull/2113
+>>
+>>   drivers/gpu/drm/drm_atomic_helper.c | 12 ++++++++++++
+>>   include/drm/drm_atomic.h            |  3 ++-
+>>   2 files changed, 14 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/gpu/drm/drm_atomic_helper.c 
+>> b/drivers/gpu/drm/drm_atomic_helper.c
+>> index 26953ed6b53e..683a0e207f71 100644
+>> --- a/drivers/gpu/drm/drm_atomic_helper.c
+>> +++ b/drivers/gpu/drm/drm_atomic_helper.c
+>> @@ -3751,6 +3751,13 @@ drm_atomic_helper_duplicate_state(struct 
+>> drm_device *dev,
+>>               err = PTR_ERR(plane_state);
+>>               goto free;
+>>           }
+>> +
+>> +        if (plane_state->color_pipeline) {
+>> +            err = drm_atomic_add_affected_colorops(state, plane);
+>> +            if (err)
+>> +                goto free;
+>> +        }
+>> +
+>>       }
+>>         drm_connector_list_iter_begin(dev, &conn_iter);
+>> @@ -3856,6 +3863,8 @@ int 
+>> drm_atomic_helper_commit_duplicated_state(struct drm_atomic_state 
+>> *state,
+>>       int i, ret;
+>>       struct drm_plane *plane;
+>>       struct drm_plane_state *new_plane_state;
+>> +    struct drm_colorop *colorop;
+>> +    struct drm_colorop_state *new_colorop_state;
+>>       struct drm_connector *connector;
+>>       struct drm_connector_state *new_conn_state;
+>>       struct drm_crtc *crtc;
+>> @@ -3866,6 +3875,9 @@ int 
+>> drm_atomic_helper_commit_duplicated_state(struct drm_atomic_state 
+>> *state,
+>>       for_each_new_plane_in_state(state, plane, new_plane_state, i)
+>>           state->planes[i].old_state = plane->state;
+>>   +    for_each_new_colorop_in_state(state, colorop, 
+>> new_colorop_state, i)
+>> +        state->colorops[i].old_state = colorop->state;
+>> +
+>
+> Nit: Just to maintain the object hierarchy this could be moved above 
+> planes.
+
+Ack
+
+>
+>>       for_each_new_crtc_in_state(state, crtc, new_crtc_state, i)
+>>           state->crtcs[i].old_state = crtc->state;
+>>   diff --git a/include/drm/drm_atomic.h b/include/drm/drm_atomic.h
+>> index 0b1b32bcd2bd..96fd32a3e92c 100644
+>> --- a/include/drm/drm_atomic.h
+>> +++ b/include/drm/drm_atomic.h
+>> @@ -1102,7 +1102,8 @@ void drm_state_dump(struct drm_device *dev, 
+>> struct drm_printer *p);
+>>           for_each_if ((__state)->colorops[__i].ptr &&        \
+>>                    ((colorop) = (__state)->colorops[__i].ptr,    \
+>>                     (void)(colorop) /* Only to avoid 
+>> unused-but-set-variable warning */, \
+>> -                  (new_colorop_state) = 
+>> (__state)->colorops[__i].new_state, 1))
+>> +                  (new_colorop_state) = 
+>> (__state)->colorops[__i].new_state,\
+>> +                  (void)(new_colorop_state) /* Only to avoid 
+>> unused-but-set-variable warning */, 1))
+>>
+>
+> Perhaps this should move to a separate patch.
+
+As the unused-variable warning didn't appear without the 
+drm_atomic_helper.c changes made here, I think keeping them together is 
+the best for context.
+I mean, the problem doesn't exist before.
+
+Thanks for reviewing,
+
+Melissa
+
+>
+> Otherwise, the changes LGTM.
+>
+> Reviewed-by: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
+>
+>
+>>   /**
+>>    * for_each_oldnew_plane_in_state - iterate over all planes in an 
+>> atomic update
+>
+
