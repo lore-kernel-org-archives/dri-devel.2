@@ -4,51 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90FAC1077613
-	for <dri-devel@archiver.kernel.org>; Wed, 18 Mar 2026 19:50:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A953F107760E
+	for <dri-devel@archiver.kernel.org>; Wed, 18 Mar 2026 19:50:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 11AD210E7A1;
-	Wed, 18 Mar 2026 19:50:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E808510E7A0;
+	Wed, 18 Mar 2026 19:50:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=pm.me header.i=@pm.me header.b="AyQaD+9Q";
+	dkim=pass (2048-bit key; secure) header.d=adishatz.org header.i=@adishatz.org header.b="uHtL/fXI";
 	dkim-atps=neutral
-Received: from mail-43101.protonmail.ch (mail-43101.protonmail.ch
- [185.70.43.101])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 21A8B10E790
- for <dri-devel@lists.freedesktop.org>; Wed, 18 Mar 2026 09:41:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
- s=protonmail3; t=1773826868; x=1774086068;
- bh=cpbR1pI93xvVsMgjnenFLen8wZueCr5a35WmFg67pXU=;
- h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
- Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
- Message-ID:BIMI-Selector;
- b=AyQaD+9QGQ4g7rW28zwPEC6FX92gZ5WTDJaPbJ4OufoZ9cX9lIPNo/7+HpIl26P4D
- vb/54Wvq0SSa/hacytcUAJZERm3HY5BEb/VNGO2MBWsNpo37VaiMOh4/WLC3k8CjS9
- 2TcNSWOtH8uCsCb5FsNyx/OclRvUAolBnWsFvsVDVymgh54rE7FySAMbCqyKMTNj+L
- ZR3fCuzKfB0YJYGjbQxob+9PDrcuW+C4keZGQbvmZPWCD/Os7aFkQkEIhAG+yeuGKJ
- fUwD3F38slGcB7Fkcj1ZLH3tPVP2aJ3s6F9iiuP45JV2Qctm/w9WCT6m1BVK/v+zZR
- XXTO82pJP+YVw==
-Date: Wed, 18 Mar 2026 09:41:05 +0000
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>
-From: Alexander Koskovich <akoskovich@pm.me>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- Alexander Koskovich <akoskovich@pm.me>
-Subject: [PATCH 2/3] drm/msm/dsi: Add support for RGB101010 pixel format
-Message-ID: <20260318-dsi-rgb101010-support-v1-2-6021eb79e796@pm.me>
-In-Reply-To: <20260318-dsi-rgb101010-support-v1-0-6021eb79e796@pm.me>
-References: <20260318-dsi-rgb101010-support-v1-0-6021eb79e796@pm.me>
-Feedback-ID: 37836894:user:proton
-X-Pm-Message-ID: f8dd0542583259f10d8d10849af1a9bd91c952f8
+Received: from adishatz.org (ns314768.ip-37-187-26.eu [37.187.26.192])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 152DE10E011;
+ Wed, 18 Mar 2026 17:17:11 +0000 (UTC)
+Received: from p-si-bellegarde (34.33.83.79.rev.sfr.net [79.83.33.34])
+ by adishatz.org (Postfix) with ESMTPSA id 1634D4C0389;
+ Wed, 18 Mar 2026 18:17:09 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=adishatz.org;
+ s=mail; t=1773854229;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=T4LY9UfzYIzAn7pMCdrUujOdWjd1Qk9yuxMAzyoMrDE=;
+ b=uHtL/fXI4D/vg8REBqeKgn9qEBNfMNNPsTB5SQiguO1H0qqdUaXZDHf04dElUh5B2qMf5p
+ NoTbwJ74ItChxOta1thdXjGpt8Y4k+6SmQIV6yTxuFjc/z3/RHou4i4O95HsOAAlcoWPMm
+ 4+zikVVLwd8CuxMf7RbhAMHQKCogmBSM0n+Y98nzERDxPwsDQhljitSoDIapK+YVBkL1Z7
+ 2yeDyie6T9p1n/6bP2+MVoTknuivUWk5Kg9ws8dRauJP61eWEY2XXKFx7e+50oWCLgo2Qy
+ 0BTksF/9B2xbRIzeuGbhkK0aIpG1qx1ufzayraAtvCTPc1N4pQcICSfaoLCXSw==
+Authentication-Results: ORIGINATING; auth=pass smtp.auth=cedric.bellegarde
+ smtp.mailfrom=cedric.bellegarde@adishatz.org
+From: =?UTF-8?q?C=C3=A9dric=20Bellegarde?= <cedric.bellegarde@adishatz.org>
+To: robin.clark@oss.qualcomm.com
+Cc: lumag@kernel.org, abhinav.kumar@linux.dev, jessica.zhang@oss.qualcomm.com,
+ sean@poorly.run, marijn.suijten@somainline.org, airlied@gmail.com,
+ simona@ffwll.ch, cedric.bellegarde@adishatz.org,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ phone-devel@vger.kernel.org
+Subject: [PATCH] drm/msm/dpu: fix vblank IRQ registration before
+ atomic_mode_set
+Date: Wed, 18 Mar 2026 18:17:00 +0100
+Message-ID: <20260318171700.394945-1-cedric.bellegarde@adishatz.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <ubxvfyx4tugfliwffrrlbe2oliep6nhp5dbpjry4vmamldz2ow@qncsubi7heex>
+References: <ubxvfyx4tugfliwffrrlbe2oliep6nhp5dbpjry4vmamldz2ow@qncsubi7heex>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 18 Mar 2026 19:50:21 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -65,78 +66,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add video and command mode destination format mappings for
-RGB101010, and extend the VID_CFG0 DST_FORMAT bitfield to 3 bits
-to accommodate the new format value.
+dpu_encoder_toggle_vblank_for_crtc() can call control_vblank_irq()
+at any time in response to a userspace vblank request, independently
+of the atomic commit sequence. If this happens before the encoder's
+first atomic_mode_set(), irq[INTR_IDX_RDPTR] is still zero.
 
-Required for 10 bit panels such as the BOE BF068MWM-TD0.
+Passing irq_idx=0 to dpu_core_irq_register_callback() is treated as
+invalid, and DPU_IRQ_REG(0) and DPU_IRQ_BIT(0) produce misleading
+values of 134217727 and 31 respectively due to unsigned wraparound
+in the (irq_idx - 1) macros, resulting in the confusing error:
 
-Signed-off-by: Alexander Koskovich <akoskovich@pm.me>
+  [dpu error]invalid IRQ=[134217727, 31]
+
+Since irq[INTR_IDX_RDPTR] will be properly populated by
+atomic_mode_set() and registered by irq_enable() as part of the
+normal modeset sequence, silently skip the vblank IRQ registration
+when the index has not yet been initialized. This matches the
+existing pattern of the master encoder check above it.
+
+Signed-off-by: Cédric Bellegarde <cedric.bellegarde@adishatz.org>
 ---
- drivers/gpu/drm/msm/dsi/dsi_host.c            | 2 ++
- drivers/gpu/drm/msm/registers/display/dsi.xml | 4 +++-
- 2 files changed, 5 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/d=
-si_host.c
-index db6da99375a1..3e3d61b9390f 100644
---- a/drivers/gpu/drm/msm/dsi/dsi_host.c
-+++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
-@@ -757,6 +757,7 @@ static inline enum dsi_vid_dst_format
- dsi_get_vid_fmt(const enum mipi_dsi_pixel_format mipi_fmt)
- {
- =09switch (mipi_fmt) {
-+=09case MIPI_DSI_FMT_RGB101010:=09return VID_DST_FORMAT_RGB101010;
- =09case MIPI_DSI_FMT_RGB888:=09return VID_DST_FORMAT_RGB888;
- =09case MIPI_DSI_FMT_RGB666:=09return VID_DST_FORMAT_RGB666_LOOSE;
- =09case MIPI_DSI_FMT_RGB666_PACKED:=09return VID_DST_FORMAT_RGB666;
-@@ -769,6 +770,7 @@ static inline enum dsi_cmd_dst_format
- dsi_get_cmd_fmt(const enum mipi_dsi_pixel_format mipi_fmt)
- {
- =09switch (mipi_fmt) {
-+=09case MIPI_DSI_FMT_RGB101010:=09return CMD_DST_FORMAT_RGB101010;
- =09case MIPI_DSI_FMT_RGB888:=09return CMD_DST_FORMAT_RGB888;
- =09case MIPI_DSI_FMT_RGB666_PACKED:
- =09case MIPI_DSI_FMT_RGB666:=09return CMD_DST_FORMAT_RGB666;
-diff --git a/drivers/gpu/drm/msm/registers/display/dsi.xml b/drivers/gpu/dr=
-m/msm/registers/display/dsi.xml
-index c7a7b633d747..7636e9914078 100644
---- a/drivers/gpu/drm/msm/registers/display/dsi.xml
-+++ b/drivers/gpu/drm/msm/registers/display/dsi.xml
-@@ -15,6 +15,7 @@ xsi:schemaLocation=3D"https://gitlab.freedesktop.org/free=
-dreno/ rules-fd.xsd">
- =09=09<value name=3D"VID_DST_FORMAT_RGB666" value=3D"1"/>
- =09=09<value name=3D"VID_DST_FORMAT_RGB666_LOOSE" value=3D"2"/>
- =09=09<value name=3D"VID_DST_FORMAT_RGB888" value=3D"3"/>
-+=09=09<value name=3D"VID_DST_FORMAT_RGB101010" value=3D"4"/>
- =09</enum>
- =09<enum name=3D"dsi_rgb_swap">
- =09=09<value name=3D"SWAP_RGB" value=3D"0"/>
-@@ -39,6 +40,7 @@ xsi:schemaLocation=3D"https://gitlab.freedesktop.org/free=
-dreno/ rules-fd.xsd">
- =09=09<value name=3D"CMD_DST_FORMAT_RGB565" value=3D"6"/>
- =09=09<value name=3D"CMD_DST_FORMAT_RGB666" value=3D"7"/>
- =09=09<value name=3D"CMD_DST_FORMAT_RGB888" value=3D"8"/>
-+=09=09<value name=3D"CMD_DST_FORMAT_RGB101010" value=3D"9"/>
- =09</enum>
- =09<enum name=3D"dsi_lane_swap">
- =09=09<value name=3D"LANE_SWAP_0123" value=3D"0"/>
-@@ -142,7 +144,7 @@ xsi:schemaLocation=3D"https://gitlab.freedesktop.org/fr=
-eedreno/ rules-fd.xsd">
- =09</reg32>
- =09<reg32 offset=3D"0x0000c" name=3D"VID_CFG0">
- =09=09<bitfield name=3D"VIRT_CHANNEL" low=3D"0" high=3D"1" type=3D"uint"/>=
-  <!-- always zero? -->
--=09=09<bitfield name=3D"DST_FORMAT" low=3D"4" high=3D"5" type=3D"dsi_vid_d=
-st_format"/>
-+=09=09<bitfield name=3D"DST_FORMAT" low=3D"4" high=3D"6" type=3D"dsi_vid_d=
-st_format"/>
- =09=09<bitfield name=3D"TRAFFIC_MODE" low=3D"8" high=3D"9" type=3D"dsi_tra=
-ffic_mode"/>
- =09=09<bitfield name=3D"BLLP_POWER_STOP" pos=3D"12" type=3D"boolean"/>
- =09=09<bitfield name=3D"EOF_BLLP_POWER_STOP" pos=3D"15" type=3D"boolean"/>
-
---=20
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c
+index 1aa74ecb08be..b583284d8508 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c
+@@ -256,6 +256,12 @@ static int dpu_encoder_phys_cmd_control_vblank_irq(
+ 	if (!dpu_encoder_phys_cmd_is_master(phys_enc))
+ 		goto end;
+ 
++	/* IRQ not yet initialized */
++	if (!phys_enc->irq[INTR_IDX_RDPTR]) {
++		ret = -EINVAL;
++		goto end;
++	}
++
+ 	/* protect against negative */
+ 	if (!enable && refcount == 0) {
+ 		ret = -EINVAL;
+-- 
 2.53.0
-
 
