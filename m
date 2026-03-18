@@ -4,121 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5B48AFCD0C1
-	for <dri-devel@archiver.kernel.org>; Wed, 18 Mar 2026 07:13:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 255E6FCD0C5
+	for <dri-devel@archiver.kernel.org>; Wed, 18 Mar 2026 07:15:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5AEF410E698;
-	Wed, 18 Mar 2026 07:13:50 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="I280uN50";
-	dkim-atps=neutral
-Received: from TY3P286CU002.outbound.protection.outlook.com
- (mail-japaneastazon11010016.outbound.protection.outlook.com [52.101.229.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C4BA710E698
- for <dri-devel@lists.freedesktop.org>; Wed, 18 Mar 2026 07:13:48 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=l6pSfkOiSa4EPv7zIZjeHyhf08SZ2yYTDq9tnZMLtE+LS+SfcZrboWZe+VSnx/fRHJD4PhpWydj648+bddF6tGdHUNP0UvxwIt8WAeiEvcGXgRf0rRNzI95F14cWSftfYy/z5bhMJ7Ib4jWksbu6XC5dc3RsYPkUGearLvrFBDRtKT7qeFlSu48YvYdWj3ikMhhUltKiDHlq9KYkCD0DBPEdu6X7CBzmCsA4xnq6Q87udyuolK4BiV7+htSbYYu5P8KLvm8FFCEsjW0HZuPdJTQjUSTC7lAkvrjlgmUJ6rkPbOcTrsdgta0NJiBqgJiTKF2gqgtd6c2GT3oXhaAUQA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/HcmjdGEBbmxeF2l2D0ZmKar6jrPMkrxkgnRPd3bapE=;
- b=UfSue3MFj+I9/4TSbaHTin6pwF83a/aVfCtCPNiaeFFNrpWPHSReeX06KN2J94bGxxNg8Rt6X8+7noAfVtIBzYZUmQnJnzEUri/lpmHe/N0KxO+bB8jJ7a0F8wvkl68o+wuigHO3A33X6xh9TM/uFZ0H2ResN23pHaf1nVvcSAtw4yC+HZMCUx0Z0y+g0mjCJPuUD0j1K8LFmjCIvE4bm7appFox9bGpldOjlwMPJWqbQGri1DGhiMn5Thwn8rjgXYsVWa0D4L46v6JbEgxmfaIXnL2nJc0UOMF8KPCPTbWxleFfWgUFgnNWozuqQ7+zylKPJ0yRZUGWyXaSxFCPSA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
- header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/HcmjdGEBbmxeF2l2D0ZmKar6jrPMkrxkgnRPd3bapE=;
- b=I280uN50aO8ZQYM69e1t3HwbkgVKR9fg3ERtGSe2dF4DI2j29Qx5EzHlJX24DoPLwNoWlsgJSOEFN8AqTNKcnOYOpeh8EQP1g/x2Oay++xffVeinYpwTsvq0PlfrIYT4B5IjA+v9P65BB7IKApbv/t2E5qdQvcCW0Yt0d1Q1otA=
-Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com (2603:1096:400:3d0::7)
- by TYCPR01MB8820.jpnprd01.prod.outlook.com (2603:1096:400:18b::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.19; Wed, 18 Mar
- 2026 07:13:43 +0000
-Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com
- ([fe80::87d1:4928:d55:97de]) by TY3PR01MB11346.jpnprd01.prod.outlook.com
- ([fe80::87d1:4928:d55:97de%4]) with mapi id 15.20.9723.018; Wed, 18 Mar 2026
- 07:13:43 +0000
-From: Biju Das <biju.das.jz@bp.renesas.com>
-To: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
-CC: "linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
- tomi.valkeinen <tomi.valkeinen@ideasonboard.com>, Tommaso Merciai
- <tommaso.merciai.xr@bp.renesas.com>
-Subject: RE: [PATCH 2/4] drm: rcar-du: Store CMM device pointer instead of
- platform_device
-Thread-Topic: [PATCH 2/4] drm: rcar-du: Store CMM device pointer instead of
- platform_device
-Thread-Index: AQHctmSLhESXtiws406kB56tH3GJ8bWz4Bdw
-Date: Wed, 18 Mar 2026 07:13:43 +0000
-Message-ID: <TY3PR01MB1134608A5C98A321E1032FCD4864EA@TY3PR01MB11346.jpnprd01.prod.outlook.com>
-References: <20260317231930.595719-1-laurent.pinchart+renesas@ideasonboard.com>
- <20260317231930.595719-3-laurent.pinchart+renesas@ideasonboard.com>
-In-Reply-To: <20260317231930.595719-3-laurent.pinchart+renesas@ideasonboard.com>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=bp.renesas.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: TY3PR01MB11346:EE_|TYCPR01MB8820:EE_
-x-ms-office365-filtering-correlation-id: d86f8564-90cb-4ddd-42a7-08de84bde37d
-x-ld-processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|366016|1800799024|376014|56012099003|18002099003|22082099003|38070700021;
-x-microsoft-antispam-message-info: y/Xwit0IEuj9eP4wD2aXTOJU/NxHqGs6KNQB92AyOAUYN21UV80W6Ue8SyJ9PHddWL5sJ9EFDJexC0ioHU1sn1w3Ja56sK1bSXkTzeTw+Ak4alGi66yCY6iOjryMajfjcMcyigZBQitT9Rrk+BshH2DoQ3paiC+49fCI054M2/G37KADisi+TavU+MjtQSIkkK2HehlC8bEuSJiEQdTJWW1DAzS14becCKoXWiHWsBThc7wmkhHJVDPMd+wRDvhayLxhsPs5cw8srpkYl0IktsWQmhMB1LUS6R12/kStMIwjqxV0ABcCrQbHa1uPDDjNut6bhZc6ffkPlcJwzjHDyCnwxc3E2o0L6io/gHQRVEyuvfC3jQOqnpHmEfn+yJI7oG760hDu8jG0wAU1vCKydTOG5gKMpuI1Gr7oo//hRYuDKC7HUL7izpdeLwuR54giHz3G6UQe4h8Nhv8rHGzD5/1hF+krvV3VPlgLnkRf+H4GEg7UfOex8WuslkiGZeW6ug5tCl5wbzxdamLsICluNxjdOj1CYhXsXY1geT6Z21p1ah04ELvz5VXTOqQyrn813nl642yNr3MykW8yTmQKGnN5aXg8Exj3nE08rrey1gDol/k7R55G4mANyTkGRNSpQX4LGxLwuFB4hv9Tf64CBvjs9k82nGnhfSncmkX94aa4rpuIZi5wIW+HKnqitWMeg4C8Vewc4mOVPt9MSyVSpZGVkBlRaf5UmAhutMJxctBEk9EyEOjboSS3NuRqA5puQ0VlMRBT7rnSwgedlbVWagFUMYQgkkqa038GYbZML+M=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:TY3PR01MB11346.jpnprd01.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014)(56012099003)(18002099003)(22082099003)(38070700021);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?gKfFWbBeXaHMHCiNKWMxENORuAHU/3KXGnxPvvgjtkxhRWo4qXLK0+C8Xyg3?=
- =?us-ascii?Q?HW2Z+nSPo0Hri3yRLu7yCvcaOY4eVAXsj3ZgUFOMpGdwBh6r9EDeo6f7EiPt?=
- =?us-ascii?Q?rOwN8fFqiUE4LF21Cp3NFNQpoxZBngpmgsrxePLA944xTZl6kyfKT13QyeK/?=
- =?us-ascii?Q?sArpUzCN7nZDGuDbvaA9TsDibHVsBYA+0StHnKxt7xG8MCXCvOsW++X+hSvv?=
- =?us-ascii?Q?FKSFBnVhkAChouXJIDM3grkcymVE/uxKjqNqKeWZC+jkc51VzcXec9hEd8cQ?=
- =?us-ascii?Q?jtch+ogaY/GWTOnUfrIL/iI4MZilUSfcRFUxOMcqx9K++CuKRQiWywOsqjxx?=
- =?us-ascii?Q?whk//ceDhaP/X1movR6Pbchs392/IHUAqJw8YHBCbF5XjIU8YehFfaS+gqmL?=
- =?us-ascii?Q?aOvYSGJ1GmODBC0rqwRIKtZGBaPqp1ZP1z6HHVYXU+LTU7anOLvP7jbXNtgq?=
- =?us-ascii?Q?4dsCBYKt2XCTi6LRJh0+iF7htv8m6WnmQyOTWD6/banMC+hUVg3nh9LMgfw+?=
- =?us-ascii?Q?OWipbmiLfz8dZIZ9n5AMqKcatKy7nZiT1oF2SC3nNOGBUhcKd2xk22/ywu/i?=
- =?us-ascii?Q?MbOIDvRcR8YRYndZUxaLTq432jvts5KHl/8bFn+XTHuahDuUW2zq5ejwdE21?=
- =?us-ascii?Q?kAqyrlS90UYxHm2V702cnsWmNmhG+yPoEGTxVS8ImovVsAgjEtXJ+AtUqlbc?=
- =?us-ascii?Q?W95uAe6LsYhQpyUZCOqb8LTVZ52huou34FHfQbKzj3T2Z1UnKwSGGva0kkMU?=
- =?us-ascii?Q?YZ6d8oxuLyhRbGhnfA2Xh8KxI1nBPyIBrteHq7AeCE8K/qQmCTpn1gMeYlje?=
- =?us-ascii?Q?+HdfmJVOLtuULKQn21EOP00ptv14268nTvk/wOi0cx8J7Zap7k3CDD7jO6o7?=
- =?us-ascii?Q?nQ0bKth4kuufIWT6O0gXQSZBKOoevQM//tgdst5Gm30TcsayD5muiCoBCHYY?=
- =?us-ascii?Q?Y+Z0CfbyjKMViF70+zWm1BCQkeBg3y9/0puInRgo+FXgyFfJpQKfjYfeqSOu?=
- =?us-ascii?Q?dwIVBMgFDpXq49ughlftYXj+SIYV8Lg6emdNUoReXu+CNiumkDIVycTIkqib?=
- =?us-ascii?Q?U7/EQolzsy4M582duyg+tUMMgoA61sgZ9G+E0Rzt9w8BJfoqeQe2GkXEoa8y?=
- =?us-ascii?Q?x/YueDyhvdos4U8Y3RWu8bazyVA3U+jNX2n5E1HhwrSTORy4mPxIHloVWZEL?=
- =?us-ascii?Q?vAYIgkh8xeanAWCb98T0Q56ND0oElQmXnHdBWzIM+lP/MV4QjtBrCQviLRpj?=
- =?us-ascii?Q?b+YTxngBBkWpQVn3pVt9eYgEVLH5riru/6QfrPGHp+fHzCXIUdWWBYuE4X+4?=
- =?us-ascii?Q?eOY8bVWEnr9bik0VzNQJCl8wDdGKqlttN54FN+IbCCQDmvZgMNA0L3Rq5Cno?=
- =?us-ascii?Q?SqS10umUafdvSK1jlwnDOcRJtNz1OOqFQjzb+MtN/fSanAbtbLovVJJJnNo3?=
- =?us-ascii?Q?ksZ1ppGIzN2+Yxkz5HPf6HQwEeaHmDY+GcygQADa9mJr5bPKBbmVPX9XvvTQ?=
- =?us-ascii?Q?YNv573pp0ijYufsEmd/KOg9HACINgczR1HyZY98OBAEcjSz58AYy+bWjdlVi?=
- =?us-ascii?Q?Os+/TOChJL6Pf1Gh1ZqZQevYS5TmO+mq4QOEg/XHvb8sXXsOn737QY7H7vfC?=
- =?us-ascii?Q?BPXVAply1FsWF06eH8oG88fJ+qtNQwSFUof75O08Yu0MAc9KVC9V9QttF4u8?=
- =?us-ascii?Q?u7MQIVupX9Oxv06/1O/9ckCecO+13zW8hbJGBthsXNU0l+F3Lm+VWdsu2y2T?=
- =?us-ascii?Q?rvRt3bmiYw=3D=3D?=
-Content-Type: text/plain; charset="us-ascii"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7BCFC10E6B7;
+	Wed, 18 Mar 2026 07:15:41 +0000 (UTC)
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9BA6A10E6B5
+ for <dri-devel@lists.freedesktop.org>; Wed, 18 Mar 2026 07:15:39 +0000 (UTC)
+Received: from edelgard.fodlan.icenowy.me (unknown [112.94.100.43])
+ by APP-05 (Coremail) with SMTP id zQCowAAntwoVUbppdR69Cg--.45953S2;
+ Wed, 18 Mar 2026 15:15:34 +0800 (CST)
+Message-ID: <5a6f224147ad80d9c873b00208e387de429fcb2c.camel@iscas.ac.cn>
+Subject: Re: [PATCH] drm/loongson: stop to set get_vblank_timestamp for
+ 7A1000 CRTC
+From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+To: Thomas Zimmermann <tzimmermann@suse.de>, Sui Jingfeng	
+ <suijingfeng@loongson.cn>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>,  Maxime Ripard <mripard@kernel.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Date: Wed, 18 Mar 2026 15:15:33 +0800
+In-Reply-To: <27689c69-dca3-4d5b-b385-b9ee2391a9d9@suse.de>
+References: <20260314165421.1201790-1-zhengxingda@iscas.ac.cn>
+ <e716ebde-a4f3-4035-bb21-3c6ab2fe06a4@suse.de>
+ <8b52a9190a237a8bb94a23bf06b6a0589394f553.camel@iscas.ac.cn>
+ <27689c69-dca3-4d5b-b385-b9ee2391a9d9@suse.de>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 
 MIME-Version: 1.0
-X-OriginatorOrg: bp.renesas.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TY3PR01MB11346.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d86f8564-90cb-4ddd-42a7-08de84bde37d
-X-MS-Exchange-CrossTenant-originalarrivaltime: 18 Mar 2026 07:13:43.2988 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: r+o5lPTsZQ1CUZseKevnRSSZYrX9jHbPa0w4B4ZfhNZ7LV5svOQCyvik2kqpCv4mLmPzY+y4okD3gTrLAozaUnmO1rkNIEfo5b8TEIabS/I=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYCPR01MB8820
+X-CM-TRANSID: zQCowAAntwoVUbppdR69Cg--.45953S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxJF17Kr17KF45tFyrZFyfXrb_yoWrCw48pF
+ WqkFnFyr4DtFyaywnFqF18ZayF93yrJF93WryDKw13C3yDtF1xCF40yr43uFy7Xrn3Ga12
+ qrn2gr1akFn09aUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUUk2b7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+ 0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+ A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xII
+ jxv20xvEc7CjxVAFwI0_Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I
+ 8E87Iv6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI
+ 64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8Jw
+ Am72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lc7CjxVAaw2AFwI0_JF0_Jw1l42xK
+ 82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGw
+ C20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48J
+ MIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMI
+ IF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E
+ 87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjxUgcTQUUUUU
+X-Originating-IP: [112.94.100.43]
+X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,255 +67,124 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Laurent,
+=E5=9C=A8 2026-03-18=E4=B8=89=E7=9A=84 08:09 +0100=EF=BC=8CThomas Zimmerman=
+n=E5=86=99=E9=81=93=EF=BC=9A
+> Hi
+>=20
+> Am 18.03.26 um 07:16 schrieb Icenowy Zheng:
+> > =E5=9C=A8 2026-03-16=E4=B8=80=E7=9A=84 08:53 +0100=EF=BC=8CThomas Zimme=
+rmann=E5=86=99=E9=81=93=EF=BC=9A
+> > >=20
+> > > Am 14.03.26 um 17:54 schrieb Icenowy Zheng:
+> > > > As there's no known hardware capability about querying vblank
+> > > > on
+> > > > the
+> > > > 7A1000 display controller, setting get_vblank_timestamp will
+> > > > mislead the
+> > > > kernel about the support of DC-backed high precision vblank
+> > > > query.
+> > > >=20
+> > > > Drop this function pointer in the CRTC function table for
+> > > > 7A1000.
+> > > >=20
+> > > > This solves a kernel warning when booting Linux 7.0-rc3 on a
+> > > > 3A4000+7A1000 Haier Boyue G51 laptop (with injected EDID for
+> > > > replicating
+> > > > the display timing set by the firmware).
+> > > >=20
+> > > > Signed-off-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+> > > Acked-by: Thomas Zimmermann <tzimmermann@suse.de>
+> > Well, is my following understand right?
+> >=20
+> > - A hardware that does not have hardware vblank timing/counting
+> > ability
+> > shouldn't set .get_vblank_timestamp .
+> > - A hardware that supports vblank counting but not timing should
+> > set
+> > .get_vblank_timestamp to the
+> > drm_crtc_vblank_helper_get_vblank_timestamp helper to allow vblank
+> > timing estimate with counter.
+>=20
+> Setting drm_crtc_vblank_helper_get_vblank_timestamp() also requires
+> to=20
+> read out the x/y positions. See get_scanout_position. You can leave
+> out=20
+> get_vblank_timestamp entirely and DRM will approximate the values
+> with=20
+> the system timer. For reading the vblank counter, there's=20
+> get_vblank_counter if the hardware supports it.
 
-Thanks for the patch.
+It seems that the loongson driver already implemented
+.get_scanout_position hook.
 
-> -----Original Message-----
-> From: dri-devel <dri-devel-bounces@lists.freedesktop.org> On Behalf Of La=
-urent Pinchart
-> Sent: 17 March 2026 23:19
-> Subject: [PATCH 2/4] drm: rcar-du: Store CMM device pointer instead of pl=
-atform_device
->=20
-> The DU driver stores the CMM devices as pointers to struct platform_devic=
-e, and passes them to the API
-> exposed by the CMM driver.
-> This is similar to how the VSP is handled, except that the VSP uses struc=
-t device pointers. Replace
-> the CMM platform_device pointers with device pointers for consistency.
->=20
-> Signed-off-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.co=
-m>
-> ---
->  drivers/gpu/drm/renesas/rcar-du/rcar_cmm.c    | 26 +++++++++----------
->  drivers/gpu/drm/renesas/rcar-du/rcar_cmm.h    | 18 ++++++-------
->  .../gpu/drm/renesas/rcar-du/rcar_du_crtc.h    |  2 +-
->  drivers/gpu/drm/renesas/rcar-du/rcar_du_drv.h |  2 +-  drivers/gpu/drm/r=
-enesas/rcar-du/rcar_du_kms.c
-> |  6 ++---
->  5 files changed, 27 insertions(+), 27 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/renesas/rcar-du/rcar_cmm.c b/drivers/gpu/drm=
-/renesas/rcar-du/rcar_cmm.c
-> index 93ba115d654f..5bced9d778e8 100644
-> --- a/drivers/gpu/drm/renesas/rcar-du/rcar_cmm.c
-> +++ b/drivers/gpu/drm/renesas/rcar-du/rcar_cmm.c
-> @@ -59,7 +59,7 @@ static void rcar_cmm_lut_write(struct rcar_cmm *rcmm,
->=20
->  /*
->   * rcar_cmm_setup() - Configure the CMM unit
-> - * @pdev: The platform device associated with the CMM instance
-> + * @dev: The device associated with the CMM instance
->   * @config: The CMM unit configuration
->   *
->   * Configure the CMM unit with the given configuration. Currently enabli=
-ng, @@ -73,10 +73,10 @@
-> static void rcar_cmm_lut_write(struct rcar_cmm *rcmm,
->   * TODO: Add support for LUT double buffer operations to avoid updating =
-the
->   * LUT table entries while a frame is being displayed.
->   */
-> -int rcar_cmm_setup(struct platform_device *pdev,
-> +int rcar_cmm_setup(struct device *dev,
->  		   const struct rcar_cmm_config *config)  {
-> -	struct rcar_cmm *rcmm =3D platform_get_drvdata(pdev);
-> +	struct rcar_cmm *rcmm =3D dev_get_drvdata(dev);
->=20
->  	/* Disable LUT if no table is provided. */
->  	if (!config->lut.table) {
-> @@ -102,7 +102,7 @@ EXPORT_SYMBOL_GPL(rcar_cmm_setup);
->=20
->  /*
->   * rcar_cmm_enable() - Enable the CMM unit
-> - * @pdev: The platform device associated with the CMM instance
-> + * @dev: The device associated with the CMM instance
->   *
->   * When the output of the corresponding DU channel is routed to the CMM =
-unit,
->   * the unit shall be enabled before the DU channel is started, and remai=
-n @@ -113,11 +113,11 @@
-> EXPORT_SYMBOL_GPL(rcar_cmm_setup);
->   * It is an error to attempt to enable an already enabled CMM unit, or t=
-o
->   * attempt to disable a disabled unit.
->   */
-> -int rcar_cmm_enable(struct platform_device *pdev)
-> +int rcar_cmm_enable(struct device *dev)
->  {
->  	int ret;
->=20
-> -	ret =3D pm_runtime_resume_and_get(&pdev->dev);
-> +	ret =3D pm_runtime_resume_and_get(dev);
->  	if (ret < 0)
->  		return ret;
->=20
-> @@ -127,7 +127,7 @@ EXPORT_SYMBOL_GPL(rcar_cmm_enable);
->=20
->  /*
->   * rcar_cmm_disable() - Disable the CMM unit
-> - * @pdev: The platform device associated with the CMM instance
-> + * @dev: The device associated with the CMM instance
->   *
->   * See rcar_cmm_enable() for usage information.
->   *
-> @@ -135,27 +135,27 @@ EXPORT_SYMBOL_GPL(rcar_cmm_enable);
->   * state shall thus be restored with rcar_cmm_setup() when re-enabling t=
-he CMM
->   * unit after the next rcar_cmm_enable() call.
->   */
-> -void rcar_cmm_disable(struct platform_device *pdev)
-> +void rcar_cmm_disable(struct device *dev)
->  {
-> -	struct rcar_cmm *rcmm =3D platform_get_drvdata(pdev);
-> +	struct rcar_cmm *rcmm =3D dev_get_drvdata(dev);
->=20
->  	rcar_cmm_write(rcmm, CM2_LUT_CTRL, 0);
->  	rcmm->lut.enabled =3D false;
->=20
-> -	pm_runtime_put(&pdev->dev);
-> +	pm_runtime_put(dev);
->  }
->  EXPORT_SYMBOL_GPL(rcar_cmm_disable);
->=20
->  /*
->   * rcar_cmm_init() - Initialize the CMM unit
-> - * @pdev: The platform device associated with the CMM instance
-> + * @dev: The device associated with the CMM instance
->   *
->   * Return: 0 on success, -EPROBE_DEFER if the CMM is not available yet,
->   *         -ENODEV if the DRM_RCAR_CMM config option is disabled
->   */
-> -int rcar_cmm_init(struct platform_device *pdev)
-> +int rcar_cmm_init(struct device *dev)
->  {
-> -	struct rcar_cmm *rcmm =3D platform_get_drvdata(pdev);
-> +	struct rcar_cmm *rcmm =3D dev_get_drvdata(dev);
->=20
->  	if (!rcmm)
->  		return -EPROBE_DEFER;
-> diff --git a/drivers/gpu/drm/renesas/rcar-du/rcar_cmm.h b/drivers/gpu/drm=
-/renesas/rcar-du/rcar_cmm.h
-> index 628072acc98b..1454605b8100 100644
-> --- a/drivers/gpu/drm/renesas/rcar-du/rcar_cmm.h
-> +++ b/drivers/gpu/drm/renesas/rcar-du/rcar_cmm.h
-> @@ -10,8 +10,8 @@
->=20
->  #define CM2_LUT_SIZE		256
->=20
-> +struct device;
->  struct drm_color_lut;
-> -struct platform_device;
->=20
->  /**
->   * struct rcar_cmm_config - CMM configuration @@ -26,29 +26,29 @@ struct=
- rcar_cmm_config {  };
->=20
->  #if IS_ENABLED(CONFIG_DRM_RCAR_CMM)
-> -int rcar_cmm_init(struct platform_device *pdev);
-> +int rcar_cmm_init(struct device *pdev);
->=20
-> -int rcar_cmm_enable(struct platform_device *pdev); -void rcar_cmm_disabl=
-e(struct platform_device
-> *pdev);
-> +int rcar_cmm_enable(struct device *pdev); void rcar_cmm_disable(struct
-> +device *pdev);
->=20
-> -int rcar_cmm_setup(struct platform_device *pdev,
-> +int rcar_cmm_setup(struct device *pdev,
+Is both .get_scanout_position and .get_vblank_counter requirement for
+drm_crtc_vblank_helper_get_vblank_timestamp() to work?
 
-struct device *dev for consistency and same for below.
+> >=20
+> > (P.S. There's a DisplayCurrentLocation register that is valid for
+> > 7A1000, which returns the current X and Y positions; but I wonder
+> > whether this is meaningful for vblank querying.
+>=20
+> That sounds like the functionality required for get_scanout_position.
+>=20
+> > In addition, this DC looks quite similar to Verisilicon DCNano,
+> > which
+> > was used by i.MX8ULP (although many functionality on the i.MX8ULP
+> > manual is missing, things until cursor0 match between LS7A2000
+> > manual
+> > and i.MX8ULP manual). I wonder whether NXP people abandoned the
+> > mainlining of DCNano driver because of drm/loongson?)
+>=20
+> IDK anything about that.
 
-Cheers,
-Biju
+Well I wonder about such kind of "similar display hardware on different
+bus" things, because PCI devices usually use different memory
+management system than platform devices (the former usually use TTM and
+the latter usually directly use dma memory).
 
->  		   const struct rcar_cmm_config *config);  #else -static inline int rc=
-ar_cmm_init(struct
-> platform_device *pdev)
-> +static inline int rcar_cmm_init(struct device *pdev)
->  {
->  	return -ENODEV;
->  }
+In fact LS7A1000 contains a Vivante GPU that isn't supported by etnaviv
+driver yet (and the etnaviv driver now hardcodes to use DMA memory,
+although the GPU has private memory that is shared with DC (currently
+managed by DC driver's TTM)).
+
 >=20
-> -static inline int rcar_cmm_enable(struct platform_device *pdev)
-> +static inline int rcar_cmm_enable(struct device *pdev)
->  {
->  	return 0;
->  }
 >=20
-> -static inline void rcar_cmm_disable(struct platform_device *pdev)
-> +static inline void rcar_cmm_disable(struct device *pdev)
->  {
->  }
+> > P.S.2. I saw that Sui Jingfeng's mailbox is bouncing and the driver
+> > is
+> > going to be orphaned. If he wouldn't react with other ways, maybe I
+> > could try to maintain this driver? I have Loongson-3A4000 +
+> > LS7A1000
+> > and Loongson-3A6000 + LS7A2000 hardwares at home.
 >=20
-> -static inline int rcar_cmm_setup(struct platform_device *pdev,
-> +static inline int rcar_cmm_setup(struct device *pdev,
->  				 const struct rcar_cmm_config *config)  {
->  	return 0;
-> diff --git a/drivers/gpu/drm/renesas/rcar-du/rcar_du_crtc.h b/drivers/gpu=
-/drm/renesas/rcar-
-> du/rcar_du_crtc.h
-> index d0f38a8b3561..07a40b305be8 100644
-> --- a/drivers/gpu/drm/renesas/rcar-du/rcar_du_crtc.h
-> +++ b/drivers/gpu/drm/renesas/rcar-du/rcar_du_crtc.h
-> @@ -65,7 +65,7 @@ struct rcar_du_crtc {
->  	unsigned int vblank_count;
+> Yes, the driver is now orphaned.=C2=A0 No one else from Loongson has show=
+n
+> up=20
+> to maintain it either. If you want it, just send a patch to add you
+> as=20
+> maintainer with a short rational.
 >=20
->  	struct rcar_du_group *group;
-> -	struct platform_device *cmm;
-> +	struct device *cmm;
->  	struct rcar_du_vsp *vsp;
->  	unsigned int vsp_pipe;
+> Best regards
+> Thomas
 >=20
-> diff --git a/drivers/gpu/drm/renesas/rcar-du/rcar_du_drv.h b/drivers/gpu/=
-drm/renesas/rcar-
-> du/rcar_du_drv.h
-> index 5cfa2bb7ad93..9e160dede4e6 100644
-> --- a/drivers/gpu/drm/renesas/rcar-du/rcar_du_drv.h
-> +++ b/drivers/gpu/drm/renesas/rcar-du/rcar_du_drv.h
-> @@ -106,7 +106,7 @@ struct rcar_du_device {
->  	unsigned int num_crtcs;
->=20
->  	struct rcar_du_group groups[RCAR_DU_MAX_GROUPS];
-> -	struct platform_device *cmms[RCAR_DU_MAX_CRTCS];
-> +	struct device *cmms[RCAR_DU_MAX_CRTCS];
->  	struct rcar_du_vsp vsps[RCAR_DU_MAX_VSPS];
->  	struct drm_bridge *lvds[RCAR_DU_MAX_LVDS];
->  	struct drm_bridge *dsi[RCAR_DU_MAX_DSI]; diff --git a/drivers/gpu/drm/r=
-enesas/rcar-
-> du/rcar_du_kms.c b/drivers/gpu/drm/renesas/rcar-du/rcar_du_kms.c
-> index 60e6f43b8ab2..f38e45d38ad2 100644
-> --- a/drivers/gpu/drm/renesas/rcar-du/rcar_du_kms.c
-> +++ b/drivers/gpu/drm/renesas/rcar-du/rcar_du_kms.c
-> @@ -806,13 +806,13 @@ static int rcar_du_cmm_init(struct rcar_du_device *=
-rcdu)
->  		 * -ENODEV is used to report that the CMM config option is
->  		 * disabled: return 0 and let the DU continue probing.
->  		 */
-> -		ret =3D rcar_cmm_init(pdev);
-> +		ret =3D rcar_cmm_init(&pdev->dev);
->  		if (ret) {
->  			platform_device_put(pdev);
->  			return ret =3D=3D -ENODEV ? 0 : ret;
->  		}
->=20
-> -		rcdu->cmms[i] =3D pdev;
-> +		rcdu->cmms[i] =3D &pdev->dev;
->=20
->  		/*
->  		 * Enforce suspend/resume ordering by making the CMM a provider @@ -83=
-5,7 +835,7 @@ static
-> void rcar_du_modeset_cleanup(struct drm_device *dev, void *res)
->  	unsigned int i;
->=20
->  	for (i =3D 0; i < ARRAY_SIZE(rcdu->cmms); ++i)
-> -		platform_device_put(rcdu->cmms[i]);
-> +		put_device(rcdu->cmms[i]);
->  }
->=20
->  int rcar_du_modeset_init(struct rcar_du_device *rcdu)
-> --
-> Regards,
->=20
-> Laurent Pinchart
+> >=20
+> > > > ---
+> > > > =C2=A0=C2=A0 drivers/gpu/drm/loongson/lsdc_crtc.c | 1 -
+> > > > =C2=A0=C2=A0 1 file changed, 1 deletion(-)
+> > > >=20
+> > > > diff --git a/drivers/gpu/drm/loongson/lsdc_crtc.c
+> > > > b/drivers/gpu/drm/loongson/lsdc_crtc.c
+> > > > index 587fbe285e9ef..b3af8e0cdb15f 100644
+> > > > --- a/drivers/gpu/drm/loongson/lsdc_crtc.c
+> > > > +++ b/drivers/gpu/drm/loongson/lsdc_crtc.c
+> > > > @@ -721,7 +721,6 @@ static const struct drm_crtc_funcs
+> > > > ls7a1000_crtc_funcs =3D {
+> > > > =C2=A0=C2=A0=C2=A0	.late_register =3D lsdc_crtc_late_register,
+> > > > =C2=A0=C2=A0=C2=A0	.enable_vblank =3D lsdc_crtc_enable_vblank,
+> > > > =C2=A0=C2=A0=C2=A0	.disable_vblank =3D lsdc_crtc_disable_vblank,
+> > > > -	.get_vblank_timestamp =3D
+> > > > drm_crtc_vblank_helper_get_vblank_timestamp,
+> > > > =C2=A0=C2=A0=C2=A0	.atomic_print_state =3D lsdc_crtc_atomic_print_s=
+tate,
+> > > > =C2=A0=C2=A0 };
+> > > > =C2=A0=C2=A0=20
 
