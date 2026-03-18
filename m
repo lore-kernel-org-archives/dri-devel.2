@@ -4,52 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BA860FCD0C3
-	for <dri-devel@archiver.kernel.org>; Wed, 18 Mar 2026 07:16:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 94E9DFCD0C5
+	for <dri-devel@archiver.kernel.org>; Wed, 18 Mar 2026 07:16:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1B40510E6CA;
-	Wed, 18 Mar 2026 07:16:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F30C110E6CE;
+	Wed, 18 Mar 2026 07:16:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="tu0kzBUR";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="VkEO6qmk";
 	dkim-atps=neutral
 Received: from CH1PR05CU001.outbound.protection.outlook.com
  (mail-northcentralusazon11010040.outbound.protection.outlook.com
  [52.101.193.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1684610E6B5
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AAB1310E6B5
  for <dri-devel@lists.freedesktop.org>; Wed, 18 Mar 2026 07:16:11 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=muTCAWq9tmZb7/qV32dV6tSSrseQrq0wOLx9KeEC189ruFo+q1Or8K6qyhmrXqt+GQHaACsAimWAPQD2KVQwcP3sV55eh5xQqSXcj5fc4lkfPKRchBAkjLLdrSSv40BnXcpugPkFHPNnLWw8Lpu6SLMyZZS8YhECvqf6xflZ0EvA9czsNtSdTqJPki+mrv/yaFjwQS6zbpm+41qWYy2Sv9wbVeiNrluhd2MmKRFg6e2ESye4nJe69/8XsaDkS2CG6OTlv05caW52BNcEEWqz6K09j4t9WCiBHzEl0/djs0nOX+RRHbhKV4FgOIeNxGZEswx9U81d9lnx2HrmPbuq+Q==
+ b=NF5h+EAMYELHS3iLKcyYYup8KLeiTzxtnciaSIK6c4YqY/vxuBS/qoR8uxoDatOnq7PBLv5XUcIsLNd47V9PwbbOlD/S6LIE5d3wRlk7UrMVw57Too4odE6WKO7jRdWXmIr7lB6Omy/JMNCQe+t6SLy7nHqmMu+Wg4ptAtm0DC6Xmk3HWbUi693m84G9oZYcisods3hOYir5Zpx4DrYkaj0m2CJ9OQGYE7CHrUDYx6vKZ1jNABTGGHsozgqdmaZ65GBabHJG2mAVgAsCYV2XY7R+ygLMZKTRZL5FpAm0rfjOEPL0mDYAUg/uBV45x2dAwU5uNiTJ6oK/QftRVgNglw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=A2QqrmfLFZaGxNMkoQW3RgqoiGxks02o6xL5FpsW8Js=;
- b=cn/3dkU6sq6Le8/MIaC6BN1o+n8ri9tDgqbdKEuUyTcfQuRr2w5jAZVYvJAalXNDnLn9OoSq5wSpxMA4Wqu5t3yJB4rY0jFWUSxSaE1xLXGUoXwxb/bRUzmFcvnFn2xPmEzVaz8Nswjcq8LhhMgxdnb0kjy+i8y12MYPVL1RYgBQxLZfLxgpl091RNVdrwM87K+GRYVSKrsvvexTH9NztrUjvMaf4AV1lztOuTTsiP7v/fOnSL9YkbwkiuP183Sdebr9pjZT/3+DipDvwncb3Iyp/EiH/4JjoqN4FWYhYNvE/+P089DLL8eeoXPi0VMWSCI/bfrN0G892rnYJzlWiw==
+ bh=5wHaLeiWym0mnWXOKFYtk17jkvO4aDmTzYsMQvU1U1I=;
+ b=Rjae1K+J0ApbMejebFESH7fr/iKbrXH3c1aNapjNH33ZLOkVsycG1J9EvhagcUQViqmVIWwJhiiAm+QK9L+gBlFu4liC6eMA7LBPZbIzVtankd32OBZBVwkCs/g2Bs0s4/wwAXE7jdb+qnFPCriO3kZ2517jxpAfPKMapFqesipVUSsZqh4K4gAZbgEb3j0ghzzYBmRY3jHJ1IyC5COEK+R6ej41jJ5NF5tcvg+0pruXUH3RMVNAXiRXU8Fxr5aBw5ecSKm/rK4W5BIbtb66U3hQBDH/3l8vepVQnkkOSQ8fROosaBEZUYr0fYHcZ/T1SZiG41TC3yHYeUctFKNBLA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=A2QqrmfLFZaGxNMkoQW3RgqoiGxks02o6xL5FpsW8Js=;
- b=tu0kzBUR7FZ+AVDe4mWuqevFYenY76kbMbBOfLFW+u/3tgq2BOMpCPOd9gc1fAOdMn+KFQFRkvauRmry8A+Iim6Ujim8vvzQ240x8rB8GrYTJCvCV3hiUxZCrcV/iOgo9glLA/alHUPXdQ7DU2THDG5/ePQv6FCCpRnewWjVrL0v37xdCS5Rq5MgfQE+1M8nTlJ+ifhBaXh5rlbsVaU9Ow2X7a5ZZEDf46ZvZMkiEcHc/k18s23+PmTqNuiVdGHPAmWnVcBEaq9Lw5/dfKvnP0z7a0UADyiVkL9itwWVuFDvuk+aQCt7BOvlG6bLswah/K3ubEte5m4rVr3FKc7hbA==
+ bh=5wHaLeiWym0mnWXOKFYtk17jkvO4aDmTzYsMQvU1U1I=;
+ b=VkEO6qmkxW0ZWSnE7ZyFMwKQDrzCixhyBzCABQ7ZsfOH21vcklFXpgHDpN27zGrLHdqZASi4+Ci9DYJ3Fzjc4a6/IzCQdmj6IssfmLKm1xEnvbyBnlQ29KaVEfrYh4fKaRyTO26xOti7kgQD833nqEBuRj3aL2U4txqrXhNzp9OhKHe1HKWDNEjy0sm3jFCNBiEOeaNm3vuLZHPYAORuMkoOQUDs6nTKdkPZSPQ9zBrTT6An63uv3ZKtmH3v/ExvZjmD7nZnC5Z9wbsM4imCI06d5jHOrPY7OT/K2QCfhg/A9FqBpU0iC9pTUH3OC1IVBEc3ICK17cz+4+6iscuemg==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
 Received: from BL0PR12MB2353.namprd12.prod.outlook.com (2603:10b6:207:4c::31)
  by MN0PR12MB5764.namprd12.prod.outlook.com (2603:10b6:208:377::8)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.16; Wed, 18 Mar
- 2026 07:15:02 +0000
+ 2026 07:14:40 +0000
 Received: from BL0PR12MB2353.namprd12.prod.outlook.com
  ([fe80::99b:dcff:8d6d:78e0]) by BL0PR12MB2353.namprd12.prod.outlook.com
  ([fe80::99b:dcff:8d6d:78e0%4]) with mapi id 15.20.9723.016; Wed, 18 Mar 2026
- 07:15:02 +0000
+ 07:14:40 +0000
 From: Eliot Courtney <ecourtney@nvidia.com>
-Date: Wed, 18 Mar 2026 16:14:03 +0900
-Subject: [PATCH v2 7/9] gpu: nova-core: gsp: add RM control command
- infrastructure
+Date: Wed, 18 Mar 2026 16:13:57 +0900
+Subject: [PATCH v2 1/9] gpu: nova-core: gsp: add NV_STATUS error code bindings
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260318-rmcontrol-v2-7-9a9fa6f1c4c3@nvidia.com>
+Message-Id: <20260318-rmcontrol-v2-1-9a9fa6f1c4c3@nvidia.com>
 References: <20260318-rmcontrol-v2-0-9a9fa6f1c4c3@nvidia.com>
 In-Reply-To: <20260318-rmcontrol-v2-0-9a9fa6f1c4c3@nvidia.com>
 To: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
@@ -58,76 +57,75 @@ To: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
 Cc: John Hubbard <jhubbard@nvidia.com>, Alistair Popple <apopple@nvidia.com>, 
  Joel Fernandes <joelagnelf@nvidia.com>, Timur Tabi <ttabi@nvidia.com>, 
  rust-for-linux@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Eliot Courtney <ecourtney@nvidia.com>, 
- Zhi Wang <zhiw@nvidia.com>
+ linux-kernel@vger.kernel.org, Eliot Courtney <ecourtney@nvidia.com>
 X-Mailer: b4 0.14.3
-X-ClientProxiedBy: TYCP301CA0046.JPNP301.PROD.OUTLOOK.COM
- (2603:1096:400:384::10) To BL0PR12MB2353.namprd12.prod.outlook.com
+X-ClientProxiedBy: TY4P286CA0039.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:405:2b2::7) To BL0PR12MB2353.namprd12.prod.outlook.com
  (2603:10b6:207:4c::31)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: BL0PR12MB2353:EE_|MN0PR12MB5764:EE_
-X-MS-Office365-Filtering-Correlation-Id: 01222e43-2a14-407f-3184-08de84be1295
+X-MS-Office365-Filtering-Correlation-Id: 3919ef1b-e129-46c1-15a5-08de84be055c
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
  ARA:13230040|1800799024|376014|10070799003|366016|18002099003|56012099003|22082099003;
-X-Microsoft-Antispam-Message-Info: p97k/gh/fOOJcB2Yw1b+nY39Oxo1+e+47Qsmo1M+oj9Dm2Of96cH9v4bJr3x4Kby3nCHPY14Kok3WAn844ff0k8RIiLLYZZ+ki7G2xoyjcdPje2vuUQZ4jRw0f0aMdWfyFX8eL2kwa3W2k06ZrVW0phHehOXAILjrMtkmHS6uN+iaQFSMlIHN6YduuZAq3V8hE3tz//cKfPHa/d4kuBUS2ytRBteDV7tQSXH8PbH7OujGxgeLYr5be10yAxO1TLHXeqeSqWiiu9LW2SiJtWCUL+jAatdZ0Fu6FsVkH7WnXtm5QSzSsdBJm/6MqFyDSFVr9kyQUYVIK921w4hxIPak5CSwT7v8Qae2wm3+9K8+ygrkxAysJyYovNQFKeGTHIHrv18tSAmOWld6Ux54szKxpvfuiHNUcEk6dOZdWSv1WbYpADsf3FWgMBxBjrNeM3usYjDRHXuMt6REIK/21ifAF3BifFbD589dTejEIamKhyBTWHz2kou5WrFCfoY/zqtal4qUhQU3r5K+QUIQC1y3Qz9twOaS19xj5zT+jYJbu10IleuxNUHFS9jAI9QX2dYTH7FXqrdpEJVlXkL9FhTto1yjtuYrXwNPEZ+vPG4kJwGpD1q9TZNYUjY+CSEthuca6l6M0kKw+7HJfa6n22xci6KKW7+bWno9Bkr8kzHm+XX6DxhuCp4ZP14vdMvr+estl5g6loiw2MAd5dlW9mH7glTKExNkAZIsfSCupb9LjQ=
+X-Microsoft-Antispam-Message-Info: 2w5I5lVaTGKg3CLKDuHgX1mlMzkO6LgE7AfAXuaXh+ArNtwnTNKEyVV1oAchq3z+PqzPN35CNsZwwrSqv1C2utrfrVh7eonZ/r0HGPRxqdTNA0VJ2anVCKPk8G+DHq0r8fCAbLUoPGnBrBdyP3FGKGVvY/2+bCVni4vtFtloxS4eWo3zEwiRBvC9QoYBSB14WEEUkech+8fPudOrSmpmzEOV5WWPP0rnBSSn8vQB7nXHbzQD53QLkBm4FPxJcEAy+y4P39t1i2N75PswsUVO7zMffEJr9vyLAwlLldq+mpX+uIRlfaYGv2gDaGNAz+lhNNkq5IZ06gGE0tM8oydlEWUenZeR9x4FqfdOY+4uL9jqkWs3+xHLt3E8La5Gjfs52jiu20Ky+opG22mmB8/faCALyq3xO67c8WvGjCvRUzbFixiRRD/W/RyUjS3pJNep5lBej4TtgqpjO6YKZSRpBZcbVSo0KjUeWBPJU1MM5r5HE4dMfzGIAYHLL0x5LgqtQwfMIAebEmQWeO0DA6AeI+hdXsoErQeI9PE4JjpjO4qtI4EYR8fUimYlBjiukr41qFN7F/yv9uechEueQxOr+deY8ZzZGB4TDomo6ArBrOPRrSaVytK/lwS3QQCWuMdMs/8TP0oTuIrBlXSUmTjUZevinoWy9EZOymiccnu4BXhadFcCkvUNx7rrYw0F4DGA+Z7hTHQ21CcVwh84/NY68PQgbpt9kJgoFGJ1AmnIuqM=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:BL0PR12MB2353.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFS:(13230040)(1800799024)(376014)(10070799003)(366016)(18002099003)(56012099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?c1N0eWlFdWZEVFNsSnB3RnBLWHZrMURCYnViNG9HaFhadmVDSjBDMmFiaXhz?=
- =?utf-8?B?eHhwOFREc3RrWEpGZS9JNHdSWDFBbW4yYUNNV2R3eXVleVZUSjY4c2E4aWNG?=
- =?utf-8?B?aXJXTytGQ05EQkppUTY3SXFKZGsvRi9QUGZOdVYwSm5ycDllTVZXN0ZRRElr?=
- =?utf-8?B?UWJwQm5XWGtVYmdiY0xuMjBIeHIwcUY5ak5YRXNkdzkzQ0h4REY3aGJjOVZM?=
- =?utf-8?B?Qkc1S3VFUEtVZFlmcERFazd4c0hNL3BJbFVzRDJ2RnVxUWZCcER2TmZ6OU9p?=
- =?utf-8?B?dVZMSVZvWGRaV0tMVTNLZGljcnU1RG96UXJxVHF4bGlIOXhWRlhWRzRxdUN3?=
- =?utf-8?B?elZLQUZsZEpkNUYrWDZqS0s1V3dyMzdOaXFSN0lxME13Wmc3Z25STmtkdVha?=
- =?utf-8?B?WCtqZGdrdEo1bGhlZU9maG5sRXQxUW12MXpDdFR5b3JFa0k2N2R5d0N6WFVr?=
- =?utf-8?B?Q1RoUXFXRXhMUklsekhaMDh2ZDRsYTNBUUFUZWdtak9zOXdIYUs5L1pCbE9t?=
- =?utf-8?B?K0gxZVQyQzYycXo3bUU5STN5SVpQeEpsY3BLaUI0d1lGdXA2SXN1blBNa0lH?=
- =?utf-8?B?amtuMVlvWi96RmFnZVB5MWhGU0U1WDhvUk5WNERUUDJ3VnJzWTZxekZVWGxu?=
- =?utf-8?B?cENNTW9hREtFVWFiT1VMUXhJNW1uSzMxbitkMHdMTlh4MEZFSVJnVUxyQXJQ?=
- =?utf-8?B?TWVJMERmYVlJcnB1bFp6S2VNSkRWSXJiV1dOd21BZ1dzUVFVUDIyeVdTVGp0?=
- =?utf-8?B?ZFkyTURDRkdYTUUyNzVVOVJSS3RMRXlKNStnMTNmTTFWZlZvYVM5NUJHOS9T?=
- =?utf-8?B?aUpqbzhyT1JsQk4zVXFWL3pWdDBGOGNPeUhGeEd6dzVVRzYzMzh6Y3h0dHNJ?=
- =?utf-8?B?RFFrcXUxWFpMNUdMZ2pNM1FpelhiaDcwb28rNkJGakZ3MWl1MkRMSFpNOVRr?=
- =?utf-8?B?TFNZWGRlYm4yUnV1UTRSRVBBWmFiclJ6NGJWR3ZtSk1ITUtTMTVQb3BKcjhm?=
- =?utf-8?B?aEN5SVljRmVYd05aU2xzbHIrS1NmZHVMRjRsdnR2eDZuSEl2akNUUDFhTTMx?=
- =?utf-8?B?dnl6RG5peVVpVXcxdVNMenk1emF0bUNacGMvRmhmT0R0SHYweTgzTTB6VThT?=
- =?utf-8?B?TTYyZHdvekNKYld1c015WmVsRUZZMG53Um9OSXgzUUpoUUJZUk4vWVdNdkNO?=
- =?utf-8?B?T3g0OTFENHZGWlZRRE5uNjZVK0Y5ZG91WmVrQ3R2eldJM29kdlVSMWg3WGw4?=
- =?utf-8?B?dE5yT2RyY1pBRldBTmdUQWgvNVdnMm91WHVQM0YveWhxdkpVU0VySVExYVdC?=
- =?utf-8?B?aHdScXpwY1RITStoRDEwQW5zaU1zU2FRbG1oTEhxS3ZvSU54TkZzbkF1b1d3?=
- =?utf-8?B?bklHd3ZybFNDT0pxQ21zZ2w2blBFT0hCcU41OE1INmdwR2hSZlRkNlA4RkU5?=
- =?utf-8?B?K29xRThhVFVSTTRPYUlSMzRWR0MzOWxvbERmMnVEZkdtVXBNV1dTVDRrbVhq?=
- =?utf-8?B?R0lqWE9qdjluN0F1cFhjT3hCQWhRakNpOW1OMkJUa0J4RG5EMk5IUFU3V2ZX?=
- =?utf-8?B?ZkFLdUF3d3EzS01mM0phUmltMk1mV0xpVDFiZzRhSmR2ZmhXZHRwNlJvN3J1?=
- =?utf-8?B?UzdIdnB5RGRFcW9xQmNZUXgrNWhlMWFLSGE1Q3JtQUEwcmJBdytHTXN5OWkv?=
- =?utf-8?B?TDg5YThpOVZnVG1LdWZSUDJnZnF0Nmtrd2wxSmpiTDVhT1RCSlNWR1drNU0r?=
- =?utf-8?B?NkZIZFlXb2Q4OGxEUGczangrekxjdnlmSDFKdVVUeGNhWUlBcVErNS9VTVRZ?=
- =?utf-8?B?bjJNbS9tYmNIYVJidzQ2UlV1TVh6eUNtTkRlOEhwWllBR0NIZ0hXSjJ3djF3?=
- =?utf-8?B?emVCbEMvTUxQd1QyakZEUEZHdWJKQVdjTUJ4TXFCOWxkMUp6VGxKY1BYUkJH?=
- =?utf-8?B?Wm4xUHJycWdQTmQxM0UxRWZaZGRUU0VUOGVZOUFubzBlazAxaWgxT0NISTdh?=
- =?utf-8?B?amIwdi90Sng0N0hWcWQ3T0lCMkFvY2krNGhBR0VXRVRXUXVQS0toMkNkamls?=
- =?utf-8?B?eEpnUzk0K09SRURpYitsREF5eFN4RllUYXJqb1VKUVJQeU9QSkgyZVJQeE9i?=
- =?utf-8?B?MTJFRUYxaGdCRDg1dEVxSUdHNXJYbytCci9HUWc1bGljN2Fmd3hPM2dBRmpM?=
- =?utf-8?B?RXJhZ3Y2TkNzd0w3U01aMWxHNHh5MzNWMXBHeUszTUlFRnlTam1PNUhaVGlt?=
- =?utf-8?B?aEQwOTl5SWtvc0dzV1NBZkxGMDhJZ1RRN3FhT0ozRHFXNDJSSG95U1c2QVFR?=
- =?utf-8?B?RnR4OXBqMkk1aG85UHJqeWx2Z1JVMFRpZzlQRXJOb1NqUVplTXRmbXl0bFhF?=
- =?utf-8?Q?pDvnu3u+GQnwEDyeFN4OXX3xuEc06lYAZkfxrW/5rum1S?=
-X-MS-Exchange-AntiSpam-MessageData-1: StBc8O90AvGMVw==
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SHJXb3hsbFhMa1BpaXYvdS9JT2Q5ajNtZlBvSW44UW9YUmVsT0hFb3p6ditS?=
+ =?utf-8?B?bUc3MlFyZ0lKNUUzenQ1T3ZoTUcwK2dOR00vNlZIbWthQUdla3h0WjUwbFhS?=
+ =?utf-8?B?NlVIemJtaWh6YkV2L1lXUTJ1WVNrNGdJWXNUZUVoYXk1NjZzbU1GSGZENFBO?=
+ =?utf-8?B?dG9GbVNRUGYzZU15UjFNbk5RNDlDampmeHlacWNjKytFTktDUG1na0NnNk9L?=
+ =?utf-8?B?ZVEwSVB4Zm1vbkgvbFpONjFaN3c4RWtrSGd2bFp0OVBEdTlXWktNQXEzZWhZ?=
+ =?utf-8?B?aUhVWm1kZExBT2pJOHBCdVErOXdWTWlRYWZON2hoM2tBWUlSTWdrdk51RnFE?=
+ =?utf-8?B?SVEwNVVuNTlRaDlhN2t6WE5EamtuTlJTS1ZneFM2TytVY0V4ZXJ1RXhEM0Jq?=
+ =?utf-8?B?b1dXdGgwUWdvenlZZ29nQW12cEpqbWYzd08vYzdrdDVZbVJ2RjMzRFJIUFUx?=
+ =?utf-8?B?Q3FsRWUxS1FreklKb3ZKNnRGUTd4dDlrdUhRSm5CbUg3UVZzVHhUdUh0TXl4?=
+ =?utf-8?B?eE0rVjJWMU5vaHdJdzFkV1VTWFJheW1wZnlMWVloRnR5by8wTm5CQ29hd28x?=
+ =?utf-8?B?UjNGdTNrT2FJb0h5eW9Ka1ltUFl2WTBZYmpiUXZEMzlzRExiQy9EMnNRNFo3?=
+ =?utf-8?B?TDlvSlJxSDhjZEJhazhhMk9sUFUyUWZxd2pXRnZnL05EdmcvcGFHOE1XL2Vy?=
+ =?utf-8?B?a1Btams4VTNUbTU0OWtXSEc3R3paOW82dG1wZGkzUGFDemh1YllpMFo5VVdX?=
+ =?utf-8?B?MjF0QWJSRDFNYkQ5ZmNOYVU2cHBrd0xHTm92TThNd01oOWovcDcwbkZyWmhx?=
+ =?utf-8?B?WS9oOWlFU1FCbXFrUEx5YnVRZXlsYTdhclR4YVN3OTJxQUpSSXlxZ0tkS2FT?=
+ =?utf-8?B?Q0o4blp3UWlVTElvL29jZFA3REtoczRaUTFUc2JyRGFjZ2lXVTR5S21Lc1Vx?=
+ =?utf-8?B?ZnhLS0I2N1JYeElwajRWaDQ1WGhtRUVFMnVhR2RTazdIbTEvU3dDQk1nY2VE?=
+ =?utf-8?B?RDZBSWduS2cxbHR4ZHZweXpmNy81Nno4aWNHakNUbE1yc3J4WE5BOFUrb2R4?=
+ =?utf-8?B?eTFFOVhydGFIMUVHaFZiUHdBZ2hoRmtPQ3JlRTd0bndyTTNlZ3c2aklJNDNX?=
+ =?utf-8?B?b0V2dW9uajRJdVVsQ01yUURxMWd4TzJyamxZQ2lzYzFidDdpRUdDTUVVZ241?=
+ =?utf-8?B?UjRYNlNuZUhFVW5wSFlrYXhhTnl2N1k3MGtVSHJIRUJ0OWpiTzVOYkthNkFx?=
+ =?utf-8?B?dlNwTG5RclQ1cXk4ZnhQb0VOQmQyUjd2T3h5TWlLRXgvdkV1Z2RFWm9mYW9R?=
+ =?utf-8?B?VWI3YWNOQ01uTnV4N1BrcjhDTVRBNGxZWktNc1Y1ZkV6SzZqNXpwVmJPUEhm?=
+ =?utf-8?B?aFpXUGpTS2hYd2MrQ1M1eVBmbElqYTNSM0dBQksvMlU1cEl1UVpNRktvTkg3?=
+ =?utf-8?B?MmdjcG5PMlY2d2twSEZiMXpWY0RRSEppbG0raVAzY3JOdDFjZVdOZWYxN2pP?=
+ =?utf-8?B?Z3VuN0Z5WnpBNVJHZDNwUWdZODJUL09RaTIweEd5SGthRFAzdjFCellSRnJD?=
+ =?utf-8?B?WjJnK001eW10clBRa2lxaTdvclV4NHVRQXE1eUZjc3dTL0RlWVpEYTZZcmxZ?=
+ =?utf-8?B?WCs2RGF1bEZVeTk0d2RBdDI5NytjRFFTOTJRQldzenJoQy9ueGN6YStzNGtx?=
+ =?utf-8?B?Ulo2M0hteURlWjBnVzNYQmh2NDhUNk04ZjBOR0lsYk9zUEFsNTh2SlhtZ3ls?=
+ =?utf-8?B?WGFVbzFBNzZReFphZmRDaE9wZXQxbmRwZmprdEppRXBkcDhWVFVHdy9VcDIy?=
+ =?utf-8?B?WlFCOGtGTnRvNUZoZUJSWmNjZjJEUVNjVjIwUEVKbkp5cWdRNFhKVE01cFNG?=
+ =?utf-8?B?WGRENXVlMjcvQjZpR1dVVzJvamgvWTNEWkIvRk5HdVUrTnVWZUpmT1k3RXNu?=
+ =?utf-8?B?N3RpS24vM2dFRUhBV2liWmNDNmtzUGJqdkxWdENxTmZRdWUzNTUxMENzNnpy?=
+ =?utf-8?B?YjZubVpTRUlUN2daU0V6bjhoTXhxTXg5VHlOMy8zRzkvL050WUZBaFVibnph?=
+ =?utf-8?B?dlg0bXhEcUkxYThySlNPeDFzQlJ2SjV4M2hSYVV4YjQwMHdXaTJNVktPMDc4?=
+ =?utf-8?B?QTdDR2l4WGVOa29tTHFobWtsUkFibXk2eHRuYWJ6ZWRhdUErMDFLMzJNZkF0?=
+ =?utf-8?B?SkZicSthMFdqMkhnV2pXWlJYams0L3V4Y0t1R1ZKWFlPZnc0SW9hT0s3d05V?=
+ =?utf-8?B?Rjc3VjR3TTgvYXAzWVpWaGhqOEdmN1N5L2V3cVFCcm9VOEpzQmRWZ2p4N1pZ?=
+ =?utf-8?B?NzBGQW5HT0x6L0NKOUhxOHFGUXhscDdUdW44cUMwSlpCUkRKUUFIbjFhUEJ2?=
+ =?utf-8?Q?gx1o5ZsUSFaKYnLxzNmaG/YeGIxftDuIdp3iurQkTpXy2?=
+X-MS-Exchange-AntiSpam-MessageData-1: IIssygaDmasU+g==
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 01222e43-2a14-407f-3184-08de84be1295
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3919ef1b-e129-46c1-15a5-08de84be055c
 X-MS-Exchange-CrossTenant-AuthSource: BL0PR12MB2353.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Mar 2026 07:15:02.4769 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Mar 2026 07:14:40.3178 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: OK1Rxfy3XbTlB5usED9X/zKBXT7Qhgkd3VLKrNWky2CE4vncSKBdloenp15W8g7JofY6oXJOhiwRqIUBV4/K6Q==
+X-MS-Exchange-CrossTenant-UserPrincipalName: 8uzDIy1AWnyXx/H3pohHBp5N31Im+OqScU7WlrogNIZgbWcp+MvlX6tbtni7RANjd8Fl9bFOSSMyEbvqJGY0ow==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB5764
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -144,186 +142,169 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add `RmControl` which implements CommandToGsp for sending RM control
-RPCs.
+Add bindgen generated constants for NV_STATUS. This is used for RM
+control messages.
 
-Add `RmControlReply` which implements MessageFromGsp for getting the
-reply back.
-
-Add `send_rm_control` which sends an RM control RPC via the command
-queue using the above structures.
-
-This gives a generic way to send each RM control RPC. Each new RM
-control RPC can be added by extending RmControlMsgFunction and adding
-its bindings wrappers and writing a helper function to send it via
-`send_rm_control`.
-
-Tested-by: Zhi Wang <zhiw@nvidia.com>
 Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
 ---
- drivers/gpu/nova-core/gsp.rs             |   1 +
- drivers/gpu/nova-core/gsp/fw/rm.rs       |   1 -
- drivers/gpu/nova-core/gsp/rm.rs          |   3 +
- drivers/gpu/nova-core/gsp/rm/commands.rs | 118 +++++++++++++++++++++++++++++++
- 4 files changed, 122 insertions(+), 1 deletion(-)
+ drivers/gpu/nova-core/gsp/fw/r570_144/bindings.rs | 144 ++++++++++++++++++++++
+ 1 file changed, 144 insertions(+)
 
-diff --git a/drivers/gpu/nova-core/gsp.rs b/drivers/gpu/nova-core/gsp.rs
-index 72f173726f87..14c734c53e7c 100644
---- a/drivers/gpu/nova-core/gsp.rs
-+++ b/drivers/gpu/nova-core/gsp.rs
-@@ -17,6 +17,7 @@
- pub(crate) mod cmdq;
- pub(crate) mod commands;
- mod fw;
-+pub(crate) mod rm;
- mod sequencer;
- 
- pub(crate) use fw::{
-diff --git a/drivers/gpu/nova-core/gsp/fw/rm.rs b/drivers/gpu/nova-core/gsp/fw/rm.rs
-index 4a4f97d88ecf..1c6e8b4c4865 100644
---- a/drivers/gpu/nova-core/gsp/fw/rm.rs
-+++ b/drivers/gpu/nova-core/gsp/fw/rm.rs
-@@ -53,7 +53,6 @@ pub(crate) struct GspRmControl {
-     inner: bindings::rpc_gsp_rm_control_v03_00,
+diff --git a/drivers/gpu/nova-core/gsp/fw/r570_144/bindings.rs b/drivers/gpu/nova-core/gsp/fw/r570_144/bindings.rs
+index 334e8be5fde8..dd37a7fd58c6 100644
+--- a/drivers/gpu/nova-core/gsp/fw/r570_144/bindings.rs
++++ b/drivers/gpu/nova-core/gsp/fw/r570_144/bindings.rs
+@@ -379,6 +379,150 @@ pub struct NV2080_CTRL_CMD_FB_GET_FB_REGION_INFO_PARAMS {
+     pub __bindgen_padding_0: [u8; 4usize],
+     pub fbRegion: [NV2080_CTRL_CMD_FB_GET_FB_REGION_FB_REGION_INFO; 16usize],
  }
- 
--#[expect(dead_code)]
- impl GspRmControl {
-     /// Creates a new RM control command.
-     pub(crate) fn new<T>(
-diff --git a/drivers/gpu/nova-core/gsp/rm.rs b/drivers/gpu/nova-core/gsp/rm.rs
-new file mode 100644
-index 000000000000..10e879a3e842
---- /dev/null
-+++ b/drivers/gpu/nova-core/gsp/rm.rs
-@@ -0,0 +1,3 @@
-+// SPDX-License-Identifier: GPL-2.0
-+
-+pub(crate) mod commands;
-diff --git a/drivers/gpu/nova-core/gsp/rm/commands.rs b/drivers/gpu/nova-core/gsp/rm/commands.rs
-new file mode 100644
-index 000000000000..5a3ac7bd415a
---- /dev/null
-+++ b/drivers/gpu/nova-core/gsp/rm/commands.rs
-@@ -0,0 +1,118 @@
-+// SPDX-License-Identifier: GPL-2.0
-+
-+use core::{
-+    array,
-+    convert::Infallible, //
-+};
-+
-+use kernel::prelude::*;
-+
-+use crate::{
-+    driver::Bar0,
-+    gsp::{
-+        cmdq::{
-+            Cmdq,
-+            CommandToGsp,
-+            MessageFromGsp, //
-+        },
-+        commands::{
-+            Client,
-+            Handle, //
-+        },
-+        fw::{
-+            rm::*,
-+            MsgFunction,
-+            NvStatus, //
-+        },
-+    },
-+    sbuffer::SBufferIter,
-+};
-+
-+/// Command for sending an RM control message to the GSP.
-+///
-+/// RM control messages are used to query or control RM objects (see [`Handle`] for more info on RM
-+/// objects). It takes a client handle and an RM object handle identifying the target of the
-+/// message, within the given client.
-+struct RmControl<'a, T> {
-+    /// The client handle under which `object` is allocated.
-+    client: Handle<Client>,
-+    /// The RM object handle to query or control.
-+    object: Handle<T>,
-+    /// The specific control message to send.
-+    cmd: RmControlMsgFunction,
-+    /// The raw parameter bytes to send with the control message. Interpretation of these bytes is
-+    /// specific to the control message being sent.
-+    params: &'a [u8],
-+}
-+
-+impl<'a, T> RmControl<'a, T> {
-+    /// Creates a new RM control command.
-+    #[expect(dead_code)]
-+    fn new(
-+        client: Handle<Client>,
-+        object: Handle<T>,
-+        cmd: RmControlMsgFunction,
-+        params: &'a [u8],
-+    ) -> Self {
-+        Self {
-+            client,
-+            object,
-+            cmd,
-+            params,
-+        }
-+    }
-+}
-+
-+impl<T> CommandToGsp for RmControl<'_, T> {
-+    const FUNCTION: MsgFunction = MsgFunction::GspRmControl;
-+    type Command = GspRmControl;
-+    type Reply = RmControlReply;
-+    type InitError = Infallible;
-+
-+    fn init(&self) -> impl Init<Self::Command, Self::InitError> {
-+        GspRmControl::new(self.client, self.object, self.cmd, self.params.len() as u32)
-+    }
-+
-+    fn variable_payload_len(&self) -> usize {
-+        self.params.len()
-+    }
-+
-+    fn init_variable_payload(
-+        &self,
-+        dst: &mut SBufferIter<array::IntoIter<&mut [u8], 2>>,
-+    ) -> Result {
-+        dst.write_all(self.params)
-+    }
-+}
-+
-+/// Response from an RM control message.
-+pub(crate) struct RmControlReply {
-+    status: NvStatus,
-+    params: KVVec<u8>,
-+}
-+
-+impl MessageFromGsp for RmControlReply {
-+    const FUNCTION: MsgFunction = MsgFunction::GspRmControl;
-+    type Message = GspRmControl;
-+    type InitError = Error;
-+
-+    fn read(
-+        msg: &Self::Message,
-+        sbuffer: &mut SBufferIter<array::IntoIter<&[u8], 2>>,
-+    ) -> Result<Self, Self::InitError> {
-+        Ok(RmControlReply {
-+            status: msg.status(),
-+            params: sbuffer.read_to_vec(GFP_KERNEL)?,
-+        })
-+    }
-+}
-+
-+/// Sends an RM control command, checks the reply status, and returns the raw parameter bytes.
-+#[expect(dead_code)]
-+fn send_rm_control<T>(cmdq: &Cmdq, bar: &Bar0, cmd: RmControl<'_, T>) -> Result<KVVec<u8>> {
-+    let reply = cmdq.send_command(bar, cmd)?;
-+
-+    Result::from(reply.status)?;
-+
-+    Ok(reply.params)
-+}
++pub const NV_OK: _bindgen_ty_4 = 0;
++pub const NV_ERR_GENERIC: _bindgen_ty_4 = 65535;
++pub const NV_ERR_BROKEN_FB: _bindgen_ty_4 = 1;
++pub const NV_ERR_BUFFER_TOO_SMALL: _bindgen_ty_4 = 2;
++pub const NV_ERR_BUSY_RETRY: _bindgen_ty_4 = 3;
++pub const NV_ERR_CALLBACK_NOT_SCHEDULED: _bindgen_ty_4 = 4;
++pub const NV_ERR_CARD_NOT_PRESENT: _bindgen_ty_4 = 5;
++pub const NV_ERR_CYCLE_DETECTED: _bindgen_ty_4 = 6;
++pub const NV_ERR_DMA_IN_USE: _bindgen_ty_4 = 7;
++pub const NV_ERR_DMA_MEM_NOT_LOCKED: _bindgen_ty_4 = 8;
++pub const NV_ERR_DMA_MEM_NOT_UNLOCKED: _bindgen_ty_4 = 9;
++pub const NV_ERR_DUAL_LINK_INUSE: _bindgen_ty_4 = 10;
++pub const NV_ERR_ECC_ERROR: _bindgen_ty_4 = 11;
++pub const NV_ERR_FIFO_BAD_ACCESS: _bindgen_ty_4 = 12;
++pub const NV_ERR_FREQ_NOT_SUPPORTED: _bindgen_ty_4 = 13;
++pub const NV_ERR_GPU_DMA_NOT_INITIALIZED: _bindgen_ty_4 = 14;
++pub const NV_ERR_GPU_IS_LOST: _bindgen_ty_4 = 15;
++pub const NV_ERR_GPU_IN_FULLCHIP_RESET: _bindgen_ty_4 = 16;
++pub const NV_ERR_GPU_NOT_FULL_POWER: _bindgen_ty_4 = 17;
++pub const NV_ERR_GPU_UUID_NOT_FOUND: _bindgen_ty_4 = 18;
++pub const NV_ERR_HOT_SWITCH: _bindgen_ty_4 = 19;
++pub const NV_ERR_I2C_ERROR: _bindgen_ty_4 = 20;
++pub const NV_ERR_I2C_SPEED_TOO_HIGH: _bindgen_ty_4 = 21;
++pub const NV_ERR_ILLEGAL_ACTION: _bindgen_ty_4 = 22;
++pub const NV_ERR_IN_USE: _bindgen_ty_4 = 23;
++pub const NV_ERR_INFLATE_COMPRESSED_DATA_FAILED: _bindgen_ty_4 = 24;
++pub const NV_ERR_INSERT_DUPLICATE_NAME: _bindgen_ty_4 = 25;
++pub const NV_ERR_INSUFFICIENT_RESOURCES: _bindgen_ty_4 = 26;
++pub const NV_ERR_INSUFFICIENT_PERMISSIONS: _bindgen_ty_4 = 27;
++pub const NV_ERR_INSUFFICIENT_POWER: _bindgen_ty_4 = 28;
++pub const NV_ERR_INVALID_ACCESS_TYPE: _bindgen_ty_4 = 29;
++pub const NV_ERR_INVALID_ADDRESS: _bindgen_ty_4 = 30;
++pub const NV_ERR_INVALID_ARGUMENT: _bindgen_ty_4 = 31;
++pub const NV_ERR_INVALID_BASE: _bindgen_ty_4 = 32;
++pub const NV_ERR_INVALID_CHANNEL: _bindgen_ty_4 = 33;
++pub const NV_ERR_INVALID_CLASS: _bindgen_ty_4 = 34;
++pub const NV_ERR_INVALID_CLIENT: _bindgen_ty_4 = 35;
++pub const NV_ERR_INVALID_COMMAND: _bindgen_ty_4 = 36;
++pub const NV_ERR_INVALID_DATA: _bindgen_ty_4 = 37;
++pub const NV_ERR_INVALID_DEVICE: _bindgen_ty_4 = 38;
++pub const NV_ERR_INVALID_DMA_SPECIFIER: _bindgen_ty_4 = 39;
++pub const NV_ERR_INVALID_EVENT: _bindgen_ty_4 = 40;
++pub const NV_ERR_INVALID_FLAGS: _bindgen_ty_4 = 41;
++pub const NV_ERR_INVALID_FUNCTION: _bindgen_ty_4 = 42;
++pub const NV_ERR_INVALID_HEAP: _bindgen_ty_4 = 43;
++pub const NV_ERR_INVALID_INDEX: _bindgen_ty_4 = 44;
++pub const NV_ERR_INVALID_IRQ_LEVEL: _bindgen_ty_4 = 45;
++pub const NV_ERR_INVALID_LIMIT: _bindgen_ty_4 = 46;
++pub const NV_ERR_INVALID_LOCK_STATE: _bindgen_ty_4 = 47;
++pub const NV_ERR_INVALID_METHOD: _bindgen_ty_4 = 48;
++pub const NV_ERR_INVALID_OBJECT: _bindgen_ty_4 = 49;
++pub const NV_ERR_INVALID_OBJECT_BUFFER: _bindgen_ty_4 = 50;
++pub const NV_ERR_INVALID_OBJECT_HANDLE: _bindgen_ty_4 = 51;
++pub const NV_ERR_INVALID_OBJECT_NEW: _bindgen_ty_4 = 52;
++pub const NV_ERR_INVALID_OBJECT_OLD: _bindgen_ty_4 = 53;
++pub const NV_ERR_INVALID_OBJECT_PARENT: _bindgen_ty_4 = 54;
++pub const NV_ERR_INVALID_OFFSET: _bindgen_ty_4 = 55;
++pub const NV_ERR_INVALID_OPERATION: _bindgen_ty_4 = 56;
++pub const NV_ERR_INVALID_OWNER: _bindgen_ty_4 = 57;
++pub const NV_ERR_INVALID_PARAM_STRUCT: _bindgen_ty_4 = 58;
++pub const NV_ERR_INVALID_PARAMETER: _bindgen_ty_4 = 59;
++pub const NV_ERR_INVALID_PATH: _bindgen_ty_4 = 60;
++pub const NV_ERR_INVALID_POINTER: _bindgen_ty_4 = 61;
++pub const NV_ERR_INVALID_REGISTRY_KEY: _bindgen_ty_4 = 62;
++pub const NV_ERR_INVALID_REQUEST: _bindgen_ty_4 = 63;
++pub const NV_ERR_INVALID_STATE: _bindgen_ty_4 = 64;
++pub const NV_ERR_INVALID_STRING_LENGTH: _bindgen_ty_4 = 65;
++pub const NV_ERR_INVALID_READ: _bindgen_ty_4 = 66;
++pub const NV_ERR_INVALID_WRITE: _bindgen_ty_4 = 67;
++pub const NV_ERR_INVALID_XLATE: _bindgen_ty_4 = 68;
++pub const NV_ERR_IRQ_NOT_FIRING: _bindgen_ty_4 = 69;
++pub const NV_ERR_IRQ_EDGE_TRIGGERED: _bindgen_ty_4 = 70;
++pub const NV_ERR_MEMORY_TRAINING_FAILED: _bindgen_ty_4 = 71;
++pub const NV_ERR_MISMATCHED_SLAVE: _bindgen_ty_4 = 72;
++pub const NV_ERR_MISMATCHED_TARGET: _bindgen_ty_4 = 73;
++pub const NV_ERR_MISSING_TABLE_ENTRY: _bindgen_ty_4 = 74;
++pub const NV_ERR_MODULE_LOAD_FAILED: _bindgen_ty_4 = 75;
++pub const NV_ERR_MORE_DATA_AVAILABLE: _bindgen_ty_4 = 76;
++pub const NV_ERR_MORE_PROCESSING_REQUIRED: _bindgen_ty_4 = 77;
++pub const NV_ERR_MULTIPLE_MEMORY_TYPES: _bindgen_ty_4 = 78;
++pub const NV_ERR_NO_FREE_FIFOS: _bindgen_ty_4 = 79;
++pub const NV_ERR_NO_INTR_PENDING: _bindgen_ty_4 = 80;
++pub const NV_ERR_NO_MEMORY: _bindgen_ty_4 = 81;
++pub const NV_ERR_NO_SUCH_DOMAIN: _bindgen_ty_4 = 82;
++pub const NV_ERR_NO_VALID_PATH: _bindgen_ty_4 = 83;
++pub const NV_ERR_NOT_COMPATIBLE: _bindgen_ty_4 = 84;
++pub const NV_ERR_NOT_READY: _bindgen_ty_4 = 85;
++pub const NV_ERR_NOT_SUPPORTED: _bindgen_ty_4 = 86;
++pub const NV_ERR_OBJECT_NOT_FOUND: _bindgen_ty_4 = 87;
++pub const NV_ERR_OBJECT_TYPE_MISMATCH: _bindgen_ty_4 = 88;
++pub const NV_ERR_OPERATING_SYSTEM: _bindgen_ty_4 = 89;
++pub const NV_ERR_OTHER_DEVICE_FOUND: _bindgen_ty_4 = 90;
++pub const NV_ERR_OUT_OF_RANGE: _bindgen_ty_4 = 91;
++pub const NV_ERR_OVERLAPPING_UVM_COMMIT: _bindgen_ty_4 = 92;
++pub const NV_ERR_PAGE_TABLE_NOT_AVAIL: _bindgen_ty_4 = 93;
++pub const NV_ERR_PID_NOT_FOUND: _bindgen_ty_4 = 94;
++pub const NV_ERR_PROTECTION_FAULT: _bindgen_ty_4 = 95;
++pub const NV_ERR_RC_ERROR: _bindgen_ty_4 = 96;
++pub const NV_ERR_REJECTED_VBIOS: _bindgen_ty_4 = 97;
++pub const NV_ERR_RESET_REQUIRED: _bindgen_ty_4 = 98;
++pub const NV_ERR_STATE_IN_USE: _bindgen_ty_4 = 99;
++pub const NV_ERR_SIGNAL_PENDING: _bindgen_ty_4 = 100;
++pub const NV_ERR_TIMEOUT: _bindgen_ty_4 = 101;
++pub const NV_ERR_TIMEOUT_RETRY: _bindgen_ty_4 = 102;
++pub const NV_ERR_TOO_MANY_PRIMARIES: _bindgen_ty_4 = 103;
++pub const NV_ERR_UVM_ADDRESS_IN_USE: _bindgen_ty_4 = 104;
++pub const NV_ERR_MAX_SESSION_LIMIT_REACHED: _bindgen_ty_4 = 105;
++pub const NV_ERR_LIB_RM_VERSION_MISMATCH: _bindgen_ty_4 = 106;
++pub const NV_ERR_PRIV_SEC_VIOLATION: _bindgen_ty_4 = 107;
++pub const NV_ERR_GPU_IN_DEBUG_MODE: _bindgen_ty_4 = 108;
++pub const NV_ERR_FEATURE_NOT_ENABLED: _bindgen_ty_4 = 109;
++pub const NV_ERR_RESOURCE_LOST: _bindgen_ty_4 = 110;
++pub const NV_ERR_PMU_NOT_READY: _bindgen_ty_4 = 111;
++pub const NV_ERR_FLCN_ERROR: _bindgen_ty_4 = 112;
++pub const NV_ERR_FATAL_ERROR: _bindgen_ty_4 = 113;
++pub const NV_ERR_MEMORY_ERROR: _bindgen_ty_4 = 114;
++pub const NV_ERR_INVALID_LICENSE: _bindgen_ty_4 = 115;
++pub const NV_ERR_NVLINK_INIT_ERROR: _bindgen_ty_4 = 116;
++pub const NV_ERR_NVLINK_MINION_ERROR: _bindgen_ty_4 = 117;
++pub const NV_ERR_NVLINK_CLOCK_ERROR: _bindgen_ty_4 = 118;
++pub const NV_ERR_NVLINK_TRAINING_ERROR: _bindgen_ty_4 = 119;
++pub const NV_ERR_NVLINK_CONFIGURATION_ERROR: _bindgen_ty_4 = 120;
++pub const NV_ERR_RISCV_ERROR: _bindgen_ty_4 = 121;
++pub const NV_ERR_FABRIC_MANAGER_NOT_PRESENT: _bindgen_ty_4 = 122;
++pub const NV_ERR_ALREADY_SIGNALLED: _bindgen_ty_4 = 123;
++pub const NV_ERR_QUEUE_TASK_SLOT_NOT_AVAILABLE: _bindgen_ty_4 = 124;
++pub const NV_ERR_KEY_ROTATION_IN_PROGRESS: _bindgen_ty_4 = 125;
++pub const NV_ERR_TEST_ONLY_CODE_NOT_ENABLED: _bindgen_ty_4 = 126;
++pub const NV_ERR_SECURE_BOOT_FAILED: _bindgen_ty_4 = 127;
++pub const NV_ERR_INSUFFICIENT_ZBC_ENTRY: _bindgen_ty_4 = 128;
++pub const NV_ERR_NVLINK_FABRIC_NOT_READY: _bindgen_ty_4 = 129;
++pub const NV_ERR_NVLINK_FABRIC_FAILURE: _bindgen_ty_4 = 130;
++pub const NV_ERR_GPU_MEMORY_ONLINING_FAILURE: _bindgen_ty_4 = 131;
++pub const NV_ERR_REDUCTION_MANAGER_NOT_AVAILABLE: _bindgen_ty_4 = 132;
++pub const NV_ERR_RESOURCE_RETIREMENT_ERROR: _bindgen_ty_4 = 134;
++pub const NV_WARN_HOT_SWITCH: _bindgen_ty_4 = 65537;
++pub const NV_WARN_INCORRECT_PERFMON_DATA: _bindgen_ty_4 = 65538;
++pub const NV_WARN_MISMATCHED_SLAVE: _bindgen_ty_4 = 65539;
++pub const NV_WARN_MISMATCHED_TARGET: _bindgen_ty_4 = 65540;
++pub const NV_WARN_MORE_PROCESSING_REQUIRED: _bindgen_ty_4 = 65541;
++pub const NV_WARN_NOTHING_TO_DO: _bindgen_ty_4 = 65542;
++pub const NV_WARN_NULL_OBJECT: _bindgen_ty_4 = 65543;
++pub const NV_WARN_OUT_OF_RANGE: _bindgen_ty_4 = 65544;
++pub type _bindgen_ty_4 = ffi::c_uint;
+ #[repr(C)]
+ #[derive(Debug, Copy, Clone, MaybeZeroable)]
+ pub struct NV2080_CTRL_GPU_GET_GID_INFO_PARAMS {
 
 -- 
 2.53.0
