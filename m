@@ -4,53 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 17FDC103E169
-	for <dri-devel@archiver.kernel.org>; Wed, 18 Mar 2026 12:10:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 480BC103E16D
+	for <dri-devel@archiver.kernel.org>; Wed, 18 Mar 2026 12:25:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7B88810E0F5;
-	Wed, 18 Mar 2026 12:10:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9FF5610E75A;
+	Wed, 18 Mar 2026 12:25:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="SHuRGqDz";
+	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="HFeKZjHX";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0DE0110E0F5
- for <dri-devel@lists.freedesktop.org>; Wed, 18 Mar 2026 12:10:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1773835834;
- bh=PuFox8haRzG+YQMGN5Xi8E4BrewSQlzf0Xd5y3pX1ec=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=SHuRGqDzc3xYJzfZuqNFdxxzvznXFV4RBR0YCUUZn8HoqRg6NLtDr6EcevsUi/ytf
- 4wwy36C/20tHN2C8blZDwS7CXl9Opi0dqMOZnWaqV64IGrfsEN+l/di0I0KGIvChRt
- FCuDNmxsC2Obs5+AX3nS4GNxGYSbA1di+z5qPFaCWf7fvRzNe5405nJnQhNxezbMVX
- ER23VWWOs0MPD0rpqKAYllShBHXBE4psZA6m5G5/X5S3ft2It7u806O9cWWOMHh8SK
- 5l8mhs3ZbggGaSwsT7aJ1oC8SjXNgQfFIaNax78iCoYaWlS6WIl+QCcVqUpQ5Ce8MQ
- yBSXwyjJKnT1Q==
-Received: from fedora (unknown [IPv6:2a01:e0a:2c:6930:d919:a6e:5ea1:8a9f])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
- server-digest SHA256) (No client certificate requested)
- (Authenticated sender: bbrezillon)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 3ACCD17E1355;
- Wed, 18 Mar 2026 13:10:34 +0100 (CET)
-Date: Wed, 18 Mar 2026 13:10:30 +0100
-From: Boris Brezillon <boris.brezillon@collabora.com>
-To: Marcin Slusarz <marcin.slusarz@arm.com>
-Cc: Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
- dri-devel@lists.freedesktop.org, Chia-I Wu <olvaffe@gmail.com>, Maarten
- Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Lukas Zapolskas
- <lukas.zapolskas@arm.com>, nd@arm.com
-Subject: Re: [PATCH] drm/panthor: extend timestamp query with flags
-Message-ID: <20260318131030.4ae7f820@fedora>
-In-Reply-To: <20260318112952.645160-1-marcin.slusarz@arm.com>
-References: <20260318112952.645160-1-marcin.slusarz@arm.com>
-Organization: Collabora
-X-Mailer: Claws Mail 4.3.1 (GTK 3.24.51; x86_64-redhat-linux-gnu)
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Received: from mail-wm1-f73.google.com (mail-wm1-f73.google.com
+ [209.85.128.73])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6EB6D10E75A
+ for <dri-devel@lists.freedesktop.org>; Wed, 18 Mar 2026 12:25:40 +0000 (UTC)
+Received: by mail-wm1-f73.google.com with SMTP id
+ 5b1f17b1804b1-48553fdd03dso39738715e9.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 18 Mar 2026 05:25:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=google.com; s=20251104; t=1773836739; x=1774441539;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:cc:to:from:subject:message-id:references
+ :mime-version:in-reply-to:date:from:to:cc:subject:date:message-id
+ :reply-to; bh=UlJezP5+/1fujrnKlE3SL7R1CpkwMMIibiFc+CCvrMk=;
+ b=HFeKZjHXmdpTkBIv88f8XcB3xG70niqBXfLrOLupuHHEwDu3bXm3HUi+uL5k+H20kC
+ r9FTrihbw8JGLuBFnDBWsLWtb5uGIWFDleDSEXv3UD7mxd9D6pIurSR33oafvDtIR32i
+ rDN/IYZDGeOxagEbcufc/jSZcTfsRgb6NEFEi+OOHZ8ogrKOmOHV/2GNm1Gp3EsQuD4Y
+ PIAVoA5FfvkcIX7PIq0fOOM40GE10YbZNnEP7x1mAz8eSe47Fvrg0lEYiGdBzmLQ1WsU
+ ETw9a5oH5mZbP+ejkV5xNbqiV6z7YhyGk336DI+Lw7U0N14jdLD9fpjHkb2IloV8uBjL
+ z61A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1773836739; x=1774441539;
+ h=content-transfer-encoding:cc:to:from:subject:message-id:references
+ :mime-version:in-reply-to:date:x-gm-message-state:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=UlJezP5+/1fujrnKlE3SL7R1CpkwMMIibiFc+CCvrMk=;
+ b=C9qEvLqs0/ofJeSZAHHDkMi/oHqgxhwT/N1bWpsT2APP6YmXRO/Jed74/cTiSoImPv
+ UsPs9px69jkCuJ4iI8NroezKeOQOi8q0LDCykV+4ZaKZNv+SCCxdjnQNqzLI0W7LN0iZ
+ uwXlvIyqlThbQFE8xAiKE51HiGe7EzO9bOqSZKRtda3HmkeMsniOl5NVD0S9c3G55mO8
+ tvClmGfaUwbZZPpLEA5v3f21fFeVagtzR5ZK6kA/R5ysCw51KFKzxfFxedBVFgaR2A6s
+ rZ39FFGz50wr602Qgp0Fs0CILBhdmWE+5Hgta+Hmv9cO4nv6oP1BCDZorXQ6+ZSt2312
+ cemw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWAzMe/XLsgnQoyldmy1dv2pqeRrdhYZ3tbwn6EWe2as247rtSbDS9sWU/12zS/ghBX9r3bOP0nOpg=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxhHfu6bpYM6ZKM/w10I22WoSCs/LCEvUCKx5+tDDoq6FwcP5p0
+ UMKKo44aKEmHl5g9aPSDKfRaPfdUWcZUi58XgBgyISQaZNgqIxYiUc7FgWER2VQ2nQJUteb92w6
+ f3qU30VaqPDckHNJogA==
+X-Received: from wmfu16.prod.google.com ([2002:a05:600c:1390:b0:483:7f25:eadd])
+ (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:600c:6d97:b0:46e:4e6d:79f4 with SMTP id
+ 5b1f17b1804b1-486f4460736mr35691675e9.15.1773836738625; 
+ Wed, 18 Mar 2026 05:25:38 -0700 (PDT)
+Date: Wed, 18 Mar 2026 12:25:36 +0000
+In-Reply-To: <20260317144825.2318-1-christian.koenig@amd.com>
+Mime-Version: 1.0
+References: <20260317144825.2318-1-christian.koenig@amd.com>
+Message-ID: <abqZwCJhPFeu7hAy@google.com>
+Subject: Re: [PATCH] dma-buf/dma_fence: be more defensive in dma_fence_release
+From: Alice Ryhl <aliceryhl@google.com>
+To: "Christian =?utf-8?B?S8O2bmln?=" <ckoenig.leichtzumerken@gmail.com>
+Cc: phasta@mailbox.org, boris.brezillon@collabora.com, gary@garyguo.net, 
+ lossin@kernel.org, daniel.almeida@collabora.com, joelagnelf@nvidia.com, 
+ sumit.semwal@linaro.org, dri-devel@lists.freedesktop.org, 
+ linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,319 +82,59 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, 18 Mar 2026 12:29:52 +0100
-Marcin Slusarz <marcin.slusarz@arm.com> wrote:
-
-> Flags now control which data user space wants to query,
-> there is more information sources, and there's ability
-> to query duration of multiple timestamp reads.
-> 
-> New sources:
-> - CPU's monotonic,
-> - CPU's monotonic raw,
-> - GPU's cycle count
-> 
-> These changes should make the implementation of
-> VK_KHR_calibrated_timestamps more accurate and much simpler.
-> 
-> Signed-off-by: Marcin Slusarz <marcin.slusarz@arm.com>
+On Tue, Mar 17, 2026 at 03:48:25PM +0100, Christian K=C3=B6nig wrote:
+> In case of a refcounting bug dma_fence_release() can be called before the
+> fence was even signaled.
+>=20
+> Previously the dma_fence framework then force signaled the fence to make
+> sure to unblock waiters, but that can potentially lead to random memory
+> corruption when the DMA operation continues. So be more defensive here an=
+d
+> pick the lesser evil.
+>=20
+> Instead of force signaling the fence set an error code on the fence,
+> re-initialize the refcount to something large and taint the kernel.
+>=20
+> This will leak memory and eventually can cause a deadlock when the fence
+> is never signaled, but at least we won't run into an use after free or
+> random memory corruption.
+>=20
+> Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
 > ---
-> This is counter proposal to https://lore.kernel.org/all/20250916200751.3999354-1-olvaffe@gmail.com/
-> ---
->  drivers/gpu/drm/panthor/panthor_drv.c | 124 ++++++++++++++++++++++++--
->  include/uapi/drm/panthor_drm.h        |  51 ++++++++++-
->  2 files changed, 166 insertions(+), 9 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/panthor/panthor_drv.c b/drivers/gpu/drm/panthor/panthor_drv.c
-> index 165dddfde6ca..19ede20a578e 100644
-> --- a/drivers/gpu/drm/panthor/panthor_drv.c
-> +++ b/drivers/gpu/drm/panthor/panthor_drv.c
-> @@ -13,7 +13,9 @@
->  #include <linux/pagemap.h>
->  #include <linux/platform_device.h>
->  #include <linux/pm_runtime.h>
-> +#include <linux/sched/clock.h>
->  #include <linux/time64.h>
-> +#include <linux/time_namespace.h>
->  
->  #include <drm/drm_auth.h>
->  #include <drm/drm_debugfs.h>
-> @@ -762,21 +764,123 @@ static void panthor_submit_ctx_cleanup(struct panthor_submit_ctx *ctx,
->  }
->  
->  static int panthor_query_timestamp_info(struct panthor_device *ptdev,
-> -					struct drm_panthor_timestamp_info *arg)
-> +					struct drm_panthor_timestamp_info *arg,
-> +					u32 size)
->  {
->  	int ret;
-> +	u32 flags;
-> +	unsigned long irq_flags;
-> +	struct timespec64 cpu_ts;
-> +	u64 query_start_time;
-> +	bool minimize_interruption;
-> +	u32 timestamp_types = 0;
-> +
-> +	if (size >= offsetof(struct drm_panthor_timestamp_info, pad1) + sizeof(arg->pad1) &&
-> +			arg->pad1 != 0)
-> +		return -EINVAL;
-> +
-> +	if (size >= offsetof(struct drm_panthor_timestamp_info, flags) + sizeof(arg->flags))
-> +		flags = arg->flags;
-> +	else
-> +		flags = DRM_PANTHOR_TIMESTAMP_GPU |
-> +			DRM_PANTHOR_TIMESTAMP_GPU_OFFSET |
-> +			DRM_PANTHOR_TIMESTAMP_FREQ;
+>  drivers/dma-buf/dma-fence.c | 18 ++++++++++++++----
+>  1 file changed, 14 insertions(+), 4 deletions(-)
+>=20
+> diff --git a/drivers/dma-buf/dma-fence.c b/drivers/dma-buf/dma-fence.c
+> index 1826ba73094c..8bf07685a053 100644
+> --- a/drivers/dma-buf/dma-fence.c
+> +++ b/drivers/dma-buf/dma-fence.c
+> @@ -593,14 +593,24 @@ void dma_fence_release(struct kref *kref)
+>  		/*
+>  		 * Failed to signal before release, likely a refcounting issue.
+>  		 *
+> -		 * This should never happen, but if it does make sure that we
+> -		 * don't leave chains dangling. We set the error flag first
+> -		 * so that the callbacks know this signal is due to an error.
+> +		 * This should never happen, but if try to be defensive and take
+> +		 * the lesser evil. Initialize the refcount to something large,
+> +		 * but not so large that it can overflow.
+> +		 *
+> +		 * That will leak memory and could deadlock if the fence never
+> +		 * signals, but at least it doesn't cause an use after free or
+> +		 * random memory corruption.
+> +		 *
+> +		 * Also taint the kernel to note that it is rather unreliable to
+> +		 * continue.
+>  		 */
+>  		dma_fence_lock_irqsave(fence, flags);
+>  		fence->error =3D -EDEADLK;
+> -		dma_fence_signal_locked(fence);
+> +		refcount_set(&fence->refcount.refcount, INT_MAX);
 
-How about we add a DRM_PANTHOR_TIMESTAMP_ADVANCED_QUERY flag that tells
-the driver whether the default should be picked or not instead of this
-weird is-this-the-new-or-old-struct detection based on the size.
+It's much better to leave the refcount with a value of zero here. That
+way, when the refcount is decremented next time, the usual underflow
+detection checks will trigger.
 
-	if (args->flags & DRM_PANTHOR_TIMESTAMP_ADVANCED_QUERY)
-		flags = args->flags;
-	else
-		flags = DRM_PANTHOR_TIMESTAMP_GPU |
-			DRM_PANTHOR_TIMESTAMP_GPU_OFFSET |
-			DRM_PANTHOR_TIMESTAMP_FREQ;
+You can still skip the kfree() to avoid use-after-free.
 
-> +
-> +	switch (flags & DRM_PANTHOR_TIMESTAMP_CPU_TYPE_MASK) {
-> +	case 0:
-> +		break;
-> +	case DRM_PANTHOR_TIMESTAMP_CPU_MONOTONIC:
-> +	case DRM_PANTHOR_TIMESTAMP_CPU_MONOTONIC_RAW:
-> +		timestamp_types++;
-> +		break;
-> +	default:
-> +		return -EINVAL;
-> +	}
-> +
-> +	if (flags & ~(DRM_PANTHOR_TIMESTAMP_GPU |
-> +		      DRM_PANTHOR_TIMESTAMP_CPU_TYPE_MASK |
-> +		      DRM_PANTHOR_TIMESTAMP_GPU_OFFSET |
-> +		      DRM_PANTHOR_TIMESTAMP_GPU_CYCLE_COUNT |
-> +		      DRM_PANTHOR_TIMESTAMP_FREQ |
-> +		      DRM_PANTHOR_TIMESTAMP_DURATION))
-> +		return -EINVAL;
-> +
-> +	if (flags & DRM_PANTHOR_TIMESTAMP_GPU)
-> +		timestamp_types++;
-> +	if (flags & DRM_PANTHOR_TIMESTAMP_GPU_CYCLE_COUNT)
-> +		timestamp_types++;
-> +
-> +	minimize_interruption =
-> +		(flags & DRM_PANTHOR_TIMESTAMP_DURATION) ||
-> +		(timestamp_types >= 2);
-
-It's probably worth a comment explaining where the >= 2 comes from
-and why query duration measurement needs to be done with interrupts
-disabled (though the latter is a bit more obvious than the former).
-
->  
->  	ret = panthor_device_resume_and_get(ptdev);
->  	if (ret)
->  		return ret;
->  
-> +	if (flags & DRM_PANTHOR_TIMESTAMP_FREQ) {
->  #ifdef CONFIG_ARM_ARCH_TIMER
-> -	arg->timestamp_frequency = arch_timer_get_cntfrq();
-> +		arg->timestamp_frequency = arch_timer_get_cntfrq();
->  #else
-> -	arg->timestamp_frequency = 0;
-> +		arg->timestamp_frequency = 0;
->  #endif
-> -	arg->current_timestamp = gpu_read64_counter(ptdev, GPU_TIMESTAMP);
-> -	arg->timestamp_offset = gpu_read64(ptdev, GPU_TIMESTAMP_OFFSET);
-> +	} else {
-> +		arg->timestamp_frequency = 0;
-> +	}
-> +
-> +	if (flags & DRM_PANTHOR_TIMESTAMP_GPU_OFFSET)
-> +		arg->timestamp_offset = gpu_read64(ptdev, GPU_TIMESTAMP_OFFSET);
-> +	else
-> +		arg->timestamp_offset = 0;
-> +
-> +	if (minimize_interruption) {
-> +		preempt_disable();
-> +		local_irq_save(irq_flags);
-> +	}
-> +
-> +	if (flags & DRM_PANTHOR_TIMESTAMP_DURATION)
-> +		query_start_time = local_clock();
-> +	else
-> +		query_start_time = 0;
-> +
-> +	if (flags & DRM_PANTHOR_TIMESTAMP_GPU)
-> +		arg->current_timestamp = gpu_read64_counter(ptdev, GPU_TIMESTAMP);
-> +	else
-> +		arg->current_timestamp = 0;
-> +
-> +	switch (flags & DRM_PANTHOR_TIMESTAMP_CPU_TYPE_MASK) {
-> +	case DRM_PANTHOR_TIMESTAMP_CPU_MONOTONIC:
-> +		ktime_get_ts64(&cpu_ts);
-> +		break;
-> +	case DRM_PANTHOR_TIMESTAMP_CPU_MONOTONIC_RAW:
-> +		ktime_get_raw_ts64(&cpu_ts);
-> +		break;
-
-	default:
-		break;
-> +	}
-> +
-> +	if (flags & DRM_PANTHOR_TIMESTAMP_GPU_CYCLE_COUNT)
-> +		arg->cycle_count = gpu_read64_counter(ptdev, GPU_CYCLE_COUNT);
-> +	else
-> +		arg->cycle_count = 0;
-> +
-> +	if (flags & DRM_PANTHOR_TIMESTAMP_DURATION)
-> +		arg->duration_nsec = local_clock() - query_start_time;
-> +	else
-> +		arg->duration_nsec = 0;
-> +
-> +	if (minimize_interruption) {
-> +		local_irq_restore(irq_flags);
-> +		preempt_enable();
-> +	}
-> +
-> +	if (flags & DRM_PANTHOR_TIMESTAMP_CPU_TYPE_MASK) {
-> +		timens_add_monotonic(&cpu_ts);
-> +
-> +		arg->cpu_timestamp_sec = cpu_ts.tv_sec;
-> +		arg->cpu_timestamp_nsec = cpu_ts.tv_nsec;
-> +	} else {
-> +		arg->cpu_timestamp_sec = 0;
-> +		arg->cpu_timestamp_nsec = 0;
-> +	}
->  
->  	pm_runtime_put(ptdev->base.dev);
->  	return 0;
-> @@ -851,7 +955,12 @@ static int panthor_ioctl_dev_query(struct drm_device *ddev, void *data, struct d
->  		return PANTHOR_UOBJ_SET(args->pointer, args->size, ptdev->csif_info);
->  
->  	case DRM_PANTHOR_DEV_QUERY_TIMESTAMP_INFO:
-> -		ret = panthor_query_timestamp_info(ptdev, &timestamp_info);
-> +		if (copy_from_user(&timestamp_info,
-> +				   (const void __user __force *) args->pointer,
-> +				   args->size))
-> +			return -EFAULT;
-> +
-> +		ret = panthor_query_timestamp_info(ptdev, &timestamp_info, args->size);
->  
-
-nit: drop the blank line.
-
->  		if (ret)
->  			return ret;
-> @@ -1680,6 +1789,7 @@ static void panthor_debugfs_init(struct drm_minor *minor)
->   *       - adds DRM_IOCTL_PANTHOR_BO_SYNC ioctl
->   *       - adds DRM_IOCTL_PANTHOR_BO_QUERY_INFO ioctl
->   *       - adds drm_panthor_gpu_info::selected_coherency
-> + * - 1.8 - extends DEV_QUERY_TIMESTAMP_INFO with flags
->   */
->  static const struct drm_driver panthor_drm_driver = {
->  	.driver_features = DRIVER_RENDER | DRIVER_GEM | DRIVER_SYNCOBJ |
-> @@ -1693,7 +1803,7 @@ static const struct drm_driver panthor_drm_driver = {
->  	.name = "panthor",
->  	.desc = "Panthor DRM driver",
->  	.major = 1,
-> -	.minor = 7,
-> +	.minor = 8,
->  
->  	.gem_create_object = panthor_gem_create_object,
->  	.gem_prime_import_sg_table = drm_gem_shmem_prime_import_sg_table,
-> diff --git a/include/uapi/drm/panthor_drm.h b/include/uapi/drm/panthor_drm.h
-> index b401ac585d6a..c869e8b95ecd 100644
-> --- a/include/uapi/drm/panthor_drm.h
-> +++ b/include/uapi/drm/panthor_drm.h
-> @@ -409,6 +409,35 @@ struct drm_panthor_csif_info {
->  	__u32 pad;
->  };
->  
-> +/**
-> + * enum drm_panthor_timestamp_info_flags - drm_panthor_timestamp_info.flags
-> + */
-> +enum drm_panthor_timestamp_info_flags {
-> +	/** @DRM_PANTHOR_TIMESTAMP_GPU: Query GPU time. */
-> +	DRM_PANTHOR_TIMESTAMP_GPU = 1 << 0,
-> +
-> +	/** @DRM_PANTHOR_TIMESTAMP_CPU_MONOTONIC: Query CPU time using CLOCK_MONOTONIC. */
-> +	DRM_PANTHOR_TIMESTAMP_CPU_MONOTONIC = 1 << 1,
-
-Can we define
-
-	DRM_PANTHOR_TIMESTAMP_CPU_NONE = 0 << 1,
-
-for completeness.
-
-> +
-> +	/** @DRM_PANTHOR_TIMESTAMP_CPU_MONOTONIC_RAW: Query CPU time using CLOCK_MONOTONIC_RAW. */
-> +	DRM_PANTHOR_TIMESTAMP_CPU_MONOTONIC_RAW = 2 << 1,
-> +
-> +	/** @DRM_PANTHOR_TIMESTAMP_CPU_TYPE_MASK: Space reserved for CPU clock type. */
-> +	DRM_PANTHOR_TIMESTAMP_CPU_TYPE_MASK = 7 << 1,
-> +
-> +	/** @DRM_PANTHOR_TIMESTAMP_GPU_OFFSET: Query GPU offset. */
-> +	DRM_PANTHOR_TIMESTAMP_GPU_OFFSET = 1 << 4,
-> +
-> +	/** @DRM_PANTHOR_TIMESTAMP_GPU_CYCLE_COUNT: Query GPU cycle count. */
-> +	DRM_PANTHOR_TIMESTAMP_GPU_CYCLE_COUNT = 1 << 5,
-> +
-> +	/** @DRM_PANTHOR_TIMESTAMP_FREQ: Query timestamp frequency. */
-> +	DRM_PANTHOR_TIMESTAMP_FREQ = 1 << 6,
-> +
-> +	/** @DRM_PANTHOR_TIMESTAMP_DURATION: Return duration of time query. */
-> +	DRM_PANTHOR_TIMESTAMP_DURATION = 1 << 7,
-
-	/**
-	 * @DRM_PANTHOR_TIMESTAMP_ADVANCED_QUERY: Advanced query requested.
-	 *
-	 * When missing, flags should be 0, which is equivalent to
-	 *  DRM_PANTHOR_TIMESTAMP_ADVANCED_QUERY |
-	 *  DRM_PANTHOR_TIMESTAMP_GPU |
-	 *  DRM_PANTHOR_TIMESTAMP_GPU_OFFSET |
-	 *  DRM_PANTHOR_TIMESTAMP_FREQ
-	 */
-	DRM_PANTHOR_TIMESTAMP_ADVANCED_QUERY = 1 << 30,
-
-> +};
-> +
->  /**
->   * struct drm_panthor_timestamp_info - Timestamp information
->   *
-> @@ -421,11 +450,29 @@ struct drm_panthor_timestamp_info {
->  	 */
->  	__u64 timestamp_frequency;
->  
-> -	/** @current_timestamp: The current timestamp. */
-> +	/** @current_timestamp: The current GPU timestamp. */
->  	__u64 current_timestamp;
->  
-> -	/** @timestamp_offset: The offset of the timestamp timer. */
-> +	/** @timestamp_offset: The offset of the GPU timestamp timer. */
->  	__u64 timestamp_offset;
-> +
-> +	/** @flags: Bitmask of drm_panthor_timestamp_info_flags. */
-> +	__u32 flags;
-> +
-> +	/** @duration_nsec: Duration of time query. */
-> +	__u32 duration_nsec;
-> +
-> +	/** @cycle_count: Value of GPU_CYCLE_COUNT. */
-> +	__u64 cycle_count;
-> +
-> +	/** @cpu_timestamp_sec: Seconds part of CPU timestamp. */
-> +	__u64 cpu_timestamp_sec;
-> +
-> +	/** @cpu_timestamp_nsec: Nanseconds part of CPU timestamp. */
-> +	__u32 cpu_timestamp_nsec;
-> +
-> +	/** @pad1: Padding, MBZ. */
-> +	__u32 pad1;
-
-Let's re-purpose the existing pad field into flags, move duration_nsec after
-cpu_timestamp_nsec, and get rid of this pad1.
-
->  };
->  
->  /**
-
+Alice
