@@ -4,46 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4BCA8103E164
-	for <dri-devel@archiver.kernel.org>; Wed, 18 Mar 2026 11:13:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8F194103E160
+	for <dri-devel@archiver.kernel.org>; Wed, 18 Mar 2026 11:14:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7A17310E7F6;
-	Wed, 18 Mar 2026 11:13:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0411110E0F1;
+	Wed, 18 Mar 2026 11:14:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="qaLRF/EP";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Jyk3QJ2z";
 	dkim-atps=neutral
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
- [213.167.242.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 277AE10E7F6
- for <dri-devel@lists.freedesktop.org>; Wed, 18 Mar 2026 11:13:46 +0000 (UTC)
-Received: from killaraus.ideasonboard.com
- (2001-14ba-703d-e500--2a1.rev.dnainternet.fi [IPv6:2001:14ba:703d:e500::2a1])
- by perceval.ideasonboard.com (Postfix) with UTF8SMTPSA id CE007460;
- Wed, 18 Mar 2026 12:12:31 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1773832352;
- bh=kezOWi+Y/xWmOoKYVNDub0JBhGMIjj8YtFSMTo7i91o=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=qaLRF/EPead4EDfD8PzWORi3ykRZS0QfFOkhU/AagZWdbC7q/xjxh9cUcSEcAyfGJ
- DvVR5EYhy0d3cqSfvJlElYqU1oJNSRC/Fy4WBP785kYoKclaWyfuerHS7EQskuFHZ+
- 9veEtORAOru2tbcaIEFuCrH6Joc317yQrbIxRWvA=
-Date: Wed, 18 Mar 2026 13:13:43 +0200
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Biju Das <biju.das.jz@bp.renesas.com>
-Cc: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
- "tomi.valkeinen" <tomi.valkeinen@ideasonboard.com>,
- Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
-Subject: Re: [PATCH 1/4] drm: rcar-du: Ensure correct suspend/resume ordering
- with VSP
-Message-ID: <20260318111343.GF408929@killaraus.ideasonboard.com>
-References: <20260317231930.595719-1-laurent.pinchart+renesas@ideasonboard.com>
- <20260317231930.595719-2-laurent.pinchart+renesas@ideasonboard.com>
- <TY3PR01MB11346D728D12D6330033B1E46864EA@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com
+ [74.125.82.179])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B213B10E0F1
+ for <dri-devel@lists.freedesktop.org>; Wed, 18 Mar 2026 11:14:37 +0000 (UTC)
+Received: by mail-dy1-f179.google.com with SMTP id
+ 5a478bee46e88-2c0d36f3888so2732921eec.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 18 Mar 2026 04:14:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1773832477; x=1774437277; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=WSatfPeC0eHRV2MFnc3PDRkxRbQqib0YssmyZ7gUdhk=;
+ b=Jyk3QJ2zedH5FmAjaG1DRTpU5cSg8HwtIilQoqK+ZLNnkr+wExKXAv/UuUk9ufbHdr
+ pZT1H6vQO1ra++aTnwYgymgfPBIZhVTjsI6xV7di76zRUt2lF7FqQS/uwNngrDqF2sZc
+ kEL9fPYHBFGuAaLrWCA1SNxarl1x8rYFQWyxzp9xLU12nLMQOqgmz5HJMf8+qK+DKq3v
+ 6Lp3z9FU4iDqArQxRJ65lTBpGA9JYK7VdfakDEhd+v/IjYtKPMcfYQoiziCu/NKG8gQ7
+ Im18zIVxM4rHDnlhiDlnUPh0vYuE9WBgqZBjWyj8lCCv6YhYu7rCMToi++Il01gupryQ
+ oqjQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1773832477; x=1774437277;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=WSatfPeC0eHRV2MFnc3PDRkxRbQqib0YssmyZ7gUdhk=;
+ b=sA214GLjeieKgkkAja9xm69/P2mM/Y3DLkY7a4AMaw/Hokci4aPzKi2V4WynNqxZlL
+ em78lkuhIZSb4tOTnCJFeqYmmcKD+AefNA4sLVYfWmaElYRy6nJ5DY5Je467QPGZRtZ0
+ q/9+WMVpv8hvJ1kCT8QMro7Vxy9r9zasmMHHRX0Y7tLUROyJBkqZcQhdhxMF/Q6lfMnu
+ nGcSDpJVSNIWsvG3XXP9v6L4SWziVsXRJZ94Ki+yNQ2xeO3hgNG8X3nvDc3XuM1rICv4
+ vAUVpt7enDjVD+FOuaFmEQxwYR3WWD+92NhLnMNYRuRKlURjEyqmBWJyonkKudhSxtNn
+ GpRA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXy+DGfQJPH6EIbn6jC9hFvbfNbXXzaAtsIuly1J+sl3zl6r/FwqEywveUsqArL59j7mxJP1MMx1Z0=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yzix8yeN5EudRn9UaK2LlR6dPAAfjKXW0faRisnzgG6ohIBvHuz
+ AtHK5n2KbcdiT8HCCfglJaOoDvTjT2kQwuAhkhypgLYycKjbAwKyzzk+
+X-Gm-Gg: ATEYQzzfPCJTGf7HIHkMtLDVjMWhG2yb4lbpbFxLuRBpRZyKyEsWf7+wqky/64kzmMp
+ Iq2ddDh9TiNu40jB8fzXevmMPG4OIUP+ujQvaQoWZxSy37b58SrfhSUcZ1luQfGaahnmEDN/Agm
+ bMJn8S2R30hbB4CuSlvwZfqr6NruBxgenhOlzRpxXb7TszdMxZqMctq7FY/rw3mNCkwchrtUYgj
+ zLIkDK6ptXdR6XiWuhUU1Y/KjAcSIsAM+AOvXkC38ak4aNQq0ce6JxvohhH6ryyB2XslkwnzUDt
+ 0K1y/lYbiiuN6hRj+rSZnedvl0sAwkIFuYFq87Ub5gAO51pDwlsFHU2V7y9ptOPFQ2PDwJuGtph
+ 47xvCwjNe74eYi+EXuX8FaH1uN+PfwxwkKLIVZlNlprKlvPvWe9zm9wmc+3c9Od0/NJpYQXwbf6
+ Ywg4tdi+1SWVVwOLbMsw7dwCpz7hj7UGMgGn7+LRTdPUEDvtsoMg0SUKU=
+X-Received: by 2002:a05:693c:3011:b0:2be:fe8:8b0d with SMTP id
+ 5a478bee46e88-2c0e5193929mr1379829eec.22.1773832476704; 
+ Wed, 18 Mar 2026 04:14:36 -0700 (PDT)
+Received: from fedora ([177.73.136.69]) by smtp.gmail.com with ESMTPSA id
+ 5a478bee46e88-2c0e536896csm3604281eec.3.2026.03.18.04.14.33
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 18 Mar 2026 04:14:36 -0700 (PDT)
+Date: Wed, 18 Mar 2026 08:14:31 -0300
+From: Pedro Demarchi Gomes <pedrodemargomes@gmail.com>
+To: Boris Brezillon <boris.brezillon@collabora.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3] drm/shmem-helper: Fix Map huge page mapping in fault
+ handler
+Message-ID: <abqHvvsyL5BPA_cn@fedora>
+References: <20260316002649.211819-1-pedrodemargomes@gmail.com>
+ <20260316152152.1e20d35e@fedora> <20260317183054.5d7030ec@fedora>
+ <20260318111649.2912818b@fedora>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <TY3PR01MB11346D728D12D6330033B1E46864EA@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+In-Reply-To: <20260318111649.2912818b@fedora>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,91 +92,22 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Mar 18, 2026 at 10:32:53AM +0000, Biju Das wrote:
-> On 17 March 2026 23:19, Laurent Pinchart wrote:
-> > 
-> > The VSP serves as an interface to memory and a compositor to the DU. It therefore needs to be
-> > suspended after and resumed before the DU, to be properly stopped and restarted in a controlled
-> > fashion driven by the DU driver. This currently works by chance. Avoid relying on luck by enforcing
-> > the correct suspend/resume ordering with device links.
-> > 
-> > Signed-off-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+On Wed, Mar 18, 2026 at 11:16:49AM +0100, Boris Brezillon wrote:
+> On Tue, 17 Mar 2026 18:30:54 +0100
+> Boris Brezillon <boris.brezillon@collabora.com> wrote:
 > 
-> Reviewed-by: Biju Das <biju.das.jz@bp.renesas.com>
+> > > 
+> > > I've played a bit with the drm-misc-{next,fixes} versions (with the extra
+> > > pfn_mkwrite fixes on top for the -next variant), and below is my preferred
+> > > version (pfn insertion is all handled inside the try_insert_pfn() helper,
+> > > with order == PMD_ORDER specialized there).  
+> > 
+> > One last thing, the subject should probably be "drm/shmem-helper: Fix
+> > huge page mapping in fault handler" (instead of "Fix Map huge page
+> > ..."). Pedro, do you think you'll be able to send a v4 before the end
+> > of the week? I'd really like to have that fix in -rc5 or -rc6.
 > 
-> FYI, made similar changes on rz-du and confirm S2ram and s2idle works fine on RZ/G3L.
+> If you can't, please let me know, I'll post a new version for you.
 
-Thank you for testing, I'm happy it fixed your issue.
-
-> > ---
-> >  drivers/gpu/drm/renesas/rcar-du/rcar_du_vsp.c | 16 ++++++++++++++++  drivers/gpu/drm/renesas/rcar-
-> > du/rcar_du_vsp.h |  2 ++
-> >  2 files changed, 18 insertions(+)
-> > 
-> > diff --git a/drivers/gpu/drm/renesas/rcar-du/rcar_du_vsp.c b/drivers/gpu/drm/renesas/rcar-
-> > du/rcar_du_vsp.c
-> > index 94c22d2db197..a4a49dcd8233 100644
-> > --- a/drivers/gpu/drm/renesas/rcar-du/rcar_du_vsp.c
-> > +++ b/drivers/gpu/drm/renesas/rcar-du/rcar_du_vsp.c
-> > @@ -20,6 +20,7 @@
-> >  #include <drm/drm_vblank.h>
-> > 
-> >  #include <linux/bitops.h>
-> > +#include <linux/device.h>
-> >  #include <linux/dma-mapping.h>
-> >  #include <linux/of_platform.h>
-> >  #include <linux/platform_device.h>
-> > @@ -458,6 +459,9 @@ static void rcar_du_vsp_cleanup(struct drm_device *dev, void *res)
-> > 
-> >  	kfree(vsp->planes);
-> > 
-> > +	if (vsp->link)
-> > +		device_link_del(vsp->link);
-> > +
-> >  	put_device(vsp->vsp);
-> >  }
-> > 
-> > @@ -482,6 +486,18 @@ int rcar_du_vsp_init(struct rcar_du_vsp *vsp, struct device_node *np,
-> >  	if (ret < 0)
-> >  		return ret;
-> > 
-> > +	/*
-> > +	 * Enforce suspend/resume ordering between the DU (consumer) and the
-> > +	 * VSP (supplier). The DU will be suspended before and resume after the
-> > +	 * VSP.
-> > +	 */
-> > +	vsp->link = device_link_add(rcdu->dev, vsp->vsp, DL_FLAG_STATELESS);
-> > +	if (!vsp->link) {
-> > +		dev_err(rcdu->dev, "Failed to create device link to VSP %s\n",
-> > +			dev_name(vsp->vsp));
-> > +		return -EINVAL;
-> > +	}
-> > +
-> >  	ret = vsp1_du_init(vsp->vsp);
-> >  	if (ret < 0)
-> >  		return ret;
-> > diff --git a/drivers/gpu/drm/renesas/rcar-du/rcar_du_vsp.h b/drivers/gpu/drm/renesas/rcar-
-> > du/rcar_du_vsp.h
-> > index 67630f0b6599..a6731249db34 100644
-> > --- a/drivers/gpu/drm/renesas/rcar-du/rcar_du_vsp.h
-> > +++ b/drivers/gpu/drm/renesas/rcar-du/rcar_du_vsp.h
-> > @@ -12,6 +12,7 @@
-> > 
-> >  #include <drm/drm_plane.h>
-> > 
-> > +struct device_link;
-> >  struct drm_framebuffer;
-> >  struct rcar_du_format_info;
-> >  struct rcar_du_vsp;
-> > @@ -26,6 +27,7 @@ struct rcar_du_vsp_plane {  struct rcar_du_vsp {
-> >  	unsigned int index;
-> >  	struct device *vsp;
-> > +	struct device_link *link;
-> >  	struct rcar_du_device *dev;
-> >  	struct rcar_du_vsp_plane *planes;
-> >  	unsigned int num_planes;
-
--- 
-Regards,
-
-Laurent Pinchart
+Should I send a patch for the drm-misc-{next,fixes}, or v7.0-rc4?
+I am planning to send it today.
