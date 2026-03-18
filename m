@@ -4,46 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A689910706ED
-	for <dri-devel@archiver.kernel.org>; Wed, 18 Mar 2026 10:47:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2CB99103E161
+	for <dri-devel@archiver.kernel.org>; Wed, 18 Mar 2026 10:51:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 06C8610E0C0;
-	Wed, 18 Mar 2026 10:47:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5DF6210E0FF;
+	Wed, 18 Mar 2026 10:50:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="bd2ETAmO";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="gDtL6o40";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7AA5110E0C0
- for <dri-devel@lists.freedesktop.org>; Wed, 18 Mar 2026 10:47:37 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2E9A710E0FE;
+ Wed, 18 Mar 2026 10:50:58 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 52AE44472D;
- Wed, 18 Mar 2026 10:47:34 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F3A9DC19421;
- Wed, 18 Mar 2026 10:47:29 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 592F260103;
+ Wed, 18 Mar 2026 10:50:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 42B5EC19421;
+ Wed, 18 Mar 2026 10:50:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1773830852;
- bh=dRszLAd6DXvZtZhPtd5ecMsXOYNS/5U7Q8vYrgBZxhY=;
+ s=k20201202; t=1773831057;
+ bh=ji6bfDBIUH/YaEq7aQ7rTvdhAXlQ+34ZHlqkieiAzHw=;
  h=From:To:Cc:Subject:Date:From;
- b=bd2ETAmO9OJ+/PxxALsld43KNUSrLfW0e3cjXRDh73QzjBv0ykDF/dJnxbNoE36Gn
- oGCdyqW+JXte4kqU0Ga6re2iUQQU4LeyeKUGGN0wuMurtrk0Ura31uASu4v3uVp21k
- TAQWU12cwTGxPY80ffZyfCj4ARvcGArTQEDjM49OexGHYRQrlNR8erXzcuwhxleb+Z
- 7WY/RcbtQ2trCqmKwuPWnAi7P46hHJv672kbBT5Ki/5HRFR1PpxIPwaajmxqrCXyat
- X6QwqJc48++C1i6edRE0BD3nT1cOuqwYzz+Ezr8nY/M7qEeIZ7A8SfF3qYM15cMRnw
- l5C0fzK0Lg2BA==
+ b=gDtL6o40WNgqJ8sB3xh2TEVoYX5I+QA4iLucLxPDMZwXPdLaN6iygF+WXKuXwqZGX
+ VZXFNcz3ZXa1Rkef+1ne4G31X+S0et6mMB1h5LapxwUPeduGjAPB1+UGsH7hUJwurY
+ LuW4nbr/A7bCyE3Ki/L7fz6GePyFeJdH/YzAp2VXq1q/Ghf3VbM80l26lLd+X1tir3
+ PNM3HisEab56bymQCzb35Q4V3oTRnJhkAjQ7C3986Qt+QO1s4vTCPFQ2Mr82sgpK5T
+ 1OBONQrnTuMo4JwZPc9agXnTD0b/mr5ODXFd9SqWbR/eM1/GunIZvYZcU8cal5ydAc
+ a1g3Dlu5Joryw==
 From: Arnd Bergmann <arnd@kernel.org>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Matthew Brost <matthew.brost@intel.com>,
- Francois Dugast <francois.dugast@intel.com>
+To: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Nathan Chancellor <nathan@kernel.org>, Tao Zhou <tao.zhou1@amd.com>,
+ Hawking Zhang <Hawking.Zhang@amd.com>, YiPeng Chai <YiPeng.Chai@amd.com>
 Cc: Arnd Bergmann <arnd@arndb.de>,
- =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Balbir Singh <balbirs@nvidia.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH] drm/pagemap: avoid referencing HPAGE_PMD_ORDER for
- non-hugepage builds
-Date: Wed, 18 Mar 2026 11:46:20 +0100
-Message-Id: <20260318104637.1794243-1-arnd@kernel.org>
+ Nick Desaulniers <nick.desaulniers+lkml@gmail.com>,
+ Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
+ Gangliang Xie <ganglxie@amd.com>, Kees Cook <kees@kernel.org>,
+ Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, llvm@lists.linux.dev
+Subject: [PATCH] drm/amd/ras: work around write overflow attribute warning
+Date: Wed, 18 Mar 2026 11:50:36 +0100
+Message-Id: <20260318105050.1947902-1-arnd@kernel.org>
 X-Mailer: git-send-email 2.39.5
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -64,62 +66,39 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Arnd Bergmann <arnd@arndb.de>
 
-HPAGE_PMD_SHIFT/HPAGE_PMD_ORDER can only be used in configurations
-that allow hugepages, but forces a build error otherwise:
+clang-22 warns about possibly copying beyind the end of an array:
 
-drivers/gpu/drm/drm_pagemap.c:671:48: error: call to '__compiletime_assert_608' declared with 'error' attribute: BUILD_BUG failed
-  671 |                                       folio_order(page_folio(src_page)) != HPAGE_PMD_ORDER,
-      |                                                                            ^
-include/linux/huge_mm.h:117:26: note: expanded from macro 'HPAGE_PMD_ORDER'
-  117 | #define HPAGE_PMD_ORDER (HPAGE_PMD_SHIFT-PAGE_SHIFT)
-      |                          ^
-include/linux/huge_mm.h:113:28: note: expanded from macro 'HPAGE_PMD_SHIFT'
-  113 | #define HPAGE_PMD_SHIFT ({ BUILD_BUG(); 0; })
-      |                            ^
-include/linux/build_bug.h:60:21: note: expanded from macro 'BUILD_BUG'
-   60 | #define BUILD_BUG() BUILD_BUG_ON_MSG(1, "BUILD_BUG failed")
-      |                     ^
-note: (skipping 2 expansions in backtrace; use -fmacro-backtrace-limit=0 to see all)
-include/linux/compiler_types.h:697:2: note: expanded from macro '_compiletime_assert'
-  697 |         __compiletime_assert(condition, msg, prefix, suffix)
-      |         ^
+In file included from drivers/gpu/drm/amd/amdgpu/../ras/rascore/ras_umc.c:24:
+In file included from drivers/gpu/drm/amd/amdgpu/../ras/rascore/ras.h:27:
+In file included from drivers/gpu/drm/amd/amdgpu/../ras/ras_mgr/ras_sys.h:29:
+In file included from include/linux/string.h:386:
+include/linux/fortify-string.h:569:4: error: call to '__write_overflow_field' declared with 'warning' attribute: detected write beyond size of field (1st parameter); maybe use struct_group()? [-Werror,-Wattribute-warning]
+  569 |                         __write_overflow_field(p_size_field, size);
+      |                         ^
 
-Hide this inside of a check for CONFIG_PGTABLE_HAS_HUGE_LEAVES.
+As far as I can tell, this is a false-postive warning, but there is
+an easy workaround, by using a direct struct assignment in place of
+the memcpy.
 
-Fixes: 192cb1f5cb16 ("drm/pagemap: Enable THP support for GPU memory migration")
+Fixes: 7a3f9c0992c4 ("drm/amd/ras: Add umc common ras functions")
 Signed-off-by: Arnd Bergmann <arnd@arndb.de>
 ---
-Not sure if this is the best approach, as the BUILD_BUG_ON() and
-drm_WARN_ONCE() check for similar failures, and this would bypass
-both checks.
----
- drivers/gpu/drm/drm_pagemap.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/ras/rascore/ras_umc.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/drm_pagemap.c b/drivers/gpu/drm/drm_pagemap.c
-index 6ac980bd8f3d..7463aec0db82 100644
---- a/drivers/gpu/drm/drm_pagemap.c
-+++ b/drivers/gpu/drm/drm_pagemap.c
-@@ -479,7 +479,8 @@ static int drm_pagemap_cpages(unsigned long *migrate_pfn, unsigned long npages)
- 			folio = page_folio(page);
- 			order = folio_order(folio);
- 			cpages += NR_PAGES(order);
--		} else if (migrate_pfn[i] & MIGRATE_PFN_COMPOUND) {
-+		} else if (IS_ENABLED(CONFIG_PGTABLE_HAS_HUGE_LEAVES) &&
-+			   migrate_pfn[i] & MIGRATE_PFN_COMPOUND) {
- 			order = HPAGE_PMD_ORDER;
- 			cpages += NR_PAGES(order);
- 		}
-@@ -666,7 +667,8 @@ int drm_pagemap_migrate_to_devmem(struct drm_pagemap_devmem *devmem_allocation,
- 		}
- 		migrate.dst[i] = migrate_pfn(migrate.dst[i]);
+diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_umc.c b/drivers/gpu/drm/amd/ras/rascore/ras_umc.c
+index 23118f41eb96..fb426386b384 100644
+--- a/drivers/gpu/drm/amd/ras/rascore/ras_umc.c
++++ b/drivers/gpu/drm/amd/ras/rascore/ras_umc.c
+@@ -290,7 +290,7 @@ static int ras_umc_get_new_records(struct ras_core_context *ras_core,
+ 		if (!entries[i])
+ 			continue;
  
--		if (migrate.src[i] & MIGRATE_PFN_COMPOUND) {
-+		if (IS_ENABLED(CONFIG_PGTABLE_HAS_HUGE_LEAVES) &&
-+		    migrate.src[i] & MIGRATE_PFN_COMPOUND) {
- 			drm_WARN_ONCE(dpagemap->drm, src_page &&
- 				      folio_order(page_folio(src_page)) != HPAGE_PMD_ORDER,
- 				      "Unexpected folio order\n");
+-		memcpy(&records[i], entries[i], sizeof(struct eeprom_umc_record));
++		records[i] = *entries[i];
+ 		count++;
+ 		radix_tree_tag_clear(&ras_umc->root,
+ 				entries[i]->cur_nps_retired_row_pfn, UMC_ECC_NEW_DETECTED_TAG);
 -- 
 2.39.5
 
