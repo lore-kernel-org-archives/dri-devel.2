@@ -4,132 +4,156 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B78A5FCD0AD
-	for <dri-devel@archiver.kernel.org>; Wed, 18 Mar 2026 05:25:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D7C36FCD0B4
+	for <dri-devel@archiver.kernel.org>; Wed, 18 Mar 2026 05:40:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 28F5110E00C;
-	Wed, 18 Mar 2026 05:25:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 24EC010E058;
+	Wed, 18 Mar 2026 05:40:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=nxp.com header.i=@nxp.com header.b="kjP7QnvV";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="UeU1rZ2w";
 	dkim-atps=neutral
-Received: from AS8PR04CU009.outbound.protection.outlook.com
- (mail-westeuropeazon11011007.outbound.protection.outlook.com [52.101.70.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E6BAF10E00C
- for <dri-devel@lists.freedesktop.org>; Wed, 18 Mar 2026 05:25:07 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0875810E058
+ for <dri-devel@lists.freedesktop.org>; Wed, 18 Mar 2026 05:40:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1773812416; x=1805348416;
+ h=from:to:cc:subject:date:message-id:references:
+ in-reply-to:content-transfer-encoding:mime-version;
+ bh=n821mKUFkV6bvzDDL5VVSYgY6NFpWl58keHD6lpb89Q=;
+ b=UeU1rZ2wwjCBcgdOC8cScctdzQg5Tvj2rL1eHZ7N83AGUjKKACog8bT/
+ DOj8obneIUNsowER2/1hWnHSUqwxwP09ogztt2m9YaWMVJgmvkmm/wBvF
+ gXPWzc2TWayt6WXif3Fwv682rqEZEWx+XGw31zFTkPKR8jNYXZ5eTUWe5
+ p/8ljcE41tDpCMMoX92zeOWR+Ddlvx2ECETs9XQRnkK8WX6Y15q4yRytv
+ IQtlwBUgxcodQ14ojCb+9LHcrnkRsroWtoQQdkb4LF+8M1KzoSpkuihrG
+ kLxN8h19FEC7TGkuoKYg88oIzOEo5m4VhyQXeT/34zosrYVHMoYbjg1U6 g==;
+X-CSE-ConnectionGUID: IgMeCbrLQ8mAj1/wXer0dA==
+X-CSE-MsgGUID: TGs+MEnLR4CIFR0VHTt+xA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11732"; a="74890692"
+X-IronPort-AV: E=Sophos;i="6.23,126,1770624000"; d="scan'208";a="74890692"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+ by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Mar 2026 22:40:15 -0700
+X-CSE-ConnectionGUID: UEW6p46sTKmKeWDAT82KPQ==
+X-CSE-MsgGUID: MwGWJS3hTvyA9eDUq/cbyA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,126,1770624000"; d="scan'208";a="218115148"
+Received: from fmsmsx903.amr.corp.intel.com ([10.18.126.92])
+ by fmviesa006.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Mar 2026 22:40:15 -0700
+Received: from FMSMSX902.amr.corp.intel.com (10.18.126.91) by
+ fmsmsx903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37; Tue, 17 Mar 2026 22:40:14 -0700
+Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
+ FMSMSX902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37 via Frontend Transport; Tue, 17 Mar 2026 22:40:14 -0700
+Received: from CY3PR05CU001.outbound.protection.outlook.com (40.93.201.61) by
+ edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37; Tue, 17 Mar 2026 22:40:14 -0700
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=C1ZPImORch+VpsNP3Hk/YJ+sSgdYTFwmLm8AGlNGSKIHfyKQdysQXreapeDCWrOOsDEnj5xRHu1eU9SH8Gbat1iUdWwb+/ZkSSC4zLamQs36xobiWDAo/5jRbYdq5wtA5AtWsX6lFKwUtQKOhsDtrbqnWN0fYtbXu/Ed5xPqJOImlCQiDm20mo5xi8BIAtlH0NRAOvVTiZ8Hzc0yB69Hq/zvvSBmu/60aU+JSAZEmdV9xuSp4vAXiG4a7YDHnqPGxijZR0BuYHH6x22Dem3VqktjTRrbOeSXm9Xsf14lr6fGmGSwkrGtHD3DKYSkwllyaHT8bxdOLHk4BZVqZNzemw==
+ b=ay5PoCLwxUq+4Z0x8JwmGjDuuSgWfFXBVYiwWCcslPU19K8qaGLV7VbJJ6zkZbfpNB5JUjVF5etizbmuZmHCfH/s21EIapMUjHKdrMjiyZNLuFOskOlc9L2scpZ0ad6VvstEfL3v339+Q175b3imLpmxN5wYqoLZcPfjz/c4k46I2g0Gju6UjVqDXjbaJ2isrZumxCHYrD1zzIyeiVZSMcQunZkhCFJrhlWpxKSVdqcQpyc2M9M1kBUUEsLFwr1N/QWVNO6b0pR8IsjTz/oeucJ4ECNRoFel/TeJ9qGoVwOHUQcIh8GvaYOLc4RHpzqmqrj56TCTzadWvnWRC/GXPw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=F0+NrJPgWNxxnSykH//d7ef5BU9CYfq8/k2nCQhLQyo=;
- b=cKnH1JLyPfZAAMwILB7J/tM8Yib4dwgUDpRA0Rj7MZQQZhtwGinAQjhjij6eJpahgBJkiJy27filhGxXhcSuGAbh5USjIbWIdehsMlylu2675YYXqd8V+vx/K2TKINHJIxv0cCNrCrhB9SVqs+tQhj5Ir/oG/E0AO4wRzLegRUvDYQOBbme1N4zKtH1ztzhi0mIFwr4UJIOYIo/qHNosyK5B47DE5I1AyNTpZ3pEgcdAVT5Qepx345qmy9lMGCz9oQBTnsWvkHcGgBi0iy4pie4hvgaXjwarYy24SQ6dvfkOkLcTGTK9oA2vkzpJetunhnhvevAStcBb6JWoWdJ9vg==
+ bh=F+msgDIBuAa6lnmd362UHcqt+vL8hrcGAkvdnH5lDiM=;
+ b=N7xXLMcZM6lgrVJWSljEESqxXb5ZCdVUHd4cF6LzP0iCYa6SiwMTE8Eb0Cj/AphrMl1wWVhQoxYq0E6k8jqNUI4pk2526NDKIQFQ01PH2jHu3c+SYPFSHsVeSmUW5LJFABnoeOGBlxtHXstnlWwCeaOND2QVinZTmB1t2FlkGAe72g1r4AyNCEewiFhpT1ZIbeog0Pho1alzc8Fmw4U+6uQFipKEkFK7qVG8rT21ckihh9M4Bf0tR6+cum76gQJhs7WT8jFIEAeYh1NYo8sr8lU9Zjw0VXjiA8C4ijXSqp8Ed7MYEzWBvVFAEJGirpTZDa2c5gPhf1jJLc1iqVYleA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=F0+NrJPgWNxxnSykH//d7ef5BU9CYfq8/k2nCQhLQyo=;
- b=kjP7QnvVeD5Xs0xeIkf1LFCIq00DYswmvABYHvzngCzYp2kVhsP8WZsZqgL3ARva1Nendd/4BcEyq+u/Pbztj1+kvKpktp3VH7lfI0mkgfygG7ItYWpDb9WqUPvquuWA/TuHIJvJCAvdfPsUDY2ADgVXb6x66hUsMi4B3VJc72JRVOaU4l5s0ea6V+/99Rmm9JRL0Tgs3F7c7AR8/nv/VVPYqzgPAnqKR0e48KMUdSYu/O/lSuOiOUiUwiKX2N6J7rRsO4IiWqiwgXFAcMzx2K0FYlFOZ2PQg7jHKxNAg++wVeng4OAUCxhCwWmXSbRuei3wduQpyG8eDWUEBu3h2g==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from AM7PR04MB7046.eurprd04.prod.outlook.com (2603:10a6:20b:113::22)
- by AS4PR04MB9291.eurprd04.prod.outlook.com (2603:10a6:20b:4e6::5)
- with Microsoft SMTP Server (version=TLS1_2,
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Received: from CH3PR11MB7177.namprd11.prod.outlook.com (2603:10b6:610:153::8)
+ by DS7PR11MB8853.namprd11.prod.outlook.com (2603:10b6:8:255::9) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.19; Wed, 18 Mar
- 2026 05:25:04 +0000
-Received: from AM7PR04MB7046.eurprd04.prod.outlook.com
- ([fe80::4609:64af:8a4b:fd64]) by AM7PR04MB7046.eurprd04.prod.outlook.com
- ([fe80::4609:64af:8a4b:fd64%3]) with mapi id 15.20.9723.018; Wed, 18 Mar 2026
- 05:25:04 +0000
-From: Liu Ying <victor.liu@nxp.com>
-Date: Wed, 18 Mar 2026 13:26:05 +0800
-Subject: [PATCH v3] drm/bridge: Fix refcount shown via debugfs for
- encoder_bridges_show()
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260318-drm-misc-next-2026-03-05-fix-encoder-bridges-refcount-v3-1-147fea581279@nxp.com>
-X-B4-Tracking: v=1; b=H4sIAGw3umkC/6XOMQ7CMAwF0KtUmTFKYgqBiXsghiZxwUOTKilVE
- erdSbvADOP/lv7zS2RKTFmcqpdINHLmGErATSXcvQk3AvYlCy31XqLS4FMHHWcHgaYBlhokgqy
- h5QkouOgpgU3sb5QhUeviIwxgWkOEbW0Qj6Js9+XC0+periXfOQ8xPdc3RrW0/4qjAgX2aBv0Z
- rc7oD6Hqd+62InFG/W3YX41dDGcPcjaFqRB9THmeX4Dl91iCFwBAAA=
-To: Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>
-Cc: Marco Felsch <m.felsch@pengutronix.de>, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Liu Ying <victor.liu@nxp.com>
-X-Mailer: b4 0.13.0
-X-ClientProxiedBy: MA5P287CA0096.INDP287.PROD.OUTLOOK.COM
- (2603:1096:a01:1d4::11) To AM7PR04MB7046.eurprd04.prod.outlook.com
- (2603:10a6:20b:113::22)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM7PR04MB7046:EE_|AS4PR04MB9291:EE_
-X-MS-Office365-Filtering-Correlation-Id: 20875726-0e55-47b8-662e-08de84aeb598
-X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|7416014|52116014|1800799024|19092799006|366016|38350700014|921020|18002099003|56012099003;
-X-Microsoft-Antispam-Message-Info: ipj1VC8FyDnt8ZnQYVqEzgvWpKCU4xHLsKGUPN6B9T4+feqZYUW1tdH0NnKOfZdyKGUvcD1DV3OwkDQa4g1XD8CaNgUdzDLDQ08WRrJ5FcFY8HMoODSkhgmC6VuP6OzRIItAtltkrZSexJSj3a+GwRglx5kHPtZgjxF7yXK9t5XcxAx55XZWsi/26C3BJtJV9CJXnoqkkhBgrK3tAzoVyo+MZtO8Ff+/ZZGqipAIRY/XEKPisk9C8mJwt3sMjpSpmXqI/aSRTpHx5JWwyPgatOTA9BuygyBk8DOjObI6pZ3/p/Z0UOmWlmLWz14pSqZ1rkGus0uS3FwHkn5nOr6cZYnbwB9YIz3TwK5ffEomytCqdVoHy+1J0CVfG1eIlwz45BvWo7rbKFwc/A5YBq+23HyU9or5cMVd5aPB644JRfemRDun2wsSo8xq76IUXGc81D6R4rQX0akW8CIof4iT5FtvzNzMsjY+RA0OhToN4uWhioPPXzhNf6qAekOHBn+6bv3nppluMV1Rl8SQ4TG0vTohC+fdgZvYSI3NfleJXcSdmv61NGoEvvPgyZtAYrQgPEjm49WiXoI/qVovMxf8yLDx58PKdAeamC6YvbJ9+6TDYh1CvEIK4UeLoW95cw1WSW7C54oQYEZZTTKjfabnOObIyJu9nuK6yrhx/mDhNU7g6tV0gsnt4C9AgUzn48E/uJ0NeSGR3WZkUu/1yg2Oq7DNV7FEa9nZOxJdiRRtXhu9AvoxhCcBIagwyQRY5g30/lCjsNySrscktkyyp28nCJgeIMM4LQtFb/5Hs0OKBrOPHGKEfCUU5BOBEcP0kbhC
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:AM7PR04MB7046.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(7416014)(52116014)(1800799024)(19092799006)(366016)(38350700014)(921020)(18002099003)(56012099003);
+ 2026 05:40:10 +0000
+Received: from CH3PR11MB7177.namprd11.prod.outlook.com
+ ([fe80::b997:e226:4979:c035]) by CH3PR11MB7177.namprd11.prod.outlook.com
+ ([fe80::b997:e226:4979:c035%5]) with mapi id 15.20.9723.018; Wed, 18 Mar 2026
+ 05:40:04 +0000
+From: "Kasireddy, Vivek" <vivek.kasireddy@intel.com>
+To: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>, "kraxel@redhat.com"
+ <kraxel@redhat.com>
+CC: "sumit.semwal@linaro.org" <sumit.semwal@linaro.org>,
+ "christian.koenig@amd.com" <christian.koenig@amd.com>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
+ "linaro-mm-sig@lists.linaro.org" <linaro-mm-sig@lists.linaro.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "stable@vger.kernel.org" <stable@vger.kernel.org>
+Subject: RE: [PATCH] dma-buf/udmabuf: skip redundant cpu sync to fix cacheline
+ EEXIST warning
+Thread-Topic: [PATCH] dma-buf/udmabuf: skip redundant cpu sync to fix
+ cacheline EEXIST warning
+Thread-Index: AQHctdAdEiBcXRZXdE6KpMVNKEWqyrWzHqLA
+Date: Wed, 18 Mar 2026 05:40:04 +0000
+Message-ID: <CH3PR11MB7177B163E8FBD9B6D812DE86F84EA@CH3PR11MB7177.namprd11.prod.outlook.com>
+References: <20260317053653.28888-1-mikhail.v.gavrilov@gmail.com>
+In-Reply-To: <20260317053653.28888-1-mikhail.v.gavrilov@gmail.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: CH3PR11MB7177:EE_|DS7PR11MB8853:EE_
+x-ms-office365-filtering-correlation-id: a93e4643-a627-40c9-f8b5-08de84b0ce37
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|366016|1800799024|376014|38070700021|18002099003|56012099003|22082099003;
+x-microsoft-antispam-message-info: 5ty7+1WP4aAiUpvbf50vUR5P77fOXH3Qqo+DAhmYasP7s+hz3elSor2CKTMisEQQ6fJa7UUVSP79pZ0C9XdROFIYHOGdUcq7DbxtrC3gXExhT4OtcVqAPmsUojDow4RXwOVn7sk+TRWK/NEeEjXhuhi10hjLOMC00NY4O+dIJn67Gw+piawYq+cgnWNFRHEfLorENll2o1H+aduo5UolnDzxbTitcPSxFU30Xgpgz07nMFsu/1HjyKc+2t//QhZ0f1pwsyYaNa+8ubDB5Z1RSmaAfwHEfH4vrlT9fTEPqfnV1YsBSCQBDCpla4sK5oXGwxsyQG0uGqU/f8b6ieMfDjbxVHXWmFkRQ/moz3ZA8dZGYr5mz3wqhkIJtOAQippArV2beyHe6NBTnporLZ0jxMpM8qMs7x4dWRc4JxK4n5qK9Oo/MqKNjgpXBI8u8IXjGyiBjnJlFmdNhxV/AGnCDR183ii5IBga+0uDMfuDy4uvDRTR7iteenCZDPmJS2+gW8SzVGX58ZvRbfVnd7M9kkHrjlfLsJRSbM/jqnm/i13AOx3P6oQhx3BxriqcyGUy6hiSw/5O2G1FwXr31P5SFjCKix6AUSYlJnmkyM2QqBHIP9cNBs7zjSBRO3VRZoTIGiseJ6VT/opUZ0VIcee6tmT+sFZ/IZr748V8Pmknow3fo2xb1rP4TpbobvP5gOMmoT4yEV8T5btCMZ3mSzO8UmVZ6e7UysNYzo5RR4iPbz+1ZQELOwpPdY1D5DLuxzxwdLLlA/arwXlDrqhL602c8wm6RkmxJ7gTRHR3sCDkVNg=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CH3PR11MB7177.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(376014)(38070700021)(18002099003)(56012099003)(22082099003);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?V01QQ1Q2T2hhOUVlUytHakNJSTNGY1I5U05CVFFiVGNjM3ZjYjZRVFUrUnAy?=
- =?utf-8?B?K1lkZkVpaUtML0pRQTB0b3J4eUVVQ2xTc0Q4eGwzMjRPMXI3cmlHZ0FxNkh5?=
- =?utf-8?B?RFJRNnlWTW1VYThjWVZxVlN4WlI0d1FBdEVCaW5ySzNEbEtuNSs3TUVpL05T?=
- =?utf-8?B?QVc1OUlLK2h2S3RGR1dxOU1TamFpK3h5MHFzOW5BT1BwQWloYXNOZnk4dkJ5?=
- =?utf-8?B?d2VlTFpJR2lVcitudHVPUS9ZZmpabFRRMUN2SGt5Z05xb0dYYVA2QWRTRENU?=
- =?utf-8?B?bXlPdTlkMFY2NEN0elhLVkdlVS8zRXo0NnluRElheFV5ZS9qd3dIeGdGMHdo?=
- =?utf-8?B?ZXFZN1Z3bk0vWXVUVXdXaGdZMTgrb0F3bTVjb1h2TnRDeXFjT2NrQUxNcHhI?=
- =?utf-8?B?SExnWE1ZNjlrVExOZjZJYkppMExWTDNyTU5LMWhjcmkvblRRMEh6c2x1STFV?=
- =?utf-8?B?NUlEckRWajRIMVRwTER0ZlBuNW9kQmZFdStVMlUwaThCQXpTbXFZUGpublR2?=
- =?utf-8?B?bndJdlZSVnZ5amJxZlp2bGtFUzZSNU42enZjVVg2UFUzVVQ5aDV5VnJZU3Aw?=
- =?utf-8?B?UWxrSHNHbWdWb0tJZVNmSHdsWU5iaklnODZWMk1LUmNpUmlHWmc4Rmd2bVNx?=
- =?utf-8?B?SGJiRHBXaWtyUGw1R1ZoSFdMNEM3WEY3V2VBdTl5MGFOU3laTldjeFRxQWpY?=
- =?utf-8?B?TTltLytwR0FHVGowLy91aEgwb1pJeFFpd1JHaGRldTBCV2E3amZkZ3VFYVBM?=
- =?utf-8?B?VzBCUmg1THdtd200aWd4MGxlaDNPeFRXNEdNOHpJdFB4dCtTemZSZUY5WEpN?=
- =?utf-8?B?bEpad3FqZWJmL0U4OUkreTBxL0NxSlZLN0JoYjVTb3VwTmp2L3o5Z2FtVE1B?=
- =?utf-8?B?RzY1M0JLWFVhK1Y0dEVaREJHVTh3OVJkV0dKdzFvRGQ2UWltcXNQK2tVRmNJ?=
- =?utf-8?B?bEN3M2xaUnNpUkNLZUFjT0ZRV2tNZW5abE5vSzVidytVRU9ocHBUdzRpZy9s?=
- =?utf-8?B?RDJBaVU0OGw4VDVwNW5DL1hva0ZOU2VLSmlmU0NRVGdhVmR5eklyZmhiek5z?=
- =?utf-8?B?U0RoZmFFYmluWUowS3RUemZMV0UrRlFvdDBtWS9jN214SkdadlNrdmxBakVC?=
- =?utf-8?B?bDBpTDUxbk9hc0ZMSmJiQ3FnRkxCVnNueWFGOGxpMHg0VDNMd2RMZFdDT3VR?=
- =?utf-8?B?cnR5T2pseTdEMjlLUEhDZnkwSjFnd3NVdVhVUUliR2JHYjRyK2lWVWtRS2hE?=
- =?utf-8?B?bDBjc0YvWFZNb2J2VDgwa0ZaMlJhZ2diMnpVWkx5aHluSEJTNjBseklKTktP?=
- =?utf-8?B?UU5KWGJjZ0E3bisxN001Y1A4QmpvbnA2QXpsV2dNWEtRSFNheE5qMldJeWRl?=
- =?utf-8?B?ZHVxVFRQVEZod2ZEVnh6Z0NOQ2JkOGlwS25DeGRYbDBqVldYOTg2M1YvaHVE?=
- =?utf-8?B?WnpYMUYweE0xS1U5M3VlZjgxeU9iNS9rM3RlSVMxcTVIY2JEbGJ6NVF6Y21Y?=
- =?utf-8?B?TXN3dVlOR1Y2amlSa2daM3lRZ3R1dTU2RVd2d0NNMTNzOTZKOHpObEVobjB5?=
- =?utf-8?B?dVZjdURkWWY5Z2VQc3JPclBMbUdid3VEVy83azJ1UkRiZFoxQzYwY01rdmF6?=
- =?utf-8?B?WkZGRjNqT2tMVW9hQTBjbGpWNGo0Y2pEOFd6RHI5SmowR2RMTnh0bmF2aTRi?=
- =?utf-8?B?VTFCV0pqTlFoS3JOTjlFVlNGVnppZ1liRE9nMXFwa1FMSENPV0ZSY0hrV0Iw?=
- =?utf-8?B?bStzc2YzT3pUTVpxdHB3VW44L3pSK1NKZStIMDFCditmcVhuN3pXTk9NOXBk?=
- =?utf-8?B?dkM5QTN4a043c25lY0dsMUxacTBZL3ZyNmwrVDVRalVaMmF2ZWdkQ2puWUF4?=
- =?utf-8?B?V1h2ZXAyMXVhd1pEWEtFNk5VSW0yT21pS3VSMy9GZm04aTBkQWFsL1RkSFZI?=
- =?utf-8?B?dHQ1VW5RbU9QTU40QTZwbFJKYzJ5aHlvYkZSSHFWUWhtNzdNM2ZqZWpLTkQw?=
- =?utf-8?B?YlR2VktEbkdLSHlXOUwweDltU3FwK2hZZmZCbENyV0MxYTJ2Z2ZTMEl0SWth?=
- =?utf-8?B?Q1l5RzRHZHNHZWJheHdGeXFiSENaV1B4NVdBZEFXV1hCUjhVQ0poeG92MDJB?=
- =?utf-8?B?ckM2RTJoTjBuRUtEZ21nRGw1TEZqNFYyYlhxRjJvUGpKS09zdEVob3JoT0hU?=
- =?utf-8?B?MjJvZENjUWdEL1RvTjJORW9FL2x1Y1hXOUIvS2o5NVh0NkJqT0FERzZ3MVcw?=
- =?utf-8?B?ZGJVUkxQc3piSXJVY00rbXdRUFdNM016MmUyWXhVS2JNaGg0UnpFeUhLSWdu?=
- =?utf-8?B?TnBveWxNY0JJdHNmUTFnbk5iZEREeldCK3NJQXZwRW4rQWVSdkJRdz09?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 20875726-0e55-47b8-662e-08de84aeb598
-X-MS-Exchange-CrossTenant-AuthSource: AM7PR04MB7046.eurprd04.prod.outlook.com
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?QkWSvQMCLOFDzkPHjTmmvlrs8EbwQ9C9xafCQKaUb31Nsxj4+VZ0Eeh9H6Tj?=
+ =?us-ascii?Q?XyDdkXbqBXV715znORTH6B6UzFg07CO4F8ly2vEOr8DDXB2xw9NbZuGaMfCr?=
+ =?us-ascii?Q?DmJPwbucy3q0wZGoDvWFZztK/aIkVFY6m2UXZaXNCZ5tj0yJNPKLDaxozi9I?=
+ =?us-ascii?Q?GtU7qio6a51DygGyuC3p3wGOrThOWjyVYV7jlpqC6nPlVQtOmzhCHJHJIEI/?=
+ =?us-ascii?Q?Ki9QVy3pY+a9OiVnXYwHRsi43GD7OPaW00a9jug5W1NkhUZafJ/lXD1aM1Jr?=
+ =?us-ascii?Q?4GHT/2yqzLHvb69eTGPLigIrS/eVs9j+TRIOMBp+7DEo998pm9KImxeW/wO7?=
+ =?us-ascii?Q?9y4tPqHrXopsRClKUXiIaOWp3BbDzcOeKAGW7cuAu4rKZrMpvOL4fC9TUENz?=
+ =?us-ascii?Q?UYmcYE74xTPiFEkiYMXPfJx3/4HTA21ezz5dPgUbnQRDj+FDRtvoDzKZ6hbi?=
+ =?us-ascii?Q?veHAGthuQgj4ijhNSXQsSJN9EyFjeoubWnUNdKIHV/t7JF5xn0oTuoekyh/q?=
+ =?us-ascii?Q?6GgAYzdKQHrNgnn0Zx5+LyVLzwrxf6W3vkD0uPO12wmawZpLIiihURwT5P3/?=
+ =?us-ascii?Q?e+LMSGjsaXjsLrl+/seGORb56qAxU+7Iv3jRXMVyLoCR+1w189OSBPH0DM06?=
+ =?us-ascii?Q?ipTZ8Kyocuya4fXUsmzzl+hP2Ce988EMtCdK48cEt7deOmpmWz2mY5FCKcyR?=
+ =?us-ascii?Q?K0F/QNBBKsWJFqy2Xlx3A1Uh+OVA+XKrBaj6qHCDNe0SCnrGKNGRvCTyUV7x?=
+ =?us-ascii?Q?c7aMgTuMYQOqkcMVy5+bWJanrFdlqNiRlyzHae4WX4jy7UZQawBR5nCLz/2A?=
+ =?us-ascii?Q?oZsMzYieEetJpPqB2J3AetCdVb4AkgFZ+QVDEwVwq76WxfSOfurVatlQi+/o?=
+ =?us-ascii?Q?rR1mcyirc25/aXuKGtR2nwS0kmkgeVvPShWSAswMmYxBM9FOFWRqT8BnVaWF?=
+ =?us-ascii?Q?nKXUbSnNu2nf6pthRmKAPI9V/hZpmb3J+WYouShTCd570PYqrtZQ/EaNPq6R?=
+ =?us-ascii?Q?jZbcShyvgc9D5elHKGgndHxO0d9i1eioXe1ACUdI/gQVMRnlHUeUnbyHGtup?=
+ =?us-ascii?Q?WxiLlj35UyqCKyaOJSJC9Ap0y5v8hY6SrWMFoVORiNAihFHSs8EtPe/WnYlI?=
+ =?us-ascii?Q?iMNp4HjeULq7RboEJdIrOUafzVCM6RlcQJbWHhZSeNggpQaqID5/JIRSKHNc?=
+ =?us-ascii?Q?ifsLhzwYU/qH25TO7nqUEaikmrdXR9iG5DkHSy7CEoyrmX6gultj7sf1ZtCl?=
+ =?us-ascii?Q?+DDCtnlzei7LgoJ7RO7OkGMzXTTIIYuTtDyx2phI7iQvOC/R2hVYByHHnXUe?=
+ =?us-ascii?Q?cLZ/G60vSJvYGOYq3gQHc7NzCXgzCb8DMJpC+AidYb7/mutecjPWAR2Z3afy?=
+ =?us-ascii?Q?9XqAnhFtgfwuR7eZ/hRubGj8uZ50AiFA8BQkwKrICoCIII8gu482YmtiZ3a/?=
+ =?us-ascii?Q?SIrDQq6ArGGcBItoR18RuAgeNWn7K2F1jppeKg5ycLMJOPeg5pxsuOTBLrLc?=
+ =?us-ascii?Q?3Winzy4YmO4bzOJoYM5msjTELYfK1Ybf9MBM0T51B8wTqwOmNHiY8lALcMxV?=
+ =?us-ascii?Q?IqsuxA5bWjgJ5jvSvoCkbwDnXx0gW4T29ZVyvHr4EGpcrQBkCifC4U3+5b2X?=
+ =?us-ascii?Q?LWnExpoUFu6a91nLKWbezJ30a1QG4sP5tjgdIIX3nMvHUz7v6UUoz51BlhB4?=
+ =?us-ascii?Q?20BgJkUODy/5BKyIvWIaE15KGYUWDSHs7S4HKgBpYHMmDBONbw/wJKZOdxfr?=
+ =?us-ascii?Q?rXrHfPl4vw=3D=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-Exchange-RoutingPolicyChecked: IeI+1Qc/NgmeYH7SDsFGA1lMd67WXdJ7o3Wl7/rvvdoOusEF5vAquZCpxU/bCTAbUOeSP4K51G0+XImpeszMd3bee1/3hSmXHNusen4VkXwfVl5Q1jMQnoFRf1N1QHz63XpnSs5AjVR92UqvKQr7BJ6nFb6f8Qo9dYOxnk3oj9ICftszZDpCbF56/yXGG5Q3NY0tXRilzb3jeyCSIYzl31lxZADvLNkr8+/AYDB2M68XrtGQkiRUQwTfKjwynNUKTtGmdRQNF7L39EUxJpTPCsQCnVcXG9aTCnwvKlhfIup3z23y6eXaVa3xXOT7AAePZOsfZPszrjdxyLvpfZvGhg==
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Mar 2026 05:25:04.0248 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: DIR7DWimJA+qUMtTpt6QpCy5dkjnEvWvq5jxIgeO220UeB9Q2oCBabbjxgsqGFcGeIBniIu0ie9LC9YGhjCD1w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS4PR04MB9291
+X-MS-Exchange-CrossTenant-AuthSource: CH3PR11MB7177.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a93e4643-a627-40c9-f8b5-08de84b0ce37
+X-MS-Exchange-CrossTenant-originalarrivaltime: 18 Mar 2026 05:40:04.1609 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: +l4Upzl4RSvN80iPKXeS5ryvdOGpcgIMabQsJ83oozAYpeFavcHI6xLuHc5GUvzwrq50bqd0C6gCNirSOdXtbCSRz0TggAD9bDlN24Mr+EA=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR11MB8853
+X-OriginatorOrg: intel.com
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -145,87 +169,96 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-A typical bridge refcount value is 3 after a bridge chain is formed:
-- devm_drm_bridge_alloc() initializes the refcount value to be 1.
-- drm_bridge_add() gets an additional reference hence 2.
-- drm_bridge_attach() gets the third reference hence 3.
+Hi Mikhail,
 
-This typical refcount value aligns with allbridges_show()'s behaviour.
-However, since encoder_bridges_show() uses
-drm_for_each_bridge_in_chain_scoped() to automatically get/put the
-bridge reference while iterating, a bogus reference is accidentally
-got when showing the wrong typical refcount value as 4 to users via
-debugfs.  Fix this by caching the refcount value returned from
-kref_read() while iterating and explicitly decreasing the cached
-refcount value by 1 before showing it to users.
+> Subject: [PATCH] dma-buf/udmabuf: skip redundant cpu sync to fix
+> cacheline EEXIST warning
+>=20
+> When CONFIG_DMA_API_DEBUG_SG is enabled, importing a udmabuf
+> into a DRM
+> driver (e.g. amdgpu for video playback in GNOME Videos / Showtime)
+> triggers a spurious warning:
+>=20
+>   DMA-API: amdgpu 0000:03:00.0: cacheline tracking EEXIST, \
+>       overlapping mappings aren't supported
+>   WARNING: kernel/dma/debug.c:619 at add_dma_entry+0x473/0x5f0
+>=20
+> The call chain is:
+>=20
+>   amdgpu_cs_ioctl
+>    -> amdgpu_ttm_backend_bind
+>     -> dma_buf_map_attachment
+>      -> [udmabuf] map_udmabuf -> get_sg_table
+>       -> dma_map_sgtable(dev, sg, direction, 0)  // attrs=3D0
+>        -> debug_dma_map_sg -> add_dma_entry -> EEXIST
+>=20
+> This happens because udmabuf builds a per-page scatter-gather list via
+> sg_set_folio().  When begin_cpu_udmabuf() has already created an sg
+> table mapped for the misc device, and an importer such as amdgpu
+> maps
+> the same pages for its own device via map_udmabuf(), the DMA debug
+> infrastructure sees two active mappings whose physical addresses share
+> cacheline boundaries and warns about the overlap.
+>=20
+> The DMA_ATTR_SKIP_CPU_SYNC flag suppresses this check in
+> add_dma_entry() because it signals that no CPU cache maintenance is
+> performed at map/unmap time, making the cacheline overlap harmless.
+>=20
+> All other major dma-buf exporters already pass this flag:
+>   - drm_gem_map_dma_buf() passes DMA_ATTR_SKIP_CPU_SYNC
+>   - amdgpu_dma_buf_map() passes DMA_ATTR_SKIP_CPU_SYNC
+>=20
+> The CPU sync at map/unmap time is also redundant for udmabuf:
+> begin_cpu_udmabuf() and end_cpu_udmabuf() already perform explicit
+> cache synchronization via dma_sync_sgtable_for_cpu/device() when
+> CPU
+> access is requested through the dma-buf interface.
+>=20
+> Pass DMA_ATTR_SKIP_CPU_SYNC to dma_map_sgtable() and
+> dma_unmap_sgtable() in udmabuf to suppress the spurious warning
+> and
+> skip the redundant sync.
+>=20
+> Fixes: 284562e1f348 ("udmabuf: implement
+> begin_cpu_access/end_cpu_access hooks")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+> ---
+>  drivers/dma-buf/udmabuf.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+>=20
+> diff --git a/drivers/dma-buf/udmabuf.c b/drivers/dma-buf/udmabuf.c
+> index 94b8ecb892bb..9c6f8785a28a 100644
+> --- a/drivers/dma-buf/udmabuf.c
+> +++ b/drivers/dma-buf/udmabuf.c
+> @@ -162,7 +162,7 @@ static struct sg_table *get_sg_table(struct device
+> *dev, struct dma_buf *buf,
+>  		sg_set_folio(sgl, ubuf->folios[i], PAGE_SIZE,
+>  			     ubuf->offsets[i]);
+>=20
+> -	ret =3D dma_map_sgtable(dev, sg, direction, 0);
+> +	ret =3D dma_map_sgtable(dev, sg, direction,
+> DMA_ATTR_SKIP_CPU_SYNC);
+>  	if (ret < 0)
+>  		goto err_map;
+>  	return sg;
+> @@ -177,7 +177,7 @@ static struct sg_table *get_sg_table(struct device
+> *dev, struct dma_buf *buf,
+>  static void put_sg_table(struct device *dev, struct sg_table *sg,
+>  			 enum dma_data_direction direction)
+>  {
+> -	dma_unmap_sgtable(dev, sg, direction, 0);
+> +	dma_unmap_sgtable(dev, sg, direction,
+> DMA_ATTR_SKIP_CPU_SYNC);
+Looks OK to me but it would be nice if Christian or someone else can
+provide an Ack for this patch.
 
-Fixes: bd57048e4576 ("drm/bridge: use drm_for_each_bridge_in_chain_scoped()")
-Signed-off-by: Liu Ying <victor.liu@nxp.com>
----
-Changes in v3:
-- Changed '--refcount' to 'refcount--'.  No functional impact.
-- Link to v2: https://lore.kernel.org/r/20260318-drm-misc-next-2026-03-05-fix-encoder-bridges-refcount-v2-1-cb705bd84a31@nxp.com
+Thanks,
+Vivek
 
-Changes in v2:
-- Improved code to manipulate cached refcount.  (Luca)
-- Dropped boilerplate code.  (Luca)
-- Link to v1: https://lore.kernel.org/r/20260312-drm-misc-next-2026-03-05-fix-encoder-bridges-refcount-v1-1-b9ba3d844732@nxp.com
----
- drivers/gpu/drm/drm_bridge.c | 16 +++++++++++-----
- 1 file changed, 11 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/gpu/drm/drm_bridge.c b/drivers/gpu/drm/drm_bridge.c
-index f8b0333a0a3b..96e1bd86a585 100644
---- a/drivers/gpu/drm/drm_bridge.c
-+++ b/drivers/gpu/drm/drm_bridge.c
-@@ -1570,11 +1570,17 @@ EXPORT_SYMBOL(devm_drm_put_bridge);
- static void drm_bridge_debugfs_show_bridge(struct drm_printer *p,
- 					   struct drm_bridge *bridge,
- 					   unsigned int idx,
--					   bool lingering)
-+					   bool lingering,
-+					   bool scoped)
- {
-+	unsigned int refcount = kref_read(&bridge->refcount);
-+
-+	if (scoped)
-+		refcount--;
-+
- 	drm_printf(p, "bridge[%u]: %ps\n", idx, bridge->funcs);
- 
--	drm_printf(p, "\trefcount: %u%s\n", kref_read(&bridge->refcount),
-+	drm_printf(p, "\trefcount: %u%s\n", refcount,
- 		   lingering ? " [lingering]" : "");
- 
- 	drm_printf(p, "\ttype: [%d] %s\n",
-@@ -1608,10 +1614,10 @@ static int allbridges_show(struct seq_file *m, void *data)
- 	mutex_lock(&bridge_lock);
- 
- 	list_for_each_entry(bridge, &bridge_list, list)
--		drm_bridge_debugfs_show_bridge(&p, bridge, idx++, false);
-+		drm_bridge_debugfs_show_bridge(&p, bridge, idx++, false, false);
- 
- 	list_for_each_entry(bridge, &bridge_lingering_list, list)
--		drm_bridge_debugfs_show_bridge(&p, bridge, idx++, true);
-+		drm_bridge_debugfs_show_bridge(&p, bridge, idx++, true, false);
- 
- 	mutex_unlock(&bridge_lock);
- 
-@@ -1626,7 +1632,7 @@ static int encoder_bridges_show(struct seq_file *m, void *data)
- 	unsigned int idx = 0;
- 
- 	drm_for_each_bridge_in_chain_scoped(encoder, bridge)
--		drm_bridge_debugfs_show_bridge(&p, bridge, idx++, false);
-+		drm_bridge_debugfs_show_bridge(&p, bridge, idx++, false, true);
- 
- 	return 0;
- }
-
----
-base-commit: d2e20c8951e4bb5f4a828aed39813599980353b6
-change-id: 20260312-drm-misc-next-2026-03-05-fix-encoder-bridges-refcount-8f8ee3f58339
-
-Best regards,
--- 
-Liu Ying <victor.liu@nxp.com>
+>  	sg_free_table(sg);
+>  	kfree(sg);
+>  }
+> --
+> 2.53.0
 
