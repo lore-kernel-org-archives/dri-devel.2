@@ -4,42 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 73387FCD0C1
-	for <dri-devel@archiver.kernel.org>; Wed, 18 Mar 2026 06:43:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 99B7CFCD0C1
+	for <dri-devel@archiver.kernel.org>; Wed, 18 Mar 2026 06:43:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D5F6310E2D7;
-	Wed, 18 Mar 2026 06:43:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EC57B10E288;
+	Wed, 18 Mar 2026 06:43:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Oapo7Rng";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="TrLyygvn";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 000E910E0AE;
- Wed, 18 Mar 2026 06:43:16 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C77E510E2E6;
+ Wed, 18 Mar 2026 06:43:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1773816197; x=1805352197;
+ t=1773816202; x=1805352202;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=CAjF+NZoz1/ahF6zv2eidZGNRhes5wl1FLa8e/Uer4A=;
- b=Oapo7RngGTl0LiAlfbThpK12ceNDQmhktno/mhbTPkJh4SxkO+tSnwkF
- Qsjo8mIoCjxhcGGjyF6jEwcD2HEFdTDADMOIwnDyspYDvkEANw3peTrnq
- oLKuUCgeaUGIxTILbaLzgQZokDdRuJry/7YBOAd89yuwxRGVVC1rPVuAO
- rREd4pPQUa+1uQLvdwR1wN6R3+igfburYyD5SIWlA9Y4qHTWrzB8tnYQv
- 3oMys9kHMvYBeLPaL70huFZ/4ROgeMimvDyq1mF0IMzZq8HFxiEPuy7FZ
- kzOLml7zJDc1OfHYjRbEWuEaBg2S9JSjLLhLA/XrUDrSVS/iGLLgguUAG g==;
-X-CSE-ConnectionGUID: 7vdsIGTKT2q5uwuocB0EWg==
-X-CSE-MsgGUID: CzyBM5kgS0i1hvpy948boQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11732"; a="78723361"
-X-IronPort-AV: E=Sophos;i="6.23,127,1770624000"; d="scan'208";a="78723361"
+ bh=155QVqWJODU8xNNHlRgsyV1D+Cl0ClQaziyIdBDaolc=;
+ b=TrLyygvnTX3gULMAj23DyKj97lAUiQ0k/FK1BJfHrKa7G/R+KAVVVYhZ
+ tXzDkz1iAx40EJPIKXBmD4pj2G8HvGYlScrpF+WoP+e+9yPDQ8wvRfriG
+ Vfed3BoAm0xiBSli/TF6gOUshtKE70PWe1xevAZFqW/sxcr3TP7wFGA/+
+ 9KPNjLUPFwo7MlaL4Szys+Lsl4BqRvh/jL4zwuAe61t1q51nhp+ZeuglW
+ 0Yx81BLKwxkKzXg1OzSdWMAcZrtNCjQ39/gUYbD44iQZ0hg6Vj2Mkle4Z
+ 3t7Q7JZV/9sbpxd41wWQSyJW7ChxMOO8V382IhsLcyErQJgEEMeQQxiuv w==;
+X-CSE-ConnectionGUID: s8QJz3J0TT6ylxzf1As1SA==
+X-CSE-MsgGUID: 2eTCJPfuSXeB6r06jShykg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11732"; a="78723370"
+X-IronPort-AV: E=Sophos;i="6.23,127,1770624000"; d="scan'208";a="78723370"
 Received: from orviesa005.jf.intel.com ([10.64.159.145])
  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Mar 2026 23:43:17 -0700
-X-CSE-ConnectionGUID: vJ5sGgniRcGPWxOSvo/hcQ==
-X-CSE-MsgGUID: 9Vxkzi2MQhq7FXGWP9Jg7g==
+ 17 Mar 2026 23:43:22 -0700
+X-CSE-ConnectionGUID: mHRb6TJCRKSoqL1NDoQ3nA==
+X-CSE-MsgGUID: /WSCWPn1Q4ytZY5hylSoPA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,127,1770624000"; d="scan'208";a="227464657"
+X-IronPort-AV: E=Sophos;i="6.23,127,1770624000"; d="scan'208";a="227464669"
 Received: from jraag-z790m-itx-wifi.iind.intel.com ([10.190.239.23])
- by orviesa005.jf.intel.com with ESMTP; 17 Mar 2026 23:43:12 -0700
+ by orviesa005.jf.intel.com with ESMTP; 17 Mar 2026 23:43:17 -0700
 From: Mallesh Koujalagi <mallesh.koujalagi@intel.com>
 To: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  rodrigo.vivi@intel.com
@@ -48,10 +48,10 @@ Cc: andrealmeid@igalia.com, christian.koenig@amd.com, airlied@gmail.com,
  badal.nilawar@intel.com, riana.tauro@intel.com, karthik.poosa@intel.com,
  sk.anirban@intel.com, raag.jadav@intel.com,
  Mallesh Koujalagi <mallesh.koujalagi@intel.com>
-Subject: [PATCH v2 4/5] drm/xe: Add handler for power management unit errors
- which require cold-reset
-Date: Wed, 18 Mar 2026 12:10:21 +0530
-Message-ID: <20260318064016.374656-11-mallesh.koujalagi@intel.com>
+Subject: [PATCH v2 5/5] drm/xe/debugfs: Add interface to trigger power
+ management unit error handler
+Date: Wed, 18 Mar 2026 12:10:22 +0530
+Message-ID: <20260318064016.374656-12-mallesh.koujalagi@intel.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260318064016.374656-7-mallesh.koujalagi@intel.com>
 References: <20260318064016.374656-7-mallesh.koujalagi@intel.com>
@@ -72,100 +72,91 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This handler is designed to be called when power management unit errors are
-detected that affect device-level state persisting across warm resets. The
-cold reset recovery method signals to userspace that only a complete device
-power cycle can restore normal operation.
+Add a debugfs interface to manually trigger power management unit error
+handler for testing cold reset recovery paths. This is useful for
+validating the error recovery mechanism.
 
-v2:
-- Add use case: Handling errors from power management unit,
-  which requires a complete power cycle (cold reset)
-  to recover. (Christian)
+The new debugfs entry 'trigger_punit_error' is located at:
+  /sys/kernel/debug/dri/N/trigger_punit_error
+
+Reading the file displays usage instructions. Writing '1' invokes
+xe_punit_error_handler(), which marks the device as wedged with
+DRM_WEDGE_RECOVERY_COLD_RESET method and sends a uevent to userspace
+indicating that a complete device power cycle is required for recovery.
+
+Writing '0' or any other false value has no effect.
+
+This interface is intended for development, testing, and validation
+of power management unit error recovery code.
 
 Signed-off-by: Mallesh Koujalagi <mallesh.koujalagi@intel.com>
 ---
- drivers/gpu/drm/xe/xe_hw_error.c | 27 +++++++++++++++++++++++++++
- drivers/gpu/drm/xe/xe_hw_error.h |  1 +
- drivers/gpu/drm/xe/xe_ras.c      |  3 ++-
- 3 files changed, 30 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/xe/xe_debugfs.c | 38 +++++++++++++++++++++++++++++++++
+ 1 file changed, 38 insertions(+)
 
-diff --git a/drivers/gpu/drm/xe/xe_hw_error.c b/drivers/gpu/drm/xe/xe_hw_error.c
-index 2a31b430570e..ca965a2b092c 100644
---- a/drivers/gpu/drm/xe/xe_hw_error.c
-+++ b/drivers/gpu/drm/xe/xe_hw_error.c
-@@ -5,6 +5,7 @@
+diff --git a/drivers/gpu/drm/xe/xe_debugfs.c b/drivers/gpu/drm/xe/xe_debugfs.c
+index 844cfafe1ec7..390bbed9c1af 100644
+--- a/drivers/gpu/drm/xe/xe_debugfs.c
++++ b/drivers/gpu/drm/xe/xe_debugfs.c
+@@ -18,6 +18,7 @@
+ #include "xe_gt_debugfs.h"
+ #include "xe_gt_printk.h"
+ #include "xe_guc_ads.h"
++#include "xe_hw_error.h"
+ #include "xe_mmio.h"
+ #include "xe_pm.h"
+ #include "xe_psmi.h"
+@@ -509,6 +510,40 @@ static const struct file_operations disable_late_binding_fops = {
+ 	.write = disable_late_binding_set,
+ };
  
- #include <linux/bitmap.h>
- #include <linux/fault-inject.h>
-+#include <drm/drm_drv.h>
- 
- #include "regs/xe_gsc_regs.h"
- #include "regs/xe_hw_error_regs.h"
-@@ -542,6 +543,32 @@ static void process_hw_errors(struct xe_device *xe)
- 	}
- }
- 
-+/**
-+ * xe_punit_error_handler - Handler for power management unit errors
-+ * @xe: device instance
-+ *
-+ * Handles power management unit errors that affect the device and cannot
-+ * be recovered through driver reload, PCIe reset, etc.
-+ *
-+ * Marks the device as wedged with DRM_WEDGE_RECOVERY_COLD_RESET method
-+ * and notifies userspace that a complete device power cycle is required.
-+ */
-+void xe_punit_error_handler(struct xe_device *xe)
++static ssize_t trigger_punit_error_show(struct file *f, char __user *ubuf,
++					size_t size, loff_t *pos)
 +{
-+	drm_err(&xe->drm, "CRITICAL: PMU error detected\n");
-+	drm_err(&xe->drm, "Recovery: Device cold reset required\n");
++	const char *msg = "Write 1 to trigger power management unit error handler\n";
 +
-+	/* Set cold reset recovery method */
-+	xe_device_set_wedged_method(xe, DRM_WEDGE_RECOVERY_COLD_RESET);
-+
-+	if (xe_device_wedged(xe)) {
-+		drm_dev_wedged_event(&xe->drm, xe->wedged.method, NULL);
-+	} else {
-+		/* Declare device wedged - will trigger uevent with cold reset method */
-+		xe_device_declare_wedged(xe);
-+	}
++	return simple_read_from_buffer(ubuf, size, pos, msg, strlen(msg));
 +}
 +
- /**
-  * xe_hw_error_init - Initialize hw errors
-  * @xe: xe device instance
-diff --git a/drivers/gpu/drm/xe/xe_hw_error.h b/drivers/gpu/drm/xe/xe_hw_error.h
-index d86e28c5180c..f588320eb94d 100644
---- a/drivers/gpu/drm/xe/xe_hw_error.h
-+++ b/drivers/gpu/drm/xe/xe_hw_error.h
-@@ -11,5 +11,6 @@ struct xe_tile;
- struct xe_device;
++static ssize_t trigger_punit_error_set(struct file *f,
++				       const char __user *ubuf,
++				       size_t size, loff_t *pos)
++{
++	struct xe_device *xe = file_inode(f)->i_private;
++	bool trigger;
++	ssize_t ret;
++
++	ret = kstrtobool_from_user(ubuf, size, &trigger);
++	if (ret)
++		return ret;
++
++	if (trigger) {
++		xe_punit_error_handler(xe);
++		drm_info(&xe->drm, "PMU error handler triggered via debugfs\n");
++	}
++
++	return size;
++}
++
++static const struct file_operations trigger_punit_error_fops = {
++	.owner = THIS_MODULE,
++	.read = trigger_punit_error_show,
++	.write = trigger_punit_error_set,
++};
++
+ void xe_debugfs_register(struct xe_device *xe)
+ {
+ 	struct ttm_device *bdev = &xe->ttm;
+@@ -550,6 +585,9 @@ void xe_debugfs_register(struct xe_device *xe)
+ 	debugfs_create_file("disable_late_binding", 0600, root, xe,
+ 			    &disable_late_binding_fops);
  
- void xe_hw_error_irq_handler(struct xe_tile *tile, const u32 master_ctl);
-+void xe_punit_error_handler(struct xe_device *xe);
- void xe_hw_error_init(struct xe_device *xe);
- #endif
-diff --git a/drivers/gpu/drm/xe/xe_ras.c b/drivers/gpu/drm/xe/xe_ras.c
-index 777321021391..93257d0eaaa0 100644
---- a/drivers/gpu/drm/xe/xe_ras.c
-+++ b/drivers/gpu/drm/xe/xe_ras.c
-@@ -10,6 +10,7 @@
- #include "xe_survivability_mode.h"
- #include "xe_sysctrl_mailbox.h"
- #include "xe_sysctrl_mailbox_types.h"
-+#include "xe_hw_error.h"
- 
- #define COMPUTE_ERROR_SEVERITY_MASK		GENMASK(26, 25)
- #define GLOBAL_UNCORR_ERROR			2
-@@ -148,7 +149,7 @@ static enum xe_ras_recovery_action handle_soc_internal_errors(struct xe_device *
- 			xe_err(xe, "[RAS]: PUNIT %s error detected: 0x%x\n",
- 			       severity_to_str(xe, common_info.severity),
- 			       ieh_error->error_sources_ieh0.punit);
--			/** TODO: Add PUNIT error handling */
-+			xe_punit_error_handler(xe);
- 			action = XE_RAS_RECOVERY_ACTION_DISCONNECT;
- 		}
- 	}
++	debugfs_create_file("trigger_punit_error", 0600, root, xe,
++			    &trigger_punit_error_fops);
++
+ 	/*
+ 	 * Don't expose page reclaim configuration file if not supported by the
+ 	 * hardware initially.
 -- 
 2.34.1
 
