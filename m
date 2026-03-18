@@ -4,49 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 13C711077607
-	for <dri-devel@archiver.kernel.org>; Wed, 18 Mar 2026 21:29:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AD787107761F
+	for <dri-devel@archiver.kernel.org>; Wed, 18 Mar 2026 21:29:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 68B3710E455;
-	Wed, 18 Mar 2026 21:29:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 060FC10E478;
+	Wed, 18 Mar 2026 21:29:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="UJEVYQLv";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="FTJUlTa4";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BEB4010E452
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AA45810E44A
  for <dri-devel@lists.freedesktop.org>; Wed, 18 Mar 2026 21:28:55 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id E6EDD6011F;
- Wed, 18 Mar 2026 21:28:54 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 86DC7C19421;
+ by sea.source.kernel.org (Postfix) with ESMTP id 491A844705;
+ Wed, 18 Mar 2026 21:28:55 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id DDCD6C2BCB2;
  Wed, 18 Mar 2026 21:28:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1773869334;
- bh=2xLuSv2TiyFBIIeQDHg/5ze8Cep6E7OZsCQj+tAfpBs=;
- h=From:Subject:Date:To:Cc:Reply-To:From;
- b=UJEVYQLv+9VpuCSnQwH9azbSso+frALiu+j1ZrfQ7SGCC5Q29yEjysjsdzj2K9i/S
- WZcrX05Ky4Q/oN5u7D0uMzO5gQ4Db8ncAZnaR/+l9vPbRM+o8UHuJZYDyrfLicpISX
- xWi+sY+zlNH0iWg35rBmfXh7RFL1KmyuVdx1g51B6JSjQJnLpwR/pQXPYFxlS/Dz4r
- Vt0/dymOX0aWWAuFjdSA6jZMyxgE4rXWM6Ih/Ctd2jeUYiY2EyInQH1morHPUzk0G6
- LVLVRsI05AijPv4iBQMhtJCienQsqd/rzOBMaxLHvRGlpVP+fBhQSz1SKottEFtDJn
- fX9G8LzRXHvZg==
+ s=k20201202; t=1773869335;
+ bh=Nuq2wHrBLxuZGeUJfMISr8VzFOYB9FUSVrFySOsLydM=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+ b=FTJUlTa4tXGhsUDNGGaxMzEgU46r46vdFVX4r0Xt4DIpJY7eU7Xhh75HW9PVI8a2Q
+ 66px+pIH7sLL8oI/qp9+GyAxvtGn8Lk6H2i+eUzn7Cg5COV/J36FshAxsDXHWjYHpA
+ AiUmrAGJgC+6bpHtPJ91GpikIXZvWoCf58F/wx/Maf3tEiuTgDWBCdYmuTmWm76qFZ
+ ixVPhN4Vgc4gPus7uXS+TQIEHS0U+vUyW/CRydvf1sljGu+krIWMlJug8tgjArJXIg
+ F7DQ6Ghd9T1w0hLj1Kg7uSNekothNNoEAZ89A8jICJ+tQK7ezkhjSVTRi4qPlaAWaL
+ siBq+jiAAonXw==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id 732C71077607;
+ by smtp.lore.kernel.org (Postfix) with ESMTP id D1246103E19D;
  Wed, 18 Mar 2026 21:28:54 +0000 (UTC)
 From: Cristian Cozzolino via B4 Relay
  <devnull+cristian_ci.protonmail.com@kernel.org>
-Subject: [PATCH v2 0/6] Enable new features for flipkart-rimob
-Date: Wed, 18 Mar 2026 23:28:08 +0100
-Message-Id: <20260318-rimob-new-features-v2-0-c1bf8917449e@protonmail.com>
+Date: Wed, 18 Mar 2026 23:28:12 +0100
+Subject: [PATCH v2 4/6] arm64: dts: qcom: msm8953-flipkart-rimob: Enable
+ WiFi/Bluetooth
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/22NQQ6CMBBFr0Jm7ZihRVBW3sOwKHWQSaQlLaKGc
- HcriTuX7yX//QUiB+EIdbZA4FmieJdA7TKwvXE3RrkmBkWqJE0agwy+RcdP7NhMj8ARSVenomi
- 1KRVBGo6BO3lt0UuTuJc4+fDePub8a3+547/cnCOhMcpqTYdKWTqPwU/eDUbue+sHaNZ1/QBlW
- AaquQAAAA==
-X-Change-ID: 20260303-rimob-new-features-037944b3a620
+Message-Id: <20260318-rimob-new-features-v2-4-c1bf8917449e@protonmail.com>
+References: <20260318-rimob-new-features-v2-0-c1bf8917449e@protonmail.com>
+In-Reply-To: <20260318-rimob-new-features-v2-0-c1bf8917449e@protonmail.com>
 To: Neil Armstrong <neil.armstrong@linaro.org>, 
  Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, 
  Simona Vetter <simona@ffwll.ch>, 
@@ -62,11 +60,11 @@ Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
  Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
  Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1773872973; l=3035;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1773872973; l=1054;
  i=cristian_ci@protonmail.com; s=20250620; h=from:subject:message-id;
- bh=2xLuSv2TiyFBIIeQDHg/5ze8Cep6E7OZsCQj+tAfpBs=;
- b=Sp6Ahl3vlrPi9YE8nTq0WsnIe5bYmDBTpnLvFvHfmih19ZlRdTAXgqzdfRmyTxfu+MIDjIFsq
- 6tjReHIZmvVCX5I4s5eupocnG5D2IwgX5oanCwJElfnDBpR3CtoOHLY
+ bh=6UxEpTqIgt97+bwFQnzTPs55o7CpwXQMc+N7/T2z61k=;
+ b=vNrlA/gZO2iPAgTwpJ1VBrVr7t5Hoeaf3zxKm/IvwbzkjokfieSQxjmygQ0DuHoHfPNUnM2qm
+ 5KSWzzjjGQRDoR+HgUfn9Km6kK4kL6iQCOm1gUk4PbBz0l6q+1bB2iD
 X-Developer-Key: i=cristian_ci@protonmail.com; a=ed25519;
  pk=xH5IvIPUNHV1Q8R0/pq2CfuVFR/wTiAyuyi6IwedjZY=
 X-Endpoint-Received: by B4 Relay for cristian_ci@protonmail.com/20250620
@@ -88,74 +86,43 @@ Reply-To: cristian_ci@protonmail.com
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This series enables a set of miscellaneous features for Billion Capture+ 
-(a handset using the MSM8953 SoC released in 2017):
-- Panel and GPU
-- Touchscreen
-- WiFi + Bluetooth
-- Hall sensor 
+From: Cristian Cozzolino <cristian_ci@protonmail.com>
 
-Patches 1 and 2 provide a driver for Novatek NT35532 and its corresponding
-devicetree bindings, required for enabling panel in DTS. The remaining 
-patches are all DTS changes, aimed to enable the features listed above.
+Configure and enable the WCNSS which provides WiFi and Bluetooth on this
+device using the WCN3660B chip.
 
-To: Neil Armstrong <neil.armstrong@linaro.org>
-To: Jessica Zhang <jesszhan0024@gmail.com>
-To: David Airlie <airlied@gmail.com>
-To: Simona Vetter <simona@ffwll.ch>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-To: Maxime Ripard <mripard@kernel.org>
-To: Thomas Zimmermann <tzimmermann@suse.de>
-To: Rob Herring <robh@kernel.org>
-To: Krzysztof Kozlowski <krzk+dt@kernel.org>
-To: Conor Dooley <conor+dt@kernel.org>
-To: Bjorn Andersson <andersson@kernel.org>
-To: Konrad Dybcio <konradybcio@kernel.org>
-Cc: dri-devel@lists.freedesktop.org
-Cc: devicetree@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
-Cc: linux-arm-msm@vger.kernel.org
-Cc: ~postmarketos/upstreaming@lists.sr.ht
-Cc: phone-devel@vger.kernel.org 
-
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 Signed-off-by: Cristian Cozzolino <cristian_ci@protonmail.com>
 ---
-Changes in v2:
-- (patch 1/6): define power supplies in the bindings as per datasheet  
-  and update example;
-- (patch 2/6): add blank lines where required between mipi dsi write
-  sequences in nt35532_on() function and make use of names for mipi dcs
-  commands, instead of hex numbers, to improve readibility (Dmitry); 
-- (patch 3/6): move pinctrl lines ibto panel node and get rid of
-  sleep/reset state, since panel just uses one pinctrl state for
-  default/sleep (Dmitry). Also, update power supplies according to
-  bindings; 
-- (patch 4/6): pick up tags (Konrad,Dmitry);
-- (patch 6/6): squash hall sensor node into gpio-keys (Dmitry);
-- Link to v1: https://lore.kernel.org/r/20260308-rimob-new-features-v1-0-aa2c330572c0@protonmail.com
+ arch/arm64/boot/dts/qcom/msm8953-flipkart-rimob.dts | 15 +++++++++++++++
+ 1 file changed, 15 insertions(+)
 
----
-Cristian Cozzolino (6):
-      dt-bindings: display: panel: Add Novatek NT35532 LCD DSI
-      drm/panel: Add driver for Novatek NT35532
-      arm64: dts: qcom: msm8953-flipkart-rimob: Enable display and GPU
-      arm64: dts: qcom: msm8953-flipkart-rimob: Enable WiFi/Bluetooth
-      arm64: dts: qcom: msm8953-flipkart-rimob: Enable touchscreen
-      arm64: dts: qcom: msm8953-flipkart-rimob: Enable Hall sensor
+diff --git a/arch/arm64/boot/dts/qcom/msm8953-flipkart-rimob.dts b/arch/arm64/boot/dts/qcom/msm8953-flipkart-rimob.dts
+index de287c8e9686..63e2c057319d 100644
+--- a/arch/arm64/boot/dts/qcom/msm8953-flipkart-rimob.dts
++++ b/arch/arm64/boot/dts/qcom/msm8953-flipkart-rimob.dts
+@@ -327,3 +327,18 @@ &usb3 {
+ &usb3_dwc3 {
+ 	dr_mode = "peripheral";
+ };
++
++&wcnss {
++	vddpx-supply = <&pm8953_l5>;
++
++	status = "okay";
++};
++
++&wcnss_iris {
++	compatible = "qcom,wcn3660b";
++
++	vddxo-supply = <&pm8953_l7>;
++	vddrfa-supply = <&pm8953_l19>;
++	vddpa-supply = <&pm8953_l9>;
++	vdddig-supply = <&pm8953_l5>;
++};
 
- .../bindings/display/panel/novatek,nt35532.yaml    |  80 +++
- MAINTAINERS                                        |   6 +
- .../arm64/boot/dts/qcom/msm8953-flipkart-rimob.dts | 139 +++-
- drivers/gpu/drm/panel/Kconfig                      |  11 +
- drivers/gpu/drm/panel/Makefile                     |   1 +
- drivers/gpu/drm/panel/panel-novatek-nt35532.c      | 779 +++++++++++++++++++++
- 6 files changed, 1015 insertions(+), 1 deletion(-)
----
-base-commit: 8e5a478b6d6a5bb0a3d52147862b15e4d826af19
-change-id: 20260303-rimob-new-features-037944b3a620
-
-Best regards,
 -- 
-Cristian Cozzolino <cristian_ci@protonmail.com>
+2.53.0
 
 
