@@ -4,41 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0B30B10854DC
-	for <dri-devel@archiver.kernel.org>; Wed, 18 Mar 2026 09:40:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4FC4710854DB
+	for <dri-devel@archiver.kernel.org>; Wed, 18 Mar 2026 09:41:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 75D2010E78C;
-	Wed, 18 Mar 2026 09:40:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AA66910E78A;
+	Wed, 18 Mar 2026 09:40:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="rtGQSrON";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="VRX2j7y+";
 	dkim-atps=neutral
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 901BD10E78C
- for <dri-devel@lists.freedesktop.org>; Wed, 18 Mar 2026 09:40:07 +0000 (UTC)
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A033810E78A
+ for <dri-devel@lists.freedesktop.org>; Wed, 18 Mar 2026 09:40:58 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-04.galae.net (Postfix) with ESMTPS id 922E4C55069;
- Wed, 18 Mar 2026 09:40:30 +0000 (UTC)
+ by smtpout-02.galae.net (Postfix) with ESMTPS id 925391A2EA3;
+ Wed, 18 Mar 2026 09:40:57 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 2745B6004F;
- Wed, 18 Mar 2026 09:40:06 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 65B9F6004F;
+ Wed, 18 Mar 2026 09:40:57 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 7EDDF1045072A; Wed, 18 Mar 2026 10:40:02 +0100 (CET)
+ with ESMTPSA id BB5AA1045074A; Wed, 18 Mar 2026 10:39:52 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1773826805; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ t=1773826795; h=from:subject:date:message-id:to:cc:mime-version:content-type:
  content-transfer-encoding:in-reply-to:references;
- bh=gw9IiX9wHuJVqEPWrO12es2autsBEVAbQ9Q/0yqHv7s=;
- b=rtGQSrONPEXimZ2BBvhYe4h5DGLpaG/xtUhrhCIGE1xA66fNpUcHkeIVfaxKOh+b38TbND
- SDPCdVm3z6YSzP12ZojCFqAWdhuChGYrEU54rV0vlfiZ2a4ZmLkVcy7mgGcJ/10692N3cG
- NYEyRqVIbNeJ2RYgiJ6p7etj7iJvVHiJZI/oifkqKhcEf5li6fnsrpVmjgCdyfK7jq0ZdT
- DIQ2fbEQ1aqZPSUoeaH1THYkeeJ/U1/2q0vpowhR1G9bAtvkV0M2hI4rQpt0Xr83m+9Vq/
- +S1l1xzpi8QvpNAvOrCiV+wRyemVkQ4URGJAPw0M9Ir1+cBdePhdY8ly0yY6RQ==
+ bh=MP/iWAakjmG3b9NZZKNKYynkJykCtkT3XZdZkipyFNU=;
+ b=VRX2j7y+yGFj268YoXTVxObgY8v6hlNpSe7RZchKlQEK9s8y4mP6XVNZRpfQke4cv8q1rx
+ h93govWf/CynHPZAoEp95IJoElMAC6TJ4WUUqJrDvPHqu2mANRBYnYbiWsYPkGLb9IWE3x
+ Vfcc9AXEArF0ZxUCegA2eFwdXCeSn7+exmdVlvAP38VM9mySffATzsnPmKSlnkomzghKqM
+ vRwD+JrnjO/eObvp181T4hfTj6S5LtJnE5aa9U7i8K4a/2UpAa32qDxFDDYFvPjT+PcZGl
+ F8ADhopKy5TqXpeHu+odAuXINzDm0hRn2cMXgvyEtarlPGVhidxfHlIt4gldrg==
 From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Date: Wed, 18 Mar 2026 10:39:38 +0100
-Subject: [PATCH v3 4/4] drm/omap: dss: convert to of_drm_find_and_get_bridge()
+Date: Wed, 18 Mar 2026 10:39:35 +0100
+Subject: [PATCH v3 1/4] drm: renesas: rz-du: rzg2l_du_encoder: convert to
+ of_drm_find_and_get_bridge()
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260318-drm-bridge-alloc-getput-drm_of_find_bridge-4-v3-4-10f502520357@bootlin.com>
+Message-Id: <20260318-drm-bridge-alloc-getput-drm_of_find_bridge-4-v3-1-10f502520357@bootlin.com>
 References: <20260318-drm-bridge-alloc-getput-drm_of_find_bridge-4-v3-0-10f502520357@bootlin.com>
 In-Reply-To: <20260318-drm-bridge-alloc-getput-drm_of_find_bridge-4-v3-0-10f502520357@bootlin.com>
 To: Biju Das <biju.das.jz@bp.renesas.com>, 
@@ -78,74 +79,61 @@ of_drm_find_bridge() is deprecated. Move to its replacement
 of_drm_find_and_get_bridge() which gets a bridge reference, and ensure it
 is put when done.
 
-omapdss_device_init_output() can take one bridge pointer in out->bridge or
-two pointers in out->bridge and out->next_bridge. Ensure each has a
-corresponding drm_bridge_get() and add drm_bridge_put() calls in the
-cleanup code.
+This is made somewhat simpler by the fact that 'bridge' is a local
+variable.
 
-Also slightly change the initial code assigning out->panel and out->bridge
-to ensure and clarify that either out->panel or out->bridge is set in the
-function prologue, not both. If both were set, the 'if (out->panel){...}'
-code that follows would overwrite out->bridge without having put the
-reference.
+However we need to handle both branches of the main if().
 
-Finally, take a reference in case a panel_bridge is added using
-drm_panel_bridge_add(). This ensures we always need to put a reference,
-which came either from of_drm_find_and_get_bridge() or by the
-drm_panel_bridge_add+drm_bridge_get() branch.
+In the 'else' case, just switch to of_drm_find_and_get_bridge() to ensure
+the bridge is not freed while in use in the function tail
+(drm_bridge_attach() mainly).
+
+In the 'then' case, devm_drm_panel_bridge_add_typed() already increments
+the refcount using devres which ties the bridge allocation lifetime to the
+device lifetime, so we would not need to do anything. However to have the
+same behaviour in both branches take an additional reference here, so that
+the bridge needs to be put whichever branch is taken without more
+complicated logic. Ensure to clear the bridge pointer however, to avoid
+calling drm_bridge_put() on an ERR_PTR.
 
 Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 ---
- drivers/gpu/drm/omapdrm/dss/output.c | 11 ++++++++---
- 1 file changed, 8 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/renesas/rz-du/rzg2l_du_encoder.c | 14 ++++++++++----
+ 1 file changed, 10 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/omapdrm/dss/output.c b/drivers/gpu/drm/omapdrm/dss/output.c
-index 7378e855c278..ca891aba3820 100644
---- a/drivers/gpu/drm/omapdrm/dss/output.c
-+++ b/drivers/gpu/drm/omapdrm/dss/output.c
-@@ -30,11 +30,13 @@ int omapdss_device_init_output(struct omap_dss_device *out,
- 		return 0;
- 	}
+diff --git a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_encoder.c b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_encoder.c
+index 5e6dd16705e6..9b65bcefdb86 100644
+--- a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_encoder.c
++++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_encoder.c
+@@ -67,7 +67,7 @@ int rzg2l_du_encoder_init(struct rzg2l_du_device  *rcdu,
+ {
+ 	struct rzg2l_du_encoder *renc;
+ 	struct drm_connector *connector;
+-	struct drm_bridge *bridge;
++	struct drm_bridge *bridge __free(drm_bridge_put) = NULL;
+ 	int ret;
  
--	out->bridge = of_drm_find_bridge(remote_node);
- 	out->panel = of_drm_find_panel(remote_node);
- 	if (IS_ERR(out->panel))
- 		out->panel = NULL;
+ 	/*
+@@ -83,10 +83,16 @@ int rzg2l_du_encoder_init(struct rzg2l_du_device  *rcdu,
  
-+	if (!out->panel)
-+		out->bridge = of_drm_find_and_get_bridge(remote_node);
+ 		bridge = devm_drm_panel_bridge_add_typed(rcdu->dev, panel,
+ 							 DRM_MODE_CONNECTOR_DPI);
+-		if (IS_ERR(bridge))
+-			return PTR_ERR(bridge);
++		if (IS_ERR(bridge)) {
++			// Inhibit the cleanup action on an ERR_PTR
++			ret = PTR_ERR(bridge);
++			bridge = NULL;
++			return ret;
++		}
 +
- 	of_node_put(remote_node);
- 
- 	if (out->panel) {
-@@ -49,7 +51,7 @@ int omapdss_device_init_output(struct omap_dss_device *out,
- 			goto error;
- 		}
- 
--		out->bridge = bridge;
-+		out->bridge = drm_bridge_get(bridge);
++		drm_bridge_get(bridge);
+ 	} else {
+-		bridge = of_drm_find_bridge(enc_node);
++		bridge = of_drm_find_and_get_bridge(enc_node);
+ 		if (!bridge)
+ 			return -EPROBE_DEFER;
  	}
- 
- 	if (local_bridge) {
-@@ -59,7 +61,7 @@ int omapdss_device_init_output(struct omap_dss_device *out,
- 		}
- 
- 		out->next_bridge = out->bridge;
--		out->bridge = local_bridge;
-+		out->bridge = drm_bridge_get(local_bridge);
- 	}
- 
- 	if (!out->bridge) {
-@@ -79,6 +81,9 @@ void omapdss_device_cleanup_output(struct omap_dss_device *out)
- 	if (out->bridge && out->panel)
- 		drm_panel_bridge_remove(out->next_bridge ?
- 					out->next_bridge : out->bridge);
-+
-+	drm_bridge_put(out->next_bridge);
-+	drm_bridge_put(out->bridge);
- }
- 
- void dss_mgr_set_timings(struct omap_dss_device *dssdev,
 
 -- 
 2.53.0
