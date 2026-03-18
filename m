@@ -4,143 +4,125 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EFB1CFCD0CE
-	for <dri-devel@archiver.kernel.org>; Wed, 18 Mar 2026 08:07:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B0D4FFCD0D2
+	for <dri-devel@archiver.kernel.org>; Wed, 18 Mar 2026 08:21:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3E32710E707;
-	Wed, 18 Mar 2026 08:07:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0A4CA10E737;
+	Wed, 18 Mar 2026 08:21:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="rVZ38BO2";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="FLDrvCrg";
 	dkim-atps=neutral
-Received: from OS0P286CU011.outbound.protection.outlook.com
- (mail-japanwestazon11010020.outbound.protection.outlook.com [52.101.228.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A1F8410E707
- for <dri-devel@lists.freedesktop.org>; Wed, 18 Mar 2026 08:06:59 +0000 (UTC)
+Received: from CO1PR03CU002.outbound.protection.outlook.com
+ (mail-westus2azon11010032.outbound.protection.outlook.com [52.101.46.32])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0E4B910E737
+ for <dri-devel@lists.freedesktop.org>; Wed, 18 Mar 2026 08:21:42 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Hsnx4/i2w6JtUi4aFbvPoCW8baOHsDUcLfa6La1JRgm1qkinfwPTIIuDUOVJMv+gTF9grvRfFUSkK1Q5BBFbCdPV/wiXuzHiBxwZFc0ht4UZWxq5ZUBbZ//wJzX3whNZo3+yBxzQxKTsVOEpBKdaEcdJxWOdTpJw17SNOIXI2URva+H7KXkdN1d7m3HZF2jzAU1O6iIYDCelwyHc5dYrxjElOd8SMkn+dsLiG2Fr0140aP+XaMW/+bjpJUreGoE6N/qVVS1o9cY9sCIr5GYiRUa6gbTMQkhlAu+Wuk2WGAHsIjqKZU2TiOToN88Z2LLp6AJehDT5DyX85Ghin8oxAg==
+ b=jEc9b2v+ZDo2uaDh4q43NssfLDpq4CDYLq6oRNMIwFz+Kec0XZINIc0O4l7ZFv0xJAygiWoLqcj1nmNEjDkFPkprZ1QCnRMmyS15/qOQ5GpS9oAaC6nz3HFEKlgEvam7hV4LGnJ/cwqS9Jd2NpYBsZmWKIE9qtq1r9r4lnpfBeHWalGz6TITE1EFZXcm+BuRvkczT400hzivAP3sB5ICeur8rzQwFXVLWfwo7G44FvbZ+rubXrhoXEnrAXJU9zOaBkLVdJeXMpeY6riQ/fSesh+rfsws/U1B8qBuio9NJUjGBjGwbVwO7jQQd0DvQyI9uL2ZRPz4O33Mog+3M7m6Og==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=BXxOoHLaIuWa1nDmYmU4caNHPjGDLUYL4g6WO8qzpZo=;
- b=b9KhLpYUtgb24eXFk48GFFQeQ+hOBIjIYq4FEJmdvhFSxxdVu7Mp8B8c28q/kF1lWDWa799sEgAj18GP9pntlGzGTnzJ8Se4Y4lYJTWU/NjwIPInHMc0gvKtKSHo6wE3Ej3eXw4cjq+4RdhznNW+Ex02Ks88/6c4RaYq0roicWLfgojgbjdPaJdbaHgjy4PP5oF0R6vnegmw9LRhBfddD8+FoKBf517x6qwPu+X38F7DCSnho97x7gpdQ+af65h2QE/1nkIQYQ3kPxQYppSGQexXg2e5MceOasH9YCPNXKLwZ4YxiEBUc9aUGTln2rxwoyU/4sSQF1BmTkhjW0RFeA==
+ bh=clmqi+7yDCnyreBPUAIP/mNVfOPKtXF2ycLUwzk6Ap8=;
+ b=IS0k1msay6bF/LgR3U57RHyhA2yaIFiJDAXj32D9eU8vBDXRs1zWCUJdNi9wa8eRUHYUbMy537L/dXcvc17i4ctjGvf9qWtaYoAcL3eO8x0XLvKi3Qdk003V0HVjzlOyrM9e18nnWIgmus+gdt8mSmo9BPiJpYlGA6RytH4QjDBQvh6oQU74YKO/ZFVndS36y8BOBa2iuC4BLe0/aLMYhiACwWX06+Ze8kYmDshf0yq7qerFJVUZPItB1WItasnsbNS4nsGt4vaho0P6t84pDHYwy0EVWMLBE9l+95SwV+EV351A9Up5NTPYyzcEt+JdXk+2KpWKryqOIphDOrbKNQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
- header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
- s=selector1;
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=BXxOoHLaIuWa1nDmYmU4caNHPjGDLUYL4g6WO8qzpZo=;
- b=rVZ38BO28K3V0IGooUiWyr+d09DWTYeemPSiiy1BY7GNDPTA7NjsMgPhxVy/8Qc/CqzPbWbZ0Nl0V68eaMo8lL6+rGZKFzGgSVqFHVgXo9FzfdjoDUc66Tbb59AMcUhzKF/Uizwe5ZuWu69NaZelHsMto+Jya6RpFGr8FgoPYas=
-Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com (2603:1096:400:3d0::7)
- by OS7PR01MB11441.jpnprd01.prod.outlook.com (2603:1096:604:245::9)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9700.25; Wed, 18 Mar
- 2026 08:06:55 +0000
-Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com
- ([fe80::87d1:4928:d55:97de]) by TY3PR01MB11346.jpnprd01.prod.outlook.com
- ([fe80::87d1:4928:d55:97de%4]) with mapi id 15.20.9723.018; Wed, 18 Mar 2026
- 08:06:55 +0000
-From: Biju Das <biju.das.jz@bp.renesas.com>
-To: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>, Tommaso Merciai
- <tomm.merciai@gmail.com>, geert <geert@linux-m68k.org>, laurent.pinchart
- <laurent.pinchart@ideasonboard.com>
-CC: "linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Maarten
- Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Geert Uytterhoeven <geert+renesas@glider.be>, Michael
- Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>,
- magnus.damm <magnus.damm@gmail.com>, Laurent Pinchart
- <laurent.pinchart+renesas@ideasonboard.com>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "linux-clk@vger.kernel.org" <linux-clk@vger.kernel.org>
-Subject: RE: [PATCH v5 11/20] drm: renesas: rz-du: mipi_dsi: Add out_port to
- OF data
-Thread-Topic: [PATCH v5 11/20] drm: renesas: rz-du: mipi_dsi: Add out_port to
- OF data
-Thread-Index: AQHcnQX6QRn9VDLlIUu6i6kMHzIo37Wy3jzQgABPRYCAAPSq8A==
-Date: Wed, 18 Mar 2026 08:06:55 +0000
-Message-ID: <TY3PR01MB11346C024654B8AAF3A877F04864EA@TY3PR01MB11346.jpnprd01.prod.outlook.com>
-References: <cover.1770996493.git.tommaso.merciai.xr@bp.renesas.com>
- <54edf1fa30f571686b55a4d67a2b100089739d10.1770996493.git.tommaso.merciai.xr@bp.renesas.com>
- <TY3PR01MB1134613D59A93FC741A3715678641A@TY3PR01MB11346.jpnprd01.prod.outlook.com>
- <361e3831-d2aa-4471-8b19-34af661fa351@bp.renesas.com>
-In-Reply-To: <361e3831-d2aa-4471-8b19-34af661fa351@bp.renesas.com>
-Accept-Language: en-GB, en-US
+ bh=clmqi+7yDCnyreBPUAIP/mNVfOPKtXF2ycLUwzk6Ap8=;
+ b=FLDrvCrgTfVKt0FoAOjgVvLIhpnrnFvMZQ3rQUyrYrn+MFKNTVQWQkZIwmVZgJ8sn69RMRb3gzkMRSX0hlFXeihV4Zd978WbgtYD10U8KoYd3rkk5KJrSfZzLemHdP7jmWJqGbnQQCV14BUuACCBWjtm7YJitnZztCiWamlt5SU=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by DS0PR12MB6581.namprd12.prod.outlook.com (2603:10b6:8:d3::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.19; Wed, 18 Mar
+ 2026 08:21:38 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.20.9723.016; Wed, 18 Mar 2026
+ 08:21:38 +0000
+Message-ID: <3e7ce7bb-75ab-4f73-8a5d-dabd5d56cd61@amd.com>
+Date: Wed, 18 Mar 2026 09:21:34 +0100
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] dma-buf/dma_fence: be more defensive in dma_fence_release
+To: Boris Brezillon <boris.brezillon@collabora.com>
+Cc: phasta@mailbox.org, aliceryhl@google.com, gary@garyguo.net,
+ lossin@kernel.org, daniel.almeida@collabora.com, joelagnelf@nvidia.com,
+ sumit.semwal@linaro.org, dri-devel@lists.freedesktop.org,
+ linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org
+References: <20260317144825.2318-1-christian.koenig@amd.com>
+ <20260317162147.4a7f03ff@fedora>
 Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=bp.renesas.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: TY3PR01MB11346:EE_|OS7PR01MB11441:EE_
-x-ms-office365-filtering-correlation-id: fdcb7cd2-991d-4f7b-d223-08de84c55250
-x-ld-processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|1800799024|7416014|376014|366016|18002099003|22082099003|56012099003|38070700021|13003099007;
-x-microsoft-antispam-message-info: IqNkmgKBi6bVJxv6tH2E6OXXPCT+hnomV7v5vGYm+MqROzAozgik4H9PVv9ysszq7jnmByJwQZp9LIvubS1YQYY7cJYVrDPzIzgWO4MzmkmYX7sN3J9/ADVGlnzo7LUgfWif2cdS2m88OKzLNUWoEZBymHc51iPIhJiMrMdeIy52o2irz/TIDCXIG6CfusXoNAb1Gokn6BkeuMrEQKWapnXu0It7B5upFsNzytE0xuk7TPd3UjDEY+BGeAAqbTV5IPnkLs4FakAW4FtgTHQ779vIchIk3XyUFCepcweH4fkvFgfZeCOmH9eQ8SuKd0lNCdyFEb6VrCqMtJDvNPDLitJVW6GzR3mA2PApSj2fqBrqxwRqLIt31NWA+/Xz89LEJ+f1erE8LrwWF6PU+XTaXchzVvVIeWwn0wSRb8XtGv7q7d5T9xRKy9Yk8qabfHEnGUadKxWKfIMoBcSJsQwb1cq5RFXeI4MhhwIVVn0qkaU7j+Hk5EBndNO+Re34qpaXEQKI/zavoMUaYIn0sQrKfUHXyMloeFUS1pdMpxcH3ifyf+sRDftva9RttTbK2ENvGYKUPDqL8aAq8FeyP4cGJy1vUZ4AnUDQSiNd5nnzkPr4r6abvfXM4yTM36iSmrjAe27Xckw+OPTadRgsucD9CGsX54Dd+5aC4aAgPKRDasIgBpibg9+s6lBwq127vOC6Bx3HQlz3n5F/Ru0i2tl5OxoQqbV4iWjEvxgs1qMI+MuksigZIHk71V5bLnj7XSS7IOF0pkFHLt7JWZlhJIixO7nKk1YY3u33vD4UuvsrRKY=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:TY3PR01MB11346.jpnprd01.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(7416014)(376014)(366016)(18002099003)(22082099003)(56012099003)(38070700021)(13003099007);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?QjJxdW1CZFVjM1Z5czNjMENLTDJ5YzZhMUZ2Wjkvd1RyTks4MEZzcnlGb1hU?=
- =?utf-8?B?YUpTUG5KcFdaZFZlaVZDWlpQU3A2R0dSU3ZqWmFiVUtqT0x3Yk9WNDEyeHJv?=
- =?utf-8?B?T1ZhOVg3OTVsRVVRSkF3cndtNlN6VmR3SjRNWTl0bWVkY1U2SUlsU0FFVTBh?=
- =?utf-8?B?Q3IwSWFieXJ0SWswK1lyTC9MUUJ0dGxubUZhOGlibzh2L0cyaXRYRFZmNWFr?=
- =?utf-8?B?Mlp3M3IyN290cjlRRklvaGsvdWtNMlBrYjdHa2gyQzNBYy9hUU1SYVRCckIv?=
- =?utf-8?B?ZjJLTDc4M2R5OGs3cUVSQXBZSzlabUxIVkhLM3N1UjZKaENsdXFuY0M3S3ky?=
- =?utf-8?B?eWUwaFQxSHhNOWl3YkxBYlpLN1dkMXJaMk43Ukw2b2hLNWZscU16ZTI2anM0?=
- =?utf-8?B?MFEwMWFSOHhwcTIxSFNDTS8rNTVoaXFTV0h1UmZPVnlkWUZtS2h2Vy95MWVx?=
- =?utf-8?B?dGtSUEZtcXA4ajBwRElpNEpna0xSeHBhT1k0TmhRQi9jQ3dOOWtRNEROOVA0?=
- =?utf-8?B?bTV6bE1XZkJ3aWJmdFF5WmhWQ2gvbS9TOVNLM284R0pqK3RHS21XYkZzOVBJ?=
- =?utf-8?B?UlpzWkdHRTYrSW5tQVYyY2p4L1JLYWJCRDJxUUV2S3l6dkN4ejV6UEJVSnEv?=
- =?utf-8?B?N21yTHFzb1R1YldRYjZ2ZU5aaDkyRkJKVGRLeU9jRGIwZzhPdmVpM09zM3BR?=
- =?utf-8?B?aTFMcnFsbmc1dm1oUXNEbDFicGVIK2NYU1MrU1lRci9mYUlWKzBMK3gzdFE3?=
- =?utf-8?B?MzZtNFNidVo4R1lCM2d2WUVNNk5rRzVwNzFvMkVUSHVFODlPaTgzbm0xRnFa?=
- =?utf-8?B?eHI5MFR1RFhPVzBwc0NLUkYzTzVZT3hIMHMvS3NGeWowbnlsaXV0Q0FTc0VW?=
- =?utf-8?B?N3FqaEswSjZYSXpuZ0U1MHA0Rk9MMEFiaGNESG1IeUE4Zy9aSWJ2cGR2bzQv?=
- =?utf-8?B?ZG9hcDQ1ZEZ1ZnBCRU5XcFRiS0VqYlFpNUtnOHc4L28rbTBwVEo5bXdzY05X?=
- =?utf-8?B?d0ZYMUxObGpwWkplRWpKYmIwMzNHb3VEZ3RYTVRtK3hIS2txZ2d1YzJwaDB0?=
- =?utf-8?B?NURIdWFOQVZkcENpbklLYzBMUU1XRklKcE5RWGh1b2k4bmg3UFVta09uUXk5?=
- =?utf-8?B?RlR0R2lZeEVydW52dG1iUTJFWFU4YThrZmxnNzdQUkJObFc4WWdybnIxL0R2?=
- =?utf-8?B?eUNNbHBodGZaQy9EdEpWRGFabWtUS2h3TmF0OGNZcU5zRHMxL2VucUtyRUNY?=
- =?utf-8?B?aHd6c1A0ZUZVN3FrcmVxQXlnMjU2ckcram5SL1NBS3ZSYnFiMmc4Y2s3OW9k?=
- =?utf-8?B?VE9lNzMvSGlPMnU3QmFuYVFCUnBuVTc1bGorMGpZdUtTL3VoRWdyUmZJaWlp?=
- =?utf-8?B?TUg3ZHV5bi9YOWQxbEJFK0N6V0YxNnlNOWN3elh1S2Zob1dLOWpZOWsvM3Vk?=
- =?utf-8?B?aVh1S2VLalNobWtqRUtzekZsTG8vT084eTNZUDJjUmk5M2JFakNYYzZUVkF4?=
- =?utf-8?B?VWNZemxRMHBDZTZvUWk5UmVIMWJVKzVBQTNoUUlFNjM2aWdiSmpPaVhjemNH?=
- =?utf-8?B?S1pUMUhRSFhlb2tJT1FZRUVabXAySTkwNFlxcnpNRFdDek9FWkVobVhjVmNM?=
- =?utf-8?B?VUJBeXRmbXJuLzd0ZHVTakZGOEcxdjQ5SkVYYnovSDNVTWVZM3RxNDJUVWxm?=
- =?utf-8?B?RURidkppSml0aFpGaENaSzlZa1NlTkVNRkM4V014M1l3T0VUdzlXRTlUbEF1?=
- =?utf-8?B?cWVPajRnOGJYanlCWk5uRUxONjhCdDhtTDRDV2pFMjRZU3IzZ3ExRTJjR0dC?=
- =?utf-8?B?VUpnUkxTbnZnWFk3L3JTSS9CUEh1emZKUmFpRWR2OE93d1ZrblZERE1kVm80?=
- =?utf-8?B?K3pkc1BRMlV1M2dUVlpqUEh3OEtaci85VUgzUkM5cGlSNUFCdEZZcHE5dlBw?=
- =?utf-8?B?b0Z2S2V6QS84NkU3WlV6YXNWUEJmSUpqZzNycm1Na0dBZFFWNUREY2xLRHFP?=
- =?utf-8?B?dTAwKy9qSWFxcWtsWEZ4US9COWUzMUprMG05cnp2allrbjFBOTFBZlZIckNT?=
- =?utf-8?B?TExCazkvZUZUQjl6YmZuOXA0Tk42b2hZZWZLcnJwQ01TNEN4RFdwRHF1c3BM?=
- =?utf-8?B?NkFhdDlQU0xlWWZTcHNUeWRTNS9pckFGRXhYcHA1aHhoZ0tOdFkvcDh6ZkZH?=
- =?utf-8?B?M1NCeGV6WlorVXE0b1EzcC94cWhGWEJiU2cwQjV5dTBzK2haRFQva1plWWRZ?=
- =?utf-8?B?Tjd1RmtIN0ozU2RiYXg1dW5LRzgzb3U2ODhMWU9BZ1dvWlp4aVV6ak1aajM2?=
- =?utf-8?B?R0Q3WDBjUFJDWDRXU2dFSno5WURZWEM1UHMvVDRyRGlmRmNWS1hwUT09?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20260317162147.4a7f03ff@fedora>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: BN9PR03CA0953.namprd03.prod.outlook.com
+ (2603:10b6:408:108::28) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 MIME-Version: 1.0
-X-OriginatorOrg: bp.renesas.com
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DS0PR12MB6581:EE_
+X-MS-Office365-Filtering-Correlation-Id: ede7a74f-5708-432a-e6fc-08de84c76038
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|376014|7416014|1800799024|18002099003|56012099003|22082099003;
+X-Microsoft-Antispam-Message-Info: 3diwPPhckn6PEGAZAptmjeavQbqBRlfPBIf0hDWpZ/CCdrCZGOkV366ruUOGtht519Fo4LvSti5gSyww0Eb77fBsy03/zS8My4L6piI8XACRmJB1mj7y90oVVp4/EuPnuM9YOmLuKuds0ubkO5VsIl4a5cFaYy2LlrluxnJoWKvU9icf18foc8kBBGo5deifuEZuq0FIMzkS07AZlw3iHgY6K+qSIJlru//BI+PomD7JPk138f+BSuYWyBSZv/81DNJAQrmf7LJFOEGhN6u69x84t7LK42itd7o2mazfg9L2TOYWoGFx2sYuSKj48guaITNcKLLKZAHmcwWBsGHTqb8irQ9A1sOQ9m4o2EXJ/1VDuWzpktNANcuDd9z4uFBcnXyzgxpdkxFRAlU3DxuJxngFrN8K9aeusg98vvc6iZwiPkKiR81fibA+TFICZVUs9PsYCrWWsaPortSCQnnHYd28dDtDmLHKd/q494m9k438OhUeZb77ypMEsfiSfmpFXWPTJwEYLZvEMLLPejxnM9CfoRVjxZUtck+qBFwwUcgqzpB3PlQXtY7NpbyDbDwrIL2+YuWKq/Yy3lHD0cbPooo3x6GQN7/1E8PX6oX6pR4uoxlaCoMXL8pM7CygDTPnaUyLsuu9VpR/Afuum1Gtvfh9/PIakBCF50SQBEF6RjnMxVS5BbLoxixuRKf7E2u9sxUwKQb+owlNYyScCOXyV+nbw3MUJDpIK4ieUgseYZ0=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(376014)(7416014)(1800799024)(18002099003)(56012099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Mmlua0FWbmJVOXBDQXljeUdsRzVvcHBIRUV3M1VKenFucXdPUU9JSi9ZOTZy?=
+ =?utf-8?B?clozM1dtRkZma01teUFsWWVzbmRRaDd1L1daOURlQ0R6V2JCd3B1cDBwN1JW?=
+ =?utf-8?B?NVRsbVpTaW9DemlkMVJRbHVLeUZVeVlhZnJETktSQkxSbG9ZT3hEejV3UVMz?=
+ =?utf-8?B?MG1Fdk1DS0JtNWp1Sk5tOW90cmlVM1FaTHRyd2JNdi9qNDRUMTQyalppUUdX?=
+ =?utf-8?B?eVRpblU0dFAzcVVBd1cvNXFZcmF4OVVBY2UzdjFod2J1cmRqR21FTHNMZDNn?=
+ =?utf-8?B?c1hzY3FFUFo4elo3ZzdaRU5VMUw3c2RvdlN6dWFLRlA5Z285YmlZWU8yV2pn?=
+ =?utf-8?B?Y2d1aml0TU5lVkovSHRTRUFSZDBkZm56ek11eExmZ3l1MExSUTJZaDlXOXBW?=
+ =?utf-8?B?SmcrZ2lPb2krb2RaNXAwM0I1T1lyc0hPSFJSbUNCQkZlMFRYblNjdEVYYU9U?=
+ =?utf-8?B?aDd0OXpIY1A4aVRNdTFZNFFGUWdUeGtqWHhaNVZPQ2dvVzlTbUNkOFNIZTZv?=
+ =?utf-8?B?UXRrRWFEVnZLb1hkcFBsOXVBTGsydjZTQ0FHK3RwVkQ2RG9GeVNIRTAwOTZX?=
+ =?utf-8?B?ZU5mWVE3aGl6RnBrOTY3Z090UUxHVFdpRG43TjMxelFSRU8zUit0bzA5NVZx?=
+ =?utf-8?B?cDdwYWkxcEJra2dJNUJYWjR5clFkdmsrcWltTzluTVpuMHlxcUpQTm5uam92?=
+ =?utf-8?B?bEtTK2JiTm1aU0dvczZqM1Vxd1k4RzlaZnJVSVpMUTZKLzFVKzU5bXZDUXlR?=
+ =?utf-8?B?VE1xQkhwK3pyTCtYNFUyWENsUjlLd0JKUWl1dmIvNlljZ3J1V1h2c0ZKV2tD?=
+ =?utf-8?B?ZDdodU5lbFYwTWhUak9rWkloNEtycCtaN3lvWVZWVmZQVk16UlZ2emFmVkNq?=
+ =?utf-8?B?L0tqcUVZcG1MQTV0VFRTbitSaCtiTGZYWFkyTUpjbTMyNGx0S1d2NWlpMFF3?=
+ =?utf-8?B?UmhQU3ZBbGRadlExSVh2RGdIQkNxZGlaVWZXQWV2dUxwNGtDWGpPUzE1cmlS?=
+ =?utf-8?B?bkJsUWhPbkpPQzZGL1N1RXlpUCtmWklTT1VpeXlOcXc0blQ1bmRjZWdScXY3?=
+ =?utf-8?B?SFNmVDlGaWF3dkFrUU1Bc3pEZ1FxWTdWN3NMaytUcW84NmlVY1JoMDd5b3Fv?=
+ =?utf-8?B?cE5YMU1iMnI0Q2NSN1VockdYeHI0c2Z6dDQreHJqQnEyZWFEM1dFa2RzZllR?=
+ =?utf-8?B?bWxVdkhacGJaYk9ZVG5kRFZYTDNQZGJyb3VuL0x1R1JMSkkrTkYrekVZSllF?=
+ =?utf-8?B?SXduM2h1ZHM4SXBnSDdkMjkvcXZia2p4ZVdWQ09EUHppbmsrdU9JN2lSQ0pM?=
+ =?utf-8?B?U01KMkIzZHFGQ3ZMWHBWYU9lVEc0VyttNzZnQ0dzRnJKOFN0SzNBeVNVY2U5?=
+ =?utf-8?B?bnpCYWl5amRCellIYWZsa0RPZXhrU09seE5FdDZVYXR6TVQ2K2kxbldzWnJV?=
+ =?utf-8?B?eFlDTWUwcTJrVUlWRVVzTjl2bVEzTUtvdDJlSktmS21VT01iN2o5OS9wTHZq?=
+ =?utf-8?B?dTVobUt4SUpBYzBFQTNMOXlYbEt3NnNoWTkwcWNzZ1lhd3ZlQ1lzb0I2ZkFt?=
+ =?utf-8?B?b1dlek5PRTBrcjhrZXlwWFVOZ2RCNGZIT0YxV2dKZUNLUXFBT0d0eWNpeEVl?=
+ =?utf-8?B?am1LazJONUtUVnJreEhUR05lUXlLOGMyeVlsbzFPSlI4Q05qcllrd1o5MFhG?=
+ =?utf-8?B?WTh6cmpDL2MvazE1Q0E0QUtubGw3TDh5NHV0bEx5ZUlpTDlVeDNmcXUySjFv?=
+ =?utf-8?B?MEFnUmlKbjZMNlVsU3JaOENxMDc3dFU3cm9zMmpqQVdXLzk1WWRYeEFGaExE?=
+ =?utf-8?B?NmZtdXk2eElxMmFDQnNLalZ0MFlpSDRvL1FvMHVBWnc3Y1dHUUhYdkpjYkN0?=
+ =?utf-8?B?dExjaExFTUtjdC8vcmFpTUxpWFlUdXJOb3NHTHllMC9RaU1aaFlvV0NlZHFB?=
+ =?utf-8?B?VnF5V0NCck03eUo3QmNYUjdJQXowZ2VTZVhnK2RLbDZxODIrQmpuZ1dtT0hy?=
+ =?utf-8?B?SDBDL3Jsa1ZZZm9PVTRqYUN6R0NDQ2I2Sms0bG16cUxjNjErTjgzRzNncHZo?=
+ =?utf-8?B?WjFYNDU5SERNRS9uN2ZOcGpLeVAzbytNdXE4S2Q0YWVSSmhSTVFUcEpJWUV5?=
+ =?utf-8?B?TXJVOThoUm05NDI1dkpnN09takwvSzVzVFdTQWErbVNxMG0zZXFoRThPekUz?=
+ =?utf-8?B?aWNiVUsxKzEydzc5NVM4VmFFdnAzcm5zU2ZZekU5SFF1WkRWV1kxaDF0SnBw?=
+ =?utf-8?B?OXFBdldBdkQzaytnSFRTQS8zM0JCbG5IOC9FRDRtTk9BMytGT3JCbnV6VW9D?=
+ =?utf-8?Q?LN21MoAGuqxbNU9Vou?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ede7a74f-5708-432a-e6fc-08de84c76038
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TY3PR01MB11346.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: fdcb7cd2-991d-4f7b-d223-08de84c55250
-X-MS-Exchange-CrossTenant-originalarrivaltime: 18 Mar 2026 08:06:55.7616 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: hfe1rm5eq3h9UYUKaWeESziVWJm9GwTvttHqADkhU3PGHTMQP/aWKB/RsGYgzyiU/npOtoRsbDKG0JvJgAOEUUNfDUGkRxTSmwNKFaNOAmc=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: OS7PR01MB11441
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Mar 2026 08:21:38.4676 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: bkUX1uO8rfQLUDt64voDQdpn5IcXFjhIfNZrxV1VLRiPQmwRbE7C3nE2kPDbzUOt
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB6581
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -156,29 +138,116 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-SGkgVG9tbWFzbywNCg0KPiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBUb21t
-YXNvIE1lcmNpYWkgPHRvbW1hc28ubWVyY2lhaS54ckBicC5yZW5lc2FzLmNvbT4NCj4gU2VudDog
-MTcgTWFyY2ggMjAyNiAxNzozMQ0KPiBTdWJqZWN0OiBSZTogW1BBVENIIHY1IDExLzIwXSBkcm06
-IHJlbmVzYXM6IHJ6LWR1OiBtaXBpX2RzaTogQWRkIG91dF9wb3J0IHRvIE9GIGRhdGENCj4gDQo+
-IEhpIEJpanUsDQo+IFRoYW5rcyBmb3IgeW91ciByZXZpZXcuDQo+IA0KPiBPbiAzLzE3LzI2IDEz
-OjUwLCBCaWp1IERhcyB3cm90ZToNCj4gPiBIaSBUb21tYXNvLA0KPiA+DQo+ID4gVGhhbmtzIGZv
-ciB0aGUgcGF0Y2guDQo+ID4NCj4gPj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4gPj4g
-RnJvbTogVG9tbWFzbyBNZXJjaWFpIDx0b21tYXNvLm1lcmNpYWkueHJAYnAucmVuZXNhcy5jb20+
-DQo+ID4+IFNlbnQ6IDEzIEZlYnJ1YXJ5IDIwMjYgMTY6MjgNCj4gPj4gVG86IFRvbW1hc28gTWVy
-Y2lhaSA8dG9tbS5tZXJjaWFpQGdtYWlsLmNvbT47IGdlZXJ0DQo+ID4+IDxnZWVydEBsaW51eC1t
-NjhrLm9yZz47IGxhdXJlbnQucGluY2hhcnQNCj4gPj4gU3ViamVjdDogW1BBVENIIHY1IDExLzIw
-XSBkcm06IHJlbmVzYXM6IHJ6LWR1OiBtaXBpX2RzaTogQWRkIG91dF9wb3J0DQo+ID4+IHRvIE9G
-IGRhdGENCj4gPj4NCj4gPj4gQWRkIGBvdXRfcG9ydGAgZmllbGQgdG8gdGhlIGByemcybF9taXBp
-X2RzaV9od19pbmZvYCBzdHJ1Y3R1cmUgdG8gc3RvcmUgdGhlIERTSSBvdXRwdXQgcG9ydCBpbmRl
-eC4NCj4gPj4gUlovRzJMIGFuZCBSWi9WMkgoUCkgdXNlIHBvcnQgMSBmb3IgRFNJIG91dHB1dCwg
-d2hpbGUgUlovRzNFIHVzZXMgcG9ydCAyLg0KPiA+DQo+ID4gV2h5IFJaL0czRSB1c2VzIHBvcnQg
-MiA/PyB3aHkgaXQgY2Fubm90IHVzZSBwb3J0IDE/Pw0KPiANCj4gSSB0aGluayBpbnB1dCBwb3J0
-cyBzaG91bGQgYmUgbnVtYmVyZWQgYmVmb3JlIG91dHB1dCBwb3J0cy4NCj4gQWxzbyB5b3UgWzBd
-IGFuZCBSb2IgWzFdIGFncmVlIG9uIHRoaXMgb24gYmluZGluZ3MgcGF0Y2guDQo+IA0KPiBbMF0N
-Cj4gaHR0cHM6Ly9wYXRjaHdvcmsua2VybmVsLm9yZy9wcm9qZWN0L2xpbnV4LXJlbmVzYXMtDQo+
-IHNvYy9wYXRjaC9iY2ZlODhmNTVjYTQyZjQ1YWFhM2EzNjRmMjkzYmQxNDliNzIxNzAxLjE3NzA5
-OTY0OTMuZ2l0LnRvbW1hc28ubWVyY2lhaS54ckBicC5yZW5lc2FzLmNvbS8NCj4gDQo+IFsxXQ0K
-PiBodHRwczovL3BhdGNod29yay5rZXJuZWwub3JnL3Byb2plY3QvbGludXgtcmVuZXNhcy0NCj4g
-c29jL3BhdGNoLzlhZTVjMGQ4MTdiYTY5NzA4NGJlOTAyMmFkN2ZhMjBlOWUxNjcwNzMuMTc3MDAz
-MDQ5My5naXQudG9tbWFzby5tZXJjaWFpLnhyQGJwLnJlbmVzYXMuY29tLw0KDQpUaGFua3MgZm9y
-IGNsYXJpZmljYXRpb24uDQoNCkNoZWVycywNCkJpanUNCg==
+On 3/17/26 16:21, Boris Brezillon wrote:
+> On Tue, 17 Mar 2026 15:48:25 +0100
+> "Christian König" <ckoenig.leichtzumerken@gmail.com> wrote:
+> 
+>> In case of a refcounting bug dma_fence_release() can be called before the
+>> fence was even signaled.
+>>
+>> Previously the dma_fence framework then force signaled the fence to make
+>> sure to unblock waiters, but that can potentially lead to random memory
+>> corruption when the DMA operation continues. So be more defensive here and
+>> pick the lesser evil.
+>>
+>> Instead of force signaling the fence set an error code on the fence,
+>> re-initialize the refcount to something large and taint the kernel.
+>>
+>> This will leak memory and eventually can cause a deadlock when the fence
+>> is never signaled, but at least we won't run into an use after free or
+>> random memory corruption.
+>>
+>> Signed-off-by: Christian König <christian.koenig@amd.com>
+>> ---
+>>  drivers/dma-buf/dma-fence.c | 18 ++++++++++++++----
+>>  1 file changed, 14 insertions(+), 4 deletions(-)
+>>
+>> diff --git a/drivers/dma-buf/dma-fence.c b/drivers/dma-buf/dma-fence.c
+>> index 1826ba73094c..8bf07685a053 100644
+>> --- a/drivers/dma-buf/dma-fence.c
+>> +++ b/drivers/dma-buf/dma-fence.c
+>> @@ -593,14 +593,24 @@ void dma_fence_release(struct kref *kref)
+>>  		/*
+>>  		 * Failed to signal before release, likely a refcounting issue.
+>>  		 *
+>> -		 * This should never happen, but if it does make sure that we
+>> -		 * don't leave chains dangling. We set the error flag first
+>> -		 * so that the callbacks know this signal is due to an error.
+>> +		 * This should never happen, but if try to be defensive and take
+>> +		 * the lesser evil. Initialize the refcount to something large,
+>> +		 * but not so large that it can overflow.
+>> +		 *
+>> +		 * That will leak memory and could deadlock if the fence never
+>> +		 * signals, but at least it doesn't cause an use after free or
+>> +		 * random memory corruption.
+>> +		 *
+>> +		 * Also taint the kernel to note that it is rather unreliable to
+>> +		 * continue.
+>>  		 */
+>>  		dma_fence_lock_irqsave(fence, flags);
+>>  		fence->error = -EDEADLK;
+>> -		dma_fence_signal_locked(fence);
+>> +		refcount_set(&fence->refcount.refcount, INT_MAX);
+> 
+> I'm not convinced this is useful. If we leak the object, no one should
+> have a ref to release anyway. This does raise a question though. The
+> case we're trying to protect against is fence_callback being registered
+> to this fence and waiting for an event to signal another proxy fence.
+
+Not quite. The real problematic case is that it is necessary to wait for a fence to signal with tons of memory management locks held.
+
+So it can be that a simple memory allocation cycles back and depends on the fence to signal.
+
+> How can the refcnt drop to zero in that case? Isn't the proxy supposed
+> to own a ref on the fence. Before we go further, I'd like to understand
+> what we're trying to do.
+
+Well we are in C here, so its simply coding errors. An unecessary dma_fence_put() in an error path is enough to trigger this.
+
+> The original discussion that led you to write this patch was about
+> detecting when a fence emitter/producer would leave unsignalled fences
+> behind, and the problem we have is when such unsignalled fences have
+> observers waiting for a "signalled" event. If the refcnt drops to zero
+> and the fence is released, we're already passed that point,
+> unfortunately.
+
+Well that is not quite correct.
+
+The most common problem is that we have unbalanced dma_fence_get()/dma_fence_put() and we end up in dma_fence_release() before the issuer of the dma_fence has a chance to signal it.
+
+See the main purpose of DMA fences is to prevent releasing memory back into the core memory management before the DMA operation is completed.
+
+So when a DMA fence signals to early it means that the HW is still writing to that memory but we already potentially re-using the memory ending in random memory corruption.
+
+UAF issues are harmless compared to that.
+
+Regards,
+Christian.
+
+> It can be that:
+> 
+> - the fence was never exposed -> this is fine
+> - the fence was exposed but never observed -> this is broken, because if
+>   it had been observed it would have led to a deadlock
+> - the fence was exposed, observed for some time, but the observer got
+>   bored, stopped waiting and:
+>   * decided to go and execute its stuff anyway -> use-before-ready
+>     situation
+>   * gave up -> kinda okay, but we should still consider the fence
+>     emitter broken
+> - the fence observer registered a callback but didn't take a ref on the
+>   object -> this is potential UAF on the dma_fence, which can also lead
+>   to a VRAM/system-mem UAF if the emitter drops the dma_fence without
+>   signalling, because of the auto-signal you're getting rid of in this
+>   patch.  But the latter is just a side effect of the dma_fence UAF,
+>   which I'm not convinced we should try to protect against.
+> 
+>>  		dma_fence_unlock_irqrestore(fence, flags);
+>> +		rcu_read_unlock();
+>> +		add_taint(TAINT_SOFTLOCKUP, LOCKDEP_STILL_OK);
+>> +		return;
+>>  	}
+>>  
+>>  	ops = rcu_dereference(fence->ops);
+> 
+
