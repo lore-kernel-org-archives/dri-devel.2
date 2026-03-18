@@ -4,64 +4,121 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C7F311077609
-	for <dri-devel@archiver.kernel.org>; Wed, 18 Mar 2026 19:35:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 715A5107760E
+	for <dri-devel@archiver.kernel.org>; Wed, 18 Mar 2026 19:35:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 421DA10E18D;
-	Wed, 18 Mar 2026 19:35:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D6A4510E79F;
+	Wed, 18 Mar 2026 19:35:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Rdh4GvnX";
+	dkim=pass (1024-bit key; unprotected) header.d=ti.com header.i=@ti.com header.b="OgtMdajj";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 960FE10E18D;
- Wed, 18 Mar 2026 19:35:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1773862541; x=1805398541;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=afMn9spXkrUU+N2aaHeBIllMcoSBOQY+2Duh84Hc3Lg=;
- b=Rdh4GvnX9Ff4NUHJSCYwr1UsRe+N3N6eBHbpX0ufHZvMPUKUX6PD/KtD
- vynCArtwk0lu3shIE2qend6v74C+LY/a6qXhdPbHWUlN0ew+SPyJ3B9Mu
- wu89CqmeU47v+6Jhru9wwXs/K0izJGbIuWlz3T/EGc/6AwzgLppz4x8ol
- /m5px4SVt/Csn3M2aB+uM75cJMHqQhb9t+rM/3svN7DGLA/HM5AZk/o/J
- t3DWNc733cKfgbURqRH51s8IOLx56EF2KkHtzuyCHjQGe5jHpx5axl7YD
- n8uL7WP310Prjt/jw6LCd/7GWXS3sCZJ0e05QMGK5Vc+sxPKhvbefet7c w==;
-X-CSE-ConnectionGUID: alBlXgZcSRiTzCvY7GWOYA==
-X-CSE-MsgGUID: gMpCuavGQGCdFB8+i4+SMw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11733"; a="77536520"
-X-IronPort-AV: E=Sophos;i="6.23,127,1770624000"; d="scan'208";a="77536520"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
- by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Mar 2026 12:35:40 -0700
-X-CSE-ConnectionGUID: 1xULVR8AQM6h5v2lbnkBFg==
-X-CSE-MsgGUID: 874DppwrThu+VoC6XgAptw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,127,1770624000"; d="scan'208";a="222698701"
-Received: from lkp-server01.sh.intel.com (HELO 63737dd503cb) ([10.239.97.150])
- by orviesa009.jf.intel.com with ESMTP; 18 Mar 2026 12:35:35 -0700
-Received: from kbuild by 63737dd503cb with local (Exim 4.98.2)
- (envelope-from <lkp@intel.com>) id 1w2wg0-000000003J7-24Hx;
- Wed, 18 Mar 2026 19:35:32 +0000
-Date: Thu, 19 Mar 2026 03:35:13 +0800
-From: kernel test robot <lkp@intel.com>
-To: Mallesh Koujalagi <mallesh.koujalagi@intel.com>,
- intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- rodrigo.vivi@intel.com
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
- andrealmeid@igalia.com, christian.koenig@amd.com, airlied@gmail.com,
- simona.vetter@ffwll.ch, mripard@kernel.org,
- anshuman.gupta@intel.com, badal.nilawar@intel.com,
- riana.tauro@intel.com, karthik.poosa@intel.com,
- sk.anirban@intel.com, raag.jadav@intel.com,
- Mallesh Koujalagi <mallesh.koujalagi@intel.com>
-Subject: Re: [PATCH v2 1/5] Introduce Xe Uncorrectable Error Handling
-Message-ID: <202603190311.jqPlioXj-lkp@intel.com>
-References: <20260318064016.374656-8-mallesh.koujalagi@intel.com>
+Received: from CY7PR03CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11010015.outbound.protection.outlook.com
+ [40.93.198.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4772910E771
+ for <dri-devel@lists.freedesktop.org>; Wed, 18 Mar 2026 19:35:41 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=FwCC2cJHebG1aWDtI74Cxix2bM/PtsmYVDEWDWM4A8PM5HTDp/7adcPdGK1lM2a5ZZB92U47HH1ISqNTe2uquDZfYXUCuCcT9xd/BZIOiKT3jnrpEpHeEvpj5CLtGXGP75QgGDbF8hyn1HWI6/Inz2otpdKFolBa+nzTdUATdR9ZkT9Oo6aRLLZ/XdBhbOFv0LSDvBbaogfDnJghszYYQrT1vvDTzNg8SX00WcNehd/R3X20P9aDXGlepM8OEFmuTITQJ/duDAIZOO1EKA0OPgVNAVsHzVD1vLOoaMNtVAK6VizAabb18mm7Rhv4SQs4oKycCcK9/SaIuuR/f8AYew==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=8bZReghmC4KXB97a/VHVPiUZshAiQOuYEOdn2rsYVAU=;
+ b=xC8WAhXUtyzuHsFyByB+jOoGGaOLSoEF2rNfOLQy7fY7rW1GGgw3BCKYk4lDFVMy1v9CGO9+pfB9OQ4l7c8pnNYv9xFEABjF1rhLcfn2LT8iDCdXYVxCok4nO153m6sFEzLr62X4oSfkdJI4f0HqPfacdvpdDHb4Y9IrBTs/qmS6ctd8NkXIDkHMYN8rZQWQ8dHF3re0oN4EnZv84gaqeyNEcWVoYaE4urah5QH6E5WoM7nwfI1I9Kn1GDoTIvwB2ibFUZ0AyvM/UacyAqg4Y8MPYVrHLdY+ED1UZGvZ4jFZo6ZQbFSYxD9POT7iV98rxx3ibr2MfxBD0Q5CA5xDTQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 198.47.23.194) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
+ dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=8bZReghmC4KXB97a/VHVPiUZshAiQOuYEOdn2rsYVAU=;
+ b=OgtMdajj7UW8eHBTdtYB3GbzVkQ+sNVIkbaspH3nX1Gmcwbh4/5b57Whur9Lg1Zcu4xi8JPSM4/geypd9Qt5LLtZOpydUCP9WTGkBgedR5LWaGA75eWNgD4SDfp0NnWotNP3aXkx9e8ulIC73s2gqP/McPdbC9hLe+GrXO9rI+0=
+Received: from SJ0PR13CA0014.namprd13.prod.outlook.com (2603:10b6:a03:2c0::19)
+ by SJ5PPF4D4E723EA.namprd10.prod.outlook.com
+ (2603:10b6:a0f:fc02::79f) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.19; Wed, 18 Mar
+ 2026 19:35:35 +0000
+Received: from SJ1PEPF00001CEB.namprd03.prod.outlook.com
+ (2603:10b6:a03:2c0:cafe::e5) by SJ0PR13CA0014.outlook.office365.com
+ (2603:10b6:a03:2c0::19) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9723.19 via Frontend Transport; Wed,
+ 18 Mar 2026 19:35:31 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.23.194)
+ smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none; dmarc=pass
+ action=none header.from=ti.com;
+Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
+ 198.47.23.194 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.23.194; helo=lewvzet200.ext.ti.com; pr=C
+Received: from lewvzet200.ext.ti.com (198.47.23.194) by
+ SJ1PEPF00001CEB.mail.protection.outlook.com (10.167.242.27) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9723.19 via Frontend Transport; Wed, 18 Mar 2026 19:35:35 +0000
+Received: from DLEE213.ent.ti.com (157.170.170.116) by lewvzet200.ext.ti.com
+ (10.4.14.103) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Wed, 18 Mar
+ 2026 14:35:34 -0500
+Received: from DLEE207.ent.ti.com (157.170.170.95) by DLEE213.ent.ti.com
+ (157.170.170.116) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Wed, 18 Mar
+ 2026 14:35:33 -0500
+Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DLEE207.ent.ti.com
+ (157.170.170.95) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20 via Frontend
+ Transport; Wed, 18 Mar 2026 14:35:33 -0500
+Received: from [128.247.81.183] (ltpf5gwk6l.dhcp.ti.com [128.247.81.183] (may
+ be forged))
+ by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 62IJZX07880362;
+ Wed, 18 Mar 2026 14:35:33 -0500
+Message-ID: <e6497541-f3e7-4533-a188-9d422cb34d74@ti.com>
+Date: Wed, 18 Mar 2026 14:35:33 -0500
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260318064016.374656-8-mallesh.koujalagi@intel.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/bridge: sii902x: Add audio context to suspend/resume
+ routine
+To: "Thakkar, Devarsh" <devarsht@ti.com>, "andrzej.hajda@intel.com"
+ <andrzej.hajda@intel.com>, "neil.armstrong@linaro.org"
+ <neil.armstrong@linaro.org>, "rfoss@kernel.org" <rfoss@kernel.org>,
+ "airlied@gmail.com" <airlied@gmail.com>, "maarten.lankhorst@linux.intel.com"
+ <maarten.lankhorst@linux.intel.com>, "mripard@kernel.org"
+ <mripard@kernel.org>, "tzimmermann@suse.de" <tzimmermann@suse.de>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "jani.nikula@intel.com" <jani.nikula@intel.com>, "simona@ffwll.ch"
+ <simona@ffwll.ch>, "linux-kernel@vger.kernel.org"
+ <linux-kernel@vger.kernel.org>
+CC: "Donadkar, Rishikesh" <r-donadkar@ti.com>, "Jain, Swamil" <s-jain1@ti.com>
+References: <20260211211018.149916-1-sen@ti.com>
+ <db9c7a49-6e1b-4ddd-a4ca-721a2c1419cd@ti.com>
+Content-Language: en-US
+From: "Wang, Sen" <sen@ti.com>
+In-Reply-To: <db9c7a49-6e1b-4ddd-a4ca-721a2c1419cd@ti.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PEPF00001CEB:EE_|SJ5PPF4D4E723EA:EE_
+X-MS-Office365-Filtering-Correlation-Id: 96e876e5-e951-4b73-d77d-08de852586da
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|82310400026|1800799024|7416014|376014|36860700016|921020|56012099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: 3ty0pO6gRrMqA2BBaoCyzDX8xOneuodkLGqIwMvKW0WMXu9VHspEYsmz/rwEzPRbndZM5f4sCVQvccto/Vhw+MfD3wWtVD0i3m7IRMM03vkuwXRghP7l4xR0jNB4qnLaI5+KeKR/K12bL71F7C1UESYvICI8fax60g9Z2l8hTrlmpQ8KpdCgMneua+au+xbDbwpalKaKkGtWGBZR2NNc0P3A3Hwl2yjUJiKauy6FF+9ZYwYqU2XIwNXLm4K0lS6CJ9ICvnXs8VbI4BmK365pY16XgOcXSdYrkUPzZXxoQgfubwVV1zO8zfI7Haeg0J5C5Z+5qNnjEXnFm4DYXQcDDMYOmm5KnOMHnlWSUOgv6SqoLoO1urumRFAIMWfRYCiQmDvwv+C5D5M5x/5qUSV30mBwCyrQVEv0MG5Z5aKy2DEADWBtUielHNe7Oxe6xprlgp0LvlEut3tpMmw67H1p2s0HW0hDJcaV6gJHrpj5+3C0OBo4QSXH5rAqQ1zJE3LfFQn8zWdol1ccEpLZM7PkhS6/QX+TQAiQcIoLoZQpQW75A1OF5DNHvbTK3soOPSXvTXauvDfc2ZQnYzye/uKb1dlWW3WfFooODGW4y6jOlOHZxALtDeJchCNCUmMxydzHDy4OZLk/NF7LTCTWLZajurS3swZxcG853YF2rV6i0An7tsTB8IvjeRzr+Gi55Ta2dDAi5poGnzACcW7vNLDczOsMudhHdZvH1JV5axuRAEdEzOOBWdjXRxcJF9r+QHMeq8EMzf8Xc9leF93FGhoXo10QUkDIfvpIhEN0XnRf43W/sY81774CZyQ7Mehf8sPE
+X-Forefront-Antispam-Report: CIP:198.47.23.194; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:lewvzet200.ext.ti.com; PTR:InfoDomainNonexistent;
+ CAT:NONE;
+ SFS:(13230040)(82310400026)(1800799024)(7416014)(376014)(36860700016)(921020)(56012099003)(22082099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: pg63bBtWBHAsFgpA5k/+Ay/vPV3FVZEGXpuemoTsgjHYRHiZKjBb2MiBmjlOQRcxVvMLPCya2YdibYPxWFUk5O24oDyoiCsZHFDHUQudbShr+nxqlk28ggFwndDCCZ/z0vG3AXt7xq8KexlFibXCua8Rhi2tXjMcwARVd3UL3l+YrXWPueNcEzuJejR6kvDgvZ40PgvLgESLxQOuGYaSfvp2AnwWT6fsLjHIAIWjI/qLpBkKyyJp3d9TyPTkKvtE5R2LZbCWBJw/O/WxKonHkOhClAjhirviVyLpEQvXV7WYP83Dbtj3If+yztuPoPXzYypELXrVcDO0GovX1/F+xR01/asvLf2jTU7iI8BtJgtGNd8gaBkmPGTEELSi6R5hadiP4hRhKsXPFub0zzT4kr8Va+3Nci5UV+c+Mi0ES+oUlY3uzvN/1heWGdyRH4/3
+X-OriginatorOrg: ti.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Mar 2026 19:35:35.4729 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 96e876e5-e951-4b73-d77d-08de852586da
+X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7; Ip=[198.47.23.194];
+ Helo=[lewvzet200.ext.ti.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF00001CEB.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ5PPF4D4E723EA
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,132 +134,216 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Mallesh,
+Hi Devarsh,
 
-kernel test robot noticed the following build warnings:
+Thanks for the review.
 
-[auto build test WARNING on drm-xe/drm-xe-next]
-[also build test WARNING on drm-misc/drm-misc-next drm/drm-next next-20260318]
-[cannot apply to linus/master v7.0-rc4]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+On 3/18/2026 8:39 AM, Thakkar, Devarsh wrote:
+> Hi Sen,
+> 
+> Thanks for the patch.
+> 
+> On 12/02/26 02:40, Sen Wang wrote:
+>> The sii902x driver has existing suspend/resume handlers that save and
+>> restore video-related register context (TPI mode and interrupts), but
+>> these handlers were not saving/restoring audio configuration registers.
+>> This caused HDMI audio to stop working after system suspend/resume cycles.
+>>
+>> Therefore add audio-related register context to the existing
+>> suspend/resume handlers when audio context needs to be saved/restored. As
+>> well as mclk for the sake of power saving, in the case of sii902x being
+>> the frame producer.
+>>
+>> The audio context is only saved/restored when audio.active is true,
+>> avoiding unnecessary register access when audio is not in use.
+>>
+>> Tested on TI SK-AM62P-LP board with HDMI audio playback across multiple
+>> suspend/resume cycles.
+>>
+>> Signed-off-by: Sen Wang <sen@ti.com>
+>> ---
+>>    drivers/gpu/drm/bridge/sii902x.c | 91 +++++++++++++++++++++++++++++++-
+>>    1 file changed, 90 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/gpu/drm/bridge/sii902x.c b/drivers/gpu/drm/bridge/sii902x.c
+>> index 134657041799..fd38a6ae86b2 100644
+>> --- a/drivers/gpu/drm/bridge/sii902x.c
+>> +++ b/drivers/gpu/drm/bridge/sii902x.c
+>> @@ -192,6 +192,13 @@ struct sii902x {
+>>    		struct platform_device *pdev;
+>>    		struct clk *mclk;
+>>    		u32 i2s_fifo_sequence[4];
+>> +		bool active;
+>> +		/* Audio register context for save/resume */
+>> +		unsigned int ctx_i2s_input_config;
+>> +		unsigned int ctx_audio_config_byte2;
+>> +		unsigned int ctx_audio_config_byte3;
+>> +		u8 ctx_i2s_stream_header[SII902X_TPI_I2S_STRM_HDR_SIZE];
+>> +		u8 ctx_audio_infoframe[SII902X_TPI_MISC_INFOFRAME_SIZE];
+>>    	} audio;
+>>    };
+>>    
+>> @@ -764,6 +771,8 @@ static int sii902x_audio_hw_params(struct device *dev, void *data,
+>>    	if (ret)
+>>    		goto out;
+>>    
+>> +	sii902x->audio.active = true;
+>> +
+>>    	dev_dbg(dev, "%s: hdmi audio enabled\n", __func__);
+>>    out:
+>>    	mutex_unlock(&sii902x->mutex);
+>> @@ -786,6 +795,8 @@ static void sii902x_audio_shutdown(struct device *dev, void *data)
+>>    	regmap_write(sii902x->regmap, SII902X_TPI_AUDIO_CONFIG_BYTE2_REG,
+>>    		     SII902X_TPI_AUDIO_INTERFACE_DISABLE);
+>>    
+>> +	sii902x->audio.active = false;
+>> +
+>>    	mutex_unlock(&sii902x->mutex);
+>>    
+>>    	clk_disable_unprepare(sii902x->audio.mclk);
+>> @@ -1081,7 +1092,7 @@ static int __maybe_unused sii902x_resume(struct device *dev)
+>>    {
+>>    	struct sii902x *sii902x = dev_get_drvdata(dev);
+>>    	unsigned int tpi_reg, status;
+>> -	int ret;
+>> +	int ret, i;
+>>    
+>>    	ret = regmap_read(sii902x->regmap, SII902X_REG_TPI_RQB, &tpi_reg);
+>>    	if (ret)
+>> @@ -1109,7 +1120,62 @@ static int __maybe_unused sii902x_resume(struct device *dev)
+>>    	regmap_read(sii902x->regmap, SII902X_INT_STATUS, &status);
+>>    	regmap_write(sii902x->regmap, SII902X_INT_STATUS, status);
+>>    
+>> +	/*
+>> +	 * Restore audio context if audio was active before suspend,
+>> +	 * in the matching order of sii902x_audio_hw_params()
+>> +	 * initialization
+>> +	 */
+>> +	if (sii902x->audio.active) {
+>> +		/* Re-enable mclk */
+>> +		ret = clk_prepare_enable(sii902x->audio.mclk);
+>> +		if (ret) {
+>> +			dev_err(dev, "Failed to re-enable mclk: %d\n", ret);
+>> +			return ret;
+>> +		}
+>> +
+>> +		ret = regmap_write(sii902x->regmap, SII902X_TPI_AUDIO_CONFIG_BYTE2_REG,
+>> +				   sii902x->audio.ctx_audio_config_byte2);
+>> +		if (ret)
+>> +			goto err_audio_resume;
+>> +
+>> +		ret = regmap_write(sii902x->regmap, SII902X_TPI_I2S_INPUT_CONFIG_REG,
+>> +				   sii902x->audio.ctx_i2s_input_config);
+>> +		if (ret)
+>> +			goto err_audio_resume;
+>> +
+>> +		for (i = 0; i < ARRAY_SIZE(sii902x->audio.i2s_fifo_sequence) &&
+>> +		     sii902x->audio.i2s_fifo_sequence[i]; i++) {
+>> +			ret = regmap_write(sii902x->regmap,
+>> +					   SII902X_TPI_I2S_ENABLE_MAPPING_REG,
+>> +					   sii902x->audio.i2s_fifo_sequence[i]);
+>> +			if (ret)
+>> +				goto err_audio_resume;
+>> +		}
+>> +
+>> +		ret = regmap_write(sii902x->regmap, SII902X_TPI_AUDIO_CONFIG_BYTE3_REG,
+>> +				   sii902x->audio.ctx_audio_config_byte3);
+>> +		if (ret)
+>> +			goto err_audio_resume;
+>> +
+>> +		ret = regmap_bulk_write(sii902x->regmap, SII902X_TPI_I2S_STRM_HDR_BASE,
+>> +					sii902x->audio.ctx_i2s_stream_header,
+>> +					SII902X_TPI_I2S_STRM_HDR_SIZE);
+>> +		if (ret)
+>> +			goto err_audio_resume;
+>> +
+>> +		ret = regmap_bulk_write(sii902x->regmap, SII902X_TPI_MISC_INFOFRAME_BASE,
+>> +					sii902x->audio.ctx_audio_infoframe,
+>> +					SII902X_TPI_MISC_INFOFRAME_SIZE);
+>> +		if (ret)
+>> +			goto err_audio_resume;
+>> +	}
+>> +
+>>    	return 0;
+>> +
+>> +err_audio_resume:
+>> +	clk_disable_unprepare(sii902x->audio.mclk);
+>> +	dev_err(dev, "Failed to restore audio registers: %d\n", ret);
+>> +	return ret;
+>>    }
+>>    
+>>    static int __maybe_unused sii902x_suspend(struct device *dev)
+>> @@ -1122,6 +1188,29 @@ static int __maybe_unused sii902x_suspend(struct device *dev)
+>>    	regmap_read(sii902x->regmap, SII902X_INT_ENABLE,
+>>    		    &sii902x->ctx_interrupt);
+>>    
+>> +	/*
+>> +	 * Save audio context if audio is active, and
+>> +	 * in the matching order of sii902x_audio_hw_params()
+>> +	 * initialization
+>> +	 */
+>> +	if (sii902x->audio.active) {
+>> +		regmap_read(sii902x->regmap, SII902X_TPI_AUDIO_CONFIG_BYTE2_REG,
+>> +			    &sii902x->audio.ctx_audio_config_byte2);
+>> +		regmap_read(sii902x->regmap, SII902X_TPI_I2S_INPUT_CONFIG_REG,
+>> +			    &sii902x->audio.ctx_i2s_input_config);
+>> +		regmap_read(sii902x->regmap, SII902X_TPI_AUDIO_CONFIG_BYTE3_REG,
+>> +			    &sii902x->audio.ctx_audio_config_byte3);
+>> +		regmap_bulk_read(sii902x->regmap, SII902X_TPI_I2S_STRM_HDR_BASE,
+>> +				 sii902x->audio.ctx_i2s_stream_header,
+>> +				 SII902X_TPI_I2S_STRM_HDR_SIZE);
+>> +		regmap_bulk_read(sii902x->regmap, SII902X_TPI_MISC_INFOFRAME_BASE,
+>> +				 sii902x->audio.ctx_audio_infoframe,
+>> +				 SII902X_TPI_MISC_INFOFRAME_SIZE);
+>> +
+> 
+> 
+> In resume path you were checking failure for each regmap_write I guess
+> similar approach is needed here if going with register reads, so in case
+> one or more regmap_read/regmap_bulk_read fails you can return error with
+> dev_err message.
+> 
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Mallesh-Koujalagi/Introduce-Xe-Uncorrectable-Error-Handling/20260318-153303
-base:   https://gitlab.freedesktop.org/drm/xe/kernel.git drm-xe-next
-patch link:    https://lore.kernel.org/r/20260318064016.374656-8-mallesh.koujalagi%40intel.com
-patch subject: [PATCH v2 1/5] Introduce Xe Uncorrectable Error Handling
-config: s390-allmodconfig (https://download.01.org/0day-ci/archive/20260319/202603190311.jqPlioXj-lkp@intel.com/config)
-compiler: clang version 18.1.8 (https://github.com/llvm/llvm-project 3b5b5c1ec4a3095ab096dd780e84d7ab81f3d7ff)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260319/202603190311.jqPlioXj-lkp@intel.com/reproduce)
+Okay sounds good, I'll add that precaution checks as well.
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202603190311.jqPlioXj-lkp@intel.com/
+> But I think even better approach would be to cache the corresponding reg
+> values to corresponding struct members during hw_params callback itself
+> given all the parameters being used sii902x->audio.ctx do not change
+> between hw_params callback and suspend callback as all these params are
+> stream related? , If so that would avoid costly i2c operations for
+> reading register values which can be skipped in this function.
+> 
 
-All warnings (new ones prefixed by >>):
+I tried using regcache on the context save/restore, but there is 
+definitely some state machine write sequence that I'm struggling to 
+isolate. The moment I changed the flow from the init route, context 
+save/restore no longer works.
 
->> drivers/gpu/drm/xe/xe_ras.c:241:4: warning: variable 'action' is used uninitialized whenever switch default is taken [-Wsometimes-uninitialized]
-     241 |                         default:
-         |                         ^~~~~~~
-   drivers/gpu/drm/xe/xe_ras.c:250:8: note: uninitialized use occurs here
-     250 |                         if (action > final_action)
-         |                             ^~~~~~
-   drivers/gpu/drm/xe/xe_ras.c:227:4: note: variable 'action' is declared here
-     227 |                         enum xe_ras_recovery_action action;
-         |                         ^
-   1 warning generated.
+The driver is definitely too scuffed to go through this kind of major 
+revision if we wanted to incorporate regcache. So unfortunately this is 
+the second best option to consider.
 
+>> +		/* Disable mclk during suspend */
+>> +		clk_disable_unprepare(sii902x->audio.mclk);
+>> +	}
+>> +
+> 
+> 
+> audio.active should be cleared here or do we need to call audio_shutdown
+> explicitly?
+> 
+This is a bad wording on my part, audio.active indicates an active 
+stream. Stream status should be preserved and resumes playback on
+context restore.
 
-vim +/action +241 drivers/gpu/drm/xe/xe_ras.c
+Also my apologies on sending an incomplete patch, looks like there's
+a prerequisite patch sitting in vendor kernel that was never upstreamed.
+Will clean it up and send a new patch altogether.
 
-   177	
-   178	/**
-   179	 * xe_ras_process_errors - Process and contain hardware errors
-   180	 * @xe: xe device instance
-   181	 *
-   182	 * Get error details from system controller and return recovery
-   183	 * method. Called only from PCI error handling.
-   184	 *
-   185	 * Returns: recovery action to be taken
-   186	 */
-   187	enum xe_ras_recovery_action xe_ras_process_errors(struct xe_device *xe)
-   188	{
-   189		struct xe_sysctrl_mailbox_command command = {0};
-   190		struct xe_ras_get_error_response response;
-   191		enum xe_ras_recovery_action final_action;
-   192		size_t rlen;
-   193		int ret;
-   194	
-   195		/* Default action */
-   196		final_action = XE_RAS_RECOVERY_ACTION_RECOVERED;
-   197	
-   198		if (!xe->info.has_sysctrl)
-   199			return XE_RAS_RECOVERY_ACTION_RESET;
-   200	
-   201		xe_ras_prepare_sysctrl_command(&command, XE_SYSCTRL_CMD_GET_SOC_ERROR, NULL, 0,
-   202					       &response, sizeof(response));
-   203	
-   204		do {
-   205			memset(&response, 0, sizeof(response));
-   206			rlen = 0;
-   207	
-   208			ret = xe_sysctrl_send_command(xe, &command, &rlen);
-   209			if (ret || !rlen) {
-   210				xe_err(xe, "[RAS]: Sysctrl error ret %d\n", ret);
-   211				goto err;
-   212			}
-   213	
-   214			if (rlen != sizeof(response)) {
-   215				xe_err(xe, "[RAS]: Sysctrl response does not match len!!\n");
-   216				goto err;
-   217			}
-   218	
-   219			if (response.num_errors > XE_RAS_NUM_ERROR_ARR) {
-   220				xe_err(xe, "[RAS]: Number of errors out of bound (%d)\n",
-   221				       XE_RAS_NUM_ERROR_ARR);
-   222				goto err;
-   223			}
-   224	
-   225			for (int i = 0; i < response.num_errors; i++) {
-   226				struct xe_ras_error_array arr = response.error_arr[i];
-   227				enum xe_ras_recovery_action action;
-   228				struct xe_ras_error_class error_class;
-   229				u8 component;
-   230	
-   231				error_class = arr.error_class;
-   232				component = error_class.common.component;
-   233	
-   234				switch (component) {
-   235				case XE_RAS_COMPONENT_CORE_COMPUTE:
-   236					action = handle_compute_errors(xe, &arr);
-   237					break;
-   238				case XE_RAS_COMPONENT_SOC_INTERNAL:
-   239					action = handle_soc_internal_errors(xe, &arr);
-   240					break;
- > 241				default:
-   242					xe_err(xe, "[RAS]: Unknown error component %u\n", component);
-   243					break;
-   244				}
-   245	
-   246				/*
-   247				 * Retain the highest severity action. Process and log all errors
-   248				 * and then take appropriate recovery action
-   249				 */
-   250				if (action > final_action)
-   251					final_action = action;
-   252			}
-   253	
-   254		} while (response.additional_errors);
-   255	
-   256		return final_action;
-   257	
-   258	err:
-   259		return XE_RAS_RECOVERY_ACTION_RESET;
-   260	}
-   261	
+Best,
+Sen Wang
 
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+> Regards
+> Devarsh
+> 
+
