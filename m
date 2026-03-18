@@ -4,83 +4,98 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6DF961077611
-	for <dri-devel@archiver.kernel.org>; Wed, 18 Mar 2026 19:50:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 314C91077612
+	for <dri-devel@archiver.kernel.org>; Wed, 18 Mar 2026 19:50:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0EDE610E7B0;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D8E0E10E7A4;
 	Wed, 18 Mar 2026 19:50:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="M//l2vJp";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="jTlsRKVR";
 	dkim-atps=neutral
-Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com
- [209.85.218.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5335310E03E
- for <dri-devel@lists.freedesktop.org>; Wed, 18 Mar 2026 10:19:18 +0000 (UTC)
-Received: by mail-ej1-f41.google.com with SMTP id
- a640c23a62f3a-b97e5956208so166018266b.2
- for <dri-devel@lists.freedesktop.org>; Wed, 18 Mar 2026 03:19:18 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1773829156; cv=none;
- d=google.com; s=arc-20240605;
- b=htet42HXE81BP3srJJi3imMrUt7zEegLlr8YiiUBGs08LmYcEBTtKlRaDa+oZG8UG/
- miTJI5YziWo58VEVZfMAZ3gqcc+gUa3MB9rzxy+zr8jfl/hoGfn6Sb1S1lhaZbb1DQsD
- dhBZlIH1SEhdpUXcn+67SK5ukZAd+cH/VvVN4uOT/RPlpn7j7nakmkjPrVAy+5fVNtl2
- RumLkdtnF+HXTyRNQfy1MsJfP5/yZwbz52sXcFPcuDfhTluHeQSYwXh7K7rfFRAEUO/9
- 0wAi9b3jQNwouywrwJl+x8malCfEABWmYgM4YmK+zZBK9y8psglSlguuD8MbqmfMBymp
- e6Gg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
- bh=kVTTafEsEhZmGYQANAe1QvE83H6Mzq2McTNP/J0kkXo=;
- fh=Mu/I29PrmJTlJfALwwV+pFIv/JY5qWzwDOI+4mz1Q5g=;
- b=lh93wSRQMu1Ra/LDvaXk0GaLeh+LFLfAMWvUNEdf8068z8l3hi4LMqtKrrg6dq1Ew1
- f3BfXvuvieOVvs/6yIODI9yEyXf3On8GBtMguFZhgLRVs7HpefwB1zu/JyvvcZ/i6Ckx
- aJy6Qk6JvtOhuyd2FsJg8Bw50z28wQKGoyh2+nq+IgJb2jkafoqPrPMg+VDjEo3CerNe
- eahsOKMmP7x/BKR4m99kwgYkYm2uyJyuAqb8cMmQwVF1PmbfJgU4ChHYFN1SZxDFwW8p
- 5sxQGX5agX260ptyG5Y5SVtXLW2zGma3J2AA0Q5s333dvu29W18LeXO7CzfPpkf0omLv
- ovVw==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com
+ [209.85.128.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EBBDE10E040
+ for <dri-devel@lists.freedesktop.org>; Wed, 18 Mar 2026 16:05:18 +0000 (UTC)
+Received: by mail-wm1-f45.google.com with SMTP id
+ 5b1f17b1804b1-4838c15e3cbso3855e9.3
+ for <dri-devel@lists.freedesktop.org>; Wed, 18 Mar 2026 09:05:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1773829156; x=1774433956; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:mime-version:from:to:cc:subject
- :date:message-id:reply-to;
- bh=kVTTafEsEhZmGYQANAe1QvE83H6Mzq2McTNP/J0kkXo=;
- b=M//l2vJps95jF5nrPNhW/7e8NBtCzMzD1vRQU27eS6kMef1fIgpXV/4AZcXeBd/Ql3
- pVAoZAW5UPMfK6N2YkdUjJxpVIKxFP0zHbugt33wTSsfHNGTYdhhMOvSNEVCN/AWMZi1
- PQd5f34euK4rVOIfCHiaFCxUiaytj0onngV6VMxIPPBFBVvfteSTaTYiWSHVn0ugpgsu
- XwUlg4H5yXrADNjwkpMDfoEJ/8YIPWijI8Tm1xEtjKQqglKOTsybNaftBQ0lTgIIIx60
- Osp5Ot/W4P4QXfGMp6dNesANDQ38gDBhEibxWBjpj4s6epqqC0ordca0PNo7INTQfVOA
- H3hw==
+ d=gmail.com; s=20230601; t=1773849917; x=1774454717; darn=lists.freedesktop.org;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+ :reply-to; bh=z9Ej4pASsqYp2gOGlmVa1Dopz4W2+LI/x1nMQtFrz0U=;
+ b=jTlsRKVRWYuqVaxFkJmNw4bd+tl4GQItvmWcDySRIbi2sUzdfzgk0UMe7CYknEuRgQ
+ vSdSIA4RIk9bsiHnmi6uqLZNubU/cn7il6Qtae76PCLj2vOlOuyne8wCvTLGJB15KDft
+ XqYQPWxQHDSndPsCFLjjKy6gJoOfqDd4D4qN+CAzI11UzTrNdFvlXDrnlcb/AALCMLmf
+ r734A5GbyTY9SOPaku+tKLJHfTvbtp8tJDm7y2JIKrw5nrqV/3OLnuac11tij1MvRqPb
+ AHzubtM4E4cxMZ2ntiBZc4GAcRaejEELpeUw7rpwwk3gaaa5Zghih7pL1zOi46WHzDnc
+ 2BNw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1773829156; x=1774433956;
- h=cc:to:subject:message-id:date:from:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=kVTTafEsEhZmGYQANAe1QvE83H6Mzq2McTNP/J0kkXo=;
- b=lGjmtIj0l4oRpML1T/HFN0RiEBTrFIYk3Gqrpi2HsjwFGUcbxaHztVvPINzE5Edw8j
- 45aWxUtEZqdaov/wSGw9ruCm48akeMWu84cRmpJWUrUSeXFrAJ025Og4rAwtmU4+Vr/Q
- YFevdDobKz0kVmhSRbOgTGarqupDmayWt1QxuhF8MB9E3mHczx4ejL+MuiXW7F2BK1yY
- g7SuMZc0y2a9ZgiPpiem9Fe9qRHwWYk96Ppi0kNZIQiydnwLPrwAVjfG1DkNfISHE//3
- 64rt2vizSb06NKjbqsbwkXT8aj36ayaLRJvXjOhpoANTSstFQ1wi9qRpG44VVgSbMf8K
- 6Qhg==
-X-Gm-Message-State: AOJu0YyceZ4BN4tQBAw7xxuSCs2xFsEFGxBqnVAE7rb645xjW9YByUtu
- nhDgYV5AiYty6tzM4Ffg1UP3QOARXuEUUsbIZq2QM0x7FHe3gQXxtmUeFVRCJJ/c0eXP5UidIs3
- XeTS4zjLoAd0W0xlT3Sq2RDj6d/Yi2M0=
-X-Gm-Gg: ATEYQzw30Dug8G9h9D44lB48c4bEgrZFC3UdGpu4mKURRH3AnrbnlbBhNrCveG6OTGa
- wkd4VdU4uABhfesA4E0r3Z1j/dBB5Cs3AuPZn2OMAZXwQnrYWpVOKU2eG3Gim7wgJ9AmnRcdyEq
- 6FIbG9fjF3Q1C4Cw1cSCwmrfi5C/K12nFiFt95v7oRPG7swLkIN4Im8s3pmmLBZwqJkLSIHTkNe
- IYKGJBiEOwzj0f98hx/P7f02pNIkmQDcMQ1YI4E2VkbKAynA3lRxGzXSIkd5/S2ibk38/OpkzmG
- /VkEVwtVv/XVb2/l2ybFA3bNbHKexi/e7d8SeDvB7Q==
-X-Received: by 2002:a17:907:9608:b0:b8f:a5c8:f75 with SMTP id
- a640c23a62f3a-b97f4a1a0fbmr158058966b.52.1773829156239; Wed, 18 Mar 2026
- 03:19:16 -0700 (PDT)
+ d=1e100.net; s=20251104; t=1773849917; x=1774454717;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=z9Ej4pASsqYp2gOGlmVa1Dopz4W2+LI/x1nMQtFrz0U=;
+ b=JhxfE+zpJx3f2E4st/MnztrOh82tiwyCoebAmw1ppEvLEuJ69EOsE5aLkIUIdOY6NN
+ TsvyJ9ty7kQQzl1j9iDfSp2Nznq6taHEShD3gzN/UA+hhz1BhSvw5nS0XO3nJzTqDQrJ
+ rMCYMzmGsKmOkaHCVNUGHN8AAZORzKd7aIrOsSsmip3IFCNAReNuuKkpvBNIjgbUmcgJ
+ 1nLRHGDp8B4+EWfaPRXBQA9NMJK5nHGgtFA3EA0J8t5TOtuTuHl2qjQRY/WGxlgElltD
+ 7gL+Fq7Nr8IL/OljaYp4lzQrKdnkMRk51HMKzdjDYAkMz0M6plsPuQ1vIn0kxxJ0nMIe
+ 8ErA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXNpZFvImjiAjpHCAIFwZWKe2ar0ogM5Y3VOB1R5yCrt02KxD8l53lGskPIt/XEJZljraIZtNwcme4=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yx3LoecJkQ+3cxXE0MEOQe5QJu+5kNtjf2DCmJtnGwIOzl4a7ht
+ URj9hj6xEdXK+PWsuPk0cHOiUvot8nJz2Jecr9jpyBfN38ZGu6TcsHFX
+X-Gm-Gg: ATEYQzx0+uwao/JjKjuJ4RbmN3r94TzrncXJ2PzHOO1R7oG3x843s3Ky/FKIhb5j/se
+ dtbzFT2p6lecyzF1x8k2ENOOobWQNP9/AGNVOwFDBq9DJ93kPygZS0LohaisSDNypeRLCuGy0AB
+ QlNDkMn7B3RYiSHlnDJWunn41CZ+xJgSKf4MsvborLhH4XJUvbeC+18mv8tl6QxLRbMDJjTFpEZ
+ zgZDMGuYOFgvhAdftm8D2HoDbto32WLbD8OZnHE8ePe5VlIN4C+m5hCEJuiSJ//3GIF21uD/5/u
+ x8STQPhPpTB6kTZ3nplcq5v/7Nng5BWw9YDFCPgwJ2YzPhdpAGkiMpmavU7RCPIVzasQ/Qt5ZGl
+ MN51f1QEgThBqqmqTIRUZDTvlH9EFjZD6HqAs1y+8nd/UlI7RHMQT5VQqVDDOugSdFHZyrJDWX2
+ dHs8PGsDwptIAwakuJMeMfmroRfbANpc2AWAZl1Vkwgqzx1gp3xr/u1frSjm02nr6hhwUWUvCzO
+ w==
+X-Received: by 2002:a05:600c:83ca:b0:485:3dfc:57a with SMTP id
+ 5b1f17b1804b1-486f446dee9mr60800635e9.32.1773849917122; 
+ Wed, 18 Mar 2026 09:05:17 -0700 (PDT)
+Received: from [10.100.102.17] (89-139-129-65.bb.netvision.net.il.
+ [89.139.129.65]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-486f8baec5csm2282225e9.15.2026.03.18.09.05.13
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 18 Mar 2026 09:05:16 -0700 (PDT)
+From: Yedaya Katsman <yedaya.ka@gmail.com>
+Date: Wed, 18 Mar 2026 18:04:48 +0200
+Subject: [PATCH v6 1/3] dt-bindings: display: panel: Add Samsung
+ S6E8FC0-M1906F9
 MIME-Version: 1.0
-From: Jill Ravaliya <jillravaliya@gmail.com>
-Date: Wed, 18 Mar 2026 15:49:04 +0530
-X-Gm-Features: AaiRm51GtZc6vbl_5uNX_VZcRjDfd8nA4m5QvvEUolTfsVTQ6LKDjtdrX3ZT5VU
-Message-ID: <CAHr0PbtxGWQdv1iOU5XDmoWND+GCzxvnerJHhkcd2aDp0pUwNg@mail.gmail.com>
-Subject: drm/simpledrm: no handoff to amdgpu on Picasso/Raven2
-To: tzimmermann@suse.de, javierm@redhat.com
-Cc: dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Message-Id: <20260318-panel-patches-v6-1-7a30c2f85e0b@gmail.com>
+References: <20260318-panel-patches-v6-0-7a30c2f85e0b@gmail.com>
+In-Reply-To: <20260318-panel-patches-v6-0-7a30c2f85e0b@gmail.com>
+To: Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ =?utf-8?q?Kamil_Go=C5=82da?= <kamil.golda@protonmail.com>, 
+ Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, 
+ Kaustabh Chakraborty <kauschluss@disroot.org>
+Cc: ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+ Yedaya Katsman <yedaya.ka@gmail.com>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1773849909; l=1398;
+ i=yedaya.ka@gmail.com; s=20260113; h=from:subject:message-id;
+ bh=Ns/WNy0Z7rKIF5KEEaOQ5y4gyFT2BopG513lDTCUOlE=;
+ b=TQHggHRPaa6/4FzPIkqTMIOpA7S4t9AmV+QlZloldI26s/thYR/QwHca9pFK7MT4G8Ux66P92
+ CYVUoKwIZZBCrT54aPY9NRIZiPlIsy+1I6bs2i20fTkzDhL1puXAvRz
+X-Developer-Key: i=yedaya.ka@gmail.com; a=ed25519;
+ pk=CgNmxD3tYSws5dZfpmJfc6re/bV/f47veVijddHLytk=
 X-Mailman-Approved-At: Wed, 18 Mar 2026 19:50:21 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -97,50 +112,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi,
+Add Samsung S6E8FC0 DTS binding used with the M1906F9 6.09" 720x1560
+panel found in the Xiaomi Mi A3 smartphone.
 
-I've been debugging a boot issue on my machine for a few days and
-wanted to bring it upstream since it's been sitting unassigned on
-Launchpad since February.
+Co-developed-by: Kamil Gołda <kamil.golda@protonmail.com>
+Signed-off-by: Kamil Gołda <kamil.golda@protonmail.com>
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Signed-off-by: Yedaya Katsman <yedaya.ka@gmail.com>
+---
+ .../bindings/display/panel/samsung,s6e8aa5x01-ams561ra01.yaml        | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-Hardware: AMD Picasso/Raven2 [1002:15d8], ASUS Vivo AIO V241DAP
-Kernel: 6.17.0-14-generic, Ubuntu 24.04
+diff --git a/Documentation/devicetree/bindings/display/panel/samsung,s6e8aa5x01-ams561ra01.yaml b/Documentation/devicetree/bindings/display/panel/samsung,s6e8aa5x01-ams561ra01.yaml
+index eccfc66d7fe24fbe86e3c25f35beb0855c4fcee6..b271de575e15071bc8370466428bedbf41a93d11 100644
+--- a/Documentation/devicetree/bindings/display/panel/samsung,s6e8aa5x01-ams561ra01.yaml
++++ b/Documentation/devicetree/bindings/display/panel/samsung,s6e8aa5x01-ams561ra01.yaml
+@@ -8,13 +8,16 @@ title: Samsung AMS561RA01 panel with S6E8AA5X01 controller
+ 
+ maintainers:
+   - Kaustabh Chakraborty <kauschluss@disroot.org>
++  - Yedaya Katsman <yedaya.ka@gmail.com>
+ 
+ allOf:
+   - $ref: panel-common.yaml#
+ 
+ properties:
+   compatible:
+-    const: samsung,s6e8aa5x01-ams561ra01
++    enum:
++      - samsung,s6e8aa5x01-ams561ra01
++      - samsung,s6e8fc0-m1906f9
+ 
+   reg:
+     maxItems: 1
 
-Problem:
-simpledrm registers on minor 0 at early boot:
-[0.404994] [drm] Initialized simpledrm 1.0.0 for simple-framebuffer.0 on minor 0
+-- 
+2.53.0
 
-amdgpu loads ~16 seconds later and gets minor 1 since minor 0 is taken:
-[16.512693] [drm] Initialized amdgpu 3.64.0 for 0000:04:00.0 on minor 1
-
-GDM starts, Mutter picks up card0 (simpledrm), calls drmModeAddFB,
-gets ENODEV and crashes:
-gnome-shell[1743]: Added device '/dev/dri/card0' (simpledrm) using
-atomic mode setting.
-gnome-shell[1743]: Integrated GPU /dev/dri/card0 selected as primary
-gnome-shell[1743]: Failed to ensure KMS FB ID on /dev/dri/card0:
-drmModeAddFB failed: No such device
-
-systemd restarts GDM. Second attempt finds card1 (amdgpu) and works:
-gnome-shell[2509]: Added device '/dev/dri/card1' (amdgpu) using atomic
-mode setting.
-gnome-shell[2509]: GPU /dev/dri/card1 selected primary from builtin
-panel presence
-
-This crash-restart cycle is the black screen on every boot.
-
-Workaround:
-Adding this to kernel cmdline fixes it:
-initcall_blacklist=simpledrm_platform_driver_init
-
-With simpledrm blocked, amdgpu claims card0 directly and GDM starts cleanly.
-
-Is a handoff from simpledrm to amdgpu expected to happen on this
-hardware? I couldn't find any takeover messages in dmesg.
-
-Full logs and investigation:
-https://github.com/jillravaliya/amdgpu-simpledrm-handoff-bug
-Launchpad: https://bugs.launchpad.net/ubuntu/+bug/2142087
-
-Thanks
-Jill Ravaliya
