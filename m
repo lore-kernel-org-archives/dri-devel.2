@@ -4,137 +4,99 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6661B10854D9
-	for <dri-devel@archiver.kernel.org>; Wed, 18 Mar 2026 09:22:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6496F10854DA
+	for <dri-devel@archiver.kernel.org>; Wed, 18 Mar 2026 09:25:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CB91A10E773;
-	Wed, 18 Mar 2026 09:22:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CC92110E778;
+	Wed, 18 Mar 2026 09:25:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="gl3b/WZr";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="WIame4kZ";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="Hsb6b0uw";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0582C10E732
- for <dri-devel@lists.freedesktop.org>; Wed, 18 Mar 2026 09:22:13 +0000 (UTC)
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 62I8lv113281113
- for <dri-devel@lists.freedesktop.org>; Wed, 18 Mar 2026 09:22:13 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- 15hK/7+IQg9d3rM1JPvTgxhytjFXh5CP/ZU9fW/iQ+g=; b=gl3b/WZrIIqNNONS
- i8sSEFpcBVkDOy6SpPfcvTrdYt+gINMsSAz+05T9sr4ykrE97g7DbiybuZ0n+OVq
- jQJArG66+IMrokCHORBhHx3adjgHMXVa/HcT1bACgr9KLyfAXOa/p42BZXa+FEtv
- zIcy9MYF7gZ2nhLkryC3Tc/9PLcZvCSR13X9UpTOemKezVzEfrvOiEs1RV+tLcST
- mn1OAQaDjTZz4U+KSBOKQNiwPteWCtgcwjt0whU/LFMCFZ4pBOxqrDZkUI61kQRU
- 08uBskVmhQ2f0deKWXyXeAdacJqVjCH1Vw/eJcxAl+PO+zZUeONOuiEWP9YAeX+y
- Jj8ZxQ==
-Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com
- [209.85.160.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4cya62uru5-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Wed, 18 Mar 2026 09:22:12 +0000 (GMT)
-Received: by mail-qt1-f198.google.com with SMTP id
- d75a77b69052e-50910ca6ccaso86740941cf.3
- for <dri-devel@lists.freedesktop.org>; Wed, 18 Mar 2026 02:22:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1773825732; x=1774430532;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=15hK/7+IQg9d3rM1JPvTgxhytjFXh5CP/ZU9fW/iQ+g=;
- b=WIame4kZcJtUzqAcixg8XbkvevBycO1ullMeg3uyAq877Hp1jvc9x9bTNbAhiGOu1s
- XFYn/Ua0+Tq/6E/qZKXAs4xUArBbmCA+IQratnA5yDTNKxZQkj1pUupsk819NVfYrm4N
- cVArZq5HlJzqnhkM35k5K2+J5LQ7Vxv2zlJpXa4iOcsWS6PrzYHDp/zDfrqy6/K14fk6
- 5WSgiLsAk2mx5PATsvwcAvLmHBZ+1A83TkNsbJATZYvZVP6R890fr9MrEUB49nzQxMo0
- Rei/n2CHL8ntaco/ve3YxMKY+If419Ax1O4SFglK6UE/myaEiX4VT17MD3dBNaIwhyzG
- j1sA==
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5662410E778
+ for <dri-devel@lists.freedesktop.org>; Wed, 18 Mar 2026 09:25:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1773825915;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=iK/ov8EJ/J0ZYfo49iWJBtZbkdFjmhliHBuy1k9tqk4=;
+ b=Hsb6b0uw0vjivjtBPbu0qYaZ0uW7SgpogTKWTlfckL/tqNhfw/Jkpw3FR2AEV9eLT+yo+A
+ 7mmBKMxUIPdIt28r7Lolxd8ebMGU8WASdM5f5vYYZcmwddfoL8nuz1uPUshaAc0UxML8zl
+ tjUNE4GNecW6PyNibuysjYkkNrsezwA=
+Received: from mail-yw1-f199.google.com (mail-yw1-f199.google.com
+ [209.85.128.199]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-139-le1mGiRiPqm10bcX4UObMA-1; Wed, 18 Mar 2026 05:25:13 -0400
+X-MC-Unique: le1mGiRiPqm10bcX4UObMA-1
+X-Mimecast-MFC-AGG-ID: le1mGiRiPqm10bcX4UObMA_1773825913
+Received: by mail-yw1-f199.google.com with SMTP id
+ 00721157ae682-79878791ec6so8715647b3.3
+ for <dri-devel@lists.freedesktop.org>; Wed, 18 Mar 2026 02:25:13 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1773825732; x=1774430532;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=15hK/7+IQg9d3rM1JPvTgxhytjFXh5CP/ZU9fW/iQ+g=;
- b=jxllEelmBiP8M0fvmtFtLo9RMRrO6T9NdFUCoHEJtsCnlgu7EgWT1+Dfj9cZ1LSvZF
- zf9FnGTbGVB3LUy2Tx3QzNyKLnfxPHe2ukUQq5qvfQZpXpRFLoi0+aDI/63ZPfmhq02Q
- 57BZLE8dZBqKTUSAqXAOI13kmOzGS3NDqEimjaKiXFhmdh0hxN0QHRZ+jvKKjHvAGx1m
- qBuSSqzjTPn7cVRCj76xw3BU3qP+7Evy/9/PoANeRdHS2q0DH0Yi72YyynLG+79QK0Ny
- ktxXWu5eszxFtpvRKjEOnaach6FS+JikUoJ1PNnOrxW8DZVD11xY9NULEB0VHmal89AL
- Eg/g==
+ d=1e100.net; s=20251104; t=1773825913; x=1774430713;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=iK/ov8EJ/J0ZYfo49iWJBtZbkdFjmhliHBuy1k9tqk4=;
+ b=rxuNt8QTMCGMqtwJ3baifw0oIwHulGBiqPtwuP+oMP0cM/6i7YRz4b/KkaSDeChpYk
+ RLmGuG5Qh07sreS+jf6J/lB/M+k9bTEe4kwW/uhboN9HQfTeKEB+aIxB1Fp0cAtZy4WJ
+ YcYBFnOgqhUGXKV/BJH2fmrMhhkvupk8UynXBrlBjkYuCyJu10HwPmIS24ohZuT7XlGr
+ YuUMzS1M2Hm3z7e2YVI5ZXAt5x+2nAWhFtz16g65utbDmCVwqtnL7lIujrqvom3wDo7i
+ 1qIDNEvwQeoQgvWhI6DkJAILkExHUb5iDprqhx5RGIqdjg5QsyNGmsWtJ8/HF4Qo5BLo
+ WTww==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUZ5SqST276G5Px1gHOQ+eNHSOpiaTGcJkEkhD58Y+Qw8osX5sI5Po/xPtK8+Nmk3m5YbfnFVp3e6I=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzwaNPnE3eErwzuN84zAlw4PUcDzc+pf5Yyc6HRol/l2Ev3j/wt
- hz504LdIOpDm6corqzgM2wqd0SY8JRmuV6edYYmKMvuGlSvt9UIVD9+iAp5uIkyGhE+1sEom3iY
- 5oUkvIzylrk8DSQPAcwr4jhrzyVykhaK+9b/w7m1E/i1rTdQf+SRCE2FUF2iNpVmwLuA44xE=
-X-Gm-Gg: ATEYQzwXnrxtzazNAMlPW989RxUHl4HC9gBFqqqdY6OIWqK3m+XWrVzZy8nfj0nltT6
- H90zpQ2E0ysKlK15C+nB1FABCzRKXpQtJERFWBQ5rx0qtoPizUPyqlleNrukmjfZeiYLTeQACm1
- atK+9nHxH1n/izy0cbLOAzwOLnon/Cog/8MyUmfZt9nvlKwvE4lawucOWmoM7CFTyOI6B6tPh4x
- sljg75F+uGGVPkAFztCy6pXv7uX0RqBE5mMh7pq4B7TE2uEzAsqdRXC5aAUwjWgqdlWytj2MzrQ
- PqX0YfKAQWiJINkNc9yd7g1eJPM1Oi662dBjWEuUpCT6Ea/c8napjPMJkYGjlr90TtXyMnZOoOm
- fimubovzlr+Mrt9Y3qsTSW7CXMGEBURnh0Vx5kQDG4U4D2y4rqBMMkMlTSZLOqb3lkjTd515JGl
- 4lxGE=
-X-Received: by 2002:ac8:7d4c:0:b0:509:24e8:ec48 with SMTP id
- d75a77b69052e-50b148afafcmr21250341cf.6.1773825732306; 
- Wed, 18 Mar 2026 02:22:12 -0700 (PDT)
-X-Received: by 2002:ac8:7d4c:0:b0:509:24e8:ec48 with SMTP id
- d75a77b69052e-50b148afafcmr21250121cf.6.1773825731860; 
- Wed, 18 Mar 2026 02:22:11 -0700 (PDT)
-Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl.
- [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b97f1689d2dsm161386366b.35.2026.03.18.02.22.09
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 18 Mar 2026 02:22:11 -0700 (PDT)
-Message-ID: <5a464fca-7be5-44a6-b124-7b80ea859a9e@oss.qualcomm.com>
-Date: Wed, 18 Mar 2026 10:22:08 +0100
+ AJvYcCWHchwSdQmXkssvNfDDRxlAhBl8EjX+PCgtvrju5L59u4/S0kyV/0+/L0VE7Rw9WiLL0wbqhPxtkVI=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yxs3e34mCAcpQKEuBKaMbEq5SXQjPRKZUCcEydjOzJZLACTEW1i
+ J7zkAoOX4H0RYHmtw7S/3zuKtkV34/klz7hIxkOlmij8cT0yPrvfp1VfWK/J8sDp9s46IthBjAh
+ oveCT0NRVDICoTevrdBF/Kzn0q88PXcHKZSDo9cjFfi91bg89XTfg7Jnas5dN3Sht5JEZ10e+IF
+ u9AFukxWCGhQHXWOquJIrG88IKL1qyZrvDzRyV52GyuXaU
+X-Gm-Gg: ATEYQzzkxfH+PDDBohm6eZh7N9OzrnqWAbsl7xwwMInkj2/GRfruvWYoCzQD6UhU70D
+ n8HA4B2GgxloJ1dtgO9jPPKyNrDiSpUdiTDLAVTY888SXfet9ZkeI7BnycU5qI7Xyerh1NNfIOO
+ XX7fSKYwieDXaW64LoGH3jFlsZ0wtDTgVFDxqNqlTtI3OTNDqfqurGVGRvvSgJtMaYKtCE7YlNh
+ w==
+X-Received: by 2002:a53:c7cb:0:b0:649:e294:a380 with SMTP id
+ 956f58d0204a3-64e915ced27mr2363093d50.37.1773825913088; 
+ Wed, 18 Mar 2026 02:25:13 -0700 (PDT)
+X-Received: by 2002:a53:c7cb:0:b0:649:e294:a380 with SMTP id
+ 956f58d0204a3-64e915ced27mr2363055d50.37.1773825912496; Wed, 18 Mar 2026
+ 02:25:12 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 4/4] phy: qualcomm: add MSM8974 HDMI PHY support
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
- <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
+References: <20260317-kunit_add_support-v6-0-dd22aeb3fe5d@redhat.com>
+ <69f4eb09-efbd-4bd1-81b8-963b78e1a3a3@kernel.org>
+ <20260317113025.GG2872@noisy.programming.kicks-ass.net>
+In-Reply-To: <20260317113025.GG2872@noisy.programming.kicks-ass.net>
+From: Albert Esteve <aesteve@redhat.com>
+Date: Wed, 18 Mar 2026 10:25:00 +0100
+X-Gm-Features: AaiRm53OPQc-5hULPIiQu9-AZhqy7-XEfz_gt4uMR3ixjOm0K2seVoOetSgKzgk
+Message-ID: <CADSE00Jy=G7HhRkb7vmFSuGFmvpGGt1TQ2NA+7XGLZ4b=g3rxQ@mail.gmail.com>
+Subject: Re: [PATCH v6 0/5] kunit: Add support for suppressing warning
+ backtraces
+To: Peter Zijlstra <peterz@infradead.org>
+Cc: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
+ Brendan Higgins <brendan.higgins@linux.dev>, David Gow <david@davidgow.net>, 
+ Rae Moar <raemoar63@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>
-Cc: linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-phy@lists.infradead.org,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-References: <20260314-fd-hdmi-phy-v5-0-58122ae96d3b@oss.qualcomm.com>
- <20260314-fd-hdmi-phy-v5-4-58122ae96d3b@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260314-fd-hdmi-phy-v5-4-58122ae96d3b@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=Ns3cssdJ c=1 sm=1 tr=0 ts=69ba6ec4 cx=c_pps
- a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
- a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=KKAkSRfTAAAA:8 a=EUspDBNiAAAA:8 a=Z2itlUKkCiT7gnwI7HQA:9 a=QEXdDO2ut3YA:10
- a=dawVfQjAaf238kedN5IG:22 a=cvBusfyB2V15izCimMoJ:22
-X-Proofpoint-ORIG-GUID: 1hhJtw1ybii8S_iol2WIdj-KcJC5x7q0
-X-Proofpoint-GUID: 1hhJtw1ybii8S_iol2WIdj-KcJC5x7q0
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzE4MDA3OSBTYWx0ZWRfXyd8sh6lB3cTK
- xN3Bc3cyuCEntYy1FLFYFYg15ypzkMsLtHe+KNS9ShdzwQhcnShTDbKeF2u+F4KOHGIlqfXfTcB
- kXbh4chUTTs5ykmiRy8uFYBMz884X1ZcXYGxE9AjhMQl349J4R07H2IUCAbhJXsKozchVfEQPVU
- lmvqMiqIxgthJS313uzvJW+wUWa+J062eNuctDL9Etk9GxJjxF74Q6HfuJQeC/yhZTdGsuaIuMp
- 63kHrfQ9sPbcNkb5643vDS+prXLMrGEQTFfMR/JxpvREZgVZbjW6P5bUptgHV3PkG3J1vfBsyg6
- X2MCurGtCQAW0QtYVmcNivhOcaUPDocEsEQoCdaP3olGlTetLR6fVNOW0v+J7HsGCAWo2TiUqY9
- 0COiXomRjDCX4JjQptY6lUPxZblRe3pJp/bpJthk81PFir2U+Bvf9OyO7A7Fj3sbAy/XLytm53B
- 14NHOYdJJSggOy6FXrA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-03-17_05,2026-03-17_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 phishscore=0 lowpriorityscore=0 clxscore=1015 impostorscore=0
- priorityscore=1501 malwarescore=0 adultscore=0 spamscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603180079
+ Jonathan Corbet <corbet@lwn.net>, 
+ Shuah Khan <skhan@linuxfoundation.org>, linux-kernel@vger.kernel.org, 
+ linux-arch@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+ kunit-dev@googlegroups.com, dri-devel@lists.freedesktop.org, 
+ workflows@vger.kernel.org, linux-doc@vger.kernel.org, 
+ Alessandro Carminati <acarmina@redhat.com>, Guenter Roeck <linux@roeck-us.net>,
+ Kees Cook <kees@kernel.org>, 
+ Linux Kernel Functional Testing <lkft@linaro.org>,
+ Dan Carpenter <dan.carpenter@linaro.org>, 
+ =?UTF-8?B?TWHDrXJhIENhbmFs?= <mcanal@igalia.com>, 
+ Simona Vetter <simona.vetter@ffwll.ch>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: Q1HCoZsxQhIlYVw-cVYtYZFy0cmhPFs3tNw47VlPito_1773825913
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -150,100 +112,193 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 3/14/26 6:06 AM, Dmitry Baryshkov wrote:
-> From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> 
-> Add support for HDMI PHY on Qualcomm MSM8974 / APQ8074 platforms.
-> 
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> ---
+Hi Peter,
 
-[...]
+On Tue, Mar 17, 2026 at 12:33=E2=80=AFPM Peter Zijlstra <peterz@infradead.o=
+rg> wrote:
+>
+> On Tue, Mar 17, 2026 at 12:20:26PM +0100, Vlastimil Babka (SUSE) wrote:
+> > > For this iteration, the `__report_bug()` centralized approach was
+> > > revisited after the discussion in the previous version [1].
+> >
+> > Discussion with PeterZ, who is not CC'd here? (did it now for my reply)=
+.
 
-> +	sdm_freq_seed = mult_frac(remain, 0x10000, int_ref_freq);
-> +
-> +	val = (ref_freq_mult_2 ? BIT(0) : 0) |
-> +		((refclk_div - 1) << 2);
-> +	writel(val, base + UNIPHY_PLL_REFCLK_CFG);
-> +
-> +	writel(sdm_mode ? 0 : 0x40 + dc_offset, base + UNIPHY_PLL_SDM_CFG0);
-> +
-> +	writel(dither ? 0x40 + dc_offset : 0, base + UNIPHY_PLL_SDM_CFG1);
-> +
-> +	writel(sdm_freq_seed & 0xff, base + UNIPHY_PLL_SDM_CFG2);
+(Sorry not to put you on CC, I thought auto-cc would pick you up already)
 
-Some beautification (BIT(), FIELD_..(), defined magic values) would be
-really nice to see.. although I'm not sure how much you can do with the
-PLL registers..
+> >
+> > > However, again this approach did not work because:
+> > > - Some warning output is generated directly in the macros before call=
+ing
+> > >   the centralized functions (e.g., `__warn_printk()` in `__WARN_print=
+f()`)
+> > > - Functions in the warning path like `warn_slowpath_fmt()` are marked
+> > >   `__always_inline`, making it difficult to intercept early enough
+> > > - So, by the time `__report_bug()` is called, output has already been=
+ written
+> > >   to the console, making suppression ineffective
+> > >
+> > > Current Proposal: Check Directly in the `WARN()` Macros.
+> > > This avoids the need for function symbol resolution or ELF section
+> > > modification.
+> > > Suppression is implemented directly in the `WARN*()` macros.
+> >
+> > So does that bloat every warn/bug site (as Peter objected to) or not?
+> > And is it compatible with x86? I see you modify include/asm-generic/bug=
+.h
+> > but x86 has its own version of e.g. __WARN_printf ?
+>
+> Yeah, they done it all wrong again :-(
+>
+> This should be pushed inside __report_bug() through __WARN_printf with a
+> new BUGFLAG thing.
 
-[...]
+Thanks for the specific suggestion to use BUGFLAG, but I do not think
+this is what we need. These flags seem to be used statically, but the
+goal is to enable and disable these warning suppressions dynamically
+in the tests. Happy to be corrected if I missed something.
 
-> +	ref_freq = ref_freq * 5 / 1000;
+I want to highlight that I did not bluntly ignore your point in the
+last version. I thoroughly read the discussions there, and as I
+mentioned in the cover letter, I tried to move away from the per-macro
+approach. However, while doing that, I encountered the same issues
+Alessandro found in the last iteration. I=E2=80=99ll address that below, bu=
+t I
+decided to give this approach one more try and tackle the raised
+drawbacks.
 
-mult_frac()
+The main concern was the increased size of the code emitted by the
+WARN*() macros, which was a fair point. I tried to alleviate this with
+a static key and branching, and addressed other concerns by using RCU
+protection on the list for thread safety. I think it was worth a try,
+as all options seemed to have their own tradeoffs. However, if this
+option remains unacceptable even after trying to diminish its
+drawbacks, I am happy to focus on finding the best solution for the
+centralised approach, and keeping the discussion constructive.
 
-[...]
+So back to my test on this. Alessandro detailed two strategies in the
+last version, one of them (storing the function name in `struct
+bug_entry`) was already used and discarded in older iterations of this
+series. So let's focus on the other strategy, using 'kallsyms`. Let's
+assume we still store the function name when registering a new symbol
+to suppress. Otherwise, we might need to check address ranges to
+ensure bugaddr is within the function's scope, which sounds trickier?
+With `kallsyms` we can infer the originating functionid. But this
+approach works unreliably with compiler-induced transformations (e.g.,
+inlining, cloning, code fragmentation). And we still cannot prevent
+all output. Additionally, we would need to prevent prints in
+`warn_slowpath_fmt()`. There may be other `printk`s embedded in the
+macros, but let's focus on suppressing all warnings as a best effort.
+It would already improve the quality of life for testers.
 
-> +	rate = (dc_offset + 1) * parent_rate;
-> +	rate += mult_frac(fraq_n, parent_rate, 0x10000);
-> +
-> +	rate *= (refclk_cfg >> 2) * 0x3 + 1;
+Considering these remaining issues, I managed to create a centralised
+proposal. Please find the main changes at the bottom of this message.
 
-Really strange calculation, but in the end this is (n * 0.75)+1 -
-mult_frac()?
+But again, even with these, the solution remains unreliable. We can
+mitigate this by registering the test name on the suppression list (at
+least, I can make the new test in this series pass with that). Not
+ideal, but we could mention it in the documentation. Something like
+"Suppression is matched by the function where the warning is reported.
+If the warning is triggered from a helper (or the compiler inlines it
+into the test), that function name may differ. In that case, register
+and start suppression for both the test and the helper so the test
+passes regardless of inlining."
 
-> +
-> +	return rate;
-> +}
-> +
-> +static const unsigned int qcom_hdmi_8974_divs[] = {1, 2, 4, 6};
-> +
-> +static unsigned long qcom_hdmi_8974_pll_recalc_rate(struct clk_hw *hw,
-> +						    unsigned long parent_rate)
-> +{
-> +	struct qcom_hdmi_preqmp_phy *hdmi_phy = hw_clk_to_phy(hw);
-> +	u32 div_idx = hdmi_pll_read(hdmi_phy, UNIPHY_PLL_POSTDIV1_CFG);
-> +	unsigned long rate = qcom_uniphy_recalc(hdmi_phy->pll_reg, parent_rate);
-> +
-> +	return  rate / HDMI_8974_COMMON_DIV / qcom_hdmi_8974_divs[div_idx & 0x3];
+Would that be a more acceptable solution? Is there a better option I
+am not seeing?
 
-nit: double space
+BR,
+Albert.
+
+diff --git a/kernel/panic.c b/kernel/panic.c
+index c78600212b6c1..3cb004a7803f4 100644
+--- a/kernel/panic.c
++++ b/kernel/panic.c
+@@ -39,6 +39,7 @@
+ #include <linux/sys_info.h>
+ #include <trace/events/error_report.h>
+ #include <asm/sections.h>
++#include <kunit/bug.h>
+
+ #define PANIC_TIMER_STEP 100
+ #define PANIC_BLINK_SPD 18
+@@ -1080,9 +1081,14 @@ void __warn(const char *file, int line, void
+*caller, unsigned taint,
+ void warn_slowpath_fmt(const char *file, int line, unsigned taint,
+                       const char *fmt, ...)
+ {
+-       bool rcu =3D warn_rcu_enter();
++       bool rcu;
+        struct warn_args args;
+
++       if (__kunit_is_suppressed_warning_at((unsigned
+long)__builtin_return_address(0)))
++               return;
++
++       rcu =3D warn_rcu_enter();
++
+        pr_warn(CUT_HERE);
+
+        if (!fmt) {
+
+diff --git a/lib/bug.c b/lib/bug.c
+index 623c467a8b76c..e90b038d9225e 100644
+--- a/lib/bug.c
++++ b/lib/bug.c
+@@ -48,6 +48,7 @@
+ #include <linux/rculist.h>
+ #include <linux/ftrace.h>
+ #include <linux/context_tracking.h>
++#include <kunit/bug.h>
+
+ extern struct bug_entry __start___bug_table[], __stop___bug_table[];
+
+@@ -223,6 +224,9 @@ static enum bug_trap_type __report_bug(struct
+bug_entry *bug, unsigned long buga
+        no_cut   =3D bug->flags & BUGFLAG_NO_CUT_HERE;
+        has_args =3D bug->flags & BUGFLAG_ARGS;
+
++       if (warning && __kunit_is_suppressed_warning_at(bugaddr))
++               return BUG_TRAP_TYPE_WARN;
++
+        if (warning && once) {
+                if (done)
+                        return BUG_TRAP_TYPE_WARN;
+
+diff --git a/lib/kunit/bug.c b/lib/kunit/bug.c
+index 9c2c4ee013d92..13ffddb044636 100644
+--- a/lib/kunit/bug.c
++++ b/lib/kunit/bug.c
+@@ -11,6 +11,7 @@
+ #include <linux/export.h>
+ #include <linux/instrumentation.h>
+ #include <linux/jump_label.h>
++#include <linux/kallsyms.h>
+ #include <linux/rculist.h>
+ #include <linux/string.h>
+
+@@ -68,4 +69,16 @@ noinstr bool __kunit_is_suppressed_warning(const
+char *function)
+ }
+ EXPORT_SYMBOL_GPL(__kunit_is_suppressed_warning);
+
++bool __kunit_is_suppressed_warning_at(unsigned long addr)
++{
++       char buf[KSYM_SYMBOL_LEN];
++
++       if (!static_branch_unlikely(&kunit_suppress_warnings_key))
++               return false;
++       if (sprint_symbol_no_offset(buf, addr) <=3D 0)
++               return false;
++       return __kunit_check_suppress(buf);
++}
++EXPORT_SYMBOL_GPL(__kunit_is_suppressed_warning_at);
++
+ #endif /* CONFIG_KUNIT_SUPPRESS_BACKTRACE */
 
 
-> +}
-> +
-> +static int qcom_hdmi_8974_pll_determine_rate(struct clk_hw *hw,
-> +					     struct clk_rate_request *req)
-> +{
-> +	req->rate = clamp(req->rate,
-> +			  HDMI_8974_VCO_MIN_FREQ / HDMI_8974_COMMON_DIV / 6,
-> +			  HDMI_8974_VCO_MAX_FREQ / HDMI_8974_COMMON_DIV / 1);
 
-I don't know if it's a good direction, but maybe:
+>
+> So NAK from me on this -- again!
+>
 
-const unsigned long max_rate = HDMI_8974_VCO_MAX_FREQ / HDMI_8974_COMMON_DIV;
-
-clamp(req->rate, max_rate / 6, max_rate)
-
-?
-
-[...]
-
-> +static int qcom_hdmi_msm8974_phy_find_div(unsigned long long pixclk)
-> +{
-> +	int i;
-> +	unsigned long long min_freq = HDMI_8974_VCO_MIN_FREQ / HDMI_8974_COMMON_DIV;
-
-reverse-Christmas-tree?
-
-> +
-> +	if (pixclk > HDMI_8974_VCO_MAX_FREQ / HDMI_8974_COMMON_DIV)
-> +		return -E2BIG;
-
-include/uapi/asm-generic/errno-base.h
-11:#define      E2BIG            7      /* Argument list too long */
-
--EINVAL?
-
-Konrad
