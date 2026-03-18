@@ -4,62 +4,113 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4FC4710854DB
-	for <dri-devel@archiver.kernel.org>; Wed, 18 Mar 2026 09:41:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 63A7B10854DC
+	for <dri-devel@archiver.kernel.org>; Wed, 18 Mar 2026 09:41:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AA66910E78A;
-	Wed, 18 Mar 2026 09:40:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D2DBE10E78D;
+	Wed, 18 Mar 2026 09:41:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="VRX2j7y+";
+	dkim=pass (1024-bit key; unprotected) header.d=mailbaby.net header.i=@mailbaby.net header.b="SHiBF035";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=aosc.io header.i=@aosc.io header.b="fap/Acyd";
 	dkim-atps=neutral
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A033810E78A
- for <dri-devel@lists.freedesktop.org>; Wed, 18 Mar 2026 09:40:58 +0000 (UTC)
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-02.galae.net (Postfix) with ESMTPS id 925391A2EA3;
- Wed, 18 Mar 2026 09:40:57 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 65B9F6004F;
- Wed, 18 Mar 2026 09:40:57 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id BB5AA1045074A; Wed, 18 Mar 2026 10:39:52 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1773826795; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding:in-reply-to:references;
- bh=MP/iWAakjmG3b9NZZKNKYynkJykCtkT3XZdZkipyFNU=;
- b=VRX2j7y+yGFj268YoXTVxObgY8v6hlNpSe7RZchKlQEK9s8y4mP6XVNZRpfQke4cv8q1rx
- h93govWf/CynHPZAoEp95IJoElMAC6TJ4WUUqJrDvPHqu2mANRBYnYbiWsYPkGLb9IWE3x
- Vfcc9AXEArF0ZxUCegA2eFwdXCeSn7+exmdVlvAP38VM9mySffATzsnPmKSlnkomzghKqM
- vRwD+JrnjO/eObvp181T4hfTj6S5LtJnE5aa9U7i8K4a/2UpAa32qDxFDDYFvPjT+PcZGl
- F8ADhopKy5TqXpeHu+odAuXINzDm0hRn2cMXgvyEtarlPGVhidxfHlIt4gldrg==
-From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Date: Wed, 18 Mar 2026 10:39:35 +0100
-Subject: [PATCH v3 1/4] drm: renesas: rz-du: rzg2l_du_encoder: convert to
- of_drm_find_and_get_bridge()
+X-Greylist: delayed 305 seconds by postgrey-1.36 at gabe;
+ Wed, 18 Mar 2026 09:41:30 UTC
+Received: from relay0-g.mailbaby.net (relay0-g.mailbaby.net [64.20.38.27])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9EA0510E78D
+ for <dri-devel@lists.freedesktop.org>; Wed, 18 Mar 2026 09:41:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbaby.net;
+ q=dns/txt; s=bambino; bh=aRavYgOWVKoyYXThS/WCBZX6NQj4ML17HDnyR1moraE=;
+ h=from:subject:date:message-id:to:cc:mime-version:content-type:content-transfer-encoding:in-reply-to:references:feedback-id;
+ b=SHiBF035M8C7wGGOerJ+ICjCuWtTKzLDPAZ32wdeDdQMxPYBIlZGIUrEUqRo+ndEegEbyk4Jc
+ W0ObooYf/dACp7ZEpFfuK479zBqAx1GvRTlhmPy5E1xNmwLHF40OuI8SWXIsf0hd7u9nLLGHIfy
+ 7HkovqTXuBHRcLVIVKUBpUc=
+Received: from mb-nj-kvm1.internal (mb-nj-kvm1.internal [10.10.2.10])
+ (Authenticated sender: mb86144)
+ by relay0-g.mailbaby.net (MailBabyMTA) with ESMTPSA id 19d004d8faf000319e.001
+ for <dri-devel@lists.freedesktop.org>
+ (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
+ Wed, 18 Mar 2026 09:36:16 +0000
+X-Zone-Loop: 91e6f1033fbc7ca946ecc0d7e7a24c6c37173b55e3b3
+ARC-Authentication-Results: i=1;	rspamdcluster10.mailbaby.net;	auth=pass
+ smtp.auth=mb86144 smtp.mailfrom=jeffbai@aosc.io
+ARC-Seal: i=1; a=rsa-sha256; d=mailbaby.net; s=detka; cv=none; t=1773826576;
+ b=eTs3Iw3OvSEmtSZav0V2pSxrfiXRN+uXI5U0wLwM4e4tRRtQddO8gdFepc8uGGg6WLJD4D
+ BZy3WLF7PwETRwY+c532ArLFoL3H1FnUKUVHPKPeriTn+cJHMUflc/+CUdZ1fRp3T6Hhe7
+ 4zhh3c25Dl8mc5qnpYyj7/2WffUE2/eg5HMIWV9CTRkCvDFHbl+zgny44uZvIlcbbjC5L3
+ fsUrKuv8e46zjt9sSo/ohrAp55rnkZkrbEZclNtoAQy5rtSE6httlS6npl+RjlHaRvb+iX
+ FKk1gcaQxpKs/OUwxvn64wkQZoW3BFsjbF+8LrUumLskeRB3YUO7tHi+OHk8FA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=mailbaby.net;	s=detka; t=1773826576;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:dkim-signature;
+ bh=aRavYgOWVKoyYXThS/WCBZX6NQj4ML17HDnyR1moraE=;
+ b=tiPoxoeFvBPwZG9IfrW2ClzSH38XMHoGNxjhfZuqyymGgeVvO4tF5W/e3d21RrF0iP/3QD
+ 06YApzgVgmeqN20ycxxLlFli7kpuXFFL7io3YM+c9NmuxV2jGQHpgtuwmkDQbg8eV8z/Hn
+ ENT6qXr/YwubsALXmVsFv1nC/SihHcEZVhOposFxPzwh6PUl2TztcwTntvCsqLXkuxtPUz
+ LdxSSg20nLDIqrgVkfVuxQ0wZ2A5jItpAuwQQuDqrtmf16mHunQl9llLIng3LnhdmdYqS/
+ CxWYUMawwc4qLUftILZIMM0LnbU/3oWusvUfHbtIyh2Q+KcIUp281sGrKxNGnw==
+X-MB-ID: mb86144
+X-SPF: pass
+Feedback-ID: mb86144:19d004d8faf000319e:587f4d465843594778405947455d:mbaby
+X-MAILBABY-ORIGIN: PASS
+Received: from relay1.mymailcheap.com (relay1.mymailcheap.com
+ [144.217.248.100])
+ by relay5.mymailcheap.com (Postfix) with ESMTPS id 0A2F520112
+ for <dri-devel@lists.freedesktop.org>; Wed, 18 Mar 2026 09:36:13 +0000 (UTC)
+Received: from nf2.mymailcheap.com (nf2.mymailcheap.com [54.39.180.165])
+ by relay1.mymailcheap.com (Postfix) with ESMTPS id F23A63EAFD;
+ Wed, 18 Mar 2026 09:36:10 +0000 (UTC)
+Received: from mail20.mymailcheap.com (mail20.mymailcheap.com [51.83.111.147])
+ by nf2.mymailcheap.com (Postfix) with ESMTPSA id ADB944007A;
+ Wed, 18 Mar 2026 09:36:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=aosc.io; s=default;
+ t=1773826569; bh=564P1Pt8Gne3Up4y2gEfBfyHGqv6PI4DVAe2wHxq3yY=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=fap/Acyd0r1/9cpvzkqI2YR/cB9g/VFPiwabod0y9wzwPjcPO03v/CikRhc29HObF
+ fNXJ9RMKRcG/ZA4OgiVBf7CdTZwNwenICC9LGRHLKNDdB5drdhxlkvVo7tjHqXXLbB
+ IdEpgdM3X7jHl8qg+zOZ4eCKJinIeGH6FyYFuFXc=
+Received: from [198.18.0.1] (li1563-205.members.linode.com [139.162.83.205])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mail20.mymailcheap.com (Postfix) with ESMTPSA id CAE82404E9;
+ Wed, 18 Mar 2026 09:35:59 +0000 (UTC)
+Message-ID: <b1ce6674-c8c4-4277-894b-2d611daf2507@aosc.io>
+Date: Wed, 18 Mar 2026 17:35:54 +0800
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260318-drm-bridge-alloc-getput-drm_of_find_bridge-4-v3-1-10f502520357@bootlin.com>
-References: <20260318-drm-bridge-alloc-getput-drm_of_find_bridge-4-v3-0-10f502520357@bootlin.com>
-In-Reply-To: <20260318-drm-bridge-alloc-getput-drm_of_find_bridge-4-v3-0-10f502520357@bootlin.com>
-To: Biju Das <biju.das.jz@bp.renesas.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Anitha Chrisanthus <anitha.chrisanthus@intel.com>, 
- Linus Walleij <linusw@kernel.org>, 
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>, 
- Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>, 
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>, 
- Geert Uytterhoeven <geert+renesas@glider.be>, 
- Magnus Damm <magnus.damm@gmail.com>, 
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Cc: Hui Pu <Hui.Pu@gehealthcare.com>, Ian Ray <ian.ray@gehealthcare.com>, 
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- dri-devel@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Luca Ceresoli <luca.ceresoli@bootlin.com>
-X-Mailer: b4 0.14.3
-X-Last-TLS-Session-Version: TLSv1.3
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] MAINTAINERS: Update GPU driver maintainer information
+To: Jianmin Lv <lvjianmin@loongson.cn>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Qianhai Wu <wuqianhai@loongson.cn>, Xi Ruoyao <xry111@xry111.site>,
+ Huacai Chen <chenhuacai@kernel.org>
+Cc: Xuefeng Li <lixuefeng@loongson.cn>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+References: <20260318092349.11651-1-lvjianmin@loongson.cn>
+Content-Language: en-US
+From: Mingcong Bai <jeffbai@aosc.io>
+In-Reply-To: <20260318092349.11651-1-lvjianmin@loongson.cn>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Rspamd-Server: nf2.mymailcheap.com
+X-Rspamd-Queue-Id: ADB944007A
+X-Spamd-Result: default: False [-0.30 / 10.00]; MIME_GOOD(-0.10)[text/plain];
+ R_DKIM_ALLOW(-0.10)[aosc.io:s=default];
+ R_SPF_ALLOW(-0.10)[+mx]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ RCVD_TLS_ALL(0.00)[]; ARC_NA(0.00)[]; TO_DN_SOME(0.00)[];
+ RCVD_COUNT_ONE(0.00)[1]; RCPT_COUNT_TWELVE(0.00)[12];
+ FREEMAIL_TO(0.00)[loongson.cn,gmail.com,ffwll.ch,linux.intel.com,kernel.org,suse.de,xry111.site];
+ MID_RHS_MATCH_FROM(0.00)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ MIME_TRACE(0.00)[0:+]; FREEMAIL_ENVRCPT(0.00)[gmail.com];
+ LOCAL_OUTBOUND(0.00)[];
+ DMARC_POLICY_ALLOW(0.00)[aosc.io,quarantine];
+ DKIM_TRACE(0.00)[aosc.io:+]
+X-Rspamd-Action: no action
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,66 +126,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-of_drm_find_bridge() is deprecated. Move to its replacement
-of_drm_find_and_get_bridge() which gets a bridge reference, and ensure it
-is put when done.
+Hi Jianmin,
 
-This is made somewhat simpler by the fact that 'bridge' is a local
-variable.
+在 2026/3/18 17:23, Jianmin Lv 写道:
+> I and Qianhai are GPU R&D engineers at Loongson, specializing
+> in kernel driver development. We understand that the current
+> Loongson GPU driver lacks dedicated maintenance resources
+> because of some reasons.
+> 
+> As Loongson GPU driver developers, we have both the capability
+> and the responsibility to continuously maintain the Loongson
+> GPU driver, ensuring minimal impact on its users. After internal
+> discussions, our team has decided to recommend me and Qianhai
+> to take over the maintenance responsibilities, and recommend
+> Huacai, Mingcong and Ruoyao to help to review.
+> 
+> And We'll continue to maintain it for current supported chips
+> and drive future updates according to chip support plan.
+> 
+> Signed-off-by: Jianmin Lv <lvjianmin@loongson.cn>
 
-However we need to handle both branches of the main if().
+Thanks for the invitation and will try my best to help.
 
-In the 'else' case, just switch to of_drm_find_and_get_bridge() to ensure
-the bridge is not freed while in use in the function tail
-(drm_bridge_attach() mainly).
+Acked-by: Mingcong Bai <jeffbai@aosc.io>
 
-In the 'then' case, devm_drm_panel_bridge_add_typed() already increments
-the refcount using devres which ties the bridge allocation lifetime to the
-device lifetime, so we would not need to do anything. However to have the
-same behaviour in both branches take an additional reference here, so that
-the bridge needs to be put whichever branch is taken without more
-complicated logic. Ensure to clear the bridge pointer however, to avoid
-calling drm_bridge_put() on an ERR_PTR.
-
-Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
----
- drivers/gpu/drm/renesas/rz-du/rzg2l_du_encoder.c | 14 ++++++++++----
- 1 file changed, 10 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_encoder.c b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_encoder.c
-index 5e6dd16705e6..9b65bcefdb86 100644
---- a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_encoder.c
-+++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_encoder.c
-@@ -67,7 +67,7 @@ int rzg2l_du_encoder_init(struct rzg2l_du_device  *rcdu,
- {
- 	struct rzg2l_du_encoder *renc;
- 	struct drm_connector *connector;
--	struct drm_bridge *bridge;
-+	struct drm_bridge *bridge __free(drm_bridge_put) = NULL;
- 	int ret;
- 
- 	/*
-@@ -83,10 +83,16 @@ int rzg2l_du_encoder_init(struct rzg2l_du_device  *rcdu,
- 
- 		bridge = devm_drm_panel_bridge_add_typed(rcdu->dev, panel,
- 							 DRM_MODE_CONNECTOR_DPI);
--		if (IS_ERR(bridge))
--			return PTR_ERR(bridge);
-+		if (IS_ERR(bridge)) {
-+			// Inhibit the cleanup action on an ERR_PTR
-+			ret = PTR_ERR(bridge);
-+			bridge = NULL;
-+			return ret;
-+		}
-+
-+		drm_bridge_get(bridge);
- 	} else {
--		bridge = of_drm_find_bridge(enc_node);
-+		bridge = of_drm_find_and_get_bridge(enc_node);
- 		if (!bridge)
- 			return -EPROBE_DEFER;
- 	}
-
--- 
-2.53.0
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 96ea84948d76..4232039b7282 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -8626,8 +8626,13 @@ F:	drivers/gpu/drm/lima/
+>   F:	include/uapi/drm/lima_drm.h
+>   
+>   DRM DRIVERS FOR LOONGSON
+> +M:	Jianmin Lv <lvjianmin@loongson.cn>
+> +M:	Qianhai Wu <wuqianhai@loongson.cn>
+> +R:	Huacai Chen <chenhuacai@kernel.org>
+> +R:	Mingcong Bai <jeffbai@aosc.io>
+> +R:	Xi Ruoyao <xry111@xry111.site>
+>   L:	dri-devel@lists.freedesktop.org
+> -S:	Orphan
+> +S:	Maintained
+>   T:	git https://gitlab.freedesktop.org/drm/misc/kernel.git
+>   F:	drivers/gpu/drm/loongson/
+>   
 
