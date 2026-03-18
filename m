@@ -4,31 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D7D43107760E
-	for <dri-devel@archiver.kernel.org>; Wed, 18 Mar 2026 19:50:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 65B371077611
+	for <dri-devel@archiver.kernel.org>; Wed, 18 Mar 2026 19:50:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B103E10E43B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id BD77F10E796;
 	Wed, 18 Mar 2026 19:50:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=pm.me header.i=@pm.me header.b="qW/She3I";
+	dkim=pass (2048-bit key; secure) header.d=pm.me header.i=@pm.me header.b="aWRM4hem";
 	dkim-atps=neutral
-X-Greylist: delayed 7678 seconds by postgrey-1.36 at gabe;
- Wed, 18 Mar 2026 09:41:01 UTC
-Received: from mail-4316.protonmail.ch (mail-4316.protonmail.ch [185.70.43.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8AD2410E78D;
- Wed, 18 Mar 2026 09:41:01 +0000 (UTC)
+Received: from mail-24417.protonmail.ch (mail-24417.protonmail.ch
+ [109.224.244.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0EE2310E792;
+ Wed, 18 Mar 2026 09:54:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
- s=protonmail3; t=1773826859; x=1774086059;
- bh=O8NvNXddRHC58zg8IZi+YXxbSeJrGgRudFwpnQQCLOI=;
- h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
- Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
- b=qW/She3IcHNH9eyby4cVencADqZlqCCAecmUBWR7bGPfXEa+hxFyeA1tc7gKb2mfV
- geKtdAj3FkZjv0aUjxFXoQ1qKhSucsvYkIM7+D6vnSqyckR7S1rqfK/IObGWVN9Cmk
- OlrgH2IbSQnox200PTBnf5Id5+UvHqj76UQmvn44U9W3i2DocmzrGMVkmC0B4Rhtdb
- FTvTvkGMHWHpcpvPAMYEwbjgvfG4lDTQnaRdgGelCECL9c7S3fWaAHe5Tv1i8jQ5uD
- NR97KNKNUwXWWEpCrSY3dtV0t0Jltg1ZDR2VneJ4yaIo/5znDrKa0E1BzgCYFFKV0J
- p8XxSDpNLtddQ==
-Date: Wed, 18 Mar 2026 09:40:55 +0000
+ s=protonmail3; t=1773827646; x=1774086846;
+ bh=c/4GQSK74Nj7byIPfrD6C7RHq39tdQptNxSSfTG64gk=;
+ h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+ Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+ Message-ID:BIMI-Selector;
+ b=aWRM4hemV9x/6hDvLzsjQj8VEcXDS56y82N91aHItnLARgJu/9WSvMbdS9c1K9zP6
+ M6Jw3PA8trPzbFbGufrjJXPp8LQeSXRJcgGZFnUjfk6cMhokZzmE27aNMYhz52nqSE
+ Qr8dalbQk64+ZAvkfGbbx3myoW5ji76AYEGKg4rYRxm7aThy2kHOnSRCrOzM0Kr4by
+ BnBNTGs7wuhTv0qh4MFGEQuOezt6Ra20pe7uEvSG/IPAN0z3roxTgcAOyjUhG7KT6+
+ ahjTD6Dni12AYosH87gozOoXaW0qrx9JjMRIr8Q84LfR2/EGGJdcN+g4KQPtLhN4p6
+ rpiBlJlcQ3cGw==
+Date: Wed, 18 Mar 2026 09:54:04 +0000
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
@@ -39,12 +39,15 @@ To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
 From: Alexander Koskovich <akoskovich@pm.me>
 Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- Alexander Koskovich <akoskovich@pm.me>
-Subject: [PATCH 0/3] drm/msm: add RGB101010 pixel format and fix 10-bit DSC
- timing
-Message-ID: <20260318-dsi-rgb101010-support-v1-0-6021eb79e796@pm.me>
+ Alexander Koskovich <akoskovich@pm.me>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Subject: [PATCH v2 1/2] drm/mipi-dsi: add flag for sending all DSC slices in
+ one packet
+Message-ID: <20260318-dsi-dsc-slice-per-pkt-v2-1-0a1b316f8250@pm.me>
+In-Reply-To: <20260318-dsi-dsc-slice-per-pkt-v2-0-0a1b316f8250@pm.me>
+References: <20260318-dsi-dsc-slice-per-pkt-v2-0-0a1b316f8250@pm.me>
 Feedback-ID: 37836894:user:proton
-X-Pm-Message-ID: d5e723548ab3334420aaaa0fc3e529ba89d8c0c5
+X-Pm-Message-ID: d9e4f2b0396d9e14ca6fc797b00728c85c384ee5
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
@@ -64,36 +67,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This series adds support for the RGB101010 (30bpp) pixel format and
-fixes a DSC timing bug exposed by non 8 bit panels.
+The MIPI DSI v1.3 spec defines two modes for transporting compressed
+pixel data: one slice per packet or multiple slice widths in a single
+packet (Section 8.8.24 Figure 40).
 
-Tested on the BOE BF068MWM-TD0 panel (10 bit DSC) on the Nothing
-Phone (3a).
+Add a MIPI_DSI_MODE_DSC_ALL_SLICES_IN_PKT flag that panel drivers can
+set to indicate that all DSC slices for a line should be packed into a
+single packet. When unset should default to 1 slice per packet.
 
-Note, I'd appreciate a comment on the INTF timing change from someone
-at QCOM who knows the DPU hardware a bit better, this appears to be
-what downstream is doing regardless of bpp, but let me know if there's
-a better solution here.
-
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 Signed-off-by: Alexander Koskovich <akoskovich@pm.me>
 ---
-Alexander Koskovich (3):
-      drm/mipi-dsi: add RGB101010 pixel format
-      drm/msm/dsi: Add support for RGB101010 pixel format
-      drm/msm/dpu: fix video mode DSC INTF timing width for non 8 bit panel=
-s
+ include/drm/drm_mipi_dsi.h | 2 ++
+ 1 file changed, 2 insertions(+)
 
- drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c | 12 +++++++-----
- drivers/gpu/drm/msm/dsi/dsi_host.c                   |  2 ++
- drivers/gpu/drm/msm/registers/display/dsi.xml        |  4 +++-
- include/drm/drm_mipi_dsi.h                           |  4 ++++
- 4 files changed, 16 insertions(+), 6 deletions(-)
----
-base-commit: f338e77383789c0cae23ca3d48adcc5e9e137e3c
-change-id: 20260318-dsi-rgb101010-support-4956b1cd8657
+diff --git a/include/drm/drm_mipi_dsi.h b/include/drm/drm_mipi_dsi.h
+index 3aba7b380c8d..d3ad8c5d3ebe 100644
+--- a/include/drm/drm_mipi_dsi.h
++++ b/include/drm/drm_mipi_dsi.h
+@@ -138,6 +138,8 @@ struct mipi_dsi_host *of_find_mipi_dsi_host_by_node(str=
+uct device_node *node);
+ #define MIPI_DSI_MODE_LPM=09=09BIT(11)
+ /* transmit data ending at the same time for all lanes within one hsync */
+ #define MIPI_DSI_HS_PKT_END_ALIGNED=09BIT(12)
++/* pack all DSC slices for a line into a single packet */
++#define MIPI_DSI_MODE_DSC_ALL_SLICES_IN_PKT=09BIT(13)
+=20
+ enum mipi_dsi_pixel_format {
+ =09MIPI_DSI_FMT_RGB888,
 
-Best regards,
 --=20
-Alexander Koskovich <akoskovich@pm.me>
+2.53.0
 
 
