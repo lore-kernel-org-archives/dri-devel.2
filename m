@@ -4,52 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 640C8FCD0C6
-	for <dri-devel@archiver.kernel.org>; Wed, 18 Mar 2026 07:16:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 252EDFCD0C5
+	for <dri-devel@archiver.kernel.org>; Wed, 18 Mar 2026 07:16:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C91B410E6BE;
-	Wed, 18 Mar 2026 07:16:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4A0E810E6C5;
+	Wed, 18 Mar 2026 07:16:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="hd9GMB7e";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="bpN16MMM";
 	dkim-atps=neutral
 Received: from CH1PR05CU001.outbound.protection.outlook.com
  (mail-northcentralusazon11010040.outbound.protection.outlook.com
  [52.101.193.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0233B10E6B5
- for <dri-devel@lists.freedesktop.org>; Wed, 18 Mar 2026 07:16:09 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7290010E6B5
+ for <dri-devel@lists.freedesktop.org>; Wed, 18 Mar 2026 07:16:10 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=jTsbPOjHMiqBOoMyhp3J/bVuN1gpU+qzxkX18e7U544ZLPwojjmTN3yjG5HH1joBX0U+SLbnUJHMLwnSQ0rKJcC1T8dguKBFxLRp7MNXjcLJ7MSNRgdQWlv3l/uQo7xaWzcEe1nlnT2/3BXv3Nb0yPdgyAzZt+/HBGM0YdwhoK465sLpvvVeqO9FSXsgnka/s+gvOZU8WCSp5RffELyKUwcCzM4dCGVO4h3r0k7d7qjyvDSBqWzkj/OL9KnjX1GwL/furWOVlpi0xPbzfmyOBeyTSuxAI5wtVZc/KqX1M8zEbJPUXR90hlDij2yvI9poemIzeii4XjKqulufbZrqXA==
+ b=N8AORH4cKouks90DcLfTqMie3KE3b6cncYGHHpmPtgIC1yiuCr0AnzdFJ/A9V8s5a+L32tAstblHSzL6y89sXPaLfVnH58IPIxHSmdhR0Y7FDCFNqq1VRUaseXkGBHwPNmFWvg5a2EzTFFxS05qDyjACr+Uh4sBmEUKV3fcxKz05fqjUEHrWhDEb4zIXtqMsj4/V4N9a/1IOoMo79wL4IydIkjPegXNsuVvFvVf2rfhz/KTdpwVB2Het4BQQVwHZTr9ggjHX3egl1PQsJTuppcRSON4XM9N1COnLTCcC0EYRfOHi9yTJQRbQadXFu3bwBZ7eNDUBjpcforpnWOtxFA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=WzSwQOmvjY4sYtqZtOreKEykQCR1/tb0rDwprvzqNus=;
- b=okWm1YGziNonOox9V5fe8MFhjVwG20d2kpfx9c74SJYrq8oUt0woUQy3KofTqMEyk4X67Xv6skqV0Osf5pCrNqx9MaXv8cMjKq7ZAM2ITphANubhmjILnWxoP9EgS4GfBATp4O6xu1dUU5wD3SNk353OSN5vaO8SF3+YWpBldO0pxvPAZZdzE8w6M2SXYDRCIUFQlPK0UaRfQESTUDYTlFogG1V+iwYlrIBxOfW+PV/xg6ZMN99vaHTL5Znh46lNfdAvxfcF2yMAt4ZEgxrmr1UzY7dIpxHo23/vYFLBAKD1B9+P39aSrkKKQeKN6MYJweZqfgoPrVTwxHl+xKnfSw==
+ bh=NO8V3zSADDvaOqcgnm8lOQnUFvVnGJXDqRgcQ2erTQ0=;
+ b=XffxBfNNbVLTbTkidq2yLEaGcmTBXjScCpHI7QZCn0gOLDwUJRLMEe2PxvTZDxP/+NaQE+SseuvMRBhPqhKLRU7neIVMJHLOIgj8Z1y3HHKhplKIt4Igfcge2BF9/UOqhW6r8q17f+3Ksp+W3u//jL2X++5L55h6WL8YIoKWnO9iqz8/dUFW6TBG+KybfOF1MTZ9VHXO00MsR57cg4cRhNtT0mLIM/MG7aSKHlQzwNgqXDj2bSDSmUlZK3m24sCFosWE7asWh0HuOGITd8MZ/+hYfq2N1CEbRfnQWLKFWqdvl1ShBzibbUwZZwZDOEd75TNJIvLao5y5gtso1bDsHA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WzSwQOmvjY4sYtqZtOreKEykQCR1/tb0rDwprvzqNus=;
- b=hd9GMB7eyjli6QNQuMU1f5hoFL1DGtuQHmtuYwnTfb0AcQ91a1h/dUz90wyMyrCxMg42Qw8hiMCIjcelZqXYObapDWDGzkYFtPDTPWMssWX3D4GQAa7WEK9TnWimgxqyEEbT1+T43XTVlkzUcBcZMoBv3SVGAfBCPLgshFEvpEgpQs/6GW/5OufUmBq1qcRtPatD5ObPf05rhuwhNiWdKkrpGzS+Q9bm/qgtr58h/S/PiWg3W+LS9EnbBJXrhvWzhmyQBjBuOCyvktWtq0euGdQ16gwsvIuOMrN91FO4lxnYZ8QpchjC3NJGemIDYYIVdFm7QMCXPxuwoyPdTAkgZw==
+ bh=NO8V3zSADDvaOqcgnm8lOQnUFvVnGJXDqRgcQ2erTQ0=;
+ b=bpN16MMMKS5+1x8TytfNX7sY+bsnUblF6aotiJEdzEDDVsGqaU0s09WPo9ZBOVs+N8i1D0D30KTWSYZDP3RPvP8LBL2c5yJrr4JtzZmLvk3uElw2KB5EwR0ugjV+8NqOwJ4pHeDhbNJpQAovfsFNW6R3+TqPbgeyzlR7DrzIkfMs5oZCHfHE8pq9p3vQLq+3mWXgVOkDZ4kZcakAJMk0QMnCOU0iLvZKcPdRrZXYJOhjoYxJVDE9DfhVpvhCVIHaQYjvuEDIQlJcDOc3h0J4QuzhybVlmePMovBBlLSIUszqOTwwIflswu9XLXZt+7H74ACoA7YB6g/NnQraAvqCjw==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
 Received: from BL0PR12MB2353.namprd12.prod.outlook.com (2603:10b6:207:4c::31)
  by MN0PR12MB5764.namprd12.prod.outlook.com (2603:10b6:208:377::8)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.16; Wed, 18 Mar
- 2026 07:14:47 +0000
+ 2026 07:14:54 +0000
 Received: from BL0PR12MB2353.namprd12.prod.outlook.com
  ([fe80::99b:dcff:8d6d:78e0]) by BL0PR12MB2353.namprd12.prod.outlook.com
  ([fe80::99b:dcff:8d6d:78e0%4]) with mapi id 15.20.9723.016; Wed, 18 Mar 2026
- 07:14:46 +0000
+ 07:14:54 +0000
 From: Eliot Courtney <ecourtney@nvidia.com>
-Date: Wed, 18 Mar 2026 16:13:59 +0900
-Subject: [PATCH v2 3/9] gpu: nova-core: gsp: expose GSP-RM internal client
- and subdevice handles
+Date: Wed, 18 Mar 2026 16:14:01 +0900
+Subject: [PATCH v2 5/9] gpu: nova-core: gsp: add types for RM control RPCs
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260318-rmcontrol-v2-3-9a9fa6f1c4c3@nvidia.com>
+Message-Id: <20260318-rmcontrol-v2-5-9a9fa6f1c4c3@nvidia.com>
 References: <20260318-rmcontrol-v2-0-9a9fa6f1c4c3@nvidia.com>
 In-Reply-To: <20260318-rmcontrol-v2-0-9a9fa6f1c4c3@nvidia.com>
 To: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
@@ -60,73 +59,73 @@ Cc: John Hubbard <jhubbard@nvidia.com>, Alistair Popple <apopple@nvidia.com>,
  rust-for-linux@vger.kernel.org, dri-devel@lists.freedesktop.org, 
  linux-kernel@vger.kernel.org, Eliot Courtney <ecourtney@nvidia.com>
 X-Mailer: b4 0.14.3
-X-ClientProxiedBy: BY3PR10CA0001.namprd10.prod.outlook.com
- (2603:10b6:a03:255::6) To BL0PR12MB2353.namprd12.prod.outlook.com
+X-ClientProxiedBy: TYCP286CA0001.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:400:26c::7) To BL0PR12MB2353.namprd12.prod.outlook.com
  (2603:10b6:207:4c::31)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: BL0PR12MB2353:EE_|MN0PR12MB5764:EE_
-X-MS-Office365-Filtering-Correlation-Id: cea5e769-a7d5-4cda-3ddf-08de84be094f
+X-MS-Office365-Filtering-Correlation-Id: b596ba2c-d751-48e8-7fa3-08de84be0dc4
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
  ARA:13230040|1800799024|376014|10070799003|366016|18002099003|56012099003|22082099003;
-X-Microsoft-Antispam-Message-Info: qVStIU6tav7PmdOydTGs19l7FPfns+kzGVEosSXLN9LKRG8S2LqjIkJvYaDM9c1VYBhiWPC/pVZ6u09at59q9Zo8JERsbFPEUOLvSOtFUyckoJmg6rLFlGxT6lkks9yHsBwq0u/CibWycZLt2r5wXC9Ghm6PPnyjuDz6U74pdbCsm6bmEdngxPn1Oa52pebXfL5Vt7WQ0ZjrRMIYrKJ+KKYC1CLCfTAIS36/NOwpIJTynEIszr6LH0/dzOPoxA7dZPSMr+EVEpn3dMDgj3jFKIkGCn5TAO9wfpxHy2rZsO54dD01Z6SHQji1xbmHOqEFQxhUXmF9B/JOuG5JIgpq9/ycARSTLHOT5vzrL9baOO+fRBgEz73MXp+YTOuKbB/oi0+mvWO3dNcMl7AefESFYE/MA/xEHMseJSMQwGZrlzA8Z13LDYAZkvAmZQrkwOnuEWW0FPaFkVJVqcQZJz5zGXFdEfWpujDe+WIaBQU7JDOh7OxLUgvB7nMtvkHFzC04kZBhUd2T4WJDlP/Df/58GIa7jI4hw9bloXTJdtZZhmArSn89tzzEHKdoMn0u1cSfRl2iTPYya1cc1LRxZg2YQNNAbcON2dXxuvXTdCiRbwVolOxEWslE7gYuXmqnaVNjMfAv9CZTShwAtAnqd9IlG+62R/yCmV14LA+GIR7Zs0j88m4jJMEAzx4T0fov18CSxPZV4x6MWCP5TI2FZFNP4NbH++g344wEe4Y4K9kFDF0=
+X-Microsoft-Antispam-Message-Info: i52ZhXozw3Ad+sae9VO4KgEI+3qsdU521OUhZ8zH2Ueq/8x9lt1B7FBeO1q48dyyxlEEr2qqhW5DKviXzj8X7vyKEQydQtf2jFSgEjJ08uiVJb6/ZKaO9tuD+1RzHaHwdSh39abjbbOhiV7a+IfXU/U56oL57hafa7slB8vEXv/Bpvs4RlsrzGV+ZlQPQefF9ogZ1VDSqLMfmmE75ptrJIJAGkYjs7MJk4vZB5vxsCKJuQjA/cwW9ErD8tI3puNzCYTQ+5dgWVfr5Z81136fRyq0ihO1XmrgEzIK5UuIqaWtg4rs7sGgkOwoigNAoz+ttr0lnAYB1J1H7e/6zLlNEDZ7rWivljIKSBGNrT66vdJPU5/qQfETw+TpO9AdzfE4on+bHdLiv1U7CXs43QDig5WaWzjdJwgiQ2u+piIc4vn5znaSbzOWZIhwrKWeNpJMY0XTwAy1J5w0O/AG2SFyRJjw9eVsTapYD0pRCjgEZIkvEhl6rAaPtsGlq85ey3MlxMjBh4ICIg30Q4TpEwrFZ3tqpP1iXZo+BsKV2Fgnvs5sOx5vvUSdyhMCkCii8/3LdEIrGGnGfwjK2vAtxnAoqRU0rkdlO/InXEiraAfabhODf88WCDFqJa+2PFr595uGnJ8yoEN71wUmHItlnNicawRSbhwjvNvQkXI0ApOWsIdQa163x93QR10Z8kDtu5cznfXH9RxCS/JN9kGc9PBBVm3hB/AXWdZSdUegvmrc4b4=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:BL0PR12MB2353.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFS:(13230040)(1800799024)(376014)(10070799003)(366016)(18002099003)(56012099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cEE1MlhKK2VOZlFTcE82Y05FdGYvU2d5Vmk1NytMMExKdjA3alpHckdjd1VS?=
- =?utf-8?B?TlNQREUrUDZVWVA4UGphUVEyYUpud0hNbXpqTzJlUGNmQjlYa0RnMVNoOUFU?=
- =?utf-8?B?VzhUUlBEcGFDZVBlbHBjd2grbVVTN2ZHQjBVUHB2VE5TTjVkbjF4TmJJZDN5?=
- =?utf-8?B?eTBmd2pBekFxdjlJKzFYWUF6NE1KcVdqeVJPclVpdEtHbE54WUNuUTVHNmhE?=
- =?utf-8?B?QlN4VjRkY0ZvQjFJdmlXQXlpM20rNlNIN3BZa3k2bmR4ajBiaDR6d3ZRMkVV?=
- =?utf-8?B?eHAxYTBJT3JSZ084UUx0dlFjbzNPL3JESHJSRmc5U1M0N1ROck10Q3pXZGlz?=
- =?utf-8?B?b0ZudEJPWEhBcnFvVWw0dmpHRi9jdDJVTy8wVFIyaTNNdHF3SVpBelBTa043?=
- =?utf-8?B?eXNaMU9qVDhJWDVaR3JDT3BrMzFFU0tmZUZhWStQR0FUcCtzNjc1cG1lVVVD?=
- =?utf-8?B?c3ZUV2UrQVkvMVRoYmdWQkpjNWd4NWdHa3ZBWmpjakVRM2ZzUjYxbDZpSHNX?=
- =?utf-8?B?Mk0yRnlKYjhldHk3ckt2VjlCdWd2NlhDRDdkVVl6dmU4OXZxTmlCM0JKNnlL?=
- =?utf-8?B?TTd0WGFQSy9ubFVqZWhrMHFHd3B0VE1nVHRQWEtHZ3R4b0ljUWdkcUtOSktO?=
- =?utf-8?B?eUdiZVYxSjRIZVQ5YVF1UkxacUhVRHE0TWRNTENQVHVkVXp4R0FQdGNNMDU5?=
- =?utf-8?B?UkErRzNKQUpRYjh3Y0JYaEdTcmM5TXRPb1N2K1RJWnZJWEhwcUZ4b21ReWIy?=
- =?utf-8?B?RHBpY21HQi9DOUFMY3kvNFI5OExEWDEyN1Q2OFNPQXlKRmt2ZmlhZGZiTmph?=
- =?utf-8?B?b3BLVnoxSktjWGtZUUtzRjc2NnhSSGtvMTVuTjVTZ2NCTFVMS29IVlJULy94?=
- =?utf-8?B?RmRmeXhYbkVDcG55UGtSM3hkRExMYk1PWkh5ZTBuYUNvejlWTTIwTTRJNXNH?=
- =?utf-8?B?RzhFRmVFQUwvR21QT3NETFdGVEEzRGl3dzR3Smt3RFFtSVIxN0ZSQ2pFR0wx?=
- =?utf-8?B?aXFOZUZOc3h6YWhNR1dSRk9aUFhBKzh4QmJQK3BScC9mUVRyMXM1NlZDbWNk?=
- =?utf-8?B?dGYyV0FudGMvODZ4em8rS0lrOHJBNEE0Umk0K01FcHlGUWxDcDRqUWhSdTV4?=
- =?utf-8?B?MklqKzNDTmZrUHNQSzlDN3Q4bVRJcGlHV3p4cmdodTN3MklibmVKQTBNRWFq?=
- =?utf-8?B?QVZXWWFjRmNNbm1lUExUWElISkJqaW50ekVQOXZNUEJkNkhhaENmcGhMOExm?=
- =?utf-8?B?TmQxSmZvaE1vdU1Cc0pEemJFZnlGbTBQUXV0OFBhb1RlVGdQYXB2dk1EVWVo?=
- =?utf-8?B?dDFaTGthZmpGbXNLUThVN1I1bXRZd0V6T0JoL1orTHpjbFFoT3RsZU9BY1Zw?=
- =?utf-8?B?TGMyNkJlcTlrS1pEazYyUFpKN0N6RjlIcjFVbWVzUlNaMmQ4bi9zbHNhYlZv?=
- =?utf-8?B?SkZTOCtOa2FucDFJWVFvUVBUYmlnVkwwbU5HYksySGg5ZVExU2RPNGk3YUdP?=
- =?utf-8?B?Y05rblM0WUgxQ2NjUnQ3dElMR0txdTZtbEN3WGhjQklKQ1VJT1FWdVh2dERl?=
- =?utf-8?B?ZXFSeGtCRFRMc3F2TURLL1NvdVdJZTBoVFJsWkExSVc2ZVBrcXVmZzRlRHpp?=
- =?utf-8?B?WnlFV05JZENuNjlQQVB1blZQS2RFdGZCUWlQczFkN29idUU0a1VOV01GQ0RO?=
- =?utf-8?B?cnhjbXA2WDIzVkMwdnl3OFN6bExKNkg3bEg0dTBvZnRtUmIrQ3FvWmxsZE8z?=
- =?utf-8?B?V3VhT09QdU9DclRJeGFEQU5OMzhsQ0dMdklETHNUbUFsZmR3Smw3UWJ5ajNk?=
- =?utf-8?B?MEJNWHFvVFdTSHdXL24zZXRXTDZjN0hHNjJpbTFBYWRrNWdkUnNUYXhxL3VJ?=
- =?utf-8?B?OVZSNTZFaVVJMVczcytVcGhtTDRwejBVS0k3Y3NKZnJPYlpLMk9idzBPZmsw?=
- =?utf-8?B?WWxlNmpyUnFhbHJaUy9WbkJDR1dVMlRHUnNxWGNBc0NlTWxkby9WcWtmRFA5?=
- =?utf-8?B?QVpnemR4VWlUNnlDV01NYXEvOThGMWlTOWJKUVhpaFdTSXNyREJuank3SExo?=
- =?utf-8?B?Tko1SnFvOXZnT2x2YWdMZlpGaEdIaVhzLzRuN3hnTCswS1B6ckhtZ3lFQ050?=
- =?utf-8?B?OWdKWlZIN0l3NmZ2eGh3WG5aSVpuell5NDVjWjJjbmQzaVhJVnR4S2gvL0R2?=
- =?utf-8?B?Mk5BdmFOdWZtbHpubWFxcnJqbmt3VXladTFhSWIyT0pGMTZ0Wmo2MTlUbngv?=
- =?utf-8?B?MUtrY2FYQjFrQ2RsSVdTTk5IUndjM3BYRkF6ZHgxZzhLNFB3NmJvNlBhNjZD?=
- =?utf-8?B?M3kwcmJuelFyY3dtamcwQzYzZnJXNEVhRFMzV2FLTlREa3IwN0QySFRnZFJX?=
- =?utf-8?Q?g9896Sy8YwTs2NZjJiRQ79pOgqKmdfNR8MY7040lFqU0U?=
-X-MS-Exchange-AntiSpam-MessageData-1: jm1wQVXTAgVing==
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?YThaWExVSUQ0RS9qRWFDTmYzOEdUeEwrb2w5OHhiMHFIZ0hnb0h4Mi9LRE5v?=
+ =?utf-8?B?K1VOTjNNWUI1UkdKRmRpUjBaUUhub2RmYi9hMmk0a25RQWZpQmF1TTJQZnRh?=
+ =?utf-8?B?WEVHK3dkRUJiNWdsZGp2WkNMZFNrWDAxVEYxakhjVFp5alpkamVQbHNyVDNF?=
+ =?utf-8?B?REcvaVFCNGQwWHREVzBpYlN0alA1NE52akF2Q3hxbnMxdWRJUWszUWpnZEVQ?=
+ =?utf-8?B?YmNGWXAyeXo2QjAvdGc3MkFzUmcwaU1aczlIckJ1RFVjTndjWGRReWQrb0py?=
+ =?utf-8?B?MmRIMVVLNm5XTFE4SjdSQm9EeHNoRlVUZHVTS0s4M2RqdkNUblh4SkZIay9I?=
+ =?utf-8?B?NTdWdUZsRzNaTWdjSTl1cE5UOWRnZG1hRlowdzRTWXZPYWNVTm5sUXNyWDAz?=
+ =?utf-8?B?Mk1LU2hBVVA2Zkd5ODduK2JaRDJ4N2tpb0hkZldrMW9STk8wbStwbHdSbk9F?=
+ =?utf-8?B?WUNKVGpVM0ZoRnRXcWYzd0tYWmRhcmlBaDZOdWRFWCtNNGs4R1lKejZTVjNn?=
+ =?utf-8?B?VDVIUmE0cThlN0hBNWd5NUZQRmY5elU1WUFYS214MFQ5NWJtekVPVVNKMFF2?=
+ =?utf-8?B?elAwY1ovajZxd1drNVoydWIzcmI5N2RjWld6MEp5TG53UHRXa3ZhSG1lRWFS?=
+ =?utf-8?B?UlZmSnlCWEpqdndFOWEydHp3b05VakZ4VTVrckI4UzVxZEJkODFhaEVMWWlD?=
+ =?utf-8?B?bnRHWnIrd0ZsNFhiemt2aVQyTDhuSnpnWGI5cmV6T3VmVyt2dGxDU0t0bVZG?=
+ =?utf-8?B?MmsyK3BDclRDc0RSb3ZYQWFlZWpGSlFKSVp3NjVpRkZCV2FXOG9ZbWsxeGRK?=
+ =?utf-8?B?b2tjeFlzdTFkazBXZDM5djlhcWZLbzd2OUZtdDR3VWF0Vk9DR3pJVUcrZDVx?=
+ =?utf-8?B?c0lORnBSbWlmeGxRNm93NFVrTjNvaE8rendyaGRFMlNsYW5ObTlNOVZSRnJk?=
+ =?utf-8?B?cUhxTEhSaU5tOHIvTzNVeUFsYkR4QkFCQ2dYTjYvcDQ1UFdDVTBhOU5pRHZp?=
+ =?utf-8?B?eldTanhvMy9YMnNjQUNmZTc2QTdOUWhNZWRoc3hScWRub1ZVMGNNejU3dlFZ?=
+ =?utf-8?B?b3R3QzF0YUsrbDA2ZEU5QXFzMjhLZ1U0MHRUUkNyS3c3WEJuR05VcXJqdjY3?=
+ =?utf-8?B?VktjTVJ1Y0dtRWs4MVBQM041bjIwVmp3eGc5TWlsMkRFcER5UndFd1ZaYm9o?=
+ =?utf-8?B?K3VmczUvSFN2Y1gyWFQ1UlZSTFV0eU45ajlKSWp4OG50SG85OTROcTlLaFdo?=
+ =?utf-8?B?YzIwTGlBc25wbWlGMjVmcXliNFUway9TbVkvT3ZvNU5Ec1JPZTN5QUdFNDJK?=
+ =?utf-8?B?Snptb0tZOEdKODBSM3RueWlzQy9qOTM0Snh2c1JPeXFPMy9yQWhwVnRReVhV?=
+ =?utf-8?B?cHVOSUs3WFdPeTBlaTFCWlNrNCtCdFhCRnZJck8waDRGQWVJcDBxTWxkcTFQ?=
+ =?utf-8?B?bjUvY0hFVWN1TkNlbFVVQzJZUE1FNURyTEhoL0YycmlrdEQ4Yk1xV1ZFKzZp?=
+ =?utf-8?B?dXFQMnliajg3TFV4S3V4MkF5andvUTVHdFI3NjBTWlNkYmRKckR0UDNpdFA1?=
+ =?utf-8?B?RjhvNnpYaTZaMXhXbEIvbDBrcld5MVhKV1FRRG0rUldpckxxZ0xaUythdElI?=
+ =?utf-8?B?UWRkK3k5alF3QjducnZHM0l0bEV3cW14MkJmZ2hCTUsxRTNIekhYN2FVbGZQ?=
+ =?utf-8?B?L0NEVXQ2R3BSTFVqRWlXcW8xU3g3aWhyaUZYU2l6T2JxTjNraWxERWhzS3ZN?=
+ =?utf-8?B?eGhRU0w3WVNPejlNQWRab0ZhejhQakR2NitNVnEyNDh6c3RrdGNueTJpYk8w?=
+ =?utf-8?B?UHgzNDZIT2s2cERaQnFBbTBFVUFaVzdZOU9FR1puUFlHbFV2MUFQZHBSWWtG?=
+ =?utf-8?B?SDZQaTRWb0gwTEFXTnRQbXZjY2hJVVhjZUdSS3R5ZUIrKzFkei9tN3hnNzVM?=
+ =?utf-8?B?Y0h3dmhJeG55eEVWSTNyWGJKQ2VVbUUxS3YrVkN1Umt2cUc5dlpDU2h0NzBo?=
+ =?utf-8?B?aVVobEg3NDUvUzArNitVVW5lQ2FlUXJDUWo4cldCMFQrYlFBTWFVMS8xbUxt?=
+ =?utf-8?B?R20vUWlid0hWYTVLcTRrVVpobjdWQUNuRVN4OWpmcnJxSUZWTjI5TjFHellx?=
+ =?utf-8?B?cC9Yb2sxNUxsaXhxK2Nac1hkbVRMblJJM1lwakJHRVBsWCtrbVozL0srUkRT?=
+ =?utf-8?B?dTZONXN5UDNWWDJOUXVPd0tyakFZS0RyakxyT0YzaGhKVWw2dyszMk1GWklz?=
+ =?utf-8?B?NWRHcUdwTXVzY05wV0JvWVlIZWgwZSs1dUU4VXUwaTRXZWYxeXVicE0vdXJw?=
+ =?utf-8?B?eFB1YUtVaXRISzQrS0R0NThsWkxCNEc3cTJZdFpDK0NSZ0gzYmNOM2VsSHA2?=
+ =?utf-8?Q?3nvfqbFR6nQvsb5FOwYENf0lwbQFADqQRkPBYG4hAXATl?=
+X-MS-Exchange-AntiSpam-MessageData-1: ml3tyxN6Xaej6g==
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: cea5e769-a7d5-4cda-3ddf-08de84be094f
+X-MS-Exchange-CrossTenant-Network-Message-Id: b596ba2c-d751-48e8-7fa3-08de84be0dc4
 X-MS-Exchange-CrossTenant-AuthSource: BL0PR12MB2353.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Mar 2026 07:14:46.9030 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Mar 2026 07:14:54.4127 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: x9E8j79rA39NOoMzJYgIfvr0JtSCUtl1SwCI4L7MyQcHkDmWUTAVhNswiGXx9tsWiD6Ha55j7p3yu9yXR/cI3Q==
+X-MS-Exchange-CrossTenant-UserPrincipalName: hvIVjLMifuRyjp/Wpbfoyyn0JTDbw88Z1dbtwB0NHDu8TW2yorzYMLa7RTKj6Rx881h3dbJa+4zhoyK6G6/ejQ==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB5764
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -143,156 +142,152 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Expose the `hInternalClient` and `hInternalSubdevice` handles. These are
-needed for RM control calls.
+Add `RmControlMsgFunction` which mirrors `MsgFunction` in fw.rs. This
+denotes the type of RM control RPC. For now it contains a single
+discriminant only (which will be used later), which is needed to prevent
+compile errors when using an otherwise empty enum.
+
+Add `GspRmControl` which wraps the RM control RPC structure from the
+bindings.
 
 Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
 ---
- drivers/gpu/nova-core/gsp/commands.rs    | 65 ++++++++++++++++++++++++++++++++
- drivers/gpu/nova-core/gsp/fw/commands.rs | 19 +++++++++-
- 2 files changed, 83 insertions(+), 1 deletion(-)
+ drivers/gpu/nova-core/gsp/commands.rs             |  1 -
+ drivers/gpu/nova-core/gsp/fw.rs                   |  1 +
+ drivers/gpu/nova-core/gsp/fw/r570_144/bindings.rs |  1 +
+ drivers/gpu/nova-core/gsp/fw/rm.rs                | 88 +++++++++++++++++++++++
+ 4 files changed, 90 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/nova-core/gsp/commands.rs b/drivers/gpu/nova-core/gsp/commands.rs
-index c89c7b57a751..f3566f3ea6a7 100644
+index f3566f3ea6a7..8c9599aa227b 100644
 --- a/drivers/gpu/nova-core/gsp/commands.rs
 +++ b/drivers/gpu/nova-core/gsp/commands.rs
-@@ -4,6 +4,7 @@
-     array,
-     convert::Infallible,
-     ffi::FromBytesUntilNulError,
-+    marker::PhantomData,
-     str::Utf8Error, //
- };
- 
-@@ -34,6 +35,54 @@
-     sbuffer::SBufferIter,
- };
- 
-+/// Marker type for a GSP-RM client handle.
-+///
-+/// A client handle identifies a client which provides a namespace for RM objects. Lookup of objects
-+/// happens within the client namespace.
-+pub(crate) struct Client;
-+
-+/// Marker type for a GSP-RM device handle.
-+///
-+/// A device handle identifies a logical GPU device instance under a client. In multi-GPU
-+/// configurations it can represent a grouped or logical device.
-+#[expect(dead_code)]
-+pub(crate) struct Device;
-+
-+/// Marker type for a GSP-RM subdevice handle.
-+///
-+/// A subdevice handle identifies a child of a device that selects one specific GPU within that
-+/// device.
-+pub(crate) struct Subdevice;
-+
-+/// A typed GSP-RM object handle.
-+///
-+/// These handles form a tree structure with different types of RM objects, with client at the root.
-+/// An RM object is anything identified by a valid handle. For example, the tree may look like
-+/// Client -> Device -> Subdevice, where there may be multiple devices under each client, and
-+/// multiple subdevices under each device.
-+#[derive(Debug)]
-+pub(crate) struct Handle<T>(u32, PhantomData<T>);
-+
-+impl<T> Clone for Handle<T> {
-+    fn clone(&self) -> Self {
-+        *self
-+    }
-+}
-+impl<T> Copy for Handle<T> {}
-+
-+impl<T> Handle<T> {
-+    /// Creates a new handle from a raw value.
-+    pub(crate) fn new(raw: u32) -> Self {
-+        Self(raw, PhantomData)
-+    }
-+
-+    /// Returns the raw handle value.
-+    #[expect(dead_code)]
-+    pub(crate) fn as_raw(self) -> u32 {
-+        self.0
-+    }
-+}
-+
- /// The `GspSetSystemInfo` command.
- pub(crate) struct SetSystemInfo<'a> {
-     pdev: &'a pci::Device<device::Bound>,
-@@ -192,6 +241,8 @@ fn init(&self) -> impl Init<Self::Command, Self::InitError> {
- /// The reply from the GSP to the [`GetGspInfo`] command.
- pub(crate) struct GetGspStaticInfoReply {
-     gpu_name: [u8; 64],
-+    client: Handle<Client>,
-+    subdevice: Handle<Subdevice>,
- }
- 
- impl MessageFromGsp for GetGspStaticInfoReply {
-@@ -205,6 +256,8 @@ fn read(
-     ) -> Result<Self, Self::InitError> {
-         Ok(GetGspStaticInfoReply {
-             gpu_name: msg.gpu_name_str(),
-+            client: msg.client(),
-+            subdevice: msg.subdevice(),
-         })
+@@ -77,7 +77,6 @@ pub(crate) fn new(raw: u32) -> Self {
      }
- }
-@@ -231,6 +284,18 @@ pub(crate) fn gpu_name(&self) -> core::result::Result<&str, GpuNameError> {
-             .to_str()
-             .map_err(GpuNameError::InvalidUtf8)
+ 
+     /// Returns the raw handle value.
+-    #[expect(dead_code)]
+     pub(crate) fn as_raw(self) -> u32 {
+         self.0
      }
-+
-+    /// Returns the client handle allocated by GSP-RM.
-+    #[expect(dead_code)]
-+    pub(crate) fn client(&self) -> Handle<Client> {
-+        self.client
-+    }
-+
-+    /// Returns the subdevice handle allocated by GSP-RM.
-+    #[expect(dead_code)]
-+    pub(crate) fn subdevice(&self) -> Handle<Subdevice> {
-+        self.subdevice
-+    }
- }
+diff --git a/drivers/gpu/nova-core/gsp/fw.rs b/drivers/gpu/nova-core/gsp/fw.rs
+index 37831034ec3e..8cbe90ce8271 100644
+--- a/drivers/gpu/nova-core/gsp/fw.rs
++++ b/drivers/gpu/nova-core/gsp/fw.rs
+@@ -2,6 +2,7 @@
  
- /// Send the [`GetGspInfo`] command and awaits for its reply.
-diff --git a/drivers/gpu/nova-core/gsp/fw/commands.rs b/drivers/gpu/nova-core/gsp/fw/commands.rs
-index db46276430be..9fce6ffefbce 100644
---- a/drivers/gpu/nova-core/gsp/fw/commands.rs
-+++ b/drivers/gpu/nova-core/gsp/fw/commands.rs
-@@ -10,7 +10,14 @@
-     }, //
- };
+ pub(crate) mod commands;
+ mod r570_144;
++pub(crate) mod rm;
  
--use crate::gsp::GSP_PAGE_SIZE;
-+use crate::gsp::{
-+    commands::{
-+        Client,
-+        Handle,
-+        Subdevice, //
-+    },
-+    GSP_PAGE_SIZE, //
+ // Alias to avoid repeating the version number with every use.
+ use r570_144 as bindings;
+diff --git a/drivers/gpu/nova-core/gsp/fw/r570_144/bindings.rs b/drivers/gpu/nova-core/gsp/fw/r570_144/bindings.rs
+index 05e205e6dc58..ece31cc32f5b 100644
+--- a/drivers/gpu/nova-core/gsp/fw/r570_144/bindings.rs
++++ b/drivers/gpu/nova-core/gsp/fw/r570_144/bindings.rs
+@@ -44,6 +44,7 @@ fn fmt(&self, fmt: &mut ::core::fmt::Formatter<'_>) -> ::core::fmt::Result {
+ pub const GSP_FW_WPR_META_MAGIC: i64 = -2577556379034558285;
+ pub const REGISTRY_TABLE_ENTRY_TYPE_DWORD: u32 = 1;
+ pub const GSP_MSG_QUEUE_ELEMENT_SIZE_MAX: u32 = 65536;
++pub const NV2080_CTRL_CMD_CE_GET_FAULT_METHOD_BUFFER_SIZE: u32 = 545270280;
+ pub type __u8 = ffi::c_uchar;
+ pub type __u16 = ffi::c_ushort;
+ pub type __u32 = ffi::c_uint;
+diff --git a/drivers/gpu/nova-core/gsp/fw/rm.rs b/drivers/gpu/nova-core/gsp/fw/rm.rs
+new file mode 100644
+index 000000000000..4a4f97d88ecf
+--- /dev/null
++++ b/drivers/gpu/nova-core/gsp/fw/rm.rs
+@@ -0,0 +1,88 @@
++// SPDX-License-Identifier: GPL-2.0
++
++use kernel::{
++    prelude::*,
++    transmute::{
++        AsBytes,
++        FromBytes, //
++    }, //
 +};
- 
- use super::bindings;
- 
-@@ -121,6 +128,16 @@ impl GspStaticConfigInfo {
-     pub(crate) fn gpu_name_str(&self) -> [u8; 64] {
-         self.0.gpuNameString
-     }
 +
-+    /// Returns the client handle allocated by GSP-RM.
-+    pub(crate) fn client(&self) -> Handle<Client> {
-+        Handle::new(self.0.hInternalClient)
++use crate::gsp::commands::{
++    Client,
++    Handle, //
++};
++
++use super::{
++    bindings,
++    NvStatus, //
++};
++
++/// Command code for RM control RPCs sent using [`MsgFunction::GspRmControl`].
++#[derive(Copy, Clone, Debug, PartialEq)]
++#[repr(u32)]
++pub(crate) enum RmControlMsgFunction {
++    /// Get the CE fault method buffer size.
++    CeGetFaultMethodBufferSize = bindings::NV2080_CTRL_CMD_CE_GET_FAULT_METHOD_BUFFER_SIZE,
++}
++
++// TODO[FPRI]: replace with 'FromPrimitive'.
++impl TryFrom<u32> for RmControlMsgFunction {
++    type Error = kernel::error::Error;
++
++    fn try_from(value: u32) -> Result<Self> {
++        match value {
++            bindings::NV2080_CTRL_CMD_CE_GET_FAULT_METHOD_BUFFER_SIZE => {
++                Ok(Self::CeGetFaultMethodBufferSize)
++            }
++            _ => Err(EINVAL),
++        }
++    }
++}
++
++impl From<RmControlMsgFunction> for u32 {
++    fn from(value: RmControlMsgFunction) -> Self {
++        // CAST: `RmControlMsgFunction` is `repr(u32)` and can thus be cast losslessly.
++        value as u32
++    }
++}
++
++/// RM control message element structure.
++#[repr(transparent)]
++pub(crate) struct GspRmControl {
++    inner: bindings::rpc_gsp_rm_control_v03_00,
++}
++
++#[expect(dead_code)]
++impl GspRmControl {
++    /// Creates a new RM control command.
++    pub(crate) fn new<T>(
++        client: Handle<Client>,
++        object: Handle<T>,
++        cmd: RmControlMsgFunction,
++        params_size: u32,
++    ) -> Self {
++        Self {
++            inner: bindings::rpc_gsp_rm_control_v03_00 {
++                hClient: client.as_raw(),
++                hObject: object.as_raw(),
++                cmd: u32::from(cmd),
++                status: 0,
++                paramsSize: params_size,
++                flags: 0,
++                params: Default::default(),
++            },
++        }
 +    }
 +
-+    /// Returns the subdevice handle allocated by GSP-RM.
-+    pub(crate) fn subdevice(&self) -> Handle<Subdevice> {
-+        Handle::new(self.0.hInternalSubdevice)
++    /// Returns the status from the RM control response.
++    pub(crate) fn status(&self) -> NvStatus {
++        NvStatus::from(self.inner.status)
 +    }
- }
- 
- // SAFETY: Padding is explicit and will not contain uninitialized data.
++}
++
++// SAFETY: This struct only contains integer types for which all bit patterns are valid.
++unsafe impl FromBytes for GspRmControl {}
++
++// SAFETY: This struct contains no padding.
++unsafe impl AsBytes for GspRmControl {}
 
 -- 
 2.53.0
