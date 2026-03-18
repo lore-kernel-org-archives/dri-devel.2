@@ -4,66 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BFADAFCD0B3
-	for <dri-devel@archiver.kernel.org>; Wed, 18 Mar 2026 05:48:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E425EFCD0AD
+	for <dri-devel@archiver.kernel.org>; Wed, 18 Mar 2026 05:48:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CFC5910E07B;
-	Wed, 18 Mar 2026 05:48:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4BF3110E697;
+	Wed, 18 Mar 2026 05:48:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ZrUg3WmB";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="bpuOQ0xI";
 	dkim-atps=neutral
-Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com
- [209.85.216.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5285410E697
- for <dri-devel@lists.freedesktop.org>; Wed, 18 Mar 2026 05:48:02 +0000 (UTC)
-Received: by mail-pj1-f47.google.com with SMTP id
- 98e67ed59e1d1-354bc7c2c46so3700298a91.0
- for <dri-devel@lists.freedesktop.org>; Tue, 17 Mar 2026 22:48:02 -0700 (PDT)
+Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com
+ [209.85.214.174])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 41EE310E699
+ for <dri-devel@lists.freedesktop.org>; Wed, 18 Mar 2026 05:48:58 +0000 (UTC)
+Received: by mail-pl1-f174.google.com with SMTP id
+ d9443c01a7336-2b04e6a989eso26708965ad.3
+ for <dri-devel@lists.freedesktop.org>; Tue, 17 Mar 2026 22:48:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1773812882; x=1774417682; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1773812938; x=1774417738; darn=lists.freedesktop.org;
  h=content-transfer-encoding:in-reply-to:content-language:references
  :cc:to:subject:from:user-agent:mime-version:date:message-id:from:to
  :cc:subject:date:message-id:reply-to;
  bh=RTBJ3ZdbKmtxUEiIDKVG3F9qt5sUaMf7IHNuSeINr0s=;
- b=ZrUg3WmBxILfDjbT+YKrnxo6ka7k1LR5UBIobwt+K+mo6cpK0kNnKci3P5dCkepk5o
- Hdn3ABeNf4NT/ebsfnUMKZCW4W0mr6tB6kiKBfG4FDP4sjwBBTI41RMN217olON34G9G
- rPVb13OCixterqXZcijmfV/1GOs4Jq9taQMhKVFyCw4LTdjefKIDYC5Tth7mgNjBQLt9
- WWh2m6dDNeFZKGh2YZJSijsX2MmhirqOYe1+sGb1r6KFoRV6pkrov2ebXfF1Q7wHRh/E
- Z4JLas06zgrJdcL9JtJaSXlXUwHEOK0OrlMHUsZ4mmoSwqpdod4bJ9uVdn694xNjXJPj
- hGZw==
+ b=bpuOQ0xIuJq8ponFRcOj2voj/zaCFmgDbDNnngTjVe6KIf14/xQvieNWgvUy4BsPLZ
+ vHbCHzvo72BOu+vbe9bNcju+GPvp2BCwRmiMXmEqF0qOSFWkDdmtstpDUIKfxGbtqy36
+ TPEO/K7Pmbgxebk1mTrGbCXTFeQNmNHoGN4r9nAPNXPtDXZLlQBSZMdrc7ry4ldzIGjm
+ aG3I8e9P/WpHnNWNxSH1XTAx/A1ByhciLCKjZCSLMwqvJtgLoSCcetomtPufdLfXPTcZ
+ jdlaD408YpHxMwXy96zkXkOykXgVW1GR73D4hkIDJYOvsOEisEqN7lgLyQe4cgFq4oLy
+ XETA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1773812882; x=1774417682;
+ d=1e100.net; s=20251104; t=1773812938; x=1774417738;
  h=content-transfer-encoding:in-reply-to:content-language:references
  :cc:to:subject:from:user-agent:mime-version:date:message-id:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
  bh=RTBJ3ZdbKmtxUEiIDKVG3F9qt5sUaMf7IHNuSeINr0s=;
- b=joCgS8qou3rKlmfa3HfhAS+j2RxfefBlsJzfd2j4Cbg6Gza/mUKHtspfoTgbQAkS8+
- nPcNlqqph3/0VmtoyIGQoYX3aSFjxtGLTSM3MMtXQCs8HWfaV6W80p5yIM9S945VWi87
- evAktv30Gw3EG+cTZq+Uif6BAqfbTocS5uewHcMTJeK4n640eIOStpDq8aN1XDT0V5b/
- 4Hv7CT9Baw+5lQw8m0SDiib0AIwLPVVN0lRdeexmvUh7DFAJPkQ1Ye1TSp/BYRAcCSGR
- doWd6RYbKEBrNUDYg7QslWG4I6mxhKhcI3bkh2WVyNkB3c3iL7jXJ6UWwwjkKu9d30Q6
- 6hmA==
+ b=YLwfsBIwmvIrXkgAsjf/HwwpAI9IgmMlKDSo+/wUjtlyUxY43z4HY9f83CcoLiuj3u
+ 6XKsGWZ6gIs8XJOpsWb8JEz22/Znyt9LOprYNmDiSf7ZIIJkwOiuX4QVMt2rSgr3+FdI
+ eT5duVL/UZgTjyKmV6KAV23DYuEKG5JNZfLhmBJmMtB5anX8qNIufyM+n14KInDI3o2j
+ 5yzPWemDW9+Fn5KHYaKwCvT9tZdc+Zx8ABZTutS66QNX+sutTrii6w4JDBwNbPo6TKaQ
+ f4mKt0JcrVuWu8yluOw31gdQJg1RDtN5UmNkoVj2FYdlv+e+VI0YBq3IdHUqeAAb/XE7
+ oi7A==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUjCTR1kM1qeYKhrID26f4srlDWcmrPJ4adeAcfr/UJSwcp2NljCQkJeZrtyAd1XDosxYj2MEL7xxI=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Ywi9WmassZRiWJnpaLUPj93bzwZTdXRePX50ZVOUkNDQYbH9pgi
- ClZ1cOYi6omlvZZncJFkyXrnL8KsD+a5zG1vL85eAQ6RJSSv1g3z+EJE
-X-Gm-Gg: ATEYQzx6MIDoTf2nm522Y1ngXxCaMJq/5umXOvtYPC496lTHBpBRWrVFMJVsAbcBfZ3
- 14jWFVqcOj99jwZN+eMfOlZsg0SpiLrG1P/B0HZ3NRxuH2yFWIXsb1yCJ72dkI+a1EBAKc2gObv
- JxMP1NrLswxpCc8QI38gHfwSwh5aiCIlBpMgcnqOc5twokMqhAKgLMsooZjAR4Zb03t+OmCWLQz
- 4XGFDqd6mNJRlFN/oB50QG8JlC7k47aQRUPjaUTYUKeQVbDIDexddKM3U/XEvbT6sF4Wwk4WHqS
- pkzIRvaOcNfdS/EC2xOELWHoZ1OdiEW2bbHiIb3thLwYr/MsPbumRgAGO7FXppxGVrxw+SMumYB
- ZUgXizcoOf3n2czeV4xwwiHOUWSYRTgOOccdeR3zH71lWjfJgbDnR18vUzjp+YP4/CEQow/smn/
- TxQ1woGoHt815dEsdhDdayz7vPHrovVS8=
-X-Received: by 2002:a17:903:1a67:b0:2ae:3b9b:db34 with SMTP id
- d9443c01a7336-2b06e41a91emr21042325ad.42.1773812881632; 
- Tue, 17 Mar 2026 22:48:01 -0700 (PDT)
+ AJvYcCUEum9r+2VHNApcq+99mIGEB5m9uW/rKUhN2xmR6F9fH29qVwNadrg/OcQ9E3F3vycnHmKvHdnOVVg=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxRvbKvHQzfhSV9Af+dhrqqPkDcAAyrWZNMpNZHZGQWW0Z3xWmU
+ k9BSdHeF1FsJzYJpxQZ7KBAu+zJvDdVzIHQzlJATQKQTc1p1B4cYmaZo
+X-Gm-Gg: ATEYQzxVc06ef6hroc2JEhoLJk9IeFCDaCZoKaa7GJ8SFghT9z42JPpDSTUnNIoWRVd
+ lFbu682wMp4xbScy5zH3SPF+YOtAUtxBPU1m3Pn1vJv+O9Cy844Gqe0SBc0B/feH67datxvgEPM
+ Mza/+wuQ/+UF4MYeNoAJvldT+tlXwh1u1o6yyADC/XjubjWwTVp/5WqifT67GpWFF2e6/ouTHgU
+ QsucYS4ZzjDlbhfatnQmDTlpThLEF5jq4mM5suy9bZjnwakuJNLtA+PGnFRufimjYL7UaxNOUik
+ qpa3GcPYrS2hlVv+cCHAalAzG9RJgXmnIHEiBZNAlc82Tcq3B3+L0k74l+ZBrOZ18wo5CZEBqxz
+ +Az09ZP6yFJV5f6RrJLa+pyb2obTEQH2jnaefLJWtzuHwPDFYoTZzXqRWGYW9prQ2cYFmTHUfSn
+ EWlfjfM4ZsBm1MFemb19WnZgfK0YZT/Rw=
+X-Received: by 2002:a17:903:2cc:b0:2b0:6d2d:f1d5 with SMTP id
+ d9443c01a7336-2b06e401894mr19914475ad.45.1773812937654; 
+ Tue, 17 Mar 2026 22:48:57 -0700 (PDT)
 Received: from [172.16.20.13] ([136.226.252.245])
  by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2b06e419a31sm16508845ad.4.2026.03.17.22.47.53
+ d9443c01a7336-2b06e5f0b92sm16471795ad.50.2026.03.17.22.48.50
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 17 Mar 2026 22:48:01 -0700 (PDT)
-Message-ID: <2b1c6372-7fba-47db-89f6-c376b4a1dbdd@gmail.com>
-Date: Wed, 18 Mar 2026 11:18:20 +0530
+ Tue, 17 Mar 2026 22:48:57 -0700 (PDT)
+Message-ID: <ff819e02-3ecc-4729-9c6f-16c74c2b23cb@gmail.com>
+Date: Wed, 18 Mar 2026 11:19:16 +0530
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 From: tessolveupstream@gmail.com
