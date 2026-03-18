@@ -4,134 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E762F103E199
-	for <dri-devel@archiver.kernel.org>; Wed, 18 Mar 2026 15:11:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 74D6B103E197
+	for <dri-devel@archiver.kernel.org>; Wed, 18 Mar 2026 15:20:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C800210E85C;
-	Wed, 18 Mar 2026 15:11:12 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="IujoxCao";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="TgnpfUEB";
-	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EA57910E85B
- for <dri-devel@lists.freedesktop.org>; Wed, 18 Mar 2026 15:11:11 +0000 (UTC)
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 62ID5uOB2612576
- for <dri-devel@lists.freedesktop.org>; Wed, 18 Mar 2026 15:11:11 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=zTaSBeSUZqyP55RQNCJYe+Q9
- ap51sInV9JJjR2VFl/U=; b=IujoxCaojfpzwcOlEHi9EUm/xn78BswNB8OuNPX1
- PEK999Ee36iFlB/md/RZMkeLexHLhfgmHuRQRwQey9N5UPdM6tw5kBRmrg17lf7x
- Nif/oe0g5Ro/0JEox9phN9nhtu1FnQBOJCse/PJ4bda8PZDKjYr5nTVAh3vfhnp+
- oL6oRDCNkLmnNprEq/TiWiMJXQnk6ja6rRItK1FEkDM8zbESLdaGXo8o4NK6a/3R
- fUt6fOSFhg6GM5Lp7luqpr6wzxWPBVkkWuquCnCe5ct6wyX4sdD0gbzdpAisFjHh
- jDT7eTjUUUXgKqsLra8EA9Qe+BuSatCBzQxg/bjoAFIi3g==
-Received: from mail-vs1-f70.google.com (mail-vs1-f70.google.com
- [209.85.217.70])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4cyqcdswgw-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Wed, 18 Mar 2026 15:11:10 +0000 (GMT)
-Received: by mail-vs1-f70.google.com with SMTP id
- ada2fe7eead31-5ffa9d879e7so59630327137.2
- for <dri-devel@lists.freedesktop.org>; Wed, 18 Mar 2026 08:11:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1773846670; x=1774451470;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=zTaSBeSUZqyP55RQNCJYe+Q9ap51sInV9JJjR2VFl/U=;
- b=TgnpfUEBiUZBersDMTvyuz38xK1umDSR9ibgJK/MUW4iBkneKxEx1QE0lm/YwzmjBs
- wGwZ3HAHPrIV8sj8BC58E3daWHNOqS9tipVF9ZOzjXgrEIL5JAviz/8shHD5Nm99M9sF
- vGW3njAJrMghid7ijIGn1m5dQevcDPghu8eBWZXQ91QoTh5HLnOM6i7HsvaBB59wxg88
- z9husf9MLIw5sXcWGxK0j6KYNlNSoauMspTqDV0wJidvTpJi2eV3rDNVQ+Rk9lraC/FC
- 300enLqE5ZLcOow2MYNU1tqt1TlJpoJWAWWBYuAV6PpzYxjxnMaTKqkh3JXh5De7MPqC
- ucdQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1773846670; x=1774451470;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=zTaSBeSUZqyP55RQNCJYe+Q9ap51sInV9JJjR2VFl/U=;
- b=f2eFLCtfiF7lOy3bJPqvjjW9c8Nh2JlXL6+Sj7LDg+w2Xm8Hk8rVcNCy+3TvRMGsMk
- 8ISmeFtzXpzAI0TK+lwdUdml98yjo/YHuQrbioMVu21GK5uOpd17N1cs4N3JI9+9Qsll
- SOLGwJ+jh5CGyjRSpjZf2fyPItZFrFT03mtxw1K6gmCLfd65cZt/nPzk+mG+LdzIOvcK
- YKKwocHvIJ4RVJzzl/N1dqKZadrqcWfl/0PhqpOvhUdF9TtsRtxT4NteY9Pz8C39L3U5
- R55sHUb8e3/u5O3t5Mv0/B/+UVIPuz2yexg5NhKfFxax3yi7fQlJy4fNwwNO4cc9I+9h
- zGsw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWWRb8WfQBZU/HufeYrF1kg3XoyuNe+BMsWwXO995RgTPSmv0kk8kBAbVMH+w5L9tQ+a9QgkocFivs=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyUHuEcVRK/W6a5FhMw5j27Dl7aCDVLAk0JekRwCguIBoxo/1dz
- ZAPiPzLEouIHeNhgcJR0O8fLw0mNLJqvO+ZQmLbY/4GYcMwdZzRTlVZaZr3ME+pK3mqsDGJYxdk
- uzwwhEpziSkojURuuYct6qUeq6uPhZzVOprhIymNdNiDvMIP81AcR9m1VWL+wLP3/H9tQcdw=
-X-Gm-Gg: ATEYQzx09oYZPVKEwubv80PunG2t/wSKrG52qqZbMvgWsn4bVDKLr0hM+4QyZY3oF1t
- fUt7VfXmIXG/uoxNG216LE2v5x85uvPPGpOPgjETOv55s/c6yHcmHBK32rydsMun0NAEqS3Pdqf
- oWQk+lB4rxpcS9L4Widp9D0zHN/QVrYqNJn5fz5BcqoKyu3+qE7En42g5d3NxQIJ1WX35ikjPFi
- BUk/k1kdA/nJmHCR7TkCEkJaM+yPCKEL+XYNdq92X+2gF4voBCPE6v9NFExOZGFVSSn+H04vrBO
- FKGCWFf3aNS9De+LDOXWsXmgXE0uShLLSsYF6s6gkUzts0KqFBIKv9GehSDJbXXidbn3NMWjRkB
- c2Gc50JsJOVWSeRmC8+XsNs8dqr5H9YuqIcG3qXhUNtvhrYU3T8DTQ7P1EZt1jL1nd1226eh91M
- o/AkkDuaR34RJ9xf2+tU+8Mrv3NUcRDfwQHuY=
-X-Received: by 2002:a05:6102:84d1:b0:602:9228:34a3 with SMTP id
- ada2fe7eead31-602922838d1mr307304137.0.1773846670239; 
- Wed, 18 Mar 2026 08:11:10 -0700 (PDT)
-X-Received: by 2002:a05:6102:84d1:b0:602:9228:34a3 with SMTP id
- ada2fe7eead31-602922838d1mr307287137.0.1773846669635; 
- Wed, 18 Mar 2026 08:11:09 -0700 (PDT)
-Received: from umbar.lan
- (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5a279c6e6e3sm590250e87.48.2026.03.18.08.11.08
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 18 Mar 2026 08:11:08 -0700 (PDT)
-Date: Wed, 18 Mar 2026 17:11:06 +0200
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Alexander Koskovich <akoskovich@pm.me>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
-Subject: Re: [PATCH 1/3] drm/mipi-dsi: add RGB101010 pixel format
-Message-ID: <5yunhfspibjyktb2qnjeoo4d67tbmwrbq44lopfjrtbqkw4gec@un7uckbss6ol>
-References: <20260318-dsi-rgb101010-support-v1-0-6021eb79e796@pm.me>
- <20260318-dsi-rgb101010-support-v1-1-6021eb79e796@pm.me>
+	by gabe.freedesktop.org (Postfix) with ESMTP id C50B110E467;
+	Wed, 18 Mar 2026 15:20:29 +0000 (UTC)
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 51BC110E027
+ for <dri-devel@lists.freedesktop.org>; Wed, 18 Mar 2026 15:20:28 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 8719B1C2B;
+ Wed, 18 Mar 2026 08:20:21 -0700 (PDT)
+Received: from [10.57.61.122] (unknown [10.57.61.122])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 1AAF23F73B;
+ Wed, 18 Mar 2026 08:20:22 -0700 (PDT)
+Message-ID: <72a93cdd-b105-41aa-bf12-d6caf7e90078@arm.com>
+Date: Wed, 18 Mar 2026 15:20:18 +0000
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260318-dsi-rgb101010-support-v1-1-6021eb79e796@pm.me>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzE4MDEyOSBTYWx0ZWRfX+dTzAWlprj7n
- tUtL+Ss5VZrY6nlSQr/TDyOZ2z/Wy11u90VAXXfTKwgUdLfYvWkfxm0DvjW9lXfc1hXZOy18b52
- f6FgSTFaMe4To2s4qEZTTVsMvagiXLFr0ud9xpVqCTnLPbD4R7TeQuXYAUXHtJhvfMbBjOq7xif
- oymF2QNiovFp3Yk8Kwn+CytoOj14Emkp4A4ZtTG6rqheNWDw6ULTYpDtB3Kq0nyjgUlR8oG1G2i
- 6pjXxBRt/QR+59l7kddmhvhdQemkxOfPvq/8bekWQLAnWyiEr1+8uftM/y87i8P0S8dK6R4ZnxN
- ydLU63k+/sR4EJ3oEFnGmpQPtKiIHY3mBpBUUxNgmvdAtO1MKR4FwO6Oq1Uph/vWDdGjp+ig/jp
- JeO/24dmrWn5wExdhB+7LSHi3u7YOVbKbiIusb9JZR0izEfFSTVq2TCnZrvC1sINOCDhWCswamU
- edIQcR+pxodUsPgXB4w==
-X-Proofpoint-ORIG-GUID: VSvD4iqU6D-on8D3LS5AEhbYHpTJuInt
-X-Authority-Analysis: v=2.4 cv=H87WAuYi c=1 sm=1 tr=0 ts=69bac08e cx=c_pps
- a=N1BjEkVkxJi3uNfLdpvX3g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22 a=EUspDBNiAAAA:8
- a=FuJAHOuw8bFYrA2LdQkA:9 a=CjuIK1q_8ugA:10 a=crWF4MFLhNY0qMRaF8an:22
-X-Proofpoint-GUID: VSvD4iqU6D-on8D3LS5AEhbYHpTJuInt
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-03-18_01,2026-03-17_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 spamscore=0 adultscore=0 lowpriorityscore=0 malwarescore=0
- suspectscore=0 bulkscore=0 priorityscore=1501 phishscore=0 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603180129
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/panthor: extend timestamp query with flags
+To: =?UTF-8?Q?Marcin_=C5=9Alusarz?= <marcin.slusarz@arm.com>,
+ Boris Brezillon <boris.brezillon@collabora.com>
+Cc: Liviu Dudau <liviu.dudau@arm.com>, dri-devel@lists.freedesktop.org,
+ Chia-I Wu <olvaffe@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Lukas Zapolskas <lukas.zapolskas@arm.com>, nd@arm.com
+References: <20260318112952.645160-1-marcin.slusarz@arm.com>
+ <20260318131030.4ae7f820@fedora> <abq75MJM5n-U33Fl@e129842.arm.com>
+From: Steven Price <steven.price@arm.com>
+Content-Language: en-GB
+In-Reply-To: <abq75MJM5n-U33Fl@e129842.arm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -147,20 +53,152 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Mar 18, 2026 at 09:41:00AM +0000, Alexander Koskovich wrote:
-> Add MIPI_DSI_FMT_RGB101010 for 30 bit (10,10,10 RGB) pixel format,
-> corresponding to the packed 30 bit pixel stream defined in MIPI DSI
-> v1.3 Section 8.8.17.
+On 18/03/2026 14:51, Marcin Ślusarz wrote:
+> On Wed, Mar 18, 2026 at 01:10:30PM +0100, Boris Brezillon wrote:
+>> On Wed, 18 Mar 2026 12:29:52 +0100
+>> Marcin Slusarz <marcin.slusarz@arm.com> wrote:
+>>
+>>> Flags now control which data user space wants to query,
+>>> there is more information sources, and there's ability
+>>> to query duration of multiple timestamp reads.
+>>>
+>>> New sources:
+>>> - CPU's monotonic,
+>>> - CPU's monotonic raw,
+>>> - GPU's cycle count
+>>>
+>>> These changes should make the implementation of
+>>> VK_KHR_calibrated_timestamps more accurate and much simpler.
+>>>
+>>> Signed-off-by: Marcin Slusarz <marcin.slusarz@arm.com>
+>>> ---
+>>> This is counter proposal to https://lore.kernel.org/all/20250916200751.3999354-1-olvaffe@gmail.com/
+>>> ---
+>>>  drivers/gpu/drm/panthor/panthor_drv.c | 124 ++++++++++++++++++++++++--
+>>>  include/uapi/drm/panthor_drm.h        |  51 ++++++++++-
+>>>  2 files changed, 166 insertions(+), 9 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/panthor/panthor_drv.c b/drivers/gpu/drm/panthor/panthor_drv.c
+>>> index 165dddfde6ca..19ede20a578e 100644
+>>> --- a/drivers/gpu/drm/panthor/panthor_drv.c
+>>> +++ b/drivers/gpu/drm/panthor/panthor_drv.c
+>>> @@ -13,7 +13,9 @@
+>>>  #include <linux/pagemap.h>
+>>>  #include <linux/platform_device.h>
+>>>  #include <linux/pm_runtime.h>
+>>> +#include <linux/sched/clock.h>
+>>>  #include <linux/time64.h>
+>>> +#include <linux/time_namespace.h>
+>>>  
+>>>  #include <drm/drm_auth.h>
+>>>  #include <drm/drm_debugfs.h>
+>>> @@ -762,21 +764,123 @@ static void panthor_submit_ctx_cleanup(struct panthor_submit_ctx *ctx,
+>>>  }
+>>>  
+>>>  static int panthor_query_timestamp_info(struct panthor_device *ptdev,
+>>> -					struct drm_panthor_timestamp_info *arg)
+>>> +					struct drm_panthor_timestamp_info *arg,
+>>> +					u32 size)
+>>>  {
+>>>  	int ret;
+>>> +	u32 flags;
+>>> +	unsigned long irq_flags;
+>>> +	struct timespec64 cpu_ts;
+>>> +	u64 query_start_time;
+>>> +	bool minimize_interruption;
+>>> +	u32 timestamp_types = 0;
+>>> +
+>>> +	if (size >= offsetof(struct drm_panthor_timestamp_info, pad1) + sizeof(arg->pad1) &&
+>>> +			arg->pad1 != 0)
+>>> +		return -EINVAL;
+>>> +
+>>> +	if (size >= offsetof(struct drm_panthor_timestamp_info, flags) + sizeof(arg->flags))
+>>> +		flags = arg->flags;
+>>> +	else
+>>> +		flags = DRM_PANTHOR_TIMESTAMP_GPU |
+>>> +			DRM_PANTHOR_TIMESTAMP_GPU_OFFSET |
+>>> +			DRM_PANTHOR_TIMESTAMP_FREQ;
+>>
+>> How about we add a DRM_PANTHOR_TIMESTAMP_ADVANCED_QUERY flag that tells
+>> the driver whether the default should be picked or not instead of this
+>> weird is-this-the-new-or-old-struct detection based on the size.
 > 
-> Signed-off-by: Alexander Koskovich <akoskovich@pm.me>
-> ---
->  include/drm/drm_mipi_dsi.h | 4 ++++
->  1 file changed, 4 insertions(+)
+> Well, as is, we would read uninitialized data from kernel stack if
+> user passed old struct with the original size. It's fixable, but
+> I'm not sure why you think checking size to detect the use of new
+> interface is weird. I thought it's a pretty standard thing.
+
+What you need is copy_struct_from_user() - it will zero any fields that
+user space didn't provide. So adding a flags field to the end of the
+struct will be guaranteed to be zero with old (binary of) user space.
+
+This is the standard way of extending an API. If user space is
+recompiled with new headers then user space will pass in the larger size
+(because it uses sizeof()), but will zero initialise any fields that it
+doesn't know about. If you look purely at the size passed by userspace
+then the sizeof() will be wrong and no flags will get set.
+
+> If the conclusion will be that checking size must be dropped, then
+> I think looking at flags being non-zero would be enough - there's
+> no need for new special flag that says other bits mean something.
+
+That would be fine if we don't want the 'default' flags behaviour you
+have above. So either GPU/GPU_OFFSET/FREQ are unconditionally enabled or
+you need to reverse the meaning of those flags. Or of course go with
+Boris's suggestion of a flag to enable the new behaviour.
+
+[...]
+
+>>>  /**
+>>>   * struct drm_panthor_timestamp_info - Timestamp information
+>>>   *
+>>> @@ -421,11 +450,29 @@ struct drm_panthor_timestamp_info {
+>>>  	 */
+>>>  	__u64 timestamp_frequency;
+>>>  
+>>> -	/** @current_timestamp: The current timestamp. */
+>>> +	/** @current_timestamp: The current GPU timestamp. */
+>>>  	__u64 current_timestamp;
+>>>  
+>>> -	/** @timestamp_offset: The offset of the timestamp timer. */
+>>> +	/** @timestamp_offset: The offset of the GPU timestamp timer. */
+>>>  	__u64 timestamp_offset;
+>>> +
+>>> +	/** @flags: Bitmask of drm_panthor_timestamp_info_flags. */
+>>> +	__u32 flags;
+>>> +
+>>> +	/** @duration_nsec: Duration of time query. */
+>>> +	__u32 duration_nsec;
+>>> +
+>>> +	/** @cycle_count: Value of GPU_CYCLE_COUNT. */
+>>> +	__u64 cycle_count;
+>>> +
+>>> +	/** @cpu_timestamp_sec: Seconds part of CPU timestamp. */
+>>> +	__u64 cpu_timestamp_sec;
+>>> +
+>>> +	/** @cpu_timestamp_nsec: Nanseconds part of CPU timestamp. */
+>>> +	__u32 cpu_timestamp_nsec;
+>>> +
+>>> +	/** @pad1: Padding, MBZ. */
+>>> +	__u32 pad1;
+>>
+>> Let's re-purpose the existing pad field into flags, move duration_nsec after
+>> cpu_timestamp_nsec, and get rid of this pad1.
 > 
+> I'm not sure I understand. Do you want me to extend flags to u64?
+> What's the point of that?
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+I'm not sure I necessarily understand Boris's comment either, but I
+would suggest making flags u64 would be better.
 
+By shuffling things around to have a u64 flags you no longer have any
+padding fields. And the unused part of the flags will be naturally
+checked for being 0 rather than the explicit check for pad1 you
+currently have.
 
--- 
-With best wishes
-Dmitry
+Not a big deal to me - but it's easier to just avoid padding fields
+where possible as they often get overlooked in the validation.
+
+Thanks,
+Steve
+
