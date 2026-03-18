@@ -4,96 +4,138 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B475AFEDA09
-	for <dri-devel@archiver.kernel.org>; Wed, 18 Mar 2026 01:50:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B3622FEDA09
+	for <dri-devel@archiver.kernel.org>; Wed, 18 Mar 2026 01:52:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E77F010E04E;
-	Wed, 18 Mar 2026 01:50:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1A82910E037;
+	Wed, 18 Mar 2026 01:52:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="he8iuv9P";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="bHM0h4yb";
 	dkim-atps=neutral
-Received: from mail-oa1-f52.google.com (mail-oa1-f52.google.com
- [209.85.160.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4903B10E04E
- for <dri-devel@lists.freedesktop.org>; Wed, 18 Mar 2026 01:50:23 +0000 (UTC)
-Received: by mail-oa1-f52.google.com with SMTP id
- 586e51a60fabf-41576c5c01cso3963706fac.3
- for <dri-devel@lists.freedesktop.org>; Tue, 17 Mar 2026 18:50:23 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1773798622; cv=none;
- d=google.com; s=arc-20240605;
- b=BuWZYPhrecYXmzI6B9kN3t5SRnzJ5Q3AiyRQr7u3wNP30/n7FT0FZIwPunAQd9oqyS
- 7ZFKTzyZE4OFOsVe1o9GG30cqDa8fS/6CGd2CGn/vCvMuTF47Fz9qMCZZLe9cHo7LiE0
- xrbjkeGmoNI0dURocyflFaH7QNxetqjxnFrgD4kIwpm2GGhQDGOY4BCa6Ea06zt/iD1N
- SFmlmWnaVgx6R6B/DEACjVg2OL0VcxUuDNTLYghSanmbThB9T66DMFgpY906rQsY1lz9
- NXHlp2pmGnfki94rVnC0OANmGzf5AqjbTBMc3dZ6aNEwR45llj0ZNhBsIpzimY4ip1gl
- PIiQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:dkim-signature;
- bh=2UiB8exyYF66Xj04GD4JD/Uzo6huFY9tx8CBCK67WMU=;
- fh=GZJIK2Ir+0qXME84cE5ZXIPRAOyBwoYCXXtxBQoKK6s=;
- b=eXBDXnMivVouIUXZ2US/YzNY8kafrmYYZA4rF4VT0QRFphLEu39wX0pz4LpxW9zoVt
- EPGWkXK78Vp53xNSWkHCHQ55/8oNgmxxJxfCcSBzWK/osSkYKYD/rN96I7byt5UXsAuF
- yAea14kv2QQ4SHYmGmx6RKKkpuLSQeFExe1ELRpBdmLTN4aLB1fmeLNYepWfNOJQKJQj
- AZ9mMOjL9ig2cqa4/LwfsRwratsQoteehAyhe9VxFzpftlkUtW80RBzOt4JZtP5Bvo3+
- B5BMHus+lkYrdSUW0LcwNNmM5ETgWjyaSCmSmowz/ssAER2thloeWlxicqLwwgoE75eG
- U0+Q==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1773798622; x=1774403422; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=2UiB8exyYF66Xj04GD4JD/Uzo6huFY9tx8CBCK67WMU=;
- b=he8iuv9PhWdU80Nv6gaMp+LCsWh2lQpnvZKDF4UZctFluThWDdLiWejiLMRWaChAfL
- PaBzdg4Aiqpvoor4tbb+gCiPfZUjEE9O1b456hwFlJnNzOes5iuIOrJaebl5jozUvFs7
- TvoCNpK/VV6O6YFg7ZAdiUAonGvOyn3kDDJ/FviqPh94QzPsqod7R84dwK4Oly5dDDhu
- DjRm43wrNdDhfEnzQoWHNMUkqpW8a1HUssVNbjeDfQfEOksrfXXWrosqRS+NZHcwOt2Q
- GthWoYurW8FDBC99j32DY/zWE/lc0KbpNwqiQmZ92s0+om67EwJrw7VfJcddKKtJvLOe
- ZiHA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1773798622; x=1774403422;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=2UiB8exyYF66Xj04GD4JD/Uzo6huFY9tx8CBCK67WMU=;
- b=qEz1FVpcGxXvFiw0XDzdf8YGNKNn7iiTk+6HrUaepr0qksaC7KIFfQRnPguEciTtHE
- gxTLrkF525NZKxoPnQrCrN9hCbIjQ+5G21cDa727HKnC0ETWatiw3cuSt2p1KJGEzaZc
- RaIPCXlwuOyX0m/bCSfUpDSbj+rNHkhwqgv/4mU8Y3sJ9mpOtkbZX91arN04FyzSepnm
- CXNTTyU90hCVXYdrVKTnUwBFuahCzOmn3CISgVbz2kAha+N5qFvzwSehcngP7E8NNopO
- nUfwC3aiJbHmx+Si8Gl12sRyjfxza/T/uf1XwXG5VjudEkWgk9e6y8HU7IRzp5yWK82R
- rQVA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXJmxHSmJfRKgXODiOoOeNCGQ56sLzmxi9y7Q3/+BC4K1KDK9tgb3VOfAdLHkNUwOcBiOEbQhiZOsM=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzcNfsDeSWtS6HjKFaND1wKk35zVgGzUfjBkw/TKMqo8g4PXamu
- Dbz5aw/glr3cgFUU/OH2JfZoiRxUqKVjKGc11lnWA6v/ZuM3mwDPG21csv8NlVKQXzOxoxAxdR2
- Q3oukq2hLwVK5axttkh6EsbAfAvQlQRofqquiscx5Cg==
-X-Gm-Gg: ATEYQzxgahuiHZ/W/fp4xTWY37IcXfVU/o+MI2I/eQiB1eJg1smsmQSqfjGBxuAJ+HQ
- sc568UNfZBmBQPXEBK4626v5TnHcnPIZNL5YJYWjczEnvzURtHitdnnC/aTFSKFtrpoA+i8uqRX
- 7snEixdQ2jTfmo7LMr9jW1lYZcXplQle/wJ6/9vFXHXTfku01tGafw5V9lFUlIUTBE0P1KJovAk
- 3AjcrZCsuqUBXf9j5SFBqc2Iq/CTkDD9ALdjZIzca8awfP1Hs4i61ZLfuW3+9mZXFXCttw6e/H3
- iamROv4=
-X-Received: by 2002:a05:6820:210b:b0:679:f16a:622b with SMTP id
- 006d021491bc7-67c0da82eccmr1178628eaf.7.1773798622107; Tue, 17 Mar 2026
- 18:50:22 -0700 (PDT)
+Received: from CH5PR02CU005.outbound.protection.outlook.com
+ (mail-northcentralusazon11012032.outbound.protection.outlook.com
+ [40.107.200.32])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DB9E210E037;
+ Wed, 18 Mar 2026 01:52:47 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=eYMZ//rmXV8k2i3y0OOW7r9xiWWR0SYopl1KNHiiK/u8JFtm92egkzJ3Urs6VOpeWfNACEqe8b5dKLJB3ejfGnctqr1eIGnQ1eIaZF/KxF/Pdw7tVNlIVMKr6hV5N3nN7MyZWcOYA+q9BvkjdNmXAZfOL4CIS95JABCU29c5gbAqWeOfm68k7On9iJCgmHzy9DPEYphWC3s2SjaM3IzcjN+Pim1ciiay1pwYytYijiwPtp6ntd9FMofsI/RrRo9KAecbMNjOGDYeHlfgmp9sY/LydtfguRyA/swfImU1xeaGMPXGu7euZKWe5txhk0rw6qDbVNQLfxjHIJ1ltXfixg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=pyvYjv1U5rYbFnsLajRKTCiOLzdos+gF00al1J9QygA=;
+ b=JgHnR5PoMSVmIpvF+5pb2q1dw7wSMN1nmF+IutrreGMilzG4Mo02adp7F/iJvcGwhWsqLsskcOX41iwlGjySgyg99nvaMV9ftcjXcb1v/07KeNvGKRGVNuggHNjr5DWAJXDY3aJ4Sj3ds1T6p9C1KK7wsWghMBoksQlTKlD3K2pVdJxYpSe20pk6zmJ/tGyIG0ZZElXmXVRE6VXmCHDgllye9lJNSsFYlZjeqbSo9viklUwojnbgniTuwwPp+idjb4n3mT7hURAgKIBIo4nylIBV+B1m/i2ZSzwKmEgxHejvBsb1pEJBViqtMtfeOlF0JZ6Z44WrcbIumz+VVa9WlQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=pyvYjv1U5rYbFnsLajRKTCiOLzdos+gF00al1J9QygA=;
+ b=bHM0h4ybDxCEI1gvGC529ol/SzHLXweO7AGoywrV8TvDuomxH/yE/cbUJYgXgPY1zWpGMmIJBDxeKOy2o3StvVHXVpaa9QHi5rZegbxAOPLu48KdxD3hzye5Lzr0fe47mGlzPHLsdvxJqi5AWc0078Fp03orr2tYQDa/a5c3prZkpclGdiKFNU72Dw86QgfyFS3/afjC89ME9AduGCOPnJZ5poI9aUUVyeoeyzPDbhNg5Y+vg6JF9si56jQUHWWuODN2w35tpr9Y6meoA/bAd3hAzCfvTrUpOpuVCqkVkRzDcHuutl+zKWyn6CeCMTbJNZThYksnzB7u2ZypCbKLHA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from CH2PR12MB3990.namprd12.prod.outlook.com (2603:10b6:610:28::18)
+ by LV9PR12MB9784.namprd12.prod.outlook.com (2603:10b6:408:2ed::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.19; Wed, 18 Mar
+ 2026 01:52:44 +0000
+Received: from CH2PR12MB3990.namprd12.prod.outlook.com
+ ([fe80::7de1:4fe5:8ead:5989]) by CH2PR12MB3990.namprd12.prod.outlook.com
+ ([fe80::7de1:4fe5:8ead:5989%6]) with mapi id 15.20.9723.018; Wed, 18 Mar 2026
+ 01:52:44 +0000
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 18 Mar 2026 10:52:40 +0900
+Message-Id: <DH5J6LALR3LC.2PW5BLFABR0A@nvidia.com>
+Cc: "Eliot Courtney" <ecourtney@nvidia.com>, "Alice Ryhl"
+ <aliceryhl@google.com>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
+ <simona@ffwll.ch>, <rust-for-linux@vger.kernel.org>,
+ <nouveau@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>, "dri-devel"
+ <dri-devel-bounces@lists.freedesktop.org>, "Gary Guo" <gary@garyguo.net>
+Subject: Re: [PATCH 6/9] gpu: nova-core: generalize `flush_into_kvec` to
+ `flush_into_vec`
+From: "Alexandre Courbot" <acourbot@nvidia.com>
+To: "Danilo Krummrich" <dakr@kernel.org>
+Content-Transfer-Encoding: quoted-printable
+References: <20260227-rmcontrol-v1-0-86648e4869f9@nvidia.com>
+ <20260227-rmcontrol-v1-6-86648e4869f9@nvidia.com>
+ <093ca23e-7081-42db-a202-0a42c51741a3@kernel.org>
+ <DGYL9FS1Z00X.2HEJ96J8R3OK4@kernel.org>
+ <DH46IKESDQ3B.2GEUC479WDK3N@nvidia.com>
+ <DH47AVPEKN06.3BERUSJIB4M1R@kernel.org>
+ <DH4OM17DJ47V.3NJG7G02O7P1L@nvidia.com>
+ <DH4ZZD12V0R6.2G7IIL87QTK0S@kernel.org>
+ <DH53MXEAVB0Q.2SXHCQTW8WG2Y@nvidia.com>
+ <DH54AITP8HBY.PPSYM4FA2DZI@kernel.org>
+In-Reply-To: <DH54AITP8HBY.PPSYM4FA2DZI@kernel.org>
+X-ClientProxiedBy: TYCP286CA0043.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:400:29d::14) To CH2PR12MB3990.namprd12.prod.outlook.com
+ (2603:10b6:610:28::18)
 MIME-Version: 1.0
-References: <20260318011426.3130333-1-shiyongbang@huawei.com>
-In-Reply-To: <20260318011426.3130333-1-shiyongbang@huawei.com>
-From: Xinliang Liu <xinliang.liu@linaro.org>
-Date: Wed, 18 Mar 2026 09:49:46 +0800
-X-Gm-Features: AaiRm508m8vhOUkDYP36TyNHvMgfsiA_onMMt8Vn7xgzeD2wWTEliuVGeY1kQW4
-Message-ID: <CAKoKPby5F0WSjM75qLTVtdP2V00O+3GQvALOTiZFCWGFMjKjLw@mail.gmail.com>
-Subject: Re: [PATCH for drm-misc-fixes] MAINTAINERS: add Yongbang Shi for
- drivers/gpu/drm/hisilicon matainers
-To: Yongbang Shi <shiyongbang@huawei.com>
-Cc: tzimmermann@suse.de, tiantao6@hisilicon.com, 
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@gmail.com, 
- daniel@ffwll.ch, kong.kongxinwei@hisilicon.com, 
- dmitry.baryshkov@oss.qualcomm.com, liangjian010@huawei.com, 
- chenjianmin@huawei.com, fengsheng5@huawei.com, helin52@h-partners.com, 
- shenjian15@huawei.com, shaojijie@huawei.com, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org
-Content-Type: multipart/alternative; boundary="000000000000c6292f064d42ac15"
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH2PR12MB3990:EE_|LV9PR12MB9784:EE_
+X-MS-Office365-Filtering-Correlation-Id: 60e80bb5-e304-45ab-161e-08de84910bef
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|10070799003|376014|7416014|366016|18002099003|56012099003|22082099003;
+X-Microsoft-Antispam-Message-Info: FcB7Rh2OYekQ7n2mkAfZGEPXBTmntxybSiqLEFLA2WZmbllBYJ/i5bJH6IfQjz2FwwJXWUWJ4R/GBxR3g0zmG/J4wpIsSzjkgQ8o8mbzdMJUogMzZcQnu05Ci5SCviLn6tePZgQnPYQIWf9xMiXjGtOSUhz0BTxMQzhrsTjTa3FtB5LwPvLJh+7g3lxTVkhlAgrj28qXAK6P/XztHVZPo8lPsBSOsNqjWuAkPpquR3RxveBzqQd+mYJKj8uTXy4vF+JFc1ZDlhQIUtl7XlBGQOW9IxTkveCqzh621xveSy6euv0jqyTMJhHfwOAm+/yXk8sIgEiwjuoc/gyk8b5yu4JD/ZOKJuoOq5jNihkK2a7DAX8XoP4GLNZ57lBY2/Io/VZ3wGMDw3l+q5Li9JlH8kBf/fGgx3DGhEUpeUSdwDQJLE1GXgxth0CEGErhkVDqAiOOPgHFy30bOdpbDb9oJ+J49o6naaJOFskkTG6R+PrCbjb7qOqFoxBqQAPYkId2KAQu1Ly+cbqhD2cFEhqMr2JcYomzydol4JJ1RPf3QJ+F5BaymSAWctF+C7ymU4id8Tny4eF1EOloWxg2HBPRcylJyxvvXn7zB66n6quHrqcwfqYbD+epbWxVo4uenbqrxbUX5QtnMJbIeo/VNrfR+p0gYT8pD/QenUNiwmML1mt4exayz6IQ3OhZUv0wbEijf6OGN0w4/bbx8lmMs4f064zUnikp8pcQ4ma1c2DRMLU=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CH2PR12MB3990.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(10070799003)(376014)(7416014)(366016)(18002099003)(56012099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?a0JoK3B4WFRHRDkxYXFjanhYd2VsdXJZVlkzSUNmdThZNFh5dThRRzdxU1dV?=
+ =?utf-8?B?ZkRBeSs5VlBkVWtvekhINmpHU0tWV09XNjB6Q3lFc2N2aEFCU0JKRUdPbk1J?=
+ =?utf-8?B?RkhZUkU5a3JtbWxsL3hmYVVJaVF2Rm5KOFZ5WGp6eUJ5UXZRSitmNHlHd1J2?=
+ =?utf-8?B?YldJSStUNk5RK0tYbHhESHpzTVlPbkxWSU9WdnR0U2lGYmVncVErTzRoR2Fq?=
+ =?utf-8?B?NE9aZ2FQcmc3b0t0UE1uNlNEOU0rQnRoNitnZjU2UjR2YWVzeng1aEpKdStQ?=
+ =?utf-8?B?MGlwVThjVVlNenFZQlVEMzNHK3kvaGRZL3E0bGVlRUdXWDV2U1VMM05FYzVG?=
+ =?utf-8?B?dXBELytlbmVwL0V2cmxwU2VwSVlUdUJ1RDZnMFZKeHZkQzRGNlE3a1ZOelZL?=
+ =?utf-8?B?QjNxQWtKeW9JMHBzMXRKQkVZcjJZOWNkMkx0Y0FlaDc2cEF2S3FNWDFmWkV4?=
+ =?utf-8?B?ZnhxVFpMb3MyNndXZERhYU5zS2JseS9vQzkvNVlBNGZuMThOb3Z0U0xzRmti?=
+ =?utf-8?B?ZExTUGpHQ0h4c1NTbzhEdTg0MkREb0tCU0ZONHV5enVwMGNKUjZSSHRBSWpx?=
+ =?utf-8?B?UlEySms1cmZLOHNBNEhZTVN6cmpMNUF4SFNZNU1BMWpGbW5tcDBrNy9tT2Q3?=
+ =?utf-8?B?R05yenkxK3FJSndraXo3TzQ4RVhjaHFsTWlkOE5XczFSS1NyeUp6cVFnaGhF?=
+ =?utf-8?B?NTRHNk5kZ0VXNE1FejBFdmtqVi9JNlIzMzBZTmxLV0hxQUVLdmpWUDhCSjRR?=
+ =?utf-8?B?NldRTHFBa0hZN3NBOGJMTXRTYzJEZXZMcW8zOE16YStMMU9IUFB0Z1k3ekdH?=
+ =?utf-8?B?cFZnMldmbStpd1RBVWU4bXhIOWhyKzQvSkhEYzRDWXBHSE1JSlJ6V29PcnVS?=
+ =?utf-8?B?K2dMSnNyZVBXdFJ4RGxZcVVNUFhDcDBKM3pLWUlnZWpDekh1RDVSbE1RWDhm?=
+ =?utf-8?B?QTR1Sk1LSGYzZWZrVTBORDlLTDRuZXJpQkN5QW1zQm5uR1ZNb0hMQmlpdmtR?=
+ =?utf-8?B?eXFJOEVKY3AxdG9kSnhVQlFQSHJYNHUzTmw5bFFOQnlVazhQeGpUMWJZcFNQ?=
+ =?utf-8?B?dXlSa0JZU3VyZnQrQWoyenByL2ZGZ3UvNTBpckJPZDFWOC8yWERNQnRoQjdB?=
+ =?utf-8?B?N29panpCU2hBOERYM1RLZ2UrRUJyR1BOdjhBQm1IclBpcUw5R0grMDFoaFBz?=
+ =?utf-8?B?ZnRKSE15a1dTNVZQYWpuSXduTncyc0UvL0k0b1lmN3lZV0d4c0JXWk5ETmpW?=
+ =?utf-8?B?b1hrdXFXb3RBeVVxYkJhbEZPbk9PUXhjd3RBR0dkYS9HMWZFYkZEa1hwTTN4?=
+ =?utf-8?B?aEN1eUU0REwxcWc1ZzRwWjlNdm16cmp4RjE5MFk3RXhvYWhmaDluVlBIYmtY?=
+ =?utf-8?B?WVlCOTV1Qjl2RVJJNXdGdStlUnNncVVqMkcrSWxZYVJBTzE3dWhpR0Q2OWdK?=
+ =?utf-8?B?bXlndys0b2Z3NURQdGs5Vko3OVZtdFFMRDFORlFzVTJyaXZVcXBQSTcwbUgy?=
+ =?utf-8?B?d29aM3BTY3Zva1Y0aTRYSTlTcldybnVOTUt3SlZFUUxmTjNQcVF1S1l3ZWFP?=
+ =?utf-8?B?UGhuOXRibnlGZy9OV09GK3NMOEdpcHNOZUN3RVYxY0RMK3FTUUtlWjdJM2da?=
+ =?utf-8?B?QkZYaXJybEM3aGljTDd4MXJNeGxXTDJ6M1Y3L3ZYR1VCNElxa2pOWEwyb1RO?=
+ =?utf-8?B?RURHaklWRnhLVnJWZFEzSDdjdkpIME9tOWhHN3JlcUpEU213dk9OQTNZT1VW?=
+ =?utf-8?B?bVpHTDg4K1R2Y1pBbmt5UW9yTWU5RnpOemxTZVJOMU5XKzcxcElrSGJLM2lJ?=
+ =?utf-8?B?Um9URklsZkNuc0xQS3JNSU80a2UzQ1dFMEpGbHJMUXVSQXZMTmxBWHBuUTFJ?=
+ =?utf-8?B?aGxZc3hpc1l5aVZkQUFZRU1rcHJUcDE2TGFoakVBUjlBVDk2VlNOQVdzVmlv?=
+ =?utf-8?B?MTJLZXBmeEhXOGcwZndQQkQzb2s1cjNFUGx3REY3SlBybDMrS3dZL0cwNmtw?=
+ =?utf-8?B?czJid1Z5N3hrRXNhS2Q5bzJheldxTUVGc0V2YmFGaTVmakpFbjVoREt1eGFD?=
+ =?utf-8?B?UWFhVFQ1ZGpUZmNoTnI3aFlyd2hUVjF2Z3Nka0VwVHZCRjFDTWQxUzVyUVdI?=
+ =?utf-8?B?OUp1cTAvUjR4cXUzZENuUHhpcmllV1QwUU1YdUNTYmU5YzF4dnBGdVZ6N0N1?=
+ =?utf-8?B?RzNJMlJVcFh6bVI2VHVPeFlXaWpLWFJJVUR1NjRSNU5RU1M1S3czQ3BMTDI4?=
+ =?utf-8?B?MjlQOXZ0ZFF0dkUyV3JuRkpXeEZGV3JHVEhLVlpNYTNqUFY2VXlHTGNkZ3Qy?=
+ =?utf-8?B?SGhmcGZvOCszMVlLcE1rWW52eDMzQVJnZ3lxc29hekhaamNSSEdHTWlXY0lt?=
+ =?utf-8?Q?+jaq5FOdTx093UHEr3HUq7br5g5F4OBaSHYlCsGD8H0fN?=
+X-MS-Exchange-AntiSpam-MessageData-1: pPQcr7yaiTSnLw==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 60e80bb5-e304-45ab-161e-08de84910bef
+X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB3990.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Mar 2026 01:52:44.2197 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 5X/EHMvYIbvkq7H/zqYFWYIFImHvwpRzCgZX4jciKNWDA+ZcjGmyIo/Emihtu+D7r8aukddcBzwyo/79TxzYCQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV9PR12MB9784
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,117 +151,108 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
---000000000000c6292f064d42ac15
-Content-Type: text/plain; charset="UTF-8"
-
-Hi,
-Good to see active maintenance for hibmc driver.
-I guess you guys are maintaining drivers/gpu/drm/hisilicon/hibmc.
-There is a Hikey kirin driver under the hisilicon directory as well.
-
-In case someone is not receiving unrelated emails, could you separate the
-maintenance for the two drivers?
-Like:
-DRM DRIVERS FOR HISILICON HIBMC
-You guys list here for maintainers and reviewers
-...
-F: drivers/gpu/drm/hisilicon/hibmc
-
-DRM DRIVERS FOR HISILICON KIRIN
-Other guys list here for maintainers and reviewers
-...
-F: drivers/gpu/drm/hisilicon/kirin
-
-Thanks,
-Xinliang
-
-On Wed, 18 Mar 2026 at 09:22, Yongbang Shi <shiyongbang@huawei.com> wrote:
-
-> drivers/gpu/drm/hisilicon/hibmc driver has almost completed feature
-> development
-> based on the new generation HiSilicon BMC chip. It was co-developed by
-> Yongbang Shi, Baihan Li and Lin He. Going forward, this module will be
-> maintained by Yongbang Shi.
+On Tue Mar 17, 2026 at 11:12 PM JST, Danilo Krummrich wrote:
+> On Tue Mar 17, 2026 at 2:41 PM CET, Alexandre Courbot wrote:
+>> On Tue Mar 17, 2026 at 7:49 PM JST, Danilo Krummrich wrote:
+>>> On Tue Mar 17, 2026 at 2:55 AM CET, Alexandre Courbot wrote:
+>>>> We shouldn't be doing that - I think we are limited by the current
+>>>> CoherentAllocation API though. But IIUC this is something that I/O
+>>>> projections will allow us to handle properly?
+>>>
+>>> Why do we need projections to avoid UB here? driver_read_area() already=
+ even
+>>> peeks into the firmware abstraction layer, which is where MsgqData tech=
+nically
+>>> belongs into (despite being trivial).
+>>>
+>>> 	let gsp_mem =3D &unsafe { self.0.as_slice(0, 1) }.unwrap()[0];
+>>> 	let data =3D &gsp_mem.gspq.msgq.data;
+>>>
+>>> Why do we need I/O projections to do raw pointer arithmetic where creat=
+ing a
+>>> reference is UB?
+>>>
+>>> (Eventually, we want to use IoView of course, as this is a textbook exa=
+mple of
+>>> what I proposed IoSlice for.)
+>>
+>> Limiting the amount of `unsafe`s, but I guess we can live with that as
+>> this is going to be short-term anyway.
 >
-> Signed-off-by: Yongbang Shi <shiyongbang@huawei.com>
-> Acked-by: Tao Tian <tiantao6@hisilicon.com>
-> ---
->  MAINTAINERS | 1 +
->  1 file changed, 1 insertion(+)
->
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 96ea84948d76..ef3ff26ac1dc 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -8604,6 +8604,7 @@ T:        git
-> https://gitlab.freedesktop.org/drm/misc/kernel.git
->  F:     drivers/gpu/drm/gma500/
->
->  DRM DRIVERS FOR HISILICON
-> +M:     Yongbang Shi <shiyongbang@huawei.com>
->  M:     Xinliang Liu <xinliang.liu@linaro.org>
->  M:     Tian Tao  <tiantao6@hisilicon.com>
->  R:     Xinwei Kong <kong.kongxinwei@hisilicon.com>
-> --
-> 2.33.0
->
->
+> Of course it is going to be better with IoSlice, but limiting the number =
+of
+> unsafe calls regardless is a bit pointless if the "safe" ones can cause
+> undefined behavior. :)
 
---000000000000c6292f064d42ac15
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+No arguing. :)
 
-<div dir=3D"ltr"><div dir=3D"ltr">Hi,<div>Good to see active maintenance fo=
-r hibmc driver.</div><div>I guess you guys are maintaining=C2=A0drivers/gpu=
-/drm/hisilicon/hibmc.=C2=A0</div><div>There is a Hikey kirin driver under t=
-he hisilicon directory as well.</div><div><br></div><div>In case someone is=
- not receiving unrelated emails, could you separate=C2=A0the maintenance=C2=
-=A0for the two drivers?</div><div>Like:=C2=A0</div><div>DRM DRIVERS FOR HIS=
-ILICON HIBMC</div><div>You guys=C2=A0list here for maintainers and reviewer=
-s</div><div>...</div><div>F:	drivers/gpu/drm/hisilicon/hibmc</div><div><br>=
-</div><div>DRM DRIVERS FOR HISILICON KIRIN</div><div>Other guys list here f=
-or maintainers and reviewers</div><div><div>...</div><div>F: drivers/gpu/dr=
-m/hisilicon/kirin</div></div><div><br></div><div>Thanks,</div><div>Xinliang=
-</div></div><br><div class=3D"gmail_quote gmail_quote_container"><div dir=
-=3D"ltr" class=3D"gmail_attr">On Wed, 18 Mar 2026 at 09:22, Yongbang Shi &l=
-t;<a href=3D"mailto:shiyongbang@huawei.com">shiyongbang@huawei.com</a>&gt; =
-wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0=
-px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">drivers/g=
-pu/drm/hisilicon/hibmc driver has almost completed feature development<br>
-based on the new generation HiSilicon BMC chip. It was co-developed by<br>
-Yongbang Shi, Baihan Li and Lin He. Going forward, this module will be<br>
-maintained by Yongbang Shi.<br>
-<br>
-Signed-off-by: Yongbang Shi &lt;<a href=3D"mailto:shiyongbang@huawei.com" t=
-arget=3D"_blank">shiyongbang@huawei.com</a>&gt;<br>
-Acked-by: Tao Tian &lt;<a href=3D"mailto:tiantao6@hisilicon.com" target=3D"=
-_blank">tiantao6@hisilicon.com</a>&gt;<br>
----<br>
-=C2=A0MAINTAINERS | 1 +<br>
-=C2=A01 file changed, 1 insertion(+)<br>
-<br>
-diff --git a/MAINTAINERS b/MAINTAINERS<br>
-index 96ea84948d76..ef3ff26ac1dc 100644<br>
---- a/MAINTAINERS<br>
-+++ b/MAINTAINERS<br>
-@@ -8604,6 +8604,7 @@ T:=C2=A0 =C2=A0 =C2=A0 =C2=A0 git <a href=3D"https://=
-gitlab.freedesktop.org/drm/misc/kernel.git" rel=3D"noreferrer" target=3D"_b=
-lank">https://gitlab.freedesktop.org/drm/misc/kernel.git</a><br>
-=C2=A0F:=C2=A0 =C2=A0 =C2=A0drivers/gpu/drm/gma500/<br>
-<br>
-=C2=A0DRM DRIVERS FOR HISILICON<br>
-+M:=C2=A0 =C2=A0 =C2=A0Yongbang Shi &lt;<a href=3D"mailto:shiyongbang@huawe=
-i.com" target=3D"_blank">shiyongbang@huawei.com</a>&gt;<br>
-=C2=A0M:=C2=A0 =C2=A0 =C2=A0Xinliang Liu &lt;<a href=3D"mailto:xinliang.liu=
-@linaro.org" target=3D"_blank">xinliang.liu@linaro.org</a>&gt;<br>
-=C2=A0M:=C2=A0 =C2=A0 =C2=A0Tian Tao=C2=A0 &lt;<a href=3D"mailto:tiantao6@h=
-isilicon.com" target=3D"_blank">tiantao6@hisilicon.com</a>&gt;<br>
-=C2=A0R:=C2=A0 =C2=A0 =C2=A0Xinwei Kong &lt;<a href=3D"mailto:kong.kongxinw=
-ei@hisilicon.com" target=3D"_blank">kong.kongxinwei@hisilicon.com</a>&gt;<b=
-r>
--- <br>
-2.33.0<br>
-<br>
-</blockquote></div></div>
+>
+>>> Another option in the meantime would be / have been to use dma_read!() =
+and
+>>> extract (copy) the data right away in driver_read_area(), which I'd pro=
+bably
+>>> prefer over raw pointer arithmetic.
+>>
+>> I'd personally like to keep the current "no-copy" approach as it
+>> implements the right reference discipline (i.e. you need a mutable
+>> reference to update the read pointer, which cannot be done if the buffer
+>> is read by the driver) and moving to copy semantics would open a window
+>> of opportunity to mess with that balance further (on top of requiring
+>> bigger code changes that will be temporary).
+>
+> I don't even know if we want them to be temporary, i.e. we can copy right=
+ away
+> and IoSlice would still be an improvement in order to make the copy in th=
+e first
+> place.
+>
+> Also, you say "no-copy", but that's not true, we do copy eventually. In f=
+act,
+> the whole point of this patch is to copy this buffer into a KVVec.
+>
+> So, why not copy it right away with dma_read!() (later replaced with an I=
+oSlice
+> copy) and then process it further?
 
---000000000000c6292f064d42ac15--
+So as you said we are already making one copy: `receive_msg` for
+instance does not return any reference to the command buffer, but an
+object created from the slices returned by `driver_read_area`. What you
+are suggesting would introduce another copy in the command queue
+internals, for no tangible benefit as it would not allow us to
+advance the read pointer sooner anyway.
+
+Because even if we did that extra copy using `dma_read`, we would still
+need to make sure the read pointer doesn't move as we are doing it, lest
+we return corrupted messages - so the situation would be more or less
+the same, and the `&mut self` required to advance the read pointer would
+still be needed to shield us from doing it inadvertently.
+
+In addition, we need space to hold that additional copy. It doesn't have
+a fixed size, and can cover several memory pages. Does that mean we
+would need to allocate a KVec or KVVec for every message received, and
+drop it even before `receive_msg` returns?
+
+The additional code to do that allocation would likely be larger than
+the fix I proposed below, and we know it is very temporary and will be
+replaced by mostly safe code soon. I would understand the trade-off of
+an extra copy if this resulted in simpler code, but I don't think that
+would be the case here.
+
+>
+> I am also very sceptical of the "holding on to the reference prevents the=
+ read
+> pointer update" argument. Once we have a copy, there is no need not to up=
+date
+> the read pointer anymore in the first place, no?
+
+Correct, and that's exactly what `receive_msg` does - as soon as it has
+created the object to return from the slices, it advances the read
+pointer. So the read pointer is already updated when `receive_msg`
+returns, and that "holding on to the reference" thing is purely for
+internal safety.
+
+Introducing another copy won't allow us to update it sooner - copying
+the bytes into a KVec is not faster than processing the slices' data
+into the final returned value. Actually it may even be slower if that
+involves a dynamic allocation.
+
