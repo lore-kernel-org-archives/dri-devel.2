@@ -4,70 +4,136 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0202C103E177
-	for <dri-devel@archiver.kernel.org>; Wed, 18 Mar 2026 13:18:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2B1B4103E173
+	for <dri-devel@archiver.kernel.org>; Wed, 18 Mar 2026 13:29:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6533A10E21A;
-	Wed, 18 Mar 2026 13:18:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8350A10E81C;
+	Wed, 18 Mar 2026 13:29:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nfraprado@collabora.com header.b="Bcv4TD5v";
+	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="AAhKZR+c";
 	dkim-atps=neutral
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
- [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A2D2F10E21A
- for <dri-devel@lists.freedesktop.org>; Wed, 18 Mar 2026 13:18:45 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1773839912; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=YhujDzt/e0NjTtUyUXuzSY/Le6GvVrWdWeqnIEUxUBJVDHHqOaXNw/LA0j4X+MGOYYy1XcJU+TP0kHv5ptgGHGk2d5PJE+mgFzbWbVe0jPsqKfANd706ZoFimCYvPcRe8fl9dVKRoYd4xyhg1CrohfmvsTXdSjmVDpDONAB7Zv8=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1773839912;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=F+UN9HIXOUxuFgcjf3rxpjrFOJaR3ROfCMIjHMDcM48=; 
- b=Xa/Osxjanr0Rbjzg0qLHSn0A5Kb3hT9Ks8/RM0xcqlD2QIbcG4+rAxu0K/Xy6hjBicA2WOyDwh0jBg7x06sNIguz2hrsi6s9k2MDhuEWBlcBGlQkdkcZYWwTItStCnoAXKs5/E8ukEjnuul8/FKbxhQhwkHNB5SgAd2CHego3wQ=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=nfraprado@collabora.com;
- dmarc=pass header.from=<nfraprado@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1773839912; 
- s=zohomail; d=collabora.com; i=nfraprado@collabora.com;
- h=Message-ID:Subject:Subject:From:From:To:To:Cc:Cc:Date:Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:MIME-Version:Message-Id:Reply-To;
- bh=F+UN9HIXOUxuFgcjf3rxpjrFOJaR3ROfCMIjHMDcM48=;
- b=Bcv4TD5vTib4Vxi8AEOmlIrchwN8fxpCPAoBQ1/RGsAy8nFU3t1zZD98A+p69tPp
- bUPND2gv/kXWT/VMfIMlEUxSpWeUmXon7kTsuI8JYtIGs08U6EQ6hMNZBQ+8JFPMxzZ
- ZdNFMmPC6JGK/Df8lZYjKX1FuS7oQf8h3opycaPA=
-Received: by mx.zohomail.com with SMTPS id 1773839909989805.2310598881032;
- Wed, 18 Mar 2026 06:18:29 -0700 (PDT)
-Message-ID: <698d1d3f41d7931e6447545394757f71b9ebc597.camel@collabora.com>
-Subject: Re: [PATCH 10/11] drm/mediatek: ovl: Enable support for R2R Color
- Space Conversion
-From: =?ISO-8859-1?Q?N=EDcolas?= "F. R. A. Prado" <nfraprado@collabora.com>
-To: CK Hu =?UTF-8?Q?=28=E8=83=A1=E4=BF=8A=E5=85=89=29?=
- <ck.hu@mediatek.com>,  "tzimmermann@suse.de"	 <tzimmermann@suse.de>,
- "chunkuang.hu@kernel.org" <chunkuang.hu@kernel.org>,  "simona@ffwll.ch"	
- <simona@ffwll.ch>, AngeloGioacchino Del Regno	
- <angelogioacchino.delregno@collabora.com>, "airlied@gmail.com"	
- <airlied@gmail.com>, "p.zabel@pengutronix.de" <p.zabel@pengutronix.de>, 
- "maarten.lankhorst@linux.intel.com"	 <maarten.lankhorst@linux.intel.com>,
- "mripard@kernel.org" <mripard@kernel.org>,  "matthias.bgg@gmail.com"	
- <matthias.bgg@gmail.com>
-Cc: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, 
- "linux-mediatek@lists.infradead.org"	 <linux-mediatek@lists.infradead.org>,
- Daniel Stone <daniels@collabora.com>, 
- "linux-arm-kernel@lists.infradead.org"	
- <linux-arm-kernel@lists.infradead.org>, "linux-kernel@vger.kernel.org"	
- <linux-kernel@vger.kernel.org>, Ariel D'Alessandro	
- <ariel.dalessandro@collabora.com>, "kernel@collabora.com"
- <kernel@collabora.com>
-Date: Wed, 18 Mar 2026 09:18:28 -0400
-In-Reply-To: <2ce1ed408fd87366d3abc1e79bc3d1dc055af91b.camel@mediatek.com>
-References: <20251223-mtk-ovl-pre-blend-colorops-v1-0-0cb99bd0ab33@collabora.com>
- <20251223-mtk-ovl-pre-blend-colorops-v1-10-0cb99bd0ab33@collabora.com>
- <2ce1ed408fd87366d3abc1e79bc3d1dc055af91b.camel@mediatek.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: base64
-User-Agent: Evolution 3.56.2-8 
+Received: from CWXP265CU009.outbound.protection.outlook.com
+ (mail-ukwestazon11021124.outbound.protection.outlook.com [52.101.100.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DD0E510E81C
+ for <dri-devel@lists.freedesktop.org>; Wed, 18 Mar 2026 13:29:03 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=VwUeu19JXLiJwultpI8eJjYnaeQG1+dz6rlCDZsKvo6+w+I6G4HbxNFRPXJXQNro8lESsPXeZN4HmNw35/gyv/E/xhCZEtm+qgojDxBY1jNvpki3oZpGAD9CGv2DLQ4fZp/m+zDD5WObbPSYe7qIjvXzgP2/MARp3ZkRXfun7/JeeJ1V4zoWUZJ7PkL9yGUleTl83OINsWQbw3pZH6Tz45PKHQ1YmhdUhHkoswTEsSjpWNF0R4SpfKbHjuC+P3uo9qOlDa8Zy2P8bNqULuMF2xKPLJTyZXLQ+RThpw2WE9chis8A5E0c2pKlbpq26XP6khkSqzAA62TQBE8zYcGKZw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=bZQaE6zuLIJwIjyrS/QctnbgoLoi7OfCCID1vez33EI=;
+ b=XUMLWatB2LRLiJeqEHzobf+1kP6m2wZSI70+t240UDVZcS+BMjuRE5UrILCBRjbo8OiSexM688eCTUv7kgYjXGm67nCJX5LbUPrpGSDQwNFeDeKPyJjWqyeZtBvZrvnoQ/gLfcjRCERoWCFtcvOFzxIG88TpTEM3O7xS+eh6i/x1RM2ZootNbrD9tk2z6UszbDm7rICsk/y12xnjfAjYC5JEN22t0fyp43bcdnuM87d3Q94wBnayY+D/a0CMgTfJsWKsSWP3ZnwkC+im3zNwPevu88IJrVPGeHsoGPMezM/PiKZKPh75Jb0EK1QvsgDcq4T1N1IgAPbj8TAF28TF6g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
+ dkim=pass header.d=garyguo.net; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=bZQaE6zuLIJwIjyrS/QctnbgoLoi7OfCCID1vez33EI=;
+ b=AAhKZR+cwJhbMp6NcrDQtnqkxonxxvDnrrBjas5nuAgK/TdgH079EAtIE7P4whk0kfQaqrEnQOYNQlioyIgEtbFe87FvRZ6NwOkqsdCCAVcJDP9G0deD6Wri/OcM7IlBebrGgVBerdK6Hb1lPW/qP9RtaBIJlZbjhMF/6Goz+B0=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=garyguo.net;
+Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:488::16)
+ by CWLP265MB6609.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:1dd::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.19; Wed, 18 Mar
+ 2026 13:29:00 +0000
+Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::1c3:ceba:21b4:9986]) by LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::1c3:ceba:21b4:9986%5]) with mapi id 15.20.9723.018; Wed, 18 Mar 2026
+ 13:29:00 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 18 Mar 2026 13:28:57 +0000
+Message-Id: <DH5XZP4LPOXG.XL69OTK91FIX@garyguo.net>
+To: "Alexandre Courbot" <acourbot@nvidia.com>, "Danilo Krummrich"
+ <dakr@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Maarten Lankhorst"
+ <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
+ "Thomas Zimmermann" <tzimmermann@suse.de>, "Miguel Ojeda"
+ <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>, "Gary Guo"
+ <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
+ <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
+ Hindborg" <a.hindborg@kernel.org>, "Trevor Gross" <tmgross@umich.edu>
+Cc: "John Hubbard" <jhubbard@nvidia.com>, "Alistair Popple"
+ <apopple@nvidia.com>, "Joel Fernandes" <joelagnelf@nvidia.com>, "Timur
+ Tabi" <ttabi@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>, "Eliot Courtney"
+ <ecourtney@nvidia.com>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>, <linux-riscv@lists.infradead.org>,
+ <linux-doc@vger.kernel.org>, <rust-for-linux@vger.kernel.org>
+Subject: Re: [PATCH 1/8] gpu: nova-core: convert PMC registers to kernel
+ register macro
+From: "Gary Guo" <gary@garyguo.net>
+X-Mailer: aerc 0.21.0
+References: <20260318-b4-nova-register-v1-0-22a358aa4c63@nvidia.com>
+ <20260318-b4-nova-register-v1-1-22a358aa4c63@nvidia.com>
+In-Reply-To: <20260318-b4-nova-register-v1-1-22a358aa4c63@nvidia.com>
+X-ClientProxiedBy: FR4P281CA0024.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:c9::15) To LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:488::16)
 MIME-Version: 1.0
-X-ZohoMailClient: External
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LOVP265MB8871:EE_|CWLP265MB6609:EE_
+X-MS-Office365-Filtering-Correlation-Id: 917cca17-a127-4680-602d-08de84f25063
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|376014|7416014|366016|921020|56012099003|18002099003|22082099003|7053199007;
+X-Microsoft-Antispam-Message-Info: wqEhib/qLEQsCiNKUwPZQ4RnTtXPav0Ll1hFJFk5bXgFCv3J1jmuM+7iAzjsWUJJPC0KrXfK5ozEZd0I5/H3753HEXWCiwxxQAimw+YXe+oOOIkYds+EI3FDpGjBaFi1gjb6NtCUzJa26cpzAX5bIlU5b11BIdyPDBtsgZGXOTQYA/thRngkU0mEjJU21mSyTOcAtTAaETYo7mO+iwM71HBQ0asqaz7B0no3CTlZbEL2wPErzD+76ZuxSdqbyophH6KHqNo1y1AnqD8n5cnnGlydm8vKeExZHXhBBAce+/9lKu5jv4EIfEIUJ7cdn+E0IHBcKL8I6j3nDa3zSfIBh6ybJVy8RHDJ9KvQ1NvAL81L9Zr+Rm1cVy8O2s8rMf4bE+hXLHGgjsCLdn8YupqtwV+o3TTPe565vtRCisXdmA0d0OsZH48g5GqVRNHqXcXggDUU5Ji+zbryytwlSl6OzTS8KBBKwNpBOmk00HTmLqK+C3MSvaJB3WO8Dv31pMfN3jJjk+lXI9ezv0xW0EmXAOcN2h129hR2aEgKAVk8jz/2L8LmE9kJzscWnOzuQePp33HX79YQ86IoSEW9Ris1jYb6NBzaakykLd0s93ADy05UYBaupwoN1SELU4laHVBCoUEDu9G+UG0Lx856LYJzzorFKYfbujtrV/LQ2A5hVFhMKc7/JmPg1nFVkxaQKUs6YDYUs/vD7JbTrSstXbFqyAfD0udh9+U+R6q4M7sM12ZENo4swx8qIcDuUIbCQG3emM4AlLk6PFVU/qTmJVZGZA==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(7416014)(366016)(921020)(56012099003)(18002099003)(22082099003)(7053199007);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?b0dMUEJwTzRzYnpEY1N3TlgrZEtQamZ5MnZpMGlPVEh0aWRndmg5SlM5MXRS?=
+ =?utf-8?B?d2JHUVNjQ2FzUE8zWU9FaHRPaDdyVjNZMHA0RFYzNUEyOHVZS1NwelErcC9B?=
+ =?utf-8?B?TW1YTEt4VUNzSmxCR2Z3S0FpWEwvYmY4d3ZuYXA3Z1VXMXRWMS80VVE4SkFn?=
+ =?utf-8?B?SUFQd09GaVdvVDJJYzcxaWZITGdvZ2x5WEdWZkZCTkZ3b1IzOXJaSklYK3du?=
+ =?utf-8?B?Sis2OEZubWJkbFBCcFlQNW00UWpxZ3VIdGxGOXlqSVY5K09zTkh1WjN5V0VG?=
+ =?utf-8?B?VW50Si8vSDIrNU5LWEY4SnVLOFppcXl6NzI4ZStrUkFUWis5L3lYbk00b2NR?=
+ =?utf-8?B?cTJmUnMyQVAxaitSNFJRNGhQNDF3K1UzZjVneWdRL1AyZzlQQU5ybmtsb21j?=
+ =?utf-8?B?OGg1aExhb2V4bEs5UFhSSDdkMldhUkZQa0RVTnE0RzFPUXV4VGZGSkk0dWs5?=
+ =?utf-8?B?b3lVSzJMVVQzaTNDUDlScTBaQVd2SEhEWFVNQmZDdWpQZUN0a2FDREhUTjF1?=
+ =?utf-8?B?S2tqV0tFOEMvZWJFQ1ZadkQrTW5BODNVY2c1N0RwWjI1OHFxN0Q3MzQwSk1U?=
+ =?utf-8?B?dnc2OU5mY3B4WkgrMERzVVVhaUVNWGhXdDF4RWRleFJxS1hHUDR2YmlZSTV1?=
+ =?utf-8?B?TTV1cm05QUhWUTJiZWJ5NTlYajZNQnNEZ2g3dnpBbzFwRVhQVTN2azVDaXpn?=
+ =?utf-8?B?VFVIMDVjSDNuMkJ0ZGc4R3lKcDkxVXA3ZWk1NUk2clRjWndRQnRHcUo5aEls?=
+ =?utf-8?B?enNML2FadDkzdEJXMTk1TnhBMm1oa2oyQk5MaDdrb2VJaG96UDJGNFhoSUlF?=
+ =?utf-8?B?cS9WQlI1dkhpQmg3MjVyMXVFbzRyU1hIWldFZFAvck01Tk5NUkFzdkxGVHZ6?=
+ =?utf-8?B?YkZaUzdBNTM2ZG5Jc2JUcitJejZORG50M3VEY09INVlZclUwcTJMcGhFVGR1?=
+ =?utf-8?B?MDFTcHRLRnVCWWhQZVJZZUxaY2xXMGJ6Nkk3d0NEM1pLTHZ0MHF0bG9ZOTFv?=
+ =?utf-8?B?cVM1THNpS1Z5b2dYWXlYWk9pMkpFQWU3eW15S1ZpR3hweldqcXBYYzRFak5P?=
+ =?utf-8?B?cWtBdUw2MXg1c0taL2E4Z2RGb2cxY2ptaEdQaVp2aXFKNm9ySUJUV2ZaemY0?=
+ =?utf-8?B?STRvSEh1U2dwbkRvaDZaNDRlNzFPeDc2ZUJsd09tZExmRXUyd3U4MTJxZ0hP?=
+ =?utf-8?B?QzRhWmloYksvTi84SmViZm03VE1YblYvVEFHcmNJcGsyQkdFdjNEcmVoK0I3?=
+ =?utf-8?B?N29FSzhvaFBlU1o4Y3JIeXB4eTVheWNGWUR2cGZTUGp4dGlETW5tVks2dlM3?=
+ =?utf-8?B?aTlabUJDRzZiSU9uTnJIOC9NWjJ0KzRIQzI2NnZkY0VzQ2VzTW1NUjFIWVMy?=
+ =?utf-8?B?KzNMSjhORjV6WkhDdDNTa0NJMjBRbzdWQ003bk56a0tHM2hqN3FRbHZSQ2tu?=
+ =?utf-8?B?ekE3dE5mQUNQKzQyT1JaNlBKS1cyOWc5MVlpNjVvK0NmNFpua2VrVUloZXRB?=
+ =?utf-8?B?dTMrcHhLWG9YRlNyV2JadU9lYVBmL0Q4OUZXODcwTWs4b2NBSnhNd2p3NkVB?=
+ =?utf-8?B?ZmlpSUt0MndCcWsxSFg1R2lKWEFLWWJYNG4rSFQ5N2hrSjVPVFNkRmZXSHpT?=
+ =?utf-8?B?dWhuUk5DYTk2VnByb2hRVmhaL3g0dXQ1eXIwcEdDZDRzOWQ5cExZOWdTak1y?=
+ =?utf-8?B?QllFajNQY3ZJWTl4dExQc2tnc3FEbFVkVjRyNkhKY3FIMFpNSlBENHpvWWxB?=
+ =?utf-8?B?TFdsTW5UaUlCTjBtWldjdGMxVkFTb2s5alZGNmZ2UzIzeWZHbkd3NHdPdXZN?=
+ =?utf-8?B?YXd3OUNCdjB6eGIxTktNQm1raHFpU0ZsTlplbnkwcmJidzIwSFZpdUJRTTF0?=
+ =?utf-8?B?YS9IdjdnWUQ4VmxCblE5UG1ENVlQMkJ4UjNVRUZMYzcvQ2VIVG9ETGlpdjRv?=
+ =?utf-8?B?bGRSUVRjdisyUUZtcmlsL1djUDkwbGpqWHg0aDY0K2hIUTN6SUltaWV2bjg3?=
+ =?utf-8?B?WnNjMkJpR2dYVDN2MEFURDNOL3lLNzFlQzFQbkkrcklpc3dnT013YWtqRkZt?=
+ =?utf-8?B?b3hXNXR0TW9uL3N5YnRWbGdMbDlsRk1lL3dzRTY5UHFrNWcxVFN0N2lOV1pE?=
+ =?utf-8?B?Y2xDRVJJZHV2ekVrQUFpbUtOY0RDRXBkYTEzelowKzFWM1VpeWt0cXRRTVR5?=
+ =?utf-8?B?M0NKU0dIeWZEQjRMUU5DN3dUbjN4YisyWWM1cEd0WVRiNzBURnoyc2lYVHFT?=
+ =?utf-8?B?WjJJd0F0cDFiQ2dCRUk0NnRhbUdQYU1Vak02cUV0QVhCL3VqeU9WOVpYa0dR?=
+ =?utf-8?Q?jMJwbmStTpsFvL5jYS?=
+X-OriginatorOrg: garyguo.net
+X-MS-Exchange-CrossTenant-Network-Message-Id: 917cca17-a127-4680-602d-08de84f25063
+X-MS-Exchange-CrossTenant-AuthSource: LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Mar 2026 13:29:00.0018 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: lT3bNqGJidZ0owHVmV8XY6YIWjA6g+8ATSYTI7zEHqPwQyXTZG6iIMVu1QC2XdaMQbWTKKD1ThqwYDPE7/Rthw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CWLP265MB6609
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,90 +149,282 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-T24gVHVlLCAyMDI2LTAzLTAzIGF0IDA3OjE2ICswMDAwLCBDSyBIdSAo6IOh5L+K5YWJKSB3cm90
-ZToKPiBPbiBUdWUsIDIwMjUtMTItMjMgYXQgMTY6NDQgLTAzMDAsIE7DrWNvbGFzIEYuIFIuIEEu
-IFByYWRvIHdyb3RlOgo+ID4gRXh0ZXJuYWwgZW1haWwgOiBQbGVhc2UgZG8gbm90IGNsaWNrIGxp
-bmtzIG9yIG9wZW4gYXR0YWNobWVudHMKPiA+IHVudGlsIHlvdSBoYXZlIHZlcmlmaWVkIHRoZSBz
-ZW5kZXIgb3IgdGhlIGNvbnRlbnQuCj4gPiAKPiA+IAo+ID4gVGhlIE9WTCBoYXJkd2FyZSBhbGxv
-d3MgYXBwbHlpbmcgYSAzeDMgbWF0cml4IHRyYW5zZm9ybWF0aW9uIGZvcgo+ID4gZWFjaAo+ID4g
-bGF5ZXIgdGhyb3VnaCB0aGUgJ1JHQiB0byBSR0IgQ29sb3IgU3BhY2UgQ29udmVyc2lvbicgKFIy
-UiBDU0MpCj4gPiBzZXR0aW5nLgo+ID4gSW1wbGVtZW50IHN1cHBvcnQgZm9yIGl0IGFuZCBleHBv
-c2UgaXQgYXMgYSBjb2xvcm9wIHRocm91Z2ggdGhlIERSTQo+ID4gcGxhbmUgY29sb3IgcGlwZWxp
-bmUgdUFQSS4KPiA+IAo+ID4gU2lnbmVkLW9mZi1ieTogTsOtY29sYXMgRi4gUi4gQS4gUHJhZG8g
-PG5mcmFwcmFkb0Bjb2xsYWJvcmEuY29tPgo+ID4gLS0tCj4gPiDCoGRyaXZlcnMvZ3B1L2RybS9t
-ZWRpYXRlay9tdGtfZGlzcF9vdmwuYyB8IDU1Cj4gPiArKysrKysrKysrKysrKysrKysrKysrKysr
-KysrKysrKy0KPiA+IMKgMSBmaWxlIGNoYW5nZWQsIDU0IGluc2VydGlvbnMoKyksIDEgZGVsZXRp
-b24oLSkKPiA+IAo+ID4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9tZWRpYXRlay9tdGtf
-ZGlzcF9vdmwuYwo+ID4gYi9kcml2ZXJzL2dwdS9kcm0vbWVkaWF0ZWsvbXRrX2Rpc3Bfb3ZsLmMK
-PiA+IGluZGV4IGE3MDA5MmM3OTJhOS4uYzhhMmIxYjEzMDM1IDEwMDY0NAo+ID4gLS0tIGEvZHJp
-dmVycy9ncHUvZHJtL21lZGlhdGVrL210a19kaXNwX292bC5jCj4gPiArKysgYi9kcml2ZXJzL2dw
-dS9kcm0vbWVkaWF0ZWsvbXRrX2Rpc3Bfb3ZsLmMKPiA+IEBAIC00LDYgKzQsNyBAQAo+ID4gwqAg
-Ki8KPiA+IAo+ID4gwqAjaW5jbHVkZSA8ZHJtL2RybV9ibGVuZC5oPgo+ID4gKyNpbmNsdWRlIDxk
-cm0vZHJtX2NvbG9yX21nbXQuaD4KPiA+IMKgI2luY2x1ZGUgPGRybS9kcm1fY29sb3JvcC5oPgo+
-ID4gwqAjaW5jbHVkZSA8ZHJtL2RybV9mb3VyY2MuaD4KPiA+IMKgI2luY2x1ZGUgPGRybS9kcm1f
-ZnJhbWVidWZmZXIuaD4KPiA+IEBAIC01Miw2ICs1Myw3IEBACj4gPiDCoCNkZWZpbmUgT1ZMX0NP
-Tl9DTFJGTVRfMTBfQklUwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqAgKDEpCj4gPiDCoCNkZWZpbmUgRElTUF9SRUdfT1ZMX1dDR19DRkcxwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAweDJkOAo+ID4gwqAjZGVmaW5lIElHQU1NQV9FTihs
-YXllcinCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqAgQklUKDAgKyA0ICoKPiA+IChsYXllcikpCj4gPiArI2RlZmluZSBDU0NfRU4obGF5
-ZXIpwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgIEJJVCgxICsgNCAqCj4gPiAobGF5ZXIpKQo+ID4gwqAjZGVmaW5lIEdBTU1B
-X0VOKGxheWVyKcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoAo+ID4gQklUKDIgKyA0ICogKGxheWVyKSkK
-PiA+IMKgI2RlZmluZSBESVNQX1JFR19PVkxfV0NHX0NGRzLCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgIDB4MmRjCj4gPiDCoCNkZWZpbmUgSUdBTU1BX01BU0sobGF5ZXIpwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAKPiA+IEdF
-Tk1BU0soKGxheWVyKSAqIDQgKyAxLCAobGF5ZXIpICogNCkKPiA+IEBAIC02Miw2ICs2NCw3IEBA
-Cj4gPiDCoCNkZWZpbmUgR0FNTUFfQlQ3MDnCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIDEKPiA+IMKgI2RlZmluZSBH
-QU1NQV9CVDIwMjDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAyCj4gPiDCoCNkZWZpbmUgR0FNTUFfSExHwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqAgMwo+ID4gKyNkZWZpbmUgRElTUF9SRUdfT1ZMX1IyUl9QQVJBKGxheWVyKcKgwqDC
-oMKgwqDCoMKgwqDCoMKgICgweDUwMCArIChsYXllcikgKgo+ID4gMHg0MCkKPiA+IMKgI2RlZmlu
-ZSBESVNQX1JFR19PVkxfQUREUl9NVDgxNzPCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIDB4
-MGY0MAo+ID4gwqAjZGVmaW5lIERJU1BfUkVHX09WTF9BRERSKG92bCwgbinCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoCAoKG92bCktPmRhdGEtPmFkZHIKPiA+ICsgMHgyMCAqIChuKSkKPiA+IMKg
-I2RlZmluZSBESVNQX1JFR19PVkxfSERSX0FERFIob3ZsLCBuKcKgwqDCoMKgwqDCoMKgwqDCoCAo
-KG92bCktPmRhdGEtPmFkZHIKPiA+ICsgMHgyMCAqIChuKSArIDB4MDQpCj4gPiBAQCAtNTc5LDEx
-ICs1ODIsNDQgQEAgc3RhdGljIHZvaWQgbXRrX292bF9hcHBseV9pZ2FtbWEoc3RydWN0Cj4gPiBt
-dGtfZGlzcF9vdmwgKm92bCwgdW5zaWduZWQgaW50IGlkeCwKPiA+IMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgSUdBTU1BX0VOKGlkeCkpOwo+ID4g
-wqB9Cj4gPiAKPiA+ICtzdGF0aWMgdm9pZCBtdGtfb3ZsX3dyaXRlX3Iycl9wYXJhKHN0cnVjdCBt
-dGtfZGlzcF9vdmwgKm92bCwKPiA+IHVuc2lnbmVkIGludCBpZHgsCj4gPiArwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHN0
-cnVjdCBkcm1fY29sb3JfY3RtICpjdG0sCj4gPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHN0cnVjdCBjbWRxX3BrdCAq
-Y21kcV9wa3QpCj4gPiArewo+ID4gK8KgwqDCoMKgwqDCoCB1bnNpZ25lZCBpbnQgaTsKPiA+ICvC
-oMKgwqDCoMKgwqAgdTY0IHZhbDsKPiA+ICsKPiA+ICvCoMKgwqDCoMKgwqAgZm9yIChpID0gMDsg
-aSA8IEFSUkFZX1NJWkUoY3RtLT5tYXRyaXgpOyBpKyspIHsKPiA+ICvCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgIHZhbCA9IGRybV9jb2xvcl9jdG1fczMxXzMyX3RvX3FtX24oY3RtLT5tYXRy
-aXhbaV0sCj4gPiA1LCAxOCk7Cj4gPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBtdGtf
-ZGRwX3dyaXRlKGNtZHFfcGt0LCB2YWwsICZvdmwtPmNtZHFfcmVnLCBvdmwtCj4gPiA+cmVncywK
-PiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoCBESVNQX1JFR19PVkxfUjJSX1BBUkEoaWR4KSArIGkgKiA0KTsKPiA+ICvCoMKgwqDCoMKg
-wqAgfQo+ID4gK30KPiA+ICsKPiA+ICtzdGF0aWMgdm9pZCBtdGtfb3ZsX2FwcGx5X3Iycl9jc2Mo
-c3RydWN0IG10a19kaXNwX292bCAqb3ZsLAo+ID4gdW5zaWduZWQgaW50IGlkeCwKPiA+ICvCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgIHN0cnVjdCBkcm1fY29sb3JvcCAqY29sb3JvcCwKPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHN0cnVjdCBjbWRx
-X3BrdCAqY21kcV9wa3QpCj4gPiArewo+ID4gK8KgwqDCoMKgwqDCoCBzdHJ1Y3QgZHJtX2NvbG9y
-X2N0bSAqY3RtOwo+ID4gKwo+ID4gK8KgwqDCoMKgwqDCoCBpZiAoY29sb3JvcC0+c3RhdGUtPmRh
-dGEgJiYgY29sb3JvcC0+c3RhdGUtPmRhdGEtPmRhdGEpIHsKPiA+ICvCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgIGN0bSA9IChzdHJ1Y3QgZHJtX2NvbG9yX2N0bSAqKWNvbG9yb3AtPnN0YXRl
-LT5kYXRhLQo+ID4gPmRhdGE7Cj4gPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBtdGtf
-b3ZsX3dyaXRlX3Iycl9wYXJhKG92bCwgaWR4LCBjdG0sIGNtZHFfcGt0KTsKPiA+ICvCoMKgwqDC
-oMKgwqAgfQo+ID4gKwo+IAo+IElmIGJ5cGFzcyBpbXBseSBjb2xvcm9wLT5zdGF0ZS0+ZGF0YS0+
-ZGF0YSBpcyBOVUxMLCBub3RoaW5nIG5lZWQgdG8KPiBjaGFuZ2UuCj4gSWYgYnlwYXNzIGRvZXMg
-bm90IGltcGx5IGNvbG9yb3AtPnN0YXRlLT5kYXRhLT5kYXRhIGlzIE5VTEwsIEkgd291bGQKPiBs
-aWtlIHRvIGRpc2FibGUgQ1NDIGZpcnN0IHRoZW4gY2xlYXIgcjJyIHBhcmFtZXRlci4KCmJ5cGFz
-cyBkb2VzIG5vdCBpbXBseSBOVUxMIGRhdGEuIEJ1dCBldmVuIHdoZW4gc2V0dGluZyB0aGUgQ1ND
-IGJsb2NrIHRvCmJlIGJ5cGFzc2VkLCB3ZSBkb24ndCB3YW50IHRvIGNsZWFyIGl0cyBwYXJhbWV0
-ZXJzLCB3ZSB3YW50IHRvIHNldCB0aGUKcGFyYW1ldGVycyBwYXNzZWQgYnkgdXNlcnNwYWNlIGlu
-IHRoaXMgYXRvbWljIGNvbW1pdCwgaWYgYW55LCBhbmQgaWYKbm90IHdlIHdhbnQgdG8ga2VlcCB0
-aGUgY3VycmVudCBwYXJhbWV0ZXJzLCBpbiBjYXNlIHRoZXkgaGF2ZSBiZWVuIHNldAppbiBhIHBy
-ZXZpb3VzIGF0b21pYyBjb21taXQsIHNvIHRoYXQgYSBmdXR1cmUgY29tbWl0IHNldHRpbmcgYnlw
-YXNzPTAKd2lsbCBoYXZlIHRoZSBwYXJhbWV0ZXJzIHByZXZpb3VzbHkgc2V0LCB3aXRob3V0IGhh
-dmluZyB0byBwYXNzIHRoZW0KYWdhaW4uCgpUaGFua3MsCk7DrWNvbGFzCg==
+On Wed Mar 18, 2026 at 8:05 AM GMT, Alexandre Courbot wrote:
+> Convert all PMC registers to use the kernel's register macro and update
+> the code accordingly.
+>
+> nova-core's registers have some constant properties (like a 32-bit size
+> and a crate visibility), so introduce the `nv_reg` macro to shorten
+> their declaration.
+>
+> Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
+> ---
+>  drivers/gpu/nova-core/falcon.rs |  7 ++--
+>  drivers/gpu/nova-core/gpu.rs    | 37 ++++++++++-----------
+>  drivers/gpu/nova-core/regs.rs   | 73 +++++++++++++++++++++++++++++++----=
+------
+>  3 files changed, 78 insertions(+), 39 deletions(-)
+>
+> diff --git a/drivers/gpu/nova-core/falcon.rs b/drivers/gpu/nova-core/falc=
+on.rs
+> index 7097a206ec3c..4721865f59d9 100644
+> --- a/drivers/gpu/nova-core/falcon.rs
+> +++ b/drivers/gpu/nova-core/falcon.rs
+> @@ -13,7 +13,10 @@
+>          DmaAddress,
+>          DmaMask, //
+>      },
+> -    io::poll::read_poll_timeout,
+> +    io::{
+> +        poll::read_poll_timeout, //
+> +        Io,
+> +    },
+>      prelude::*,
+>      sync::aref::ARef,
+>      time::Delta,
+> @@ -532,7 +535,7 @@ pub(crate) fn reset(&self, bar: &Bar0) -> Result {
+>          self.hal.reset_wait_mem_scrubbing(bar)?;
+> =20
+>          regs::NV_PFALCON_FALCON_RM::default()
+> -            .set_value(regs::NV_PMC_BOOT_0::read(bar).into())
+> +            .set_value(bar.read(regs::NV_PMC_BOOT_0).into())
+>              .write(bar, &E::ID);
+> =20
+>          Ok(())
+> diff --git a/drivers/gpu/nova-core/gpu.rs b/drivers/gpu/nova-core/gpu.rs
+> index 8579d632e717..d81abc7de3d7 100644
+> --- a/drivers/gpu/nova-core/gpu.rs
+> +++ b/drivers/gpu/nova-core/gpu.rs
+> @@ -4,6 +4,8 @@
+>      device,
+>      devres::Devres,
+>      fmt,
+> +    io::Io,
+> +    num::Bounded,
+>      pci,
+>      prelude::*,
+>      sync::Arc, //
+> @@ -129,24 +131,18 @@ fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::R=
+esult {
+>  }
+> =20
+>  /// Enum representation of the GPU generation.
+> -///
+> -/// TODO: remove the `Default` trait implementation, and the `#[default]=
+`
+> -/// attribute, once the register!() macro (which creates Architecture it=
+ems) no
+> -/// longer requires it for read-only fields.
+> -#[derive(fmt::Debug, Default, Copy, Clone)]
+> -#[repr(u8)]
+> +#[derive(fmt::Debug, Copy, Clone)]
+>  pub(crate) enum Architecture {
+> -    #[default]
+>      Turing =3D 0x16,
+>      Ampere =3D 0x17,
+>      Ada =3D 0x19,
+>  }
+> =20
+> -impl TryFrom<u8> for Architecture {
+> +impl TryFrom<Bounded<u32, 6>> for Architecture {
+>      type Error =3D Error;
+> =20
+> -    fn try_from(value: u8) -> Result<Self> {
+> -        match value {
+> +    fn try_from(value: Bounded<u32, 6>) -> Result<Self> {
+> +        match u8::from(value) {
+>              0x16 =3D> Ok(Self::Turing),
+>              0x17 =3D> Ok(Self::Ampere),
+>              0x19 =3D> Ok(Self::Ada),
+> @@ -155,23 +151,26 @@ fn try_from(value: u8) -> Result<Self> {
+>      }
+>  }
+> =20
+> -impl From<Architecture> for u8 {
+> +impl From<Architecture> for Bounded<u32, 6> {
+>      fn from(value: Architecture) -> Self {
+> -        // CAST: `Architecture` is `repr(u8)`, so this cast is always lo=
+ssless.
+> -        value as u8
+> +        match value {
+> +            Architecture::Turing =3D> Bounded::<u32, 6>::new::<0x16>(),
+> +            Architecture::Ampere =3D> Bounded::<u32, 6>::new::<0x17>(),
+> +            Architecture::Ada =3D> Bounded::<u32, 6>::new::<0x19>(),
+
+Yikes.. this looks ugly.
+
+> +        }
+>      }
+>  }
+> =20
+>  pub(crate) struct Revision {
+> -    major: u8,
+> -    minor: u8,
+> +    major: Bounded<u8, 4>,
+> +    minor: Bounded<u8, 4>,
+>  }
+> =20
+>  impl From<regs::NV_PMC_BOOT_42> for Revision {
+>      fn from(boot0: regs::NV_PMC_BOOT_42) -> Self {
+>          Self {
+> -            major: boot0.major_revision(),
+> -            minor: boot0.minor_revision(),
+> +            major: boot0.major_revision().cast(),
+> +            minor: boot0.minor_revision().cast(),
+>          }
+>      }
+>  }
+> @@ -208,13 +207,13 @@ fn new(dev: &device::Device, bar: &Bar0) -> Result<=
+Spec> {
+>          //     from an earlier (pre-Fermi) era, and then using boot42 to=
+ precisely identify the GPU.
+>          //     Somewhere in the Rubin timeframe, boot0 will no longer ha=
+ve space to add new GPU IDs.
+> =20
+> -        let boot0 =3D regs::NV_PMC_BOOT_0::read(bar);
+> +        let boot0 =3D bar.read(regs::NV_PMC_BOOT_0);
+> =20
+>          if boot0.is_older_than_fermi() {
+>              return Err(ENODEV);
+>          }
+> =20
+> -        let boot42 =3D regs::NV_PMC_BOOT_42::read(bar);
+> +        let boot42 =3D bar.read(regs::NV_PMC_BOOT_42);
+>          Spec::try_from(boot42).inspect_err(|_| {
+>              dev_err!(dev, "Unsupported chipset: {}\n", boot42);
+>          })
+> diff --git a/drivers/gpu/nova-core/regs.rs b/drivers/gpu/nova-core/regs.r=
+s
+> index 53f412f0ca32..62c2065e63ef 100644
+> --- a/drivers/gpu/nova-core/regs.rs
+> +++ b/drivers/gpu/nova-core/regs.rs
+> @@ -35,20 +35,64 @@
+>      num::FromSafeCast,
+>  };
+> =20
+> +// All nova-core registers are 32-bit and `pub(crate)`. Wrap the `regist=
+er!` macro to avoid
+> +// repeating this information for every register.
+> +macro_rules! nv_reg {
+> +    (
+> +        $(
+> +            $(#[$attr:meta])* $name:ident $([ $size:expr $(, stride =3D =
+$stride:expr)? ])?
+> +                $(@ $offset:literal)?
+> +                $(@ $base:ident + $base_offset:literal)?
+> +                $(=3D> $alias:ident $(+ $alias_offset:ident)? $([$alias_=
+idx:expr])? )?
+> +            $(, $comment:literal)? { $($fields:tt)* }
+> +        )*
+> +    )=3D> {
+> +        $(
+> +        ::kernel::io::register!(
+> +            @reg $(#[$attr])* pub(crate) $name(u32) $([$size $(, stride =
+=3D $stride)?])?
+> +                $(@ $offset)?
+> +                $(@ $base + $base_offset)?
+> +                $(=3D> $alias $(+ $alias_offset)? $([$alias_idx])? )?
+> +            $(, $comment)? { $($fields)* }
+> +        );
+> +        )*
+> +    };
+> +}
+> +
+>  // PMC
+> =20
+> -register!(NV_PMC_BOOT_0 @ 0x00000000, "Basic revision information about =
+the GPU" {
+> -    3:0     minor_revision as u8, "Minor revision of the chip";
+> -    7:4     major_revision as u8, "Major revision of the chip";
+> -    8:8     architecture_1 as u8, "MSB of the architecture";
+> -    23:20   implementation as u8, "Implementation version of the archite=
+cture";
+> -    28:24   architecture_0 as u8, "Lower bits of the architecture";
+> -});
+> +nv_reg! {
+> +    /// Basic revision information about the GPU.
+> +    NV_PMC_BOOT_0 @ 0x00000000 {
+> +        /// Minor revision of the chip.
+> +        3:0     minor_revision;
+> +        /// Major revision of the chip.
+> +        7:4     major_revision;
+> +        /// MSB of the architecture.
+> +        8:8     architecture_1;
+> +        /// Implementation version of the architecture.
+> +        23:20   implementation;
+> +        /// Lower bits of the architecture.
+> +        28:24   architecture_0;
+> +    }
+> +
+> +    /// Extended architecture information.
+> +    NV_PMC_BOOT_42 @ 0x00000a00 {
+> +        /// Minor revision of the chip.
+> +        15:12   minor_revision;
+> +        /// Major revision of the chip.
+> +        19:16   major_revision;
+> +        /// Implementation version of the architecture.
+> +        23:20   implementation;
+> +        /// Architecture value.
+> +        29:24   architecture ?=3D> Architecture;
+> +    }
+> +}
+> =20
+>  impl NV_PMC_BOOT_0 {
+>      pub(crate) fn is_older_than_fermi(self) -> bool {
+>          // From https://github.com/NVIDIA/open-gpu-doc/tree/master/manua=
+ls :
+> -        const NV_PMC_BOOT_0_ARCHITECTURE_GF100: u8 =3D 0xc;
+> +        const NV_PMC_BOOT_0_ARCHITECTURE_GF100: u32 =3D 0xc;
+> =20
+>          // Older chips left arch1 zeroed out. That, combined with an arc=
+h0 value that is less than
+>          // GF100, means "older than Fermi".
+> @@ -56,13 +100,6 @@ pub(crate) fn is_older_than_fermi(self) -> bool {
+>      }
+>  }
+> =20
+> -register!(NV_PMC_BOOT_42 @ 0x00000a00, "Extended architecture informatio=
+n" {
+> -    15:12   minor_revision as u8, "Minor revision of the chip";
+> -    19:16   major_revision as u8, "Major revision of the chip";
+> -    23:20   implementation as u8, "Implementation version of the archite=
+cture";
+> -    29:24   architecture as u8 ?=3D> Architecture, "Architecture value";
+> -});
+> -
+>  impl NV_PMC_BOOT_42 {
+>      /// Combines `architecture` and `implementation` to obtain a code un=
+ique to the chipset.
+>      pub(crate) fn chipset(self) -> Result<Chipset> {
+> @@ -76,8 +113,8 @@ pub(crate) fn chipset(self) -> Result<Chipset> {
+> =20
+>      /// Returns the raw architecture value from the register.
+>      fn architecture_raw(self) -> u8 {
+> -        ((self.0 >> Self::ARCHITECTURE_RANGE.start()) & ((1 << Self::ARC=
+HITECTURE_RANGE.len()) - 1))
+> -            as u8
+> +        ((self.inner >> Self::ARCHITECTURE_RANGE.start())
+
+This should be using `self.into_raw()` rather than accessing the `inner` fi=
+eld
+directly (which should be considered impl detail of the macro).
+
+Best,
+Gary
+
+> +            & ((1 << Self::ARCHITECTURE_RANGE.len()) - 1)) as u8
+>      }
+>  }
+> =20
+> @@ -86,7 +123,7 @@ fn fmt(&self, f: &mut kernel::fmt::Formatter<'_>) -> k=
+ernel::fmt::Result {
+>          write!(
+>              f,
+>              "boot42 =3D 0x{:08x} (architecture 0x{:x}, implementation 0x=
+{:x})",
+> -            self.0,
+> +            self.inner,
+>              self.architecture_raw(),
+>              self.implementation()
+>          )
 
