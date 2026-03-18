@@ -4,104 +4,121 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 77649107BCF2
-	for <dri-devel@archiver.kernel.org>; Wed, 18 Mar 2026 10:30:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 79034107BCF2
+	for <dri-devel@archiver.kernel.org>; Wed, 18 Mar 2026 10:33:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DE35510E04D;
-	Wed, 18 Mar 2026 10:30:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C7E6610E444;
+	Wed, 18 Mar 2026 10:33:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; secure) header.d=ixit.cz header.i=@ixit.cz header.b="0x56s/TS";
+	dkim=pass (1024-bit key; unprotected) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="lXwaLNcX";
 	dkim-atps=neutral
-Received: from ixit.cz (ixit.cz [185.100.197.86])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6EFDB10E444
- for <dri-devel@lists.freedesktop.org>; Wed, 18 Mar 2026 10:30:54 +0000 (UTC)
-Received: from [IPV6:2a02:f000:10bd:e301::1d7] (unknown
- [IPv6:2a02:f000:10bd:e301::1d7])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by ixit.cz (Postfix) with ESMTPSA id CDEDC5340EC6;
- Wed, 18 Mar 2026 11:30:45 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
- t=1773829846;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=ySmRO3DM2H1VVSWDueEkjq2xi5/f6QFsmik7iIaDqK8=;
- b=0x56s/TSoZIHJw89MWhfKvDWXFUMGpc+CbTswtJOxxE0U/ghB4zfzJd1iAXNfQ+dMI6zkx
- F2Hti2+pdHsC1bKSDO31Z0hoxhE5c40IwMEeFk92yrsIH4doMEQ2QdJpE1USaN+t2bqOcd
- E1AA1i2a7XgFotUvng5Vi09cdqFYfdI=
-Message-ID: <7e31ff87-3350-4a6a-9517-e0ad02d36040@ixit.cz>
-Date: Wed, 18 Mar 2026 11:30:44 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 2/3] drm: panel: Add Samsung S6E8FC0 DSI controller for
- M1906F9 panel
-To: Yedaya Katsman <yedaya.ka@gmail.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, =?UTF-8?Q?Kamil_Go=C5=82da?=
- <kamil.golda@protonmail.com>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Kaustabh Chakraborty <kauschluss@disroot.org>
-Cc: phone-devel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-msm@vger.kernel.org
-References: <20260317-panel-patches-v5-0-ef99f7b280da@gmail.com>
- <20260317-panel-patches-v5-2-ef99f7b280da@gmail.com>
+Received: from OS0P286CU011.outbound.protection.outlook.com
+ (mail-japanwestazon11010005.outbound.protection.outlook.com [52.101.228.5])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7113810E444
+ for <dri-devel@lists.freedesktop.org>; Wed, 18 Mar 2026 10:32:58 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=B4XAK494Sus+4SEXVg4K3PXVvHbwI4idWuwF4tiXBh0jqxsiZH//bfuEq40D4ubjEOiH4g09rlcRqGSVzkPGcemHwgBXXFSG8BW7f5xpfdcmft/xV2pWHAaDOK562SUfx2iPMi+h0f8Vb1K3zEwqcJfH31DfRzgQAdBQHuptVSoRpEEdpwOqINuQwT7b1qjueLkpCDwzoatYb5HNPjs65T+uekLamyY/RYEekea5k/dtUU28luaU2MPEawI/abpM/nCse1a3oR6I15mwEH7iF9UnOuithU+3S6IUAQ7zpLvo++K3qWosts2tss92OXkF6OOC+lwAttyh3mUxA5YJkw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=q3a0S+XxWU2DRnXr0TEqHgwxvPZKg/Gwlp6tKDIWDgI=;
+ b=e4glj/F7yLRv+8HovZLVSyONbnp3PmmtT5kWZ0AoMAF3i6B020XX4I2I1loUIhEpfDVYNdiODMC5ibKOBqYd49+2EPwNN696KZX4GTTdLeji8DA4lpYZMCuu99LYPKE6NdLzow6p8yg3c+B4u04uAczda3HQ4GUSmW2A72a9XVAWCysSgqu63oSC2az2Ap+3bulfaQJdkgcZ/HCsp47y7UiKq7GoOzFFXHVvDJRRNPuT/Bbg22xCzwkSX4POpsjCRC4iOchgti/dVp0by5xEyvTDCKLq7F+66IG+swUxWPZHj2lYugX52Akw+fIT+Xo7zBhcXuCMvvWk+FVtmEAeFg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
+ header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=q3a0S+XxWU2DRnXr0TEqHgwxvPZKg/Gwlp6tKDIWDgI=;
+ b=lXwaLNcXd3ZwP1TluuwNZ5kDCwk2LUYgWbueIJnMKwMno2GhX3tJ4t8ZPjjR6OEIZaJB/sn2Gy20QKzSoA/hHdOLu1aOrGp+psdagKXvIx42jQHBXyhAla5zmeBzb3oliyfQURN4w+nFYsm3y3e/65S2+HPCq0/01cnP9P3zq4g=
+Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com (2603:1096:400:3d0::7)
+ by TYCPR01MB10924.jpnprd01.prod.outlook.com (2603:1096:400:3ab::12)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9700.18; Wed, 18 Mar
+ 2026 10:32:54 +0000
+Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com
+ ([fe80::87d1:4928:d55:97de]) by TY3PR01MB11346.jpnprd01.prod.outlook.com
+ ([fe80::87d1:4928:d55:97de%4]) with mapi id 15.20.9723.018; Wed, 18 Mar 2026
+ 10:32:53 +0000
+From: Biju Das <biju.das.jz@bp.renesas.com>
+To: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
+CC: "linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
+ tomi.valkeinen <tomi.valkeinen@ideasonboard.com>, Tommaso Merciai
+ <tommaso.merciai.xr@bp.renesas.com>
+Subject: RE: [PATCH 1/4] drm: rcar-du: Ensure correct suspend/resume ordering
+ with VSP
+Thread-Topic: [PATCH 1/4] drm: rcar-du: Ensure correct suspend/resume ordering
+ with VSP
+Thread-Index: AQHctmSLUUSFYXKdGkaAsKObXbOqlrW0FzEQ
+Date: Wed, 18 Mar 2026 10:32:53 +0000
+Message-ID: <TY3PR01MB11346D728D12D6330033B1E46864EA@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+References: <20260317231930.595719-1-laurent.pinchart+renesas@ideasonboard.com>
+ <20260317231930.595719-2-laurent.pinchart+renesas@ideasonboard.com>
+In-Reply-To: <20260317231930.595719-2-laurent.pinchart+renesas@ideasonboard.com>
+Accept-Language: en-GB, en-US
 Content-Language: en-US
-From: David Heidelberg <david@ixit.cz>
-Autocrypt: addr=david@ixit.cz; keydata=
- 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
-In-Reply-To: <20260317-panel-patches-v5-2-ef99f7b280da@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=bp.renesas.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: TY3PR01MB11346:EE_|TYCPR01MB10924:EE_
+x-ms-office365-filtering-correlation-id: 513fb3a8-f8f3-4313-d280-08de84d9b686
+x-ld-processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|376014|1800799024|366016|38070700021|56012099003|18002099003|22082099003;
+x-microsoft-antispam-message-info: 4cEiroil+qxQDbYaGMFJUe3useglTvXOyPqVNpgsuUL7BTZj2+yZvn1ZJ+KoCodQ/utMiWXMVAGFjDvytKfXuEJ88sUh63knxKy6Yh8HMmSWoBzf8islDMkR3spbJZSzdIyVLiKu6ca5ZAL+FHtMr3loOgRDmsugrt3txmvRwPTcFl+wYwhU69lXVb2Zh0pjHYhFiqOE00VPqCzpveGuj6PCMbx4uw9WN2C/Xb6pdqRUV8frweYNt9lWfaxeFWEJnKdt6SguSm1hs6UxYw/mo8v+Ql6JWnfwGxUScPrgAX8jnzyOXIPljoAv+qCSXMhS2E2P+goPMy1cH/SYrPNDOaoGYfeqCHdZGGMJaT1V8FYvCp0jr+RfJ/Y+G52DZsEB+ks1IHyjXOYTlTBuxUaH2EJ7xHxPW4KKVFCgqgj1fycf6lws5yEfg+w+LcgeOkuO/O5jy/r0ibimHlr1i5r/F607x9LyMPGEVztewgaHubrDSpB6J9Mgn+laq8NMTMLiLSDuwlvVYum5hoVyFT/vcJIAjcVKRh2ABqS7piqt5cGDAHN/OzjLI0IQkIKjUxjnb5ZHsx2QcNOj4TdptutCYE8on3bII2WnNYn0kE4FFjIkmkG6RXiSsA5u8oX0R1klkMVeYP0VWFzAfKuhkGaZ7ZggM5BeL6HjCpz5MLdl59QZaL55rQRwBbqS+zBbbrvCZtBPDkblIWmjBBWfiBbtrQcmJMEaiN1yTK1rwn2+zN1jigsgIJEpo2n2cQZKUitAID4f3msZIUqfOkZt6lj8xKNEKoZA3iTGjNukSa/p9h8=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:TY3PR01MB11346.jpnprd01.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(366016)(38070700021)(56012099003)(18002099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?KKN/7C5RE/5ZWlxilp1fFgy5BagmM3JTew9stc4vR8QvfxBdRYR0C6v0lUdw?=
+ =?us-ascii?Q?dqx2SV6fpPPahdx06xpHvMEOVyTzukBFhUbVhHKSBsM5htlsWUPEPUxmZNHF?=
+ =?us-ascii?Q?Id5gp4VoGWJrf1E0yOIQRPe/O8tSjwuuJXtKRhQ1C9xsRjYuughAEKdN8FDC?=
+ =?us-ascii?Q?bSnUaqpT8/2FYEq8dFdTeZouNc3GAc6Bg2ABFMTdme3cxto4YpAozzw6FAXL?=
+ =?us-ascii?Q?yoNa+s9CmEzL0sKSua27faGTgXtELqgltd2iWSvkTOgYjYNWdXJN140FEG/6?=
+ =?us-ascii?Q?tx5C3ik+XDWCDcOcMVPnq5I53dpOY6HSNrGE49Zf6qq4SxkyWWhj5VhzAyaP?=
+ =?us-ascii?Q?4m6Ed+hEm0cfcz5aGbcMe1Z9Jtkaql4CXaSCP8yrF47WjwOT0omA0RgVirFX?=
+ =?us-ascii?Q?+3lIwNFDcdduZ3QEySp+XubGBjFbaTNMVANw2AP4HD5ak9KRtibgB6/+E/+3?=
+ =?us-ascii?Q?Dj+Aut41CZEae7kyqQaxSnLqUmYBCwhThBUMCYBfBWzMNNSCPYC5mjqk9bPd?=
+ =?us-ascii?Q?GZw7YLh2BDMIUV6c5HLh94BnGRo0aqVzD1cLlsiYEoisnJ51jasWb/H4C8fW?=
+ =?us-ascii?Q?HELDKJuiUDFsF7Wghl45ADh1LjeHEX232A2h+pqOvvWRshors20jsm2tzJCU?=
+ =?us-ascii?Q?57izJa4h+p1aRvXI2G9YE0O5Ml3Ql8PsKyKSWkzhstWuxl59IkISOcttB5Hn?=
+ =?us-ascii?Q?Eq22PZ1JkwJ3PZDMMw+a0L4M/wpk7b2Owy5nXygUEOiQdrgwU5f+oLzEpmyy?=
+ =?us-ascii?Q?NXXBZ20/BY8uSvzAbTZXNQ/03KIwXRyhvjwYfkGq3KWNL89HMzObiGyYoVwp?=
+ =?us-ascii?Q?poJ+kSQSDGhgUm3t7Latkq9S2nvMfpwnYzsQZUURE+5Agn+vgMbwzyBxvjus?=
+ =?us-ascii?Q?udawuvtuNeNoJ55xGKmesNovsXCKkxkguXoEnExNRNOG0vyeuOk0mnYlIOVI?=
+ =?us-ascii?Q?J6hYjRp51fHN4opbDtJKWYBRhrvSqXk79y4xIUiJM/Rh+RQqF9Y7rwfqt+jJ?=
+ =?us-ascii?Q?yJ9oDvl0kBe3Z/hqM2Euyg54+HlO7A+gYs+mE96P0u0U5eb0obHSinl5tPJA?=
+ =?us-ascii?Q?hoVUttwot4ysK8JRwH+GBQWGdKCGKXHXz0WRAII18jkwe5DYsRHA4YFLPJYR?=
+ =?us-ascii?Q?Q207FtX/fAR0wOYVSrQs4MOL/bi12hH8zy6b0tBQKSztUW0G3ZVsqk6qbNSE?=
+ =?us-ascii?Q?5pmtyE1hhOm0emEM2feBspUGxyOyhfrk1aHNac+99l9OG35RekXfIfVHFctv?=
+ =?us-ascii?Q?HvElpiscde7CBaB6wd9OkFzaPmYMTZbJcfgYYTqlRZ59gpJg3TAWiR6DvSsE?=
+ =?us-ascii?Q?9Rgeua841ZUOM31ltlo4IjNk9ibbajaNL6WKpORu4w4z2ehB71o3sON7tGJJ?=
+ =?us-ascii?Q?vsdRbQ2SZR1YlZKsqH7i8/Mqvovn+sElvj3xhjpN2yeEtfUeYnZ5jI0vb/j8?=
+ =?us-ascii?Q?bKhYMNruH995TgNUYmJfweBFb2sM+rT8BrrQa+8KwBM09e6NwcHD1eZTeFK0?=
+ =?us-ascii?Q?fVJvuwYvoAH2RUO4Fx/snS4pYTUFe6BLt0sQn8rsCEYbfS2BCbrmlhfsLybW?=
+ =?us-ascii?Q?N1x0HNIBR9CjBtQllnE7vtE6flmhRdP9umfk7frjkmVCeHjHsnYP+b++3lfz?=
+ =?us-ascii?Q?zsrZhPsjGasodTl2hT8/fZW9Rsu3XskQpbGi2fGlUj2eMQXeqAcAhcHix19x?=
+ =?us-ascii?Q?ven5Lbt4ARx8ZmIVOotuaGaKsYK9SEY6xwGce311jdZ5bTsWv8M8u0mu9uic?=
+ =?us-ascii?Q?uxEkvrxiyw=3D=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-OriginatorOrg: bp.renesas.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TY3PR01MB11346.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 513fb3a8-f8f3-4313-d280-08de84d9b686
+X-MS-Exchange-CrossTenant-originalarrivaltime: 18 Mar 2026 10:32:53.7692 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: +JteiWmzNbxYnK2843HqI/XW/XtHP7PfiRMOfZvhtzZNJjsgC38yEaOoiOxPL+wdkblDDd8QOJlROSgNP627Dq5gbji76xJ8RzomGSju1J0=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYCPR01MB10924
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,127 +134,110 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 17/03/2026 19:50, Yedaya Katsman wrote:
-> Add driver for Samsung S6E8FC0 DSI controller for M1906F9 video mode panel,
-> found in Xiaomi Mi A3 mobile phone.
-> 
-> Co-developed-by: Kamil Gołda <kamil.golda@protonmail.com>
-> Signed-off-by: Kamil Gołda <kamil.golda@protonmail.com>
-> Signed-off-by: Yedaya Katsman <yedaya.ka@gmail.com>
-> 
+Hi Laurent,
+
+Thanks for the patch.
+
+> -----Original Message-----
+> From: dri-devel <dri-devel-bounces@lists.freedesktop.org> On Behalf Of La=
+urent Pinchart
+> Sent: 17 March 2026 23:19
+> Subject: [PATCH 1/4] drm: rcar-du: Ensure correct suspend/resume ordering=
+ with VSP
+>=20
+> The VSP serves as an interface to memory and a compositor to the DU. It t=
+herefore needs to be
+> suspended after and resumed before the DU, to be properly stopped and res=
+tarted in a controlled
+> fashion driven by the DU driver. This currently works by chance. Avoid re=
+lying on luck by enforcing
+> the correct suspend/resume ordering with device links.
+>=20
+> Signed-off-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.co=
+m>
+
+Reviewed-by: Biju Das <biju.das.jz@bp.renesas.com>
+
+FYI, made similar changes on rz-du and confirm S2ram and s2idle works fine =
+on RZ/G3L.
+
+Cheers,
+Biju
+
 > ---
-> 
-> The downstream dts claims a max brightness of 2047, but seems to ignore the
-> MSB.
-> ---
-
-[...]
+>  drivers/gpu/drm/renesas/rcar-du/rcar_du_vsp.c | 16 ++++++++++++++++  dri=
+vers/gpu/drm/renesas/rcar-
+> du/rcar_du_vsp.h |  2 ++
+>  2 files changed, 18 insertions(+)
+>=20
+> diff --git a/drivers/gpu/drm/renesas/rcar-du/rcar_du_vsp.c b/drivers/gpu/=
+drm/renesas/rcar-
+> du/rcar_du_vsp.c
+> index 94c22d2db197..a4a49dcd8233 100644
+> --- a/drivers/gpu/drm/renesas/rcar-du/rcar_du_vsp.c
+> +++ b/drivers/gpu/drm/renesas/rcar-du/rcar_du_vsp.c
+> @@ -20,6 +20,7 @@
+>  #include <drm/drm_vblank.h>
+>=20
+>  #include <linux/bitops.h>
+> +#include <linux/device.h>
+>  #include <linux/dma-mapping.h>
+>  #include <linux/of_platform.h>
+>  #include <linux/platform_device.h>
+> @@ -458,6 +459,9 @@ static void rcar_du_vsp_cleanup(struct drm_device *de=
+v, void *res)
+>=20
+>  	kfree(vsp->planes);
+>=20
+> +	if (vsp->link)
+> +		device_link_del(vsp->link);
 > +
-> +static const struct regulator_bulk_data s6e8fc0_m1906f9_supplies[] = {
-> +	{ .supply = "vdd" },
-> +	{ .supply = "vci" },
-> +};
-
-these power supplies should be only DDIC related
-
+>  	put_device(vsp->vsp);
+>  }
+>=20
+> @@ -482,6 +486,18 @@ int rcar_du_vsp_init(struct rcar_du_vsp *vsp, struct=
+ device_node *np,
+>  	if (ret < 0)
+>  		return ret;
+>=20
+> +	/*
+> +	 * Enforce suspend/resume ordering between the DU (consumer) and the
+> +	 * VSP (supplier). The DU will be suspended before and resume after the
+> +	 * VSP.
+> +	 */
+> +	vsp->link =3D device_link_add(rcdu->dev, vsp->vsp, DL_FLAG_STATELESS);
+> +	if (!vsp->link) {
+> +		dev_err(rcdu->dev, "Failed to create device link to VSP %s\n",
+> +			dev_name(vsp->vsp));
+> +		return -EINVAL;
+> +	}
 > +
-> +static inline
-> +struct s6e8fc0_ctx *to_s6e8fc0_ctx(struct drm_panel *panel)
-> +{
-> +	return container_of_const(panel, struct s6e8fc0_ctx, panel);
-> +}
-> +
-> +static void s6e8fc0_m1906f9_reset(struct s6e8fc0_ctx *ctx)
-> +{
-> +	gpiod_set_value_cansleep(ctx->reset_gpio, 0);
-> +	usleep_range(12000, 13000);
-> +	gpiod_set_value_cansleep(ctx->reset_gpio, 1);
-> +	usleep_range(2000, 3000);
-> +	gpiod_set_value_cansleep(ctx->reset_gpio, 0);
-> +	usleep_range(10000, 11000);
-> +}
-> +
-> +#define s6e8fc0_m1906f9_test_key_on_lvl2(ctx) \
-> +	mipi_dsi_dcs_write_seq_multi(ctx, 0xf0, 0x5a, 0x5a)
-> +#define s6e8fc0_m1906f9_test_key_off_lvl2(ctx) \
-> +	mipi_dsi_dcs_write_seq_multi(ctx, 0xf0, 0xa5, 0xa5)
-> +#define s6e8fc0_m1906f9_test_key_on_lvl3(ctx) \
-> +	mipi_dsi_dcs_write_seq_multi(ctx, 0xfc, 0x5a, 0x5a)
-> +#define s6e8fc0_m1906f9_test_key_off_lvl3(ctx) \
-> +	mipi_dsi_dcs_write_seq_multi(ctx, 0xfc, 0xa5, 0xa5)
-> +
-
-macros are definitely DDIC only (not panel related, thus s6e8fc0 only)
-
-> +static int s6e8fc0_m1906f9_on(struct s6e8fc0_ctx *ctx)
-> +{
-> +	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
-> +
-> +	s6e8fc0_m1906f9_test_key_on_lvl3(&dsi_ctx);
-> +
-> +	mipi_dsi_dcs_set_display_brightness_multi(&dsi_ctx, 0x0000);
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, MIPI_DCS_WRITE_CONTROL_DISPLAY,
-> +				     0x20);
-> +	mipi_dsi_dcs_exit_sleep_mode_multi(&dsi_ctx);
-> +	mipi_dsi_msleep(&dsi_ctx, 50);
-> +	mipi_dsi_dcs_set_display_on_multi(&dsi_ctx);
-> +
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xb0, 0x04, 0xed);
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xed,
-> +				     0xe4, 0x08, 0x96, 0xa4, 0x2a, 0x72, 0xe2,
-> +				     0xca, 0x00);
-> +	s6e8fc0_m1906f9_test_key_off_lvl3(&dsi_ctx);
-> +	s6e8fc0_m1906f9_test_key_on_lvl2(&dsi_ctx);
-> +	s6e8fc0_m1906f9_test_key_on_lvl3(&dsi_ctx);
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xe1, 0x93);
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xb0, 0x05, 0xf4);
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xf4, 0x03);
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xed, 0x01, 0x81, 0x04);
-> +	s6e8fc0_m1906f9_test_key_off_lvl2(&dsi_ctx);
-> +	s6e8fc0_m1906f9_test_key_off_lvl3(&dsi_ctx);
-> +
-> +	return dsi_ctx.accum_err;
-> +}
-> +
-
-[...]
-
-> +
-> +static const struct of_device_id samsung_s6e8fc0_m1906f9_of_match[] = {
-
-this struct is only DDIC related, the content of it below is panel related
-
-> +	{ .compatible = "samsung,s6e8fc0-m1906f9" },
-> +	{ /* sentinel */ }
-> +};
-> +MODULE_DEVICE_TABLE(of, samsung_s6e8fc0_m1906f9_of_match);
-> +
-> +static struct mipi_dsi_driver s6e8fc0_m1906f9_driver = {
-> +	.probe = s6e8fc0_m1906f9_probe,
-> +	.remove = s6e8fc0_remove,
-> +	.driver = {
-> +		.name = "panel-samsung-s6e8fc0-m1906f9",
-> +		.of_match_table = samsung_s6e8fc0_m1906f9_of_match,
-> +	},
-> +};
-> +module_mipi_dsi_driver(s6e8fc0_m1906f9_driver);
-
-mipi_dsi_driver is DDIC related, not panel.
-
-
-Otherwise LGTM, with requested changes
-
-Reviewed-by: David Heidelberg <david@ixit.cz>
-
-Thank you!
-David
-
-> +
-> +MODULE_AUTHOR("Kamil Gołda <kamil.golda@protonmail.com>");
-> +MODULE_DESCRIPTION("DRM driver for Samsung s6e8fc0 DSI controller");
-> +MODULE_LICENSE("GPL");
-> 
-
--- 
-David Heidelberg
+>  	ret =3D vsp1_du_init(vsp->vsp);
+>  	if (ret < 0)
+>  		return ret;
+> diff --git a/drivers/gpu/drm/renesas/rcar-du/rcar_du_vsp.h b/drivers/gpu/=
+drm/renesas/rcar-
+> du/rcar_du_vsp.h
+> index 67630f0b6599..a6731249db34 100644
+> --- a/drivers/gpu/drm/renesas/rcar-du/rcar_du_vsp.h
+> +++ b/drivers/gpu/drm/renesas/rcar-du/rcar_du_vsp.h
+> @@ -12,6 +12,7 @@
+>=20
+>  #include <drm/drm_plane.h>
+>=20
+> +struct device_link;
+>  struct drm_framebuffer;
+>  struct rcar_du_format_info;
+>  struct rcar_du_vsp;
+> @@ -26,6 +27,7 @@ struct rcar_du_vsp_plane {  struct rcar_du_vsp {
+>  	unsigned int index;
+>  	struct device *vsp;
+> +	struct device_link *link;
+>  	struct rcar_du_device *dev;
+>  	struct rcar_du_vsp_plane *planes;
+>  	unsigned int num_planes;
+> --
+> Regards,
+>=20
+> Laurent Pinchart
 
