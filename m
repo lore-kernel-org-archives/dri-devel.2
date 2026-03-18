@@ -4,64 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 529AE103E166
-	for <dri-devel@archiver.kernel.org>; Wed, 18 Mar 2026 11:51:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 17FDC103E169
+	for <dri-devel@archiver.kernel.org>; Wed, 18 Mar 2026 12:10:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8A07710E07E;
-	Wed, 18 Mar 2026 11:51:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7B88810E0F5;
+	Wed, 18 Mar 2026 12:10:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=infradead.org header.i=@infradead.org header.b="JhQ+cmB5";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="SHuRGqDz";
 	dkim-atps=neutral
-Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D281610E07E
- for <dri-devel@lists.freedesktop.org>; Wed, 18 Mar 2026 11:51:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
- References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description;
- bh=XsXlEQr1q7kaSib/qBKH1VAa8U1xAnF1cwUdbfssMpw=; b=JhQ+cmB5U5Bo4sqJHXaHxh5K30
- qsRu64UMEWVEQUPtbKg2j1GcYYkzFegZVNIwM4UcHmF0ZNSoAl6GvcEO6boch0Rlb/DAgqkFxhdcF
- VzUDTGFp82ZwKfmoVnMBDALRFb63hCWK/X162ONh6imlORUilou3erYJueXXjnTlgwrkYBaFY0Ug8
- axFhd0FI97tvxf8ND0SXcGxm/00hqgBb2xFNf1ZPyVomlG63Y0eb3zjGYTe0/1Pn96V+XOw62XH0T
- OU1PynNmpsh4HzQ7VTLrpak7oqCdGGgFBF6T73PqjNGLBXpJexbbCsw2l4pKW11/u7X2UN0l83sgO
- RAovC8mA==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252]
- helo=noisy.programming.kicks-ass.net)
- by desiato.infradead.org with esmtpsa (Exim 4.98.2 #2 (Red Hat Linux))
- id 1w2pR1-0000000B7JZ-1WlA; Wed, 18 Mar 2026 11:51:35 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
- id 0AF263007C4; Wed, 18 Mar 2026 12:51:34 +0100 (CET)
-Date: Wed, 18 Mar 2026 12:51:34 +0100
-From: Peter Zijlstra <peterz@infradead.org>
-To: Albert Esteve <aesteve@redhat.com>
-Cc: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>,
- Arnd Bergmann <arnd@arndb.de>, Brendan Higgins <brendan.higgins@linux.dev>,
- David Gow <david@davidgow.net>, Rae Moar <raemoar63@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- linux-kernel@vger.kernel.org, linux-arch@vger.kernel.org,
- linux-kselftest@vger.kernel.org, kunit-dev@googlegroups.com,
- dri-devel@lists.freedesktop.org, workflows@vger.kernel.org,
- linux-doc@vger.kernel.org, Alessandro Carminati <acarmina@redhat.com>,
- Guenter Roeck <linux@roeck-us.net>, Kees Cook <kees@kernel.org>,
- Linux Kernel Functional Testing <lkft@linaro.org>,
- Dan Carpenter <dan.carpenter@linaro.org>,
- =?iso-8859-1?Q?Ma=EDra?= Canal <mcanal@igalia.com>,
- Simona Vetter <simona.vetter@ffwll.ch>
-Subject: Re: [PATCH v6 0/5] kunit: Add support for suppressing warning
- backtraces
-Message-ID: <20260318115134.GA3738786@noisy.programming.kicks-ass.net>
-References: <20260317-kunit_add_support-v6-0-dd22aeb3fe5d@redhat.com>
- <69f4eb09-efbd-4bd1-81b8-963b78e1a3a3@kernel.org>
- <20260317113025.GG2872@noisy.programming.kicks-ass.net>
- <CADSE00Jy=G7HhRkb7vmFSuGFmvpGGt1TQ2NA+7XGLZ4b=g3rxQ@mail.gmail.com>
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0DE0110E0F5
+ for <dri-devel@lists.freedesktop.org>; Wed, 18 Mar 2026 12:10:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1773835834;
+ bh=PuFox8haRzG+YQMGN5Xi8E4BrewSQlzf0Xd5y3pX1ec=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=SHuRGqDzc3xYJzfZuqNFdxxzvznXFV4RBR0YCUUZn8HoqRg6NLtDr6EcevsUi/ytf
+ 4wwy36C/20tHN2C8blZDwS7CXl9Opi0dqMOZnWaqV64IGrfsEN+l/di0I0KGIvChRt
+ FCuDNmxsC2Obs5+AX3nS4GNxGYSbA1di+z5qPFaCWf7fvRzNe5405nJnQhNxezbMVX
+ ER23VWWOs0MPD0rpqKAYllShBHXBE4psZA6m5G5/X5S3ft2It7u806O9cWWOMHh8SK
+ 5l8mhs3ZbggGaSwsT7aJ1oC8SjXNgQfFIaNax78iCoYaWlS6WIl+QCcVqUpQ5Ce8MQ
+ yBSXwyjJKnT1Q==
+Received: from fedora (unknown [IPv6:2a01:e0a:2c:6930:d919:a6e:5ea1:8a9f])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256) (No client certificate requested)
+ (Authenticated sender: bbrezillon)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 3ACCD17E1355;
+ Wed, 18 Mar 2026 13:10:34 +0100 (CET)
+Date: Wed, 18 Mar 2026 13:10:30 +0100
+From: Boris Brezillon <boris.brezillon@collabora.com>
+To: Marcin Slusarz <marcin.slusarz@arm.com>
+Cc: Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
+ dri-devel@lists.freedesktop.org, Chia-I Wu <olvaffe@gmail.com>, Maarten
+ Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Lukas Zapolskas
+ <lukas.zapolskas@arm.com>, nd@arm.com
+Subject: Re: [PATCH] drm/panthor: extend timestamp query with flags
+Message-ID: <20260318131030.4ae7f820@fedora>
+In-Reply-To: <20260318112952.645160-1-marcin.slusarz@arm.com>
+References: <20260318112952.645160-1-marcin.slusarz@arm.com>
+Organization: Collabora
+X-Mailer: Claws Mail 4.3.1 (GTK 3.24.51; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CADSE00Jy=G7HhRkb7vmFSuGFmvpGGt1TQ2NA+7XGLZ4b=g3rxQ@mail.gmail.com>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,148 +66,319 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Mar 18, 2026 at 10:25:00AM +0100, Albert Esteve wrote:
+On Wed, 18 Mar 2026 12:29:52 +0100
+Marcin Slusarz <marcin.slusarz@arm.com> wrote:
 
-> So back to my test on this. Alessandro detailed two strategies in the
-> last version, one of them (storing the function name in `struct
-> bug_entry`) was already used and discarded in older iterations of this
-> series. So let's focus on the other strategy, using 'kallsyms`. Let's
-> assume we still store the function name when registering a new symbol
-> to suppress. Otherwise, we might need to check address ranges to
-> ensure bugaddr is within the function's scope, which sounds trickier?
-
-> With `kallsyms` we can infer the originating functionid. But this
-> approach works unreliably with compiler-induced transformations (e.g.,
-> inlining, cloning, code fragmentation). And we still cannot prevent
-> all output. 
-
-> Additionally, we would need to prevent prints in
-> `warn_slowpath_fmt()`. There may be other `printk`s embedded in the
-> macros, but let's focus on suppressing all warnings as a best effort.
-> It would already improve the quality of life for testers.
-
-warn_slowpath_fmt() should be completely unused on x86, s390 and
-possibly others. But sure.
-
-> Considering these remaining issues, I managed to create a centralised
-> proposal. Please find the main changes at the bottom of this message.
+> Flags now control which data user space wants to query,
+> there is more information sources, and there's ability
+> to query duration of multiple timestamp reads.
 > 
-> But again, even with these, the solution remains unreliable. We can
-> mitigate this by registering the test name on the suppression list (at
-> least, I can make the new test in this series pass with that). Not
-> ideal, but we could mention it in the documentation. Something like
-> "Suppression is matched by the function where the warning is reported.
-> If the warning is triggered from a helper (or the compiler inlines it
-> into the test), that function name may differ. In that case, register
-> and start suppression for both the test and the helper so the test
-> passes regardless of inlining."
+> New sources:
+> - CPU's monotonic,
+> - CPU's monotonic raw,
+> - GPU's cycle count
 > 
-> Would that be a more acceptable solution? Is there a better option I
-> am not seeing?
-
-Yes, definitely. This is the sort of thing I was aiming for.
-
-Other option would be the __FILE__ and __LINE__ data, you can match
-uniquely against that and not worry about the compiler transforms.
-Perhaps less user friendly as a function identifier, but meh, this isn't
-aimed at users anyway, but kernel devs.
-
-The kunit userspace could even scrape the __FILE__ and __LINE__ from the
-kernel it was compiled against if it so wants. It should be simple
-enough to write a tool that takes the source and a function name and
-outputs the relevant __FILE__ and __LINE__ thingies. All you need is a
-very rudimentary C parser and we've got a ton of those around.
-
-> diff --git a/kernel/panic.c b/kernel/panic.c
-> index c78600212b6c1..3cb004a7803f4 100644
-> --- a/kernel/panic.c
-> +++ b/kernel/panic.c
-> @@ -39,6 +39,7 @@
->  #include <linux/sys_info.h>
->  #include <trace/events/error_report.h>
->  #include <asm/sections.h>
-> +#include <kunit/bug.h>
+> These changes should make the implementation of
+> VK_KHR_calibrated_timestamps more accurate and much simpler.
 > 
->  #define PANIC_TIMER_STEP 100
->  #define PANIC_BLINK_SPD 18
-> @@ -1080,9 +1081,14 @@ void __warn(const char *file, int line, void
-> *caller, unsigned taint,
->  void warn_slowpath_fmt(const char *file, int line, unsigned taint,
->                        const char *fmt, ...)
->  {
-> -       bool rcu = warn_rcu_enter();
-> +       bool rcu;
->         struct warn_args args;
+> Signed-off-by: Marcin Slusarz <marcin.slusarz@arm.com>
+> ---
+> This is counter proposal to https://lore.kernel.org/all/20250916200751.3999354-1-olvaffe@gmail.com/
+> ---
+>  drivers/gpu/drm/panthor/panthor_drv.c | 124 ++++++++++++++++++++++++--
+>  include/uapi/drm/panthor_drm.h        |  51 ++++++++++-
+>  2 files changed, 166 insertions(+), 9 deletions(-)
 > 
-> +       if (__kunit_is_suppressed_warning_at((unsigned long)__builtin_return_address(0)))
-> +               return;
-> +
-> +       rcu = warn_rcu_enter();
-> +
->         pr_warn(CUT_HERE);
-> 
->         if (!fmt) {
-> 
-> diff --git a/lib/bug.c b/lib/bug.c
-> index 623c467a8b76c..e90b038d9225e 100644
-> --- a/lib/bug.c
-> +++ b/lib/bug.c
-> @@ -48,6 +48,7 @@
->  #include <linux/rculist.h>
->  #include <linux/ftrace.h>
->  #include <linux/context_tracking.h>
-> +#include <kunit/bug.h>
-> 
->  extern struct bug_entry __start___bug_table[], __stop___bug_table[];
-> 
-> @@ -223,6 +224,9 @@ static enum bug_trap_type __report_bug(struct
-> bug_entry *bug, unsigned long buga
->         no_cut   = bug->flags & BUGFLAG_NO_CUT_HERE;
->         has_args = bug->flags & BUGFLAG_ARGS;
-> 
-> +       if (warning && __kunit_is_suppressed_warning_at(bugaddr))
-> +               return BUG_TRAP_TYPE_WARN;
-> +
-
-I suppose there's a question here if a suppressed warn counts towards
-the once logic below.
-
->         if (warning && once) {
->                 if (done)
->                         return BUG_TRAP_TYPE_WARN;
-> 
-> diff --git a/lib/kunit/bug.c b/lib/kunit/bug.c
-> index 9c2c4ee013d92..13ffddb044636 100644
-> --- a/lib/kunit/bug.c
-> +++ b/lib/kunit/bug.c
-> @@ -11,6 +11,7 @@
->  #include <linux/export.h>
->  #include <linux/instrumentation.h>
->  #include <linux/jump_label.h>
-> +#include <linux/kallsyms.h>
->  #include <linux/rculist.h>
->  #include <linux/string.h>
-> 
-> @@ -68,4 +69,16 @@ noinstr bool __kunit_is_suppressed_warning(const
-> char *function)
+> diff --git a/drivers/gpu/drm/panthor/panthor_drv.c b/drivers/gpu/drm/panthor/panthor_drv.c
+> index 165dddfde6ca..19ede20a578e 100644
+> --- a/drivers/gpu/drm/panthor/panthor_drv.c
+> +++ b/drivers/gpu/drm/panthor/panthor_drv.c
+> @@ -13,7 +13,9 @@
+>  #include <linux/pagemap.h>
+>  #include <linux/platform_device.h>
+>  #include <linux/pm_runtime.h>
+> +#include <linux/sched/clock.h>
+>  #include <linux/time64.h>
+> +#include <linux/time_namespace.h>
+>  
+>  #include <drm/drm_auth.h>
+>  #include <drm/drm_debugfs.h>
+> @@ -762,21 +764,123 @@ static void panthor_submit_ctx_cleanup(struct panthor_submit_ctx *ctx,
 >  }
->  EXPORT_SYMBOL_GPL(__kunit_is_suppressed_warning);
-> 
-> +bool __kunit_is_suppressed_warning_at(unsigned long addr)
-> +{
-> +       char buf[KSYM_SYMBOL_LEN];
+>  
+>  static int panthor_query_timestamp_info(struct panthor_device *ptdev,
+> -					struct drm_panthor_timestamp_info *arg)
+> +					struct drm_panthor_timestamp_info *arg,
+> +					u32 size)
+>  {
+>  	int ret;
+> +	u32 flags;
+> +	unsigned long irq_flags;
+> +	struct timespec64 cpu_ts;
+> +	u64 query_start_time;
+> +	bool minimize_interruption;
+> +	u32 timestamp_types = 0;
 > +
-> +       if (!static_branch_unlikely(&kunit_suppress_warnings_key))
-> +               return false;
+> +	if (size >= offsetof(struct drm_panthor_timestamp_info, pad1) + sizeof(arg->pad1) &&
+> +			arg->pad1 != 0)
+> +		return -EINVAL;
+> +
+> +	if (size >= offsetof(struct drm_panthor_timestamp_info, flags) + sizeof(arg->flags))
+> +		flags = arg->flags;
+> +	else
+> +		flags = DRM_PANTHOR_TIMESTAMP_GPU |
+> +			DRM_PANTHOR_TIMESTAMP_GPU_OFFSET |
+> +			DRM_PANTHOR_TIMESTAMP_FREQ;
 
-At this point you don't need this to be a static_branch either, both
-callers are already in warn slowpaths and nobody cares.
+How about we add a DRM_PANTHOR_TIMESTAMP_ADVANCED_QUERY flag that tells
+the driver whether the default should be picked or not instead of this
+weird is-this-the-new-or-old-struct detection based on the size.
 
-> +       if (sprint_symbol_no_offset(buf, addr) <= 0)
-> +               return false;
-> +       return __kunit_check_suppress(buf);
-> +}
-> +EXPORT_SYMBOL_GPL(__kunit_is_suppressed_warning_at);
+	if (args->flags & DRM_PANTHOR_TIMESTAMP_ADVANCED_QUERY)
+		flags = args->flags;
+	else
+		flags = DRM_PANTHOR_TIMESTAMP_GPU |
+			DRM_PANTHOR_TIMESTAMP_GPU_OFFSET |
+			DRM_PANTHOR_TIMESTAMP_FREQ;
 
-I don't think you need this export, both callers are definitely
-in-kernel.
+> +
+> +	switch (flags & DRM_PANTHOR_TIMESTAMP_CPU_TYPE_MASK) {
+> +	case 0:
+> +		break;
+> +	case DRM_PANTHOR_TIMESTAMP_CPU_MONOTONIC:
+> +	case DRM_PANTHOR_TIMESTAMP_CPU_MONOTONIC_RAW:
+> +		timestamp_types++;
+> +		break;
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +
+> +	if (flags & ~(DRM_PANTHOR_TIMESTAMP_GPU |
+> +		      DRM_PANTHOR_TIMESTAMP_CPU_TYPE_MASK |
+> +		      DRM_PANTHOR_TIMESTAMP_GPU_OFFSET |
+> +		      DRM_PANTHOR_TIMESTAMP_GPU_CYCLE_COUNT |
+> +		      DRM_PANTHOR_TIMESTAMP_FREQ |
+> +		      DRM_PANTHOR_TIMESTAMP_DURATION))
+> +		return -EINVAL;
+> +
+> +	if (flags & DRM_PANTHOR_TIMESTAMP_GPU)
+> +		timestamp_types++;
+> +	if (flags & DRM_PANTHOR_TIMESTAMP_GPU_CYCLE_COUNT)
+> +		timestamp_types++;
+> +
+> +	minimize_interruption =
+> +		(flags & DRM_PANTHOR_TIMESTAMP_DURATION) ||
+> +		(timestamp_types >= 2);
+
+It's probably worth a comment explaining where the >= 2 comes from
+and why query duration measurement needs to be done with interrupts
+disabled (though the latter is a bit more obvious than the former).
+
+>  
+>  	ret = panthor_device_resume_and_get(ptdev);
+>  	if (ret)
+>  		return ret;
+>  
+> +	if (flags & DRM_PANTHOR_TIMESTAMP_FREQ) {
+>  #ifdef CONFIG_ARM_ARCH_TIMER
+> -	arg->timestamp_frequency = arch_timer_get_cntfrq();
+> +		arg->timestamp_frequency = arch_timer_get_cntfrq();
+>  #else
+> -	arg->timestamp_frequency = 0;
+> +		arg->timestamp_frequency = 0;
+>  #endif
+> -	arg->current_timestamp = gpu_read64_counter(ptdev, GPU_TIMESTAMP);
+> -	arg->timestamp_offset = gpu_read64(ptdev, GPU_TIMESTAMP_OFFSET);
+> +	} else {
+> +		arg->timestamp_frequency = 0;
+> +	}
+> +
+> +	if (flags & DRM_PANTHOR_TIMESTAMP_GPU_OFFSET)
+> +		arg->timestamp_offset = gpu_read64(ptdev, GPU_TIMESTAMP_OFFSET);
+> +	else
+> +		arg->timestamp_offset = 0;
+> +
+> +	if (minimize_interruption) {
+> +		preempt_disable();
+> +		local_irq_save(irq_flags);
+> +	}
+> +
+> +	if (flags & DRM_PANTHOR_TIMESTAMP_DURATION)
+> +		query_start_time = local_clock();
+> +	else
+> +		query_start_time = 0;
+> +
+> +	if (flags & DRM_PANTHOR_TIMESTAMP_GPU)
+> +		arg->current_timestamp = gpu_read64_counter(ptdev, GPU_TIMESTAMP);
+> +	else
+> +		arg->current_timestamp = 0;
+> +
+> +	switch (flags & DRM_PANTHOR_TIMESTAMP_CPU_TYPE_MASK) {
+> +	case DRM_PANTHOR_TIMESTAMP_CPU_MONOTONIC:
+> +		ktime_get_ts64(&cpu_ts);
+> +		break;
+> +	case DRM_PANTHOR_TIMESTAMP_CPU_MONOTONIC_RAW:
+> +		ktime_get_raw_ts64(&cpu_ts);
+> +		break;
+
+	default:
+		break;
+> +	}
+> +
+> +	if (flags & DRM_PANTHOR_TIMESTAMP_GPU_CYCLE_COUNT)
+> +		arg->cycle_count = gpu_read64_counter(ptdev, GPU_CYCLE_COUNT);
+> +	else
+> +		arg->cycle_count = 0;
+> +
+> +	if (flags & DRM_PANTHOR_TIMESTAMP_DURATION)
+> +		arg->duration_nsec = local_clock() - query_start_time;
+> +	else
+> +		arg->duration_nsec = 0;
+> +
+> +	if (minimize_interruption) {
+> +		local_irq_restore(irq_flags);
+> +		preempt_enable();
+> +	}
+> +
+> +	if (flags & DRM_PANTHOR_TIMESTAMP_CPU_TYPE_MASK) {
+> +		timens_add_monotonic(&cpu_ts);
+> +
+> +		arg->cpu_timestamp_sec = cpu_ts.tv_sec;
+> +		arg->cpu_timestamp_nsec = cpu_ts.tv_nsec;
+> +	} else {
+> +		arg->cpu_timestamp_sec = 0;
+> +		arg->cpu_timestamp_nsec = 0;
+> +	}
+>  
+>  	pm_runtime_put(ptdev->base.dev);
+>  	return 0;
+> @@ -851,7 +955,12 @@ static int panthor_ioctl_dev_query(struct drm_device *ddev, void *data, struct d
+>  		return PANTHOR_UOBJ_SET(args->pointer, args->size, ptdev->csif_info);
+>  
+>  	case DRM_PANTHOR_DEV_QUERY_TIMESTAMP_INFO:
+> -		ret = panthor_query_timestamp_info(ptdev, &timestamp_info);
+> +		if (copy_from_user(&timestamp_info,
+> +				   (const void __user __force *) args->pointer,
+> +				   args->size))
+> +			return -EFAULT;
+> +
+> +		ret = panthor_query_timestamp_info(ptdev, &timestamp_info, args->size);
+>  
+
+nit: drop the blank line.
+
+>  		if (ret)
+>  			return ret;
+> @@ -1680,6 +1789,7 @@ static void panthor_debugfs_init(struct drm_minor *minor)
+>   *       - adds DRM_IOCTL_PANTHOR_BO_SYNC ioctl
+>   *       - adds DRM_IOCTL_PANTHOR_BO_QUERY_INFO ioctl
+>   *       - adds drm_panthor_gpu_info::selected_coherency
+> + * - 1.8 - extends DEV_QUERY_TIMESTAMP_INFO with flags
+>   */
+>  static const struct drm_driver panthor_drm_driver = {
+>  	.driver_features = DRIVER_RENDER | DRIVER_GEM | DRIVER_SYNCOBJ |
+> @@ -1693,7 +1803,7 @@ static const struct drm_driver panthor_drm_driver = {
+>  	.name = "panthor",
+>  	.desc = "Panthor DRM driver",
+>  	.major = 1,
+> -	.minor = 7,
+> +	.minor = 8,
+>  
+>  	.gem_create_object = panthor_gem_create_object,
+>  	.gem_prime_import_sg_table = drm_gem_shmem_prime_import_sg_table,
+> diff --git a/include/uapi/drm/panthor_drm.h b/include/uapi/drm/panthor_drm.h
+> index b401ac585d6a..c869e8b95ecd 100644
+> --- a/include/uapi/drm/panthor_drm.h
+> +++ b/include/uapi/drm/panthor_drm.h
+> @@ -409,6 +409,35 @@ struct drm_panthor_csif_info {
+>  	__u32 pad;
+>  };
+>  
+> +/**
+> + * enum drm_panthor_timestamp_info_flags - drm_panthor_timestamp_info.flags
+> + */
+> +enum drm_panthor_timestamp_info_flags {
+> +	/** @DRM_PANTHOR_TIMESTAMP_GPU: Query GPU time. */
+> +	DRM_PANTHOR_TIMESTAMP_GPU = 1 << 0,
+> +
+> +	/** @DRM_PANTHOR_TIMESTAMP_CPU_MONOTONIC: Query CPU time using CLOCK_MONOTONIC. */
+> +	DRM_PANTHOR_TIMESTAMP_CPU_MONOTONIC = 1 << 1,
+
+Can we define
+
+	DRM_PANTHOR_TIMESTAMP_CPU_NONE = 0 << 1,
+
+for completeness.
+
+> +
+> +	/** @DRM_PANTHOR_TIMESTAMP_CPU_MONOTONIC_RAW: Query CPU time using CLOCK_MONOTONIC_RAW. */
+> +	DRM_PANTHOR_TIMESTAMP_CPU_MONOTONIC_RAW = 2 << 1,
+> +
+> +	/** @DRM_PANTHOR_TIMESTAMP_CPU_TYPE_MASK: Space reserved for CPU clock type. */
+> +	DRM_PANTHOR_TIMESTAMP_CPU_TYPE_MASK = 7 << 1,
+> +
+> +	/** @DRM_PANTHOR_TIMESTAMP_GPU_OFFSET: Query GPU offset. */
+> +	DRM_PANTHOR_TIMESTAMP_GPU_OFFSET = 1 << 4,
+> +
+> +	/** @DRM_PANTHOR_TIMESTAMP_GPU_CYCLE_COUNT: Query GPU cycle count. */
+> +	DRM_PANTHOR_TIMESTAMP_GPU_CYCLE_COUNT = 1 << 5,
+> +
+> +	/** @DRM_PANTHOR_TIMESTAMP_FREQ: Query timestamp frequency. */
+> +	DRM_PANTHOR_TIMESTAMP_FREQ = 1 << 6,
+> +
+> +	/** @DRM_PANTHOR_TIMESTAMP_DURATION: Return duration of time query. */
+> +	DRM_PANTHOR_TIMESTAMP_DURATION = 1 << 7,
+
+	/**
+	 * @DRM_PANTHOR_TIMESTAMP_ADVANCED_QUERY: Advanced query requested.
+	 *
+	 * When missing, flags should be 0, which is equivalent to
+	 *  DRM_PANTHOR_TIMESTAMP_ADVANCED_QUERY |
+	 *  DRM_PANTHOR_TIMESTAMP_GPU |
+	 *  DRM_PANTHOR_TIMESTAMP_GPU_OFFSET |
+	 *  DRM_PANTHOR_TIMESTAMP_FREQ
+	 */
+	DRM_PANTHOR_TIMESTAMP_ADVANCED_QUERY = 1 << 30,
+
+> +};
+> +
+>  /**
+>   * struct drm_panthor_timestamp_info - Timestamp information
+>   *
+> @@ -421,11 +450,29 @@ struct drm_panthor_timestamp_info {
+>  	 */
+>  	__u64 timestamp_frequency;
+>  
+> -	/** @current_timestamp: The current timestamp. */
+> +	/** @current_timestamp: The current GPU timestamp. */
+>  	__u64 current_timestamp;
+>  
+> -	/** @timestamp_offset: The offset of the timestamp timer. */
+> +	/** @timestamp_offset: The offset of the GPU timestamp timer. */
+>  	__u64 timestamp_offset;
+> +
+> +	/** @flags: Bitmask of drm_panthor_timestamp_info_flags. */
+> +	__u32 flags;
+> +
+> +	/** @duration_nsec: Duration of time query. */
+> +	__u32 duration_nsec;
+> +
+> +	/** @cycle_count: Value of GPU_CYCLE_COUNT. */
+> +	__u64 cycle_count;
+> +
+> +	/** @cpu_timestamp_sec: Seconds part of CPU timestamp. */
+> +	__u64 cpu_timestamp_sec;
+> +
+> +	/** @cpu_timestamp_nsec: Nanseconds part of CPU timestamp. */
+> +	__u32 cpu_timestamp_nsec;
+> +
+> +	/** @pad1: Padding, MBZ. */
+> +	__u32 pad1;
+
+Let's re-purpose the existing pad field into flags, move duration_nsec after
+cpu_timestamp_nsec, and get rid of this pad1.
+
+>  };
+>  
+>  /**
+
