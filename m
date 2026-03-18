@@ -4,78 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F2FDDFCD0DC
-	for <dri-devel@archiver.kernel.org>; Wed, 18 Mar 2026 08:29:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2ACCAFCD0DA
+	for <dri-devel@archiver.kernel.org>; Wed, 18 Mar 2026 08:29:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EBCCD10E74D;
-	Wed, 18 Mar 2026 08:29:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 81F6F10E73B;
+	Wed, 18 Mar 2026 08:29:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="BEub/dV/";
+	dkim=pass (2048-bit key; secure) header.d=pm.me header.i=@pm.me header.b="dkqfPUl3";
 	dkim-atps=neutral
-Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com
- [209.85.216.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 050A210E22C
- for <dri-devel@lists.freedesktop.org>; Tue, 17 Mar 2026 19:00:02 +0000 (UTC)
-Received: by mail-pj1-f41.google.com with SMTP id
- 98e67ed59e1d1-35b95a7444bso1948910a91.1
- for <dri-devel@lists.freedesktop.org>; Tue, 17 Mar 2026 12:00:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1773774001; x=1774378801; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=1PcwMDnihsdnmKVOsfDRGKcGqZ39RTcsdWpVCxqwOIE=;
- b=BEub/dV/KEDCBqElcqY1iOT7telyykWiEskpih60A78hpRcaKAqkonDjbp/FfPnERU
- gNYFRqkTRb1BDz/wT34t5XhAVEtl6++7fhPl/vHLfgoRMHO7PaGU2HzgLV2XQhAvbW4V
- 8c8dans6hLrK3tc/EwzY9lnFh256+3lLrGkrHghZuN4C5TRMIdk6Nm7T+EElgKi0S4nG
- jezs/OQJkE+O67njcjY0hKarERgDn0etL8nP6XNwVFvHLzzNGZJTXKewOnDleC0A7/LG
- o/RFdvhhLaFa4aN+Is2sE4mipG1QmjQwy5ABn4+jveIWUfyq44q62OPjphwAltHAaP5u
- KOSg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1773774001; x=1774378801;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=1PcwMDnihsdnmKVOsfDRGKcGqZ39RTcsdWpVCxqwOIE=;
- b=NEBeuJnorIPlGX/LFCNDkiR5AXGkVfJn95f8jqRVw/w9VE9yAqXBnbgjZVeh1SkDlo
- CeKc8dW0/lpxvjxTkxk0W2QfnMbw2e6aA84wpcPJjlAR6EbakHJhsEUPLO5Ivvr4rTSF
- /l2hirxokir2L9jQH/VzSfoitfnCZ8+NWVCqdRAzHHUKVhdze9aKpwtRi36Ret7aytAl
- Y1aNHaXkh6MXVTnccOQuxLBIEwZhnEUnCRJBx/ehdxMZ3rdK0ao6B9zx3trb9XrRcEIm
- AAdMxA2ZHt4dQSiu9A/VKK/ej9E6gI73OiPOJunkodijyc0o/uI/3FBfh6yai77FXxzs
- dacA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUxkcGXRvOlMKRvbguMgGW6Ah47KDzIoaNKfrIhn4waPEt+RzzYeaQFOtgizsBjITbYsGoPFYTgheg=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwCX1uDmmBgWVKM61L7hiKJYrNBRCyoRCvFSCcQlzvPobClgBzW
- 6vVwb34lg036vtHT5vYOiSl5MRGxqXl7O0WGz3UxbqN54N4d7Rd5eeic
-X-Gm-Gg: ATEYQzyyDLLajfJonFufP2FNRQnDENFKjjKQrljIYWtJwhC8SdQwmtgsJ0ZOClwHZlO
- 0MDMoks3JPwstPbI1ormeC1Xcq/jadqY1gYBJeFaZeruRp2QnSYClON8t4EWyELab50BgNNGTxO
- oBp56tmYlYpMevS4BEeUSdQCHYxSKJD0tCWhoqgha9vsTVEyxjm/BMIASY5Gfqp2Zu86FON7t5c
- yDcrPYzuSyGlfAdbm8dbmn9yPO2hdlTFiUg2HIqxfvSVHNHKo2G37/NK+JNSIMAIGP6nhcnpX0X
- hnANY/17wdoa37sszk+BX50mlGxD59iGRR/N0AA2P4fL64jJWoC1baVRcFnk22tcl+6UZwVRK9b
- 8GzGhKPgar1V7jD0YyINA6p37nFuG1AJkuPwp4xcjIZqh+spBBwXkWnOhTJQmBVBGTQHXFteDCb
- ShtcBKkS3t/yIsnIZV3eF5iLLfmoldXpd1/qe9KKNHZb3zd6cRKjkFMHZgsYjMvemVZBqtGFSvO
- aN4zWTEiiAYsgp2xFmSqyFTTDSPHHGi+jmcjFt5g8503UGRyWcjc1994EgO7ygCRNW4/Q==
-X-Received: by 2002:a17:90b:1dcd:b0:34c:35ce:3c5f with SMTP id
- 98e67ed59e1d1-35bb9e45688mr490920a91.5.1773774001443; 
- Tue, 17 Mar 2026 12:00:01 -0700 (PDT)
-Received: from 2045D.localdomain (76.sub-72-110-123.myvzw.com. [72.110.123.76])
- by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-35bba5a2c60sm196240a91.9.2026.03.17.11.59.54
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 17 Mar 2026 12:00:01 -0700 (PDT)
-From: Gui-Dong Han <hanguidong02@gmail.com>
-To: gregkh@linuxfoundation.org,
-	dakr@kernel.org,
-	rafael@kernel.org
-Cc: linux-kernel@vger.kernel.org, driver-core@lists.linux.dev,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-sound@vger.kernel.org,
- akaieurus@gmail.com, me@ziyao.cc, Gui-Dong Han <hanguidong02@gmail.com>
-Subject: [PATCH 0/4] debugfs: disallow NULL string creation and fix callers
-Date: Wed, 18 Mar 2026 02:59:09 +0800
-Message-ID: <20260317185920.43387-1-hanguidong02@gmail.com>
-X-Mailer: git-send-email 2.43.0
+Received: from mail-43101.protonmail.ch (mail-43101.protonmail.ch
+ [185.70.43.101])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4B97010E441
+ for <dri-devel@lists.freedesktop.org>; Wed, 18 Mar 2026 07:33:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+ s=protonmail3; t=1773819186; x=1774078386;
+ bh=HEEHya28D9AzgK7IMREp/bxt0n4mna9PaQwrUvZ8aHg=;
+ h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+ Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+ Message-ID:BIMI-Selector;
+ b=dkqfPUl3ZNRqI4GJi21Sqga9kiHiY2bb89QmGr9t+4t3A9lWc0F4Z12X6tuRYTr7F
+ j3E74ff2LTOGuGuRY95XcBUAsgo+KkGIxyFdfV83PKSe11sOFq266YVWc+7x7XBRbw
+ DiJnOu/0uaepLD34uvEeSuqwLeIaBF6OZNJhV9iIIaeFDuq8wuT0NWwG4bq97fHkIf
+ cqLTEReBFlLVf7L8xawBwEWcypH1U6qT4smtPHkKIa6OvIb61SymXumm5Qkh6jZuYi
+ Btw+SSN33mJOvu04W3xXcmGmpTds5HZoIuSZSl+iiTF2QREUZ0M51ZbHCXiUfD49uW
+ qF9fjeRhq0BFw==
+Date: Wed, 18 Mar 2026 07:33:03 +0000
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>
+From: Alexander Koskovich <akoskovich@pm.me>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ Alexander Koskovich <akoskovich@pm.me>
+Subject: [PATCH 2/2] drm/msm/dsi: support DSC configurations with
+ slice_per_pkt > 1
+Message-ID: <20260318-dsi-dsc-slice-per-pkt-v1-2-1bd66b7f9e0c@pm.me>
+In-Reply-To: <20260318-dsi-dsc-slice-per-pkt-v1-0-1bd66b7f9e0c@pm.me>
+References: <20260318-dsi-dsc-slice-per-pkt-v1-0-1bd66b7f9e0c@pm.me>
+Feedback-ID: 37836894:user:proton
+X-Pm-Message-ID: da70dc4b6326ffeb32679cd1fe636db6e5a0f639
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Wed, 18 Mar 2026 08:28:25 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -92,42 +66,92 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-A recent bug report [1] highlighted a NULL pointer dereference when
-reading a debugfs string file created with a NULL pointer. The community
-discussed the issue and agreed that creating string nodes with NULL is
-invalid and should be forbidden at creation time [2]. Since no fix was
-submitted following the discussion, I have implemented the agreed
-solution.
+Some panels support multiple slice to be sent in a single DSC packet and
+this feature is a must for specific panels, such as the JDI LPM026M648C.
 
-Patch 1 modifies debugfs_create_str() to reject NULL pointers, returning
-early and triggering a WARN_ON to expose offending callers.
+Use the MIPI_DSI_MODE_DSC_ALL_SLICES_IN_PKT flag to derive slice_per_pkt
+from slice_count, note that most panels are expected to just work with
+just one slice per packet.
 
-Patch 2 is a code hygiene fix. While modifying the file, I noticed the
-EXPORT_SYMBOL_GPL for debugfs_create_str() was misplaced far away from
-the function body. This patch moves it to the correct location.
+This change was originally authored by Jonathan Marek:
+https://lore.kernel.org/all/20231114174218.19765-3-jonathan@marek.ca
 
-I carefully audited existing callers across the kernel tree. Some
-drivers passing NULL have already been independently identified and
-fixed [3]. The remaining two subsystems (soundwire and drm/i915) are
-addressed in patches 3 and 4 by initializing their respective string
-parameters to empty strings (""). The existing logic in both subsystems
-correctly and safely handles empty strings.
+Signed-off-by: Alexander Koskovich <akoskovich@pm.me>
+---
+ drivers/gpu/drm/msm/dsi/dsi_host.c | 25 ++++++++++---------------
+ 1 file changed, 10 insertions(+), 15 deletions(-)
 
-[1] https://lore.kernel.org/lkml/17647e4c.d461.19b46144a4e.Coremail.yangshiguang1011@163.com/
-[2] https://lore.kernel.org/lkml/2025122221-gag-malt-75ba@gregkh/
-[3] https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=8cc27f5c6dd1
+diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/d=
+si_host.c
+index db6da99375a1..758b076ee4bf 100644
+--- a/drivers/gpu/drm/msm/dsi/dsi_host.c
++++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
+@@ -166,6 +166,7 @@ struct msm_dsi_host {
+=20
+ =09struct drm_display_mode *mode;
+ =09struct drm_dsc_config *dsc;
++=09unsigned int dsc_slice_per_pkt;
+=20
+ =09/* connected device info */
+ =09unsigned int channel;
+@@ -927,17 +928,10 @@ static void dsi_update_dsc_timing(struct msm_dsi_host=
+ *msm_host, bool is_cmd_mod
+ =09slice_per_intf =3D dsc->slice_count;
+=20
+ =09total_bytes_per_intf =3D dsc->slice_chunk_size * slice_per_intf;
+-=09bytes_per_pkt =3D dsc->slice_chunk_size; /* * slice_per_pkt; */
++=09bytes_per_pkt =3D dsc->slice_chunk_size * msm_host->dsc_slice_per_pkt;
+=20
+ =09eol_byte_num =3D total_bytes_per_intf % 3;
+-
+-=09/*
+-=09 * Typically, pkt_per_line =3D slice_per_intf * slice_per_pkt.
+-=09 *
+-=09 * Since the current driver only supports slice_per_pkt =3D 1,
+-=09 * pkt_per_line will be equal to slice per intf for now.
+-=09 */
+-=09pkt_per_line =3D slice_per_intf;
++=09pkt_per_line =3D slice_per_intf / msm_host->dsc_slice_per_pkt;
+=20
+ =09if (is_cmd_mode) /* packet data type */
+ =09=09reg =3D DSI_COMMAND_COMPRESSION_MODE_CTRL_STREAM0_DATATYPE(MIPI_DSI_=
+DCS_LONG_WRITE);
+@@ -1088,12 +1082,8 @@ static void dsi_timing_setup(struct msm_dsi_host *ms=
+m_host, bool is_bonded_dsi)
+ =09=09else
+ =09=09=09/*
+ =09=09=09 * When DSC is enabled, WC =3D slice_chunk_size * slice_per_pkt +=
+ 1.
+-=09=09=09 * Currently, the driver only supports default value of slice_per=
+_pkt =3D 1
+-=09=09=09 *
+-=09=09=09 * TODO: Expand mipi_dsi_device struct to hold slice_per_pkt info
+-=09=09=09 *       and adjust DSC math to account for slice_per_pkt.
+ =09=09=09 */
+-=09=09=09wc =3D msm_host->dsc->slice_chunk_size + 1;
++=09=09=09wc =3D msm_host->dsc->slice_chunk_size * msm_host->dsc_slice_per_=
+pkt + 1;
+=20
+ =09=09dsi_write(msm_host, REG_DSI_CMD_MDP_STREAM0_CTRL,
+ =09=09=09DSI_CMD_MDP_STREAM0_CTRL_WORD_COUNT(wc) |
+@@ -1702,8 +1692,13 @@ static int dsi_host_attach(struct mipi_dsi_host *hos=
+t,
+ =09msm_host->lanes =3D dsi->lanes;
+ =09msm_host->format =3D dsi->format;
+ =09msm_host->mode_flags =3D dsi->mode_flags;
+-=09if (dsi->dsc)
++=09if (dsi->dsc) {
+ =09=09msm_host->dsc =3D dsi->dsc;
++=09=09if (dsi->mode_flags & MIPI_DSI_MODE_DSC_ALL_SLICES_IN_PKT)
++=09=09=09msm_host->dsc_slice_per_pkt =3D dsi->dsc->slice_count;
++=09=09else
++=09=09=09msm_host->dsc_slice_per_pkt =3D 1;
++=09}
+=20
+ =09ret =3D dsi_dev_attach(msm_host->pdev);
+ =09if (ret)
 
-Gui-Dong Han (4):
-  debugfs: check for NULL pointer in debugfs_create_str()
-  debugfs: fix placement of EXPORT_SYMBOL_GPL for debugfs_create_str()
-  soundwire: debugfs: initialize firmware_file to empty string
-  drm/i915/display: initialize string params to empty strings
+--=20
+2.53.0
 
- drivers/gpu/drm/i915/display/intel_display_params.h | 4 ++--
- drivers/soundwire/debugfs.c                         | 5 +++--
- fs/debugfs/file.c                                   | 7 +++++--
- 3 files changed, 10 insertions(+), 6 deletions(-)
-
--- 
-2.43.0
 
