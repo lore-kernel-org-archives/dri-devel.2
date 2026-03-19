@@ -4,58 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 30D461075273
-	for <dri-devel@archiver.kernel.org>; Thu, 19 Mar 2026 07:15:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5734B107526E
+	for <dri-devel@archiver.kernel.org>; Thu, 19 Mar 2026 07:17:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B8C3510E8B7;
-	Thu, 19 Mar 2026 07:15:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BE77B10E8BC;
+	Thu, 19 Mar 2026 07:17:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.b="IqtFGomJ";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="RI+AxQc2";
 	dkim-atps=neutral
-Received: from mail-m32114.qiye.163.com (mail-m32114.qiye.163.com
- [220.197.32.114])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 73B1110E8AA
- for <dri-devel@lists.freedesktop.org>; Thu, 19 Mar 2026 07:15:43 +0000 (UTC)
-Received: from zyb-HP-ProDesk-680-G2-MT.. (unknown [58.22.7.114])
- by smtp.qiye.163.com (Hmail) with ESMTP id 378874458;
- Thu, 19 Mar 2026 15:15:38 +0800 (GMT+08:00)
-From: Damon Ding <damon.ding@rock-chips.com>
-To: andrzej.hajda@intel.com, neil.armstrong@linaro.org, rfoss@kernel.org,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- airlied@gmail.com, simona@ffwll.ch, victor.liu@nxp.com,
- shawnguo@kernel.org, s.hauer@pengutronix.de, inki.dae@samsung.com,
- sw0312.kim@samsung.com, kyungmin.park@samsung.com, krzk@kernel.org,
- jingoohan1@gmail.com, p.zabel@pengutronix.de, hjc@rock-chips.com,
- heiko@sntech.de, andy.yan@rock-chips.com
-Cc: Laurent.pinchart@ideasonboard.com, jonas@kwiboo.se,
- jernej.skrabec@gmail.com, kernel@pengutronix.de, festevam@gmail.com,
- alim.akhtar@samsung.com, dmitry.baryshkov@oss.qualcomm.com,
- luca.ceresoli@bootlin.com, nicolas.frattaroli@collabora.com,
- dianders@chromium.org, m.szyprowski@samsung.com,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
- linux-samsung-soc@vger.kernel.org, linux-rockchip@lists.infradead.org,
- Damon Ding <damon.ding@rock-chips.com>
-Subject: [PATCH v11 12/17] drm/bridge: analogix_dp: Add new API
- analogix_dp_finish_probe()
-Date: Thu, 19 Mar 2026 15:14:47 +0800
-Message-Id: <20260319071452.1961274-13-damon.ding@rock-chips.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260319071452.1961274-1-damon.ding@rock-chips.com>
-References: <20260319071452.1961274-1-damon.ding@rock-chips.com>
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 682B810E8C4;
+ Thu, 19 Mar 2026 07:17:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1773904663; x=1805440663;
+ h=date:from:to:cc:subject:message-id:mime-version:
+ content-transfer-encoding;
+ bh=gpPuIYGN29l1jhxOViW6OhhisuOVrkgdliiw0h0oEtk=;
+ b=RI+AxQc26UYtEHBlVWcu5Jv+yChr9fWrMNAC7tRQ3bYkGYg5AhED0C5s
+ gRFf+6nJp9qTTyO7+KEk9YuJB7/jpE07JFnYWHMrTBiX7MS5ktyeDA1Kf
+ OPZ5xVdX/Go42hel4mv0sYQ+zMTNWa3fm9Y7UTmlFhjrqHeHE5YPWjgm1
+ ErnjwKKEB++9q/NwVxUGURJR42XFMoGtft0z8+OXLsEhcxxIRdRQuZlww
+ oWT4NFuoivFN9Qqg44N9Z1ISIWJsA69hD56iSM4tpxWBa8FaZT09v3XB7
+ 8TQdwRRWGGMts11sMISRI76RDtcVEcgGcJbi8hTdO7uhL+5zcbKqz/X25 g==;
+X-CSE-ConnectionGUID: ubtmS65cQtS9HIuFi5wB0Q==
+X-CSE-MsgGUID: ytCURbXPSCKhHkZLhi7cuQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11733"; a="73985261"
+X-IronPort-AV: E=Sophos;i="6.23,128,1770624000"; d="scan'208";a="73985261"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+ by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Mar 2026 00:17:42 -0700
+X-CSE-ConnectionGUID: gkHZeAzdQViCtCfTfDbJbg==
+X-CSE-MsgGUID: AH3z/0cKRrKlxCnMhgLwUg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,128,1770624000"; d="scan'208";a="218370413"
+Received: from amilburn-desk.amilburn-desk (HELO localhost) ([10.245.244.124])
+ by fmviesa006-auth.fm.intel.com with
+ ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Mar 2026 00:17:24 -0700
+Date: Thu, 19 Mar 2026 09:17:22 +0200
+From: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+To: Dave Airlie <airlied@gmail.com>, Simona Vetter <simona.vetter@ffwll.ch>
+Cc: Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
+ Oded Gabbay <ogabbay@kernel.org>, dri-devel@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ dim-tools@lists.freedesktop.org
+Subject: [PULL] drm-intel-fixes
+Message-ID: <abujAnD-lRDCVSKg@jlahtine-mobl>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0a9d04f32d1c03a3kunm86e540ee39662d
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
- tZV1koWUFDSUNOT01LS0k3V1ktWUFJV1kPCRoVCBIfWUFZQ00fSlZKHx5OQ0xCQkNCGExWFRQJFh
- oXVRMBExYaEhckFA4PWVdZGBILWUFZTkNVSUlVTFVKSk9ZV1kWGg8SFR0UWUFZT0tIVUpLSEpKQk
- 1VSktLVUpCWQY+
-DKIM-Signature: a=rsa-sha256;
- b=IqtFGomJvTLVZcftRkJbItBXFIr/UYScIkjcMIAvW3vCCV7QnC32ERsxQR/vVXVTwxGWuV4+KEJnxfeiRbMdX/vQ6ky8fq+b8BmNE+nft1VyDCvh4jpuIbbJR9pjFx7eOSIA0RukkSUPR0ANWGmswHGJFnTT336qffOAqm184k0=;
- c=relaxed/relaxed; s=default; d=rock-chips.com; v=1; 
- bh=SjS5hoz5lALYwIBYUHhAR12nD30o7Vp6mbmnlUx69mY=;
- h=date:mime-version:subject:message-id:from;
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,146 +77,56 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Since the panel/bridge should logically be positioned behind the
-Analogix bridge in the display pipeline, it makes sense to handle
-the panel/bridge parsing on the Analogix side. Therefore, we add
-a new API analogix_dp_finish_probe(), which combines the panel/bridge
-parsing with component addition, to do it.
+Hi Dave & Sima,
 
-In order to process component binding right after the probe completes,
-the &analogix_dp_plat_data.ops is newly added to pass &component_ops,
-for which the &dp_aux_ep_device_with_data.done_probing() of DP AUX bus
-only supports passing &drm_dp_aux.
+Here goes drm-intel-fixes PR towards 7.0-rc5.
 
-Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Tested-by: Marek Szyprowski <m.szyprowski@samsung.com>
-Tested-by: Heiko Stuebner <heiko@sntech.de> (on rk3588)
+Fix for #15771: Screen corruption and stuttering on P14s w/ 3K display and another PSR fix.
+Two NULL pointer fixes for corner cases.
 
----
+Regards, Joonas
 
-Changes in v4:
-- Rename the &analogix_dp_plat_data.bridge to
-  &analogix_dp_plat_data.next_bridge.
-- Remame API analogix_dp_find_panel_or_bridge() to
-  analogix_dp_finish_probe().
+***
 
-Changes in v5:
-- Select DRM_DISPLAY_DP_AUX_BUS for DRM_ANALOGIX_DP.
+drm-intel-fixes-2026-03-19:
 
-Changes in v9:
-- Add Tested-by tag.
+- Fix #15771: Screen corruption and stuttering on P14s w/ 3K display
+- Fix for PSR entry setup frames count on rejected commit
+- Fix OOPS if firmware is not loaded and suspend is attempted
+- Fix unlikely NULL deref due to DC6 on probe
 
-Changes in v10:
-- Fix to use dev_err_probe() in analogix_dp_finish_probe().
-- Expand the commit message.
----
- drivers/gpu/drm/bridge/analogix/Kconfig       |  1 +
- .../drm/bridge/analogix/analogix_dp_core.c    | 46 +++++++++++++++++++
- include/drm/bridge/analogix_dp.h              |  2 +
- 3 files changed, 49 insertions(+)
+The following changes since commit f338e77383789c0cae23ca3d48adcc5e9e137e3c:
 
-diff --git a/drivers/gpu/drm/bridge/analogix/Kconfig b/drivers/gpu/drm/bridge/analogix/Kconfig
-index 4846b2e9be7c..964122b5bd39 100644
---- a/drivers/gpu/drm/bridge/analogix/Kconfig
-+++ b/drivers/gpu/drm/bridge/analogix/Kconfig
-@@ -29,6 +29,7 @@ config DRM_ANALOGIX_ANX78XX
- config DRM_ANALOGIX_DP
- 	tristate
- 	depends on DRM
-+	select DRM_DISPLAY_DP_AUX_BUS
- 
- config DRM_ANALOGIX_ANX7625
- 	tristate "Analogix Anx7625 MIPI to DP interface support"
-diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-index 81c6e81dd352..b112df52cabf 100644
---- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-+++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-@@ -20,12 +20,14 @@
- #include <linux/platform_device.h>
- 
- #include <drm/bridge/analogix_dp.h>
-+#include <drm/display/drm_dp_aux_bus.h>
- #include <drm/drm_atomic.h>
- #include <drm/drm_atomic_helper.h>
- #include <drm/drm_bridge.h>
- #include <drm/drm_crtc.h>
- #include <drm/drm_device.h>
- #include <drm/drm_edid.h>
-+#include <drm/drm_of.h>
- #include <drm/drm_panel.h>
- #include <drm/drm_print.h>
- #include <drm/drm_probe_helper.h>
-@@ -1581,6 +1583,50 @@ struct drm_dp_aux *analogix_dp_get_aux(struct analogix_dp_device *dp)
- }
- EXPORT_SYMBOL_GPL(analogix_dp_get_aux);
- 
-+static int analogix_dp_aux_done_probing(struct drm_dp_aux *aux)
-+{
-+	struct analogix_dp_device *dp = to_dp(aux);
-+	struct analogix_dp_plat_data *plat_data = dp->plat_data;
-+	int port = plat_data->dev_type == EXYNOS_DP ? 0 : 1;
-+	int ret;
-+
-+	/*
-+	 * If drm_of_find_panel_or_bridge() returns -ENODEV, there may be no valid panel
-+	 * or bridge nodes. The driver should go on for the driver-free bridge or the DP
-+	 * mode applications.
-+	 */
-+	ret = drm_of_find_panel_or_bridge(dp->dev->of_node, port, 0,
-+					  &plat_data->panel, &plat_data->next_bridge);
-+	if (ret && ret != -ENODEV)
-+		return ret;
-+
-+	return component_add(dp->dev, plat_data->ops);
-+}
-+
-+int analogix_dp_finish_probe(struct analogix_dp_device *dp)
-+{
-+	int ret;
-+
-+	ret = devm_of_dp_aux_populate_bus(&dp->aux, analogix_dp_aux_done_probing);
-+	if (ret) {
-+		/*
-+		 * If devm_of_dp_aux_populate_bus() returns -ENODEV, the done_probing() will
-+		 * not be called because there are no EP devices. Then the callback function
-+		 * analogix_dp_aux_done_probing() will be called directly in order to support
-+		 * the other valid DT configurations.
-+		 *
-+		 * NOTE: The devm_of_dp_aux_populate_bus() is allowed to return -EPROBE_DEFER.
-+		 */
-+		if (ret != -ENODEV)
-+			return dev_err_probe(dp->dev, ret, "failed to populate aux bus\n");
-+
-+		return analogix_dp_aux_done_probing(&dp->aux);
-+	}
-+
-+	return 0;
-+}
-+EXPORT_SYMBOL_GPL(analogix_dp_finish_probe);
-+
- MODULE_AUTHOR("Jingoo Han <jg1.han@samsung.com>");
- MODULE_DESCRIPTION("Analogix DP Core Driver");
- MODULE_LICENSE("GPL v2");
-diff --git a/include/drm/bridge/analogix_dp.h b/include/drm/bridge/analogix_dp.h
-index 3428ffff24c5..bae969dec63a 100644
---- a/include/drm/bridge/analogix_dp.h
-+++ b/include/drm/bridge/analogix_dp.h
-@@ -30,6 +30,7 @@ struct analogix_dp_plat_data {
- 	struct drm_bridge *next_bridge;
- 	struct drm_encoder *encoder;
- 	struct drm_connector *connector;
-+	const struct component_ops *ops;
- 
- 	int (*power_on)(struct analogix_dp_plat_data *);
- 	int (*power_off)(struct analogix_dp_plat_data *);
-@@ -49,5 +50,6 @@ int analogix_dp_stop_crc(struct drm_connector *connector);
- 
- struct analogix_dp_plat_data *analogix_dp_aux_to_plat_data(struct drm_dp_aux *aux);
- struct drm_dp_aux *analogix_dp_get_aux(struct analogix_dp_device *dp);
-+int analogix_dp_finish_probe(struct analogix_dp_device *dp);
- 
- #endif /* _ANALOGIX_DP_H_ */
--- 
-2.34.1
+  Linux 7.0-rc4 (2026-03-15 13:52:05 -0700)
 
+are available in the Git repository at:
+
+  https://gitlab.freedesktop.org/drm/i915/kernel.git tags/drm-intel-fixes-2026-03-19
+
+for you to fetch changes up to 0162ab3220bac870e43e229e6e3024d1a21c3f26:
+
+  drm/i915/gt: Check set_default_submission() before deferencing (2026-03-18 11:53:20 +0200)
+
+----------------------------------------------------------------
+- Fix #15771: Screen corruption and stuttering on P14s w/ 3K display
+- Fix for PSR entry setup frames count on rejected commit
+- Fix OOPS if firmware is not loaded and suspend is attempted
+- Fix unlikely NULL deref due to DC6 on probe
+
+----------------------------------------------------------------
+Imre Deak (1):
+      drm/i915/dmc: Fix an unlikely NULL pointer deference at probe
+
+Jouni Högander (2):
+      drm/i915/psr: Disable PSR on update_m_n and update_lrr
+      drm/i915/psr: Compute PSR entry_setup_frames into intel_crtc_state
+
+Rahul Bukte (1):
+      drm/i915/gt: Check set_default_submission() before deferencing
+
+ drivers/gpu/drm/i915/display/intel_display_power_well.c | 2 +-
+ drivers/gpu/drm/i915/display/intel_display_types.h      | 1 +
+ drivers/gpu/drm/i915/display/intel_dmc.c                | 3 +--
+ drivers/gpu/drm/i915/display/intel_psr.c                | 7 +++++--
+ drivers/gpu/drm/i915/gt/intel_engine_cs.c               | 3 ++-
+ 5 files changed, 10 insertions(+), 6 deletions(-)
