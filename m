@@ -4,137 +4,96 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6EC121088E67
-	for <dri-devel@archiver.kernel.org>; Thu, 19 Mar 2026 02:54:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D36AB1088E6D
+	for <dri-devel@archiver.kernel.org>; Thu, 19 Mar 2026 03:19:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C8D1310E846;
-	Thu, 19 Mar 2026 02:54:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4A2E510E84B;
+	Thu, 19 Mar 2026 03:19:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="hx0ie2pf";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="iqhw36Rk";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="YCm/W8wo";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 11EB210E846
- for <dri-devel@lists.freedesktop.org>; Thu, 19 Mar 2026 02:54:12 +0000 (UTC)
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 62INlp2m551102
- for <dri-devel@lists.freedesktop.org>; Thu, 19 Mar 2026 02:54:11 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=zr55jwjPMr4CipN/1sygJnvq
- rz4xwfpiIiHPxxrHDZg=; b=hx0ie2pfmgdGEhRAVhR9FDl2jhZcnRl6Ppzx868m
- iofY9UgiaU54YSIuaJvbiKsFaTwSydwa1ORGyJcmynTGr3ADtW5orx9ved2cO4DU
- o1pYfo9s1zlqYSRCWjK/CUzaLmRP2yGq7BgsPZn13RT2qBHvZpE27Q8Fr7o0E1Tw
- /FIegp58HHQUURYCmlxoqy3IWo+ebDpiua3AEE/M3zU6NFxdHyzfgGXIFfvz/kM1
- p0bwMRlkRT4Cx4PDdQI0c26QNE5VQriky3aURkMRBXPZ+T1B/a3UWyvhUa8ntjxx
- 8mumGVis6JS9VVZlMN8des93uVw4lCa5DPSl4QNEvK1/YA==
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
- [209.85.160.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4cyj4g55t1-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Thu, 19 Mar 2026 02:54:11 +0000 (GMT)
-Received: by mail-qt1-f197.google.com with SMTP id
- d75a77b69052e-5090bc4823cso14286261cf.3
- for <dri-devel@lists.freedesktop.org>; Wed, 18 Mar 2026 19:54:11 -0700 (PDT)
+Received: from mail-oa1-f54.google.com (mail-oa1-f54.google.com
+ [209.85.160.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 51EBC10E84B
+ for <dri-devel@lists.freedesktop.org>; Thu, 19 Mar 2026 03:19:19 +0000 (UTC)
+Received: by mail-oa1-f54.google.com with SMTP id
+ 586e51a60fabf-415e568a7ecso265488fac.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 18 Mar 2026 20:19:19 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1773890358; cv=none;
+ d=google.com; s=arc-20240605;
+ b=K+VCS/J+Jh/J/bGvCUG9ayUQSWIy0DP/Csna6qfJ5AeMlyGwHGnKd6uzouuGbsUWBf
+ smAERHud26cJQy/TDlEPzxYd9U6YOa3FjOmw9OMXje+mazEzw1dmOfvFtNSgyMLHYchZ
+ 2lHo0zlrTDKyZPSTgqH1KvKai6Cus9OFdzPw5etOX5TWvdg29N7n1pym9LyRKbuXNHYu
+ /o80I35A3qu35KDoMMH/rEUMY3xWKrYF7QFCnxtwiZeFs5vx/qD313yhY3kn78ykvcje
+ mboLtzU3Hfm0a51SwDnu6m4bkgsP04WIhq8Xne+IcVlr+0AvATK40GkM7/9IlNRoVXbU
+ 1wXQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:dkim-signature;
+ bh=0ysTLBrMyO5J7X2J7PiyEUD2C41UEmOyTszOq707Vrg=;
+ fh=WJeqOmZh+Kk+gLRtuay23nN1sSog3BGbnAAP78erKjU=;
+ b=ePzI7UIo3ybcbodHUqN4/W4SYa7MvDnWrftdJaDnwTnRV0Ftxo6nB+aWa7O5PuKGDS
+ ynjU1RZ47HOPl3DQX/9RpKbLqE+VfstB8X0Wl7jgErLo/pOuvztFOwP4Uad2NDdoWNkw
+ 3/horuWtgltMWwlAZMBYv4uQTxsRMLmaHExRaNSpeKr7n+fbQhRoiGNPm9/v0MsNfr9K
+ bl+ZhyWbQZZatGoJJjYyu6hNcOYpB6RiAGFjMyXC771GqQRXdwNDug1OHW/ia3nU0TQb
+ FqlEVcrdE4fb4l6zhA3mbSmu9Svl3kn5r8vzk5j6ntipYf5M/qXOzz7M2otKpzyHRpw5
+ bXlw==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1773888850; x=1774493650;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=zr55jwjPMr4CipN/1sygJnvqrz4xwfpiIiHPxxrHDZg=;
- b=iqhw36Rk1GN3g5jRJede796/OGqxGIEz6rB9GzP2zKJ0sSP2Hl1mtZWLqYL5IPwKD5
- m3q2U5ljFxgni3wIoe1QMxabAbcqm6ASaUexXXbS6zWfsR/OJlRFc8KTonJh8qqw63Mv
- wpnN073JPxA5XWydsSvnPVMR+oLsatG0/lmmSWqg4onyaih+4CayXULbmRqbH//g+nMX
- hKhjf7MMrASGwqDBktsC6j7I1QhwNbMTtkntu9cVDSmom8vgfUp5E2Akmf3y2aHwqSUL
- MdLaBepgkBY/xuIBsFGBDzV7MRPx+TbzitzYnkdUSiVgRC8Xxed8h+Y1w99yvfqS2b1J
- 6mfQ==
+ d=linaro.org; s=google; t=1773890358; x=1774495158; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=0ysTLBrMyO5J7X2J7PiyEUD2C41UEmOyTszOq707Vrg=;
+ b=YCm/W8wouMqDOrCh3loJJhUrrrECTpNnCJ4oEuAyECTsHl9bdAqd8yNiGIeowgZ+qJ
+ RgFz5p3+5oww81FwYCxf3Pc6LoQUue0d34B1b7I/NCUrLEBSJdigY6JWoU0L9Ujlb1Gv
+ abckvNNmfPebqBCsMzJ66Os7tkBuA2Bzbv2cH97qVN/+j6kn2/fVW/wfaTXMe5ygZc4k
+ Jv4Pw5U+ouveV5VERc2F87SROwmIRHRCJSPDeA2KHL62aDJboyaGCvDXsYCBenQR/Hzi
+ sW/6gyvi6quGX54h/oDiYuFnxnRRzAfWDCmE3VM5Kh6mi7BOql85myf1vNY/g21tE99k
+ mm6A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1773888850; x=1774493650;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=zr55jwjPMr4CipN/1sygJnvqrz4xwfpiIiHPxxrHDZg=;
- b=lBzKrHnt0ZHMs8YqpjVMXpIBz/MqczIgOViomQ+5tJTJkEIhR5fsoY340n3FIB+6YH
- tbSIm5TvkuofJtc3MjBglI/R6Zj2zo0sZ0bNiNINXhKGaJpMd7Uw71FFJgcXvEiVpgJ2
- riTfXQTli4OqeJvAyQaTCNuAJgMGN7EvrdMJlf/2DGnmzZ77G1wHzRPqCx2vnEqDT/kn
- zuubFyjIRmYF5dtDoJjo3GQX8qZyP2PwqXXggynQhBFDtE2JBKSqoZWewwkvI57NT8lD
- +W5jLRzNlAy7+LGqhjf4+51JwbV8xwOWT3g6CNZsqKBsaHgyetlMaUruUQvQhNrMBxGO
- MQUg==
+ d=1e100.net; s=20251104; t=1773890358; x=1774495158;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=0ysTLBrMyO5J7X2J7PiyEUD2C41UEmOyTszOq707Vrg=;
+ b=duzMSJzwcxzLWkHypPSvzgwQ0atSO2yxcst6BJ7EFWcHCpDEsUfY6wgk/nKefKXXtE
+ 3fHpzWJEKTNfxl4u30ba55n49Fh6aQVYBSB5YKWeOzSi2iehxLnEk86hk+poelP/5byY
+ jsTbkcX6ujfyoYrfSjtFr5I5SyY7VJ/S6PfY3J14GHeJZ84/xUh0VvTgw3s0ogpMLrnx
+ IMzaY3m2s76Pqt613QmiX1JWvfIPuBkCGQ1jvUB49hYT0GJT+Tfl1iuhkNg4Q2pAtFSo
+ 6meRR+2VyosxYWn4SNZGQu3EgbOZBg71gl11ge5Sh0+xVjgtVJV9APfwrbEZLCZ9q40r
+ WUZg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVIr60QtmOnr0t6V2HoO3f6fmA0FfkDJih1xsahGLhAKjvqNBl0G4Y1ngovM164cKLfq/GYbojVXrM=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxTcO9KXm8lWFu0wJ0kQlZ0jyYgt4woKwxMKTmngaljYfamPG/c
- Yoc6Tg/ZqP1lfQNomtmqYNyDoU65qWeT7YWbh5l0vOx432shhpR3nqaZGSmkrme8hOL/fp4lWC6
- jzKf0mYlKZ6WsQ8//rVBQlqfcrfAX+PuWG7PYOpfSc6EoZRscjmZ4t9bFnjJHDoG0fw5D2mU=
-X-Gm-Gg: ATEYQzywJfP92OpdlQ07pJw7+DBNMT4lrjqBhAnPF5eUv/VsK4j8GlMnxJERbZJlr5V
- kjWVfDig8kzwrk45cJQ8W1Vimo1x9iWHaBw7ouQyRDMyovgvPhrVnZVIUNBNPjPacRIOlgufZod
- 6QesseDrULdNoRFJNzRvd7YasWiZ5xY2Xk/ttLsGjSgaM9Q7u6sqMXqVXebwyWihu4NGnjdp7xL
- L2b1Bx7G9qCwWAzMOewRTV3QDcB+dt5n2neZ9tHSLMEDXa8I3AFYFNJQIyv4MEfYSoynGscJ1f0
- D09aKBFl24uf+v6Eu0aZKDxL3KVjtX8IIDChgZz28/FQtnp/ZyvfimeIATFipco92dbLyfvVeSA
- CFDrAhKdTNjZ8riTvM0D3ttfA/MUrx7LjIYMBntfdxhokNSsDc6yc3ugvH+klQhErs1XK0zXG9F
- IzJsfK7HlbLHDUrxOnUbj4kHYe7JKSHxlm3ZQ=
-X-Received: by 2002:ac8:59cb:0:b0:508:ff31:47f1 with SMTP id
- d75a77b69052e-50b14889319mr77055241cf.50.1773888850378; 
- Wed, 18 Mar 2026 19:54:10 -0700 (PDT)
-X-Received: by 2002:ac8:59cb:0:b0:508:ff31:47f1 with SMTP id
- d75a77b69052e-50b14889319mr77054921cf.50.1773888849825; 
- Wed, 18 Mar 2026 19:54:09 -0700 (PDT)
-Received: from umbar.lan
- (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
- by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-38bd5157108sm9573101fa.1.2026.03.18.19.54.06
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 18 Mar 2026 19:54:07 -0700 (PDT)
-Date: Thu, 19 Mar 2026 04:54:05 +0200
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: cristian_ci@protonmail.com
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org
-Subject: Re: [PATCH v2 3/6] arm64: dts: qcom: msm8953-flipkart-rimob: Enable
- display and GPU
-Message-ID: <jin2ecagomu2npjnqr6ejpair6d4uam3djznuaodjijqi6hilk@64ddbqaezuah>
-References: <20260318-rimob-new-features-v2-0-c1bf8917449e@protonmail.com>
- <20260318-rimob-new-features-v2-3-c1bf8917449e@protonmail.com>
+ AJvYcCXQouTqD+5CE0WcWhpVN8qHM7gkLAqg+t/w5r5nPJNhOOGCVgDhc6iUqw9oAvb+xpk5qB23goobeFg=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yw9FwXkGICY/XcBLXCwZluKj77amrHBBkAt7KZReonxfk42Rk6d
+ 73xKraf6MXOfwgifi9oOLi3ZEVo/ybc59ZzwPJEoAYX27QSa4phr/PIemwrMxz2xRk/B7UiEnu7
+ 5kzEKqzbJUIcRw1s/71MYrqB7b35idaY8DtXsd0in/A==
+X-Gm-Gg: ATEYQzxYk6ZdGS+D/G2hZHZfhdThpiUHFDWmeW3RjA5jPKUFG1DGNjtBiKf0iC9H9dK
+ sfGHz0PFW1HGVY2B8CA9A8AqUFj6nHIHJ9YxngZpgXK0xXjHTE8bOqr0xlzh0n64WVlINvGgii/
+ Oq+CkzSr7SmjfPxJU/SNDuU5t3euRdJQgttqwPDObsa4uu7z//GSdluyhj4aDl8i097sfQ5lIv+
+ n0ejxPSCm75pDLNadFC9T6OyPkulIwk7ZZp5J2j5u2k3zgLazBeFLvmYmqbDgCDr2mI06A72OGs
+ noZ7WoudFejw+8xDew==
+X-Received: by 2002:a05:6820:4cc7:b0:67c:ceb:df6b with SMTP id
+ 006d021491bc7-67c0daa1a53mr4043973eaf.26.1773890357952; Wed, 18 Mar 2026
+ 20:19:17 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260318-rimob-new-features-v2-3-c1bf8917449e@protonmail.com>
-X-Authority-Analysis: v=2.4 cv=TPhIilla c=1 sm=1 tr=0 ts=69bb6553 cx=c_pps
- a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22 a=NEAV23lmAAAA:8
- a=sfOm8-O8AAAA:8 a=QiVCaVSgwpAuPVqWOeAA:9 a=CjuIK1q_8ugA:10
- a=a_PwQJl-kcHnX1M80qC6:22 a=TvTJqdcANYtsRzA46cdi:22
-X-Proofpoint-ORIG-GUID: IanlS8L93OMc3t_W2QQjrL2cyNchr7i7
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzE5MDAyMCBTYWx0ZWRfX/C1GdOc78LIm
- GheLC5PGgdu9v813tFiaCoCsrF46xL6z4lxtjIHOqNR02d+AcmkQHhTBQn3Wxs/JMjMWUUnNvL2
- VnBLwEBVu8uVA8o8l1KCQqO1oOd3pUMXNI9erz7e3u9ag1brdzrbGBSBpsab/7g+IDbe+y/LUS0
- I9pH9i9FoTqR5GC+ItO7DhI2YJhia9YxRE/P133biQ8Z4JfY8cPnq+7ljlySSSZIQupV8d1k1q4
- Y81qtZ8SdFt3TL+4VUyEi5hjKs0Wm0WOS0te3GaC5jLsWaeQNA+bDtTfmeATN2HN1WWxCiwm06J
- 8QkeY7YOqQacqY6Ka0MVABPmAESPY1eQCP/WAyvYKuH3KSf7BewKYqErPalD/6uEHEXwG3q1CY6
- h4ahCRlcFmbpwd26EVQO+kK0b4in43SqYO7N/CpUts5fzDEiPWlj57IJOyL/lpHXGfFVPb3EjBL
- a50xlGkPIYnB1GAxCoA==
-X-Proofpoint-GUID: IanlS8L93OMc3t_W2QQjrL2cyNchr7i7
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-03-18_02,2026-03-17_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 suspectscore=0 lowpriorityscore=0 bulkscore=0 malwarescore=0
- spamscore=0 impostorscore=0 adultscore=0 priorityscore=1501 clxscore=1015
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603190020
+References: <20260318125326.3709098-1-shiyongbang@huawei.com>
+In-Reply-To: <20260318125326.3709098-1-shiyongbang@huawei.com>
+From: Xinliang Liu <xinliang.liu@linaro.org>
+Date: Thu, 19 Mar 2026 11:18:42 +0800
+X-Gm-Features: AaiRm51kTncfyNS5U906mzA4M8EP6FGpKSz_i_aLxjJ54JljpfG513cWE6NcYtk
+Message-ID: <CAKoKPbzAFi+MjTq-foT78zHsdZ7kpb5ciSfVHFuHH3Tr8-MLrA@mail.gmail.com>
+Subject: Re: [PATCH V1 for drm-misc-fixes] MAINTAINERS: split hisilicon
+ maintenance and add Yongbang Shi for hibmc-drm matainers
+To: Yongbang Shi <shiyongbang@huawei.com>
+Cc: tzimmermann@suse.de, tiantao6@hisilicon.com, 
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@gmail.com, 
+ daniel@ffwll.ch, kong.kongxinwei@hisilicon.com, 
+ dmitry.baryshkov@oss.qualcomm.com, liangjian010@huawei.com, 
+ chenjianmin@huawei.com, fengsheng5@huawei.com, helin52@h-partners.com, 
+ shenjian15@huawei.com, shaojijie@huawei.com, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -150,41 +109,101 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Mar 18, 2026 at 11:28:11PM +0100, Cristian Cozzolino via B4 Relay wrote:
-> From: Cristian Cozzolino <cristian_ci@protonmail.com>
-> 
-> Add the description for the display panel found on this phone.
-> And with this done we can also enable the GPU and set the zap shader
-> firmware path.
-> 
-> Signed-off-by: Cristian Cozzolino <cristian_ci@protonmail.com>
+,
+
+Hi,
+
+On Wed, 18 Mar 2026 at 21:01, Yongbang Shi <shiyongbang@huawei.com> wrote:
+>
+> To improve maintainability, split the maintainer information for the hibmc and
+> kirin drivers under the drivers/gpu/drm/hisilicon directory.
+>
+> drivers/gpu/drm/hisilicon/hibmc driver has almost completed feature development
+> based on the new generation HiSilicon BMC chip. It was co-developed by
+> Yongbang Shi, Baihan Li and Lin He. Going forward, this module will be
+> maintained by Yongbang Shi.
+>
+> Signed-off-by: Yongbang Shi <shiyongbang@huawei.com>
+> Acked-by: Tao Tian <tiantao6@hisilicon.com>
 > ---
->  .../arm64/boot/dts/qcom/msm8953-flipkart-rimob.dts | 74 ++++++++++++++++++++++
->  1 file changed, 74 insertions(+)
-> 
-> diff --git a/arch/arm64/boot/dts/qcom/msm8953-flipkart-rimob.dts b/arch/arm64/boot/dts/qcom/msm8953-flipkart-rimob.dts
-> index ef4faf763132..de287c8e9686 100644
-> --- a/arch/arm64/boot/dts/qcom/msm8953-flipkart-rimob.dts
-> +++ b/arch/arm64/boot/dts/qcom/msm8953-flipkart-rimob.dts
-> @@ -78,6 +78,13 @@ vph_pwr: vph-pwr-regulator {
->  	};
->  };
->  
-> +&gpu {
-> +	status = "okay";
-> +};
+>  MAINTAINERS | 37 +++++++++++++++++++++++++------------
+>  1 file changed, 25 insertions(+), 12 deletions(-)
+>
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index d7241695df96..4f8dbadbe70b 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -8603,18 +8603,31 @@ S:      Maintained
+>  T:     git https://gitlab.freedesktop.org/drm/misc/kernel.git
+>  F:     drivers/gpu/drm/gma500/
+>
+> -DRM DRIVERS FOR HISILICON
+> -M:     Xinliang Liu <xinliang.liu@linaro.org>
+> -M:     Tian Tao  <tiantao6@hisilicon.com>
+> -R:     Xinwei Kong <kong.kongxinwei@hisilicon.com>
+> -R:     Sumit Semwal <sumit.semwal@linaro.org>
+> -R:     Yongqin Liu <yongqin.liu@linaro.org>
+> -R:     John Stultz <jstultz@google.com>
+> -L:     dri-devel@lists.freedesktop.org
+> -S:     Maintained
+> -T:     git https://gitlab.freedesktop.org/drm/misc/kernel.git
+> -F:     Documentation/devicetree/bindings/display/hisilicon/
+> -F:     drivers/gpu/drm/hisilicon/
+> +DRM DRIVERS FOR HISILICON HIBMC
+> +M:      Yongbang Shi <shiyongbang@huawei.com>
+> +M:      Xinliang Liu <xinliang.liu@linaro.org>
+> +M:      Tian Tao  <tiantao6@hisilicon.com>
+> +R:      Xinwei Kong <kong.kongxinwei@hisilicon.com>
+> +R:      Sumit Semwal <sumit.semwal@linaro.org>
+> +R:      Yongqin Liu <yongqin.liu@linaro.org>
+> +R:      John Stultz <jstultz@google.com>
+> +L:      dri-devel@lists.freedesktop.org
+> +S:      Maintained
+> +T:      git https://gitlab.freedesktop.org/drm/misc/kernel.git
+> +F:      drivers/gpu/drm/hisilicon/hibmc
+
+Please remove me, Sumit Semwal, Yongqin Liu, and John Stultz from here.
+I'm going to hand over the hibmc DRM driver maintenance to you.
+And if you look at the git log, the other three guys were added here
+for the kirin DRM driver.
+ce1fc502de42 MAINTAINERS: Add Sumit Semwal and Yongqin Liu as reviwers
+for kirin DRM driver
+
 > +
-> +&gpu_zap_shader {
-> +	firmware-name = "qcom/msm8953/flipkart/rimob/a506_zap.mdt";
+> +DRM DRIVERS FOR HISILICON KIRIN
+> +M:      Xinliang Liu <xinliang.liu@linaro.org>
+> +M:      Tian Tao  <tiantao6@hisilicon.com>
+> +R:      Xinwei Kong <kong.kongxinwei@hisilicon.com>
+> +R:      Sumit Semwal <sumit.semwal@linaro.org>
+> +R:      Yongqin Liu <yongqin.liu@linaro.org>
+> +R:      John Stultz <jstultz@google.com>
+> +L:      dri-devel@lists.freedesktop.org
+> +S:      Maintained
+> +T:      git https://gitlab.freedesktop.org/drm/misc/kernel.git
+> +F:      Documentation/devicetree/bindings/display/hisilicon/
+> +F:      drivers/gpu/drm/hisilicon/kirin
 
-.mbn, please. You can use https://github.com/linux-msm/pil-squasher to
-squash .mdt+.bNN into .mbn.
+Please remove Tian Tao and Xinwei Kong from here. They are here mainly
+for the hibmc DRM driver.
 
-> +};
->  
->  &hsusb_phy {
->  	vdd-supply = <&pm8953_l3>;
+Once address the above comments, please add my ack:
+Acked-by:  Xinliang Liu <xinliang.liu@linaro.org>
 
--- 
-With best wishes
-Dmitry
+And to be a DRM maintainer, you might need to apply the push
+permission of the drm-misc git repo for pushing the hibmc driver patch
+in the future.
+See the docs below for what DRM-misc is and how to apply the permission:
+https://drm.pages.freedesktop.org/maintainer-tools/committer-drm-misc.html
+https://drm.pages.freedesktop.org/maintainer-tools/drm-misc.html
+
+Thank you very much for maintaining the hibmc DRM driver.
+
+Best regards,
+Xinliang
+
+>
+>  DRM DRIVERS FOR LIMA
+>  M:     Qiang Yu <yuq825@gmail.com>
+> --
+> 2.33.0
+>
