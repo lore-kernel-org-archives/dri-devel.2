@@ -4,136 +4,95 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 89234109190B
-	for <dri-devel@archiver.kernel.org>; Thu, 19 Mar 2026 18:59:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1B9EA1091904
+	for <dri-devel@archiver.kernel.org>; Thu, 19 Mar 2026 19:03:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B819210E9DC;
-	Thu, 19 Mar 2026 18:59:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6C9C210E490;
+	Thu, 19 Mar 2026 19:03:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="gQHzm1a2";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="KewRpEZI";
+	dkim=pass (2048-bit key; unprotected) header.d=marek.ca header.i=@marek.ca header.b="FgPsrYJS";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D923710E9D5
- for <dri-devel@lists.freedesktop.org>; Thu, 19 Mar 2026 18:59:12 +0000 (UTC)
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 62JEJMpf4155932
- for <dri-devel@lists.freedesktop.org>; Thu, 19 Mar 2026 18:59:12 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=6h82EpweN7+m0WPV225yn70R
- 0VhenZVEg8Gg4RbOaxA=; b=gQHzm1a2WTPnKc8MGuCQ+tiz1e3m7jclOtWs2gmM
- RCm9iXHCzaIw+jlxp1q7tdELRIsOJ0aw2EpJ15XbUAYVSGpUtBLixjSQ6eVv4QMg
- W4tbcZ0qVl8FR1tRhdt73gsZaaiJlOFz81pjeQKmwgxNXAAeB168pKRcWrU6D5iW
- 2WAQMlyxak+ImoiFJWi8jO+8n0MlY6fPyveevDCWBB0iOpZx1smgh8E+SjYZlL5a
- VG6kMjmXrSNxdEkEZDs8KPkhYzz8oFg7RmwV2nUdZAj2Siu3EroRIueFD5UbbplW
- g8JkONc38Ulg+yrVJlt5ZLI5qMo+Gxc/X0opjrIOsHGFIg==
-Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com
- [209.85.160.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d0jt9114p-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Thu, 19 Mar 2026 18:59:12 +0000 (GMT)
-Received: by mail-qt1-f200.google.com with SMTP id
- d75a77b69052e-5094ba09affso87568901cf.2
- for <dri-devel@lists.freedesktop.org>; Thu, 19 Mar 2026 11:59:12 -0700 (PDT)
+Received: from mail-qv1-f44.google.com (mail-qv1-f44.google.com
+ [209.85.219.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 88C9B10E18F
+ for <dri-devel@lists.freedesktop.org>; Thu, 19 Mar 2026 19:03:04 +0000 (UTC)
+Received: by mail-qv1-f44.google.com with SMTP id
+ 6a1803df08f44-89c4feaaeb4so12526426d6.2
+ for <dri-devel@lists.freedesktop.org>; Thu, 19 Mar 2026 12:03:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1773946751; x=1774551551;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=6h82EpweN7+m0WPV225yn70R0VhenZVEg8Gg4RbOaxA=;
- b=KewRpEZIWnMKAOv+H3Y1vvzbA8CXZ68x3v98PZfY8hY4le+Ysi/MiBPlxa2HfDnuP6
- zj6kawt8kGm3OdV3BNO4LaMP0sBtJGoYDj6PvctoEPTzwWWNbKKiy+HHMCxBsLULHm6k
- T3Jf/YlE1kpr3h/8M92Ea3lJq0CO9G4oFvSE0kmmgA4F63owHoZ83PmtOyCQWnQlmU7x
- JxukZXc/U5HEucE/1os6qA2JJ05iI2z7+CuS+CFFFsGl1+mWT2nBlTw8UPvOiXLNWsw2
- sLRecpZzCb6RpbJfl5SWV54SI0o6qMl4H1pv/6Ad5VDrqE4A+7GB6F0x2P01Te3t7DzT
- UV9g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1773946751; x=1774551551;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+ d=marek.ca; s=google; t=1773946983; x=1774551783; darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-language:in-reply-to:mime-version
+ :user-agent:date:message-id:from:references:cc:to:subject:from:to:cc
  :subject:date:message-id:reply-to;
- bh=6h82EpweN7+m0WPV225yn70R0VhenZVEg8Gg4RbOaxA=;
- b=bnhkbMRv2lgtZpsCubcyN23U5hjs5NQPnEjJ020HIp/QnJ9XavTrez0EIEbS1rEqZA
- MPeFS1oNb6cye/QuxTozdgvs1+tPlQVsvwPPlfqLT+dPl32HeqaIKY7wwEN1A17ZaxQ3
- dPa/DoWr+zbIEMGIdf7bFHMo9HDqE6on/AnCCakEuSA0Ov1cMoT5oefShRcQueXS3bXU
- Y5McQFS45Is4GsLpa2tIUW4US7DcDa0ALqmRQeAtiPfXZUGex3GYOxiXojIGJTW+tZwX
- DR9b7UG93EEjqLik41dETZS5uHXKwpB1hFCuEH+q//Oe4eCDAKeZRU6ZyJimElTtK5ij
- IuOg==
+ bh=Z1HBWRD3UdfQ/mqZ4c9b3lsjSPXBlvDoL130uUTkvuA=;
+ b=FgPsrYJSAJwSZMnykr8x8H+IXFKX54aFKXm4HwZaZmCUbH251w+DKbyrv9ezOlzffr
+ sXRDSM91e5S8B9fe/kXklsn1xvYw3oXb5QZ9010dqIejBtjq5KGfyl2MggSI6MWQq7NS
+ rfkVchlTe+n1+1Iox09RTUBaJs1ewOcctSrKIn3/hm89wmowj6umHmyUfTyVlzBKe8fZ
+ +ieBGajprdTVrdDKN6P4IGDtsXtHGPGpcKbwXK7lIPiytkCSzyHs+TR7YVuMdEeUQVAC
+ QxpQINqNGex6xgBJa31rEUN6rKZpp/fA92Jaa+xjt1llzp8n3q1tAmeyauS/yYacH9L+
+ Ikvw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1773946983; x=1774551783;
+ h=content-transfer-encoding:content-language:in-reply-to:mime-version
+ :user-agent:date:message-id:from:references:cc:to:subject:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=Z1HBWRD3UdfQ/mqZ4c9b3lsjSPXBlvDoL130uUTkvuA=;
+ b=nhq7e4vNAZZDciaCJ6c0ornl/1vszg9zydp114+cnRE7M5kiU0DlGStgmFbgIFJv3F
+ ZxGyzEVoQ0qxI7qFgVPvvjmLsOL1YHYv/vn8PohqAjyayHtJcd+RCmEAEasPCL0zWsBP
+ Z+XFdj+9TSij/tlKiJKGYodF3iz5RUB2Wk4OryrFLq8JGKWIqNYjpF6l/F1bV5cE6pNf
+ bLN0YfV14tN8D05o+CysSRQlLFEwXAEvngHSWaBqD2O24oeTdSc8+Cb0CTBiTEsvORUE
+ twfzRCqdsrocaZXRKEb5ArWsfzzQgSd1l1O4HYZHFUvyKeHiINMNLE6zLE1dnf1mCqnp
+ iRpw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUAK7ahSQgxUZMJIxiLu4UycdoEyl9cydR0PexbzuzxfzQI8pZ4bmGD1H16jxy4dA/6ACeVU/0xkfA=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxeFMzDf3NKdRPtHgT95/tHLacUH6FOxZYKqj81NOrb1ndAHihq
- HS9Hc6/X/dt4EBY+tu61OSxNaB9P4PKg3VGGAq2KU0AktZfTZ7TQP+vqhW5Xz2oYWDlDPf4UWjo
- OEN7RnP1jP6s0nhRXhWE8uihx2Ih+KoiyRABzAIbFJhAczXTTXW3YUOxlLjMJiM4jzq1Hids=
-X-Gm-Gg: ATEYQzya3iQ8UKI+zfZfD2E8gvdHq+kqTbouMi41vT8nyFUGLv0Y+d16oUkCFnTvvGf
- Lwy1ageAIZROr5eDwUG7u1YTJRq4B0eO81LJXbWtCbZkuIDQ9ouzQB/YYgS77XSwZRDPN7DarF+
- 2iJuM61ngPtlMM038wK464ARW7iizeD2aBFg2Ujmrn3FpCGqp3hDLga08tHjDuI+xY1fKSAOqoc
- ANVSkITGi0ZyyFXEh2w1LDY/Nq+mpCQcAf2qn8MqgK9d3KCp/5mL74mgoZXRx77XG/1xpYOhYcn
- WYTEYM2ogh44ZufHyxxJ86SmMZoJN3KWDHioNMJyFQQCkPSgSjRMDHRNS276zTLvsC+hLYwO2g5
- 4+wCgeBnHadps00KGWohyNtzngC+YFF2M95tdtCTQNJ+7CmSsCo7RLdEkfOuWPRIglXU4vBmGzn
- gHL2HEQFla+JMPansfiZETn6bvytM3J7kLXUA=
-X-Received: by 2002:ac8:5ad4:0:b0:509:3706:d134 with SMTP id
- d75a77b69052e-50b3756004bmr4379771cf.52.1773946751199; 
- Thu, 19 Mar 2026 11:59:11 -0700 (PDT)
-X-Received: by 2002:ac8:5ad4:0:b0:509:3706:d134 with SMTP id
- d75a77b69052e-50b3756004bmr4379311cf.52.1773946750585; 
- Thu, 19 Mar 2026 11:59:10 -0700 (PDT)
-Received: from umbar.lan
- (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
- by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-38bf9984248sm757621fa.23.2026.03.19.11.59.09
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 19 Mar 2026 11:59:09 -0700 (PDT)
-Date: Thu, 19 Mar 2026 20:59:07 +0200
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+ AJvYcCUUyLmWZVVNFFD2oRR5hXPDURqliApvjtK5LoEvGA88FzwMUH1k7OxE6Oai17sbSZ+nJ6Ub/qjOpK4=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Ywc2uosUvNlNRq51DVJMG40miYCCbBrGaAxOUh4pRn6qSIPs3ip
+ xjm0XCrSaFoZOmAwhVSI+DqtFr17HbIWLFUzqsMSxE59fLiH/p0kI4bL0HtiCJzvW9U=
+X-Gm-Gg: ATEYQzzK8o7VEUSUFKzpzIL9ySVEugJJcD3VfRwgKCgXuv12t9NPlaDxYjWBUNr1ZXD
+ 7/rkIWGlKuoPPWMiqnkf2xPx2kfTWg/+OjYIHZQwSzP5hm+YKmI/wx058nOvSk36slmYfI8cAvX
+ bQ1wPjSLujOsRKXtQiqtlxYLO0XZTsqj6ZY2S8ugDsIiGHfFJaT3IkDq7t+JbJVJewyYH7UYNBF
+ hjbXpg8satkB83hni2ngX5nVd7Hz9Y8WtccNehbsgzTbDOC/VsclJdlQgfgAHhxhH+z3TPKZC1p
+ NVkaRp/puHURN8KeO/HNcdqKD42yqcrMpSSSSYb0pohLCQpk4KdQvgVVYZFtEmZLeOVmiJgf6ch
+ VzKpyuqWWZTNGaFGgnRDhLourd+CzAxsMLYOsZ/d8pgaOMpFTXVLN3oZdrJZraKhlkCeDSk1vcT
+ KUQS0wfxBzfih+pjhhmcOSWrj5K1lZU/oIPc1INn1YsXvxSSWFNYm6s4NQZiRl6kr3eorh8g==
+X-Received: by 2002:a05:6214:411a:b0:89c:55c1:4234 with SMTP id
+ 6a1803df08f44-89c859cb38dmr3785616d6.2.1773946983319; 
+ Thu, 19 Mar 2026 12:03:03 -0700 (PDT)
+Received: from [192.168.0.189] (modemcable125.110-19-135.mc.videotron.ca.
+ [135.19.110.125]) by smtp.gmail.com with ESMTPSA id
+ 6a1803df08f44-89c85379401sm3035576d6.46.2026.03.19.12.03.01
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 19 Mar 2026 12:03:02 -0700 (PDT)
+Subject: Re: [PATCH v3 4/4] drm/msm/dpu: fix video mode DSC INTF timing width
+ calculation
 To: Alexander Koskovich <akoskovich@pm.me>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
+ <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
  Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
  Marijn Suijten <marijn.suijten@somainline.org>,
- Jeffrey Hugo <jeffrey.l.hugo@gmail.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
-Subject: Re: [PATCH v3 3/4] drm/msm/dsi: Add support for RGB101010 pixel format
-Message-ID: <gompbnsbhmfx3ze2nq2h47t5aohsm6oxuetaymjpn6kajmhu65@r4qnbfshwmgh>
+ Jeffrey Hugo <jeffrey.l.hugo@gmail.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org
 References: <20260319-dsi-rgb101010-support-v3-0-85b99df2d090@pm.me>
- <20260319-dsi-rgb101010-support-v3-3-85b99df2d090@pm.me>
+ <20260319-dsi-rgb101010-support-v3-4-85b99df2d090@pm.me>
+ <1360a31d-669e-48df-a1be-f0af4a253cd7@linaro.org>
+ <3gLK4s97giqqXagfHKhfiIHbfbl2snwfOj9dcTNGPUYi10w9-1EdATqzz1LPCVTpz4bLFYOm8u_Fl8PfC7t5yabows4UCzRKVwjraEWW6hc=@pm.me>
+ <3f8763af-aad2-4d92-90c8-cfd290212503@linaro.org>
+ <7fb9dd9d-13f9-7bba-93d1-08f42dd6ee38@marek.ca>
+ <EEQIOfQNcsc4wya1P0uxlYBG4w9lAeW4OcTZpsxmpGCzf-tgl_3YO0H5zoZyU5XIwBKurxuki_gGca-Z9YfcdYOXN_wpwixoK8q_fITL1bw=@pm.me>
+From: Jonathan Marek <jonathan@marek.ca>
+Message-ID: <387eeb90-df96-9d32-14fb-8fa7fa2fcd45@marek.ca>
+Date: Thu, 19 Mar 2026 15:02:39 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.2.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260319-dsi-rgb101010-support-v3-3-85b99df2d090@pm.me>
-X-Proofpoint-GUID: o8CfqsGQK9a1DX6vR4hVmH4FNTAP7rzq
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzE5MDE1MSBTYWx0ZWRfX6u7HCslf2L8r
- iJmbq8DOZbda+9kmDPYQyqIhy3C7NidkFrumdztgyHcNDnW3LrkKK1bYsBz+WBLr7p2rUhJ8O30
- sH+kqydJT0PUI4S/lDvHyJjj+SCEXqZjudH8zhHtAyUqPuoIeytf7e3i+8/mrNQTTSEruQuW79c
- CPZtsjvkugOMwnrZ6nzCUcu5nZqZsw47Hl2cNRERg474I5gRPNlRHh0W6ghpIeAJWvgBZ9jdjgo
- CNra9RsWg/QzlxIgN1jmEDq42oPfmL8ejsTVYAmULjAIgt1ROA1pU4GUeAettwVOl04sIIzmlh5
- bsy0K5iGM8XNBhYSri+6o0e2y1bI1Sq0LvTUjgighhevwqINgm4fbb9JiQONiRmJrLIDxDdaoSs
- jmdtNPznh50UvdoQEpJnjrjxFiPyceShLa0cgGTLdoGCmhFjcqra67eXl+JNHChi/ksPKVlTYIy
- CzyK+tO9zBkcmkbVYZw==
-X-Proofpoint-ORIG-GUID: o8CfqsGQK9a1DX6vR4hVmH4FNTAP7rzq
-X-Authority-Analysis: v=2.4 cv=FKMWBuos c=1 sm=1 tr=0 ts=69bc4780 cx=c_pps
- a=JbAStetqSzwMeJznSMzCyw==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=EUspDBNiAAAA:8
- a=R0a44-rvPaGPu9M_SJkA:9 a=CjuIK1q_8ugA:10 a=uxP6HrT_eTzRwkO_Te1X:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-03-19_03,2026-03-19_05,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 phishscore=0 bulkscore=0 spamscore=0 malwarescore=0
- lowpriorityscore=0 clxscore=1015 adultscore=0 priorityscore=1501
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2603050001
- definitions=main-2603190151
+In-Reply-To: <EEQIOfQNcsc4wya1P0uxlYBG4w9lAeW4OcTZpsxmpGCzf-tgl_3YO0H5zoZyU5XIwBKurxuki_gGca-Z9YfcdYOXN_wpwixoK8q_fITL1bw=@pm.me>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -149,34 +108,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Mar 19, 2026 at 11:57:56AM +0000, Alexander Koskovich wrote:
-> Add video and command mode destination format mappings for RGB101010,
-> and extend the VID_CFG0 DST_FORMAT bitfield to 3 bits to accommodate
-> the new format value.
+On 3/19/26 1:31 PM, Alexander Koskovich wrote:
+> On Thursday, March 19th, 2026 at 1:23 PM, Jonathan Marek <jonathan@marek.ca> wrote:
 > 
-> Make sure this is guarded behind MSM_DSI_6G_VER >= V2.1.0 as anything
-> older does not support this.
+...>>
+>> The hdisplay calculation in dsi_adjust_pclk_for_compression (which only
+>> affects the clock rate) seems to be wrong, and I think Alexander's panel
+>> must be running at a 20% lower clock because of it. dsi_timing_setup has
+>> the right hdisplay adjustment.
 > 
-> Required for 10 bit panels such as the BOE BF068MWM-TD0.
+> Checked against downstream and the clocks seem to match more or less:
 > 
-> Signed-off-by: Alexander Koskovich <akoskovich@pm.me>
-> ---
->  drivers/gpu/drm/msm/dsi/dsi_host.c            | 10 ++++++++++
->  drivers/gpu/drm/msm/registers/display/dsi.xml |  5 ++++-
->  2 files changed, 14 insertions(+), 1 deletion(-)
+> downstream:
+> pclk: 110070156
+> byte: 103190771
+> 
+> upstream:
+> pclk: 110073457
+> byte: 103193865
+> 
+I was curious about this and looked into it a bit (without testing any HW):
 
-For the patch itself:
+- using MIPI_DSI_FMT_RGB101010 dsi_byte_clk_get_rate cancels the effect 
+of adjusting with bits_per_component for the byte clk, so the byte clock 
+ends up being right
+- using DST_FORMAT_RGB101010 DSI pclk is in 30-bit units instead of 
+24-bit units, so the pclk ends up being right too (but that only works 
+if widebus is enabled)
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+a recent commit (ac47870fd795) changed the hdisplay calculation in 
+dsi_timing_setup to match that in dsi_adjust_pclk_for_compression, but 
+only when widebus is enabled.
 
-Note, you've dropped the patch adding RGB101010 to
-include/drm/drm_mipi_dsi.h without declaring a dependency on any
-external patchset, so this can't be merged.
+So things work out if widebus is enabled and MIPI_DSI_FMT_RGB101010 is 
+used (note: looks like the only upstream 10-bit panel uses 
+MIPI_DSI_FMT_RGB888), otherwise its broken.
 
-Also, there was a report from LKP that you need to fix the meson driver
-while adding new MIPI define (we should not be introducing known
-warnings to the kernel).
+AFAICT if you revert ac47870fd795, use MIPI_DSI_FMT_RGB888, and change 
+dsi_adjust_pclk_for_compression to divide by 24 instead of 30, then it 
+should also work (and won't be dependent on widebus).
 
--- 
-With best wishes
-Dmitry
+
