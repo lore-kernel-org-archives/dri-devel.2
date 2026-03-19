@@ -4,46 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DDCF91075264
-	for <dri-devel@archiver.kernel.org>; Thu, 19 Mar 2026 06:37:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2A1211075264
+	for <dri-devel@archiver.kernel.org>; Thu, 19 Mar 2026 06:37:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3053010E8A0;
-	Thu, 19 Mar 2026 06:37:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AE53010E8A2;
+	Thu, 19 Mar 2026 06:37:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="O1k8etpJ";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="KEUIS8Pe";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B81CC10E8A2
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B730110E8A1
  for <dri-devel@lists.freedesktop.org>; Thu, 19 Mar 2026 06:37:16 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 0958260127;
- Thu, 19 Mar 2026 06:37:16 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 8BAB4C2BCAF;
+ by tor.source.kernel.org (Postfix) with ESMTP id D5B13600AD;
+ Thu, 19 Mar 2026 06:37:15 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 7F365C19424;
  Thu, 19 Mar 2026 06:37:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
  s=k20201202; t=1773902235;
- bh=AEePiLMt/qBf61VeU6enT32ObEI1G0cXzCku+1SkN3M=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
- b=O1k8etpJbNNirnZHXug5xNXptlYn3w9ermcoOQc/Je/vZy5I+ovZbqE6YZwg1ffG3
- nWQL1/fFJCRsPEC25RleH74veA2jgPNPzohUCORlm4zNXWTPeWwx+cedsN0PdSMEpw
- ybS0WLTiDZuPuzw6HVmoIUzCZbUImIhe8AvRtXTx6C/J8m8Slvc9du9wDpRxr8NgjE
- SRlYkj2VDnMSGu/RRlN2YdH+jeHyNayHqtLY366BmcVrJvzLTnBUqh5GT8969H0Wij
- z6EM/OaxOH85n3ib7GPCQLWZGvmJhXub32px0uV3rprGtECQWE/6DoImOk/M9+NAi+
- pdlWYOdSJD1cg==
+ bh=aQtf1QyfWihskNd+yhRowaU+HVhe6DaMsigMxME3Zog=;
+ h=From:Subject:Date:To:Cc:Reply-To:From;
+ b=KEUIS8Ped1m5x3qvaP0KTM6X84H/Qj67ZMMxDbqgNHIdSx/Uueiyfu/9OsTxBgMqq
+ PRYfB1+/dUdepVDSfrfAAYnnF9inhbuiye/wXEkALqarcK1QaNgQbNfTQuyzvWc05a
+ 80IjoElSskjAQz/nhoYhSbI7o7aTcpa7lI92MPO5gmCSPzVkZXphbItkhjMZXoQpKn
+ CUERJmxg9Zgr9Mr8Ea8ekGTwKxzU4nOWsw18Ox4ac491r1i5l+Z+eurLrnbhOJ5u6G
+ XPa8xtq3xuAM+Z0UPmXOkKiNwteuIudkhKTbyDTx5hZV/tipTEk4d74YAniYbYZslJ
+ 5CXeGdve+sgPA==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id 7C0651075264;
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 69A501075265;
  Thu, 19 Mar 2026 06:37:15 +0000 (UTC)
 From: Hermes Wu via B4 Relay <devnull+Hermes.wu.ite.com.tw@kernel.org>
-Date: Thu, 19 Mar 2026 14:37:11 +0800
-Subject: [PATCH v4 1/2] dt-bindings: display: bridge: Add ITE IT6162 MIPI
- DSI to HDMI bridge
+Subject: [PATCH v4 0/2] Add ITE IT6162 MIPI DSI to HDMI bridge driver
+Date: Thu, 19 Mar 2026 14:37:10 +0800
+Message-Id: <20260319-upstream-6162-v4-0-7268483ef03d@ite.com.tw>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260319-upstream-6162-v4-1-7268483ef03d@ite.com.tw>
-References: <20260319-upstream-6162-v4-0-7268483ef03d@ite.com.tw>
-In-Reply-To: <20260319-upstream-6162-v4-0-7268483ef03d@ite.com.tw>
+X-B4-Tracking: v=1; b=H4sIAJaZu2kC/3XNyQ6CMBSF4VchXVvSAVt05XsYF/T2VrpgSIuoI
+ by7hY0DcXlu+v2dSMTgMZJjNpGAo4++a9ModhmBumqvSL1NmwgmFBNC0lsfh4BVQxVXgkq956h
+ L66CyJJk+oPOPtXe+pF37OHThueZHvlz/lUZOGUUDoBSA4Q5PfsAcuiYf7mRJjeLNJTv8cpG4R
+ WONgrJMDzZcfnC++V0mXhYH7YyGomDqi8/z/AI45IOfKQEAAA==
+X-Change-ID: 20260223-upstream-6162-3751e78dfcad
 To: Andrzej Hajda <andrzej.hajda@intel.com>, 
  Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
  Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
@@ -58,11 +60,11 @@ Cc: Pet.Weng@ite.com.tw, Kenneth.Hung@ite.com.tw,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
  Hermes Wu <Hermes.wu@ite.com.tw>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1773902234; l=6238;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1773902234; l=5646;
  i=Hermes.wu@ite.com.tw; s=20241230; h=from:subject:message-id;
- bh=gcRncCVm+FPHL8vjTiimPBkoMIEKl6Dwlw+5kIas+Sc=;
- b=KPADlWaqarQ9U5/u0b0+nTsAj3/LcAez9vpEiQZlUMeW0TFMAOQfTNHk6UkCqqdY2jQPDDyLT
- ZnvtT3T9SSuAGDLjnW1spvRTGzZ5Lepf/37TRnFYmgcBg6f69Qbo75U
+ bh=aQtf1QyfWihskNd+yhRowaU+HVhe6DaMsigMxME3Zog=;
+ b=1tgSRK9GJy46G8ZDS4rS86+ckAOV8HMMAGJJmZfODyJ+y9sSihlQVWho8MQWw8M6WCwKJc9hI
+ DUZdMpPLUXwD2eTT1wiZT6do7YCK8vaPsTZV9pznd4x8MJAiFcVe5lw
 X-Developer-Key: i=Hermes.wu@ite.com.tw; a=ed25519;
  pk=qho5Dawp2WWj9CGyjtJ6/Y10xH8odjRdS6SXDaDAerU=
 X-Endpoint-Received: by B4 Relay for Hermes.wu@ite.com.tw/20241230 with
@@ -84,222 +86,125 @@ Reply-To: Hermes.wu@ite.com.tw
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Hermes Wu <Hermes.wu@ite.com.tw>
+This patch series adds support for the ITE IT6162 MIPI DSI to HDMI
+bridge chip. The IT6162 is an I2C-controlled bridge that receives MIPI
+DSI input and outputs HDMI signals.
 
-Add device tree binding documentation for the ITE IT6162 MIPI DSI to
-HDMI 2.0 bridge chip. The IT6162 is an I2C-controlled bridge that
-supports the following configurations:
-
+The device supports the following configurations:
   - Single MIPI DSI input: up to 4K @ 30Hz
   - Dual MIPI DSI input (combined): up to 4K @ 60Hz
 
-The chip also supports up to 8-channel audio output via 4 I2S data
-channels.
+This series introduces:
+  - dt-bindings: Add YAML binding document for ITE IT6162
+  - drm/bridge: Add ITE IT6162 MIPI DSI to HDMI bridge driver
 
 Signed-off-by: Hermes Wu <Hermes.wu@ite.com.tw>
 ---
 Changes in v4:
-  - Drop ite,support-hdcp
-  - Drop endpoint properties already in video-interfaces.yaml
-  - Fix data-lanes in example with <0 1 2 3>
-  - Add blanking line in example before endpoint subnode starts
-  - Add reset-gpio and power controls to required
+- Documentation/devicetree/bindings/display/bridge/ite,it6162.yaml:
+  * Drop ite,support-hdcp
+  * Drop endpoint properties already in video-interfaces.yaml
+  * Fix data-lanes in example with <0 1 2 3>
+  * Add blanking line in example before endpoint subnode starts
+  * Add reset-gpio and power controls to required
+
+- drivers/gpu/drm/bridge/ite-it6162.c:
+  * Drop struc it6162_audio
+  * Add HDCP_AUTO in enum hdcp_ver{}, FW enable HDCP by sink capability.
+  * Call drm_atomic_helper_connector_hdmi_clear_audio_infoframe()
+    in it6162_bridge_hdmi_audio_shutdown()
+  * Drop it6162_bridge_hdmi_audio_startup()
+  * Add hdmi_clear_hdmi_infoframe and hdmi_write_hdmi_infoframe
+  * Drop it6162_parse_dt() due to "ite,support-hdcp" is removed from DT.
+  * add DRM_BRIDGE_OP_HDMI to it6162->bridge.ops
+
+- Link to v3: https://lore.kernel.org/r/20260313-upstream-6162-v3-0-8497fb7c4406@ite.com.tw
 
 Changes in v3:
-  - Fix lane-polarities: remove $ref redefinition, allow via video-interfaces.yaml
-  - Improve ite,support-hdcp description to clarify FW-based HDCP behavior
-  - Remove descriptions repeating schema constraints
-  - Remove stray comment in ports required section
-  - Fix data-lanes spacing in example: <1 2 3 4>
-  - Add missing newline at end of file
-  - Add missing change log that Reviewed-by tag was drop in V2.
+- Documentation/devicetree/bindings/display/bridge/ite,it6162.yaml:  
+  * Fix lane-polarities: remove $ref redefinition, allow via video-interfaces.yaml
+  * Improve ite,support-hdcp description to clarify FW-based HDCP behavior
+  * Remove descriptions repeating schema constraints
+  * Remove stray comment in ports required section
+  * Fix data-lanes spacing in example: <1 2 3 4>
+  * Add missing newline at end of file
+  * Add missing change log  that Reviewed-by tag was removed when V1->V2
 
-Changes in V2:
-  - Drop Reviewed-by tag due to DT bindings changed.
-  - Add property "ite,spport-hdcp" to enable HDCP
-  - Add property "lane-polarities" and "clock-noncontinuous" for DSI
+- drivers/gpu/drm/bridge/ite-it6162.c:
+  * Fix OFFSET_VERSION_H register offset from 0x03 to 0x05
+  * Add MIPI_PORT_EN_MASK macro combining MIPI_PORT1_EN_MASK and MIPI_PORT0_EN_MASK
+  * Rename HDCP enums: NO_HDCP -> HDCP_DISABLE, NO_HDCP_STATE -> HDCP_STATE_IDLE,
+    AUTH_DONE -> HDCP_STATE_AUTH_DONE, AUTH_FAIL -> HDCP_STATE_AUTH_FAIL
+  * Rename it6162_infoblock_complete() to it6162_wait_command_complete()
+  * Rename it6162_infoblock_host_set() to it6162_infoblock_trigger() 
+  * Remove it6162_infoblock_mipi_config() and it6162_infoblock_write_msg()
+    wrappers, inline into it6162_reset_init() and
+    it6162_mipi_set_video_timing() respectively
+  * Remove it6162_set_default_config() wrapper, inline into
+    it6162_reset_init()  
+  * Fix typo: hdcp_encyption -> hdcp_encryption
+  * Fix typo: it6162_hdcp_read_infomation -> it6162_hdcp_read_information
+  * Remove dev_err_probe() usage outside of probe path
+  * Remove verbose success-path dev_info/dev_dbg logging throughout
+  * Replace __func__ usage in error messages with descriptive strings
+  * Fix double error printing in probe for it6162_init_pdata failure path
+  * Fix uninitialized variable warning: initialize cp_status to
+    DRM_MODE_CONTENT_PROTECTION_DESIRED at declaration; move
+    drm_hdcp_update_content_protection() inside the state-change block
+  * Fix audio sample width mapping: case 20 now maps to WORD_LENGTH_20BIT,
+    case 24 to WORD_LENGTH_24BIT
+  * Remove stray drm_dbg("it6162_bridge_atomic_disable") call
+  * Remove drm_dbg() calls from it6162_display_mode_to_settings()
+  * Drop unused struct it6162 * parameter from it6162_avi_to_video_setting()
+    and it6162_display_mode_to_settings()
+  * Fold it6162_set_default_config() body directly into it6162_reset_init(),
+    removing the wrapper
+  * it6162_infoblock_request_data(): split command complete polling and
+    buffer status check into two steps; use wait_event_timeout() for
+    data_buf_sts since it is updated asynchronously by the interrupt
+    handler; add wait_queue_head_t data_buf_wait to struct it6162 and
+    wake_up() in interrupt handler
+
+- Link to v2: https://lore.kernel.org/r/20260309-upstream-6162-v2-0-debdb6c88030@ite.com.tw
+
+Changes in v2:
+- dt-bindings:
+  * Drop Reviewed-by tag due to below changes
+  * Add property "ite,spport-hdcp" to enable HDCP
+  * Add property "lane-polarities" and "clock-noncontinuous" for DSI
     setting
+
+- drm/bridge:
+  * Drop unused element in struct it6162
+  * Remove regmap wrappers
+  * Use FIELD_PREP for bitfield operations
+  * Update HDCP status with drm_hdcp_update_content_protection()
+  * Add AVI, AUDIO, and SPD infoframe control
+  * Remove conversion from drm_display_mode to videomode
+  * Fix regulator/gpio error handling in it6162_init_pdata() to return proper error codes
+
+- MAINTAINERS
+  * squash to driver patch
+
+- Link to v1: https://lore.kernel.org/r/20260223-upstream-6162-v1-0-ebcc66ccb1fe@ite.com.tw
+
 ---
- .../bindings/display/bridge/ite,it6162.yaml        | 169 +++++++++++++++++++++
- 1 file changed, 169 insertions(+)
+Hermes Wu (2):
+      dt-bindings: display: bridge: Add ITE IT6162 MIPI DSI to HDMI bridge
+      drm/bridge: Add ITE IT6162 MIPI DSI to HDMI bridge driver
 
-diff --git a/Documentation/devicetree/bindings/display/bridge/ite,it6162.yaml b/Documentation/devicetree/bindings/display/bridge/ite,it6162.yaml
-new file mode 100644
-index 0000000000000000000000000000000000000000..d1d8a92825d253ecfa67cb1e793d372e4011b4d4
---- /dev/null
-+++ b/Documentation/devicetree/bindings/display/bridge/ite,it6162.yaml
-@@ -0,0 +1,169 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/display/bridge/ite,it6162.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: ITE IT6162 MIPI DSI to HDMI 2.0 Bridge
-+
-+maintainers:
-+  - Hermes Wu <Hermes.Wu@ite.com.tw>
-+
-+description: |
-+  The ITE IT6162 is a high-performance, low-power HDMI bridge that converts
-+  2 MIPI DSI signals to 1 HDMI 2.0 output. It supports dual MIPI D-PHY 2.0
-+  links up to 10 Gbps each (20 Gbps total), compatible with DSI-2 v2.0.
-+
-+  The HDMI transmitter supports resolutions up to 4Kx2K@60Hz and is compliant
-+  with HDMI 2.0 specifications.
-+
-+  For audio, it supports up to 8-channel LPCM via I2S (multi-line or TDM mode),
-+  with optional S/PDIF or DSD (for SACD). Audio sampling rates up to 192 kHz
-+  are supported.
-+
-+allOf:
-+  - $ref: /schemas/sound/dai-common.yaml#
-+
-+properties:
-+  compatible:
-+    const: ite,it6162
-+
-+  reg:
-+    maxItems: 1
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  reset-gpios:
-+    maxItems: 1
-+
-+  ivdd-supply:
-+    description: Core voltage supply
-+
-+  ovdd-supply:
-+    description: I/O voltage supply
-+
-+  ovdd1833-supply:
-+    description: Flexible I/O voltage supply (1.8V domain)
-+
-+  "#sound-dai-cells":
-+    const: 0
-+
-+  ports:
-+    $ref: /schemas/graph.yaml#/properties/ports
-+
-+    properties:
-+      port@0:
-+        $ref: /schemas/graph.yaml#/$defs/port-base
-+        unevaluatedProperties: false
-+        description: Input port for MIPI DSI-0
-+
-+        properties:
-+          endpoint:
-+            $ref: /schemas/media/video-interfaces.yaml#
-+            unevaluatedProperties: false
-+            required:
-+              - data-lanes
-+
-+      port@1:
-+        $ref: /schemas/graph.yaml#/$defs/port-base
-+        unevaluatedProperties: false
-+        description: Input port for MIPI DSI-1
-+
-+        properties:
-+          endpoint:
-+            $ref: /schemas/media/video-interfaces.yaml#
-+            unevaluatedProperties: false
-+            required:
-+              - data-lanes
-+
-+      port@2:
-+        $ref: /schemas/graph.yaml#/properties/port
-+        description: Audio input port
-+
-+      port@3:
-+        $ref: /schemas/graph.yaml#/properties/port
-+        description: HDMI output port
-+
-+    required:
-+      - port@1
-+
-+required:
-+  - compatible
-+  - reg
-+  - interrupts
-+  - reset-gpios
-+  - ivdd-supply
-+  - ovdd-supply
-+  - ovdd1833-supply
-+  - ports
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/gpio/gpio.h>
-+    #include <dt-bindings/interrupt-controller/irq.h>
-+
-+    i2c {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        bridge@58 {
-+            compatible = "ite,it6162";
-+            reg = <0x58>;
-+
-+            #sound-dai-cells = <0>;
-+
-+            interrupt-parent = <&pio>;
-+            interrupts = <128 IRQ_TYPE_LEVEL_LOW>;
-+
-+            pinctrl-names = "default";
-+            pinctrl-0 = <&it6162_pins>;
-+
-+            reset-gpios = <&pio 127 GPIO_ACTIVE_LOW>;
-+
-+            ivdd-supply = <&pp1000_hdmi_x>;
-+            ovdd-supply = <&pp3300_vio28_x>;
-+            ovdd1833-supply = <&pp1800_vcamio_x>;
-+
-+            ports {
-+                #address-cells = <1>;
-+                #size-cells = <0>;
-+
-+                port@0 {
-+                    reg = <0>;
-+
-+                    it6162_dsi0: endpoint {
-+                        data-lanes = <0 1 2 3>;
-+                        remote-endpoint = <&dsi_0_out>;
-+                    };
-+                };
-+
-+                port@1 {
-+                    reg = <1>;
-+
-+                    it6162_dsi1: endpoint {
-+                        data-lanes = <0 1 2 3>;
-+                        remote-endpoint = <&dsi_1_out>;
-+                    };
-+                };
-+
-+                port@2 {
-+                    reg = <2>;
-+
-+                    it6162_audio_in: endpoint {
-+                        remote-endpoint = <&i2s0_out>;
-+                    };
-+                };
-+
-+                port@3 {
-+                    reg = <3>;
-+
-+                    it6162_hdmi_out: endpoint {
-+                        remote-endpoint = <&hdmi_connector_in>;
-+                    };
-+                };
-+            };
-+        };
-+    };
+ .../bindings/display/bridge/ite,it6162.yaml        |  169 ++
+ MAINTAINERS                                        |    7 +
+ drivers/gpu/drm/bridge/Kconfig                     |   17 +
+ drivers/gpu/drm/bridge/Makefile                    |    1 +
+ drivers/gpu/drm/bridge/ite-it6162.c                | 1628 ++++++++++++++++++++
+ 5 files changed, 1822 insertions(+)
+---
+base-commit: 2622649ad6cdbb3e77bfafc8c0fe686090b77f70
+change-id: 20260223-upstream-6162-3751e78dfcad
 
+Best regards,
 -- 
-2.34.1
+Hermes Wu <Hermes.wu@ite.com.tw>
 
 
