@@ -4,130 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 26DC21075273
-	for <dri-devel@archiver.kernel.org>; Thu, 19 Mar 2026 07:45:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7FEC31075273
+	for <dri-devel@archiver.kernel.org>; Thu, 19 Mar 2026 07:47:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7826910E85D;
-	Thu, 19 Mar 2026 07:45:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D494610E8CF;
+	Thu, 19 Mar 2026 07:47:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="Vn+JEyad";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="vBmFc0X5";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="Vn+JEyad";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="vBmFc0X5";
+	dkim=pass (1024-bit key; unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.b="FtijqO5o";
 	dkim-atps=neutral
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 19BC610E85D
- for <dri-devel@lists.freedesktop.org>; Thu, 19 Mar 2026 07:45:37 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id B18184D314;
- Thu, 19 Mar 2026 07:45:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1773906335; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=mxRzkBdHYjY7hrwTuvDp2O9cV9g6SAPQFdZDLoepySo=;
- b=Vn+JEyad0pxLDJ3tZPbf0PG8sEIM7mLcX3N3fWkLSHCf+CSMbub4dubHyBKbz9R9kiYOki
- LGaolLfMmK2Wmoc6qvzod/cTKFOp7PfgMAfAaf2KOwAemuP8Kw6SPCCWSZ2k4VROTEAre5
- oYPIy2mHKlT6fKIkIjyIocINEgu8VUs=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1773906335;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=mxRzkBdHYjY7hrwTuvDp2O9cV9g6SAPQFdZDLoepySo=;
- b=vBmFc0X5H9LRtjadSVHkSOcWXpMBXUW1FJUeurp93+plQVRdwfusnsZrq4ZSUYJehagk5s
- B0ekitGeqWeC3JAA==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1773906335; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=mxRzkBdHYjY7hrwTuvDp2O9cV9g6SAPQFdZDLoepySo=;
- b=Vn+JEyad0pxLDJ3tZPbf0PG8sEIM7mLcX3N3fWkLSHCf+CSMbub4dubHyBKbz9R9kiYOki
- LGaolLfMmK2Wmoc6qvzod/cTKFOp7PfgMAfAaf2KOwAemuP8Kw6SPCCWSZ2k4VROTEAre5
- oYPIy2mHKlT6fKIkIjyIocINEgu8VUs=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1773906335;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=mxRzkBdHYjY7hrwTuvDp2O9cV9g6SAPQFdZDLoepySo=;
- b=vBmFc0X5H9LRtjadSVHkSOcWXpMBXUW1FJUeurp93+plQVRdwfusnsZrq4ZSUYJehagk5s
- B0ekitGeqWeC3JAA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 4415A4273B;
- Thu, 19 Mar 2026 07:45:35 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id k9kZD5+pu2kUSQAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Thu, 19 Mar 2026 07:45:35 +0000
-Message-ID: <a9d79fe1-b78e-4df8-9ced-6ff81ff90b87@suse.de>
-Date: Thu, 19 Mar 2026 08:45:34 +0100
+Received: from mail-m1973181.qiye.163.com (mail-m1973181.qiye.163.com
+ [220.197.31.81])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B6FF910E8BD
+ for <dri-devel@lists.freedesktop.org>; Thu, 19 Mar 2026 07:47:54 +0000 (UTC)
+Received: from zyb-HP-ProDesk-680-G2-MT.. (unknown [58.22.7.114])
+ by smtp.qiye.163.com (Hmail) with ESMTP id 3789bd654;
+ Thu, 19 Mar 2026 15:47:47 +0800 (GMT+08:00)
+From: Damon Ding <damon.ding@rock-chips.com>
+To: andrzej.hajda@intel.com, neil.armstrong@linaro.org, rfoss@kernel.org,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ airlied@gmail.com, simona@ffwll.ch, victor.liu@nxp.com,
+ shawnguo@kernel.org, s.hauer@pengutronix.de, inki.dae@samsung.com,
+ sw0312.kim@samsung.com, kyungmin.park@samsung.com, krzk@kernel.org,
+ jingoohan1@gmail.com, p.zabel@pengutronix.de, hjc@rock-chips.com,
+ heiko@sntech.de, andy.yan@rock-chips.com
+Cc: Laurent.pinchart@ideasonboard.com, jonas@kwiboo.se,
+ jernej.skrabec@gmail.com, kernel@pengutronix.de, festevam@gmail.com,
+ alim.akhtar@samsung.com, dmitry.baryshkov@oss.qualcomm.com,
+ luca.ceresoli@bootlin.com, nicolas.frattaroli@collabora.com,
+ dianders@chromium.org, m.szyprowski@samsung.com,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+ linux-samsung-soc@vger.kernel.org, linux-rockchip@lists.infradead.org,
+ Damon Ding <damon.ding@rock-chips.com>
+Subject: [PATCH v11 14/17] drm/exynos: exynos_dp: Apply
+ analogix_dp_finish_probe()
+Date: Thu, 19 Mar 2026 15:47:41 +0800
+Message-Id: <20260319074744.1965918-1-damon.ding@rock-chips.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260319071452.1961274-1-damon.ding@rock-chips.com>
+References: <20260319071452.1961274-1-damon.ding@rock-chips.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH V1 for drm-misc-fixes] MAINTAINERS: split hisilicon
- maintenance and add Yongbang Shi for hibmc-drm matainers
-To: Yongbang Shi <shiyongbang@huawei.com>, tiantao6@hisilicon.com,
- xinliang.liu@linaro.org, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, airlied@gmail.com, daniel@ffwll.ch,
- kong.kongxinwei@hisilicon.com, dmitry.baryshkov@oss.qualcomm.com
-Cc: liangjian010@huawei.com, chenjianmin@huawei.com, fengsheng5@huawei.com,
- helin52@h-partners.com, shenjian15@huawei.com, shaojijie@huawei.com,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20260318125326.3709098-1-shiyongbang@huawei.com>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20260318125326.3709098-1-shiyongbang@huawei.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- ARC_NA(0.00)[]; FUZZY_RATELIMITED(0.00)[rspamd.com];
- MIME_TRACE(0.00)[0:+]; RCPT_COUNT_TWELVE(0.00)[17];
- FREEMAIL_TO(0.00)[huawei.com,hisilicon.com,linaro.org,linux.intel.com,kernel.org,gmail.com,ffwll.ch,oss.qualcomm.com];
- RCVD_VIA_SMTP_AUTH(0.00)[]; MID_RHS_MATCH_FROM(0.00)[];
- FREEMAIL_ENVRCPT(0.00)[gmail.com];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- TO_DN_SOME(0.00)[]; RCVD_TLS_ALL(0.00)[];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo, suse.de:mid,
- suse.de:email, suse.com:url]
+X-HM-Tid: 0a9d051098dd03a3kunmf4d8b30239c761
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+ tZV1koWUFDSUNOT01LS0k3V1ktWUFJV1kPCRoVCBIfWUFZQ05CHVZDSEpOTh5JGE4YHhhWFRQJFh
+ oXVRMBExYaEhckFA4PWVdZGBILWUFZTkNVSUlVTFVKSk9ZV1kWGg8SFR0UWUFZT0tIVUpLSEpKQk
+ 1VSktLVUpCWQY+
+DKIM-Signature: a=rsa-sha256;
+ b=FtijqO5oKnriZtUzbOA5Va+zjlJ+2aZBe+kPH+PrPR8uPQWaot9rUYJJnGD1ZMho70HeWUjKsXd//VpLcIMQNifohmsFVnf0J7kp1lzHkTyunBvIs16RZ/hXGif6URYqb2cazb2JtJEOH03TeqiQ1OAvs/cMfT2Iz9dAYwEJ4RM=;
+ c=relaxed/relaxed; s=default; d=rock-chips.com; v=1; 
+ bh=l0rCYWGbbWqoD8V97nbLeMFxlHthOJgEIOH48elhF+M=;
+ h=date:mime-version:subject:message-id:from;
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -143,89 +71,86 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi
+Apply analogix_dp_finish_probe() in order to move the panel/bridge
+parsing from Exynos side to the Analogix side.
 
-Am 18.03.26 um 13:53 schrieb Yongbang Shi:
-> To improve maintainability, split the maintainer information for the hibmc and
-> kirin drivers under the drivers/gpu/drm/hisilicon directory.
->
-> drivers/gpu/drm/hisilicon/hibmc driver has almost completed feature development
-> based on the new generation HiSilicon BMC chip. It was co-developed by
-> Yongbang Shi, Baihan Li and Lin He. Going forward, this module will be
-> maintained by Yongbang Shi.
->
-> Signed-off-by: Yongbang Shi <shiyongbang@huawei.com>
-> Acked-by: Tao Tian <tiantao6@hisilicon.com>
+Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Tested-by: Marek Szyprowski <m.szyprowski@samsung.com>
+Tested-by: Heiko Stuebner <heiko@sntech.de> (on rk3588)
 
-Nit: tags should be given in public even if there was an internal 
-review.  That adds accountability to the patch.
+---
 
-Apart from that:
+Changes in v4:
+- Rename analogix_dp_find_panel_or_bridge() to
+  analogix_dp_finish_probe().
 
-Acked-by: Thomas Zimmermann <tzimmermann@suse.de>
+Changes in v7:
+- Remove exynos_dp_legacy_bridge_init() and inline API
+  devm_drm_of_display_mode_bridge().
+- If the panel or the next_bridge is parsed from DT, use ptr validity
+  to check whether to call component_add() directly at the end of
+  probing.
 
-Best regards
-Thomas
+-Changes in v9:
+- Add Tested-by tag.
+---
+ drivers/gpu/drm/exynos/exynos_dp.c | 19 ++++++++-----------
+ 1 file changed, 8 insertions(+), 11 deletions(-)
 
-> ---
->   MAINTAINERS | 37 +++++++++++++++++++++++++------------
->   1 file changed, 25 insertions(+), 12 deletions(-)
->
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index d7241695df96..4f8dbadbe70b 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -8603,18 +8603,31 @@ S:	Maintained
->   T:	git https://gitlab.freedesktop.org/drm/misc/kernel.git
->   F:	drivers/gpu/drm/gma500/
->   
-> -DRM DRIVERS FOR HISILICON
-> -M:	Xinliang Liu <xinliang.liu@linaro.org>
-> -M:	Tian Tao  <tiantao6@hisilicon.com>
-> -R:	Xinwei Kong <kong.kongxinwei@hisilicon.com>
-> -R:	Sumit Semwal <sumit.semwal@linaro.org>
-> -R:	Yongqin Liu <yongqin.liu@linaro.org>
-> -R:	John Stultz <jstultz@google.com>
-> -L:	dri-devel@lists.freedesktop.org
-> -S:	Maintained
-> -T:	git https://gitlab.freedesktop.org/drm/misc/kernel.git
-> -F:	Documentation/devicetree/bindings/display/hisilicon/
-> -F:	drivers/gpu/drm/hisilicon/
-> +DRM DRIVERS FOR HISILICON HIBMC
-> +M:      Yongbang Shi <shiyongbang@huawei.com>
-> +M:      Xinliang Liu <xinliang.liu@linaro.org>
-> +M:      Tian Tao  <tiantao6@hisilicon.com>
-> +R:      Xinwei Kong <kong.kongxinwei@hisilicon.com>
-> +R:      Sumit Semwal <sumit.semwal@linaro.org>
-> +R:      Yongqin Liu <yongqin.liu@linaro.org>
-> +R:      John Stultz <jstultz@google.com>
-> +L:      dri-devel@lists.freedesktop.org
-> +S:      Maintained
-> +T:      git https://gitlab.freedesktop.org/drm/misc/kernel.git
-> +F:      drivers/gpu/drm/hisilicon/hibmc
-> +
-> +DRM DRIVERS FOR HISILICON KIRIN
-> +M:      Xinliang Liu <xinliang.liu@linaro.org>
-> +M:      Tian Tao  <tiantao6@hisilicon.com>
-> +R:      Xinwei Kong <kong.kongxinwei@hisilicon.com>
-> +R:      Sumit Semwal <sumit.semwal@linaro.org>
-> +R:      Yongqin Liu <yongqin.liu@linaro.org>
-> +R:      John Stultz <jstultz@google.com>
-> +L:      dri-devel@lists.freedesktop.org
-> +S:      Maintained
-> +T:      git https://gitlab.freedesktop.org/drm/misc/kernel.git
-> +F:      Documentation/devicetree/bindings/display/hisilicon/
-> +F:      drivers/gpu/drm/hisilicon/kirin
->   
->   DRM DRIVERS FOR LIMA
->   M:	Qiang Yu <yuq825@gmail.com>
-
+diff --git a/drivers/gpu/drm/exynos/exynos_dp.c b/drivers/gpu/drm/exynos/exynos_dp.c
+index b2597fafd73d..9f3d4d4c7352 100644
+--- a/drivers/gpu/drm/exynos/exynos_dp.c
++++ b/drivers/gpu/drm/exynos/exynos_dp.c
+@@ -158,9 +158,6 @@ static int exynos_dp_probe(struct platform_device *pdev)
+ 	struct device *dev = &pdev->dev;
+ 	struct device_node *np;
+ 	struct exynos_dp_device *dp;
+-	struct drm_panel *panel;
+-	struct drm_bridge *bridge;
+-	int ret;
+ 
+ 	dp = devm_kzalloc(&pdev->dev, sizeof(struct exynos_dp_device),
+ 			  GFP_KERNEL);
+@@ -187,30 +184,30 @@ static int exynos_dp_probe(struct platform_device *pdev)
+ 		goto out;
+ 	}
+ 
+-	ret = drm_of_find_panel_or_bridge(dev->of_node, 0, 0, &panel, &bridge);
+-	if (ret == -ENODEV) {
++	if (of_get_display_timings(dev->of_node)) {
+ 		dp->plat_data.next_bridge = devm_drm_of_display_mode_bridge(dp->dev,
+ 									dp->dev->of_node,
+ 									DRM_MODE_CONNECTOR_eDP);
+-		ret = IS_ERR(dp->plat_data.next_bridge) ? PTR_ERR(dp->plat_data.next_bridge) : 0;
++		if (IS_ERR(dp->plat_data.next_bridge))
++			return PTR_ERR(dp->plat_data.next_bridge);
+ 	}
+-	if (ret)
+-		return ret;
+ 
+ 	/* The remote port can be either a panel or a bridge */
+-	dp->plat_data.panel = panel;
+-	dp->plat_data.next_bridge = bridge;
+ 	dp->plat_data.dev_type = EXYNOS_DP;
+ 	dp->plat_data.power_on = exynos_dp_poweron;
+ 	dp->plat_data.power_off = exynos_dp_poweroff;
+ 	dp->plat_data.attach = exynos_dp_bridge_attach;
++	dp->plat_data.ops = &exynos_dp_ops;
+ 
+ out:
+ 	dp->adp = analogix_dp_probe(dev, &dp->plat_data);
+ 	if (IS_ERR(dp->adp))
+ 		return PTR_ERR(dp->adp);
+ 
+-	return component_add(&pdev->dev, &exynos_dp_ops);
++	if (dp->plat_data.panel || dp->plat_data.next_bridge)
++		return component_add(&pdev->dev, &exynos_dp_ops);
++	else
++		return analogix_dp_finish_probe(dp->adp);
+ }
+ 
+ static void exynos_dp_remove(struct platform_device *pdev)
 -- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
-
+2.34.1
 
