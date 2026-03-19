@@ -4,132 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0EF8E1090227
-	for <dri-devel@archiver.kernel.org>; Thu, 19 Mar 2026 13:37:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6DCA21090229
+	for <dri-devel@archiver.kernel.org>; Thu, 19 Mar 2026 13:48:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7F6DF10E908;
-	Thu, 19 Mar 2026 13:37:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C20A810E16E;
+	Thu, 19 Mar 2026 13:48:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="1MTNSIt/";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="1a0VpoHg";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="1MTNSIt/";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="1a0VpoHg";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="YGwlOTbk";
 	dkim-atps=neutral
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D722010E908
- for <dri-devel@lists.freedesktop.org>; Thu, 19 Mar 2026 13:37:39 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 3212C4D1E9;
- Thu, 19 Mar 2026 13:37:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1773927458; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=0hOoVgrvrWssLHbO7D3D+SNV9TNdhV/zsQJ2wjDuaL0=;
- b=1MTNSIt/00f1lzYkXA8LtKkJTg4XFrYl4+6RHc5WwXLPA2QBD/l0RtQl+gHIZg5MeteJMO
- hUXXB7dJVJLpSmuXc/1Yue5PTttmBYvcJ8sh9/+uwWnlRfnzbOxtulV1KUSUTy1GFzCjQh
- 0jla4SG1cO6igedS7e/8BGiaaA5RXt4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1773927458;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=0hOoVgrvrWssLHbO7D3D+SNV9TNdhV/zsQJ2wjDuaL0=;
- b=1a0VpoHgNo3YcNVr+0mU7ricVAbC3hP/mZX/03avfibH4voVIv2nhJu5WOVQHTgAQadUdq
- j6w+l2YtYHua11Bg==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1773927458; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=0hOoVgrvrWssLHbO7D3D+SNV9TNdhV/zsQJ2wjDuaL0=;
- b=1MTNSIt/00f1lzYkXA8LtKkJTg4XFrYl4+6RHc5WwXLPA2QBD/l0RtQl+gHIZg5MeteJMO
- hUXXB7dJVJLpSmuXc/1Yue5PTttmBYvcJ8sh9/+uwWnlRfnzbOxtulV1KUSUTy1GFzCjQh
- 0jla4SG1cO6igedS7e/8BGiaaA5RXt4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1773927458;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=0hOoVgrvrWssLHbO7D3D+SNV9TNdhV/zsQJ2wjDuaL0=;
- b=1a0VpoHgNo3YcNVr+0mU7ricVAbC3hP/mZX/03avfibH4voVIv2nhJu5WOVQHTgAQadUdq
- j6w+l2YtYHua11Bg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id CDAAA4273B;
- Thu, 19 Mar 2026 13:37:37 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id XW/HMCH8u2n9QAAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Thu, 19 Mar 2026 13:37:37 +0000
-Message-ID: <92f2e569-59c9-411a-87aa-1b0f05850e43@suse.de>
-Date: Thu, 19 Mar 2026 14:37:37 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 03/16] drm/mipi-dbi: Provide callbacks for atomic
- interfaces
-To: David Lechner <david@lechnology.com>, javierm@redhat.com,
- lanzano.alex@gmail.com, kamlesh.gurudasani@gmail.com,
- architanant5@gmail.com, wens@kernel.org, mripard@kernel.org,
- maarten.lankhorst@linux.intel.com, simona@ffwll.ch, airlied@gmail.com
-Cc: dri-devel@lists.freedesktop.org
-References: <20260311101438.365997-1-tzimmermann@suse.de>
- <20260311101438.365997-4-tzimmermann@suse.de>
- <7c5fcdca-eb77-4a7c-82e2-92bd46ddd275@lechnology.com>
- <fa8648a2-cbfd-43d8-912a-252f7a8ca56c@lechnology.com>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <fa8648a2-cbfd-43d8-912a-252f7a8ca56c@lechnology.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-2.80 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- SUSPICIOUS_RECIPS(1.50)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- FREEMAIL_TO(0.00)[lechnology.com,redhat.com,gmail.com,kernel.org,linux.intel.com,ffwll.ch];
- TAGGED_RCPT(0.00)[]; ARC_NA(0.00)[]; MIME_TRACE(0.00)[0:+];
- RCVD_VIA_SMTP_AUTH(0.00)[];
- FUZZY_RATELIMITED(0.00)[rspamd.com];
- RCPT_COUNT_SEVEN(0.00)[11]; FREEMAIL_ENVRCPT(0.00)[gmail.com];
- TO_DN_SOME(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
- FROM_HAS_DN(0.00)[]; MID_RHS_MATCH_FROM(0.00)[];
- RCVD_TLS_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
- TO_MATCH_ENVRCPT_ALL(0.00)[];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid, imap1.dmz-prg2.suse.org:helo,
- suse.com:url]
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AF55510E16E
+ for <dri-devel@lists.freedesktop.org>; Thu, 19 Mar 2026 13:47:59 +0000 (UTC)
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+ by smtpout-02.galae.net (Postfix) with ESMTPS id B61551A2EE5;
+ Thu, 19 Mar 2026 13:47:55 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 7B8DF5FDEB;
+ Thu, 19 Mar 2026 13:47:55 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
+ with ESMTPSA id 7E729104509C4; Thu, 19 Mar 2026 14:47:48 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+ t=1773928074; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ content-transfer-encoding:in-reply-to:references;
+ bh=Cx839nwFg9x1myWgtHWJ12W7NUrDxF+NCqHOKy0Irew=;
+ b=YGwlOTbkR50NQYQfNXh2cJGHzaO3fEj40UV2vASwufkxtYNiRS+Tlx0STCBD19Q86PRn4O
+ COCxtnDSJ7gfxMrLrx//a2xnO71QErmyLNlgNBkYX1x0ic/zPzemW6N0mUdv86uGBodOXR
+ dyT/XSQW1UbGFUEl3ceKvBiXRmw1/snDgl+47+Q3T03+vzdU/B/+Xva5Y4OsyAJ18oUJfO
+ PHjHgnM1gKXjGjwbZBct3957MBU2yjN+oyHuXxVaXggPAjA4z/kjlbtrsBBaL8CpKKpHgy
+ BfbgET1O8h9dDVWuiOr1/B9d0U/eIdeDSzAI3OjS5nUlGAihybwqXd+hafRHnQ==
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 19 Mar 2026 14:47:47 +0100
+Message-Id: <DH6T0NTZHP93.2DWN4BWDPP331@bootlin.com>
+Subject: Re: [PATCH v2 0/2] drm: bridge: ti-sn65dsi83: Improve dual-link
+ LVDS support
+Cc: <Laurent.pinchart@ideasonboard.com>, <jonas@kwiboo.se>,
+ <jernej.skrabec@gmail.com>, <maarten.lankhorst@linux.intel.com>,
+ <mripard@kernel.org>, <tzimmermann@suse.de>, <airlied@gmail.com>,
+ <simona@ffwll.ch>, <robh@kernel.org>, <krzk+dt@kernel.org>,
+ <conor+dt@kernel.org>, <valentin@compulab.co.il>,
+ <philippe.schenker@toradex.com>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>, <devicetree@vger.kernel.org>
+To: <tessolveupstream@gmail.com>, "Marek Vasut" <marex@nabladev.com>,
+ <andrzej.hajda@intel.com>, <neil.armstrong@linaro.org>, <rfoss@kernel.org>
+From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
+X-Mailer: aerc 0.20.1
+References: <20260312043743.261475-1-tessolveupstream@gmail.com>
+ <9f694b2d-44bc-46ad-8aa3-b464c2f0da13@nabladev.com>
+ <176ed865-11a6-42de-89e0-06951b59a430@gmail.com>
+ <DH0X7QW3AH3C.PRNRA8CRSSKA@bootlin.com>
+ <49b79a0d-844b-4fee-bccb-706187ed76d1@gmail.com>
+ <DH5S3DYT0PJQ.11ABZFGEU6ZPC@bootlin.com>
+ <a937f714-d013-4ac2-a52b-2893fc16f225@gmail.com>
+In-Reply-To: <a937f714-d013-4ac2-a52b-2893fc16f225@gmail.com>
+X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -145,75 +74,146 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi
-
-Am 16.03.26 um 00:31 schrieb David Lechner:
-> On 3/15/26 6:28 PM, David Lechner wrote:
->> On 3/11/26 5:10 AM, Thomas Zimmermann wrote:
->>> Refactor the existing simple-display callbacks such that they invoke
->>> helpers compatible with regular atomic modesetting. Allows for adding
->>> mipi-dbi drives that do not require simple-display helpers. Provide
->>> initializer macro for elements of the regular modesetting pipeline.
->>>
->>> As the new helpers are DRM functions, add the drm_ prefix. Mipi-dbi
->>> interfaces currently lack this.
->>>
+On Thu Mar 19, 2026 at 10:55 AM CET, tessolveupstream wrote:
 >
 >
->>>   static const struct drm_mode_config_helper_funcs mipi_dbi_mode_config_helper_funcs = {
->>> -	.atomic_commit_tail = drm_atomic_helper_commit_tail_rpm,
->>> +	DRM_MIPI_DBI_MODE_CONFIG_HELPER_FUNCS,
->>>   };
->>>   
->>>   static const struct drm_mode_config_funcs mipi_dbi_mode_config_funcs = {
->>> -	.fb_create = drm_gem_fb_create_with_dirty,
->>> -	.atomic_check = drm_atomic_helper_check,
->>> -	.atomic_commit = drm_atomic_helper_commit,
->>> +	DRM_MIPI_DBI_MODE_CONFIG_FUNCS,
->>>   };
->>>   
->>>   static const uint32_t mipi_dbi_formats[] = {
->>> -	DRM_FORMAT_RGB565,
->>> -	DRM_FORMAT_XRGB8888,
->>> +	DRM_MIPI_DBI_PLANE_FORMATS,
->>>   };
->> Why adding these macros? They are only used once, so it seems like it
->> just makes the code harder to read (one more place you have to jump to).
+> On 18-03-2026 14:21, Luca Ceresoli wrote:
+>> Hello Sudarshan,
 >>
->> Maybe this is common style in drm or something?
-> I should have kept reading the next patches before I hit send.
-
-Yeah, these macros will be used extensively by the other drivers.
-
+>> On Wed Mar 18, 2026 at 6:45 AM CET, tessolveupstream wrote:
+>>>>>> You might want to look at recently posted:
+>>>>>>
+>>>>>> [PATCH 2/3] drm/bridge: ti-sn65dsi83: halve horizontal syncs for dua=
+l LVDS output
+>>>>>
+>>>>> Thanks for pointing this out.
+>>>>> I tried applying the patch =E2=80=9C[PATCH 2/3] drm/bridge: ti-sn65ds=
+i83: halve horizontal syncs for dual LVDS output=E2=80=9D on top of the cur=
+rent tree and
+>>>>> removed the changes that I had previously added in the driver.
+>>>>> However, with this patch applied, I am currently seeing only the back=
+light turning on and no image on the LVDS panel.
+>>>>> For reference, the LVDS panel used on our platform is G133HAN01.1 and=
+ the
+>>>>> DSI-to-dual-link LVDS bridge is SN65DSI84ZXHR.
+>>>>
+>>>> Thanks for having tried.
+>>>>
+>>>> Can you please test with both the fixes in the series applied + the te=
+st
+>>>> pattern feature and report the results you get with and without test
+>>>> pattern enabled?
+>>>>
+>>>> The patches to apply are:
+>>>>
+>>>>  - https://lore.kernel.org/all/20260226-ti-sn65dsi83-dual-lvds-fixes-a=
+nd-test-pattern-v1-1-2e15f5a9a6a0@bootlin.com/
+>>>>  - https://lore.kernel.org/all/20260226-ti-sn65dsi83-dual-lvds-fixes-a=
+nd-test-pattern-v1-2-2e15f5a9a6a0@bootlin.com/
+>>>>  - https://lore.kernel.org/lkml/20260309-ti-sn65dsi83-dual-lvds-fixes-=
+and-test-pattern-v2-1-e6aaa7e1d181@bootlin.com/
+>>>>
+>>>
+>>> Thanks for the suggestions.
+>>>
+>>> I tested the three patches together as mentioned, but the LVDS panel
+>>> still only shows the backlight and no image. I also tried removing the
+>>> test-pattern patch and retesting with only the remaining two fixes, but
+>>> the result remained the same =E2=80=94 only the backlight turns on and =
+no image
+>>> is displayed.
+>>
+>> Sure, the test pattern patch does not change anything, unless you enable
+>> the test pattern.
+>>
+>>>> The first thing I suggest doing on your side is testing with the 3 pat=
+ches
+>>>> mentioned above.
+>>>>
+>>>> If you display works, good! Let us know (you can also add your Tested-=
+by /
+>>>> Reviewed-by tags to the test_pattern patch too if applicable).
+>>>>
+>>>> If it doesn't work, compare the individual register values to find the
+>>>> differences, try to figure out why the working setting works and how t=
+o
+>>>> apply that change to the driver in away that keeps other boards
+>>>> working. You're welcome to come back here to discuss it in case you ca=
+n't
+>>>> find out on your own.
+>>>>
+>>>
+>>> I tested the three patches as suggested, but the panel still shows only=
+ the
+>>> backlight with no visible image. I=E2=80=99m unsure how to translate th=
+e working
+>>> register values into a generic fix based on display timings. Any guidan=
+ce
+>>> on the right direction would be helpful.
+>>
+>> What you should do is:
+>>
+>>  1. with your patches, and while the display is enabled (and working) do
+>>
+>>      cat /sys/kernel/debug/regmap/4-002c/registers >regs.working
+>>
+>>  2. remove your patches, add the 3 I mentioned, and while the display is
+>>     enabled (but only backlight is working) do
+>>
+>>      cat /sys/kernel/debug/regmap/4-002c/registers >regs.broken
+>>
+>> Then compare regs.working and regs.broken. Which registers differ? Can y=
+ou
+>> give a reason for the differences?
+>>
+>> You can come back with these values here so we may discuss them.
+>>
 >
-> It would have helped if the commit message mentioned why we are doing
-> this and not just what we are doing.
+> I followed your suggestion and captured the register dumps in both cases.
 
-OK.
+Thanks for getting the values.
 
-Best regards
-Thomas
+> In the working case, several of the timing registers remain at 0,
+> while in the broken case they are programmed with non-zero values.
 
->
->>>   
->>>   /**
->>> @@ -633,8 +707,7 @@ int mipi_dbi_dev_init_with_formats(struct mipi_dbi_dev *dbidev,
->>>   				   unsigned int rotation, size_t tx_buf_size)
->>>   {
->>>   	static const uint64_t modifiers[] = {
->>> -		DRM_FORMAT_MOD_LINEAR,
->>> -		DRM_FORMAT_MOD_INVALID
->>> +		DRM_MIPI_DBI_PLANE_FORMAT_MODIFIERS,
->>>   	};
->>>   	struct drm_device *drm = &dbidev->drm;
->>>   	int ret;
+Yes, but read the documentation carefully and you will discover this is
+OK. Also you shuld analyze all the differences, some are very interesting.
 
--- 
+The differences are:
+
+  reg working broken  what changes
+  12:   53      55    CHA_DSI_CLK_RANGE
+  18:   6f      0f    HS_NEG_POLARITY, VS_NEG_POLARITY
+  19:   00      05    CHB_LVDS_VOD_SWING, CHA_LVDS_VOD_SWING
+  24:   00      38    CHA_VERTICAL_DISPLAY_SIZE_LOW (*)
+  25:   00      04    CHA_VERTICAL_DISPLAY_SIZE_HIGH (*)
+  2c:   10      15    CHA_HSYNC_PULSE_WIDTH_LOW
+  34:   28      2c    CHA_HORIZONTAL_BACK_PORCH
+  36:   00      0e    CHA_VERTICAL_BACK_PORCH (*)
+  38:   00      1d    CHA_HORIZONTAL_FRONT_PORCH (*)
+  3a:   00      08    CHA_VERTICAL_FRONT_PORCH (*)
+
+Values with (*) are those you mentioned above (zero in the working case,
+nonzero in the "broken" case). The docs for these registers says: "TEST
+PATTERN GENERATION PURPOSE ONLY". Those values are irrelevant when not
+using the test pattern.
+
+Your timings are all different. That means probably you have them
+incorrectly described in device tree or the panel driver, so the
+ti-sn65dsi83 driver computes them using a correct formula but based on
+incorrect inputs, thus producing incorrect output values into the
+registers. What are the timings in your dts or the panel drivers? If you
+don't understand the question: what is your panel description in device
+tree?
+
+About CHA_DSI_CLK_RANGE: what is your DSI clock?
+
+Finally I don't think the swing values are problematic, so I'd leave them
+as the last thing to check.
+
+Luca
+
 --
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
-
-
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
