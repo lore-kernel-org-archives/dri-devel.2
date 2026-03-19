@@ -4,60 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 70D721075286
-	for <dri-devel@archiver.kernel.org>; Thu, 19 Mar 2026 09:42:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9F31F107528A
+	for <dri-devel@archiver.kernel.org>; Thu, 19 Mar 2026 09:42:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D68CB10E929;
-	Thu, 19 Mar 2026 09:42:28 +0000 (UTC)
-X-Greylist: delayed 501 seconds by postgrey-1.36 at gabe;
- Thu, 19 Mar 2026 02:14:04 UTC
-Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
- by gabe.freedesktop.org (Postfix) with ESMTP id BA36910E7F0
- for <dri-devel@lists.freedesktop.org>; Thu, 19 Mar 2026 02:14:04 +0000 (UTC)
-Received: from loongson.cn (unknown [10.20.42.172])
- by gateway (Coremail) with SMTP id _____8CxJMHtWbtpkYocAA--.35544S3;
- Thu, 19 Mar 2026 10:05:33 +0800 (CST)
-Received: from [10.20.42.172] (unknown [10.20.42.172])
- by front1 (Coremail) with SMTP id qMiowJBxrsLrWbtpAj1YAA--.38302S2;
- Thu, 19 Mar 2026 10:05:31 +0800 (CST)
-Message-ID: <d2a2e493-40a5-4088-9581-7d7c9c6f96eb@loongson.cn>
-Date: Thu, 19 Mar 2026 10:05:51 +0800
+	by gabe.freedesktop.org (Postfix) with ESMTP id BFB7F10E931;
+	Thu, 19 Mar 2026 09:42:32 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="jAXZ7e87";
+	dkim-atps=neutral
+Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com
+ [209.85.214.177])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7508C10E8E8
+ for <dri-devel@lists.freedesktop.org>; Thu, 19 Mar 2026 08:32:24 +0000 (UTC)
+Received: by mail-pl1-f177.google.com with SMTP id
+ d9443c01a7336-2b056b7f783so3239045ad.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 19 Mar 2026 01:32:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1773909144; x=1774513944; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=VqOOQO8G00f+NnUwp116p4eShMIJWuolK06DttQTATw=;
+ b=jAXZ7e871fsBBQklw4JK8t8FRs2+nyDr58hApkXAssiPMOdnhTbE1rfqeT5Zch5P2a
+ VVnxEjRh/arnfnWuxUV4lKfDf5r7TDdhNrBgIeAKKB2KlDthsD9ibbNHJXbNPkihys57
+ O6luYVwP3/NZvyXy53muXB6Kiyx2hq6YT52bol3psnWxAFhbcBoucBK+EdZ5WDwmIGQv
+ o0vmrPuscanOUXPGWHAZ0y8xlusmBtb00+6M7DjdphJx+ihFBhWHvWNU4rsnjFlAgmM4
+ fIEh5bnjYe8fCU/pPPjx+K1Qv0RyHmNWhR1c07VZMK+058FqRAdrMFFoYm2JDGIqXgBI
+ msew==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1773909144; x=1774513944;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=VqOOQO8G00f+NnUwp116p4eShMIJWuolK06DttQTATw=;
+ b=JwWfmSsD8MSMJyiW60xQ5a/F8r2LM6dDdnTWNbq00Guy3IiVv+oDCtNnCvjvgZM+Uz
+ wAQJacNA7YuYce/fKp++ZrvE6GrzSXJtOcLybQdcc9rJOR2DD6YVF/C0vENqxquOPEuw
+ hsg7pD7b+NrrmqUlN8Ysv1DUR/b5zn1hCfQakO42Xm9IJ1txg2LK0TxXxNXZ5/+7Opiq
+ HF6t1iGR3+H2lMeWBg+JL0pdGEVS7CEftLTmh19VHgnR3MHrecwDWBOnotrEdIBVA9Ek
+ XjwI3sxer+JXYKRNdM7kokAEBxEccyUDdt439PxT6SkqWNDhUTDqN/XOLfXUj3EF8+E+
+ PJOQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXoraa+aHg1FFhIeDL8FeosdOT3i/vb184cQJH+45rcBQe8H7I3u5L4GIBvhDDG3dgC5mVZrJAi67o=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzECSCqw8RUguTRtVdbJSabVOrklZbmKAlGtQPesJnKepaR5ILV
+ EGRa+InEYfTE/REaGX0tK44NLrDEcEs4fZiv5QmTmmZeeWbWlDbYsnl9
+X-Gm-Gg: ATEYQzyoKNu6GS9wXzN3jkOv+CSkguc0s0hqyGosNvG9xz2XwrmprrzKEMcDvMTRntC
+ LQ/NFKAoXKVAXcNq/Qu3yMNYpBgmLz4BtU7CYRZIOBBEe8z/zeY2AuYVxucZr5+4ZOawg9QW67C
+ cmqNp+5eXHtWm+KgVqnSjw0eh2zVCpMf84N2qTdl9euIDIB0Iuj/ycd/Rza8Tmh6ZTvxgevdsO/
+ 4oqny40hehRLgiF9pzOp9HZg80GvIyNXOlkhe9Kg7aHdHrhxUVbDL4Llr4wob6Jd7EEGKBRpT+8
+ sYa3hUcuq05K8+/sG+zcwgD0UtoZT56u1tbut5eAn934+pUZDz6quI2twN/jct4HTezLZORzhi9
+ AwkLH8tnzPRObMHFC2skmeBxrDVNWlpDnKsRNnzA89GvS1+x9ACUPW+YqynIKkBeLI6HHOz1nXL
+ XECmD96OV45cp+L1/h2FDVGg2+h4SkLIdCd9BN00ECjc35BrUNDEAegIoyLQ==
+X-Received: by 2002:a17:903:38c5:b0:2b0:6ba2:3d32 with SMTP id
+ d9443c01a7336-2b07716eb19mr29493095ad.2.1773909143843; 
+ Thu, 19 Mar 2026 01:32:23 -0700 (PDT)
+Received: from phuc-desktop.. ([183.91.15.56])
+ by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-2b06e603b2asm53581615ad.55.2026.03.19.01.32.20
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 19 Mar 2026 01:32:23 -0700 (PDT)
+From: phucduc.bui@gmail.com
+To: 
+Cc: phucduc.bui@gmail.com, airlied@gmail.com, dri-devel@lists.freedesktop.org,
+ geert@linux-m68k.org, laurent.pinchart@ideasonboard.com,
+ linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, simona@ffwll.ch,
+ tzimmermann@suse.de, wsa+renesas@sang-engineering.com,
+ Geert Uytterhoeven <geert+renesas@glider.be>
+Subject: [PATCH v3] drm: shmobile: Fix white screen after resume when LCDC is
+ stopped
+Date: Thu, 19 Mar 2026 15:31:49 +0700
+Message-ID: <20260319083207.17195-1-phucduc.bui@gmail.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] MAINTAINERS: Update GPU driver maintainer information
-To: Jianmin Lv <lvjianmin@loongson.cn>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Mingcong Bai <jeffbai@aosc.io>, Xi Ruoyao <xry111@xry111.site>,
- Huacai Chen <chenhuacai@kernel.org>
-Cc: Xuefeng Li <lixuefeng@loongson.cn>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-References: <20260318092349.11651-1-lvjianmin@loongson.cn>
-Content-Language: en-US
-From: wuqianhai <wuqianhai@loongson.cn>
-In-Reply-To: <20260318092349.11651-1-lvjianmin@loongson.cn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: qMiowJBxrsLrWbtpAj1YAA--.38302S2
-X-CM-SenderInfo: 5zxtxtpqkdxqxorr0wxvrqhubq/
-X-Coremail-Antispam: 1Uk129KBj93XoW7ur4kGrW7Kr4xKw48AF4rXrc_yoW8XFy3pr
- s3G3s0krnFyF4fArs8Ca17AF4Yq395ArZ8urWqv3sxur90yw1ktr48Ja13JayDZFWUKa17
- twn7AFW0ka1DGFXCm3ZEXasCq-sJn29KB7ZKAUJUUUU7529EdanIXcx71UUUUU7KY7ZEXa
- sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
- 0xBIdaVrnRJUUU9Kb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
- IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
- e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
- 0_Jr0_Gr1l84ACjcxK6I8E87Iv67AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_
- Gr0_Gr1UM2kKe7AKxVWUXVWUAwAS0I0E0xvYzxvE52x082IY62kv0487Mc804VCY07AIYI
- kI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUAVWU
- twAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI48JMx
- kF7I0En4kS14v26r126r1DMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4U
- MxCIbckI1I0E14v26r1Y6r17MI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI
- 0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE
- 14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20x
- vaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVWU
- JVW8JbIYCTnIWIevJa73UjIFyTuYvjxUcpBTUUUUU
 X-Mailman-Approved-At: Thu, 19 Mar 2026 09:42:18 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -74,43 +92,76 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thanks for inviting me to be as co-maintainer and I'll try to do it well.
+From: bui duc phuc <phucduc.bui@gmail.com>
 
-在 2026/3/18 17:23, Jianmin Lv 写道:
-> I and Qianhai are GPU R&D engineers at Loongson, specializing
-> in kernel driver development. We understand that the current
-> Loongson GPU driver lacks dedicated maintenance resources
-> because of some reasons.
-> 
-> As Loongson GPU driver developers, we have both the capability
-> and the responsibility to continuously maintain the Loongson
-> GPU driver, ensuring minimal impact on its users. After internal
-> discussions, our team has decided to recommend me and Qianhai
-> to take over the maintenance responsibilities, and recommend
-> Huacai, Mingcong and Ruoyao to help to review.
-> 
-> And We'll continue to maintain it for current supported chips
-> and drive future updates according to chip support plan.
-> 
-> Signed-off-by: Jianmin Lv <lvjianmin@loongson.cn>
-> 
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 96ea84948d76..4232039b7282 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -8626,8 +8626,13 @@ F:	drivers/gpu/drm/lima/
->   F:	include/uapi/drm/lima_drm.h
->   
->   DRM DRIVERS FOR LOONGSON
-> +M:	Jianmin Lv <lvjianmin@loongson.cn>
-> +M:	Qianhai Wu <wuqianhai@loongson.cn>
-> +R:	Huacai Chen <chenhuacai@kernel.org>
-> +R:	Mingcong Bai <jeffbai@aosc.io>
-> +R:	Xi Ruoyao <xry111@xry111.site>
->   L:	dri-devel@lists.freedesktop.org
-> -S:	Orphan
-> +S:	Maintained
->   T:	git https://gitlab.freedesktop.org/drm/misc/kernel.git
->   F:	drivers/gpu/drm/loongson/
->   
+The LCDC on R8A7740 may show a completely white screen after resuming
+from suspend (s2idle or s2ram).
+
+After resume, both Set A and Set B registers are reset to 0. As the
+Frame End interrupt is not generated while the controller is stopped
+(DO=0), the hardware register switching mechanism is not triggered.
+Consequently, Set A remains at 0x00000000 even though a valid Start
+Address is written to Set B, resulting in a white screen.
+
+This is a timing-dependent race condition. In some configurations,
+debug options slow down the resume path enough for a Frame End
+interrupt to occur, which can mask the issue.
+
+Fix this by priming both register sets with the Start Address while the
+controller is stopped, ensuring a valid base address is available
+immediately after resume.
+
+Tested-by: Geert Uytterhoeven <geert+renesas@glider.be>
+Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
+---
+Changes:
+ - v3 
+   Update commit message, add Tested-by and Reviewed-by tags 
+ - v2 
+   Fix incorrect use of lcdc_write_mirror() for LDSA2R in
+   the DO=0 path; use lcdc_write() to update both register
+   sets as intended.
+
+ .../gpu/drm/renesas/shmobile/shmob_drm_plane.c  | 17 +++++++++++++----
+ 1 file changed, 13 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/gpu/drm/renesas/shmobile/shmob_drm_plane.c b/drivers/gpu/drm/renesas/shmobile/shmob_drm_plane.c
+index b61fda52d17a..23c8489dba71 100644
+--- a/drivers/gpu/drm/renesas/shmobile/shmob_drm_plane.c
++++ b/drivers/gpu/drm/renesas/shmobile/shmob_drm_plane.c
+@@ -70,6 +70,7 @@ static void shmob_drm_primary_plane_setup(struct shmob_drm_plane *splane,
+ 	struct shmob_drm_plane_state *sstate = to_shmob_plane_state(state);
+ 	struct shmob_drm_device *sdev = to_shmob_device(splane->base.dev);
+ 	struct drm_framebuffer *fb = state->fb;
++	u32 ldcnt2r;
+ 
+ 	/* TODO: Handle YUV colorspaces. Hardcode REC709 for now. */
+ 	lcdc_write(sdev, LDDFR, sstate->format->lddfr | LDDFR_CF1);
+@@ -78,11 +79,19 @@ static void shmob_drm_primary_plane_setup(struct shmob_drm_plane *splane,
+ 	/* Word and long word swap. */
+ 	lcdc_write(sdev, LDDDSR, sstate->format->ldddsr);
+ 
+-	lcdc_write_mirror(sdev, LDSA1R, sstate->dma[0]);
+-	if (shmob_drm_format_is_yuv(sstate->format))
+-		lcdc_write_mirror(sdev, LDSA2R, sstate->dma[1]);
++	ldcnt2r = lcdc_read(sdev, LDCNT2R);
++
++	if (ldcnt2r & LDCNT2R_DO) {
++		lcdc_write_mirror(sdev, LDSA1R, sstate->dma[0]);
++		if (shmob_drm_format_is_yuv(sstate->format))
++			lcdc_write_mirror(sdev, LDSA2R, sstate->dma[1]);
+ 
+-	lcdc_write(sdev, LDRCNTR, lcdc_read(sdev, LDRCNTR) ^ LDRCNTR_MRS);
++		lcdc_write(sdev, LDRCNTR, lcdc_read(sdev, LDRCNTR) ^ LDRCNTR_MRS);
++	} else {
++		lcdc_write(sdev, LDSA1R, sstate->dma[0]);
++		if (shmob_drm_format_is_yuv(sstate->format))
++			lcdc_write(sdev, LDSA2R, sstate->dma[1]);
++	}
+ }
+ 
+ static void shmob_drm_overlay_plane_setup(struct shmob_drm_plane *splane,
+-- 
+2.43.0
 
