@@ -4,31 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C50EF1088E70
-	for <dri-devel@archiver.kernel.org>; Thu, 19 Mar 2026 04:00:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A7FD8FB5EAA
+	for <dri-devel@archiver.kernel.org>; Thu, 19 Mar 2026 04:00:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3443D10E86B;
-	Thu, 19 Mar 2026 04:00:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1770110E875;
+	Thu, 19 Mar 2026 04:00:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=pm.me header.i=@pm.me header.b="QfPzEGli";
+	dkim=pass (2048-bit key; secure) header.d=pm.me header.i=@pm.me header.b="bRiJ6h6G";
 	dkim-atps=neutral
-Received: from mail-24418.protonmail.ch (mail-24418.protonmail.ch
- [109.224.244.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C65CC10E868
- for <dri-devel@lists.freedesktop.org>; Thu, 19 Mar 2026 04:00:07 +0000 (UTC)
+Received: from mail-43101.protonmail.ch (mail-43101.protonmail.ch
+ [185.70.43.101])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5605A10E875
+ for <dri-devel@lists.freedesktop.org>; Thu, 19 Mar 2026 04:00:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
- s=protonmail3; t=1773892806; x=1774152006;
- bh=dD/BPKC5aT9eeNrRI4lDwbK6ytFidptagGuSLLMES4o=;
+ s=protonmail3; t=1773892810; x=1774152010;
+ bh=FIhqYnvDqEqh4gLmHXirrSB58x2I5CZdQyjrMqWKARE=;
  h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
  Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
  Message-ID:BIMI-Selector;
- b=QfPzEGliEXKb8VbfjeqZep2AZal6LNwmNkzmhnHj5N+JxyBuw0LTlI/64MruOC90J
- 1WQEZRfpRCnLJnmyLs4gf7xZ0IysuKkOMGwsgrdXAvcxByXDgJeZ3NXXvQ0K3aSAoy
- dg7G8TlimFMYCNFEnRMsL/GiPx3B8vCL0q8lB4HdHLKSOt4jLL0fvp+oRi8hHqfErr
- ZDVcvC8a0Dgpt+j5O6wg6K5wsVkPN/mV0AoHBKCoRDGTw9BizvH3+p3Wprog7WIefl
- 90Aj5LhzTFm6pPK6adLWgsxs0ShmyDApiVdgDEElY8CETET2Tc6VbLkW2pKQJ8CEqa
- KRznc3Yjs13jg==
-Date: Thu, 19 Mar 2026 04:00:01 +0000
+ b=bRiJ6h6GjafcuLXpdRNN3yMXVTX20R+K1o6gxuUj94OzzguM7/st66UTjCRNLI6xz
+ yqgSDgQjUQZFHd/mUj78CJCaPTYNJBUBAT4mm7QmXGBGYL5hk6Eq9Vq46oIDtfHfi+
+ tRZ8Jsj942bc99Mpl/ItCyUU79AtsWqokxOyfBXOd/aeS4ZuV1Dk+UjDjnnp4z+lqp
+ orPkXRyFXZ3ECYTptRCX5DsdVg9Ybfqi1UBshyzFwEsanDbDUEvf+rTChXYvjN9/s4
+ cWDp9RhxDf/Zn2E1Q2CORzbUoTKb0CXx9rs5/djmOoMmeCaa13cIcZq48aGtZ8HYnI
+ A13F6Mc0xCyRw==
+Date: Thu, 19 Mar 2026 04:00:05 +0000
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
@@ -39,14 +39,13 @@ To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
 From: Alexander Koskovich <akoskovich@pm.me>
 Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- Alexander Koskovich <akoskovich@pm.me>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Subject: [PATCH v2 1/3] drm/mipi-dsi: add RGB101010 pixel format
-Message-ID: <20260318-dsi-rgb101010-support-v2-1-698b7612eaeb@pm.me>
+ Alexander Koskovich <akoskovich@pm.me>
+Subject: [PATCH v2 2/3] drm/msm/dsi: Add support for RGB101010 pixel format
+Message-ID: <20260318-dsi-rgb101010-support-v2-2-698b7612eaeb@pm.me>
 In-Reply-To: <20260318-dsi-rgb101010-support-v2-0-698b7612eaeb@pm.me>
 References: <20260318-dsi-rgb101010-support-v2-0-698b7612eaeb@pm.me>
 Feedback-ID: 37836894:user:proton
-X-Pm-Message-ID: 885ab5d382f2949f45e29c33c5f5c86b683a34c0
+X-Pm-Message-ID: 333f197c982a3645d0cf94f99cb8a44c643d3a4c
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
@@ -65,40 +64,182 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add MIPI_DSI_FMT_RGB101010 for 30 bit (10,10,10 RGB) pixel format,
-corresponding to the packed 30 bit pixel stream defined in MIPI DSI
-v1.3 Section 8.8.17.
+Add video and command mode destination format mappings for RGB101010,
+and extend the VID_CFG0 DST_FORMAT bitfield to 3 bits to accommodate
+the new format value.
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Make sure this is guarded behind MSM_DSI_6G_VER >=3D V2.1.0 as anything
+older does not support this.
+
+Required for 10 bit panels such as the BOE BF068MWM-TD0.
+
 Signed-off-by: Alexander Koskovich <akoskovich@pm.me>
 ---
- include/drm/drm_mipi_dsi.h | 4 ++++
- 1 file changed, 4 insertions(+)
+ drivers/gpu/drm/msm/dsi/dsi_cfg.c             | 8 ++++++++
+ drivers/gpu/drm/msm/dsi/dsi_cfg.h             | 1 +
+ drivers/gpu/drm/msm/dsi/dsi_host.c            | 9 +++++++++
+ drivers/gpu/drm/msm/registers/display/dsi.xml | 5 ++++-
+ 4 files changed, 22 insertions(+), 1 deletion(-)
 
-diff --git a/include/drm/drm_mipi_dsi.h b/include/drm/drm_mipi_dsi.h
-index 3aba7b380c8d..a822e9e876af 100644
---- a/include/drm/drm_mipi_dsi.h
-+++ b/include/drm/drm_mipi_dsi.h
-@@ -140,6 +140,7 @@ struct mipi_dsi_host *of_find_mipi_dsi_host_by_node(str=
-uct device_node *node);
- #define MIPI_DSI_HS_PKT_END_ALIGNED=09BIT(12)
+diff --git a/drivers/gpu/drm/msm/dsi/dsi_cfg.c b/drivers/gpu/drm/msm/dsi/ds=
+i_cfg.c
+index bd3c51c350e7..6a7ea2183a3b 100644
+--- a/drivers/gpu/drm/msm/dsi/dsi_cfg.c
++++ b/drivers/gpu/drm/msm/dsi/dsi_cfg.c
+@@ -133,6 +133,7 @@ static const struct msm_dsi_config msm8998_dsi_cfg =3D =
+{
+ =09.io_start =3D {
+ =09=09{ 0xc994000, 0xc996000 },
+ =09},
++=09.has_rgb30 =3D true,
+ };
 =20
- enum mipi_dsi_pixel_format {
-+=09MIPI_DSI_FMT_RGB101010,
- =09MIPI_DSI_FMT_RGB888,
- =09MIPI_DSI_FMT_RGB666,
- =09MIPI_DSI_FMT_RGB666_PACKED,
-@@ -235,6 +236,9 @@ extern const struct bus_type mipi_dsi_bus_type;
- static inline int mipi_dsi_pixel_format_to_bpp(enum mipi_dsi_pixel_format =
-fmt)
+ static const char * const dsi_sdm660_bus_clk_names[] =3D {
+@@ -152,6 +153,7 @@ static const struct msm_dsi_config sdm660_dsi_cfg =3D {
+ =09.io_start =3D {
+ =09=09{ 0xc994000, 0xc996000 },
+ =09},
++=09.has_rgb30 =3D true,
+ };
+=20
+ static const char * const dsi_v2_4_clk_names[] =3D {
+@@ -173,6 +175,7 @@ static const struct msm_dsi_config sdm845_dsi_cfg =3D {
+ =09=09{ 0xae94000, 0xae96000 }, /* SDM845 / SDM670 */
+ =09=09{ 0x5e94000 }, /* QCM2290 / SM6115 / SM6125 / SM6375 */
+ =09},
++=09.has_rgb30 =3D true,
+ };
+=20
+ static const struct regulator_bulk_data sm8550_dsi_regulators[] =3D {
+@@ -188,6 +191,7 @@ static const struct msm_dsi_config sm8550_dsi_cfg =3D {
+ =09.io_start =3D {
+ =09=09{ 0xae94000, 0xae96000 },
+ =09},
++=09.has_rgb30 =3D true,
+ };
+=20
+ static const struct regulator_bulk_data sm8650_dsi_regulators[] =3D {
+@@ -203,6 +207,7 @@ static const struct msm_dsi_config sm8650_dsi_cfg =3D {
+ =09.io_start =3D {
+ =09=09{ 0xae94000, 0xae96000 },
+ =09},
++=09.has_rgb30 =3D true,
+ };
+=20
+ static const struct msm_dsi_config kaanapali_dsi_cfg =3D {
+@@ -214,6 +219,7 @@ static const struct msm_dsi_config kaanapali_dsi_cfg =
+=3D {
+ =09.io_start =3D {
+ =09=09{ 0x9ac0000, 0x9ac3000 },
+ =09},
++=09.has_rgb30 =3D true,
+ };
+=20
+ static const struct regulator_bulk_data sc7280_dsi_regulators[] =3D {
+@@ -230,6 +236,7 @@ static const struct msm_dsi_config sc7280_dsi_cfg =3D {
+ =09.io_start =3D {
+ =09=09{ 0xae94000, 0xae96000 },
+ =09},
++=09.has_rgb30 =3D true,
+ };
+=20
+ static const struct regulator_bulk_data sa8775p_dsi_regulators[] =3D {
+@@ -246,6 +253,7 @@ static const struct msm_dsi_config sa8775p_dsi_cfg =3D =
+{
+ =09.io_start =3D {
+ =09=09{ 0xae94000, 0xae96000 },
+ =09},
++=09.has_rgb30 =3D true,
+ };
+=20
+ static const struct msm_dsi_host_cfg_ops msm_dsi_v2_host_ops =3D {
+diff --git a/drivers/gpu/drm/msm/dsi/dsi_cfg.h b/drivers/gpu/drm/msm/dsi/ds=
+i_cfg.h
+index 5dc812028bd5..15cb9b46fadf 100644
+--- a/drivers/gpu/drm/msm/dsi/dsi_cfg.h
++++ b/drivers/gpu/drm/msm/dsi/dsi_cfg.h
+@@ -48,6 +48,7 @@ struct msm_dsi_config {
+ =09const char * const *bus_clk_names;
+ =09const int num_bus_clks;
+ =09const resource_size_t io_start[VARIANTS_MAX][DSI_MAX];
++=09bool has_rgb30;
+ };
+=20
+ struct msm_dsi_host_cfg_ops {
+diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/d=
+si_host.c
+index db6da99375a1..34fd0dc5f7c7 100644
+--- a/drivers/gpu/drm/msm/dsi/dsi_host.c
++++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
+@@ -757,6 +757,7 @@ static inline enum dsi_vid_dst_format
+ dsi_get_vid_fmt(const enum mipi_dsi_pixel_format mipi_fmt)
  {
- =09switch (fmt) {
-+=09case MIPI_DSI_FMT_RGB101010:
-+=09=09return 30;
+ =09switch (mipi_fmt) {
++=09case MIPI_DSI_FMT_RGB101010:=09return VID_DST_FORMAT_RGB101010;
+ =09case MIPI_DSI_FMT_RGB888:=09return VID_DST_FORMAT_RGB888;
+ =09case MIPI_DSI_FMT_RGB666:=09return VID_DST_FORMAT_RGB666_LOOSE;
+ =09case MIPI_DSI_FMT_RGB666_PACKED:=09return VID_DST_FORMAT_RGB666;
+@@ -769,6 +770,7 @@ static inline enum dsi_cmd_dst_format
+ dsi_get_cmd_fmt(const enum mipi_dsi_pixel_format mipi_fmt)
+ {
+ =09switch (mipi_fmt) {
++=09case MIPI_DSI_FMT_RGB101010:=09return CMD_DST_FORMAT_RGB101010;
+ =09case MIPI_DSI_FMT_RGB888:=09return CMD_DST_FORMAT_RGB888;
+ =09case MIPI_DSI_FMT_RGB666_PACKED:
+ =09case MIPI_DSI_FMT_RGB666:=09return CMD_DST_FORMAT_RGB666;
+@@ -1698,6 +1700,13 @@ static int dsi_host_attach(struct mipi_dsi_host *hos=
+t,
+ =09if (dsi->lanes > msm_host->num_data_lanes)
+ =09=09return -EINVAL;
+=20
++=09if (dsi->format =3D=3D MIPI_DSI_FMT_RGB101010 &&
++=09    !msm_host->cfg_hnd->cfg->has_rgb30) {
++=09=09DRM_DEV_ERROR(&msm_host->pdev->dev,
++=09=09=09      "RGB101010 not supported on this DSI controller\n");
++=09=09return -EINVAL;
++=09}
 +
- =09case MIPI_DSI_FMT_RGB888:
- =09case MIPI_DSI_FMT_RGB666:
- =09=09return 24;
+ =09msm_host->channel =3D dsi->channel;
+ =09msm_host->lanes =3D dsi->lanes;
+ =09msm_host->format =3D dsi->format;
+diff --git a/drivers/gpu/drm/msm/registers/display/dsi.xml b/drivers/gpu/dr=
+m/msm/registers/display/dsi.xml
+index c7a7b633d747..e40125f75175 100644
+--- a/drivers/gpu/drm/msm/registers/display/dsi.xml
++++ b/drivers/gpu/drm/msm/registers/display/dsi.xml
+@@ -15,6 +15,7 @@ xsi:schemaLocation=3D"https://gitlab.freedesktop.org/free=
+dreno/ rules-fd.xsd">
+ =09=09<value name=3D"VID_DST_FORMAT_RGB666" value=3D"1"/>
+ =09=09<value name=3D"VID_DST_FORMAT_RGB666_LOOSE" value=3D"2"/>
+ =09=09<value name=3D"VID_DST_FORMAT_RGB888" value=3D"3"/>
++=09=09<value name=3D"VID_DST_FORMAT_RGB101010" value=3D"4"/>
+ =09</enum>
+ =09<enum name=3D"dsi_rgb_swap">
+ =09=09<value name=3D"SWAP_RGB" value=3D"0"/>
+@@ -39,6 +40,7 @@ xsi:schemaLocation=3D"https://gitlab.freedesktop.org/free=
+dreno/ rules-fd.xsd">
+ =09=09<value name=3D"CMD_DST_FORMAT_RGB565" value=3D"6"/>
+ =09=09<value name=3D"CMD_DST_FORMAT_RGB666" value=3D"7"/>
+ =09=09<value name=3D"CMD_DST_FORMAT_RGB888" value=3D"8"/>
++=09=09<value name=3D"CMD_DST_FORMAT_RGB101010" value=3D"9"/>
+ =09</enum>
+ =09<enum name=3D"dsi_lane_swap">
+ =09=09<value name=3D"LANE_SWAP_0123" value=3D"0"/>
+@@ -142,7 +144,8 @@ xsi:schemaLocation=3D"https://gitlab.freedesktop.org/fr=
+eedreno/ rules-fd.xsd">
+ =09</reg32>
+ =09<reg32 offset=3D"0x0000c" name=3D"VID_CFG0">
+ =09=09<bitfield name=3D"VIRT_CHANNEL" low=3D"0" high=3D"1" type=3D"uint"/>=
+  <!-- always zero? -->
+-=09=09<bitfield name=3D"DST_FORMAT" low=3D"4" high=3D"5" type=3D"dsi_vid_d=
+st_format"/>
++=09=09<!-- high was 5 before DSI 6G 2.1.0 -->
++=09=09<bitfield name=3D"DST_FORMAT" low=3D"4" high=3D"6" type=3D"dsi_vid_d=
+st_format"/>
+ =09=09<bitfield name=3D"TRAFFIC_MODE" low=3D"8" high=3D"9" type=3D"dsi_tra=
+ffic_mode"/>
+ =09=09<bitfield name=3D"BLLP_POWER_STOP" pos=3D"12" type=3D"boolean"/>
+ =09=09<bitfield name=3D"EOF_BLLP_POWER_STOP" pos=3D"15" type=3D"boolean"/>
 
 --=20
 2.53.0
