@@ -4,45 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 35481108E1F7
-	for <dri-devel@archiver.kernel.org>; Thu, 19 Mar 2026 12:01:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1A78C108E1FC
+	for <dri-devel@archiver.kernel.org>; Thu, 19 Mar 2026 12:03:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9749410E9A3;
-	Thu, 19 Mar 2026 12:01:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7EE1D10E9AE;
+	Thu, 19 Mar 2026 12:03:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="J7E6P12/";
+	dkim=pass (1024-bit key; unprotected) header.d=huawei.com header.i=@huawei.com header.b="T4nhKQVE";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A365F10E9A3
- for <dri-devel@lists.freedesktop.org>; Thu, 19 Mar 2026 12:01:55 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id E437B60134;
- Thu, 19 Mar 2026 12:01:54 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F002C19424;
- Thu, 19 Mar 2026 12:01:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1773921714;
- bh=8ze3C6q5LllnGGEI1XV0OfHvePlkpUv69gmHwnNnuWQ=;
- h=Subject:To:Cc:From:Date:In-Reply-To:From;
- b=J7E6P12/KI1uf7uFgZV/A/0+fxIV2yoz67pmaiSoizvS81f2un+C6TpzVxUBgnGwR
- TWlfM5rSXWQcfsuLJ9UVUfbeqo7fNafGV67YzFdzyafLr75Hrg3rjR0PyYsNgVR9tI
- 3cYw8yYVrtmD/k1p0I4dHvX0jMzung2sfswxpyZU=
-Subject: Patch "drm/exynos: vidi: use priv->vidi_dev for ctx lookup in
- vidi_connection_ioctl()" has been added to the 6.6-stable tree
-To: aha310510@gmail.com, airlied@gmail.com, alim.akhtar@samsung.com,
- dri-devel@lists.freedesktop.org, gregkh@linuxfoundation.org,
- inki.dae@samsung.com, krzk@kernel.org, kyungmin.park@samsung.com,
- linux-arm-kernel@lists.infradead.org, simona@ffwll.ch, sw0312.kim@samsung.com
-Cc: <stable-commits@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Thu, 19 Mar 2026 13:01:24 +0100
-In-Reply-To: <20260227045953.165751-2-aha310510@gmail.com>
-Message-ID: <2026031924-trouble-online-c7cf@gregkh>
+Received: from canpmsgout10.his.huawei.com (canpmsgout10.his.huawei.com
+ [113.46.200.225])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 714B210E9AD
+ for <dri-devel@lists.freedesktop.org>; Thu, 19 Mar 2026 12:03:16 +0000 (UTC)
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+ c=relaxed/relaxed; q=dns/txt; h=From;
+ bh=8fGWRdVMsvQR++vWqgLDtZsnyrK4cb1DCNNce7pnyqA=;
+ b=T4nhKQVEAuyPnY7TSwGIGxkWukqdUtxOOT0H5iYGWu+DDJl1ahX5PG309ETIGFPQeS4Vq2Hy+
+ 5bEbOb5kdDF0dbmvhj7YhrfBcO9ThoN19QPXDXuYdOO6zUO7q3k4qrab/jZCG0unA1b7ZNOOicx
+ /v+D3r544GenaxN6ZjxDgKU=
+Received: from mail.maildlp.com (unknown [172.19.163.163])
+ by canpmsgout10.his.huawei.com (SkyGuard) with ESMTPS id 4fc41j5sz1z1K96k;
+ Thu, 19 Mar 2026 19:57:13 +0800 (CST)
+Received: from dggemv712-chm.china.huawei.com (unknown [10.1.198.32])
+ by mail.maildlp.com (Postfix) with ESMTPS id 870B74048B;
+ Thu, 19 Mar 2026 20:03:13 +0800 (CST)
+Received: from kwepemq100007.china.huawei.com (7.202.195.175) by
+ dggemv712-chm.china.huawei.com (10.1.198.32) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.11; Thu, 19 Mar 2026 20:03:13 +0800
+Received: from [10.159.167.44] (10.159.167.44) by
+ kwepemq100007.china.huawei.com (7.202.195.175) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.11; Thu, 19 Mar 2026 20:03:12 +0800
+Message-ID: <43fe4ef5-ffdf-425c-b535-8306fbe12b3b@huawei.com>
+Date: Thu, 19 Mar 2026 20:03:12 +0800
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
-Content-Transfer-Encoding: 8bit
-X-stable: commit
-X-Patchwork-Hint: ignore 
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH V1 for drm-misc-fixes] MAINTAINERS: split hisilicon
+ maintenance and add Yongbang Shi for hibmc-drm matainers
+To: Xinliang Liu <xinliang.liu@linaro.org>
+CC: <tzimmermann@suse.de>, <tiantao6@hisilicon.com>,
+ <maarten.lankhorst@linux.intel.com>, <mripard@kernel.org>,
+ <airlied@gmail.com>, <daniel@ffwll.ch>, <kong.kongxinwei@hisilicon.com>,
+ <dmitry.baryshkov@oss.qualcomm.com>, <liangjian010@huawei.com>,
+ <chenjianmin@huawei.com>, <fengsheng5@huawei.com>, <helin52@h-partners.com>,
+ <shenjian15@huawei.com>, <shaojijie@huawei.com>,
+ <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
+ <shiyongbang@huawei.com>
+References: <20260318125326.3709098-1-shiyongbang@huawei.com>
+ <CAKoKPbzAFi+MjTq-foT78zHsdZ7kpb5ciSfVHFuHH3Tr8-MLrA@mail.gmail.com>
+From: Yongbang Shi <shiyongbang@huawei.com>
+In-Reply-To: <CAKoKPbzAFi+MjTq-foT78zHsdZ7kpb5ciSfVHFuHH3Tr8-MLrA@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.159.167.44]
+X-ClientProxiedBy: kwepems500002.china.huawei.com (7.221.188.17) To
+ kwepemq100007.china.huawei.com (7.202.195.175)
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,119 +75,100 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+> ,
+>
+> Hi,
+>
+> On Wed, 18 Mar 2026 at 21:01, Yongbang Shi <shiyongbang@huawei.com> wrote:
+>> To improve maintainability, split the maintainer information for the hibmc and
+>> kirin drivers under the drivers/gpu/drm/hisilicon directory.
+>>
+>> drivers/gpu/drm/hisilicon/hibmc driver has almost completed feature development
+>> based on the new generation HiSilicon BMC chip. It was co-developed by
+>> Yongbang Shi, Baihan Li and Lin He. Going forward, this module will be
+>> maintained by Yongbang Shi.
+>>
+>> Signed-off-by: Yongbang Shi <shiyongbang@huawei.com>
+>> Acked-by: Tao Tian <tiantao6@hisilicon.com>
+>> ---
+>>   MAINTAINERS | 37 +++++++++++++++++++++++++------------
+>>   1 file changed, 25 insertions(+), 12 deletions(-)
+>>
+>> diff --git a/MAINTAINERS b/MAINTAINERS
+>> index d7241695df96..4f8dbadbe70b 100644
+>> --- a/MAINTAINERS
+>> +++ b/MAINTAINERS
+>> @@ -8603,18 +8603,31 @@ S:      Maintained
+>>   T:     git https://gitlab.freedesktop.org/drm/misc/kernel.git
+>>   F:     drivers/gpu/drm/gma500/
+>>
+>> -DRM DRIVERS FOR HISILICON
+>> -M:     Xinliang Liu <xinliang.liu@linaro.org>
+>> -M:     Tian Tao  <tiantao6@hisilicon.com>
+>> -R:     Xinwei Kong <kong.kongxinwei@hisilicon.com>
+>> -R:     Sumit Semwal <sumit.semwal@linaro.org>
+>> -R:     Yongqin Liu <yongqin.liu@linaro.org>
+>> -R:     John Stultz <jstultz@google.com>
+>> -L:     dri-devel@lists.freedesktop.org
+>> -S:     Maintained
+>> -T:     git https://gitlab.freedesktop.org/drm/misc/kernel.git
+>> -F:     Documentation/devicetree/bindings/display/hisilicon/
+>> -F:     drivers/gpu/drm/hisilicon/
+>> +DRM DRIVERS FOR HISILICON HIBMC
+>> +M:      Yongbang Shi <shiyongbang@huawei.com>
+>> +M:      Xinliang Liu <xinliang.liu@linaro.org>
+>> +M:      Tian Tao  <tiantao6@hisilicon.com>
+>> +R:      Xinwei Kong <kong.kongxinwei@hisilicon.com>
+>> +R:      Sumit Semwal <sumit.semwal@linaro.org>
+>> +R:      Yongqin Liu <yongqin.liu@linaro.org>
+>> +R:      John Stultz <jstultz@google.com>
+>> +L:      dri-devel@lists.freedesktop.org
+>> +S:      Maintained
+>> +T:      git https://gitlab.freedesktop.org/drm/misc/kernel.git
+>> +F:      drivers/gpu/drm/hisilicon/hibmc
+> Please remove me, Sumit Semwal, Yongqin Liu, and John Stultz from here.
+> I'm going to hand over the hibmc DRM driver maintenance to you.
+> And if you look at the git log, the other three guys were added here
+> for the kirin DRM driver.
+> ce1fc502de42 MAINTAINERS: Add Sumit Semwal and Yongqin Liu as reviwers
+> for kirin DRM driver
+>
+>> +
+>> +DRM DRIVERS FOR HISILICON KIRIN
+>> +M:      Xinliang Liu <xinliang.liu@linaro.org>
+>> +M:      Tian Tao  <tiantao6@hisilicon.com>
+>> +R:      Xinwei Kong <kong.kongxinwei@hisilicon.com>
+>> +R:      Sumit Semwal <sumit.semwal@linaro.org>
+>> +R:      Yongqin Liu <yongqin.liu@linaro.org>
+>> +R:      John Stultz <jstultz@google.com>
+>> +L:      dri-devel@lists.freedesktop.org
+>> +S:      Maintained
+>> +T:      git https://gitlab.freedesktop.org/drm/misc/kernel.git
+>> +F:      Documentation/devicetree/bindings/display/hisilicon/
+>> +F:      drivers/gpu/drm/hisilicon/kirin
+> Please remove Tian Tao and Xinwei Kong from here. They are here mainly
+> for the hibmc DRM driver.
+>
+> Once address the above comments, please add my ack:
+> Acked-by:  Xinliang Liu <xinliang.liu@linaro.org>
+>
+> And to be a DRM maintainer, you might need to apply the push
+> permission of the drm-misc git repo for pushing the hibmc driver patch
+> in the future.
+> See the docs below for what DRM-misc is and how to apply the permission:
+> https://drm.pages.freedesktop.org/maintainer-tools/committer-drm-misc.html
+> https://drm.pages.freedesktop.org/maintainer-tools/drm-misc.html
 
-This is a note to let you know that I've just added the patch titled
-
-    drm/exynos: vidi: use priv->vidi_dev for ctx lookup in vidi_connection_ioctl()
-
-to the 6.6-stable tree which can be found at:
-    http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
-
-The filename of the patch is:
-     drm-exynos-vidi-use-priv-vidi_dev-for-ctx-lookup-in-vidi_connection_ioctl.patch
-and it can be found in the queue-6.6 subdirectory.
-
-If you, or anyone else, feels it should not be added to the stable tree,
-please let <stable@vger.kernel.org> know about it.
-
-
-From stable+bounces-219909-greg=kroah.com@vger.kernel.org Fri Feb 27 06:00:30 2026
-From: Jeongjun Park <aha310510@gmail.com>
-Date: Fri, 27 Feb 2026 13:59:51 +0900
-Subject: drm/exynos: vidi: use priv->vidi_dev for ctx lookup in vidi_connection_ioctl()
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Inki Dae <inki.dae@samsung.com>, Seung-Woo Kim <sw0312.kim@samsung.com>, Kyungmin Park <kyungmin.park@samsung.com>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Krzysztof Kozlowski <krzk@kernel.org>, Alim Akhtar <alim.akhtar@samsung.com>, dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org, linux-kernel@vger.kernel.org, Jeongjun Park <aha310510@gmail.com>
-Message-ID: <20260227045953.165751-2-aha310510@gmail.com>
-
-From: Jeongjun Park <aha310510@gmail.com>
-
-[ Upstream commit d3968a0d85b211e197f2f4f06268a7031079e0d0 ]
-
-vidi_connection_ioctl() retrieves the driver_data from drm_dev->dev to
-obtain a struct vidi_context pointer. However, drm_dev->dev is the
-exynos-drm master device, and the driver_data contained therein is not
-the vidi component device, but a completely different device.
-
-This can lead to various bugs, ranging from null pointer dereferences and
-garbage value accesses to, in unlucky cases, out-of-bounds errors,
-use-after-free errors, and more.
-
-To resolve this issue, we need to store/delete the vidi device pointer in
-exynos_drm_private->vidi_dev during bind/unbind, and then read this
-exynos_drm_private->vidi_dev within ioctl() to obtain the correct
-struct vidi_context pointer.
-
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Jeongjun Park <aha310510@gmail.com>
-Signed-off-by: Inki Dae <inki.dae@samsung.com>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
----
- drivers/gpu/drm/exynos/exynos_drm_drv.h  |    1 +
- drivers/gpu/drm/exynos/exynos_drm_vidi.c |   14 +++++++++++++-
- 2 files changed, 14 insertions(+), 1 deletion(-)
-
---- a/drivers/gpu/drm/exynos/exynos_drm_drv.h
-+++ b/drivers/gpu/drm/exynos/exynos_drm_drv.h
-@@ -199,6 +199,7 @@ struct drm_exynos_file_private {
- struct exynos_drm_private {
- 	struct device *g2d_dev;
- 	struct device *dma_dev;
-+	struct device *vidi_dev;
- 	void *mapping;
- 
- 	/* for atomic commit */
---- a/drivers/gpu/drm/exynos/exynos_drm_vidi.c
-+++ b/drivers/gpu/drm/exynos/exynos_drm_vidi.c
-@@ -224,9 +224,14 @@ ATTRIBUTE_GROUPS(vidi);
- int vidi_connection_ioctl(struct drm_device *drm_dev, void *data,
- 				struct drm_file *file_priv)
- {
--	struct vidi_context *ctx = dev_get_drvdata(drm_dev->dev);
-+	struct exynos_drm_private *priv = drm_dev->dev_private;
-+	struct device *dev = priv ? priv->vidi_dev : NULL;
-+	struct vidi_context *ctx = dev ? dev_get_drvdata(dev) : NULL;
- 	struct drm_exynos_vidi_connection *vidi = data;
- 
-+	if (!ctx)
-+		return -ENODEV;
-+
- 	if (!vidi) {
- 		DRM_DEV_DEBUG_KMS(ctx->dev,
- 				  "user data for vidi is null.\n");
-@@ -386,6 +391,7 @@ static int vidi_bind(struct device *dev,
- {
- 	struct vidi_context *ctx = dev_get_drvdata(dev);
- 	struct drm_device *drm_dev = data;
-+	struct exynos_drm_private *priv = drm_dev->dev_private;
- 	struct drm_encoder *encoder = &ctx->encoder;
- 	struct exynos_drm_plane *exynos_plane;
- 	struct exynos_drm_plane_config plane_config = { 0 };
-@@ -393,6 +399,8 @@ static int vidi_bind(struct device *dev,
- 	int ret;
- 
- 	ctx->drm_dev = drm_dev;
-+	if (priv)
-+		priv->vidi_dev = dev;
- 
- 	plane_config.pixel_formats = formats;
- 	plane_config.num_pixel_formats = ARRAY_SIZE(formats);
-@@ -438,8 +446,12 @@ static int vidi_bind(struct device *dev,
- static void vidi_unbind(struct device *dev, struct device *master, void *data)
- {
- 	struct vidi_context *ctx = dev_get_drvdata(dev);
-+	struct drm_device *drm_dev = data;
-+	struct exynos_drm_private *priv = drm_dev->dev_private;
- 
- 	del_timer_sync(&ctx->timer);
-+	if (priv)
-+		priv->vidi_dev = NULL;
- }
- 
- static const struct component_ops vidi_component_ops = {
+Ok,Thank you for pointing that out. Thanks, Yongbang.
 
 
-Patches currently in stable-queue which might be from aha310510@gmail.com are
-
-queue-6.6/drm-exynos-vidi-use-ctx-lock-to-protect-struct-vidi_context-member-variables-related-to-memory-alloc-free.patch
-queue-6.6/drm-exynos-vidi-use-priv-vidi_dev-for-ctx-lookup-in-vidi_connection_ioctl.patch
-queue-6.6/drm-exynos-vidi-fix-to-avoid-directly-dereferencing-user-pointer.patch
+> Thank you very much for maintaining the hibmc DRM driver.
+>
+> Best regards,
+> Xinliang
+>
+>>   DRM DRIVERS FOR LIMA
+>>   M:     Qiang Yu <yuq825@gmail.com>
+>> --
+>> 2.33.0
+>>
