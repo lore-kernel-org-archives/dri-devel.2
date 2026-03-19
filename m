@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A697C1091929
-	for <dri-devel@archiver.kernel.org>; Thu, 19 Mar 2026 22:33:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C5374109192D
+	for <dri-devel@archiver.kernel.org>; Thu, 19 Mar 2026 22:33:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1E9D110E9ED;
-	Thu, 19 Mar 2026 22:33:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3151210EA05;
+	Thu, 19 Mar 2026 22:33:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=nxp.com header.i=@nxp.com header.b="SSa2q9nM";
+	dkim=pass (2048-bit key; unprotected) header.d=nxp.com header.i=@nxp.com header.b="XR37Amug";
 	dkim-atps=neutral
-Received: from DU2PR03CU002.outbound.protection.outlook.com
- (mail-northeuropeazon11011066.outbound.protection.outlook.com [52.101.65.66])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6075710E9C5;
- Thu, 19 Mar 2026 22:33:33 +0000 (UTC)
+Received: from DB3PR0202CU003.outbound.protection.outlook.com
+ (mail-northeuropeazon11010055.outbound.protection.outlook.com [52.101.84.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9728310E9ED;
+ Thu, 19 Mar 2026 22:33:45 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=lsSSVyacxFLbFH2MfxT1ui09EuzOeWKJBJGlQjdUP4zEEoL/GuA3T+/RZBTZTnduvOq3i+8aQ+6dNqaB8XcMRFh4rvuge9H3MbAYhqWLhf44GVp42YejE+3zRttVV6PkJ/3OQeWr8q+jTt1G/0P8VCXP2Zg/In9rJnBwzgcB1KGWh3lcGYL5F2BrnpiV4hpIbTSSqLF/TPKwJFVteBVda0aZ7Ylz39buiGckIlwpsfcLDAQ6PIuJarSH+n2zqPa52xNbSSDMEIGzFFFWvVwkYZo9P00O+A1OmQdc2fbQpF6jXPNkrvVnUzYlsAg9P/9WO7gUflf2wIADmN3wtW3cSQ==
+ b=cIdjFHDsL/47QAmjqErULxqRFrl1iUTpaJKDoor8L8OFSLN3Bn1+WgCtSX+VP2ZzIwk1KnwrpoLxzrQtVcR4lqZaerFesihKrOQVVlSHs7Sjz0/mGuy1EbsZ/ru7nzYKHH/US2fh7vXp5LyYHRbJMCwBGMRjFwzgsOJyXlExZl3tg7xZl++5yt/GCxB/8gb+bwfqDpIrmxVgYnn2Y818v2R4e9MlhLPfHdzQJyHDFy9iaj3+fD4DfFZqtPYBndK7EwadGa7btJ0tKKMlyL6Sbsz36AugI8lnI3QXo16k4yvAkDEMLeEl36XCUy7t77djORloZLTjBJpjEvHtKLhslw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Uc+3g1DIJVqmB7JSN2F2Kp6tUtD376sQzGcWiiM1BBk=;
- b=Ax3164d7VAZiU9AqJd+E3uipXCmxN5zfIdVFP184D80L87zU6nzwDiyZQyj90T2XC94MlfKz8ETjIOhuPa1XyIpPDh1TxN0ifWZC7rBPynrdKGK+urpjNvfbqkpzE5Uh+/r9Z9/5fvQiv4FYN4sldR9zzDib9/IFDKm/36zHRe2IPJ1SGRJ54aNu9PqiJZbUh1siwPcH6SylRsVQiRiovm7NpeHl5h5csCwotrPDQX3yoaNO/g6JLCZyLHjiywf4rpTX3LSnsbL2osly0+khekB/nu6kMKpkQLlxhqoXZ7yhvJkY3LZ4yA6pL+z5hkCUUaOV5jhFA13SpD3Z7eN9kA==
+ bh=tpcMpOj7EkX9LGxVXmbfajSEtxU0/+RWcEpKRZTsXRM=;
+ b=v3mTn7XrNbHbVWFn7HQyZCPKiIGC+BYCoOx6zsZYiqr6pZTiH0YGF/VjIEACwkg8nENRAdsVRUf7gnQxU/bagK/HEmxOdv5hAYrxW8elH/SgDGU2uYCbtLo0qp1cIDY7kNxcuCkc7zJZRGVOhiXGfaBVRkpSHQjTUc41FYfhEy7QE0OtqfLW7jbN/jsHKAIKRLT1OfLV+YqigyqILhzE8D5bEKdSsk+yMIZvhiZQ4tdcQjKkC4i+drgF4ARDq4508LU4MMC74BMI9vN8en7flM0m92oXhCUeDgWin0o81wXcM6kmxkv6UHY6cZ7tGkgiKInsAGVuU3tLuARNATGv4Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
  header.d=nxp.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Uc+3g1DIJVqmB7JSN2F2Kp6tUtD376sQzGcWiiM1BBk=;
- b=SSa2q9nMO6jgEr8Jlu9FFzkUSypMgxqv496dh8uEtyPatOijP44HSvETUwOkPce7VQLAQCmAoR8RDOYa74EzfsF5OhGHTBuAHhuv8gB8UicdApYTXE2PDTsJQjWvabLdrf81QeaJ3XqL3FE4Qj7CANdl21J50wpMeGihZIRmXeUfA/Ck7nEge7SjK+SLsxNRj1NUU5txdZZHHah6AYB5Kog3nXh8IkzXkQAUA2bpaNG/zx24thckXX5ALEVjurXvS8okwkra7xPb760h0gGap2KOW8P5gHXQcLzSUP4N0Fs2T5Vudl6FDzx1AnVBkvqfQYydhEhV0GVXoYuiko5h4g==
+ bh=tpcMpOj7EkX9LGxVXmbfajSEtxU0/+RWcEpKRZTsXRM=;
+ b=XR37Amug1oBl7LRouxRGD4KTPSHo9KXfZShSAtusBNIPsCz2u2Lfw4QqSsumqP8kSGIJC0+9aJDZmMtKFS2hJE34FSmdyWWM5pKT4GX/AmwvWTPYNrypnAmsWv0v78T4Aej6dmcWmPVS02IVUYCjho4/7ugzqaA/D+auuIjSQnQcj8UzYPeM00PpaSPdW0wY7tylJBaEnwWeBEKrkq2R6vWW/sJlfp8XFTHnZly1OrPVljQfCrOSPoaKVIIKCxMCyRoBLusQJHa7g292NWDN2BQ0d+QB8dY6mziXt15D9G+IRJuGY+tAigJUj3JEViaZMNAdohPIarNcdkZpVkl+ZA==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nxp.com;
 Received: from AM9PR04MB8585.eurprd04.prod.outlook.com (2603:10a6:20b:438::13)
  by PAXPR04MB8079.eurprd04.prod.outlook.com (2603:10a6:102:1cc::12)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.19; Thu, 19 Mar
- 2026 22:33:27 +0000
+ 2026 22:33:40 +0000
 Received: from AM9PR04MB8585.eurprd04.prod.outlook.com
  ([fe80::f010:fca8:7ef:62f4]) by AM9PR04MB8585.eurprd04.prod.outlook.com
  ([fe80::f010:fca8:7ef:62f4%4]) with mapi id 15.20.9723.018; Thu, 19 Mar 2026
- 22:33:22 +0000
+ 22:33:35 +0000
 From: Vladimir Oltean <vladimir.oltean@nxp.com>
 To: linux-phy@lists.infradead.org
 Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
@@ -54,80 +54,72 @@ Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
  linux-scsi@vger.kernel.org, linux-sunxi@lists.linux.dev,
  linux-tegra@vger.kernel.org, linux-usb@vger.kernel.org,
  netdev@vger.kernel.org, spacemit@lists.linux.dev,
- UNGLinuxDriver@microchip.com, Geert Uytterhoeven <geert+renesas@glider.be>,
- Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
- Michael Dege <michael.dege@renesas.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>,
- "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>,
- "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
-Subject: [PATCH v5 phy-next 21/27] net: renesas: rswitch: include PHY provider
- header
-Date: Fri, 20 Mar 2026 00:32:35 +0200
-Message-ID: <20260319223241.1351137-22-vladimir.oltean@nxp.com>
+ UNGLinuxDriver@microchip.com, Joe Perches <joe@perches.com>
+Subject: [PATCH v5 phy-next 27/27] MAINTAINERS: add regexes for linux-phy
+Date: Fri, 20 Mar 2026 00:32:41 +0200
+Message-ID: <20260319223241.1351137-28-vladimir.oltean@nxp.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260319223241.1351137-1-vladimir.oltean@nxp.com>
 References: <20260319223241.1351137-1-vladimir.oltean@nxp.com>
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-ClientProxiedBy: VI1P194CA0046.EURP194.PROD.OUTLOOK.COM
- (2603:10a6:803:3c::35) To AM9PR04MB8585.eurprd04.prod.outlook.com
+X-ClientProxiedBy: VI1PR0502CA0015.eurprd05.prod.outlook.com
+ (2603:10a6:803:1::28) To AM9PR04MB8585.eurprd04.prod.outlook.com
  (2603:10a6:20b:438::13)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: AM9PR04MB8585:EE_|PAXPR04MB8079:EE_
-X-MS-Office365-Filtering-Correlation-Id: 914efb22-4348-4a14-f715-08de86078718
+X-MS-Office365-Filtering-Correlation-Id: 3f155316-cf66-48a7-2bfe-08de86078eb6
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
  ARA:13230040|366016|7416014|376014|19092799006|10070799003|1800799024|56012099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: Im+sry+LgnOOYQgDYYH1nlzVyUJSIDxbCXXP3h/FQ4k6XA9zmPQlU2j2h0Mn5KzQ4VWZg2ccpuQRIwtVVG8inkqHTsSKY+umxg2LgLzPgPujC5OUMCbTKf+jnR7bJNDknbp/e5ByGps4DMLhl0ugDJIHlooDMH9b/XqwiR+CBOVdQYr6bEQdeWuKl03lnwLYSvKrkMHHaCE+p8LXh1cIpUIH8uHKZit2VJqPiN/vLJoEzbd7bUubqvHb6DK5sEBf95BsDSJwJo9BPhD0oHR4boyd8uuHLZd2x5gVxhkzaFooEHMZ7xaygKaM9jCcp8brzZ5bNyBohWSfoPs0L/MeUcW/p203L9e//IiccZIc83p40K9DvagTLHhdvUvGS1k2YfslAAyK9nzbJCHJUEadHMdkzqaIfsCtUE++Pvp+SjirbHO22ULkfNBtGKXnLzjTW5jKC9hb/Qa2Rpnnnp8xDrcOaSBGtomjgt9BSmZ8s3TVrRwtsjqeDqEQVriwqV6mIST+f5Xpaw0iizRoMsv4Ks56957bIgW2IKURl++zoxTlIyk94wNAQ0wElR/XPirZ0fJUPMnN5PZvlN72/hv5wT7gwfbZAiH1k71lIjVM3IUt5EGnXyLpJooMSZwDILtlF5viXT8bthm5O6c6AX4YOp66A0qEHYqe2vWyAXrYMYRsZPKEal1T5GXdMUgZTZ4+5AKsYva0K8Yh1XRx6Y3Te3HZerCWlBpdLg+YQEOiNXM=
+X-Microsoft-Antispam-Message-Info: +upsZRuFux+K3Za4MDzyFPN1x5rH+PJrh420M2R5VGJDNHHr/TdCnsGLKHLyEtWu85S6TIRNB6dP965mPlJti5Ot5gC0tUieELO7VcwWoono3n4M8gWs71YxBwrPDyyocXXoL5B4CzkjwD8aqFeE/BCda42h3uu6Zfi1YKiomCMG2pC9t8gsPj3y4obYVXTbCUaybzIgsfQrwTrH3qk6hRcW+TRFxHRY9Jy/IAoVFjbAC5m9hBe2o33XVCvwiz+bxZk0wEq1rNl5b8UQfytQKsUKfXoy8ym0WeTvskCooZCjmpNEWG8P/mdEVNec+rmUN1i8RK79yU8nbWhNrnWk2aeCHyCq/g6W+Vxqqua7W2IZo56ybJTlEaoch1M4g11WEJVMcbunuDQnGU+FMvq30q8ZyQ5YP7/+HoNSIQkdU9W7HVJLMY/RLfOmVQ2upoYN5v/hmXpKszgaOlc/9m6FRNOY1xLLnBuwyuV0SVcuXlDiFv8Mqi9QxeRQUbIyoKhV6YZSziEwXwS602yoFLjhBRzrzm6pGV+sqp9rSApQ3VlAGgCqSoNnhwZjlkoZCJqv0JIEbxxmoX/f7FCtR9vxL7MLMC6wVqsEfTX1Sd3Y1Eo0/5Up2e7LFTwHSt5HlkmnIOqM3sObvp4e3lQmpcI0+pkTRcuSZ1BAnumXwDD47bA/Efxp5YR+vToivywgPPVyGqJh6bXNVXBtjaQw9xkYgCkq38t+bd5wIK0e9ZI/O6c=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:AM9PR04MB8585.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
  SFS:(13230040)(366016)(7416014)(376014)(19092799006)(10070799003)(1800799024)(56012099003)(18002099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?kgHd9AH+n9itJ+2PsJDIAc5/rs4pzqwm025Pe0smX0wIJ83/CTMoBWzyKxDl?=
- =?us-ascii?Q?h7RCLEv8DMTGx08sfuYMFzxAAaiNynri84zVaeHP75obs6jeRexZR1vE4wwf?=
- =?us-ascii?Q?brV9JL+u5r7nkejfyujN6f3SFMXUOlOOh9tmeKNqOWAOGLMYR8tc8083w6Mw?=
- =?us-ascii?Q?YoN2vR7DAtpnuXeQLOlxxIwLiDaW5+fGKki3AAlDdEf7JpYb7yaRevpbqq2V?=
- =?us-ascii?Q?I7b8C+g0mWg8E5KtEFZU0XRYraStAkaNF9/XbJ1bM045zaaS/6wxb7vJtpuR?=
- =?us-ascii?Q?JSusaGZgorw4H17/zvEhf5DUASkxXfp+wVGCYBLcXYQDrxskMp+PCWGs//XE?=
- =?us-ascii?Q?QLjrw7NhqSREF/TVBa3UtI1S6BwK2yScp1Yk/jEu4z7g5/sfO5hVU7dLjGoz?=
- =?us-ascii?Q?Fd3GJ11QTb+MJ+Mm7BmcKZkHJcyxCDksaDAT2rMETJZlJ0sE/3GRAxCBNi6P?=
- =?us-ascii?Q?2aIVJAzztw5VHb0wBZHx0sDTSteOCyTVs4gwn08NDNEQpq+D18Rvtf7e9xiq?=
- =?us-ascii?Q?q2SPn9WS/+3jN+PHGnTlvm/ULLU3Mf+zmnmVa6FnAeTaCETariiL0lId5dqA?=
- =?us-ascii?Q?5jxaJwQ9BUqfh6bDdJBTBxLHtflJ/oq+0ZZf2XN55eZ+zgjYWH3r13dpIVKX?=
- =?us-ascii?Q?J1iUVktY6a35yPG9w6X58Iyvsz6YDio5Oot3UAJT2zhv+mvqTVGIozUnzrV/?=
- =?us-ascii?Q?pPYzrZHTSf8uMJPtSBeyyH/0gQq63Y1oKfr2zhO9SI+SmZ9bPk7Z5dtb+DQX?=
- =?us-ascii?Q?S5DHUmn6eZmBAAMYOWjWx7lBp1Q3OwxFYukRF4/JHFTDwSlboTN3InIzbdEI?=
- =?us-ascii?Q?zARdWtRYq6CaHtB2ODdXUuSXUzStK7V6CWmxwKeFRPqOwRHcK8TgMeGvQsel?=
- =?us-ascii?Q?mAqN/dK8G+qqauuQIKb6IghZZYUGOhKnTJ72mXgzB4bIBGXQBMFye/pe16vv?=
- =?us-ascii?Q?dhW54ovB5mlBj1JCFMIgeOqag3A6k+Z0royOXDoJ/BQy0yD8zuoOwhzGD2Zi?=
- =?us-ascii?Q?9iQtqu0juLG/ekg4USKC2Bs48BdPyQILmY2I0DgdFUJ/6G+ku1n3dFwmsMo8?=
- =?us-ascii?Q?Ce4/YcnI4msfaOUFQ154lSwLnhEg+rAMD6gCzdKy+AeAFLHtMDpYimZcZidy?=
- =?us-ascii?Q?1MKQfos6QScFl0x/jMwWb1BQn2wm8JmM+nAAeai/si22FxHPFBp+ZRrG3iNC?=
- =?us-ascii?Q?xthhH7q6dWGzlwqABpAwghNoo1pBqfV7wor0spaR8/OHmKVDdORA1o0cdLYD?=
- =?us-ascii?Q?Auyy0gIIhM7l0FePrNRQZzMfVYE43vEbYnJGZbFIw8Da5LSTN3xx5FvRCgks?=
- =?us-ascii?Q?WM6Wo+IBW1h6MJcKz4CEjtBYek38q7FOs6uypGn5RhLtxCs1JGWAxxlZD6s6?=
- =?us-ascii?Q?sjINVQeK8TBM5xaQ7qvrrrRhUKtKgfOG3oN8MaGC8w1vRpnMo0K1P85Zi29b?=
- =?us-ascii?Q?26xBKzjc0UruRRBLDHy2CYTzVL1sz207D6aIbTqIKMcSf6w4uTYrnamqyehs?=
- =?us-ascii?Q?PB7wCjHNunF+Wcdtlxws+HZfkTaxwZ+bgDLxBLIM8A2B15i9KYSdktKWNvWB?=
- =?us-ascii?Q?pdD6laQI//DU3WQukZ8beYTABzxE2cngD7zKOpo49ZkWLkYHxucLIdYQzjco?=
- =?us-ascii?Q?BY7k4N/mW6XU33A8m/YEZNkDDybHsR0b9ujMSPhh6k9oG/zAdaGjIpDLesnF?=
- =?us-ascii?Q?JAKomoJ7uGhlY7sVmfyV2zEu5zqQZ4VOm8/FyhrqSBo5JpXVMcr3WlUo1BSF?=
- =?us-ascii?Q?giv5MvEv6R2QvObmjy6KUjSsNiAgru/i7yedeTZjhHxMuPOX3defQstojNXi?=
-X-MS-Exchange-AntiSpam-MessageData-1: XNWrHojWj0MOUvlc8nA/zPB5H/l0tOWqOis=
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?BUVxklfbXaPgcEUOwJHmNzwgNVpQMJ3Tqzg/1ywEUGc3bclL5aimK7VkU3g3?=
+ =?us-ascii?Q?4QPDOoFP9yx+GXcqI+fOLgWazng47f3Q0TDxNltke0/a0Pf8ACsrLfjxI3p0?=
+ =?us-ascii?Q?4aCY9QVWpaH5dpUpBms6GwLQ/cktcQwnsMJKnN140zviitd+axivyual8q0a?=
+ =?us-ascii?Q?iHUT2sk7+t9429mwAnx12CSzhnS2fIVnYJ5G+ixY/AuRSFoL8wyBuFTjiEkP?=
+ =?us-ascii?Q?nwcY11OxLEjLgmMi811PZRc0ZKQFUVfVpJ5h8E0jCPCmQ8JsVoxXyHo7scI1?=
+ =?us-ascii?Q?w/qJUq1FIxBuUva6riTzu77upXzaX4cOUWF+iHdasK+kpaULK55rguJTx7xC?=
+ =?us-ascii?Q?6D7HKw3slmoABvFXg24+4QCOFMhMFwzSADBvDmTHpKuq15MPaJ5XFCWO+vNk?=
+ =?us-ascii?Q?o8Wlnqv9xC893TsXZgYq5iqIRWwQWAUmxiZs0XACRL6AN2I9dJpMObF7vqTh?=
+ =?us-ascii?Q?FMqPvBXse6L8uSncgjcEHaw8cq0aoWWA/gdkfYhvSGWEVnozF/vswl/Jt/7t?=
+ =?us-ascii?Q?cn1BVIDhyitpYxxaRP162DYBPBrf5h1EtR+tkcaNxPpDkDMtJSj1cUDCOATL?=
+ =?us-ascii?Q?GT4mWUpVygfPxCNncu6uhglg0LeQ0w4FxLNShUUThiqFn4fuSSM66VVztDtD?=
+ =?us-ascii?Q?lOFKCurqZjx6wkfVF2VvAQ7YJ64QJ/wXmcF2h7xESFf/Zzhv/DdYgAqWwgiF?=
+ =?us-ascii?Q?w+0K5E7LhEvmhc59XDMZboa1PvADHW+Dg4u+O1U1d5qRzlNmj7fOlyC4YNA0?=
+ =?us-ascii?Q?vydq0OV/a4wZsdbrpmPpdNfeXxASJqnYHs7vX9yrE5AXcty8zOYTQ7qVyccN?=
+ =?us-ascii?Q?yQCa7SBCdbrUr4NGsIoHlD7Db/u4jOunyxOVh/cWSojmp677WoLb6f+0nRiO?=
+ =?us-ascii?Q?i4mnSI+vTABesd562KICBi7Jzm7ruwpWF/0NVZCFcg1dha4yVHkbMcdggYOj?=
+ =?us-ascii?Q?Eh9NoiE0t0GYazL39Uw/Pz/ovZOAipQTRwZoeMPHhsAopVbSqTL1NVbZk1Q/?=
+ =?us-ascii?Q?U99tBcj33n54ILo19pHdguESni1xCugMi7Eo5PW0rIyG4B/GIdwPzop+m6T3?=
+ =?us-ascii?Q?ZT2gtILwCBbgKxHXS+RrhHtiwGUHFfj49FesomuEOC4d0jNFEwlgy1xZ9Dut?=
+ =?us-ascii?Q?iT7mPlkNuyQh2dJ7pNDt3b2qXs3tkA5ESIjXxMq0ZC2HHCr6LIe7/soUnp/i?=
+ =?us-ascii?Q?ZDFvaDxDbB5pgKyavHq+RL59moCp5Deb3L2iKUJdx8phW/4I4f1k29v4mAYN?=
+ =?us-ascii?Q?ipE6bL2DlT4YoneKFLwJVohBEPZQTIgW+pQnb6fKUvI71eseCzKzbx4HsB74?=
+ =?us-ascii?Q?9JfiKeRhxfr3tQrlHqhysihL3x0tAC3GEjnHWBzcEshfugwj1LiFqEkF9Yxn?=
+ =?us-ascii?Q?sqnASDUel/SaL1rhVpdeyja0kuODHZKDIUPBThNrYwVfww7I47n7ff/mZr+o?=
+ =?us-ascii?Q?wZI7EliTSWTGVcmAQIVCunkD4gNkqK4I2w6cURu1bH820QjeOU+fjDMaefnM?=
+ =?us-ascii?Q?M4HdmGKkvcrDOUXRInNmeurSmTyUvKbVUoMSyYrC3MwEL72YW2LCfmoRQVu9?=
+ =?us-ascii?Q?H0uxt9DxQ/2OAKqZwO0bRwY7FsIi85avDAMuU1QI2nBMEssW98iM2k68J4lS?=
+ =?us-ascii?Q?qJUlkJwceOYz74dpNHV8HUELMT0dO1R9Z4urfPkOcLNxQ3vyL7PbcwP4jwPO?=
+ =?us-ascii?Q?zD94jdZwFxDyzHuji38Dh/ojguNjTzRDpGB6n9cW7yfkC6IFChJy1dgGPLRc?=
+ =?us-ascii?Q?OyIrsYaSTtWQ9sU24iD7QqwkVmDpwiVX6M3HEt1fCwoy/yNNJYdrWkC9dvDk?=
+X-MS-Exchange-AntiSpam-MessageData-1: wMK5jLXYNFIEB3Caef+8LcEsblTw55zklXQ=
 X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 914efb22-4348-4a14-f715-08de86078718
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3f155316-cf66-48a7-2bfe-08de86078eb6
 X-MS-Exchange-CrossTenant-AuthSource: AM9PR04MB8585.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Mar 2026 22:33:22.3672 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Mar 2026 22:33:35.1356 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: lNzB+08At8utlOsz+mUNbZF/2cttPgrriutD6eOIEyeA5bk2Cw0mw32T8RL2FsWLBYLrsYmg+atgPxjkXvgDqQ==
+X-MS-Exchange-CrossTenant-UserPrincipalName: 9Ya2j59DNYhEX2w7Y1AEtqKr/jDEBKWp8+4i4QMDCW8wm9ElNvrA4nVUDpopY9cW1EJhnjWjZAYNw+lsw2zAEA==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR04MB8079
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -144,85 +136,74 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-As a PHY consumer driver, the Renesas rswitch dereferences internal
-fields of struct phy, something which shouldn't be done, as that is
-going to be made an opaque pointer.
+Some pragmatic shortcuts are being taken by PHY consumer driver authors,
+which put a burden on the framework. A lot of these can be caught during
+review.
 
-It is quite clearly visible that the driver is tightly coupled with the
-drivers/phy/renesas/r8a779f0-ether-serdes.c, which puts heavy pressure
-on the Generic PHY subsystem.
+Make sure the linux-phy list is copied on as many keywords that regexes
+can reasonably catch.
 
-This was discussed before here:
-https://lore.kernel.org/linux-phy/20260211194541.cdmibrpfn6ej6e74@skbuf/
+Some considerations that led to this solution and not a simpler one:
+- Consumers may be located anywhere, and their file naming provides no
+  indication whatsoever that they are PHY API consumers.
+- The network PHY API has similarly sounding API: phy_start(),
+  phy_connect(), etc. Similarly, matching on "phy" would hit
+  phys_addr_t, "cryptography", etc.
+- The header files themselves need attention to avoid matching on
+  include/linux/phy.h (network PHY), include/linux/usb/phy.h,
+  drivers/net/vendor/device/phy.h, etc.
+- At least for a transitional period, I suppose developers will still
+  try to add PHY providers outside the subsystem (which is discouraged).
 
-but to summarize, it is generally expected that when a Generic PHY
-function is called, it takes effect immediately. When this doesn't
-happen, the PHY provider driver must change its implementation rather
-than the consumer be made to work around it. PHY providers which rely on
-a hardcoded call sequence in the consumer are just lazy and wrong.
+So I used \b to try to match on actual word boundaries and I went for
+listing all markers of PHY API use as they may appear in patch contexts.
 
-The most obvious example is commit 5cb630925b49 ("net: renesas: rswitch:
-Add phy_power_{on,off}() calling"). Problem description:
-- Ethernet PHYs may change phydev->interface. When this happens, the
-  SerDes must learn of the new phydev->interface using phy_set_mode_ext().
-- drivers/phy/renesas/r8a779f0-ether-serdes.c implements phy_set_mode_ext(),
-  but this only caches the mode and submode into channel->phy_interface
-  and applies this to hardware during phy_power_on().
+Bit rot is a valid concern. I will add a test to the build automation
+that newly introduced struct and function names in include/linux/phy.h,
+include/linux/phy-props.h and drivers/phy/phy-provider.h are matched by
+the MAINTAINERS entry K: patterns.
 
-The commit author decided to work around this at the consumer site, by
-power cycling the PHY for the configuration to take effect.
-
-This had a worse implication from an API perspective in subsequent
-commit 053f13f67be6 ("rswitch: Fix imbalance phy_power_off() calling").
-It was observed that phy_power_on() and phy_power_off() calls need to be
-balanced, and so, the consumer decided to start looking at the struct
-phy :: power_count (the technical reason why I'm making this change).
-
-This is also wrong from an API perspective because
-- a consumer should only care about its own vote on the PHY power state.
-  If this is a multi-port submode like QSGMII, a single phy_power_off()
-  call will not actually turn the PHY off (nor should it).
-- the power_count is written under the &phy->mutex, but read unlocked
-  here.
-
-The rswitch and r8a779f0-ether-serdes drivers both need to be completely
-rethought in terms of Generic PHY API call sequence. There is no quick
-fix to apply. Just include the PHY provider API along with the consumer
-one, to keep working as before when struct phy will be made an opaque
-pointer to normal PHY consumers. But this is a bad offender (and it's
-not even a provider) so add a FIXME.
+The keyword patterns were written with great help from Joe Perches
+<joe@perches.com>.
 
 Signed-off-by: Vladimir Oltean <vladimir.oltean@nxp.com>
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
 ---
-Cc: Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>
-Cc: Michael Dege <michael.dege@renesas.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>
-Cc: "David S. Miller" <davem@davemloft.net>
-Cc: Eric Dumazet <edumazet@google.com>
-Cc: Jakub Kicinski <kuba@kernel.org>
-Cc: Paolo Abeni <pabeni@redhat.com>
-Cc: Geert Uytterhoeven <geert+renesas@glider.be>
-Cc: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
+Cc: Joe Perches <joe@perches.com>
 
-v2->v5: none
-v1->v2: collect tag
+v3->v5: none
+v2->v3:
+- escape forward slash in linux/phy/phy.h in regex pattern:
+  https://lore.kernel.org/linux-phy/9fd14d166e860f26febfbc9061a6dcae6a166961.camel@perches.com/
+v1->v2:
+- split into multiple regex patterns
+- use matching-only (insted of capturing) regex patterns
+- adjust commit message to reflect the Q&A from v1
 ---
- drivers/net/ethernet/renesas/rswitch_main.c | 1 +
- 1 file changed, 1 insertion(+)
+ MAINTAINERS | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
 
-diff --git a/drivers/net/ethernet/renesas/rswitch_main.c b/drivers/net/ethernet/renesas/rswitch_main.c
-index 6fe964816322..132be5f15073 100644
---- a/drivers/net/ethernet/renesas/rswitch_main.c
-+++ b/drivers/net/ethernet/renesas/rswitch_main.c
-@@ -27,6 +27,7 @@
- #include <linux/spinlock.h>
- #include <linux/sys_soc.h>
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 55af015174a5..cd920f14abde 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -10713,6 +10713,17 @@ F:	Documentation/devicetree/bindings/phy/
+ F:	drivers/phy/
+ F:	include/dt-bindings/phy/
+ F:	include/linux/phy/
++K:	(?:linux\/phy\/phy\.h|phy-props\.h|phy-provider\.h)
++K:	\b(?:__)?(?:devm_)?(?:of_)?phy_(?:create|destroy|provider_(?:un)?register)\b
++K:	\bphy_(?:create|remove)_lookup\b
++K:	\bphy_(?:get|set)_drvdata\b
++K:	\b(?:devm_)?(?:of_)?phy_(?:optional_)?(?:get|put)(?:_by_index)?\b
++K:	\bphy_pm_runtime_(?:get|put)(?:_sync)?\b
++K:	\bphy_(?:init|exit|power_(?:on|off))\b
++K:	\bphy_(?:get|set)_(?:mode(?:_ext)?|media|speed|bus_width|max_link_rate)\b
++K:	\bphy_(?:reset|configure|validate|calibrate)\b
++K:	\bphy_notify_(?:connect|disconnect|state)\b
++K:	\bstruct\s+phy(?:_ops|_attrs|_lookup|_provider)?\b
  
-+#include "../../../phy/phy-provider.h" /* FIXME */
- #include "rswitch.h"
- #include "rswitch_l2.h"
- 
+ GENERIC PINCTRL I2C DEMULTIPLEXER DRIVER
+ M:	Wolfram Sang <wsa+renesas@sang-engineering.com>
 -- 
 2.43.0
 
