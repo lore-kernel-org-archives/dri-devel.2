@@ -4,75 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 216111090249
-	for <dri-devel@archiver.kernel.org>; Thu, 19 Mar 2026 16:01:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 25C5A1090247
+	for <dri-devel@archiver.kernel.org>; Thu, 19 Mar 2026 16:01:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E847610E8F6;
-	Thu, 19 Mar 2026 16:01:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 81A5B10E8FD;
+	Thu, 19 Mar 2026 16:01:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="hb2C0v0S";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="4Z8ZGSRz";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="htPRk+HO";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="fy0jLREP";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="UykjoC9I";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="kdS8mGL6";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="LKk1vdEw";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="4N5SYwXO";
 	dkim-atps=neutral
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D6A6710E8EB
- for <dri-devel@lists.freedesktop.org>; Thu, 19 Mar 2026 16:01:27 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 27C4110E904
+ for <dri-devel@lists.freedesktop.org>; Thu, 19 Mar 2026 16:01:37 +0000 (UTC)
 Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
  [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 00BDE5BD49;
- Thu, 19 Mar 2026 16:01:15 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id DE9755BD72;
+ Thu, 19 Mar 2026 16:01:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1773936080; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1773936082; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=7yWCp48lJFfvOvJEfpPVjZqk+le9ajJsEajlCCx8tsQ=;
- b=hb2C0v0S+LGXJiCfUFrQxvIKSzzwdGMHHuuuY0DfdljC47YPruq8wQ73aWtDDR2Lo1b/9Y
- ulH252jel7mzCfIvMtdNVxeP/9in7E5XcULJOI22Cj4ySw9F/WMqw+AMmTCQDPBxiObFyN
- QvKuQOG1CnwcGW7TFMwhvOfvTimBtRQ=
+ bh=rZr3ZWlaKNe3Z39l3gnpN6VsBBEMnKisNyPDemfSYq4=;
+ b=UykjoC9I1og7g6u3yoUvko9nq7EGhqGGj7WbsEgaXsiwfkWG2n+5m0+GQt75BTA5XbXH2H
+ 2UJkglfyoo6hjevG3f3ogKcu4nLEG62PZP939yCtWVQU2JIOeQescIi98Iw7XH7UFmxEAv
+ 14l9H8RYF2acirARPOMCIn34PVcRpyY=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1773936080;
+ s=susede2_ed25519; t=1773936082;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=7yWCp48lJFfvOvJEfpPVjZqk+le9ajJsEajlCCx8tsQ=;
- b=4Z8ZGSRzatUjJtcEvMPPOBwNFFGUTd+CD00Ncivtulerg4T3wqYEs7hY264ZGfAAuOKh8x
- 6rQiFqc3y5V9N4Cw==
+ bh=rZr3ZWlaKNe3Z39l3gnpN6VsBBEMnKisNyPDemfSYq4=;
+ b=kdS8mGL6VC4YN/fGf6xLV5+gF1O6TrSnGbFYlgAB9Hl5qU8DMlwTFXlSx+a1GmQCDy4J0M
+ FfMJFQafvgvoEKAw==
 Authentication-Results: smtp-out2.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=htPRk+HO;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=fy0jLREP
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=LKk1vdEw;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=4N5SYwXO
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1773936075; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1773936081; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=7yWCp48lJFfvOvJEfpPVjZqk+le9ajJsEajlCCx8tsQ=;
- b=htPRk+HOdoImiceFkPDEpm09fJFGa7B1hKhkxWE2oudyTEL7yLmtSd5fXaTYMhNjE8x7Ro
- iRgLkjdaJdNrlZhhPNrjcYZ3/zQ7L4H36U/rXkwXd4imwp99CpC2lxZCXVlAWs2cicnCs8
- JvAXGItepGQuEyD7o+MBG/LsamR+iUI=
+ bh=rZr3ZWlaKNe3Z39l3gnpN6VsBBEMnKisNyPDemfSYq4=;
+ b=LKk1vdEwKTKdGotXduWPLpmMY1W7H54+VbPP9QDnBbu2JdgPN6phtqcPuWp2o0VbE+/qHt
+ Z30wQu372QUa15aN+BHwsHP4rUEMl5d+NQFBloJXhscVde5lE6C/QscvkHgKwMEwltl7zG
+ McleNoYuADw62fJ4JUdSXabbGA17y5w=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1773936075;
+ s=susede2_ed25519; t=1773936081;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=7yWCp48lJFfvOvJEfpPVjZqk+le9ajJsEajlCCx8tsQ=;
- b=fy0jLREPCtxmZXoQQvQQc1qvlzBN/Iw25gW0nICljGsjWQzTZBHEoyqbVklRAi9cjMXa/D
- 8bpUylicXPDxHrAg==
+ bh=rZr3ZWlaKNe3Z39l3gnpN6VsBBEMnKisNyPDemfSYq4=;
+ b=4N5SYwXOOx3xu/d/3VWDfxsTkcX7kcJORyf5oY+vGQkyppHeytPzBYddl+/1gVXB4EB/oH
+ Q/6wfdu4oX2+6FDA==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id A52794273C;
- Thu, 19 Mar 2026 16:01:14 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id C479C42751;
+ Thu, 19 Mar 2026 16:01:16 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id wPcgJ8odvGn0WQAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Thu, 19 Mar 2026 16:01:14 +0000
+ by imap1.dmz-prg2.suse.org with ESMTPSA id yF3ELswdvGn0WQAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Thu, 19 Mar 2026 16:01:16 +0000
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: david@lechnology.com, javierm@redhat.com, lanzano.alex@gmail.com,
  kamlesh.gurudasani@gmail.com, architanant5@gmail.com, wens@kernel.org,
@@ -80,9 +80,10 @@ To: david@lechnology.com, javierm@redhat.com, lanzano.alex@gmail.com,
  airlied@gmail.com
 Cc: dri-devel@lists.freedesktop.org,
 	Thomas Zimmermann <tzimmermann@suse.de>
-Subject: [PATCH v3 01/16] drm/mipi-dbi: Only modify planes on enabled CRTCs
-Date: Thu, 19 Mar 2026 16:59:37 +0100
-Message-ID: <20260319160110.109610-2-tzimmermann@suse.de>
+Subject: [PATCH v3 07/16] drm/ili9341: Use regular atomic helpers;
+ drop simple-display helpers
+Date: Thu, 19 Mar 2026 16:59:43 +0100
+Message-ID: <20260319160110.109610-8-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260319160110.109610-1-tzimmermann@suse.de>
 References: <20260319160110.109610-1-tzimmermann@suse.de>
@@ -104,14 +105,14 @@ X-Spamd-Result: default: False [-1.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
  SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
  RCVD_COUNT_TWO(0.00)[2]; FROM_EQ_ENVFROM(0.00)[];
  FROM_HAS_DN(0.00)[]; TO_DN_SOME(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:mid,suse.de:dkim,suse.de:email];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid,suse.de:dkim,suse.de:email,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns];
  TAGGED_RCPT(0.00)[];
  RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
  R_RATELIMIT(0.00)[to_ip_from(RLqtkr6cif1ebgurukgmwdm7xc)];
  RCVD_VIA_SMTP_AUTH(0.00)[]; FREEMAIL_ENVRCPT(0.00)[gmail.com]
 X-Rspamd-Action: no action
 X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: 00BDE5BD49
+X-Rspamd-Queue-Id: DE9755BD72
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,294 +128,205 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Use drm_atomic_helper_commit_tail_rpm() as commit tail to update the
-plane after enabling the CRTC. Then remove the plane-update code from
-mipi_dbi_enable_flush() and inline the remaining backlight code where
-necessary.
+Replace simple-display helpers with regular atomic helpers. Store the
+pipeline elements in struct ili9341_device and initialize them as part
+of probing the device. Use mipi-dbi's existing helpers and initializer
+macros where possible.
 
-Mipi-dbi's current commit tail drm_atomic_helper_commit_tail() first
-updates the plane and then enables the CRTC. But the CRTC enablement
-includes power management that prevents the initial plane update from
-working. Hence, each mipi-dbi driver includes a plane update in their
-CRTC enablement; in the form of mipi_dbi_enable_flush() or custom code.
-
-Using drm_atomic_helper_commit_tail_rpm() enables the CRTC before any
-plane updates. Hence the additional plane update can be removed from
-mipi_dbi_enable_flush() and a number of drivers.
-
-This leaves backlight_enable() in the helper, which can now be inlined
-into affected drivers. Drivers now enable the CRTC plus an optional
-backlight and then automatically update the plane.
-
-In the case of disabling the display, drm_atomic_helper_commit_tail_rpm()
-only disables the CRTC without touching the plane at all. Mipi-dbi's
-mipi_dbi_pipe_disable() already contains the necessary logic.
-
-Removing the plane update from the CRTC enablement will also help with
-converting mipi-dbi from simple-pipe helpers to regular atomic helpers.
+Effectively open-codes the modesetting code in the initializer helpers
+of mipi-dbi and simple-display. Ili9341 requires a custom helper for
+CRTC enablement, and non-freeing cleanup of the pipeline.
 
 v3:
-- st7586: remove unused variable
+- set dbi variable (David)
 v2:
-- ili9225: remove unused variables (David)
-- st7586: remove unused variables (David)
+- fix connector initialization
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
 Acked-by: David Lechner <david@lechnology.com>
 ---
- drivers/gpu/drm/drm_mipi_dbi.c        | 44 ++++-----------------------
- drivers/gpu/drm/sitronix/st7586.c     | 11 -------
- drivers/gpu/drm/sitronix/st7735r.c    |  2 +-
- drivers/gpu/drm/tiny/hx8357d.c        |  3 +-
- drivers/gpu/drm/tiny/ili9163.c        |  3 +-
- drivers/gpu/drm/tiny/ili9225.c        | 11 -------
- drivers/gpu/drm/tiny/ili9341.c        |  3 +-
- drivers/gpu/drm/tiny/ili9486.c        |  3 +-
- drivers/gpu/drm/tiny/mi0283qt.c       |  3 +-
- drivers/gpu/drm/tiny/panel-mipi-dbi.c |  2 +-
- include/drm/drm_mipi_dbi.h            |  3 --
- 11 files changed, 18 insertions(+), 70 deletions(-)
+ drivers/gpu/drm/tiny/ili9341.c | 135 +++++++++++++++++++++++++++++----
+ 1 file changed, 122 insertions(+), 13 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_mipi_dbi.c b/drivers/gpu/drm/drm_mipi_dbi.c
-index 00482227a9cd..bb6cebc583be 100644
---- a/drivers/gpu/drm/drm_mipi_dbi.c
-+++ b/drivers/gpu/drm/drm_mipi_dbi.c
-@@ -368,44 +368,6 @@ void mipi_dbi_pipe_update(struct drm_simple_display_pipe *pipe,
- }
- EXPORT_SYMBOL(mipi_dbi_pipe_update);
- 
--/**
-- * mipi_dbi_enable_flush - MIPI DBI enable helper
-- * @dbidev: MIPI DBI device structure
-- * @crtc_state: CRTC state
-- * @plane_state: Plane state
-- *
-- * Flushes the whole framebuffer and enables the backlight. Drivers can use this
-- * in their &drm_simple_display_pipe_funcs->enable callback.
-- *
-- * Note: Drivers which don't use mipi_dbi_pipe_update() because they have custom
-- * framebuffer flushing, can't use this function since they both use the same
-- * flushing code.
-- */
--void mipi_dbi_enable_flush(struct mipi_dbi_dev *dbidev,
--			   struct drm_crtc_state *crtc_state,
--			   struct drm_plane_state *plane_state)
--{
--	struct drm_shadow_plane_state *shadow_plane_state = to_drm_shadow_plane_state(plane_state);
--	struct drm_framebuffer *fb = plane_state->fb;
--	struct drm_rect rect = {
--		.x1 = 0,
--		.x2 = fb->width,
--		.y1 = 0,
--		.y2 = fb->height,
--	};
--	int idx;
--
--	if (!drm_dev_enter(&dbidev->drm, &idx))
--		return;
--
--	mipi_dbi_fb_dirty(&shadow_plane_state->data[0], fb, &rect,
--			  &shadow_plane_state->fmtcnv_state);
--	backlight_enable(dbidev->backlight);
--
--	drm_dev_exit(idx);
--}
--EXPORT_SYMBOL(mipi_dbi_enable_flush);
--
- static void mipi_dbi_blank(struct mipi_dbi_dev *dbidev)
- {
- 	struct drm_device *drm = &dbidev->drm;
-@@ -577,6 +539,10 @@ static int mipi_dbi_rotate_mode(struct drm_display_mode *mode,
- 	}
- }
- 
-+static const struct drm_mode_config_helper_funcs mipi_dbi_mode_config_helper_funcs = {
-+	.atomic_commit_tail = drm_atomic_helper_commit_tail_rpm,
-+};
-+
- static const struct drm_mode_config_funcs mipi_dbi_mode_config_funcs = {
- 	.fb_create = drm_gem_fb_create_with_dirty,
- 	.atomic_check = drm_atomic_helper_check,
-@@ -660,6 +626,8 @@ int mipi_dbi_dev_init_with_formats(struct mipi_dbi_dev *dbidev,
- 	drm->mode_config.max_width = dbidev->mode.hdisplay;
- 	drm->mode_config.min_height = dbidev->mode.vdisplay;
- 	drm->mode_config.max_height = dbidev->mode.vdisplay;
-+	drm->mode_config.helper_private = &mipi_dbi_mode_config_helper_funcs;
-+
- 	dbidev->rotation = rotation;
- 	dbidev->pixel_format = formats[0];
- 	if (formats[0] == DRM_FORMAT_RGB888)
-diff --git a/drivers/gpu/drm/sitronix/st7586.c b/drivers/gpu/drm/sitronix/st7586.c
-index 16b6b4e368af..b6f38e03e1e5 100644
---- a/drivers/gpu/drm/sitronix/st7586.c
-+++ b/drivers/gpu/drm/sitronix/st7586.c
-@@ -174,15 +174,7 @@ static void st7586_pipe_enable(struct drm_simple_display_pipe *pipe,
- 			       struct drm_plane_state *plane_state)
- {
- 	struct mipi_dbi_dev *dbidev = drm_to_mipi_dbi_dev(pipe->crtc.dev);
--	struct drm_shadow_plane_state *shadow_plane_state = to_drm_shadow_plane_state(plane_state);
--	struct drm_framebuffer *fb = plane_state->fb;
- 	struct mipi_dbi *dbi = &dbidev->dbi;
--	struct drm_rect rect = {
--		.x1 = 0,
--		.x2 = fb->width,
--		.y1 = 0,
--		.y2 = fb->height,
--	};
- 	int idx, ret;
- 	u8 addr_mode;
- 
-@@ -242,9 +234,6 @@ static void st7586_pipe_enable(struct drm_simple_display_pipe *pipe,
- 
- 	msleep(100);
- 
--	st7586_fb_dirty(&shadow_plane_state->data[0], fb, &rect,
--			&shadow_plane_state->fmtcnv_state);
--
- 	mipi_dbi_command(dbi, MIPI_DCS_SET_DISPLAY_ON);
- out_exit:
- 	drm_dev_exit(idx);
-diff --git a/drivers/gpu/drm/sitronix/st7735r.c b/drivers/gpu/drm/sitronix/st7735r.c
-index c1f8228495f6..1a34c7ba460b 100644
---- a/drivers/gpu/drm/sitronix/st7735r.c
-+++ b/drivers/gpu/drm/sitronix/st7735r.c
-@@ -129,7 +129,7 @@ static void st7735r_pipe_enable(struct drm_simple_display_pipe *pipe,
- 
- 	msleep(20);
- 
--	mipi_dbi_enable_flush(dbidev, crtc_state, plane_state);
-+	backlight_enable(dbidev->backlight);
- out_exit:
- 	drm_dev_exit(idx);
- }
-diff --git a/drivers/gpu/drm/tiny/hx8357d.c b/drivers/gpu/drm/tiny/hx8357d.c
-index 9f26aaca0bfa..5115be8854bb 100644
---- a/drivers/gpu/drm/tiny/hx8357d.c
-+++ b/drivers/gpu/drm/tiny/hx8357d.c
-@@ -177,7 +177,8 @@ static void yx240qv29_enable(struct drm_simple_display_pipe *pipe,
- 		break;
- 	}
- 	mipi_dbi_command(dbi, MIPI_DCS_SET_ADDRESS_MODE, addr_mode);
--	mipi_dbi_enable_flush(dbidev, crtc_state, plane_state);
-+
-+	backlight_enable(dbidev->backlight);
- out_exit:
- 	drm_dev_exit(idx);
- }
-diff --git a/drivers/gpu/drm/tiny/ili9163.c b/drivers/gpu/drm/tiny/ili9163.c
-index 7c154c008344..c616f56af5b5 100644
---- a/drivers/gpu/drm/tiny/ili9163.c
-+++ b/drivers/gpu/drm/tiny/ili9163.c
-@@ -96,7 +96,8 @@ static void yx240qv29_enable(struct drm_simple_display_pipe *pipe,
- 	}
- 	addr_mode |= ILI9163_MADCTL_BGR;
- 	mipi_dbi_command(dbi, MIPI_DCS_SET_ADDRESS_MODE, addr_mode);
--	mipi_dbi_enable_flush(dbidev, crtc_state, plane_state);
-+
-+	backlight_enable(dbidev->backlight);
- out_exit:
- 	drm_dev_exit(idx);
- }
-diff --git a/drivers/gpu/drm/tiny/ili9225.c b/drivers/gpu/drm/tiny/ili9225.c
-index d32538b1eb09..3eaf6b3a055a 100644
---- a/drivers/gpu/drm/tiny/ili9225.c
-+++ b/drivers/gpu/drm/tiny/ili9225.c
-@@ -184,16 +184,8 @@ static void ili9225_pipe_enable(struct drm_simple_display_pipe *pipe,
- 				struct drm_plane_state *plane_state)
- {
- 	struct mipi_dbi_dev *dbidev = drm_to_mipi_dbi_dev(pipe->crtc.dev);
--	struct drm_shadow_plane_state *shadow_plane_state = to_drm_shadow_plane_state(plane_state);
--	struct drm_framebuffer *fb = plane_state->fb;
- 	struct device *dev = pipe->crtc.dev->dev;
- 	struct mipi_dbi *dbi = &dbidev->dbi;
--	struct drm_rect rect = {
--		.x1 = 0,
--		.x2 = fb->width,
--		.y1 = 0,
--		.y2 = fb->height,
--	};
- 	int ret, idx;
- 	u8 am_id;
- 
-@@ -284,9 +276,6 @@ static void ili9225_pipe_enable(struct drm_simple_display_pipe *pipe,
- 
- 	ili9225_command(dbi, ILI9225_DISPLAY_CONTROL_1, 0x1017);
- 
--	ili9225_fb_dirty(&shadow_plane_state->data[0], fb, &rect,
--			 &shadow_plane_state->fmtcnv_state);
--
- out_exit:
- 	drm_dev_exit(idx);
- }
 diff --git a/drivers/gpu/drm/tiny/ili9341.c b/drivers/gpu/drm/tiny/ili9341.c
-index 2ab750cba505..972811564d6a 100644
+index 972811564d6a..e623bd8a1827 100644
 --- a/drivers/gpu/drm/tiny/ili9341.c
 +++ b/drivers/gpu/drm/tiny/ili9341.c
-@@ -133,7 +133,8 @@ static void yx240qv29_enable(struct drm_simple_display_pipe *pipe,
- 	}
- 	addr_mode |= ILI9341_MADCTL_BGR;
- 	mipi_dbi_command(dbi, MIPI_DCS_SET_ADDRESS_MODE, addr_mode);
--	mipi_dbi_enable_flush(dbidev, crtc_state, plane_state);
-+
-+	backlight_enable(dbidev->backlight);
- out_exit:
- 	drm_dev_exit(idx);
- }
-diff --git a/drivers/gpu/drm/tiny/ili9486.c b/drivers/gpu/drm/tiny/ili9486.c
-index 1e411a0f4567..52b14f2cb0e1 100644
---- a/drivers/gpu/drm/tiny/ili9486.c
-+++ b/drivers/gpu/drm/tiny/ili9486.c
-@@ -155,7 +155,8 @@ static void waveshare_enable(struct drm_simple_display_pipe *pipe,
- 	}
- 	addr_mode |= ILI9486_MADCTL_BGR;
- 	mipi_dbi_command(dbi, MIPI_DCS_SET_ADDRESS_MODE, addr_mode);
--	mipi_dbi_enable_flush(dbidev, crtc_state, plane_state);
-+
-+	backlight_enable(dbidev->backlight);
-  out_exit:
- 	drm_dev_exit(idx);
- }
-diff --git a/drivers/gpu/drm/tiny/mi0283qt.c b/drivers/gpu/drm/tiny/mi0283qt.c
-index a063eff77624..f121e1a8a303 100644
---- a/drivers/gpu/drm/tiny/mi0283qt.c
-+++ b/drivers/gpu/drm/tiny/mi0283qt.c
-@@ -137,7 +137,8 @@ static void mi0283qt_enable(struct drm_simple_display_pipe *pipe,
- 	}
- 	addr_mode |= ILI9341_MADCTL_BGR;
- 	mipi_dbi_command(dbi, MIPI_DCS_SET_ADDRESS_MODE, addr_mode);
--	mipi_dbi_enable_flush(dbidev, crtc_state, plane_state);
-+
-+	backlight_enable(dbidev->backlight);
- out_exit:
- 	drm_dev_exit(idx);
- }
-diff --git a/drivers/gpu/drm/tiny/panel-mipi-dbi.c b/drivers/gpu/drm/tiny/panel-mipi-dbi.c
-index 82dfa169f762..4907945ab507 100644
---- a/drivers/gpu/drm/tiny/panel-mipi-dbi.c
-+++ b/drivers/gpu/drm/tiny/panel-mipi-dbi.c
-@@ -252,7 +252,7 @@ static void panel_mipi_dbi_enable(struct drm_simple_display_pipe *pipe,
- 	if (!ret)
- 		panel_mipi_dbi_commands_execute(dbi, dbidev->driver_private);
+@@ -52,16 +52,48 @@
+ #define ILI9341_MADCTL_MX	BIT(6)
+ #define ILI9341_MADCTL_MY	BIT(7)
  
--	mipi_dbi_enable_flush(dbidev, crtc_state, plane_state);
-+	backlight_enable(dbidev->backlight);
- out_exit:
+-static void yx240qv29_enable(struct drm_simple_display_pipe *pipe,
+-			     struct drm_crtc_state *crtc_state,
+-			     struct drm_plane_state *plane_state)
++struct ili9341_device {
++	struct mipi_dbi_dev dbidev;
++
++	struct drm_plane plane;
++	struct drm_crtc crtc;
++	struct drm_encoder encoder;
++	struct drm_connector connector;
++};
++
++static struct ili9341_device *to_ili9341_device(struct drm_device *dev)
+ {
+-	struct mipi_dbi_dev *dbidev = drm_to_mipi_dbi_dev(pipe->crtc.dev);
++	return container_of(drm_to_mipi_dbi_dev(dev), struct ili9341_device, dbidev);
++}
++
++static const u32 ili9341_plane_formats[] = {
++	DRM_MIPI_DBI_PLANE_FORMATS,
++};
++
++static const u64 ili9341_plane_format_modifiers[] = {
++	DRM_MIPI_DBI_PLANE_FORMAT_MODIFIERS,
++};
++
++static const struct drm_plane_helper_funcs ili9341_plane_helper_funcs = {
++	DRM_MIPI_DBI_PLANE_HELPER_FUNCS,
++};
++
++static const struct drm_plane_funcs ili9341_plane_funcs = {
++	DRM_MIPI_DBI_PLANE_FUNCS,
++	.destroy = drm_plane_cleanup,
++};
++
++static void ili9341_crtc_helper_atomic_enable(struct drm_crtc *crtc,
++					      struct drm_atomic_state *state)
++{
++	struct drm_device *drm = crtc->dev;
++	struct ili9341_device *ili9341 = to_ili9341_device(drm);
++	struct mipi_dbi_dev *dbidev = &ili9341->dbidev;
+ 	struct mipi_dbi *dbi = &dbidev->dbi;
+ 	u8 addr_mode;
+ 	int ret, idx;
+ 
+-	if (!drm_dev_enter(pipe->crtc.dev, &idx))
++	if (!drm_dev_enter(drm, &idx))
+ 		return;
+ 
+ 	DRM_DEBUG_KMS("\n");
+@@ -139,8 +171,35 @@ static void yx240qv29_enable(struct drm_simple_display_pipe *pipe,
  	drm_dev_exit(idx);
  }
-diff --git a/include/drm/drm_mipi_dbi.h b/include/drm/drm_mipi_dbi.h
-index f45f9612c0bc..637be84d3d5a 100644
---- a/include/drm/drm_mipi_dbi.h
-+++ b/include/drm/drm_mipi_dbi.h
-@@ -176,9 +176,6 @@ enum drm_mode_status mipi_dbi_pipe_mode_valid(struct drm_simple_display_pipe *pi
- 					      const struct drm_display_mode *mode);
- void mipi_dbi_pipe_update(struct drm_simple_display_pipe *pipe,
- 			  struct drm_plane_state *old_state);
--void mipi_dbi_enable_flush(struct mipi_dbi_dev *dbidev,
--			   struct drm_crtc_state *crtc_state,
--			   struct drm_plane_state *plan_state);
- void mipi_dbi_pipe_disable(struct drm_simple_display_pipe *pipe);
- int mipi_dbi_pipe_begin_fb_access(struct drm_simple_display_pipe *pipe,
- 				  struct drm_plane_state *plane_state);
+ 
+-static const struct drm_simple_display_pipe_funcs ili9341_pipe_funcs = {
+-	DRM_MIPI_DBI_SIMPLE_DISPLAY_PIPE_FUNCS(yx240qv29_enable),
++static const struct drm_crtc_helper_funcs ili9341_crtc_helper_funcs = {
++	DRM_MIPI_DBI_CRTC_HELPER_FUNCS,
++	.atomic_enable = ili9341_crtc_helper_atomic_enable,
++};
++
++static const struct drm_crtc_funcs ili9341_crtc_funcs = {
++	DRM_MIPI_DBI_CRTC_FUNCS,
++	.destroy = drm_crtc_cleanup,
++};
++
++static const struct drm_encoder_funcs ili9341_encoder_funcs = {
++	.destroy = drm_encoder_cleanup,
++};
++
++static const struct drm_connector_helper_funcs ili9341_connector_helper_funcs = {
++	DRM_MIPI_DBI_CONNECTOR_HELPER_FUNCS,
++};
++
++static const struct drm_connector_funcs ili9341_connector_funcs = {
++	DRM_MIPI_DBI_CONNECTOR_FUNCS,
++	.destroy = drm_connector_cleanup,
++};
++
++static const struct drm_mode_config_helper_funcs ili9341_mode_config_helper_funcs = {
++	DRM_MIPI_DBI_MODE_CONFIG_HELPER_FUNCS,
++};
++
++static const struct drm_mode_config_funcs ili9341_mode_config_funcs = {
++	DRM_MIPI_DBI_MODE_CONFIG_FUNCS,
+ };
+ 
+ static const struct drm_display_mode yx240qv29_mode = {
+@@ -176,18 +235,22 @@ MODULE_DEVICE_TABLE(spi, ili9341_id);
+ static int ili9341_probe(struct spi_device *spi)
+ {
+ 	struct device *dev = &spi->dev;
++	struct ili9341_device *ili9341;
+ 	struct mipi_dbi_dev *dbidev;
+ 	struct drm_device *drm;
+ 	struct mipi_dbi *dbi;
+ 	struct gpio_desc *dc;
++	struct drm_plane *plane;
++	struct drm_crtc *crtc;
++	struct drm_encoder *encoder;
++	struct drm_connector *connector;
+ 	u32 rotation = 0;
+ 	int ret;
+ 
+-	dbidev = devm_drm_dev_alloc(dev, &ili9341_driver,
+-				    struct mipi_dbi_dev, drm);
+-	if (IS_ERR(dbidev))
+-		return PTR_ERR(dbidev);
+-
++	ili9341 = devm_drm_dev_alloc(dev, &ili9341_driver, struct ili9341_device, dbidev.drm);
++	if (IS_ERR(ili9341))
++		return PTR_ERR(ili9341);
++	dbidev = &ili9341->dbidev;
+ 	dbi = &dbidev->dbi;
+ 	drm = &dbidev->drm;
+ 
+@@ -209,7 +272,53 @@ static int ili9341_probe(struct spi_device *spi)
+ 	if (ret)
+ 		return ret;
+ 
+-	ret = mipi_dbi_dev_init(dbidev, &ili9341_pipe_funcs, &yx240qv29_mode, rotation);
++	ret = drm_mipi_dbi_dev_init(dbidev, &yx240qv29_mode, ili9341_plane_formats[0],
++				    rotation, 0);
++	if (ret)
++		return ret;
++
++	ret = drmm_mode_config_init(drm);
++	if (ret)
++		return ret;
++
++	drm->mode_config.min_width = dbidev->mode.hdisplay;
++	drm->mode_config.max_width = dbidev->mode.hdisplay;
++	drm->mode_config.min_height = dbidev->mode.vdisplay;
++	drm->mode_config.max_height = dbidev->mode.vdisplay;
++	drm->mode_config.funcs = &ili9341_mode_config_funcs;
++	drm->mode_config.preferred_depth = 16;
++	drm->mode_config.helper_private = &ili9341_mode_config_helper_funcs;
++
++	plane = &ili9341->plane;
++	ret = drm_universal_plane_init(drm, plane, 0, &ili9341_plane_funcs,
++				       ili9341_plane_formats, ARRAY_SIZE(ili9341_plane_formats),
++				       ili9341_plane_format_modifiers,
++				       DRM_PLANE_TYPE_PRIMARY, NULL);
++	if (ret)
++		return ret;
++	drm_plane_helper_add(plane, &ili9341_plane_helper_funcs);
++	drm_plane_enable_fb_damage_clips(plane);
++
++	crtc = &ili9341->crtc;
++	ret = drm_crtc_init_with_planes(drm, crtc, plane, NULL, &ili9341_crtc_funcs, NULL);
++	if (ret)
++		return ret;
++	drm_crtc_helper_add(crtc, &ili9341_crtc_helper_funcs);
++
++	encoder = &ili9341->encoder;
++	ret = drm_encoder_init(drm, encoder, &ili9341_encoder_funcs, DRM_MODE_ENCODER_NONE, NULL);
++	if (ret)
++		return ret;
++	encoder->possible_crtcs = drm_crtc_mask(crtc);
++
++	connector = &ili9341->connector;
++	ret = drm_connector_init(drm, connector, &ili9341_connector_funcs,
++				 DRM_MODE_CONNECTOR_SPI);
++	if (ret)
++		return ret;
++	drm_connector_helper_add(connector, &ili9341_connector_helper_funcs);
++
++	ret = drm_connector_attach_encoder(connector, encoder);
+ 	if (ret)
+ 		return ret;
+ 
 -- 
 2.53.0
 
