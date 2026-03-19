@@ -4,64 +4,140 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B84E21075281
-	for <dri-devel@archiver.kernel.org>; Thu, 19 Mar 2026 09:18:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 77F021075284
+	for <dri-devel@archiver.kernel.org>; Thu, 19 Mar 2026 09:24:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C232310E92F;
-	Thu, 19 Mar 2026 09:18:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DBCE510E932;
+	Thu, 19 Mar 2026 09:24:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Uq/18fVY";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="HzXlmTWc";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Mk1pPsn+";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4C16F10E110;
- Thu, 19 Mar 2026 09:18:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1773911892; x=1805447892;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=lGM5GhX4mE0ZFupyBB4OVMkkLO2foYdj02MKCYY/GE4=;
- b=Uq/18fVYWYfl+JPJNoTcw3L/JIys60vxfPARHiSqNttL0MBh4TTcIuu5
- MuTCNRmYtkvOXMbbJEQM8uyUf/wbW6KsZvlISgbYpUCdhxzjhrEWK7+F0
- po/tRVtpIFNoNOdpr9ZkcgRUm8VBJt+D/UwhwMP7w3dPE2TdO6ReK5+1z
- cnbPoUWp6GRmf+OX8WGXqxAAfWP/7kDsU7rmRVWc+j0x8mpmoy2iX4zB8
- FRfXZ/ENYctuiD+milxWztRjWqw12wrqLGNZJd6HkEcK0l6FGarO60DnJ
- LCIjMzujKKO/bqGL2rCucmNoAZzMN9ETeDTm/5yTcFFPp18aIm/AVfffu A==;
-X-CSE-ConnectionGUID: coTjTMydRjOQ5+wsOWdN5Q==
-X-CSE-MsgGUID: OFDytf3RSG+cB5gIeDzERA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11733"; a="75054798"
-X-IronPort-AV: E=Sophos;i="6.23,129,1770624000"; d="scan'208";a="75054798"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
- by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Mar 2026 02:18:12 -0700
-X-CSE-ConnectionGUID: f+V3en5iROySYauQOU5hVQ==
-X-CSE-MsgGUID: qjfljHz7Q2+k0Dm4luExzQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,129,1770624000"; d="scan'208";a="219882047"
-Received: from lkp-server02.sh.intel.com (HELO a51c2a36b9df) ([10.239.97.151])
- by fmviesa007.fm.intel.com with ESMTP; 19 Mar 2026 02:18:09 -0700
-Received: from kbuild by a51c2a36b9df with local (Exim 4.98.2)
- (envelope-from <lkp@intel.com>) id 1w39Vg-000000000eL-0kwl;
- Thu, 19 Mar 2026 09:17:52 +0000
-Date: Thu, 19 Mar 2026 17:16:08 +0800
-From: kernel test robot <lkp@intel.com>
-To: Melissa Wen <mwen@igalia.com>, airlied@gmail.com,
- alexander.deucher@amd.com, christian.koenig@amd.com,
- harry.wentland@amd.com, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, simona@ffwll.ch, siqueira@igalia.com,
- sunpeng.li@amd.com, tzimmermann@suse.de
-Cc: oe-kbuild-all@lists.linux.dev, Alex Hung <alex.hung@amd.com>,
- Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>,
- Simon Ser <contact@emersion.fr>, Uma Shankar <uma.shankar@intel.com>,
- Xaver Hugl <xaver.hugl@kde.org>, amd-gfx@lists.freedesktop.org,
- kernel-dev@igalia.com, dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH 1/2] drm/atomic: track individual colorop updates
-Message-ID: <202603191755.nmfoAOS4-lkp@intel.com>
-References: <20260318162348.299807-2-mwen@igalia.com>
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E9B1410E93D
+ for <dri-devel@lists.freedesktop.org>; Thu, 19 Mar 2026 09:24:38 +0000 (UTC)
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 62J744Ji1998880
+ for <dri-devel@lists.freedesktop.org>; Thu, 19 Mar 2026 09:24:38 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ TckbxMyJi7AhkdcEUyt8X0pVJFCrYNyjJm/tTCzLAwo=; b=HzXlmTWc1wDkOb5/
+ pkuFMz9+J40TgGDM/f58I4EfyeKayoD8ImOTEiyGFcD4774Owcrfvdfu4IcdlYaF
+ 9xnfhXTnhcpFNF64Fm8wfIdEikCP34A07rkHXhgJgNXe4QB5FCwd/L4YUAgiFQRv
+ Mpl8qTblT4u1kRAIXqIyTNNXvOw11udGgBecU6ok6E8b6NSGVjolJseQysTRx/Mq
+ 2eO44CSBXmHwS0OF2psSt2bgm7A6IOc6bl3jDofZSgQMhiaY1gYcbeRGC7wfsS1C
+ bECX0PVTwNwX+sTme3MPhxR1fuh/CxPg9S7IjeL5cJEATIndxgoeluCWHcRLoq6R
+ /F5OpA==
+Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com
+ [209.85.219.71])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4cyscb4e2x-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Thu, 19 Mar 2026 09:24:38 +0000 (GMT)
+Received: by mail-qv1-f71.google.com with SMTP id
+ 6a1803df08f44-89c4f6c45a7so5412546d6.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 19 Mar 2026 02:24:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1773912277; x=1774517077;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=TckbxMyJi7AhkdcEUyt8X0pVJFCrYNyjJm/tTCzLAwo=;
+ b=Mk1pPsn+0SdUg7kD64lgRZOYicVbROuOuWRl255Fk9iRnUTs6Zc/tVpPCpvtEWO4jJ
+ dKIJTC6XGTjt6pKTy/wO4SNU9j8N5MnHljzqUvsgwMzVN2xYyaCrcHN1gLpzJ8G2cehl
+ IkbpLHEcC5DuIup6PWv+GJG8bBIE0CUwOMN2wYXcEp7FSmHqeZqN6lkqKn+a8ipJ/Nli
+ g5nlomzi/sWRDx7dhEdjcryX32ivK5rMc5A2ET/7CEcz1LYQa0TV+4XHGfInN+flbsge
+ 0LrwoT6ywZa5Yt1w4eGihxH3LGeynYfc0IpteZhY/h5uWLAx8n1vnAa0q1g5eropRDiV
+ zIBw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1773912277; x=1774517077;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=TckbxMyJi7AhkdcEUyt8X0pVJFCrYNyjJm/tTCzLAwo=;
+ b=aGrMCIrMTN/sT3YPZZG7TLeK/07TBq6khzyY7+vivGnA0PY6p75k14lagJEQdUckOR
+ XFsaoq979TZHn7gXF/bijArgrMJxnkUgozmOPIXswY4uBSCY5rDWhG7+KrN83VMKT1Hy
+ CQ99YyFfJT8yNNZ0++UXkI2pcIG2TnGEBFG2AlUcKDYx//9Qn4K3nYUI1W6nK8ykEpwC
+ 3Zjk4/078kPbEDvpPqrJcNGVeQXtOyLysGSsI1omrRS1WvlXPK0pQ5oqOA3vWENWXLzh
+ rWzfQ20fonfY6U08OmMj30XhP4mP056HvUMak9JZriztWCulzMgiLDYSRM5TtyiYoXcd
+ vNRg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCX3NfnVabjdLiZ0AzOGj7aDOUaVjGk+w7+dpP5dMGV2exxhqb3bDFKQqi9pxMTNwX493wLVkk+Qpjs=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yz875VNiVvMZJzqVfQoxamK4A8pKB2dDiQYRK1OPcI60boJEV3A
+ RbY6ef62YEWT9b7RZjOpOK6HE4xYz3SdlmUEEIRMWIRZzcO41XyDLfq4xq19wnzYOOBoyhslAHC
+ dAc8gLMsV85CY0uNBT6DdeFF59/tFYDEGvPJMV+NdnmBLSkYPIa56DIsoMeckwmTp9gNzQxE=
+X-Gm-Gg: ATEYQzwxkkNr0XlQHs6+vSVbTMPWWkSb1vY6OoWxfB7vqnD9BgbCgt+5lghP5jlGxHh
+ HDFnprNIG+T6LCvaUyLJeXN7ELfM3zzyMUV7vkeF65rtn9WsdCzDq8B3uA0CdCXfU7bjpE41HMt
+ z8pmSgrFznl15hvKD78ebSSnD8Z5WNArB1zMGLBroE12rizCYMea8Qv1g+eQv6s8DFvX8sgdluv
+ jgDsHF1RIg4HjR9YQ65myQgBF1bfA938rh32ToJwf3yMZMfWr7Trowd3W57EupIU9c4feEMdl6W
+ vwSDwB7BlY8N98dJYu2hLEvGVQosehUvMurE2LDRYVyC+B3wXY+dAs2jRoN0RvR/28jlHp5au24
+ 3cM1UikMMPHuJzRp4zkWSNj8nfCDhhOPowd5sJ7PZ4ybLCQuINJJH9onUMaNFh6t6fj8GAy5Ix/
+ pHqlk=
+X-Received: by 2002:ad4:5e8d:0:b0:89a:4741:2147 with SMTP id
+ 6a1803df08f44-89c6b728303mr74824396d6.8.1773912277423; 
+ Thu, 19 Mar 2026 02:24:37 -0700 (PDT)
+X-Received: by 2002:ad4:5e8d:0:b0:89a:4741:2147 with SMTP id
+ 6a1803df08f44-89c6b728303mr74824206d6.8.1773912276858; 
+ Thu, 19 Mar 2026 02:24:36 -0700 (PDT)
+Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl.
+ [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-b97f13ed066sm410962166b.4.2026.03.19.02.24.34
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 19 Mar 2026 02:24:36 -0700 (PDT)
+Message-ID: <5b9ce996-5cdd-40da-9851-2e7c8a40abae@oss.qualcomm.com>
+Date: Thu, 19 Mar 2026 10:24:33 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260318162348.299807-2-mwen@igalia.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 4/4] phy: qualcomm: add MSM8974 HDMI PHY support
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
+ <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-phy@lists.infradead.org,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+References: <20260314-fd-hdmi-phy-v5-0-58122ae96d3b@oss.qualcomm.com>
+ <20260314-fd-hdmi-phy-v5-4-58122ae96d3b@oss.qualcomm.com>
+ <5a464fca-7be5-44a6-b124-7b80ea859a9e@oss.qualcomm.com>
+ <dpzq6o4qdttbmgtpgit2atjghu2kwrcj36ko3rnvwaehbkvjrk@lr4ms7mi6aiz>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <dpzq6o4qdttbmgtpgit2atjghu2kwrcj36ko3rnvwaehbkvjrk@lr4ms7mi6aiz>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: RjMHir6tINc0awBp4QgG1E2KCu9KUL6v
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzE5MDA3NCBTYWx0ZWRfXyqyaeUjUMebT
+ iX8oR4guRVJ6MNGAKE5ZtnTt0BAvmWMwLCNibTNNwYGblppLXeImzwfVv78ZBraBKKCRrkH+QQk
+ RGbfxB0WB6ifvQN8+QGw4S9iJpjX00tWy1YCW2+lFeSOC5jedzaqCDsWbR6WFvf6Lj37T62+/x+
+ qQxUao8coU85T9gSWjbUHBKcKn9EfWX8rfdv5s3w2ZyKWJKTKqjSQ0SRKVBrPy7we8FNweKsel6
+ 3/GhlQzMJGN34oF9baT/AwUqbR/Jkzp/+esRGnH0+uNfj9sM+PJ4cfB7qQZClsIO3sCXhAk6dPa
+ hF8iP3ZSCJNrWYj4Oo2GtQ7lgbCYV28TJH7JaTTgvyumLhtCVUMHOESeMmyNvNW+Gl21We/GFZh
+ jVUMZXdGe+01U8X5lV3K3r8F3cL/16JdmRtsfiktyushHlRks+tKaD1gTlEHd1Xn0g/uHdW5S2b
+ CkqLiPnWqQIl4JhgvMg==
+X-Proofpoint-GUID: RjMHir6tINc0awBp4QgG1E2KCu9KUL6v
+X-Authority-Analysis: v=2.4 cv=PtCergM3 c=1 sm=1 tr=0 ts=69bbc0d6 cx=c_pps
+ a=UgVkIMxJMSkC9lv97toC5g==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
+ a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=KKAkSRfTAAAA:8 a=EUspDBNiAAAA:8 a=NujWGTqPcDVEmWsEH4UA:9 a=QEXdDO2ut3YA:10
+ a=1HOtulTD9v-eNWfpl4qZ:22 a=cvBusfyB2V15izCimMoJ:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-03-19_01,2026-03-17_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 clxscore=1015 priorityscore=1501 bulkscore=0 lowpriorityscore=0
+ malwarescore=0 spamscore=0 adultscore=0 suspectscore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603190074
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,61 +153,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Melissa,
+On 3/18/26 6:15 PM, Dmitry Baryshkov wrote:
+> On Wed, Mar 18, 2026 at 10:22:08AM +0100, Konrad Dybcio wrote:
+>> On 3/14/26 6:06 AM, Dmitry Baryshkov wrote:
+>>> From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+>>>
+>>> Add support for HDMI PHY on Qualcomm MSM8974 / APQ8074 platforms.
+>>>
+>>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+>>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+>>> ---
 
-kernel test robot noticed the following build errors:
+[...]
 
-[auto build test ERROR on drm-misc/drm-misc-next]
-[also build test ERROR on linus/master v7.0-rc4 next-20260318]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+>> I don't know if it's a good direction, but maybe:
+>>
+>> const unsigned long max_rate = HDMI_8974_VCO_MAX_FREQ / HDMI_8974_COMMON_DIV;
+>>
+>> clamp(req->rate, max_rate / 6, max_rate)
+> 
+> Note, it is clamp (min_rate / 6, max_rate)
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Melissa-Wen/drm-atomic-track-individual-colorop-updates/20260319-023607
-base:   https://gitlab.freedesktop.org/drm/misc/kernel.git drm-misc-next
-patch link:    https://lore.kernel.org/r/20260318162348.299807-2-mwen%40igalia.com
-patch subject: [PATCH 1/2] drm/atomic: track individual colorop updates
-config: arc-randconfig-002-20260319 (https://download.01.org/0day-ci/archive/20260319/202603191755.nmfoAOS4-lkp@intel.com/config)
-compiler: arc-linux-gcc (GCC) 13.4.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260319/202603191755.nmfoAOS4-lkp@intel.com/reproduce)
+see, indeed confusing ;)
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202603191755.nmfoAOS4-lkp@intel.com/
+But I suppose we don't have a better way of specifying that so whatevs
 
-All errors (new ones prefixed by >>):
-
-   In file included from drivers/gpu/drm/msm/msm_atomic.c:7:
->> include/drm/drm_atomic_uapi.h:53:1: error: unknown type name 'bool'
-      53 | bool drm_atomic_set_colorop_for_plane(struct drm_plane_state *plane_state,
-         | ^~~~
-   include/drm/drm_atomic_uapi.h:1:1: note: 'bool' is defined in header '<stdbool.h>'; did you forget to '#include <stdbool.h>'?
-     +++ |+#include <stdbool.h>
-       1 | /*
-
-
-vim +/bool +53 include/drm/drm_atomic_uapi.h
-
-    41	
-    42	int __must_check
-    43	drm_atomic_set_mode_for_crtc(struct drm_crtc_state *state,
-    44				     const struct drm_display_mode *mode);
-    45	int __must_check
-    46	drm_atomic_set_mode_prop_for_crtc(struct drm_crtc_state *state,
-    47					  struct drm_property_blob *blob);
-    48	int __must_check
-    49	drm_atomic_set_crtc_for_plane(struct drm_plane_state *plane_state,
-    50				      struct drm_crtc *crtc);
-    51	void drm_atomic_set_fb_for_plane(struct drm_plane_state *plane_state,
-    52					 struct drm_framebuffer *fb);
-  > 53	bool drm_atomic_set_colorop_for_plane(struct drm_plane_state *plane_state,
-    54					      struct drm_colorop *colorop);
-    55	int __must_check
-    56	drm_atomic_set_crtc_for_connector(struct drm_connector_state *conn_state,
-    57					  struct drm_crtc *crtc);
-    58	
-
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+Konrad
