@@ -4,67 +4,133 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2F8A11088E5D
-	for <dri-devel@archiver.kernel.org>; Thu, 19 Mar 2026 00:22:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DAA9F1088E5C
+	for <dri-devel@archiver.kernel.org>; Thu, 19 Mar 2026 00:34:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2199910E435;
-	Thu, 19 Mar 2026 00:22:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2CDD410E03C;
+	Thu, 19 Mar 2026 00:34:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="W1lwA5kX";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="LwQZRSYD";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B285710E03C;
- Thu, 19 Mar 2026 00:22:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1773879762; x=1805415762;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=BQcyHYifbfvGb+af3Nv6bJFBDYz8OjbbNXZ+MC9lmEw=;
- b=W1lwA5kXFOI4z7z+dzNaqGgKfjmXkBRap77DOe7cDnwtDaSfAVj+Ciiz
- /KVZsalIQ/1TGFqTFZhhxYYTvLuYh3rCNvIxSl5k4iP2vnaOvoBTINPN5
- pe//2sLjN7LDtG63kMuwGDxLKJUvmPkRwLm8joCkJqbt8C+9kyeDmwNLT
- R1UbKxK6WOzekxjM9593m1b6aO4x8PIUTlyX7gHSkvG/s6H5/giXqXBHI
- 0e04vjgGcCP5gqEhtmKZdTkB3LhVjII7diCRpdAm1Wm5Z2hAsoM17lwyr
- mI+Kq0XmccoKt96Fmts7fnGz9g/0kDUpoFm5jIROh7LnEByqdRqZ5CZnA g==;
-X-CSE-ConnectionGUID: egosAlw1Tz+/oA2heo9XSA==
-X-CSE-MsgGUID: NsHr1e/cQr+eDc5XVi5/5w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11733"; a="74835553"
-X-IronPort-AV: E=Sophos;i="6.23,128,1770624000"; d="scan'208";a="74835553"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
- by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Mar 2026 17:22:41 -0700
-X-CSE-ConnectionGUID: uWlu8RaoQtSA+GjbI5OP3A==
-X-CSE-MsgGUID: jLw6YJu5QaeHjVuNRwF1fA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,128,1770624000"; d="scan'208";a="221904375"
-Received: from lkp-server02.sh.intel.com (HELO a51c2a36b9df) ([10.239.97.151])
- by orviesa006.jf.intel.com with ESMTP; 18 Mar 2026 17:22:37 -0700
-Received: from kbuild by a51c2a36b9df with local (Exim 4.98.2)
- (envelope-from <lkp@intel.com>) id 1w3182-0000000007N-2HDT;
- Thu, 19 Mar 2026 00:21:13 +0000
-Date: Thu, 19 Mar 2026 08:19:53 +0800
-From: kernel test robot <lkp@intel.com>
-To: Alexander Koskovich <akoskovich@pm.me>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
+Received: from SN4PR0501CU005.outbound.protection.outlook.com
+ (mail-southcentralusazon11011005.outbound.protection.outlook.com
+ [40.93.194.5])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BB9A710E03C
+ for <dri-devel@lists.freedesktop.org>; Thu, 19 Mar 2026 00:34:19 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=tSYpTdu/39donCEgcC8fO3S1Jzi18YQfHovbHq3mYn63bimjHpIZA/JyObbEIcnVSr3bkAwGmyWcK1Z32v43zbKZ80YNDJveXCrDqGWH5ZOgaSGJUN5z0BVVw4UlxYZIIWkAHktf6qrClNiSm3CvXr9gEk3surnMW8hgrEN6J0KxiUBbTcqF3RGLfTfpRcUVP4j616cXpR+qpmfFrerZCDlAd5jCR1MCrn18w1MJhH+1G6vW90gV7iPzuWqFghrfTUC+elLu02vF4vZZYERPZLCDcjavEEjQryhBWUmf/Qc9r9wnEbxNSNXDNRate6x8trf4ZXglcx/o8LRZE0QQGw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=M0n9WFDezT2J6T5nSVd3cMJvTTy9VstVSzQWVfo7BdA=;
+ b=x1+8cc1GaSiaMntpitoJqj4+wNaeMEJvJafevberayvxuYqd7pAdjN7shQ7FgE20RoFvTLkoHN/f1MZF/UuW1lqrpXv9CjCQBa/8Tqd1oCLrqZb79VXMUPMQuZXYNjxzCjSQjgRIw/8WpXfzMAD5tD5FbFp18j9mibC8slDKtkjnpSYMuTSvB35Eyk/AG44CnwPAAemPj8NYi57v5Qwx6tkYERF7LUZEpuaXuoo1E2SVU5HiyOMtegGWId8BXIqdgoMqpcuPkiHBwkrY4UwBFzryZXSeFuF+HYpxXVBmLGkErbT2BrgcLafSGNJ3Wdl+vxHD4Mw4HYpyuhXLt8D3VQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=M0n9WFDezT2J6T5nSVd3cMJvTTy9VstVSzQWVfo7BdA=;
+ b=LwQZRSYDTN7JK7o+c2SwxnxiS3Ye8jQivLlygyHNvG92N+KmXbiPSyC5SICBDb96f2EjLHZ88YDggzX11tJCO+0Zs9okwJwkN76YE//p6D5Tw4FyPPhADWgyuDLg5XGtIeF/QBPocb9zrKhNoEi83x6eJf1qVPeVH8uLwwjgld2Ynz8opsoOMHj9GL+9NHVDcA/lit0ywcSuanspVZb8Hq9jOQLLakW5/DucLBh1i9qkKsGVG5/jW1T4LX7OYOCS5mAxugGIGei6lPAfYgtXeP7ZMZ6FwOv63nzQHjTl1DUkLkmoyJI1PPan/Yd6OzZw1a/wlUQMdIfbHlPV5V7twA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DM3PR12MB9416.namprd12.prod.outlook.com (2603:10b6:0:4b::8) by
+ MN2PR12MB4126.namprd12.prod.outlook.com (2603:10b6:208:199::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.9; Thu, 19 Mar
+ 2026 00:34:15 +0000
+Received: from DM3PR12MB9416.namprd12.prod.outlook.com
+ ([fe80::8cdd:504c:7d2a:59c8]) by DM3PR12MB9416.namprd12.prod.outlook.com
+ ([fe80::8cdd:504c:7d2a:59c8%5]) with mapi id 15.20.9745.007; Thu, 19 Mar 2026
+ 00:34:15 +0000
+Message-ID: <7841c3e7-f97c-4c37-b981-4fc81319e0bd@nvidia.com>
+Date: Wed, 18 Mar 2026 17:34:13 -0700
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 5/5] gpu: nova-core: gsp: add mutex locking to Cmdq
+To: Alexandre Courbot <acourbot@nvidia.com>,
+ Eliot Courtney <ecourtney@nvidia.com>
+Cc: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>
-Cc: oe-kbuild-all@lists.linux.dev, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, Alexander Koskovich <akoskovich@pm.me>
-Subject: Re: [PATCH 1/3] drm/mipi-dsi: add RGB101010 pixel format
-Message-ID: <202603190805.7UiuBASq-lkp@intel.com>
-References: <20260318-dsi-rgb101010-support-v1-1-6021eb79e796@pm.me>
+ Benno Lossin <lossin@kernel.org>, Gary Guo <gary@garyguo.net>,
+ Alistair Popple <apopple@nvidia.com>, Joel Fernandes
+ <joelagnelf@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ rust-for-linux@vger.kernel.org, Zhi Wang <zhiw@nvidia.com>
+References: <20260318-cmdq-locking-v5-0-18b37e3f9069@nvidia.com>
+ <20260318-cmdq-locking-v5-5-18b37e3f9069@nvidia.com>
+ <DH60IMOXP3O2.26EAXOW3BC7S4@nvidia.com>
+ <DH6ALL1W4RRK.3H921XS11SXE9@nvidia.com>
+Content-Language: en-US
+From: John Hubbard <jhubbard@nvidia.com>
+In-Reply-To: <DH6ALL1W4RRK.3H921XS11SXE9@nvidia.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: SJ0PR05CA0106.namprd05.prod.outlook.com
+ (2603:10b6:a03:334::21) To DM3PR12MB9416.namprd12.prod.outlook.com
+ (2603:10b6:0:4b::8)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260318-dsi-rgb101010-support-v1-1-6021eb79e796@pm.me>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM3PR12MB9416:EE_|MN2PR12MB4126:EE_
+X-MS-Office365-Filtering-Correlation-Id: 35be3d63-6bb8-4f3f-ed23-08de854f3fe1
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|1800799024|376014|18002099003|22082099003|56012099003; 
+X-Microsoft-Antispam-Message-Info: As2R445UFKAT75igbdcbqyQ0YuWq+G7767G8q5At1ejycVdz2kJglm4GotOA1utOsHChKFFVcSJnoqvVRFoHK6EtRYAYMod09o6ztGHsYBZbxQSScNwoozfwKXwrcIBwy+fkA4/vp4kqw1FYm+0HprmrUz3EFE0l0EtYXFMfL3yawY1sMEG48ZL9cc6IHi8N47CCFco/1y+88JnrrIo8ag+TaNJbBvIMjOuQe2qBed8T1/LKAZT0eon3eP+ub4HaSW5PFJ+ZSwjsj5BmQUtrorjDvb8XCmm5OexmLdA8IYYGSwoooQXBdYWb67UrFvZLt3442DnHCtz55b+KGmpTioGDHCDM9k1njxdKdvdHljkwiMNoOt/XaMVQeqYGZyo0Lg4rGCVGbh42rfXpE1X85QCz/JmZAhXlpMW8XrLAAlUUtC1v/8ffzx/Q1hDAxzLVIDh/GN7U2SD+SHFPL1qitwQ4tEHUkhOV+c3vrj+X50iWhFfyMNAzpDq8tp9YnCEMsodbGRpnSrnJy4LOF8CpyFN7FpHw+I/m9NUjZTDUGt0Sh7H3d+c14BlNmx+ME4b//p9gy4t8ENIkctMOKHymw/IYUfrqvkVBP5gvlfgJQv7yC5RQyC8IVHI95Nq/l0niX6RMpEDl1T4LLSi7K1Dlccaqfexk39JKcxdbS+1YA8J80zpi2fVKqRQuAYOG4VijSChumLWIesb/3d2YXrPj5KkDg2BfKDWYyEFDAh08JWU=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM3PR12MB9416.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(376014)(18002099003)(22082099003)(56012099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Qlo5R0I1YjR5MWwzK3dNV1JYRDBaNzBIejd2T1hBSmJaSzFDRlZoYkdLNXBE?=
+ =?utf-8?B?ZWFpZzJmRWxNakwzL2V4WTJIQ0FEcXE2NXprVm52dWRBc21HVVBTdlplSWlz?=
+ =?utf-8?B?cFBTZzhNejd4ellRcEFweHlQdzA5REZ3VUkwWXBsbjZKZXRFTmF5Nm5lL28x?=
+ =?utf-8?B?NVY2QUFrZjN4dC82cXV6OW5zTHJEMGxQcDU3NmxkWEdIS0xUUHB1UXdRSUNl?=
+ =?utf-8?B?Z1JOOTRnQ1pJMjUvSi9pTjVycGQ5bUIxRHMxdk9Yc3Y2djBOa2grU3V6ZzQz?=
+ =?utf-8?B?NGV6MjBsRFhWanNUUkZ3Y2M1T2xpejR5ZmZJckswYmRDS2pTN1o0YzhOYTI1?=
+ =?utf-8?B?V2N4QmJWRll5YzJQSW5LTk9EQ0lZUFZtMlNnMFUwaVlRRFpjbXRoVnA3OXo1?=
+ =?utf-8?B?cFVFamtzK1ZxVkJPakllUW5yQ3hBYlRQYnRhYUk2Q011ckxWbG4vWXo3VUZS?=
+ =?utf-8?B?dmZJd3NGUGdoaktLZFJCcTRSVWxFWXdvQ3VVWHQxSXROaUhWd0RtR2NxZG9Y?=
+ =?utf-8?B?emxuOFZ5a1R0YkxmZjdnTFZNUDljd09VU3ZlSzhIY0NiM0pRMVlpNmVMYkM2?=
+ =?utf-8?B?dStPQkxmcVBJbldTZW9JbllNZEwwWStGbXBEM0hlRHFPU05iYVJDbTJLK0pi?=
+ =?utf-8?B?VC9rZjhkdTBXWlJJbHVhU01Fbjk4R2taZUtNRjdwS1VxQWp5R0F5TTIzdFFB?=
+ =?utf-8?B?VW9QOExKNGFld3FXZlQvM29CcVRwV2E4alRiclRtVmVHMWJZeE1pcis4RTI3?=
+ =?utf-8?B?WGV5VUt4eVpUSkhVMFhVVFpZOHUrSkN6WVRqT0pQZjhCMUx3eDZFclVDQmhl?=
+ =?utf-8?B?bm1TR3Z5TklJaWk2bVp4RXRmOFFSUXFJd1FBa1lLU2ZwR2J3T016MWxtMS8z?=
+ =?utf-8?B?Zzg5NXBBZnRtOUJKZWsrR0Q3MWNKbHlHYTZwa2xpTUFqUzExQmhubC9QYWwr?=
+ =?utf-8?B?dkQ2azBZMCsvQXJEdGtFYW14TDRjQ0dDWCtLVU5oSGNqMjIrTnYyWDBJd2ll?=
+ =?utf-8?B?eVd4eVcwcFRScnRTcFM0MFJ3eXozNnNMallmYktJeUVHYTY2Rkk0QWNwVkpU?=
+ =?utf-8?B?YUdzTUU1SldHcUZ3dFBIWEltb21oWUx2MUVBVCtMQXVYMkFkYTVxNXJXek9G?=
+ =?utf-8?B?b0lrMW5EVDhLY3FaWms0VWppcGo3bXpoVjlPVS9HWUVNQ3luMlJrdFV1VXkx?=
+ =?utf-8?B?eWZtaENvVy9iaUVJc2lyaWZKSXZHNmRDdGhuQUV3RTAvR1Y5ek42NUdrYk9o?=
+ =?utf-8?B?NDMvTlQ3Qi9DM1ZaZUZSVFRGTVRTSzRkeW9RcHJWaTJzWUN6Nzk5UGZzMmtr?=
+ =?utf-8?B?eG9nZUdaTHdWRzgreTlNTFh3ZzhhTTdWNGdHeVg5V25yU1pxUUdjWTdOOVJx?=
+ =?utf-8?B?eGhuRmwxeUNuT2hwWlNkVU8yVTR5dks3NzFqN2JCMm5SV3Y2Y0RaaGlTeUZ0?=
+ =?utf-8?B?WVdZMHYrYVY3VjV1eEU2YmV4WklNUFJENnRNUXEydmtueXVMNktKRU9hYmpN?=
+ =?utf-8?B?SUQ5SDNMYm1BVkplT2tqVVBsekUzbllBUGlaQVN3ekpCMnFJWVNUMWY2S3lv?=
+ =?utf-8?B?MFE4SlNLNzFYdUpmaWppajBVT09JZVVkVHZQbFY4NkMxTWRka21yRFZ5M25h?=
+ =?utf-8?B?T3NPbVRzRC9Oc0EzMEZDbitTN0lWNG56UDkwUUIzUE1GVHlROFB6a29IaUVt?=
+ =?utf-8?B?V3dqcUxMMnJXNkVjOTNrYXM5ZnQ1b0ZWOUJhWldHNkFSUnhNRGZpaDdFRGwx?=
+ =?utf-8?B?YTB3eFQ4N0d5eXFoM0NzVHQzZTNhdTJUU2pXRTAwMk9QY0VsdlVrZXM1T1h6?=
+ =?utf-8?B?Tll2TU1qMXZ4UXREd1ZxalRlOGlReVc0SEx4NmFNNmROd1E5K3FLMHE0MEZ5?=
+ =?utf-8?B?Wm9MTjZaSHMyU2tBRzRiczVkcXg4YXhNejgrV25YbGNiSjFzbmxVR3F6b0wv?=
+ =?utf-8?B?UWRKOWY3THk4R0lIbGE0M011bmpubXNmOXlTRW5SSXBzTk1PVllGVWw4YkFJ?=
+ =?utf-8?B?VFJuZTJBVGFMU1RRZnllaTdHdGNEZzk4RUliNjE3NXRYU1dqNHFtYTN4K0xQ?=
+ =?utf-8?B?akxEQ2MzWDdQR0hCeFJXMDB2QXFXenpXOCtqWUx2cDdUNlByNG8yKy9HditD?=
+ =?utf-8?B?d0oyY0dxbVZHVEYwZkdsRW1zdVJMcGNKTlpIWFBVblpkaDB2VGdwNEFHQWdR?=
+ =?utf-8?B?cHd5MWcrbjFUOC9nUC95NHJ4eSsxWW5LTjEzWDlnSnVwd2tGdU1lQTBYZlk2?=
+ =?utf-8?B?YVZveDdGL1ZjQmNnRmVXUU1yVk8ycHBCYi90d0Vnc1YrOHdaWGdMRTVNWGdD?=
+ =?utf-8?B?Q2xiS2ZydGxFczhwWStFeEJkdnhqUCtmUC85Q3dBZnN3a1ZDQUVKdz09?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 35be3d63-6bb8-4f3f-ed23-08de854f3fe1
+X-MS-Exchange-CrossTenant-AuthSource: DM3PR12MB9416.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Mar 2026 00:34:15.5513 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: VlzCA1DtzRdn944/r098eknu4zbeUg1vl2mluImQ+HMKOIaZFRsZGHaeQWO3BLmPVgJjaTA8CQDAlnm6kuHc4Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4126
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,104 +146,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Alexander,
+On 3/18/26 4:21 PM, Alexandre Courbot wrote:
+> On Thu Mar 19, 2026 at 12:27 AM JST, Alexandre Courbot wrote:
+>> On Wed Mar 18, 2026 at 1:07 PM JST, Eliot Courtney wrote:
+>> <snip>
+>>> +    /// Returns the DMA handle of the command queue's shared memory region.
+>>> +    pub(crate) fn dma_handle(&self) -> DmaAddress {
+>>> +        self.inner.lock().gsp_mem.0.dma_handle()
+>>> +    }
+>>
+>> Just noticed that we now need to lock to get the DMA handle. It's
+>> inconsequential in practice but a bit inelegant.
+>>
+>> Since the DMA handle never changes, and is only ever needed during
+>> initialization, I think I will just insert a patch before this one that
+>> adds a `pub(super) dma_handle` member to `Cmdq`. That way we only need
+>> to obtain the handle at construction time and can get rid of this
+>> method, which keeps the public API focused on message handling.
+>>
+>> No need to resend, I will apply this patch on top of mine and merge.
+> 
+> Actually let's fix that afterwards, what I proposed above would
+> introduce code that hasn't undergone review, and doesn't reduce the
+> number of patches in the series so doesn't bring any benefit. I'll merge
+> the series as-is for now.
 
-kernel test robot noticed the following build warnings:
+For what it's worth, this avoided an email from me, to the effect of
+"there is no such thing as a quick locking fixup, don't do this".
 
-[auto build test WARNING on f338e77383789c0cae23ca3d48adcc5e9e137e3c]
+So, good. :)
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Alexander-Koskovich/drm-mipi-dsi-add-RGB101010-pixel-format/20260318-220726
-base:   f338e77383789c0cae23ca3d48adcc5e9e137e3c
-patch link:    https://lore.kernel.org/r/20260318-dsi-rgb101010-support-v1-1-6021eb79e796%40pm.me
-patch subject: [PATCH 1/3] drm/mipi-dsi: add RGB101010 pixel format
-config: nios2-allmodconfig (https://download.01.org/0day-ci/archive/20260319/202603190805.7UiuBASq-lkp@intel.com/config)
-compiler: nios2-linux-gcc (GCC) 11.5.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260319/202603190805.7UiuBASq-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202603190805.7UiuBASq-lkp@intel.com/
-
-All warnings (new ones prefixed by >>):
-
-   drivers/gpu/drm/meson/meson_dw_mipi_dsi.c: In function 'dw_mipi_dsi_phy_init':
->> drivers/gpu/drm/meson/meson_dw_mipi_dsi.c:113:9: warning: enumeration value 'MIPI_DSI_FMT_RGB101010' not handled in switch [-Wswitch]
-     113 |         switch (mipi_dsi->dsi_device->format) {
-         |         ^~~~~~
-   drivers/gpu/drm/meson/meson_dw_mipi_dsi.c: In function 'meson_dw_mipi_dsi_host_attach':
-   drivers/gpu/drm/meson/meson_dw_mipi_dsi.c:230:9: warning: enumeration value 'MIPI_DSI_FMT_RGB101010' not handled in switch [-Wswitch]
-     230 |         switch (device->format) {
-         |         ^~~~~~
-
-
-vim +/MIPI_DSI_FMT_RGB101010 +113 drivers/gpu/drm/meson/meson_dw_mipi_dsi.c
-
-77d9e1e6b8468f Neil Armstrong 2023-05-30   74  
-77d9e1e6b8468f Neil Armstrong 2023-05-30   75  static int dw_mipi_dsi_phy_init(void *priv_data)
-77d9e1e6b8468f Neil Armstrong 2023-05-30   76  {
-77d9e1e6b8468f Neil Armstrong 2023-05-30   77  	struct meson_dw_mipi_dsi *mipi_dsi = priv_data;
-77d9e1e6b8468f Neil Armstrong 2023-05-30   78  	unsigned int dpi_data_format, venc_data_width;
-77d9e1e6b8468f Neil Armstrong 2023-05-30   79  	int ret;
-77d9e1e6b8468f Neil Armstrong 2023-05-30   80  
-77d9e1e6b8468f Neil Armstrong 2023-05-30   81  	/* Set the bit clock rate to hs_clk_rate */
-77d9e1e6b8468f Neil Armstrong 2023-05-30   82  	ret = clk_set_rate(mipi_dsi->bit_clk,
-77d9e1e6b8468f Neil Armstrong 2023-05-30   83  			   mipi_dsi->phy_opts.mipi_dphy.hs_clk_rate);
-77d9e1e6b8468f Neil Armstrong 2023-05-30   84  	if (ret) {
-77d9e1e6b8468f Neil Armstrong 2023-05-30   85  		dev_err(mipi_dsi->dev, "Failed to set DSI Bit clock rate %lu (ret %d)\n",
-77d9e1e6b8468f Neil Armstrong 2023-05-30   86  			mipi_dsi->phy_opts.mipi_dphy.hs_clk_rate, ret);
-77d9e1e6b8468f Neil Armstrong 2023-05-30   87  		return ret;
-77d9e1e6b8468f Neil Armstrong 2023-05-30   88  	}
-77d9e1e6b8468f Neil Armstrong 2023-05-30   89  
-77d9e1e6b8468f Neil Armstrong 2023-05-30   90  	/* Make sure the rate of the bit clock is not modified by someone else */
-77d9e1e6b8468f Neil Armstrong 2023-05-30   91  	ret = clk_rate_exclusive_get(mipi_dsi->bit_clk);
-77d9e1e6b8468f Neil Armstrong 2023-05-30   92  	if (ret) {
-77d9e1e6b8468f Neil Armstrong 2023-05-30   93  		dev_err(mipi_dsi->dev,
-77d9e1e6b8468f Neil Armstrong 2023-05-30   94  			"Failed to set the exclusivity on the bit clock rate (ret %d)\n", ret);
-77d9e1e6b8468f Neil Armstrong 2023-05-30   95  		return ret;
-77d9e1e6b8468f Neil Armstrong 2023-05-30   96  	}
-77d9e1e6b8468f Neil Armstrong 2023-05-30   97  
-5c9837374ecf55 Neil Armstrong 2024-04-03   98  	clk_disable_unprepare(mipi_dsi->px_clk);
-77d9e1e6b8468f Neil Armstrong 2023-05-30   99  	ret = clk_set_rate(mipi_dsi->px_clk, mipi_dsi->mode->clock * 1000);
-77d9e1e6b8468f Neil Armstrong 2023-05-30  100  
-77d9e1e6b8468f Neil Armstrong 2023-05-30  101  	if (ret) {
-77d9e1e6b8468f Neil Armstrong 2023-05-30  102  		dev_err(mipi_dsi->dev, "Failed to set DSI Pixel clock rate %u (%d)\n",
-77d9e1e6b8468f Neil Armstrong 2023-05-30  103  			mipi_dsi->mode->clock * 1000, ret);
-77d9e1e6b8468f Neil Armstrong 2023-05-30  104  		return ret;
-77d9e1e6b8468f Neil Armstrong 2023-05-30  105  	}
-77d9e1e6b8468f Neil Armstrong 2023-05-30  106  
-5c9837374ecf55 Neil Armstrong 2024-04-03  107  	ret = clk_prepare_enable(mipi_dsi->px_clk);
-5c9837374ecf55 Neil Armstrong 2024-04-03  108  	if (ret) {
-5c9837374ecf55 Neil Armstrong 2024-04-03  109  		dev_err(mipi_dsi->dev, "Failed to enable DSI Pixel clock (ret %d)\n", ret);
-5c9837374ecf55 Neil Armstrong 2024-04-03  110  		return ret;
-5c9837374ecf55 Neil Armstrong 2024-04-03  111  	}
-5c9837374ecf55 Neil Armstrong 2024-04-03  112  
-77d9e1e6b8468f Neil Armstrong 2023-05-30 @113  	switch (mipi_dsi->dsi_device->format) {
-77d9e1e6b8468f Neil Armstrong 2023-05-30  114  	case MIPI_DSI_FMT_RGB888:
-77d9e1e6b8468f Neil Armstrong 2023-05-30  115  		dpi_data_format = DPI_COLOR_24BIT;
-77d9e1e6b8468f Neil Armstrong 2023-05-30  116  		venc_data_width = VENC_IN_COLOR_24B;
-77d9e1e6b8468f Neil Armstrong 2023-05-30  117  		break;
-77d9e1e6b8468f Neil Armstrong 2023-05-30  118  	case MIPI_DSI_FMT_RGB666:
-77d9e1e6b8468f Neil Armstrong 2023-05-30  119  		dpi_data_format = DPI_COLOR_18BIT_CFG_2;
-77d9e1e6b8468f Neil Armstrong 2023-05-30  120  		venc_data_width = VENC_IN_COLOR_18B;
-77d9e1e6b8468f Neil Armstrong 2023-05-30  121  		break;
-77d9e1e6b8468f Neil Armstrong 2023-05-30  122  	case MIPI_DSI_FMT_RGB666_PACKED:
-77d9e1e6b8468f Neil Armstrong 2023-05-30  123  	case MIPI_DSI_FMT_RGB565:
-77d9e1e6b8468f Neil Armstrong 2023-05-30  124  		return -EINVAL;
-e96f099c8544a5 Yang Li        2023-06-02  125  	}
-77d9e1e6b8468f Neil Armstrong 2023-05-30  126  
-77d9e1e6b8468f Neil Armstrong 2023-05-30  127  	/* Configure color format for DPI register */
-77d9e1e6b8468f Neil Armstrong 2023-05-30  128  	writel_relaxed(FIELD_PREP(MIPI_DSI_TOP_DPI_COLOR_MODE, dpi_data_format) |
-77d9e1e6b8468f Neil Armstrong 2023-05-30  129  		       FIELD_PREP(MIPI_DSI_TOP_IN_COLOR_MODE, venc_data_width) |
-77d9e1e6b8468f Neil Armstrong 2023-05-30  130  		       FIELD_PREP(MIPI_DSI_TOP_COMP2_SEL, 2) |
-77d9e1e6b8468f Neil Armstrong 2023-05-30  131  		       FIELD_PREP(MIPI_DSI_TOP_COMP1_SEL, 1) |
-77d9e1e6b8468f Neil Armstrong 2023-05-30  132  		       FIELD_PREP(MIPI_DSI_TOP_COMP0_SEL, 0),
-77d9e1e6b8468f Neil Armstrong 2023-05-30  133  			mipi_dsi->base + MIPI_DSI_TOP_CNTL);
-77d9e1e6b8468f Neil Armstrong 2023-05-30  134  
-77d9e1e6b8468f Neil Armstrong 2023-05-30  135  	return phy_configure(mipi_dsi->phy, &mipi_dsi->phy_opts);
-77d9e1e6b8468f Neil Armstrong 2023-05-30  136  }
-77d9e1e6b8468f Neil Armstrong 2023-05-30  137  
-
+thanks,
 -- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+John Hubbard
+
