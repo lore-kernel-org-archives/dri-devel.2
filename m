@@ -4,86 +4,137 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6C6DF1088E66
-	for <dri-devel@archiver.kernel.org>; Thu, 19 Mar 2026 02:40:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6EC121088E67
+	for <dri-devel@archiver.kernel.org>; Thu, 19 Mar 2026 02:54:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9C74110E809;
-	Thu, 19 Mar 2026 02:40:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C8D1310E846;
+	Thu, 19 Mar 2026 02:54:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="hdHOeNlD";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="hx0ie2pf";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="iqhw36Rk";
 	dkim-atps=neutral
-Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com
- [209.85.210.181])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 01B1710E809
- for <dri-devel@lists.freedesktop.org>; Thu, 19 Mar 2026 02:40:33 +0000 (UTC)
-Received: by mail-pf1-f181.google.com with SMTP id
- d2e1a72fcca58-82987437624so291583b3a.1
- for <dri-devel@lists.freedesktop.org>; Wed, 18 Mar 2026 19:40:33 -0700 (PDT)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 11EB210E846
+ for <dri-devel@lists.freedesktop.org>; Thu, 19 Mar 2026 02:54:12 +0000 (UTC)
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 62INlp2m551102
+ for <dri-devel@lists.freedesktop.org>; Thu, 19 Mar 2026 02:54:11 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=zr55jwjPMr4CipN/1sygJnvq
+ rz4xwfpiIiHPxxrHDZg=; b=hx0ie2pfmgdGEhRAVhR9FDl2jhZcnRl6Ppzx868m
+ iofY9UgiaU54YSIuaJvbiKsFaTwSydwa1ORGyJcmynTGr3ADtW5orx9ved2cO4DU
+ o1pYfo9s1zlqYSRCWjK/CUzaLmRP2yGq7BgsPZn13RT2qBHvZpE27Q8Fr7o0E1Tw
+ /FIegp58HHQUURYCmlxoqy3IWo+ebDpiua3AEE/M3zU6NFxdHyzfgGXIFfvz/kM1
+ p0bwMRlkRT4Cx4PDdQI0c26QNE5VQriky3aURkMRBXPZ+T1B/a3UWyvhUa8ntjxx
+ 8mumGVis6JS9VVZlMN8des93uVw4lCa5DPSl4QNEvK1/YA==
+Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
+ [209.85.160.197])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4cyj4g55t1-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Thu, 19 Mar 2026 02:54:11 +0000 (GMT)
+Received: by mail-qt1-f197.google.com with SMTP id
+ d75a77b69052e-5090bc4823cso14286261cf.3
+ for <dri-devel@lists.freedesktop.org>; Wed, 18 Mar 2026 19:54:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1773888033; x=1774492833; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=qBu63CJPO7UWTxKfklYPpnd3YM/gcmd39X2brzmYCN4=;
- b=hdHOeNlD76iyqcr6XqJ7bZrgU5BGoXc/yMSKpF+T0votLUgRKjVoYAUsXFkw0mSvtE
- wotmiKBBiR4es+gTUkNql8ELz2XACRTwIFUnt8/DgonGI+SfqyfgbTWzRdzUCEK0MdLj
- S3usxOlJSkQbma5Spo59UltO1M6XfGpXTI6F0AP20VNYJprexskPkxlDrhvT7Ryj5YsW
- PPQtrgaJ6x/HEHPMGpYjw+SxILo0UB7bbk8n1H1fqcvnoI7rhUNMbEzEpM95VKlgSmCw
- 8q2CQQsjScQFRjmI8XyttJHZj8uDqwZMqQBIuR2JIXg1jEO4I7bljRIRR14jPkdEn2q9
- p4XA==
+ d=oss.qualcomm.com; s=google; t=1773888850; x=1774493650;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=zr55jwjPMr4CipN/1sygJnvqrz4xwfpiIiHPxxrHDZg=;
+ b=iqhw36Rk1GN3g5jRJede796/OGqxGIEz6rB9GzP2zKJ0sSP2Hl1mtZWLqYL5IPwKD5
+ m3q2U5ljFxgni3wIoe1QMxabAbcqm6ASaUexXXbS6zWfsR/OJlRFc8KTonJh8qqw63Mv
+ wpnN073JPxA5XWydsSvnPVMR+oLsatG0/lmmSWqg4onyaih+4CayXULbmRqbH//g+nMX
+ hKhjf7MMrASGwqDBktsC6j7I1QhwNbMTtkntu9cVDSmom8vgfUp5E2Akmf3y2aHwqSUL
+ MdLaBepgkBY/xuIBsFGBDzV7MRPx+TbzitzYnkdUSiVgRC8Xxed8h+Y1w99yvfqS2b1J
+ 6mfQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1773888033; x=1774492833;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=qBu63CJPO7UWTxKfklYPpnd3YM/gcmd39X2brzmYCN4=;
- b=Te8OOy7XBhMOcfgyU1bpbCrZMN0M7ZB4eF2d43yJ7j7iQZTrELURUDrvomuqZgvHsA
- 3UtaU92JF6MdDJ/aTS3ZReLGULZDmpwYvTlE5BX7dODZ4p6Iw3VLcKr3aDRTPFL+i+Ld
- +6un9lJ/Xa68+mGRBxvSlYB4y+9w5xLWJM8hB3/vHyiqJns78B0wRzZs+V4jIg3F5jge
- 1BCdHYeA/L4CvFq19VVOXszQLUVRMIqOZp7ADQDVSLCUb3xoroKTpaQNwxMRbA9QlPPv
- L5hzrPis5YJpeXh3l5VHl01E51pb5wMKdoBWc/pJhRHBEgmtYbti1cAuqvFDPIhnLq9T
- W9/A==
+ d=1e100.net; s=20251104; t=1773888850; x=1774493650;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=zr55jwjPMr4CipN/1sygJnvqrz4xwfpiIiHPxxrHDZg=;
+ b=lBzKrHnt0ZHMs8YqpjVMXpIBz/MqczIgOViomQ+5tJTJkEIhR5fsoY340n3FIB+6YH
+ tbSIm5TvkuofJtc3MjBglI/R6Zj2zo0sZ0bNiNINXhKGaJpMd7Uw71FFJgcXvEiVpgJ2
+ riTfXQTli4OqeJvAyQaTCNuAJgMGN7EvrdMJlf/2DGnmzZ77G1wHzRPqCx2vnEqDT/kn
+ zuubFyjIRmYF5dtDoJjo3GQX8qZyP2PwqXXggynQhBFDtE2JBKSqoZWewwkvI57NT8lD
+ +W5jLRzNlAy7+LGqhjf4+51JwbV8xwOWT3g6CNZsqKBsaHgyetlMaUruUQvQhNrMBxGO
+ MQUg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWBGyJS4oqTa+yMWApDhjudZ/nwH+xY8ywx1nRdI9xDTrQtnpaTPpX7ra9seck2kLe9dnpowoi08KY=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yx+Uqly6fWOtCGYclTBqhVWOioAtOrG7+GIS6PE3XGHI5IkRRMD
- iuFiohOZiBpkmFuq2+VIHZLA4D/umebMAA2YQ9STd30eaSY/SRat7A0a
-X-Gm-Gg: ATEYQzzVidmPxIQyQxJ2ltm349P/9V8uq0HYscrhXM1vFVS9ZhoecfUbtKO+YtGgp+D
- XBE6mdYgXz3PzTefLmLr3zvSSquLYSgSfOyrEN+TXZyUvXhG7G4rdxUYKn0j/RWbgkzRR0r5ats
- URlrTg9nC3w7NX5d2sDZQEg4A/FIeG+sAhMnIzCoYfIZDtZQmbYjneeABPnBPctSpppRKT6NDUH
- onIeUlj7V6j6iA6o8hpgozxhdzNo8I0Et+pAwI6QyVzjtiliMXgn6dbuw7wJtDZbmwb2MbWctQH
- jfOgOdD7EJH2dHv6duTY2oGu9jYJssd1aaTyxfaXjax+uh8h+Vsrnb4DACa2lRGfhRfLxvyd8/7
- FgkFNG0xvanF+Kmq72ebaz8aBbppcrTFXDVaiSTQNOtnyYsbDGQSxEImL9l7gh6hXXh59D8jtK3
- K/4oV4i0SnqVMyQ6s/dC56NS9/6y9SwzJtdzwsRB6Q3bgkl9ZxUZZYjbxKh5w7k3fXKcyeVUm1X
- cpqd5TXCHBzrQbAIUt2CWvmK45f6wyY2SxqQhzlezbYEg648mGwXKHDZ9JqGVyHA9y7R+U+rDWV
- yw==
-X-Received: by 2002:a05:6a00:ab84:b0:829:8083:472b with SMTP id
- d2e1a72fcca58-82a7a7ffad1mr1502135b3a.4.1773888033409; 
- Wed, 18 Mar 2026 19:40:33 -0700 (PDT)
-Received: from ?IPV6:2601:1c0:5780:9200:9662:a5ea:aac3:575e?
- ([2601:1c0:5780:9200:9662:a5ea:aac3:575e])
+ AJvYcCVIr60QtmOnr0t6V2HoO3f6fmA0FfkDJih1xsahGLhAKjvqNBl0G4Y1ngovM164cKLfq/GYbojVXrM=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxTcO9KXm8lWFu0wJ0kQlZ0jyYgt4woKwxMKTmngaljYfamPG/c
+ Yoc6Tg/ZqP1lfQNomtmqYNyDoU65qWeT7YWbh5l0vOx432shhpR3nqaZGSmkrme8hOL/fp4lWC6
+ jzKf0mYlKZ6WsQ8//rVBQlqfcrfAX+PuWG7PYOpfSc6EoZRscjmZ4t9bFnjJHDoG0fw5D2mU=
+X-Gm-Gg: ATEYQzywJfP92OpdlQ07pJw7+DBNMT4lrjqBhAnPF5eUv/VsK4j8GlMnxJERbZJlr5V
+ kjWVfDig8kzwrk45cJQ8W1Vimo1x9iWHaBw7ouQyRDMyovgvPhrVnZVIUNBNPjPacRIOlgufZod
+ 6QesseDrULdNoRFJNzRvd7YasWiZ5xY2Xk/ttLsGjSgaM9Q7u6sqMXqVXebwyWihu4NGnjdp7xL
+ L2b1Bx7G9qCwWAzMOewRTV3QDcB+dt5n2neZ9tHSLMEDXa8I3AFYFNJQIyv4MEfYSoynGscJ1f0
+ D09aKBFl24uf+v6Eu0aZKDxL3KVjtX8IIDChgZz28/FQtnp/ZyvfimeIATFipco92dbLyfvVeSA
+ CFDrAhKdTNjZ8riTvM0D3ttfA/MUrx7LjIYMBntfdxhokNSsDc6yc3ugvH+klQhErs1XK0zXG9F
+ IzJsfK7HlbLHDUrxOnUbj4kHYe7JKSHxlm3ZQ=
+X-Received: by 2002:ac8:59cb:0:b0:508:ff31:47f1 with SMTP id
+ d75a77b69052e-50b14889319mr77055241cf.50.1773888850378; 
+ Wed, 18 Mar 2026 19:54:10 -0700 (PDT)
+X-Received: by 2002:ac8:59cb:0:b0:508:ff31:47f1 with SMTP id
+ d75a77b69052e-50b14889319mr77054921cf.50.1773888849825; 
+ Wed, 18 Mar 2026 19:54:09 -0700 (PDT)
+Received: from umbar.lan
+ (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
  by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-82a6bbe1869sm4874011b3a.40.2026.03.18.19.40.32
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 18 Mar 2026 19:40:33 -0700 (PDT)
-Message-ID: <18f74625-5f97-425b-8389-17d1bbecd4ac@gmail.com>
-Date: Wed, 18 Mar 2026 19:40:32 -0700
+ 38308e7fff4ca-38bd5157108sm9573101fa.1.2026.03.18.19.54.06
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 18 Mar 2026 19:54:07 -0700 (PDT)
+Date: Thu, 19 Mar 2026 04:54:05 +0200
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: cristian_ci@protonmail.com
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org
+Subject: Re: [PATCH v2 3/6] arm64: dts: qcom: msm8953-flipkart-rimob: Enable
+ display and GPU
+Message-ID: <jin2ecagomu2npjnqr6ejpair6d4uam3djznuaodjijqi6hilk@64ddbqaezuah>
+References: <20260318-rimob-new-features-v2-0-c1bf8917449e@protonmail.com>
+ <20260318-rimob-new-features-v2-3-c1bf8917449e@protonmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] drm/panel: novatek-nt36672a: Convert to
- mipi_dsi_*_multi() helpers
-To: Doug Anderson <dianders@chromium.org>
-Cc: sumit.semwal@linaro.org, neil.armstrong@linaro.org,
- jesszhan0024@gmail.com, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20260305044921.10942-1-chintanlike@gmail.com>
- <CAD=FV=WMKjA3eRhZyHd820BFBYUMfz_=F4ppNYPWDEHKwiORXA@mail.gmail.com>
-Content-Language: en-US
-From: Chintan Patel <chintanlike@gmail.com>
-In-Reply-To: <CAD=FV=WMKjA3eRhZyHd820BFBYUMfz_=F4ppNYPWDEHKwiORXA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260318-rimob-new-features-v2-3-c1bf8917449e@protonmail.com>
+X-Authority-Analysis: v=2.4 cv=TPhIilla c=1 sm=1 tr=0 ts=69bb6553 cx=c_pps
+ a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22 a=NEAV23lmAAAA:8
+ a=sfOm8-O8AAAA:8 a=QiVCaVSgwpAuPVqWOeAA:9 a=CjuIK1q_8ugA:10
+ a=a_PwQJl-kcHnX1M80qC6:22 a=TvTJqdcANYtsRzA46cdi:22
+X-Proofpoint-ORIG-GUID: IanlS8L93OMc3t_W2QQjrL2cyNchr7i7
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzE5MDAyMCBTYWx0ZWRfX/C1GdOc78LIm
+ GheLC5PGgdu9v813tFiaCoCsrF46xL6z4lxtjIHOqNR02d+AcmkQHhTBQn3Wxs/JMjMWUUnNvL2
+ VnBLwEBVu8uVA8o8l1KCQqO1oOd3pUMXNI9erz7e3u9ag1brdzrbGBSBpsab/7g+IDbe+y/LUS0
+ I9pH9i9FoTqR5GC+ItO7DhI2YJhia9YxRE/P133biQ8Z4JfY8cPnq+7ljlySSSZIQupV8d1k1q4
+ Y81qtZ8SdFt3TL+4VUyEi5hjKs0Wm0WOS0te3GaC5jLsWaeQNA+bDtTfmeATN2HN1WWxCiwm06J
+ 8QkeY7YOqQacqY6Ka0MVABPmAESPY1eQCP/WAyvYKuH3KSf7BewKYqErPalD/6uEHEXwG3q1CY6
+ h4ahCRlcFmbpwd26EVQO+kK0b4in43SqYO7N/CpUts5fzDEiPWlj57IJOyL/lpHXGfFVPb3EjBL
+ a50xlGkPIYnB1GAxCoA==
+X-Proofpoint-GUID: IanlS8L93OMc3t_W2QQjrL2cyNchr7i7
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-03-18_02,2026-03-17_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 suspectscore=0 lowpriorityscore=0 bulkscore=0 malwarescore=0
+ spamscore=0 impostorscore=0 adultscore=0 priorityscore=1501 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603190020
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,56 +150,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On Wed, Mar 18, 2026 at 11:28:11PM +0100, Cristian Cozzolino via B4 Relay wrote:
+> From: Cristian Cozzolino <cristian_ci@protonmail.com>
+> 
+> Add the description for the display panel found on this phone.
+> And with this done we can also enable the GPU and set the zap shader
+> firmware path.
+> 
+> Signed-off-by: Cristian Cozzolino <cristian_ci@protonmail.com>
+> ---
+>  .../arm64/boot/dts/qcom/msm8953-flipkart-rimob.dts | 74 ++++++++++++++++++++++
+>  1 file changed, 74 insertions(+)
+> 
+> diff --git a/arch/arm64/boot/dts/qcom/msm8953-flipkart-rimob.dts b/arch/arm64/boot/dts/qcom/msm8953-flipkart-rimob.dts
+> index ef4faf763132..de287c8e9686 100644
+> --- a/arch/arm64/boot/dts/qcom/msm8953-flipkart-rimob.dts
+> +++ b/arch/arm64/boot/dts/qcom/msm8953-flipkart-rimob.dts
+> @@ -78,6 +78,13 @@ vph_pwr: vph-pwr-regulator {
+>  	};
+>  };
+>  
+> +&gpu {
+> +	status = "okay";
+> +};
+> +
+> +&gpu_zap_shader {
+> +	firmware-name = "qcom/msm8953/flipkart/rimob/a506_zap.mdt";
 
+.mbn, please. You can use https://github.com/linux-msm/pil-squasher to
+squash .mdt+.bNN into .mbn.
 
-On 3/6/26 09:40, Doug Anderson wrote:
-> Hi,
-> 
-> On Wed, Mar 4, 2026 at 8:49 PM Chintan Patel <chintanlike@gmail.com> wrote:
->>
->> Convert the driver to use the non-deprecated mipi_dsi_*_multi() helpers and
->> mipi_dsi_msleep().
->>
->> Switch DCS command sequences to the multi context API and
->> accumulate errors via struct mipi_dsi_multi_context. Replace
->> open-coded error handling with the multi helpers and convert
->> nt36672a_send_cmds() and power sequencing accordingly.
->>
->> This patch is intended to functionally be a no-op, though there is one
->> slight change. Previously a failure in regulator_bulk_disable() would
->> have caused nt36672a_panel_unprepare() to return an error. Now it
->> won't. No other errors in nt36672a_panel_unprepare() were propagated,
->> so this makes things consistent.
->>
->> Signed-off-by: Chintan Patel <chintanlike@gmail.com>
->> ---
->> Changes in v3:
->> - Keep local ret variable in nt36672a_panel_power_off() to preserve error code in logging.
->> - Change mipi_dsi_msleep() back to regular msleep(60) in power-down sequence to preserve behavior.
->> - Reset dsi_ctx.accum_err before set_display_off_multi() and before power-down to preserve original error-tolerant shutdown behavior.
->>
->> Changes in v2:
->> - Address alignment feedback from Doug.
->> - Restore original power-down ordering.
->> - Drop return value from nt36672a_panel_power_off().
->> - Consolidate error handling around dsi_ctx.accum_err.
->>
->>   .../gpu/drm/panel/panel-novatek-nt36672a.c    | 94 ++++++-------------
->>   1 file changed, 30 insertions(+), 64 deletions(-)
-> 
-> Looks good to me now. I'll plan to apply in ~1 week if there is no
-> further feedback.
-> 
-> Reviewed-by: Douglas Anderson <dianders@chromium.org>
-> 
-> As per my response in v1 [1], someone could still do additional
-> cleanup to move away from the table-based initialization, but it
-> doesn't make sense to block this patch on that. :-)
-> 
+> +};
+>  
+>  &hsusb_phy {
+>  	vdd-supply = <&pm8953_l3>;
 
-Agree - I have plan to address as separate patch.
-
-> [1] https://lore.kernel.org/r/CAD=FV=WtjW5WWmjeb2zwF2PjiJeZv1jZS_UKZ0bT1658=CkwVA@mail.gmail.com
-> 
-> -Doug
-
+-- 
+With best wishes
+Dmitry
