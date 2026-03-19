@@ -4,162 +4,131 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EF2081075264
-	for <dri-devel@archiver.kernel.org>; Thu, 19 Mar 2026 06:38:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 428871075264
+	for <dri-devel@archiver.kernel.org>; Thu, 19 Mar 2026 06:41:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 556FB10E8A3;
-	Thu, 19 Mar 2026 06:38:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4DDF910E8A6;
+	Thu, 19 Mar 2026 06:41:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="cNNS+jdN";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="Lr8o1C13";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 01DD610E8A3;
- Thu, 19 Mar 2026 06:38:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1773902301; x=1805438301;
- h=message-id:date:subject:to:cc:references:from:
- in-reply-to:content-transfer-encoding:mime-version;
- bh=OGQ6ZD2goOgAZvaVgJ6r8MWTkhKhlBbef3KxCsgtIH4=;
- b=cNNS+jdNVbrbCytPTndBneS03ZBUjdy5DaKg5HhxdQDkDp0gULJEfJGc
- X9vZo5dEDxsV+VT85lJI1SygYepkorOhO/gw49b7EZ5qtNrSU7pfwav9O
- eXFGxkr9sRhzzX8Pi7TUXJyUSxQ1nh3vQaGLXRyxF5c48Udyd+MYxfoGt
- sCeKFBiHQijAVphX1FIGuIyA7i+4Ili8bd2Pjq1nYl69kWmnjCEfS6JY7
- 4vr36Riwi5YT8AIBMEAq/t5sOoRROiZnc1dT4oUgpraplbqA3QB28wLgH
- ncAnkzV0wMXUUVsir0gfyZ6iYBEGMlYGRVf1sj9naxWsruFWo3L3Mr40L w==;
-X-CSE-ConnectionGUID: X4HnroOuRO6BBHb5pgNBow==
-X-CSE-MsgGUID: BvrAbkRCQ7eTUjKjKTrM9A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11733"; a="74853891"
-X-IronPort-AV: E=Sophos;i="6.23,128,1770624000"; d="scan'208";a="74853891"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
- by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Mar 2026 23:38:20 -0700
-X-CSE-ConnectionGUID: 58qpwIQgTzGjc1F6UJzGMA==
-X-CSE-MsgGUID: UDRbMaE3QCSm/3RvHIoxrA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,128,1770624000"; d="scan'208";a="221972974"
-Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
- by orviesa006.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Mar 2026 23:38:20 -0700
-Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Wed, 18 Mar 2026 23:38:18 -0700
-Received: from ORSEDG902.ED.cps.intel.com (10.7.248.12) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37 via Frontend Transport; Wed, 18 Mar 2026 23:38:18 -0700
-Received: from BL2PR02CU003.outbound.protection.outlook.com (52.101.52.49) by
- edgegateway.intel.com (134.134.137.112) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Wed, 18 Mar 2026 23:38:18 -0700
+Received: from MW6PR02CU001.outbound.protection.outlook.com
+ (mail-westus2azon11012006.outbound.protection.outlook.com [52.101.48.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1D43110E8A6
+ for <dri-devel@lists.freedesktop.org>; Thu, 19 Mar 2026 06:41:33 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=GcyY4VNQwhG7nAzi4GwtUdrG1YVIWfH0fEdz3+K/4Kiv9MU4W5zlmmIAG2C+Gft6cpD4sI8jlKpSFAe6Nos870DXqY1Rf08d9V0jdi1qnh98qTyg2EF9+OG877fJ66gStaogG+praeRgJcW6Arycq3qfkV77m6MZeRqrsiXYuw3moF7O0bJPQesj+2EKl9imo4NxXVzJbvuvnD0LmVux08H5iuZMg2KxM6+4puxoO3qC8iMu6/dgUzzq7MlMpE7+xeiGAmJkn7lrdET8XaKOS0vR5NgW8kEYv0o0VUUAKv2Psk2DiCALAIIuU29B+udcWJjuBits3EuZlv9tOzaDCQ==
+ b=aGNIVOoTZTSioGd9QTDM9uFV0THX3+1S+M0W1xyxGrMRSd8EVOll8KUnGh+gxx+5bISfrkgZVPiC2+ZCpQgFfNDxIFQLUMTjqIDj9ronN710V+N+qUMlZr+NAFz1sThkGGQ/z6unnb5y2x9A0cY8HTobqLigv5thsbz7PsAYcxQzEBeNuUQPSDXDxpv6JQGMSazmLb7Nvchj1g2MurdhI/SA9jG6ODPkw10vW3pF4xAk3gVoLRejj2Ppsu+wbG1eO3BiSn0EW6kfr/++MbMwQqo/X52TJ9njESopCxK97tXkW5V3safq3H7Bxj8tFseV2YdmaeZWge6SNxxVyXUEBw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2XQ/HuMX+XR4LUKuWPkZcjHP+inEf0xy9D5b40CG40I=;
- b=IT3nXlpHxMaJv5y8bpe87aFEQ82/C6bgJJkzgrh8JfmNJ2ZVHPx7WJP7T9vdCluZW4TjKfImDzThI3qE1f61Ev8fiJjCX6zEzPZGfZk4+ySQpGaKHi1RfrVCYi9/Dckc8HYV0aV6U/DpohKFvAYD3nFvv1OetVdM0PL8OSD+PnfRCTSkDKZsgVFq3UnBI8dfJP2VTk8y15vW6UVKCPQyNHl9RSYIwP8IzvJjwtg9YSyHmhHm7A9dXkI9X0zbXD1j8Cabgy51herl+v0G3ZRu0RrJKREaucM8+0uxsYEQvLQm9cKEbEvFQqDkpqtgIh1EqXnB7zU+qe/W9nrifEQ2ew==
+ bh=HQuyTms4NKAlgV5V7mc4z03e2JtnTPhRi6mfK+jvH3A=;
+ b=ZoZ1Kenfggf3QHIqDTOtBybnRUNqc6lG6pu2LCfioY2XgbFP7bLvDQHZEbRGqNhGNWw5yyEEBDjs4BCC/NfxR/7tnSGKnil4HHwaQ/fJcXDPnjTCbIx+v+LJ13pyts+zx1qgzBdq4Ed42/NWgY2vVWq1DmqsnbFbN9juz4aKQ0cwgIQsJ9QFzb5X8dLjgGculPs1lT1GOWPm0/xiKhmpRQ8wd1okoxlL1HJYlZXCC+AJ9IfqH7OCJQqqYvIBIafPL3YjdD+Mpu8FBribAuzNHut0xNTUCLH2hb4hMGQQPtWmPLXPFvi2heLK7S2PtpfQz7DRRQZaq+qgZbf9zI5lcQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=HQuyTms4NKAlgV5V7mc4z03e2JtnTPhRi6mfK+jvH3A=;
+ b=Lr8o1C13AhXLjX0XvS/YpDLq8pUp6zTHxa/aai0iZkCJMpE5GlJ7YJ4DF3E7gpiG9hxDl8zBWBTW5tTqRnxqr+rDcmmORTUUv49RL/S1LaMadHirx6kC//8Nj2fOUmq7Q+6iEyMj670KqBCYg+JMbogDeIXpjscdqgUFwqV2xVfuqZkEAs9RjnWwYq/7cu6L/2qs/ODqLB8KcXVIossxJoIVx5wP5z5w0W1WEcv2oqSBpZmBKuxXEUDqlwQ6UoRzwt8/eu0CZ91XqKUzFa3TNbjKghMlbYfzFcxLRacT1MUfYMkfAmN7sjq7m14zvNqdOKElrq6qm1ajqKC5oqedTw==
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from SJ1PR11MB6129.namprd11.prod.outlook.com (2603:10b6:a03:488::12)
- by IA1PR11MB7269.namprd11.prod.outlook.com (2603:10b6:208:42b::15)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from BL0PR12MB2353.namprd12.prod.outlook.com (2603:10b6:207:4c::31)
+ by BY5PR12MB4035.namprd12.prod.outlook.com (2603:10b6:a03:206::15)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.9; Thu, 19 Mar
- 2026 06:38:11 +0000
-Received: from SJ1PR11MB6129.namprd11.prod.outlook.com
- ([fe80::45f:5907:efdb:cb5b]) by SJ1PR11MB6129.namprd11.prod.outlook.com
- ([fe80::45f:5907:efdb:cb5b%3]) with mapi id 15.20.9745.007; Thu, 19 Mar 2026
- 06:38:10 +0000
-Message-ID: <7139d8f8-36df-4951-a3c9-d82f6ac636be@intel.com>
-Date: Thu, 19 Mar 2026 12:08:00 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] drm/drm_atomic: duplicate colorop states if plane
- color pipeline in use
-To: Melissa Wen <mwen@igalia.com>, <maarten.lankhorst@linux.intel.com>,
- <mripard@kernel.org>, <tzimmermann@suse.de>, <airlied@gmail.com>,
- <simona@ffwll.ch>, <contact@emersion.fr>, <sebastian.wick@redhat.com>,
- <harry.wentland@amd.com>, <daniels@collabora.com>
-CC: Alex Hung <alex.hung@amd.com>, Uma Shankar <uma.shankar@intel.com>, "Xaver
- Hugl" <xaver.hugl@kde.org>, <amd-gfx@lists.freedesktop.org>,
- <kernel-dev@igalia.com>, <dri-devel@lists.freedesktop.org>
-References: <20260318163629.300627-1-mwen@igalia.com>
-Content-Language: en-GB
-From: "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>
-In-Reply-To: <20260318163629.300627-1-mwen@igalia.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MA5PR01CA0237.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a01:1f4::13) To SJ1PR11MB6129.namprd11.prod.outlook.com
- (2603:10b6:a03:488::12)
+ 2026 06:41:29 +0000
+Received: from BL0PR12MB2353.namprd12.prod.outlook.com
+ ([fe80::99b:dcff:8d6d:78e0]) by BL0PR12MB2353.namprd12.prod.outlook.com
+ ([fe80::99b:dcff:8d6d:78e0%4]) with mapi id 15.20.9723.016; Thu, 19 Mar 2026
+ 06:41:29 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 19 Mar 2026 15:41:26 +0900
+Message-Id: <DH6JY86QZEYL.PKQ2W4ZA9UUE@nvidia.com>
+Cc: "John Hubbard" <jhubbard@nvidia.com>, "Joel Fernandes"
+ <joelagnelf@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>, "Zhi Wang"
+ <zhiw@nvidia.com>, "Eliot Courtney" <ecourtney@nvidia.com>,
+ <rust-for-linux@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH] gpu: nova-core: gsp: fix undefined behavior in command
+ queue code
+From: "Eliot Courtney" <ecourtney@nvidia.com>
+To: "Alexandre Courbot" <acourbot@nvidia.com>, "Danilo Krummrich"
+ <dakr@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Alistair Popple"
+ <apopple@nvidia.com>
+X-Mailer: aerc 0.21.0-0-g5549850facc2
+References: <20260319-cmdq-ub-fix-v1-1-0f9f6e8f3ce3@nvidia.com>
+In-Reply-To: <20260319-cmdq-ub-fix-v1-1-0f9f6e8f3ce3@nvidia.com>
+X-ClientProxiedBy: DM6PR02CA0125.namprd02.prod.outlook.com
+ (2603:10b6:5:1b4::27) To BL0PR12MB2353.namprd12.prod.outlook.com
+ (2603:10b6:207:4c::31)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PR11MB6129:EE_|IA1PR11MB7269:EE_
-X-MS-Office365-Filtering-Correlation-Id: c696a799-1e6c-4d0a-7a7d-08de85821644
+X-MS-TrafficTypeDiagnostic: BL0PR12MB2353:EE_|BY5PR12MB4035:EE_
+X-MS-Office365-Filtering-Correlation-Id: 34631ae0-a581-4c2e-70dc-08de85828cf1
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|7416014|366016|921020|18002099003|56012099003|22082099003|7053199007;
-X-Microsoft-Antispam-Message-Info: LDwbQAbO4JoZUvkukvTOU8IcxNoaXEA71Abno0U7LREWNsD1DjxMjmrn6ImXDG4mWJrxOXNGXpyckkeq/emgOke2Q5DlOv6rDkm846Mvo+fQQilb6YpUGMewKS5oZQjBRc2L0gIWPT/AhZilXbNqwMuo7Y53SA33pzv+wrAS3EWtablGCDuDe5mGRkUdZNIdLM8JjqmmcGCp3sbGW5iGPyNRJVUm3dDkxAlfQNZbk+85+e0c2BkGImmzpOtwyxA/ZfyJAe5SQUdbtBqb8AMsEa8yk05HQiCABdUva7rEMhBVBtzpFhRtDELgLxiFDd6bxNLuZirpyKiRjzRRdX75fE3ItrQ3IrMLjvezi42KEnz871enhbg+lyRX3lHuGKUX0JMYtt3hRLUyJWYxvDwp8VS0bNsLGW2edVm50uAeaHqJKfeAeogS0piH7W6K2gkEt/hXRfAm7C3ovlJHQ4wtEH+E/WZUGBuyP/epxh32xEJ9RKskSKG+EaXlYdgHZqMGmLzGObIL5eF8GU88qJ4CfqsC4FI2eVuek91QO+ZBswrGZlogqSMvdfAJ/ohzKKJITvArceVfjMjE4C82eTJN/VFjbb5pxjsQU0zd6/NuFP7MJQwlA3Lty5ub4bCXdo4ix1CRxJ7K1MmarWvhf0DjHnCPEKthUQoXNjfbVy13W5pKku3IWbSpUXvaeeCKEzbrFVxYKOlprtYgOBPflS0IH6uuAa1VtJbIJ0UiqBcy2+bMT1puL+vhrg9UGL8mre8oid7kI8vgpE7JlMQ4wEtGwtWpxicA99RE66QwPaoOfP8=
+ ARA:13230040|366016|10070799003|1800799024|376014|22082099003|56012099003|18002099003|7053199007;
+X-Microsoft-Antispam-Message-Info: s4qsD77V7MMWTfym8HHn8yyoWbCOjmQQHGNbVObZMVrITJaT4PuijaapPngxAqh/UUL5Wdzh0dnUsQiuF1NmfgqgB5rHwVRR+hYYSZCT+FsZU+YdJxljfkxZoQDsjOwiNzMXkSiCdMZlvezSoEDgUGH36dbMQx+BSAOcXmrx+dXYCgXiueWh0+MEYJK4hvqZiFmh93LB0cWQ0LIHsB1KJWsHRehNdwuGI5zJsBsHbPGdJ5LX84/A7wHdORQy98fmzkVJ1E+y9taIzgTAenf2FEY3vj0COVkIggtYnEd49VKvJfcKucGTSCwjdng89Ty+ghk7svv3QzwPWVYstlbLQT1huk3CQcC4OYcEVW4oIchnfJQdDSb1Pnx8UfQf5yYbxbMLEAbrJ3ZaU94hUie6DXEjfuaLteQ0d3r+lh5nUSBEFORXU8cX3OIQSdaio8kM2UHLa57aNHAhETzqNoO98BECDuDkF+jXirfDCM9HSH5nr1DvcBa5XBbj95XApIojyyaSHoYg5ibXpu4RyRe8OVqWnkQZG6J1bNlgV79Vv2rtGZmZ2GjB90+1Euh0BxR6DtayCY7wq8jwx6+85lPd7ceJ+xFXnExri0iJWRsNrJU6MQV0AMnXGNrktUs8YVBPeFwMrFkkgcrMjNuniMSLdDeqaNaVVlGKvroG/AUfrDtYPBQMjvxHaXcFjnQf9b9WkAYyFAUZHnr3IG8wRVBIGJLn2wqUAfJXwX/xR5Cq+0WV/0Pg6zkzFUaPCG0Hhofn
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SJ1PR11MB6129.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(7416014)(366016)(921020)(18002099003)(56012099003)(22082099003)(7053199007);
+ IPV:NLI; SFV:NSPM; H:BL0PR12MB2353.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(10070799003)(1800799024)(376014)(22082099003)(56012099003)(18002099003)(7053199007);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TnhHVDJzcHJlRXVjNGkxckxGL0ZuaklHNHV6WXRBaWVHNVE3aDk1OG41NEJL?=
- =?utf-8?B?ZEdhdzhwWGFkdTJwWmEreVNVRTlGaXUvRWRCK3BHc2VRd1ZCN0lITFAxeldv?=
- =?utf-8?B?eFYxSVgyS2FuVGpZQkNnOWkweWJ4MTVFZDVORXllODJCQ0hRREdTV1phQkQy?=
- =?utf-8?B?LzNRMlZ4dHpvcWNydFc0UzhaUU1BU0tnbktDSUtQVEc1NWpqNnQ2TGhpUFV2?=
- =?utf-8?B?OHVQeDd2U2RjOEYzV0dCcGhTUEs1Wm5TMU9sK3lvT0ZxUmo2NE5hOUY3WFI1?=
- =?utf-8?B?Y1VTSTZSRzhxNEZYU3ZOVDVmd0xmbExjYjNiV3V2b2lEdEMvOVgrMWZDUERq?=
- =?utf-8?B?SHhpTzE0U25FYzN1UTNLY3Naa28vVFhRT2dkWUhWSWs1S2xWSDNZWTBOQVBX?=
- =?utf-8?B?QnNuNHlmaWw1SDlhSVNTVFNxdDdhd2dMR2Fmdi91dTN6TU5Wend3YU5YU2NM?=
- =?utf-8?B?ZllrQzZVMHlnVy9JS3kyTUkwV1BLR3hlcU43MGZoRnd6WC82QmRMbmxKaER0?=
- =?utf-8?B?bkRsRzVmVzdZMDVxZk5PRC9YWklFcWpyY1ZjOXQxa3F1c3BUUG1wODYvSEVC?=
- =?utf-8?B?dkRrd3lDMzgzT0xGYzZGYXFyYm94QXFsU0JhaWwzejJaTk9rbnRveVQ3dHIx?=
- =?utf-8?B?V0o3S3duOGpPK29oUDIwRkhON2VmWVhrUFRVR3ZxUVkySjdnR0dweVlpRHR2?=
- =?utf-8?B?aUVESkRzKy9ZS3VWbU40Vk9Cc0dpaEZkRUw5ZkIvRkRZc0xLVVVXdm5QeWVi?=
- =?utf-8?B?bHV5Um1QdGFWRkVsZmJPUUYxazhualVmbDU3cVo5SHBvWDlhMFZMQ3FWaVl3?=
- =?utf-8?B?OVg4V01ZdEhqb0pKNWNXQUNFWldtR2ZBb3NOOWVGNEsrZFNTRjFDVk1qUHdz?=
- =?utf-8?B?cDk1WFNucDA0eGRXTXJQSC9KcWh2czFhVStnVEY3OGJtaFlsQjRWaEtjTE55?=
- =?utf-8?B?MDhjUlRPeFc2c1RON1VzM0lYS0RBZ3JabzBMWGJ2QitUYmNvb1RWSTRPbllR?=
- =?utf-8?B?SjlsbFRsSlRHcm5MY1NWb0pTUklGbUdIeHFkMXVTb1haQnQwNFlhcmxmZnlC?=
- =?utf-8?B?WFYvWGorMmlCb1BDQStZSUNjWGZNS3JnNHRNbHprQ0wyQ2ovei81ZEp5R3Q2?=
- =?utf-8?B?ZExhdG5WUEtOQTU4TUIwekdSWHZWRnpiT08zZlh1VkdweHNVK0lTSnhRN0ov?=
- =?utf-8?B?SDJmY2VpbXVqaXJuNmZOTHF1dGZRZ3M0U3B3dmU3WVBUbUZ0ZDE1Rk1FZ2ZG?=
- =?utf-8?B?d28rR0tnZUJaTDlucVl3UU15RHhETzBDZk52bkJpRW4xM2FoN3gyWmFEOW9x?=
- =?utf-8?B?UGdJMEZCTnZVT3hUTjBvSkZ4Z0pjWTdzWlhiOVM1T2pwK3VqaFBrZy8xS3k3?=
- =?utf-8?B?elU3eUhqL3d4R1FSREdlNkI1dEVyc0daM1B6NzJXSUZzaXNoTTYzQmZFRnp6?=
- =?utf-8?B?dmZKTEtKbXZyR1pqVk5NUkoxWVF0WEZQQUk4aXNjUkxQWm94eUc5TVZxTlI2?=
- =?utf-8?B?L3AyZ0h6KzZBSFNPa0twc05Wb3k3ekNCdGpOWUo5TkdidlUyZTlDMmxMbERB?=
- =?utf-8?B?cC8yTVUrZ2puZy9sMVRNT3lOLytrTi9HUUdRVG9jQ1g4ejg2M2U0QmQwTHF0?=
- =?utf-8?B?djRaOGhXQVgrS1gxVy9oMUVUZHhZcGRjOWpRY0RSdEpkSFpLZitHOFNYVVdt?=
- =?utf-8?B?dkpHMDN3OTM1dVNsS3ZYL0hSdjN0TmN6VVc4elVyb0F6UGE2TGRyWEQ5TkVJ?=
- =?utf-8?B?bms4aFE2ckRiczR3TXZ2d2xROFFvN3JZNDFOMy9wTktkQmVrVWN4NE1nd1A0?=
- =?utf-8?B?TXhGMGdZMWEydHRGVHNEdWpjV2IrSnVMNElsQmRNMGU4OHNZdHpMQ2xVbGJp?=
- =?utf-8?B?bTJWUXhWMTlldndvZi9LNjdueU1Nc29tWG1XWFdFR1Q0QkxlQkM1SWxDUzBV?=
- =?utf-8?B?Z2NPTnJoRkJUeFZMdTZ3VzF6bXRkTlFqaThVVG0rdUZJUUZCNHJFZEpSYldn?=
- =?utf-8?B?SlBHanJpMzRpOGhmbTdJK0hJWFZ1MWJ3akdES2huejVNQzVKTzJrQlFJdldB?=
- =?utf-8?B?aENkVzdEYWpvWmtNd0s1ZXM5VlVJQ21qczRHRkVZSktUQUp4WFZrZU1rREZT?=
- =?utf-8?B?Tk5pNUFac1Z5TkY0UTB3ZzFGS1pWV3hoVnVkZW9NWGoyZmxWT2NRSVdQMW40?=
- =?utf-8?B?aWdZNEtSOExDYVpkSVJYT3NGK2pNWmp6YzErOFZIcFVsczdRRDg2bUJ2aE9w?=
- =?utf-8?B?MmtvZ1Nta0l0aU16SGUyVUxLU2k3UmljalhZYi9HVnpSM0hMZmRwR1lWZSth?=
- =?utf-8?B?SU5ZN3o0TUpaeWhGV2lXWnoyd0JKalJ6bE1FaGY1SDFHQTlDQU9QNXFXVGc2?=
- =?utf-8?Q?y0dbNjncrUd984cs=3D?=
-X-Exchange-RoutingPolicyChecked: bQaad1k4lI79Obmll24z310az/JrxbprrIEFTPKxpMeTLgV2xpBTdK7SO72dbTVGRz/8oulmtdipgYYxiy7LiZuf/ov4378RzRVQUlJsEHZzaFzqhqwpUGgKJVuGQsYBFYi/fwREEUxY4H57Sb3zm437fiQRkFUWj8XNQUZf9JIsME4t0TLwQbNc5FdCQERpx7Xu1GccAltVH0+7r9JCVQ9c4HfaASCrzPkSOKaYpBYrgiM3Z+nNy+oLJicV9+bt9o3ADNkMN9suf3B9eEivWTv/VtIUVyL+H6URsc2VNPTs5Hix4Ld/GVUL6Yf9mRWVm98amksg6d9c4Vm7eyKYgA==
-X-MS-Exchange-CrossTenant-Network-Message-Id: c696a799-1e6c-4d0a-7a7d-08de85821644
-X-MS-Exchange-CrossTenant-AuthSource: SJ1PR11MB6129.namprd11.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ekNFOTFNcGphUkJxalJiRmdSOTIvWGNtaENqUjV1dFFrbjNQNmJkdzZYazdZ?=
+ =?utf-8?B?Z3dtaWxNbXZicG16NlRaT2lEbzVWeE9oODVGbG5LanhLZ3I3OHg5UEhXZm04?=
+ =?utf-8?B?UFRCM3BnQnhLbCtTYXMra0FxanZPa1VhQlluVWFoa1EzU21rRVEzYy9DY1Nq?=
+ =?utf-8?B?NWRsTzlwVDlMbmlCaFF5c1NoNFdOeHQ2RTRRYnBobjJrNS9vdjdTaTRoazEv?=
+ =?utf-8?B?U2ZRbjRMM2R3aTRGdEhldW1lN3dqVHBRZy8rR1F3OTMxdVN2Y3VPc3ZZdFlF?=
+ =?utf-8?B?Y0F5VEhscUZFU015MjlNYXJpU0laZWR2Z1piVlA0Zy9PQ05vQmJjL2NXdktZ?=
+ =?utf-8?B?Sy9xZWdDd2tQS25OVGh1Y3k5WjFXSnYzeW90SDM2ZHlvM2lzUUVBZEgyblJW?=
+ =?utf-8?B?blZVUWt3TlVIWSszSFplR2tieXVleUFleE9CaW8yL1kvcElENmNTcFpzeWhW?=
+ =?utf-8?B?c0d1Y05MQlRJY1BPL1VTQ25sZENGRGRlUVpYMUhIYnorN3hpYmhLZFhoTDdF?=
+ =?utf-8?B?QlBHWlNjOGZmL053TFpCM240c0VVQlpxeTV5TkRuN1JYckZTOXlORHhPT3Z4?=
+ =?utf-8?B?OFg0bDhHZVJkcWJWUDVibkw0dXFpMFB2dFFJaUxuL01tbTY3cDQrV0RxY3NK?=
+ =?utf-8?B?bkZnSFNRMlJkOTUxZWpRMiswR3V1Vk1OMmQ4Uy92Slh1ckRoSUw2ZVZkdGQ1?=
+ =?utf-8?B?THByeEdHNXpQekxyTUVTeVEvdGIxekJrOWRkcFVQQ2s5azRFT3JaK1VYR1BV?=
+ =?utf-8?B?ajRlWTRJcjVvRGtBL25Ha3kzQU9rTm1PVzRzalp0cW1iY0N6WjZ6UEFEVktF?=
+ =?utf-8?B?eWFLbG42bkFWQk92WVFoVCtzcTNWNUVhMnhFUnVJWEM3amJBdDRsbUs5NWhi?=
+ =?utf-8?B?VEFtYllIaDdxS0hzNUlRLzE3YU8ySlVCRFBRU0k3SG5VUVh0Z1psd2c2aVpC?=
+ =?utf-8?B?aGlYVnZOR0puclplMlBicVg4VGdJMy8wTDd1emhZWFV0eWN5NlppMWx0d3h4?=
+ =?utf-8?B?VkNvWTZZbkRDUW5yb1FuQlZGUTlCUlFqZ2ZmVGZoRVhiaFJyVFF5cEZDV2NT?=
+ =?utf-8?B?TmpzSDkvZEpSN2FsQ2Nhd0gvTTJrWFB5a0R6TEYwdWl1Nkw3eXRnc0hTYjFP?=
+ =?utf-8?B?QUlyc3VvYzVTVDNXVVJNblhxQ3BCRW1ab2dnQklWWFpZOElGRzg2UzIrVlpV?=
+ =?utf-8?B?L3F3MXc1Y05icDh6QmwrNXdnTmEveW5EcXNMdGsyL2hmNEFDRkFLeE01Yk9l?=
+ =?utf-8?B?OHNMRmdCQU1LWWpwQnZmRjRwNGVZOTJOa1BjZmxUOUk3VDNHY0puYitscXoz?=
+ =?utf-8?B?YURlMWlJY0tsOTZ3djNOSzI1NzNEc3JWczA3Kzc3YzJyZHB0VUdpd2NQaXE5?=
+ =?utf-8?B?Z3ZEY0QyRHdubkVrVUFCZGZGR3RIcHE0ZjVWTEZyTHZ4UXVwZWxBbEFqKzJT?=
+ =?utf-8?B?N0FrbThMSUNsMkhKYVByOGRlSXNDT2RWNGpmMk1ZanhjRERvZlpGL0creTgy?=
+ =?utf-8?B?SXB6M2lMcGN6K0dxNzFYN2VZNFRrNlpJaXJpWTR4cGNUa2RZekNKZmwwblBY?=
+ =?utf-8?B?eERwbVFFSW5xa29JNTVLRzZtNkxMMHhhUWQxbnRJUTE2cEswNk5UbVM1UFRM?=
+ =?utf-8?B?TEVhTE5HdE5BakdRRUhlVDhsNlZVdWxFdk5zbStnY3VXSjNWZDJuRFhWYUJ5?=
+ =?utf-8?B?S0Y2c3d6ZDVMM2R4d09TRjNueUxkOFBrbmRPM2ZFOEV4ZUtwcGpPSXY5dzJw?=
+ =?utf-8?B?QU1FZ1lXcUd4TTNNRSsycStUM1U0U2VOV1ZxZnJ2WldsSWxyY3ZrMTlhT2hm?=
+ =?utf-8?B?RW52OURrVTF3djJOeC9UbC9zby9NTTJDWlE2SC8xOU9ZVUNPRGIzRmVkMStu?=
+ =?utf-8?B?SUYyRVMrbFpyK25wTzZtbXR6aVJBbHByM0k3NUJOa083NG9DVmF6allFSEp1?=
+ =?utf-8?B?VGlxSFZQaXEwby96QzM2cnVFVDR0RUhuYjRBTEtpMm9aYjNLc0xBQzJmaHdT?=
+ =?utf-8?B?L3orKzNGNlYzUENjZ1BTbFFWcmF1K3AxNFowY0w0Wi9MZVA2MTlONHNaTG4v?=
+ =?utf-8?B?MFVUMkVyam1UVUJzL1huQUNOMElMWndhL010STJlNmRxOXhNTUJLdXd3cVd1?=
+ =?utf-8?B?cGVNMjJrVXdJa1NMdTF4Tzl0K3ZEU2FVL2xGa0RIczNLV2NFcU43YVFWcWxL?=
+ =?utf-8?B?T0Fhd1YwNTRxMjgrdnhIb0VHNm1rQlNyRjBxSzZzS3RVTWtzWDZSeE9lTFVC?=
+ =?utf-8?B?YjVqOGR6SXo2QXNQcUFmc0M2VEg2aVlKeGtyb1FqV1JUUHkzOVdBKzNPckRJ?=
+ =?utf-8?B?VzNrUjF2Uy9CUGdUUzl6MTN2dmgrY25jYzJsNzF5Wk9JKytLdnZYMFdaek1t?=
+ =?utf-8?Q?bESmzV2RlnlowrBE3U4XJwJh1ueJ0j8K2/YuTbItNLqgI?=
+X-MS-Exchange-AntiSpam-MessageData-1: N19vjRMxCI26yw==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 34631ae0-a581-4c2e-70dc-08de85828cf1
+X-MS-Exchange-CrossTenant-AuthSource: BL0PR12MB2353.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Mar 2026 06:38:10.2656 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Mar 2026 06:41:29.3487 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: +cCrsKCTRM6fNf5bluc8JQ+Hxu1PoJsm1pcdvr0L198hZXbeo+WCMnNeEE0kdpI4Gp2q1jMempFXBgZUnPJBNJv+GUe4vg9eqdFI6m1wSqM=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR11MB7269
-X-OriginatorOrg: intel.com
+X-MS-Exchange-CrossTenant-UserPrincipalName: WWY7yZvf7H/i6I9VTlH/wUpOYqaSZUC8QEZXuZcQsjM8GuELXryJFjzwAsG4/w+O4R3/Ah8CyoSfz9gcr1eD3A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4035
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -175,91 +144,167 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-
-
-On 3/18/2026 9:57 PM, Melissa Wen wrote:
-> For suspend/resume to work correctly, do for colorop state the same we
-> do for plane/crtc/connector states: duplicate the state of colorops in a
-> color pipeline if it's in use by a given plane when suspending and
-> restore cached colorop states when resuming.
-> 
-> Fixes: 2afc3184f3b3 ("drm/plane: Add COLOR PIPELINE property")
-> Reviewed-by: Harry Wentland <harry.wentland@amd.com>
-> Reviewed-by: Alex Hung <alex.hung@amd.com>
-> Reviewed-by: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
-> Signed-off-by: Melissa Wen <mwen@igalia.com>
+On Thu Mar 19, 2026 at 2:36 PM JST, Alexandre Courbot wrote:
+> `driver_read_area` and `driver_write_area` are internal methods that
+> return slices containing the area of the command queue buffer that the
+> driver has exclusive read of write access, respectively.
+>
+> While their returned value is correct and safe to use, internally they
+> temporarily create a reference to the whole command-buffer slice,
+> including GSP-owned regions. These regions can change without notice,
+> and thus creating a slice to them is undefined behavior.
+>
+> Fix this by replacing the slice logic with pointer arithmetic and
+> creating slices to valid regions only. It relies on unsafe code, but
+> should be mostly replaced by `IoView` and `IoSlice` once they land.
+>
+> Fixes: 75f6b1de8133 ("gpu: nova-core: gsp: Add GSP command queue bindings=
+ and handling")
+> Suggested-by: Danilo Krummrich <dakr@kernel.org>
+> Link: https://lore.kernel.org/all/DH47AVPEKN06.3BERUSJIB4M1R@kernel.org/
+> Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
 > ---
-> 
-> Changes from v1 (https://lore.kernel.org/dri-devel/20260316210055.234498-1-mwen@igalia.com/):
-> - keep the object hierarchy (Chaitanya)
-> - add r-b from Harry, Alex H. and Chaitanya (pending to confirm)
-> 
-> Chaitanya,
-> 
-> I kept the fix for unused-variable warning together because the warning
-> only appears with this new usage of for_each_new_colorop_in_state() in
-> drm_atomic_helper_commit_duplicated_state() here. Let me know if you
-> don't agree with this approach.
-> 
+>  drivers/gpu/nova-core/gsp/cmdq.rs | 135 ++++++++++++++++++++++++++++----=
+------
+>  1 file changed, 100 insertions(+), 35 deletions(-)
+>
+> diff --git a/drivers/gpu/nova-core/gsp/cmdq.rs b/drivers/gpu/nova-core/gs=
+p/cmdq.rs
+> index d36a62ba1c60..4200e7986774 100644
+> --- a/drivers/gpu/nova-core/gsp/cmdq.rs
+> +++ b/drivers/gpu/nova-core/gsp/cmdq.rs
+> @@ -251,38 +251,77 @@ fn new(dev: &device::Device<device::Bound>) -> Resu=
+lt<Self> {
+>      /// As the message queue is a circular buffer, the region may be dis=
+contiguous in memory. In
+>      /// that case the second slice will have a non-zero length.
+>      fn driver_write_area(&mut self) -> (&mut [[u8; GSP_PAGE_SIZE]], &mut=
+ [[u8; GSP_PAGE_SIZE]]) {
+> -        let tx =3D self.cpu_write_ptr() as usize;
+> -        let rx =3D self.gsp_read_ptr() as usize;
+> +        let tx =3D num::u32_as_usize(self.cpu_write_ptr());
+> +        let rx =3D num::u32_as_usize(self.gsp_read_ptr());
+> +        // Number of pages between `tx` and the end of the command queue=
+.
+> +        // PANIC: Per the invariant of `cpu_write_ptr`, `tx < MSGQ_NUM_P=
+AGES`.
+> +        let after_tx_len =3D num::u32_as_usize(MSGQ_NUM_PAGES) - tx;
+> =20
+> +        // Pointer to the start of the CPU message queue.
+> +        //
+>          // SAFETY:
+> -        // - The `CoherentAllocation` contains exactly one object.
+> -        // - We will only access the driver-owned part of the shared mem=
+ory.
+> -        // - Per the safety statement of the function, no concurrent acc=
+ess will be performed.
+> -        let gsp_mem =3D &mut unsafe { self.0.as_slice_mut(0, 1) }.unwrap=
+()[0];
+> -        // PANIC: per the invariant of `cpu_write_ptr`, `tx` is `< MSGQ_=
+NUM_PAGES`.
+> -        let (before_tx, after_tx) =3D gsp_mem.cpuq.msgq.data.split_at_mu=
+t(tx);
+> +        // - `self.0` contains exactly one element.
+> +        // - `cpuq.msgq.data[0]` is within the bounds of that element.
+> +        let data =3D unsafe { &raw mut (*self.0.start_ptr_mut()).cpuq.ms=
+gq.data[0] };
+> =20
+> -        // The area starting at `tx` and ending at `rx - 2` modulo MSGQ_=
+NUM_PAGES, inclusive,
+> -        // belongs to the driver for writing.
+> +        // Safety/Panic comments to be referenced by the code below.
+> +        //
+> +        // SAFETY[1]:
+> +        // - `data` points to an array of `MSGQ_NUM_PAGES` elements.
+> +        // - The area starting at `tx` and ending at `rx - 2` modulo `MS=
+GQ_NUM_PAGES`,
+> +        //   inclusive, belongs to the driver for writing and is not acc=
+essed concurrently by
+> +        //   the GSP.
+> +        // - `tx + after_tx_len` =3D=3D `MSGQ_NUM_PAGES`.
+> +        //
+> +        // PANIC[1]:
+> +        // - Per the invariant of `cpu_write_ptr`, `tx < MSGQ_NUM_PAGES`=
+.
+> +        // - Per the invariant of `gsp_read_ptr`, `rx < MSGQ_NUM_PAGES`.
+> =20
+>          if rx =3D=3D 0 {
+> -            // Since `rx` is zero, leave an empty slot at end of the buf=
+fer.
+> -            let last =3D after_tx.len() - 1;
+> -            (&mut after_tx[..last], &mut [])
+> +            (
+> +                // SAFETY: See SAFETY[1].
+> +                unsafe {
+> +                    core::slice::from_raw_parts_mut(
+> +                        data.add(tx),
+> +                        // Since `rx` is zero, leave an empty slot at en=
+d of the buffer.
+> +                        // PANIC: See PANIC[1].
+> +                        after_tx_len - 1,
+> +                    )
+> +                },
+> +                &mut [],
+> +            )
+>          } else if rx <=3D tx {
+>              // The area is discontiguous and we leave an empty slot befo=
+re `rx`.
+> -            // PANIC:
+> -            // - The index `rx - 1` is non-negative because `rx !=3D 0` =
+in this branch.
+> -            // - The index does not exceed `before_tx.len()` (which equa=
+ls `tx`) because
+> -            //   `rx <=3D tx` in this branch.
+> -            (after_tx, &mut before_tx[..(rx - 1)])
+> +            (
+> +                // SAFETY: See SAFETY[1].
+> +                unsafe { core::slice::from_raw_parts_mut(data.add(tx), a=
+fter_tx_len) },
+> +                // SAFETY: See SAFETY[1].
+> +                unsafe {
+> +                    core::slice::from_raw_parts_mut(
+> +                        data,
+> +                        // Leave one empty slot before `rx`.
+> +                        // PANIC:
+> +                        // - See PANIC[1].
+> +                        // - `rx - 1` is non-negative because `rx !=3D 0=
+` in this branch.
+> +                        rx - 1,
+> +                    )
+> +                },
+> +            )
+>          } else {
+>              // The area is contiguous and we leave an empty slot before =
+`rx`.
+> -            // PANIC:
+> -            // - The index `rx - tx - 1` is non-negative because `rx > t=
+x` in this branch.
+> -            // - The index does not exceed `after_tx.len()` (which is `M=
+SGQ_NUM_PAGES - tx`)
+> -            //   because `rx < MSGQ_NUM_PAGES` by the `gsp_read_ptr` inv=
+ariant.
+> -            (&mut after_tx[..(rx - tx - 1)], &mut [])
+> +            (
+> +                // SAFETY: See SAFETY[1].
+> +                unsafe {
+> +                    core::slice::from_raw_parts_mut(
+> +                        data.add(tx),
+> +                        // PANIC:
+> +                        // - See PANIC[1].
+> +                        // - `rx - tx - 1` is non-negative because `rx >=
+ tx` in this branch.
+> +                        rx - tx - 1,
+> +                    )
+> +                },
+> +                &mut [],
+> +            )
+>          }
+>      }
+> =20
+> @@ -308,24 +347,50 @@ fn driver_write_area_size(&self) -> usize {
+>          let tx =3D self.gsp_write_ptr() as usize;
+>          let rx =3D self.cpu_read_ptr() as usize;
 
-Please go ahead. Just add a "while at it" to the commit message.
+Should we use u32_as_usize here too?
 
-> Melissa
-> 
-> ---
->   drivers/gpu/drm/drm_atomic_helper.c | 12 ++++++++++++
->   include/drm/drm_atomic.h            |  3 ++-
->   2 files changed, 14 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/drm_atomic_helper.c b/drivers/gpu/drm/drm_atomic_helper.c
-> index 26953ed6b53e..481f92a03683 100644
-> --- a/drivers/gpu/drm/drm_atomic_helper.c
-> +++ b/drivers/gpu/drm/drm_atomic_helper.c
-> @@ -3751,6 +3751,13 @@ drm_atomic_helper_duplicate_state(struct drm_device *dev,
->   			err = PTR_ERR(plane_state);
->   			goto free;
->   		}
-> +
-> +		if (plane_state->color_pipeline) {
-> +			err = drm_atomic_add_affected_colorops(state, plane);
-> +			if (err)
-> +				goto free;
-> +		}
-> +
->   	}
->   
->   	drm_connector_list_iter_begin(dev, &conn_iter);
-> @@ -3856,6 +3863,8 @@ int drm_atomic_helper_commit_duplicated_state(struct drm_atomic_state *state,
->   	int i, ret;
->   	struct drm_plane *plane;
->   	struct drm_plane_state *new_plane_state;
-> +	struct drm_colorop *colorop;
-> +	struct drm_colorop_state *new_colorop_state;
->   	struct drm_connector *connector;
->   	struct drm_connector_state *new_conn_state;
->   	struct drm_crtc *crtc;
-> @@ -3863,6 +3872,9 @@ int drm_atomic_helper_commit_duplicated_state(struct drm_atomic_state *state,
->   
->   	state->acquire_ctx = ctx;
->   
-> +	for_each_new_colorop_in_state(state, colorop, new_colorop_state, i)
-> +		state->colorops[i].old_state = colorop->state;
-> +
->   	for_each_new_plane_in_state(state, plane, new_plane_state, i)
->   		state->planes[i].old_state = plane->state;
->   
-> diff --git a/include/drm/drm_atomic.h b/include/drm/drm_atomic.h
-> index 0b1b32bcd2bd..96fd32a3e92c 100644
-> --- a/include/drm/drm_atomic.h
-> +++ b/include/drm/drm_atomic.h
-> @@ -1102,7 +1102,8 @@ void drm_state_dump(struct drm_device *dev, struct drm_printer *p);
->   		for_each_if ((__state)->colorops[__i].ptr &&		\
->   			     ((colorop) = (__state)->colorops[__i].ptr,	\
->   			      (void)(colorop) /* Only to avoid unused-but-set-variable warning */, \
-> -			      (new_colorop_state) = (__state)->colorops[__i].new_state, 1))
-> +			      (new_colorop_state) = (__state)->colorops[__i].new_state,\
-> +			      (void)(new_colorop_state) /* Only to avoid unused-but-set-variable warning */, 1))
->   
->   /**
->    * for_each_oldnew_plane_in_state - iterate over all planes in an atomic update
-
+Reviewed-by: Eliot Courtney <ecourtney@nvidia.com>
