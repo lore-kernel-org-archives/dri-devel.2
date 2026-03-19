@@ -4,30 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A7D95FB5EAA
-	for <dri-devel@archiver.kernel.org>; Thu, 19 Mar 2026 04:00:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C50EF1088E70
+	for <dri-devel@archiver.kernel.org>; Thu, 19 Mar 2026 04:00:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0F7D510E0C5;
-	Thu, 19 Mar 2026 04:00:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3443D10E86B;
+	Thu, 19 Mar 2026 04:00:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=pm.me header.i=@pm.me header.b="qzcGejuj";
+	dkim=pass (2048-bit key; secure) header.d=pm.me header.i=@pm.me header.b="QfPzEGli";
 	dkim-atps=neutral
-Received: from mail-43100.protonmail.ch (mail-43100.protonmail.ch
- [185.70.43.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AE21A10E0C5
- for <dri-devel@lists.freedesktop.org>; Thu, 19 Mar 2026 04:00:02 +0000 (UTC)
+Received: from mail-24418.protonmail.ch (mail-24418.protonmail.ch
+ [109.224.244.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C65CC10E868
+ for <dri-devel@lists.freedesktop.org>; Thu, 19 Mar 2026 04:00:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
- s=protonmail3; t=1773892801; x=1774152001;
- bh=qrz4dzTAVjEcyUcrosogifsPOSLN65jJ+X0IWxKIan8=;
- h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
- Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
- b=qzcGejujJWayzGYv4JOp002Whxrgvg8ubcVDjnBGwLFdWxrUZrev+5RA5HZfOST8k
- O38tVJjjPJDRncK1jVWHNMfto536mi0RtwmwbWyXPPx7nx32lZDvHYOZLZVuNP1uxg
- Cq+M/+WiNe1ChZMkxtxcXKYpJix28szaEsIRjjtT0t6xAZJ2btXM2CCnBSxZIRIy4r
- VeMebWYVtXRMk6X4zfGIPJLssxxUE/1hYBBhWj8ovJHZ7qNfLmQXE/nV9MpNOcVMVn
- 7OJuEx9zLReZDLpa1t9FfOUdnLUVZ/EmUWdbh9UUx0P23Ju8VKs66oxz+46YYNrSq6
- /1MuGbX5bGHcQ==
-Date: Thu, 19 Mar 2026 03:59:55 +0000
+ s=protonmail3; t=1773892806; x=1774152006;
+ bh=dD/BPKC5aT9eeNrRI4lDwbK6ytFidptagGuSLLMES4o=;
+ h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+ Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+ Message-ID:BIMI-Selector;
+ b=QfPzEGliEXKb8VbfjeqZep2AZal6LNwmNkzmhnHj5N+JxyBuw0LTlI/64MruOC90J
+ 1WQEZRfpRCnLJnmyLs4gf7xZ0IysuKkOMGwsgrdXAvcxByXDgJeZ3NXXvQ0K3aSAoy
+ dg7G8TlimFMYCNFEnRMsL/GiPx3B8vCL0q8lB4HdHLKSOt4jLL0fvp+oRi8hHqfErr
+ ZDVcvC8a0Dgpt+j5O6wg6K5wsVkPN/mV0AoHBKCoRDGTw9BizvH3+p3Wprog7WIefl
+ 90Aj5LhzTFm6pPK6adLWgsxs0ShmyDApiVdgDEElY8CETET2Tc6VbLkW2pKQJ8CEqa
+ KRznc3Yjs13jg==
+Date: Thu, 19 Mar 2026 04:00:01 +0000
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
@@ -40,11 +41,12 @@ Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
  Alexander Koskovich <akoskovich@pm.me>,
  Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Subject: [PATCH v2 0/3] drm/msm: add RGB101010 pixel format and fix 10-bit DSC
- timing
-Message-ID: <20260318-dsi-rgb101010-support-v2-0-698b7612eaeb@pm.me>
+Subject: [PATCH v2 1/3] drm/mipi-dsi: add RGB101010 pixel format
+Message-ID: <20260318-dsi-rgb101010-support-v2-1-698b7612eaeb@pm.me>
+In-Reply-To: <20260318-dsi-rgb101010-support-v2-0-698b7612eaeb@pm.me>
+References: <20260318-dsi-rgb101010-support-v2-0-698b7612eaeb@pm.me>
 Feedback-ID: 37836894:user:proton
-X-Pm-Message-ID: 359fec2ca25f556ad8c79c68c43fed389c950c06
+X-Pm-Message-ID: 885ab5d382f2949f45e29c33c5f5c86b683a34c0
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
@@ -63,44 +65,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This series adds support for the RGB101010 (30bpp) pixel format and
-fixes a DSC timing bug exposed by non 8 bit panels.
+Add MIPI_DSI_FMT_RGB101010 for 30 bit (10,10,10 RGB) pixel format,
+corresponding to the packed 30 bit pixel stream defined in MIPI DSI
+v1.3 Section 8.8.17.
 
-Tested on the BOE BF068MWM-TD0 panel (10 bit DSC) on the Nothing
-Phone (3a).
-
-Note, I'd appreciate a comment on the INTF timing change from someone
-at QCOM who knows the DPU hardware a bit better, this appears to be
-what downstream is doing regardless of bpp, but let me know if there's
-a better solution here.
-
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 Signed-off-by: Alexander Koskovich <akoskovich@pm.me>
 ---
-Changes in v2:
-- Only allow RGB101010 if MSM_DSI_6G_VER >=3D V2.1.0
-- Link to v1: https://lore.kernel.org/r/20260318-dsi-rgb101010-support-v1-0=
--6021eb79e796@pm.me
+ include/drm/drm_mipi_dsi.h | 4 ++++
+ 1 file changed, 4 insertions(+)
 
----
-Alexander Koskovich (3):
-      drm/mipi-dsi: add RGB101010 pixel format
-      drm/msm/dsi: Add support for RGB101010 pixel format
-      drm/msm/dpu: fix video mode DSC INTF timing width for non 8 bit panel=
-s
+diff --git a/include/drm/drm_mipi_dsi.h b/include/drm/drm_mipi_dsi.h
+index 3aba7b380c8d..a822e9e876af 100644
+--- a/include/drm/drm_mipi_dsi.h
++++ b/include/drm/drm_mipi_dsi.h
+@@ -140,6 +140,7 @@ struct mipi_dsi_host *of_find_mipi_dsi_host_by_node(str=
+uct device_node *node);
+ #define MIPI_DSI_HS_PKT_END_ALIGNED=09BIT(12)
+=20
+ enum mipi_dsi_pixel_format {
++=09MIPI_DSI_FMT_RGB101010,
+ =09MIPI_DSI_FMT_RGB888,
+ =09MIPI_DSI_FMT_RGB666,
+ =09MIPI_DSI_FMT_RGB666_PACKED,
+@@ -235,6 +236,9 @@ extern const struct bus_type mipi_dsi_bus_type;
+ static inline int mipi_dsi_pixel_format_to_bpp(enum mipi_dsi_pixel_format =
+fmt)
+ {
+ =09switch (fmt) {
++=09case MIPI_DSI_FMT_RGB101010:
++=09=09return 30;
++
+ =09case MIPI_DSI_FMT_RGB888:
+ =09case MIPI_DSI_FMT_RGB666:
+ =09=09return 24;
 
- drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c | 12 +++++++-----
- drivers/gpu/drm/msm/dsi/dsi_cfg.c                    |  8 ++++++++
- drivers/gpu/drm/msm/dsi/dsi_cfg.h                    |  1 +
- drivers/gpu/drm/msm/dsi/dsi_host.c                   |  9 +++++++++
- drivers/gpu/drm/msm/registers/display/dsi.xml        |  5 ++++-
- include/drm/drm_mipi_dsi.h                           |  4 ++++
- 6 files changed, 33 insertions(+), 6 deletions(-)
----
-base-commit: f338e77383789c0cae23ca3d48adcc5e9e137e3c
-change-id: 20260318-dsi-rgb101010-support-4956b1cd8657
-
-Best regards,
 --=20
-Alexander Koskovich <akoskovich@pm.me>
+2.53.0
 
 
