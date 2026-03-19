@@ -4,62 +4,138 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1A78C108E1FC
-	for <dri-devel@archiver.kernel.org>; Thu, 19 Mar 2026 12:03:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5CDB3108E1F7
+	for <dri-devel@archiver.kernel.org>; Thu, 19 Mar 2026 12:05:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7EE1D10E9AE;
-	Thu, 19 Mar 2026 12:03:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B9DE410E9AF;
+	Thu, 19 Mar 2026 12:05:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=huawei.com header.i=@huawei.com header.b="T4nhKQVE";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="m3FLHizY";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="aY0YeHDL";
 	dkim-atps=neutral
-Received: from canpmsgout10.his.huawei.com (canpmsgout10.his.huawei.com
- [113.46.200.225])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 714B210E9AD
- for <dri-devel@lists.freedesktop.org>; Thu, 19 Mar 2026 12:03:16 +0000 (UTC)
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
- c=relaxed/relaxed; q=dns/txt; h=From;
- bh=8fGWRdVMsvQR++vWqgLDtZsnyrK4cb1DCNNce7pnyqA=;
- b=T4nhKQVEAuyPnY7TSwGIGxkWukqdUtxOOT0H5iYGWu+DDJl1ahX5PG309ETIGFPQeS4Vq2Hy+
- 5bEbOb5kdDF0dbmvhj7YhrfBcO9ThoN19QPXDXuYdOO6zUO7q3k4qrab/jZCG0unA1b7ZNOOicx
- /v+D3r544GenaxN6ZjxDgKU=
-Received: from mail.maildlp.com (unknown [172.19.163.163])
- by canpmsgout10.his.huawei.com (SkyGuard) with ESMTPS id 4fc41j5sz1z1K96k;
- Thu, 19 Mar 2026 19:57:13 +0800 (CST)
-Received: from dggemv712-chm.china.huawei.com (unknown [10.1.198.32])
- by mail.maildlp.com (Postfix) with ESMTPS id 870B74048B;
- Thu, 19 Mar 2026 20:03:13 +0800 (CST)
-Received: from kwepemq100007.china.huawei.com (7.202.195.175) by
- dggemv712-chm.china.huawei.com (10.1.198.32) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.11; Thu, 19 Mar 2026 20:03:13 +0800
-Received: from [10.159.167.44] (10.159.167.44) by
- kwepemq100007.china.huawei.com (7.202.195.175) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.11; Thu, 19 Mar 2026 20:03:12 +0800
-Message-ID: <43fe4ef5-ffdf-425c-b535-8306fbe12b3b@huawei.com>
-Date: Thu, 19 Mar 2026 20:03:12 +0800
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EEEBC10E9AD
+ for <dri-devel@lists.freedesktop.org>; Thu, 19 Mar 2026 12:05:39 +0000 (UTC)
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 62J73x2i1027104
+ for <dri-devel@lists.freedesktop.org>; Thu, 19 Mar 2026 12:05:39 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ BxWauT55b+x7R7xDqRZOaWA/qamDOJrR/au8q+rJFaI=; b=m3FLHizYj0fDULGo
+ m6MMv0llzB3xhr9NUKexQrYut85F7DNPSoHVTx+OjDPEOgdv2t+nX7QufSce6kQP
+ HPeYORgWNtppvliCTJTzl8L+WI1xqxCLBDi2Puc6eD6e4lhOZCeHWdNyVtxFSluF
+ vzrOQpx/ilnrUY/9aCWs3doezVMYY9wc4f1R70nSYacsMmLhpKXogGP2uB7zf8xe
+ qAc7YXW1ZPiIRk5poAelRaW4fcms7Jl8NpnErHluhAk84zWZlr23vR/+jmWfBMnB
+ MI/Rg2+LN8ckOvpv/t9jTEEg5U/MM0p8Ys3BRPuWc86aTOfUyFzWAHFTRG4/csva
+ aRP+/g==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com
+ [209.85.222.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d0032k6br-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Thu, 19 Mar 2026 12:05:38 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id
+ af79cd13be357-8cb38346fdbso74048585a.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 19 Mar 2026 05:05:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1773921938; x=1774526738;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=BxWauT55b+x7R7xDqRZOaWA/qamDOJrR/au8q+rJFaI=;
+ b=aY0YeHDLBMnz9Jl7SZARwONoKYOaGeMxSKWgtcBK5AbCvrSFsFOJ+DYpfjeTpef2sz
+ lPiMQKaKGT6ni15oVaXGNtZeClQX1OsPko1iSia14ZCWl+dYqfDeOaXZ91DiRuWJsyqo
+ kyw8Vmm+9+vapy/1HW7vwuPwILZG5R2rZGgQiMbsMdUWIZE7ycly7tdPs8SyVE1Iu25X
+ 9mgyw2kGCfkuP8qgRg2z34welgzi3dfM1s2pCpcnkidGnNf8J0FP/gb7QEcCQRaLjiVe
+ /rMP3pBrLNhxVDpGJBrxRR7sVWxiF0V2KEVuvGdZ3HR45IDL99nvJzpMJZHARXniIQNE
+ GY6Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1773921938; x=1774526738;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=BxWauT55b+x7R7xDqRZOaWA/qamDOJrR/au8q+rJFaI=;
+ b=D7Al4Dl1cVJqpBu3ySdPVhQyy6Nof2SUTpidhibR/7BYcZL9N4teTgydInmfGhE+E8
+ fj3XK67wjUvCQgoctsZteXzTQHjAQREwZloUlzr4XuQ0KnyAA+f0KWcSDwkNhdkasloQ
+ KGWfcOoRXl5sO25wJ3pAEmdgAyZmHk+6bgqlRRRgTekCKhXBf94BsmGI6ImbcFYi4vrr
+ CpfS0S56NaIUPCg9nfBJbTke+XTeoLyZ1YQrDeAa88zrpSrjUTWgnGN+395hQHgNa2l2
+ lnOVQ1hcbP869f4IQuLqK7FKvJSQ362D/Xb3RkE7WJc/8MEYdqTy1nZkwAJPzUiY0H/1
+ NH5A==
+X-Gm-Message-State: AOJu0YywPlQu183Cv1tRBPlEwbc0lRBvrgmBqA9tWAz7CXhD0Xto9waC
+ 97HNSMmYuMha0yUaFhKjesKfNrDnfz6krc644O2e+da1b3TsGVks9fWjxGEeFuZYH9/0krTEQ6g
+ ww9tx1n3IQvABWPUkzJ53L1uKVjYnS1saqmzSgeYMcdkt8hjFoJmjl1NjMgUIOHRd4esDoKM=
+X-Gm-Gg: ATEYQzx8Xxwv15QqvTnGZWa81AGoqj7qsFxYkMn9EoK656iAs47Z5pXVpC5B/SYQSW8
+ ssUkBiN2KWwaETI6WOqeXIhz0XRTWwaibhvzxtGvQjLU8aAbQi64CwtnQfImT2yyZv7Pyj0+XZR
+ ZHmvlfhVAeL9bzPJ8nXcF9yT16GhSZPFKtL1fryL0Lgdml3jTYBUy73ox3DPLdwERwlEhuy/PhP
+ +LRmlCNmJX2ZLWUKF7B+YVutpAG6aDcpkn/yG6Uw52B9BbTDA3JOW+t1gV45qa7r7VUcpobUvoA
+ wBIR/0ZIPT9nP17+yxiNm4MI80CDcmLuFtDSnOgoIe6Hwy5UirIx1krEQ9g8cFxj4tfRx+ZfzzY
+ 3msJpzv+m+hMcnSReBRCwAbNxieiApFpctWDWvFPfnhyCNiQ3prtScrp+ljmMcjFmLyRBNset0F
+ Mo0ME=
+X-Received: by 2002:a05:620a:171f:b0:8cd:b2cd:ed4 with SMTP id
+ af79cd13be357-8cfad27373fmr685237685a.3.1773921938290; 
+ Thu, 19 Mar 2026 05:05:38 -0700 (PDT)
+X-Received: by 2002:a05:620a:171f:b0:8cd:b2cd:ed4 with SMTP id
+ af79cd13be357-8cfad27373fmr685231585a.3.1773921937682; 
+ Thu, 19 Mar 2026 05:05:37 -0700 (PDT)
+Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl.
+ [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-667aecbcc9fsm3724012a12.6.2026.03.19.05.05.34
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 19 Mar 2026 05:05:36 -0700 (PDT)
+Message-ID: <c9ea2f9c-8f50-448b-ab9c-cf4500722189@oss.qualcomm.com>
+Date: Thu, 19 Mar 2026 13:05:33 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH V1 for drm-misc-fixes] MAINTAINERS: split hisilicon
- maintenance and add Yongbang Shi for hibmc-drm matainers
-To: Xinliang Liu <xinliang.liu@linaro.org>
-CC: <tzimmermann@suse.de>, <tiantao6@hisilicon.com>,
- <maarten.lankhorst@linux.intel.com>, <mripard@kernel.org>,
- <airlied@gmail.com>, <daniel@ffwll.ch>, <kong.kongxinwei@hisilicon.com>,
- <dmitry.baryshkov@oss.qualcomm.com>, <liangjian010@huawei.com>,
- <chenjianmin@huawei.com>, <fengsheng5@huawei.com>, <helin52@h-partners.com>,
- <shenjian15@huawei.com>, <shaojijie@huawei.com>,
- <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
- <shiyongbang@huawei.com>
-References: <20260318125326.3709098-1-shiyongbang@huawei.com>
- <CAKoKPbzAFi+MjTq-foT78zHsdZ7kpb5ciSfVHFuHH3Tr8-MLrA@mail.gmail.com>
-From: Yongbang Shi <shiyongbang@huawei.com>
-In-Reply-To: <CAKoKPbzAFi+MjTq-foT78zHsdZ7kpb5ciSfVHFuHH3Tr8-MLrA@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+Subject: Re: [PATCH v3 1/4] drm/msm/dsi: rename MSM8998 DSI version from
+ V2_2_0 to V2_0_0
+To: Alexander Koskovich <akoskovich@pm.me>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
+ <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Jeffrey Hugo <jeffrey.l.hugo@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
+References: <20260319-dsi-rgb101010-support-v3-0-85b99df2d090@pm.me>
+ <20260319-dsi-rgb101010-support-v3-1-85b99df2d090@pm.me>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260319-dsi-rgb101010-support-v3-1-85b99df2d090@pm.me>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.159.167.44]
-X-ClientProxiedBy: kwepems500002.china.huawei.com (7.221.188.17) To
- kwepemq100007.china.huawei.com (7.202.195.175)
+X-Proofpoint-ORIG-GUID: aigNSAjT8EWY4FN_ZILB_cXaKaqhfU_l
+X-Proofpoint-GUID: aigNSAjT8EWY4FN_ZILB_cXaKaqhfU_l
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzE5MDA5NyBTYWx0ZWRfX4/fd0GDCFf55
+ wIYlCWtdf3h2PYQO7DfdBNxHA/jpyY3h/h1qg+AljgIWS3gZ5d6Z5epCPgBUCEpDHTRoxjA30t+
+ a5X9cE1CaSjnko/sRZMZ0mltR0i+NJn15in93Lb/1a9kwPZYcOkmsf/76I8dxRAn/Yh3sGwE1y/
+ XCUUG1OkY60lCm6LywIVUR17tcWpiPBjxCz9jhQWqCEFn5zun8eIyXpS34fdtldlmKNY/A9C13j
+ KtqeWE9Y1AarCIHt3nFYgRc/pj2K1BDMkszp0Bw7hVmDjTDcpGI3uUVW+VpZLBkivvKZbgtG6Gx
+ GXmr3ObstkV/dsWiSeO5Dsly2CqheGZANgpaHBKsUkoF1b2sbG4KmmXH8N1R/vLFdD/i41fi9a4
+ tWRdattfw9piepwBQqS+D4WXjkJfbmde7botcaXf0xtjtm3svYjd1nuKF9FKd11x8zwzEXFZpqN
+ jeaCKMS01z/zck7XyKA==
+X-Authority-Analysis: v=2.4 cv=WO9yn3sR c=1 sm=1 tr=0 ts=69bbe693 cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
+ a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
+ a=EUspDBNiAAAA:8 a=LOFc8Sdq0yBhcMBbFKQA:9 a=QEXdDO2ut3YA:10
+ a=bTQJ7kPSJx9SKPbeHEYW:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-03-19_01,2026-03-19_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 suspectscore=0 lowpriorityscore=0 impostorscore=0
+ adultscore=0 clxscore=1015 spamscore=0 malwarescore=0 phishscore=0
+ bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2603050001
+ definitions=main-2603190097
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,100 +151,17 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-> ,
->
-> Hi,
->
-> On Wed, 18 Mar 2026 at 21:01, Yongbang Shi <shiyongbang@huawei.com> wrote:
->> To improve maintainability, split the maintainer information for the hibmc and
->> kirin drivers under the drivers/gpu/drm/hisilicon directory.
->>
->> drivers/gpu/drm/hisilicon/hibmc driver has almost completed feature development
->> based on the new generation HiSilicon BMC chip. It was co-developed by
->> Yongbang Shi, Baihan Li and Lin He. Going forward, this module will be
->> maintained by Yongbang Shi.
->>
->> Signed-off-by: Yongbang Shi <shiyongbang@huawei.com>
->> Acked-by: Tao Tian <tiantao6@hisilicon.com>
->> ---
->>   MAINTAINERS | 37 +++++++++++++++++++++++++------------
->>   1 file changed, 25 insertions(+), 12 deletions(-)
->>
->> diff --git a/MAINTAINERS b/MAINTAINERS
->> index d7241695df96..4f8dbadbe70b 100644
->> --- a/MAINTAINERS
->> +++ b/MAINTAINERS
->> @@ -8603,18 +8603,31 @@ S:      Maintained
->>   T:     git https://gitlab.freedesktop.org/drm/misc/kernel.git
->>   F:     drivers/gpu/drm/gma500/
->>
->> -DRM DRIVERS FOR HISILICON
->> -M:     Xinliang Liu <xinliang.liu@linaro.org>
->> -M:     Tian Tao  <tiantao6@hisilicon.com>
->> -R:     Xinwei Kong <kong.kongxinwei@hisilicon.com>
->> -R:     Sumit Semwal <sumit.semwal@linaro.org>
->> -R:     Yongqin Liu <yongqin.liu@linaro.org>
->> -R:     John Stultz <jstultz@google.com>
->> -L:     dri-devel@lists.freedesktop.org
->> -S:     Maintained
->> -T:     git https://gitlab.freedesktop.org/drm/misc/kernel.git
->> -F:     Documentation/devicetree/bindings/display/hisilicon/
->> -F:     drivers/gpu/drm/hisilicon/
->> +DRM DRIVERS FOR HISILICON HIBMC
->> +M:      Yongbang Shi <shiyongbang@huawei.com>
->> +M:      Xinliang Liu <xinliang.liu@linaro.org>
->> +M:      Tian Tao  <tiantao6@hisilicon.com>
->> +R:      Xinwei Kong <kong.kongxinwei@hisilicon.com>
->> +R:      Sumit Semwal <sumit.semwal@linaro.org>
->> +R:      Yongqin Liu <yongqin.liu@linaro.org>
->> +R:      John Stultz <jstultz@google.com>
->> +L:      dri-devel@lists.freedesktop.org
->> +S:      Maintained
->> +T:      git https://gitlab.freedesktop.org/drm/misc/kernel.git
->> +F:      drivers/gpu/drm/hisilicon/hibmc
-> Please remove me, Sumit Semwal, Yongqin Liu, and John Stultz from here.
-> I'm going to hand over the hibmc DRM driver maintenance to you.
-> And if you look at the git log, the other three guys were added here
-> for the kirin DRM driver.
-> ce1fc502de42 MAINTAINERS: Add Sumit Semwal and Yongqin Liu as reviwers
-> for kirin DRM driver
->
->> +
->> +DRM DRIVERS FOR HISILICON KIRIN
->> +M:      Xinliang Liu <xinliang.liu@linaro.org>
->> +M:      Tian Tao  <tiantao6@hisilicon.com>
->> +R:      Xinwei Kong <kong.kongxinwei@hisilicon.com>
->> +R:      Sumit Semwal <sumit.semwal@linaro.org>
->> +R:      Yongqin Liu <yongqin.liu@linaro.org>
->> +R:      John Stultz <jstultz@google.com>
->> +L:      dri-devel@lists.freedesktop.org
->> +S:      Maintained
->> +T:      git https://gitlab.freedesktop.org/drm/misc/kernel.git
->> +F:      Documentation/devicetree/bindings/display/hisilicon/
->> +F:      drivers/gpu/drm/hisilicon/kirin
-> Please remove Tian Tao and Xinwei Kong from here. They are here mainly
-> for the hibmc DRM driver.
->
-> Once address the above comments, please add my ack:
-> Acked-by:  Xinliang Liu <xinliang.liu@linaro.org>
->
-> And to be a DRM maintainer, you might need to apply the push
-> permission of the drm-misc git repo for pushing the hibmc driver patch
-> in the future.
-> See the docs below for what DRM-misc is and how to apply the permission:
-> https://drm.pages.freedesktop.org/maintainer-tools/committer-drm-misc.html
-> https://drm.pages.freedesktop.org/maintainer-tools/drm-misc.html
+On 3/19/26 12:57 PM, Alexander Koskovich wrote:
+> The MSM8998 DSI controller is v2.0.0 as stated in commit 7b8c9e203039
+> ("drm/msm/dsi: Add support for MSM8998 DSI controller"). The value was
+> always correct just the name was wrong.
+> 
+> Rename and reorder to maintain version sorting.
+> 
+> Fixes: 7b8c9e203039 ("drm/msm/dsi: Add support for MSM8998 DSI controller")
+> Signed-off-by: Alexander Koskovich <akoskovich@pm.me>
+> ---
 
-Ok,Thank you for pointing that out. Thanks, Yongbang.
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-
-> Thank you very much for maintaining the hibmc DRM driver.
->
-> Best regards,
-> Xinliang
->
->>   DRM DRIVERS FOR LIMA
->>   M:     Qiang Yu <yuq825@gmail.com>
->> --
->> 2.33.0
->>
+Konrad
