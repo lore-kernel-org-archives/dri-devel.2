@@ -4,62 +4,135 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 982BC1090234
-	for <dri-devel@archiver.kernel.org>; Thu, 19 Mar 2026 14:14:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 47C9F109022C
+	for <dri-devel@archiver.kernel.org>; Thu, 19 Mar 2026 14:17:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1086510E136;
-	Thu, 19 Mar 2026 14:14:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9B20010E149;
+	Thu, 19 Mar 2026 14:17:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="T5MqYvtC";
+	dkim=pass (1024-bit key; unprotected) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="wwWM3lsm";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 967F110E136;
- Thu, 19 Mar 2026 14:14:54 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 40B8740C2B;
- Thu, 19 Mar 2026 14:14:54 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE1DEC2BC9E;
- Thu, 19 Mar 2026 14:14:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1773929694;
- bh=SqniqHh5Ik1ps7BNGsywr1yt7QD7NKi1YUt1MM6i934=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=T5MqYvtCT7ObTwXgR2p+nw2yf5V+jHNx77N9Wa8V/HkcqW6Ha2FeMimqYGgMUhCBU
- 6kBq1xNyjH5uH7SKalLKYpssfHb3SSF6+gzYfEG/LJOHLe1MjexccHfUYty2tfOdTn
- hYc8acTfS4OCrpG/JHMYAM1s+BEJc1vBWkObG8dsJyzfl/H3m8hRGwi3d8McjzCLQI
- 7xnLdjdyAbqPuHB+Fc8r+eyGKsqf8SLwkIbETw6je/4AIV/7KbicJGLGhjvMd6hh8D
- yyiEj3ayn8EHYJbNR3h2lro6llMjx5mkizS9rfGYwTYB3UyFCdm4hXzFdyfsgjFN4P
- i6617eR58Z0dg==
-Message-ID: <e35fb1b7-266e-48b6-a7cb-3ebe2319605c@kernel.org>
-Date: Thu, 19 Mar 2026 15:14:46 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 4/4] rust: make `build_assert` module the home of
- related macros
-To: Gary Guo <gary@garyguo.net>, Miguel Ojeda <ojeda@kernel.org>
-Cc: Boqun Feng <boqun@kernel.org>, =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?=
- <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>,
- Andreas Hindborg <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
- Trevor Gross <tmgross@umich.edu>, Alexandre Courbot <acourbot@nvidia.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Abdiel Janulgue <abdiel.janulgue@gmail.com>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Robin Murphy <robin.murphy@arm.com>,
- FUJITA Tomonori <fujita.tomonori@gmail.com>,
- Yury Norov <yury.norov@gmail.com>, Will Deacon <will@kernel.org>,
- Peter Zijlstra <peterz@infradead.org>, Mark Rutland <mark.rutland@arm.com>,
- Ingo Molnar <mingo@redhat.com>, Waiman Long <longman@redhat.com>,
- Tamir Duberstein <tamird@kernel.org>, Yury Norov <ynorov@nvidia.com>,
- rust-for-linux@vger.kernel.org, nouveau@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- driver-core@lists.linux.dev, netdev@vger.kernel.org
-References: <20260319121653.2975748-1-gary@kernel.org>
- <20260319121653.2975748-5-gary@kernel.org>
-From: Danilo Krummrich <dakr@kernel.org>
+Received: from TY3P286CU002.outbound.protection.outlook.com
+ (mail-japaneastazon11010013.outbound.protection.outlook.com [52.101.229.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2828310E149
+ for <dri-devel@lists.freedesktop.org>; Thu, 19 Mar 2026 14:17:35 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=utM8BVB8kTWKC/071mW1Nm01lJ+JqOB3bzB7I15ImFkmdz1EcSmXTeBByhJVgldOAJq4Jw5UP4KFvKT5nLvCgm9aFNsVLDEYICUiLEFkW71tV+Fl0Y89OPctHaTGxueTfPbRHG7UORZtP7gveRBbN4h3i3TWEPEQDYD2GUZu5zwSeQCbhHH1ZMgidpAoi+jOVehXdzKNNWL+tYPKyeM0qZkSPTbSYktPWHSjo+55AGwbNLz2LRhe9R1nzIY5iiwhgkOxqLvAkWPEby7ZUUMfAj+uWLYvrPg/u8yvJ3Y8yfwBq3o6E2Tb6pjtVq6TAMhVGajvbvnXtrH9KMGZYro9mQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Gw9qR3b5esJ554TQ+4PO3EuHLctK5EsgNWXliyMRLog=;
+ b=hGHcc1f3Sj3yOhnp5dyM9v8jeY45pfHD4OU8lXiHHFLC5ky+ftxUh6BWtc6NFCNPydsMvAUf8FcV7iWQ7QFhilP+1HTIAnRcZoDCUxiqqzasNVlfhppzz7zsnqafDQnqrCrjOSgghkl8LEkgJj4aa+UljttfLqeaT1zHL/7NojO4LrN3Rx6L6DkCoo7A/gnhZJJ+dZlRrUUeI/wI3gIbWjezqlERZN8DefQ++2mzcgP9LlhlHKT0x+s22Et1Ho0GKNqV4DFqKM0uSv3pA7ZRnr9mJIKkT2FtcMBJyH1Ky3U89U66DVlinFsi8VKtS57XKoMPWi6AmHYyXw7npwBTBA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
+ header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Gw9qR3b5esJ554TQ+4PO3EuHLctK5EsgNWXliyMRLog=;
+ b=wwWM3lsmPyB2GBcTQudkXRNY3ZII1mDoMdPSblbUNYnjgI4nf/H3W8lVwqm2eT1Xj0aLlU3Q86cGcuwuekGIF+dd7XplrJ51gWx1rdisDL6+3i3wYYSWEqvsmkOQeMQDIpPYg/1quxmqIE2sSJvTaWs7JcbXXw2CBUQXE5dfc00=
+Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com (2603:1096:400:3d0::7)
+ by TYRPR01MB13865.jpnprd01.prod.outlook.com (2603:1096:405:215::7)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.19; Thu, 19 Mar
+ 2026 14:17:31 +0000
+Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com
+ ([fe80::87d1:4928:d55:97de]) by TY3PR01MB11346.jpnprd01.prod.outlook.com
+ ([fe80::87d1:4928:d55:97de%4]) with mapi id 15.20.9723.019; Thu, 19 Mar 2026
+ 14:17:31 +0000
+From: Biju Das <biju.das.jz@bp.renesas.com>
+To: Boris Brezillon <boris.brezillon@collabora.com>
+CC: Thomas Zimmermann <tzimmermann@suse.de>, Tommaso Merciai
+ <tommaso.merciai.xr@bp.renesas.com>, "loic.molinari@collabora.com"
+ <loic.molinari@collabora.com>, "willy@infradead.org" <willy@infradead.org>,
+ "frank.binns@imgtec.com" <frank.binns@imgtec.com>, "matt.coster@imgtec.com"
+ <matt.coster@imgtec.com>, "maarten.lankhorst@linux.intel.com"
+ <maarten.lankhorst@linux.intel.com>, "mripard@kernel.org"
+ <mripard@kernel.org>, "airlied@gmail.com" <airlied@gmail.com>,
+ "simona@ffwll.ch" <simona@ffwll.ch>, "linux-mm@kvack.org"
+ <linux-mm@kvack.org>, "dri-devel@lists.freedesktop.org"
+ <dri-devel@lists.freedesktop.org>
+Subject: RE: [PATCH v4 5/6] drm/gem-shmem: Track folio accessed/dirty status
+ in mmap
+Thread-Topic: [PATCH v4 5/6] drm/gem-shmem: Track folio accessed/dirty status
+ in mmap
+Thread-Index: AQHcp96eSUoAacjqcU2c+U96UWFVr7WrPdqAgAAB0YCAANfgAIAAPkuAgAADDoCAABhLAIAAAcHAgAAEWoCAAAbzAIAAA1KAgABRKICAAQkrQIAIKkpg
+Date: Thu, 19 Mar 2026 14:17:31 +0000
+Message-ID: <TY3PR01MB11346CEBB1B1A5FCB69D247EB864FA@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+References: <20260227114509.165572-1-tzimmermann@suse.de>
+ <20260227114509.165572-6-tzimmermann@suse.de> <abL5rcYIaFFO3GW2@tom-desktop>
+ <TY3PR01MB113460CA616D3576DA0C3FC698644A@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+ <TY3PR01MB113461ACB668738E1952EC8898645A@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+ <20260313111851.4c1f89f3@fedora>
+ <f3384342-cdc5-4260-b670-4ffde76a2802@suse.de>
+ <20260313125644.65131b27@fedora>
+ <TY3PR01MB1134662A395AA0A048CEE152E8645A@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+ <20260313131835.52c5c935@fedora> <20260313134328.3166c4d0@fedora>
+ <20260313135521.07823792@fedora> <20260313184549.08656eed@fedora>
+ <TY3PR01MB11346AEACA195A53E54101A4D8642A@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+In-Reply-To: <TY3PR01MB11346AEACA195A53E54101A4D8642A@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+Accept-Language: en-GB, en-US
 Content-Language: en-US
-In-Reply-To: <20260319121653.2975748-5-gary@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=bp.renesas.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: TY3PR01MB11346:EE_|TYRPR01MB13865:EE_
+x-ms-office365-filtering-correlation-id: 78442970-9b43-4900-0ca2-08de85c2421a
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|1800799024|376014|7416014|366016|38070700021|18002099003|22082099003|56012099003;
+x-microsoft-antispam-message-info: HSVYHOmvXxNNxYPHM3QS/nxHxWqaEEJ6j51yKce+r+zyUL+PNRu5KMXgc1XJzWWJP4s80nTseoNWOYoq47aHDzbifClFPC8ziv6uwe1XMLibu2f3tn/zVQnZ8Wyw+v1VksnlunBiPrw0049MJPoXNB8KmBGrNKHDJ+BhyXB3NmXV+YDI42KSJQLxg4ytypa2BQNqqKei9uDhMcOJJG9XEFabNnV6DQCz9faBDrBHZ02DmjrqvMwYqU6cD53ZAlGVVstXTEuwvdc0RT4LboUBULd0o0A9PVVtyFVVnGcz2DN8tCbTXSXFPFf0yTjYQPczr+Aco7/k57xQF3X0n+TX87Fuw4D6tdVA+rTE3IzI6B5PFQgMmn0ovB16n7Ra0uS+0GKsmaHQz1OVVsfu6UMnnyrniDm+h5e0lVpTu9s/EkAZJ9B1E05Y6FkJIiR/cV55dz3Rih9VV1u+BRM2tQVMHZUHfO+KsGSpbMXsCYsQWrZlBX4yWegROJCDhFVKWPWdZ9cu2nPRxRafjq3CJXkwwvmoPUo0dUdYS5BxnWQIyqJb/Gge5So1WIpi0E/uy3A5cOFCnvDe84tubbZhA7CZR8UUe7Sm3Bcp2skbA+rTrByCitG9BL2q6UTo2aDD86iQJ4iTdm87v3yCaHuJXAQZgI8Tyuk6J8mQU51nHi+zJeYq/i8FCkRLiOvqmQKpOxNJV8BIXpx9xA0xhw/b0sLYFIGVGnU8G8u2qrOXhRmZ1q04ThjCzDXagkWXVefgvaTL
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:TY3PR01MB11346.jpnprd01.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(7416014)(366016)(38070700021)(18002099003)(22082099003)(56012099003);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?u7OoRHjF+C9uzjueC+W8oFrHNaOrf2jhSp4JXAK+jG0XV+0HSIgWGUvmtgaS?=
+ =?us-ascii?Q?J6QhePyUzE7lUbKnBNOMMRpwWQ04o9Ig7sHO2sC25hi7xzp2BrHspT9wQTn3?=
+ =?us-ascii?Q?8HHb56BBmP9CT63qG/76i/++UTNKGWipeZg5495mxuc7SBXhMNbD74dwh97L?=
+ =?us-ascii?Q?1o8mWjjblJEIrtlVtrj+MDQCBEh19q6F2CDjD1uEi54/sX7ryaF7j5a/abUj?=
+ =?us-ascii?Q?jk3Q2W6aP+Yitzeao3ygJlVN2pLkiT3rucPGTdgN8KlSA3og6xVcr39XpKjz?=
+ =?us-ascii?Q?hNmC8miUX9pJjv8ctmdcxpfPbQoH3h5t9mHVi1qqgJsES2+EIsSBYYYRSYli?=
+ =?us-ascii?Q?aEaW4jx3FBOxR/Fyl+JmRuC04b9SvXv7n99G1IGO8kiQHzqKKDWR6mEA5wcN?=
+ =?us-ascii?Q?N+/KsIrPY0j6x/YdF9qedwLMRCMqyIoRs4O5sxxW31zvpkcBxdh2XwoNxKUP?=
+ =?us-ascii?Q?utXpO+KOjcpEOrjRR7d1JVEOOGS0DcBS/y433I8vafjIFtpolbnLGH3V3X/x?=
+ =?us-ascii?Q?YScRbeP18nwp9OaWDupHYdBsPsgk9NXtKzfwJy8W8sfe4cV9TFWdVZ/ZvWLr?=
+ =?us-ascii?Q?RVyabRKdHhCu9ACWNFBtxs4VHZ3/UvDW6wWYcKQ3ytvusx+t52sX61y5ap3U?=
+ =?us-ascii?Q?PA1zeZTuHy+wi9YnA+xXuhtoiyPO4OwQounVMvAmAg/jY8GnDaCvzmsHUDzP?=
+ =?us-ascii?Q?rh7SLJwEoYrRcusw8POAy9Uq9kiHz5Vfu4bLHI48bHc4KzwL4pmioUBGe9Bu?=
+ =?us-ascii?Q?XDyZve6iwJyZM3cBKPh8s1s5yYMFmyjUIP1248l1sgi5saO/jyOvtGdD5TEY?=
+ =?us-ascii?Q?89p2GH232y0Qu7IGFp1XOFO08RRB0YD3vxyNmBB1Ek8VY1HEdxTWbZeL5Fls?=
+ =?us-ascii?Q?O9QNzbAd2bHOA6Dm5KynTICbok97G9UoNXr4eTJ7dPBTDZs21rOiGJoWWnNr?=
+ =?us-ascii?Q?vOBCKL5mjVrjEeGYVuraSetOkW6KopZe6cF3vyB0Adx9Kvf5Jk4ME9m6tMbB?=
+ =?us-ascii?Q?/A4n7hobs7Ftz9dYpF0njI7pW3MrfqoyHjTXtpPDYl+YdfmvfnzAYG8ZO/k9?=
+ =?us-ascii?Q?+P2NOVw206E6wWMvm4pWiUQ2gR1/3w/zP3jSVec47/i1YnBDTZvSyWNWVlAM?=
+ =?us-ascii?Q?w/M2prbKf2xmmZ9PAEbq8BEJPA2MJA7fpcpwnbnBH7pX89oE5fXqhisXdxrG?=
+ =?us-ascii?Q?lMk5C7Okrpvmqv5D2++XrLsejgYbOmdSHNzgGJtMJhzzSXMxUVsR6OopO/yx?=
+ =?us-ascii?Q?va6Ws8lp4lph3/lcwjZmAnCFA+DJnN+h8TqeU/INua1HQFxmPGJcVvW8bLGI?=
+ =?us-ascii?Q?VYbF+r6rduda32dnldSSsRpiLQrQLOBcIHTJ++zwlxtNT1+/lFXoKkBwMw/4?=
+ =?us-ascii?Q?4MkUbFaL5yP2WoNIlvnlaU5WVuQ2EQHb1bxgpWIwHI0W0NZMAFgwFpxl34q6?=
+ =?us-ascii?Q?YkiV4+mhJ1VgaaOXocWWA5lpfoeeI/6/RsJdP+OisqZvjn8ergZNpQZ0W2kw?=
+ =?us-ascii?Q?YUZbGxNoiy49y+yZ6VMZzK3+Ju6MrxAn8QNtlM0dxOPXpUhbMwWJZMhVC2oA?=
+ =?us-ascii?Q?VhYuRYufOmgMeUl5/s+2ARX0T76peVYnKBUjsG5mKB2rDAAv+9eveulkP4E9?=
+ =?us-ascii?Q?1Bhii5sY4RRCQlqBFQIFPaZssdLNHg4+YbDNoL/HKXaTcLz05U53q7hh7VU9?=
+ =?us-ascii?Q?eBq9wYkSsj/bIGB3aJ7ifASkHmpOkFHRf+Aw+XMR2e6pcf9jmPZZYd8ucQWy?=
+ =?us-ascii?Q?edk1lZnXNQ=3D=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-OriginatorOrg: bp.renesas.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TY3PR01MB11346.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 78442970-9b43-4900-0ca2-08de85c2421a
+X-MS-Exchange-CrossTenant-originalarrivaltime: 19 Mar 2026 14:17:31.1944 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 2HJIR86Q2W0qxGMT+OQqLM/VMGTiOOrH3x8XDi0xOZwuQQn+loe3BDQx1ZSg53FuZDxlbnlVoF4GO5X+Zh1/t2A/NgQQW+pmTKqi7vqGieI=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYRPR01MB13865
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,11 +148,141 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 3/19/26 1:16 PM, Gary Guo wrote:
->  drivers/gpu/nova-core/bitfield.rs    |  4 ++--
->  drivers/gpu/nova-core/num.rs         |  2 +-
->  rust/kernel/dma.rs                   |  5 +++--
->  rust/kernel/io/register.rs           | 19 ++++++++++++-------
->  rust/kernel/io/resource.rs           |  2 +-
+Hi All,
 
-Acked-by: Danilo Krummrich <dakr@kernel.org>
+> -----Original Message-----
+> From: Biju Das
+> Sent: 14 March 2026 09:43
+> Subject: RE: [PATCH v4 5/6] drm/gem-shmem: Track folio accessed/dirty sta=
+tus in mmap
+>=20
+> Hi Boris Brezillon,
+>=20
+> > -----Original Message-----
+> > From: dri-devel <dri-devel-bounces@lists.freedesktop.org> On Behalf Of
+> > Boris Brezillon
+> > Sent: 13 March 2026 17:46
+> > Subject: Re: [PATCH v4 5/6] drm/gem-shmem: Track folio accessed/dirty
+> > status in mmap
+> >
+> > On Fri, 13 Mar 2026 13:55:21 +0100
+> > Boris Brezillon <boris.brezillon@collabora.com> wrote:
+> >
+> > > On Fri, 13 Mar 2026 13:43:28 +0100
+> > > Boris Brezillon <boris.brezillon@collabora.com> wrote:
+> > >
+> > > > On Fri, 13 Mar 2026 13:18:35 +0100 Boris Brezillon
+> > > > <boris.brezillon@collabora.com> wrote:
+> > > >
+> > > > > On Fri, 13 Mar 2026 12:04:25 +0000 Biju Das
+> > > > > <biju.das.jz@bp.renesas.com> wrote:
+> > > > >
+> > > > > > > -----Original Message-----
+> > > > > > > From: dri-devel <dri-devel-bounces@lists.freedesktop.org> On
+> > > > > > > Behalf Of Boris Brezillon
+> > > > > > > Sent: 13 March 2026 11:57
+> > > > > > > Subject: Re: [PATCH v4 5/6] drm/gem-shmem: Track folio
+> > > > > > > accessed/dirty status in mmap
+> > > > > > >
+> > > > > > > On Fri, 13 Mar 2026 11:29:47 +0100 Thomas Zimmermann
+> > > > > > > <tzimmermann@suse.de> wrote:
+> > > > > > >
+> > > > > > > > Hi
+> > > > > > > >
+> > > > > > > > Am 13.03.26 um 11:18 schrieb Boris Brezillon:
+> > > > > > > > [...]
+> > > > > > > > >>>>> +	if (drm_WARN_ON(obj->dev, !shmem->pages || page_off=
+set >=3D num_pages))
+> > > > > > > > >>>>> +		return VM_FAULT_SIGBUS;
+> > > > > > > > >>>>> +
+> > > > > > > > >>>>> +	file_update_time(vma->vm_file);
+> > > > > > > > >>>>> +
+> > > > > > > > >>>>> +
+> > > > > > > > >>>>> +folio_mark_dirty(page_folio(shmem->pages[page_offse
+> > > > > > > > >>>>> +t]));
+> > > > > > > > > Do we need a folio_mark_dirty_lock() here?
+> > > > > > > >
+> > > > > > > > There is a helper for that with some documentation. [1]
+> > > > > > >
+> > > > > > > This [1] seems to solve the problem for me. Still unsure
+> > > > > > > about the folio_mark_dirty_lock vs folio_mark_dirty though.
+> > > > > > >
+> > > > > > > [1]https://yhbt.net/lore/dri-devel/20260312155027.1682606-1-
+> > > > > > > pedrodemargomes@gmail.com/
+> > > > > >
+> > > > > > FYI, I used folio_mark_dirty_lock() still it does not solve the=
+ issue with weston hang.
+> > > > >
+> > > > > The patch I pointed to has nothing to do with
+> > > > > folio_mark_dirty_lock(), It's a bug caused by huge page mapping c=
+hanges.
+> > > >
+> > > > Scratch that. I had a bunch of other changes on top, and it hangs
+> > > > again now that I dropped those.
+> > >
+> > > Seems like it's the combination of huge pages and mkwrite that's
+> > > causing issues, if I disable huge pages, it doesn't hang...
+> >
+> > I managed to have it working with the following diff. I still need to
+> > check why the "map-RO-split+RW- on-demand" approach doesn't work
+> > (races between huge_fault and pfn_mkwrite?), but I think it's okay to
+> > map the real thing writable on the first attempt anyway (we're not
+> > trying to do CoW here, since we're always pointing to the same page,
+> > it's just the permissions that change). Note that there's still the
+> > race fixed by
+> > https://yhbt.net/lore/dri-devel/20260312155027.1682606-1-pedrodemargom
+> > es@gmail.com/ in this diff, I just tried to keep the diffstat minimal.
+>=20
+> I confirm with this diff, weston is now coming up on RZ/V2L SMARC EVK.
+>=20
+> I am just using drm-misc-next + this diff + arm64 defconfig + Poky (Yocto=
+ Project Reference Distro)
+> 5.0.11 + Mesa
+>=20
+> Cheers,
+> Biju
+>=20
+> >
+> > --->8---
+> > diff --git a/drivers/gpu/drm/drm_gem_shmem_helper.c
+> > b/drivers/gpu/drm/drm_gem_shmem_helper.c
+> > index 4500deef4127..4efdce5a60f0 100644
+> > --- a/drivers/gpu/drm/drm_gem_shmem_helper.c
+> > +++ b/drivers/gpu/drm/drm_gem_shmem_helper.c
+> > @@ -561,9 +561,8 @@ static vm_fault_t drm_gem_shmem_try_insert_pfn_pmd(=
+struct vm_fault *vmf, unsigne
+> >         bool aligned =3D (vmf->address & ~PMD_MASK) =3D=3D (paddr &
+> > ~PMD_MASK);
+> >
+> >         if (aligned && pmd_none(*vmf->pmd)) {
+> > -               /* Read-only mapping; split upon write fault */
+> >                 pfn &=3D PMD_MASK >> PAGE_SHIFT;
+> > -               return vmf_insert_pfn_pmd(vmf, pfn, false);
+> > +               return vmf_insert_pfn_pmd(vmf, pfn, vmf->flags &
+> > + FAULT_FLAG_WRITE);
+> >         }
+> >  #endif
+> >
+> > @@ -597,8 +596,12 @@ static vm_fault_t drm_gem_shmem_fault(struct
+> > vm_fault *vmf)
+> >
+> >         pfn =3D page_to_pfn(page);
+> >
+> > -       if (folio_test_pmd_mappable(folio))
+> > +       if (folio_test_pmd_mappable(folio)) {
+> >                 ret =3D drm_gem_shmem_try_insert_pfn_pmd(vmf, pfn);
+> > +               if (ret =3D=3D VM_FAULT_NOPAGE && vmf->flags & FAULT_FL=
+AG_WRITE)
+> > +                       folio_mark_dirty(folio);
+> > +       }
+> > +
+> >         if (ret !=3D VM_FAULT_NOPAGE)
+> >                 ret =3D vmf_insert_pfn(vma, vmf->address, pfn);
+> >
+
+Any patch available to fix the weston issue? Still the issue is present wit=
+h drm-misc-next
+Please let me know.
+
+Cheers,
+Biju
