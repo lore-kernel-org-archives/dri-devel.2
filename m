@@ -4,63 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 55EF51090237
-	for <dri-devel@archiver.kernel.org>; Thu, 19 Mar 2026 14:42:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EF73B1090234
+	for <dri-devel@archiver.kernel.org>; Thu, 19 Mar 2026 14:50:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 918ED10E8F7;
-	Thu, 19 Mar 2026 14:42:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1747810E8F4;
+	Thu, 19 Mar 2026 14:50:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="c91Xt275";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="M8WZ5Uqd";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 591A910E8F7;
- Thu, 19 Mar 2026 14:42:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1773931345; x=1805467345;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=mF9P9xEJz/zLQh0w3IiPXoQ8nHlIRIchufmKBE0UE+M=;
- b=c91Xt275cj8iGjkHjYpIOlLYC3Aj9AOIl1L9CUfXlVH/x17YiEBi5Y7L
- d3+VhEePx1WGs2gLi8JouE2x32Fg+IAa97fE9mXwN26GarwahNyfq0zIz
- krIO6P5kbYqC6eLFj5AJA0K3ilCV4e5G9dcc4pOSpMyR/YYVNbhWbEx3H
- 5C9Sqpy21eU0X9gvCd3gFAnGtsqdYev1r8kbcd6ZZSxbtpi2P16XqqlG7
- KzzHfdLgJIq6665PT4TGePNp2GLizNgepTk/pEWaF8+bMjBOfL7809vdH
- rlkGm5QxYk3bbg2OD8Q1yOhhUkNbiFO7oRTc+ms+KWhVWbSUDeDtolO9e Q==;
-X-CSE-ConnectionGUID: b1vdBEurTCS5KDqeiVimcg==
-X-CSE-MsgGUID: O3Hf4rfwRUa7Q6aEotRSlQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11734"; a="86366920"
-X-IronPort-AV: E=Sophos;i="6.23,129,1770624000"; d="scan'208";a="86366920"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
- by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Mar 2026 07:42:24 -0700
-X-CSE-ConnectionGUID: MGdL+LA3RZamzQeX7nNpCQ==
-X-CSE-MsgGUID: z3vJNvLtRmGLuwGF4pRSug==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,129,1770624000"; d="scan'208";a="253447977"
-Received: from lkp-server02.sh.intel.com (HELO a51c2a36b9df) ([10.239.97.151])
- by orviesa002.jf.intel.com with ESMTP; 19 Mar 2026 07:42:19 -0700
-Received: from kbuild by a51c2a36b9df with local (Exim 4.98.2)
- (envelope-from <lkp@intel.com>) id 1w3EZk-0000000019N-2qie;
- Thu, 19 Mar 2026 14:42:16 +0000
-Date: Thu, 19 Mar 2026 22:42:09 +0800
-From: kernel test robot <lkp@intel.com>
-To: Mallesh Koujalagi <mallesh.koujalagi@intel.com>,
- intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- rodrigo.vivi@intel.com
-Cc: oe-kbuild-all@lists.linux.dev, andrealmeid@igalia.com,
- christian.koenig@amd.com, airlied@gmail.com, simona.vetter@ffwll.ch,
- mripard@kernel.org, anshuman.gupta@intel.com,
- badal.nilawar@intel.com, riana.tauro@intel.com,
- karthik.poosa@intel.com, sk.anirban@intel.com, raag.jadav@intel.com,
- Mallesh Koujalagi <mallesh.koujalagi@intel.com>
-Subject: Re: [PATCH v2 1/5] Introduce Xe Uncorrectable Error Handling
-Message-ID: <202603192221.3sEGGig7-lkp@intel.com>
-References: <20260318064016.374656-8-mallesh.koujalagi@intel.com>
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 93CF510E8F4
+ for <dri-devel@lists.freedesktop.org>; Thu, 19 Mar 2026 14:50:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1773931834;
+ bh=8uEKlohVDFJIreqh6b7uaXm+Pd0ZHiALqi93j4h6mxE=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=M8WZ5UqdAO/Qhvi8JhChSPAToE70flx212ykDr+x/wmWttA95vqIXKY2hOF1XSsvk
+ 1ekwv07TcvHQ8TSsNkwSUfHfjTA20wQnJ94iAtCxK8Q37eCAs8Fr5qqTFXmzD9m3KF
+ lhuGg5vbZbmvd6Z1tf+Sam6FRn2uOdMCbE2EHW99HGWjj8+Y5sg+hJXJeNc0le+h1C
+ miXxzTIZ4rQ5FpC2fyC6X4V7Q58AlTx6FrExKim8tyfM8JnnoW+yn7lnud+8xWBRS4
+ FYGX2zlRbpXwxfR9r4hfUFY/rGVXR5F8trzNngtfWZZ5MfxzSmfXkJ7ATD3B4kJ1aq
+ QrhAQsYGWmDPg==
+Received: from fedora (unknown [IPv6:2a01:e0a:2c:6930:d919:a6e:5ea1:8a9f])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256) (No client certificate requested)
+ (Authenticated sender: bbrezillon)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id B7D6617E1005;
+ Thu, 19 Mar 2026 15:50:33 +0100 (CET)
+Date: Thu, 19 Mar 2026 15:50:28 +0100
+From: Boris Brezillon <boris.brezillon@collabora.com>
+To: Biju Das <biju.das.jz@bp.renesas.com>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>, Tommaso Merciai
+ <tommaso.merciai.xr@bp.renesas.com>, "loic.molinari@collabora.com"
+ <loic.molinari@collabora.com>, "willy@infradead.org" <willy@infradead.org>,
+ "frank.binns@imgtec.com" <frank.binns@imgtec.com>, "matt.coster@imgtec.com"
+ <matt.coster@imgtec.com>, "maarten.lankhorst@linux.intel.com"
+ <maarten.lankhorst@linux.intel.com>, "mripard@kernel.org"
+ <mripard@kernel.org>, "airlied@gmail.com" <airlied@gmail.com>,
+ "simona@ffwll.ch" <simona@ffwll.ch>, "linux-mm@kvack.org"
+ <linux-mm@kvack.org>, "dri-devel@lists.freedesktop.org"
+ <dri-devel@lists.freedesktop.org>
+Subject: Re: [PATCH v4 5/6] drm/gem-shmem: Track folio accessed/dirty status
+ in mmap
+Message-ID: <20260319155028.291f3157@fedora>
+In-Reply-To: <TY3PR01MB11346CEBB1B1A5FCB69D247EB864FA@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+References: <20260227114509.165572-1-tzimmermann@suse.de>
+ <20260227114509.165572-6-tzimmermann@suse.de>
+ <abL5rcYIaFFO3GW2@tom-desktop>
+ <TY3PR01MB113460CA616D3576DA0C3FC698644A@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+ <TY3PR01MB113461ACB668738E1952EC8898645A@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+ <20260313111851.4c1f89f3@fedora>
+ <f3384342-cdc5-4260-b670-4ffde76a2802@suse.de>
+ <20260313125644.65131b27@fedora>
+ <TY3PR01MB1134662A395AA0A048CEE152E8645A@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+ <20260313131835.52c5c935@fedora> <20260313134328.3166c4d0@fedora>
+ <20260313135521.07823792@fedora> <20260313184549.08656eed@fedora>
+ <TY3PR01MB11346AEACA195A53E54101A4D8642A@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+ <TY3PR01MB11346CEBB1B1A5FCB69D247EB864FA@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+Organization: Collabora
+X-Mailer: Claws Mail 4.3.1 (GTK 3.24.51; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260318064016.374656-8-mallesh.koujalagi@intel.com>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,58 +83,139 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Mallesh,
+On Thu, 19 Mar 2026 14:17:31 +0000
+Biju Das <biju.das.jz@bp.renesas.com> wrote:
 
-kernel test robot noticed the following build warnings:
+> Hi All,
+> 
+> > -----Original Message-----
+> > From: Biju Das
+> > Sent: 14 March 2026 09:43
+> > Subject: RE: [PATCH v4 5/6] drm/gem-shmem: Track folio accessed/dirty status in mmap
+> > 
+> > Hi Boris Brezillon,
+> >   
+> > > -----Original Message-----
+> > > From: dri-devel <dri-devel-bounces@lists.freedesktop.org> On Behalf Of
+> > > Boris Brezillon
+> > > Sent: 13 March 2026 17:46
+> > > Subject: Re: [PATCH v4 5/6] drm/gem-shmem: Track folio accessed/dirty
+> > > status in mmap
+> > >
+> > > On Fri, 13 Mar 2026 13:55:21 +0100
+> > > Boris Brezillon <boris.brezillon@collabora.com> wrote:
+> > >  
+> > > > On Fri, 13 Mar 2026 13:43:28 +0100
+> > > > Boris Brezillon <boris.brezillon@collabora.com> wrote:
+> > > >  
+> > > > > On Fri, 13 Mar 2026 13:18:35 +0100 Boris Brezillon
+> > > > > <boris.brezillon@collabora.com> wrote:
+> > > > >  
+> > > > > > On Fri, 13 Mar 2026 12:04:25 +0000 Biju Das
+> > > > > > <biju.das.jz@bp.renesas.com> wrote:
+> > > > > >  
+> > > > > > > > -----Original Message-----
+> > > > > > > > From: dri-devel <dri-devel-bounces@lists.freedesktop.org> On
+> > > > > > > > Behalf Of Boris Brezillon
+> > > > > > > > Sent: 13 March 2026 11:57
+> > > > > > > > Subject: Re: [PATCH v4 5/6] drm/gem-shmem: Track folio
+> > > > > > > > accessed/dirty status in mmap
+> > > > > > > >
+> > > > > > > > On Fri, 13 Mar 2026 11:29:47 +0100 Thomas Zimmermann
+> > > > > > > > <tzimmermann@suse.de> wrote:
+> > > > > > > >  
+> > > > > > > > > Hi
+> > > > > > > > >
+> > > > > > > > > Am 13.03.26 um 11:18 schrieb Boris Brezillon:
+> > > > > > > > > [...]  
+> > > > > > > > > >>>>> +	if (drm_WARN_ON(obj->dev, !shmem->pages || page_offset >= num_pages))
+> > > > > > > > > >>>>> +		return VM_FAULT_SIGBUS;
+> > > > > > > > > >>>>> +
+> > > > > > > > > >>>>> +	file_update_time(vma->vm_file);
+> > > > > > > > > >>>>> +
+> > > > > > > > > >>>>> +
+> > > > > > > > > >>>>> +folio_mark_dirty(page_folio(shmem->pages[page_offse
+> > > > > > > > > >>>>> +t]));  
+> > > > > > > > > > Do we need a folio_mark_dirty_lock() here?  
+> > > > > > > > >
+> > > > > > > > > There is a helper for that with some documentation. [1]  
+> > > > > > > >
+> > > > > > > > This [1] seems to solve the problem for me. Still unsure
+> > > > > > > > about the folio_mark_dirty_lock vs folio_mark_dirty though.
+> > > > > > > >
+> > > > > > > > [1]https://yhbt.net/lore/dri-devel/20260312155027.1682606-1-
+> > > > > > > > pedrodemargomes@gmail.com/  
+> > > > > > >
+> > > > > > > FYI, I used folio_mark_dirty_lock() still it does not solve the issue with weston hang.  
+> > > > > >
+> > > > > > The patch I pointed to has nothing to do with
+> > > > > > folio_mark_dirty_lock(), It's a bug caused by huge page mapping changes.  
+> > > > >
+> > > > > Scratch that. I had a bunch of other changes on top, and it hangs
+> > > > > again now that I dropped those.  
+> > > >
+> > > > Seems like it's the combination of huge pages and mkwrite that's
+> > > > causing issues, if I disable huge pages, it doesn't hang...  
+> > >
+> > > I managed to have it working with the following diff. I still need to
+> > > check why the "map-RO-split+RW- on-demand" approach doesn't work
+> > > (races between huge_fault and pfn_mkwrite?), but I think it's okay to
+> > > map the real thing writable on the first attempt anyway (we're not
+> > > trying to do CoW here, since we're always pointing to the same page,
+> > > it's just the permissions that change). Note that there's still the
+> > > race fixed by
+> > > https://yhbt.net/lore/dri-devel/20260312155027.1682606-1-pedrodemargom
+> > > es@gmail.com/ in this diff, I just tried to keep the diffstat minimal.  
+> > 
+> > I confirm with this diff, weston is now coming up on RZ/V2L SMARC EVK.
+> > 
+> > I am just using drm-misc-next + this diff + arm64 defconfig + Poky (Yocto Project Reference Distro)
+> > 5.0.11 + Mesa
+> > 
+> > Cheers,
+> > Biju
+> >   
+> > >  
+> > > --->8---  
+> > > diff --git a/drivers/gpu/drm/drm_gem_shmem_helper.c
+> > > b/drivers/gpu/drm/drm_gem_shmem_helper.c
+> > > index 4500deef4127..4efdce5a60f0 100644
+> > > --- a/drivers/gpu/drm/drm_gem_shmem_helper.c
+> > > +++ b/drivers/gpu/drm/drm_gem_shmem_helper.c
+> > > @@ -561,9 +561,8 @@ static vm_fault_t drm_gem_shmem_try_insert_pfn_pmd(struct vm_fault *vmf, unsigne
+> > >         bool aligned = (vmf->address & ~PMD_MASK) == (paddr &
+> > > ~PMD_MASK);
+> > >
+> > >         if (aligned && pmd_none(*vmf->pmd)) {
+> > > -               /* Read-only mapping; split upon write fault */
+> > >                 pfn &= PMD_MASK >> PAGE_SHIFT;
+> > > -               return vmf_insert_pfn_pmd(vmf, pfn, false);
+> > > +               return vmf_insert_pfn_pmd(vmf, pfn, vmf->flags &
+> > > + FAULT_FLAG_WRITE);
+> > >         }
+> > >  #endif
+> > >
+> > > @@ -597,8 +596,12 @@ static vm_fault_t drm_gem_shmem_fault(struct
+> > > vm_fault *vmf)
+> > >
+> > >         pfn = page_to_pfn(page);
+> > >
+> > > -       if (folio_test_pmd_mappable(folio))
+> > > +       if (folio_test_pmd_mappable(folio)) {
+> > >                 ret = drm_gem_shmem_try_insert_pfn_pmd(vmf, pfn);
+> > > +               if (ret == VM_FAULT_NOPAGE && vmf->flags & FAULT_FLAG_WRITE)
+> > > +                       folio_mark_dirty(folio);
+> > > +       }
+> > > +
+> > >         if (ret != VM_FAULT_NOPAGE)
+> > >                 ret = vmf_insert_pfn(vma, vmf->address, pfn);
+> > >  
+> 
+> Any patch available to fix the weston issue? Still the issue is present with drm-misc-next
+> Please let me know.
 
-[auto build test WARNING on drm-xe/drm-xe-next]
-[also build test WARNING on drm-misc/drm-misc-next drm/drm-next next-20260318]
-[cannot apply to linus/master v7.0-rc4]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+Not yet. I want to land [1] first. I'll try to post an official version
+of the proposed fix tomorrow, though I'd really like to have some
+inputs from the MM maintainers before claiming this is the right fix...
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Mallesh-Koujalagi/Introduce-Xe-Uncorrectable-Error-Handling/20260318-153303
-base:   https://gitlab.freedesktop.org/drm/xe/kernel.git drm-xe-next
-patch link:    https://lore.kernel.org/r/20260318064016.374656-8-mallesh.koujalagi%40intel.com
-patch subject: [PATCH v2 1/5] Introduce Xe Uncorrectable Error Handling
-config: csky-randconfig-r122-20260319 (https://download.01.org/0day-ci/archive/20260319/202603192221.3sEGGig7-lkp@intel.com/config)
-compiler: csky-linux-gcc (GCC) 12.5.0
-sparse: v0.6.5-rc1
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260319/202603192221.3sEGGig7-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202603192221.3sEGGig7-lkp@intel.com/
-
-sparse warnings: (new ones prefixed by >>)
->> drivers/gpu/drm/xe/xe_ras.c:170:18: sparse: sparse: incorrect type in assignment (different base types) @@     expected restricted __le32 [usertype] data @@     got unsigned int [assigned] [usertype] req_hdr @@
-   drivers/gpu/drm/xe/xe_ras.c:170:18: sparse:     expected restricted __le32 [usertype] data
-   drivers/gpu/drm/xe/xe_ras.c:170:18: sparse:     got unsigned int [assigned] [usertype] req_hdr
-
-vim +170 drivers/gpu/drm/xe/xe_ras.c
-
-   159	
-   160	static void xe_ras_prepare_sysctrl_command(struct xe_sysctrl_mailbox_command *command,
-   161						   u32 cmd_mask, void *request, size_t request_len,
-   162						   void *response, size_t response_len)
-   163	{
-   164		struct xe_sysctrl_mailbox_app_msg_hdr hdr = {0};
-   165		u32 req_hdr;
-   166	
-   167		req_hdr = FIELD_PREP(APP_HDR_GROUP_ID_MASK, XE_SYSCTRL_GROUP_GFSP) |
-   168			  FIELD_PREP(APP_HDR_COMMAND_MASK, cmd_mask);
-   169	
- > 170		hdr.data = req_hdr;
-   171		command->header = hdr;
-   172		command->data_in = request;
-   173		command->data_in_len = request_len;
-   174		command->data_out = response;
-   175		command->data_out_len = response_len;
-   176	}
-   177	
-
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+[1]https://yhbt.net/lore/dri-devel/20260319015224.46896-1-pedrodemargomes@gmail.com/
