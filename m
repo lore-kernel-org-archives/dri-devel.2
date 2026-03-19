@@ -4,137 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BAE471075261
-	for <dri-devel@archiver.kernel.org>; Thu, 19 Mar 2026 06:32:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DDCF91075264
+	for <dri-devel@archiver.kernel.org>; Thu, 19 Mar 2026 06:37:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1D3C210E876;
-	Thu, 19 Mar 2026 06:32:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3053010E8A0;
+	Thu, 19 Mar 2026 06:37:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="XjdYOj6Z";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="SRzAAea+";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="O1k8etpJ";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C853F10E878
- for <dri-devel@lists.freedesktop.org>; Thu, 19 Mar 2026 06:32:27 +0000 (UTC)
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 62J5XIXE3573643
- for <dri-devel@lists.freedesktop.org>; Thu, 19 Mar 2026 06:32:27 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- AhZtQR443/E19GewAj1186Zwj+uyAl6zxJPtQ9r8Toc=; b=XjdYOj6ZySs+ffOQ
- nIXhwt5OeOeWVukqAGGFaWFnkYi1qnr565OZs+NKGzUFqDEEMmFMAPrgo4nld+DW
- Ip9FlKU2r1dwY1+JHnFUeDSH1RF9RnqLCKQfLnhYNSfW7F79oYWtJ5S/GvurHkRQ
- Br9J39bODzuBspngARD1uc53SXDHWMGl7sEGOeX7vRsccZs9uYSQva52f6XysenQ
- Of6izH1A8FoqhEg1sFg39oPMc9xKwg4JVW6eU5OWbqGpP7AMcMGgculpSra5MXcY
- 3JRWd30EVQF3SI4d/t9bsIwgr830exrO5qD65OmraYUqzUgeO1N1rC8L915SIl4G
- RwUmsQ==
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com
- [209.85.214.199])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d083r8nf9-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Thu, 19 Mar 2026 06:32:27 +0000 (GMT)
-Received: by mail-pl1-f199.google.com with SMTP id
- d9443c01a7336-2b061868724so49237425ad.1
- for <dri-devel@lists.freedesktop.org>; Wed, 18 Mar 2026 23:32:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1773901947; x=1774506747;
- darn=lists.freedesktop.org; 
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=AhZtQR443/E19GewAj1186Zwj+uyAl6zxJPtQ9r8Toc=;
- b=SRzAAea+Qhv7Wvk+n5dNWbqeh6+yiiKg2BMdTcG4VjDfLGQwyUqIdoJGlowH+submC
- 5xldVsbo1NQH74cJ+fIiO+3kmw3s0lb3weN4OrIQepABw/7KddNlAp6Bz2FI3/ObhLHR
- o2Y/8wdnpvdH6nPLcPg6PczuQUHGXdI5/wd/G3l4Q654Da7lMzRZzbPm2h0rhCffFRBG
- egLRRfRCWYyQcx4z5BsQu+ANgxQTUPSD7/jtscm+MP2zuqEXDj/z71H/ZWZANpXAEn24
- zaghcZ+/ESIipO9i2wKec5AgVbrPBs5WBPmH801CmKnmgISQfTlBvo4Tqko6Vg6BtlRC
- R5TQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1773901947; x=1774506747;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
- :cc:subject:date:message-id:reply-to;
- bh=AhZtQR443/E19GewAj1186Zwj+uyAl6zxJPtQ9r8Toc=;
- b=DJ60znVBsCRY1ewhSuh8DlraRrPnFfKcy54UjrHWxBHCkVEoAaEioRXXJ2IyRUtiAG
- xDfWvpfP4HNPGen0tFLAjsA7wFez9lYDE0AnDDdRfYNMviL9kSbFCQtsx6d+1I+z0/JJ
- GhdOqn1DCYsJ17a92+lNAWAKCJjj44M5LFYI684uD/+BY0+5hBFQ8Vgv+nnFl/Cl39Kw
- JTGN9EIxA64SdCu66pkeq+XaqluEnj8D+F0SWpYwvKwIbSJcUFx8UCpgWiRIou/EgRlz
- 6g4Abet2TLAOIIBHmxeFHCt5kPQYFiTaXWIG8gTRivkEjZf7p3/snJL6+KcYP1d3kViH
- Uxyg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWrfsv0RhoYMBg4677xkfsUI+UVlW6dTAzWmYvy/GeWsVNSF7Rn7tmoQqDraAPStg77I8Yvu2lFh1E=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxY66ewwGPiuWIfguGnvDHEL1E/Ij2cgYqY3oATTFkY+zFv/Awv
- kQDhZaqNnC/WS3yik/qNWzWSo5hExB+M2anmIZCfIgiKHsNl033tMVrNqadYjsvebVSYXaNerqA
- W/NHnrSSGz2aj91wRSUrjzdxQxw9x3kd4bDAzNeO7/TUa8GvwSiaIwHgPypOCbkB7nEO8hOY=
-X-Gm-Gg: ATEYQzyv7YH6MbRepAWW9rpR/gh2v3xpLh0Y99uCVfmqV6BBizV91BgXmrN0qTBuhVc
- a4APjSpxBfaHiNQk0tZP6d74wdW08BWVuUD/vmIdPr140xvTXUepIvvgjE7KEC//+4gEHMjXTzR
- NMMD1eeOIdHYBZAU+CHORlYkYIOTSUg0HEhVwClAwnEnC2skvG/0cjcjFBKGmFx0zXVRks8aY9+
- wt53fYC/6HAFhsuLJ9QJjbKmny87R93NwLQDc7vHAHKVKWei4W2JOELEHDsSuae0lvgiJwtTy7L
- qNr5stsNl4bWAaHrfXy5lG4ibOZTyvGSWFpj3L/m0aT6xdNdmqueEqRr6QelMXjAhPsTRuKGVoL
- 9adX/EHucqiQRDFsgdbipZPItbdpC/fk1ikAoFMphYuv22JDxdvE=
-X-Received: by 2002:a17:903:2a8b:b0:2ae:5776:45f8 with SMTP id
- d9443c01a7336-2b06e3236d0mr66217325ad.3.1773901946585; 
- Wed, 18 Mar 2026 23:32:26 -0700 (PDT)
-X-Received: by 2002:a17:903:2a8b:b0:2ae:5776:45f8 with SMTP id
- d9443c01a7336-2b06e3236d0mr66216985ad.3.1773901946126; 
- Wed, 18 Mar 2026 23:32:26 -0700 (PDT)
-Received: from hu-batta-hyd.qualcomm.com ([202.46.23.25])
- by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2b06e603937sm48572485ad.57.2026.03.18.23.32.22
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 18 Mar 2026 23:32:25 -0700 (PDT)
-From: Kishore Batta <kishore.batta@oss.qualcomm.com>
-Date: Thu, 19 Mar 2026 12:01:49 +0530
-Subject: [PATCH v4 9/9] Documentation: ABI: Add sysfs ABI documentation for
- DDR training data
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B81CC10E8A2
+ for <dri-devel@lists.freedesktop.org>; Thu, 19 Mar 2026 06:37:16 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id 0958260127;
+ Thu, 19 Mar 2026 06:37:16 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 8BAB4C2BCAF;
+ Thu, 19 Mar 2026 06:37:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1773902235;
+ bh=AEePiLMt/qBf61VeU6enT32ObEI1G0cXzCku+1SkN3M=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+ b=O1k8etpJbNNirnZHXug5xNXptlYn3w9ermcoOQc/Je/vZy5I+ovZbqE6YZwg1ffG3
+ nWQL1/fFJCRsPEC25RleH74veA2jgPNPzohUCORlm4zNXWTPeWwx+cedsN0PdSMEpw
+ ybS0WLTiDZuPuzw6HVmoIUzCZbUImIhe8AvRtXTx6C/J8m8Slvc9du9wDpRxr8NgjE
+ SRlYkj2VDnMSGu/RRlN2YdH+jeHyNayHqtLY366BmcVrJvzLTnBUqh5GT8969H0Wij
+ z6EM/OaxOH85n3ib7GPCQLWZGvmJhXub32px0uV3rprGtECQWE/6DoImOk/M9+NAi+
+ pdlWYOdSJD1cg==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
+ (localhost.localdomain [127.0.0.1])
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 7C0651075264;
+ Thu, 19 Mar 2026 06:37:15 +0000 (UTC)
+From: Hermes Wu via B4 Relay <devnull+Hermes.wu.ite.com.tw@kernel.org>
+Date: Thu, 19 Mar 2026 14:37:11 +0800
+Subject: [PATCH v4 1/2] dt-bindings: display: bridge: Add ITE IT6162 MIPI
+ DSI to HDMI bridge
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260319-sahara_protocol_new_v2-v4-9-47ad79308762@oss.qualcomm.com>
-References: <20260319-sahara_protocol_new_v2-v4-0-47ad79308762@oss.qualcomm.com>
-In-Reply-To: <20260319-sahara_protocol_new_v2-v4-0-47ad79308762@oss.qualcomm.com>
-To: Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
- Jeff Hugo <jeff.hugo@oss.qualcomm.com>,
- Carl Vanderlip <carl.vanderlip@oss.qualcomm.com>,
- Oded Gabbay <ogabbay@kernel.org>,
- Manivannan Sadhasivam <mani@kernel.org>, andersson@kernel.org
-Cc: linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- mhi@lists.linux.dev, Kishore Batta <kishore.batta@oss.qualcomm.com>
+Message-Id: <20260319-upstream-6162-v4-1-7268483ef03d@ite.com.tw>
+References: <20260319-upstream-6162-v4-0-7268483ef03d@ite.com.tw>
+In-Reply-To: <20260319-upstream-6162-v4-0-7268483ef03d@ite.com.tw>
+To: Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: Pet.Weng@ite.com.tw, Kenneth.Hung@ite.com.tw, 
+ Hermes Wu <Hermes.Wu@ite.com.tw>, dri-devel@lists.freedesktop.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Hermes Wu <Hermes.wu@ite.com.tw>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1773901902; l=1903;
- i=kishore.batta@oss.qualcomm.com; s=20260206; h=from:subject:message-id;
- bh=PYlMjATY4SM1+jaLjbUMOn336QEIJpGFcRpjUcyzz/4=;
- b=oDJdabj+nevZsLKRAXC74rtzAHVO/YwH4bO6LZREstgcBsTlP0qNzP0ID0HAYGXuCGebsRFDN
- Qk9A9oeSuz4B1G+ilAYFW3ypjpCNAaWqO0Yl/9a3wvCY/fV+jBI0yuO
-X-Developer-Key: i=kishore.batta@oss.qualcomm.com; a=ed25519;
- pk=vJo8RvTf+HZpRLK2oOIljmbn9l3zFkibCGh+blaqZCw=
-X-Proofpoint-GUID: cjhhU5I_ujv5tBAZIGuhsa3R3fuuFeQ6
-X-Proofpoint-ORIG-GUID: cjhhU5I_ujv5tBAZIGuhsa3R3fuuFeQ6
-X-Authority-Analysis: v=2.4 cv=ApTjHe9P c=1 sm=1 tr=0 ts=69bb987b cx=c_pps
- a=JL+w9abYAAE89/QcEU+0QA==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=EUspDBNiAAAA:8 a=dkV1H7vRkoxx0F9zaYgA:9 a=QEXdDO2ut3YA:10
- a=324X-CrmTo6CU4MGRt3R:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzE5MDA0OSBTYWx0ZWRfX42N41+d0Mm29
- kID0PEwcNiqmj1hlz68UD7Lfgf6+V/Fhj3mUXyVsC1EAtR9oAY9gEKCB70ms5v6VYO/oPPRlr7A
- ocvfKeAOKiuieOKS9FFgiHgbOR0F1J7NeT01ngUf7PK1YsqyUrT2woyydQYCBWfm6BO4aGQghq0
- GQNIGh2/go7SBh0n4q7ZM5ia0rUV8ivjpzO+vqPJl84bDYjangNrbOE/d2c2DF3Ci+VeoZ3GO24
- r4s8WECGN7sHXisWgYyxxHQZB9DA/q+ICIGXNQvMjx9wwBgz/kNkBuDiQs5+exJPfcWgmXfI0xz
- 6k1NeYd7hFfeioED+mMGoh59YyKlVqIB3TmjjE+izF6fA32z8v0mqdLtIuOlkbzzIXJP1OEtXph
- OwPYTy7WkTA9KAcd7eOi3AsKk4brLMIwD9BR8HgT7fcf03NAOG/cYUqSoT84TxC8YR5dqlSBvyq
- bm4KqvlXXHqU8h3A3XQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-03-19_01,2026-03-17_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 lowpriorityscore=0 adultscore=0 malwarescore=0 suspectscore=0
- clxscore=1015 impostorscore=0 priorityscore=1501 spamscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603190049
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1773902234; l=6238;
+ i=Hermes.wu@ite.com.tw; s=20241230; h=from:subject:message-id;
+ bh=gcRncCVm+FPHL8vjTiimPBkoMIEKl6Dwlw+5kIas+Sc=;
+ b=KPADlWaqarQ9U5/u0b0+nTsAj3/LcAez9vpEiQZlUMeW0TFMAOQfTNHk6UkCqqdY2jQPDDyLT
+ ZnvtT3T9SSuAGDLjnW1spvRTGzZ5Lepf/37TRnFYmgcBg6f69Qbo75U
+X-Developer-Key: i=Hermes.wu@ite.com.tw; a=ed25519;
+ pk=qho5Dawp2WWj9CGyjtJ6/Y10xH8odjRdS6SXDaDAerU=
+X-Endpoint-Received: by B4 Relay for Hermes.wu@ite.com.tw/20241230 with
+ auth_id=310
+X-Original-From: Hermes Wu <Hermes.wu@ite.com.tw>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -147,48 +80,226 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: Hermes.wu@ite.com.tw
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add ABI documentation for the DDR training data sysfs attribute exposed by
-the sahara MHI driver.
+From: Hermes Wu <Hermes.wu@ite.com.tw>
 
-The documented sysfs node provides read-only access to the DDR training
-data captured during sahara command mode and exposed via the MHI
-controller device. This allows userspace to read the training data and
-manage it as needed outside the kernel.
+Add device tree binding documentation for the ITE IT6162 MIPI DSI to
+HDMI 2.0 bridge chip. The IT6162 is an I2C-controlled bridge that
+supports the following configurations:
 
-Signed-off-by: Kishore Batta <kishore.batta@oss.qualcomm.com>
+  - Single MIPI DSI input: up to 4K @ 30Hz
+  - Dual MIPI DSI input (combined): up to 4K @ 60Hz
+
+The chip also supports up to 8-channel audio output via 4 I2S data
+channels.
+
+Signed-off-by: Hermes Wu <Hermes.wu@ite.com.tw>
 ---
- .../ABI/testing/sysfs-bus-mhi-ddr_training_data       | 19 +++++++++++++++++++
- 1 file changed, 19 insertions(+)
+Changes in v4:
+  - Drop ite,support-hdcp
+  - Drop endpoint properties already in video-interfaces.yaml
+  - Fix data-lanes in example with <0 1 2 3>
+  - Add blanking line in example before endpoint subnode starts
+  - Add reset-gpio and power controls to required
 
-diff --git a/Documentation/ABI/testing/sysfs-bus-mhi-ddr_training_data b/Documentation/ABI/testing/sysfs-bus-mhi-ddr_training_data
+Changes in v3:
+  - Fix lane-polarities: remove $ref redefinition, allow via video-interfaces.yaml
+  - Improve ite,support-hdcp description to clarify FW-based HDCP behavior
+  - Remove descriptions repeating schema constraints
+  - Remove stray comment in ports required section
+  - Fix data-lanes spacing in example: <1 2 3 4>
+  - Add missing newline at end of file
+  - Add missing change log that Reviewed-by tag was drop in V2.
+
+Changes in V2:
+  - Drop Reviewed-by tag due to DT bindings changed.
+  - Add property "ite,spport-hdcp" to enable HDCP
+  - Add property "lane-polarities" and "clock-noncontinuous" for DSI
+    setting
+---
+ .../bindings/display/bridge/ite,it6162.yaml        | 169 +++++++++++++++++++++
+ 1 file changed, 169 insertions(+)
+
+diff --git a/Documentation/devicetree/bindings/display/bridge/ite,it6162.yaml b/Documentation/devicetree/bindings/display/bridge/ite,it6162.yaml
 new file mode 100644
-index 0000000000000000000000000000000000000000..810b487b5a5fdba133d81255f9879844e3938a10
+index 0000000000000000000000000000000000000000..d1d8a92825d253ecfa67cb1e793d372e4011b4d4
 --- /dev/null
-+++ b/Documentation/ABI/testing/sysfs-bus-mhi-ddr_training_data
-@@ -0,0 +1,19 @@
-+What:                   /sys/bus/mhi/devices/<mhi-cntrl>/ddr_training_data
++++ b/Documentation/devicetree/bindings/display/bridge/ite,it6162.yaml
+@@ -0,0 +1,169 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/display/bridge/ite,it6162.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
-+Date:                   March 2026
++title: ITE IT6162 MIPI DSI to HDMI 2.0 Bridge
 +
-+Contact:                Kishore Batta <kishore.batta@oss.qualcomm.com>
++maintainers:
++  - Hermes Wu <Hermes.Wu@ite.com.tw>
 +
-+Description:            Contains the DDR training data for the Qualcomm device
-+                        connected. MHI driver populates different controller
-+                        nodes for each device. The DDR training data is exposed
-+                        to userspace to read and save the training data file to
-+                        the filesystem. In the subsequent boot up of the device,
-+                        the training data is restored from host to device
-+                        optimizing the boot up time of the device.
++description: |
++  The ITE IT6162 is a high-performance, low-power HDMI bridge that converts
++  2 MIPI DSI signals to 1 HDMI 2.0 output. It supports dual MIPI D-PHY 2.0
++  links up to 10 Gbps each (20 Gbps total), compatible with DSI-2 v2.0.
 +
-+Usage:                  Example for reading DDR training data:
-+                        cat /sys/bus/mhi/devices/mhi0/ddr_training_data
++  The HDMI transmitter supports resolutions up to 4Kx2K@60Hz and is compliant
++  with HDMI 2.0 specifications.
 +
-+Permissions:            The file permissions are set to 0444 allowing read
-+                        access.
++  For audio, it supports up to 8-channel LPCM via I2S (multi-line or TDM mode),
++  with optional S/PDIF or DSD (for SACD). Audio sampling rates up to 192 kHz
++  are supported.
++
++allOf:
++  - $ref: /schemas/sound/dai-common.yaml#
++
++properties:
++  compatible:
++    const: ite,it6162
++
++  reg:
++    maxItems: 1
++
++  interrupts:
++    maxItems: 1
++
++  reset-gpios:
++    maxItems: 1
++
++  ivdd-supply:
++    description: Core voltage supply
++
++  ovdd-supply:
++    description: I/O voltage supply
++
++  ovdd1833-supply:
++    description: Flexible I/O voltage supply (1.8V domain)
++
++  "#sound-dai-cells":
++    const: 0
++
++  ports:
++    $ref: /schemas/graph.yaml#/properties/ports
++
++    properties:
++      port@0:
++        $ref: /schemas/graph.yaml#/$defs/port-base
++        unevaluatedProperties: false
++        description: Input port for MIPI DSI-0
++
++        properties:
++          endpoint:
++            $ref: /schemas/media/video-interfaces.yaml#
++            unevaluatedProperties: false
++            required:
++              - data-lanes
++
++      port@1:
++        $ref: /schemas/graph.yaml#/$defs/port-base
++        unevaluatedProperties: false
++        description: Input port for MIPI DSI-1
++
++        properties:
++          endpoint:
++            $ref: /schemas/media/video-interfaces.yaml#
++            unevaluatedProperties: false
++            required:
++              - data-lanes
++
++      port@2:
++        $ref: /schemas/graph.yaml#/properties/port
++        description: Audio input port
++
++      port@3:
++        $ref: /schemas/graph.yaml#/properties/port
++        description: HDMI output port
++
++    required:
++      - port@1
++
++required:
++  - compatible
++  - reg
++  - interrupts
++  - reset-gpios
++  - ivdd-supply
++  - ovdd-supply
++  - ovdd1833-supply
++  - ports
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++    #include <dt-bindings/interrupt-controller/irq.h>
++
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        bridge@58 {
++            compatible = "ite,it6162";
++            reg = <0x58>;
++
++            #sound-dai-cells = <0>;
++
++            interrupt-parent = <&pio>;
++            interrupts = <128 IRQ_TYPE_LEVEL_LOW>;
++
++            pinctrl-names = "default";
++            pinctrl-0 = <&it6162_pins>;
++
++            reset-gpios = <&pio 127 GPIO_ACTIVE_LOW>;
++
++            ivdd-supply = <&pp1000_hdmi_x>;
++            ovdd-supply = <&pp3300_vio28_x>;
++            ovdd1833-supply = <&pp1800_vcamio_x>;
++
++            ports {
++                #address-cells = <1>;
++                #size-cells = <0>;
++
++                port@0 {
++                    reg = <0>;
++
++                    it6162_dsi0: endpoint {
++                        data-lanes = <0 1 2 3>;
++                        remote-endpoint = <&dsi_0_out>;
++                    };
++                };
++
++                port@1 {
++                    reg = <1>;
++
++                    it6162_dsi1: endpoint {
++                        data-lanes = <0 1 2 3>;
++                        remote-endpoint = <&dsi_1_out>;
++                    };
++                };
++
++                port@2 {
++                    reg = <2>;
++
++                    it6162_audio_in: endpoint {
++                        remote-endpoint = <&i2s0_out>;
++                    };
++                };
++
++                port@3 {
++                    reg = <3>;
++
++                    it6162_hdmi_out: endpoint {
++                        remote-endpoint = <&hdmi_connector_in>;
++                    };
++                };
++            };
++        };
++    };
 
 -- 
 2.34.1
+
 
