@@ -4,67 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6193F1075280
-	for <dri-devel@archiver.kernel.org>; Thu, 19 Mar 2026 09:08:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0EA9D107527E
+	for <dri-devel@archiver.kernel.org>; Thu, 19 Mar 2026 09:09:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C607D10E933;
-	Thu, 19 Mar 2026 09:08:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4F8D010E937;
+	Thu, 19 Mar 2026 09:09:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="MStv9cT2";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="TWiIl/PO";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ECD4810E933
- for <dri-devel@lists.freedesktop.org>; Thu, 19 Mar 2026 09:08:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1773911313; x=1805447313;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=ZRcVOhPdowDvzKLSuXQMCOObGmNVbYTZjhSNJcyjj9I=;
- b=MStv9cT21XXLVoEKeGMT4nu7aB7m4JcP+A6dEop6GOIBNp3ef4WemeCl
- kEdHnWfivgfRSYTee1gI7SKohWFvhZQSl9aKiezuAPDyjOopE8/Hxp5r3
- Jv7ytT/YkTUz+cOgydHuQ331pmih5QWjcxcnza8XQ19Vg+HSIrQiugX4v
- 5n4IuSEaGHc6tyNvIdqoXO2XbiczIJACF7uhShY84SnVz+YjSM7gimqUf
- VcR9QZeiQtvtZpaYDUx0nDNnqE1RpssqG5lpcf2VXs2vh2we0RGulSvKn
- PEN4XesoQkF26CtLaioxzPB3USvxIoYEa7TWiiEMajB1GnfZLqcHclpC+ w==;
-X-CSE-ConnectionGUID: JFDrQZ+3Qx+UVplt4StzjA==
-X-CSE-MsgGUID: X2bpPDiVQ9mx/wNbnLA7FA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11733"; a="85605750"
-X-IronPort-AV: E=Sophos;i="6.23,129,1770624000"; d="scan'208";a="85605750"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
- by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Mar 2026 02:08:32 -0700
-X-CSE-ConnectionGUID: /HYQIwtlSlGVn7EFhK3P+w==
-X-CSE-MsgGUID: xLwpsofwQ36F7lTP//oKmw==
-X-ExtLoop1: 1
-Received: from klitkey1-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.245.244.120])
- by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Mar 2026 02:08:31 -0700
-Date: Thu, 19 Mar 2026 11:08:28 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Helge Deller <deller@gmx.de>
-Cc: Jason Yan <yanaijie@huawei.com>, Sam Ravnborg <sam@ravnborg.org>,
- linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
- b.zolnierkie@samsung.com
-Subject: Re: [PATCH] video: fbdev: matroxfb: remove dead code and set but not
- used variable
-Message-ID: <abu9DKMN660yd3Sd@ashevche-desk.local>
-References: <20200403021609.20968-1-yanaijie@huawei.com>
- <20200408101852.GC20795@ravnborg.org>
- <abpX_2PUWie03GdG@black.igk.intel.com>
- <17605e19-065c-4b71-abb2-a9c9a7b9ddc6@huawei.com>
- <abun9dwCYAWd1nIB@ashevche-desk.local>
- <e5f7611f-f087-4835-99e3-4fddc927aab8@huawei.com>
- <abuyJDK6E2aHA4rC@ashevche-desk.local>
- <c717b7b6-ffb6-47f9-b345-de0eddcfe7a4@gmx.de>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C602B10E937
+ for <dri-devel@lists.freedesktop.org>; Thu, 19 Mar 2026 09:09:15 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 6B10B443AB;
+ Thu, 19 Mar 2026 09:09:15 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE707C2BC87;
+ Thu, 19 Mar 2026 09:09:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1773911355;
+ bh=5fTdycH5VKTSl4J376j0I5Ed+rPRK+nrNrd6HDt7DFM=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=TWiIl/POzZoUbobwe0Pie6mk6kRAFA2FwhPIbxOoTtufktkFrweuwu6XM5HD/t7R5
+ 0g4l7hos+hr95QAIpmt+WNGt47xvosBvKKKT77lv/6bqzoAvAcCwJknuCHA3au6sZh
+ yqUa1HkSrW31JDGcSCAeQw5wbXcUu/YRJ+F1jrvmJCKdf3gUg0mNlqiRuFKn4PYnk+
+ g1EghhA2XK5TyCepOrFFFk5TVyC/sHxDZDrR6rFZiZoZgzB+Ttlv8bfqRqfACnUuo0
+ zrDvFDbOOvmXOXsk01SwP/ZbKY7VzeveQyq8zmQRASNC9tDeOcfKNfMJwUbDqV5kmb
+ H292zpKqgAd/Q==
+Date: Thu, 19 Mar 2026 10:09:12 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Cristian Cozzolino <cristian_ci@protonmail.com>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+ ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org
+Subject: Re: [PATCH v2 1/6] dt-bindings: display: panel: Add Novatek NT35532
+ LCD DSI
+Message-ID: <20260319-amorphous-pastoral-turtle-851af9@quoll>
+References: <20260318-rimob-new-features-v2-0-c1bf8917449e@protonmail.com>
+ <20260318-rimob-new-features-v2-1-c1bf8917449e@protonmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <c717b7b6-ffb6-47f9-b345-de0eddcfe7a4@gmx.de>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <20260318-rimob-new-features-v2-1-c1bf8917449e@protonmail.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,59 +68,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Mar 19, 2026 at 09:35:33AM +0100, Helge Deller wrote:
-> On 3/19/26 09:21, Andy Shevchenko wrote:
-> > On Thu, Mar 19, 2026 at 04:06:44PM +0800, Jason Yan wrote:
-> > > 在 2026/3/19 15:38, Andy Shevchenko 写道:
-> > > > On Thu, Mar 19, 2026 at 10:22:08AM +0800, Jason Yan wrote:
+On Wed, Mar 18, 2026 at 11:28:09PM +0100, Cristian Cozzolino wrote:
+> +  avdd-supply:
+> +    description: positive boost supply regulator
+> +
+> +  avee-supply:
+> +    description: negative boost supply regulator
+> +
+> +  vci-supply:
+> +    description: regulator that supplies the analog voltage
+> +
+> +  vddam-supply:
+> +    description: power supply for MIPI interface
+> +
+> +  vddi-supply:
+> +    description: regulator that supplies the I/O voltage
+> +
+> +  port: true
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - reset-gpios
+> +  - avdd-supply
+> +  - avee-supply
+> +  - vci-supply
 
-...
+Only VDDI is required according to datasheet (see page 11 and page 16).
+Others are needed only in specific configurations, which I would ignore
+for the simplicity of the binding. Drop these three.
 
-> > > > Helge, can we revert this change and start over, please? (I can also send
-> > > > revert if you think it's a better way)
-> 
-> Andy, all points you make against removing relevant code is absolutely right.
-> 
-> But for this specific commit 7b987887f97b ("video: fbdev: matroxfb: remove dead code and
-> set but not used variable") I have to agree with Jason, that the patch is ok.
-> I don't see any build errors either.
+Previous discussion point was about this - write bindings based on
+datasheet, since it is available.
 
-Just run on today's Linux Next (since the driver has not been changed in that
-sense for a few years, the very same issue is present for a long time):
 
-drivers/video/fbdev/matrox/g450_pll.c:412:18: error: variable 'mnp' set but not used [-Werror,-Wunused-but-set-variable]
-  412 |                                 unsigned int mnp;
-      |                                              ^
-1 error generated.
+> +  - vddi-supply
+> +  - port
+> +
+> +additionalProperties: false
 
-> Are we mixing up things here maybe?
-
-...
-
-FWIW, I dove to the history of the driver.
-
-So, the code, that was guarded by #if 0 was introduced in the original commit
-213d22146d1f ("[PATCH] (1/3) matroxfb for 2.5.3"). And then guarded in the
-commit 705e41f82988 ("matroxfb DVI updates: Handle DVI output on G450/G550.
-Powerdown unused portions of G450/G550 DAC. Split G450/G550 DAC from older
-DAC1064 handling. Modify PLL setting when both CRTCs use same pixel clocks.").
-
-Even without that guard the modern compilers may see that the pixel_vco wasn't
-ever used and seems a leftover after some debug or review made 25 years ago.
-
-The g450_mnp2vco() doesn't have any IO and as Jason said doesn't seem to have
-any side effects either than some unneeded CPU processing during runtime. I
-agree that's unlikely that timeout (or heating up the CPU) has any effect on
-the HW (GPU/display) functionality.
-
-So, since the commit 7b987887f97b ("video: fbdev: matroxfb: remove dead code
-and set but not used variable") the 'mnp' became unused, but eliminating that
-code might have side-effects. The question here is what should we do with mnp?
-The easiest way out is just mark it with __maybe_unused which will shut the
-compiler up and won't change any possible IO flow.
-
--- 
-With Best Regards,
-Andy Shevchenko
-
+Best regards,
+Krzysztof
 
