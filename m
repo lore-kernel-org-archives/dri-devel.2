@@ -4,54 +4,153 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 75198108E1E8
-	for <dri-devel@archiver.kernel.org>; Thu, 19 Mar 2026 11:10:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BAF74108E1F6
+	for <dri-devel@archiver.kernel.org>; Thu, 19 Mar 2026 11:40:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CE4E110E971;
-	Thu, 19 Mar 2026 11:10:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1138110E88F;
+	Thu, 19 Mar 2026 11:40:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="ewiYL6Oq";
+	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="gy/gBzx6";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DE00210E971
- for <dri-devel@lists.freedesktop.org>; Thu, 19 Mar 2026 11:10:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1773918626;
- bh=0QeJPButvYP5EhqfbwLudCzfGaYiu5+w8f+bzG4Bpec=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=ewiYL6OqwmXWU9B1Fq2TJ/ZZlXKAhyClDFkc5onM2kFTOPKjDwyQuuf4cOl9mc745
- VetxLfnHv/YGg8AFhTLNdjbrjYh0VJrlDOns8Vi2jQNafARt9fEW19sccUY9jOiRou
- 7AvFPWxk3ckY/aMDu4YXp/kQ7cyjwLt2skjBvs96Nk+IJ0qm/OQhxcycw37Hy/bwxE
- Xjx5YGDV7+tlot9bDbYxZMzXefQGbbPkB9ZSCz+g+eOSn9Qd8SPclKTwzAjQZiuiRf
- ktcGPWYB8JjKjZi8TyS45HGrkM93XiLIaN3BiyqA5thon/vsmg2P8oAkKvo6RWL3TK
- zQjL5DI1UdUsQ==
-Received: from fedora (unknown [IPv6:2a01:e0a:2c:6930:d919:a6e:5ea1:8a9f])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
- server-digest SHA256) (No client certificate requested)
- (Authenticated sender: bbrezillon)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 13FA317E01B1;
- Thu, 19 Mar 2026 12:10:26 +0100 (CET)
-Date: Thu, 19 Mar 2026 12:10:20 +0100
-From: Boris Brezillon <boris.brezillon@collabora.com>
-To: Marcin Slusarz <marcin.slusarz@arm.com>
-Cc: Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
- dri-devel@lists.freedesktop.org, Chia-I Wu <olvaffe@gmail.com>, Maarten
- Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Lukas Zapolskas
- <lukas.zapolskas@arm.com>, nd@arm.com
-Subject: Re: [PATCH v3] drm/panthor: extend timestamp query with flags
-Message-ID: <20260319121020.5dbc5fdc@fedora>
-In-Reply-To: <20260319110053.909152-1-marcin.slusarz@arm.com>
-References: <20260318112952.645160-1-marcin.slusarz@arm.com>
- <20260319110053.909152-1-marcin.slusarz@arm.com>
-Organization: Collabora
-X-Mailer: Claws Mail 4.3.1 (GTK 3.24.51; x86_64-redhat-linux-gnu)
+Received: from CWXP265CU008.outbound.protection.outlook.com
+ (mail-ukwestazon11020142.outbound.protection.outlook.com [52.101.195.142])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2399210E867;
+ Thu, 19 Mar 2026 11:40:00 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=DN0aa/S2WCl6eWslOshkdTkCuuX5QvvwMLeNaWhCyCnP0YwkJTsOlaWuxPhwJ2TQ5AbPnciBh7sB3sWiESCC/p8F54FtHmElfH8kggDEYIfDnj63SG5yY4K148QVL6yMBc82fBulE15gOIcCrVZlR4o3laesyjWhnC/+9dBd4vDYhAgEoq4PDY8lKLXZfKTM8ef7achWdqXfjayIg15+so/OcbIBnobzCF5uByUlp9fEf2QFp3j68DN3nIZM2ZZfbZ8Bi/OGEZmX4hjX+iIyocg3CU4d7h2gO0jTt4ytsd4A3KpLKANeIqbtZbjpN1kjHb8hjBy1W3tIaboASFxazQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=gl3L1QjF+kTy/gkSiItt0dDU/qdj9xcElaHgQGuLCjA=;
+ b=btiKHkNArmJTDqllnbJvQshPzLEy4BgOY0WAiS64hYq6nSiHxF/M2CcFUxYV54NtNRpC7t7pJ+OTQNJ9tusPh+6W4ccW0q/Ikus8L9WR2Y76DEv+KyCuoGk2eVI2nkXzCxmfO2s2fGm9gdjyc4sErWoKELIGEeXlLWa0vhfp3tNj5t68TpG0K9KlV+sDLxOspIi+WGpMiXvf3LryQXvIDPUOdnJ2O/0+3wwZnRZRHzbF1SUGjRF3C/nDYdRmJmq6foYITr1txBsgAAWSz2qSJm0rLuVtc21G1Wrf67R6d0OhgaVrycFKB05d+X+uEnLY/mKeQKPfnk0Osiu7mwamng==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
+ dkim=pass header.d=garyguo.net; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=gl3L1QjF+kTy/gkSiItt0dDU/qdj9xcElaHgQGuLCjA=;
+ b=gy/gBzx66P/e2mOjjph28F+emkNj92lKIbO/tUQVjmA15j2nZ0sNEldTqwtldPrnw5VY3TEEvKZ2z15n8/3eoUXiBlgIgKgZ54P7IM9HhhUwlhiadpXd+cB2QDefR+LMtvqGhN3CA/0dvHXluIIXVZ0sZf5jqUz6Da3+rItidiA=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=garyguo.net;
+Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:488::16)
+ by LOYP265MB2176.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:11f::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.19; Thu, 19 Mar
+ 2026 11:39:55 +0000
+Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::1c3:ceba:21b4:9986]) by LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::1c3:ceba:21b4:9986%5]) with mapi id 15.20.9723.018; Thu, 19 Mar 2026
+ 11:39:55 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 19 Mar 2026 11:39:54 +0000
+Message-Id: <DH6QAR1HHXRV.1Y7IZ22HC9FZ3@garyguo.net>
+Cc: "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>,
+ "Gary Guo" <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
+ <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
+ Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
+ "Trevor Gross" <tmgross@umich.edu>, "Alex Gaynor" <alex.gaynor@gmail.com>,
+ "Danilo Krummrich" <dakr@kernel.org>, "Dave Airlie" <airlied@redhat.com>,
+ "David Airlie" <airlied@gmail.com>, "Maarten Lankhorst"
+ <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
+ "Thomas Zimmermann" <tzimmermann@suse.de>, "Simona Vetter"
+ <simona@ffwll.ch>, "Daniel Almeida" <daniel.almeida@collabora.com>, "Koen
+ Koning" <koen.koning@linux.intel.com>, "Nikola Djukic"
+ <ndjukic@nvidia.com>, "Alexandre Courbot" <acourbot@nvidia.com>, "Philipp
+ Stanner" <phasta@kernel.org>, "Elle Rhumsaa" <elle@weathered-steel.dev>,
+ "Jonathan Corbet" <corbet@lwn.net>, "Alex Deucher"
+ <alexander.deucher@amd.com>, =?utf-8?q?Christian_K=C3=B6nig?=
+ <christian.koenig@amd.com>, "Jani Nikula" <jani.nikula@linux.intel.com>,
+ "Joonas Lahtinen" <joonas.lahtinen@linux.intel.com>, "Rodrigo Vivi"
+ <rodrigo.vivi@intel.com>, "Tvrtko Ursulin" <tursulin@ursulin.net>, "Huang
+ Rui" <ray.huang@amd.com>, "Matthew Auld" <matthew.auld@intel.com>, "Matthew
+ Brost" <matthew.brost@intel.com>, "Lucas De Marchi"
+ <lucas.demarchi@intel.com>, =?utf-8?q?Thomas_Hellstr=C3=B6m?=
+ <thomas.hellstrom@linux.intel.com>, "Helge Deller" <deller@gmx.de>, "John
+ Hubbard" <jhubbard@nvidia.com>, "Alistair Popple" <apopple@nvidia.com>,
+ "Timur Tabi" <ttabi@nvidia.com>, "Edwin Peer" <epeer@nvidia.com>, "Andrea
+ Righi" <arighi@nvidia.com>, "Andy Ritger" <aritger@nvidia.com>, "Zhi Wang"
+ <zhiw@nvidia.com>, "Balbir Singh" <balbirs@nvidia.com>,
+ <alexeyi@nvidia.com>, "Eliot Courtney" <ecourtney@nvidia.com>,
+ <dri-devel@lists.freedesktop.org>, <rust-for-linux@vger.kernel.org>,
+ <linux-doc@vger.kernel.org>, <amd-gfx@lists.freedesktop.org>,
+ <intel-gfx@lists.freedesktop.org>, <intel-xe@lists.freedesktop.org>,
+ <linux-fbdev@vger.kernel.org>
+Subject: Re: [PATCH v13 1/1] rust: interop: Add list module for C linked
+ list interface
+From: "Gary Guo" <gary@garyguo.net>
+To: "Joel Fernandes" <joelagnelf@nvidia.com>, <linux-kernel@vger.kernel.org>
+X-Mailer: aerc 0.21.0
+References: <20260317201710.934932-1-joelagnelf@nvidia.com>
+ <20260317201710.934932-2-joelagnelf@nvidia.com>
+In-Reply-To: <20260317201710.934932-2-joelagnelf@nvidia.com>
+X-ClientProxiedBy: LO2P265CA0081.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:8::21) To LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:488::16)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LOVP265MB8871:EE_|LOYP265MB2176:EE_
+X-MS-Office365-Filtering-Correlation-Id: 20b83634-9607-478b-f95b-08de85ac3e26
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|7416014|1800799024|376014|366016|10070799003|7053199007|56012099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: vpwER8soRUOOaPEAR0lU9YuZNmyo/nH6XdSrVjTzGWmZHTeCe5D6wI1mUp1GBZSKabAi9cKtPSDewJp40JcXBZGlHZTgHRTj/5ZHnq2IVINsY9EzVfRhox+6VKP4pb9HYTNnf7yyVtobJeI4fEsHshV6D0WzY6v/3PL+Ed2noxU2WJqZBIzNsAuKc0lqJL9Nj3LHb9bdMnmve8hbvO5p5hE2IkNEZ5BOUcchsa5WFyYL/PCwiXXKMB+P9WuCrZZtIiEX+iyRl72z1p7+CFnsDmmNT4/Kg/qjA6wh+fdUggTw4XvtK0o7J2tLWZtyPM+QetZefv2Atu50vfshWjeUXkIBx8nXujb46kAVvGWhx7l064cEXOOT35W+SLfXlFuH60qcYLVe40RqTjAv9hACzdXxbrNheaaQlVUEoZhaxXG46buiqMFJXX5PaQjtjNByKCnoVeo8BIDiU41nuIlu7ey76YxVG4Y4tS4G6Je1rH6mBWKGV5HBXPNI+yogxXfD58PGsMDRth9YomUY5ioI3SSz9P/Sc508dpxnCwX1pVCGcnYzs4yB7otwMpYA9EOyTdpgV/5G4TVdvckwxqLOPrzSzD6Aysq+fmJmyIZrdSR0cpcgpAj6Of3mPz9TskzHEi+5TPeuks46MZKGdTusMvSDKP/iddLF/8ZwFnxTQQ16JJh9TMf1b676s1q5xwmtuBVwkDjIWOTNNbAuLQeHnvbvuQkzseOU2yUlNBfnTf4=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
+ SFS:(13230040)(7416014)(1800799024)(376014)(366016)(10070799003)(7053199007)(56012099003)(22082099003)(18002099003);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SUN5N0pmaTlEeFc3TUZUMHRtSHpTa093SndGcURqODFYS2QvQWdmNWhoS2pB?=
+ =?utf-8?B?cW9XKzFZSXJXWGQxUHQ0UU03eXZUdzlLWmdwNUxEeTNTR2Q5SzdHYk13VHlr?=
+ =?utf-8?B?UFlHV293b0ljNnIxM0h6TkhFYkZhOU5HMlFSNFBkL2ZQQ2s5cUs2azZlK2dj?=
+ =?utf-8?B?VGo5OXFhVzhvUmp1dUwvWGxRYUtVVUNPVHdRd1NIdHgyR211bVdaekE4WXo1?=
+ =?utf-8?B?aEFISTJLTmJvaUg1SnFJOEdGNWVDUFYrQ0hscVJILzh2Mm9lSWF3NEY0R0xn?=
+ =?utf-8?B?alFmN0hvNHQxbHo1UW1lWVYxU3VSbld0TWtBcUZ5UDZxcm9HeXZxRjVENjJ5?=
+ =?utf-8?B?Yy94SGFSUlBYWm5GNE5OQUxDbGV3OWxOdXB6cHZwTmJlYlVWMDZmN3JtQ1lu?=
+ =?utf-8?B?Nko3QUhNVUZOODN3WWZDeTlhY05wMjErYlpkL3cwcDVrRHR2ZEU5VjlxMlBT?=
+ =?utf-8?B?NjA2eitYZTZQQmxVT25JbXFQWUZNM210anFDeVRlaGltb0J4ZFVReGdnaTVu?=
+ =?utf-8?B?aHJ3QXBhZGI2cDM0aEdaeGlOKzRObXVhak5tRmlyQ0psamRlN0xTZzBTOE5G?=
+ =?utf-8?B?REQyYTN1Y1F4UXpnVDlBWlUwbHFyeElmOTE4ODBkZTNXN3dUWnBndzQ3K0VZ?=
+ =?utf-8?B?b2kvVFd5S1hLdFB4YXBlODdScndOZ3lWVHpmQnRhRWwveTMybDdzY0ZHUzJr?=
+ =?utf-8?B?K2g0ZmFQQzViS0tlMlp2TlN2THJ3YVFUK0N4RGlqSkdoU2IvYVdiNDdPRklN?=
+ =?utf-8?B?SWJUcjRyR2pFWDR1YytNZVJZWG9hT1pycW4yK3M2alZTb1JwaXVnYzgvTlpU?=
+ =?utf-8?B?WGhIZzRpWUw3U1VZZUJrMlVsdjIvNnRsTFEzbDErUVk1S3hsRUhPSy9FUzJh?=
+ =?utf-8?B?a1ozRFVaNlFZUXFvQXdBelpqSGJrd0cwMkdQM3htSURLVWh2T3MvNXFTOFd0?=
+ =?utf-8?B?dzZHTlFyTTZWY0dvZDVrbDFJampiRk9BUDEzVlFyYVlmRG9wRXdrRjlhNWpK?=
+ =?utf-8?B?TzNCcEVoTTM0SzVldHhBdzBURmp4Myt3Nmt3M3ZCNVp1MGxlbWt1dnRuR3Br?=
+ =?utf-8?B?Ry92WURiSkFnSmZIZlNJT050RDFheDlINlN4VEUza05vcnIvVEwxbDRTckRq?=
+ =?utf-8?B?RytDZHpGdmY2aXpRa3ZqckdnWlBEYkFaUFkxSW1RdUhvbmFxQmtXcmVOY0hB?=
+ =?utf-8?B?RHlCQW9UTmhUaEY3eGhDeDVCNGxRL2xkQ01EckMyMnoxai9UeGJ2RTAzL29y?=
+ =?utf-8?B?R3FQb0RpQnNqdmM0SHZ4eEtqd0YwVzlhZHA1VHpNaXFBOFlYbmw4NW9ZRis3?=
+ =?utf-8?B?aWJ2anI0Rklsa0ZOT2ZWVWIxVlBrQzVuNEpjYUQ4VzFwdUc1eS96OEpGeGpo?=
+ =?utf-8?B?NWVwcHg4dS94dzFoaGZXNGhVSitpMmJXNXdGN2ZPd0Nhc1NOZys3TGN2dTk2?=
+ =?utf-8?B?VmpaK1RIU2ZXM0ZTQ2dLLzRGRVhzSWd6ZnFFdURuVnc3cWk2ZEVldG8vanB2?=
+ =?utf-8?B?aktEVEdROCtTbVhFa2FWZHNJQy9DeTVvK0dwVzI2SUJCN1ZzYnVFcnRGMU05?=
+ =?utf-8?B?MU93UlQ2UW1vQ3E1dkxGSHNsMml0bEIySU1RQTM4ak9zM2dRNFFNN3RQTDhN?=
+ =?utf-8?B?RG9sckFSNXBmUTRBL1BjSU1RczhUZlFNZTB4ZVZ0Y2U3ZGJ6NVBmSVJUYzZz?=
+ =?utf-8?B?TEsvZ2lpZnh0ZzdpcndIVWxldThlb2pPb0dmdk1pMVpiRVdrbzA5VlhaZ1RN?=
+ =?utf-8?B?S1cxbFdwSW1MbS9RZmhBUEFoWTFDVW5KK1ZqNWFYbXdYbDM5V3JPSFBZYmdB?=
+ =?utf-8?B?RnJrUk9jb2tUcjVlY3h4Vm05SDRMUm0rM3JzUHErdVZ2YXJQZ0hwaGlYdzI4?=
+ =?utf-8?B?M29NMUdpUGN0em05VjltVU9OSGEzUkFmbk1JSys0M0NiSVRqa2g2OHNUMFAv?=
+ =?utf-8?B?UkZoN28zb3o3Z2diWjVZc0dSc0NrZG1rNTZ3T2JKV0djOEU4VkZDTksrZThn?=
+ =?utf-8?B?ck04VHAzazUybkdSemZLcTVhSFE3R1B1V1hvV2UyU3YrL1NVOFNHOU9vUHBO?=
+ =?utf-8?B?R3BVRTF3QXBBUlBSS3JmaWk4Tm5LQzlRNEhRSzVvNmpjNVVUc2w0NVZIMzA3?=
+ =?utf-8?B?Z0tTT1RleXJsQTAreHF2RWorbGFtRjR2YmpkTHoxK3dPNlZkMTZjVUR2MDda?=
+ =?utf-8?B?anNPMjNrZ1hINVl0R1RLZU5FSUlmNmtYTnRiS0ZvQS9FcGlWYkZZUHNKdUhk?=
+ =?utf-8?B?UzcrT1NJNVlOZk1jdmhrVW52L3dESExsb2MwU2ZkR1RCNVRPQVl5ZVRSWlhK?=
+ =?utf-8?B?QTIxUnplQ2xiKzdhRGtEeStobG1YU0p2a0Y1WEZ0N0dzVTFkMnMrQT09?=
+X-OriginatorOrg: garyguo.net
+X-MS-Exchange-CrossTenant-Network-Message-Id: 20b83634-9607-478b-f95b-08de85ac3e26
+X-MS-Exchange-CrossTenant-AuthSource: LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Mar 2026 11:39:55.8229 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: xLxBoePccVpNlqqGktuIU87BKHOMxGn/YHRulmBaqLXY4ahRyqJ58fBogDV0h5yRvVvr9ZGDv77iYw7FA3bvTg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LOYP265MB2176
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,309 +166,125 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, 19 Mar 2026 12:00:53 +0100
-Marcin Slusarz <marcin.slusarz@arm.com> wrote:
-
-> Flags now control which data user space wants to query,
-> there is more information sources, and there's ability
-> to query duration of multiple timestamp reads.
-> 
-> New sources:
-> - CPU's monotonic,
-> - CPU's monotonic raw,
-> - GPU's cycle count
-> 
-> These changes should make the implementation of
-> VK_KHR_calibrated_timestamps more accurate and much simpler.
-> 
-> Signed-off-by: Marcin Slusarz <marcin.slusarz@arm.com>
-
-Still
-
-Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
-
+On Tue Mar 17, 2026 at 8:17 PM GMT, Joel Fernandes wrote:
+> Add a new module `kernel::interop::list` for working with C's doubly
+> circular linked lists. Provide low-level iteration over list nodes.
+>
+> Typed iteration over actual items is provided with a `clist_create`
+> macro to assist in creation of the `CList` type.
+>
+> Cc: Nikola Djukic <ndjukic@nvidia.com>
+> Reviewed-by: Daniel Almeida <daniel.almeida@collabora.com>
+> Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
+> Acked-by: Alexandre Courbot <acourbot@nvidia.com>
+> Acked-by: Gary Guo <gary@garyguo.net>
+> Acked-by: Miguel Ojeda <ojeda@kernel.org>
+> Signed-off-by: Joel Fernandes <joelagnelf@nvidia.com>
 > ---
-> Changes in v3:
->  - {} around multiline statements
->  - added comment about default flags
->  - added VALID_TIMESTAMP_QUERY_FLAGS
->  - used u64_to_user_ptr
-> Changes in v2:
->  - added DRM_PANTHOR_TIMESTAMP_CPU_NONE
->  - cpu_timestamp_nsec extended to u64
->  - pad1 removed
->  - copy_from_user -> copy_struct_from_user
->  - looking at size replaced by looking at flags
->  - more comments
-> ---
->  drivers/gpu/drm/panthor/panthor_drv.c | 134 ++++++++++++++++++++++++--
->  include/uapi/drm/panthor_drm.h        |  58 ++++++++++-
->  2 files changed, 184 insertions(+), 8 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/panthor/panthor_drv.c b/drivers/gpu/drm/panthor/panthor_drv.c
-> index 165dddfde6ca..029ef3295b06 100644
-> --- a/drivers/gpu/drm/panthor/panthor_drv.c
-> +++ b/drivers/gpu/drm/panthor/panthor_drv.c
-> @@ -13,7 +13,9 @@
->  #include <linux/pagemap.h>
->  #include <linux/platform_device.h>
->  #include <linux/pm_runtime.h>
-> +#include <linux/sched/clock.h>
->  #include <linux/time64.h>
-> +#include <linux/time_namespace.h>
->  
->  #include <drm/drm_auth.h>
->  #include <drm/drm_debugfs.h>
-> @@ -761,22 +763,135 @@ static void panthor_submit_ctx_cleanup(struct panthor_submit_ctx *ctx,
->  	kvfree(ctx->jobs);
->  }
->  
-> +#define VALID_TIMESTAMP_QUERY_FLAGS \
-> +		(DRM_PANTHOR_TIMESTAMP_GPU | \
-> +		 DRM_PANTHOR_TIMESTAMP_CPU_TYPE_MASK | \
-> +		 DRM_PANTHOR_TIMESTAMP_GPU_OFFSET | \
-> +		 DRM_PANTHOR_TIMESTAMP_GPU_CYCLE_COUNT | \
-> +		 DRM_PANTHOR_TIMESTAMP_FREQ | \
-> +		 DRM_PANTHOR_TIMESTAMP_DURATION)
-> +
->  static int panthor_query_timestamp_info(struct panthor_device *ptdev,
->  					struct drm_panthor_timestamp_info *arg)
->  {
->  	int ret;
-> +	u32 flags;
-> +	unsigned long irq_flags;
-> +	struct timespec64 cpu_ts;
-> +	u64 query_start_time;
-> +	bool minimize_interruption;
-> +	u32 timestamp_types = 0;
-> +
-> +	if (arg->flags != 0) {
-> +		flags = arg->flags;
-> +	} else {
-> +		/*
-> +		 * If flags are 0, then ask for the same things that we asked
-> +		 * for before flags were added.
-> +		 */
-> +		flags = DRM_PANTHOR_TIMESTAMP_GPU |
-> +			DRM_PANTHOR_TIMESTAMP_GPU_OFFSET |
-> +			DRM_PANTHOR_TIMESTAMP_FREQ;
-> +	}
-> +
-> +	switch (flags & DRM_PANTHOR_TIMESTAMP_CPU_TYPE_MASK) {
-> +	case 0:
-> +		break;
-> +	case DRM_PANTHOR_TIMESTAMP_CPU_MONOTONIC:
-> +	case DRM_PANTHOR_TIMESTAMP_CPU_MONOTONIC_RAW:
-> +		timestamp_types++;
-> +		break;
-> +	default:
-> +		return -EINVAL;
-> +	}
-> +
-> +	if (flags & ~VALID_TIMESTAMP_QUERY_FLAGS)
-> +		return -EINVAL;
-> +
-> +	if (flags & DRM_PANTHOR_TIMESTAMP_GPU)
-> +		timestamp_types++;
-> +	if (flags & DRM_PANTHOR_TIMESTAMP_GPU_CYCLE_COUNT)
-> +		timestamp_types++;
-> +
-> +	/* If user asked to obtain timestamps from more than one source,
-> +	 * then it very likely means they want them to be as close as possible.
-> +	 * If they asked for duration, then that likely means that they
-> +	 * want to know how long obtaining timestamp takes, without random
-> +	 * events, like process scheduling or interrupts.
-> +	 */
-> +	minimize_interruption =
-> +		(flags & DRM_PANTHOR_TIMESTAMP_DURATION) ||
-> +		(timestamp_types >= 2);
->  
->  	ret = panthor_device_resume_and_get(ptdev);
->  	if (ret)
->  		return ret;
->  
-> +	if (flags & DRM_PANTHOR_TIMESTAMP_FREQ) {
->  #ifdef CONFIG_ARM_ARCH_TIMER
-> -	arg->timestamp_frequency = arch_timer_get_cntfrq();
-> +		arg->timestamp_frequency = arch_timer_get_cntfrq();
->  #else
-> -	arg->timestamp_frequency = 0;
-> +		arg->timestamp_frequency = 0;
->  #endif
-> -	arg->current_timestamp = gpu_read64_counter(ptdev, GPU_TIMESTAMP);
-> -	arg->timestamp_offset = gpu_read64(ptdev, GPU_TIMESTAMP_OFFSET);
-> +	} else {
-> +		arg->timestamp_frequency = 0;
-> +	}
-> +
-> +	if (flags & DRM_PANTHOR_TIMESTAMP_GPU_OFFSET)
-> +		arg->timestamp_offset = gpu_read64(ptdev, GPU_TIMESTAMP_OFFSET);
-> +	else
-> +		arg->timestamp_offset = 0;
-> +
-> +	if (minimize_interruption) {
-> +		preempt_disable();
-> +		local_irq_save(irq_flags);
-> +	}
-> +
-> +	if (flags & DRM_PANTHOR_TIMESTAMP_DURATION)
-> +		query_start_time = local_clock();
-> +	else
-> +		query_start_time = 0;
-> +
-> +	if (flags & DRM_PANTHOR_TIMESTAMP_GPU)
-> +		arg->current_timestamp = gpu_read64_counter(ptdev, GPU_TIMESTAMP);
-> +	else
-> +		arg->current_timestamp = 0;
-> +
-> +	switch (flags & DRM_PANTHOR_TIMESTAMP_CPU_TYPE_MASK) {
-> +	case DRM_PANTHOR_TIMESTAMP_CPU_MONOTONIC:
-> +		ktime_get_ts64(&cpu_ts);
-> +		break;
-> +	case DRM_PANTHOR_TIMESTAMP_CPU_MONOTONIC_RAW:
-> +		ktime_get_raw_ts64(&cpu_ts);
-> +		break;
-> +	default:
-> +		break;
-> +	}
-> +
-> +	if (flags & DRM_PANTHOR_TIMESTAMP_GPU_CYCLE_COUNT)
-> +		arg->cycle_count = gpu_read64_counter(ptdev, GPU_CYCLE_COUNT);
-> +	else
-> +		arg->cycle_count = 0;
-> +
-> +	if (flags & DRM_PANTHOR_TIMESTAMP_DURATION)
-> +		arg->duration_nsec = local_clock() - query_start_time;
-> +	else
-> +		arg->duration_nsec = 0;
-> +
-> +	if (minimize_interruption) {
-> +		local_irq_restore(irq_flags);
-> +		preempt_enable();
-> +	}
-> +
-> +	if (flags & DRM_PANTHOR_TIMESTAMP_CPU_TYPE_MASK) {
-> +		timens_add_monotonic(&cpu_ts);
-> +
-> +		arg->cpu_timestamp_sec = cpu_ts.tv_sec;
-> +		arg->cpu_timestamp_nsec = cpu_ts.tv_nsec;
-> +	} else {
-> +		arg->cpu_timestamp_sec = 0;
-> +		arg->cpu_timestamp_nsec = 0;
-> +	}
->  
->  	pm_runtime_put(ptdev->base.dev);
->  	return 0;
-> @@ -851,8 +966,14 @@ static int panthor_ioctl_dev_query(struct drm_device *ddev, void *data, struct d
->  		return PANTHOR_UOBJ_SET(args->pointer, args->size, ptdev->csif_info);
->  
->  	case DRM_PANTHOR_DEV_QUERY_TIMESTAMP_INFO:
-> -		ret = panthor_query_timestamp_info(ptdev, &timestamp_info);
-> +		ret = copy_struct_from_user(&timestamp_info,
-> +					    sizeof(timestamp_info),
-> +					    u64_to_user_ptr(args->pointer),
-> +					    args->size);
-> +		if (ret)
-> +			return ret;
->  
-> +		ret = panthor_query_timestamp_info(ptdev, &timestamp_info);
->  		if (ret)
->  			return ret;
->  
-> @@ -1680,6 +1801,7 @@ static void panthor_debugfs_init(struct drm_minor *minor)
->   *       - adds DRM_IOCTL_PANTHOR_BO_SYNC ioctl
->   *       - adds DRM_IOCTL_PANTHOR_BO_QUERY_INFO ioctl
->   *       - adds drm_panthor_gpu_info::selected_coherency
-> + * - 1.8 - extends DEV_QUERY_TIMESTAMP_INFO with flags
->   */
->  static const struct drm_driver panthor_drm_driver = {
->  	.driver_features = DRIVER_RENDER | DRIVER_GEM | DRIVER_SYNCOBJ |
-> @@ -1693,7 +1815,7 @@ static const struct drm_driver panthor_drm_driver = {
->  	.name = "panthor",
->  	.desc = "Panthor DRM driver",
->  	.major = 1,
-> -	.minor = 7,
-> +	.minor = 8,
->  
->  	.gem_create_object = panthor_gem_create_object,
->  	.gem_prime_import_sg_table = drm_gem_shmem_prime_import_sg_table,
-> diff --git a/include/uapi/drm/panthor_drm.h b/include/uapi/drm/panthor_drm.h
-> index b401ac585d6a..8a46ef040c3d 100644
-> --- a/include/uapi/drm/panthor_drm.h
-> +++ b/include/uapi/drm/panthor_drm.h
-> @@ -409,6 +409,38 @@ struct drm_panthor_csif_info {
->  	__u32 pad;
->  };
->  
-> +/**
-> + * enum drm_panthor_timestamp_info_flags - drm_panthor_timestamp_info.flags
-> + */
-> +enum drm_panthor_timestamp_info_flags {
-> +	/** @DRM_PANTHOR_TIMESTAMP_GPU: Query GPU time. */
-> +	DRM_PANTHOR_TIMESTAMP_GPU = 1 << 0,
-> +
-> +	/** @DRM_PANTHOR_TIMESTAMP_CPU_NONE: Don't query CPU time. */
-> +	DRM_PANTHOR_TIMESTAMP_CPU_NONE = 0 << 1,
-> +
-> +	/** @DRM_PANTHOR_TIMESTAMP_CPU_MONOTONIC: Query CPU time using CLOCK_MONOTONIC. */
-> +	DRM_PANTHOR_TIMESTAMP_CPU_MONOTONIC = 1 << 1,
-> +
-> +	/** @DRM_PANTHOR_TIMESTAMP_CPU_MONOTONIC_RAW: Query CPU time using CLOCK_MONOTONIC_RAW. */
-> +	DRM_PANTHOR_TIMESTAMP_CPU_MONOTONIC_RAW = 2 << 1,
-> +
-> +	/** @DRM_PANTHOR_TIMESTAMP_CPU_TYPE_MASK: Space reserved for CPU clock type. */
-> +	DRM_PANTHOR_TIMESTAMP_CPU_TYPE_MASK = 7 << 1,
-> +
-> +	/** @DRM_PANTHOR_TIMESTAMP_GPU_OFFSET: Query GPU offset. */
-> +	DRM_PANTHOR_TIMESTAMP_GPU_OFFSET = 1 << 4,
-> +
-> +	/** @DRM_PANTHOR_TIMESTAMP_GPU_CYCLE_COUNT: Query GPU cycle count. */
-> +	DRM_PANTHOR_TIMESTAMP_GPU_CYCLE_COUNT = 1 << 5,
-> +
-> +	/** @DRM_PANTHOR_TIMESTAMP_FREQ: Query timestamp frequency. */
-> +	DRM_PANTHOR_TIMESTAMP_FREQ = 1 << 6,
-> +
-> +	/** @DRM_PANTHOR_TIMESTAMP_DURATION: Return duration of time query. */
-> +	DRM_PANTHOR_TIMESTAMP_DURATION = 1 << 7,
-> +};
-> +
->  /**
->   * struct drm_panthor_timestamp_info - Timestamp information
->   *
-> @@ -421,11 +453,33 @@ struct drm_panthor_timestamp_info {
->  	 */
->  	__u64 timestamp_frequency;
->  
-> -	/** @current_timestamp: The current timestamp. */
-> +	/** @current_timestamp: The current GPU timestamp. */
->  	__u64 current_timestamp;
->  
-> -	/** @timestamp_offset: The offset of the timestamp timer. */
-> +	/** @timestamp_offset: The offset of the GPU timestamp timer. */
->  	__u64 timestamp_offset;
-> +
-> +	/**
-> +	 * @flags: Bitmask of drm_panthor_timestamp_info_flags.
-> +	 *
-> +	 * If set to 0, then it is interpreted as:
-> +	 *  DRM_PANTHOR_TIMESTAMP_GPU |
-> +	 *  DRM_PANTHOR_TIMESTAMP_GPU_OFFSET |
-> +	 *  DRM_PANTHOR_TIMESTAMP_FREQ
-> +	 */
-> +	__u32 flags;
-> +
-> +	/** @duration_nsec: Duration of time query. */
-> +	__u32 duration_nsec;
-> +
-> +	/** @cycle_count: Value of GPU_CYCLE_COUNT. */
-> +	__u64 cycle_count;
-> +
-> +	/** @cpu_timestamp_sec: Seconds part of CPU timestamp. */
-> +	__u64 cpu_timestamp_sec;
-> +
-> +	/** @cpu_timestamp_nsec: Nanseconds part of CPU timestamp. */
-> +	__u64 cpu_timestamp_nsec;
->  };
->  
->  /**
+>  MAINTAINERS                 |   8 +
+>  rust/helpers/helpers.c      |   1 +
+>  rust/helpers/list.c         |  17 ++
+>  rust/kernel/interop.rs      |   9 +
+>  rust/kernel/interop/list.rs | 342 ++++++++++++++++++++++++++++++++++++
+>  rust/kernel/lib.rs          |   2 +
+>  6 files changed, 379 insertions(+)
+>  create mode 100644 rust/helpers/list.c
+>  create mode 100644 rust/kernel/interop.rs
+>  create mode 100644 rust/kernel/interop/list.rs
+>
+> +/// Create a C doubly-circular linked list interface [`CList`] from a ra=
+w `list_head` pointer.
+> +///
+> +/// This macro creates a `CList<T, OFFSET>` that can iterate over items =
+of type `$rust_type`
+> +/// linked via the `$field` field in the underlying C struct `$c_type`.
+> +///
+> +/// # Arguments
+> +///
+> +/// - `$head`: Raw pointer to the sentinel `list_head` object (`*mut bin=
+dings::list_head`).
+> +/// - `$rust_type`: Each item's rust wrapper type.
+> +/// - `$c_type`: Each item's C struct type that contains the embedded `l=
+ist_head`.
+> +/// - `$field`: The name of the `list_head` field within the C struct.
+> +///
+> +/// # Safety
+> +///
+> +/// The caller must ensure:
+> +///
+> +/// - `$head` is a valid, initialized sentinel `list_head` (e.g. via `IN=
+IT_LIST_HEAD()`)
+> +///   pointing to a list that is not concurrently modified for the lifet=
+ime of the [`CList`].
+> +/// - The list contains items of type `$c_type` linked via an embedded `=
+$field`.
+> +/// - `$rust_type` is `#[repr(transparent)]` over `$c_type` or has compa=
+tible layout.
+> +///
+> +/// # Examples
+> +///
+> +/// Refer to the examples in the [`crate::interop::list`] module documen=
+tation.
+> +#[macro_export]
+> +macro_rules! clist_create {
+> +    (unsafe { $head:ident, $rust_type:ty, $c_type:ty, $($field:tt).+ }) =
+=3D> {{
+> +        // Compile-time check that field path is a `list_head`.
+> +        // SAFETY: `p` is a valid pointer to `$c_type`.
+> +        let _: fn(*const $c_type) -> *const $crate::bindings::list_head =
+=3D
+> +            |p| unsafe { &raw const (*p).$($field).+ };
 
+Actually, this check is insufficient, you should create a reference instead
+(just in case people put this inside `repr(packed)`.
+
+This could be something like
+
+    let _ =3D |p: &$c_type| { _ =3D &p.$($field).+ }
+
+?
+
+> +
+> +        // Calculate offset and create `CList`.
+> +        const OFFSET: usize =3D ::core::mem::offset_of!($c_type, $($fiel=
+d).+);
+> +        // SAFETY: The caller of this macro is responsible for ensuring =
+safety.
+> +        unsafe { $crate::interop::list::CList::<$rust_type, OFFSET>::fro=
+m_raw($head) }
+
+Given that this is unsafe, I am not sure why the macro should have unsafe
+keyword in it, rather than just being `clist_create(a, b, c, d)` and just h=
+ave
+user write unsafe.
+
+The offset could probably benefit from similar strategies we used for other
+embedded data structure like Rust list and work items. Boqun has a series
+unifying these and clist could probably use it, too. (As a follow-up)
+
+Best,
+Gary
+
+> +    }};
+> +}
+> diff --git a/rust/kernel/lib.rs b/rust/kernel/lib.rs
+> index d93292d47420..bdcf632050ee 100644
+> --- a/rust/kernel/lib.rs
+> +++ b/rust/kernel/lib.rs
+> @@ -29,6 +29,7 @@
+>  #![feature(lint_reasons)]
+>  //
+>  // Stable since Rust 1.82.0.
+> +#![feature(offset_of_nested)]
+>  #![feature(raw_ref_op)]
+>  //
+>  // Stable since Rust 1.83.0.
+> @@ -107,6 +108,7 @@
+>  #[doc(hidden)]
+>  pub mod impl_flags;
+>  pub mod init;
+> +pub mod interop;
+>  pub mod io;
+>  pub mod ioctl;
+>  pub mod iommu;
+G
