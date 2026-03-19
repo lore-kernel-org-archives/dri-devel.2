@@ -4,139 +4,139 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 04E36109022E
-	for <dri-devel@archiver.kernel.org>; Thu, 19 Mar 2026 14:34:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9B1101090233
+	for <dri-devel@archiver.kernel.org>; Thu, 19 Mar 2026 14:39:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6953310E8ED;
-	Thu, 19 Mar 2026 14:34:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0400610E8F1;
+	Thu, 19 Mar 2026 14:39:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="X/doa5lV";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="XqQMfoLg";
 	dkim-atps=neutral
 Received: from CH5PR02CU005.outbound.protection.outlook.com
- (mail-northcentralusazon11012003.outbound.protection.outlook.com
- [40.107.200.3])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0541A10E8ED
- for <dri-devel@lists.freedesktop.org>; Thu, 19 Mar 2026 14:34:37 +0000 (UTC)
+ (mail-northcentralusazon11012013.outbound.protection.outlook.com
+ [40.107.200.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A026210E8F8
+ for <dri-devel@lists.freedesktop.org>; Thu, 19 Mar 2026 14:39:26 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=W9LHZAi9fVoBM8zqFDI1m+cHjLeUEOEVRjU7mH3cErCya9F0k0ESv4cIPQP22QmLpAt6KOUplCbVEv4WY3k3SoXDs8Sh2DcuIwkY8Eokp6clXVWQHs3ee2dgssF3yivPL5OuE/DkBqgCfEJe7+w477Mq5eJhNbGOLcAA/YwrP+LcMwVBHRMYUMtXELuF6mxhZsibPCDLwTlkRGcrAUqtZBHARGgjzT/5RA/Vvb7C8K0LZnsxbSwnB+z0dOX8Fhe9big3JfOwgQzNm2BPIqk1MEWdcRSr3J9ozXwQPGkeSzS5rImOWbEVUUs9s6OXuc8MjPJt/Orin/UyyrX6uubX+g==
+ b=mTTdfmiNCoj+nngrQ5xlfVI8jQiZZhUWQOO8bY1UI7cIbhpX7xrQ5wqaw+MQBNtD8Sk1SanGMltD/Lxk+R1J2a+VJEraLDIz+HZyGx03176HgsRnqAo4/G/ajDKy4krGQmNXga2lBMFdiAo5kLGhspNGoh44PVoj+qnewoYQOKCgz8rS8L6CTfS4BPkQ7rfcNy5c0cNE6GLbknTnNbAWSswv19SBJnz68M1UAmKGPjxUnNsmPWmCI6qaa8mS5OEIJwHQB0XsZD/f9zadktONJ++KWYdRZMn3dL1DIT2BfhyPMEBNhCUFLrlOzw7IJ9R/sz5Sg7NJKNJ6ISkjPoC/EA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=J4qbYp4r7dPG3qYJ8ExKGtJH0EIZYwxY22mo05bIKcE=;
- b=n5bWA/h4PAdkPLtaMJcI9xpnbtyDI1KwLyLULiSf/IOAWN4DEJltYPDXMkq7kimDur9ijx1Gwbm02OP5hNFNeqg1QZZ2DPzpHV1Vy6A/UsHn21AmkTBrDoH2mB2wepnD/AnRDta2kGVG9xhbZn5Lafj88TDgge9M9kyZivs4cxh+NhoJuXMfMLRu/xjnqe5IiU5Y8s6vLNnUj9Aant4wia3ZhjIGMYPQswCax5QhIMbNuXtF9Prxl29ouQ+fpZqTDe/vK6bUCK7jJKKwkw3K/FTdhEWKnmy8j5DpOFwv0AZkzPR1hGNTaHHIinDO8bi6GVu+KZcSjpc4Y8/gvfri0g==
+ bh=gcXuPw55uQYatuAqOyDwBDCr6ctEA6psFUah4HFKnM0=;
+ b=pHQPGkqmBlYVEItY8aUKzaeR2GP//uzrvZeVWqgoTlDsDk7zje5WbgjLPGoMk3a32+fge6PL8amxIA6sbaD4PdGsezY2BrQL5Y1En/Hyd2dyLZ+n58vQmjO7qqBKieMzHy+efWlvN1kvsBvVYI0mqLJ9Kd2ct6iVXoBL1WRjeuz38fnrQQxoCf8cRegp/2kOO8lzvG7Lp2bvFZvSmzdNo7vnUbcJLcTlqn86JuG1MtkrEow6bo8pfx9OEoLXPPdAOp5gol9iJwYSHU5Sl2tZ8ghVZTAtq+YLxyXDsk7DOO2uT7xPufrfcCTnoOjDCRIrambUsz/cZ+83OZos0EgnIw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=J4qbYp4r7dPG3qYJ8ExKGtJH0EIZYwxY22mo05bIKcE=;
- b=X/doa5lV4AXu6N+U4/GQmeIg2RR7ZjNu0Wv/MhICT4w7hKxDk1a4mywdm0CfJkHmwN56VdGGiJamU4GpFCje5k3Q08NucjUYad0+bKxMZJxDB8W1HDPJ0ZS2tkV3RcHbblKmOZHEpKKtcqrNzk4MiYUnMVXpjpEOdXGeTVB5kzFwC9L/1jBrt8vVv2YCxQZV0HoJaubcsrtn+aZi1JT2tkl3AWmN3SZbPAVG5FTqcAggSvTEZTk24avkgl0j+FODfdbd9p460c+pQtjBzkr78zl6rEC4wDaF7Bwz0r5pWXguLGAEsFXj9rY+91+X0WhLFj2TsmUz4mCW+9XT3/dLQQ==
+ bh=gcXuPw55uQYatuAqOyDwBDCr6ctEA6psFUah4HFKnM0=;
+ b=XqQMfoLgRODSTq+gFkTyuRT3+EVnbyr2+mJ/5CXe1wrS1PkznNvATzoPy0o6zEOMRxBR6SMUSYNs22DvQWruDNYVjd0Va8XtA+LvEUJRWQEpKYuUOdokXYtaAijYhjNK2oIk7SerBAKYpL9d8UAT7cW36pgm3UOpgM7pzwUr3UM2mJrfbrdA47Sib1VYeU+roqACCCmkBKEMNzQWVBfrFutEt87q8SL3uNrtqYutlwAfrXH6y4nvJjvSBdTWbcp9pqyZKDSKWfk9+KfMhUNSgItrje5cqG+Jv47U9tOYgsua5cH3YICh8tNXgmylsepGbC5XtYf1YhWcnGm8eySepQ==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
 Received: from CH2PR12MB3990.namprd12.prod.outlook.com (2603:10b6:610:28::18)
- by CH2PR12MB9543.namprd12.prod.outlook.com (2603:10b6:610:27f::22)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.19; Thu, 19 Mar
- 2026 14:34:27 +0000
+ by DM4PR12MB6061.namprd12.prod.outlook.com (2603:10b6:8:b3::5) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9745.9; Thu, 19 Mar 2026 14:39:17 +0000
 Received: from CH2PR12MB3990.namprd12.prod.outlook.com
  ([fe80::7de1:4fe5:8ead:5989]) by CH2PR12MB3990.namprd12.prod.outlook.com
  ([fe80::7de1:4fe5:8ead:5989%6]) with mapi id 15.20.9745.007; Thu, 19 Mar 2026
- 14:34:27 +0000
+ 14:39:17 +0000
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Date: Thu, 19 Mar 2026 23:34:24 +0900
-Message-Id: <DH6U0CO238C0.MHQ7TUBQTA9L@nvidia.com>
+Date: Thu, 19 Mar 2026 23:39:13 +0900
+Message-Id: <DH6U41MJ3T56.2L7AY1VDW57RS@nvidia.com>
 Cc: "Danilo Krummrich" <dakr@kernel.org>, "Alice Ryhl"
  <aliceryhl@google.com>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
  <simona@ffwll.ch>, "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>,
  "Maxime Ripard" <mripard@kernel.org>, "Thomas Zimmermann"
  <tzimmermann@suse.de>, "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng"
- <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>,
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
- <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Trevor
- Gross" <tmgross@umich.edu>, "John Hubbard" <jhubbard@nvidia.com>, "Alistair
- Popple" <apopple@nvidia.com>, "Joel Fernandes" <joelagnelf@nvidia.com>,
- "Timur Tabi" <ttabi@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>,
- <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
- <linux-riscv@lists.infradead.org>, <linux-doc@vger.kernel.org>,
- <rust-for-linux@vger.kernel.org>
-Subject: Re: [PATCH 7/8] gpu: nova-core: convert falcon registers to kernel
+ <boqun@kernel.org>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
+ <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
+ Hindborg" <a.hindborg@kernel.org>, "Trevor Gross" <tmgross@umich.edu>,
+ "John Hubbard" <jhubbard@nvidia.com>, "Alistair Popple"
+ <apopple@nvidia.com>, "Joel Fernandes" <joelagnelf@nvidia.com>, "Timur
+ Tabi" <ttabi@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>, "Eliot Courtney"
+ <ecourtney@nvidia.com>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>, <linux-riscv@lists.infradead.org>,
+ <linux-doc@vger.kernel.org>, <rust-for-linux@vger.kernel.org>
+Subject: Re: [PATCH 1/8] gpu: nova-core: convert PMC registers to kernel
  register macro
 From: "Alexandre Courbot" <acourbot@nvidia.com>
-To: "Eliot Courtney" <ecourtney@nvidia.com>
+To: "Gary Guo" <gary@garyguo.net>, "Jesung Yang" <y.j3ms.n@gmail.com>
 References: <20260318-b4-nova-register-v1-0-22a358aa4c63@nvidia.com>
- <20260318-b4-nova-register-v1-7-22a358aa4c63@nvidia.com>
- <DH6IJKX25H7H.28NWD4KJSXX73@nvidia.com>
-In-Reply-To: <DH6IJKX25H7H.28NWD4KJSXX73@nvidia.com>
-X-ClientProxiedBy: TYCP286CA0039.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:400:29d::13) To CH2PR12MB3990.namprd12.prod.outlook.com
+ <20260318-b4-nova-register-v1-1-22a358aa4c63@nvidia.com>
+ <DH5XZP4LPOXG.XL69OTK91FIX@garyguo.net>
+In-Reply-To: <DH5XZP4LPOXG.XL69OTK91FIX@garyguo.net>
+X-ClientProxiedBy: OSTPR01CA0010.jpnprd01.prod.outlook.com
+ (2603:1096:604:220::11) To CH2PR12MB3990.namprd12.prod.outlook.com
  (2603:10b6:610:28::18)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PR12MB3990:EE_|CH2PR12MB9543:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0f98f920-1fbb-4ca7-41ad-08de85c49fa2
+X-MS-TrafficTypeDiagnostic: CH2PR12MB3990:EE_|DM4PR12MB6061:EE_
+X-MS-Office365-Filtering-Correlation-Id: 70d42f98-5cc8-4025-baa9-08de85c54c66
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|7416014|366016|1800799024|10070799003|18002099003|56012099003|22082099003;
-X-Microsoft-Antispam-Message-Info: X4IGdTImngURu5AAdGWYIXyELdAkGOdfLTpXYlI0+L5i0yHY4kMUIG2MtZBKeu8MpGlr2eyKsgf8AbcqSXt3K7LcBrAXc/izf95TzpVJFlhTgnY/PJEvTn5jyVlF83yMrrSr4WhpClLYl1EsCVn10QKPl1C7Qim/xeaMEQEg9cbq+f4EO5A+wRltclJZcaAybhWvLGfV1oFT2XkSfB6p0+xaPQZ7Wpv+nuG0qy4LOcpQnmCKaEm++LU3SwtUGPXOvr6MZhhcLBHCOmZchbzlc8D5Q2EgX6Oo4nVl/Ffqiste9un5KOWLE2X/p8sEA0KC+9ejygFBIzOt029aVtHkIgREkJPdTpIdDA/45Vb1xC+1/b7XZuRakL/yMk87Fl2J1B00JwBGQprjHJBM9UvnDAl7DgTzGn9l0I5Tw8KcFDe09S8jut+rAAcMGPpeXXI/2+lQ7RKqgWxaOVtCNw/qS1zXjPNc3EqMlwU790dOETClbv2N7+7qTmgHoyrF3ESANRQIwOFwSS0iSaRXnOyrEvQoGJ71XGXUTO/2Iz5qbTOPN5CAohJN8f7+S3V10SZnP8sYcQZHUZTfvHK+eUqTvNR9my5BqpnLbZHtqC5EU8day6Q+B0wJOFoDwUpRpo2dBjAGE8XaYR7zy5NQw2eVVH6mYGMqYkfLznNxch9dg2MALd3p4iuFJ1C6SOf3V9rkko9Z0G1p60RWcrkCCIbR0MSunea9a10nj4OQ63dLhwvMYzmWuF00v+vt0DZz93eb
+ ARA:13230040|7416014|376014|10070799003|1800799024|366016|22082099003|56012099003|18002099003;
+X-Microsoft-Antispam-Message-Info: 1OuvJsu59NX7b3yb/9LulyR7pdAJXTMZm/g59T2J2R3Ffh9+GnVQ1eQQ0eCs2FxASQthRUPsTTx2UHzsxzejlMj7edNmD6RpbvlaOduTiAIJmi6Tyxf1gyqhO3PiCzLEY6B6s413fg0jBv95L7dLsmi9qXGX0HJJMTsanFMp8+fPbEM73DRb36yo86vjDvlUu/MwxsDpFGd7s+XcWGhqikYkuHH4S/oZo4sZfbs6vGGa94nMsQK/RdJpUS9a+gMA6UzTSy9N7B6VOCdHJbUoMOYp2YGIRgQXcOkLkx95SCX41cDe3SOs2NBIOO2L3/5ndErpQCW61Agy/7TAbF0a9QBj6THFuGKODyZ5UsiDPy5xzAvZ3Awyhfp2oxCgGWrJtzthLveWYqRu1vP+a0D0Nx8JXG7qgj+x+8e4frM6nD0wtwp1uuWGnYVc1IZdC53GAnngxsZMxwAls+gLzl68jPC3F/1tpDP63SAko8NELOXgStC3R3SWq0qE34zDxdur/hDSFuyEOx1VFTlhrnDCKT+AJ3a/eIchurEulscqCGybMiGg6nlAT0YX9YE41uxjI4FddgwG8yyIcHvxNP5Uzv0wcWuuei/Gde7662O8FLpnydEpJVLCO/pC+Eg6rUjYzbbUCBl8Y9s8NFmSj/pzUZFnRVZi+63ie1yFT/0MsEIsWaRSeR7/iZZQD5cnR9EZ44kwkF5AsCslltnMJhW7Crf7e7qUOyHeYT12Fyh+xvs=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:CH2PR12MB3990.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(7416014)(366016)(1800799024)(10070799003)(18002099003)(56012099003)(22082099003);
+ SFS:(13230040)(7416014)(376014)(10070799003)(1800799024)(366016)(22082099003)(56012099003)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?d0diS0V6di9PUUJYbHdBdTRZOHNoSDF2YUFSVW5XeW5Wb2xSQzdSY3JueitC?=
- =?utf-8?B?UE5meDE3UnY3R0ltZXlGWG5GMGR3UDBEVFFMOWhyd2IyemU1VGREai9vMG1i?=
- =?utf-8?B?dEh0UFY5eWc0RmRhSWJsM0V4eHd3Y3pPbUhCVEViaUQrQlYydTExQTFReXlT?=
- =?utf-8?B?aXFHamk5QVV0c1orL0t5bkxpRVlxbHVEYTZTQUlzR3dBQk41Y25ZRmpSWmZ3?=
- =?utf-8?B?MW0xL010L1grSjd1MFljRjlmTGEzU2t2ZUJHVUtrZncyMjZ6WGdwYWZnZmlG?=
- =?utf-8?B?Z085MGw4ZVJZVlFJTzhOM2dybG42NWgwSWY0aG9CWi8rRTA3ZDJ4OU1xMzZy?=
- =?utf-8?B?RlZIWEFZenhMUjNxbDhEUWxNbjlCVEw4UENjM09EeVBrZVhwaFZaQmw1N0pm?=
- =?utf-8?B?dklYUVRSQmo3SjhQUDc0cWlpYlh4cXdRTzY2UnhKdWdueUFuVVZnMFlQYUxZ?=
- =?utf-8?B?YXFYM3FNZVZwT0lJZjJkbXlYUDl6MG51ZmZiUXNsTllIS1dkaXF1TS9nbjUy?=
- =?utf-8?B?T25QYkk5OWp3YU4zOHdSNHd4emsyK0dJcTcxcmJldmgvZWYvRXlTN3I0M2M2?=
- =?utf-8?B?R1dpVDBUQ0h0YUNDWlh4b3BqUnlKWXp0TEVkM0JrNzA4Sk1qR2N6ZGRRUnYz?=
- =?utf-8?B?V05nbWFLcUZudWI2QjJSb2JBb1dFT1BDaGFMV0E4K1hVSUtOT042VnRFOXlI?=
- =?utf-8?B?TitDbzhYYm1BMStKcUNmeFNhT0xta0RsUjE1U2FkcW1ydVp1ZENKU1JLbnYw?=
- =?utf-8?B?S3ZUdzBwL0h2MWh1QTlHTWVwbnpvS0I5MTFuaGU3L3I5d2F1amtjb3VUN3Nj?=
- =?utf-8?B?SDVJZ0dXcjFxWDEwUG94c2UrR1ZGWmdFS0JBbGJFZGs1TGFaYWtJOXE2SG8x?=
- =?utf-8?B?SmxVT29DTXVZSVN2QnlXQU1sVmNjNHRKV3I0dWFVc045R2NpSUxLanhlNWNG?=
- =?utf-8?B?bFBQNlJUdGkxQUpYaGcwTVJVSUJmdmpWTUtvMVZ1V0pzQlJEQnh3dGt3N3hz?=
- =?utf-8?B?YmQvSTFGaE1pV2RNVkY5S2FVbHhnbmM4TmlaWWtsNTZUVjROSFdjSldza2NK?=
- =?utf-8?B?SFdkT2VLRTRwYTFseDBzV2FCbEpEZ0l6dmtybTA1VWpDVTMvV1hEdkJGdERV?=
- =?utf-8?B?NldtekRvVW16cmZVcDdwSnFRc2NObm1KbGl3NUNiYU5zRUoyRnFhaTkwaFND?=
- =?utf-8?B?eE83ZWxZWmFURit6NnpYL1VzK0xYRnJWSzdyaVp6RTFGOWFaZ09TcHV2ZEJ4?=
- =?utf-8?B?YnZrWUwzUkFleGQ5d2NDMjUyQXVGb1pBMkVadjZzWXBhbCtIRnl5SVlQemZl?=
- =?utf-8?B?Nm9mdktLYW90QXFrQ29tRGxpa2UyMUJsQnNoOG5HL1k3V1FRcVRsRHluZEdi?=
- =?utf-8?B?T2g0dG1uT1NuSGlISFBNdmQ0a0hIVmFnS2NNVVZONVRiY3FjWjA1enZzTlhF?=
- =?utf-8?B?QnEySUVaODhkTktlMlZkUXBpa1MvNjBWQlBQMDZ1RFY0SjdEd2FZdDhlSjRa?=
- =?utf-8?B?SkgxMjlKd3pRZTdwODRhN21nQUtiTjZ2WXI1VmdEOHB0azErRGxPZE56NXpm?=
- =?utf-8?B?Unp1Q3RvSE1rZ1FEUDNqU1VGODMwQWJOZUpMOStRRjBGNmhKeGpBSE1FRmQw?=
- =?utf-8?B?WFdpdUUzRVpyWVo2U3dCSlI5RktTa3pVOUdUbTBhWW5ST2NERkxSOW0rM0lh?=
- =?utf-8?B?RHhMemdFK2orYjZHbkRVVk5mektDNFhRZzNvSmNSc0VnYmFjOW92QUVyQ1RQ?=
- =?utf-8?B?dTUwWlMzVzJuVDJxN0VCQngwVEZmMk1XSEtQSVQ1ZFpaRzd6Ris3TGprTUFo?=
- =?utf-8?B?YVFGR2syZlBIb1BjN0VXMHJDZERIY2RIaytTbHZzZUhXOVNCOEVZWjFyVHY2?=
- =?utf-8?B?bHd5d1lTSzIvcXhBZFRkeDlYbmJwaDBNNnNWM0hzc3d3UHNvdlVPRm5WRW5S?=
- =?utf-8?B?NmtXOC8vL0hDL29TcVR3Z09mb3k2amJaUW1pYllDNHE2bUpJT0Q1MFplaXAw?=
- =?utf-8?B?RXFZS01TUFI3cWorSnJ0TFdWaGQ5NjRYZTRLdE1OdWRuM2M4cXZ1dFZNeTlq?=
- =?utf-8?B?ODZlV2R4Q2pwWjR1WHBGVWxzM3FjNlNaU2ZCOHRQelJsd1pGT0ZuWnBvQlFh?=
- =?utf-8?B?YkZHTVpCcVV5Vi9WTG14ZzRvekx2TTlsUW1DV0FZdnVodnBKd1JiZlozTElw?=
- =?utf-8?B?MXd4TTNaZlhicmxySFhBSEtmNm5iNXJzdGh1U29jL3hDYmVJbUxFSVpyTEo1?=
- =?utf-8?B?SldDaHdQNi90cmtqWmUzeEk1bTlIOGx2RmhEcDM0QStkSUpkL1VxOVNPcG1F?=
- =?utf-8?B?Um5aOTZZN0swaTJRSk02dkpzNmJHaGdJM1VpRlF5cWhqMVNBRlByM3BCZDJS?=
- =?utf-8?Q?czUFySgmc+30YIS+GHkeZL2Io+VZXyJD0euKPK2n+X3vy?=
-X-MS-Exchange-AntiSpam-MessageData-1: klcgmHn3ATX1BA==
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Mk1OL29uUGRlaWlFb0w1aFR5TkV0Wm8rS3Npc0ZHVlUwaExHTC9kWmdsemdO?=
+ =?utf-8?B?T0hFUi8xTnRSSVlLcVlnMGZ0WTZOZlRIQzZ3Vnl6ZVR3WTQ2YXQ5M1lMVURS?=
+ =?utf-8?B?M3hzUE5NR1h4N0hWM2ZSTjVNLzVMbHZqT1VPWThTTGhtN1k5cC9IRjBwTHdZ?=
+ =?utf-8?B?NnJzNHdydGppU3I5NXVMZVFYSHFpVG44MjJXL1NDcThwOERGdkFyMC9VSFRp?=
+ =?utf-8?B?VHB3QzYyNWZMWnFJM1dZQTR0bVZCSUdnODRlbUFtaVhqZ3hPQWtPVmUrZnNZ?=
+ =?utf-8?B?T1dNcmphSDhXUFZKUEN3dk5KZ2h3bDhWanhnMjk2aU43MDl1Slc2L0tXTGc0?=
+ =?utf-8?B?enUyNktEQm1VRmtkR3FGUHpsb05oSVY1ODRGMU8wQ2ZCazhyeVkzZlFmQ05B?=
+ =?utf-8?B?U2RLOFBvOU0xSUVGTnlZREZubzBPOTY1TzhjdWY0RmtoWkNaSlVtQ2Y5akF4?=
+ =?utf-8?B?ZG1KMlFOeUN0RE5weEc1R2MzUnhDT3MzM1VHZ0wxZ0NEcW5URVBhdTBoVXlN?=
+ =?utf-8?B?REFCeksyd0ZrZ3N0TlJjRFVyZDVpTzhQeDBWSnRGdWhXcy9uM05DVG43SXIv?=
+ =?utf-8?B?cDIraW1HZGRUZ0svQnRYQ1JNa3RQeFFCK0JteFltdUhBZ0VwQTFMdmlQUDNK?=
+ =?utf-8?B?UVVRSnlVYllNMEZBaVlBT3NDL08vRHhQNHdTSDBHRmxjUDRld2dKS0FXUzQx?=
+ =?utf-8?B?Ky9PVkNyM0h0UE5VSVE0MVhRUXJKc1BQM1dPV2dtM29RdE5CQ1NQSUxKSVdq?=
+ =?utf-8?B?d21WQzhVY2xORjJGWXo0RlE4WXc0RHZKNDRzZGVTbEpxQkZWZHhrb3FyZ0pG?=
+ =?utf-8?B?UTI0eWlQYTVVNmd5NmZzaEpxRDdoTnhOWW9tVVVxWXlVMldmS2xOYWFIbEtG?=
+ =?utf-8?B?Um9IcncvcXEzbzFsN1RmZi9aeDQwZm9QS1FBa3VwdHZQU2dSRlFDTlUyY21I?=
+ =?utf-8?B?OGNwbVNEcXQwOHRWbTE5ZTJ5cGgvRTBpVkUvMGhWSTZXRGQ5SVpTakZoQlpJ?=
+ =?utf-8?B?c1RFYjhWNy9MaDJscXlBZjZJUzlmbE1yMzc1aG5EbDQyTEl0RWFrelNWeWNz?=
+ =?utf-8?B?Ymx2WjNqTVh6M3BOUjMzVWVib3RYdnZkeG5heDZNdURZN2NubFRIdm5xVkYz?=
+ =?utf-8?B?WDlZdnZBcmFqVEZCR0JzQ045TGNEb1p3b0Jna3N0bm5HTjRLVmdXL0VaSEtE?=
+ =?utf-8?B?ZmFqTmxlT0JRa3hmUE4wWHg1MHpsOXV3NWUrVURCVU5ZY1BaUlpSRVlOaCtJ?=
+ =?utf-8?B?QWxqMDZveFI1elUvWjJRbUZ4aDhjT1RGUkxQV3hRYnMyT0J2cWdGTGp4REYr?=
+ =?utf-8?B?c2dJRXA2b2FjN1RZUWJlOHp0aTUwUjVTSHFHWG9KeWplSjZ5TWdFQ3NpSVVN?=
+ =?utf-8?B?ZnUxSklrSmptZmsvaExDNWZZMW54WUpaVS96MWJBZ1RqOWhkWTBIaDBzTU5Y?=
+ =?utf-8?B?eEhFbU1QSkMrSjJ3OVdZbE1tMUhncFN6ZnFFOXVhMUdZcGxoZ2M1eFdRdnNs?=
+ =?utf-8?B?MGNrZkNWQTgwMENOOHZPRVhyZlNiQ00wbWc0UiszTlRHMFhJNlVKa2J3R05S?=
+ =?utf-8?B?M1R1SmZCSTdwMTYzWFp2RnJOYkVlOWpnMEN1NUhCWkFLaUNhV1dER0svY2Vu?=
+ =?utf-8?B?VDViVmd3dnFESllZL3I3MmprOU16Tjd6MHFVcTd3YlFLdE9UU3dvMmgrQWll?=
+ =?utf-8?B?SVlPNlVNSG5pdytiZVhKdDRoV2E2OVlFR3RvTnZZdFJZbXlUMmhqVXNPalNS?=
+ =?utf-8?B?Qnl1N0J0Z0x2Z2dsUHN3U1hJS0FsdDNXeTNFWmUzOHp0bGQ5Rm9pZDJXQUZx?=
+ =?utf-8?B?S3RseFYxTWY4KzVzOUFkZzRBcGZFSE55M252cEhBTUsyOVY0bDNwRTQyU2hL?=
+ =?utf-8?B?bDI3QU9uUk1odUFUd3VPSVhWNnlWQ0VKMkt4dE1QWjgzZTVCYkJPcVhBd0lx?=
+ =?utf-8?B?TDg5R09XbjZOby9JcHFoOVQ1dHFWdkE1azQwV0hnRTNqY0QwZW5TMngxU2Fi?=
+ =?utf-8?B?V3poK1Z3aHlpTGwwS2lGQ3NVWkRjalUyMXh1UnhKUU9iTkxTUkZ6Rkt0TGJW?=
+ =?utf-8?B?MFN5bktIMVAzQmxEL3NvT0swRDJZTkk1NmZVTGpEQzFKQkdYOEw4emVIbWdl?=
+ =?utf-8?B?VGhCdEJRV1RNRm56c1AxSDdsN0FCWjJXZmcxUEtQNlpjN2Y2YmQycGZUSWcx?=
+ =?utf-8?B?aEI0Y2NtS1FseEVndk55L2o3WWE1Q213bWt6T0JYRm9mNTJxaDJUbzF1Ullz?=
+ =?utf-8?B?cDQyaHpUeTRTRURSQnd1SmNrNE5OeTZ6NUpNSUVsOW9uTm5nZTN3L1VQMDFv?=
+ =?utf-8?B?bGoySWxLdlVBOTZqL2JROSt5YUNxYkhYY3RUWlpXOE9sTjJTdmV5OEI5UmNM?=
+ =?utf-8?Q?1Hs7k6KNeCgoQpKpn9OQ9k0VT2+MC44tnNiJQ3cSz4kFA?=
+X-MS-Exchange-AntiSpam-MessageData-1: 3Dfp5YL8CS8zQQ==
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0f98f920-1fbb-4ca7-41ad-08de85c49fa2
+X-MS-Exchange-CrossTenant-Network-Message-Id: 70d42f98-5cc8-4025-baa9-08de85c54c66
 X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB3990.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Mar 2026 14:34:27.3111 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Mar 2026 14:39:17.1720 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: dARSyek96yE+WZSNZMsn2pJdJ/RlJD125Cy+j9O1ZvoPgrELBWd93dRbBy4ciypCJhHgsqcmnFnA1brpJlWE4g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB9543
+X-MS-Exchange-CrossTenant-UserPrincipalName: bSRE4yngT79drDbvG/EjHQ4UHDOrMUXIr+41LwDLgyuiMMvr5UnRF92Tm2k9ubnjdjgp3YkcHZLjXUpDurEhsQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6061
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -152,532 +152,274 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu Mar 19, 2026 at 2:35 PM JST, Eliot Courtney wrote:
-> On Wed Mar 18, 2026 at 5:06 PM JST, Alexandre Courbot wrote:
->> Convert all PFALCON, PFALCON2 and PRISCV registers to use the kernel's
->> register macro and update the code accordingly.
+On Wed Mar 18, 2026 at 10:28 PM JST, Gary Guo wrote:
+> On Wed Mar 18, 2026 at 8:05 AM GMT, Alexandre Courbot wrote:
+>> Convert all PMC registers to use the kernel's register macro and update
+>> the code accordingly.
 >>
->> Because they rely on the same types to implement relative registers,
->> they need to be updated in lockstep.
->>
->> nova-core's local register macro is now unused, so remove it.
+>> nova-core's registers have some constant properties (like a 32-bit size
+>> and a crate visibility), so introduce the `nv_reg` macro to shorten
+>> their declaration.
 >>
 >> Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
 >> ---
->>  drivers/gpu/nova-core/falcon.rs                    | 333 +++++-----
->>  drivers/gpu/nova-core/falcon/gsp.rs                |  22 +-
->>  drivers/gpu/nova-core/falcon/hal/ga102.rs          |  55 +-
->>  drivers/gpu/nova-core/falcon/hal/tu102.rs          |  12 +-
->>  drivers/gpu/nova-core/falcon/sec2.rs               |  17 +-
->>  drivers/gpu/nova-core/firmware/fwsec/bootloader.rs |  19 +-
->>  drivers/gpu/nova-core/regs.rs                      | 350 +++++-----
->>  drivers/gpu/nova-core/regs/macros.rs               | 739 --------------=
+>>  drivers/gpu/nova-core/falcon.rs |  7 ++--
+>>  drivers/gpu/nova-core/gpu.rs    | 37 ++++++++++-----------
+>>  drivers/gpu/nova-core/regs.rs   | 73 +++++++++++++++++++++++++++++++---=
 -------
->>  8 files changed, 421 insertions(+), 1126 deletions(-)
+>>  3 files changed, 78 insertions(+), 39 deletions(-)
 >>
 >> diff --git a/drivers/gpu/nova-core/falcon.rs b/drivers/gpu/nova-core/fal=
 con.rs
->> index 4721865f59d9..90afef40acd0 100644
+>> index 7097a206ec3c..4721865f59d9 100644
 >> --- a/drivers/gpu/nova-core/falcon.rs
 >> +++ b/drivers/gpu/nova-core/falcon.rs
->> @@ -14,9 +14,14 @@
+>> @@ -13,7 +13,10 @@
+>>          DmaAddress,
 >>          DmaMask, //
 >>      },
->>      io::{
->> -        poll::read_poll_timeout, //
->> +        poll::read_poll_timeout,
->> +        register::{
->> +            RegisterBase,
->> +            WithBase, //
->> +        },
->>          Io,
->>      },
->> +    num::Bounded,
+>> -    io::poll::read_poll_timeout,
+>> +    io::{
+>> +        poll::read_poll_timeout, //
+>> +        Io,
+>> +    },
 >>      prelude::*,
 >>      sync::aref::ARef,
 >>      time::Delta,
->> @@ -33,7 +38,6 @@
->>          IntoSafeCast, //
->>      },
->>      regs,
->> -    regs::macros::RegisterBase, //
->>  };
+>> @@ -532,7 +535,7 @@ pub(crate) fn reset(&self, bar: &Bar0) -> Result {
+>>          self.hal.reset_wait_mem_scrubbing(bar)?;
 >> =20
->>  pub(crate) mod gsp;
->> @@ -44,11 +48,14 @@
->>  pub(crate) const MEM_BLOCK_ALIGNMENT: usize =3D 256;
+>>          regs::NV_PFALCON_FALCON_RM::default()
+>> -            .set_value(regs::NV_PMC_BOOT_0::read(bar).into())
+>> +            .set_value(bar.read(regs::NV_PMC_BOOT_0).into())
+>>              .write(bar, &E::ID);
 >> =20
->>  // TODO[FPRI]: Replace with `ToPrimitive`.
->> -macro_rules! impl_from_enum_to_u8 {
->> -    ($enum_type:ty) =3D> {
->> -        impl From<$enum_type> for u8 {
->> +macro_rules! impl_from_enum_to_bounded {
->> +    ($enum_type:ty, $length:literal) =3D> {
->> +        impl From<$enum_type> for Bounded<u32, $length> {
->>              fn from(value: $enum_type) -> Self {
->> -                value as u8
->> +                // Shift the value left by the number of unused bits.
->> +                let b =3D Bounded::<u32, 32>::from((value as u32) << (3=
-2 - $length));
->> +                // Shift back right to create a `Bounded` of the expect=
-ed width.
->> +                b.shr::<{ 32 - $length }, $length>()
->>              }
->>          }
->>      };
->
-> This can silently truncate stuff if we typo the wrong bounded size.
-> Any reason not to use `Bounded::from_expr(value as u32)` for this?
-
-`from_expr` is tricky to use because it assumes the compiler optimizer
-has enough information to guarantee that the set of possible values will
-fit into the `Bounded` - and drops a very obscure build-time error if
-the proof cannot be established. So it is really for obvious cases like
-`if x < 0x10 { Bounded::<u8, 4>::new(x) }`.
-
-Here we are converting from an enum, and in my experience `from_expr`
-does work, but I still prefer to avoid it if we can. The bit-shake
-method is another way of obtaining the right `Bounded` but in this case
-you are right we can lose data - although the use is purely local, and
-temporary until the `TryFrom` and `Into` derive macros [1] are
-available.
-
-The "correct" way to do this meanwhile would be to generate a match
-statement handling all valid values, but this is a bit more intrusive
-for something that is temporary.
-
-[1] https://lore.kernel.org/all/20260129-try-from-into-macro-v5-0-dd0110081=
-18c@gmail.com/
-
->
->> diff --git a/drivers/gpu/nova-core/regs.rs b/drivers/gpu/nova-core/regs.=
-rs
->> index 4ac4e9126db8..08d9a9697adc 100644
->> --- a/drivers/gpu/nova-core/regs.rs
->> +++ b/drivers/gpu/nova-core/regs.rs
->> @@ -1,13 +1,10 @@
->>  // SPDX-License-Identifier: GPL-2.0
->> =20
->> -// Required to retain the original register names used by OpenRM, which=
- are all capital snake case
->> -// but are mapped to types.
->> -#![allow(non_camel_case_types)]
->> -
->> -#[macro_use]
->> -pub(crate) mod macros;
->> -
->>  use kernel::{
->> +    io::{
->> +        register::WithBase,
->> +        Io, //
->> +    },
+>>          Ok(())
+>> diff --git a/drivers/gpu/nova-core/gpu.rs b/drivers/gpu/nova-core/gpu.rs
+>> index 8579d632e717..d81abc7de3d7 100644
+>> --- a/drivers/gpu/nova-core/gpu.rs
+>> +++ b/drivers/gpu/nova-core/gpu.rs
+>> @@ -4,6 +4,8 @@
+>>      device,
+>>      devres::Devres,
+>>      fmt,
+>> +    io::Io,
+>> +    num::Bounded,
+>>      pci,
 >>      prelude::*,
->>      time, //
->>  };
->> @@ -314,60 +311,147 @@ pub(crate) fn vga_workspace_addr(self) -> Option<=
-u64> {
+>>      sync::Arc, //
+>> @@ -129,24 +131,18 @@ fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::=
+Result {
+>>  }
 >> =20
->>  // PFALCON
+>>  /// Enum representation of the GPU generation.
+>> -///
+>> -/// TODO: remove the `Default` trait implementation, and the `#[default=
+]`
+>> -/// attribute, once the register!() macro (which creates Architecture i=
+tems) no
+>> -/// longer requires it for read-only fields.
+>> -#[derive(fmt::Debug, Default, Copy, Clone)]
+>> -#[repr(u8)]
+>> +#[derive(fmt::Debug, Copy, Clone)]
+>>  pub(crate) enum Architecture {
+>> -    #[default]
+>>      Turing =3D 0x16,
+>>      Ampere =3D 0x17,
+>>      Ada =3D 0x19,
+>>  }
 >> =20
->> -register!(NV_PFALCON_FALCON_IRQSCLR @ PFalconBase[0x00000004] {
->> -    4:4     halt as bool;
->> -    6:6     swgen0 as bool;
->> -});
->> +nv_reg! {
->> +    NV_PFALCON_FALCON_IRQSCLR @ PFalconBase + 0x00000004 {
->> +        4:4     halt =3D> bool;
->> +        6:6     swgen0 =3D> bool;
->> +    }
+>> -impl TryFrom<u8> for Architecture {
+>> +impl TryFrom<Bounded<u32, 6>> for Architecture {
+>>      type Error =3D Error;
 >> =20
->> -register!(NV_PFALCON_FALCON_MAILBOX0 @ PFalconBase[0x00000040] {
->> -    31:0    value as u32;
->> -});
->> +    NV_PFALCON_FALCON_MAILBOX0 @ PFalconBase + 0x00000040 {
->> +        31:0    value =3D> u32;
->> +    }
->> =20
->> -register!(NV_PFALCON_FALCON_MAILBOX1 @ PFalconBase[0x00000044] {
->> -    31:0    value as u32;
->> -});
->> +    NV_PFALCON_FALCON_MAILBOX1 @ PFalconBase + 0x00000044 {
->> +        31:0    value =3D> u32;
->> +    }
->> =20
->> -// Used to store version information about the firmware running
->> -// on the Falcon processor.
->> -register!(NV_PFALCON_FALCON_OS @ PFalconBase[0x00000080] {
->> -    31:0    value as u32;
->> -});
->> +    /// Used to store version information about the firmware running
->> +    /// on the Falcon processor.
->> +    NV_PFALCON_FALCON_OS @ PFalconBase + 0x00000080 {
->> +        31:0    value =3D> u32;
->> +    }
->> =20
->> -register!(NV_PFALCON_FALCON_RM @ PFalconBase[0x00000084] {
->> -    31:0    value as u32;
->> -});
->> +    NV_PFALCON_FALCON_RM @ PFalconBase + 0x00000084 {
->> +        31:0    value =3D> u32;
->> +    }
->> =20
->> -register!(NV_PFALCON_FALCON_HWCFG2 @ PFalconBase[0x000000f4] {
->> -    10:10   riscv as bool;
->> -    12:12   mem_scrubbing as bool, "Set to 0 after memory scrubbing is =
-completed";
->> -    31:31   reset_ready as bool, "Signal indicating that reset is compl=
-eted (GA102+)";
->> -});
->> +    NV_PFALCON_FALCON_HWCFG2 @ PFalconBase + 0x000000f4 {
->> +        10:10   riscv =3D> bool;
->> +        /// Set to 0 after memory scrubbing is completed.
->> +        12:12   mem_scrubbing =3D> bool;
->> +        /// Signal indicating that reset is completed (GA102+).
->> +        31:31   reset_ready =3D> bool;
->> +    }
->> =20
->> -impl NV_PFALCON_FALCON_HWCFG2 {
->> -    /// Returns `true` if memory scrubbing is completed.
->> -    pub(crate) fn mem_scrubbing_done(self) -> bool {
->> -        !self.mem_scrubbing()
->> +    NV_PFALCON_FALCON_CPUCTL @ PFalconBase + 0x00000100 {
->> +        1:1     startcpu =3D> bool;
->> +        4:4     halted =3D> bool;
->> +        6:6     alias_en =3D> bool;
->> +    }
->> +
->> +    NV_PFALCON_FALCON_BOOTVEC @ PFalconBase + 0x00000104 {
->> +        31:0    value =3D> u32;
->> +    }
->> +
->> +    NV_PFALCON_FALCON_DMACTL @ PFalconBase + 0x0000010c {
->> +        0:0     require_ctx =3D> bool;
->> +        1:1     dmem_scrubbing =3D> bool;
->> +        2:2     imem_scrubbing =3D> bool;
->> +        6:3     dmaq_num;
->> +        7:7     secure_stat =3D> bool;
->> +    }
->> +
->> +    NV_PFALCON_FALCON_DMATRFBASE @ PFalconBase + 0x00000110 {
->> +        31:0    base =3D> u32;
->> +    }
->> +
->> +    NV_PFALCON_FALCON_DMATRFMOFFS @ PFalconBase + 0x00000114 {
->> +        23:0    offs;
->> +    }
->> +
->> +    NV_PFALCON_FALCON_DMATRFCMD @ PFalconBase + 0x00000118 {
->> +        0:0     full =3D> bool;
->> +        1:1     idle =3D> bool;
->> +        3:2     sec;
->> +        4:4     imem =3D> bool;
->> +        5:5     is_write =3D> bool;
->> +        10:8    size ?=3D> DmaTrfCmdSize;
->> +        14:12   ctxdma;
->> +        16:16   set_dmtag;
->> +    }
->> +
->> +    NV_PFALCON_FALCON_DMATRFFBOFFS @ PFalconBase + 0x0000011c {
->> +        31:0    offs =3D> u32;
->> +    }
->> +
->> +    NV_PFALCON_FALCON_DMATRFBASE1 @ PFalconBase + 0x00000128 {
->> +        8:0     base;
->> +    }
->> +
->> +    NV_PFALCON_FALCON_HWCFG1 @ PFalconBase + 0x0000012c {
->> +        /// Core revision.
->> +        3:0     core_rev ?=3D> FalconCoreRev;
->> +        /// Security model.
->> +        5:4     security_model ?=3D> FalconSecurityModel;
->> +        /// Core revision subversion.
->> +        7:6     core_rev_subversion =3D> FalconCoreRevSubversion;
->> +    }
->> +
->> +    NV_PFALCON_FALCON_CPUCTL_ALIAS @ PFalconBase + 0x00000130 {
->> +        1:1     startcpu =3D> bool;
->> +    }
->> +
->> +    /// IMEM access control register. Up to 4 ports are available for I=
-MEM access.
->> +    NV_PFALCON_FALCON_IMEMC[4, stride =3D 16] @ PFalconBase + 0x0000018=
-0 {
->> +        /// IMEM block and word offset.
->> +        15:0      offs;
->> +        /// Auto-increment on write.
->> +        24:24     aincw =3D> bool;
->> +        /// Access secure IMEM.
->> +        28:28     secure =3D> bool;
->> +    }
->> +
->> +    /// IMEM data register. Reading/writing this register accesses IMEM=
- at the address
->> +    /// specified by the corresponding IMEMC register.
->> +    NV_PFALCON_FALCON_IMEMD[4, stride =3D 16] @ PFalconBase + 0x0000018=
-4 {
->> +        31:0      data;
->> +    }
->> +
->> +    /// IMEM tag register. Used to set the tag for the current IMEM blo=
-ck.
->> +    NV_PFALCON_FALCON_IMEMT[4, stride =3D 16] @ PFalconBase + 0x0000018=
-8 {
->> +        15:0      tag;
->> +    }
->> +
->> +    /// DMEM access control register. Up to 8 ports are available for D=
-MEM access.
->> +    NV_PFALCON_FALCON_DMEMC[8, stride =3D 8] @ PFalconBase + 0x000001c0=
- {
->> +        /// DMEM block and word offset.
->> +        15:0      offs;
->> +        /// Auto-increment on write.
->> +        24:24     aincw =3D> bool;
->> +    }
->> +
->> +    /// DMEM data register. Reading/writing this register accesses DMEM=
- at the address
->> +    /// specified by the corresponding DMEMC register.
->> +    NV_PFALCON_FALCON_DMEMD[8, stride =3D 8] @ PFalconBase + 0x000001c4=
- {
->> +        31:0      data;
->> +    }
->> +
->> +    /// Actually known as `NV_PSEC_FALCON_ENGINE` and `NV_PGSP_FALCON_E=
-NGINE` depending on the
->> +    /// falcon instance.
->> +    NV_PFALCON_FALCON_ENGINE @ PFalconBase + 0x000003c0 {
->> +        0:0     reset =3D> bool;
->> +    }
->> +
->> +    NV_PFALCON_FBIF_TRANSCFG[8] @ PFalconBase + 0x00000600 {
->> +        1:0     target ?=3D> FalconFbifTarget;
->> +        2:2     mem_type =3D> FalconFbifMemType;
->> +    }
->> +
->> +    NV_PFALCON_FBIF_CTL @ PFalconBase + 0x00000624 {
->> +        7:7     allow_phys_no_ctx =3D> bool;
+>> -    fn try_from(value: u8) -> Result<Self> {
+>> -        match value {
+>> +    fn try_from(value: Bounded<u32, 6>) -> Result<Self> {
+>> +        match u8::from(value) {
+>>              0x16 =3D> Ok(Self::Turing),
+>>              0x17 =3D> Ok(Self::Ampere),
+>>              0x19 =3D> Ok(Self::Ada),
+>> @@ -155,23 +151,26 @@ fn try_from(value: u8) -> Result<Self> {
 >>      }
 >>  }
 >> =20
->> -register!(NV_PFALCON_FALCON_CPUCTL @ PFalconBase[0x00000100] {
->> -    1:1     startcpu as bool;
->> -    4:4     halted as bool;
->> -    6:6     alias_en as bool;
->> -});
->> -
->> -register!(NV_PFALCON_FALCON_BOOTVEC @ PFalconBase[0x00000104] {
->> -    31:0    value as u32;
->> -});
->> -
->> -register!(NV_PFALCON_FALCON_DMACTL @ PFalconBase[0x0000010c] {
->> -    0:0     require_ctx as bool;
->> -    1:1     dmem_scrubbing as bool;
->> -    2:2     imem_scrubbing as bool;
->> -    6:3     dmaq_num as u8;
->> -    7:7     secure_stat as bool;
->> -});
->> -
->>  impl NV_PFALCON_FALCON_DMACTL {
->>      /// Returns `true` if memory scrubbing is completed.
->>      pub(crate) fn mem_scrubbing_done(self) -> bool {
->> @@ -375,147 +459,81 @@ pub(crate) fn mem_scrubbing_done(self) -> bool {
->>      }
->>  }
->> =20
->> -register!(NV_PFALCON_FALCON_DMATRFBASE @ PFalconBase[0x00000110] {
->> -    31:0    base as u32;
->> -});
->> -
->> -register!(NV_PFALCON_FALCON_DMATRFMOFFS @ PFalconBase[0x00000114] {
->> -    23:0    offs as u32;
->> -});
->> -
->> -register!(NV_PFALCON_FALCON_DMATRFCMD @ PFalconBase[0x00000118] {
->> -    0:0     full as bool;
->> -    1:1     idle as bool;
->> -    3:2     sec as u8;
->> -    4:4     imem as bool;
->> -    5:5     is_write as bool;
->> -    10:8    size as u8 ?=3D> DmaTrfCmdSize;
->> -    14:12   ctxdma as u8;
->> -    16:16   set_dmtag as u8;
->> -});
->> -
->>  impl NV_PFALCON_FALCON_DMATRFCMD {
->>      /// Programs the `imem` and `sec` fields for the given FalconMem
->>      pub(crate) fn with_falcon_mem(self, mem: FalconMem) -> Self {
->> -        self.set_imem(mem !=3D FalconMem::Dmem)
->> -            .set_sec(if mem =3D=3D FalconMem::ImemSecure { 1 } else { 0=
- })
->> +        let this =3D self.with_imem(mem !=3D FalconMem::Dmem);
->> +
->> +        match mem {
->> +            FalconMem::ImemSecure =3D> this.with_const_sec::<1>(),
->> +            _ =3D> this.with_const_sec::<0>(),
+>> -impl From<Architecture> for u8 {
+>> +impl From<Architecture> for Bounded<u32, 6> {
+>>      fn from(value: Architecture) -> Self {
+>> -        // CAST: `Architecture` is `repr(u8)`, so this cast is always l=
+ossless.
+>> -        value as u8
+>> +        match value {
+>> +            Architecture::Turing =3D> Bounded::<u32, 6>::new::<0x16>(),
+>> +            Architecture::Ampere =3D> Bounded::<u32, 6>::new::<0x17>(),
+>> +            Architecture::Ada =3D> Bounded::<u32, 6>::new::<0x19>(),
+>
+> Yikes.. this looks ugly.
+
+Very ugly. This should be replaced by the `TryFrom` and `Into` derive
+macros soon enough though (adding Jesung for visibility).
+
+Another temporary solution would be to use `Bounded::from_expr` - in
+this case we can turn this into a single statement. But since it is not
+strictly a case where we cannot do without it, I preferred to eschew it.
+
+>
 >> +        }
 >>      }
 >>  }
 >> =20
->> -register!(NV_PFALCON_FALCON_DMATRFFBOFFS @ PFalconBase[0x0000011c] {
->> -    31:0    offs as u32;
->> -});
->> -
->> -register!(NV_PFALCON_FALCON_DMATRFBASE1 @ PFalconBase[0x00000128] {
->> -    8:0     base as u16;
->> -});
->> -
->> -register!(NV_PFALCON_FALCON_HWCFG1 @ PFalconBase[0x0000012c] {
->> -    3:0     core_rev as u8 ?=3D> FalconCoreRev, "Core revision";
->> -    5:4     security_model as u8 ?=3D> FalconSecurityModel, "Security m=
-odel";
->> -    7:6     core_rev_subversion as u8 ?=3D> FalconCoreRevSubversion, "C=
-ore revision subversion";
->> -});
->> -
->> -register!(NV_PFALCON_FALCON_CPUCTL_ALIAS @ PFalconBase[0x00000130] {
->> -    1:1     startcpu as bool;
->> -});
->> -
->> -// IMEM access control register. Up to 4 ports are available for IMEM a=
-ccess.
->> -register!(NV_PFALCON_FALCON_IMEMC @ PFalconBase[0x00000180[4; 16]] {
->> -    15:0      offs as u16, "IMEM block and word offset";
->> -    24:24     aincw as bool, "Auto-increment on write";
->> -    28:28     secure as bool, "Access secure IMEM";
->> -});
->> -
->> -// IMEM data register. Reading/writing this register accesses IMEM at t=
-he address
->> -// specified by the corresponding IMEMC register.
->> -register!(NV_PFALCON_FALCON_IMEMD @ PFalconBase[0x00000184[4; 16]] {
->> -    31:0      data as u32;
->> -});
->> -
->> -// IMEM tag register. Used to set the tag for the current IMEM block.
->> -register!(NV_PFALCON_FALCON_IMEMT @ PFalconBase[0x00000188[4; 16]] {
->> -    15:0      tag as u16;
->> -});
->> -
->> -// DMEM access control register. Up to 8 ports are available for DMEM a=
-ccess.
->> -register!(NV_PFALCON_FALCON_DMEMC @ PFalconBase[0x000001c0[8; 8]] {
->> -    15:0      offs as u16, "DMEM block and word offset";
->> -    24:24     aincw as bool, "Auto-increment on write";
->> -});
->> -
->> -// DMEM data register. Reading/writing this register accesses DMEM at t=
-he address
->> -// specified by the corresponding DMEMC register.
->> -register!(NV_PFALCON_FALCON_DMEMD @ PFalconBase[0x000001c4[8; 8]] {
->> -    31:0      data as u32;
->> -});
->> -
->> -// Actually known as `NV_PSEC_FALCON_ENGINE` and `NV_PGSP_FALCON_ENGINE=
-` depending on the falcon
->> -// instance.
->> -register!(NV_PFALCON_FALCON_ENGINE @ PFalconBase[0x000003c0] {
->> -    0:0     reset as bool;
->> -});
->> -
->>  impl NV_PFALCON_FALCON_ENGINE {
->>      /// Resets the falcon
->>      pub(crate) fn reset_engine<E: FalconEngine>(bar: &Bar0) {
->> -        Self::read(bar, &E::ID).set_reset(true).write(bar, &E::ID);
->> +        bar.update(Self::of::<E>(), |r| r.with_reset(true));
+>>  pub(crate) struct Revision {
+>> -    major: u8,
+>> -    minor: u8,
+>> +    major: Bounded<u8, 4>,
+>> +    minor: Bounded<u8, 4>,
+>>  }
 >> =20
->>          // TIMEOUT: falcon engine should not take more than 10us to res=
-et.
->>          time::delay::fsleep(time::Delta::from_micros(10));
+>>  impl From<regs::NV_PMC_BOOT_42> for Revision {
+>>      fn from(boot0: regs::NV_PMC_BOOT_42) -> Self {
+>>          Self {
+>> -            major: boot0.major_revision(),
+>> -            minor: boot0.minor_revision(),
+>> +            major: boot0.major_revision().cast(),
+>> +            minor: boot0.minor_revision().cast(),
+>>          }
+>>      }
+>>  }
+>> @@ -208,13 +207,13 @@ fn new(dev: &device::Device, bar: &Bar0) -> Result=
+<Spec> {
+>>          //     from an earlier (pre-Fermi) era, and then using boot42 t=
+o precisely identify the GPU.
+>>          //     Somewhere in the Rubin timeframe, boot0 will no longer h=
+ave space to add new GPU IDs.
 >> =20
->> -        Self::read(bar, &E::ID).set_reset(false).write(bar, &E::ID);
->> +        bar.update(Self::of::<E>(), |r| r.with_reset(false));
+>> -        let boot0 =3D regs::NV_PMC_BOOT_0::read(bar);
+>> +        let boot0 =3D bar.read(regs::NV_PMC_BOOT_0);
+>> =20
+>>          if boot0.is_older_than_fermi() {
+>>              return Err(ENODEV);
+>>          }
+>> =20
+>> -        let boot42 =3D regs::NV_PMC_BOOT_42::read(bar);
+>> +        let boot42 =3D bar.read(regs::NV_PMC_BOOT_42);
+>>          Spec::try_from(boot42).inspect_err(|_| {
+>>              dev_err!(dev, "Unsupported chipset: {}\n", boot42);
+>>          })
+>> diff --git a/drivers/gpu/nova-core/regs.rs b/drivers/gpu/nova-core/regs.=
+rs
+>> index 53f412f0ca32..62c2065e63ef 100644
+>> --- a/drivers/gpu/nova-core/regs.rs
+>> +++ b/drivers/gpu/nova-core/regs.rs
+>> @@ -35,20 +35,64 @@
+>>      num::FromSafeCast,
+>>  };
+>> =20
+>> +// All nova-core registers are 32-bit and `pub(crate)`. Wrap the `regis=
+ter!` macro to avoid
+>> +// repeating this information for every register.
+>> +macro_rules! nv_reg {
+>> +    (
+>> +        $(
+>> +            $(#[$attr:meta])* $name:ident $([ $size:expr $(, stride =3D=
+ $stride:expr)? ])?
+>> +                $(@ $offset:literal)?
+>> +                $(@ $base:ident + $base_offset:literal)?
+>> +                $(=3D> $alias:ident $(+ $alias_offset:ident)? $([$alias=
+_idx:expr])? )?
+>> +            $(, $comment:literal)? { $($fields:tt)* }
+>> +        )*
+>> +    )=3D> {
+>> +        $(
+>> +        ::kernel::io::register!(
+>> +            @reg $(#[$attr])* pub(crate) $name(u32) $([$size $(, stride=
+ =3D $stride)?])?
+>> +                $(@ $offset)?
+>> +                $(@ $base + $base_offset)?
+>> +                $(=3D> $alias $(+ $alias_offset)? $([$alias_idx])? )?
+>> +            $(, $comment)? { $($fields)* }
+>> +        );
+>> +        )*
+>> +    };
+>> +}
+>> +
+>>  // PMC
+>> =20
+>> -register!(NV_PMC_BOOT_0 @ 0x00000000, "Basic revision information about=
+ the GPU" {
+>> -    3:0     minor_revision as u8, "Minor revision of the chip";
+>> -    7:4     major_revision as u8, "Major revision of the chip";
+>> -    8:8     architecture_1 as u8, "MSB of the architecture";
+>> -    23:20   implementation as u8, "Implementation version of the archit=
+ecture";
+>> -    28:24   architecture_0 as u8, "Lower bits of the architecture";
+>> -});
+>> +nv_reg! {
+>> +    /// Basic revision information about the GPU.
+>> +    NV_PMC_BOOT_0 @ 0x00000000 {
+>> +        /// Minor revision of the chip.
+>> +        3:0     minor_revision;
+>> +        /// Major revision of the chip.
+>> +        7:4     major_revision;
+>> +        /// MSB of the architecture.
+>> +        8:8     architecture_1;
+>> +        /// Implementation version of the architecture.
+>> +        23:20   implementation;
+>> +        /// Lower bits of the architecture.
+>> +        28:24   architecture_0;
+>> +    }
+>> +
+>> +    /// Extended architecture information.
+>> +    NV_PMC_BOOT_42 @ 0x00000a00 {
+>> +        /// Minor revision of the chip.
+>> +        15:12   minor_revision;
+>> +        /// Major revision of the chip.
+>> +        19:16   major_revision;
+>> +        /// Implementation version of the architecture.
+>> +        23:20   implementation;
+>> +        /// Architecture value.
+>> +        29:24   architecture ?=3D> Architecture;
+>> +    }
+>> +}
+>> =20
+>>  impl NV_PMC_BOOT_0 {
+>>      pub(crate) fn is_older_than_fermi(self) -> bool {
+>>          // From https://github.com/NVIDIA/open-gpu-doc/tree/master/manu=
+als :
+>> -        const NV_PMC_BOOT_0_ARCHITECTURE_GF100: u8 =3D 0xc;
+>> +        const NV_PMC_BOOT_0_ARCHITECTURE_GF100: u32 =3D 0xc;
+>> =20
+>>          // Older chips left arch1 zeroed out. That, combined with an ar=
+ch0 value that is less than
+>>          // GF100, means "older than Fermi".
+>> @@ -56,13 +100,6 @@ pub(crate) fn is_older_than_fermi(self) -> bool {
 >>      }
 >>  }
 >> =20
->> -register!(NV_PFALCON_FBIF_TRANSCFG @ PFalconBase[0x00000600[8]] {
->> -    1:0     target as u8 ?=3D> FalconFbifTarget;
->> -    2:2     mem_type as bool =3D> FalconFbifMemType;
+>> -register!(NV_PMC_BOOT_42 @ 0x00000a00, "Extended architecture informati=
+on" {
+>> -    15:12   minor_revision as u8, "Minor revision of the chip";
+>> -    19:16   major_revision as u8, "Major revision of the chip";
+>> -    23:20   implementation as u8, "Implementation version of the archit=
+ecture";
+>> -    29:24   architecture as u8 ?=3D> Architecture, "Architecture value"=
+;
 >> -});
 >> -
->> -register!(NV_PFALCON_FBIF_CTL @ PFalconBase[0x00000624] {
->> -    7:7     allow_phys_no_ctx as bool;
->> -});
->> +impl NV_PFALCON_FALCON_HWCFG2 {
->> +    /// Returns `true` if memory scrubbing is completed.
->> +    pub(crate) fn mem_scrubbing_done(self) -> bool {
->> +        !self.mem_scrubbing()
->> +    }
->> +}
+>>  impl NV_PMC_BOOT_42 {
+>>      /// Combines `architecture` and `implementation` to obtain a code u=
+nique to the chipset.
+>>      pub(crate) fn chipset(self) -> Result<Chipset> {
+>> @@ -76,8 +113,8 @@ pub(crate) fn chipset(self) -> Result<Chipset> {
 >> =20
->>  /* PFALCON2 */
->> =20
->> -register!(NV_PFALCON2_FALCON_MOD_SEL @ PFalcon2Base[0x00000180] {
->> -    7:0     algo as u8 ?=3D> FalconModSelAlgo;
->> -});
->> +nv_reg! {
->> +    NV_PFALCON2_FALCON_MOD_SEL @ PFalcon2Base + 0x00000180 {
->> +        7:0     algo ?=3D> FalconModSelAlgo;
->> +    }
->> =20
->> -register!(NV_PFALCON2_FALCON_BROM_CURR_UCODE_ID @ PFalcon2Base[0x000001=
-98] {
->> -    7:0    ucode_id as u8;
->> -});
->> +    NV_PFALCON2_FALCON_BROM_CURR_UCODE_ID @ PFalcon2Base + 0x00000198 {
->> +        7:0    ucode_id =3D> u8;
->> +    }
->> =20
->> -register!(NV_PFALCON2_FALCON_BROM_ENGIDMASK @ PFalcon2Base[0x0000019c] =
-{
->> -    31:0    value as u32;
->> -});
->> +    NV_PFALCON2_FALCON_BROM_ENGIDMASK @ PFalcon2Base + 0x0000019c {
->> +        31:0    value =3D> u32;
->> +    }
->> =20
->> -// OpenRM defines this as a register array, but doesn't specify its siz=
-e and only uses its first
->> -// element. Be conservative until we know the actual size or need to us=
-e more registers.
->> -register!(NV_PFALCON2_FALCON_BROM_PARAADDR @ PFalcon2Base[0x00000210[1]=
-] {
->> -    31:0    value as u32;
->> -});
->> +    /// OpenRM defines this as a register array, but doesn't specify it=
-s size and only uses its
->> +    /// first element. Be conservative until we know the actual size or=
- need to use more registers.
->> +    NV_PFALCON2_FALCON_BROM_PARAADDR[1] @ PFalcon2Base + 0x00000210 {
->> +        31:0    value =3D> u32;
->> +    }
->> +}
->> =20
->>  // PRISCV
->> =20
->> -// RISC-V status register for debug (Turing and GA100 only).
->> -// Reflects current RISC-V core status.
->> -register!(NV_PRISCV_RISCV_CORE_SWITCH_RISCV_STATUS @ PFalcon2Base[0x000=
-00240] {
->> -    0:0     active_stat as bool, "RISC-V core active/inactive status";
->> -});
->> -
->>  // GA102 and later
->> -register!(NV_PRISCV_RISCV_CPUCTL @ PFalcon2Base[0x00000388] {
->> -    0:0     halted as bool;
->> -    7:7     active_stat as bool;
->> -});
->> +nv_reg! {
->> +    /// RISC-V status register for debug (Turing and GA100 only).
->> +    /// Reflects current RISC-V core status.
->> +    NV_PRISCV_RISCV_CORE_SWITCH_RISCV_STATUS @ PFalcon2Base + 0x0000024=
-0 {
->> +        /// RISC-V core active/inactive status.
->> +        0:0     active_stat =3D> bool;
->> +    }
+>>      /// Returns the raw architecture value from the register.
+>>      fn architecture_raw(self) -> u8 {
+>> -        ((self.0 >> Self::ARCHITECTURE_RANGE.start()) & ((1 << Self::AR=
+CHITECTURE_RANGE.len()) - 1))
+>> -            as u8
+>> +        ((self.inner >> Self::ARCHITECTURE_RANGE.start())
 >
-> The above comment says "GA102 and later" but right after it has
-> "Turing and GA100 only" which seems incongruous.
+> This should be using `self.into_raw()` rather than accessing the `inner` =
+field
+> directly (which should be considered impl detail of the macro).
 
-Right, this comment was for `NV_PRISCV_RISCV_CPUCTL` but it likely had a
-copy/paste accident.
+Indeed - done.
