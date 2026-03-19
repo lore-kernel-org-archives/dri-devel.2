@@ -4,70 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8753F1088E65
-	for <dri-devel@archiver.kernel.org>; Thu, 19 Mar 2026 02:37:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6C6DF1088E66
+	for <dri-devel@archiver.kernel.org>; Thu, 19 Mar 2026 02:40:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B31FC10E806;
-	Thu, 19 Mar 2026 02:37:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9C74110E809;
+	Thu, 19 Mar 2026 02:40:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="BGtWORBx";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="hdHOeNlD";
 	dkim-atps=neutral
-Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com
- [209.85.210.177])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 78FEC10E806
- for <dri-devel@lists.freedesktop.org>; Thu, 19 Mar 2026 02:37:29 +0000 (UTC)
-Received: by mail-pf1-f177.google.com with SMTP id
- d2e1a72fcca58-82a124f3a5bso118232b3a.0
- for <dri-devel@lists.freedesktop.org>; Wed, 18 Mar 2026 19:37:29 -0700 (PDT)
+Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com
+ [209.85.210.181])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 01B1710E809
+ for <dri-devel@lists.freedesktop.org>; Thu, 19 Mar 2026 02:40:33 +0000 (UTC)
+Received: by mail-pf1-f181.google.com with SMTP id
+ d2e1a72fcca58-82987437624so291583b3a.1
+ for <dri-devel@lists.freedesktop.org>; Wed, 18 Mar 2026 19:40:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1773887849; x=1774492649; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1773888033; x=1774492833; darn=lists.freedesktop.org;
  h=content-transfer-encoding:in-reply-to:from:content-language
  :references:cc:to:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=41gqP9Xz29ZxguAd8x+A60goY3aYjFU2+iS4d14MjxY=;
- b=BGtWORBxkmLAybbWwLxCHBpE3I9+Uk/s4df95zy8L5WlX2QEyW4GroRHrMh0krkrdC
- LC1Qe8wboMetUpAYjyvJmjblxUIRSns/RmSAj4oN3s9EV32BosKvCYcdyAI3bedegTXW
- Fuv2ZMZT0OKAcgydaxnrwbohGrmPoWXrL6P3rOyG644KSafQTvAC17EFed0hiiKhf0NL
- oF5rrjvcGUnlOlSRSpWzeaWZkCaO9x0/gm5argl9a/AS6+YiinwdkeNsOQ7KbNkvWKet
- 8OQUmiuaI0lMOMEK9FI/m0gmUKEbHX1ToSL2EtwU0qCkRcprw3j7d7N5iS5mftRQwSw7
- 4o3A==
+ bh=qBu63CJPO7UWTxKfklYPpnd3YM/gcmd39X2brzmYCN4=;
+ b=hdHOeNlD76iyqcr6XqJ7bZrgU5BGoXc/yMSKpF+T0votLUgRKjVoYAUsXFkw0mSvtE
+ wotmiKBBiR4es+gTUkNql8ELz2XACRTwIFUnt8/DgonGI+SfqyfgbTWzRdzUCEK0MdLj
+ S3usxOlJSkQbma5Spo59UltO1M6XfGpXTI6F0AP20VNYJprexskPkxlDrhvT7Ryj5YsW
+ PPQtrgaJ6x/HEHPMGpYjw+SxILo0UB7bbk8n1H1fqcvnoI7rhUNMbEzEpM95VKlgSmCw
+ 8q2CQQsjScQFRjmI8XyttJHZj8uDqwZMqQBIuR2JIXg1jEO4I7bljRIRR14jPkdEn2q9
+ p4XA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1773887849; x=1774492649;
+ d=1e100.net; s=20251104; t=1773888033; x=1774492833;
  h=content-transfer-encoding:in-reply-to:from:content-language
  :references:cc:to:subject:user-agent:mime-version:date:message-id
  :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=41gqP9Xz29ZxguAd8x+A60goY3aYjFU2+iS4d14MjxY=;
- b=GUn2Y13YU3klHkTUGlBPi8KoTxCymmCDhE7yBWgC4yei/D49S/QRPTOlTmt+hHOq6H
- fQ5iyXd31gLmPQUfmtG1cGuxsaMCuPeDHjS5Ae3lRNLQSsnEXPnLwynUIMJdfkOF8pdD
- OWL0J8O4P+SAe791fDedV1BrFO9OozxcfyEP3GNF36motDnOQEvR9XrlgJHvOx4oD9Yr
- aq2b3/GlFgM/Q8H3Mxpvk//cCuWEaLfA81TMj7qCWneZHMWSZtlp41HKPnbNAqu1Ehwe
- seOJNRUjrAbAvQ041cC8sQOLmL/H8+rgRBYoD+8hBxT9R4s92nVJg0acrSa/7QEyS/P1
- NJXA==
+ bh=qBu63CJPO7UWTxKfklYPpnd3YM/gcmd39X2brzmYCN4=;
+ b=Te8OOy7XBhMOcfgyU1bpbCrZMN0M7ZB4eF2d43yJ7j7iQZTrELURUDrvomuqZgvHsA
+ 3UtaU92JF6MdDJ/aTS3ZReLGULZDmpwYvTlE5BX7dODZ4p6Iw3VLcKr3aDRTPFL+i+Ld
+ +6un9lJ/Xa68+mGRBxvSlYB4y+9w5xLWJM8hB3/vHyiqJns78B0wRzZs+V4jIg3F5jge
+ 1BCdHYeA/L4CvFq19VVOXszQLUVRMIqOZp7ADQDVSLCUb3xoroKTpaQNwxMRbA9QlPPv
+ L5hzrPis5YJpeXh3l5VHl01E51pb5wMKdoBWc/pJhRHBEgmtYbti1cAuqvFDPIhnLq9T
+ W9/A==
 X-Forwarded-Encrypted: i=1;
- AJvYcCU9t6oxR5AwLTsZqeLsdOFTWRzKfbMy5z8k8jT9tJPu6hIxrfYpJjUjzr2HTplyAWgtQhwwoH+iPOE=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyD/9EIY0y2odfZEglTtB2DNHN3XawebZAhoE5s4+IZu6Wa4SXS
- V+pZnk7LFpnYreEwXbGv0miHHInoNK/UwRJtBZbe18mS2r+AgMo4upDU
-X-Gm-Gg: ATEYQzwUdHSwKWpJMLw8kSeFyCYoktFfrr+aSj3ySs1SHa2rYC5bQAdEoqbyxB0XRFv
- aJiyOc5oFPvWWktnmyjuvJjzIOWDg6r+J1vVpj7mKO560Da6JyXI87x8AW3GUbPs50H1wP/2ATa
- VDIQYNecFl3L2ULczpXuDjpYRUGABem1lw9D4dsqU3Tl0pr72AWmrDgeGwVsPvblC89CqK14uI/
- MkDtpC9rCLGqqqXSoih8/p0MFzv++nx8RTgWl8gdqp0BFaOEKPmInjBsFladrJw0lTRepfx3x/m
- 6onrAnWh/NMi4z4/qcJqfZRTgDvKm3EfBMPTcHFu9ml50Tv7PCbVGMxWl5KcXtk958s2DFhJlSU
- 2RL9eeREvHlKcWMKecWkXpJQ7BS2qydk5n7DWV8hEPE/aKtHC8YOjs447tmSJGqTegCRmReIgi2
- exLXnIN+iNwSP6JDudNqgvqn5szOASyHFPNTiR9EoBUOAEpr+jzS7e3CLRPqnRLV5ovIrSG/ewF
- JfcXThj8Kbg8j20rxSBskaKDL/ulAAnzVPTEkhqiO7f8jh+agc6JENpnTpaP7AEUNFviL0RBXPw
- VA==
-X-Received: by 2002:a05:6a00:6c94:b0:829:809e:8977 with SMTP id
- d2e1a72fcca58-82a6af3c066mr4829584b3a.49.1773887848851; 
- Wed, 18 Mar 2026 19:37:28 -0700 (PDT)
+ AJvYcCWBGyJS4oqTa+yMWApDhjudZ/nwH+xY8ywx1nRdI9xDTrQtnpaTPpX7ra9seck2kLe9dnpowoi08KY=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yx+Uqly6fWOtCGYclTBqhVWOioAtOrG7+GIS6PE3XGHI5IkRRMD
+ iuFiohOZiBpkmFuq2+VIHZLA4D/umebMAA2YQ9STd30eaSY/SRat7A0a
+X-Gm-Gg: ATEYQzzVidmPxIQyQxJ2ltm349P/9V8uq0HYscrhXM1vFVS9ZhoecfUbtKO+YtGgp+D
+ XBE6mdYgXz3PzTefLmLr3zvSSquLYSgSfOyrEN+TXZyUvXhG7G4rdxUYKn0j/RWbgkzRR0r5ats
+ URlrTg9nC3w7NX5d2sDZQEg4A/FIeG+sAhMnIzCoYfIZDtZQmbYjneeABPnBPctSpppRKT6NDUH
+ onIeUlj7V6j6iA6o8hpgozxhdzNo8I0Et+pAwI6QyVzjtiliMXgn6dbuw7wJtDZbmwb2MbWctQH
+ jfOgOdD7EJH2dHv6duTY2oGu9jYJssd1aaTyxfaXjax+uh8h+Vsrnb4DACa2lRGfhRfLxvyd8/7
+ FgkFNG0xvanF+Kmq72ebaz8aBbppcrTFXDVaiSTQNOtnyYsbDGQSxEImL9l7gh6hXXh59D8jtK3
+ K/4oV4i0SnqVMyQ6s/dC56NS9/6y9SwzJtdzwsRB6Q3bgkl9ZxUZZYjbxKh5w7k3fXKcyeVUm1X
+ cpqd5TXCHBzrQbAIUt2CWvmK45f6wyY2SxqQhzlezbYEg648mGwXKHDZ9JqGVyHA9y7R+U+rDWV
+ yw==
+X-Received: by 2002:a05:6a00:ab84:b0:829:8083:472b with SMTP id
+ d2e1a72fcca58-82a7a7ffad1mr1502135b3a.4.1773888033409; 
+ Wed, 18 Mar 2026 19:40:33 -0700 (PDT)
 Received: from ?IPV6:2601:1c0:5780:9200:9662:a5ea:aac3:575e?
  ([2601:1c0:5780:9200:9662:a5ea:aac3:575e])
  by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-82a6b541cc7sm4196785b3a.6.2026.03.18.19.37.28
+ d2e1a72fcca58-82a6bbe1869sm4874011b3a.40.2026.03.18.19.40.32
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 18 Mar 2026 19:37:28 -0700 (PDT)
-Message-ID: <3b018af1-15d7-4bf4-b567-2692656302e0@gmail.com>
-Date: Wed, 18 Mar 2026 19:37:27 -0700
+ Wed, 18 Mar 2026 19:40:33 -0700 (PDT)
+Message-ID: <18f74625-5f97-425b-8389-17d1bbecd4ac@gmail.com>
+Date: Wed, 18 Mar 2026 19:40:32 -0700
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v3] drm/panel: novatek-nt36672a: Convert to
@@ -78,10 +78,10 @@ Cc: sumit.semwal@linaro.org, neil.armstrong@linaro.org,
  mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
 References: <20260305044921.10942-1-chintanlike@gmail.com>
- <CAD=FV=UEX1tEvNLVmrkF4AWzbGJhmH9_4vM2255ufVjKkrVNdg@mail.gmail.com>
+ <CAD=FV=WMKjA3eRhZyHd820BFBYUMfz_=F4ppNYPWDEHKwiORXA@mail.gmail.com>
 Content-Language: en-US
 From: Chintan Patel <chintanlike@gmail.com>
-In-Reply-To: <CAD=FV=UEX1tEvNLVmrkF4AWzbGJhmH9_4vM2255ufVjKkrVNdg@mail.gmail.com>
+In-Reply-To: <CAD=FV=WMKjA3eRhZyHd820BFBYUMfz_=F4ppNYPWDEHKwiORXA@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -101,7 +101,7 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
 
-On 3/13/26 08:46, Doug Anderson wrote:
+On 3/6/26 09:40, Doug Anderson wrote:
 > Hi,
 > 
 > On Wed, Mar 4, 2026 at 8:49 PM Chintan Patel <chintanlike@gmail.com> wrote:
@@ -136,9 +136,19 @@ On 3/13/26 08:46, Doug Anderson wrote:
 >>   .../gpu/drm/panel/panel-novatek-nt36672a.c    | 94 ++++++-------------
 >>   1 file changed, 30 insertions(+), 64 deletions(-)
 > 
-> Pushed to drm-misc-next:
+> Looks good to me now. I'll plan to apply in ~1 week if there is no
+> further feedback.
 > 
-> [1/1] drm/panel: novatek-nt36672a: Convert to mipi_dsi_*_multi() helpers
->        commit: bc4cb68a02f1a445aa65d8054bd69ba4ba3f5767
+> Reviewed-by: Douglas Anderson <dianders@chromium.org>
+> 
+> As per my response in v1 [1], someone could still do additional
+> cleanup to move away from the table-based initialization, but it
+> doesn't make sense to block this patch on that. :-)
+> 
 
-Thank you Doug!
+Agree - I have plan to address as separate patch.
+
+> [1] https://lore.kernel.org/r/CAD=FV=WtjW5WWmjeb2zwF2PjiJeZv1jZS_UKZ0bT1658=CkwVA@mail.gmail.com
+> 
+> -Doug
+
