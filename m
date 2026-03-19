@@ -4,144 +4,152 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 632CA1075273
-	for <dri-devel@archiver.kernel.org>; Thu, 19 Mar 2026 08:27:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 994681075276
+	for <dri-devel@archiver.kernel.org>; Thu, 19 Mar 2026 08:29:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C8D1510E8E4;
-	Thu, 19 Mar 2026 08:27:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E4BA010E8E7;
+	Thu, 19 Mar 2026 08:29:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="KuaBtdkO";
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="KuaBtdkO";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="S+AgGMCS";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="8pcZ2dwV";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="S+AgGMCS";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="8pcZ2dwV";
 	dkim-atps=neutral
-Received: from PA4PR04CU001.outbound.protection.outlook.com
- (mail-francecentralazon11013015.outbound.protection.outlook.com
- [40.107.162.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4A32310E8E7
- for <dri-devel@lists.freedesktop.org>; Thu, 19 Mar 2026 08:27:09 +0000 (UTC)
-ARC-Seal: i=2; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
- b=m2Ox05L7p0pO8PbtmesplJ/VBh0sk5i90MR21YIqcVUxDq5+xzaPIfyOZ/XlwOzt78FqNnzYvIASxhhcv5fDsIxeZ2Nr+ExbRwYM3kplWaIgwT0m+ki2jRJd+j/Doqzh8zkhpeFLbZ/imcUtx5SfJCKx7suY+lWu4icrjH23ApSnX2zLbAJCWWy4AvSeGlmRWC7HirpixaLRx9xgRPQnjze8UVKBT252X9qCwpGymJuXX1/daERhWrrWs5JJuyiGLlvLtNPrvfjx+9RU+PXAuvXwPFxXqQGXyI2Xik83bXiReACP3V9Cbm7BzKvKvcqIqThuRa9nSZCA/0Yl3kaklQ==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=G7ddZ5lXI3r9H0UpcRht6oNkN8sn0eV67meiztbCVaA=;
- b=jkdPyb7500lZfEYjptismIJCpH7hu7VZvtArl7kDfnTgqZq8w0qbaZvbbe8lgIEGST+yuSWxU44ZYW/EsB721E02cW+3enP0ob2ivV/UO+tgxxMjGtuxteUkrMRXTj4uHeXVV76r7suN2++oO545B7LAyfCUGT6Z+wjQGrXvYScpH8cKZ1S/oCTFocAIoVIALfSun+fgdIaJkHV5F7WIkbwRLVxMNTs/Kq0p85iR7CF6GdD9E4evD+y3jNZYZZPLk6XNpHHJVKui1dpg8MXTQSWBDSnUqCIWK/nKcxADcIOUh52enP43D7mu7K/IxOB/PoQ/ItvGVexRV0uGXI3RDQ==
-ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
- 4.158.2.129) smtp.rcpttodomain=collabora.com smtp.mailfrom=arm.com;
- dmarc=pass (p=none sp=none pct=100) action=none header.from=arm.com;
- dkim=pass (signature was verified) header.d=arm.com; arc=pass (0 oda=1 ltdi=1
- spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
- dmarc=[1,1,header.from=arm.com])
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=G7ddZ5lXI3r9H0UpcRht6oNkN8sn0eV67meiztbCVaA=;
- b=KuaBtdkO8IRgVuELzjogpV/GrKAWb3JgbMRuV9/Tw0oyoRm+K9FP+cdx/WTbmhY1DH1EbD2DmI42y5kTLPQWt/DCNM8qgXpZRnFl7izk9X3CmSg2sIjv+XyLhuet5eYZrnomSuedPyueNptA/nw1cxifr0dBOwJv7wX9ymDhMo4=
-Received: from DU2PR04CA0248.eurprd04.prod.outlook.com (2603:10a6:10:28e::13)
- by AS8PR08MB6472.eurprd08.prod.outlook.com (2603:10a6:20b:336::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.19; Thu, 19 Mar
- 2026 08:27:01 +0000
-Received: from DB5PEPF00014B98.eurprd02.prod.outlook.com
- (2603:10a6:10:28e:cafe::c7) by DU2PR04CA0248.outlook.office365.com
- (2603:10a6:10:28e::13) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9700.27 via Frontend Transport; Thu,
- 19 Mar 2026 08:27:01 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 4.158.2.129)
- smtp.mailfrom=arm.com; dkim=pass (signature was verified)
- header.d=arm.com;dmarc=pass action=none header.from=arm.com;
-Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
- 4.158.2.129 as permitted sender) receiver=protection.outlook.com;
- client-ip=4.158.2.129; helo=outbound-uk1.az.dlp.m.darktrace.com; pr=C
-Received: from outbound-uk1.az.dlp.m.darktrace.com (4.158.2.129) by
- DB5PEPF00014B98.mail.protection.outlook.com (10.167.8.165) with Microsoft
- SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.20.9723.19
- via Frontend Transport; Thu, 19 Mar 2026 08:27:00 +0000
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=wNcSszJuT/Uzg2LyxTKcLR1TN20reYs3C4OXC+oTTwdWpwy5VvmBUH190gkTba6C/W5r/jb4RKO/n/GysyuX2vDf9aE7GmiIQC2MZJDoIID6jg46RCvkhLLSV+QfuW5K7HWQVXET9+kTgZMGgV9INkOnmERk5Rb8ASmJq9tlk5NPWmXCLtDLWCqPWw4W31z9HR+LN64MD0TckCiHRr4jcaRz5j+RHb+sBPUDOi91yck/5zzXwq+y6DQFrkQiW8zWRqQPc1itezxKvACu5mOteeuxXGABFYhyPFhG7y0+BDkhj9m+T+IqQtT8B0C5ZbTziRMrk+a2NgwL9I6WHfkLdA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=G7ddZ5lXI3r9H0UpcRht6oNkN8sn0eV67meiztbCVaA=;
- b=HoFyn9XmZP+EnhyDhWZRst+AEzKsTeqVRQzDkjrCElgnVP97e87eineXdItcm/HLRy0xNfEbOOIhKuzfIM8WnW48cXamzOIM7u5BdnLnA164FpHnGj++zqX9GtdyqX7icrzizC3PpB/TTAWKciaIWjBKjc77OcRJT+sjGIyXsCM+4/bYzARGurFFX8JAI9WckEA1i2hf5GNXH4pCo0OC9MZTvOLNI0oSLafsUJIBWchywPI7nA+iIOK6DptopGq+5fd75bYb5Y4NW7apcOj1dLHBx6PWL1tWSBO9KGYWL20YxVMNw26RfALtDG7PgZZc9v8HgMW2K25fQI8HvC4joQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
- header.d=arm.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=G7ddZ5lXI3r9H0UpcRht6oNkN8sn0eV67meiztbCVaA=;
- b=KuaBtdkO8IRgVuELzjogpV/GrKAWb3JgbMRuV9/Tw0oyoRm+K9FP+cdx/WTbmhY1DH1EbD2DmI42y5kTLPQWt/DCNM8qgXpZRnFl7izk9X3CmSg2sIjv+XyLhuet5eYZrnomSuedPyueNptA/nw1cxifr0dBOwJv7wX9ymDhMo4=
-Authentication-Results-Original: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-Received: from PAWPR08MB9996.eurprd08.prod.outlook.com (2603:10a6:102:35a::11)
- by VE1PR08MB5821.eurprd08.prod.outlook.com (2603:10a6:800:1b2::6)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.19; Thu, 19 Mar
- 2026 08:25:54 +0000
-Received: from PAWPR08MB9996.eurprd08.prod.outlook.com
- ([fe80::5856:8db5:9ee6:414f]) by PAWPR08MB9996.eurprd08.prod.outlook.com
- ([fe80::5856:8db5:9ee6:414f%6]) with mapi id 15.20.9723.018; Thu, 19 Mar 2026
- 08:25:53 +0000
-From: Marcin Slusarz <marcin.slusarz@arm.com>
-To: Boris Brezillon <boris.brezillon@collabora.com>,
- Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
- dri-devel@lists.freedesktop.org, Chia-I Wu <olvaffe@gmail.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Lukas Zapolskas <lukas.zapolskas@arm.com>,
- nd@arm.com
-Subject: [PATCH v2] drm/panthor: extend timestamp query with flags
-Date: Thu, 19 Mar 2026 09:25:51 +0100
-Message-ID: <20260319082551.841182-1-marcin.slusarz@arm.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260318112952.645160-1-marcin.slusarz@arm.com>
-References: <20260318112952.645160-1-marcin.slusarz@arm.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: LO4P265CA0310.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:391::18) To PAWPR08MB9996.eurprd08.prod.outlook.com
- (2603:10a6:102:35a::11)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6B21410E8EA
+ for <dri-devel@lists.freedesktop.org>; Thu, 19 Mar 2026 08:29:23 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 0919C5BD23;
+ Thu, 19 Mar 2026 08:29:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1773908962; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=uepIOdIe1KDBAdOR2nVFfKPb1oLN4//z8c2D1VPKCns=;
+ b=S+AgGMCSXeJliUMRbJImB4/IfpfwkHgvUO7xXbehPl6BSsU8qP1/tqAKtzzkZ2TDvspYYM
+ xp0lW+/DeyF2ROg5CCKt7W413Tzs9QFuTE8fEf0Qw/viAUB9yDKBheoXXyIRQx/03PkbJe
+ IB7wGLlKvhu6a/xa7SqJUfO8erhCdCg=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1773908962;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=uepIOdIe1KDBAdOR2nVFfKPb1oLN4//z8c2D1VPKCns=;
+ b=8pcZ2dwVitZL8DLsqHjvhQci1vcFMh5jy1/u9c91WLJ82iDazWply9/R8OnN7C09QiHQF0
+ RYdYYThEEJTD97Cg==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1773908962; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=uepIOdIe1KDBAdOR2nVFfKPb1oLN4//z8c2D1VPKCns=;
+ b=S+AgGMCSXeJliUMRbJImB4/IfpfwkHgvUO7xXbehPl6BSsU8qP1/tqAKtzzkZ2TDvspYYM
+ xp0lW+/DeyF2ROg5CCKt7W413Tzs9QFuTE8fEf0Qw/viAUB9yDKBheoXXyIRQx/03PkbJe
+ IB7wGLlKvhu6a/xa7SqJUfO8erhCdCg=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1773908962;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=uepIOdIe1KDBAdOR2nVFfKPb1oLN4//z8c2D1VPKCns=;
+ b=8pcZ2dwVitZL8DLsqHjvhQci1vcFMh5jy1/u9c91WLJ82iDazWply9/R8OnN7C09QiHQF0
+ RYdYYThEEJTD97Cg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 030304273B;
+ Thu, 19 Mar 2026 08:29:20 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id JuLvOeCzu2n6dgAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Thu, 19 Mar 2026 08:29:20 +0000
+Message-ID: <29c59b0f-c86c-4197-8cf5-47e4132c730b@suse.de>
+Date: Thu, 19 Mar 2026 09:29:20 +0100
 MIME-Version: 1.0
-X-MS-TrafficTypeDiagnostic: PAWPR08MB9996:EE_|VE1PR08MB5821:EE_|DB5PEPF00014B98:EE_|AS8PR08MB6472:EE_
-X-MS-Office365-Filtering-Correlation-Id: eddb007f-e239-4347-bcda-08de85914afa
-X-LD-Processed: f34e5979-57d9-4aaa-ad4d-b122a662184d,ExtAddr,ExtAddr
-x-checkrecipientrouted: true
-NoDisclaimer: true
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam-Untrusted: BCL:0;
- ARA:13230040|1800799024|376014|366016|22082099003|18002099003|56012099003; 
-X-Microsoft-Antispam-Message-Info-Original: d491soM7yenZTv/4U8mkfAb2scCgEYTRA/pUHY+Z3s93q0MZhOTkbkaqCLCgRD/ucrGxdP02KqqnM3b4Q+BF8/nYvuHgqaSI4lTwoEpRE89a9AWf/uba16q5+Eq1vJfiDbQTCXv2Of+z+ACe55b0X5GBk6IX8N2dwD1qsHDXazKgFjf0itgmE8tPKTxXgJXYGkFsJA4bLbYlCy3UuSxZ2qz+grNXadTcOA4iozZOewsd5NoWJhz3AHYcfY3V2YeJCun616DnOC3kdcjmtcy1LWbBhSh3jC/N16UiOAaVfL0hYFwuiGpHBLkk1nX9wlI/S9Bd+sTN/GhwxXk21s/5t2CXqQfXfuyttveZRyWl7HZKgPBwz0/DpOEnJNzR0PEkriStGIUS6glornjFjTvyjNRnUdJKHRa5TCtp3Bsv7LsE0PfLwlJcBWSs2XS7xk56Ms3Td74TLda8gGIE+AZYDC3oPuM1Mpzk6jg2gy1rZcaEk7M36RaeRG2nkCBEGVQtQqEgXMGMWRr1ix6blvin7jK50b0DlLHLUmi9s8d+Z++AEARekKCRV5jujaiS+mzqCrGLyvccnmzOFOBsXsCNteQb8TM7isrKGJ1+ClEUyE/THk46F61RVvkma74DlxHa8262gIUwW358iGk8YOrmLjXVKylXTC7O85NxVOKuqO5mdJVHHriSr3R6rE59ctUDkbgYywjmOE4zI0CbS3c0v7gy866FvpOGbgynY5ei8oE=
-X-Forefront-Antispam-Report-Untrusted: CIP:255.255.255.255; CTRY:; LANG:en;
- SCL:1; SRV:; IPV:NLI; SFV:NSPM; H:PAWPR08MB9996.eurprd08.prod.outlook.com;
- PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(366016)(22082099003)(18002099003)(56012099003);
- DIR:OUT; SFP:1101; 
-X-Exchange-RoutingPolicyChecked: hlY/uinaaTJSQi48xaeNZjBh4fc2hp2C6CM944y+QSYiZT6x8jQ5oeZVrGZQl4RAUZrGM14UV615rwFbiSsbR6gT7v1Gl+flTcGf5YPsjTen5z7Y2V8nnR6BIlax4wMAX1DP0CbtND+ALbu47NwVx0y0izYZIsfnHgw0GvqKIoRCv5VQOQJPMlgjfOCc+yPHFnQI3w9yRaBVxUEgTAPMwCCUURGrrfUccql4qksEJRHt4swUlub+9hsWQr6uVZWFKcYExnl84BJjObed7OrjFSXcVPB9t3UDYu//DeMiNC5aV3DnmRsjjnJctBhE/STbS7C2T1/OZ1kClFKJJl/E3A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VE1PR08MB5821
-X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped: DB5PEPF00014B98.eurprd02.prod.outlook.com
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id-Prvs: 094372c6-00bb-4a0d-44ac-08de859122d3
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|35042699022|82310400026|36860700016|1800799024|14060799003|376014|18002099003|22082099003|56012099003;
-X-Microsoft-Antispam-Message-Info: 59MVeh3XqxCDJLebXcejP8dgYKfMdmvfDtZmor0F7tf/RZniDfkR6I9YoQZ8CmxRD8CZYMhXfwjOQeg67vUB45dTKpfqxS4BG2ql87pdRZLjGHc+0Up/MXeVrpzmrZPD+gq7FWin3PZrigZH8kDkQXfR9Y8J8RR0vOfXsl9oK/mJY5HLN2rvPBzWnQjvVeeb2TWKPKnt4dgxGnIpxh/egbW5HUeTOLNG9uX+nUgBYe8UlL6Rp86I5BMwN7CQw78WtSp7bUlIkckA6zD9Jdig1ZTGpcnkByDTA4WRHTKxY+6Hjy24bl2aUIA82gDENoRA3DM78o9P0eGO49DFX53B5PKwWQjyKAxzbIkClVsPTipdpdtAjLUD2HqV9SThl30ffApn3jlIwmcamci/RodpR75K4QVCxOk+H2LuMlygiJoCeR+1xwBs8VV1s7kvvOYdn1pkh9lncMD90eGW0mrbeJMxJMGwxVqblKxyyS3l5vc2AsuEF/Oc6DayE5LgXfFgITmJue0FKt8gplLzNDgKhCF6nCyYVIye7Pje6LTUaTdWkyI4ekpy+vXRIesGF9wWPOwe20FE6Be8U/9/UcOZjdqe8+SlRhdkD5uG9nRbMnZWspS4VF3TxSJ2eDizCz8McZohV220TOoAjBE9czSBYmfeTAHAXIwqlAJjaGSJEGO2OrNOlteB0QFN5hwoGYAEBsTJUShJ6GBW2V3i0u5iG8W02Z2IL/zwrAsT9L2+APzZ5Po1py0711zZrwyfKHt/XKPQJrFk8bAbAYWeNuIoGg==
-X-Forefront-Antispam-Report: CIP:4.158.2.129; CTRY:GB; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:outbound-uk1.az.dlp.m.darktrace.com;
- PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(35042699022)(82310400026)(36860700016)(1800799024)(14060799003)(376014)(18002099003)(22082099003)(56012099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: S2+EZbYCfDGeFSupA+2K55UBkn+p8RYxMVgS3Nvt9I9nXBcTk4pDtjzMrBlbT05B36BqrbKegBDrvj5LSzyR+muaZSK09xlZjxH7o5Psbvm1UeC7xTVDCREgXMcE9aY8tBtoUDwgR88NP3bhX4GE+wd6ZC7fRovVTSMteWsxsjyQGlHpw7mMage9wlxPbf5cHz84cm6mfFc05M86hp/LeOD2NvLaA+b80XzB7goPE853FUepjh9zJDs8iZ6RUU3/F0F4xO0aZBO+LC59D+CDvAPJ+LrRCW4rd5ttOluY3g6yoVZGA6ZHA27H9uT1qaQ3Gmf3dKOApAilCBrt79VP5m3SQJ8qA+MblkQLiwcD3MOYjwdlEsImu9tcFAB+E2fqFqziO7TzVNZMxb5vuV4xX1N19v+5doYqX9VXKqSYA6kwaLYMzBjLdGFP2fEuVWrF
-X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Mar 2026 08:27:00.6637 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: eddb007f-e239-4347-bcda-08de85914afa
-X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d; Ip=[4.158.2.129];
- Helo=[outbound-uk1.az.dlp.m.darktrace.com]
-X-MS-Exchange-CrossTenant-AuthSource: DB5PEPF00014B98.eurprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR08MB6472
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 0/4] drm/atomic: Allocate drm_private_state through a
+ callback
+To: Maxime Ripard <mripard@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org, Harry Wentland <harry.wentland@amd.com>, 
+ Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ amd-gfx@lists.freedesktop.org,
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Mikko Perttunen <mperttunen@nvidia.com>,
+ Jonathan Hunter <jonathanh@nvidia.com>, linux-tegra@vger.kernel.org,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Liviu Dudau <liviu.dudau@arm.com>, =?UTF-8?Q?Ma=C3=ADra_Canal?=
+ <mcanal@igalia.com>, Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Paul Cercueil <paul@crapouillou.net>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+ linux-mips@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, Jessica Zhang <jesszhan0024@gmail.com>
+References: <20260224-drm-private-obj-reset-v5-0-5a72f8ec9934@kernel.org>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <20260224-drm-private-obj-reset-v5-0-5a72f8ec9934@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-2.80 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ SUSPICIOUS_RECIPS(1.50)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ NEURAL_HAM_SHORT(-0.20)[-0.999]; MIME_GOOD(-0.10)[text/plain];
+ RCVD_TLS_ALL(0.00)[]; ARC_NA(0.00)[];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com]; MIME_TRACE(0.00)[0:+];
+ FUZZY_RATELIMITED(0.00)[rspamd.com];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; TO_DN_SOME(0.00)[];
+ RCPT_COUNT_TWELVE(0.00)[35]; TAGGED_RCPT(0.00)[];
+ MID_RHS_MATCH_FROM(0.00)[];
+ R_RATELIMIT(0.00)[to_ip_from(RLq3cifbxyhc6qbbynzfc6amns)];
+ FROM_HAS_DN(0.00)[];
+ FREEMAIL_CC(0.00)[lists.freedesktop.org,amd.com,igalia.com,ideasonboard.com,gmail.com,nvidia.com,vger.kernel.org,oss.qualcomm.com,arm.com,intel.com,linaro.org,kernel.org,crapouillou.net,raspberrypi.com,kwiboo.se,linux.dev,poorly.run,somainline.org];
+ FREEMAIL_TO(0.00)[kernel.org,linux.intel.com,gmail.com,ffwll.ch];
+ FROM_EQ_ENVFROM(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+ TO_MATCH_ENVRCPT_ALL(0.00)[];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo, suse.de:mid,
+ suse.de:email]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -157,285 +165,94 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Flags now control which data user space wants to query,
-there is more information sources, and there's ability
-to query duration of multiple timestamp reads.
+Hi
 
-New sources:
-- CPU's monotonic,
-- CPU's monotonic raw,
-- GPU's cycle count
+Am 24.02.26 um 17:10 schrieb Maxime Ripard:
+> Hi,
+>
+> This series started from my work on the hardware state readout[1], and
+> was suggested by Dmitry[2].
+>
+> This series deal with the fact that drm_private_obj (and thus bridges)
+> are not initialized using the same pattern than any other object. This
+> series solves that inconsistency by aligning it to what we're doing for
+> all the other objects.
+>
+> This was tested on a TI SK-AM62, with three bridges.
+>
+> Let me know what you think,
+> Maxime
+>
+> 1: https://lore.kernel.org/dri-devel/20250902-drm-state-readout-v1-0-14ad5315da3f@kernel.org/
+> 2: https://lore.kernel.org/dri-devel/zvqtehg66dbrrdmik6ylo2kdk74umfzo5hbfkizwsb352nlyqv@jgouvmbfwa4x/
+>
+> Signed-off-by: Maxime Ripard <mripard@kernel.org>
+> ---
+> Changes in v5:
+> - Rebase to drm-misc-next
+> - Link to v4: https://lore.kernel.org/r/20260128-drm-private-obj-reset-v4-0-90891fa3d3b0@redhat.com
+>
+> Changes in v4:
+> - Fix a circular dependencies between modules by calling
+>    __drm_atomic_helper_private_obj_create_state from
+>    __drm_atomic_helper_bridge_reset instead of
+>    drm_bridge_atomic_create_priv_state()
+> - Link to v3: https://lore.kernel.org/r/20260119-drm-private-obj-reset-v3-0-b931abe3a5e3@redhat.com
+>
+> Changes in v3:
+> - EDITME: describe what is new in this series revision.
+> - EDITME: use bulletpoints and terse descriptions.
+> - Link to v2: https://lore.kernel.org/r/20251014-drm-private-obj-reset-v2-0-6dd60e985e9d@kernel.org
+>
+> Changes in v2:
+> - Switch to a new hook instead of reset since some drm_private_objs want
+>    to persist across suspends
+> - Drop the call to drm_private_obj_funcs.reset in
+>    drm_mode_config_reset()
+> - Link to v1: https://lore.kernel.org/r/20251008-drm-private-obj-reset-v1-0-805ab43ae65a@kernel.org
+>
+> ---
+> Maxime Ripard (4):
+>        drm/amdgpu: Switch private_obj initialization to atomic_create_state
+>        drm/omapdrm: Switch private_obj initialization to atomic_create_state
+>        drm/tegra: Switch private_obj initialization to atomic_create_state
+>        drm/atomic: Remove state argument to drm_atomic_private_obj_init
 
-These changes should make the implementation of
-VK_KHR_calibrated_timestamps more accurate and much simpler.
+Nice cleanup. For the whole series:
 
-Signed-off-by: Marcin Slusarz <marcin.slusarz@arm.com>
----
-Changes in v2:
- - added DRM_PANTHOR_TIMESTAMP_CPU_NONE
- - cpu_timestamp_nsec extended to u64
- - pad1 removed
- - copy_from_user -> copy_struct_from_user
- - looking at size replaced by looking at flags
- - more comments
----
- drivers/gpu/drm/panthor/panthor_drv.c | 125 ++++++++++++++++++++++++--
- include/uapi/drm/panthor_drm.h        |  58 +++++++++++-
- 2 files changed, 175 insertions(+), 8 deletions(-)
+Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
 
-diff --git a/drivers/gpu/drm/panthor/panthor_drv.c b/drivers/gpu/drm/panthor/panthor_drv.c
-index 165dddfde6ca..b6a100ce389d 100644
---- a/drivers/gpu/drm/panthor/panthor_drv.c
-+++ b/drivers/gpu/drm/panthor/panthor_drv.c
-@@ -13,7 +13,9 @@
- #include <linux/pagemap.h>
- #include <linux/platform_device.h>
- #include <linux/pm_runtime.h>
-+#include <linux/sched/clock.h>
- #include <linux/time64.h>
-+#include <linux/time_namespace.h>
- 
- #include <drm/drm_auth.h>
- #include <drm/drm_debugfs.h>
-@@ -765,18 +767,123 @@ static int panthor_query_timestamp_info(struct panthor_device *ptdev,
- 					struct drm_panthor_timestamp_info *arg)
- {
- 	int ret;
-+	u32 flags;
-+	unsigned long irq_flags;
-+	struct timespec64 cpu_ts;
-+	u64 query_start_time;
-+	bool minimize_interruption;
-+	u32 timestamp_types = 0;
-+
-+	if (arg->flags != 0)
-+		flags = arg->flags;
-+	else
-+		flags = DRM_PANTHOR_TIMESTAMP_GPU |
-+			DRM_PANTHOR_TIMESTAMP_GPU_OFFSET |
-+			DRM_PANTHOR_TIMESTAMP_FREQ;
-+
-+	switch (flags & DRM_PANTHOR_TIMESTAMP_CPU_TYPE_MASK) {
-+	case 0:
-+		break;
-+	case DRM_PANTHOR_TIMESTAMP_CPU_MONOTONIC:
-+	case DRM_PANTHOR_TIMESTAMP_CPU_MONOTONIC_RAW:
-+		timestamp_types++;
-+		break;
-+	default:
-+		return -EINVAL;
-+	}
-+
-+	if (flags & ~(DRM_PANTHOR_TIMESTAMP_GPU |
-+		      DRM_PANTHOR_TIMESTAMP_CPU_TYPE_MASK |
-+		      DRM_PANTHOR_TIMESTAMP_GPU_OFFSET |
-+		      DRM_PANTHOR_TIMESTAMP_GPU_CYCLE_COUNT |
-+		      DRM_PANTHOR_TIMESTAMP_FREQ |
-+		      DRM_PANTHOR_TIMESTAMP_DURATION))
-+		return -EINVAL;
-+
-+	if (flags & DRM_PANTHOR_TIMESTAMP_GPU)
-+		timestamp_types++;
-+	if (flags & DRM_PANTHOR_TIMESTAMP_GPU_CYCLE_COUNT)
-+		timestamp_types++;
-+
-+	/* If user asked to obtain timestamps from more than one source,
-+	 * then it very likely means they want them to be as close as possible.
-+	 * If they asked for duration, then that likely means that they
-+	 * want to know how long obtaining timestamp takes, without random
-+	 * events, like process scheduling or interrupts.
-+	 */
-+	minimize_interruption =
-+		(flags & DRM_PANTHOR_TIMESTAMP_DURATION) ||
-+		(timestamp_types >= 2);
- 
- 	ret = panthor_device_resume_and_get(ptdev);
- 	if (ret)
- 		return ret;
- 
-+	if (flags & DRM_PANTHOR_TIMESTAMP_FREQ) {
- #ifdef CONFIG_ARM_ARCH_TIMER
--	arg->timestamp_frequency = arch_timer_get_cntfrq();
-+		arg->timestamp_frequency = arch_timer_get_cntfrq();
- #else
--	arg->timestamp_frequency = 0;
-+		arg->timestamp_frequency = 0;
- #endif
--	arg->current_timestamp = gpu_read64_counter(ptdev, GPU_TIMESTAMP);
--	arg->timestamp_offset = gpu_read64(ptdev, GPU_TIMESTAMP_OFFSET);
-+	} else {
-+		arg->timestamp_frequency = 0;
-+	}
-+
-+	if (flags & DRM_PANTHOR_TIMESTAMP_GPU_OFFSET)
-+		arg->timestamp_offset = gpu_read64(ptdev, GPU_TIMESTAMP_OFFSET);
-+	else
-+		arg->timestamp_offset = 0;
-+
-+	if (minimize_interruption) {
-+		preempt_disable();
-+		local_irq_save(irq_flags);
-+	}
-+
-+	if (flags & DRM_PANTHOR_TIMESTAMP_DURATION)
-+		query_start_time = local_clock();
-+	else
-+		query_start_time = 0;
-+
-+	if (flags & DRM_PANTHOR_TIMESTAMP_GPU)
-+		arg->current_timestamp = gpu_read64_counter(ptdev, GPU_TIMESTAMP);
-+	else
-+		arg->current_timestamp = 0;
-+
-+	switch (flags & DRM_PANTHOR_TIMESTAMP_CPU_TYPE_MASK) {
-+	case DRM_PANTHOR_TIMESTAMP_CPU_MONOTONIC:
-+		ktime_get_ts64(&cpu_ts);
-+		break;
-+	case DRM_PANTHOR_TIMESTAMP_CPU_MONOTONIC_RAW:
-+		ktime_get_raw_ts64(&cpu_ts);
-+		break;
-+	default:
-+		break;
-+	}
-+
-+	if (flags & DRM_PANTHOR_TIMESTAMP_GPU_CYCLE_COUNT)
-+		arg->cycle_count = gpu_read64_counter(ptdev, GPU_CYCLE_COUNT);
-+	else
-+		arg->cycle_count = 0;
-+
-+	if (flags & DRM_PANTHOR_TIMESTAMP_DURATION)
-+		arg->duration_nsec = local_clock() - query_start_time;
-+	else
-+		arg->duration_nsec = 0;
-+
-+	if (minimize_interruption) {
-+		local_irq_restore(irq_flags);
-+		preempt_enable();
-+	}
-+
-+	if (flags & DRM_PANTHOR_TIMESTAMP_CPU_TYPE_MASK) {
-+		timens_add_monotonic(&cpu_ts);
-+
-+		arg->cpu_timestamp_sec = cpu_ts.tv_sec;
-+		arg->cpu_timestamp_nsec = cpu_ts.tv_nsec;
-+	} else {
-+		arg->cpu_timestamp_sec = 0;
-+		arg->cpu_timestamp_nsec = 0;
-+	}
- 
- 	pm_runtime_put(ptdev->base.dev);
- 	return 0;
-@@ -851,8 +958,13 @@ static int panthor_ioctl_dev_query(struct drm_device *ddev, void *data, struct d
- 		return PANTHOR_UOBJ_SET(args->pointer, args->size, ptdev->csif_info);
- 
- 	case DRM_PANTHOR_DEV_QUERY_TIMESTAMP_INFO:
--		ret = panthor_query_timestamp_info(ptdev, &timestamp_info);
-+		ret = copy_struct_from_user(&timestamp_info, sizeof(timestamp_info),
-+					    (const void __user __force *) args->pointer,
-+					    args->size);
-+		if (ret)
-+			return ret;
- 
-+		ret = panthor_query_timestamp_info(ptdev, &timestamp_info);
- 		if (ret)
- 			return ret;
- 
-@@ -1680,6 +1792,7 @@ static void panthor_debugfs_init(struct drm_minor *minor)
-  *       - adds DRM_IOCTL_PANTHOR_BO_SYNC ioctl
-  *       - adds DRM_IOCTL_PANTHOR_BO_QUERY_INFO ioctl
-  *       - adds drm_panthor_gpu_info::selected_coherency
-+ * - 1.8 - extends DEV_QUERY_TIMESTAMP_INFO with flags
-  */
- static const struct drm_driver panthor_drm_driver = {
- 	.driver_features = DRIVER_RENDER | DRIVER_GEM | DRIVER_SYNCOBJ |
-@@ -1693,7 +1806,7 @@ static const struct drm_driver panthor_drm_driver = {
- 	.name = "panthor",
- 	.desc = "Panthor DRM driver",
- 	.major = 1,
--	.minor = 7,
-+	.minor = 8,
- 
- 	.gem_create_object = panthor_gem_create_object,
- 	.gem_prime_import_sg_table = drm_gem_shmem_prime_import_sg_table,
-diff --git a/include/uapi/drm/panthor_drm.h b/include/uapi/drm/panthor_drm.h
-index b401ac585d6a..8a46ef040c3d 100644
---- a/include/uapi/drm/panthor_drm.h
-+++ b/include/uapi/drm/panthor_drm.h
-@@ -409,6 +409,38 @@ struct drm_panthor_csif_info {
- 	__u32 pad;
- };
- 
-+/**
-+ * enum drm_panthor_timestamp_info_flags - drm_panthor_timestamp_info.flags
-+ */
-+enum drm_panthor_timestamp_info_flags {
-+	/** @DRM_PANTHOR_TIMESTAMP_GPU: Query GPU time. */
-+	DRM_PANTHOR_TIMESTAMP_GPU = 1 << 0,
-+
-+	/** @DRM_PANTHOR_TIMESTAMP_CPU_NONE: Don't query CPU time. */
-+	DRM_PANTHOR_TIMESTAMP_CPU_NONE = 0 << 1,
-+
-+	/** @DRM_PANTHOR_TIMESTAMP_CPU_MONOTONIC: Query CPU time using CLOCK_MONOTONIC. */
-+	DRM_PANTHOR_TIMESTAMP_CPU_MONOTONIC = 1 << 1,
-+
-+	/** @DRM_PANTHOR_TIMESTAMP_CPU_MONOTONIC_RAW: Query CPU time using CLOCK_MONOTONIC_RAW. */
-+	DRM_PANTHOR_TIMESTAMP_CPU_MONOTONIC_RAW = 2 << 1,
-+
-+	/** @DRM_PANTHOR_TIMESTAMP_CPU_TYPE_MASK: Space reserved for CPU clock type. */
-+	DRM_PANTHOR_TIMESTAMP_CPU_TYPE_MASK = 7 << 1,
-+
-+	/** @DRM_PANTHOR_TIMESTAMP_GPU_OFFSET: Query GPU offset. */
-+	DRM_PANTHOR_TIMESTAMP_GPU_OFFSET = 1 << 4,
-+
-+	/** @DRM_PANTHOR_TIMESTAMP_GPU_CYCLE_COUNT: Query GPU cycle count. */
-+	DRM_PANTHOR_TIMESTAMP_GPU_CYCLE_COUNT = 1 << 5,
-+
-+	/** @DRM_PANTHOR_TIMESTAMP_FREQ: Query timestamp frequency. */
-+	DRM_PANTHOR_TIMESTAMP_FREQ = 1 << 6,
-+
-+	/** @DRM_PANTHOR_TIMESTAMP_DURATION: Return duration of time query. */
-+	DRM_PANTHOR_TIMESTAMP_DURATION = 1 << 7,
-+};
-+
- /**
-  * struct drm_panthor_timestamp_info - Timestamp information
-  *
-@@ -421,11 +453,33 @@ struct drm_panthor_timestamp_info {
- 	 */
- 	__u64 timestamp_frequency;
- 
--	/** @current_timestamp: The current timestamp. */
-+	/** @current_timestamp: The current GPU timestamp. */
- 	__u64 current_timestamp;
- 
--	/** @timestamp_offset: The offset of the timestamp timer. */
-+	/** @timestamp_offset: The offset of the GPU timestamp timer. */
- 	__u64 timestamp_offset;
-+
-+	/**
-+	 * @flags: Bitmask of drm_panthor_timestamp_info_flags.
-+	 *
-+	 * If set to 0, then it is interpreted as:
-+	 *  DRM_PANTHOR_TIMESTAMP_GPU |
-+	 *  DRM_PANTHOR_TIMESTAMP_GPU_OFFSET |
-+	 *  DRM_PANTHOR_TIMESTAMP_FREQ
-+	 */
-+	__u32 flags;
-+
-+	/** @duration_nsec: Duration of time query. */
-+	__u32 duration_nsec;
-+
-+	/** @cycle_count: Value of GPU_CYCLE_COUNT. */
-+	__u64 cycle_count;
-+
-+	/** @cpu_timestamp_sec: Seconds part of CPU timestamp. */
-+	__u64 cpu_timestamp_sec;
-+
-+	/** @cpu_timestamp_nsec: Nanseconds part of CPU timestamp. */
-+	__u64 cpu_timestamp_nsec;
- };
- 
- /**
+Best regards
+Thomas
+
+>
+>   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  | 51 ++++++++++++----------
+>   .../drm/arm/display/komeda/komeda_private_obj.c    | 16 +++----
+>   drivers/gpu/drm/display/drm_dp_mst_topology.c      |  1 -
+>   drivers/gpu/drm/display/drm_dp_tunnel.c            |  2 +-
+>   drivers/gpu/drm/drm_atomic.c                       | 22 +++-------
+>   drivers/gpu/drm/drm_bridge.c                       |  1 -
+>   drivers/gpu/drm/ingenic/ingenic-drm-drv.c          |  2 +-
+>   drivers/gpu/drm/ingenic/ingenic-ipu.c              |  2 +-
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c            |  1 -
+>   drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c           |  1 -
+>   drivers/gpu/drm/omapdrm/omap_drv.c                 | 22 +++++++---
+>   drivers/gpu/drm/tegra/hub.c                        | 22 +++++++---
+>   drivers/gpu/drm/vc4/vc4_kms.c                      |  4 +-
+>   include/drm/drm_atomic.h                           |  1 -
+>   14 files changed, 76 insertions(+), 72 deletions(-)
+> ---
+> base-commit: 196b2b95fec447c2c4460f753b277d840633fbef
+> change-id: 20251008-drm-private-obj-reset-ae1e2741027a
+>
+> Best regards,
+
 -- 
-2.34.1
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
+
 
