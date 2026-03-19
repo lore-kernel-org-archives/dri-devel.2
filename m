@@ -4,42 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C5B7E1090240
-	for <dri-devel@archiver.kernel.org>; Thu, 19 Mar 2026 15:17:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8E683109023F
+	for <dri-devel@archiver.kernel.org>; Thu, 19 Mar 2026 15:21:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 29AE510E8CA;
-	Thu, 19 Mar 2026 15:17:42 +0000 (UTC)
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id 6C6B210E8CA
- for <dri-devel@lists.freedesktop.org>; Thu, 19 Mar 2026 15:17:40 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id BEEEB1BD0
- for <dri-devel@lists.freedesktop.org>; Thu, 19 Mar 2026 08:17:33 -0700 (PDT)
-Received: from [192.168.0.1] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id
- 9554A3F778
- for <dri-devel@lists.freedesktop.org>; Thu, 19 Mar 2026 08:17:39 -0700 (PDT)
-Date: Thu, 19 Mar 2026 15:17:36 +0000
-From: Liviu Dudau <liviu.dudau@arm.com>
-To: Marcin =?utf-8?Q?=C5=9Alusarz?= <marcin.slusarz@arm.com>
-Cc: Boris Brezillon <boris.brezillon@collabora.com>,
- Steven Price <steven.price@arm.com>,
- dri-devel@lists.freedesktop.org, Chia-I Wu <olvaffe@gmail.com>,
+	by gabe.freedesktop.org (Postfix) with ESMTP id C535D10E8D8;
+	Thu, 19 Mar 2026 15:21:52 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=emersion.fr header.i=@emersion.fr header.b="lpLs5MoW";
+	dkim-atps=neutral
+Received: from mail-24421.protonmail.ch (mail-24421.protonmail.ch
+ [109.224.244.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 017FB10E8DB
+ for <dri-devel@lists.freedesktop.org>; Thu, 19 Mar 2026 15:21:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=emersion.fr;
+ s=protonmail; t=1773933707; x=1774192907;
+ bh=zRwWsMDd5Kf2yQpedEA3Ka2dLpgNvYvwuOL0uYq4mxY=;
+ h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+ Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+ Message-ID:BIMI-Selector;
+ b=lpLs5MoWSLMPshfY8mDWAAtuWnhNjAJLnbOUvpaCs+fa4brd+62ef5oQPbCofQ+P8
+ JDztgoo1HuT+ZUAgQN8yDEBpw9aL68mIeonYtUb2P7hQH9zivCmtUDiYrT0Fa/WprX
+ 3hQBisrnoO7gx3I8R+kjNK7+YBOO641WYa2DklXTvAe5URhWzaE6gW2W9i7eCIOOHr
+ XLm+yALzmVm9JgpEQhGX8qdFaYgM0Jpkt/pLv7JQN+vWlUnMzZL2ah0Qf1ugdVO+yi
+ U3IuSWbLytJkDbuBnrcgjUUXdJSaymh5wnokULcMs+2iiC2WfgX+aOEk27tP2e5bGz
+ lrVkcNE38rhtA==
+Date: Thu, 19 Mar 2026 15:21:43 +0000
+To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+From: Simon Ser <contact@emersion.fr>
+Cc: Vishal Sagar <vishal.sagar@amd.com>,
+ Anatoliy Klymenko <anatoliy.klymenko@amd.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Lukas Zapolskas <lukas.zapolskas@arm.com>, nd@arm.com
-Subject: Re: [PATCH v3] drm/panthor: extend timestamp query with flags
-Message-ID: <abwTkBi5WvItsEX-@e142607>
-References: <20260318112952.645160-1-marcin.slusarz@arm.com>
- <20260319110053.909152-1-marcin.slusarz@arm.com>
- <abvhcedS46eLEYVB@e142607> <abvujKZxtg0zvFaz@e129842.arm.com>
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Michal Simek <michal.simek@amd.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ Geert Uytterhoeven <geert@linux-m68k.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Pekka Paalanen <ppaalanen@gmail.com>
+Subject: Re: [PATCH v8 06/11] drm/fourcc: Add DRM_FORMAT_XVUY2101010
+Message-ID: <ylgbwImdBAhbbTKiTvS6-hmqPs0kxSFTB5bvlM1TzeTCgaJK7AJfdEPJJwaIR7fHdgyOJBmxO_p4cNTfrLXe16Cwj5m2El5e4uog20Qxw8c=@emersion.fr>
+In-Reply-To: <20260128-xilinx-formats-v8-6-9ea8adb70269@ideasonboard.com>
+References: <20260128-xilinx-formats-v8-0-9ea8adb70269@ideasonboard.com>
+ <20260128-xilinx-formats-v8-6-9ea8adb70269@ideasonboard.com>
+Feedback-ID: 1358184:user:proton
+X-Pm-Message-ID: 45e84e170336b2f5386496980d02a320d185e866
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <abvujKZxtg0zvFaz@e129842.arm.com>
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,125 +67,4 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Mar 19, 2026 at 01:39:40PM +0100, Marcin Ślusarz wrote:
-> On Thu, Mar 19, 2026 at 11:43:45AM +0000, Liviu Dudau wrote:
-> > Hi Marcin,
-> > 
-> > On Thu, Mar 19, 2026 at 12:00:53PM +0100, Marcin Slusarz wrote:
-> > > ...
-> > > +#define VALID_TIMESTAMP_QUERY_FLAGS \
-> > > +		(DRM_PANTHOR_TIMESTAMP_GPU | \
-> > > +		 DRM_PANTHOR_TIMESTAMP_CPU_TYPE_MASK | \
-> > > +		 DRM_PANTHOR_TIMESTAMP_GPU_OFFSET | \
-> > > +		 DRM_PANTHOR_TIMESTAMP_GPU_CYCLE_COUNT | \
-> > > +		 DRM_PANTHOR_TIMESTAMP_FREQ | \
-> > > +		 DRM_PANTHOR_TIMESTAMP_DURATION)
-> > > +
-> > >  static int panthor_query_timestamp_info(struct panthor_device *ptdev,
-> > >  					struct drm_panthor_timestamp_info *arg)
-> > >  {
-> > >  	int ret;
-> > > +	u32 flags;
-> > > +	unsigned long irq_flags;
-> > > +	struct timespec64 cpu_ts;
-> > > +	u64 query_start_time;
-> > > +	bool minimize_interruption;
-> > > +	u32 timestamp_types = 0;
-> > > +
-> > > +	if (arg->flags != 0) {
-> > > +		flags = arg->flags;
-> > > +	} else {
-> > > +		/*
-> > > +		 * If flags are 0, then ask for the same things that we asked
-> > > +		 * for before flags were added.
-> > > +		 */
-> > > +		flags = DRM_PANTHOR_TIMESTAMP_GPU |
-> > > +			DRM_PANTHOR_TIMESTAMP_GPU_OFFSET |
-> > > +			DRM_PANTHOR_TIMESTAMP_FREQ;
-> > > +	}
-> > > +
-> > > +	switch (flags & DRM_PANTHOR_TIMESTAMP_CPU_TYPE_MASK) {
-> > > +	case 0:
-> 
-> Umm, this should be DRM_PANTHOR_TIMESTAMP_CPU_NONE.
-> 
-> > > +		break;
-> > > +	case DRM_PANTHOR_TIMESTAMP_CPU_MONOTONIC:
-> > > +	case DRM_PANTHOR_TIMESTAMP_CPU_MONOTONIC_RAW:
-> > > +		timestamp_types++;
-> > > +		break;
-> > > +	default:
-> > > +		return -EINVAL;
-> > > +	}
-> > > +
-> > > +	if (flags & ~VALID_TIMESTAMP_QUERY_FLAGS)
-> > > +		return -EINVAL;
-> > 
-> > Can we move this check before the switch and simplify the switch itself to only do the timestamp_types increment?
-> 
-> DRM_PANTHOR_TIMESTAMP_CPU_TYPE_MASK is bit field that holds individual
-> clock type values, so we still need to validate the bit field.
-
-The if () test eliminates the default case, and if you change the switch to:
-
-	switch (flags & DRM_PANTHOR_TIMESTAMP_CPU_NONE) {
-	case DRM_PANTHOR_TIMESTAMP_CPU_MONOTONIC:
-	case DRM_PANTHOR_TIMESTAMP_CPU_MONOTONIC_RAW:
-		timestamp_types++;
-		break;
-	}
-
-then it should be equivalent, right?
-
-> 
-> > > +
-> > > +	if (flags & DRM_PANTHOR_TIMESTAMP_GPU)
-> > > +		timestamp_types++;
-> > > +	if (flags & DRM_PANTHOR_TIMESTAMP_GPU_CYCLE_COUNT)
-> > > +		timestamp_types++;
-> > > +
-> > > +	/* If user asked to obtain timestamps from more than one source,
-> > > +	 * then it very likely means they want them to be as close as possible.
-> > > +	 * If they asked for duration, then that likely means that they
-> > > +	 * want to know how long obtaining timestamp takes, without random
-> > > +	 * events, like process scheduling or interrupts.
-> > > +	 */
-> > 
-> > This comment makes me think that user can ask for both CPU_MONOTONIC and
-> > CPU_MONOTONIC_RAW timestamps, but the code is built to make them exclusive.
-> > Can we document better what sources can be requested simultaneously?
-> 
-> Somethine like this?
-> 
-> diff --git a/include/uapi/drm/panthor_drm.h b/include/uapi/drm/panthor_drm.h
-> index 8a46ef040c3d..0e455d91e77d 100644
-> --- a/include/uapi/drm/panthor_drm.h
-> +++ b/include/uapi/drm/panthor_drm.h
-> @@ -466,6 +466,11 @@ struct drm_panthor_timestamp_info {
->          *  DRM_PANTHOR_TIMESTAMP_GPU |
->          *  DRM_PANTHOR_TIMESTAMP_GPU_OFFSET |
->          *  DRM_PANTHOR_TIMESTAMP_FREQ
-> +        *
-> +        * Note: these flags are exclusive to each other (only one can be used):
-> +        * - DRM_PANTHOR_TIMESTAMP_CPU_NONE
-> +        * - DRM_PANTHOR_TIMESTAMP_CPU_MONOTONIC
-> +        * - DRM_PANTHOR_TIMESTAMP_CPU_MONOTONIC_RAW
-
-Yes, looks good to me.
-
-Best regards,
-Liviu
-
->          */
->         __u32 flags;
->  
-
--- 
-====================
-| I would like to |
-| fix the world,  |
-| but they're not |
-| giving me the   |
- \ source code!  /
-  ---------------
-    ¯\_(ツ)_/¯
+Reviewed-by: Simon Ser <contact@emersion.fr>
