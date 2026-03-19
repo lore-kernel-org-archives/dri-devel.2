@@ -4,57 +4,137 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1C7D4108E1E6
-	for <dri-devel@archiver.kernel.org>; Thu, 19 Mar 2026 10:41:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 63C6D108E1E2
+	for <dri-devel@archiver.kernel.org>; Thu, 19 Mar 2026 10:42:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 49E5B10E969;
-	Thu, 19 Mar 2026 10:41:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A2DBF10E96C;
+	Thu, 19 Mar 2026 10:42:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.b="bPLL6282";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="MVYmaXqE";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="BIO6jqIn";
 	dkim-atps=neutral
-Received: from mail-m19731107.qiye.163.com (mail-m19731107.qiye.163.com
- [220.197.31.107])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9214010E95C
- for <dri-devel@lists.freedesktop.org>; Thu, 19 Mar 2026 10:40:58 +0000 (UTC)
-Received: from zyb-HP-ProDesk-680-G2-MT.. (unknown [58.22.7.114])
- by smtp.qiye.163.com (Hmail) with ESMTP id 3790344e7;
- Thu, 19 Mar 2026 18:40:52 +0800 (GMT+08:00)
-From: Damon Ding <damon.ding@rock-chips.com>
-To: hjc@rock-chips.com, heiko@sntech.de, andy.yan@rock-chips.com,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- airlied@gmail.com, simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, andrzej.hajda@intel.com, neil.armstrong@linaro.org,
- rfoss@kernel.org
-Cc: Laurent.pinchart@ideasonboard.com, jonas@kwiboo.se,
- jernej.skrabec@gmail.com, nicolas.frattaroli@collabora.com,
- alchark@gmail.com, cristian.ciocaltea@collabora.com,
- sebastian.reichel@collabora.com, kever.yang@rock-chips.com,
- heiko.stuebner@cherry.de, tomeu@tomeuvizoso.net, amadeus@jmu.edu.cn,
- michael.riesch@collabora.com, didi.debian@cknow.org,
- dmitry.baryshkov@oss.qualcomm.com, luca.ceresoli@bootlin.com,
- dianders@chromium.org, m.szyprowski@samsung.com,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- linux-kernel@vger.kernel.org, Damon Ding <damon.ding@rock-chips.com>
-Subject: [PATCH v2 8/9] drm/bridge: analogix_dp: Add support for RK3576
-Date: Thu, 19 Mar 2026 18:40:30 +0800
-Message-Id: <20260319104031.1986946-9-damon.ding@rock-chips.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260319104031.1986946-1-damon.ding@rock-chips.com>
-References: <20260319104031.1986946-1-damon.ding@rock-chips.com>
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 94ACD10E96C
+ for <dri-devel@lists.freedesktop.org>; Thu, 19 Mar 2026 10:42:31 +0000 (UTC)
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 62J73w7M3771110
+ for <dri-devel@lists.freedesktop.org>; Thu, 19 Mar 2026 10:42:31 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ j6Ckq6EbrjkZQ8EXCi0UoQh+NfXwqejA2If5XX47JQQ=; b=MVYmaXqE+tZSlfgC
+ /oQnNfAAdrsYvw04K0yLF4TxdGsBz5jlVwG6ZMIs+OxBBlqoBSKVhMwW/bwAHMfm
+ dlmfogtfu8/B2E0rXiLd35RsyvjYJnif0KXuHvwwxKP9C4Keo/L6h98SiNkxc16U
+ UgG/wdU5AsHjKO+uvHvh05+CXEAXKbjR96fCn5OyzL99Mut52CEv6a42xH8bUxc+
+ wAAdQhLYp22Myv0LU7InAkanwHsH2gSPoSnBJOkAUBZlxwyTSRPM3k97LZRp9J6p
+ BzmhjMXcBJyPVqYjed5tULZlfE8JQKaxHXmkVQMvy4qwjICT/zb9+gDGMKysAJbt
+ I/vt2Q==
+Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com
+ [209.85.219.69])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d083r9dw3-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Thu, 19 Mar 2026 10:42:31 +0000 (GMT)
+Received: by mail-qv1-f69.google.com with SMTP id
+ 6a1803df08f44-89c69c8dc7bso6821506d6.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 19 Mar 2026 03:42:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1773916950; x=1774521750;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=j6Ckq6EbrjkZQ8EXCi0UoQh+NfXwqejA2If5XX47JQQ=;
+ b=BIO6jqInE1u/uH858yX0U0WE1Ecj8sN6FPi+Qu4Hx+Uh1xFmgYWpvw84xHfcmG62XJ
+ QtLFQgATMnhB7lqTTs0skQLqdOXST3v9sCRl3dvmkTd/HyDshl0dOQTqhksWAAG4g6oq
+ 9COTzZGGlrccEd4dTa2+3GAhAiE6WSoyf40Gt3JVC/jCPKpP5wk2rdhTf3R1IpywIWwS
+ 2QxcNSD8FwMqlfhC3KsfaCAZ6jCxOLwiKPGpjsAqXSEY019negOWq2a4yNFHGEpsSB5h
+ TaPW/llQ4+M0kdrn5sCn6lVKEsVpz4Ov47gl23WrGjiCroy8KjfWKj7Gchoer+8y9zld
+ RRtg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1773916950; x=1774521750;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=j6Ckq6EbrjkZQ8EXCi0UoQh+NfXwqejA2If5XX47JQQ=;
+ b=jQkAmGPZv3zC/8kyuJwIN9KwofVwp0MuU+8zjgur6gfkuE/cTYrNJF1cDFDRKvjlsb
+ dQ7Sik77pQDGVqWli/2XroVcTqKCj9ce8Zvgat+KhkIqfJITLbEGFPRWhMTAkAwd3ZYk
+ Bv8CnUQIN+1Joh+PNrsIAXyDXw2Jwu1yz5KRmaKOHT3BxrbiViOtBTh/a5/m48DkwPUv
+ kR1xkD5ibNO4A4LJfE1Xx8KKU6k2ZpaC6n8ZEDUeuFYbweJKkzmLTI/yvpHwwWaROyG3
+ c7rYgjZa4Bx8WAYtyEIHcH/iEGEypk5SDfdJWSkn5zGeCQsrzSPi8omuMKnx7l40xMHw
+ W4yg==
+X-Gm-Message-State: AOJu0YwDfbch3dJt/HQ1RiqDci9nR4F1G2NR8worJJrpyxVtdUQd5+M0
+ gN7M3NqNbh+GMD6srmpOzHPLDzBV0W3/y0uMOZ/oRRGmqxYi9tY6eyfV4ayQ9mxuCz1xOuvKXVZ
+ 5S9bm2hSVH+9QUdMinAZh16Yu+HSmnVMGzI4ucNxvIOEoN/xUAqwMXJb/qVxVEWAgp9UC1lE=
+X-Gm-Gg: ATEYQzy5ESrham5c2SZ0nJUCdpjyNKHqVmA04NxWqdQ+EZ6trqDgItk6BHHMPTW07S2
+ IPyCxsSjDpu4tX5vGFrhZU6AZPDWA1dsK6fKQvXwXrs3lZqBphSIam/tp4ucDYq8A3ToGVkigL+
+ V5mb5zxqpdCav7ARjGwCcbSg0giAIhPNONKFtcpbDfg3/6cWgJlMPG+l22tmyQejhAnyk8rtKLs
+ x4GVuXeUz4LzLXx7Pgm92+cJa1d0K2KKHwRfCsqU1P0t/HhISkevccSF1zwq6dZjFU7r9BZxyOk
+ 8HoHVezociU0Giv4tXFObGpREv9uoKqXDHU7VTDrKb7gfBgd/BmM0o07jGCN29BgMjrxikX43db
+ grfIhKjM8QcynQtnHO9LEh7kG/eDySBazrY934Cc9VmogGRXOAJ2Mz0W6oSebSKfPJXhoiqLOB7
+ 7jPUk=
+X-Received: by 2002:ad4:5bea:0:b0:89c:534b:735b with SMTP id
+ 6a1803df08f44-89c6b4beb0emr79650406d6.2.1773916950058; 
+ Thu, 19 Mar 2026 03:42:30 -0700 (PDT)
+X-Received: by 2002:ad4:5bea:0:b0:89c:534b:735b with SMTP id
+ 6a1803df08f44-89c6b4beb0emr79650046d6.2.1773916949616; 
+ Thu, 19 Mar 2026 03:42:29 -0700 (PDT)
+Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl.
+ [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-b97f1686b7csm427117866b.31.2026.03.19.03.42.26
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 19 Mar 2026 03:42:28 -0700 (PDT)
+Message-ID: <c9056612-8944-4bd7-863d-7632be0ed79d@oss.qualcomm.com>
+Date: Thu, 19 Mar 2026 11:42:25 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0a9d05af124503a3kunm32a99f093beec1
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
- tZV1koWUFDSUNOT01LS0k3V1ktWUFJV1kPCRoVCBIfWUFZGkgfGVZNTx5PTxgYSxhIGkJWFRQJFh
- oXVRMBExYaEhckFA4PWVdZGBILWUFZTkNVSUlVTFVKSk9ZV1kWGg8SFR0UWUFZT0tIVUpLSEpKQk
- 1VSktLVUpCWQY+
-DKIM-Signature: a=rsa-sha256;
- b=bPLL62824C51knQeLJecJxn2rlS3CxoP79cBWxy6/uxyAUUZocWil+xoEFxDCBZ2OtVkN8Dq/R2BJwppansbnDiXRfI8jc5Zk/tt5SItM6yTB8WY0ylKmnncIJXLL2GsktSk97FpZU0MpJIf029UiD6B4yxqK/lHIt0/BnQaUoU=;
- c=relaxed/relaxed; s=default; d=rock-chips.com; v=1; 
- bh=2rUibPvGU5RaGcL0yAn2kiszZxN+IlQQPz638onz4qc=;
- h=date:mime-version:subject:message-id:from;
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 5/6] arm64: dts: qcom: msm8953-flipkart-rimob: Enable
+ touchscreen
+To: cristian_ci@protonmail.com, Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org
+References: <20260318-rimob-new-features-v2-0-c1bf8917449e@protonmail.com>
+ <20260318-rimob-new-features-v2-5-c1bf8917449e@protonmail.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260318-rimob-new-features-v2-5-c1bf8917449e@protonmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: Xakk81P5MsJmlxpar_g9q_hpNCtkmQSB
+X-Proofpoint-ORIG-GUID: Xakk81P5MsJmlxpar_g9q_hpNCtkmQSB
+X-Authority-Analysis: v=2.4 cv=ApTjHe9P c=1 sm=1 tr=0 ts=69bbd317 cx=c_pps
+ a=wEM5vcRIz55oU/E2lInRtA==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
+ a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=sfOm8-O8AAAA:8 a=EUspDBNiAAAA:8 a=FcDylz7_6oNKbyFHn_0A:9 a=QEXdDO2ut3YA:10
+ a=OIgjcC2v60KrkQgK7BGD:22 a=TvTJqdcANYtsRzA46cdi:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzE5MDA4NSBTYWx0ZWRfX34P+nCFKOV/e
+ J781fSciKIjdoLRzmDktsRhGImAnVgZp6K53u3EfVDGM78BVIVAo+08Niq+lJrbfkvGswNy5vkc
+ rk9VhLyImoI9CIrRLOV5x9sXChdRHV0TWAqDYWSBrlYhgDfeSP/paaAlosh2l+prNyo9ubp1hTX
+ B7Xs44o6LMq+lfK/Td8tmwfS4jUiJkzxfRTmnqeo8sw50pQ5wOj5gEZba9Uc2FYKvWpeFI2YzkY
+ afnkVFj7OyNaq5OnVuF4P7PZUTwfhf2wLi2BBxBCXFsMKo4gBtpmyVCVByyPKdsvWcOaLWYQ0Tp
+ C+Zuh5nZhJobCIubQ4X2xxrB8Hu5xzPFAZFv5G6cumKsLBGBfoXi1S4GjNToUXLuNYJsMbjTq8H
+ DiE4gId9GJEpPa8PO9TIDUWM0cgm41ddcDFMFvYYBxn6GyVvYHEaZ6w/ON5MtQy1/k3c8TW6V/o
+ 14vui7ZN7tj2XycZfCQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-03-19_01,2026-03-17_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 lowpriorityscore=0 adultscore=0 malwarescore=0 suspectscore=0
+ clxscore=1015 impostorscore=0 priorityscore=1501 spamscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603190085
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,47 +150,15 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Expand enum analogix_dp_devtype with RK3576_EDP, and add max_link_rate
-and max_lane_count configs for it.
+On 3/18/26 11:28 PM, Cristian Cozzolino via B4 Relay wrote:
+> From: Cristian Cozzolino <cristian_ci@protonmail.com>
+> 
+> This device uses a Goodix GT5688 touch controller, connected to i2c_3.
+> Add it to the device tree.
+> 
+> Signed-off-by: Cristian Cozzolino <cristian_ci@protonmail.com>
+> ---
 
-Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
----
- drivers/gpu/drm/bridge/analogix/analogix_dp_core.c | 1 +
- include/drm/bridge/analogix_dp.h                   | 2 ++
- 2 files changed, 3 insertions(+)
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-index 045fdb77531f..641f37fbea27 100644
---- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-+++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-@@ -1248,6 +1248,7 @@ static int analogix_dp_dt_parse_pdata(struct analogix_dp_device *dp)
- 		video_info->max_link_rate = 0x0A;
- 		video_info->max_lane_count = 0x04;
- 		break;
-+	case RK3576_EDP:
- 	case RK3588_EDP:
- 		video_info->max_link_rate = 0x14;
- 		video_info->max_lane_count = 0x04;
-diff --git a/include/drm/bridge/analogix_dp.h b/include/drm/bridge/analogix_dp.h
-index 7b670dd769e9..0e0b87abee59 100644
---- a/include/drm/bridge/analogix_dp.h
-+++ b/include/drm/bridge/analogix_dp.h
-@@ -16,6 +16,7 @@ enum analogix_dp_devtype {
- 	EXYNOS_DP,
- 	RK3288_DP,
- 	RK3399_EDP,
-+	RK3576_EDP,
- 	RK3588_EDP,
- };
- 
-@@ -24,6 +25,7 @@ static inline bool analogix_dp_is_rockchip(enum analogix_dp_devtype type)
- 	switch (type) {
- 	case RK3288_DP:
- 	case RK3399_EDP:
-+	case RK3576_EDP:
- 	case RK3588_EDP:
- 		return true;
- 	default:
--- 
-2.34.1
-
+Konrad
