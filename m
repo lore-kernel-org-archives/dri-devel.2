@@ -4,132 +4,132 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C7705103E185
-	for <dri-devel@archiver.kernel.org>; Thu, 19 Mar 2026 05:37:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 08927103E19B
+	for <dri-devel@archiver.kernel.org>; Thu, 19 Mar 2026 06:00:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 21AD410E0D5;
-	Thu, 19 Mar 2026 05:37:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 62D4010E7D5;
+	Thu, 19 Mar 2026 06:00:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="A5IS3ajq";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="nP4AAYne";
 	dkim-atps=neutral
-Received: from BN1PR04CU002.outbound.protection.outlook.com
- (mail-eastus2azon11010071.outbound.protection.outlook.com [52.101.56.71])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D73D910E0D5
- for <dri-devel@lists.freedesktop.org>; Thu, 19 Mar 2026 05:37:08 +0000 (UTC)
+Received: from DM5PR21CU001.outbound.protection.outlook.com
+ (mail-centralusazon11011035.outbound.protection.outlook.com [52.101.62.35])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9293710E7D5
+ for <dri-devel@lists.freedesktop.org>; Thu, 19 Mar 2026 06:00:50 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ymCxsmMKeDhzun+3Ve1fFxBcxU1ybX0p4K/VkboG299IJ1n1q+Mai1hoJCl0Ei5QLCj4c4li7+hqukD+ESv+rfI3Mar8bqTmr9SzC2AtNFzD5wFk0TPU4H1/MKaU0RSOSbkofkqBCKGlmwG9FQeOWC+s0D8LG2jZ7tuEl1Nc5amrwOkv6F5IudnOn8nTwCCk3Xoc+TcfITJKc09l/3VMUrZj7caJLLj/nUi3yBryzvpCo7RyAMMRC8MaZgaR4Wb7mUGdiDup+cBMETdW347gEMi0KzJwFyHsPEE3kooiaGyo2F5Q0dpPsxILH5IaRyWaPcPnTsA9AgRJ/0zFvSj1IQ==
+ b=gcEd+FOujuW80iQ59xV9NbRZwzG9upEPxgxE28eW16hMoEHGvJuhIEB5w2vfQONVWEyXgDbAqro1aLpxumE/uLGYs6YznC1nSELpTkm7NHJmWVbAdM3BbcZ9KGiuk+DBg17uU9u9FhfBSNrUMPPpBxJCK/Lf5vNJzYijnpilQOwynuTDFrDqVBXBBRkwDoWWn9ocitTGeXF7KyJJVOgi9uFTIlHUGmmhvpCS1Aapagtv6xXTp7A5J6vwrjnmESQuOVJQV9EyCmdfZsi0k31lIfS/kBPtpjIiuDEkcKsOAv4OmHeMc/GLDbwYdYZN7VK7i56MsiCMYTJSGC+AUv633Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=OLX+IVPA4aU8lfkFsjWtCsdTL17qR/HrWvpyETZZyo0=;
- b=w3YuQZSH0Je+nW0/qo9dSjTpoiijjeGLx+HtPzPhW/ZhMuQtEw+aZwJ0rvZss6WJYCXvrVyDGiZF2Z+OMSQk5snKL8Sbeu1x86lY6eOxbR5U3T5Guy0ZE9delvOA5K3/SEgk6CcBzEppu28Y2lUfxc6zKVu7vy1iM6rMnOUizewf1c5TUyxLSv6dcKcEf0V683afua6b5KkshIvL3X9vQMurlxZ9H8zkQT80hr7SCypurHoSx17Kj9lSDB7m555n8SI/4XwNBtxf8aqT0QlMpepFNUdjx+9ynBn7Uxp7BFmo7p6lzwVH4YYqPoN2425C7muJCK3zuIbhrIfhfLqlOg==
+ bh=0eoF4VlgXd7+YqbsJ0UUroCML5MflKD812vW5seUYFA=;
+ b=sxQmqDqPbkZ2OwkLenyZb/0ZQ/Gt5GsuEc6rd6ZG8avuk/0L0vtVbC370BKMU0GIPjCkwJWnYY4RvkleMFW+RbChIwkjd9BHnCi8M/YgmsobFMukHfDSQW4T+vI2iu/EPqoXGHHx9AUc03wr+i3Zi0qVyMbFDaXB2ThNbxvOlUwJYrjFvxhrM4ct+TbhHFJZnZPHyeWyyOiu+lNvhcGpmrI7RyoU43zzZjeULcd5o/PegEgqwRwrSHmfLpOu5xt8BIbBzx7j6jY/JMcnXEH9YW5iGfEAjHJPtjRz2nKFtyvh1YSUNu8j2PVaU60kcA7oAyL4pVse2QAn/ekh1riDYg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=OLX+IVPA4aU8lfkFsjWtCsdTL17qR/HrWvpyETZZyo0=;
- b=A5IS3ajqqpJL5wghiCXdVW8gaXsNCPL7JULn/7vjBBjlyGFe3Wo1P10lJINqUTOoD7M0In8HsuhFMOIxoJ8NIVTF25nMPIofZshOZgA62ATMjWUYrmsekzsPiXQOLWAGx7zDt0Lw2QP0CorcfjbiNO7B+J4H2aXISp1R7J2CjQ9m/GchHRGsEMD3ttmZBv3DdLlxC7ss/CFL8xEgkNIQ/v/VjndmhWC+nQQJbuGzGt/1DoWCsOYEXN9pM5taXO5wHkuiKMbxMpQAxZ2Hm00MsEAT5UxjIXhAufYb0eQIbe6/3XUY3WoAH6iAocYGnUUiB7yni2lH6AXgyZyXdBFnlA==
+ bh=0eoF4VlgXd7+YqbsJ0UUroCML5MflKD812vW5seUYFA=;
+ b=nP4AAYne/hk4p1xJ4paxkmUHEwzu6ewl4blhTqEhlpViMvJ7hhSxKUjmBUq9VXscw0ZHGYwi686QELogStcMk2hpSHiyCEyBTaEUZLH/3tOpAnQju6QbpkAQ9j6pO52y4pELYuKUj0714vE703927ADWShveJ79IVsq+Ei3AzW8m+Elb7Clv+IkErvA8tgA7rpRNOBClfW9HDbgoKenGyYVS0hcswFCbVjq24UnQGYRkdydFwtq7DkSM9EjFtlZQNcS5Be2NxFRJBaPfFUpl4WpKEQa29vaRq+4HAbBrAlxH2c+sNpT34gOE5b7n1/eDfLodHGGol+4tjhR86KB7WQ==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
 Received: from CH2PR12MB3990.namprd12.prod.outlook.com (2603:10b6:610:28::18)
- by DM4PR12MB8572.namprd12.prod.outlook.com (2603:10b6:8:17d::18) with
- Microsoft SMTP Server (version=TLS1_2,
+ by PH7PR12MB5855.namprd12.prod.outlook.com (2603:10b6:510:1d6::11)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.9; Thu, 19 Mar
- 2026 05:37:01 +0000
+ 2026 06:00:44 +0000
 Received: from CH2PR12MB3990.namprd12.prod.outlook.com
  ([fe80::7de1:4fe5:8ead:5989]) by CH2PR12MB3990.namprd12.prod.outlook.com
  ([fe80::7de1:4fe5:8ead:5989%6]) with mapi id 15.20.9745.007; Thu, 19 Mar 2026
- 05:37:01 +0000
+ 06:00:44 +0000
 From: Alexandre Courbot <acourbot@nvidia.com>
-Date: Thu, 19 Mar 2026 14:36:51 +0900
-Subject: [PATCH] gpu: nova-core: gsp: fix undefined behavior in command
- queue code
+Date: Thu, 19 Mar 2026 15:00:40 +0900
+Subject: [PATCH] gpu: nova-core: gsp: move Cmdq's DMA handle to a struct member
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260319-cmdq-ub-fix-v1-1-0f9f6e8f3ce3@nvidia.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzMDY0NL3eTclELd0iTdtMwK3RRT8yQDy0RzE9MkSyWgjoKiVKAw2LTo2Np
- aAG6BRuFdAAAA
-X-Change-ID: 20260319-cmdq-ub-fix-d57b09a745b9
+Message-Id: <20260319-b4-cmdq-dma-handle-v1-1-57840b4a4f90@nvidia.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x2MSQqAMAwAvyI5G0hdCvUr4qG2UQOuLYhQ/LvF4
+ 8DMJIgchCN0RYLAt0Q59gyqLMAtdp8ZxWeGiipNtTI4Nug2f6HfLGbBr4yu1ZYNkVbUQA7PwJM
+ 8/7Qf3vcDyXWuFmQAAAA=
+X-Change-ID: 20260319-b4-cmdq-dma-handle-c56ae9006104
 To: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Alistair Popple <apopple@nvidia.com>
-Cc: John Hubbard <jhubbard@nvidia.com>, 
+ Eliot Courtney <ecourtney@nvidia.com>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Benno Lossin <lossin@kernel.org>, 
+ Gary Guo <gary@garyguo.net>
+Cc: John Hubbard <jhubbard@nvidia.com>, Alistair Popple <apopple@nvidia.com>, 
  Joel Fernandes <joelagnelf@nvidia.com>, Timur Tabi <ttabi@nvidia.com>, 
- Zhi Wang <zhiw@nvidia.com>, Eliot Courtney <ecourtney@nvidia.com>, 
- rust-for-linux@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Alexandre Courbot <acourbot@nvidia.com>
+ Zhi Wang <zhiw@nvidia.com>, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org, 
+ Alexandre Courbot <acourbot@nvidia.com>
 X-Mailer: b4 0.14.3
-X-ClientProxiedBy: TY4P301CA0079.JPNP301.PROD.OUTLOOK.COM
- (2603:1096:405:36f::6) To CH2PR12MB3990.namprd12.prod.outlook.com
+X-ClientProxiedBy: TY4P301CA0104.JPNP301.PROD.OUTLOOK.COM
+ (2603:1096:405:37b::9) To CH2PR12MB3990.namprd12.prod.outlook.com
  (2603:10b6:610:28::18)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PR12MB3990:EE_|DM4PR12MB8572:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3fadc9a6-0828-41db-1ca0-08de85798b54
+X-MS-TrafficTypeDiagnostic: CH2PR12MB3990:EE_|PH7PR12MB5855:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2220a316-615d-42d3-b30d-08de857cdb90
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|366016|1800799024|10070799003|18002099003|56012099003; 
-X-Microsoft-Antispam-Message-Info: SXjohXttMBf+X/UyoYk/E9DBEYeZrKa4hDZb01kaPDfD+Xovpygzre885arnJzqlvGr8OJEndZSZoEtjvUt96vpFhwCnATp3kVXlZuJqmCQHATOHFdYGq/IBQkLaZNOT2rYebOGXTFY5XxTs6Y6hgMpxcahxYMAh8pKLXQHW/vqNT00JGiz6MPPbtAvFjyiBW5aw25HdOX9N/56UgfZN7oF2PWHIJOAQ7mq8ZXEw67CWt+SiPY4YFG7Pbr44Nr0y84/pPUigIob7Xj5DICtvEdyZJMm+MT7qc1s1QVBEJIf1PmqEOcX5X5lwXRN2ieYnoEN7gkjJAHAK6FRVAc1ylQfqP8DCtK/NMq9nYNj+fl03+sCLO37ZOfuuemFKnyRTiJ97z8wnOluKmaPrClSFxzfGuLULMAWdI+bTb49wxk/Irj1ugtAz151tP4MeeYERjo3sdjIn5zMxXcVnBDC1YpjGIUQZs+MJmQUhsKE9wKXKa3rDG9wNAnhk02oYdYFWBOfPDQyZGDwnAJrULqjctJPlzTiw66Zf0H0ottJZEVZyEBGuHGitsJeMaDDbkwYzdedebk1Ddl6moFl9mb9VLqaFdGGjFLB79+nQ09hHE3rLDXGIhwSRfLXVwDhHBNPlgGUmrGIAtaEu9hMgU412gflQjGoXEtKpbGkelEitJqVua70lOLR+NgjKdDztWhVE+zqJKtBP9g4GgW+N9qYt2zb3CtPsFwExeqUPEXS3ndGUWBPcuZ/eH9e1ScBi4YzW
+ ARA:13230040|1800799024|10070799003|376014|366016|18002099003|56012099003; 
+X-Microsoft-Antispam-Message-Info: TNKB0XlFHItiF8xoA6qJec2XLvvycHblrnKc+wle6CRGs8iT3Z89BBRK7pkoBc6Rr06e7UCpFrljhZnUWPAUUVseueA6KYcvzNEFhqdPNVaW+5ojwolML6pV1WIlTx4TYISd6LY5Q5Nnzkzo3WAJdRdBT0tl/pVCofk/xJPZYKT9turh1KSduu9WkmyxJ1JDCQizVdDIRXW7Tl0E6ze7Z9/gYguccs2MY0QhlzTCcfQK6E0ar6jwol7YETT/xV5PDLvdt7DpTa4QXo8P0jd6wEwUEb+YG5N/9YjhYHZJr6EZZpPrHjO0eQrh+ahywr+aY+kIN2u3IVm1xh5rGZ167/xp/tOtoHA4IUBlab4GzHR6DZj5ugXOjuM76JMvN5inkA2Zfaz6GmbuUsMy6VU8s6A24X4hxR9wrbECB9aC9fjEBFJ7BiutIQ0/vh9D/JleqIk5nQS3uIUZ1/qVoAlGuOoOcNajX63VDANznEYfdQWb3RJYPtCAWrKTDv9kJIjo71kXU2JNiqonj3h92EYb16q/QKT/hZ15oyGD/mBiqmms4F8AvN9iz1w7J2/f6uQA8q+UQAM40cLn9ih2I8gdedMrCiuMewTs0b5XSXuuHMb3SM2ug+Wy4h67nVhWBRQUJjJ8f9MvCKEzMGYYrOq++JWLYbxutDJTbXXQBkiLxpXp+32bBtlxpuKpxzriVipvQEYAn2m98BUVLKa+5gA1VZpFea8vL7c9nFGunYFhPpA=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:CH2PR12MB3990.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(366016)(1800799024)(10070799003)(18002099003)(56012099003);
+ SFS:(13230040)(1800799024)(10070799003)(376014)(366016)(18002099003)(56012099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?N0t1L25WRXJVWkN2bjRhb3p3NTRrdHp2VmlyVjBKUHByTjgvd280QUgwYzJ1?=
- =?utf-8?B?QVpTOTh1Q2VzVWZqTFplUU8weHVqME1TUW9xbVlScXMwUHJjSmxudDh0SEpM?=
- =?utf-8?B?dlcxeTI3OFptdzVRdlk5TWN2eEcraldBQkQySUM3YnZnNFBqOUI4MlpiNWFB?=
- =?utf-8?B?K2pGV3hSWE5mWncwdE96V2x6dDRORm9xQVFUcXgycjA1QUNDSzI3QzRscEJ5?=
- =?utf-8?B?SWZlWktxczNuQVNIRWZzTWJmdFhrV3pYWFBRZU4yZitmVlJGdU5KZjNsZnFN?=
- =?utf-8?B?OHkxdnhYWkFoVy9WSG0wWExreUFXcHAwSThNeDB0ZGlZdFJkR0tLU0NTQzgw?=
- =?utf-8?B?R2JaUUJCQmJwZ3kzaWtUQVNiSkRqZDUySFpsdjVwczNRbW5VdHVFallOdXgv?=
- =?utf-8?B?ZDlmUGNiOU9oKzhid0tzWG13eUFxU3RCamFwc3F3VUIxRyt2TVJvdElXWXJH?=
- =?utf-8?B?TktEM09iQjRDelBXTHBVVkxRclhhVUwrOVdwTytyREFCVnBER05BTmovSWxZ?=
- =?utf-8?B?aE1mdyswY1ArejdzeWxjaHN0a25WUjNUcnNxdkx6Kzd6UFBmRGMxaURDRG9m?=
- =?utf-8?B?eHdsdllXOGdqdHMwTTJCUlNMYUZzRFdza04vLzBZbm13Q0RqbWVNK2pVeTN2?=
- =?utf-8?B?MjdaR2pkVVA1ZzBoRGN3OUFqNjZtL0wzTWpVbUVodDdKSnJ4UmRxeUU1dnRG?=
- =?utf-8?B?YW1tQmRWVVFFWm1CanpFY21Jb2xEWXgySGZsYU9MMU9HRGZGa0xJZmEvTmJV?=
- =?utf-8?B?T0NuWGh5dHIyL2dTRVRiSUd5M255bHlDSjUrRWg1bW1GK3Y2aTBzZFRJRXVr?=
- =?utf-8?B?dUs3Uk9peVp1MEN4RDRmWi9lVUtPSHppM1dGT2dMa1hNaSs1UEdvNHVMYkF3?=
- =?utf-8?B?ckl1UFh6MTJnbll3Z0VIVlhKZzY4dUFLMzBDR0ZpWjJWd0s4aEpSWUtCZzNr?=
- =?utf-8?B?N0doRzExWVBLR2Q3YnB5S1JoMVNDdWJveUpWL1pOeXVpdDVFZVRZc3EvbmdX?=
- =?utf-8?B?UmpSODdzMGFFd1dNei9PSFZzVERHV3UwVlVRVGJJbnlkS0RaY2Nrc3N3S1I2?=
- =?utf-8?B?eDR3NjFUdnBqUkVNaTZWYmlBbVhmcFY2U1Nkcy94R2FlRTlDUyt4Tm5wRFlI?=
- =?utf-8?B?OUpla1BBMlR2S3NJNUQ1bFVMLzVudjd4eUJxV2dYTTFvU2tXVTVhTDladFZE?=
- =?utf-8?B?c01KRUJyVTNMb0Q3OFJlWFQxM0QzaGRVOGJ4aEVBSjhNR3BLU1NSU09LMDBG?=
- =?utf-8?B?Q2VDelNZWiszR0dtMmMrdGVvTjBEZVh6NGxNdjFXNncyTVFiMVlOU25waUpV?=
- =?utf-8?B?am5vN3dBODZDWnpvUWVicU9kZFFwNUJtRFk3MldpZDF6MWNoT1UwZzY0RE92?=
- =?utf-8?B?UTlYQVRtUm8rMlY3UW43RkZYb3F6em5wZjVMRGRrVUNtMHhJM2FIbkxkbVdB?=
- =?utf-8?B?c29ad1RTVXFrUmEzMG1WcHpBY3lRVndLVWM0bVl0d3RZU0I4Sm1DRGZQQkZL?=
- =?utf-8?B?NlBMT3ladTlRM0xmUTJMUm1CTUhobHRGSFEyTmZJRDRUTEh5MnlvVERJMjBS?=
- =?utf-8?B?cXdRZjZsbHVXSWkrbnhEZ2F3OGNyNGQ1eUcza2hJbktRZS9ad2NtVytlR3l5?=
- =?utf-8?B?M1VNTE05V3BIVEI0NEtxVjVidXJVSStaK2dwcFlOL2dXZytVZlZ3dURlY3BV?=
- =?utf-8?B?c1BLT01SVWpsT1B1ZzhpaUEwZlBVZll3ek44OVpCcWpTb0ZNaVRSWE1MdXpw?=
- =?utf-8?B?UVRMVFhNM0FZTU16MWhud1I1bWZYdW1zc3Z3ZnZLNDhKWWRoQ0lmZHZJS1Ri?=
- =?utf-8?B?NmFmRmdxa3l2OTVUYXRwSmxVL1dNaWZvNTE5aWdSSDY3eWdSRHUrdDhOeG5U?=
- =?utf-8?B?TVhOL3JhWE9vSDZROG1VZnR6dFlGS2x6RzFtby9YMklhSGQ1UkRydmlOaktk?=
- =?utf-8?B?MGdTM0diWXZzWWMzemxYakhtVUV6S1FWUlUxUnhISlV6RlBOR2pLVmljbzZU?=
- =?utf-8?B?OWdlZFh0ZDRmams5MFdFZ0FVWFFzQmhJVE10UEkzTnNKRkxnV0M4Nm9DaTZC?=
- =?utf-8?B?Z3RpYjBrUmFmNXVCRkYvdGdUM01nbVk5dUN4THhmMmhrRVRLMHo1TnJicTNM?=
- =?utf-8?B?Ry8xTG9MNnhidjFtbEtMcHNMZVVUeFFuRURvU0prUWdLNk5Rd0V2OEJYbkZI?=
- =?utf-8?B?R1RUVE5CSkM1WlhYcW0yK3NnTTlqRE40Q1hNQ0M5YjViSFFZazJ4QnZpUDB0?=
- =?utf-8?B?QStCVmtJNlVLN2JGV2NONXE4N212a1BDZWl2QUhoeGdBaDR6ZlBsTSttNjc4?=
- =?utf-8?B?cVFUUkZRTnRnR3djb2dJV0gzd0VZY0Z0clF5Rk5xSlVGa0R0N1pTMDJUcFRU?=
- =?utf-8?Q?/GkO2atrtUno4pL6RMvd0y3E03w/0Z7jwxJjEEDcdlH7C?=
-X-MS-Exchange-AntiSpam-MessageData-1: ub1r4VqXgNpL3g==
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SklmcSs1bG43Sk5wdjYzcmZtdUhXcFdHK01ETHZDK3Z3RjNLQjc1R21Udmpx?=
+ =?utf-8?B?dkMwcjZyVDJLZURSd0doWUszbS93REh3d2Z0TnZhNVoxODVFQWFFOHBzQ0tn?=
+ =?utf-8?B?NUJlNkw2SUR1Mll0emVoSlhLeUJSY09scVZsTHZ1bm1XVzE5bDNxRHZPOGZa?=
+ =?utf-8?B?R3RjdmdZY2pScTVFdFdrUnltN2l6UmMzM2E1RlRmSlRHRmE0WkJQMk5PZTZy?=
+ =?utf-8?B?VTVQZ1FzczZLWHFsa2xkLzkwUytKYWVuTEc3QXh5QjQrNGl3YmlxbzY4TFpO?=
+ =?utf-8?B?QmZ0dzV2U3V3djNiOUZEWUpkeFd6b2V1Z3BpWVFFVFp5QjhvSXBmdWJpbDVD?=
+ =?utf-8?B?cWw2M3ltSFd3YzNwOGdLbk9oRG5kUlI0Rm9CSnhPL3lJWDhQdTY0dzhRU3dq?=
+ =?utf-8?B?bzh3Uk80VGZJUS9ya04rYWQ4WFFndnlWMnV0VHIxUStPYWRjdHZMY2pkYUlj?=
+ =?utf-8?B?MHR1S0JSci9kN0xrMzkrREZ4ZUl1b0RHRjNneWVBWFFHVzJHVGxaNFJXMmpE?=
+ =?utf-8?B?ODVhV2dseFF1MWJPdVErYTJZUzVsQTdJYVlGU0MxeWRLSys0K0xRQmRaOGdX?=
+ =?utf-8?B?bFNiWXpLYUlsTzdnQ3Q0ZVF2OGUvTDVyVXV1LytkbXQrd21IdEQwcjJpVW9q?=
+ =?utf-8?B?OGdOL1EzdUJYekx3MUNXVndqSEJSRjBmaWZSaDRFeVNwbFAydi9wc0Nka1Ru?=
+ =?utf-8?B?RTdMbjJJMjFITGZicm5zOHhMenREK1JWamNUbHllVURTV2tOSEpzK3FvVDJZ?=
+ =?utf-8?B?SkR2bDZQV3ZHdFRKb2lKODVEcmI2Ny9YREIxbitSTW9QTGJUTWFmQ05WTVdE?=
+ =?utf-8?B?UGZFUG83S1NoajhQQkx0dXMzQnlYeExEanU0Z1prOFlUUzlXQWlBdEY2eXBr?=
+ =?utf-8?B?bDcxMjBONTJkL3VvTm5SM3RXN2VUY0hTYjNGSFBLK01FblpOT3RYZ1Q0QXFN?=
+ =?utf-8?B?SW5Ma2o3VUtJbitsemN5YUtObTQ1YjMvYmh6bXh4eUFkVjhDdFVNa2pmM1Z6?=
+ =?utf-8?B?OHVENTQ4amVicVU2RmFzNDRrT2RhTFJTdjRvWDkwdjQvMFE3YjZyUmtoV3pL?=
+ =?utf-8?B?MUtZa0VPRmdrQWhpTEpoSnl1MFJrYUVORW1OcWVYQXR2VDJEVWNKbWMrM3N4?=
+ =?utf-8?B?NmlpanllWC9Mb1RSc3lzUVJEU3hNRzFFbVhDbXMxUzVDbkltbDJudEZzQ0x6?=
+ =?utf-8?B?V3BkWGlJdUUxS3Q5S1M0UVRQbjg1bU1ZU2t4d0lKSFQ0eHJaZ0xpYWNyOFFs?=
+ =?utf-8?B?UjJvcWdHelMzR1UxaDk3ZG1oOTJmR3NjWC92Z3VmWldGLzZNOUlBU3I5Ny9Y?=
+ =?utf-8?B?ZjJZY1lXU0U3RmVIR0gvTkFaK2NsWEFoUUVkcm1uSENVTE1OUUk5TXFRM2xL?=
+ =?utf-8?B?WFBYU1RWWXU0b3k3T0dIWFNMek5zRWQ3N01SWmd5ZkVpdFoxYVlscEhaNkdB?=
+ =?utf-8?B?S3gzRWtiSXRaNXJLUjhJM3ZSaTBkcjI2TmZWdWNxQ3VCdTZheW5BOHI3SjBx?=
+ =?utf-8?B?WTNRRG50VlM2VUVzSktWWXZLNFcyQjhWT3ZUZDhvQWNQakVsRWlyQW5RMGJl?=
+ =?utf-8?B?SFNFRGNWeVRmdVNWamJkMFhUZ3I2RXMzSmtSUHptazhMMzNGMlBYd1AraU1R?=
+ =?utf-8?B?VVZZZnBsc1FsZWRmVmM1cDBadzRsRmR4dEFkQ3V6bUZuZStxRVNEbVBmNDNU?=
+ =?utf-8?B?dXlKTlNVL1hiN21zaURaOHpEemYvdWNXVzhYeXNxQkMwZDFrNzVMbUU1RDNi?=
+ =?utf-8?B?SnRuWnUvYVJ5SE9KUyt3M3NjbkpZS0lHbDhTUmk0VjdSMVFXc2RkcUp6dERE?=
+ =?utf-8?B?a1VZUkJTMHBOQTRuOFl2TmhpWTI1YmUwVk1LcGkrTDVnKzUzL2YrdU5KUDJT?=
+ =?utf-8?B?anFJV05qb200d0hCMTM3eStDWEw0QlVQNXRycVBEVzNjNlljYktKUWJvS1l4?=
+ =?utf-8?B?V202WE54Wk9iYXU1UlBmODFmMjQ1WDFsdVMxTk9kbHl1ejl1STdOVmIzV290?=
+ =?utf-8?B?dGp6RGdjbTY1WFdJT0hXQ0pDQ1k5YlhBb2tub0JrZWh2ZXBKRUJpYXkrcllJ?=
+ =?utf-8?B?YSs2NlNaeVhHZ3YwMGt6MW9FWTRFaEoxOVFiSjVOTVFMa3BERkZGdFZYUjRG?=
+ =?utf-8?B?RjNhRFdpcmN4ZGlQTDNTY256VWVlaXV0VHlSWXlNeVNCbDI1VlIwdWIrMXdK?=
+ =?utf-8?B?c2YzZjcwaUdsRnQwaEhjMk1Dd2dIdmxmTElIY3NYdURjeVNKSW9lbGNwR0I2?=
+ =?utf-8?B?bDZZdFY1NlhkVTJYbFRCSllSaW9UMWg3YXJwY1lsSTZyZGRGMG14RVFObjhs?=
+ =?utf-8?B?NHgyaXlFYVpzYzZFRXFvTlB2aHlLOG90THplUXp1RUJkUE9mL1hyUlRwWFJp?=
+ =?utf-8?Q?RX6dG4MtcEhftiooOEmgm9XUVXAVVmJJWk1QfCmrK+rBy?=
+X-MS-Exchange-AntiSpam-MessageData-1: xfOXUOpbXvkcsA==
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3fadc9a6-0828-41db-1ca0-08de85798b54
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2220a316-615d-42d3-b30d-08de857cdb90
 X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB3990.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Mar 2026 05:37:01.1203 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Mar 2026 06:00:44.0816 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: qFWBN391Ak7iEN2w2AAnbJC4AN0lTOwjssZaCA5oSLuA9cDg+EjdERzGxL5VfsNwS08iOCe5y4IKhbA+Fs+9+g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB8572
+X-MS-Exchange-CrossTenant-UserPrincipalName: rPMNdpGvXcBfMLlKOUY4RKHdEi9cNSLmzoCOTCdsvQbeeY3lzaXk9pP+q+sMnzlao/4BpPeGZY3kalSJswIvsQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5855
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -145,199 +145,103 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-`driver_read_area` and `driver_write_area` are internal methods that
-return slices containing the area of the command queue buffer that the
-driver has exclusive read of write access, respectively.
+The command-queue structure has a `dma_handle` method that returns the
+DMA handle to the memory segment shared with the GSP. This works, but is
+not ideal for the following reasons:
 
-While their returned value is correct and safe to use, internally they
-temporarily create a reference to the whole command-buffer slice,
-including GSP-owned regions. These regions can change without notice,
-and thus creating a slice to them is undefined behavior.
+- That method is effectively only ever called once, and is technically
+  an accessor method since the handle doesn't change over time,
+- It feels a bit out-of-place with the other methods of `Cmdq` which
+  only deal with the sending or receiving of messages,
+- The method has `pub(crate)` visibility, allowing other driver code to
+  access this highly-sensitive handle.
 
-Fix this by replacing the slice logic with pointer arithmetic and
-creating slices to valid regions only. It relies on unsafe code, but
-should be mostly replaced by `IoView` and `IoSlice` once they land.
+Address all these issues by turning `dma_handle` into a struct member
+with `pub(super)` visibility. This keeps the method space focused, and
+also ensures the member is not visible outside of the modules that need
+it.
 
-Fixes: 75f6b1de8133 ("gpu: nova-core: gsp: Add GSP command queue bindings and handling")
-Suggested-by: Danilo Krummrich <dakr@kernel.org>
-Link: https://lore.kernel.org/all/DH47AVPEKN06.3BERUSJIB4M1R@kernel.org/
 Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
 ---
- drivers/gpu/nova-core/gsp/cmdq.rs | 135 ++++++++++++++++++++++++++++----------
- 1 file changed, 100 insertions(+), 35 deletions(-)
+ drivers/gpu/nova-core/gsp/cmdq.rs | 26 +++++++++++++++-----------
+ drivers/gpu/nova-core/gsp/fw.rs   |  2 +-
+ 2 files changed, 16 insertions(+), 12 deletions(-)
 
 diff --git a/drivers/gpu/nova-core/gsp/cmdq.rs b/drivers/gpu/nova-core/gsp/cmdq.rs
-index d36a62ba1c60..4200e7986774 100644
+index d36a62ba1c60..03c7c2d0ea35 100644
 --- a/drivers/gpu/nova-core/gsp/cmdq.rs
 +++ b/drivers/gpu/nova-core/gsp/cmdq.rs
-@@ -251,38 +251,77 @@ fn new(dev: &device::Device<device::Bound>) -> Result<Self> {
-     /// As the message queue is a circular buffer, the region may be discontiguous in memory. In
-     /// that case the second slice will have a non-zero length.
-     fn driver_write_area(&mut self) -> (&mut [[u8; GSP_PAGE_SIZE]], &mut [[u8; GSP_PAGE_SIZE]]) {
--        let tx = self.cpu_write_ptr() as usize;
--        let rx = self.gsp_read_ptr() as usize;
-+        let tx = num::u32_as_usize(self.cpu_write_ptr());
-+        let rx = num::u32_as_usize(self.gsp_read_ptr());
-+        // Number of pages between `tx` and the end of the command queue.
-+        // PANIC: Per the invariant of `cpu_write_ptr`, `tx < MSGQ_NUM_PAGES`.
-+        let after_tx_len = num::u32_as_usize(MSGQ_NUM_PAGES) - tx;
+@@ -30,6 +30,8 @@
+     SplitState, //
+ };
  
-+        // Pointer to the start of the CPU message queue.
-+        //
-         // SAFETY:
--        // - The `CoherentAllocation` contains exactly one object.
--        // - We will only access the driver-owned part of the shared memory.
--        // - Per the safety statement of the function, no concurrent access will be performed.
--        let gsp_mem = &mut unsafe { self.0.as_slice_mut(0, 1) }.unwrap()[0];
--        // PANIC: per the invariant of `cpu_write_ptr`, `tx` is `< MSGQ_NUM_PAGES`.
--        let (before_tx, after_tx) = gsp_mem.cpuq.msgq.data.split_at_mut(tx);
-+        // - `self.0` contains exactly one element.
-+        // - `cpuq.msgq.data[0]` is within the bounds of that element.
-+        let data = unsafe { &raw mut (*self.0.start_ptr_mut()).cpuq.msgq.data[0] };
- 
--        // The area starting at `tx` and ending at `rx - 2` modulo MSGQ_NUM_PAGES, inclusive,
--        // belongs to the driver for writing.
-+        // Safety/Panic comments to be referenced by the code below.
-+        //
-+        // SAFETY[1]:
-+        // - `data` points to an array of `MSGQ_NUM_PAGES` elements.
-+        // - The area starting at `tx` and ending at `rx - 2` modulo `MSGQ_NUM_PAGES`,
-+        //   inclusive, belongs to the driver for writing and is not accessed concurrently by
-+        //   the GSP.
-+        // - `tx + after_tx_len` == `MSGQ_NUM_PAGES`.
-+        //
-+        // PANIC[1]:
-+        // - Per the invariant of `cpu_write_ptr`, `tx < MSGQ_NUM_PAGES`.
-+        // - Per the invariant of `gsp_read_ptr`, `rx < MSGQ_NUM_PAGES`.
- 
-         if rx == 0 {
--            // Since `rx` is zero, leave an empty slot at end of the buffer.
--            let last = after_tx.len() - 1;
--            (&mut after_tx[..last], &mut [])
-+            (
-+                // SAFETY: See SAFETY[1].
-+                unsafe {
-+                    core::slice::from_raw_parts_mut(
-+                        data.add(tx),
-+                        // Since `rx` is zero, leave an empty slot at end of the buffer.
-+                        // PANIC: See PANIC[1].
-+                        after_tx_len - 1,
-+                    )
-+                },
-+                &mut [],
-+            )
-         } else if rx <= tx {
-             // The area is discontiguous and we leave an empty slot before `rx`.
--            // PANIC:
--            // - The index `rx - 1` is non-negative because `rx != 0` in this branch.
--            // - The index does not exceed `before_tx.len()` (which equals `tx`) because
--            //   `rx <= tx` in this branch.
--            (after_tx, &mut before_tx[..(rx - 1)])
-+            (
-+                // SAFETY: See SAFETY[1].
-+                unsafe { core::slice::from_raw_parts_mut(data.add(tx), after_tx_len) },
-+                // SAFETY: See SAFETY[1].
-+                unsafe {
-+                    core::slice::from_raw_parts_mut(
-+                        data,
-+                        // Leave one empty slot before `rx`.
-+                        // PANIC:
-+                        // - See PANIC[1].
-+                        // - `rx - 1` is non-negative because `rx != 0` in this branch.
-+                        rx - 1,
-+                    )
-+                },
-+            )
-         } else {
-             // The area is contiguous and we leave an empty slot before `rx`.
--            // PANIC:
--            // - The index `rx - tx - 1` is non-negative because `rx > tx` in this branch.
--            // - The index does not exceed `after_tx.len()` (which is `MSGQ_NUM_PAGES - tx`)
--            //   because `rx < MSGQ_NUM_PAGES` by the `gsp_read_ptr` invariant.
--            (&mut after_tx[..(rx - tx - 1)], &mut [])
-+            (
-+                // SAFETY: See SAFETY[1].
-+                unsafe {
-+                    core::slice::from_raw_parts_mut(
-+                        data.add(tx),
-+                        // PANIC:
-+                        // - See PANIC[1].
-+                        // - `rx - tx - 1` is non-negative because `rx > tx` in this branch.
-+                        rx - tx - 1,
-+                    )
-+                },
-+                &mut [],
-+            )
-         }
-     }
- 
-@@ -308,24 +347,50 @@ fn driver_write_area_size(&self) -> usize {
-         let tx = self.gsp_write_ptr() as usize;
-         let rx = self.cpu_read_ptr() as usize;
- 
-+        // Pointer to the start of the GSP message queue.
-+        //
-         // SAFETY:
--        // - The `CoherentAllocation` contains exactly one object.
--        // - We will only access the driver-owned part of the shared memory.
--        // - Per the safety statement of the function, no concurrent access will be performed.
--        let gsp_mem = &unsafe { self.0.as_slice(0, 1) }.unwrap()[0];
--        let data = &gsp_mem.gspq.msgq.data;
-+        // - `self.0` contains exactly one element.
-+        // - `gspq.msgq.data[0]` is within the bounds of that element.
-+        let data = unsafe { &raw const (*self.0.start_ptr()).gspq.msgq.data[0] };
++use pin_init::pin_init_scope;
 +
-+        // Safety/Panic comments to be referenced by the code below.
-+        //
-+        // SAFETY[1]:
-+        // - `data` points to an array of `MSGQ_NUM_PAGES` elements.
-+        // - The area starting at `rx` and ending at `tx - 1` modulo `MSGQ_NUM_PAGES`,
-+        //   inclusive, belongs to the driver for reading and is not accessed concurrently by
-+        //   the GSP.
-+        //
-+        // PANIC[1]:
-+        // - Per the invariant of `cpu_read_ptr`, `rx < MSGQ_NUM_PAGES`.
-+        // - Per the invariant of `gsp_write_ptr`, `tx < MSGQ_NUM_PAGES`.
+ use crate::{
+     driver::Bar0,
+     gsp::{
+@@ -455,6 +457,8 @@ pub(crate) struct Cmdq {
+     /// Inner mutex-protected state.
+     #[pin]
+     inner: Mutex<CmdqInner>,
++    /// DMA handle of the command queue's shared memory region.
++    pub(super) dma_handle: DmaAddress,
+ }
  
--        // The area starting at `rx` and ending at `tx - 1` modulo MSGQ_NUM_PAGES, inclusive,
--        // belongs to the driver for reading.
--        // PANIC:
--        // - per the invariant of `cpu_read_ptr`, `rx < MSGQ_NUM_PAGES`
--        // - per the invariant of `gsp_write_ptr`, `tx < MSGQ_NUM_PAGES`
-         if rx <= tx {
-             // The area is contiguous.
--            (&data[rx..tx], &[])
-+            (
-+                // SAFETY: See SAFETY[1].
-+                // PANIC:
-+                // - See PANIC[1].
-+                // - Per the branch test, `rx <= tx`.
-+                unsafe { core::slice::from_raw_parts(data.add(rx), tx - rx) },
-+                &[],
-+            )
-         } else {
-             // The area is discontiguous.
--            (&data[rx..], &data[..tx])
-+            (
-+                // SAFETY: See SAFETY[1].
-+                // PANIC: See PANIC[1].
-+                unsafe {
-+                    core::slice::from_raw_parts(
-+                        data.add(rx),
-+                        num::u32_as_usize(MSGQ_NUM_PAGES) - rx,
-+                    )
-+                },
-+                // SAFETY: See SAFETY[1].
-+                // PANIC: See PANIC[1].
-+                unsafe { core::slice::from_raw_parts(data, tx) },
-+            )
-         }
+ impl Cmdq {
+@@ -479,12 +483,17 @@ impl Cmdq {
+ 
+     /// Creates a new command queue for `dev`.
+     pub(crate) fn new(dev: &device::Device<device::Bound>) -> impl PinInit<Self, Error> + '_ {
+-        try_pin_init!(Self {
+-            inner <- new_mutex!(CmdqInner {
+-                dev: dev.into(),
+-                gsp_mem: DmaGspMem::new(dev)?,
+-                seq: 0,
+-            }),
++        pin_init_scope(move || {
++            let gsp_mem = DmaGspMem::new(dev)?;
++
++            Ok(try_pin_init!(Self {
++                dma_handle: gsp_mem.0.dma_handle(),
++                inner <- new_mutex!(CmdqInner {
++                    dev: dev.into(),
++                    gsp_mem,
++                    seq: 0,
++                }),
++            }))
+         })
      }
  
+@@ -570,11 +579,6 @@ pub(crate) fn receive_msg<M: MessageFromGsp>(&self, timeout: Delta) -> Result<M>
+     {
+         self.inner.lock().receive_msg(timeout)
+     }
+-
+-    /// Returns the DMA handle of the command queue's shared memory region.
+-    pub(crate) fn dma_handle(&self) -> DmaAddress {
+-        self.inner.lock().gsp_mem.0.dma_handle()
+-    }
+ }
+ 
+ /// Inner mutex protected state of [`Cmdq`].
+diff --git a/drivers/gpu/nova-core/gsp/fw.rs b/drivers/gpu/nova-core/gsp/fw.rs
+index a061131b5412..0506c2293e7c 100644
+--- a/drivers/gpu/nova-core/gsp/fw.rs
++++ b/drivers/gpu/nova-core/gsp/fw.rs
+@@ -892,7 +892,7 @@ impl MessageQueueInitArguments {
+     /// Creates a new init arguments structure for `cmdq`.
+     fn new(cmdq: &Cmdq) -> Self {
+         Self(bindings::MESSAGE_QUEUE_INIT_ARGUMENTS {
+-            sharedMemPhysAddr: cmdq.dma_handle(),
++            sharedMemPhysAddr: cmdq.dma_handle,
+             pageTableEntryCount: num::usize_into_u32::<{ Cmdq::NUM_PTES }>(),
+             cmdQueueOffset: num::usize_as_u64(Cmdq::CMDQ_OFFSET),
+             statQueueOffset: num::usize_as_u64(Cmdq::STATQ_OFFSET),
 
 ---
 base-commit: a19457958c3018783881c4416f272cd594f13049
-change-id: 20260319-cmdq-ub-fix-d57b09a745b9
+change-id: 20260319-b4-cmdq-dma-handle-c56ae9006104
 
 Best regards,
 -- 
