@@ -4,155 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C0A7D108E1FA
-	for <dri-devel@archiver.kernel.org>; Thu, 19 Mar 2026 12:21:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0313E108E1FF
+	for <dri-devel@archiver.kernel.org>; Thu, 19 Mar 2026 12:29:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 270EF10E9E3;
-	Thu, 19 Mar 2026 12:21:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6AC2F10E9F1;
+	Thu, 19 Mar 2026 12:29:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="Z98da+Pg";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="FOcu2fPz";
 	dkim-atps=neutral
-Received: from CWXP265CU010.outbound.protection.outlook.com
- (mail-ukwestazon11022101.outbound.protection.outlook.com [52.101.101.101])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0EBD210E9E5;
- Thu, 19 Mar 2026 12:21:24 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=QCq1kUmgkJcgX6shziKOE/RnksPEnnHn16oZHh7a+aHSmDb7J0/PiIYpJNVb1jsrHUhPlhnL/Z1VBWp22lTm3980qy04J+MTuknEYXDor2mapphQ9HabkD2cKLu1M93h0Unh9EoK3GsBlvPUH9QGcS3galfVJE/zVU6WSbOQHLM+pdcIDqX42bIvP/HMTg23WY9C9GQBpCczH/MNqBATF08Le5hKngo6mPT9N4ndO8jw2NHZseJGqeKvBvG7Juq5O/AyLD7cle5UPfpyXfLop+xJbxdVUEv6ilTkH5XUmqMa1jQ/KMLnYJMkZ+2sCCpA/LCPOtnRRU6efJZZGfONjw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=QUDyMS4SPYtVrFK0EsHcm19mC4nwxv/itzEURW3MnZk=;
- b=Xywd/DFNzfdBAgns0Qc6NZ4hh/92RiFdz/O3tNSn43d2qVcapFAIPKCS3xRnF+u0OTfv3EMjZ7VtRjG1rWpbL6dk40LKq7zTWFqrAXFHjuNYf0qU2QEvhnhPVxOs/yljQGva01hX+AZd/U0i4DifbO2PieCNaCwtZQD2WcgKVuCoPLZJQIrGBN9g4QfIwM7zmzCzWW2PkA/HybTi9SkYTxrcQEyfqH57/gjVszL+/oTmYirFaReXHjE4qPRUO0JN93rSQLnPsbqoIxGCOB7XADuVprxdp1aGgdZAKTwLukTFSto4wAkHe3pxLxqWZvCQQIZLuQP81EZUa1R3IbzmhA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
- dkim=pass header.d=garyguo.net; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=QUDyMS4SPYtVrFK0EsHcm19mC4nwxv/itzEURW3MnZk=;
- b=Z98da+PgDVNZvs7hO4WVMVVvfrcJFJHWzr8Rn1lZPusrzHvuG9bd4JRCgBsESyA0zNgAlJ1bQlLkgGa3XLRNykph/KOvrvdSPZrQhTqFb4DidhbvTl4Bn8dbwC9KD6RkrUE7M1QvRSJeigSV+tmg7/YMUKn4CM42o5k4xd6b/lA=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=garyguo.net;
-Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:488::16)
- by CW1P265MB8412.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:26f::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.19; Thu, 19 Mar
- 2026 12:21:20 +0000
-Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- ([fe80::1c3:ceba:21b4:9986]) by LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- ([fe80::1c3:ceba:21b4:9986%5]) with mapi id 15.20.9723.018; Thu, 19 Mar 2026
- 12:21:19 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 19 Mar 2026 12:21:18 +0000
-Message-Id: <DH6R6GB10S07.AG2EY39F0P85@garyguo.net>
-Cc: "Joel Fernandes" <joelagnelf@nvidia.com>,
- <linux-kernel@vger.kernel.org>, "Miguel Ojeda" <ojeda@kernel.org>, "Boqun
- Feng" <boqun@kernel.org>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
- <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
- Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
- "Trevor Gross" <tmgross@umich.edu>, "Alex Gaynor" <alex.gaynor@gmail.com>,
- "Dave Airlie" <airlied@redhat.com>, "David Airlie" <airlied@gmail.com>,
- "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>, "Maxime Ripard"
- <mripard@kernel.org>, "Thomas Zimmermann" <tzimmermann@suse.de>, "Simona
- Vetter" <simona@ffwll.ch>, "Daniel Almeida" <daniel.almeida@collabora.com>,
- "Koen Koning" <koen.koning@linux.intel.com>, "Nikola Djukic"
- <ndjukic@nvidia.com>, "Alexandre Courbot" <acourbot@nvidia.com>, "Philipp
- Stanner" <phasta@kernel.org>, "Elle Rhumsaa" <elle@weathered-steel.dev>,
- "Jonathan Corbet" <corbet@lwn.net>, "Alex Deucher"
- <alexander.deucher@amd.com>, =?utf-8?q?Christian_K=C3=B6nig?=
- <christian.koenig@amd.com>, "Jani Nikula" <jani.nikula@linux.intel.com>,
- "Joonas Lahtinen" <joonas.lahtinen@linux.intel.com>, "Rodrigo Vivi"
- <rodrigo.vivi@intel.com>, "Tvrtko Ursulin" <tursulin@ursulin.net>, "Huang
- Rui" <ray.huang@amd.com>, "Matthew Auld" <matthew.auld@intel.com>, "Matthew
- Brost" <matthew.brost@intel.com>, "Lucas De Marchi"
- <lucas.demarchi@intel.com>, =?utf-8?q?Thomas_Hellstr=C3=B6m?=
- <thomas.hellstrom@linux.intel.com>, "Helge Deller" <deller@gmx.de>, "John
- Hubbard" <jhubbard@nvidia.com>, "Alistair Popple" <apopple@nvidia.com>,
- "Timur Tabi" <ttabi@nvidia.com>, "Edwin Peer" <epeer@nvidia.com>, "Andrea
- Righi" <arighi@nvidia.com>, "Andy Ritger" <aritger@nvidia.com>, "Zhi Wang"
- <zhiw@nvidia.com>, "Balbir Singh" <balbirs@nvidia.com>,
- <alexeyi@nvidia.com>, "Eliot Courtney" <ecourtney@nvidia.com>,
- <dri-devel@lists.freedesktop.org>, <rust-for-linux@vger.kernel.org>,
- <linux-doc@vger.kernel.org>, <amd-gfx@lists.freedesktop.org>,
- <intel-gfx@lists.freedesktop.org>, <intel-xe@lists.freedesktop.org>,
- <linux-fbdev@vger.kernel.org>
-Subject: Re: [PATCH v13 1/1] rust: interop: Add list module for C linked
- list interface
-From: "Gary Guo" <gary@garyguo.net>
-To: "Danilo Krummrich" <dakr@kernel.org>, "Gary Guo" <gary@garyguo.net>
-X-Mailer: aerc 0.21.0
-References: <20260317201710.934932-1-joelagnelf@nvidia.com>
- <20260317201710.934932-2-joelagnelf@nvidia.com>
- <DH6QAR1HHXRV.1Y7IZ22HC9FZ3@garyguo.net>
- <DH6QUO2T941E.2S1UP7EABOP42@kernel.org>
-In-Reply-To: <DH6QUO2T941E.2S1UP7EABOP42@kernel.org>
-X-ClientProxiedBy: LO4P123CA0681.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:351::15) To LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:488::16)
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
+ [136.143.188.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CB0E110E9E7;
+ Thu, 19 Mar 2026 12:29:22 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1773923347; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=OF119t+xxtdNLvLE6+DamfoFqrfGacYiuV+Yn6WWqCOFkYBwXsvdMcAxPOAclVIo+gtW3QiffOGmKknTBNdBKJFXxM4TjuIJrf961SbyBfGSzP1JBPVGbdvl2D1zomJ90oP9oCMalC80mBTvTzoJeEpHJVXhvvQlbM4eg0+FxOg=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1773923347;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=ftVnK9zZbYvVrPuwdFzn1NpbzviAvjmQLwgAKztW9Ws=; 
+ b=VNuKFbBVUJtVTL0+bV1w8yO3mPh6/nsGu//joPY2SUjHZeLrMJFfeUPWObqy8GBXBWtKO7KZOEchL3IJH22awksGyn0msWpXIcdQCgfzUFmAHyqb88qcXKUxY/nDtR/HjXQz/JKdX9kFYZ+dtZb8u4vytJ8XAzJZeT4VCymDUzY=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
+ dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1773923347; 
+ s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
+ h=From:From:Subject:Subject:Date:Date:Message-Id:Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:To:To:Cc:Cc:Reply-To;
+ bh=ftVnK9zZbYvVrPuwdFzn1NpbzviAvjmQLwgAKztW9Ws=;
+ b=FOcu2fPzC+TDeMD2Key5yYO297mgpz+kDQ0qC3DGyeuWo180HaLLYpAkdGi7wPt+
+ 5KTfYVA935M13KXlJ/mhwZdIp4Jh4DdyWWALl0wgSwWabzyUXyZo507Ida1jChdcZhB
+ sJREP3IMClQsk29kyBQdTDtsja4IjJ1G68t9ATWo=
+Received: by mx.zohomail.com with SMTPS id 1773923345688354.7609880432203;
+ Thu, 19 Mar 2026 05:29:05 -0700 (PDT)
+From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+Subject: [PATCH v5 0/3] Add "link bpc" DRM property
+Date: Thu, 19 Mar 2026 13:28:33 +0100
+Message-Id: <20260319-link-bpc-v5-0-5306cd04a708@collabora.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LOVP265MB8871:EE_|CW1P265MB8412:EE_
-X-MS-Office365-Filtering-Correlation-Id: f4fa447c-1346-4d0f-617d-08de85b206c9
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|7416014|1800799024|376014|366016|10070799003|56012099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: /ukFdTC/J4uH9dT5W3gZ9msFb9OU+kOHa+vdnI7kYJ2DDlLp4qTRChAMPbrkJG+JE4S91Lh2XoXFHSiyTFDPwM69Kwclx8MLx9AiOPUsOrqmvhZ39zJxihitM5Rn44ep5VmLYyTvwfjzomISNymXkqAEn6mUMkm6pUOL25RVW1t4bBPtHrn3ZVI6Z76+AQYi23CDH8NslLQWyrNrxekqtxULNO2+REd6SmlaFLhflDdlYB/YPonY57QZVKRizxqNWU8Mb3ln/qMDIPgDckCmZG56JU4HqGFFKK5mfvLkxwec4V92A6pATTmy2DcRjmwx813/HuFZKNSOQEmcaEl4WJtaMJk3+hM6y90UA6GSMLTC+O8eUwc/rs89lK+34bqJGD244Fpv8LCQCRrCpzXAOZDrviBTLFsgQUPbl54WyqcXO7xDAHtHeBgnMf0YFQqtjj4sAsgmMz1GJcqxZMAAKzx7lai0Mv3PMi5gdvAIGNt45yJBqQuGdn95dhX2EAgXsXyoglfRxrkwkjn6qyM3zgwoIz4OQA4dydfFjaTpymnjXQKF3Lwjh53g0OYJJjlkFTNG2RIeT5rL9CHWOjT+ixN2cUW9PLkjUg36PVcnICF63K8Ws9GDYF7aKTokViiaDpsh76NvDJjfz239Vb8AanwD0EYhtT0nMj/icFRgBSNGbygtUXaiyiizHK8stXqq
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(13230040)(7416014)(1800799024)(376014)(366016)(10070799003)(56012099003)(22082099003)(18002099003);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?K29sYUZCQmJuNHRxcWpnK2ErOXFoSUlZTjZ6aEFjRDFxZU5IM0QwUm5ydHpk?=
- =?utf-8?B?Z1VxRFdxTTZrbTVPcnJCOXdMNVM0S1lTUWxESlg5VFdyaGZiR2tNTm1saHZ6?=
- =?utf-8?B?ajdxWWhTMFB1ZUZIS2JaR3MxaUh4eEVPVTNwTE1mamFRQkE5M0pmVGZ6Kzdo?=
- =?utf-8?B?U3N6ak9rZU1neWhpWmhkV2lQL01iaXdUL0FmQWFDUUNHdlV5QUR5MGZqNERU?=
- =?utf-8?B?Nm5CNEs3anovbWNnNHBTRFdGWkpNeTl6RUc3NmgzUmNGdmdkRVFOY2hFL2dY?=
- =?utf-8?B?Q0ZmU29GUXArblN3ZDJzZVBONTBEMGtWUHNjZHhmcFFVb0RSZGdCeE9OVm5o?=
- =?utf-8?B?ajRGTkJuUEVxQ2YrUzlodndRaHpmZ1hYU3FJOVNFdjRVZVZGNHpmK1RLSjZS?=
- =?utf-8?B?MWYrNEJsRnJvV1NTMUo0R3d6aTlhb0JqU1htaUJ0ZVpCK0hSUG1Cd2tVK0lL?=
- =?utf-8?B?Q1NvWjZxNHFrNDZmSjhVVnlaT3lLd2xyc09MY05ML1VuMDB2YXY3K1FENGxv?=
- =?utf-8?B?cExaem93cmpXS0N3WHBPSldrMW55eW1CYXhyaWxVd1ZMUFFzN01neXhoclZ0?=
- =?utf-8?B?WVZ0TGZTMmZ6UHlQVDRWSklRaUw3dVVXT2ZrSE5nT0c0TWpwb1lMMFdJZG5k?=
- =?utf-8?B?NGR3cUtKWjdTdUhCU2h5UnorQnhNSGZjUDFHOWZqbVRQZ2N6azhxVDZIcWkw?=
- =?utf-8?B?RHdMTkVQMFRqUmU4SEc4VmJ5WXI3VWxwQlBaaGJQemNNK1J2cE1FMU5EcHZZ?=
- =?utf-8?B?NDZkL1BKNWZWOC9zNmlyNEEzY0hubW9DWFhiV1pqVWptY0VMUjZTcE03eTlS?=
- =?utf-8?B?a1lZQVIzdmIvYlg5K3RWdkx0UkhkcnVaM1lmS2MwckxobEtGcHVTMnY4Ums1?=
- =?utf-8?B?Y0orVk9XNEYydjJYUEo0Z2FzMlJtd3FkYlFLMUZmdVB1T1BkZXhvejk2Q0Fk?=
- =?utf-8?B?QmdEQ2lKd1lvVkUyNlA5U2VLYjBPTkF1VnI0OW1QRWVERGM5K1lDTWtzbkVj?=
- =?utf-8?B?ZEhGQm9CZmZQRG1obk9vd2t0WVNrVStOQldURG00S014RjNjUS8rV1R0Nyt2?=
- =?utf-8?B?YlE4SVN2U2hQM0xqNnFHOHZmZlRwNHhJTEt6WVl6Zkh2VWJabEV6aVZLdjQ5?=
- =?utf-8?B?RjhTUXdOS09kYW91dzVRN2xtOGdlNUNlVDZIWXA3QVI4Q25vWm41WnBPSUtq?=
- =?utf-8?B?ckR6V3pTQ01CaTdjTHNjN25PTENCMktLTWNYVmJOZXhmK2Z5QnBycnFlcEVW?=
- =?utf-8?B?a1FvWStaTTdCSnRXNi9ZK3MzalZBSDkvdEJ4d1MrMjRNelRCOHlYam1HWXh1?=
- =?utf-8?B?ektzaE5HZTNsQWc5MXhxTEVSWWhRWmM1YkR5dGFzOTZNKzY0Q0tjWVVQdHpI?=
- =?utf-8?B?MnJ6SG40cFU4R0FsOFNoWUozbkd6OVBsaG1kL1FPSkhzS2NXWWZIdXp2Q1Ru?=
- =?utf-8?B?b3RpbGhrUWtMMFJCTlM3N21wOWFZZVpVZmlpTmlEZmJVUjBzNWZOejdTRUZ6?=
- =?utf-8?B?NzExcWw1NXZDRjJzMGV6cyt6NGFadVVhdTBvUWI2OUlPL1E1bDZnS0tCUFpq?=
- =?utf-8?B?WWlNRUV2N2hyV2w1WTluamgyb0VuRTI4NWh5RHd1eUhxWHFRcmM1VzVGd3BI?=
- =?utf-8?B?QUpPOHh2N0JqTVUyLzZlbHp6R25XWlRmWHc5aEpVK3FKUFFZemNBQ3RCcHBJ?=
- =?utf-8?B?ZWRnL1ZVZ0JvemZ3VXBOaFZkaTlVTEFYeDBqVGJNU0RxVDFhMUlpZll0SzZU?=
- =?utf-8?B?ckxiQktCdTRSZ2FqR29Pd1FxVjNRdjAzWjhnWTdEL05yb1pmV1orWTV3eWp2?=
- =?utf-8?B?bXZmOXBYUDgxSFZTN1kxNzZId3N2Q0ppNXFLRHlwSGJFQTRuQmY5Wjg1M0kv?=
- =?utf-8?B?bU4rQmJUeGNxbGwyd3BneG9rNVozVFY4bEJpWEkyOWExR0N3R3VQZ1hkTFFF?=
- =?utf-8?B?MFBUbFpZRkZ0Vm5Edis5OWgyNjVXZWQ5NFpyckM5R1ZLTm1zQWVmS1Y4T0dY?=
- =?utf-8?B?QmVBWENhbldWU3ZqNmN6RFpxeldIUEJrdERSeHZ0Z3pLUXJQdm14aFhOWm1O?=
- =?utf-8?B?RXhXQzU1K3B6b1B1U2VNbGVFVmp3QnVMVTJCUXJBVUxvaHBtS0Ewa3FQRU9V?=
- =?utf-8?B?a0NSbDVrdHdVQ3Z0d25xKy9zVUJmYUM5OCtKaEovcnIvKzZkVDV3TFh6TzQy?=
- =?utf-8?B?L1dlbnBxQmpLR2RQM050L1ZKNzVHNFNnSlJyaWN6U0QvaGUwaHRmOG9hV3B0?=
- =?utf-8?B?MDRSaUppNXZzbDF5czVCRWx2WCtjcTFZTUIrRTJkNkJ6ZGlJc1hOQnZsVVJS?=
- =?utf-8?B?ZkJYdUVKc2FTaVZzU1VkYi90SjQrL3ZnQ1VLMjdrRGVMY1J6OC9iZz09?=
-X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: f4fa447c-1346-4d0f-617d-08de85b206c9
-X-MS-Exchange-CrossTenant-AuthSource: LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Mar 2026 12:21:19.8496 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Rz8D+2P/7ElgtF1BXxEq3MeSJOhLnJpc3pO+jmB9waY5tIBb8dST/TxiDIgALQKpqb51NeE4/fKTYl3CdHm+6Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CW1P265MB8412
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/12PwW6DMBBEfwX53KW2Y+OSU/+jysGYpawKmKwJS
+ hTx73VJqko9rUY7+2b2LhIyYRLH4i4YV0oUpyzsSyFC76dPBGqzFlrqSh5kDQNNX9DMAVrpu2C
+ c9cHUIttnxo6uO+rjlHXHcYSlZ/S/AKuk1qrSb+ZQKmdrUDB6pksq18G37yEOg28i+zLE8UlkP
+ F9yp+WBFY1PCHk70nIsWs58ml+fU/yE9pSWyLf9ndXsN4/mSv01Xw1IsMo5i3VlnJb/ok/btn0
+ DOnGHtRkBAAA=
+X-Change-ID: 20260309-link-bpc-d0afc475ac49
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
+ Rodrigo Siqueira <siqueira@igalia.com>, 
+ Alex Deucher <alexander.deucher@amd.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ =?utf-8?q?Ville_Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>, 
+ Daniel Stone <daniels@collabora.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ amd-gfx@lists.freedesktop.org, kernel@collabora.com, 
+ Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, 
+ Derek Foreman <derek.foreman@collabora.com>, 
+ Marius Vlad <marius.vlad@collabora.com>
+X-Mailer: b4 0.14.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -168,141 +81,75 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu Mar 19, 2026 at 12:05 PM GMT, Danilo Krummrich wrote:
-> On Thu Mar 19, 2026 at 12:39 PM CET, Gary Guo wrote:
->> On Tue Mar 17, 2026 at 8:17 PM GMT, Joel Fernandes wrote:
->>> Add a new module `kernel::interop::list` for working with C's doubly
->>> circular linked lists. Provide low-level iteration over list nodes.
->>>
->>> Typed iteration over actual items is provided with a `clist_create`
->>> macro to assist in creation of the `CList` type.
->>>
->>> Cc: Nikola Djukic <ndjukic@nvidia.com>
->>> Reviewed-by: Daniel Almeida <daniel.almeida@collabora.com>
->>> Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
->>> Acked-by: Alexandre Courbot <acourbot@nvidia.com>
->>> Acked-by: Gary Guo <gary@garyguo.net>
->>> Acked-by: Miguel Ojeda <ojeda@kernel.org>
->>> Signed-off-by: Joel Fernandes <joelagnelf@nvidia.com>
->>> ---
->>>  MAINTAINERS                 |   8 +
->>>  rust/helpers/helpers.c      |   1 +
->>>  rust/helpers/list.c         |  17 ++
->>>  rust/kernel/interop.rs      |   9 +
->>>  rust/kernel/interop/list.rs | 342 ++++++++++++++++++++++++++++++++++++
->>>  rust/kernel/lib.rs          |   2 +
->>>  6 files changed, 379 insertions(+)
->>>  create mode 100644 rust/helpers/list.c
->>>  create mode 100644 rust/kernel/interop.rs
->>>  create mode 100644 rust/kernel/interop/list.rs
->>>
->>> +/// Create a C doubly-circular linked list interface [`CList`] from a =
-raw `list_head` pointer.
->>> +///
->>> +/// This macro creates a `CList<T, OFFSET>` that can iterate over item=
-s of type `$rust_type`
->>> +/// linked via the `$field` field in the underlying C struct `$c_type`=
-.
->>> +///
->>> +/// # Arguments
->>> +///
->>> +/// - `$head`: Raw pointer to the sentinel `list_head` object (`*mut b=
-indings::list_head`).
->>> +/// - `$rust_type`: Each item's rust wrapper type.
->>> +/// - `$c_type`: Each item's C struct type that contains the embedded =
-`list_head`.
->>> +/// - `$field`: The name of the `list_head` field within the C struct.
->>> +///
->>> +/// # Safety
->>> +///
->>> +/// The caller must ensure:
->>> +///
->>> +/// - `$head` is a valid, initialized sentinel `list_head` (e.g. via `=
-INIT_LIST_HEAD()`)
->>> +///   pointing to a list that is not concurrently modified for the lif=
-etime of the [`CList`].
->>> +/// - The list contains items of type `$c_type` linked via an embedded=
- `$field`.
->>> +/// - `$rust_type` is `#[repr(transparent)]` over `$c_type` or has com=
-patible layout.
->>> +///
->>> +/// # Examples
->>> +///
->>> +/// Refer to the examples in the [`crate::interop::list`] module docum=
-entation.
->>> +#[macro_export]
->>> +macro_rules! clist_create {
->>> +    (unsafe { $head:ident, $rust_type:ty, $c_type:ty, $($field:tt).+ }=
-) =3D> {{
->>> +        // Compile-time check that field path is a `list_head`.
->>> +        // SAFETY: `p` is a valid pointer to `$c_type`.
->>> +        let _: fn(*const $c_type) -> *const $crate::bindings::list_hea=
-d =3D
->>> +            |p| unsafe { &raw const (*p).$($field).+ };
->>
->> Actually, this check is insufficient, you should create a reference inst=
-ead
->> (just in case people put this inside `repr(packed)`.
->>
->> This could be something like
->>
->>     let _ =3D |p: &$c_type| { _ =3D &p.$($field).+ }
->>
->> ?
->>
->>> +
->>> +        // Calculate offset and create `CList`.
->>> +        const OFFSET: usize =3D ::core::mem::offset_of!($c_type, $($fi=
-eld).+);
->>> +        // SAFETY: The caller of this macro is responsible for ensurin=
-g safety.
->>> +        unsafe { $crate::interop::list::CList::<$rust_type, OFFSET>::f=
-rom_raw($head) }
->>
->> Given that this is unsafe, I am not sure why the macro should have unsaf=
-e
->> keyword in it, rather than just being `clist_create(a, b, c, d)` and jus=
-t have
->> user write unsafe.
->
-> Either you are proposing to not wrap unsafe code within unsafe {} within =
-the
-> macro, such that the user is forced to write an unsafe {} around the macr=
-o, but
-> then they calls within the macro are not justified individually, or you p=
-ropose
-> to let the user write an unsafe {} around the macro regardless of the inn=
-er
-> unsafe {} blocks, but then then the compiler warns about an unnecessary u=
-nsafe
-> and nothing forces the user to actually wrap it in unsafe {}.
+This series adds a new "link bpc" DRM property. It reflects the display
+link's actual achieved output bits per component, considering any
+degradation of the bit depth done by drivers for bandwidth or other
+reasons. The property's value is updated during an atomic commit, which
+is also when it fires an uevent if it changed to let userspace know.
 
-The former.
+There's a weston implementation at [1] which makes use of this new
+property to warn when a user's requested bpc could not be reached.
 
-"The caller of this macro is responsible for ensuring safety" justification=
- is
-not really useful here IMO.
+[1]: https://gitlab.freedesktop.org/wayland/weston/-/merge_requests/1850
 
-If there're cases where we do want to justify unsafe code that's not immedi=
-ately
-deferring to the user inside the macro, we could use the SAFETY* trick prop=
-osed
-in the thread, without writing an actual `unsafe {}` block.
+---
+Changes in v5:
+- Split "drm/connector: hdmi: Add a 'link bpc' property" into two
+  patches; one adding the property, the other making use for it in the
+  HDMI helpers (Maxime)
+- Apply Maxime's Ack to the two split patches as per the review
+- Link to v4: https://lore.kernel.org/r/20260311-link-bpc-v4-0-51775e964720@collabora.com
 
->
-> Is there a third option I'm not aware of? I.e. for the above reason
-> impl_device_context_deref!() was designed the same way.
+Changes in v4:
+- Throw out the workqueue and delayed work item
+- Remove the drm_connector_update_link_bpc_state function
+- Reimplement it by updating the property and firing the uevent in
+  commit_tail
+- Check that the provided max_bpc value in attach_link_bpc_property is
+  within the expected range
+- Clamp the connector state's link_bpc value between 8 and max_bpc so
+  that no value outside the declared range is ever written to the drm
+  property
+- Update and reword doc strings
+- Add an amdgpu implementation
+- Link to v3: https://lore.kernel.org/r/20251022162843.1759-1-marius.vlad@collabora.com/T/
 
-impl_device_context_deref!() expands to an item, so the user couldn't put a=
-n
-`unsafe {}` on the outside. This macro expands to an expression, so users c=
-an
-add `unsafe` themselves.
+Changes in v3:
+- remove VRR mention from commit description (Ville)
+- add DRM_MODE_PROP_IMMUTABLE to flags (Ville)
+- provide helpers functions for drivers to use (can be used by other
+  types of connectors, not just HDMI)
+- send uevent informating userspace when 'link bpc' connector state
+  changed (Daniel @ https://gitlab.freedesktop.org/wayland/weston/-/merge_requests/1850)
+- added missing doc entry
+- Link to v2: https://lore.kernel.org/r/20251006083043.3115-1-marius.vlad@collabora.com/T/
 
-Best,
-Gary
+Changes in v2:
+- replace return with EBUSY if connector already exists (Dmitry)
+- add i-g-t test and an implementation for Weston (Dmitry)
+- re-wording patch description (Jani)
+- Link to v1: https://lore.kernel.org/r/20250801101750.1726-1-marius.vlad@collabora.com/T/
 
->
-> [1] https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tr=
-ee/rust/kernel/device.rs#n650
+Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+
+---
+Nicolas Frattaroli (3):
+      drm/connector: Add a 'link bpc' property
+      drm/connector: hdmi: Add support for 'link bpc' property
+      drm/amd/display: Add support for 'link bpc' property
+
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 15 +++-
+ drivers/gpu/drm/display/drm_hdmi_state_helper.c   |  2 +
+ drivers/gpu/drm/drm_atomic_helper.c               |  9 +++
+ drivers/gpu/drm/drm_atomic_uapi.c                 |  2 +
+ drivers/gpu/drm/drm_connector.c                   | 86 +++++++++++++++++++++++
+ include/drm/drm_connector.h                       | 16 +++++
+ 6 files changed, 129 insertions(+), 1 deletion(-)
+---
+base-commit: f4482de2c06e19b0c337b774e485755378990614
+change-id: 20260309-link-bpc-d0afc475ac49
+
+Best regards,
+-- 
+Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 
