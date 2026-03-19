@@ -4,58 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6D6981090222
-	for <dri-devel@archiver.kernel.org>; Thu, 19 Mar 2026 13:19:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4F71E1090223
+	for <dri-devel@archiver.kernel.org>; Thu, 19 Mar 2026 13:20:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C91E410E97A;
-	Thu, 19 Mar 2026 13:19:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AF93210E97B;
+	Thu, 19 Mar 2026 13:20:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=huawei.com header.i=@huawei.com header.b="wef8wXke";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="BI0UppmV";
 	dkim-atps=neutral
-Received: from canpmsgout08.his.huawei.com (canpmsgout08.his.huawei.com
- [113.46.200.223])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BE85D10E97A
- for <dri-devel@lists.freedesktop.org>; Thu, 19 Mar 2026 13:19:51 +0000 (UTC)
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
- c=relaxed/relaxed; q=dns/txt; h=From;
- bh=KWNS7oesntwONxIB3jXd2+zNwRkeRIIhLPpuimLoFF0=;
- b=wef8wXkewd1xLZaVZqe0/ZjJuPpfIahSmOSLVcTLRcolYyp+70EtyLPKUDHmbEPn+QL4iGRLs
- 4nYh39PDIEIs2hMk8X5776IPfyfnpEgvSIZ/iUjAIJkAIxHUzzufXv3Dsum7w7MH4c55aJMZSAb
- 3WkGO+7Qff4kmpblYYcM9l0=
-Received: from mail.maildlp.com (unknown [172.19.162.92])
- by canpmsgout08.his.huawei.com (SkyGuard) with ESMTPS id 4fc5lC54QkzmV65;
- Thu, 19 Mar 2026 21:14:47 +0800 (CST)
-Received: from dggemv706-chm.china.huawei.com (unknown [10.3.19.33])
- by mail.maildlp.com (Postfix) with ESMTPS id EB6B740562;
- Thu, 19 Mar 2026 21:19:48 +0800 (CST)
-Received: from kwepemq100007.china.huawei.com (7.202.195.175) by
- dggemv706-chm.china.huawei.com (10.3.19.33) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.11; Thu, 19 Mar 2026 21:19:48 +0800
-Received: from localhost.huawei.com (10.169.71.169) by
- kwepemq100007.china.huawei.com (7.202.195.175) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.11; Thu, 19 Mar 2026 21:19:48 +0800
-From: Yongbang Shi <shiyongbang@huawei.com>
-To: <tzimmermann@suse.de>, <tiantao6@hisilicon.com>,
- <xinliang.liu@linaro.org>, <maarten.lankhorst@linux.intel.com>,
- <mripard@kernel.org>, <airlied@gmail.com>, <daniel@ffwll.ch>,
- <kong.kongxinwei@hisilicon.com>, <dmitry.baryshkov@oss.qualcomm.com>
-CC: <liangjian010@huawei.com>, <chenjianmin@huawei.com>,
- <fengsheng5@huawei.com>, <shiyongbang@huawei.com>, <helin52@h-partners.com>,
- <shenjian15@huawei.com>, <shaojijie@huawei.com>,
- <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
-Subject: [PATCH V2 for drm-misc-fixes] MAINTAINERS: split hisilicon
- maintenance and add Yongbang Shi for hibmc-drm matainers
-Date: Thu, 19 Mar 2026 21:11:32 +0800
-Message-ID: <20260319131132.722033-1-shiyongbang@huawei.com>
-X-Mailer: git-send-email 2.33.0
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 94FEA10E97B
+ for <dri-devel@lists.freedesktop.org>; Thu, 19 Mar 2026 13:20:34 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id CF79D60097;
+ Thu, 19 Mar 2026 13:20:33 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 31898C19424;
+ Thu, 19 Mar 2026 13:20:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1773926433;
+ bh=dFNCoB+OTvypkD2hCF907kjKiuMgY6mxgJCx8Z225YA=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=BI0UppmVh84xRnAWlYINgjL7AZ7lNQoaH2vDgf0QBYu8//8cFiCyQ4bboJ1iOoM1t
+ g46xh446UX82uh5A62oLhHKD1M8sKTxg6Iqg+2IR6qOxcz43p3txdzxvG3e9vz2xOt
+ +h+P26qnUtlMtLNRET348B+eO2vK4rCDO8TXj7S8peeYRXFHn81FYyKGbKg8eGTBny
+ IXbG4A53ecwF9x4ZSkCAu45fpZi7BOZ3nf0vBgI99zha4HeSIIV1T/uLVEL1FsRx38
+ K2t5U4UeebwSUYHs0ym1n5aGyyKWLPsl9m2nzvkC8y1leBqPT9tnx8OXRRYYw+72+k
+ MNJirhQemJLYQ==
+Date: Thu, 19 Mar 2026 14:20:30 +0100
+From: Maxime Ripard <mripard@kernel.org>
+To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Cc: dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org, 
+ linux-kernel@vger.kernel.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Jonathan Corbet <corbet@lwn.net>, 
+ Shuah Khan <skhan@linuxfoundation.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+ Jyri Sarha <jyri.sarha@iki.fi>, Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>
+Subject: Re: [PATCH 01/14] drm/atomic: Document atomic state lifetime
+Message-ID: <20260319-analytic-purring-kittiwake-ca04fa@houat>
+References: <20260310-drm-mode-config-init-v1-0-de7397c8e1cf@kernel.org>
+ <20260310-drm-mode-config-init-v1-1-de7397c8e1cf@kernel.org>
+ <b0d9aee3-46c1-486d-9516-43ee23658f40@ideasonboard.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.169.71.169]
-X-ClientProxiedBy: kwepems200002.china.huawei.com (7.221.188.68) To
- kwepemq100007.china.huawei.com (7.202.195.175)
+Content-Type: multipart/signed; micalg=pgp-sha384;
+ protocol="application/pgp-signature"; boundary="ekgjblyw25gmfu6n"
+Content-Disposition: inline
+In-Reply-To: <b0d9aee3-46c1-486d-9516-43ee23658f40@ideasonboard.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,72 +69,78 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-To improve maintainability, split the maintainer information for the hibmc and
-kirin drivers under the drivers/gpu/drm/hisilicon directory.
 
-drivers/gpu/drm/hisilicon/hibmc driver has almost completed feature development
-based on the new generation HiSilicon BMC chip. It was co-developed by
-Yongbang Shi, Baihan Li and Lin He. Going forward, this module will be
-maintained by Yongbang Shi.
+--ekgjblyw25gmfu6n
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH 01/14] drm/atomic: Document atomic state lifetime
+MIME-Version: 1.0
 
-Signed-off-by: Yongbang Shi <shiyongbang@huawei.com>
-Acked-by: Tao Tian <tiantao6@hisilicon.com>
-Acked-by: Xinliang Liu <xinliang.liu@linaro.org>
-Acked-by: Thomas Zimmermann <tzimmermann@suse.de>
----
+Hi Tomi,
 
-ChangeLog:
-V1 -> V2:
-  - remove Xinliang Liu, Sumit Semwal, Yongqin Liu, and John Stultz from DRM DRIVERS
-    FOR HISILICON HIBMC
-  - remove Tian Tao and Xinwei Kong from DRM DRIVERS FOR HISILICON KIRIN
+Thanks for your review
 
----
- MAINTAINERS | 31 +++++++++++++++++++------------
- 1 file changed, 19 insertions(+), 12 deletions(-)
+On Wed, Mar 11, 2026 at 08:44:24AM +0200, Tomi Valkeinen wrote:
+> > + *
+> > + *     At that point, &struct drm_atomic_state stores three state
+> > + *     pointers for that particular entity: the old, new, and existing
+> > + *     (called "state") states. The old state is the state currently
+> > + *     active in the hardware, which is either the one initialized by
+> > + *     reset() or a newer one if a commit has been made. The new state
+> > + *     is the state we just allocated and we might eventually commit to
+> > + *     the hardware. The existing state points to the state we'll
+> > + *     eventually have to free when the drm_atomic_state will be
+> > + *     destroyed, but points to the new state for now.
+>=20
+> From this, I don't understand the difference between the old state and
+> the existing state. And if the existing state is the one we'll free,
+> isn't that the old state, not new state? Oh, is the existing state a
+> state we have to free when the drm_atomic_state would is freed? And at
+> this point the new state is the one, as it's not committed?
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index d7241695df96..7c0bdd7b8f08 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -8603,18 +8603,25 @@ S:	Maintained
- T:	git https://gitlab.freedesktop.org/drm/misc/kernel.git
- F:	drivers/gpu/drm/gma500/
- 
--DRM DRIVERS FOR HISILICON
--M:	Xinliang Liu <xinliang.liu@linaro.org>
--M:	Tian Tao  <tiantao6@hisilicon.com>
--R:	Xinwei Kong <kong.kongxinwei@hisilicon.com>
--R:	Sumit Semwal <sumit.semwal@linaro.org>
--R:	Yongqin Liu <yongqin.liu@linaro.org>
--R:	John Stultz <jstultz@google.com>
--L:	dri-devel@lists.freedesktop.org
--S:	Maintained
--T:	git https://gitlab.freedesktop.org/drm/misc/kernel.git
--F:	Documentation/devicetree/bindings/display/hisilicon/
--F:	drivers/gpu/drm/hisilicon/
-+DRM DRIVERS FOR HISILICON HIBMC
-+M:      Yongbang Shi <shiyongbang@huawei.com>
-+M:      Tian Tao  <tiantao6@hisilicon.com>
-+R:      Xinwei Kong <kong.kongxinwei@hisilicon.com>
-+L:      dri-devel@lists.freedesktop.org
-+S:      Maintained
-+T:      git https://gitlab.freedesktop.org/drm/misc/kernel.git
-+F:      drivers/gpu/drm/hisilicon/hibmc
-+
-+DRM DRIVERS FOR HISILICON KIRIN
-+M:      Xinliang Liu <xinliang.liu@linaro.org>
-+R:      Sumit Semwal <sumit.semwal@linaro.org>
-+R:      Yongqin Liu <yongqin.liu@linaro.org>
-+R:      John Stultz <jstultz@google.com>
-+L:      dri-devel@lists.freedesktop.org
-+S:      Maintained
-+T:      git https://gitlab.freedesktop.org/drm/misc/kernel.git
-+F:      Documentation/devicetree/bindings/display/hisilicon/
-+F:      drivers/gpu/drm/hisilicon/kirin
- 
- DRM DRIVERS FOR LIMA
- M:	Qiang Yu <yuq825@gmail.com>
--- 
-2.33.0
+Thanks for pointing it out, I need to update this part. state is never
+the active one, because drm_atomic_state disappears(ish) when the new
+state is committed and thus, by the time an object state is active,
+there's no drm_atomic_state to hold it anymore.
 
+When a new drm_atomic_state is allocated, and we call
+drm_atomic_get_$OBJECT_state, old state is filled with the current
+active state, new state is filled with a copy of it we can modify.
+
+The third pointer (that used to be called state) points to the state we
+need to destroy if we destroy drm_atomic_state. Before atomic_commit,
+it's the new state we didn't commit (probably to do an atomic_check).
+After atomic_commit, the new state has become the active state, and we
+need to destroy the old state (the state that got replaced). That
+pointer is now called state_to_destroy which should be more obvious.
+
+> > + *     state pointer (&drm_crtc.state or similar) to point to the new
+> > + *     state, and the existing states will now point to the old states,
+> > + *     that used to be active but isn't anymore.
+>=20
+> "aren't"
+>=20
+> I think I understand this, but... It kind of brings in a new state
+> concept, "active state".
+
+The active state is never really held by drm_atomic_state but by
+drm_$OBJECT->state. drm_atomic_state is really more of an update
+description (so something that might eventually become active) rather
+than the actual active state.
+
+Maxime
+
+--ekgjblyw25gmfu6n
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCabv4FgAKCRAnX84Zoj2+
+dlQsAYDR7vzmTwt1JEEv/HF8KAR9NNmfn3X6jRBwoBEB/S50xkW90weJ8uOC4KkW
+Bf35htABgLyQ4IYaMs06JFIkUjAQGwanCw9lq/ykEJohuZQeKiHG0wJ3tzCNJ1zE
+CE9cOqGIyQ==
+=7bK3
+-----END PGP SIGNATURE-----
+
+--ekgjblyw25gmfu6n--
