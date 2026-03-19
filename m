@@ -4,139 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 50AF41075290
-	for <dri-devel@archiver.kernel.org>; Thu, 19 Mar 2026 10:04:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E6594108E1CC
+	for <dri-devel@archiver.kernel.org>; Thu, 19 Mar 2026 10:16:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 95FAE10E891;
-	Thu, 19 Mar 2026 10:04:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4B26510E961;
+	Thu, 19 Mar 2026 10:16:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="fEBErR4l";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="PQtoYnOG";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="ItQcJb+k";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 66BFF10E948
- for <dri-devel@lists.freedesktop.org>; Thu, 19 Mar 2026 10:04:48 +0000 (UTC)
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 62J73wLr1027092
- for <dri-devel@lists.freedesktop.org>; Thu, 19 Mar 2026 10:04:47 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- 5GTauEHSGm4i3XT68NJbUfwxUwP+W5UkvCHabhr2+BI=; b=fEBErR4lthQNn4v9
- ZMxOQYhiV43EvXAT0j2MkfztgGZbH9A7ZALIhLAL0AFDs45FTMf05lrcsZQyG73t
- mP66d3btFxNNWre9lLNg1MWi5jSBddRRCj0KOABxhkoPs5ml3as6Yg4dNK7TX1zj
- +J+FTrj8kBN4uifBhZckyP+hw0K6g08JabNJ/tmsnfpcolL3RfEU4NEaUAcv45/o
- K1ReXowqAqcEjTeKUUjJ2Ny/G0Ff4lKdqkmriTXBW+hWS4dAFIck0JZjKNePBOnw
- T6RPYTjHG75k8O0QiJBhhKDt5qMwj/H2t7z7Ta7eGANE9VJRbcXljUP9wlfBeDPg
- zDrKOw==
-Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com
- [209.85.160.199])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d0032jug1-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Thu, 19 Mar 2026 10:04:47 +0000 (GMT)
-Received: by mail-qt1-f199.google.com with SMTP id
- d75a77b69052e-50b2955cc1eso3656301cf.2
- for <dri-devel@lists.freedesktop.org>; Thu, 19 Mar 2026 03:04:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1773914687; x=1774519487;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=5GTauEHSGm4i3XT68NJbUfwxUwP+W5UkvCHabhr2+BI=;
- b=PQtoYnOG8s/Hli9D+mVgOwNt039J6d9Zit84Ji1RaNLJXqyERZICMIR98voEATvL2u
- Ec3cQm06GWrbqIGjhVN+wZ3LpbwcN374CPIADWgnoeyIwUb/J5VBdLAQqwALjXJ4NB4y
- K99uDuWqr8my4aCq02MVLrsopvsMBs0/LzRNkkIDuomZ0loPM1AusjS0Ngz8KEFZsQw4
- hle7SM/VPzrBPdF7L/AMD9fDcSDtM9kfLThGTenTEVpQ/NzYI8NR2/3O8TNOo8TmYOt1
- jwKPns86iAaSSFo7sLCxR1kCGi1G/OxFqN2tOUuiRIcJ2oN0Ld6LOof5cTL8VYUZVKwL
- OuIA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1773914687; x=1774519487;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=5GTauEHSGm4i3XT68NJbUfwxUwP+W5UkvCHabhr2+BI=;
- b=nC2YGyv8lPQiCw9KCDWtfXmAaxgYi3Jv/ihLfff3gi/ezatyQDM1ORhfDGnk2MoQry
- DyN2Ms4RMSnHsGu/GZHmrwwc46bV9rPrQNp9LETJN65Oq3cYpa8ZONHiDxOHScGYZbWT
- HknZplI+iG/0WV60EpfUwQRw8oLb68bWQcOaX2Vv9fd0NuCUISlIvrEh5NLd6PCi5Ou2
- uWMQshCXvsqJcbQIVWtVqDZTaePe+8iMXAAHWF7mEgnIoqjioatTO1OJZ4fKqE/ULs3j
- 2HS+BN1BJGIinFBh+vWOt+D5vN/nvXlCKoWXLZX2DfuMC7kyrSud48XErMsuaLgySqLe
- hn3Q==
-X-Gm-Message-State: AOJu0YzM7OMaXB7UNZyP0UYI5z6xNwkX1UBJHljKljXIw9OtFuhPb+Jd
- /zrVjYixjbF7rb5ha9Y93a2MpziPeYSkDcpq4O228zMhOfKINNAr5Gx13ZqKgTqTtOUOjgoWjFx
- 5WBzZHtOZozNbF7rsxuvHJNXNGM7HQxy1cv+exC0ERvbrcTWFGIV2lL5kfHSH8UghzP8OFvo=
-X-Gm-Gg: ATEYQzwFWSYPfE7QyyB4VaBI36Zj4u8zx/zJCD7HoAPslgjzTuBEGm2SgAelIxsl4KW
- XsnRdp2NozaKbNs56MDo3uKUeeLwlolB/pQ5We4sJY56bg9GwMuLRph+GhqQzxLMySC8bRMaySw
- 6GujAWxAtkO9qJySs78Of1a+UKR32rZkBe3AlP+eYwl3ASRLTpfmM+M3Mdgfv0cCANnJfTa43O8
- SdjfAt/2ECB3HY0LsKRQbZJSRYFh/h86GfSEY4YvMLnZz5VzXL0kqEgGMCsvH469PpzOBiKC4FF
- Jr4menrIaiT84lpOWe6meEa7r60BEj7+r8zoT+r0udY+1y8ryX9th96Mc9z9yJLy5I79d1sYgW4
- j4pHUPLFv02K6n4fMSOQiYqzxMCICoK0XsZZOlkVvcnjOdvkxK2hnqU9d4wsqvqk27RGdbrCMsg
- Eim7A=
-X-Received: by 2002:ac8:59c1:0:b0:509:38b0:c44b with SMTP id
- d75a77b69052e-50b14866da5mr64922031cf.5.1773914686633; 
- Thu, 19 Mar 2026 03:04:46 -0700 (PDT)
-X-Received: by 2002:ac8:59c1:0:b0:509:38b0:c44b with SMTP id
- d75a77b69052e-50b14866da5mr64921631cf.5.1773914686102; 
- Thu, 19 Mar 2026 03:04:46 -0700 (PDT)
-Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl.
- [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b97f142a785sm426601566b.14.2026.03.19.03.04.43
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 19 Mar 2026 03:04:45 -0700 (PDT)
-Message-ID: <f0edd84c-bc83-479f-8168-1bcdddd8fa94@oss.qualcomm.com>
-Date: Thu, 19 Mar 2026 11:04:42 +0100
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CA03910E961
+ for <dri-devel@lists.freedesktop.org>; Thu, 19 Mar 2026 10:15:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1773915357;
+ bh=7PYQDNqoLHpBfM5L+vLB506fl91qHRz3/LJFRPlbvVc=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=ItQcJb+kmp7Iosdsf/d5UGjsRYl1KVejSGJTj9X9+9Hfvdme4JKBk7kFXWTN8fP3M
+ VQHiKNBEtng6oDxj0Hp6mhuJ3UqeFaFV8Z+dj8ijAWjjsBSLTWNM2ulOfGNQ7xsdyT
+ TZnbwCOcvcv3XpIoLI5NCadYOCarVrkFmaRyIh/G+vaDBHqBOk6lZx39IVKJIfs+nu
+ 2iMxS8kYmAPtcvkXxofzlENC2xasOvpNvleBpKXPwbQF22qOt85pXuEa8SD+zGvbZj
+ 835pkGI4zkl84XKKL/M/MqlQTJYl2wBbN6yQXQc4WSQuMLq1V3p4i83/TgPIG8c0N+
+ MOQGaGFJhJj7g==
+Received: from fedora (unknown [IPv6:2a01:e0a:2c:6930:d919:a6e:5ea1:8a9f])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256) (No client certificate requested)
+ (Authenticated sender: bbrezillon)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 0901917E10F8;
+ Thu, 19 Mar 2026 11:15:56 +0100 (CET)
+Date: Thu, 19 Mar 2026 11:15:51 +0100
+From: Boris Brezillon <boris.brezillon@collabora.com>
+To: Marcin Slusarz <marcin.slusarz@arm.com>
+Cc: Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
+ dri-devel@lists.freedesktop.org, Chia-I Wu <olvaffe@gmail.com>, Maarten
+ Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Lukas Zapolskas
+ <lukas.zapolskas@arm.com>, nd@arm.com
+Subject: Re: [PATCH v2] drm/panthor: extend timestamp query with flags
+Message-ID: <20260319111551.4ecc0fa7@fedora>
+In-Reply-To: <20260319082551.841182-1-marcin.slusarz@arm.com>
+References: <20260318112952.645160-1-marcin.slusarz@arm.com>
+ <20260319082551.841182-1-marcin.slusarz@arm.com>
+Organization: Collabora
+X-Mailer: Claws Mail 4.3.1 (GTK 3.24.51; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/3] drm/msm/dpu: fix video mode DSC INTF timing width
- for non 8 bit panels
-To: Neil Armstrong <neil.armstrong@linaro.org>,
- Alexander Koskovich <akoskovich@pm.me>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
- <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
-References: <20260318-dsi-rgb101010-support-v2-0-698b7612eaeb@pm.me>
- <20260318-dsi-rgb101010-support-v2-3-698b7612eaeb@pm.me>
- <c9d14a74-8e59-43bb-827b-577c8f675c8f@linaro.org>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <c9d14a74-8e59-43bb-827b-577c8f675c8f@linaro.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-ORIG-GUID: G6X2admHlQc3kIoW05TZpGIiY5NJqmMB
-X-Proofpoint-GUID: G6X2admHlQc3kIoW05TZpGIiY5NJqmMB
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzE5MDA3OSBTYWx0ZWRfX9nlNiPumE88z
- +e1WlRvbwJUh2CaOxqzs3LM/hUC3V0jJu/qgaIulyG/qwzNMyRrAGaAVAXDadzknCqsTDu5Y99t
- 2KPu8XfmSRHHpV8dr6Wj1sP4oYnPwDOuVrAx5kJMmPmgBCfYkyjIHlIIv9PzO8QzDP116qg1SDF
- LKwzDBXrir0/cZhkZJRP6NUN+N4/2Was7KPI8dbuPCm5M321vPgiaLpicdEggeCj3S1Ypl629Ua
- gV+4dhFN549XRIDWOp8O8/BPErvlw5C/2tg2diwGQIdfVUa9WXpOmASV23MkYNNePytHehbcI2H
- zXjyUYfqUDzvZnaj5IJuxh/1jG7hSGAlb2BM41CEx+y5gYF5PdOJmhV4O7JmVGM0wSY4QnrXTfq
- soIhGGewzI3hd2056dw5735vf2y0Rt0/5HNLS2/HKmDAdzsbNRUO5FDW9iW+GlnNouVuorbxFqg
- BqiwGPeYeEWnYVRSaRA==
-X-Authority-Analysis: v=2.4 cv=WO9yn3sR c=1 sm=1 tr=0 ts=69bbca3f cx=c_pps
- a=WeENfcodrlLV9YRTxbY/uA==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
- a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=FH03U6bJQyAcg50I1OgA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=kacYvNCVWA4VmyqE58fU:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-03-19_01,2026-03-17_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 suspectscore=0 lowpriorityscore=0 impostorscore=0
- adultscore=0 clxscore=1015 spamscore=0 malwarescore=0 phishscore=0
- bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2603050001
- definitions=main-2603190079
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -152,73 +67,317 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 3/19/26 9:34 AM, Neil Armstrong wrote:
-> On 3/19/26 05:00, Alexander Koskovich wrote:
->> Using bits_per_component * 3 as the divisor for the compressed INTF
->> timing width produces constant FIFO errors for panels such as the BOE
->> BF068MWM-TD0 which is a 10 bit panel.
->>
->> The downstream driver calculates the compressed timing width by
->> dividing the total compressed bytes per line by 3 which does not depend
->> on bits_per_component. Switch the divisor to 24 to match downstream.
->>
->> Signed-off-by: Alexander Koskovich <akoskovich@pm.me>
->> ---
->>   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c | 12 +++++++-----
->>   1 file changed, 7 insertions(+), 5 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c
->> index 0ba777bda253..9b046a0e77aa 100644
->> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c
->> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c
->> @@ -122,19 +122,21 @@ static void drm_mode_to_intf_timing_params(
->>       }
->>         /*
->> -     * for DSI, if compression is enabled, then divide the horizonal active
->> -     * timing parameters by compression ratio. bits of 3 components(R/G/B)
->> -     * is compressed into bits of 1 pixel.
->> +     * For DSI, if DSC is enabled, use a fixed divisor of 24 rather than
->> +     * bits_per_component * 3 when calculating the compressed timing width.
->> +     *
->> +     * This matches the downstream driver and is required for panels with
->> +     * bits_per_component != 8.
->>        */
->>       if (phys_enc->hw_intf->cap->type != INTF_DP && timing->compression_en) {
->>           struct drm_dsc_config *dsc =
->>                  dpu_encoder_get_dsc_config(phys_enc->parent);
->> +
->>           /*
->>            * TODO: replace drm_dsc_get_bpp_int with logic to handle
->>            * fractional part if there is fraction
->>            */
->> -        timing->width = timing->width * drm_dsc_get_bpp_int(dsc) /
->> -                (dsc->bits_per_component * 3);
->> +        timing->width = timing->width * drm_dsc_get_bpp_int(dsc) / 24;
-> 
-> 
-> 
-> @bits_per_component: Bits per component to code (8/10/12) <= how the DSC pixels are encoded in the stream
-> @bits_per_pixel: Target bits per pixel with 4 fractional bits, bits_per_pixel << 4 <= the target display pixels
-> 
-> - bits_per_component is the transport width
-> - bits_per_pixel is the display width
-> - 3 is the DSC compression ratio
-> 
-> So for a RGB101010 DSC display bits_per_pixel should be 10 << 4
-> 
-> But here you say bits_per_component should be 8 ? can you share the downstream config of your panel ?
-> 
-> Are you sure about the bits_per_component & bits_per_pixel values you set in the dsc parameters ?
+On Thu, 19 Mar 2026 09:25:51 +0100
+Marcin Slusarz <marcin.slusarz@arm.com> wrote:
 
-The computer tells me that if widebus=off, regardless of the compression
-ratio and pixel depth before compression, 24 bits of compressed data are
-transferred per pclk, and then you can transfer 1/2/4 slices per xfer
+> Flags now control which data user space wants to query,
+> there is more information sources, and there's ability
+> to query duration of multiple timestamp reads.
+> 
+> New sources:
+> - CPU's monotonic,
+> - CPU's monotonic raw,
+> - GPU's cycle count
+> 
+> These changes should make the implementation of
+> VK_KHR_calibrated_timestamps more accurate and much simpler.
+> 
+> Signed-off-by: Marcin Slusarz <marcin.slusarz@arm.com>
+> ---
+> Changes in v2:
+>  - added DRM_PANTHOR_TIMESTAMP_CPU_NONE
+>  - cpu_timestamp_nsec extended to u64
+>  - pad1 removed
+>  - copy_from_user -> copy_struct_from_user
+>  - looking at size replaced by looking at flags
+>  - more comments
 
-(As a note, the DSC compression ratio isn't fixed)
+Looks good to me, just a few minor things, but once addressed, this is
 
-This also impacts the byte/pixel clock calculations (but dsi_host.c seems
-to have taken care of that)
+Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
 
-Maybe Dmitry knows something more..
+> ---
+>  drivers/gpu/drm/panthor/panthor_drv.c | 125 ++++++++++++++++++++++++--
+>  include/uapi/drm/panthor_drm.h        |  58 +++++++++++-
+>  2 files changed, 175 insertions(+), 8 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/panthor/panthor_drv.c b/drivers/gpu/drm/panthor/panthor_drv.c
+> index 165dddfde6ca..b6a100ce389d 100644
+> --- a/drivers/gpu/drm/panthor/panthor_drv.c
+> +++ b/drivers/gpu/drm/panthor/panthor_drv.c
+> @@ -13,7 +13,9 @@
+>  #include <linux/pagemap.h>
+>  #include <linux/platform_device.h>
+>  #include <linux/pm_runtime.h>
+> +#include <linux/sched/clock.h>
+>  #include <linux/time64.h>
+> +#include <linux/time_namespace.h>
+>  
+>  #include <drm/drm_auth.h>
+>  #include <drm/drm_debugfs.h>
+> @@ -765,18 +767,123 @@ static int panthor_query_timestamp_info(struct panthor_device *ptdev,
+>  					struct drm_panthor_timestamp_info *arg)
+>  {
+>  	int ret;
+> +	u32 flags;
+> +	unsigned long irq_flags;
+> +	struct timespec64 cpu_ts;
+> +	u64 query_start_time;
+> +	bool minimize_interruption;
+> +	u32 timestamp_types = 0;
+> +
+> +	if (arg->flags != 0)
+> +		flags = arg->flags;
+> +	else
+> +		flags = DRM_PANTHOR_TIMESTAMP_GPU |
+> +			DRM_PANTHOR_TIMESTAMP_GPU_OFFSET |
+> +			DRM_PANTHOR_TIMESTAMP_FREQ;
 
-Konrad
+nit: I like to add explicit {} for multi-line statements under
+conditional blocks.
+
+	if (arg->flags != 0) {
+		flags = arg->flags;
+	} else {
+		flags = DRM_PANTHOR_TIMESTAMP_GPU |
+			DRM_PANTHOR_TIMESTAMP_GPU_OFFSET |
+			DRM_PANTHOR_TIMESTAMP_FREQ;
+	}
+
+and maybe add a comment to repeat what the uAPI doc says.
+
+> +
+> +	switch (flags & DRM_PANTHOR_TIMESTAMP_CPU_TYPE_MASK) {
+> +	case 0:
+> +		break;
+> +	case DRM_PANTHOR_TIMESTAMP_CPU_MONOTONIC:
+> +	case DRM_PANTHOR_TIMESTAMP_CPU_MONOTONIC_RAW:
+> +		timestamp_types++;
+> +		break;
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +
+> +	if (flags & ~(DRM_PANTHOR_TIMESTAMP_GPU |
+> +		      DRM_PANTHOR_TIMESTAMP_CPU_TYPE_MASK |
+> +		      DRM_PANTHOR_TIMESTAMP_GPU_OFFSET |
+> +		      DRM_PANTHOR_TIMESTAMP_GPU_CYCLE_COUNT |
+> +		      DRM_PANTHOR_TIMESTAMP_FREQ |
+> +		      DRM_PANTHOR_TIMESTAMP_DURATION))
+
+Let's define a VALID_TIMESTAMP_QUERY_FLAGS like we do for other ioctls.
+
+> +		return -EINVAL;
+> +
+> +	if (flags & DRM_PANTHOR_TIMESTAMP_GPU)
+> +		timestamp_types++;
+> +	if (flags & DRM_PANTHOR_TIMESTAMP_GPU_CYCLE_COUNT)
+> +		timestamp_types++;
+> +
+> +	/* If user asked to obtain timestamps from more than one source,
+> +	 * then it very likely means they want them to be as close as possible.
+> +	 * If they asked for duration, then that likely means that they
+> +	 * want to know how long obtaining timestamp takes, without random
+> +	 * events, like process scheduling or interrupts.
+> +	 */
+> +	minimize_interruption =
+> +		(flags & DRM_PANTHOR_TIMESTAMP_DURATION) ||
+> +		(timestamp_types >= 2);
+>  
+>  	ret = panthor_device_resume_and_get(ptdev);
+>  	if (ret)
+>  		return ret;
+>  
+> +	if (flags & DRM_PANTHOR_TIMESTAMP_FREQ) {
+>  #ifdef CONFIG_ARM_ARCH_TIMER
+> -	arg->timestamp_frequency = arch_timer_get_cntfrq();
+> +		arg->timestamp_frequency = arch_timer_get_cntfrq();
+>  #else
+> -	arg->timestamp_frequency = 0;
+> +		arg->timestamp_frequency = 0;
+>  #endif
+> -	arg->current_timestamp = gpu_read64_counter(ptdev, GPU_TIMESTAMP);
+> -	arg->timestamp_offset = gpu_read64(ptdev, GPU_TIMESTAMP_OFFSET);
+> +	} else {
+> +		arg->timestamp_frequency = 0;
+> +	}
+> +
+> +	if (flags & DRM_PANTHOR_TIMESTAMP_GPU_OFFSET)
+> +		arg->timestamp_offset = gpu_read64(ptdev, GPU_TIMESTAMP_OFFSET);
+> +	else
+> +		arg->timestamp_offset = 0;
+> +
+> +	if (minimize_interruption) {
+> +		preempt_disable();
+> +		local_irq_save(irq_flags);
+> +	}
+> +
+> +	if (flags & DRM_PANTHOR_TIMESTAMP_DURATION)
+> +		query_start_time = local_clock();
+> +	else
+> +		query_start_time = 0;
+> +
+> +	if (flags & DRM_PANTHOR_TIMESTAMP_GPU)
+> +		arg->current_timestamp = gpu_read64_counter(ptdev, GPU_TIMESTAMP);
+> +	else
+> +		arg->current_timestamp = 0;
+> +
+> +	switch (flags & DRM_PANTHOR_TIMESTAMP_CPU_TYPE_MASK) {
+> +	case DRM_PANTHOR_TIMESTAMP_CPU_MONOTONIC:
+> +		ktime_get_ts64(&cpu_ts);
+> +		break;
+> +	case DRM_PANTHOR_TIMESTAMP_CPU_MONOTONIC_RAW:
+> +		ktime_get_raw_ts64(&cpu_ts);
+> +		break;
+> +	default:
+> +		break;
+> +	}
+> +
+> +	if (flags & DRM_PANTHOR_TIMESTAMP_GPU_CYCLE_COUNT)
+> +		arg->cycle_count = gpu_read64_counter(ptdev, GPU_CYCLE_COUNT);
+> +	else
+> +		arg->cycle_count = 0;
+> +
+> +	if (flags & DRM_PANTHOR_TIMESTAMP_DURATION)
+> +		arg->duration_nsec = local_clock() - query_start_time;
+> +	else
+> +		arg->duration_nsec = 0;
+> +
+> +	if (minimize_interruption) {
+> +		local_irq_restore(irq_flags);
+> +		preempt_enable();
+> +	}
+> +
+> +	if (flags & DRM_PANTHOR_TIMESTAMP_CPU_TYPE_MASK) {
+> +		timens_add_monotonic(&cpu_ts);
+> +
+> +		arg->cpu_timestamp_sec = cpu_ts.tv_sec;
+> +		arg->cpu_timestamp_nsec = cpu_ts.tv_nsec;
+> +	} else {
+> +		arg->cpu_timestamp_sec = 0;
+> +		arg->cpu_timestamp_nsec = 0;
+> +	}
+>  
+>  	pm_runtime_put(ptdev->base.dev);
+>  	return 0;
+> @@ -851,8 +958,13 @@ static int panthor_ioctl_dev_query(struct drm_device *ddev, void *data, struct d
+>  		return PANTHOR_UOBJ_SET(args->pointer, args->size, ptdev->csif_info);
+>  
+>  	case DRM_PANTHOR_DEV_QUERY_TIMESTAMP_INFO:
+> -		ret = panthor_query_timestamp_info(ptdev, &timestamp_info);
+> +		ret = copy_struct_from_user(&timestamp_info, sizeof(timestamp_info),
+> +					    (const void __user __force *) args->pointer,
+
+					    u64_to_user_ptr(args->pointer),
+
+> +					    args->size);
+
+I wonder if we should have a PANTHOR_UOBJ_GET() that checks the
+input size against the minimum struct size ever exposed by the driver.
+Here we are covered by the following PANTHOR_UOBJ_SET() so that's
+probably not a huge issue, dunno.
+
+> +		if (ret)
+> +			return ret;
+>  
+> +		ret = panthor_query_timestamp_info(ptdev, &timestamp_info);
+>  		if (ret)
+>  			return ret;
+>  
+> @@ -1680,6 +1792,7 @@ static void panthor_debugfs_init(struct drm_minor *minor)
+>   *       - adds DRM_IOCTL_PANTHOR_BO_SYNC ioctl
+>   *       - adds DRM_IOCTL_PANTHOR_BO_QUERY_INFO ioctl
+>   *       - adds drm_panthor_gpu_info::selected_coherency
+> + * - 1.8 - extends DEV_QUERY_TIMESTAMP_INFO with flags
+>   */
+>  static const struct drm_driver panthor_drm_driver = {
+>  	.driver_features = DRIVER_RENDER | DRIVER_GEM | DRIVER_SYNCOBJ |
+> @@ -1693,7 +1806,7 @@ static const struct drm_driver panthor_drm_driver = {
+>  	.name = "panthor",
+>  	.desc = "Panthor DRM driver",
+>  	.major = 1,
+> -	.minor = 7,
+> +	.minor = 8,
+>  
+>  	.gem_create_object = panthor_gem_create_object,
+>  	.gem_prime_import_sg_table = drm_gem_shmem_prime_import_sg_table,
+> diff --git a/include/uapi/drm/panthor_drm.h b/include/uapi/drm/panthor_drm.h
+> index b401ac585d6a..8a46ef040c3d 100644
+> --- a/include/uapi/drm/panthor_drm.h
+> +++ b/include/uapi/drm/panthor_drm.h
+> @@ -409,6 +409,38 @@ struct drm_panthor_csif_info {
+>  	__u32 pad;
+>  };
+>  
+> +/**
+> + * enum drm_panthor_timestamp_info_flags - drm_panthor_timestamp_info.flags
+> + */
+> +enum drm_panthor_timestamp_info_flags {
+> +	/** @DRM_PANTHOR_TIMESTAMP_GPU: Query GPU time. */
+> +	DRM_PANTHOR_TIMESTAMP_GPU = 1 << 0,
+> +
+> +	/** @DRM_PANTHOR_TIMESTAMP_CPU_NONE: Don't query CPU time. */
+> +	DRM_PANTHOR_TIMESTAMP_CPU_NONE = 0 << 1,
+> +
+> +	/** @DRM_PANTHOR_TIMESTAMP_CPU_MONOTONIC: Query CPU time using CLOCK_MONOTONIC. */
+> +	DRM_PANTHOR_TIMESTAMP_CPU_MONOTONIC = 1 << 1,
+> +
+> +	/** @DRM_PANTHOR_TIMESTAMP_CPU_MONOTONIC_RAW: Query CPU time using CLOCK_MONOTONIC_RAW. */
+> +	DRM_PANTHOR_TIMESTAMP_CPU_MONOTONIC_RAW = 2 << 1,
+> +
+> +	/** @DRM_PANTHOR_TIMESTAMP_CPU_TYPE_MASK: Space reserved for CPU clock type. */
+> +	DRM_PANTHOR_TIMESTAMP_CPU_TYPE_MASK = 7 << 1,
+> +
+> +	/** @DRM_PANTHOR_TIMESTAMP_GPU_OFFSET: Query GPU offset. */
+> +	DRM_PANTHOR_TIMESTAMP_GPU_OFFSET = 1 << 4,
+> +
+> +	/** @DRM_PANTHOR_TIMESTAMP_GPU_CYCLE_COUNT: Query GPU cycle count. */
+> +	DRM_PANTHOR_TIMESTAMP_GPU_CYCLE_COUNT = 1 << 5,
+> +
+> +	/** @DRM_PANTHOR_TIMESTAMP_FREQ: Query timestamp frequency. */
+> +	DRM_PANTHOR_TIMESTAMP_FREQ = 1 << 6,
+> +
+> +	/** @DRM_PANTHOR_TIMESTAMP_DURATION: Return duration of time query. */
+> +	DRM_PANTHOR_TIMESTAMP_DURATION = 1 << 7,
+> +};
+> +
+>  /**
+>   * struct drm_panthor_timestamp_info - Timestamp information
+>   *
+> @@ -421,11 +453,33 @@ struct drm_panthor_timestamp_info {
+>  	 */
+>  	__u64 timestamp_frequency;
+>  
+> -	/** @current_timestamp: The current timestamp. */
+> +	/** @current_timestamp: The current GPU timestamp. */
+>  	__u64 current_timestamp;
+>  
+> -	/** @timestamp_offset: The offset of the timestamp timer. */
+> +	/** @timestamp_offset: The offset of the GPU timestamp timer. */
+>  	__u64 timestamp_offset;
+> +
+> +	/**
+> +	 * @flags: Bitmask of drm_panthor_timestamp_info_flags.
+> +	 *
+> +	 * If set to 0, then it is interpreted as:
+> +	 *  DRM_PANTHOR_TIMESTAMP_GPU |
+> +	 *  DRM_PANTHOR_TIMESTAMP_GPU_OFFSET |
+> +	 *  DRM_PANTHOR_TIMESTAMP_FREQ
+> +	 */
+> +	__u32 flags;
+> +
+> +	/** @duration_nsec: Duration of time query. */
+> +	__u32 duration_nsec;
+> +
+> +	/** @cycle_count: Value of GPU_CYCLE_COUNT. */
+> +	__u64 cycle_count;
+> +
+> +	/** @cpu_timestamp_sec: Seconds part of CPU timestamp. */
+> +	__u64 cpu_timestamp_sec;
+> +
+> +	/** @cpu_timestamp_nsec: Nanseconds part of CPU timestamp. */
+> +	__u64 cpu_timestamp_nsec;
+>  };
+>  
+>  /**
+
