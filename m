@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 88B5C109192D
-	for <dri-devel@archiver.kernel.org>; Thu, 19 Mar 2026 22:33:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B14A109192F
+	for <dri-devel@archiver.kernel.org>; Thu, 19 Mar 2026 22:33:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 626E710E9D3;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E493410E9D8;
 	Thu, 19 Mar 2026 22:33:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=nxp.com header.i=@nxp.com header.b="hR277gjE";
+	dkim=pass (2048-bit key; unprotected) header.d=nxp.com header.i=@nxp.com header.b="U/uDoJje";
 	dkim-atps=neutral
-Received: from GVXPR05CU001.outbound.protection.outlook.com
- (mail-swedencentralazon11013029.outbound.protection.outlook.com
- [52.101.83.29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A2FF610E9A6;
- Thu, 19 Mar 2026 22:33:07 +0000 (UTC)
+Received: from AM0PR83CU005.outbound.protection.outlook.com
+ (mail-westeuropeazon11010042.outbound.protection.outlook.com [52.101.69.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8979D10E9CC;
+ Thu, 19 Mar 2026 22:32:58 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=e5xVMHk8+qEnQzYgA0WcVS/+HC5YRoYnnYYIAHNn2zA5wHChUep2f18egJ3Ome/PIugFbxK6GeF0qhY2KIeSHa30zgjyus9n0KuALiflbib3NMEanNBdNaenAJ+qEC3PYT+MKoW0nETxWJMDfivHpj2Ej0RQtpexTqV2I1u5k3UNILwE2OUilx1sk4avQDB/b44Yi5lLXC7GZc3jUhevkD3VXUIjtnhW7CxW8/hjFJt2FnNV7tardyksqYFKzdAPOl/w67Qk+cdwAvOJidJ3eCPwJeVjpR+vM6GgBBU84XzB560NIlKmgSej0SpW16dBcvJvjglE17KpROLSi+TrJg==
+ b=L3+iwO/yGS27/f30xbD7CQCxHsUoYEp7UH5PeoZE4NOON1avmmQ5eSm10CKR0I+vKr/iF0nV6pYF9XNOhBNweGEIykc5azOcA14O7zQxFyCHAvOPGeaAf378IbKlwkqwdEBu8wrK5/ab2M69decI+S0mHQL+rzp5a6eRLHeuwbPSjAR4DDPFf4b6CXdbRlzOJ++8Qbf/cCL9j72p3FLaqKaskB3MIut9Ib2IYPuFm0Hj5GyRw5lhrMnOy44x/LPL2htu5yVsIIb/hHnqn9TCrgrbJmetKGHmRdRMbwxHdtCk/cEQnG41gkugS2WcwYABwCCUwKW5pWU1QdNi3U//8g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=P6/W9u1nF+rccnysPC1E5DHQTyz3pz09E7LpVScZQz0=;
- b=iLAHLiesGupDybzCjoQbK1iY9i4SlE+6w2VooMWZ9jtITU0VPUp/E3MLZd5Nm0tMkU1e6kwgfNMQJ/D5eWLb7vX6lROHu5VWKK/lPy9Bte8zcOXBVP4un5nqAZbulmW98O108IZKQU+oG2qVK7wnoE6MpORgfCnF7iYObYM0uYmdugEsfyhvhI1dVW+qi7GsreCscAfvZ9GdN+T0DAI45Vq7mq1KlF2QflK+2ZCxWMyqg+5OmuO5DQYy01KruxcqMopWKdcqoaxcRcgDhNFwoy6EOjdHM0cBBIeZlzfrKowTI04P38cSxpPi5NSmkAfmj+QCOMEZFZZiR5T3Cgro/g==
+ bh=vV9P49SF3DOsSIM1Ik9m4S1m6fjps4CTB6Rt4+FI+zY=;
+ b=nS/13S9W1z5Qzdjba6qfULm27y6Q9kmHcU071grsNBPHrVna6RM5eHFw5SAgofDxAK3W9Yh/K04/n9lwaYpywRs2lqopJzDKy7K8UzANM57UyHp5rDHnZc5jfnsVzTRWd6LP461NDjlyAnrjeQY7zjhH2kr7tkToc3Zf91g9gLJOZpgqDnieuevW2GpvyEfesPImqB3KMw0QL4hi8w3n9qXSbyRRO8bAxFNtM0UQbpkdIwTKSqcqmRPSTnmcZudWfgdMYppgFJTCCaaGZuGuxzH0X9JSr4Dm9seJgC4g8kGOHNPaIOZQZK6TYyG3PXBMXzal0ZsVVzqbvKJHYEWhSw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
  header.d=nxp.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=P6/W9u1nF+rccnysPC1E5DHQTyz3pz09E7LpVScZQz0=;
- b=hR277gjEo4TqJ8E3i8u/yqkC61lU75G1r5jqB9gqueU2Z8NzSb2cg4HQ9OOS6Wmd//RK1XNhZHiLx9/OgDma3gT+2pMkk+pu6TOM0PbWQLX3eB/2KIEnRVON2DYNZ5c3eCu6ycxoFNPN9pK2TLs3GW+VCDidD1DuSfwEHWtJDTasd25ra27ej/z/LZcVYAwNzdhoemLg1HeFz9dJFQ79csz7etRoQOfj1epslNs4AQQnsCQWxL1y74ixmuaMhsy3kjV78bdDNfPb1xwnhTfx+sbUu7Bfao5arPifAPBVm8lb9k06TZXLcdrxZ2v70C8qfRsEscctq4Hbd4vWUGXMmA==
+ bh=vV9P49SF3DOsSIM1Ik9m4S1m6fjps4CTB6Rt4+FI+zY=;
+ b=U/uDoJjeaqQn0QkPi6p9WDUrOhgky7CU3aRyXwMkJIfRyQikeRzjq1unmXxEl/khKgV3dod0GljQ91bGfJzq0jUq48pJQUeknD2+ozBHUxsxLoKljnB6qaxT+YQD10PidJmnrv9+CfyZx2sWepYihdQCm/q7QmNtXASNohGp+gr48XbtCZzFkNgsqrniSx0IRpklzOakregjWU3NyA6J20TA+wri/dLWgEtNtitvUiBY6001Uus/ZJdnCcNZlzLUxCJxwiCwhd6ouZ5t+FZmCK9cMFu4OEsQ9Ah1kBFecXfTYu/y1D/7vTouZ7phJPKJvu7w+FoUTdEJTraa3QlHcA==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nxp.com;
 Received: from AM9PR04MB8585.eurprd04.prod.outlook.com (2603:10a6:20b:438::13)
  by GV4PR04MB11355.eurprd04.prod.outlook.com (2603:10a6:150:296::16)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.19; Thu, 19 Mar
- 2026 22:32:59 +0000
+ 2026 22:32:48 +0000
 Received: from AM9PR04MB8585.eurprd04.prod.outlook.com
  ([fe80::f010:fca8:7ef:62f4]) by AM9PR04MB8585.eurprd04.prod.outlook.com
  ([fe80::f010:fca8:7ef:62f4%4]) with mapi id 15.20.9723.018; Thu, 19 Mar 2026
- 22:32:57 +0000
+ 22:32:46 +0000
 From: Vladimir Oltean <vladimir.oltean@nxp.com>
 To: linux-phy@lists.infradead.org
 Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
@@ -55,80 +54,84 @@ Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
  linux-scsi@vger.kernel.org, linux-sunxi@lists.linux.dev,
  linux-tegra@vger.kernel.org, linux-usb@vger.kernel.org,
  netdev@vger.kernel.org, spacemit@lists.linux.dev,
- UNGLinuxDriver@microchip.com, Bart Van Assche <bvanassche@acm.org>,
- Alim Akhtar <alim.akhtar@samsung.com>,
- Peter Griffin <peter.griffin@linaro.org>,
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
- "Martin K. Petersen" <martin.petersen@oracle.com>,
- Krzysztof Kozlowski <krzk@kernel.org>,
- Chanho Park <chanho61.park@samsung.com>
-Subject: [PATCH v5 phy-next 09/27] scsi: ufs: exynos: stop poking into struct
- phy guts
-Date: Fri, 20 Mar 2026 00:32:23 +0200
-Message-ID: <20260319223241.1351137-10-vladimir.oltean@nxp.com>
+ UNGLinuxDriver@microchip.com, Andrzej Hajda <andrzej.hajda@intel.com>,
+ Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Inki Dae <inki.dae@samsung.com>,
+ Jagan Teki <jagan@amarulasolutions.com>,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>
+Subject: [PATCH v5 phy-next 04/27] drm: add <linux/pm_runtime.h> where missing
+Date: Fri, 20 Mar 2026 00:32:18 +0200
+Message-ID: <20260319223241.1351137-5-vladimir.oltean@nxp.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260319223241.1351137-1-vladimir.oltean@nxp.com>
 References: <20260319223241.1351137-1-vladimir.oltean@nxp.com>
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-ClientProxiedBy: WA2P291CA0020.POLP291.PROD.OUTLOOK.COM
- (2603:10a6:1d0:1e::9) To AM9PR04MB8585.eurprd04.prod.outlook.com
+X-ClientProxiedBy: WA2P291CA0044.POLP291.PROD.OUTLOOK.COM
+ (2603:10a6:1d0:1f::20) To AM9PR04MB8585.eurprd04.prod.outlook.com
  (2603:10a6:20b:438::13)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: AM9PR04MB8585:EE_|GV4PR04MB11355:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2d21f4f5-2017-49fa-3dc8-08de8607785e
+X-MS-Office365-Filtering-Correlation-Id: f24ccf18-185e-4157-17c8-08de860771b3
 X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
  ARA:13230040|19092799006|366016|10070799003|1800799024|376014|7416014|22082099003|56012099003|18002099003;
-X-Microsoft-Antispam-Message-Info: xz7Xhr4ezrDKjGt7N60btnUqJJViOdnnfrpHhFs6hIDESmb1yrj098HOopa6leagBaDykfQt6L2rDqRKxbLOH9+vfvUJE4z73chXsccUZDr1Yet3+HoqcAlOjqKPd3FOCPxWtu6ne2L+mSY8Mb+T57QhfTVZqnyOL3wVfRW50ZuZqoMVcBUcqcPwwH7VKpQE0F5Yf7RMDAKkjaRRV1nyglsuya5vMifGjIZsHoGvVT3Q+FeoUAl82GqMDKrPOEXHetoc/esIcmR7C4L+EYgaeS7soFlapFI7Yf/xC9GUAGIf5tNRKDrnnNFeXIq6zoXQUEs8253850o2xbh1qyiaUeDIZaYpEm9UJLdFb0qq/pkNOboN/m5y5iZ/McYKvGStr2wHhymDnblbjGfSN3nhwvSiPC3FSQTvn8UccvWO1puGTlGkna3s9cOfjRY3ORjFdpdiOOeX1PWh6syNzMvU4jloyf+dCSp9ko7CqlDu1t8BJDULLiICMYgqDbFM2R8SJc5L7kcIqeb/V4wUmxgOGXnCPySMawFKeACtGqVP3fUYtWKQIRfnVa8sdnlBMLiDOFcbcprMx+gI7MogE1y8Q6abPb0P8tpas9iDC0shhNgVXG7SI8wUzCqzGT1E/dqcZtGd7pEIgMOlL942l/l8B8oUslWcpPVkatj6060pyIgDu+tI/Q8tUZLPF8RcgA6QdJW3X5nOzgkTxFBTdkghcI9tTE8gYzfyB8ipCdu8En8=
+X-Microsoft-Antispam-Message-Info: 45zRCMv6T/jyR2Bkxj95Rz/T+juYtVifai4N/PTQWzJQuGztUBUxbi5sGIqjMohK8lZb28WzNN9ixMKhNZIfEquO2dk7dihj8EVHJpY/cvoJypvJDXKIpc0hcpT0W5efAwLvQxz6FWTy65eI05KpIFCxWEhXOMgCb1BiTMljx4Byr22VruWZu1s6ArOL+922iwVlieNeU3dy24I76rMAljmHEzOMURW2mfjDLD+6g6CaUd+n87cRUg8oyXNnE2bRvVYoTLXXUmjJ+VYQn3EsqdVuBm4nE5WCsxZF4ReKwhTV0TTrEJnomxNXfQQSohe4uh7wq8t9oOwdcKWf4WeQLweCwEgQwEud3MC66Hiy8a+n9o6dlPh217vnnlxAYm//HNK2gDNmsIg3pIoAUctxL8jyN89n7TjZYAHivD/lL/CTw7Bouh0Ui1doBKBD+7aWpbu5YLJ0I/5bINmG1BSKdWVgN/mBy3ZFoGaYuVXVv/RhlG32OInl2P7XWwzIF3uYu/8CCMdAHurzb+QiYiQtpMovSEaHv+lmkxTB7qzzXe+p55GCYFJ1sB8YkBVwq53As2aVa6RmxuKsfBRfnYFjqWCNIID/efE5RPC6FguK7Pq0dYOb+AGokcylS4aKQC32t8LQDjf1qgBpGmVHogB8w5gSmhWnaKPsp90jRdJ/6TAUosz2CXjNVjQT0Hgc0K6UqnMXt8+nHlz5aGV3mjj/te6onAvwuF+qLFtm4zwFseM=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:AM9PR04MB8585.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
  SFS:(13230040)(19092799006)(366016)(10070799003)(1800799024)(376014)(7416014)(22082099003)(56012099003)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?ugqNKYV+9LzhJybgtqYfnpFhdAE+XH4jHz5Xdll3bLOoqIBbmeP41reGeB5n?=
- =?us-ascii?Q?28DcwTEsz7Ka/lGVKmVxnfHxOH69/KLjr3OG2mW1mBVWn+sbuJ+khxEXk1lI?=
- =?us-ascii?Q?2Zx/div0oZSMcjKR5WHUqkZDBl7jJfSvKl/9CDeGFt97TmZdSnvnYybnkMgT?=
- =?us-ascii?Q?xHsVw+2yxDd2N1PKmafyzOUnpHlLNePbyFxXGsjCJQWsQjHm2Qjdw32LB6RM?=
- =?us-ascii?Q?O6AsZveL8/ImOaor6zrGAHzKmAwJNXzqWfp2Irfe4R5UO1+Y2SWw3DhlXg1e?=
- =?us-ascii?Q?Hwpb+7ahG+oAoPds/GXRFkMjAGoo6pkfRMJz0nTcIMgbu4IZNTg0h1T5zfoF?=
- =?us-ascii?Q?ovrDVddqvVvz3g/LTF8UNM6Hs6Ha0BRtWVDQxMA3asdx+azOOhHm/kZPGl7v?=
- =?us-ascii?Q?PfWhM/KfkuVb7Z+ndgHynIk7NyR3bGuJrkoQ3Bb+dc6gR63IRdRkkeboF6e0?=
- =?us-ascii?Q?0jyIG/RldiUCDjz6U9HsYjqvKIIAg4Z0mtWS8/1CmWO/LIGCZE90Im2PaIQT?=
- =?us-ascii?Q?ox7MNiFaDGm1lHNAtPB4l+GqDHoYLDKcCgxN2q15gJuQqocOS+icF3tfBM5E?=
- =?us-ascii?Q?kNELoEjw8a4iSBAFN4qX26scQFfA0hJ++lUX3gZ2T9cnLF19y/Xz/OZjuFRn?=
- =?us-ascii?Q?QbE/szJigRqlWVBgc8XiVeUVVMNdMokwTy4cbyFZ9qzMisK0YSSJPU9/fcsC?=
- =?us-ascii?Q?9b/1MmiHFRV57Qvtw4Ml2ddpjpEODbR36W4Bzei+qbfQZEjIAIegXV+z++i6?=
- =?us-ascii?Q?I8f8KODa27dbLKBlHzO7KmI5X/54lcOOnXY+w5phgF/AWlp49ZtgeTrGhfTO?=
- =?us-ascii?Q?xS8dUStvZfnppMUNDE6pgb54vHY6JZrIu666C09PZeaMTLQ6faquThT/jXrr?=
- =?us-ascii?Q?3zFJr0EScnAu4horuy7dyMzzuFNrSV1h6PzWqN/aLTk2dah8dZN/BusXuGnd?=
- =?us-ascii?Q?4SiXxUaKxaebqow58PIZrCSlZCy2Mh5j/jgjKCV9husEnnbtVjHfnuwvvuVi?=
- =?us-ascii?Q?NSvqb6/3AXAzXdqndOOwKzd2tmDMeLe4tV9lURWIQgogKYwe0YqbOT8jOhFs?=
- =?us-ascii?Q?XLOF5Dn0ExJx//yNk7Bw6KjyIGwuChE6VnA+fwGPtvPk1Rt+tXHwkflsbqJ2?=
- =?us-ascii?Q?X4nHCl0DCSx/56ByAegSj+Ni2rH02Xjd81w4WF/gfM2fbLPD52U6Y+c5tffI?=
- =?us-ascii?Q?vaXucsiv/AIXzD8rezDcPnBmyr8U2e6Za1MIRLDJTKnDj91KHaSxJkIYdObO?=
- =?us-ascii?Q?/kOh7NMPIJ5iYlPJBNFizyIb4MXsTwzfaHCArc738vcuofqKznaznv6BPazM?=
- =?us-ascii?Q?hAcML4FjtmeDLdeucyJkp+efsAoW094RS0ZFbrO1NDGYW1NDiJArYDqMr24u?=
- =?us-ascii?Q?D80DUttWPWutbtm4szjEk1QXR700WgG7n01aIcRKqVbC9u0oIut+FGAhW0vl?=
- =?us-ascii?Q?oimDgTsBHD9bk/AViryqrl5FTs8fUylJnFPkHMMwXvyTNSzjYmBuEBb9Y4Ne?=
- =?us-ascii?Q?tfjwD9EveFaxZkWD7vQPF9pvtxv7iSW7g0IcwVbLI5uu9XCzIkgN13t4r9FD?=
- =?us-ascii?Q?dDSm0/5Z1SLg0ZDwdk7XAuGpqWFoLNh4NQmgjFrOlz9/nYGRHXHttDENNVk/?=
- =?us-ascii?Q?1XLaw4Yku2C1890fESG5lBjmcXoAZHKKhkM21pvApY58VCKDTDDOFN/Q5tBd?=
- =?us-ascii?Q?aanC29yxQOXKCreyzsQjfXvRZfix+PhXgaa6mU2SAfTmBIc0GVL5VjZrm9xN?=
- =?us-ascii?Q?7XndxaVlBhqxvFTOjqcvWdhGId4v0UTmMtAWv4jazft44S2qT2usPwEo+qD7?=
-X-MS-Exchange-AntiSpam-MessageData-1: u9Zm8LXOV/IPMST3Lzp1VjDwknPsgEmOc74=
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?FQ90dI15u9mkBiGQ56ehwJMNAia1+vRhYR3qHyryoUpNkaDqM7DgqZzgBVND?=
+ =?us-ascii?Q?2zJ4Yw+hFNX/DegydQmgHpCEYmoCQszTpIwf48TLoQR2EKgHxnIpx7vOocf6?=
+ =?us-ascii?Q?hgeqxa/6mf0ZzS2vq08qil4H0G+3T/mzeij5tNwjDT9NLS+UjRb9gcsRiPWp?=
+ =?us-ascii?Q?TVCeDiReBmWpNBzpRDDD+qsDXMP6KfXZ/JXCDYcCR1fGlukgqvHlJ9SZdcse?=
+ =?us-ascii?Q?wlJSHCN4E5W+5SLtMlDotEFX04Wr8HO2P6Gxcq7fCFmvCngkgQKZ661iK61k?=
+ =?us-ascii?Q?B1Jx4hKlAgy1nUYr6tynPk+4sILp8K65KU0WfMkpV6F8nsT2KVrZ7mvOqKJP?=
+ =?us-ascii?Q?HyvOzTdCCjLqA1gKjuuqYb70ii1iq3/nVpBhxMAE+FPq5FyAfBB7uv5aOE1x?=
+ =?us-ascii?Q?506yF1jnsZO57nl2pbsHWwT88VctSKQzUDoz8W/j6esEjJ96Lnin+RG2I4F9?=
+ =?us-ascii?Q?lj/IaLZ1FXXCPTZRAkofknEuSqd7pclWglj6vxong+41x9dPAUyg1N94ENZ+?=
+ =?us-ascii?Q?wNbt4bYpBtvd62NYONvKY9IaVnWbR50sANo2JR+VR8APhKwopkYPBBYL44sZ?=
+ =?us-ascii?Q?OzXKpDJ1zqVcc+6l1SsS2PnjwhhLFJAIsBtswJcBMS0dggyEnCVNZn+G2gBm?=
+ =?us-ascii?Q?U4Pp+OTOnCyZ1DFUxeaMeuF+G31J78l4o++Txo5AhHJp/w6iALqC4uWOhpzr?=
+ =?us-ascii?Q?QL4rWqXt9ddwMOLbNdVoonYQO+4pDsRzhfR4XAQuwV5ITEAGGmQeEC927Z8I?=
+ =?us-ascii?Q?Bo7pcOfL3nInJ4BxVAbSQMThVC+WcEB56iScuEFKsmkiduYD1R3gnltC4CTA?=
+ =?us-ascii?Q?P0O/YjOAu8HZLnCYXUKcIeG+RJ2TdCYr9QWSe1VNAEaI5m0iOrlGuHNpzL3y?=
+ =?us-ascii?Q?Dg5ZxD2ZNdaFT9S1Y9uWOFSEqEjiGuGfCGjGjYHTpODjThzMJIDk3XDmwCvk?=
+ =?us-ascii?Q?QtAbx9x5Xbk5MSK5bcHozhsq6DlrHIVrUKtUQnBYioh6N/MdbEJofhX3boW5?=
+ =?us-ascii?Q?VoD3wox3DFTg1NlAUEJOHjiejkJEmF6Er+ZAjQFx5VSL3r+Z5i+chAmFoDj7?=
+ =?us-ascii?Q?iFxq9fMQhAbUORx4NjarLekSkpv5vgQWdNiVck0yVT89G33rY0Xx19ogMydA?=
+ =?us-ascii?Q?k8OVdVwKjUlmcMR+cR+ZcRuXZzAz87MAdDnh269SuLYZ+/bWoB2CzK53Fdhl?=
+ =?us-ascii?Q?OSkFwviDzED9qFwzHdIxC+nXsF3Ev4ceOoQ98vURI/5rp6BaoA+hR7R8HsCk?=
+ =?us-ascii?Q?j6ooO18ZSBH8DcHeW05TwpcFW4P9NRS7VHcqqsySvPdROXKMeQW1/vJ/K4Go?=
+ =?us-ascii?Q?EnxwfRfMzeUV47r199HZT0h7zPZP/mFlZVSpFIRLAJsNEO2K0xTLQFdCBzlB?=
+ =?us-ascii?Q?FZp26npKXR97v0oRYVreD8/Dh+uAkTwJ71GR7K1AOvLCe1MzgOmW2zhatttB?=
+ =?us-ascii?Q?DZI0xYwbkTNmVwcUVRISj0RYC4j2kNjOuolWQXj7WlDclHZ9hP3RQncSdNjx?=
+ =?us-ascii?Q?4ucuw9YAE7wF5EjIU7AygPPYiUANx3/QBK2BmtmBXWqknGmm8W/Rty3BDTNc?=
+ =?us-ascii?Q?eI+0eqH9MCWzg6h1rZ8witJ1DRqvB5ZdTbE1xS1X8mWRrykqVm5BaUf+Be6l?=
+ =?us-ascii?Q?nv8eGf6ccOFz57l2AvZ8hho11hfsk6ZgQSlbDB/6JUy/5RQwUIkNdckysUx7?=
+ =?us-ascii?Q?dDOVcCIdGA3Qod+EteYI0NNmU3DrySGmPr7TGUIpZAcjygqjH6h16E0gXJQO?=
+ =?us-ascii?Q?zKR/+nvHef9xNNklIsDnJrccnwtlFQj4Hp1NQOl/nXk3yY0xAADWMHi+QQ2N?=
+X-MS-Exchange-AntiSpam-MessageData-1: 1MQOHGc87E1+Oms1QqyH1qg1twNgwsW/SeI=
 X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2d21f4f5-2017-49fa-3dc8-08de8607785e
+X-MS-Exchange-CrossTenant-Network-Message-Id: f24ccf18-185e-4157-17c8-08de860771b3
 X-MS-Exchange-CrossTenant-AuthSource: AM9PR04MB8585.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Mar 2026 22:32:57.6489 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Mar 2026 22:32:46.4612 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: PWlIILX84skLF32xEGWKMe88VScoqSRjTgvaOh7pdzBKR8pvGAxT8t85APvZ+gVH6Ju9tQXJXyug3KHJC0Z++g==
+X-MS-Exchange-CrossTenant-UserPrincipalName: 8cFlOPx5wwKY5qEpUidk+VyM/KWv64UJjDWKOdoxd6XbciL4NsN1I4M2HqdCti3vl7zyTDPdVSEDVVlWYGpVgQ==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV4PR04MB11355
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -145,131 +148,114 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The Exynos host controller driver is clearly a PHY consumer (gets the
-ufs->phy using devm_phy_get()), but pokes into the guts of struct phy
-to get the generic_phy->power_count.
+Multiple DRM bridge drivers use runtime PM operations without
+including the proper header, instead relying on transitive inclusion
+by <linux/phy/phy.h>.
 
-The UFS core (specifically ufshcd_link_startup()) may call the variant
-operation exynos_ufs_pre_link() -> exynos_ufs_phy_init() multiple times
-if the link startup fails and needs to be retried.
-
-However ufs-exynos shouldn't be doing what it's doing, i.e. looking at
-the generic_phy->power_count, because in the general sense of the API, a
-single Generic PHY may have multiple consumers. If ufs-exynos looks at
-generic_phy->power_count, there's no guarantee that this ufs-exynos
-instance is the one who previously bumped that power count. So it may be
-powering down the PHY on behalf of another consumer.
-
-The correct way in which this should be handled is ufs-exynos should
-*remember* whether it has initialized and powered up the PHY before, and
-power it down during link retries. Not rely on the power_count (which,
-btw, on the writer side is modified under &phy->mutex, but on the reader
-side is accessed unlocked). This is a discouraged pattern even if here
-it doesn't cause functional problems.
+The PHY subsystem wants to get rid of headers it provides for no reason,
+so modify these drivers to include what they need directly.
 
 Signed-off-by: Vladimir Oltean <vladimir.oltean@nxp.com>
-Reviewed-by: Bart Van Assche <bvanassche@acm.org>
 ---
-Cc: Alim Akhtar <alim.akhtar@samsung.com>
-Cc: Peter Griffin <peter.griffin@linaro.org>
-Cc: "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>
-Cc: "Martin K. Petersen" <martin.petersen@oracle.com>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Chanho Park <chanho61.park@samsung.com>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>
+Cc: Robert Foss <rfoss@kernel.org>
+Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
+Cc: Jonas Karlman <jonas@kwiboo.se>
+Cc: Jernej Skrabec <jernej.skrabec@gmail.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Cc: Maxime Ripard <mripard@kernel.org>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: David Airlie <airlied@gmail.com>
+Cc: Simona Vetter <simona@ffwll.ch>
+Cc: Inki Dae <inki.dae@samsung.com>
+Cc: Jagan Teki <jagan@amarulasolutions.com>
+Cc: Marek Szyprowski <m.szyprowski@samsung.com>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>
+Cc: Dmitry Baryshkov <lumag@kernel.org>
 
-v4->v5: collect tag, add "scsi: " prefix to commit title
-v3->v4: none
-v2->v3:
-- add Cc Chanho Park, author of commit 3d73b200f989 ("scsi: ufs:
-  ufs-exynos: Change ufs phy control sequence")
-v1->v2:
-- add better ufs->phy_powered_on handling in exynos_ufs_exit(),
-  exynos_ufs_suspend() and exynos_ufs_resume() which ensures we won't
-  enter a phy->power_count underrun condition
+v1->v5: none
 ---
- drivers/ufs/host/ufs-exynos.c | 24 ++++++++++++++++++++----
- drivers/ufs/host/ufs-exynos.h |  1 +
- 2 files changed, 21 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/bridge/analogix/analogix_dp_core.c  | 1 +
+ drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-core.c | 1 +
+ drivers/gpu/drm/bridge/nwl-dsi.c                    | 1 +
+ drivers/gpu/drm/bridge/samsung-dsim.c               | 1 +
+ drivers/gpu/drm/msm/dp/dp_aux.c                     | 1 +
+ drivers/gpu/drm/rockchip/cdn-dp-core.c              | 1 +
+ 6 files changed, 6 insertions(+)
 
-diff --git a/drivers/ufs/host/ufs-exynos.c b/drivers/ufs/host/ufs-exynos.c
-index 76fee3a79c77..274e53833571 100644
---- a/drivers/ufs/host/ufs-exynos.c
-+++ b/drivers/ufs/host/ufs-exynos.c
-@@ -963,9 +963,10 @@ static int exynos_ufs_phy_init(struct exynos_ufs *ufs)
+diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+index efe534977d12..9dfe790e6c14 100644
+--- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
++++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+@@ -18,6 +18,7 @@
+ #include <linux/of.h>
+ #include <linux/phy/phy.h>
+ #include <linux/platform_device.h>
++#include <linux/pm_runtime.h>
  
- 	phy_set_bus_width(generic_phy, ufs->avail_ln_rx);
+ #include <drm/bridge/analogix_dp.h>
+ #include <drm/drm_atomic.h>
+diff --git a/drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-core.c b/drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-core.c
+index 9392c226ff5b..a8b6ae58cb0a 100644
+--- a/drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-core.c
++++ b/drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-core.c
+@@ -32,6 +32,7 @@
+ #include <linux/phy/phy.h>
+ #include <linux/phy/phy-dp.h>
+ #include <linux/platform_device.h>
++#include <linux/pm_runtime.h>
+ #include <linux/slab.h>
+ #include <linux/wait.h>
  
--	if (generic_phy->power_count) {
-+	if (ufs->phy_powered_on) {
- 		phy_power_off(generic_phy);
- 		phy_exit(generic_phy);
-+		ufs->phy_powered_on = false;
- 	}
+diff --git a/drivers/gpu/drm/bridge/nwl-dsi.c b/drivers/gpu/drm/bridge/nwl-dsi.c
+index 2f7429b24fc2..9ac8796ae91e 100644
+--- a/drivers/gpu/drm/bridge/nwl-dsi.c
++++ b/drivers/gpu/drm/bridge/nwl-dsi.c
+@@ -18,6 +18,7 @@
+ #include <linux/of.h>
+ #include <linux/phy/phy.h>
+ #include <linux/platform_device.h>
++#include <linux/pm_runtime.h>
+ #include <linux/regmap.h>
+ #include <linux/reset.h>
+ #include <linux/sys_soc.h>
+diff --git a/drivers/gpu/drm/bridge/samsung-dsim.c b/drivers/gpu/drm/bridge/samsung-dsim.c
+index 930aaa659c97..54bc148fc29d 100644
+--- a/drivers/gpu/drm/bridge/samsung-dsim.c
++++ b/drivers/gpu/drm/bridge/samsung-dsim.c
+@@ -20,6 +20,7 @@
+ #include <linux/of.h>
+ #include <linux/phy/phy.h>
+ #include <linux/platform_device.h>
++#include <linux/pm_runtime.h>
+ #include <linux/units.h>
  
- 	ret = phy_init(generic_phy);
-@@ -979,6 +980,8 @@ static int exynos_ufs_phy_init(struct exynos_ufs *ufs)
- 	if (ret)
- 		goto out_exit_phy;
+ #include <video/mipi_display.h>
+diff --git a/drivers/gpu/drm/msm/dp/dp_aux.c b/drivers/gpu/drm/msm/dp/dp_aux.c
+index 3825a2fb48e2..5ee22f88bd28 100644
+--- a/drivers/gpu/drm/msm/dp/dp_aux.c
++++ b/drivers/gpu/drm/msm/dp/dp_aux.c
+@@ -6,6 +6,7 @@
+ #include <linux/delay.h>
+ #include <linux/iopoll.h>
+ #include <linux/phy/phy.h>
++#include <linux/pm_runtime.h>
+ #include <drm/drm_print.h>
  
-+	ufs->phy_powered_on = true;
-+
- 	return 0;
+ #include "dp_reg.h"
+diff --git a/drivers/gpu/drm/rockchip/cdn-dp-core.c b/drivers/gpu/drm/rockchip/cdn-dp-core.c
+index 177e30445ee8..68556daa54ae 100644
+--- a/drivers/gpu/drm/rockchip/cdn-dp-core.c
++++ b/drivers/gpu/drm/rockchip/cdn-dp-core.c
+@@ -10,6 +10,7 @@
+ #include <linux/firmware.h>
+ #include <linux/mfd/syscon.h>
+ #include <linux/phy/phy.h>
++#include <linux/pm_runtime.h>
+ #include <linux/regmap.h>
+ #include <linux/reset.h>
  
- out_exit_phy:
-@@ -1527,6 +1530,9 @@ static void exynos_ufs_exit(struct ufs_hba *hba)
- {
- 	struct exynos_ufs *ufs = ufshcd_get_variant(hba);
- 
-+	if (!ufs->phy_powered_on)
-+		return;
-+
- 	phy_power_off(ufs->phy);
- 	phy_exit(ufs->phy);
- }
-@@ -1728,8 +1734,10 @@ static int exynos_ufs_suspend(struct ufs_hba *hba, enum ufs_pm_op pm_op,
- 	if (ufs->drv_data->suspend)
- 		ufs->drv_data->suspend(ufs);
- 
--	if (!ufshcd_is_link_active(hba))
-+	if (!ufshcd_is_link_active(hba) && ufs->phy_powered_on) {
- 		phy_power_off(ufs->phy);
-+		ufs->phy_powered_on = false;
-+	}
- 
- 	return 0;
- }
-@@ -1737,9 +1745,17 @@ static int exynos_ufs_suspend(struct ufs_hba *hba, enum ufs_pm_op pm_op,
- static int exynos_ufs_resume(struct ufs_hba *hba, enum ufs_pm_op pm_op)
- {
- 	struct exynos_ufs *ufs = ufshcd_get_variant(hba);
-+	int err;
- 
--	if (!ufshcd_is_link_active(hba))
--		phy_power_on(ufs->phy);
-+	if (!ufshcd_is_link_active(hba) && !ufs->phy_powered_on) {
-+		err = phy_power_on(ufs->phy);
-+		if (err) {
-+			dev_err(hba->dev, "Failed to power on PHY: %pe\n",
-+				ERR_PTR(err));
-+		} else {
-+			ufs->phy_powered_on = true;
-+		}
-+	}
- 
- 	exynos_ufs_config_smu(ufs);
- 	exynos_ufs_fmp_resume(hba);
-diff --git a/drivers/ufs/host/ufs-exynos.h b/drivers/ufs/host/ufs-exynos.h
-index abe7e472759e..683b9150e2ba 100644
---- a/drivers/ufs/host/ufs-exynos.h
-+++ b/drivers/ufs/host/ufs-exynos.h
-@@ -227,6 +227,7 @@ struct exynos_ufs {
- 	int avail_ln_rx;
- 	int avail_ln_tx;
- 	int rx_sel_idx;
-+	bool phy_powered_on;
- 	struct ufs_pa_layer_attr dev_req_params;
- 	struct ufs_phy_time_cfg t_cfg;
- 	ktime_t entry_hibern8_t;
 -- 
 2.43.0
 
