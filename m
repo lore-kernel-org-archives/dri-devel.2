@@ -4,64 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C3E8B1090256
-	for <dri-devel@archiver.kernel.org>; Thu, 19 Mar 2026 16:48:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 224561090255
+	for <dri-devel@archiver.kernel.org>; Thu, 19 Mar 2026 16:48:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 02B5C10E517;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0DDEE10E890;
 	Thu, 19 Mar 2026 16:48:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Yidyz1+0";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="nbP9hNpr";
 	dkim-atps=neutral
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com
- [209.85.128.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C18F410E516
- for <dri-devel@lists.freedesktop.org>; Thu, 19 Mar 2026 16:48:38 +0000 (UTC)
-Received: by mail-wm1-f44.google.com with SMTP id
- 5b1f17b1804b1-48541edecf9so12766625e9.1
- for <dri-devel@lists.freedesktop.org>; Thu, 19 Mar 2026 09:48:38 -0700 (PDT)
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com
+ [209.85.128.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D054C10E517
+ for <dri-devel@lists.freedesktop.org>; Thu, 19 Mar 2026 16:48:39 +0000 (UTC)
+Received: by mail-wm1-f51.google.com with SMTP id
+ 5b1f17b1804b1-485392de558so7570255e9.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 19 Mar 2026 09:48:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1773938917; x=1774543717; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1773938918; x=1774543718; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=Bng5/yZC9lrbuKxC9dU3uqE7D/V7iSIEJ7NDOj06TGk=;
- b=Yidyz1+0xvScc7/kBTy8z5XTBotG+1n9Cs0flaRfqgCl9FDXZm6pIt81xj5JViLpnq
- 6MyKkMwXE8SiM54CZiT9Kv9wTeHGbgAFQN01+V2giP0IKF2wFRg+MV59W0luj699Q3bO
- dV0Wa2I7uQ5YrdqPwcXZYgi8gU2zr5Uy2CW+BVgNd+Al8iRSBBiQKuKUqPV36o67QW4r
- 7Bodw6QWCI94qql3wNQ7Kkass7DQwo1tfloPBZnKHjObJjcuiL7cIv5s56EwkkaHX6Zl
- kuVrOh06w18NT/2InNlKvudS/8PzlTcZRZjAEeEFKgoTfhd6GL5URJ7L25RkBBgLQV6v
- 6qmA==
+ bh=Ko0JSoqc92if9jLRax/3q0IGpdS1ahpKtbD0W9dlNH0=;
+ b=nbP9hNproQTkO4PjZSgECioNe65Nr3HHNbTo0ZqhnaDS/o9fxoGt9LFW4nkZiiWLOS
+ 39vM9A+K3m8I+6JOguGvd/aMNd2HpQID+9DhHXkHRKu5j4yLgLABQrMWen0XE191zO/3
+ 5h6XH4d9lVwuydgADb0vMWqzFxOxYrIiH052f3ryk7VxA5PK5+Z7DcEiOeZtSGvT7//K
+ qAZjcXDH1woksEMSbTMA8gQ5fDj23VX7vf4X4JcFmXoT55+vmLlgEr7tQ/TwjrjAAZAo
+ mBc2Nr2F+9nBV8/CYxV2+BpAC7PRRcpjtpr0I5MHuGhTzDNZfrC5bqV/zmFV7/sSAsbC
+ eAWw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1773938917; x=1774543717;
+ d=1e100.net; s=20251104; t=1773938918; x=1774543718;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=Bng5/yZC9lrbuKxC9dU3uqE7D/V7iSIEJ7NDOj06TGk=;
- b=ktNJOA6rqIfBqooaxYMoF2wsxWmBNRWgNSJAVlFQnekZtmSYRmbn7/8DoIKHH2Ry9M
- fUyPNuk/l86klII2twXEmBE3UkQDwWILn4xmHxik7qyQgC7rear64QqMwg3gjltGcXYj
- e5olLzl/HRrNRF2VB0VZjqD5FM764SUABdyOreSqkBi4wDAl9UgFfC4h5F4FbG1TDn1W
- 7ebupdEsH/h8AR7VuH1blpP6VXa5h6on7N/QiN9ZoSwzAThTkvmxBjGTJqXREsdRpCS4
- Q6EbITjgMHFbFKZ8CM8VmCleOHS49NOmgxIiJRmksbD1114Q3I2eFE8gPXjGBLoqyhFO
- XPxw==
+ bh=Ko0JSoqc92if9jLRax/3q0IGpdS1ahpKtbD0W9dlNH0=;
+ b=q8avIIVlJN3Q+tMAEiELD3xxlC/ZwjYV0vzHFFNLwJS+Rtd3nt7GkEL5aFl3OMhQr3
+ J7CHj/Td2eHi1O8VxY042bg2/+eRxjW589BccVmPZmc5pKy6XGfWS54+9y75Fm07K1Pu
+ QypZvkTAx5RnzTfwTTykhPTKgBjSiWic3iNi2oC1Aid1v9CMO52l502M5oO3FFVvfICp
+ WuBQefslaqKl7JcDhSA2q5Ns+cU1b4ID5DTEQo/rJ8JugA08oHVLNoXT0UZpotoJWz/P
+ s6PojLLlBpdjrOFwAg0cQc3u1DijYNw9pi/Dlv4hFItF8/uBQkYEweppJadgi61witdG
+ J/CA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVvEpriPd4NcOqOvt+5SfoUmpdQ/wfP0KXTDpydzIopqEjdHYqazwibS1FTPZzvTt/aEeL6bGvFS5k=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YySPGhwaQm19xjEto5l/qKZHJfgZp4P/+3Fig/cY8Yxv4BfpUdA
- n7nRuTHKc6w4vaeKHWjqmN+FiV6dn2vflnNXrWIw4U9QLwNh1vRNhMZ1
-X-Gm-Gg: ATEYQzxEeEPTK4dbURvGa/D+bkawSUADuUjo5hygeujHeq+4aViIDiSACrksHqN0Va+
- rzrdI1TwxINL+pQKvKN2FFQ15sl/PVOfx4zp4JWVumVHg9NKiiSxQPgGwwrTyq19kHPldSLsMXx
- fsAG/Ildw1LKRYR6twJiTKKEaUOSvhYhx3O5Q2LCGArBhSrd5hFG/UYU32ykP/iS5YOXNKvz5oq
- wR/uTcBsfiUKon6+p07wOqUZqnJCijTzpdn4WvWtNEBb0PM6ZnltGKNBRP51+n2R72jbz5JL7/t
- eXvw1362q+hbKQU/Ci0F6jnaNCSUeDQEM0POZSJGPtSLXjyoqQuy0eJwdkIBhIdxRtlwNjtKoqL
- s28yOPaBYuaL33NFXNFkZUXsQcXBJuHPH/9j86GingMpI5h+jIv+ta0GrZMBCOaYnYBxvYdMtlO
- 8NU89r9VhG3u1Giusp2O1Zqg5/DZGI+20=
-X-Received: by 2002:a05:600c:c490:b0:485:379b:57bb with SMTP id
- 5b1f17b1804b1-486f441bc19mr132327915e9.3.1773938916947; 
- Thu, 19 Mar 2026 09:48:36 -0700 (PDT)
+ AJvYcCX4G5m8oXbbQtsh8OCMEx8KKd4kkhF5K4IKV7ek+pY5NicuDqIz+DCFkfxCoxGHLZV1wPKQFgxJDII=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YztLsnLhiv7D0HcTj4plQ189Y178SyJ6jzHI+NoNjqdpl63f9To
+ dOUA8DWzbLM1HUnu+0GAE4yEpF7zMHSGpHDPtEZShhuXrvzPNsr4TdJ4
+X-Gm-Gg: ATEYQzxBpg9r8Wd1s44PEa0AMkasFLpAUPVdBNQ6rzw2PiC6hmeRo+vssqzvK3ytowT
+ iHBnn/TAYi1CMB+Dr6870RT4OW8TLgFd670SXN6SBY1B6Dn3WwqXfiXAoCCtCTpz+oItqENHM5z
+ rm5+xHK7LM4HdIbX2nxNJswpnX/CmhzWvFYGqU83UVfGpEYB+Cn3xMJ/JUfb877oJ/+TPYZaf+S
+ 0IiDhmiGWlppDUNfM/87Q0IbCmJsB9eovBhu3P0ZJYWQ1ip0fGywG/v0q6xPFBGk9oRJS2vqvGy
+ oJUbHRpmSpPVl0Mp/emRPW2UvfQj7mcvOgf8vsf6VR35CavBHvABMwNBWajGTYstmDWWF4qWX8t
+ Cgn4TUn+l3RtxDko+W8+F0PIzSkqYCyCZ6AOsKYhPPsI/vkt3XVPe3URviLDQngyuHNxRBBlKkU
+ DJxdggfGmgmCQGsgCo+maSE3iO3mwWCn0=
+X-Received: by 2002:a05:600c:1d10:b0:485:3eba:ab96 with SMTP id
+ 5b1f17b1804b1-486f4421c4cmr140167715e9.3.1773938918105; 
+ Thu, 19 Mar 2026 09:48:38 -0700 (PDT)
 Received: from biju.lan ([2a00:23c4:a758:8a01:8326:7b31:bf82:d2d0])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-486fe68ec05sm5238505e9.0.2026.03.19.09.48.36
+ 5b1f17b1804b1-486fe68ec05sm5238505e9.0.2026.03.19.09.48.37
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 19 Mar 2026 09:48:36 -0700 (PDT)
+ Thu, 19 Mar 2026 09:48:37 -0700 (PDT)
 From: Biju <biju.das.au@gmail.com>
 X-Google-Original-From: Biju <biju.das.jz@bp.renesas.com>
 To: Biju Das <biju.das.jz@bp.renesas.com>,
@@ -76,11 +76,11 @@ Cc: Chris Brandt <chris.brandt@renesas.com>,
  linux-renesas-soc@vger.kernel.org, linux-kernel@vger.kernel.org,
  Geert Uytterhoeven <geert+renesas@glider.be>,
  Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>,
- Biju Das <biju.das.au@gmail.com>, stable@vger.kernel.org
-Subject: [PATCH v2 2/4] drm: renesas: rzg2l_mipi_dsi: Fix assert of CMN_RSTB
- signal
-Date: Thu, 19 Mar 2026 16:48:26 +0000
-Message-ID: <20260319164833.409126-3-biju.das.jz@bp.renesas.com>
+ Biju Das <biju.das.au@gmail.com>
+Subject: [PATCH v2 4/4] drm: renesas: rzg2l_mipi_dsi: Increase reset
+ deassertion delay to 1 msec
+Date: Thu, 19 Mar 2026 16:48:28 +0000
+Message-ID: <20260319164833.409126-5-biju.das.jz@bp.renesas.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260319164833.409126-1-biju.das.jz@bp.renesas.com>
 References: <20260319164833.409126-1-biju.das.jz@bp.renesas.com>
@@ -103,43 +103,32 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Biju Das <biju.das.jz@bp.renesas.com>
 
-The CMN_RSTB reset signal is not required for reading PHY registers in the
-probe. Move reset_control_assert() from rzg2l_mipi_dsi_dphy_exit() to
-rzg2l_mipi_dsi_stop(), placing it before the dphy_exit() call. Since this
-reset signal is optional for RZ/V2H, the call is a no-op on that SoC.
+The RZ/G2L hardware manual (Rev. 1.50, May 2025), Section 34.4.2.1,
+requires waiting more than 1 msec after deasserting the CMN_RSTB signal
+before the DSI-Tx module is ready. Increase the delay from 1 usec to
+1 msec by replacing udelay(1) with fsleep(1000).
 
-Fixes: 2991c3f0ca86 ("drm: renesas: rz-du: mipi_dsi: Add OF data support")
-Fixes: 418bb3a69e13 ("drm: rcar-du: rzg2l_mipi_dsi: Enhance device lanes check")
-Cc: stable@vger.kernel.org
 Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
 ---
-v2:
- * New patch
+v1->v2:
+ * Updated commit header and description.
 ---
- drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+ drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c b/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c
-index ff95cb9a7de5..d2da247abf05 100644
+index 5020be0f72ac..715872130780 100644
 --- a/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c
 +++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c
-@@ -541,8 +541,6 @@ static void rzg2l_mipi_dsi_dphy_exit(struct rzg2l_mipi_dsi *dsi)
+@@ -807,7 +807,7 @@ static int rzg2l_mipi_dsi_startup(struct rzg2l_mipi_dsi *dsi,
+ 		if (ret < 0)
+ 			goto err_phy;
  
- 	dphyctrl0 &= ~(DSIDPHYCTRL0_EN_LDO1200 | DSIDPHYCTRL0_EN_BGR);
- 	rzg2l_mipi_dsi_phy_write(dsi, DSIDPHYCTRL0, dphyctrl0);
--
--	reset_control_assert(dsi->rstc);
- }
+-		udelay(1);
++		fsleep(1000);
+ 	}
  
- static int rzg2l_dphy_conf_clks(struct rzg2l_mipi_dsi *dsi, unsigned long mode_freq,
-@@ -822,6 +820,7 @@ static int rzg2l_mipi_dsi_startup(struct rzg2l_mipi_dsi *dsi,
- 
- static void rzg2l_mipi_dsi_stop(struct rzg2l_mipi_dsi *dsi)
- {
-+	reset_control_assert(dsi->rstc);
- 	dsi->info->dphy_exit(dsi);
- 	pm_runtime_put(dsi->dev);
- }
+ 	return 0;
 -- 
 2.43.0
 
