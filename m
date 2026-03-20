@@ -4,38 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B736310987A5
-	for <dri-devel@archiver.kernel.org>; Fri, 20 Mar 2026 16:42:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D6D0910987B0
+	for <dri-devel@archiver.kernel.org>; Fri, 20 Mar 2026 16:42:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1F21710EBBA;
-	Fri, 20 Mar 2026 16:42:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1242E10EBBB;
+	Fri, 20 Mar 2026 16:42:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="1PhghB6P";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="AQ6I2IVB";
 	dkim-atps=neutral
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B7D9910EBC0
- for <dri-devel@lists.freedesktop.org>; Fri, 20 Mar 2026 16:42:41 +0000 (UTC)
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 509C010EBBA;
+ Fri, 20 Mar 2026 16:42:39 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-03.galae.net (Postfix) with ESMTPS id A431E4E4274C;
- Fri, 20 Mar 2026 16:42:40 +0000 (UTC)
+ by smtpout-04.galae.net (Postfix) with ESMTPS id 6CE72C5668D;
+ Fri, 20 Mar 2026 16:43:03 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 7B2E2600E0;
- Fri, 20 Mar 2026 16:42:40 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id E6B3A600E0;
+ Fri, 20 Mar 2026 16:42:37 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 1368810450CB4; Fri, 20 Mar 2026 17:42:36 +0100 (CET)
+ with ESMTPSA id D074510450CB5; Fri, 20 Mar 2026 17:42:33 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1774024959; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ t=1774024956; h=from:subject:date:message-id:to:cc:mime-version:content-type:
  content-transfer-encoding:in-reply-to:references;
- bh=iZdDScs1svj3Y2kEsx3AF0o56fDyFfnYnPud0AdDX4Q=;
- b=1PhghB6P4SLdN2MWy6T0pdCcAUPMN4IytL6aXQyVMgz8wDxXjcZC1H1saH3x8WfSBCXXws
- ZhNpFRxbmygy+1ZLaC+08myPKaKxEBZG2X/99ir0cdqTD0zw3ERg70Ttds0c/Uy3qQzR1K
- oB1j6CJtd9OTLR3I9zMjaqAf+MQacPuxgQ2fMy7Gsb/XWssZf1K2+Vlv/kPFgRZpa1HuNz
- xi6U1eUmST8/KUDuWtnytLRr2Bhukx+bcAg8gv8sP0kiII3uOCEb8x5mzvujieMjhP5BV1
- lpo7lybB9r52SPYtgaTII6S75Uwh9mB+ZpWx1YO/kQ4MRgj84XTLIKvGvn774w==
+ bh=ZjS1ZoIAPd/0H3Pat14vVnrI2BR4vgAhRmSVs8W3mqg=;
+ b=AQ6I2IVBJUpyQX1VND38ENyZSBGcL1lwChYM6WUF25CWUSOXmQp2dSMTxjcKHadNvW875E
+ tISUI0PMC5x4aQ3SQyMDoYfrnhHFse08lhH0D3COXFpBGCLNaJWbyOVVlSydN1FbZMqM/a
+ RE9r1mV+qxbBRnjrhhvkssEwSZMI/nudZurR8lYPc1KGObJ83uSQHYuKyrUDWka208V9C6
+ vSngTPbUEYm7mA24ccTqNj1jI+We8IzYPB5SOGR4pK9rjZBduN3IHZ8AgJWdMMeBJfRa1g
+ ZfBxyjeKiACRUU0PIEtESKqMGT5mKGVfain90nnc5Ws5CMyoKq7Mf/gEjVrcJw==
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v11 37/65] drm-print: modernize an archaic comment
+Subject: Re: [PATCH v11 34/65] drm: use correct ccflags-y spelling
 From: Louis Chauvet <louis.chauvet@bootlin.com>
 To: airlied@gmail.com, simona@ffwll.ch, jbaron@akamai.com, 
  gregkh@linuxfoundation.org
@@ -47,27 +47,27 @@ Cc: Jim Cromie <jim.cromie@gmail.com>, mripard@kernel.org,
  skhan@linuxfoundation.org, pmladek@suse.com, ukaszb@chromium.org, 
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
  intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-In-Reply-To: <20260313132103.2529746-38-jim.cromie@gmail.com>
+In-Reply-To: <20260313132103.2529746-35-jim.cromie@gmail.com>
 References: <20260313132103.2529746-1-jim.cromie@gmail.com>
- <20260313132103.2529746-38-jim.cromie@gmail.com>
+ <20260313132103.2529746-35-jim.cromie@gmail.com>
 Date: Fri, 20 Mar 2026 17:41:54 +0100
-Message-Id: <177402491457.6181.147190124416339138.b4-review@b4>
+Message-Id: <177402491456.6181.16882943993128640125.b4-review@b4>
 X-Mailer: b4 0.15-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=326;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=431;
  i=louis.chauvet@bootlin.com; h=from:subject:message-id;
- bh=lda5FcNWSAaI1o3RyjUZ4uvI6l3nv4ZHl5X45LAplqI=;
- b=owEBiQJ2/ZANAwAIASCtLsZbECziAcsmYgBpvXjZzp2Ge/3QqAEbtHUNXbp/pyuf91pJ3qQ4k
- YzhugkRwJGJAk8EAAEIADkWIQRPj7g/vng8MQxQWQQgrS7GWxAs4gUCab142RsUgAAAAAAEAA5t
- YW51MiwyLjUrMS4xMSwyLDIACgkQIK0uxlsQLOI9DA/9HApltA5hJZ2/7AxblfNQI7Q3z9yVQ1L
- NxZI1WH5uXeE5DtpzMNItBks8Xt+H/v3ppc/qnL1Un6w1u5W2pfHSNQ0DQqevUrqmyEWLmm2PgJ
- gVevqisdm5ol+SDz/UHBMabDSsQxjAZRKXyaTYrOwQp/Lbde7i/QddtgkqSFKkmEohCDpYOlIVx
- g5zw8bODfkOaJ2lD2LDeWJF3zMbJ5q17l9AwBLBhJpqj/JxZynaxOT5d2KVZxPtJsaCkeBuL3ml
- lJcrWvfXu2B883RnqtidE5It1gj3NDTaerWAmLqsLfqcHT0Hl70JRIRq8YZIT5df7eO2x4db4lq
- t0w/bLcMvLa0FGnxHCJlhqlMokDR2VPojlTfNTYo6yjGkXb1AwcduUiyLmCkGAC1RkNn4q2LHEl
- MjiXwdBMskds86sh51FK6Ee30l58nqmEchtWb5ZLNPLbDOwcUAVMxLlJiidhsJKZr1oit9PRn3d
- r88tr67qnsgigJKCU7VYDOD13JoKYUsG3VDG8Xz0HRJgRDTuyufgNF9ToibjSmeb4VBXsYTXp2R
- ZbyW2WMSFXDzba7Gsc5CIJxYbl52ZNjKYy0qBxXGXO9pUpK02jKzLlgTVAjft/tc2pf3qqar/GX
- fJUZcFRuSf5A3Ss0FgHhZ5CdoLcG1sImSLI4d5+1HKWN7yXVeuEo=
+ bh=i7PwkzzW++IIbSNJiNrtCGR6lD/fF5m1m7HvQDTW8LA=;
+ b=owEBiQJ2/ZANAwAIASCtLsZbECziAcsmYgBpvXjZ1slr8Af7sYO4wbdsZMjI7UC30nsChYF5t
+ vVNs/YrKhWJAk8EAAEIADkWIQRPj7g/vng8MQxQWQQgrS7GWxAs4gUCab142RsUgAAAAAAEAA5t
+ YW51MiwyLjUrMS4xMSwyLDIACgkQIK0uxlsQLOK+EBAAzKxLKW3wJDGm9A5J3BARLxqP1eIn9xi
+ oz48tgFImFvuyrwO4Si+/k7ucbvB6DL9RenG7jbjQN+QsDVWnwGwjhTS/dZivu69klh462PoNBn
+ NoaWppLAaPZ22ltIsdIq/0EThm2gLzNnsIWTcUPGZ/izRetid7bbvN8quzAUGP8YVfRJoMCAdTV
+ 2z08i3L9gCcSgnQGtozNbcVjCeQ3oPb9cWH0CfbxfObufCKS/h8yNSOv0l6WsKr/9F0TXbS3yeu
+ zbrrpwb94fihx97F8+xCqaoSoSrlce4YjcCsTSu/ShCiY3bHSEOtLRnTYpaum6r5/4rTpCxM3hD
+ PXCqpAiUJNiljdPx3Ca3egF+HRu5pjdJJUMMi3b71lJen+i6yFkjnk0sk4yFlOHwCzPxprukv7R
+ hro4UaHjx73LGQPkahM6V132GNrnh9BxfYbajAJro7D0pWR0ETlKtcGBvSF6U/1wJzSQphcuVJO
+ 2O0Psx6oq8dZwRTuQK2utijA7rjRleV4+ZqXW/C+yaQ7/VHV4DYuJdhqpJpnMFRPGXzAFkF9j5r
+ xOcZnWymYr4BnaIhbZlk1XFKkY2Je5ByGZbwvHNkFpmmOVX/l2xJRzX3JaKvW9h6ROWQNIlPKbr
+ dKZvWOUEKxn7wsxatrB4b0+syQtctp+ylKaz+DvFJ2gLtvXEEaoE=
 X-Developer-Key: i=louis.chauvet@bootlin.com; a=openpgp;
  fpr=8B7104AE9A272D6693F527F2EC1883F55E0B40A5
 X-Last-TLS-Session-Version: TLSv1.3
@@ -86,9 +86,15 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, 13 Mar 2026 07:20:02 -0600, Jim Cromie <jim.cromie@gmail.com> wrote:
-> In the year 2025 it is no longer noteworthy that drm.debug logging is
-> adjustable at runtime, via sysfs node.  Simplify the statement.
+On Fri, 13 Mar 2026 07:19:59 -0600, Jim Cromie <jim.cromie@gmail.com> wrote:
+> Incorrectly spelled CFLAGS- failed to add -DDYNAMIC_DEBUG_MODULE,
+> which disabled dynamic-debug in modules built with:
+> 
+> CONFIG_DYNAMIC_DEBUG=n		# 1
+> CONFIG_DYNAMIC_DEBUG_CORE=y	# 2
+> CONFIG_DRM_USE_DYNAMIC_DEBUG=y	# 3
+> 
+> [...]
 
 Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
 
