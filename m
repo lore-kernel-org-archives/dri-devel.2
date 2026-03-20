@@ -4,64 +4,101 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0D1A71099B31
-	for <dri-devel@archiver.kernel.org>; Fri, 20 Mar 2026 18:03:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6562C1099B2D
+	for <dri-devel@archiver.kernel.org>; Fri, 20 Mar 2026 18:04:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 52DE610EA80;
-	Fri, 20 Mar 2026 18:03:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BEEA710EADF;
+	Fri, 20 Mar 2026 18:04:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="Us5s1osT";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="h+5GLWM7";
 	dkim-atps=neutral
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
- [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3E3C110EA80;
- Fri, 20 Mar 2026 18:03:09 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1774029766; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=PNxUySczSU38mMzdR84YaYxhTGdpHIm85C/2EgkWKYUucqXLiH1HOd/0wZ86bQhFBux2ibqk05DUwk7LQmJAcgyEYI2Uo3AWVMG0UuIMJoDrVIm2TML7/yr/uhn191bG79yDa3/OZfYzh8db0X7g/9MNOTTXk9fZuG5AmAKuXdY=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1774029766;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=1E0I4plasL+V6dSSfgn7rPNZ1ua8f3OiCtwTZiwbiaw=; 
- b=Amm6yTt8XPa5K6KIhOtPrhmlBC6e2st2/RJ3nyGGBZNsWU2cXyt/2Beiy4xYALzeKVvK6LfAG3ikqR/N7r8K6lDh8SYirXyE21kxoqE9b9i0rW5Ui6c0n3CZ2nZ7FfW0PT+MjmGAyXgKT2Xfis043Hx3sQClSf54eTwjKevhlts=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
- dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1774029766; 
- s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
- h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:Content-Type:Message-Id:Reply-To;
- bh=1E0I4plasL+V6dSSfgn7rPNZ1ua8f3OiCtwTZiwbiaw=;
- b=Us5s1osTfkHhnms5hX+M6EhSSMNK5mmIT6RC01edi8CMmuUzfJ+A7VKXAusxTwfx
- wuaCvftlokyr2NpkPbgeTYaMipIMP69KU6FPEOXPzf1I1OtpFFil6iCNwdFZwHf+Klz
- 4jJOfsq45cxuL1SDwt4ebU0tXvo+xEWlu8yjzbYg=
-Received: by mx.zohomail.com with SMTPS id 1774029764491913.3305342227886;
- Fri, 20 Mar 2026 11:02:44 -0700 (PDT)
-From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- Ville =?UTF-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
- Daniel Stone <daniels@collabora.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Michel =?UTF-8?B?RMOkbnplcg==?= <michel.daenzer@mailbox.org>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, kernel@collabora.com,
- Derek Foreman <derek.foreman@collabora.com>,
- Marius Vlad <marius.vlad@collabora.com>
-Subject: Re: [PATCH v5 0/3] Add "link bpc" DRM property
-Date: Fri, 20 Mar 2026 19:02:38 +0100
-Message-ID: <5797606.kQq0lBPeGt@workhorse>
-In-Reply-To: <8ba60a99-f69e-482e-bd68-f6bc36291c54@mailbox.org>
-References: <20260319-link-bpc-v5-0-5306cd04a708@collabora.com>
- <8ba60a99-f69e-482e-bd68-f6bc36291c54@mailbox.org>
+Received: from mail-yx1-f44.google.com (mail-yx1-f44.google.com
+ [74.125.224.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B83DB10EADF
+ for <dri-devel@lists.freedesktop.org>; Fri, 20 Mar 2026 18:04:02 +0000 (UTC)
+Received: by mail-yx1-f44.google.com with SMTP id
+ 956f58d0204a3-64ad79dfb7cso2931161d50.2
+ for <dri-devel@lists.freedesktop.org>; Fri, 20 Mar 2026 11:04:02 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1774029842; cv=none;
+ d=google.com; s=arc-20240605;
+ b=OwkHcPNSqZouadPhP1zkus4A9+RqYfEDU+2wmx9jiYjRaNt+AhouX9UX1dgt9ql2LN
+ x65p2rWk1+QfSMmsa+RfWSBTBEkltW2yYX+AN7hNtiRL4UxobuATMlwsCql+uZ4H2sUe
+ /g5ijvAQ36ctUXgWxfrO4C1yTTCLdsWfuEtEpd2B6vqvRHPfm2FDMfxxhQSGq04K+JP2
+ KDGCHLI6sgxe/KKgGUEwFp15GBdTXq8PV5gEJhlBMdUUa8Wr2lPULlmPSTAkKjxWcf5Q
+ cwUL2F2284yHntPZNilAsTqFRdRW2TX2NaPo7DDD2ui0ePyHFbTKhkh+7Ri8mzXxpYWr
+ fReA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=n0ReudbBcJ1VWJQ8xSvYlWUHawfsvlE3jFdIh1UvDJg=;
+ fh=3JAq+KsIFogkMQaVHqCVxqq0qwsA1FfjLvuAC8aZNOU=;
+ b=NjBK2O24yLHZk3Ol8ZTnhwZaBJc7+2qcGbFByzUQh2cD1lY2mjBUR7/gZdY38IsHVT
+ MXFb5iKoZpdmFi1zl4Of1sKNpFMi7UQt/uqp7yJEbX6gmTv7JuRixPtjGCai6gd0pBuh
+ in/rUNA8kiFPOZrrNlySTqO3g1GoxHUimdh2d77CQyehLsFmXDTMOpb37NA0KnD1vcLB
+ 4R0Lcj+657eu329lykW3zJaDkHSXa0oY56HUK4OPlJMEBPpqO1KBDyqcRy2nWuJzSG6c
+ Fk6VD74qf+isM6SrdHKHhgZEVPbAP+nf4LS3Ss/7e8mPdAyUkw1vdm4nuMtvudgVQ7uf
+ fqsA==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1774029842; x=1774634642; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=n0ReudbBcJ1VWJQ8xSvYlWUHawfsvlE3jFdIh1UvDJg=;
+ b=h+5GLWM7gOz6wIV5N+PjMYBSto7oRLGWGaLrjUv4foO+8Eg7YmRwD3oc+T/saNv8OK
+ 2X/jZgLY+jrbBh61GzsZn2pUN3FwI7xDhcvjUkRHqX6ZEVqI6DbOh+JUpZ0U74L8Blky
+ lgiY6xHshv3fhU5Jca0ADOaRaZqzNWyUT3UgHEQmCh6CFoA9Js5NSFujBfhmXzZc+uum
+ 67oA2f/mVvBHcpHBaWU9Zk+kkXBdQQh4/IIcagPgez6e4CdnR7GwCBmBUqA6MT/MLHM+
+ H+xshFNwQWXhaZmOnfGJp6oTrkmMKmhdh0dZOWj0K2ocAwTma3mpOFBXbQPuXC4+pT1u
+ ImjQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1774029842; x=1774634642;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=n0ReudbBcJ1VWJQ8xSvYlWUHawfsvlE3jFdIh1UvDJg=;
+ b=CxiqHxp4Cdi07BVbDo0CuLpLwnkq9sDXKg5BJffqdnM6k/URXXN+uIKfUEi22pMdvm
+ koAf5E07oB8TfJqaNFDo5rSiAWXbXufs9Sbjvwflm1GO1dPxiX2VIThYMtRQ98Q7BsRT
+ p0bh93Xp342GBSw5mAX1zc/jZSejoSJIVAvxhUNdMGw6mZq6HWxVri4prp1fCJuKKVh3
+ Im6vA0bgPy9dD47afMzjbK/Zz7j1AWGlaPhm/9zOXP4Svmo4kNbFkomt0aTiNpC1oJX4
+ KbZAawWAbQjJIioPOdWJW3xKwXGZPghpSsaBY6sNuMCKrGLgDDMUet6hNPgnuaX8t5a3
+ jreA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUoOTBMCcO4eGojaCYwYEFdLEKhrJFTCcIYXNDvj4cAeOSjwrvtb2APddYcXMWtQMQ7F/yJAX/XqXA=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyxrGADZqQbK46FKM+S05NB5TsTr3bYm/xsOGJp4lhsJAzvimIK
+ D/k4VfoKlSeUMg4I2cyk7gqAte3sUco22W5k4NYtj7jd7nOHd1dZYRs2bVyb9bLpglGavX+ejKr
+ 8oKHhDrb8VGE5J8QXycesQKkmkjpOVA4=
+X-Gm-Gg: ATEYQzxGkW8W9A6enuSO+vYP5Gedr8ozEMf3bzx1PT5HJExqE0VL8OAnp7WZXubik65
+ u/2Kmc7RJsmjI3XsunS/uvB0ERpYe/1hUiHnOdLKQQJkPxTQJf0kSbrPulmEGM0KT7mFTVwgzjG
+ 9QOCevE3JulBZ/GsYvOZ/t5wlqqkI83M4POfwbB8MEcs//RKji30KXzrlh9VspMc5VCDc6BRlhX
+ glIYfXzmuVv/bU15Obw+7m/bQnDbRlWGBBHvuKRrGCMFqiDCH6LKgc7yK/CBuXfqRBE4zPMe2ab
+ VESL
+X-Received: by 2002:a05:690e:74e:b0:64a:ce9a:ace2 with SMTP id
+ 956f58d0204a3-64eaa7f7bc9mr3212110d50.56.1774029841504; Fri, 20 Mar 2026
+ 11:04:01 -0700 (PDT)
 MIME-Version: 1.0
+References: <20260313132103.2529746-1-jim.cromie@gmail.com>
+ <20260313132103.2529746-32-jim.cromie@gmail.com>
+ <177402491451.6181.5247342952148189934.b4-review@b4>
+In-Reply-To: <177402491451.6181.5247342952148189934.b4-review@b4>
+From: jim.cromie@gmail.com
+Date: Fri, 20 Mar 2026 12:03:35 -0600
+X-Gm-Features: AaiRm53l_YjOB-S5RZgL9xPfAK8bYaoK2HLT6VSg9ZSzbMdUrD-RUBzNTMJmVgQ
+Message-ID: <CAJfuBxx748fTNk51joPgCUTqd8PmTG-mwp0YL3gTSzcnu5w8KA@mail.gmail.com>
+Subject: Re: [PATCH v11 31/65] dyndbg: add
+ DYNAMIC_DEBUG_CLASSMAP_USE_(dd_class_name, offset)
+To: Louis Chauvet <louis.chauvet@bootlin.com>
+Cc: airlied@gmail.com, simona@ffwll.ch, jbaron@akamai.com, 
+ gregkh@linuxfoundation.org, mripard@kernel.org, tzimmermann@suse.de, 
+ maarten.lankhorst@linux.intel.com, jani.nikula@intel.com, 
+ ville.syrjala@linux.intel.com, christian.koenig@amd.com, 
+ matthew.auld@intel.com, arunpravin.paneerselvam@amd.com, 
+ skhan@linuxfoundation.org, pmladek@suse.com, ukaszb@chromium.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,76 +114,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Friday, 20 March 2026 15:32:37 Central European Standard Time Michel D=
-=C3=A4nzer wrote:
-> On 3/19/26 13:28, Nicolas Frattaroli wrote:
-> > This series adds a new "link bpc" DRM property. It reflects the display
-> > link's actual achieved output bits per component, considering any
-> > degradation of the bit depth done by drivers for bandwidth or other
-> > reasons. The property's value is updated during an atomic commit, which
-> > is also when it fires an uevent if it changed to let userspace know.
-> >=20
-> > There's a weston implementation at [1] which makes use of this new
-> > property to warn when a user's requested bpc could not be reached.
-> >=20
-> > [1]: https://gitlab.freedesktop.org/wayland/weston/-/merge_requests/1850
->=20
-> I see no description of a real-world use case, either in this series
-> or in the weston MR, beyond logging a message when the "link bpc" &
-> "max bpc" property values don't match. They are not expected to match
-> in general, so I have a hard time seeing the usefulness of that.
+On Fri, Mar 20, 2026 at 10:42=E2=80=AFAM Louis Chauvet
+<louis.chauvet@bootlin.com> wrote:
+>
+> On Fri, 13 Mar 2026 07:19:56 -0600, Jim Cromie <jim.cromie@gmail.com> wro=
+te:
+> > [...]
+> > cases; perhaps a 3-X-3 of classmap-defns X classmap-users would get
+> > too awkward and fiddly.
+> >
+> > This is an untested interface extension, so drop this patch if it
+> > feels too speculative, knowing theres at least a notional solution
+> > should the situation arise.
+>
+> I agree on the patch principle, the implementation seems good.
+>
+> Can you move this patch after the BROKEN removal? I think you should
+> "stabilize" core features first so we can merge part of the series (and
+> reduce patch count).
+>
 
-Hello,
+I'll do this.
 
-these are valid concerns. The problem being addressed is related to
-userspace being able to detect whether the link has degraded due to,
-say, a sketchy cable.
+> >
+> >
+> > diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
+> > index e9fa0c8868db..2083a8546460 100644
+> > --- a/lib/dynamic_debug.c
+> > +++ b/lib/dynamic_debug.c
+> > @@ -206,12 +206,17 @@ ddebug_find_valid_class(struct _ddebug_info const=
+ *di, const char *query_class,
+> >       return NULL;
+> >  }
+> >
+> > -static bool ddebug_class_in_range(const int class_id, const struct _dd=
+ebug_class_map *map)
+> > +static bool ddebug_class_map_in_range(const int class_id, const struct=
+ _ddebug_class_map *map)
+>
+> (that the rename I mentionned earlier)
 
-This patch started out as a method of forcing the output link's BPC
-value to a certain value, but this is not desirable. The max bpc
-property is already used to restrict the link's bpc due to sketchy
-hardware that advertises a higher max bpc than it can actually
-achieve.
+I dont know what you mean here.
 
-This adds the other side of the equation, where userspace isn't
-necessarily keen on blindly accepting the combination of output
-link parameters the kernel degraded to. This allows userspace to
-detect that an explicitly chosen value it tried did not work, and
-try again with a different color format/VRR/bpc/etc.
-
-A particular real-world use case is for playback of video content.
-When playing back YUV 4:2:0 10-bit video content in a full-screen
-setting, having RGB 10-bit degrade to YUV 4:2:0 10-bit rather than
-RGB 8-bit is more desirable. However, this is a tradeoff only
-userspace knows to make; the kernel doesn't necessarily know that
-the framebuffer it has been handed as RGB 10-bit is secretly just
-a video player's playback of YUV 4:2:0 10-bit content. As for
-the property that let's userspace actually set the output color
-format, that's a separate series of mine.
-
-I agree that the weston implementation isn't a great showcase,
-but it's actually supposed to compare link bpc with an explicitly
-set max bpc config value, not the property value. The config value
-exists to request a certain bpc.
-
-> Moreover, there's no description of what exactly the "link bpc" property
-> value means, e.g. vs things like DSC or dithering, or how a compositor /=
-=20
-> user would determine which value they need / want under given circumstanc=
-es.
-
-I agree that I should've expanded on this after splitting it out of the
-HDMI patch. It's the output BPC as HDMI understands it. That means DSC is n=
-ot
-a factor. I don't know if any display protocols do dithering at the
-protocol level, I only know some monitors dither internally, which isn't
-something that can be detected.
-
-> In summary, I'm skeptical that this will be useful in practice in the
-> current form. I do see potential for spurious bug reports based on the
-> "link bpc" property having the "wrong" value though.
-
-Kind regards,
-Nicolas Frattaroli
-
-
+>
+> --
+> Louis Chauvet <louis.chauvet@bootlin.com>
