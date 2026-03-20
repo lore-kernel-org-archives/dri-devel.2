@@ -4,55 +4,99 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8EA1D1099B49
-	for <dri-devel@archiver.kernel.org>; Fri, 20 Mar 2026 22:32:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3CA601099B4A
+	for <dri-devel@archiver.kernel.org>; Fri, 20 Mar 2026 22:38:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9C52210EB45;
-	Fri, 20 Mar 2026 22:32:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7D3B510E0F8;
+	Fri, 20 Mar 2026 22:38:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=protonmail.com header.i=@protonmail.com header.b="vFq6emCH";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="kvXX5vrc";
 	dkim-atps=neutral
-Received: from mail-10696.protonmail.ch (mail-10696.protonmail.ch
- [79.135.106.96])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AF40410EB45
- for <dri-devel@lists.freedesktop.org>; Fri, 20 Mar 2026 22:32:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
- s=protonmail3; t=1774045944; x=1774305144;
- bh=QyU3KziqZxd9HOhx4Gs65M6cMH9dTEoOjkIOFlgjlAc=;
- h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
- Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
- Message-ID:BIMI-Selector;
- b=vFq6emCHQOyQdgP2aUob/id6mm+oqQrrLlZ0+Br2YAZCJIfE+0p1PO7CNZqeL+S8O
- Ce0CGIzI/T+aWIqq175gvxn67Pf0xf/y4YEm1qunOk8NApn8xoZkrWdlYZ09ZuRr22
- AUqFDNDwaJ8aOFkXGRq9XVelRMOBbwl/FEWkWZ3x5V181w54WtNeaoS3plf0VrhrA+
- wbHiMiCviLIUboZpHG0lX/KDlaB9e1jriYoIAjgVOmTuxPVvvNDNrKXuxTn7G5gQuB
- xgN1Hqo1XNX3uw8q+CqX+d6qHf25GkpYKu5Q5R9TEmN/5Fs6Dn/ZxZ4BuQT/FzyHh7
- XDemqkqBxICHQ==
-Date: Fri, 20 Mar 2026 22:32:18 +0000
-To: Krzysztof Kozlowski <krzk@kernel.org>
-From: cristian_ci <cristian_ci@protonmail.com>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht,
- phone-devel@vger.kernel.org
-Subject: Re: [PATCH v2 1/6] dt-bindings: display: panel: Add Novatek NT35532
- LCD DSI
-Message-ID: <oMTrCB7euJojLz1EUHDhHCq071GQWD0g7-sqwahA62CnM-sVw08UCNhKdgHX2NrEN3H8iRhc0suejuq5JZ39UA2nEfKhRq9qwYJWSxCrAtc=@protonmail.com>
-In-Reply-To: <20260319-amorphous-pastoral-turtle-851af9@quoll>
-References: <20260318-rimob-new-features-v2-0-c1bf8917449e@protonmail.com>
- <20260318-rimob-new-features-v2-1-c1bf8917449e@protonmail.com>
- <20260319-amorphous-pastoral-turtle-851af9@quoll>
-Feedback-ID: 27475468:user:proton
-X-Pm-Message-ID: aa5d67d40f9ced9875dfeb1b6597c0c1dad3b0c0
+Received: from mail-yx1-f53.google.com (mail-yx1-f53.google.com
+ [74.125.224.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7109510EB50
+ for <dri-devel@lists.freedesktop.org>; Fri, 20 Mar 2026 22:38:50 +0000 (UTC)
+Received: by mail-yx1-f53.google.com with SMTP id
+ 956f58d0204a3-64ae222d978so2763332d50.1
+ for <dri-devel@lists.freedesktop.org>; Fri, 20 Mar 2026 15:38:50 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1774046329; cv=none;
+ d=google.com; s=arc-20240605;
+ b=baypSPFlHLWW66D+PtmCgcEfXK2dbZVJc5djKPJ2/NcAC7wVbwSglkAHpB/ye58zKp
+ 0mVJzHod5TREw0KwVHlZ1gKXIQO+oe7WMaJhclCMRqFnCYrHZRmp/CrTwdAToR3BB8fn
+ RSG927e4pyQ48LvtKSxC4lj8lHVhVsGhE9ZLyNq0RS/UWf/Wlnxc0gcgrcmFolGTOcpj
+ AFcAr4ZWtro1lQ3D/z8+CzVf5XkGUHnPAVtSL3DDEC1DtPxU2CnqzHxFd6K8aaKvvNn1
+ Ln+Og8pkwJLx2vdoiOtAHpyoGT2owCdzLOPXSlk+RRxDHFyVhnYfb2ASvH3iSzXwku0X
+ 6m0A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=1QP6vLGAno7k+sNss+wwfyElHbIT2Fj2kzdCjibqhnU=;
+ fh=/Yz+5q+bd9obOVvzWqO8RfsHIZ5e8S038l02TxpuRHA=;
+ b=HbPpLelpKQ+0XTeVQ2yag7YRhpDcj1pED38v+X7svDdiZSCy08fgLiFYwc4y+i+v4V
+ daTjULMKm+0E+I7zdqODRLB5f8+H/Y71t42e64kMUlW5u0vp5zczZblrI/FfXQfMostr
+ cIRKmPy1tFvY+Ii7zZLKGgF4khd0Cjn9k6uxpWj0VNlaMQVD0FMWntdsKWAqNjA5OXRC
+ +2+s/2FErQp4O0xpFNoui0Wb2gAQaoWPhvBgnNVXbmwgTIqbPcPhjPIqTbdXh2AV1zZb
+ FKJVEnATq3CwrtRnqzD0M5eftt0DbmdJ3e0zVOx8IxQq0fjS205iXIHV6KrdAh9Tb+zF
+ xWWQ==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1774046329; x=1774651129; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=1QP6vLGAno7k+sNss+wwfyElHbIT2Fj2kzdCjibqhnU=;
+ b=kvXX5vrczBwzeLzetQEk30KLX2hI8wZSCEZPkz20BHdO3OAlPJiiyRZYMBjwTkqK6G
+ lA5a2Vymp8+CNUMPqbfeM4+pqnADDrPl5sa+jaMfitV0HrH1BZYm1SDX4gPbT4ep3nZV
+ vqu1n16wt+dXoujFWL+/sK8qDWM3+xx7HV8swGmXa3oAvgTqtPCi6hyUxlZKQD0wldj4
+ Iqw2vxzzYJOJahzsWAEo0XxnEE5AUh92KtkTU+eIvYoAsYYZbwPvlzKBXd13jPw/5Fi8
+ bHuYLT2x00OCwkNMEM7eeGTr+r4Z4WC45fTvR/llh3PsxA5cVoVGzDH2RV+5im+1NitV
+ 1ldQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1774046329; x=1774651129;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=1QP6vLGAno7k+sNss+wwfyElHbIT2Fj2kzdCjibqhnU=;
+ b=Aiqk+VxeWHFBTh8CEiFEjAW3gIbNkA9dzQe3yZ6K2kknrbsGRPCc3CICVw8uFHBMXL
+ ArPQqSh80WFCocYNcWprJ1/9VKjzmJaIDQE+RysuogKr4o4y4QxlDb1O8qs9m5MRdHXG
+ 5WGUpJ8NCSNGFpEQIU796AlWDouIGTRPoUviByFH9t16aDcHxv90BYRYiTiv/rDycPhr
+ a44bY+2D2jueo6haygLeQb6vii76t0TVctuwOmlFrEULHfV4w7zNUTlgPElOjkkpjUdn
+ 45eo08T3dUGF8Pr3Z3/4dKmCNmze9JyCJMuN1aYNVwZNDDpNh08aJfbjhHcYRKi7tS9e
+ OWVg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUkRIFriinctm64EUJErqilk5gU3yMhAx9ihosHV1Kdk/RhtBNV/Co8JRYiWnh9+swdwm9xMgHOybA=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzlKDhs+XJDScCb3XXFHBA2e7yv/Lnh2hO2oOZzBZ2GWBgjqffH
+ Kolb4zZydbcUYhHyQIMVOgZAMSBJtqIzdxGGVnp4XyVtZ6MpTy4VzsiQ1ISo9Pxt9TuTdrJO4Qx
+ zm2PC7qV2mBre+7ftudR7b0HlF4FhBmc=
+X-Gm-Gg: ATEYQzxVd3pkbzHlq+qXIsH1BeJue03QHs2l1BBksWLUOjjYzuLopa1l+huisYKz1G7
+ 6sqs3sk5RGB9zbD4XW8moMSD3d9h+Y203QbmOrqXgZJi3eqoRocx1ct06c3vpLZ+n3OPbPJZXU3
+ Q8CJFrGeum5y8RsVr/P62Eqp5w9B3vc/gsO4xu4Ul5HyXksrK4qtUwgm4zt+mMNsPVdoGRBYuqx
+ kxdwYXGSWPcQj2pkAxvOhHOOeda7/EO9coGmEMmcTTPEmUFSWBGVwvMpDUrO9S293dEDg9r1dem
+ V3wk
+X-Received: by 2002:a53:b9d2:0:b0:64c:f2f5:8f5c with SMTP id
+ 956f58d0204a3-64eaa707e47mr3626057d50.30.1774046329351; Fri, 20 Mar 2026
+ 15:38:49 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+References: <20260313132103.2529746-1-jim.cromie@gmail.com>
+ <20260313132103.2529746-65-jim.cromie@gmail.com>
+ <177402491485.6181.1878747749743687917.b4-review@b4>
+In-Reply-To: <177402491485.6181.1878747749743687917.b4-review@b4>
+From: jim.cromie@gmail.com
+Date: Fri, 20 Mar 2026 16:38:23 -0600
+X-Gm-Features: AaiRm532nEVSECCKtVZQBvh7bVjnXge5XC4gNh5bglnjYOP9OLegdkUxnYh0aWg
+Message-ID: <CAJfuBxy7U4DtDHKrphky7mCHMxmC9ZvuE4cdH1qAzZ4PZGuz1A@mail.gmail.com>
+Subject: Re: [PATCH v11 64/65] drm_print: fix drm_printer dynamic debug bypass
+To: Louis Chauvet <louis.chauvet@bootlin.com>
+Cc: airlied@gmail.com, simona@ffwll.ch, jbaron@akamai.com, 
+ gregkh@linuxfoundation.org, mripard@kernel.org, tzimmermann@suse.de, 
+ maarten.lankhorst@linux.intel.com, jani.nikula@intel.com, 
+ ville.syrjala@linux.intel.com, christian.koenig@amd.com, 
+ matthew.auld@intel.com, arunpravin.paneerselvam@amd.com, 
+ skhan@linuxfoundation.org, pmladek@suse.com, ukaszb@chromium.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -69,59 +113,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thursday, March 19th, 2026 at 10:09, Krzysztof Kozlowski <krzk@kernel.or=
-g> wrote:
+On Fri, Mar 20, 2026 at 10:43=E2=80=AFAM Louis Chauvet
+<louis.chauvet@bootlin.com> wrote:
+>
+> On Fri, 13 Mar 2026 07:20:29 -0600, Jim Cromie <jim.cromie@gmail.com> wro=
+te:
+> > [...]
+> > mismatch in intel_pipe_config_compare(), the resulting UART storm
+> > causes a hard timeout after 20 minutes (see below the snip).
+> >
+> > To fix this, change __drm_printfn_dbg() to use the explicit
+> > drm_debug_enabled_instrumented() instead. This ensures the bit-test is
+> > performed at runtime for this unguarded helper, stopping the UART storm=
+.
+>
+> Why don't use use drm_debug_enabled directly? Does it make sense to call
+> the _instrumented when [2] is not enabled?
 
-> On Wed, Mar 18, 2026 at 11:28:09PM +0100, Cristian Cozzolino wrote:
-> > +  avdd-supply:
-> > +    description: positive boost supply regulator
-> > +
-> > +  avee-supply:
-> > +    description: negative boost supply regulator
-> > +
-> > +  vci-supply:
-> > +    description: regulator that supplies the analog voltage
-> > +
-> > +  vddam-supply:
-> > +    description: power supply for MIPI interface
-> > +
-> > +  vddi-supply:
-> > +    description: regulator that supplies the I/O voltage
-> > +
-> > +  port: true
-> > +
-> > +required:
-> > +  - compatible
-> > +  - reg
-> > +  - reset-gpios
-> > +  - avdd-supply
-> > +  - avee-supply
-> > +  - vci-supply
->=20
-> Only VDDI is required according to datasheet (see page 11 and page 16).
+my reason is so that we can turn on the pr-debug, and see how often
+this happens.
+If it happens a lot, we can look for ways to replace the bit-test with
+a static-key guard.
 
-Just to be sure, are you mentioning the part saying there are multiple=20
-power modes (2-1PWR, 2-2PWR, 3=C3=A9WR and 4PWR) related to NT35532?=20
+That said, we could use drm_debug_enabled(), we'd lose the counting ability=
+ when
+DRM_USE_DYNAMIC_DEBUG=3Dn, but still have it for =3Dy.
+So Im happy with either way.
 
-> Others are needed only in specific configurations, which I would ignore
-> for the simplicity of the binding. Drop these three.
->=20
-> Previous discussion point was about this - write bindings based on
-> datasheet, since it is available.
-
-I've removed avdd, avee and vci supplies from 'required' properties=20
-and I've also tested the new bindings (just for completeness). Now,=20
-I'm going to reintroduce again the issue already raised previously=20
-(for which I received no replies in v1): should I submit a v3=20
-series including my new changes or I've to stick with v2 here, in=20
-order to address review concerns about binding, first?
-
-> > +  - vddi-supply
-> > +  - port
-> > +
-> > +additionalProperties: false
->=20
-> Best regards,
-> Krzysztof
->=20
-> 
+>
+> >
+>
+> --
+> Louis Chauvet <louis.chauvet@bootlin.com>
