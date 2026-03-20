@@ -4,41 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8F5F4108B8F1
-	for <dri-devel@archiver.kernel.org>; Fri, 20 Mar 2026 10:47:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AFC67108B8F3
+	for <dri-devel@archiver.kernel.org>; Fri, 20 Mar 2026 10:47:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CDCB910EA78;
-	Fri, 20 Mar 2026 10:47:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EC25110EA79;
+	Fri, 20 Mar 2026 10:47:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="TXc1o2vt";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="QFcWkJ82";
 	dkim-atps=neutral
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 079E810EA78
- for <dri-devel@lists.freedesktop.org>; Fri, 20 Mar 2026 10:47:19 +0000 (UTC)
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6D14010EA79
+ for <dri-devel@lists.freedesktop.org>; Fri, 20 Mar 2026 10:47:29 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-02.galae.net (Postfix) with ESMTPS id EE34C1A2F15;
- Fri, 20 Mar 2026 10:47:17 +0000 (UTC)
+ by smtpout-03.galae.net (Postfix) with ESMTPS id 284AF4E4273F;
+ Fri, 20 Mar 2026 10:47:28 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id BFB41600E0;
- Fri, 20 Mar 2026 10:47:17 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id E3BC3600E0;
+ Fri, 20 Mar 2026 10:47:27 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 6D49810450A35; Fri, 20 Mar 2026 11:47:06 +0100 (CET)
+ with ESMTPSA id CD09B10450B8F; Fri, 20 Mar 2026 11:47:15 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1774003635; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ t=1774003645; h=from:subject:date:message-id:to:cc:mime-version:content-type:
  content-transfer-encoding:in-reply-to:references;
- bh=XbMfNfupY1VfnZEkIIda79LO69pWcXv3nSLGBIpLS3Y=;
- b=TXc1o2vt65RFdnHE36jvwmA3uWA9LppHucLNBayn5LTscMGEgQvMgJFcYq4XtpaMHv1Lr6
- Jm56xae17+BrM7hqTPHLRxTzK1kCRE7WdQBiP8xRWwJ/Yn1FvIS7930MDqzZDlOUClxVJk
- WcIco9DemcN126+i1P3mfhZ7HjgiUJ9xV06UK9VXnZdYVnZoRapQEn7qnq3YKhZjXkj1+E
- oME9weNqWf+XvozQQAkSh2a7WGanuXQ7xNKW3NA9AKm2wOmrHYyRl8EAX0j/QGS1uXqUAJ
- v0ZS4pdagVQXBaW9qCXsuTbbFyQj8MECWohNixYntJ6i8MXqMFgItTq9fOJkdA==
+ bh=epcCiuzdQ1u6Epk9LtsHc2oPHZxzaiyD1zsIWDZOAME=;
+ b=QFcWkJ82ylexSInmRDANxSHTwK9A3hbd2iBAlyZTtBzfzAVgv+6As+Ei0+Wta0tVjL7Ssx
+ SPWbAZ0u+l/hMNJTKx9n3x8MrOPvXLipwrF81cdfYzOsavnoCiPRKtFSo0LHi5nDPIe0V1
+ o0TYKsw3af8yoeUp8EfMqeVsi48IAE1dl5zsMAoV/ozrOYbRTQptooqq2KXIHLF1vOiuT5
+ podhqzqMnp+IyZhdUOWauEpLjRYJH86d6kQX5n/BfQNQhEzK6YFTxQqBEguZ4IhG/winEv
+ 8fS+1HybWGBqBpniQ8l5tNxoVC7H5uuhYbZP9DhqxwMgryivMYGSC+b2qs2h6Q==
 From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Date: Fri, 20 Mar 2026 11:46:15 +0100
-Subject: [PATCH 4/8] drm/bridge: dw-hdmi: document the output_port field
+Date: Fri, 20 Mar 2026 11:46:16 +0100
+Subject: [PATCH 5/8] drm/bridge: dw-hdmi: warn on unsupported attach
+ combination
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260320-drm-lcdif-dbanc-v1-4-479a04133e70@bootlin.com>
+Message-Id: <20260320-drm-lcdif-dbanc-v1-5-479a04133e70@bootlin.com>
 References: <20260320-drm-lcdif-dbanc-v1-0-479a04133e70@bootlin.com>
 In-Reply-To: <20260320-drm-lcdif-dbanc-v1-0-479a04133e70@bootlin.com>
 To: Marek Vasut <marex@denx.de>, Stefan Agner <stefan@agner.ch>, 
@@ -101,29 +102,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The meaning of this flag may not be obvious at first sight.
+dw-hdmi can operate in two different modes, depending on the platform data
+as set by the driver:
+
+ A. hdmi->plat_data->output_port = 0:
+    the HDMI output (port@1) in device tree is not used
+
+ B. hdmi->plat_data->output_port = 1:
+    the HDMI output (port@1) is parsed to find the next bridge
+
+Only case B is supported when the DRM_BRIDGE_ATTACH_NO_CONNECTOR flag is
+passed to the attach callback. Emit a warning when this is violated. Also
+return -EINVAL which would be returned by drm_bridge_attach() right after
+anyway.
 
 Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
----
- include/drm/bridge/dw_hdmi.h | 5 +++++
- 1 file changed, 5 insertions(+)
 
-diff --git a/include/drm/bridge/dw_hdmi.h b/include/drm/bridge/dw_hdmi.h
-index 336f062e1f9d..45f6ba1a8ee1 100644
---- a/include/drm/bridge/dw_hdmi.h
-+++ b/include/drm/bridge/dw_hdmi.h
-@@ -126,6 +126,11 @@ struct dw_hdmi_phy_ops {
- struct dw_hdmi_plat_data {
- 	struct regmap *regm;
+---
+
+Note: Returning when teh warning triggers does not change the functional
+behaviour of this function. It is not strictly necessary in this patch but
+it will have to be done anyway in the following patch.
+---
+ drivers/gpu/drm/bridge/synopsys/dw-hdmi.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
+index ee88c0e793b0..a668d66aeece 100644
+--- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
++++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
+@@ -2910,6 +2910,10 @@ static int dw_hdmi_bridge_attach(struct drm_bridge *bridge,
+ {
+ 	struct dw_hdmi *hdmi = bridge->driver_private;
  
-+	/*
-+	 * The HDMI output port number (which must be 1) if it is described
-+	 * in the device tree. 0 if the device tree does not describe the
-+	 * next component (legacy mode).
-+	 */
- 	unsigned int output_port;
- 
- 	unsigned long input_bus_encoding;
++	/* DRM_BRIDGE_ATTACH_NO_CONNECTOR requires a remote-endpoint to the next bridge */
++	if (WARN_ON((flags & DRM_BRIDGE_ATTACH_NO_CONNECTOR) && !hdmi->plat_data->output_port))
++		return -EINVAL;
++
+ 	if (flags & DRM_BRIDGE_ATTACH_NO_CONNECTOR)
+ 		return drm_bridge_attach(encoder, hdmi->bridge.next_bridge,
+ 					 bridge, flags);
 
 -- 
 2.53.0
