@@ -4,42 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AFC67108B8F3
-	for <dri-devel@archiver.kernel.org>; Fri, 20 Mar 2026 10:47:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7B995108B8F1
+	for <dri-devel@archiver.kernel.org>; Fri, 20 Mar 2026 10:47:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EC25110EA79;
-	Fri, 20 Mar 2026 10:47:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D6CDE10EA7B;
+	Fri, 20 Mar 2026 10:47:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="QFcWkJ82";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="YyDIv8/7";
 	dkim-atps=neutral
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6D14010EA79
- for <dri-devel@lists.freedesktop.org>; Fri, 20 Mar 2026 10:47:29 +0000 (UTC)
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E33FF10EA7B
+ for <dri-devel@lists.freedesktop.org>; Fri, 20 Mar 2026 10:47:39 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-03.galae.net (Postfix) with ESMTPS id 284AF4E4273F;
- Fri, 20 Mar 2026 10:47:28 +0000 (UTC)
+ by smtpout-04.galae.net (Postfix) with ESMTPS id AAB72C4042D;
+ Fri, 20 Mar 2026 10:48:03 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id E3BC3600E0;
- Fri, 20 Mar 2026 10:47:27 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 4697F600E0;
+ Fri, 20 Mar 2026 10:47:38 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id CD09B10450B8F; Fri, 20 Mar 2026 11:47:15 +0100 (CET)
+ with ESMTPSA id DE56910450B7D; Fri, 20 Mar 2026 11:47:25 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1774003645; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ t=1774003655; h=from:subject:date:message-id:to:cc:mime-version:content-type:
  content-transfer-encoding:in-reply-to:references;
- bh=epcCiuzdQ1u6Epk9LtsHc2oPHZxzaiyD1zsIWDZOAME=;
- b=QFcWkJ82ylexSInmRDANxSHTwK9A3hbd2iBAlyZTtBzfzAVgv+6As+Ei0+Wta0tVjL7Ssx
- SPWbAZ0u+l/hMNJTKx9n3x8MrOPvXLipwrF81cdfYzOsavnoCiPRKtFSo0LHi5nDPIe0V1
- o0TYKsw3af8yoeUp8EfMqeVsi48IAE1dl5zsMAoV/ozrOYbRTQptooqq2KXIHLF1vOiuT5
- podhqzqMnp+IyZhdUOWauEpLjRYJH86d6kQX5n/BfQNQhEzK6YFTxQqBEguZ4IhG/winEv
- 8fS+1HybWGBqBpniQ8l5tNxoVC7H5uuhYbZP9DhqxwMgryivMYGSC+b2qs2h6Q==
+ bh=pETdlghxzqqCiEaPvqoDlYYapxYDufD9KCFbn4elZEk=;
+ b=YyDIv8/7bYdeDocu6CUlzpZGjMnkb4PjerL8Ig+ktu5K5fgHaHUFSkG5523JrwqPi1KXsR
+ jslev06n9xeaxJ+FEFr5Z9p9u28uuIpCRAjLlu2gQ9QXFW0m+YO0QiUp47fr9MzuizaVqu
+ IgYFjTDfLJqJkHrMjfNrT+5E5OLbX4y50tgdR1CA62DFk/hqaaycr8K2LvOcSmmQ9T32Zp
+ DfGoybuKtc1Luv3ACMFPEB8nPRCJTh5tbdsc1VPx3XcqqsWYaet4aRCKB1Yod4YeKCWJRE
+ Tc7ta9eaQHs/oM937/IGyw0d5CTg4kZaL92GvKauTB3rjTq/8mK585OFd0+LCg==
 From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Date: Fri, 20 Mar 2026 11:46:16 +0100
-Subject: [PATCH 5/8] drm/bridge: dw-hdmi: warn on unsupported attach
- combination
+Date: Fri, 20 Mar 2026 11:46:17 +0100
+Subject: [PATCH 6/8] drm/bridge: dw-hdmi: move next_bridge lookup to attach
+ time
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260320-drm-lcdif-dbanc-v1-5-479a04133e70@bootlin.com>
+Message-Id: <20260320-drm-lcdif-dbanc-v1-6-479a04133e70@bootlin.com>
 References: <20260320-drm-lcdif-dbanc-v1-0-479a04133e70@bootlin.com>
 In-Reply-To: <20260320-drm-lcdif-dbanc-v1-0-479a04133e70@bootlin.com>
 To: Marek Vasut <marex@denx.de>, Stefan Agner <stefan@agner.ch>, 
@@ -102,46 +102,103 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-dw-hdmi can operate in two different modes, depending on the platform data
-as set by the driver:
+This driver looks up the next_bridge at probe time and stores it in
+hdmi->bridge.next_bridge, but only uses the stored value when attaching,
+and only in the DRM_BRIDGE_ATTACH_NO_CONNECTOR case.
 
- A. hdmi->plat_data->output_port = 0:
-    the HDMI output (port@1) in device tree is not used
+This will be problematic with an upcoming change, adding an hdmi-connector
+using a device tree overlay when not present. That change is in turn
+necessary to migrate the i.MX LCDIF driver to the bridge-connector.
 
- B. hdmi->plat_data->output_port = 1:
-    the HDMI output (port@1) is parsed to find the next bridge
+The problem is that, adding the hdmi-connector via an overlay, devlink
+considers hdmi-connector a consumer of the dw-hdmi device, generating a
+chicken-egg problem:
 
-Only case B is supported when the DRM_BRIDGE_ATTACH_NO_CONNECTOR flag is
-passed to the attach callback. Emit a warning when this is violated. Also
-return -EINVAL which would be returned by drm_bridge_attach() right after
-anyway.
+ * hdmi-connector probe won't be tried until dw-hdmi is probed (devlink)
+ * dw-hdmi probe will defer until it finds the next_bridge (the
+   hdmi-connector wrapper bridge)
+
+In preparation for those changes, move the next_bridge lookup from probe to
+attach, when it is actually used. This allows dw-hdmi to probe, so that the
+hdmi-connector can probe as well.
+
+Also avoid storing the pointer in hdmi->bridge.next_bridge: the value is
+computed when needed, thus a local variable is enough.
+
+Finally, this also allows to slightly improve the code by not doing any DT
+lookup in the !DRM_BRIDGE_ATTACH_NO_CONNECTOR case.
 
 Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
-
 ---
-
-Note: Returning when teh warning triggers does not change the functional
-behaviour of this function. It is not strictly necessary in this patch but
-it will have to be done anyway in the following patch.
----
- drivers/gpu/drm/bridge/synopsys/dw-hdmi.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ drivers/gpu/drm/bridge/synopsys/dw-hdmi.c | 41 +++++++++----------------------
+ 1 file changed, 12 insertions(+), 29 deletions(-)
 
 diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
-index ee88c0e793b0..a668d66aeece 100644
+index a668d66aeece..4ee865a1a6c8 100644
 --- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
 +++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
-@@ -2910,6 +2910,10 @@ static int dw_hdmi_bridge_attach(struct drm_bridge *bridge,
- {
- 	struct dw_hdmi *hdmi = bridge->driver_private;
+@@ -2914,9 +2914,18 @@ static int dw_hdmi_bridge_attach(struct drm_bridge *bridge,
+ 	if (WARN_ON((flags & DRM_BRIDGE_ATTACH_NO_CONNECTOR) && !hdmi->plat_data->output_port))
+ 		return -EINVAL;
  
-+	/* DRM_BRIDGE_ATTACH_NO_CONNECTOR requires a remote-endpoint to the next bridge */
-+	if (WARN_ON((flags & DRM_BRIDGE_ATTACH_NO_CONNECTOR) && !hdmi->plat_data->output_port))
-+		return -EINVAL;
+-	if (flags & DRM_BRIDGE_ATTACH_NO_CONNECTOR)
+-		return drm_bridge_attach(encoder, hdmi->bridge.next_bridge,
+-					 bridge, flags);
++	if (flags & DRM_BRIDGE_ATTACH_NO_CONNECTOR) {
++		struct device_node *remote __free(device_node) =
++			of_graph_get_remote_node(hdmi->dev->of_node,
++						 hdmi->plat_data->output_port, -1);
++		if (!remote)
++			return -EPROBE_DEFER;
 +
- 	if (flags & DRM_BRIDGE_ATTACH_NO_CONNECTOR)
- 		return drm_bridge_attach(encoder, hdmi->bridge.next_bridge,
- 					 bridge, flags);
++		struct drm_bridge *next_bridge __free(drm_bridge_put) =
++			of_drm_find_and_get_bridge(remote);
++
++		return drm_bridge_attach(encoder, next_bridge, bridge, flags);
++	}
+ 
+ 	return dw_hdmi_connector_create(hdmi);
+ }
+@@ -3307,28 +3316,6 @@ static void dw_hdmi_init_hw(struct dw_hdmi *hdmi)
+  * Probe/remove API, used from platforms based on the DRM bridge API.
+  */
+ 
+-static int dw_hdmi_parse_dt(struct dw_hdmi *hdmi)
+-{
+-	struct device_node *remote;
+-
+-	if (!hdmi->plat_data->output_port)
+-		return 0;
+-
+-
+-	remote = of_graph_get_remote_node(hdmi->dev->of_node,
+-					  hdmi->plat_data->output_port,
+-					  -1);
+-	if (!remote)
+-		return -ENODEV;
+-
+-	hdmi->bridge.next_bridge = of_drm_find_and_get_bridge(remote);
+-	of_node_put(remote);
+-	if (!hdmi->bridge.next_bridge)
+-		return -EPROBE_DEFER;
+-
+-	return 0;
+-}
+-
+ bool dw_hdmi_bus_fmt_is_420(struct dw_hdmi *hdmi)
+ {
+ 	return hdmi_bus_fmt_is_yuv420(hdmi->hdmi_data.enc_out_bus_format);
+@@ -3373,10 +3360,6 @@ struct dw_hdmi *dw_hdmi_probe(struct platform_device *pdev,
+ 	mutex_init(&hdmi->cec_notifier_mutex);
+ 	spin_lock_init(&hdmi->audio_lock);
+ 
+-	ret = dw_hdmi_parse_dt(hdmi);
+-	if (ret < 0)
+-		return ERR_PTR(ret);
+-
+ 	ddc_node = of_parse_phandle(np, "ddc-i2c-bus", 0);
+ 	if (ddc_node) {
+ 		hdmi->ddc = of_get_i2c_adapter_by_node(ddc_node);
 
 -- 
 2.53.0
