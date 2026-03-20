@@ -4,50 +4,152 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1FC8B109193F
-	for <dri-devel@archiver.kernel.org>; Fri, 20 Mar 2026 12:54:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DFFB81098782
+	for <dri-devel@archiver.kernel.org>; Fri, 20 Mar 2026 13:04:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BDD2310EAEE;
-	Fri, 20 Mar 2026 12:54:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 93D9A10E0A6;
+	Fri, 20 Mar 2026 13:04:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="TfvvPfLJ";
+	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="Ag2aX3k6";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 068AD10EAE8
- for <dri-devel@lists.freedesktop.org>; Fri, 20 Mar 2026 12:54:29 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 93B4F4385A;
- Fri, 20 Mar 2026 12:54:28 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1619BC4CEF7;
- Fri, 20 Mar 2026 12:54:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1774011268;
- bh=+M6qcQrMb3yqvBwU3Vq6wlNdSf3DZj0nu/V7zE51IKk=;
- h=Date:Cc:To:From:Subject:References:In-Reply-To:From;
- b=TfvvPfLJjL+91s91n2gRFMntA85eHYefdoW3jBKajyP1eFnWU/jycj8tPkKg3/sOa
- OSSDkg/C2oGpFfdTpD+pdVWQIH7ImJRTCD8xpP88IHXTjxKpuJDdJ7o0NSgiVJ3mHd
- bOMMqp2fV9EtNbizJ/03wAzKKT+KqxoEqS0ZqaO7tmgJDdc7/J4Io9s9VPy5pX8j+z
- yrAveyY3cI4vqLL0w9cuA1tSs94nKm94cmHeoRwACFwspsCfkC4J2fJ3nPrw3CxEJs
- BKNaYcEnIjzPCkNGe1Cqd2dgJXfCnwMpktP0NiqM7oOBhUkGs0iF9tTzSPFfiHB70e
- h8CvC44/MWUXQ==
-Mime-Version: 1.0
+Received: from CWXP265CU010.outbound.protection.outlook.com
+ (mail-ukwestazon11022100.outbound.protection.outlook.com [52.101.101.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DAF3B10E0A6;
+ Fri, 20 Mar 2026 13:04:16 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=jkEFfybdGRJztWFMH9Lssbl1lsptaUsDR3PpjZtm6VuHbEnXYNY/ZLZk3KglOAeJADE20sTuhRljDoqdtLBBnO6SsYR0d4XWvIGesfmGk4gdSR7eABXdV/ySDDDwKhyhOcMh70SdbiEJ/Q4FhCT9oxKd84DTiAuL257Qd3KpIQChX3gxhrzq2LB9q3/4ON6Sip6Zi/GR3+whAxRq7Da8KqK0jUUBQBy3cMPwcc0Itli/7V4zaiwOXvlzGybrseZoprRpAYwNTTXvGPPwEEuPy2UK0025vntg5011LKEkab2xrNxidtAl2PuvIVDI7nCIgpE0mmBDacye9AK2+M7SWw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=xwHfwJMJ/BoyqaGSSMonUhFCgp1zLjHqz6u+cp17t1I=;
+ b=lS2Ire1/jcpF1fK1OrvncaYG3xc5ExY8v5Ur7TkhRLEeWZnhn8EP5V/6lkc99lnYNL5jGjQUISWhXxpvikIuIIMTLUTWg3PDkF0GkdHiOuRs9BWKIBz7zuSJQvsS+rlskiRHFrKY6F5Ighz3ON32fJ9kYhYPfWOy9ihq602FtsoB4hR2uIfe1FMbR5G2S61VH+PJmsFCcTElpIKiRfcoy7xmxQWJMOYqTt8A7yUNqf7v8djR47XTRMN8aJrJhKnySKXDwhfToW9iMY45t/S2FmQzvUitxjOwEHLjZLBjQVAJWnsLFK4/xDywF+vri3mRy4jkusSFtvLNvoK3nPo9TA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
+ dkim=pass header.d=garyguo.net; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=xwHfwJMJ/BoyqaGSSMonUhFCgp1zLjHqz6u+cp17t1I=;
+ b=Ag2aX3k6m+6SK+9yaijTu2U/9Mzz2xPdUB/23hmvNRtuSuFzPa4cHj9yqe5Q44RMSYoin/lWauZFFTsaiCAd/2UTGE7aeoFmiPTDOpEdXlPFqwDlFZKwMBrIcqI1M8dPuO29T1vV4rhWCFDLTcuFLsQAaB7Ojzeh9TI1Vs75Jlk=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=garyguo.net;
+Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:488::16)
+ by CWLP265MB5954.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:1cc::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.23; Fri, 20 Mar
+ 2026 13:04:12 +0000
+Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::1c3:ceba:21b4:9986]) by LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::1c3:ceba:21b4:9986%5]) with mapi id 15.20.9723.022; Fri, 20 Mar 2026
+ 13:04:12 +0000
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Date: Fri, 20 Mar 2026 13:54:24 +0100
-Message-Id: <DH7MIC1ECKRZ.1YN5T4ATB7A2T@kernel.org>
-Cc: "Alice Ryhl" <aliceryhl@google.com>, "David Airlie" <airlied@gmail.com>,
- "Simona Vetter" <simona@ffwll.ch>, "Alistair Popple" <apopple@nvidia.com>,
- "John Hubbard" <jhubbard@nvidia.com>, "Joel Fernandes"
- <joelagnelf@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>, "Zhi Wang"
- <zhiw@nvidia.com>, "Eliot Courtney" <ecourtney@nvidia.com>,
- <rust-for-linux@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>
-To: "Alexandre Courbot" <acourbot@nvidia.com>
-From: "Danilo Krummrich" <dakr@kernel.org>
-Subject: Re: [PATCH] gpu: nova-core: gsp: fix undefined behavior in command
- queue code
-References: <20260319-cmdq-ub-fix-v1-1-0f9f6e8f3ce3@nvidia.com>
-In-Reply-To: <20260319-cmdq-ub-fix-v1-1-0f9f6e8f3ce3@nvidia.com>
+Date: Fri, 20 Mar 2026 13:04:10 +0000
+Message-Id: <DH7MPTIK5OMK.3GHQAE07J5OO@garyguo.net>
+Cc: "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>,
+ "Gary Guo" <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
+ <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
+ Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
+ "Trevor Gross" <tmgross@umich.edu>, "Danilo Krummrich" <dakr@kernel.org>,
+ "Dave Airlie" <airlied@redhat.com>, "Daniel Almeida"
+ <daniel.almeida@collabora.com>, "Koen Koning"
+ <koen.koning@linux.intel.com>, <dri-devel@lists.freedesktop.org>,
+ <rust-for-linux@vger.kernel.org>, "Nikola Djukic" <ndjukic@nvidia.com>,
+ "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>, "Maxime Ripard"
+ <mripard@kernel.org>, "Thomas Zimmermann" <tzimmermann@suse.de>, "David
+ Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Jonathan
+ Corbet" <corbet@lwn.net>, "Alex Deucher" <alexander.deucher@amd.com>,
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, "Jani Nikula"
+ <jani.nikula@linux.intel.com>, "Joonas Lahtinen"
+ <joonas.lahtinen@linux.intel.com>, "Rodrigo Vivi" <rodrigo.vivi@intel.com>,
+ "Tvrtko Ursulin" <tursulin@ursulin.net>, "Huang Rui" <ray.huang@amd.com>,
+ "Matthew Auld" <matthew.auld@intel.com>, "Matthew Brost"
+ <matthew.brost@intel.com>, "Lucas De Marchi" <lucas.demarchi@intel.com>,
+ =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ "Helge Deller" <deller@gmx.de>, "Alex Gaynor" <alex.gaynor@gmail.com>,
+ "Boqun Feng" <boqun.feng@gmail.com>, "John Hubbard" <jhubbard@nvidia.com>,
+ "Alistair Popple" <apopple@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>,
+ "Edwin Peer" <epeer@nvidia.com>, "Alexandre Courbot" <acourbot@nvidia.com>,
+ "Andrea Righi" <arighi@nvidia.com>, "Andy Ritger" <aritger@nvidia.com>,
+ "Zhi Wang" <zhiw@nvidia.com>, "Balbir Singh" <balbirs@nvidia.com>, "Philipp
+ Stanner" <phasta@kernel.org>, "Elle Rhumsaa" <elle@weathered-steel.dev>,
+ <alexeyi@nvidia.com>, "Eliot Courtney" <ecourtney@nvidia.com>,
+ <joel@joelfernandes.org>, <linux-doc@vger.kernel.org>,
+ <amd-gfx@lists.freedesktop.org>, <intel-gfx@lists.freedesktop.org>,
+ <intel-xe@lists.freedesktop.org>, <linux-fbdev@vger.kernel.org>
+Subject: Re: [PATCH v14 1/2] rust: gpu: Add GPU buddy allocator bindings
+From: "Gary Guo" <gary@garyguo.net>
+To: "Joel Fernandes" <joelagnelf@nvidia.com>, <linux-kernel@vger.kernel.org>
+X-Mailer: aerc 0.21.0
+References: <20260320045711.43494-1-joelagnelf@nvidia.com>
+ <20260320045711.43494-2-joelagnelf@nvidia.com>
+In-Reply-To: <20260320045711.43494-2-joelagnelf@nvidia.com>
+X-ClientProxiedBy: LO4P123CA0306.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:196::23) To LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:488::16)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LOVP265MB8871:EE_|CWLP265MB5954:EE_
+X-MS-Office365-Filtering-Correlation-Id: 52ff095a-ee62-482e-1513-08de86812e42
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|10070799003|366016|1800799024|376014|7416014|7053199007|22082099003|56012099003|18002099003;
+X-Microsoft-Antispam-Message-Info: hc6dYgZaWM/AKhw/VhoRY1RttCE7F8UyS6jDyWVnsgWNhF4IGD/DQYovQ2TmERdUIhYl8DaI4Usi6sqtx3dgErVkDoyyhjPR8J1BYO8l6yS9pj22pPXJ/usy2s6h7qPEoaxNVl6GpMVUXozZOdzurCsdY/HIovxeyiw7ZIes2TLySlDS2NdApEXG4U0dLvac9mJT8j0U/nDUhRj/k2P0sygBCb9qosToJ4suipNU7oQiE89lsyMCWW7zcU91E2ulbSXBmme484KdBQp3rqKdF5s1Eg/QQ2OevrCzd6J6h6FGDDgjI89zTG9k+HT2ocenSFgLm24+6zMfLv1cu9cFRMiibAQoBzvOsXMMQXdS98QEyIcx1K1FKa4sq2SBpgaQdIDA7xc2xWYO0mtne2w9n0hZ9Z3Q7x7BaUWfL+jd1VsrXb6S3N4YBz6v19gJMsEklOA7ryJO6vJf9EIEx5p72zzXBu0QknHjsK54YZoxlfIJ7UCDbB7Il5U9y22i5ZBAy3T8hAbldY63wE+vgSQwcLWnMl1/oPknSIwM3MB1Pl77NBt2ZSVYGOjmMUxOsCb9gtO1JvK90/2xVnIU3lONG8uQBHRlmWPfYqQLQqA+vxHgYtbPV/Acl/+7ZtcI74DGRVxA0vnWHsBfKCVL1AghzGOJTH6oWMif/Hchy87G2K55FACHRAICiUCC5LWdZTaN
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
+ SFS:(13230040)(10070799003)(366016)(1800799024)(376014)(7416014)(7053199007)(22082099003)(56012099003)(18002099003);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MldjdHR6dHdQc3V1NFFhL0ZjL3RINjZDZTBNbHp4VXdMbDFKMVlLU24xR2hx?=
+ =?utf-8?B?ajVBRC9rM25oQVE2NzhCemZlTWF2OHppamlEb3ZhNEZCYng4U0FlYTVsVUdK?=
+ =?utf-8?B?VlE3bXRHWk02YjZlRWIyb0YyOFA3RVhYQTM1Tkc1WjZhZjYxZy9rUEN3TVFG?=
+ =?utf-8?B?QjAycFRpTm8wNklZWVJiNnhFcVJwMXovNTBnZTZEaE5yM1duSTUzemtZemVZ?=
+ =?utf-8?B?ZXE5S3NRbzBnUjM5QWdyM0dyVHQveDNiR3VNKzNvVTd1YU9WTXpqa1FqYk1a?=
+ =?utf-8?B?QWpuQTRrbDNSaVVoWmJzSkdVSkRKWHZ1OUZRbFY1Z1NhMk8yNFVTYzQ3WjZ4?=
+ =?utf-8?B?NUdISnNwN0pLSGtoa1RBak9GVlNuL2xkRTRFSko2dGpQT3ArM1V0dlRqWk83?=
+ =?utf-8?B?Z1lJWnFIbkorSXJycVUvZGZOc0FWUkZIZHBDRlM5RkpmNlVkdU0wOUIrbURn?=
+ =?utf-8?B?L2puTTE0R3lDQXFTeFFlS0FPU3hiUDcwUS9DcjFQS0FndXVkM2JlQVlJem50?=
+ =?utf-8?B?S2JVdGdhMGs5OXRYVm45bXowUFZLYUVsKzJLK01kMEh6WkZUTkVSbzJqWEFU?=
+ =?utf-8?B?SlRpMkphYjhwU25qbkc0bHBPekpTMWYwNjVUT1JBdWRDYlRmTDlrWmNSblVl?=
+ =?utf-8?B?bytUek9WN296eVlNR3Nhdkl6anEyU25JYzFGR2lNbjVVN3FuR3U3QndaQ3Rs?=
+ =?utf-8?B?ZGJsTkg2bE1HeEw4OGdXUGdoeEEzZHdIdGJJcWNtWVdMeDdMbTBOZnpHUWZQ?=
+ =?utf-8?B?VnZuM3phZHgvOTJLYlBodllnOUU3VzY2NjNUVmtDdWQxUVVxakc2WWd6OGlP?=
+ =?utf-8?B?TjloRTE2ajd5V1dGWDJQemRpRk5NZi9FbVdtT0E2TEhLRnQ2TC9SL0NmRFRY?=
+ =?utf-8?B?TVB5V3JOVWRMMUQ2UFlTNzFXZGZFUlgweWdPS21ScDMzM3hWUGRVc1VZVFdI?=
+ =?utf-8?B?Mkk0aGpBRUI2WjAxT29lbEVyWDNvWkpWQ1lKQy9JR1NwV2k0eElpY3l3L3hL?=
+ =?utf-8?B?WnVod1FBY21icU5KcnBNb1kvQXR2TjlaWG1FaENGTjlrMTdOUG9jdDQrYTdk?=
+ =?utf-8?B?YSszTS9VSENmTWpwaFh1Nkw2eEFnU3h5ZnRZSkd3VGVlU0sxK0ZvcTlSeGRB?=
+ =?utf-8?B?UUxDMkRabmh2MUs5T2Uyd3V5V3VwZGprVThkZXNFZ1lqaG53UUpubTkrd2dZ?=
+ =?utf-8?B?TVNIdFJ2ZERtQ2Y5Ni83SXMvK2JYQitsdThOemV5Lyt2UjZvRWJCelFkVHZD?=
+ =?utf-8?B?NzNqRzc0RmFjbVQ4NFgxQ2hRNGR1RUp6QTNaVVg2dkQ0UktzQ2w3Z1hmRWdO?=
+ =?utf-8?B?TmFQaTYzWVJuT1Axb0liczVFMi9UWFFTTWFEcXkyamJBT0JUQk5wQWxpYUhk?=
+ =?utf-8?B?c1lEcGgvU05XUjA4RVBKcUtobThDNGFqYkp6M1BLWjdGMS9ocTkwbnZPVG5W?=
+ =?utf-8?B?UFErWnFaMXQzOE1NeWhOd3RJZERLaEpLaGlLaFJCbDhzRFZjSjkrT2Q0cHpE?=
+ =?utf-8?B?V1hQdzVURk9DR2ZCK01yTUZkbERXZmJkRWQ0cUVnZnp2ZE0zUjkzN0lPOFRB?=
+ =?utf-8?B?QWFwNDdDNW45eVZURG83ZENoN2paLysxK3N5OEJXaUhITFNrSjU1TlZpdjN0?=
+ =?utf-8?B?cis3V3E2eFZTQ2Ridm82M29MQzI4K3J3dkZnU01QcDlXbmZEWWxkTXFYYWtK?=
+ =?utf-8?B?djBFaldpb3dBZ0xWeDVRSFpiZVZxcUxubzRsaDJIR0JhQVoyZjFpK2h1czBC?=
+ =?utf-8?B?NkcwaTJlWmU0SXVZOHZ6bkRkNGJBeUZxMTVEVE9YOTVzU01VMXA4a2pzNTZm?=
+ =?utf-8?B?bXlrcnFpUHZLeVI2VU9hQUpyTEtUUUlmemROcHByZEE1R1oxcWgrNks2c0to?=
+ =?utf-8?B?ZlNhTTFYTytZRWZGRzVBSkt6SUt1OVI3aklPMXB5NUgzdzJPNEdBUG5nZjNL?=
+ =?utf-8?B?czgwajlOT1hxcWlEWFBBUkIxM3Z4ZDdEQmUxUHFoQnVwdDZVMjJUOFJXU09P?=
+ =?utf-8?B?dUE1L203ZVNLd3JFZE1JMFk5ZTJkeFBqd01Ea1pXR0MrMEZvTWY2RlpCcTZ2?=
+ =?utf-8?B?NzRZOEtJemtkZXo1NVNCcERVcFpPeWc4akxCMXVaUG95cFQ0WGlpTFlJekR5?=
+ =?utf-8?B?UUd6bDk1U1RRbGNidHF3RkhjckZpMGpwbmJoMXRxZkhFWTdQV2Vaa2hzNWpq?=
+ =?utf-8?B?V0hjYk1qY0JucmczSE5IZEhTbkpyYktBWkl4K2FvNkc0ZnRzRkdpNXZLUURy?=
+ =?utf-8?B?Nk9OUU1wOW4wMUl3TGRmNFFMelVMUzViWkRvU2ZXRWdSTHMvLzZXR0xzQkxT?=
+ =?utf-8?B?WmhZL0IxdTBYMFZCcFMrRDBwNWVrcUhVVlduTnZyU0NhVVovelZYUT09?=
+X-OriginatorOrg: garyguo.net
+X-MS-Exchange-CrossTenant-Network-Message-Id: 52ff095a-ee62-482e-1513-08de86812e42
+X-MS-Exchange-CrossTenant-AuthSource: LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Mar 2026 13:04:11.9450 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: nVkYvFtazanLN3fSC+NcajCkvZO30MCpkBfeD8lE1RyGo3iyaJ+z1a8xFx8J3MSRnoj0XFgc4UkxPUvulY4DUg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CWLP265MB5954
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,252 +165,162 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu Mar 19, 2026 at 6:36 AM CET, Alexandre Courbot wrote:
-> `driver_read_area` and `driver_write_area` are internal methods that
-> return slices containing the area of the command queue buffer that the
-> driver has exclusive read of write access, respectively.
+On Fri Mar 20, 2026 at 4:57 AM GMT, Joel Fernandes wrote:
+> Add safe Rust abstractions over the Linux kernel's GPU buddy
+> allocator for physical memory management. The GPU buddy allocator
+> implements a binary buddy system useful for GPU physical memory
+> allocation. nova-core will use it for physical memory allocation.
 >
-> While their returned value is correct and safe to use, internally they
-> temporarily create a reference to the whole command-buffer slice,
-> including GSP-owned regions. These regions can change without notice,
-> and thus creating a slice to them is undefined behavior.
->
-> Fix this by replacing the slice logic with pointer arithmetic and
-> creating slices to valid regions only. It relies on unsafe code, but
-> should be mostly replaced by `IoView` and `IoSlice` once they land.
->
-> Fixes: 75f6b1de8133 ("gpu: nova-core: gsp: Add GSP command queue bindings=
- and handling")
-> Suggested-by: Danilo Krummrich <dakr@kernel.org>
-
-Should be Reported-by:.
-
-> Link: https://lore.kernel.org/all/DH47AVPEKN06.3BERUSJIB4M1R@kernel.org/
-
-Should be Closes:.
-
-> Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
+> Cc: Nikola Djukic <ndjukic@nvidia.com>
+> Signed-off-by: Joel Fernandes <joelagnelf@nvidia.com>
 > ---
->  drivers/gpu/nova-core/gsp/cmdq.rs | 135 ++++++++++++++++++++++++++++----=
-------
->  1 file changed, 100 insertions(+), 35 deletions(-)
+>  MAINTAINERS                     |   6 +
+>  rust/bindings/bindings_helper.h |  11 +
+>  rust/helpers/gpu.c              |  23 ++
+>  rust/helpers/helpers.c          |   1 +
+>  rust/kernel/gpu.rs              |   6 +
+>  rust/kernel/gpu/buddy.rs        | 613 ++++++++++++++++++++++++++++++++
+>  rust/kernel/lib.rs              |   2 +
+>  7 files changed, 662 insertions(+)
+>  create mode 100644 rust/helpers/gpu.c
+>  create mode 100644 rust/kernel/gpu.rs
+>  create mode 100644 rust/kernel/gpu/buddy.rs
 >
-> diff --git a/drivers/gpu/nova-core/gsp/cmdq.rs b/drivers/gpu/nova-core/gs=
-p/cmdq.rs
-> index d36a62ba1c60..4200e7986774 100644
-> --- a/drivers/gpu/nova-core/gsp/cmdq.rs
-> +++ b/drivers/gpu/nova-core/gsp/cmdq.rs
-> @@ -251,38 +251,77 @@ fn new(dev: &device::Device<device::Bound>) -> Resu=
-lt<Self> {
->      /// As the message queue is a circular buffer, the region may be dis=
-contiguous in memory. In
->      /// that case the second slice will have a non-zero length.
->      fn driver_write_area(&mut self) -> (&mut [[u8; GSP_PAGE_SIZE]], &mut=
- [[u8; GSP_PAGE_SIZE]]) {
-> -        let tx =3D self.cpu_write_ptr() as usize;
-> -        let rx =3D self.gsp_read_ptr() as usize;
-> +        let tx =3D num::u32_as_usize(self.cpu_write_ptr());
-> +        let rx =3D num::u32_as_usize(self.gsp_read_ptr());
-> +        // Number of pages between `tx` and the end of the command queue=
-.
-> +        // PANIC: Per the invariant of `cpu_write_ptr`, `tx < MSGQ_NUM_P=
-AGES`.
-> +        let after_tx_len =3D num::u32_as_usize(MSGQ_NUM_PAGES) - tx;
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index e847099efcc2..cd9505d3be60 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -8531,7 +8531,10 @@ T:	git https://gitlab.freedesktop.org/drm/rust/ker=
+nel.git
+>  F:	drivers/gpu/drm/nova/
+>  F:	drivers/gpu/drm/tyr/
+>  F:	drivers/gpu/nova-core/
+> +F:	rust/helpers/gpu.c
+>  F:	rust/kernel/drm/
+> +F:	rust/kernel/gpu.rs
+> +F:	rust/kernel/gpu/
 > =20
-> +        // Pointer to the start of the CPU message queue.
-> +        //
->          // SAFETY:
-> -        // - The `CoherentAllocation` contains exactly one object.
-> -        // - We will only access the driver-owned part of the shared mem=
-ory.
-> -        // - Per the safety statement of the function, no concurrent acc=
-ess will be performed.
-> -        let gsp_mem =3D &mut unsafe { self.0.as_slice_mut(0, 1) }.unwrap=
-()[0];
-> -        // PANIC: per the invariant of `cpu_write_ptr`, `tx` is `< MSGQ_=
-NUM_PAGES`.
-> -        let (before_tx, after_tx) =3D gsp_mem.cpuq.msgq.data.split_at_mu=
-t(tx);
-> +        // - `self.0` contains exactly one element.
-> +        // - `cpuq.msgq.data[0]` is within the bounds of that element.
-> +        let data =3D unsafe { &raw mut (*self.0.start_ptr_mut()).cpuq.ms=
-gq.data[0] };
+>  DRM DRIVERS FOR ALLWINNER A10
+>  M:	Chen-Yu Tsai <wens@kernel.org>
+> @@ -8952,6 +8955,9 @@ F:	drivers/gpu/drm/drm_buddy.c
+>  F:	drivers/gpu/tests/gpu_buddy_test.c
+>  F:	include/drm/drm_buddy.h
+>  F:	include/linux/gpu_buddy.h
+> +F:	rust/helpers/gpu.c
+> +F:	rust/kernel/gpu.rs
+> +F:	rust/kernel/gpu/
 > =20
-> -        // The area starting at `tx` and ending at `rx - 2` modulo MSGQ_=
-NUM_PAGES, inclusive,
-> -        // belongs to the driver for writing.
-> +        // Safety/Panic comments to be referenced by the code below.
-> +        //
-> +        // SAFETY[1]:
-> +        // - `data` points to an array of `MSGQ_NUM_PAGES` elements.
-> +        // - The area starting at `tx` and ending at `rx - 2` modulo `MS=
-GQ_NUM_PAGES`,
-> +        //   inclusive, belongs to the driver for writing and is not acc=
-essed concurrently by
-> +        //   the GSP.
-> +        // - `tx + after_tx_len` =3D=3D `MSGQ_NUM_PAGES`.
-> +        //
-> +        // PANIC[1]:
-> +        // - Per the invariant of `cpu_write_ptr`, `tx < MSGQ_NUM_PAGES`=
-.
-> +        // - Per the invariant of `gsp_read_ptr`, `rx < MSGQ_NUM_PAGES`.
-
-I didn't do the math, but can't we just calculate the offset values in the =
-below
-if-else-if-else blocks and call from_raw_parts_mut() once with the safety
-comment above? I think that'd be much cleaner. Similar for
-driver_write_area_size().
-
->          if rx =3D=3D 0 {
-> -            // Since `rx` is zero, leave an empty slot at end of the buf=
-fer.
-> -            let last =3D after_tx.len() - 1;
-> -            (&mut after_tx[..last], &mut [])
-> +            (
-> +                // SAFETY: See SAFETY[1].
-> +                unsafe {
-> +                    core::slice::from_raw_parts_mut(
-> +                        data.add(tx),
-> +                        // Since `rx` is zero, leave an empty slot at en=
-d of the buffer.
-> +                        // PANIC: See PANIC[1].
-> +                        after_tx_len - 1,
-> +                    )
-> +                },
-> +                &mut [],
-> +            )
->          } else if rx <=3D tx {
->              // The area is discontiguous and we leave an empty slot befo=
-re `rx`.
-> -            // PANIC:
-> -            // - The index `rx - 1` is non-negative because `rx !=3D 0` =
-in this branch.
-> -            // - The index does not exceed `before_tx.len()` (which equa=
-ls `tx`) because
-> -            //   `rx <=3D tx` in this branch.
-> -            (after_tx, &mut before_tx[..(rx - 1)])
-> +            (
-> +                // SAFETY: See SAFETY[1].
-> +                unsafe { core::slice::from_raw_parts_mut(data.add(tx), a=
-fter_tx_len) },
-> +                // SAFETY: See SAFETY[1].
-> +                unsafe {
-> +                    core::slice::from_raw_parts_mut(
-> +                        data,
-> +                        // Leave one empty slot before `rx`.
-> +                        // PANIC:
-> +                        // - See PANIC[1].
-> +                        // - `rx - 1` is non-negative because `rx !=3D 0=
-` in this branch.
-> +                        rx - 1,
-> +                    )
-> +                },
-> +            )
->          } else {
->              // The area is contiguous and we leave an empty slot before =
-`rx`.
-> -            // PANIC:
-> -            // - The index `rx - tx - 1` is non-negative because `rx > t=
-x` in this branch.
-> -            // - The index does not exceed `after_tx.len()` (which is `M=
-SGQ_NUM_PAGES - tx`)
-> -            //   because `rx < MSGQ_NUM_PAGES` by the `gsp_read_ptr` inv=
-ariant.
-> -            (&mut after_tx[..(rx - tx - 1)], &mut [])
-> +            (
-> +                // SAFETY: See SAFETY[1].
-> +                unsafe {
-> +                    core::slice::from_raw_parts_mut(
-> +                        data.add(tx),
-> +                        // PANIC:
-> +                        // - See PANIC[1].
-> +                        // - `rx - tx - 1` is non-negative because `rx >=
- tx` in this branch.
-> +                        rx - tx - 1,
-> +                    )
-> +                },
-> +                &mut [],
-> +            )
->          }
->      }
+>  DRM AUTOMATED TESTING
+>  M:	Helen Koike <helen.fornazier@gmail.com>
+> diff --git a/rust/bindings/bindings_helper.h b/rust/bindings/bindings_hel=
+per.h
+> index 083cc44aa952..dbb765a9fdbd 100644
+> --- a/rust/bindings/bindings_helper.h
+> +++ b/rust/bindings/bindings_helper.h
+> @@ -29,6 +29,7 @@
+>  #include <linux/hrtimer_types.h>
 > =20
-> @@ -308,24 +347,50 @@ fn driver_write_area_size(&self) -> usize {
->          let tx =3D self.gsp_write_ptr() as usize;
->          let rx =3D self.cpu_read_ptr() as usize;
+>  #include <linux/acpi.h>
+> +#include <linux/gpu_buddy.h>
+>  #include <drm/drm_device.h>
+>  #include <drm/drm_drv.h>
+>  #include <drm/drm_file.h>
+> @@ -146,6 +147,16 @@ const vm_flags_t RUST_CONST_HELPER_VM_MIXEDMAP =3D V=
+M_MIXEDMAP;
+>  const vm_flags_t RUST_CONST_HELPER_VM_HUGEPAGE =3D VM_HUGEPAGE;
+>  const vm_flags_t RUST_CONST_HELPER_VM_NOHUGEPAGE =3D VM_NOHUGEPAGE;
 > =20
-> +        // Pointer to the start of the GSP message queue.
-> +        //
->          // SAFETY:
-> -        // - The `CoherentAllocation` contains exactly one object.
-> -        // - We will only access the driver-owned part of the shared mem=
-ory.
-> -        // - Per the safety statement of the function, no concurrent acc=
-ess will be performed.
-> -        let gsp_mem =3D &unsafe { self.0.as_slice(0, 1) }.unwrap()[0];
-> -        let data =3D &gsp_mem.gspq.msgq.data;
-> +        // - `self.0` contains exactly one element.
-> +        // - `gspq.msgq.data[0]` is within the bounds of that element.
-> +        let data =3D unsafe { &raw const (*self.0.start_ptr()).gspq.msgq=
-.data[0] };
+> +#if IS_ENABLED(CONFIG_GPU_BUDDY)
+> +const unsigned long RUST_CONST_HELPER_GPU_BUDDY_RANGE_ALLOCATION =3D GPU=
+_BUDDY_RANGE_ALLOCATION;
+> +const unsigned long RUST_CONST_HELPER_GPU_BUDDY_TOPDOWN_ALLOCATION =3D G=
+PU_BUDDY_TOPDOWN_ALLOCATION;
+> +const unsigned long RUST_CONST_HELPER_GPU_BUDDY_CONTIGUOUS_ALLOCATION =
+=3D
+> +								GPU_BUDDY_CONTIGUOUS_ALLOCATION;
+> +const unsigned long RUST_CONST_HELPER_GPU_BUDDY_CLEAR_ALLOCATION =3D GPU=
+_BUDDY_CLEAR_ALLOCATION;
+> +const unsigned long RUST_CONST_HELPER_GPU_BUDDY_CLEARED =3D GPU_BUDDY_CL=
+EARED;
+> +const unsigned long RUST_CONST_HELPER_GPU_BUDDY_TRIM_DISABLE =3D GPU_BUD=
+DY_TRIM_DISABLE;
+> +#endif
 > +
-> +        // Safety/Panic comments to be referenced by the code below.
-> +        //
-> +        // SAFETY[1]:
-> +        // - `data` points to an array of `MSGQ_NUM_PAGES` elements.
-> +        // - The area starting at `rx` and ending at `tx - 1` modulo `MS=
-GQ_NUM_PAGES`,
-> +        //   inclusive, belongs to the driver for reading and is not acc=
-essed concurrently by
-> +        //   the GSP.
-> +        //
-> +        // PANIC[1]:
-> +        // - Per the invariant of `cpu_read_ptr`, `rx < MSGQ_NUM_PAGES`.
-> +        // - Per the invariant of `gsp_write_ptr`, `tx < MSGQ_NUM_PAGES`=
-.
-> =20
-> -        // The area starting at `rx` and ending at `tx - 1` modulo MSGQ_=
-NUM_PAGES, inclusive,
-> -        // belongs to the driver for reading.
-> -        // PANIC:
-> -        // - per the invariant of `cpu_read_ptr`, `rx < MSGQ_NUM_PAGES`
-> -        // - per the invariant of `gsp_write_ptr`, `tx < MSGQ_NUM_PAGES`
->          if rx <=3D tx {
->              // The area is contiguous.
-> -            (&data[rx..tx], &[])
-> +            (
-> +                // SAFETY: See SAFETY[1].
-> +                // PANIC:
-> +                // - See PANIC[1].
-> +                // - Per the branch test, `rx <=3D tx`.
-> +                unsafe { core::slice::from_raw_parts(data.add(rx), tx - =
-rx) },
-> +                &[],
-> +            )
->          } else {
->              // The area is discontiguous.
-> -            (&data[rx..], &data[..tx])
-> +            (
-> +                // SAFETY: See SAFETY[1].
-> +                // PANIC: See PANIC[1].
-> +                unsafe {
-> +                    core::slice::from_raw_parts(
-> +                        data.add(rx),
-> +                        num::u32_as_usize(MSGQ_NUM_PAGES) - rx,
-> +                    )
-> +                },
-> +                // SAFETY: See SAFETY[1].
-> +                // PANIC: See PANIC[1].
-> +                unsafe { core::slice::from_raw_parts(data, tx) },
-> +            )
->          }
->      }
-> =20
->
-> ---
-> base-commit: a19457958c3018783881c4416f272cd594f13049
-> change-id: 20260319-cmdq-ub-fix-d57b09a745b9
->
-> Best regards,
-> --=20
-> Alexandre Courbot <acourbot@nvidia.com>
+>  #if IS_ENABLED(CONFIG_ANDROID_BINDER_IPC_RUST)
+>  #include "../../drivers/android/binder/rust_binder.h"
+>  #include "../../drivers/android/binder/rust_binder_events.h"
+> diff --git a/rust/helpers/gpu.c b/rust/helpers/gpu.c
+> new file mode 100644
+> index 000000000000..38b1a4e6bef8
+> --- /dev/null
+> +++ b/rust/helpers/gpu.c
+> @@ -0,0 +1,23 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +
+> +#include <linux/gpu_buddy.h>
+> +
+> +#ifdef CONFIG_GPU_BUDDY
+> +
+> +__rust_helper u64 rust_helper_gpu_buddy_block_offset(const struct gpu_bu=
+ddy_block *block)
+> +{
+> +	return gpu_buddy_block_offset(block);
+> +}
+> +
+> +__rust_helper unsigned int rust_helper_gpu_buddy_block_order(struct gpu_=
+buddy_block *block)
+> +{
+> +	return gpu_buddy_block_order(block);
+> +}
+> +
+> +__rust_helper u64 rust_helper_gpu_buddy_block_size(struct gpu_buddy *mm,
+> +						   struct gpu_buddy_block *block)
+> +{
+> +	return gpu_buddy_block_size(mm, block);
+> +}
+
+From Sashiko:
+https://sashiko.dev/#/patchset/20260320045711.43494-1-joelagnelf%40nvidia.c=
+om
+
+    Does the Rust wrapper use this helper? It looks like AllocatedBlock::si=
+ze()
+    manually duplicates the bitwise logic (chunk_size << order) rather than
+    calling this helper, which could create a divergence risk if the underl=
+ying C
+    allocator implementation changes.
+
+Many other review comments there seem to be false positive, but it might wo=
+rth
+confirming.
+
+Best,
+Gary
+
+> +
+> +#endif /* CONFIG_GPU_BUDDY */
+> diff --git a/rust/helpers/helpers.c b/rust/helpers/helpers.c
+> index 724fcb8240ac..a53929ce52a3 100644
+> --- a/rust/helpers/helpers.c
+> +++ b/rust/helpers/helpers.c
+> @@ -32,6 +32,7 @@
+>  #include "err.c"
+>  #include "irq.c"
+>  #include "fs.c"
+> +#include "gpu.c"
+>  #include "io.c"
+>  #include "jump_label.c"
+>  #include "kunit.c"
+> diff --git a/rust/kernel/gpu.rs b/rust/kernel/gpu.rs
+> new file mode 100644
+> index 000000000000..1dc5d0c8c09d
+> --- /dev/null
+> +++ b/rust/kernel/gpu.rs
+> @@ -0,0 +1,6 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +
+> +//! GPU subsystem abstractions.
+> +
+> +#[cfg(CONFIG_GPU_BUDDY =3D "y")]
+> +pub mod buddy;
 
