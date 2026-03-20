@@ -4,42 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 79E581098783
-	for <dri-devel@archiver.kernel.org>; Fri, 20 Mar 2026 13:20:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CEFCB1098781
+	for <dri-devel@archiver.kernel.org>; Fri, 20 Mar 2026 13:27:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DE75E10E1EE;
-	Fri, 20 Mar 2026 13:20:22 +0000 (UTC)
-Received: from ni.piap.pl (ni.piap.pl [195.187.100.5])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A488D10E1EE
- for <dri-devel@lists.freedesktop.org>; Fri, 20 Mar 2026 13:20:20 +0000 (UTC)
-Received: from t19.piap.pl (OSB1819.piap.pl [10.0.9.19])
- by ni.piap.pl (Postfix) with ESMTPS id 655BEC3EEAC9;
- Fri, 20 Mar 2026 14:20:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 ni.piap.pl 655BEC3EEAC9
-From: =?utf-8?Q?Krzysztof_Ha=C5=82asa?= <khalasa@piap.pl>
-To: Maxime Ripard <mripard@kernel.org>
-Cc: Marco Felsch <m.felsch@pengutronix.de>,  Marek Vasut
- <marex@nabladev.com>,  Stefan Agner <stefan@agner.ch>,  Liu Ying
- <victor.liu@nxp.com>,  Simona Vetter <simona@ffwll.ch>,
- imx@lists.linux.dev,  Fabio Estevam <festevam@gmail.com>,  Pengutronix
- Kernel Team <kernel@pengutronix.de>,  Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>,  Sascha Hauer
- <s.hauer@pengutronix.de>,  Frank Li <Frank.Li@nxp.com>,
- linux-kernel@vger.kernel.org,  dri-devel@lists.freedesktop.org,  Thomas
- Zimmermann <tzimmermann@suse.de>,  David Airlie <airlied@gmail.com>,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: i.MX8MP: Fix HDMI LCDIF FIFO underruns
-In-Reply-To: <20260320-amiable-hairy-bullfinch-28bfda@houat> (Maxime Ripard's
- message of "Fri, 20 Mar 2026 10:25:11 +0100")
-References: <m3ms04caaj.fsf@t19.piap.pl>
- <32317022-3c44-4ead-9e2d-04caa12b28cb@nabladev.com>
- <m36pvjbo4xy2rtdymshjpmwu7icl3wlyiwcmmjaozo7jpe5lqk@zt7byx7iwmym>
- <20260320-amiable-hairy-bullfinch-28bfda@houat>
-Date: Fri, 20 Mar 2026 14:20:15 +0100
-Message-ID: <m3a4w2d4ds.fsf@t19.piap.pl>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2E57B10E97C;
+	Fri, 20 Mar 2026 13:27:08 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="X+UlBGEQ";
+	dkim-atps=neutral
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5E6EE10E97C
+ for <dri-devel@lists.freedesktop.org>; Fri, 20 Mar 2026 13:27:06 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 2C00943F75;
+ Fri, 20 Mar 2026 13:27:06 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE4D7C2BCB0;
+ Fri, 20 Mar 2026 13:27:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1774013226;
+ bh=sgHsFwDiNLrXXjtGraq6XSBOmIhvxDGnplc/Xro+bSI=;
+ h=Date:To:From:Subject:Cc:References:In-Reply-To:From;
+ b=X+UlBGEQ7YEZrMnWcZ4LOjyjODl+QQzPtk3HrVojqkGd/PAGa8yEEprpG1EXmN+0R
+ 8jjhVP9nFiS7Uh1B0n7g1beqr/tsSg4xVSX+O/fvEkJ7u9gw9zAAf3mbLGCI6Ivnua
+ 6LE1yKpBzUwxKwWz1dGGuJ2hxQBD29Fsb3mhtNgogeIvMSHs6AHlXrqPA/naxZ/4ob
+ Slh7t+VNBnj4MWobmiPYubmQaV6Y4IjdaIeyzDSlUGVWo4m0PGGTBBa2BAjETgQi4s
+ oEMUU0bBjKs4fQFRtTcnUNgkUsD0jFjqXZRmclBAOzwYH/m0BKjFWx3JMTbta72Bl6
+ 2NgIKLMoUzQEA==
+Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Fri, 20 Mar 2026 14:27:01 +0100
+Message-Id: <DH7N7BE0CQNG.VI8THRIVHONS@kernel.org>
+To: "Eliot Courtney" <ecourtney@nvidia.com>
+From: "Danilo Krummrich" <dakr@kernel.org>
+Subject: Re: [PATCH v2 9/9] gpu: nova-core: gsp: add
+ CeGetFaultMethodBufferSize RM control command
+Cc: "Alice Ryhl" <aliceryhl@google.com>, "Alexandre Courbot"
+ <acourbot@nvidia.com>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
+ <simona@ffwll.ch>, "John Hubbard" <jhubbard@nvidia.com>, "Alistair Popple"
+ <apopple@nvidia.com>, "Joel Fernandes" <joelagnelf@nvidia.com>, "Timur
+ Tabi" <ttabi@nvidia.com>, <rust-for-linux@vger.kernel.org>,
+ <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
+References: <20260318-rmcontrol-v2-0-9a9fa6f1c4c3@nvidia.com>
+ <20260318-rmcontrol-v2-9-9a9fa6f1c4c3@nvidia.com>
+In-Reply-To: <20260318-rmcontrol-v2-9-9a9fa6f1c4c3@nvidia.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,53 +63,51 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Maxime Ripard <mripard@kernel.org> writes:
+On Wed Mar 18, 2026 at 8:14 AM CET, Eliot Courtney wrote:
+> +/// Sends the `CeGetFaultMethodBufferSize` RM control command and waits =
+for its reply.
+> +///
+> +/// Returns the CE fault method buffer size in bytes.
+> +#[expect(dead_code)]
+> +pub(crate) fn get_ce_fault_method_buffer_size(
+> +    cmdq: &Cmdq,
+> +    bar: &Bar0,
+> +    client: Handle<Client>,
+> +    subdevice: Handle<Subdevice>,
+> +) -> Result<u32> {
+> +    // Stack-allocate the request; CeGetFaultMethodBufferSizeParams is s=
+mall (4 bytes).
+> +    let req =3D [0u8; size_of::<CeGetFaultMethodBufferSizeParams>()];
+> +
+> +    let cmd =3D RmControl::new(
+> +        client,
+> +        subdevice,
+> +        RmControlMsgFunction::CeGetFaultMethodBufferSize,
+> +        &req,
+> +    );
+> +    let reply =3D send_rm_control(cmdq, bar, cmd)?;
+> +
+> +    let params =3D CeGetFaultMethodBufferSizeParams::from_bytes(&reply).=
+ok_or(EINVAL)?;
+> +
+> +    Ok(params.size())
+> +}
 
->> > > -	writel(FIELD_PREP(PANIC0_THRES_LOW_MASK, 1 * PANIC0_THRES_MAX / 3)=
- |
->> > > -	       FIELD_PREP(PANIC0_THRES_HIGH_MASK, 2 * PANIC0_THRES_MAX / 3=
-),
->> > > +	writel(FIELD_PREP(PANIC0_THRES_LOW_MASK, DIV_ROUND_UP(1 * PANIC0_T=
-HRES_MAX, 3)) |
->> > > +	       FIELD_PREP(PANIC0_THRES_HIGH_MASK, DIV_ROUND_UP(2 * PANIC0_=
-THRES_MAX, 3)),
+This is similar to send_rm_control(), I think RmControl should be generic o=
+ver
+the control message type, so you could just write something along the lines=
+ of:
 
-> If this is related to the output resolution, the DT is the last place
-> you should deal with this.
+	RmControl::<CeGetFaultMethodBufferSize>::new(...).send();
 
-Well... just tested (v6.19 + patch) with 2160p30 and, surprise surprise,
-it doesn't work for like 10% of the time. I.e., the display may freeze
-at weston start and/or shutdown time, but otherwise works:
+Admittedly, CeGetFaultMethodBufferSize is a bit long, but that's GSP naming=
+ and
+get_ce_fault_method_buffer_size() isn't shorter anyway.
 
-v6.19 (frozen screen while starting weston, same display, the patch
-applied):
-32FC6000:        2        2        2        2
-32FC6010: 80000000  8700F00  12800B0   480008
-32FC6020:    A0058  1000007        0
-32FC6030:        1        1
-32FC6200:  8700F00            223C00 EF000000
-32FC6210:        0 89000000                 1
-32FC6220:        0        0        0        0
-32FC6230:        0        0   AB0155
+(Btw. please try to avoid building functions named get_*() or *_get(), thou=
+gh
+I'm aware that it is part of the struct name in this case. Yet another reas=
+on
+not to solve this with a helper function. :)
 
-OTOH NXP's 6.6.23 works all the time:
-NCP v6.6.23 (a different i.MX8MP):
-32FC6000:        A        A        A        A
-32FC6010: 80000000  8700F00  12800B0   480008
-32FC6020:    A0058    10005        0
-32FC6030:        1        1
-32FC6200:  8700F00            A23C00 97C00000
-32FC6210:        0 89000000                 1
-32FC6220:        0        0        0        0
-32FC6230:        0        0   AB0155
-
-32FC600x 2 vs. A is pixel clock inversion.
-32FC6208 is config P_SIZE, T_SIZE + pitch.
-
-More tests after weekend.
---=20
-Krzysztof "Chris" Ha=C5=82asa
-
-Sie=C4=87 Badawcza =C5=81ukasiewicz
-Przemys=C5=82owy Instytut Automatyki i Pomiar=C3=B3w PIAP
-Al. Jerozolimskie 202, 02-486 Warszawa
+Alternatively, you could also consider a builder pattern approach.
