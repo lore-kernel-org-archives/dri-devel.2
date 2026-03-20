@@ -4,38 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6131E10987A5
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EFBBA10987AB
 	for <dri-devel@archiver.kernel.org>; Fri, 20 Mar 2026 16:42:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BECB910EBA3;
-	Fri, 20 Mar 2026 16:42:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 229E610EBA2;
+	Fri, 20 Mar 2026 16:42:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="SBBxmhr6";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="VoQC0Thz";
 	dkim-atps=neutral
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7F19B10EBAC
- for <dri-devel@lists.freedesktop.org>; Fri, 20 Mar 2026 16:42:25 +0000 (UTC)
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E7E4210EBA0;
+ Fri, 20 Mar 2026 16:42:18 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-02.galae.net (Postfix) with ESMTPS id 73E7D1A2F1D;
- Fri, 20 Mar 2026 16:42:24 +0000 (UTC)
+ by smtpout-04.galae.net (Postfix) with ESMTPS id 4D280C5668D;
+ Fri, 20 Mar 2026 16:42:43 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 4A5E4600E0;
- Fri, 20 Mar 2026 16:42:24 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id C6867600E0;
+ Fri, 20 Mar 2026 16:42:17 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id B31EA10450CB4; Fri, 20 Mar 2026 17:42:20 +0100 (CET)
+ with ESMTPSA id 4ED4410450CB6; Fri, 20 Mar 2026 17:42:13 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1774024943; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ t=1774024936; h=from:subject:date:message-id:to:cc:mime-version:content-type:
  content-transfer-encoding:in-reply-to:references;
- bh=0jgXwa52ZddKFGAULnlWCD3CvHRYu/FIffa1Wa1TR18=;
- b=SBBxmhr6uOQd78BgMRZ6i1hJ25m58QyLFke/+xWjGbrg3I7MIU+ne9HtMxqk+6mpmMUUWG
- +GPDLg4pI3Vk7kPW4Iw+DJxqJ++fjOhBiQrrgD4Xx1bKboTMsFY8eE8plANIvt6sfWz5WZ
- Tr8vaF/bTPU5meWJkYvX0bSAu5kQsG8Au99cyYoS+2Om1Ka7WbO14mkvh2fmuN5XGCqOU8
- HZSawYJpwbhXD9k14iO8fuoWSfUXG3xoBif/Vzj8qSSFE/YTy8hh5viM/JqAFwjAgCMuow
- 4UFBVhfP+D9/1UWULrvTWMHfI3zB54ynmc5HQB4iWo4agztG5jgU2j9yftmzRw==
+ bh=IpIrkQUhN8f9igBcCmDP+0RFUmudVzc+7akDpTrZ6nU=;
+ b=VoQC0ThzFJinqd5e1n9HS6KWBV5NRmpjFvScHyP+XxqNHEyuoSWX/aJzfFJjM0+vwswadm
+ OjUlL+JUZYgTXkMBsY98T0IqlTgjoUCUhcB9UR1hGQ8ROGpbSEfVAlSLT5q3TWJzcVWee3
+ l5ZfkLrEC10+81aIjQtznNYe0h/ZHdyDvrt/DaPUMkdHogNH5/T2XKtMF2Nua2cZegqO63
+ xfrP2ciDmdt3rsLUxCvQvpU0EMxg2Z2HuN9QobwFYko+fZoM/cZqlokD53//4ZjwJ7C4BN
+ fGHjVTCMIo9l5+cJNkCjFTauPayTbgXw++44DVBKPyCl539EX/V9wfaahjj3Pg==
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v11 30/65] dyndbg: resolve "protection" of class'd pr_debug
+Subject: Re: [PATCH v11 26/65] dyndbg-API: promote
+ DYNAMIC_DEBUG_CLASSMAP_PARAM to API
 From: Louis Chauvet <louis.chauvet@bootlin.com>
 To: airlied@gmail.com, simona@ffwll.ch, jbaron@akamai.com, 
  gregkh@linuxfoundation.org
@@ -47,27 +48,27 @@ Cc: Jim Cromie <jim.cromie@gmail.com>, mripard@kernel.org,
  skhan@linuxfoundation.org, pmladek@suse.com, ukaszb@chromium.org, 
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
  intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-In-Reply-To: <20260313132103.2529746-31-jim.cromie@gmail.com>
+In-Reply-To: <20260313132103.2529746-27-jim.cromie@gmail.com>
 References: <20260313132103.2529746-1-jim.cromie@gmail.com>
- <20260313132103.2529746-31-jim.cromie@gmail.com>
+ <20260313132103.2529746-27-jim.cromie@gmail.com>
 Date: Fri, 20 Mar 2026 17:41:54 +0100
-Message-Id: <177402491449.6181.8307660284249533157.b4-review@b4>
+Message-Id: <177402491446.6181.10584556385608309440.b4-review@b4>
 X-Mailer: b4 0.15-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1805;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=505;
  i=louis.chauvet@bootlin.com; h=from:subject:message-id;
- bh=vAVTGyCwCitGcQBi9zybWTqkZvRi6CuQUZTaiYTOkYg=;
- b=owEBiQJ2/ZANAwAIASCtLsZbECziAcsmYgBpvXjY8Ybs8wXApEHBP9mQOJ31WG+UPhXQsNhXC
- ZrmRwyJOZuJAk8EAAEIADkWIQRPj7g/vng8MQxQWQQgrS7GWxAs4gUCab142BsUgAAAAAAEAA5t
- YW51MiwyLjUrMS4xMSwyLDIACgkQIK0uxlsQLOINmBAAmml69jJeewbDfBoulxPnNRYIQy8axha
- h0+F6fX5YzlQAWkZnwOzG5ZttRRJC2lqENTqciJOk3IU6hlNZ8CUZuj2VvC7o6yk1zBYYbnlO9K
- SgJPaYwApdpJTvqjobFHuvHhMkferpJCRbgkecf7RlYNX6VVWotjixUSqSKP36Of15EsMhDPjn6
- xVQOMqD7jbrsBpHWTN3R0cLi34IVzKTQNd/sBosL8m6JQzHGJRFY4WmWg3Ud4r/qy1AtndUDBUV
- hOeXXVMDif1U5Qjyd8ltLCo2d4AQ7YwYNqioqxWo94wtfWtITj9MI28be+roLWM0hkbrhNhgLYk
- on6AYdkSD86v+gH0JJTIfNq8RLBFOa5JbFY82vjogBi4ao3aD1i6Ske8Tt6cKKWXP17KPK5sf1I
- suhoa22PknhfvxAt4eNMxFi7pGUEH+fWI2NdHpFqJqLOdFgZR/iqvKbEqLo0WYcXM1eurCj8rKR
- 3fi/EsgfhTgQ2ybRFxS3xpxR8n4p/ZfV0XuldQ1N5AYY68tSqysOi3tc1WniXrSa4XTJVI5b5Z5
- +nM4Lg1UTzEJMWvvea7Fwv0jGjA5tDc31VIE0KuZIGoI9ZYffGPOoOcpQqS9RRGglU7Vqg2lEA+
- V75aFQRkrU5fpXGJrYXnGDpD/6VepQ3HNd2eQzynJ5Bqr+VD+pYM=
+ bh=QnoSxbC/cY3NZCY1pQn05gze166+KvYaqE2hHUZIazo=;
+ b=owEBiQJ2/ZANAwAIASCtLsZbECziAcsmYgBpvXjYVKznFtfm2NveHmwQmNVFdRP9BwFBABzkr
+ 51i8gtIGGCJAk8EAAEIADkWIQRPj7g/vng8MQxQWQQgrS7GWxAs4gUCab142BsUgAAAAAAEAA5t
+ YW51MiwyLjUrMS4xMSwyLDIACgkQIK0uxlsQLOK8Hw/9Geg+lz6YSmcNWoNyrjdqBcH3CO8z8wC
+ t2fz23bkJg28OvwD/nZ5GukYX3ab2sIlJmdvfiFd0Ny4Tt8Mc/9XH3Cvv+ujZ4xfveJ9hXSKkZV
+ 9qusbFNE2PsO7ZKLpnSuDYdAT60NTOa9HC7dDp0MVBXU+IpYKmJ14pN7jQbJ2CVEnzh2n2RLSSq
+ FxDOQzWo4V6ssj0k0QFIht3Y089QYHUajO0tluOLa8UhEUQ5iv32TQ6fCDT82fSlZkK1kyO4DVb
+ UrsRiCPFW9aiIGyoQEuUK1y/9fVQgr2ZoovaHGvM+TnCAKD8Q1ZLMRLy7g+5SoRYzTyDZk7ECvZ
+ Wowy+PS29IMMg+53GOG60cLew/x14K6Fk5hifKimi6GGzP9c+jT1Q6nblzZlXO+P/Ow1pxtQcd6
+ Lx89ooK+UHbLnW7Sf8GB6KMGcLCei6EFo7IB/ED8z1dcyuTU/uF0AdMAlolvK5LiUrwmwO2YFJl
+ 5iHi9KTPJkPS7hZvCiHQj2Co+XjUpvVE/u9ziYxKdQhnOt/MaC9Zqsq1kuf3xuIFH0FmQg/2AJQ
+ YWoXOJyNtxyfhnw/cRFbLNnj1cEJanRlYGOHLz26LV5EjyowL0Jg2FVQw3R8GelQelmbqg8jEeX
+ 3GqWTg84YpgHUJYOAd/+S2UZ43M9Jgtq4Zn8juYazQ+7npwQVawE=
 X-Developer-Key: i=louis.chauvet@bootlin.com; a=openpgp;
  fpr=8B7104AE9A272D6693F527F2EC1883F55E0B40A5
 X-Last-TLS-Session-Version: TLSv1.3
@@ -86,52 +87,15 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, 13 Mar 2026 07:19:55 -0600, Jim Cromie <jim.cromie@gmail.com> wrote:
+On Fri, 13 Mar 2026 07:19:51 -0600, Jim Cromie <jim.cromie@gmail.com> wrote:
+> move the DYNAMIC_DEBUG_CLASSMAP_PARAM macro from test-dynamic-debug.c into
+> the header, and refine it, by distinguishing the 2 use cases:
+> 
+> 1.DYNAMIC_DEBUG_CLASSMAP_PARAM_REF
+>     for DRM, to pass in extern __drm_debug by name.
+>     dyndbg keeps bits in it, so drm can still use it as before
+> 
 > [...]
-> 
-> The new resolution:
-> 
-> If ABI is the blocking issue, then no ABI means no blocking issue.
-> IOW, if the classmap has no presence under /sys/*, ie no PARAM, there
-> is no ABI to guard, and no reason to enforce a tedious interface.
-
-That a good improvment! For me this is a good solution. The tideous part is
-removed for "new" logging systems, and the DRM case is properly handled
-until they decide to break their ABI.
-
->
->
-> diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-> index a1c3141372d1..e9fa0c8868db 100644
-> --- a/lib/dynamic_debug.c
-> +++ b/lib/dynamic_debug.c
-> @@ -206,6 +206,50 @@ ddebug_find_valid_class(struct _ddebug_info const *di, const char *query_class,
->  	return NULL;
->  }
->  
-> +static bool ddebug_class_in_range(const int class_id, const struct _ddebug_class_map *map)
-> +{
-> +	return (class_id >= map->base &&
-> +		class_id < map->base + map->length);
-> +}
-
-I think you introduced this function in a previous patch (macro
-class_in_range->ddebug_class_in_range), you move it here and you rename it
-later.
-
-Can you do a separate "preparatory" patch for this macro->function+rename
-to simplify the change here?
-
-> @@ -1275,6 +1344,13 @@ static void ddebug_apply_params(const struct _ddebug_class_map *cm, const char *
-> [ ... skip 7 lines ... ]
-> + * use it, and expects it to reflect reality.  We should oblige him,
-> + * and protect those classmaps from classless "-p" changes.
-> + */
->  static void ddebug_apply_class_maps(const struct _ddebug_info *di)
->  {
->  	struct _ddebug_class_map *cm;
-
-With the splitting of the patch:
 
 Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
 
