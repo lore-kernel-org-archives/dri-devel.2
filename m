@@ -4,56 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB5A91075269
-	for <dri-devel@archiver.kernel.org>; Fri, 20 Mar 2026 12:48:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1FC8B109193F
+	for <dri-devel@archiver.kernel.org>; Fri, 20 Mar 2026 12:54:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2DE3310EAB9;
-	Fri, 20 Mar 2026 12:48:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BDD2310EAEE;
+	Fri, 20 Mar 2026 12:54:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="Li8/pXHT";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="TfvvPfLJ";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4FE2810EAB9;
- Fri, 20 Mar 2026 12:48:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=kEnWwn4hCL/bKIi4frW8u1y9gr96rd7KnbMzf+7KM8Y=; b=Li8/pXHTzlSfU5VAjZY5WKsJtk
- lCzyyKlgOTd7ykcZTq9lMLJ6cC4I4Qxqiuvbrt+6jcZmkvVyuiOzipFt3qH4tr3LPw6kAu0nWgd5V
- /UM8blvv8pFr6PbQe91ulzOM/Yz8mIsrHEkGycQO4esmaan5bG7QrKcdRMEEGWaGbLE9JGRNsHl8B
- c/9HYpxC9fPweJK9QvMVcvntpm6nKLJIwybRrSSUp+62cSIsn8ZwSlEpqi+HbCrLXorQ2jTamUcYg
- kgpaDUEITuH5tiaqi+sC2H8ZmDAjvulf/wzSzZzpZD3LF9sJlJhEraxoWMvsQpw+ULaIiK4AVLcKZ
- bW7xNDVQ==;
-Received: from [186.208.74.38] (helo=[192.168.18.14])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1w3ZGb-003nrM-1L; Fri, 20 Mar 2026 13:47:53 +0100
-Message-ID: <f993cd33-cb39-4fb4-9dbb-42abd22c3112@igalia.com>
-Date: Fri, 20 Mar 2026 09:47:47 -0300
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] drm/drm_atomic: duplicate colorop states if plane
- color pipeline in use
-To: Maxime Ripard <mripard@kernel.org>
-Cc: maarten.lankhorst@linux.intel.com, tzimmermann@suse.de,
- airlied@gmail.com, simona@ffwll.ch, contact@emersion.fr,
- sebastian.wick@redhat.com, harry.wentland@amd.com, daniels@collabora.com,
- Alex Hung <alex.hung@amd.com>,
- Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>,
- Uma Shankar <uma.shankar@intel.com>, Xaver Hugl <xaver.hugl@kde.org>,
- amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com,
- dri-devel@lists.freedesktop.org
-References: <20260318163629.300627-1-mwen@igalia.com>
- <20260319-nocturnal-mighty-chupacabra-87cbd0@houat>
-Content-Language: en-US
-From: Melissa Wen <mwen@igalia.com>
-In-Reply-To: <20260319-nocturnal-mighty-chupacabra-87cbd0@houat>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 068AD10EAE8
+ for <dri-devel@lists.freedesktop.org>; Fri, 20 Mar 2026 12:54:29 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 93B4F4385A;
+ Fri, 20 Mar 2026 12:54:28 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1619BC4CEF7;
+ Fri, 20 Mar 2026 12:54:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1774011268;
+ bh=+M6qcQrMb3yqvBwU3Vq6wlNdSf3DZj0nu/V7zE51IKk=;
+ h=Date:Cc:To:From:Subject:References:In-Reply-To:From;
+ b=TfvvPfLJjL+91s91n2gRFMntA85eHYefdoW3jBKajyP1eFnWU/jycj8tPkKg3/sOa
+ OSSDkg/C2oGpFfdTpD+pdVWQIH7ImJRTCD8xpP88IHXTjxKpuJDdJ7o0NSgiVJ3mHd
+ bOMMqp2fV9EtNbizJ/03wAzKKT+KqxoEqS0ZqaO7tmgJDdc7/J4Io9s9VPy5pX8j+z
+ yrAveyY3cI4vqLL0w9cuA1tSs94nKm94cmHeoRwACFwspsCfkC4J2fJ3nPrw3CxEJs
+ BKNaYcEnIjzPCkNGe1Cqd2dgJXfCnwMpktP0NiqM7oOBhUkGs0iF9tTzSPFfiHB70e
+ h8CvC44/MWUXQ==
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Fri, 20 Mar 2026 13:54:24 +0100
+Message-Id: <DH7MIC1ECKRZ.1YN5T4ATB7A2T@kernel.org>
+Cc: "Alice Ryhl" <aliceryhl@google.com>, "David Airlie" <airlied@gmail.com>,
+ "Simona Vetter" <simona@ffwll.ch>, "Alistair Popple" <apopple@nvidia.com>,
+ "John Hubbard" <jhubbard@nvidia.com>, "Joel Fernandes"
+ <joelagnelf@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>, "Zhi Wang"
+ <zhiw@nvidia.com>, "Eliot Courtney" <ecourtney@nvidia.com>,
+ <rust-for-linux@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>
+To: "Alexandre Courbot" <acourbot@nvidia.com>
+From: "Danilo Krummrich" <dakr@kernel.org>
+Subject: Re: [PATCH] gpu: nova-core: gsp: fix undefined behavior in command
+ queue code
+References: <20260319-cmdq-ub-fix-v1-1-0f9f6e8f3ce3@nvidia.com>
+In-Reply-To: <20260319-cmdq-ub-fix-v1-1-0f9f6e8f3ce3@nvidia.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,46 +63,252 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-
-
-On 19/03/2026 07:00, Maxime Ripard wrote:
-> Hi Melissa,
+On Thu Mar 19, 2026 at 6:36 AM CET, Alexandre Courbot wrote:
+> `driver_read_area` and `driver_write_area` are internal methods that
+> return slices containing the area of the command queue buffer that the
+> driver has exclusive read of write access, respectively.
 >
-> On Wed, Mar 18, 2026 at 01:27:11PM -0300, Melissa Wen wrote:
->> For suspend/resume to work correctly, do for colorop state the same we
->> do for plane/crtc/connector states: duplicate the state of colorops in a
->> color pipeline if it's in use by a given plane when suspending and
->> restore cached colorop states when resuming.
->>
->> Fixes: 2afc3184f3b3 ("drm/plane: Add COLOR PIPELINE property")
->> Reviewed-by: Harry Wentland <harry.wentland@amd.com>
->> Reviewed-by: Alex Hung <alex.hung@amd.com>
->> Reviewed-by: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
->> Signed-off-by: Melissa Wen <mwen@igalia.com>
-> Only slightly related to this patch itself, so this discussion must not
-> block merging this patch.
+> While their returned value is correct and safe to use, internally they
+> temporarily create a reference to the whole command-buffer slice,
+> including GSP-owned regions. These regions can change without notice,
+> and thus creating a slice to them is undefined behavior.
 >
-> I've been looking at revamping the state allocation / reset recently and
-> came across the colorop. It's not clear to me if it's something that
-> should be expected to be reset across a suspend/resume cycle or if it's
-> something that should be maintained across that cycle.
+> Fix this by replacing the slice logic with pointer arithmetic and
+> creating slices to valid regions only. It relies on unsafe code, but
+> should be mostly replaced by `IoView` and `IoSlice` once they land.
 >
-> What is your opinion on that?
+> Fixes: 75f6b1de8133 ("gpu: nova-core: gsp: Add GSP command queue bindings=
+ and handling")
+> Suggested-by: Danilo Krummrich <dakr@kernel.org>
 
-Hi Maxime,
+Should be Reported-by:.
 
-I understand colorop should follow the same lifecycle of plane, since 
-colorop
-is associated with a plane and represent the color configuration of a given
-plane state. So, I think it should be preserved and restored in a
-suspend/resume cycle.
+> Link: https://lore.kernel.org/all/DH47AVPEKN06.3BERUSJIB4M1R@kernel.org/
 
-You mentioned about "revamping state allocation/reset", is there already a
-public link for this work that I can take a look?
+Should be Closes:.
 
-Melissa
-
+> Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
+> ---
+>  drivers/gpu/nova-core/gsp/cmdq.rs | 135 ++++++++++++++++++++++++++++----=
+------
+>  1 file changed, 100 insertions(+), 35 deletions(-)
 >
-> Thanks!
-> Maxime
+> diff --git a/drivers/gpu/nova-core/gsp/cmdq.rs b/drivers/gpu/nova-core/gs=
+p/cmdq.rs
+> index d36a62ba1c60..4200e7986774 100644
+> --- a/drivers/gpu/nova-core/gsp/cmdq.rs
+> +++ b/drivers/gpu/nova-core/gsp/cmdq.rs
+> @@ -251,38 +251,77 @@ fn new(dev: &device::Device<device::Bound>) -> Resu=
+lt<Self> {
+>      /// As the message queue is a circular buffer, the region may be dis=
+contiguous in memory. In
+>      /// that case the second slice will have a non-zero length.
+>      fn driver_write_area(&mut self) -> (&mut [[u8; GSP_PAGE_SIZE]], &mut=
+ [[u8; GSP_PAGE_SIZE]]) {
+> -        let tx =3D self.cpu_write_ptr() as usize;
+> -        let rx =3D self.gsp_read_ptr() as usize;
+> +        let tx =3D num::u32_as_usize(self.cpu_write_ptr());
+> +        let rx =3D num::u32_as_usize(self.gsp_read_ptr());
+> +        // Number of pages between `tx` and the end of the command queue=
+.
+> +        // PANIC: Per the invariant of `cpu_write_ptr`, `tx < MSGQ_NUM_P=
+AGES`.
+> +        let after_tx_len =3D num::u32_as_usize(MSGQ_NUM_PAGES) - tx;
+> =20
+> +        // Pointer to the start of the CPU message queue.
+> +        //
+>          // SAFETY:
+> -        // - The `CoherentAllocation` contains exactly one object.
+> -        // - We will only access the driver-owned part of the shared mem=
+ory.
+> -        // - Per the safety statement of the function, no concurrent acc=
+ess will be performed.
+> -        let gsp_mem =3D &mut unsafe { self.0.as_slice_mut(0, 1) }.unwrap=
+()[0];
+> -        // PANIC: per the invariant of `cpu_write_ptr`, `tx` is `< MSGQ_=
+NUM_PAGES`.
+> -        let (before_tx, after_tx) =3D gsp_mem.cpuq.msgq.data.split_at_mu=
+t(tx);
+> +        // - `self.0` contains exactly one element.
+> +        // - `cpuq.msgq.data[0]` is within the bounds of that element.
+> +        let data =3D unsafe { &raw mut (*self.0.start_ptr_mut()).cpuq.ms=
+gq.data[0] };
+> =20
+> -        // The area starting at `tx` and ending at `rx - 2` modulo MSGQ_=
+NUM_PAGES, inclusive,
+> -        // belongs to the driver for writing.
+> +        // Safety/Panic comments to be referenced by the code below.
+> +        //
+> +        // SAFETY[1]:
+> +        // - `data` points to an array of `MSGQ_NUM_PAGES` elements.
+> +        // - The area starting at `tx` and ending at `rx - 2` modulo `MS=
+GQ_NUM_PAGES`,
+> +        //   inclusive, belongs to the driver for writing and is not acc=
+essed concurrently by
+> +        //   the GSP.
+> +        // - `tx + after_tx_len` =3D=3D `MSGQ_NUM_PAGES`.
+> +        //
+> +        // PANIC[1]:
+> +        // - Per the invariant of `cpu_write_ptr`, `tx < MSGQ_NUM_PAGES`=
+.
+> +        // - Per the invariant of `gsp_read_ptr`, `rx < MSGQ_NUM_PAGES`.
+
+I didn't do the math, but can't we just calculate the offset values in the =
+below
+if-else-if-else blocks and call from_raw_parts_mut() once with the safety
+comment above? I think that'd be much cleaner. Similar for
+driver_write_area_size().
+
+>          if rx =3D=3D 0 {
+> -            // Since `rx` is zero, leave an empty slot at end of the buf=
+fer.
+> -            let last =3D after_tx.len() - 1;
+> -            (&mut after_tx[..last], &mut [])
+> +            (
+> +                // SAFETY: See SAFETY[1].
+> +                unsafe {
+> +                    core::slice::from_raw_parts_mut(
+> +                        data.add(tx),
+> +                        // Since `rx` is zero, leave an empty slot at en=
+d of the buffer.
+> +                        // PANIC: See PANIC[1].
+> +                        after_tx_len - 1,
+> +                    )
+> +                },
+> +                &mut [],
+> +            )
+>          } else if rx <=3D tx {
+>              // The area is discontiguous and we leave an empty slot befo=
+re `rx`.
+> -            // PANIC:
+> -            // - The index `rx - 1` is non-negative because `rx !=3D 0` =
+in this branch.
+> -            // - The index does not exceed `before_tx.len()` (which equa=
+ls `tx`) because
+> -            //   `rx <=3D tx` in this branch.
+> -            (after_tx, &mut before_tx[..(rx - 1)])
+> +            (
+> +                // SAFETY: See SAFETY[1].
+> +                unsafe { core::slice::from_raw_parts_mut(data.add(tx), a=
+fter_tx_len) },
+> +                // SAFETY: See SAFETY[1].
+> +                unsafe {
+> +                    core::slice::from_raw_parts_mut(
+> +                        data,
+> +                        // Leave one empty slot before `rx`.
+> +                        // PANIC:
+> +                        // - See PANIC[1].
+> +                        // - `rx - 1` is non-negative because `rx !=3D 0=
+` in this branch.
+> +                        rx - 1,
+> +                    )
+> +                },
+> +            )
+>          } else {
+>              // The area is contiguous and we leave an empty slot before =
+`rx`.
+> -            // PANIC:
+> -            // - The index `rx - tx - 1` is non-negative because `rx > t=
+x` in this branch.
+> -            // - The index does not exceed `after_tx.len()` (which is `M=
+SGQ_NUM_PAGES - tx`)
+> -            //   because `rx < MSGQ_NUM_PAGES` by the `gsp_read_ptr` inv=
+ariant.
+> -            (&mut after_tx[..(rx - tx - 1)], &mut [])
+> +            (
+> +                // SAFETY: See SAFETY[1].
+> +                unsafe {
+> +                    core::slice::from_raw_parts_mut(
+> +                        data.add(tx),
+> +                        // PANIC:
+> +                        // - See PANIC[1].
+> +                        // - `rx - tx - 1` is non-negative because `rx >=
+ tx` in this branch.
+> +                        rx - tx - 1,
+> +                    )
+> +                },
+> +                &mut [],
+> +            )
+>          }
+>      }
+> =20
+> @@ -308,24 +347,50 @@ fn driver_write_area_size(&self) -> usize {
+>          let tx =3D self.gsp_write_ptr() as usize;
+>          let rx =3D self.cpu_read_ptr() as usize;
+> =20
+> +        // Pointer to the start of the GSP message queue.
+> +        //
+>          // SAFETY:
+> -        // - The `CoherentAllocation` contains exactly one object.
+> -        // - We will only access the driver-owned part of the shared mem=
+ory.
+> -        // - Per the safety statement of the function, no concurrent acc=
+ess will be performed.
+> -        let gsp_mem =3D &unsafe { self.0.as_slice(0, 1) }.unwrap()[0];
+> -        let data =3D &gsp_mem.gspq.msgq.data;
+> +        // - `self.0` contains exactly one element.
+> +        // - `gspq.msgq.data[0]` is within the bounds of that element.
+> +        let data =3D unsafe { &raw const (*self.0.start_ptr()).gspq.msgq=
+.data[0] };
+> +
+> +        // Safety/Panic comments to be referenced by the code below.
+> +        //
+> +        // SAFETY[1]:
+> +        // - `data` points to an array of `MSGQ_NUM_PAGES` elements.
+> +        // - The area starting at `rx` and ending at `tx - 1` modulo `MS=
+GQ_NUM_PAGES`,
+> +        //   inclusive, belongs to the driver for reading and is not acc=
+essed concurrently by
+> +        //   the GSP.
+> +        //
+> +        // PANIC[1]:
+> +        // - Per the invariant of `cpu_read_ptr`, `rx < MSGQ_NUM_PAGES`.
+> +        // - Per the invariant of `gsp_write_ptr`, `tx < MSGQ_NUM_PAGES`=
+.
+> =20
+> -        // The area starting at `rx` and ending at `tx - 1` modulo MSGQ_=
+NUM_PAGES, inclusive,
+> -        // belongs to the driver for reading.
+> -        // PANIC:
+> -        // - per the invariant of `cpu_read_ptr`, `rx < MSGQ_NUM_PAGES`
+> -        // - per the invariant of `gsp_write_ptr`, `tx < MSGQ_NUM_PAGES`
+>          if rx <=3D tx {
+>              // The area is contiguous.
+> -            (&data[rx..tx], &[])
+> +            (
+> +                // SAFETY: See SAFETY[1].
+> +                // PANIC:
+> +                // - See PANIC[1].
+> +                // - Per the branch test, `rx <=3D tx`.
+> +                unsafe { core::slice::from_raw_parts(data.add(rx), tx - =
+rx) },
+> +                &[],
+> +            )
+>          } else {
+>              // The area is discontiguous.
+> -            (&data[rx..], &data[..tx])
+> +            (
+> +                // SAFETY: See SAFETY[1].
+> +                // PANIC: See PANIC[1].
+> +                unsafe {
+> +                    core::slice::from_raw_parts(
+> +                        data.add(rx),
+> +                        num::u32_as_usize(MSGQ_NUM_PAGES) - rx,
+> +                    )
+> +                },
+> +                // SAFETY: See SAFETY[1].
+> +                // PANIC: See PANIC[1].
+> +                unsafe { core::slice::from_raw_parts(data, tx) },
+> +            )
+>          }
+>      }
+> =20
+>
+> ---
+> base-commit: a19457958c3018783881c4416f272cd594f13049
+> change-id: 20260319-cmdq-ub-fix-d57b09a745b9
+>
+> Best regards,
+> --=20
+> Alexandre Courbot <acourbot@nvidia.com>
 
