@@ -4,48 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7DB37109318B
-	for <dri-devel@archiver.kernel.org>; Fri, 20 Mar 2026 08:38:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7F21B109318B
+	for <dri-devel@archiver.kernel.org>; Fri, 20 Mar 2026 08:38:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C1C7810EAAD;
-	Fri, 20 Mar 2026 08:38:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CF66C10EAB1;
+	Fri, 20 Mar 2026 08:38:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=163.com header.i=@163.com header.b="DSzuaiSB";
+	dkim=pass (1024-bit key; unprotected) header.d=163.com header.i=@163.com header.b="LwwCuhWn";
 	dkim-atps=neutral
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D60E010E00D
+X-Greylist: delayed 765 seconds by postgrey-1.36 at gabe;
+ Fri, 20 Mar 2026 07:44:57 UTC
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EDD8D10E960
  for <dri-devel@lists.freedesktop.org>; Fri, 20 Mar 2026 07:44:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
- s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=Ax
- v3kt0/X+Ju3helrk5fBsUgAvH/ndDA/ivuh3VEB6s=; b=DSzuaiSB5slpM0xhlH
- aBYUuG2zsNmYMMUuQ9NnJVODwUEIprXyEk5SROSq4yJ2qHAa5cqbPFe8+qGKi34e
- b12SGXEAcvc/pLqxozPy9jHRrBg85SepiOeQFmUXI2LY1TkD0AzLEOwapRPrAdTB
- Nq2n57im9gtanfX0By0t8i/DA=
+ s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=JU
+ 4F2Q3eHK9pvmSD7puYaqzGpZsj+mRfAjJq366raHs=; b=LwwCuhWn3JaI4s4pad
+ 4MRMvZujDojNeeWUmpdXt1qPI2qBkHAbBFpHfHxzNc0mIlnOnGIQVzAqZIblEaRK
+ 9fRxlOWFuDcXc6HATQ8j4oFUVPfajfO2n/DxAtBFrkudgy2ckSZ9DKSxobQOliV3
+ 1qPQVPy9yxvaSqVBvV7ff9/CQ=
 Received: from neo-TianYi510Pro-15ICK.. (unknown [])
  by gzga-smtp-mtada-g0-3 (Coremail) with SMTP id
- _____wCnYRfT97xpLMlnAQ--.10124S3; 
- Fri, 20 Mar 2026 15:31:50 +0800 (CST)
+ _____wCnYRfT97xpLMlnAQ--.10124S4; 
+ Fri, 20 Mar 2026 15:31:54 +0800 (CST)
 From: liuqiangneo@163.com
 To: maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
  airlied@gmail.com, simona@ffwll.ch
 Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
  Qiang Liu <liuqiang@kylinos.cn>
-Subject: [PATCH 1/2] drm/debugfs: Replace seq_printf with seq_puts for
- constant strings
-Date: Fri, 20 Mar 2026 15:31:27 +0800
-Message-ID: <20260320073129.145575-2-liuqiangneo@163.com>
+Subject: [PATCH 2/2] drm/dp_mst: Replace seq_printf with seq_puts for constant
+ strings
+Date: Fri, 20 Mar 2026 15:31:28 +0800
+Message-ID: <20260320073129.145575-3-liuqiangneo@163.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260320073129.145575-1-liuqiangneo@163.com>
 References: <20260320073129.145575-1-liuqiangneo@163.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: _____wCnYRfT97xpLMlnAQ--.10124S3
-X-Coremail-Antispam: 1Uf129KBjvJXoW7Jw4UuFy3Jw15JrW3Xw4DXFb_yoW8JF1Dpa
- 9xCF90kr40yF45KryxA3WDZryfG3ZIvFySgrZrXw15Cry5Zr4UXryYga12yrykWr97Cw4Y
- qFsYgFWUWwn8uaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jTKZJUUUUU=
+X-CM-TRANSID: _____wCnYRfT97xpLMlnAQ--.10124S4
+X-Coremail-Antispam: 1Uf129KBjvJXoWxCr4kuF17XF43AFyUJF1kKrg_yoW5Xr4fpr
+ ZxCFyUGw1qvFs8tr47Jw42grZ8Ga9xAFyxW393Jw43Jwn8Ar4DCasFqayxtF4UGF9rtw15
+ tF4q9a45GFyDWaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jfAwxUUUUU=
 X-Originating-IP: [116.128.244.169]
-X-CM-SenderInfo: 5olx1xxdqj0vrr6rljoofrz/xtbC-AbAImm89+Yg9wAA3L
+X-CM-SenderInfo: 5olx1xxdqj0vrr6rljoofrz/xtbC3wrBI2m89+oQwQAA3u
 X-Mailman-Approved-At: Fri, 20 Mar 2026 08:38:22 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -70,31 +72,70 @@ doesn't need to parse the format string.
 
 Signed-off-by: Qiang Liu <liuqiang@kylinos.cn>
 ---
- drivers/gpu/drm/drm_debugfs.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/display/drm_dp_mst_topology.c | 14 +++++++-------
+ 1 file changed, 7 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_debugfs.c b/drivers/gpu/drm/drm_debugfs.c
-index ae1c6126c2c5..f9658bdf703e 100644
---- a/drivers/gpu/drm/drm_debugfs.c
-+++ b/drivers/gpu/drm/drm_debugfs.c
-@@ -66,7 +66,7 @@ static int drm_name_info(struct seq_file *m, void *data)
- 		seq_printf(m, " master=%s", master->unique);
- 	if (dev->unique)
- 		seq_printf(m, " unique=%s", dev->unique);
--	seq_printf(m, "\n");
-+	seq_puts(m, "\n");
- 	mutex_unlock(&dev->master_mutex);
+diff --git a/drivers/gpu/drm/display/drm_dp_mst_topology.c b/drivers/gpu/drm/display/drm_dp_mst_topology.c
+index d8a732f21d3c..69fe2018eae5 100644
+--- a/drivers/gpu/drm/display/drm_dp_mst_topology.c
++++ b/drivers/gpu/drm/display/drm_dp_mst_topology.c
+@@ -4930,12 +4930,12 @@ void drm_dp_mst_dump_topology(struct seq_file *m,
+ 		return;
  
- 	return 0;
-@@ -139,7 +139,7 @@ static int drm_gem_name_info(struct seq_file *m, void *data)
- 	struct drm_debugfs_entry *entry = m->private;
- 	struct drm_device *dev = entry->dev;
+ 	state = to_drm_dp_mst_topology_state(mgr->base.state);
+-	seq_printf(m, "\n*** Atomic state info ***\n");
++	seq_puts(m, "\n*** Atomic state info ***\n");
+ 	seq_printf(m, "payload_mask: %x, max_payloads: %d, start_slot: %u, pbn_div: %d\n",
+ 		   state->payload_mask, mgr->max_payloads, state->start_slot,
+ 		   dfixed_trunc(state->pbn_div));
  
--	seq_printf(m, "  name     size handles refcount\n");
-+	seq_puts(m, "  name     size handles refcount\n");
+-	seq_printf(m, "\n| idx | port | vcpi | slots | pbn | dsc | status |     sink name     |\n");
++	seq_puts(m, "\n| idx | port | vcpi | slots | pbn | dsc | status |     sink name     |\n");
+ 	for (i = 0; i < mgr->max_payloads; i++) {
+ 		list_for_each_entry(payload, &state->payloads, next) {
+ 			char name[14];
+@@ -4957,28 +4957,28 @@ void drm_dp_mst_dump_topology(struct seq_file *m,
+ 		}
+ 	}
  
- 	mutex_lock(&dev->object_name_lock);
- 	idr_for_each(&dev->object_name_idr, drm_gem_one_name_info, m);
+-	seq_printf(m, "\n*** DPCD Info ***\n");
++	seq_puts(m, "\n*** DPCD Info ***\n");
+ 	mutex_lock(&mgr->lock);
+ 	if (mgr->mst_primary) {
+ 		u8 buf[DP_PAYLOAD_TABLE_SIZE];
+ 		int ret;
+ 
+ 		if (drm_dp_read_dpcd_caps(mgr->aux, buf) < 0) {
+-			seq_printf(m, "dpcd read failed\n");
++			seq_puts(m, "dpcd read failed\n");
+ 			goto out;
+ 		}
+ 		seq_printf(m, "dpcd: %*ph\n", DP_RECEIVER_CAP_SIZE, buf);
+ 
+ 		ret = drm_dp_dpcd_read_data(mgr->aux, DP_FAUX_CAP, buf, 2);
+ 		if (ret < 0) {
+-			seq_printf(m, "faux/mst read failed\n");
++			seq_puts(m, "faux/mst read failed\n");
+ 			goto out;
+ 		}
+ 		seq_printf(m, "faux/mst: %*ph\n", 2, buf);
+ 
+ 		ret = drm_dp_dpcd_read_data(mgr->aux, DP_MSTM_CTRL, buf, 1);
+ 		if (ret < 0) {
+-			seq_printf(m, "mst ctrl read failed\n");
++			seq_puts(m, "mst ctrl read failed\n");
+ 			goto out;
+ 		}
+ 		seq_printf(m, "mst ctrl: %*ph\n", 1, buf);
+@@ -4987,7 +4987,7 @@ void drm_dp_mst_dump_topology(struct seq_file *m,
+ 		ret = drm_dp_dpcd_read_data(mgr->aux, DP_BRANCH_OUI, buf,
+ 					    DP_BRANCH_OUI_HEADER_SIZE);
+ 		if (ret < 0) {
+-			seq_printf(m, "branch oui read failed\n");
++			seq_puts(m, "branch oui read failed\n");
+ 			goto out;
+ 		}
+ 		seq_printf(m, "branch oui: %*phN devid: ", 3, buf);
 -- 
 2.43.0
 
