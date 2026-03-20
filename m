@@ -4,56 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 755FE1088E6F
-	for <dri-devel@archiver.kernel.org>; Fri, 20 Mar 2026 09:25:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 374341088E6F
+	for <dri-devel@archiver.kernel.org>; Fri, 20 Mar 2026 09:26:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DE01A10EA93;
-	Fri, 20 Mar 2026 09:25:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 789D310E541;
+	Fri, 20 Mar 2026 09:26:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="icQhL9S/";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="lE7vjFKL";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 48B8210EAB9
- for <dri-devel@lists.freedesktop.org>; Fri, 20 Mar 2026 09:25:15 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 984B560127;
- Fri, 20 Mar 2026 09:25:14 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EF0EEC4CEF7;
- Fri, 20 Mar 2026 09:25:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1773998714;
- bh=hytdCJvyRmCwOZPRrZqiCYUso9HSoG5TaaQC5t9D8f8=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=icQhL9S/Q5ILqqXlrUeozeOHXjb/GuPv/wHRchDoxgIv25tlaovbaH2PdqeloTdb9
- 3i4JCMmJe9Ui0z/BtvEMISDKEQUmE5fa5bjrZ4E1a2zx8jYbChwzmDbjE8HBJjz5i5
- THy7f206/poUIYlud6rfmz+zpiPgMMeKqcZyGd852o49RFhzCe6vS0+cltyGY5iOBj
- zar98h6W6ZUcE6R1Q85cOiOZ+GqolTPmKAPiZYXu3yIDI1lIxv8T3TRTYsk5UfIV4c
- 1b09b/KZQfza6Tt4Y7D2ezW7qMr+juQ7pmYHv9Qz1nksN8MEuCrHwPTc6a/LPzIkTU
- YmMtFdqil6vYA==
-Date: Fri, 20 Mar 2026 10:25:11 +0100
-From: Maxime Ripard <mripard@kernel.org>
-To: Marco Felsch <m.felsch@pengutronix.de>
-Cc: Marek Vasut <marex@nabladev.com>, 
- Krzysztof =?utf-8?Q?Ha=C5=82asa?= <khalasa@piap.pl>,
- Stefan Agner <stefan@agner.ch>, Liu Ying <victor.liu@nxp.com>, 
- Simona Vetter <simona@ffwll.ch>, imx@lists.linux.dev,
- Fabio Estevam <festevam@gmail.com>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Sascha Hauer <s.hauer@pengutronix.de>, Frank Li <Frank.Li@nxp.com>,
- linux-kernel@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, linux-arm-kernel@lists.infradead.org
-Subject: Re: i.MX8MP: Fix HDMI LCDIF FIFO underruns
-Message-ID: <20260320-amiable-hairy-bullfinch-28bfda@houat>
-References: <m3ms04caaj.fsf@t19.piap.pl>
- <32317022-3c44-4ead-9e2d-04caa12b28cb@nabladev.com>
- <m36pvjbo4xy2rtdymshjpmwu7icl3wlyiwcmmjaozo7jpe5lqk@zt7byx7iwmym>
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A0E6710E541;
+ Fri, 20 Mar 2026 09:26:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1773998795; x=1805534795;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=DOGaCuBCTRkz1PBAmYE+qDUnukQ0pca3NhU408CcktE=;
+ b=lE7vjFKLo3fnUv+L7/SPtCF62vh6NZf2Rx65mOfV4W5+FCspx6U8Jhgq
+ DLYjrIMKIAjd9KWWQckSW7WVQOYWGAL/Z+rThZimXVTj4sPbjewVRfmtj
+ kEwFejGbjxVCSXOb82gr6YupadYvwhbhJVSkS2UAv7q3g9RqQqOjdVQrX
+ j2IQ3QN3kj/2Ak74agmv82PuEYgiGE3Otz5xXDUUnVbU2aJ3z8TnoiL8b
+ hSRoMW6y8fOf0Ub5MHHBEXsJlafVUZYkEZazOSNa2IIwLKWhGbr8HyiW6
+ ZRNftFSFMDHTgf7aHqKa+8DQrRb2piolsrO0YmhpRyRAjjWtihWuynXfg A==;
+X-CSE-ConnectionGUID: iYlm/qkmTiKDcy7Lk5C9Kw==
+X-CSE-MsgGUID: Os0Wb21iTvaavkB7xZ/TUg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11734"; a="85782607"
+X-IronPort-AV: E=Sophos;i="6.23,130,1770624000"; d="scan'208";a="85782607"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+ by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Mar 2026 02:26:34 -0700
+X-CSE-ConnectionGUID: 6CMDdqN/R2qCbE52BuaMXA==
+X-CSE-MsgGUID: AWRO+khYT12j2nQa9yZPfA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,130,1770624000"; d="scan'208";a="228171443"
+Received: from lkp-server02.sh.intel.com (HELO a51c2a36b9df) ([10.239.97.151])
+ by orviesa005.jf.intel.com with ESMTP; 20 Mar 2026 02:26:29 -0700
+Received: from kbuild by a51c2a36b9df with local (Exim 4.98.2)
+ (envelope-from <lkp@intel.com>) id 1w3W63-000000002Cd-33yE;
+ Fri, 20 Mar 2026 09:25:07 +0000
+Date: Fri, 20 Mar 2026 17:22:56 +0800
+From: kernel test robot <lkp@intel.com>
+To: Alexander Koskovich <akoskovich@pm.me>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Jeffrey Hugo <jeffrey.l.hugo@gmail.com>
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ Alexander Koskovich <akoskovich@pm.me>
+Subject: Re: [PATCH v3 3/4] drm/msm/dsi: Add support for RGB101010 pixel format
+Message-ID: <202603201719.MxZJCZoY-lkp@intel.com>
+References: <20260319-dsi-rgb101010-support-v3-3-85b99df2d090@pm.me>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha384;
- protocol="application/pgp-signature"; boundary="kqtw7ezuuh3ww2w4"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <m36pvjbo4xy2rtdymshjpmwu7icl3wlyiwcmmjaozo7jpe5lqk@zt7byx7iwmym>
+In-Reply-To: <20260319-dsi-rgb101010-support-v3-3-85b99df2d090@pm.me>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,75 +82,56 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Hi Alexander,
 
---kqtw7ezuuh3ww2w4
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: i.MX8MP: Fix HDMI LCDIF FIFO underruns
-MIME-Version: 1.0
+kernel test robot noticed the following build errors:
 
-On Fri, Mar 20, 2026 at 09:04:17AM +0100, Marco Felsch wrote:
-> On 26-03-20, Marek Vasut wrote:
-> > On 3/19/26 12:45 PM, Krzysztof Ha=C5=82asa wrote:
-> > > Running (and terminating) Weston on i.MX8MP sometimes produced black
-> > > or grey screens. The LCDIF3 INT_STATUS_D0 register showed a FIFO unde=
-rrun:
-> > >=20
-> > > 32FC6024: 1000002
-> > >=20
-> > > The PANIC0_THRES register was set to:
-> > >=20
-> > > 32FC6238:  AA0154
-> > >=20
-> > > which apparently meant low =3D 2736 bytes (0xAA * 16 + 16), high =3D =
-5456 bytes
-> > > (0x154 * 16 + 16).
-> > >=20
-> > > With this patch (based on NXP's driver) the watermarks are only 16 by=
-tes
-> > > higher (register values increased by 1) and the underruns are gone.
-> > >=20
-> > > Tested on Solidrun Hummingboard Mate with a 1080p60 HDMI display.
-> > >=20
-> > > Signed-off-by: Krzysztof Ha=C5=82asa <khalasa@piap.pl>
-> > >=20
-> > > --- a/drivers/gpu/drm/mxsfb/lcdif_kms.c
-> > > +++ b/drivers/gpu/drm/mxsfb/lcdif_kms.c
-> > > @@ -353,8 +353,8 @@ static void lcdif_enable_controller(struct lcdif_=
-drm_private *lcdif)
-> > >   	u32 reg;
-> > >   	/* Set FIFO Panic watermarks, low 1/3, high 2/3 . */
-> > > -	writel(FIELD_PREP(PANIC0_THRES_LOW_MASK, 1 * PANIC0_THRES_MAX / 3) |
-> > > -	       FIELD_PREP(PANIC0_THRES_HIGH_MASK, 2 * PANIC0_THRES_MAX / 3),
-> > > +	writel(FIELD_PREP(PANIC0_THRES_LOW_MASK, DIV_ROUND_UP(1 * PANIC0_TH=
-RES_MAX, 3)) |
-> > > +	       FIELD_PREP(PANIC0_THRES_HIGH_MASK, DIV_ROUND_UP(2 * PANIC0_T=
-HRES_MAX, 3)),
-> >=20
-> > I am starting to wonder, whether this should be configurable in DT, bec=
-ause
-> > it seems there might be users that need to tweak the watermarks one way=
- or
-> > the other for different video outputs ?
->=20
-> +1 to provide a override mechanism via DT.
+[auto build test ERROR on f338e77383789c0cae23ca3d48adcc5e9e137e3c]
 
-If this is related to the output resolution, the DT is the last place
-you should deal with this.
+url:    https://github.com/intel-lab-lkp/linux/commits/Alexander-Koskovich/drm-msm-dsi-rename-MSM8998-DSI-version-from-V2_2_0-to-V2_0_0/20260320-011528
+base:   f338e77383789c0cae23ca3d48adcc5e9e137e3c
+patch link:    https://lore.kernel.org/r/20260319-dsi-rgb101010-support-v3-3-85b99df2d090%40pm.me
+patch subject: [PATCH v3 3/4] drm/msm/dsi: Add support for RGB101010 pixel format
+config: sparc64-allmodconfig (https://download.01.org/0day-ci/archive/20260320/202603201719.MxZJCZoY-lkp@intel.com/config)
+compiler: clang version 23.0.0git (https://github.com/llvm/llvm-project 4abb927bacf37f18f6359a41639a6d1b3bffffb5)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260320/202603201719.MxZJCZoY-lkp@intel.com/reproduce)
 
-Maxime
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202603201719.MxZJCZoY-lkp@intel.com/
 
---kqtw7ezuuh3ww2w4
-Content-Type: application/pgp-signature; name="signature.asc"
+All errors (new ones prefixed by >>):
 
------BEGIN PGP SIGNATURE-----
+>> drivers/gpu/drm/msm/dsi/dsi_host.c:760:7: error: use of undeclared identifier 'MIPI_DSI_FMT_RGB101010'
+     760 |         case MIPI_DSI_FMT_RGB101010:    return VID_DST_FORMAT_RGB101010;
+         |              ^~~~~~~~~~~~~~~~~~~~~~
+   drivers/gpu/drm/msm/dsi/dsi_host.c:773:7: error: use of undeclared identifier 'MIPI_DSI_FMT_RGB101010'
+     773 |         case MIPI_DSI_FMT_RGB101010:    return CMD_DST_FORMAT_RGB101010;
+         |              ^~~~~~~~~~~~~~~~~~~~~~
+   drivers/gpu/drm/msm/dsi/dsi_host.c:1710:21: error: use of undeclared identifier 'MIPI_DSI_FMT_RGB101010'
+    1710 |         if (dsi->format == MIPI_DSI_FMT_RGB101010 &&
+         |                            ^~~~~~~~~~~~~~~~~~~~~~
+   3 errors generated.
 
-iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCab0SdgAKCRAnX84Zoj2+
-dmj8AX0fLuO62vmJI+ySHByc+XZ8s3q4zviMe03MY5pK5cTsFHhJcFrOeMWaRAGv
-9SSJUCgBfRDumumJyxKSS5n1QS/g5KofFiU8leZjI7jjZE73tL3qBmVQuuVtlQvX
-A3w8KjXclw==
-=0nyw
------END PGP SIGNATURE-----
 
---kqtw7ezuuh3ww2w4--
+vim +/MIPI_DSI_FMT_RGB101010 +760 drivers/gpu/drm/msm/dsi/dsi_host.c
+
+   755	
+   756	static inline enum dsi_vid_dst_format
+   757	dsi_get_vid_fmt(const enum mipi_dsi_pixel_format mipi_fmt)
+   758	{
+   759		switch (mipi_fmt) {
+ > 760		case MIPI_DSI_FMT_RGB101010:	return VID_DST_FORMAT_RGB101010;
+   761		case MIPI_DSI_FMT_RGB888:	return VID_DST_FORMAT_RGB888;
+   762		case MIPI_DSI_FMT_RGB666:	return VID_DST_FORMAT_RGB666_LOOSE;
+   763		case MIPI_DSI_FMT_RGB666_PACKED:	return VID_DST_FORMAT_RGB666;
+   764		case MIPI_DSI_FMT_RGB565:	return VID_DST_FORMAT_RGB565;
+   765		default:			return VID_DST_FORMAT_RGB888;
+   766		}
+   767	}
+   768	
+
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
