@@ -4,39 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1BBF310987AB
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8616210987B0
 	for <dri-devel@archiver.kernel.org>; Fri, 20 Mar 2026 16:43:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7328D10EBFD;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B974510EBFF;
 	Fri, 20 Mar 2026 16:43:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="U/tCSSDz";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="ehHFLJme";
 	dkim-atps=neutral
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F07D110EBF9;
- Fri, 20 Mar 2026 16:43:39 +0000 (UTC)
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E69A210EBFB;
+ Fri, 20 Mar 2026 16:43:45 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-03.galae.net (Postfix) with ESMTPS id D9E694E4274C;
- Fri, 20 Mar 2026 16:43:38 +0000 (UTC)
+ by smtpout-02.galae.net (Postfix) with ESMTPS id D93331A2F12;
+ Fri, 20 Mar 2026 16:43:44 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id AEED8600E0;
- Fri, 20 Mar 2026 16:43:38 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id B0214600E0;
+ Fri, 20 Mar 2026 16:43:44 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id F2CE110450CB5; Fri, 20 Mar 2026 17:43:34 +0100 (CET)
+ with ESMTPSA id 62B8A10450CB3; Fri, 20 Mar 2026 17:43:41 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1774025017; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ t=1774025023; h=from:subject:date:message-id:to:cc:mime-version:content-type:
  content-transfer-encoding:in-reply-to:references;
- bh=19UBhbOGQu5MSJjUDSgMIWkx4Iflae6zKZHCmRba0zk=;
- b=U/tCSSDzuEjh7OJCT1fUtZfRm1MiJnY9xKQtHZIEoYmBbIXNiODf/MfJh/J4ar0dpaWLQX
- 78DZ4ayZmqKFrpNQ5DVp96A2mFSZ7s11M4lUgv+qtUlQNp31DxkBy/sa0wZA415gpCXO7u
- JKgY+W4hhdOinrFLyRUBELn0Edl9x9DBU4Uo7QU4S1yXOn9kAmkZO3xPZU6pl2Pa9DxXH1
- 1m8QKihcrgqPx2k5+COQT7zJlfwcZhMcI8Th38Wo+1gEXc80BbvIV4LqjtDT8wJrbp12IF
- UZsLtsTMrBQEVgddOO7YuwzB6hYcUQ4e8QN6QJnGgwjWNdagphzEZoCNLJ6aFg==
+ bh=lRME75nZ5IjiOQqvGi2z388Xo/P305LX3Jwfh4O+I9Q=;
+ b=ehHFLJmePtppOLvir1UeZHE7ZOVuRdohtwtjK6sXBNCNZFHdAlJSEdIaf4zIQpfs1Rcwjb
+ HYKTEfcOhZdxiXITSxX6i0CiBE2RsZ/HlQ/SqTMVODTLHJ0xYgBdZwcBKiMpdWhCXK3Wfb
+ GswA8h4lzEOw/9XwARsEtkOd2iWAhrHgq9BV4tTR6sOMIacNxslcsJejOtCEywPoRad1G0
+ n9bGSLIohD4W+hnY+rfIaHIoXbCG45qscwJnlzK1NgZbH8+GTyPVc3gnpjZ1mkP108wzsO
+ hrCrDr/x8Ok1l9YETg2d0qkLSN3H4OJ9gNXde7FgCXrN9a6DXD3q300T+P4DHg==
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v11 59/65] accel/ivpu: implement IVPU_DBG_* as a dyndbg
- classmap
+Subject: Re: [PATCH v11 61/65] accel/ethosu: enable drm.debug control
 From: Louis Chauvet <louis.chauvet@bootlin.com>
 To: airlied@gmail.com, simona@ffwll.ch, jbaron@akamai.com, 
  gregkh@linuxfoundation.org
@@ -48,27 +47,27 @@ Cc: Jim Cromie <jim.cromie@gmail.com>, mripard@kernel.org,
  skhan@linuxfoundation.org, pmladek@suse.com, ukaszb@chromium.org, 
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
  intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-In-Reply-To: <20260313132103.2529746-60-jim.cromie@gmail.com>
+In-Reply-To: <20260313132103.2529746-62-jim.cromie@gmail.com>
 References: <20260313132103.2529746-1-jim.cromie@gmail.com>
- <20260313132103.2529746-60-jim.cromie@gmail.com>
+ <20260313132103.2529746-62-jim.cromie@gmail.com>
 Date: Fri, 20 Mar 2026 17:41:54 +0100
-Message-Id: <177402491476.6181.12723360930731783132.b4-review@b4>
+Message-Id: <177402491480.6181.6449203113049115438.b4-review@b4>
 X-Mailer: b4 0.15-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1685;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=426;
  i=louis.chauvet@bootlin.com; h=from:subject:message-id;
- bh=KgB7ix2nsEj7/LdPnxk5JMkHts8gbnr7iU+OHOLXafI=;
- b=owEBiQJ2/ZANAwAIASCtLsZbECziAcsmYgBpvXjbhXDAy+lC6aQq4cvncwOGzPKhLLjkUp/a7
- 4qYWJ+a2pSJAk8EAAEIADkWIQRPj7g/vng8MQxQWQQgrS7GWxAs4gUCab142xsUgAAAAAAEAA5t
- YW51MiwyLjUrMS4xMSwyLDIACgkQIK0uxlsQLOJ5iRAAkhq/gMfOGU+0P3Vo+Oj3T8eAC4AzbjU
- OIO6hebffjcfJeSST53+cN3uew6wcyblJ84dE+eWnNO/2emH9C3+KEylPh4m5AG0uXWgTdju3SS
- Demwajbn1mU/0QT4hcxW2lCMlulsXXPBtXxlp0GYpFdfzKCarxVsI/ALknnPorv4RHO8pDTvlCW
- 2rIN7d2Az2SeOYkCXnFwlnVYYulE8iKMbN4LYZg3kAnbUo9o0+8Nn+2nQV5d890kVyt1o9uCpJE
- A6h1s5/HfPt177v7buiDD43US6Z2Mz9E9yQGJUM5Pw0mU9y/RlKWEhMgv4RTr3bWPlbP56Ckaqf
- ZEKyDZNsh9va2upwZUl02whDpXDczGTUpJl3jUCob8l5wo4tt6mCOaQ/aKZ/nz2SjrRVTLfKZLe
- GoWPICfbUhXBLSDDn8ozTYU7cR7Onqfn/MoX9ig8Fsl1Fk55x4HKHGTee4xYapU8rMxzyjTf4zI
- FwS/i4tbCAfighnGPMszMxNv2rWRb0KMisuuO0eJUrV6RRMEZhrDGGJtFb8aIMphCi3Kmk/xloR
- puT+k7pHqCNlTVON9Ac1yR6wl7uGcjLSDKsveShjFccwy9vi4Xok82+fY5Ie/bK7+765Cvf6jFC
- tEXslzx0a3w1tBteA+JrxURwFUd8kuKPLwBthAefGGatzBpb8iEA=
+ bh=Csz2VdFCLeQS26BklNvMRkpRSthxwjNTh1RVfmFt3vY=;
+ b=owEBiQJ2/ZANAwAIASCtLsZbECziAcsmYgBpvXjbq2Lr+ZM0ltkVBCGSBbNvtCYdoPoZjCeJP
+ kBRzm/YilKJAk8EAAEIADkWIQRPj7g/vng8MQxQWQQgrS7GWxAs4gUCab142xsUgAAAAAAEAA5t
+ YW51MiwyLjUrMS4xMSwyLDIACgkQIK0uxlsQLOJntA//dlpI87c2vbu2NJahx9hriOxl/4D+3c2
+ lvCikyh3gxfokOwsMCXtx8TEdvWaxdTpo//LKZxQOzqoz2B+LPPG8ebDPRdQTm865oOJj0GF+RQ
+ I9StFK42pawzoi7/+dMI1/m5j0h4ChczQPkiq7jMQUV8zA9EjLMpbZytOMlGTq/CQo+X1xJjNAy
+ LzZHPoYS1ygDoUVjQz0/k0pmQD6JYw5uowk6kSdpSKe6udvf0x/kqS3tuJdl8XlSZtRbkKwPrDo
+ xoVF7WFWNRmDazbitdkF/UDL5Dyab8UkWEis+WRwFUXA7dVBLgt/jn+bJCQpX6za35iegAOMUCb
+ qoPI4MLUCEQ/hqZLWkoTwdMMXvJTwa1acf815LUoBNBSGoD0R/7Ez+Ov3CvoMZSb2kPFpGU7iA/
+ Ir+swIFrIbslJ7zPDW9wqNOuqhGb7VjsQ8swjGrcEZOduqqAn9rB39K9SEdqPxyo8lGCG1MTlNV
+ VSq3Sk0QTqFv+WA8HFBn7GcncjvM4vOVKnLax9/ZDnIVLYsD0oPGsuY8Ewr//WPoY1uKDoMG7kx
+ WO8cOjs9JRhl2xmcBUfD6a32rQeI+LSqP7miUIKa1qpmlMXOdoTMHOlFlraQf4xmQyTsOG39WVh
+ o8iyrMEQlTilideaNTv0D1/VWz7knyfXZr+u/whKE5/z01tg738o=
 X-Developer-Key: i=louis.chauvet@bootlin.com; a=openpgp;
  fpr=8B7104AE9A272D6693F527F2EC1883F55E0B40A5
 X-Last-TLS-Session-Version: TLSv1.3
@@ -87,51 +86,16 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, 13 Mar 2026 07:20:24 -0600, Jim Cromie <jim.cromie@gmail.com> wrote:
-> [...]
-> Anyway, to play nice with DRM, we change all the constants, from
-> macros calling BIT(X), to an explicit "enum ivpu_dbg_category"
-> starting at 16 to avoid DRM_UT_CORE..RES.  This is all in an indef to
-> avoid changing the constants for the non-dyndbg case.
-> 
-> Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+On Fri, 13 Mar 2026 07:20:26 -0600, Jim Cromie <jim.cromie@gmail.com> wrote:
+> ethosu.ko has several drm*dbg() calls, it must call DRM_CLASSMAP_USE
+> to tell dynamic-debug what classmap enables them.
+> Also include drm/drm_print.h explicitly.
 
-Hello,
-
-I have a maybe dumb question: if you enable CONFIG_DRM_USE_DYNAMIC_DEBUG,
-then the meaning of ivpu_dbg_mask will change no?
-
-In one case you will have to use ivpu_dbg_mask=0x01 and in the other case
-you need ivpu_dbg_mask=0x10. I think this is very missleading.
-
-In this case, I think it will be way easier to completly change the
-expected value for ivpu_dbg_mask to have the same behavior with or without
-dyndbg.
-
-In addition, I think this could be nice to have a "rule" like: "cores"
-should use LSB for their classes, "drivers" should use MSB for theirs
-clases.
-
-This way, if DRM decide to create a new class there is less chance of
-conflicts.
+Can you move this with all the other DRM_CLASSMAP_USE commits?
 
 >
->
-> diff --git a/drivers/accel/ivpu/ivpu_drv.h b/drivers/accel/ivpu/ivpu_drv.h
-> index 5b34b6f50e69..ef5a96b961fc 100644
-> --- a/drivers/accel/ivpu/ivpu_drv.h
-> +++ b/drivers/accel/ivpu/ivpu_drv.h
-> @@ -81,6 +85,41 @@
-> [ ... skip 9 lines ... ]
-> +
-> +enum ivpu_dbg_category {
-> +	/*
-> +	 * since accels are drm-devices (CONFIG_DRM_ACCEL_*), adjust
-> +	 * IVPU_DBG_* to avoid DRMs 0..10 class_id reservations.
-> +	 */
 
-Here that could be nice to start the enum at 48, so there is a real hole
-between "core" and "drivers" categories.
+Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
 
 -- 
 Louis Chauvet <louis.chauvet@bootlin.com>
