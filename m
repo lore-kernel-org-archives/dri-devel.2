@@ -4,108 +4,133 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EABDE1098784
-	for <dri-devel@archiver.kernel.org>; Fri, 20 Mar 2026 13:31:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 633901098787
+	for <dri-devel@archiver.kernel.org>; Fri, 20 Mar 2026 13:58:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2DB5510EABD;
-	Fri, 20 Mar 2026 13:31:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B1BD410E208;
+	Fri, 20 Mar 2026 13:58:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="M2wJTv/m";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="BLrutBRr";
 	dkim-atps=neutral
-Received: from mail-vk1-f171.google.com (mail-vk1-f171.google.com
- [209.85.221.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BCFE510EABB
- for <dri-devel@lists.freedesktop.org>; Fri, 20 Mar 2026 13:31:52 +0000 (UTC)
-Received: by mail-vk1-f171.google.com with SMTP id
- 71dfb90a1353d-56cd71a7630so505174e0c.2
- for <dri-devel@lists.freedesktop.org>; Fri, 20 Mar 2026 06:31:52 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1774013512; cv=none;
- d=google.com; s=arc-20240605;
- b=M6lY8d0SaLUwqvK3w5vtjEl5fJGUU+NgNm8SSSv85wF+GtbEBRohyFeaKuzMAxlYSi
- NHhktoMP9HI7gttM0IoVmXjw49j71mHUveiailb7VYqq+4mVdg1tWquA8YEMvPom6yaQ
- NMFSkxqpHCCsrKbD0nlL6E5x7kZet/QkQMjBsINGu6gBE1yj+hGnim/m/+UkS+u86cMB
- 9OgepL+oIHKKUyS4G9aPogaGukMPkDmxdvdXo7vkc30Udi3fzHSaGr6xrljlcxNyFsfI
- +QCwhXj6oZmSltGEuOMcYpRvdpRGu7xe263ew2vfaizL4HN62oJ34H4bQ5sp+o5wgMyp
- N4Lw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=l5XYD1rfkrqsOlwTq8uo+xjetaVgh9Rk44sFsp4gv6k=;
- fh=zoU5kWR9e71zgLcTzwfKETWuTlkJzyv4GE/G44y+smQ=;
- b=SddTdMQRgFDbLEHsK/I52+E4R2UrcaSt7xgoglV8+1oodqTKj3+whgm6jEMVh1n+d2
- qMokuQsfA50o0O00CRgAcLEgokQflL0FW47fDyV5DQyDH37+ToHcBnz6M5w6OGDZQ9qW
- rhNwZLyYuW6h0ignZHRzHXZ0/qHsrdXG8Yka+jbN6NFLQFXIHTFZBye9+NNF5WCEBUOB
- lq2JliaGmRh0hk6gnfVwrUTVb1qP/OxzkhCmrO4FcyK0GeGD0eVmNQJOd4atofnqrrR5
- jABSoOt5RBuQJ6fR3G8pLhQ727tHG/HtGNxZzPdU3533vl7HT2anI3ma+dlbaSJGO1fA
- u9ZQ==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1774013512; x=1774618312; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=l5XYD1rfkrqsOlwTq8uo+xjetaVgh9Rk44sFsp4gv6k=;
- b=M2wJTv/mdmRXRTxUh8B7kBx6dba1KA2wg6ko3ydVigpSDuQHEPbiJDnpnXOPbe6/JN
- v2OsSuZTjCyYKh0LDlyH6HftOGHb7KOoJWK4untBwgn7vefNOrGs4Mx5ERNAixyK6VOV
- q0HAkNawFcndOSOSS2yZwmxmuIOoc47EYBroDJQtctCrSOzi02HkZXzvebsO8ffqNTw4
- QbxNn3FRtTz6f5SyBxnQ3bpBOmM+1VzdZR5IOjhf4ml4ReMGDCDBmCPgpyVGkusSPF2w
- d15NcCNlssnYF60lHE3DSTmUhfTCTDkTw3dpo+qZLbskVx9aspd2VnnoeBFiyjxFh3Aw
- VUzQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774013512; x=1774618312;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=l5XYD1rfkrqsOlwTq8uo+xjetaVgh9Rk44sFsp4gv6k=;
- b=V7/XL2V9xvFrzEk/AhTZqtMkF1ybpDKEOWXnNRSxW46xrqHvjXugIuWxbMEjMYLJqv
- N9oe+GrjE5wX+UPyAEq0f5pLh0EeAHrFaPoMTJdACreWWRYX+UEwI4VpSgxBeR2803CD
- /pdcdhLpTQpyJVjRh+vkqN3eeQYos4ZAcjtTwnPFeo7iCBTp9gigISRHQJkGDiHEEmnm
- fUv9Ab9ANgLrrazh2/Bcx0keYIWRKMNitm952Gggai9x5EmVp0BmCQAvgY6rfH1SRzfZ
- Vbi1I5++SnzXl+GpYT+g+wgqPkBcZtJcp4fB/MtoUrwLn2qFf8jf2iLwNEtuI8j0EriX
- g9jA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVJGCJBBq7oxOd8VtnBhQF6yuNi66QXuCre6SDTSjIUyARrLuPq4FyyXVeV7w7s0JztPluFkcdroCs=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxoOjlqBtU26zLOarb8iykfLela0T2iYSyXCL8OKFIRK2/W+9Rj
- IQYQuwWdbBvls1otXyZ9FHuSvp194JoSSF0RRtxw/V0x4pco0MSUB9goN0m7fO8UBom099XP9ot
- Z0EUw2t4/Sf3tvGbTAIwcUh/tcUPsLxrZnB/nPtpyng==
-X-Gm-Gg: ATEYQzzFPswuNGsZi/BmhWgR4JnfB77JxppFbQPIrOZSYltMRri/wyJjcmKMST1oDsD
- 8pyePkyAvXPrk8gmqXOm5/s/USqQF1Qy1mBSFq+rTU/LGA/a34qSeAV9aV2SVoCYTt0IHnyTHdo
- ibMDfGc1eA/UlbkYPjysjBPCsNOJtyBdaWjx0Tj2PjJl9hZjaAwCMZ2ZTYM7CRumIOJu763tQBH
- AoInxljosZ/r2IcyYYMRFbPdUP3v35Ijc39c5xnUodq4/Y2E/tRiqMjsHPuYDdbBTv5uoicnnX9
- v8T6v3t8
-X-Received: by 2002:a05:6122:4d09:b0:56c:d757:a045 with SMTP id
- 71dfb90a1353d-56cde41dea4mr1391119e0c.9.1774013511359; Fri, 20 Mar 2026
- 06:31:51 -0700 (PDT)
-MIME-Version: 1.0
-References: <CAH2e8h6oinKxN1ndcvHCSc+=bFLXVVDZVAVF0cQHoiaMvEwhPQ@mail.gmail.com>
- <X2fV9mpVHV6Qk8-ImS7vxqDQXFt4K85jPKJWnxVono324hHaRh7x13f2HYM4CKNK-UDqrmP8Jz79-oVklw8vLBfaxPbVuQq4FBfblu27R9s=@pm.me>
- <CAH2e8h5tns-sXZ3-cvBmeAgbkNT1sG0kxNeaUGZnHoFEYh-Tjg@mail.gmail.com>
- <ZPf83Rxo54mgr4un9o9CNu9rXp4-8cQ8jkYIfHZODIzbJXEMISRS2PZKYqDCijOAq1N2eq0Wnt-kS0ys9KV0uB5TawUQLNjNcSzfQeUWe10=@pm.me>
-In-Reply-To: <ZPf83Rxo54mgr4un9o9CNu9rXp4-8cQ8jkYIfHZODIzbJXEMISRS2PZKYqDCijOAq1N2eq0Wnt-kS0ys9KV0uB5TawUQLNjNcSzfQeUWe10=@pm.me>
-From: Pengyu Luo <mitltlatltl@gmail.com>
-Date: Fri, 20 Mar 2026 21:31:24 +0800
-X-Gm-Features: AaiRm50FQA6qBvWaTh0P4u9bJSdyWB5-1HjvYZpdxWyonMUiKmvZ4PO1Ll5yoTI
-Message-ID: <CAH2e8h6wvab7tvZRUt0xS=SA5+hnKopQKCayT0JEgWL9_e3uTQ@mail.gmail.com>
-Subject: Re: [PATCH v3 4/4] drm/msm/dpu: fix video mode DSC INTF timing width
- calculation
-To: Alexander Koskovich <akoskovich@pm.me>
-Cc: Abhinav Kumar <abhinav.kumar@linux.dev>, David Airlie <airlied@gmail.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, jeffrey.l.hugo@gmail.com, 
- Jessica Zhang <jesszhan0024@gmail.com>, Jonathan Marek <jonathan@marek.ca>, 
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Dmitry Baryshkov <lumag@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Marijn Suijten <marijn.suijten@somainline.org>,
- Maxime Ripard <mripard@kernel.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>,
- Rob Clark <robin.clark@oss.qualcomm.com>, 
- Sean Paul <sean@poorly.run>, Simona Vetter <simona@ffwll.ch>, 
- Thomas Zimmermann <tzimmermann@suse.de>
-Content-Type: text/plain; charset="UTF-8"
+Received: from SN4PR2101CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11012011.outbound.protection.outlook.com
+ [40.93.195.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B1B0D10E208;
+ Fri, 20 Mar 2026 13:58:17 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=DSgFikQXg9rBjDRrhsmHMHP+MZykSTeBLIcF+wuFAtI6Yj1VI6cWssEbJsO1cgHySIz7bJ42VbOJQ7rUxjOIbrBURMvrY6sDrA5f3If7xEV08LGycdzqItNjQVu5Re970lx75SxgLIQ/aXiUeCO84VZcpo8he6qKk7h3yFH4wkcG8ff1pxCA0JAePcOkkmkfevOC8xnPXHIJ5tV1tfHE4sQNXT34GCMm54d3st3Y5MWt6KPuPwSmCjTJ8Ga6F5+sII4+JLrtixFQgxZOc9MMzfv4wOC8KQN1QUeZ+GUVKns2cf4fgmrUKGEMHgFve/3z7VG6PIXm1DauoHKaxMP+9w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=A3rO3t+XCQ8/LgTOiMvJ0OFzPAVSyrRZKCHT5r2yU5w=;
+ b=g30BoaHyuMkF1QgfSzQ9hNPWYbn+7WAhMuAq4a7izUTaDCA0SpKe5+mtZaXcqLQ0IhEoSfHij2jUaPT44Mh5OG3T3SCFCIjK2dUNLRbgm1X1xvQml4aEY4rk2bS8ajHXO7ziq5fp1hR/npEHpBujGyVSgf/niZgi5nXiLDdZjqKDDMC6KmoHBlsHIyiv5N0Q/mF7aa7+FTswRFMJ2DiwX82ZNUrYsm7Gb9DHWbgIBWy9PH7s0p4QiohRFVM2TGfb+n4TPyQdUDvH3otPYGYQYopZb8vweaSyDyzgpmCY1Yk5ZxylQdMWm3dVXbvQ0jzE9KGwjIuse15SUIx/DB1jnQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=A3rO3t+XCQ8/LgTOiMvJ0OFzPAVSyrRZKCHT5r2yU5w=;
+ b=BLrutBRr465lhrFT2XTwtSgiW2qbBluCk5X+ceHNLPMD8Lsm7+EqXuvtT/8SmpGesvpas7v7rgJAuntRBY1ZWcIIP5RiNJbigRngdmx0FvWKX27tSG+lYnA+z9ALjX3mIC8KdQjTgxvoAqUKrC9H+0GEomlahP9FJFi+ar5gk0MmzdyTJXRFEZHfvOSssU0dSY7GGMRzczXLflC3/d+8VdZvJ8SKAO1AEeC1DlbVwRmJFd5HK2mgUyQAP8e2WPKyPljPV9sg7B1pP/4WU6Pk4TP/V7Q9p6BhF0yYNMfrp75Mmk2pSkCLguXXscbeZ+N6YsKJlYWZJqwvvlRTb/fLEA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from CH2PR12MB3990.namprd12.prod.outlook.com (2603:10b6:610:28::18)
+ by PH7PR12MB7890.namprd12.prod.outlook.com (2603:10b6:510:268::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.9; Fri, 20 Mar
+ 2026 13:58:11 +0000
+Received: from CH2PR12MB3990.namprd12.prod.outlook.com
+ ([fe80::7de1:4fe5:8ead:5989]) by CH2PR12MB3990.namprd12.prod.outlook.com
+ ([fe80::7de1:4fe5:8ead:5989%6]) with mapi id 15.20.9745.007; Fri, 20 Mar 2026
+ 13:58:11 +0000
+Content-Type: text/plain; charset=UTF-8
+Date: Fri, 20 Mar 2026 22:58:07 +0900
+Message-Id: <DH7NV48P5SVF.2YKX6XR2RBONA@nvidia.com>
+Subject: Re: [PATCH 2/8] rust: dma: add generalized container for types
+ other than slices
+From: "Alexandre Courbot" <acourbot@nvidia.com>
+To: "Gary Guo" <gary@garyguo.net>
+Cc: "Alice Ryhl" <aliceryhl@google.com>, "Danilo Krummrich"
+ <dakr@kernel.org>, <ojeda@kernel.org>, <boqun@kernel.org>,
+ <bjorn3_gh@protonmail.com>, <lossin@kernel.org>, <a.hindborg@kernel.org>,
+ <tmgross@umich.edu>, <abdiel.janulgue@gmail.com>,
+ <daniel.almeida@collabora.com>, <robin.murphy@arm.com>,
+ <driver-core@lists.linux.dev>, <nouveau@lists.freedesktop.org>,
+ <dri-devel@lists.freedesktop.org>, <rust-for-linux@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>
 Content-Transfer-Encoding: quoted-printable
+References: <20260303162314.94363-1-dakr@kernel.org>
+ <20260303162314.94363-3-dakr@kernel.org> <abj5mOYQAY290nqY@google.com>
+ <DH52NZ8L28QN.JTWZP7UBYL8Q@garyguo.net>
+In-Reply-To: <DH52NZ8L28QN.JTWZP7UBYL8Q@garyguo.net>
+X-ClientProxiedBy: OS7PR01CA0291.jpnprd01.prod.outlook.com
+ (2603:1096:604:25a::11) To CH2PR12MB3990.namprd12.prod.outlook.com
+ (2603:10b6:610:28::18)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH2PR12MB3990:EE_|PH7PR12MB7890:EE_
+X-MS-Office365-Filtering-Correlation-Id: f000b4ed-7420-469b-3df4-08de8688b8cc
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|7416014|376014|10070799003|366016|1800799024|7053199007|22082099003|56012099003|18002099003;
+X-Microsoft-Antispam-Message-Info: l3CaULEL6QO12AXxHXtLAFxcQhzErH/3osii+0t+yhuoKv/carWSBtVZDcm+sjrIyu4oBY09oMf9kH0a29A49zPzAn9G2JSHVfX1aZY23gDjVB7XPhS3Oj9PKG8GJ279Svgr21G5eGqzDmtkfYyyb8KvrRdwpVA9xV+5GSJq/WtpszlJsJMXyzE1EfZhew8RrtHw7Y1p1nxYplQp5tx3hQBIM23mekGTK7IFI0zZw4W9XC4djaSNo3ylWXOjBfq1UpQ11aDzOchfe6/6du/1icVQ9NcOcIiHW+Jvnn+dKHdBpOg88EecJVYAruCmfoBvyMnFWvsgI9HluzrzygZY0rshs0hV4M5bRG7KRYhftoUKZm1r06xGVM4RMaC8NFQFxgphHqaBUdecG6tWn4zBJhGV7ZmcTzDNHH53LL4zH7X1tiC0rVyp+h0OlZzPNTzbqyUja4DBcJSv6ZDae5khxhpmuICprdydNOiT09mV1XoLb1ETti606O8XUNEpL4qo5WIo1hqJaRBhUrbX8iELS4ZstY0+x/yBynhgv0NosLE5my5GgLZcG+f9z3HrU1sH0f0/xg09NfBDz3eeB7vqqNst9iHiSTnmugp4sls9rQb3eQ6FgwENjfib2Ai+FzGeGCtmDiUavxKCz88iHhWwUN0+uFfvEZwnlA1i33lEYwhEoPxINfcjl4+LmfBBNn53Eq81ZUJ2GQ2NY2To5PSLivb+EyT3oHhBzcOqejY1gts=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CH2PR12MB3990.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(7416014)(376014)(10070799003)(366016)(1800799024)(7053199007)(22082099003)(56012099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Q2RmdGh2T1RGOU91cnJCa0Q4cEdkNGtLelVZcG9kd0FjRlEwYTJnQndHNTNS?=
+ =?utf-8?B?eWJ6R1BFMW9UTFFJNjlPT1hucDlVbWxFdVpmSW9qcHk0RThWRjVORUs1Z3Zn?=
+ =?utf-8?B?THo4OExjUEVETXdocjl1dCtoZC9BK2xzM0xZem9EQVZPUUlBNU9oVHJLbW5i?=
+ =?utf-8?B?MlQzenhpU2hMaTVvbTIxTlZsMEpiTllHSlJJb2paV2NVTk45YTBOZ1p3aFJm?=
+ =?utf-8?B?WjI3OVJadU9Ld1pqaDJjMjlheVJEeWFwYkdqcWt0K1NOVWNnWVM3eGJCWjlo?=
+ =?utf-8?B?ZjBLMUhIWUp2WWR0MGhJemhlQTR6S1EvZFh4LzFubk1BaEJkM2tObHljaTNh?=
+ =?utf-8?B?ZENQM2RWN05uSkxRTitmY00rdTdLcUxGWlRCcEpaNHNmc1dCZk9aV0tKalVn?=
+ =?utf-8?B?aGo3SzFYaHJ2dmZyZWtrYjJsNWpjSVRCMTJUWWN3bGJSTWR3dXFwcEhuMVZR?=
+ =?utf-8?B?My9na1FGZGJSZGs2RkNXc0drcFgxdWU1NjBDTkFPS29zeWdpUTFKbXA3cW1y?=
+ =?utf-8?B?VUdkZTZsQjVneExKSVB0RGM3T1BqdU9zN3FzbExUSmVZek42K1E1WjZRajZh?=
+ =?utf-8?B?YktRclpvdjJYOVcyTlNGdG12YzN3R09NZ2tyY1Zva094Vng4bkR5MFFTc2M0?=
+ =?utf-8?B?UGE5emFGUWh0ekNXVnV4QmpEWjJnelVMc2drZmpqWHNKbEhSVVdxN2xKUFlN?=
+ =?utf-8?B?b2RsSzg0VmRCNy9JdWRGRCtxZUhzS1loVVBuM1MxNW9FcXgyM1ptaTVyUW9j?=
+ =?utf-8?B?NHJHeW9LaDlxVDhMZTFLYUR0NkdNYzdOaUdoODZOWEdVZzZDSXY3bFRtT0ZE?=
+ =?utf-8?B?WUNUQjNIYUNjS0NHRUxFK2hIQW5wR1pMeTBuUE5mODNFNFFhcFJ3VDMzVHNq?=
+ =?utf-8?B?UzNnWkVoL2ZaaU0ycUszRVlYYVJ3Q3NDOHB6UlR2WFVvOGVOd1drZFJ4OCtL?=
+ =?utf-8?B?UWcxallnMlVKdEhFU3RJRGtGNUhJSlhTT2NBTEZna2lucXZoekYySzZtN2ZE?=
+ =?utf-8?B?NERwYng0ZGpPQUN3dXlCL2RHSmdlME1SdTVMWGFZbUdIUHI3OHhweW5qRnYv?=
+ =?utf-8?B?bnJaM2ZScjlrOVpWNEE3MkwwTitKNmNTYWc0a3RKbUloaTExRUNMRWtGemQ5?=
+ =?utf-8?B?ajhaZUp1YldJMm44VUtPck0xU2pqVWFiUmNlNGtKRXlheGVSMDNzd3NNaDU2?=
+ =?utf-8?B?SjBQaVV5Y3hvTi9keEcwMzZGL2diaUd4TmZTaFJYL3EvQmtPREF3WEJFQlll?=
+ =?utf-8?B?amIwMmFuL01FSUlIeFNBRldCTm1iZE9KTVJYd2hqTkZNemxKbjlLVHBWTWZH?=
+ =?utf-8?B?R3ZUMStjYm10R3p0Rm5qMkxpQms0RW43Ymx2NS9OM09nOG1FL0xORmpxUEN3?=
+ =?utf-8?B?UTdFUGNWNnRnSlRRVytOUDlUN2hmdVFmelU2Wm5zTXZmcnh3K3ZvMmVGcVBI?=
+ =?utf-8?B?T1FaZGZqbnAzTkJySENnRzc4a2NTNzVOcmZHcFZuZE13SmhGMGxDYlkwUnAr?=
+ =?utf-8?B?Q2ltTThiZUQ2cHY2K3RxcVBhWGFNdlVzRnN5V1NER2lTaVZEKzQyeDRwS2JM?=
+ =?utf-8?B?U2VhRmhaUzN2UzBiM0ZmcEx1b2NxZ0ZKZEZmSGdRbHdmZkxRY3lmZ283eG5D?=
+ =?utf-8?B?U3VTOE9yd2svekwwd3lraE4wellPWjhvajg2empBZkZPUTROUi9FdTE1Y1R0?=
+ =?utf-8?B?aHhQM3dienYxb2tFaFU0dkFkcWZxQ3R3RmJMbDRDWVc5NXpOMUhmbkorY1JF?=
+ =?utf-8?B?WUdoZHN4Q1BMVmRLVWxWaXhnSjlaRFBDV1VYWnhwKzVlSTNiNVFQZisxY0JY?=
+ =?utf-8?B?RDBrMXV3NUJxYWRldVJPcUk2VithdU5VVjRsUUxJZUVDTXg3Qlc3TEF1bzJl?=
+ =?utf-8?B?VFBiNGhJZFNHQi9MZXdMN0ovc0hIdUNRd3NYWmNyL1dOQVRRcklOQlg4aENL?=
+ =?utf-8?B?YUtwS25sRzFKWXEzbm01bXU0cUVXZlJkSm5KbG1iOURCKzhWYUt5VlZtSjZX?=
+ =?utf-8?B?VTduMUVMditwQzZpN1AydFZPN1VHdnluclo4MFcvVnJ4OGRDMldXUlpkT3FD?=
+ =?utf-8?B?UXc1ekNTN3RacnQrSkVwSEx2ZDI3YTQzQXlqaEY4ZUZkM2hOaWFLTDJjbHFv?=
+ =?utf-8?B?OXJpRHo5YldKajVnODcyYjhtWUNQcXM4dG92clFOOUpXN2xmQkpGZUpUN0lM?=
+ =?utf-8?B?L2wzTzhacmZ1Mmc5MHNMb3NmcUtMRFZVV2NReVE1NktpZ3gwR0tZM0xUVllP?=
+ =?utf-8?B?bjFxemt3OWxyK3pIVjdicUdBdjc0SkhpeEU1ejNKdHd5dDBWZXk5M2drTkUr?=
+ =?utf-8?B?L2l5ejFvdndPUjB0aFhVN0FWdWt6dEI3b0tHVTIwOHl2QlpaOFlvNUJJblE1?=
+ =?utf-8?Q?rS6YidMXoLtwZBh29frL8T5v8pz7z8Bs8g5rJ4fZPocDe?=
+X-MS-Exchange-AntiSpam-MessageData-1: NqriBi45XweAtw==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f000b4ed-7420-469b-3df4-08de8688b8cc
+X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB3990.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Mar 2026 13:58:10.9202 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ubdw6xWIlEQdYmMyovJ4mb8nwp7VYytPWWp81m5PDa5eWjEM+xUk5iP9btHB6grw2dVBvxRNJWLp/Ksw19rOVg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7890
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -121,297 +146,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, Mar 20, 2026 at 9:18=E2=80=AFPM Alexander Koskovich <akoskovich@pm.=
-me> wrote:
+On Tue Mar 17, 2026 at 9:56 PM JST, Gary Guo wrote:
+> On Tue Mar 17, 2026 at 6:50 AM GMT, Alice Ryhl wrote:
+>> On Tue, Mar 03, 2026 at 05:22:53PM +0100, Danilo Krummrich wrote:
+>>> From: Gary Guo <gary@garyguo.net>
+>>>=20
+>>> Currently, `CoherentAllocation` is concecptually a DMA coherent contain=
+er
+>>> of a slice of `[T]` of runtime-checked length. Generalize it by creatin=
+g
+>>> `dma::Coherent<T>` which can hold any value of `T`.
+>>> `Coherent::alloc_with_attrs` is implemented but not yet exposed, as I
+>>> believe we should not expose the way to obtain an uninitialized coheren=
+t
+>>> region.
+>>>=20
+>>> `Coherent<[T]>` provides a `len` method instead of the previous `count(=
+)`
+>>> method to be consistent with methods on slices.
+>>>=20
+>>> The existing type is re-defined as a type alias of `Coherent<[T]>` to e=
+ase
+>>> transition. Methods in use are not yet removed.
+>>>=20
+>>> Signed-off-by: Gary Guo <gary@garyguo.net>
+>>> Signed-off-by: Danilo Krummrich <dakr@kernel.org>
+>>
+>> I see you have both `size()` and `len()`. I think it would be clearer to
+>> rename `size()` to `len_bytes()`.
 >
-> On Friday, March 20th, 2026 at 8:20 AM, Pengyu Luo <mitltlatltl@gmail.com=
-> wrote:
+> This is an API that already exists and I simply moved it around so it is
+> implemented for all types, not just `[T]`.
 >
-> > On Fri, Mar 20, 2026 at 8:14=E2=80=AFPM Alexander Koskovich <akoskovich=
-@pm.me> wrote:
-> > >
-> > > On Friday, March 20th, 2026 at 8:08 AM, Pengyu Luo <mitltlatltl@gmail=
-.com> wrote:
-> > >
-> > > > On Fri, Mar 20, 2026 at 4:17=E2=80=AFPM Alexander Koskovich <akosko=
-vich@pm.me> wrote:
-> > > > > >
-> > > > > > On Friday, March 20th, 2026 at 3:36 AM, Dmitry Baryshkov <dmitr=
-y.baryshkov@oss.qualcomm.com> wrote:
-> > > > > >
-> > > > > > > On Fri, Mar 20, 2026 at 07:02:54AM +0000, Alexander Koskovich=
- wrote:
-> > > > > > > > On Friday, March 20th, 2026 at 2:50 AM, Alexander Koskovich=
- <akoskovich@pm.me> wrote:
-> > > > > > > >
-> > > > > > > > > On Friday, March 20th, 2026 at 2:38 AM, Dmitry Baryshkov =
-<dmitry.baryshkov@oss.qualcomm.com> wrote:
-> > > > > > > > >
-> > > > > > > > > > On Fri, Mar 20, 2026 at 04:46:02AM +0000, Alexander Kos=
-kovich wrote:
-> > > > > > > > > > > On Friday, March 20th, 2026 at 12:25 AM, Jonathan Mar=
-ek <jonathan@marek.ca> wrote:
-> > > > > > > > > > >
-> > > > > > > > > > > > On 3/19/26 9:45 PM, Dmitry Baryshkov wrote:
-> > > > > > > > > > > > > On Thu, Mar 19, 2026 at 01:23:03PM -0400, Jonatha=
-n Marek wrote:
-> > > > > > > > > > > > ...
-> > > > > > > > > > > > >>
-> > > > > > > > > > > > >> That's not how it works. INTF (which feeds DSI) =
-is after DSC compression.
-> > > > > > > > > > > > >>
-> > > > > > > > > > > > >> INTF timings are always in RGB888 (24-bit) units=
-. Ignoring widebus details,
-> > > > > > > > > > > > >> the INTF timing should match what is programmed =
-on the DSI side (hdisplay,
-> > > > > > > > > > > > >> which is calculated as bytes per line / 3).
-> > > > > > > > > > > > >>
-> > > > > > > > > > > > >> (fwiw, the current "timing->width =3D ..." calcu=
-lation here blames to me, but
-> > > > > > > > > > > > >> what I wrote originally was just "timing->width =
-=3D timing->width / 3" with a
-> > > > > > > > > > > > >> comment about being incomplete.)
-> > > > > > > > > > > > >>
-> > > > > > > > > > > > > Okay. After reading the docs (sorry, it took a wh=
-ile).
-> > > > > > > > > > > > >
-> > > > > > > > > > > > > - When widebus is not enabled, the transfer is al=
-ways 24 bit of
-> > > > > > > > > > > > >    compressed data. Thus if it is not in play, pc=
-lk and timing->width
-> > > > > > > > > > > > >    should be scaled by source_pixel_depth / compr=
-ession_ratio / 24. In
-> > > > > > > > > > > > >    case of the code it is 'drm_dsc_get_bpp_int(ds=
-c) / 24'.
-> > > > > > > > > > > > >
-> > > > > > > > > > > > >    For RGB101010 / 8bpp DSC this should result in=
- the PCLK being lowered
-> > > > > > > > > > > > >    by the factor of 3 (=3D 24 / (30 / 3.75))
-> > > > > > > > > > > > >
-> > > > > > > > > > > > > - When widebus is in play (MDSS 6.x+, DSI 2.4+), =
-the transfer takes
-> > > > > > > > > > > > >    more than 24 bits. In this case the PCLK and t=
-iming->width should be
-> > > > > > > > > > > > >    scaled exactly by the DSC compression ratio, w=
-hich is
-> > > > > > > > > > > > >    'drm_dsc_get_bpp_int(dsc) / (3 * dsc->bits_per=
-_component).
-> > > > > > > > > > > > >
-> > > > > > > > > > > > > So, this piece of code needs to be adjusted to ch=
-eck for the widebus
-> > > > > > > > > > > > > being enabled or not.
-> > > > > > > > > > > > >
-> > > > > > > > > > > >
-> > > > > > > > > > > > The widebus adjustment on the MDP/INTF side is alre=
-ady in
-> > > > > > > > > > > > dpu_hw_intf_setup_timing_engine: the "data width" i=
-s divided by 2 for
-> > > > > > > > > > > > 48-bit widebus instead of 24-bit. there shouldn't b=
-e any other
-> > > > > > > > > > > > adjustment (downstream doesn't have any other adjus=
-tment).
-> > > > > > > > > > > >
-> > > > > > > > > > > > a relevant downstream comment: "In DATABUS-WIDEN mo=
-de, MDP always sends
-> > > > > > > > > > > > out 48-bit compressed data per pclk and on average,=
- DSI consumes an
-> > > > > > > > > > > > amount of compressed data equivalent to the uncompr=
-essed pixel depth per
-> > > > > > > > > > > > pclk."
-> > > > > > > > > > > >
-> > > > > > > > > > > > Based on that comment, this patch is correct, and t=
-he
-> > > > > > > > > > > > ''drm_dsc_get_bpp_int(dsc) / (3 * dsc->bits_per_com=
-ponent)' adjustment
-> > > > > > > > > > > > only applies to DSI.
-> > > > > > > > > > >
-> > > > > > > > > > > If I keep the INTF side at /24 and change the DSI sid=
-e to:
-> > > > > > > > > > >
-> > > > > > > > > > > if (wide_bus)
-> > > > > > > > > > >         new_hdisplay =3D DIV_ROUND_UP(mode->hdisplay =
-* drm_dsc_get_bpp_int(dsc), dsc->bits_per_component * 3);
-> > > > > > > > > > > else
-> > > > > > > > > > >         new_hdisplay =3D DIV_ROUND_UP(mode->hdisplay =
-* drm_dsc_get_bpp_int(dsc), 24);
-> > > > > > > > > >
-> > > > > > > > > > Please check the actual fps (I'm usually using a vblank=
--synced GL, e.g.
-> > > > > > > > > > kmscube).
-> > > > > > > > > >
-> > > > > > > > > > At least this matches my expectations.
-> > > > > > > > >
-> > > > > > > > > Hmmm with kmscube I am getting 120FPS with 24 and 100FPS =
-with 30. So I guess that's a no go
-> > > > > > > >
-> > > > > > > > Although it was using dsc->bits_per_component * 3 regardles=
-s before for
-> > > > > > > > dsi_adjust_pclk_for_compression so I guess that's what Jona=
-than was
-> > > > > > > > referring to earlier...
-> > > > > > >
-> > > > > > > Do you have any of the patches by Marijn or Pengyu?
-> > > > > > >
-> > > > > > > - https://lore.kernel.org/linux-arm-msm/20260311-dsi-dsc-regr=
-esses-again-v1-1-6a422141eeea@somainline.org/
-> > > > > > >
-> > > > > > > - https://lore.kernel.org/linux-arm-msm/20260307111250.105772=
--1-mitltlatltl@gmail.com/
-> > > > > >
-> > > > > > Nope, I can test with them though if you'd like
-> > > > >
-> > > > > Tested the following 3 patches on top of this series:
-> > > > > drm/msm/dsi: fix hdisplay calculation when programming dsi regist=
-ers
-> > > > > drm/msm/dsi: fix bits_per_pclk
-> > > > > drm/msm/dsi: fix hdisplay calculation for CMD mode panel
-> > > > >
-> > > > > Getting constant FIFO errors with them applied:
-> > > > > [   64.851635] dsi_err_worker: status=3D4
-> > > > > [   64.851692] dsi_err_worker: status=3D4
-> > > > > [   64.851730] dsi_err_worker: status=3D4
-> > > > > [   64.851766] dsi_err_worker: status=3D4
-> > > > > [   64.851802] dsi_err_worker: status=3D4
-> > > > > [   64.851837] dsi_err_worker: status=3D4
-> > > > > [   64.851903] dsi_err_worker: status=3D4
-> > > > > [   64.851940] dsi_err_worker: status=3D4
-> > > > > [   64.851976] dsi_err_worker: status=3D4
-> > > > > [   64.852011] dsi_err_worker: status=3D4
-> > > >
-> > > > Personally, I use
-> > > > timing->width =3D DIV_ROUND_UP(timing->width * drm_dsc_get_bpp_int(=
-dsc),
-> > > >                          dsc->bits_per_component * 3);
-> > > >
-> > > > DIV_ROUND_UP is magic for me. If not, I got status=3D4 too.
-> > > >
-> > > > This works for 8-bit dst bpc with 10-bit src bpc.
-> > >
-> > > Did a quick test with that (plus the 3 changes listed above), still g=
-etting the
-> > > FIFO errors and no display.
-> > >
-> > > Are you using RGB101010?
-> > >
-> >
-> > RGB101010(dst bpp) downstream, my panel supports RGB101010, and I can
-> > use RGB888 for it too.
-> > I am testing rgb101010.
-> > BTW, have you dumped registers? compared with downstream.
-> >
-> > I hardcode
-> > display_data_hctl =3D (0xbe << 16) | hsync_data_start_x;
-> > in dpu_hw_intf.c
-> > downstream uses 0xbe for data_width
->
-> Can you try this series with ac47870fd ("drm/msm/dsi: fix hdisplay calcul=
-ation when programming dsi registers") reverted and with the following 2 ch=
-anges?
->
-> https://github.com/AKoskovich/linux/commit/af24b0e2ee212153953dfee040da5c=
-c077567363
-> https://github.com/AKoskovich/linux/commit/e334675c0caf47956a838e2eafda22=
-fb689a967d
->
+> I also think that `size()` quite unambiguously means the size in bytes (l=
+ike, in
+> all allocation and I/O APIs, `size` means size of object in bytes); I don=
+'t see
+> much benefit in renaming it `len_bytes`.
 
-I don't mind testing it, but some parameters are obviously wrong for me.
+Agreed, furthermore `len` is used in the standard library so the pattern
+of it returning a number of elements is pretty established.
 
-int new_hdisplay =3D DIV_ROUND_UP(mode->hdisplay * drm_dsc_get_bpp_int(dsc)=
-,
-            dsc->bits_per_component * 3);
-
-This gives the correct clkrate with fixes([1]).
-
-fixed ac47870fd([2]) will give me the right hdisplay register value
-@0xae94024 (I compared with downstream)
-
-[1]: https://gitlab.freedesktop.org/drm/msm/-/commit/e4eb11b34d6c84f398d8f0=
-8d7cb4d6c38e739dd2
-[2]: https://lore.kernel.org/linux-arm-msm/20260307111250.105772-1-mitltlat=
-ltl@gmail.com/
-
-BTW, I can only do 8-bit dst and 10-bit src test, 10-bit dst and
-10-bit src gave me
-
-Mar 20 20:46:00 qcom kernel: dsi_mgr_bridge_mode_set: set mode:
-"1904x3040": 120 915552 1904 2180 2212 2244 3040 3066 3070 3400 0x48
- 0x0
-Mar 20 20:46:00 qcom kernel: dsi_mgr_bridge_pre_enable: id=3D0
-Mar 20 20:46:00 qcom kernel: dsi_mgr_bridge_power_on: id=3D0
-Mar 20 20:46:00 qcom kernel: msm_dsi_host_reset_phy:
-Mar 20 20:46:00 qcom kernel: msm_dsi_host_reset_phy:
-Mar 20 20:46:00 qcom kernel: dsi_calc_pclk: pclk=3D172992000, bclk=3D108120=
-000
-Mar 20 20:46:00 qcom kernel: dsi_calc_pclk: pclk=3D172992000, bclk=3D108120=
-000
-Mar 20 20:46:00 qcom kernel: dsi_link_clk_set_rate_6g: Set clk rates:
-pclk=3D172992000, byteclk=3D108120000
-Mar 20 20:46:00 qcom kernel: dsi_link_clk_set_rate_6g: Failed to set
-rate pixel clk, -22
-Mar 20 20:46:00 qcom kernel: msm_dsi_host_power_on: failed to enable
-link clocks. ret=3D-22
-Mar 20 20:46:00 qcom kernel: dsi_mgr_bridge_power_on: power on host 0
-failed, -22
-Mar 20 20:46:00 qcom kernel: msm_dsi ae94000.dsi: Power on failed: -22
-Mar 20 20:46:00 qcom kernel: bias enabled
-Mar 20 20:46:00 qcom kernel: panel-nt36536 ae94000.dsi.0: sending dcs
-data ff 20 failed: -22
-Mar 20 20:46:00 qcom kernel: panel-nt36536 ae94000.dsi.0: Failed to
-initialize panel: -22
-Mar 20 20:46:00 qcom kernel: [drm:dpu_encoder_phys_vid_enable:471] enc33 in=
-tf2
-Mar 20 20:46:00 qcom kernel:
-[drm:dpu_encoder_phys_vid_setup_timing_engine:292] enc33 intf2
-enabling mode:
-Mar 20 20:46:00 qcom kernel:
-[drm:dpu_encoder_phys_vid_setup_timing_engine:304] enc33 intf2
-split_role 2, halve horizontal 952 1122
-1090 1106 0
-Mar 20 20:46:00 qcom kernel:
-[drm:dpu_encoder_phys_vid_setup_timing_engine:315] enc33 intf2
-fmt_fourcc 0x34324752
-Mar 20 20:46:00 qcom kernel:
-[drm:programmable_fetch_get_num_lines:202] enc33 intf2 prog fetch is
-not needed, large vbp+vsw
-Mar 20 20:46:00 qcom kernel:
-[drm:programmable_fetch_get_num_lines:217] enc33 intf2 v_front_porch
-26 v_back_porch 330 vsync_pulse_wi
-dth 4
-Mar 20 20:46:00 qcom kernel:
-[drm:programmable_fetch_get_num_lines:221] enc33 intf2 wc_lines 24
-needed_vfp_lines 4294966986 actual_v
-fp_lines 0
-Mar 20 20:46:00 qcom kernel: [drm:programmable_fetch_config:261] enc33
-intf2 vfp_fetch_lines 0 vfp_fetch_start_vsync_counter 0
-Mar 20 20:46:00 qcom kernel: [drm:dpu_encoder_phys_vid_enable:507]
-enc33 intf2 update pending flush ctl 0 intf 3
-Mar 20 20:46:00 qcom kernel: [drm:dpu_encoder_phys_vid_enable:471] enc33 in=
-tf1
-Mar 20 20:46:00 qcom kernel:
-[drm:dpu_encoder_phys_vid_setup_timing_engine:292] enc33 intf1
-enabling mode:
-Mar 20 20:46:00 qcom kernel:
-[drm:dpu_encoder_phys_vid_setup_timing_engine:304] enc33 intf1
-split_role 1, halve horizontal 952 1122
-1090 1106 0
-Mar 20 20:46:00 qcom kernel:
-[drm:dpu_encoder_phys_vid_setup_timing_engine:315] enc33 intf1
-fmt_fourcc 0x34324752
-
-
-Best wishes,
-Pengyu
-
->
-> >
-> > Best wishes,
-> > Pengyu
-> > > >
-> > > > Best wishes,
-> > > > Pengyu
-> > > >
-> > >
-> > > Thanks,
-> > > Alex
-> >
-> >
+Generally speaking I tend to prefer having the units mentioned in the
+doccomment rather than the method name.
