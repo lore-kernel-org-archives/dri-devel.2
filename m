@@ -4,61 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 954A31093199
-	for <dri-devel@archiver.kernel.org>; Fri, 20 Mar 2026 09:19:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 755FE1088E6F
+	for <dri-devel@archiver.kernel.org>; Fri, 20 Mar 2026 09:25:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E679D10EA81;
-	Fri, 20 Mar 2026 09:19:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DE01A10EA93;
+	Fri, 20 Mar 2026 09:25:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="XxsQxNPg";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="icQhL9S/";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E78D010E541
- for <dri-devel@lists.freedesktop.org>; Fri, 20 Mar 2026 09:19:08 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 48B8210EAB9
+ for <dri-devel@lists.freedesktop.org>; Fri, 20 Mar 2026 09:25:15 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 74D8B4026B;
- Fri, 20 Mar 2026 09:19:08 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C66ADC2BC9E;
- Fri, 20 Mar 2026 09:19:07 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 984B560127;
+ Fri, 20 Mar 2026 09:25:14 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EF0EEC4CEF7;
+ Fri, 20 Mar 2026 09:25:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1773998348;
- bh=LaFfclQJNpW8j4z2NNQXpLUkD7/mL0945GUUmdgcNYI=;
+ s=k20201202; t=1773998714;
+ bh=hytdCJvyRmCwOZPRrZqiCYUso9HSoG5TaaQC5t9D8f8=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=XxsQxNPgDUJHJqSei+eyT3/4wLXRMZEqzks3G36VQLFcfu9JWqwnY0mOg0MTOi1Ro
- 0xNBxOt4FxheBLRQZkCyILhWO4riIZOPSIilhvRCJqaqqdY6/5HF3hQPztctn6ucIX
- 1OKBg5jQrZDwH3wIHVCRAqYFJbjGKxwstlRNVQJe9i0P6mwq/PHNiGhZVoaXjuAI5d
- muiNrzaa0qk78JgPptsfReDFcKvx/Swv28NN4rw22m1qkBYrrXH64UWHgS8AKL1EqF
- sZayDTa+oC8LyGAjhTAcjJ2yxaJIEWbh77k+fYRJoB/Sn4EYeME3yGNRmV8G2OIOBE
- oEPtO3LUNwjSg==
-Date: Fri, 20 Mar 2026 10:19:06 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Damon Ding <damon.ding@rock-chips.com>
-Cc: hjc@rock-chips.com, heiko@sntech.de, andy.yan@rock-chips.com, 
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- airlied@gmail.com, 
- simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
- andrzej.hajda@intel.com, neil.armstrong@linaro.org, rfoss@kernel.org, 
- Laurent.pinchart@ideasonboard.com, jonas@kwiboo.se, jernej.skrabec@gmail.com, 
- nicolas.frattaroli@collabora.com, alchark@gmail.com,
- cristian.ciocaltea@collabora.com, 
- sebastian.reichel@collabora.com, kever.yang@rock-chips.com,
- heiko.stuebner@cherry.de, 
- tomeu@tomeuvizoso.net, amadeus@jmu.edu.cn, michael.riesch@collabora.com, 
- didi.debian@cknow.org, dmitry.baryshkov@oss.qualcomm.com,
- luca.ceresoli@bootlin.com, 
- dianders@chromium.org, m.szyprowski@samsung.com,
- dri-devel@lists.freedesktop.org, 
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 1/9] dt-bindings: display: rockchip: analogix-dp:
- Expand clock-names "hclk" for the third clock
-Message-ID: <20260320-amusing-magnetic-harrier-20cc40@quoll>
-References: <20260319104031.1986946-1-damon.ding@rock-chips.com>
- <20260319104031.1986946-2-damon.ding@rock-chips.com>
+ b=icQhL9S/Q5ILqqXlrUeozeOHXjb/GuPv/wHRchDoxgIv25tlaovbaH2PdqeloTdb9
+ 3i4JCMmJe9Ui0z/BtvEMISDKEQUmE5fa5bjrZ4E1a2zx8jYbChwzmDbjE8HBJjz5i5
+ THy7f206/poUIYlud6rfmz+zpiPgMMeKqcZyGd852o49RFhzCe6vS0+cltyGY5iOBj
+ zar98h6W6ZUcE6R1Q85cOiOZ+GqolTPmKAPiZYXu3yIDI1lIxv8T3TRTYsk5UfIV4c
+ 1b09b/KZQfza6Tt4Y7D2ezW7qMr+juQ7pmYHv9Qz1nksN8MEuCrHwPTc6a/LPzIkTU
+ YmMtFdqil6vYA==
+Date: Fri, 20 Mar 2026 10:25:11 +0100
+From: Maxime Ripard <mripard@kernel.org>
+To: Marco Felsch <m.felsch@pengutronix.de>
+Cc: Marek Vasut <marex@nabladev.com>, 
+ Krzysztof =?utf-8?Q?Ha=C5=82asa?= <khalasa@piap.pl>,
+ Stefan Agner <stefan@agner.ch>, Liu Ying <victor.liu@nxp.com>, 
+ Simona Vetter <simona@ffwll.ch>, imx@lists.linux.dev,
+ Fabio Estevam <festevam@gmail.com>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, Frank Li <Frank.Li@nxp.com>,
+ linux-kernel@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, linux-arm-kernel@lists.infradead.org
+Subject: Re: i.MX8MP: Fix HDMI LCDIF FIFO underruns
+Message-ID: <20260320-amiable-hairy-bullfinch-28bfda@houat>
+References: <m3ms04caaj.fsf@t19.piap.pl>
+ <32317022-3c44-4ead-9e2d-04caa12b28cb@nabladev.com>
+ <m36pvjbo4xy2rtdymshjpmwu7icl3wlyiwcmmjaozo7jpe5lqk@zt7byx7iwmym>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: multipart/signed; micalg=pgp-sha384;
+ protocol="application/pgp-signature"; boundary="kqtw7ezuuh3ww2w4"
 Content-Disposition: inline
-In-Reply-To: <20260319104031.1986946-2-damon.ding@rock-chips.com>
+In-Reply-To: <m36pvjbo4xy2rtdymshjpmwu7icl3wlyiwcmmjaozo7jpe5lqk@zt7byx7iwmym>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,37 +69,75 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Mar 19, 2026 at 06:40:23PM +0800, Damon Ding wrote:
-> The RK3588 eDP controller needs the video datapath clock "hclk" to work
-> well. Previously, it works without explicitly adding this clock because
-> the 'rockchip,vo-grf = <&vo1_grf>' property implicitly enables HCLK_VO1.
-> 
-> Fixes: f855146263b1 ("dt-bindings: display: rockchip: analogix-dp: Add support for RK3588")
-> Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
-> ---
->  .../bindings/display/rockchip/rockchip,analogix-dp.yaml       | 4 +++-
->  1 file changed, 3 insertions(+), 1 deletion(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml b/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml
-> index d99b23b88cc5..d2bc8636b626 100644
-> --- a/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml
-> +++ b/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml
-> @@ -26,7 +26,9 @@ properties:
->      items:
->        - const: dp
->        - const: pclk
-> -      - const: grf
-> +      - enum:
-> +          - grf
-> +          - hclk
 
-You just told me it is the same clock, no? I asked that and you
-confirmed? Or you replied with an answer not relevant to the question?
+--kqtw7ezuuh3ww2w4
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: i.MX8MP: Fix HDMI LCDIF FIFO underruns
+MIME-Version: 1.0
 
-If this device takes reference to grf, why does it also take grf clock?
-Devices MUST NOT take clocks on behalf of other devices, so please
-answer with a list of all clock inputs according to datasheet/manual.
+On Fri, Mar 20, 2026 at 09:04:17AM +0100, Marco Felsch wrote:
+> On 26-03-20, Marek Vasut wrote:
+> > On 3/19/26 12:45 PM, Krzysztof Ha=C5=82asa wrote:
+> > > Running (and terminating) Weston on i.MX8MP sometimes produced black
+> > > or grey screens. The LCDIF3 INT_STATUS_D0 register showed a FIFO unde=
+rrun:
+> > >=20
+> > > 32FC6024: 1000002
+> > >=20
+> > > The PANIC0_THRES register was set to:
+> > >=20
+> > > 32FC6238:  AA0154
+> > >=20
+> > > which apparently meant low =3D 2736 bytes (0xAA * 16 + 16), high =3D =
+5456 bytes
+> > > (0x154 * 16 + 16).
+> > >=20
+> > > With this patch (based on NXP's driver) the watermarks are only 16 by=
+tes
+> > > higher (register values increased by 1) and the underruns are gone.
+> > >=20
+> > > Tested on Solidrun Hummingboard Mate with a 1080p60 HDMI display.
+> > >=20
+> > > Signed-off-by: Krzysztof Ha=C5=82asa <khalasa@piap.pl>
+> > >=20
+> > > --- a/drivers/gpu/drm/mxsfb/lcdif_kms.c
+> > > +++ b/drivers/gpu/drm/mxsfb/lcdif_kms.c
+> > > @@ -353,8 +353,8 @@ static void lcdif_enable_controller(struct lcdif_=
+drm_private *lcdif)
+> > >   	u32 reg;
+> > >   	/* Set FIFO Panic watermarks, low 1/3, high 2/3 . */
+> > > -	writel(FIELD_PREP(PANIC0_THRES_LOW_MASK, 1 * PANIC0_THRES_MAX / 3) |
+> > > -	       FIELD_PREP(PANIC0_THRES_HIGH_MASK, 2 * PANIC0_THRES_MAX / 3),
+> > > +	writel(FIELD_PREP(PANIC0_THRES_LOW_MASK, DIV_ROUND_UP(1 * PANIC0_TH=
+RES_MAX, 3)) |
+> > > +	       FIELD_PREP(PANIC0_THRES_HIGH_MASK, DIV_ROUND_UP(2 * PANIC0_T=
+HRES_MAX, 3)),
+> >=20
+> > I am starting to wonder, whether this should be configurable in DT, bec=
+ause
+> > it seems there might be users that need to tweak the watermarks one way=
+ or
+> > the other for different video outputs ?
+>=20
+> +1 to provide a override mechanism via DT.
 
-Best regards,
-Krzysztof
+If this is related to the output resolution, the DT is the last place
+you should deal with this.
 
+Maxime
+
+--kqtw7ezuuh3ww2w4
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCab0SdgAKCRAnX84Zoj2+
+dmj8AX0fLuO62vmJI+ySHByc+XZ8s3q4zviMe03MY5pK5cTsFHhJcFrOeMWaRAGv
+9SSJUCgBfRDumumJyxKSS5n1QS/g5KofFiU8leZjI7jjZE73tL3qBmVQuuVtlQvX
+A3w8KjXclw==
+=0nyw
+-----END PGP SIGNATURE-----
+
+--kqtw7ezuuh3ww2w4--
