@@ -4,46 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3CBB51098787
-	for <dri-devel@archiver.kernel.org>; Fri, 20 Mar 2026 14:17:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6BFAD1098793
+	for <dri-devel@archiver.kernel.org>; Fri, 20 Mar 2026 14:32:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9CD4F10EAFE;
-	Fri, 20 Mar 2026 14:17:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7C68D10EA72;
+	Fri, 20 Mar 2026 14:32:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="PaSa7CVO";
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="yN55ruUD";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 47A9010EAFE
- for <dri-devel@lists.freedesktop.org>; Fri, 20 Mar 2026 14:17:52 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 141D2409D1;
- Fri, 20 Mar 2026 14:17:52 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6F7DCC4CEF7;
- Fri, 20 Mar 2026 14:17:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1774016271;
- bh=fyE92RrNSjFykE3xg3omHI7o5AaRXCfOVEYitwt+Jco=;
- h=Date:From:To:Cc:Subject:From;
- b=PaSa7CVOs9YElTSyhaoDDnAWYJJ9soyEwzI1uYditKXqOCSaRe0YZseUUKX+C+wpa
- xmzYMuGw90rSODetsZ6TjdGixAo7vXn5B7wAjEzKxbRwEF6qMh+YITJCOHSnInVvh8
- UClVbfORuAU6f2KSXBy47a150+qmrRRZ4qAkM3Nqs4hh0LTVg+Pm9owkT8PDZVwrI3
- UgcguxCOdIB7QVQ+ushUq4XeomHpdvdyEc17LYkAwP+ehi6qqwkehewshEfeJf71Ik
- 1vFKfnahiAVAPMQGc/iEgTzXXAN3RSq7TyzO6mHC7RDZLn5PHt8TZ5aOyo9ZXvdIV+
- 4rrjUR7+q8bIw==
-Date: Fri, 20 Mar 2026 14:17:46 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Dave Airlie <airlied@redhat.com>, DRI <dri-devel@lists.freedesktop.org>
-Cc: Boris Brezillon <boris.brezillon@collabora.com>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Linux Next Mailing List <linux-next@vger.kernel.org>,
- Pedro Demarchi Gomes <pedrodemargomes@gmail.com>,
- Thomas Zimmermann <tzimmermann@suse.de>
-Subject: linux-next: manual merge of the drm tree with the drm-misc-fixes tree
-Message-ID: <ab1XClKfaCMYzg5-@sirena.org.uk>
+Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B1EBA10E97F;
+ Fri, 20 Mar 2026 14:32:49 +0000 (UTC)
+Received: from smtp202.mailbox.org (smtp202.mailbox.org
+ [IPv6:2001:67c:2050:b231:465::202])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4fclQh4vBlz9tZ5;
+ Fri, 20 Mar 2026 15:32:44 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; t=1774017164;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=JviG+14X+C7+tuV4p6c0wZqqdSSzi7L0/JzOdiSaoXc=;
+ b=yN55ruUDWswzfPTyDMKIwB7w0j+DnWjjibJmqGyFGYNL34217Zbl29ziPbhMDNrLSdm9pE
+ 29gpce9s+dnxDsz1lA5EVe4glJsygJKmWG3TNMfDcLT5vT7mtu0sNJYknB1PdjNcKe7lq4
+ ekzRI5OGDwWkJfFU4R7hnPFH+mqR7TR5SYhQzNb6lmfgZoPmnSa0/14zqO0fUVR8PJvOog
+ TVjRAKmlh8pg4rwGk/E5htg8yEuLc/tSrslsI303ZJqPi0eZcfwd5bEGEYoSGriaSXMFVs
+ JpxiaB4ihGMIrAkhD7unw6n6hCG7Km4ET8H603W/Af5F62QcVHslmkHHkAq4FQ==
+Message-ID: <8ba60a99-f69e-482e-bd68-f6bc36291c54@mailbox.org>
+Date: Fri, 20 Mar 2026 15:32:37 +0100
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="EP0MMgVQ6S74X9GM"
-Content-Disposition: inline
+Subject: Re: [PATCH v5 0/3] Add "link bpc" DRM property
+To: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
+ Daniel Stone <daniels@collabora.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, kernel@collabora.com,
+ Derek Foreman <derek.foreman@collabora.com>,
+ Marius Vlad <marius.vlad@collabora.com>
+References: <20260319-link-bpc-v5-0-5306cd04a708@collabora.com>
+From: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>
+Content-Language: en-CA
+In-Reply-To: <20260319-link-bpc-v5-0-5306cd04a708@collabora.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-MBO-RS-ID: f1b27e5aef372acf5dd
+X-MBO-RS-META: arpuksg4c75ewmkcxo8yqdbm8mtxuum1
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,130 +76,25 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On 3/19/26 13:28, Nicolas Frattaroli wrote:
+> This series adds a new "link bpc" DRM property. It reflects the display
+> link's actual achieved output bits per component, considering any
+> degradation of the bit depth done by drivers for bandwidth or other
+> reasons. The property's value is updated during an atomic commit, which
+> is also when it fires an uevent if it changed to let userspace know.
+> 
+> There's a weston implementation at [1] which makes use of this new
+> property to warn when a user's requested bpc could not be reached.
+> 
+> [1]: https://gitlab.freedesktop.org/wayland/weston/-/merge_requests/1850
 
---EP0MMgVQ6S74X9GM
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+I see no description of a real-world use case, either in this series or in the weston MR, beyond logging a message when the "link bpc" & "max bpc" property values don't match. They are not expected to match in general, so I have a hard time seeing the usefulness of that.
 
-Hi all,
+Moreover, there's no description of what exactly the "link bpc" property value means, e.g. vs things like DSC or dithering, or how a compositor / user would determine which value they need / want under given circumstances.
 
-Today's linux-next merge of the drm tree got a conflict in:
+In summary, I'm skeptical that this will be useful in practice in the current form. I do see potential for spurious bug reports based on the "link bpc" property having the "wrong" value though.
 
-  drivers/gpu/drm/drm_gem_shmem_helper.c
 
-between commit:
-
-  fc3bbf34e643f ("drm/shmem-helper: Fix huge page mapping in fault handler")
-
-=66rom the drm-misc-fixes tree and commits:
-
-  5cf8de6cd1620 ("drm/gem-shmem: Return vm_fault_t from drm_gem_shmem_try_m=
-ap_pmd()")
-  06f3662cb3ba9 ("drm/gem-shmem: Refactor drm_gem_shmem_try_map_pmd()")
-
-=66rom the drm tree.
-
-I fixed it up (see below) and can carry the fix as necessary. This
-is now fixed as far as linux-next is concerned, but any non trivial
-conflicts should be mentioned to your upstream maintainer when your tree
-is submitted for merging.  You may also want to consider cooperating
-with the maintainer of the conflicting tree to minimise any particularly
-complex conflicts.
-
-diff --cc drivers/gpu/drm/drm_gem_shmem_helper.c
-index c549293b5bb61,4500deef41278..0000000000000
---- a/drivers/gpu/drm/drm_gem_shmem_helper.c
-+++ b/drivers/gpu/drm/drm_gem_shmem_helper.c
-@@@ -550,27 -554,23 +554,23 @@@ int drm_gem_shmem_dumb_create(struct dr
-  }
-  EXPORT_SYMBOL_GPL(drm_gem_shmem_dumb_create);
- =20
-- static vm_fault_t try_insert_pfn(struct vm_fault *vmf, unsigned int order,
-- 				 unsigned long pfn)
-+ static vm_fault_t drm_gem_shmem_try_insert_pfn_pmd(struct vm_fault *vmf, =
-unsigned long pfn)
-  {
-- 	if (!order) {
-- 		return vmf_insert_pfn(vmf->vma, vmf->address, pfn);
-  #ifdef CONFIG_ARCH_SUPPORTS_PMD_PFNMAP
-- 	} else if (order =3D=3D PMD_ORDER) {
-- 		unsigned long paddr =3D pfn << PAGE_SHIFT;
-- 		bool aligned =3D (vmf->address & ~PMD_MASK) =3D=3D (paddr & ~PMD_MASK);
-+ 	unsigned long paddr =3D pfn << PAGE_SHIFT;
-+ 	bool aligned =3D (vmf->address & ~PMD_MASK) =3D=3D (paddr & ~PMD_MASK);
- =20
-- 		if (aligned &&
-- 		    folio_test_pmd_mappable(page_folio(pfn_to_page(pfn)))) {
-- 			pfn &=3D PMD_MASK >> PAGE_SHIFT;
-- 			return vmf_insert_pfn_pmd(vmf, pfn, false);
-- 		}
-- #endif
-+ 	if (aligned && pmd_none(*vmf->pmd)) {
-+ 		/* Read-only mapping; split upon write fault */
-+ 		pfn &=3D PMD_MASK >> PAGE_SHIFT;
-+ 		return vmf_insert_pfn_pmd(vmf, pfn, false);
-  	}
-- 	return VM_FAULT_FALLBACK;
-+ #endif
-+=20
-+ 	return 0;
-  }
- =20
- -static vm_fault_t drm_gem_shmem_fault(struct vm_fault *vmf)
- +static vm_fault_t drm_gem_shmem_any_fault(struct vm_fault *vmf, unsigned =
-int order)
-  {
-  	struct vm_area_struct *vma =3D vmf->vma;
-  	struct drm_gem_object *obj =3D vma->vm_private_data;
-@@@ -644,13 -645,29 +650,32 @@@ static void drm_gem_shmem_vm_close(stru
-  	drm_gem_vm_close(vma);
-  }
- =20
-+ static vm_fault_t drm_gem_shmem_pfn_mkwrite(struct vm_fault *vmf)
-+ {
-+ 	struct vm_area_struct *vma =3D vmf->vma;
-+ 	struct drm_gem_object *obj =3D vma->vm_private_data;
-+ 	struct drm_gem_shmem_object *shmem =3D to_drm_gem_shmem_obj(obj);
-+ 	loff_t num_pages =3D obj->size >> PAGE_SHIFT;
-+ 	pgoff_t page_offset =3D vmf->pgoff - vma->vm_pgoff; /* page offset withi=
-n VMA */
-+=20
-+ 	if (drm_WARN_ON(obj->dev, !shmem->pages || page_offset >=3D num_pages))
-+ 		return VM_FAULT_SIGBUS;
-+=20
-+ 	file_update_time(vma->vm_file);
-+=20
-+ 	folio_mark_dirty(page_folio(shmem->pages[page_offset]));
-+=20
-+ 	return 0;
-+ }
-+=20
-  const struct vm_operations_struct drm_gem_shmem_vm_ops =3D {
-  	.fault =3D drm_gem_shmem_fault,
- +#ifdef CONFIG_ARCH_SUPPORTS_PMD_PFNMAP
- +	.huge_fault =3D drm_gem_shmem_any_fault,
- +#endif
-  	.open =3D drm_gem_shmem_vm_open,
-  	.close =3D drm_gem_shmem_vm_close,
-+ 	.pfn_mkwrite =3D drm_gem_shmem_pfn_mkwrite,
-  };
-  EXPORT_SYMBOL_GPL(drm_gem_shmem_vm_ops);
- =20
-
---EP0MMgVQ6S74X9GM
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmm9VwkACgkQJNaLcl1U
-h9C9Awf+Lzvqx1wZE8b+Udz9D0//H0GIa6xfZUdVZGlUNTSlE49SF5/I5luFWa10
-oEYbjghiKwRcUAVEvdJjSU5dVAoAemjibpy+9LHBwFaGTs6O4zTwO5V7m7PN7Ifp
-GaCfHZwnEuKjvTC0dzKC2ej+L6CVLM9Y/oBuEL4hLq6XW3rlY2YY1O22mtdYod7e
-IPzKJ29l9GSexAsiy8CzntJ70PQEIdOtmrcK5xo8Rw+0Vz3G6ZZWVzBalD76Pop/
-yf9IVY0pyTJdpVocj5g9vyfoMecHSjhI8rDcmmjPOPJNU2IJRtc4zJh6YHHblk1e
-byWpHP+lHIjgGwXziwHpo4bFQavZsw==
-=ZAkP
------END PGP SIGNATURE-----
-
---EP0MMgVQ6S74X9GM--
+-- 
+Earthling Michel Dänzer       \        GNOME / Xwayland / Mesa developer
+https://redhat.com             \               Libre software enthusiast
