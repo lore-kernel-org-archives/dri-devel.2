@@ -4,178 +4,125 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2C19610987A5
-	for <dri-devel@archiver.kernel.org>; Fri, 20 Mar 2026 16:33:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 820D310987AB
+	for <dri-devel@archiver.kernel.org>; Fri, 20 Mar 2026 16:38:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5A67510EA4B;
-	Fri, 20 Mar 2026 16:33:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B4B6510EB32;
+	Fri, 20 Mar 2026 16:38:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=gmx.de header.i=deller@gmx.de header.b="nAUPjFQn";
+	dkim=pass (1024-bit key; unprotected) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="wmirH38e";
 	dkim-atps=neutral
-Received: from mout.gmx.net (mout.gmx.net [212.227.17.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 09EE310EA4B
- for <dri-devel@lists.freedesktop.org>; Fri, 20 Mar 2026 16:33:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
- s=s31663417; t=1774024365; x=1774629165; i=deller@gmx.de;
- bh=9fG9TFK5YBYiwlIO4JNLa3f0OU3eRcodXPXEP1JnLCk=;
- h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
- References:From:In-Reply-To:Content-Type:
- Content-Transfer-Encoding:cc:content-transfer-encoding:
- content-type:date:from:message-id:mime-version:reply-to:subject:
- to;
- b=nAUPjFQnZqNSk6pfCncsfwtoET2l6BpyXs6XJX2Z2gCTKmf47+oRQjVHft7cqA1f
- SFB1zB2VXsCFuVES0/zi3eQY/aRZZGXtd87ucfuFdvOBj4w+F3ncLQE0sx3sAu2b/
- l9TIMzJqOtSsAGgvm7kFCRxhoZNUHgcgtJHnEEQeoDytxtFlI2I7hBc7OnjvVugF1
- tayj1440pFOqnWn7AV1bflWKp1f97ni1DvEOwzupjhe809cMXPvZoe9rY0DKa7HTM
- Ce9zPJEYia8Q3WShvuo3Lbw/bRqMKU8+gftqpvt7FhCFBgNsii2iLbjKHWEb8EkJH
- Zz2KlD9ZWroUiRbfZQ==
-X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
-Received: from client.hidden.invalid by mail.gmx.net (mrgmx104
- [212.227.17.168]) with ESMTPSA (Nemesis) id 1Mnpnm-1vFfZ10dCs-00c4XU; Fri, 20
- Mar 2026 17:32:45 +0100
-Message-ID: <fa586aeb-a15b-4615-b399-e327dea6cc17@gmx.de>
-Date: Fri, 20 Mar 2026 17:32:43 +0100
+Received: from TY3P286CU002.outbound.protection.outlook.com
+ (mail-japaneastazon11010026.outbound.protection.outlook.com [52.101.229.26])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 10DB710EB32
+ for <dri-devel@lists.freedesktop.org>; Fri, 20 Mar 2026 16:38:35 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=pJMKJbUK6AcN1oVY5erMf7sGiUwxHJJJWlmBdV5XlGp4RZ2+QAR3TCM2pbude3z42F3LxWmQhWuLJIFgbLKg8kxoZok+U9dIog+CFUNCvdPnD2qSkUaJs7l4GETCTszyhEw42Z56j5iz40JDwkIrvgnqCEC/cfTPYOg2OZvWY0zYO7SrW3s4Rf/yMj2/CFNXYgiIO+AGw8UvV2SS+2IUp8WAa0b3yigpqxvAg2eqCZcrx3/uWJ5Hmg0CkW1uQbU/iPe2rsSKvpF9D7vz1htvo1EGbaE09/bexq4Sfc9mByMeskTPqJMX7b72GY9pZULYcpCK1rjdkOue+D3R7oVD+g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=QUaF2zBafE5XhIkxuCF1iSKJA/iEaQcMcv/2oHHRx24=;
+ b=alSsrcPIADoVQhY6r1npjJ9OQcrvwoLoqdNbNyiNl0HOY/THwMHyBfwtQbkJPq4pNBxs+wEil+4dmYI7a857oH6WcLHOsBP6bQwX8bpyplIFsc8zWMwS8Se8w+bhQz7fn1e6Btx/a5Sl7GOW7dIUIMKhiI+LASBxcTj/a92CBfMhSjhI5JBVQPXnN1mSkF7Jc6C2SOqomhCanvWaGyree6ILDl6rvfbiXlrfqaXN3rblNaeqdHrw7MaooUTQW3NsZFI5mxqXNYcpxKQyGlEvQyv0VCCXSXzWcgCtoszVU9mBgnTNo2cRERgdwoOHJ9maljuKAPpZafVqCv5H6jigxw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
+ header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=QUaF2zBafE5XhIkxuCF1iSKJA/iEaQcMcv/2oHHRx24=;
+ b=wmirH38eISH3O1K3J+LPr/3wcyeieVM/WswC2zAbPDxj05DUAQ6fIOjN21935E08ADkWKJo34lAxP/kEhAnjQj1ia3CzYrWLSsT1vWivibX7oOg8+EWNkxfxdYrIBo3/xSYaGOAyoG5FI02Dev+TCn/puatKxjJ/3lDme20oJyg=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=bp.renesas.com;
+Received: from TYCPR01MB11947.jpnprd01.prod.outlook.com (2603:1096:400:3e1::6)
+ by OS3PR01MB7215.jpnprd01.prod.outlook.com (2603:1096:604:148::6)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.22; Fri, 20 Mar
+ 2026 16:38:25 +0000
+Received: from TYCPR01MB11947.jpnprd01.prod.outlook.com
+ ([fe80::33f1:f7cd:46be:e4d8]) by TYCPR01MB11947.jpnprd01.prod.outlook.com
+ ([fe80::33f1:f7cd:46be:e4d8%5]) with mapi id 15.20.9723.018; Fri, 20 Mar 2026
+ 16:38:32 +0000
+Date: Fri, 20 Mar 2026 17:38:11 +0100
+From: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+To: Boris Brezillon <boris.brezillon@collabora.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ dri-devel@lists.freedesktop.org, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, linux-kernel@vger.kernel.org,
+ Andrew Morton <akpm@linux-foundation.org>,
+ David Hildenbrand <david@kernel.org>,
+ Lorenzo Stoakes <lorenzo.stoakes@oracle.com>, Zi Yan <ziy@nvidia.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ "Liam R. Howlett" <Liam.Howlett@oracle.com>,
+ Nico Pache <npache@redhat.com>, Ryan Roberts <ryan.roberts@arm.com>,
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
+ Lance Yang <lance.yang@linux.dev>, linux-mm@kvack.org,
+ kernel@collabora.com, Biju Das <biju.das.jz@bp.renesas.com>
+Subject: Re: [PATCH] drm/shmem_helper: Make sure PMD entries get the
+ writeable upgrade
+Message-ID: <ab138_jW79ZaNC51@tom-desktop>
+References: <20260320151914.586945-1-boris.brezillon@collabora.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260320151914.586945-1-boris.brezillon@collabora.com>
+X-ClientProxiedBy: FR4P281CA0305.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:f6::14) To TYCPR01MB11947.jpnprd01.prod.outlook.com
+ (2603:1096:400:3e1::6)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 1/1] video: fbdev: matroxfb: Mark variable with
- __maybe_unused to avoid W=1 build break
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, linux-fbdev@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- llvm@lists.linux.dev
-Cc: Nathan Chancellor <nathan@kernel.org>,
- Nick Desaulniers <nick.desaulniers+lkml@gmail.com>,
- Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
- Jason Yan <yanaijie@huawei.com>
-References: <20260320143646.3218199-1-andriy.shevchenko@linux.intel.com>
-Content-Language: en-US
-From: Helge Deller <deller@gmx.de>
-Autocrypt: addr=deller@gmx.de; keydata=
- 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
-In-Reply-To: <20260320143646.3218199-1-andriy.shevchenko@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:3gzxMWiLSVfO+TBsML0zfYMcIjl4yjZPuz23OCsXImcMtBmQsOC
- Vsi3lmSRQPslP9dPq/THnRvy8W9FW3K0i3OFa9T+NSgmYx6MMrcBo0Mv21uzIuNvtZHxIE4
- zQTXD9zy3Z/CSl0X0aydESy9og8NyJkq10pEqVY38QOLZIU5qYIdduoPFCx2ne4kTDlYF3y
- ZRThL/sp17wGq7roc+6Tg==
-UI-OutboundReport: notjunk:1;M01:P0:LGW3KeTOgF4=;wXp7ze3YMtf0NmJbvB7t/uAfun1
- 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
- P9qTPT919Rh
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TYCPR01MB11947:EE_|OS3PR01MB7215:EE_
+X-MS-Office365-Filtering-Correlation-Id: bca257ec-3fe5-451c-0d35-08de869f1f56
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|7416014|376014|52116014|1800799024|366016|38350700014|7053199007|56012099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: dQlSdCmdMFvQdyxgj9oVfGH+jREZ5RETqKz25VZr0O29U6sYXM4q1Wuc0t7/q5/bJ06kE++G4XXZcHwwZDEBN9+wP2FQ2XkvsBUUwcFE2n9jd5wKfF7Nqv6CJ1VVgt7+y0Vr2S4CNAKIBnNr2NFcixMMaqtdqPqjVWfh0iGgNVJkmjGLLsNZeL6noB6wuEo9EfLeYivT7zNDjW9nc718Pb5363pXJ87Fgd9erfaDzF36Gbo6vLq+pbB/ev1NtysnwuE2czUkE6mRcr5wNZ9FiWtX58Re8976Gg8Qh6KvbYlW7trEeuwmtm56s+bBjm9HNzexYsiYA+1CKhpXDh2a6rNzVWWTY7mF8lredXWr5L3c8FRtXb5nruVViVLJ1Dk4hKUVEFHa1YVX1jDovGg4/dgAl1iMAa+xF9+Fh8uK31VWqU+m1E1Mf/QIVP5YZMuYn0tn4DQ9lpSpBI9SnwaPWQYDddhUMg6Pceln+wa45OxarZRFGnlrV1OEO55LesoKPGJxb9MSDWZG+1Gb59k7V30W2JGmIpxNyMLKJeyv3SZCX7PkUarQv/Q9YukY5J6izLqQYOEamft5ZFdvpi/zf+tL/Tx533m3LjSG5ef0zo56DPdET6qs03BeTk5Hr+wpuE3bRQ3Pyq5uyF5HxaHhfC2mOn9UE4euF2Yl2yztR9jTCooLNh+2cuGv0NdZdxD4IznuD7mLdRx7G54h72N0xb47ldElBJia4zDVnIGTwFIdi+gr7Hsg/+QUPuIcgPLD
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:TYCPR01MB11947.jpnprd01.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(7416014)(376014)(52116014)(1800799024)(366016)(38350700014)(7053199007)(56012099003)(18002099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?7FfqC2L8NBSrEwVFQetZZV0DAL3lN4BqkTA83c2Ut1O4SJr7+JavApNBdqJ0?=
+ =?us-ascii?Q?uDMeNJzB0+cY7zFAkM7jYxVVzgDZ6AyWaPgq1QjLf2bU6rKd7xmYQ+xwQu5P?=
+ =?us-ascii?Q?9sptKPeDU2UxuhbgwgHG1uMfW386NlVoF+nHgXXrj4w6tEj9lKhvinEXlig0?=
+ =?us-ascii?Q?COysEPyznv0HEAuDbYB2Y0nY71iJPvp5E8r5eep7R3Nu4c/v9R+Jo7KWDOoK?=
+ =?us-ascii?Q?/SFOLx8u9T4+mMegKdrgAjSpp/x7NDzf9l888JBvEeVMZR8NJZl6KkIkjdVl?=
+ =?us-ascii?Q?+IriyJbjtx25G5el0+dT/M2Z+mteYiCa57sLOAixYQ7sSvcxZa+w5F0R+8Np?=
+ =?us-ascii?Q?TYyd0Mw6qKTrrqSxuoRPIZJOX+PZxzFxVc/PSsMi8qqqN7Yw3UF0YdCHjgcq?=
+ =?us-ascii?Q?/2Z7IBQRzTYSq0syAk4HAXDLGspSQ3nk+PvIZaXvBxpW9C+AbVZFngxD0O59?=
+ =?us-ascii?Q?APqYsCCGBhgVvDBnzdQ83YgYE5tyvdU2lRhtgoMqEJjZjE21XZ7Ac/6BzvKv?=
+ =?us-ascii?Q?cNaz5lmSdwIgF7i6+NrOW12W4Kg9ZU4PjPCTmk+bLbCb0ThQdL4ERoaOXW7h?=
+ =?us-ascii?Q?Tgg9+nvtJsp0Vz6Ru7F+ZBl5k2kxuTHPwQJ4LisNIrVHdQTjLuzNtDeagAxN?=
+ =?us-ascii?Q?QuSBQqrUTu6C/0iNcvKhcuUynz1svjrFxoI6Qn1bMGL0eybBeXt6VnOQASFU?=
+ =?us-ascii?Q?Kp4cppBsGw7ld76h0XHe4cezkijn2DJrDGf735UuxgfhJne/jTEmiz3rh6Jj?=
+ =?us-ascii?Q?oc2QvgvlHoQwrACyviXi0Sx3F4ITUqWbOS7m8pZzVRC0rz7EYNzVX+rRy9Ok?=
+ =?us-ascii?Q?V/6ivmYUo6FXPKNDJL6BLQiAzM4OYz0gYAqgPh00Tc+YnRoq1nt4M2+PmmwD?=
+ =?us-ascii?Q?NcVuhNcvLBLK8744tyab52L3qH9LAOT6989voK2eCR3sYqhCjzKvOHdazWDd?=
+ =?us-ascii?Q?mc/jBKGAOrCjIPtVf0c5jDTIekDQxtoo2laTw5Iz0xAwvvUhNbHukbQojT3f?=
+ =?us-ascii?Q?7yVDlZra6gOJshFYL0/qZY+g8A1e+4ffHgRMTP+CdkLSSQElgIqtE5BHEWxO?=
+ =?us-ascii?Q?4cRU7L/txsVRk4wYRvXj33ErSgnWMZAELwCGKZhH1iVbpBID/nxAmfOzDYbG?=
+ =?us-ascii?Q?QEFBHzGW66xpLc7/Cv6Ahf7bp/CxlpFTZI/P89YtRAsoOyrdaEMox1kbEvig?=
+ =?us-ascii?Q?k5PCsXbCQqTUT6YTkNyqHZnlNxLxdQtfMK6WhCnOMPlqRu7ZGq64S329qirc?=
+ =?us-ascii?Q?g8cPPlsPhFsqGwDtj4Cl57cN6q50QhVwyFM3slsVVXSvXjD4bz6hcBgXn73/?=
+ =?us-ascii?Q?Dmr8Yi7HcMLfUiFkbpgtOn1AXZF4hhk16/VZSiaBwXAdFzuMD3jXFqRe6Pym?=
+ =?us-ascii?Q?lBqsXzMPfW3BvbrxysadxznmdOrVKAqtldfmBQ8WepJInx/DtoUvN8/11/GN?=
+ =?us-ascii?Q?v0+gbuBmuwGYJapKUqUZZuwlVZaEPYe1eG41RPcUHQXVypIU5gg2V6fP6pLU?=
+ =?us-ascii?Q?jbpQJMD6Qac3AgJmx6+GRYPJ36YizihIqp6RtBUfcUVLScUuZCcTEmZFSCmH?=
+ =?us-ascii?Q?vpae22UJjh/35kjlIuPAV297Hxwg0JymUq6K3MjqeCKxDGc/m91S93thvrUa?=
+ =?us-ascii?Q?MNjMl57VA5NNHMHn7ymxq3qN8fwmOGSGwPMdqvpj/VGFgO1SbhrUNVORWO/2?=
+ =?us-ascii?Q?8EfaLHNlN/RDMhOrhyBUncnM0ut7fytCTGwmpV+kkDmT+zniD2ARM9gVJ+f4?=
+ =?us-ascii?Q?PRw7f0r4OV8+4xm9UmLTXoeSn0bzDbcMBRmugTWXoG+Qv3yhXe2F?=
+X-OriginatorOrg: bp.renesas.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: bca257ec-3fe5-451c-0d35-08de869f1f56
+X-MS-Exchange-CrossTenant-AuthSource: TYCPR01MB11947.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Mar 2026 16:38:32.0284 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: RjWH6I+e7gnKRISsyTARogezrwJdBaV4bIU6C23M2HR38vBlEHKfhjnO9GY3Co/PnLAVRnGy6bS9xTD4963fftk/+bA++GylOIrR+6/aDNFDHO77proByVGCTY7yV87H
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: OS3PR01MB7215
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -191,79 +138,131 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 3/20/26 15:36, Andy Shevchenko wrote:
-> Clang is not happy about set but unused variable:
->=20
-> drivers/video/fbdev/matrox/g450_pll.c:412:18: error: variable 'mnp' set =
-but not used [-Werror,-Wunused-but-set-variable]
->     412 |                                 unsigned int mnp;
->         |                                              ^
-> 1 error generated.
->=20
-> Since the commit 7b987887f97b ("video: fbdev: matroxfb: remove dead code
-> and set but not used variable") the 'mnp' became unused, but eliminating
-> that code might have side-effects. The question here is what should we d=
-o
-> with 'mnp'? The easiest way out is just mark it with __maybe_unused whic=
-h
-> will shut the compiler up and won't change any possible IO flow. So does
-> this change.
->=20
-> Fixes: 7b987887f97b ("video: fbdev: matroxfb: remove dead code and set b=
-ut not used variable")
-> Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Hi Boris,
+Thanks for your patch.
 
-Reviewed-by: Helge Deller <deller@gmx.de>
-
-Thanks!
-Helge
-
->=20
+On Fri, Mar 20, 2026 at 04:19:13PM +0100, Boris Brezillon wrote:
+> Unlike PTEs which are automatically upgraded to writeable entries if
+> .pfn_mkwrite() returns 0, the PMD upgrades go through .huge_fault(),
+> and we currently pretend to have handled the make-writeable request
+> even though we only ever map things read-only. Make sure we pass the
+> proper "write" info to vmf_insert_pfn_pmd() in that case.
+> 
+> This also means we have to record the mkwrite event in the .huge_fault()
+> path now. Move the dirty tracking logic to a
+> drm_gem_shmem_record_mkwrite() helper so it can also be called from
+> drm_gem_shmem_pfn_mkwrite().
+> 
+> Note that this wasn't a problem before commit 28e3918179aa
+> ("drm/gem-shmem: Track folio accessed/dirty status in mmap"), because
+> the pgprot were not lowered to read-only before this commit (see the
+> vma_wants_writenotify() in vma_set_page_prot()).
+> 
+> Fixes: 28e3918179aa ("drm/gem-shmem: Track folio accessed/dirty status in mmap")
+> Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
+> Cc: Biju Das <biju.das.jz@bp.renesas.com>
+> Cc: Thomas Zimmermann <tzimmermann@suse.de>
+> Cc: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
 > ---
-> Cc: Jason Yan <yanaijie@huawei.com>
-> ---
->=20
-> Below is a dive into the history of the driver.
->=20
-> The problem was revealed when the #if 0 guarded code along with unused
-> pixel_vco variable was removed. That code was introduced in the original
-> commit 213d22146d1f ("[PATCH] (1/3) matroxfb for 2.5.3"). And then guard=
-ed
-> in the commit 705e41f82988 ("matroxfb DVI updates: Handle DVI output on
-> G450/G550. Powerdown unused portions of G450/G550 DAC. Split G450/G550 D=
-AC
-> from older DAC1064 handling. Modify PLL setting when both CRTCs use same
-> pixel clocks.").
->=20
-> NOTE: The two commits mentioned above pre-date Git era and available in
-> history.git repository for archaeological purposes.
->=20
-> Even without that guard the modern compilers may see that the pixel_vco
-> wasn't ever used and seems a leftover after some debug or review made
-> 25 years ago.
->=20
-> The g450_mnp2vco() doesn't have any IO and as Jason said doesn't seem
-> to have any side effects either than some unneeded CPU processing during
-> runtime. I agree that's unlikely that timeout (or heating up the CPU) ha=
-s
-> any effect on the HW (GPU/display) functionality.
-> ---
->   drivers/video/fbdev/matrox/g450_pll.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
->=20
-> diff --git a/drivers/video/fbdev/matrox/g450_pll.c b/drivers/video/fbdev=
-/matrox/g450_pll.c
-> index e2c1478aa47f..6a08f78cd1ac 100644
-> --- a/drivers/video/fbdev/matrox/g450_pll.c
-> +++ b/drivers/video/fbdev/matrox/g450_pll.c
-> @@ -409,7 +409,7 @@ static int __g450_setclk(struct matrox_fb_info *minf=
-o, unsigned int fout,
->   		case M_VIDEO_PLL:
->   			{
->   				u_int8_t tmp;
-> -				unsigned int mnp;
-> +				unsigned int mnp __maybe_unused;
->   				unsigned long flags;
->  =20
->   				matroxfb_DAC_lock_irqsave(flags);
+> 
+> This patch is based on drm-tip [2], because that's the only branch
+> that has both [1] and the dirty tracking changes that live in
+> drm-misc-next.
 
+Tested on RZ/G3E, this fix the issue on my side.
+Thanks for your work.
+
+Tested-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+
+Kind Regards,
+Tommaso
+
+> 
+> Also added the THP maintainers in Cc, so I can hopefully get some
+> feedback on the fix. For instance, I'm still unsure
+> drm_gem_shmem_pfn_mkwrite() is race-free (do we need some locking
+> there? should we call folio_mark_dirty_lock()? should we call the
+> fault handler directly from there and have all the dirty tracking
+> in this .[huge_]fault path?).
+> 
+> [1]https://yhbt.net/lore/dri-devel/20260319015224.46896-1-pedrodemargomes@gmail.com/
+> [2]https://gitlab.freedesktop.org/drm/tip
+> ---
+>  drivers/gpu/drm/drm_gem_shmem_helper.c | 46 ++++++++++++++++++--------
+>  1 file changed, 32 insertions(+), 14 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/drm_gem_shmem_helper.c b/drivers/gpu/drm/drm_gem_shmem_helper.c
+> index 2062ca607833..545933c7f712 100644
+> --- a/drivers/gpu/drm/drm_gem_shmem_helper.c
+> +++ b/drivers/gpu/drm/drm_gem_shmem_helper.c
+> @@ -554,6 +554,21 @@ int drm_gem_shmem_dumb_create(struct drm_file *file, struct drm_device *dev,
+>  }
+>  EXPORT_SYMBOL_GPL(drm_gem_shmem_dumb_create);
+>  
+> +static void drm_gem_shmem_record_mkwrite(struct vm_fault *vmf)
+> +{
+> +	struct vm_area_struct *vma = vmf->vma;
+> +	struct drm_gem_object *obj = vma->vm_private_data;
+> +	struct drm_gem_shmem_object *shmem = to_drm_gem_shmem_obj(obj);
+> +	loff_t num_pages = obj->size >> PAGE_SHIFT;
+> +	pgoff_t page_offset = vmf->pgoff - vma->vm_pgoff; /* page offset within VMA */
+> +
+> +	if (drm_WARN_ON(obj->dev, !shmem->pages || page_offset >= num_pages))
+> +		return;
+> +
+> +	file_update_time(vma->vm_file);
+> +	folio_mark_dirty(page_folio(shmem->pages[page_offset]));
+> +}
+> +
+>  static vm_fault_t try_insert_pfn(struct vm_fault *vmf, unsigned int order,
+>  				 unsigned long pfn)
+>  {
+> @@ -566,8 +581,23 @@ static vm_fault_t try_insert_pfn(struct vm_fault *vmf, unsigned int order,
+>  
+>  		if (aligned &&
+>  		    folio_test_pmd_mappable(page_folio(pfn_to_page(pfn)))) {
+> +			vm_fault_t ret;
+> +
+>  			pfn &= PMD_MASK >> PAGE_SHIFT;
+> -			return vmf_insert_pfn_pmd(vmf, pfn, false);
+> +
+> +			/* Unlike PTEs which are automatically upgraded to
+> +			 * writeable entries, the PMD upgrades go through
+> +			 * .huge_fault(). Make sure we pass the "write" info
+> +			 * along in that case.
+> +			 * This also means we have to record the write fault
+> +			 * here, instead of in .pfn_mkwrite().
+> +			 */
+> +			ret = vmf_insert_pfn_pmd(vmf, pfn,
+> +						 vmf->flags & FAULT_FLAG_WRITE);
+> +			if (ret == VM_FAULT_NOPAGE && (vmf->flags & FAULT_FLAG_WRITE))
+> +				drm_gem_shmem_record_mkwrite(vmf);
+> +
+> +			return ret;
+>  		}
+>  #endif
+>  	}
+> @@ -655,19 +685,7 @@ static void drm_gem_shmem_vm_close(struct vm_area_struct *vma)
+>  
+>  static vm_fault_t drm_gem_shmem_pfn_mkwrite(struct vm_fault *vmf)
+>  {
+> -	struct vm_area_struct *vma = vmf->vma;
+> -	struct drm_gem_object *obj = vma->vm_private_data;
+> -	struct drm_gem_shmem_object *shmem = to_drm_gem_shmem_obj(obj);
+> -	loff_t num_pages = obj->size >> PAGE_SHIFT;
+> -	pgoff_t page_offset = vmf->pgoff - vma->vm_pgoff; /* page offset within VMA */
+> -
+> -	if (drm_WARN_ON(obj->dev, !shmem->pages || page_offset >= num_pages))
+> -		return VM_FAULT_SIGBUS;
+> -
+> -	file_update_time(vma->vm_file);
+> -
+> -	folio_mark_dirty(page_folio(shmem->pages[page_offset]));
+> -
+> +	drm_gem_shmem_record_mkwrite(vmf);
+>  	return 0;
+>  }
+>  
+> -- 
+> 2.53.0
+> 
