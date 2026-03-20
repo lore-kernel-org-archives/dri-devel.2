@@ -4,83 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4F0DB10987AF
-	for <dri-devel@archiver.kernel.org>; Fri, 20 Mar 2026 16:42:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1028110987AB
+	for <dri-devel@archiver.kernel.org>; Fri, 20 Mar 2026 16:42:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9ACF410EB85;
-	Fri, 20 Mar 2026 16:42:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2C41810EB84;
+	Fri, 20 Mar 2026 16:42:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="QeOzfQdf";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="WOBJ0DRx";
 	dkim-atps=neutral
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com
- [209.85.221.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F22B610EB6B
- for <dri-devel@lists.freedesktop.org>; Fri, 20 Mar 2026 16:42:03 +0000 (UTC)
-Received: by mail-wr1-f50.google.com with SMTP id
- ffacd0b85a97d-439b6d9c981so1493118f8f.1
- for <dri-devel@lists.freedesktop.org>; Fri, 20 Mar 2026 09:42:03 -0700 (PDT)
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com
+ [209.85.128.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AD16910EB90
+ for <dri-devel@lists.freedesktop.org>; Fri, 20 Mar 2026 16:42:05 +0000 (UTC)
+Received: by mail-wm1-f51.google.com with SMTP id
+ 5b1f17b1804b1-48541edecf9so22561565e9.1
+ for <dri-devel@lists.freedesktop.org>; Fri, 20 Mar 2026 09:42:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1774024922; x=1774629722; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1774024924; x=1774629724; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=wDx7nIMupZuya6kEy4r0T51ugjRAiOlO9zel+//9XXQ=;
- b=QeOzfQdfyDyms1rtjWmsTaZqgzK2rgdEAo6ZzDHkJPctdp4mFQ8bi63beHUI4oxN1b
- qMPkF2Ymtn3cPvwp9iPb9PPXUy+zDkXZ9OhOzepKsKnXUbauOHbdou2e9raGhslLFgpu
- 6c8JQDHhEqj7wn3VNymzVwkSwZFI2bOgkqaC7VCpkCG7Y5xANhPjetCgO10hZeqAzpHn
- TktNKgAm9348FZDKlFyDMpuac9Fuq5pb20GeJCXRNWLelyZiTjw099hkbmZmAwXARGkz
- zFJX5DBQXisp1aBsNjfuiW+vWNFNhsipahNXCRWnf5IpP8wHJRylQfyaMwugbG6LQw+P
- bc2g==
+ bh=X0atMih6wv4MrL6fuegw3RReBHe0f+0yJzxdUtx87zE=;
+ b=WOBJ0DRxvoN67sUYheKOvzN8tBQ3loNoTh8q29vHOVksIBvNtY20ZuGCi3Kzl0ZPfL
+ iEJY6KecPgJJDkAMZJDyAvCyFOZGElKvVo5X/9792PHnztvS0L7rEPL1hzMaTAjapnLi
+ beRUA+VKowGIH91aPCYX6WdGKeQ7ctlfqXwNtEKMyNfBCT1qoN3titT4pkKXieB6rFMK
+ QZOnrDIrN6f4MrJTdWOS+XnHa09XZKDa17xIL93oGjjfccrorFcruaLDfj1wo5HWCCRg
+ KNpVyWFhZHpWCiDMY48BFtZ3/hyKDD6VSmzfFEGTMJg0t2Ql8Vadgx5OGB98WTxrlgit
+ iKEw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774024922; x=1774629722;
+ d=1e100.net; s=20251104; t=1774024924; x=1774629724;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=wDx7nIMupZuya6kEy4r0T51ugjRAiOlO9zel+//9XXQ=;
- b=EwdX1wlk+I46YSynkuqeaoVAKy7D2Ts/6EV3LY43EA7ee16ovZAZcvO3sCZVAY6AA7
- WUSCaCoFk718/ihFoLhBRGSZOzVpKyMSXjolkoryN7/xZMxDpALHSErmdyuiB1BRVdq2
- c69q7xMne+cAMySxGVyMHsD6asV12H42va7jL6DRYZzDvU2MqBc47ExkFq1T8+3SgsqK
- fDyOwvkJe+suJDX6hBvPWtGlBGzRAu+h2ekj5Kqy+W+KukGcXKB2IJzFQcfqhwawkv8a
- NW7st6kCcJMVHim6LMkywCf8dB74wMEkEOb/8h8gspvzn2JiS/tNkd2/y3fg/oWUm71o
- DWog==
+ bh=X0atMih6wv4MrL6fuegw3RReBHe0f+0yJzxdUtx87zE=;
+ b=l3JXFRFpy6G5zH5omF6WHWsZe0uwR1LUW2Rn2PGkk6X4Ys/5MUTXMz3QVW0l45Gin4
+ oX/gqV7NQlNUr2KU4ToV4c6bQyuhmKuJaIvOES69G+I+FBCZvSInseRSDLJzLFH30uvR
+ xXwF6KvxHiD++BGsgWpMGjqJrehpRIVr9DZ7U/1hJGThKbvTyrkOowwsCf9BWdq5+LgI
+ WkqS/goHg/GimpVhW4G+0WQzIbNwQTuaVZL250iqVVFkSvg4/po+nPmms7CLlFwzyLIc
+ B5uX74Bpr/Vpk1kE91B8ET4jl3Y10en2mGnsJYni6Vvo7R2TaTqjQyspBk67lOc3qtcf
+ KIBQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUP0IgrV8WT6V8JHRhT+2c3SDUbSNhBtfMF1TMTEnNqN2vtnkAHPEeFENvoR0FKF8VkiHay+tb0no0=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwYkd67j94LO1NsybVVMhpRZngdCP9EKVlct1by4wFq6HSpxWTs
- qEmx0hEwBB6ZIsNSHt+A/GLttt8vvllZ+yxhneiG5pHQGmNehUUvwvEi
-X-Gm-Gg: ATEYQzwpHWfpzcztfi6fbuh1RElTV+Zu0t8f5JR5ttMJ+cuqoCLzCiWC9ojsq28TX4Y
- NjVvasdAJXQIXZqFwFAhYDWzm2NIRrcOWUT3cPaneuwwh6iv3a3JwnriOC/UgG/f6VMG8JgFCat
- Fw4b/mCRJVdaR6BT3VMe2IcX+aU930AEkwxUs1VU8l67OwrR4kBa/DHr4PYYEWLmR2rtB9n/Q3t
- 6Ug8CSAPi7mqCHCp1DNywfGfLSYgqQGgoIVRnnCRjS7yNkQk/Hij0gG1qC8v1HjkWTaIPiLTI/r
- 9n0yWj1HDXFfZpZFeosOorMA65rMrr7HIa3enx7vdLCN8afmP3fHA2QzTWthBXGskKhR1uHc7hT
- X26+4yVGMFh2eb2C5sdJGpOtuu6DVDbzJmYwBo5twcyqzVnBSYTnZVEHg/5W16ZR/xPdSTNyktp
- EdhhxYKoqO8g/MhnF45KT0QWm4ZwLLLpc=
-X-Received: by 2002:a5d:5e88:0:b0:43b:4461:7adc with SMTP id
- ffacd0b85a97d-43b57729635mr15672004f8f.20.1774024922158; 
- Fri, 20 Mar 2026 09:42:02 -0700 (PDT)
+ AJvYcCXSAPZyRkkx8r+VkAc7fkyZWxxei5g/6AaEk5k6WWdfl59ILqY6+NsXJ1X2dBzC0J3e5wWVYKSjFqA=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxQJzbdy0lcXPt4WCNGkjoeMvfxG7EeAKSIv9b67K2Sm1V30dHK
+ sUWmY5z2k7QVTJjykaiJqTkpMgd2yFfQZEtvyDpujphFWAkX3pQboZgx
+X-Gm-Gg: ATEYQzwULTLa5wlA4FCAS7Vg/iC0NIQSJWXCIn7Hu/H2M8DoqZrfsqkA5pa0AQdqXN3
+ Z+/OjPEWA2/vyvfqQN4rIqup7JyKIZW7CD5sFn7IOJwqe724nUdRI4NdKRb2KUPQsMAwcOYkhb5
+ bOpmW0LEb63ZszMe1zeRdZcGsRpKuYqmWwyZOFTnJh7wzkPWY1e0GgsyPtgcMo1a909C9gbfMnJ
+ WrqdCebBNdBdBZrGx2s8nszoC1VWUTBzoxTDW3sGa7B4hSA5kgj7zUMoTCcGl8T4LrApNgbAxIX
+ D24YOPbI6DbZLWNDrhYTAtkCdh3xz3AidnoXna/NGT3Vg+MT1r6vtOYOua9n67ug5bUIc+rwVHC
+ cfn+4JHVTU+/lKFPO8raz5H2QtqsmsQXN/XpNtaZsTJ/tTVyFQgScX0M3YoXwOQtpgfjo/e4ESw
+ z2enjXMMVy3iv85vDRbg10NUVMy5PqzYk=
+X-Received: by 2002:a05:600c:c167:b0:486:fab9:a578 with SMTP id
+ 5b1f17b1804b1-486fedc3843mr55711415e9.11.1774024924016; 
+ Fri, 20 Mar 2026 09:42:04 -0700 (PDT)
 Received: from biju.lan ([2a00:23c4:a758:8a01:5b93:d2b1:bc5c:9231])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-43b64703650sm7016575f8f.20.2026.03.20.09.42.01
+ ffacd0b85a97d-43b64703650sm7016575f8f.20.2026.03.20.09.42.03
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 20 Mar 2026 09:42:01 -0700 (PDT)
+ Fri, 20 Mar 2026 09:42:03 -0700 (PDT)
 From: Biju <biju.das.au@gmail.com>
 X-Google-Original-From: Biju <biju.das.jz@bp.renesas.com>
-To: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+To: Boris Brezillon <boris.brezillon@collabora.com>,
+ Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>,
+ =?UTF-8?q?Adri=C3=A1n=20Larumbe?= <adrian.larumbe@collabora.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Magnus Damm <magnus.damm@gmail.com>
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
 Cc: Biju Das <biju.das.jz@bp.renesas.com>, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-renesas-soc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Geert Uytterhoeven <geert+renesas@glider.be>,
  Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>,
- Biju Das <biju.das.au@gmail.com>
-Subject: [PATCH v2 1/4] dt-bindings: gpu: mali-bifrost: Add compatible for
- RZ/G3L SoC
-Date: Fri, 20 Mar 2026 16:41:47 +0000
-Message-ID: <20260320164158.487406-2-biju.das.jz@bp.renesas.com>
+ Biju Das <biju.das.au@gmail.com>, linux-renesas-soc@vger.kernel.org
+Subject: [PATCH v2 4/4] drm/panfrost: Add GPU_PM_RT support for RZ/G3L SoC
+Date: Fri, 20 Mar 2026 16:41:50 +0000
+Message-ID: <20260320164158.487406-5-biju.das.jz@bp.renesas.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260320164158.487406-1-biju.das.jz@bp.renesas.com>
 References: <20260320164158.487406-1-biju.das.jz@bp.renesas.com>
@@ -103,40 +100,30 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Biju Das <biju.das.jz@bp.renesas.com>
 
-Add a compatible string for the Renesas RZ/G3L SoC variants that include a
-Mali-G31 GPU. These variants share the same restrictions on interrupts,
-clocks, and power domains as the RZ/G2L SoC, so extend the existing schema
-validation accordingly.
+RZ/G3L SoC is embedded with Mali-G31 GPU system. Add GPU_PM_RT support as
+it needs to be assert/deassert the reset during suspend/resume.
 
-Acked-by: Rob Herring (Arm) <robh@kernel.org>
+Reviewed-by: Steven Price <steven.price@arm.com>
 Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
 ---
 v1->v2:
  * Collected tag
 ---
- Documentation/devicetree/bindings/gpu/arm,mali-bifrost.yaml | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/gpu/drm/panfrost/panfrost_drv.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/Documentation/devicetree/bindings/gpu/arm,mali-bifrost.yaml b/Documentation/devicetree/bindings/gpu/arm,mali-bifrost.yaml
-index db49b8ff8c74..9db9f84ad964 100644
---- a/Documentation/devicetree/bindings/gpu/arm,mali-bifrost.yaml
-+++ b/Documentation/devicetree/bindings/gpu/arm,mali-bifrost.yaml
-@@ -26,6 +26,7 @@ properties:
-               - realtek,rtd1619-mali
-               - renesas,r9a07g044-mali
-               - renesas,r9a07g054-mali
-+              - renesas,r9a08g046-mali
-               - renesas,r9a09g047-mali
-               - renesas,r9a09g056-mali
-               - renesas,r9a09g057-mali
-@@ -150,6 +151,7 @@ allOf:
-             enum:
-               - renesas,r9a07g044-mali
-               - renesas,r9a07g054-mali
-+              - renesas,r9a08g046-mali
-               - renesas,r9a09g047-mali
-               - renesas,r9a09g056-mali
-               - renesas,r9a09g057-mali
+diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.c b/drivers/gpu/drm/panfrost/panfrost_drv.c
+index 711f5101aa04..3d0bdba2a474 100644
+--- a/drivers/gpu/drm/panfrost/panfrost_drv.c
++++ b/drivers/gpu/drm/panfrost/panfrost_drv.c
+@@ -1156,6 +1156,7 @@ static const struct of_device_id dt_match[] = {
+ 	  .data = &amlogic_data, },
+ 	{ .compatible = "amlogic,meson-g12a-mali",
+ 	  .data = &amlogic_data, },
++	{ .compatible = "renesas,r9a08g046-mali", .data = &default_pm_rt_data },
+ 	{ .compatible = "renesas,r9a09g047-mali", .data = &default_pm_rt_data },
+ 	{ .compatible = "arm,mali-t604", .data = &default_data, },
+ 	{ .compatible = "arm,mali-t624", .data = &default_data, },
 -- 
 2.43.0
 
