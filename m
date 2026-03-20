@@ -4,84 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7E697108B8F7
-	for <dri-devel@archiver.kernel.org>; Fri, 20 Mar 2026 11:11:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DA119108B901
+	for <dri-devel@archiver.kernel.org>; Fri, 20 Mar 2026 11:25:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D9D9210EA95;
-	Fri, 20 Mar 2026 11:11:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 53FD810EAC3;
+	Fri, 20 Mar 2026 11:25:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="yNrwKTG6";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="hO9pNdsk";
 	dkim-atps=neutral
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4459210EAD1
- for <dri-devel@lists.freedesktop.org>; Fri, 20 Mar 2026 11:11:35 +0000 (UTC)
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-03.galae.net (Postfix) with ESMTPS id E09454E42728;
- Fri, 20 Mar 2026 11:11:33 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id A6B25600E0;
- Fri, 20 Mar 2026 11:11:33 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 86B5410450BAE; Fri, 20 Mar 2026 12:11:18 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1774005091; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding:in-reply-to:references;
- bh=OgCLycKADg8WapEoALnr45EN8oOjbM/c3hEclAHzFQA=;
- b=yNrwKTG67Wfi/l6/Cx6JLjhzRR66Q6F9KbZdHALz92gFHiJ903UlF3jJnclHpJfIXNAv76
- gEccg/auQ56Dw7hAkprTo3+lpIXUBHLIN5DrQJPSHKVtz/Wet1c8DG9c3rK8T/43o/ZuOi
- xPydDpkCfh2ECLycX5Eeq9uuS34aOv+sCFhedLnSlqul76QFADCHSHYCZ9x+Qf4Uox7x5T
- xAOcUxV/ciAkAPwFD5P7aNA9Gje3+1Bz1cxASeOTuzdeDBaQY/J0hrN+M4xz5ROWnuUCFw
- U8KauHG0D8vWQbHcvGtAyGAI6FmR8hU59zMvkMbyJjc+3UzzkhjIgh5vmwnsOg==
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
+Received: from out-181.mta0.migadu.com (out-181.mta0.migadu.com
+ [91.218.175.181])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0B0F210EAC3
+ for <dri-devel@lists.freedesktop.org>; Fri, 20 Mar 2026 11:25:39 +0000 (UTC)
+Message-ID: <0dd4b5ac-a9c4-4aff-a67a-ae43de10857e@linux.dev>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+ t=1774005936;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=kXQ/vYp6rCDQW4EhV/tYDmE/1pTk+r6ZdveQdIc7YLU=;
+ b=hO9pNdskisE1/n235biSZGNG+brbHkO37EHqicP+P0Ut7HMvAKvILlgRLvyTV2YCnCU5kf
+ HxQgNnYlFI0TKYr+ajPgXWEDeb7XSZAXBv/os2v0afkUIo/DmyoWHXc1D5JgYa0xe8VPLN
+ 98xtUeWnfvElBM7HTssIK2dOzesvoiI=
+Date: Fri, 20 Mar 2026 12:25:31 +0100
+MIME-Version: 1.0
+Subject: Re: [PATCH] drm/sched: Add new KUnit test suite for concurrent job
+ submission
+To: Tvrtko Ursulin <tursulin@ursulin.net>, Philipp Stanner <phasta@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Matthew Brost <matthew.brost@intel.com>, Danilo Krummrich <dakr@kernel.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+References: <20260219140711.3296237-1-marco.pagani@linux.dev>
+ <e215efdd-c547-4ce4-affe-7198ed37c2a6@ursulin.net>
+ <4793f2a5-9b08-4cd8-8e1e-d8a3a7125299@linux.dev>
+ <3ac5825a-95e3-4b9a-aa7e-9b0107fa7b6b@ursulin.net>
+ <7281dcf3-5c1a-47fa-81d1-ebf701d2cf81@linux.dev>
+ <a9213f65-6747-417c-9b7b-7b2ed0a5c3d9@ursulin.net>
+Content-Language: en-US
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
+ include these headers.
+From: Marco Pagani <marco.pagani@linux.dev>
+In-Reply-To: <a9213f65-6747-417c-9b7b-7b2ed0a5c3d9@ursulin.net>
 Content-Type: text/plain; charset=UTF-8
-Date: Fri, 20 Mar 2026 12:11:17 +0100
-Message-Id: <DH7KBDWAGOHC.39HCC46YG53PN@bootlin.com>
-From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
-Subject: Re: [PATCH 1/8] drm/mxsfb/lcdif: simplify remote pointer management
- using __free
-Cc: "Kory Maincent (TI.com)" <kory.maincent@bootlin.com>,
- =?utf-8?q?Herv=C3=A9_Codina?= <herve.codina@bootlin.com>, "Hui Pu"
- <Hui.Pu@gehealthcare.com>, "Ian Ray" <ian.ray@gehealthcare.com>, "Thomas
- Petazzoni" <thomas.petazzoni@bootlin.com>,
- <dri-devel@lists.freedesktop.org>, <imx@lists.linux.dev>,
- <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
- <devicetree@vger.kernel.org>, "Adam Ford" <aford173@gmail.com>, "Alexander
- Stein" <alexander.stein@ew.tq-group.com>, "Anson Huang"
- <Anson.Huang@nxp.com>, "Christopher Obbard"
- <christopher.obbard@linaro.org>, "Daniel Scally"
- <dan.scally@ideasonboard.com>, "Emanuele Ghidoli"
- <emanuele.ghidoli@toradex.com>, "Fabio Estevam" <festevam@denx.de>,
- "Francesco Dolcini" <francesco.dolcini@toradex.com>, "Frieder Schrempf"
- <frieder.schrempf@kontron.de>, "Gilles Talis" <gilles.talis@gmail.com>,
- =?utf-8?q?Goran_Ra=C4=91enovi=C4=87?= <goran.radni@gmail.com>, "Heiko
- Schocher" <hs@denx.de>, "Joao Paulo Goncalves"
- <joao.goncalves@toradex.com>, "Josua Mayer" <josua@solid-run.com>, "Kieran
- Bingham" <kieran.bingham@ideasonboard.com>, "Marco Felsch"
- <m.felsch@pengutronix.de>, "Martyn Welch" <martyn.welch@collabora.com>,
- "Oleksij Rempel" <o.rempel@pengutronix.de>, "Peng Fan" <peng.fan@nxp.com>,
- "Philippe Schenker" <philippe.schenker@toradex.com>, "Richard Hu"
- <richard.hu@technexion.com>, "Shengjiu Wang" <shengjiu.wang@nxp.com>,
- "Stefan Eichenberger" <stefan.eichenberger@toradex.com>, "Vitor Soares"
- <vitor.soares@toradex.com>
-To: "Luca Ceresoli" <luca.ceresoli@bootlin.com>, "Marek Vasut"
- <marex@denx.de>, "Stefan Agner" <stefan@agner.ch>, "Maarten Lankhorst"
- <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
- "Thomas Zimmermann" <tzimmermann@suse.de>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Frank Li"
- <Frank.Li@nxp.com>, "Sascha Hauer" <s.hauer@pengutronix.de>, "Pengutronix
- Kernel Team" <kernel@pengutronix.de>, "Fabio Estevam" <festevam@gmail.com>,
- "Andrzej Hajda" <andrzej.hajda@intel.com>, "Neil Armstrong"
- <neil.armstrong@linaro.org>, "Robert Foss" <rfoss@kernel.org>, "Laurent
- Pinchart" <Laurent.pinchart@ideasonboard.com>, "Jonas Karlman"
- <jonas@kwiboo.se>, "Jernej Skrabec" <jernej.skrabec@gmail.com>, "Liu Ying"
- <victor.liu@nxp.com>, "Rob Herring" <robh@kernel.org>, "Saravana Kannan"
- <saravanak@kernel.org>
-X-Mailer: aerc 0.20.1
-References: <20260320-drm-lcdif-dbanc-v1-0-479a04133e70@bootlin.com>
- <20260320-drm-lcdif-dbanc-v1-1-479a04133e70@bootlin.com>
-In-Reply-To: <20260320-drm-lcdif-dbanc-v1-1-479a04133e70@bootlin.com>
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 7bit
+X-Migadu-Flow: FLOW_OUT
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,43 +67,113 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hello,
 
-On Fri Mar 20, 2026 at 11:46 AM CET, Luca Ceresoli wrote:
-> Putting the remote device_node reference requires a of_node_put(ep) in bo=
-th
-> error return points. Use a cleanup action to simplify the code.
->
-> Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
-> ---
->  drivers/gpu/drm/mxsfb/lcdif_drv.c | 9 +++------
->  1 file changed, 3 insertions(+), 6 deletions(-)
->
-> diff --git a/drivers/gpu/drm/mxsfb/lcdif_drv.c b/drivers/gpu/drm/mxsfb/lc=
-dif_drv.c
-> index 47da1d9336b9..756ca96373c8 100644
-> --- a/drivers/gpu/drm/mxsfb/lcdif_drv.c
-> +++ b/drivers/gpu/drm/mxsfb/lcdif_drv.c
-> @@ -53,16 +53,13 @@ static int lcdif_attach_bridge(struct lcdif_drm_priva=
-te *lcdif)
->  	int ret;
->
->  	for_each_endpoint_of_node(dev->of_node, ep) {
-> -		struct device_node *remote;
-> +		struct device_node *remote __free(drm_bridge_put) =3D
-                                                  ^^^^^^^^^^^^^^
 
-I just realized there's a mistake here, this should be
-__free(device_node). However this does not prevent testing the series in
-its entirety because patch 2 fixes this mistake.
+On 19/03/2026 09:50, Tvrtko Ursulin wrote:
+> 
+> 
+> On 18/03/2026 17:23, Marco Pagani wrote:
+> 
+> 8><
+> 
+>>>>> Alternative approach could be to set a per test time budget and just
+>>>>> keep the workers submitting until over. It would be simpler to
+>>>>> understand and there would be more submit/complete overlap.
+>>>>
+>>>> I agree. Using a test time budget and having workers continuously
+>>>> submit jobs until it expires would make better use of the test time.
+>>>> I'm thinking that the simplest and most straightforward approach would
+>>>> be to cyclically distribute periods among workers until they reach the
+>>>> the largest possibile value below test duration, which would coincide
+>>>> with the hyperperiod. This would also solve the issue of selecting a
+>>>> suitable periods_cycle parameter that you mentioned earlier.
+>>>> In practice, something like this:
+>>>>
+>>>> drm_sched_interleaved_params [...]
+>>>> {
+>>>>           .num_workers = N
+>>>>           .test_max_time = T
+>>>>           .job_base_period_us = P         /* Small GPU job, 100 us */
+>>>> }
+>>>>
+>>>> period_us = job_base_period_us;
+>>>> for (i = 0; i < params->num_workers; i++) {
+>>>>           workers[i].period_us = period_us;
+>>>>           period_us *= 2;
+>>>>           if (period_us > test_max_time)
+>>>>                   period_us = job_base_period_us;
+>>>> }
+>>>>
+>>>>
+>>>> What do you think?
+>>>
+>>>
+>>> Again some time has passed so rather than going to re-read your patch I
+>>> will go from memory. IIRC I was thinking something really dumb and 100%
+>>> time bound with no need to think when coding and reviewing. Each thread
+>>> simply does:
+>>>
+>>> ktime_t start = ktime_get();
+>>>
+>>> do {
+>>>    .. thread doing its submission pattern thing ..
+>>> } while (ktime_to_ms(ktime_sub(ktime_get(), start)) < test->time_ms);
+>>>
+>>> May miss the time target by a job period_us but who cares.
+>>
+>> Sorry for the delay. I got pulled into other things. I left out the worker
+>> execution part since we already agreed on that. Instead, I've replied with
+>> some pseudocode describing a new strategy for period assignments from test
+>> parameters that takes into account your comments.
+> 
+> Sorry I misread when I saw test_max_time clamping I thought it was about 
+> runtime control. I guess it makes sense to clamp it to avoid 
+> over-shooting by too much. You removed the cyclical nature so I guess in 
+> practice this will not happen? I mean number of workers vs base period 
+> you don't expect more than one of them to get clamped?
 
-Will be fixed in v2.
+I haven't removed the cyclical nature of workers submitting jobs. I
+omitted that part because I thought we already agreed on it.
 
-Sorry about the noise, did too many rebases today!
+Anyway, I realized that unfortunately the strategy of using harmonic
+periods to overlap submissions makes no sense given how the mock
+scheduler serializes jobs into a single "execution" line. I'm now
+thinking that using a narrower range of (multiple) submission periods
+would be more effective to stress concurrent submissions.
 
-Luca
+I'm also thinking that splitting the single execution time budget into
+equal shares among workers, and then computing the number of jobs that
+fit into that share, is simpler and better suited for a test case
+compared to a time-based approach. Let me share some pseudocode for
+this new approach:
 
---
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+/* Parameters (test_duration must be larger than base_period)  */
+drm_sched_interleaved_params [...]
+{
+        .num_workers = ...       /* 8 to 32 */
+        .test_duration = ...     /* Few seconds */
+        .base_period = ...       /* 100 us, small GPU job */
+}
+
+/* Setup phase common for all workers. */
+workers_share = params->test_duration / params->num_workers;
+
+/* Worker */
+drm_sched_interleaved_worker()
+{       
+        period = (worker->id + 1) * base_period; 
+        num_jobs = workers_share / period;
+
+        for (i = 0; i < num_jobs; i++) {
+                drm_mock_sched_job_set_duration_us(period);
+                /* submit and wait for the job to complete */
+        }	
+}
+
+What do you think?
+
+Thanks,
+Marco
+
+
+
