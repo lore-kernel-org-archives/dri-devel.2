@@ -4,38 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BF5FC10987AB
-	for <dri-devel@archiver.kernel.org>; Fri, 20 Mar 2026 16:43:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 579BE10987B1
+	for <dri-devel@archiver.kernel.org>; Fri, 20 Mar 2026 16:43:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0F6B810EBDF;
+	by gabe.freedesktop.org (Postfix) with ESMTP id BD5AB10EBE3;
 	Fri, 20 Mar 2026 16:43:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="YRYh3UYU";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="qOwFNPDU";
 	dkim-atps=neutral
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9208F10EBD0;
- Fri, 20 Mar 2026 16:43:00 +0000 (UTC)
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4A6B710EBE0;
+ Fri, 20 Mar 2026 16:43:15 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-03.galae.net (Postfix) with ESMTPS id 7C5A44E4274C;
- Fri, 20 Mar 2026 16:42:59 +0000 (UTC)
+ by smtpout-02.galae.net (Postfix) with ESMTPS id 3B1631A2F12;
+ Fri, 20 Mar 2026 16:43:14 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 52326600E0;
- Fri, 20 Mar 2026 16:42:59 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 11D0D600E0;
+ Fri, 20 Mar 2026 16:43:14 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 24F5D10450CB3; Fri, 20 Mar 2026 17:42:55 +0100 (CET)
+ with ESMTPSA id 6C32410450CB4; Fri, 20 Mar 2026 17:43:09 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1774024978; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ t=1774024992; h=from:subject:date:message-id:to:cc:mime-version:content-type:
  content-transfer-encoding:in-reply-to:references;
- bh=qMcVQiftVhfBkmML8o2ktmysqfxHkp+YMWDo00Lyi34=;
- b=YRYh3UYUIjppt26iyz9tShHn+RkvXLKX1gzUyVLtKfFdja4HfSJQAcm2nl3iWwu9TN+SGq
- uB+fOnYPzDHqXzNEoZFK7YksJnZfNPNLYOd6wGo8cKr2VjYBJ5X1R3iXOvlQwdPmmkyNrG
- V0uMgGxba95DlA3mdwQe7bJ7EC/eQ91blvukKpVcVVWA7Nygllg6T3dFyN6S5AwDTw+256
- G2qZF2/fjwvs5c16g8dwegDpcuSpchAJb5FmimW8zRdToeDNGfPxxtkaRTR7smiWqNo2ly
- 0AS8yXW29qyM2lPqAWb3YrwPLWCyOhmRqr62AcLN3stEJ/Bod97z2jvUrkBsdQ==
+ bh=5COgw5Vy2GYv8/skmJ+Ze7CgukNNZMEWXZhAJ5Itp/k=;
+ b=qOwFNPDUHiEXJQds43i8EavE4Pkpb5i2juzEmqQCD7NhZyRGdDxEW9M2K08LMJ9py6W6ki
+ mOdwcDgD9vLM1UxFLFXo09uqnfuuERY0NqcFHcIJfkxMfnI2Ytq+PtnP1cD9OwqyH37JQA
+ Zj1BbQ9XgJPqXrUgataxQl9RfY+U4v2Cqfrr/HxMknNsTqc3ct7/8CSIL+zQDSoXZlX7rR
+ 7+d3cDPJyKa8Ccnq2I/x/frB4RlvZFX4JBwUk9xMqpmcp9nXVVGkyL78XunwwkDGUagazy
+ Y0UOekc5AmtqOKasEW0+NFy4ndDEonu+GXam44pTEL1ZXWGV3Di3t4UDDzYBlw==
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v11 48/65] drm-dyndbg: add DRM_CLASSMAP_USE to etnaviv
+Subject: Re: [PATCH v11 52/65] drm-dyndbg: add DRM_CLASSMAP_USE to vkms driver
 From: Louis Chauvet <louis.chauvet@bootlin.com>
 To: airlied@gmail.com, simona@ffwll.ch, jbaron@akamai.com, 
  gregkh@linuxfoundation.org
@@ -47,27 +47,27 @@ Cc: Jim Cromie <jim.cromie@gmail.com>, mripard@kernel.org,
  skhan@linuxfoundation.org, pmladek@suse.com, ukaszb@chromium.org, 
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
  intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-In-Reply-To: <20260313132103.2529746-49-jim.cromie@gmail.com>
+In-Reply-To: <20260313132103.2529746-53-jim.cromie@gmail.com>
 References: <20260313132103.2529746-1-jim.cromie@gmail.com>
- <20260313132103.2529746-49-jim.cromie@gmail.com>
+ <20260313132103.2529746-53-jim.cromie@gmail.com>
 Date: Fri, 20 Mar 2026 17:41:54 +0100
-Message-Id: <177402491464.6181.7285802673166697323.b4-review@b4>
+Message-Id: <177402491468.6181.8707672711201392798.b4-review@b4>
 X-Mailer: b4 0.15-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=374;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=348;
  i=louis.chauvet@bootlin.com; h=from:subject:message-id;
- bh=FbFQHKIzRc0orxa83RdZyoT3C7omF7bMn9AFR/3PkUA=;
- b=owEBiQJ2/ZANAwAIASCtLsZbECziAcsmYgBpvXjaEf66zVN4xl9/AZ1btwhO/UJ1hBONRbpsQ
- JhIIJ30nXSJAk8EAAEIADkWIQRPj7g/vng8MQxQWQQgrS7GWxAs4gUCab142hsUgAAAAAAEAA5t
- YW51MiwyLjUrMS4xMSwyLDIACgkQIK0uxlsQLOJsgw//RSgM4dN+d7CGaI8KsrRtYT/mmaVkMKf
- aIrzpcNNOuzz+Fx9wHnX7sY/hTZImbh7fJa9UINHzk2lPxe0GZHD64fQVg+jB8HWGNy73uyTeiy
- Zx2I3IKIY3/TjzXoon7fRnr4espAU0O8/2ahlqLWeKMwch+AATkagtwt+B9Jf/ah/EfSxONbD0K
- 3sYR/yF3HKDNS7/ZmbtIXQIIruTWt52wCCmP0LBQiGX08xsawEAYcZY4STfS/Y+yB3wIuSVF+fv
- LP1DxhU5rxFfIF0gN6+nGXtX1uheQC9XREVrvY74RAay0xBocCFT2bxt92S0lvcJi++rvaQF21v
- XERyu9pSEZDPXir2utxDefLdK+QdLIlNq5aiK+jEsXLkWJvb0TRpW3Qk8YbQYqqZtIQJ49Swzu0
- MFV7v5QX9lq1XtE8oK++h8nNWNq9vhWVhUVZvzCP+25JxT3ZCdQZmZr4KCrseZHnYJQ35927q33
- KkQLQq0uZk97DUsbjwbwiCpmJUIJEanpreYISNrBbKV95xKetp/nBMBTIaaYYyIh6gL9wb2NxHb
- YSUBieHdZLPlJgrFYM0xQgNuAGqr3ZEhrbsqT89ECab1WGE3U6JKMrOSml2Y3d3qKUQLGK8x3ut
- 45ZUXjr3/ADoKOfl7J0lwkakm8U3rgo4G+28WfubsAV7zOVzPtHQ=
+ bh=BMYcW2CHFyN3RqaVEy2iylwtPA0ZL3P65Fybp0ZjI/w=;
+ b=owEBiQJ2/ZANAwAIASCtLsZbECziAcsmYgBpvXja7hoOHrxlDdrpC73ZdNQfshFVT2tffHwlh
+ /t+RzGtG+2JAk8EAAEIADkWIQRPj7g/vng8MQxQWQQgrS7GWxAs4gUCab142hsUgAAAAAAEAA5t
+ YW51MiwyLjUrMS4xMSwyLDIACgkQIK0uxlsQLOJG2A//S/peN4ZhgUNfBF9iJAb7OrNjKKKorYd
+ FeiPBT7q1rAb8hKgxsWw+4Jt+HRzHjvNmFAXEQr9M8v3LqiBApmlV8SZVGtqnxY8mKHWNIa+5D7
+ oEv9vexJebdcLuyLssf3ujzRQZkaUoQL3o8U8Q+R0LJXoOYPnFMIXt3gwqtHNXZO4v7QXE0Asy0
+ x+GZAOp7rwNqEFSo73h6mYSSiVEuOGTN9MAD0ch7VL+TyBk0lyAZiDG+cCE0BPZBB9YMgRgkFHf
+ 0xK3q7idh/br8hkYL5mqtFa/osB/Yaz5vHQaOyRkzClJ7qOEpe/iLdKaBYKRkNelvGjoXLV3pHM
+ F2sGWaPYObB5GYO8sVGiEoP7A5COvJyX4HtOUvcY1rZAoNfgAqZF/nKjohFtAz0+A2F775MQ9Z2
+ IUazO8gpb4/dDKiWIJrncMN1Y8yL7pF3MJDnRjq4aUCKE/mAHJULIVus6CmzU1bNLi0zx5Tl1IJ
+ oAVPsfga5cYUnvX60OcckZWwcsSsVfThmsHulgabdMXnluXpKdSeEeygf0FeeyuRAqJvboNaQjv
+ MoPE/YcjztW5o4McwJ4O2N9nJViRVv+upCzi+6Wq3CA2vxtNDQxmA/miplfuQ0os5Zd/OOEL/40
+ bmhyYLjoz32kRhspwH4hoxMqp/n+c2utEeYPOaCYZrurYitxlKB0=
 X-Developer-Key: i=louis.chauvet@bootlin.com; a=openpgp;
  fpr=8B7104AE9A272D6693F527F2EC1883F55E0B40A5
 X-Last-TLS-Session-Version: TLSv1.3
@@ -86,10 +86,10 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, 13 Mar 2026 07:20:13 -0600, Jim Cromie <jim.cromie@gmail.com> wrote:
-> etnaviv has 5 DRM_UT_CORE debugs, make them controllable when
-> CONFIG_DRM_USE_DYNAMIC_DEBUG=y by telling dyndbg that the module has
-> class'd debugs as well as plain-old pr_debug()s
+On Fri, 13 Mar 2026 07:20:17 -0600, Jim Cromie <jim.cromie@gmail.com> wrote:
+> The vkms driver has a number of DRM_UT_* debugs, make them
+> controllable when CONFIG_DRM_USE_DYNAMIC_DEBUG=y by telling dyndbg
+> that the module uses them.
 
 Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
 
