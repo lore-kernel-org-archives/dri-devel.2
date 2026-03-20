@@ -4,74 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4ADB21099B35
-	for <dri-devel@archiver.kernel.org>; Fri, 20 Mar 2026 19:12:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6F4F31099B32
+	for <dri-devel@archiver.kernel.org>; Fri, 20 Mar 2026 19:12:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BA25310EA6D;
-	Fri, 20 Mar 2026 19:12:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CB09610EAC0;
+	Fri, 20 Mar 2026 19:12:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="OfgsdMY6";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="HCMg2utF";
 	dkim-atps=neutral
-Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com
- [209.85.214.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8A7B210EA6D
- for <dri-devel@lists.freedesktop.org>; Fri, 20 Mar 2026 19:12:20 +0000 (UTC)
-Received: by mail-pl1-f171.google.com with SMTP id
- d9443c01a7336-2b04b4974abso21442115ad.1
- for <dri-devel@lists.freedesktop.org>; Fri, 20 Mar 2026 12:12:20 -0700 (PDT)
+Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com
+ [209.85.214.175])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 94B5810EAC0
+ for <dri-devel@lists.freedesktop.org>; Fri, 20 Mar 2026 19:12:24 +0000 (UTC)
+Received: by mail-pl1-f175.google.com with SMTP id
+ d9443c01a7336-2ab232cc803so4133045ad.3
+ for <dri-devel@lists.freedesktop.org>; Fri, 20 Mar 2026 12:12:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1774033940; x=1774638740; darn=lists.freedesktop.org;
- h=cc:to:content-transfer-encoding:mime-version:message-id:date
- :subject:from:from:to:cc:subject:date:message-id:reply-to;
- bh=xUIIgLsCX99WQc0DzamnNAGrsGlCiZNosqsgUhoMCCs=;
- b=OfgsdMY6W6yBhcArlnUMekps4q220NXE1UPgQHVbiywykFOZGokTpm/dknNicq3k1r
- MZAEgB6EOj78bsn3wVeXTMMq0fbYgMV7hYyGIIF17Kj29O1rv58mB74Z1r1uio2ByzQn
- kUIO6Nta79jwYoBW7yk97m0Al5EiauIi8ycy99mhlfqcir1YFABflDBYDubHCndj3Bzw
- UPwgWErSfLanZKPN3sMcr01zU9PqPUvVK5GqIQsLmgs8RDvZwrpjsybCZV+VFmQNZbeq
- 4jK4DdzFApzeWuuxbPKOOD2q588gPjTmvMOeR+NiBmY0DNHSv9Y4Yo7YYEp4hWGHgYCi
- Yzew==
+ d=gmail.com; s=20230601; t=1774033944; x=1774638744; darn=lists.freedesktop.org;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+ :reply-to; bh=GzUsZ0V+OsYZzU5hFHvU5ER39DG7821lBv6s9PN+5+U=;
+ b=HCMg2utFzZCqCpdmMhzA+h2YbKfCROfYc2ai7NPSrrT1h6ZnL5+KK/00qrfUM9SHmp
+ Y/KgsH0RFgeYmdvPdJugXBpfBwCPyl7B0QXUpsFEhsxBmNUu6Mi1VDbU0yOYCX/xrMs7
+ 1rfuvdkLY7362oXaglyorp+RIIPNQkSlTMnoyjYXJ53HPeEYz33YY+9kAbl2IzpgfXYN
+ cUf1V2Ne8de2kmPv/nGCuv64J8+iBIKkFAxc2xVQiuOLph/BuLKpTzrieN80KzL/r4ZR
+ QgOEcVwPJP4Ztz3NMwS+dp2PtY4X8al4Jv/h1+AcnKY7wpxeNF3b0BP84SUGnC+pbmaW
+ nEzQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774033940; x=1774638740;
- h=cc:to:content-transfer-encoding:mime-version:message-id:date
- :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=xUIIgLsCX99WQc0DzamnNAGrsGlCiZNosqsgUhoMCCs=;
- b=mBLJLdfEVtHuSxURT59dMOOsDXbmVofwSvsgpBpBaoGT7IwFHNswoj+OyjyDhfwEXv
- OAuS/4CPwvyWBNuurrXQVvq4AYLjfzmSTTy38e1DooAoN0u+/ZzPiUSO/gom/mUMH9I+
- gC1s4EeGJcmG6nuP6mXr1smjFlXTouC4yyhIv1c7HcfJBonN7rAh0VIQwZFuTrHTQGgo
- cpJggvMiucLkbf7fR9XbneoEGsyTyILy+JVodbmJ/ehyXTr0FFXMb3C1zO4y1lMQ2yHg
- Sazi0ooCwcoGgGlytFVIJw7f47X+lHWCC+q+UsqE6DCXRkGyaAFdyNp7ViU+GIRnqQpa
- 6eFg==
+ d=1e100.net; s=20251104; t=1774033944; x=1774638744;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=GzUsZ0V+OsYZzU5hFHvU5ER39DG7821lBv6s9PN+5+U=;
+ b=PC1SdtCMVMWzsm33WY68xbSCvulem2O4NtxcCSAApWYU5Bx9En3Cip+Ubyf0sz2aOP
+ INKX0cjQ8xQzdKc4jtRllieo7PxTkfbQ2bVQWXFKalTgLQQ4hsgs42jpmtPp5Uqks8G2
+ 65G+nuWEDywtJZdOyGhAqhKZCkEiTBWxV8ZRFRHA2prKiTtYPElH4duTaj8I3dHQOAWe
+ 8unqpS5L4ElD+KZTXKeF6/J5TxZ0x6K+J2reioOGOIpnKTDwcz20HGXqJiD9oK7qDzL1
+ enl3T69eKjCy5KAo00+rj6u1VRtOrbRTUabi61+NrPPLZk0OsZX1Pz+GqqpI9wUAAduY
+ Kocg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVcoP6zAt0REFAenWnZARj0ghhk95iuuZNAddSx4v0cjJh1doISaOwb36ZDoj2iq67HqDTOs6BwbSM=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyAB0H3P4flOHaRoT6JhR7q9wjseeEuAJtOEGbyx2WVutxd/yFN
- SP1GZkhJBq67h2T7mjs136rsZTUhhlpuSUIDFjpBAnuvYo9+fj06AUvw
-X-Gm-Gg: ATEYQzx3/uZkNyVjgrrkK5CErSBS7t9MtZAysXzPVSw6TtT33evSHbeOU95zPy3px73
- j5MZRtt8XIxD/vwT7ghAxqVkMt23jH5QdCZUpEtqAhfOCeY9yln+vxd6vXZEM684R+5Nv2A9QL0
- x4OssOB5ZyJ/Yj/URkxneKPb5es6k7RsAhZxN2cIVtfleDJ1vZK7jXvRC2fsgu/95CdwGSo9fbQ
- HnOqiMVaTsY7BMVvgcMEA4K27NjsYs40Ir1a6gxAJdNH3HOLQ6JyrRNwIQSKJ8/wZYMHcjhflCw
- SIkY7Xutwq638aw2n6KR13G/yBEeQN4TYCfHg8pzeKaTPnxFEpMoXF6T1x0ruwS9vFkz8Em768K
- 97AaNLpRHGGJSD735Qk2ArAAGRSYL7oK7ZfLoDK4ua1UesNgG0t4G3f/hR1hkUu3vf1EBQiIM2c
- 9P5odygku/tSWaQ5bbIoR+Xkjp31wvI0PjAixB
-X-Received: by 2002:a17:902:cf06:b0:2ae:7efb:6068 with SMTP id
- d9443c01a7336-2b0826d6f8fmr37075695ad.7.1774033939936; 
- Fri, 20 Mar 2026 12:12:19 -0700 (PDT)
+ AJvYcCVYs1aJScdrZv+yto6ICdUA5c3178shZB+31MKQXxXkXj2CI4eVPzzbEEPsdKWzRR5ewXcKjqb3Om4=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yz+BgHsotbuG+DbvzJw6jqVC1QcKt8frWDqTSb0NaTwkd0p/Xs8
+ 58c22bFNEoGa32kLPVt0oQS/+DKAbzNM8U9jsaYL7z5f2P+1U4qxz8yg6sagM1RbRIlJng==
+X-Gm-Gg: ATEYQzxzh1RwWeod25fcVAhaoFDicAvJYL6QwSIa7i1NG8nAM/9bNg2QNO5LPMf0/+7
+ k5Krjq9kepaCTV/5LGronxxRyMJGweKqMO1JlUbddk+n40c3ZnI+PUov/gY2EC6AuKoC2zbqMrX
+ 7FF8vvRSv4dZlsYBh4GA6CJjOtxksvRbBcXclye8TT/3NTdOiQVUyqtjU/K03r/10AvdCebXckt
+ NBPrwOSLKHmxNiRGLN1CGE4N4IOoze8bMB/uHxNlWWvl6vpSTUmjY6zMaV/A73Ie1O+tVScNO8B
+ AbmkHiVxFJ60gtI1bEkGBW0ZT98EZfUqQt2NaZuN2K5tKS8bLeQiAtQRlOsLMC2Jl7PVizxV6tl
+ 8vsOW4FLLf/5IGgaO7U+eYw1/UM0I2DRwgpU5V9vTTNlqirmnQSluFwnrt+miYLLOnOUmoHu0C9
+ Tf0v6UHVEuY9/eawqb4nso8YBk/fC2uKxiLbc/
+X-Received: by 2002:a17:903:38cf:b0:2b0:6961:150a with SMTP id
+ d9443c01a7336-2b0827d7e20mr37519215ad.38.1774033944094; 
+ Fri, 20 Mar 2026 12:12:24 -0700 (PDT)
 Received: from junjungu-PC.localdomain ([223.167.147.240])
  by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2b083688ca4sm39599915ad.67.2026.03.20.12.12.15
+ d9443c01a7336-2b083688ca4sm39599915ad.67.2026.03.20.12.12.20
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 20 Mar 2026 12:12:19 -0700 (PDT)
+ Fri, 20 Mar 2026 12:12:23 -0700 (PDT)
 From: Felix Gu <ustc.gu@gmail.com>
-Subject: [PATCH 0/2] drm/bridge: th1520-dw-hdmi: Two fixes
-Date: Sat, 21 Mar 2026 03:12:09 +0800
-Message-Id: <20260321-th1520-v1-0-ec877197770d@gmail.com>
+Date: Sat, 21 Mar 2026 03:12:10 +0800
+Subject: [PATCH 1/2] drm/bridge: th1520-dw-hdmi: Fix error check on
+ dw_hdmi_probe() return value
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAmcvWkC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzMDYyND3ZIMQ1MjA900E2MjM0Nji2TLpDQloOKCotS0zAqwQdGxtbUAiEu
- i51gAAAA=
-X-Change-ID: 20260321-th1520-f4326138c9bf
+Message-Id: <20260321-th1520-v1-1-ec877197770d@gmail.com>
+References: <20260321-th1520-v1-0-ec877197770d@gmail.com>
+In-Reply-To: <20260321-th1520-v1-0-ec877197770d@gmail.com>
 To: Drew Fustini <fustini@kernel.org>, Guo Ren <guoren@kernel.org>, 
  Fu Wei <wefu@redhat.com>, Andrzej Hajda <andrzej.hajda@intel.com>, 
  Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
@@ -84,11 +83,11 @@ To: Drew Fustini <fustini@kernel.org>, Guo Ren <guoren@kernel.org>,
 Cc: linux-riscv@lists.infradead.org, dri-devel@lists.freedesktop.org, 
  linux-kernel@vger.kernel.org, Felix Gu <ustc.gu@gmail.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1774033935; l=465;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1774033935; l=995;
  i=ustc.gu@gmail.com; h=from:subject:message-id;
- bh=1t/7y9mVrx6E4KfyOJWL4pNY3X3iSbND0yHpmonIxX4=;
- b=UJhpD7PbJUjEzKm0lysNNBWIO0bTNKDAkim1dWlVkVTfKRUk4hRSViEiSMgKYaEcRzZfb3zIn
- UjNGG/d3mw+DFYvYr4agLP3RdKYyLLF81DwUqB9zBUEhn1BHIXYHqGj
+ bh=4F+Ll1PWHhd/QixktSYleAKOUdmCyNteN2mj0AKQq7Y=;
+ b=1wKT8Nsz2Paz9DLjSvFMhtNlNWSOreFb8Roupg24Rg5qwt9FTGGanMq1ALok9+x2liB+HzDBH
+ 13ucLSz6c/ECAxSLCoMI4i+CbOdxMEYfXaNVwZGrBm0CPKJkIRxF64J
 X-Developer-Key: i=ustc.gu@gmail.com; a=ed25519;
  pk=fjUXwmjchVN7Ja6KGP55IXOzFeCl9edaHoQIEUA+/hw=
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -106,19 +105,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+The error check after calling dw_hdmi_probe() was incorrectly checking
+the struct pointer hdmi instead of the probe result hdmi->dw_hdmi.
+
+Fix this by checking the correct variable.
+
+Fixes: 96f30ee0fb9d ("drm/bridge: add a driver for T-Head TH1520 HDMI controller")
 Signed-off-by: Felix Gu <ustc.gu@gmail.com>
 ---
-Felix Gu (2):
-      drm/bridge: th1520-dw-hdmi: Fix error check on dw_hdmi_probe() return value
-      drm/bridge: th1520-dw-hdmi: Fix remove() callback
+ drivers/gpu/drm/bridge/th1520-dw-hdmi.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
- drivers/gpu/drm/bridge/th1520-dw-hdmi.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
----
-base-commit: b5d083a3ed1e2798396d5e491432e887da8d4a06
-change-id: 20260321-th1520-f4326138c9bf
+diff --git a/drivers/gpu/drm/bridge/th1520-dw-hdmi.c b/drivers/gpu/drm/bridge/th1520-dw-hdmi.c
+index 389eead5f1c4..c9968ec1823c 100644
+--- a/drivers/gpu/drm/bridge/th1520-dw-hdmi.c
++++ b/drivers/gpu/drm/bridge/th1520-dw-hdmi.c
+@@ -136,8 +136,8 @@ static int th1520_dw_hdmi_probe(struct platform_device *pdev)
+ 	plat_data->priv_data = hdmi;
+ 
+ 	hdmi->dw_hdmi = dw_hdmi_probe(pdev, plat_data);
+-	if (IS_ERR(hdmi))
+-		return PTR_ERR(hdmi);
++	if (IS_ERR(hdmi->dw_hdmi))
++		return PTR_ERR(hdmi->dw_hdmi);
+ 
+ 	platform_set_drvdata(pdev, hdmi);
+ 
 
-Best regards,
 -- 
-Felix Gu <ustc.gu@gmail.com>
+2.43.0
 
