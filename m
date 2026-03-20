@@ -4,60 +4,107 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B1C581098782
-	for <dri-devel@archiver.kernel.org>; Fri, 20 Mar 2026 13:09:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 383491098781
+	for <dri-devel@archiver.kernel.org>; Fri, 20 Mar 2026 13:15:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0195310EB01;
-	Fri, 20 Mar 2026 13:09:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8F36B10EAC7;
+	Fri, 20 Mar 2026 13:15:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="UhusO7Ir";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="UerhYKOg";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D193A10EAF9
- for <dri-devel@lists.freedesktop.org>; Fri, 20 Mar 2026 13:09:51 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id A84E8443E5;
- Fri, 20 Mar 2026 13:09:51 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3263CC4CEF7;
- Fri, 20 Mar 2026 13:09:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1774012191;
- bh=KtyqkgdW2N+tGuiRRGwfaJSw9/wwP3BDlPbzeD6Tf8s=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=UhusO7Ir2EBydsGHlZyj5vew5uqx3LL62vko5Nvx7uYqnN8LXpvVu0HBg4Jb3rN11
- 6S73M9ojHqYjBNhrbqF5Hh7jyCfzHErGHu3L1R6mUu7iSqAUdNpYycA6t0Y2JGCu7I
- azCPpzorM0ShT1moymtT/RU9iLPZHEFywsckNnX3po4/g+RkOux39sHfuVFqfrhI0x
- 6K5iBG0kBNAiB0VJi3u6qKegr8Nd04DhRa7oBU/Df5hCAnlurweBz5L4KTZSQstN+h
- 7+aKbBVLQnUQbRckkQHUOiKXHr8jcSwXklaf2DF4sTPlOxHzV7mqlaSl370vp3i1VV
- OQBJzASK6ggNg==
-Date: Fri, 20 Mar 2026 14:09:48 +0100
-From: Maxime Ripard <mripard@kernel.org>
-To: Marek Szyprowski <m.szyprowski@samsung.com>
-Cc: Sumit Semwal <sumit.semwal@linaro.org>, 
- Benjamin Gaignard <benjamin.gaignard@collabora.com>,
- Brian Starkey <Brian.Starkey@arm.com>, 
- John Stultz <jstultz@google.com>, "T.J. Mercier" <tjmercier@google.com>, 
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- Robin Murphy <robin.murphy@arm.com>, 
- Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>,
- Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
- "Liam R. Howlett" <Liam.Howlett@oracle.com>, 
- Vlastimil Babka <vbabka@suse.cz>, Mike Rapoport <rppt@kernel.org>, 
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
- Albert Esteve <aesteve@redhat.com>, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, 
- linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org,
- iommu@lists.linux.dev, linux-mm@kvack.org
-Subject: Re: [PATCH v3 0/8] dma-buf: heaps: Turn heaps into modules
-Message-ID: <20260320-cryptic-industrious-otter-5b696a@houat>
-References: <CGME20260303101320eucas1p2eb4fea499364ef20825d0d73585a2555@eucas1p2.samsung.com>
- <20260303-dma-buf-heaps-as-modules-v3-0-24344812c707@kernel.org>
- <c60a3f30-6fc3-41ab-835a-2fdd887e18fd@samsung.com>
+Received: from mail-ua1-f47.google.com (mail-ua1-f47.google.com
+ [209.85.222.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 77A9910EAF7
+ for <dri-devel@lists.freedesktop.org>; Fri, 20 Mar 2026 13:15:36 +0000 (UTC)
+Received: by mail-ua1-f47.google.com with SMTP id
+ a1e0cc1a2514c-94dd01deb53so116101241.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 20 Mar 2026 06:15:36 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1774012535; cv=none;
+ d=google.com; s=arc-20240605;
+ b=JbYWqTqvgkzyOv9dM7y3mo9HyfiB15oNSPGTRq7jOfV/OiSUaeGzjFHCGRWFKwy2nj
+ xTc7iYHK7Cz/CODhk09M/klzIpU7D62JKIbku7dv0Ue7sHjKP6totckXXdx4Oa9T6Ekh
+ Zpi/ZYM3JAjCZOslzhxkkM8TU/GVv1iSQXzck7WCEpTSpuwCgfvGFmoDsZ0Sqhr77Bw2
+ BLwdodsM1/soJLFOZmohJXguLq8y50iMOm6oEgXwyFrL4vGoW3PBTK3dKu6LvbyYGuIC
+ cF+Eih+1FwpMTY8yKQVCsomUtnVeEZnmRQ5j5wnWIkbWPopQ90u/7dGozem0/wOG0FJb
+ M7cg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=odrQtLUC1LiaxHstWMqEvhv3vLw/22xn8F6ptFJZ6CY=;
+ fh=7zfpbIEWQGqp9H4AYnx1FzM8f5+SjkuRiLGP7xHZsco=;
+ b=XRZAxEPnP9ING6p2IIsYeTOtKCpFzVb2MGhYLd5cSmtQ+VyHtwjIqRYt78Tb6g0OII
+ 3orDEjNR/hk0CjaQo9icID3j1NN4ZO5qhb2NwY/9Tara/XgUgIEhXYtrKW0hwqABkQZ6
+ MbW5OR0GOhIBsxXVB1xGmHylzvgdIK7RcxJ3ORMO4ZtMvy+B1WJ5XU9fOScYGACS5o/7
+ 66sO/+57T+4Yce3IhHVQKiuuMecw/SnaM3ySr8J1Cw+lcijyazAMemNrJvfa4MVyNoUo
+ NH6Jzqh8qUoJX9I4kYHSQGGyFGol58pYnQRsFUOlXth0FxeYmXLmQl7KOsNqTAYkdvGo
+ Sx+Q==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1774012535; x=1774617335; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=odrQtLUC1LiaxHstWMqEvhv3vLw/22xn8F6ptFJZ6CY=;
+ b=UerhYKOg+bqXbDVXmoI/8Cqck+k6G2RuBnzTE8b/2UOWucLOVMEjGzImWV6/DnuKXS
+ ShubCTxbFoKoMdWxS5+hncxg2l27j53iLq3S+WytPt11jVmrdlQmGdnQT0JcQi4vGwwU
+ xei9W2KjNS1guEswu7vInXz6qhbE74tVdgyaKIadTbfBw7ibpCX9E9g2BVFdeOoWZ5Zd
+ 7bzx7VWeup8Q0bCmYv7TIuP4D/dShWEv64XoaN+q3tpNBI+dx2pq3cLAnEe+oVwzf1Zl
+ KxyteugDB5yy9+jK2eHixHzSTZSiHiK0DQHIxXcRiPd+e8bkmkpMmTUnb5ssvM1gM0Ek
+ ha+Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1774012535; x=1774617335;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=odrQtLUC1LiaxHstWMqEvhv3vLw/22xn8F6ptFJZ6CY=;
+ b=WLi+rXPsNHb1U/mpjGQtkEoFhrRQR7rtmnBNzHo21Gt6/7kOM39B4STmzKTuBFim6V
+ LeuyPsNsiUu0GgpDl87VZ59TvgGd4bUm4j3tJQn0wQ/uTPN7SDBI5ZOVGU4abv0bDAFo
+ sb28qBAUwz8JblVNTMUJUZwlGJrT7JK6ZZuxJsXszBV+Q+TTH0QEewR2AyFAkZJ/mFCA
+ hIuonlQH1rjMg3G+CrsOnl7awWIswyzMouAO2DQhGXBe0a6+qHuxrhadYh6znbxZq3uY
+ 6HG+Xcs7KZvE1wxKXNTeyeAktQ5bBbnV75RTkPx3h/375bGM16DBKG5AzO2c9jO/WUji
+ D+gQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWxlQ/LZKG3mVvDbsQ507Ya4yYEXa/mvRxLZvPo8mCBmeYVZhWcAe7sTBVBq93bn6H77hpLLwyfnZc=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yx6Rul4xWjjHyof+ko1K8u3v6GMto1J4O6Guya4uOgFPOzgHdE1
+ Q5FXcZ7gEGzk4PowPwQg6yObkLcpe+fLIvVKlk77dBCyZfIiRm2hyYrXRpCG8yFGCvm/3U4xG0B
+ 2qaE7jyc0jGPE7ZqXJJ3fKJIJMsVkxdY=
+X-Gm-Gg: ATEYQzwQQzl9VN2HTU9KJLUpepfM8HrNtdkbZ9xewlznNBkj+b8CrGOK0XTnJ9bK60b
+ a1p9Cou8uwt9IIsF53/FHfctM2SMGiCDCKVtpGRZlRoARCzp1aTrDRD/xlMudA0n20UxGNx70Z1
+ 1abipWfeUQNiGL6IVLM+TTBI1Iqnwo+OSMHZ/h0oZXscRN/SBCKN+QKbRGU05kKjCCVK5+Xzdwm
+ PE5Xw0x40eMJhK+Jyox/jlSrr/l+9JGAwG0yP2PYLvsf5Or5OC8yZ1V5kxWzNh1cDvhHoCiFh18
+ rCpBErbi0fPkp8DVgzM=
+X-Received: by 2002:a05:6102:94b:b0:5ff:ed38:187a with SMTP id
+ ada2fe7eead31-602aeabdd86mr1418984137.5.1774012535018; Fri, 20 Mar 2026
+ 06:15:35 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha384;
- protocol="application/pgp-signature"; boundary="zs66qpw74bbg7irl"
-Content-Disposition: inline
-In-Reply-To: <c60a3f30-6fc3-41ab-835a-2fdd887e18fd@samsung.com>
+References: <20260311-dsi-dsc-regresses-again-v1-1-6a422141eeea@somainline.org>
+ <CAH2e8h4qnF3UxWFrU59BrStWMDc-=Vz9ZNmuq8Q3smhHeUzxyw@mail.gmail.com>
+ <a2xtesu626vmfetdoykojm33at44h7zxgvo6ytf2txlg6gn7ls@34jctkwswjnk>
+ <CAH2e8h4p4fyoPXTcjbhSXVgWEm54PH_=yCWiCGWOsDaMZu1bvw@mail.gmail.com>
+ <5vqqcoggq3mrwc567jhrondk6m7vfpth57wu3gyvyjjkezfmnl@mqzlarjlsgcx>
+In-Reply-To: <5vqqcoggq3mrwc567jhrondk6m7vfpth57wu3gyvyjjkezfmnl@mqzlarjlsgcx>
+From: Pengyu Luo <mitltlatltl@gmail.com>
+Date: Fri, 20 Mar 2026 21:15:08 +0800
+X-Gm-Features: AaiRm53VnGIV9WWkU3ahSecjRfkUcxmeN_g-2CCLzAJ0oe1y1iaTq0NNNOCxNiE
+Message-ID: <CAH2e8h5aM2WacbHqwLDCoNrmWOk835ork7hLVHXo+fUFuDN41Q@mail.gmail.com>
+Subject: Re: [PATCH] drm/msm/dsi: Restore widebus calculation for CMDMode
+ panels
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Marijn Suijten <marijn.suijten@somainline.org>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ ~postmarketos/upstreaming@lists.sr.ht, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Martin Botka <martin.botka@somainline.org>, 
+ Jami Kettunen <jami.kettunen@somainline.org>, linux-arm-msm@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,60 +120,119 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-
---zs66qpw74bbg7irl
-Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v3 0/8] dma-buf: heaps: Turn heaps into modules
-MIME-Version: 1.0
-
-Hi Marek,
-
-On Fri, Mar 20, 2026 at 01:24:18PM +0100, Marek Szyprowski wrote:
-> On 03.03.2026 11:13, Maxime Ripard wrote:
-> > The recent introduction of heaps in the optee driver [1] made possible
-> > the creation of heaps as modules.
+On Fri, Mar 20, 2026 at 9:06=E2=80=AFPM Dmitry Baryshkov
+<dmitry.baryshkov@oss.qualcomm.com> wrote:
+>
+> On Fri, Mar 20, 2026 at 07:26:22PM +0800, Pengyu Luo wrote:
+> > On Fri, Mar 20, 2026 at 9:59=E2=80=AFAM Dmitry Baryshkov
+> > <dmitry.baryshkov@oss.qualcomm.com> wrote:
+> > >
+> > > On Thu, Mar 12, 2026 at 01:10:07PM +0800, Pengyu Luo wrote:
+> > > > On Thu, Mar 12, 2026 at 6:31=E2=80=AFAM Marijn Suijten
+> > > > <marijn.suijten@somainline.org> wrote:
+> > > > >
+> > > > > Commit ac47870fd795 ("drm/msm/dsi: fix hdisplay calculation when
+> > > > > programming dsi registers") makes a false and ungrounded statemen=
+t that
+> > > > > "Since CMD mode does not use this, we can remove !(msm_host->mode=
+_flags
+> > > > > & MIPI_DSI_MODE_VIDEO) safely." which isn't the case at all.
+> > > > > dsi_timing_setup() affects both command mode and video mode panel=
+s, and
+> > > > > by no longer having any path that sets bits_per_pclk =3D 48 (cont=
+rary to
+> > > > > the updated code-comment) all DSI DSC panels on SM8350 and above =
+(i.e.
+> > > > > with widebus support) regress thanks to this patch.
+> > > > >
+> > > > > The entire reason that video mode was originally omitted from thi=
+s code
+> > > > > path is because it was never tested before; any change that enabl=
+es
+> > > > > widebus for video mode panels should not regress the command mode=
+ path.
+> > > > >
+> > > > > Thus add back the path allows 6 bytes or 48 bits to be sent per p=
+clk
+> > > > > on command mode DSI panels with widebus, restoring the panel on d=
+evices
+> > > > > like the Sony Xperia 1 III and upwards.
+> > > > >
+> > > > > Fixes: ac47870fd795 ("drm/msm/dsi: fix hdisplay calculation when =
+programming dsi registers")
+> > > > > Signed-off-by: Marijn Suijten <marijn.suijten@somainline.org>
+> > > > > ---
+> > > >
+> > > > Apologies, I messed up, I had sent the same fixes days ago.
+> > > > https://lore.kernel.org/linux-arm-msm/20260307111250.105772-2-mitlt=
+latltl@gmail.com/
+> > > >
+> > > > > In addition I can't say I understand the original commit message
+> > > > > at all; it mentions a BPC=3D10 mode however the highest format th=
+at
+> > > > > mipi_dsi_pixel_format_to_bpp supports is RGB888 thus it won't
+> > > > > ever return anything above 24, which is the original amount the
+> > > > > non-command-mode path defaulted to (regardless of widebus)...  Wa=
+s that
+> > > > > patch doing anything for video mode at all?
+> > > > >
+> > > >
+> > > > RGB888 is the dst bpc, which is tied to qcom,mdss-dsi-bpp in the do=
+wnstream.
+> > > >
+> > > > Actually, we should use src bpc here, another fixe
+> > > > https://lore.kernel.org/linux-arm-msm/20260307111250.105772-1-mitlt=
+latltl@gmail.com/
+> > >
+> > > I'm really torn between your two patchsets here.
+> > >
+> > > Marijn, Pengyu, what are your testing platforms and are you testing
+> > > video or command mode panels?
+> > >
 > >
-> > It's generally a good idea if possible, including for the already
-> > existing system and CMA heaps.
+> > SM8750, I am testing on a native 10-bit video mode panel.
+>
+> Is the framerate correct for you?
+>
+
+30, 60, 90, 120, 144, 165 work for me, in 24 dst bpp, 30 src bpp.
+
+It failed to set pclk clk rate when I set 30 dst bpp, 30 src bpp, but
+172992000 is right and works for 24 dst bpp, 30 src bpp.
+
+Mar 20 20:46:00 qcom kernel: dsi_mgr_bridge_mode_set: set mode:
+"1904x3040": 120 915552 1904 2180 2212 2244 3040 3066 3070 3400 0x48
+ 0x0
+Mar 20 20:46:00 qcom kernel: dsi_mgr_bridge_pre_enable: id=3D0
+Mar 20 20:46:00 qcom kernel: dsi_mgr_bridge_power_on: id=3D0
+Mar 20 20:46:00 qcom kernel: msm_dsi_host_reset_phy:
+Mar 20 20:46:00 qcom kernel: msm_dsi_host_reset_phy:
+Mar 20 20:46:00 qcom kernel: dsi_calc_pclk: pclk=3D172992000, bclk=3D108120=
+000
+Mar 20 20:46:00 qcom kernel: dsi_calc_pclk: pclk=3D172992000, bclk=3D108120=
+000
+Mar 20 20:46:00 qcom kernel: dsi_link_clk_set_rate_6g: Set clk rates:
+pclk=3D172992000, byteclk=3D108120000
+Mar 20 20:46:00 qcom kernel: dsi_link_clk_set_rate_6g: Failed to set
+rate pixel clk, -22
+Mar 20 20:46:00 qcom kernel: msm_dsi_host_power_on: failed to enable
+link clocks. ret=3D-22
+Mar 20 20:46:00 qcom kernel: dsi_mgr_bridge_power_on: power on host 0
+failed, -22
+Mar 20 20:46:00 qcom kernel: msm_dsi ae94000.dsi: Power on failed: -22
+
+Best wishes,
+Pengyu
 > >
-> > The system one is pretty trivial, the CMA one is a bit more involved,
-> > especially since we have a call from kernel/dma/contiguous.c to the CMA
-> > heap code. This was solved by turning the logic around and making the
-> > CMA heap call into the contiguous DMA code.
-> >
-> > Let me know what you think,
-> > Maxime
-> >
-> > 1: https://lore.kernel.org/dri-devel/20250911135007.1275833-4-jens.wikl=
-ander@linaro.org/
-> >
-> > Signed-off-by: Maxime Ripard <mripard@kernel.org>
->=20
-> I'm okay with the kernel/dma/contiguous.c changes. I only wonder how to=
-=20
-> properly merge them. There are other pending changes to=20
-> kernel/dma/contiguous.c file [1] and if they finally get reviewed, I=20
-> would like to merge=A0both via dma-mapping-for-next tree. Then I can=20
-> provide a stable branch for merging the remaining dma-buf pathes. Is it=
-=20
-> okay for You?
-
-That sounds reasonable to media
-Thanks!
-Maxime
-
---zs66qpw74bbg7irl
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCab1HHAAKCRAnX84Zoj2+
-dtHjAYCni65LYJfONrHzX1+dmTg8jR62Up22RXPxSlYyod1hB1tdIw9izCD0G6Yd
-tTFaIwEBgJvjLz3SwBA1sbRbznr8PQjslZc5ZJNJzdGupJIT8b7KJryJWaeGjrY9
-oc+2U5qZsA==
-=0xTf
------END PGP SIGNATURE-----
-
---zs66qpw74bbg7irl--
+> > My thoughts are we should restore 6 for the cmd panel, and we should
+> > fix video mode too.
+> > As I mentioned, I overlooked something, I thought the cmd panel didn't
+> > use the value, which
+> > made the value for the cmd panel wrong. So we can restore it for the
+> > cmd panel (though I can't say why 6).
+>
+> 2 (wide) x 24 (normal bus) / 8 (byte)
+>
+> --
+> With best wishes
+> Dmitry
