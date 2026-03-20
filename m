@@ -4,90 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C05941094462
-	for <dri-devel@archiver.kernel.org>; Sat, 21 Mar 2026 09:38:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9FFC01094465
+	for <dri-devel@archiver.kernel.org>; Sat, 21 Mar 2026 09:46:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D153A10E217;
-	Sat, 21 Mar 2026 09:38:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9A28A10E1F2;
+	Sat, 21 Mar 2026 09:46:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="povw2A4Q";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="RmEV2ZMe";
 	dkim-atps=neutral
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com
- [209.85.128.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9C8CC10E273
- for <dri-devel@lists.freedesktop.org>; Sat, 21 Mar 2026 09:38:02 +0000 (UTC)
-Received: by mail-wm1-f48.google.com with SMTP id
- 5b1f17b1804b1-486507134e4so32269995e9.0
- for <dri-devel@lists.freedesktop.org>; Sat, 21 Mar 2026 02:38:02 -0700 (PDT)
+Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com
+ [209.85.216.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 25EB210EAD3
+ for <dri-devel@lists.freedesktop.org>; Fri, 20 Mar 2026 11:29:50 +0000 (UTC)
+Received: by mail-pj1-f48.google.com with SMTP id
+ 98e67ed59e1d1-35a09e0dd63so654054a91.3
+ for <dri-devel@lists.freedesktop.org>; Fri, 20 Mar 2026 04:29:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1774085881; x=1774690681; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:content-language:from
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=CFpg1mbZW3Ctniu50/V4S1EGhLRWMwZR4yXu0pZ0YM0=;
- b=povw2A4QHorqNSr4ASZCTVAhpQ4K/aBtz+nPvPzh9tTl1oJzh0vQAqlBZSNv/sKxnu
- FvS7bn/z5cvk/g5WRxxWHHYbUKUnaU+immRI++rNNaIZcNqOFsgOnV6j6kC42cxp6aRI
- kc4YWt0xD3Ju24lbMunY0cYYo/GXR3wrYitO5nQ3GIp0YN4X268jvEsYhe3u21bVuNL5
- WJeOWxVNAYN6fWN7hP0Uv2Q8nWv2VD5xtAgOBNBWDckPhJVwi3I6McZc2GBW7hoOetKF
- DCU/6nBvrLAQtak4b1BtDXa5OAZwLWiwzyCpMFoIhrlF0sS+aSaZk1d4ttOr5SNF/j4i
- QdlQ==
+ d=gmail.com; s=20230601; t=1774006190; x=1774610990; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=K6kdQ83MFjK4keBWOvjShHEs96amZMPmnqfM2hE8yU4=;
+ b=RmEV2ZMezynVicFsY1SHZaBrgUSi2Ld6LASU8/VC7gLuVUWDnJOwF4klFqJBhA+kTJ
+ wNdDs0j4OCW/AGbr3He1dDztnbxu9EcQYekNWWupD3YgrHCQwqtQU4K4sMSJh7SCxa9k
+ 1OgoZV9k6hsYEpf4r0fA1RaFRfkZKl7LH8INSnm98SBCQ4sZyyKJLbpfTY40Ff87dCo2
+ uGkoGKYVWc1jtTjwr7X1m8wkC3+8NRPiEz1Vz59eytvanad6OBHDTSNLqWbsSCJjPBm6
+ QDUUIHEl+TrKO6Q8dL0Ydte7ZI6lsIlZchyrgcmm/fXZk8xc0lUUK+quE8DWB14D9Dft
+ mTwQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774085881; x=1774690681;
- h=content-transfer-encoding:in-reply-to:content-language:from
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=CFpg1mbZW3Ctniu50/V4S1EGhLRWMwZR4yXu0pZ0YM0=;
- b=aUfyhiy6/Oa+ATUpXsPdl0o+5+20zeeBIL1eLtMVo4hOLeYTs5qE1mQ0LCdK21q5qM
- we2xdsz9GM7ntfw6E+mfidH2nuBBSDNnnqCyDsX0CHZ8RjrPw3SFxZPZQGsNDoDXeR8e
- VVlK5tR/imIhEniQB82ZtjnYLr5zPXRFr8BKANDwAEZgywNkZU4xjJ2GF/ehV7++KMgq
- 49eZ56V4iTYVVRJDdQlMP7PPL3ZdA81vJzntnGUlOlwMbB4hP5pescV2QhGVTzT6HGxs
- hJw5bePM7FQ07yXo6jm+nqg/VefBZRP6IlXMlr4/bisZncI0mNZs4LKu/Stw0EKUWU/i
- Jf0g==
-X-Gm-Message-State: AOJu0YxJAdL6YE4+56+erS3nqXDy1mLrwX0gqI9lYdqeseAduDh01oU9
- /QDz4mKpwSGZORlQ3lXmH59GWICp4V9r613QOHYYmi8t2KGaMKFFIttstVagmvYX1/Q=
-X-Gm-Gg: ATEYQzxismuzbTjsNF8/NPRSNcxpSR5PYLSOKBFPmGjlpP3pJY4nktBWwJHRK6Q5dwX
- UDMtv8itB0/SSikbuB6YyQMmDkDs3kebTuK9llI9PFUAytC76kEz+62tRZ4qZ+dZ9yrn2YGm0f+
- irZa9R4DxKwGwZ4Z/ptG6gr8UHw9oehPJ3WvjH3UMA2oxvDF7eCfKriD3211V4ku86iyotteGMW
- 8QFQVTV1h1qEGyaO/lElXtL/oohtADKqqLis/jzinBfTB5vRagYSY8mGxCFC0pxVyY2qpZoXL1N
- YJnlwU6CERZx8Yho7l434jsKDzLG5BTI3p/Rs3vwEwT1jSWa8K3hYcIcAlT3MJ4r1aV1B5gvyRT
- zDX4398/vmMmXBbOIqnqFLoqSaE2Y93se/+HMIdNyU89b139aP7HaGXNAUXNyxqNc6A4IO+I0TA
- 9GSj7VaQAQ6OniiQWUfRyKYkEBCn2mQVzGZRYwkzn+AXA6b10AuoQrPLJmcavgvtNKU31eEG1gE
- 8q+BKUZ43xEIKzS2HFYfJ8=
-X-Received: by 2002:a05:6000:4021:b0:439:b1c3:84c8 with SMTP id
- ffacd0b85a97d-43b6423bc21mr10398940f8f.21.1774085880444; 
- Sat, 21 Mar 2026 02:38:00 -0700 (PDT)
-Received: from ?IPV6:2a01:e0a:106d:1080:81c2:60b3:ff00:9a5e?
- ([2a01:e0a:106d:1080:81c2:60b3:ff00:9a5e])
+ d=1e100.net; s=20251104; t=1774006190; x=1774610990;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=K6kdQ83MFjK4keBWOvjShHEs96amZMPmnqfM2hE8yU4=;
+ b=f3RMIdsN7c2O2FZKMLLlZPNOc5/4wZvWCg+36h5uNupKPn97cFrWrys8yUGlcsaUjk
+ as2LHqWbUuWwVoZ5EHScEZ/cdmMC8ccV5W6+51z+QgwH5Niju9YLGn88mlzdmZDhD1qV
+ lFVKS+zWaiGGNF8AXQ223NLd3oItgOtzWjnlBnitD3/8HEAtKqRXMu1orgzdyYph4ADM
+ z4C3tZ89GbZTb14aRuPuGSk/ggrtx6qb4AEivATR+B2Cql8AtXaH8BoOR2cxdDn0sP78
+ vbGbdqk8F/i8GyQD5Q+Iw/T2rUcOhkl7oyI9FoqC5S/22gQT1ipgNKkL8D9iE3VbcjJr
+ vO1Q==
+X-Gm-Message-State: AOJu0Ywcgk9l2DWyYU+i1tKQA8VupiPlIFr8OdSf4fz+WXQRB5z/XQfH
+ F3jSzA17EJl6WlflNlhyQ1JR9RzKjFyu5JTK/51KwPLpq3E5RXks9I9s2kebIP8/
+X-Gm-Gg: ATEYQzwubXKoI43+q/FBIhyhmb1PBFSXbPZjIAhXN9HtcxowzZhJfhYH18Cn8EXB+/D
+ /lddLEHxk9ByFguPGxe3zFL8obNvrIr5SOVFbQwxvMQOTwinGjDd92EgtYftWSmkPonnFndcixY
+ PUdGyk6bFbERy6KUlO7IBhFSyCLIUzGyFvJz+kAiQWTibn2yMJLsnfEqx8ewI69woGRd76VDhBZ
+ w7/e9BFG02sbIUiS+5PZ7xgQvsIOsaBdCn6VtvljuyaOrVZn5jSlFBji4FqvW25U7E7GM0Oa9VV
+ iQ3exsaW1VM6ZDpO1N26HQq5D5bMM11OXRCctZ44fdYnDaCnst80j1FYojH0I9I8dcyIDKaqMq5
+ 6KLLE2KMN1ZImEaGdGRtDAZ/b0PpZ76jEgzfJ2bscD6wynWdFz/kmx5eacI/euTZtBpObyQ1giw
+ p6SH8dBMW3it/01/xb/7ws2LcwpUMRPo197pac9d/6hA5HvRXrj5lmrA==
+X-Received: by 2002:a17:90b:35d0:b0:343:7714:4ca8 with SMTP id
+ 98e67ed59e1d1-35bd2c69ef3mr2298767a91.15.1774006189515; 
+ Fri, 20 Mar 2026 04:29:49 -0700 (PDT)
+Received: from ZC-202510311500 ([61.185.217.216])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-43b64717e97sm13770100f8f.35.2026.03.21.02.37.55
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sat, 21 Mar 2026 02:37:59 -0700 (PDT)
-Message-ID: <8462ee30-7e58-46ae-97f4-bc208dd40f27@linaro.org>
-Date: Sat, 21 Mar 2026 10:37:55 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 2/5] drm/meson: handle RGB101010 in format switches
-To: Alexander Koskovich <akoskovich@pm.me>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
- <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Jeffrey Hugo <jeffrey.l.hugo@gmail.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+ 98e67ed59e1d1-35bd3f21163sm1833042a91.7.2026.03.20.04.29.45
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 20 Mar 2026 04:29:48 -0700 (PDT)
+From: Haoyu Lu <hechushiguitu666@gmail.com>
+To: Min Ma <mamin506@gmail.com>, Lizhi Hou <lizhi.hou@amd.com>,
+ Oded Gabbay <ogabbay@kernel.org>
 Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- linux-amlogic@lists.infradead.org, linux-arm-kernel@lists.infradead.org
-References: <20260321-dsi-rgb101010-support-v4-0-eb28ecebbfe8@pm.me>
- <20260321-dsi-rgb101010-support-v4-2-eb28ecebbfe8@pm.me>
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Content-Language: en-GB
-In-Reply-To: <20260321-dsi-rgb101010-support-v4-2-eb28ecebbfe8@pm.me>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+ "haoyu.lu" <hechushiguitu666@gmail.com>
+Subject: [PATCH] accel/amdxdna: fix missing newline in pr_err message
+Date: Fri, 20 Mar 2026 19:29:38 +0800
+Message-ID: <20260320112938.305-1-hechushiguitu666@gmail.com>
+X-Mailer: git-send-email 2.53.0.windows.1
+MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Sat, 21 Mar 2026 09:46:58 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,35 +86,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Le 21/03/2026 à 08:52, Alexander Koskovich a écrit :
-> Add RGB101010 to the unsupported format cases to fix -Wswitch warnings
-> introduced by the addition of the new pixel format.
-> 
-> Signed-off-by: Alexander Koskovich <akoskovich@pm.me>
-> ---
->   drivers/gpu/drm/meson/meson_dw_mipi_dsi.c | 2 ++
->   1 file changed, 2 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/meson/meson_dw_mipi_dsi.c b/drivers/gpu/drm/meson/meson_dw_mipi_dsi.c
-> index 66c73c512b0e..59fc0083d318 100644
-> --- a/drivers/gpu/drm/meson/meson_dw_mipi_dsi.c
-> +++ b/drivers/gpu/drm/meson/meson_dw_mipi_dsi.c
-> @@ -119,6 +119,7 @@ static int dw_mipi_dsi_phy_init(void *priv_data)
->   		dpi_data_format = DPI_COLOR_18BIT_CFG_2;
->   		venc_data_width = VENC_IN_COLOR_18B;
->   		break;
-> +	case MIPI_DSI_FMT_RGB101010:
->   	case MIPI_DSI_FMT_RGB666_PACKED:
->   	case MIPI_DSI_FMT_RGB565:
->   		return -EINVAL;
-> @@ -232,6 +233,7 @@ static int meson_dw_mipi_dsi_host_attach(void *priv_data,
->   		break;
->   	case MIPI_DSI_FMT_RGB666:
->   		break;
-> +	case MIPI_DSI_FMT_RGB101010:
->   	case MIPI_DSI_FMT_RGB666_PACKED:
->   	case MIPI_DSI_FMT_RGB565:
->   		dev_err(mipi_dsi->dev, "invalid pixel format %d\n", device->format);
-> 
+From: "haoyu.lu" <hechushiguitu666@gmail.com>
 
-Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+Add missing newline to pr_err message in amdxdna_mailbox.c.
+
+Signed-off-by: haoyu.lu <hechushiguitu666@gmail.com>
+---
+ drivers/accel/amdxdna/amdxdna_mailbox.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/accel/amdxdna/amdxdna_mailbox.c b/drivers/accel/amdxdna/amdxdna_mailbox.c
+index 46d844a73a94..e681a090752d 100644
+--- a/drivers/accel/amdxdna/amdxdna_mailbox.c
++++ b/drivers/accel/amdxdna/amdxdna_mailbox.c
+@@ -499,7 +499,7 @@ xdna_mailbox_start_channel(struct mailbox_channel *mb_chann,
+ 	int ret;
+ 
+ 	if (!is_power_of_2(x2i->rb_size) || !is_power_of_2(i2x->rb_size)) {
+-		pr_err("Ring buf size must be power of 2");
++		pr_err("Ring buf size must be power of 2\n");
+ 		return -EINVAL;
+ 	}
+ 
+-- 
+2.53.0.windows.1
+
