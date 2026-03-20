@@ -4,138 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D046B1093181
-	for <dri-devel@archiver.kernel.org>; Fri, 20 Mar 2026 07:39:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C7FEB1093182
+	for <dri-devel@archiver.kernel.org>; Fri, 20 Mar 2026 07:48:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3FD5C10EA16;
-	Fri, 20 Mar 2026 07:39:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 24DD710E4EC;
+	Fri, 20 Mar 2026 07:48:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="pmdwroOB";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="GCP8hIgr";
+	dkim=pass (2048-bit key; secure) header.d=pm.me header.i=@pm.me header.b="A5oPqFkt";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9AB7C10EA16
- for <dri-devel@lists.freedesktop.org>; Fri, 20 Mar 2026 07:39:44 +0000 (UTC)
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 62K2Xg4N3614562
- for <dri-devel@lists.freedesktop.org>; Fri, 20 Mar 2026 07:39:44 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=1JvBC9OODow9TYPa7jEqKZFt
- uz/xNa7SSOiJgEze6lY=; b=pmdwroOBvURECLSvdzRVuRYwGVCdCkHMUPG1Yd1b
- Nv56Q4c6ydDJ6g7ZUC+ihzFYtI9fxVTMjPT2RdC+tY6QqdDoca9lIxTd63wN476R
- 5kigQ/mT6jpgjWCChzmxpwse3Dwyh4MI4a1gPJ11kR5UALTjlW29h60EElpQB5Lv
- WeS2nEDyHJT0XzGeANILFaRDySsR41S+bObGha0hzPTffvqGJNBzdo2HNwAiUr76
- kX1kaSsDgrU3JB4Ig90Nnv2+DQn1ijftvZWGM/1cEM5+0qjdnEnnz7n0Y4LoMGwR
- WYDVttBwPrLTgQxOfxtvAw2U96cAa4nfGevrURQ4ssRfYg==
-Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com
- [209.85.160.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d0qg79ht0-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Fri, 20 Mar 2026 07:39:44 +0000 (GMT)
-Received: by mail-qt1-f200.google.com with SMTP id
- d75a77b69052e-50b274f94f8so111269511cf.1
- for <dri-devel@lists.freedesktop.org>; Fri, 20 Mar 2026 00:39:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1773992383; x=1774597183;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=1JvBC9OODow9TYPa7jEqKZFtuz/xNa7SSOiJgEze6lY=;
- b=GCP8hIgrjUH0mokeeZebUdQp/fMRzC7dkF0AlitS8zt0YRslqYbJC5CIhwN7TeFEmo
- pxjz+1aSuvKOHHXPYPCytobIPE5xlSu3xheM/88TbdiVSHXMVq44zzETuxNspaXovQLY
- 2Kfbipwo9+Bv3Cf8uA5COMn9f8gkbsbcPFDcsSj2qBfBL26B+cs88HAV8GiwANipKZaZ
- nSDwXijINe4HwVAMI14cbs09YLxiMoK8RneoqlKgo/4OdbkUKvOKI8Y3ppU02W0y5L1N
- 4JjfpuIeX32/xs0SUm67uSeD2vDF6D2k/FWVBJPvQ5mSaL6TPq3JZ0kC6Oc0ycGbM48E
- mnUg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1773992383; x=1774597183;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=1JvBC9OODow9TYPa7jEqKZFtuz/xNa7SSOiJgEze6lY=;
- b=QmTlCiwiyoCxRutaPWLQuCSjx6WMrr5YOAoUmNfQIT7KWl6l+DRZD2nshVvp2p8xDJ
- gt08pmNowsRT9lCz6einP2wEGAH7JGp+OJU5a4JZOqDT8QQL/cDjFAE7ZAl3JwAEnewb
- WEJYYv/PhOYRuhUdBKUX2sFpN+GFhRVLyWt3hoyMaIUw/t3IqSforf2D7/ZzgXa7OuAU
- DPuXSfsV2bhfin912gQ0CJjz2MU97IV+ylwC2GCm9JXPrudm1eQ+HDmhtPKBc8iHrw6H
- Rj+R29fgLonuFNAanhkAtvsaxahKTup+8aonWigANnmPE347ruezBR7UvazOj+qqGK6q
- /8lA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVVHK7RuTiCpSksy8t/NTFs13Q2Nq9Z4HnqHSCwwqLGMX9NavUdJk51NYMRlBR+FeNb/1ntQDWgdBw=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Ywy/70GC/Xi26lFfQpYaUNtvpeilLWm6v0W5N4I8uHJfbJlTK8S
- CK+JBZlMPaPFSYC7OfA8T3ZogvkBYCBlPRYZJE43aWzt9tZgiYtElmavyJEZzRQVxjIviG9LsR4
- bTZjXJojVhyljWIVfP2XS5DbOE3ClbYwyhboQS4RXoQyADpUxd3U8wDyAvvKzxkKIhvu/TZY=
-X-Gm-Gg: ATEYQzy1F+fM7F3/QBBrizcJr0J8jBaSKOOt1wqvxvZnIB0y3Fp84CWkmrlM4DSlIZU
- ZLt5D7dFsYJZOF5FTcH8Q9Uj3hjv3/YFozOX4tHbZL11/3PhuKFel+YKsfKKhPitnWqRngRf2nz
- 2YkSp13mQMxuSYp33ZbwBEGADR+yq9Pdg/6kxM2O9SQAwwWbFkb/i9livbJ/Q2iZDw1OkD0KDnd
- ez73jpaZofCNmeWXkADkD51OJyldI782K2R7ThKEiX3UBIvZ6w2cjcyyBAVAL0cR2Up0Fsxx0y2
- UZhSDCdPV5O0VPO6ZlUQSZTiCdzMMUaGVMo0G0GGKb61lJWG+s2ahc2yEckfnCI6vtvMMMcai7J
- XiX+R0RLJMgy49q+lRCgazfN8iNma+zF+wjSItnsditpgklNrHAbn6SBpDNicY+3xQBgGW/aQm2
- e5U6h1k19mVYIvOZn5QyZ5wsJA7TanO71Kvqg=
-X-Received: by 2002:ac8:5d4b:0:b0:508:fac4:76ed with SMTP id
- d75a77b69052e-50b24796847mr86992171cf.36.1773992382918; 
- Fri, 20 Mar 2026 00:39:42 -0700 (PDT)
-X-Received: by 2002:ac8:5d4b:0:b0:508:fac4:76ed with SMTP id
- d75a77b69052e-50b24796847mr86991921cf.36.1773992382466; 
- Fri, 20 Mar 2026 00:39:42 -0700 (PDT)
-Received: from umbar.lan
- (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
- by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-38bf972ba78sm3909261fa.5.2026.03.20.00.39.41
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 20 Mar 2026 00:39:41 -0700 (PDT)
-Date: Fri, 20 Mar 2026 09:39:39 +0200
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: cristian_ci <cristian_ci@protonmail.com>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+Received: from mail-4316.protonmail.ch (mail-4316.protonmail.ch [185.70.43.16])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5B85710E00D;
+ Fri, 20 Mar 2026 07:47:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+ s=protonmail3; t=1773992876; x=1774252076;
+ bh=/ZmLRfVsJAQyzr+0FYDWPnjIHYhTuLVijg0WABRKrKg=;
+ h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+ Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+ Message-ID:BIMI-Selector;
+ b=A5oPqFktPVY1vpSaTwZ7fva7ArxaG8ScCz38ggxXxYf9PJ0XBEBWolcWQ2nSBV/oK
+ sKYfCX2wtZBeAV9WR9GJTdCfRkCl+4T5UrxrjUPiFmS84aQjQK8uZvmTOE3fG3woil
+ UmEoDmFyBAdG9RTNf8LvMxI4z3yRziqw6FwuCtoJJwgaIFBNKa+4LhreWYAA1sPI2g
+ wE/CF3wvxZiJHWyx1j41VGb1nAavC637b649tidHyAb43c2iPVezU3QNxuDv83au1u
+ vjIKx57nWz00uM1CKSw02yB9ByqGETI/aa4btfK6rVgy2jDIEIXx7FnPwgYNZ9If30
+ vGjg6TVozjq3g==
+Date: Fri, 20 Mar 2026 07:47:51 +0000
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+From: Alexander Koskovich <akoskovich@pm.me>
+Cc: Jonathan Marek <jonathan@marek.ca>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Jeffrey Hugo <jeffrey.l.hugo@gmail.com>, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org
-Subject: Re: [PATCH v2 2/6] drm/panel: Add driver for Novatek NT35532
-Message-ID: <wqbpvsy542sij2tb7uxksvaokca3yseednhu3omiczytt7hytx@r2jxzi4tzt6j>
-References: <20260318-rimob-new-features-v2-0-c1bf8917449e@protonmail.com>
- <20260318-rimob-new-features-v2-2-c1bf8917449e@protonmail.com>
- <byxrw5g4t23vivbt4xxpyfcsbrmlaju4lqqwsc75iqizoqmt4n@ltuwlggbitye>
- <4f3qSm2N-iqHmdKAzp6YslvLGtZbaeYJhV9pae3gtww5xiIUDM3Xov9wdCCumhINDMaHeFaJPMf23RqvZZkDQlE8D6hObDFaCd1vZjUHUoA=@protonmail.com>
+ freedreno@lists.freedesktop.org
+Subject: Re: [PATCH v3 4/4] drm/msm/dpu: fix video mode DSC INTF timing width
+ calculation
+Message-ID: <LbtagEimreS2mF7RubKMs6Tv0gw7HnkqlhleCglof53bICr7FUqEgwta1rQ6ysgUHF6_BsA9Us2TPGO6m40POMVZ-vKyV4KN8D-S_Hrs-pc=@pm.me>
+In-Reply-To: <7o6ddv23aft3eerc7xz7r5rawe24d6vl3qp33ewnqllv5xkfrf@n3dosrwbvlhf>
+References: <20260319-dsi-rgb101010-support-v3-0-85b99df2d090@pm.me>
+ <7fb9dd9d-13f9-7bba-93d1-08f42dd6ee38@marek.ca>
+ <oihbfczsj5cg7qfjjt6jvyodjnjbezyrv6f32vmg444g5bx6ow@r54epj7ilsyt>
+ <da050aad-381d-ffb7-ec7d-8ed8a80d790a@marek.ca>
+ <pVeuxasxaau60kEIgTW1W6DmFLuzLUGYvmYtTN_Cv0htPbokC6lMObfmql3lWkAxtO5Lp-aD2l0Uzt_xL8cGYVxBmDey-5-HA7968eocg8c=@pm.me>
+ <a7jukaag6juswudeeuskgzahzbixxn5oq4qjnxfny2oapinfnv@kmn7b33yxric>
+ <jv_kU6i1uCSu--2-KIWkgsC0NsVK1yE396Nv_fCFA5v9uR-zrMGhrBmKNnG_ztHPiKPqlcjWif3R-XF1bINB387ezJEKtXDY453253BM6fc=@pm.me>
+ <nVcYZQOh7dB65LsiaXejmQP-Cmp-eSxp7fvDiTwS2P5WJc03m4CwXtUP_2w-D2dflxo9rwKPI68FxnfswATouZxK8QhF256JJf3F7BkbmY0=@pm.me>
+ <7o6ddv23aft3eerc7xz7r5rawe24d6vl3qp33ewnqllv5xkfrf@n3dosrwbvlhf>
+Feedback-ID: 37836894:user:proton
+X-Pm-Message-ID: 130e397a9ba129a1af335ef6dffa25084b24a8c9
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <4f3qSm2N-iqHmdKAzp6YslvLGtZbaeYJhV9pae3gtww5xiIUDM3Xov9wdCCumhINDMaHeFaJPMf23RqvZZkDQlE8D6hObDFaCd1vZjUHUoA=@protonmail.com>
-X-Proofpoint-ORIG-GUID: gMUprCQv-RgJulm7I4kTt8Q3K0SJRNmF
-X-Proofpoint-GUID: gMUprCQv-RgJulm7I4kTt8Q3K0SJRNmF
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzIwMDA1NiBTYWx0ZWRfX7spnWBABQluF
- JmI9bmwiJL1URp1G5gvVZSSwI6QzChmAulcOhyQKSF0qhXR4zL8okHTtxCoKjKx6PooynLBuFP3
- UC218a11W8y/FmYCo/9sRbXLo6iinXSPbY59c7xL6tjDD8UFXEBfOpBB0DiyfYUlyi55so0kcJv
- p973Yx43okIbwQ2iBWUJvWJU9R5XOUFCd9+d1rob2D0BBiLoDp679dHruk6EfsFYa45YrhmSCuB
- XCjb49hGGiaUtGSw0T03Ngb9xsJZSrED4kDIfho67HUzCKKylXXk7C1O7/tvV6doMJ2oa2Xf5dG
- eSI8Y7+pov79KbpR6t04qNqSBu2UECor5I3UxEdqngakAFouoSd6vnMrLsjl1NCi1r1/2InDo68
- PGAAiqN0tsnVvbVGK9vmSiDeEQLdgm4LiJR/LOm+mrDjeRXHpItz7yfSNU+88BWQEwVJOI6Oti6
- F27do8LAce5qG9jn+oQ==
-X-Authority-Analysis: v=2.4 cv=fdGgCkQF c=1 sm=1 tr=0 ts=69bcf9c0 cx=c_pps
- a=JbAStetqSzwMeJznSMzCyw==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22 a=EUspDBNiAAAA:8
- a=sfOm8-O8AAAA:8 a=iTJjJGd3XSQqdiMV66UA:9 a=CjuIK1q_8ugA:10
- a=uxP6HrT_eTzRwkO_Te1X:22 a=TvTJqdcANYtsRzA46cdi:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-03-19_04,2026-03-19_05,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 impostorscore=0 lowpriorityscore=0 spamscore=0 adultscore=0
- bulkscore=0 priorityscore=1501 malwarescore=0 clxscore=1015 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603200056
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -151,40 +75,121 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, Mar 20, 2026 at 07:19:06AM +0000, cristian_ci wrote:
-> On Thursday, March 19th, 2026 at 03:27, Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> wrote:
-> 
-> > On Wed, Mar 18, 2026 at 11:28:10PM +0100, Cristian Cozzolino via B4 Relay wrote:
-> > > From: Cristian Cozzolino <cristian_ci@protonmail.com>
-> > >
-> > > Add support for Novatek NT35532-based 1080p video mode DSI panel.
-> > >
-> > > Signed-off-by: Cristian Cozzolino <cristian_ci@protonmail.com>
-> > > ---
-> > >  MAINTAINERS                                   |   1 +
-> > >  drivers/gpu/drm/panel/Kconfig                 |  11 +
-> > >  drivers/gpu/drm/panel/Makefile                |   1 +
-> > >  drivers/gpu/drm/panel/panel-novatek-nt35532.c | 779 ++++++++++++++++++++++++++
-> > >  4 files changed, 792 insertions(+)
-> > >
-> > 
-> > Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> 
-> I'm doing a test: since I'm not sure if:
-> 
-> 	select VIDEOMODE_HELPERS
-> 
-> is actually needed in Kconfig nt35532 entry, I've temporarily 
-> removed that select line and regenerated .config file. Though, 
-> I've noticed CONFIG_VIDEOMODE_HELPERS was still set to 'y' 
-> nevetheless, so I decided to not going forward since that 
-> code would have been built anyway so that there was no 
-> point for doing that. I wonder: is that select line really 
-> necessary, at this point?
 
-No, it is not used (you don't use corresponding API functions). You can
-drop it.
+On Friday, March 20th, 2026 at 3:36 AM, Dmitry Baryshkov <dmitry.baryshkov@=
+oss.qualcomm.com> wrote:
 
--- 
-With best wishes
-Dmitry
+> On Fri, Mar 20, 2026 at 07:02:54AM +0000, Alexander Koskovich wrote:
+> > On Friday, March 20th, 2026 at 2:50 AM, Alexander Koskovich <akoskovich=
+@pm.me> wrote:
+> >
+> > > On Friday, March 20th, 2026 at 2:38 AM, Dmitry Baryshkov <dmitry.bary=
+shkov@oss.qualcomm.com> wrote:
+> > >
+> > > > On Fri, Mar 20, 2026 at 04:46:02AM +0000, Alexander Koskovich wrote=
+:
+> > > > > On Friday, March 20th, 2026 at 12:25 AM, Jonathan Marek <jonathan=
+@marek.ca> wrote:
+> > > > >
+> > > > > > On 3/19/26 9:45 PM, Dmitry Baryshkov wrote:
+> > > > > > > On Thu, Mar 19, 2026 at 01:23:03PM -0400, Jonathan Marek wrot=
+e:
+> > > > > > ...
+> > > > > > >>
+> > > > > > >> That's not how it works. INTF (which feeds DSI) is after DSC=
+ compression.
+> > > > > > >>
+> > > > > > >> INTF timings are always in RGB888 (24-bit) units. Ignoring w=
+idebus details,
+> > > > > > >> the INTF timing should match what is programmed on the DSI s=
+ide (hdisplay,
+> > > > > > >> which is calculated as bytes per line / 3).
+> > > > > > >>
+> > > > > > >> (fwiw, the current "timing->width =3D ..." calculation here =
+blames to me, but
+> > > > > > >> what I wrote originally was just "timing->width =3D timing->=
+width / 3" with a
+> > > > > > >> comment about being incomplete.)
+> > > > > > >>
+> > > > > > > Okay. After reading the docs (sorry, it took a while).
+> > > > > > >
+> > > > > > > - When widebus is not enabled, the transfer is always 24 bit =
+of
+> > > > > > >    compressed data. Thus if it is not in play, pclk and timin=
+g->width
+> > > > > > >    should be scaled by source_pixel_depth / compression_ratio=
+ / 24. In
+> > > > > > >    case of the code it is 'drm_dsc_get_bpp_int(dsc) / 24'.
+> > > > > > >
+> > > > > > >    For RGB101010 / 8bpp DSC this should result in the PCLK be=
+ing lowered
+> > > > > > >    by the factor of 3 (=3D 24 / (30 / 3.75))
+> > > > > > >
+> > > > > > > - When widebus is in play (MDSS 6.x+, DSI 2.4+), the transfer=
+ takes
+> > > > > > >    more than 24 bits. In this case the PCLK and timing->width=
+ should be
+> > > > > > >    scaled exactly by the DSC compression ratio, which is
+> > > > > > >    'drm_dsc_get_bpp_int(dsc) / (3 * dsc->bits_per_component).
+> > > > > > >
+> > > > > > > So, this piece of code needs to be adjusted to check for the =
+widebus
+> > > > > > > being enabled or not.
+> > > > > > >
+> > > > > >
+> > > > > > The widebus adjustment on the MDP/INTF side is already in
+> > > > > > dpu_hw_intf_setup_timing_engine: the "data width" is divided by=
+ 2 for
+> > > > > > 48-bit widebus instead of 24-bit. there shouldn't be any other
+> > > > > > adjustment (downstream doesn't have any other adjustment).
+> > > > > >
+> > > > > > a relevant downstream comment: "In DATABUS-WIDEN mode, MDP alwa=
+ys sends
+> > > > > > out 48-bit compressed data per pclk and on average, DSI consume=
+s an
+> > > > > > amount of compressed data equivalent to the uncompressed pixel =
+depth per
+> > > > > > pclk."
+> > > > > >
+> > > > > > Based on that comment, this patch is correct, and the
+> > > > > > ''drm_dsc_get_bpp_int(dsc) / (3 * dsc->bits_per_component)' adj=
+ustment
+> > > > > > only applies to DSI.
+> > > > >
+> > > > > If I keep the INTF side at /24 and change the DSI side to:
+> > > > >
+> > > > > if (wide_bus)
+> > > > >         new_hdisplay =3D DIV_ROUND_UP(mode->hdisplay * drm_dsc_ge=
+t_bpp_int(dsc), dsc->bits_per_component * 3);
+> > > > > else
+> > > > >         new_hdisplay =3D DIV_ROUND_UP(mode->hdisplay * drm_dsc_ge=
+t_bpp_int(dsc), 24);
+> > > >
+> > > > Please check the actual fps (I'm usually using a vblank-synced GL, =
+e.g.
+> > > > kmscube).
+> > > >
+> > > > At least this matches my expectations.
+> > >
+> > > Hmmm with kmscube I am getting 120FPS with 24 and 100FPS with 30. So =
+I guess that's a no go
+> >
+> > Although it was using dsc->bits_per_component * 3 regardless before for
+> > dsi_adjust_pclk_for_compression so I guess that's what Jonathan was
+> > referring to earlier...
+>=20
+> Do you have any of the patches by Marijn or Pengyu?
+>=20
+> - https://lore.kernel.org/linux-arm-msm/20260311-dsi-dsc-regresses-again-=
+v1-1-6a422141eeea@somainline.org/
+>=20
+> - https://lore.kernel.org/linux-arm-msm/20260307111250.105772-1-mitltlatl=
+tl@gmail.com/
+
+Nope, I can test with them though if you'd like
+
+>=20
+> --
+> With best wishes
+> Dmitry
+> 
