@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3559E10987A5
-	for <dri-devel@archiver.kernel.org>; Fri, 20 Mar 2026 16:42:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 038B610987B2
+	for <dri-devel@archiver.kernel.org>; Fri, 20 Mar 2026 16:42:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1F15010EB79;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B43E510EB7C;
 	Fri, 20 Mar 2026 16:42:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="DADgRnDB";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="N00QLdSd";
 	dkim-atps=neutral
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3971510EB6B
- for <dri-devel@lists.freedesktop.org>; Fri, 20 Mar 2026 16:41:57 +0000 (UTC)
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B193210EB7B;
+ Fri, 20 Mar 2026 16:41:54 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-02.galae.net (Postfix) with ESMTPS id 2B1711A2F1D;
- Fri, 20 Mar 2026 16:41:56 +0000 (UTC)
+ by smtpout-03.galae.net (Postfix) with ESMTPS id 999CD4E4274C;
+ Fri, 20 Mar 2026 16:41:53 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 0222F600E0;
- Fri, 20 Mar 2026 16:41:56 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 6F72E600E0;
+ Fri, 20 Mar 2026 16:41:53 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 8949F10450CB2; Fri, 20 Mar 2026 17:41:52 +0100 (CET)
+ with ESMTPSA id CC19410450CB3; Fri, 20 Mar 2026 17:41:48 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1774024914; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ t=1774024912; h=from:subject:date:message-id:to:cc:mime-version:content-type:
  content-transfer-encoding:in-reply-to:references;
- bh=flcUBo2gDv14/Dcbspe4hLZsUmRO6oCu2ydk55bztLY=;
- b=DADgRnDBI6Turp8B6+93Gz0ZVgV7esIK+f1hXBAQMFWer7+2uG3x5PEyKDlE5KgQuk4eNb
- mlaehVZC/mZzh5inwm+AJNKdXdZR9jGSCI/UPIi80HgNVpUe9Ha8IHfSNkeg19afQ/oiWT
- jbpXHabAfPhZWUL0KjryKfToEeIjQkep/0edLvbVVVeAlcKvaYPIK4rBDdgtqVjL6TG0r6
- cdpHcW+sgRV7UbyIAaBTsCSH4NevL4fhVHBpPor1s0nF0RLxk1T6EJ9dZ0oopH7QoyGI7+
- 18kJwf4JRSVf25Nxnat/t5k8xHIE5KO3OXaxCckMS9JNuB3O1SsjWAq3ssPzdg==
+ bh=eh77EuwoDIAn83QDMOVMLcEg6HxjeY8oda8hPWbgOus=;
+ b=N00QLdSd5XpxjdMwdQdIaqp2FAzEjq22XCtYlIBiP4VPmDzw0D5bn2NHjDhKm4FmldPuqd
+ L0gXIklwnT8JNBecTSFn39+Fmd7jjsAVieiKONugV3feaCKrPER5lxZ+LYgpeTFIJDxN1j
+ HwvPlDmigPd3jLyElnTTIIFAx1I0DCrCuvKMHBfuSjKw9fIa2+mbiC5kyzM2k5M9hUlgz6
+ 1QTAQiUyWyQWJoTMZPFrdNSTP+X6y4lUqohiUGhjUfJBPbZDA87YYsdjuz7TWtNqAcKmjp
+ 6xlmrSJSsTEBQQFChEL7mvItopobDIRZnJU396Xmkj53l9zaENziY+Nn/Uxv9A==
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v11 19/65] dyndbg-API: remove
- DD_CLASS_TYPE_(DISJOINT|LEVEL)_NAMES and code
+Subject: Re: [PATCH v11 17/65] dyndbg: hoist classmap-filter-by-modname up
+ to ddebug_add_module
 From: Louis Chauvet <louis.chauvet@bootlin.com>
 To: airlied@gmail.com, simona@ffwll.ch, jbaron@akamai.com, 
  gregkh@linuxfoundation.org
@@ -48,27 +48,27 @@ Cc: Jim Cromie <jim.cromie@gmail.com>, mripard@kernel.org,
  skhan@linuxfoundation.org, pmladek@suse.com, ukaszb@chromium.org, 
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
  intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-In-Reply-To: <20260313132103.2529746-20-jim.cromie@gmail.com>
+In-Reply-To: <20260313132103.2529746-18-jim.cromie@gmail.com>
 References: <20260313132103.2529746-1-jim.cromie@gmail.com>
- <20260313132103.2529746-20-jim.cromie@gmail.com>
+ <20260313132103.2529746-18-jim.cromie@gmail.com>
 Date: Fri, 20 Mar 2026 17:41:54 +0100
-Message-Id: <177402491434.6181.11890337294367473264.b4-review@b4>
+Message-Id: <177402491433.6181.524572822074430485.b4-review@b4>
 X-Mailer: b4 0.15-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=429;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=571;
  i=louis.chauvet@bootlin.com; h=from:subject:message-id;
- bh=1pgdbshmE/Cq0nlfaNfGi8txJNcbpdrUoKURG+brXsk=;
- b=owEBiQJ2/ZANAwAIASCtLsZbECziAcsmYgBpvXjXquxHUtG4nlEXHRTG+cLbsIxIFMqa+75fx
- hTqQFFfEA6JAk8EAAEIADkWIQRPj7g/vng8MQxQWQQgrS7GWxAs4gUCab141xsUgAAAAAAEAA5t
- YW51MiwyLjUrMS4xMSwyLDIACgkQIK0uxlsQLOL3NxAApjJLmyYJYDlzy0eWBTTuXZkRgqSa5Mo
- IZNgfziDrXMnhcxPkRZpA6gT1Ac+y5Qk3PLwGnuiATk6VrlNyEx5xDv0R3+ZyOCMSZ4igQ53g8o
- oeWWXp9uJ0Cm7se7I4EAHVnrLZcb+pGv617pgP/7yc51icSEQ6qpFhcxRYCu18BnGr40aIZeDOb
- FjLKmS5jwPsosbU6sBjHi2d+ChEy2u0yrzNndzOD3B1oH1OYW6qPXUzLoWeOz9RHs5wANf/aY+a
- SHJQwf93DOJemuUSsV9x2RRkJUOpB27/Ns9xuMOdCAZVC6FDfik2dipLEvkIJmy7rNnHyLX/sLn
- 8S6Ob6TShbbimsb0amH+joj1h3sd1vgH8vCu/oplroSVW9M1ZKmDNqoUkj3GNpt3ZHBEQ8gciTe
- VoBjN8JUeaA4JUA05cNhLkkPAprKc0MKpvy7D/EL/zwaQVZ07VK+GoAOzx3YIQrt8iCrKk+Hj3n
- ABrae9kASiebqXVdoZfRhHM73a1JW30yMUv3gI4Y4Q0lTn4WeiUmfnhiZfOvwbtzYmSrSsvUS4I
- P0RYZxKwT4bBG5Kc6vWTC8n0qEm7GypNoOfI/8FzjV1ujYc/Hv2BkA0COiP2ij/p2MI0SOJaIi9
- rBgQpEi3Bi2VH5v2jO88o5oZ1xnAb3/99CQ565k3Swr+mXVso0xY=
+ bh=Z3OSfSV+JlcQP8oSdE9xs854dk0KsNRyeB4V0xIm+Lo=;
+ b=owEBiQJ2/ZANAwAIASCtLsZbECziAcsmYgBpvXjXe6hAK5x2nY1wm7oDb6qiRn1X+XrHRgAZ3
+ afaQhwSkzmJAk8EAAEIADkWIQRPj7g/vng8MQxQWQQgrS7GWxAs4gUCab141xsUgAAAAAAEAA5t
+ YW51MiwyLjUrMS4xMSwyLDIACgkQIK0uxlsQLOLFwBAA1yyp58R7pkYB0lCMwhIjSCLXxjN1z+X
+ bjE67YAXk0ORfVQWfC/JYCCTdSqq/+AYTLzFfULJOiJcXrN4SQ66i0khwyioqDKna+2ffilQKKo
+ m53jV1EVn7HZNq1YUw0txNc+j8QkpkhE0lk5fdDT48CN1J++om+oYBKrQcyiBsearD2PFFI+eMI
+ mSKpazZ+sVsXB2TyaN9rLsDm89cdmWX+zqaizxLx7Rjp+SsS5yASBpnFqoSHG6nYsrEgWUmHdm3
+ 00E0Aa5E6XiixMP2RAx8Fa7geUBz3T2haJCSUm0Xn65ZaI45d+d6h4x89aqyzXZ7DzdaJOvodu/
+ RaZC22RCl+J73N7RqfuJH2JhVN0xAHFmFgnQ+h56fMQukQjlgZWRy5VTfel+luPOgaq8gt6qNRN
+ /7NfnCt8XHMBNT5TMXNelayPuwUtpm3O0MbGeOH3gTCuKK2IJxvVwzx05+4z97OvGhxNJgc4bdr
+ WS272vfr4NVmekFVulxtzb9KKdm1AlRzUnTwIyQAfBl77mhrwOiP78tOTDMk8yiXvWuFCv3q4Rj
+ rCmhr58uqqUYO5RPBGSrJIVbAV+745WXr1slckV2GI/HL8QV7d9LiViEVgPA6LzQqJZ9LB98FL1
+ /Jt4sMt8+ljydvzSkMNv5cFb62jGVpqLjCgc/dsSwG8rQ6u5H/j8=
 X-Developer-Key: i=louis.chauvet@bootlin.com; a=openpgp;
  fpr=8B7104AE9A272D6693F527F2EC1883F55E0B40A5
 X-Last-TLS-Session-Version: TLSv1.3
@@ -87,13 +87,14 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, 13 Mar 2026 07:19:44 -0600, Jim Cromie <jim.cromie@gmail.com> wrote:
-> Remove the DD_CLASS_TYPE_*_NAMES classmap types and code.
+On Fri, 13 Mar 2026 07:19:42 -0600, Jim Cromie <jim.cromie@gmail.com> wrote:
+> The body of ddebug_attach_module_classes() is dominated by a
+> code-block that finds the contiguous subrange of classmaps matching on
+> modname, and saves it into the ddebug_table's info record.
 > 
-> These 2 classmap types accept class names at the PARAM interface, for
-> example:
-> 
->   echo +DRM_UT_CORE,-DRM_UT_KMS > /sys/module/drm/parameters/debug_names
+> Implement this block in a macro to accommodate different component
+> vectors in the "box" (as named in the for_subvec macro).  We will
+> reuse this macro shortly.
 > 
 > [...]
 
