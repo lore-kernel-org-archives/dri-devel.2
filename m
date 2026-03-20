@@ -4,56 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 64C3F1093187
-	for <dri-devel@archiver.kernel.org>; Fri, 20 Mar 2026 08:04:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F358D1093188
+	for <dri-devel@archiver.kernel.org>; Fri, 20 Mar 2026 08:17:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BE9D310EA8E;
-	Fri, 20 Mar 2026 08:04:35 +0000 (UTC)
-Received: from metis.whiteo.stw.pengutronix.de
- (metis.whiteo.stw.pengutronix.de [185.203.201.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 43BBB10EA8E
- for <dri-devel@lists.freedesktop.org>; Fri, 20 Mar 2026 08:04:35 +0000 (UTC)
-Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
- by metis.whiteo.stw.pengutronix.de with esmtps
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <mfe@pengutronix.de>)
- id 1w3UqB-0007ax-Uy; Fri, 20 Mar 2026 09:04:19 +0100
-Received: from pty.whiteo.stw.pengutronix.de ([2a0a:edc0:2:b01:1d::c5])
- by drehscheibe.grey.stw.pengutronix.de with esmtps (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <mfe@pengutronix.de>) id 1w3Uq9-001Csl-2L;
- Fri, 20 Mar 2026 09:04:17 +0100
-Received: from mfe by pty.whiteo.stw.pengutronix.de with local (Exim 4.98.2)
- (envelope-from <mfe@pengutronix.de>) id 1w3Uq9-0000000Cpgb-2SMG;
- Fri, 20 Mar 2026 09:04:17 +0100
-Date: Fri, 20 Mar 2026 09:04:17 +0100
-From: Marco Felsch <m.felsch@pengutronix.de>
-To: Marek Vasut <marex@nabladev.com>
-Cc: Krzysztof =?utf-8?Q?Ha=C5=82asa?= <khalasa@piap.pl>, 
- Stefan Agner <stefan@agner.ch>, Liu Ying <victor.liu@nxp.com>,
- Simona Vetter <simona@ffwll.ch>, 
- imx@lists.linux.dev, Fabio Estevam <festevam@gmail.com>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Sascha Hauer <s.hauer@pengutronix.de>, Frank Li <Frank.Li@nxp.com>,
- linux-kernel@vger.kernel.org, 
- Maxime Ripard <mripard@kernel.org>, dri-devel@lists.freedesktop.org, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
- linux-arm-kernel@lists.infradead.org
-Subject: Re: i.MX8MP: Fix HDMI LCDIF FIFO underruns
-Message-ID: <m36pvjbo4xy2rtdymshjpmwu7icl3wlyiwcmmjaozo7jpe5lqk@zt7byx7iwmym>
-References: <m3ms04caaj.fsf@t19.piap.pl>
- <32317022-3c44-4ead-9e2d-04caa12b28cb@nabladev.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4A0E410EA8F;
+	Fri, 20 Mar 2026 08:17:47 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; secure) header.d=pm.me header.i=@pm.me header.b="NTm0yq8E";
+	dkim-atps=neutral
+Received: from mail-10629.protonmail.ch (mail-10629.protonmail.ch
+ [79.135.106.29])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DCEBC10EA8F
+ for <dri-devel@lists.freedesktop.org>; Fri, 20 Mar 2026 08:17:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+ s=protonmail3; t=1773994663; x=1774253863;
+ bh=fM7dL1/cHCx+Ecxe9pDNzmAwYJLh6/HrEMptDcRGWZ0=;
+ h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+ Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+ Message-ID:BIMI-Selector;
+ b=NTm0yq8EGUJ3OEgTtw6o49sQURoYcrrg1jSWltkQFjAKPx5l52jUW/NpROLBfaC14
+ EgwmgpsN4b2xzepLab7eOCJzXLZgiHT+10Ko7YxciXmQbmRqNzPmyGVuOr93tnfPMy
+ 59bT/P3yXn5g0BFTxDssmpLjWwKXmgedv+xoh5A9QLZZ91rJo9kLcfqz8faOu0tMyP
+ kajtEKit1Wkwq/zHH9VGtZfr/vJs0wrWlnRpo5NpzWi0V4+NIQm+LvW5M9ShcMCYYU
+ eSldgWDIMdLkpveuOEcyBfEnoU8buoRBxfMNGf0pIy1+k8V+OmugfFOyi21ioaLTVy
+ up7UM0+SAeBTQ==
+Date: Fri, 20 Mar 2026 08:17:39 +0000
+To: Alexander Koskovich <akoskovich@pm.me>
+From: Alexander Koskovich <akoskovich@pm.me>
+Cc: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Jonathan Marek <jonathan@marek.ca>, Neil Armstrong <neil.armstrong@linaro.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Jeffrey Hugo <jeffrey.l.hugo@gmail.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org
+Subject: Re: [PATCH v3 4/4] drm/msm/dpu: fix video mode DSC INTF timing width
+ calculation
+Message-ID: <naP6t_tS7tuJtjxhfb4JtC4B6CLhiZiSstDWtFS6TWtZQYwd4XkdHNEGGC8pH_-K6OzDF0sleZl9PF1b8NKDhNB7C9a2bzJw3d0FPAAqlAE=@pm.me>
+In-Reply-To: <LbtagEimreS2mF7RubKMs6Tv0gw7HnkqlhleCglof53bICr7FUqEgwta1rQ6ysgUHF6_BsA9Us2TPGO6m40POMVZ-vKyV4KN8D-S_Hrs-pc=@pm.me>
+References: <20260319-dsi-rgb101010-support-v3-0-85b99df2d090@pm.me>
+ <7fb9dd9d-13f9-7bba-93d1-08f42dd6ee38@marek.ca>
+ <oihbfczsj5cg7qfjjt6jvyodjnjbezyrv6f32vmg444g5bx6ow@r54epj7ilsyt>
+ <da050aad-381d-ffb7-ec7d-8ed8a80d790a@marek.ca>
+ <pVeuxasxaau60kEIgTW1W6DmFLuzLUGYvmYtTN_Cv0htPbokC6lMObfmql3lWkAxtO5Lp-aD2l0Uzt_xL8cGYVxBmDey-5-HA7968eocg8c=@pm.me>
+ <a7jukaag6juswudeeuskgzahzbixxn5oq4qjnxfny2oapinfnv@kmn7b33yxric>
+ <jv_kU6i1uCSu--2-KIWkgsC0NsVK1yE396Nv_fCFA5v9uR-zrMGhrBmKNnG_ztHPiKPqlcjWif3R-XF1bINB387ezJEKtXDY453253BM6fc=@pm.me>
+ <nVcYZQOh7dB65LsiaXejmQP-Cmp-eSxp7fvDiTwS2P5WJc03m4CwXtUP_2w-D2dflxo9rwKPI68FxnfswATouZxK8QhF256JJf3F7BkbmY0=@pm.me>
+ <7o6ddv23aft3eerc7xz7r5rawe24d6vl3qp33ewnqllv5xkfrf@n3dosrwbvlhf>
+ <LbtagEimreS2mF7RubKMs6Tv0gw7HnkqlhleCglof53bICr7FUqEgwta1rQ6ysgUHF6_BsA9Us2TPGO6m40POMVZ-vKyV4KN8D-S_Hrs-pc=@pm.me>
+Feedback-ID: 37836894:user:proton
+X-Pm-Message-ID: b30bb89dbeef0ddcc77b2475bd87723c3906d17d
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <32317022-3c44-4ead-9e2d-04caa12b28cb@nabladev.com>
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
-X-SA-Exim-Mail-From: mfe@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: dri-devel@lists.freedesktop.org
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,56 +77,148 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 26-03-20, Marek Vasut wrote:
-> On 3/19/26 12:45 PM, Krzysztof Hałasa wrote:
-> > Running (and terminating) Weston on i.MX8MP sometimes produced black
-> > or grey screens. The LCDIF3 INT_STATUS_D0 register showed a FIFO underrun:
-> > 
-> > 32FC6024: 1000002
-> > 
-> > The PANIC0_THRES register was set to:
-> > 
-> > 32FC6238:  AA0154
-> > 
-> > which apparently meant low = 2736 bytes (0xAA * 16 + 16), high = 5456 bytes
-> > (0x154 * 16 + 16).
-> > 
-> > With this patch (based on NXP's driver) the watermarks are only 16 bytes
-> > higher (register values increased by 1) and the underruns are gone.
-> > 
-> > Tested on Solidrun Hummingboard Mate with a 1080p60 HDMI display.
-> > 
-> > Signed-off-by: Krzysztof Hałasa <khalasa@piap.pl>
-> > 
-> > --- a/drivers/gpu/drm/mxsfb/lcdif_kms.c
-> > +++ b/drivers/gpu/drm/mxsfb/lcdif_kms.c
-> > @@ -353,8 +353,8 @@ static void lcdif_enable_controller(struct lcdif_drm_private *lcdif)
-> >   	u32 reg;
-> >   	/* Set FIFO Panic watermarks, low 1/3, high 2/3 . */
-> > -	writel(FIELD_PREP(PANIC0_THRES_LOW_MASK, 1 * PANIC0_THRES_MAX / 3) |
-> > -	       FIELD_PREP(PANIC0_THRES_HIGH_MASK, 2 * PANIC0_THRES_MAX / 3),
-> > +	writel(FIELD_PREP(PANIC0_THRES_LOW_MASK, DIV_ROUND_UP(1 * PANIC0_THRES_MAX, 3)) |
-> > +	       FIELD_PREP(PANIC0_THRES_HIGH_MASK, DIV_ROUND_UP(2 * PANIC0_THRES_MAX, 3)),
+On Friday, March 20th, 2026 at 3:48 AM, Alexander Koskovich <akoskovich@pm.=
+me> wrote:
+
+>=20
+> On Friday, March 20th, 2026 at 3:36 AM, Dmitry Baryshkov <dmitry.baryshko=
+v@oss.qualcomm.com> wrote:
+>=20
+> > On Fri, Mar 20, 2026 at 07:02:54AM +0000, Alexander Koskovich wrote:
+> > > On Friday, March 20th, 2026 at 2:50 AM, Alexander Koskovich <akoskovi=
+ch@pm.me> wrote:
+> > >
+> > > > On Friday, March 20th, 2026 at 2:38 AM, Dmitry Baryshkov <dmitry.ba=
+ryshkov@oss.qualcomm.com> wrote:
+> > > >
+> > > > > On Fri, Mar 20, 2026 at 04:46:02AM +0000, Alexander Koskovich wro=
+te:
+> > > > > > On Friday, March 20th, 2026 at 12:25 AM, Jonathan Marek <jonath=
+an@marek.ca> wrote:
+> > > > > >
+> > > > > > > On 3/19/26 9:45 PM, Dmitry Baryshkov wrote:
+> > > > > > > > On Thu, Mar 19, 2026 at 01:23:03PM -0400, Jonathan Marek wr=
+ote:
+> > > > > > > ...
+> > > > > > > >>
+> > > > > > > >> That's not how it works. INTF (which feeds DSI) is after D=
+SC compression.
+> > > > > > > >>
+> > > > > > > >> INTF timings are always in RGB888 (24-bit) units. Ignoring=
+ widebus details,
+> > > > > > > >> the INTF timing should match what is programmed on the DSI=
+ side (hdisplay,
+> > > > > > > >> which is calculated as bytes per line / 3).
+> > > > > > > >>
+> > > > > > > >> (fwiw, the current "timing->width =3D ..." calculation her=
+e blames to me, but
+> > > > > > > >> what I wrote originally was just "timing->width =3D timing=
+->width / 3" with a
+> > > > > > > >> comment about being incomplete.)
+> > > > > > > >>
+> > > > > > > > Okay. After reading the docs (sorry, it took a while).
+> > > > > > > >
+> > > > > > > > - When widebus is not enabled, the transfer is always 24 bi=
+t of
+> > > > > > > >    compressed data. Thus if it is not in play, pclk and tim=
+ing->width
+> > > > > > > >    should be scaled by source_pixel_depth / compression_rat=
+io / 24. In
+> > > > > > > >    case of the code it is 'drm_dsc_get_bpp_int(dsc) / 24'.
+> > > > > > > >
+> > > > > > > >    For RGB101010 / 8bpp DSC this should result in the PCLK =
+being lowered
+> > > > > > > >    by the factor of 3 (=3D 24 / (30 / 3.75))
+> > > > > > > >
+> > > > > > > > - When widebus is in play (MDSS 6.x+, DSI 2.4+), the transf=
+er takes
+> > > > > > > >    more than 24 bits. In this case the PCLK and timing->wid=
+th should be
+> > > > > > > >    scaled exactly by the DSC compression ratio, which is
+> > > > > > > >    'drm_dsc_get_bpp_int(dsc) / (3 * dsc->bits_per_component=
+).
+> > > > > > > >
+> > > > > > > > So, this piece of code needs to be adjusted to check for th=
+e widebus
+> > > > > > > > being enabled or not.
+> > > > > > > >
+> > > > > > >
+> > > > > > > The widebus adjustment on the MDP/INTF side is already in
+> > > > > > > dpu_hw_intf_setup_timing_engine: the "data width" is divided =
+by 2 for
+> > > > > > > 48-bit widebus instead of 24-bit. there shouldn't be any othe=
+r
+> > > > > > > adjustment (downstream doesn't have any other adjustment).
+> > > > > > >
+> > > > > > > a relevant downstream comment: "In DATABUS-WIDEN mode, MDP al=
+ways sends
+> > > > > > > out 48-bit compressed data per pclk and on average, DSI consu=
+mes an
+> > > > > > > amount of compressed data equivalent to the uncompressed pixe=
+l depth per
+> > > > > > > pclk."
+> > > > > > >
+> > > > > > > Based on that comment, this patch is correct, and the
+> > > > > > > ''drm_dsc_get_bpp_int(dsc) / (3 * dsc->bits_per_component)' a=
+djustment
+> > > > > > > only applies to DSI.
+> > > > > >
+> > > > > > If I keep the INTF side at /24 and change the DSI side to:
+> > > > > >
+> > > > > > if (wide_bus)
+> > > > > >         new_hdisplay =3D DIV_ROUND_UP(mode->hdisplay * drm_dsc_=
+get_bpp_int(dsc), dsc->bits_per_component * 3);
+> > > > > > else
+> > > > > >         new_hdisplay =3D DIV_ROUND_UP(mode->hdisplay * drm_dsc_=
+get_bpp_int(dsc), 24);
+> > > > >
+> > > > > Please check the actual fps (I'm usually using a vblank-synced GL=
+, e.g.
+> > > > > kmscube).
+> > > > >
+> > > > > At least this matches my expectations.
+> > > >
+> > > > Hmmm with kmscube I am getting 120FPS with 24 and 100FPS with 30. S=
+o I guess that's a no go
+> > >
+> > > Although it was using dsc->bits_per_component * 3 regardless before f=
+or
+> > > dsi_adjust_pclk_for_compression so I guess that's what Jonathan was
+> > > referring to earlier...
+> >
+> > Do you have any of the patches by Marijn or Pengyu?
+> >
+> > - https://lore.kernel.org/linux-arm-msm/20260311-dsi-dsc-regresses-agai=
+n-v1-1-6a422141eeea@somainline.org/
+> >
+> > - https://lore.kernel.org/linux-arm-msm/20260307111250.105772-1-mitltla=
+tltl@gmail.com/
+>=20
+> Nope, I can test with them though if you'd like
+
+Tested the following 3 patches on top of this series:
+drm/msm/dsi: fix hdisplay calculation when programming dsi registers
+drm/msm/dsi: fix bits_per_pclk
+drm/msm/dsi: fix hdisplay calculation for CMD mode panel
+
+Getting constant FIFO errors with them applied:
+[   64.851635] dsi_err_worker: status=3D4
+[   64.851692] dsi_err_worker: status=3D4
+[   64.851730] dsi_err_worker: status=3D4
+[   64.851766] dsi_err_worker: status=3D4
+[   64.851802] dsi_err_worker: status=3D4
+[   64.851837] dsi_err_worker: status=3D4
+[   64.851903] dsi_err_worker: status=3D4
+[   64.851940] dsi_err_worker: status=3D4
+[   64.851976] dsi_err_worker: status=3D4
+[   64.852011] dsi_err_worker: status=3D4
+
+
+>=20
+> >
+> > --
+> > With best wishes
+> > Dmitry
+> >
+>=20
 > 
-> I am starting to wonder, whether this should be configurable in DT, because
-> it seems there might be users that need to tweak the watermarks one way or
-> the other for different video outputs ?
-
-+1 to provide a override mechanism via DT.
-
-Regards,
-  Marco
-
-> 
-> +CC Liu
-> 
-> 
-
--- 
-#gernperDu 
-#CallMeByMyFirstName
-
-Pengutronix e.K.                           |                             |
-Steuerwalder Str. 21                       | https://www.pengutronix.de/ |
-31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
-Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-9    |
