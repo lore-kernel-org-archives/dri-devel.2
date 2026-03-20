@@ -4,99 +4,84 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A14D8108B8F5
-	for <dri-devel@archiver.kernel.org>; Fri, 20 Mar 2026 11:11:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7E697108B8F7
+	for <dri-devel@archiver.kernel.org>; Fri, 20 Mar 2026 11:11:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C918A10EA6E;
-	Fri, 20 Mar 2026 11:11:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D9D9210EA95;
+	Fri, 20 Mar 2026 11:11:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="KW4w0e1V";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="yNrwKTG6";
 	dkim-atps=neutral
-Received: from mail-vk1-f181.google.com (mail-vk1-f181.google.com
- [209.85.221.181])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 52EA110E28C
- for <dri-devel@lists.freedesktop.org>; Fri, 20 Mar 2026 11:11:30 +0000 (UTC)
-Received: by mail-vk1-f181.google.com with SMTP id
- 71dfb90a1353d-5637886c92aso230115e0c.0
- for <dri-devel@lists.freedesktop.org>; Fri, 20 Mar 2026 04:11:30 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1774005089; cv=none;
- d=google.com; s=arc-20240605;
- b=cC4b6ptM28WRk5alxa7JljWh/NjyVIthez+uW0YO3bk4STdLt0NP2TCiGAc6Tvudb6
- kpv+2HcBY6Vk7njdD6+JxLo6CGxCDpzT4Ml1DbzCEbxt6zjY7nqo/AFfPbyVWGjCuL0T
- 5VOyPg3wzfv4PYcs+EyO9muOt4P7YHgTHmgVFAA0mVl6PK0Fd/Jn/Y90li9L/tqdZeIE
- 3vnCFyvcRLdXMT77xQDJ5t924W8D61NzoE637ChHUSMigp+BO5dGRX0H+uD/KirWk7Ez
- y4hStmEH7rLOtomKxnJ4bncnjV2Ubz5n8jtZPdLYv09Uct5F3ZlG0AjJkHJENut0aDp2
- eR6w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=9te/j8HOzFHtjUgjcdp2trlsf+HhnDZ+SK/gHrL1Pnw=;
- fh=NjbVhdkg/7jWF3/ukk3OtfLDZdLIWmb019oOTGfT9C0=;
- b=LR+u+j5UhrvAZWoRt7ivAnu8YdbC2QbbcqyTQGqzc4AhqVLOuoUgdPTuHvjkoXjzhe
- /o87rHvdjr0qg2haZEK/gXZKljIqgaZqnJM5r+MA4rDqMLbBdRa4rseNTvTLLbarXv3T
- 9pk70iYK0n6dmoeJe7nsra18Hbsd3ufBSnLRm+zsZT1U4NW0t+7mfcmAKEY9JYOfJ5cm
- sL1aGzZ79WPzMigIUcttScnT7Mxx/bmVUxCnTv6y26tjJew3/BrHA+8e0SrzEpcVbWCZ
- SXM1Wwd59spoI+PPN/ylJHuAaiaX0d2v7EzsejnNxiEUAios/x1LrhUN5vliXwab47rZ
- uFXw==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1774005089; x=1774609889; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=9te/j8HOzFHtjUgjcdp2trlsf+HhnDZ+SK/gHrL1Pnw=;
- b=KW4w0e1VGKyTclY+9yBIxY8x9UjnuUEnT0vmcVScJ/llLPPLR1mhSEVJlLumb1KsMS
- OJECNglr/h6JJYSJ/WWyAUfN9AF5ZkZZaLl3N+DUL6eokcdloEx2Ps+eIi5/dom2ao3y
- /sAXYcqX8awhi4P8JSEMVOnJ+H0tj02bJAbhjrKUQREkGeGjANrfjzRcjv/TOTLeAQE0
- pu/4LaYmYeCfQHEG6cXhbKNnESCGtJhK1ifSrec0xsDkvEONV0K2H0XywPqaUWj/nigM
- 0b/GZsSeqnNIR/jFMb6g2ZAbMGDUi6MIGVGs9UdSlVd6GPCfi653bhbFfLyvugAgKUD/
- Q1Dg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774005089; x=1774609889;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=9te/j8HOzFHtjUgjcdp2trlsf+HhnDZ+SK/gHrL1Pnw=;
- b=sZCDNSOi/Ycdsouu+NRJZHqN5/TjwX8mthd/7xcGbpw0m4GmZ/YYnu8z4gku3Pq8nT
- DvdNFEWGMyAIsDfaeH+6lfxK75e1awC+6cWNuLIuqqWJxEQMwnZYenKSYS7p2R6fElFb
- EhXWA6wiFudgrjqjD7BvieF40I8iDTOMKXeoRjkZafru4VTVRQpFSCNN/jqeDYYwwOmn
- onRQaNsFlXAoyB+g2oWbN1QOYv6YzKDqEPrlzbGwfJyejpV31FasXXIzqcX3pQmT3YPG
- U+0uRctY3lN2TcK0lh3feNljfCzM3JN7+yKQF4CKDUlIiVHTV5l7qvZiAmoU8a7GrrD9
- tn5g==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUS7WGztOtxhHE7qzF2+z+SbDDEMTs9p19a5qfKWR1t3FchDmLe0zSXzX4m2E4whVQ9G/kMO4pOXAg=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yz0G1Gwf51hPb8gJbhx/hMrZPZrmUjlGp1NQvYb9JhVXGah9eHb
- sXVtenOsHR0BKNE/ImrHiM5FfHR5s0wVXj5ZpHPRLu2vBLmBX3MwCdy+bijUQaUh4IIeD/t3q+I
- 4uBrFRNRSUb9VCdg1b982ZyEa9Ntllcc=
-X-Gm-Gg: ATEYQzyHtADTCNpe9GrXNcy07yoE8YwogjjcqrlxtDe5vv5h0qgSUrsMOyfLrIb5uFk
- dDq6VRDl34g9yBJQElcp1dAlFuk2jz9P3FAlD/MaFOSoxo63rDbN9PI9ZVkgdp/vlBZMCeNL07I
- mUgUzAiYFcNASLKu+01k4tjfvNYcWhlxwv3+ou7KjWrdNwCzJx6a22TGHSdd9nTb0Pftqvhpz6h
- 2reOfa0BXG7U22X0qvpqsgbJcArAzjGgTgFyIyfWFkU0PpRePNVLqFoYt0EdCbc4RIJx0iorcBz
- r8c3cbqL
-X-Received: by 2002:a05:6122:d1c:b0:56a:f576:cfca with SMTP id
- 71dfb90a1353d-56cde3237a8mr1152700e0c.2.1774005089107; Fri, 20 Mar 2026
- 04:11:29 -0700 (PDT)
-MIME-Version: 1.0
-References: <20260307111250.105772-1-mitltlatltl@gmail.com>
- <dggubmwmcgepioyev4jfibntdgmmiiomahnrvodewcw6ktplo3@bngbsgvzuzoa>
-In-Reply-To: <dggubmwmcgepioyev4jfibntdgmmiiomahnrvodewcw6ktplo3@bngbsgvzuzoa>
-From: Pengyu Luo <mitltlatltl@gmail.com>
-Date: Fri, 20 Mar 2026 19:11:02 +0800
-X-Gm-Features: AaiRm53l5G2RJnBS28ANAAiFgm5ukjN8S-QGG4QvRtKJpZSwLznLfIzx_bEm3mo
-Message-ID: <CAH2e8h4pn+xRcpEEO6CjbM3=WO+2C4HfyH6quhh0opoDFmaEFA@mail.gmail.com>
-Subject: Re: [PATCH 1/2] drm/msm/dsi: fix bits_per_pclk
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>, 
- Abhinav Kumar <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>,
- Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4459210EAD1
+ for <dri-devel@lists.freedesktop.org>; Fri, 20 Mar 2026 11:11:35 +0000 (UTC)
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+ by smtpout-03.galae.net (Postfix) with ESMTPS id E09454E42728;
+ Fri, 20 Mar 2026 11:11:33 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+ by smtpout-01.galae.net (Postfix) with ESMTPS id A6B25600E0;
+ Fri, 20 Mar 2026 11:11:33 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
+ with ESMTPSA id 86B5410450BAE; Fri, 20 Mar 2026 12:11:18 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+ t=1774005091; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ content-transfer-encoding:in-reply-to:references;
+ bh=OgCLycKADg8WapEoALnr45EN8oOjbM/c3hEclAHzFQA=;
+ b=yNrwKTG67Wfi/l6/Cx6JLjhzRR66Q6F9KbZdHALz92gFHiJ903UlF3jJnclHpJfIXNAv76
+ gEccg/auQ56Dw7hAkprTo3+lpIXUBHLIN5DrQJPSHKVtz/Wet1c8DG9c3rK8T/43o/ZuOi
+ xPydDpkCfh2ECLycX5Eeq9uuS34aOv+sCFhedLnSlqul76QFADCHSHYCZ9x+Qf4Uox7x5T
+ xAOcUxV/ciAkAPwFD5P7aNA9Gje3+1Bz1cxASeOTuzdeDBaQY/J0hrN+M4xz5ROWnuUCFw
+ U8KauHG0D8vWQbHcvGtAyGAI6FmR8hU59zMvkMbyJjc+3UzzkhjIgh5vmwnsOg==
+Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Fri, 20 Mar 2026 12:11:17 +0100
+Message-Id: <DH7KBDWAGOHC.39HCC46YG53PN@bootlin.com>
+From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
+Subject: Re: [PATCH 1/8] drm/mxsfb/lcdif: simplify remote pointer management
+ using __free
+Cc: "Kory Maincent (TI.com)" <kory.maincent@bootlin.com>,
+ =?utf-8?q?Herv=C3=A9_Codina?= <herve.codina@bootlin.com>, "Hui Pu"
+ <Hui.Pu@gehealthcare.com>, "Ian Ray" <ian.ray@gehealthcare.com>, "Thomas
+ Petazzoni" <thomas.petazzoni@bootlin.com>,
+ <dri-devel@lists.freedesktop.org>, <imx@lists.linux.dev>,
+ <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+ <devicetree@vger.kernel.org>, "Adam Ford" <aford173@gmail.com>, "Alexander
+ Stein" <alexander.stein@ew.tq-group.com>, "Anson Huang"
+ <Anson.Huang@nxp.com>, "Christopher Obbard"
+ <christopher.obbard@linaro.org>, "Daniel Scally"
+ <dan.scally@ideasonboard.com>, "Emanuele Ghidoli"
+ <emanuele.ghidoli@toradex.com>, "Fabio Estevam" <festevam@denx.de>,
+ "Francesco Dolcini" <francesco.dolcini@toradex.com>, "Frieder Schrempf"
+ <frieder.schrempf@kontron.de>, "Gilles Talis" <gilles.talis@gmail.com>,
+ =?utf-8?q?Goran_Ra=C4=91enovi=C4=87?= <goran.radni@gmail.com>, "Heiko
+ Schocher" <hs@denx.de>, "Joao Paulo Goncalves"
+ <joao.goncalves@toradex.com>, "Josua Mayer" <josua@solid-run.com>, "Kieran
+ Bingham" <kieran.bingham@ideasonboard.com>, "Marco Felsch"
+ <m.felsch@pengutronix.de>, "Martyn Welch" <martyn.welch@collabora.com>,
+ "Oleksij Rempel" <o.rempel@pengutronix.de>, "Peng Fan" <peng.fan@nxp.com>,
+ "Philippe Schenker" <philippe.schenker@toradex.com>, "Richard Hu"
+ <richard.hu@technexion.com>, "Shengjiu Wang" <shengjiu.wang@nxp.com>,
+ "Stefan Eichenberger" <stefan.eichenberger@toradex.com>, "Vitor Soares"
+ <vitor.soares@toradex.com>
+To: "Luca Ceresoli" <luca.ceresoli@bootlin.com>, "Marek Vasut"
+ <marex@denx.de>, "Stefan Agner" <stefan@agner.ch>, "Maarten Lankhorst"
+ <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
+ "Thomas Zimmermann" <tzimmermann@suse.de>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Frank Li"
+ <Frank.Li@nxp.com>, "Sascha Hauer" <s.hauer@pengutronix.de>, "Pengutronix
+ Kernel Team" <kernel@pengutronix.de>, "Fabio Estevam" <festevam@gmail.com>,
+ "Andrzej Hajda" <andrzej.hajda@intel.com>, "Neil Armstrong"
+ <neil.armstrong@linaro.org>, "Robert Foss" <rfoss@kernel.org>, "Laurent
+ Pinchart" <Laurent.pinchart@ideasonboard.com>, "Jonas Karlman"
+ <jonas@kwiboo.se>, "Jernej Skrabec" <jernej.skrabec@gmail.com>, "Liu Ying"
+ <victor.liu@nxp.com>, "Rob Herring" <robh@kernel.org>, "Saravana Kannan"
+ <saravanak@kernel.org>
+X-Mailer: aerc 0.20.1
+References: <20260320-drm-lcdif-dbanc-v1-0-479a04133e70@bootlin.com>
+ <20260320-drm-lcdif-dbanc-v1-1-479a04133e70@bootlin.com>
+In-Reply-To: <20260320-drm-lcdif-dbanc-v1-1-479a04133e70@bootlin.com>
+X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,75 +97,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, Mar 20, 2026 at 9:48=E2=80=AFAM Dmitry Baryshkov
-<dmitry.baryshkov@oss.qualcomm.com> wrote:
+Hello,
+
+On Fri Mar 20, 2026 at 11:46 AM CET, Luca Ceresoli wrote:
+> Putting the remote device_node reference requires a of_node_put(ep) in bo=
+th
+> error return points. Use a cleanup action to simplify the code.
 >
-> On Sat, Mar 07, 2026 at 07:12:48PM +0800, Pengyu Luo wrote:
-> > mipi_dsi_pixel_format_to_bpp return dst bpp not src bpp, dst bpp may
-> > not be the uncompressed data size. use src bpc * 3 to get src bpp,
-> > this aligns with pclk rate calculation.
-> >
-> > Fixes: ac47870fd795 ("drm/msm/dsi: fix hdisplay calculation when progra=
-mming dsi registers")
-> > Signed-off-by: Pengyu Luo <mitltlatltl@gmail.com>
-> > ---
-> >  drivers/gpu/drm/msm/dsi/dsi_host.c | 2 +-
-> >  1 file changed, 1 insertion(+), 1 deletion(-)
+> Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+> ---
+>  drivers/gpu/drm/mxsfb/lcdif_drv.c | 9 +++------
+>  1 file changed, 3 insertions(+), 6 deletions(-)
 >
-> Pengyu, what is your target platform?
+> diff --git a/drivers/gpu/drm/mxsfb/lcdif_drv.c b/drivers/gpu/drm/mxsfb/lc=
+dif_drv.c
+> index 47da1d9336b9..756ca96373c8 100644
+> --- a/drivers/gpu/drm/mxsfb/lcdif_drv.c
+> +++ b/drivers/gpu/drm/mxsfb/lcdif_drv.c
+> @@ -53,16 +53,13 @@ static int lcdif_attach_bridge(struct lcdif_drm_priva=
+te *lcdif)
+>  	int ret;
 >
+>  	for_each_endpoint_of_node(dev->of_node, ep) {
+> -		struct device_node *remote;
+> +		struct device_node *remote __free(drm_bridge_put) =3D
+                                                  ^^^^^^^^^^^^^^
 
-SM8750, my device is lenovo legion y700 gen4, the display is a native
-10-bit video mode panel.
-Recently, in 10-bit input bpc/30-bit src bpp with 8-bit output
-bpc/24-bit dst bpp mode, works well
-on this device with some hacks to intf block. full 10-bit input and
-output won't work for now.
+I just realized there's a mistake here, this should be
+__free(device_node). However this does not prevent testing the series in
+its entirety because patch 2 fixes this mistake.
 
-Once I added this comment in ac47870fd795 ("drm/msm/dsi: fix hdisplay
-calculation when programming dsi registers")
-> DSI consumes an amount of compressed data equivalent to the uncompressed =
-pixel depth per pclk.
-This explanation is picked up from the downstream msm kernel, since
-there is no public datasheet for the hardware.
-And this should be the video mode case, cmd mode should consume 6
-bytes. (It seems no explanation)
+Will be fixed in v2.
 
-If we follow the downstream, then the uncompressed pixel depth per
-pclk should be 3 * bits_per_component.
-This is what this patch fixed.
+Sorry about the noise, did too many rebases today!
 
-About the test, I did it on the video mode panel, I have no cmd panel
-device with dsc/widen bus enabled. And I overlooked something, I
-thought
-cmd panel didn't use hdisplay, then I removed the right value for the
-cmd panel case, I fixed it in patch 2/2.
+Luca
 
-Best wishes,
-Pengyu
-
-
-> >
-> > diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/d=
-si/dsi_host.c
-> > index e8e83ee61e..7c16216e8b 100644
-> > --- a/drivers/gpu/drm/msm/dsi/dsi_host.c
-> > +++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
-> > @@ -1030,7 +1030,7 @@ static void dsi_timing_setup(struct msm_dsi_host =
-*msm_host, bool is_bonded_dsi)
-> >                */
-> >               h_total -=3D hdisplay;
-> >               if (wide_bus_enabled)
-> > -                     bits_per_pclk =3D mipi_dsi_pixel_format_to_bpp(ms=
-m_host->format);
-> > +                     bits_per_pclk =3D dsc->bits_per_component * 3;
-> >               else
-> >                       bits_per_pclk =3D 24;
-> >
-> > --
-> > 2.53.0
-> >
->
-> --
-> With best wishes
-> Dmitry
+--
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
