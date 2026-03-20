@@ -4,87 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 32A8810987AB
-	for <dri-devel@archiver.kernel.org>; Fri, 20 Mar 2026 16:42:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0362D10987AF
+	for <dri-devel@archiver.kernel.org>; Fri, 20 Mar 2026 16:42:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E5D1410EB90;
+	by gabe.freedesktop.org (Postfix) with ESMTP id EB7E110EB91;
 	Fri, 20 Mar 2026 16:42:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="QzOHYvP/";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="t6OfVK2q";
 	dkim-atps=neutral
-Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com
- [209.85.221.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 90FF510EB85
- for <dri-devel@lists.freedesktop.org>; Fri, 20 Mar 2026 16:42:04 +0000 (UTC)
-Received: by mail-wr1-f41.google.com with SMTP id
- ffacd0b85a97d-439d8dc4ae4so1770387f8f.2
- for <dri-devel@lists.freedesktop.org>; Fri, 20 Mar 2026 09:42:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1774024923; x=1774629723; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=4rtUTy7c+JMXpO6EpoYVOPqOA1jyBKbjjOPg7/yERVQ=;
- b=QzOHYvP/UYU4qzyGBMO8LOQRkvBge7BIaRsDMF4jPS6zWOt3ey4j7x5nQ6DHQKkRmV
- AqzEabbDHBzWiX3xR//4C7+/ohMrwRD1i0MU3yyPXUUxCXwqvTbN60NHTZKoyQilcbmS
- uaAG2qkbQEAK1T3GN2eBBDIK1CfvGzjNd3mvBbDlXhcEFHzjoJ3OZgsHz5zngWIsXCW/
- h0IWzRNjCTI6AuE3wm3Ktejr63xA2Q42Ir4590M5acQpCPL/+734JoXmlq0P03DluqIW
- KZCZFOcn3fULZLUioOKMN2ebz6vVP5XTZayPd9XZAS2en+Qyh5NDyioKdZ9NRk+CkSUc
- +yMQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774024923; x=1774629723;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=4rtUTy7c+JMXpO6EpoYVOPqOA1jyBKbjjOPg7/yERVQ=;
- b=pvEyKc9XWlsGSrdivv7lhF1soGjlyqkI8dBhodJL9rWUiktpFfujgtRYJ8fbCpvj/v
- gl3wte01uD970eA/GXzFCRR786ET90iPsokSOlxr5q+3vCz7s00Cbqkluekgpv+5q/0k
- kfUSp6mUK4OIKmiAg0RuL0IOkoNxAHMiudc23S/69f04dR8Tjlj9jfsMNV2t0JWznZTb
- 3H0YKWnOgcuNoHarvF+boijVLOyS82/pWEyJghKa/zNQEMZPleuvlMwSAtu4GdVVY9Z1
- F2aNuldApLpg1QVqAfhAoy0y2XSQU1hgM7bt0SxG3eKMlpNGdFkh07ebBBCYWZ/Rh92w
- UvRg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXLPD8JEqgCasGcZLa1NEk9eKcjPPDTin1fEbVD/c31pAlStPnLuLHnCXbTudiT90WCzMjUlYI3haQ=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YygdpiNXAPIVdh9ckgAVDWFP+zwzD5grK3YW6Sn+r53qnhFwWqi
- 4ewmjwEOs1ufWJEJvjEzfp1Mi38rlC1aOKiY3UV6uD3ZoOgiRIBpu8W0
-X-Gm-Gg: ATEYQzzZgHXQ6+MIjMr6YNgm/zJ5ta2fDeylrpmjwfvm0AqG19ZPc9/LbXlT18kpqmM
- wXosVfN9RsC2mapwovgxbW2H48czgBzOw2prdIW0oNkANudRZbv6O4sK05FJakkYDbnIvizFIKU
- lfWmSmTF6abKugKKCEfEFQZTK6XwB5R+SACZczfi256JJQYjtyGI8dbZNUq4G3yOwyuWSbJp1aW
- ntAk0p8C8av/ejU6ptvijW2HFBGzvX2/JhEZX3AEDQYVCgxsBp7gbMJJWofOxkNWUs1HZA5ezfi
- 54y/jFTXZXYUzHU+9vghaGfeFWHs55xreUokn2yhJbwLy4oLo0+HJMXx/tzvZPvIKAho6SnCZhO
- CsU0f2rErfjk7xxEXAhLsVnLWALilVbxXD8/4qbCNTe/ziYnHdN8JvNlowCPHoj9TRNBs5MAcyl
- vkNvtRt4S0wphuaQBnVOfo4wnrHbexWNQ=
-X-Received: by 2002:a05:6000:310d:b0:43b:3b80:6776 with SMTP id
- ffacd0b85a97d-43b64262ebbmr6599087f8f.30.1774024922785; 
- Fri, 20 Mar 2026 09:42:02 -0700 (PDT)
-Received: from biju.lan ([2a00:23c4:a758:8a01:5b93:d2b1:bc5c:9231])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-43b64703650sm7016575f8f.20.2026.03.20.09.42.02
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 20 Mar 2026 09:42:02 -0700 (PDT)
-From: Biju <biju.das.au@gmail.com>
-X-Google-Original-From: Biju <biju.das.jz@bp.renesas.com>
-To: Boris Brezillon <boris.brezillon@collabora.com>,
- Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>,
- =?UTF-8?q?Adri=C3=A1n=20Larumbe?= <adrian.larumbe@collabora.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
-Cc: Biju Das <biju.das.jz@bp.renesas.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Geert Uytterhoeven <geert+renesas@glider.be>,
- Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>,
- Biju Das <biju.das.au@gmail.com>, linux-renesas-soc@vger.kernel.org
-Subject: [PATCH v2 2/4] drm/panfrost: Drop redundant optional clock checks in
- runtime PM
-Date: Fri, 20 Mar 2026 16:41:48 +0000
-Message-ID: <20260320164158.487406-3-biju.das.jz@bp.renesas.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260320164158.487406-1-biju.das.jz@bp.renesas.com>
-References: <20260320164158.487406-1-biju.das.jz@bp.renesas.com>
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3237E10EB8B
+ for <dri-devel@lists.freedesktop.org>; Fri, 20 Mar 2026 16:42:03 +0000 (UTC)
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+ by smtpout-04.galae.net (Postfix) with ESMTPS id 858EEC5668D;
+ Fri, 20 Mar 2026 16:42:27 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 090E2600E0;
+ Fri, 20 Mar 2026 16:42:02 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
+ with ESMTPSA id 5969A10450CB2; Fri, 20 Mar 2026 17:41:58 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+ t=1774024920; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ content-transfer-encoding:in-reply-to:references;
+ bh=44AF4bbjrYBBrPr1WLqpIIZ8N/FkWKpJDtl576ddRZc=;
+ b=t6OfVK2qdr6LLeRYAnD0CbqtTkapiOa8Z6vgcNHdfTYRY7MOykoYrRkEUOhgYnXG4drcJZ
+ fkvgN9/QKCDQwLCb96/qbXllRybr/JnxH2Da8h3Hq6kN9jhWdAuOtGgJnAO33tflYexruT
+ heVRTxy1gew/efkTnYJAskebw1llKUqKQ84gh1nEK/6u2OX42tWCjUbk0m/NGom60AvEXO
+ WEtpaFCLmbRPDOO4k3Ma0rd1UH5jSkvit37EB+T22ZhOREzHb1LhDemsUNJOk7zWcmk180
+ WpkbQ68zIXs42aGu+xz4kXqDHdGBT5QZESCidT091cBX2g/d7Unrk7+2z1w5tw==
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v11 22/65] dyndbg-API: replace DECLARE_DYNDBG_CLASSMAP
+From: Louis Chauvet <louis.chauvet@bootlin.com>
+To: airlied@gmail.com, simona@ffwll.ch, jbaron@akamai.com, 
+ gregkh@linuxfoundation.org
+Cc: Jim Cromie <jim.cromie@gmail.com>, mripard@kernel.org, 
+ tzimmermann@suse.de, maarten.lankhorst@linux.intel.com, 
+ jani.nikula@intel.com, ville.syrjala@linux.intel.com, 
+ christian.koenig@amd.com, matthew.auld@intel.com, 
+ arunpravin.paneerselvam@amd.com, louis.chauvet@bootlin.com, 
+ skhan@linuxfoundation.org, pmladek@suse.com, ukaszb@chromium.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+In-Reply-To: <20260313132103.2529746-23-jim.cromie@gmail.com>
+References: <20260313132103.2529746-1-jim.cromie@gmail.com>
+ <20260313132103.2529746-23-jim.cromie@gmail.com>
+Date: Fri, 20 Mar 2026 17:41:54 +0100
+Message-Id: <177402491440.6181.10370884123666440440.b4-review@b4>
+X-Mailer: b4 0.15-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1481;
+ i=louis.chauvet@bootlin.com; h=from:subject:message-id;
+ bh=33zhYJFjZ6oOW3ObErBjPueURcxer5n64/AM2e3Z3+0=;
+ b=owEBiQJ2/ZANAwAIASCtLsZbECziAcsmYgBpvXjXAeS139Pn6dfFXt70/MiK4mhx9g1hktlr+
+ gKFTUDy1UyJAk8EAAEIADkWIQRPj7g/vng8MQxQWQQgrS7GWxAs4gUCab141xsUgAAAAAAEAA5t
+ YW51MiwyLjUrMS4xMSwyLDIACgkQIK0uxlsQLOKaNw//S2cBr3uSG9mScz8L8MJGZwOohV95F0L
+ hVYktJO+JeyTM35JI015tizstU7phXiAguLuXAyBERLfUpNWjk+TcQBnqmZsBpv912JT9qnFcnw
+ Y0mrl41h/D47yFD9XlfEdUOovxp6DIi5oRrBii3Rka3eDk99z1yNlBKGFu+IXiiNKGkp0YEn5YU
+ 7N7PKwRc2EvNbM7+KQBkCrdRvVId+bySvsu7qGaLXfRwvrjsDNlJ091skBtYVpbvuWvmQ0pk1uE
+ QNDUPMuGGtQ0NwKYZm1Dwp79BkJMhbLkHUPRLiLPdN+V07JMSrX2DNvOIkBjgu4fw9MvPWJjmXS
+ 9YYTU8Oh4KhlAvuaBo0vjfEI4/e7O5q/2ldPt+ahkggdAQ9kpnYIq5uolR03yv3jvLtTjcPh0+p
+ b9XC3bixMUV4B4wlyKMPPxOBAmGGZpI7NSIom1SVjyIDDfyQgGGVHm9sE1Y5PW3YPJqsXBCIqP5
+ mFojOSYhCn4GGI2ckzZiZsfkbsbQwRmpTszdkcgmYYqpXEPia0VHV8sTDRNIw0x9n1dKxPqemUa
+ DXL2d2d8rVXOeyUB8cbHt/MZyNi3K4soWbUHxkmJlSqayDGkvdR2mAOR3LLJXQ4Y+k+pw0hWWQG
+ FNVs1J4UeI5We+irzHIMvyYXgrBv0i2waeYpkDpA1+7lkmw1mNUE=
+X-Developer-Key: i=louis.chauvet@bootlin.com; a=openpgp;
+ fpr=8B7104AE9A272D6693F527F2EC1883F55E0B40A5
+X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,53 +86,49 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Biju Das <biju.das.jz@bp.renesas.com>
+On Fri, 13 Mar 2026 07:19:47 -0600, Jim Cromie <jim.cromie@gmail.com> wrote:
+> diff --git a/include/linux/dynamic_debug.h b/include/linux/dynamic_debug.h
+> index 80160028461a..74ed18a038bd 100644
+> --- a/include/linux/dynamic_debug.h
+> +++ b/include/linux/dynamic_debug.h
+> @@ -81,10 +84,18 @@ struct _ddebug_class_map {
+>  	enum ddebug_class_map_type map_type;
+>  };
+>  
+> +struct _ddebug_class_user {
+> +	char *mod_name;
+> +	struct _ddebug_class_map *map;
+> +	const int offset;	/* user offset to re-number the used map */
+> +};
 
-The clk_enable() and clk_disable() APIs already handle NULL clock pointers
-gracefully — clk_enable() returns 0 and clk_disable() returns immediately
-when passed a NULL or optional clock. The explicit if (pfdev->bus_clock)
-guards around these calls in the runtime suspend/resume paths are
-therefore unnecessary. Remove them to simplify the code.
+Is it usefull at this point?
 
-Reviewed-by: Steven Price <steven.price@arm.com>
-Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
----
-v1->v2:
- * Collected tag
----
- drivers/gpu/drm/panfrost/panfrost_device.c | 12 ++++--------
- 1 file changed, 4 insertions(+), 8 deletions(-)
+> @@ -137,6 +223,25 @@ struct _ddebug_class_param {
+> [ ... skip 14 lines ... ]
+> +	extern struct _ddebug_class_map _var;				\
+> +	static struct _ddebug_class_user __aligned(8) __used		\
+> +	__section("__dyndbg_class_users") _uname = {			\
+> +		.mod_name = KBUILD_MODNAME,				\
+> +		.map = &(_var),						\
+> +		.offset = _offset					\
 
-diff --git a/drivers/gpu/drm/panfrost/panfrost_device.c b/drivers/gpu/drm/panfrost/panfrost_device.c
-index dedc13e56631..01e702a0b2f0 100644
---- a/drivers/gpu/drm/panfrost/panfrost_device.c
-+++ b/drivers/gpu/drm/panfrost/panfrost_device.c
-@@ -429,11 +429,9 @@ static int panfrost_device_runtime_resume(struct device *dev)
- 		if (ret)
- 			goto err_clk;
- 
--		if (pfdev->bus_clock) {
--			ret = clk_enable(pfdev->bus_clock);
--			if (ret)
--				goto err_bus_clk;
--		}
-+		ret = clk_enable(pfdev->bus_clock);
-+		if (ret)
-+			goto err_bus_clk;
- 	}
- 
- 	panfrost_device_reset(pfdev, true);
-@@ -464,9 +462,7 @@ static int panfrost_device_runtime_suspend(struct device *dev)
- 	panfrost_gpu_power_off(pfdev);
- 
- 	if (pfdev->comp->pm_features & BIT(GPU_PM_RT)) {
--		if (pfdev->bus_clock)
--			clk_disable(pfdev->bus_clock);
--
-+		clk_disable(pfdev->bus_clock);
- 		clk_disable(pfdev->clock);
- 		reset_control_assert(pfdev->rstc);
- 	}
+I think this offset is useless at this point, or did I miss something?
+
+>
+> diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
+> index e8ffc2b5b330..66f4bfe39e89 100644
+> --- a/lib/dynamic_debug.c
+> +++ b/lib/dynamic_debug.c
+> @@ -1190,6 +1292,22 @@ static void ddebug_attach_module_classes(struct ddebug_table *dt, struct _ddebug
+> [ ... skip 13 lines ... ]
+> +		return -EINVAL;
+> +	}
+> +	*reserved_ids |= range;
+> +	return 0;
+> +}
+> +
+
+Can you introduce this function when it is used?
+
 -- 
-2.43.0
-
+Louis Chauvet <louis.chauvet@bootlin.com>
