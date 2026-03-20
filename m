@@ -4,100 +4,94 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 20D851098797
-	for <dri-devel@archiver.kernel.org>; Fri, 20 Mar 2026 15:55:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 834D7109879E
+	for <dri-devel@archiver.kernel.org>; Fri, 20 Mar 2026 16:08:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5F17C10EB20;
-	Fri, 20 Mar 2026 15:55:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7B08810EB1F;
+	Fri, 20 Mar 2026 16:08:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="HDZBDgo+";
+	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="X8wexDE9";
 	dkim-atps=neutral
-Received: from BN8PR05CU002.outbound.protection.outlook.com
- (mail-eastus2azon11011065.outbound.protection.outlook.com [52.101.57.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7A40110EB20
- for <dri-devel@lists.freedesktop.org>; Fri, 20 Mar 2026 15:55:03 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=loglwfiU9W1HFT7bhLovEBh0e9YSpMkF+LhvLjq0qcSkDxyWJ5C2Ba7hYEB1kHgVAWqIPtL0bHthA1dk97vHAOlUrxeiQ+dx5b9WU14H++3Pae2PvRgbDfLdh3xMIYLryVOvDHunhgRbvMr5ZckhaQGSDuBeQ7Sr1qzlg6lnPdG0W95y1YkMiLxB/2yfA55G8tTjZkuu4aowSqA03P0eVTXxRjsO4wQu1sbJBxi4jmdcw5BNj0csE5jgD60eIwOv1OM4JBJPAyQeyHNW4gEfTVOA2bgUjnK/+RhJ+U5FSqPjxcm8P5iLbtpH5ETwtTK48A+ZkszWnh6F2xyMVUArxg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=C5HrYvdkq6jU138uozqWPSY+aFr9dGY72jFGLR/xsQk=;
- b=Jp/TeiVd5IPZiDGC274PQhlDJgZTr2cUNrq4T8QBcWQ3viqInUFJABWb4kpOH4Oe56Lsh8oks1vttTTaN3KXYfWSrMIk4AWhqRKPuLx8WGGmidPNyxluXCEQc0XnJLnkPtKjaQpHG/O2WxEWXxu+37unV9hvU7HvR1qo+RjY2yNU+wLMs4hpvX7VZ3MgLJ/NI3VCHBqOvMjILBBlrfHUTRQDlquACzmXST+oVNMoZqMyz3ssLHZ2s2bz49VAwSTn6I9BTj3ZPHeZryAWebNqwyFnecrOms1HlRxFQY8dKr5V2+gQf/rvb0fIG+ROJjHcUjBXibCRdElwnme+ONHdlg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=gmail.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=C5HrYvdkq6jU138uozqWPSY+aFr9dGY72jFGLR/xsQk=;
- b=HDZBDgo+tL1Ie6zgc/Ot++uDwgPDiWWJn05wY3otM/Ghu6ISz8oNBsv0WrIpdmtHnKXWiLO1Xe50z9EunLsBbQykOtFADgp4mymhBA6nWDjOTY4OyAxIz3dhzD7Q76w6LF6bEHZBRJT0i8MTGB676jYuh6vV6Md/h2gmLz6spZc=
-Received: from MN2PR07CA0026.namprd07.prod.outlook.com (2603:10b6:208:1a0::36)
- by IA1PR12MB8466.namprd12.prod.outlook.com (2603:10b6:208:44b::7)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.9; Fri, 20 Mar
- 2026 15:54:58 +0000
-Received: from BL6PEPF0001AB77.namprd02.prod.outlook.com
- (2603:10b6:208:1a0:cafe::58) by MN2PR07CA0026.outlook.office365.com
- (2603:10b6:208:1a0::36) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9723.20 via Frontend Transport; Fri,
- 20 Mar 2026 15:54:50 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- BL6PEPF0001AB77.mail.protection.outlook.com (10.167.242.170) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9723.19 via Frontend Transport; Fri, 20 Mar 2026 15:54:57 +0000
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Fri, 20 Mar
- 2026 10:54:57 -0500
-Received: from [172.19.71.207] (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
- Transport; Fri, 20 Mar 2026 10:54:54 -0500
-Message-ID: <1af543d3-46ff-7a9c-6432-fe3c9050e23d@amd.com>
-Date: Fri, 20 Mar 2026 08:54:54 -0700
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Subject: Re: [PATCH] accel/amdxdna: fix missing newline in pr_err message
-Content-Language: en-US
-To: Haoyu Lu <hechushiguitu666@gmail.com>, Min Ma <mamin506@gmail.com>, Oded
- Gabbay <ogabbay@kernel.org>
-CC: <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
-References: <20260320112938.305-1-hechushiguitu666@gmail.com>
-From: Lizhi Hou <lizhi.hou@amd.com>
-In-Reply-To: <20260320112938.305-1-hechushiguitu666@gmail.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB77:EE_|IA1PR12MB8466:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6c384f75-8107-481d-4cdf-08de86990942
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|36860700016|82310400026|1800799024|13003099007|7053199007|22082099003|56012099003|18002099003;
-X-Microsoft-Antispam-Message-Info: Yq1RK1lCkBL/e+ChDEf3wtO7tD0nTZTQRL7i2IUFm2ZAbYsZOZlVrNgC5Hl9ERv9UMWUYTUPGocJZmGwIymbE7iQAqJZkIWQKzvi4UlhWVrIu8mN4tufAznSQsQcGc4gVwku9b4czH6G5pkCfcJTffcIc0hpfGKt9Hj3O+C5s1nBFFNGxyhnueS/2GWnn3/D+0/9EiErAjKYQUr4xsytBcMDmzpgXLH/gd/UKtTE69cNkhruLwKyyhZ4jwaflFK7TENccyGQ5sNwUo9XeFqNhMWmX1FFTwAFWJQWADz2JQ3WdNd3ojfc4U5bpDqyF/nVEF1HGSMXQMYF0u41rM3a8R3EKaVAPTYyc4ZLbzraWv8kwvkSMLwoAeHtv0bA9X9p7mgVAVuDmqI/+/gJ7d70/5yKb1VpgTBo9f5/9VWF7J9M4riYKiw+vRoiHWwb8BMfSblAx+oTfrv+wwynVj3gc6iV5B7YxFVcQfGHPkclSLi26Fr/MsodiX9RoFMwsrIkLTaR/ETwY0DHImkf7b9LaxgCN5qLqY8gRePmlEfovYA3893mRRtV1FBhy0KQrSWCQlEoZdGrqNqU9Iop9nctJb5mJrI5RTR0p+qNTanbZ4o4zuD5bZsTG5Ik8KHakE0mdm4bErt5ZGmlSbv1W1/ozn0Wr2XlZSenOHE6vGiERSUsnnv96m86x0U51Uj9Y2dx8F2wMBlvOksXu8ug+QOWuUL3v/V3p4/F1DQ76UGoWKGVTngSFbuM5jVGRqsIN6hc6qnc+9hcdgTe8D4NK8Oqag==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(36860700016)(82310400026)(1800799024)(13003099007)(7053199007)(22082099003)(56012099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 6Q2RXIE+307/aproDoZoPVpf4E76fEqyeymdc14pYa2XF25oTeBD8zfEnm6iJfTKTVWoQG5FYVrnM3wN3Dcmj0FbMO3S7Yk0prLH8lJXyfztYYAttyRQDVNbm6QNDSLYAwhSfcmEzWvnBIcEhjQNKmNKD601RsMmHdfI0ZyG8bUcV1KdN1siQ92TZ8u1Q4H8ow+UAuFq2I1S5KCNmtM/eWHIex+oEAu8Jn+sbE5CwYE1AoszZuKGMAZjvSaotG+ngQy6oojjIVCFb4ipXTKsmn5caZp/Kalj7tmgFvnhTSPr7GPsr7eqZBi/+/ahk2jtazBWWKQJUBtTjybi8AycK2u+0LMBJYUq4BCXrdcGIs9BcQX7GiVjFLohkCfYhW5SkgIvmMlqsHzh6xd5S+wpwSocA2NwWaLx8g+GQTOFh4mW1gxOGSFO92Kxnz4Xcgw2
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Mar 2026 15:54:57.6206 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6c384f75-8107-481d-4cdf-08de86990942
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF0001AB77.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8466
+Received: from mail-wm1-f74.google.com (mail-wm1-f74.google.com
+ [209.85.128.74])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CC37810EB1F
+ for <dri-devel@lists.freedesktop.org>; Fri, 20 Mar 2026 16:08:37 +0000 (UTC)
+Received: by mail-wm1-f74.google.com with SMTP id
+ 5b1f17b1804b1-4852ccff333so20987595e9.2
+ for <dri-devel@lists.freedesktop.org>; Fri, 20 Mar 2026 09:08:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=google.com; s=20251104; t=1774022916; x=1774627716;
+ darn=lists.freedesktop.org; 
+ h=cc:to:from:subject:message-id:mime-version:date:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=hILqzC7MD7FbW4XOE96YtVaGbJfLwnag6+QDuuvsh58=;
+ b=X8wexDE9IPLpa5myRlBcswPjxIX3DMxDqPnEFmg65p86/zt1B2VvGe4FE1dX8ugmH/
+ tgzxVlJnyF0jFoHFw+wL0DMbIkp3g3pfAReFPzzPtkx6TJB7owToBtzRwQhyq3QIlzt1
+ GTcpr9us8TCoArOGE/x3Mr9DKiQMLLdXBkIzB74MZb1kzJszvE45xANUOY8cIAOCWuFU
+ 22yguARQrlNt+AsgQ8lwvGw9+SLfCvggU2Hue+o/byLJ1izHE4On7e5B+sl01+tuK1Fi
+ pyl6jFKH00ZHO5fT77o1SgYnfwYawk+sgqfCxXgh+ljikrsq6yoRo76aHFaGRqIADYlU
+ fflQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1774022916; x=1774627716;
+ h=cc:to:from:subject:message-id:mime-version:date:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=hILqzC7MD7FbW4XOE96YtVaGbJfLwnag6+QDuuvsh58=;
+ b=ZWkmmC8LGd3xJCy+MwNz5yaE4OBGE0EWUILOStMMMh0hOn+afODCuFV4bx9xXPWT41
+ JnBlFNb8M3XUWl05ZO7ObhbiExbpH235HWSSp0ctneIAal9Xn6YCeGsR+XGUulgugmzJ
+ jTV/5msdC9FkLkHgWsqR6EyDUAc4ytGh4kzv50epxv+3DrZmuE8bUuTcp7h/DDzisyVd
+ 0lms8aDm8a4FHssoZioGsG2i4uJ8klQRDtMKPkX50/PSbZinEVmLUwviVAVv3ktrB85Y
+ zFtnIKhKtlfSGhkYTesG2OLQh7FT1ErjaqpVqhqiVpzHFP7JgtKYg37gQ40/AW7JF51X
+ 03gg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWbncLW/KcSpbtCkMwajCAolN5zNh3V3ZUVWVmWBDonVEnxA3zAoyvGp088wLb5uX39P0AicnF+pnk=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yx4kGmiq7+WcjrAIf7unYQ+lqAKaP9j1yW9P+XcMw+x57rUE7bK
+ MlD8zT4BQIcvr0i4r6R6XLP5Pr5sZZWBauNhi9yI5MPAiiysR//URjW+MukKMrjNA1bfyBokCqF
+ BaQzIq04JcQQf5GPGFQ==
+X-Received: from wmoo17.prod.google.com ([2002:a05:600d:111:b0:485:4ce0:d98f])
+ (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:600c:2d14:b0:487:2b7:18d1 with SMTP id
+ 5b1f17b1804b1-48702b718demr12384625e9.33.1774022916077; 
+ Fri, 20 Mar 2026 09:08:36 -0700 (PDT)
+Date: Fri, 20 Mar 2026 16:08:24 +0000
+Mime-Version: 1.0
+X-B4-Tracking: v=1; b=H4sIAPlwvWkC/23Oy4oCMRCF4VeRrI1U5eZl5XvILHKptAE1kmhwk
+ H73SQsDNro8Bd9PPVmlkqiy3eLJCrVUU770oZcL5o/2MhBPoW8mQGhEseHD9d7OvNzrjbs1br3
+ 1Ym2DYR1cC8X0eMUOP30fU73l8vtqN5yuXzMNOXBy0RgXhVQE+yHn4UQrn89s6jTxbw0gzK3oN
+ rgAqAC0Bfdh5ZsVOLNysmGrPShLXuoPq96shJlV3W6kUQFBxajmP4/j+AfajeGXWQEAAA==
+X-Change-Id: 20251128-gpuvm-rust-b719cac27ad6
+X-Developer-Key: i=aliceryhl@google.com; a=openpgp;
+ fpr=49F6C1FAA74960F43A5B86A1EE7A392FDE96209F
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3392; i=aliceryhl@google.com; 
+ h=from:subject:message-id;
+ bh=hBlKdMS6RYtRgGMEPDODjPhE5SmwLiL4EI9j5rPli5Y=; 
+ b=owEBbQKS/ZANAwAKAQRYvu5YxjlGAcsmYgBpvXD9hBnBy4v/N6Ooh3haSutKrTSCowEuWwZf9
+ kZMSiNUnCOJAjMEAAEKAB0WIQSDkqKUTWQHCvFIvbIEWL7uWMY5RgUCab1w/QAKCRAEWL7uWMY5
+ Rr0QEACZwV9PxTgCruBbLTsHjzQgM11t+YsflqqbdcOgBS/GhczSHGBedviQkKyhzvAMab4HhUl
+ mdsRWPVwejLNQigClprES3R4MULyJdPhYfR97xA9QffeRgfjgwzkupOrre6COplPPfZQ0xK8FQl
+ THXBKbzpdG49Ew+gup/wCJasXqCdCGtaHQC41z+mk440fvmiP+jxAIKVxtjYV8v9u84QWMSzYec
+ k533VjGC2VwMPYJp8k1wVToNSx/Qj1XFq/KdsEq7phQtFoLpUijN6ODhnM5E2d8cxYDpZD3Psz/
+ lDDr2AkmbYPoa2ndyrLLFJHp6X6f9c4ikaLmm+akIlqAX06hhqrrqhatGFcvbP9C2EsY5q/QXg1
+ Vu9dl6J7eZ+m/LOXI2MoaPfnHT5hxiK4nAzW5HSOQTpD9S+ypJmBPOdSbGT7837CsFTdan2mWy2
+ cZdXgLqL7eO7HfuRmsj5FUVaken6OCRCe/RVYJX32Aw49NjesaVsDov+toyluRsmCB0T7E6ZTvq
+ L9qfmg4gC4VKE8CKrzOQsWiviHe8sUljWf7BPDNZgSKMaQlTDkzRvxDFPJO2s77/5scbnd2F/1l
+ sKMtkVddXR6A7NGJbsah41YY1WAFhxO/R0ZQ0UDzRJKP9m1UQZh3IKM5GafFsatzfCB1zhoCo+D
+ C7ex9s8fEM/0HmQ==
+X-Mailer: b4 0.14.3
+Message-ID: <20260320-gpuvm-rust-v5-0-76fd44f17a87@google.com>
+Subject: [PATCH v5 0/6] Rust GPUVM immediate mode
+From: Alice Ryhl <aliceryhl@google.com>
+To: Danilo Krummrich <dakr@kernel.org>,
+ Daniel Almeida <daniel.almeida@collabora.com>
+Cc: Boris Brezillon <boris.brezillon@collabora.com>,
+ Janne Grunau <j@jannau.net>, Matthew Brost <matthew.brost@intel.com>, 
+ "=?utf-8?q?Thomas_Hellstr=C3=B6m?=" <thomas.hellstrom@linux.intel.com>,
+ Lyude Paul <lyude@redhat.com>, 
+ Asahi Lina <lina+kernel@asahilina.net>, Sumit Semwal <sumit.semwal@linaro.org>,
+ "=?utf-8?q?Christian_K=C3=B6nig?=" <christian.koenig@amd.com>,
+ dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org, 
+ linux-media@vger.kernel.org, Alice Ryhl <aliceryhl@google.com>
+Content-Type: text/plain; charset="utf-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,37 +107,88 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+This series provides an immediate mode GPUVM implementation.
 
-On 3/20/26 04:29, Haoyu Lu wrote:
-> [You don't often get email from hechushiguitu666@gmail.com. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
->
-> From: "haoyu.lu" <hechushiguitu666@gmail.com>
->
-> Add missing newline to pr_err message in amdxdna_mailbox.c.
->
-> Signed-off-by: haoyu.lu <hechushiguitu666@gmail.com>
+Only immediate mode is provided for Rust code, as all planned Rust
+drivers intend to use GPUVM in immediate mode.
 
-Please add 'Fixes' tag.
+Signed-off-by: Alice Ryhl <aliceryhl@google.com>
+---
+Changes in v5:
+- Rename GpuVmCore to UniqueRefGpuVm.
+- Implement Send/Sync for GpuVm.
+- Move helpers/dma-resv.c in MAINTAINERS
+- Improve GpuVmBo allocation and free docs
+- Add "in GEM list" invariant to GpuVmBo
+    - also mention said invariant on GpuVa
+- Replace GpuVmBoRegistered with ARef<GpuVmBo>
+- Add TODO about dma-resv lock usage
+- Add __rust_helper to helpers/drm_gpuvm.c
+- Change _invariant type to silence type complexity clippy lint
+- Link to v4: https://lore.kernel.org/r/20260130-gpuvm-rust-v4-0-8364d104ff40@google.com
 
-Lizhi
+Changes in v4:
+- Add trait bound so that DriverGpuVm::Object must be the same type as
+  Driver::Object.
+- Add rust/helpers/dma-resv.c to MAINTAINERS.
+- Add __rust_helper to dma_resv_lock and dma_resv_unlock.
+- Rename GpuVm::raw_resv_lock() to GpuVm::raw_resv()
+- Reword comment in obtain() for adding to extobj list.
+- Fix typo in commit message referring to GpuVm<_> instead of GpuVmBo<_>.
+- Changed the PhantomData type used for invariance and add comment. (No
+  functional change.)
+- Rename offset to gem_offset in args to sm_map().
+- Link to v3: https://lore.kernel.org/r/20260121-gpuvm-rust-v3-0-dd95c04aec35@google.com
 
-> ---
->   drivers/accel/amdxdna/amdxdna_mailbox.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/accel/amdxdna/amdxdna_mailbox.c b/drivers/accel/amdxdna/amdxdna_mailbox.c
-> index 46d844a73a94..e681a090752d 100644
-> --- a/drivers/accel/amdxdna/amdxdna_mailbox.c
-> +++ b/drivers/accel/amdxdna/amdxdna_mailbox.c
-> @@ -499,7 +499,7 @@ xdna_mailbox_start_channel(struct mailbox_channel *mb_chann,
->          int ret;
->
->          if (!is_power_of_2(x2i->rb_size) || !is_power_of_2(i2x->rb_size)) {
-> -               pr_err("Ring buf size must be power of 2");
-> +               pr_err("Ring buf size must be power of 2\n");
->                  return -EINVAL;
->          }
->
-> --
-> 2.53.0.windows.1
->
+Changes in v3:
+- C prerequisites have landed, so only Rust part is present.
+- The logic for drm_exec was removed, and is for a follow-up.
+- Split up into patches.
+- Add lifetime to SmStepContext.
+- Docs filled out.
+- Mutex abstractions used for GEM gpuva lock.
+- Drop 'shared data' concept for now. (Can be added back later if required.)
+- Rename 'core' field to 'data'.
+- GpuVmCore<T> now derefs to GpuVm<T> instead of T.
+- Renamed GpuVmBoObtain to GpuVmBoResident.
+- Probably more changes I forgot.
+- Link to v2: https://lore.kernel.org/r/20260108-gpuvm-rust-v2-0-dbd014005a0b@google.com
+
+Changes in v2:
+- For this version, only the C prerequisites are included. Rust will be
+  sent as follow-up.
+- Add comment to drm_gpuvm_bo_destroy_not_in_lists()
+- Add Fixes: tag.
+- Pick up Reviewed-by tags.
+- Link to v1: https://lore.kernel.org/r/20251128-gpuvm-rust-v1-0-ebf66bf234e0@google.com
+
+---
+Alice Ryhl (4):
+      rust: gpuvm: add GpuVm::obtain()
+      rust: gpuvm: add GpuVa struct
+      rust: gpuvm: add GpuVmCore::sm_unmap()
+      rust: gpuvm: add GpuVmCore::sm_map()
+
+Asahi Lina (2):
+      rust: drm: add base GPUVM immediate mode abstraction
+      rust: helpers: Add bindings/wrappers for dma_resv_lock
+
+ MAINTAINERS                     |   3 +
+ rust/bindings/bindings_helper.h |   2 +
+ rust/helpers/dma-resv.c         |  14 ++
+ rust/helpers/drm_gpuvm.c        |  26 +++
+ rust/helpers/helpers.c          |   2 +
+ rust/kernel/drm/gpuvm/mod.rs    | 306 +++++++++++++++++++++++++++++
+ rust/kernel/drm/gpuvm/sm_ops.rs | 417 ++++++++++++++++++++++++++++++++++++++++
+ rust/kernel/drm/gpuvm/va.rs     | 150 +++++++++++++++
+ rust/kernel/drm/gpuvm/vm_bo.rs  | 234 ++++++++++++++++++++++
+ rust/kernel/drm/mod.rs          |   1 +
+ 10 files changed, 1155 insertions(+)
+---
+base-commit: a19457958c3018783881c4416f272cd594f13049
+change-id: 20251128-gpuvm-rust-b719cac27ad6
+
+Best regards,
+-- 
+Alice Ryhl <aliceryhl@google.com>
+
