@@ -4,42 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 66EAE108B8F1
-	for <dri-devel@archiver.kernel.org>; Fri, 20 Mar 2026 10:47:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8F5F4108B8F1
+	for <dri-devel@archiver.kernel.org>; Fri, 20 Mar 2026 10:47:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C24FC10EA75;
-	Fri, 20 Mar 2026 10:47:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CDCB910EA78;
+	Fri, 20 Mar 2026 10:47:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="b0usys/h";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="TXc1o2vt";
 	dkim-atps=neutral
 Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 97EF210EA75
- for <dri-devel@lists.freedesktop.org>; Fri, 20 Mar 2026 10:47:09 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 079E810EA78
+ for <dri-devel@lists.freedesktop.org>; Fri, 20 Mar 2026 10:47:19 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-02.galae.net (Postfix) with ESMTPS id 897421A2F0E;
- Fri, 20 Mar 2026 10:47:08 +0000 (UTC)
+ by smtpout-02.galae.net (Postfix) with ESMTPS id EE34C1A2F15;
+ Fri, 20 Mar 2026 10:47:17 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 5C00C601A0;
- Fri, 20 Mar 2026 10:47:08 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id BFB41600E0;
+ Fri, 20 Mar 2026 10:47:17 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 4215310450B9C; Fri, 20 Mar 2026 11:46:54 +0100 (CET)
+ with ESMTPSA id 6D49810450A35; Fri, 20 Mar 2026 11:47:06 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1774003625; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ t=1774003635; h=from:subject:date:message-id:to:cc:mime-version:content-type:
  content-transfer-encoding:in-reply-to:references;
- bh=uqivpiK0EZCZ1GJzIO6qlD0UY/zTX2jimlhOlJX9+J8=;
- b=b0usys/hnRS2Fr9NfUVkW6SirYB8SXTdJjTxeH9MM7GK4qT2fXIU3RFMZbWCK0ZoGW5zLo
- oN+2nl4hoV9mgyOKb3anTMfGFYXucRrfsJprsxnNSH2U4xaFfS8vNxUe48cOBI+BP1Y+DT
- E1DVv8d3lYXpeik3x7rqaHbQ0o+f3AG2r07ukYuEe5Ohs8Ax/3U4KuVfiuCT0f9HjzAoN6
- als/m0eQya/PgWGchzytujlX9enQAxkDRCx17CILGjWOJUN+9/wZ2/5vYmYyWaEHCRAMhm
- 4XEDoFZl5NnnBeQ4a6FKLJZNBMfFduE7Linncvc47zw2GUbAzoBBRCjOmuX+VA==
+ bh=XbMfNfupY1VfnZEkIIda79LO69pWcXv3nSLGBIpLS3Y=;
+ b=TXc1o2vt65RFdnHE36jvwmA3uWA9LppHucLNBayn5LTscMGEgQvMgJFcYq4XtpaMHv1Lr6
+ Jm56xae17+BrM7hqTPHLRxTzK1kCRE7WdQBiP8xRWwJ/Yn1FvIS7930MDqzZDlOUClxVJk
+ WcIco9DemcN126+i1P3mfhZ7HjgiUJ9xV06UK9VXnZdYVnZoRapQEn7qnq3YKhZjXkj1+E
+ oME9weNqWf+XvozQQAkSh2a7WGanuXQ7xNKW3NA9AKm2wOmrHYyRl8EAX0j/QGS1uXqUAJ
+ v0ZS4pdagVQXBaW9qCXsuTbbFyQj8MECWohNixYntJ6i8MXqMFgItTq9fOJkdA==
 From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Date: Fri, 20 Mar 2026 11:46:14 +0100
-Subject: [PATCH 3/8] drm/mxsfb/lcdif: use dev_err_probe() consistently in
- lcdif_attach_bridge
+Date: Fri, 20 Mar 2026 11:46:15 +0100
+Subject: [PATCH 4/8] drm/bridge: dw-hdmi: document the output_port field
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260320-drm-lcdif-dbanc-v1-3-479a04133e70@bootlin.com>
+Message-Id: <20260320-drm-lcdif-dbanc-v1-4-479a04133e70@bootlin.com>
 References: <20260320-drm-lcdif-dbanc-v1-0-479a04133e70@bootlin.com>
 In-Reply-To: <20260320-drm-lcdif-dbanc-v1-0-479a04133e70@bootlin.com>
 To: Marek Vasut <marex@denx.de>, Stefan Agner <stefan@agner.ch>, 
@@ -102,42 +101,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-lcdif_attach_bridge() uses dev_err_probe() in some error paths, dev_err() +
-return in others. Use dev_err_probe() for all of them to make code
-consistent and simpler.
+The meaning of this flag may not be obvious at first sight.
 
 Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 ---
- drivers/gpu/drm/mxsfb/lcdif_drv.c | 12 ++++--------
- 1 file changed, 4 insertions(+), 8 deletions(-)
+ include/drm/bridge/dw_hdmi.h | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/drivers/gpu/drm/mxsfb/lcdif_drv.c b/drivers/gpu/drm/mxsfb/lcdif_drv.c
-index 83e134c04882..e40253ad607b 100644
---- a/drivers/gpu/drm/mxsfb/lcdif_drv.c
-+++ b/drivers/gpu/drm/mxsfb/lcdif_drv.c
-@@ -63,18 +63,14 @@ static int lcdif_attach_bridge(struct lcdif_drm_private *lcdif)
- 		return dev_err_probe(dev, PTR_ERR(bridge), "Failed to get bridge\n");
+diff --git a/include/drm/bridge/dw_hdmi.h b/include/drm/bridge/dw_hdmi.h
+index 336f062e1f9d..45f6ba1a8ee1 100644
+--- a/include/drm/bridge/dw_hdmi.h
++++ b/include/drm/bridge/dw_hdmi.h
+@@ -126,6 +126,11 @@ struct dw_hdmi_phy_ops {
+ struct dw_hdmi_plat_data {
+ 	struct regmap *regm;
  
- 	encoder = devm_kzalloc(dev, sizeof(*encoder), GFP_KERNEL);
--	if (!encoder) {
--		dev_err(dev, "Failed to allocate encoder\n");
--		return -ENOMEM;
--	}
-+	if (!encoder)
-+		return dev_err_probe(dev, -ENOMEM, "Failed to allocate encoder\n");
++	/*
++	 * The HDMI output port number (which must be 1) if it is described
++	 * in the device tree. 0 if the device tree does not describe the
++	 * next component (legacy mode).
++	 */
+ 	unsigned int output_port;
  
- 	encoder->possible_crtcs = drm_crtc_mask(&lcdif->crtc);
- 	ret = drm_encoder_init(lcdif->drm, encoder, &lcdif_encoder_funcs,
- 			       DRM_MODE_ENCODER_NONE, NULL);
--	if (ret) {
--		dev_err(dev, "Failed to initialize encoder: %d\n", ret);
--		return ret;
--	}
-+	if (ret)
-+		return dev_err_probe(dev, ret, "Failed to initialize encoder\n");
- 
- 	ret = drm_bridge_attach(encoder, bridge, NULL, 0);
- 	if (ret)
+ 	unsigned long input_bus_encoding;
 
 -- 
 2.53.0
