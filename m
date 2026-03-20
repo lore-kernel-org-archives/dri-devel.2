@@ -4,32 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5AEEA1099B37
-	for <dri-devel@archiver.kernel.org>; Fri, 20 Mar 2026 19:47:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 18E771099B37
+	for <dri-devel@archiver.kernel.org>; Fri, 20 Mar 2026 19:47:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B61FA10EC19;
-	Fri, 20 Mar 2026 19:47:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 77A6410EC18;
+	Fri, 20 Mar 2026 19:47:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="XfiuRB0r";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="qgeRGwfO";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EDB3310EBD6;
- Fri, 20 Mar 2026 19:47:11 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0EFFA10EC1A;
+ Fri, 20 Mar 2026 19:47:16 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id DE67E6091C;
+ by tor.source.kernel.org (Postfix) with ESMTP id 508776015B;
+ Fri, 20 Mar 2026 19:47:15 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1FF42C2BC87;
  Fri, 20 Mar 2026 19:47:10 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB4BBC2BCAF;
- Fri, 20 Mar 2026 19:47:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1774036030;
- bh=H19eCxDOxVLkokvJ6mibpjYwYFYpFnwlymEHSUKk2CM=;
+ s=k20201202; t=1774036034;
+ bh=kJQ6AOlUSC0Z7dQ3ABfDnQ43PiQSAaKqxuGU0btOtaI=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=XfiuRB0rmDmC7dl8VW4ICAzjET0MPrSZ9M/Kxxz/Vbq4Y7R1xbCYg7GFgHNtvkEz9
- KCR4fLPOCokYjrVerEKuP/3JWyKGiSWhgZlb7tXTTsFBHpo6+VtyG5kxN8AFU+OHud
- uYuNpxG/JaG1tLiySY0M89cpXZEIy4OV6vL+LSKp+4T094FwVjeele90B15LxxVd5F
- aM5ZzulIxzSG4Onk03Mg7iZ6sbj//7bW5HR6S/uUx+nsq8m946rTRcR7M9i3+OcQq5
- JBU5qLiGZURTfRxksi7i/V/Ey0q+jKSBqB9hXtjJMNrArV1l8JV6lyQiKcNIgnEjSW
- cuXY1ut48OF/A==
+ b=qgeRGwfOJGZFKbLJ3oAa2We51rBAXugmtmyTIeSEI5kjmIa9op5sB7klGzJ/ubzjI
+ f/sIlAyx+Ku2mY9D2uDzl/5X7imli75QOl4VFS0vdCJHmfZr7rme5lhXs1jtwZHkBr
+ 2lqX8y2NzH9jSXYFUg34CGpHOGZAUQGChOVa3OAKrEKhydVfKxt/X9C3AmZzyocGRT
+ 4+U1cJufxnrnleyXJWgHr9znn+hBGVQkOsYAXNgwqh7NOm7zVjcM/w2jaJZ9gGq3KF
+ WUbxjV5PuqusyjiQe9bksoHsVB9F7zmXtT/0cf1ShtvWYgpIsdYPo/L+TrhMWbEZIW
+ XeIEFWMBqDLRA==
 From: Danilo Krummrich <dakr@kernel.org>
 To: aliceryhl@google.com, acourbot@nvidia.com, ojeda@kernel.org,
  boqun@kernel.org, gary@garyguo.net, bjorn3_gh@protonmail.com,
@@ -39,9 +39,9 @@ To: aliceryhl@google.com, acourbot@nvidia.com, ojeda@kernel.org,
 Cc: driver-core@lists.linux.dev, nouveau@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org,
  linux-kernel@vger.kernel.org, Danilo Krummrich <dakr@kernel.org>
-Subject: [PATCH v2 7/8] gpu: nova-core: convert Gsp::new() to use CoherentBox
-Date: Fri, 20 Mar 2026 20:45:42 +0100
-Message-ID: <20260320194626.36263-8-dakr@kernel.org>
+Subject: [PATCH v2 8/8] gpu: nova-core: convert to new dma::Coherent API
+Date: Fri, 20 Mar 2026 20:45:43 +0100
+Message-ID: <20260320194626.36263-9-dakr@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260320194626.36263-1-dakr@kernel.org>
 References: <20260320194626.36263-1-dakr@kernel.org>
@@ -62,246 +62,333 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Convert libos (LibosMemoryRegionInitArgument) and rmargs
-(GspArgumentsPadded) to use CoherentBox / Coherent::init() and simplify
-the initialization. This also avoids separate initialization on the
-stack.
+From: Gary Guo <gary@garyguo.net>
 
+Remove all usages of dma::CoherentAllocation and use the new
+dma::Coherent type instead.
+
+Note that there are still remainders of the old dma::CoherentAllocation
+API, such as as_slice() and as_slice_mut().
+
+Signed-off-by: Gary Guo <gary@garyguo.net>
+Co-developed-by: Danilo Krummrich <dakr@kernel.org>
 Signed-off-by: Danilo Krummrich <dakr@kernel.org>
 ---
- drivers/gpu/nova-core/gsp.rs    | 47 +++++++++++--------------
- drivers/gpu/nova-core/gsp/fw.rs | 62 +++++++++++++++++++++++----------
- 2 files changed, 65 insertions(+), 44 deletions(-)
+ drivers/gpu/nova-core/dma.rs      | 19 ++++++-------
+ drivers/gpu/nova-core/falcon.rs   |  5 ++--
+ drivers/gpu/nova-core/gsp.rs      | 21 ++++++++------
+ drivers/gpu/nova-core/gsp/cmdq.rs | 21 ++++++--------
+ drivers/gpu/nova-core/gsp/fw.rs   | 46 ++++++++++---------------------
+ 5 files changed, 47 insertions(+), 65 deletions(-)
 
+diff --git a/drivers/gpu/nova-core/dma.rs b/drivers/gpu/nova-core/dma.rs
+index 7215398969da..3c19d5ffcfe8 100644
+--- a/drivers/gpu/nova-core/dma.rs
++++ b/drivers/gpu/nova-core/dma.rs
+@@ -9,13 +9,13 @@
+ 
+ use kernel::{
+     device,
+-    dma::CoherentAllocation,
++    dma::Coherent,
+     page::PAGE_SIZE,
+     prelude::*, //
+ };
+ 
+ pub(crate) struct DmaObject {
+-    dma: CoherentAllocation<u8>,
++    dma: Coherent<[u8]>,
+ }
+ 
+ impl DmaObject {
+@@ -24,23 +24,22 @@ pub(crate) fn new(dev: &device::Device<device::Bound>, len: usize) -> Result<Sel
+             .map_err(|_| EINVAL)?
+             .pad_to_align()
+             .size();
+-        let dma = CoherentAllocation::alloc_coherent(dev, len, GFP_KERNEL | __GFP_ZERO)?;
++        let dma = Coherent::zeroed_slice(dev, len, GFP_KERNEL)?;
+ 
+         Ok(Self { dma })
+     }
+ 
+     pub(crate) fn from_data(dev: &device::Device<device::Bound>, data: &[u8]) -> Result<Self> {
+-        Self::new(dev, data.len()).and_then(|mut dma_obj| {
+-            // SAFETY: We have just allocated the DMA memory, we are the only users and
+-            // we haven't made the device aware of the handle yet.
+-            unsafe { dma_obj.write(data, 0)? }
+-            Ok(dma_obj)
+-        })
++        let dma_obj = Self::new(dev, data.len())?;
++        // SAFETY: We have just allocated the DMA memory, we are the only users and
++        // we haven't made the device aware of the handle yet.
++        unsafe { dma_obj.as_mut()[..data.len()].copy_from_slice(data) };
++        Ok(dma_obj)
+     }
+ }
+ 
+ impl Deref for DmaObject {
+-    type Target = CoherentAllocation<u8>;
++    type Target = Coherent<[u8]>;
+ 
+     fn deref(&self) -> &Self::Target {
+         &self.dma
+diff --git a/drivers/gpu/nova-core/falcon.rs b/drivers/gpu/nova-core/falcon.rs
+index 7097a206ec3c..5bf8da8760bf 100644
+--- a/drivers/gpu/nova-core/falcon.rs
++++ b/drivers/gpu/nova-core/falcon.rs
+@@ -26,8 +26,7 @@
+     gpu::Chipset,
+     num::{
+         self,
+-        FromSafeCast,
+-        IntoSafeCast, //
++        FromSafeCast, //
+     },
+     regs,
+     regs::macros::RegisterBase, //
+@@ -653,7 +652,7 @@ fn dma_wr(
+             }
+             FalconMem::Dmem => (
+                 0,
+-                dma_obj.dma_handle_with_offset(load_offsets.src_start.into_safe_cast())?,
++                dma_obj.dma_handle() + DmaAddress::from(load_offsets.src_start),
+             ),
+         };
+         if dma_start % DmaAddress::from(DMA_LEN) > 0 {
 diff --git a/drivers/gpu/nova-core/gsp.rs b/drivers/gpu/nova-core/gsp.rs
-index 72f173726f87..f0a50bdc4c00 100644
+index f0a50bdc4c00..a045c4189989 100644
 --- a/drivers/gpu/nova-core/gsp.rs
 +++ b/drivers/gpu/nova-core/gsp.rs
-@@ -5,10 +5,11 @@
+@@ -6,13 +6,15 @@
+     device,
+     dma::{
+         Coherent,
+-        CoherentAllocation,
+         CoherentBox,
+         DmaAddress, //
+     },
+     pci,
+     prelude::*,
+-    transmute::AsBytes, //
++    transmute::{
++        AsBytes,
++        FromBytes, //
++    }, //
+ };
+ 
+ pub(crate) mod cmdq;
+@@ -44,6 +46,9 @@
+ #[repr(C)]
+ struct PteArray<const NUM_ENTRIES: usize>([u64; NUM_ENTRIES]);
+ 
++/// SAFETY: arrays of `u64` implement `FromBytes` and we are but a wrapper around one.
++unsafe impl<const NUM_ENTRIES: usize> FromBytes for PteArray<NUM_ENTRIES> {}
++
+ /// SAFETY: arrays of `u64` implement `AsBytes` and we are but a wrapper around one.
+ unsafe impl<const NUM_ENTRIES: usize> AsBytes for PteArray<NUM_ENTRIES> {}
+ 
+@@ -71,26 +76,24 @@ fn entry(start: DmaAddress, index: usize) -> Result<u64> {
+ /// then pp points to index into the buffer where the next logging entry will
+ /// be written. Therefore, the logging data is valid if:
+ ///   1 <= pp < sizeof(buffer)/sizeof(u64)
+-struct LogBuffer(CoherentAllocation<u8>);
++struct LogBuffer(Coherent<[u8]>);
+ 
+ impl LogBuffer {
+     /// Creates a new `LogBuffer` mapped on `dev`.
+     fn new(dev: &device::Device<device::Bound>) -> Result<Self> {
+         const NUM_PAGES: usize = RM_LOG_BUFFER_NUM_PAGES;
+ 
+-        let mut obj = Self(CoherentAllocation::<u8>::alloc_coherent(
++        let obj = Self(Coherent::<u8>::zeroed_slice(
+             dev,
+             NUM_PAGES * GSP_PAGE_SIZE,
+-            GFP_KERNEL | __GFP_ZERO,
++            GFP_KERNEL,
+         )?);
+ 
+         let start_addr = obj.0.dma_handle();
+ 
+         // SAFETY: `obj` has just been created and we are its sole user.
+-        let pte_region = unsafe {
+-            obj.0
+-                .as_slice_mut(size_of::<u64>(), NUM_PAGES * size_of::<u64>())?
+-        };
++        let pte_region =
++            unsafe { &mut obj.0.as_mut()[size_of::<u64>()..][..NUM_PAGES * size_of::<u64>()] };
+ 
+         // Write values one by one to avoid an on-stack instance of `PteArray`.
+         for (i, chunk) in pte_region.chunks_exact_mut(size_of::<u64>()).enumerate() {
+diff --git a/drivers/gpu/nova-core/gsp/cmdq.rs b/drivers/gpu/nova-core/gsp/cmdq.rs
+index d36a62ba1c60..f38790601a0f 100644
+--- a/drivers/gpu/nova-core/gsp/cmdq.rs
++++ b/drivers/gpu/nova-core/gsp/cmdq.rs
+@@ -7,7 +7,7 @@
  use kernel::{
      device,
      dma::{
+-        CoherentAllocation,
 +        Coherent,
-         CoherentAllocation,
-+        CoherentBox,
          DmaAddress, //
      },
--    dma_write,
-     pci,
-     prelude::*,
-     transmute::AsBytes, //
-@@ -106,7 +107,7 @@ fn new(dev: &device::Device<device::Bound>) -> Result<Self> {
- #[pin_data]
- pub(crate) struct Gsp {
-     /// Libos arguments.
--    pub(crate) libos: CoherentAllocation<LibosMemoryRegionInitArgument>,
-+    pub(crate) libos: Coherent<[LibosMemoryRegionInitArgument]>,
-     /// Init log buffer.
-     loginit: LogBuffer,
-     /// Interrupts log buffer.
-@@ -117,7 +118,7 @@ pub(crate) struct Gsp {
-     #[pin]
-     pub(crate) cmdq: Cmdq,
-     /// RM arguments.
--    rmargs: CoherentAllocation<GspArgumentsPadded>,
-+    rmargs: Coherent<GspArgumentsPadded>,
- }
+     dma_write,
+@@ -207,7 +207,7 @@ unsafe impl AsBytes for GspMem {}
+ // that is not a problem because they are not used outside the kernel.
+ unsafe impl FromBytes for GspMem {}
  
- impl Gsp {
-@@ -126,34 +127,28 @@ pub(crate) fn new(pdev: &pci::Device<device::Bound>) -> impl PinInit<Self, Error
-         pin_init::pin_init_scope(move || {
-             let dev = pdev.as_ref();
+-/// Wrapper around [`GspMem`] to share it with the GPU using a [`CoherentAllocation`].
++/// Wrapper around [`GspMem`] to share it with the GPU using a [`Coherent`].
+ ///
+ /// This provides the low-level functionality to communicate with the GSP, including allocation of
+ /// queue space to write messages to and management of read/write pointers.
+@@ -218,7 +218,7 @@ unsafe impl FromBytes for GspMem {}
+ ///   pointer and the GSP read pointer. This region is returned by [`Self::driver_write_area`].
+ /// * The driver owns (i.e. can read from) the part of the GSP message queue between the CPU read
+ ///   pointer and the GSP write pointer. This region is returned by [`Self::driver_read_area`].
+-struct DmaGspMem(CoherentAllocation<GspMem>);
++struct DmaGspMem(Coherent<GspMem>);
  
-+            // Initialise the logging structures. The OpenRM equivalents are in:
-+            // _kgspInitLibosLoggingStructures (allocates memory for buffers)
-+            // kgspSetupLibosInitArgs_IMPL (creates pLibosInitArgs[] array)
-             Ok(try_pin_init!(Self {
--                libos: CoherentAllocation::<LibosMemoryRegionInitArgument>::alloc_coherent(
--                    dev,
--                    GSP_PAGE_SIZE / size_of::<LibosMemoryRegionInitArgument>(),
--                    GFP_KERNEL | __GFP_ZERO,
--                )?,
-                 loginit: LogBuffer::new(dev)?,
-                 logintr: LogBuffer::new(dev)?,
-                 logrm: LogBuffer::new(dev)?,
-                 cmdq <- Cmdq::new(dev),
--                rmargs: CoherentAllocation::<GspArgumentsPadded>::alloc_coherent(
--                    dev,
--                    1,
--                    GFP_KERNEL | __GFP_ZERO,
--                )?,
--                _: {
--                    // Initialise the logging structures. The OpenRM equivalents are in:
--                    // _kgspInitLibosLoggingStructures (allocates memory for buffers)
--                    // kgspSetupLibosInitArgs_IMPL (creates pLibosInitArgs[] array)
--                    dma_write!(
--                        libos, [0]?, LibosMemoryRegionInitArgument::new("LOGINIT", &loginit.0)
--                    );
--                    dma_write!(
--                        libos, [1]?, LibosMemoryRegionInitArgument::new("LOGINTR", &logintr.0)
--                    );
--                    dma_write!(libos, [2]?, LibosMemoryRegionInitArgument::new("LOGRM", &logrm.0));
--                    dma_write!(rmargs, [0]?.inner, fw::GspArgumentsCached::new(&cmdq));
--                    dma_write!(libos, [3]?, LibosMemoryRegionInitArgument::new("RMARGS", rmargs));
-+                rmargs: Coherent::init(dev, GFP_KERNEL, GspArgumentsPadded::new(&cmdq))?,
-+                libos: {
-+                    let mut libos = CoherentBox::zeroed_slice(
-+                        dev,
-+                        GSP_PAGE_SIZE / size_of::<LibosMemoryRegionInitArgument>(),
-+                        GFP_KERNEL,
-+                    )?;
-+
-+                    libos.init_at(0, LibosMemoryRegionInitArgument::new("LOGINIT", &loginit.0))?;
-+                    libos.init_at(1, LibosMemoryRegionInitArgument::new("LOGINTR", &logintr.0))?;
-+                    libos.init_at(2, LibosMemoryRegionInitArgument::new("LOGRM", &logrm.0))?;
-+                    libos.init_at(3, LibosMemoryRegionInitArgument::new("RMARGS", rmargs))?;
-+
-+                    libos.into()
-                 },
-             }))
-         })
-diff --git a/drivers/gpu/nova-core/gsp/fw.rs b/drivers/gpu/nova-core/gsp/fw.rs
-index 4e3bfc6c4c47..0d8daf6a80b7 100644
---- a/drivers/gpu/nova-core/gsp/fw.rs
-+++ b/drivers/gpu/nova-core/gsp/fw.rs
-@@ -9,11 +9,12 @@
- use core::ops::Range;
+ impl DmaGspMem {
+     /// Allocate a new instance and map it for `dev`.
+@@ -226,21 +226,20 @@ fn new(dev: &device::Device<device::Bound>) -> Result<Self> {
+         const MSGQ_SIZE: u32 = num::usize_into_u32::<{ size_of::<Msgq>() }>();
+         const RX_HDR_OFF: u32 = num::usize_into_u32::<{ mem::offset_of!(Msgq, rx) }>();
  
- use kernel::{
--    dma::CoherentAllocation,
-+    dma::Coherent,
-     prelude::*,
-     ptr::{
-         Alignable,
--        Alignment, //
-+        Alignment,
-+        KnownSize, //
-     },
-     sizes::{
-         SZ_128K,
-@@ -648,7 +649,9 @@ unsafe impl AsBytes for RunCpuSequencer {}
- /// The memory allocated for the arguments must remain until the GSP sends the
- /// init_done RPC.
- #[repr(transparent)]
--pub(crate) struct LibosMemoryRegionInitArgument(bindings::LibosMemoryRegionInitArgument);
-+pub(crate) struct LibosMemoryRegionInitArgument {
-+    inner: bindings::LibosMemoryRegionInitArgument,
-+}
+-        let gsp_mem =
+-            CoherentAllocation::<GspMem>::alloc_coherent(dev, 1, GFP_KERNEL | __GFP_ZERO)?;
++        let gsp_mem = Coherent::<GspMem>::zeroed(dev, GFP_KERNEL)?;
  
- // SAFETY: Padding is explicit and does not contain uninitialized data.
- unsafe impl AsBytes for LibosMemoryRegionInitArgument {}
-@@ -658,10 +661,10 @@ unsafe impl AsBytes for LibosMemoryRegionInitArgument {}
- unsafe impl FromBytes for LibosMemoryRegionInitArgument {}
- 
- impl LibosMemoryRegionInitArgument {
--    pub(crate) fn new<A: AsBytes + FromBytes>(
-+    pub(crate) fn new<'a, A: AsBytes + FromBytes + KnownSize + ?Sized>(
-         name: &'static str,
--        obj: &CoherentAllocation<A>,
--    ) -> Self {
-+        obj: &'a Coherent<A>,
-+    ) -> impl Init<Self> + 'a {
-         /// Generates the `ID8` identifier required for some GSP objects.
-         fn id8(name: &str) -> u64 {
-             let mut bytes = [0u8; core::mem::size_of::<u64>()];
-@@ -673,7 +676,8 @@ fn id8(name: &str) -> u64 {
-             u64::from_ne_bytes(bytes)
+         let start = gsp_mem.dma_handle();
+         // Write values one by one to avoid an on-stack instance of `PteArray`.
+         for i in 0..GspMem::PTE_ARRAY_SIZE {
+-            dma_write!(gsp_mem, [0]?.ptes.0[i], PteArray::<0>::entry(start, i)?);
++            dma_write!(gsp_mem, .ptes.0[i], PteArray::<0>::entry(start, i)?);
          }
  
--        Self(bindings::LibosMemoryRegionInitArgument {
-+        #[allow(non_snake_case)]
-+        let init_inner = init!(bindings::LibosMemoryRegionInitArgument {
-             id8: id8(name),
-             pa: obj.dma_handle(),
-             size: num::usize_as_u64(obj.size()),
-@@ -683,7 +687,11 @@ fn id8(name: &str) -> u64 {
-             loc: num::u32_into_u8::<
-                 { bindings::LibosMemoryRegionLoc_LIBOS_MEMORY_REGION_LOC_SYSMEM },
-             >(),
--            ..Default::default()
-+            ..Zeroable::init_zeroed()
-+        });
-+
-+        init!(LibosMemoryRegionInitArgument {
-+            inner <- init_inner,
-         })
+         dma_write!(
+             gsp_mem,
+-            [0]?.cpuq.tx,
++            .cpuq.tx,
+             MsgqTxHeader::new(MSGQ_SIZE, RX_HDR_OFF, MSGQ_NUM_PAGES)
+         );
+-        dma_write!(gsp_mem, [0]?.cpuq.rx, MsgqRxHeader::new());
++        dma_write!(gsp_mem, .cpuq.rx, MsgqRxHeader::new());
+ 
+         Ok(Self(gsp_mem))
      }
- }
-@@ -862,15 +870,23 @@ unsafe impl FromBytes for GspMsgElement {}
+@@ -255,10 +254,9 @@ fn new(dev: &device::Device<device::Bound>) -> Result<Self> {
+         let rx = self.gsp_read_ptr() as usize;
  
- /// Arguments for GSP startup.
- #[repr(transparent)]
--pub(crate) struct GspArgumentsCached(bindings::GSP_ARGUMENTS_CACHED);
-+#[derive(Zeroable)]
-+pub(crate) struct GspArgumentsCached {
-+    inner: bindings::GSP_ARGUMENTS_CACHED,
-+}
+         // SAFETY:
+-        // - The `CoherentAllocation` contains exactly one object.
+         // - We will only access the driver-owned part of the shared memory.
+         // - Per the safety statement of the function, no concurrent access will be performed.
+-        let gsp_mem = &mut unsafe { self.0.as_slice_mut(0, 1) }.unwrap()[0];
++        let gsp_mem = unsafe { &mut *self.0.as_mut() };
+         // PANIC: per the invariant of `cpu_write_ptr`, `tx` is `< MSGQ_NUM_PAGES`.
+         let (before_tx, after_tx) = gsp_mem.cpuq.msgq.data.split_at_mut(tx);
  
- impl GspArgumentsCached {
-     /// Creates the arguments for starting the GSP up using `cmdq` as its command queue.
--    pub(crate) fn new(cmdq: &Cmdq) -> Self {
--        Self(bindings::GSP_ARGUMENTS_CACHED {
--            messageQueueInitArguments: MessageQueueInitArguments::new(cmdq).0,
-+    pub(crate) fn new(cmdq: &Cmdq) -> impl Init<Self> + '_ {
-+        #[allow(non_snake_case)]
-+        let init_inner = init!(bindings::GSP_ARGUMENTS_CACHED {
-+            messageQueueInitArguments <- MessageQueueInitArguments::new(cmdq),
-             bDmemStack: 1,
--            ..Default::default()
-+            ..Zeroable::init_zeroed()
-+        });
-+
-+        init!(GspArgumentsCached {
-+            inner <- init_inner,
-         })
+@@ -309,10 +307,9 @@ fn driver_write_area_size(&self) -> usize {
+         let rx = self.cpu_read_ptr() as usize;
+ 
+         // SAFETY:
+-        // - The `CoherentAllocation` contains exactly one object.
+         // - We will only access the driver-owned part of the shared memory.
+         // - Per the safety statement of the function, no concurrent access will be performed.
+-        let gsp_mem = &unsafe { self.0.as_slice(0, 1) }.unwrap()[0];
++        let gsp_mem = unsafe { &*self.0.as_ptr() };
+         let data = &gsp_mem.gspq.msgq.data;
+ 
+         // The area starting at `rx` and ending at `tx - 1` modulo MSGQ_NUM_PAGES, inclusive,
+diff --git a/drivers/gpu/nova-core/gsp/fw.rs b/drivers/gpu/nova-core/gsp/fw.rs
+index 0d8daf6a80b7..847b5eb215d4 100644
+--- a/drivers/gpu/nova-core/gsp/fw.rs
++++ b/drivers/gpu/nova-core/gsp/fw.rs
+@@ -40,8 +40,7 @@
+     },
+ };
+ 
+-// TODO: Replace with `IoView` projections once available; the `unwrap()` calls go away once we
+-// switch to the new `dma::Coherent` API.
++// TODO: Replace with `IoView` projections once available.
+ pub(super) mod gsp_mem {
+     use core::sync::atomic::{
+         fence,
+@@ -49,10 +48,9 @@ pub(super) mod gsp_mem {
+     };
+ 
+     use kernel::{
+-        dma::CoherentAllocation,
++        dma::Coherent,
+         dma_read,
+-        dma_write,
+-        prelude::*, //
++        dma_write, //
+     };
+ 
+     use crate::gsp::cmdq::{
+@@ -60,49 +58,35 @@ pub(super) mod gsp_mem {
+         MSGQ_NUM_PAGES, //
+     };
+ 
+-    pub(in crate::gsp) fn gsp_write_ptr(qs: &CoherentAllocation<GspMem>) -> u32 {
+-        // PANIC: A `dma::CoherentAllocation` always contains at least one element.
+-        || -> Result<u32> { Ok(dma_read!(qs, [0]?.gspq.tx.0.writePtr) % MSGQ_NUM_PAGES) }().unwrap()
++    pub(in crate::gsp) fn gsp_write_ptr(qs: &Coherent<GspMem>) -> u32 {
++        dma_read!(qs, .gspq.tx.0.writePtr) % MSGQ_NUM_PAGES
      }
- }
-@@ -882,11 +898,21 @@ unsafe impl AsBytes for GspArgumentsCached {}
- /// must all be a multiple of GSP_PAGE_SIZE in size, so add padding to force it
- /// to that size.
- #[repr(C)]
-+#[derive(Zeroable)]
- pub(crate) struct GspArgumentsPadded {
-     pub(crate) inner: GspArgumentsCached,
-     _padding: [u8; GSP_PAGE_SIZE - core::mem::size_of::<bindings::GSP_ARGUMENTS_CACHED>()],
- }
  
-+impl GspArgumentsPadded {
-+    pub(crate) fn new(cmdq: &Cmdq) -> impl Init<Self> + '_ {
-+        init!(GspArgumentsPadded {
-+            inner <- GspArgumentsCached::new(cmdq),
-+            ..Zeroable::init_zeroed()
-+        })
-+    }
-+}
-+
- // SAFETY: Padding is explicit and will not contain uninitialized data.
- unsafe impl AsBytes for GspArgumentsPadded {}
- 
-@@ -895,18 +921,18 @@ unsafe impl AsBytes for GspArgumentsPadded {}
- unsafe impl FromBytes for GspArgumentsPadded {}
- 
- /// Init arguments for the message queue.
--#[repr(transparent)]
--struct MessageQueueInitArguments(bindings::MESSAGE_QUEUE_INIT_ARGUMENTS);
-+type MessageQueueInitArguments = bindings::MESSAGE_QUEUE_INIT_ARGUMENTS;
- 
- impl MessageQueueInitArguments {
-     /// Creates a new init arguments structure for `cmdq`.
--    fn new(cmdq: &Cmdq) -> Self {
--        Self(bindings::MESSAGE_QUEUE_INIT_ARGUMENTS {
-+    #[allow(non_snake_case)]
-+    fn new(cmdq: &Cmdq) -> impl Init<Self> + '_ {
-+        init!(MessageQueueInitArguments {
-             sharedMemPhysAddr: cmdq.dma_handle(),
-             pageTableEntryCount: num::usize_into_u32::<{ Cmdq::NUM_PTES }>(),
-             cmdQueueOffset: num::usize_as_u64(Cmdq::CMDQ_OFFSET),
-             statQueueOffset: num::usize_as_u64(Cmdq::STATQ_OFFSET),
--            ..Default::default()
-+            ..Zeroable::init_zeroed()
-         })
+-    pub(in crate::gsp) fn gsp_read_ptr(qs: &CoherentAllocation<GspMem>) -> u32 {
+-        // PANIC: A `dma::CoherentAllocation` always contains at least one element.
+-        || -> Result<u32> { Ok(dma_read!(qs, [0]?.gspq.rx.0.readPtr) % MSGQ_NUM_PAGES) }().unwrap()
++    pub(in crate::gsp) fn gsp_read_ptr(qs: &Coherent<GspMem>) -> u32 {
++        dma_read!(qs, .gspq.rx.0.readPtr) % MSGQ_NUM_PAGES
      }
- }
+ 
+-    pub(in crate::gsp) fn cpu_read_ptr(qs: &CoherentAllocation<GspMem>) -> u32 {
+-        // PANIC: A `dma::CoherentAllocation` always contains at least one element.
+-        || -> Result<u32> { Ok(dma_read!(qs, [0]?.cpuq.rx.0.readPtr) % MSGQ_NUM_PAGES) }().unwrap()
++    pub(in crate::gsp) fn cpu_read_ptr(qs: &Coherent<GspMem>) -> u32 {
++        dma_read!(qs, .cpuq.rx.0.readPtr) % MSGQ_NUM_PAGES
+     }
+ 
+-    pub(in crate::gsp) fn advance_cpu_read_ptr(qs: &CoherentAllocation<GspMem>, count: u32) {
++    pub(in crate::gsp) fn advance_cpu_read_ptr(qs: &Coherent<GspMem>, count: u32) {
+         let rptr = cpu_read_ptr(qs).wrapping_add(count) % MSGQ_NUM_PAGES;
+ 
+         // Ensure read pointer is properly ordered.
+         fence(Ordering::SeqCst);
+ 
+-        // PANIC: A `dma::CoherentAllocation` always contains at least one element.
+-        || -> Result {
+-            dma_write!(qs, [0]?.cpuq.rx.0.readPtr, rptr);
+-            Ok(())
+-        }()
+-        .unwrap()
++        dma_write!(qs, .cpuq.rx.0.readPtr, rptr);
+     }
+ 
+-    pub(in crate::gsp) fn cpu_write_ptr(qs: &CoherentAllocation<GspMem>) -> u32 {
+-        // PANIC: A `dma::CoherentAllocation` always contains at least one element.
+-        || -> Result<u32> { Ok(dma_read!(qs, [0]?.cpuq.tx.0.writePtr) % MSGQ_NUM_PAGES) }().unwrap()
++    pub(in crate::gsp) fn cpu_write_ptr(qs: &Coherent<GspMem>) -> u32 {
++        dma_read!(qs, .cpuq.tx.0.writePtr) % MSGQ_NUM_PAGES
+     }
+ 
+-    pub(in crate::gsp) fn advance_cpu_write_ptr(qs: &CoherentAllocation<GspMem>, count: u32) {
++    pub(in crate::gsp) fn advance_cpu_write_ptr(qs: &Coherent<GspMem>, count: u32) {
+         let wptr = cpu_write_ptr(qs).wrapping_add(count) % MSGQ_NUM_PAGES;
+ 
+-        // PANIC: A `dma::CoherentAllocation` always contains at least one element.
+-        || -> Result {
+-            dma_write!(qs, [0]?.cpuq.tx.0.writePtr, wptr);
+-            Ok(())
+-        }()
+-        .unwrap();
++        dma_write!(qs, .cpuq.tx.0.writePtr, wptr);
+ 
+         // Ensure all command data is visible before triggering the GSP read.
+         fence(Ordering::SeqCst);
 -- 
 2.53.0
 
