@@ -4,47 +4,129 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B1640108B91B
-	for <dri-devel@archiver.kernel.org>; Fri, 20 Mar 2026 12:38:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6DDDC108B91B
+	for <dri-devel@archiver.kernel.org>; Fri, 20 Mar 2026 12:39:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2196810E571;
-	Fri, 20 Mar 2026 12:38:59 +0000 (UTC)
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id F34F810E571
- for <dri-devel@lists.freedesktop.org>; Fri, 20 Mar 2026 12:38:57 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 82DEA165C;
- Fri, 20 Mar 2026 05:38:51 -0700 (PDT)
-Received: from [10.1.29.20] (e122027.cambridge.arm.com [10.1.29.20])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 6AD393F7BD;
- Fri, 20 Mar 2026 05:38:54 -0700 (PDT)
-Message-ID: <a828829f-dfa9-4884-86aa-4bb948a6d6ae@arm.com>
-Date: Fri, 20 Mar 2026 12:38:52 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id BEBFD10EABF;
+	Fri, 20 Mar 2026 12:39:48 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="muWeCq1y";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="8S0YfV8V";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="muWeCq1y";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="8S0YfV8V";
+	dkim-atps=neutral
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C4AF310EABF
+ for <dri-devel@lists.freedesktop.org>; Fri, 20 Mar 2026 12:39:47 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 3D9B45BEDB;
+ Fri, 20 Mar 2026 12:39:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1774010386; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=dvI89Ihhi1UD0JVh7vYw89hPORHM2rnpWuzTaeP8+cA=;
+ b=muWeCq1yD+Jqbw/+XZSO6AnOIuBQMaP8OXgu6e3JKgc0XZayp78xXTllKLQOyje9wtpoWy
+ AcYkwg+IWdZ6RgQsg2qnB4ofnoXdi4PYVGUSfuL1oS+/AKNoQlj4sVmnzDjqa7N6u4PI0n
+ SvUiCAXrTlDc2QV4UuBWRj2qekHRDXU=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1774010386;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=dvI89Ihhi1UD0JVh7vYw89hPORHM2rnpWuzTaeP8+cA=;
+ b=8S0YfV8VlRTx5Cs/yV3Q8yfiHtIwfU2V+mfAozrAaAJmu0eGfAIYWDC01jYhHEl8Ddk5EU
+ +c4iPX21JzYI5KCQ==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1774010386; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=dvI89Ihhi1UD0JVh7vYw89hPORHM2rnpWuzTaeP8+cA=;
+ b=muWeCq1yD+Jqbw/+XZSO6AnOIuBQMaP8OXgu6e3JKgc0XZayp78xXTllKLQOyje9wtpoWy
+ AcYkwg+IWdZ6RgQsg2qnB4ofnoXdi4PYVGUSfuL1oS+/AKNoQlj4sVmnzDjqa7N6u4PI0n
+ SvUiCAXrTlDc2QV4UuBWRj2qekHRDXU=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1774010386;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=dvI89Ihhi1UD0JVh7vYw89hPORHM2rnpWuzTaeP8+cA=;
+ b=8S0YfV8VlRTx5Cs/yV3Q8yfiHtIwfU2V+mfAozrAaAJmu0eGfAIYWDC01jYhHEl8Ddk5EU
+ +c4iPX21JzYI5KCQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id DE503427D9;
+ Fri, 20 Mar 2026 12:39:45 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id tikMNRFAvWkrSAAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Fri, 20 Mar 2026 12:39:45 +0000
+Message-ID: <8240280c-e516-4f65-90bb-f5449cf5701e@suse.de>
+Date: Fri, 20 Mar 2026 13:39:45 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/4] drm/panfrost: Add bus_ace optional clock support for
- RZ/G2L
-To: Biju Das <biju.das.jz@bp.renesas.com>, "biju.das.au"
- <biju.das.au@gmail.com>, Boris Brezillon <boris.brezillon@collabora.com>,
- Rob Herring <robh@kernel.org>, =?UTF-8?Q?Adri=C3=A1n_Larumbe?=
- <adrian.larumbe@collabora.com>,
+Subject: Re: [PATCH V3] MAINTAINERS: Update GPU driver maintainer information
+To: Jianmin Lv <lvjianmin@loongson.cn>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>,
- "linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>
-References: <20260304134845.267030-1-biju.das.jz@bp.renesas.com>
- <20260304134845.267030-4-biju.das.jz@bp.renesas.com>
- <5bb58801-2851-4c7b-a8f0-d4b3cc2db474@arm.com>
- <TY3PR01MB113464CA1B37A735E020B7D82864CA@TY3PR01MB11346.jpnprd01.prod.outlook.com>
-From: Steven Price <steven.price@arm.com>
-Content-Language: en-GB
-In-Reply-To: <TY3PR01MB113464CA1B37A735E020B7D82864CA@TY3PR01MB11346.jpnprd01.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8
+ Maxime Ripard <mripard@kernel.org>, Qianhai Wu <wuqianhai@loongson.cn>,
+ Mingcong Bai <jeffbai@aosc.io>, Xi Ruoyao <xry111@xry111.site>,
+ Huacai Chen <chenhuacai@kernel.org>, Icenowy Zheng <zhengxingda@iscas.ac.cn>
+Cc: Xuefeng Li <lixuefeng@loongson.cn>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+References: <20260320101012.22714-1-lvjianmin@loongson.cn>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <20260320101012.22714-1-lvjianmin@loongson.cn>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ ARC_NA(0.00)[]; FUZZY_RATELIMITED(0.00)[rspamd.com];
+ MIME_TRACE(0.00)[0:+]; RCPT_COUNT_TWELVE(0.00)[13];
+ FREEMAIL_TO(0.00)[loongson.cn,gmail.com,ffwll.ch,linux.intel.com,kernel.org,aosc.io,xry111.site,iscas.ac.cn];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; MID_RHS_MATCH_FROM(0.00)[];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ TO_DN_SOME(0.00)[]; RCVD_TLS_ALL(0.00)[];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid,suse.de:email]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,150 +142,56 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 20/03/2026 12:30, Biju Das wrote:
-> Hi Steven Price,
-> 
-> Thanks for the feedback.
-> 
->> -----Original Message-----
->> From: Steven Price <steven.price@arm.com>
->> Sent: 20 March 2026 12:16
->> Subject: Re: [PATCH 3/4] drm/panfrost: Add bus_ace optional clock support for RZ/G2L
->>
->> On 04/03/2026 13:48, Biju wrote:
->>> From: Biju Das <biju.das.jz@bp.renesas.com>
->>>
->>> On RZ/G2L SoCs, the GPU MMU requires a bus_ace clock to operate correctly.
->>> Without it, unbind/bind cycles leave the GPU non-operational,
->>> manifesting as an AS_ACTIVE bit stuck and a soft reset timeout falling
->>> back to hard reset. Add bus_ace_clock as an optional clock, wiring it
->>> into init/fini, and the runtime suspend/resume paths alongside the
->>> existing optional bus_clock.
->>>
->>> Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
->>> ---
->>>  drivers/gpu/drm/panfrost/panfrost_device.c | 24
->>> ++++++++++++++++++++++  drivers/gpu/drm/panfrost/panfrost_device.h |
->>> 1 +
->>>  2 files changed, 25 insertions(+)
->>>
->>> diff --git a/drivers/gpu/drm/panfrost/panfrost_device.c
->>> b/drivers/gpu/drm/panfrost/panfrost_device.c
->>> index 01e702a0b2f0..87dae0ed748a 100644
->>> --- a/drivers/gpu/drm/panfrost/panfrost_device.c
->>> +++ b/drivers/gpu/drm/panfrost/panfrost_device.c
->>> @@ -70,8 +70,23 @@ static int panfrost_clk_init(struct panfrost_device *pfdev)
->>>  			goto disable_clock;
->>>  	}
->>>
->>> +	pfdev->bus_ace_clock = devm_clk_get_optional(pfdev->base.dev, "bus_ace");
->>> +	if (IS_ERR(pfdev->bus_ace_clock)) {
->>> +		err = PTR_ERR(pfdev->bus_ace_clock);
->>> +		dev_err(pfdev->base.dev, "get bus_ace_clock failed %ld\n",
->>> +			PTR_ERR(pfdev->bus_ace_clock));
->>> +		err = PTR_ERR(pfdev->bus_ace_clock);
->>
->> You've assigned err twice (with the same value), and you can simplify the dev_err() line by using err
-> 
-> Oops, forgot to take out the bottom assignment.
-> 
->> rather than the same PTR_ERR() expression again.
-> 
-> I get a warning, if I use "err" in dev_err()
-> 
-> panfrost_device.c:76:42: warning: format ‘%ld’ expects argument of type ‘long int’, but argument 3 has type ‘int’ [-Wformat=]
->    76 |                 dev_err(pfdev->base.dev, "get bus_ace_clock failed %ld\n",
 
-You can simply change the format string to "%d".
 
-Explanation:
+Am 20.03.26 um 11:10 schrieb Jianmin Lv:
+> I and Qianhai are GPU R&D engineers at Loongson, specializing
+> in kernel driver development. We understand that the current
+> Loongson GPU driver lacks dedicated maintenance resources
+> because of some reasons.
+>
+> As Loongson GPU driver developers, we have both the capability
+> and the responsibility to continuously maintain the Loongson
+> GPU driver, ensuring minimal impact on its users. After internal
+> discussions, our team has decided to recommend me and Qianhai
+> to take over the maintenance responsibilities, and recommend
+> Huacai, Mingcong and Ruoyao to help to review.
+>
+> And We'll continue to maintain it for current supported chips
+> and drive future updates according to chip support plan.
+>
+> Signed-off-by: Jianmin Lv <lvjianmin@loongson.cn>
 
-PTR_ERR returns a long (which matches the kernel's idea that a long is
-the same size as a pointer). But the standard return code size is int.
-So technically the assignment to err is truncating the type. However,
-the IS_ERR() check uses MAX_ERRNO which is 4095 so all error values will
-fit in an int. So we know the assignment into 'int' isn't going to
-truncate. [ Also it's just an error message... ;) ]
+Acked-by: Thomas Zimmermann <tzimmermann@suse.de>
 
-Thanks,
-Steve
+>
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 96ea84948d76..eccb8273cd3a 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -8626,8 +8626,14 @@ F:	drivers/gpu/drm/lima/
+>   F:	include/uapi/drm/lima_drm.h
+>   
+>   DRM DRIVERS FOR LOONGSON
+> +M:	Jianmin Lv <lvjianmin@loongson.cn>
+> +M:	Qianhai Wu <wuqianhai@loongson.cn>
+> +R:	Huacai Chen <chenhuacai@kernel.org>
+> +R:	Mingcong Bai <jeffbai@aosc.io>
+> +R:	Xi Ruoyao <xry111@xry111.site>
+> +R:	Icenowy Zheng <zhengxingda@iscas.ac.cn>
+>   L:	dri-devel@lists.freedesktop.org
+> -S:	Orphan
+> +S:	Maintained
+>   T:	git https://gitlab.freedesktop.org/drm/misc/kernel.git
+>   F:	drivers/gpu/drm/loongson/
+>   
 
-> 
-> Cheers,
-> Biju
-> 
->>
->> With that fixed:
->>
->> Reviewed-by: Steven Price <steven.price@arm.com>
->>
->> Thanks,
->> Steve
->>
->>> +		goto disable_bus_clock;
->>> +	}
->>> +
->>> +	err = clk_prepare_enable(pfdev->bus_ace_clock);
->>> +	if (err)
->>> +		goto disable_bus_clock;
->>> +
->>>  	return 0;
->>>
->>> +disable_bus_clock:
->>> +	clk_disable_unprepare(pfdev->bus_clock);
->>>  disable_clock:
->>>  	clk_disable_unprepare(pfdev->clock);
->>>
->>> @@ -80,6 +95,7 @@ static int panfrost_clk_init(struct panfrost_device
->>> *pfdev)
->>>
->>>  static void panfrost_clk_fini(struct panfrost_device *pfdev)  {
->>> +	clk_disable_unprepare(pfdev->bus_ace_clock);
->>>  	clk_disable_unprepare(pfdev->bus_clock);
->>>  	clk_disable_unprepare(pfdev->clock);
->>>  }
->>> @@ -432,6 +448,10 @@ static int panfrost_device_runtime_resume(struct device *dev)
->>>  		ret = clk_enable(pfdev->bus_clock);
->>>  		if (ret)
->>>  			goto err_bus_clk;
->>> +
->>> +		ret = clk_enable(pfdev->bus_ace_clock);
->>> +		if (ret)
->>> +			goto err_bus_ace_clk;
->>>  	}
->>>
->>>  	panfrost_device_reset(pfdev, true);
->>> @@ -439,6 +459,9 @@ static int panfrost_device_runtime_resume(struct
->>> device *dev)
->>>
->>>  	return 0;
->>>
->>> +err_bus_ace_clk:
->>> +	if (pfdev->comp->pm_features & BIT(GPU_PM_RT))
->>> +		clk_disable(pfdev->bus_clock);
->>>  err_bus_clk:
->>>  	if (pfdev->comp->pm_features & BIT(GPU_PM_RT))
->>>  		clk_disable(pfdev->clock);
->>> @@ -462,6 +485,7 @@ static int panfrost_device_runtime_suspend(struct device *dev)
->>>  	panfrost_gpu_power_off(pfdev);
->>>
->>>  	if (pfdev->comp->pm_features & BIT(GPU_PM_RT)) {
->>> +		clk_disable(pfdev->bus_ace_clock);
->>>  		clk_disable(pfdev->bus_clock);
->>>  		clk_disable(pfdev->clock);
->>>  		reset_control_assert(pfdev->rstc);
->>> diff --git a/drivers/gpu/drm/panfrost/panfrost_device.h
->>> b/drivers/gpu/drm/panfrost/panfrost_device.h
->>> index 0f3992412205..ec55c136b1b6 100644
->>> --- a/drivers/gpu/drm/panfrost/panfrost_device.h
->>> +++ b/drivers/gpu/drm/panfrost/panfrost_device.h
->>> @@ -136,6 +136,7 @@ struct panfrost_device {
->>>  	void __iomem *iomem;
->>>  	struct clk *clock;
->>>  	struct clk *bus_clock;
->>> +	struct clk *bus_ace_clock;
->>>  	struct regulator_bulk_data *regulators;
->>>  	struct reset_control *rstc;
->>>  	/* pm_domains for devices with more than one. */
-> 
+-- 
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
+
 
