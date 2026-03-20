@@ -4,39 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2763510987AF
-	for <dri-devel@archiver.kernel.org>; Fri, 20 Mar 2026 16:41:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 361C010987A5
+	for <dri-devel@archiver.kernel.org>; Fri, 20 Mar 2026 16:41:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6229810EB78;
-	Fri, 20 Mar 2026 16:41:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 600BF10EAD5;
+	Fri, 20 Mar 2026 16:41:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="a/8Cs76R";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="E0KSujl9";
 	dkim-atps=neutral
 Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 737F910EB58;
- Fri, 20 Mar 2026 16:41:42 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2DE7B10EB58;
+ Fri, 20 Mar 2026 16:41:48 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-03.galae.net (Postfix) with ESMTPS id 5D4A04E4274C;
- Fri, 20 Mar 2026 16:41:41 +0000 (UTC)
+ by smtpout-03.galae.net (Postfix) with ESMTPS id 148DA4E4274C;
+ Fri, 20 Mar 2026 16:41:47 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 33E7E600E0;
- Fri, 20 Mar 2026 16:41:41 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id DDCD9600E0;
+ Fri, 20 Mar 2026 16:41:46 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id C15DA10450CB4; Fri, 20 Mar 2026 17:41:36 +0100 (CET)
+ with ESMTPSA id EA13910450CB3; Fri, 20 Mar 2026 17:41:42 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1774024899; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ t=1774024905; h=from:subject:date:message-id:to:cc:mime-version:content-type:
  content-transfer-encoding:in-reply-to:references;
- bh=mIRxnse/bjPPWECtFbLS3qtkgeOBiGcVMkxi10dAPNY=;
- b=a/8Cs76Rcjo7ITzALwQ2rd1dvgxPdw3Yvfpjm/ZXLtw2iM2O5ux78gO7iujFYT1e+Goczt
- s+o7Bv5Qd3Aze7HFyl8S+uTd9iRT8eZ/7/c/uwpEcvUcprXwya8F1whdWZV90CcjYOjnG+
- TcH95X79OBskrIR2oZPITg2haKg0jAG5pAPK3KNqy2i9Vi2sZYQsaeGVgO6k1IDmE8oBdj
- yTL81TGL2qQgEpMhKFYTRmEeo/KBDWK/ZhSHr+p1R5X22AKUmWd2SxR9uhU2atlCNia7C5
- xnsrzaqjtk0KpHL2qb/veCw19lyXIoQPFsHEdq56eYNmg7Izkd7beszs2stacQ==
+ bh=VTzg+gCn+3SSyvA2tJAFWtV2tz8sGnFVCym/sblWN/8=;
+ b=E0KSujl9jeNWQO6spEA+e4SRvfV796T+JBzLCmDud+I6xDk1XQAkFI8xslAtxw8BOzvloY
+ bzZa+8x6yg3SybdwPwmZoX8xoJyqIGez1HUTyv/mlmDBCFgfnPU1xv+4QRczJCAQTrxZjq
+ ctWQ7SSks7tEY7ErvouYk28yP1YjajzlE3Q1N3NuyN8S9K1IdfG4dpLogNlXwUDgXcqK7i
+ EXTo5qF5Dhqu8ylJ19UzA220WcMOH1C8g/+Dy3/iH/K6shpSoJnZvU0umjtUUM0SNMyN6P
+ JFcUasH/1CCdLlCm5JDoBI9HADTLIEO/MXqDOen5xanR8tmUh9/pS4ChSNPnkQ==
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v11 02/65] dyndbg: factor ddebug_match_desc out from
- ddebug_change
+Subject: Re: [PATCH v11 15/65] dyndbg: macrofy a 2-index for-loop pattern
 From: Louis Chauvet <louis.chauvet@bootlin.com>
 To: airlied@gmail.com, simona@ffwll.ch, jbaron@akamai.com, 
  gregkh@linuxfoundation.org
@@ -48,27 +47,27 @@ Cc: Jim Cromie <jim.cromie@gmail.com>, mripard@kernel.org,
  skhan@linuxfoundation.org, pmladek@suse.com, ukaszb@chromium.org, 
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
  intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-In-Reply-To: <20260313132103.2529746-3-jim.cromie@gmail.com>
+In-Reply-To: <20260313132103.2529746-16-jim.cromie@gmail.com>
 References: <20260313132103.2529746-1-jim.cromie@gmail.com>
- <20260313132103.2529746-3-jim.cromie@gmail.com>
+ <20260313132103.2529746-16-jim.cromie@gmail.com>
 Date: Fri, 20 Mar 2026 17:41:54 +0100
-Message-Id: <177402491428.6181.7197154425270052236.b4-review@b4>
+Message-Id: <177402491430.6181.8634650505959510277.b4-review@b4>
 X-Mailer: b4 0.15-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=707;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=569;
  i=louis.chauvet@bootlin.com; h=from:subject:message-id;
- bh=CBH10i8maWiI1e43S3YE/3lAIi/KXU/tS8OzZuccAy4=;
- b=owEBiQJ2/ZANAwAIASCtLsZbECziAcsmYgBpvXjWNzHJAjhVtO1V8zVjbtpDQMEluh81hlg43
- s5KqnDSwN+JAk8EAAEIADkWIQRPj7g/vng8MQxQWQQgrS7GWxAs4gUCab141hsUgAAAAAAEAA5t
- YW51MiwyLjUrMS4xMSwyLDIACgkQIK0uxlsQLOIO/g/+IihDoiLQ8/fAZefVIZ+YfINI4KQdXiS
- 9ZJseJd7dCO75LLWP+m4uQA6KJQZP5KjIt1c+grrrVklXPhMxLlgUHPjdSNyX1+zHGhtVGJ1qLW
- BhKxkQYu2VeQ+/c69Qm+NT+LH+v6GC+3DgkFVjxey+C+S4DqIigRBrQXXzCjqqmkNNgWQcinFo7
- nID6KII/nO9eqWCO/jTr3Cm0uTACz22db7Yf8t3s3vo/AwTt3orVr2LQKVkyCvorBxeP4ib+KD9
- t7VaNCg7HHVyUfZP9icnPwavgHSYNv2jwGNhDPyMIpt1G77XIlb+kef15Ge9+3Xy3CrLjwzvFe5
- esf+9ewWK+Hnm0L5hgYVNPE1i6dGk8Rdb8OY2QOJM5zDo0OuYtk+6LzzCDK76xms034mE+xzCTR
- dwZ9Y/syDv+0yfETMEoEdzx6FBU3BqibUfspekpInFX1IsuJY4PxWJixMWIZk4Al1crcZjIgokR
- jsMT/Y6VnMcv0BBlMXL4MC9Y+BqMfPKb2QTxOPNLYv3J2Auui2qeNlu5nFx5UNxqOdG0uzZURXh
- flqN273cs4BJ0qAbR3RaovdfEK8ruEj4/lDIoPHMayiVAXwWtxPK6n6kYlKMkPauf684xvu6aR5
- pqCmo2z9MsYDBmDSN+WNud0+D7PkvfAga+NezTn0wxewQnsiO/xQ=
+ bh=pdrjqLsFmHIbG9X3g6woXxeUhicJJyV9EoUqHZShqbU=;
+ b=owEBiQJ2/ZANAwAIASCtLsZbECziAcsmYgBpvXjW6jY+HJ/rjDVPgQoNFIF9TaWBTui1u7hFy
+ Yq3XSIZkg2JAk8EAAEIADkWIQRPj7g/vng8MQxQWQQgrS7GWxAs4gUCab141hsUgAAAAAAEAA5t
+ YW51MiwyLjUrMS4xMSwyLDIACgkQIK0uxlsQLOIK8A//U2rZrLMs+ef3C31EeZ3hyLrARRM4H4N
+ AA/QpDwgkx3Fpec45T9+rRg4DoFCi80urNIb1j97UMT2W6HjFujCC7T9pbVw8SbJGiNnJJx8BVu
+ 3mxpa4mQDUQ6fJ/mr6IDQ4A/BtKo1i5VEnjA5/O7y+jrSsQNeMx8MSKIxdmS6kYurUpQqpCfwvg
+ TOPXweWL4sKjrXGsmVfyRFE8r52ahnf0EzL0nvaGfCuCRP+CN6yWjbNhFH/9EMhyaxUx2bJy1YN
+ aL9I88RxlcPg/RhqnCUkKOB6pGaRcpkfEWiX5hAcTzzr2ZUWvGTg1RL+nWYN4+Wu8D7b0wJgo83
+ hvl6GeBNfm81gqRMyoo6jXJ6Qjgy78mbpC0gyjR08UyW9h0oTn4WJggSjZZyfEYh8THil4EDN77
+ cnjPtjiESL+bOWJHNPBQAXzXHV52LOUKBITABsOd8Ypn/ZzWdBg9Qwc2lhFn8zCXf2mgkhAlNlU
+ BJtwk2EOrJAlINz4zYmos3m4vGURSIMg07v4vcUVzG/DSfEewsXmOFHyRfnMa4ZH0fUiA/afx82
+ 14kSQt4jnWoEsj+7ro1GEuQikBOBRQDtM00PEFT9Yb6hOdsK80xSTez5owT8uyrj3cZbyckghuK
+ zghhiNLWFAe3uV/hiZt2JW0WF5QBxg+C0oP0MFOEZKxai5m+UyrM=
 X-Developer-Key: i=louis.chauvet@bootlin.com; a=openpgp;
  fpr=8B7104AE9A272D6693F527F2EC1883F55E0B40A5
 X-Last-TLS-Session-Version: TLSv1.3
@@ -87,20 +86,18 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, 13 Mar 2026 07:19:27 -0600, Jim Cromie <jim.cromie@gmail.com> wrote:
-> diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-> index 18a71a9108d3..6b1e983cfedc 100644
-> --- a/lib/dynamic_debug.c
-> +++ b/lib/dynamic_debug.c
-> @@ -172,6 +172,52 @@ static struct ddebug_class_map *ddebug_find_valid_class(struct ddebug_table cons
->   * callsites, normally the same as number of changes.  If verbose,
->   * logs the changes.  Takes ddebug_lock.
->   */
+On Fri, 13 Mar 2026 07:19:40 -0600, Jim Cromie <jim.cromie@gmail.com> wrote:
+> dynamic-debug currently has 2 __sections (__dyndbg, __dyndb_classes),
+> struct _ddebug_info keeps track of them both, with 2 members each:
+> _vec and _vec#_len.
+> 
+> We need to loop over these sections, with index and record pointer,
+> making ref to both _vec and _vec_len.  This is already fiddly and
+> error-prone, and will get worse as we add a 3rd section.
+> 
+> [...]
 
-Can you add a bit of documentation about this function and move back the
-above comment to the ddebug_change function?
-
-With this: Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
+Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
 
 -- 
 Louis Chauvet <louis.chauvet@bootlin.com>
