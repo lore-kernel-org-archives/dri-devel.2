@@ -4,50 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B7E5B1099B35
-	for <dri-devel@archiver.kernel.org>; Fri, 20 Mar 2026 19:09:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E3D2F1099B32
+	for <dri-devel@archiver.kernel.org>; Fri, 20 Mar 2026 19:09:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F2B2E10E161;
-	Fri, 20 Mar 2026 19:08:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 41E4810EA64;
+	Fri, 20 Mar 2026 19:09:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="W6wn7blq";
+	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="AGcN9ibx";
 	dkim-atps=neutral
-Received: from CWXP265CU008.outbound.protection.outlook.com
- (mail-ukwestazon11020100.outbound.protection.outlook.com [52.101.195.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7363310E161
- for <dri-devel@lists.freedesktop.org>; Fri, 20 Mar 2026 19:08:58 +0000 (UTC)
+Received: from CWXP265CU010.outbound.protection.outlook.com
+ (mail-ukwestazon11022088.outbound.protection.outlook.com [52.101.101.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4D4EE10EA64
+ for <dri-devel@lists.freedesktop.org>; Fri, 20 Mar 2026 19:09:32 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=lin0FognQAQjTosVbwWMcmjDP+N2lfShCF3dEyJS8BY0kjzvgde/mdj4Zg8/sLBFNrm6nW74VlzMp3E5AzzABG6GnsF2YG+fBfOIWPZ6ixETff1qnJQJROwVLMuR8kXHiU7tJ5o3pYF5r3DB6BC3v2Zo0C0C1TA1Q/6vxWJ4vibNSA7v8KqijsCRVkt8uLoBJP/fvjeh+JSljmOXNSu7JUW7CF2AgLy6OoRzmwioTgdJ+DOEK0nQ2jJTi5RsioOIceT9Bdck296waY34J7490Qsu8B6EsY0xQB/arIu3pVhIToMCj1lxAraWnGvMY0ENiiFqrBoQfW2s8+ZyfvA1Xw==
+ b=WWsBUEeZc9Xn/C/hJ56cBE7olRPBTYXX/k0Lv/lLDTw99sj4C6X7Va+25WC6w5xhyD6aywFwI14pdGM97q8o+rKKy5PhPvNjYB/06aD1vLOvqTAPQdD8YcaGI0xkey5fwvru3937QMVQC7aHw9sQ3OaaAE0R/T7ZA9LnuBQj0OaGHvRKW+x35xLVFJhgKrt2czh5zguxJjf6Xm1ZW83wMiV0/39wyNJ8hdd39cCTPcEmLFnwKOa1PdKvhwYQZiAL5aLf5rj2X8VQiWcoC/hgPq/pq0OGEl29myZZ2FbZBkljmTsEKbmqHzkdK+VvPirYiTeqKpmFUmuMlkpKt/IlJQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=y/3cY/59i6MG5kFyiHxdyi9ZDgj76x2aQFf/1WTRbos=;
- b=c5KUDVwz+wGklC6J2zJDWyI11nojmsmX96thkbvUGRi750jyda5Uv/PygevtAYjmM+DzP0r1x/LYNxWsjPyheqBqFxife14qy1S1xBI3CAV2xCyl4qps3isCnTAUqkBeaHLgcQDQ81PO8W7G26jtixalZ58oKkHnuOSrHUh2tOFNUa6oP6NGh7LPTZBGbA+oLLxvaWzodkrqMwqgO6DfxHSPEkeN7gzBRyHMLFjl9ePjJaeHOrsQjzg3SMlXc/Sy9mVAMvZH6GEy43JYim1bEKSzpQ2vCaoNrWMEUe9Z7uk4emJPc/XGN0bTet7yfTzTM9fFmch5Wi6SweDGnWcOGQ==
+ bh=CoEi1kGDWwx3oZIj8f4K51zzKs5bAdWFOJa1H/jqfoM=;
+ b=jYTfMisQRNvnmGYd1jX4S3RZC5TL5Y5XfWWlT3ONZ6pI0ww+nyOAkg0usq8Mwegy7GpVzyJ0HsonaGOU+5jMvVw04ogKSCKWR4IjfkKsQz1wXUTbDuWqKICJElr7t95tLwXB0W8EMQK16p/xcrBM+WVxO7rdqebwiNLtTjOA7zy1pCMnniQKETX5ftI2YtJkwbhuW9P3OqURiXJpkSmM9epvHYCL/RaXqH72mgk+AVo+06hK+iumBfLczr8qMRpUqt0kwwd5kvSNzcazxJhtlvNi6jQSwpe46UhlfcLYlFNZcuYYe2wDEMoer9+y/x9bgNRZdzKCbuJxgx4D9PV0VA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
  dkim=pass header.d=garyguo.net; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=y/3cY/59i6MG5kFyiHxdyi9ZDgj76x2aQFf/1WTRbos=;
- b=W6wn7blqFZy2TmOdPEGNRSGaGoF/DgVuNGiJHxCAI2CTTAqHeOoMz6wbcyF2GbFVu0qCgfoSeDGuQoKwVmfHdEzCnfVvMNB7GPXxuoRMBSKbu2vfoPu3VwSffX5CnBEwtzGZ9n+mmjVPGY7TuAOy7iDfWPmU59xO7yp6JysFdHI=
+ bh=CoEi1kGDWwx3oZIj8f4K51zzKs5bAdWFOJa1H/jqfoM=;
+ b=AGcN9ibxBXfGzfZSm+AQPzdLdzhwnO8u31KBZWQpvu+R3ekRH8DhHyj5pu97zqtWNJyJge6vVo/NoSQlnn5DuAIrprTSsTPV9dIj7tN5t4B9kMtdfadrCxbQBCsRnYZNY4cTzPeny/Tn/mFe6XXfUMDq9gMGEwFoAMwTDdjLbQo=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=garyguo.net;
 Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:488::16)
  by LO4P265MB6349.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:2e6::13)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.23; Fri, 20 Mar
- 2026 19:08:55 +0000
+ 2026 19:09:29 +0000
 Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
  ([fe80::1c3:ceba:21b4:9986]) by LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
  ([fe80::1c3:ceba:21b4:9986%5]) with mapi id 15.20.9723.022; Fri, 20 Mar 2026
- 19:08:54 +0000
+ 19:09:29 +0000
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Date: Fri, 20 Mar 2026 19:08:54 +0000
-Message-Id: <DH7UH2ITPZDT.E1DWRAW8891O@garyguo.net>
-Subject: Re: [PATCH v2 07/10] gpu: nova-core: falcon: introduce
- `bounded_enum` macro
+Date: Fri, 20 Mar 2026 19:09:29 +0000
+Message-Id: <DH7UHINYV0ED.383QP8YXWF5RD@garyguo.net>
+Cc: "John Hubbard" <jhubbard@nvidia.com>, "Alistair Popple"
+ <apopple@nvidia.com>, "Joel Fernandes" <joelagnelf@nvidia.com>, "Timur
+ Tabi" <ttabi@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>, "Eliot Courtney"
+ <ecourtney@nvidia.com>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>, <linux-riscv@lists.infradead.org>,
+ <linux-doc@vger.kernel.org>, <rust-for-linux@vger.kernel.org>
+Subject: Re: [PATCH v2 01/10] gpu: nova-core: convert PMC registers to
+ kernel register macro
 From: "Gary Guo" <gary@garyguo.net>
 To: "Alexandre Courbot" <acourbot@nvidia.com>, "Danilo Krummrich"
  <dakr@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>, "David Airlie"
@@ -58,81 +64,75 @@ To: "Alexandre Courbot" <acourbot@nvidia.com>, "Danilo Krummrich"
  <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
  <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
  Hindborg" <a.hindborg@kernel.org>, "Trevor Gross" <tmgross@umich.edu>
-Cc: "John Hubbard" <jhubbard@nvidia.com>, "Alistair Popple"
- <apopple@nvidia.com>, "Joel Fernandes" <joelagnelf@nvidia.com>, "Timur
- Tabi" <ttabi@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>, "Eliot Courtney"
- <ecourtney@nvidia.com>, <dri-devel@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>, <linux-riscv@lists.infradead.org>,
- <linux-doc@vger.kernel.org>, <rust-for-linux@vger.kernel.org>
 X-Mailer: aerc 0.21.0
 References: <20260320-b4-nova-register-v2-0-88fcf103e8d4@nvidia.com>
- <20260320-b4-nova-register-v2-7-88fcf103e8d4@nvidia.com>
-In-Reply-To: <20260320-b4-nova-register-v2-7-88fcf103e8d4@nvidia.com>
-X-ClientProxiedBy: LO4P265CA0093.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:2bc::18) To LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ <20260320-b4-nova-register-v2-1-88fcf103e8d4@nvidia.com>
+In-Reply-To: <20260320-b4-nova-register-v2-1-88fcf103e8d4@nvidia.com>
+X-ClientProxiedBy: LO2P265CA0128.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:9f::20) To LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
  (2603:10a6:600:488::16)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: LOVP265MB8871:EE_|LO4P265MB6349:EE_
-X-MS-Office365-Filtering-Correlation-Id: 494b424d-9acd-448f-7304-08de86b4218f
+X-MS-Office365-Filtering-Correlation-Id: b5436c8a-d400-4340-c88d-08de86b43663
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
  ARA:13230040|366016|7416014|1800799024|376014|10070799003|7053199007|56012099003|18002099003|22082099003|921020;
-X-Microsoft-Antispam-Message-Info: 2EyKXAdZ8W90GivhK6jvhUUrJtEtla8lm5fbVT8KACzIUmI8TtHRds9EAMIvUQw4QFB+T9h0jxndz0zfrKzCy52gFsSFkt/y5ZrZ6iTqh3AmcpWor+uxFacDf+/zAoaCdllRdbMf1p9QowEICZFkogwODKQdljlwY5+R7xvJNA8Qf+ENOWrNWK6lu1FziJqxEVS2u402d6e+7VTnJXPms9DU9AI/AYWKWZMCwDwfzWst5LxBxz31StqMEC1kvhZEQUgWLIx1c7vdoPtgEQ3IwYS4ibKkobFdp59quhRiNFxTIxjDWDjQqjn1v0UMLFuFAMSgWj1YIZ8WuYF/wT6Romthm96f13gEn2YsO76Pqs2tFbOkYoV9HdF+aSaE7FD6cXLSQ+PhVGpkpXBdekc4MprpISrIgAJBRI0EinOdGO6sdB2cXKEdJhN1qRlPvuXDS5jUK6ULlU9Z1amGcNh/Jog5jo75rOgnOW2NU27kQf4bwUgpx+BGZBfr7Tq8FA573Mrg9kfz56pMw8CtS/lF3LTA6XvGLyB1Krk9usEj5Br/Hu/fMLeRLuoW9cQwH2hG2j2EaQ+SXBMZocoHFhZe8EhMD3HhXbPqJkyoWrKRFFR57PZksY/K6jggQNOBcGsTKoky4E4mj4+EDCFqhKy1+CRa1vYsTrB4A9RiwIQC5EUO4TpYz0GTDo1H7Q9EQq1c4Rfey9gSTZP92qd4MeH+qhJgiiIrJVM1zD1qveVQW6D4jfod9lCSYVnRU+knhPUE4oD9BrgAYwoiY555YwPymw==
+X-Microsoft-Antispam-Message-Info: 0/KvFq54Evfkx0wRajP/qkgT8M/uVPhD6zHFeeUb7NdwjKciFqhomB/mMfslKHcq3rEDrsKTirhqOCvvWgex4ahaK3OLe0QpHbRkoI6l/fb7D7uFa000GG037bby3GaA/x8+SaAgVOv7DY954Sny/DqMRNMk3mIl/md+OT8xQZ+NaOAcbYGKAEhVLdP3GYIKO/zn0qpFYhPFanTngI/6Nt6Kh6H5tBWQS6JKPjWnH80bM+JkZ8m3TtE4CeA5UxQjRFEY6X8t558jks5WsAziXhjGpg43XnDCH7DYqoV0mVU3n+KnV+607sb7V+Bi5Ek0c0pN42GVIwwzoXkoPGBagaPiJmX0sVt6u+9ScThv6rzBvmGWATcEOu9OgmVGc5mwVbA/MLZdfllOxvVYGxh/w4G+3RIRFhhoH8VgKRWSSS9H4zWM9FJlt8O5X6ad9k6A59Yk1SCB72xqXRUi3HZkqgXnoKOLtMKV+xMsGKrCE26oNoOaJEhFAVjR/UOOKJvgOZP9Jjwg6i9iDolzZt37ZG1LbtKVrQ8pol0v7QyBmy1rYzbfjPgtRfDc5V6I8FjSXWB+157UQWf/3ReKZ3cHCV8AFSlz3Q2MTPNjNaJVRmNNpFn0riKvTbnp+rSOBWhLymObEy4PzVL7dE1iIhm18WDAgZi4MR0pIHnKvQelkYXAjm+RXzOjLWM0ekMj0eaqOowC0iWbPfCDvEjjdMCoXSmc+sMry8QzJOnoNZFNqRh3h2RIDBBCL4zCyXD0xNXWHJeaqWdIzLwouehGFeuNYg==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
  SFS:(13230040)(366016)(7416014)(1800799024)(376014)(10070799003)(7053199007)(56012099003)(18002099003)(22082099003)(921020);
  DIR:OUT; SFP:1102; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?a0JoYjhHTFBDTXJCbndRL3RERG55ZVhoRXFLT0JUb3dPMEo2T3FESC8xb3I4?=
- =?utf-8?B?L3hreTVZRHU0N2t2R2hMZkN1RFJWdXU0SGZad1Q1cVhOOGQyeHZYc3N4VGtY?=
- =?utf-8?B?U0tvalIrYXAxSi9raTUvN3Q0d2dWL0VrMFZ1aXFPMjVGOUcwbGFKRCs2YnZI?=
- =?utf-8?B?UDl6ODFtZWF5QldjSjdpZ2pncktOcUY5dzRxeFhURmY0a2VwbWxwK0t1bGxv?=
- =?utf-8?B?cFVoN2F0R0RMTnE4cEg1bTVnSE1Pclh6WW1SRGNWZisyM0Z4Tm9Pak4yeWJi?=
- =?utf-8?B?a25IZUU4Z2g3ZnYzcVRwMVhYTzJPcTlZMkk5N0ZKSW9pemZVVVNzaFNrV3BX?=
- =?utf-8?B?azZFOUhYYUJpSmMwOXV5Ri93QjJ5NTlaNEw4cVlVUWwyR29ZQW9ONHM5ZnhI?=
- =?utf-8?B?azN1RkEzOVZkQzJzeWk1dVhzbHN1VktnOTJINHNZVnRyU3IvcDVUcWJ0UEh1?=
- =?utf-8?B?aEZ4WlRaaTVOSWRGc1hOSkVTN0hqZ3RiSE8wVU5sZmx0NnhWNHg2VVM5NW9I?=
- =?utf-8?B?WCs5VU4ySDRTVUw5UzRnb254Vlh4bVJqSmtLdWhoYUJ1Tkt3dmhxN2tRRm05?=
- =?utf-8?B?MHNackRqV0cxb0JxSkQ2NVcvTjRTZ1V2UjZRYlE2WHBvS0l4MXMxU250cUpi?=
- =?utf-8?B?d09ZdXNvOFMrZTE5cHpiSjZQbHJOUm5iYXVzQWx2NU1GeS9ISlVTUTF2U3hU?=
- =?utf-8?B?NVBMdUlJN05zMVZFcFdNelExYjVCWG1EQi85TGNKRWROQlNPSkVXVVlzZEFQ?=
- =?utf-8?B?QTNRT1RQWXQ0Tnd2TERsdk4vdWFlK0FYSU8xNXZMcHc5dk5HQ3ZydDF5bVpz?=
- =?utf-8?B?bU1XNlF2ZjM0WVU5d3YyUmVEQTdVNmNUL3dOTzJrc2FjRWc0YVozb2Exekd5?=
- =?utf-8?B?dGRzd1RUM1V3N0JMT0ZGeFQwSnorTEZYTFZjb2FXSGFJTjcxSkowNUk5Vk9w?=
- =?utf-8?B?aTJTdmZRM0F0NGF0Wk9Qd2pDRHhoOXc4TG9aeTIvOFI0UWs5eDJzS2cyeU9k?=
- =?utf-8?B?bHlhcUIzWHB2VFN0cG9SN1RUZ2QrUGhrZHZUejJsRVliN3pOOENrVUp1WFdt?=
- =?utf-8?B?VW9zV2pRMWc3azk1dHkyZ3VhdGdqT29YUzVaMXFCb2lrd3dObi95WWpIZDF6?=
- =?utf-8?B?RjY1enZpbkxCNkVWNzBwZTFqN24wOWtMSnNMVTZSbWJBekRPeW1zSStzbVVX?=
- =?utf-8?B?d2Jhb3gzQWNKY2dvMmE1bU5YcC91di9LQ2tQTnl0ZWdoTFBKbUJUSFZPak9y?=
- =?utf-8?B?Z28reTUyZXhtVXJ2R3BHTWc1WHp2TkpWb09wcm9idStWQmNsdDE4aFZJdGFz?=
- =?utf-8?B?RStEN3REaUVkeXVlRlhWVisrWXZ0VVM4Mmx4UjFJSGJRSGpudU1lY245aWls?=
- =?utf-8?B?ZUpSc0xXZU9QWHlLTWRwWTZBSjdkbk1ybzcvVWVvNHlUaWMyVzVabnQ5a0FV?=
- =?utf-8?B?RWdpU1dQRXpESk5ZVCtOaGNUVEJLUXp4WDBnU1R6aENZNWRPaGY1a0ZGME5U?=
- =?utf-8?B?dHo5N0V5QVFvOUtqbmRqL29TcDgzbWxJREVUTGZFR1VVVnlPRThkSWw4eFln?=
- =?utf-8?B?dE9vVndjYTVsSUJsYWRvQW9VU1VlcncvNm5QV1VRSC9hWWFyMjlCditqd3RH?=
- =?utf-8?B?cnhqMTJZcnJ2RjNYTHRid2pmZmUxV1VmM3VMc21xUWFxT2RxSWlMbFVLVmdY?=
- =?utf-8?B?QzlDazlGMm5mM1RQa1ZkUmRvUEZlZWVIcDY4aUIzNTZ5OVlJRjRLVkdMN3Fk?=
- =?utf-8?B?Sy8zczN5NW8zQk03VVVGenFJWlc1ZE5pVkt1QnEvZ2tjaFJqVjBOYzh4UUdR?=
- =?utf-8?B?NS9oU2NJZnYwUEtjYVB5cm8xb1hGY1I0TjAxYi9sMkVkREF3WldHZ2JyS1pK?=
- =?utf-8?B?VWE5VmlaL1dVV1RJTFc2anIwQUNLVWRzR2NLSDdnNTY2SE5MS2JDemlxdnRu?=
- =?utf-8?B?NGU0RHlXcmsxL1RqeUlKeEorb1Zmb21tMFIvdkJ4NUp1dTgvWHVMZmxiaUxi?=
- =?utf-8?B?SlpTa3lKaWVYN2NQVitpMlkzSHU4aHRjbjk5S2RNd2lxNS84T3M1OXBXbHJ2?=
- =?utf-8?B?TjhWVkJkZ2lXNWxWTVpDYW5FMzlqdGt1eGEwcWtQcEMxNk8yZ1dDRTFVSkR1?=
- =?utf-8?B?enRtRkdGVHNXOG8vRmNobDFmU3BldjJ1OUF5RExCNi9RR0pneHlEZStCSVg1?=
- =?utf-8?B?UlNhVkN1SUFLR2ZESERXTGpJdStzcXc3WTIzREVLOGk5ZGRpU2tqVFBjVnNQ?=
- =?utf-8?B?K0FhVFV5dy9jY3dvSTVSTTE2dUhOcGp5aGt5MEgydnR6cTlqUXpOVUpOanFW?=
- =?utf-8?B?USs2dWVucDh5QWp5NDJpZUt3SHlKZXR4ZFlvUUxtNnA0eFdtZVFxQT09?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cmpFUHVZN0tHU29keFkzYTVUdDNiUUJEbWZnR1FKdGcxVnlHb2F1a0Z1cjA1?=
+ =?utf-8?B?RWxlS1JockdCdk5TVVZTSC91YkdSd1RXczdmNEs2TFd2N2xVUnNlYVh5YWgr?=
+ =?utf-8?B?V3ZEaUhXcEEvSmI0RDd6eTlZWDdCRDd6Mk5Ta084WUQ4NElrVzhHdUhHRy9R?=
+ =?utf-8?B?ZHhkNXF6SUZ3T2k5Wis1MmpULzNCSStkUFFoRzA5R0N6dlVQbVBuTDltNTBV?=
+ =?utf-8?B?Q242aEVCOHd1Q3lNY0RjcGE4N0kyQUtBTkJzbXdsMXhVL2wrbjU3S09ZbXZ1?=
+ =?utf-8?B?cGVjL0hWVDhNYUhNcndOK3NxRmRzTkIxRHBxRERJSzFlZk9xWXF0U2U2TUJn?=
+ =?utf-8?B?UnRkTENOcUhNM2NDNEZWNFpUcE5XMWRNRHpobHZndmdHMjFxYXJKK0VHL2ll?=
+ =?utf-8?B?YlVGbmdlQmdEWnl0L21Jc2ZjMThveEltZXg4K2tLZU5jUlA0L21sWFlKcXRr?=
+ =?utf-8?B?Z3cvTGcwZW50aWhNTWZ3YzlFMisrL0duNjNzL3g5YTZVRjVNeDlPa2NjNjdY?=
+ =?utf-8?B?bCtkWUowS3Q0Q1luTURKeHdTWEFUOWZMcUNRRG9jV0dQcnpVZUVzL3FabTZF?=
+ =?utf-8?B?aStjMGxrWXREZ0NHQ2JFY3FWU1h4Q0dJYkdub3FjRFZ1bEpoYjc0a0RlcWVl?=
+ =?utf-8?B?SVVGdFZkeUlXSVd0VlFPcE81aC9QakhCbG5zVWxjK1p2ZysxTDMzMCs3ZXJZ?=
+ =?utf-8?B?blhlNkYzcGJKYlk2bWxuam9idXc3ZlRmbTh2UmhvNERmNTBrZ2ZFN002cTN5?=
+ =?utf-8?B?LzZUMDVBN2VDd3JjTm4wNmFTQUw0YnRLVzVXcDY1K2FuYlZjUmE2U1hwYTYy?=
+ =?utf-8?B?TytDcnJmYS9ESjZuaEQ3dEF6clFBWVc4Z0Z3cUNYbTZOc2JIUjVDcEdsZUlT?=
+ =?utf-8?B?Q0h1Ukw5Tmpta2pveWxGa2lTNFFmanBPN1ZZNml0ZG5HcktPM0JtY3NMbWxD?=
+ =?utf-8?B?ZTBWSXB6VjJOYWZKaXVDWUhSWmNmSWp4V3NqRCsxclRVUTd3NHprSkdRMXFz?=
+ =?utf-8?B?VXVka2E3RDVLWWtxY3RhcmNOdHRlZlpTa2NQbVhiRjloaHpkclY4WHNidmM1?=
+ =?utf-8?B?bDJhY3h4a1NzVDlMUnp4czNtRUpTMG9NYnl0YzVDSEQrU01iOFU3VzlTbzNS?=
+ =?utf-8?B?Q0YzZUZwWFJFaXFLc09jWnZTbGU4a3M2R0h3UGV2aGNKZVZwN291b012Y05y?=
+ =?utf-8?B?b3EzZlNnOGlQd3hXcyt2RWtpVkZmclJ0SGNlQm9YT2ZScTRJdVN2SVdMVFA1?=
+ =?utf-8?B?Yko1NUI5YnBHcjJidEZaeklDc3NhbE1oeHJoTXZ6KzRVWXEwcmJ0YUNuV2JZ?=
+ =?utf-8?B?bXBnOGdBTTJzNmIzeVZpaXlKdVlFU2VEdFZLdndEYzJwQ3l5RzZicERDaUdl?=
+ =?utf-8?B?UE9UM1FaN3ZEVytCem45bGRjM1l5SUp4R0JCQmVKcTNYd1VBR3ZZeXZxcTlp?=
+ =?utf-8?B?d0xxNFNUVjZXZnAzVlpDUlZvK2tYV1lJdVM1b1N4QldJeC9lWTA4bFg1RXVX?=
+ =?utf-8?B?RzNOeTI0ZytjcG5QaW5sZFZ2V2JlOVhzSVY2ZnRKeldvZzlMN2xGWFdtcDg0?=
+ =?utf-8?B?ejI2Y0gxOG5PTjBXeXA1TVd2TTZhRWVzUFdOMGJxU2hlbGtkSGVrWWZjbnNP?=
+ =?utf-8?B?ZlZGcDROWjlNMjJWMnZUN3BHdGNPbFMyMzJCNXhYVllFL3BzNVBrdytROGRW?=
+ =?utf-8?B?S05GcGxYSitwZGR1bklpQmRqTHZwSE1xaVM0d2FMUVdiakxxNUlNbjZ1S25t?=
+ =?utf-8?B?Y0puSk9RL0hzbGNYVGxoZDFlbU1ZVGVrS3c4SVFzY0luVkEyWHFzYVY1RUVs?=
+ =?utf-8?B?NlpJMmVnVnFkaGNxMU5zSjFPelo0L0t4aVdzK3ZuVWJHNDdNZVk1Z0oxamhN?=
+ =?utf-8?B?U2JIM3MwMzZWYnRxa2lwY0ZxYkEzVFIwZzJ1eU8vOFUxak5OUi8vbFZBUXU0?=
+ =?utf-8?B?WWc5YnVkbWNycmdZRTNCejRhTVUxRU9JN0haYmNQd0xkZENrZGtVR3IyUXJn?=
+ =?utf-8?B?WXkxVmEyNmovMHBnek5oMnlQS29aUFl6azZ6cXFsZ1pBaUVpcmtVdjhEeE1N?=
+ =?utf-8?B?aGhSNXQzUVB2T25kamxvTFhyNmxnMnJBdnBLeVJGc0xpUDkxQTVSMU0waHps?=
+ =?utf-8?B?M0J5QzR5aCtrd0F3Q2NVOHNyR00yVGlzVzEzMC90R0NyTkZjUXNWekkwakFv?=
+ =?utf-8?B?U3JWdDJnZkVtd1ZPSUFNemVISUp4Vk1NRnZDVUo1TVVJUHpDaDRLMU9kQUZC?=
+ =?utf-8?B?MnpuUDRGcGVwZjBoUXgzNjR6eU1NNTRIVmZRZWdSaEk1aUJzcmpMVnZoZThw?=
+ =?utf-8?B?Z1BQY0xHS0g5WTVJUm1nd2ovMmJSQnVwOEo4TjNOdi9ZRFpmcUF5dz09?=
 X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: 494b424d-9acd-448f-7304-08de86b4218f
+X-MS-Exchange-CrossTenant-Network-Message-Id: b5436c8a-d400-4340-c88d-08de86b43663
 X-MS-Exchange-CrossTenant-AuthSource: LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Mar 2026 19:08:54.9496 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Mar 2026 19:09:29.8602 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: zHjTpn8Ke68yQy52PVmWus4izQ7Bx+MohL2V3zbv/DO7SCFxhy4wa6VQ8CG1Yyxxw2JbEZWROJ/tQO/kMsXnoQ==
+X-MS-Exchange-CrossTenant-UserPrincipalName: FDLthuHSCffU8aMOn6beGmYLvarJHKq8kYN98+b+/Vgy6MSAnIWPH27O+W3ZkjdP5JoBg+z/1+i8LLgf3Wub+Q==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO4P265MB6349
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -150,154 +150,18 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 On Fri Mar 20, 2026 at 12:19 PM GMT, Alexandre Courbot wrote:
-> Introduce a powered-up version of our ad-hoc `impl_from_enum_to_u8`
-> macro that allows the definition of an enum type associated to a
-> `Bounded` of a given width, and provides the `From` and `TryFrom`
-> implementations required to use that enum as a register field member.
+> Convert all PMC registers to use the kernel's register macro and update
+> the code accordingly.
 >
-> The next patch will make use of it to convert all falcon registers to
-> the kernel register macro.
->
-> The macro is unused in this patch: it is introduced ahead-of-time to
-> avoid diff mingling in the next patch that would make it difficult to
-> review.
->
-> Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
-> ---
->  drivers/gpu/nova-core/falcon.rs | 82 +++++++++++++++++++++++++++++++++++=
-++++++
->  1 file changed, 82 insertions(+)
->
-> diff --git a/drivers/gpu/nova-core/falcon.rs b/drivers/gpu/nova-core/falc=
-on.rs
-> index 5a4f7fc85160..5221e4476f90 100644
-> --- a/drivers/gpu/nova-core/falcon.rs
-> +++ b/drivers/gpu/nova-core/falcon.rs
-> @@ -54,6 +54,88 @@ fn from(value: $enum_type) -> Self {
->      };
->  }
-> =20
-> +/// Creates an enum type associated to a `Bounded`, with a `From` conver=
-sion to the associated
-> +/// `Bounded` and either a `TryFrom` or `From` converting from the assoc=
-iated `Bounded`.
-> +// TODO[FPRI]: This is a temporary solution to be replaced with the corr=
-esponding derive macros
-> +// once they land.
-> +#[expect(unused)]
-> +macro_rules! bounded_enum {
-> +    (
-> +        $(#[doc =3D $enum_doc:expr])*
-> +        enum $enum_type:ident with $from_impl:ident<Bounded<$width:ty, $=
-length:literal>> {
-> +            $( $(#[doc =3D $variant_doc:expr])* $variant:ident =3D $valu=
-e:expr),* $(,)*
-> +        }
-> +    ) =3D> {
-> +        $(#[doc =3D $enum_doc])*
-> +        #[derive(Debug, Copy, Clone, PartialEq, Eq, PartialOrd, Ord)]
-> +        pub(crate) enum $enum_type {
-> +            $(
-> +                $(#[doc =3D $variant_doc])*
-> +                $variant =3D $value
-> +            ),*
-> +        }
-> +
-> +        impl From<$enum_type> for Bounded<$width, $length> {
-> +            fn from(value: $enum_type) -> Self {
-> +                match value {
-> +                    $($enum_type::$variant =3D> Bounded::<$width, _>::ne=
-w::<$value>()),*
+> nova-core's registers have some constant properties (like a 32-bit size
+> and a crate visibility), so introduce the `nv_reg` macro to shorten
+> their declaration.
 
-Given that you're having `$value:expr` instead of `$value:literal`, this
-probably should be `::new::<{$value}>`
-
-> +                }
-> +            }
-> +        }
-> +
-> +        bounded_enum!(@impl_from $enum_type with $from_impl<Bounded<$wid=
-th, $length>> {
-> +            $($variant =3D $value),*
-> +        });
-> +    };
-> +
-> +    // `TryFrom` implementation from associated `Bounded` to enum type.
-> +    (@impl_from $enum_type:ident with TryFrom<Bounded<$width:ty, $length=
-:literal>> {
-> +        $($variant:ident =3D $value:expr),* $(,)*
-> +    }) =3D> {
-> +        impl TryFrom<Bounded<$width, $length>> for $enum_type {
-> +            type Error =3D Error;
-> +
-> +            fn try_from(value: Bounded<$width, $length>) -> Result<Self>=
- {
-> +                match value.get() {
-> +                    $(
-> +                        $value =3D> Ok($enum_type::$variant),
-> +                    )*
-> +                    _ =3D> Err(EINVAL),
-> +                }
-> +            }
-> +        }
-> +    };
-> +
-> +    // `From` implementation from associated `Bounded` to enum type. Tri=
-ggers a `build_error` if
-> +    // all possible values of the `Bounded` are not covered by the enum =
-type.
-> +    (@impl_from $enum_type:ident with From<Bounded<$width:ty, $length:li=
-teral>> {
-> +        $($variant:ident =3D $value:expr),* $(,)*
-> +    }) =3D> {
-> +        impl From<Bounded<$width, $length>> for $enum_type {
-> +            fn from(value: Bounded<$width, $length>) -> Self {
-> +                $(
-> +                    // Ensure all enum values fit into the `Bounded` typ=
-e.
-> +                    const { assert!(
-> +                        $value < (1 << $length),
-> +                        "Enum variant doesn't fit into assigned `Bounded=
-` type."
-> +                    ); }
-> +                )*
-> +
-> +                // Makes the compiler optimizer aware of the possible ra=
-nge of values.
-> +                let value =3D value.get() & ((1 << $length) - 1);
-> +                match value {
-> +                    $(
-> +                        $value =3D> $enum_type::$variant,
-> +                    )*
-> +                    // We land here if the match didn't cover all possib=
-le values for the
-> +                    // `Bounded`.
-> +                    _ =3D> build_error!("Enum doesn't cover all values o=
-f the `Bounded` type."),
-
-Given that the length is actually fixed, you should be able to use the
-exhaustive check instead of `build_error!`:
-
-    const MAX: $width =3D 1 << $length;
-
-    match value {
-        ...
-        MAX.. =3D> ...,
-    }
-
-This way compiler will complain about non-exhaustive patterns.
+This part of commit message should be removed.
 
 Best,
 Gary
 
-> +                }
-> +            }
-> +        }
-> +    }
-> +}
-> +
->  /// Revision number of a falcon core, used in the [`crate::regs::NV_PFAL=
-CON_FALCON_HWCFG1`]
->  /// register.
->  #[repr(u8)]
+>
+> Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
 
