@@ -4,125 +4,146 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CF6D4109317A
-	for <dri-devel@archiver.kernel.org>; Fri, 20 Mar 2026 05:52:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E2231109317A
+	for <dri-devel@archiver.kernel.org>; Fri, 20 Mar 2026 06:38:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C3C8210EA69;
-	Fri, 20 Mar 2026 05:52:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F384A10EA87;
+	Fri, 20 Mar 2026 06:38:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="L5qdtUU5";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="E1UbVc33";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Uf3ivET0";
 	dkim-atps=neutral
-Received: from CY3PR05CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11013037.outbound.protection.outlook.com
- [40.93.201.37])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B747110EA69;
- Fri, 20 Mar 2026 05:52:51 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=wIt0KgSze2qDCDgbBKeRnU/IUfEViq9y7ALW2UxRDbrwFmUdqQgrqcl2Rzh8bC7K/46G7cushWsLhb45ErXN0sMv9IGTEdmTwwTLBT8U62Poj7xw6OOgq6eGGxaGYmmF7hf6NKrLbXhZU6quYvMt4/puApjHLr3TMgrbIm4FLDeKL1VA5Rkl6nCyegMfHrmuvBPgqoYqq5zpVeNFXv0RNO+1/3JciW7xMhq84BLpR9pIncBW5x6QMxcpCCEowMtADwMoywEoAatj5HuUJc7L0w6/b1B21tyobFFVCOVeUWZONKJBwtGN3rzYBO2smBpdKLy5jOc+ukFsoINCcTF4Yw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=AEafgFIoYk9yMgPZXwQqz/sxXQi9cJkanRA/IEoWF5E=;
- b=Pt8k9c/D/Ic+Yj8Yi+Nut2iFfNC6Xyy5boR2xDjWZw0tNVlVS4f7HIujj6jn28OcXVZl1+btRDj1VTm7M8uRbsMFlxYCAW/XcfI1h5hCEUM+b71571UzmsnAZcpVaRhRUeYSeTCAldoklB9FL/eVGJdaBMrLG/N/3oW5HKafCFnlJ+hDy2P2omzM8hFpzx3a0TmHFuNe5isFfaD3jrVfEyxaMsH9DtShMijwfqgcIKhKU/Vd6mwARFYgYN9TOqmvgVolXIeO9wDxWEMikhSPyVtQm0fldbdIZLxZ3aonhvcmxSgwDwyc58oghWNdaf+YAf3XYnKtuv7dqXJe++Gs9g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=AEafgFIoYk9yMgPZXwQqz/sxXQi9cJkanRA/IEoWF5E=;
- b=L5qdtUU5W5MF+UEFxyJdf4KSVHhloRl5LiSHK0gC4dw1VBNqlYpfD/o6VFEDII1r2BMfCXDZp6oU0rGCupH/vntBuAm50iaEe63CrvBHtIajc5sYL9bUkJvNhTuZ9hrEjaBt+hUmk5ZzRuN5wVVw1OLn4ATkmUl7hvNhPeT9RNxmKz7oJjNJY0Ghu6OJUDvv9M0GK3ROtn0c93L0Up4QXdAQ/9tkH42FNDU9u2uxC+Rh8c6xDY6UNuWvx5haTY9fO4Mx6be6A8rPpY1w4mzF89rIN9oMCVAFmZ58duIKjA/raUNkkAaGjc955yfuPlBzrbQQNl+cmkKV8pGMBrKfyw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DS0PR12MB7726.namprd12.prod.outlook.com (2603:10b6:8:130::6) by
- PH8PR12MB7026.namprd12.prod.outlook.com (2603:10b6:510:1bd::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.9; Fri, 20 Mar
- 2026 05:52:46 +0000
-Received: from DS0PR12MB7726.namprd12.prod.outlook.com
- ([fe80::5807:8e24:69b0:f6c0]) by DS0PR12MB7726.namprd12.prod.outlook.com
- ([fe80::5807:8e24:69b0:f6c0%4]) with mapi id 15.20.9745.007; Fri, 20 Mar 2026
- 05:52:45 +0000
-Date: Fri, 20 Mar 2026 16:52:40 +1100
-From: Alistair Popple <apopple@nvidia.com>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Jordan Niethe <jniethe@nvidia.com>, linux-mm@kvack.org, 
- balbirs@nvidia.com, matthew.brost@intel.com, akpm@linux-foundation.org, 
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, ziy@nvidia.com, 
- lorenzo.stoakes@oracle.com, lyude@redhat.com, dakr@kernel.org,
- airlied@gmail.com, 
- simona@ffwll.ch, rcampbell@nvidia.com, mpenttil@redhat.com, jgg@nvidia.com, 
- willy@infradead.org, linuxppc-dev@lists.ozlabs.org,
- intel-xe@lists.freedesktop.org, 
- jgg@ziepe.ca, Felix.Kuehling@amd.com, jhubbard@nvidia.com, maddy@linux.ibm.com,
- mpe@ellerman.id.au, ying.huang@linux.alibaba.com
-Subject: Re: [PATCH v6 00/13] Remove device private pages from physical
- address space
-Message-ID: <abzUKN62gOA5b6FN@nvdebian.thelocal>
-References: <20260202113642.59295-1-jniethe@nvidia.com>
- <4b5b222a-18e8-4d48-9acb-39e5bfe4e5f7@kernel.org>
- <abiloqDpIs046DJJ@nvdebian.thelocal>
- <b1ae55b3-8058-40ef-96f5-5caf97b1ace5@kernel.org>
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9A8FD10EA87
+ for <dri-devel@lists.freedesktop.org>; Fri, 20 Mar 2026 06:38:53 +0000 (UTC)
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 62K2Y9G93558008
+ for <dri-devel@lists.freedesktop.org>; Fri, 20 Mar 2026 06:38:52 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=e1jtdLTR8LSxuOmbCFJP8N3o
+ W++FXdcqMYVb+LnFgdg=; b=E1UbVc33JwnEYjRLL0pbfacWqX2gWHBLKhPMitmi
+ OI4UfkYT7k87s0yhQKJLsqOls9+0txoOHOL9izSIRpvAPzljwD8AAePRNxpDjuof
+ oyPmcwYPIkNXM4547E7QZeDHnqlYqFtS42MejUj2Q4mHlDDxvSMZAXRgWoV7fuwi
+ EtRt//nVoIlrb83QrCF93KiH+dnygnxtTXgBG6u/bVlyeBgpDGy+i4Y1kFDMmlpv
+ lumDvP3wk1Vgq2oIdM9ROFP2JgG2EUC1Tl3OmiLMqm6a7Sv2BzarEWsnpLmNG05F
+ QG1XRdr0rNjgZP4+XsbJVCSHz/lu4JbIgtnfzFHEPfPbsA==
+Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com
+ [209.85.160.198])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d0r1gsaet-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Fri, 20 Mar 2026 06:38:52 +0000 (GMT)
+Received: by mail-qt1-f198.google.com with SMTP id
+ d75a77b69052e-50925fed647so130808491cf.3
+ for <dri-devel@lists.freedesktop.org>; Thu, 19 Mar 2026 23:38:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1773988732; x=1774593532;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=e1jtdLTR8LSxuOmbCFJP8N3oW++FXdcqMYVb+LnFgdg=;
+ b=Uf3ivET0GGBpwPvE7rbAZG9EFLKaeoVP1HHQVNJCwv+ruGWLCSD0rZtvuU9puTWUWd
+ YzxRF2Tn0MrkJMjw8SWEfm8/tU/kZCL08/lgSvSire4P1nRf7uyHFURZbHa+mbopHdoW
+ vcluTQ/7GthDiMEBy367875n0tjAxEHR1RthM8QVYmhGlqQSSAuTymKH3aQymk7gh157
+ 6SgnL9AKjwrZWUVBj/5dk1z/GiwLKJwwEA1ejUrIWGH5ExGvqaccPgZrbgSuJTpkrSZ3
+ u5IjBkiKlJSff1MA2Q0aBIKqp4dT8PX0GAdh4V4ZlfvOSvLQ+m/xIA3CX1wlzeVYTNR7
+ 5vLg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1773988732; x=1774593532;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=e1jtdLTR8LSxuOmbCFJP8N3oW++FXdcqMYVb+LnFgdg=;
+ b=mdZqAZyfDPHD5C77Ewx2BQJlH/4K5vubpTzSSR0MumOSvZdaXRqlf+BWhWVvMVm8H4
+ 6skLP5oaK4atL7MptFavKlrM5/5dGMFicWuJV5YpJrYAF7eE/GF6bZV7eim3VeJzocHt
+ AvbVDm2eCpPaE2RTGSp3CM9ERJDRR+IDn7zjIo8iugCVGSe5kxc5viNpofGZsZkARblw
+ Wb7gNahdaJoxxJukfO1/+SuJcX4h8spUX9XcvOuyW+aX5wIdvJYAiPmMvHxC1QlWokMp
+ /G1JS1PiCCCvFh4qYEgRRCfR88nH5e4e1iNQSwgJaB+gmih60WSKIuJ1/+ATMb1RWUWy
+ KZ1g==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVBdi1idXKSklA/1mcYOzKm+W6MRl5TdwyDX1kRD4et7zdZHbnvS+rc9Apl8sz2LyJp4QM9XTcvqNY=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxcKMx2zLzxGW893ZoAv/smBbuGWFvUqTLcZYUDpZaCvB2IlPnz
+ jvzkN5MOs72vfim22oRD387T0d/wrX1K5VnLXydJVMCUgIz/Ox08tTrYIRZ17cxO768b58jNAMw
+ hXrFjmWl5WSjUaAWe9wdBmf14FnusYRZXM07unfixqcCzlYoJKDBLdNL2oUGJ2ZjuabKKvaE=
+X-Gm-Gg: ATEYQzwZcTKLoE20XBHqUsuDT139U+W83w35MEESYtp/QocyQ7Q+pGqnNuq9IMYLseH
+ e9cO1SZHynZV45PGOzMrHF+odEVR+b+JzCIAg/ltsqhg6FwAgxogRSxqICMKvGUJzgiWpq3D+jO
+ MEAoynM6UtEk32D4yHMsdSqCKIlPluL0o5j+Z31C6xR/+kLlM0xlHxXDG1nbLgh0jixqX3MFYyX
+ ZZ0OQmBSBkMBJhrL1fL+lrjLM8V+YeonDn48fdgB8QxAU0zO4EPRm7T3x89eFA2cpyNG7+KJnb1
+ 8thCfoCv7892OURNqdMWluh8yEcEMmoYankrv3kRm/E1fiKosC9165iD+Ye78MDTkW3ZKZnM1Ck
+ yKZzaL2wRhAQ4XgHw20PDs//QnKcN56JfQqrCG31cGDKEiHZEOnYy2N9PSUMZcdUd3fXoKquhZx
+ Ic5PzpGVjDD/reKfqGlzR1sBql9CUR+UJD3M4=
+X-Received: by 2002:a05:622a:6097:b0:50b:2640:22e3 with SMTP id
+ d75a77b69052e-50b373a0221mr27399381cf.11.1773988731731; 
+ Thu, 19 Mar 2026 23:38:51 -0700 (PDT)
+X-Received: by 2002:a05:622a:6097:b0:50b:2640:22e3 with SMTP id
+ d75a77b69052e-50b373a0221mr27399051cf.11.1773988731214; 
+ Thu, 19 Mar 2026 23:38:51 -0700 (PDT)
+Received: from umbar.lan
+ (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-5a285192da8sm357209e87.10.2026.03.19.23.38.49
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 19 Mar 2026 23:38:50 -0700 (PDT)
+Date: Fri, 20 Mar 2026 08:38:48 +0200
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Alexander Koskovich <akoskovich@pm.me>
+Cc: Jonathan Marek <jonathan@marek.ca>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Jeffrey Hugo <jeffrey.l.hugo@gmail.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
+Subject: Re: [PATCH v3 4/4] drm/msm/dpu: fix video mode DSC INTF timing width
+ calculation
+Message-ID: <a7jukaag6juswudeeuskgzahzbixxn5oq4qjnxfny2oapinfnv@kmn7b33yxric>
+References: <20260319-dsi-rgb101010-support-v3-0-85b99df2d090@pm.me>
+ <20260319-dsi-rgb101010-support-v3-4-85b99df2d090@pm.me>
+ <1360a31d-669e-48df-a1be-f0af4a253cd7@linaro.org>
+ <3gLK4s97giqqXagfHKhfiIHbfbl2snwfOj9dcTNGPUYi10w9-1EdATqzz1LPCVTpz4bLFYOm8u_Fl8PfC7t5yabows4UCzRKVwjraEWW6hc=@pm.me>
+ <3f8763af-aad2-4d92-90c8-cfd290212503@linaro.org>
+ <7fb9dd9d-13f9-7bba-93d1-08f42dd6ee38@marek.ca>
+ <oihbfczsj5cg7qfjjt6jvyodjnjbezyrv6f32vmg444g5bx6ow@r54epj7ilsyt>
+ <da050aad-381d-ffb7-ec7d-8ed8a80d790a@marek.ca>
+ <pVeuxasxaau60kEIgTW1W6DmFLuzLUGYvmYtTN_Cv0htPbokC6lMObfmql3lWkAxtO5Lp-aD2l0Uzt_xL8cGYVxBmDey-5-HA7968eocg8c=@pm.me>
+MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <b1ae55b3-8058-40ef-96f5-5caf97b1ace5@kernel.org>
-X-ClientProxiedBy: SY6PR01CA0024.ausprd01.prod.outlook.com
- (2603:10c6:10:eb::11) To DS0PR12MB7726.namprd12.prod.outlook.com
- (2603:10b6:8:130::6)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB7726:EE_|PH8PR12MB7026:EE_
-X-MS-Office365-Filtering-Correlation-Id: d343d5de-dda6-4ae4-385b-08de8644e878
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|7416014|376014|1800799024|18002099003|7053199007|56012099003|22082099003;
-X-Microsoft-Antispam-Message-Info: iKKKYjgs68Sy0G+kixsde1V6TKWns2QBvOGLakQkMVbsOUb+29ApJsvH5+ieEbWm6GYTZ0gNSQf1fLr9hYnnKZp8vqVg9Jhhid4Aj3/tqnXpcYQaEJyjFs2P5YoEChvobNP1PgMOeBtUsIL09y7YPgkXC1hFwuep3K7vfB+wBbyG2W+IJVV17Rp8SDrRjnW/6O/GjYiUN8Hp6MCWwMSVyhshWHbxRJFjPrGiAOzfaVXFun6BAjh4/ZabX6v6P3IhXgxiVIKAmMkiAI9PhiWK4+Hj5ov95C5l2EKSiOLkMBw1GuwTDeuyDcP13gVLXDZmx1DL8zs4cBOzsTsQuBb1lXnrk3GKOZTEuIewdyMAQ2+JGKcZVUaWZ0mGNvM7E9PWMdGZ4WwdGzZdGMWCbP62gyX68kUyZbN+u2YGBpVoWN+7Pql47T5M6N3Ayq36kemQ8D2jK31hm8KatvJBC3dUnhVNBjhgcWqMX48LtWLi/X7juaAt4clvyqSxlsCir9pUSF4re+LeVnRX2Ntwj/gkV8RAZecZAn/N0Qmp66RyEGUa7+bRtUUeOwtYxL3ClyY9DwNEy0/3oigjM4QZconlWTj+kXvM2t0QsdkCR9rjBOcrd5UsN9pAjfszMAau5O3DncaRhDP4pzm2zCzT9zp6AvWF8h/BBZqq5E8AX34EIiMzR9ftrRogm20WVIfF86vVgmfV4gkTZbCewaMakIZz6g8UevmANevPdBP/pm6WGNc=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS0PR12MB7726.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(7416014)(376014)(1800799024)(18002099003)(7053199007)(56012099003)(22082099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?7NgRQF4rjtlIlAKPWHwkN4lJBjxY3Gkfrj/bGBtzjgyyoobtWByDKaGwHe49?=
- =?us-ascii?Q?GqoB5hRfqe5w7oUfvDxl0gbP8xOi7oWL+cFsXYBUVn+mMbGFseauWq5IHtP0?=
- =?us-ascii?Q?dDBvqsLuCgcC3s4eQK63sKd5MbQDEeM/i2cZm6do2zMHeZLg3+5okg6krmBI?=
- =?us-ascii?Q?1Tz75fwAjOIGSn3ql6x0ECLSzkc16rzi3iicStNu3T2saB0AAuF1bO6DyXCL?=
- =?us-ascii?Q?E04ZdT+oqCA7qzZ3dUAp/eIU9P9E6Ix8ufVOeh+TqLnyLJpLfI6HHt2pOgDy?=
- =?us-ascii?Q?m5TvTIoUkeQrbgr6vq1zfNPZeaePrRtomXM6E45M0mFLro3NHuN0a0Wqr5Hi?=
- =?us-ascii?Q?fU94kZ2vBTugwAF0HboGkUWQ3KZVwBAJAf5B9wGvmaSc8Z9ty297WgLviBG6?=
- =?us-ascii?Q?stJPGazoCJD7vVHBJqIa0di2zec3mvon86oP7TLGiDxOV3uz6d9nR3wAsL8R?=
- =?us-ascii?Q?bVp9HbIDgBNHqjTur+RD+F7aROARmwJ3UxbO0ZwRwTugMQlN6FvNRt0YENyq?=
- =?us-ascii?Q?KLFB+myauQfZY3JtRYOeK6eXcdS1uqbdvpT2ZqTIcXvWJdVqJkgNLMRo2nuP?=
- =?us-ascii?Q?guQGivsJBwZxwYCoAd1IWj4IFZxsgdHBdzprWnW+JSS9BVDz+XFxyFf6cIDS?=
- =?us-ascii?Q?YdgzoPOMv8VSyRHhDn7m2sRTKTL4eJiuIKlD7WqNgCu26zy9tO+IM40UFUGR?=
- =?us-ascii?Q?wyObKjMaLMklEs6oWx2ccxYxkh8RUcN1Qwpz/v+/5Ko8oCP+ZOvFfLNOe/Wb?=
- =?us-ascii?Q?76qpust1KhrRsYGM8k2qy4oGl33yBiM207/R0qj8jesjS5jo5/3Z3bfCvkSa?=
- =?us-ascii?Q?tCvfJ2sEb7Lz/S0ZtSzBqM5j8g5qCVaoPSiZ9lxflPFkuV+SrQmgO7oySIXG?=
- =?us-ascii?Q?4ngS75HbMukKi+b+TQFxZxXdf+1yiLP5kEtNswXJIplF6ltImSAtA/OvTbli?=
- =?us-ascii?Q?UBW2tNGYTvwzTjyJV8uffVudaH+9R8BlaZqLluQDJTdFYDtFcLsftpPUf27d?=
- =?us-ascii?Q?Ed8IV8IX9gmRi/pDKLxIxDElLlO1Xcy4EQxQV6QNP6VNb3WX4MNHHGadJ7r1?=
- =?us-ascii?Q?QCUtDinUnUm8WIQlLx2upIRmiXMJGFJNdKoz7KcdTKJVZlGjFJOovK3UG9S0?=
- =?us-ascii?Q?CuIzOh1DnN9SsUypnBxymXojC7CaId9uHUhvKroFn9m8gpLZmolbEHJieqWo?=
- =?us-ascii?Q?rxFF0sPbiwYrUe0AX1tgePwd1bja1IzrPB0FfNP6qvXXlWuh7mMQBBkHxjIj?=
- =?us-ascii?Q?z7IEou3eHez7qfqMWUiQapXe/cfiUKtS/V6ykIwtcG/E1hNhZbm+52pKgp1m?=
- =?us-ascii?Q?DhLWq5r3uFZ4BdVtqfp/58re//HGx5Q8e+CsWthHUJNh8dXlvt4PahNqnKJp?=
- =?us-ascii?Q?eV2p638eDbJEEqoUe/nT8JRjVZS+GzGnhG53HhMvYD0VZZYjon428LKFL57m?=
- =?us-ascii?Q?G+pvvsrsO5xRSb57HI2UNgV0rvfdmc0BTxk9+O9iZU0wWuiXi03arICa61q2?=
- =?us-ascii?Q?WHgGLQJT93Id7zuMyhrIM+2ycpEW5/ijoVupKzrdheCDw7e/8vic0CHpL4DV?=
- =?us-ascii?Q?S1O2k9ARZAu46XyyPUJgfQ9HTytK3M9HTApilx1/aAT+MURyItKUK9QHAdO3?=
- =?us-ascii?Q?7b0thsj4FK3u0fKwVJ+mFz07V3ZJk9rEBjTyagzcUt8CUEHDLMpH84SvuSY3?=
- =?us-ascii?Q?f9arnS2ZnQo1O/JdZFm7QLAf6WL1Ri9X3qE0mD1ULH1axFAc5an4ZibSagNJ?=
- =?us-ascii?Q?jVrEnVGdkQ=3D=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d343d5de-dda6-4ae4-385b-08de8644e878
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB7726.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Mar 2026 05:52:45.5093 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: CT+lNdAHzl8wLpfqyG/5cGUHcKctZvT59x+ZFDHTHZHcxTpIXA8Dqk1/DO82cZRswISxJI/89WprDlq1HE/Fcw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB7026
+In-Reply-To: <pVeuxasxaau60kEIgTW1W6DmFLuzLUGYvmYtTN_Cv0htPbokC6lMObfmql3lWkAxtO5Lp-aD2l0Uzt_xL8cGYVxBmDey-5-HA7968eocg8c=@pm.me>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzIwMDA0NyBTYWx0ZWRfX8sySVGc6bDBT
+ wFkhIbIOjvxrMsNM0F2/RaRaWXSqwu/HFjt/3atyTy2nPj96KPixbukNQiWXW7XC6sckXqgvkoa
+ 1aXchdVz9XM+Q1bkrcU3tEVpMNRtKIs8tUopPib94a7uWWSwNMtGsdRF9dXOoEF7vu661ZguVHj
+ IFrKvr5OFINtG5MsTvqplG7DCRMcCMY4/wYztlABhhiKV6bBbL9KFLEZUHf+w6EkKiXG+7FZGT/
+ zRsqvaOXaEDVlPw27CbL8QHXQx/0qCM3+YH00xkWsid7x0uR5jUTZ6YoidUi2gEMU3c+jiG1pSt
+ NJqEQOEcyexbYCU8nDHd8wOv5xfDAWNXOVTAnbpxAZyztwAur7DVM4EPb0N4QMcxrbUcXfFRb6T
+ if2Blj5WqKQ0WGmDV4f2yyssEF8g5mPglC5xBg2mhBFHkNPqgSQwX9MQ389W7JH4//DnxWb0LPb
+ FZL2DFTd9A3vpWvZByw==
+X-Proofpoint-GUID: kgU1mtGajIQ20BiILRA4BwvKeYMx0VVq
+X-Proofpoint-ORIG-GUID: kgU1mtGajIQ20BiILRA4BwvKeYMx0VVq
+X-Authority-Analysis: v=2.4 cv=Y/D1cxeN c=1 sm=1 tr=0 ts=69bceb7c cx=c_pps
+ a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22 a=RAbU-raeAAAA:8
+ a=87TsUx9vdYXdEiTG-ZoA:9 a=CjuIK1q_8ugA:10 a=dawVfQjAaf238kedN5IG:22
+ a=JiizpSU_mAIq9zsZDqn2:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-03-19_04,2026-03-19_05,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 spamscore=0 priorityscore=1501 adultscore=0 lowpriorityscore=0
+ malwarescore=0 clxscore=1015 phishscore=0 bulkscore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603200047
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -138,225 +159,90 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 2026-03-18 at 19:44 +1100, "David Hildenbrand (Arm)" <david@kernel.org> wrote...
-> On 3/17/26 02:47, Alistair Popple wrote:
-> > On 2026-03-07 at 03:16 +1100, "David Hildenbrand (Arm)" <david@kernel.org> wrote...
-> >> On 2/2/26 12:36, Jordan Niethe wrote:
-> >>> Introduction
-> >>> ------------
-> >>>
-> >>> The existing design of device private memory imposes limitations which
-> >>> render it non functional for certain systems and configurations where
-> >>> the physical address space is limited. 
-> >>>
-> >>> Limited available address space
-> >>> -------------------------------
-> >>>
-> >>> Device private memory is implemented by first reserving a region of the
-> >>> physical address space. This is a problem. The physical address space is
-> >>> not a resource that is directly under the kernel's control. Availability
-> >>> of suitable physical address space is constrained by the underlying
-> >>> hardware and firmware and may not always be available. 
-> >>>
-> >>> Device private memory assumes that it will be able to reserve a device
-> >>> memory sized chunk of physical address space. However, there is nothing
-> >>> guaranteeing that this will succeed, and there a number of factors that
-> >>> increase the likelihood of failure. We need to consider what else may
-> >>> exist in the physical address space. It is observed that certain VM
-> >>> configurations place very large PCI windows immediately after RAM. Large
-> >>> enough that there is no physical address space available at all for
-> >>> device private memory. This is more likely to occur on 43 bit physical
-> >>> width systems which have less physical address space.
-> >>>
-> >>> The fundamental issue is the physical address space is not a resource
-> >>> the kernel can rely on being to allocate from at will.  
-> >>>
-> >>> New implementation
-> >>> ------------------
-> >>>
-> >>> This series changes device private memory so that it does not require
-> >>> allocation of physical address space and these problems are avoided.
-> >>> Instead of using the physical address space, we introduce a "device
-> >>> private address space" and allocate from there.
-> >>>
-> >>> A consequence of placing the device private pages outside of the
-> >>> physical address space is that they no longer have a PFN. However, it is
-> >>> still necessary to be able to look up a corresponding device private
-> >>> page from a device private PTE entry, which means that we still require
-> >>> some way to index into this device private address space. Instead of a
-> >>> PFN, device private pages use an offset into this device private address
-> >>> space to look up device private struct pages.
-> >>>
-> >>> The problem that then needs to be addressed is how to avoid confusing
-> >>> these device private offsets with PFNs. It is the limited usage
-> >>> of the device private pages themselves which make this possible. A
-> >>> device private page is only used for userspace mappings, we do not need
-> >>> to be concerned with them being used within the mm more broadly. This
-> >>> means that the only way that the core kernel looks up these pages is via
-> >>> the page table, where their PTE already indicates if they refer to a
-> >>> device private page via their swap type, e.g.  SWP_DEVICE_WRITE. We can
-> >>> use this information to determine if the PTE contains a PFN which should
-> >>> be looked up in the page map, or a device private offset which should be
-> >>> looked up elsewhere.
-> >>>
-> >>> This applies when we are creating PTE entries for device private pages -
-> >>> because they have their own type there are already must be handled
-> >>> separately, so it is a small step to convert them to a device private
-> >>> PFN now too.
-> >>>
-> >>> The first part of the series updates callers where device private
-> >>> offsets might now be encountered to track this extra state.
-> >>>
-> >>> The last patch contains the bulk of the work where we change how we
-> >>> convert between device private pages to device private offsets and then
-> >>> use a new interface for allocating device private pages without the need
-> >>> for reserving physical address space.
-> >>>
-> >>> By removing the device private pages from the physical address space,
-> >>> this series also opens up the possibility to moving away from tracking
-> >>> device private memory using struct pages in the future. This is
-> >>> desirable as on systems with large amounts of memory these device
-> >>> private struct pages use a signifiant amount of memory and take a
-> >>> significant amount of time to initialize.
-> >>
-> >> I now went through all of the patches (skimming a bit over some parts
-> >> that need splitting or rework).
-> > 
-> > Thanks David for taking the time to do a thorough review. I will let Jordan
-> > respond to most of the comments but wanted to add some of my own as I helped
-> > with the initial idea.
-> > 
-> >> In general, a noble goal and a reasonable approach.
-> >>
-> >> But I get the sense that we are just hacking in yet another zone-device
-> >> thing. This series certainly makes core-mm more complicated. I provided
-> >> some inputs on how to make some things less hacky, and will provide
-> >> further input as you move forward.
-> > 
-> > I disagree - this isn't hacking in another/new zone-device thing it is cleaning
-> > up/reworking a pre-existing zone-device thing (DEVICE_PRIVATE pages). My initial
-> > hope was it wouldn't actually involve too much churn on the core-mm side.
+On Fri, Mar 20, 2026 at 04:46:02AM +0000, Alexander Koskovich wrote:
+> On Friday, March 20th, 2026 at 12:25 AM, Jonathan Marek <jonathan@marek.ca> wrote:
 > 
-> ... and there is quite some.
-> 
-> stuff like make_readable_exclusive_migration_entry_from_page() must be
-> reworked.
-
-Yeah, I was displeased to (re)discover the migration entry business when we
-fleshed this series out. The idea was basically that raw device-private pfns
-can't be used sensibly by anything in the core-mm anyway so presumably nothing
-was.
-
-That turned out to be only somewhat true. The exceptions are:
-
-1. page_vma_mapped which I think we have a solution for based on the comments to
-   patch 5.
-
-2. migration entries which obviously we will have to see if we can rework.
-
-3. hmm_range_fault()
-
-4. page snapshots, although that's actually only used to test zero_pfn so we
-   could probably drop that if we just guarantee device private offsets are
-   always invalid pfns.
-
-> Maybe after some reworks it will no longer look like a hack.
-> 
-> Right now it does.
-
-Fair enough.
-
+> > On 3/19/26 9:45 PM, Dmitry Baryshkov wrote:
+> > > On Thu, Mar 19, 2026 at 01:23:03PM -0400, Jonathan Marek wrote:
+> > ...
+> > >>
+> > >> That's not how it works. INTF (which feeds DSI) is after DSC compression.
+> > >>
+> > >> INTF timings are always in RGB888 (24-bit) units. Ignoring widebus details,
+> > >> the INTF timing should match what is programmed on the DSI side (hdisplay,
+> > >> which is calculated as bytes per line / 3).
+> > >>
+> > >> (fwiw, the current "timing->width = ..." calculation here blames to me, but
+> > >> what I wrote originally was just "timing->width = timing->width / 3" with a
+> > >> comment about being incomplete.)
+> > >>
+> > > Okay. After reading the docs (sorry, it took a while).
+> > >
+> > > - When widebus is not enabled, the transfer is always 24 bit of
+> > >    compressed data. Thus if it is not in play, pclk and timing->width
+> > >    should be scaled by source_pixel_depth / compression_ratio / 24. In
+> > >    case of the code it is 'drm_dsc_get_bpp_int(dsc) / 24'.
+> > >
+> > >    For RGB101010 / 8bpp DSC this should result in the PCLK being lowered
+> > >    by the factor of 3 (= 24 / (30 / 3.75))
+> > >
+> > > - When widebus is in play (MDSS 6.x+, DSI 2.4+), the transfer takes
+> > >    more than 24 bits. In this case the PCLK and timing->width should be
+> > >    scaled exactly by the DSC compression ratio, which is
+> > >    'drm_dsc_get_bpp_int(dsc) / (3 * dsc->bits_per_component).
+> > >
+> > > So, this piece of code needs to be adjusted to check for the widebus
+> > > being enabled or not.
+> > >
 > > 
-> > It seems that didn't work quite as well as hoped as there are a few places in
-> > core-mm where we use raw pfns without actually accessing them rather than using
-> > the page/folio. Notably page_vma_mapped in patch 5.
-> 
-> Yes. I provided ideas on how to minimize the impact.
-> 
-> Again, maybe if done right it will be okay-ish.
-> 
-> It will likely still be error prone, but I have no idea how on earth we
-> could possible catch reliably for an "unsigned long" pfn whether it is a
-> PFN (it's right there in the name ...) or something completely different.
-
-The idea was (at least for device-private) that you never needed the PFN,
-only the page. Ie: that calling page_to_pfn() on a device-private page could,
-conceptually at least, just crash the kernel because it should never happen.
-
-Obviously we identified some exceptions to that rule, the biggest being
-migration entries, hence the helpers for those.
-
-> We don't want another pfn_t, it would be too much churn to convert most
-> of MM.
-
-Given I removed pfn_t I don't need convincing of that :-)
-
+> > The widebus adjustment on the MDP/INTF side is already in
+> > dpu_hw_intf_setup_timing_engine: the "data width" is divided by 2 for
+> > 48-bit widebus instead of 24-bit. there shouldn't be any other
+> > adjustment (downstream doesn't have any other adjustment).
 > > 
-> > But overall this is about replacing pfn_to_page()/page_to_pfn() with
-> > device-private specific variants, as callers *must* already know when they
-> > are dealing with a device-private pfn and treat it specially today (whether
-> > explicitly or implicitly). Callers/callees already can't just treat a
-> > device-private pfn normally as accessing the pfn will cause machine checks and
-> > the associated page is a zone-device page so doesn't behave like a normal struct
-> > page.
+> > a relevant downstream comment: "In DATABUS-WIDEN mode, MDP always sends
+> > out 48-bit compressed data per pclk and on average, DSI consumes an
+> > amount of compressed data equivalent to the uncompressed pixel depth per
+> > pclk."
 > > 
-> >> We really have to minimize the impact, otherwise we'll just keep
-> >> breaking stuff all the time when we forget a single test for
-> >> device-private pages in one magical path.
-> > 
-> > As noted above this is already the case - all paths whether explicitly or
-> > implicitly (or just fogotten ... hard to tell) need to consider device-private
-> > pages and possibly treat them differently. Even today some magical path that
-> > somehow gets a device-private pfn/page and tries to use it as a normal page/pfn
-> > will probably break as they don't actually correspond to physical addresses that
-> > actually exist and the struct pages are special.
+> > Based on that comment, this patch is correct, and the
+> > ''drm_dsc_get_bpp_int(dsc) / (3 * dsc->bits_per_component)' adjustment
+> > only applies to DSI. 
 > 
-> Well, so far a PFN is a PFN, and when you actually have a *page* (after
-> pfn_to_page() etc) you can just test for these cases.
+> If I keep the INTF side at /24 and change the DSI side to:
 > 
-> The page is actually sufficient to make a decision.
-> With a PFN you have to carry auxiliary information.
+> if (wide_bus)
+>         new_hdisplay = DIV_ROUND_UP(mode->hdisplay * drm_dsc_get_bpp_int(dsc), dsc->bits_per_component * 3);
+> else
+>         new_hdisplay = DIV_ROUND_UP(mode->hdisplay * drm_dsc_get_bpp_int(dsc), 24);
+
+Please check the actual fps (I'm usually using a vblank-synced GL, e.g.
+kmscube).
+
+At least this matches my expectations.
+
 > 
-> > 
-> > So any core-mm churn is really just making this more explicit, but this series
-> > doesn't add any new requirements.
+> This also works on my panel.
 > 
-> Again, maybe it can be done in a better way. I did not enjoy some of the
-> code changes I was reading.
-
-Ok. Was there anything outside the exceptions above that you did not enjoy?
-
-One idea we did have was to make the PFNs "obviously" invalid PFNs, for example
-by setting the MSB which exceeds the physical addressing capabilities of
-every arch/platform. That would allow dropping the hmm and page-snapshot flags
-although is still a bit of a hack.
-
-Ultimately one of the issues we are trying to resolve is that to get a PFN range
-we use get_free_mem_region(), which essentially just returns a random unused PFN
-range from the platform/arch perspective so an architecture may not recognise
-them as valid pfns and hence may not have allocated enough vmemmap space for
-them. That results in pfn_to_page() overflowing into something else (usually
-user space VAs, at least in the case of RISC-V).
-
-> > 
-> > My bigger aim here is to use this as a stepping stone to removing device-private
-> > pages as they just contain a bunch of redundant information from a device driver
-> > perspective that introduces a lot of metadata management overhead.
-> > 
-> >> I am not 100% sure how much the additional tests for device-private
-> >> pages all over the place will cost us. At least it can get compiled out,
-> >> but most distros will just always have it compiled in.
-> > 
-> > I didn't notice too many extra checks outside of the migration entry path. But
-> > if perf is a concern there I think we could move those checks to device-private
-> > specific paths. From memory Jordan did this more as a convenience. Will go look
-> > a bit deeper for any other checks we might have added.
-> I meant in stuff like page_vma_mapped. Probably not the hottest path,
-> and maybe the impact can be reduced by reworking it.
-
-Ok, lets see what the rework looks like. Thanks again for looking.
-
-> -- 
-> Cheers,
+> Should I send this in a v4 for this series or just leave it for a seperate
+> change as panel seems to work with /24 here anyways?
 > 
-> David
+> > (note: newer downstream looks like it would divide
+> > by 3.75 here, which doesn't make sense. older downstream would divide by
+> > 3 here. I guess downstream is broken now and video mode + 10-bit dsc
+> > doesn't get tested?)
+> > 
+> > on DSI side, "uncompressed pixel depth" shouldn't matter either: DSI
+> > only sees the compressed data. But based on that comment, when widebus
+> > is enabled, by setting DSI_VID_CFG0_DST_FORMAT(?) to 30bpp, then the DSI
+> > pclk is in 30-bit units instead of 24-bits. And with this series DSI
+> > side ends up with the right result if 30bpp format and widebus is enabled.
+> > 
+> > 
+> 
+> Thanks,
+> Alex
+
+-- 
+With best wishes
+Dmitry
