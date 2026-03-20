@@ -4,89 +4,98 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C48F2108B8F1
-	for <dri-devel@archiver.kernel.org>; Fri, 20 Mar 2026 10:48:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0BAF5108B8F1
+	for <dri-devel@archiver.kernel.org>; Fri, 20 Mar 2026 10:48:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3292F10EACA;
-	Fri, 20 Mar 2026 10:48:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6E5CC10EAD2;
+	Fri, 20 Mar 2026 10:48:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="b4Mgr3wJ";
+	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="DqoqqrdR";
 	dkim-atps=neutral
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 655F410EACA
- for <dri-devel@lists.freedesktop.org>; Fri, 20 Mar 2026 10:47:58 +0000 (UTC)
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-02.galae.net (Postfix) with ESMTPS id 54C9E1A2F1A;
- Fri, 20 Mar 2026 10:47:57 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 284F0601A0;
- Fri, 20 Mar 2026 10:47:57 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 7DF5310450A35; Fri, 20 Mar 2026 11:47:45 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1774003674; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding:in-reply-to:references;
- bh=4T4axWR8ozOJ/Xi7kzHVRqa4a+zl3Ng+9KLl2BPnmnU=;
- b=b4Mgr3wJeBvoLayCkTLc8I0Qd/rCXnaK7pKNSXwumkcaoUPp6XZ8y7WZBak34cq4+ovggZ
- Zzus/vja8EuoI+KEcrFbmYn471Wv6wW1qEXGhcnRv7Lq8anVpAUmYuod/6HkKv6RPBDDCF
- Z6iE412IJ40rF7IrMJbBy93lRazXIwP+PHknq+tP5+k8JBchMqpOJggDQs1jD8eoPuu6P/
- rEWgFa3XJt7668IvDIfYOZdO1WPUXJCG7QYNs668QlUDVZaXThmB5s9v+s3uMfkgof5YlK
- 0mYmHWg9BIzIcCct8iB1XXicjpafjEI9QsVMWkaX2T6oI0CO9ZlSDGJTZOEmhw==
-From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Date: Fri, 20 Mar 2026 11:46:19 +0100
-Subject: [PATCH 8/8] drm/mxsfb/lcdif: use DRM_BRIDGE_ATTACH_NO_CONNECTOR
- and the bridge-connector
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
+ [213.167.242.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CEBF910EAD2
+ for <dri-devel@lists.freedesktop.org>; Fri, 20 Mar 2026 10:48:20 +0000 (UTC)
+Received: from [192.168.88.20] (91-158-153-178.elisa-laajakaista.fi
+ [91.158.153.178])
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id 565F3BE1;
+ Fri, 20 Mar 2026 11:47:04 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+ s=mail; t=1774003625;
+ bh=/nW8aoQ83RIP4DbS7SIvwj3g8HWwOPjalxZVoLbwQts=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=DqoqqrdRGS9k2G42jC2tpvtd3xSM/OdbhhYjOqVclfwpKik1DClI433HY1zzm/yoR
+ GT8yccHeq5yvh9Tnu+da7KFrAPQB6FJn5DbH/waB5Ga3lM7tEl4kw8IOc7fLNuwL6W
+ jHB+d6fdwYAiD7jSA/MHx6lrk01AO9wYPjtxO3qA=
+Message-ID: <d0728f98-f964-4321-a34a-022f28f268cc@ideasonboard.com>
+Date: Fri, 20 Mar 2026 12:48:15 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260320-drm-lcdif-dbanc-v1-8-479a04133e70@bootlin.com>
-References: <20260320-drm-lcdif-dbanc-v1-0-479a04133e70@bootlin.com>
-In-Reply-To: <20260320-drm-lcdif-dbanc-v1-0-479a04133e70@bootlin.com>
-To: Marek Vasut <marex@denx.de>, Stefan Agner <stefan@agner.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Liu Ying <victor.liu@nxp.com>, Rob Herring <robh@kernel.org>, 
- Saravana Kannan <saravanak@kernel.org>
-Cc: "Kory Maincent (TI.com)" <kory.maincent@bootlin.com>, 
- =?utf-8?q?Herv=C3=A9_Codina?= <herve.codina@bootlin.com>, 
- Hui Pu <Hui.Pu@gehealthcare.com>, Ian Ray <ian.ray@gehealthcare.com>, 
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- dri-devel@lists.freedesktop.org, imx@lists.linux.dev, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- devicetree@vger.kernel.org, Adam Ford <aford173@gmail.com>, 
- Alexander Stein <alexander.stein@ew.tq-group.com>, 
- Anson Huang <Anson.Huang@nxp.com>, 
- Christopher Obbard <christopher.obbard@linaro.org>, 
- Daniel Scally <dan.scally@ideasonboard.com>, 
- Emanuele Ghidoli <emanuele.ghidoli@toradex.com>, 
- Fabio Estevam <festevam@denx.de>, 
- Francesco Dolcini <francesco.dolcini@toradex.com>, 
- Frieder Schrempf <frieder.schrempf@kontron.de>, 
- Gilles Talis <gilles.talis@gmail.com>, 
- =?utf-8?q?Goran_Ra=C4=91enovi=C4=87?= <goran.radni@gmail.com>, 
- Heiko Schocher <hs@denx.de>, 
- Joao Paulo Goncalves <joao.goncalves@toradex.com>, 
- Josua Mayer <josua@solid-run.com>, 
- =?utf-8?q?Jo=C3=A3o_Paulo_Gon=C3=A7alves?= <joao.goncalves@toradex.com>, 
- Kieran Bingham <kieran.bingham@ideasonboard.com>, 
- Marco Felsch <m.felsch@pengutronix.de>, 
- Martyn Welch <martyn.welch@collabora.com>, 
- Oleksij Rempel <o.rempel@pengutronix.de>, Peng Fan <peng.fan@nxp.com>, 
- Philippe Schenker <philippe.schenker@toradex.com>, 
- Richard Hu <richard.hu@technexion.com>, 
- Shengjiu Wang <shengjiu.wang@nxp.com>, 
- Stefan Eichenberger <stefan.eichenberger@toradex.com>, 
- Vitor Soares <vitor.soares@toradex.com>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>
-X-Mailer: b4 0.14.3
-X-Last-TLS-Session-Version: TLSv1.3
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v8 04/11] drm/fourcc: Add DRM_FORMAT_Y10_P32
+To: Simon Ser <contact@emersion.fr>
+Cc: Vishal Sagar <vishal.sagar@amd.com>,
+ Anatoliy Klymenko <anatoliy.klymenko@amd.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Michal Simek <michal.simek@amd.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ Geert Uytterhoeven <geert@linux-m68k.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Pekka Paalanen <ppaalanen@gmail.com>,
+ Pekka Paalanen <pekka.paalanen@collabora.com>
+References: <20260128-xilinx-formats-v8-0-9ea8adb70269@ideasonboard.com>
+ <20260128-xilinx-formats-v8-4-9ea8adb70269@ideasonboard.com>
+ <5zkelJBm0aeSnp__adMEfjOl_GAg7G_W1GyDWix8dQ48gqSmuM1if1c2Vz_xPNNpKy8_SiUh4l7WRs-12b8_DkD0PUWLdCwubo2k_DLh5eE=@emersion.fr>
+From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Content-Language: en-US
+Autocrypt: addr=tomi.valkeinen@ideasonboard.com; keydata=
+ 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
+In-Reply-To: <5zkelJBm0aeSnp__adMEfjOl_GAg7G_W1GyDWix8dQ48gqSmuM1if1c2Vz_xPNNpKy8_SiUh4l7WRs-12b8_DkD0PUWLdCwubo2k_DLh5eE=@emersion.fr>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,69 +111,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Convert this driver to DRM_BRIDGE_ATTACH_NO_CONNECTOR and to the
-drm_bridge_connector framework which is the current DRM bridge best
-practice.
+Hi,
 
-Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
----
- drivers/gpu/drm/mxsfb/Kconfig     |  1 +
- drivers/gpu/drm/mxsfb/lcdif_drv.c | 12 +++++++++++-
- 2 files changed, 12 insertions(+), 1 deletion(-)
+On 19/03/2026 16:59, Simon Ser wrote:
+> On Wednesday, January 28th, 2026 at 18:25, Tomi Valkeinen <tomi.valkeinen@ideasonboard.com> wrote:
+> 
+>> Add Y10_P32, a 10 bit greyscale format, with 3 pixels packed into
+>> 32-bit container.
+>>
+>> The fourcc for the format is 'YPA4', which comes from Y - Y only, P -
+>> packed, A - 10 (as in 0xA), 4 - 4 bytes.
+> 
+> I know we aren't super consistent about DRM format names, but… this _P32
+> suffix doesn't make sense to me: we never had it before, and a lot of
+> DRM formats are packed (in the Vulkan sense [1]), so I'm not sure why
+> this one would need it.
+> 
+> What's special about this one is that it's the first (AFAIK) which has
+> 3 pixels per block. Some YCbCr formats are sub-sampled, but always use a
+> square block.
+> 
+> I would suggest something like YYYX1010102. We use the "channels
+> followed by bits per component" pattern elsewhere.
+I'm ok with that. But wouldn't it be XYYY2101010 instead?
 
-diff --git a/drivers/gpu/drm/mxsfb/Kconfig b/drivers/gpu/drm/mxsfb/Kconfig
-index 264e74f45554..1a8a5d1ba8c0 100644
---- a/drivers/gpu/drm/mxsfb/Kconfig
-+++ b/drivers/gpu/drm/mxsfb/Kconfig
-@@ -33,6 +33,7 @@ config DRM_IMX_LCDIF
- 	select DRM_GEM_DMA_HELPER
- 	select DRM_PANEL
- 	select DRM_PANEL_BRIDGE
-+	select DRM_BRIDGE_CONNECTOR
- 	help
- 	  Choose this option if you have an LCDIFv3 LCD controller.
- 	  Those devices are found in various i.MX SoC (i.MX8MP,
-diff --git a/drivers/gpu/drm/mxsfb/lcdif_drv.c b/drivers/gpu/drm/mxsfb/lcdif_drv.c
-index e40253ad607b..3388d959c93d 100644
---- a/drivers/gpu/drm/mxsfb/lcdif_drv.c
-+++ b/drivers/gpu/drm/mxsfb/lcdif_drv.c
-@@ -17,6 +17,7 @@
- #include <drm/clients/drm_client_setup.h>
- #include <drm/drm_atomic_helper.h>
- #include <drm/drm_bridge.h>
-+#include <drm/drm_bridge_connector.h>
- #include <drm/drm_drv.h>
- #include <drm/drm_encoder.h>
- #include <drm/drm_fbdev_dma.h>
-@@ -50,6 +51,7 @@ static int lcdif_attach_bridge(struct lcdif_drm_private *lcdif)
- 	struct device *dev = lcdif->drm->dev;
- 	struct drm_encoder *encoder;
- 	struct drm_bridge *bridge;
-+	struct drm_connector *connector;
- 	int ret;
- 
- 	struct device_node *remote __free(device_node) =
-@@ -72,10 +74,18 @@ static int lcdif_attach_bridge(struct lcdif_drm_private *lcdif)
- 	if (ret)
- 		return dev_err_probe(dev, ret, "Failed to initialize encoder\n");
- 
--	ret = drm_bridge_attach(encoder, bridge, NULL, 0);
-+	ret = drm_bridge_attach(encoder, bridge, NULL, DRM_BRIDGE_ATTACH_NO_CONNECTOR);
- 	if (ret)
- 		return dev_err_probe(dev, ret, "Failed to attach bridge\n");
- 
-+	connector = drm_bridge_connector_init(lcdif->drm, encoder);
-+	if (IS_ERR(connector))
-+		return dev_err_probe(dev, PTR_ERR(connector), "Failed to init bridge_connector\n");
-+
-+	ret = drm_connector_attach_encoder(connector, encoder);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "Failed to attach connector\n");
-+
- 	return 0;
- }
- 
+And then we just wait for someone to add a x:Y0:Y1:Y2 format (instead of
+x:Y2:Y1:Y0). Should we be more specific, and already make this one
+XY2Y1Y0_2101010...
 
--- 
-2.53.0
+ Tomi
 
