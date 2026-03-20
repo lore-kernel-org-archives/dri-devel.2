@@ -4,39 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 53F2A10987AF
-	for <dri-devel@archiver.kernel.org>; Fri, 20 Mar 2026 16:42:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CE97210987AF
+	for <dri-devel@archiver.kernel.org>; Fri, 20 Mar 2026 16:42:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 89B8F10EB9E;
-	Fri, 20 Mar 2026 16:42:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3102E10EBAD;
+	Fri, 20 Mar 2026 16:42:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="UBUDePkX";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="Pghk6o87";
 	dkim-atps=neutral
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 45E5210EB96
- for <dri-devel@lists.freedesktop.org>; Fri, 20 Mar 2026 16:42:12 +0000 (UTC)
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BA03210EBC0
+ for <dri-devel@lists.freedesktop.org>; Fri, 20 Mar 2026 16:42:22 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-04.galae.net (Postfix) with ESMTPS id 48931C5668F;
- Fri, 20 Mar 2026 16:42:36 +0000 (UTC)
+ by smtpout-03.galae.net (Postfix) with ESMTPS id A47344E4273A;
+ Fri, 20 Mar 2026 16:42:21 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id C37EF600E0;
- Fri, 20 Mar 2026 16:42:10 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 7A809600E0;
+ Fri, 20 Mar 2026 16:42:21 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 5B32E10450CB4; Fri, 20 Mar 2026 17:42:06 +0100 (CET)
+ with ESMTPSA id D65E410450CB2; Fri, 20 Mar 2026 17:42:16 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1774024929; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ t=1774024939; h=from:subject:date:message-id:to:cc:mime-version:content-type:
  content-transfer-encoding:in-reply-to:references;
- bh=Kqg2HZTJVWRR2tS3YPa3wsykd6O3Rjp63yhxGf4aQLw=;
- b=UBUDePkXFRvC4BduDw8vBce1a7apZwkjDdXFHqH4YwHPejGrwFsCG9WPNrhvhLBThQDdLF
- wyw2iVhu8yPDpw1pHx1w14XXeJjvvtXoXX0sJmHQdW+Txujf4wDQKD1ZAJjuRuvwUt81fK
- ZHRGuWgGSBCrfPzd9jlkjT9+m15fkBY2g+11r+uZ/yngTRVU2Kzwo1CEFFlMwEKGzUXX01
- BRYxMeJDUpwfYauQpEoInNZCVuziWQpm0Y8PbUCbAH4kTr+XPtgKwQpxSR9G7vaFtp7BCG
- BEE4ZRdako+EA0EWGkDZcNPOzwjSqw6M56PTG0AGwOXliWdjAJz+A/wUg/ExbQ==
+ bh=3tDYcKzO5MDGiIV8RSQMSKazI7uk8qqogZgZP2Jik80=;
+ b=Pghk6o87j1OZgcAhpf1J+B/wuDl8SwVz642B8I93qbosIYsbuMbMqP4t8ArTaQU/TfNnAu
+ t6SSc5Wyad/nw2WKyvEMGR94ZzNMqHFZBSmOGHId6vvByPQf42CIhwbT2Z0CzpzIGby6cj
+ gnMJYUUYqZK4TqCEvL/CdNTw7SRPyqeNv375PGQlVdl+iyG8qs1WCZC+EDT5HA6VuZy+Z0
+ Z/ebz+Daio399JqMe62P5Fhujk7kno9Axerp89TPypD699SKxPmMOFvKYivJvDoKfhvNzO
+ w9vKogDS5kUm6fUY/VGBCUdJbeM22+7H13evht/9CZo5Q8qrvbd50HrsAKK/Cg==
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v11 24/65] dyndbg: check DYNAMIC_DEBUG_CLASSMAP_DEFINE
- args at compile-time
+Subject: Re: [PATCH v11 27/65] dyndbg: treat comma as a token separator
 From: Louis Chauvet <louis.chauvet@bootlin.com>
 To: airlied@gmail.com, simona@ffwll.ch, jbaron@akamai.com, 
  gregkh@linuxfoundation.org
@@ -48,27 +47,27 @@ Cc: Jim Cromie <jim.cromie@gmail.com>, mripard@kernel.org,
  skhan@linuxfoundation.org, pmladek@suse.com, ukaszb@chromium.org, 
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
  intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-In-Reply-To: <20260313132103.2529746-25-jim.cromie@gmail.com>
+In-Reply-To: <20260313132103.2529746-28-jim.cromie@gmail.com>
 References: <20260313132103.2529746-1-jim.cromie@gmail.com>
- <20260313132103.2529746-25-jim.cromie@gmail.com>
+ <20260313132103.2529746-28-jim.cromie@gmail.com>
 Date: Fri, 20 Mar 2026 17:41:54 +0100
-Message-Id: <177402491443.6181.60919381684088042.b4-review@b4>
+Message-Id: <177402491447.6181.3220870184845096632.b4-review@b4>
 X-Mailer: b4 0.15-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=863;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=437;
  i=louis.chauvet@bootlin.com; h=from:subject:message-id;
- bh=oFQ+J0egVKr5tAsqlN3xmdslSXlZ+Q9/RF3kItKtNpo=;
- b=owEBiQJ2/ZANAwAIASCtLsZbECziAcsmYgBpvXjXWhAQEZgjNAhw7byoorKb1SXNHYTCk3a8y
- vFv2uoevhaJAk8EAAEIADkWIQRPj7g/vng8MQxQWQQgrS7GWxAs4gUCab141xsUgAAAAAAEAA5t
- YW51MiwyLjUrMS4xMSwyLDIACgkQIK0uxlsQLOIGpRAAhRSCEMRibwWdWaqxbC784J4wZWmSm4/
- 4xhIf1/1NhCHQwc5UZ875/uKr2l2lyD1WxKpFsvLzQmR1Pg3CsighN4hNkyF/zuS/qgXEn2w41z
- CrrpcvW1kssfq1kdTVDbolTcCXKATw4plJ79dwJGvQyhyBolxlH28txwqCsPAbJr0eC43/lN4fz
- YqcVCgjz3XLNFb5vA1CB/vsoA3XUsUyHUGfqyefaBJUigWCnM2FO4Vfgj8eFx9a/HDUluObM4Bg
- UmqynVfSeYtKXrdEvGP2A8kpPyXz9Qk9siNA8MCBs1p3QGhTtOExc2iuBvB7RmlLthed4ReRqDk
- oKGK1Uo9DfT6Qhz15coscf/rMjq0HAuDYrGDPlZ/1YOza/2Eeh9+q7ghv5/qgcW1531CavAC7pQ
- izM1zFJNjGkgjqQS74dvzW4QyvPmxeyWrLa7hZUq0uH6DT00xvV3DfXGjk5LpbO7JHDOlVnJZzH
- xi3GbHuuUjhwY1MJVBsxPGwweAoRprd/QZeeWbqi9t4e9lUE8bwQoRDJFUZK+0UTwXGrW9Nhlwg
- eyPRRlBUGS/9y/wuP0NzrTUw3oZl/gwXLJOgAn21tb3SxW3qB1xvi2us61NaJ0H/GJqhR9rmO6N
- TYT8SCqt0JFsGH2geTFRKVV5F3YuA66agnKE7TxS9+leGkKi6NWE=
+ bh=QhI92uo8v2vZESlVaEfD5iRS2Wj3thE7jphrmNxFgXc=;
+ b=owEBiQJ2/ZANAwAIASCtLsZbECziAcsmYgBpvXjYXIis7v1AdzZnHsfHCR0RVzZiAX/y7jKqa
+ Y0cnN8erWCJAk8EAAEIADkWIQRPj7g/vng8MQxQWQQgrS7GWxAs4gUCab142BsUgAAAAAAEAA5t
+ YW51MiwyLjUrMS4xMSwyLDIACgkQIK0uxlsQLOKXZBAAjd1m1rqakNM/cYwaIgqyrZq37mBPtyk
+ 9CBGViYZHFJ8jjXW4W+9R509cubohUFe8xqSIiB1Pc5yCV01oQy5UC3kX1ln1ZxiiDTmFCCPBQO
+ nQAZV6gB91DDApMx/M9cjW6ktvC9Dh+LlnNrcKADTxEDae/xA0z5RWOTplLseCVi2pSEEEg7+9D
+ +Nm7GKjO1GhGoPc96jiahn2w+QgOj1/0Hah6W1WS8YpeZbkuHzX1/PALu6y7XhGhzHPiXnbBDTX
+ N+bgGOAqrUlws7GMMp6iRKplfYKC6+J/lQOCkp2Is6DmJ++DQmGZdoq8B84vmIcJ50KTG3XI8Qb
+ IAUwFRIyCVnu4hwTtdW5ds7v0XcLtHUx3lgKE39p5sg+h5cdXHzkfaur1RmvogwZG2gDaEbQBtw
+ iSWD8GkWqaOpm28WpaVBEwgpGQO0WQxk3AV/Rib+oq40AjUfoolutnHQW7KP+E363kueQXweLtI
+ tcWoPrtyQ+MK46yy5tqpv6zeEON1NMoslXzrm5UT3LGUx30k1kml74gMh/CBRwcYjPYfbEaweAl
+ 9OI0bmy4pEKQQtynCENopYrVa0YSRke0KrrDjVWMtVyXJFwcUIJklD+EQ5OefQ3VFzWW+q8SVG1
+ y3WqaXwaMB3LSlxyr8eygQw6bo7oa7An8dHRn9LQnRV1onklEUV8=
 X-Developer-Key: i=louis.chauvet@bootlin.com; a=openpgp;
  fpr=8B7104AE9A272D6693F527F2EC1883F55E0B40A5
 X-Last-TLS-Session-Version: TLSv1.3
@@ -87,25 +86,17 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, 13 Mar 2026 07:19:49 -0600, Jim Cromie <jim.cromie@gmail.com> wrote:
-> diff --git a/lib/test_dynamic_debug.c b/lib/test_dynamic_debug.c
-> index 1ba4be9a403a..b2bdfdfb6ba1 100644
-> --- a/lib/test_dynamic_debug.c
-> +++ b/lib/test_dynamic_debug.c
-> @@ -146,8 +146,19 @@ DYNDBG_CLASSMAP_DEFINE(classid_range_conflict, 0, D2_CORE + 1, "D3_CORE");
-> [ ... skip 4 lines ... ]
-> +/*
-> + * Exersize compile-time arg-checks in DYNAMIC_DEBUG_CLASSMAP_DEFINE.
-> + * These will break compilation.
-> + */
-> +DYNAMIC_DEBUG_CLASSMAP_DEFINE(fail_base_neg, 0, -1, "NEGATIVE_BASE_ARG");
-> +DYNAMIC_DEBUG_CLASSMAP_DEFINE(fail_base_big, 0, 100, "TOOBIG_BASE_ARG");
+On Fri, 13 Mar 2026 07:19:52 -0600, Jim Cromie <jim.cromie@gmail.com> wrote:
+> Treat comma as a token terminator, just like a space.  This allows a
+> user to avoid quoting hassles when spaces are otherwise needed:
+> 
+>  :#> modprobe drm dyndbg=class,DRM_UT_CORE,+p\;class,DRM_UT_KMS,+p
+> 
+> or as a boot arg:
+> 
+> [...]
 
-Maybe add a:
-
-DYNAMIC_DEBUG_CLASSMAP_DEFINE(cat_disjoint_bits, 0, 61, "TOOLONG");
-
-So you can also check that an overflow is really checked.
+Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
 
 -- 
 Louis Chauvet <louis.chauvet@bootlin.com>
