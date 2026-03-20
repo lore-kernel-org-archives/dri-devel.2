@@ -4,101 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0D9C01099B28
-	for <dri-devel@archiver.kernel.org>; Fri, 20 Mar 2026 17:52:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7419D1099B31
+	for <dri-devel@archiver.kernel.org>; Fri, 20 Mar 2026 18:00:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 56FF910E466;
-	Fri, 20 Mar 2026 17:52:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DB58610EA74;
+	Fri, 20 Mar 2026 18:00:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ZW7ipYjC";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="iPIVF3eB";
 	dkim-atps=neutral
-Received: from mail-yx1-f41.google.com (mail-yx1-f41.google.com
- [74.125.224.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A0F1C10E466
- for <dri-devel@lists.freedesktop.org>; Fri, 20 Mar 2026 17:52:47 +0000 (UTC)
-Received: by mail-yx1-f41.google.com with SMTP id
- 956f58d0204a3-64ca423ad53so2520612d50.0
- for <dri-devel@lists.freedesktop.org>; Fri, 20 Mar 2026 10:52:47 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1774029167; cv=none;
- d=google.com; s=arc-20240605;
- b=J2OuU4EVa2jNIDf1apOxowXeZdtTnzY0rNWDl5hCUIXeUgmCYOA6hJo0Tx6RVPt8D1
- jw7foCS2ijAzEWEero7hqm0pACKXqu9Yii7CEKSHL6Sz2g+WLz7CpsNF35uAN48pTYZ5
- fpGBIE7Eqf0jaxiHZHPP2CL8feAAVygciMeAzQIdpUiLa8Sp5SmgdvMVeU5111W78o+5
- +GC2bHRuj4Jkm9WdFV2y+QvrwBsEevvQKy0rN/w/Gu9tNT2JtMJNA4aiIPTkLPAxlxpR
- SdOTLcwnaQ44VoW0ZFng/7v57cfmP3E4spG3Sa5ghMZE2CXE3RNErf1WXybVovgduBDK
- N8Fg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=jzqKUayHP9edpbuU79uv3nBiFh6UCYpOtYrxmChIqeY=;
- fh=9DnNVD/CJXahZ/A8xOAa1S9AVjphOpPMDJGoF6ojwSQ=;
- b=lGfkZ5GM+2bVSm5+mpL4B5p65HSwN9V0+26GgUuZAA7pFxzsMdxAS/2akySsl8J4iV
- C9mT5LvKRtt6w0V1R3AspEgZHOKCdSCpDs8IRY22P8l4K1eXDISbo+SzUDWu8ronmW7a
- OPShwEBOuARwHAHbidcDB/ZQi15XxE33DhW59F0HhXwOzHc+UnVS8AV6LZXyzjOWVSg0
- tYC9P9ICAhef6bNMelW1AEYhY00L9r9PkOxh4pGnmhWUvFcqEBAFNEWVjwsmuodt3vu9
- dhEbt/wbZpw+8GMxEJx+yt0xTEW2qMdRwNTZcFpZ+ynltLdbzx6QfB7EEozX/Rj9ofAP
- 9mLg==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1774029167; x=1774633967; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=jzqKUayHP9edpbuU79uv3nBiFh6UCYpOtYrxmChIqeY=;
- b=ZW7ipYjC+vyFBTKUCqFZxZtXbDvuUldJlw4g3RYF8ihj0FemZ2E1RenqNuchTzmRL8
- kjPTGmWf3Dl6qS9fczrRaW7YuhR1bk6N0xhg6cFeCE+gxpE4RfObNrxS+h1ueppUamPV
- WhtyAzTpVZI/XcSfyUwp8Z74utFaFc+5K0Qh7eYrFomClJGA5J/uLiR50pwigmH2qdpv
- QgBkezSzLCUdsqKLY3Nh3nzTCdAmlTyp9OxKbD+UKWTZ9PHQS3vhQQxpHWRU8y3fJDT3
- oALYIIv8GdmUAy4f4lG0zo42QnVxSo7DhIEOTZ/ZUSdWvgXVpWgzwz0brb3m7Z80SetF
- TWIQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774029167; x=1774633967;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=jzqKUayHP9edpbuU79uv3nBiFh6UCYpOtYrxmChIqeY=;
- b=HO+LhKCCDGLX6TTnOgyUZT02RuJpgK4nJAjDp9j4fyiQoSxSfQzveoFC/1t+M7IRjR
- 6Tm+UP6xsmI2Kt4REZkHa/zloR+m7XSBXMWRjoFr0L6Fq1t8CjE1OpfZicr+0G+7wQOQ
- g1gygHHuH8wAjPFuxRGzkr1/a9D3VSrfA0XQxKrOkqjpm0ylHFntR4aSUnxI+y/YbsTM
- NmuRSZa0IAHE6qMKNL1z0l2CoNk3uknyUsyurzaFXDJO9UjCd52wrCmpN5p8S9NauFAG
- 8LhrhLAsiQsDqiRyUG5CsFhBULxICGmRuZebOhvOy/BLG68R64lUdn6DrhSrtO+AzFRx
- zoyg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXg8dStkZUQW2GytXwJTjb0JuIhKu5m69W1J8/Z4L4d0cIsmO3kvzgMkCrHtrUv8J6DRes/O4FZiQI=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yxs6y/iDsK61Z+6tQwFR37R5PEmrrYIm6K9UKg19rcc+LfboSPD
- gZJqvHfZ3M0MCRuqMJ6HKiJilSrLi1X0TpWDXXki1KIzJBLS3h7BpQG7kCsWZ1iiM0/hSnnNyJ+
- CqWTFw4vVcqxFgsq/p9/+HdXSA9UHypk=
-X-Gm-Gg: ATEYQzzyIcThKOaualqgsJC75z/VWtyEjOkylKgwegF/0rrofH5438CM2UVpCQUB3nS
- 3/N6skCTEvwDBlyzPHVR3Qrz8LFMzKfRArBS5b96Xt1ud9BulS2xfEKSWzURehMasXWdb3vBs1Q
- t/ff8d1LTerEsrVu0sufDjCTswpef6LQiGTz2f8OHbjTAFhehnoJXQaiKLtjvNjCngy04ZYwhEa
- imT/oqaW3xm7Bc4FmA9czxdxWSmioDhDqi2sbftr3LLelMp+QfsZdu87XeExPXOWlTX1BUQFtmN
- kIbv
-X-Received: by 2002:a05:690e:e83:b0:64e:a9a1:fdb9 with SMTP id
- 956f58d0204a3-64eaa702c33mr4585474d50.34.1774029166611; Fri, 20 Mar 2026
- 10:52:46 -0700 (PDT)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 120FE10EA21;
+ Fri, 20 Mar 2026 18:00:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1774029645; x=1805565645;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=JAKhDVpWULNM63a81nEywXv/dwdhQnpFeD/g/i5odis=;
+ b=iPIVF3eBMzNnpGbugYRYVNVo4HVJXmV8z6QKzdNmEG7ZDEpb6few3WvK
+ pgy7XX66f9LOWo5ybziJVJMpTBj9JSwbbI1FcgzWT2x9i0iKu69mR9Pqt
+ DOJgmvYfe0idpfXvnSppFVunsuN8iikcqffqZV982YTRYTIbOQEGnJQlt
+ SDN3t75fo8oWBscNOAkN182OWFIYIxmPMJ9vlcVBywxMyUbZcBt8hmgsD
+ S8KLYgKaXS6eWtZdN5RH9Nl0GuwGu53oa4QZivCBN34eE2P+yIJQJpwCJ
+ uG0GQbyDEYn/eurAqTtVcTv1shPu71vwMzc/AA5OyOkrqpmi6+6I/4p6c A==;
+X-CSE-ConnectionGUID: uWpRC6/5SGalflOysNbBAA==
+X-CSE-MsgGUID: ZwnHPgOISemWsIkUGltdJg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11735"; a="100576042"
+X-IronPort-AV: E=Sophos;i="6.23,130,1770624000"; d="scan'208";a="100576042"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+ by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Mar 2026 11:00:44 -0700
+X-CSE-ConnectionGUID: gtnG+l8iT0SHlGf0CDnykA==
+X-CSE-MsgGUID: 5fEKEnjNSUKImcK/2/uthA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,130,1770624000"; d="scan'208";a="246392798"
+Received: from lkp-server02.sh.intel.com (HELO ef9b23065726) ([10.239.97.151])
+ by fmviesa002.fm.intel.com with ESMTP; 20 Mar 2026 11:00:40 -0700
+Received: from kbuild by ef9b23065726 with local (Exim 4.98.2)
+ (envelope-from <lkp@intel.com>) id 1w3e8U-00000000049-3YRM;
+ Fri, 20 Mar 2026 18:00:15 +0000
+Date: Sat, 21 Mar 2026 01:58:45 +0800
+From: kernel test robot <lkp@intel.com>
+To: Alexander Koskovich <akoskovich@pm.me>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Jeffrey Hugo <jeffrey.l.hugo@gmail.com>
+Cc: oe-kbuild-all@lists.linux.dev, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, Alexander Koskovich <akoskovich@pm.me>
+Subject: Re: [PATCH v3 3/4] drm/msm/dsi: Add support for RGB101010 pixel format
+Message-ID: <202603210139.i7hnShAJ-lkp@intel.com>
+References: <20260319-dsi-rgb101010-support-v3-3-85b99df2d090@pm.me>
 MIME-Version: 1.0
-References: <20260313132103.2529746-1-jim.cromie@gmail.com>
- <20260313132103.2529746-25-jim.cromie@gmail.com>
- <177402491443.6181.60919381684088042.b4-review@b4>
-In-Reply-To: <177402491443.6181.60919381684088042.b4-review@b4>
-From: jim.cromie@gmail.com
-Date: Fri, 20 Mar 2026 11:52:19 -0600
-X-Gm-Features: AaiRm530GL692oa9s3DUJ1CJBDaPg95JNvy-jkTucGT5VXQChAM653FPkofN1SA
-Message-ID: <CAJfuBxysWdtEQAd6X35vMGhDA22Woyd28OzQF1nRW8+j8oOGXQ@mail.gmail.com>
-Subject: Re: [PATCH v11 24/65] dyndbg: check DYNAMIC_DEBUG_CLASSMAP_DEFINE
- args at compile-time
-To: Louis Chauvet <louis.chauvet@bootlin.com>
-Cc: airlied@gmail.com, simona@ffwll.ch, jbaron@akamai.com, 
- gregkh@linuxfoundation.org, mripard@kernel.org, tzimmermann@suse.de, 
- maarten.lankhorst@linux.intel.com, jani.nikula@intel.com, 
- ville.syrjala@linux.intel.com, christian.koenig@amd.com, 
- matthew.auld@intel.com, arunpravin.paneerselvam@amd.com, 
- skhan@linuxfoundation.org, pmladek@suse.com, ukaszb@chromium.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260319-dsi-rgb101010-support-v3-3-85b99df2d090@pm.me>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,38 +81,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, Mar 20, 2026 at 10:42=E2=80=AFAM Louis Chauvet
-<louis.chauvet@bootlin.com> wrote:
->
-> On Fri, 13 Mar 2026 07:19:49 -0600, Jim Cromie <jim.cromie@gmail.com> wro=
-te:
-> > diff --git a/lib/test_dynamic_debug.c b/lib/test_dynamic_debug.c
-> > index 1ba4be9a403a..b2bdfdfb6ba1 100644
-> > --- a/lib/test_dynamic_debug.c
-> > +++ b/lib/test_dynamic_debug.c
-> > @@ -146,8 +146,19 @@ DYNDBG_CLASSMAP_DEFINE(classid_range_conflict, 0, =
-D2_CORE + 1, "D3_CORE");
-> > [ ... skip 4 lines ... ]
-> > +/*
-> > + * Exersize compile-time arg-checks in DYNAMIC_DEBUG_CLASSMAP_DEFINE.
-> > + * These will break compilation.
-> > + */
-> > +DYNAMIC_DEBUG_CLASSMAP_DEFINE(fail_base_neg, 0, -1, "NEGATIVE_BASE_ARG=
-");
-> > +DYNAMIC_DEBUG_CLASSMAP_DEFINE(fail_base_big, 0, 100, "TOOBIG_BASE_ARG"=
-);
->
-> Maybe add a:
->
-> DYNAMIC_DEBUG_CLASSMAP_DEFINE(cat_disjoint_bits, 0, 61, "TOOLONG");
->
-> So you can also check that an overflow is really checked.
->
+Hi Alexander,
 
-IIUC, you want a class that has legal offset, but extends past 63 ?
-If so, I think I can add / test that.
+kernel test robot noticed the following build errors:
+
+[auto build test ERROR on f338e77383789c0cae23ca3d48adcc5e9e137e3c]
+
+url:    https://github.com/intel-lab-lkp/linux/commits/Alexander-Koskovich/drm-msm-dsi-rename-MSM8998-DSI-version-from-V2_2_0-to-V2_0_0/20260320-011528
+base:   f338e77383789c0cae23ca3d48adcc5e9e137e3c
+patch link:    https://lore.kernel.org/r/20260319-dsi-rgb101010-support-v3-3-85b99df2d090%40pm.me
+patch subject: [PATCH v3 3/4] drm/msm/dsi: Add support for RGB101010 pixel format
+config: arc-allyesconfig (https://download.01.org/0day-ci/archive/20260321/202603210139.i7hnShAJ-lkp@intel.com/config)
+compiler: arc-linux-gcc (GCC) 15.2.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260321/202603210139.i7hnShAJ-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202603210139.i7hnShAJ-lkp@intel.com/
+
+All errors (new ones prefixed by >>):
+
+   drivers/gpu/drm/msm/dsi/dsi_host.c: In function 'dsi_get_vid_fmt':
+>> drivers/gpu/drm/msm/dsi/dsi_host.c:760:14: error: 'MIPI_DSI_FMT_RGB101010' undeclared (first use in this function); did you mean 'MIPI_DSI_FMT_RGB565'?
+     760 |         case MIPI_DSI_FMT_RGB101010:    return VID_DST_FORMAT_RGB101010;
+         |              ^~~~~~~~~~~~~~~~~~~~~~
+         |              MIPI_DSI_FMT_RGB565
+   drivers/gpu/drm/msm/dsi/dsi_host.c:760:14: note: each undeclared identifier is reported only once for each function it appears in
+   drivers/gpu/drm/msm/dsi/dsi_host.c: In function 'dsi_get_cmd_fmt':
+   drivers/gpu/drm/msm/dsi/dsi_host.c:773:14: error: 'MIPI_DSI_FMT_RGB101010' undeclared (first use in this function); did you mean 'MIPI_DSI_FMT_RGB565'?
+     773 |         case MIPI_DSI_FMT_RGB101010:    return CMD_DST_FORMAT_RGB101010;
+         |              ^~~~~~~~~~~~~~~~~~~~~~
+         |              MIPI_DSI_FMT_RGB565
+   drivers/gpu/drm/msm/dsi/dsi_host.c: In function 'dsi_host_attach':
+   drivers/gpu/drm/msm/dsi/dsi_host.c:1710:28: error: 'MIPI_DSI_FMT_RGB101010' undeclared (first use in this function); did you mean 'MIPI_DSI_FMT_RGB565'?
+    1710 |         if (dsi->format == MIPI_DSI_FMT_RGB101010 &&
+         |                            ^~~~~~~~~~~~~~~~~~~~~~
+         |                            MIPI_DSI_FMT_RGB565
 
 
+vim +760 drivers/gpu/drm/msm/dsi/dsi_host.c
 
-> --
-> Louis Chauvet <louis.chauvet@bootlin.com>
+   755	
+   756	static inline enum dsi_vid_dst_format
+   757	dsi_get_vid_fmt(const enum mipi_dsi_pixel_format mipi_fmt)
+   758	{
+   759		switch (mipi_fmt) {
+ > 760		case MIPI_DSI_FMT_RGB101010:	return VID_DST_FORMAT_RGB101010;
+   761		case MIPI_DSI_FMT_RGB888:	return VID_DST_FORMAT_RGB888;
+   762		case MIPI_DSI_FMT_RGB666:	return VID_DST_FORMAT_RGB666_LOOSE;
+   763		case MIPI_DSI_FMT_RGB666_PACKED:	return VID_DST_FORMAT_RGB666;
+   764		case MIPI_DSI_FMT_RGB565:	return VID_DST_FORMAT_RGB565;
+   765		default:			return VID_DST_FORMAT_RGB888;
+   766		}
+   767	}
+   768	
+
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
