@@ -4,118 +4,96 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E10F71093179
-	for <dri-devel@archiver.kernel.org>; Fri, 20 Mar 2026 04:20:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 536D1109317B
+	for <dri-devel@archiver.kernel.org>; Fri, 20 Mar 2026 04:25:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 481FA10E954;
-	Fri, 20 Mar 2026 04:20:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5C4BB10E1DC;
+	Fri, 20 Mar 2026 04:25:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="QTK+H6JB";
+	dkim=pass (2048-bit key; unprotected) header.d=marek.ca header.i=@marek.ca header.b="aw/DWKkW";
 	dkim-atps=neutral
-Received: from MW6PR02CU001.outbound.protection.outlook.com
- (mail-westus2azon11012060.outbound.protection.outlook.com [52.101.48.60])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EAB8C10E954
- for <dri-devel@lists.freedesktop.org>; Fri, 20 Mar 2026 04:20:10 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=UiRLhsEgHIG22lf4Uoae1s3XKDsICRZj9A7ll+ZqRgQWO5BmsJc0UTFezI1VvMHvQwAFUfbbLpJJK9ZaApIv5z0+IdnHM5y+mWhM8HxAMsMOpqhuTXEZhOSBkkh0v5LOtpzmyJpreVx1jTO4+Wm59TG0iR8aS4E41UUUnEi3JhhpxMpMEoM1f6OIGgPtAnM/S0+YWsyU8zyPvm6p5O5GZKCzzR8M9DAijLlL+RJ0ToZUrZrCrGMRkLaaAHldiYyejBh1Jd2pYG1gZx5Bitj/M6hn8MiLXst+aN1VRgwzJHBNrmKc85VCNOR+6NGdHNGlq5nyRUta0UYCkqzqsOUwZQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=oUZODl0/6Ge/fSF37D4utRpZdu8sVIeWKKsOnnc8Pmg=;
- b=lLFfyMHVmYyvec1eolM5wcHeaoG6tC+1FcB/MibE7QH7vMiM4LOBZHUpfUGOfrv7AHLAiNfpH/6rjU6uUVYEd+DyyDR2nQRStpbS+MM6WmAE4fw1d9Aio7zGmtxcDquM8Cg6BT0j4QBmtOCi+n1M9o+9D3UIFK8ljdtepXci06TtNc7kQpctMQby+25lPuoopaNOKO1JKM3owd0whbOO7ZbJJmxalNOJHBexCb4Rh3FdM/3W4Xe1/wNKMk5deElg7haCgxy6ayqe8077V1Cz5djNxx5/DWFiz8b/67G6lRA4v14V6FGw6RStRhliecmzYN5g1mqnSk1KTMkcV+FbOg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=oUZODl0/6Ge/fSF37D4utRpZdu8sVIeWKKsOnnc8Pmg=;
- b=QTK+H6JBoogwaRnojO0iFuj0tfZ9FCzC9sA0DglZhxZ77VmJWGW4gX7ZLsM35ExhPEWa5jZHTyvZ+mf4yQMbM3TNRQWMiZJi4vXEs9grbRkdGAENNVEfObJ46ELjYIWUcVaJfr8Wi181PqNgXtKi2tye/GJmh6PyyKu2Qp4UNan8ZxfxYdcdpK+MPWruJ7ZmrAF0vVS5DrZgCZ2ZuVltoi+it0X7rFveN5agPCEcb4VBxOaY7jBb8+KZ3qfRnxVsDHeL9qdOJN4hJpLc2gqFNBMhUGY6iJ++ngTGDT5nk8HBm4iND2SonPZVQFdiLq8SKL23RVHjCUgMtw1VGajo+Q==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DS0PR12MB7726.namprd12.prod.outlook.com (2603:10b6:8:130::6) by
- SJ0PR12MB6830.namprd12.prod.outlook.com (2603:10b6:a03:47c::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.9; Fri, 20 Mar
- 2026 04:20:05 +0000
-Received: from DS0PR12MB7726.namprd12.prod.outlook.com
- ([fe80::5807:8e24:69b0:f6c0]) by DS0PR12MB7726.namprd12.prod.outlook.com
- ([fe80::5807:8e24:69b0:f6c0%4]) with mapi id 15.20.9745.007; Fri, 20 Mar 2026
- 04:20:04 +0000
-Date: Fri, 20 Mar 2026 15:19:59 +1100
-From: Alistair Popple <apopple@nvidia.com>
-To: Eliot Courtney <ecourtney@nvidia.com>
-Cc: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
- Alexandre Courbot <acourbot@nvidia.com>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, John Hubbard <jhubbard@nvidia.com>, 
- Joel Fernandes <joelagnelf@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
- rust-for-linux@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 4/9] gpu: nova-core: gsp: add RM control RPC structure
- binding
-Message-ID: <abzKxJZVSOeA2HBQ@nvdebian.thelocal>
-References: <20260318-rmcontrol-v2-0-9a9fa6f1c4c3@nvidia.com>
- <20260318-rmcontrol-v2-4-9a9fa6f1c4c3@nvidia.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260318-rmcontrol-v2-4-9a9fa6f1c4c3@nvidia.com>
-X-ClientProxiedBy: SY6PR01CA0088.ausprd01.prod.outlook.com
- (2603:10c6:10:110::21) To DS0PR12MB7726.namprd12.prod.outlook.com
- (2603:10b6:8:130::6)
+Received: from mail-qt1-f179.google.com (mail-qt1-f179.google.com
+ [209.85.160.179])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3883810E1DC
+ for <dri-devel@lists.freedesktop.org>; Fri, 20 Mar 2026 04:25:25 +0000 (UTC)
+Received: by mail-qt1-f179.google.com with SMTP id
+ d75a77b69052e-509101189f4so13310341cf.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 19 Mar 2026 21:25:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=marek.ca; s=google; t=1773980724; x=1774585524; darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-language:in-reply-to:mime-version
+ :user-agent:date:message-id:from:references:cc:to:subject:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=CTWWaO+/XhoNRCAuJEz9H+WLHO2eUwKG5OIDlVViY4s=;
+ b=aw/DWKkWQWXAQK2cewVWGwcgvmiIwdIfFLZ3KugKMkb8UF9Ci+7DFSD16jkv26Ve8g
+ PU+SkGi2qYO8ZexRNvOSiZDsCH+tGyrNLeEr41SZtDddVq+94z7kiqebPnd6ciL8PUD1
+ 1HAxgeot807BTDygUo5E1HAdD0CfA8NTpwFxAoY6RRy0FBgqd/ki4SCUCRBYEu41DdkQ
+ C+WIyVAfLQPg/gotUYfWdL1ty0rdhLFoYvSEvUnYoRNVDP31aBPY2tN5pqE1M0bUJk90
+ sOBP3j4ggl7knQKHtxeGfnOttQkAOHqmmBcWVDzuN+W6z01VDP6d35ku6v12G8fpAdvC
+ BbCg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1773980724; x=1774585524;
+ h=content-transfer-encoding:content-language:in-reply-to:mime-version
+ :user-agent:date:message-id:from:references:cc:to:subject:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=CTWWaO+/XhoNRCAuJEz9H+WLHO2eUwKG5OIDlVViY4s=;
+ b=dPlsbRXLYbDZhD563XD1vr/TIoV41pw/xgSMg/WQb86nEZC0ZQcyKZX9zQGbm4m6Hf
+ e65LmUXCtSDO+qfk9owuplVvqjG7W4gvfaNXwT5WhGvMskvYFnSDP3bg4LeL3TWX5b0U
+ PfnzK9GMO4A4sfMk6LGKCalCLMvABNieV8r77Wx2CebIMnMqQYtsZnDEEE+VpyPqpZ7f
+ KFuBD+DHOCGfes7PPgwRO1EmltRjYUGnHCzeXHOiK9+Lm/DQDMR0ipW/2Hpe9E0fCbmI
+ LCdO2rFuFxhaMeu/kt9/tsYoyoVpkReNHrqOK9u9ogxwcaMZ0Crr+fbYduCGbaXaqH4x
+ dlOw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXJjCDuobSOfzvyKo+ugNGXa8DM1cymfOb1pB1xYzQl6rEQf2PFtB4/C5NMwsVXV/lmr4zHrn+TNjk=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YywvUOmmD7roiY26MtqbCl72QT/hvRnmI7icng6CHPUhQXhn8n9
+ zM1FeWRTaT2xGpQlbky+BypFabNEVfLIL3eW9r0j+4ozV1aBYICjJXXgos9X+mtLwuA=
+X-Gm-Gg: ATEYQzxAAvdyRHfu1IxYmFtUlfEIfTXFjP/E9t143KUZItEUUKU4GNAB8ZJ4I80Ohcz
+ 0meIW6RHy9xgKwNDrPkSjBgAd+PtInGw0d7KuUpch12N4t55UcG7Xo1S4i7gJFyCoAwuqmUNLfQ
+ RyWqomxtwTvReCV8iXCQx0Sa0JbqUSH1KxCJOMpUl+zz6tyUdEDpBU9m+FAR9VB8dplNZjZFcDg
+ g/2m2DDwNDcMmMNRKKTILu/+YGaqBycPm7wcRnglXypeYYzu+177/2I/ZB1RUvc1+gAEWSAiI/Z
+ lnS1bJDbijD9E+cix8KWQ6pyzHxq8E24NgFZVHo/EchqwXlsXSlm5ZcfN622VJywJW9f2OX2SaV
+ rb4HOOWmCdd+M5jwoS/M/ekk7sXzXlMdJTE3tyzs7ftBORopW6mtHJ1FFjdogqvYeJEf7JlSyYN
+ Sy4y897DKhz8gJLpVdEoSawttxmhL/jpp1vd6b40c7bzDt7+w4cZSk9and0hBLMphk4ll9Qw==
+X-Received: by 2002:a05:622a:1249:b0:509:1b76:e9b2 with SMTP id
+ d75a77b69052e-50b37503075mr24487301cf.55.1773980724006; 
+ Thu, 19 Mar 2026 21:25:24 -0700 (PDT)
+Received: from [192.168.0.189] (modemcable125.110-19-135.mc.videotron.ca.
+ [135.19.110.125]) by smtp.gmail.com with ESMTPSA id
+ 6a1803df08f44-89c85251e32sm12201056d6.16.2026.03.19.21.25.22
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 19 Mar 2026 21:25:23 -0700 (PDT)
+Subject: Re: [PATCH v3 4/4] drm/msm/dpu: fix video mode DSC INTF timing width
+ calculation
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
+ Alexander Koskovich <akoskovich@pm.me>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
+ <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Jeffrey Hugo <jeffrey.l.hugo@gmail.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org
+References: <20260319-dsi-rgb101010-support-v3-0-85b99df2d090@pm.me>
+ <20260319-dsi-rgb101010-support-v3-4-85b99df2d090@pm.me>
+ <1360a31d-669e-48df-a1be-f0af4a253cd7@linaro.org>
+ <3gLK4s97giqqXagfHKhfiIHbfbl2snwfOj9dcTNGPUYi10w9-1EdATqzz1LPCVTpz4bLFYOm8u_Fl8PfC7t5yabows4UCzRKVwjraEWW6hc=@pm.me>
+ <3f8763af-aad2-4d92-90c8-cfd290212503@linaro.org>
+ <7fb9dd9d-13f9-7bba-93d1-08f42dd6ee38@marek.ca>
+ <oihbfczsj5cg7qfjjt6jvyodjnjbezyrv6f32vmg444g5bx6ow@r54epj7ilsyt>
+From: Jonathan Marek <jonathan@marek.ca>
+Message-ID: <da050aad-381d-ffb7-ec7d-8ed8a80d790a@marek.ca>
+Date: Fri, 20 Mar 2026 00:25:00 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.2.2
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB7726:EE_|SJ0PR12MB6830:EE_
-X-MS-Office365-Filtering-Correlation-Id: ad6cb441-2714-4668-e3b5-08de8637f643
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|376014|1800799024|22082099003|56012099003|18002099003; 
-X-Microsoft-Antispam-Message-Info: AVTHZuOKy3nGKkZlSZZwd/WkzimdI//KPu7VqXQXsc6RMfcqVrI2bXMVYyhUDWOR7fKLwWseYt0kkHGOXwCtUlIdJD2TrZcPQx3ra8ayxJM3HIwWMqP4xBfrELySckhcbnCs58prYvx35XI470mDNQNfGI92JnuZA4gpM8ODetPQmeDq3Wf7jC43J5NmXb8TIGCUhOAhAjm/a9GQvbjHg720jfAwFhx46icY78CEBGtXzbHM7t6ihllAYAm/vZOkf9MwUxZ6DHhOv+J7Fu91fadC+fIHFpN7QaKyOmKCuPgLwKteU3dEiJxctyJgdzLfycwZ0OZyYz7TUjGp3Mb0ceq6iTIlse1RqDFMcbvuyoeWuT0VOhe4ZHkfCBBUK83T77L3U7xM6uwGP/6bICc60GemOczXH4YiUxkpWFRHJSLaHa+MzoNzo322hBdzwZPDan8u/HvkxDpxjevHv8EcTLc89rWSA7pKC9w/GcRTrJkY+0ldu9ycggXxsWN6YVfh+n3GVPmxSr7q2CJMDAAQF8poU01I4Tq3Ori09pO0leU4fTn21eJFsErlRtNPKzOxg/KMdZ7CjCupT8O53vXW5sRmzlS8LgLndIYslHCYlULuDXpiWcqoA5465s12aSDvYXy+hd0iDANlSfdpc/xyRhKN6WzlZSc1+sqVLK02b1jLINtIViMr8xmOWLFOwIooXLUm7W7s+l/tUAMAc0D+bgaB3p9zbdrDrbWP6d8CiF4=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS0PR12MB7726.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(1800799024)(22082099003)(56012099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?ow+8G44Tuj1xwPWf2K3q0sMBXULA8JZZVHTZRakLVXIu7+2EODr/LLXmzT+Q?=
- =?us-ascii?Q?WyfL5+yLK+WStdFPdaKxPXCtp6Xj2Kcue3+tsicr0RfMGR3rasUmcPqDuXV3?=
- =?us-ascii?Q?qUjG0NXtG5jDUSnQ7/C2mBHgPhZP9WQq43p5tSSdDit9abH2BkNRrUWscAec?=
- =?us-ascii?Q?wxY5u6O4MUfuHrLQWzv2C43rU9fCH6w3yl93tLB+sTe6qn9Y/fnKNTO8OyFf?=
- =?us-ascii?Q?RLeiSaqSZ5yapSgfw3sUFwfJMEZSSiF8jDcanDnHX1/1U1WxfUGcO9ZpZO6j?=
- =?us-ascii?Q?Up6JrL89rmT6ylyt+EFt02xfOqMwnPU5DPlahcYjOZ01EuVNrS3svLtB1Bmt?=
- =?us-ascii?Q?sSRSsFL8o7iYoFkJy7ZI8H+pxNix1HtDGcOEo0wB30pzgnNfkJ4G0b+Q8CkK?=
- =?us-ascii?Q?Qn3BbP5wf+NXQGbSvyJ39CfH2LaNPeG9zApYp4iXSyJKg+VI4j7cLZC8eMQc?=
- =?us-ascii?Q?YCSafbRjjRfd1zWJIoTRrGIfyNfkdM7hExdSUpZ4PZLM80U0qwtNGPYw5Uii?=
- =?us-ascii?Q?xkxzI/8By+g09NaQQVK7+HEVT1j/lzQEwNObAFXlMDbWrXXm13VGHibLAWq4?=
- =?us-ascii?Q?1WQGg3CLXr/fK8eNb9LCw0j+2DV9UbxeqxYJ4daGV8IhSg758tyu1QEMCycX?=
- =?us-ascii?Q?FGRGUu6sKfd4NUWfGlbIMQjrMZ0aESQ9RAJd7Cqmh4tF2qPOu24YwfdPcism?=
- =?us-ascii?Q?Ibf+la615nCKCWf4vn3gFSlqhvN4HvEqbxDUlAOjZcdS13akZKuIUpEYhpfQ?=
- =?us-ascii?Q?bGUdYmmRo0N+9xQzmAYoa8TTIzC0DmgZbbzBJyULoiHHRSxLBS4tCLR0z8l5?=
- =?us-ascii?Q?DgPmyq0EKOha5RExg6kc4WUQlHwU5lCUF0RHCT1akAyy3M76JgcaSgoNSZZb?=
- =?us-ascii?Q?WYe7PyaI6Uc+OWcvKORo2YKknL3bIJX3kzESqyIeCGck1I5ABHiGwJHmY7zk?=
- =?us-ascii?Q?HK2YDSIc9bqXbsBjbv04+uxY1HSKS+tRYOp48mQuFezqKFjXa8jk/6AvEAor?=
- =?us-ascii?Q?x1/ZSD5cSVw3yYDHcFdWt6I2ONWKmVTOWFEMJcq+TpJv8IxKVigA6AagpdZp?=
- =?us-ascii?Q?03q2SgiuGUlx/qQw1iI0LZ6P0//YD9CAduGX+HPJi4NUj/BfhCp6194GI6HJ?=
- =?us-ascii?Q?VxjMVUQ1mAKGi+3vYiL9JuzGSCyfhXZG3f4S7Ov+t76riYKQhX59trrFtonB?=
- =?us-ascii?Q?CnH8NzJN2mEwc8qr3FLVmtzstOyJATqZDsh+gXGO5T8rRH0ZylwuLVDdJszQ?=
- =?us-ascii?Q?w5qMTkIjLKrTj027dtJL33jmc4l5bsOBJ30MxSHq7DOr8ouHn05rlGCHG8wW?=
- =?us-ascii?Q?9pdIxckzJADcF/JwSWV8bviTwXbXV2Tpbm2CrMsj93E+BgyVR1Nf+RNEzvL2?=
- =?us-ascii?Q?HmGiJmFvaScQjAO2Y4A1YUzAi1igl+E72U5ZkTEmXX0a5DdRzX2AT5vGEbzb?=
- =?us-ascii?Q?PQgXFF834lBiHwdLkw/NsEMY+Yr2eGh9X+KOe7nAeNCMdEru6TSmb+GryUi2?=
- =?us-ascii?Q?XlZeiKUcpGRYTjazepnn2pGpjSnNYA7QDjbgmm41E2rwft0fI3lYAt/haD8p?=
- =?us-ascii?Q?bjAPmrS0eEGvYf3WkazxSrzbga71iOR2TS/p08CqSTBncAUo23KdnR7uhf4L?=
- =?us-ascii?Q?cpEP87tx3dbulH5a7+2sYwavPDZE3jnzYgiuPdOH3nhpXjkj8tnOvMweRrsJ?=
- =?us-ascii?Q?GJMliH7g29U4+d1/e6DePp3WAPMPsF03ei8Rh7GBkhJCWYBLe3SAk849vHU5?=
- =?us-ascii?Q?eafC/B8sUg=3D=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ad6cb441-2714-4668-e3b5-08de8637f643
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB7726.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Mar 2026 04:20:04.8335 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: uAnLLUBDVTSJYQq2zV94puENTkvt2EbsIYE+2TiG1WQjbcV9WblUUnxLbFv/vUTlujbg6JRaNBamic2lSMpXEw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB6830
+In-Reply-To: <oihbfczsj5cg7qfjjt6jvyodjnjbezyrv6f32vmg444g5bx6ow@r54epj7ilsyt>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -131,41 +109,58 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Same comment as for patch 1, although feel free to do it all as one pull
-request/commit.
+On 3/19/26 9:45 PM, Dmitry Baryshkov wrote:
+> On Thu, Mar 19, 2026 at 01:23:03PM -0400, Jonathan Marek wrote:
+...
+>>
+>> That's not how it works. INTF (which feeds DSI) is after DSC compression.
+>>
+>> INTF timings are always in RGB888 (24-bit) units. Ignoring widebus details,
+>> the INTF timing should match what is programmed on the DSI side (hdisplay,
+>> which is calculated as bytes per line / 3).
+>>
+>> (fwiw, the current "timing->width = ..." calculation here blames to me, but
+>> what I wrote originally was just "timing->width = timing->width / 3" with a
+>> comment about being incomplete.)
+>>
+> Okay. After reading the docs (sorry, it took a while).
+> 
+> - When widebus is not enabled, the transfer is always 24 bit of
+>    compressed data. Thus if it is not in play, pclk and timing->width
+>    should be scaled by source_pixel_depth / compression_ratio / 24. In
+>    case of the code it is 'drm_dsc_get_bpp_int(dsc) / 24'.
+> 
+>    For RGB101010 / 8bpp DSC this should result in the PCLK being lowered
+>    by the factor of 3 (= 24 / (30 / 3.75))
+> 
+> - When widebus is in play (MDSS 6.x+, DSI 2.4+), the transfer takes
+>    more than 24 bits. In this case the PCLK and timing->width should be
+>    scaled exactly by the DSC compression ratio, which is
+>    'drm_dsc_get_bpp_int(dsc) / (3 * dsc->bits_per_component).
+> 
+> So, this piece of code needs to be adjusted to check for the widebus
+> being enabled or not.
+> 
 
-On 2026-03-18 at 18:14 +1100, Eliot Courtney <ecourtney@nvidia.com> wrote...
-> Add the bindgen rpc_gsp_rm_control_v03_00 structure. This is the
-> structure for sending RM control commands.
-> 
-> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
-> ---
->  drivers/gpu/nova-core/gsp/fw/r570_144/bindings.rs | 11 +++++++++++
->  1 file changed, 11 insertions(+)
-> 
-> diff --git a/drivers/gpu/nova-core/gsp/fw/r570_144/bindings.rs b/drivers/gpu/nova-core/gsp/fw/r570_144/bindings.rs
-> index dd37a7fd58c6..05e205e6dc58 100644
-> --- a/drivers/gpu/nova-core/gsp/fw/r570_144/bindings.rs
-> +++ b/drivers/gpu/nova-core/gsp/fw/r570_144/bindings.rs
-> @@ -1025,6 +1025,17 @@ fn default() -> Self {
->  }
->  #[repr(C)]
->  #[derive(Debug, Default, MaybeZeroable)]
-> +pub struct rpc_gsp_rm_control_v03_00 {
-> +    pub hClient: u32_,
-> +    pub hObject: u32_,
-> +    pub cmd: u32_,
-> +    pub status: u32_,
-> +    pub paramsSize: u32_,
-> +    pub flags: u32_,
-> +    pub params: __IncompleteArrayField<u8_>,
-> +}
-> +#[repr(C)]
-> +#[derive(Debug, Default, MaybeZeroable)]
->  pub struct rpc_run_cpu_sequencer_v17_00 {
->      pub bufferSizeDWord: u32_,
->      pub cmdIndex: u32_,
-> 
-> -- 
-> 2.53.0
-> 
+The widebus adjustment on the MDP/INTF side is already in 
+dpu_hw_intf_setup_timing_engine: the "data width" is divided by 2 for 
+48-bit widebus instead of 24-bit. there shouldn't be any other 
+adjustment (downstream doesn't have any other adjustment).
+
+a relevant downstream comment: "In DATABUS-WIDEN mode, MDP always sends 
+out 48-bit compressed data per pclk and on average, DSI consumes an 
+amount of compressed data equivalent to the uncompressed pixel depth per 
+pclk."
+
+Based on that comment, this patch is correct, and the 
+''drm_dsc_get_bpp_int(dsc) / (3 * dsc->bits_per_component)' adjustment 
+only applies to DSI. (note: newer downstream looks like it would divide 
+by 3.75 here, which doesn't make sense. older downstream would divide by 
+3 here. I guess downstream is broken now and video mode + 10-bit dsc 
+doesn't get tested?)
+
+on DSI side, "uncompressed pixel depth" shouldn't matter either: DSI 
+only sees the compressed data. But based on that comment, when widebus 
+is enabled, by setting DSI_VID_CFG0_DST_FORMAT(?) to 30bpp, then the DSI 
+pclk is in 30-bit units instead of 24-bits. And with this series DSI 
+side ends up with the right result if 30bpp format and widebus is enabled.
