@@ -4,98 +4,99 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0BAF5108B8F1
-	for <dri-devel@archiver.kernel.org>; Fri, 20 Mar 2026 10:48:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A14D8108B8F5
+	for <dri-devel@archiver.kernel.org>; Fri, 20 Mar 2026 11:11:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6E5CC10EAD2;
-	Fri, 20 Mar 2026 10:48:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C918A10EA6E;
+	Fri, 20 Mar 2026 11:11:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="DqoqqrdR";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="KW4w0e1V";
 	dkim-atps=neutral
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
- [213.167.242.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CEBF910EAD2
- for <dri-devel@lists.freedesktop.org>; Fri, 20 Mar 2026 10:48:20 +0000 (UTC)
-Received: from [192.168.88.20] (91-158-153-178.elisa-laajakaista.fi
- [91.158.153.178])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id 565F3BE1;
- Fri, 20 Mar 2026 11:47:04 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1774003625;
- bh=/nW8aoQ83RIP4DbS7SIvwj3g8HWwOPjalxZVoLbwQts=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=DqoqqrdRGS9k2G42jC2tpvtd3xSM/OdbhhYjOqVclfwpKik1DClI433HY1zzm/yoR
- GT8yccHeq5yvh9Tnu+da7KFrAPQB6FJn5DbH/waB5Ga3lM7tEl4kw8IOc7fLNuwL6W
- jHB+d6fdwYAiD7jSA/MHx6lrk01AO9wYPjtxO3qA=
-Message-ID: <d0728f98-f964-4321-a34a-022f28f268cc@ideasonboard.com>
-Date: Fri, 20 Mar 2026 12:48:15 +0200
+Received: from mail-vk1-f181.google.com (mail-vk1-f181.google.com
+ [209.85.221.181])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 52EA110E28C
+ for <dri-devel@lists.freedesktop.org>; Fri, 20 Mar 2026 11:11:30 +0000 (UTC)
+Received: by mail-vk1-f181.google.com with SMTP id
+ 71dfb90a1353d-5637886c92aso230115e0c.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 20 Mar 2026 04:11:30 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1774005089; cv=none;
+ d=google.com; s=arc-20240605;
+ b=cC4b6ptM28WRk5alxa7JljWh/NjyVIthez+uW0YO3bk4STdLt0NP2TCiGAc6Tvudb6
+ kpv+2HcBY6Vk7njdD6+JxLo6CGxCDpzT4Ml1DbzCEbxt6zjY7nqo/AFfPbyVWGjCuL0T
+ 5VOyPg3wzfv4PYcs+EyO9muOt4P7YHgTHmgVFAA0mVl6PK0Fd/Jn/Y90li9L/tqdZeIE
+ 3vnCFyvcRLdXMT77xQDJ5t924W8D61NzoE637ChHUSMigp+BO5dGRX0H+uD/KirWk7Ez
+ y4hStmEH7rLOtomKxnJ4bncnjV2Ubz5n8jtZPdLYv09Uct5F3ZlG0AjJkHJENut0aDp2
+ eR6w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=9te/j8HOzFHtjUgjcdp2trlsf+HhnDZ+SK/gHrL1Pnw=;
+ fh=NjbVhdkg/7jWF3/ukk3OtfLDZdLIWmb019oOTGfT9C0=;
+ b=LR+u+j5UhrvAZWoRt7ivAnu8YdbC2QbbcqyTQGqzc4AhqVLOuoUgdPTuHvjkoXjzhe
+ /o87rHvdjr0qg2haZEK/gXZKljIqgaZqnJM5r+MA4rDqMLbBdRa4rseNTvTLLbarXv3T
+ 9pk70iYK0n6dmoeJe7nsra18Hbsd3ufBSnLRm+zsZT1U4NW0t+7mfcmAKEY9JYOfJ5cm
+ sL1aGzZ79WPzMigIUcttScnT7Mxx/bmVUxCnTv6y26tjJew3/BrHA+8e0SrzEpcVbWCZ
+ SXM1Wwd59spoI+PPN/ylJHuAaiaX0d2v7EzsejnNxiEUAios/x1LrhUN5vliXwab47rZ
+ uFXw==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1774005089; x=1774609889; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=9te/j8HOzFHtjUgjcdp2trlsf+HhnDZ+SK/gHrL1Pnw=;
+ b=KW4w0e1VGKyTclY+9yBIxY8x9UjnuUEnT0vmcVScJ/llLPPLR1mhSEVJlLumb1KsMS
+ OJECNglr/h6JJYSJ/WWyAUfN9AF5ZkZZaLl3N+DUL6eokcdloEx2Ps+eIi5/dom2ao3y
+ /sAXYcqX8awhi4P8JSEMVOnJ+H0tj02bJAbhjrKUQREkGeGjANrfjzRcjv/TOTLeAQE0
+ pu/4LaYmYeCfQHEG6cXhbKNnESCGtJhK1ifSrec0xsDkvEONV0K2H0XywPqaUWj/nigM
+ 0b/GZsSeqnNIR/jFMb6g2ZAbMGDUi6MIGVGs9UdSlVd6GPCfi653bhbFfLyvugAgKUD/
+ Q1Dg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1774005089; x=1774609889;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=9te/j8HOzFHtjUgjcdp2trlsf+HhnDZ+SK/gHrL1Pnw=;
+ b=sZCDNSOi/Ycdsouu+NRJZHqN5/TjwX8mthd/7xcGbpw0m4GmZ/YYnu8z4gku3Pq8nT
+ DvdNFEWGMyAIsDfaeH+6lfxK75e1awC+6cWNuLIuqqWJxEQMwnZYenKSYS7p2R6fElFb
+ EhXWA6wiFudgrjqjD7BvieF40I8iDTOMKXeoRjkZafru4VTVRQpFSCNN/jqeDYYwwOmn
+ onRQaNsFlXAoyB+g2oWbN1QOYv6YzKDqEPrlzbGwfJyejpV31FasXXIzqcX3pQmT3YPG
+ U+0uRctY3lN2TcK0lh3feNljfCzM3JN7+yKQF4CKDUlIiVHTV5l7qvZiAmoU8a7GrrD9
+ tn5g==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUS7WGztOtxhHE7qzF2+z+SbDDEMTs9p19a5qfKWR1t3FchDmLe0zSXzX4m2E4whVQ9G/kMO4pOXAg=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yz0G1Gwf51hPb8gJbhx/hMrZPZrmUjlGp1NQvYb9JhVXGah9eHb
+ sXVtenOsHR0BKNE/ImrHiM5FfHR5s0wVXj5ZpHPRLu2vBLmBX3MwCdy+bijUQaUh4IIeD/t3q+I
+ 4uBrFRNRSUb9VCdg1b982ZyEa9Ntllcc=
+X-Gm-Gg: ATEYQzyHtADTCNpe9GrXNcy07yoE8YwogjjcqrlxtDe5vv5h0qgSUrsMOyfLrIb5uFk
+ dDq6VRDl34g9yBJQElcp1dAlFuk2jz9P3FAlD/MaFOSoxo63rDbN9PI9ZVkgdp/vlBZMCeNL07I
+ mUgUzAiYFcNASLKu+01k4tjfvNYcWhlxwv3+ou7KjWrdNwCzJx6a22TGHSdd9nTb0Pftqvhpz6h
+ 2reOfa0BXG7U22X0qvpqsgbJcArAzjGgTgFyIyfWFkU0PpRePNVLqFoYt0EdCbc4RIJx0iorcBz
+ r8c3cbqL
+X-Received: by 2002:a05:6122:d1c:b0:56a:f576:cfca with SMTP id
+ 71dfb90a1353d-56cde3237a8mr1152700e0c.2.1774005089107; Fri, 20 Mar 2026
+ 04:11:29 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 04/11] drm/fourcc: Add DRM_FORMAT_Y10_P32
-To: Simon Ser <contact@emersion.fr>
-Cc: Vishal Sagar <vishal.sagar@amd.com>,
- Anatoliy Klymenko <anatoliy.klymenko@amd.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+References: <20260307111250.105772-1-mitltlatltl@gmail.com>
+ <dggubmwmcgepioyev4jfibntdgmmiiomahnrvodewcw6ktplo3@bngbsgvzuzoa>
+In-Reply-To: <dggubmwmcgepioyev4jfibntdgmmiiomahnrvodewcw6ktplo3@bngbsgvzuzoa>
+From: Pengyu Luo <mitltlatltl@gmail.com>
+Date: Fri, 20 Mar 2026 19:11:02 +0800
+X-Gm-Features: AaiRm53l5G2RJnBS28ANAAiFgm5ukjN8S-QGG4QvRtKJpZSwLznLfIzx_bEm3mo
+Message-ID: <CAH2e8h4pn+xRcpEEO6CjbM3=WO+2C4HfyH6quhh0opoDFmaEFA@mail.gmail.com>
+Subject: Re: [PATCH 1/2] drm/msm/dsi: fix bits_per_pclk
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>, 
+ Abhinav Kumar <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>,
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Michal Simek <michal.simek@amd.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- Geert Uytterhoeven <geert@linux-m68k.org>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Pekka Paalanen <ppaalanen@gmail.com>,
- Pekka Paalanen <pekka.paalanen@collabora.com>
-References: <20260128-xilinx-formats-v8-0-9ea8adb70269@ideasonboard.com>
- <20260128-xilinx-formats-v8-4-9ea8adb70269@ideasonboard.com>
- <5zkelJBm0aeSnp__adMEfjOl_GAg7G_W1GyDWix8dQ48gqSmuM1if1c2Vz_xPNNpKy8_SiUh4l7WRs-12b8_DkD0PUWLdCwubo2k_DLh5eE=@emersion.fr>
-From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Content-Language: en-US
-Autocrypt: addr=tomi.valkeinen@ideasonboard.com; keydata=
- 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
-In-Reply-To: <5zkelJBm0aeSnp__adMEfjOl_GAg7G_W1GyDWix8dQ48gqSmuM1if1c2Vz_xPNNpKy8_SiUh4l7WRs-12b8_DkD0PUWLdCwubo2k_DLh5eE=@emersion.fr>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+ linux-arm-msm@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,33 +112,75 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi,
+On Fri, Mar 20, 2026 at 9:48=E2=80=AFAM Dmitry Baryshkov
+<dmitry.baryshkov@oss.qualcomm.com> wrote:
+>
+> On Sat, Mar 07, 2026 at 07:12:48PM +0800, Pengyu Luo wrote:
+> > mipi_dsi_pixel_format_to_bpp return dst bpp not src bpp, dst bpp may
+> > not be the uncompressed data size. use src bpc * 3 to get src bpp,
+> > this aligns with pclk rate calculation.
+> >
+> > Fixes: ac47870fd795 ("drm/msm/dsi: fix hdisplay calculation when progra=
+mming dsi registers")
+> > Signed-off-by: Pengyu Luo <mitltlatltl@gmail.com>
+> > ---
+> >  drivers/gpu/drm/msm/dsi/dsi_host.c | 2 +-
+> >  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> Pengyu, what is your target platform?
+>
 
-On 19/03/2026 16:59, Simon Ser wrote:
-> On Wednesday, January 28th, 2026 at 18:25, Tomi Valkeinen <tomi.valkeinen@ideasonboard.com> wrote:
-> 
->> Add Y10_P32, a 10 bit greyscale format, with 3 pixels packed into
->> 32-bit container.
->>
->> The fourcc for the format is 'YPA4', which comes from Y - Y only, P -
->> packed, A - 10 (as in 0xA), 4 - 4 bytes.
-> 
-> I know we aren't super consistent about DRM format names, but… this _P32
-> suffix doesn't make sense to me: we never had it before, and a lot of
-> DRM formats are packed (in the Vulkan sense [1]), so I'm not sure why
-> this one would need it.
-> 
-> What's special about this one is that it's the first (AFAIK) which has
-> 3 pixels per block. Some YCbCr formats are sub-sampled, but always use a
-> square block.
-> 
-> I would suggest something like YYYX1010102. We use the "channels
-> followed by bits per component" pattern elsewhere.
-I'm ok with that. But wouldn't it be XYYY2101010 instead?
+SM8750, my device is lenovo legion y700 gen4, the display is a native
+10-bit video mode panel.
+Recently, in 10-bit input bpc/30-bit src bpp with 8-bit output
+bpc/24-bit dst bpp mode, works well
+on this device with some hacks to intf block. full 10-bit input and
+output won't work for now.
 
-And then we just wait for someone to add a x:Y0:Y1:Y2 format (instead of
-x:Y2:Y1:Y0). Should we be more specific, and already make this one
-XY2Y1Y0_2101010...
+Once I added this comment in ac47870fd795 ("drm/msm/dsi: fix hdisplay
+calculation when programming dsi registers")
+> DSI consumes an amount of compressed data equivalent to the uncompressed =
+pixel depth per pclk.
+This explanation is picked up from the downstream msm kernel, since
+there is no public datasheet for the hardware.
+And this should be the video mode case, cmd mode should consume 6
+bytes. (It seems no explanation)
 
- Tomi
+If we follow the downstream, then the uncompressed pixel depth per
+pclk should be 3 * bits_per_component.
+This is what this patch fixed.
 
+About the test, I did it on the video mode panel, I have no cmd panel
+device with dsc/widen bus enabled. And I overlooked something, I
+thought
+cmd panel didn't use hdisplay, then I removed the right value for the
+cmd panel case, I fixed it in patch 2/2.
+
+Best wishes,
+Pengyu
+
+
+> >
+> > diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/d=
+si/dsi_host.c
+> > index e8e83ee61e..7c16216e8b 100644
+> > --- a/drivers/gpu/drm/msm/dsi/dsi_host.c
+> > +++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
+> > @@ -1030,7 +1030,7 @@ static void dsi_timing_setup(struct msm_dsi_host =
+*msm_host, bool is_bonded_dsi)
+> >                */
+> >               h_total -=3D hdisplay;
+> >               if (wide_bus_enabled)
+> > -                     bits_per_pclk =3D mipi_dsi_pixel_format_to_bpp(ms=
+m_host->format);
+> > +                     bits_per_pclk =3D dsc->bits_per_component * 3;
+> >               else
+> >                       bits_per_pclk =3D 24;
+> >
+> > --
+> > 2.53.0
+> >
+>
+> --
+> With best wishes
+> Dmitry
