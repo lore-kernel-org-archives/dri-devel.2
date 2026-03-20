@@ -4,125 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 820D310987AB
-	for <dri-devel@archiver.kernel.org>; Fri, 20 Mar 2026 16:38:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CBE8910987B0
+	for <dri-devel@archiver.kernel.org>; Fri, 20 Mar 2026 16:41:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B4B6510EB32;
-	Fri, 20 Mar 2026 16:38:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AC3A710EB49;
+	Fri, 20 Mar 2026 16:41:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="wmirH38e";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="hbqEYZW8";
 	dkim-atps=neutral
-Received: from TY3P286CU002.outbound.protection.outlook.com
- (mail-japaneastazon11010026.outbound.protection.outlook.com [52.101.229.26])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 10DB710EB32
- for <dri-devel@lists.freedesktop.org>; Fri, 20 Mar 2026 16:38:35 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=pJMKJbUK6AcN1oVY5erMf7sGiUwxHJJJWlmBdV5XlGp4RZ2+QAR3TCM2pbude3z42F3LxWmQhWuLJIFgbLKg8kxoZok+U9dIog+CFUNCvdPnD2qSkUaJs7l4GETCTszyhEw42Z56j5iz40JDwkIrvgnqCEC/cfTPYOg2OZvWY0zYO7SrW3s4Rf/yMj2/CFNXYgiIO+AGw8UvV2SS+2IUp8WAa0b3yigpqxvAg2eqCZcrx3/uWJ5Hmg0CkW1uQbU/iPe2rsSKvpF9D7vz1htvo1EGbaE09/bexq4Sfc9mByMeskTPqJMX7b72GY9pZULYcpCK1rjdkOue+D3R7oVD+g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=QUaF2zBafE5XhIkxuCF1iSKJA/iEaQcMcv/2oHHRx24=;
- b=alSsrcPIADoVQhY6r1npjJ9OQcrvwoLoqdNbNyiNl0HOY/THwMHyBfwtQbkJPq4pNBxs+wEil+4dmYI7a857oH6WcLHOsBP6bQwX8bpyplIFsc8zWMwS8Se8w+bhQz7fn1e6Btx/a5Sl7GOW7dIUIMKhiI+LASBxcTj/a92CBfMhSjhI5JBVQPXnN1mSkF7Jc6C2SOqomhCanvWaGyree6ILDl6rvfbiXlrfqaXN3rblNaeqdHrw7MaooUTQW3NsZFI5mxqXNYcpxKQyGlEvQyv0VCCXSXzWcgCtoszVU9mBgnTNo2cRERgdwoOHJ9maljuKAPpZafVqCv5H6jigxw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
- header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=QUaF2zBafE5XhIkxuCF1iSKJA/iEaQcMcv/2oHHRx24=;
- b=wmirH38eISH3O1K3J+LPr/3wcyeieVM/WswC2zAbPDxj05DUAQ6fIOjN21935E08ADkWKJo34lAxP/kEhAnjQj1ia3CzYrWLSsT1vWivibX7oOg8+EWNkxfxdYrIBo3/xSYaGOAyoG5FI02Dev+TCn/puatKxjJ/3lDme20oJyg=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=bp.renesas.com;
-Received: from TYCPR01MB11947.jpnprd01.prod.outlook.com (2603:1096:400:3e1::6)
- by OS3PR01MB7215.jpnprd01.prod.outlook.com (2603:1096:604:148::6)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.22; Fri, 20 Mar
- 2026 16:38:25 +0000
-Received: from TYCPR01MB11947.jpnprd01.prod.outlook.com
- ([fe80::33f1:f7cd:46be:e4d8]) by TYCPR01MB11947.jpnprd01.prod.outlook.com
- ([fe80::33f1:f7cd:46be:e4d8%5]) with mapi id 15.20.9723.018; Fri, 20 Mar 2026
- 16:38:32 +0000
-Date: Fri, 20 Mar 2026 17:38:11 +0100
-From: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
-To: Boris Brezillon <boris.brezillon@collabora.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- dri-devel@lists.freedesktop.org, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, linux-kernel@vger.kernel.org,
- Andrew Morton <akpm@linux-foundation.org>,
- David Hildenbrand <david@kernel.org>,
- Lorenzo Stoakes <lorenzo.stoakes@oracle.com>, Zi Yan <ziy@nvidia.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- "Liam R. Howlett" <Liam.Howlett@oracle.com>,
- Nico Pache <npache@redhat.com>, Ryan Roberts <ryan.roberts@arm.com>,
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
- Lance Yang <lance.yang@linux.dev>, linux-mm@kvack.org,
- kernel@collabora.com, Biju Das <biju.das.jz@bp.renesas.com>
-Subject: Re: [PATCH] drm/shmem_helper: Make sure PMD entries get the
- writeable upgrade
-Message-ID: <ab138_jW79ZaNC51@tom-desktop>
-References: <20260320151914.586945-1-boris.brezillon@collabora.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260320151914.586945-1-boris.brezillon@collabora.com>
-X-ClientProxiedBy: FR4P281CA0305.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:f6::14) To TYCPR01MB11947.jpnprd01.prod.outlook.com
- (2603:1096:400:3e1::6)
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DDF5D10EB28
+ for <dri-devel@lists.freedesktop.org>; Fri, 20 Mar 2026 16:41:38 +0000 (UTC)
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+ by smtpout-03.galae.net (Postfix) with ESMTPS id BB9624E4274D;
+ Fri, 20 Mar 2026 16:41:37 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 901C0600E0;
+ Fri, 20 Mar 2026 16:41:37 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
+ with ESMTPSA id 3BE3510450CB3; Fri, 20 Mar 2026 17:41:33 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+ t=1774024896; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ content-transfer-encoding:in-reply-to:references;
+ bh=cKGDwlvt9Z0GcMs4r/vA+KlNQUjiaEClgAg1WqXLo9k=;
+ b=hbqEYZW89sdj8sZN6dKNfCXBSj5VjvA50bHmVfW/Qw5MH0QmEJjEYvFcydvUVSkCekA679
+ 0FR5F5DmwlzU4hGjJw8/XA5QCeqEVofa7qlTr0Hf6alJzsjZ0Lqxn82ZP6r8ax6QcLWIMC
+ f/woWHrtF3/CbYb35IB7XbPcxLkuc8vKlGg/+SsUh0qjUlgqia4pJkkoUyNdf6DJ4XdRfw
+ GSOdM98PHa+Msp5JFFA05yTMMvsyCQ07Na04IyDi6fhCKyBbpAlCP41xWHHZxfdFqqXmIT
+ iV6P1Hw8/voYd30VzJN8q1GA6++jX2oIUmuG21DBG10fdw+oOi/8HVtAqsw7vQ==
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TYCPR01MB11947:EE_|OS3PR01MB7215:EE_
-X-MS-Office365-Filtering-Correlation-Id: bca257ec-3fe5-451c-0d35-08de869f1f56
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|7416014|376014|52116014|1800799024|366016|38350700014|7053199007|56012099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: dQlSdCmdMFvQdyxgj9oVfGH+jREZ5RETqKz25VZr0O29U6sYXM4q1Wuc0t7/q5/bJ06kE++G4XXZcHwwZDEBN9+wP2FQ2XkvsBUUwcFE2n9jd5wKfF7Nqv6CJ1VVgt7+y0Vr2S4CNAKIBnNr2NFcixMMaqtdqPqjVWfh0iGgNVJkmjGLLsNZeL6noB6wuEo9EfLeYivT7zNDjW9nc718Pb5363pXJ87Fgd9erfaDzF36Gbo6vLq+pbB/ev1NtysnwuE2czUkE6mRcr5wNZ9FiWtX58Re8976Gg8Qh6KvbYlW7trEeuwmtm56s+bBjm9HNzexYsiYA+1CKhpXDh2a6rNzVWWTY7mF8lredXWr5L3c8FRtXb5nruVViVLJ1Dk4hKUVEFHa1YVX1jDovGg4/dgAl1iMAa+xF9+Fh8uK31VWqU+m1E1Mf/QIVP5YZMuYn0tn4DQ9lpSpBI9SnwaPWQYDddhUMg6Pceln+wa45OxarZRFGnlrV1OEO55LesoKPGJxb9MSDWZG+1Gb59k7V30W2JGmIpxNyMLKJeyv3SZCX7PkUarQv/Q9YukY5J6izLqQYOEamft5ZFdvpi/zf+tL/Tx533m3LjSG5ef0zo56DPdET6qs03BeTk5Hr+wpuE3bRQ3Pyq5uyF5HxaHhfC2mOn9UE4euF2Yl2yztR9jTCooLNh+2cuGv0NdZdxD4IznuD7mLdRx7G54h72N0xb47ldElBJia4zDVnIGTwFIdi+gr7Hsg/+QUPuIcgPLD
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:TYCPR01MB11947.jpnprd01.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(7416014)(376014)(52116014)(1800799024)(366016)(38350700014)(7053199007)(56012099003)(18002099003)(22082099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?7FfqC2L8NBSrEwVFQetZZV0DAL3lN4BqkTA83c2Ut1O4SJr7+JavApNBdqJ0?=
- =?us-ascii?Q?uDMeNJzB0+cY7zFAkM7jYxVVzgDZ6AyWaPgq1QjLf2bU6rKd7xmYQ+xwQu5P?=
- =?us-ascii?Q?9sptKPeDU2UxuhbgwgHG1uMfW386NlVoF+nHgXXrj4w6tEj9lKhvinEXlig0?=
- =?us-ascii?Q?COysEPyznv0HEAuDbYB2Y0nY71iJPvp5E8r5eep7R3Nu4c/v9R+Jo7KWDOoK?=
- =?us-ascii?Q?/SFOLx8u9T4+mMegKdrgAjSpp/x7NDzf9l888JBvEeVMZR8NJZl6KkIkjdVl?=
- =?us-ascii?Q?+IriyJbjtx25G5el0+dT/M2Z+mteYiCa57sLOAixYQ7sSvcxZa+w5F0R+8Np?=
- =?us-ascii?Q?TYyd0Mw6qKTrrqSxuoRPIZJOX+PZxzFxVc/PSsMi8qqqN7Yw3UF0YdCHjgcq?=
- =?us-ascii?Q?/2Z7IBQRzTYSq0syAk4HAXDLGspSQ3nk+PvIZaXvBxpW9C+AbVZFngxD0O59?=
- =?us-ascii?Q?APqYsCCGBhgVvDBnzdQ83YgYE5tyvdU2lRhtgoMqEJjZjE21XZ7Ac/6BzvKv?=
- =?us-ascii?Q?cNaz5lmSdwIgF7i6+NrOW12W4Kg9ZU4PjPCTmk+bLbCb0ThQdL4ERoaOXW7h?=
- =?us-ascii?Q?Tgg9+nvtJsp0Vz6Ru7F+ZBl5k2kxuTHPwQJ4LisNIrVHdQTjLuzNtDeagAxN?=
- =?us-ascii?Q?QuSBQqrUTu6C/0iNcvKhcuUynz1svjrFxoI6Qn1bMGL0eybBeXt6VnOQASFU?=
- =?us-ascii?Q?Kp4cppBsGw7ld76h0XHe4cezkijn2DJrDGf735UuxgfhJne/jTEmiz3rh6Jj?=
- =?us-ascii?Q?oc2QvgvlHoQwrACyviXi0Sx3F4ITUqWbOS7m8pZzVRC0rz7EYNzVX+rRy9Ok?=
- =?us-ascii?Q?V/6ivmYUo6FXPKNDJL6BLQiAzM4OYz0gYAqgPh00Tc+YnRoq1nt4M2+PmmwD?=
- =?us-ascii?Q?NcVuhNcvLBLK8744tyab52L3qH9LAOT6989voK2eCR3sYqhCjzKvOHdazWDd?=
- =?us-ascii?Q?mc/jBKGAOrCjIPtVf0c5jDTIekDQxtoo2laTw5Iz0xAwvvUhNbHukbQojT3f?=
- =?us-ascii?Q?7yVDlZra6gOJshFYL0/qZY+g8A1e+4ffHgRMTP+CdkLSSQElgIqtE5BHEWxO?=
- =?us-ascii?Q?4cRU7L/txsVRk4wYRvXj33ErSgnWMZAELwCGKZhH1iVbpBID/nxAmfOzDYbG?=
- =?us-ascii?Q?QEFBHzGW66xpLc7/Cv6Ahf7bp/CxlpFTZI/P89YtRAsoOyrdaEMox1kbEvig?=
- =?us-ascii?Q?k5PCsXbCQqTUT6YTkNyqHZnlNxLxdQtfMK6WhCnOMPlqRu7ZGq64S329qirc?=
- =?us-ascii?Q?g8cPPlsPhFsqGwDtj4Cl57cN6q50QhVwyFM3slsVVXSvXjD4bz6hcBgXn73/?=
- =?us-ascii?Q?Dmr8Yi7HcMLfUiFkbpgtOn1AXZF4hhk16/VZSiaBwXAdFzuMD3jXFqRe6Pym?=
- =?us-ascii?Q?lBqsXzMPfW3BvbrxysadxznmdOrVKAqtldfmBQ8WepJInx/DtoUvN8/11/GN?=
- =?us-ascii?Q?v0+gbuBmuwGYJapKUqUZZuwlVZaEPYe1eG41RPcUHQXVypIU5gg2V6fP6pLU?=
- =?us-ascii?Q?jbpQJMD6Qac3AgJmx6+GRYPJ36YizihIqp6RtBUfcUVLScUuZCcTEmZFSCmH?=
- =?us-ascii?Q?vpae22UJjh/35kjlIuPAV297Hxwg0JymUq6K3MjqeCKxDGc/m91S93thvrUa?=
- =?us-ascii?Q?MNjMl57VA5NNHMHn7ymxq3qN8fwmOGSGwPMdqvpj/VGFgO1SbhrUNVORWO/2?=
- =?us-ascii?Q?8EfaLHNlN/RDMhOrhyBUncnM0ut7fytCTGwmpV+kkDmT+zniD2ARM9gVJ+f4?=
- =?us-ascii?Q?PRw7f0r4OV8+4xm9UmLTXoeSn0bzDbcMBRmugTWXoG+Qv3yhXe2F?=
-X-OriginatorOrg: bp.renesas.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: bca257ec-3fe5-451c-0d35-08de869f1f56
-X-MS-Exchange-CrossTenant-AuthSource: TYCPR01MB11947.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Mar 2026 16:38:32.0284 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: RjWH6I+e7gnKRISsyTARogezrwJdBaV4bIU6C23M2HR38vBlEHKfhjnO9GY3Co/PnLAVRnGy6bS9xTD4963fftk/+bA++GylOIrR+6/aDNFDHO77proByVGCTY7yV87H
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: OS3PR01MB7215
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v11 01/65] dyndbg: fix NULL ptr on i386 due to section
+ alignment
+From: Louis Chauvet <louis.chauvet@bootlin.com>
+To: airlied@gmail.com, simona@ffwll.ch, jbaron@akamai.com, 
+ gregkh@linuxfoundation.org
+Cc: Jim Cromie <jim.cromie@gmail.com>, mripard@kernel.org, 
+ tzimmermann@suse.de, maarten.lankhorst@linux.intel.com, 
+ jani.nikula@intel.com, ville.syrjala@linux.intel.com, 
+ christian.koenig@amd.com, matthew.auld@intel.com, 
+ arunpravin.paneerselvam@amd.com, louis.chauvet@bootlin.com, 
+ skhan@linuxfoundation.org, pmladek@suse.com, ukaszb@chromium.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+In-Reply-To: <20260313132103.2529746-2-jim.cromie@gmail.com>
+References: <20260313132103.2529746-1-jim.cromie@gmail.com>
+ <20260313132103.2529746-2-jim.cromie@gmail.com>
+Date: Fri, 20 Mar 2026 17:41:54 +0100
+Message-Id: <177402491426.6181.12855763650074831089.b4-review@b4>
+X-Mailer: b4 0.15-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1941;
+ i=louis.chauvet@bootlin.com; h=from:subject:message-id;
+ bh=5vu9kJUKSwepU61ul0h/niGvEXw8ZRvYqIj73mi0tqM=;
+ b=owEBiQJ2/ZANAwAIASCtLsZbECziAcsmYgBpvXjWJgk174KDSFVEfYK8MEGXPXOGRFrKaYh78
+ OPxyPYI8XiJAk8EAAEIADkWIQRPj7g/vng8MQxQWQQgrS7GWxAs4gUCab141hsUgAAAAAAEAA5t
+ YW51MiwyLjUrMS4xMSwyLDIACgkQIK0uxlsQLOLG1A//d2qhiK+QccjRn2qFd6LmmFfXKDycfnI
+ vYg4YgD9yskm421XW1oAW5getFH0ZgMmJnBZNwunzEMgiiFtfPgX54KT9lHKy5xStkHSh41TXrp
+ LSZfIji6smoEFg/wdVSmfIUNr1NXyeertLea9n4jdlTpHLpvHnvw5mAu7ako+DfjXfRrt3a5UKS
+ bMoiy/lCZjuvLXLvSwZ+kH25LlEdU3KXPTA55PI5RZxQ0+uBW1evziiZsv8bVW7q8e6Ppg4UFb6
+ IS1h+Gf8aaTyUeEHpslnt78/T9kkszXgKx21FuODT1boXbLVu+IZwoSqI7Lb7GyOyq94375xmtO
+ Y2c2LIuBmfOnzNAwVbmsRjoQB2vYoPXGjnkF+KQLgUwgLg8ICiU4knkJBe9eNiSt4CoxgNxfgid
+ r0sD+irtok76g26xd+VNhB4pypgjLnsffvHdvSKZpzFjHmpg7zCDipfZcNPooF+9PNuFQyTY7mQ
+ RRkEf6BOMMGMLzqSm+iyHP/2KDGmpZ/q4cMGPdLZ0UhG/v1XugH+rk2zKE+VGQMyy8QWCUP31sz
+ WxpQzHUsVsPHhM5uegSRniZnGYApMuMn03Ad+aWYccs5oFC81V8Wznkt7aKFb0RWuSvswxwsJsY
+ xgXhtpJyocfNjJdVYr8QE1w7CANSVoAg2/cI82SF9sr0SYHvLwKQ=
+X-Developer-Key: i=louis.chauvet@bootlin.com; a=openpgp;
+ fpr=8B7104AE9A272D6693F527F2EC1883F55E0B40A5
+X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -138,131 +87,56 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Boris,
-Thanks for your patch.
+On Fri, 13 Mar 2026 07:19:26 -0600, Jim Cromie <jim.cromie@gmail.com> wrote:
+> [...]
+> smaller alignments, *and* scripts/sorttable.c does not tolerate the
+> added ALIGN(8) padding.
+> 
+> Reported-by: kernel test robot <oliver.sang@intel.com>
+> Closes: https://lore.kernel.org/oe-lkp/202601211325.7e1f336-lkp@intel.com
+> Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 
-On Fri, Mar 20, 2026 at 04:19:13PM +0100, Boris Brezillon wrote:
-> Unlike PTEs which are automatically upgraded to writeable entries if
-> .pfn_mkwrite() returns 0, the PMD upgrades go through .huge_fault(),
-> and we currently pretend to have handled the make-writeable request
-> even though we only ever map things read-only. Make sure we pass the
-> proper "write" info to vmf_insert_pfn_pmd() in that case.
-> 
-> This also means we have to record the mkwrite event in the .huge_fault()
-> path now. Move the dirty tracking logic to a
-> drm_gem_shmem_record_mkwrite() helper so it can also be called from
-> drm_gem_shmem_pfn_mkwrite().
-> 
-> Note that this wasn't a problem before commit 28e3918179aa
-> ("drm/gem-shmem: Track folio accessed/dirty status in mmap"), because
-> the pgprot were not lowered to read-only before this commit (see the
-> vma_wants_writenotify() in vma_set_page_prot()).
-> 
-> Fixes: 28e3918179aa ("drm/gem-shmem: Track folio accessed/dirty status in mmap")
-> Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
-> Cc: Biju Das <biju.das.jz@bp.renesas.com>
-> Cc: Thomas Zimmermann <tzimmermann@suse.de>
-> Cc: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
-> ---
-> 
-> This patch is based on drm-tip [2], because that's the only branch
-> that has both [1] and the dirty tracking changes that live in
-> drm-misc-next.
+comments may be wrong.
 
-Tested on RZ/G3E, this fix the issue on my side.
-Thanks for your work.
-
-Tested-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
-
-Kind Regards,
-Tommaso
-
-> 
-> Also added the THP maintainers in Cc, so I can hopefully get some
-> feedback on the fix. For instance, I'm still unsure
-> drm_gem_shmem_pfn_mkwrite() is race-free (do we need some locking
-> there? should we call folio_mark_dirty_lock()? should we call the
-> fault handler directly from there and have all the dirty tracking
-> in this .[huge_]fault path?).
-> 
-> [1]https://yhbt.net/lore/dri-devel/20260319015224.46896-1-pedrodemargomes@gmail.com/
-> [2]https://gitlab.freedesktop.org/drm/tip
-> ---
->  drivers/gpu/drm/drm_gem_shmem_helper.c | 46 ++++++++++++++++++--------
->  1 file changed, 32 insertions(+), 14 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/drm_gem_shmem_helper.c b/drivers/gpu/drm/drm_gem_shmem_helper.c
-> index 2062ca607833..545933c7f712 100644
-> --- a/drivers/gpu/drm/drm_gem_shmem_helper.c
-> +++ b/drivers/gpu/drm/drm_gem_shmem_helper.c
-> @@ -554,6 +554,21 @@ int drm_gem_shmem_dumb_create(struct drm_file *file, struct drm_device *dev,
->  }
->  EXPORT_SYMBOL_GPL(drm_gem_shmem_dumb_create);
+>
+>
+> diff --git a/include/asm-generic/vmlinux.lds.h b/include/asm-generic/vmlinux.lds.h
+> index eeb070f330bd..a2ba7e3d9994 100644
+> --- a/include/asm-generic/vmlinux.lds.h
+> +++ b/include/asm-generic/vmlinux.lds.h
+> @@ -212,11 +212,13 @@
+> [ ... skip 7 lines ... ]
 >  
-> +static void drm_gem_shmem_record_mkwrite(struct vm_fault *vmf)
-> +{
-> +	struct vm_area_struct *vma = vmf->vma;
-> +	struct drm_gem_object *obj = vma->vm_private_data;
-> +	struct drm_gem_shmem_object *shmem = to_drm_gem_shmem_obj(obj);
-> +	loff_t num_pages = obj->size >> PAGE_SHIFT;
-> +	pgoff_t page_offset = vmf->pgoff - vma->vm_pgoff; /* page offset within VMA */
-> +
-> +	if (drm_WARN_ON(obj->dev, !shmem->pages || page_offset >= num_pages))
-> +		return;
-> +
-> +	file_update_time(vma->vm_file);
-> +	folio_mark_dirty(page_folio(shmem->pages[page_offset]));
-> +}
-> +
->  static vm_fault_t try_insert_pfn(struct vm_fault *vmf, unsigned int order,
->  				 unsigned long pfn)
->  {
-> @@ -566,8 +581,23 @@ static vm_fault_t try_insert_pfn(struct vm_fault *vmf, unsigned int order,
->  
->  		if (aligned &&
->  		    folio_test_pmd_mappable(page_folio(pfn_to_page(pfn)))) {
-> +			vm_fault_t ret;
-> +
->  			pfn &= PMD_MASK >> PAGE_SHIFT;
-> -			return vmf_insert_pfn_pmd(vmf, pfn, false);
-> +
-> +			/* Unlike PTEs which are automatically upgraded to
-> +			 * writeable entries, the PMD upgrades go through
-> +			 * .huge_fault(). Make sure we pass the "write" info
-> +			 * along in that case.
-> +			 * This also means we have to record the write fault
-> +			 * here, instead of in .pfn_mkwrite().
-> +			 */
-> +			ret = vmf_insert_pfn_pmd(vmf, pfn,
-> +						 vmf->flags & FAULT_FLAG_WRITE);
-> +			if (ret == VM_FAULT_NOPAGE && (vmf->flags & FAULT_FLAG_WRITE))
-> +				drm_gem_shmem_record_mkwrite(vmf);
-> +
-> +			return ret;
->  		}
->  #endif
->  	}
-> @@ -655,19 +685,7 @@ static void drm_gem_shmem_vm_close(struct vm_area_struct *vma)
->  
->  static vm_fault_t drm_gem_shmem_pfn_mkwrite(struct vm_fault *vmf)
->  {
-> -	struct vm_area_struct *vma = vmf->vma;
-> -	struct drm_gem_object *obj = vma->vm_private_data;
-> -	struct drm_gem_shmem_object *shmem = to_drm_gem_shmem_obj(obj);
-> -	loff_t num_pages = obj->size >> PAGE_SHIFT;
-> -	pgoff_t page_offset = vmf->pgoff - vma->vm_pgoff; /* page offset within VMA */
-> -
-> -	if (drm_WARN_ON(obj->dev, !shmem->pages || page_offset >= num_pages))
-> -		return VM_FAULT_SIGBUS;
-> -
-> -	file_update_time(vma->vm_file);
-> -
-> -	folio_mark_dirty(page_folio(shmem->pages[page_offset]));
-> -
-> +	drm_gem_shmem_record_mkwrite(vmf);
->  	return 0;
->  }
->  
-> -- 
-> 2.53.0
-> 
+>  #define BOUNDED_SECTION_POST_LABEL(_sec_, _label_, _BEGIN_, _END_)	\
+> +	. = ALIGN(8);							\
+>  	_label_##_BEGIN_ = .;						\
+>  	KEEP(*(_sec_))							\
+>  	_label_##_END_ = .;
+
+This affects a lot of existing BOUNDED_SECTION_BY. I agree that it is
+not a big issue (most of them already have ALIGN(8) or ALIGN(32), but
+some have ALIGN(4) or just not aligned at all). I think this can increase
+the size of the kernel in other places.
+
+What do you think about a new macro or a
+BOUNDED_SECTION_BY_ALIGNED(sec,label,align) with explicit aligement?
+
+> @@ -867,15 +869,21 @@
+> [ ... skip 15 lines ... ]
+>  	. = ALIGN(2);							\
+>  	.orc_unwind : AT(ADDR(.orc_unwind) - LOAD_OFFSET) {		\
+> -		BOUNDED_SECTION_BY(.orc_unwind, _orc_unwind)		\
+> +		__start_orc_unwind = .;					\
+> +		KEEP(*(.orc_unwind))					\
+> +		__stop_orc_unwind = .;					\
+
+You already noticed an issue here for example, and you had to manually
+expand the macro to "disable" the align. This is error-prone, I think it is
+better to keep BOUNDED_SECTION_BY here.
+
+Note: I don't understand well linker scripts and all the implications, my
+
+Note: I don't understand well linker scripts and all the implications, my
+
+-- 
+Louis Chauvet <louis.chauvet@bootlin.com>
