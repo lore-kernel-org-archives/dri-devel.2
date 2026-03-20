@@ -4,41 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 11F5B108B8F1
-	for <dri-devel@archiver.kernel.org>; Fri, 20 Mar 2026 10:47:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 66EAE108B8F1
+	for <dri-devel@archiver.kernel.org>; Fri, 20 Mar 2026 10:47:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6FF2A10EA73;
-	Fri, 20 Mar 2026 10:46:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C24FC10EA75;
+	Fri, 20 Mar 2026 10:47:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="YzHwYqWw";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="b0usys/h";
 	dkim-atps=neutral
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 51F6310EA73
- for <dri-devel@lists.freedesktop.org>; Fri, 20 Mar 2026 10:46:58 +0000 (UTC)
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 97EF210EA75
+ for <dri-devel@lists.freedesktop.org>; Fri, 20 Mar 2026 10:47:09 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-04.galae.net (Postfix) with ESMTPS id 8E4B2C415B6;
- Fri, 20 Mar 2026 10:47:22 +0000 (UTC)
+ by smtpout-02.galae.net (Postfix) with ESMTPS id 897421A2F0E;
+ Fri, 20 Mar 2026 10:47:08 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 24B25601A0;
- Fri, 20 Mar 2026 10:46:57 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 5C00C601A0;
+ Fri, 20 Mar 2026 10:47:08 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 9EA1A10450B97; Fri, 20 Mar 2026 11:46:44 +0100 (CET)
+ with ESMTPSA id 4215310450B9C; Fri, 20 Mar 2026 11:46:54 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1774003614; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ t=1774003625; h=from:subject:date:message-id:to:cc:mime-version:content-type:
  content-transfer-encoding:in-reply-to:references;
- bh=dfwoXcfKZfOcrFCvOGrbRQGdzCvJEFHRdHoxTl+8JMk=;
- b=YzHwYqWw8kdbSA1xpu89lfslknKZSwmuF3aLrpjqoyqFxsahyC4CHj20zWXghkZunEs60b
- 5huaASm19Vc3IFxQvRDDcy7Z4B5smg4Aip9oo78qeoj2elfe1lIjnNiKT/YhzKLF9feHqz
- toWHif+d97a5HtGVm3JgTTRarilC0KNxWM5oACGDvzPIkb/ctxbAMeswXS3u8HYyzJC8JW
- 6I3v/0Ksssn8rOPDxACW7gmx1jTbyqE6jyfRu7asbg3zgil0cQDQYyUxGg8Tg5HvB39fjp
- s6kHkxRAHf4UdvaAoHngsvaMlaO3+Ma56926yREnEQquPEki9AO03WWePTBVew==
+ bh=uqivpiK0EZCZ1GJzIO6qlD0UY/zTX2jimlhOlJX9+J8=;
+ b=b0usys/hnRS2Fr9NfUVkW6SirYB8SXTdJjTxeH9MM7GK4qT2fXIU3RFMZbWCK0ZoGW5zLo
+ oN+2nl4hoV9mgyOKb3anTMfGFYXucRrfsJprsxnNSH2U4xaFfS8vNxUe48cOBI+BP1Y+DT
+ E1DVv8d3lYXpeik3x7rqaHbQ0o+f3AG2r07ukYuEe5Ohs8Ax/3U4KuVfiuCT0f9HjzAoN6
+ als/m0eQya/PgWGchzytujlX9enQAxkDRCx17CILGjWOJUN+9/wZ2/5vYmYyWaEHCRAMhm
+ 4XEDoFZl5NnnBeQ4a6FKLJZNBMfFduE7Linncvc47zw2GUbAzoBBRCjOmuX+VA==
 From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Date: Fri, 20 Mar 2026 11:46:13 +0100
-Subject: [PATCH 2/8] drm/mxsfb/lcdif: don't unnecessarily loop over ports
+Date: Fri, 20 Mar 2026 11:46:14 +0100
+Subject: [PATCH 3/8] drm/mxsfb/lcdif: use dev_err_probe() consistently in
+ lcdif_attach_bridge
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260320-drm-lcdif-dbanc-v1-2-479a04133e70@bootlin.com>
+Message-Id: <20260320-drm-lcdif-dbanc-v1-3-479a04133e70@bootlin.com>
 References: <20260320-drm-lcdif-dbanc-v1-0-479a04133e70@bootlin.com>
 In-Reply-To: <20260320-drm-lcdif-dbanc-v1-0-479a04133e70@bootlin.com>
 To: Marek Vasut <marex@denx.de>, Stefan Agner <stefan@agner.ch>, 
@@ -101,117 +102,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-According to the bindings [0] there can be only one port. The in-tree board
-device trees also don't contain multiple ports (searched thos matching
-'fsl,imx(23|28|6sx|8mp|93)-lcdif').
-
-Avoid an unnecessary loop around multipltle ports. This allows to greatly
-simplify the code.
-
-[0] Documentation/devicetree/bindings/display/fsl,lcdif.yaml
+lcdif_attach_bridge() uses dev_err_probe() in some error paths, dev_err() +
+return in others. Use dev_err_probe() for all of them to make code
+consistent and simpler.
 
 Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
-
 ---
-
-Viewing this patch with '--ignore-all-space' is recommended
----
- drivers/gpu/drm/mxsfb/lcdif_drv.c | 77 ++++++++++++++-------------------------
- 1 file changed, 27 insertions(+), 50 deletions(-)
+ drivers/gpu/drm/mxsfb/lcdif_drv.c | 12 ++++--------
+ 1 file changed, 4 insertions(+), 8 deletions(-)
 
 diff --git a/drivers/gpu/drm/mxsfb/lcdif_drv.c b/drivers/gpu/drm/mxsfb/lcdif_drv.c
-index 756ca96373c8..83e134c04882 100644
+index 83e134c04882..e40253ad607b 100644
 --- a/drivers/gpu/drm/mxsfb/lcdif_drv.c
 +++ b/drivers/gpu/drm/mxsfb/lcdif_drv.c
-@@ -48,61 +48,38 @@ static const struct drm_encoder_funcs lcdif_encoder_funcs = {
- static int lcdif_attach_bridge(struct lcdif_drm_private *lcdif)
- {
- 	struct device *dev = lcdif->drm->dev;
--	struct device_node *ep;
-+	struct drm_encoder *encoder;
- 	struct drm_bridge *bridge;
- 	int ret;
+@@ -63,18 +63,14 @@ static int lcdif_attach_bridge(struct lcdif_drm_private *lcdif)
+ 		return dev_err_probe(dev, PTR_ERR(bridge), "Failed to get bridge\n");
  
--	for_each_endpoint_of_node(dev->of_node, ep) {
--		struct device_node *remote __free(drm_bridge_put) =
--			of_graph_get_remote_port_parent(ep);
--		struct of_endpoint of_ep;
--		struct drm_encoder *encoder;
--
--		if (!of_device_is_available(remote))
--			continue;
--
--		ret = of_graph_parse_endpoint(ep, &of_ep);
--		if (ret < 0) {
--			dev_err(dev, "Failed to parse endpoint %pOF\n", ep);
--			of_node_put(ep);
--			return ret;
--		}
--
--		bridge = devm_drm_of_get_bridge(dev, dev->of_node, 0, of_ep.id);
--		if (IS_ERR(bridge)) {
--			of_node_put(ep);
--			return dev_err_probe(dev, PTR_ERR(bridge),
--					     "Failed to get bridge for endpoint%u\n",
--					     of_ep.id);
--		}
--
--		encoder = devm_kzalloc(dev, sizeof(*encoder), GFP_KERNEL);
--		if (!encoder) {
--			dev_err(dev, "Failed to allocate encoder for endpoint%u\n",
--				of_ep.id);
--			of_node_put(ep);
--			return -ENOMEM;
--		}
--
--		encoder->possible_crtcs = drm_crtc_mask(&lcdif->crtc);
--		ret = drm_encoder_init(lcdif->drm, encoder, &lcdif_encoder_funcs,
--				       DRM_MODE_ENCODER_NONE, NULL);
--		if (ret) {
--			dev_err(dev, "Failed to initialize encoder for endpoint%u: %d\n",
--				of_ep.id, ret);
--			of_node_put(ep);
--			return ret;
--		}
--
--		ret = drm_bridge_attach(encoder, bridge, NULL, 0);
--		if (ret) {
--			of_node_put(ep);
--			return dev_err_probe(dev, ret,
--					     "Failed to attach bridge for endpoint%u\n",
--					     of_ep.id);
--		}
-+	struct device_node *remote __free(device_node) =
-+		of_graph_get_remote_node(dev->of_node, 0, -1);
-+
-+	if (!of_device_is_available(remote))
-+		return 0;
-+
-+	bridge = devm_drm_of_get_bridge(dev, dev->of_node, 0, -1);
-+	if (IS_ERR(bridge))
-+		return dev_err_probe(dev, PTR_ERR(bridge), "Failed to get bridge\n");
-+
-+	encoder = devm_kzalloc(dev, sizeof(*encoder), GFP_KERNEL);
-+	if (!encoder) {
-+		dev_err(dev, "Failed to allocate encoder\n");
-+		return -ENOMEM;
- 	}
+ 	encoder = devm_kzalloc(dev, sizeof(*encoder), GFP_KERNEL);
+-	if (!encoder) {
+-		dev_err(dev, "Failed to allocate encoder\n");
+-		return -ENOMEM;
+-	}
++	if (!encoder)
++		return dev_err_probe(dev, -ENOMEM, "Failed to allocate encoder\n");
  
-+	encoder->possible_crtcs = drm_crtc_mask(&lcdif->crtc);
-+	ret = drm_encoder_init(lcdif->drm, encoder, &lcdif_encoder_funcs,
-+			       DRM_MODE_ENCODER_NONE, NULL);
-+	if (ret) {
-+		dev_err(dev, "Failed to initialize encoder: %d\n", ret);
-+		return ret;
-+	}
-+
-+	ret = drm_bridge_attach(encoder, bridge, NULL, 0);
+ 	encoder->possible_crtcs = drm_crtc_mask(&lcdif->crtc);
+ 	ret = drm_encoder_init(lcdif->drm, encoder, &lcdif_encoder_funcs,
+ 			       DRM_MODE_ENCODER_NONE, NULL);
+-	if (ret) {
+-		dev_err(dev, "Failed to initialize encoder: %d\n", ret);
+-		return ret;
+-	}
 +	if (ret)
-+		return dev_err_probe(dev, ret, "Failed to attach bridge\n");
-+
- 	return 0;
- }
++		return dev_err_probe(dev, ret, "Failed to initialize encoder\n");
  
+ 	ret = drm_bridge_attach(encoder, bridge, NULL, 0);
+ 	if (ret)
 
 -- 
 2.53.0
