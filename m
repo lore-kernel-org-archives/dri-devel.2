@@ -4,62 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C7FEB1093182
-	for <dri-devel@archiver.kernel.org>; Fri, 20 Mar 2026 07:48:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 644B41093188
+	for <dri-devel@archiver.kernel.org>; Fri, 20 Mar 2026 07:57:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 24DD710E4EC;
-	Fri, 20 Mar 2026 07:48:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B9E1A10EA8A;
+	Fri, 20 Mar 2026 07:56:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=pm.me header.i=@pm.me header.b="A5oPqFkt";
+	dkim=pass (2048-bit key; unprotected) header.d=ite.com.tw header.i=@ite.com.tw header.b="P1y2vT+A";
 	dkim-atps=neutral
-Received: from mail-4316.protonmail.ch (mail-4316.protonmail.ch [185.70.43.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5B85710E00D;
- Fri, 20 Mar 2026 07:47:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
- s=protonmail3; t=1773992876; x=1774252076;
- bh=/ZmLRfVsJAQyzr+0FYDWPnjIHYhTuLVijg0WABRKrKg=;
- h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
- Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
- Message-ID:BIMI-Selector;
- b=A5oPqFktPVY1vpSaTwZ7fva7ArxaG8ScCz38ggxXxYf9PJ0XBEBWolcWQ2nSBV/oK
- sKYfCX2wtZBeAV9WR9GJTdCfRkCl+4T5UrxrjUPiFmS84aQjQK8uZvmTOE3fG3woil
- UmEoDmFyBAdG9RTNf8LvMxI4z3yRziqw6FwuCtoJJwgaIFBNKa+4LhreWYAA1sPI2g
- wE/CF3wvxZiJHWyx1j41VGb1nAavC637b649tidHyAb43c2iPVezU3QNxuDv83au1u
- vjIKx57nWz00uM1CKSw02yB9ByqGETI/aa4btfK6rVgy2jDIEIXx7FnPwgYNZ9If30
- vGjg6TVozjq3g==
-Date: Fri, 20 Mar 2026 07:47:51 +0000
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-From: Alexander Koskovich <akoskovich@pm.me>
-Cc: Jonathan Marek <jonathan@marek.ca>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Jeffrey Hugo <jeffrey.l.hugo@gmail.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org
-Subject: Re: [PATCH v3 4/4] drm/msm/dpu: fix video mode DSC INTF timing width
- calculation
-Message-ID: <LbtagEimreS2mF7RubKMs6Tv0gw7HnkqlhleCglof53bICr7FUqEgwta1rQ6ysgUHF6_BsA9Us2TPGO6m40POMVZ-vKyV4KN8D-S_Hrs-pc=@pm.me>
-In-Reply-To: <7o6ddv23aft3eerc7xz7r5rawe24d6vl3qp33ewnqllv5xkfrf@n3dosrwbvlhf>
-References: <20260319-dsi-rgb101010-support-v3-0-85b99df2d090@pm.me>
- <7fb9dd9d-13f9-7bba-93d1-08f42dd6ee38@marek.ca>
- <oihbfczsj5cg7qfjjt6jvyodjnjbezyrv6f32vmg444g5bx6ow@r54epj7ilsyt>
- <da050aad-381d-ffb7-ec7d-8ed8a80d790a@marek.ca>
- <pVeuxasxaau60kEIgTW1W6DmFLuzLUGYvmYtTN_Cv0htPbokC6lMObfmql3lWkAxtO5Lp-aD2l0Uzt_xL8cGYVxBmDey-5-HA7968eocg8c=@pm.me>
- <a7jukaag6juswudeeuskgzahzbixxn5oq4qjnxfny2oapinfnv@kmn7b33yxric>
- <jv_kU6i1uCSu--2-KIWkgsC0NsVK1yE396Nv_fCFA5v9uR-zrMGhrBmKNnG_ztHPiKPqlcjWif3R-XF1bINB387ezJEKtXDY453253BM6fc=@pm.me>
- <nVcYZQOh7dB65LsiaXejmQP-Cmp-eSxp7fvDiTwS2P5WJc03m4CwXtUP_2w-D2dflxo9rwKPI68FxnfswATouZxK8QhF256JJf3F7BkbmY0=@pm.me>
- <7o6ddv23aft3eerc7xz7r5rawe24d6vl3qp33ewnqllv5xkfrf@n3dosrwbvlhf>
-Feedback-ID: 37836894:user:proton
-X-Pm-Message-ID: 130e397a9ba129a1af335ef6dffa25084b24a8c9
+Received: from ironport.ite.com.tw (219-87-157-213.static.tfn.net.tw
+ [219.87.157.213])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2782910EA7F
+ for <dri-devel@lists.freedesktop.org>; Fri, 20 Mar 2026 07:56:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ite.com.tw; s=dkim;
+ h=from:subject:date:message-id:mime-version:
+ content-transfer-encoding:to:cc;
+ bh=CBSGIJFCOvt75XfIU/JZ4q35U6tIevFIeWNAEQrNVc8=;
+ b=P1y2vT+A3u4aQN6diaMD7XlG3pr8VhiNJFl4zTuJedK5nNeIDMaE8OeC
+ SDI5LgmL8BrC2MqTgDTZgnn3N68dNYmJxGs09Y7Te9rFHSQ9P2iccVjgp
+ /lTHg4Xr8kHkaL9n1KRfmNtpoImAnixmmBTUYZPqU8JMVV/h2FaeGoZTS
+ 5Sla9gaCOrLnbeGM7wBE0c/PxF/CdPf7sVTtYI2jV7wUOJsg8ChMVW+hu
+ zf7JQyre+0RbU+27kECnYYAb6jFLWYyYGu27mkUgPUySBGk8rIRZqsXzD
+ EKaqC1J3tWnkK2InuPq6Bee8xZTM7ApxgcHXoyEMe1tGVRPwPIGDAB0r1 w==;
+X-CSE-ConnectionGUID: ap1dnUiqQgSaUW8BZKa9eA==
+X-CSE-MsgGUID: RZZGNm2aSS6dWT3Z2rIjuw==
+Received: from unknown (HELO mse.ite.com.tw) ([192.168.35.30])
+ by ironport.ite.com.tw with ESMTP; 20 Mar 2026 15:44:04 +0800
+Received: from hscmail1.internal.ite.com.tw (HSCMAIL2.internal.ite.com.tw
+ [192.168.35.41]) by mse.ite.com.tw with ESMTP id 62K7nemM002264;
+ Fri, 20 Mar 2026 15:49:40 +0800 (+08)
+ (envelope-from Pet.Weng@ite.com.tw)
+Received: from [127.0.1.1] (192.168.72.40) by HSCMAIL2.internal.ite.com.tw
+ (192.168.35.41) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Fri, 20 Mar
+ 2026 15:49:40 +0800
+From: Pet Weng <pet.weng@ite.com.tw>
+Subject: [PATCH v8 0/2] Add ITE IT61620 MIPI DSI to HDMI bridge driver
+Date: Fri, 20 Mar 2026 15:50:40 +0800
+Message-ID: <20260320-it61620-0714-v8-0-0e70271cf5a9@ite.com.tw>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAFD8vGkC/3XQwU7EIBDG8VfZcLabmQEG8OR7GA+0gMvB7aZtq
+ mbTd5c20SqNCZf/JL/vwF2McchxFI+nuxjinMfcX0vYh5PoLv76GpscSgsC0mBQNXliZIJmC9+
+ q8rqYEjlRyG2IKX9sc88vpS95nPrhc1ufcb3+MzRjA400jMgqQOvsU57iuevfztO7WJdm2rUlW
+ 2kqWltO2kkVdDpq+aMRwFVarjqwpQBklcKDVrsm5Eqrol2gFL2xyvh40PqXJqq0LtqnlpVxPsj
+ OHzR/awaUUGku2oBPnrUj2eqDNruWKCtt1j9njxw6kBz4j16W5Qt36jrFHQIAAA==
+X-Change-ID: 20250714-it61620-0714-ab4ab4ceff29
+To: Andrzej Hajda <andrzej.hajda@intel.com>, Neil Armstrong
+ <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>
+CC: <dri-devel@lists.freedesktop.org>, <devicetree@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, Hermes Wu <hermes.Wu@ite.com.tw>, Kenneth
+ Hung <kenneth.Hung@ite.com.tw>, Pet Weng <pet.weng@ite.com.tw>, Jau-chih
+ Tseng <jau-chih.tseng@ite.com.tw>, Pin-yen Lin <treapking@google.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1773993069; l=6899;
+ i=pet.weng@ite.com.tw; s=20250702; h=from:subject:message-id;
+ bh=phdqUioCXLWnu8Bh/2oIi7ADgnMjSQXSk6X2dAr4kgY=;
+ b=qqgtkG//KB6L4tNJG5Waa24ph1PAAVRmH3fJp8/Opb0P3RXXQ63vIWnOcIbO4TZRfgBERMq4C
+ jhat0eZEer4DCZriZ5IXtGMzHdU8IcW20tjDhUfkRSdkQfDGf6jGuqQ
+X-Developer-Key: i=pet.weng@ite.com.tw; a=ed25519;
+ pk=wd08uBtTLb93x2ixbKVNsxiZPdMh1Ov4z5klodh2bqo=
+X-Originating-IP: [192.168.72.40]
+X-ClientProxiedBy: CSBMAIL1.internal.ite.com.tw (192.168.65.58) To
+ HSCMAIL2.internal.ite.com.tw (192.168.35.41)
+X-TM-SNTS-SMTP: C5F9C341017A65E5671160B36197FBB4F274D7B6F1ED3E7597883BE00683A1EC2002:8
+X-MAIL: mse.ite.com.tw 62K7nemM002264
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,121 +94,151 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+This patch series adds support for the ITE IT61620 MIPI DSI to HDMI 
+bridge chip.
 
-On Friday, March 20th, 2026 at 3:36 AM, Dmitry Baryshkov <dmitry.baryshkov@=
-oss.qualcomm.com> wrote:
+The IT61620 is an I2C-controlled bridge that receives MIPI DSI input 
+and outputs HDMI signals. A single-port MIPI DSI input is converted to 
+an HDMI 1.4 output. This series introduces:
+- A device tree binding YAML file describing the hardware
+- A new DRM bridge driver implementing the basic functionality
 
-> On Fri, Mar 20, 2026 at 07:02:54AM +0000, Alexander Koskovich wrote:
-> > On Friday, March 20th, 2026 at 2:50 AM, Alexander Koskovich <akoskovich=
-@pm.me> wrote:
-> >
-> > > On Friday, March 20th, 2026 at 2:38 AM, Dmitry Baryshkov <dmitry.bary=
-shkov@oss.qualcomm.com> wrote:
-> > >
-> > > > On Fri, Mar 20, 2026 at 04:46:02AM +0000, Alexander Koskovich wrote=
-:
-> > > > > On Friday, March 20th, 2026 at 12:25 AM, Jonathan Marek <jonathan=
-@marek.ca> wrote:
-> > > > >
-> > > > > > On 3/19/26 9:45 PM, Dmitry Baryshkov wrote:
-> > > > > > > On Thu, Mar 19, 2026 at 01:23:03PM -0400, Jonathan Marek wrot=
-e:
-> > > > > > ...
-> > > > > > >>
-> > > > > > >> That's not how it works. INTF (which feeds DSI) is after DSC=
- compression.
-> > > > > > >>
-> > > > > > >> INTF timings are always in RGB888 (24-bit) units. Ignoring w=
-idebus details,
-> > > > > > >> the INTF timing should match what is programmed on the DSI s=
-ide (hdisplay,
-> > > > > > >> which is calculated as bytes per line / 3).
-> > > > > > >>
-> > > > > > >> (fwiw, the current "timing->width =3D ..." calculation here =
-blames to me, but
-> > > > > > >> what I wrote originally was just "timing->width =3D timing->=
-width / 3" with a
-> > > > > > >> comment about being incomplete.)
-> > > > > > >>
-> > > > > > > Okay. After reading the docs (sorry, it took a while).
-> > > > > > >
-> > > > > > > - When widebus is not enabled, the transfer is always 24 bit =
-of
-> > > > > > >    compressed data. Thus if it is not in play, pclk and timin=
-g->width
-> > > > > > >    should be scaled by source_pixel_depth / compression_ratio=
- / 24. In
-> > > > > > >    case of the code it is 'drm_dsc_get_bpp_int(dsc) / 24'.
-> > > > > > >
-> > > > > > >    For RGB101010 / 8bpp DSC this should result in the PCLK be=
-ing lowered
-> > > > > > >    by the factor of 3 (=3D 24 / (30 / 3.75))
-> > > > > > >
-> > > > > > > - When widebus is in play (MDSS 6.x+, DSI 2.4+), the transfer=
- takes
-> > > > > > >    more than 24 bits. In this case the PCLK and timing->width=
- should be
-> > > > > > >    scaled exactly by the DSC compression ratio, which is
-> > > > > > >    'drm_dsc_get_bpp_int(dsc) / (3 * dsc->bits_per_component).
-> > > > > > >
-> > > > > > > So, this piece of code needs to be adjusted to check for the =
-widebus
-> > > > > > > being enabled or not.
-> > > > > > >
-> > > > > >
-> > > > > > The widebus adjustment on the MDP/INTF side is already in
-> > > > > > dpu_hw_intf_setup_timing_engine: the "data width" is divided by=
- 2 for
-> > > > > > 48-bit widebus instead of 24-bit. there shouldn't be any other
-> > > > > > adjustment (downstream doesn't have any other adjustment).
-> > > > > >
-> > > > > > a relevant downstream comment: "In DATABUS-WIDEN mode, MDP alwa=
-ys sends
-> > > > > > out 48-bit compressed data per pclk and on average, DSI consume=
-s an
-> > > > > > amount of compressed data equivalent to the uncompressed pixel =
-depth per
-> > > > > > pclk."
-> > > > > >
-> > > > > > Based on that comment, this patch is correct, and the
-> > > > > > ''drm_dsc_get_bpp_int(dsc) / (3 * dsc->bits_per_component)' adj=
-ustment
-> > > > > > only applies to DSI.
-> > > > >
-> > > > > If I keep the INTF side at /24 and change the DSI side to:
-> > > > >
-> > > > > if (wide_bus)
-> > > > >         new_hdisplay =3D DIV_ROUND_UP(mode->hdisplay * drm_dsc_ge=
-t_bpp_int(dsc), dsc->bits_per_component * 3);
-> > > > > else
-> > > > >         new_hdisplay =3D DIV_ROUND_UP(mode->hdisplay * drm_dsc_ge=
-t_bpp_int(dsc), 24);
-> > > >
-> > > > Please check the actual fps (I'm usually using a vblank-synced GL, =
-e.g.
-> > > > kmscube).
-> > > >
-> > > > At least this matches my expectations.
-> > >
-> > > Hmmm with kmscube I am getting 120FPS with 24 and 100FPS with 30. So =
-I guess that's a no go
-> >
-> > Although it was using dsc->bits_per_component * 3 regardless before for
-> > dsi_adjust_pclk_for_compression so I guess that's what Jonathan was
-> > referring to earlier...
->=20
-> Do you have any of the patches by Marijn or Pengyu?
->=20
-> - https://lore.kernel.org/linux-arm-msm/20260311-dsi-dsc-regresses-again-=
-v1-1-6a422141eeea@somainline.org/
->=20
-> - https://lore.kernel.org/linux-arm-msm/20260307111250.105772-1-mitltlatl=
-tl@gmail.com/
+Signed-off-by: Pet Weng <pet.weng@ite.com.tw>
+---
+Changes in v8:
+- dt-binding:
+ 1. Clarify the hardware differences between IT6162 and IT61620 in the
+    description (IT61620 is single-port and lacks an internal MCU). 	[Krzysztof]
+ 2. Dropped Reviewed-by from Krzysztof due to description changes.
+- Call drm_atomic_helper_connector_hdmi_clear_audio_infoframe() in audio
+  shutdown path								[Dmitry]
+- Link to v7: https://lore.kernel.org/r/20260313-it61620-0714-v7-0-36a16dc036d6@ite.com.tw
 
-Nope, I can test with them though if you'd like
+Changes in v7:
+- The dt-bindings were previously reviewed by Krzysztof Kozlowski.
+- drm/bridge:								[Dmitry]
+ 1. drop redundant register access wrappers and use regmap APIs directly
+ 2. use drm_dbg_kms() instead of drm_dbg() when printing display timing information
+ 3. use drm_display_mode directly for video timing
+ 4. add helper for writing 16-bit timing registers
+ 5. simplify HDMI interrupt handling
+ 6. add mono audio support
+ 7. program audio parameters directly
+ 8. inline audio infoframe disable logic
+- MAINTAINERS: squash to driver patch					[Dmitry]
+- Link to v6: https://lore.kernel.org/r/20260130-it61620-0714-v6-0-70afa65923b5@ite.com.tw
 
->=20
-> --
-> With best wishes
-> Dmitry
-> 
+Changes in v6:
+- In patch 1								[Luca] 
+ 1. Fix a typo in the commit message.
+ 2. Remove redundant assignment of bridge.funcs, which is already set by 
+    devm_drm_bridge_alloc().
+- Link to v5: https://lore.kernel.org/r/20251222-it61620-0714-v5-0-afb6479ad3ca@ite.com.tw
+
+Changes in v5:
+- Fix dt_binding_check errors by adding missing unevaluatedProperties constraints
+  for port and endpoint nodes in the device tree binding.		[Rob]
+- Link to v4: https://lore.kernel.org/r/20251216-it61620-0714-v4-0-9d2fea7847ae@ite.com.tw
+
+Changes in v4:
+- In patch 1								[Krzysztof]
+ 1. Remove redundant "description" fields from interrupts and regulators
+ 2. Drop pinctrl-names and pinctrl-0; driver does not require them
+ 3. Remove port/endpoint properties already covered by video interfaces schema
+ 4. Fix example indentation to 4 spaces for readability
+- In patch 2								[Jani]
+ 1. Use connector->display_info from DRM helper instead of parsing EDID manually
+- In patch 2								[Dmitry]
+ 1. Remove redundant powered check in reg access
+ 2. Use TMDS character rate instead of pixel clock for N/CTS
+ 3. Use consistent lowercase naming for tmds.
+ 4. Use test_bit() instead of custom bit-test helper
+ 5. Use tmds_char_rate_valid instead of custom mode_valid
+ 6. Use custom EDID read instead of DDC bus for segment handling
+ 7. Drop redundant atomic feature check
+ 8. Pass flags directly to drm_bridge_attach()
+ 9. Check DRM_BRIDGE_ATTACH_NO_CONNECTOR flag before drm_bridge_attach()
+ 10. Short-circuit HPD update if connector status unchanged
+ 11. Remove unnecessary NULL check for connector state
+ 12. Rename cached_edid to edid since it's no longer cached
+ 13. Remove redundant sample rate checks; rely on hdmi-codec validation
+ 14. Remove unsupported 18-bit audio sample size; rely on hdmi-codec
+ 15. Remove unnecessary fmt switch; rely on hdmi-codec defaults
+ 16. Check and propagate errors from it61620_audio_update_hw_params instead of
+     ignoring them
+- In patch 3								[Krzysztof]
+ 1. Remove unnecessary T: field pointing to git; subsystem already defines it
+- Link to v3: https://lore.kernel.org/r/20251009-it61620-0714-v3-0-5d682d028441@ite.com.tw
+
+Changes in v3:
+- Wrapped description lines to comply with 80-character line length limit
+  in patch 1.								[Rob]
+- Renamed node from "it61620@58" to "bridge@58" in patch 1.		[Rob]
+- Add port@2 for I2S audio input in patch 1.				[Dmitry]
+- Updated the Kconfig dependency from CRYPTO and CRYPTO_HASH to 
+  CRYPTO_LIB_SHA1 in patch 2.						[Eric]
+- In patch 2								[Dmitry]
+ 1. Audio and InfoFrame
+   - Rename audfmt to i2s_input_format for clarity.
+   - Remove unused infoframe[HDMI_INFOFRAME_SIZE(AUDIO)].
+ 2. Platform data and structure
+   - Drop platform data usage; migrate members into struct it61620
+ 3. Code organization
+   - Reorder functions to avoid the need for forward declarations.
+   - Add static inline to small helper functions
+     (e.g. bridge_to_it61620()).
+ 4. HDCP handling
+   - Make HDCP enable/disable conditional on conn_state->content_protection.
+   - Report authentication result using drm_hdcp_update_content_protection().
+ 5. Error handling
+   - Replace manual error path with dev_err_probe().
+ 6. Power management
+   - Inline suspend/resume callbacks.
+   - Use DEFINE_RUNTIME_DEV_PM_OPS() instead of explicit struct definition.
+ 7. Bridge callbacks
+   - Drop empty bridge_detach().
+   - Inline it61620_bridge_mode_valid().
+ 8. EDID handling
+   - Remove unnecessary cached EDID duplication.
+ 9. Mode set and pixel clock
+   - Move mode handling to atomic_enable().
+   - Keep only pixelclock for future N/CTS audio calculations.
+ 10. Logging
+    - Replace noisy drm_err() calls with drm_dbg().
+ 11. InfoFrame support
+    - Add support for SPD and Vendor InfoFrames.
+- Link to v2: https://lore.kernel.org/r/20250828-it61620-0714-v2-0-586f5934d5f8@ite.com.tw
+
+Changes in v2:
+- Call the sha1() library function instead of using the crypto_shash
+  "sha1" in patch 2.
+- Rewrite it61620_hdmi_ddc_wait() with readx_poll_timeout() in patch 2.	[Pin-yen]
+- Rewrite it61620_hdmi_hdcp_wait_ksv_list() with readx_poll_timeout() in
+  patch 2.
+- Replace interrupts-extended with interrupts in patch 1.		[Rob]
+- Replace dsi-lanes with the standard property data-lanes from the graph
+  binding.								[Rob]
+- Replace "#/$defs/port-base" with "#/properties/port" in patch 1.	[Rob]
+- Drop unused labels and "hdmi" for the node name.			[Rob]
+- Drop status in patch 1.						[Rob]
+- Link to v1: https://lore.kernel.org/r/20250714-it61620-0714-v1-0-3761164d0b98@ite.com.tw
+
+---
+Pet Weng (2):
+      dt-binding: display: Add ITE IT61620 MIPI DSI to HDMI bridge
+      drm/bridge: Add ITE IT61620 MIPI DSI to HDMI bridge driver
+
+ .../bindings/display/bridge/ite,it61620.yaml       |  151 ++
+ MAINTAINERS                                        |    7 +
+ drivers/gpu/drm/bridge/Kconfig                     |   18 +
+ drivers/gpu/drm/bridge/Makefile                    |    1 +
+ drivers/gpu/drm/bridge/ite-it61620.c               | 2592 ++++++++++++++++++++
+ 5 files changed, 2769 insertions(+)
+---
+base-commit: 392ecd7b982f1c8289aacb2c0ece18fc283fd77a
+change-id: 20250714-it61620-0714-ab4ab4ceff29
+
+Best regards,
+-- 
+Pet Weng <pet.weng@ite.com.tw>
+
