@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 038B610987B2
-	for <dri-devel@archiver.kernel.org>; Fri, 20 Mar 2026 16:42:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F319D10987AB
+	for <dri-devel@archiver.kernel.org>; Fri, 20 Mar 2026 16:42:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B43E510EB7C;
-	Fri, 20 Mar 2026 16:42:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4637110EB82;
+	Fri, 20 Mar 2026 16:42:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="N00QLdSd";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="na/UHZbp";
 	dkim-atps=neutral
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B193210EB7B;
- Fri, 20 Mar 2026 16:41:54 +0000 (UTC)
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1547910EB77;
+ Fri, 20 Mar 2026 16:42:00 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-03.galae.net (Postfix) with ESMTPS id 999CD4E4274C;
- Fri, 20 Mar 2026 16:41:53 +0000 (UTC)
+ by smtpout-02.galae.net (Postfix) with ESMTPS id 08A8B1A2F12;
+ Fri, 20 Mar 2026 16:41:59 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 6F72E600E0;
- Fri, 20 Mar 2026 16:41:53 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id D3560600E0;
+ Fri, 20 Mar 2026 16:41:58 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id CC19410450CB3; Fri, 20 Mar 2026 17:41:48 +0100 (CET)
+ with ESMTPSA id 08EC710450CB3; Fri, 20 Mar 2026 17:41:54 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1774024912; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ t=1774024917; h=from:subject:date:message-id:to:cc:mime-version:content-type:
  content-transfer-encoding:in-reply-to:references;
- bh=eh77EuwoDIAn83QDMOVMLcEg6HxjeY8oda8hPWbgOus=;
- b=N00QLdSd5XpxjdMwdQdIaqp2FAzEjq22XCtYlIBiP4VPmDzw0D5bn2NHjDhKm4FmldPuqd
- L0gXIklwnT8JNBecTSFn39+Fmd7jjsAVieiKONugV3feaCKrPER5lxZ+LYgpeTFIJDxN1j
- HwvPlDmigPd3jLyElnTTIIFAx1I0DCrCuvKMHBfuSjKw9fIa2+mbiC5kyzM2k5M9hUlgz6
- 1QTAQiUyWyQWJoTMZPFrdNSTP+X6y4lUqohiUGhjUfJBPbZDA87YYsdjuz7TWtNqAcKmjp
- 6xlmrSJSsTEBQQFChEL7mvItopobDIRZnJU396Xmkj53l9zaENziY+Nn/Uxv9A==
+ bh=tBb8G4iVQqneoaxtx3KstRHCNuo2y0iZkF3wbfaRCxE=;
+ b=na/UHZbp1tvYB5Zgv5vYqz+RZ98im3EbgVM7FnecmXzXfhLxPBxCsAeLIZqPXUeH5w+tZi
+ kG92C34Y5FesaCacOOPf1Z7MsGC3J8mHHag1YezJY+LEfurgM7iTHkglsA9K/mYx0EizmM
+ PZ5hgRm4edei+qv5itIUI6Bc03aXfNNsYKkzajcZg1FwLzv57g23xCUcqLXOVhJViRByBb
+ 5RqChs1yE4xT9Kmv88IJsSdKxcWpZSKFgZXtrZ0RXD54UfJk7YFwfOfSZseVBSMFRuOJOn
+ MMIVjsbzYF2/hqZQxYjg1yUfdAJvJuQclThQbC5SPjnchM/TeTYW9+zPHq04xw==
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v11 17/65] dyndbg: hoist classmap-filter-by-modname up
- to ddebug_add_module
+Subject: Re: [PATCH v11 20/65] selftests-dyndbg: add a dynamic_debug
+ run_tests target
 From: Louis Chauvet <louis.chauvet@bootlin.com>
 To: airlied@gmail.com, simona@ffwll.ch, jbaron@akamai.com, 
  gregkh@linuxfoundation.org
@@ -48,27 +48,27 @@ Cc: Jim Cromie <jim.cromie@gmail.com>, mripard@kernel.org,
  skhan@linuxfoundation.org, pmladek@suse.com, ukaszb@chromium.org, 
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
  intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-In-Reply-To: <20260313132103.2529746-18-jim.cromie@gmail.com>
+In-Reply-To: <20260313132103.2529746-21-jim.cromie@gmail.com>
 References: <20260313132103.2529746-1-jim.cromie@gmail.com>
- <20260313132103.2529746-18-jim.cromie@gmail.com>
+ <20260313132103.2529746-21-jim.cromie@gmail.com>
 Date: Fri, 20 Mar 2026 17:41:54 +0100
-Message-Id: <177402491433.6181.524572822074430485.b4-review@b4>
+Message-Id: <177402491436.6181.1302108073417304649.b4-review@b4>
 X-Mailer: b4 0.15-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=571;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=617;
  i=louis.chauvet@bootlin.com; h=from:subject:message-id;
- bh=Z3OSfSV+JlcQP8oSdE9xs854dk0KsNRyeB4V0xIm+Lo=;
- b=owEBiQJ2/ZANAwAIASCtLsZbECziAcsmYgBpvXjXe6hAK5x2nY1wm7oDb6qiRn1X+XrHRgAZ3
- afaQhwSkzmJAk8EAAEIADkWIQRPj7g/vng8MQxQWQQgrS7GWxAs4gUCab141xsUgAAAAAAEAA5t
- YW51MiwyLjUrMS4xMSwyLDIACgkQIK0uxlsQLOLFwBAA1yyp58R7pkYB0lCMwhIjSCLXxjN1z+X
- bjE67YAXk0ORfVQWfC/JYCCTdSqq/+AYTLzFfULJOiJcXrN4SQ66i0khwyioqDKna+2ffilQKKo
- m53jV1EVn7HZNq1YUw0txNc+j8QkpkhE0lk5fdDT48CN1J++om+oYBKrQcyiBsearD2PFFI+eMI
- mSKpazZ+sVsXB2TyaN9rLsDm89cdmWX+zqaizxLx7Rjp+SsS5yASBpnFqoSHG6nYsrEgWUmHdm3
- 00E0Aa5E6XiixMP2RAx8Fa7geUBz3T2haJCSUm0Xn65ZaI45d+d6h4x89aqyzXZ7DzdaJOvodu/
- RaZC22RCl+J73N7RqfuJH2JhVN0xAHFmFgnQ+h56fMQukQjlgZWRy5VTfel+luPOgaq8gt6qNRN
- /7NfnCt8XHMBNT5TMXNelayPuwUtpm3O0MbGeOH3gTCuKK2IJxvVwzx05+4z97OvGhxNJgc4bdr
- WS272vfr4NVmekFVulxtzb9KKdm1AlRzUnTwIyQAfBl77mhrwOiP78tOTDMk8yiXvWuFCv3q4Rj
- rCmhr58uqqUYO5RPBGSrJIVbAV+745WXr1slckV2GI/HL8QV7d9LiViEVgPA6LzQqJZ9LB98FL1
- /Jt4sMt8+ljydvzSkMNv5cFb62jGVpqLjCgc/dsSwG8rQ6u5H/j8=
+ bh=4FGYIZj4jeMs13vy3bZeZW/6B7jYNN4IjnVUCixotOQ=;
+ b=owEBiQJ2/ZANAwAIASCtLsZbECziAcsmYgBpvXjXnoFgy9PxuncgCjFS6oj11/EXF8EtgChbg
+ w3zURjrm9WJAk8EAAEIADkWIQRPj7g/vng8MQxQWQQgrS7GWxAs4gUCab141xsUgAAAAAAEAA5t
+ YW51MiwyLjUrMS4xMSwyLDIACgkQIK0uxlsQLOKTSRAAxZbv1cWSuVJoGcSh68D2E+KJ6P33eWN
+ McRc1e9K7MIyhrXT0wiwh/t8FLhD8h2CfIduB0go5VMWgx1574Hp/TRqR39r8zIGEPC8bz1NKRf
+ TkCgFR7INlE1eimDXYCzpIq2ZgItBB2OyaOWYrNB5+J7u14O6nMZxeLe3+PIAyj7Z+mPJQMZVEF
+ VWqiGblXU7cuFKca+f95GXNIaGlzCIMCpAGzEVHUatlLxve3BARU2xtgVHzp4co9TkYh9E+8Ndn
+ Y13g/akYlyZoaDpagoct57+u8la3KfQ4kUs3blNkFHslS5S4RRFqqnZJGEvdYsSNVH6gffHop+P
+ AxGb9gm8l7iSKsMggKf0aC7OlN9nZn4Jkk5MKC54ZBAQ6KoaTgk1ZOyO5W9JlOWzSy7GI6PP8UO
+ EBJzONA4E3cNk1vSgyN/dPsdjVsC7qPS8lZj1r/p1MJ2rTEZrY+Y8r29tYYkslXQXiIaJwv+UtK
+ s5wTKNCcv00kNfIFD7D0bYQ2S6MKmyB8C3BCsXCWxI4Uwm4ll9mRh1U34mu3og8/svKtFCtmACR
+ CA89WubDj8cpDEABTQC7lQK+FfSKwKXdw00qU+6qZlSHH4cSVNcqk6wTGFFEAKAUAKPi9atl6n1
+ OMxr5fXsp5DKINKXrxbcu5G3bvFMtTP0k+hclm6lgRdSEIE74FeY=
 X-Developer-Key: i=louis.chauvet@bootlin.com; a=openpgp;
  fpr=8B7104AE9A272D6693F527F2EC1883F55E0B40A5
 X-Last-TLS-Session-Version: TLSv1.3
@@ -87,14 +87,15 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, 13 Mar 2026 07:19:42 -0600, Jim Cromie <jim.cromie@gmail.com> wrote:
-> The body of ddebug_attach_module_classes() is dominated by a
-> code-block that finds the contiguous subrange of classmaps matching on
-> modname, and saves it into the ddebug_table's info record.
+On Fri, 13 Mar 2026 07:19:45 -0600, Jim Cromie <jim.cromie@gmail.com> wrote:
+> Add a selftest script for dynamic-debug.  The config requires
+> CONFIG_TEST_DYNAMIC_DEBUG=m and CONFIG_TEST_DYNAMIC_DEBUG_SUBMOD=m,
+> which tacitly requires either CONFIG_DYNAMIC_DEBUG=y or
+> CONFIG_DYNAMIC_DEBUG_CORE=y
 > 
-> Implement this block in a macro to accommodate different component
-> vectors in the "box" (as named in the for_subvec macro).  We will
-> reuse this macro shortly.
+> ATM this has just basic_tests(), which modify pr_debug() flags in the
+> builtin params module.  This means they're available to manipulate and
+> observe the effects in "cat control".
 > 
 > [...]
 
