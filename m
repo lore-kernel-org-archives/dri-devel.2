@@ -4,63 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 57E40109318F
-	for <dri-devel@archiver.kernel.org>; Fri, 20 Mar 2026 08:44:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 332021093188
+	for <dri-devel@archiver.kernel.org>; Fri, 20 Mar 2026 08:47:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AE17010EAA5;
-	Fri, 20 Mar 2026 08:43:59 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="LjZWbuTP";
-	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 27B6810EA94;
- Fri, 20 Mar 2026 08:43:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1773996238; x=1805532238;
- h=message-id:subject:from:to:cc:date:in-reply-to:
- references:content-transfer-encoding:mime-version;
- bh=1rw9i7NlqT3/rN995n1JSVjmmaDOEDPJ70JUAbq4uto=;
- b=LjZWbuTP/CFd/XXBksD6B7/b5Xlkm/ydIzjj2ab3ah+b70YcRi+43YXo
- 52078C9uv4GP1NoBjhY3Rq1+VsLOcd3Egln3qqUyILjmsQvxAlx6Y8pAB
- 4alx5/w2TfAxS1hjYDmdDrm1PAUOaxiv6kU4RZfZnTt9HMogYqZALCNeU
- 9pSEaIzddUt+DmtZofu0Us0nmr1+dw1a9Qe3ck3IZPQ8HEtSOif5h3vFu
- Wex3WUYO7MHZ7NXlR0Buafoc0/sD8iSTzJUjwk3MxuEWdgh4UVaoNSE8j
- 3g2s4t1vSX4KpnYkb6cWj9hEaVq5EXVRa8NABlk3SlrkDnxPmE+SihCrL g==;
-X-CSE-ConnectionGUID: /ZvWNBJRTreopnUfJS/hRg==
-X-CSE-MsgGUID: WYAcj9vTQUq4xeu+AFumJw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11734"; a="75044115"
-X-IronPort-AV: E=Sophos;i="6.23,130,1770624000"; d="scan'208";a="75044115"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
- by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Mar 2026 01:43:58 -0700
-X-CSE-ConnectionGUID: 0UAu0tkrQPOK/VU4bs2lOQ==
-X-CSE-MsgGUID: 0TPMnp4sS7Wu9L2e7kCxLA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,130,1770624000"; d="scan'208";a="223211629"
-Received: from abityuts-desk.ger.corp.intel.com (HELO [10.245.245.69])
- ([10.245.245.69])
- by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Mar 2026 01:43:56 -0700
-Message-ID: <ea41cd920d4acdcb2c2e5e4ad081209fb5fbe07b.camel@linux.intel.com>
-Subject: Re: [PATCH v2 0/3] drm/ttm: Improve the TTM operation context
- gfp_retry_mayfail behaviour
-From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
-To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, 
- intel-xe@lists.freedesktop.org
-Cc: Matthew Brost <matthew.brost@intel.com>, Matthew Auld
- <matthew.auld@intel.com>, dri-devel@lists.freedesktop.org
-Date: Fri, 20 Mar 2026 09:43:53 +0100
-In-Reply-To: <09f9a8ce-231e-4bb1-b95f-8dff8060d042@amd.com>
-References: <20260317141856.237876-1-thomas.hellstrom@linux.intel.com>
- <dbb22727c88887375737f5a837b245ca22bed988.camel@linux.intel.com>
- <237c24790679ebf668bf1d38155ac8888d211028.camel@linux.intel.com>
- <09f9a8ce-231e-4bb1-b95f-8dff8060d042@amd.com>
-Organization: Intel Sweden AB, Registration Number: 556189-6027
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
+	by gabe.freedesktop.org (Postfix) with ESMTP id 87DDA10E216;
+	Fri, 20 Mar 2026 08:47:07 +0000 (UTC)
+Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3F19C10E216
+ for <dri-devel@lists.freedesktop.org>; Fri, 20 Mar 2026 08:47:05 +0000 (UTC)
+Received: from localhost (unknown [124.16.138.129])
+ by APP-01 (Coremail) with SMTP id qwCowAAXv2qGCb1p3AKXCg--.33045S2;
+ Fri, 20 Mar 2026 16:47:02 +0800 (CST)
+From: Chen Ni <nichen@iscas.ac.cn>
+To: amd-gfx@lists.freedesktop.org
+Cc: christian.koenig@amd.com, alexander.deucher@amd.com, sunil.khatri@amd.com,
+ dri-devel@lists.freedesktop.org, Chen Ni <nichen@iscas.ac.cn>
+Subject: [PATCH] drm/amdgpu/userq: convert comma to semicolon
+Date: Fri, 20 Mar 2026 16:32:47 +0800
+Message-Id: <20260320083247.428482-1-nichen@iscas.ac.cn>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: qwCowAAXv2qGCb1p3AKXCg--.33045S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7KF17Xw43Wry3CFy7Ar4DCFg_yoW8GryrpF
+ WfKFy2yr1xZa129a48AF1kXFsF9a18Wa93GrWDW343Zw15AF95AFyUJas0qrWkXFZ7GF42
+ vrn5ArZ3tFn09F7anT9S1TB71UUUUUDqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUUvv14x267AKxVWUJVW8JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+ rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+ 1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
+ 6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
+ Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
+ I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r
+ 4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwCY1x0262kKe7AKxVWU
+ AVWUtwCY02Avz4vE14v_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr
+ 1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE
+ 14v26r126r1DMIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7
+ IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E
+ 87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73Uj
+ IFyTuYvjfU1iiSDUUUU
+X-Originating-IP: [124.16.138.129]
+X-CM-SenderInfo: xqlfxv3q6l2u1dvotugofq/
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,64 +59,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, 2026-03-20 at 09:42 +0100, Christian K=C3=B6nig wrote:
-> Sorry for the delay. Feel free to add my Acked-by.
->=20
-> Regards,
-> Christian.
+Using a ',' in place of a ';' can have unintended side effects.
+Although that is not the case here, it seems best to use ';'
+unless ',' is intended.
 
-Thx!
+Found by inspection.
+No functional change intended.
+Compile tested only.
 
-/Thomas
+Signed-off-by: Chen Ni <nichen@iscas.ac.cn>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
+index 781896c9fd26..6daec964ca5e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
+@@ -961,13 +961,13 @@ int amdgpu_userq_wait_ioctl(struct drm_device *dev, void *data,
+ 	}
+ 
+ 	num_read_bo_handles = wait_info->num_bo_read_handles;
+-	ptr = u64_to_user_ptr(wait_info->bo_read_handles),
++	ptr = u64_to_user_ptr(wait_info->bo_read_handles);
+ 	r = drm_gem_objects_lookup(filp, ptr, num_read_bo_handles, &gobj_read);
+ 	if (r)
+ 		goto free_timeline_points;
+ 
+ 	num_write_bo_handles = wait_info->num_bo_write_handles;
+-	ptr = u64_to_user_ptr(wait_info->bo_write_handles),
++	ptr = u64_to_user_ptr(wait_info->bo_write_handles);
+ 	r = drm_gem_objects_lookup(filp, ptr, num_write_bo_handles,
+ 				   &gobj_write);
+ 	if (r)
+-- 
+2.25.1
 
->=20
-> On 3/19/26 20:30, Thomas Hellstr=C3=B6m wrote:
-> > Hi!
-> >=20
-> > Since Sima was OK with this series and I believe the changes are
-> > completely non-controversial, I'll go ahead and merge this tomorrow
-> > through drm-misc-next.
-> >=20
-> > Thanks,
-> > Thomas
-> >=20
-> >=20
-> > On Wed, 2026-03-18 at 15:50 +0100, Thomas Hellstr=C3=B6m wrote:
-> > > @Christian, Ack to merge these?
-> > >=20
-> > > Thanks,
-> > > Thomas
-> > >=20
-> > >=20
-> > > On Tue, 2026-03-17 at 15:18 +0100, Thomas Hellstr=C3=B6m wrote:
-> > > > Two small patches around the gfp_retry_mayfail behaviour, and
-> > > > one patch to improve associated kerneldoc.
-> > > >=20
-> > > > Patch 1 ensures we don't spam the kernel log on allocation
-> > > > failures.
-> > > >=20
-> > > > Patch 2 extends the gfp_retry_mayfail to swap readback.
-> > > >=20
-> > > > Patch 3 Improves on the associated kerneldocs.
-> > > >=20
-> > > > v2:
-> > > > - Add patch 3. (Sima).
-> > > >=20
-> > > > Thomas Hellstr=C3=B6m (3):
-> > > > =C2=A0 drm/ttm: Don't spam the log on buffer object backing store
-> > > > allocation
-> > > > =C2=A0=C2=A0=C2=A0 failure
-> > > > =C2=A0 drm/ttm: Avoid invoking the OOM killer when reading back
-> > > > swapped
-> > > > =C2=A0=C2=A0=C2=A0 content
-> > > > =C2=A0 drm/ttm: Update the struct ttm_operation_ctx kerneldoc
-> > > >=20
-> > > > =C2=A0drivers/gpu/drm/ttm/ttm_backup.c |=C2=A0 6 ++++--
-> > > > =C2=A0drivers/gpu/drm/ttm/ttm_pool.c=C2=A0=C2=A0 |=C2=A0 7 +++++--
-> > > > =C2=A0include/drm/ttm/ttm_backup.h=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 =
-2 +-
-> > > > =C2=A0include/drm/ttm/ttm_bo.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0 | 28 +++++++++++++++++++-----
-> > > > ----
-> > > > =C2=A04 files changed, 29 insertions(+), 14 deletions(-)
