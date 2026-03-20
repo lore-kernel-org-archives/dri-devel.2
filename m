@@ -4,38 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5635B10987AF
-	for <dri-devel@archiver.kernel.org>; Fri, 20 Mar 2026 16:42:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 26AA410987A5
+	for <dri-devel@archiver.kernel.org>; Fri, 20 Mar 2026 16:42:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BDAB910EBA8;
-	Fri, 20 Mar 2026 16:42:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6731610EBB2;
+	Fri, 20 Mar 2026 16:42:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="jtoB6G+F";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="TfMMjm2z";
 	dkim-atps=neutral
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A537C10EBB7;
- Fri, 20 Mar 2026 16:42:32 +0000 (UTC)
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7F60210EBB5;
+ Fri, 20 Mar 2026 16:42:35 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-04.galae.net (Postfix) with ESMTPS id A9130C5668D;
- Fri, 20 Mar 2026 16:42:56 +0000 (UTC)
+ by smtpout-03.galae.net (Postfix) with ESMTPS id 667674E4273A;
+ Fri, 20 Mar 2026 16:42:34 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 2F423600E0;
- Fri, 20 Mar 2026 16:42:31 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 35E18600E0;
+ Fri, 20 Mar 2026 16:42:34 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 8319810450CB4; Fri, 20 Mar 2026 17:42:26 +0100 (CET)
+ with ESMTPSA id 6A80010450CB3; Fri, 20 Mar 2026 17:42:30 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1774024949; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ t=1774024953; h=from:subject:date:message-id:to:cc:mime-version:content-type:
  content-transfer-encoding:in-reply-to:references;
- bh=yD2ZHkct5J8xohGZ34CV6pOkH44KEsHeRfSAPWnzwYA=;
- b=jtoB6G+Fgwkj/OnPlyl8+iXN5b7l2lST1hmVraa/BtxmwjoE4Gi0FEB0U3KVzoWoeZ0TIr
- lMlh/lNf/5sDXdRcMiVbJAwEi5DE8HOMTUIkVScJYWMPriHhQvYyQliuAkJcy4SFUCBUk5
- cbo371cQF3mavPXSfsk7ApMrBM0f2i5l81nLKhUj9J0WNr4AAfH7zSo5gzNFydu4Egzu3A
- N1Wii+XO+pYwhBvNz8Dpuy2nkDwLyqJWIm+hLrA28xnqXmuvW/n0l6Az2dEWER6AG1/O3M
- kGP7Q9R02hSnzhjCJPUlrvNtNkyulsVMOw+ii0j1TbSnn95IallIw3nrv2/siQ==
+ bh=t9/HaTC6o9Y3OzVwEu8liFxiagRscBE8PsGw1+az4No=;
+ b=TfMMjm2zxWeQNSVbyE8OkAqTBSFVe8Y4LduQcIlNgnvrO4kCiiSEccR7yONQdqa0GbHsiF
+ 5Ob4WAUn+fDnOO47bYEIjsdb0oA5kksXBIIDVn2ug0EaQP/FmOi8LMB+3BD8y8jpxlru+i
+ h3MX3vpsap6HiLbq8rJEUQ9fhAa2cskGToMsV7HO9h7noELni3uJ9kF/1HA5aTHD44uj45
+ GVIojJEKniwQh+aGw9xUAz2cA1Inkfh1+FMRDtXob+QSMUyLJFFz7tNM/0SgWY2zlrZCvT
+ VzjlcEZRXvV5dIPSnbrbvgA4gU7wIlKQ9UV0QRWuJbIMOhhGSnp/USCmtEvXcg==
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v11 32/65] dyndbg: Harden classmap and callsite validation
+Subject: Re: [PATCH v11 33/65] docs/dyndbg: add classmap info to howto
 From: Louis Chauvet <louis.chauvet@bootlin.com>
 To: airlied@gmail.com, simona@ffwll.ch, jbaron@akamai.com, 
  gregkh@linuxfoundation.org
@@ -47,27 +47,27 @@ Cc: Jim Cromie <jim.cromie@gmail.com>, mripard@kernel.org,
  skhan@linuxfoundation.org, pmladek@suse.com, ukaszb@chromium.org, 
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
  intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-In-Reply-To: <20260313132103.2529746-33-jim.cromie@gmail.com>
+In-Reply-To: <20260313132103.2529746-34-jim.cromie@gmail.com>
 References: <20260313132103.2529746-1-jim.cromie@gmail.com>
- <20260313132103.2529746-33-jim.cromie@gmail.com>
+ <20260313132103.2529746-34-jim.cromie@gmail.com>
 Date: Fri, 20 Mar 2026 17:41:54 +0100
-Message-Id: <177402491454.6181.12972283720507136037.b4-review@b4>
+Message-Id: <177402491455.6181.14143715499365255565.b4-review@b4>
 X-Mailer: b4 0.15-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1748;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1386;
  i=louis.chauvet@bootlin.com; h=from:subject:message-id;
- bh=hTdO5+Y6+/USFcbbiltBlmx0KtNxG8aJ50xB5n8PCgQ=;
- b=owEBiQJ2/ZANAwAIASCtLsZbECziAcsmYgBpvXjY1qIUZp91y9fbfkyLGBz3vHNetE6v2iKq2
- Uk8eg16GCeJAk8EAAEIADkWIQRPj7g/vng8MQxQWQQgrS7GWxAs4gUCab142BsUgAAAAAAEAA5t
- YW51MiwyLjUrMS4xMSwyLDIACgkQIK0uxlsQLOLAcA//bTUkPcGczgzsdOP+SW0gUCfJZJlQ9fe
- KXAIYqL/Jj/kfKABeXbwbpzHZKh/EhcJty4pZmizntgzBzJhFENeEzaAakufiFPRoISJOjlUZhN
- HUZnoTFYmi+gjt5Yh4CrA1WICmqzAonL1fkcrGLS9CQoOJy7A2MxjwPAKS271AYSwA868CGguUc
- q/OR2NNTSFH1A44/dNvlCiEheEAfbzY3ts5+gX67exvUYj01xzljY2HIY2e8/Muj+BzLuJP8p2j
- MMNF5i08xAnjhBBxmYO+ta9JCUByeZn2qFtotNql212YwZ4LhuxONaDpOib4ggB6ZR4pjAX/RA6
- WRYQZPME7SF74p9duCSqkbL6uvM1B7fBY/UUPK9fyo9093KlkU06YUa4fpWWUEBQ6brVhLa9eKd
- Yl4Ai4cwhRh9KdOqE7bDpTrouBeuOyVT38UGoLwOQy8Vt/YAcRNwQqUQOKTlmIKDFrH9LkVezLY
- D2lZbrhupfT/OiXo4jApVhcydijISMgYElMJon2EUdOs2bLxBVbOEIdyffICiUMe6D60KRyXg8o
- ekMn5c+6zS7B2qYT/kWeauoSjbdiACNWG4e2oPDpCRkI1AsiDkKGBxI1RYUVKRp7y9SyVtDx5WA
- qcv2iDNHuyyvjIZDho+nMHYI078H3t+Yr3rgDwKvrVAeOGz2ArPw=
+ bh=ldsxhsvb/7GfRITmYaCRAlbzmibpGdj5fHF4SYKEOFs=;
+ b=owEBiQJ2/ZANAwAIASCtLsZbECziAcsmYgBpvXjYKKHWkPpFVOwtW27gllWaYCYNXG7V2AhTE
+ 41E9sY5pWKJAk8EAAEIADkWIQRPj7g/vng8MQxQWQQgrS7GWxAs4gUCab142BsUgAAAAAAEAA5t
+ YW51MiwyLjUrMS4xMSwyLDIACgkQIK0uxlsQLOIb8BAAl9jXlGh5C0PFVtX3bbJNmWV0ZPWkd5p
+ LuIrEycaer20caJdOs+fiW/zdNEYfslTPNJWtxrtEL2NDpSO6iwwTdGWIb5o1/TmaISegdgJVhg
+ 4ftr8laYVhjVdm2uRpAGZxSMvNNO5Y0pnX/3Wd/CW8g+QIXbR3okjr1mi7LHTJL2o8hBOiK+V3u
+ Q46X6Vyl/eD55rI7GpzKltedyHZzrxKM4DSj2apsZ+oai6eaQxUuNs24YvT1AHYykHVv512NQP+
+ EKE3gj515Nbvm93TDRDuLPHmYC02B3yIxCuffu57cINMPQHh2tKZFcJXa9BCTf3VkAEqUEbb44S
+ RQOkyKTrKKP3jF+ahhVZVzrbT5xZ3ZRd4n2mnrkEvkFaUUen/pfsWWoz3WGifqYPW/Yv8TfFYHp
+ KKSjo3xTKQ67UlTXG2SId7UtYLMm5bBfQ8FjWTljDlxesKSnyza7Fo+zsCLuVpfdalaKPuzOhNB
+ 2l4HA0/zOL8IfnMwbQVxNgKthijiwZ10FBX9J87vPI+QzONQ4AkXUElpxIPU93rYNM1Y+A2TF96
+ 4nFjugvOCofLigLZUJl+h1f25fRWJ4OC4lomqzvoBF6yzlUJeiCJCKAGUFD9Ob1+DVW39vShAdm
+ +AwhKTPPvrXpklz4ez4zWRyVzuwnF3CQ9BxwHV/LdYkFRbMoliqA=
 X-Developer-Key: i=louis.chauvet@bootlin.com; a=openpgp;
  fpr=8B7104AE9A272D6693F527F2EC1883F55E0B40A5
 X-Last-TLS-Session-Version: TLSv1.3
@@ -86,48 +86,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, 13 Mar 2026 07:19:57 -0600, Jim Cromie <jim.cromie@gmail.com> wrote:
-> diff --git a/include/linux/dynamic_debug.h b/include/linux/dynamic_debug.h
-> index 0d1245aefc69..28684cfc0937 100644
-> --- a/include/linux/dynamic_debug.h
-> +++ b/include/linux/dynamic_debug.h
-> @@ -262,6 +262,8 @@ struct _ddebug_class_param {
->  
->  #define __DYNAMIC_DEBUG_CLASSMAP_USE(_var, _offset, _uname)		\
->  	extern struct _ddebug_class_map _var;				\
-> +	static_assert((_offset) >= 0 && (_offset) < _DPRINTK_CLASS_DFLT, \
-> +		      "classmap use offset must be in 0..62");		\
+On Fri, 13 Mar 2026 07:19:58 -0600, Jim Cromie <jim.cromie@gmail.com> wrote:
+> diff --git a/Documentation/admin-guide/dynamic-debug-howto.rst b/Documentation/admin-guide/dynamic-debug-howto.rst
+> index 0a42b9de55ac..734be0b5fe9a 100644
+> --- a/Documentation/admin-guide/dynamic-debug-howto.rst
+> +++ b/Documentation/admin-guide/dynamic-debug-howto.rst
+> @@ -218,6 +211,25 @@ line
+> [ ... skip 13 lines ... ]
+> +
+> +.. note::
+> +
+> +    Unlike other keywords, classes are "name-to-change", not
+> +    "omitting-constraint-allows-change".  See Dynamic Debug Classmaps
+> +
 
-Can't you also check the offset+base?
+Why did you move the class description?
+Is there a way to add a link to _dyndbg-classmaps? (I don't know well the
+rst syntax)
 
->
-> diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-> index 2083a8546460..635df6edb4cf 100644
-> --- a/lib/dynamic_debug.c
-> +++ b/lib/dynamic_debug.c
-> @@ -1404,9 +1404,8 @@ static void ddebug_apply_class_users(const struct _ddebug_info *di)
->  	(__dst)->info._vec.len = __nc;					\
->  })
->  
-> -static int __maybe_unused
-> -ddebug_class_range_overlap(struct _ddebug_class_map *cm,
-> -			   u64 *reserved_ids)
-> +static int ddebug_class_range_overlap(struct _ddebug_class_map *cm,
-> +				      u64 *reserved_ids)
+> @@ -395,3 +412,98 @@ just a shortcut for ``print_hex_dump(KERN_DEBUG)``.
+> [ ... skip 45 lines ... ]
+> +DYNAMIC_DEBUG_CLASSMAP_DEFINE(clname,type,_base,classnames) - this maps
+> +classnames (a list of strings) onto class-ids consecutively, starting
+> +at _base.
+> +
+> +DYNAMIC_DEBUG_CLASSMAP_USE(clname) & _USE_(clname,_base) - modules
+> +call this to refer to the var _DEFINEd elsewhere (and exported).
 
-I think you can remove the __maybe_unused earlier in the series (23/65
-seems to use it).
+(if you reorder the patches to merge the "basic" stuff, don't forget to
+move the _USE_ and offset explaination in a second documentation patch)
 
-> @@ -1454,10 +1471,33 @@ static int ddebug_add_module(struct _ddebug_info *di)
-> [ ... skip 5 lines ... ]
-> +	/* validate class map types and the per-module 0..62 class_id space */
-> +	for_subvec(i, cm, &dt->info, maps) {
-> +		if (cm->map_type > DD_CLASS_TYPE_LEVEL_NUM) {
-> +			pr_err("module %s has unknown classmap type %d\n", dt->info.mod_name, cm->map_type);
-> +			goto cleanup;
-> +		}
-
-I think this check could be inserted earlier.
+Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
 
 -- 
 Louis Chauvet <louis.chauvet@bootlin.com>
