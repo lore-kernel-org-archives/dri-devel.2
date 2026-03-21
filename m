@@ -4,97 +4,139 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BF0051099B54
-	for <dri-devel@archiver.kernel.org>; Sat, 21 Mar 2026 05:45:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CCE54108B8FF
+	for <dri-devel@archiver.kernel.org>; Sat, 21 Mar 2026 06:16:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2CB9710E2E3;
-	Sat, 21 Mar 2026 05:45:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7491610E26B;
+	Sat, 21 Mar 2026 06:16:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="SrDW3CGk";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="fr3v1XDr";
 	dkim-atps=neutral
-Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com
- [209.85.215.173])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EB04910E2D5
- for <dri-devel@lists.freedesktop.org>; Sat, 21 Mar 2026 05:45:18 +0000 (UTC)
-Received: by mail-pg1-f173.google.com with SMTP id
- 41be03b00d2f7-c74f0c3fc16so519080a12.2
- for <dri-devel@lists.freedesktop.org>; Fri, 20 Mar 2026 22:45:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1774071918; x=1774676718; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=o1e3VlB8M6gxe/ov0H5wYQTMPrywihYmSqb8em+k4zw=;
- b=SrDW3CGkTAw0CBIsrrr66VRBZP4fSY1nVa/9x+ujDlYGYlOGdxA9HijUIkXeCebD+S
- OPR770DkjOc12foATwwSNcMPugOlSpIJotDkHLGapSUl4CsG6iHkMklal/j5G0aoTkzu
- HNA22Vb1tYY+QzwugJcKJiHXYRxGudKgSv+xFvh268iINRjTI6eAgX8BhQzhFY8+3VuL
- Mnp3pbirTRTaSUhx1Y+W/BM0vD3XxZrFsJOYfFm+R77xCFsbSdTIUZw9R8dTtcVxMiei
- KkzINH/Y7LN8NrMnhh8NF+iDPzP5pSbqgVnXfUzoyx3g4BLNQkeKX1LfzpGNhaUlwcKl
- 39SQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774071918; x=1774676718;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=o1e3VlB8M6gxe/ov0H5wYQTMPrywihYmSqb8em+k4zw=;
- b=kt4Jlcr5bJHJyUzL8euGSpEdKEk3UbFX+i5QWe+Ourx03CzZwrXgHIqKCTOhawSpdc
- VMNoVTMcvdzSBVGSW1aqAiHX9HtSfNz5wd0dG1vd0OU+BJ+2v+DVttnT7P2XjsxVm3zY
- P7hmVkMhCC0v0VSDeVoES/LWUGBfl+mGF7bVA+BoSQRM9bwTlXknz1bU4h/8hgWiCEcT
- rW308wH99gh5GZySYuN1KhZ8BuwEPh8nqbzbMu8AxUeIujsbLKpm0wmyMI8LKaMk64JY
- 2BxPNVL/XoNNUQ8GEriBxeK37mqyyu0sHezqmcx897vyzlWZ3Drn5CKQPD2XUUozZyLE
- MF5Q==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXOi20dH5ZkME0xN900mpyj5EamCUpDmAe1BjCCmHXeeVphrAGgXQUyb9RQE1bpcR4KmCrQWZzBWwk=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxrGtuiiqY2icmG0WmHeLA0py7TTHvF9dIL2p0o5IQyvvXxS9q/
- 2QW9CI020NHbQO/RHR0R7OWLdK7gpjQwCn31KHYCBVHFPQG+bnPkkciK
-X-Gm-Gg: ATEYQzwncLEgm8D0U1qrBAzah6AeQOV3+2XI/n8ChHCjTyARQ9+jDDv/iFe2mAjFI+q
- XxWDNQnh+0pPu5K+oLl6jLLs/QGfOe/K1NrVf8m9ivDa4MPHNDtcKuuxvV0d60Ipiva/PxgAdcJ
- MIb3NQik7YNahejIpATTwlb76yzrG39mBeuw0ZkcBuNVCJu/F48nPOXQiL+xurOWKmNupTid4KB
- oDg4/8gqSunQqwYKrBo+pDqoDJFXjsW3H9buW8JjFWJjKqq7m3M8sSueEHTf9e5pKyIvZ9eTSRi
- YwjPSoiRDsBkTUOiIpzCvFN77mv6ozTBTBdRoyitht7f4R5HYFYCkg6I5hUOYg4oxOXuaPh38/K
- 8NyE2WdLVYrqfsrwn4knLfteP+T6CBdFVlTAKnnQZVKqL2sVmMCKq28Rhq9qpglSigZpyiRyH+X
- wC2tf9PSMN/OYom1zlWkmWugQIorwyGNXFUQqnJZhbs3jqDiM8h0WALvM=
-X-Received: by 2002:a05:6a21:6d99:b0:398:7357:bb81 with SMTP id
- adf61e73a8af0-39bce9f0d74mr5250717637.15.1774071918403; 
- Fri, 20 Mar 2026 22:45:18 -0700 (PDT)
-Received: from ryzen ([2601:644:8000:5b5d::8bd])
- by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-82b0409c681sm4338783b3a.37.2026.03.20.22.45.16
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 20 Mar 2026 22:45:17 -0700 (PDT)
-From: Rosen Penev <rosenp@gmail.com>
-To: stable@vger.kernel.org
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, Harry Wentland <harry.wentland@amd.com>,
- Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- Evan Quan <evan.quan@amd.com>,
- Mario Limonciello <mario.limonciello@amd.com>,
- Sasha Levin <sashal@kernel.org>, Rosen Penev <rosenp@gmail.com>,
- Lijo Lazar <lijo.lazar@amd.com>, Ma Jun <Jun.Ma2@amd.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
- "Mario Limonciello (AMD)" <superm1@kernel.org>,
- Zhigang Luo <Zhigang.Luo@amd.com>, Bert Karwatzki <spasswolf@web.de>,
- Ray Wu <ray.wu@amd.com>, Wayne Lin <Wayne.Lin@amd.com>,
- Roman Li <Roman.Li@amd.com>, Hersen Wu <hersenxs.wu@amd.com>,
- =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>,
- Alex Hung <alex.hung@amd.com>, decce6 <decce6@proton.me>,
- Wentao Liang <vulab@iscas.ac.cn>,
- amd-gfx@lists.freedesktop.org (open list:RADEON and AMDGPU DRM DRIVERS),
- dri-devel@lists.freedesktop.org (open list:DRM DRIVERS),
- linux-kernel@vger.kernel.org (open list)
-Subject: [PATCHv3 for 6.1 3/4] drm/amd/display: Add pixel_clock to
- amd_pp_display_configuration
-Date: Fri, 20 Mar 2026 22:44:52 -0700
-Message-ID: <20260321054453.19683-4-rosenp@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260321054453.19683-1-rosenp@gmail.com>
-References: <20260321054453.19683-1-rosenp@gmail.com>
-MIME-Version: 1.0
+Received: from BN1PR04CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11010023.outbound.protection.outlook.com [52.101.56.23])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DFE6510E26B
+ for <dri-devel@lists.freedesktop.org>; Sat, 21 Mar 2026 06:16:48 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=oD/T1QAghfHXZYVzM8pyLURUQPLCbl40/egL8pYcR7lFMrEJOB7xTfoVD20U9JJR+s4YDOM2JMO9LyjTpLyfYzJNIbWjaCHyngaBcT17wQoMietdp9T8pebRgQ6Jh/sgUy4bk1J2/ngQWl+3HCWaZRqZ/3m0VgZsxitXSJuTDz+fOwtU1ZX5DJKb19EZNX+ub0EgTmVxmKWBglD1zjdUPVNNkYHHZ0Z7NpxTVq+etG6NPRaexfnKYFNTMxjiXYhLADPvUBgqPAJ02RqVURrsLw9VJt4lbhONeK41SylJo2EkOkLk9Uvk5qYtcjMk162DcSpPvsUAvoT2R4oJ9cE/5A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=biBpGwDKOW4ytyal6oCmp6AkfQTGbEvOH7NE13zb7Gw=;
+ b=rgMzlW7MRiVnVod+HXMmqWW3HSebAyyWHT/lfaHb9xofNJcMImUs6NOEZjHuRYluscG46qr9NApk/GZl+bVy08zJ0om5+GdwY7JPpXobmzk+feSaQ0+CSSp84ovPiuaDzIZXVWz9Q+B2d3BrUDfAzjt0H4rDz8aHJpm1ZbudiUbgZNITre8UkaGVAhQcgSvhFRTzZWpVTokN5PZ2Vaj453RGTakCWZyhoRh5cl9eS7mOjc2SF8VhHFP81V8N/j0smtS0qw6zi+wlNd+lmC4mNIM7YopKZBn/A3YMeCDn36IoNgd+4d1bJwCjlNRUMGdEpqgpUgr1peenNnY1qFykAg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=biBpGwDKOW4ytyal6oCmp6AkfQTGbEvOH7NE13zb7Gw=;
+ b=fr3v1XDrATOe40Bmla8iOD4YIMzNttuc1AhP9NlRiGDi1AdOwvkyJHw7hlRGDPpRhi6PmmkfhVNygQSIZtDqD9vs1nTzQvgIrBk1xvteaoiRyZsOfMd9XAG1uHGNi1GqPCXosD3xmZrVquB7FCGqcjIWHrvoafVo2xCnZq25pspXtnL7+J+1ZfyJfx0K7nrl7rduRaaVRcW/h5NBjXBJfxL5bmo7rL87CbricIxfr5jj+Ekg2taKmX5Zhqs8KwV3b30LOA10U8ltwZ2tSnWDauJHIhf6tFn4g6fzr5SKfmZnyyVtstd13W66EBXl8JlEtQtZLZ45dawEEynaBi2VTQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from CH2PR12MB3990.namprd12.prod.outlook.com (2603:10b6:610:28::18)
+ by CYXPR12MB9339.namprd12.prod.outlook.com (2603:10b6:930:d5::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.14; Sat, 21 Mar
+ 2026 06:16:43 +0000
+Received: from CH2PR12MB3990.namprd12.prod.outlook.com
+ ([fe80::7de1:4fe5:8ead:5989]) by CH2PR12MB3990.namprd12.prod.outlook.com
+ ([fe80::7de1:4fe5:8ead:5989%6]) with mapi id 15.20.9745.007; Sat, 21 Mar 2026
+ 06:16:43 +0000
+Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Date: Sat, 21 Mar 2026 15:16:39 +0900
+Message-Id: <DH88OC6WDBN1.3SDSH032GLXXP@nvidia.com>
+To: "John Hubbard" <jhubbard@nvidia.com>
+Cc: "Joel Fernandes" <joelagnelf@nvidia.com>, "Danilo Krummrich"
+ <dakr@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Maarten Lankhorst"
+ <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
+ "Thomas Zimmermann" <tzimmermann@suse.de>, "Miguel Ojeda"
+ <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>, "Gary Guo"
+ <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
+ <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
+ Hindborg" <a.hindborg@kernel.org>, "Trevor Gross" <tmgross@umich.edu>,
+ "Alistair Popple" <apopple@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>,
+ "Zhi Wang" <zhiw@nvidia.com>, "Eliot Courtney" <ecourtney@nvidia.com>,
+ <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
+ <linux-riscv@lists.infradead.org>, <linux-doc@vger.kernel.org>,
+ <rust-for-linux@vger.kernel.org>
+Subject: Re: [PATCH v2 08/10] gpu: nova-core: convert falcon registers to
+ kernel register macro
+From: "Alexandre Courbot" <acourbot@nvidia.com>
+References: <20260320-b4-nova-register-v2-0-88fcf103e8d4@nvidia.com>
+ <20260320-b4-nova-register-v2-8-88fcf103e8d4@nvidia.com>
+ <8f9da1e2-fb86-4653-b702-333fc920af58@nvidia.com>
+ <ba3c5689-5e34-4097-8823-c37a48a4f358@nvidia.com>
+In-Reply-To: <ba3c5689-5e34-4097-8823-c37a48a4f358@nvidia.com>
+X-ClientProxiedBy: TY4P301CA0052.JPNP301.PROD.OUTLOOK.COM
+ (2603:1096:405:36b::15) To CH2PR12MB3990.namprd12.prod.outlook.com
+ (2603:10b6:610:28::18)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH2PR12MB3990:EE_|CYXPR12MB9339:EE_
+X-MS-Office365-Filtering-Correlation-Id: 028c2658-9e37-4144-cd43-08de87116c24
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|7416014|376014|1800799024|366016|10070799003|56012099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: RJTyzkO3x1WREFmjHMonLDokTZbtdrKZntOUxRdhoRtA01itBDAvecWK2TB97spPXyzL1nH0oJi96MvkRXopzMTdHns5f1IfAcaJOIFsVGBk2Q8FpM+vHWQRvWEFGIo85vESg3ZkW8d1OSjSVP8F9tJgeK9TvNLVTlrKWexBcHE3lniSwToDMJmZjtBX0IYEqxXw27xKhTaMwhVZxtybnEEuzClj1JQ41Bf6vLnlNHQjt9SG5rz4ADgaRaEu4Okh7/jyobmdByeiwBzW14yTvIMwOKIPoYw0Hdw2Ds6QDKlIUzI3K4e0fpxmAV6R9FsOVLqVFSz8Yg3+9FcYTJmNPft+OTyNj+saUCoX+okeWixhuUt7qoKKBRVdFcE0+Lr1rmw2rd0+rNkpYsc7cl8AIDyBy7sykqrUloJb/fBqM+/C7YxTqX9TFNzU/oqvp2urSY5T/ZdltXbWvXjIbZHml6Rca206JjQF/lL31McDlvMzyImcA9quAWzZSHdiDdm5ktBQ9sfFohgM2mYIIRYW35W2bezLoaepkHz08g89vdP0D2Wk0KC4ZZABodIdGDXNVUHhd0P3dZnPb+qFkPNqUoA789ADdbiTXxqhqV2LsmXYFk8tniy1xr5O4fs/EKC+4+df5620xRokbR6SdboaO/nTemG7aEeyLVxPbTAlnV53p2nIogp5rIWLdrWHBcL5qip6sx97h6XDb5ib3UgZ58B5+KLfWgj4SZdK5E+uUws=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CH2PR12MB3990.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(7416014)(376014)(1800799024)(366016)(10070799003)(56012099003)(22082099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cnArMDhnekN6alhmQmZ2VFVqc0FHcGYzSkd5Mm82U2ZSekxGUmJHem9qMUlM?=
+ =?utf-8?B?OUxZYzRuLzBmd1czSU1xZVFBUmxwQXdaTHJCMnZTY1hSOVdKcHRQUkhOaHJE?=
+ =?utf-8?B?Q290aE5oUFNIMlRRMlBabGxRd2c5WmJERDFKTjdJVWhVcjNST3Y2RVBCUE9Z?=
+ =?utf-8?B?WFpEckx0b3RhWWtHWm55dHBQQnVNR1h3djVYMEQzRTdBT2MwY1N1K05zL0s0?=
+ =?utf-8?B?NCtxSUNKRnJsWmxWSVpaLzVlSlB6Nk5nSUNwNUxaam15bTNzYXpPQzkyVlJI?=
+ =?utf-8?B?ektjdmFsMjRvRHU1WHU4V1JVTmcrL3NrSUFCa1VoakpkYWRHL3BvTDhLZS9a?=
+ =?utf-8?B?ZG5qZjcxTEUyalk4Q0hrdTkxSjFqQXlzM0NQamFZWHIxR1lBYm45VmhDei9T?=
+ =?utf-8?B?cmFTTlp5aE9TUHQ0UmhZRElsZGdVZVozYmYrK0h5M0ZUOU9KWjBtcjdTKzB2?=
+ =?utf-8?B?ZkJvY0xvWElMMTFQRmprSitZdzZ1aVE3bWhkSUVJdXRWUEU4djNWa25oT2ZL?=
+ =?utf-8?B?VU15TVZWUlBBU0d4dVNQbnIvWU9XS0FTWlBmeU9yVXRuaTdoUWFneS9SeUVy?=
+ =?utf-8?B?OExlZ1hOVkNrK3JvOTdKU015bVA0NjZFTm1hTll1WEwrWm5kelNUYVdqUzV2?=
+ =?utf-8?B?OTUwUHhwck1YaDVJZS93ZHp2RlVGd0JBNXFwRW85YTVMck9XVXZKWkJteEgv?=
+ =?utf-8?B?VmlXd3dWa1QzNWVKa25kTlNFeHdpTTBkVWplYlN5cEkxSCtJeTYxdEdHZ2Ri?=
+ =?utf-8?B?b1NlaU42VTJLeTdjOUY4L1hxL1JzbXpqODhjMitNeENPb0hiSkZsL0IxRWpl?=
+ =?utf-8?B?ZGE1QnpXLzVLNUc5aENyYmphSS9qZ2JUeDJDR0t6THFadXhPN0tQMldHaXhs?=
+ =?utf-8?B?NWphbHVocHJtWG81NzJ3eCswY0ttUUxmS1hlMXpGK2hBUFRGczdTUkdvRHcx?=
+ =?utf-8?B?OE5IVlMyRWVZc2cxNFpPZmxJaFpMRjNSaUNRU2tZeWZkckhQZ0tzTjh4b281?=
+ =?utf-8?B?aHM3U01DQXpSZUdXNUt2TUtrNWo3d1BOcmIzSHByR2JZSW9ERmpBdmJkRnIy?=
+ =?utf-8?B?Y1loYmp5VHpkbktFa2RMZDlWSVJGMGdzQkwrWStURFRPWEh3ZVlweUNoSUEr?=
+ =?utf-8?B?QkcwUDZGRzAvZkVyS01YWk9XN0R5QjhaWGkyOUdXR1ZVdUdrUDF0eUJzelpD?=
+ =?utf-8?B?dk5BQktnb0twdXNOY3kxUEd2RUZHUCtybm9TOFVKR0xhbWtxc1dyQm5xUDVP?=
+ =?utf-8?B?dXZ6SDFZSXNUejJvaXpYMlFFUTFCWmNhVjF5VFhwNXdSMXZka3VuQ3pIT085?=
+ =?utf-8?B?UjZnWE1MUSsxVElSRFFjWkViNVZUd0FCVWlYWjBiaVRncWNRMjdJRU1LcUxJ?=
+ =?utf-8?B?ekxJejE5cUE0eWNveHo2Q2g1TTI2dXB1U1AzeThQTUlNUStvclpZdmZVL2Rt?=
+ =?utf-8?B?bThsRzltakk1dXRlWUFkZHhlMWVSR3FSZ04ySFBmNVdzSnE3b1VrUFJ1OEJ4?=
+ =?utf-8?B?ekovT1ZhZjlrZjBvMFdienowWEZwUmIveGxtR3Z0U3JySjhxUnFiOXhma0Jw?=
+ =?utf-8?B?L1ROY3ZtSEhUS2lBVytvUjBHYWlxSW9pUFE3UnJkcThqdGdOSFpFV01WZk5W?=
+ =?utf-8?B?cDdudnFnYU8rWEJQaGZUZFUxcnRZOGlSS0d0bVB6Zlkza2NXK1hrK2l1WlRL?=
+ =?utf-8?B?eUFGVjB1cENGandaNDRrSVhid1NRc0Q2SHl6OFNaQjEyK3BTRDFaTUE1bW9Z?=
+ =?utf-8?B?RjRHT1ZSTDNOb0o1ek1sbnJRZTMxRDNqTjNBSHZ1aXF2cXRQdnRJcHdwRFlU?=
+ =?utf-8?B?czRhMkpVRHB5M2pLU2t3eGwyUWp6TnhqZXNEd2dId1ArRkRLblEyd3NweG9w?=
+ =?utf-8?B?b3BzYnphQ1VpeHNYcEh3RGZqOEl1QzFBa1lIeEZienZjREI0aGZXaDQ5czFE?=
+ =?utf-8?B?T3EzdHl2MzMyRU5HT1ZHaWQ2SGpYK2N5c1M0R2NwNnI4MlFjL2JycmFxTUNX?=
+ =?utf-8?B?QkRFakJsd2daU0tmQkVQM0l0SGpUSlhpTkRZNTY3NmtUVzlkYzBsVDhvcXFU?=
+ =?utf-8?B?dW1MbjFqdXlwRkcyQkFGbXVoMnpLSkpTOXhVSEdJYVBkY0hBWWo4cmhmTzVF?=
+ =?utf-8?B?dEVyV1RZTnhCV3pOVDRlODdoeUxnVnhqNWdtTytLSUpWWURMYWltL0lLZFl6?=
+ =?utf-8?B?c1VkM2svMFF4TDNIMUJvYjY2T2l5YzBDNDBTdTdZL2dvOTd2OThuWEdZWkEw?=
+ =?utf-8?B?VDZsNTRkbW9ZYjA3U3pvcHc2ZE85dk5YbHN0MTF5dzdWNDNFYW5WOTZkdVdi?=
+ =?utf-8?B?VGhVSDZVcHJyZzlEdEdDY1BBQjExa2lBUmpFTXkxOXRvb0NUdjN4M3E3SkNE?=
+ =?utf-8?Q?1z7TMuXEk1jyyTKLLXkArq1dEj7Zmqj2t0DbVVJAnNhc/?=
+X-MS-Exchange-AntiSpam-MessageData-1: KcshnkiCse+3rg==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 028c2658-9e37-4144-cd43-08de87116c24
+X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB3990.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Mar 2026 06:16:43.4477 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: TwDxveRTebFUdcKn4f2PQvAKzHUlOSodioOOh22s2xz71D6YFaWQeID2bDX3byknNdU6qJAbPtA9rZTFIklKCw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYXPR12MB9339
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,82 +152,54 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Timur Kristóf <timur.kristof@gmail.com>
+On Sat Mar 21, 2026 at 4:52 AM JST, John Hubbard wrote:
+> On 3/20/26 10:38 AM, Joel Fernandes wrote:
+>> Hi Alex,
+>>=20
+>> On 3/20/2026 8:19 AM, Alexandre Courbot wrote:
+>>>      /// Reset the controller, select the falcon core, and wait for mem=
+ory scrubbing to complete.
+>>> @@ -616,9 +462,10 @@ pub(crate) fn reset(&self, bar: &Bar0) -> Result {
+>>>          self.hal.select_core(self, bar)?;
+>>>          self.hal.reset_wait_mem_scrubbing(bar)?;
+>>> =20
+>>> -        regs::NV_PFALCON_FALCON_RM::default()
+>>> -            .set_value(bar.read(regs::NV_PMC_BOOT_0).into())
+>>> -            .write(bar, &E::ID);
+>>> +        bar.write(
+>>> +            WithBase::of::<E>(),
+>>> +            regs::NV_PFALCON_FALCON_RM::from(bar.read(regs::NV_PMC_BOO=
+T_0).into_raw()),
+>>> +        );
+>>> =20
+>>=20
+>> Overall, I think the series is good improvement but I still feel this pa=
+rt is a
+>> step back in readability, and we should come up with something better. I=
+ don't
+>> think there's any chance anyone can memorize this syntax.
+>
+> I must reluctantly (because I know this conversation has gone very
+> long, across so many versions) agree. That .write() statement is just
+> brutal, and we will be relying on AI in order to even figure it out,
+> I fear.
+>
+> I'd hoped that there were other, simpler forms to express this,
+> is that not the case here?
 
-[ Upstream commit b515dcb0dc4e85d8254f5459cfb32fce88dacbfb ]
+Is the problem only about this particular `write()` statement? If so
+there are other ways to write it, which we definitely should do if we
+consider the nasty thing it is doing: read PMC_BOOT_0, extract its raw
+value, forcibly store it into PFALCON_FALCON_RM, and write that value
+back into the instance belonging to engine `E`.
 
-This commit adds the pixel_clock field to the display config
-struct so that power management (DPM) can use it.
+It's quite a mouthful. Using a temporary value would help. Maybe we can
+also implement a `From<NV_PMC_BOOT_0> on  `PFALCON_FALCON_RM`, as it is
+clearly used with that intent here.
 
-We currently don't have a proper bandwidth calculation on old
-GPUs with DCE 6-10 because dce_calcs only supports DCE 11+.
-So the power management (DPM) on these GPUs may need to make
-ad-hoc decisions for display based on the pixel clock.
-
-Also rename sym_clock to pixel_clock in dm_pp_single_disp_config
-to avoid confusion with other code where the sym_clock refers to
-the DisplayPort symbol clock.
-
-Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Rosen Penev <rosenp@gmail.com>
----
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c       | 1 +
- drivers/gpu/drm/amd/display/dc/clk_mgr/dce110/dce110_clk_mgr.c | 2 +-
- drivers/gpu/drm/amd/display/dc/dm_services_types.h             | 2 +-
- drivers/gpu/drm/amd/include/dm_pp_interface.h                  | 1 +
- 4 files changed, 4 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c
-index 75284e2cec74..c4e7d9212cd4 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c
-@@ -97,6 +97,7 @@ bool dm_pp_apply_display_requirements(
- 			const struct dm_pp_single_disp_config *dc_cfg =
- 						&pp_display_cfg->disp_configs[i];
- 			adev->pm.pm_display_cfg.displays[i].controller_id = dc_cfg->pipe_idx + 1;
-+			adev->pm.pm_display_cfg.displays[i].pixel_clock = dc_cfg->pixel_clock;
- 		}
-
- 		amdgpu_dpm_display_configuration_change(adev, &adev->pm.pm_display_cfg);
-diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dce110/dce110_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dce110/dce110_clk_mgr.c
-index fb2f154f4fda..bce53ab36f3e 100644
---- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dce110/dce110_clk_mgr.c
-+++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dce110/dce110_clk_mgr.c
-@@ -164,7 +164,7 @@ void dce110_fill_display_configs(
- 			stream->link->cur_link_settings.link_rate;
- 		cfg->link_settings.link_spread =
- 			stream->link->cur_link_settings.link_spread;
--		cfg->sym_clock = stream->phy_pix_clk;
-+		cfg->pixel_clock = stream->phy_pix_clk;
- 		/* Round v_refresh*/
- 		cfg->v_refresh = stream->timing.pix_clk_100hz * 100;
- 		cfg->v_refresh /= stream->timing.h_total;
-diff --git a/drivers/gpu/drm/amd/display/dc/dm_services_types.h b/drivers/gpu/drm/amd/display/dc/dm_services_types.h
-index b52ba6ffabe1..954b3aa65adb 100644
---- a/drivers/gpu/drm/amd/display/dc/dm_services_types.h
-+++ b/drivers/gpu/drm/amd/display/dc/dm_services_types.h
-@@ -127,7 +127,7 @@ struct dm_pp_single_disp_config {
- 	uint32_t src_height;
- 	uint32_t src_width;
- 	uint32_t v_refresh;
--	uint32_t sym_clock; /* HDMI only */
-+	uint32_t pixel_clock; /* Pixel clock in KHz (for HDMI only: normalized) */
- 	struct dc_link_settings link_settings; /* DP only */
- };
-
-diff --git a/drivers/gpu/drm/amd/include/dm_pp_interface.h b/drivers/gpu/drm/amd/include/dm_pp_interface.h
-index 1d93a0c574c9..ee4212cc93d1 100644
---- a/drivers/gpu/drm/amd/include/dm_pp_interface.h
-+++ b/drivers/gpu/drm/amd/include/dm_pp_interface.h
-@@ -66,6 +66,7 @@ struct single_display_configuration
- 	uint32_t view_resolution_cy;
- 	enum amd_pp_display_config_type displayconfigtype;
- 	uint32_t vertical_refresh; /* for active display */
-+	uint32_t pixel_clock; /* Pixel clock in KHz (for HDMI only: normalized) */
- };
-
- #define MAX_NUM_DISPLAY 32
---
-2.53.0
+Future features like projections the macro to initialize bitfields (once
+they are extracted) should also improve readability. Meanwhile, it is of
+course fine to use variables to smoothen complex statements a bit,
+although I'd say this is beyond the scope of this series which tries to
+translate the code 1:1.
 
