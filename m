@@ -4,49 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 519BE1094484
-	for <dri-devel@archiver.kernel.org>; Sat, 21 Mar 2026 15:23:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 843941094488
+	for <dri-devel@archiver.kernel.org>; Sat, 21 Mar 2026 15:23:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9F64610E23F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B0EDC10E256;
 	Sat, 21 Mar 2026 15:23:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="j/QpiaDt";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="B2MdO8pk";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6995C10E234
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 12A5510E234
  for <dri-devel@lists.freedesktop.org>; Sat, 21 Mar 2026 15:23:12 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 8349F600C4;
+ by sea.source.kernel.org (Postfix) with ESMTP id 99EDE445D3;
  Sat, 21 Mar 2026 15:23:11 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 1BFE0C19421;
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 59D2FC2BCC4;
  Sat, 21 Mar 2026 15:23:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
  s=k20201202; t=1774106591;
- bh=81We+ZTdhjczoWNJRNXTTTn2mWFEUmdrREF45LZk9uU=;
- h=From:Subject:Date:To:Cc:Reply-To:From;
- b=j/QpiaDtZoP2s1SNCBAR6cY9OnZ7aYSLWaSWo9I8P6wtWJU8mOuKMnLLZXZX23AqF
- 12mmP8qobAy+5zQ4X9pgvGWdWMnMxVfreOMTyGEjBgdGYDzx5KkD5UntM8oy1ZKBKM
- 9ew1a6r3TEmtfqJsUQyUhKAmgMCLVE/9Uq3uXwJDOdLxh/Xak/jvklAfj0l4KsgPiI
- AEdVF0QT3UQ9zOCFy4jetVDwGols7LKo8VGzbA+Dr8gsOCnwv1slXSd/yIPAg59mok
- LUpQjk3Cvr4OS794BGvlkI7+haMHdcFCcEhWaXMvi+5dC0v4fQZH/8sI1FpSpRkSIL
- g7VP/ZfA0qNdQ==
+ bh=GpDywJE4lv+WKaQwWmudJo8czmdfCXwQdG8fx5funFE=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+ b=B2MdO8pkpzpeoO7NfeyPtt9jWlDWs7V1aXpQieIXj3FMzy2nr6Slz+GftJ21FoLAJ
+ 2/crOOVvUFzm87bhxS9CWcybScJCsBndXozViDGiMylUWY62TzF3A9gTpG/usui3s7
+ b9f9Aj/SW5+fD+G+kCzMKx7dV8Jd0BMbn/W/auIT6EdjT22rU72FXWjvbiEPX0rCC0
+ jQ62Z92UHU64QlzZNxnomY8HjU5+7AHWoWFAdNEpPe9mhQ+xxhw6ND/HJUiKy3c5S5
+ 8HihOWGaBU08jok53xtQih7LKta0HEjxtfZFBWgoSYEyrk2el12JN0eKE3GDDKJ0jO
+ chlto1KemPIvg==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id 0C0271094484;
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 507781094478;
  Sat, 21 Mar 2026 15:23:11 +0000 (UTC)
 From: Cristian Cozzolino via B4 Relay
  <devnull+cristian_ci.protonmail.com@kernel.org>
-Subject: [PATCH v3 0/6] Enable new features for flipkart-rimob
-Date: Sat, 21 Mar 2026 17:23:19 +0100
-Message-Id: <20260321-rimob-new-features-v3-0-d4b8ee867de7@protonmail.com>
+Date: Sat, 21 Mar 2026 17:23:22 +0100
+Subject: [PATCH v3 3/6] arm64: dts: qcom: msm8953-flipkart-rimob: Enable
+ display and GPU
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/23NywrCMBCF4VcpWRuZXOzFle8hLtI4tQO2KUmNS
- um7mxYEwS7/A/PNxAJ6wsCO2cQ8Rgrk+hRqlzHbmv6GnK6pmQSZgwLFPXWu5j0+eYNmfHgMHFR
- RaV0rk0tg6XDw2NBrRc+X1C2F0fn3+iOKZf1y5RYXBQdujLRKwaGQFk6Dd6PrO0P3vXUdW8wof
- xyx7cjkWFE3ZSUKrSv8c+Z5/gD1TsPDAQEAAA==
-X-Change-ID: 20260303-rimob-new-features-037944b3a620
+Message-Id: <20260321-rimob-new-features-v3-3-d4b8ee867de7@protonmail.com>
+References: <20260321-rimob-new-features-v3-0-d4b8ee867de7@protonmail.com>
+In-Reply-To: <20260321-rimob-new-features-v3-0-d4b8ee867de7@protonmail.com>
 To: Neil Armstrong <neil.armstrong@linaro.org>, 
  Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, 
  Simona Vetter <simona@ffwll.ch>, 
@@ -58,15 +56,13 @@ To: Neil Armstrong <neil.armstrong@linaro.org>,
 Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
  linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
  ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org, 
- Cristian Cozzolino <cristian_ci@protonmail.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+ Cristian Cozzolino <cristian_ci@protonmail.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1774110230; l=3654;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1774110230; l=2395;
  i=cristian_ci@protonmail.com; s=20250620; h=from:subject:message-id;
- bh=81We+ZTdhjczoWNJRNXTTTn2mWFEUmdrREF45LZk9uU=;
- b=41y3BurYAQZELv0HUn9KUIUZyM+lmVMS+bdUxwz+7YtdH8iDxxurK1uUTg8mlbil8wv4OrzrW
- 9J/VThIG09NChf4xF6kMOUrkOemvDDNEW9INOjVnDUYoiSVwh0y7X8G
+ bh=VyUvBSXd0jNEXP9pnCsEQXXkOKHY91F/ZfnedxNcwXE=;
+ b=kvU71w3QnZER8tVg+MaJZWGefcXQJ/RnYFCZYYFgv+W3f9k1qLjegzq2Sip1XJfT7zat2FS3Q
+ SujGu+gDcU0Diyevzo20ysLzzUai7z/aADdBjdlspOl43amuoCPSar5
 X-Developer-Key: i=cristian_ci@protonmail.com; a=ed25519;
  pk=xH5IvIPUNHV1Q8R0/pq2CfuVFR/wTiAyuyi6IwedjZY=
 X-Endpoint-Received: by B4 Relay for cristian_ci@protonmail.com/20250620
@@ -88,87 +84,123 @@ Reply-To: cristian_ci@protonmail.com
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This series enables a set of miscellaneous features for Billion Capture+ 
-(a handset using the MSM8953 SoC released in 2017):
-- Panel and GPU
-- Touchscreen
-- WiFi + Bluetooth
-- Hall sensor 
+From: Cristian Cozzolino <cristian_ci@protonmail.com>
 
-Patches 1 and 2 provide a driver for Novatek NT35532 and its corresponding
-devicetree bindings, required for enabling panel in DTS. The remaining 
-patches are all DTS changes, aimed to enable the features listed above.
-
-To: Neil Armstrong <neil.armstrong@linaro.org>
-To: Jessica Zhang <jesszhan0024@gmail.com>
-To: David Airlie <airlied@gmail.com>
-To: Simona Vetter <simona@ffwll.ch>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-To: Maxime Ripard <mripard@kernel.org>
-To: Thomas Zimmermann <tzimmermann@suse.de>
-To: Rob Herring <robh@kernel.org>
-To: Krzysztof Kozlowski <krzk+dt@kernel.org>
-To: Conor Dooley <conor+dt@kernel.org>
-To: Bjorn Andersson <andersson@kernel.org>
-To: Konrad Dybcio <konradybcio@kernel.org>
-Cc: dri-devel@lists.freedesktop.org
-Cc: devicetree@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
-Cc: linux-arm-msm@vger.kernel.org
-Cc: ~postmarketos/upstreaming@lists.sr.ht
-Cc: phone-devel@vger.kernel.org 
+Add the description for the display panel found on this phone.
+And with this done we can also enable the GPU and set the zap shader
+firmware path.
 
 Signed-off-by: Cristian Cozzolino <cristian_ci@protonmail.com>
 ---
-Changes in v3:
-- (patch 1/6): removed avdd, avee and vci supplies from 'required' properties;
-- (patch 2/6):
-  - removed "select VIDEOMODE_HELPERS" from nt35532 Kconfig entry, since 
-    its functions are not used (but this option is enabled and its code 
-    compiled anyway) by nt35532 panel driver;
-  - pick up tags (Dmitry).
-- (patch 3/6): replaced a506_zap.mdt with a506_zap.mbn firmware name
-  in gpu_zap_shader (Dmitry); 
-- (patch 5/6): pick up tags (Konrad);
-- (patch 6/6): pick up tags (Konrad);
-- Link to v2: https://lore.kernel.org/r/20260318-rimob-new-features-v2-0-c1bf8917449e@protonmail.com
+ .../arm64/boot/dts/qcom/msm8953-flipkart-rimob.dts | 74 ++++++++++++++++++++++
+ 1 file changed, 74 insertions(+)
 
-Changes in v2:
-- (patch 1/6): define power supplies in the bindings as per datasheet  
-  and update example;
-- (patch 2/6): add blank lines where required between mipi dsi write
-  sequences in nt35532_on() function and make use of names for mipi dcs
-  commands, instead of hex numbers, to improve readibility (Dmitry); 
-- (patch 3/6): move pinctrl lines ibto panel node and get rid of
-  sleep/reset state, since panel just uses one pinctrl state for
-  default/sleep (Dmitry). Also, update power supplies according to
-  bindings; 
-- (patch 4/6): pick up tags (Konrad,Dmitry);
-- (patch 6/6): squash hall sensor node into gpio-keys (Dmitry);
-- Link to v1: https://lore.kernel.org/r/20260308-rimob-new-features-v1-0-aa2c330572c0@protonmail.com
+diff --git a/arch/arm64/boot/dts/qcom/msm8953-flipkart-rimob.dts b/arch/arm64/boot/dts/qcom/msm8953-flipkart-rimob.dts
+index ef4faf763132..d07303a37b2c 100644
+--- a/arch/arm64/boot/dts/qcom/msm8953-flipkart-rimob.dts
++++ b/arch/arm64/boot/dts/qcom/msm8953-flipkart-rimob.dts
+@@ -78,6 +78,13 @@ vph_pwr: vph-pwr-regulator {
+ 	};
+ };
+ 
++&gpu {
++	status = "okay";
++};
++
++&gpu_zap_shader {
++	firmware-name = "qcom/msm8953/flipkart/rimob/a506_zap.mbn";
++};
+ 
+ &hsusb_phy {
+ 	vdd-supply = <&pm8953_l3>;
+@@ -87,11 +94,70 @@ &hsusb_phy {
+ 	status = "okay";
+ };
+ 
++&ibb {
++	qcom,discharge-resistor-kohms = <32>;
++};
++
++&lab {
++	qcom,soft-start-us = <800>;
++};
++
++&mdss {
++	status = "okay";
++};
++
++&mdss_dsi0 {
++	vdda-supply = <&pm8953_s3>;
++	vddio-supply = <&pm8953_l6>;
++
++	status = "okay";
++
++	panel: panel@0 {
++		compatible = "novatek,nt35532";
++		reg = <0>;
++
++		backlight = <&pmi8950_wled>;
++		reset-gpios = <&tlmm 61 GPIO_ACTIVE_LOW>;
++		avdd-supply = <&lab>;
++		avee-supply = <&ibb>;
++		vci-supply = <&pm8953_l17>;
++		vddi-supply = <&pm8953_l6>;
++
++		pinctrl-0 = <&panel_default>;
++		pinctrl-names = "default";
++
++		port {
++			panel_in: endpoint {
++				remote-endpoint = <&mdss_dsi0_out>;
++			};
++		};
++	};
++};
++
++&mdss_dsi0_out {
++	data-lanes = <0 1 2 3>;
++	remote-endpoint = <&panel_in>;
++};
++
++&mdss_dsi0_phy {
++	vcca-supply = <&pm8953_l3>;
++
++	status = "okay";
++};
++
+ &pm8953_resin {
+ 	linux,code = <KEY_VOLUMEDOWN>;
+ 	status = "okay";
+ };
+ 
++&pmi8950_wled {
++	qcom,current-limit-microamp = <10000>;
++	qcom,num-strings = <3>;
++	qcom,ovp-millivolt = <29500>;
++
++	status = "okay";
++};
++
+ &rpm_requests {
+ 	regulators {
+ 		compatible = "qcom,rpm-pm8953-regulators";
+@@ -244,6 +310,14 @@ gpio_key_default: gpio-key-default-state {
+ 		drive-strength = <2>;
+ 		bias-pull-up;
+ 	};
++
++	panel_default: panel-default-state {
++		pins = "gpio61";
++		function = "gpio";
++		drive-strength = <8>;
++		bias-disable;
++		output-high;
++	};
+ };
+ 
+ &usb3 {
 
----
-Cristian Cozzolino (6):
-      dt-bindings: display: panel: Add Novatek NT35532 LCD DSI
-      drm/panel: Add driver for Novatek NT35532
-      arm64: dts: qcom: msm8953-flipkart-rimob: Enable display and GPU
-      arm64: dts: qcom: msm8953-flipkart-rimob: Enable WiFi/Bluetooth
-      arm64: dts: qcom: msm8953-flipkart-rimob: Enable touchscreen
-      arm64: dts: qcom: msm8953-flipkart-rimob: Enable Hall sensor
-
- .../bindings/display/panel/novatek,nt35532.yaml    |  77 ++
- MAINTAINERS                                        |   6 +
- .../arm64/boot/dts/qcom/msm8953-flipkart-rimob.dts | 139 +++-
- drivers/gpu/drm/panel/Kconfig                      |  10 +
- drivers/gpu/drm/panel/Makefile                     |   1 +
- drivers/gpu/drm/panel/panel-novatek-nt35532.c      | 779 +++++++++++++++++++++
- 6 files changed, 1011 insertions(+), 1 deletion(-)
----
-base-commit: 785f0eb2f85decbe7c1ef9ae922931f0194ffc2e
-change-id: 20260303-rimob-new-features-037944b3a620
-
-Best regards,
 -- 
-Cristian Cozzolino <cristian_ci@protonmail.com>
+2.53.0
 
 
