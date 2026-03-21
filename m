@@ -4,88 +4,121 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E5A841099B58
-	for <dri-devel@archiver.kernel.org>; Sat, 21 Mar 2026 00:31:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 406701099B5E
+	for <dri-devel@archiver.kernel.org>; Sat, 21 Mar 2026 02:01:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4E04A10E114;
-	Sat, 21 Mar 2026 00:31:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 38BA410E1DE;
+	Sat, 21 Mar 2026 02:01:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="iyfeeoFe";
+	dkim=pass (2048-bit key; unprotected) header.d=aol.com header.i=@aol.com header.b="ALKtNkbf";
 	dkim-atps=neutral
-Received: from mail-qv1-f46.google.com (mail-qv1-f46.google.com
- [209.85.219.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E09F410E114
- for <dri-devel@lists.freedesktop.org>; Sat, 21 Mar 2026 00:31:05 +0000 (UTC)
-Received: by mail-qv1-f46.google.com with SMTP id
- 6a1803df08f44-89c4feaaeb4so27546316d6.2
- for <dri-devel@lists.freedesktop.org>; Fri, 20 Mar 2026 17:31:05 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1774053065; cv=none;
- d=google.com; s=arc-20240605;
- b=Smw8DFIMXhC2qmohJoj4wW+CvF+ucIDjkttumaTbCTGdZ8nDz2uz4Db00v0q6u3Pbg
- VZDE/m9rHQEgFV1l6cQAUlgasO8wcW7NAiOhzaiL9u3iFbLTLDxeqEjXB6AqYd1ZXldl
- wbW1iiTWIoDlzfnPWIVUA2Tt1baoY5/eXQweEs6S8Ni4pkNdT2ED0TZUEAcCMMmaSNVf
- SVlx6oCmnGflrUEvZbfEPh30JC5T6YUTxF+HDWfs0MWuFfkJSQta+lsEkohj0shY7r0W
- 7DbIO1QK2z0jBZq/bjYlFK7/Xc1nyg3fjF1G3fB5cQ607O+yGG2SlBNJI6SJLW2zwaoY
- 9a9g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :mime-version:dkim-signature;
- bh=FfhdVdGBrv2XOPAqnyvoZrQEqcyW5wlTCi7XTcz8ACU=;
- fh=HQwGS/tgfrjuEQ8NZOhWLiLZo088fJVbEezIgNGsHOo=;
- b=KRWLVUGWY7LDMPxB52yVrzfM8HpoyoSA9mlaDQCKkxhVSOmcpNEXOFH/rWLF9Ww5UX
- wLHjvlZ6p6PSBE0oVFjAsMbAGNUh3iVZr5gQlXXOfPnhBsRCW8vGQOnQ+SwuXZOXGjrN
- Ro4+YCMhjj22TtYFsTujIF0hwiGXKX/KuoSEexedAucYcbgl/ktjRrz3awdFXp7lKLH7
- MjTwx+LfSTFuJXK4cS+kzNhzMzWn/UuSiFCSjE3uCKp/oxATgr7GG0Uh4nK7+7V2g1pf
- 8fCaT8FQ+QtWXri2vf+C1NDAhK3z7q3mq1mtNTJFDInAYvjaB2SdEtkpATCenxvFF42+
- yeHw==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1774053065; x=1774657865; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=FfhdVdGBrv2XOPAqnyvoZrQEqcyW5wlTCi7XTcz8ACU=;
- b=iyfeeoFeDsocQrkPTXxnQietep+fSme73hG1UI5vfVHHovdRmDZaux5+jlYRq5TVUa
- m+edAzwAXAkt6qVc3ut2Mi79C0gH7O2dAMltM/RMtEXarmcJLrGLmg5wS37qbtBuAoRY
- 7Vchzh8eTELana3ehKOkOmjumtN3fDple1PC8VipKsXdaj9aawVFCda7ScRt78fOMMs4
- vcgc5uW2yctOrr6KbGbxL0Ev9kcNfnpJNs0A2sZeWP+opHhgsdYp1Nawpi2PXLQzmzE2
- K7LQlkC7hKRzzPzixeS7/PReTLg1jgcj3d6ev2Xzuduok/l+ajglhTu0CeDIGeMSG7E+
- YxRA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774053065; x=1774657865;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=FfhdVdGBrv2XOPAqnyvoZrQEqcyW5wlTCi7XTcz8ACU=;
- b=kYPiStb0OAGlfmiwxsSfTodVEsdzdHU3xQ2Cv6INmcw7cRTmn6YoZte33KkWlK+7YR
- SKyZoImJFDKHQ563LsV9WhWn22rXe05g+S+nbq/3J0BENiUkqsraoo6FqjYixubePX8+
- P8pfY/3brukDd+pkkzddlJ4PdDQsuLKJB8DVBLUvDOtnzX7xYNGXF/e7n7iwKcbHe4cI
- 1oajX1let7GSEPXhCi1bWHulxSsTeAgyEEqPsNWpkqvtGg9QRABdOWBFowOQutOy6gWH
- 0PF8uy0KqXdkUGu1BOxjJwmv19idewy1vaMhz392SI8DxyqyTx5jnhE942pNqnyRikkd
- 6jhw==
-X-Gm-Message-State: AOJu0YzoaQkwMJ2ylNYb66XqYUQdbCaciVPbub1QQM9AX4Nnrj1ZpSvv
- 1FL+Z1W+e+Errk1OZiaTNhZs2WXjFcqt4ZHdv9EVB9YP5AafHrUig/2fENYAyKz+7t7Zh5q7rGM
- 6xHdeRKomvui8YnoqLsBKl7WWAeDI5Bs=
-X-Gm-Gg: ATEYQzx5gzScTHpZPi6YLTn7p3GxpGBo1gn2TrozsQ/SzZCLCFqcqkQobUfqFfcl7UX
- S+Q0WxPhlyyw7OOcsyAPmLvAPNxHLCDgcuSPB8s5p9bL2NKUal85uVSSubShtURUTFXmc3ypkfH
- 9pLmLZTCnRnEgNVDxGqjdNBmSt85I0n6T3NIRAaFipfnzgEMbJN/MYSnpGgWCLNCUhG4DHBmu7/
- /dOTG57yzrFIs/++psYMEm2ucnDeE6B922pxIhB5fbvPfw/6PBSrBPWa3xinxyQTbSplTi7LzKc
- B3W/Ss4h1ZIRodbs6q2BiBVWt0nrbFZ12juzDbOLUPm56DLemzGZCJJMjwoHUYSL1WErdWnymUM
- VAOG6
-X-Received: by 2002:a05:6214:4612:b0:89c:866e:5434 with SMTP id
- 6a1803df08f44-89c866e5543mr73309656d6.57.1774053064618; Fri, 20 Mar 2026
- 17:31:04 -0700 (PDT)
+Received: from sonic304-25.consmr.mail.gq1.yahoo.com
+ (sonic304-25.consmr.mail.gq1.yahoo.com [98.137.68.206])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1AECE10E053
+ for <dri-devel@lists.freedesktop.org>; Sat, 21 Mar 2026 02:01:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aol.com; s=a2048;
+ t=1774058507; bh=kx1pS2qNzdpSZtoShiS1OPh6zV/l1gZqpN/NNnWjv38=;
+ h=Subject:From:To:Cc:Date:In-Reply-To:References:From:Subject:Reply-To;
+ b=ALKtNkbfjooMkQK5RsyeuY3t50m+6BTYrYCiXQ7g2todmm3Pb/eWGCaXUpWwRrDxgmug6x/52fibU5ks2kiuFt9fLIu1xRpsg3wMpFboi3oXOfgT7zhrkxeiUFjsk8U+IlYYdTgfVZsEe2+Kjw5PwFfmXfEGKC7crYX2TNkQLsDdWKaZrLlHsU79TFbvzK5Xx5+oQ8B7Ml7IM7ZR6xafETSuO15Ajj8kFlWTNaekKvaBqeVMm5emLEEGjohZiDA+BzBV/tSVeM1zWawOOEB75+MDtQewrgQSfvqOW+P1dNQp1mtf3koMBuRBpwL0/7f0aowvoGqwvrJ8DNDw+TD/0g==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048;
+ t=1774058507; bh=jFpN53lvHO4kOZHOoycYYq2Gl+dRB1dEy4gKCnjCVC+=;
+ h=X-Sonic-MF:Subject:From:To:Date:From:Subject;
+ b=CT7fmVUH74ituD/pBVBvhM8fJe34D03rbHli2SY2LthURCdUYyqAKG6Vo3OM+Ynv0ghBKVtSW5NkaxXEG0KUgsRAHjwKc7Eh4auZa+gkaqMsGzp8fCeji1W2igIg6kAa/dyT+2E6zqUJDgvCqZhFVkxZ2BINbr5vF/VdU5Ta78YJYBCQRV7P4DlxmZioIziFZ5r1H0/cd2jYiW8ER+NnrN9rFcAfojDCmHW9xuiBz4xeB+XGjPkzYjs4TegudLher46UjokPdza0IZIHwydYX8ID80RVCDeQofc/VYFqczzoXqu5vSWEA0NQU2tOcm+qUFHOHPm2OdpGL/NkEtAROA==
+X-YMail-OSG: YftLvOIVM1lj.1qC.XIeb04d1X545SXTbHc_fuGvglLYJqrn6dXdgN_rDXkh53S
+ 6r7KlivO9i44xWlx1xi.b07noCdHNAqH12xBZV3eJlsvQqc4QnHfDXxkB.Gr5ICeSmQotdPEFwHs
+ MxLUcPYJQhyrBRk6rGy3ogaXUZDhmUyfnHhy8yR10Ii25DOzlGiT8xORChR.TnkC4N1hEMGsKVtX
+ m7zGfbKkCUQV23gIRY3YMLmCv58kUB1GNG1d4ZzFFNmH2zzkOHt5YItTkm1jxC7fS4nDc42ekAHU
+ lbfiZ1HxxKpvl6OIBY56Q2shJTU2VM0_0D3GMzZ208VC94PB5CqtvPWCOqjuOIBQL6F6pUxVCEjz
+ GNgH8AG1c8IHx5ftJmnBXzAb4pcASGYFe13qA467Hvq.f3EjbNkCHAxmN8Jz.8u.0KkGM8HB1JvG
+ Gav3YleNYfjVXZ8C9CIeuOElrCpK3df4ZSUVEm5CVfaFD42EAg566_XC5RLsyhnEuoePjj2h2stE
+ 6s7UKaYlnXM6dKKVZgyiV.4Ff.xj_tnpJ7QSSWYreYdUEPU_JgFyNuLSmghgI9qGrgOQ2PpcyGKN
+ Dyj_jlytzxse0z2ZIbARm152qdjjFRjmPiwxamfhlNvu7VZbOXmc_8.pf5MHfgu9cb1oJgA7CgOb
+ KEhugwQowC6aiMD5y4HEZhuBijHdNWujhHI9pUYFuBVol9Ime2q9zPI6FZTErbVGrRzz7eobmkUc
+ lKKRyQQWoa7L6k2gReZpFLFOPJsBBLh12ZjytEB6ibmUNHEarS6gyzUf5g1vizwpTVYQUec7jHpm
+ HouG6lxmae.wWp2iqPo3ZznYKLUFBVefax7Iw3U5EAQWLnZmnexdnPGk1wsyEMd7pLsDydlnZ4wv
+ MdHsh6kpf9J.HSANHk1zBHAaNQMfxJJG3FW8t.rwm7p.kRLD.yga.uzqmPEOAxhU93EF.WR9MpoO
+ rJQbISkgvbtb_PL6CBvKItJfs3ujppaLKU3V7vg12deEgFMIJRdray_ZwAVbyuI9W_IJtkDgBr.u
+ 0cAKveY6pmZfq7tjo64x1DONjlxn3ZTdZKVBnXlkMEPZdqka1Ibp5DnS9HkIGbhcbssI13qqYDVo
+ aDgLv_P222xK7MemSP6UqGt114C68h3wrUG70Q.xEbTEjFL53eH4jV7kb0Itdyr3jW..lhwG7VYL
+ KLMnVVqguZ7ILUmFTVzWLKf7LpjUqWE1lRjY7itaYQ1VMnHTTBnI.FE4PWakG9ldL5JGc5uD6mNI
+ ucaAnGZIc.Ox9UnaPP26jHdHYnMFKycdkogQHOomfscgvZcgGLJtTY7Rn3m8Q44pjGRZVHl1mUBc
+ sFsKqaVFCRG9OL3zTgIex87.sMx.1KtcdJBa4eYtoGdKRjguuDCt_NGmiNIkfBQpXL8NWYDj3dr6
+ SH99qGF8QNiNDQ9lnKd.hZ0IOYbcozhSPikSHjdOSO69rlq_AhmrboXDEV8qAJXa3_2MjLk0muPV
+ tSknejGvR3fW5byFCPLtRYWHxxkJQrhfqwwCuCEJ2UePNeOytZrd0GCBjE6q67tkaWK1lkFI0tBT
+ OhwaSe4tjuVCCW3oa8WjYifblVrn9obnh00CVhdfOndWE_bP7SgaxnlSn0c5q6R7rNXEqCYpQDZ0
+ C85jROITiiINnllZmi8kq1aJTKr55Y8X7iWr.23QUOI2Z7Ts_4xZI7baQfXGG2R7WhDXp1XSDYTw
+ .JliNIK8H1yJjqrqLTChRU4Bo_KM76JyUj9kfObw5JV6Vqx4bImaQp7Zl1CFw_pADTlcB25LcoDD
+ WzMcc3UE9FaglWuRQ.gvPJEWmhjUpVmo4OXR_hxE.Bv5gxyn0kIpLS3_x4TkjV4AXndE9x.GugA7
+ Jomai54MfxqfKN2RMQr3NgUSsOhEdYpLOGYeB2oC.okRFANNzBba8Qg5VJDpxqo753SFQLlCo_VZ
+ G3.8D0BDuww8XD5p8bpQo0nk7WwveBkOE707wO8esY8zXpwYu7r.lEQV_ojw1BThbmPPr4ueNOkD
+ bz0Ui4yWqVkdQTNAue91GKgfDGXalPNfOFTvJO74KYBYNfSIZc3sTjsnefb30q4uW4lLYVccXA5I
+ kCgK.4MtzL2N9WzPI7sVlpiqyXE3U0JvvNtSkDDnGwEgd4rt1UumqEc3TCVwK5vGIKkyviFYL1ti
+ 35XS8JdyGdgM1wl09vZu02NJnlKNCP.txPdl66u1DXrF5U3mPKNcPMQSP0h8FNVn.ST_ScbZfUkn
+ 8KpviU._f3_z8LyfamStQ6pvYPLzB6IAMsPfQTneXRFTuiINz
+X-Sonic-MF: <rubenru09@aol.com>
+X-Sonic-ID: dd41a5bf-915a-486e-80cf-5ff40d5df02c
+Received: from sonic.gate.mail.ne1.yahoo.com by
+ sonic304.consmr.mail.gq1.yahoo.com with HTTP; Sat, 21 Mar 2026 02:01:47 +0000
+Received: by hermes--production-ir2-bbcfb4457-64r94 (Yahoo Inc. Hermes SMTP
+ Server) with ESMTPA ID 3495a30f1c817afd98565a1b91cd6be9; 
+ Sat, 21 Mar 2026 02:01:42 +0000 (UTC)
+Message-ID: <a8998ac5b19353d1cd2fe02b2267cf7cd78619bc.camel@aol.com>
+Subject: Re: [PATCH v11 55/65] drm-dyndbg: add DRM_CLASSMAP_USE to the gud
+ driver
+From: Ruben Wauters <rubenru09@aol.com>
+To: Jim Cromie <jim.cromie@gmail.com>, airlied@gmail.com, simona@ffwll.ch, 
+ jbaron@akamai.com, gregkh@linuxfoundation.org, Maarten Lankhorst	
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Cc: jani.nikula@intel.com, ville.syrjala@linux.intel.com, 
+ christian.koenig@amd.com, matthew.auld@intel.com, 
+ arunpravin.paneerselvam@amd.com, louis.chauvet@bootlin.com, 
+ skhan@linuxfoundation.org, pmladek@suse.com, ukaszb@chromium.org, 
+ intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+Date: Sat, 21 Mar 2026 02:01:24 +0000
+In-Reply-To: <20260313132103.2529746-56-jim.cromie@gmail.com>
+References: <20260313132103.2529746-1-jim.cromie@gmail.com>
+ <20260313132103.2529746-56-jim.cromie@gmail.com>
+Autocrypt: addr=rubenru09@aol.com; prefer-encrypt=mutual;
+ keydata=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
+ eIvzsqg==
+Content-Type: multipart/signed; micalg="pgp-sha256";
+ protocol="application/pgp-signature"; boundary="=-11M1noyJ2aKHasFTr+wM"
+User-Agent: Evolution 3.58.3 
 MIME-Version: 1.0
-From: Dave Airlie <airlied@gmail.com>
-Date: Sat, 21 Mar 2026 10:30:53 +1000
-X-Gm-Features: AaiRm53wcNnfsBa34NfX1geJ_YP2OviPDH485QpugabQGoAh2umWRY2jIxvwCgI
-Message-ID: <CAPM=9twty3xn1KRnsyHDEPMA3c6m3JZOOoh7GuW3gaLPt7-ivA@mail.gmail.com>
-Subject: [git pull] drm fixes for 7.0-rc5
-To: Linus Torvalds <torvalds@linux-foundation.org>, Sima Vetter <sima@ffwll.ch>
-Cc: dri-devel <dri-devel@lists.freedesktop.org>,
- LKML <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-Mailer: WebService/1.1.25380
+ mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.aol
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,269 +134,57 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Linus,
 
-Regular weekly pull request, from sunny San Diego. Usual suspects in
-xe/i915/amdgpu with small fixes all over, then some minor fixes across
-a few other drivers. It's probably a bit on the heavy side, but most
-of the fix seem well contained,
+--=-11M1noyJ2aKHasFTr+wM
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Regards,
-Dave.
+On Fri, 2026-03-13 at 07:20 -0600, Jim Cromie wrote:
+> The gud driver has a number of DRM_UT_* debugs, make them
+> controllable when CONFIG_DRM_USE_DYNAMIC_DEBUG=3Dy by telling dyndbg
+> that the module uses them.
+>=20
+> Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+Acked-by: Ruben Wauters <rubenru09@aol.com>
+> ---
+>  drivers/gpu/drm/gud/gud_drv.c | 2 ++
+>  1 file changed, 2 insertions(+)
+>=20
+> diff --git a/drivers/gpu/drm/gud/gud_drv.c b/drivers/gpu/drm/gud/gud_drv.=
+c
+> index d0122d477610..cf2692d89bc5 100644
+> --- a/drivers/gpu/drm/gud/gud_drv.c
+> +++ b/drivers/gpu/drm/gud/gud_drv.c
+> @@ -32,6 +32,8 @@
+> =20
+>  #include "gud_internal.h"
+> =20
+> +DRM_CLASSMAP_USE(drm_debug_classes);
+> +
+>  /* Only used internally */
+>  static const struct drm_format_info gud_drm_format_r1 =3D {
+>  	.format =3D GUD_DRM_FORMAT_R1,
 
-drm-fixes-2026-03-21:
-drm fixes for 7.0-rc5
+--=-11M1noyJ2aKHasFTr+wM
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
 
-core:
-- drm_dev_unplug UAF fix
+-----BEGIN PGP SIGNATURE-----
 
-pagemap:
-- lock handling fix
+iQJPBAABCAA5FiEE3obNNdPQ9V5CQi2Y0n5QwFCuDOEFAmm9+/QbFIAAAAAABAAO
+bWFudTIsMi41KzEuMTEsMiwyAAoJENJ+UMBQrgzhJ24P/iXzCAcmeDVxtX4B5yks
+4It3LgRCZuFPmzCkBGQI2OhytBcMbgUSM/koeF/6eomt2NkoZwYbikIzWrRDqCPy
+JgGD+hh7jypYIL8UGBew4BcCKunC2C1iXQ1duBv6+Jng59eNFQkl1qOK7fWhzgF8
+KQ5LJjQjirygICdGMEJBLS5+E8y5jL4fLJGt7DNDSu2+ZZ6ZHA2trnHCvKboBYOb
+3hd/T9FUl+xiExeFmprkXswPl92/iNv8YQrNXlFuYRSMYuqguc4aUpkgG2mev5TZ
+u9F7c+EwghJjPIlYsOWVBo1ENij0cAtujHJnnp5+Hg+jBFYA0HYe+2Ds3DPDTOr/
+oGnp8UL55/nf2URtxtZ18DhFy60EuwyrQVAC77KCAJC5kpyzxiPZ5IVboy3NO5EP
+0Rolu1/F1Fz1xaODohlORniIA34EogwEqOPwjsIcW0pXxWJuC89ufl2g9F05lfYH
+IjGXqcPRzYBcUAbeKWkta+K1eBxuOEwKAKpslthnS6pVUm0bEMgT0PdLyGB5imyC
+IqZs8erCuJRh6h+a+qYR5coMYURgt6033j6WHrywVn5demYB7f7kmZaBB5f9WvIr
+NwO/e7sEQKT5MlZ7R9CY7/Av5L5q0C3OUh8fKcpjy4dtHiWTqEZGxgA2rAJL1L+3
+/JSXCuOaFKnTn/uR8IYStXOH
+=426v
+-----END PGP SIGNATURE-----
 
-xe:
-- A number of teardown fixes
-- Skip over non-leaf PTE for PRL generation
-- Fix an unitialized variable
-- Fix a missing runtime PM reference
-
-i915/display:
-- Fix #15771: Screen corruption and stuttering on P14s w/ 3K display
-- Fix for PSR entry setup frames count on rejected commit
-- Fix OOPS if firmware is not loaded and suspend is attempted
-- Fix unlikely NULL deref due to DC6 on probe
-
-amdgpu:
-- Fix gamma 2.2 colorop TFs
-- BO list fix
-- LTO fix
-- DC FP fix
-- DisplayID handling fix
-- DCN 2.01 fix
-- MMHUB boundary fixes
-- ISP fix
-- TLB fence fix
-- Hainan pm fix
-
-radeon:
-- Hainan pm fix
-
-vmwgfx:
-- memory leak fix
-- doc warning fix
-
-imagination:
-- deadlock fix
-- interrupt handling fixes
-
-dw-hdmi-qp:
-- multi channel audio fix
-The following changes since commit f338e77383789c0cae23ca3d48adcc5e9e137e3c=
-:
-
-  Linux 7.0-rc4 (2026-03-15 13:52:05 -0700)
-
-are available in the Git repository at:
-
-  https://gitlab.freedesktop.org/drm/kernel.git tags/drm-fixes-2026-03-21
-
-for you to fetch changes up to a6e77320badd1444b0429ff8b6f338b750a1dc4f:
-
-  Merge tag 'drm-xe-fixes-2026-03-19' of
-https://gitlab.freedesktop.org/drm/xe/kernel into drm-fixes
-(2026-03-21 02:17:59 +1000)
-
-----------------------------------------------------------------
-drm fixes for 7.0-rc5
-
-core:
-- drm_dev_unplug UAF fix
-
-pagemap:
-- lock handling fix
-
-xe:
-- A number of teardown fixes
-- Skip over non-leaf PTE for PRL generation
-- Fix an unitialized variable
-- Fix a missing runtime PM reference
-
-i915/display:
-- Fix #15771: Screen corruption and stuttering on P14s w/ 3K display
-- Fix for PSR entry setup frames count on rejected commit
-- Fix OOPS if firmware is not loaded and suspend is attempted
-- Fix unlikely NULL deref due to DC6 on probe
-
-amdgpu:
-- Fix gamma 2.2 colorop TFs
-- BO list fix
-- LTO fix
-- DC FP fix
-- DisplayID handling fix
-- DCN 2.01 fix
-- MMHUB boundary fixes
-- ISP fix
-- TLB fence fix
-- Hainan pm fix
-
-radeon:
-- Hainan pm fix
-
-vmwgfx:
-- memory leak fix
-- doc warning fix
-
-imagination:
-- deadlock fix
-- interrupt handling fixes
-
-dw-hdmi-qp:
-- multi channel audio fix
-
-----------------------------------------------------------------
-Alessio Belle (3):
-      drm/imagination: Fix deadlock in soft reset sequence
-      drm/imagination: Synchronize interrupts before suspending the GPU
-      drm/imagination: Disable interrupts before suspending the GPU
-
-Alex Deucher (11):
-      drm/amdgpu/mmhub2.0: add bounds checking for cid
-      drm/amdgpu/mmhub2.3: add bounds checking for cid
-      drm/amdgpu/mmhub3.0.1: add bounds checking for cid
-      drm/amdgpu/mmhub3.0.2: add bounds checking for cid
-      drm/amdgpu/mmhub3.0: add bounds checking for cid
-      drm/amdgpu/mmhub4.1.0: add bounds checking for cid
-      drm/amdgpu/mmhub4.2.0: add bounds checking for cid
-      drm/amdgpu/gmc9.0: add bounds checking for cid
-      drm/amdgpu: rework how we handle TLB fences
-      drm/amdgpu: apply state adjust rules to some additional HAINAN vairan=
-ts
-      drm/radeon: apply state adjust rules to some additional HAINAN vairan=
-ts
-
-Alex Hung (1):
-      drm/amd/display: Fix gamma 2.2 colorop TFs
-
-Andy Nguyen (1):
-      drm/amd: fix dcn 2.01 check
-
-Ashutosh Dixit (1):
-      drm/xe/oa: Allow reading after disabling OA stream
-
-Brian Nguyen (1):
-      drm/xe: Skip over non leaf pte for PRL generation
-
-Calvin Owens (1):
-      drm/amd/display: Fix uninitialized variable use which breaks full LTO
-
-Daniele Ceraolo Spurio (1):
-      drm/xe/guc: Fail immediately on GuC load error
-
-Dave Airlie (4):
-      Merge tag 'drm-intel-fixes-2026-03-19' of
-https://gitlab.freedesktop.org/drm/i915/kernel into drm-fixes
-      Merge tag 'drm-misc-fixes-2026-03-19' of
-https://gitlab.freedesktop.org/drm/misc/kernel into drm-fixes
-      Merge tag 'amd-drm-fixes-7.0-2026-03-19' of
-https://gitlab.freedesktop.org/agd5f/linux into drm-fixes
-      Merge tag 'drm-xe-fixes-2026-03-19' of
-https://gitlab.freedesktop.org/drm/xe/kernel into drm-fixes
-
-Ian Forbes (1):
-      drm/vmwgfx: Don't overwrite KMS surface dirty tracker
-
-Imre Deak (1):
-      drm/i915/dmc: Fix an unlikely NULL pointer deference at probe
-
-Jesse.Zhang (1):
-      drm/amdgpu: Limit BO list entry count to prevent resource exhaustion
-
-Jonas Karlman (1):
-      drm/bridge: dw-hdmi-qp: fix multi-channel audio output
-
-Jonathan Cavitt (1):
-      drm/pagemap_util: Ensure proper cache lock management on free
-
-Jouni H=C3=B6gander (2):
-      drm/i915/psr: Disable PSR on update_m_n and update_lrr
-      drm/i915/psr: Compute PSR entry_setup_frames into intel_crtc_state
-
-Maarten Lankhorst (1):
-      drm: Fix use-after-free on framebuffers and property blobs when
-calling drm_dev_unplug
-
-Matthew Brost (4):
-      drm/xe: Always kill exec queues in xe_guc_submit_pause_abort
-      drm/xe: Forcefully tear down exec queues in GuC submit fini
-      drm/xe: Trigger queue cleanup if not in wedged mode 2
-      drm/xe: Open-code GGTT MMIO access protection
-
-Pratap Nirujogi (1):
-      drm/amdgpu: Fix ISP segfault issue in kernel v7.0
-
-Rahul Bukte (1):
-      drm/i915/gt: Check set_default_submission() before deferencing
-
-Randy Dunlap (1):
-      drm/vmwgfx: fix kernel-doc warnings in vmwgfx_drv.h
-
-Sanjay Yadav (1):
-      drm/xe: Fix missing runtime PM reference in ccs_mode_store
-
-Srinivasan Shanmugam (1):
-      drm/amd/display: Fix DisplayID not-found handling in
-parse_edid_displayid_vrr()
-
-Umesh Nerlige Ramappa (1):
-      drm/xe/lrc: Fix uninitialized new_ts when capturing context timestamp
-
-Xi Ruoyao (1):
-      drm/amd/display: Wrap dcn32_override_min_req_memclk() in
-DC_FP_{START, END}
-
-Zhanjun Dong (1):
-      drm/xe/guc: Ensure CT state transitions via STOP before DISABLED
-
- drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c        |  4 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c             |  7 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h             |  2 +
- drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c              | 21 +++--
- drivers/gpu/drm/amd/amdgpu/isp_v4_1_1.c            |  4 +-
- drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c            |  9 ++-
- drivers/gpu/drm/amd/amdgpu/mmhub_v2_3.c            |  3 +-
- drivers/gpu/drm/amd/amdgpu/mmhub_v3_0.c            |  3 +-
- drivers/gpu/drm/amd/amdgpu/mmhub_v3_0_1.c          |  3 +-
- drivers/gpu/drm/amd/amdgpu/mmhub_v3_0_2.c          |  3 +-
- drivers/gpu/drm/amd/amdgpu/mmhub_v4_1_0.c          |  3 +-
- drivers/gpu/drm/amd/amdgpu/mmhub_v4_2_0.c          |  3 +-
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  |  6 +-
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.c  |  6 +-
- drivers/gpu/drm/amd/display/dc/clk_mgr/clk_mgr.c   |  8 +-
- .../amd/display/dc/resource/dcn32/dcn32_resource.c |  3 +
- drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c         |  4 +-
- drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c       |  2 +-
- drivers/gpu/drm/drm_file.c                         |  5 +-
- drivers/gpu/drm/drm_mode_config.c                  |  9 ++-
- drivers/gpu/drm/drm_pagemap_util.c                 | 14 ++--
- .../drm/i915/display/intel_display_power_well.c    |  2 +-
- drivers/gpu/drm/i915/display/intel_display_types.h |  1 +
- drivers/gpu/drm/i915/display/intel_dmc.c           |  3 +-
- drivers/gpu/drm/i915/display/intel_psr.c           |  7 +-
- drivers/gpu/drm/i915/gt/intel_engine_cs.c          |  3 +-
- drivers/gpu/drm/imagination/pvr_device.c           | 17 ----
- drivers/gpu/drm/imagination/pvr_power.c            | 51 +++++++++---
- drivers/gpu/drm/radeon/si_dpm.c                    |  4 +-
- drivers/gpu/drm/vmwgfx/vmwgfx_drv.h                | 93 +++++++++++++-----=
-----
- drivers/gpu/drm/vmwgfx/vmwgfx_kms.c                |  3 +-
- drivers/gpu/drm/xe/xe_ggtt.c                       | 10 +--
- drivers/gpu/drm/xe/xe_ggtt_types.h                 |  5 +-
- drivers/gpu/drm/xe/xe_gt_ccs_mode.c                |  2 +
- drivers/gpu/drm/xe/xe_guc.c                        | 32 ++++++--
- drivers/gpu/drm/xe/xe_guc.h                        |  1 +
- drivers/gpu/drm/xe/xe_guc_ct.c                     |  1 +
- drivers/gpu/drm/xe/xe_guc_submit.c                 | 86 ++++++++++++++----=
---
- drivers/gpu/drm/xe/xe_lrc.c                        |  4 +-
- drivers/gpu/drm/xe/xe_oa.c                         |  7 +-
- drivers/gpu/drm/xe/xe_pt.c                         | 38 ++++++---
- 41 files changed, 325 insertions(+), 167 deletions(-)
+--=-11M1noyJ2aKHasFTr+wM--
