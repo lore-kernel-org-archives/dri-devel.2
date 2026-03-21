@@ -4,69 +4,139 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 261AC109446E
-	for <dri-devel@archiver.kernel.org>; Sat, 21 Mar 2026 11:06:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7206F1094471
+	for <dri-devel@archiver.kernel.org>; Sat, 21 Mar 2026 13:05:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7B54D10E2B3;
-	Sat, 21 Mar 2026 11:06:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C2E2510E308;
+	Sat, 21 Mar 2026 13:05:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=smail.nju.edu.cn header.i=@smail.nju.edu.cn header.b="hUW42sbQ";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="KuIRs2bO";
 	dkim-atps=neutral
-X-Greylist: delayed 557 seconds by postgrey-1.36 at gabe;
- Sat, 21 Mar 2026 11:06:55 UTC
-Received: from smtpbguseast2.qq.com (smtpbguseast2.qq.com [54.204.34.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BD8D010E2B3
- for <dri-devel@lists.freedesktop.org>; Sat, 21 Mar 2026 11:06:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=smail.nju.edu.cn;
- s=iohv2404; t=1774091213;
- bh=7/oPAJf1T5VvKf2s5H19YsALbKy5vPqQclHz0heLcvI=;
- h=From:To:Subject:Date:Message-Id:MIME-Version;
- b=hUW42sbQVicBHNN3gQBX7OdTU/0AgThPUxidxQyyCsVyVOtq4+/0ZhslKFZOPi3JC
- 3QirWMJ8qbfwVbS/5iCHlTvtn9VhnjYzKmAOvxafidyPSHoYYNzCKt2T0j29+6SwW8
- W8+ntnyyTJiE3ZexhVjvy0utHiC+S14JifWySZtY=
-X-QQ-mid: esmtpgz11t1774090661tc87c6998
-X-QQ-Originating-IP: aov22Bp+36g+WJtRK7mcau7ZMkNSuGyS69IbPF/6/yQ=
-Received: from localhost.localdomain ( [116.172.93.199])
- by bizesmtp.qq.com (ESMTP) with 
- id ; Sat, 21 Mar 2026 18:57:39 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 15415683190539263554
-EX-QQ-RecipientCnt: 12
-From: Kexin Sun <kexinsun@smail.nju.edu.cn>
-To: maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- airlied@gmail.com, simona@ffwll.ch, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Cc: julia.lawall@inria.fr, xutong.ma@inria.fr, kexinsun@smail.nju.edu.cn,
- yunbolyu@smu.edu.sg, ratnadiraw@smu.edu.sg
-Subject: [PATCH] drm/sysfs: update outdated comment for renamed
- drm_sysfs_connector_status_event()
-Date: Sat, 21 Mar 2026 18:57:39 +0800
-Message-Id: <20260321105739.6472-1-kexinsun@smail.nju.edu.cn>
-X-Mailer: git-send-email 2.25.1
+Received: from BL2PR02CU003.outbound.protection.outlook.com
+ (mail-eastusazon11011031.outbound.protection.outlook.com [52.101.52.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B5CE510E308;
+ Sat, 21 Mar 2026 13:05:33 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=czYZuhZGeuJmDRZyuogCjVR3F+87CqIeesvZrrUxCuaCTjr/+Nkp9D5TruSSfMbB8MvpNXW4DSkRyzmxErIxf6oKhS2XRE8LSK6qqUtXP1f+x8ZznNHXyYQNun46Bn5dLfadsGm9Jd3GgHEtdnVbLHkB+cMvslQjznhtinSUVNMHsMsjxgBBZIUDkOZvMT/r1GQR7D58yGxzAz2YwZ9vXNpy7Sfo6HUYf7Uv3ys3a21zi0B8H7kyzgyDgmMGbjT2397I53RXp2roq/KuWPU9yX3rShrBaFBmprpEXC3oTt4h5UwdNOaBbz91UUXDOMirbO9woTAXKZyx3DnvEjXVpA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=rUekRUr+ok4QqyJFsLhEVgOOUAybLXTJn63y4DHxdCo=;
+ b=qg2O4ivKucdSk/xtq1dS1T6j5cLOpPuv0ebnDB0Ibq+TbuEPrbuJodmTNW/Yn3fZ7L6ACZnMkirwMaa4RWziC6LCy4OfDfL9HAtl45CKu0+yIGpN9AzYixgDJ6QKEwcQSsgCuz+xbTeiNiKMnAmgugB6ZfW4dVQZgxo/v8VHffAkmn1JcZvRwMZvKvQVGfQXR6RGrQ5urEnDHY/To6JRwga0z/FM7RWvIIxTXNMhl7MuU8SgN00xAY74oHmwWMr4vvam0rCJ64wu/K+AZb6AYP7+SsIH+k1/JrbKpu2WoqgTAUmwg1i6bzXKHS9G8E5Kv/5RWSBTAR+a9N/2FnJdQw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=rUekRUr+ok4QqyJFsLhEVgOOUAybLXTJn63y4DHxdCo=;
+ b=KuIRs2bOz0MyVQSPGuRLV5eoADD/Dqg64AKE8AUU4CCNkAiw38WNjbzh9pGVZFA5W4qGWB6oO4ByOEjCP4O6QFC950j6bzf2TvyQLbDbrPEteJFHw8fFS+vr+rjN5X/ShDBUSYOVfiou3TcXsOyHyorh2bvhWZ15VhDOwzy5IiJ950XOOntlqyG2bCmuGV2Sl/Nzf9UxGjgA0aJMyFOTJPY3wr/1wRRxfbF0s4rLNVfZuL8HONXcGdpGHmW7H0BrGMGsDZvNqoYsV3QUZ2pq1JdfDIDOCaUeSDnTc5t61N96mKUJ1zCnIEpHer3TdaqbcZuTbov5JBsCrjOISJqfbQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from CH2PR12MB3990.namprd12.prod.outlook.com (2603:10b6:610:28::18)
+ by DM3PR12MB9288.namprd12.prod.outlook.com (2603:10b6:0:4a::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.15; Sat, 21 Mar
+ 2026 13:05:27 +0000
+Received: from CH2PR12MB3990.namprd12.prod.outlook.com
+ ([fe80::7de1:4fe5:8ead:5989]) by CH2PR12MB3990.namprd12.prod.outlook.com
+ ([fe80::7de1:4fe5:8ead:5989%6]) with mapi id 15.20.9745.007; Sat, 21 Mar 2026
+ 13:05:26 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Sat, 21 Mar 2026 22:05:22 +0900
+Message-Id: <DH8HDA6Q6FU3.3JR57W97IO1VE@nvidia.com>
+Subject: Re: [PATCH v3 4/4] rust: make `build_assert` module the home of
+ related macros
+From: "Alexandre Courbot" <acourbot@nvidia.com>
+To: "Gary Guo" <gary@kernel.org>
+Cc: "Gary Guo" <gary@garyguo.net>, "Miguel Ojeda" <ojeda@kernel.org>, "Boqun
+ Feng" <boqun@kernel.org>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
+ <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
+ Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
+ "Trevor Gross" <tmgross@umich.edu>, "Danilo Krummrich" <dakr@kernel.org>,
+ "David Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>,
+ "Abdiel Janulgue" <abdiel.janulgue@gmail.com>, "Daniel Almeida"
+ <daniel.almeida@collabora.com>, "Robin Murphy" <robin.murphy@arm.com>,
+ "FUJITA Tomonori" <fujita.tomonori@gmail.com>, "Yury Norov"
+ <yury.norov@gmail.com>, "Will Deacon" <will@kernel.org>, "Peter Zijlstra"
+ <peterz@infradead.org>, "Mark Rutland" <mark.rutland@arm.com>, "Ingo
+ Molnar" <mingo@redhat.com>, "Waiman Long" <longman@redhat.com>, "Tamir
+ Duberstein" <tamird@kernel.org>, "Yury Norov" <ynorov@nvidia.com>,
+ <rust-for-linux@vger.kernel.org>, <nouveau@lists.freedesktop.org>,
+ <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
+ <driver-core@lists.linux.dev>, <netdev@vger.kernel.org>
+References: <20260319121653.2975748-1-gary@kernel.org>
+ <20260319121653.2975748-5-gary@kernel.org>
+In-Reply-To: <20260319121653.2975748-5-gary@kernel.org>
+X-ClientProxiedBy: TYCPR01CA0021.jpnprd01.prod.outlook.com (2603:1096:405::33)
+ To CH2PR12MB3990.namprd12.prod.outlook.com
+ (2603:10b6:610:28::18)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpgz:smail.nju.edu.cn:qybglogicsvrgz:qybglogicsvrgz5b-0
-X-QQ-XMAILINFO: NC2sbZ2AMa4Kl/mpKNwUAdC3xOJczozdxlzjLiawOoCE8LjTOqxyqyjU
- E+Ni2mh0GQPMiBw4yxRiAAY9GENBTjlGFNSxIsLUgrgaKggJRBS0nnxm5ebKM3vepM9qGik
- 2PZpIzsxtVo0VagvmZ+WvNjjDDRxOYp9lHEy1HV3Ypi9sKtuWTQATZ2ys3IOqM5EbldFlYu
- 2IXk9Em0JRVIhxHB+4NPTlWKOF7IBE40eUxVoR/fzaweL06KmC577jUJaivIDzftHxMd1m1
- sdKKXqZ4Be2Ret26nz6a2FeZjecKq0Xm6Q2ROJ3RUIxbcJYe7YYZgyMFYM6re73dLrlYDxV
- sFD7SkCw6P5korcqjj8mbIpZaBcNt1T/rIy1NiUediKCnL8anguhxw0Lqo/N/CL5KcyDWF0
- DG4mpzZi/uTtzbjk1IK+r3PmFw8SPo/NpOAncZ9amoikY2yHI60q1L90ndA2AnTbWgbOvQR
- Hj4DC1DOPSwTn7zybXDVsOHRIywqMv5dEmOzjQ0HSKp3qBUSFAuhI6xDuG4XpqXFlei7U43
- +C4OGcn2bqFGbHSqAm5tKRlHyXBWLJNf0I49ozOzubZA2OruOH+O5RrsiltJ2LuE1L4D9J6
- zUZDl1O6Sd5AezImoBKrJw8B77aip5CBzktxB62rO2wYRaqiPBn+DPQn4rx/SYd/FLd6v9/
- +HOUtwOch3Lg5IFg7y3HYIZ5eLBAosHJDG6k7RZuz3NWswa9WDDmZBg4VfXcJQqyeGyOi5k
- mBOdwU5QOGyTiTS0ltg6yxIVV4FDHbLa0i7/WNlWMB4DsmVwnkoGOgzCbvIputfdTwQewnT
- n1xROjxLTh+KxUa35L21sN15/qU3rRgXaTkOB93Wpg0iJfDt+xMDGXCAE4byI7H1xvKbKfw
- rwzMvnirFCXu9jJvFA2rfEtSk6y757jX5PKpJ+fNyR0EIBeKvmYxNhYKFOk3qwbcRe50HFk
- Zv/wHuQINfHkhAtlFpxoIRuwEQLNYFTqCVqjrvfzcEmiSBALJtiJ9nrTA6Ff9d3WTKLybFj
- ikTXebkwaNAkVVuuknvmcAqpkBebOe8Ia2WhF/bAmQjUyOH0+w2XusjPgzSwrf51Hie1F9S
- BIaOFp28zdo
-X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
-X-QQ-RECHKSPAM: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH2PR12MB3990:EE_|DM3PR12MB9288:EE_
+X-MS-Office365-Filtering-Correlation-Id: 48122ad4-350d-42e0-0e1e-08de874a8508
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|7416014|1800799024|10070799003|366016|56012099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: 6FsHXy6OD2czH0qjNIm2qx6HPTCvmGBJzViUvADsScbB7bN0KWJc/7VleTOJuW6SZHg80XtjD1AwzLJXNMb7JBh0iARmHx8Z3y13cUztyfIzW7HW5hLPky1FZFCyz7WeiKL1GzHPaSau4kPlhtUaWF1ujE/TZ3GM20DFAava2GNf8FUsY3dv2Q/BvDlToaWbjbT3anWskqQgWvLdjMdyiY8R1QZSdpoLumqGC9hR6byGwGc6CbLF6VCIRGjKa0u8uVzYe07I8FAe1mBRLwSeWSdkzqq7XmktvJDqAfHMaAwFPbSuDJVEk1y3Lih4XtGhN+3jbLpS59nOqFs+ZfhNgNhu2G0om+61zirDk+G+ySj+xgu1Tqr6xa7cRwdjKlG+1yVTVpYpOvVsZN6LVeTD6sPQldvRuLNuUIosGEySLnv4hNYZEJDnh74lhTqV37iHDou3ggxrabo5VDHZiZ0rPM6YYlpi4H6VzrI54s/7rKk+cRcer6nPQ6y0aenjwslr1jGf7vp5jeIXeFVpqCh+rjp1ioOklZp8qBLFrAb+Qxv8LXGgDK09KFjkSLsOvfwAh45mooSBDbZjHHC98p2sZlz3G0G5gdgYA80nzBIdt3dA7UKwj8pHTXMpuEs4Me6tS3R6xpMkrni7LpGGNGg6Lp0VoxWtSLclcm6ePKKi2RRrrhaQZTPeQMEXRDk9baVluK+wSQs/k7u6o5fzNsrhh55Lc2gTP1F7PQX/ts4EGLk=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CH2PR12MB3990.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(7416014)(1800799024)(10070799003)(366016)(56012099003)(22082099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NTh3b1A1VGkrT3MyN3I1M21WOFA1N0lxNEZ3dGs1aVFBclNLeDEzNUZ0N0Qv?=
+ =?utf-8?B?UXBJSTk1NlBvNU5BN3lCZWUrMzlJTGZRbmhvcGczMUpjYW5HeUoxbmZudWNs?=
+ =?utf-8?B?SzNrckFiQ2xmMFBuT3NWRTQ1VG95YjVscUc0RklCcWxaQnEyN29yZ3pkZDlZ?=
+ =?utf-8?B?ZkZ4QUtsblNCYmQ4VHVxaTBBaXRJV2I4aTRIbmdVSlpFNlVUQnBXM3ZWc0J3?=
+ =?utf-8?B?VUhueEh5bFZLT3JNRVRRd2V4aktLZk1RUHl0ZGt1WDFvZ2w0dzY4bXV6TG9E?=
+ =?utf-8?B?M2dHcUhLK3dERGJqU2VmVUFHZGQvZTZUeUtiYkttQlRYaVVReHdFSFl5WWpY?=
+ =?utf-8?B?ZnBUTU1QSWdSTTZzeWhlWHE1eGE2aG1wY3ZGWkRFTFFDVCtXcDNOTnBjUUM4?=
+ =?utf-8?B?ellqUHhNM1hSc2plV2E3eUdMN1JDa3B0bGttR1FFckZ3aVUrdkFTYWVtSVRx?=
+ =?utf-8?B?WmtnV2c4STQ1czZXSjhMVUZ5SUFYVlc1OWZTdVdCdm1PNmhGNEFRc1lGTmMz?=
+ =?utf-8?B?Y2lPeGlyemhYaithRUJhZlNCcUJXaDVqK3BjbnAzMXhDR2d5Yy9sNjU4SjVF?=
+ =?utf-8?B?MTZ2T2l5WHFUZFY0L0VWaExPUEQybzRyZUxOS0pKU0E1TXpaeXZycDdKTTlW?=
+ =?utf-8?B?bkpYaWIrNXIyaFc1NW5sbEdUU2hZUkswZmF4aGdIT01SbkNYYVdObzNEY09K?=
+ =?utf-8?B?QU9mZlV5SVlNK1JHMUlhT2dIV010bVY4UStsZm8yaHdCUkpFRUFOYWE3NXhN?=
+ =?utf-8?B?VjNWaVcwb1dpQXhaQ3dJNTZ6V3UvSjdmZzRacy9GS3BmY3lTNGNxNTdCZDZI?=
+ =?utf-8?B?anZ5SGVSZ3RYRzAwR0Jab1hjb08vaHlxNVhWS0ZGSSthQ3pWMGhEOVRhWk8r?=
+ =?utf-8?B?QkxiNHNTaTdlUXJVdnFsUXF0a2pyQjhoa0x5VnVYRmQydmltUTh2SkY5UzlF?=
+ =?utf-8?B?L2dsOGhMZiswOEloNmNnNis1cW1IZzVyMVNDSXdnZE5iQlFwclFYcnpwamM0?=
+ =?utf-8?B?NjJoaUxMN2NUcHY5bFB6NGRDdmQ3b2R4Mkg3UXA2dVpKM3JQdDkxM2plQ2hD?=
+ =?utf-8?B?ZnRaUmd1NkJ3cGQwV1BuZWVaRWVJMVZvcUtqZVlTYThoRk9GSXl2TnpqN0R3?=
+ =?utf-8?B?RE1hL1lSWktqaW1yeEM1NE90ai94ait5ZnBLS2JjUWVUdnhOUlR3WjdOWXdD?=
+ =?utf-8?B?MWpWRlorbkpFQ3c5WEtFeUQwbjRLMWoxd0VML21ORXliUHVRNE55R280NVdS?=
+ =?utf-8?B?QUkvRS85TXZjaW1kWHEwUnZmVlZZdmRDRHIrc2pHWkM3MUVyTFVVOTFNYXZp?=
+ =?utf-8?B?TDlTcktrRjlHTWhsdUJkTnk4VGg2YWxvU1JUNm41MnZldHdLK0NXU2FXQ0Vt?=
+ =?utf-8?B?U1B3K3FBMGpxYVpWZGg2WGl0N3pUQXkrUE9NSVFiVmlQV21ZcytDSXArbmEv?=
+ =?utf-8?B?TXBaYUl3cHhzanRlUXVGRjFzNVRFZEtCSmRaZWt4Wkxjei9WaXBaQTgrOFZX?=
+ =?utf-8?B?eFEvUGxlc2d3clM0L3VVOXJHdE15NkxCMnQzYTBHT0UwZXptUjcwdnY5ZmRm?=
+ =?utf-8?B?VXQyNHBPZnA1MU1YL0xhUHRsbUtBNEd5SzYvVldBQlZJNktWVzFxMzM4UzBL?=
+ =?utf-8?B?K3YvejFPNzRNMkV0VHRZUVJLWDc2cFVJbi9ncjFrZys4ZXd1bWh1MmlYYThT?=
+ =?utf-8?B?c1ZMc3NHNGNzYnNmSGVSVlR1V1RsQTlSNXFndjFQS3ZDYXVRVWdMeUxkdkpz?=
+ =?utf-8?B?YTZhdFVNTG4xN3ZUT0ZxR0xHdW5HbmJQT3lrdWd4ZmFPVG1OR2x3N0dLbHVG?=
+ =?utf-8?B?SVlqeGpMaDRDbWx4TS9yNzdydTQwZGVzdGRTWlNCR0MyMCtzWkhLY1ZKUHJB?=
+ =?utf-8?B?RlVwRkZJZTVqVlM5SnAzbi82MnlBbVIrRXp5OU1hY2JHUVVFTkhLZEJGU2Ew?=
+ =?utf-8?B?eWpzdERSZXBqN2dUSXo1NjU5RnFqMzBHaUVPdGh1a3k0MkRxTmFwRlBFS2pq?=
+ =?utf-8?B?TzU2b2NIUkgyV2o4R2huZUN0eWMvdXBSaHlsL3c1cXBERTcya3JqSHZHTXZX?=
+ =?utf-8?B?dHZRYTB6SGxhZDRhR05TMEovYlpmL3E0dHBHNHZtcnNIK3dVeWFhTCthZ201?=
+ =?utf-8?B?bU1iQklqbUcvZ1FwckJHeHlJU2xkS1h3ZjZWNzBzWHFRbEtLNUZwRzdqZDc0?=
+ =?utf-8?B?alE1SWtlYVAwQk5zZTVya0Ryd0FsMEdHaHUyb3I3bHY2REZ1alRpd1l3ZzR1?=
+ =?utf-8?B?eUZ2cHlIdDBtUTZKNnltaEE2V1NXQVAxeEx6QUl4WFliY0JTcHhPQnNZT2x6?=
+ =?utf-8?B?dS9VOHlLT1kyUVFYVnZNWGtVWWoyVXlqTWNMZmI3bW15S0RBbFB3bEF2Q3Uy?=
+ =?utf-8?Q?YTv8fl5q9kXHBnaNDoFAMmWK+QEMQfgEGlHoSVpZsx/GE?=
+X-MS-Exchange-AntiSpam-MessageData-1: 3jizDN8DRueX0A==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 48122ad4-350d-42e0-0e1e-08de874a8508
+X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB3990.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Mar 2026 13:05:26.7663 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 9/s35k6lchMXi47UJU65J+KMj80Z37GAk2lgP/ySMvPfeXYMh0veyWEC0QvpInMdSC28x5pclLGdgFxObQKP2w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM3PR12MB9288
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,34 +152,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The function drm_sysfs_connector_status_event() was renamed to
-drm_sysfs_connector_property_event() by commit 0cf8d292ba5e
-("drm/sysfs: rename drm_sysfs_connector_status_event()").  Update
-the comment in drm_sysfs_hotplug_event() accordingly, including
-changing "connector status change" to "connector property change"
-to match the rename rationale.
+On Thu Mar 19, 2026 at 9:16 PM JST, Gary Guo wrote:
+> From: Gary Guo <gary@garyguo.net>
+>
+> Given the macro scoping rules, all macros are rendered 3 times, in the
+> module, in the top-level of kernel crate, and in the prelude.
+>
+> Add `#[doc(no_inline)]` to the prelude so it just shows up as re-export.
+> Add `#[doc(hidden)]` to the macro definition and `#[doc(inline)]` to the
+> re-export inside `build_assert` module so the top-level items are hidden.
+>
+> Signed-off-by: Gary Guo <gary@garyguo.net>
+> ---
+>  drivers/gpu/nova-core/bitfield.rs    |  4 ++--
+>  drivers/gpu/nova-core/num.rs         |  2 +-
+>  rust/kernel/build_assert.rs          | 19 ++++++++++++-------
+>  rust/kernel/dma.rs                   |  5 +++--
+>  rust/kernel/io/register.rs           | 19 ++++++++++++-------
+>  rust/kernel/io/resource.rs           |  2 +-
+>  rust/kernel/ioctl.rs                 |  2 +-
+>  rust/kernel/net/phy/reg.rs           |  8 +++++---
+>  rust/kernel/num/bounded.rs           |  2 +-
+>  rust/kernel/prelude.rs               |  3 ++-
+>  rust/kernel/sync/atomic/internal.rs  |  9 ++++++---
+>  rust/kernel/sync/atomic/predefine.rs |  2 +-
+>  rust/kernel/sync/locked_by.rs        |  2 +-
+>  rust/kernel/sync/refcount.rs         |  8 +++++---
+>  rust/kernel/xarray.rs                | 10 ++++++++--
+>  15 files changed, 61 insertions(+), 36 deletions(-)
+>
+> diff --git a/drivers/gpu/nova-core/bitfield.rs b/drivers/gpu/nova-core/bi=
+tfield.rs
+> index 16e143658c51..c3e1235ad7fb 100644
+> --- a/drivers/gpu/nova-core/bitfield.rs
+> +++ b/drivers/gpu/nova-core/bitfield.rs
+> @@ -170,7 +170,7 @@ impl $name {
+>      (@check_field_bounds $hi:tt:$lo:tt $field:ident as bool) =3D> {
+>          #[allow(clippy::eq_op)]
+>          const _: () =3D {
+> -            ::kernel::build_assert!(
+> +            ::kernel::build_assert::build_assert!(
 
-Assisted-by: unnamed:deepseek-v3.2 coccinelle
-Signed-off-by: Kexin Sun <kexinsun@smail.nju.edu.cn>
----
- drivers/gpu/drm/drm_sysfs.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/drm_sysfs.c b/drivers/gpu/drm/drm_sysfs.c
-index ef4e923a8728..c543249d32c3 100644
---- a/drivers/gpu/drm/drm_sysfs.c
-+++ b/drivers/gpu/drm/drm_sysfs.c
-@@ -438,8 +438,8 @@ void drm_sysfs_lease_event(struct drm_device *dev)
-  * set HOTPLUG=1 in the uevent environment, but this could be expanded to
-  * deal with other types of events.
-  *
-- * Any new uapi should be using the drm_sysfs_connector_status_event()
-- * for uevents on connector status change.
-+ * Any new uapi should be using the drm_sysfs_connector_property_event()
-+ * for uevents on connector property change.
-  */
- void drm_sysfs_hotplug_event(struct drm_device *dev)
- {
--- 
-2.25.1
-
+Given that the `build_assert` module now hosts 3 different assert
+macros, have we considered renaming it to just `assert`? Otherwise the
+naming implies that it is more connected to the `build_assert` macro
+than the others, which doesn't seem to be true.
