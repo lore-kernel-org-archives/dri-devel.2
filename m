@@ -4,58 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B110A1094463
-	for <dri-devel@archiver.kernel.org>; Sat, 21 Mar 2026 10:10:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 25218109446E
+	for <dri-devel@archiver.kernel.org>; Sat, 21 Mar 2026 11:05:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EB33F10E380;
-	Sat, 21 Mar 2026 10:10:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EF77410E0BA;
+	Sat, 21 Mar 2026 11:05:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="mA6LD5eA";
+	dkim=pass (1024-bit key; unprotected) header.d=smail.nju.edu.cn header.i=@smail.nju.edu.cn header.b="dmQoj5oA";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1254710E380
- for <dri-devel@lists.freedesktop.org>; Sat, 21 Mar 2026 10:10:08 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 3CF6560054;
- Sat, 21 Mar 2026 10:10:07 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6196DC19421;
- Sat, 21 Mar 2026 10:10:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1774087806;
- bh=losRJURq/7otlRzH8CacDY3Rw8KV5PdAJ6d9YB1JEmw=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=mA6LD5eAS9S3t8yrPuitlKesfwXIJIOM6EqAXDuJeWzodokTf/CeDnq9rBBouRsEX
- ml+T6qTpzM2kICbWoN5iS647DG6LDJu4Jl9aunE3y+PnJ3Xad9+JcN0rVQGq1kvxje
- hYNtUCU7F3rACOLj0wvY5rl7PG/wYY3aBdkx6buMoxxyhJTmbDe2tshUWWSahCf4D3
- to0lFMr/xryD99m/vmewUCNL6EFtU08SZwXqCwj8pTQ5VufyJfBPKB3nl43SPQbKa2
- pZT0VPKKwG8vrBBxbAXcY2+Em4blnx8DRJB5N3LZwdPA4wtgwI2qN8fv4WCWs1SW3u
- tC3jsKH2YbLwQ==
-Date: Sat, 21 Mar 2026 11:10:04 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Pet Weng <pet.weng@ite.com.tw>
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, 
- Hermes Wu <hermes.Wu@ite.com.tw>, Kenneth Hung <kenneth.Hung@ite.com.tw>, 
- Jau-chih Tseng <jau-chih.tseng@ite.com.tw>, Pin-yen Lin <treapking@google.com>
-Subject: Re: [PATCH v8 1/2] dt-binding: display: Add ITE IT61620 MIPI DSI to
- HDMI bridge
-Message-ID: <20260321-steady-refreshing-chinchilla-f6ed28@quoll>
-References: <20260320-it61620-0714-v8-0-0e70271cf5a9@ite.com.tw>
- <20260320-it61620-0714-v8-1-0e70271cf5a9@ite.com.tw>
+Received: from smtpbgau1.qq.com (smtpbgau1.qq.com [54.206.16.166])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CF6B910E0BA
+ for <dri-devel@lists.freedesktop.org>; Sat, 21 Mar 2026 11:05:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=smail.nju.edu.cn;
+ s=iohv2404; t=1774091149;
+ bh=advCDYONKqzCph5ZTFUFSWs19v2fi8pIDpKWdb7DT7k=;
+ h=From:To:Subject:Date:Message-Id:MIME-Version;
+ b=dmQoj5oAbGmuqiMHbjUwxTfbeVHD77lQ/Y7GqZKmxOJS8NuzpIKCxi8YpC2R0yDjY
+ E+HPWlRUbYe7HjmrvTrnj68nUXPO0XwY+arUBi27MVSy+U/J+d/Unt8DuCZyduRgY0
+ HEaF+vvE1fbjrq5uRwoslcZqSO06TLh0hLsntYn4=
+X-QQ-mid: esmtpsz16t1774090671tfd588e52
+X-QQ-Originating-IP: f67St6LdxydDGswlyYyuwo1CRPZJU43NiFBCtGm6+wo=
+Received: from localhost.localdomain ( [116.172.93.199])
+ by bizesmtp.qq.com (ESMTP) with 
+ id ; Sat, 21 Mar 2026 18:57:48 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 1
+X-BIZMAIL-ID: 6951342301802925313
+EX-QQ-RecipientCnt: 13
+From: Kexin Sun <kexinsun@smail.nju.edu.cn>
+To: matthew.brost@intel.com, thomas.hellstrom@linux.intel.com,
+ rodrigo.vivi@intel.com, airlied@gmail.com, simona@ffwll.ch,
+ intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Cc: julia.lawall@inria.fr, xutong.ma@inria.fr, kexinsun@smail.nju.edu.cn,
+ yunbolyu@smu.edu.sg, ratnadiraw@smu.edu.sg
+Subject: [PATCH] drm/xe: update outdated reference to xe_pt_commit_bind()
+Date: Sat, 21 Mar 2026 18:57:48 +0800
+Message-Id: <20260321105748.6646-1-kexinsun@smail.nju.edu.cn>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260320-it61620-0714-v8-1-0e70271cf5a9@ite.com.tw>
+Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpsz:smail.nju.edu.cn:qybglogicsvrgz:qybglogicsvrgz5b-0
+X-QQ-XMAILINFO: OLsBWtCIHsg6uc3gAasrhab4LLEiuXzpv1HgRjTEDijafJGEytScpz39
+ lZHvmhqmFiYYkASypeBlCC9iaQ0L/RHMyXKRxbATdF25P4h1PdpLiinRYDwoPLBqnPBVDWF
+ oBfrue3ueIy3NRMJJFaPtkAt0U8LesfjtGhR0rrKnYc4zCjaqvMZxbPXi1zFQ9YKWx3FhqI
+ 1SA9J45a7w69Bej6pcHKxf/QneSacZCXIF1Bx0mGM7PrhY2cMBor42cRn9QYrIz2rGIJkw4
+ KwZjzn4Oss7H3fVqRCkCpotoOH4aiN0MjpDiUFx3kYAS/6rm3ZSzRWf6xZUEWfuXdqRk0a4
+ DwsGPvZyIrGam8Gipourt5Lpc/aJj1U1bvYtf/ldlMV7GVPPNHY62zJ2TOGHnZ3wW1ao4EL
+ N2VeYwFiAALzX9TxXEtWxZJYj32OKBSrZL6cYx5ANqt4eSLQpVzjEo1JAYFs5vcpAYur4+m
+ ilN3cTd5z8uJIMYzCaDCaEO8WZw0gXB79C/DHPGjRrUU4SVN8/+jerZZCdn2pfpcvzpmzte
+ hQ+AMoENTan+RCS4T862w+qLUuVxO0setNm4ZHDB0m9Xku47NwZKZL4jxtqA0P1ZQIBXXDn
+ 9jMTVXjwsgpVK8REztj2uAC/ohsPjF2OAPcB3WUOyuS3g179FmoSvuscXpPBORFayRtJIj0
+ 7GUmIYetuTuL3RFPi9/8XmmSbbWJtBikN9AuhpjvoEd4yer56OLhUaPY3WpLs56nFSt/zxY
+ LVxYSc3Qz9P5FFigPuHGUCD7lfpyWKbZ2p1Gr28NQIAttp1BM83MasDj4l5GONJ/wyKNDC1
+ Qkgw56WmTP5AZ66EVXaYG3hDLrAzpqDwd5JKbNWvV33PzCWiMnyFcwA03PQ4U4zgzzbmASt
+ 6lKs+uMYkTRrgcHhWYTMgt069T6EOHwuC/+dtOjCTc3vu56kTMGOrmeSdxekBw1dQSGuFTP
+ 4fmCIW3L4GAdJGQdwlzg87QuVEenfryYB4mwvHiqqIFZxu9q992YTsc7XZKoD2B3lFaI9qT
+ KMlhPiX3LBpTNZFazAamjEVuEVArgJad4vJrMeLF5hrNGaRRADIcBKgOOwQ+4=
+X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
+X-QQ-RECHKSPAM: 0
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,40 +79,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, Mar 20, 2026 at 03:50:41PM +0800, Pet Weng wrote:
-> This chip receives MIPI DSI input and outputs HDMI, and is commonly
-> connected to SoCs via I2C and DSI.
+The function xe_pt_commit_bind() was split into
+xe_pt_commit_prepare_bind(), xe_pt_commit(), and
+xe_pt_abort_bind() by commit a708f6501c69 ("drm/xe: Update
+PT layer with better error handling").  Update the stale
+reference in xe_pt_stage_bind() to list the two functions
+that now perform the cpu-side page-table connection.
 
-Please run scripts/checkpatch.pl on the patches and fix reported
-warnings. After that, run also 'scripts/checkpatch.pl --strict' on the
-patches and (probably) fix more warnings. Some warnings can be ignored,
-especially from --strict run, but the code here looks like it needs a
-fix. Feel free to get in touch if the warning is not clear.
+Assisted-by: unnamed:deepseek-v3.2 coccinelle
+Signed-off-by: Kexin Sun <kexinsun@smail.nju.edu.cn>
+---
+ drivers/gpu/drm/xe/xe_pt.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-Please wrap commit message according to Linux coding style / submission
-process (neither too early nor over the limit):
-https://elixir.bootlin.com/linux/v6.4-rc1/source/Documentation/process/submitting-patches.rst#L597
-
-<form letter>
-This is a friendly reminder during the review process.
-
-It looks like you received a tag and forgot to add it.
-
-If you do not know the process, here is a short explanation:
-Please add Acked-by/Reviewed-by/Tested-by tags when posting new
-versions of patchset, under or above your Signed-off-by tag, unless
-patch changed significantly (e.g. new properties added to the DT
-bindings). Tag is "received", when provided in a message replied to you
-on the mailing list. Tools like b4 can help here. However, there's no
-need to repost patches *only* to add the tags. The upstream maintainer
-will do that for tags received on the version they apply.
-
-Please read:
-https://elixir.bootlin.com/linux/v6.12-rc3/source/Documentation/process/submitting-patches.rst#L577
-
-If a tag was not added on purpose, please state why and what changed.
-</form letter>
-
-Best regards,
-Krzysztof
+diff --git a/drivers/gpu/drm/xe/xe_pt.c b/drivers/gpu/drm/xe/xe_pt.c
+index 13b355fadd58..8f00e6454721 100644
+--- a/drivers/gpu/drm/xe/xe_pt.c
++++ b/drivers/gpu/drm/xe/xe_pt.c
+@@ -686,7 +686,8 @@ static bool xe_atomic_for_system(struct xe_vm *vm, struct xe_vma *vma)
+  *
+  * This function builds a disconnected page-table tree for a given address
+  * range. The tree is connected to the main vm tree for the gpu using
+- * xe_migrate_update_pgtables() and for the cpu using xe_pt_commit_bind().
++ * xe_migrate_update_pgtables() and for the cpu using
++ * xe_pt_commit_prepare_bind() and xe_pt_commit().
+  * The function builds xe_vm_pgtable_update structures for already existing
+  * shared page-tables, and non-existing shared and non-shared page-tables
+  * are built and populated directly.
+-- 
+2.25.1
 
