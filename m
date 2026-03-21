@@ -4,54 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7356D1094462
-	for <dri-devel@archiver.kernel.org>; Sat, 21 Mar 2026 09:29:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C05941094462
+	for <dri-devel@archiver.kernel.org>; Sat, 21 Mar 2026 09:38:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C988C10E269;
-	Sat, 21 Mar 2026 09:29:31 +0000 (UTC)
-Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AE6C210E269
- for <dri-devel@lists.freedesktop.org>; Sat, 21 Mar 2026 09:29:30 +0000 (UTC)
-Received: from [192.168.1.204] (unknown [112.94.102.202])
- by APP-01 (Coremail) with SMTP id qwCowAB3HGjzZL5pqtuyCg--.4345S2;
- Sat, 21 Mar 2026 17:29:24 +0800 (CST)
-Message-ID: <47337244ebd0ce4efd3e065183e863421925f99f.camel@iscas.ac.cn>
-Subject: Re: [PATCH v2] drm/loongson: stop to set get_vblank_timestamp for
- LS7A1000 CRTC
-From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard	
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Jianmin Lv	
- <lvjianmin@loongson.cn>, Qianhai Wu <wuqianhai@loongson.cn>, Huacai Chen	
- <chenhuacai@kernel.org>, Mingcong Bai <jeffbai@aosc.io>, Xi Ruoyao	
- <xry111@xry111.site>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Date: Sat, 21 Mar 2026 17:29:23 +0800
-In-Reply-To: <20260321092804.3519447-1-zhengxingda@iscas.ac.cn>
-References: <20260321092804.3519447-1-zhengxingda@iscas.ac.cn>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 
+	by gabe.freedesktop.org (Postfix) with ESMTP id D153A10E217;
+	Sat, 21 Mar 2026 09:38:03 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="povw2A4Q";
+	dkim-atps=neutral
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com
+ [209.85.128.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9C8CC10E273
+ for <dri-devel@lists.freedesktop.org>; Sat, 21 Mar 2026 09:38:02 +0000 (UTC)
+Received: by mail-wm1-f48.google.com with SMTP id
+ 5b1f17b1804b1-486507134e4so32269995e9.0
+ for <dri-devel@lists.freedesktop.org>; Sat, 21 Mar 2026 02:38:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1774085881; x=1774690681; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:content-language:from
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=CFpg1mbZW3Ctniu50/V4S1EGhLRWMwZR4yXu0pZ0YM0=;
+ b=povw2A4QHorqNSr4ASZCTVAhpQ4K/aBtz+nPvPzh9tTl1oJzh0vQAqlBZSNv/sKxnu
+ FvS7bn/z5cvk/g5WRxxWHHYbUKUnaU+immRI++rNNaIZcNqOFsgOnV6j6kC42cxp6aRI
+ kc4YWt0xD3Ju24lbMunY0cYYo/GXR3wrYitO5nQ3GIp0YN4X268jvEsYhe3u21bVuNL5
+ WJeOWxVNAYN6fWN7hP0Uv2Q8nWv2VD5xtAgOBNBWDckPhJVwi3I6McZc2GBW7hoOetKF
+ DCU/6nBvrLAQtak4b1BtDXa5OAZwLWiwzyCpMFoIhrlF0sS+aSaZk1d4ttOr5SNF/j4i
+ QdlQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1774085881; x=1774690681;
+ h=content-transfer-encoding:in-reply-to:content-language:from
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=CFpg1mbZW3Ctniu50/V4S1EGhLRWMwZR4yXu0pZ0YM0=;
+ b=aUfyhiy6/Oa+ATUpXsPdl0o+5+20zeeBIL1eLtMVo4hOLeYTs5qE1mQ0LCdK21q5qM
+ we2xdsz9GM7ntfw6E+mfidH2nuBBSDNnnqCyDsX0CHZ8RjrPw3SFxZPZQGsNDoDXeR8e
+ VVlK5tR/imIhEniQB82ZtjnYLr5zPXRFr8BKANDwAEZgywNkZU4xjJ2GF/ehV7++KMgq
+ 49eZ56V4iTYVVRJDdQlMP7PPL3ZdA81vJzntnGUlOlwMbB4hP5pescV2QhGVTzT6HGxs
+ hJw5bePM7FQ07yXo6jm+nqg/VefBZRP6IlXMlr4/bisZncI0mNZs4LKu/Stw0EKUWU/i
+ Jf0g==
+X-Gm-Message-State: AOJu0YxJAdL6YE4+56+erS3nqXDy1mLrwX0gqI9lYdqeseAduDh01oU9
+ /QDz4mKpwSGZORlQ3lXmH59GWICp4V9r613QOHYYmi8t2KGaMKFFIttstVagmvYX1/Q=
+X-Gm-Gg: ATEYQzxismuzbTjsNF8/NPRSNcxpSR5PYLSOKBFPmGjlpP3pJY4nktBWwJHRK6Q5dwX
+ UDMtv8itB0/SSikbuB6YyQMmDkDs3kebTuK9llI9PFUAytC76kEz+62tRZ4qZ+dZ9yrn2YGm0f+
+ irZa9R4DxKwGwZ4Z/ptG6gr8UHw9oehPJ3WvjH3UMA2oxvDF7eCfKriD3211V4ku86iyotteGMW
+ 8QFQVTV1h1qEGyaO/lElXtL/oohtADKqqLis/jzinBfTB5vRagYSY8mGxCFC0pxVyY2qpZoXL1N
+ YJnlwU6CERZx8Yho7l434jsKDzLG5BTI3p/Rs3vwEwT1jSWa8K3hYcIcAlT3MJ4r1aV1B5gvyRT
+ zDX4398/vmMmXBbOIqnqFLoqSaE2Y93se/+HMIdNyU89b139aP7HaGXNAUXNyxqNc6A4IO+I0TA
+ 9GSj7VaQAQ6OniiQWUfRyKYkEBCn2mQVzGZRYwkzn+AXA6b10AuoQrPLJmcavgvtNKU31eEG1gE
+ 8q+BKUZ43xEIKzS2HFYfJ8=
+X-Received: by 2002:a05:6000:4021:b0:439:b1c3:84c8 with SMTP id
+ ffacd0b85a97d-43b6423bc21mr10398940f8f.21.1774085880444; 
+ Sat, 21 Mar 2026 02:38:00 -0700 (PDT)
+Received: from ?IPV6:2a01:e0a:106d:1080:81c2:60b3:ff00:9a5e?
+ ([2a01:e0a:106d:1080:81c2:60b3:ff00:9a5e])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-43b64717e97sm13770100f8f.35.2026.03.21.02.37.55
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sat, 21 Mar 2026 02:37:59 -0700 (PDT)
+Message-ID: <8462ee30-7e58-46ae-97f4-bc208dd40f27@linaro.org>
+Date: Sat, 21 Mar 2026 10:37:55 +0100
 MIME-Version: 1.0
-X-CM-TRANSID: qwCowAB3HGjzZL5pqtuyCg--.4345S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7ZFy8KFW3CrWkXr47AryDGFg_yoW8Xw1fpF
- srCr47trykXFyavwnrJ3W8u3Wfuay5Jr93uFy7tw13uw4UKr1UGF18AFsruw47XF9rJ34I
- gr1kKF1YkF429aDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUUvKb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
- 0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
- A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xII
- jxv20xvEc7CjxVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26F4UJVW0owA2z4x0Y4
- vEx4A2jsIEc7CjxVAFwI0_GcCE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xv
- F2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jrv_JF1lYx0Ex4A2jsIE14v26r1j6r
- 4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvEwIxGrwACI402YVCY1x02628vn2kIc2xK
- xwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJV
- W8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF
- 1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUCVW8JwCI42IY6x
- IIjxv20xvEc7CjxVAFwI0_Gr1j6F4UJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAI
- cVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8Jr0_Cr1UYxBIdaVFxh
- VjvjDU0xZFpf9x07beoGdUUUUU=
-X-Originating-IP: [112.94.102.202]
-X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 2/5] drm/meson: handle RGB101010 in format switches
+To: Alexander Koskovich <akoskovich@pm.me>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
+ <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Jeffrey Hugo <jeffrey.l.hugo@gmail.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ linux-amlogic@lists.infradead.org, linux-arm-kernel@lists.infradead.org
+References: <20260321-dsi-rgb101010-support-v4-0-eb28ecebbfe8@pm.me>
+ <20260321-dsi-rgb101010-support-v4-2-eb28ecebbfe8@pm.me>
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Content-Language: en-GB
+In-Reply-To: <20260321-dsi-rgb101010-support-v4-2-eb28ecebbfe8@pm.me>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,49 +103,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-=E5=9C=A8 2026-03-21=E5=85=AD=E7=9A=84 17:28 +0800=EF=BC=8CIcenowy Zheng=E5=
-=86=99=E9=81=93=EF=BC=9A
-> As there's no known hardware capability about querying vblank on the
-> LS7A1000 display controller, setting get_vblank_timestamp will
-> mislead the
-> kernel about the support of DC-backed high precision vblank query.
->=20
-> Drop this function pointer in the CRTC function table for LS7A1000.
->=20
-> This solves a kernel warning when booting Linux 7.0-rc3 on a
-> Loongson-3A4000+LS7A1000 Haier Boyue G51 laptop (with injected EDID
-> for
-> replicating the display timing set by the firmware).
->=20
-> Signed-off-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-
-Oh forgot to attach when crafting v2:
-
-```
-Acked-by: Thomas Zimmermann <tzimmermann@suse.de>
-```
-
+Le 21/03/2026 à 08:52, Alexander Koskovich a écrit :
+> Add RGB101010 to the unsupported format cases to fix -Wswitch warnings
+> introduced by the addition of the new pixel format.
+> 
+> Signed-off-by: Alexander Koskovich <akoskovich@pm.me>
 > ---
-> Changes in v2:
-> - Re-formatted Loongson product model numbers per request from
-> Huacai.
->=20
-> =C2=A0drivers/gpu/drm/loongson/lsdc_crtc.c | 1 -
-> =C2=A01 file changed, 1 deletion(-)
->=20
-> diff --git a/drivers/gpu/drm/loongson/lsdc_crtc.c
-> b/drivers/gpu/drm/loongson/lsdc_crtc.c
-> index 587fbe285e9ef..b3af8e0cdb15f 100644
-> --- a/drivers/gpu/drm/loongson/lsdc_crtc.c
-> +++ b/drivers/gpu/drm/loongson/lsdc_crtc.c
-> @@ -721,7 +721,6 @@ static const struct drm_crtc_funcs
-> ls7a1000_crtc_funcs =3D {
-> =C2=A0	.late_register =3D lsdc_crtc_late_register,
-> =C2=A0	.enable_vblank =3D lsdc_crtc_enable_vblank,
-> =C2=A0	.disable_vblank =3D lsdc_crtc_disable_vblank,
-> -	.get_vblank_timestamp =3D
-> drm_crtc_vblank_helper_get_vblank_timestamp,
-> =C2=A0	.atomic_print_state =3D lsdc_crtc_atomic_print_state,
-> =C2=A0};
-> =C2=A0
+>   drivers/gpu/drm/meson/meson_dw_mipi_dsi.c | 2 ++
+>   1 file changed, 2 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/meson/meson_dw_mipi_dsi.c b/drivers/gpu/drm/meson/meson_dw_mipi_dsi.c
+> index 66c73c512b0e..59fc0083d318 100644
+> --- a/drivers/gpu/drm/meson/meson_dw_mipi_dsi.c
+> +++ b/drivers/gpu/drm/meson/meson_dw_mipi_dsi.c
+> @@ -119,6 +119,7 @@ static int dw_mipi_dsi_phy_init(void *priv_data)
+>   		dpi_data_format = DPI_COLOR_18BIT_CFG_2;
+>   		venc_data_width = VENC_IN_COLOR_18B;
+>   		break;
+> +	case MIPI_DSI_FMT_RGB101010:
+>   	case MIPI_DSI_FMT_RGB666_PACKED:
+>   	case MIPI_DSI_FMT_RGB565:
+>   		return -EINVAL;
+> @@ -232,6 +233,7 @@ static int meson_dw_mipi_dsi_host_attach(void *priv_data,
+>   		break;
+>   	case MIPI_DSI_FMT_RGB666:
+>   		break;
+> +	case MIPI_DSI_FMT_RGB101010:
+>   	case MIPI_DSI_FMT_RGB666_PACKED:
+>   	case MIPI_DSI_FMT_RGB565:
+>   		dev_err(mipi_dsi->dev, "invalid pixel format %d\n", device->format);
+> 
 
+Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
