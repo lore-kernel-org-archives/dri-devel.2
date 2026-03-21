@@ -4,108 +4,102 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 472201094466
-	for <dri-devel@archiver.kernel.org>; Sat, 21 Mar 2026 09:47:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8E44D1094469
+	for <dri-devel@archiver.kernel.org>; Sat, 21 Mar 2026 09:56:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A68C210E2B6;
-	Sat, 21 Mar 2026 09:47:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EA0B510E0E2;
+	Sat, 21 Mar 2026 09:56:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=posteo.de header.i=@posteo.de header.b="aBOK43Gg";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="fiij6ej8";
 	dkim-atps=neutral
-Received: from mout01.posteo.de (mout01.posteo.de [185.67.36.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0565710E297
- for <dri-devel@lists.freedesktop.org>; Fri, 20 Mar 2026 16:53:12 +0000 (UTC)
-Received: from submission (posteo.de [185.67.36.169]) 
- by mout01.posteo.de (Postfix) with ESMTPS id 7F572240028
- for <dri-devel@lists.freedesktop.org>; Fri, 20 Mar 2026 17:53:10 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=posteo.de; s=2017;
- t=1774025590; bh=aCf96zFKCTs/MdCIPG/ntFu30qX/GsN6O6QXKIbHPJ0=;
- h=Message-ID:Subject:From:To:Cc:Date:Autocrypt:Content-Type:
- MIME-Version:OpenPGP:From;
- b=aBOK43GgMNzLWb2Pu5TihKB0CbxPOtyVgzKG7eW2fbQpUkOVuH4J1A2GPMaYukHAF
- ZiOeLbXmBdiHgs+9wBHng4+IiQW3e2h5zgH7VFf1x4v3rlFRqH6y1uvc+UNntyndTx
- 6RdYBppZN8NMRAT+hfexzD8dTvdPbkrTTV9TOcgQjB50aqdS6ocvrE0P0EArF4I65t
- j3LJ+3tc4keLWKlHovyWhXugo/C58a5nJakn0xsS5brceniDDsS1hXu+1x436F8lTo
- evzX/w1FUBY1EJy35cTJzVLTFwl9d24ZxuynvyfutUKCfa8AKAuCVBcp0rNj/BwTVI
- nK/Q4STO3t9Tw==
-Received: from customer (localhost [127.0.0.1])
- by submission (posteo.de) with ESMTPSA id 4fcpXf3wYsz6tvk;
- Fri, 20 Mar 2026 17:53:06 +0100 (CET)
-Message-ID: <9e07a53053d1dd75a4ebe94aaa06e2279ef3701d.camel@posteo.de>
-Subject: Re: [PATCH v3 2/4] serdev: add rust private data to serdev_device
-From: Markus Probst <markus.probst@posteo.de>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Rob Herring <robh@kernel.org>, Jiri Slaby <jirislaby@kernel.org>, Miguel
- Ojeda <ojeda@kernel.org>, Gary Guo <gary@garyguo.net>,
- =?ISO-8859-1?Q?Bj=F6rn?= Roy Baron	 <bjorn3_gh@protonmail.com>, Benno
- Lossin <lossin@kernel.org>, Andreas Hindborg	 <a.hindborg@kernel.org>,
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross	 <tmgross@umich.edu>,
- Danilo Krummrich <dakr@kernel.org>, Kari Argillander	
- <kari.argillander@gmail.com>, "Rafael J. Wysocki" <rafael@kernel.org>, 
- Viresh Kumar <viresh.kumar@linaro.org>, Boqun Feng <boqun@kernel.org>,
- David Airlie <airlied@gmail.com>,  Simona Vetter <simona@ffwll.ch>,
- linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org, 
- rust-for-linux@vger.kernel.org, linux-pm@vger.kernel.org, 
- driver-core@lists.linux.dev, dri-devel@lists.freedesktop.org
-Date: Fri, 20 Mar 2026 16:53:09 +0000
-In-Reply-To: <2026031447-margarita-untamed-e976@gregkh>
-References: <20260313-rust_serdev-v3-0-c9a3af214f7f@posteo.de>
- <20260313-rust_serdev-v3-2-c9a3af214f7f@posteo.de>
- <2026031402-absence-graph-af5d@gregkh>
- <a9618d034bd48ec21bd26060573770a548619402.camel@posteo.de>
- <2026031422-shaded-matchbook-5078@gregkh>
- <fa25ed4ff4688a40bd601d695804def772e47af9.camel@posteo.de>
- <2026031447-margarita-untamed-e976@gregkh>
-Autocrypt: addr=markus.probst@posteo.de; prefer-encrypt=mutual;
- keydata=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
- jfGillcaQOqFZ3WwVqyzG1BUfTow==
-Content-Type: multipart/signed; micalg="pgp-sha256";
- protocol="application/pgp-signature"; boundary="=-g3CbthudwdEXGBh5+IEt"
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B32B110E0E2
+ for <dri-devel@lists.freedesktop.org>; Sat, 21 Mar 2026 09:56:44 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 29AF443989;
+ Sat, 21 Mar 2026 09:56:44 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E9F0C19421;
+ Sat, 21 Mar 2026 09:56:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1774087004;
+ bh=+LVNkCkCMdRhAgRtq1Pu/cBRkMFNTx5E4/plQSuuNBs=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=fiij6ej82yH+M+mEq4Jf73Xe124BHToVVWaE8kFcgvpmd2mtfo/xSgSm0pBe/83SB
+ EgG6vS9iBCKib2rZr/mN1IIk2HlrcI/nSod1hUsq12PHob0e5XeZzxyL+26mJlcTyv
+ CA1osB+90HHxRFOoXEVcL1pZ5+4H7vxP2yq9EyAtCZhU4+TAk6QABpAbHV4cLIt3ng
+ +B12VEtlzrkL8NAnygYUr+3VpVWBMLkewV7TzzYOlBTMJ/VgsKisYKyiWbsKLmpgMS
+ eggDRPvZVwMJ040cVEflITfqg46fh3Ahgmt+Sur8hsA8h0fb4TB7rCMNreG8sWFzLP
+ JMO9jDVQYg7fA==
+Message-ID: <9bb6e4ac-c7f2-4f1d-aff0-70eefec810a2@kernel.org>
+Date: Sat, 21 Mar 2026 10:56:38 +0100
 MIME-Version: 1.0
-OpenPGP: url=https://posteo.de/keys/markus.probst@posteo.de.asc;
- preference=encrypt
-X-Mailman-Approved-At: Sat, 21 Mar 2026 09:46:58 +0000
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/6] dt-bindings: display: panel: Add Novatek NT35532
+ LCD DSI
+To: cristian_ci <cristian_ci@protonmail.com>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht,
+ phone-devel@vger.kernel.org
+References: <20260318-rimob-new-features-v2-0-c1bf8917449e@protonmail.com>
+ <20260318-rimob-new-features-v2-1-c1bf8917449e@protonmail.com>
+ <20260319-amorphous-pastoral-turtle-851af9@quoll>
+ <oMTrCB7euJojLz1EUHDhHCq071GQWD0g7-sqwahA62CnM-sVw08UCNhKdgHX2NrEN3H8iRhc0suejuq5JZ39UA2nEfKhRq9qwYJWSxCrAtc=@protonmail.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 a/A=
+In-Reply-To: <oMTrCB7euJojLz1EUHDhHCq071GQWD0g7-sqwahA62CnM-sVw08UCNhKdgHX2NrEN3H8iRhc0suejuq5JZ39UA2nEfKhRq9qwYJWSxCrAtc=@protonmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -121,137 +115,57 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On 20/03/2026 23:32, cristian_ci wrote:
+> On Thursday, March 19th, 2026 at 10:09, Krzysztof Kozlowski <krzk@kernel.org> wrote:
+> 
+>> On Wed, Mar 18, 2026 at 11:28:09PM +0100, Cristian Cozzolino wrote:
+>>> +  avdd-supply:
+>>> +    description: positive boost supply regulator
+>>> +
+>>> +  avee-supply:
+>>> +    description: negative boost supply regulator
+>>> +
+>>> +  vci-supply:
+>>> +    description: regulator that supplies the analog voltage
+>>> +
+>>> +  vddam-supply:
+>>> +    description: power supply for MIPI interface
+>>> +
+>>> +  vddi-supply:
+>>> +    description: regulator that supplies the I/O voltage
+>>> +
+>>> +  port: true
+>>> +
+>>> +required:
+>>> +  - compatible
+>>> +  - reg
+>>> +  - reset-gpios
+>>> +  - avdd-supply
+>>> +  - avee-supply
+>>> +  - vci-supply
+>>
+>> Only VDDI is required according to datasheet (see page 11 and page 16).
+> 
+> Just to be sure, are you mentioning the part saying there are multiple 
+> power modes (2-1PWR, 2-2PWR, 3éWR and 4PWR) related to NT35532? 
+> 
+>> Others are needed only in specific configurations, which I would ignore
+>> for the simplicity of the binding. Drop these three.
+>>
+>> Previous discussion point was about this - write bindings based on
+>> datasheet, since it is available.
+> 
+> I've removed avdd, avee and vci supplies from 'required' properties 
+> and I've also tested the new bindings (just for completeness). Now, 
+> I'm going to reintroduce again the issue already raised previously 
+> (for which I received no replies in v1): should I submit a v3 
+> series including my new changes or I've to stick with v2 here, in 
+> order to address review concerns about binding, first?
+> 
 
---=-g3CbthudwdEXGBh5+IEt
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+I don't understand the question. This is v2, right? So I asked to make
+changes to it, thus you should submit v3 after receiving some more
+review for example.
 
-On Sat, 2026-03-14 at 14:31 +0100, Greg Kroah-Hartman wrote:
-> On Sat, Mar 14, 2026 at 12:08:09PM +0000, Markus Probst wrote:
-> > On Sat, 2026-03-14 at 12:52 +0100, Greg Kroah-Hartman wrote:
-> > > On Sat, Mar 14, 2026 at 11:42:02AM +0000, Markus Probst wrote:
-> > > > On Sat, 2026-03-14 at 09:07 +0100, Greg Kroah-Hartman wrote:
-> > > > > On Fri, Mar 13, 2026 at 06:12:31PM +0000, Markus Probst wrote:
-> > > > > > Add rust private data to `struct serdev_device`, as it is requi=
-red by the
-> > > > > > rust abstraction added in the following commit
-> > > > > > (rust: add basic serial device bus abstractions).
-> > > > >=20
-> > > > > why is rust "special" here?  What's wrong with the existing priva=
-te
-> > > > > pointer in this structure?  Why must we add another one?
-> > > > Because in rust, the device drvdata will be set after probe has run=
-. In
-> > > > serdev, once the device has been opened, it can receive data. It mu=
-st
-> > > > be opened either inside probe or before probe, because it can only =
-be
-> > > > configured (baudrate, flow control etc.) and data written to after =
-it
-> > > > has been opened. Because it can receive data before drvdata has bee=
-n
-> > > > set yet, we need to ensure it waits on data receival for the probe =
-to
-> > > > be finished. Otherwise this would be a null pointer dereference. To=
- do
-> > > > this, we need to store a `Completion` for it to wait and a `bool` i=
-n
-> > > > case the probe exits with an error. We cannot store this data in th=
-e
-> > > > device drvdata, because this is where the drivers drvdata goes. We =
-also
-> > > > cannot create a wrapper of the drivers drvdata, because
-> > > > `Device::drvdata::<T>()` would always fail in that case. That is wh=
-y we
-> > > > need a "rust_private_data" for this abstraction to store the
-> > > > `Completion` and `bool`.
-> > >=20
-> > > So why is this any different from any other bus type?  I don't see th=
-e
-> > > "uniqueness" here that has not required this to happen for PCI or USB=
- or
-> > > anything else.
-> > >=20
-> > > What am I missing?
-> > In Short:
-> > In serdev, we have to handle incoming device data (serdev calls on a
-> > function pointer we provide in advance), even in the case that the
-> > driver hasn't completed probe yet.
->=20
-> But how is that any different from a USB or PCI driver doing the same
-> thing?  Why is serdev so unique here?=C2=A0
->=20
-In PCI or USB we don't need to provide function pointers for callbacks
-in advance, which will be can be called any time (even while probe).
-
-> What specific serdev function
-> causes this
->=20
-drivers/tty/serdev/serdev-ttyport.c basically only wraps the serdev
-calls to tty calls. This isn't directly caused by a serdev function,
-but by the tty part.
-
-> why isn't it an issue with the C api?
->=20
-In C you can set the drvdata inside the probe and even with it not
-being fully initialized.
-
-With Rust the drvdata is only available after the probe.
-But there is the posibility of serdev calling the provided callback
-inside probe.
-
-> Can we change the
-> C code to not require this?
-Serdev is very closely linked to tty.
-
-There are 3 options:
-
-1. Add a `rust_serdev_device_open` and `rust_serdev_device_ready`
-function. `rust_serdev_device_open` would do the same thing as
-`serdev_device_open`, but with calling `tty_buffer_lock_exclusive`
-before opening the underlying tty port. `rust_serdev_device_ready`
-would call `tty_buffer_unlock_exclusive`. Such functions would then
-need to exist for every serdev controller (currently there is only
-ttyport as serdev controller).
-
-2. Rewrite parts of the tty subsystem.
-
-Not sure what would need to be changed there yet. But this could also
-affect the existing tty drivers, which are a lot in comparision to
-serdev.
-
-3. Keep the `rust_private_data` pointer in `serdev_device`.
-
-This seems to be the simplest option to me.
-
-Thanks
-- Markus Probst
-
->=20
-> thanks,
->=20
-> greg k-h
-
---=-g3CbthudwdEXGBh5+IEt
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-
------BEGIN PGP SIGNATURE-----
-
-iQJPBAABCAA5FiEEgnQYxPSsWOdyMMRzNHYf+OetQ9IFAmm9e2gbFIAAAAAABAAO
-bWFudTIsMi41KzEuMTEsMiwyAAoJEDR2H/jnrUPSI+kP/3X6te0SF58we5D2EoMb
-7sQZ+9SkMWmv+XeI+5UYyRLUxVk6LunZoBQQQ5Qcz1V/AOrZ+Ai1UzGsY1v82G1a
-HjFbl/6DW+yjhQM/nF6NbHnO04c1NqL7H34WlcP8On6dDPsE8w7qzFxobGcSVa6c
-0HFDdh7SCfnG1aDwMqZmO7X5QoK8Z7ziKbN3UTkJQn2btHIWwCeNr1jx4tszJSHz
-RwosmSy2suRMAufk7I+bTcWatLRQ8+zC0WsxyNK9yS1pocknUg+zKhxD68yhn4lT
-aRBAemFyubZkH1AhDuLtwE68B5Wxte0MUj1q1Ak08Qs5EKMlHBx03Ul8XsyJp0sO
-c1tzdh3/ckO5ts6MYbmTt9BwLzQcTMi6KFN7dnIx/z54ZgOtu6FZm+5YimYsEx+v
-QMEptqHDvtaVUl9UuOoXzcywYhzaDtwPysgjbrYUVye9vY5ewGbAw+TNhenIYGf2
-BH0cUHUT5R/8szuSLBjLudCm4PtczUVJ2AWb0wcxvTfPzrcnyCNSp63O1vOxDbec
-B03ozKBWVyyHXycnlMTL5qZXdAYIK+HkWx/nqsyBdHOb4fAk7oo+qwxezbVkGwaE
-aqWZLVCzoqKuZYpAzt8qAruPV5+FJkgwyMUMucbuadDE434yL6d5Zn+b7cR+mtol
-YjGsdjVLG67iThlLpddT99+F
-=kCMN
------END PGP SIGNATURE-----
-
---=-g3CbthudwdEXGBh5+IEt--
+Best regards,
+Krzysztof
