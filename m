@@ -4,69 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B3073109446E
-	for <dri-devel@archiver.kernel.org>; Sat, 21 Mar 2026 11:06:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DF0A6109446A
+	for <dri-devel@archiver.kernel.org>; Sat, 21 Mar 2026 11:06:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2743810E262;
-	Sat, 21 Mar 2026 11:06:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 567A010E286;
+	Sat, 21 Mar 2026 11:06:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=smail.nju.edu.cn header.i=@smail.nju.edu.cn header.b="MFmtzOcI";
+	dkim=pass (1024-bit key; unprotected) header.d=smail.nju.edu.cn header.i=@smail.nju.edu.cn header.b="pB0amgU2";
 	dkim-atps=neutral
-X-Greylist: delayed 468 seconds by postgrey-1.36 at gabe;
- Sat, 21 Mar 2026 11:06:18 UTC
 Received: from smtpbgeu2.qq.com (smtpbgeu2.qq.com [18.194.254.142])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1D55310E262
- for <dri-devel@lists.freedesktop.org>; Sat, 21 Mar 2026 11:06:17 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 464AD10E286
+ for <dri-devel@lists.freedesktop.org>; Sat, 21 Mar 2026 11:06:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=smail.nju.edu.cn;
- s=iohv2404; t=1774091174;
- bh=6q1mA0koXUTg6TBWA7xMsAKd0ETTyN6V8pIWIohANrc=;
+ s=iohv2404; t=1774091188;
+ bh=Bh7Ir3H0CY3VDMvhV9FMShbp9LroW2I2hlAtJxWy2m0=;
  h=From:To:Subject:Date:Message-Id:MIME-Version;
- b=MFmtzOcI9MuF368rm7knJoI95Nnn+7Y/dCAafVD9ppjFmPFu8R+T41Zl66dHCxy88
- S4a6kGZL3zKVcoW7KZDmD9vexIT6nigt302OvL1nLcvt1cjoLd4eWNHR5m4o2e6xwH
- 1tSzjt9NButwfxsXUGyZdO+G3yfgeO0RIcb6ogoY=
-X-QQ-mid: esmtpgz14t1774090666tdea662e4
-X-QQ-Originating-IP: 8D87eRXUJrMhnxzLjRVEwHZKMsSv2YqjLT/589VuRLA=
+ b=pB0amgU20f4c1TqKzMqTIW1RVDxZ9XnffPpxmGxqKonOuY6HyD0pXw5OSKX7+CMoV
+ 8C8brPgcCYR7iE9RvUeN7kMlkiDABLu0jNTYvkw7PzFIYN4zJ4lJqOgoEyejrmZ07n
+ QkOMERi3oF0IvYxZVfwcvtBGv30eFVM7aijKuL48=
+X-QQ-mid: zesmtpsz1t1774090641t308b39db
+X-QQ-Originating-IP: paFbi8WlmVrJS3irHdYehrm5QNgV5zXZdOJspUeAEc4=
 Received: from localhost.localdomain ( [116.172.93.199])
  by bizesmtp.qq.com (ESMTP) with 
- id ; Sat, 21 Mar 2026 18:57:43 +0800 (CST)
+ id ; Sat, 21 Mar 2026 18:57:18 +0800 (CST)
 X-QQ-SSF: 0000000000000000000000000000000
 X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 9834811083599796826
-EX-QQ-RecipientCnt: 15
+X-BIZMAIL-ID: 13888191121335503655
+EX-QQ-RecipientCnt: 24
 From: Kexin Sun <kexinsun@smail.nju.edu.cn>
-To: mripard@kernel.org, dave.stevenson@raspberrypi.com, mcanal@igalia.com,
- kernel-list@raspberrypi.com, maarten.lankhorst@linux.intel.com,
- tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch,
+To: harry.wentland@amd.com, sunpeng.li@amd.com, siqueira@igalia.com,
+ alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
+ simona@ffwll.ch, mario.limonciello@amd.com, alex.hung@amd.com,
+ aurabindo.pillai@amd.com, ray.wu@amd.com, Wayne.Lin@amd.com,
+ timur.kristof@gmail.com, superm1@kernel.org, ivan.lipski@amd.com,
+ dominik.kaszewski@amd.com, amd-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Cc: julia.lawall@inria.fr, xutong.ma@inria.fr, kexinsun@smail.nju.edu.cn,
  yunbolyu@smu.edu.sg, ratnadiraw@smu.edu.sg
-Subject: [PATCH] drm/vc4: update outdated comment for renamed
- vc4_crtc_atomic_flush()
-Date: Sat, 21 Mar 2026 18:57:43 +0800
-Message-Id: <20260321105743.6562-1-kexinsun@smail.nju.edu.cn>
+Subject: [PATCH] drm/amd/display: update outdated comments for renamed
+ vblank_control_worker()
+Date: Sat, 21 Mar 2026 18:57:17 +0800
+Message-Id: <20260321105717.6212-1-kexinsun@smail.nju.edu.cn>
 X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpgz:smail.nju.edu.cn:qybglogicsvrgz:qybglogicsvrgz5b-0
-X-QQ-XMAILINFO: NTlTHRzUuWSgsD6GjcIPSH3vu1AUJVp7322egipXDI7Bsgc9146o1LsS
- BrJDaDIyYpiZtof21bT1usYkBG1NbeCCwScTdlWtxDPJz0eaCN2CxnXziOm7kQbfVit/OD2
- bUEH8n81fG7Sw2oCXfgztJlRKe/NUo4XPROGpqBzf6UPuhHr/daAx4HjaSnfdGa3e5bCNr8
- mLB3p0fCsRBYTuP7apPjV/pzWSZ1mR37hmVg3j6GSzX5nerkRmrtD/I4zDUV4W/6cauQcBz
- aDTjXHb2veUsZjItqUEI4EVKxATvV/e1qQNAZh7KST7NjKxIUd5JLE7P6vvoy/YJg8tcQSa
- gRdBPDBwA60dYtD6lBgiGGCz+4hy0oHGm3wRjfsyE6oSLBilPUdF9kK6X45tiEWfx8LXUBa
- WeXwXeLrXKf3FHiLzFv0zBezVPzEujD+th/9eb+pJaOpzpXsj9MFfenj90fllm8ON09dlxB
- 57FF50GJlclEIiedkeaE9Pg/oqZBEzYw5NxCDK+MD7C5HMc9zm0d4kgegXJ1QB9kVn6n/Zl
- 6rIce42eFkJAJVchK/kc0nhmGxHXOz2jvwtUH5dwq3t8Bhx2csPhGUIEg0JRfSOKtatJ2WJ
- w9eGLqR+1tgyrEGtFoBru2fvHb2/9eDH/TLLWaatQCwsgQnJmf4/iZLyO1SIacL3abxa+M8
- NcA0RRbOvcJpzLDjBtPCgrA4CJo9aXmheE6lTcemfgcfsGA2EAQUpsiVlKQgyzBJxLjVkMX
- mNQZGA1p6uETlLMzFcCTbMtDQOXPTiNXpRBJpK5YlbImjSQ9pMLRdSPwEn+8UIbB90uYjFO
- 0DgNU1b28R0h4c7AijJODwsaFy6rvqiwHnVXPYiXI6agN3lkYLMa4agsAfL60k4GidBGW7Q
- b2QHgh5DzGhz+AVYiLn9hWb82D+HapFgADL3WfDXw0VCj+fKORdNxREp/swLLmvUFTcsFkC
- +cGncijRNLWDNVAuB53w9yXxMd9m6zAD+QlFfNcY5hQDlZiQmtGjcW5JuwF7WZN2kBGMOxj
- NuJTTuVrP6fIb3mKSERUeEfy8icdpQu8XK1SHJhRrT96Y7tIlZA0+neZOH7188ypEFFdUl4
- Wc7ZxxnCZCYwmz1a0vH+FU=
-X-QQ-XMRINFO: Mp0Kj//9VHAxzExpfF+O8yhSrljjwrznVg==
+Feedback-ID: zesmtpsz:smail.nju.edu.cn:qybglogicsvrgz:qybglogicsvrgz5b-0
+X-QQ-XMAILINFO: OAykwSsVAcprVxpVphQ9R+O5zu723FH2ntCTmPGSDjuRjHVT26IB6CyN
+ Q/4C9J+DLHwW0qkXaNSjEl5v0936PxuuKmVxXB0lXEoW4lfFbQNL+aXkPP1HmvNiUBVgWRl
+ qIRtJKcjN7cqUibc7t5Ar/1xE1X32wgHZubjzjVAOXv0wj8RMEfzxPRlf0wa2xuJINHwfdc
+ H835yo5WJ7t6P+W/0/nk6wk2iXIwGsLrtFwJT7OrQ/AP4hxkwAjnjh5RO/ya1MROfX8BUs8
+ +mvwjWFzyxOO7qYbyWWp09rQ8Y3xPINDEAXdLXnYI7t5+q83Y2mv7vyC/CLf0ecZH2yun9F
+ A7Lr5y7pQc396lyUk2/6pFFRUFpetrtg1xJEJ70pNFgb3bWoCQ57KSfOTtDTV0zWc2im8eS
+ 2QStWs7MkiVLphtzDNaoEudwk42ohpxtVhA5/6s21xFlY5okvaO8bVx9gvwyI9X11EHALDI
+ 7qtmCkaa8CbToZXa0SLQhc/fI3dx4L2K1iedndJcd7O0eiHjP9+kJX5mywZVNV5z8ItLUUH
+ 8t2YUhB/jKHrSf3Q5SgrXwBlNY4qlH/bwc12n++wP745H9wmIbQembK5fXcBlKOaH/EWj91
+ WqX36kOSjfrzAzWmFqcMTdWRzDL6yYU/hkchAi/dW2xYJq9mg7LwUduMPZ4aNZg0GJ6nII8
+ r1Xobdz9TDpLoDZWaOBj9r5hhQPqLAXOYzMx4s4lYBLb9QSKYTE6IQ83ls18M/Q9J1N3zqV
+ OBmXHAQD/jnzLZz61yblykCj3LRKI9fIeS8W7JQxqRiFfmeVvRkU8fMPQZ6hkQ1/mV4i28R
+ 9GxJDFHwLkeGG4mpBdI2WI/kXCIwTC0z3x47eNOhVFIeTx5FR7a42evqhzNQCgH52LWpuDa
+ WjwjtNk+gXVjtT4YUcMthxNvrEESakADkHvrn/dFSIR1Ogyo4uRx2s32OLil5LxEDnPZ2b1
+ 9aIbUGuHQ9+eFC8ExRUV00WVDX3tY+mD8cGQye3BIfF1zaqhtE8Z2VRmNfM2rkxHlTQJKai
+ CIByJOS/T3zffns4PW6C6UZ7X7rul78vnLrlh6t+2P+IWIYPozLY+4hui3aHhlqEUZ5MP4h
+ DKe70hpZsV+fdr/zKbbBjg=
+X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
 X-QQ-RECHKSPAM: 0
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -83,30 +84,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The function vc4_crtc_atomic_flush() was moved and renamed
-to vc4_hvs_atomic_flush() by commit 8175287bdd06
-("drm/vc4: crtc: Move HVS setup code to the HVS driver").
-Update the stale reference in struct vc4_plane_state.
+The function vblank_control_worker() was renamed
+to amdgpu_dm_crtc_vblank_control_worker() by commit
+6ce4f9ee25ff ("drm/amd/display: Add prefix to amdgpu crtc
+functions").  Update the two stale references in
+amdgpu_dm.c.
 
 Assisted-by: unnamed:deepseek-v3.2 coccinelle
 Signed-off-by: Kexin Sun <kexinsun@smail.nju.edu.cn>
 ---
- drivers/gpu/drm/vc4/vc4_drv.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/vc4/vc4_drv.h b/drivers/gpu/drm/vc4/vc4_drv.h
-index 221d8e01d539..9d4bb6144a42 100644
---- a/drivers/gpu/drm/vc4/vc4_drv.h
-+++ b/drivers/gpu/drm/vc4/vc4_drv.h
-@@ -410,7 +410,7 @@ struct vc4_plane_state {
- 	u32 lbm_offset;
- 
- 	/* Offset where the plane's dlist was last stored in the
--	 * hardware at vc4_crtc_atomic_flush() time.
-+	 * hardware at vc4_hvs_atomic_flush() time.
- 	 */
- 	u32 __iomem *hw_dlist;
- 
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index b3d6f2cd8ab6..c2b7b31b0d29 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -9894,7 +9894,8 @@ static void amdgpu_dm_enable_self_refresh(struct amdgpu_crtc *acrtc_attach,
+ 		 * a vblank event disable request to enable PSR/RP. PSR SU/RP
+ 		 * can be enabled immediately once OS demonstrates an
+ 		 * adequate number of fast atomic commits to notify KMD
+-		 * of update events. See `vblank_control_worker()`.
++		 * of update events.
++		 * See `amdgpu_dm_crtc_vblank_control_worker()`.
+ 		 */
+ 		if (!vrr_active &&
+ 		    acrtc_attach->dm_irq_params.allow_sr_entry &&
+@@ -10062,8 +10063,9 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_state *state,
+ 			/*
+ 			 * If the dirty regions changed, PSR-SU need to be disabled temporarily
+ 			 * and enabled it again after dirty regions are stable to avoid video glitch.
+-			 * PSR-SU will be enabled in vblank_control_worker() if user pause the video
+-			 * during the PSR-SU was disabled.
++			 * PSR-SU will be enabled in
++			 * amdgpu_dm_crtc_vblank_control_worker() if user
++			 * pause the video during the PSR-SU was disabled.
+ 			 */
+ 			if (acrtc_state->stream->link->psr_settings.psr_version >= DC_PSR_VERSION_SU_1 &&
+ 			    acrtc_attach->dm_irq_params.allow_sr_entry &&
 -- 
 2.25.1
 
