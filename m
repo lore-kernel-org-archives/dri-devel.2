@@ -4,31 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E78FF1094463
-	for <dri-devel@archiver.kernel.org>; Sat, 21 Mar 2026 07:52:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0EBF61094463
+	for <dri-devel@archiver.kernel.org>; Sat, 21 Mar 2026 07:53:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5B2DD10E2AE;
-	Sat, 21 Mar 2026 07:52:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 622BE10E270;
+	Sat, 21 Mar 2026 07:53:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=pm.me header.i=@pm.me header.b="jB/Sy4aF";
+	dkim=pass (2048-bit key; secure) header.d=pm.me header.i=@pm.me header.b="i7rnNbQh";
 	dkim-atps=neutral
-Received: from mail-244116.protonmail.ch (mail-244116.protonmail.ch
- [109.224.244.116])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9EAA410E270;
- Sat, 21 Mar 2026 07:52:53 +0000 (UTC)
+Received: from mail-10628.protonmail.ch (mail-10628.protonmail.ch
+ [79.135.106.28])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D94F410E270;
+ Sat, 21 Mar 2026 07:53:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
- s=protonmail3; t=1774079571; x=1774338771;
- bh=GXIrZ2JeBYt7lvRrjXt7T5FwWusy32QKCFn/6PrHSYY=;
+ s=protonmail3; t=1774079581; x=1774338781;
+ bh=VIjFEoU5kuSs8on1xHPBMp4W/LcZNwtBH4t9BMnjpcM=;
  h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
  Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
  Message-ID:BIMI-Selector;
- b=jB/Sy4aFU4bYROKDZO6trbv16jvGwLbuXAMSwKZvdgBKyG+jDhoKqIcvCX4vnWIPM
- zdzANg6OAY201s7xjeU2ILkSpRhaI7PkTEy5slXkTPGN1hmvIieFEdjr5g5k0X/Zhb
- ORElhunBjYRfiSSLVJn5xZbhNe5TM9FYhrai1mrdIlXw5NqLDm0PXydM43dz45Rs2n
- bA8zVphKpaalPxNoemc/U5wL4wrJcS18Q7HHcsbIhdvBvDvAw8uVgHY2hXInVF8R6i
- H/GutRBI5DVec8rxlAVi4yJztLacvy7mTtUvj573ud9cpALMSi/Y+0ocAbc73urT8Y
- obCIZFCA5jRNA==
-Date: Sat, 21 Mar 2026 07:52:47 +0000
+ b=i7rnNbQhaPSKpF1d6rSWnhEXzbgrw/1jVTnJrwVzN3jy9f+6SqCdWm3jNcbNJOc+2
+ gm0DX4CRW2kPVdS7DnVmP4QcVibodGzYstXHgGrjH4Z5TnCy7jWkowmI8hhkPFpbBt
+ Dzlx8lluTxgzhepENH6nfYVo2d6sT5B38YUyEb8964Q+/phBxFBpSJ3hEBprFOLb/o
+ VD+L5bYRLT0RQZvYg780FIYCglhuGdh9B3tDRufMsMSZWuqY8JYsEtSf2T5JUWd48Y
+ RwGBIjUFDsnT+Y+anr8bWOguuS3StbobyFKbW7SmhxoZz7bcT+c5rLY7wwJ2+9PnKm
+ p9LfqeokhT0nA==
+Date: Sat, 21 Mar 2026 07:52:55 +0000
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
@@ -46,12 +46,12 @@ Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  Alexander Koskovich <akoskovich@pm.me>,
  Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
  Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Subject: [PATCH v4 4/5] drm/msm/dsi: add DSI version >= comparison helper
-Message-ID: <20260321-dsi-rgb101010-support-v4-4-eb28ecebbfe8@pm.me>
+Subject: [PATCH v4 5/5] drm/msm/dsi: Add support for RGB101010 pixel format
+Message-ID: <20260321-dsi-rgb101010-support-v4-5-eb28ecebbfe8@pm.me>
 In-Reply-To: <20260321-dsi-rgb101010-support-v4-0-eb28ecebbfe8@pm.me>
 References: <20260321-dsi-rgb101010-support-v4-0-eb28ecebbfe8@pm.me>
 Feedback-ID: 37836894:user:proton
-X-Pm-Message-ID: 2b0c9cedaf796717b0cb0c1a53938aef4991d5a7
+X-Pm-Message-ID: 74e88428093f1c2459eaaeb3576114a45fa4c3bd
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
@@ -70,46 +70,98 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add a helper for checking if the DSI hardware version is greater
-than or equal to a given version, for use in a future change.
+Add video and command mode destination format mappings for RGB101010,
+and extend the VID_CFG0 DST_FORMAT bitfield to 3 bits to accommodate
+the new format value.
+
+Make sure this is guarded behind MSM_DSI_6G_VER >=3D V2.1.0 as anything
+older does not support this.
+
+Required for 10 bit panels such as the BOE BF068MWM-TD0.
 
 Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 Signed-off-by: Alexander Koskovich <akoskovich@pm.me>
 ---
- drivers/gpu/drm/msm/dsi/dsi_host.c | 12 ++++++++++--
- 1 file changed, 10 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/msm/dsi/dsi_host.c            | 10 ++++++++++
+ drivers/gpu/drm/msm/registers/display/dsi.xml |  5 ++++-
+ 2 files changed, 14 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/d=
 si_host.c
-index db6da99375a1..b55ffe2fdec3 100644
+index b55ffe2fdec3..67b33f46a93c 100644
 --- a/drivers/gpu/drm/msm/dsi/dsi_host.c
 +++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
-@@ -782,13 +782,21 @@ static void dsi_ctrl_disable(struct msm_dsi_host *msm=
-_host)
- =09dsi_write(msm_host, REG_DSI_CTRL, 0);
- }
-=20
-+static bool msm_dsi_host_version_geq(struct msm_dsi_host *msm_host,
-+=09=09=09=09    u32 major, u32 minor)
-+{
-+=09return msm_host->cfg_hnd->major > major ||
-+=09       (msm_host->cfg_hnd->major =3D=3D major &&
-+=09       msm_host->cfg_hnd->minor >=3D minor);
-+}
-+
- bool msm_dsi_host_is_wide_bus_enabled(struct mipi_dsi_host *host)
+@@ -757,6 +757,7 @@ static inline enum dsi_vid_dst_format
+ dsi_get_vid_fmt(const enum mipi_dsi_pixel_format mipi_fmt)
  {
- =09struct msm_dsi_host *msm_host =3D to_msm_dsi_host(host);
+ =09switch (mipi_fmt) {
++=09case MIPI_DSI_FMT_RGB101010:=09return VID_DST_FORMAT_RGB101010;
+ =09case MIPI_DSI_FMT_RGB888:=09return VID_DST_FORMAT_RGB888;
+ =09case MIPI_DSI_FMT_RGB666:=09return VID_DST_FORMAT_RGB666_LOOSE;
+ =09case MIPI_DSI_FMT_RGB666_PACKED:=09return VID_DST_FORMAT_RGB666;
+@@ -769,6 +770,7 @@ static inline enum dsi_cmd_dst_format
+ dsi_get_cmd_fmt(const enum mipi_dsi_pixel_format mipi_fmt)
+ {
+ =09switch (mipi_fmt) {
++=09case MIPI_DSI_FMT_RGB101010:=09return CMD_DST_FORMAT_RGB101010;
+ =09case MIPI_DSI_FMT_RGB888:=09return CMD_DST_FORMAT_RGB888;
+ =09case MIPI_DSI_FMT_RGB666_PACKED:
+ =09case MIPI_DSI_FMT_RGB666:=09return CMD_DST_FORMAT_RGB666;
+@@ -1706,6 +1708,14 @@ static int dsi_host_attach(struct mipi_dsi_host *hos=
+t,
+ =09if (dsi->lanes > msm_host->num_data_lanes)
+ =09=09return -EINVAL;
 =20
- =09return msm_host->dsc &&
--=09=09(msm_host->cfg_hnd->major =3D=3D MSM_DSI_VER_MAJOR_6G &&
--=09=09 msm_host->cfg_hnd->minor >=3D MSM_DSI_6G_VER_MINOR_V2_5_0);
-+=09=09msm_dsi_host_version_geq(msm_host, MSM_DSI_VER_MAJOR_6G,
-+=09=09=09=09=09MSM_DSI_6G_VER_MINOR_V2_5_0);
- }
-=20
- static void dsi_ctrl_enable(struct msm_dsi_host *msm_host,
++=09if (dsi->format =3D=3D MIPI_DSI_FMT_RGB101010 &&
++=09    !msm_dsi_host_version_geq(msm_host, MSM_DSI_VER_MAJOR_6G,
++=09=09=09=09     MSM_DSI_6G_VER_MINOR_V2_1_0)) {
++=09=09DRM_DEV_ERROR(&msm_host->pdev->dev,
++=09=09=09      "RGB101010 not supported on this DSI controller\n");
++=09=09return -EINVAL;
++=09}
++
+ =09msm_host->channel =3D dsi->channel;
+ =09msm_host->lanes =3D dsi->lanes;
+ =09msm_host->format =3D dsi->format;
+diff --git a/drivers/gpu/drm/msm/registers/display/dsi.xml b/drivers/gpu/dr=
+m/msm/registers/display/dsi.xml
+index c7a7b633d747..e40125f75175 100644
+--- a/drivers/gpu/drm/msm/registers/display/dsi.xml
++++ b/drivers/gpu/drm/msm/registers/display/dsi.xml
+@@ -15,6 +15,7 @@ xsi:schemaLocation=3D"https://gitlab.freedesktop.org/free=
+dreno/ rules-fd.xsd">
+ =09=09<value name=3D"VID_DST_FORMAT_RGB666" value=3D"1"/>
+ =09=09<value name=3D"VID_DST_FORMAT_RGB666_LOOSE" value=3D"2"/>
+ =09=09<value name=3D"VID_DST_FORMAT_RGB888" value=3D"3"/>
++=09=09<value name=3D"VID_DST_FORMAT_RGB101010" value=3D"4"/>
+ =09</enum>
+ =09<enum name=3D"dsi_rgb_swap">
+ =09=09<value name=3D"SWAP_RGB" value=3D"0"/>
+@@ -39,6 +40,7 @@ xsi:schemaLocation=3D"https://gitlab.freedesktop.org/free=
+dreno/ rules-fd.xsd">
+ =09=09<value name=3D"CMD_DST_FORMAT_RGB565" value=3D"6"/>
+ =09=09<value name=3D"CMD_DST_FORMAT_RGB666" value=3D"7"/>
+ =09=09<value name=3D"CMD_DST_FORMAT_RGB888" value=3D"8"/>
++=09=09<value name=3D"CMD_DST_FORMAT_RGB101010" value=3D"9"/>
+ =09</enum>
+ =09<enum name=3D"dsi_lane_swap">
+ =09=09<value name=3D"LANE_SWAP_0123" value=3D"0"/>
+@@ -142,7 +144,8 @@ xsi:schemaLocation=3D"https://gitlab.freedesktop.org/fr=
+eedreno/ rules-fd.xsd">
+ =09</reg32>
+ =09<reg32 offset=3D"0x0000c" name=3D"VID_CFG0">
+ =09=09<bitfield name=3D"VIRT_CHANNEL" low=3D"0" high=3D"1" type=3D"uint"/>=
+  <!-- always zero? -->
+-=09=09<bitfield name=3D"DST_FORMAT" low=3D"4" high=3D"5" type=3D"dsi_vid_d=
+st_format"/>
++=09=09<!-- high was 5 before DSI 6G 2.1.0 -->
++=09=09<bitfield name=3D"DST_FORMAT" low=3D"4" high=3D"6" type=3D"dsi_vid_d=
+st_format"/>
+ =09=09<bitfield name=3D"TRAFFIC_MODE" low=3D"8" high=3D"9" type=3D"dsi_tra=
+ffic_mode"/>
+ =09=09<bitfield name=3D"BLLP_POWER_STOP" pos=3D"12" type=3D"boolean"/>
+ =09=09<bitfield name=3D"EOF_BLLP_POWER_STOP" pos=3D"15" type=3D"boolean"/>
 
 --=20
 2.53.0
