@@ -4,31 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C0CD21094462
-	for <dri-devel@archiver.kernel.org>; Sat, 21 Mar 2026 07:52:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D5D5A1094462
+	for <dri-devel@archiver.kernel.org>; Sat, 21 Mar 2026 07:52:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3110F10E29E;
-	Sat, 21 Mar 2026 07:52:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 379E710E296;
+	Sat, 21 Mar 2026 07:52:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=pm.me header.i=@pm.me header.b="rM5Tj8HX";
+	dkim=pass (2048-bit key; secure) header.d=pm.me header.i=@pm.me header.b="XPXkikj8";
 	dkim-atps=neutral
-Received: from mail-106118.protonmail.ch (mail-106118.protonmail.ch
- [79.135.106.118])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B136710E2A0
- for <dri-devel@lists.freedesktop.org>; Sat, 21 Mar 2026 07:52:39 +0000 (UTC)
+Received: from mail-106119.protonmail.ch (mail-106119.protonmail.ch
+ [79.135.106.119])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 339FB10E296
+ for <dri-devel@lists.freedesktop.org>; Sat, 21 Mar 2026 07:52:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
- s=protonmail3; t=1774079557; x=1774338757;
- bh=gircwKOW0ywrfXjrpGmIf8114zj09cFmRcezKwqZ3MA=;
+ s=protonmail3; t=1774079566; x=1774338766;
+ bh=mLm4IQklaR2CNzE4LbjmpJTUb6cmIq5AyTVgjPiZhVY=;
  h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
  Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
  Message-ID:BIMI-Selector;
- b=rM5Tj8HXmcx6/twMmRZ16BVflRRl984vDLQj+4hTRIJlzAFvOxANnCrI6v8wtzBNv
- BPTqgvU4ieqM7yGcySgF65i8gcIOim9qKgfvJMmSs5e7rLAqOxxfYiyV6W65WRWqgw
- liF6mM413dB0NxjPlL79maMuxy+A/OTuwp5zImwFrcGWz9dnZfze684p3giuAdvpKJ
- 8/OiOP06fzD2oNCd0sbFn1CH9H0XqqVylhBEjiaU5wAS+hrqkIjRUyUccgOuC8HFzn
- wNcOn/Fnb2bK3RPjDyWv77qrDoJIaI+P1GpkeJZnh+6PhJUWPP49yEEv8EX0Ni2gbY
- gvYExjNlwwg4w==
-Date: Sat, 21 Mar 2026 07:52:30 +0000
+ b=XPXkikj8IpWjPX7MVtBUExpGnBHGAstPtti7YrLKhyyZx7sDO8MMO37eewdl48rdh
+ MM7JjFYLRwI8Px3M1ky0CsrPNSpJdVgpHTxHCW7l7AYI96of4upRgmM8yMcfqETCU8
+ XrOmQP0ER4bFcrAo1tsgYR/w9PKEvSL+vxBQX7yoH4IvtLS7wRrN/JfRa+cqMwJqOv
+ JfhzN0bjhhRoA9L9WPdL+x9tYGU58dxZ1JAjlCxarMHeqJM9atQm2XnV4upaM8R0SA
+ puEyZaaFehsdrFxyv4ZfGE7jQ3JAes13TIpvZ+nA4k3AolgbYfcPIj91tLl3gaBhZM
+ NYCvKjz79s3OQ==
+Date: Sat, 21 Mar 2026 07:52:41 +0000
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
@@ -43,13 +43,16 @@ From: Alexander Koskovich <akoskovich@pm.me>
 Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
  linux-amlogic@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- Alexander Koskovich <akoskovich@pm.me>
-Subject: [PATCH v4 2/5] drm/meson: handle RGB101010 in format switches
-Message-ID: <20260321-dsi-rgb101010-support-v4-2-eb28ecebbfe8@pm.me>
+ Alexander Koskovich <akoskovich@pm.me>,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Subject: [PATCH v4 3/5] drm/msm/dsi: rename MSM8998 DSI version from V2_2_0 to
+ V2_0_0
+Message-ID: <20260321-dsi-rgb101010-support-v4-3-eb28ecebbfe8@pm.me>
 In-Reply-To: <20260321-dsi-rgb101010-support-v4-0-eb28ecebbfe8@pm.me>
 References: <20260321-dsi-rgb101010-support-v4-0-eb28ecebbfe8@pm.me>
 Feedback-ID: 37836894:user:proton
-X-Pm-Message-ID: 827c3af36e90d8440263c62eaf3d19cb861b9eb9
+X-Pm-Message-ID: fb72f00d21089d2803bafd3ccd004359c89df5c6
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
@@ -68,36 +71,55 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add RGB101010 to the unsupported format cases to fix -Wswitch warnings
-introduced by the addition of the new pixel format.
+The MSM8998 DSI controller is v2.0.0 as stated in commit 7b8c9e203039
+("drm/msm/dsi: Add support for MSM8998 DSI controller"). The value was
+always correct just the name was wrong.
 
+Rename and reorder to maintain version sorting.
+
+Fixes: 7b8c9e203039 ("drm/msm/dsi: Add support for MSM8998 DSI controller")
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 Signed-off-by: Alexander Koskovich <akoskovich@pm.me>
 ---
- drivers/gpu/drm/meson/meson_dw_mipi_dsi.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/gpu/drm/msm/dsi/dsi_cfg.c | 4 ++--
+ drivers/gpu/drm/msm/dsi/dsi_cfg.h | 2 +-
+ 2 files changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/meson/meson_dw_mipi_dsi.c b/drivers/gpu/drm/me=
-son/meson_dw_mipi_dsi.c
-index 66c73c512b0e..59fc0083d318 100644
---- a/drivers/gpu/drm/meson/meson_dw_mipi_dsi.c
-+++ b/drivers/gpu/drm/meson/meson_dw_mipi_dsi.c
-@@ -119,6 +119,7 @@ static int dw_mipi_dsi_phy_init(void *priv_data)
- =09=09dpi_data_format =3D DPI_COLOR_18BIT_CFG_2;
- =09=09venc_data_width =3D VENC_IN_COLOR_18B;
- =09=09break;
-+=09case MIPI_DSI_FMT_RGB101010:
- =09case MIPI_DSI_FMT_RGB666_PACKED:
- =09case MIPI_DSI_FMT_RGB565:
- =09=09return -EINVAL;
-@@ -232,6 +233,7 @@ static int meson_dw_mipi_dsi_host_attach(void *priv_dat=
-a,
- =09=09break;
- =09case MIPI_DSI_FMT_RGB666:
- =09=09break;
-+=09case MIPI_DSI_FMT_RGB101010:
- =09case MIPI_DSI_FMT_RGB666_PACKED:
- =09case MIPI_DSI_FMT_RGB565:
- =09=09dev_err(mipi_dsi->dev, "invalid pixel format %d\n", device->format);
+diff --git a/drivers/gpu/drm/msm/dsi/dsi_cfg.c b/drivers/gpu/drm/msm/dsi/ds=
+i_cfg.c
+index bd3c51c350e7..da3fe6824495 100644
+--- a/drivers/gpu/drm/msm/dsi/dsi_cfg.c
++++ b/drivers/gpu/drm/msm/dsi/dsi_cfg.c
+@@ -317,10 +317,10 @@ static const struct msm_dsi_cfg_handler dsi_cfg_handl=
+ers[] =3D {
+ =09=09&msm8996_dsi_cfg, &msm_dsi_6g_host_ops},
+ =09{MSM_DSI_VER_MAJOR_6G, MSM_DSI_6G_VER_MINOR_V1_4_2,
+ =09=09&msm8976_dsi_cfg, &msm_dsi_6g_host_ops},
++=09{MSM_DSI_VER_MAJOR_6G, MSM_DSI_6G_VER_MINOR_V2_0_0,
++=09=09&msm8998_dsi_cfg, &msm_dsi_6g_v2_host_ops},
+ =09{MSM_DSI_VER_MAJOR_6G, MSM_DSI_6G_VER_MINOR_V2_1_0,
+ =09=09&sdm660_dsi_cfg, &msm_dsi_6g_v2_host_ops},
+-=09{MSM_DSI_VER_MAJOR_6G, MSM_DSI_6G_VER_MINOR_V2_2_0,
+-=09=09&msm8998_dsi_cfg, &msm_dsi_6g_v2_host_ops},
+ =09{MSM_DSI_VER_MAJOR_6G, MSM_DSI_6G_VER_MINOR_V2_2_1,
+ =09=09&sdm845_dsi_cfg, &msm_dsi_6g_v2_host_ops},
+ =09{MSM_DSI_VER_MAJOR_6G, MSM_DSI_6G_VER_MINOR_V2_3_0,
+diff --git a/drivers/gpu/drm/msm/dsi/dsi_cfg.h b/drivers/gpu/drm/msm/dsi/ds=
+i_cfg.h
+index 5dc812028bd5..ccf06679608e 100644
+--- a/drivers/gpu/drm/msm/dsi/dsi_cfg.h
++++ b/drivers/gpu/drm/msm/dsi/dsi_cfg.h
+@@ -19,8 +19,8 @@
+ #define MSM_DSI_6G_VER_MINOR_V1_3_1=090x10030001
+ #define MSM_DSI_6G_VER_MINOR_V1_4_1=090x10040001
+ #define MSM_DSI_6G_VER_MINOR_V1_4_2=090x10040002
++#define MSM_DSI_6G_VER_MINOR_V2_0_0=090x20000000
+ #define MSM_DSI_6G_VER_MINOR_V2_1_0=090x20010000
+-#define MSM_DSI_6G_VER_MINOR_V2_2_0=090x20000000
+ #define MSM_DSI_6G_VER_MINOR_V2_2_1=090x20020001
+ #define MSM_DSI_6G_VER_MINOR_V2_3_0=090x20030000
+ #define MSM_DSI_6G_VER_MINOR_V2_3_1=090x20030001
 
 --=20
 2.53.0
