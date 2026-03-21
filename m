@@ -4,91 +4,137 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 021421094480
-	for <dri-devel@archiver.kernel.org>; Sat, 21 Mar 2026 16:39:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3E4271094489
+	for <dri-devel@archiver.kernel.org>; Sat, 21 Mar 2026 16:45:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 61A7510E034;
-	Sat, 21 Mar 2026 16:39:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 81CAF10E285;
+	Sat, 21 Mar 2026 16:45:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="lodvN+oU";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="ePyL/e//";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ACkHi3jd";
 	dkim-atps=neutral
-Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com
- [209.85.218.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BE0C310E034
- for <dri-devel@lists.freedesktop.org>; Sat, 21 Mar 2026 16:39:04 +0000 (UTC)
-Received: by mail-ej1-f47.google.com with SMTP id
- a640c23a62f3a-b982518b73fso260085566b.1
- for <dri-devel@lists.freedesktop.org>; Sat, 21 Mar 2026 09:39:04 -0700 (PDT)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 310B710E285
+ for <dri-devel@lists.freedesktop.org>; Sat, 21 Mar 2026 16:45:55 +0000 (UTC)
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 62LCwZeC324938
+ for <dri-devel@lists.freedesktop.org>; Sat, 21 Mar 2026 16:45:54 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=2/N1XFHZigaYi8JcvlnG5wwE
+ 4V6fkSbgFB8/uIe4z38=; b=ePyL/e//PQz/eiSykNU/683qA09roC+Cafcdp6iD
+ KQWOU6EJ1OiYuspTlu9rLOkc4HkvEVVMdoSNb2TUwCRVuDQw2XhlZM0EMtREqSu+
+ h73dM3WHOkajbwtUpXGPyzvQVpacwNxDxep0A8WIgbN5hlcHRltXBEDV+bIkfbU5
+ J+2k77IO25C0Firn+ZomMWtiLWgKIqOIf/zAVeCTC6LoHG8D5FlK2MX8ixmCMCX4
+ c0/xgY5/L5Hk0urp/QvQ+TDVtW2r/4XC3K0FoHU9NavWqqVRHqdXPpUOkgja3YjI
+ wSzRnhy+LuO2dzdD8UYkvL0HMO4Z0BLNxD6Ff9vrOm39Wg==
+Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com
+ [209.85.160.198])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d1gpk17sh-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Sat, 21 Mar 2026 16:45:53 +0000 (GMT)
+Received: by mail-qt1-f198.google.com with SMTP id
+ d75a77b69052e-50b4987c698so45202871cf.0
+ for <dri-devel@lists.freedesktop.org>; Sat, 21 Mar 2026 09:45:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1774111142; x=1774715942;
+ d=oss.qualcomm.com; s=google; t=1774111553; x=1774716353;
  darn=lists.freedesktop.org; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=X+mAGI6D2x7kpdUZk4YxlzGy1eE7Yb9ILgwi8nyiApI=;
- b=lodvN+oUwXFwGGYqLKlh/GuMK7RCi97m9Y8OVk2J4nShALfpjvNjVh5ryk06y+6Ghd
- 0+NsKRy+ay7wufsmsx0utC6mjIf/8kGuB/Jx8Xp7jxwbv3sCMoszxYy6M6jBjXiGA7uJ
- vJPwP9EsoMZ0Sll7j2VOBnW0HcQurOJbNPKe0=
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=2/N1XFHZigaYi8JcvlnG5wwE4V6fkSbgFB8/uIe4z38=;
+ b=ACkHi3jdJp+gyX4NYyNNDFhjCcGEHZZou3dLMSH2k+/2clTXeqWnJIu3BxzaBrlpym
+ UMywYZmPmffqoAbURDTA+UObeTBOKAjb5+klGIWLHYoo97asf7VF2sExX8kfvK3bh1d2
+ 1TF2YJdJ0FHfM3Ud7P2/KID8JTGrAtBMGQiQ3N2ec7eG1oY+WkH5WYKpuyN5nJXOWrMA
+ BVV3TrVzf1QvfOFPG/IPKTuGqeHBNTTyD+sdQwNt60oZ4LuT4904I+Zr/TcgR/vDYIYg
+ a0vFAQk6ukh2N2ZvKSarauM0tfHbDVX0hKMhD2cp9fX5aZzasgCuVN+P6yYqr2QEgb38
+ YoTQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774111142; x=1774715942;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=X+mAGI6D2x7kpdUZk4YxlzGy1eE7Yb9ILgwi8nyiApI=;
- b=pBxvAsvVvpII6xo05yXYXNhUnLOdGsoImRDzne1SHU4CXVM1CNlGlElvRHOV2tztOL
- 6nlo4CubTDTNVgxLxibMDdKHvzr482dxrN3Sx0ZdnHhWtn2j/OKfkkY3f6hIUGTJ0jAv
- txuineOCFavPmypcuoM1ANkXVGvcS5F9xTY4ml1edJmRtydZq7qWdw1onxHPSXnrqRW8
- OtRw+RNuYUFli5O6AlJ75AlvqP1btXScW2J53XeWFshAn/A1W32niZB3Ugpru1FAgzBK
- iGhAzMaEr2FzMuAFltciyW+iSScxmIKERveWOKzbwnqpUt1NyvyaeepmZKC5F08K6ZeV
- UR4g==
+ d=1e100.net; s=20251104; t=1774111553; x=1774716353;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=2/N1XFHZigaYi8JcvlnG5wwE4V6fkSbgFB8/uIe4z38=;
+ b=KC+v1JiF3QrZzFzqxL9399nuvMoQQZ6gNrYZpC8PJHbsRhCYpO5q6qiB7vEv8XKFZ+
+ jiIeM0QgiFRLixfmebVm3+B9oDs88OPU4f+h1Yep87t5pJ4WP3iVGr04ERV3HZqc7GrQ
+ w0Eq1LL+M+fYG4co0OgsIj1KfzKU9JC4pXLBcVOHLNxqjVCJwRhDK/U7vLH3sZbXOMJi
+ hJIGlKWNIN/SuC4CmPNBYi/5bgIKrGxOl8QCWZF88v9FE5lbNxJGi6bl/VvFTVVCUm35
+ uUdLuE6ZVj4InZCsjWxjKnK0Gi5XOeg5XYae42CthYvGlTf6Zm+y7/i/tF2FXAbMgI2x
+ oC5w==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUOckGKv+yWCPE4mS0pSMGEhN0pen50BT3aln+cnkvjPq/N4p8raA8CZfQWDnuoSQ1DcwY9mbDnqCM=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxvX0KPazOaJ2+gbv0/A+x1iljPDa83xYncDO7EMaAPogiUyQcw
- Ja9gy/MzokW8XzcCO8Da8jMCIOqfi24/pkft6Gpq+fTa3gu/rLmvA03XcUqQQP1WTcw8bDvXJev
- ZecAcbPws
-X-Gm-Gg: ATEYQzw0Y75crkZCY9obBtKnTk9gRKH5SAkVpJtVo1l5RM5U3VfR7Fkn2L376sXAccP
- X28PYc7RxWY7XmR2F02S7uvJMIzDu0AmjNBzbMCKZZI6NQnf8mVCG+d9g7lP2VGeBMWhOJOtJLm
- iXEWyLW9fCO4FsV7Sk2P44iDQHzkWvjyK1s/Fz6OrJgC8SEw/qZJOaNKyG//D0EjONZxDD4VEiP
- 9WbTV3mFDBJlerhcGqO+41MX0H1NGXlTx2AKaMJ0NWAAVm617kx+fzZURBtjhrWDSqZqdbUr4Lb
- sXm30azfpRlXfzG8hMoMcZyOrXwsnOF1FgV71VVp6j8JZME9/d00suIfFUgnlBhcK2F41GIwFU/
- 1CZkCYpdfrx9/OqhM8onRR6kcbWjxvcKT4rOfwxRrVNDUA83o/DiB58uTfzoXfjmvOtjb4S5CSA
- gh04oGQvy5l8Slrk1wORJpSMJkzCWcMbu90pHDyQs7gA/SiHAXIpX/yZ+RSHaLxQ==
-X-Received: by 2002:a17:906:2554:b0:b98:1e:6642 with SMTP id
- a640c23a62f3a-b982f3e2c7cmr363434166b.45.1774111141891; 
- Sat, 21 Mar 2026 09:39:01 -0700 (PDT)
-Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com.
- [209.85.221.41]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b9832f43a65sm286825666b.7.2026.03.21.09.39.00
- for <dri-devel@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sat, 21 Mar 2026 09:39:00 -0700 (PDT)
-Received: by mail-wr1-f41.google.com with SMTP id
- ffacd0b85a97d-43b4f48c47cso1178850f8f.0
- for <dri-devel@lists.freedesktop.org>; Sat, 21 Mar 2026 09:39:00 -0700 (PDT)
-X-Forwarded-Encrypted: i=1;
- AJvYcCXw5TB68+Sy3BNAjrhCjBBu2XVT8tXK26d4ND31u0wefXYnT6cG0ahjBHlf3Q1nFSop81aO1N1BFOU=@lists.freedesktop.org
-X-Received: by 2002:a05:6000:290d:b0:439:d242:e8fe with SMTP id
- ffacd0b85a97d-43b64242fddmr11167085f8f.11.1774111139960; Sat, 21 Mar 2026
- 09:38:59 -0700 (PDT)
+ AJvYcCVAe6CshlP80q39XGIBPZ+vWj2ox2Rs6ixGolwBZt+4SKIaEbk3BC5zhpyjSlfp0o1Sfbpvb/idimo=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwfnFAtgyrV7FZCbyAo2COCxFNQu2sLxR2zhW7mXFigjx+IxJBE
+ UTdrZPoYdDzdtAyxIFfmd9ZraJHEQYWYularbIfhIRzvmRgrWNaJq8yUIuEwGZke1D29UbB3PN4
+ TKInYAXrPVIIK37e1vhtUiQeDOy8OI20fR43ctwGtj4aLVLWzF0wHtX24F43k/ssAjaHfeqU=
+X-Gm-Gg: ATEYQzx3HHXdCx/VOWQthKnf/Yl6Mp5AdoJ589dcShzMhL23OZPS35jyT78miYvF5i+
+ W9GRwWEMCQQwkGaoIMQfXNTZG5uDznLj63sDL6uJaA2irp0cGBtNyosirPmbhcQPcu9RMdg2Njy
+ RrOgc+3O29oaCvcbB77q31i+mNtCEySLw/np0RbqP+BcQGqWh6q4MHMhk01GP8bCxq9+7IpJdGG
+ sbLvMppQ6xjcCAeT3e/GFbA6eCecidUcufysckl0BuS0Riw+eGiJYjq33zR7N5X3G2OTAt8BabN
+ FfqYw/jyxpyI/NTwDH0HMum4DxgSeTN7nij3G06ITdjEVVAeZtbATLdMpWOTyvcpn8DwKlTzM13
+ 2w/KuKkePHiyW6MESYqSmyx1sYihaQM0zGo49URqUpteJpiiLS5E21CEnRr77lPnhbQvO+Hzmd3
+ QckSMWJh6oqxqbf5pryd8heSXx1OnDuNS7Bio=
+X-Received: by 2002:a05:622a:a6d1:b0:50b:4a3c:8917 with SMTP id
+ d75a77b69052e-50b4a3c9321mr25856381cf.24.1774111553227; 
+ Sat, 21 Mar 2026 09:45:53 -0700 (PDT)
+X-Received: by 2002:a05:622a:a6d1:b0:50b:4a3c:8917 with SMTP id
+ d75a77b69052e-50b4a3c9321mr25856101cf.24.1774111552728; 
+ Sat, 21 Mar 2026 09:45:52 -0700 (PDT)
+Received: from umbar.lan
+ (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-5a28519f2afsm1227669e87.18.2026.03.21.09.45.50
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 21 Mar 2026 09:45:51 -0700 (PDT)
+Date: Sat, 21 Mar 2026 18:45:49 +0200
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: cristian_ci@protonmail.com
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org
+Subject: Re: [PATCH v3 1/6] dt-bindings: display: panel: Add Novatek NT35532
+ LCD DSI
+Message-ID: <sdcfwycey5ykhn2fghun7imx3tjtnwat3ny3mut5dwstl7wvw6@maqrzlycwdn5>
+References: <20260321-rimob-new-features-v3-0-d4b8ee867de7@protonmail.com>
+ <20260321-rimob-new-features-v3-1-d4b8ee867de7@protonmail.com>
 MIME-Version: 1.0
-References: <20260319050938.556235-1-alvin1.chen@lcfc.corp-partner.google.com>
- <202603211444.JZ4VbAPo-lkp@intel.com>
-In-Reply-To: <202603211444.JZ4VbAPo-lkp@intel.com>
-From: Doug Anderson <dianders@chromium.org>
-Date: Sat, 21 Mar 2026 09:38:48 -0700
-X-Gmail-Original-Message-ID: <CAD=FV=WXD+FmjQusp_inaLhG8=vR3YgtobOp3igSmR54=Ka4bA@mail.gmail.com>
-X-Gm-Features: AaiRm50fR7YNH2twmQ7oW8qNNgZ56TEA6Y66221jXJ3dTEgaRip4CTx2LNX3NkE
-Message-ID: <CAD=FV=WXD+FmjQusp_inaLhG8=vR3YgtobOp3igSmR54=Ka4bA@mail.gmail.com>
-Subject: Re: [PATCH v3] drm/panel-edp: Add BOE NV153WUM-N42, CMN N153JCA-ELK, 
- CSW MNF307QS3-2
-To: kernel test robot <lkp@intel.com>
-Cc: Alvin1 Chen <alvin1.chen@lcfc.corp-partner.google.com>,
- neil.armstrong@linaro.org, 
- oe-kbuild-all@lists.linux.dev, jesszhan0024@gmail.com, 
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260321-rimob-new-features-v3-1-d4b8ee867de7@protonmail.com>
+X-Proofpoint-ORIG-GUID: jOht1pYRVl2oEsTAdTenJDpNHLOAyeIs
+X-Proofpoint-GUID: jOht1pYRVl2oEsTAdTenJDpNHLOAyeIs
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzIxMDE0MiBTYWx0ZWRfX/60fBSl7teJn
+ b0zdsi8tcDwBoGNZfugWix4MM0vkUAgFQdtfJzoexPpQUiIx5eya3cJmegpUO3ivsnA/aZYVoc3
+ CoiYS+8NQY/tj6b9rwCh/qe9okL1qEc7JrY4sBbZ1Ipo3+WsdYbu1W6BQFcgvyW1BBa0CPIWWnh
+ 3KLBfjPKcFgmPEm78pKmyjnnDK9LmkG3jrbzgJ/zsjRAlzWzi2hrPr5shG7K0jchQnl1lk728lA
+ YVZ2wnfghnG0jTiQt4dEpM2dDrYMnanL/Lby+5AMoU/6r7yKm3K38Dfuo6/d0viYf5yZ3/NIQbL
+ 4ew0fZ7M2i+7zqX6etXPlWVWfNaCZh3RyWdqms6408GeShaKJ4YqhOuq2JL0sPo5XLQ68bMUI3p
+ HGsBux0hy8qkl3QFD1LOQ8xPmOl4oAvbYBR6C672/R89FKV8PRiWk2Q1YCLTiDCNS7n7ZggFGEQ
+ IOD9mSkBM8BKo0f5l2Q==
+X-Authority-Analysis: v=2.4 cv=QKhlhwLL c=1 sm=1 tr=0 ts=69becb41 cx=c_pps
+ a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22 a=e5mUnYsNAAAA:8
+ a=sfOm8-O8AAAA:8 a=VwQbUJbxAAAA:8 a=dSvQR-6XSxectfY1rdkA:9 a=CjuIK1q_8ugA:10
+ a=dawVfQjAaf238kedN5IG:22 a=Vxmtnl_E_bksehYqCbjh:22 a=TvTJqdcANYtsRzA46cdi:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-03-21_05,2026-03-20_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 adultscore=0 bulkscore=0 spamscore=0 clxscore=1015
+ priorityscore=1501 malwarescore=0 phishscore=0 impostorscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603210142
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,59 +150,128 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi,
+On Sat, Mar 21, 2026 at 05:23:20PM +0100, Cristian Cozzolino via B4 Relay wrote:
+> From: Cristian Cozzolino <cristian_ci@protonmail.com>
+> 
+> Document Novatek NT35532-based DSI display panel.
+> 
+> Signed-off-by: Cristian Cozzolino <cristian_ci@protonmail.com>
+> ---
+>  .../bindings/display/panel/novatek,nt35532.yaml    | 77 ++++++++++++++++++++++
+>  MAINTAINERS                                        |  5 ++
+>  2 files changed, 82 insertions(+)
 
-On Sat, Mar 21, 2026 at 7:03=E2=80=AFAM kernel test robot <lkp@intel.com> w=
-rote:
->
-> Hi Alvin1,
->
-> kernel test robot noticed the following build warnings:
->
-> [auto build test WARNING on drm-misc/drm-misc-next]
-> [also build test WARNING on linus/master v7.0-rc4]
-> [cannot apply to next-20260320]
-> [If your patch is applied to the wrong git tree, kindly drop us a note.
-> And when submitting patch, we suggest to use '--base' as documented in
-> https://git-scm.com/docs/git-format-patch#_base_tree_information]
->
-> url:    https://github.com/intel-lab-lkp/linux/commits/Alvin1-Chen/drm-pa=
-nel-edp-Add-BOE-NV153WUM-N42-CMN-N153JCA-ELK-CSW-MNF307QS3-2/20260320-08471=
-8
-> base:   https://gitlab.freedesktop.org/drm/misc/kernel.git drm-misc-next
-> patch link:    https://lore.kernel.org/r/20260319050938.556235-1-alvin1.c=
-hen%40lcfc.corp-partner.google.com
-> patch subject: [PATCH v3] drm/panel-edp: Add BOE NV153WUM-N42, CMN N153JC=
-A-ELK, CSW  MNF307QS3-2
-> config: i386-randconfig-2006-20250825 (https://download.01.org/0day-ci/ar=
-chive/20260321/202603211444.JZ4VbAPo-lkp@intel.com/config)
-> compiler: gcc-14 (Debian 14.2.0-19) 14.2.0
-> reproduce (this is a W=3D1 build): (https://download.01.org/0day-ci/archi=
-ve/20260321/202603211444.JZ4VbAPo-lkp@intel.com/reproduce)
->
-> If you fix the issue in a separate patch/commit (i.e. not just a new vers=
-ion of
-> the same patch/commit), kindly add following tags
-> | Reported-by: kernel test robot <lkp@intel.com>
-> | Closes: https://lore.kernel.org/oe-kbuild-all/202603211444.JZ4VbAPo-lkp=
-@intel.com/
->
-> All warnings (new ones prefixed by >>):
->
->    drivers/gpu/drm/panel/panel-edp.c:1893:1: error: expected expression b=
-efore '{' token
->     1893 | { \
->          | ^
->    drivers/gpu/drm/panel/panel-edp.c:2028:9: note: in expansion of macro =
-'EDP_PANEL_ENTRY'
->     2028 | +       EDP_PANEL_ENTRY('B', 'O', 'E', 0x0db3, &delay_200_500_=
-e80, "NV153WUM-N42"),
->          |         ^~~~~~~~~~~~~~~
+> +allOf:
+> +  - $ref: panel-common.yaml#
+> +
+> +properties:
+> +  compatible:
+> +    const: novatek,nt35532
 
-I think this is the issue I already reported where your patch had an
-extra "+" in it. I fixed it when applying the patch. I think the
-kernel robot here was just testing the patch itself, not what landed.
+This is not enough to identify the panel. This name identifies the
+controller inside the panel, however the exact settings (and the
+behaviour) would depend on the exact TFT "glass" used with this
+controller. Downstream usually doesn't care that much and frequently
+just uses the controller name or the the controller with some kind of
+"description" like ("wqhd-dsc-cmd").
 
-So nothing needs to be done here.
+What does it mean for the upstream:
+- Try identifying the actual panel used for the phones. Sometimes
+  googling for spare or replacement parts would reveal such a name.
+  Sometimes it can be seen as a marking on the cable or on the backside
+  of the panel (again, googling).
 
--Doug
+- If not found, come up with some artificial identifier that would
+  identify the controller+glass combo (e.g. "tianma,fhd-video" or
+  "lenovo,j606f-boe-nt36523w" (where lenovo,j6006f is a device name and
+  boe is a "supplier").
+
+- Either use both strings for compat property:
+  compatible = "tianma,fhd-video", "novatek,nt36672a"
+  or just the first one.
+
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  backlight: true
+> +  reset-gpios: true
+> +
+> +  avdd-supply:
+> +    description: positive boost supply regulator
+> +
+> +  avee-supply:
+> +    description: negative boost supply regulator
+> +
+> +  vci-supply:
+> +    description: regulator that supplies the analog voltage
+> +
+> +  vddam-supply:
+> +    description: power supply for MIPI interface
+> +
+> +  vddi-supply:
+> +    description: regulator that supplies the I/O voltage
+> +
+> +  port: true
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - reset-gpios
+> +  - vddi-supply
+> +  - port
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/gpio/gpio.h>
+> +
+> +    dsi {
+> +        #address-cells = <1>;
+> +        #size-cells = <0>;
+> +
+> +        panel@0 {
+> +            compatible = "novatek,nt35532";
+> +            reg = <0>;
+> +
+> +            backlight = <&pmi8950_wled>;
+> +            reset-gpios = <&tlmm 61 GPIO_ACTIVE_LOW>;
+> +            avdd-supply = <&lab>;
+> +            avee-supply = <&ibb>;
+> +            vci-supply = <&pm8953_l17>;
+> +            vddi-supply = <&pm8953_l6>;
+> +
+> +            port {
+> +                panel_in: endpoint {
+> +                    remote-endpoint = <&dsi0_out>;
+> +                };
+> +            };
+> +        };
+> +    };
+> +...
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index a626dee5c106..8ed2866bbd6e 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -8171,6 +8171,11 @@ T:	git https://gitlab.freedesktop.org/drm/misc/kernel.git
+>  F:	Documentation/devicetree/bindings/display/panel/novatek,nt35510.yaml
+>  F:	drivers/gpu/drm/panel/panel-novatek-nt35510.c
+>  
+> +DRM DRIVER FOR NOVATEK NT35532 PANELS
+> +M:	Cristian Cozzolino <cristian_ci@protonmail.com>
+> +S:	Maintained
+> +F:	Documentation/devicetree/bindings/display/panel/novatek,nt35532.yaml
+> +
+>  DRM DRIVER FOR NOVATEK NT35560 PANELS
+>  M:	Linus Walleij <linusw@kernel.org>
+>  S:	Maintained
+> 
+> -- 
+> 2.53.0
+> 
+> 
+
+-- 
+With best wishes
+Dmitry
