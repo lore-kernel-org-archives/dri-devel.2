@@ -4,65 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 25218109446E
-	for <dri-devel@archiver.kernel.org>; Sat, 21 Mar 2026 11:05:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9D7F0109446E
+	for <dri-devel@archiver.kernel.org>; Sat, 21 Mar 2026 11:05:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EF77410E0BA;
-	Sat, 21 Mar 2026 11:05:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F349010E252;
+	Sat, 21 Mar 2026 11:05:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=smail.nju.edu.cn header.i=@smail.nju.edu.cn header.b="dmQoj5oA";
+	dkim=pass (1024-bit key; unprotected) header.d=smail.nju.edu.cn header.i=@smail.nju.edu.cn header.b="ToQxlQ01";
 	dkim-atps=neutral
-Received: from smtpbgau1.qq.com (smtpbgau1.qq.com [54.206.16.166])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CF6B910E0BA
- for <dri-devel@lists.freedesktop.org>; Sat, 21 Mar 2026 11:05:51 +0000 (UTC)
+X-Greylist: delayed 370 seconds by postgrey-1.36 at gabe;
+ Sat, 21 Mar 2026 11:05:56 UTC
+Received: from smtpbgeu1.qq.com (smtpbgeu1.qq.com [52.59.177.22])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5A21E10E251
+ for <dri-devel@lists.freedesktop.org>; Sat, 21 Mar 2026 11:05:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=smail.nju.edu.cn;
- s=iohv2404; t=1774091149;
- bh=advCDYONKqzCph5ZTFUFSWs19v2fi8pIDpKWdb7DT7k=;
+ s=iohv2404; t=1774091153;
+ bh=MOUtJ6/axzF2+QPaYy+xN8l58Mkru+lvFILjciFCmWE=;
  h=From:To:Subject:Date:Message-Id:MIME-Version;
- b=dmQoj5oAbGmuqiMHbjUwxTfbeVHD77lQ/Y7GqZKmxOJS8NuzpIKCxi8YpC2R0yDjY
- E+HPWlRUbYe7HjmrvTrnj68nUXPO0XwY+arUBi27MVSy+U/J+d/Unt8DuCZyduRgY0
- HEaF+vvE1fbjrq5uRwoslcZqSO06TLh0hLsntYn4=
-X-QQ-mid: esmtpsz16t1774090671tfd588e52
-X-QQ-Originating-IP: f67St6LdxydDGswlyYyuwo1CRPZJU43NiFBCtGm6+wo=
+ b=ToQxlQ01DcMh+9hcrh4T+cBFDK0THIQpOqpp5cydPTM7hiqqpTC4QHO2YEqH+d5s7
+ hA4J3aE8p0CazpgJtrQdm6ac+Ki/R+qhJ6yl4fhbhQX/37iwukChGdaK4SO/YFZuQw
+ SOjivIGPi5x016ODYCEn4rghiVGTYx5ETJs5pLwA=
+X-QQ-mid: zesmtpgz1t1774090651t3354de08
+X-QQ-Originating-IP: tuOZhwxQ6KoXRSJDsnU528AwKqbWypJJ0nWaI7oplL8=
 Received: from localhost.localdomain ( [116.172.93.199])
  by bizesmtp.qq.com (ESMTP) with 
- id ; Sat, 21 Mar 2026 18:57:48 +0800 (CST)
+ id ; Sat, 21 Mar 2026 18:57:28 +0800 (CST)
 X-QQ-SSF: 0000000000000000000000000000000
 X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 6951342301802925313
-EX-QQ-RecipientCnt: 13
+X-BIZMAIL-ID: 3681975746362421811
+EX-QQ-RecipientCnt: 15
 From: Kexin Sun <kexinsun@smail.nju.edu.cn>
-To: matthew.brost@intel.com, thomas.hellstrom@linux.intel.com,
- rodrigo.vivi@intel.com, airlied@gmail.com, simona@ffwll.ch,
- intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
+To: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
+ simona@ffwll.ch, timur.kristof@gmail.com, tglx@kernel.org,
+ mingo@kernel.org, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Cc: julia.lawall@inria.fr, xutong.ma@inria.fr, kexinsun@smail.nju.edu.cn,
  yunbolyu@smu.edu.sg, ratnadiraw@smu.edu.sg
-Subject: [PATCH] drm/xe: update outdated reference to xe_pt_commit_bind()
-Date: Sat, 21 Mar 2026 18:57:48 +0800
-Message-Id: <20260321105748.6646-1-kexinsun@smail.nju.edu.cn>
+Subject: [PATCH] drm/amdgpu: update outdated comment for renamed
+ amdgpu_fence_driver_init()
+Date: Sat, 21 Mar 2026 18:57:28 +0800
+Message-Id: <20260321105728.6304-1-kexinsun@smail.nju.edu.cn>
 X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpsz:smail.nju.edu.cn:qybglogicsvrgz:qybglogicsvrgz5b-0
-X-QQ-XMAILINFO: OLsBWtCIHsg6uc3gAasrhab4LLEiuXzpv1HgRjTEDijafJGEytScpz39
- lZHvmhqmFiYYkASypeBlCC9iaQ0L/RHMyXKRxbATdF25P4h1PdpLiinRYDwoPLBqnPBVDWF
- oBfrue3ueIy3NRMJJFaPtkAt0U8LesfjtGhR0rrKnYc4zCjaqvMZxbPXi1zFQ9YKWx3FhqI
- 1SA9J45a7w69Bej6pcHKxf/QneSacZCXIF1Bx0mGM7PrhY2cMBor42cRn9QYrIz2rGIJkw4
- KwZjzn4Oss7H3fVqRCkCpotoOH4aiN0MjpDiUFx3kYAS/6rm3ZSzRWf6xZUEWfuXdqRk0a4
- DwsGPvZyIrGam8Gipourt5Lpc/aJj1U1bvYtf/ldlMV7GVPPNHY62zJ2TOGHnZ3wW1ao4EL
- N2VeYwFiAALzX9TxXEtWxZJYj32OKBSrZL6cYx5ANqt4eSLQpVzjEo1JAYFs5vcpAYur4+m
- ilN3cTd5z8uJIMYzCaDCaEO8WZw0gXB79C/DHPGjRrUU4SVN8/+jerZZCdn2pfpcvzpmzte
- hQ+AMoENTan+RCS4T862w+qLUuVxO0setNm4ZHDB0m9Xku47NwZKZL4jxtqA0P1ZQIBXXDn
- 9jMTVXjwsgpVK8REztj2uAC/ohsPjF2OAPcB3WUOyuS3g179FmoSvuscXpPBORFayRtJIj0
- 7GUmIYetuTuL3RFPi9/8XmmSbbWJtBikN9AuhpjvoEd4yer56OLhUaPY3WpLs56nFSt/zxY
- LVxYSc3Qz9P5FFigPuHGUCD7lfpyWKbZ2p1Gr28NQIAttp1BM83MasDj4l5GONJ/wyKNDC1
- Qkgw56WmTP5AZ66EVXaYG3hDLrAzpqDwd5JKbNWvV33PzCWiMnyFcwA03PQ4U4zgzzbmASt
- 6lKs+uMYkTRrgcHhWYTMgt069T6EOHwuC/+dtOjCTc3vu56kTMGOrmeSdxekBw1dQSGuFTP
- 4fmCIW3L4GAdJGQdwlzg87QuVEenfryYB4mwvHiqqIFZxu9q992YTsc7XZKoD2B3lFaI9qT
- KMlhPiX3LBpTNZFazAamjEVuEVArgJad4vJrMeLF5hrNGaRRADIcBKgOOwQ+4=
-X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
+Feedback-ID: zesmtpgz:smail.nju.edu.cn:qybglogicsvrgz:qybglogicsvrgz5b-0
+X-QQ-XMAILINFO: N41+Pi3tT9xw0gds0PaMUfhIsGKfBwtLYO3KvUJBjJLBudWmCFnS5AQI
+ xcSbsgBMfxSAQQCJpAej3danlu5ReEephCVO8lP8q52zHAlCiI7DPBCGEVufywujUvMat98
+ zjdWFDVyIJR0pfvrwuRGJTyiuf31Gyg2jOT/WuVYgiYwvZrV0rDEbGO+W6vN7mi8RKkFF23
+ ceiuM1rorKH0o1QSKFBcRp/tKbx5WVBXmTgqXGbVXustrSju3+P8ULfpG+4tqforH3j0ZRV
+ 9w0inem85UUoqgVkYMETWSDe0vL0jp5rmpOrnP3Md+eIyS/Rts5RDhJLCBBv64PsJ/OhSc1
+ 9fdYwFNHjlhpGuXw5ne8Oik/GcyDzjBBmMtwK4jUODkUccL9Sfio22L0Ce8sw9TbJh5s5JH
+ QbEsLVFKfkXE2OxEOPvcCGLzF9uXeC5pe4MvtB0lnTDI8js05PRPW3JUURa1lZDU6pgZz2x
+ XKCeCCZlBDnuKpRAzBHo0h0EDB/ELykerX3yHdNCb+CCI8CSIbQ116Mq+bEdRZEuk0Hc0+i
+ 7JLcaFbWhzPEQHZhiZk02FOuZFQBV3ooh7MHmsIZoMYPCTwM9GIzVWuqB/9/2blRO1gIuqW
+ Gs6rFEs4wfPb/euDy1J8VrscRXmatoCYiRQ4NqsPmeY+9HZrnrl5hMjI5qNaXlMMRHxyAEg
+ 6PePlzRblLeZTrGkuL/uhVBYZvHqNMTq4/Pu3rtlgGUsNrmnDUqk7ufd2nsq+KE5I93tJIF
+ qwklXwmenjPPzubkbqVS4/LOamtYaP1lWk3C5Yu0YOOXEGVM/IdMd80jCUgxyS0i2WnyhEE
+ FdtRaWF0SOQiYhDJSVD7XQOq/XQYBSrOCNbRywhXKa2sZUCinbGWQV05r22IUkeczvhyCs5
+ dSV9RWPbu/7zf0wY/Ph/WL8ldFf2JKRPaqJDEdC1FrMMXIkvKBgE4uatphorZQUykzvb5/N
+ Aq/Uyc+lSNP+G6QAom6FKBpgCN4rmpxWjeIqvGbqJPqT/Y+S/plhJuWigg6mRZJVzGKlR8z
+ fNzdoh73eL7FkMQA+43jNA3BtsXkwnamOKT4WE01Mo8a8DT1oyTdU+KLOD1NM=
+X-QQ-XMRINFO: Mp0Kj//9VHAxzExpfF+O8yhSrljjwrznVg==
 X-QQ-RECHKSPAM: 0
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -79,33 +82,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The function xe_pt_commit_bind() was split into
-xe_pt_commit_prepare_bind(), xe_pt_commit(), and
-xe_pt_abort_bind() by commit a708f6501c69 ("drm/xe: Update
-PT layer with better error handling").  Update the stale
-reference in xe_pt_stage_bind() to list the two functions
-that now perform the cpu-side page-table connection.
+The function amdgpu_fence_driver_init() was renamed to
+amdgpu_fence_driver_sw_init() by commit 067f44c8b459
+("drm/amdgpu: avoid over-handle of fence driver fini in s3
+test (v2)").  Update the stale reference in the
+amdgpu_fence_driver_init_ring() kdoc.
 
 Assisted-by: unnamed:deepseek-v3.2 coccinelle
 Signed-off-by: Kexin Sun <kexinsun@smail.nju.edu.cn>
 ---
- drivers/gpu/drm/xe/xe_pt.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/xe/xe_pt.c b/drivers/gpu/drm/xe/xe_pt.c
-index 13b355fadd58..8f00e6454721 100644
---- a/drivers/gpu/drm/xe/xe_pt.c
-+++ b/drivers/gpu/drm/xe/xe_pt.c
-@@ -686,7 +686,8 @@ static bool xe_atomic_for_system(struct xe_vm *vm, struct xe_vma *vma)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
+index 1054d66c54fa..37534f66c755 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
+@@ -458,7 +458,7 @@ int amdgpu_fence_driver_start_ring(struct amdgpu_ring *ring,
+  * @ring: ring to init the fence driver on
   *
-  * This function builds a disconnected page-table tree for a given address
-  * range. The tree is connected to the main vm tree for the gpu using
-- * xe_migrate_update_pgtables() and for the cpu using xe_pt_commit_bind().
-+ * xe_migrate_update_pgtables() and for the cpu using
-+ * xe_pt_commit_prepare_bind() and xe_pt_commit().
-  * The function builds xe_vm_pgtable_update structures for already existing
-  * shared page-tables, and non-existing shared and non-shared page-tables
-  * are built and populated directly.
+  * Init the fence driver for the requested ring (all asics).
+- * Helper function for amdgpu_fence_driver_init().
++ * Helper function for amdgpu_fence_driver_sw_init().
+  */
+ int amdgpu_fence_driver_init_ring(struct amdgpu_ring *ring)
+ {
 -- 
 2.25.1
 
