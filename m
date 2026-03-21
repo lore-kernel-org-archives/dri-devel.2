@@ -4,63 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CEC3E1094486
-	for <dri-devel@archiver.kernel.org>; Sat, 21 Mar 2026 16:15:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 021421094480
+	for <dri-devel@archiver.kernel.org>; Sat, 21 Mar 2026 16:39:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3F8DA10E04A;
-	Sat, 21 Mar 2026 16:15:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 61A7510E034;
+	Sat, 21 Mar 2026 16:39:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Q7CsMcGJ";
+	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="lodvN+oU";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3678F10E246
- for <dri-devel@lists.freedesktop.org>; Sat, 21 Mar 2026 16:15:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1774109739; x=1805645739;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=OfE6e8ObAXCUI3jTK/wiihBdS6FMdzwBM2QqFsHc6ds=;
- b=Q7CsMcGJkWtGQqgWkKvjXn1swXIm8GcDwSXsiJdMnYy9Mc6bLFLMjaZk
- lgKo3pAV9oK0zpspOVXG9y6budCj9Yx7Kxs96Xoambv2J375OXBqalQ9Z
- SDS9HT25qKJOUdDm4yBkMBktzVwVP6+yqQ22bD7ysgo1ctjENL3FJBnvy
- atq0KOgrzFOJAFIkAw7bK+rPnJ9/xZUNkw/Fu0r3PQ5Yc0HkGO61Za62X
- TQe8pxvQYdhHzpjVuykEuu8laP7izXUcxAluBolT17p+QCwOgVjVG5gbr
- sFE0szF8D9Kv2HRvnyXO13Rc0h13JinGm/9vm8khsOhzFb+1ysZQFficJ g==;
-X-CSE-ConnectionGUID: KEJJ8LGhSV6+pJwDQKw18Q==
-X-CSE-MsgGUID: H2Bil3g8RRSXZrkzYki/kA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11736"; a="86539274"
-X-IronPort-AV: E=Sophos;i="6.23,133,1770624000"; d="scan'208";a="86539274"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
- by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Mar 2026 09:15:38 -0700
-X-CSE-ConnectionGUID: kl85JanmTeCLFohsjzJgkQ==
-X-CSE-MsgGUID: FCgKDydzRyG6TyDfVNiWCQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,133,1770624000"; d="scan'208";a="247550206"
-Received: from igk-lkp-server01.igk.intel.com (HELO 9958d990ccf2)
- ([10.211.93.152])
- by fmviesa001.fm.intel.com with ESMTP; 21 Mar 2026 09:15:36 -0700
-Received: from kbuild by 9958d990ccf2 with local (Exim 4.98.2)
- (envelope-from <lkp@intel.com>) id 1w3yz8-000000006A1-1Oog;
- Sat, 21 Mar 2026 16:15:34 +0000
-Date: Sat, 21 Mar 2026 17:15:26 +0100
-From: kernel test robot <lkp@intel.com>
-To: Alvin1 Chen <alvin1.chen@lcfc.corp-partner.google.com>,
- dianders@chromium.org, neil.armstrong@linaro.org
-Cc: oe-kbuild-all@lists.linux.dev, jesszhan0024@gmail.com,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org,
- tzimmermann@suse.de, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org,
- Alvin1 Chen <alvin1.chen@lcfc.corp-partner.google.com>
-Subject: Re: [PATCH v3] drm/panel-edp: Add BOE NV153WUM-N42, CMN N153JCA-ELK, 
- CSW  MNF307QS3-2
-Message-ID: <202603211757.qHunHQyW-lkp@intel.com>
-References: <20260319050938.556235-1-alvin1.chen@lcfc.corp-partner.google.com>
+Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com
+ [209.85.218.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BE0C310E034
+ for <dri-devel@lists.freedesktop.org>; Sat, 21 Mar 2026 16:39:04 +0000 (UTC)
+Received: by mail-ej1-f47.google.com with SMTP id
+ a640c23a62f3a-b982518b73fso260085566b.1
+ for <dri-devel@lists.freedesktop.org>; Sat, 21 Mar 2026 09:39:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=chromium.org; s=google; t=1774111142; x=1774715942;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=X+mAGI6D2x7kpdUZk4YxlzGy1eE7Yb9ILgwi8nyiApI=;
+ b=lodvN+oUwXFwGGYqLKlh/GuMK7RCi97m9Y8OVk2J4nShALfpjvNjVh5ryk06y+6Ghd
+ 0+NsKRy+ay7wufsmsx0utC6mjIf/8kGuB/Jx8Xp7jxwbv3sCMoszxYy6M6jBjXiGA7uJ
+ vJPwP9EsoMZ0Sll7j2VOBnW0HcQurOJbNPKe0=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1774111142; x=1774715942;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=X+mAGI6D2x7kpdUZk4YxlzGy1eE7Yb9ILgwi8nyiApI=;
+ b=pBxvAsvVvpII6xo05yXYXNhUnLOdGsoImRDzne1SHU4CXVM1CNlGlElvRHOV2tztOL
+ 6nlo4CubTDTNVgxLxibMDdKHvzr482dxrN3Sx0ZdnHhWtn2j/OKfkkY3f6hIUGTJ0jAv
+ txuineOCFavPmypcuoM1ANkXVGvcS5F9xTY4ml1edJmRtydZq7qWdw1onxHPSXnrqRW8
+ OtRw+RNuYUFli5O6AlJ75AlvqP1btXScW2J53XeWFshAn/A1W32niZB3Ugpru1FAgzBK
+ iGhAzMaEr2FzMuAFltciyW+iSScxmIKERveWOKzbwnqpUt1NyvyaeepmZKC5F08K6ZeV
+ UR4g==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUOckGKv+yWCPE4mS0pSMGEhN0pen50BT3aln+cnkvjPq/N4p8raA8CZfQWDnuoSQ1DcwY9mbDnqCM=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxvX0KPazOaJ2+gbv0/A+x1iljPDa83xYncDO7EMaAPogiUyQcw
+ Ja9gy/MzokW8XzcCO8Da8jMCIOqfi24/pkft6Gpq+fTa3gu/rLmvA03XcUqQQP1WTcw8bDvXJev
+ ZecAcbPws
+X-Gm-Gg: ATEYQzw0Y75crkZCY9obBtKnTk9gRKH5SAkVpJtVo1l5RM5U3VfR7Fkn2L376sXAccP
+ X28PYc7RxWY7XmR2F02S7uvJMIzDu0AmjNBzbMCKZZI6NQnf8mVCG+d9g7lP2VGeBMWhOJOtJLm
+ iXEWyLW9fCO4FsV7Sk2P44iDQHzkWvjyK1s/Fz6OrJgC8SEw/qZJOaNKyG//D0EjONZxDD4VEiP
+ 9WbTV3mFDBJlerhcGqO+41MX0H1NGXlTx2AKaMJ0NWAAVm617kx+fzZURBtjhrWDSqZqdbUr4Lb
+ sXm30azfpRlXfzG8hMoMcZyOrXwsnOF1FgV71VVp6j8JZME9/d00suIfFUgnlBhcK2F41GIwFU/
+ 1CZkCYpdfrx9/OqhM8onRR6kcbWjxvcKT4rOfwxRrVNDUA83o/DiB58uTfzoXfjmvOtjb4S5CSA
+ gh04oGQvy5l8Slrk1wORJpSMJkzCWcMbu90pHDyQs7gA/SiHAXIpX/yZ+RSHaLxQ==
+X-Received: by 2002:a17:906:2554:b0:b98:1e:6642 with SMTP id
+ a640c23a62f3a-b982f3e2c7cmr363434166b.45.1774111141891; 
+ Sat, 21 Mar 2026 09:39:01 -0700 (PDT)
+Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com.
+ [209.85.221.41]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-b9832f43a65sm286825666b.7.2026.03.21.09.39.00
+ for <dri-devel@lists.freedesktop.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sat, 21 Mar 2026 09:39:00 -0700 (PDT)
+Received: by mail-wr1-f41.google.com with SMTP id
+ ffacd0b85a97d-43b4f48c47cso1178850f8f.0
+ for <dri-devel@lists.freedesktop.org>; Sat, 21 Mar 2026 09:39:00 -0700 (PDT)
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXw5TB68+Sy3BNAjrhCjBBu2XVT8tXK26d4ND31u0wefXYnT6cG0ahjBHlf3Q1nFSop81aO1N1BFOU=@lists.freedesktop.org
+X-Received: by 2002:a05:6000:290d:b0:439:d242:e8fe with SMTP id
+ ffacd0b85a97d-43b64242fddmr11167085f8f.11.1774111139960; Sat, 21 Mar 2026
+ 09:38:59 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260319050938.556235-1-alvin1.chen@lcfc.corp-partner.google.com>
+References: <20260319050938.556235-1-alvin1.chen@lcfc.corp-partner.google.com>
+ <202603211444.JZ4VbAPo-lkp@intel.com>
+In-Reply-To: <202603211444.JZ4VbAPo-lkp@intel.com>
+From: Doug Anderson <dianders@chromium.org>
+Date: Sat, 21 Mar 2026 09:38:48 -0700
+X-Gmail-Original-Message-ID: <CAD=FV=WXD+FmjQusp_inaLhG8=vR3YgtobOp3igSmR54=Ka4bA@mail.gmail.com>
+X-Gm-Features: AaiRm50fR7YNH2twmQ7oW8qNNgZ56TEA6Y66221jXJ3dTEgaRip4CTx2LNX3NkE
+Message-ID: <CAD=FV=WXD+FmjQusp_inaLhG8=vR3YgtobOp3igSmR54=Ka4bA@mail.gmail.com>
+Subject: Re: [PATCH v3] drm/panel-edp: Add BOE NV153WUM-N42, CMN N153JCA-ELK, 
+ CSW MNF307QS3-2
+To: kernel test robot <lkp@intel.com>
+Cc: Alvin1 Chen <alvin1.chen@lcfc.corp-partner.google.com>,
+ neil.armstrong@linaro.org, 
+ oe-kbuild-all@lists.linux.dev, jesszhan0024@gmail.com, 
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,93 +104,59 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Alvin1,
+Hi,
 
-kernel test robot noticed the following build errors:
+On Sat, Mar 21, 2026 at 7:03=E2=80=AFAM kernel test robot <lkp@intel.com> w=
+rote:
+>
+> Hi Alvin1,
+>
+> kernel test robot noticed the following build warnings:
+>
+> [auto build test WARNING on drm-misc/drm-misc-next]
+> [also build test WARNING on linus/master v7.0-rc4]
+> [cannot apply to next-20260320]
+> [If your patch is applied to the wrong git tree, kindly drop us a note.
+> And when submitting patch, we suggest to use '--base' as documented in
+> https://git-scm.com/docs/git-format-patch#_base_tree_information]
+>
+> url:    https://github.com/intel-lab-lkp/linux/commits/Alvin1-Chen/drm-pa=
+nel-edp-Add-BOE-NV153WUM-N42-CMN-N153JCA-ELK-CSW-MNF307QS3-2/20260320-08471=
+8
+> base:   https://gitlab.freedesktop.org/drm/misc/kernel.git drm-misc-next
+> patch link:    https://lore.kernel.org/r/20260319050938.556235-1-alvin1.c=
+hen%40lcfc.corp-partner.google.com
+> patch subject: [PATCH v3] drm/panel-edp: Add BOE NV153WUM-N42, CMN N153JC=
+A-ELK, CSW  MNF307QS3-2
+> config: i386-randconfig-2006-20250825 (https://download.01.org/0day-ci/ar=
+chive/20260321/202603211444.JZ4VbAPo-lkp@intel.com/config)
+> compiler: gcc-14 (Debian 14.2.0-19) 14.2.0
+> reproduce (this is a W=3D1 build): (https://download.01.org/0day-ci/archi=
+ve/20260321/202603211444.JZ4VbAPo-lkp@intel.com/reproduce)
+>
+> If you fix the issue in a separate patch/commit (i.e. not just a new vers=
+ion of
+> the same patch/commit), kindly add following tags
+> | Reported-by: kernel test robot <lkp@intel.com>
+> | Closes: https://lore.kernel.org/oe-kbuild-all/202603211444.JZ4VbAPo-lkp=
+@intel.com/
+>
+> All warnings (new ones prefixed by >>):
+>
+>    drivers/gpu/drm/panel/panel-edp.c:1893:1: error: expected expression b=
+efore '{' token
+>     1893 | { \
+>          | ^
+>    drivers/gpu/drm/panel/panel-edp.c:2028:9: note: in expansion of macro =
+'EDP_PANEL_ENTRY'
+>     2028 | +       EDP_PANEL_ENTRY('B', 'O', 'E', 0x0db3, &delay_200_500_=
+e80, "NV153WUM-N42"),
+>          |         ^~~~~~~~~~~~~~~
 
-[auto build test ERROR on drm-misc/drm-misc-next]
-[also build test ERROR on linus/master v7.0-rc4]
-[cannot apply to next-20260320]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+I think this is the issue I already reported where your patch had an
+extra "+" in it. I fixed it when applying the patch. I think the
+kernel robot here was just testing the patch itself, not what landed.
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Alvin1-Chen/drm-panel-edp-Add-BOE-NV153WUM-N42-CMN-N153JCA-ELK-CSW-MNF307QS3-2/20260320-084718
-base:   https://gitlab.freedesktop.org/drm/misc/kernel.git drm-misc-next
-patch link:    https://lore.kernel.org/r/20260319050938.556235-1-alvin1.chen%40lcfc.corp-partner.google.com
-patch subject: [PATCH v3] drm/panel-edp: Add BOE NV153WUM-N42, CMN N153JCA-ELK, CSW  MNF307QS3-2
-config: i386-randconfig-2006-20250825 (https://download.01.org/0day-ci/archive/20260321/202603211757.qHunHQyW-lkp@intel.com/config)
-compiler: gcc-14 (Debian 14.2.0-19) 14.2.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260321/202603211757.qHunHQyW-lkp@intel.com/reproduce)
+So nothing needs to be done here.
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202603211757.qHunHQyW-lkp@intel.com/
-
-All errors (new ones prefixed by >>):
-
->> drivers/gpu/drm/panel/panel-edp.c:1893:1: error: expected expression before '{' token
-    1893 | { \
-         | ^
-   drivers/gpu/drm/panel/panel-edp.c:2028:9: note: in expansion of macro 'EDP_PANEL_ENTRY'
-    2028 | +       EDP_PANEL_ENTRY('B', 'O', 'E', 0x0db3, &delay_200_500_e80, "NV153WUM-N42"),
-         |         ^~~~~~~~~~~~~~~
-   drivers/gpu/drm/panel/panel-edp.c:1885:33: warning: 'delay_80_500_e50_d50' defined but not used [-Wunused-const-variable=]
-    1885 | static const struct panel_delay delay_80_500_e50_d50 = {
-         |                                 ^~~~~~~~~~~~~~~~~~~~
-   drivers/gpu/drm/panel/panel-edp.c:1878:33: warning: 'delay_200_500_e50_d100' defined but not used [-Wunused-const-variable=]
-    1878 | static const struct panel_delay delay_200_500_e50_d100 = {
-         |                                 ^~~~~~~~~~~~~~~~~~~~~~
-   drivers/gpu/drm/panel/panel-edp.c:1870:33: warning: 'delay_50_500_e200_d200_po2e335' defined but not used [-Wunused-const-variable=]
-    1870 | static const struct panel_delay delay_50_500_e200_d200_po2e335 = {
-         |                                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   drivers/gpu/drm/panel/panel-edp.c:1864:33: warning: 'delay_200_500_e250' defined but not used [-Wunused-const-variable=]
-    1864 | static const struct panel_delay delay_200_500_e250 = {
-         |                                 ^~~~~~~~~~~~~~~~~~
-   drivers/gpu/drm/panel/panel-edp.c:1858:33: warning: 'delay_200_150_e50' defined but not used [-Wunused-const-variable=]
-    1858 | static const struct panel_delay delay_200_150_e50 = {
-         |                                 ^~~~~~~~~~~~~~~~~
-   drivers/gpu/drm/panel/panel-edp.c:1838:33: warning: 'delay_200_500_e200_d50' defined but not used [-Wunused-const-variable=]
-    1838 | static const struct panel_delay delay_200_500_e200_d50 = {
-         |                                 ^~~~~~~~~~~~~~~~~~~~~~
-   drivers/gpu/drm/panel/panel-edp.c:1831:33: warning: 'delay_200_500_e200_d10' defined but not used [-Wunused-const-variable=]
-    1831 | static const struct panel_delay delay_200_500_e200_d10 = {
-         |                                 ^~~~~~~~~~~~~~~~~~~~~~
-   drivers/gpu/drm/panel/panel-edp.c:1824:33: warning: 'delay_200_500_e200_d200' defined but not used [-Wunused-const-variable=]
-    1824 | static const struct panel_delay delay_200_500_e200_d200 = {
-         |                                 ^~~~~~~~~~~~~~~~~~~~~~~
-   drivers/gpu/drm/panel/panel-edp.c:1805:33: warning: 'delay_100_500_e200' defined but not used [-Wunused-const-variable=]
-    1805 | static const struct panel_delay delay_100_500_e200 = {
-         |                                 ^~~~~~~~~~~~~~~~~~
-   drivers/gpu/drm/panel/panel-edp.c:1798:33: warning: 'delay_80_500_e80_p2e200' defined but not used [-Wunused-const-variable=]
-    1798 | static const struct panel_delay delay_80_500_e80_p2e200 = {
-         |                                 ^~~~~~~~~~~~~~~~~~~~~~~
-   drivers/gpu/drm/panel/panel-edp.c:1792:33: warning: 'delay_80_500_e50' defined but not used [-Wunused-const-variable=]
-    1792 | static const struct panel_delay delay_80_500_e50 = {
-         |                                 ^~~~~~~~~~~~~~~~
-   drivers/gpu/drm/panel/panel-edp.c:1771:33: warning: 'delay_200_500_e50_d50_p2e200' defined but not used [-Wunused-const-variable=]
-    1771 | static const struct panel_delay delay_200_500_e50_d50_p2e200 = {
-         |                                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   drivers/gpu/drm/panel/panel-edp.c:1753:33: warning: 'delay_200_500_p2e100' defined but not used [-Wunused-const-variable=]
-    1753 | static const struct panel_delay delay_200_500_p2e100 = {
-         |                                 ^~~~~~~~~~~~~~~~~~~~
-
-
-vim +1893 drivers/gpu/drm/panel/panel-edp.c
-
-490b30fbaca2ab Zhongtian Wu     2025-09-08  1891  
-7d1be0a09fa621 Douglas Anderson 2021-09-24  1892  #define EDP_PANEL_ENTRY(vend_chr_0, vend_chr_1, vend_chr_2, product_id, _delay, _name) \
-5540cf8f3e8dac Douglas Anderson 2021-09-14 @1893  { \
-bf201127c1b8f2 Hsin-Yi Wang     2024-03-07  1894  	.ident = { \
-5540cf8f3e8dac Douglas Anderson 2021-09-14  1895  		.name = _name, \
-7d1be0a09fa621 Douglas Anderson 2021-09-24  1896  		.panel_id = drm_edid_encode_panel_id(vend_chr_0, vend_chr_1, vend_chr_2, \
-7d1be0a09fa621 Douglas Anderson 2021-09-24  1897  						     product_id), \
-bf201127c1b8f2 Hsin-Yi Wang     2024-03-07  1898  	}, \
-5540cf8f3e8dac Douglas Anderson 2021-09-14  1899  	.delay = _delay \
-5540cf8f3e8dac Douglas Anderson 2021-09-14  1900  }
-5540cf8f3e8dac Douglas Anderson 2021-09-14  1901  
-
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+-Doug
