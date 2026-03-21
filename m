@@ -4,58 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C6AC31094489
-	for <dri-devel@archiver.kernel.org>; Sat, 21 Mar 2026 16:15:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CEC3E1094486
+	for <dri-devel@archiver.kernel.org>; Sat, 21 Mar 2026 16:15:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3CC1B10E26F;
-	Sat, 21 Mar 2026 16:15:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3F8DA10E04A;
+	Sat, 21 Mar 2026 16:15:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=protonmail.com header.i=@protonmail.com header.b="uKdagoi2";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Q7CsMcGJ";
 	dkim-atps=neutral
-Received: from mail-106104.protonmail.ch (mail-106104.protonmail.ch
- [79.135.106.104])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AA8FB10E04A
- for <dri-devel@lists.freedesktop.org>; Sat, 21 Mar 2026 16:15:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
- s=protonmail3; t=1774109734; x=1774368934;
- bh=QotTHgm5szfDydHr9RZe/Pmi7UIj/OMAipB3hOHJLmw=;
- h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
- Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
- Message-ID:BIMI-Selector;
- b=uKdagoi2L9q735o9uBLUbe0p9IWsDjPM59Lh+XCNGXygsYF1FJY8D/cM343QnBvMP
- 2S1IgoGYX/UPdcZcJEdRwT7HspcHAZxGg5vRP9jC164LzPwyWuo7LdSE3UIXUhXZmW
- /AbSqNvQ1+5dx+VQqZNRTO5WqTFiNK7AR7/alVFwjTf3nnRTkCk8XBo8A7NfBJUtXs
- byKWK8K1DgTke2SI08LPhdsCEww7qja7UknjAMgGkIfiA6MgXBDnvvRua6Li5WvcIb
- nnxORmWAPuJLUoCX43jSELPFsbkuC0fSDr8+nyJLI7IpH1Tfrol47qppo4mA6XmHMF
- zzK2OxKFWJYQQ==
-Date: Sat, 21 Mar 2026 16:15:29 +0000
-To: Krzysztof Kozlowski <krzk@kernel.org>
-From: cristian_ci <cristian_ci@protonmail.com>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht,
- phone-devel@vger.kernel.org
-Subject: Re: [PATCH v2 1/6] dt-bindings: display: panel: Add Novatek NT35532
- LCD DSI
-Message-ID: <JPvrBL0VElAnSybKBmlSXQbxGuYnospMhh-e3w4Ug5_6boEWzayNwLUDvCJPlz5IH5JAjciiMhdTBEOiTwJ7e0cbuZW7DV7r55qka0VmhBc=@protonmail.com>
-In-Reply-To: <9bb6e4ac-c7f2-4f1d-aff0-70eefec810a2@kernel.org>
-References: <20260318-rimob-new-features-v2-0-c1bf8917449e@protonmail.com>
- <20260318-rimob-new-features-v2-1-c1bf8917449e@protonmail.com>
- <20260319-amorphous-pastoral-turtle-851af9@quoll>
- <oMTrCB7euJojLz1EUHDhHCq071GQWD0g7-sqwahA62CnM-sVw08UCNhKdgHX2NrEN3H8iRhc0suejuq5JZ39UA2nEfKhRq9qwYJWSxCrAtc=@protonmail.com>
- <9bb6e4ac-c7f2-4f1d-aff0-70eefec810a2@kernel.org>
-Feedback-ID: 27475468:user:proton
-X-Pm-Message-ID: c3476e88b1fb925ce3150479b96fa7d10da5ebb6
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3678F10E246
+ for <dri-devel@lists.freedesktop.org>; Sat, 21 Mar 2026 16:15:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1774109739; x=1805645739;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=OfE6e8ObAXCUI3jTK/wiihBdS6FMdzwBM2QqFsHc6ds=;
+ b=Q7CsMcGJkWtGQqgWkKvjXn1swXIm8GcDwSXsiJdMnYy9Mc6bLFLMjaZk
+ lgKo3pAV9oK0zpspOVXG9y6budCj9Yx7Kxs96Xoambv2J375OXBqalQ9Z
+ SDS9HT25qKJOUdDm4yBkMBktzVwVP6+yqQ22bD7ysgo1ctjENL3FJBnvy
+ atq0KOgrzFOJAFIkAw7bK+rPnJ9/xZUNkw/Fu0r3PQ5Yc0HkGO61Za62X
+ TQe8pxvQYdhHzpjVuykEuu8laP7izXUcxAluBolT17p+QCwOgVjVG5gbr
+ sFE0szF8D9Kv2HRvnyXO13Rc0h13JinGm/9vm8khsOhzFb+1ysZQFficJ g==;
+X-CSE-ConnectionGUID: KEJJ8LGhSV6+pJwDQKw18Q==
+X-CSE-MsgGUID: H2Bil3g8RRSXZrkzYki/kA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11736"; a="86539274"
+X-IronPort-AV: E=Sophos;i="6.23,133,1770624000"; d="scan'208";a="86539274"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+ by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Mar 2026 09:15:38 -0700
+X-CSE-ConnectionGUID: kl85JanmTeCLFohsjzJgkQ==
+X-CSE-MsgGUID: FCgKDydzRyG6TyDfVNiWCQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,133,1770624000"; d="scan'208";a="247550206"
+Received: from igk-lkp-server01.igk.intel.com (HELO 9958d990ccf2)
+ ([10.211.93.152])
+ by fmviesa001.fm.intel.com with ESMTP; 21 Mar 2026 09:15:36 -0700
+Received: from kbuild by 9958d990ccf2 with local (Exim 4.98.2)
+ (envelope-from <lkp@intel.com>) id 1w3yz8-000000006A1-1Oog;
+ Sat, 21 Mar 2026 16:15:34 +0000
+Date: Sat, 21 Mar 2026 17:15:26 +0100
+From: kernel test robot <lkp@intel.com>
+To: Alvin1 Chen <alvin1.chen@lcfc.corp-partner.google.com>,
+ dianders@chromium.org, neil.armstrong@linaro.org
+Cc: oe-kbuild-all@lists.linux.dev, jesszhan0024@gmail.com,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ tzimmermann@suse.de, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org,
+ Alvin1 Chen <alvin1.chen@lcfc.corp-partner.google.com>
+Subject: Re: [PATCH v3] drm/panel-edp: Add BOE NV153WUM-N42, CMN N153JCA-ELK, 
+ CSW  MNF307QS3-2
+Message-ID: <202603211757.qHunHQyW-lkp@intel.com>
+References: <20260319050938.556235-1-alvin1.chen@lcfc.corp-partner.google.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260319050938.556235-1-alvin1.chen@lcfc.corp-partner.google.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,68 +76,93 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Saturday, March 21st, 2026 at 10:56, Krzysztof Kozlowski <krzk@kernel.or=
-g> wrote:
+Hi Alvin1,
 
-> On 20/03/2026 23:32, cristian_ci wrote:
-> > On Thursday, March 19th, 2026 at 10:09, Krzysztof Kozlowski <krzk@kerne=
-l.org> wrote:
-> >
-> >> On Wed, Mar 18, 2026 at 11:28:09PM +0100, Cristian Cozzolino wrote:
-> >>> +  avdd-supply:
-> >>> +    description: positive boost supply regulator
-> >>> +
-> >>> +  avee-supply:
-> >>> +    description: negative boost supply regulator
-> >>> +
-> >>> +  vci-supply:
-> >>> +    description: regulator that supplies the analog voltage
-> >>> +
-> >>> +  vddam-supply:
-> >>> +    description: power supply for MIPI interface
-> >>> +
-> >>> +  vddi-supply:
-> >>> +    description: regulator that supplies the I/O voltage
-> >>> +
-> >>> +  port: true
-> >>> +
-> >>> +required:
-> >>> +  - compatible
-> >>> +  - reg
-> >>> +  - reset-gpios
-> >>> +  - avdd-supply
-> >>> +  - avee-supply
-> >>> +  - vci-supply
-> >>
-> >> Only VDDI is required according to datasheet (see page 11 and page 16)=
-.
-> >
-> > Just to be sure, are you mentioning the part saying there are multiple
-> > power modes (2-1PWR, 2-2PWR, 3=C3=A9WR and 4PWR) related to NT35532?
-> >
-> >> Others are needed only in specific configurations, which I would ignor=
-e
-> >> for the simplicity of the binding. Drop these three.
-> >>
-> >> Previous discussion point was about this - write bindings based on
-> >> datasheet, since it is available.
-> >
-> > I've removed avdd, avee and vci supplies from 'required' properties
-> > and I've also tested the new bindings (just for completeness). Now,
-> > I'm going to reintroduce again the issue already raised previously
-> > (for which I received no replies in v1): should I submit a v3
-> > series including my new changes or I've to stick with v2 here, in
-> > order to address review concerns about binding, first?
-> >
->=20
-> I don't understand the question. This is v2, right? So I asked to make
-> changes to it, thus you should submit v3 after receiving some more
-> review for example.
+kernel test robot noticed the following build errors:
 
-I've submitted v3 of patch series considering that, apart dt-bindings, I=20
-think I've addressed reviews for the rest of patches, during these last=20
-days.
+[auto build test ERROR on drm-misc/drm-misc-next]
+[also build test ERROR on linus/master v7.0-rc4]
+[cannot apply to next-20260320]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-> Best regards,
-> Krzysztof
-> 
+url:    https://github.com/intel-lab-lkp/linux/commits/Alvin1-Chen/drm-panel-edp-Add-BOE-NV153WUM-N42-CMN-N153JCA-ELK-CSW-MNF307QS3-2/20260320-084718
+base:   https://gitlab.freedesktop.org/drm/misc/kernel.git drm-misc-next
+patch link:    https://lore.kernel.org/r/20260319050938.556235-1-alvin1.chen%40lcfc.corp-partner.google.com
+patch subject: [PATCH v3] drm/panel-edp: Add BOE NV153WUM-N42, CMN N153JCA-ELK, CSW  MNF307QS3-2
+config: i386-randconfig-2006-20250825 (https://download.01.org/0day-ci/archive/20260321/202603211757.qHunHQyW-lkp@intel.com/config)
+compiler: gcc-14 (Debian 14.2.0-19) 14.2.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260321/202603211757.qHunHQyW-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202603211757.qHunHQyW-lkp@intel.com/
+
+All errors (new ones prefixed by >>):
+
+>> drivers/gpu/drm/panel/panel-edp.c:1893:1: error: expected expression before '{' token
+    1893 | { \
+         | ^
+   drivers/gpu/drm/panel/panel-edp.c:2028:9: note: in expansion of macro 'EDP_PANEL_ENTRY'
+    2028 | +       EDP_PANEL_ENTRY('B', 'O', 'E', 0x0db3, &delay_200_500_e80, "NV153WUM-N42"),
+         |         ^~~~~~~~~~~~~~~
+   drivers/gpu/drm/panel/panel-edp.c:1885:33: warning: 'delay_80_500_e50_d50' defined but not used [-Wunused-const-variable=]
+    1885 | static const struct panel_delay delay_80_500_e50_d50 = {
+         |                                 ^~~~~~~~~~~~~~~~~~~~
+   drivers/gpu/drm/panel/panel-edp.c:1878:33: warning: 'delay_200_500_e50_d100' defined but not used [-Wunused-const-variable=]
+    1878 | static const struct panel_delay delay_200_500_e50_d100 = {
+         |                                 ^~~~~~~~~~~~~~~~~~~~~~
+   drivers/gpu/drm/panel/panel-edp.c:1870:33: warning: 'delay_50_500_e200_d200_po2e335' defined but not used [-Wunused-const-variable=]
+    1870 | static const struct panel_delay delay_50_500_e200_d200_po2e335 = {
+         |                                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   drivers/gpu/drm/panel/panel-edp.c:1864:33: warning: 'delay_200_500_e250' defined but not used [-Wunused-const-variable=]
+    1864 | static const struct panel_delay delay_200_500_e250 = {
+         |                                 ^~~~~~~~~~~~~~~~~~
+   drivers/gpu/drm/panel/panel-edp.c:1858:33: warning: 'delay_200_150_e50' defined but not used [-Wunused-const-variable=]
+    1858 | static const struct panel_delay delay_200_150_e50 = {
+         |                                 ^~~~~~~~~~~~~~~~~
+   drivers/gpu/drm/panel/panel-edp.c:1838:33: warning: 'delay_200_500_e200_d50' defined but not used [-Wunused-const-variable=]
+    1838 | static const struct panel_delay delay_200_500_e200_d50 = {
+         |                                 ^~~~~~~~~~~~~~~~~~~~~~
+   drivers/gpu/drm/panel/panel-edp.c:1831:33: warning: 'delay_200_500_e200_d10' defined but not used [-Wunused-const-variable=]
+    1831 | static const struct panel_delay delay_200_500_e200_d10 = {
+         |                                 ^~~~~~~~~~~~~~~~~~~~~~
+   drivers/gpu/drm/panel/panel-edp.c:1824:33: warning: 'delay_200_500_e200_d200' defined but not used [-Wunused-const-variable=]
+    1824 | static const struct panel_delay delay_200_500_e200_d200 = {
+         |                                 ^~~~~~~~~~~~~~~~~~~~~~~
+   drivers/gpu/drm/panel/panel-edp.c:1805:33: warning: 'delay_100_500_e200' defined but not used [-Wunused-const-variable=]
+    1805 | static const struct panel_delay delay_100_500_e200 = {
+         |                                 ^~~~~~~~~~~~~~~~~~
+   drivers/gpu/drm/panel/panel-edp.c:1798:33: warning: 'delay_80_500_e80_p2e200' defined but not used [-Wunused-const-variable=]
+    1798 | static const struct panel_delay delay_80_500_e80_p2e200 = {
+         |                                 ^~~~~~~~~~~~~~~~~~~~~~~
+   drivers/gpu/drm/panel/panel-edp.c:1792:33: warning: 'delay_80_500_e50' defined but not used [-Wunused-const-variable=]
+    1792 | static const struct panel_delay delay_80_500_e50 = {
+         |                                 ^~~~~~~~~~~~~~~~
+   drivers/gpu/drm/panel/panel-edp.c:1771:33: warning: 'delay_200_500_e50_d50_p2e200' defined but not used [-Wunused-const-variable=]
+    1771 | static const struct panel_delay delay_200_500_e50_d50_p2e200 = {
+         |                                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   drivers/gpu/drm/panel/panel-edp.c:1753:33: warning: 'delay_200_500_p2e100' defined but not used [-Wunused-const-variable=]
+    1753 | static const struct panel_delay delay_200_500_p2e100 = {
+         |                                 ^~~~~~~~~~~~~~~~~~~~
+
+
+vim +1893 drivers/gpu/drm/panel/panel-edp.c
+
+490b30fbaca2ab Zhongtian Wu     2025-09-08  1891  
+7d1be0a09fa621 Douglas Anderson 2021-09-24  1892  #define EDP_PANEL_ENTRY(vend_chr_0, vend_chr_1, vend_chr_2, product_id, _delay, _name) \
+5540cf8f3e8dac Douglas Anderson 2021-09-14 @1893  { \
+bf201127c1b8f2 Hsin-Yi Wang     2024-03-07  1894  	.ident = { \
+5540cf8f3e8dac Douglas Anderson 2021-09-14  1895  		.name = _name, \
+7d1be0a09fa621 Douglas Anderson 2021-09-24  1896  		.panel_id = drm_edid_encode_panel_id(vend_chr_0, vend_chr_1, vend_chr_2, \
+7d1be0a09fa621 Douglas Anderson 2021-09-24  1897  						     product_id), \
+bf201127c1b8f2 Hsin-Yi Wang     2024-03-07  1898  	}, \
+5540cf8f3e8dac Douglas Anderson 2021-09-14  1899  	.delay = _delay \
+5540cf8f3e8dac Douglas Anderson 2021-09-14  1900  }
+5540cf8f3e8dac Douglas Anderson 2021-09-14  1901  
+
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
