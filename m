@@ -4,48 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 51A7CFC72D4
-	for <dri-devel@archiver.kernel.org>; Sun, 22 Mar 2026 18:48:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6CCA7D58CA3
+	for <dri-devel@archiver.kernel.org>; Sun, 22 Mar 2026 22:01:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4250110E18C;
-	Sun, 22 Mar 2026 18:48:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4790510E08B;
+	Sun, 22 Mar 2026 22:01:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=pm.me header.i=@pm.me header.b="emA7uTEb";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="EWOWlrKq";
 	dkim-atps=neutral
-Received: from mail-106118.protonmail.ch (mail-106118.protonmail.ch
- [79.135.106.118])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 50D2510E18C
- for <dri-devel@lists.freedesktop.org>; Sun, 22 Mar 2026 18:48:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
- s=protonmail3; t=1774205296; x=1774464496;
- bh=W2vGcjC6o/9rSwUMT8OLICaUBrAZ7/2I6vU0gYR4kkI=;
- h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
- Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
- b=emA7uTEbUSB1oLP8p8Qfqf3JY4Ah2oLbQEHzVwPVwpsJiypdw9g9gxhVLWtIwV7t/
- 6jWcwvikiTzA0HwQMpK8laie4hIDdn0yjZKUzRBXRgwjPCb2XUK1d/AriteyNhZ5kK
- DHWpG/wvWPpY951Wee/DLhxlIO307BpjjvtvHd93n3/stWlHd1d8b4LrdMGd0c6P5d
- UpRbOEVb3rBXCezInh5WXfImlckCPEYkT8XTZe+mlEX9AhkgrZopqeXN6GwoohF8U4
- evuntgGhVq7wSf+Gm4GkaNVdcIrBkJaIrwTC+jpNi1Og2GtAlpJ5QZ4CfwXvzoWxZF
- zZvCoqxC+x49g==
-Date: Sun, 22 Mar 2026 18:48:09 +0000
-To: Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-From: Alexander Koskovich <akoskovich@pm.me>
-Cc: Jonathan Marek <jonathan@marek.ca>,
- Neil Armstrong <neil.armstrong@linaro.org>, Pengyu Luo <mitltlatltl@gmail.com>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Alexander Koskovich <akoskovich@pm.me>
-Subject: [PATCH v2] drm/msm/dpu: calculate data_width like downstream
-Message-ID: <20260322-fix-data-width-calc-v2-1-d5f28136bc4e@pm.me>
-Feedback-ID: 37836894:user:proton
-X-Pm-Message-ID: 42764064717d064bdc2b817f89f4066be9490a98
+Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com
+ [209.85.221.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5613B10E08B
+ for <dri-devel@lists.freedesktop.org>; Sun, 22 Mar 2026 22:01:32 +0000 (UTC)
+Received: by mail-wr1-f50.google.com with SMTP id
+ ffacd0b85a97d-43b44c0bcdbso3747108f8f.1
+ for <dri-devel@lists.freedesktop.org>; Sun, 22 Mar 2026 15:01:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1774216891; x=1774821691; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:sender:from:to:cc:subject:date:message-id:reply-to;
+ bh=LoniouiS4pfhVpBZnivyj0bnq4HH5JzaMv3Qz8c4efc=;
+ b=EWOWlrKqKeoiSTBL1L2UnhAub3q7B1JPyqZ9++oyt+1sOlCL6ZJkUDuBClqz6/pkkM
+ eQnWEy3bcoc36pj11f4w40eHTpkOwDNmUMznc6exkNvcQuG3kYPSXONqtjdG7py/ZI+s
+ bghkHxrNgQcKN6hVXeUza7LUBxtUYCpDbSSw+7feygpKc5QUYWOth9wg/7qXZQbymMWC
+ ZIUXEDpL/2pfm6GYhb9sfVlu/2uLGn0b7FEe3uuHR+aOpOwlVK6OxRa2AF38T63X0qHZ
+ P+XOR+KmhOwHnhDxyCh8cZAFeIMhXjpo9Yhsw56+j25sW8QJ7a9Q/GPDkkAzac0c4g1D
+ /M7g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1774216891; x=1774821691;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:sender:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=LoniouiS4pfhVpBZnivyj0bnq4HH5JzaMv3Qz8c4efc=;
+ b=JiAGAcaL/Z6AvMY4p8Tpl+zbY1iTENRu75JetOWq9hD9cMyqpeX2sMLalB50NkiCku
+ n5K1aXsQ1Boe+VtyuL6nm+YyeGq89AI816ZgdT7xIhNEI33tzHRNgTDHXGg34wyrwNMe
+ HsVPE+SpJWmbvYYaPByCxL8o9kjwwYgx1pbcuJoDou5NtqdhKivbXKow8QTR59XI62lq
+ S6a1hU6ZfSabiLXzsNt34zKlsLsmswNYHfCSVaLquhnDA/54oA44AUsCxh9cQInEpzWE
+ 2dhRzFzAe+dmntJElDWpCRecfnUuSZLe3OvWOPNrI3BnE8eiawC7QGqFodvKgsfFe0Rz
+ VETg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWhWwH9G1bq8uV5EDz3iBdk5cuq8Z3bKvTkQ9nYWOi1gab4QfDj1eQJNJSuIiTnZZkwEzYHDJSGiyY=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Ywc5TYlEMWEbPrZ0gkwGLanNPwgDGxDxIiF1aS5fhSLXHyZ3cMP
+ s5QoKNjSW9j0wuofs7g1k5LKmUThW4dlfG8iuD6647vrNWbz5R4q4krL
+X-Gm-Gg: ATEYQzxEVekKalrOa1jPkJJLForNCJstCtro2RoZbqlNWR9vFigcn/n4WnwPuyAsi+q
+ M7LQjVS6JMEYX0vS8R5ALzMHwvGm1zE/IwTz5UCSr9EHbKcIsJgr5Xistdtkt0V2uHc8BfIWggf
+ 6lTGvUtXTgDsqhnu2cj6iAfq3bKoDVSAFmGcMBi8TDUzHP1uogwMHGe2uQcyQc2J1UnT3W68h1D
+ vdlYk8oYZXThsTIdUyuI+OaarqQ7+jusB5W2ohlHnUT0Plst3Rh31yUuacb0TS7F60P6Hi3M+Gv
+ aSTA+MCY8gI/SSg588B40raruSnynsZVq1oTLeAQT2M0myK9FoO0KnvyRYGjPM5Nez625LnWQYy
+ ilba5wv1er4dcPDH6FWiHcD5w+a4IDcpVYx4IO1xfrS61+MTP1lFsao2vW7/2QL37uICvJaO9hN
+ LJve62ttnWtEErILq7nG42tIKSh9Yz7P1aYb9JNdlP0/SZVxLoP3pSBfDp6kp2dIIyMQ==
+X-Received: by 2002:a05:6000:40ce:b0:43b:5097:6f62 with SMTP id
+ ffacd0b85a97d-43b6426d5a9mr15833451f8f.36.1774216890443; 
+ Sun, 22 Mar 2026 15:01:30 -0700 (PDT)
+Received: from nixos-office (195-23-151-163.net.novis.pt. [195.23.151.163])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-43b6471a297sm25215437f8f.37.2026.03.22.15.01.27
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 22 Mar 2026 15:01:28 -0700 (PDT)
+From: Julian Braha <julianbraha@gmail.com>
+To: mripard@kernel.org, maarten.lankhorst@linux.intel.com, tzimmermann@suse.de,
+ christian.koenig@amd.com, karolina.stolarek@intel.com
+Cc: airlied@gmail.com, simona@ffwll.ch, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Julian Braha <julianbraha@gmail.com>
+Subject: [PATCH] drm: fix dead default for DRM_TTM_KUNIT_TEST
+Date: Sun, 22 Mar 2026 22:01:25 +0000
+Message-ID: <20260322220125.1380776-1-julianbraha@gmail.com>
+X-Mailer: git-send-email 2.51.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,105 +87,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Derive INTF data_width from dce_bytes_per_line rather than
-timing->width when DSC is enabled. Use DIV_ROUND_UP to avoid
-rounding errors.
+The DRM_TTM_KUNIT_TEST config option should default
+to KUNIT_ALL_TESTS so that if all tests are enabled then
+it is included, but currently the 'default KUNIT_ALL_TESTS'
+statement is shadowed by an unconditional 'default n',
+meaning that this second default statement is currently dead code.
 
-Signed-off-by: Alexander Koskovich <akoskovich@pm.me>
+This dead code was found by kconfirm, a static analysis
+tool for Kconfig.
+
+Fixes: e3912d09bf8d ("drm/ttm: Introduce KUnit test")
+Signed-off-by: Julian Braha <julianbraha@gmail.com>
 ---
-Changes in v2:
-- Added back comment about DSC & DP
-- Link to v1: https://lore.kernel.org/r/20260322-fix-data-width-calc-v1-1-1=
-28880f5a067@pm.me
----
- .../gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c   |  2 ++
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c        | 26 +++++++++++++++++-=
-----
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.h        |  1 +
- 3 files changed, 24 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/Kconfig.debug | 1 -
+ 1 file changed, 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c b/drivers=
-/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c
-index 0ba777bda253..ba810f26ea30 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c
-@@ -10,6 +10,7 @@
- #include "dpu_formats.h"
- #include "dpu_trace.h"
- #include "disp/msm_disp_snapshot.h"
-+#include "msm_dsc_helper.h"
-=20
- #include <drm/display/drm_dsc_helper.h>
- #include <drm/drm_managed.h>
-@@ -136,6 +137,7 @@ static void drm_mode_to_intf_timing_params(
- =09=09timing->width =3D timing->width * drm_dsc_get_bpp_int(dsc) /
- =09=09=09=09(dsc->bits_per_component * 3);
- =09=09timing->xres =3D timing->width;
-+=09=09timing->dce_bytes_per_line =3D msm_dsc_get_bytes_per_line(dsc);
- =09}
- }
-=20
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c b/drivers/gpu/drm/=
-msm/disp/dpu1/dpu_hw_intf.c
-index 7e620f590984..ac82b69aedf6 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c
-@@ -173,13 +173,29 @@ static void dpu_hw_intf_setup_timing_engine(struct dp=
-u_hw_intf *intf,
- =09data_width =3D p->width;
-=20
- =09/*
--=09 * If widebus is enabled, data is valid for only half the active window
--=09 * since the data rate is doubled in this mode. But for the compression
--=09 * mode in DP case, the p->width is already adjusted in
--=09 * drm_mode_to_intf_timing_params()
-+=09 * If widebus is disabled:
-+=09 * For uncompressed stream, the data is valid for the entire active
-+=09 * window period.
-+=09 * For compressed stream, data is valid for a shorter time period
-+=09 * inside the active window depending on the compression ratio.
-+=09 *
-+=09 * If widebus is enabled:
-+=09 * For uncompressed stream, data is valid for only half the active
-+=09 * window, since the data rate is doubled in this mode.
-+=09 * For compressed stream, data validity window needs to be adjusted for
-+=09 * compression ratio and then further halved.
-+=09 *
-+=09 * For the compression mode in DP case, the p->width is already
-+=09 * adjusted in drm_mode_to_intf_timing_params().
- =09 */
--=09if (p->wide_bus_en && !dp_intf)
-+=09if (p->compression_en && !dp_intf) {
-+=09=09if (p->wide_bus_en)
-+=09=09=09data_width =3D DIV_ROUND_UP(p->dce_bytes_per_line, 6);
-+=09=09else
-+=09=09=09data_width =3D DIV_ROUND_UP(p->dce_bytes_per_line, 3);
-+=09} else if (p->wide_bus_en && !dp_intf) {
- =09=09data_width =3D p->width >> 1;
-+=09}
-=20
- =09/* TODO: handle DSC+DP case, we only handle DSC+DSI case so far */
- =09if (p->compression_en && !dp_intf &&
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.h b/drivers/gpu/drm/=
-msm/disp/dpu1/dpu_hw_intf.h
-index f6ef2c21b66d..badd26305fc9 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.h
-@@ -35,6 +35,7 @@ struct dpu_hw_intf_timing_params {
-=20
- =09bool wide_bus_en;
- =09bool compression_en;
-+=09u32 dce_bytes_per_line;
- };
-=20
- struct dpu_hw_intf_prog_fetch {
-
----
-base-commit: f338e77383789c0cae23ca3d48adcc5e9e137e3c
-change-id: 20260322-fix-data-width-calc-c44287df08b8
-
-Best regards,
---=20
-Alexander Koskovich <akoskovich@pm.me>
-
+diff --git a/drivers/gpu/drm/Kconfig.debug b/drivers/gpu/drm/Kconfig.debug
+index 05dc43c0b8c5..75c186f938b0 100644
+--- a/drivers/gpu/drm/Kconfig.debug
++++ b/drivers/gpu/drm/Kconfig.debug
+@@ -86,7 +86,6 @@ config DRM_KUNIT_TEST
+ 
+ config DRM_TTM_KUNIT_TEST
+ 	tristate "KUnit tests for TTM" if !KUNIT_ALL_TESTS
+-	default n
+ 	depends on DRM && KUNIT && MMU && (UML || COMPILE_TEST)
+ 	select DRM_TTM
+ 	select DRM_BUDDY
+-- 
+2.51.2
 
