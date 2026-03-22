@@ -4,48 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D1A43FC72C4
-	for <dri-devel@archiver.kernel.org>; Sun, 22 Mar 2026 14:31:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B864DFC72AD
+	for <dri-devel@archiver.kernel.org>; Sun, 22 Mar 2026 14:47:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0911310E275;
-	Sun, 22 Mar 2026 14:31:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E7CDD10E281;
+	Sun, 22 Mar 2026 14:47:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=pm.me header.i=@pm.me header.b="fznH3kr9";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ab1repuk";
 	dkim-atps=neutral
-Received: from mail-43103.protonmail.ch (mail-43103.protonmail.ch
- [185.70.43.103])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8383110E260
- for <dri-devel@lists.freedesktop.org>; Sun, 22 Mar 2026 14:31:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
- s=protonmail3; t=1774189878; x=1774449078;
- bh=TZXkJdJ9ML2LISNVgOvnIHtIpHF+r1CvhpF/XXj5VkM=;
- h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
- Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
- b=fznH3kr9VZB2EpPfs4eXrgsfIKUfoOgBLHHWte2GxA3jjakHFIoAIMNOUutg4ZpJd
- nBs/0QYDCUffBLXH4UDJw98Gr2tJqSKK/9Sbxy7+jheye68+SRtePWcEolK/wCNwuh
- ysUoSTUNGlrVWYr5nkOOoLIK3Jc3I29DNftnuwoSYQlUgPDr+Bwhg/yXAAzbgJcT6K
- wOSP24Gjhn2cZwBDCS9mvczqHwtSiubFiiuVhRMeThdcq/gIJkKTUovp0Rtz9lWFl7
- beeca7lrQBeOhd1EPbCzdWZIjmPGhxuMInwVu18E7VF/vVgoEYFESwAu7zopJm60rO
- p5ex2htrQoHWw==
-Date: Sun, 22 Mar 2026 14:31:13 +0000
-To: Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 81B6F10E281
+ for <dri-devel@lists.freedesktop.org>; Sun, 22 Mar 2026 14:47:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1774190838; x=1805726838;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=4CuJLFo5P0QwW8OdcIzkP4cLzHaoF1RmcqeEapDcW6Q=;
+ b=ab1repukzb9uliyu2eK6gPN+Iyc2jUWy+XHopEoJ3KgJXl4QMc5ewxox
+ 6cM++7WuphpDp3XadFdKJak6M6WDHIscpFwRDKgwNym4Vmy+ADg0uQvdD
+ UbOAf5qfkJNRkxyfq4lI9HdVRS+s6L4va2SoyMReEiOu3paH426DOJZyS
+ p9YpBt5MmEcohBwzbgJV9fBcb1MDgrH7em2zBRtksACUDxbF41jwUbWQa
+ TRY0RLlZqhEArVJM2vKFZDNDl95GIxLpUwbZwlGbZh5m7akNjW63rDgT0
+ Da+xBPcf59mIAyuS4TiFhw5JN6sW3Dvn1vL+AaTGWqZaYrF6kwqK3b+/3 A==;
+X-CSE-ConnectionGUID: C2k3Mtj2S3CJGgA+pazLJg==
+X-CSE-MsgGUID: M+LkDI6IRjyIuPD4cJjmYQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11737"; a="86282433"
+X-IronPort-AV: E=Sophos;i="6.23,135,1770624000"; d="scan'208";a="86282433"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+ by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Mar 2026 07:47:17 -0700
+X-CSE-ConnectionGUID: BnK2MdicQbacO98ZZ3s+MA==
+X-CSE-MsgGUID: zav4hKkJTd6G3gT+FXBPEg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,135,1770624000"; d="scan'208";a="228505602"
+Received: from lkp-server02.sh.intel.com (HELO d7fefbca0d04) ([10.239.97.151])
+ by fmviesa005.fm.intel.com with ESMTP; 22 Mar 2026 07:47:15 -0700
+Received: from kbuild by d7fefbca0d04 with local (Exim 4.98.2)
+ (envelope-from <lkp@intel.com>) id 1w4K5A-000000002Fd-0GZZ;
+ Sun, 22 Mar 2026 14:47:12 +0000
+Date: Sun, 22 Mar 2026 22:46:33 +0800
+From: kernel test robot <lkp@intel.com>
+To: Matt Coster <matt.coster@imgtec.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-From: Alexander Koskovich <akoskovich@pm.me>
-Cc: Jonathan Marek <jonathan@marek.ca>,
- Neil Armstrong <neil.armstrong@linaro.org>, Pengyu Luo <mitltlatltl@gmail.com>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Alexander Koskovich <akoskovich@pm.me>
-Subject: [PATCH RFC] drm/msm/dpu: calculate data_width like downstream
-Message-ID: <20260322-fix-data-width-calc-v1-1-128880f5a067@pm.me>
-Feedback-ID: 37836894:user:proton
-X-Pm-Message-ID: b2250f69380c06374677a845eaed5e451dbd539b
+Cc: oe-kbuild-all@lists.linux.dev, Frank Binns <frank.binns@imgtec.com>,
+ Brajesh Gupta <brajesh.gupta@imgtec.com>,
+ Alessio Belle <alessio.belle@imgtec.com>,
+ Alexandru Dadu <alexandru.dadu@imgtec.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Matt Coster <matt.coster@imgtec.com>
+Subject: Re: [PATCH v2 1/2] drm/imagination: Define packed BVNCs in the uapi
+Message-ID: <202603222211.A2XiR1YU-lkp@intel.com>
+References: <20260320-bvnc-cleanup-v2-1-49c3c1453289@imgtec.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260320-bvnc-cleanup-v2-1-49c3c1453289@imgtec.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,123 +78,163 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Derive INTF data_width from dce_bytes_per_line rather than
-timing->width when DSC is enabled. Use DIV_ROUND_UP to avoid
-rounding errors.
+Hi Matt,
 
-Signed-off-by: Alexander Koskovich <akoskovich@pm.me>
----
-This patch changes the data_width calculation to match downstream,
-and avoids needing to change the divisor for timing->width to /24.
+kernel test robot noticed the following build errors:
 
-However I am not sure if this is a correct approach, but at least
-with this I get the same values for data_width as downstream now:
+[auto build test ERROR on fbef867cf6614178bc6afd15ee15f85cddf19eab]
 
-data_width w/ no widebus
-before: 288
-after: 360
+url:    https://github.com/intel-lab-lkp/linux/commits/Matt-Coster/drm-imagination-Define-packed-BVNCs-in-the-uapi/20260322-112647
+base:   fbef867cf6614178bc6afd15ee15f85cddf19eab
+patch link:    https://lore.kernel.org/r/20260320-bvnc-cleanup-v2-1-49c3c1453289%40imgtec.com
+patch subject: [PATCH v2 1/2] drm/imagination: Define packed BVNCs in the uapi
+config: arm64-randconfig-002-20260322 (https://download.01.org/0day-ci/archive/20260322/202603222211.A2XiR1YU-lkp@intel.com/config)
+compiler: aarch64-linux-gcc (GCC) 11.5.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260322/202603222211.A2XiR1YU-lkp@intel.com/reproduce)
 
-data_with w/ widebus
-before: 144
-after: 180
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202603222211.A2XiR1YU-lkp@intel.com/
 
-This was tested with the BOE BF068MWM-TD0 on the Nothing Phone (3a),
-it would be greatly appreciated if someone from QCOM could weigh in
-on if this is a correct approach.
+All errors (new ones prefixed by >>):
 
-Tested with kmscube and getting 120FPS, also note that this was
-tested with a few other changes:
+   In file included from include/linux/build_bug.h:5,
+                    from include/linux/bits.h:30,
+                    from drivers/gpu/drm/imagination/pvr_rogue_fwif.h:7,
+                    from drivers/gpu/drm/imagination/pvr_ccb.h:7,
+                    from drivers/gpu/drm/imagination/pvr_device.h:7,
+                    from drivers/gpu/drm/imagination/pvr_device.c:4:
+   drivers/gpu/drm/imagination/pvr_device.c: In function 'pvr_gpu_support_level':
+>> include/linux/compiler.h:203:82: error: expression in static assertion is not constant
+     203 | #define __BUILD_BUG_ON_ZERO_MSG(e, msg, ...) ((int)sizeof(struct {_Static_assert(!(e), msg);}))
+         |                                                                                  ^~~~
+   include/linux/build_bug.h:17:9: note: in expansion of macro '__BUILD_BUG_ON_ZERO_MSG'
+      17 |         __BUILD_BUG_ON_ZERO_MSG(e, ##__VA_ARGS__, #e " is true")
+         |         ^~~~~~~~~~~~~~~~~~~~~~~
+   include/linux/bitfield.h:160:17: note: in expansion of macro 'BUILD_BUG_ON_ZERO'
+     160 |                 BUILD_BUG_ON_ZERO(~((_mask) >> __bf_shf(_mask)) & (_val)) + \
+         |                 ^~~~~~~~~~~~~~~~~
+   drivers/gpu/drm/imagination/pvr_device.h:474:10: note: in expansion of macro 'FIELD_PREP_CONST'
+     474 |         (prep(DRM_PVR_BVNC_B, b) | \
+         |          ^~~~
+   drivers/gpu/drm/imagination/pvr_device.h:496:43: note: in expansion of macro '__PVR_PACKED_BVNC'
+     496 | #define PVR_PACKED_BVNC_CONST(b, v, n, c) __PVR_PACKED_BVNC(FIELD_PREP_CONST, b, v, n, c)
+         |                                           ^~~~~~~~~~~~~~~~~
+   drivers/gpu/drm/imagination/pvr_device.c:550:14: note: in expansion of macro 'PVR_PACKED_BVNC_CONST'
+     550 |         case PVR_PACKED_BVNC_CONST(33, 15, 11, 3):
+         |              ^~~~~~~~~~~~~~~~~~~~~
+>> include/linux/compiler.h:203:82: error: expression in static assertion is not constant
+     203 | #define __BUILD_BUG_ON_ZERO_MSG(e, msg, ...) ((int)sizeof(struct {_Static_assert(!(e), msg);}))
+         |                                                                                  ^~~~
+   include/linux/build_bug.h:17:9: note: in expansion of macro '__BUILD_BUG_ON_ZERO_MSG'
+      17 |         __BUILD_BUG_ON_ZERO_MSG(e, ##__VA_ARGS__, #e " is true")
+         |         ^~~~~~~~~~~~~~~~~~~~~~~
+   include/linux/bitfield.h:141:33: note: in expansion of macro 'BUILD_BUG_ON_ZERO'
+     141 | #define __BF_CHECK_POW2(n)      BUILD_BUG_ON_ZERO(((n) & ((n) - 1)) != 0)
+         |                                 ^~~~~~~~~~~~~~~~~
+   include/linux/bitfield.h:162:17: note: in expansion of macro '__BF_CHECK_POW2'
+     162 |                 __BF_CHECK_POW2((_mask) + (1ULL << __bf_shf(_mask))) +  \
+         |                 ^~~~~~~~~~~~~~~
+   drivers/gpu/drm/imagination/pvr_device.h:474:10: note: in expansion of macro 'FIELD_PREP_CONST'
+     474 |         (prep(DRM_PVR_BVNC_B, b) | \
+         |          ^~~~
+   drivers/gpu/drm/imagination/pvr_device.h:496:43: note: in expansion of macro '__PVR_PACKED_BVNC'
+     496 | #define PVR_PACKED_BVNC_CONST(b, v, n, c) __PVR_PACKED_BVNC(FIELD_PREP_CONST, b, v, n, c)
+         |                                           ^~~~~~~~~~~~~~~~~
+   drivers/gpu/drm/imagination/pvr_device.c:550:14: note: in expansion of macro 'PVR_PACKED_BVNC_CONST'
+     550 |         case PVR_PACKED_BVNC_CONST(33, 15, 11, 3):
+         |              ^~~~~~~~~~~~~~~~~~~~~
+>> include/linux/compiler.h:203:82: error: expression in static assertion is not constant
+     203 | #define __BUILD_BUG_ON_ZERO_MSG(e, msg, ...) ((int)sizeof(struct {_Static_assert(!(e), msg);}))
+         |                                                                                  ^~~~
+   include/linux/build_bug.h:17:9: note: in expansion of macro '__BUILD_BUG_ON_ZERO_MSG'
+      17 |         __BUILD_BUG_ON_ZERO_MSG(e, ##__VA_ARGS__, #e " is true")
+         |         ^~~~~~~~~~~~~~~~~~~~~~~
+   include/linux/bitfield.h:160:17: note: in expansion of macro 'BUILD_BUG_ON_ZERO'
+     160 |                 BUILD_BUG_ON_ZERO(~((_mask) >> __bf_shf(_mask)) & (_val)) + \
+         |                 ^~~~~~~~~~~~~~~~~
+   drivers/gpu/drm/imagination/pvr_device.h:474:10: note: in expansion of macro 'FIELD_PREP_CONST'
+     474 |         (prep(DRM_PVR_BVNC_B, b) | \
+         |          ^~~~
+   drivers/gpu/drm/imagination/pvr_device.h:496:43: note: in expansion of macro '__PVR_PACKED_BVNC'
+     496 | #define PVR_PACKED_BVNC_CONST(b, v, n, c) __PVR_PACKED_BVNC(FIELD_PREP_CONST, b, v, n, c)
+         |                                           ^~~~~~~~~~~~~~~~~
+   drivers/gpu/drm/imagination/pvr_device.c:551:14: note: in expansion of macro 'PVR_PACKED_BVNC_CONST'
+     551 |         case PVR_PACKED_BVNC_CONST(36, 53, 104, 796):
+         |              ^~~~~~~~~~~~~~~~~~~~~
+>> include/linux/compiler.h:203:82: error: expression in static assertion is not constant
+     203 | #define __BUILD_BUG_ON_ZERO_MSG(e, msg, ...) ((int)sizeof(struct {_Static_assert(!(e), msg);}))
+         |                                                                                  ^~~~
+   include/linux/build_bug.h:17:9: note: in expansion of macro '__BUILD_BUG_ON_ZERO_MSG'
+      17 |         __BUILD_BUG_ON_ZERO_MSG(e, ##__VA_ARGS__, #e " is true")
+         |         ^~~~~~~~~~~~~~~~~~~~~~~
+   include/linux/bitfield.h:141:33: note: in expansion of macro 'BUILD_BUG_ON_ZERO'
+     141 | #define __BF_CHECK_POW2(n)      BUILD_BUG_ON_ZERO(((n) & ((n) - 1)) != 0)
+         |                                 ^~~~~~~~~~~~~~~~~
+   include/linux/bitfield.h:162:17: note: in expansion of macro '__BF_CHECK_POW2'
+     162 |                 __BF_CHECK_POW2((_mask) + (1ULL << __bf_shf(_mask))) +  \
+         |                 ^~~~~~~~~~~~~~~
+   drivers/gpu/drm/imagination/pvr_device.h:474:10: note: in expansion of macro 'FIELD_PREP_CONST'
+     474 |         (prep(DRM_PVR_BVNC_B, b) | \
+         |          ^~~~
+   drivers/gpu/drm/imagination/pvr_device.h:496:43: note: in expansion of macro '__PVR_PACKED_BVNC'
+     496 | #define PVR_PACKED_BVNC_CONST(b, v, n, c) __PVR_PACKED_BVNC(FIELD_PREP_CONST, b, v, n, c)
+         |                                           ^~~~~~~~~~~~~~~~~
+   drivers/gpu/drm/imagination/pvr_device.c:551:14: note: in expansion of macro 'PVR_PACKED_BVNC_CONST'
+     551 |         case PVR_PACKED_BVNC_CONST(36, 53, 104, 796):
+         |              ^~~~~~~~~~~~~~~~~~~~~
+>> include/linux/compiler.h:203:82: error: expression in static assertion is not constant
+     203 | #define __BUILD_BUG_ON_ZERO_MSG(e, msg, ...) ((int)sizeof(struct {_Static_assert(!(e), msg);}))
+         |                                                                                  ^~~~
+   include/linux/build_bug.h:17:9: note: in expansion of macro '__BUILD_BUG_ON_ZERO_MSG'
+      17 |         __BUILD_BUG_ON_ZERO_MSG(e, ##__VA_ARGS__, #e " is true")
+         |         ^~~~~~~~~~~~~~~~~~~~~~~
+   include/linux/bitfield.h:160:17: note: in expansion of macro 'BUILD_BUG_ON_ZERO'
+     160 |                 BUILD_BUG_ON_ZERO(~((_mask) >> __bf_shf(_mask)) & (_val)) + \
+         |                 ^~~~~~~~~~~~~~~~~
+   drivers/gpu/drm/imagination/pvr_device.h:474:10: note: in expansion of macro 'FIELD_PREP_CONST'
+     474 |         (prep(DRM_PVR_BVNC_B, b) | \
+         |          ^~~~
+   drivers/gpu/drm/imagination/pvr_device.h:496:43: note: in expansion of macro '__PVR_PACKED_BVNC'
+     496 | #define PVR_PACKED_BVNC_CONST(b, v, n, c) __PVR_PACKED_BVNC(FIELD_PREP_CONST, b, v, n, c)
+         |                                           ^~~~~~~~~~~~~~~~~
+   drivers/gpu/drm/imagination/pvr_device.c:554:14: note: in expansion of macro 'PVR_PACKED_BVNC_CONST'
+     554 |         case PVR_PACKED_BVNC_CONST(36, 52, 104, 182):
+         |              ^~~~~~~~~~~~~~~~~~~~~
+>> include/linux/compiler.h:203:82: error: expression in static assertion is not constant
+     203 | #define __BUILD_BUG_ON_ZERO_MSG(e, msg, ...) ((int)sizeof(struct {_Static_assert(!(e), msg);}))
+         |                                                                                  ^~~~
+   include/linux/build_bug.h:17:9: note: in expansion of macro '__BUILD_BUG_ON_ZERO_MSG'
+      17 |         __BUILD_BUG_ON_ZERO_MSG(e, ##__VA_ARGS__, #e " is true")
+         |         ^~~~~~~~~~~~~~~~~~~~~~~
+   include/linux/bitfield.h:141:33: note: in expansion of macro 'BUILD_BUG_ON_ZERO'
+     141 | #define __BF_CHECK_POW2(n)      BUILD_BUG_ON_ZERO(((n) & ((n) - 1)) != 0)
+         |                                 ^~~~~~~~~~~~~~~~~
+   include/linux/bitfield.h:162:17: note: in expansion of macro '__BF_CHECK_POW2'
+     162 |                 __BF_CHECK_POW2((_mask) + (1ULL << __bf_shf(_mask))) +  \
+         |                 ^~~~~~~~~~~~~~~
+   drivers/gpu/drm/imagination/pvr_device.h:474:10: note: in expansion of macro 'FIELD_PREP_CONST'
+     474 |         (prep(DRM_PVR_BVNC_B, b) | \
+         |          ^~~~
+   drivers/gpu/drm/imagination/pvr_device.h:496:43: note: in expansion of macro '__PVR_PACKED_BVNC'
+     496 | #define PVR_PACKED_BVNC_CONST(b, v, n, c) __PVR_PACKED_BVNC(FIELD_PREP_CONST, b, v, n, c)
+         |                                           ^~~~~~~~~~~~~~~~~
+   drivers/gpu/drm/imagination/pvr_device.c:554:14: note: in expansion of macro 'PVR_PACKED_BVNC_CONST'
+     554 |         case PVR_PACKED_BVNC_CONST(36, 52, 104, 182):
+         |              ^~~~~~~~~~~~~~~~~~~~~
 
-(drm/msm/dsi: fix hdisplay calculation when programming dsi registers)
-(drm/msm/dsi: fix pclk rate calculation for bonded dsi)
-(drm/msm/dsi: fix bits_per_pclk)
-(drm/msm/dsi: fix hdisplay calculation for CMD mode panel)
----
- .../gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c   |  2 ++
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c        | 23 +++++++++++++++++-=
-----
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.h        |  1 +
- 3 files changed, 21 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c b/drivers=
-/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c
-index 0ba777bda253..ba810f26ea30 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c
-@@ -10,6 +10,7 @@
- #include "dpu_formats.h"
- #include "dpu_trace.h"
- #include "disp/msm_disp_snapshot.h"
-+#include "msm_dsc_helper.h"
-=20
- #include <drm/display/drm_dsc_helper.h>
- #include <drm/drm_managed.h>
-@@ -136,6 +137,7 @@ static void drm_mode_to_intf_timing_params(
- =09=09timing->width =3D timing->width * drm_dsc_get_bpp_int(dsc) /
- =09=09=09=09(dsc->bits_per_component * 3);
- =09=09timing->xres =3D timing->width;
-+=09=09timing->dce_bytes_per_line =3D msm_dsc_get_bytes_per_line(dsc);
- =09}
- }
-=20
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c b/drivers/gpu/drm/=
-msm/disp/dpu1/dpu_hw_intf.c
-index 7e620f590984..de6b5b0f70c4 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c
-@@ -173,13 +173,26 @@ static void dpu_hw_intf_setup_timing_engine(struct dp=
-u_hw_intf *intf,
- =09data_width =3D p->width;
-=20
- =09/*
--=09 * If widebus is enabled, data is valid for only half the active window
--=09 * since the data rate is doubled in this mode. But for the compression
--=09 * mode in DP case, the p->width is already adjusted in
--=09 * drm_mode_to_intf_timing_params()
-+=09 * If widebus is disabled:
-+=09 * For uncompressed stream, the data is valid for the entire active
-+=09 * window period.
-+=09 * For compressed stream, data is valid for a shorter time period
-+=09 * inside the active window depending on the compression ratio.
-+=09 *
-+=09 * If widebus is enabled:
-+=09 * For uncompressed stream, data is valid for only half the active
-+=09 * window, since the data rate is doubled in this mode.
-+=09 * For compressed stream, data validity window needs to be adjusted for
-+=09 * compression ratio and then further halved.
- =09 */
--=09if (p->wide_bus_en && !dp_intf)
-+=09if (p->compression_en && !dp_intf) {
-+=09=09if (p->wide_bus_en)
-+=09=09=09data_width =3D DIV_ROUND_UP(p->dce_bytes_per_line, 6);
-+=09=09else
-+=09=09=09data_width =3D DIV_ROUND_UP(p->dce_bytes_per_line, 3);
-+=09} else if (p->wide_bus_en && !dp_intf) {
- =09=09data_width =3D p->width >> 1;
-+=09}
-=20
- =09/* TODO: handle DSC+DP case, we only handle DSC+DSI case so far */
- =09if (p->compression_en && !dp_intf &&
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.h b/drivers/gpu/drm/=
-msm/disp/dpu1/dpu_hw_intf.h
-index f6ef2c21b66d..badd26305fc9 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.h
-@@ -35,6 +35,7 @@ struct dpu_hw_intf_timing_params {
-=20
- =09bool wide_bus_en;
- =09bool compression_en;
-+=09u32 dce_bytes_per_line;
- };
-=20
- struct dpu_hw_intf_prog_fetch {
+vim +203 include/linux/compiler.h
 
----
-base-commit: f338e77383789c0cae23ca3d48adcc5e9e137e3c
-change-id: 20260322-fix-data-width-calc-c44287df08b8
+230fa253df6352 Christian Borntraeger 2014-11-25  199  
+cb7380de9e4cbc Kees Cook             2025-02-05  200  #ifdef __CHECKER__
+243c90e917f5cf Vincent Mailhol       2025-03-29  201  #define __BUILD_BUG_ON_ZERO_MSG(e, msg, ...) (0)
+cb7380de9e4cbc Kees Cook             2025-02-05  202  #else /* __CHECKER__ */
+243c90e917f5cf Vincent Mailhol       2025-03-29 @203  #define __BUILD_BUG_ON_ZERO_MSG(e, msg, ...) ((int)sizeof(struct {_Static_assert(!(e), msg);}))
+cb7380de9e4cbc Kees Cook             2025-02-05  204  #endif /* __CHECKER__ */
+cb7380de9e4cbc Kees Cook             2025-02-05  205  
 
-Best regards,
---=20
-Alexander Koskovich <akoskovich@pm.me>
-
-
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
