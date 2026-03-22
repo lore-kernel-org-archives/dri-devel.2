@@ -4,65 +4,133 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 776E9FC72CB
-	for <dri-devel@archiver.kernel.org>; Sun, 22 Mar 2026 17:46:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D407EFC72D6
+	for <dri-devel@archiver.kernel.org>; Sun, 22 Mar 2026 18:35:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B59AC10E068;
-	Sun, 22 Mar 2026 17:46:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2C30110E061;
+	Sun, 22 Mar 2026 18:35:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="nIYI3nU9";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="AfJK85Sn";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="hkgtVi5B";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5702210E068
- for <dri-devel@lists.freedesktop.org>; Sun, 22 Mar 2026 17:46:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1774201574; x=1805737574;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=0psMeQIAJF2GCZNSxGc5OMzULl9ytU8E7LNJwnaKs3c=;
- b=nIYI3nU9EJj8YRunrY3pGdpcSP3WjBD0u2JSlSdlwYPdWsPqTQ7YIR75
- 9ffM214ulUMy4Tz5sWlIKEcY4VPA53i7MnU8PddwTP0tMml79c/PWlSwo
- ESv7UAtJqJr9oIE+qJP2tWZJ4JB3Jy+jmkbPN6YOFVNjXat0zwVVPP3p+
- EiehqyggmIGZTVOYZ5e3+y34BLQ50nc1r7lu41Dry+Jn5ovqjB+Uubx+F
- wjs1JrKkZ+BDZAIbgDqiHY5HcKW7DRFR05cn/lqxeRvpicqRmyCdxbs+X
- LvUgGYjtxXsLSJkhpJWe+YtVW4B8UrT5d92AiKRLvJNgSy3ywziIaAuqT A==;
-X-CSE-ConnectionGUID: YY7U3o2CQFGUAvI5z/nksw==
-X-CSE-MsgGUID: 2SuGV6UdTc+kJ8KoVTa4Zw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11737"; a="75242588"
-X-IronPort-AV: E=Sophos;i="6.23,135,1770624000"; d="scan'208";a="75242588"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
- by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Mar 2026 10:46:14 -0700
-X-CSE-ConnectionGUID: R464xp4/SeSKVLkTwl5LoA==
-X-CSE-MsgGUID: IdYGn02MTD6Vo73ZXIquNw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,135,1770624000"; d="scan'208";a="223019749"
-Received: from lkp-server02.sh.intel.com (HELO d7fefbca0d04) ([10.239.97.151])
- by orviesa010.jf.intel.com with ESMTP; 22 Mar 2026 10:46:10 -0700
-Received: from kbuild by d7fefbca0d04 with local (Exim 4.98.2)
- (envelope-from <lkp@intel.com>) id 1w4MsJ-000000002TN-2ZPb;
- Sun, 22 Mar 2026 17:46:07 +0000
-Date: Mon, 23 Mar 2026 01:39:47 +0800
-From: kernel test robot <lkp@intel.com>
-To: Kishore Batta <kishore.batta@oss.qualcomm.com>,
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- Jeff Hugo <jeff.hugo@oss.qualcomm.com>,
- Carl Vanderlip <carl.vanderlip@oss.qualcomm.com>,
- Oded Gabbay <ogabbay@kernel.org>,
- Manivannan Sadhasivam <mani@kernel.org>, andersson@kernel.org
-Cc: oe-kbuild-all@lists.linux.dev, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, mhi@lists.linux.dev,
- Kishore Batta <kishore.batta@oss.qualcomm.com>
-Subject: Re: [PATCH v4 7/9] bus: mhi: Capture DDR training data using command
- mode
-Message-ID: <202603230107.6EzMoVPn-lkp@intel.com>
-References: <20260319-sahara_protocol_new_v2-v4-7-47ad79308762@oss.qualcomm.com>
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8695210E105
+ for <dri-devel@lists.freedesktop.org>; Sun, 22 Mar 2026 18:35:15 +0000 (UTC)
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 62M8In6k3107414
+ for <dri-devel@lists.freedesktop.org>; Sun, 22 Mar 2026 18:35:14 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=2whQYxYAX/vh03tBzskqkZaS
+ QYQOGqrmyV5jVACuwOQ=; b=AfJK85SnNB3K5U+auyc2KNB+nT15vTgA7QaWfzg5
+ vITwwXww3qQaBEOd+MXt4d+GdLb4yIy4+SJlU6nxQeMxHHV25YFteiRFdsP/TL+u
+ /l45C+vBLdRFXLLE2wUVl4LkY/C3JA/GNHqsXmdMeo25aYg0LwzrcTJjxeWMsGn5
+ z3LSI1lgOZm1eKcCLFV9oPKuHxxrh9jtyVWc4WZJ5YmBw54dp4mrOwpw5OZEayr6
+ AD6k6rGdz1PR12xq7kEWJicqzJ9xP2NK+TWUagsQ2hvdp4wLYRKQ/RfYIQQer+j6
+ vzCaj6YA05T6XGg8BNgn+W3/lyz5U4PNJLRK4sBbSBpLYQ==
+Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
+ [209.85.160.197])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d1jwvju8s-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Sun, 22 Mar 2026 18:35:14 +0000 (GMT)
+Received: by mail-qt1-f197.google.com with SMTP id
+ d75a77b69052e-5090cc6a7d2so196343791cf.2
+ for <dri-devel@lists.freedesktop.org>; Sun, 22 Mar 2026 11:35:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1774204514; x=1774809314;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=2whQYxYAX/vh03tBzskqkZaSQYQOGqrmyV5jVACuwOQ=;
+ b=hkgtVi5BVxBtjtXq85A1MwCo845huAIU8Drz1h8tBjcTatdnTzFB4wFe5ElWMsFc4D
+ irlqeTaoh3eOHke6vQ+EfgtGnL1Hi2Q2cDJCjXMNblsBNFqgZKU5MF2rI1EB1rVo5tzq
+ KZR3RKU28uPnIWIlbzo2y/wcJPxntTdoQ6Aeq4H8gbVwcc0EXI24TNExQlKO/t4nzwCm
+ oXD0y0vVkrhCbsG2iX4UzOn4FHn54zXLx3D4T1BmV2FQDeNIp8f224hQy6X39XFQ9M/T
+ ib+JGYIYiJs5D0O3UMjpX+CanicsBzZ2tHmTWz7XTYXJ1Tsm+CeRKqKsCghfSwoxE2bS
+ IeDg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1774204514; x=1774809314;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=2whQYxYAX/vh03tBzskqkZaSQYQOGqrmyV5jVACuwOQ=;
+ b=ZVF9ad9nR1YlwQj4HM2GVz31uXADSVg7liaGf3afma0OlyOZ9OjPzrF1++in670Bci
+ cXX5Oy8R5yIFeSnkQHIvHwEQnCwyEJQVuLFbkfKT319yzwFJdm6bfyHKpqFBM+Q5qEBg
+ MyWzbKXsoGIg1jeHS6JICHfiHr1XroIhZD/UM8fKCsyuXS8Ic3Vn/cWcHgCt6xzWfkr0
+ BLnaESZ8jeu8cahwI9o3L7d1FVSp14/Jvfc/jVUwKnXJ1Ar1Fh1FwQBodtiHyb5s7iYA
+ x8V1OXSSSkdqZkLM5y0xXJ8CZ5iPSUXpTeEWGujnDCgaU6FhTKg+ihlJlADX9KAVnCwD
+ y3vQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVXufKFNqzwQHEuN70pZGflKlzqFzIL85CtxqP/IphrNCwiyl8Ek/nieIJmOWZ6aW+/yN4iIJoFEQA=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwitqabLoz0jb6+aidouHeQ+tp5x9U/F97hClAocPpBh56dsAXj
+ Q7fUCzO67/OYCr6vInbXz2L+KlSzSZLQENjYjCXobWwjJtscLy0NVKw84wXrOPk02PuKZpwubV9
+ DrSptQLho+Rk0xah/3pzO6A3BY4kfsZQlaPVYsLTXW5MWEAclrV6NY4G4o1YlgQ7DF3lnRXE=
+X-Gm-Gg: ATEYQzwzsILJmEWUN6vvCjMJ4uUq7fgnQJ5clSiRMBigQRiBUjT817Z9P4liJ0YlGi5
+ nCIvkZ6c65CVYbnbzqmM/ot38iFg5/XJD9CnvAHlsy5I2AImpK493d9zWEjxA0HJ1SpLEajp+K4
+ JRkUajDD+K1lr+Vlkuy9oAZKNCbH5PjxZG47Aio6k+3HhQ5W5uyTQa8i1C5fpDhA28UCUXXvl89
+ M/4klr98mNTTPvmTfR3GlHojRhfsVbEd+GPgOXWo4azHsQTt99CSL0+5IjgUdEQWiaExnD+r0Cm
+ PcaR3XIm+ufaAb5pUUsS2gXM2qb3SdqisvW4yIynVEWRalp+GfUd1JfyRtca7aBGTqNfH1AIlg6
+ BJfxWYPB2Ph8RTRHiXfTosMtg7B/N97Drq4ZNVOPq1PtAqCk5BPJIy6C6xB9UfgAYXdu+K14fyO
+ GPdJQjH2G6TnDxdd7VfRKm/eg6IxTRB9GMyd8=
+X-Received: by 2002:ac8:5a8b:0:b0:50b:5243:d679 with SMTP id
+ d75a77b69052e-50b5243d749mr60019471cf.46.1774204513649; 
+ Sun, 22 Mar 2026 11:35:13 -0700 (PDT)
+X-Received: by 2002:ac8:5a8b:0:b0:50b:5243:d679 with SMTP id
+ d75a77b69052e-50b5243d749mr60018991cf.46.1774204513130; 
+ Sun, 22 Mar 2026 11:35:13 -0700 (PDT)
+Received: from umbar.lan
+ (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-5a2851ac54fsm1971244e87.29.2026.03.22.11.35.10
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 22 Mar 2026 11:35:11 -0700 (PDT)
+Date: Sun, 22 Mar 2026 20:35:09 +0200
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Alexander Koskovich <akoskovich@pm.me>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Jonathan Marek <jonathan@marek.ca>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Pengyu Luo <mitltlatltl@gmail.com>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH RFC] drm/msm/dpu: calculate data_width like downstream
+Message-ID: <5fu22a3qcg3zn4qq2bt3j5teyzeihzitompenvdb3y72qa2tuh@vvvz5nrlfgtf>
+References: <20260322-fix-data-width-calc-v1-1-128880f5a067@pm.me>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260319-sahara_protocol_new_v2-v4-7-47ad79308762@oss.qualcomm.com>
+In-Reply-To: <20260322-fix-data-width-calc-v1-1-128880f5a067@pm.me>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzIyMDE2MSBTYWx0ZWRfX53reRWaNKJir
+ eIAzw8FgvlHZe8fgdkVt/vogKobAVFJ0bIZe8RKzxZFGDmPPC0SD2j2lWSiIBS2cfRBD19nr/Co
+ 5JN2/kZWj7wUdAbDWyY5GuIK3kszLod2+luP8HGMycQ3pCPI5NmC/zdBg4H53JrA+QsEHaBK/aR
+ IXrZYiHQHWl3txF7qMCi2MHptbNIAEeoCgSdxLQj+0F5u0msWg8cwXBvGoYqkuHSnRTlTumWoYI
+ B8M5EPxYtBw2a3YKDhLKqvZky8pj6Kk5sOyv4OeUPxfm+FyGI0HTz9tJpcbogUTVQCWMKTHC4wt
+ V/c3HXgosVX/XZturOS/MBWSWpKHS47GX8cpne8oytFbLgKnqEon/AgjN1VM4YhnwqEvMfZzGo5
+ dDef9uAqFOknUJsZbLVo5dgt/SI8s5LnzraPKVotHBHu5NVT8C3xD3kYdnIXyp7y7RH7iB+iq9E
+ rsWLS5fZl3kgiXgp3kQ==
+X-Authority-Analysis: v=2.4 cv=bcdmkePB c=1 sm=1 tr=0 ts=69c03662 cx=c_pps
+ a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=polRaJZFt_3Xv9GgdtEA:9
+ a=CjuIK1q_8ugA:10 a=a_PwQJl-kcHnX1M80qC6:22
+X-Proofpoint-ORIG-GUID: N9gaWPtWFYsnsFtIQISWoUOU047MV7o2
+X-Proofpoint-GUID: N9gaWPtWFYsnsFtIQISWoUOU047MV7o2
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-03-22_05,2026-03-20_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 impostorscore=0 clxscore=1015 spamscore=0 lowpriorityscore=0
+ priorityscore=1501 malwarescore=0 phishscore=0 adultscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603220161
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,106 +146,145 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Kishore,
+On Sun, Mar 22, 2026 at 02:31:13PM +0000, Alexander Koskovich wrote:
+> Derive INTF data_width from dce_bytes_per_line rather than
+> timing->width when DSC is enabled. Use DIV_ROUND_UP to avoid
+> rounding errors.
+> 
+> Signed-off-by: Alexander Koskovich <akoskovich@pm.me>
+> ---
+> This patch changes the data_width calculation to match downstream,
+> and avoids needing to change the divisor for timing->width to /24.
+> 
+> However I am not sure if this is a correct approach, but at least
+> with this I get the same values for data_width as downstream now:
+> 
+> data_width w/ no widebus
+> before: 288
+> after: 360
+> 
+> data_with w/ widebus
+> before: 144
+> after: 180
+> 
+> This was tested with the BOE BF068MWM-TD0 on the Nothing Phone (3a),
+> it would be greatly appreciated if someone from QCOM could weigh in
+> on if this is a correct approach.
+> 
+> Tested with kmscube and getting 120FPS, also note that this was
+> tested with a few other changes:
+> 
+> (drm/msm/dsi: fix hdisplay calculation when programming dsi registers)
 
-kernel test robot noticed the following build warnings:
+This is a part of msm-fixes
 
-[auto build test WARNING on a0ae2a256046c0c5d3778d1a194ff2e171f16e5f]
+> (drm/msm/dsi: fix pclk rate calculation for bonded dsi)
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Kishore-Batta/Add-documentation-for-Sahara-protocol/20260320-144614
-base:   a0ae2a256046c0c5d3778d1a194ff2e171f16e5f
-patch link:    https://lore.kernel.org/r/20260319-sahara_protocol_new_v2-v4-7-47ad79308762%40oss.qualcomm.com
-patch subject: [PATCH v4 7/9] bus: mhi: Capture DDR training data using command mode
-config: i386-randconfig-141-20260322 (https://download.01.org/0day-ci/archive/20260323/202603230107.6EzMoVPn-lkp@intel.com/config)
-compiler: clang version 20.1.8 (https://github.com/llvm/llvm-project 87f0227cb60147a26a1eeb4fb06e3b505e9c7261)
-smatch: v0.5.0-9004-gb810ac53
+This is a part of msm-fixes
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202603230107.6EzMoVPn-lkp@intel.com/
+> (drm/msm/dsi: fix bits_per_pclk)
+> (drm/msm/dsi: fix hdisplay calculation for CMD mode panel)
 
-New smatch warnings:
-drivers/bus/mhi/sahara/sahara.c:639 sahara_command_execute_resp() warn: unsigned '(context->rx->command_execute_resp.response_length)' is never less than zero.
+Okay, let's pick these two. I assume we've had enough of testing. I hope
+Marijn can also r-b those.
 
-Old smatch warnings:
-drivers/bus/mhi/sahara/sahara.c:353 sahara_select_variant() warn: this array is probably non-NULL. 'id->chan'
+> ---
+>  .../gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c   |  2 ++
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c        | 23 +++++++++++++++++-----
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.h        |  1 +
+>  3 files changed, 21 insertions(+), 5 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c
+> index 0ba777bda253..ba810f26ea30 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c
+> @@ -10,6 +10,7 @@
+>  #include "dpu_formats.h"
+>  #include "dpu_trace.h"
+>  #include "disp/msm_disp_snapshot.h"
+> +#include "msm_dsc_helper.h"
+>  
+>  #include <drm/display/drm_dsc_helper.h>
+>  #include <drm/drm_managed.h>
+> @@ -136,6 +137,7 @@ static void drm_mode_to_intf_timing_params(
+>  		timing->width = timing->width * drm_dsc_get_bpp_int(dsc) /
+>  				(dsc->bits_per_component * 3);
+>  		timing->xres = timing->width;
+> +		timing->dce_bytes_per_line = msm_dsc_get_bytes_per_line(dsc);
+>  	}
+>  }
+>  
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c
+> index 7e620f590984..de6b5b0f70c4 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c
+> @@ -173,13 +173,26 @@ static void dpu_hw_intf_setup_timing_engine(struct dpu_hw_intf *intf,
+>  	data_width = p->width;
+>  
+>  	/*
+> -	 * If widebus is enabled, data is valid for only half the active window
+> -	 * since the data rate is doubled in this mode. But for the compression
+> -	 * mode in DP case, the p->width is already adjusted in
+> -	 * drm_mode_to_intf_timing_params()
 
-vim +639 drivers/bus/mhi/sahara/sahara.c
+Please keep the DP comment. We need to fix the assymmetry between DSI
+and DP, but that needs DP DSC support first.
 
-   628	
-   629	static void sahara_command_execute_resp(struct sahara_context *context)
-   630	{
-   631		struct device *dev = &context->mhi_dev->mhi_cntrl->mhi_dev->dev;
-   632		struct sahara_ctrl_trng_data *ct;
-   633		u32 client_cmd, resp_len;
-   634		int ret;
-   635		u64 remaining;
-   636		u32 i;
-   637	
-   638		if (le32_to_cpu(context->rx->length) != SAHARA_COMMAND_EXEC_RESP_LENGTH ||
- > 639		    le32_to_cpu(context->rx->command_execute_resp.response_length) < 0) {
-   640			dev_err(&context->mhi_dev->dev,
-   641				"Malformed command execute resp packet - length %d\n",
-   642				le32_to_cpu(context->rx->length));
-   643			return;
-   644		}
-   645	
-   646		client_cmd = le32_to_cpu(context->rx->command_execute_resp.client_command);
-   647		resp_len = le32_to_cpu(context->rx->command_execute_resp.response_length);
-   648	
-   649		sahara_command_execute_data(context, client_cmd);
-   650	
-   651		if (client_cmd == SAHARA_EXEC_CMD_GET_COMMAND_ID_LIST) {
-   652			sahara_command_execute(context, SAHARA_EXEC_CMD_GET_TRAINING_DATA);
-   653			return;
-   654		}
-   655	
-   656		if (client_cmd != SAHARA_EXEC_CMD_GET_TRAINING_DATA)
-   657			return;
-   658	
-   659		ct = sahara_ctrl_trng_get(dev);
-   660		if (!ct) {
-   661			context->is_cmd_mode = false;
-   662			sahara_switch_mode_to_img_tx(context);
-   663			return;
-   664		}
-   665	
-   666		mutex_lock(&ct->lock);
-   667		kfree(ct->data);
-   668		ct->data = kzalloc(resp_len, GFP_KERNEL);
-   669		ct->size = resp_len;
-   670		ct->copied = 0;
-   671		ct->receiving = true;
-   672		mutex_unlock(&ct->lock);
-   673	
-   674		if (!ct->data) {
-   675			context->is_cmd_mode = false;
-   676			sahara_switch_mode_to_img_tx(context);
-   677			return;
-   678		}
-   679	
-   680		context->trng_size = resp_len;
-   681		context->trng_rcvd = 0;
-   682		context->receiving_trng_data = true;
-   683	
-   684		remaining = resp_len;
-   685		for (i = 0; i < SAHARA_NUM_CMD_BUF && remaining; i++) {
-   686			size_t pkt = min_t(size_t, remaining, SAHARA_PACKET_MAX_SIZE);
-   687	
-   688			ret = mhi_queue_buf(context->mhi_dev, DMA_FROM_DEVICE,
-   689					    context->cmd_buff[i], pkt,
-   690					    (remaining <= pkt) ? MHI_EOT : MHI_CHAIN);
-   691			if (ret)
-   692				break;
-   693	
-   694			remaining -= pkt;
-   695		}
-   696	
-   697		context->trng_nbuf = i;
-   698	}
-   699	
+
+With that in place, the patch LGTM.
+
+> +	 * If widebus is disabled:
+> +	 * For uncompressed stream, the data is valid for the entire active
+> +	 * window period.
+> +	 * For compressed stream, data is valid for a shorter time period
+> +	 * inside the active window depending on the compression ratio.
+> +	 *
+> +	 * If widebus is enabled:
+> +	 * For uncompressed stream, data is valid for only half the active
+> +	 * window, since the data rate is doubled in this mode.
+> +	 * For compressed stream, data validity window needs to be adjusted for
+> +	 * compression ratio and then further halved.
+>  	 */
+> -	if (p->wide_bus_en && !dp_intf)
+> +	if (p->compression_en && !dp_intf) {
+> +		if (p->wide_bus_en)
+> +			data_width = DIV_ROUND_UP(p->dce_bytes_per_line, 6);
+> +		else
+> +			data_width = DIV_ROUND_UP(p->dce_bytes_per_line, 3);
+
+I was concerned about DPU < 5.0, but data_width is only used for
+HCTL-related timings, which means DPU 5.0+. I'll look at restructuring
+the code.
+
+> +	} else if (p->wide_bus_en && !dp_intf) {
+>  		data_width = p->width >> 1;
+> +	}
+>  
+>  	/* TODO: handle DSC+DP case, we only handle DSC+DSI case so far */
+>  	if (p->compression_en && !dp_intf &&
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.h
+> index f6ef2c21b66d..badd26305fc9 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.h
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.h
+> @@ -35,6 +35,7 @@ struct dpu_hw_intf_timing_params {
+>  
+>  	bool wide_bus_en;
+>  	bool compression_en;
+> +	u32 dce_bytes_per_line;
+>  };
+>  
+>  struct dpu_hw_intf_prog_fetch {
+> 
+> ---
+> base-commit: f338e77383789c0cae23ca3d48adcc5e9e137e3c
+> change-id: 20260322-fix-data-width-calc-c44287df08b8
+> 
+> Best regards,
+> -- 
+> Alexander Koskovich <akoskovich@pm.me>
+> 
+> 
 
 -- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+With best wishes
+Dmitry
