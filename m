@@ -4,148 +4,100 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A749CF4613F
-	for <dri-devel@archiver.kernel.org>; Mon, 23 Mar 2026 22:57:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2C645F483DB
+	for <dri-devel@archiver.kernel.org>; Mon, 23 Mar 2026 23:26:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 140FD10E4EF;
-	Mon, 23 Mar 2026 22:57:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4FB8510E031;
+	Mon, 23 Mar 2026 23:26:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="g31sc3Eh";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ULK+0mgg";
+	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="MAoLH91s";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 14CE910E548
- for <dri-devel@lists.freedesktop.org>; Mon, 23 Mar 2026 22:57:00 +0000 (UTC)
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 62NHrDAs618994
- for <dri-devel@lists.freedesktop.org>; Mon, 23 Mar 2026 22:56:59 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- QTdfC4nGBF2mKs0lzPAEtgSSWOxV9yn6Q30CnsG8EJA=; b=g31sc3Eh5Qa1BTZc
- 3SDn/nV86q4BqB7G9Ma2LsaVEVsgDrpeMW2zODduE2nSg2y8tvd4Bwpl4K5rI+6L
- UR1eOA5YOZwx82/OAYdDi32G1IAw+xu34vTaKDaLCrgqqUo2A+jEKFRxOcrirh7K
- 4dK515InqFQCD1vHQddgiehWq90cssVODHs7QQJCUz2TlxW+tWD8YjpGknD8ZDkO
- nUw98YOhTmyF9zWBb7hlv5ZkszvKzrjeSxNvbC0AA1569vohKJtZFppEnSP3QTta
- wA8rKqCYXghm9k6rbw+TtcQFVjXaPA1LRNN0sfUnp8B714lttnG6IPYr6iDgPHMB
- MQ+cHA==
-Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com
- [209.85.160.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d31jgk1t1-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Mon, 23 Mar 2026 22:56:59 +0000 (GMT)
-Received: by mail-qt1-f200.google.com with SMTP id
- d75a77b69052e-5091327215dso187703291cf.1
- for <dri-devel@lists.freedesktop.org>; Mon, 23 Mar 2026 15:56:59 -0700 (PDT)
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com
+ [209.85.128.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3082810E031
+ for <dri-devel@lists.freedesktop.org>; Mon, 23 Mar 2026 23:26:00 +0000 (UTC)
+Received: by mail-wm1-f47.google.com with SMTP id
+ 5b1f17b1804b1-4852ef20fe8so17555e9.1
+ for <dri-devel@lists.freedesktop.org>; Mon, 23 Mar 2026 16:26:00 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1774308359; cv=none;
+ d=google.com; s=arc-20240605;
+ b=FihuT5Us0cQYr8vE7iDoaDn/bEMfiJFL0etpE/rFTEbBIOwhl5jrZB/7TWaBa2EWnu
+ Ul6b7IEkjrQIZCwAywdMk+5Ep6qGL5wyfpH8XZUA4F0q2aDbtcCjDybiT5Hp6Q85hZHF
+ G8j+jNAD6OzGqEsVGUDKBSxWw/pnWetUfpcH/Od521xhGwB9JdS+d0Nva6Iahvu+puAC
+ iqYfXQv1HDif3TDu8RBrNMqBDwl6TCcURLqRAR5KIuIwvezB4EEJgFSUiI0NraEKL9Ol
+ Z7uheyke8TSQ4IozWMtX+/8uBQke2ImqGPIKJibp9AnfsZcy83BgZyfjXOO3naZohCqY
+ S8GA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=wsdu7cH+tJM9BcvV/aAG6iPqbhR4QDoeSOE9glJa45Q=;
+ fh=sPkvoiVW1RBgQUxYl4/XdROFjqxLmkR3wF8LHkDYD0M=;
+ b=DHs1tG5AVK4eO4IDZN2D9Wm6rcxyx69p3mHS3qk+StI5pat6r+14Lt1G8JKdrcAHZH
+ 3ZfzFG1MCANC9K6d93UTF6DlOybatrTfoZ+vWsheMXqL9dt5aYI6c/fD5OzxJ4srV5RE
+ 3cgWpO9cbLk1BXg33PBafCWnhY/3UkDegUZ3WBTgDGqLInf6Oppe90LZeN0AoTngdHq3
+ sR2i1bEqJSPLzhqDW7UrUDLuECWfGOlPTXtyilazZkdbMPX3DxQpnC3rxh1cAKwG6nJd
+ Gqu5zqfdOFuSKTbkoZrIVNMiC7LxXNbVAGsTVyjWCkk0JuZoKficArgwvET5PuFz5Mnx
+ 3aWQ==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1774306618; x=1774911418;
+ d=google.com; s=20251104; t=1774308359; x=1774913159;
  darn=lists.freedesktop.org; 
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=QTdfC4nGBF2mKs0lzPAEtgSSWOxV9yn6Q30CnsG8EJA=;
- b=ULK+0mgg6FePFdMHoN54Nni1aRFv05LEIcfehlJ9CagXG1K2Des7yKLbogZdzBR5QO
- 8fkY9IOCZ0c/ZN8DXArM2jQ6+uOMV4TufOMdPTBaugr3Gyl3Vor6glTekwGNzbcRa692
- 885KXnPigfoOAMzv4ro7KU9ga1xD9BgMNmDk8ZOOueGstEKC7RIbgI2jWKEVldttcxIN
- 46T3lHDzqBT1NmRCTJniyDSnZhVZRiG7KMA4MYJxq5wFcymsZ+Jtw2F5om20agZDOqq7
- fzKSg2yAUXtG3+Q1FMrxn8QsLad+g7783tGSIJAhSaNhhejbhFZJr1utWQUmPO8MjHRm
- DUJQ==
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=wsdu7cH+tJM9BcvV/aAG6iPqbhR4QDoeSOE9glJa45Q=;
+ b=MAoLH91sVyWhkXjRQwlDmt2lnl+gXXQznB0pAPCWYMHxRrcAMNViqJi03l0dvlh3Ff
+ W8cgM9S8MgDj4JF5sexNbLNVHuyEtCdgiauuTQTr6vzz39AqpJAeY1QPt3ttlZCS7P+j
+ J8LJ9LwKbed6ErrdkDkFasGq22/hCq45iXgVFEch5n0abQGz2pqz1zKCMw9IINObGQK2
+ XnKDl/PGlBUuodN4v0xLjcayL4plxMZb+gHh+u4PSSyC14O7u7RtJ+KOILsMFH3pVs32
+ hwqJWtWdSRY3/yVpsjTDhQys6yScfE6stknAI/XRW51qvYs+6YltWaXHGWQsN67Sl81O
+ BLsA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774306618; x=1774911418;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
- :cc:subject:date:message-id:reply-to;
- bh=QTdfC4nGBF2mKs0lzPAEtgSSWOxV9yn6Q30CnsG8EJA=;
- b=LqaIIc9IpfVEkmaOwIxEEkb4gL8Lxuyp61cKXRso7hLchRZiHMB9OjN+UeidZ3KT2G
- RnBFxvhVeQK71K2Gx5eJFW8wkUphN2jeN293nbvRqtvC7RecIrsVuXIdqTpPjQRaql6A
- FnpoSWn6ML7GcN02nQCurEgPPxexHLMsNfHBc+tDUgSIw8a3gqLtV26IZqtZuwGt/pBI
- nu1ijUXge63tFkVfRdq1NWZSGA8rLWP0XUSi/K7HopXVRZ+UTLXY7fRIvX8cLlYgyePZ
- rG3avCy1Dtq6lbZdRQh4X0BY0qyYCqkZevKK+xl/fGRdzAeRmZMKipuux+0qNMI6iWNO
- xHuQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUJ0hPw5XfNwnNRV4o0gEYN7dAqBZn+G7uvHxAPeDyTwN/zYtzWkiEeRHhFsbFRdacyviZ5M4fO2r8=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwGrvrbtI+iUF4Mmaq8bco/vpXAYgcLXAnwZDkhowi7UNz516m1
- sBHhEfFZwtTgyDhMT0mBP6RQQqLtdf5IAtokVwOS2576VkkfFk7pYzAM7+S00Q0Ebgco4+eeav7
- NC2pTBfHq3tjyAy5MYzj1pjLJnthKTNpPMDhMfkXQMOjUypmG3evv2G2tU+T5JsuwAfL68ls=
-X-Gm-Gg: ATEYQzxvJLXcbhFCIETarhIRldIfgTqksnuq7KcrKZ67jUx4LMDZDQEmkN4sKK6P/cC
- frPUp8T+qTyAHdcsLeRV9naqiZ9sE6kv+BYzEUkRHFogxxWdf9hA7vAlMHlxdGTcry1tLTco66v
- WRtnzbdBAQ6QgDS1MRbPkFhyO92jekCuwTfZYT6JqbmCyhn1gjmfNXza3x5Mj5ySSmUrRTYgQIL
- J76Qq4F6oNqIjtVRoJtKZRL0fA1UX1/oVMjFBp/sVBEibyVAMpTdWLKY7GdSC6NBSfHN8pnIHqs
- MhLHVMSyuXxd6flGovdQiP4DhwC6frnPlemc08VTxaGvRi8cKcDBnEUVgdTZ+rHmUAiFuY/x7Jk
- N9JxdSBMX0WIO7/tFZoIw9ssBS61r1yThc/x7CkXFbdDUBBfSUMPoubzLv9zIjTYZpOOm7ddr8v
- Io61AD0M6dMy9F4J9oLcnsvRHUQrN/pswjd4c=
-X-Received: by 2002:a05:622a:1f13:b0:50b:49d4:e54 with SMTP id
- d75a77b69052e-50b49d41096mr139663061cf.15.1774306618372; 
- Mon, 23 Mar 2026 15:56:58 -0700 (PDT)
-X-Received: by 2002:a05:622a:1f13:b0:50b:49d4:e54 with SMTP id
- d75a77b69052e-50b49d41096mr139662771cf.15.1774306617951; 
- Mon, 23 Mar 2026 15:56:57 -0700 (PDT)
-Received: from umbar.lan
- (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5a2963fa304sm156489e87.27.2026.03.23.15.56.53
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 23 Mar 2026 15:56:55 -0700 (PDT)
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Date: Tue, 24 Mar 2026 00:56:37 +0200
-Subject: [PATCH v7 4/4] phy: qualcomm: add MSM8974 HDMI PHY support
+ d=1e100.net; s=20251104; t=1774308359; x=1774913159;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=wsdu7cH+tJM9BcvV/aAG6iPqbhR4QDoeSOE9glJa45Q=;
+ b=RoTrd89iVYtLDifn7r+5016SvFZYJV2+wYUzcgBHhkK9uPVe422T1xy3iHPsdsBK3L
+ pVPtvm+9vuLzSMx3rUder8PVIv5ZMK1HGTH0ZrZQE3Kjq6RRSKtOd8z3vW/4aQSEUaCY
+ /gcyomhSnWV0DmIbdMWS4mQ+wdWW03bEK+czRfcoyQ9078rATV7R1aRS/nBbxWkcXS5/
+ L5QSejq1JY2nhguvyiCs0VQ5MPsADMbfcF+XRqouvu63scLsO8U5xDFpW/5BuqyKuplY
+ jiSp9RuWBlo9n1wt4EdeyYqnNn/l4n02QMOI45VZdvspZFK6h9uhls/3uWhMLrDqJpNd
+ XVGg==
+X-Gm-Message-State: AOJu0Yz7bdEfMqLEHGz7v1Ksy0IK02yNYlX2q/58qsYo9vsHRBPnlGww
+ ICUlKlyWrkNceyVjQqC4AVKg4yla80YWfV4Riw8V9QZXleOCRjkkltueisfJXu346ZZqfiKRo5e
+ 1XERnrg8X4OkvSOyaRY4Sy2a6z9pro1JQYG8tWdcE
+X-Gm-Gg: ATEYQzxe7hilSWoKl3lq/Y/vJtUWpbe5bih4UJQt2ACJUxua1PNGlcP7TSqlnh3pfeU
+ r9pvpF97TizUCL3nA3h/seVa5wahxORwK+X6hlZs939LSE8MDyPv2LaGTMV7im5LBZM5B0K7awD
+ pd8K90bfBu+T+MezXrGyOb/HcrB1y4KCUwjBVRsAr+ch1uTq6pn2X51Fwgikfw6PuxXBFX94x8c
+ G8E3hvT8COkdHNTI9Ho2OP3U3PuIDvOWaP86SbOntEKVIhp3A29b5v8LNsXYtX/Rt6+F1yf4Rrz
+ efMcpCGrSyyAweSJacX5+9kK1eMV8uttNudKqA==
+X-Received: by 2002:a05:600c:4e14:b0:485:1a54:9407 with SMTP id
+ 5b1f17b1804b1-4870f497b4fmr377175e9.0.1774308357801; Mon, 23 Mar 2026
+ 16:25:57 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260324-fd-hdmi-phy-v7-4-b41dde8d83b8@oss.qualcomm.com>
-References: <20260324-fd-hdmi-phy-v7-0-b41dde8d83b8@oss.qualcomm.com>
-In-Reply-To: <20260324-fd-hdmi-phy-v7-0-b41dde8d83b8@oss.qualcomm.com>
-To: Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>
-Cc: linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-phy@lists.infradead.org,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-X-Mailer: b4 0.15.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=10286;
- i=dmitry.baryshkov@oss.qualcomm.com; h=from:subject:message-id;
- bh=aH8HvhrBKlUwZlE1dew356KH3tu53xTzXh1q4gq4OLQ=;
- b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBpwcUn8holeR+IM4FJk7NwU4JxiMOFrLi24SVZ/
- Dyj+XSTFLSJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCacHFJwAKCRCLPIo+Aiko
- 1ekvCACAJS7NoHWtUcz2I33dfLqhy+ktUzKaia8lVwHeccG1DM53VKFLFbrCF6ve6RagidoUxI+
- uKqQu/v5ul6KLqfndQHay8wcVZXtd566KuSjVvM9LyfI2ynnr5JeFmpdUvO2EIdGYiI/7xOopgz
- iouP78g61imyQGnCCF7guIVwqeY7vmBVG+w0qnXGSwgdvNfm9xvtyZupytLj4QE1+FU8FoOp5lw
- 8yqabuqnCy5FQlR0a7erI0QiV76fAjuBdLAO4tCAoTS75vquSaGl07wx26eLXSaZ1e+fJ4gGFBb
- G2VkfbNkVBRsU0P/6WrtSOT64jBvHOvOzOyf2cZLjWAgCqoy
-X-Developer-Key: i=dmitry.baryshkov@oss.qualcomm.com; a=openpgp;
- fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
-X-Proofpoint-GUID: 570IQW868e_4xRBUAHBAFrueOkJBKsgL
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzIzMDE2OSBTYWx0ZWRfXztGJvUVkDcVV
- lKIh/a5qcMqbhU4leLlQsHBBj7iwv2v7oroj24gcCeRta8C6iUStly/hQgqZzu8rUqGKprjVWni
- eLQ14nGj2flJFHTe0nKjOji/9yVw3MwFxPU1J90lcm48oV+24V1lU2WjVeXHq61mMHvRm5RduhJ
- 3DPkpGOmG0e3tnsNwe+vWlS5MlNkKzvoW04j1dJOf5GrxSSErGtlanbkEEbNYZFVa7ms8pGIAhp
- 9pERqUeHlQjZOJdYFEp3idx61ZKgA9+Hqll8pI5sjkpaX4Ky6IlhZBJKuekIO9c8CeXsE9aLAY4
- EPLxbNSCZGtXhHsnq4aaLQSw5Up16xfp3D8t8UwQPNMrKdD3jz3S02kAOyW7n7T/bvctyPGBRIC
- s++/26cT6l+BGC305ji4t7/1Wru/+LTepSp3+yB6mudkMjr1fBsNVAcKPjv0SJO0vOZhcYaO53y
- dAJ8XlhACoh2kmIxfLQ==
-X-Authority-Analysis: v=2.4 cv=CMInnBrD c=1 sm=1 tr=0 ts=69c1c53b cx=c_pps
- a=JbAStetqSzwMeJznSMzCyw==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22 a=KKAkSRfTAAAA:8
- a=EUspDBNiAAAA:8 a=pGLkceISAAAA:8 a=wq9x00DRF7jIeu_RijoA:9 a=QEXdDO2ut3YA:10
- a=uxP6HrT_eTzRwkO_Te1X:22 a=cvBusfyB2V15izCimMoJ:22
-X-Proofpoint-ORIG-GUID: 570IQW868e_4xRBUAHBAFrueOkJBKsgL
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-03-23_06,2026-03-23_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 clxscore=1015 malwarescore=0 adultscore=0 lowpriorityscore=0
- priorityscore=1501 spamscore=0 phishscore=0 impostorscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603230169
+References: <20260316125857.617836-1-jiri@resnulli.us>
+ <20260316125857.617836-3-jiri@resnulli.us>
+In-Reply-To: <20260316125857.617836-3-jiri@resnulli.us>
+From: "T.J. Mercier" <tjmercier@google.com>
+Date: Mon, 23 Mar 2026 16:25:46 -0700
+X-Gm-Features: AQROBzDCFwWsy0-ozjsBb2bwEOaZ0_wnDJdRRApw7r8ld8wpTu_Wh01I0Gdm1Bs
+Message-ID: <CABdmKX0Ux2HMTTuOnvZryBBRwCjH0zUe-EMvL9k1VxZtz+BWiA@mail.gmail.com>
+Subject: Re: [PATCH v4 2/2] dma-buf: heaps: system: add system_cc_decrypted
+ heap for explicitly decrypted memory
+To: Jiri Pirko <jiri@resnulli.us>
+Cc: dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, 
+ iommu@lists.linux.dev, linux-media@vger.kernel.org, sumit.semwal@linaro.org, 
+ benjamin.gaignard@collabora.com, Brian.Starkey@arm.com, jstultz@google.com, 
+ christian.koenig@amd.com, m.szyprowski@samsung.com, robin.murphy@arm.com, 
+ jgg@ziepe.ca, leon@kernel.org, sean.anderson@linux.dev, ptesarik@suse.com, 
+ catalin.marinas@arm.com, aneesh.kumar@kernel.org, suzuki.poulose@arm.com, 
+ steven.price@arm.com, thomas.lendacky@amd.com, john.allen@amd.com, 
+ ashish.kalra@amd.com, suravee.suthikulpanit@amd.com, 
+ linux-coco@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -161,334 +113,331 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add support for HDMI PHY on Qualcomm MSM8974 / APQ8074 platforms.
+On Mon, Mar 16, 2026 at 5:59=E2=80=AFAM Jiri Pirko <jiri@resnulli.us> wrote=
+:
+>
+> From: Jiri Pirko <jiri@nvidia.com>
+>
+> Add a new "system_cc_decrypted" dma-buf heap to allow userspace to
+> allocate decrypted (shared) memory for confidential computing (CoCo)
+> VMs.
+>
+> On CoCo VMs, guest memory is encrypted by default. The hardware uses an
+> encryption bit in page table entries (C-bit on AMD SEV, "shared" bit on
+> Intel TDX) to control whether a given memory access is encrypted or
+> decrypted. The kernel's direct map is set up with encryption enabled,
+> so pages returned by alloc_pages() are encrypted in the direct map
+> by default. To make this memory usable for devices that do not support
+> DMA to encrypted memory (no TDISP support), it has to be explicitly
+> decrypted. A couple of things are needed to properly handle
+> decrypted memory for the dma-buf use case:
+>
+> - set_memory_decrypted() on the direct map after allocation:
+>   Besides clearing the encryption bit in the direct map PTEs, this
+>   also notifies the hypervisor about the page state change. On free,
+>   the inverse set_memory_encrypted() must be called before returning
+>   pages to the allocator. If re-encryption fails, pages
+>   are intentionally leaked to prevent decrypted memory from being
+>   reused as private.
+>
+> - pgprot_decrypted() for userspace and kernel virtual mappings:
+>   Any new mapping of the decrypted pages, be it to userspace via
+>   mmap or to kernel vmalloc space via vmap, creates PTEs independent
+>   of the direct map. These must also have the encryption bit cleared,
+>   otherwise accesses through them would see encrypted (garbage) data.
+>
+> - DMA_ATTR_CC_DECRYPTED for DMA mapping:
+>   Since the pages are already decrypted, the DMA API needs to be
+>   informed via DMA_ATTR_CC_DECRYPTED so it can map them correctly
+>   as unencrypted for device access.
+>
+> On non-CoCo VMs, the system_cc_decrypted heap is not registered
+> to prevent misuse by userspace that does not understand
+> the security implications of explicitly decrypted memory.
+>
+> Signed-off-by: Jiri Pirko <jiri@nvidia.com>
+> ---
+> v2->v3:
+> - removed couple of leftovers from headers
+> v1->v2:
+> - fixed build errors on s390 by including mem_encrypt.h
+> - converted system heap flag implementation to a separate heap
+> ---
+>  drivers/dma-buf/heaps/system_heap.c | 103 ++++++++++++++++++++++++++--
+>  1 file changed, 98 insertions(+), 5 deletions(-)
+>
+> diff --git a/drivers/dma-buf/heaps/system_heap.c b/drivers/dma-buf/heaps/=
+system_heap.c
+> index b3650d8fd651..a525e9aaaffa 100644
+> --- a/drivers/dma-buf/heaps/system_heap.c
+> +++ b/drivers/dma-buf/heaps/system_heap.c
+> @@ -10,17 +10,25 @@
+>   *     Andrew F. Davis <afd@ti.com>
+>   */
+>
+> +#include <linux/cc_platform.h>
+>  #include <linux/dma-buf.h>
+>  #include <linux/dma-mapping.h>
+>  #include <linux/dma-heap.h>
+>  #include <linux/err.h>
+>  #include <linux/highmem.h>
+> +#include <linux/mem_encrypt.h>
+>  #include <linux/mm.h>
+> +#include <linux/set_memory.h>
+>  #include <linux/module.h>
+> +#include <linux/pgtable.h>
+>  #include <linux/scatterlist.h>
+>  #include <linux/slab.h>
+>  #include <linux/vmalloc.h>
+>
+> +struct system_heap_priv {
+> +       bool decrypted;
+> +};
 
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Acked-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
----
- drivers/phy/qualcomm/phy-qcom-hdmi-28hpm.c | 281 +++++++++++++++++++++++++++++
- 1 file changed, 281 insertions(+)
+Hi Jiri,
 
-diff --git a/drivers/phy/qualcomm/phy-qcom-hdmi-28hpm.c b/drivers/phy/qualcomm/phy-qcom-hdmi-28hpm.c
-index 720757f8f393..a1a73586be53 100644
---- a/drivers/phy/qualcomm/phy-qcom-hdmi-28hpm.c
-+++ b/drivers/phy/qualcomm/phy-qcom-hdmi-28hpm.c
-@@ -6,10 +6,12 @@
-  * Author: Rob Clark <robdclark@gmail.com>
-  */
- 
-+#include <linux/bitfield.h>
- #include <linux/delay.h>
- #include <linux/iopoll.h>
- 
- #include "phy-qcom-hdmi-preqmp.h"
-+#include "phy-qcom-uniphy.h"
- 
- #define REG_HDMI_8x74_ANA_CFG0					0x00000000
- #define REG_HDMI_8x74_ANA_CFG1					0x00000004
-@@ -31,8 +33,282 @@
- #define REG_HDMI_8x74_BIST_PATN3				0x00000048
- #define REG_HDMI_8x74_STATUS					0x0000005c
- 
-+#define HDMI_8974_VCO_MAX_FREQ 1800000000UL
-+#define HDMI_8974_VCO_MIN_FREQ  600000000UL
-+
-+#define HDMI_8974_COMMON_DIV 5
-+
-+static inline void write16(u16 val, void __iomem *reg)
-+{
-+	writel(val & 0xff, reg);
-+	writel(val >> 8, reg + 4);
-+}
-+
-+static inline void write24(u32 val, void __iomem *reg)
-+{
-+	writel(val & 0xff, reg);
-+	writel((val >> 8) & 0xff, reg + 4);
-+	writel(val >> 16, reg + 8);
-+}
-+
-+static inline u32 read24(void __iomem *reg)
-+{
-+	u32 val = readl(reg);
-+
-+	val |= readl(reg + 4) << 8;
-+	val |= readl(reg + 8) << 16;
-+
-+	return val;
-+}
-+
-+static void qcom_uniphy_setup(void __iomem *base, unsigned int ref_freq,
-+			      bool sdm_mode,
-+			      bool ref_freq_mult_2,
-+			      bool dither,
-+			      unsigned int refclk_div,
-+			      unsigned int vco_freq)
-+{
-+	unsigned int int_ref_freq = ref_freq * (ref_freq_mult_2 ? 2 : 1);
-+	unsigned int div_in_freq = vco_freq / refclk_div;
-+	unsigned int dc_offset = div_in_freq / int_ref_freq - 1;
-+	unsigned int sdm_freq_seed;
-+	unsigned int val;
-+	unsigned int remain = div_in_freq - (dc_offset + 1) * int_ref_freq;
-+
-+	sdm_freq_seed = mult_frac(remain, 0x10000, int_ref_freq);
-+
-+	val = FIELD_PREP(UNIPHY_PLL_REFCLK_DBLR, ref_freq_mult_2) |
-+	      FIELD_PREP(UNIPHY_PLL_REFCLK_DIV, refclk_div - 1);
-+	writel(val, base + UNIPHY_PLL_REFCLK_CFG);
-+
-+	if (sdm_mode) {
-+		writel(0, base + UNIPHY_PLL_SDM_CFG0);
-+		writel(FIELD_PREP(UNIPHY_PLL_SDM_DITHER_EN, dither) | dc_offset,
-+		       base + UNIPHY_PLL_SDM_CFG1);
-+		write24(sdm_freq_seed, base + UNIPHY_PLL_SDM_CFG2);
-+	} else {
-+		writel(UNIPHY_PLL_SDM_BYP | dc_offset, base + UNIPHY_PLL_SDM_CFG0);
-+		writel(0, base + UNIPHY_PLL_SDM_CFG1);
-+		write24(0, base + UNIPHY_PLL_SDM_CFG2);
-+	}
-+
-+	write16(mult_frac(ref_freq, 5, 1000), base + UNIPHY_PLL_CAL_CFG8);
-+	write16(vco_freq / 16, base + UNIPHY_PLL_CAL_CFG10);
-+}
-+
-+static unsigned long qcom_uniphy_recalc(void __iomem *base, unsigned long parent_rate)
-+{
-+	unsigned long rate;
-+	u32 refclk_cfg;
-+	u32 dc_offset;
-+	u64 fraq_n;
-+	u32 val;
-+
-+	refclk_cfg = readl(base + UNIPHY_PLL_REFCLK_CFG);
-+	if (refclk_cfg & UNIPHY_PLL_REFCLK_DBLR)
-+		parent_rate *= 2;
-+
-+	val = readl(base + UNIPHY_PLL_SDM_CFG0);
-+	if (FIELD_GET(UNIPHY_PLL_SDM_BYP, val)) {
-+		dc_offset = FIELD_GET(UNIPHY_PLL_SDM_BYP_DIV, val);
-+		fraq_n = 0;
-+	} else {
-+		dc_offset = FIELD_GET(UNIPHY_PLL_SDM_DC_OFFSET,
-+				      readl(base + UNIPHY_PLL_SDM_CFG1));
-+		fraq_n = read24(base + UNIPHY_PLL_SDM_CFG2);
-+	}
-+
-+	rate = (dc_offset + 1) * parent_rate;
-+	rate += mult_frac(fraq_n, parent_rate, 0x10000);
-+
-+	rate *= FIELD_GET(UNIPHY_PLL_REFCLK_DIV, refclk_cfg) + 1;
-+
-+	return rate;
-+}
-+
-+static const unsigned int qcom_hdmi_8974_divs[] = {1, 2, 4, 6};
-+
-+static unsigned long qcom_hdmi_8974_pll_recalc_rate(struct clk_hw *hw,
-+						    unsigned long parent_rate)
-+{
-+	struct qcom_hdmi_preqmp_phy *hdmi_phy = hw_clk_to_phy(hw);
-+	u32 div_idx = readl(hdmi_phy->pll_reg + UNIPHY_PLL_POSTDIV1_CFG);
-+	unsigned long rate = qcom_uniphy_recalc(hdmi_phy->pll_reg, parent_rate);
-+
-+	return rate / HDMI_8974_COMMON_DIV / qcom_hdmi_8974_divs[div_idx & 0x3];
-+}
-+
-+static int qcom_hdmi_8974_pll_determine_rate(struct clk_hw *hw,
-+					     struct clk_rate_request *req)
-+{
-+	unsigned long min_freq = HDMI_8974_VCO_MIN_FREQ / HDMI_8974_COMMON_DIV;
-+	unsigned long max_freq = HDMI_8974_VCO_MAX_FREQ / HDMI_8974_COMMON_DIV;
-+
-+	req->rate = clamp(req->rate, min_freq / 6, max_freq);
-+
-+	return 0;
-+}
-+
-+static const struct clk_ops qcom_hdmi_8974_pll_ops = {
-+	.recalc_rate = qcom_hdmi_8974_pll_recalc_rate,
-+	.determine_rate = qcom_hdmi_8974_pll_determine_rate,
-+};
-+
-+static int qcom_hdmi_msm8974_phy_find_div(unsigned long long pixclk)
-+{
-+	unsigned long long min_freq = HDMI_8974_VCO_MIN_FREQ / HDMI_8974_COMMON_DIV;
-+	int i;
-+
-+	if (pixclk > HDMI_8974_VCO_MAX_FREQ / HDMI_8974_COMMON_DIV)
-+		return -EINVAL;
-+
-+	for (i = 0; i < ARRAY_SIZE(qcom_hdmi_8974_divs); i++) {
-+		if (pixclk >= min_freq / qcom_hdmi_8974_divs[i])
-+			return i;
-+	}
-+
-+	return -EINVAL;
-+}
-+
-+static int qcom_hdmi_msm8974_phy_pll_set_rate(struct qcom_hdmi_preqmp_phy *hdmi_phy)
-+{
-+	unsigned long long pixclk = hdmi_phy->hdmi_opts.tmds_char_rate;
-+	unsigned long vco_rate;
-+	unsigned int div;
-+	int div_idx = 0;
-+
-+	div_idx = qcom_hdmi_msm8974_phy_find_div(pixclk);
-+	if (WARN_ON(div_idx < 0))
-+		return div_idx;
-+
-+	div = qcom_hdmi_8974_divs[div_idx];
-+	vco_rate = pixclk * HDMI_8974_COMMON_DIV * div;
-+
-+	writel(0x81, hdmi_phy->phy_reg + REG_HDMI_8x74_GLB_CFG);
-+
-+	writel(0x01, hdmi_phy->pll_reg + UNIPHY_PLL_GLB_CFG);
-+	writel(0x19, hdmi_phy->pll_reg + UNIPHY_PLL_VCOLPF_CFG);
-+	writel(0x0e, hdmi_phy->pll_reg + UNIPHY_PLL_LPFR_CFG);
-+	writel(0x20, hdmi_phy->pll_reg + UNIPHY_PLL_LPFC1_CFG);
-+	writel(0x0d, hdmi_phy->pll_reg + UNIPHY_PLL_LPFC2_CFG);
-+
-+	qcom_uniphy_setup(hdmi_phy->pll_reg, 19200000, true, true, true, 1, vco_rate);
-+
-+	writel(0x10, hdmi_phy->pll_reg + UNIPHY_PLL_LKDET_CFG0);
-+	writel(0x1a, hdmi_phy->pll_reg + UNIPHY_PLL_LKDET_CFG1);
-+	writel(0x05, hdmi_phy->pll_reg + UNIPHY_PLL_LKDET_CFG2);
-+
-+	writel(div_idx,
-+	       hdmi_phy->pll_reg + UNIPHY_PLL_POSTDIV1_CFG);
-+
-+	writel(0x00, hdmi_phy->pll_reg + UNIPHY_PLL_POSTDIV2_CFG);
-+	writel(0x00, hdmi_phy->pll_reg + UNIPHY_PLL_POSTDIV3_CFG);
-+	writel(0x01, hdmi_phy->pll_reg + UNIPHY_PLL_CAL_CFG2);
-+
-+	writel(0x1f, hdmi_phy->phy_reg + REG_HDMI_8x74_PD_CTRL0);
-+	udelay(50);
-+
-+	writel(0x0f, hdmi_phy->pll_reg + UNIPHY_PLL_GLB_CFG);
-+
-+	writel(0x00, hdmi_phy->phy_reg + REG_HDMI_8x74_PD_CTRL1);
-+	writel(0x10, hdmi_phy->phy_reg + REG_HDMI_8x74_ANA_CFG2);
-+	writel(0xdb, hdmi_phy->phy_reg + REG_HDMI_8x74_ANA_CFG0);
-+	writel(0x43, hdmi_phy->phy_reg + REG_HDMI_8x74_ANA_CFG1);
-+	if (pixclk == 297000) {
-+		writel(0x06, hdmi_phy->phy_reg + REG_HDMI_8x74_ANA_CFG2);
-+		writel(0x03, hdmi_phy->phy_reg + REG_HDMI_8x74_ANA_CFG3);
-+	} else if (pixclk == 268500) {
-+		writel(0x05, hdmi_phy->phy_reg + REG_HDMI_8x74_ANA_CFG2);
-+		writel(0x00, hdmi_phy->phy_reg + REG_HDMI_8x74_ANA_CFG3);
-+	} else {
-+		writel(0x02, hdmi_phy->phy_reg + REG_HDMI_8x74_ANA_CFG2);
-+		writel(0x00, hdmi_phy->phy_reg + REG_HDMI_8x74_ANA_CFG3);
-+	}
-+
-+	writel(0x04, hdmi_phy->pll_reg + UNIPHY_PLL_VREG_CFG);
-+
-+	writel(0xd0, hdmi_phy->phy_reg + REG_HDMI_8x74_DCC_CFG0);
-+	writel(0x1a, hdmi_phy->phy_reg + REG_HDMI_8x74_DCC_CFG1);
-+	writel(0x00, hdmi_phy->phy_reg + REG_HDMI_8x74_TXCAL_CFG0);
-+	writel(0x00, hdmi_phy->phy_reg + REG_HDMI_8x74_TXCAL_CFG1);
-+
-+	if (pixclk == 268500)
-+		writel(0x11, hdmi_phy->phy_reg + REG_HDMI_8x74_TXCAL_CFG2);
-+	else
-+		writel(0x02, hdmi_phy->phy_reg + REG_HDMI_8x74_TXCAL_CFG2);
-+
-+	writel(0x05, hdmi_phy->phy_reg + REG_HDMI_8x74_TXCAL_CFG3);
-+	udelay(200);
-+
-+	return 0;
-+}
-+
-+static int qcom_hdmi_msm8974_phy_pll_enable(struct qcom_hdmi_preqmp_phy *hdmi_phy)
-+{
-+	int ret;
-+	unsigned long status;
-+
-+	/* Global enable */
-+	writel(0x81, hdmi_phy->phy_reg + REG_HDMI_8x74_GLB_CFG);
-+
-+	/* Power up power gen */
-+	writel(0x00, hdmi_phy->phy_reg + REG_HDMI_8x74_PD_CTRL0);
-+	udelay(350);
-+
-+	/* PLL power up */
-+	writel(0x01, hdmi_phy->pll_reg + UNIPHY_PLL_GLB_CFG);
-+	udelay(5);
-+
-+	/* Power up PLL LDO */
-+	writel(0x03, hdmi_phy->pll_reg + UNIPHY_PLL_GLB_CFG);
-+	udelay(350);
-+
-+	/* PLL power up */
-+	writel(0x0f, hdmi_phy->pll_reg + UNIPHY_PLL_GLB_CFG);
-+	udelay(350);
-+
-+	/* Poll for PLL ready status */
-+	ret = readl_poll_timeout(hdmi_phy->pll_reg + UNIPHY_PLL_STATUS,
-+				 status, status & BIT(0),
-+				 100, 2000);
-+	if (ret) {
-+		dev_warn(hdmi_phy->dev, "HDMI PLL not ready\n");
-+		goto err;
-+	}
-+
-+	udelay(350);
-+
-+	/* Poll for PHY ready status */
-+	ret = readl_poll_timeout(hdmi_phy->phy_reg + REG_HDMI_8x74_STATUS,
-+				 status, status & BIT(0),
-+				 100, 2000);
-+	if (ret) {
-+		dev_warn(hdmi_phy->dev, "HDMI PHY not ready\n");
-+		goto err;
-+	}
-+
-+	return 0;
-+
-+err:
-+	writel(0, hdmi_phy->pll_reg + UNIPHY_PLL_GLB_CFG);
-+	udelay(5);
-+	writel(0, hdmi_phy->phy_reg + REG_HDMI_8x74_GLB_CFG);
-+
-+	return ret;
-+}
-+
- static int qcom_hdmi_msm8974_phy_power_on(struct qcom_hdmi_preqmp_phy *hdmi_phy)
+I wonder if it'd better to call this cc_decrypted (or I guess
+cc_shared based on Robin's comment in the previous patch) like the DMA
+attr? There's a separate effort for "restricted" heaps with TEE for
+(encrypted) video playback, which doesn't involve VMs or RDMA. I think
+the cc_ prefix might help avoid any confusion between the usecase here
+and restricted heaps.
+
+
+
+> +
+>  struct system_heap_buffer {
+>         struct dma_heap *heap;
+>         struct list_head attachments;
+> @@ -29,6 +37,7 @@ struct system_heap_buffer {
+>         struct sg_table sg_table;
+>         int vmap_cnt;
+>         void *vaddr;
+> +       bool decrypted;
+>  };
+>
+>  struct dma_heap_attachment {
+> @@ -36,6 +45,7 @@ struct dma_heap_attachment {
+>         struct sg_table table;
+>         struct list_head list;
+>         bool mapped;
+> +       bool decrypted;
+>  };
+>
+>  #define LOW_ORDER_GFP (GFP_HIGHUSER | __GFP_ZERO)
+> @@ -52,6 +62,34 @@ static gfp_t order_flags[] =3D {HIGH_ORDER_GFP, HIGH_O=
+RDER_GFP, LOW_ORDER_GFP};
+>  static const unsigned int orders[] =3D {8, 4, 0};
+>  #define NUM_ORDERS ARRAY_SIZE(orders)
+>
+> +static int system_heap_set_page_decrypted(struct page *page)
+> +{
+> +       unsigned long addr =3D (unsigned long)page_address(page);
+> +       unsigned int nr_pages =3D 1 << compound_order(page);
+> +       int ret;
+> +
+> +       ret =3D set_memory_decrypted(addr, nr_pages);
+> +       if (ret)
+> +               pr_warn_ratelimited("dma-buf system heap: failed to decry=
+pt page at %p\n",
+> +                                   page_address(page));
+> +
+> +       return ret;
+> +}
+> +
+> +static int system_heap_set_page_encrypted(struct page *page)
+> +{
+> +       unsigned long addr =3D (unsigned long)page_address(page);
+> +       unsigned int nr_pages =3D 1 << compound_order(page);
+> +       int ret;
+> +
+> +       ret =3D set_memory_encrypted(addr, nr_pages);
+> +       if (ret)
+> +               pr_warn_ratelimited("dma-buf system heap: failed to re-en=
+crypt page at %p, leaking memory\n",
+> +                                   page_address(page));
+> +
+> +       return ret;
+> +}
+> +
+>  static int dup_sg_table(struct sg_table *from, struct sg_table *to)
+>  {
+>         struct scatterlist *sg, *new_sg;
+> @@ -90,6 +128,7 @@ static int system_heap_attach(struct dma_buf *dmabuf,
+>         a->dev =3D attachment->dev;
+>         INIT_LIST_HEAD(&a->list);
+>         a->mapped =3D false;
+> +       a->decrypted =3D buffer->decrypted;
+>
+>         attachment->priv =3D a;
+>
+> @@ -119,9 +158,11 @@ static struct sg_table *system_heap_map_dma_buf(stru=
+ct dma_buf_attachment *attac
+>  {
+>         struct dma_heap_attachment *a =3D attachment->priv;
+>         struct sg_table *table =3D &a->table;
+> +       unsigned long attrs;
+>         int ret;
+>
+> -       ret =3D dma_map_sgtable(attachment->dev, table, direction, 0);
+> +       attrs =3D a->decrypted ? DMA_ATTR_CC_DECRYPTED : 0;
+> +       ret =3D dma_map_sgtable(attachment->dev, table, direction, attrs)=
+;
+>         if (ret)
+>                 return ERR_PTR(ret);
+>
+> @@ -188,8 +229,13 @@ static int system_heap_mmap(struct dma_buf *dmabuf, =
+struct vm_area_struct *vma)
+>         unsigned long addr =3D vma->vm_start;
+>         unsigned long pgoff =3D vma->vm_pgoff;
+>         struct scatterlist *sg;
+> +       pgprot_t prot;
+>         int i, ret;
+>
+> +       prot =3D vma->vm_page_prot;
+> +       if (buffer->decrypted)
+> +               prot =3D pgprot_decrypted(prot);
+> +
+>         for_each_sgtable_sg(table, sg, i) {
+>                 unsigned long n =3D sg->length >> PAGE_SHIFT;
+>
+> @@ -206,8 +252,7 @@ static int system_heap_mmap(struct dma_buf *dmabuf, s=
+truct vm_area_struct *vma)
+>                 if (addr + size > vma->vm_end)
+>                         size =3D vma->vm_end - addr;
+>
+> -               ret =3D remap_pfn_range(vma, addr, page_to_pfn(page),
+> -                               size, vma->vm_page_prot);
+> +               ret =3D remap_pfn_range(vma, addr, page_to_pfn(page), siz=
+e, prot);
+>                 if (ret)
+>                         return ret;
+>
+> @@ -225,6 +270,7 @@ static void *system_heap_do_vmap(struct system_heap_b=
+uffer *buffer)
+>         struct page **pages =3D vmalloc(sizeof(struct page *) * npages);
+>         struct page **tmp =3D pages;
+>         struct sg_page_iter piter;
+> +       pgprot_t prot;
+>         void *vaddr;
+>
+>         if (!pages)
+> @@ -235,7 +281,10 @@ static void *system_heap_do_vmap(struct system_heap_=
+buffer *buffer)
+>                 *tmp++ =3D sg_page_iter_page(&piter);
+>         }
+>
+> -       vaddr =3D vmap(pages, npages, VM_MAP, PAGE_KERNEL);
+> +       prot =3D PAGE_KERNEL;
+> +       if (buffer->decrypted)
+> +               prot =3D pgprot_decrypted(prot);
+> +       vaddr =3D vmap(pages, npages, VM_MAP, prot);
+>         vfree(pages);
+>
+>         if (!vaddr)
+> @@ -296,6 +345,14 @@ static void system_heap_dma_buf_release(struct dma_b=
+uf *dmabuf)
+>         for_each_sgtable_sg(table, sg, i) {
+>                 struct page *page =3D sg_page(sg);
+>
+> +               /*
+> +                * Intentionally leak pages that cannot be re-encrypted
+> +                * to prevent decrypted memory from being reused.
+> +                */
+> +               if (buffer->decrypted &&
+> +                   system_heap_set_page_encrypted(page))
+> +                       continue;
+> +
+>                 __free_pages(page, compound_order(page));
+>         }
+>         sg_free_table(table);
+> @@ -347,6 +404,8 @@ static struct dma_buf *system_heap_allocate(struct dm=
+a_heap *heap,
+>         DEFINE_DMA_BUF_EXPORT_INFO(exp_info);
+>         unsigned long size_remaining =3D len;
+>         unsigned int max_order =3D orders[0];
+> +       struct system_heap_priv *priv =3D dma_heap_get_drvdata(heap);
+> +       bool decrypted =3D priv->decrypted;
+>         struct dma_buf *dmabuf;
+>         struct sg_table *table;
+>         struct scatterlist *sg;
+> @@ -362,6 +421,7 @@ static struct dma_buf *system_heap_allocate(struct dm=
+a_heap *heap,
+>         mutex_init(&buffer->lock);
+>         buffer->heap =3D heap;
+>         buffer->len =3D len;
+> +       buffer->decrypted =3D decrypted;
+>
+>         INIT_LIST_HEAD(&pages);
+>         i =3D 0;
+> @@ -396,6 +456,14 @@ static struct dma_buf *system_heap_allocate(struct d=
+ma_heap *heap,
+>                 list_del(&page->lru);
+>         }
+>
+> +       if (decrypted) {
+> +               for_each_sgtable_sg(table, sg, i) {
+> +                       ret =3D system_heap_set_page_decrypted(sg_page(sg=
+));
+> +                       if (ret)
+> +                               goto free_pages;
+> +               }
+> +       }
+> +
+>         /* create the dmabuf */
+>         exp_info.exp_name =3D dma_heap_get_name(heap);
+>         exp_info.ops =3D &system_heap_buf_ops;
+> @@ -413,6 +481,13 @@ static struct dma_buf *system_heap_allocate(struct d=
+ma_heap *heap,
+>         for_each_sgtable_sg(table, sg, i) {
+>                 struct page *p =3D sg_page(sg);
+>
+> +               /*
+> +                * Intentionally leak pages that cannot be re-encrypted
+> +                * to prevent decrypted memory from being reused.
+> +                */
+> +               if (buffer->decrypted &&
+> +                   system_heap_set_page_encrypted(p))
+> +                       continue;
+>                 __free_pages(p, compound_order(p));
+>         }
+>         sg_free_table(table);
+> @@ -428,6 +503,14 @@ static const struct dma_heap_ops system_heap_ops =3D=
  {
-+	int ret;
-+
-+	ret = qcom_hdmi_msm8974_phy_pll_set_rate(hdmi_phy);
-+	if (ret)
-+		return ret;
-+
-+	ret = qcom_hdmi_msm8974_phy_pll_enable(hdmi_phy);
-+	if (ret)
-+		return ret;
-+
- 	writel(0x1b, hdmi_phy->phy_reg + REG_HDMI_8x74_ANA_CFG0);
- 	writel(0xf2, hdmi_phy->phy_reg + REG_HDMI_8x74_ANA_CFG1);
- 	writel(0x00, hdmi_phy->phy_reg + REG_HDMI_8x74_BIST_CFG0);
-@@ -49,6 +325,10 @@ static int qcom_hdmi_msm8974_phy_power_off(struct qcom_hdmi_preqmp_phy *hdmi_phy
- {
- 	writel(0x7f, hdmi_phy->phy_reg + REG_HDMI_8x74_PD_CTRL0);
- 
-+	writel(0, hdmi_phy->pll_reg + UNIPHY_PLL_GLB_CFG);
-+	udelay(5);
-+	writel(0, hdmi_phy->phy_reg + REG_HDMI_8x74_GLB_CFG);
-+
- 	return 0;
- }
- 
-@@ -67,5 +347,6 @@ const struct qcom_hdmi_preqmp_cfg msm8974_hdmi_phy_cfg = {
- 	.power_on = qcom_hdmi_msm8974_phy_power_on,
- 	.power_off = qcom_hdmi_msm8974_phy_power_off,
- 
-+	.pll_ops = &qcom_hdmi_8974_pll_ops,
- 	.pll_parent = &msm8974_hdmi_pll_parent,
- };
-
--- 
-2.47.3
-
+>         .allocate =3D system_heap_allocate,
+>  };
+>
+> +static struct system_heap_priv system_heap_priv =3D {
+> +       .decrypted =3D false,
+> +};
+> +
+> +static struct system_heap_priv system_heap_cc_decrypted_priv =3D {
+> +       .decrypted =3D true,
+> +};
+> +
+>  static int __init system_heap_create(void)
+>  {
+>         struct dma_heap_export_info exp_info;
+> @@ -435,8 +518,18 @@ static int __init system_heap_create(void)
+>
+>         exp_info.name =3D "system";
+>         exp_info.ops =3D &system_heap_ops;
+> -       exp_info.priv =3D NULL;
+> +       exp_info.priv =3D &system_heap_priv;
+> +
+> +       sys_heap =3D dma_heap_add(&exp_info);
+> +       if (IS_ERR(sys_heap))
+> +               return PTR_ERR(sys_heap);
+> +
+> +       if (IS_ENABLED(CONFIG_HIGHMEM) ||
+> +           !cc_platform_has(CC_ATTR_MEM_ENCRYPT))
+> +               return 0;
+>
+> +       exp_info.name =3D "system_cc_decrypted";
+> +       exp_info.priv =3D &system_heap_cc_decrypted_priv;
+>         sys_heap =3D dma_heap_add(&exp_info);
+>         if (IS_ERR(sys_heap))
+>                 return PTR_ERR(sys_heap);
+> --
+> 2.51.1
+>
