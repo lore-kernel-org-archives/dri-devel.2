@@ -4,40 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B9871F483C6
-	for <dri-devel@archiver.kernel.org>; Mon, 23 Mar 2026 16:15:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 40B34F483C9
+	for <dri-devel@archiver.kernel.org>; Mon, 23 Mar 2026 16:15:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2AEBD10E4C1;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7A4B210E4C3;
 	Mon, 23 Mar 2026 16:15:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="X8I0za+0";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="Y9Q5yK4w";
 	dkim-atps=neutral
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E6FFE10E49E
- for <dri-devel@lists.freedesktop.org>; Mon, 23 Mar 2026 16:15:11 +0000 (UTC)
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9BA9410E4C1
+ for <dri-devel@lists.freedesktop.org>; Mon, 23 Mar 2026 16:15:12 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-03.galae.net (Postfix) with ESMTPS id 9960F4E427AE;
- Mon, 23 Mar 2026 16:15:10 +0000 (UTC)
+ by smtpout-04.galae.net (Postfix) with ESMTPS id 78FFAC58083;
+ Mon, 23 Mar 2026 16:15:37 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 6D9685FEF6;
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 821D7601A0;
  Mon, 23 Mar 2026 16:15:10 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 8EEEA10450FE0; Mon, 23 Mar 2026 17:14:57 +0100 (CET)
+ with ESMTPSA id BC02710450FE5; Mon, 23 Mar 2026 17:14:51 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
  t=1774282506; h=from:subject:date:message-id:to:cc:mime-version:content-type:
  content-transfer-encoding:in-reply-to:references;
- bh=wz/qy3mOqhyoOYrk4BYNUG4XnoW1wVBR5GPWBTYta+k=;
- b=X8I0za+0DuH7Uricdi22M/uTCib/0T6dlZjRnidNjg5yq5jTJSBptkLD5BFMEGHu1c1Urv
- P/GlNk2/IOpNJyvIR6JFZdujnZRu/xEZn0nCpRkF313SELDqqdkb5FCR3SVckFMYEY90M9
- 18vd1rwE2UFRQ3oazskYokOSUhwBLGeV0mwfPDVnZ72AuXrT6Z658yNUKugz058xy3LsuP
- ea5Ak61T2Qprayj5sy69Bh9wCks/IfLxiWrh1wKR4kT4++lr6BqaeOG7H5EFZVVsLCdGEP
- UY1R8QPgy+z09dqXUxNhPNfwhGA/TNJ7W8AAQmmc/tUg5TwCV91sJYyb5djeiQ==
+ bh=L93GLqLus5B8kLAj3bNWOHqwo3TpCpr9wsx8jieRi1E=;
+ b=Y9Q5yK4wSxbiIxPpWmJBuauTLMPubXYCTglW000y3lpGh25SszpOYvUrxJuQECba/o2q1l
+ TjuoLvy2B7i+go4faD59gCap17AtHWUaqSeq5NMW/ms6zrQ5Tz4kcdXIWZbIB2lMNrDhzj
+ 35dSPmVEiJTV/JXx2gXhAxV3IitA7Dn1L9CRdCTrkwrJ8Z9K/pOtEJVAKDl74Wpf4CS9nW
+ P7VoidWaZhEsqS0s3HmOvrCuxYGgp0bACrvOjA7DyCOoXBkpv153f9Q3RuRa1eUhtR7AiM
+ 4iUu6RfXa4LN9MLMyH9RmxXQCWhrLZpVaHWh8Iq3HEktUyhE41vVtz58WeRNMQ==
 Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Date: Mon, 23 Mar 2026 17:14:56 +0100
-Message-Id: <DHAANIKVU6BV.20W1GS0MWT55E@bootlin.com>
-Subject: Re: [PATCH v2 9/9] drm/rockchip: analogix_dp: Add support for RK3576
+Date: Mon, 23 Mar 2026 17:14:50 +0100
+Message-Id: <DHAANFJ6QZKU.5NN7RD47T8TI@bootlin.com>
 Cc: <Laurent.pinchart@ideasonboard.com>, <jonas@kwiboo.se>,
  <jernej.skrabec@gmail.com>, <nicolas.frattaroli@collabora.com>,
  <alchark@gmail.com>, <cristian.ciocaltea@collabora.com>,
@@ -55,10 +54,12 @@ To: "Damon Ding" <damon.ding@rock-chips.com>, <hjc@rock-chips.com>,
  <robh@kernel.org>, <krzk+dt@kernel.org>, <conor+dt@kernel.org>,
  <andrzej.hajda@intel.com>, <neil.armstrong@linaro.org>, <rfoss@kernel.org>
 From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
+Subject: Re: [PATCH v2 7/9] drm/bridge: analogix_dp: Rename and simplify
+ is_rockchip()
 X-Mailer: aerc 0.20.1
 References: <20260319104031.1986946-1-damon.ding@rock-chips.com>
- <20260320004554.2006299-1-damon.ding@rock-chips.com>
-In-Reply-To: <20260320004554.2006299-1-damon.ding@rock-chips.com>
+ <20260319104031.1986946-8-damon.ding@rock-chips.com>
+In-Reply-To: <20260319104031.1986946-8-damon.ding@rock-chips.com>
 X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -75,20 +76,25 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri Mar 20, 2026 at 1:45 AM CET, Damon Ding wrote:
-> RK3576 integrates the Analogix eDP 1.3 TX controller IP and the HDMI/eDP
-> TX Combo PHY based on a Samsung IP block - both of which are the same as
-> those on RK3588.
->
-> The patch currently adds only the basic support, specifically RGB output
-> up to 4K@60Hz, without the tests for audio, PSR and other eDP 1.3 specifi=
-c
-> features.
+On Thu Mar 19, 2026 at 11:40 AM CET, Damon Ding wrote:
+> Rename is_rockchip() to analogix_dp_is_rockchip() for naming consistency
+> and readability, and simplify the code with switch.
 >
 > Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
-> Reviewed-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+> Suggested-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 
+The patch content is OK:
 Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+
+However this won't apply without [0], correct?
+
+So, worth mentioning in the cover letter that this series depends on the
+[0] series.
+
+[0] https://lore.kernel.org/all/20260319071452.1961274-8-damon.ding@rock-ch=
+ips.com/
+
+Luca
 
 --
 Luca Ceresoli, Bootlin
