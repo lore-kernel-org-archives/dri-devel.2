@@ -4,51 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BCFB5F532FF
-	for <dri-devel@archiver.kernel.org>; Tue, 24 Mar 2026 09:12:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0B4B4D58CC9
+	for <dri-devel@archiver.kernel.org>; Tue, 24 Mar 2026 09:12:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9708B10E639;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 977FF10E63B;
 	Tue, 24 Mar 2026 09:12:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=cyberprotect.ru header.i=@cyberprotect.ru header.b="XysKIAOS";
-	dkim=permerror (0-bit key) header.d=cyberprotect.ru header.i=@cyberprotect.ru header.b="hwnjyxiz";
+	dkim=pass (2048-bit key; unprotected) header.d=subdivi.de header.i=@subdivi.de header.b="JKAPjxDh";
 	dkim-atps=neutral
-X-Greylist: delayed 2045 seconds by postgrey-1.36 at gabe;
- Mon, 23 Mar 2026 11:03:54 UTC
-Received: from mx2.cyberprotect.ru (mx2.cyberprotect.ru [176.10.93.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6E01610E2BD
- for <dri-devel@lists.freedesktop.org>; Mon, 23 Mar 2026 11:03:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=cyberprotect.ru; s=dkim-r; h=MIME-Version:Date:From:Sender:Reply-To;
- bh=QcbI5Xku4fL4lXhZomurIoI8W7kAjTeXntNYDbnIz3I=; b=XysKIAOSOYPk5gW7S0b71zF9Li
- UByknk+MwzDidsKgKUgVxA3JtDO2fBHf/1uEvLnICjA6i+ifY9MlU47AXbt9oA9PLV8L77YaEcL3/
- cLGx5mdMwM1HN3MmdsZfOrE/BfGXAGqtAp5QCdYe7pK0YCQmb6otNSrIIymWyfiLoWgT0JxgTe/C4
- 75fUKfYdE7M1uzLCLgU7fUlGu4mZUV66LXvMZ944bNowQnrFt7wwsKM1Yrsq17INlQ/2OiFiF81pX
- h3sGGKgdNoysm7Bwtl4z1fZy3HH5MK9lrhmAA7hCfkJavNHPnfOI45vAyA0a/Ns5krm0k/YrBvlyd
- H14MhkWA==;
-DKIM-Signature: v=1; a=ed25519-sha256; q=dns/txt; c=relaxed/relaxed;
- d=cyberprotect.ru; s=dkim; h=MIME-Version:Date:From:Sender:Reply-To;
- bh=QcbI5Xku4fL4lXhZomurIoI8W7kAjTeXntNYDbnIz3I=; b=hwnjyxiz9371raxn6PLZzNScaW
- AJSuZZfz5912EOXjePSXht8dny98iLOVnDqC4rg3XOt80OYc81DTJ0c6/2Cg==;
-From: Dmitriy Chumachenko <Dmitry.Chumachenko@cyberprotect.ru>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>
-CC: Sumit Semwal <sumit.semwal@linaro.org>, =?UTF-8?q?Christian=20K=C3=B6nig?=
- <christian.koenig@amd.com>, Andrew Morton <akpm@osdl.org>,
- Andreas Oberritter <obi@linuxtv.org>, Johannes Stezenbach <js@linuxtv.org>,
- <linux-media@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <dri-devel@lists.freedesktop.org>, <linaro-mm-sig@lists.linaro.org>,
- <lvc-project@linuxtesting.org>
-Subject: [PATCH] media: pluto2: fix potential buffer overflow in
- pluto_dma_end()
-Date: Mon, 23 Mar 2026 13:29:20 +0300
-Message-ID: <20260323102920.19937-1-Dmitry.Chumachenko@cyberprotect.ru>
-X-Mailer: git-send-email 2.49.0
+Received: from isilmar-4.linta.de (isilmar-4.linta.de [136.243.71.142])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4445110E43F
+ for <dri-devel@lists.freedesktop.org>; Mon, 23 Mar 2026 21:45:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=subdivi.de;
+ s=k26.isilmar-4; t=1774302345;
+ bh=TNfXuXilpGkss9Aq4f5JZ8vo6eDA8dwLNHFfHhVrB3E=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=JKAPjxDhpfMLJJ38Y8lUJxgeIXReotnHZr+xMkMt+Cc7qB7nz/dWocQOLyykCt+jG
+ jI9fNkdAhH1O185jkQouBYmuGRatBRIp59L5HhA9K2bIaq1QGFn+EG3QU6XJwPDWHR
+ u/ZiOw61xzLqVNofpRKOXa5OHBaoT8qxvRlq9ZzCXtOSW7IKLoQCQvfDWggIujWqgS
+ o6/ZEF7Kkhv+6zfvvA15FYE9tS9kym676lZ3UTeN/nx6GufND/sxCR4VpjpsbodGCT
+ 1CXckBYSPUw599HN6ASHy8h/XI1RukhyuOHKQJZtjZDFzXH/ZiW3Rl5joSRS3fGwS9
+ fQ83lx3Lto8zw==
+Received: from isilmar-4.linta.de (isilmar.linta [10.0.0.1])
+ by isilmar-4.linta.de (Postfix) with ESMTP id E9D81200321;
+ Mon, 23 Mar 2026 21:45:45 +0000 (UTC)
+Date: Mon, 23 Mar 2026 17:58:52 +0100
+From: Helmut Grohne <helmut@subdivi.de>
+To: Lizhi Hou <lizhi.hou@amd.com>
+Cc: Min Ma <mamin506@gmail.com>, dri-devel@lists.freedesktop.org,
+ Mario Limonciello <mario.limonciello@amd.com>
+Subject: Re: amdxdna: firmware <-> driver compatibility
+Message-ID: <20260323165852.GA13049@subdivi.de>
+References: <20260320162634.GA1515@subdivi.de>
+ <fa6faa70-04fc-72b3-8f6e-4d1ef062799e@amd.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.80.0.30]
-X-ClientProxiedBy: AIP-EXCH-1.aip.ooo (10.77.28.101) To AIP-EXCH-2.aip.ooo
- (10.77.28.102)
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <fa6faa70-04fc-72b3-8f6e-4d1ef062799e@amd.com>
 X-Mailman-Approved-At: Tue, 24 Mar 2026 09:12:22 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -65,34 +57,18 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The while loop in pluto_dma_end() scans the DMA buffer for MPEG-TS sync 
-bytes (0x47) at 188-byte intervals. However, it does not check the buffer 
-boundary. If the buffer contains 0x47 at every 188-byte offset, the loop 
-index will exceed the buffer size, causing an out-of-bounds read.
+Hi Lizhi,
 
-Add a check to ensure the index stays within TS_DMA_BYTES.
+On Mon, Mar 23, 2026 at 09:25:01AM -0700, Lizhi Hou wrote:
+> Thanks for reporting this. Does your linux-firmware have this change?
+> 
+> https://gitlab.com/kernel-firmware/linux-firmware/-/commit/58cf579b98c0c4878deeda1acb5db70e699875b5
 
-Found by Linux Verification Center (linuxtesting.org) with SVACE.
+No. My report is a duplicate of
+https://gitlab.freedesktop.org/drm/amd/-/issues/5009, which is the one
+resolved via the commit you point at.
 
-Fixes: c7cadb3a02b5 ("[PATCH] dvb: add Pluto2 driver")
-Signed-off-by: Dmitriy Chumachenko <Dmitry.Chumachenko@cyberprotect.ru>
----
- drivers/media/pci/pluto2/pluto2.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+I'll take it from here and ensure that Debian includes that commit.
 
-diff --git a/drivers/media/pci/pluto2/pluto2.c b/drivers/media/pci/pluto2/pluto2.c
-index 6ac9b9bd7435..fd7f8d8b85a8 100644
---- a/drivers/media/pci/pluto2/pluto2.c
-+++ b/drivers/media/pci/pluto2/pluto2.c
-@@ -291,7 +291,7 @@ static void pluto_dma_end(struct pluto *pluto, unsigned int nbpackets)
- 	 */
- 	if ((nbpackets == 0) || (nbpackets > TS_DMA_PACKETS)) {
- 		unsigned int i = 0;
--		while (pluto->dma_buf[i] == 0x47)
-+		while (i < TS_DMA_BYTES && pluto->dma_buf[i] == 0x47)
- 			i += 188;
- 		nbpackets = i / 188;
- 		if (i == 0) {
--- 
-2.49.0
+Helmut
 
