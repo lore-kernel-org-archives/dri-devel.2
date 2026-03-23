@@ -4,138 +4,152 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CA034F46122
-	for <dri-devel@archiver.kernel.org>; Mon, 23 Mar 2026 14:23:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CF987F4612B
+	for <dri-devel@archiver.kernel.org>; Mon, 23 Mar 2026 14:26:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 35C7410E3F4;
-	Mon, 23 Mar 2026 14:23:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0880610E48D;
+	Mon, 23 Mar 2026 14:26:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="UhXxUpKX";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="FCEqIwQU";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Yj6tjzyP";
 	dkim-atps=neutral
-Received: from BN1PR04CU002.outbound.protection.outlook.com
- (mail-eastus2azon11010011.outbound.protection.outlook.com [52.101.56.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6DE9E10E48D
- for <dri-devel@lists.freedesktop.org>; Mon, 23 Mar 2026 14:23:07 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=E/qWFCy0eCMfOiGE47wiAHM/AnV405GXE2fIc/V758juEj3irHrM67YhVSDqcBSYWvUO5YOuihd1tbo/2HA4MoqogE3HsDh7nGpSNCMMGAutpA98fphKQ53VSxzTRm3q5bvIrg/rk03TIsD00zI47qYAS3OqQRvuiSAe3wTfgvDS9Ooa7SBAABFQsZU6AtIpdg6gFNDvsufzqFgwoWWgttHLDE2qhFhD53StKpwTo1xeziatEbWnqSxvILDzKcwyChuT4GaRSwhfXNcTD8mmgC0OIKqpi/UM5Yc0VDFsg3+OQ/JG4umiJJODMQ/e2carNwEQIsyj49tWPtkMyU2cpQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=B8GTp0sQ7rFxuOoL1YYeUouc+B0GSEJOb14UWs9nNQ8=;
- b=RT2xzlweydZ2ng6CCLFHDEm+afPFKU2eHaMHVFHKQc+FUZpoc8Ra5DCbSQwSyfx4R2b2Fa4uXo9krj1sKPlfjkbBSYV8J7RWJBf8xYFp7Lu7qZYv8EB4lxApE6hrcLM18Zn1NMzU8bLHIdoh4JiR/9bTbZdPkzAsDjCgi5Sa+LHRShOsu8fegwjk4WmNDilULc5EiRAyBOBsEV9izzSf4RcM6vyn683UK+8n5u1RoUrcR46ycYJ9AYMTcc4UynQbO/fWmS6FLR68nZutfq7f+Y+8frkIwi5XiPaKG217UoN1cLrXJefxJUGIX79IQqX/py3PoWuxAtLoVYxpGqjJ9w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=B8GTp0sQ7rFxuOoL1YYeUouc+B0GSEJOb14UWs9nNQ8=;
- b=UhXxUpKXGCV2K49BtQKGSfU8lt1upOwNJBtaw0+PEUV8t36lrlMa+5abxIJR6l0sVtKmVDkdwTOrhAtx9trmgWmGexk6utMpdP17HXigmds2jNvl5CRE8g1FLUDFduM3pT4Q3BM/iSvjmi2TZKYkcXaJNgBRMCa18g4kNFBNUhu57ekP6xLCf0WDY71pWvAuInsk5Vdi3NB9CykYLVNUIeeZjvKWKAW4YHL9WESFQLqeTXv3j0ht6DjH9kHsFyBUg5xyHovugKuGIyCQG8PShGiN1bpQd48wrbMizwQ2yOJ6Pd83BeytGdHPzvx82fC5PRKo87OOHYRKUGgHVS6YSA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from CH2PR12MB3990.namprd12.prod.outlook.com (2603:10b6:610:28::18)
- by LV5PR12MB9801.namprd12.prod.outlook.com (2603:10b6:408:2fc::20)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.15; Mon, 23 Mar
- 2026 14:22:57 +0000
-Received: from CH2PR12MB3990.namprd12.prod.outlook.com
- ([fe80::7de1:4fe5:8ead:5989]) by CH2PR12MB3990.namprd12.prod.outlook.com
- ([fe80::7de1:4fe5:8ead:5989%6]) with mapi id 15.20.9745.007; Mon, 23 Mar 2026
- 14:22:57 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 23 Mar 2026 23:22:53 +0900
-Message-Id: <DHA89PW1Q1KU.TT2SUZS7MEXO@nvidia.com>
-From: "Alexandre Courbot" <acourbot@nvidia.com>
-To: "Gary Guo" <gary@garyguo.net>
-Cc: "Danilo Krummrich" <dakr@kernel.org>, "Alice Ryhl"
- <aliceryhl@google.com>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
- <simona@ffwll.ch>, "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>,
- "Maxime Ripard" <mripard@kernel.org>, "Thomas Zimmermann"
- <tzimmermann@suse.de>, "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng"
- <boqun@kernel.org>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
- <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
- Hindborg" <a.hindborg@kernel.org>, "Trevor Gross" <tmgross@umich.edu>,
- "John Hubbard" <jhubbard@nvidia.com>, "Alistair Popple"
- <apopple@nvidia.com>, "Joel Fernandes" <joelagnelf@nvidia.com>, "Timur
- Tabi" <ttabi@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>, "Eliot Courtney"
- <ecourtney@nvidia.com>, <dri-devel@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>, <linux-riscv@lists.infradead.org>,
- <linux-doc@vger.kernel.org>, <rust-for-linux@vger.kernel.org>
-Subject: Re: [PATCH v3 07/10] gpu: nova-core: falcon: introduce
- `bounded_enum` macro
-References: <20260323-b4-nova-register-v3-0-ae2486ecef1b@nvidia.com>
- <20260323-b4-nova-register-v3-7-ae2486ecef1b@nvidia.com>
- <DHA65RY78M31.20BCCF00R67TH@garyguo.net>
-In-Reply-To: <DHA65RY78M31.20BCCF00R67TH@garyguo.net>
-X-ClientProxiedBy: TY4PR01CA0116.jpnprd01.prod.outlook.com
- (2603:1096:405:379::16) To CH2PR12MB3990.namprd12.prod.outlook.com
- (2603:10b6:610:28::18)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7626810E3EE
+ for <dri-devel@lists.freedesktop.org>; Mon, 23 Mar 2026 14:26:10 +0000 (UTC)
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 62NDtxal1364149
+ for <dri-devel@lists.freedesktop.org>; Mon, 23 Mar 2026 14:26:09 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ q8MEwGZvZBzKxOvXFYbCiIUql2m67G/KfJewSSa/tAY=; b=FCEqIwQUe0G4B+4e
+ zycwwl8D0aVorIfQgKi2f+U0Ie1Rsmy8mJcPQv9ta1zUjIRobIXPRX1FB+je6tFy
+ lWD6YNGpm4ryD0UGclb1tO9bnvUzmsbC04jtc8zf25QkqKIzZMGBKlIgof23JVU5
+ sSpH/Ka9AkItoR6abfTE9BQG/H6Q0/w+x+D1FGGxi7pQIk803hOvATDR/hHCEi9f
+ P+qb9sVlsJrjZgOZiR/TEEvqsf79rCjhVZjXMDlHCecg6nKC8iaSqLczdOMn24Xx
+ /eyehRrNiyyTuCjELGNSwoRzYFbrrH8hkneo/UREupc1mFc4RoKAp1GjUlNbF9ZO
+ HLT3fA==
+Received: from mail-vs1-f69.google.com (mail-vs1-f69.google.com
+ [209.85.217.69])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d31p79brh-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Mon, 23 Mar 2026 14:26:09 +0000 (GMT)
+Received: by mail-vs1-f69.google.com with SMTP id
+ ada2fe7eead31-602845e6661so456914137.1
+ for <dri-devel@lists.freedesktop.org>; Mon, 23 Mar 2026 07:26:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1774275969; x=1774880769;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=q8MEwGZvZBzKxOvXFYbCiIUql2m67G/KfJewSSa/tAY=;
+ b=Yj6tjzyPYwByEMBAfOSbcqnmgKxLaoXQmFmJ2YNY7cbZipBedFKZI85HWxRXvir9X1
+ RT4BYMgtKZnUJrPVoLdHjHNMJw8Mq/+3FKFR9TAf18HDsdQRbTE4aW2ohUCtu7PLvmxp
+ Fp0I0+kL3nh6+VbMahxbLY0R36fhRqJbsrDlJIl3yJqPDTg9s0tluzt1/paXuoYugFI0
+ /FiOjr0Zu0eephzSPIUWMXZlTI9MnJn55D8dg4WMn7KRqEZOUXRTb+UBAhFfJFSzYE1R
+ kdzJEs+RoGflfhATyC3g91vKnS3mHg8lYY2vkECtTY9ZEVi9id1kvIsJdlGsant6rNLY
+ 8JPA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1774275969; x=1774880769;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=q8MEwGZvZBzKxOvXFYbCiIUql2m67G/KfJewSSa/tAY=;
+ b=o0agvNtYfN0kF/zIplWdSVqb9yNwNutcWvgMV20m4ZCnXjDPttnXEN7XCfI+uwamch
+ 2h4Il1M6bBtSNVmuSgdOCcoPjkMIq43nwMT0LX2ouUIbBZ0kbkOCHnxN/KYpeEFeonjf
+ NlaEQgBlwnpG228jHmqAHFmXl6MXbKUQ5gct5wYnQT8HAEzqDNPRgkCpkxVAOXfmUUbd
+ dpqmS5RtXQDygESDXx9NxYA1TK43153YeUBKOeqvVOJVkpJuPec2V5jCdbVWuNorE0xL
+ 0fJlno60E9hqF7NlyhIAbJWNHKhwPSu1qM2c13YTB1KIBPKna12ec6GgaGZ3A62wvSTS
+ YmZw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCU/4UWSRLlmlxmyIQUY2gceAF7AG7sC3v+0KuYgWYfx4DnJzNKX/20Q4bGoG3cpCku7hO/+Mm3ekSs=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzfqlnX229XzE4RJjC1p025B5CJgaEr3ipDr/B7uUEHRn2TVqRq
+ T8bBSmXMmgp1q1mKgPaL//Fyomg6bbLlXSIZ8jjobKbVlYH6J181BDRDMAPtoYsYCVo9wYJu8xM
+ KrqAgIMBUTbBNJxRYys+IB1fhSNyQjaMh78Fg1YrGPspu2SrZay1EpIl+QskGpx7j/6Stefg=
+X-Gm-Gg: ATEYQzxIJSlIeURbQMzYHhQ3bCsa3+3PcYDXIIbMi40dUD/48GmZx35+/6UpevlpCdt
+ uHkbkFXG7CMXnDJF1olMKdjnVAuwUjc8tSlQlpJrgbnygfc73ADQsdW/sHCcMigeOCEhnBc3fDs
+ j01V8AuOUXQSPwgy9rQ4ECXMD3/K81UMfkGoycoDMZ2rs4JCqc875WxWM3RJ59pvtbCdO3vYYVL
+ kwrHSFEkjcgRNSjezVS155Sxa2zA0YZuNtHkirxU0zsoyM9hN5RNvdXvqYMsaRPYctErsrHsFHq
+ hTJ3r2iZlDAY0Gk9THj+kLDl5pTvwnNAny48F7eNIxbtQ0wzlC/vzN5OIpx9y7SN2BzbZ69GcLc
+ 3dJgpBQwFD9LQD3yhCcdpT8juGuIkAwH8zkhg3vduWrZuEmOFiT8MfzaRl5SpHvM0Cm6cfAcaBS
+ OmG6g=
+X-Received: by 2002:a05:6102:3910:b0:5ff:9d74:9677 with SMTP id
+ ada2fe7eead31-602aec08323mr2933726137.3.1774275968559; 
+ Mon, 23 Mar 2026 07:26:08 -0700 (PDT)
+X-Received: by 2002:a05:6102:3910:b0:5ff:9d74:9677 with SMTP id
+ ada2fe7eead31-602aec08323mr2933671137.3.1774275967928; 
+ Mon, 23 Mar 2026 07:26:07 -0700 (PDT)
+Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl.
+ [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-b983e4e9b65sm398492366b.31.2026.03.23.07.26.02
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 23 Mar 2026 07:26:07 -0700 (PDT)
+Message-ID: <2e55bdc3-54a1-4f18-b9ad-fe03f21fc4da@oss.qualcomm.com>
+Date: Mon, 23 Mar 2026 15:26:01 +0100
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PR12MB3990:EE_|LV5PR12MB9801:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4a0291f9-b1d1-48c2-71cc-08de88e7adf9
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|10070799003|366016|376014|7416014|1800799024|7053199007|22082099003|56012099003|18002099003;
-X-Microsoft-Antispam-Message-Info: RkaNGcE5cTFblQhUjXPXDdKzay2kccjeHr5umKPoW2380gCWetr/9N3MWnWifCWNzT1xHfO/rzld358ATnAG24FjBImPGuH9XlauZNfwl10DN8TOCfReGvD3Lp898QOxDWTyw5ooh9p79bG4REr5/hS9c9fc+sbHlDPIlq4cesUSU3pVhqdNvyYYOgHNA3k3KnY9H4helQFvWe/bWTuj0Up+CwH3I1I0cL2s1MXsTHtnac/WKJsF60TXlz1le/odcZ2igIxAAnk/QQ2GgE7F7X3/kZ1ROZRhXyKXhuT0TNIgJiKrXhlnUI4fu98HgDE/EsZHGgexX/jy8K6MPbiEWK8A3ApbpvAkKZuxRymi2m3If8HYa99m/6d+w37PbsUJyZKvdcqohaLedaK7FSHn0vUeK3PebjPVKiQNuBMQ/A/nAs/sEAMz65kr5DgKl9Q8DJXBn6kMgBPWtqkAzk/Fx4OTz96qpHHG6SS62d4YsqWPUhAvW/WjsFBekE7xuX3XmRtnmnbdKix44dftTyCMMo0ppkDdc0fccCuSl+Xgn13dBQtB3eANhXE2Q3RmJ0P2W883p55Ch+9HQWS7OmB5mWMqCkRPst3xc1F3ycTqAGYPuWz0HPQw4OOqqfKB9CuaBqB2I5fZB3YZdcDIgnUEjPIBI/zt4ET0PxpFcpLICZTucgn7kK5QAmLHfxLGbhLU4w35F8XH3NC1Y3fUBDCG4tA0EgZuP2n47c5s0sajTJ0=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CH2PR12MB3990.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(10070799003)(366016)(376014)(7416014)(1800799024)(7053199007)(22082099003)(56012099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NnJodzI0V3ZOZitPUGdlUTdyTEpzUXJNM2pMSnJ4RVZYTjNNaVU4YkdWYWRs?=
- =?utf-8?B?YnBmRW1vSit1bUNCRkNvb29hWW5aVHRtWFVGSzFyR1Rva3BheTdwNEVMWUhu?=
- =?utf-8?B?Sit3RklETWxBQTlsY3h1ZlVOelN1d0laU1F3Kyt2UHFYYk1ZWjU1L2NmY2I4?=
- =?utf-8?B?L09ZNCs4dnZTVzBsc1lUa3Fabmx0MVI5RkVFQ2xlZTNuWnhwdDVjQjNhS0hJ?=
- =?utf-8?B?VmQ3V3kzc0dIS1kzWVNLSzYyZ0JJNFlKUndQR0JRbDNreW52TVJOcUJrdzZ2?=
- =?utf-8?B?eFNESktFb1VLMFIxbWRpYkVGSExpeFZrTTNGZnJrd0IwRzdYYkljelREM29q?=
- =?utf-8?B?RmNYK00yL1lkeUhoWFBOd2R3emhUMUdSVGJXMlZMR08yajNERDBMSDl4U3Bm?=
- =?utf-8?B?Uk1Dd1RLZFRZNGFhazRNa3BCU2pNU1lFVG05djkwRWhvVEFiMkdSUnNXS2J3?=
- =?utf-8?B?VTJOOFU5RkpCNlloRmxqNTI3eVFNZjhWZTFCRTRIc0ZLWlJsSzRQcHRtVjVG?=
- =?utf-8?B?dzJpcTRYaUNtUENkY3VSVnJwZ1YzZUVxamNRWndrdDFUTHpLeU1kZGV4Tkpo?=
- =?utf-8?B?Sm9TbjZIMGs1OVBzSFh1YW01eUorUWhqd1ZxUkt0MUd3UjBoTmV2OTNVUSt6?=
- =?utf-8?B?WU04SzVhcEtHQWtYL0tOelhBS1RyWGR2RE5YU0hDVHB2dnZSNVRpb2dDVGN1?=
- =?utf-8?B?dHdBcDVLV3dhMkE1WmlhbFFZdFM5SDBaN0VMS2lxaTFtYkdlak5XZzZ6WE50?=
- =?utf-8?B?Z2ZIa1BSSjhlYUs5aUlKci9LNVE1SmpZNExhbkRZc1FqN3A3ZVUyUks5WVFx?=
- =?utf-8?B?c0pOS2o5VEp4Q2U2Mi9PZ29kZDlxSlFLQk82Yzc1NWRUOGh4SUJxNm9xN2ZF?=
- =?utf-8?B?MjcydjdrK1psYTcxUGhDOEZ2NEd3M0trT01uZ1pSc1JlcXE5amw4TU8vQk9a?=
- =?utf-8?B?VGtQTDRMbE1zMEVXOUdTdEJQQVBPdEU3dDN5bjJnZzNEVWtadGczOFZjV01m?=
- =?utf-8?B?YVhPdTNabFkya0JqdkpnNXc2NkV1Z2ZpVFh3T0YxRzdFOWlab1AzOFlQcjR1?=
- =?utf-8?B?RjBjbDJpY3d5VVJLUmpqR2s1QWVzV1FEeGw3VXFwbnVKd2ludzdmYUxSUkMw?=
- =?utf-8?B?NEdOenVNSHlxdTVHbDVOTk16NzRveExmaGlSSWFLZHNJS0lwcXBBWUorRUpu?=
- =?utf-8?B?MmFSQkZPdHoyeDVRSGNFYnVzTWRmaU5XQ2tGeklNTkdaMzdmU3VieXR4bnBY?=
- =?utf-8?B?THdLb1FRczdUZ1poMS9yVHltNmFwK3l0ajR5U21Ob3BKK3pwbjhMMTN5d0Zy?=
- =?utf-8?B?NkY0VklNYXNtQXNTMDdKOVgvcjlQMWZCaWpoNGd6TS9jZ1BEdXpncHNRUkJR?=
- =?utf-8?B?Q29tRjJhclZUdzMxV2taREhhRmhtOVVYRWFDSGF5aVhuWUlnUjBUVHZqZXhp?=
- =?utf-8?B?NUpsQ09ZZkswa25rRm01SXgyTWw1UGpYMkpPL2J2VWJiWDdmZlhKOFFKMXNV?=
- =?utf-8?B?cTR2aWF6b01SaVFKQUFjQk9tMjhRcDVlVDdkSzd2WVhUaW90TTUwSW1TUXdH?=
- =?utf-8?B?THg5RktQVW54NmZiM3Vzc05SeDMxWnNHRzZQcHV5ZUtQbTRsTTZJZTl2Rjdi?=
- =?utf-8?B?MUd5S0ZzN292TW5DQTYva0ZON0MwNUZGYVFwZW9rUk1Ka0RWbDE2ajF2c3hi?=
- =?utf-8?B?MUZMTklFWFFiQ3ZlU3kwSHgwS2dYdnVGUUVGdjVNQ0kzcmxBZWRjSHoxdU1W?=
- =?utf-8?B?aStPTGQ3dmN4N3BGanNpYzVtbTdTRmNHZnF4ek9aV3lGTTF1Wi84RnAwY2VU?=
- =?utf-8?B?cGgzcGhHRDVrOHFmSzM3RkRjcDlXV3VUZEY3cjNGYmRVVzVTbnVkU0ZSdDZ4?=
- =?utf-8?B?aXVPbFFSUGhwZkxZci9tbXNOaTZ5VFFSTitXU05MQnRDek5BREhQSWZRclJW?=
- =?utf-8?B?b1NBVlBndjN6c3pZWlAvQVRyWi9lV0xNUm05bGJRUzgrWVBXaHhYbWpYdEZ6?=
- =?utf-8?B?WG9tZ0dlRWZiMW1wajBqRG13TjhLV3IwRWhZaTFLZTNiSU9IQXF1c285VXBn?=
- =?utf-8?B?Z2d4RVBRdW8vSzVMWWVxMGRGMjFYa1FFN1VXZXVmRWM0MGM3NVlXSmtLUkdW?=
- =?utf-8?B?RWdub09ZWDVLblVwNzltbUJZVE9jZ0U2TDkvNkZjbnR1cHpHSEF1aGdPYTVq?=
- =?utf-8?B?TllwUE9JTFZGeTlxM1cyL3NKQ3FuUDhBYS9XLzNBb2RSYThZWEFKeFlTSVRq?=
- =?utf-8?B?d2FXVTVsVE9iK0NZVi9WWmpNWGJKUWVhOFJEOUZndE84UkEvKy9OY0pUTFZn?=
- =?utf-8?B?Q1daNnVNMTFFdWVGMm5mTW9QSmZObDQ0OFAxNUNIZmZ1VmpBWGlKalNuVGlv?=
- =?utf-8?Q?TIUMVU+X2wNlxus2ISm2DKoTjed+t+hI2JH+QGrPaFw/w?=
-X-MS-Exchange-AntiSpam-MessageData-1: xMDUvnjNb1mvew==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4a0291f9-b1d1-48c2-71cc-08de88e7adf9
-X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB3990.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Mar 2026 14:22:57.6332 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Ha4tMk1owNM1vGM7Pdg5BZzjlph1TAg0vozm0CAmG/C64N95p6mE1xajDDzjjqD06jaMVuJkEDWZ/oMLYsO6HQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV5PR12MB9801
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 02/15] firmware: qcom: Add a generic PAS service
+To: Krzysztof Kozlowski <krzk@kernel.org>, Sumit Garg <sumit.garg@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-media@vger.kernel.org, netdev@vger.kernel.org,
+ linux-wireless@vger.kernel.org, ath12k@lists.infradead.org,
+ linux-remoteproc@vger.kernel.org, andersson@kernel.org,
+ konradybcio@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, robin.clark@oss.qualcomm.com, sean@poorly.run,
+ akhilpo@oss.qualcomm.com, lumag@kernel.org, abhinav.kumar@linux.dev,
+ jesszhan0024@gmail.com, marijn.suijten@somainline.org,
+ airlied@gmail.com, simona@ffwll.ch, vikash.garodia@oss.qualcomm.com,
+ dikshita.agarwal@oss.qualcomm.com, bod@kernel.org, mchehab@kernel.org,
+ elder@kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ jjohnson@kernel.org, mathieu.poirier@linaro.org,
+ trilokkumar.soni@oss.qualcomm.com, mukesh.ojha@oss.qualcomm.com,
+ pavan.kondeti@oss.qualcomm.com, jorge.ramirez@oss.qualcomm.com,
+ tonyh@qti.qualcomm.com, vignesh.viswanathan@oss.qualcomm.com,
+ srinivas.kandagatla@oss.qualcomm.com,
+ amirreza.zarrabi@oss.qualcomm.com, jens.wiklander@linaro.org,
+ op-tee@lists.trustedfirmware.org, apurupa@qti.qualcomm.com,
+ skare@qti.qualcomm.com, linux-kernel@vger.kernel.org,
+ Sumit Garg <sumit.garg@oss.qualcomm.com>
+References: <20260312062756.694390-1-sumit.garg@kernel.org>
+ <20260312062756.694390-3-sumit.garg@kernel.org>
+ <28d63822-f191-400a-8005-5185dd480dbb@kernel.org>
+ <acE-kAi2tkPh2qie@sumit-xelite>
+ <5c5b49aa-7819-44c6-b5f7-19ec780d73fa@kernel.org>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <5c5b49aa-7819-44c6-b5f7-19ec780d73fa@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=RMC+3oi+ c=1 sm=1 tr=0 ts=69c14d81 cx=c_pps
+ a=5HAIKLe1ejAbszaTRHs9Ug==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
+ a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=EUspDBNiAAAA:8 a=RZWjG5IIt-miciyuqOEA:9 a=QEXdDO2ut3YA:10
+ a=gYDTvv6II1OnSo0itH1n:22
+X-Proofpoint-ORIG-GUID: 1bNUyoIIQHMA6XYv25gWOjUSoxAkLV4w
+X-Proofpoint-GUID: 1bNUyoIIQHMA6XYv25gWOjUSoxAkLV4w
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzIzMDExMSBTYWx0ZWRfXyrmytB2pThr6
+ E5uoC415Fm/a5dwTvkAtqfear5xmDI5xgaIrFEiEwTfvuqIntQWY74nzbiLhyCJRd3864QtrmtU
+ CC4MHNnQLCqaPxbbCe+wv4VTkeG6rLPcAVm2La68Cjbn/yrpDhv2DjWuCd4z97HPFrWXtmljt0C
+ EQMgxD1prFq49EB1rZlgABv0qbPLFatrD3/KYSjDhqwjE1Ct9f9vEHVx1Xcrt3r6ocyO+2RTNOX
+ +MBtZNlqNVeTJBxaLy7kR/Bu2uXJlNd7ZM+4kCy+eMUlN99YD1kdwpAzZLRB8fzeFu1DJQSQNLB
+ q67EwcMIcM197xXFyVyCd5NSv4bqqdRL5HtHUHfH1ZbF6RB/oxVy8JIvdWY/hX5c/ZRTJBKsXR2
+ VPWGc8KOEtSScUtaIVg/NG1EltEGINdv0bH0mbeD6qpnoZS98zq/BqyAAjmqIKGRpVR90BrauH1
+ a0oeUCRTmJ5bmZWhFAw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-03-23_04,2026-03-23_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 malwarescore=0 phishscore=0 lowpriorityscore=0 impostorscore=0
+ priorityscore=1501 bulkscore=0 spamscore=0 adultscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603230111
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -151,75 +165,118 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon Mar 23, 2026 at 9:43 PM JST, Gary Guo wrote:
-> On Mon Mar 23, 2026 at 11:07 AM GMT, Alexandre Courbot wrote:
->> Introduce a powered-up version of our ad-hoc `impl_from_enum_to_u8`
->> macro that allows the definition of an enum type associated to a
->> `Bounded` of a given width, and provides the `From` and `TryFrom`
->> implementations required to use that enum as a register field member.
+On 3/23/26 3:19 PM, Krzysztof Kozlowski wrote:
+> On 23/03/2026 14:22, Sumit Garg wrote:
+>> On Mon, Mar 16, 2026 at 08:51:16AM +0100, Krzysztof Kozlowski wrote:
+>>> On 12/03/2026 07:27, Sumit Garg wrote:
+>>>> From: Sumit Garg <sumit.garg@oss.qualcomm.com>
+>>>>
+>>>> Qcom platforms has the legacy of using non-standard SCM calls
+>>>> splintered over the various kernel drivers. These SCM calls aren't
+>>>> compliant with the standard SMC calling conventions which is a
+>>>> prerequisite to enable migration to the FF-A specifications from Arm.
+>>>>
+>>>> OP-TEE as an alternative trusted OS to Qualcomm TEE (QTEE) can't
+>>>> support these non-standard SCM calls. And even for newer architectures
+>>>> with S-EL2 and Hafnium support, QTEE won't be able to support SCM
+>>>> calls either with FF-A requirements coming in. And with both OP-TEE
+>>>> and QTEE drivers well integrated in the TEE subsystem, it makes further
+>>>> sense to reuse the TEE bus client drivers infrastructure.
+>>>>
+>>>> The added benefit of TEE bus infrastructure is that there is support
+>>>> for discoverable/enumerable services. With that client drivers don't
+>>>> have to manually invoke a special SCM call to know the service status.
+>>>>
+>>>> So enable the generic Peripheral Authentication Service (PAS) provided
+>>>> by the firmware. It acts as the common layer with different TZ
+>>>> backends plugged in whether it's an SCM implementation or a proper
+>>>> TEE bus based PAS service implementation.
+>>>>
+>>>> Signed-off-by: Sumit Garg <sumit.garg@oss.qualcomm.com>
+>>>> ---
+>>>>  drivers/firmware/qcom/Kconfig          |   8 +
+>>>>  drivers/firmware/qcom/Makefile         |   1 +
+>>>>  drivers/firmware/qcom/qcom_pas.c       | 298 +++++++++++++++++++++++++
+>>>>  drivers/firmware/qcom/qcom_pas.h       |  53 +++++
+>>>>  include/linux/firmware/qcom/qcom_pas.h |  41 ++++
+>>>>  5 files changed, 401 insertions(+)
+>>>>  create mode 100644 drivers/firmware/qcom/qcom_pas.c
+>>>>  create mode 100644 drivers/firmware/qcom/qcom_pas.h
+>>>>  create mode 100644 include/linux/firmware/qcom/qcom_pas.h
+>>>>
+>>>> diff --git a/drivers/firmware/qcom/Kconfig b/drivers/firmware/qcom/Kconfig
+>>>> index b477d54b495a..8653639d06db 100644
+>>>> --- a/drivers/firmware/qcom/Kconfig
+>>>> +++ b/drivers/firmware/qcom/Kconfig
+>>>> @@ -6,6 +6,14 @@
+>>>>  
+>>>>  menu "Qualcomm firmware drivers"
+>>>>  
+>>>> +config QCOM_PAS
+>>>> +	tristate
+>>>> +	help
+>>>> +	  Enable the generic Peripheral Authentication Service (PAS) provided
+>>>> +	  by the firmware. It acts as the common layer with different TZ
+>>>> +	  backends plugged in whether it's an SCM implementation or a proper
+>>>> +	  TEE bus based PAS service implementation.
+>>>> +
+>>>>  config QCOM_SCM
+>>>>  	select QCOM_TZMEM
+>>>>  	tristate
+>>>> diff --git a/drivers/firmware/qcom/Makefile b/drivers/firmware/qcom/Makefile
+>>>> index 0be40a1abc13..dc5ab45f906a 100644
+>>>> --- a/drivers/firmware/qcom/Makefile
+>>>> +++ b/drivers/firmware/qcom/Makefile
+>>>> @@ -8,3 +8,4 @@ qcom-scm-objs += qcom_scm.o qcom_scm-smc.o qcom_scm-legacy.o
+>>>>  obj-$(CONFIG_QCOM_TZMEM)	+= qcom_tzmem.o
+>>>>  obj-$(CONFIG_QCOM_QSEECOM)	+= qcom_qseecom.o
+>>>>  obj-$(CONFIG_QCOM_QSEECOM_UEFISECAPP) += qcom_qseecom_uefisecapp.o
+>>>> +obj-$(CONFIG_QCOM_PAS)		+= qcom_pas.o
+>>>> diff --git a/drivers/firmware/qcom/qcom_pas.c b/drivers/firmware/qcom/qcom_pas.c
+>>>> new file mode 100644
+>>>> index 000000000000..beb1bae55546
+>>>> --- /dev/null
+>>>> +++ b/drivers/firmware/qcom/qcom_pas.c
+>>>> @@ -0,0 +1,298 @@
+>>>> +// SPDX-License-Identifier: GPL-2.0
+>>>> +/*
+>>>> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+>>>> + */
+>>>> +
+>>>> +#include <linux/device/devres.h>
+>>>> +#include <linux/firmware/qcom/qcom_pas.h>
+>>>> +#include <linux/kernel.h>
+>>>> +#include <linux/module.h>
+>>>> +
+>>>> +#include "qcom_pas.h"
+>>>> +
+>>>> +struct qcom_pas_ops *ops_ptr;
+>>>
+>>> Same comment as before. Don't create singletons. And for sure not global
+>>> ones.
 >>
->> The next patch will make use of it to convert all falcon registers to
->> the kernel register macro.
+>> This pattern has been carried from the PAS API contract among kernel
+>> clients and the SCM PAS service earlier. The clients don't hold a
+>> reference to the PAS data like underlying platform or TEE device etc.
+>> Hence the need to have a global data pointer to hold reference to the
+>> ops data structure registered by drivers having different lifetime of
+>> devices. Also, the PAS APIs can be called from very different client
+>> driver contexts.
 >>
->> The macro is unused in this patch: it is introduced ahead-of-time to
->> avoid diff mingling in the next patch that would make it difficult to
->> review.
->>
->> Reviewed-by: Gary Guo <gary@garyguo.net>
->> Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
->> ---
->>  drivers/gpu/nova-core/falcon.rs | 82 ++++++++++++++++++++++++++++++++++=
-+++++++
->>  1 file changed, 82 insertions(+)
->>
->> diff --git a/drivers/gpu/nova-core/falcon.rs b/drivers/gpu/nova-core/fal=
-con.rs
->> index 5a4f7fc85160..5221e4476f90 100644
->> --- a/drivers/gpu/nova-core/falcon.rs
->> +++ b/drivers/gpu/nova-core/falcon.rs
->> @@ -54,6 +54,88 @@ fn from(value: $enum_type) -> Self {
->>      };
->>  }
->> =20
->> +/// Creates an enum type associated to a `Bounded`, with a `From` conve=
-rsion to the associated
->> +/// `Bounded` and either a `TryFrom` or `From` converting from the asso=
-ciated `Bounded`.
->> +// TODO[FPRI]: This is a temporary solution to be replaced with the cor=
-responding derive macros
->> +// once they land.
->> +#[expect(unused)]
->> +macro_rules! bounded_enum {
->> +    (
->> +        $(#[doc =3D $enum_doc:expr])*
->> +        enum $enum_type:ident with $from_impl:ident<Bounded<$width:ty, =
-$length:literal>> {
->> +            $( $(#[doc =3D $variant_doc:expr])* $variant:ident =3D $val=
-ue:expr),* $(,)*
->> +        }
->> +    ) =3D> {
->> +        $(#[doc =3D $enum_doc])*
->> +        #[derive(Debug, Copy, Clone, PartialEq, Eq, PartialOrd, Ord)]
->> +        pub(crate) enum $enum_type {
->> +            $(
->> +                $(#[doc =3D $variant_doc])*
->> +                $variant =3D $value
->> +            ),*
->> +        }
->> +
->> +        impl From<$enum_type> for Bounded<$width, $length> {
->> +            fn from(value: $enum_type) -> Self {
->> +                match value {
->> +                    $($enum_type::$variant =3D> Bounded::<$width, _>::n=
-ew::<$value>()),*
->
-> Hi Alex,
->
-> This looks exactly the same as the last version, without out the {} and M=
-AX..
-> change made (which you mentioned in the cover letter).
+>> Surely, avoiding global data is always better given a better alternative
+>> is there. Do you have any better alternative proposal here?
+> 
+> Why it cannot be part of the context?
+> 
+> Look at your API, e.g.:
+> qcom_pas_init_image(). It takes struct qcom_pas_context which should
+> contain the ops.
 
-I'm so sorry. I mistakenly squashed the fixup commit into the next
-commit instead of this one. I will resend after hearing back from Danilo
-about where the macro should reside.
+This would make the client have to select the ops. The whole point is to
+avoid that, since the client has no clue (and is supposed not to have any).
 
+What Sumit does is to bind the ops based on the runtime-discovered
+mechanism (which needs to only happen once, given we're not replacing the
+TZ at runtime)
+
+Konrad
