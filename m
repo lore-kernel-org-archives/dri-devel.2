@@ -4,138 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5A96AD58CC5
-	for <dri-devel@archiver.kernel.org>; Mon, 23 Mar 2026 03:45:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 84D11D58CBE
+	for <dri-devel@archiver.kernel.org>; Mon, 23 Mar 2026 03:47:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A837C10E341;
-	Mon, 23 Mar 2026 03:45:43 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="NPMmsh0S";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="QFfG3Tnr";
-	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8E22510E341
- for <dri-devel@lists.freedesktop.org>; Mon, 23 Mar 2026 03:45:42 +0000 (UTC)
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 62MLwrlm347545
- for <dri-devel@lists.freedesktop.org>; Mon, 23 Mar 2026 03:45:42 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=771hqY1mCDIAg/yx+uEf6Ttz
- Hkh8ia+W+7ypVEyNNiY=; b=NPMmsh0S+owYHSkMHe7FKTXso9ov8bkoJHssgfpI
- QUuIAvmzADFOygabkrTB53bIqHT7UYxLCoyOabZX7cXwnG5NIMo5IjKHhN5+1ve5
- Gk0yEsmWFG1dmGm+D9V0JmGSnt/U0TB3fRMxoV5bGOCLGpS5vEj5u7dubAKcvD2u
- x8g47IItRdSFL6r2RQHhJ92nxH0hzFTz+LlBiHvj6+FJFp4vpUhcNP3MeSEsT5D7
- XZRuA93iE0BlQYVreYiHd0ngaT4owpVG6NcrqfMHfyIDPIxDgbbHBajQDCsetLWz
- cvJju/Fa5yuKzfqct2CrOkLebbtY84iKRau6c6WNfGhQvA==
-Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com
- [209.85.160.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d1kj1kgur-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Mon, 23 Mar 2026 03:45:41 +0000 (GMT)
-Received: by mail-qt1-f198.google.com with SMTP id
- d75a77b69052e-50b52a2d70cso29294441cf.3
- for <dri-devel@lists.freedesktop.org>; Sun, 22 Mar 2026 20:45:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1774237541; x=1774842341;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=771hqY1mCDIAg/yx+uEf6TtzHkh8ia+W+7ypVEyNNiY=;
- b=QFfG3Tnr0EE9Mvopto4ujb2mI2qoQpZ4K4qJ4L+WwPF6nX/Id3tu4Vd9aHZL+WJ98Y
- KjkZT1fu5uw6b+KN25GubnTLwjm9eAIS0OcVvBO02fyiQ10QQTuJmNa+pWF1C1hcD46n
- dJszL7JEbz715S/uUn2W6Z+xXocdvJ0OXjAf+6z68FpiGjyZGqJnnlxe0p2QzClC/Xw4
- 1fz16MFnVa12SDmJQeRX64cAf6kctygD6MW7joAwuvCyOpYl7p58veQagIxL1Z6xWLAr
- 01PFnf6x1HQqyJz241FlWbdTj7xzFi32zuU7DxsdJVvT+Cc4ZCBtHIlfQaaGwhvr9IGQ
- ibnw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774237541; x=1774842341;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=771hqY1mCDIAg/yx+uEf6TtzHkh8ia+W+7ypVEyNNiY=;
- b=roMlgUIn85xbeDTqFaWxdKEQqCVLAuPGI1mSNQuu9uNRYz5Q2A1i8dJg5rpR7Nh3hX
- jycpvmy+pGCRpWsaxXiNpvSABk5vHxE97rTdRiBP0EkYRricprzs5/WWNYmenmNq+DkO
- +u9dbXSceQRMobFT3ah/jRBDRLQRikEQE3G6+WFgAee0cFC2E/okJmhwaRX96tkm3D++
- sOMpLh8fngdLjeBxJPRcs74akDzHnyl8fCmUO2HjBR8/ETX4gwNTlWxyL10IR5P2tmjB
- Ct7omDjUjS0WqVRe7y8bVA5bNVQF7SAZF3gQO08wOygM1Qfrp5mOmvR2y65kTSKdhzmA
- R+Og==
-X-Forwarded-Encrypted: i=1;
- AJvYcCV1C3cZIAbmEMJvZhAc8UNUqVhfODuQzYAFDXjBeKvhma5qK7rXdM37Oqfs6x1rz53tmaOoV/+JDjY=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwKAZWnmsMV5YhA/51/WNUrP7cOlVZojJX+PUyB1PFCn/q21WNS
- PPIdFdQUGJv5+2LI20Kzy7JkfHCnKJfGpLtKlSVX8RsPNPunvB5h5B0jUPphXjeHMQijbJlpLrV
- rAYm+njc+B3u3rBBaYunCxOGqmGKZ8lETvi8pNaAwGIXi7nnIQw9sZ1GDfBCsHgK5MS0ufjw=
-X-Gm-Gg: ATEYQzx6vWhEwr+swFWxCakw2RYW+56G2IHF9PwPHygnr67z3ZWsaxp8YtEQ1DJ83nO
- wG7pqI+aYsfF8vYbUSCb0yfNRsaHgOjw5Jg1OO05EchCyE5U05BedwUmKqxIBnS4tRmHPodXveB
- FmGjIPFuSezPvAhFP2xCbl4/gZitphAM+m0qdz1MIJfI5aKEOImUKuQ/ll3VrJlAXf8Ae7OfbZ7
- Z1JVr5kRPSjFgMe7S/KH5BSCSo/iG0qMkQvFv2oeXiilZduHOuUyRwtloVMd5gqf89gttjuhNNW
- pmOmQQBE/z+83ot61WA21iI9JghdiiLzjCq8J2vgI6R/+O0y0voh+uEjtFqQZZB+Q0tvwskzYNQ
- AUejTM+yI4wYPFbk458mgryuJWyOAZXwtOCGdqDQs1YWvv2X29TJLejrcar5k6CtdNAjsxKYO8F
- eRRsgAvJySNS+9HjLhvaTw5ugtPXFA0ZCEVEQ=
-X-Received: by 2002:a05:622a:5c9:b0:509:1766:2f45 with SMTP id
- d75a77b69052e-50b37511914mr162680511cf.51.1774237540979; 
- Sun, 22 Mar 2026 20:45:40 -0700 (PDT)
-X-Received: by 2002:a05:622a:5c9:b0:509:1766:2f45 with SMTP id
- d75a77b69052e-50b37511914mr162680301cf.51.1774237540560; 
- Sun, 22 Mar 2026 20:45:40 -0700 (PDT)
-Received: from umbar.lan
- (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5a28530bd3dsm2247739e87.73.2026.03.22.20.45.39
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 22 Mar 2026 20:45:39 -0700 (PDT)
-Date: Mon, 23 Mar 2026 05:45:37 +0200
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Hermes.wu@ite.com.tw
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	by gabe.freedesktop.org (Postfix) with ESMTP id E836010E352;
+	Mon, 23 Mar 2026 03:47:44 +0000 (UTC)
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 538C810E352
+ for <dri-devel@lists.freedesktop.org>; Mon, 23 Mar 2026 03:47:43 +0000 (UTC)
+Received: from loongson.cn (unknown [10.20.42.129])
+ by gateway (Coremail) with SMTP id _____8Dx_6vat8BpeqkdAA--.26089S3;
+ Mon, 23 Mar 2026 11:47:38 +0800 (CST)
+Received: from [10.20.42.129] (unknown [10.20.42.129])
+ by front1 (Coremail) with SMTP id qMiowJAxGMHOt8BpyRRbAA--.28757S3;
+ Mon, 23 Mar 2026 11:47:27 +0800 (CST)
+Subject: Re: [PATCH v2] drm/loongson: stop to set get_vblank_timestamp for
+ LS7A1000 CRTC
+To: Icenowy Zheng <zhengxingda@iscas.ac.cn>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Pet.Weng@ite.com.tw,
- Kenneth.Hung@ite.com.tw, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 2/2] drm/bridge: Add ITE IT6162 MIPI DSI to HDMI
- bridge driver
-Message-ID: <hylxawutrdmwxem52lyhhprkdm4oc6bnj2w6z5p2e2czvwmhgq@apcxe3lg6kgd>
-References: <20260319-upstream-6162-v4-0-7268483ef03d@ite.com.tw>
- <20260319-upstream-6162-v4-2-7268483ef03d@ite.com.tw>
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Qianhai Wu <wuqianhai@loongson.cn>, Huacai Chen <chenhuacai@kernel.org>,
+ Mingcong Bai <jeffbai@aosc.io>, Xi Ruoyao <xry111@xry111.site>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20260321092804.3519447-1-zhengxingda@iscas.ac.cn>
+ <47337244ebd0ce4efd3e065183e863421925f99f.camel@iscas.ac.cn>
+From: Jianmin Lv <lvjianmin@loongson.cn>
+Message-ID: <e11078cb-7536-b5d2-b753-16d25093a403@loongson.cn>
+Date: Mon, 23 Mar 2026 11:40:02 +0800
+User-Agent: Mozilla/5.0 (X11; Linux loongarch64; rv:68.0) Gecko/20100101
+ Thunderbird/68.7.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260319-upstream-6162-v4-2-7268483ef03d@ite.com.tw>
-X-Proofpoint-GUID: lHvG4Ffv5xEkPsHiNCYuYxFUE7gm_8pt
-X-Proofpoint-ORIG-GUID: lHvG4Ffv5xEkPsHiNCYuYxFUE7gm_8pt
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzIzMDAyNSBTYWx0ZWRfX9jM9h/kvStvL
- AbzsOTpHwF2NsFZSG+IvqODcDGCeYLHESeE2YsKD9sl66cKccAzpZ5X2MKZj1kjhjDlS+KyV4c8
- XCAut+Dl3HerRNoh5XouS//7oDcJVTDvRrZMNLIkCMen5P5yksoDMaBqhh1+wta5smDJXcuIBf9
- R6yV/szuqc/kW8GnKKOPaeG7cIdLkAImz30WBOdAZ76yFo6fDzetO+sxsl5Dnj8o59LPLkgWVTy
- ArFGzNgh8iQ4UH9MDMDlJBn9+P9Xmsj5XKgYMbK57WZ/Udn/HCmqSBstzBBd6Nn7UJ3iNhH+7H4
- qsiJc8yiI7/KPLyFUguA82XV7VdoKvWRSzM9h7odJ6dvYo8e1NpzZ+/dYpJmKj2xt1UrkEH0mCG
- v5Osn6HDe3wccufTKHfe0TNbKh1nTGxDRlc7nBBOy5pbyrNZDYD8lhKDAp4JS8V8B4uh6pXL/Er
- VJyPe7QREr2r3oHC5+w==
-X-Authority-Analysis: v=2.4 cv=dYiNHHXe c=1 sm=1 tr=0 ts=69c0b766 cx=c_pps
- a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22 a=Ns9eNvu6AAAA:8
- a=EUspDBNiAAAA:8 a=QVOp_v3Uv6RRArEZA8kA:9 a=CjuIK1q_8ugA:10
- a=dawVfQjAaf238kedN5IG:22 a=LZLx1i01EnjtqRv10NxV:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-03-23_01,2026-03-20_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 malwarescore=0 suspectscore=0 priorityscore=1501
- lowpriorityscore=0 phishscore=0 adultscore=0 clxscore=1015 spamscore=0
- impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2603050001
- definitions=main-2603230025
+In-Reply-To: <47337244ebd0ce4efd3e065183e863421925f99f.camel@iscas.ac.cn>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: qMiowJAxGMHOt8BpyRRbAA--.28757S3
+X-CM-SenderInfo: 5oymxthqpl0qxorr0wxvrqhubq/
+X-Coremail-Antispam: 1Uk129KBj93XoW7ZFyrur15uFWkAr47ZrW3CFX_yoW8ZrWkpF
+ srCF1ayryDXFyavwsrA3W8u3WF9ay5Jr97XF12kw13uws8Gr1UGF10yFsxua4xXF9rA342
+ qr1ktr1YkF4j9agCm3ZEXasCq-sJn29KB7ZKAUJUUUUx529EdanIXcx71UUUUU7KY7ZEXa
+ sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+ 0xBIdaVrnRJUUUP2b4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+ IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+ e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+ 0_Jr0_Gr1l84ACjcxK6I8E87Iv67AKxVWxJVW8Jr1l84ACjcxK6I8E87Iv6xkF7I0E14v2
+ 6r4UJVWxJr1ln4kS14v26r126r1DM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6xkI12
+ xvs2x26I8E6xACxx1l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r12
+ 6r1DMcIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr4
+ 1lc7I2V7IY0VAS07AlzVAYIcxG8wCY1x0262kKe7AKxVWUAVWUtwCF04k20xvY0x0EwIxG
+ rwCFx2IqxVCFs4IE7xkEbVWUJVW8JwCFI7km07C267AKxVWUAVWUtwC20s026c02F40E14
+ v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkG
+ c2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUCVW8JwCI42IY6xIIjxv20xvEc7CjxVAFwI
+ 0_Jr0_Gr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4U
+ MIIF0xvEx4A2jsIEc7CjxVAFwI0_Jr0_GrUvcSsGvfC2KfnxnUUI43ZEXa7IU8Dl1DUUUU
+ U==
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -151,39 +74,57 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Mar 19, 2026 at 02:37:12PM +0800, Hermes Wu via B4 Relay wrote:
-> From: Hermes Wu <Hermes.wu@ite.com.tw>
-> 
-> Add support for the ITE IT6162 MIPI DSI to HDMI 2.0 bridge chip.
-> The IT6162 is an I2C-controlled bridge that supports the following
-> configurations:
-> 
->   - Single MIPI DSI input: up to 4K @ 30Hz
->   - Dual MIPI DSI input (combined): up to 4K @ 60Hz
-> 
-> The driver implements the DRM bridge and connector frameworks,
-> including mode setting, EDID retrieval, and HPD support.
-> 
-> Also add a MAINTAINERS entry for the newly introduced ITE IT6162 MIPI DSI
-> to HDMI bridge driver, covering the driver source file and the
-> device tree binding document.
-> 
-> Signed-off-by: Hermes Wu <Hermes.wu@ite.com.tw>
-> ---
-> Changes in v4
->   * Drop struc it6162_audio
->   * Add HDCP_AUTO in enum hdcp_ver{}, FW enable HDCP by sink capability.
->   * Call drm_atomic_helper_connector_hdmi_clear_audio_infoframe()
->     in it6162_bridge_hdmi_audio_shutdown()
->   * Drop  it6162_bridge_hdmi_audio_startup()
->   * Add hdmi_clear_hdmi_infoframe and hdmi_write_hdmi_infoframe
->   * Drop it6162_parse_dt() due to "ite,support-hdcp" is removed from DT.
->   * Add DRM_BRIDGE_OP_HDMI to it6162->bridge.ops
-> 
-
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
 
--- 
-With best wishes
-Dmitry
+On 2026/3/21 下午5:29, Icenowy Zheng wrote:
+> 在 2026-03-21六的 17:28 +0800，Icenowy Zheng写道：
+>> As there's no known hardware capability about querying vblank on the
+>> LS7A1000 display controller, setting get_vblank_timestamp will
+>> mislead the
+>> kernel about the support of DC-backed high precision vblank query.
+>>
+>> Drop this function pointer in the CRTC function table for LS7A1000.
+>>
+>> This solves a kernel warning when booting Linux 7.0-rc3 on a
+>> Loongson-3A4000+LS7A1000 Haier Boyue G51 laptop (with injected EDID
+>> for
+>> replicating the display timing set by the firmware).
+>>
+The drm_crtc_vblank_helper_get_vblank_timestamp will call 
+get_scanout_position hook to caculate timestamp, and the driver has 
+get_scanout_position to support it (LS7A1000 has related register). So 
+the get_vblank_timestamp hook is ok for LS7A1000, and we'd better look 
+into the warning information.
+
+>> Signed-off-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+> 
+> Oh forgot to attach when crafting v2:
+> 
+> ```
+> Acked-by: Thomas Zimmermann <tzimmermann@suse.de>
+> ```
+> 
+>> ---
+>> Changes in v2:
+>> - Re-formatted Loongson product model numbers per request from
+>> Huacai.
+>>
+>>   drivers/gpu/drm/loongson/lsdc_crtc.c | 1 -
+>>   1 file changed, 1 deletion(-)
+>>
+>> diff --git a/drivers/gpu/drm/loongson/lsdc_crtc.c
+>> b/drivers/gpu/drm/loongson/lsdc_crtc.c
+>> index 587fbe285e9ef..b3af8e0cdb15f 100644
+>> --- a/drivers/gpu/drm/loongson/lsdc_crtc.c
+>> +++ b/drivers/gpu/drm/loongson/lsdc_crtc.c
+>> @@ -721,7 +721,6 @@ static const struct drm_crtc_funcs
+>> ls7a1000_crtc_funcs = {
+>>   	.late_register = lsdc_crtc_late_register,
+>>   	.enable_vblank = lsdc_crtc_enable_vblank,
+>>   	.disable_vblank = lsdc_crtc_disable_vblank,
+>> -	.get_vblank_timestamp =
+>> drm_crtc_vblank_helper_get_vblank_timestamp,
+>>   	.atomic_print_state = lsdc_crtc_atomic_print_state,
+>>   };
+>>   
+
