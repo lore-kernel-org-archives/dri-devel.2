@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4F22AF483CC
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 01A17F483C8
 	for <dri-devel@archiver.kernel.org>; Mon, 23 Mar 2026 16:45:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B048E10E495;
-	Mon, 23 Mar 2026 16:45:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 39FBC10E4AD;
+	Mon, 23 Mar 2026 16:45:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="OcNwaZds";
+	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="eXT4M9be";
 	dkim-atps=neutral
 Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
  [213.167.242.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2753510E457
- for <dri-devel@lists.freedesktop.org>; Mon, 23 Mar 2026 16:45:33 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C573210E457
+ for <dri-devel@lists.freedesktop.org>; Mon, 23 Mar 2026 16:45:31 +0000 (UTC)
 Received: from killaraus.ideasonboard.com
  (2001-14ba-703d-e500--2a1.rev.dnainternet.fi [IPv6:2001:14ba:703d:e500::2a1])
- by perceval.ideasonboard.com (Postfix) with UTF8SMTPSA id 7D1F22673;
- Mon, 23 Mar 2026 17:44:15 +0100 (CET)
+ by perceval.ideasonboard.com (Postfix) with UTF8SMTPSA id 192EE266F;
+ Mon, 23 Mar 2026 17:44:14 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1774284255;
- bh=KV8jqEFhaHfQRq9P+VG4/SCumEfR8TaE/ef//TFBllg=;
+ s=mail; t=1774284254;
+ bh=irn/Vmr2Ro8QyVixq34LbrCvDYRZUwvoUDgjU2tuSBE=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=OcNwaZds3jR8UpKos26retc7eZRMMmkv9KxLY49ZZ+aZcZu/UUP58Ca+5jRDf76iN
- vI3OaSnQ1Jr8a3soegHjahRUrKBPDcSRCxgSBBjmTQqZezzBTui927JxCTiNNnf1ZR
- zD47DjegH3K11RdPABLgMkXPFSqNC9KnrpnP+x7I=
+ b=eXT4M9beRGrqhjEstSNA8hC6RUdjZiuPAX41N7+rw7VKcD5H4CwWTD7WGGij8I+sL
+ dboyX5VHQKHaQXnXtQLPtVbtoBv3Xy5vXnpcfxuOQW1kIP2LKpvlA0DeQm9tHXWq59
+ fIV5CFsiQyOIrsQ74yxdDLyciBNPBDgrRzE4bKhY=
 From: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
 To: dri-devel@lists.freedesktop.org
 Cc: linux-renesas-soc@vger.kernel.org,
  Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
  Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>,
  Biju Das <biju.das.jz@bp.renesas.com>
-Subject: [PATCH v2 3/4] drm: rcar-du: Use __free() to simplify device_node
- handling
-Date: Mon, 23 Mar 2026 18:45:25 +0200
-Message-ID: <20260323164526.2292491-4-laurent.pinchart+renesas@ideasonboard.com>
+Subject: [PATCH v2 2/4] drm: rcar-du: Store CMM device pointer instead of
+ platform_device
+Date: Mon, 23 Mar 2026 18:45:24 +0200
+Message-ID: <20260323164526.2292491-3-laurent.pinchart+renesas@ideasonboard.com>
 X-Mailer: git-send-email 2.52.0
 In-Reply-To: <20260323164526.2292491-1-laurent.pinchart+renesas@ideasonboard.com>
 References: <20260323164526.2292491-1-laurent.pinchart+renesas@ideasonboard.com>
@@ -57,118 +57,224 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Replace manual of_node_put() calls with __free(). This simplifies error
-handling code and makes it less bug-prone.
+The DU driver stores the CMM devices as pointers to struct
+platform_device, and passes them to the API exposed by the CMM driver.
+This is similar to how the VSP is handled, except that the VSP uses
+struct device pointers. Replace the CMM platform_device pointers with
+device pointers for consistency.
 
 Signed-off-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
 ---
- drivers/gpu/drm/renesas/rcar-du/rcar_du_kms.c | 25 ++++++-------------
- 1 file changed, 7 insertions(+), 18 deletions(-)
+Changes since v1:
 
-diff --git a/drivers/gpu/drm/renesas/rcar-du/rcar_du_kms.c b/drivers/gpu/drm/renesas/rcar-du/rcar_du_kms.c
-index f38e45d38ad2..9a53b5a86c82 100644
---- a/drivers/gpu/drm/renesas/rcar-du/rcar_du_kms.c
-+++ b/drivers/gpu/drm/renesas/rcar-du/rcar_du_kms.c
-@@ -19,6 +19,7 @@
- #include <drm/drm_probe_helper.h>
- #include <drm/drm_vblank.h>
+- Renamed function arguments from pdev to dev
+---
+ drivers/gpu/drm/renesas/rcar-du/rcar_cmm.c    | 26 +++++++++----------
+ drivers/gpu/drm/renesas/rcar-du/rcar_cmm.h    | 18 ++++++-------
+ .../gpu/drm/renesas/rcar-du/rcar_du_crtc.h    |  2 +-
+ drivers/gpu/drm/renesas/rcar-du/rcar_du_drv.h |  2 +-
+ drivers/gpu/drm/renesas/rcar-du/rcar_du_kms.c |  6 ++---
+ 5 files changed, 27 insertions(+), 27 deletions(-)
+
+diff --git a/drivers/gpu/drm/renesas/rcar-du/rcar_cmm.c b/drivers/gpu/drm/renesas/rcar-du/rcar_cmm.c
+index 93ba115d654f..5bced9d778e8 100644
+--- a/drivers/gpu/drm/renesas/rcar-du/rcar_cmm.c
++++ b/drivers/gpu/drm/renesas/rcar-du/rcar_cmm.c
+@@ -59,7 +59,7 @@ static void rcar_cmm_lut_write(struct rcar_cmm *rcmm,
  
-+#include <linux/cleanup.h>
- #include <linux/device.h>
- #include <linux/dma-buf.h>
- #include <linux/of.h>
-@@ -573,7 +574,7 @@ static int rcar_du_encoders_init_one(struct rcar_du_device *rcdu,
- 				     enum rcar_du_output output,
- 				     struct of_endpoint *ep)
+ /*
+  * rcar_cmm_setup() - Configure the CMM unit
+- * @pdev: The platform device associated with the CMM instance
++ * @dev: The device associated with the CMM instance
+  * @config: The CMM unit configuration
+  *
+  * Configure the CMM unit with the given configuration. Currently enabling,
+@@ -73,10 +73,10 @@ static void rcar_cmm_lut_write(struct rcar_cmm *rcmm,
+  * TODO: Add support for LUT double buffer operations to avoid updating the
+  * LUT table entries while a frame is being displayed.
+  */
+-int rcar_cmm_setup(struct platform_device *pdev,
++int rcar_cmm_setup(struct device *dev,
+ 		   const struct rcar_cmm_config *config)
  {
--	struct device_node *entity;
-+	struct device_node *entity __free(device_node) = NULL;
+-	struct rcar_cmm *rcmm = platform_get_drvdata(pdev);
++	struct rcar_cmm *rcmm = dev_get_drvdata(dev);
+ 
+ 	/* Disable LUT if no table is provided. */
+ 	if (!config->lut.table) {
+@@ -102,7 +102,7 @@ EXPORT_SYMBOL_GPL(rcar_cmm_setup);
+ 
+ /*
+  * rcar_cmm_enable() - Enable the CMM unit
+- * @pdev: The platform device associated with the CMM instance
++ * @dev: The device associated with the CMM instance
+  *
+  * When the output of the corresponding DU channel is routed to the CMM unit,
+  * the unit shall be enabled before the DU channel is started, and remain
+@@ -113,11 +113,11 @@ EXPORT_SYMBOL_GPL(rcar_cmm_setup);
+  * It is an error to attempt to enable an already enabled CMM unit, or to
+  * attempt to disable a disabled unit.
+  */
+-int rcar_cmm_enable(struct platform_device *pdev)
++int rcar_cmm_enable(struct device *dev)
+ {
  	int ret;
  
- 	/* Locate the connected entity and initialize the encoder. */
-@@ -588,7 +589,6 @@ static int rcar_du_encoders_init_one(struct rcar_du_device *rcdu,
- 		dev_dbg(rcdu->dev,
- 			"connected entity %pOF is disabled, skipping\n",
- 			entity);
--		of_node_put(entity);
- 		return -ENODEV;
- 	}
+-	ret = pm_runtime_resume_and_get(&pdev->dev);
++	ret = pm_runtime_resume_and_get(dev);
+ 	if (ret < 0)
+ 		return ret;
  
-@@ -598,15 +598,13 @@ static int rcar_du_encoders_init_one(struct rcar_du_device *rcdu,
- 			 "failed to initialize encoder %pOF on output %s (%d), skipping\n",
- 			 entity, rcar_du_output_name(output), ret);
+@@ -127,7 +127,7 @@ EXPORT_SYMBOL_GPL(rcar_cmm_enable);
  
--	of_node_put(entity);
--
- 	return ret;
+ /*
+  * rcar_cmm_disable() - Disable the CMM unit
+- * @pdev: The platform device associated with the CMM instance
++ * @dev: The device associated with the CMM instance
+  *
+  * See rcar_cmm_enable() for usage information.
+  *
+@@ -135,27 +135,27 @@ EXPORT_SYMBOL_GPL(rcar_cmm_enable);
+  * state shall thus be restored with rcar_cmm_setup() when re-enabling the CMM
+  * unit after the next rcar_cmm_enable() call.
+  */
+-void rcar_cmm_disable(struct platform_device *pdev)
++void rcar_cmm_disable(struct device *dev)
+ {
+-	struct rcar_cmm *rcmm = platform_get_drvdata(pdev);
++	struct rcar_cmm *rcmm = dev_get_drvdata(dev);
+ 
+ 	rcar_cmm_write(rcmm, CM2_LUT_CTRL, 0);
+ 	rcmm->lut.enabled = false;
+ 
+-	pm_runtime_put(&pdev->dev);
++	pm_runtime_put(dev);
+ }
+ EXPORT_SYMBOL_GPL(rcar_cmm_disable);
+ 
+ /*
+  * rcar_cmm_init() - Initialize the CMM unit
+- * @pdev: The platform device associated with the CMM instance
++ * @dev: The device associated with the CMM instance
+  *
+  * Return: 0 on success, -EPROBE_DEFER if the CMM is not available yet,
+  *         -ENODEV if the DRM_RCAR_CMM config option is disabled
+  */
+-int rcar_cmm_init(struct platform_device *pdev)
++int rcar_cmm_init(struct device *dev)
+ {
+-	struct rcar_cmm *rcmm = platform_get_drvdata(pdev);
++	struct rcar_cmm *rcmm = dev_get_drvdata(dev);
+ 
+ 	if (!rcmm)
+ 		return -EPROBE_DEFER;
+diff --git a/drivers/gpu/drm/renesas/rcar-du/rcar_cmm.h b/drivers/gpu/drm/renesas/rcar-du/rcar_cmm.h
+index 628072acc98b..c420113430b9 100644
+--- a/drivers/gpu/drm/renesas/rcar-du/rcar_cmm.h
++++ b/drivers/gpu/drm/renesas/rcar-du/rcar_cmm.h
+@@ -10,8 +10,8 @@
+ 
+ #define CM2_LUT_SIZE		256
+ 
++struct device;
+ struct drm_color_lut;
+-struct platform_device;
+ 
+ /**
+  * struct rcar_cmm_config - CMM configuration
+@@ -26,29 +26,29 @@ struct rcar_cmm_config {
+ };
+ 
+ #if IS_ENABLED(CONFIG_DRM_RCAR_CMM)
+-int rcar_cmm_init(struct platform_device *pdev);
++int rcar_cmm_init(struct device *dev);
+ 
+-int rcar_cmm_enable(struct platform_device *pdev);
+-void rcar_cmm_disable(struct platform_device *pdev);
++int rcar_cmm_enable(struct device *dev);
++void rcar_cmm_disable(struct device *dev);
+ 
+-int rcar_cmm_setup(struct platform_device *pdev,
++int rcar_cmm_setup(struct device *dev,
+ 		   const struct rcar_cmm_config *config);
+ #else
+-static inline int rcar_cmm_init(struct platform_device *pdev)
++static inline int rcar_cmm_init(struct device *dev)
+ {
+ 	return -ENODEV;
  }
  
- static int rcar_du_encoders_init(struct rcar_du_device *rcdu)
+-static inline int rcar_cmm_enable(struct platform_device *pdev)
++static inline int rcar_cmm_enable(struct device *dev)
  {
-+	struct device_node *ep_node __free(device_node) = NULL;
- 	struct device_node *np = rcdu->dev->of_node;
--	struct device_node *ep_node;
- 	unsigned int num_encoders = 0;
+ 	return 0;
+ }
  
- 	/*
-@@ -620,10 +618,8 @@ static int rcar_du_encoders_init(struct rcar_du_device *rcdu)
- 		int ret;
+-static inline void rcar_cmm_disable(struct platform_device *pdev)
++static inline void rcar_cmm_disable(struct device *dev)
+ {
+ }
  
- 		ret = of_graph_parse_endpoint(ep_node, &ep);
--		if (ret < 0) {
--			of_node_put(ep_node);
-+		if (ret < 0)
- 			return ret;
--		}
+-static inline int rcar_cmm_setup(struct platform_device *pdev,
++static inline int rcar_cmm_setup(struct device *dev,
+ 				 const struct rcar_cmm_config *config)
+ {
+ 	return 0;
+diff --git a/drivers/gpu/drm/renesas/rcar-du/rcar_du_crtc.h b/drivers/gpu/drm/renesas/rcar-du/rcar_du_crtc.h
+index d0f38a8b3561..07a40b305be8 100644
+--- a/drivers/gpu/drm/renesas/rcar-du/rcar_du_crtc.h
++++ b/drivers/gpu/drm/renesas/rcar-du/rcar_du_crtc.h
+@@ -65,7 +65,7 @@ struct rcar_du_crtc {
+ 	unsigned int vblank_count;
  
- 		/* Find the output route corresponding to the port number. */
- 		for (i = 0; i < RCAR_DU_OUTPUT_MAX; ++i) {
-@@ -644,10 +640,8 @@ static int rcar_du_encoders_init(struct rcar_du_device *rcdu)
- 		/* Process the output pipeline. */
- 		ret = rcar_du_encoders_init_one(rcdu, output, &ep);
- 		if (ret < 0) {
--			if (ret == -EPROBE_DEFER) {
--				of_node_put(ep_node);
-+			if (ret == -EPROBE_DEFER)
- 				return ret;
--			}
+ 	struct rcar_du_group *group;
+-	struct platform_device *cmm;
++	struct device *cmm;
+ 	struct rcar_du_vsp *vsp;
+ 	unsigned int vsp_pipe;
  
- 			continue;
- 		}
-@@ -775,9 +769,9 @@ static int rcar_du_cmm_init(struct rcar_du_device *rcdu)
- 	}
+diff --git a/drivers/gpu/drm/renesas/rcar-du/rcar_du_drv.h b/drivers/gpu/drm/renesas/rcar-du/rcar_du_drv.h
+index 5cfa2bb7ad93..9e160dede4e6 100644
+--- a/drivers/gpu/drm/renesas/rcar-du/rcar_du_drv.h
++++ b/drivers/gpu/drm/renesas/rcar-du/rcar_du_drv.h
+@@ -106,7 +106,7 @@ struct rcar_du_device {
+ 	unsigned int num_crtcs;
  
- 	for (i = 0; i < cells; ++i) {
-+		struct device_node *cmm __free(device_node) = NULL;
- 		struct platform_device *pdev;
- 		struct device_link *link;
--		struct device_node *cmm;
- 		int ret;
- 
- 		cmm = of_parse_phandle(np, "renesas,cmms", i);
-@@ -787,21 +781,16 @@ static int rcar_du_cmm_init(struct rcar_du_device *rcdu)
- 			return -EINVAL;
- 		}
- 
--		if (!of_device_is_available(cmm)) {
-+		if (!of_device_is_available(cmm))
- 			/* It's fine to have a phandle to a non-enabled CMM. */
--			of_node_put(cmm);
- 			continue;
--		}
- 
- 		pdev = of_find_device_by_node(cmm);
- 		if (!pdev) {
- 			dev_err(rcdu->dev, "No device found for CMM%u\n", i);
--			of_node_put(cmm);
- 			return -EINVAL;
- 		}
- 
--		of_node_put(cmm);
--
- 		/*
+ 	struct rcar_du_group groups[RCAR_DU_MAX_GROUPS];
+-	struct platform_device *cmms[RCAR_DU_MAX_CRTCS];
++	struct device *cmms[RCAR_DU_MAX_CRTCS];
+ 	struct rcar_du_vsp vsps[RCAR_DU_MAX_VSPS];
+ 	struct drm_bridge *lvds[RCAR_DU_MAX_LVDS];
+ 	struct drm_bridge *dsi[RCAR_DU_MAX_DSI];
+diff --git a/drivers/gpu/drm/renesas/rcar-du/rcar_du_kms.c b/drivers/gpu/drm/renesas/rcar-du/rcar_du_kms.c
+index 60e6f43b8ab2..f38e45d38ad2 100644
+--- a/drivers/gpu/drm/renesas/rcar-du/rcar_du_kms.c
++++ b/drivers/gpu/drm/renesas/rcar-du/rcar_du_kms.c
+@@ -806,13 +806,13 @@ static int rcar_du_cmm_init(struct rcar_du_device *rcdu)
  		 * -ENODEV is used to report that the CMM config option is
  		 * disabled: return 0 and let the DU continue probing.
+ 		 */
+-		ret = rcar_cmm_init(pdev);
++		ret = rcar_cmm_init(&pdev->dev);
+ 		if (ret) {
+ 			platform_device_put(pdev);
+ 			return ret == -ENODEV ? 0 : ret;
+ 		}
+ 
+-		rcdu->cmms[i] = pdev;
++		rcdu->cmms[i] = &pdev->dev;
+ 
+ 		/*
+ 		 * Enforce suspend/resume ordering by making the CMM a provider
+@@ -835,7 +835,7 @@ static void rcar_du_modeset_cleanup(struct drm_device *dev, void *res)
+ 	unsigned int i;
+ 
+ 	for (i = 0; i < ARRAY_SIZE(rcdu->cmms); ++i)
+-		platform_device_put(rcdu->cmms[i]);
++		put_device(rcdu->cmms[i]);
+ }
+ 
+ int rcar_du_modeset_init(struct rcar_du_device *rcdu)
 -- 
 Regards,
 
