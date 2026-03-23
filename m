@@ -4,58 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5DCEBEC01CF
-	for <dri-devel@archiver.kernel.org>; Mon, 23 Mar 2026 11:42:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 49733EC01D4
+	for <dri-devel@archiver.kernel.org>; Mon, 23 Mar 2026 11:44:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5E90510E4E8;
-	Mon, 23 Mar 2026 11:42:17 +0000 (UTC)
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D912710E444
- for <dri-devel@lists.freedesktop.org>; Mon, 23 Mar 2026 11:42:14 +0000 (UTC)
-Received: from edelgard.fodlan.icenowy.me (unknown [112.94.102.202])
- by APP-05 (Coremail) with SMTP id zQCowABX7A8IJ8FpfUU5Cw--.45208S2;
- Mon, 23 Mar 2026 19:42:01 +0800 (CST)
-Message-ID: <ce8f801931ddde8b12086eb560e628a39e79b58c.camel@iscas.ac.cn>
-Subject: Re: [PATCH v2] drm/loongson: stop to set get_vblank_timestamp for
- LS7A1000 CRTC
-From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-To: Thomas Zimmermann <tzimmermann@suse.de>, Jianmin Lv
- <lvjianmin@loongson.cn>,  Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- David Airlie	 <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Qianhai
- Wu	 <wuqianhai@loongson.cn>, Huacai Chen <chenhuacai@kernel.org>, Mingcong
- Bai	 <jeffbai@aosc.io>, Xi Ruoyao <xry111@xry111.site>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Date: Mon, 23 Mar 2026 19:42:00 +0800
-In-Reply-To: <681588dc-b4d9-4af4-b6c0-c117024593df@suse.de>
-References: <20260321092804.3519447-1-zhengxingda@iscas.ac.cn>
- <47337244ebd0ce4efd3e065183e863421925f99f.camel@iscas.ac.cn>
- <e11078cb-7536-b5d2-b753-16d25093a403@loongson.cn>
- <4141b0a640f4d703053dad2c1dd257835881f0e2.camel@iscas.ac.cn>
- <681588dc-b4d9-4af4-b6c0-c117024593df@suse.de>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9C97110E0FF;
+	Mon, 23 Mar 2026 11:44:31 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="uGEXp/xn";
+	dkim-atps=neutral
+Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DDE9710E0FF;
+ Mon, 23 Mar 2026 11:44:29 +0000 (UTC)
+Received: from smtp1.mailbox.org (smtp1.mailbox.org
+ [IPv6:2001:67c:2050:b231:465::1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4ffWY70c1Gz9tsq;
+ Mon, 23 Mar 2026 12:44:27 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; t=1774266267;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=2TUve5txxvSf6BWYHb2Px5K2r5y5MDg/b/HumxZnWkE=;
+ b=uGEXp/xn5tV+VwS6LhUJ7M9iCLjV5UDwaXzOfQDQ6Ff8L7eUDctUa2gtoLDrNS8TLbO8zF
+ FUL9i3vCrJSd1WHx4ko9JDnwbzTHmL7r1FVo7Lh9H0ZFjPdFHva2F8/mch4PFkaST/0Te8
+ xFaV6IW5VPcUBerYbM2Ji4VVzPSx7i4ABqx9mJmctvDddeARAHZHet8OijueQbmBX8UHxk
+ 12j2fy71s3y386LlT9/VV62dRkGeNW4cm28TOcsyUNbsjXPdcN2ck0usD7WWtEptXtiA1E
+ PI/qM1NxU2fO9LMJHSiQrmewtWvaZNi2xiIp1uQiYbhW9H1hUH7fn2gn+bdt1w==
+Message-ID: <1378c83e-6271-4d47-9b45-9bbed131f37e@mailbox.org>
+Date: Mon, 23 Mar 2026 12:44:19 +0100
 MIME-Version: 1.0
-X-CM-TRANSID: zQCowABX7A8IJ8FpfUU5Cw--.45208S2
-X-Coremail-Antispam: 1UD129KBjvJXoW3JrykCFy3Ar1kJr48Zr1fJFb_yoWxCr1xpr
- n7JFWYkrW8Jr1xJw1qyF1rJry8KF1ayasrXrn5J3WDAr4qkr10q3W8XrW2gFnrJrs7Ar13
- tw4Dtr429ryUCaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUUvqb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
- 0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
- A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xII
- jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4
- A2jsIEc7CjxVAFwI0_GcCE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IE
- w4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMc
- vjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvEwIxGrwACI402YVCY1x02628vn2kIc2xKxwCY
- 1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8Jw
- C20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAF
- wI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjx
- v20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2
- jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0x
- ZFpf9x07betCcUUUUU=
-X-Originating-IP: [112.94.102.202]
-X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
+Subject: Re: [PATCH v5 0/3] Add "link bpc" DRM property
+To: Mario Kleiner <mario.kleiner.de@gmail.com>,
+ Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
+ Daniel Stone <daniels@collabora.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, kernel@collabora.com,
+ Derek Foreman <derek.foreman@collabora.com>,
+ Marius Vlad <marius.vlad@collabora.com>
+References: <20260319-link-bpc-v5-0-5306cd04a708@collabora.com>
+ <8ba60a99-f69e-482e-bd68-f6bc36291c54@mailbox.org>
+ <5797606.kQq0lBPeGt@workhorse>
+ <CAEsyxyhnALbkaF+9nav8FkW5gcJdtTw5CHhK3Hf8f=fymFiOKw@mail.gmail.com>
+From: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>
+Content-Language: en-CA
+In-Reply-To: <CAEsyxyhnALbkaF+9nav8FkW5gcJdtTw5CHhK3Hf8f=fymFiOKw@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-MBO-RS-META: ndkjuit9tox47ypefe8tyapcb5uwi87x
+X-MBO-RS-ID: c4a909e62259ec18369
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,186 +80,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-=E5=9C=A8 2026-03-23=E4=B8=80=E7=9A=84 11:31 +0100=EF=BC=8CThomas Zimmerman=
-n=E5=86=99=E9=81=93=EF=BC=9A
-> Hi
->=20
-> Am 23.03.26 um 10:40 schrieb Icenowy Zheng:
-> > =E5=9C=A8 2026-03-23=E4=B8=80=E7=9A=84 11:40 +0800=EF=BC=8CJianmin Lv=
-=E5=86=99=E9=81=93=EF=BC=9A
-> > >=20
-> > > On 2026/3/21 =E4=B8=8B=E5=8D=885:29, Icenowy Zheng wrote:
-> > > > =E5=9C=A8 2026-03-21=E5=85=AD=E7=9A=84 17:28 +0800=EF=BC=8CIcenowy =
-Zheng=E5=86=99=E9=81=93=EF=BC=9A
-> > > > > As there's no known hardware capability about querying vblank
-> > > > > on
-> > > > > the
-> > > > > LS7A1000 display controller, setting get_vblank_timestamp
-> > > > > will
-> > > > > mislead the
-> > > > > kernel about the support of DC-backed high precision vblank
-> > > > > query.
-> > > > >=20
-> > > > > Drop this function pointer in the CRTC function table for
-> > > > > LS7A1000.
-> > > > >=20
-> > > > > This solves a kernel warning when booting Linux 7.0-rc3 on a
-> > > > > Loongson-3A4000+LS7A1000 Haier Boyue G51 laptop (with
-> > > > > injected
-> > > > > EDID
-> > > > > for
-> > > > > replicating the display timing set by the firmware).
-> > > > >=20
-> > > The drm_crtc_vblank_helper_get_vblank_timestamp will call
-> > > get_scanout_position hook to caculate timestamp, and the driver
-> > > has
-> > > get_scanout_position to support it (LS7A1000 has related
-> > > register).
-> > > So
-> > > the get_vblank_timestamp hook is ok for LS7A1000, and we'd better
-> > > look
-> > > into the warning information.
-> > The warning information is copied here:
-> > ```
-> > [=C2=A0=C2=A0=C2=A0 0.334960] ------------[ cut here ]------------
-> > [=C2=A0=C2=A0=C2=A0 0.334960] WARNING: drivers/gpu/drm/drm_vblank.c:747=
- at
-> > drm_crtc_vblank_helper_get_vblank_timestamp_internal+0x3c8/0x438,
-> > CPU#0: kworker/0:1/11
-> > [=C2=A0=C2=A0=C2=A0 0.334960] loongson 0000:00:06.1: [drm]
-> > drm_WARN_ON_ONCE(drm_drv_uses_atomic_modeset(dev))
->=20
-> This is what you should investigate. mode->crtc_clock seems invalid.
-> [1]
->=20
-> [1]=20
-> https://elixir.bootlin.com/linux/v6.19.9/source/drivers/gpu/drm/drm_vblan=
-k.c#L743
->=20
-> Best regards
-> Thomas
->=20
-> > [=C2=A0=C2=A0=C2=A0 0.334960] Modules linked in:
-> > [=C2=A0=C2=A0=C2=A0 0.334960] CPU: 0 UID: 0 PID: 11 Comm: kworker/0:1 N=
-ot tainted
-> > 7.0.0-rc4-3a4000-laptop-test+ #31 PREEMPT
-> > [=C2=A0=C2=A0=C2=A0 0.334960] Hardware name: Haier Boyue G51/Boyue G51,=
- BIOS
-> > K3L3A4000.HR10.200909.T 09/09/2020
-> > [=C2=A0=C2=A0=C2=A0 0.334960] Workqueue: events drm_fb_helper_damage_wo=
-rk
-> > [=C2=A0=C2=A0=C2=A0 0.334960] Stack : ffffffff819dec03 0000000000000000
-> > 0000000000000018 9800000100223938
-> > [=C2=A0=C2=A0=C2=A0 0.334960]=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0 9800000100223938 9800000100223a68
-> > 0000000000000000 0000000000000000
-> > [=C2=A0=C2=A0=C2=A0 0.334960]=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0 b8e8b3f2ec6b8200 98000000092bffa8
-> > 9800000100223768 0000000000000000
-> > [=C2=A0=C2=A0=C2=A0 0.334960]=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0 ffffffff81632b08 0000000000000030
-> > ffffffff813c9530 0000000000200b20
-> > [=C2=A0=C2=A0=C2=A0 0.334960]=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0 fffffffffffffffc 0000000000000000
-> > 0000000000000000 ffffffff816c1d50
-> > [=C2=A0=C2=A0=C2=A0 0.334960]=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0 ffffffff81890000 00000000000002eb
-> > 0000000000000000 ffffffff80c1b180
-> > [=C2=A0=C2=A0=C2=A0 0.334960]=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0 9800000100ff8500 0000000000000000
-> > 9800000005c965a8 0000000000000000
-> > [=C2=A0=C2=A0=C2=A0 0.334960]=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0 ffffffff81a70000 9800000100220000
-> > 9800000100223930 0000000000000000
-> > [=C2=A0=C2=A0=C2=A0 0.334960]=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0 ffffffff802274dc 0000000000000000
-> > 0000000000000000 0000000000000000
-> > [=C2=A0=C2=A0=C2=A0 0.334960]=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0 0000000000000000 0000000000000000
-> > ffffffff802274fc b8e8b3f2ec6b8200
-> > [=C2=A0=C2=A0=C2=A0 0.334960]=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0 ...
-> > [=C2=A0=C2=A0=C2=A0 0.334960] Call Trace:
-> > [=C2=A0=C2=A0=C2=A0 0.334960] [<ffffffff802274fc>] show_stack+0x64/0x15=
-8
-> > [=C2=A0=C2=A0=C2=A0 0.334960] [<ffffffff8021bac4>] dump_stack_lvl+0x70/=
-0xb0
-> > [=C2=A0=C2=A0=C2=A0 0.334960] [<ffffffff8026a988>] __warn+0xa8/0x120
-> > [=C2=A0=C2=A0=C2=A0 0.334960] [<ffffffff8026ab60>] warn_slowpath_fmt+0x=
-160/0x1f8
-> > [=C2=A0=C2=A0=C2=A0 0.334960] [<ffffffff80be5668>]
-> > drm_crtc_vblank_helper_get_vblank_timestamp_internal+0x3c8/0x438
-> > [=C2=A0=C2=A0=C2=A0 0.334960] [<ffffffff80be48d8>]
-> > drm_crtc_get_last_vbltimestamp+0x68/0xb0
-> > [=C2=A0=C2=A0=C2=A0 0.334960] [<ffffffff80be5e14>]
-> > drm_update_vblank_count+0xac/0x418
-> > [=C2=A0=C2=A0=C2=A0 0.334960] [<ffffffff80be6270>] drm_vblank_enable+0x=
-f0/0x288
-> > [=C2=A0=C2=A0=C2=A0 0.334960] [<ffffffff80be7010>] drm_vblank_get+0xf8/=
-0x160
-> > [=C2=A0=C2=A0=C2=A0 0.334960] [<ffffffff80beb2e0>]
-> > drm_client_modeset_wait_for_vblank+0x50/0xa0
+On 3/21/26 03:33, Mario Kleiner wrote:
+> As somebody who writes software for neuroscience research, I would find this new property very useful.
+> 
+> Even if the 'link bpc' is not the perfectly accurate answer in presence of dithering or display stream compression, I think it could provide an idea about the minimum precision available, so a DRM client can at least make sure its minimum requirements are met. E.g., a 'link bpc' of 10 would at least guarantee 10 bpc, and effectively a bit more if spatial dithering is applied in addition.
 
-I doubt the problem here is that the function above is called with
-hardcoded 0 by drm_fb_helper_fb_dirty() (being inlined into
-drm_fb_helper_damage_work() by the compiler). Then on my setup it
-failed because my primary output (laptop LCD) is on CRTC 1 (CRTC 0 is
-external HDMI instead).
+There's a problem in the opposite direction: With dithering, the "link bpc" property implies that the display link can transmit less information than it actually can.
 
-This is new behavior introduced by d8c4bddcd8bc ("drm/fb-helper:
-Synchronize dirty worker with vblank"), and the commit messages say
-`This allows several screen updates to pile up and acts as a rate
-limiter.` .
 
-Should it wait for any vblanks instead of waiting for one on CRTC 0 ?
-(Or check whether CRTC 0 is on before waiting on it?)
+> That said, I don't have practical experience with the effects of DSC, I don't have any
+> suitable hardware. Afaik it is not truly lossless, but only (supposed to be, usually)
+> perceptually lossless. It would be great to have some property that informs clients if DSC
+> is active or not, or allow some control over that.
 
-Thanks,
-Icenowy
+FWIW, I mentioned DSC not because it's potentially lossy, but because it allows transmitting a larger "real" (albeit potentially lossy) bpc over a smaller physical bpc. If the "link bpc" property reported the latter, it would again imply the link can transfer less information than it actually can.
 
-> > [=C2=A0=C2=A0=C2=A0 0.334960] [<ffffffff80c0a144>]
-> > drm_fb_helper_damage_work+0x8c/0x1d8
-> > [=C2=A0=C2=A0=C2=A0 0.334960] [<ffffffff8028fac8>] process_one_work+0x1=
-98/0x348
-> > [=C2=A0=C2=A0=C2=A0 0.334960] [<ffffffff802906c0>] worker_thread+0x238/=
-0x390
-> > [=C2=A0=C2=A0=C2=A0 0.334960] [<ffffffff8029c0d8>] kthread+0x160/0x198
-> > [=C2=A0=C2=A0=C2=A0 0.334960] [<ffffffff8021fd8c>]
-> > ret_from_kernel_thread+0x14/0x1c
-> >=20
-> > [=C2=A0=C2=A0=C2=A0 0.334960] ---[ end trace 0000000000000000 ]---
-> > ```
-> >=20
-> > > > > Signed-off-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-> > > > Oh forgot to attach when crafting v2:
-> > > >=20
-> > > > ```
-> > > > Acked-by: Thomas Zimmermann <tzimmermann@suse.de>
-> > > > ```
-> > > >=20
-> > > > > ---
-> > > > > Changes in v2:
-> > > > > - Re-formatted Loongson product model numbers per request
-> > > > > from
-> > > > > Huacai.
-> > > > >=20
-> > > > > =C2=A0=C2=A0=C2=A0drivers/gpu/drm/loongson/lsdc_crtc.c | 1 -
-> > > > > =C2=A0=C2=A0=C2=A01 file changed, 1 deletion(-)
-> > > > >=20
-> > > > > diff --git a/drivers/gpu/drm/loongson/lsdc_crtc.c
-> > > > > b/drivers/gpu/drm/loongson/lsdc_crtc.c
-> > > > > index 587fbe285e9ef..b3af8e0cdb15f 100644
-> > > > > --- a/drivers/gpu/drm/loongson/lsdc_crtc.c
-> > > > > +++ b/drivers/gpu/drm/loongson/lsdc_crtc.c
-> > > > > @@ -721,7 +721,6 @@ static const struct drm_crtc_funcs
-> > > > > ls7a1000_crtc_funcs =3D {
-> > > > > =C2=A0=C2=A0=C2=A0	.late_register =3D lsdc_crtc_late_register,
-> > > > > =C2=A0=C2=A0=C2=A0	.enable_vblank =3D lsdc_crtc_enable_vblank,
-> > > > > =C2=A0=C2=A0=C2=A0	.disable_vblank =3D lsdc_crtc_disable_vblank,
-> > > > > -	.get_vblank_timestamp =3D
-> > > > > drm_crtc_vblank_helper_get_vblank_timestamp,
-> > > > > =C2=A0=C2=A0=C2=A0	.atomic_print_state =3D lsdc_crtc_atomic_print=
-_state,
-> > > > > =C2=A0=C2=A0=C2=A0};
-> > > > > =C2=A0=C2=A0=20
 
+> Also as somebody who has spent many hours of his life hunting down some sysfs or debugfs files for reporting such numbers, the files usually being differently named, at different paths, with different formats, or not existing at all, depending on kernel version and gpu configuration. I'd like to do less of that in the future.
+
+No doubt that generic KMS properties would be better than that, I'm just skeptical that this specific property (alone) as currently defined is really useful.
+
+
+> In the scenarios used by my app, the app often knows what an optimal setting for 'max bpc' or reported value from such a 'link bpc' would be,
+
+How can it know that vs dithering?
+
+
+> But I could imagine regular desktop use cases, where a Wayland compositor can somewhat know what good minimum values for 'link bpc' would be, and maybe adapt, or give the user a hint about potentially degraded quality, and what to do about it ("Check your cables", "Reduce video resolution or refresh rate", "Run with less displays",...).
+
+I see potential for false positives resulting in spurious issue reports.
+
+
+> - A HDR-10 display mode on a true HDR sink implies one really wants a 'link bpc' of at least 10 bpc, especially given the large nonlinearity of EOTF's like Perceptual Quantizer, or things will look poor.
+
+Even with dithering? (Same question about the other scenarios you mentioned)
+
+
+-- 
+Earthling Michel Dänzer       \        GNOME / Xwayland / Mesa developer
+https://redhat.com             \               Libre software enthusiast
