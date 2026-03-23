@@ -4,126 +4,107 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 818DBF483C6
-	for <dri-devel@archiver.kernel.org>; Mon, 23 Mar 2026 16:16:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C9EA9F483CC
+	for <dri-devel@archiver.kernel.org>; Mon, 23 Mar 2026 16:25:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C030010E539;
-	Mon, 23 Mar 2026 16:16:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2550910E040;
+	Mon, 23 Mar 2026 16:25:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="nlDN/qJI";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Agcryi8M";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="qx72pL4O";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E7A3510E539
- for <dri-devel@lists.freedesktop.org>; Mon, 23 Mar 2026 16:16:11 +0000 (UTC)
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 62NFGaSs021528
- for <dri-devel@lists.freedesktop.org>; Mon, 23 Mar 2026 16:16:11 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:date:from:message-id:mime-version
- :subject:to; s=qcppdkim1; bh=YJGPCUwwxRql3Fl302RF8N8GbMb2NM0tHY0
- 3zzpwF3c=; b=nlDN/qJIaJeqKuE6kr+Wfovowu93jLWVaHYWALCAApojiJV8vlq
- OqYNM6G0Yq4bRd8EC09XLcpEIzz/n4KMyBX5RNh8QFjIEYjcvf4p7GCM7MyPQ0oI
- 3IMyhf0BtQPLX5OeSFhoiazVoy9f8OgU3riHVeN9XBVy0Xy12V9JpOBq3hPaHjlW
- kH5GP6UUodlJsThChriPXdGz5sTabn6D0OOkBcstPiHNydd086+QLsJ1SmHZ/9K4
- hhKWXhZHyzLFeUTpScYofVrMPzncQk/Q+XM7pd1TxcQkvI1RRPaPmt//GaKKz0dB
- WgMglCKAnuvB9BK73uhpA15vevI4S9qyoYw==
-Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com
- [209.85.216.72])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d33k317vb-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Mon, 23 Mar 2026 16:16:11 +0000 (GMT)
-Received: by mail-pj1-f72.google.com with SMTP id
- 98e67ed59e1d1-35a1e725a8fso21683597a91.3
- for <dri-devel@lists.freedesktop.org>; Mon, 23 Mar 2026 09:16:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1774282570; x=1774887370;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=YJGPCUwwxRql3Fl302RF8N8GbMb2NM0tHY03zzpwF3c=;
- b=Agcryi8MORTwEy4A2lo+dj6T826VJ1tg1dLqY76eg3pUJ/ZPf/M0yVvAx7ACdFYsyl
- PuMmIH2trFZfUlDT1AXGvrh1BlfO/a5shbFURc2Lrzv8ysU0hRAGXFwL/SIjFrbazxJT
- 7e/Ncf4xtsqduKuY9b+iOY4opFMkgZWM1W+sC3R5P6/4zsfVuUaTLbjqeZra5gXTHI8E
- rV1NfUvIWBSWTXMLmvr76QSbQd1DbF9/C1ewLd4V/msv5BqD/Sd6XrnIp1bmd65apBws
- JmsHR7mY78Fa8RqEgoD5fzcF+uJIiN8+N9yYo89XRPyYv2WX8s2mv5Lah/CIyK7FceDo
- BVMQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774282570; x=1774887370;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=YJGPCUwwxRql3Fl302RF8N8GbMb2NM0tHY03zzpwF3c=;
- b=KHi4Q9eRPsqXxZvtEbWpjbl/gX29MwaKd8za8Ihhhat3xZcbSLhwbOV6czp24Z54K1
- ssEBb1UdR1UauDw8xe/kqFNvSbMHPHrqZZwXHWgHfZjagLpjk64nDDYMDgPAhGWwC24w
- RQFvhbVWqaRn/RbFFRiYBuiGhUwzdqTVDMkorYREVPTF4wBkMvlqIrFaOVTWD+X4aGL9
- Fl0ticnU8eT14paZbIv/0tTQfpmwkAmU4VvflkyrpS4icvVrJw/OGXOCUjDDygD9vs+G
- 2QYFCKjwqLC1shh14P5x1eFq8lnFjn4iyv0BolYUco+ZAkh2Z29sFyAifL+JiYWwx/lF
- pj2Q==
-X-Gm-Message-State: AOJu0YwbmoWW+TT4WR9A4tpzhRbsKCJ2+x2NILqeAiEYl6Ue3rLEodPR
- LjEjvA5sjp627yXYu5kLyuU9vMrk4Fqk52kCbSuzocpiTJ7mmbU5meoaoDCS9DzPQVaMj19ZgEU
- w/xPlRBpI0GBrHMPmL2a1k/ccxztI3KHQz/xwLaGKyDpdcTGqcZ9AoWJ19+WRWv7yRt+vSwD7Jt
- Ls+14=
-X-Gm-Gg: ATEYQzy3q6PYkyobbaDDzqsKn8YNhJ1+zpHTk5VGjJwWRVlq3XIhQ7Sh5Ul5dlpDvew
- HwaZYzzc1atdQ+hkLP+AQBBcWhiAr2m0lrUaJFfEYGV9/uZSDV8ItyAajMkuDKEBbl+BEl6WEVh
- 9PVtMNU7oc+WawsEytDnhpqH8CTZ0tnKhnav7vcY6pWMDls0Ly6SJcHS0fb0eztTijhUseVaVAl
- BnJuKEjxLq3mKb2AHZWseRhfzHkjheRoSkwNLHRRxw1YH6+1i1zOsZiNq7vacmPYp96cr/tLSXG
- P/l6CUsaqyP6k4o/qvlJP5yIf8fgc2mVG95SPeaULuSsyleGIlV8G909/mK9nE9q8yzWB6HO13l
- UrZQ6M7MQUO4AobGcWRvXfhi98k0HndnP
-X-Received: by 2002:a17:90b:390e:b0:35b:9682:51e6 with SMTP id
- 98e67ed59e1d1-35bd2d21ce8mr11383179a91.16.1774282569948; 
- Mon, 23 Mar 2026 09:16:09 -0700 (PDT)
-X-Received: by 2002:a17:90b:390e:b0:35b:9682:51e6 with SMTP id
- 98e67ed59e1d1-35bd2d21ce8mr11383148a91.16.1774282569479; 
- Mon, 23 Mar 2026 09:16:09 -0700 (PDT)
-Received: from localhost ([2601:1c0:5000:d5c:4ec8:83f5:8254:6891])
- by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-35bc610c232sm12295993a91.13.2026.03.23.09.16.08
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 23 Mar 2026 09:16:08 -0700 (PDT)
-From: Rob Clark <robin.clark@oss.qualcomm.com>
-To: dri-devel@lists.freedesktop.org
-Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Akhil P Oommen <akhilpo@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH] drm/msm/a6xx: Add missing aperture_lock init
-Date: Mon, 23 Mar 2026 09:16:02 -0700
-Message-ID: <20260323161603.1165108-1-robin.clark@oss.qualcomm.com>
-X-Mailer: git-send-email 2.53.0
+Received: from CY7PR03CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11010026.outbound.protection.outlook.com
+ [40.93.198.26])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 07CF910E040
+ for <dri-devel@lists.freedesktop.org>; Mon, 23 Mar 2026 16:25:11 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=hLgRgPeS/tyHfO79bFefykUKQ9bkfUBz2/cEUkhw5j9kR0B8UY+yX8228tCdJ8M3zNuF+4ruiL3bJ5AqH5ssBbbwI/G8AelEagsX513LiffbJamCerrMijO2E/nEvv1sJJhXehQ0sSN2zxCZ/TGgnsvdDunS6cZZbeXtpO09E6mFkGO7Lga3vHfZpiRMRqA9RaKzEXrkGL+XMi3DIuDoYxechzDf0LhzDTw7zOW4epM+N7+zThDRGNoG6I2CdoWUyg6Om5+yILLhwkUGkA4oGuB+KER+asSFLVCk+ad2Ud0cbBXb1Znh4jjZvL7ILupd8NCzlvR+A1f54bPwQrbUVA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Nil/fOrPR6QUN10euK448iR4VOoUjDnRvDVU62tI++w=;
+ b=vveponlhF17sltARJ4xV4bIhPx5yLixg7BbJ4RA3xGMSui2IKXavzNdhcfcjBTXInRO0TTP42XLV+1TTjdAdOEuBXYXoq6qaFWRiosFiixV7o1z584qLxEfRPfAI3+7IFs1v+Vz2nizVIOD4Yj8qIOJwtGnbEg07LL6RoCVbK5JKD+BSkRWNZlN+nvTrp14XnuVaVk8dlQ1BubdY/e8Jm/RxYUesy7EbxGvcHwYl9cr2SyodOB2UlRe5X8P9foICJUAM2n8moT9BkCew0TIp/VZFqurv5hr9r6owRGEn5yTIxpX7pT5gzeMhV58ZHCrSwSUQRG+vVBQa0ZO8obnoZw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=subdivi.de smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Nil/fOrPR6QUN10euK448iR4VOoUjDnRvDVU62tI++w=;
+ b=qx72pL4O7vfGyGXEBmlWbA0lxQ81oqw9JCX1QfEEihioXgGC0YJ5lw3wtAjKdgUgzaMONxLtM++QFXv29q8wc2XYSucevX8up+C2OnVuFL6brPlQrWgpwE9Ak0+wWvrRR73QVBHXe7IZR+u7qdI4EyFs7V10/antz1Go5EFr3qw=
+Received: from SN7PR04CA0067.namprd04.prod.outlook.com (2603:10b6:806:121::12)
+ by DS2PR12MB9821.namprd12.prod.outlook.com (2603:10b6:8:270::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.19; Mon, 23 Mar
+ 2026 16:25:08 +0000
+Received: from SA2PEPF00003AE7.namprd02.prod.outlook.com
+ (2603:10b6:806:121:cafe::11) by SN7PR04CA0067.outlook.office365.com
+ (2603:10b6:806:121::12) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9723.25 via Frontend Transport; Mon,
+ 23 Mar 2026 16:25:08 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SA2PEPF00003AE7.mail.protection.outlook.com (10.167.248.7) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9723.19 via Frontend Transport; Mon, 23 Mar 2026 16:25:07 +0000
+Received: from SATLEXMB03.amd.com (10.181.40.144) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.17; Mon, 23 Mar
+ 2026 11:25:02 -0500
+Received: from satlexmb07.amd.com (10.181.42.216) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 23 Mar
+ 2026 11:25:01 -0500
+Received: from [172.19.71.207] (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
+ Transport; Mon, 23 Mar 2026 11:25:01 -0500
+Message-ID: <fa6faa70-04fc-72b3-8f6e-4d1ef062799e@amd.com>
+Date: Mon, 23 Mar 2026 09:25:01 -0700
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Authority-Analysis: v=2.4 cv=CYYFJbrl c=1 sm=1 tr=0 ts=69c1674b cx=c_pps
- a=RP+M6JBNLl+fLTcSJhASfg==:117 a=xqWC_Br6kY4A:10 a=Yq5XynenixoA:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=gowsoOTTUOVcmtlkKump:22 a=EUspDBNiAAAA:8 a=SI4bJWXHUBEfUJKjJlYA:9
- a=iS9zxrgQBfv6-_F4QbHw:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzIzMDEyMyBTYWx0ZWRfX5dv9kJQV24k1
- L4mWo5OSRlWzpjafhtwicDsPUtRr25DrgLGy99B5Eg5f81+49/b+wRzKTnEknPVeY5LayrVSUVN
- CS94aDI+Ii/hy2/w36drP7nlXkHXnf+X5nJE4W1df4AGw3qFfi7yDbyJWmWWb6qPUGP+grMy1rn
- Ril2z1daH49baBdMSEQuo+8NFVUpQVrPy+e6pWKOjzXirFzKpOoaZUQXmLc1WdWAEM5Y1wIFrHY
- LksKiZKWMCnKlrJE1Gqhs61w5Ds5o0Ug96Wz1RMCeqxcTY9zmQ4pXYcUMk+7YVUOga4OfFLGRte
- hP+2KTWZA3A20sfXQAfW7GMguTjHHWIIjSpLxP18Oz7oPnvJdwLLaVWDspDvLt/N3QHEzPojiEU
- Y+jk1HS0y5c/QrZdMM3CrrSiDn1wzK2EY+eklEtqO/f/8I1vbF1tRhjWEN6sojzrt87YjRV4aqa
- NQ7yVbzqLep9PsTVJ8w==
-X-Proofpoint-GUID: cpxEaJ9c8RSN4ly5w5ljYKdk1u2fFqoe
-X-Proofpoint-ORIG-GUID: cpxEaJ9c8RSN4ly5w5ljYKdk1u2fFqoe
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-03-23_04,2026-03-23_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 clxscore=1015 spamscore=0 phishscore=0 lowpriorityscore=0
- adultscore=0 malwarescore=0 bulkscore=0 impostorscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603230123
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: amdxdna: firmware <-> driver compatibility
+Content-Language: en-US
+To: Helmut Grohne <helmut@subdivi.de>, Min Ma <mamin506@gmail.com>,
+ <dri-devel@lists.freedesktop.org>
+References: <20260320162634.GA1515@subdivi.de>
+From: Lizhi Hou <lizhi.hou@amd.com>
+CC: Mario Limonciello <mario.limonciello@amd.com>
+In-Reply-To: <20260320162634.GA1515@subdivi.de>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+Received-SPF: None (SATLEXMB03.amd.com: lizhi.hou@amd.com does not designate
+ permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SA2PEPF00003AE7:EE_|DS2PR12MB9821:EE_
+X-MS-Office365-Filtering-Correlation-Id: a8ad2fba-2f69-4ad5-1b16-08de88f8bf38
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|36860700016|1800799024|376014|82310400026|22082099003|18002099003|56012099003;
+X-Microsoft-Antispam-Message-Info: KNsgkZjh9WKoJ/Fz3Hv5BEz+N4gZex+3S4XoFELoc09wzId/OqHluVoz0S9V0BoyaWlgGy/0XOZw+G1lhL8xkTsllW/25yXeF2dnniz8ZKq7gNpAXH5uz1I7iFuDwbLaPtYqmRdQUUZs4TFK7MNG3ga3cPVXNWWWnSYSr+lcdypQ1IZeXPW2q+3hLjWTu2mbN0Sa74dTYnxRPHSaQ6f5NDw50M6liN8gKT5WSboVQTygRNX4Fr0/VsSgvtDhYzGybOmQ3DfAW+lT+LRsXE3TglWTAIhfFihlam1oCTTqXOx6f7+QLigbaqVHMGLEByzvm9f/AN/XItIDlKOnm7L2qBxtBLmt3vGBdx3+9qD9tqVtOWcekHX8fKRrsYfxv5WTduTQ0yCSJADecrxZZ6EcclamaO2x5e0Ng7T9/y7KKFgmb3hocVxcZ0PyahOqdMddL/xKrq4qnTFMPqR9FREWlQR57tjkJ47kzVuZ6K1bL5bLPerwJczgu9LZvCnsxUpd4D/l4c7ME0yz2OcQNSEp6Xn5jmTYVGbcRFs6xcxmLfAIv/dBq7NWZT+5rhLeSg5KuN66DKOyA3Epkxok5GMJq8r+iAtuvlYQwXZlf1hL2KbdvF2eP07bBFEVpEnTU44dluBaZlsbcGSeSEGetVYukaOUQbp6GSrOn39VEF+UmhzPSt/msxGZ4dseRj49ozfhzM+3xCXvMkOFnx45SXU0pbRx2f5vYpfWTCTjrEvAZxEBsJ7fsTAahT8sv4gN8FocXVO34V3O9kPN9MeQ5X7uSNvQX1QXm6rsM57HwNlzR/0=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700016)(1800799024)(376014)(82310400026)(22082099003)(18002099003)(56012099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: V9XIks1bp0ncz4Mx0o5K48WQG4kp4QoKlpWEBiXYnQiHwaBvvmXFT7p8+fLWcQ3W8vBN6sxuMroU4C72Gr7CACgZe2Chx/oOrbX2w1kYQT9QFOWMa3kD8DTJqqt69ZvmKfoZwO/i6WV1H6ZZeIOW0UaJi4ekOFl1CKruVxnI0Q+fmJxh/1LooRtQOPA5lX+HQ9QQYVGJATn/HzdhgAZg0LXHsJTMdFDHy7v63lhdiwpA10FhuZCGblhcr52VV1zyveMqL+LHwVsywiklhtyajSYICQh+8C3SQ7iZ+FEE6Z7s54h4nUqxVheH0CGiGibwts/fYlTc7YfmlpI/1wWsVdmxTdFk1Kgldva6fweGbTKPi1FuYDfAOwpyrnyaJaDGvJsnFQX4x7Fc2velKELTqdAc6iBjKnuCzdq29rQOPr6PUqPer0GAcrqYnbfyOGul
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Mar 2026 16:25:07.3888 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a8ad2fba-2f69-4ad5-1b16-08de88f8bf38
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SA2PEPF00003AE7.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS2PR12MB9821
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -139,26 +120,50 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Looks like this was somehow missed when introducing gen8 support.
+Hi Helmut,
 
-Fixes: 288a93200892 ("drm/msm/adreno: Introduce A8x GPU Support")
-Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
----
- drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 1 +
- 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-index 2129d230a92b..a00215b7bd1e 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-@@ -2656,6 +2656,7 @@ static struct msm_gpu *a6xx_gpu_init(struct drm_device *dev)
- 	gpu = &adreno_gpu->base;
- 
- 	mutex_init(&a6xx_gpu->gmu.lock);
-+	spin_lock_init(&a6xx_gpu->aperture_lock);
- 
- 	adreno_gpu->registers = NULL;
- 
--- 
-2.53.0
+Thanks for reporting this. Does your linux-firmware have this change?
 
+https://gitlab.com/kernel-firmware/linux-firmware/-/commit/58cf579b98c0c4878deeda1acb5db70e699875b5
+
+Under the same firmware directory, there should be npu_7.sbin which 
+links to npu.sbin.1.1.2.64. This is for the latest driver.
+
+And npu.sbin still links to npu.sbin.1.0.0.63 which is for previous drivers.
+
+
+Could you check if the symbol links are created as expected under 
+amdnpu/17f0_10/?
+
+
+Thanks,
+
+Lizhi
+
+On 3/20/26 09:26, Helmut Grohne wrote:
+> Hello,
+>
+> I recently attempted updating my linux-firmware. This included updating
+> amdnpu/17f0_10/npu.sbin.1.0.0.63 to amdnpu/17f0_10/npu.sbin.1.1.2.64.
+> Once loading the new firmware, I see the following messages on a Debian
+> 6.19.6+deb14+1-amd64 kernel:
+>
+> amdxdna 0000:66:00.1: enabling device (0000 -> 0002)
+> amdxdna 0000:66:00.1: [drm] *ERROR* aie2_check_protocol: Incompatible firmware protocol major 7 minor 2
+> amdxdna 0000:66:00.1: [drm] *ERROR* aie2_hw_start: firmware is not alive
+> amdxdna 0000:66:00.1: [drm] *ERROR* aie2_smu_exec: smu cmd 4 failed, 0xff
+> amdxdna 0000:66:00.1: [drm] *ERROR* aie2_smu_fini: Power off failed, ret -22
+> amdxdna 0000:66:00.1: [drm] *ERROR* aie2_init: start npu failed, ret -22
+> amdxdna 0000:66:00.1: [drm] *ERROR* amdxdna_probe: Hardware init failed, ret -22
+> amdxdna 0000:66:00.1: probe with driver amdxdna failed with error -22
+>
+> This indicates that the updated firmware is incompatible with a 6.19
+> series kernel. A web search suggests that a 7.0+ kernel requires a npu
+> firmware >= 1.1. This is an ABI break. When the interface changes in
+> incompatible ways, the firmware filename should change to avoid such
+> confusion. The firmware upgrade should be supplying both firmware
+> versions as long as 6.19 remains supported.
+>
+> Helmut
+>
