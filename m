@@ -4,40 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 952C6F483C9
-	for <dri-devel@archiver.kernel.org>; Mon, 23 Mar 2026 16:04:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0B5D4F483C1
+	for <dri-devel@archiver.kernel.org>; Mon, 23 Mar 2026 16:04:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C658610E58E;
-	Mon, 23 Mar 2026 16:04:32 +0000 (UTC)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 27A7410E57C
- for <dri-devel@lists.freedesktop.org>; Mon, 23 Mar 2026 16:04:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1391B10E592;
+	Mon, 23 Mar 2026 16:04:33 +0000 (UTC)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BDCBF10E565
+ for <dri-devel@lists.freedesktop.org>; Mon, 23 Mar 2026 16:04:17 +0000 (UTC)
 Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
  [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id B09D05BD74;
- Mon, 23 Mar 2026 16:04:15 +0000 (UTC)
-Authentication-Results: smtp-out2.suse.de;
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 571174D364;
+ Mon, 23 Mar 2026 16:04:12 +0000 (UTC)
+Authentication-Results: smtp-out1.suse.de;
 	none
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 7812F4396A;
- Mon, 23 Mar 2026 16:04:15 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 1A01343968;
+ Mon, 23 Mar 2026 16:04:12 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id 6MocHH9kwWlfBAAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Mon, 23 Mar 2026 16:04:15 +0000
+ by imap1.dmz-prg2.suse.org with ESMTPSA id sLwfBXxkwWlfBAAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Mon, 23 Mar 2026 16:04:12 +0000
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: jfalempe@redhat.com, airlied@redhat.com, maarten.lankhorst@linux.intel.com,
  mripard@kernel.org, airlied@gmail.com, simona@ffwll.ch
 Cc: dri-devel@lists.freedesktop.org,
 	Thomas Zimmermann <tzimmermann@suse.de>
-Subject: [PATCH 14/15] drm/ast: dp501: Fix open-coded register access
-Date: Mon, 23 Mar 2026 16:56:27 +0100
-Message-ID: <20260323160407.245773-15-tzimmermann@suse.de>
+Subject: [PATCH 02/15] drm/ast: Move 32-bit register-access helpers to
+ ast_drv.{c, h}
+Date: Mon, 23 Mar 2026 16:56:15 +0100
+Message-ID: <20260323160407.245773-3-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260323160407.245773-1-tzimmermann@suse.de>
 References: <20260323160407.245773-1-tzimmermann@suse.de>
@@ -45,13 +46,13 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Rspamd-Pre-Result: action=no action; module=replies;
  Message is reply to one we originated
-X-Rspamd-Queue-Id: B09D05BD74
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Spamd-Result: default: False [-4.00 / 50.00];
+	REPLY(-4.00)[]
+X-Rspamd-Queue-Id: 571174D364
 X-Rspamd-Pre-Result: action=no action; module=replies;
  Message is reply to one we originated
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-4.00 / 50.00];
-	REPLY(-4.00)[]
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,195 +68,293 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Replace all open-coded access to SCU registers in DP501 support with
-the appropriate calls to ast_moutdwm() and ast_mindwm(). Use SCU register
-constants. Name variables according to registers.
+The helpers ast_mindwm() and ast_moutdwm() access the I/O memory of
+the various IP modules on the Aspeed device. This is based on the
+"P-Bus to AHB Bridge" interface.
+
+Reimplement the access function with properly defined constants and
+helper macros.
+
+- Define P2A constants for the related registers and addresses. The P2A
+interface is located in the memory range at [0x00000000, 0x00010000].
+
+- Memory access is segmented. An address' upper 16-bit select the
+memory segment, the lower 16-bit select the offset within the segment.
+Implement segment selection in a shared helper __ast_segsel(). Validate
+that the segment hs been changes. This logic has previously been part
+of __ast_moudwm() and __ast_mindwm(). Relax the CPU while busy-waiting.
+
+- Put intra-segment reads and writes in the helpers __ast_rdseg32()
+and __ast_wrseg32(). The helpers set the segment offset automatically.
+
+- Reimplement the existing interfaces on put of these helpers.
+
+Put the new implementation next to the other I/O helpers.
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
 ---
- drivers/gpu/drm/ast/ast_dp501.c | 124 +++++++++++++++-----------------
- drivers/gpu/drm/ast/ast_reg.h   |   6 ++
- 2 files changed, 64 insertions(+), 66 deletions(-)
+ drivers/gpu/drm/ast/ast_drv.c  | 59 ++++++++++++++++++++++++++++++++++
+ drivers/gpu/drm/ast/ast_drv.h  | 59 +++++++++++++++++++++-------------
+ drivers/gpu/drm/ast/ast_post.c | 38 ----------------------
+ drivers/gpu/drm/ast/ast_post.h |  3 --
+ drivers/gpu/drm/ast/ast_reg.h  | 12 +++++++
+ 5 files changed, 108 insertions(+), 63 deletions(-)
 
-diff --git a/drivers/gpu/drm/ast/ast_dp501.c b/drivers/gpu/drm/ast/ast_dp501.c
-index 23142119d733..98d8491ce6c9 100644
---- a/drivers/gpu/drm/ast/ast_dp501.c
-+++ b/drivers/gpu/drm/ast/ast_dp501.c
-@@ -347,68 +347,65 @@ static int ast_dp512_read_edid_block(void *data, u8 *buf, unsigned int block, si
- static bool ast_init_dvo(struct ast_device *ast)
+diff --git a/drivers/gpu/drm/ast/ast_drv.c b/drivers/gpu/drm/ast/ast_drv.c
+index b9a9b050b546..05ec3542ab62 100644
+--- a/drivers/gpu/drm/ast/ast_drv.c
++++ b/drivers/gpu/drm/ast/ast_drv.c
+@@ -47,6 +47,65 @@ static int ast_modeset = -1;
+ MODULE_PARM_DESC(modeset, "Disable/Enable modesetting");
+ module_param_named(modeset, ast_modeset, int, 0400);
+ 
++/*
++ * Register access
++ */
++
++/* Select R/W segment */
++static void __ast_selseg(void __iomem *regs, u32 r)
++{
++	u32 p2a04, p2a04_base;
++
++	p2a04 = r & AST_REG_P2A04_BASE_MASK;
++	__ast_write32(regs, AST_REG_P2A04, p2a04);
++	__ast_write32(regs, AST_REG_P2A00, AST_REG_P2A00_PROTECTION_KEY);
++
++	do {
++		cpu_relax();
++		p2a04_base = __ast_read32(regs, AST_REG_P2A04);
++		p2a04_base &= AST_REG_P2A04_BASE_MASK;
++	} while (p2a04_base != p2a04);
++}
++
++/* Read within segment */
++static u32 __ast_rdseg32(void __iomem *regs, u32 r)
++{
++	return __ast_read32(regs, AST_REG_P2A_ADDR(r));
++}
++
++/* Write within segment */
++static void __ast_wrseg32(void __iomem *regs, u32 r, u32 v)
++{
++	__ast_write32(regs, AST_REG_P2A_ADDR(r), v);
++}
++
++u32 __ast_mindwm(void __iomem *regs, u32 r)
++{
++	__ast_selseg(regs, r);
++
++	return __ast_rdseg32(regs, r);
++}
++
++void __ast_moutdwm(void __iomem *regs, u32 r, u32 v)
++{
++	__ast_selseg(regs, r);
++	__ast_wrseg32(regs, r, v);
++}
++
++u32 ast_mindwm(struct ast_device *ast, u32 r)
++{
++	return __ast_mindwm(ast->regs, r);
++}
++
++void ast_moutdwm(struct ast_device *ast, u32 r, u32 v)
++{
++	__ast_moutdwm(ast->regs, r, v);
++}
++
++/*
++ * AST device
++ */
++
+ void ast_device_init(struct ast_device *ast,
+ 		     enum ast_chip chip,
+ 		     enum ast_config_mode config_mode,
+diff --git a/drivers/gpu/drm/ast/ast_drv.h b/drivers/gpu/drm/ast/ast_drv.h
+index 787e38c6c17d..3eedf8239333 100644
+--- a/drivers/gpu/drm/ast/ast_drv.h
++++ b/drivers/gpu/drm/ast/ast_drv.h
+@@ -259,26 +259,20 @@ static inline bool __ast_gen_is_eq(struct ast_device *ast, unsigned long gen)
+ #define IS_AST_GEN6(__ast)	__ast_gen_is_eq(__ast, 6)
+ #define IS_AST_GEN7(__ast)	__ast_gen_is_eq(__ast, 7)
+ 
++/*
++ * MMIO access
++ */
++
+ static inline u8 __ast_read8(const void __iomem *addr, u32 reg)
  {
- 	u8 jreg;
--	u32 data;
--	ast_write32(ast, 0xf004, AST_REG_MCR00);
--	ast_write32(ast, 0xf000, 0x1);
--	ast_write32(ast, 0x12000, 0x1688a8a8);
-+	u32 scu02c;
-+
-+	ast_moutdwm(ast, AST_REG_SCU000, AST_REG_SCU000_PROTECTION_KEY);
+ 	return ioread8(addr + reg);
+ }
  
- 	jreg = ast_get_index_reg_mask(ast, AST_IO_VGACRI, 0xd0, 0xff);
- 	if (!(jreg & 0x80)) {
-+		u32 scu008;
-+
- 		/* Init SCU DVO Settings */
--		data = ast_read32(ast, 0x12008);
--		/* delay phase */
--		data &= 0xfffff8ff;
--		data |= 0x00000500;
--		ast_write32(ast, 0x12008, data);
-+
-+		scu008 = ast_mindwm(ast, AST_REG_SCU008);
-+		scu008 &= 0xfffff8ff;
-+		scu008 |= 0x00000500; /* delay phase */
-+		ast_moutdwm(ast, AST_REG_SCU008, scu008);
- 
- 		if (IS_AST_GEN4(ast)) {
--			data = ast_read32(ast, 0x12084);
--			/* multi-pins for DVO single-edge */
--			data |= 0xfffe0000;
--			ast_write32(ast, 0x12084, data);
+-static inline u32 __ast_read32(const void __iomem *addr, u32 reg)
+-{
+-	return ioread32(addr + reg);
+-}
 -
--			data = ast_read32(ast, 0x12088);
--			/* multi-pins for DVO single-edge */
--			data |= 0x000fffff;
--			ast_write32(ast, 0x12088, data);
--
--			data = ast_read32(ast, 0x12090);
--			/* multi-pins for DVO single-edge */
--			data &= 0xffffffcf;
--			data |= 0x00000020;
--			ast_write32(ast, 0x12090, data);
-+			u32 scu084, scu088, scu090;
-+
-+			scu084 = ast_mindwm(ast, AST_REG_SCU084);
-+			scu084 |= 0xfffe0000; /* multi-pins for DVO single-edge */
-+			ast_moutdwm(ast, AST_REG_SCU084, scu084);
-+
-+			scu088 = ast_mindwm(ast, AST_REG_SCU088);
-+			scu088 |= 0x000fffff; /* multi-pins for DVO single-edge */
-+			ast_moutdwm(ast, AST_REG_SCU088, scu088);
-+
-+			scu090 = ast_mindwm(ast, AST_REG_SCU090);
-+			scu090 &= 0xffffffcf;
-+			scu090 |= 0x00000020; /* multi-pins for DVO single-edge */
-+			ast_moutdwm(ast, AST_REG_SCU090, scu090);
- 		} else { /* AST GEN5+ */
--			data = ast_read32(ast, 0x12088);
--			/* multi-pins for DVO single-edge */
--			data |= 0x30000000;
--			ast_write32(ast, 0x12088, data);
--
--			data = ast_read32(ast, 0x1208c);
--			/* multi-pins for DVO single-edge */
--			data |= 0x000000cf;
--			ast_write32(ast, 0x1208c, data);
--
--			data = ast_read32(ast, 0x120a4);
--			/* multi-pins for DVO single-edge */
--			data |= 0xffff0000;
--			ast_write32(ast, 0x120a4, data);
--
--			data = ast_read32(ast, 0x120a8);
--			/* multi-pins for DVO single-edge */
--			data |= 0x0000000f;
--			ast_write32(ast, 0x120a8, data);
--
--			data = ast_read32(ast, 0x12094);
--			/* multi-pins for DVO single-edge */
--			data |= 0x00000002;
--			ast_write32(ast, 0x12094, data);
-+			u32 scu088, scu08c, scu0a4, scu0a8, scu094;
-+
-+			scu088 = ast_mindwm(ast, AST_REG_SCU088);
-+			scu088 |= 0x30000000; /* multi-pins for DVO single-edge */
-+			ast_moutdwm(ast, AST_REG_SCU088, scu088);
-+
-+			scu08c = ast_mindwm(ast, AST_REG_SCU08C);
-+			scu08c |= 0x000000cf; /* multi-pins for DVO single-edge */
-+			ast_moutdwm(ast, AST_REG_SCU08C, scu08c);
-+
-+			scu0a4 = ast_mindwm(ast, AST_REG_SCU0A4);
-+			scu0a4 |= 0xffff0000; /* multi-pins for DVO single-edge */
-+			ast_moutdwm(ast, AST_REG_SCU0A4, scu0a4);
-+
-+			scu0a8 = ast_mindwm(ast, AST_REG_SCU0A8);
-+			scu0a8 |= 0x0000000f; /* multi-pins for DVO single-edge */
-+			ast_moutdwm(ast, AST_REG_SCU0A8, scu0a8);
-+
-+			scu094 = ast_mindwm(ast, AST_REG_SCU094);
-+			scu094 |= 0x00000002; /* multi-pins for DVO single-edge */
-+			ast_moutdwm(ast, AST_REG_SCU094, scu094);
- 		}
- 	}
- 
- 	/* Force to DVO */
--	data = ast_read32(ast, 0x1202c);
--	data &= 0xfffbffff;
--	ast_write32(ast, 0x1202c, data);
-+	scu02c = ast_mindwm(ast, AST_REG_SCU02C);
-+	scu02c &= 0xfffbffff;
-+	ast_moutdwm(ast, AST_REG_SCU02C, scu02c);
- 
- 	/* Init VGA DVO Settings */
- 	ast_set_index_reg_mask(ast, AST_IO_VGACRI, 0xa3, 0xcf, 0x80);
-@@ -418,25 +415,20 @@ static bool ast_init_dvo(struct ast_device *ast)
- 
- static void ast_init_analog(struct ast_device *ast)
+ static inline void __ast_write8(void __iomem *addr, u32 reg, u8 val)
  {
+ 	iowrite8(val, addr + reg);
+ }
+ 
+-static inline void __ast_write32(void __iomem *addr, u32 reg, u32 val)
+-{
+-	iowrite32(val, addr + reg);
+-}
+-
+ static inline u8 __ast_read8_i(void __iomem *addr, u32 reg, u8 index)
+ {
+ 	__ast_write8(addr, reg, index);
+@@ -307,16 +301,6 @@ static inline void __ast_write8_i_masked(void __iomem *addr, u32 reg, u8 index,
+ 	__ast_write8_i(addr, reg, index, tmp | val);
+ }
+ 
+-static inline u32 ast_read32(struct ast_device *ast, u32 reg)
+-{
+-	return __ast_read32(ast->regs, reg);
+-}
+-
+-static inline void ast_write32(struct ast_device *ast, u32 reg, u32 val)
+-{
+-	__ast_write32(ast->regs, reg, val);
+-}
+-
+ static inline u8 ast_io_read8(struct ast_device *ast, u32 reg)
+ {
+ 	return __ast_read8(ast->ioregs, reg);
+@@ -349,6 +333,39 @@ static inline void ast_set_index_reg_mask(struct ast_device *ast, u32 base, u8 i
+ 	__ast_write8_i_masked(ast->ioregs, base, index, preserve_mask, val);
+ }
+ 
++/*
++ * Register access
++ */
++
++static inline u32 __ast_read32(const void __iomem *addr, u32 reg)
++{
++	return ioread32(addr + reg);
++}
++
++static inline void __ast_write32(void __iomem *addr, u32 reg, u32 val)
++{
++	iowrite32(val, addr + reg);
++}
++
++static inline u32 ast_read32(struct ast_device *ast, u32 reg)
++{
++	return __ast_read32(ast->regs, reg);
++}
++
++static inline void ast_write32(struct ast_device *ast, u32 reg, u32 val)
++{
++	__ast_write32(ast->regs, reg, val);
++}
++
++u32 __ast_mindwm(void __iomem *regs, u32 r);
++void __ast_moutdwm(void __iomem *regs, u32 r, u32 v);
++u32 ast_mindwm(struct ast_device *ast, u32 r);
++void ast_moutdwm(struct ast_device *ast, u32 r, u32 v);
++
++/*
++ * VBIOS
++ */
++
+ struct ast_vbios_stdtable {
+ 	u8 misc;
+ 	u8 seq[4];
+@@ -517,8 +534,6 @@ struct drm_device *ast_2600_device_create(struct pci_dev *pdev,
+ 
+ /* ast post */
+ int ast_post_gpu(struct ast_device *ast);
+-u32 ast_mindwm(struct ast_device *ast, u32 r);
+-void ast_moutdwm(struct ast_device *ast, u32 r, u32 v);
+ 
+ int ast_vga_output_init(struct ast_device *ast);
+ int ast_sil164_output_init(struct ast_device *ast);
+diff --git a/drivers/gpu/drm/ast/ast_post.c b/drivers/gpu/drm/ast/ast_post.c
+index b72914dbed38..5cec5d735b6a 100644
+--- a/drivers/gpu/drm/ast/ast_post.c
++++ b/drivers/gpu/drm/ast/ast_post.c
+@@ -34,44 +34,6 @@
+ #include "ast_drv.h"
+ #include "ast_post.h"
+ 
+-u32 __ast_mindwm(void __iomem *regs, u32 r)
+-{
 -	u32 data;
-+	u32 scu02c;
- 
- 	/*
- 	 * Set DAC source to VGA mode in SCU2C via the P2A
--	 * bridge. First configure the P2U to target the SCU
--	 * in case it isn't at this stage.
-+	 * bridge.
- 	 */
--	ast_write32(ast, 0xf004, AST_REG_MCR00);
--	ast_write32(ast, 0xf000, 0x1);
 -
--	/* Then unlock the SCU with the magic password */
--	ast_write32(ast, 0x12000, 0x1688a8a8);
--	ast_write32(ast, 0x12000, 0x1688a8a8);
--	ast_write32(ast, 0x12000, 0x1688a8a8);
+-	__ast_write32(regs, 0xf004, r & 0xffff0000);
+-	__ast_write32(regs, 0xf000, 0x1);
 -
--	/* Finally, clear bits [17:16] of SCU2c */
--	data = ast_read32(ast, 0x1202c);
--	data &= 0xfffcffff;
--	ast_write32(ast, 0x1202c, data);
-+
-+	/* Unlock the SCU with the magic password */
-+	ast_moutdwm_poll(ast, AST_REG_SCU000, AST_REG_SCU000_PROTECTION_KEY, 0x01);
-+
-+	/* Clear bits [17:16] of SCU2C */
-+	scu02c = ast_mindwm(ast, AST_REG_SCU02C);
-+	scu02c &= 0xfffcffff;
-+	ast_moutdwm(ast, AST_REG_SCU02C, scu02c);
+-	do {
+-		data = __ast_read32(regs, 0xf004) & 0xffff0000;
+-	} while (data != (r & 0xffff0000));
+-
+-	return __ast_read32(regs, 0x10000 + (r & 0x0000ffff));
+-}
+-
+-void __ast_moutdwm(void __iomem *regs, u32 r, u32 v)
+-{
+-	u32 data;
+-
+-	__ast_write32(regs, 0xf004, r & 0xffff0000);
+-	__ast_write32(regs, 0xf000, 0x1);
+-
+-	do {
+-		data = __ast_read32(regs, 0xf004) & 0xffff0000;
+-	} while (data != (r & 0xffff0000));
+-
+-	__ast_write32(regs, 0x10000 + (r & 0x0000ffff), v);
+-}
+-
+-u32 ast_mindwm(struct ast_device *ast, u32 r)
+-{
+-	return __ast_mindwm(ast->regs, r);
+-}
+-
+-void ast_moutdwm(struct ast_device *ast, u32 r, u32 v)
+-{
+-	__ast_moutdwm(ast->regs, r, v);
+-}
+-
+ int ast_post_gpu(struct ast_device *ast)
+ {
+ 	int ret;
+diff --git a/drivers/gpu/drm/ast/ast_post.h b/drivers/gpu/drm/ast/ast_post.h
+index aa5d247bebe8..41cd753b7f67 100644
+--- a/drivers/gpu/drm/ast/ast_post.h
++++ b/drivers/gpu/drm/ast/ast_post.h
+@@ -35,9 +35,6 @@ struct ast_dramstruct {
+ #define AST_DRAMSTRUCT_IS(_entry, _name) \
+ 	((_entry)->index == __AST_DRAMSTRUCT_INDEX(_name))
  
- 	/* Disable DVO */
- 	ast_set_index_reg_mask(ast, AST_IO_VGACRI, 0xa3, 0xcf, 0x00);
+-u32 __ast_mindwm(void __iomem *regs, u32 r);
+-void __ast_moutdwm(void __iomem *regs, u32 r, u32 v);
+-
+ bool mmc_test(struct ast_device *ast, u32 datagen, u8 test_ctl);
+ bool mmc_test_burst(struct ast_device *ast, u32 datagen);
+ 
 diff --git a/drivers/gpu/drm/ast/ast_reg.h b/drivers/gpu/drm/ast/ast_reg.h
-index c3473cad4545..9d6ea0765990 100644
+index 30578e3b07e4..ca9403efc7f9 100644
 --- a/drivers/gpu/drm/ast/ast_reg.h
 +++ b/drivers/gpu/drm/ast/ast_reg.h
-@@ -186,11 +186,17 @@
- #define AST_REG_SCU008				AST_REG_SCU(0x008)
- #define AST_REG_SCU00C				AST_REG_SCU(0x00c)
- #define AST_REG_SCU020				AST_REG_SCU(0x020)
-+#define AST_REG_SCU02C				AST_REG_SCU(0x02c)
- #define AST_REG_SCU040				AST_REG_SCU(0x040)
- #define AST_REG_SCU070				AST_REG_SCU(0x070)
- #define AST_REG_SCU07C				AST_REG_SCU(0x07c)
-+#define AST_REG_SCU084				AST_REG_SCU(0x084)
-+#define AST_REG_SCU088				AST_REG_SCU(0x088)
-+#define AST_REG_SCU08C				AST_REG_SCU(0x08c)
- #define AST_REG_SCU090				AST_REG_SCU(0x090)
- #define AST_REG_SCU094				AST_REG_SCU(0x094)
-+#define AST_REG_SCU0A4				AST_REG_SCU(0x0a4)
-+#define AST_REG_SCU0A8				AST_REG_SCU(0x0a8)
- #define AST_REG_SCU100				AST_REG_SCU(0x100)
- #define AST_REG_SCU104				AST_REG_SCU(0x104)
- #define AST_REG_SCU160				AST_REG_SCU(0x160)
+@@ -75,4 +75,16 @@
+ #define AST_IO_VGAIR1_R			(0x5A)
+ #define AST_IO_VGAIR1_VREFRESH		BIT(3)
+ 
++/*
++ * P-Bus to AHB Bridge (0x00000000 - 0x0001ffff)
++ */
++
++#define AST_REG_P2A_BASE			(0x00000000)
++#define AST_REG_P2A(__offset)			(AST_REG_P2A_BASE + (__offset))
++#define AST_REG_P2A_ADDR(__addr)		AST_REG_P2A(0x10000 + ((__addr) & GENMASK(15, 0)))
++#define AST_REG_P2A00				AST_REG_P2A(0xf000)
++#define AST_REG_P2A00_PROTECTION_KEY		(0x01)
++#define AST_REG_P2A04				AST_REG_P2A(0xf004)
++#define AST_REG_P2A04_BASE_MASK			GENMASK(31, 16)
++
+ #endif
 -- 
 2.53.0
 
