@@ -4,63 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C2988EC01B1
-	for <dri-devel@archiver.kernel.org>; Mon, 23 Mar 2026 10:05:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 775C4EC01B1
+	for <dri-devel@archiver.kernel.org>; Mon, 23 Mar 2026 10:06:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2E8A310E4BB;
-	Mon, 23 Mar 2026 10:05:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D170A10E4BD;
+	Mon, 23 Mar 2026 10:06:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.b="Fko7vEm8";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="IxwpJzeI";
 	dkim-atps=neutral
-Received: from mail-m19731105.qiye.163.com (mail-m19731105.qiye.163.com
- [220.197.31.105])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B436110E4BB
- for <dri-devel@lists.freedesktop.org>; Mon, 23 Mar 2026 10:05:57 +0000 (UTC)
-Received: from [172.16.12.43] (unknown [58.22.7.114])
- by smtp.qiye.163.com (Hmail) with ESMTP id 37f14d637;
- Mon, 23 Mar 2026 18:05:53 +0800 (GMT+08:00)
-Message-ID: <170a22d3-f1d6-4f71-97ca-db3edf689d93@rock-chips.com>
-Date: Mon, 23 Mar 2026 18:05:53 +0800
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6BBDD10E4BC;
+ Mon, 23 Mar 2026 10:06:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1774260378;
+ bh=MfZ7qPnGcDwwnRnY9NtGnFB+PxjGvuhIOJK3a6BMpKA=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=IxwpJzeI4t1CjUM+iN9WyQ7cLwziTwjCYsUSSiqB1B1YD1zOhx0OcW8CrADEGyyMc
+ feGdLCSX/93TxUBwhfEWZDm7wmbd/MB/rBVsJNBDBmsc9UhLmqzysRB99E1nnMhpTf
+ +AT44hx81Mvon8pB+7hsNEimTKchyqwSPpYV9XDmu2JkBkrk7ZdKA7H2WP6aNzZ+p5
+ wp+YIfqM9O7VaqtPhV9OepM+6ieXZJKFvHLhAdo3aL/lpNidl1fcLzy1tDj43XRsfj
+ v7TReSRMOkP+4Wv3aS92SlmdlJqxCc4+F3vuni1hbXdsbsEEgVHjtTBX/hIbxxyzpH
+ 31KFf195qmr/A==
+Received: from fedora (unknown [IPv6:2a01:e0a:2c:6930:d919:a6e:5ea1:8a9f])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256) (No client certificate requested)
+ (Authenticated sender: bbrezillon)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 07EB617E0071;
+ Mon, 23 Mar 2026 11:06:16 +0100 (CET)
+Date: Mon, 23 Mar 2026 11:06:13 +0100
+From: Boris Brezillon <boris.brezillon@collabora.com>
+To: Matthew Brost <matthew.brost@intel.com>
+Cc: Daniel Almeida <daniel.almeida@collabora.com>,
+ <intel-xe@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ "Tvrtko Ursulin" <tvrtko.ursulin@igalia.com>, Rodrigo Vivi
+ <rodrigo.vivi@intel.com>, Thomas =?UTF-8?B?SGVsbHN0csO2bQ==?=
+ <thomas.hellstrom@linux.intel.com>, Christian =?UTF-8?B?S8O2bmln?=
+ <christian.koenig@amd.com>, "Danilo Krummrich" <dakr@kernel.org>, David
+ Airlie <airlied@gmail.com>, "Maarten Lankhorst"
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Philipp Stanner <phasta@kernel.org>, Simona Vetter <simona@ffwll.ch>, Sumit
+ Semwal <sumit.semwal@linaro.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ <linux-kernel@vger.kernel.org>, Sami Tolvanen <samitolvanen@google.com>,
+ Jeffrey Vander Stoep <jeffv@google.com>, "Alice Ryhl"
+ <aliceryhl@google.com>, Daniel Stone <daniels@collabora.com>, "Alexandre
+ Courbot" <acourbot@nvidia.com>, John Hubbard <jhubbard@nvidia.com>,
+ <shashanks@nvidia.com>, <jajones@nvidia.com>, Eliot Courtney
+ <ecourtney@nvidia.com>, Joel Fernandes <joelagnelf@nvidia.com>,
+ rust-for-linux <rust-for-linux@vger.kernel.org>
+Subject: Re: [RFC PATCH 02/12] drm/dep: Add DRM dependency queue layer
+Message-ID: <20260323110613.6b153163@fedora>
+In-Reply-To: <acDyu5M7KY0qQ5aD@lstrano-desk.jf.intel.com>
+References: <20260316043255.226352-1-matthew.brost@intel.com>
+ <20260316043255.226352-3-matthew.brost@intel.com>
+ <7A8108C7-7CF0-4EA4-95ED-8003502DC35A@collabora.com>
+ <abjqfXERS6Xk4FAQ@lstrano-desk.jf.intel.com>
+ <abmaDElHmbQkYy57@lstrano-desk.jf.intel.com>
+ <20260317214320.74e6c130@fedora>
+ <absp4z1Op0BrXReP@lstrano-desk.jf.intel.com>
+ <20260319105729.2c20116d@fedora>
+ <ab+PgBzwJkhhj6dw@lstrano-desk.jf.intel.com>
+ <acDyu5M7KY0qQ5aD@lstrano-desk.jf.intel.com>
+Organization: Collabora
+X-Mailer: Claws Mail 4.3.1 (GTK 3.24.51; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/9] dt-bindings: display: rockchip: analogix-dp:
- Expand clock-names "hclk" for the third clock
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: hjc@rock-chips.com, heiko@sntech.de, andy.yan@rock-chips.com,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- airlied@gmail.com, simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, andrzej.hajda@intel.com, neil.armstrong@linaro.org,
- rfoss@kernel.org, Laurent.pinchart@ideasonboard.com, jonas@kwiboo.se,
- jernej.skrabec@gmail.com, nicolas.frattaroli@collabora.com,
- alchark@gmail.com, cristian.ciocaltea@collabora.com,
- sebastian.reichel@collabora.com, kever.yang@rock-chips.com,
- heiko.stuebner@cherry.de, tomeu@tomeuvizoso.net, amadeus@jmu.edu.cn,
- michael.riesch@collabora.com, didi.debian@cknow.org,
- dmitry.baryshkov@oss.qualcomm.com, luca.ceresoli@bootlin.com,
- dianders@chromium.org, m.szyprowski@samsung.com,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- linux-kernel@vger.kernel.org
-References: <20260319104031.1986946-1-damon.ding@rock-chips.com>
- <20260319104031.1986946-2-damon.ding@rock-chips.com>
- <20260320-amusing-magnetic-harrier-20cc40@quoll>
- <311d143b-cc78-465e-9be2-0a9a0a33ea0b@kernel.org>
-Content-Language: en-US
-From: Damon Ding <damon.ding@rock-chips.com>
-In-Reply-To: <311d143b-cc78-465e-9be2-0a9a0a33ea0b@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0a9d1a28788303a3kunmafb06323593c9f
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
- tZV1koWUFDSUNOT01LS0k3V1ktWUFJV1kPCRoVCBIfWUFZGh5CSVZIHU0ZQxpKH0wdSkhWFRQJFh
- oXVRMBExYaEhckFA4PWVdZGBILWUFZTkNVSUlVTFVKSk9ZV1kWGg8SFR0UWUFZT0tIVUpLSEpKQk
- 1VSktLVUpCWQY+
-DKIM-Signature: a=rsa-sha256;
- b=Fko7vEm8qr/yM2Scx5aIktLIO/rsbKX9HQLG3hxzupnw8xra/FYMjlKPI2owJHEspyFJD+ms/U9DaO5WfmxhCm2w1GQVeKDGIM+SQNwMZMvzBNT1QbEO9S3xjsmMIMpH/LWoSgi9tGb7pVcciBKkTO5ljMPe4juXCYwDkDNEcL8=;
- c=relaxed/relaxed; s=default; d=rock-chips.com; v=1; 
- bh=qCbZ2f0Kcl+hC4CPhtXEDMfwP+rqGeU660PawdGL7lw=;
- h=date:mime-version:subject:message-id:from;
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,40 +86,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Krzysztof,
+On Mon, 23 Mar 2026 00:58:51 -0700
+Matthew Brost <matthew.brost@intel.com> wrote:
 
-On 3/20/2026 5:41 PM, Krzysztof Kozlowski wrote:
-> On 20/03/2026 10:19, Krzysztof Kozlowski wrote:
->> On Thu, Mar 19, 2026 at 06:40:23PM +0800, Damon Ding wrote:
->>> The RK3588 eDP controller needs the video datapath clock "hclk" to work
->>> well. Previously, it works without explicitly adding this clock because
->>> the 'rockchip,vo-grf = <&vo1_grf>' property implicitly enables HCLK_VO1.
->>>
->>> Fixes: f855146263b1 ("dt-bindings: display: rockchip: analogix-dp: Add support for RK3588")
->>> Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
->>> ---
-> 
-> BTW, all your patches (this and previous set... actually, everything you
-> ever sent IIRC) end up marked as spam. I don't see anything in the
-> headers pointing to the issue. There is no score assigned and
-> DMARC+SPF+DKIM pass.
-> 
-> However it seems you are using @rock-chips.com and SMTP server 163.com,
-> so maybe that difference. Or maybe it is rock-chips lack of DMARC policy
-> (p=none dis=none)?
-> 
-> Regardless of the reason, if you do not ever receive answers from
-> people, it is likely that is the reason.
-> 
-> 
+> > > It's not the refcount model I'm complaining about, it's the "part of =
+it
+> > > is always freed immediately, part of it is deferred, but not always .=
+.."
+> > > that happens in drm_dep_job_release() I'm questioning. I'd really
+> > > prefer something like:
+> > >  =20
+> >=20
+> > You are completely missing the point here.
+> >  =20
+>=20
+> Let me rephrase this =E2=80=94 I realize this may come across as rude, wh=
+ich is
+> not my intent.
 
-Thank you for the kind heads-up! And I’m sorry for the extra work you 
-have to go through checking the spam folder.
+No offense taken ;-).
 
-It looks like I really need to have a good talk with our IT team about this.
+> I believe there is simply a disconnect in understanding
+> the constraints.
+>=20
+> In my example below, the job release completes within bounded time
+> constraints, which makes it suitable for direct release in IRQ context,
+> bypassing the need for a work item that would otherwise incur a costly
+> CPU context switch.
 
-Thanks again for letting me know — much appreciated!
-
-Best regards,
-Damon
-
+In the other thread, I've explained in more details why I think
+deferred cleanup of jobs is not as bad as you make it sound (context
+switch amortized by the fact it's already there for queue progress
+checking). But let's assume it is, I'd prefer a model where we say
+"ops->job_release() has to be IRQ-safe" and have implementations defer
+their cleanup if they have to, than this mixed approach with a flag. Of
+course, I'd still like to have numbers proving that this job cleanup
+deferral actually makes a difference in practice :P.
