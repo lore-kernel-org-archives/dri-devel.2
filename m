@@ -4,143 +4,97 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A746BF483F2
-	for <dri-devel@archiver.kernel.org>; Mon, 23 Mar 2026 20:14:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0FF53F483F3
+	for <dri-devel@archiver.kernel.org>; Mon, 23 Mar 2026 20:30:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1EEF210E440;
-	Mon, 23 Mar 2026 20:14:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5550610E41C;
+	Mon, 23 Mar 2026 20:30:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="dKowUVY5";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ePqCHnkM";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="HT2lfBvx";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D857E10E47A
- for <dri-devel@lists.freedesktop.org>; Mon, 23 Mar 2026 20:14:12 +0000 (UTC)
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 62NHqXkR1761799
- for <dri-devel@lists.freedesktop.org>; Mon, 23 Mar 2026 20:14:12 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- CGj71twJ5ZzNNZi9iu7gqpb92KAhwgkcEKsZ1QXTiMw=; b=dKowUVY5LJ5uf1JD
- bo/duJJ02zO4z658gX+PdzgFzXswOv/PBrSAS90rkrJlnpNSk9IJr+m6QcjQtXIJ
- 3prq2NzzX4fb4SY7/Ofl1Zi8kI+uZLgJfcqNnMlkNW2E2mvTTSzYQUUnyeCTTrm8
- xE1vd9CtsuFZTlJP9Q0gZGK8nny9zkV4KIrf2BOzHs/bZpMuJrHXMvCmWLetvIr7
- AInRMj/AhTRLiU5wSmv6OEdsCOEabI8slm0OSjiddz0fAv6d9VT5eOOOz+KEzbOA
- 4pkANv7qj4uFhhSHIYzvE2F/BGwds3anmSrWWCFbPD3lNsh4+mwgAABI73CIP4Km
- +Xy5Yw==
-Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com
- [209.85.215.199])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d36f09dwf-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Mon, 23 Mar 2026 20:14:11 +0000 (GMT)
-Received: by mail-pg1-f199.google.com with SMTP id
- 41be03b00d2f7-c7381a9a932so1980373a12.3
- for <dri-devel@lists.freedesktop.org>; Mon, 23 Mar 2026 13:14:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1774296851; x=1774901651;
- darn=lists.freedesktop.org; 
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=CGj71twJ5ZzNNZi9iu7gqpb92KAhwgkcEKsZ1QXTiMw=;
- b=ePqCHnkMWDIbSwN0rOHRm6UOy18FTpIbnKCl9tA/8a4/6Z7kL3C67X3+FPAioBjlc5
- dyP97v2aUcrHsDYW/hcuv1rWnEtRtDnBnbN1HKy22BHi+cwbyck/o3zmj5J2C1W9ROL5
- 7z/vdWjHQJs8JNzU2mJth57ReJBu+eXvn49CZ/0ZwnUTVIFzlaTfsbwlh2Au8D1NFQH/
- UOuek+lDo3g2eUpiZXAhL0TCxlwREaJuf+neTQTjp5oFTr/IQNIxdrxxOt9hwdAOx6aM
- ZZ46J2e4+rU5RforKiMhovWH/i8iDvJTZZiqO2WYXelQOqaywbnSs68fCzVgUyPVPDzg
- hXhA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774296851; x=1774901651;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
- :cc:subject:date:message-id:reply-to;
- bh=CGj71twJ5ZzNNZi9iu7gqpb92KAhwgkcEKsZ1QXTiMw=;
- b=QIU0JYTJmqY0af5ZD+1TXbbxNRGD92pCpoCTQ7tTqdTYnAPQrR9ZKWs6JoBDxdOXBk
- 4zkEmsQLK2RZC1B+YBQEB1l4VZuIMgxpTslzlrLFlgAZoRa3nRn5KOqCnuPrl1TcCFFq
- kNVaCTYr997XZgOs36jvL9eC/gRBx6xhnw4OnS6w0H4gKVn4Zyq7gUWaCrHFAEN4+zUD
- HzWIr/2wAusMgjkFcz+EjhbMGDHBoJDjBBHVJqskZBacTVY1LfnserMiq+mJMNKlJRBm
- 4nB694G+08l/KxpTjfyQCTaaG20T01jWRzWp39J1nhN0ZPrIWOK4OIMe/uHMhDT4+ObL
- KnqA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVufCBWW67gjJUinaYJ3pMldRg+7bwgHbBrJ8nxToe0AZ70iFgR5txIY1qyjnArYLHFji2CLYBOiOg=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yz6foij7ItXwoLbSiyO8LFbSovLEgVb53UXfU70ZgA2srhkSXgx
- urapBeDYNq19OAWDqdLcbCpzDzhoRsNVdzBSfMbJnWu6abpMem6/J2RkTDckR57r90/EurNdyIR
- 2vmw/4ksYhAya9EyOTKZggua9xfvURwTveegq3/MtUJUhZgjm+AMxT+0KHmpUoSc+Qe2XD+o=
-X-Gm-Gg: ATEYQzxtb9bwzjfFt+mf51CQsq0/jgpm4PWVlfieYlzJqLXNItPIsTfW48CGS40JcrC
- tIqp5AzSFYUJ1i+EVgodbM1KdW6hrmcJTs8IHuTAvYQn5/teyBj1J73w5r5o5resMYQNUIzZ191
- t+K/a04Bfg72Ch2fAwACAK5lTv+4g0U0VtbHNUmIAgx3dC4rMQ+vqPBD4rdL0iS2ILM0DOfL1G/
- QwLxCubMT/0XRC5uKb5nEsJEHpagAUmbF2d2+TQj0HUzIgRtOcCJhP/kihYVRQC/cxcfiIfNIJ6
- BCafrdhK5q1zXMkR91L+auwOJoZK7dlMcDdknmf83i0kNV2JSKI+YGF7rbXxiKzcbxL+IJCzUi6
- 2UnrPFSZCKu7TdDJ1PqrmoWqPagqxcSIcOqbUPtqVsrAfOA==
-X-Received: by 2002:a05:6a21:6d99:b0:395:7fb:9362 with SMTP id
- adf61e73a8af0-39bcea16744mr12834168637.19.1774296850984; 
- Mon, 23 Mar 2026 13:14:10 -0700 (PDT)
-X-Received: by 2002:a05:6a21:6d99:b0:395:7fb:9362 with SMTP id
- adf61e73a8af0-39bcea16744mr12834139637.19.1774296850493; 
- Mon, 23 Mar 2026 13:14:10 -0700 (PDT)
-Received: from hu-akhilpo-hyd.qualcomm.com ([202.46.23.25])
- by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-82b0409d148sm9510738b3a.29.2026.03.23.13.14.05
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 23 Mar 2026 13:14:10 -0700 (PDT)
-From: Akhil P Oommen <akhilpo@oss.qualcomm.com>
-Date: Tue, 24 Mar 2026 01:42:28 +0530
-Subject: [PATCH 16/16] drm/msm/adreno: Expose a PARAM to check AQE support
+Received: from SJ2PR03CU001.outbound.protection.outlook.com
+ (mail-westusazon11012051.outbound.protection.outlook.com [52.101.43.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 92C3710E0AB;
+ Mon, 23 Mar 2026 20:30:13 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=cT/l6eUBTrAR0Xtu5WNKB0CUJO215Oaa793Wu+eCxLmJF26AaPgJ7+QSiFK5jTTkHzr648HqNt1AS7YF4B5NgWG9o7/vEU9Gt//bJMJSXLK3/Qy30nITun0adOv5bsKyi6PWcnxidAjKLU5Rp+C6VRiC3oHKUDOsom8h0gDT7xFEuyxwKwxmiBANeI6Ngy+IncFYcFnIaS2Xaj918/d8lJXVsPC3D2PGAN3eJw9gPqTqndWqsKqK8+I0eBbRpH7IBFATkaAQ2PUAv25A/lgsEFfIhApEgiiEbThBZ/Brm13AIOL4u8AkwMo6XidluUE+Rj1UzmkHulWHvl4kuD9HVQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=mx/fHoFagXLx3gjjIB751tAmDf7jCgcMbgM9//qax54=;
+ b=PWqLp4sPBDrlAd19RLX5x5SRFOmxpE6uzEfYHSi/tQEiWrHMzpw5m63B7qHlgIuWH47NDrf8N6eiGf9ku2jAl0V15vCYL9gfSCwamHPaihXAy3coW/vq/wnfFxm4iLFnHOD+yUYBTx5cYJBLsI8+ZVYJy/OmmJLG/LxUpgR6iSOEN9hb5A4vPZ6HqNKgiZ8UAor06IbJyEN8FhhbRXkGNjrA16BSjxsWTyaA73n0sVr/VABHKthkteV/jLSln7//rArf+WN3lG+2Kw+7T954VQ7SlWdmf0eqJCkeqKatmvzGH8XMLmCQ7IHIf1UAkKF0f2gVrUweySUU7kzb5LGU7w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=mx/fHoFagXLx3gjjIB751tAmDf7jCgcMbgM9//qax54=;
+ b=HT2lfBvxOl6JH4r8kcQ+XMldmhUqD3+7dpO/sfWJ4yJNB+JxGzNDSN9Q0fCZBI2UIl0MJgVS4KBPDB8RkZrPs7yJUodfnIpAVAG2zxQ90qw83/6uG/EnUGZjBjk4YzPWKl9gS0p0d9vvTHdru6eXqodBIphgUYtyKSPk6PGoa7c=
+Received: from BN9PR03CA0104.namprd03.prod.outlook.com (2603:10b6:408:fd::19)
+ by IA0PR12MB8716.namprd12.prod.outlook.com (2603:10b6:208:485::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.15; Mon, 23 Mar
+ 2026 20:30:05 +0000
+Received: from BN2PEPF0000449E.namprd02.prod.outlook.com
+ (2603:10b6:408:fd:cafe::a8) by BN9PR03CA0104.outlook.office365.com
+ (2603:10b6:408:fd::19) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9723.31 via Frontend Transport; Mon,
+ 23 Mar 2026 20:29:41 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ BN2PEPF0000449E.mail.protection.outlook.com (10.167.243.149) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9723.19 via Frontend Transport; Mon, 23 Mar 2026 20:30:05 +0000
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Mon, 23 Mar
+ 2026 15:30:05 -0500
+Received: from thonkpad (10.180.168.240) by satlexmb07.amd.com (10.181.42.216)
+ with Microsoft SMTP Server id 15.2.2562.17 via Frontend Transport;
+ Mon, 23 Mar 2026 15:30:04 -0500
+From: <sunpeng.li@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>
+CC: <Harry.Wentland@amd.com>, <simona@ffwll.ch>, <airlied@gmail.com>,
+ <jani.nikula@linux.intel.com>, <ville.syrjala@linux.intel.com>,
+ <superm1@kernel.org>, Leo Li <sunpeng.li@amd.com>
+Subject: [PATCH v2 0/5] drm/vblank: Deferred Enable and Disable
+Date: Mon, 23 Mar 2026 16:27:50 -0400
+Message-ID: <20260323202755.315929-1-sunpeng.li@amd.com>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260324-a8xx-gpu-batch2-v1-16-fc95b8d9c017@oss.qualcomm.com>
-References: <20260324-a8xx-gpu-batch2-v1-0-fc95b8d9c017@oss.qualcomm.com>
-In-Reply-To: <20260324-a8xx-gpu-batch2-v1-0-fc95b8d9c017@oss.qualcomm.com>
-To: Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Antonino Maniscalco <antomani103@gmail.com>,
- Connor Abbott <cwabbott0@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Akhil P Oommen <akhilpo@oss.qualcomm.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1774296753; l=3641;
- i=akhilpo@oss.qualcomm.com; s=20240726; h=from:subject:message-id;
- bh=OALDtSgWAoUx/EoQ1+hF76+gqkywPVTt4BGA/lmsR7A=;
- b=0U/dxL1yL6aQatKBLmc7nPkUYTffkVUmMgtW1qBahyOb239m7K436lkQdHzJI2lNLj8kbRpdK
- t0Tp+PB1ZxYBf3Q8mB5wv+jUSHLjlETidORFunZfMQSFnyjxEHRepxA
-X-Developer-Key: i=akhilpo@oss.qualcomm.com; a=ed25519;
- pk=lmVtttSHmAUYFnJsQHX80IIRmYmXA4+CzpGcWOOsfKA=
-X-Authority-Analysis: v=2.4 cv=b+q/I9Gx c=1 sm=1 tr=0 ts=69c19f13 cx=c_pps
- a=Oh5Dbbf/trHjhBongsHeRQ==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=EUspDBNiAAAA:8 a=VDML5bnlI8VuwgTyKRQA:9 a=QEXdDO2ut3YA:10
- a=_Vgx9l1VpLgwpw_dHYaR:22
-X-Proofpoint-ORIG-GUID: ZF6x50bUl8txx2rZijrgplP0atJgqfDG
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzIzMDE0OSBTYWx0ZWRfX6lbocX/f42NQ
- TTUt6Ov2cAx8KwKSDOUaQHMz6Im+8l3b7fEDEr1YZmLc2Grrv1SFUkMfvDlYTJB0mREewBh04Ug
- wo7lQgFacso2Y9ziq1dRPg8djyKIU8LRjbUi4L+dpgOYIWfzdG/LrLfZB+3eKiKgyJgi5RKQyUu
- kIdVAnZt0xYUgoI+jdtZq5B0bZfGkdKnX4cmMTjuGREhp79wm3zeCo20gzbuoEhrFfAq/QCWgGD
- q5a6j5GYa8mOQukOTFG50ddHbUbOHg1xLEMUqdIPiO2TRCw6Ccnf5xcWHAUegsUJ4uYyfxj7P5K
- w+KjYumWBNLJSEO2GQxQqpt30q2lliShoVrvOiYnDuoGLGrltUkTh8IYcib/Ki7Zq51Ry4s2tC5
- AHO6ZczH2El6iWgnIzZzrbSrgrLP2IWiI03CXpzfqWdcezYDJj2LghnBzF5BSk2XSFZnAnr7KVC
- hbOzoKrpyJcXPJ7niFQ==
-X-Proofpoint-GUID: ZF6x50bUl8txx2rZijrgplP0atJgqfDG
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-03-23_05,2026-03-23_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 lowpriorityscore=0 impostorscore=0 adultscore=0
- malwarescore=0 bulkscore=0 suspectscore=0 phishscore=0 clxscore=1015
- spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2603050001
- definitions=main-2603230149
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN2PEPF0000449E:EE_|IA0PR12MB8716:EE_
+X-MS-Office365-Filtering-Correlation-Id: 57821205-1ca2-4b3f-2a02-08de891af7f7
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|36860700016|1800799024|376014|82310400026|13003099007|56012099003|18002099003;
+X-Microsoft-Antispam-Message-Info: V16vC0E8rtCvJS0C/MOxj11twYJcSIyZiQbZ+3gjOUxsVRYWGLruitMDCJQqao1mBruIiRZrHU/ME8ZGSwFmnh0/ugKpGa13NY8610jbpfImgU2FHYfXTQqYqZHqDO+0ka6nHD0rpR5/0CQN0+A1+w0+rE986Hc1Hnm2U3pcgHcHSMp7bMUO7m+SzGIBjwuOXi1S4pm7Vfy69ZSBLpYMYOunFpI7JzRbxD1XAid76BOSOvjD0VFDdGbFCKUGxP4p9gTviXxkrIR7zYrrx/i9+jMoGTr/jQKglPjVCNfEVvZ2Z95cXXw21C2FDiBk71s41pTxCN2+gCMU6MYpwcEuy3obI8Omqw964sa8gGbpzbCfkMuG1FRqOQhvwloz9xYaVCEMFTAI6y8gu+ntK6CYfQ6YAWtmhWD7fzP6vPeK2I1HdPcDVfrS7jXwZKPeYHEZOHzqI04nFjMMB8VJWAzJxioKoIz4lh0p9Sxbx8Kf4RdPOhktCHyaB+kC9LG1UaQaaVZeWpsDjEBvWXxzj7VcXU781VablEsIS8A9QP5XW+acYficLs0kupF/MssKtoiYezRWClWRSfTNweEfKRQYA8gSinheIcPvI1qDr8P2cJNhrIjoWZzXQFNEM8+pPQd/Wa1mjVPt+jCaiSh6Zt2KL4BlCU2qNbV8eZd0Y23dNuOES44lSpsIcDGN8q1sCGF2Ce2IHg6sCItAItTuqtAE5mckScdx3zkW4L/RcPiRDCnZeDsnYI9/T8r/0buUXbBwPDuj+OGMkfWEMvnDQvig8Q==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700016)(1800799024)(376014)(82310400026)(13003099007)(56012099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: l8tq8JWjhzet4gsTtyYmsryD2I5am28Lkio/M230xFeGko3CVlYULKy4QV7qEj2HdTApjmIsfkghJATghD2EX8WOe3yGUCf+KQC8R/BmvateHuropHVPFmTLGi1l5gx847N2cEVNryI4Syg4NbyTqi+ZiYGZlH9UYWibU2hE/lxUGcVVg++Ih7UDfKQZzQyxhnKEzPi0xVKfVNKe1wrJ96UukI86vftb0iCbTGJ3Om5h06T7S0B89s994O1mnDfAFfvnlb7EUwtfXpQuvficHWDAPqNOARHboDDTId1yQkxCgZJBxw02HvTuCYvVjVxgChDLef+WcftllyBjOXFBZazIPt6qRBl8FGsTeYpQv4iMlsCrTv4SNBHUU5HHcYXxYzx/ZJQE+XE/biVdRWig7U+4IbKXRrdhN1SsP8ZW8XyjyJO8jfLLQKRpCDAkIHy9
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Mar 2026 20:30:05.5088 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 57821205-1ca2-4b3f-2a02-08de891af7f7
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF0000449E.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8716
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -156,97 +110,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-AQE (Applicaton Qrisc Engine) is required to support VK ray-pipeline. Two
-conditions should be met to use this HW:
-  1. AQE firmware should be loaded and programmed
-  2. Preemption support
+From: Leo Li <sunpeng.li@amd.com>
 
-Expose a new MSM_PARAM to allow userspace to query its support.
+See cover letter from v1 for motivation and details:
+https://lore.kernel.org/dri-devel/20260224212639.390768-1-sunpeng.li@amd.com/
 
-Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
----
- drivers/gpu/drm/msm/adreno/a6xx_gpu.c   | 13 +++++++++++++
- drivers/gpu/drm/msm/adreno/adreno_gpu.c |  4 ++++
- drivers/gpu/drm/msm/adreno/adreno_gpu.h |  1 +
- include/uapi/drm/msm_drm.h              |  1 +
- 4 files changed, 19 insertions(+)
+v2 contains fixes to some failing igt@kms_vblank tests, namely
+* any test that calls wait_for_vblank()
+* ts_continuation_dpms/modeset tests
 
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-index df739fd744ab..224b2f7cc8d3 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-@@ -2610,6 +2610,17 @@ static int a6xx_set_supported_hw(struct device *dev, struct a6xx_gpu *a6xx_gpu,
- 	return 0;
- }
- 
-+static bool a6xx_aqe_is_enabled(struct adreno_gpu *adreno_gpu)
-+{
-+	struct a6xx_gpu *a6xx_gpu = to_a6xx_gpu(adreno_gpu);
-+
-+	/*
-+	 * AQE uses preemption context record as scratch pad, so check if
-+	 * preemption is enabled
-+	 */
-+	return (adreno_gpu->base.nr_rings > 1) && !!a6xx_gpu->aqe_bo;
-+}
-+
- static struct msm_gpu *a6xx_gpu_init(struct drm_device *dev)
- {
- 	struct msm_drm_private *priv = dev->dev_private;
-@@ -2808,6 +2819,7 @@ const struct adreno_gpu_funcs a7xx_gpu_funcs = {
- 	.bus_halt = a6xx_bus_clear_pending_transactions,
- 	.mmu_fault_handler = a6xx_fault_handler,
- 	.gx_is_on = a6xx_gmu_gx_is_on,
-+	.aqe_is_enabled = a6xx_aqe_is_enabled,
- };
- 
- const struct adreno_gpu_funcs a8xx_gpu_funcs = {
-@@ -2836,4 +2848,5 @@ const struct adreno_gpu_funcs a8xx_gpu_funcs = {
- 	.bus_halt = a8xx_bus_clear_pending_transactions,
- 	.mmu_fault_handler = a8xx_fault_handler,
- 	.gx_is_on = a8xx_gmu_gx_is_on,
-+	.aqe_is_enabled = a6xx_aqe_is_enabled,
- };
-diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-index 826661cb7988..f7289a9ee0bb 100644
---- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-@@ -443,6 +443,10 @@ int adreno_get_param(struct msm_gpu *gpu, struct msm_context *ctx,
- 	case MSM_PARAM_HAS_PRR:
- 		*value = adreno_smmu_has_prr(gpu);
- 		return 0;
-+	case MSM_PARAM_AQE:
-+		*value =  (adreno_gpu->funcs->aqe_is_enabled &&
-+			   adreno_gpu->funcs->aqe_is_enabled(adreno_gpu)) ? 1 : 0;
-+		return 0;
- 	default:
- 		return UERR(EINVAL, drm, "%s: invalid param: %u", gpu->name, param);
- 	}
-diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.h b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-index 044ed4d49aa7..c0ee544ce257 100644
---- a/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-+++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-@@ -84,6 +84,7 @@ struct adreno_gpu_funcs {
- 	void (*bus_halt)(struct adreno_gpu *adreno_gpu, bool gx_off);
- 	int (*mmu_fault_handler)(void *arg, unsigned long iova, int flags, void *data);
- 	bool (*gx_is_on)(struct adreno_gpu *adreno_gpu);
-+	bool (*aqe_is_enabled)(struct adreno_gpu *adreno_gpu);
- };
- 
- struct adreno_reglist {
-diff --git a/include/uapi/drm/msm_drm.h b/include/uapi/drm/msm_drm.h
-index 5c67294edc95..b99098792371 100644
---- a/include/uapi/drm/msm_drm.h
-+++ b/include/uapi/drm/msm_drm.h
-@@ -117,6 +117,7 @@ struct drm_msm_timespec {
-  * ioctl will throw -EPIPE.
-  */
- #define MSM_PARAM_EN_VM_BIND 0x16  /* WO, once */
-+#define MSM_PARAM_AQE	     0x17  /* RO */
- 
- /* For backwards compat.  The original support for preemption was based on
-  * a single ring per priority level so # of priority levels equals the #
+Fixes are all in patch 2/5, the other patches remain unchanged.
+
+Leo Li (5):
+  drm/vblank: Add drm_crtc_vblank_is_off() helper
+  drm/vblank: Introduce deferred vblank enable/disable
+  drm/amd/display: Refactor amdgpu_dm_crtc_set_vblank
+  drm/amd/display: Implement deferred vblanks on IPS platforms
+  drm/vblank: Add some debugging trace events
+
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |   8 +
+ .../amd/display/amdgpu_dm/amdgpu_dm_crtc.c    | 263 ++++++++++++++++--
+ .../amd/display/amdgpu_dm/amdgpu_dm_crtc.h    |   4 -
+ drivers/gpu/drm/drm_atomic_helper.c           |  11 +-
+ drivers/gpu/drm/drm_drv.c                     |   5 +
+ drivers/gpu/drm/drm_internal.h                |   1 +
+ drivers/gpu/drm/drm_trace.h                   | 112 ++++++++
+ drivers/gpu/drm/drm_vblank.c                  | 239 +++++++++++++++-
+ include/drm/drm_crtc.h                        |  34 +++
+ include/drm/drm_device.h                      |   6 +
+ include/drm/drm_vblank.h                      |  20 ++
+ 11 files changed, 654 insertions(+), 49 deletions(-)
 
 -- 
-2.51.0
+2.53.0
 
