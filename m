@@ -4,136 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 41937F4613E
-	for <dri-devel@archiver.kernel.org>; Mon, 23 Mar 2026 22:42:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E280FD58CBF
+	for <dri-devel@archiver.kernel.org>; Mon, 23 Mar 2026 22:45:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7D72A10E446;
-	Mon, 23 Mar 2026 22:42:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3E45C10E44A;
+	Mon, 23 Mar 2026 22:45:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=nxp.com header.i=@nxp.com header.b="bcQ+Ul7W";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="YkCS/Gxp";
 	dkim-atps=neutral
-Received: from DU2PR03CU002.outbound.protection.outlook.com
- (mail-northeuropeazon11011018.outbound.protection.outlook.com [52.101.65.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A00E310E084;
- Mon, 23 Mar 2026 22:42:03 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=vEC/VOclQf68OGMyxx8k0ErnssgaHCMV8vZ3ZbxPby/8oaawCB6SM7sTVY01lHyt27GhnDecGVsqazVICrB10RJQgcBemqJIsdts+lIPRii6QrA3T4Q/zzcJ2hgMmR7++XMtBn9U8VbiAtgO+j8/HYJeseNmVU496N1TURYvfssYoSGFOY4fiAby9UMQqTyPO5D/5E4o2TiFIEgV4cOVBJuENPd1lnnv/x+gFVmB0AtKuzpiDNH6dOH3R/ADSNAfntcbsnFSyQis3INC8FB/CWGnouGO50UmSKqreIdNyyGWlWQZELVGAEnYz6gefg3Vhj6aKHCHfpv8L2Sqpxtmug==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=OnPWJJpMfukX61AFwAcYGXDDLyIPpG0UtWajnhyiVHk=;
- b=TCN3LpB62HUmjAIMqX8IDF83Za6iRyee5b/YVYNezX4k5C70uzFEs83PzoGEK/iuxjalKBFEN9ZICHgu83vyT3KQ5DeBHZpnHq1q3sUZr4JBtDeD0jel6U4rpxYV7/YKL8m7Qaa4LYB+S487xq7YCz3DhGqIaB38zKo5swcTQWTmI8O8TxX5R1YwvL5eiW+Rv7JtXve05wFEkIXQ3wdKZo0XzyT/+ee92M0p6L2T0AfNLu2YpEMTpxTDaORfYtUrG7AyYgoCXZaL8qhGgCzinVtFYNzASw4CVTVrEm5hGMxQYHMpP+l7xTwqTyVF+4w/L1osx8OXG+IPxLX2kJjvQQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=OnPWJJpMfukX61AFwAcYGXDDLyIPpG0UtWajnhyiVHk=;
- b=bcQ+Ul7WyyTlPY2BifoIe1Ev51k8C6E/KWxuaPH9ruGgt+axhPQkOl/H9HO5G9eWo90tQunhHoyI38u4Wc7yhhrzdwuJefmkCwCTNt/mp/xB5Otk9yum7ZwJgB4Z8jlfczkJ3yqIvZ2PixHvDlu0ckTOwOxabcryWBoupdxIVeIPavnw8OzJVYjSx6f1S+HI5ogZyHXhHH67FpKKOf2N2oBxGk1kZSJzyIdyw0P0Yd641TOcYtpCgTv+QqQpCenI17JlPGspXi72P3l0H/M+/ddL/WfMX2Vpbm7cohILZmBY9+leN3qvCkl4mL/8NdO/OC7zazDzsJXB3EazfT35lQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from AM9PR04MB8585.eurprd04.prod.outlook.com (2603:10a6:20b:438::13)
- by PA2PR04MB10376.eurprd04.prod.outlook.com (2603:10a6:102:421::9)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.25; Mon, 23 Mar
- 2026 22:41:31 +0000
-Received: from AM9PR04MB8585.eurprd04.prod.outlook.com
- ([fe80::f010:fca8:7ef:62f4]) by AM9PR04MB8585.eurprd04.prod.outlook.com
- ([fe80::f010:fca8:7ef:62f4%4]) with mapi id 15.20.9723.030; Mon, 23 Mar 2026
- 22:41:36 +0000
-Date: Tue, 24 Mar 2026 00:41:55 +0200
-From: Vladimir Oltean <vladimir.oltean@nxp.com>
-To: Alim Akhtar <alim.akhtar@samsung.com>
-Cc: "'Martin K. Petersen'" <martin.petersen@oracle.com>,
- linux-phy@lists.infradead.org, 'Vinod Koul' <vkoul@kernel.org>,
- 'Neil Armstrong' <neil.armstrong@linaro.org>,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
- linux-can@vger.kernel.org, linux-gpio@vger.kernel.org,
- linux-ide@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, linux-pci@vger.kernel.org,
- linux-renesas-soc@vger.kernel.org, linux-riscv@lists.infradead.org,
- linux-rockchip@lists.infradead.org,
- linux-samsung-soc@vger.kernel.org, linux-scsi@vger.kernel.org,
- linux-sunxi@lists.linux.dev, linux-tegra@vger.kernel.org,
- linux-usb@vger.kernel.org, netdev@vger.kernel.org,
- spacemit@lists.linux.dev, UNGLinuxDriver@microchip.com,
- 'Bart Van Assche' <bvanassche@acm.org>,
- 'Peter Griffin' <peter.griffin@linaro.org>,
- "'James E.J. Bottomley'" <James.Bottomley@HansenPartnership.com>,
- 'Krzysztof Kozlowski' <krzk@kernel.org>,
- 'Chanho Park' <chanho61.park@samsung.com>
-Subject: Re: [PATCH v5 phy-next 09/27] scsi: ufs: exynos: stop poking into
- struct phy guts
-Message-ID: <20260323224155.5vx6kqnu4q7y6tz2@skbuf>
-References: <20260319223241.1351137-1-vladimir.oltean@nxp.com>
- <20260319223241.1351137-10-vladimir.oltean@nxp.com>
- <yq1a4w3l04g.fsf@ca-mkp.ca.oracle.com>
- <CGME20260323115859epcas5p10177db12a2e8aee9578271ff1411137b@epcas5p1.samsung.com>
- <20260323115848.ghdu4sbk75tvggfb@skbuf>
- <1891546521.01774280282025.JavaMail.epsvc@epcpadp2new>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <1891546521.01774280282025.JavaMail.epsvc@epcpadp2new>
-X-ClientProxiedBy: VI1PR09CA0145.eurprd09.prod.outlook.com
- (2603:10a6:803:12c::29) To AM9PR04MB8585.eurprd04.prod.outlook.com
- (2603:10a6:20b:438::13)
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com
+ [209.85.128.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8C43210E474
+ for <dri-devel@lists.freedesktop.org>; Mon, 23 Mar 2026 22:45:14 +0000 (UTC)
+Received: by mail-wm1-f44.google.com with SMTP id
+ 5b1f17b1804b1-486fe2024a9so25449145e9.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 23 Mar 2026 15:45:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1774305913; x=1774910713; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=66u/VBwHFIYtSS0ffR+AH+e9AgRhJBGf6jfFuy18y7Q=;
+ b=YkCS/GxpJnEVTlKO8ztWdRV/vsXQijEsAeLqnwpRy4km3OQFNU4NjRO2TPxzYL9Wt3
+ +9Ax3czyyxWjJFy1m9LRd77Vx7jhzxoLtG7JtxrOCgv5D4uRXZx8mHPlHqkZ04iDWyQ5
+ YheUFrgk0F0a2hM/LQuCqLZrMVKfa2h6c8oot5BM65nTJpN0zuCsPfoJxVrQjnRDwAGb
+ 5sGv9vytO1PgZTFYMxWjNIkAHPi5LZJEoYtPy68SY7yKq0+He8wJzSMVc8ufxacuK9Ft
+ tegRgYY7eAJxEbn6YbJaeN85IQZvbIfbvp+UP1O/FS++e1EkLNsP3Db2vUgiVaA83O1w
+ uFaA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1774305913; x=1774910713;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=66u/VBwHFIYtSS0ffR+AH+e9AgRhJBGf6jfFuy18y7Q=;
+ b=AyHD1x1zcJFKvtFL1XRJQFzMB7tgkypUmUOVxA+IHUn4UZV5naYNv8iarexFXb+ge7
+ UHNwddlFPCkHBQGOFjGOf+hEtiBzwnlJQNzEdb5Sq/jcTouZybSoJmInvSe2gMXcVn/T
+ EbgaSV/oOFihlJRAP9IPTwfbEWagFEV5niI/C7wzBOKvAjMi81sdktvpyJPf/Vd/OrOT
+ iwxNGmq9M9MLgrNKwzwqk59YaI24tQ5KMYrQZEUt1uu1c1nPLQq8K8qtTFX1Ly9dVHHQ
+ WBM5PM7UYdlDauxqAyorGGwUJVUeVixgeV0i4X7UqV3N6UFK7IfG+KiDxol+aDakjusA
+ 0LxA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVtasH9QSrmcPPGY0orrYf1LkNb3y/kDoKNmk+oVBNmAEfVmYSJ2zcl2Gd26539o64V+YWh5HLnLQ8=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yxsa4GlfXfRmutUsxXvex9e3N6NDP4/FNp8k0X9k5i7MYEKC1fk
+ lKp2hm7fukVDRmSm5RVanvgNgMUhAdkvukPt9BMfyuv2h+cpJY5h/Q/A
+X-Gm-Gg: ATEYQzydwLENPgRl+dOwlvNRdbWX1w9emYOzmo4Di+7Ituh8A6W1pU4anZpuctPpY6u
+ bfdoSzfMtuOirzGTKqjRA6imtBaR2IpVFxEReR1Uun7wT3XIH7pNBZLRgpqmy1N0dM15kZojInQ
+ vkN3OGjoOApVuEgpaawMQHbpB/HhjJskf6/8rB4FcEPDonNFMH0WLWzF964ZJLyPPN3KtHPEtrY
+ 5KQyR13FNpz8CETjU1fE3/CPuw/okPG3gOQvNmLtXOmjmp96Qwuz7+g57n/v+nBtuD2t3QV6fZq
+ +facz1VAklrkvMf/u2yjHdsxS39CQ82sFk1SRkNrGk77GORhle2Drx/XQtqACrYi/cCh9CV+Sy3
+ vSsR8d9cOsJuHEKDsdFVuRrRkRoCkmW0T5TK5xhUa9aWPYGA8tM3CcoeEoXKTIVdZnrq6KtbSut
+ AN216FFXsFRqaXi55zY7Gx5A==
+X-Received: by 2002:a05:600c:1d15:b0:485:2ce2:4c75 with SMTP id
+ 5b1f17b1804b1-486febbc648mr193158595e9.1.1774305912768; 
+ Mon, 23 Mar 2026 15:45:12 -0700 (PDT)
+Received: from localhost ([87.254.0.141]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4870f6d5fd9sm4775495e9.4.2026.03.23.15.45.11
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 23 Mar 2026 15:45:12 -0700 (PDT)
+From: Colin Ian King <colin.i.king@gmail.com>
+To: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Cc: kernel-janitors@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH][nexr] drm/amdgpu/mes12_1: emove extra ;
+ from declaration statement
+Date: Mon, 23 Mar 2026 22:43:48 +0000
+Message-ID: <20260323224348.343495-1-colin.i.king@gmail.com>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM9PR04MB8585:EE_|PA2PR04MB10376:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7cf01aa1-a350-499b-4bdf-08de892d5769
-X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|10070799003|1800799024|19092799006|7416014|376014|22082099003|56012099003|18002099003;
-X-Microsoft-Antispam-Message-Info: U41ZxIpbwkq6sJwBugn1woWYjg8p/rAc1o7U0C4JAclVBH9hEghR4UT9+azy9yfEmklHvqPXrmA7RkPgRx7mECmcCkGZl3SJxPPFIkU2H1dfQQzNPGzR2Xv1eoTWLraK7SoqsaLyoVLgqI6IapOeKYPO2KqToUbuGFRVqbB+UTjP8S8vALr1TZYkPw3oOocBIWa89W0pPc8pA0MI6sIq/xF8tfEo91oTeP4DhH9Wcy0TJQTkgN/PGq7nd7H0jGuYNIRUHfxs4WyckI3wZGSzHwddiMhl/6LMkz+8uxOe30qNRzrr4giBX8RgNwj3jcjeLusBG4SXTn+OGrjUvBhrsC3PfKdfG5V5GhJdRo65ccI+QBVRB0AdPME3O+zpeRAuDszh+ozXHt0L5C1Uk4HNpjHwV7ikqVUwvlJ3AM8SWT96XvlaTSUDYpnsp5MUcvpOxQ03nCOTzpFCkoqjXSTjRrS7ARXU6s/yllTFnFXDa3bDVbWwJkSFTy9oC2Kn38wuHVheY05VgrULzz5Z6TMUg5orrqs17z/hMczlHa40dUbmKxCc2Hj++GiGJLWHhRPT6+JkizCyX1ZV7u1Mcif3FBa9arKxYu5dp105HXOeCQMcVaBPmktXIb4SUux2dBJ1emK3s2EUaap97Ekw+PED1+r/ZcC/m2JgriJv/6dglyDAik3H8DQ1eaiCzKBqAgGjxvwcMABXmgCSWPZr41XPjuVzbRu8AGY20uVHUZufjQg=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:AM9PR04MB8585.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(10070799003)(1800799024)(19092799006)(7416014)(376014)(22082099003)(56012099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?0TVCxG5sfXlpq1mETN2UUIKgXF+JAISatRz6N1xi0hQormOkJD2nmkwvzkW1?=
- =?us-ascii?Q?GHG2ACQnJdyzgoi7AfobGdr2GmW6dY5eEkOGvWlWEjkAAvvapPC3V5Hjg6ly?=
- =?us-ascii?Q?257RQvJy50Nh+9CBXIpF4ucW8iptDxdHkC5Qc42Zt+3kfvbVvpVeXu+cd0y/?=
- =?us-ascii?Q?TT8GV3Eq//GIEI07y/tHuNtcnBszsYxT76C64bCVFDdWzgDrb8eZfSiTlZKl?=
- =?us-ascii?Q?Mp0MQmdQgA2OpyuRsWthziyMVthJuYbNA70ZSQFSUpEVC11XB+X/Dtqq/6uT?=
- =?us-ascii?Q?n13coWj8PevmcK8LlAejz75jH5bLxQso9g2L6plVugEbumIDHsqBSN5tIgWO?=
- =?us-ascii?Q?ZCDh/CclblDgzYVIW3kWVsDzd4IsJkC9aaibJxVbXmb1R4rZ30MxpZQgivSM?=
- =?us-ascii?Q?xAte9W3t8vNY7BR5yEBN57zvi0wS0umzMrEqGm7NYszymvemo2C2mkef4ZuP?=
- =?us-ascii?Q?uhb6nG4wRuEY7HzoILLOo3Dv8jVKgNQrHy+eruY7P7e9SPWc1bNyu2ijebMu?=
- =?us-ascii?Q?t1yBwHpgUqsG2DcVWccF0cNk/kss+EnCVcIZ2PJBB0sQGSvmdr50JEQ7VGGw?=
- =?us-ascii?Q?wCHrlkW6z4EufNfStrO8dUjKcZu+52TXOMwAkQZY1xOST8z1ejrIBfHv8y21?=
- =?us-ascii?Q?SBwAWcGglwY8DmBto58G7wUK7uY0NzlFxy2LtyXH3JPF6lRegGRDMnUXfTeL?=
- =?us-ascii?Q?mhyMMKZYmF/9/WLTM6hWn89OiKBTUd2HNBDvxPw3dmtUacfiL6510VGhMQ/n?=
- =?us-ascii?Q?kqNfS/SZMjk28QV/khs+pQ8J6VTL44MzQuKbhNzZbd6IX8PE1n1cTk+HX5f4?=
- =?us-ascii?Q?euS2bV4yoRzT82Hv5EAUld0cfz/KB+bZ5GByLniRHGdcijpM3zXp6ISHH1XW?=
- =?us-ascii?Q?Jf/tZXukVHRrvZrRvoD29S4G/M2gJtdkIYjIshW4Vx8o9hFab3PFpNSVZl9x?=
- =?us-ascii?Q?12tgoUx9ZKp2pECKAok9qgjLOa3y/6VHFn0VSybGl8jCp1eiSF/kYQg69+AO?=
- =?us-ascii?Q?yR0epQt07YLTZWWfVvF+xuN7L31ghpcVCjUvsKWJM1C0Zpx/yKM20qMwwCmJ?=
- =?us-ascii?Q?8yeBKQxKb90065jSH81o9DN3W6a5WoDByoE28kUqpj/zLuF6Gs0lZVQk2mnh?=
- =?us-ascii?Q?Mmr1lr2vAsrEV3Dp7wclHHXBy6D3cqVFpgcRc/UIf83wNNKVrBUraQWHc3Ii?=
- =?us-ascii?Q?eK/gRKflVxZZ1pOHAZYd02V5JOWkN5/sRxpmFLdPU7KOthL/8s/L51XiIZfA?=
- =?us-ascii?Q?j1PP9/ntBObCw3y5nUBDzTGzv9Q7W7TvX7YP6D01pyIn9w2xbXP7Bo1PF+e5?=
- =?us-ascii?Q?cOgV3/4qcJ6JfFFh3iUbmQbo+aFrQ+tNUMj77eTJ21McMF+ntZkHmwG8fuA/?=
- =?us-ascii?Q?VPuRjAg3C1PLHPKn/IrEsvDISeTBNToD0RSOrsG9YDiyAM8il+BAokLEykfV?=
- =?us-ascii?Q?E9d1cEzA5tPBl5x7r7tOyAQf7+jgTVTmBcgRLkkWm0Gmh147ugx1SSavsd5F?=
- =?us-ascii?Q?R4dcTbWdg0NEQnNWv2CMIc80gccXiVZQSwHY62/5dqaBT6fe8r76/xzvGtzh?=
- =?us-ascii?Q?pyc3kuE48DXVgGQKnR6TqDbugUGMvFT5D2g9scugUir5PWyiJ9XSuH9bsNjA?=
- =?us-ascii?Q?6BYZefF74g5c+VqfXraNxaAsnQarzBO0fI0cb9XWv1NPgcXGOUhKXSs6bWPa?=
- =?us-ascii?Q?Z+frSdtMmePtKKa1gZ12PCyZW0DFUePTMsjAAFP6WUEUxWUVmCMG9gmuewcx?=
- =?us-ascii?Q?zWx0ihgBLV5wddrzdlSrX2Lmv2+9IDI+lnzsSTlemYh95yj0HRk68xf9GNrC?=
-X-MS-Exchange-AntiSpam-MessageData-1: 7t0SISdxYT2pFMbEXyoY+GuzV5YPKyMP3n8=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7cf01aa1-a350-499b-4bdf-08de892d5769
-X-MS-Exchange-CrossTenant-AuthSource: AM9PR04MB8585.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Mar 2026 22:41:36.8488 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: mErGdwGcJOUBf17JGSORAgKN1SLrIHLYD+CNuyd2rAkYspxlXfRU6rm0qWQJx8cozbQksDeKC4gMYOIsvZIhRQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA2PR04MB10376
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -149,7 +90,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Mar 23, 2026 at 06:05:36PM +0530, Alim Akhtar wrote:
-> Will review and possibly test on one of the board later tonight
+There is a declaration statement that has a ;; at the end, remove the
+extraneous ;
 
-Ok, in that case I'll wait. Thanks.
+Signed-off-by: Colin Ian King <colin.i.king@gmail.com>
+---
+ drivers/gpu/drm/amd/amdgpu/mes_v12_1.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v12_1.c b/drivers/gpu/drm/amd/amdgpu/mes_v12_1.c
+index 5dcc2c32644a..0e9089544769 100644
+--- a/drivers/gpu/drm/amd/amdgpu/mes_v12_1.c
++++ b/drivers/gpu/drm/amd/amdgpu/mes_v12_1.c
+@@ -2227,7 +2227,7 @@ static int mes_v12_1_self_test(struct amdgpu_device *adev, int xcc_id)
+ 	struct amdgpu_bo *meta_bo = NULL, *ctx_bo = NULL;
+ 	void *meta_ptr = NULL, *ctx_ptr = NULL;
+ 	u64 meta_gpu_addr, ctx_gpu_addr;
+-	int size, i, r, pasid;;
++	int size, i, r, pasid;
+ 
+ 	pasid = amdgpu_pasid_alloc(16);
+ 	if (pasid < 0)
+-- 
+2.53.0
+
