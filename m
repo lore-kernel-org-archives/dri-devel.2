@@ -4,95 +4,94 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A5746F483F3
-	for <dri-devel@archiver.kernel.org>; Mon, 23 Mar 2026 20:13:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C0FBBF483F3
+	for <dri-devel@archiver.kernel.org>; Mon, 23 Mar 2026 20:13:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 03B1210E412;
-	Mon, 23 Mar 2026 20:13:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 31B4310E3D2;
+	Mon, 23 Mar 2026 20:13:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Of4Rq/g0";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="gH+edQpd";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="aOXMgnna";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="i95QwYUm";
 	dkim-atps=neutral
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E06D210E3EA
- for <dri-devel@lists.freedesktop.org>; Mon, 23 Mar 2026 20:13:08 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9516F10E3D2
+ for <dri-devel@lists.freedesktop.org>; Mon, 23 Mar 2026 20:13:14 +0000 (UTC)
 Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 62NHqXDv3634280
- for <dri-devel@lists.freedesktop.org>; Mon, 23 Mar 2026 20:13:08 GMT
+ 62NHqliG3634578
+ for <dri-devel@lists.freedesktop.org>; Mon, 23 Mar 2026 20:13:14 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- 9gnUn4vlm4hYrJYBjxx32v/u7fbwTJqrSqNxW05+/Zk=; b=Of4Rq/g0bVYsAXN4
- 7FyNacw+Ksh0aBGZFUtPhXJPVvFJa9IT7+MO0154eM+3SQxlZHO7TtpwUXAjEhZ1
- gC+7w9P1VGZTTMbnEHNagPc7rS4xSVSeVg7/MOorRE+17EM6BUnfUQhy7DIu8pir
- MCD3gB4HXOy49CvwSD4zugOLd8hPJVNlNdWHLj16qQdL5qfngvBAe9wNV1VLHQUO
- SegZETfwgnJVDg+98fb2/Lt+sxmZJZ+CxxJ2fEMoSzkPV3ME3q9LrQOxKfBUm1Fu
- 5/i9U0oUivGqUfDV4B2FzgtqQmKMpJrjYfEnTFZau3E/FZuGHtfhGgKD8qP1E9wH
- 1u1/mA==
-Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com
- [209.85.210.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d34k4hwhk-1
+ iFi8aoHCvHDcD5YBbZdBFmik9S7MrX8p/en9vgMxupI=; b=aOXMgnnaMW2rfqSm
+ wf62voJmAEkx/vKDnitU4Jh6I+Jx9zjys+3vRU5b6OOGPsOe+N7aF15Klx1HQe0j
+ VgFTzhqWfc1X3Cq/hARFhbp5MkrRthSJ1ksvZD6XHyJIqFXbFtRfXgpNIEny9zUy
+ C6ik7xWFs8OomYncVeiUK1WIyzYiIXaR6fdC0yE2VqAQyZBm4W1VGouUFsnBeuVH
+ wI+RAIicJKiwElL+y07nTDqRJMqgNruncASULMUkJyWmOLgw3zdGPG1RYC4Zp0yw
+ zK0Zqo2xSSoO2V6GDjufxkp7rfU6R6Ka0gAbnebsXOybe9KfLJIy5YwXdzWwTZMe
+ Fe9KIQ==
+Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com
+ [209.85.210.198])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d34k4hwht-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Mon, 23 Mar 2026 20:13:08 +0000 (GMT)
-Received: by mail-pf1-f197.google.com with SMTP id
- d2e1a72fcca58-82a1436347eso316134b3a.2
- for <dri-devel@lists.freedesktop.org>; Mon, 23 Mar 2026 13:13:08 -0700 (PDT)
+ for <dri-devel@lists.freedesktop.org>; Mon, 23 Mar 2026 20:13:13 +0000 (GMT)
+Received: by mail-pf1-f198.google.com with SMTP id
+ d2e1a72fcca58-829b7ed8964so3165634b3a.2
+ for <dri-devel@lists.freedesktop.org>; Mon, 23 Mar 2026 13:13:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1774296787; x=1774901587;
+ d=oss.qualcomm.com; s=google; t=1774296793; x=1774901593;
  darn=lists.freedesktop.org; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=9gnUn4vlm4hYrJYBjxx32v/u7fbwTJqrSqNxW05+/Zk=;
- b=gH+edQpdYx42e6pDR7TVqOQC0NgEllBDtCPJ6kzf3X/73zhpjmTGfv8zYRVh4r9mCH
- pX0lVGBhSxkkrWChSNA4ucPHuQ1SWLN3WOmEuskqnSir4h7RmK2IwNwGhmcfDnk06XLS
- FfyuhXMo/8bzjpjHBGT+mbXNhG8eC44WoXRJqDgTwM/eMhACmA8lODQCkD8lBrlTquxG
- mmk8ZSIGUGv5WHajvCml4hgkfFfxxNny/eZnVQaEv6yWavof1sOtG/1pyg+2mlrLJJnO
- GaMKsXiDFnrnFr2n28Yy2d7IfEBfSe3F2SitYJ82gMM2TOw/VdUGYsqeE6HWePiOk3+S
- OlBA==
+ :reply-to; bh=iFi8aoHCvHDcD5YBbZdBFmik9S7MrX8p/en9vgMxupI=;
+ b=i95QwYUmtrYILa4YkCV4HAV10DmG31n1h16Aa8x72b8TAXT62ufsSRmADUQpfo/iCR
+ 5WgMEbdnP5mr/h3iQhEQJcxm4qHxp/eBKAjYiQJ1Am0wrsdtUfBWijj0vME+5qgdzo0F
+ wVKgY7mla3QOq7Oq8+CswirbRy36BhW+yWveK0emSg6k9dyVs7iAWDp2/DFql0D9oqbL
+ xILXsQC+GzwICT2wuIQom3zbY//7oCD3V2GcDZvCDANpSFKUQUVYT+EEVZer6ZS7/PyQ
+ 5/22pNPwzoai52aV3rg8VTI6TWldzgCZyioa3FqwXFtL0GJLI6PXJL2rpUf/0AD2VJA3
+ T/nw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774296787; x=1774901587;
+ d=1e100.net; s=20251104; t=1774296793; x=1774901593;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
  :cc:subject:date:message-id:reply-to;
- bh=9gnUn4vlm4hYrJYBjxx32v/u7fbwTJqrSqNxW05+/Zk=;
- b=fHvtrL93D1ZSnz78zEr2yh++yA3AaUbcJrxtB9DeBypcLZ7GgX3wUsUKKoaXme6A4E
- 9awuFKyWFIyGvALGv4UY4Gbprnx7x3nGDkUR49v3Ox4SwxFFlZTAdZULW92HG5l2d90l
- Wz5YSsjWCYVu0SbLAZ1H/XJYUgJp4N8RCvc8cJWMztviyx1pKRW4613ROn4gd+5JCpmm
- qIuF6k1BgsHIEZ3N2bY+ZWm4u6jplp7TY2ek01XMt4jL4m88gw22w8m+N+ypM2G35Hy3
- SnifkswZIdm4Xd4u7rS+5ARJWAGFdbQpQEthzNDEtpZRgL/ewHTB5yB1aarRgNvzh6Ss
- DPLQ==
+ bh=iFi8aoHCvHDcD5YBbZdBFmik9S7MrX8p/en9vgMxupI=;
+ b=Vx1i2oZEdms3f8IgOmbIXzzV7V9SLycH+dbqtTvoe16IvER1Bf3Ax38b5A/QmVL+3O
+ qxJh2D2FyVPqXxPByzuL1VKjhRs1MDu2nwdLPGSiHGlXtVE0FfvgJjH5Y2ES+ds8Ks7l
+ d74ME2XC5im3heskFzDWHmrt5UjMBGAkSo+55+iHSydehvV2+qEB8wO58tl0sBwabxUI
+ kq2zAj4tI1OdVx9J/XRmbbfwsbxwdiJbEn2d2CQ062abljfiQuTa4uvGdCR6y64ARjpE
+ ozL2/QtPYSINNj/SyNR6CNeBhU9yy+r2kAGgTis3hixFScj61XBofn4ARxFMKAMAs+cm
+ ZZnA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXpBNmF/htf/946qGAdw/LfVB8aUEE6AQz8L3ouJgx247w4V7ajMzstZAkGNSQ8h0iAHbZOqbR71og=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yz+2hX7lzjhUnGk/y1FjlZqiGuuRkeBu6RYG70MHGVfW1YgpUHs
- zkbfppMZ8E7TEaeDBpMlnzNpixzgDdr2++eoyLzjgaukSzymTf9RjmgUqJQvohZfU9vcKgalBHM
- MbgYNSncFs1vMS8OCQsx9lh2iq+1cCYz+aEgjwgxoPtXrQvVjr6ysK0Zu3Y1mkzGPMD71pnqwrs
- 8WoIo=
-X-Gm-Gg: ATEYQzyGW8ebs81wnhHZSilQUCywwhQXTd7GxH/MTZRwm0uWixHIGhIsPovNFWGOjap
- aOB01BG6nXpbtRF7LNVo9ftAnepXvrAfVL4nIQ0S4z5AcbPdtPd+dXlA2ma9pvdNMTLeo9D7sbJ
- eztuGmwkPJbZPJKIzU+7mvMnFiNet/27jKsH913ZP8eNWWNONeYYBc7E/iEsSZM72QCWgJicqko
- qaLS7g56kktMcTy6JkF/OOSI9abNVI0T166CniQAZB5f+/0klc/bIvbGN7LZTaqgj3K2HGf5z0I
- iDwg4t15SQvhDAOidYNtrE9rmwVlRsjVe7fe6mRCWyITOUzXW4QlW1BKy9/xzgJQpIXHZh52+hV
- Fne5+NlMT+4sEZWuCEoehQGz6g0owVZMlcpsfRuQSXxNy2g==
-X-Received: by 2002:a05:6a00:13a6:b0:81e:4476:f67c with SMTP id
- d2e1a72fcca58-82a8c22de4dmr11789574b3a.3.1774296787424; 
- Mon, 23 Mar 2026 13:13:07 -0700 (PDT)
-X-Received: by 2002:a05:6a00:13a6:b0:81e:4476:f67c with SMTP id
- d2e1a72fcca58-82a8c22de4dmr11789558b3a.3.1774296786933; 
- Mon, 23 Mar 2026 13:13:06 -0700 (PDT)
+ AJvYcCUh8DHLkgVxxhgX8jR86L6mPrjHJxWT/1BRJooaAEsez2EtB7TszaFZxoYlWV7/B9U+1+fmZ55y81Y=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yz5OqzCY2O79AxNgZ+k4nMkHP7MmHkx87raXjuPAJOLaJ+mLQ/y
+ FKXIGbKTTJ1AlnAtLN73uWI8wo4XqiMp0D1A0vyQUz1UqEy69wb+6djk4ruKy9fw4AsOPpjeWAO
+ sWqtEeNxLs0GEbyHKFxD2PjMFIAmtinJ/nkchpEyiN+tZDPB86QMzxR/YX/UGw+wXOX0ddR8=
+X-Gm-Gg: ATEYQzxsCAOjjsa3UtQqg73/6eIHwgUj0shJcPmX2E2BRJadSNWQOA2itb4D9blsUQw
+ jOkFaJqxC+g8f0Lul9L8Mm68FwXHRfgLLaWEjYo81xCY46HDcuNtNS84stjXUkn8YYOZrK0vhte
+ PelkW9tJKAnSlt+Unpr+jtZVkuPNuJlJdQTfoXpfxecQY4MDo/GFWMw8/5+8DTHZF2yEkhVrRKZ
+ RB20vOStFd57Mn6WBtlMzeuEEgn4VL8eA+bSRegaGNYpijb0FqClr/3n8QyAweYdXqnLrj6d0TB
+ cCY8kXPIpGgj2Awkg6s6bHzVt1gmKp3YdPBPagdVJmuMAfSw98I2UXSAJgV6Ka7+5/98iwcHakH
+ b7FTarzhs4XdOvhI0j5REhNyuhY5PTXzscVgCeSYP7wqtdw==
+X-Received: by 2002:aa7:8ed2:0:b0:82a:1529:2b4f with SMTP id
+ d2e1a72fcca58-82a8c35758cmr8866492b3a.44.1774296793144; 
+ Mon, 23 Mar 2026 13:13:13 -0700 (PDT)
+X-Received: by 2002:aa7:8ed2:0:b0:82a:1529:2b4f with SMTP id
+ d2e1a72fcca58-82a8c35758cmr8866464b3a.44.1774296792639; 
+ Mon, 23 Mar 2026 13:13:12 -0700 (PDT)
 Received: from hu-akhilpo-hyd.qualcomm.com ([202.46.23.25])
  by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-82b0409d148sm9510738b3a.29.2026.03.23.13.13.01
+ d2e1a72fcca58-82b0409d148sm9510738b3a.29.2026.03.23.13.13.07
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 23 Mar 2026 13:13:06 -0700 (PDT)
+ Mon, 23 Mar 2026 13:13:12 -0700 (PDT)
 From: Akhil P Oommen <akhilpo@oss.qualcomm.com>
-Date: Tue, 24 Mar 2026 01:42:17 +0530
-Subject: [PATCH 05/16] drm/msm/adreno: Coredump on GPU/GMU init failures
+Date: Tue, 24 Mar 2026 01:42:18 +0530
+Subject: [PATCH 06/16] drm/msm/a6xx: Use barriers while updating HFI Q headers
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260324-a8xx-gpu-batch2-v1-5-fc95b8d9c017@oss.qualcomm.com>
+Message-Id: <20260324-a8xx-gpu-batch2-v1-6-fc95b8d9c017@oss.qualcomm.com>
 References: <20260324-a8xx-gpu-batch2-v1-0-fc95b8d9c017@oss.qualcomm.com>
 In-Reply-To: <20260324-a8xx-gpu-batch2-v1-0-fc95b8d9c017@oss.qualcomm.com>
 To: Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
@@ -110,29 +109,29 @@ Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  Akhil P Oommen <akhilpo@oss.qualcomm.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1774296753; l=4487;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1774296753; l=1974;
  i=akhilpo@oss.qualcomm.com; s=20240726; h=from:subject:message-id;
- bh=Y47hfhEP77VPPLQuO6M98YMW2oPSMLiiSh5WGqdD588=;
- b=uNx5nipFybpSsxCpeoPj8dQ+2Szp58MCMSQh230ApmII8VwqLiThw0TG2UiEPDhMGLF4u6Hsv
- Cnqrk16U9iaCYLw/aJmPZTNSksnZB5JVRYhyIW0xPFVKxUOlY62uvYC
+ bh=1ajLVoslkBTv41Sp8G4luxsz7Te6eYrrZtKsz0zxR/0=;
+ b=fMD8o5dT8SsxOVs4k4rWFPgLkKIR8YU77uqDQ0DMUTmim9gm/FgM8cMODWImekNXWofrA88+w
+ e0f5Cwsu1g7BsVGQC1TXcmqh/guEntf0zGyTwt2ln78P0OQd5K3Jkww
 X-Developer-Key: i=akhilpo@oss.qualcomm.com; a=ed25519;
  pk=lmVtttSHmAUYFnJsQHX80IIRmYmXA4+CzpGcWOOsfKA=
-X-Proofpoint-GUID: UhxHaborlKYWFKuQKy-Dek7ptWQV_Oyu
-X-Proofpoint-ORIG-GUID: UhxHaborlKYWFKuQKy-Dek7ptWQV_Oyu
-X-Authority-Analysis: v=2.4 cv=c+imgB9l c=1 sm=1 tr=0 ts=69c19ed4 cx=c_pps
- a=rEQLjTOiSrHUhVqRoksmgQ==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+X-Proofpoint-GUID: vd33i6AfdxUk4znaCfbpIh-GvH7k5Q2V
+X-Proofpoint-ORIG-GUID: vd33i6AfdxUk4znaCfbpIh-GvH7k5Q2V
+X-Authority-Analysis: v=2.4 cv=c+imgB9l c=1 sm=1 tr=0 ts=69c19ed9 cx=c_pps
+ a=m5Vt/hrsBiPMCU0y4gIsQw==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
  a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10
  a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=EUspDBNiAAAA:8 a=Uv9L2OBOgJoomgqfufwA:9 a=QEXdDO2ut3YA:10
- a=2VI0MkxyNR6bbpdq8BZq:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzIzMDE0OSBTYWx0ZWRfX4gSS+phL5z0i
- edj5ZBZm2dVVFqC9l4qyzFv+sv9W18FOk6ZMaMXYgLULW/Te76Lws3U9VkXqa7aFkaZnoHvo2vx
- /GsQ/vztbj40gEmGH80RSFlP8rSiZRxVXT6TXR4r/sCrz7LRxzycASVr9i/6WCJrfjsk+zugK+L
- aZsA+qfqC3x3WqlAhjW8nOH+ehNaEJiySHkyrPKksD69NwKjmceeTJQxacwKvkVXN60vSdZ5QRq
- OaBjyvH6bJfEzyS3H/kGXAR2TYKQm6AhpWqMeRt0nvSoC/g3+FSvUdPX15X/GJ3QZOkUQn6Nlr/
- O7qqTPsXSXFJgph5/lry63opLnMPclTtNDvE3RNQPuhQ5KvijH2DgInXKRDVvMjIi6X930dXI2I
- OQi1KLP6BV4WAWRw/UJe6iV2eyEFzN0sh6msbwCIUeCsBfQzUtiNZF8XjCdqDEahNPiU63TKffW
- +qd/ugzlkUHbGyUQPyA==
+ a=EUspDBNiAAAA:8 a=h6CQE6Wve-Y6OpkwRbYA:9 a=QEXdDO2ut3YA:10
+ a=IoOABgeZipijB_acs4fv:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzIzMDE0OSBTYWx0ZWRfX21VF6+MyqfPe
+ 3zWaYokHSOyu2DtIo+rzBxFl5IAZj94/2tbS4TdHZwHwf4bCt+VBVd338NEJeeBS1tUPZ1TIG0y
+ Kf4120dITmsYvoXupz/Wg/sxvLqZc0GLAM/6qLhpa+MkOlRZ8BTK0wAmKP7u9ZDheD2E2uYtahQ
+ OH8umY+PRm/EhXZNjusheQgcYfHK5cnxdMAE1YOYKwCmkfbbJ1IR54SkxebnBxhfyWiBowJ+DW3
+ oKFXaSk4wMCfPlZ0zFE8RfYU2c+p7hjm+Vz+fFVKkoJ4DC+N/hanQwTI+NSqVFmrfPDv5G33mSR
+ Y+WrTV6EDGBJiuW7ab+vzRlxTbRRl3s6OuPih3fzuXXCeb7v0uim8eNlZGIbhpqYdFoal2t76M4
+ 0AB5ce5m1FR4oWagRNcyRCpf8ucjLP9x3s3WfX67h1FeJW5QfPp+eAHsehsNbtyH6CGzFFgndTk
+ T8cRNUvI4FJQ9x8sKdw==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
  definitions=2026-03-23_05,2026-03-23_02,2025-10-01_01
@@ -156,123 +155,61 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Capture coredump on GPU or GMU errors during initialization to help in
-debugging the issues. To be consistent with the locks while calling
-msm_gpu_crashstate_capture(), call pm_runtime_get(gpu) always with
-msm_gpu->lock.
+To avoid harmful compiler optimizations and IO reordering in the HW, use
+barriers and READ/WRITE_ONCE helpers as necessary while accessing the HFI
+queue index variables.
 
 Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
 ---
- drivers/gpu/drm/msm/adreno/a6xx_gmu.c      | 1 +
- drivers/gpu/drm/msm/adreno/adreno_device.c | 7 +++++--
- drivers/gpu/drm/msm/adreno/adreno_gpu.c    | 2 ++
- drivers/gpu/drm/msm/msm_gpu.c              | 5 +++--
- drivers/gpu/drm/msm/msm_gpu.h              | 2 ++
- 5 files changed, 13 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/msm/adreno/a6xx_hfi.c | 14 ++++++++++----
+ 1 file changed, 10 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-index 690d3e53e273..6d511dc54e43 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-@@ -1240,6 +1240,7 @@ int a6xx_gmu_resume(struct a6xx_gpu *a6xx_gpu)
- 	/* On failure, shut down the GMU to leave it in a good state */
- 	if (ret) {
- 		disable_irq(gmu->gmu_irq);
-+		msm_gpu_crashstate_capture(gpu, NULL, NULL, NULL, NULL);
- 		a6xx_rpmh_stop(gmu);
- 		pm_runtime_put(gmu->gxpd);
- 		pm_runtime_put(gmu->dev);
-diff --git a/drivers/gpu/drm/msm/adreno/adreno_device.c b/drivers/gpu/drm/msm/adreno/adreno_device.c
-index 4edfe80c5be7..85b3e1f0e4fa 100644
---- a/drivers/gpu/drm/msm/adreno/adreno_device.c
-+++ b/drivers/gpu/drm/msm/adreno/adreno_device.c
-@@ -105,6 +105,7 @@ struct msm_gpu *adreno_load_gpu(struct drm_device *dev)
- 	 */
- 	pm_runtime_enable(&pdev->dev);
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_hfi.c b/drivers/gpu/drm/msm/adreno/a6xx_hfi.c
+index 2daaa340366d..aef00c2dd137 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_hfi.c
++++ b/drivers/gpu/drm/msm/adreno/a6xx_hfi.c
+@@ -34,7 +34,7 @@ static int a6xx_hfi_queue_read(struct a6xx_gmu *gmu,
+ 	struct a6xx_hfi_queue_header *header = queue->header;
+ 	u32 i, hdr, index = header->read_index;
  
-+	mutex_lock(&gpu->lock);
- 	ret = pm_runtime_get_sync(&pdev->dev);
- 	if (ret < 0) {
- 		pm_runtime_put_noidle(&pdev->dev);
-@@ -112,15 +113,15 @@ struct msm_gpu *adreno_load_gpu(struct drm_device *dev)
- 		goto err_disable_rpm;
- 	}
- 
--	mutex_lock(&gpu->lock);
- 	ret = msm_gpu_hw_init(gpu);
--	mutex_unlock(&gpu->lock);
- 	if (ret) {
-+		msm_gpu_crashstate_capture(gpu, NULL, NULL, NULL, NULL);
- 		DRM_DEV_ERROR(dev->dev, "gpu hw init failed: %d\n", ret);
- 		goto err_put_rpm;
- 	}
- 
- 	pm_runtime_put_autosuspend(&pdev->dev);
-+	mutex_unlock(&gpu->lock);
- 
- #ifdef CONFIG_DEBUG_FS
- 	if (gpu->funcs->debugfs_init) {
-@@ -136,6 +137,8 @@ struct msm_gpu *adreno_load_gpu(struct drm_device *dev)
- err_disable_rpm:
- 	pm_runtime_disable(&pdev->dev);
- 
-+	mutex_unlock(&gpu->lock);
-+
- 	return NULL;
- }
- 
-diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-index 1bc0e570bd12..10d9e5f40640 100644
---- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-@@ -391,9 +391,11 @@ int adreno_get_param(struct msm_gpu *gpu, struct msm_context *ctx,
+-	if (header->read_index == header->write_index) {
++	if (header->read_index == READ_ONCE(header->write_index)) {
+ 		header->rx_request = 1;
  		return 0;
- 	case MSM_PARAM_TIMESTAMP:
- 		if (adreno_gpu->funcs->get_timestamp) {
-+			mutex_lock(&gpu->lock);
- 			pm_runtime_get_sync(&gpu->pdev->dev);
- 			*value = (uint64_t) adreno_gpu->funcs->get_timestamp(gpu);
- 			pm_runtime_put_autosuspend(&gpu->pdev->dev);
-+			mutex_unlock(&gpu->lock);
+ 	}
+@@ -62,7 +62,10 @@ static int a6xx_hfi_queue_read(struct a6xx_gmu *gmu,
+ 	if (!gmu->legacy)
+ 		index = ALIGN(index, 4) % header->size;
  
- 			return 0;
- 		}
-diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_gpu.c
-index 995549d0bbbc..472db2c916f9 100644
---- a/drivers/gpu/drm/msm/msm_gpu.c
-+++ b/drivers/gpu/drm/msm/msm_gpu.c
-@@ -361,7 +361,7 @@ static void crashstate_get_vm_logs(struct msm_gpu_state *state, struct msm_gem_v
- 	mutex_unlock(&vm->mmu_lock);
+-	header->read_index = index;
++	/*  Ensure all memory operations are complete before updating the read index */
++	dma_mb();
++
++	WRITE_ONCE(header->read_index, index);
+ 	return HFI_HEADER_SIZE(hdr);
  }
  
--static void msm_gpu_crashstate_capture(struct msm_gpu *gpu,
-+void msm_gpu_crashstate_capture(struct msm_gpu *gpu,
- 		struct msm_gem_submit *submit, struct msm_gpu_fault_info *fault_info,
- 		char *comm, char *cmd)
- {
-@@ -886,7 +886,8 @@ void msm_gpu_submit(struct msm_gpu *gpu, struct msm_gem_submit *submit)
+@@ -74,7 +77,7 @@ static int a6xx_hfi_queue_write(struct a6xx_gmu *gmu,
  
- 	pm_runtime_get_sync(&gpu->pdev->dev);
+ 	spin_lock(&queue->lock);
  
--	msm_gpu_hw_init(gpu);
-+	if (msm_gpu_hw_init(gpu))
-+		msm_gpu_crashstate_capture(gpu, NULL, NULL, NULL, NULL);
+-	space = CIRC_SPACE(header->write_index, header->read_index,
++	space = CIRC_SPACE(header->write_index, READ_ONCE(header->read_index),
+ 		header->size);
+ 	if (space < dwords) {
+ 		header->dropped++;
+@@ -95,7 +98,10 @@ static int a6xx_hfi_queue_write(struct a6xx_gmu *gmu,
+ 			queue->data[index] = 0xfafafafa;
+ 	}
  
- 	submit->seqno = submit->hw_fence->seqno;
+-	header->write_index = index;
++	/*  Ensure all memory operations are complete before updating the write index */
++	dma_mb();
++
++	WRITE_ONCE(header->write_index, index);
+ 	spin_unlock(&queue->lock);
  
-diff --git a/drivers/gpu/drm/msm/msm_gpu.h b/drivers/gpu/drm/msm/msm_gpu.h
-index 666cf499b7ec..eb5b3a7b81f9 100644
---- a/drivers/gpu/drm/msm/msm_gpu.h
-+++ b/drivers/gpu/drm/msm/msm_gpu.h
-@@ -747,6 +747,8 @@ static inline void msm_gpu_crashstate_put(struct msm_gpu *gpu)
- }
- 
- void msm_gpu_fault_crashstate_capture(struct msm_gpu *gpu, struct msm_gpu_fault_info *fault_info);
-+void msm_gpu_crashstate_capture(struct msm_gpu *gpu, struct msm_gem_submit *submit,
-+		struct msm_gpu_fault_info *fault_info, char *comm, char *cmd);
- 
- /*
-  * Simple macro to semi-cleanly add the MAP_PRIV flag for targets that can
+ 	gmu_write(gmu, REG_A6XX_GMU_HOST2GMU_INTR_SET, 0x01);
 
 -- 
 2.51.0
