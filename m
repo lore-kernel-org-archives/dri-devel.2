@@ -4,88 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 39492F4613C
-	for <dri-devel@archiver.kernel.org>; Mon, 23 Mar 2026 15:48:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EDB33F4613C
+	for <dri-devel@archiver.kernel.org>; Mon, 23 Mar 2026 15:49:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8DE0310E3CF;
-	Mon, 23 Mar 2026 15:48:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 543C210E135;
+	Mon, 23 Mar 2026 15:49:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=samsung.com header.i=@samsung.com header.b="mgU9aFrC";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="IlaICk+L";
 	dkim-atps=neutral
-X-Greylist: delayed 597 seconds by postgrey-1.36 at gabe;
- Mon, 23 Mar 2026 15:48:04 UTC
-Received: from mailout1.samsung.com (mailout1.samsung.com [203.254.224.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 05B0810E3CF
- for <dri-devel@lists.freedesktop.org>; Mon, 23 Mar 2026 15:48:04 +0000 (UTC)
-Received: from epcas5p1.samsung.com (unknown [182.195.41.39])
- by mailout1.samsung.com (KnoxPortal) with ESMTP id
- 20260323153802epoutp01e5a07acb06373d75865a02c7d1d3b88d~fgoQ2dhkn0275802758epoutp011
- for <dri-devel@lists.freedesktop.org>; Mon, 23 Mar 2026 15:38:02 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.samsung.com
- 20260323153802epoutp01e5a07acb06373d75865a02c7d1d3b88d~fgoQ2dhkn0275802758epoutp011
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
- s=mail20170921; t=1774280282;
- bh=MYU9K1BczlLtBMfJPDu28QIk9pzoA+hXl3yf17nC2HI=;
- h=From:To:Cc:In-Reply-To:Subject:Date:References:From;
- b=mgU9aFrC+5Kx+21CCBQ48vtUtevP0XGV5aHjupTGFTw7s0wbx2FYZ7piHu2gEGNx9
- 7FiJ9iRzTsn7N6OtZVcQFwqx9+/yRy1FbPgDJReQh76dJWCUi3xQdbS9llr9OgF8ia
- 3KFTDuksHm5/ZDwJUU6SICm8wW+RY1yai4quNiMM=
-Received: from epsnrtp03.localdomain (unknown [182.195.42.155]) by
- epcas5p1.samsung.com (KnoxPortal) with ESMTPS id
- 20260323153802epcas5p1bb1e979594c5257c037cdf6411e7a177~fgoQZrLX82373723737epcas5p1t;
- Mon, 23 Mar 2026 15:38:02 +0000 (GMT)
-Received: from epcpadp2new (unknown [182.195.40.142]) by
- epsnrtp03.localdomain (Postfix) with ESMTP id 4ffckf0KMvz3hhT4; Mon, 23 Mar
- 2026 15:38:02 +0000 (GMT)
-Received: from epsmtip2.samsung.com (unknown [182.195.34.31]) by
- epcas5p3.samsung.com (KnoxPortal) with ESMTPA id
- 20260323123542epcas5p349d0e7c45d02ccaa06c84dbdf1777126~feJElRtj12139221392epcas5p34;
- Mon, 23 Mar 2026 12:35:42 +0000 (GMT)
-Received: from INBRO002756 (unknown [107.122.3.168]) by epsmtip2.samsung.com
- (KnoxPortal) with ESMTPA id
- 20260323123538epsmtip2099c850de3b514ee4ac3f5a0092dd02a~feJAkDKG92361023610epsmtip2P;
- Mon, 23 Mar 2026 12:35:38 +0000 (GMT)
-From: "Alim Akhtar" <alim.akhtar@samsung.com>
-To: "'Vladimir Oltean'" <vladimir.oltean@nxp.com>, "'Martin K. Petersen'"
- <martin.petersen@oracle.com>
-Cc: <linux-phy@lists.infradead.org>, "'Vinod Koul'" <vkoul@kernel.org>,
- "'Neil	Armstrong'" <neil.armstrong@linaro.org>,
- <dri-devel@lists.freedesktop.org>, <freedreno@lists.freedesktop.org>,
- <linux-arm-kernel@lists.infradead.org>, <linux-arm-msm@vger.kernel.org>,
- <linux-can@vger.kernel.org>, <linux-gpio@vger.kernel.org>,
- <linux-ide@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <linux-media@vger.kernel.org>, <linux-pci@vger.kernel.org>,
- <linux-renesas-soc@vger.kernel.org>, <linux-riscv@lists.infradead.org>,
- <linux-rockchip@lists.infradead.org>, <linux-samsung-soc@vger.kernel.org>,
- <linux-scsi@vger.kernel.org>, <linux-sunxi@lists.linux.dev>,
- <linux-tegra@vger.kernel.org>, <linux-usb@vger.kernel.org>,
- <netdev@vger.kernel.org>, <spacemit@lists.linux.dev>,
- <UNGLinuxDriver@microchip.com>, "'Bart Van Assche'" <bvanassche@acm.org>,
- "'Peter Griffin'" <peter.griffin@linaro.org>, "'James E.J. Bottomley'"
- <James.Bottomley@HansenPartnership.com>, "'Krzysztof	Kozlowski'"
- <krzk@kernel.org>, "'Chanho Park'" <chanho61.park@samsung.com>
-In-Reply-To: <20260323115848.ghdu4sbk75tvggfb@skbuf>
-Subject: RE: [PATCH v5 phy-next 09/27] scsi: ufs: exynos: stop poking into
- struct phy guts
-Date: Mon, 23 Mar 2026 18:05:36 +0530
-Message-ID: <1891546521.01774280282025.JavaMail.epsvc@epcpadp2new>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 916C810E423
+ for <dri-devel@lists.freedesktop.org>; Mon, 23 Mar 2026 15:49:21 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 2C26643813;
+ Mon, 23 Mar 2026 15:49:21 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 85F54C4CEF7;
+ Mon, 23 Mar 2026 15:49:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1774280961;
+ bh=lxS4nBMo8We4F74POduxni4DB+9Z0VFoL+7C3D1E5sw=;
+ h=Date:From:To:Cc:Subject:From;
+ b=IlaICk+LhcgnkeK5vgnpeRFNmg8YAuxO2THBEO4qtShe+qoR7c0TLOKibTgwHe5OH
+ DyWo9C4bKLn2MSP43lku9Cq+NpGEjpOnwTN5zI1Dey+UwWrgZJVqDSUzIytvNTQXZj
+ /pXkk66G8ED0gNJdJI7oNI7GLaJ9nI9+GHsHJlNhsmMmkufEvWS00XXCxMIcygiLN4
+ sgAIh2X2KJnEdJgUWBvagyUyf0NLlIoOX0Kurw9uYRdYbotraorqwSDsG7U2DI/Wtn
+ DXgTWJthPD60DCcwvWs4XzQRJ3pPfmshBu5APO7OAJsL4abuFPPCR0tabXSSx4Qxaq
+ Gl3VnElSIzX3g==
+Date: Mon, 23 Mar 2026 15:49:16 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Dave Airlie <airlied@redhat.com>, DRI <dri-devel@lists.freedesktop.org>
+Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Linux Next Mailing List <linux-next@vger.kernel.org>,
+ Maarten Lankhorst <dev@lankhorst.se>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
+Subject: linux-next: manual merge of the drm tree with the origin tree
+Message-ID: <acFg_IktBmoIf1CV@sirena.org.uk>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-X-Mailer: Microsoft Outlook 16.0
-Thread-Index: AQJoz1sM+EbPjkyDopxrfJVWkMJWdwI9AyWpAaSC6pgB9ZOp/gJXIgBltGJxFXA=
-Content-Language: en-us
-X-CMS-MailID: 20260323123542epcas5p349d0e7c45d02ccaa06c84dbdf1777126
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-CMS-TYPE: 105P
-X-CPGSPASS: Y
-X-Hop-Count: 3
-X-CMS-RootMailID: 20260323115859epcas5p10177db12a2e8aee9578271ff1411137b
-References: <20260319223241.1351137-1-vladimir.oltean@nxp.com>
- <20260319223241.1351137-10-vladimir.oltean@nxp.com>
- <yq1a4w3l04g.fsf@ca-mkp.ca.oracle.com>
- <CGME20260323115859epcas5p10177db12a2e8aee9578271ff1411137b@epcas5p1.samsung.com>
- <20260323115848.ghdu4sbk75tvggfb@skbuf>
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="IAfpwK6E9G4qaQbC"
+Content-Disposition: inline
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,53 +59,115 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Vladimir
 
-> -----Original Message-----
-> From: Vladimir Oltean <vladimir.oltean@nxp.com>
-> Sent: Monday, March 23, 2026 5:29 PM
-> To: Martin K. Petersen <martin.petersen@oracle.com>
-> Cc: linux-phy@lists.infradead.org; Vinod Koul <vkoul@kernel.org>; Neil
-> Armstrong <neil.armstrong@linaro.org>; dri-devel@lists.freedesktop.org;
-> freedreno@lists.freedesktop.org; linux-arm-kernel@lists.infradead.org;
-> linux-arm-msm@vger.kernel.org; linux-can@vger.kernel.org; linux-
-> gpio@vger.kernel.org; linux-ide@vger.kernel.org; linux-
-> kernel@vger.kernel.org; linux-media@vger.kernel.org; linux-
-> pci@vger.kernel.org; linux-renesas-soc@vger.kernel.org; linux-
-> riscv@lists.infradead.org; linux-rockchip@lists.infradead.org;
-linux-samsung-
-> soc@vger.kernel.org; linux-scsi@vger.kernel.org;
-linux-sunxi@lists.linux.dev;
-> linux-tegra@vger.kernel.org; linux-usb@vger.kernel.org;
-> netdev@vger.kernel.org; spacemit@lists.linux.dev;
-> UNGLinuxDriver@microchip.com; Bart Van Assche <bvanassche@acm.org>;
-> Alim Akhtar <alim.akhtar@samsung.com>; Peter Griffin
-> <peter.griffin@linaro.org>; James E.J. Bottomley
-> <James.Bottomley@HansenPartnership.com>; Krzysztof Kozlowski
-> <krzk@kernel.org>; Chanho Park <chanho61.park@samsung.com>
-> Subject: Re: [PATCH v5 phy-next 09/27] scsi: ufs: exynos: stop poking into
-> struct phy guts
-> 
-> On Thu, Mar 19, 2026 at 10:15:17PM -0400, Martin K. Petersen wrote:
-> > Vladimir,
-> >
-> > > The Exynos host controller driver is clearly a PHY consumer (gets
-> > > the
-> > > ufs->phy using devm_phy_get()), but pokes into the guts of struct
-> > > ufs->phy
-> > > to get the generic_phy->power_count.
-> >
-> > Ah, newer version. Would still like an ack from Samsung.
-> >
-> > And I hit the wrong key, I did not actually apply this...
-> 
-> I will have to resend v6 because of an armv7 build error I've caused for
-ufs-
-> qcom.c (which doesn't #include <linux/interrupt.h>, and relies on a
-transitive
-> inclusion from <linux/phy/phy.h>). It would be nice to get the ack from
-> Samsung, but I'll send the next version in the upcoming hours regardless.
-Will review and possibly test on one of the board later tonight
+--IAfpwK6E9G4qaQbC
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
+Hi all,
 
+Today's linux-next merge of the drm tree got a conflict in:
 
+  drivers/gpu/drm/xe/xe_ggtt_types.h
+
+between commit:
+
+  01f2557aa684e ("drm/xe: Open-code GGTT MMIO access protection")
+
+=66rom the origin tree and commit:
+
+  95f5f9a96dcfb ("drm/xe: Move struct xe_ggtt to xe_ggtt.c")
+
+=66rom the drm tree.
+
+I fixed it up (see below) and can carry the fix as necessary. This
+is now fixed as far as linux-next is concerned, but any non trivial
+conflicts should be mentioned to your upstream maintainer when your tree
+is submitted for merging.  You may also want to consider cooperating
+with the maintainer of the conflicting tree to minimise any particularly
+complex conflicts.
+
+diff --cc drivers/gpu/drm/xe/xe_ggtt_types.h
+index c002857bb7611,cf754e4d502ad..0000000000000
+--- a/drivers/gpu/drm/xe/xe_ggtt_types.h
++++ b/drivers/gpu/drm/xe/xe_ggtt_types.h
+@@@ -6,57 -6,12 +6,13 @@@
+  #ifndef _XE_GGTT_TYPES_H_
+  #define _XE_GGTT_TYPES_H_
+ =20
++ #include <linux/types.h>
+  #include <drm/drm_mm.h>
+ =20
+- #include "xe_pt_types.h"
+-=20
+- struct xe_bo;
++ struct xe_ggtt;
+  struct xe_ggtt_node;
+ +struct xe_gt;
+ =20
+- /**
+-  * struct xe_ggtt - Main GGTT struct
+-  *
+-  * In general, each tile can contains its own Global Graphics Translation=
+ Table
+-  * (GGTT) instance.
+-  */
+- struct xe_ggtt {
+- 	/** @tile: Back pointer to tile where this GGTT belongs */
+- 	struct xe_tile *tile;
+- 	/** @start: Start offset of GGTT */
+- 	u64 start;
+- 	/** @size: Total usable size of this GGTT */
+- 	u64 size;
+-=20
+- #define XE_GGTT_FLAGS_64K       BIT(0)
+- #define XE_GGTT_FLAGS_ONLINE	BIT(1)
+- 	/**
+- 	 * @flags: Flags for this GGTT
+- 	 * Acceptable flags:
+- 	 * - %XE_GGTT_FLAGS_64K - if PTE size is 64K. Otherwise, regular is 4K.
+- 	 * - %XE_GGTT_FLAGS_ONLINE - is GGTT online, protected by ggtt->lock
+- 	 *   after init
+- 	 */
+- 	unsigned int flags;
+- 	/** @scratch: Internal object allocation used as a scratch page */
+- 	struct xe_bo *scratch;
+- 	/** @lock: Mutex lock to protect GGTT data */
+- 	struct mutex lock;
+- 	/**
+- 	 *  @gsm: The iomem pointer to the actual location of the translation
+- 	 * table located in the GSM for easy PTE manipulation
+- 	 */
+- 	u64 __iomem *gsm;
+- 	/** @pt_ops: Page Table operations per platform */
+- 	const struct xe_ggtt_pt_ops *pt_ops;
+- 	/** @mm: The memory manager used to manage individual GGTT allocations */
+- 	struct drm_mm mm;
+- 	/** @access_count: counts GGTT writes */
+- 	unsigned int access_count;
+- 	/** @wq: Dedicated unordered work queue to process node removals */
+- 	struct workqueue_struct *wq;
+- };
+-=20
+  typedef void (*xe_ggtt_set_pte_fn)(struct xe_ggtt *ggtt, u64 addr, u64 pt=
+e);
+  typedef void (*xe_ggtt_transform_cb)(struct xe_ggtt *ggtt,
+  				     struct xe_ggtt_node *node,
+
+--IAfpwK6E9G4qaQbC
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmnBYPsACgkQJNaLcl1U
+h9BKDQf/QvCH+61bMR3hDTTDmSSXw8t2IJRlctlClnpZedMGPcP9Vt7jTPKMUDFI
+QgM8vdxvcJIpZ4E77Ab7V3ZxozG9AbwDz+LXKWgTEAVqw67zb9dY89LbRsNt27hk
+bHK3ADb04MMIRGh3VgYkFoM0ZanGGzDUTwTsDlcnB8jD4nWUmKRqLVx9AlxYrnzl
+4GIefe45y3CPAfpiWm3hrfihKT54d7gDJSpHJNRNVsFBDhM+2Ep0K0Q4sGrmRLSd
+xJ5sVGW2yoEAtLbARB/m8ndnu1xdWMaYgBvG2SOjM27VfTC7UXPNKNprilTj8QTA
+2Uvzxm/QCQxEuaWwnfdfKcSFncdiEA==
+=L4Jp
+-----END PGP SIGNATURE-----
+
+--IAfpwK6E9G4qaQbC--
