@@ -4,45 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B86E3F4613D
-	for <dri-devel@archiver.kernel.org>; Mon, 23 Mar 2026 15:55:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B9349F4613C
+	for <dri-devel@archiver.kernel.org>; Mon, 23 Mar 2026 15:55:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 13EB610E429;
-	Mon, 23 Mar 2026 15:55:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2708310E4A6;
+	Mon, 23 Mar 2026 15:55:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="MJE1IymS";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="klu2AOTl";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4478B10E467
- for <dri-devel@lists.freedesktop.org>; Mon, 23 Mar 2026 15:55:30 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5BD5C10E4DD
+ for <dri-devel@lists.freedesktop.org>; Mon, 23 Mar 2026 15:55:40 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 4E33360103;
- Mon, 23 Mar 2026 15:55:29 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 768FFC4CEF7;
- Mon, 23 Mar 2026 15:55:27 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id CF4B0600CB;
+ Mon, 23 Mar 2026 15:55:39 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B1197C4CEF7;
+ Mon, 23 Mar 2026 15:55:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1774281329;
- bh=ULBWExFXSPRBaksWSelAuKTDofOa5iKEHT/IaLGaDvQ=;
+ s=k20201202; t=1774281339;
+ bh=wHzaRl+PH4iWK+jpXaqEHqAp1wRSlwfsE0mEj9+UiRs=;
  h=Date:From:To:Cc:Subject:From;
- b=MJE1IymSa2VxP4J/dHB5JHdpxH/nXehKd5yLcK+ChKJFIBnin1t1luGdifPcRuRCn
- x/ACadwOkINaNpU1u7rLXos8po2PjjacOtntwHi1r4UuDJi1tOGalFiWZJ+Y+52A+Q
- FwlGZj4fhbPtRkn5L76T88GVk3V4e6ViWQjldIj64pJZjIySWdBTYJrFksl80UIhYt
- 90J3Ew40spfXyVxV1s0csl/3MqtHtideiev+uwnLVhA/npvmqNHgBj34ZMKRf/XATk
- Sy89kihZEnam28MrEERd7ApGO5NUAtS305Ed+MoOicQIPq5yiDir339k7ede1jxSvu
- 5sDcIrB4mjf2Q==
-Date: Mon, 23 Mar 2026 15:55:24 +0000
+ b=klu2AOTl43S6BkI2DPD7hK74g/CgvZrMBISIIvo/HV4VoUMrT12KexibKJzK2vNW6
+ 3NnKfS1MTT0Z4iLlE256HYhSc8OGxzu+fn/AG0RShZ5jzD9ns/RtKCv9W4mzx8CDRz
+ 93NpiThgZBeC22IaEofdspQaYfHGp3Ne3oNaUL5ssP2AgaQjzNvJNOQMUeuY6C9Ifh
+ 81bnHATnJKCCdNnxeZC846z38rcDB6OQJsiiypAbDFsauhzs3vRGNEb6Mc5jD50E+u
+ B8sjUajDrbI9TwdqybiJr/LhyFzsczGSk333QW2sZo+tbRdFEwumDzBkchp3BpR9jC
+ spVtuHUPgJJzw==
+Date: Mon, 23 Mar 2026 15:55:35 +0000
 From: Mark Brown <broonie@kernel.org>
 To: Dave Airlie <airlied@redhat.com>, DRI <dri-devel@lists.freedesktop.org>
 Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
  Linux Next Mailing List <linux-next@vger.kernel.org>,
- Maarten Lankhorst <dev@lankhorst.se>,
- Matthew Brost <matthew.brost@intel.com>,
+ Matthew Auld <matthew.auld@intel.com>,
+ Michal Wajdeczko <michal.wajdeczko@intel.com>,
+ Nareshkumar Gollakoti <naresh.kumar.g@intel.com>,
+ Sanjay Yadav <sanjay.kumar.yadav@intel.com>,
  Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
 Subject: linux-next: manual merge of the drm tree with the origin tree
-Message-ID: <acFibFyDdy_qrRys@sirena.org.uk>
+Message-ID: <acFid74H4aSWfrBg@sirena.org.uk>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="eEiGK7RTlGjP2+tG"
+ protocol="application/pgp-signature"; boundary="WhwODcKUFgG2HqjC"
 Content-Disposition: inline
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -60,7 +62,7 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
---eEiGK7RTlGjP2+tG
+--WhwODcKUFgG2HqjC
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
@@ -69,15 +71,16 @@ Hi all,
 
 Today's linux-next merge of the drm tree got a conflict in:
 
-  drivers/gpu/drm/xe/xe_ggtt.c
+  drivers/gpu/drm/xe/xe_gt_ccs_mode.c
 
 between commit:
 
-  01f2557aa684e ("drm/xe: Open-code GGTT MMIO access protection")
+  65d046b2d8e0d ("drm/xe: Fix missing runtime PM reference in ccs_mode_stor=
+e")
 
 =66rom the origin tree and commit:
 
-  e904c56ba6e0d ("drm/xe: Rewrite GGTT VF initialization")
+  9b5e995e61290 ("drm/xe: Mutual exclusivity between CCS-mode and PF")
 
 =66rom the drm tree.
 
@@ -88,74 +91,72 @@ is submitted for merging.  You may also want to consider cooperating
 with the maintainer of the conflicting tree to minimise any particularly
 complex conflicts.
 
-diff --cc drivers/gpu/drm/xe/xe_ggtt.c
-index d1561ebe4e56c,0f2e3af499120..0000000000000
---- a/drivers/gpu/drm/xe/xe_ggtt.c
-+++ b/drivers/gpu/drm/xe/xe_ggtt.c
-@@@ -379,18 -437,7 +439,8 @@@ int xe_ggtt_init_early(struct xe_ggtt *
-  	if (err)
-  		return err;
+diff --cc drivers/gpu/drm/xe/xe_gt_ccs_mode.c
+index 03c1862ba497a,b35be36b0eaa2..0000000000000
+--- a/drivers/gpu/drm/xe/xe_gt_ccs_mode.c
++++ b/drivers/gpu/drm/xe/xe_gt_ccs_mode.c
+@@@ -12,8 -12,8 +12,9 @@@
+  #include "xe_gt_printk.h"
+  #include "xe_gt_sysfs.h"
+  #include "xe_mmio.h"
+ +#include "xe_pm.h"
+  #include "xe_sriov.h"
++ #include "xe_sriov_pf.h"
  =20
- +	ggtt->flags |=3D XE_GGTT_FLAGS_ONLINE;
-- 	err =3D devm_add_action_or_reset(xe->drm.dev, dev_fini_ggtt, ggtt);
-- 	if (err)
-- 		return err;
--=20
-- 	if (IS_SRIOV_VF(xe)) {
-- 		err =3D xe_tile_sriov_vf_prepare_ggtt(ggtt->tile);
-- 		if (err)
-- 			return err;
-- 	}
--=20
-- 	return 0;
-+ 	return devm_add_action_or_reset(xe->drm.dev, dev_fini_ggtt, ggtt);
-  }
-  ALLOW_ERROR_INJECTION(xe_ggtt_init_early, ERRNO); /* See xe_pci_probe() */
- =20
-@@@ -413,12 -465,15 +468,12 @@@ static void ggtt_node_fini(struct xe_gg
-  static void ggtt_node_remove(struct xe_ggtt_node *node)
+  static void __xe_gt_apply_ccs_mode(struct xe_gt *gt, u32 num_engines)
   {
-  	struct xe_ggtt *ggtt =3D node->ggtt;
- -	struct xe_device *xe =3D tile_to_xe(ggtt->tile);
-  	bool bound;
- -	int idx;
- -
- -	bound =3D drm_dev_enter(&xe->drm, &idx);
+@@@ -147,15 -145,29 +146,30 @@@ ccs_mode_store(struct device *kdev, str
+  		return -EBUSY;
+  	}
  =20
-  	mutex_lock(&ggtt->lock);
- +	bound =3D ggtt->flags & XE_GGTT_FLAGS_ONLINE;
-  	if (bound)
-- 		xe_ggtt_clear(ggtt, node->base.start, node->base.size);
-+ 		xe_ggtt_clear(ggtt, xe_ggtt_node_addr(node), xe_ggtt_node_size(node));
-  	drm_mm_remove_node(&node->base);
-  	node->base.size =3D 0;
-  	mutex_unlock(&ggtt->lock);
-@@@ -429,8 -484,10 +484,8 @@@
-  	if (node->invalidate_on_remove)
-  		xe_ggtt_invalidate(ggtt);
+- 	if (gt->ccs_mode !=3D num_engines) {
+- 		xe_gt_info(gt, "Setting compute mode to %d\n", num_engines);
+- 		gt->ccs_mode =3D num_engines;
+- 		xe_gt_record_user_engines(gt);
+- 		guard(xe_pm_runtime)(xe);
+- 		xe_gt_reset(gt);
++ 	if (gt->ccs_mode =3D=3D num_engines)
++ 		return count;
++=20
++ 	/*
++ 	 * Changing default CCS mode is only allowed when there
++ 	 * are no VFs. Try to lockdown PF to find out.
++ 	 */
++ 	if (gt_ccs_mode_default(gt) && IS_SRIOV_PF(xe)) {
++ 		ret =3D xe_sriov_pf_lockdown(xe);
++ 		if (ret) {
++ 			xe_gt_dbg(gt, "Can't change CCS Mode: VFs are enabled\n");
++ 			return ret;
++ 		}
+  	}
  =20
- -	drm_dev_exit(idx);
- -
-  free_node:
-- 	xe_ggtt_node_fini(node);
-+ 	ggtt_node_fini(node);
+- 	mutex_unlock(&xe->drm.filelist_mutex);
++ 	xe_gt_info(gt, "Setting compute mode to %d\n", num_engines);
++ 	gt->ccs_mode =3D num_engines;
++ 	xe_gt_record_user_engines(gt);
+++	guard(xe_pm_runtime)(xe);
++ 	xe_gt_reset(gt);
++=20
++ 	/* We may end PF lockdown once CCS mode is default again */
++ 	if (gt_ccs_mode_default(gt) && IS_SRIOV_PF(xe))
++ 		xe_sriov_pf_end_lockdown(xe);
+ =20
+  	return count;
   }
- =20
-  static void ggtt_node_remove_work_func(struct work_struct *work)
 
---eEiGK7RTlGjP2+tG
+--WhwODcKUFgG2HqjC
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmnBYmsACgkQJNaLcl1U
-h9BQAQf/blEoQP2/+hLPV0sr7BRHOY+5ZlxOoqXGcVyrZtQvT58nFI4+diwVk/KR
-iKDnPY47aV+1KA2cx00oI0SOyxnhc8gF8ckKs5LG/YwSCbmLaMWA935QkVUA+o+C
-YEfe6bY3ancGVPj3pKtLYzBkTTQhgpevbC8osQz4MhbwhB6i177HHbJcqAmXrjc0
-xhYzS9ncqaC3RHDrZlMadcHYQLN5M5lVAAJYWKy06fSCIqXBGx4hGFcVsZY1OcOU
-E+MBoeMWo7a27N7xyw9LwSaMUml4QSyVOn08Nt9YI3iwm6zqpzUHIBiKf3G9nAg5
-r9uGDPfCPukKWUEPOjSwvZbAGSPJQQ==
-=0xMP
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmnBYnYACgkQJNaLcl1U
+h9BruQf8C+ZOaWjO01sNrbKsaYQGkI8YKrGZvrBCpwExXo/1Rwsjwq1HjNT9iqHx
+m/jCTs7D80u+7GvD7NCYGsxDmChotzPbCisJofosybr6dwNMS3Uq1Q/f4L8ruqvn
+CAOkVQGSxw6EeqnI+x+rKsLZgrLWNj579b1RAFi3X/7hSvTEqRUeu4e9m0h5+Hkn
+pf+DxKKdvm0gKCjkZDRBG8aUvmgC5x6UJVNMDmHgZJQBTvJMp9EGgGyBuCP0idCE
+UeGD2/afZac3aCT/eYEMIFDw5BLdRoO4PVq36gUBT7liEo4VOtL0OIhlI3lBrTre
+m8uQvwtTCT9ayH1qRtPwyA0mbyrOOw==
+=/hto
 -----END PGP SIGNATURE-----
 
---eEiGK7RTlGjP2+tG--
+--WhwODcKUFgG2HqjC--
