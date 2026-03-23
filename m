@@ -4,65 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C50C4D58B00
-	for <dri-devel@archiver.kernel.org>; Mon, 23 Mar 2026 12:41:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C73DEFC72C5
+	for <dri-devel@archiver.kernel.org>; Mon, 23 Mar 2026 12:41:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 21BF410E3C6;
-	Mon, 23 Mar 2026 12:41:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2B96510E2D7;
+	Mon, 23 Mar 2026 12:41:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="QlhB9nVZ";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="N00s9hEm";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BACC410E2D7;
- Mon, 23 Mar 2026 12:41:15 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id E3A0A60051;
- Mon, 23 Mar 2026 12:35:28 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B68E5C4CEF7;
- Mon, 23 Mar 2026 12:35:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1774269328;
- bh=XApBBnOOJ5elwtHWxmuUDE0TpYF+/pV3i4s0gOrBn4Q=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=QlhB9nVZJCPUurPUHX3n53uyZPTjebWMYxKOBXWmj7h7mKdR6Hw3Ja1TuoOUfAaAV
- bdk9LheDCb+crooqJkKtSN1jcx5vyS1YmgbIu80kJKujowxa0JPBEirKu7b+Ij8aoP
- UVPtnxT3E/isDy9NhWSnC8zaHLitzT7eKlMPhm6oTl94aqJWVsITJpHJUV3G+SL3DU
- b+DY5ous6EJdv7oCGf38atKvYfY8Xfk1UDkxfHLFY+IqlT4gKFgEnyhPXZ2YiQ7o04
- jD0Hy9szb3QpCy/nXiWhVc2r1n2GsUt2PIas9ZhDRGVUZn9isX6v1SvxUiH9O5lIo5
- 85o6XacVa8pUg==
-Date: Mon, 23 Mar 2026 18:05:09 +0530
-From: Sumit Garg <sumit.garg@kernel.org>
-To: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-media@vger.kernel.org, netdev@vger.kernel.org,
- linux-wireless@vger.kernel.org, ath12k@lists.infradead.org,
- linux-remoteproc@vger.kernel.org, andersson@kernel.org,
- konradybcio@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, robin.clark@oss.qualcomm.com, sean@poorly.run,
- akhilpo@oss.qualcomm.com, lumag@kernel.org, abhinav.kumar@linux.dev,
- jesszhan0024@gmail.com, marijn.suijten@somainline.org,
- airlied@gmail.com, simona@ffwll.ch, vikash.garodia@oss.qualcomm.com,
- dikshita.agarwal@oss.qualcomm.com, bod@kernel.org,
- mchehab@kernel.org, elder@kernel.org, andrew+netdev@lunn.ch,
- davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
- pabeni@redhat.com, jjohnson@kernel.org, mathieu.poirier@linaro.org,
- trilokkumar.soni@oss.qualcomm.com, pavan.kondeti@oss.qualcomm.com,
- jorge.ramirez@oss.qualcomm.com, tonyh@qti.qualcomm.com,
- vignesh.viswanathan@oss.qualcomm.com, srinivas.kandagatla@oss.qualcomm.com,
- amirreza.zarrabi@oss.qualcomm.com, jens.wiklander@linaro.org,
- op-tee@lists.trustedfirmware.org, apurupa@qti.qualcomm.com,
- skare@qti.qualcomm.com, linux-kernel@vger.kernel.org,
- Sumit Garg <sumit.garg@oss.qualcomm.com>
-Subject: Re: [PATCH v2 01/15] arm64: dts: qcom: kodiak: Add EL2 overlay
-Message-ID: <acEzfd8I9UjByadc@sumit-xelite>
-References: <20260312062756.694390-1-sumit.garg@kernel.org>
- <20260312062756.694390-2-sumit.garg@kernel.org>
- <20260313060451.hswg6snnnexchmzs@hu-mojha-hyd.qualcomm.com>
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com
+ [209.85.128.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 89AFD10E2D7
+ for <dri-devel@lists.freedesktop.org>; Mon, 23 Mar 2026 12:41:31 +0000 (UTC)
+Received: by mail-wm1-f48.google.com with SMTP id
+ 5b1f17b1804b1-48702d51cd0so26676865e9.2
+ for <dri-devel@lists.freedesktop.org>; Mon, 23 Mar 2026 05:41:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1774269690; x=1774874490; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:sender:from:to:cc:subject:date:message-id:reply-to;
+ bh=Lau9h99Y6y8FLxIXBEqJDS1ul9IwPI7IFZFtPXW8rMc=;
+ b=N00s9hEmniYmxQX82yDngBWxCoRsmUcO4y16BCECrBsooLkPujfZDmT1uKX/iYh3Fo
+ 49veUb+ALg2nM07qiZK9xKPfBMAkjElrwox2eXSSAj1GoT82KsPIRkuzmzhsZpFNE4fp
+ EuLymf5BiKBd0IgplgCIoKI0oEoYPVB1ci65ooiXGqXR6gc7MYgxVuiPZ3zOIDt0dNUZ
+ IXFIAP5gEAVD8VqFsyOzoLcrpYXoJrLMgM7xJtKupbrkKR9LFbAI72cK17lDX0d0Dv6j
+ zkneSp8PgoaIMBFBwioWuCnMU3lB8jFhGaKm3EVonqjgUZ9VyrElookxxsK/WVmfWgLb
+ 05lg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1774269690; x=1774874490;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:sender:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=Lau9h99Y6y8FLxIXBEqJDS1ul9IwPI7IFZFtPXW8rMc=;
+ b=WxRnr0/U0Vtpi9A9hyDapcN/FZfePOg09wvszdKk48MgNDlFfoGJoqmxb4eGziAPR3
+ pHNbxmbjqiF4AAzr25P14TG3zJBAv2jtv5gWnJL53qkN125Oqfn5h4TYYH0+nkEzWCNs
+ RXSQpknKNR2RDojr/PA23mur/4ABvMmnxHJ2Byrm9NfbSS9bLSkFEO9ZZ0qyMmliPBln
+ 1U3+o7rYijTLbNyKs3+Wcrx/CQM/FtJrs8ShZ/piiTazJIaFsaEwYnycHfLVtt+kSOKp
+ R0Af5sk/ceuA9gsoK9/7+QANHfevTHbnk29SFeWeCFjRgi18MSGXyQmHJdnDfaHLF/FW
+ YUZw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUuOwSgNYWWZ1fSlsqK5W215k4B0NLBUa0wB3vHk7wgnQpFjBv1S1aXY58eM+tbrawRFMXkdK83oJY=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwvTxuBvclSBNrz1zHrrSslcTuVclbHhnJlD0jf/B60nB+yFmkq
+ zOfuc6G6jGXW/eLEhqUG02ZOHaLR2yz2I8YLhXfnq+3PW2NILYi+7zf1
+X-Gm-Gg: ATEYQzzd7QsGPQiul8eyRtHhYMHYdYUIXi7msqbhUZobDM1jCdgVFFbSuYteZ30D9TX
+ 3f1bv71vKwknzczvgM5zyWmd9TDYMVNrqRuVoc70ar16cvbAv/Ukin01a9io4HkW2Ma4ZQ9LIjI
+ 60piHZS+y2D1vktd3MsrkahhIYJPtaIMmCTqvnKzQtvEaxP0hubGWo2uW9MBH0F+rzXc7QG0LKi
+ IOoisqKBzpqaVm9ROt3bhVL6RW4+tEUQseoX1rIZc6x+SjqtIFX1X6UL93eUdOzeBBlfEl2rgzg
+ +q7HttEJ8kvmMeFNJLPdo4YYugqzX79cAhYgvMJqzQas8HDslJ6s2vH8EpQtFSa4H6EFAHLwLCD
+ LrSDYU+tAJSb3iQSUASXq0dsmxVU5n5WY57b0Nd8KOe/WcWg+DqhWN8pGGlXmwU5a0PGeCc5s5r
+ hmiMsO6V1/vR8PhMYXU9QhEO6E4Q==
+X-Received: by 2002:a05:600c:3b8c:b0:486:d76c:fa51 with SMTP id
+ 5b1f17b1804b1-486ff03ffa5mr161795585e9.27.1774269689772; 
+ Mon, 23 Mar 2026 05:41:29 -0700 (PDT)
+Received: from nixos-office ([92.250.99.190]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-486fe8ceebdsm111295345e9.4.2026.03.23.05.41.27
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 23 Mar 2026 05:41:29 -0700 (PDT)
+From: Julian Braha <julianbraha@gmail.com>
+To: mripard@kernel.org, maarten.lankhorst@linux.intel.com, tzimmermann@suse.de,
+ christian.koenig@amd.com, karolina.stolarek@intel.com
+Cc: airlied@gmail.com, simona@ffwll.ch, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Julian Braha <julianbraha@gmail.com>
+Subject: [PATCH v2] drm: fix dead default for DRM_TTM_KUNIT_TEST
+Date: Mon, 23 Mar 2026 12:41:18 +0000
+Message-ID: <20260323124118.1414913-1-julianbraha@gmail.com>
+X-Mailer: git-send-email 2.51.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260313060451.hswg6snnnexchmzs@hu-mojha-hyd.qualcomm.com>
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,100 +86,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, Mar 13, 2026 at 11:34:51AM +0530, Mukesh Ojha wrote:
-> On Thu, Mar 12, 2026 at 11:57:42AM +0530, Sumit Garg wrote:
-> > From: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-> > 
-> > All the existing variants Kodiak boards are using Gunyah hypervisor
-> > which means that, so far, Linux-based OS could only boot in EL1 on those
-> > devices.  However, it is possible for us to boot Linux at EL2 on these
-> > devices [1].
-> > 
-> > When running under Gunyah, the remote processor firmware IOMMU
-> > streams are controlled by Gunyah. However, without Gunyah, the IOMMU is
-> > managed by the consumer of this DeviceTree. Therefore, describe the
-> > firmware streams for each remote processor.
-> > 
-> > Add a EL2-specific DT overlay and apply it to Kodiak IOT variant
-> > devices to create -el2.dtb for each of them alongside "normal" dtb.
-> > 
-> > [1]
-> > https://docs.qualcomm.com/bundle/publicresource/topics/80-70020-4/boot-developer-touchpoints.html#uefi
-> > 
-> > Signed-off-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-> > [SG: watchdog fixup]
-> > Signed-off-by: Sumit Garg <sumit.garg@oss.qualcomm.com>
-> > ---
-> >  arch/arm64/boot/dts/qcom/Makefile        |  2 ++
-> >  arch/arm64/boot/dts/qcom/kodiak-el2.dtso | 35 ++++++++++++++++++++++++
-> >  2 files changed, 37 insertions(+)
-> >  create mode 100644 arch/arm64/boot/dts/qcom/kodiak-el2.dtso
-> > 
-> > diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom/Makefile
-> > index f80b5d9cf1e8..09a7f943190e 100644
-> > --- a/arch/arm64/boot/dts/qcom/Makefile
-> > +++ b/arch/arm64/boot/dts/qcom/Makefile
-> > @@ -139,6 +139,8 @@ dtb-$(CONFIG_ARCH_QCOM)	+= qcs404-evb-4000.dtb
-> >  dtb-$(CONFIG_ARCH_QCOM)	+= qcs615-ride.dtb
-> >  dtb-$(CONFIG_ARCH_QCOM)	+= qcs6490-radxa-dragon-q6a.dtb
-> >  dtb-$(CONFIG_ARCH_QCOM)	+= qcs6490-rb3gen2.dtb
-> > +qcs6490-rb3gen2-el2-dtbs := qcs6490-rb3gen2.dtb kodiak-el2.dtbo
-> > +dtb-$(CONFIG_ARCH_QCOM)	+= qcs6490-rb3gen2-el2.dtb
-> 
-> We may need to add for couple of more variants..
+The DRM_TTM_KUNIT_TEST config option should default
+to KUNIT_ALL_TESTS so that if all tests are enabled then
+it is included, but currently the 'default KUNIT_ALL_TESTS'
+statement is shadowed by an unconditional 'default n',
+meaning that this second default statement is currently dead code.
 
-Sure, those can be follow up patches if Bjorn is happy to pick this one
-independently.
+This dead code was found by kconfirm, a static analysis
+tool for Kconfig.
 
-> 
-> >  
-> >  qcs6490-rb3gen2-vision-mezzanine-dtbs := qcs6490-rb3gen2.dtb qcs6490-rb3gen2-vision-mezzanine.dtbo
-> >  qcs6490-rb3gen2-industrial-mezzanine-dtbs := qcs6490-rb3gen2.dtb qcs6490-rb3gen2-industrial-mezzanine.dtbo
-> > diff --git a/arch/arm64/boot/dts/qcom/kodiak-el2.dtso b/arch/arm64/boot/dts/qcom/kodiak-el2.dtso
-> > new file mode 100644
-> > index 000000000000..0b3a69a0d765
-> > --- /dev/null
-> > +++ b/arch/arm64/boot/dts/qcom/kodiak-el2.dtso
-> > @@ -0,0 +1,35 @@
-> > +// SPDX-License-Identifier: BSD-3-Clause
-> > +/*
-> > + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-> > + *
-> > + * Kodiak specific modifications required to boot in EL2.
-> > + */
-> > +
-> > +
-> > +/dts-v1/;
-> > +/plugin/;
-> > +
-> > +&gpu_zap_shader {
-> > +	status = "disabled";
-> > +};
-> > +
-> > +&remoteproc_adsp {
-> > +	iommus = <&apps_smmu 0x1800 0x0>;
-> > +};
-> > +
-> > +&remoteproc_cdsp {
-> > +	iommus = <&apps_smmu 0x11a0 0x0400>;
-> > +};
-> > +
-> > +&remoteproc_wpss {
-> > +	iommus = <&apps_smmu 0x1c03 0x1>,
-> > +		 <&apps_smmu 0x1c83 0x1>;
-> > +};
-> > +
-> > +&venus {
-> > +	status = "disabled";
-> > +};
-> > +
-> > +&watchdog {
-> > +	status = "okay";
-> > +};
-> 
-> 
-> rb3gen2 has modem as well, did we test that as well ?
+Signed-off-by: Julian Braha <julianbraha@gmail.com>
+---
+v2: removed fixes tag
+---
+ drivers/gpu/drm/Kconfig.debug | 1 -
+ 1 file changed, 1 deletion(-)
 
-OP-TEE don't have access to modem, it's locked down in XBL-SEC.
+diff --git a/drivers/gpu/drm/Kconfig.debug b/drivers/gpu/drm/Kconfig.debug
+index 05dc43c0b8c5..75c186f938b0 100644
+--- a/drivers/gpu/drm/Kconfig.debug
++++ b/drivers/gpu/drm/Kconfig.debug
+@@ -86,7 +86,6 @@ config DRM_KUNIT_TEST
+ 
+ config DRM_TTM_KUNIT_TEST
+ 	tristate "KUnit tests for TTM" if !KUNIT_ALL_TESTS
+-	default n
+ 	depends on DRM && KUNIT && MMU && (UML || COMPILE_TEST)
+ 	select DRM_TTM
+ 	select DRM_BUDDY
+-- 
+2.51.2
 
--Sumit
