@@ -4,115 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9C7E0F483DD
-	for <dri-devel@archiver.kernel.org>; Mon, 23 Mar 2026 17:43:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C7B4EF483D7
+	for <dri-devel@archiver.kernel.org>; Mon, 23 Mar 2026 17:46:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0728F10E164;
-	Mon, 23 Mar 2026 17:43:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 22F4410E179;
+	Mon, 23 Mar 2026 17:46:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="B8dok5KG";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="Y+hN7D4S";
 	dkim-atps=neutral
-Received: from mail-dl1-f41.google.com (mail-dl1-f41.google.com [74.125.82.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4573010E16A
- for <dri-devel@lists.freedesktop.org>; Mon, 23 Mar 2026 17:42:59 +0000 (UTC)
-Received: by mail-dl1-f41.google.com with SMTP id
- a92af1059eb24-128eb45835cso179393c88.1
- for <dri-devel@lists.freedesktop.org>; Mon, 23 Mar 2026 10:42:59 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1774287778; cv=none;
- d=google.com; s=arc-20240605;
- b=gKu5f/XAEn0ARAbxx9ztO0aVsb1YtBbQLarLUFggAakxl0sJTXMZ9smfunP5fnR2fG
- +mbeLEBXRXOg/BxsfncTTx5+gK5SwM+Hd6rxH751kHCJSgxSzS+LMgbXXMYWfxQR1NxA
- 9L928vdalEK1x4uCCoda0M9EmTID5Rv+AzAV0TCjfGijRtmQrLcuCP1lT1jr95w6z8F9
- 8Aqxi70wwLzdyLF/4OeD55hs/MlUDg5pfuFx6hBA8ODhbhrQCImstjCeAA1sp7xvdLwr
- oaMiOrOc5qBZh0FpuP8e5Qi5zM3ALsk71w32ZD3ybfZhnqPVVF1Ye3Fnk1mbEF0Kw9E0
- z0rQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=CunB0afxvU/gEx3rEbTE4vI3pmEepGsuyogimCbubLY=;
- fh=S297jrh2iO+6T1Q4Z3b+Buk1x1Vu9lb3aFPv/pMVb88=;
- b=f5tUNefDdhni5b+w5+RkDeyfeVG2zHDmcqi+GeZe1sQpjvHcdWKNLLpquEiqI6k6bo
- E9qwBGL1o5Xc0icKLSvgBWIBljoIpo6R3ZYob4tFSgxKbj/ICwCOXWHYI9RElNEQSHWa
- 1WP7zxBcqEdJRstDno45lqLXaS4BxBT1CrUF3PE6yoJvD9WoKRfNJCJJ6saUUYQL6j14
- O/LKgb27MofTL1gpfgLCeDx0taogyx8ZaiBokm3l+B53YY4DlvEd/NAVIzoz3pKQr+B5
- qaj86tE87sdoouS07vFzxssKbPC4ZUG8iVRHHU4LjTLQkHYqz33r8tSxiyYUxZw/u5h0
- QFyw==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1774287778; x=1774892578; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=CunB0afxvU/gEx3rEbTE4vI3pmEepGsuyogimCbubLY=;
- b=B8dok5KGhi3VJDHLXB09uQF250/MX6qSRC6DE4RRlXxese01grmMsPJ33bLhaHEsYi
- NnIQhHPh/Sw0rFFwyZBvn4FB5C4kJhTG/epKLTgMpjjel/Cd05/pZcXHEpW1SSdOmA1s
- 4ElfEBHHptBJStKKvWkbQWIHU1m3YE5fvtBjUfetW74FDbFayndHuNzGKSREj3fR6gnk
- OpUaeo1Dlhi8SQAxuqfEvnufyudPhPADDHkKimpsbUGTkvLoODSmclMdFgNWNBWRRGPt
- CYJ29l3XCcICAFMs36X2A7U+pYlMh+6v6trTGHKfLRmJvSm9XSa79wM5DBvNX00on/LW
- XGaw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774287778; x=1774892578;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=CunB0afxvU/gEx3rEbTE4vI3pmEepGsuyogimCbubLY=;
- b=i8Hbwqh5XJO0v7/p3rtZBynnl1MR6qSaY14SQoH6WMHLpBrq/QTQeiWOMAbieafrc8
- YIfcbFcSWJBjn+VzJCSDEs1eKCKItYyGKkuwB+Q8nmi9f7kkIXMH9nYRU6bDNFF46Nn4
- xfzcQbuKrvAJUJrnpWOHE/2s2t4NMRC2JA9A4ZME+SP34arq6mUJl1OhWeGafIPWD+MB
- I5pMjR2MYL41TV+OSwkD5LvnfMl/SRcQCuPoGD9UHPPKVYSHG9EbqjVhE9fdZUfj5TeD
- kIVV6OSM8ImSg5AwDFG8kwotLS5Lvk6TIonaLn4Cr4TCBhzoe/DX4ynYDH2JSosrUt37
- 0ujw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCURPpMhrWjo2iuIICzEvFOty8o3Ja1NxZytKNnLvTM1a93cT1pOvoITFkPnGPWt1/Kk0bDnE0JJprw=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yy/saAxIFeCXLR4NvbYBxh0DNav36hPJntptuvkwQWOhVZ+5mwf
- 6+EnLwzcHFgVxxAUvHsa4KetbRGd7Hdxd7yGTK3ND6bGD+/X+MXu8kGN+b/+aio83KLLWiqWAOe
- hsVPIERRgfis8FOFpwHYtQAyNYqvZlC4=
-X-Gm-Gg: ATEYQzxk5e0dfz489y7VFe7j/FmNjN0rYGg1YEZzOVlVEcr9HXh8/g9+Tb787Izfp7d
- 1k2Ayk80JNSfMjRv7UE/JT4o9vaRYHuyd1pkxIJO+bKEjlEm1F22j+ERwOxBqfiVezP5Wyu5sUt
- zswVuUeuYhPRlxcu+rnib+fDyccan1tLSxxVkEe495fXhG0gOA1L+n1OTaNB4U5HzfP9WhECx49
- XpoP+qmcygDa5MLufGQ/pwRTfQGMMj0dkSZSMwygK9EJUQCjKWbPP24k1AWN5Kgi7ncI565afvW
- hfk0LbQXgLQBW6PkPwpgZEiQjGCODHHvqTsldcPARegvlRIAWMjgPxS2VyIPiONsaqugbNc0YTE
- opUZiIoIwkDzwWn/izUjzsyQ=
-X-Received: by 2002:a05:7300:d709:b0:2b7:ff3a:af82 with SMTP id
- 5a478bee46e88-2c109563bbdmr2193158eec.1.1774287778207; Mon, 23 Mar 2026
- 10:42:58 -0700 (PDT)
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DA42D10E179
+ for <dri-devel@lists.freedesktop.org>; Mon, 23 Mar 2026 17:46:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1774287987;
+ bh=szl+N6RGsBFQSv8d9e4tceOIS7qhsrS2cLiAaJycBlw=;
+ h=From:Subject:Date:To:Cc:From;
+ b=Y+hN7D4S7W0S9UmHXIv0FZNO1nnLZLeDTZRN8/IBRDeWpuQYSOrSYSYYj6uDEUMeG
+ 7Czb68DbwHvsS7nVryMeYrG5JK8OaF47otqpmNQdPqHjs5EeFNUCmcJ06SPo1H0fB2
+ pKzcaVULwL/JJuxSKEj3buhiVNX02IkGK+0GPEpFLXjLVTVnxnF5aeTqO7Z2f3Ua4f
+ rFyyDJUcKQ54XJKPwg9oD8MNPUMaFxrns5PM8lIqPh0PzTMZixCCKy5CVeBuM9G+Is
+ 8mQBiBMH1TgkxWXho16NaKDrq7xZhYDHmbonDkJUvd6iqeAk70qy/vGc1t3KYkvZM7
+ tO0gKRytetVcg==
+Received: from localhost (unknown [86.123.23.225])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256) (No client certificate requested)
+ (Authenticated sender: cristicc)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 7A82317E3F13;
+ Mon, 23 Mar 2026 18:46:27 +0100 (CET)
+From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+Subject: [PATCH RESEND v4 0/4] Add HDMI 2.0 support to DW HDMI QP TX
+Date: Mon, 23 Mar 2026 19:45:26 +0200
+Message-Id: <20260323-dw-hdmi-qp-scramb-v4-0-1d99df84883e@collabora.com>
 MIME-Version: 1.0
-References: <20260316043255.226352-1-matthew.brost@intel.com>
- <20260316043255.226352-3-matthew.brost@intel.com>
- <7A8108C7-7CF0-4EA4-95ED-8003502DC35A@collabora.com>
- <abjqfXERS6Xk4FAQ@lstrano-desk.jf.intel.com>
- <CANiq72=Y2g_5=iEzU1L07pMPYD+wVapJXpp9rvYXEzCKEs59Zw@mail.gmail.com>
- <abkQTEcRujrFLsdn@lstrano-desk.jf.intel.com>
- <CANiq72=gHArzFS=SkiZyPpEfSL+0AcU3ifKRnwfEyet42662PA@mail.gmail.com>
- <acF41mM66Gh7m4vS@lstrano-desk.jf.intel.com>
-In-Reply-To: <acF41mM66Gh7m4vS@lstrano-desk.jf.intel.com>
-From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Date: Mon, 23 Mar 2026 18:42:44 +0100
-X-Gm-Features: AQROBzDKSGfCowA5deNWr-GZ-_NHP2AiqkVwZir4qy3OHPmJLmEcG1YCXbf5NSg
-Message-ID: <CANiq72n6aAARCm0_k1gQqKDxOL-MSbP1=M-inbdMSJN8tPn20Q@mail.gmail.com>
-Subject: Re: [RFC PATCH 02/12] drm/dep: Add DRM dependency queue layer
-To: Matthew Brost <matthew.brost@intel.com>
-Cc: Daniel Almeida <daniel.almeida@collabora.com>,
- intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- Boris Brezillon <boris.brezillon@collabora.com>,
- Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, 
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Danilo Krummrich <dakr@kernel.org>, David Airlie <airlied@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Philipp Stanner <phasta@kernel.org>, Simona Vetter <simona@ffwll.ch>, 
- Sumit Semwal <sumit.semwal@linaro.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- linux-kernel@vger.kernel.org, Sami Tolvanen <samitolvanen@google.com>, 
- Jeffrey Vander Stoep <jeffv@google.com>, Alice Ryhl <aliceryhl@google.com>, 
- Daniel Stone <daniels@collabora.com>, Alexandre Courbot <acourbot@nvidia.com>, 
- John Hubbard <jhubbard@nvidia.com>, shashanks@nvidia.com, jajones@nvidia.com, 
- Eliot Courtney <ecourtney@nvidia.com>, Joel Fernandes <joelagnelf@nvidia.com>, 
- rust-for-linux <rust-for-linux@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+To: Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Sandy Huang <hjc@rock-chips.com>, 
+ =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
+ Andy Yan <andy.yan@rock-chips.com>
+Cc: kernel@collabora.com, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-rockchip@lists.infradead.org, 
+ Diederik de Haas <diederik@cknow-tech.com>, 
+ Maud Spierings <maud_spierings@hotmail.com>
+X-Mailer: b4 0.14.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -128,16 +71,53 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Mar 23, 2026 at 6:31=E2=80=AFPM Matthew Brost <matthew.brost@intel.=
-com> wrote:
->
-> I appologize here I shouldn't type when I get annoyed. This the 2nd
-> comment that pointing out difference between C and Rust which really
-> wasn't direction I have hoping this thread would take.
+This patch series provides the missing support for high TMDS clock ratio
+and scrambling to DW HDMI QP TX library, required for handling HDMI 2.0
+display modes on RK3576 & RK3588 SoCs.
 
-No worries, it happens to everyone from time to time.
+In order to allow addressing the SCDC status lost on sink disconnects,
+it adds an atomic variant of the drm_bridge_funcs.detect() callback and
+a new drm_bridge_detect_ctx() helper, which is further used in
+drm_bridge_connector to switch to using the ->detect_ctx() hook.
 
-Thanks!
+Furthermore, it optimizes HPD event handling in dw_hdmi_qp Rockchip
+platform driver to run the detect cycle on the affected connector only.
 
-Cheers,
-Miguel
+Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+---
+Changes in v4:
+- Fixed conflicts while rebasing onto latest drm-misc-next
+- Link to v3: https://lore.kernel.org/r/20260119-dw-hdmi-qp-scramb-v3-0-bd8611730fc1@collabora.com
+
+Changes in v3:
+- Used drm_bridge_helper_reset_crtc() helper to reset the display
+  pipeline and got rid of some boilerplate code (Maxime)
+- Rebased onto latest drm-misc-next
+- Link to v2: https://lore.kernel.org/r/20260113-dw-hdmi-qp-scramb-v2-0-ae7b2c58d24d@collabora.com
+
+Changes in v2:
+- Collected Tested-by tags from Diederik and Maud
+- Rebased onto latest drm-misc-next
+- Ensured the recently introduced 'no-hpd' support for dealing with
+  unconnected/repurposed/broken HPD pin is limited to HDMI 1.4 rates
+- Link to v1: https://lore.kernel.org/r/20251203-dw-hdmi-qp-scramb-v1-0-836fe7401a69@collabora.com
+
+---
+Cristian Ciocaltea (4):
+      drm/bridge: Add ->detect_ctx hook and drm_bridge_detect_ctx()
+      drm/bridge-connector: Switch to using ->detect_ctx hook
+      drm/bridge: dw-hdmi-qp: Add high TMDS clock ratio and scrambling support
+      drm/rockchip: dw_hdmi_qp: Do not send HPD events for all connectors
+
+ drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c   | 167 ++++++++++++++++++++++---
+ drivers/gpu/drm/display/drm_bridge_connector.c |  73 +++++------
+ drivers/gpu/drm/drm_bridge.c                   |  58 +++++++++
+ drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c |  44 +++----
+ include/drm/drm_bridge.h                       |  30 +++++
+ 5 files changed, 296 insertions(+), 76 deletions(-)
+---
+base-commit: 0dd7a23da214279cfb77b0eb03c38614867524d7
+change-id: 20251203-dw-hdmi-qp-scramb-cdbd8b57ccf9
+-- 
+Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+
