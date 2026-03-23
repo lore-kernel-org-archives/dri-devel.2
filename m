@@ -4,49 +4,85 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5886FF483D7
-	for <dri-devel@archiver.kernel.org>; Mon, 23 Mar 2026 17:56:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1BA40F483E3
+	for <dri-devel@archiver.kernel.org>; Mon, 23 Mar 2026 18:32:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C22B310E16A;
-	Mon, 23 Mar 2026 17:56:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5F47E10E055;
+	Mon, 23 Mar 2026 18:32:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="dqr/AgRT";
+	dkim=pass (2048-bit key; unprotected) header.d=imgtec.com header.i=@imgtec.com header.b="LXfARGFe";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8DE2110E16A
- for <dri-devel@lists.freedesktop.org>; Mon, 23 Mar 2026 17:56:22 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id DFC6160103;
- Mon, 23 Mar 2026 17:56:21 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE6E9C4CEF7;
- Mon, 23 Mar 2026 17:56:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1774288581;
- bh=bQ9gS4dZs5k5v646yeU2BSLbqiSWZITsVgQ8bfbSq4Q=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=dqr/AgRTk5rGZXvGocbcSOySMZd1pKmvaVn8sLTWrDh3myt3anGRX5+0sVSiO1jdY
- 97ffcZCmv1MVHN21sQuTdgJUvbcZW0zscy3WAc+lr77NxHPazRhtn+LHpoUPiQibbN
- Rq8KdfwnnPs/ERblaUDc8jwcrc2VQJ81UU0geJQqHINAUAmL7wv70CXgAJvU1xuU1J
- X/jPAKDdaZTW+gC1ilmaEfuB8bUtx7yCkAKdB8/NG3laVdbWU7CzeKRE5E5iN+L2cc
- GGRoevQrtWbsUMdjjMg5k3zVFas1nn469edLuKHjHRS+DA0QY+vLJRkE8JmltLSTQc
- SYAQR6sXwwAUQ==
-Message-ID: <8d2f44e4-46fd-471f-91a2-5f76b128761f@kernel.org>
-Date: Mon, 23 Mar 2026 12:56:19 -0500
+Received: from mx08-00376f01.pphosted.com (mx08-00376f01.pphosted.com
+ [91.207.212.86])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3557510E0A0
+ for <dri-devel@lists.freedesktop.org>; Mon, 23 Mar 2026 18:31:59 +0000 (UTC)
+Received: from pps.filterd (m0168888.ppops.net [127.0.0.1])
+ by mx08-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 62NHNTKs4033998; Mon, 23 Mar 2026 18:31:44 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
+ :content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=dk201812; bh=sJo4cl95lyKVRuH6RzoZ6VB
+ eP1eP3Hmzds6OU0jMF8E=; b=LXfARGFeJYExeOX+qDe5ECIaB2qQA1aquqiHRa7
+ IjpuO7o1Mzn80L/gSK+vAnT7fT6gFK8HJ6A3Ih81InKcW6Sz4UuRHZd7Muvu+wgg
+ UrG4Wyo30DK4iVk7frNoM2wT3dLOq+UYNh5pMN0bI2JFG/sa3mhfhUldehhbKcdF
+ 8qAa1CFjUYJBmSsIG/n4EFaxwymrO6lJgqp4NHIsqmfwGGDpx14B4lXg89JxtfNN
+ 7vFGog+ZtyLqSbauPTIlWSFNSj0Z4uLghx6GIx6yEBsoqzjfzTCn/dE2RVhaDV0N
+ GKxhClx//6PyZHwoNHM9OqKN6wFaCc1xcmRd07kUMoexFQw==
+Received: from hhmail01.hh.imgtec.org
+ (83-244-153-141.cust-83.exponential-e.net [83.244.153.141])
+ by mx08-00376f01.pphosted.com (PPS) with ESMTPS id 4d1jfqsrww-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 23 Mar 2026 18:31:44 +0000 (GMT)
+Received: from [127.0.1.1] (172.25.10.37) by HHMAIL01.hh.imgtec.org
+ (10.100.10.19) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Mon, 23 Mar
+ 2026 18:31:42 +0000
+From: Alexandru Dadu <alexandru.dadu@imgtec.com>
+Subject: [PATCH v3 0/3] drm/imagination: Firmware handling of context reset
+ notification
+Date: Mon, 23 Mar 2026 20:31:27 +0200
+Message-ID: <20260323-b4-firmware-context-reset-notification-handling-v3-0-1a66049a9a65@imgtec.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH V1] accel/amdxdna: Return ERR_PTR on dma_alloc_noncoherent
- failure
-To: Lizhi Hou <lizhi.hou@amd.com>, ogabbay@kernel.org,
- quic_jhugo@quicinc.com, dri-devel@lists.freedesktop.org,
- maciej.falkowski@linux.intel.com
-Cc: Wendy Liang <wendy.liang@amd.com>, linux-kernel@vger.kernel.org,
- max.zhen@amd.com, sonal.santan@amd.com
-References: <20260323173719.2311474-1-lizhi.hou@amd.com>
-Content-Language: en-US
-From: "Mario Limonciello (AMD) (kernel.org)" <superm1@kernel.org>
-In-Reply-To: <20260323173719.2311474-1-lizhi.hou@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAP+GwWkC/53OwQ6CMAwG4FcxO1uzDVjUk+9hPIxSoIlsZlsQQ
+ 3h3Byc96qn5m/T/OotIgSmK824WgUaO7F0OxX4nsLeuI+AmZ6GlNrKQFdQltByGpw0E6F2iKUG
+ gSAmcT9wy2pQrIN82d3YdmFNpVV2RqY8ocusjUMvTJl5vOfcckw+v7YFRrdv/rVGBgtKQRjo2e
+ bYXHrpEeEA/iBUb9Qeg9O+ABgmWsLKmxFqab2BZljeuTPI6UAEAAA==
+To: Frank Binns <frank.binns@imgtec.com>, Matt Coster <matt.coster@imgtec.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+CC: <linux-kernel@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ "Alessio Belle" <alessio.belle@imgtec.com>, Brajesh Gupta
+ <brajesh.gupta@imgtec.com>, Alexandru Dadu <alexandru.dadu@imgtec.com>,
+ Sarah Walker <sarah.walker@imgtec.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1774290702; l=1817;
+ i=alexandru.dadu@imgtec.com; s=20260304; h=from:subject:message-id;
+ bh=N8/YvF9QGcCpQnEJuZ1fp749TxJqxJedvsXaYYTEdWM=;
+ b=/s425m7Whm+qns24nyxnrWZ3y3TZMpQdFNf6OS6cVU+hOft1I7AuEsRZ06pOYx4UT5lTrgJag
+ yuMsi63o2NbCJlLXZXS+JAv/aU7I8FhKpQZ1CDm5S3B2ESOWxgxBFDZ
+X-Developer-Key: i=alexandru.dadu@imgtec.com; a=ed25519;
+ pk=FU07SyNrYGwhahqSxbWEuzyXlUh47xBXvLvOR7UA6+U=
+X-Originating-IP: [172.25.10.37]
+X-Proofpoint-ORIG-GUID: 0h7E-hrurap1tdpQIc4Ojdj0OnDa42ep
+X-Authority-Analysis: v=2.4 cv=HJjO14tv c=1 sm=1 tr=0 ts=69c18710 cx=c_pps
+ a=AKOq//PuzOIrVTIF9yBwbA==:117 a=AKOq//PuzOIrVTIF9yBwbA==:17
+ a=7IANbbwssFwA:10 a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=kQ-hrUj2-E3RCbRHssb7:22 a=qZQ2PDNLMSdLoqI-hfl9:22
+ a=VwQbUJbxAAAA:8 a=r_1tXGB3AAAA:8 a=X7ODqez2nMEkfPg2YWkA:9 a=QEXdDO2ut3YA:10
+ a=t8nPyN_e6usw4ciXM-Pk:22
+X-Proofpoint-GUID: 0h7E-hrurap1tdpQIc4Ojdj0OnDa42ep
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzIzMDEzNiBTYWx0ZWRfX1nUlobBoSfsW
+ pE9rPOxlU2UhWmYYalGhOj2jZBksnpLQ+rI0YuknVdrf+pmA+ZYGIwRhul/63pIk4JZrPfy12OH
+ kFSSrfnJgUePxdZdSxIUh52tbUJoAACx/ZBSUf2RoJ5chQW+ehLm3kW69WhzMF87TR5Gc1uqS+Z
+ 7+CTBVTNIDRqb6ViKnrhK9WM5D7ByOOShVLp5dkips9Dj51Igwt4PuTPyQYDV+6ZM09RttSv8Jj
+ tEqFpHZEkLGcDcHpLBihJIBOzct40wA5/jXGRv91I61pPyWYUcAFmz33PFkVbG3xq5pdCyq3IPf
+ DtBzY3EjCOhDiWD4LIU9l0+5FKTrmM1p325oOQ0EIKgaorddbG9bT50k8RCnz5aTb+/K0lbQgQJ
+ obGSzHnQvRGnQUtbZsjDSRFM8GasV4r0EaGpjEqgx311SQQFrqqtx59c1Xo/du/6/mXM1+5wy4u
+ /W7hcRdXglQvMnlX8QA==
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,47 +98,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+- patch 1: Adds missing context reset reasons.
+- patch 2: Fixes the reset_reason from enum to u32 in the fwif.
+- patch 3: Adds the implementation of the context reset notification.
 
+Signed-off-by: Alexandru Dadu <alexandru.dadu@imgtec.com>
+---
+Changes in v3:
+- commit messages update to a proper format.
+- Link to v2: https://lore.kernel.org/r/20260312-b4-firmware-context-reset-notification-handling-v2-0-aec5a64cb06f@imgtec.com
 
-On 3/23/2026 12:37 PM, Lizhi Hou wrote:
-> From: Wendy Liang <wendy.liang@amd.com>
-> 
-> dma_alloc_noncoherent() returns NULL on failure, but callers of
-> aie2_alloc_msg_buffer() check for IS_ERR(). Return ERR_PTR(-ENOMEM)
-> instead of NULL to match the amdxdna_iommu_alloc() path and the
-> caller's error checking convention.
-> 
-> Fixes: ece3e8980907 ("accel/amdxdna: Allow forcing IOVA-based DMA via module parameter")
-> Signed-off-by: Wendy Liang <wendy.liang@amd.com>
-> Signed-off-by: Lizhi Hou <lizhi.hou@amd.com>
-> ---
->   drivers/accel/amdxdna/aie2_message.c | 7 ++++++-
->   1 file changed, 6 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/accel/amdxdna/aie2_message.c b/drivers/accel/amdxdna/aie2_message.c
-> index 7e219a5eda56..a1c546c3e81c 100644
-> --- a/drivers/accel/amdxdna/aie2_message.c
-> +++ b/drivers/accel/amdxdna/aie2_message.c
-> @@ -56,6 +56,7 @@ void *aie2_alloc_msg_buffer(struct amdxdna_dev_hdl *ndev, u32 *size,
->   			    dma_addr_t *dma_addr)
->   {
->   	struct amdxdna_dev *xdna = ndev->xdna;
-> +	void *vaddr;
->   	int order;
->   
->   	*size = max(*size, SZ_8K);
-> @@ -67,8 +68,12 @@ void *aie2_alloc_msg_buffer(struct amdxdna_dev_hdl *ndev, u32 *size,
->   	if (amdxdna_iova_on(xdna))
->   		return amdxdna_iommu_alloc(xdna, *size, dma_addr);
->   
-> -	return dma_alloc_noncoherent(xdna->ddev.dev, *size, dma_addr,
-> +	vaddr = dma_alloc_noncoherent(xdna->ddev.dev, *size, dma_addr,
->   				      DMA_FROM_DEVICE, GFP_KERNEL);
-> +	if (!vaddr)
-> +		return ERR_PTR(-ENOMEM);
-> +
-> +	return vaddr;
->   }
->   
->   void aie2_free_msg_buffer(struct amdxdna_dev_hdl *ndev, size_t size,
-Reviewed-by: Mario Limonciello (AMD) <superm1@kernel.org>
+Changes in v2:
+- enum rogue_context_reset_reason update moved to a separate commit;
+- pvr_context_reset_notification() renamed to pvr_dump_context_reset_notification();
+- added handling for PVR_FWIF_DM_TDM;
+- update include order in pvr_dump.c;
+- fixed enum type ambiguilty in fwif headers for the reset_reason struct field;
+- small QOL and nits fixed.
+- Link to v1: https://lore.kernel.org/r/20260305-b4-firmware-context-reset-notification-handling-v1-1-46e2ce8d46ef@imgtec.com
+
+---
+Alexandru Dadu (3):
+      drm/imagination: Add missing rogue context reset reasons
+      drm/imagination: Switch reset_reason fields from enum to u32
+      drm/imagination: Implement handling of context reset notification
+
+ drivers/gpu/drm/imagination/Makefile               |   1 +
+ drivers/gpu/drm/imagination/pvr_ccb.c              |   5 +
+ drivers/gpu/drm/imagination/pvr_dump.c             | 113 +++++++++++++++++++++
+ drivers/gpu/drm/imagination/pvr_dump.h             |  17 ++++
+ drivers/gpu/drm/imagination/pvr_rogue_fwif.h       |   8 +-
+ .../gpu/drm/imagination/pvr_rogue_fwif_shared.h    |  18 +++-
+ 6 files changed, 159 insertions(+), 3 deletions(-)
+---
+base-commit: d2e20c8951e4bb5f4a828aed39813599980353b6
+change-id: 20260305-b4-firmware-context-reset-notification-handling-694a1b5e6b8c
+
+Best regards,
+-- 
+Alexandru Dadu <alexandru.dadu@imgtec.com>
+
