@@ -4,48 +4,125 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B9349F4613C
-	for <dri-devel@archiver.kernel.org>; Mon, 23 Mar 2026 15:55:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DA1C2F4613D
+	for <dri-devel@archiver.kernel.org>; Mon, 23 Mar 2026 16:01:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2708310E4A6;
-	Mon, 23 Mar 2026 15:55:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 32CAD10E027;
+	Mon, 23 Mar 2026 16:01:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="klu2AOTl";
+	dkim=pass (2048-bit key; secure) header.d=bitbyteword.org header.i=@bitbyteword.org header.b="H+xL9RHe";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5BD5C10E4DD
- for <dri-devel@lists.freedesktop.org>; Mon, 23 Mar 2026 15:55:40 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id CF4B0600CB;
- Mon, 23 Mar 2026 15:55:39 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B1197C4CEF7;
- Mon, 23 Mar 2026 15:55:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1774281339;
- bh=wHzaRl+PH4iWK+jpXaqEHqAp1wRSlwfsE0mEj9+UiRs=;
- h=Date:From:To:Cc:Subject:From;
- b=klu2AOTl43S6BkI2DPD7hK74g/CgvZrMBISIIvo/HV4VoUMrT12KexibKJzK2vNW6
- 3NnKfS1MTT0Z4iLlE256HYhSc8OGxzu+fn/AG0RShZ5jzD9ns/RtKCv9W4mzx8CDRz
- 93NpiThgZBeC22IaEofdspQaYfHGp3Ne3oNaUL5ssP2AgaQjzNvJNOQMUeuY6C9Ifh
- 81bnHATnJKCCdNnxeZC846z38rcDB6OQJsiiypAbDFsauhzs3vRGNEb6Mc5jD50E+u
- B8sjUajDrbI9TwdqybiJr/LhyFzsczGSk333QW2sZo+tbRdFEwumDzBkchp3BpR9jC
- spVtuHUPgJJzw==
-Date: Mon, 23 Mar 2026 15:55:35 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Dave Airlie <airlied@redhat.com>, DRI <dri-devel@lists.freedesktop.org>
-Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Linux Next Mailing List <linux-next@vger.kernel.org>,
- Matthew Auld <matthew.auld@intel.com>,
- Michal Wajdeczko <michal.wajdeczko@intel.com>,
- Nareshkumar Gollakoti <naresh.kumar.g@intel.com>,
- Sanjay Yadav <sanjay.kumar.yadav@intel.com>,
- Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
-Subject: linux-next: manual merge of the drm tree with the origin tree
-Message-ID: <acFid74H4aSWfrBg@sirena.org.uk>
+Received: from mail-oo1-f46.google.com (mail-oo1-f46.google.com
+ [209.85.161.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C21D610E14F
+ for <dri-devel@lists.freedesktop.org>; Mon, 23 Mar 2026 16:00:58 +0000 (UTC)
+Received: by mail-oo1-f46.google.com with SMTP id
+ 006d021491bc7-67bb3fe55a5so1231625eaf.2
+ for <dri-devel@lists.freedesktop.org>; Mon, 23 Mar 2026 09:00:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=bitbyteword.org; s=google; t=1774281658; x=1774886458;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=7SscKSPRtp5r0bOyZYtc8orw97P+lM4BuDDRyRnpM2Q=;
+ b=H+xL9RHe9VU5nOSq+UddbTB5g2aBOBsnDaYYW6NILMjAE899A+30pqzF5kLxPQ6H1/
+ S5/ysLhgKqR0U66soMpp0jjnueziv7NyjBMtdpdR/oUX0bDXysMfQJAVVoGkz30eHFpX
+ E69AdifUwQ0RHQxiS0EXmwmQeoISYXRJxDZ+j8DehenOeCBx6fK4cSohHMnotIAqWmA0
+ nbaGI/pCv4legH8EPH7lpd690Fh9H2cuX+0x0VqAIPj8wNl3JUIQKaQ1zfCRA+HHtBWa
+ k2AI8ziTeYUMJdm7W5ipS80OORimfqK1DUlvuhYWCiIMSqM2z+FWEZLELdayEfRkC0eY
+ zNwg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1774281658; x=1774886458;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=7SscKSPRtp5r0bOyZYtc8orw97P+lM4BuDDRyRnpM2Q=;
+ b=NPN0B0nyofoyIIXuKlxxZJw4U2RGYnD5azskuaGQLiGNdz81lDSthAsoi5ls8QB6fQ
+ Fh99XAb3hfWuQEP+GveJUQjp+Ezu3mBIVMNdulpd9EVWlLSnO2Nw5tTjmbbbC2pPEPv6
+ oncQ5yPVBicEK+zE6BtL8vFZGFbkjDGBbr0BXdaNg25fLU+mefwlRc+w754q+cPq56Y0
+ vJcpzy9h6+YJMH88N6tCYtfp4XPeOd5p3WeUIGVX4piPJUnCh3yLHNYMceBH8gV0lX4e
+ FPtP5PKgsri7tkpuRPChq3POUPAxr/nzPE3zrUSLfyY7Nx8aRX0cvN608LNiPHRmoNBy
+ Ob2g==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXYRwSDImColMzfhDwvXtGz3lsanSvhJxyZzWxdWqn9zWoP+pTiVTGwPe71rSzuDoLL/oZRMkdiQbo=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxVOzB4ZqNzLZSxv9EJi12Hfr1ODDA8CEVS9bHMsunxpL2WcrRj
+ hW7ZDdbfGtyVZX/M0j9Z4InSeyvWu4XPfCyIXN5ZTY5HqmaoczDiDzAxRSO9zN694nA=
+X-Gm-Gg: ATEYQzyvB2k1VuYy2+Ta2HrRiGmwFZzsetrSiasxfP65FI1+TkrtzDmeEFE8DMxDQch
+ kIXlhE46Y6ylWlHs1R0C+EMsqr3Ox2VW+DChM7JMZiKde+OW8Piih7pgG9WriVyCRt/H8nkh3Sq
+ 5fCXWS3NHdc4rFL90KsGz4bhulQAx36GA34FtRluR8bMecoJf8sbk4NJ1V9ch6E4Qi70+VGbQ63
+ lTVCAxnrv/u22qjrdZtHOQOZT/5aXb/pN5nglV9nZvnvb3jsWNQxz14pmCkl6cpDT8sWjYsz5nL
+ ZEvvEEdnlbqsbXU87iXa5E2Etq8JFc4PUllHKO3kOBD21cblwUZ7Op75daMXgPDLBKmpLhQDfoi
+ 9dPJgRq0IJZhA0UstbI3F80TFmLDdRPYeMIve/Ra9uqmalpz7IE/SlcQzLYFA6VdBDaZZ5hLYhE
+ X4T1gCE+X7KbTKmqv5M6ZOUYO1PqPwQxY+iyC00DTyO0lpClddM1Dgs1XZ27optW0iYA==
+X-Received: by 2002:a05:6820:3091:b0:67d:9cc0:968 with SMTP id
+ 006d021491bc7-67d9cc00e0dmr6486936eaf.63.1774281657494; 
+ Mon, 23 Mar 2026 09:00:57 -0700 (PDT)
+Received: from vinmini.lan (c-73-143-21-186.hsd1.vt.comcast.net.
+ [73.143.21.186]) by smtp.gmail.com with ESMTPSA id
+ af79cd13be357-8cfc9088df1sm843364185a.25.2026.03.23.09.00.53
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 23 Mar 2026 09:00:56 -0700 (PDT)
+From: "Vineeth Pillai (Google)" <vineeth@bitbyteword.org>
+To: Steven Rostedt <rostedt@goodmis.org>,
+ Peter Zijlstra <peterz@infradead.org>, Dmitry Ilvokhin <d@ilvokhin.com>
+Cc: "Vineeth Pillai (Google)" <vineeth@bitbyteword.org>,
+ Masami Hiramatsu <mhiramat@kernel.org>,
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ Ingo Molnar <mingo@redhat.com>, Jens Axboe <axboe@kernel.dk>,
+ io-uring@vger.kernel.org, "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Alexei Starovoitov <ast@kernel.org>,
+ Daniel Borkmann <daniel@iogearbox.net>,
+ Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>,
+ Xin Long <lucien.xin@gmail.com>, Jon Maloy <jmaloy@redhat.com>,
+ Aaron Conole <aconole@redhat.com>, Eelco Chaudron <echaudro@redhat.com>,
+ Ilya Maximets <i.maximets@ovn.org>, netdev@vger.kernel.org,
+ bpf@vger.kernel.org, linux-sctp@vger.kernel.org,
+ tipc-discussion@lists.sourceforge.net, dev@openvswitch.org,
+ Jiri Pirko <jiri@resnulli.us>, Oded Gabbay <ogabbay@kernel.org>,
+ Koby Elbaz <koby.elbaz@intel.com>, dri-devel@lists.freedesktop.org,
+ "Rafael J. Wysocki" <rafael@kernel.org>,
+ Viresh Kumar <viresh.kumar@linaro.org>,
+ "Gautham R. Shenoy" <gautham.shenoy@amd.com>,
+ Huang Rui <ray.huang@amd.com>,
+ Mario Limonciello <mario.limonciello@amd.com>, Len Brown <lenb@kernel.org>,
+ Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
+ linux-pm@vger.kernel.org, MyungJoo Ham <myungjoo.ham@samsung.com>,
+ Kyungmin Park <kyungmin.park@samsung.com>,
+ Chanwoo Choi <cw00.choi@samsung.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>, linaro-mm-sig@lists.linaro.org,
+ Eddie James <eajames@linux.ibm.com>,
+ Andrew Jeffery <andrew@codeconstruct.com.au>,
+ Joel Stanley <joel@jms.id.au>, linux-fsi@lists.ozlabs.org,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Danilo Krummrich <dakr@kernel.org>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Philipp Stanner <phasta@kernel.org>,
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ amd-gfx@lists.freedesktop.org, Jiri Kosina <jikos@kernel.org>,
+ Benjamin Tissoires <bentiss@kernel.org>, linux-input@vger.kernel.org,
+ Wolfram Sang <wsa+renesas@sang-engineering.com>, linux-i2c@vger.kernel.org,
+ Mark Brown <broonie@kernel.org>,
+ Michael Hennerich <michael.hennerich@analog.com>,
+ =?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>, linux-spi@vger.kernel.org,
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+ "Martin K. Petersen" <martin.petersen@oracle.com>,
+ linux-scsi@vger.kernel.org, Chris Mason <clm@fb.com>,
+ David Sterba <dsterba@suse.com>, linux-btrfs@vger.kernel.org,
+ Thomas Gleixner <tglx@linutronix.de>,
+ Andrew Morton <akpm@linux-foundation.org>, SeongJae Park <sj@kernel.org>,
+ linux-mm@kvack.org, Borislav Petkov <bp@alien8.de>,
+ Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+ linux-trace-kernel@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [PATCH v2 00/19] tracepoint: Avoid double static_branch evaluation at
+ guarded call sites
+Date: Mon, 23 Mar 2026 12:00:19 -0400
+Message-ID: <20260323160052.17528-1-vineeth@bitbyteword.org>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="WhwODcKUFgG2HqjC"
-Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,102 +138,122 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+When a caller already guards a tracepoint with an explicit enabled check:
 
---WhwODcKUFgG2HqjC
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+  if (trace_foo_enabled() && cond)
+      trace_foo(args);
 
-Hi all,
+trace_foo() internally re-evaluates the static_branch_unlikely() key.
+Since static branches are patched binary instructions the compiler cannot
+fold the two evaluations, so every such site pays the cost twice.
 
-Today's linux-next merge of the drm tree got a conflict in:
+This series introduces trace_call__##name() as a companion to
+trace_##name().  It calls __do_trace_##name() directly, bypassing the
+redundant static-branch re-check, while preserving all other correctness
+properties of the normal path (RCU-watching assertion, might_fault() for
+syscall tracepoints).  The internal __do_trace_##name() symbol is not
+leaked to call sites; trace_call__##name() is the only new public API.
 
-  drivers/gpu/drm/xe/xe_gt_ccs_mode.c
+  if (trace_foo_enabled() && cond)
+      trace_call__foo(args);   /* calls __do_trace_foo() directly */
 
-between commit:
+The first patch adds the three-location change to
+include/linux/tracepoint.h (__DECLARE_TRACE, __DECLARE_TRACE_SYSCALL,
+and the !TRACEPOINTS_ENABLED stub).  The remaining 18 patches
+mechanically convert all guarded call sites found in the tree:
+kernel/, io_uring/, net/, accel/habanalabs, cpufreq/, devfreq/,
+dma-buf/, fsi/, drm/, HID, i2c/, spi/, scsi/ufs/, btrfs/,
+net/devlink/, kernel/time/, kernel/trace/, mm/damon/, and arch/x86/.
 
-  65d046b2d8e0d ("drm/xe: Fix missing runtime PM reference in ccs_mode_stor=
-e")
+This series is motivated by Peter Zijlstra's observation in the discussion
+around Dmitry Ilvokhin's locking tracepoint instrumentation series, where
+he noted that compilers cannot optimize static branches and that guarded
+call sites end up evaluating the static branch twice for no reason, and
+by Steven Rostedt's suggestion to add a proper API instead of exposing
+internal implementation details like __do_trace_##name() directly to
+call sites:
 
-=66rom the origin tree and commit:
+  https://lore.kernel.org/linux-trace-kernel/8298e098d3418cb446ef396f119edac58a3414e9.1772642407.git.d@ilvokhin.com
 
-  9b5e995e61290 ("drm/xe: Mutual exclusivity between CCS-mode and PF")
+Suggested-by: Steven Rostedt <rostedt@goodmis.org>
+Suggested-by: Peter Zijlstra <peterz@infradead.org>
 
-=66rom the drm tree.
+Changes in v2:
+- Renamed trace_invoke_##name() to trace_call__##name() (double
+  underscore) per review comments.
+- Added 4 new patches covering sites missed in v1, found using
+  coccinelle to scan the tree (Keith Busch):
+    * net/devlink: guarded tracepoint_enabled() block in trap.c
+    * kernel/time: early-return guard in tick-sched.c (tick_stop)
+    * kernel/trace: early-return guard in trace_benchmark.c
+    * mm/damon: early-return guard in core.c
+    * arch/x86: do_trace_*() wrapper functions in lib/msr.c, which
+      are called exclusively from tracepoint_enabled()-guarded sites
+      in asm/msr.h
 
-I fixed it up (see below) and can carry the fix as necessary. This
-is now fixed as far as linux-next is concerned, but any non trivial
-conflicts should be mentioned to your upstream maintainer when your tree
-is submitted for merging.  You may also want to consider cooperating
-with the maintainer of the conflicting tree to minimise any particularly
-complex conflicts.
+v1: https://lore.kernel.org/linux-trace-kernel/abSqrJ1J59RQC47U@kbusch-mbp/
 
-diff --cc drivers/gpu/drm/xe/xe_gt_ccs_mode.c
-index 03c1862ba497a,b35be36b0eaa2..0000000000000
---- a/drivers/gpu/drm/xe/xe_gt_ccs_mode.c
-+++ b/drivers/gpu/drm/xe/xe_gt_ccs_mode.c
-@@@ -12,8 -12,8 +12,9 @@@
-  #include "xe_gt_printk.h"
-  #include "xe_gt_sysfs.h"
-  #include "xe_mmio.h"
- +#include "xe_pm.h"
-  #include "xe_sriov.h"
-+ #include "xe_sriov_pf.h"
- =20
-  static void __xe_gt_apply_ccs_mode(struct xe_gt *gt, u32 num_engines)
-  {
-@@@ -147,15 -145,29 +146,30 @@@ ccs_mode_store(struct device *kdev, str
-  		return -EBUSY;
-  	}
- =20
-- 	if (gt->ccs_mode !=3D num_engines) {
-- 		xe_gt_info(gt, "Setting compute mode to %d\n", num_engines);
-- 		gt->ccs_mode =3D num_engines;
-- 		xe_gt_record_user_engines(gt);
-- 		guard(xe_pm_runtime)(xe);
-- 		xe_gt_reset(gt);
-+ 	if (gt->ccs_mode =3D=3D num_engines)
-+ 		return count;
-+=20
-+ 	/*
-+ 	 * Changing default CCS mode is only allowed when there
-+ 	 * are no VFs. Try to lockdown PF to find out.
-+ 	 */
-+ 	if (gt_ccs_mode_default(gt) && IS_SRIOV_PF(xe)) {
-+ 		ret =3D xe_sriov_pf_lockdown(xe);
-+ 		if (ret) {
-+ 			xe_gt_dbg(gt, "Can't change CCS Mode: VFs are enabled\n");
-+ 			return ret;
-+ 		}
-  	}
- =20
-- 	mutex_unlock(&xe->drm.filelist_mutex);
-+ 	xe_gt_info(gt, "Setting compute mode to %d\n", num_engines);
-+ 	gt->ccs_mode =3D num_engines;
-+ 	xe_gt_record_user_engines(gt);
-++	guard(xe_pm_runtime)(xe);
-+ 	xe_gt_reset(gt);
-+=20
-+ 	/* We may end PF lockdown once CCS mode is default again */
-+ 	if (gt_ccs_mode_default(gt) && IS_SRIOV_PF(xe))
-+ 		xe_sriov_pf_end_lockdown(xe);
- =20
-  	return count;
-  }
+Vineeth Pillai (Google) (19):
+  tracepoint: Add trace_call__##name() API
+  kernel: Use trace_call__##name() at guarded tracepoint call sites
+  io_uring: Use trace_call__##name() at guarded tracepoint call sites
+  net: Use trace_call__##name() at guarded tracepoint call sites
+  accel/habanalabs: Use trace_call__##name() at guarded tracepoint call
+    sites
+  cpufreq: Use trace_call__##name() at guarded tracepoint call sites
+  devfreq: Use trace_call__##name() at guarded tracepoint call sites
+  dma-buf: Use trace_call__##name() at guarded tracepoint call sites
+  fsi: Use trace_call__##name() at guarded tracepoint call sites
+  drm: Use trace_call__##name() at guarded tracepoint call sites
+  HID: Use trace_call__##name() at guarded tracepoint call sites
+  i2c: Use trace_call__##name() at guarded tracepoint call sites
+  spi: Use trace_call__##name() at guarded tracepoint call sites
+  scsi: ufs: Use trace_call__##name() at guarded tracepoint call sites
+  btrfs: Use trace_call__##name() at guarded tracepoint call sites
+  net: devlink: Use trace_call__##name() at guarded tracepoint call
+    sites
+  kernel: time, trace: Use trace_call__##name() at guarded tracepoint
+    call sites
+  mm: damon: Use trace_call__##name() at guarded tracepoint call sites
+  x86: msr: Use trace_call__##name() at guarded tracepoint call sites
 
---WhwODcKUFgG2HqjC
-Content-Type: application/pgp-signature; name="signature.asc"
+ arch/x86/lib/msr.c                                |  6 +++---
+ drivers/accel/habanalabs/common/device.c          | 12 ++++++------
+ drivers/accel/habanalabs/common/mmu/mmu.c         |  3 ++-
+ drivers/accel/habanalabs/common/pci/pci.c         |  4 ++--
+ drivers/cpufreq/amd-pstate.c                      | 10 +++++-----
+ drivers/cpufreq/cpufreq.c                         |  2 +-
+ drivers/cpufreq/intel_pstate.c                    |  2 +-
+ drivers/devfreq/devfreq.c                         |  2 +-
+ drivers/dma-buf/dma-fence.c                       |  4 ++--
+ drivers/fsi/fsi-master-aspeed.c                   |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c            |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c            |  4 ++--
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  2 +-
+ drivers/gpu/drm/scheduler/sched_entity.c          |  4 ++--
+ drivers/hid/intel-ish-hid/ipc/pci-ish.c           |  2 +-
+ drivers/i2c/i2c-core-slave.c                      |  2 +-
+ drivers/spi/spi-axi-spi-engine.c                  |  4 ++--
+ drivers/ufs/core/ufshcd.c                         | 12 ++++++------
+ fs/btrfs/extent_map.c                             |  4 ++--
+ fs/btrfs/raid56.c                                 |  4 ++--
+ include/linux/tracepoint.h                        | 11 +++++++++++
+ io_uring/io_uring.h                               |  2 +-
+ kernel/irq_work.c                                 |  2 +-
+ kernel/sched/ext.c                                |  2 +-
+ kernel/smp.c                                      |  2 +-
+ kernel/time/tick-sched.c                          | 12 ++++++------
+ kernel/trace/trace_benchmark.c                    |  2 +-
+ mm/damon/core.c                                   |  2 +-
+ net/core/dev.c                                    |  2 +-
+ net/core/xdp.c                                    |  2 +-
+ net/devlink/trap.c                                |  2 +-
+ net/openvswitch/actions.c                         |  2 +-
+ net/openvswitch/datapath.c                        |  2 +-
+ net/sctp/outqueue.c                               |  2 +-
+ net/tipc/node.c                                   |  2 +-
+ 35 files changed, 74 insertions(+), 62 deletions(-)
 
------BEGIN PGP SIGNATURE-----
+-- 
+2.53.0
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmnBYnYACgkQJNaLcl1U
-h9BruQf8C+ZOaWjO01sNrbKsaYQGkI8YKrGZvrBCpwExXo/1Rwsjwq1HjNT9iqHx
-m/jCTs7D80u+7GvD7NCYGsxDmChotzPbCisJofosybr6dwNMS3Uq1Q/f4L8ruqvn
-CAOkVQGSxw6EeqnI+x+rKsLZgrLWNj579b1RAFi3X/7hSvTEqRUeu4e9m0h5+Hkn
-pf+DxKKdvm0gKCjkZDRBG8aUvmgC5x6UJVNMDmHgZJQBTvJMp9EGgGyBuCP0idCE
-UeGD2/afZac3aCT/eYEMIFDw5BLdRoO4PVq36gUBT7liEo4VOtL0OIhlI3lBrTre
-m8uQvwtTCT9ayH1qRtPwyA0mbyrOOw==
-=/hto
------END PGP SIGNATURE-----
-
---WhwODcKUFgG2HqjC--
