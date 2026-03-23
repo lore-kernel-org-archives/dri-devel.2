@@ -4,76 +4,128 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B2A0CEC01A2
-	for <dri-devel@archiver.kernel.org>; Mon, 23 Mar 2026 08:11:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 287EAEC01A0
+	for <dri-devel@archiver.kernel.org>; Mon, 23 Mar 2026 08:11:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 713EE10E26C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 74D8710E2D9;
 	Mon, 23 Mar 2026 08:11:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="DjFSpqOb";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="XLg4yXqV";
 	dkim-atps=neutral
-Received: from mail-vk1-f174.google.com (mail-vk1-f174.google.com
- [209.85.221.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 817AE10E16B
- for <dri-devel@lists.freedesktop.org>; Sun, 22 Mar 2026 09:52:14 +0000 (UTC)
-Received: by mail-vk1-f174.google.com with SMTP id
- 71dfb90a1353d-56a9076813bso1375657e0c.3
- for <dri-devel@lists.freedesktop.org>; Sun, 22 Mar 2026 02:52:14 -0700 (PDT)
+Received: from mail-yw1-f179.google.com (mail-yw1-f179.google.com
+ [209.85.128.179])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D887110E11B
+ for <dri-devel@lists.freedesktop.org>; Mon, 23 Mar 2026 00:08:24 +0000 (UTC)
+Received: by mail-yw1-f179.google.com with SMTP id
+ 00721157ae682-7982c3b7dfcso32446817b3.0
+ for <dri-devel@lists.freedesktop.org>; Sun, 22 Mar 2026 17:08:24 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1774224504; cv=none;
+ d=google.com; s=arc-20240605;
+ b=JEmyEsJbfrCNr8+Jkp06Fy7uhvQyq3pXLL4Vqvw3TNfcvVxgujMM6uN0Xn7Gsyz+2h
+ sVeLaoaix84n3ETiDYW/BqJ1BS+oNV2MILR+RiAlc7Ip/0wJKQrmTtPPY5/r/RU6AkIc
+ q/ik8/ppUz5FNsmLHFcc3sIV+WKcIOoFTKbiHxKEV9UmWz9MdH0Yr5WjXsjmwrB37KHZ
+ bKbkNslQkBv6JHXrCh09WTyOoeTxRz3rSV701mVyTz++pWoOgA9PvlsJUukLuw4/VxMc
+ H0B1sqqlMp9VHGAYc76PrVavEjmIrt5OrHY4oGIAvUg9dTOjHIlIHHppfgLk/fGhDfh5
+ D4qQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=+To22M9XrloAsp8zyktj8aS2Z2Pum4SQehyzZWues4c=;
+ fh=fB4h/8cFUNlV/AhzRKyQJB6iCUFu7+bzqZaWURHinfE=;
+ b=fM5SzvXyrBU35i3/hOb78IZGl5uyXcojQ+DaTzv87xnldK4mlYWjxA/jDlf28LsbYJ
+ TJnOluSZM7BkdoV1oObbDUOi/6+UYMY78O3nWmu/elU9KANQNnCQL21FHvUcEYZkJFyr
+ CzOULT+uB3isTbcMn/v4Rfh0hh91/oHLzyYRp8XN0B/yLgoXmkW8uEYPPU27i9lsTwoz
+ SKYdTTxEki9CQuAYmJcHTqyybYapZugAGtF+3Vate5oRjV6UOLZHaYQBhH2mIqrrw4CI
+ 61x7BwJtyMeyLcvmOEBUvBUDBXDutYWhUGHKgmuvjv5ZjVbXd740CmcoKaZEJ6Rzumqy
+ rK9g==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1774173133; x=1774777933; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=A0z8vkkJ6J9YgqDewSEz62c0xgaFgNlFmTCBQg8J1EQ=;
- b=DjFSpqObtNRBgNRkxNlC2tOZe2NV90PDeIlEKU+3e+Yh/xMw43n2Wv7+88uz/zaeJp
- YH56fQ1+w68+AFRaSoO4botEOR5291mL2l57X88CrwMQNcgw7I5qKJxTTQyncJaZOjRg
- t+iUUydJbUOhpeboySaIEgDALlPb9iB7iDbIPCVGH9mhouaq57doh9OjI6UQonOgTgED
- JCtgsuYj01mwVziyPvrAY73AyRSt9AJIViu14SKnRgzPbOe6Tfp5RCHhtOqgNM5WmWOQ
- vX9NfmHSu0nU775hrPWmYZG7jqEAm+x96+2p0KAWSl9FmX9SAHLBi0MugO+vbpt3+Pt5
- A+zQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774173133; x=1774777933;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=gmail.com; s=20230601; t=1774224504; x=1774829304; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=A0z8vkkJ6J9YgqDewSEz62c0xgaFgNlFmTCBQg8J1EQ=;
- b=sja6SVBWpf0XL3bi3l9uQPLSOZnoPJgiV2eIVOELK5XqN8UcvAGBGdxP4IFWYKN5kp
- K3e28o/JsG+uNiGwmwbMwAOzNli23/JUCovurFhV58sXKWiCl3/669bkhWVt7oP2yqMa
- hy25o4hzYFnaFgDQZJz94Y5nw3zjH6x4+7hOjJmHWXBz0aCKMN34D6TL+rxXytcb3hVy
- AEGYdV2kBwX/5BzczUPNPS1QwwyefWKxfKRANTqaiLMYAC8Tr+SbdQ6kgodHxuZG3kZR
- UwhT+0XxkGOGdzK10ILW6nQRiAs89elBBOYuabCKugFcXhfhNSXBB/lHsCiwDmKl4Vjz
- zmgw==
+ bh=+To22M9XrloAsp8zyktj8aS2Z2Pum4SQehyzZWues4c=;
+ b=XLg4yXqVtoI6Js6CzCgTpQdhimcZCTlL1+n0pYJnQ+I2KFcO5yJQFe15pE8Tk9s1x5
+ SWrOdwMA4593z+w9M884WZkEahL6TsyabSjAjDPmi8Y14kBDvMYtWnxM9l7GfVvZWGzY
+ 2qSVGLEA0Q6irsDbBMdZzWIHvpbzOSxd+yJMZCDBHEXfseq9syt8d2rLSadwnuOd26Hi
+ nlPQdgniYE05ryqfYkHev4n6eIqIae54fSdWRcsQM8ne8HBj0lZuttSfq27jDSdHR51m
+ Do9sB9y7WK09Ccp1EFwKgrosIDcTc/10g9jwFPSCaidUEZptKQTVxOUN4vVt1bidnTMi
+ WHmQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1774224504; x=1774829304;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=+To22M9XrloAsp8zyktj8aS2Z2Pum4SQehyzZWues4c=;
+ b=Ljyh4s9xKQ47lHKASO2DdgcehSqy3Vs2jcd2KDYu8Jxz5/q7uLpIRByRdFQcYZT5ak
+ r33Ua+mIUhC1oLE0beh3F0B37POmp1szx+BEC5L0J13j48ub5eW+N3YSBaEXDuqxHuS8
+ mqylKmgNJGTn9DuvLPnoVxBQSlrON9JewEfX2xCFbFSys4A2st3e+dzkARekCwFQ5Ny2
+ bFYylVeZWVUeb+tIudvgivJbPffmVqsIp076ywlkA6+7GhPSvq+/OnFMiQP2/SO3m7EI
+ qR7ynZIlmonCwTMHTh0E1AJXEzZ9OH1Hvr1a1z6VVelwyM1we+wnQtlv6a3Ck9K/DJEU
+ BMCw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVGZbAsf3ztCjVVq25bIypimlvdiOVFLxnFa5nmpUmKsq77AS208FL5zTqcHDo4zF5sIOvrZ92RDYM=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzHaqCKqOCjkjwN/vl7QR3NPhmTeyw9AJYrtvZrWy3l0nU2fSTg
- 08rIIQHK4B5LVC0zSFdxgqytw5X2DeCKwdUX4Ogti07USzr53fcjXqVY
-X-Gm-Gg: ATEYQzw0rLMq7suRQwoty7ybaDko+uzh+tD/jGjcxr1+mK3hwRIaJJQ6+9nOmG5g32x
- A8SfgVv3uAcZrrj4CpCGl3MPYOFOaXORK5BqyLtsU3cffCp7bosDFynH+JXJLsMC09BQLaO6/su
- UVNmvVGc2CIQn8f5kDuS3HKtcIUhbpJSljU8KYtuCO72Ubwzb2U/P31+UFGZVzmXVgrhTu0pJF9
- ncPQmYC9BZRCcnXmTxYdq+9YhFz4bVOQgtY0nivEVAbRQRYkxi3FQO//TPmfF9qH532+Hktj24T
- JsQxtOiVITSYjZLFpVnIR+ycpk/mKD9wLEAtwr1Qf1pPGn0jjPZi9JSVFXy70T6fTuUXXWijdpv
- BhliRaWV00u/7jh8jMVyj/uQ/FAk5kNQaa3l1bSZ2S4pgP/vqu9gHz1/ZQtr8C8GLUxQXVdnw/i
- PwnqhmfGzZeqDMSiLg65n4ftyiJuOmPk6Iu2NR0JAsMg==
-X-Received: by 2002:a05:6122:2883:b0:56c:d623:896e with SMTP id
- 71dfb90a1353d-56cde465491mr3635672e0c.14.1774173133123; 
- Sun, 22 Mar 2026 02:52:13 -0700 (PDT)
-Received: from gui-host.Dlink ([177.140.57.219])
- by smtp.gmail.com with ESMTPSA id
- 71dfb90a1353d-56cddb94eaasm7050081e0c.8.2026.03.22.02.52.07
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 22 Mar 2026 02:52:11 -0700 (PDT)
-From: guilhermeivo <guilhermeivob@gmail.com>
-To: harry.wentland@amd.com, sunpeng.li@amd.com, siqueira@igalia.com,
- alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
- simona@ffwll.ch
-Cc: guilherme.bozi@usp.br, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- guilhermeivo <guilhermeivob@gmail.com>, kernel test robot <lkp@intel.com>
-Subject: [PATCH v2] drm/amd/display: Fix DDC register assignment type errors
-Date: Sun, 22 Mar 2026 06:51:55 -0300
-Message-ID: <20260322095155.248283-1-guilhermeivob@gmail.com>
-X-Mailer: git-send-email 2.47.3
+ AJvYcCUp5WBccRurRX5AMmQ5nyygnadGwdQHteTKolou8L/jGLWXu0cObXxrK24wWZXKJiDkM00mjjHjwt0=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yy/Ar1g9J6r2Qugoi/d3anqUGXn1fgXwjGLnqqLm21iLeb0s8W2
+ rsTYYLRWodDGZ4axlNhX2nw1nPx2u1HsLUgTdvnb80P0LVkmenLrND/Eynhk+szXKrfXbhRf3ce
+ LE/LC2/fLk4qT/hz5ZzmN1PAxmSKohwM=
+X-Gm-Gg: ATEYQzxsyeQcdpmoSWlxjieRPNGUIAmhyJQz39O2l9lNlqIrm+J3qLAtWg8GUU1Ld1l
+ P2NJStCDoW3loHiwinULgGb0gWEOK+PMQcm0zcOjE6qka33Mw4EkfQoPDxSSxX9SY67nKSq/mO9
+ qF0PPTqvmYMu9roc2cKy0M9E2iCDd8VChA1zi5TMyD8qmHE8Kue8MqMW6yrysr8UJP+CjehsLlD
+ IhGMspVHp4xLT363Bx+l8H0XFO2fBy4wGcbKPlAa1VGp1uvoUBHbXFxmYTzTGErhOWr1xO6Ggmg
+ LpK+JF5oH6Ti2GgE64SGrnEDqhHJN1NUzANEJFU7aHVUd5Q/
+X-Received: by 2002:a05:690c:4424:b0:798:6f13:2419 with SMTP id
+ 00721157ae682-79a90bce798mr96296727b3.37.1774224499042; Sun, 22 Mar 2026
+ 17:08:19 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260317201710.934932-1-joelagnelf@nvidia.com>
+ <20260317201710.934932-2-joelagnelf@nvidia.com> <abqdUBqchnVFo7Qk@google.com>
+ <71b6a115-98f1-4b09-9c04-a99349f51e49@nvidia.com>
+ <CANiq72nZKx7pw_rZK2mHHvR=TaeGvMRvg5GTHOd58X17oyxieg@mail.gmail.com>
+In-Reply-To: <CANiq72nZKx7pw_rZK2mHHvR=TaeGvMRvg5GTHOd58X17oyxieg@mail.gmail.com>
+From: =?UTF-8?Q?Alejandra_Gonz=C3=A1lez?= <blyxyas@gmail.com>
+Date: Mon, 23 Mar 2026 01:07:43 +0100
+X-Gm-Features: AQROBzBsI6copsViR8GCb5s4kn_1rinKOMbl-9Inr9UPp4mS88b9cJGUv5vqwNA
+Message-ID: <CAGeanHfNwP6Zs3LSfc9eEO7_LG0kK-jO24oUd7BjxrQbndEmNw@mail.gmail.com>
+Subject: Re: [PATCH v13 1/1] rust: interop: Add list module for C linked list
+ interface
+To: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Cc: Joel Fernandes <joelagnelf@nvidia.com>, Alice Ryhl <aliceryhl@google.com>, 
+ linux-kernel@vger.kernel.org, Miguel Ojeda <ojeda@kernel.org>, 
+ Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
+ =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Trevor Gross <tmgross@umich.edu>, Alex Gaynor <alex.gaynor@gmail.com>, 
+ Danilo Krummrich <dakr@kernel.org>, Dave Airlie <airlied@redhat.com>,
+ David Airlie <airlied@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, Simona Vetter <simona@ffwll.ch>, 
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Koen Koning <koen.koning@linux.intel.com>, 
+ Nikola Djukic <ndjukic@nvidia.com>, Alexandre Courbot <acourbot@nvidia.com>, 
+ Philipp Stanner <phasta@kernel.org>, Elle Rhumsaa <elle@weathered-steel.dev>, 
+ Jonathan Corbet <corbet@lwn.net>, Alex Deucher <alexander.deucher@amd.com>, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Jani Nikula <jani.nikula@linux.intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, Huang Rui <ray.huang@amd.com>, 
+ Matthew Auld <matthew.auld@intel.com>, Matthew Brost <matthew.brost@intel.com>,
+ Lucas De Marchi <lucas.demarchi@intel.com>, 
+ =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
+ Helge Deller <deller@gmx.de>, John Hubbard <jhubbard@nvidia.com>, 
+ Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
+ Edwin Peer <epeer@nvidia.com>, 
+ Andrea Righi <arighi@nvidia.com>, Andy Ritger <aritger@nvidia.com>,
+ Zhi Wang <zhiw@nvidia.com>, 
+ Balbir Singh <balbirs@nvidia.com>, alexeyi@nvidia.com, 
+ Eliot Courtney <ecourtney@nvidia.com>, dri-devel@lists.freedesktop.org, 
+ rust-for-linux@vger.kernel.org, linux-doc@vger.kernel.org, 
+ amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
+ intel-xe@lists.freedesktop.org, linux-fbdev@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Mon, 23 Mar 2026 08:11:26 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -90,30 +142,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Fix invalid type assignments in ddc_sh_mask.
+On Wed, Mar 18, 2026 at 7:57=E2=80=AFPM Miguel Ojeda
+<miguel.ojeda.sandonis@gmail.com> wrote:
+>
+> On Wed, Mar 18, 2026 at 7:31=E2=80=AFPM Joel Fernandes <joelagnelf@nvidia=
+.com> wrote:
+> >
+> > Anyway, the fix is simple, just need to do // SAFETY*: as Miguel sugges=
+ts
+> > here, instead of // SAFETY:
+> > https://lore.kernel.org/all/CANiq72kEnDyUpnWMZmheJytjioeiJUK_C-yQJk77dP=
+id89LExw@mail.gmail.com/
+>
+> So, to clarify, I suggested it as a temporary thing we could do if we
+> want to use that "fake `unsafe` block in macro matcher" pattern more
+> and more.
+>
+> i.e. if we plan to use the pattern more, then I am happy to ask
+> upstream if it would make sense for Clippy to recognize it (or perhaps
+> it is just a false negative instead of a false positive, given
+> `impl_device_context_deref`), so that we don't need a hacked safety
+> tag (Cc'ing Alejandra).
 
-Signed-off-by: guilhermeivo <guilhermeivob@gmail.com>
-Reported-by: kernel test robot <lkp@intel.com>
-Closes: https://lore.kernel.org/oe-kbuild-all/202603221553.GzXoxzCw-lkp@intel.com/
----
- drivers/gpu/drm/amd/display/dc/gpio/hw_factory_dcn_ddc.h | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+The team is a bit hesitant on adding comment-specific syntax apart
+from the widely used (and already on clippy) `// SAFETY` comments.
 
-diff --git a/drivers/gpu/drm/amd/display/dc/gpio/hw_factory_dcn_ddc.h b/drivers/gpu/drm/amd/display/dc/gpio/hw_factory_dcn_ddc.h
-index 1f2bc7eea82e..863177cf67e8 100644
---- a/drivers/gpu/drm/amd/display/dc/gpio/hw_factory_dcn_ddc.h
-+++ b/drivers/gpu/drm/amd/display/dc/gpio/hw_factory_dcn_ddc.h
-@@ -11,8 +11,8 @@ static inline void dcn_define_ddc_registers_common(
- 		uint32_t en,
- 		const struct ddc_registers *data_regs,
- 		const struct ddc_registers *clk_regs,
--		const struct ddc_shift *shift,
--		const struct ddc_mask *mask)
-+		const struct ddc_sh_mask *shift,
-+		const struct ddc_sh_mask *mask)
- {
- 	struct hw_ddc *ddc = HW_DDC_FROM_BASE(pin);
- 
--- 
-2.47.3
+I'm pushing for some more comments specific to the Rust4Linux project,
+because we already tailor some lints for specific projects (such as the
+Safety Critical Rust Consortium), but adding more than new types of
+comments is a bit much.
 
+On this specific lint emission, I'll see if I can get it fixed,
+because it's a false
+positive.
+
+Cheers,
+Alejandra.
