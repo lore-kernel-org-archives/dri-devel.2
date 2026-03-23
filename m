@@ -4,134 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 88EA2F483C4
-	for <dri-devel@archiver.kernel.org>; Mon, 23 Mar 2026 16:08:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 47D1CF483C4
+	for <dri-devel@archiver.kernel.org>; Mon, 23 Mar 2026 16:10:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F06F310E5CC;
-	Mon, 23 Mar 2026 16:08:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A18A110E16C;
+	Mon, 23 Mar 2026 16:10:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="1GcQDW5C";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="8n1uhvD7";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="1GcQDW5C";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="8n1uhvD7";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ECcKQQMM";
 	dkim-atps=neutral
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CC85310E5CC
- for <dri-devel@lists.freedesktop.org>; Mon, 23 Mar 2026 16:08:51 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 9A9E25BD57;
- Mon, 23 Mar 2026 16:08:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1774282130; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=Wc9WisVzJKSNqw+vyVhAxKy95ySTj5oFs4OYzcpQYyg=;
- b=1GcQDW5CkwAsAcnDkhFz7Z4PvthfPWc0LTRwxG5pdzgHEsLwJ756K4QPB3zQZu+FI5aga7
- jxb8JTWjqNnmjYSuriojy4zcps+1D47+vY2mQ/ybgJYwxC/Z7db1tEZZFcYwCv1BWdOoef
- RPO6bp+4qPvsBVuw2PWOOypdfMe7DgM=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1774282130;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=Wc9WisVzJKSNqw+vyVhAxKy95ySTj5oFs4OYzcpQYyg=;
- b=8n1uhvD7CbjKye4yPi+rNtdLRtg99L+PLJvsvacnlK4amOdmWEBBwmLMYkusyp5my/fmIl
- q2oNKbnqXwcLEjAA==
-Authentication-Results: smtp-out2.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=1GcQDW5C;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=8n1uhvD7
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1774282130; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=Wc9WisVzJKSNqw+vyVhAxKy95ySTj5oFs4OYzcpQYyg=;
- b=1GcQDW5CkwAsAcnDkhFz7Z4PvthfPWc0LTRwxG5pdzgHEsLwJ756K4QPB3zQZu+FI5aga7
- jxb8JTWjqNnmjYSuriojy4zcps+1D47+vY2mQ/ybgJYwxC/Z7db1tEZZFcYwCv1BWdOoef
- RPO6bp+4qPvsBVuw2PWOOypdfMe7DgM=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1774282130;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=Wc9WisVzJKSNqw+vyVhAxKy95ySTj5oFs4OYzcpQYyg=;
- b=8n1uhvD7CbjKye4yPi+rNtdLRtg99L+PLJvsvacnlK4amOdmWEBBwmLMYkusyp5my/fmIl
- q2oNKbnqXwcLEjAA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 6842E4396D;
- Mon, 23 Mar 2026 16:08:50 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id gqsLGJJlwWk9CQAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Mon, 23 Mar 2026 16:08:50 +0000
-Message-ID: <1dff4e1c-6c35-4cd6-a6e9-ce5dc6ae67b6@suse.de>
-Date: Mon, 23 Mar 2026 17:08:49 +0100
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B672710E02E;
+ Mon, 23 Mar 2026 16:10:50 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 79C2443AAA;
+ Mon, 23 Mar 2026 16:10:50 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 83931C2BC9E;
+ Mon, 23 Mar 2026 16:10:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1774282250;
+ bh=ZoF6xupyTlTv3+792NBhfg/e7BseX4uCTwsWp6/Ht5o=;
+ h=Date:From:To:Cc:Subject:From;
+ b=ECcKQQMMWU2dOCMAt5/a29k+/CM78UaRqJB2AIlhQmkr+pJbb9NNKHBe5fjIfSfby
+ 5Q61bd8MSML5hT0XC1RFwswkg5SF3eThQg51onLwHHvckIm4/Y8u3DDGNCEdQ8fYkI
+ /mEofa/HxUC9h5WmsrXgUt+cy20BPIo1BkwDofIdDL5XtM4IYwLWOgK651JMxoXmT9
+ WlpdgReSsRkgHpXM3NhYNhrzOf/6yQBARoBqNnBmYFQZI5HzWAi47dMxTKKtOFewzM
+ Qd7TdU6mNW0uIX+OgNS/Lmn//JB+LuyQLr/LTCxzx3sjgAfxMchREDSJv0NLv8Ougm
+ ndJ4bIQ9MntGA==
+Date: Mon, 23 Mar 2026 16:10:45 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Simona Vetter <simona.vetter@ffwll.ch>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Intel Graphics <intel-gfx@lists.freedesktop.org>,
+ DRI <dri-devel@lists.freedesktop.org>
+Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Linux Next Mailing List <linux-next@vger.kernel.org>,
+ Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+Subject: linux-next: manual merge of the drm-intel tree with the
+ drm-intel-fixes tree
+Message-ID: <acFmBW6nKf6-3ufe@sirena.org.uk>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 00/15] drm/ast: Clean up access to MMIO registers
-To: jfalempe@redhat.com, airlied@redhat.com,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@gmail.com,
- simona@ffwll.ch
-Cc: dri-devel@lists.freedesktop.org
-References: <20260323160407.245773-1-tzimmermann@suse.de>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20260323160407.245773-1-tzimmermann@suse.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url,suse.de:dkim,suse.de:mid,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns];
- FREEMAIL_TO(0.00)[redhat.com,linux.intel.com,kernel.org,gmail.com,ffwll.ch];
- FUZZY_RATELIMITED(0.00)[rspamd.com]; ARC_NA(0.00)[];
- RCPT_COUNT_SEVEN(0.00)[7]; RCVD_VIA_SMTP_AUTH(0.00)[];
- MID_RHS_MATCH_FROM(0.00)[]; FREEMAIL_ENVRCPT(0.00)[gmail.com];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- RCVD_TLS_ALL(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
- FROM_HAS_DN(0.00)[]; MIME_TRACE(0.00)[0:+];
- RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- TO_DN_NONE(0.00)[];
- URIBL_BLOCKED(0.00)[suse.de:dkim,suse.de:mid,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.com:url];
- DKIM_TRACE(0.00)[suse.de:+]
-X-Rspamd-Action: no action
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: 9A9E25BD57
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="aL9nb2R2bPSwnBDn"
+Content-Disposition: inline
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -147,65 +63,136 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The series title should say 'non-MMIO registers'. :( The rest of the 
-series is not affected by the typo.
 
-Am 23.03.26 um 16:56 schrieb Thomas Zimmermann:
-> Aspeed devices up to Gen6 contain internal memory that is accessible
-> from the host via the P2A bridge. The helpers ast_moutdwm() and
-> ast_mindwm() pick a 64-KiB segment of the memory to expose to the
-> host, which then has the content available. Content is either registers
-> of the various IP blocks or on-board system memory.
->
-> Clean up the driver code involved and provide macro constants for the
-> registers used by the ast driver. Go through the driver and replace
-> the magic values with the constants.
->
-> The first patch of the series fixes a bug that has been found while
-> working on these changes. The DP501 writes the content of register
-> SCU2C to the wrong address. The fix is a separate patch to ease
-> backporting.
->
-> Smoke-tested on AST2100, AST2300, AST2500 and AST2600.
->
-> Thomas Zimmermann (15):
->    drm/ast: dp501: Fix initialization of SCU2C
->    drm/ast: Move 32-bit register-access helpers to ast_drv.{c,h}
->    drm/ast: Use constants for AHBC registers
->    drm/ast: Use constants for MCR registers
->    drm/ast: Use constants for SCU registers
->    drm/ast: Use constants for A2P registers
->    drm/ast: Use constants for WDT registers
->    drm/ast: Use constants for SDRAM registers
->    drm/ast: Store register addresses in struct ast_dramstruct
->    drm/ast: Gen1: Fix open-coded register access
->    drm/ast: Gen2: Fix open-coded register access
->    drm/ast: Gen4: Fix open-coded register access
->    drm/ast: Gen6: Fix open-coded register access
->    drm/ast: dp501: Fix open-coded register access
->    drm/ast: Fix open-coded scu_rev access
->
->   drivers/gpu/drm/ast/ast_2000.c  |  61 +++--
->   drivers/gpu/drm/ast/ast_2100.c  | 292 +++++++++++------------
->   drivers/gpu/drm/ast/ast_2300.c  | 398 ++++++++++++++++----------------
->   drivers/gpu/drm/ast/ast_2500.c  | 319 ++++++++++++-------------
->   drivers/gpu/drm/ast/ast_dp501.c | 146 ++++++------
->   drivers/gpu/drm/ast/ast_drv.c   |  84 ++++++-
->   drivers/gpu/drm/ast/ast_drv.h   |  60 +++--
->   drivers/gpu/drm/ast/ast_post.c  |  48 +---
->   drivers/gpu/drm/ast/ast_post.h  |  20 +-
->   drivers/gpu/drm/ast/ast_reg.h   | 155 +++++++++++++
->   10 files changed, 886 insertions(+), 697 deletions(-)
->
->
-> base-commit: 5cb7d14d9bd2061386a0192a4649626a3e3a5ec3
+--aL9nb2R2bPSwnBDn
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
--- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
+Hi all,
 
+Today's linux-next merge of the drm-intel tree got a conflict in:
 
+  drivers/gpu/drm/i915/display/intel_plane.c
+
+between commit:
+
+  bfa71b7a9dc6b ("drm/i915: Unlink NV12 planes earlier")
+
+=66rom the drm-intel-fixes tree and commits:
+
+  017ecd0498557 ("drm/i915: Unlink NV12 planes earlier")
+  7b3a14322d1a8 ("drm/i915: Relocate unlink_nv12_plane()")
+  c5121204ad991 ("drm/i915: Skip redundant NV12 plane unlinking")
+
+=66rom the drm-intel tree.
+
+I fixed it up (see below) and can carry the fix as necessary. This
+is now fixed as far as linux-next is concerned, but any non trivial
+conflicts should be mentioned to your upstream maintainer when your tree
+is submitted for merging.  You may also want to consider cooperating
+with the maintainer of the conflicting tree to minimise any particularly
+complex conflicts.
+
+diff --combined drivers/gpu/drm/i915/display/intel_plane.c
+index 076b9b3564816,5390ceb21ca42..0000000000000
+--- a/drivers/gpu/drm/i915/display/intel_plane.c
++++ b/drivers/gpu/drm/i915/display/intel_plane.c
+@@@ -437,7 -437,29 +437,29 @@@ void intel_plane_copy_hw_state(struct i
+  }
+ =20
+  static void unlink_nv12_plane(struct intel_crtc_state *crtc_state,
+- 			      struct intel_plane_state *plane_state);
++ 			      struct intel_plane_state *plane_state)
++ {
++ 	struct intel_display *display =3D to_intel_display(plane_state);
++ 	struct intel_plane *plane =3D to_intel_plane(plane_state->uapi.plane);
++=20
++ 	if (!plane_state->planar_linked_plane)
++ 		return;
++=20
++ 	plane_state->planar_linked_plane =3D NULL;
++=20
++ 	if (!plane_state->is_y_plane)
++ 		return;
++=20
++ 	drm_WARN_ON(display->drm, plane_state->uapi.visible);
++=20
++ 	plane_state->is_y_plane =3D false;
++=20
++ 	crtc_state->enabled_planes &=3D ~BIT(plane->id);
++ 	crtc_state->active_planes &=3D ~BIT(plane->id);
++ 	crtc_state->update_planes |=3D BIT(plane->id);
++ 	crtc_state->data_rate[plane->id] =3D 0;
++ 	crtc_state->rel_data_rate[plane->id] =3D 0;
++ }
+ =20
+  void intel_plane_set_invisible(struct intel_crtc_state *crtc_state,
+  			       struct intel_plane_state *plane_state)
+@@@ -1512,31 -1534,6 +1534,6 @@@ static void link_nv12_planes(struct int
+  	icl_link_nv12_planes(uv_plane_state, y_plane_state);
+  }
+ =20
+- static void unlink_nv12_plane(struct intel_crtc_state *crtc_state,
+- 			      struct intel_plane_state *plane_state)
+- {
+- 	struct intel_display *display =3D to_intel_display(plane_state);
+- 	struct intel_plane *plane =3D to_intel_plane(plane_state->uapi.plane);
+-=20
+- 	if (!plane_state->planar_linked_plane)
+- 		return;
+-=20
+- 	plane_state->planar_linked_plane =3D NULL;
+-=20
+- 	if (!plane_state->is_y_plane)
+- 		return;
+-=20
+- 	drm_WARN_ON(display->drm, plane_state->uapi.visible);
+-=20
+- 	plane_state->is_y_plane =3D false;
+-=20
+- 	crtc_state->enabled_planes &=3D ~BIT(plane->id);
+- 	crtc_state->active_planes &=3D ~BIT(plane->id);
+- 	crtc_state->update_planes |=3D BIT(plane->id);
+- 	crtc_state->data_rate[plane->id] =3D 0;
+- 	crtc_state->rel_data_rate[plane->id] =3D 0;
+- }
+-=20
+  static int icl_check_nv12_planes(struct intel_atomic_state *state,
+  				 struct intel_crtc *crtc)
+  {
+@@@ -1550,17 -1547,6 +1547,6 @@@
+  	if (DISPLAY_VER(display) < 11)
+  		return 0;
+ =20
+- 	/*
+- 	 * Destroy all old plane links and make the Y plane invisible
+- 	 * in the crtc_state->active_planes mask.
+- 	 */
+- 	for_each_new_intel_plane_in_state(state, plane, plane_state, i) {
+- 		if (plane->pipe !=3D crtc->pipe)
+- 			continue;
+-=20
+- 		unlink_nv12_plane(crtc_state, plane_state);
+- 	}
+-=20
+  	if (!crtc_state->nv12_planes)
+  		return 0;
+ =20
+
+--aL9nb2R2bPSwnBDn
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmnBZgUACgkQJNaLcl1U
+h9AIzwf+ISvVVdgyEcks5gQhMPiY6ZQJnrEsybRPvGC+0xBAL01/09v/+3vLLkiw
+a8QzekfS2/ErTHjAC3s6h8Slx4Sr05mKcry69xQkl6sU4322W9pVHyMmvDgaGj/i
+w+KUHIUrryjwyPUE5OrPOaEgG63ls0pUtYSB9WyCpwFwJ9jmjcikIz7fYqXd6hpw
+9zjXDc4K+EEuwRCCrB9AKbeRzW7SBKag2xQURd+6FUvDFvr4xA1Sll+IJ1jNvP6t
+oiDRfMYHl7Kv6W/h5OnP+lCdSm+YF/DHpDw71onMF6iI2NsrFeK0FAH7gFdSlSF7
+uEnZhCLN38ZJfH8vbTP2LoNu054Skg==
+=YpWH
+-----END PGP SIGNATURE-----
+
+--aL9nb2R2bPSwnBDn--
