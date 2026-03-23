@@ -4,140 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A5945EC01A9
-	for <dri-devel@archiver.kernel.org>; Mon, 23 Mar 2026 09:29:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 42285EC01B4
+	for <dri-devel@archiver.kernel.org>; Mon, 23 Mar 2026 09:40:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F21D610E339;
-	Mon, 23 Mar 2026 09:29:18 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Ir87Tici";
-	dkim-atps=neutral
-Received: from SA9PR02CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11013049.outbound.protection.outlook.com
- [40.93.196.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4B42910E339;
- Mon, 23 Mar 2026 09:29:18 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=xoNULSdg7fFgxeHYq/AnCuJXnWfh/ESJ12/DrV2elxib8gwp3rceVwqXbr/VlIBc8kO9v0DYAZD3MB3vKUJ/J55knsJhADcXkZ8U6LwfqdeOqDnX0nVfqM1cP7cnUiwPq/a88p9ANhRR8nOu09IdNeNNCi55qRpEvK6RDHk+zksXoP3+XgtHejmnTUL60HNs26yeJqlLbjeUIlzWL1KFoTse1E7Xxisq3ZEDdO07EPK/ZTM4E1BV5mQtDR41OwJNADMxv/aqKK02RlI9m0nU2r+3z8b8b+UkH1KDRnoYRfKR8ZwFNRpKMzQIrP230NrH7u6OfPz5gzE2FaIHW8OKQw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5JaQLPEtiDHMQzBiZWbnYPKDI51B5s+DioSDUoEWXLc=;
- b=b+fPS+RUifSL1MnMLUgDa2qwHkF1a1OHj/M440c18FN+RFPrP5eqAnKDRy1LCx1zmNiqbytTGwzTbpP+tfbBHVyYD9fNZeyZN6s2mfoNsbirtaZ7iFjOsx02Yox1TFMISMucf2I1WY/vT5Pks0EKWt+0fxVHdRpg4ORV2/8E4lVwrlKKP8a1gC81u33HCkw/cisueTJfp4kMn5Tan3HrfXD/+hkGSEt8s3z0zFETMNoug+9TwqJ4QXyH8Uc8QZBhZC3bfduLsiPuLh05HPHGlNmTTUUhNPKTB/29AnicuGDyGCez4fnyX2K9CbRVa2z4uHU66lkagXP2XnHit0DCGA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5JaQLPEtiDHMQzBiZWbnYPKDI51B5s+DioSDUoEWXLc=;
- b=Ir87Ticih/XZaKDIi2P07ejJNIPKGBoOrFamuvdeacQNG+OAiGh+wEBOguyV4jT+ZR9fl5lHmiLLwyY59PXlTTEX69mXfxc5NJBLIovayY3y1QIbct/om09c53lIskYglTVES2wdVGA5NwqPQs4aoWvQq2lfgQsGQE82Bg9H+Ro=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by IA0PPFD78AA37BB.namprd12.prod.outlook.com
- (2603:10b6:20f:fc04::be6) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.6; Mon, 23 Mar
- 2026 09:29:13 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.20.9745.019; Mon, 23 Mar 2026
- 09:29:12 +0000
-Message-ID: <0c0fcc34-a3b5-4c9a-9095-854eb6475abc@amd.com>
-Date: Mon, 23 Mar 2026 10:29:04 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCHv3 for 6.1 0/4] amdgpu: fix panic on old GPUs
-To: Rosen Penev <rosenp@gmail.com>, stable@vger.kernel.org
-Cc: Alex Deucher <alexander.deucher@amd.com>, "Pan, Xinhui"
- <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, Harry Wentland <harry.wentland@amd.com>,
- Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- Evan Quan <evan.quan@amd.com>, Mario Limonciello
- <mario.limonciello@amd.com>, Sasha Levin <sashal@kernel.org>,
- Lijo Lazar <lijo.lazar@amd.com>, Ma Jun <Jun.Ma2@amd.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
- "Mario Limonciello (AMD)" <superm1@kernel.org>,
- Zhigang Luo <Zhigang.Luo@amd.com>, Bert Karwatzki <spasswolf@web.de>,
- Ray Wu <ray.wu@amd.com>, Wayne Lin <Wayne.Lin@amd.com>,
- Roman Li <Roman.Li@amd.com>, Hersen Wu <hersenxs.wu@amd.com>,
- =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>,
- Alex Hung <alex.hung@amd.com>, decce6 <decce6@proton.me>,
- Wentao Liang <vulab@iscas.ac.cn>,
- "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>,
- "open list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>,
- open list <linux-kernel@vger.kernel.org>
-References: <20260321054453.19683-1-rosenp@gmail.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260321054453.19683-1-rosenp@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR4P281CA0356.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:f4::20) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A88D410E0DD;
+	Mon, 23 Mar 2026 09:40:52 +0000 (UTC)
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 87DF810E0DD
+ for <dri-devel@lists.freedesktop.org>; Mon, 23 Mar 2026 09:40:51 +0000 (UTC)
+Received: from [192.168.1.204] (unknown [112.94.102.202])
+ by APP-03 (Coremail) with SMTP id rQCowABXdt2YCsFpREmJCw--.12851S2;
+ Mon, 23 Mar 2026 17:40:42 +0800 (CST)
+Message-ID: <4141b0a640f4d703053dad2c1dd257835881f0e2.camel@iscas.ac.cn>
+Subject: Re: [PATCH v2] drm/loongson: stop to set get_vblank_timestamp for
+ LS7A1000 CRTC
+From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+To: Jianmin Lv <lvjianmin@loongson.cn>, Maarten Lankhorst	
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Qianhai Wu	 <wuqianhai@loongson.cn>,
+ Huacai Chen <chenhuacai@kernel.org>, Mingcong Bai	 <jeffbai@aosc.io>, Xi
+ Ruoyao <xry111@xry111.site>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Date: Mon, 23 Mar 2026 17:40:40 +0800
+In-Reply-To: <e11078cb-7536-b5d2-b753-16d25093a403@loongson.cn>
+References: <20260321092804.3519447-1-zhengxingda@iscas.ac.cn>
+ <47337244ebd0ce4efd3e065183e863421925f99f.camel@iscas.ac.cn>
+ <e11078cb-7536-b5d2-b753-16d25093a403@loongson.cn>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|IA0PPFD78AA37BB:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0d4583c5-5137-4def-ff17-08de88bea4b2
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|7416014|366016|376014|1800799024|56012099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: ejct2COMi6WGMkfE+rY0fvWs+kLHSEQ2MrvEUOoxD8vPZ9inRX6NjP1xowzA/zUBbxXMkh9fT113ows0qzB7+NSYTy0Zx13klHvv2K/KUMi0oXj7WgdXCi1QHVjX7JSDkL3GpjCmptsteVpysk9PHxCk7WH5hdTCdy5u8CkqNFA1xXmEVjPLlw8c6xoIeKikMhHhskAdAssuGdh12KR/MPfPl/NH3sipa9FoYqyaq0Qa1G+k5w/MJejQSdEFF3hXwWspffHy9bhej3pjuPnmwlNLQkUVhTTQcc5SYVAkQTbZPob0XJgs6nAD6ikqZve4ZF6T5jHeaDHXLfgAsRZttk1ETuDgkQ5FfbpMBKa1t6LGyO/UmeCCQfqP1m+Mfd4HdZqdhXznrMbbbRP/y2b+uwjCuJ1OQfVQFXIG732s5rauGmyIwTc8Ruw1cOhROcD5ZPYurEW31ByY32AC/rfjIdda9Jyrdbm7rW2qN6cbgnE60nrvbt9WM3yTaa1j5aYvxjeVklymPFOvXV4FHU1rTccGxO4UsebmdlOWtSZufKTBtW2vYYZrFrvBlsz/hWunhjCXPSf+t7NkIXg9eZuXxywWpQ+y9tCUgr+cBtQfNlcYW8kI8s7nDYrrYGIcY2eRoJnp4o1ppMC2SLxkPKD3twOG+OQZeXc6JvUa8YS5iFoaxW7xniJTvxR52Aaa/wmK5DsyUIU0PmcspoqeCVfDHU+nlhnsQHHzNumrMskaCAY=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(7416014)(366016)(376014)(1800799024)(56012099003)(18002099003)(22082099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?T1Nwck1tWnRoSUZ1L1J0L2o4c1NMaUN3QURMUDRxZkk4eW4xejlxNG1SN1Y0?=
- =?utf-8?B?aHJTMlBybWtKS1l1K1MraUJ0dkhTWW51a1M3YTFaeXkwR21HZmt0WGZEOEpV?=
- =?utf-8?B?M1RwVnBoZWRneFZtSzBpQk9KOGxGeXlPOFRlcDM1amJhODN1aHlyOWFqc1NU?=
- =?utf-8?B?VGNacVZ4SWJzUllIVW1hYjJWcUE3REVhSlgybjQvVWxzL0tKUnc4WW9NeUVs?=
- =?utf-8?B?YVZvdVk2UmlqZ0QyQXc5MVpDSDQ1RDMwQXcvRzRSTk9aYnVnK0VSOWhNenpN?=
- =?utf-8?B?WDRzcklmUDY1cDdLNFprcVVhdjkrdDRqaTA4T0twcTJvZi9uYWRiMXFtU01m?=
- =?utf-8?B?eXYydHVpb1ZDR29hNnpJb0s4cm14L0FNTkJKeDd5R0w5Qy9HUEIvYW5WRCtk?=
- =?utf-8?B?SVg2Sk1oQncyMUpWVk9nWGZWQVhmaEZaN2VtbFh3WGNXT1MyTkhqT3pWaW1K?=
- =?utf-8?B?K05INWpRenI5NUpUMWp5RC9zbGJBTldUUFYwTndPZ01CU1lVM1pNODl1Q25Z?=
- =?utf-8?B?S0E1L3plUit4cmZYMTRvU0pFN09LWE9tSmJDeTgxbjk1bTM4NWpsRFd2blFm?=
- =?utf-8?B?NDI2ckYrTTBLbGpaOEdBVWVtQUwzZ0JwbG9SNGg5OFFYVmpLWUFFaXJHNGFN?=
- =?utf-8?B?dVhCS0ZwcVViZUY4aG5iQzhKczlvbElmV0pOS0JmSnVLYUVZQ3d3Zkl0RXJJ?=
- =?utf-8?B?S241QThxelJrUFUzMVVQSjk4SEU0N3U5WXl5MERIWDdEL2E3ZEZRazFwSENJ?=
- =?utf-8?B?ZFZrWlg4WTRUOFR2ZU1sdlV4M0xRM2lnS1U1RWx0MUl5TVZaenBleGVKZDl2?=
- =?utf-8?B?cUYxeXZ3dU5XMmV5ZjhNMFMwVGx3NEFYWEJONWJQa3BIS084TEViV2RPMUFu?=
- =?utf-8?B?c3FlT2FqdWtiT0lnMXR6VjI5enRrNUptbWc0K0VkeDZtd2xWNW9wMWd5OHJo?=
- =?utf-8?B?eDlWMm9qakxsQTJQZmQwZUhwQ1I1K3krQ0pzbHJFekJ4SXZKZzB3Qlh4NWlZ?=
- =?utf-8?B?R1c0SnRCUmUzeDIvQ3VMY0xMdENmTkMyeU14bnJCdjd4NzZvVU00MExNVGtt?=
- =?utf-8?B?Z2l5eWIvMy9oczF2bXpYSUhBSjE3bGJ0Z3VnNHdDTzFDUXJSWGZYczUyMHE3?=
- =?utf-8?B?SWh0Vy9sSXFDbUFLMlBYN2xram9ya0phUExHNFFSV21kZEVVZG81N3NxQ0hM?=
- =?utf-8?B?V2k2TklBZm0xbzF3RU1YekpsT2ZyWkwrQXhlYkNPYkpzM2JsVEZ0cTU3Mis0?=
- =?utf-8?B?VVRlT3hUaVVQQzhjUWFwZkdiS1ZWZ1hXZk1KclRwTVdmb3laMHMzY3V3dXJt?=
- =?utf-8?B?eWVVUkxMNTd4Mk1PQ1RrcE45NWxKRVlqcVZNbEhLWUtNNVdCNWdCUU1ERm96?=
- =?utf-8?B?T1BUMW1vUk5ibGpzMmVzcGM1L0FtYUFZVFFROTJqNFRhK0pqQWZrQW85K2Ni?=
- =?utf-8?B?Y09RcVJKZ3BxNWExeXdpRklZSlM5RzlRZTVQY09KY3NlZS9VL0sxeFVsRDU3?=
- =?utf-8?B?VkZNQlNJNXhpUDBycVkvYzRlV3NuekRYeEVYbDkrb01GN0RFYThaU0VwOVZW?=
- =?utf-8?B?S2VMUktmZENWd0hvcmN5Qk1keHd6UTQraDdHSWZOTlZ0QkQyUlRUM1pTNWEr?=
- =?utf-8?B?V1djeW5wVUtuRkhLS3htbnB0UXgvaHBPMklGVGVIS3RMeXJ4aUg1Q0ZWVmVM?=
- =?utf-8?B?dFZ1TmxVOWQ1c1VHamorMzlWWlhDNFpaMThTUzhkQU1oRlFzMUM0MkpRVkpS?=
- =?utf-8?B?bW1Kc2tPUEVsR0dXdVJObWc2THJHSmQ0b3ZxS1ExeDlxWStIUG5FcHVRN3Ny?=
- =?utf-8?B?dHJJcllaYzdCdmN1cERkZXJDb2dwN05NSzdScUlHSzBwQ2V6ZmowLzF1SklZ?=
- =?utf-8?B?WU5KZ0JvTVI2TEVOSkIyZlRMM1F3TjhQYmFzcGVZbE04MnRsWXo0bTJCSnk0?=
- =?utf-8?B?L1VTNVFyWXBiaktGUHZ3Y0pQb0tRdmRCRnBGWk50YUxucmNHRjM1bThYRWpl?=
- =?utf-8?B?ckE1dy8yYjBtbmRLMmdsR3JFdEpubExFM21NTGovT2liQ1Y5T0dvWmdlUnlN?=
- =?utf-8?B?bVAwSTAxV01DRlpZcG1NcmN4RUxJYkFQMGlpRFhrOWVNamdQcmlSZWJONGhG?=
- =?utf-8?B?S2RUOVlaTVg3UjdET1AwUkl1UE5TZEtZKzF1K1hwbTlrc05kTERrcDZFamJJ?=
- =?utf-8?B?akREK3VIZllCdUlYQzV5ckwxSUVJMVpoZ0ovWXZkVFBOM2k1VTFlcEo3ajFD?=
- =?utf-8?B?bXk5VlZId3hFcFVvVTdRbGNGMElidVAwSHVxcitFaWhtRnQzTUEzR0xuSFE0?=
- =?utf-8?Q?J8nDMWDTkVwTF86AXX?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0d4583c5-5137-4def-ff17-08de88bea4b2
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Mar 2026 09:29:12.3765 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: fO5thiae3HV7fx1AVovFO9/8r77Z8O1t89cHMLZq5BA+Uv/Bb9YUmGQi0kz8yom4
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PPFD78AA37BB
+X-CM-TRANSID: rQCowABXdt2YCsFpREmJCw--.12851S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxCFWrtFW5Wry7tF47KrWxJFb_yoW7JF4fpF
+ 47JF1Ykr48tr17Jwsrtr1rJr1xKr1ay3ZrJr17twn8Aw1UGr18tF18ArW7GwnxWryDJ39x
+ t3ZrJr4UKr92kaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUUvmb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+ 0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+ A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xII
+ jxv20xvEc7CjxVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwV
+ C2z280aVCY1x0267AKxVW0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC
+ 0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr
+ 1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI48JM4IIrI8v6xkF7I0E8cxan2IY04v7
+ MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r
+ 4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF
+ 67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2I
+ x0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2
+ z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnU
+ UI43ZEXa7IU56yI5UUUUU==
+X-Originating-IP: [112.94.102.202]
+X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -153,58 +69,126 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 3/21/26 06:44, Rosen Penev wrote:
-> Because of incomplete backports to stable kernels, DC ended up breaking
-> on older GCN 1 GPUs. This patchset adds the missing upstream commits to
-> at least fix the panic/black screen on boot.
-> 
-> They are applicable to 6.12, 6.6, and 6.1 as those are the currently
-> supported kernels that 7009e3af0474aca5f64262b3c72fb6e23b232f9b got
-> backported to.
-> 
-> 6.1 needs two extra backports for these two commits to be cherry-picked
-> cleanly. Those are
-> 
-> 96ce96f8773da4814622fd97e5226915a2c30706
-> d09ef243035b75a6d403ebfeb7e87fa20d7e25c6
+=E5=9C=A8 2026-03-23=E4=B8=80=E7=9A=84 11:40 +0800=EF=BC=8CJianmin Lv=E5=86=
+=99=E9=81=93=EF=BC=9A
+>=20
+>=20
+> On 2026/3/21 =E4=B8=8B=E5=8D=885:29, Icenowy Zheng wrote:
+> > =E5=9C=A8 2026-03-21=E5=85=AD=E7=9A=84 17:28 +0800=EF=BC=8CIcenowy Zhen=
+g=E5=86=99=E9=81=93=EF=BC=9A
+> > > As there's no known hardware capability about querying vblank on
+> > > the
+> > > LS7A1000 display controller, setting get_vblank_timestamp will
+> > > mislead the
+> > > kernel about the support of DC-backed high precision vblank
+> > > query.
+> > >=20
+> > > Drop this function pointer in the CRTC function table for
+> > > LS7A1000.
+> > >=20
+> > > This solves a kernel warning when booting Linux 7.0-rc3 on a
+> > > Loongson-3A4000+LS7A1000 Haier Boyue G51 laptop (with injected
+> > > EDID
+> > > for
+> > > replicating the display timing set by the firmware).
+> > >=20
+> The drm_crtc_vblank_helper_get_vblank_timestamp will call=20
+> get_scanout_position hook to caculate timestamp, and the driver has=20
+> get_scanout_position to support it (LS7A1000 has related register).
+> So=20
+> the get_vblank_timestamp hook is ok for LS7A1000, and we'd better
+> look=20
+> into the warning information.
 
-Acked-by: Christian König <christian.koenig@amd.com> for backporting this series and those two additional patches.
+The warning information is copied here:
+```
+[    0.334960] ------------[ cut here ]------------
+[    0.334960] WARNING: drivers/gpu/drm/drm_vblank.c:747 at
+drm_crtc_vblank_helper_get_vblank_timestamp_internal+0x3c8/0x438,
+CPU#0: kworker/0:1/11
+[    0.334960] loongson 0000:00:06.1: [drm]
+drm_WARN_ON_ONCE(drm_drv_uses_atomic_modeset(dev))
+[    0.334960] Modules linked in:
+[    0.334960] CPU: 0 UID: 0 PID: 11 Comm: kworker/0:1 Not tainted
+7.0.0-rc4-3a4000-laptop-test+ #31 PREEMPT=20
+[    0.334960] Hardware name: Haier Boyue G51/Boyue G51, BIOS
+K3L3A4000.HR10.200909.T 09/09/2020
+[    0.334960] Workqueue: events drm_fb_helper_damage_work
+[    0.334960] Stack : ffffffff819dec03 0000000000000000
+0000000000000018 9800000100223938
+[    0.334960]         9800000100223938 9800000100223a68
+0000000000000000 0000000000000000
+[    0.334960]         b8e8b3f2ec6b8200 98000000092bffa8
+9800000100223768 0000000000000000
+[    0.334960]         ffffffff81632b08 0000000000000030
+ffffffff813c9530 0000000000200b20
+[    0.334960]         fffffffffffffffc 0000000000000000
+0000000000000000 ffffffff816c1d50
+[    0.334960]         ffffffff81890000 00000000000002eb
+0000000000000000 ffffffff80c1b180
+[    0.334960]         9800000100ff8500 0000000000000000
+9800000005c965a8 0000000000000000
+[    0.334960]         ffffffff81a70000 9800000100220000
+9800000100223930 0000000000000000
+[    0.334960]         ffffffff802274dc 0000000000000000
+0000000000000000 0000000000000000
+[    0.334960]         0000000000000000 0000000000000000
+ffffffff802274fc b8e8b3f2ec6b8200
+[    0.334960]         ...
+[    0.334960] Call Trace:
+[    0.334960] [<ffffffff802274fc>] show_stack+0x64/0x158
+[    0.334960] [<ffffffff8021bac4>] dump_stack_lvl+0x70/0xb0
+[    0.334960] [<ffffffff8026a988>] __warn+0xa8/0x120
+[    0.334960] [<ffffffff8026ab60>] warn_slowpath_fmt+0x160/0x1f8
+[    0.334960] [<ffffffff80be5668>]
+drm_crtc_vblank_helper_get_vblank_timestamp_internal+0x3c8/0x438
+[    0.334960] [<ffffffff80be48d8>]
+drm_crtc_get_last_vbltimestamp+0x68/0xb0
+[    0.334960] [<ffffffff80be5e14>] drm_update_vblank_count+0xac/0x418
+[    0.334960] [<ffffffff80be6270>] drm_vblank_enable+0xf0/0x288
+[    0.334960] [<ffffffff80be7010>] drm_vblank_get+0xf8/0x160
+[    0.334960] [<ffffffff80beb2e0>]
+drm_client_modeset_wait_for_vblank+0x50/0xa0
+[    0.334960] [<ffffffff80c0a144>]
+drm_fb_helper_damage_work+0x8c/0x1d8
+[    0.334960] [<ffffffff8028fac8>] process_one_work+0x198/0x348
+[    0.334960] [<ffffffff802906c0>] worker_thread+0x238/0x390
+[    0.334960] [<ffffffff8029c0d8>] kthread+0x160/0x198
+[    0.334960] [<ffffffff8021fd8c>] ret_from_kernel_thread+0x14/0x1c
 
-Regards,
-Christian.
+[    0.334960] ---[ end trace 0000000000000000 ]---
+```
 
-> 
-> v3: Add those commits to this series and sign them off.
-> v2: Add Signed-off-by.
-> 
-> Alex Deucher (2):
->   drm/amdgpu: use proper DC check in amdgpu_display_supported_domains()
->   drm/amdgpu: clarify DC checks
-> 
-> Timur Kristóf (2):
->   drm/amd/display: Add pixel_clock to amd_pp_display_configuration
->   drm/amd/pm: Use pm_display_cfg in legacy DPM (v2)
-> 
->  drivers/gpu/drm/amd/amdgpu/amdgpu.h           |  1 +
->  drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c      |  2 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c   |  2 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    | 32 ++++-----
->  drivers/gpu/drm/amd/amdgpu/amdgpu_display.c   |  4 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       |  2 +-
->  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  1 +
->  .../amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c  |  1 +
->  .../dc/clk_mgr/dce110/dce110_clk_mgr.c        |  2 +-
->  .../drm/amd/display/dc/dm_services_types.h    |  2 +-
->  drivers/gpu/drm/amd/include/dm_pp_interface.h |  1 +
->  drivers/gpu/drm/amd/pm/amdgpu_dpm_internal.c  | 67 +++++++++++++++++++
->  .../gpu/drm/amd/pm/inc/amdgpu_dpm_internal.h  |  2 +
->  drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c    |  4 +-
->  .../gpu/drm/amd/pm/legacy-dpm/legacy_dpm.c    |  6 +-
->  drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c    | 65 ++++++------------
->  .../gpu/drm/amd/pm/powerplay/amd_powerplay.c  | 13 +---
->  17 files changed, 126 insertions(+), 81 deletions(-)
-> 
-> --
-> 2.53.0
-> 
+>=20
+> > > Signed-off-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+> >=20
+> > Oh forgot to attach when crafting v2:
+> >=20
+> > ```
+> > Acked-by: Thomas Zimmermann <tzimmermann@suse.de>
+> > ```
+> >=20
+> > > ---
+> > > Changes in v2:
+> > > - Re-formatted Loongson product model numbers per request from
+> > > Huacai.
+> > >=20
+> > > =C2=A0=C2=A0drivers/gpu/drm/loongson/lsdc_crtc.c | 1 -
+> > > =C2=A0=C2=A01 file changed, 1 deletion(-)
+> > >=20
+> > > diff --git a/drivers/gpu/drm/loongson/lsdc_crtc.c
+> > > b/drivers/gpu/drm/loongson/lsdc_crtc.c
+> > > index 587fbe285e9ef..b3af8e0cdb15f 100644
+> > > --- a/drivers/gpu/drm/loongson/lsdc_crtc.c
+> > > +++ b/drivers/gpu/drm/loongson/lsdc_crtc.c
+> > > @@ -721,7 +721,6 @@ static const struct drm_crtc_funcs
+> > > ls7a1000_crtc_funcs =3D {
+> > > =C2=A0=C2=A0	.late_register =3D lsdc_crtc_late_register,
+> > > =C2=A0=C2=A0	.enable_vblank =3D lsdc_crtc_enable_vblank,
+> > > =C2=A0=C2=A0	.disable_vblank =3D lsdc_crtc_disable_vblank,
+> > > -	.get_vblank_timestamp =3D
+> > > drm_crtc_vblank_helper_get_vblank_timestamp,
+> > > =C2=A0=C2=A0	.atomic_print_state =3D lsdc_crtc_atomic_print_state,
+> > > =C2=A0=C2=A0};
+> > > =C2=A0=20
 
