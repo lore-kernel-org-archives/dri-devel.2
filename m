@@ -4,87 +4,86 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8F2A0EC01A1
-	for <dri-devel@archiver.kernel.org>; Mon, 23 Mar 2026 07:51:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9CEFAEC01A0
+	for <dri-devel@archiver.kernel.org>; Mon, 23 Mar 2026 07:51:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EFBF110E3FB;
-	Mon, 23 Mar 2026 07:51:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0D4B810E3F9;
+	Mon, 23 Mar 2026 07:51:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="lqqjaBMr";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="SarpKtuY";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="Bxd9brr/";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="bvCM4sTD";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="1ZHhc/6f";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="jj9LEzTz";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="1ZHhc/6f";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="jj9LEzTz";
 	dkim-atps=neutral
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8376010E3FB
- for <dri-devel@lists.freedesktop.org>; Mon, 23 Mar 2026 07:51:21 +0000 (UTC)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E22F310E3F9
+ for <dri-devel@lists.freedesktop.org>; Mon, 23 Mar 2026 07:51:50 +0000 (UTC)
 Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 3016F5BD63;
- Mon, 23 Mar 2026 07:51:19 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 9C9474D361;
+ Mon, 23 Mar 2026 07:51:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1774252280; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1774252309; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=8xkWSPq+kZviJ8GgHMDMb13XYFI0T5EqWTWYBo4ArxA=;
- b=lqqjaBMr7ID1HXEGECg9mEg3fqXz6LphZHenKLBQo8xVt5P8gvtA8go+rDWvBn7RBgY67b
- uR7EttpLSO0bxBK8oAPl1WXNzGdnFFHEtgSWpgj2E7OScncMDjcBHodejR8cAaTks5QBg7
- odBu/cjB8QWymMx654dQgFkgO7qpqAo=
+ bh=tA7W06Onk/rtKXd/N94Ed9tcGBNSmGtsapWgGQU6lXk=;
+ b=1ZHhc/6fBv1Qot2PeIrWSs1vP+h6CzWtprkvBsZ+2Cbk6pUe1E/M2DOC3z3/CnRFzJ42TR
+ qoq8SJJP7cZ4CjzE5f0UHpov3JHkxZ7vQWqoOSOA+tzktfjaXb5sltg7/8Sn+QFccZ/iSq
+ ny4nimBghtq97+NQT+TxklJhwQ+bpXM=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1774252280;
+ s=susede2_ed25519; t=1774252309;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=8xkWSPq+kZviJ8GgHMDMb13XYFI0T5EqWTWYBo4ArxA=;
- b=SarpKtuYBfydZEqXSUvkVfddEe6IqJ7AVFmywDjDM2QnWFuuvf7oOC4SXvF/Y3gUuWR6sM
- 6eWr9y9UbIvH11Aw==
-Authentication-Results: smtp-out2.suse.de;
+ bh=tA7W06Onk/rtKXd/N94Ed9tcGBNSmGtsapWgGQU6lXk=;
+ b=jj9LEzTzA2e6UrwMPJsdrDlaqRhKs4M91FUEzyhYBXBLNMsBfCYeUGDbG/1bEt+C23uX1q
+ n3LQQxT/8H9Nw4Ag==
+Authentication-Results: smtp-out1.suse.de;
 	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1774252279; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1774252309; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=8xkWSPq+kZviJ8GgHMDMb13XYFI0T5EqWTWYBo4ArxA=;
- b=Bxd9brr/YMsR5Gs8rBWwMdC/mBjYjLYcNaLx3b0rIs2KID+Gp0Y/BiSVxk5gnR/gSWXJgd
- 80ZQt2eSjBCQeQh2nYY+PEKvAS4L8y0vV+BwJez1xH/9XkhiveOg7pRQbS1D503da/FSBc
- zqBN04KaW385LEEaCBOoeiW49RGBX/Q=
+ bh=tA7W06Onk/rtKXd/N94Ed9tcGBNSmGtsapWgGQU6lXk=;
+ b=1ZHhc/6fBv1Qot2PeIrWSs1vP+h6CzWtprkvBsZ+2Cbk6pUe1E/M2DOC3z3/CnRFzJ42TR
+ qoq8SJJP7cZ4CjzE5f0UHpov3JHkxZ7vQWqoOSOA+tzktfjaXb5sltg7/8Sn+QFccZ/iSq
+ ny4nimBghtq97+NQT+TxklJhwQ+bpXM=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1774252279;
+ s=susede2_ed25519; t=1774252309;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=8xkWSPq+kZviJ8GgHMDMb13XYFI0T5EqWTWYBo4ArxA=;
- b=bvCM4sTD9VU+ocKSKHs06bp+eetz4mjWY9h4qEZsOoz62+J1Rk+AtQxewpB5vsnBM0wyYu
- OOrsZSqQJ2ijCTCg==
+ bh=tA7W06Onk/rtKXd/N94Ed9tcGBNSmGtsapWgGQU6lXk=;
+ b=jj9LEzTzA2e6UrwMPJsdrDlaqRhKs4M91FUEzyhYBXBLNMsBfCYeUGDbG/1bEt+C23uX1q
+ n3LQQxT/8H9Nw4Ag==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id D05E14377B;
- Mon, 23 Mar 2026 07:51:18 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 499DB4377C;
+ Mon, 23 Mar 2026 07:51:49 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id XFtxMfbwwGl/eQAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Mon, 23 Mar 2026 07:51:18 +0000
-Message-ID: <351271b1-3597-4c62-9451-4d3cd4f65a3e@suse.de>
-Date: Mon, 23 Mar 2026 08:51:18 +0100
+ by imap1.dmz-prg2.suse.org with ESMTPSA id COZLEBXxwGmnegAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Mon, 23 Mar 2026 07:51:49 +0000
+Message-ID: <1c163b1a-a712-4f4c-b3e0-ab0a12d97693@suse.de>
+Date: Mon, 23 Mar 2026 08:51:48 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 06/16] drm/ili9225: Use regular atomic helpers; drop
- simple-display helpers
-To: David Lechner <david@lechnology.com>, javierm@redhat.com,
- lanzano.alex@gmail.com, kamlesh.gurudasani@gmail.com,
- architanant5@gmail.com, wens@kernel.org, mripard@kernel.org,
- maarten.lankhorst@linux.intel.com, simona@ffwll.ch, airlied@gmail.com
-Cc: dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH v3 00/16] drm/mipi-dbi: Replace simple-display helpers
+ with regular atomic helpers
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: david@lechnology.com, javierm@redhat.com, lanzano.alex@gmail.com,
+ kamlesh.gurudasani@gmail.com, architanant5@gmail.com, wens@kernel.org,
+ mripard@kernel.org, maarten.lankhorst@linux.intel.com, simona@ffwll.ch,
+ airlied@gmail.com, dri-devel@lists.freedesktop.org
 References: <20260319160110.109610-1-tzimmermann@suse.de>
- <20260319160110.109610-7-tzimmermann@suse.de>
- <48ee60a0-d7e7-45e4-95b3-0ff8df007138@lechnology.com>
+ <ltxdlbnllcelmlakfjks5oo6ys7t3h6lulxaev3jmnumkjcebg@3dwu6chuswrf>
 Content-Language: en-US
 From: Thomas Zimmermann <tzimmermann@suse.de>
 Autocrypt: addr=tzimmermann@suse.de; keydata=
@@ -111,25 +110,25 @@ Autocrypt: addr=tzimmermann@suse.de; keydata=
  SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
  Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
  4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <48ee60a0-d7e7-45e4-95b3-0ff8df007138@lechnology.com>
+In-Reply-To: <ltxdlbnllcelmlakfjks5oo6ys7t3h6lulxaev3jmnumkjcebg@3dwu6chuswrf>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-Spamd-Result: default: False [-2.80 / 50.00]; BAYES_HAM(-3.00)[100.00%];
  SUSPICIOUS_RECIPS(1.50)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
  NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- TO_MATCH_ENVRCPT_ALL(0.00)[];
- URIBL_BLOCKED(0.00)[imap1.dmz-prg2.suse.org:helo,suse.com:url,suse.de:mid,suse.de:email];
+ TAGGED_RCPT(0.00)[]; FUZZY_RATELIMITED(0.00)[rspamd.com];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; ARC_NA(0.00)[];
+ MIME_TRACE(0.00)[0:+]; RCVD_TLS_ALL(0.00)[];
+ RCPT_COUNT_TWELVE(0.00)[12]; MID_RHS_MATCH_FROM(0.00)[];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com];
  DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FREEMAIL_TO(0.00)[lechnology.com,redhat.com,gmail.com,kernel.org,linux.intel.com,ffwll.ch];
- ARC_NA(0.00)[]; FUZZY_RATELIMITED(0.00)[rspamd.com];
- MIME_TRACE(0.00)[0:+]; FREEMAIL_ENVRCPT(0.00)[gmail.com];
- RCVD_TLS_ALL(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- TO_DN_SOME(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
- RCPT_COUNT_SEVEN(0.00)[11]; MID_RHS_MATCH_FROM(0.00)[];
- TAGGED_RCPT(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo, suse.com:url,
- suse.de:mid, suse.de:email]
+ FROM_HAS_DN(0.00)[];
+ FREEMAIL_CC(0.00)[lechnology.com,redhat.com,gmail.com,kernel.org,linux.intel.com,ffwll.ch,lists.freedesktop.org];
+ TO_DN_SOME(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
+ RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ URIBL_BLOCKED(0.00)[suse.com:url,suse.de:mid,imap1.dmz-prg2.suse.org:helo];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid, imap1.dmz-prg2.suse.org:helo,
+ suse.com:url]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -147,32 +146,48 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
 
-Am 22.03.26 um 02:13 schrieb David Lechner:
-> On 3/19/26 10:59 AM, Thomas Zimmermann wrote:
->> Replace simple-display helpers with regular atomic helpers. Store the
->> pipeline elements in struct ili9225_device and initialize them as part
->> of probing the device. Use mipi-dbi's existing helpers and initializer
->> macros where possible.
+Am 23.03.26 um 04:57 schrieb Dmitry Baryshkov:
+> On Thu, Mar 19, 2026 at 04:59:36PM +0100, Thomas Zimmermann wrote:
+>> We keep getting new drivers based on the obsolete simple-display pipeline,
+>> such as the recent driver for st7789v panels. [1] But submitters cannot
+>> know, as the simple-display helpers are fully documented and still used
+>> in several places.
 >>
->> Effectively open-codes the modesetting code in the initializer helpers
->> of mipi-dbi and simple-display. Ili9225 requires custom helpers for
->> various pipeline elements, and non-freeing cleanup of the pipeline.
+>> Hence, convert all the mipi-dbi drivers over to regular atomic helpers
+>> and remove simple-display support from mipi-dbi in this series. Then
+>> undocument the helpers and add TODO items for final their removal.
+>>
+>> Patch 1 changes the mode-setting logic to get CRTC and panel updates into
+>> the correct order. This patch is probably the most fragile change in the
+>> series.
+>>
+>> Patches 2 and 3 prepare mipi-dbi to allow for atomic helpers to be used.
+>>
+>> Patches 5 to 14 update mipi-dbi drivers one by one. The st7735r driver
+>> requires some additional minor preparation. Overall, the refactoring is
+>> always the same.
+>>
+>> Patches 15 and 16 clean up mipi-dbi and the simple-display helpers.
+>>
+>> These patches need some testing, as I can only compile them. At least
+>> one of the drivers should be tried on hardware. Regressions should be
+>> easy to fix, as these changes are mostly refactoring jobs.
+>>
+>> [1] https://lore.kernel.org/dri-devel/20260221071351.22772-1-architanant5@gmail.com/
 >>
 >> v3:
->> - set dbi variable (David)
->> v2:
->> - fix connector initialization
->>
->> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
->> Acked-by: David Lechner <david@lechnology.com>
->> ---
-> I dug up one of these and it is working now too. So I think this
-> series is in good shape now.
+>> - fix uninitialized variables (David)
+>> - improve documentation (David)
+>> - clean up
+> For the series:
 >
-> Tested-by: David Lechner <david@lechnology.com>
+> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
-Fantastic, thanks  a lot.
+Thanks a lot!
 
+>
+>
+>
 
 -- 
 --
