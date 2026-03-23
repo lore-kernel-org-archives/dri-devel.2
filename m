@@ -4,128 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A3690F46139
-	for <dri-devel@archiver.kernel.org>; Mon, 23 Mar 2026 15:19:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 186ADF46139
+	for <dri-devel@archiver.kernel.org>; Mon, 23 Mar 2026 15:29:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E40D410E09C;
-	Mon, 23 Mar 2026 15:19:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7E96410E043;
+	Mon, 23 Mar 2026 15:29:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="aaCi/Upx";
+	dkim=pass (2048-bit key; secure) header.d=pm.me header.i=@pm.me header.b="WHUlp5Ek";
 	dkim-atps=neutral
-Received: from TYVP286CU001.outbound.protection.outlook.com
- (mail-japaneastazon11011043.outbound.protection.outlook.com [52.101.125.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4F4C410E043
- for <dri-devel@lists.freedesktop.org>; Mon, 23 Mar 2026 15:19:47 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=tBEistly4OS/nVnv+VHGDLZKHl2w3vwVxBTrUukyAw8psLe/zsCNow9ZiQzlz2hjEXnw3e/hez2bpq3m0Qtd3Em6kwczJkPZG5DX4Pm3BrvFzAknePsE1o04FWmDGAD3lhyzI+E89ftaMLM+WvqlgwHNwdNpmWPa6M41cD8DKM01b/IQ2zxUAajmisc53Z+Mge25eoFUQAH4AptQmwF1BKUWQh+LG2gzcOTSdhZpMcymG26WNHsbH8u1OlmQGvaQ2lAjCK88ToYrD0/e7ixivIyqqh0FDHgmZ199VXm8fLclaqwuudt1t+U83hwJCZEdtYLZ7N1WZkClCsk/ulEtpQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ZiOm7/b+Dox7oMXkvpCo2CZtrssrqTWFOa76i7vewAY=;
- b=OKbkWcZ/mbYsZlOpHYnKHmWv8bWMWtcjufAC7upHggcakVKsOFqXwF1r/Aao8f7AqN3cU3Fmw/B/jzzet+9sUv1JmjInJ6CUu4XRFOa0cI4EOVz9h3dcRqhuJs7XhWitJPbQmLMHiuLdIM8amc4OTyS+AJWcmo1AxGWa3V4aLOCMYfkxCGzHC5pv0mhMiEHwgwp+MDetCCnVV8xCs7SDNrrPiMBZBlOdLjD3Tok45OAWPdqX7H8pH5mKPX/cEThJnuAHBxj3+JieqebQLVSMRF010WOHaFFX76LfSxGcXFdpo5qa3gRn8oCkSsvzRRQKYylMvZoolJSZzPd01dd7tw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
- header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ZiOm7/b+Dox7oMXkvpCo2CZtrssrqTWFOa76i7vewAY=;
- b=aaCi/UpxAawVvAOwaP6qW2A/6r6VpMiAx+j1zTlu2icT2Ix/VSBjlaEHnJvFbv7v8gM1hb9mhl4mk7WfMi4tPHtccQmIfqTLkSkr7k6OgeMbe8qZKUG1TIpPyddnizIihrVZOzDOiqeyUfbeKiOjYAZ0IusPArTknea27SJxzfI=
-Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com (2603:1096:400:3d0::7)
- by TYRPR01MB15881.jpnprd01.prod.outlook.com (2603:1096:405:2d5::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.31; Mon, 23 Mar
- 2026 15:19:25 +0000
-Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com
- ([fe80::87d1:4928:d55:97de]) by TY3PR01MB11346.jpnprd01.prod.outlook.com
- ([fe80::87d1:4928:d55:97de%4]) with mapi id 15.20.9723.030; Mon, 23 Mar 2026
- 15:19:27 +0000
-From: Biju Das <biju.das.jz@bp.renesas.com>
-To: Hugo Villeneuve <hugo@hugovil.com>, biju.das.au <biju.das.au@gmail.com>
-CC: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Chris Brandt
- <Chris.Brandt@renesas.com>, Laurent Pinchart
- <laurent.pinchart+renesas@ideasonboard.com>, Sam Ravnborg <sam@ravnborg.org>, 
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, Geert
- Uytterhoeven <geert+renesas@glider.be>, Prabhakar Mahadev Lad
- <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Subject: RE: [PATCH v2 4/4] drm: renesas: rzg2l_mipi_dsi: Increase reset
- deassertion delay to 1 msec
-Thread-Topic: [PATCH v2 4/4] drm: renesas: rzg2l_mipi_dsi: Increase reset
- deassertion delay to 1 msec
-Thread-Index: AQHct8A+aOtg03CPv0GtnFeZnAcwLbW8MNWAgAAPJRA=
-Date: Mon, 23 Mar 2026 15:19:27 +0000
-Message-ID: <TY3PR01MB113460833AFD4BE4422E5E737864BA@TY3PR01MB11346.jpnprd01.prod.outlook.com>
-References: <20260319164833.409126-1-biju.das.jz@bp.renesas.com>
- <20260319164833.409126-5-biju.das.jz@bp.renesas.com>
- <20260323102015.957b2f855b7d54aa5d33869d@hugovil.com>
-In-Reply-To: <20260323102015.957b2f855b7d54aa5d33869d@hugovil.com>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=bp.renesas.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: TY3PR01MB11346:EE_|TYRPR01MB15881:EE_
-x-ms-office365-filtering-correlation-id: 0f7fd8f8-1f6a-46bf-f8f5-08de88ef928c
-x-ld-processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|366016|1800799024|7416014|376014|38070700021|18002099003|22082099003|56012099003;
-x-microsoft-antispam-message-info: 0Tj3MGaogwO1c/3SufS0UkAOl8lXhR81MRsrHN7fnToOxr6HmNnwNon2dFgbsp24GONpO/lKIYsr9wFKweINeWi7LhrmAbmxFjL7pJRECMvLw7mu+2QwPLaZJb6MXA/MA58Orkq1fcFnDCfDKj0KFti8hw0wsM311Qh/GYFBnLBWw0U/RTQ0KctH1PjJWBrwq2rvdfNZcUjjJ8wTONILeuqOhUwUDAVLwgOwWwAg+/VxMwiYAjT7fnJDvD9vfF0fCK+N0n8lCkxcflMVJbjMKI934Ljrn8cxgPQa9wmW+bcTmaI0bCxSIJMfWVVLXjn5RudFJG0I+J0XHoWvSNRi825i6rZW9pLGOGciQXHPE2gckwXGvNDzhiy7qRiJ6npKcRZB+iAQVtqHIS9zBmm/dK/Y4kSLFWR3qhn9tQtSlcT23cVwwEGjzhn0X9ujeMttQPGIVMkd8Q5mTvw4KeFyPKTL9SMobc/JlYzD08vVXIDyBPnql0lIaWFYAl6FYvnHlQJ+bbYatffmlNF3WOTPqJTq+DJTgkxjbjj03d08khOmOqAH9iGvVYV4nbItMjkHjgVgS8RiWLYaocNqSZj9ftCoKYLADV6Nr1xyxIR1vHN04ukdDDXdy/UdMXfAKfBb0n7CKWcyWOzwD5W6PxPhzka3+7D46rKC96vezqI17mYyf9yr4bONy3/nDq7huUz4ZHWmLz/rOlzbi5S0s7UTDtwAN5APn8QLbmvBBVi/YpyueTICblNzaL0Wh4+x3YR5JMOzPGfA/Lk0P127F/9/otLKTZFvMxbgz1MjwkCxNVo=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:TY3PR01MB11346.jpnprd01.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(7416014)(376014)(38070700021)(18002099003)(22082099003)(56012099003);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?LaSPO8B88SWbffBp5Ncu6gaPxL4vmZrfoAeiswpdd/13ldHtEqZDgpw3SXNg?=
- =?us-ascii?Q?NDA1IK8XkpXVputB4QmK/NaPQlNtDEdFSbfqjyKduKQsBtESKnf9GiB7RMBy?=
- =?us-ascii?Q?3SXOgNH7+n1Op9N4LJAW+nkDt69nMSN/kU8LDrfRyD2B/LFaiHW+LbN2CaTM?=
- =?us-ascii?Q?r55G+VQsl8dW5a988KPqays35ixREirSMLNJYlAPmOH5SpDesMSRG5vmzxAv?=
- =?us-ascii?Q?zxV0tLPj07QxTsOxte2AL7Zs5PzC+C7qd1NIH7I2YE4TVrQpxpAjsXtAV+Rm?=
- =?us-ascii?Q?LEExx5J8ctRnKPaR4tQfw6rA37B3tpTCVyakH+tATT5AEo+Gk1QEq++Mnvd/?=
- =?us-ascii?Q?jmOrTfRfgL103bSaKzy6DX5OHMeZJS9aDm8OF0hap+ccCK/T10KLrr1bbU1z?=
- =?us-ascii?Q?ZQyADnTHcMyWaqR/Z80fF0CIRt3/90K2vPPN5FdRhI43ugB4l5tQJ/fMf8Tt?=
- =?us-ascii?Q?sokovFy3EnMn2E3sxAiBb/Sel9Wa5XWiLBAhwEg3GmuF+3RlCGN3eCk8rQt7?=
- =?us-ascii?Q?GXdkVsXEQV1UfMlauK2qHujxW2Oz7zhpySq8PBbhVDQs8Omr16/cv73AUZmm?=
- =?us-ascii?Q?6ahBUW+C9AZm4MUtPQrkbVXWxbjiASykTo2sSTJZsT8Yc1YmW4DPRwCfUKpH?=
- =?us-ascii?Q?hxz67lWHIkVs+L7J7pWrcGr5WVrjmlvdi5Z83vmVqUCnXOaOA+orVy3+J0Ob?=
- =?us-ascii?Q?Q5sjPQpKRz6j2C9Kdw5KyeieGRBB/2W/HFE/yDiasBqSe6QBr7sRaUqpRvma?=
- =?us-ascii?Q?Vlejy2ii5/UlbYLJ9HOUq/keenpxvY3h1oscXZLv+fJ5gl4xxZKz5uczTVKJ?=
- =?us-ascii?Q?a9EQDmXng/MzpgvCN3zRgGKUn/vrzQpwi33uxIuT2aYJvMvjw+vhmu6kTgAP?=
- =?us-ascii?Q?J+7Tbg+DSlSwKDywk+A2lSyuSxI68nfIt815OHs4ki/uIqdpuGeMl7pcEb3z?=
- =?us-ascii?Q?L1lqlvqqwx6lcrvKUYt159KepEEd4iPgxpesT4onHIoBz8JMO45/+Qt70gX6?=
- =?us-ascii?Q?O6M9tOmYm03WTqAwcX2djPnpSbThqnakAtYU0GP8mSSYW1q2xwEWrhTQkGC7?=
- =?us-ascii?Q?XLJCY9OcpWscKPCw4TvVXZskUqkVwVVqve02BWbes3aqP9on0Tr4OWnt/luP?=
- =?us-ascii?Q?Wfy2aV3YkipMI4hZ1Jo3hZeJDDHdhEry0G31jxhS7l75ENiBsvGc4I64cdPf?=
- =?us-ascii?Q?yZ54HskXqO55e9Zo+DeqtjnrvvU4LXfKNApvfJOEe3jAaV65eZmEdh6MjqnX?=
- =?us-ascii?Q?n+qfF9UY9m2eBOV+xLXLFrQrdzC4lZ0mcXiGdH6KSFJVQYYsl98WlU4yLe/m?=
- =?us-ascii?Q?5L2FpxQLreTv+Za71zdl+wdkTyZCKqg/PBqblJ/k5DtXuk++IvjMz+v8YIAt?=
- =?us-ascii?Q?7goLeOb6TEeNDQfMelH6V8mSoz77VlCj7COws7hNF9V2NU/aICC12Kt7sUDY?=
- =?us-ascii?Q?BOSHu/pfVATHaRsAehB9pYA3T9C3f11L2qHjN+9aT9Dux9u4PzauZy2t0Uhi?=
- =?us-ascii?Q?QiZHXQYyjYLqTmi0Q5WY9Q/U4TXD7d1lJ2ARj34Il+TuodOtwNPbYsffC+YA?=
- =?us-ascii?Q?UPYfkJ4bk1BN06Zx7bYTGbDI2EbuM2fygPkebVJqK4M+Jm4l3ruZliAgvCDY?=
- =?us-ascii?Q?J0RnSS/rDRofpV/c92sx1VncW3digBy58tlW4n3lWS0xULZlf4/so3/7ed+a?=
- =?us-ascii?Q?QQrPccyNkA3pGwMLR55aGEFil+ebFVgTCm07UFwzxrKrADylaTc1FP3tiR6w?=
- =?us-ascii?Q?CRp0vaK4CA=3D=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Received: from mail-4322.protonmail.ch (mail-4322.protonmail.ch [185.70.43.22])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B9BDA10E135
+ for <dri-devel@lists.freedesktop.org>; Mon, 23 Mar 2026 15:29:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+ s=protonmail3; t=1774279750; x=1774538950;
+ bh=ElJJRngS4oul6QvfUaEwS3ay9qvA+cCk2pKKulBFxDs=;
+ h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+ Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+ Message-ID:BIMI-Selector;
+ b=WHUlp5EkQyNS+aIpB9qWTxKtaXqdErK1Gi+Y8Azlc4NqeNvC+ogSuKJ4QHvnb7Iun
+ zDKws6ZAOzlKDHAsOXdLgfDM0TLePG+vJhxjf7LwPOtwItDGwOANvxXOYiHwdcXFum
+ d3nMNlkvaqEuO+nhElAsGvwIN962uQgNfItHaXLB6EGmy9PcoqwG31SsnvDnoOJZHT
+ ezW5/Wcnvo9PZ4OaSzpFVL6S9Jgz/W9eTdNcsjeQilUao2eS8HuPuuHmNK+b5Sd0El
+ UbIlfCFLxlvdoKaic5CB178nZ+uebxxjQc+yutzHP+NVnWOzpPIJecRxesMkJy4D0k
+ Lsw6xAJlkDaLw==
+Date: Mon, 23 Mar 2026 15:28:59 +0000
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Jeffrey Hugo <jeffrey.l.hugo@gmail.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+From: Alexander Koskovich <akoskovich@pm.me>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ linux-amlogic@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ Alexander Koskovich <akoskovich@pm.me>,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Subject: Re: [PATCH v4 5/5] drm/msm/dsi: Add support for RGB101010 pixel format
+Message-ID: <nmC5g-yqiyxWusbu6f0dZ0s7W-bqYdVUT0fIX9h1MsvYrAE521869Ei9NAKzwxbz30rvdYJCVjEWexnaUrAx_63G2DtM2mVUZthU1VRUbrg=@pm.me>
+In-Reply-To: <20260321-dsi-rgb101010-support-v4-5-eb28ecebbfe8@pm.me>
+References: <20260321-dsi-rgb101010-support-v4-0-eb28ecebbfe8@pm.me>
+ <20260321-dsi-rgb101010-support-v4-5-eb28ecebbfe8@pm.me>
+Feedback-ID: 37836894:user:proton
+X-Pm-Message-ID: 327602c420a395c5a4d2f5d47513c5fff064faf7
 MIME-Version: 1.0
-X-OriginatorOrg: bp.renesas.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TY3PR01MB11346.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0f7fd8f8-1f6a-46bf-f8f5-08de88ef928c
-X-MS-Exchange-CrossTenant-originalarrivaltime: 23 Mar 2026 15:19:27.0386 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: lmVMtTbaEPG8NDZjPHvf4XR4UVk+soxrTy1+hYO5C7QU0H3VmcDOIpfTvU1T1iZZrC1OZrj3a4KS5x/J793faGbKy+eKh9dXzaV5RYbKm78=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYRPR01MB15881
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -141,45 +70,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Hugo,
+On Saturday, March 21st, 2026 at 3:52 AM, Alexander Koskovich <akoskovich@p=
+m.me> wrote:
 
-> -----Original Message-----
-> From: Hugo Villeneuve <hugo@hugovil.com>
-> Sent: 23 March 2026 14:20
-> Subject: Re: [PATCH v2 4/4] drm: renesas: rzg2l_mipi_dsi: Increase reset =
-deassertion delay to 1 msec
->=20
-> Hi Biju,
->=20
-> On Thu, 19 Mar 2026 16:48:28 +0000
-> Biju <biju.das.au@gmail.com> wrote:
->=20
-> > From: Biju Das <biju.das.jz@bp.renesas.com>
-> >
-> > The RZ/G2L hardware manual (Rev. 1.50, May 2025), Section 34.4.2.1,
-> > requires waiting more than 1 msec after deasserting the CMN_RSTB
-> > signal before the DSI-Tx module is ready. Increase the delay from 1
-> > usec to
-> > 1 msec by replacing udelay(1) with fsleep(1000).
-> >
-> > Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
->=20
-> In your first submission, I commented that "...this should be backported =
-to stable branches (missing
-> Fixes / Cc: stable tags)?" and you answered with "Agreed, will add fixes/=
-stable tags".
->=20
-> If you still agree, this patch should be #3 in your list, so that it is e=
-asier/straightforward to
-> backport to stable branches.
+> =20
+> +=09if (dsi->format =3D=3D MIPI_DSI_FMT_RGB101010 &&
+> +=09    !msm_dsi_host_version_geq(msm_host, MSM_DSI_VER_MAJOR_6G,
+> +=09=09=09=09     MSM_DSI_6G_VER_MINOR_V2_1_0)) {
+> +=09=09DRM_DEV_ERROR(&msm_host->pdev->dev,
+> +=09=09=09      "RGB101010 not supported on this DSI controller\n");
+> +=09=09return -EINVAL;
+> +=09}
+> +
+>
 
-The patch order is changed. that is the reason I have not added any fixes/s=
-table tags.
+Was tipped off to this bit downstream where if DSC is enabled and panel use=
+s
+RGB101010, it overrides back to RGB888:
+https://git.codelinaro.org/clo/la/platform/vendor/opensource/display-driver=
+s/-/blob/DISPLAY.LA.4.0.r2-10000-lanai.0/msm/dsi/dsi_display.c?ref_type=3Dt=
+ags#L7209
 
-The if check in patch#3 makes it is not backportable to stable branches.
+Only does this if widebus isn't also enabled though. Should we do this as w=
+ell
+upstream?
 
-If I reorder this to patch#3 it is fixing just the delay mentioned in the h=
-ardware manual.
-
-Cheers,
-Biju
+Thanks,
+Alex
