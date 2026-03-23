@@ -4,65 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D9146F483C8
-	for <dri-devel@archiver.kernel.org>; Mon, 23 Mar 2026 16:55:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9B03CF483D7
+	for <dri-devel@archiver.kernel.org>; Mon, 23 Mar 2026 17:08:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 197DF10E047;
-	Mon, 23 Mar 2026 16:55:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E8F1710E5C9;
+	Mon, 23 Mar 2026 17:08:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="NwbZ64iu";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="dRetuc+n";
 	dkim-atps=neutral
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
- [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9F33F10E5B1;
- Mon, 23 Mar 2026 16:55:53 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1774284936; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=hn01+A1MpwSwu42ddL8NIjneXPC773MdPO3N/cVPmkSUizy78h68Kn6xtxU2p27DJNEXvHLbQdK269h1azz9lAr8fsw2S4TTHGDGAPFsHvsDo+HeWcAmALg/oTA1gCujhpHXMP8dNH+xYyQ4/mbzZCNOVDYmMSH8j2Hs5q3p4rA=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1774284936;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=1RIp2XliOHFyhsE2i39U7wdZc+w/m/jcDr9m8q9DG1o=; 
- b=N+68h7LnGXwBl++4P+cvAYG7kmAk/2YEy0/487NeII+H7dL5BmeM/YO8mjWk9adbrAnQ/zAUp3qsPK+MtNVimWuXBowawyF4cJlueJJZ4BGoFeD6A207Umhmxx/NY8TsdRfKWaAL/kxWwlkzdgcYRbRDXWhlKoRqAMlvrcDQTDc=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
- dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1774284936; 
- s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
- h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:Content-Type:Message-Id:Reply-To;
- bh=1RIp2XliOHFyhsE2i39U7wdZc+w/m/jcDr9m8q9DG1o=;
- b=NwbZ64iue9c5uA2EGuqXTv+09nX90SlyFmqA3OEsn2ri5mcvGxFTMMJsjsFgjRU0
- sVzBSkUq/z+4L1MN67CJSCFkVHG51s28SNkokwndqkQNC8sHIizHrt4HDzKkmspYgj3
- 0qQ4ze77WMC1ek/DzFsmphF4hy8k4EEAaxLBDgp8=
-Received: by mx.zohomail.com with SMTPS id 1774284934084912.9501784983873;
- Mon, 23 Mar 2026 09:55:34 -0700 (PDT)
-From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- Ville =?UTF-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
- Daniel Stone <daniels@collabora.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Michel =?UTF-8?B?RMOkbnplcg==?= <michel.daenzer@mailbox.org>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, kernel@collabora.com,
- Derek Foreman <derek.foreman@collabora.com>,
- Marius Vlad <marius.vlad@collabora.com>
-Subject: Re: [PATCH v5 0/3] Add "link bpc" DRM property
-Date: Mon, 23 Mar 2026 17:55:27 +0100
-Message-ID: <8676926.T7Z3S40VBb@workhorse>
-In-Reply-To: <aead136d-4da5-42de-aef8-3f91815a95a9@mailbox.org>
-References: <20260319-link-bpc-v5-0-5306cd04a708@collabora.com>
- <5995842.DvuYhMxLoT@workhorse>
- <aead136d-4da5-42de-aef8-3f91815a95a9@mailbox.org>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7F9C410E5A5
+ for <dri-devel@lists.freedesktop.org>; Mon, 23 Mar 2026 17:08:39 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 3DC59444FB;
+ Mon, 23 Mar 2026 17:08:39 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 05F54C2BCB3;
+ Mon, 23 Mar 2026 17:08:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1774285719;
+ bh=pDwSdgt0K1S24oUY+MHSWthNddlsNbbc1I9i6GPqP8Q=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+ b=dRetuc+ndNL8wRaQZg8vHH1R8xl2LDmEAkEMhywP+8UJhDtVNFD0awcTk0NFVEWFc
+ 4+TwVaGUseD6722baHvFERvQmafMAljE3Pv38x2IeTRa6AzQ8/8U1fnYEaHtgRnNF2
+ u8AcQslSDSFzviMA3MRAnn29WvPb5J7TyvQbHvu26RrEf8YY4DRjIWL37jy1EZaWTd
+ O1zXa3t0cu4EZiF5p5wL/gEmOSAA9X4FGrOSan9lPVySnsbFnCBuWk0rOkpEYSMhFP
+ 5BZmigdRmnrqcFCW1l7D0tGzECRjwKdXzJngzJceniXbW1hoyZEy3Qgf0cY88IRn/u
+ e9EeUMC89IdcQ==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
+ (localhost.localdomain [127.0.0.1])
+ by smtp.lore.kernel.org (Postfix) with ESMTP id E9EDFF483D8;
+ Mon, 23 Mar 2026 17:08:38 +0000 (UTC)
+From: Aaron Kling via B4 Relay <devnull+webgeek1234.gmail.com@kernel.org>
+Date: Mon, 23 Mar 2026 12:08:33 -0500
+Subject: [PATCH v3 2/2] drm/panel: Add panel driver for ChipWealth CH13726A
+ based panels
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260323-ch13726a-v3-2-e28b6f97fe80@gmail.com>
+References: <20260323-ch13726a-v3-0-e28b6f97fe80@gmail.com>
+In-Reply-To: <20260323-ch13726a-v3-0-e28b6f97fe80@gmail.com>
+To: Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Teguh Sobirin <teguh@sobir.in>, 
+ Aaron Kling <webgeek1234@gmail.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1774285718; l=11523;
+ i=webgeek1234@gmail.com; s=20250217; h=from:subject:message-id;
+ bh=PGS1htHub0KITyss9Eg2gXWt15DqDviEDfgDHc/FXP4=;
+ b=6B/gVD7gY6zgLUawSbcgaN4k38AkkYXgUViuoppZ+pdqWzUwQXSvs0WTnd/GNV7BD7isnL6pk
+ 5rZXEjs/bDKCU+BnuACMG0/pSqYQ4Y7qcu+TKnW+V3EvQ1J/9zYF3Ev
+X-Developer-Key: i=webgeek1234@gmail.com; a=ed25519;
+ pk=TQwd6q26txw7bkK7B8qtI/kcAohZc7bHHGSD7domdrU=
+X-Endpoint-Received: by B4 Relay for webgeek1234@gmail.com/20250217 with
+ auth_id=342
+X-Original-From: Aaron Kling <webgeek1234@gmail.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,116 +77,404 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: webgeek1234@gmail.com
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Monday, 23 March 2026 15:38:58 Central European Standard Time Michel D=
-=C3=A4nzer wrote:
-> On 3/23/26 13:05, Nicolas Frattaroli wrote:
-> > On Monday, 23 March 2026 11:55:34 Central European Standard Time Michel=
- D=C3=A4nzer wrote:
-> >> On 3/20/26 19:02, Nicolas Frattaroli wrote:
-> >>> On Friday, 20 March 2026 15:32:37 Central European Standard Time Mich=
-el D=C3=A4nzer wrote:
-> >>>> On 3/19/26 13:28, Nicolas Frattaroli wrote:
-> >>>>> This series adds a new "link bpc" DRM property. It reflects the dis=
-play
-> >>>>> link's actual achieved output bits per component, considering any
-> >>>>> degradation of the bit depth done by drivers for bandwidth or other
-> >>>>> reasons. The property's value is updated during an atomic commit, w=
-hich
-> >>>>> is also when it fires an uevent if it changed to let userspace know.
-> >>>>>
-> >>>>> There's a weston implementation at [1] which makes use of this new
-> >>>>> property to warn when a user's requested bpc could not be reached.
-> >>>>>
-> >>>>> [1]: https://gitlab.freedesktop.org/wayland/weston/-/merge_requests=
-/1850
-> >>>>
-> >>>> I see no description of a real-world use case, either in this series
-> >>>> or in the weston MR, beyond logging a message when the "link bpc" &
-> >>>> "max bpc" property values don't match. They are not expected to match
-> >>>> in general, so I have a hard time seeing the usefulness of that.
-> >>>
-> >>> Hello,
-> >>>
-> >>> these are valid concerns. The problem being addressed is related to
-> >>> userspace being able to detect whether the link has degraded due to,
-> >>> say, a sketchy cable.
-> >>>
-> >>> This patch started out as a method of forcing the output link's BPC
-> >>> value to a certain value, but this is not desirable. The max bpc
-> >>> property is already used to restrict the link's bpc due to sketchy
-> >>> hardware that advertises a higher max bpc than it can actually
-> >>> achieve.
-> >>
-> >> Not really.
-> >>
-> >> The "max bpc" property is simply an upper limit for the effective bpc =
-that can be used by the driver; nothing more or less. The driver is free to=
- use any lower bpc value though, that doesn't mean anything's wrong.
-> >>
-> >> It doesn't imply that the "max bpc" value can actually be achieved und=
-er any circumstances.
-> >>
-> >> The practical purpose is mainly to restrict bpc in cases where higher =
-bpc would prevent e.g. higher refresh rate.
-> >=20
-> > The max bpc property's upper limit is an arbitrary driver-set value as
-> > you stated, but that's not what I'm talking about here.
->=20
-> I'm not talking about the maximum value of the property itself either.
->=20
-> The value of the "max bpc" property, which can be modified by user space,=
- defines the upper limit for the effective bpc used by the driver.
+From: Teguh Sobirin <teguh@sobir.in>
 
-Yes, I know what the max bpc property does. I do not think it defines
-a fixed bpc the driver was required to use, as if it did, the link bpc
-property would be useless.
+This is used by the AYN Thor for the bottom panel.
 
-> >>> I agree that the weston implementation isn't a great showcase,
-> >>> but it's actually supposed to compare link bpc with an explicitly
-> >>> set max bpc config value, not the property value. The config value
-> >>> exists to request a certain bpc.
-> >>
-> >> Per above, the "max bpc" property isn't really useful for that.
-> >=20
-> > This is straight up false. Setting a max bpc value in weston's config
-> > sets the max bpc DRM property to that value, which in turn sets
-> > max_requested_bpc. On atomic_check, the minimum of state->max_bpc
-> > and state->max_requested_bpc is taken for the new value of
-> > state->max_bpc, i.e. what is set through the property does constrain
-> > the max bpc.
->=20
-> What I mean is that the "max bpc" property isn't useful for the purpose o=
-f "request a certain bpc".
+Signed-off-by: Teguh Sobirin <teguh@sobir.in>
+Co-developed-by: Aaron Kling <webgeek1234@gmail.com>
+Signed-off-by: Aaron Kling <webgeek1234@gmail.com>
+---
+ drivers/gpu/drm/panel/Kconfig                     |  11 +
+ drivers/gpu/drm/panel/Makefile                    |   1 +
+ drivers/gpu/drm/panel/panel-chipwealth-ch13726a.c | 339 ++++++++++++++++++++++
+ 3 files changed, 351 insertions(+)
 
-Yes it is? It requests an upper limit for BPC and every driver
-will try to pick the highest that's practically possible.
+diff --git a/drivers/gpu/drm/panel/Kconfig b/drivers/gpu/drm/panel/Kconfig
+index a99f2e2a49fe66a09c6f2d503f570b05a5e228b1..e953b61a819082866b93d0a453ee750a76d70c18 100644
+--- a/drivers/gpu/drm/panel/Kconfig
++++ b/drivers/gpu/drm/panel/Kconfig
+@@ -105,6 +105,17 @@ config DRM_PANEL_BOE_TV101WUM_LL2
+ 	  Say Y here if you want to support for BOE TV101WUM-LL2
+ 	  WUXGA PANEL DSI Video Mode panel
+ 
++config DRM_PANEL_CHIPWEALTH_CH13726A
++	tristate "CHIPWEALTH CH13726A-based DSI panel"
++	depends on OF
++	depends on DRM_MIPI_DSI
++	depends on BACKLIGHT_CLASS_DEVICE
++	select DRM_DISPLAY_DP_HELPER
++	select DRM_DISPLAY_HELPER
++	help
++	  Say Y here if you want to enable support for ChipWealth
++	  CH13726A-based display panels.
++
+ config DRM_PANEL_EBBG_FT8719
+ 	tristate "EBBG FT8719 panel driver"
+ 	depends on OF
+diff --git a/drivers/gpu/drm/panel/Makefile b/drivers/gpu/drm/panel/Makefile
+index 3336a2c0cd86419b6a22f74dcde6df966a311da9..85da2eb5a5c664d4302837f52e7e10ec11da8966 100644
+--- a/drivers/gpu/drm/panel/Makefile
++++ b/drivers/gpu/drm/panel/Makefile
+@@ -9,6 +9,7 @@ obj-$(CONFIG_DRM_PANEL_BOE_TD4320) += panel-boe-td4320.o
+ obj-$(CONFIG_DRM_PANEL_BOE_TH101MB31UIG002_28A) += panel-boe-th101mb31ig002-28a.o
+ obj-$(CONFIG_DRM_PANEL_BOE_TV101WUM_LL2) += panel-boe-tv101wum-ll2.o
+ obj-$(CONFIG_DRM_PANEL_BOE_TV101WUM_NL6) += panel-boe-tv101wum-nl6.o
++obj-$(CONFIG_DRM_PANEL_CHIPWEALTH_CH13726A) += panel-chipwealth-ch13726a.o
+ obj-$(CONFIG_DRM_PANEL_DSI_CM) += panel-dsi-cm.o
+ obj-$(CONFIG_DRM_PANEL_LVDS) += panel-lvds.o
+ obj-$(CONFIG_DRM_PANEL_SIMPLE) += panel-simple.o
+diff --git a/drivers/gpu/drm/panel/panel-chipwealth-ch13726a.c b/drivers/gpu/drm/panel/panel-chipwealth-ch13726a.c
+new file mode 100644
+index 0000000000000000000000000000000000000000..48a5e20e07c48748e073f8bb9147036c18c51caa
+--- /dev/null
++++ b/drivers/gpu/drm/panel/panel-chipwealth-ch13726a.c
+@@ -0,0 +1,339 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * ChipWealth CH13726A MIPI-DSI panel driver
++ * Copyright (c) 2024, Teguh Sobirin <teguh@sobir.in>.
++ */
++
++#include <linux/backlight.h>
++#include <linux/delay.h>
++#include <linux/gpio/consumer.h>
++#include <linux/module.h>
++#include <linux/of.h>
++#include <linux/regulator/consumer.h>
++
++#include <drm/drm_mipi_dsi.h>
++#include <drm/drm_modes.h>
++#include <drm/drm_panel.h>
++
++#include <video/mipi_display.h>
++
++struct ch13726a_panel {
++	struct drm_panel panel;
++	struct mipi_dsi_device *dsi;
++	struct regulator_bulk_data supplies[4];
++	struct gpio_desc *reset_gpio;
++	struct ch13726a_desc *desc;
++	enum drm_panel_orientation orientation;
++	bool prepared;
++};
++
++struct ch13726a_desc {
++	unsigned int width_mm;
++	unsigned int height_mm;
++	unsigned int bpc;
++
++	const struct drm_display_mode *modes;
++	unsigned int num_modes;
++};
++
++static inline struct ch13726a_panel *to_ch13726a_panel(struct drm_panel *panel)
++{
++	return container_of(panel, struct ch13726a_panel, panel);
++}
++
++static void ch13726a_reset(struct ch13726a_panel *ctx)
++{
++	gpiod_set_value_cansleep(ctx->reset_gpio, 1);
++	usleep_range(10000, 11000);
++	gpiod_set_value_cansleep(ctx->reset_gpio, 0);
++	usleep_range(10000, 11000);
++	gpiod_set_value_cansleep(ctx->reset_gpio, 1);
++	usleep_range(10000, 11000);
++}
++
++static int ch13726a_on(struct ch13726a_panel *ctx)
++{
++	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
++
++	ctx->dsi->mode_flags |= MIPI_DSI_MODE_LPM;
++
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xf0, 0x50);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xb9, 0x00);
++
++	mipi_dsi_dcs_exit_sleep_mode_multi(&dsi_ctx);
++
++	mipi_dsi_dcs_set_display_on_multi(&dsi_ctx);
++
++	return dsi_ctx.accum_err;
++}
++
++static int ch13726a_disable(struct drm_panel *panel)
++{
++	struct ch13726a_panel *ctx = to_ch13726a_panel(panel);
++	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
++
++	ctx->dsi->mode_flags &= ~MIPI_DSI_MODE_LPM;
++
++	mipi_dsi_dcs_set_display_off_multi(&dsi_ctx);
++	mipi_dsi_msleep(&dsi_ctx, 50);
++	mipi_dsi_dcs_enter_sleep_mode_multi(&dsi_ctx);
++
++	return dsi_ctx.accum_err;
++}
++
++static int ch13726a_prepare(struct drm_panel *panel)
++{
++	struct ch13726a_panel *ctx = to_ch13726a_panel(panel);
++	struct device *dev = &ctx->dsi->dev;
++	int ret;
++
++	if (ctx->prepared)
++		return 0;
++
++	ret = regulator_bulk_enable(ARRAY_SIZE(ctx->supplies), ctx->supplies);
++	if (ret < 0) {
++		dev_err(dev, "Failed to enable regulators: %d\n", ret);
++		return ret;
++	}
++
++	ch13726a_reset(ctx);
++
++	ret = ch13726a_on(ctx);
++	if (ret < 0) {
++		dev_err(dev, "Failed to initialize panel: %d\n", ret);
++		gpiod_set_value_cansleep(ctx->reset_gpio, 0);
++		regulator_bulk_disable(ARRAY_SIZE(ctx->supplies), ctx->supplies);
++		return ret;
++	}
++
++	msleep(28);
++
++	ctx->prepared = true;
++
++	return 0;
++}
++
++static int ch13726a_unprepare(struct drm_panel *panel)
++{
++	struct ch13726a_panel *ctx = to_ch13726a_panel(panel);
++
++	if (!ctx->prepared)
++		return 0;
++
++	gpiod_set_value_cansleep(ctx->reset_gpio, 0);
++	regulator_bulk_disable(ARRAY_SIZE(ctx->supplies), ctx->supplies);
++
++	ctx->prepared = false;
++	return 0;
++}
++
++static const struct drm_display_mode thor_bottom_modes[] = {
++	{
++		/* 120Hz */
++		.clock = (1080 + 28 + 4 + 36) * (1240 + 16 + 4 + 8) * 120 / 1000,
++		.hdisplay = 1080,
++		.hsync_start = 1080 + 28,
++		.hsync_end = 1080 + 28 + 4,
++		.htotal = 1080 + 28 + 4 + 36,
++		.vdisplay = 1240,
++		.vsync_start = 1240 + 16,
++		.vsync_end = 1240 + 16 + 4,
++		.vtotal = 1240 + 16 + 4 + 8,
++	},
++	{
++		/* 60Hz */
++		.clock = (1080 + 28 + 4 + 36) * (1240 + 16 + 4 + 8) * 60 / 1000,
++		.hdisplay = 1080,
++		.hsync_start = 1080 + 28,
++		.hsync_end = 1080 + 28 + 4,
++		.htotal = 1080 + 28 + 4 + 36,
++		.vdisplay = 1240,
++		.vsync_start = 1240 + 16,
++		.vsync_end = 1240 + 16 + 4,
++		.vtotal = 1240 + 16 + 4 + 8,
++	}
++};
++
++static struct ch13726a_desc thor_bottom_desc = {
++	.modes = thor_bottom_modes,
++	.num_modes = ARRAY_SIZE(thor_bottom_modes),
++	.width_mm = 65,
++	.height_mm = 75,
++	.bpc = 8,
++};
++
++static int ch13726a_get_modes(struct drm_panel *panel,
++					struct drm_connector *connector)
++{
++	struct ch13726a_panel *ctx = to_ch13726a_panel(panel);
++
++	for (uint8_t i = 0; i < ctx->desc->num_modes; i++) {
++		const struct drm_display_mode *m = &ctx->desc->modes[i];
++		struct drm_display_mode *mode;
++
++		mode = drm_mode_duplicate(connector->dev, m);
++		if (!mode) {
++			dev_err(&ctx->dsi->dev, "failed to add mode %ux%u@%u\n",
++				m->hdisplay, m->vdisplay, drm_mode_vrefresh(m));
++			return -ENOMEM;
++		}
++
++		mode->type = DRM_MODE_TYPE_DRIVER;
++		if (i == 0)
++			mode->type |= DRM_MODE_TYPE_PREFERRED;
++
++		drm_mode_set_name(mode);
++		drm_mode_probed_add(connector, mode);
++	}
++
++	connector->display_info.width_mm = ctx->desc->width_mm;
++	connector->display_info.height_mm = ctx->desc->height_mm;
++	connector->display_info.bpc = ctx->desc->bpc;
++
++	return ctx->desc->num_modes;
++}
++
++static enum drm_panel_orientation ch13726a_get_orientation(struct drm_panel *panel)
++{
++	struct ch13726a_panel *ctx = to_ch13726a_panel(panel);
++
++	return ctx->orientation;
++}
++
++static const struct drm_panel_funcs ch13726a_panel_funcs = {
++	.prepare = ch13726a_prepare,
++	.unprepare = ch13726a_unprepare,
++	.disable = ch13726a_disable,
++	.get_modes = ch13726a_get_modes,
++	.get_orientation = ch13726a_get_orientation,
++};
++
++static int ch13726a_bl_update_status(struct backlight_device *bl)
++{
++	struct mipi_dsi_device *dsi = bl_get_data(bl);
++	u16 brightness = backlight_get_brightness(bl);
++	int ret;
++
++	dsi->mode_flags &= ~MIPI_DSI_MODE_LPM;
++
++	ret = mipi_dsi_dcs_set_display_brightness(dsi, brightness);
++	if (ret < 0)
++		return ret;
++
++	dsi->mode_flags |= MIPI_DSI_MODE_LPM;
++
++	return 0;
++}
++
++static const struct backlight_ops ch13726a_bl_ops = {
++	.update_status = ch13726a_bl_update_status,
++};
++
++static struct backlight_device *
++ch13726a_create_backlight(struct mipi_dsi_device *dsi)
++{
++	struct device *dev = &dsi->dev;
++	const struct backlight_properties props = {
++		.type = BACKLIGHT_RAW,
++		.brightness = 255,
++		.max_brightness = 255,
++	};
++
++	return devm_backlight_device_register(dev, dev_name(dev), dev, dsi,
++					      &ch13726a_bl_ops, &props);
++}
++
++static int ch13726a_probe(struct mipi_dsi_device *dsi)
++{
++	struct device *dev = &dsi->dev;
++	struct ch13726a_panel *ctx;
++	int ret;
++
++	ctx = devm_kzalloc(dev, sizeof(*ctx), GFP_KERNEL);
++	if (!ctx)
++		return -ENOMEM;
++
++	ctx->desc = (struct ch13726a_desc *)of_device_get_match_data(dev);
++	if (!ctx->desc)
++		return -ENODEV;
++
++	ctx->supplies[0].supply = "vdd1v2";
++	ctx->supplies[1].supply = "vddio";
++	ctx->supplies[2].supply = "vdd";
++	ctx->supplies[3].supply = "avdd";
++
++	ret = devm_regulator_bulk_get(dev, ARRAY_SIZE(ctx->supplies),
++				      ctx->supplies);
++	if (ret < 0)
++		return dev_err_probe(dev, ret, "Failed to get regulators\n");
++
++	ctx->reset_gpio = devm_gpiod_get(dev, "reset", GPIOD_OUT_LOW);
++	if (IS_ERR(ctx->reset_gpio))
++		return dev_err_probe(dev, PTR_ERR(ctx->reset_gpio),
++				     "Failed to get reset-gpios\n");
++
++	ret = of_drm_get_panel_orientation(dev->of_node, &ctx->orientation);
++	if (ret < 0) {
++		dev_err(dev, "%pOF: failed to get orientation %d\n", dev->of_node, ret);
++		return ret;
++	}
++
++	ctx->dsi = dsi;
++	mipi_dsi_set_drvdata(dsi, ctx);
++
++	dsi->lanes = 4;
++	dsi->format = MIPI_DSI_FMT_RGB888;
++	dsi->mode_flags = MIPI_DSI_MODE_VIDEO |
++			  MIPI_DSI_CLOCK_NON_CONTINUOUS;
++
++	drm_panel_init(&ctx->panel, dev, &ch13726a_panel_funcs,
++		       DRM_MODE_CONNECTOR_DSI);
++	ctx->panel.prepare_prev_first = true;
++
++	ctx->panel.backlight = ch13726a_create_backlight(dsi);
++	if (IS_ERR(ctx->panel.backlight))
++		return dev_err_probe(dev, PTR_ERR(ctx->panel.backlight),
++				     "Failed to create backlight\n");
++
++	drm_panel_add(&ctx->panel);
++
++	ret = mipi_dsi_attach(dsi);
++	if (ret < 0) {
++		dev_err(dev, "Failed to attach to DSI host: %d\n", ret);
++		drm_panel_remove(&ctx->panel);
++		return ret;
++	}
++
++	return 0;
++}
++
++static void ch13726a_remove(struct mipi_dsi_device *dsi)
++{
++	struct ch13726a_panel *ctx = mipi_dsi_get_drvdata(dsi);
++	int ret;
++
++	ret = mipi_dsi_detach(dsi);
++	if (ret < 0)
++		dev_err(&dsi->dev, "Failed to detach from DSI host: %d\n", ret);
++
++	drm_panel_remove(&ctx->panel);
++}
++
++static const struct of_device_id ch13726a_of_match[] = {
++	{ .compatible = "ayntec,thor-panel-bottom", .data = &thor_bottom_desc },
++	{ /* sentinel */ }
++};
++MODULE_DEVICE_TABLE(of, ch13726a_of_match);
++
++static struct mipi_dsi_driver ch13726a_driver = {
++	.probe = ch13726a_probe,
++	.remove = ch13726a_remove,
++	.driver = {
++		.name = "panel-ch13726a-amoled",
++		.of_match_table = ch13726a_of_match,
++	},
++};
++module_mipi_dsi_driver(ch13726a_driver);
++
++MODULE_DESCRIPTION("DRM driver for CH13726A DSI panels");
++MODULE_LICENSE("GPL");
 
-> It only affects the upper limit, not the effective value, which can legit=
-imately be lower.
-
-I am aware, that is why the link bpc property is added, to evaluate
-what the driver ended up picking. See "practically possible" above.
-
-> Logging a message in that case may be a false positive which may result i=
-n a spurious issue report.
-
-That is not what any of this is used for. In the MR, it acts on the weston
-option of the name max-bpc, which incidentally sets the max bpc
-property, but is an explicit request by a user made through a config
-file. The use here is just a basic userspace use of it, the point is
-not to create a new warning out of nothing for the fun of it.
-
-The whole point of this property is to close the feedback loop
-between requesting a new bpc with max-bpc and seeing what comes out
-the other end with link-bpc. This answers all questions you should
-have about the definition of what bits per component is (same as
-with max bpc), and why this property should exist. "Someone might
-not understand its purpose" is, in my eyes, not a valid reason to
-not have this property, as this argument applies to every property.
-
-
+-- 
+2.53.0
 
 
