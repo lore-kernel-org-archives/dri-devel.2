@@ -4,46 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CCDB3EC01A2
-	for <dri-devel@archiver.kernel.org>; Mon, 23 Mar 2026 08:11:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E72A3EC01A5
+	for <dri-devel@archiver.kernel.org>; Mon, 23 Mar 2026 08:11:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1FACF10E40B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6E5ED10E416;
 	Mon, 23 Mar 2026 08:11:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=139.com header.i=@139.com header.b="Qjb0yY6B";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="C4VX5scA";
 	dkim-atps=neutral
-X-Greylist: delayed 559 seconds by postgrey-1.36 at gabe;
- Mon, 23 Mar 2026 07:20:26 UTC
-Received: from n169-112.mail.139.com (n169-112.mail.139.com [120.232.169.112])
- by gabe.freedesktop.org (Postfix) with ESMTP id 0E71A10E079;
- Mon, 23 Mar 2026 07:20:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=139.com; s=dkim; l=0;
- h=from:subject:message-id:to:cc:mime-version;
- bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
- b=Qjb0yY6B7X0bw5KlbHxtQX35mPUQPswgg5F+lvaIzO7V5Hqc2YhkiDQ1+zUZRgVIoXE1VQkogm1vm
- dMnHnoLdXl5UQWh0t+0Bu94Y4+Z2shJ0ShjnTYU4Nno+uPa/9DOcxWjuDqZ/IR6+WDIAP30PbRfq5u
- l+R3pVyfFLlVby9k=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM: 
-X-RM-SPAM-FLAG: 00000000
-Received: from NTT-kernel-dev (unknown[60.247.85.88])
- by rmsmtp-lg-appmail-24-12027 (RichMail) with SMTP id 2efb69c0e77a297-0029b;
- Mon, 23 Mar 2026 15:10:53 +0800 (CST)
-X-RM-TRANSID: 2efb69c0e77a297-0029b
-From: Li hongliang <1468888505@139.com>
-To: gregkh@linuxfoundation.org, stable@vger.kernel.org,
- srinivasan.shanmugam@amd.com
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
- airlied@gmail.com, daniel@ffwll.ch, sashal@kernel.org, guchun.chen@amd.com,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Subject: [PATCH 6.1.y] drm/amdgpu: Fix potential out-of-bounds access in
- 'amdgpu_discovery_reg_base_init()'
-Date: Mon, 23 Mar 2026 15:10:52 +0800
-Message-Id: <20260323071052.4068410-1-1468888505@139.com>
-X-Mailer: git-send-email 2.34.1
+Received: from mail-qv1-f53.google.com (mail-qv1-f53.google.com
+ [209.85.219.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4BB5210E354
+ for <dri-devel@lists.freedesktop.org>; Mon, 23 Mar 2026 03:49:41 +0000 (UTC)
+Received: by mail-qv1-f53.google.com with SMTP id
+ 6a1803df08f44-89a1347051aso43059346d6.2
+ for <dri-devel@lists.freedesktop.org>; Sun, 22 Mar 2026 20:49:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1774237780; x=1774842580; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=bCe6AfDuVfEg6QjOo8uvrp54D1ITzl/mWaR5wLcR1dU=;
+ b=C4VX5scAI0ug4cwSswEd3Ek3K2iUBasDkWW8LbxcjxsDYLszw237pHcAtgruiijRi1
+ KEo5QDjs49dFZMicpumNjtSeIKQbZu3zgKSlJ4R+wUqfauqPPGb6AZVbsXuqlkZa/40e
+ jAkcxd8T/a2T+kZGVV7lIy9QBuwJ+PfZLwLpD0JEQ3rIwSSjFZJ2uIwgrj6nDt4HZxGk
+ QzRdxg1CJwPue3uVhL+a25fXTGHCUAxWllGL9zLPw3HhD+oz5aJh/X3+HxiO0rORWMfW
+ +FIOGf1mtObTHHd1pTfl+RWDKStBe/tmjecVx8Ksk1j8bUkcd8XwMHYWj2h3FOz+oVbO
+ rEsQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1774237780; x=1774842580;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=bCe6AfDuVfEg6QjOo8uvrp54D1ITzl/mWaR5wLcR1dU=;
+ b=NFovJxEa+cIjvFvwVi1BHW5ozqpeBVCAToDYIxKQLpRug9REeaZNi9w8liLiYqlCD7
+ wGW83Nv3zPUrVdH9+9pZSSvZr0Q22Dlq3hMAWZhae0/XTofW3czyXRCtUFh20EZa2ijX
+ B5/G1aMp8iEo+K/ezpxL5nVszDGodiRi3SurdrJ0DapZuGgI7aK5w2uwfcuI9WVAzkj1
+ ZXtDyENTNvd2r2b5+Z9vOISx5nJtMOCB1E21u2YrOlGN3kuc/I8+XrF+6UGUmZwcphaA
+ luEJxYmCtS0GBGZsY+fkqc3MC5uIDE/JbAQ1GnKfvP+xXs6pIHGKc6H3e9LjhM05YEao
+ Ac3Q==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXH9ddeRfQ17d5TEBl1UqfL9TiCjaF+SzjC7v5aOFTa633hMbGDqH8d9UwIAX5dqWb0kwfy0MBMEHI=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzviXsGMWy+jMbJaPek7DiU38U3zGaQULDz13XTi853Qoacmyjd
+ y78DrZd/b37lvyv6/FkR+BKC7a6e+Yvq3/DrjIiNTqwfY2LAZJCTfLLW
+X-Gm-Gg: ATEYQzy2yx+BF9IlSF+xnZRGe2xGYCKVPxJhGcsIIVqLBthB1Eytx8rN3/LnT2WSqfW
+ IBuW1TFxJU6DVGM0rxaVyFWuGq1ufBX7H2PR6UF0jQfr/sxtOB/FsWeEc8DggzIxqCELuXnbztW
+ yyctLJ7xCr1lTFYK4kIgFwExRSEdkMni9erp4U784I2YqcF4E1v8YdEhdq3IuukeowdC0F9Phon
+ KfCFuqfUmmRR19tnCGGZZGBZOJxaeiZX9veQ7p6q2tqeMXuVC9swr6AK+Zsw0VFjVdCDw/K2SXM
+ yC6UW17+Z2NfUPItU8NZUB5NPD8jheMRqu4ERPAdMfyyMqwS/NbOaxPG/pcf1/2VS6Rjnsoxbhd
+ 7A/Zg2TjOF/WegWF8TLUJqRJJpKyIi/LwlIQLDd0EwlOw1z8Gn7bCX0JUnv8BXu13JqKQUiOY0H
+ ZdxQSoMflNIAHpzpgb6rO6xvFxQRQkVJYa6xVv2DmM5NJOY8T/8eVfF5LAzKYrubo=
+X-Received: by 2002:a05:6214:20e9:b0:894:6112:457c with SMTP id
+ 6a1803df08f44-89c85a9c7bemr183169246d6.56.1774237780181; 
+ Sun, 22 Mar 2026 20:49:40 -0700 (PDT)
+Received: from ZC-202510311500 ([123.139.39.86])
+ by smtp.gmail.com with ESMTPSA id
+ 6a1803df08f44-89c8534f9ccsm79520226d6.39.2026.03.22.20.49.37
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 22 Mar 2026 20:49:39 -0700 (PDT)
+From: Haoyu Lu <hechushiguitu666@gmail.com>
+To: lizhi.hou@amd.com
+Cc: mamin506@gmail.com, ogabbay@kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, "haoyu.lu" <hechushiguitu666@gmail.com>
+Subject: [PATCH v2] accel/amdxdna: fix missing newline in pr_err message
+Date: Mon, 23 Mar 2026 11:49:32 +0800
+Message-ID: <20260323034933.216-1-hechushiguitu666@gmail.com>
+X-Mailer: git-send-email 2.53.0.windows.1
+In-Reply-To: <1af543d3-46ff-7a9c-6432-fe3c9050e23d@amd.com>
+References: <1af543d3-46ff-7a9c-6432-fe3c9050e23d@amd.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 23 Mar 2026 08:11:26 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -61,59 +90,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+From: "haoyu.lu" <hechushiguitu666@gmail.com>
 
-[ Upstream commit cdb637d339572398821204a1142d8d615668f1e9 ]
+Add missing newline to pr_err message in amdxdna_mailbox.c.
 
-The issue arises when the array 'adev->vcn.vcn_config' is accessed
-before checking if the index 'adev->vcn.num_vcn_inst' is within the
-bounds of the array.
-
-The fix involves moving the bounds check before the array access. This
-ensures that 'adev->vcn.num_vcn_inst' is within the bounds of the array
-before it is used as an index.
-
-Fixes the below:
-drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c:1289 amdgpu_discovery_reg_base_init() error: testing array offset 'adev->vcn.num_vcn_inst' after use.
-
-Fixes: a0ccc717c4ab ("drm/amdgpu/discovery: validate VCN and SDMA instances")
-Cc: Christian König <christian.koenig@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-[ Minor conflict resolved. ]
-Signed-off-by: Li hongliang <1468888505@139.com>
+Fixes: b87f920b9344 ("accel/amdxdna: Support hardware mailbox")
+Signed-off-by: haoyu.lu <hechushiguitu666@gmail.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+Changes in v2:
+- Added Fixes tag as requested
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-index 9b1c4d5be61f..a1e006d238cf 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-@@ -1128,15 +1128,15 @@ static int amdgpu_discovery_reg_base_init(struct amdgpu_device *adev)
- 				 *     0b10 : encode is disabled
- 				 *     0b01 : decode is disabled
- 				 */
--				adev->vcn.vcn_config[adev->vcn.num_vcn_inst] =
--					ip->revision & 0xc0;
--				ip->revision &= ~0xc0;
--				if (adev->vcn.num_vcn_inst < AMDGPU_MAX_VCN_INSTANCES)
-+				if (adev->vcn.num_vcn_inst < AMDGPU_MAX_VCN_INSTANCES) {
-+					adev->vcn.vcn_config[adev->vcn.num_vcn_inst] =
-+						ip->revision & 0xc0;
- 					adev->vcn.num_vcn_inst++;
--				else
-+				} else
- 					dev_err(adev->dev, "Too many VCN instances: %d vs %d\n",
- 						adev->vcn.num_vcn_inst + 1,
- 						AMDGPU_MAX_VCN_INSTANCES);
-+				ip->revision &= ~0xc0;
- 			}
- 			if (le16_to_cpu(ip->hw_id) == SDMA0_HWID ||
- 			    le16_to_cpu(ip->hw_id) == SDMA1_HWID ||
+ drivers/accel/amdxdna/amdxdna_mailbox.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/accel/amdxdna/amdxdna_mailbox.c b/drivers/accel/amdxdna/amdxdna_mailbox.c
+index 46d844a73a94..e681a090752d 100644
+--- a/drivers/accel/amdxdna/amdxdna_mailbox.c
++++ b/drivers/accel/amdxdna/amdxdna_mailbox.c
+@@ -499,7 +499,7 @@ xdna_mailbox_start_channel(struct mailbox_channel *mb_chann,
+ 	int ret;
+ 
+ 	if (!is_power_of_2(x2i->rb_size) || !is_power_of_2(i2x->rb_size)) {
+-		pr_err("Ring buf size must be power of 2");
++		pr_err("Ring buf size must be power of 2\n");
+ 		return -EINVAL;
+ 	}
+ 
 -- 
-2.34.1
-
+2.53.0.windows.1
 
