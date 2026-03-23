@@ -4,148 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B5387F46101
-	for <dri-devel@archiver.kernel.org>; Mon, 23 Mar 2026 13:32:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E36A2F4610F
+	for <dri-devel@archiver.kernel.org>; Mon, 23 Mar 2026 13:33:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2C12E10E0CA;
-	Mon, 23 Mar 2026 13:32:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 44AFD10E340;
+	Mon, 23 Mar 2026 13:33:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="o14ItgrV";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="kTQmBeXh";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="o14ItgrV";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="kTQmBeXh";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="UHnoUHqD";
 	dkim-atps=neutral
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C3F1410E0CA
- for <dri-devel@lists.freedesktop.org>; Mon, 23 Mar 2026 13:32:07 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 61AB44D332;
- Mon, 23 Mar 2026 13:32:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1774272726; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=emLcoP3+QWMocUpA4HHuhySiNMMzR708E8k/Un3od0E=;
- b=o14ItgrVMvI/5gdDDfjN8T8Ie9yi3TUQxdxW6V4ovo0pjvDzLhhjiWT3NmjcmmDCVjyUoq
- Om0edd9zoeKMk12mALjyh9SBq9dza2Y4vXMrok05CkwCulgxhcpz+3KwSRwM+14jgTXihS
- 9UdhR6yo2Ce0ndj9mCvOxAc/TbDJLCc=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1774272726;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=emLcoP3+QWMocUpA4HHuhySiNMMzR708E8k/Un3od0E=;
- b=kTQmBeXhr/GBx3FErDD2XaCm06ukHW9V+2D65TdBXQxEqwySbRCAIXiGT8ROW//BJO5SsI
- CF7N+bUyQBvjbsCA==
-Authentication-Results: smtp-out1.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=o14ItgrV;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=kTQmBeXh
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1774272726; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=emLcoP3+QWMocUpA4HHuhySiNMMzR708E8k/Un3od0E=;
- b=o14ItgrVMvI/5gdDDfjN8T8Ie9yi3TUQxdxW6V4ovo0pjvDzLhhjiWT3NmjcmmDCVjyUoq
- Om0edd9zoeKMk12mALjyh9SBq9dza2Y4vXMrok05CkwCulgxhcpz+3KwSRwM+14jgTXihS
- 9UdhR6yo2Ce0ndj9mCvOxAc/TbDJLCc=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1774272726;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=emLcoP3+QWMocUpA4HHuhySiNMMzR708E8k/Un3od0E=;
- b=kTQmBeXhr/GBx3FErDD2XaCm06ukHW9V+2D65TdBXQxEqwySbRCAIXiGT8ROW//BJO5SsI
- CF7N+bUyQBvjbsCA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 167DD438D0;
- Mon, 23 Mar 2026 13:32:06 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id T50mBNZAwWmnYQAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Mon, 23 Mar 2026 13:32:06 +0000
-Message-ID: <f98ea316-f7f7-4506-aead-4658f2a03c8d@suse.de>
-Date: Mon, 23 Mar 2026 14:32:05 +0100
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CAC1B10E123;
+ Mon, 23 Mar 2026 13:33:51 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 58F7F43D99;
+ Mon, 23 Mar 2026 13:33:51 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E29EC2BCB1;
+ Mon, 23 Mar 2026 13:33:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1774272831;
+ bh=rPD0+1aQ7TNVSbHfPL6/LKqnNZ1gKGZwBds/bqCrwCo=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=UHnoUHqDMC/1jREsCMmPY7qchdBGrmdKuT8SY52fxXw+fa6q3Ik1UW+g/tQKq4JiA
+ XsrQ8C6yRtkmn3FNrCOBn/d2UOuO0G8yEjK3pbJlQm/ahOfwejugEv5VQohQrOIlNh
+ NZH13uESiTAPafHddJ9Jwsxurpks5ikNlWyJ8/eFO6yN/+TjQFSzHa5r+MTaY9nysh
+ E41BgR2f45o1Q9Jcf8O6YhjAKgct6vcEekqDGKZXcvCaZkDlj/LlnXcA2CcdCGSq00
+ y8klQmmYLLOz5AF31W1EytLra2mCcs5JWor7nQfVVPj+jivRaKn/EN7dmgP5uYqlqH
+ zZdUqj9hA+Zxw==
+Date: Mon, 23 Mar 2026 19:03:32 +0530
+From: Sumit Garg <sumit.garg@kernel.org>
+To: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-media@vger.kernel.org, netdev@vger.kernel.org,
+ linux-wireless@vger.kernel.org, ath12k@lists.infradead.org,
+ linux-remoteproc@vger.kernel.org, andersson@kernel.org,
+ konradybcio@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, robin.clark@oss.qualcomm.com, sean@poorly.run,
+ akhilpo@oss.qualcomm.com, lumag@kernel.org, abhinav.kumar@linux.dev,
+ jesszhan0024@gmail.com, marijn.suijten@somainline.org,
+ airlied@gmail.com, simona@ffwll.ch, vikash.garodia@oss.qualcomm.com,
+ dikshita.agarwal@oss.qualcomm.com, bod@kernel.org,
+ mchehab@kernel.org, elder@kernel.org, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+ pabeni@redhat.com, jjohnson@kernel.org, mathieu.poirier@linaro.org,
+ trilokkumar.soni@oss.qualcomm.com, pavan.kondeti@oss.qualcomm.com,
+ jorge.ramirez@oss.qualcomm.com, tonyh@qti.qualcomm.com,
+ vignesh.viswanathan@oss.qualcomm.com, srinivas.kandagatla@oss.qualcomm.com,
+ amirreza.zarrabi@oss.qualcomm.com, jens.wiklander@linaro.org,
+ op-tee@lists.trustedfirmware.org, apurupa@qti.qualcomm.com,
+ skare@qti.qualcomm.com, linux-kernel@vger.kernel.org,
+ Sumit Garg <sumit.garg@oss.qualcomm.com>
+Subject: Re: [PATCH v2 03/15] firmware: qcom_scm: Migrate to generic PAS
+ service
+Message-ID: <acFBLBz6qiz2n2vM@sumit-xelite>
+References: <20260312062756.694390-1-sumit.garg@kernel.org>
+ <20260312062756.694390-4-sumit.garg@kernel.org>
+ <20260313075607.2mw3dzaf274xxe2j@hu-mojha-hyd.qualcomm.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] drm/loongson: stop to set get_vblank_timestamp for
- LS7A1000 CRTC
-To: Icenowy Zheng <zhengxingda@iscas.ac.cn>,
- Jianmin Lv <lvjianmin@loongson.cn>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Qianhai Wu <wuqianhai@loongson.cn>,
- Huacai Chen <chenhuacai@kernel.org>, Mingcong Bai <jeffbai@aosc.io>,
- Xi Ruoyao <xry111@xry111.site>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20260321092804.3519447-1-zhengxingda@iscas.ac.cn>
- <47337244ebd0ce4efd3e065183e863421925f99f.camel@iscas.ac.cn>
- <e11078cb-7536-b5d2-b753-16d25093a403@loongson.cn>
- <4141b0a640f4d703053dad2c1dd257835881f0e2.camel@iscas.ac.cn>
- <681588dc-b4d9-4af4-b6c0-c117024593df@suse.de>
- <ce8f801931ddde8b12086eb560e628a39e79b58c.camel@iscas.ac.cn>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <ce8f801931ddde8b12086eb560e628a39e79b58c.camel@iscas.ac.cn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Action: no action
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[];
- FREEMAIL_TO(0.00)[iscas.ac.cn,loongson.cn,linux.intel.com,kernel.org,gmail.com,ffwll.ch,aosc.io,xry111.site];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FREEMAIL_ENVRCPT(0.00)[gmail.com];
- RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
- ARC_NA(0.00)[]; RCPT_COUNT_TWELVE(0.00)[12];
- FUZZY_RATELIMITED(0.00)[rspamd.com]; MIME_TRACE(0.00)[0:+];
- SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
- URIBL_BLOCKED(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.com:url,iscas.ac.cn:email,suse.de:dkim,suse.de:mid,suse.de:email];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_TLS_ALL(0.00)[];
- RCVD_COUNT_TWO(0.00)[2]; FROM_EQ_ENVFROM(0.00)[];
- FROM_HAS_DN(0.00)[]; TO_DN_SOME(0.00)[];
- MID_RHS_MATCH_FROM(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
- RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
- DKIM_TRACE(0.00)[suse.de:+];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url, imap1.dmz-prg2.suse.org:helo,
- imap1.dmz-prg2.suse.org:rdns, iscas.ac.cn:email]
-X-Rspamd-Queue-Id: 61AB44D332
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260313075607.2mw3dzaf274xxe2j@hu-mojha-hyd.qualcomm.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -161,95 +79,656 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi
+On Fri, Mar 13, 2026 at 01:26:07PM +0530, Mukesh Ojha wrote:
+> On Thu, Mar 12, 2026 at 11:57:44AM +0530, Sumit Garg wrote:
+> > From: Sumit Garg <sumit.garg@oss.qualcomm.com>
+> > 
+> > With the availability of generic PAS service, let's add SCM calls as
+> > a backend to keep supporting legacy QTEE interfaces. The exported
+> > qcom_scm* wrappers will get dropped once all the client drivers get
+> > migrated as part of future patches.
+> > 
+> > Signed-off-by: Sumit Garg <sumit.garg@oss.qualcomm.com>
+> > ---
+> >  drivers/firmware/qcom/Kconfig    |   1 +
+> >  drivers/firmware/qcom/qcom_scm.c | 336 ++++++++++++++-----------------
+> >  2 files changed, 156 insertions(+), 181 deletions(-)
+> > 
+> > diff --git a/drivers/firmware/qcom/Kconfig b/drivers/firmware/qcom/Kconfig
+> > index 8653639d06db..9a12ae2b639d 100644
+> > --- a/drivers/firmware/qcom/Kconfig
+> > +++ b/drivers/firmware/qcom/Kconfig
+> > @@ -15,6 +15,7 @@ config QCOM_PAS
+> >  	  TEE bus based PAS service implementation.
+> >  
+> >  config QCOM_SCM
+> > +	select QCOM_PAS
+> >  	select QCOM_TZMEM
+> >  	tristate
+> >  
+> > diff --git a/drivers/firmware/qcom/qcom_scm.c b/drivers/firmware/qcom/qcom_scm.c
+> > index 8fbc96693a55..2d7937ae7c8f 100644
+> > --- a/drivers/firmware/qcom/qcom_scm.c
+> > +++ b/drivers/firmware/qcom/qcom_scm.c
+> > @@ -13,6 +13,7 @@
+> >  #include <linux/dma-mapping.h>
+> >  #include <linux/err.h>
+> >  #include <linux/export.h>
+> > +#include <linux/firmware/qcom/qcom_pas.h>
+> >  #include <linux/firmware/qcom/qcom_scm.h>
+> >  #include <linux/firmware/qcom/qcom_tzmem.h>
+> >  #include <linux/init.h>
+> > @@ -33,6 +34,7 @@
+> >  
+> >  #include <dt-bindings/interrupt-controller/arm-gic.h>
+> >  
+> > +#include "qcom_pas.h"
+> >  #include "qcom_scm.h"
+> >  #include "qcom_tzmem.h"
+> >  
+> > @@ -480,25 +482,6 @@ void qcom_scm_cpu_power_down(u32 flags)
+> >  }
+> >  EXPORT_SYMBOL_GPL(qcom_scm_cpu_power_down);
+> >  
+> > -int qcom_scm_set_remote_state(u32 state, u32 id)
+> > -{
+> > -	struct qcom_scm_desc desc = {
+> > -		.svc = QCOM_SCM_SVC_BOOT,
+> > -		.cmd = QCOM_SCM_BOOT_SET_REMOTE_STATE,
+> > -		.arginfo = QCOM_SCM_ARGS(2),
+> > -		.args[0] = state,
+> > -		.args[1] = id,
+> > -		.owner = ARM_SMCCC_OWNER_SIP,
+> > -	};
+> > -	struct qcom_scm_res res;
+> > -	int ret;
+> > -
+> > -	ret = qcom_scm_call(__scm->dev, &desc, &res);
+> > -
+> > -	return ret ? : res.result[0];
+> > -}
+> > -EXPORT_SYMBOL_GPL(qcom_scm_set_remote_state);
+> > -
+> >  static int qcom_scm_disable_sdi(void)
+> >  {
+> >  	int ret;
+> > @@ -571,26 +554,12 @@ static void qcom_scm_set_download_mode(u32 dload_mode)
+> >  		dev_err(__scm->dev, "failed to set download mode: %d\n", ret);
+> >  }
+> >  
+> > -/**
+> > - * devm_qcom_scm_pas_context_alloc() - Allocate peripheral authentication service
+> > - *				       context for a given peripheral
+> > - *
+> > - * PAS context is device-resource managed, so the caller does not need
+> > - * to worry about freeing the context memory.
+> > - *
+> > - * @dev:	  PAS firmware device
+> > - * @pas_id:	  peripheral authentication service id
+> > - * @mem_phys:	  Subsystem reserve memory start address
+> > - * @mem_size:	  Subsystem reserve memory size
+> > - *
+> > - * Returns: The new PAS context, or ERR_PTR() on failure.
+> > - */
+> >  struct qcom_scm_pas_context *devm_qcom_scm_pas_context_alloc(struct device *dev,
+> >  							     u32 pas_id,
+> >  							     phys_addr_t mem_phys,
+> >  							     size_t mem_size)
+> >  {
+> > -	struct qcom_scm_pas_context *ctx;
+> > +	struct qcom_pas_context *ctx;
+> 
+> Why this change..
 
-Am 23.03.26 um 12:42 schrieb Icenowy Zheng:
-[...]
->>> drm_update_vblank_count+0xac/0x418
->>> [    0.334960] [<ffffffff80be6270>] drm_vblank_enable+0xf0/0x288
->>> [    0.334960] [<ffffffff80be7010>] drm_vblank_get+0xf8/0x160
->>> [    0.334960] [<ffffffff80beb2e0>]
->>> drm_client_modeset_wait_for_vblank+0x50/0xa0
-> I doubt the problem here is that the function above is called with
-> hardcoded 0 by drm_fb_helper_fb_dirty() (being inlined into
-> drm_fb_helper_damage_work() by the compiler). Then on my setup it
-> failed because my primary output (laptop LCD) is on CRTC 1 (CRTC 0 is
-> external HDMI instead).
+This is needed for migration to the generic PAS APIs as the internal
+wrappers switched over. However, this is just a temporary global wrapper
+until all the clients switch over..
 
-The CRTC 0 has vblank interrupt. The CRTC 1 does not. Is that correct?
+> 
+> >  
+> >  	ctx = devm_kzalloc(dev, sizeof(*ctx), GFP_KERNEL);
+> >  	if (!ctx)
+> > @@ -601,11 +570,12 @@ struct qcom_scm_pas_context *devm_qcom_scm_pas_context_alloc(struct device *dev,
+> >  	ctx->mem_phys = mem_phys;
+> >  	ctx->mem_size = mem_size;
+> >  
+> > -	return ctx;
+> > +	return (struct qcom_scm_pas_context *)ctx;
+> 
+> and this change as well ?
 
->
-> This is new behavior introduced by d8c4bddcd8bc ("drm/fb-helper:
-> Synchronize dirty worker with vblank"), and the commit messages say
-> `This allows several screen updates to pile up and acts as a rate
-> limiter.` .
+..ditto as above to maintain API compatibility. This whole wrapper gets
+dropped in the last patch.
 
-This should work if the vblanks are configured correctly.
+> 
+> >  }
+> >  EXPORT_SYMBOL_GPL(devm_qcom_scm_pas_context_alloc);
+> >  
+> > -static int __qcom_scm_pas_init_image(u32 pas_id, dma_addr_t mdata_phys,
+> > +static int __qcom_scm_pas_init_image(struct device *dev, u32 pas_id,
+> > +				     dma_addr_t mdata_phys,
+> >  				     struct qcom_scm_res *res)
+> >  {
+> >  	struct qcom_scm_desc desc = {
+> > @@ -627,7 +597,7 @@ static int __qcom_scm_pas_init_image(u32 pas_id, dma_addr_t mdata_phys,
+> >  
+> >  	desc.args[1] = mdata_phys;
+> >  
+> > -	ret = qcom_scm_call(__scm->dev, &desc, res);
+> > +	ret = qcom_scm_call(dev, &desc, res);
+> >  	qcom_scm_bw_disable();
+> >  
+> >  disable_clk:
+> > @@ -636,7 +606,8 @@ static int __qcom_scm_pas_init_image(u32 pas_id, dma_addr_t mdata_phys,
+> >  	return ret;
+> >  }
+> >  
+> > -static int qcom_scm_pas_prep_and_init_image(struct qcom_scm_pas_context *ctx,
+> > +static int qcom_scm_pas_prep_and_init_image(struct device *dev,
+> > +					    struct qcom_pas_context *ctx,
+> >  					    const void *metadata, size_t size)
+> >  {
+> >  	struct qcom_scm_res res;
+> > @@ -651,7 +622,7 @@ static int qcom_scm_pas_prep_and_init_image(struct qcom_scm_pas_context *ctx,
+> >  	memcpy(mdata_buf, metadata, size);
+> >  	mdata_phys = qcom_tzmem_to_phys(mdata_buf);
+> >  
+> > -	ret = __qcom_scm_pas_init_image(ctx->pas_id, mdata_phys, &res);
+> > +	ret = __qcom_scm_pas_init_image(dev, ctx->pas_id, mdata_phys, &res);
+> >  	if (ret < 0)
+> >  		qcom_tzmem_free(mdata_buf);
+> >  	else
+> > @@ -660,25 +631,9 @@ static int qcom_scm_pas_prep_and_init_image(struct qcom_scm_pas_context *ctx,
+> >  	return ret ? : res.result[0];
+> >  }
+> >  
+> > -/**
+> > - * qcom_scm_pas_init_image() - Initialize peripheral authentication service
+> > - *			       state machine for a given peripheral, using the
+> > - *			       metadata
+> > - * @pas_id:	peripheral authentication service id
+> > - * @metadata:	pointer to memory containing ELF header, program header table
+> > - *		and optional blob of data used for authenticating the metadata
+> > - *		and the rest of the firmware
+> > - * @size:	size of the metadata
+> > - * @ctx:	optional pas context
+> > - *
+> > - * Return: 0 on success.
+> > - *
+> > - * Upon successful return, the PAS metadata context (@ctx) will be used to
+> > - * track the metadata allocation, this needs to be released by invoking
+> > - * qcom_scm_pas_metadata_release() by the caller.
+> > - */
+> > -int qcom_scm_pas_init_image(u32 pas_id, const void *metadata, size_t size,
+> > -			    struct qcom_scm_pas_context *ctx)
+> > +static int __qcom_scm_pas_init_image2(struct device *dev, u32 pas_id,
+> > +				      const void *metadata, size_t size,
+> > +				      struct qcom_pas_context *ctx)
+> 
+> Looks like alignment got wrong..
 
+It isn't, try applying this patch-set and see if you still see any
+alignment issues.
 
->
-> Should it wait for any vblanks instead of waiting for one on CRTC 0 ?
-> (Or check whether CRTC 0 is on before waiting on it?)
+> 
+> >  {
+> >  	struct qcom_scm_res res;
+> >  	dma_addr_t mdata_phys;
+> > @@ -686,7 +641,8 @@ int qcom_scm_pas_init_image(u32 pas_id, const void *metadata, size_t size,
+> >  	int ret;
+> >  
+> >  	if (ctx && ctx->use_tzmem)
+> > -		return qcom_scm_pas_prep_and_init_image(ctx, metadata, size);
+> > +		return qcom_scm_pas_prep_and_init_image(dev, ctx, metadata,
+> > +							size);
+>  
+> unwrap this..
 
-It should only wait for the vblank on the CRTC it uses (1 in your case).
+Ack.
 
-Best regards
-Thomas
+> 
+> >  
+> >  	/*
+> >  	 * During the scm call memory protection will be enabled for the meta
+> > @@ -700,16 +656,15 @@ int qcom_scm_pas_init_image(u32 pas_id, const void *metadata, size_t size,
+> >  	 * If we pass a buffer that is already part of an SHM Bridge to this
+> >  	 * call, it will fail.
+> >  	 */
+> > -	mdata_buf = dma_alloc_coherent(__scm->dev, size, &mdata_phys,
+> > -				       GFP_KERNEL);
+> > +	mdata_buf = dma_alloc_coherent(dev, size, &mdata_phys, GFP_KERNEL);
+> >  	if (!mdata_buf)
+> >  		return -ENOMEM;
+> >  
+> >  	memcpy(mdata_buf, metadata, size);
+> >  
+> > -	ret = __qcom_scm_pas_init_image(pas_id, mdata_phys, &res);
+> > +	ret = __qcom_scm_pas_init_image(dev, pas_id, mdata_phys, &res);
+> >  	if (ret < 0 || !ctx) {
+> > -		dma_free_coherent(__scm->dev, size, mdata_buf, mdata_phys);
+> > +		dma_free_coherent(dev, size, mdata_buf, mdata_phys);
+> >  	} else if (ctx) {
+> >  		ctx->ptr = mdata_buf;
+> >  		ctx->phys = mdata_phys;
+> > @@ -718,36 +673,35 @@ int qcom_scm_pas_init_image(u32 pas_id, const void *metadata, size_t size,
+> >  
+> >  	return ret ? : res.result[0];
+> >  }
+> > -EXPORT_SYMBOL_GPL(qcom_scm_pas_init_image);
+> >  
+> > -/**
+> > - * qcom_scm_pas_metadata_release() - release metadata context
+> > - * @ctx:	pas context
+> > - */
+> > -void qcom_scm_pas_metadata_release(struct qcom_scm_pas_context *ctx)
+> > +int qcom_scm_pas_init_image(u32 pas_id, const void *metadata, size_t size,
+> > +			    struct qcom_scm_pas_context *ctx)
+> >  {
+> > -	if (!ctx->ptr)
+> > -		return;
+> > +	return __qcom_scm_pas_init_image2(__scm->dev, pas_id, metadata, size,
+> > +					  (struct qcom_pas_context *)ctx);
+> > +}
+> > +EXPORT_SYMBOL_GPL(qcom_scm_pas_init_image);
+> >  
+> > +static void __qcom_scm_pas_metadata_release(struct device *dev,
+> > +					    struct qcom_pas_context *ctx)
+> > +{
+> >  	if (ctx->use_tzmem)
+> >  		qcom_tzmem_free(ctx->ptr);
+> >  	else
+> > -		dma_free_coherent(__scm->dev, ctx->size, ctx->ptr, ctx->phys);
+> > +		dma_free_coherent(dev, ctx->size, ctx->ptr, ctx->phys);
+> >  
+> >  	ctx->ptr = NULL;
+> >  }
+> > +
+> > +void qcom_scm_pas_metadata_release(struct qcom_scm_pas_context *ctx)
+> > +{
+> > +	__qcom_scm_pas_metadata_release(__scm->dev,
+> > +					(struct qcom_pas_context *)ctx);
+> > +}
+> >  EXPORT_SYMBOL_GPL(qcom_scm_pas_metadata_release);
+> >  
+> > -/**
+> > - * qcom_scm_pas_mem_setup() - Prepare the memory related to a given peripheral
+> > - *			      for firmware loading
+> > - * @pas_id:	peripheral authentication service id
+> > - * @addr:	start address of memory area to prepare
+> > - * @size:	size of the memory area to prepare
+> > - *
+> > - * Returns 0 on success.
+> > - */
+> > -int qcom_scm_pas_mem_setup(u32 pas_id, phys_addr_t addr, phys_addr_t size)
+> > +static int __qcom_scm_pas_mem_setup(struct device *dev, u32 pas_id,
+> > +				    phys_addr_t addr, phys_addr_t size)
+> >  {
+> >  	int ret;
+> >  	struct qcom_scm_desc desc = {
+> > @@ -769,7 +723,7 @@ int qcom_scm_pas_mem_setup(u32 pas_id, phys_addr_t addr, phys_addr_t size)
+> >  	if (ret)
+> >  		goto disable_clk;
+> >  
+> > -	ret = qcom_scm_call(__scm->dev, &desc, &res);
+> > +	ret = qcom_scm_call(dev, &desc, &res);
+> >  	qcom_scm_bw_disable();
+> >  
+> >  disable_clk:
+> > @@ -777,9 +731,15 @@ int qcom_scm_pas_mem_setup(u32 pas_id, phys_addr_t addr, phys_addr_t size)
+> >  
+> >  	return ret ? : res.result[0];
+> >  }
+> > +
+> > +int qcom_scm_pas_mem_setup(u32 pas_id, phys_addr_t addr, phys_addr_t size)
+> > +{
+> > +	return __qcom_scm_pas_mem_setup(__scm->dev, pas_id, addr, size);
+> > +}
+> >  EXPORT_SYMBOL_GPL(qcom_scm_pas_mem_setup);
+> >  
+> > -static void *__qcom_scm_pas_get_rsc_table(u32 pas_id, void *input_rt_tzm,
+> > +static void *__qcom_scm_pas_get_rsc_table(struct device *dev, u32 pas_id,
+> > +					  void *input_rt_tzm,
+> >  					  size_t input_rt_size,
+> >  					  size_t *output_rt_size)
+> >  {
+> > @@ -814,7 +774,7 @@ static void *__qcom_scm_pas_get_rsc_table(u32 pas_id, void *input_rt_tzm,
+> >  	 * with output_rt_tzm buffer with res.result[2] size however, It should not
+> >  	 * be of unresonable size.
+> >  	 */
+> > -	ret = qcom_scm_call(__scm->dev, &desc, &res);
+> > +	ret = qcom_scm_call(dev, &desc, &res);
+> >  	if (!ret && res.result[2] > SZ_1G) {
+> >  		ret = -E2BIG;
+> >  		goto free_output_rt;
+> > @@ -831,51 +791,11 @@ static void *__qcom_scm_pas_get_rsc_table(u32 pas_id, void *input_rt_tzm,
+> >  	return ret ? ERR_PTR(ret) : output_rt_tzm;
+> >  }
+> >  
+> > -/**
+> > - * qcom_scm_pas_get_rsc_table() - Retrieve the resource table in passed output buffer
+> > - *				  for a given peripheral.
+> > - *
+> > - * Qualcomm remote processor may rely on both static and dynamic resources for
+> > - * its functionality. Static resources typically refer to memory-mapped addresses
+> > - * required by the subsystem and are often embedded within the firmware binary
+> > - * and dynamic resources, such as shared memory in DDR etc., are determined at
+> > - * runtime during the boot process.
+> > - *
+> > - * On Qualcomm Technologies devices, it's possible that static resources are not
+> > - * embedded in the firmware binary and instead are provided by TrustZone However,
+> > - * dynamic resources are always expected to come from TrustZone. This indicates
+> > - * that for Qualcomm devices, all resources (static and dynamic) will be provided
+> > - * by TrustZone via the SMC call.
+> > - *
+> > - * If the remote processor firmware binary does contain static resources, they
+> > - * should be passed in input_rt. These will be forwarded to TrustZone for
+> > - * authentication. TrustZone will then append the dynamic resources and return
+> > - * the complete resource table in output_rt_tzm.
+> > - *
+> > - * If the remote processor firmware binary does not include a resource table,
+> > - * the caller of this function should set input_rt as NULL and input_rt_size
+> > - * as zero respectively.
+> > - *
+> > - * More about documentation on resource table data structures can be found in
+> > - * include/linux/remoteproc.h
+> > - *
+> > - * @ctx:	    PAS context
+> > - * @pas_id:	    peripheral authentication service id
+> > - * @input_rt:       resource table buffer which is present in firmware binary
+> > - * @input_rt_size:  size of the resource table present in firmware binary
+> > - * @output_rt_size: TrustZone expects caller should pass worst case size for
+> > - *		    the output_rt_tzm.
+> > - *
+> > - * Return:
+> > - *  On success, returns a pointer to the allocated buffer containing the final
+> > - *  resource table and output_rt_size will have actual resource table size from
+> > - *  TrustZone. The caller is responsible for freeing the buffer. On failure,
+> > - *  returns ERR_PTR(-errno).
+> > - */
+> > -struct resource_table *qcom_scm_pas_get_rsc_table(struct qcom_scm_pas_context *ctx,
+> > -						  void *input_rt,
+> > -						  size_t input_rt_size,
+> > -						  size_t *output_rt_size)
+> > +static void *__qcom_scm_pas_get_rsc_table2(struct device *dev,
+> > +					   struct qcom_pas_context *ctx,
+> > +					   void *input_rt,
+> > +					   size_t input_rt_size,
+> > +					   size_t *output_rt_size)
+> >  {
+> >  	struct resource_table empty_rsc = {};
+> >  	size_t size = SZ_16K;
+> > @@ -910,11 +830,12 @@ struct resource_table *qcom_scm_pas_get_rsc_table(struct qcom_scm_pas_context *c
+> >  
+> >  	memcpy(input_rt_tzm, input_rt, input_rt_size);
+> >  
+> > -	output_rt_tzm = __qcom_scm_pas_get_rsc_table(ctx->pas_id, input_rt_tzm,
+> > +	output_rt_tzm = __qcom_scm_pas_get_rsc_table(dev, ctx->pas_id,
+> > +						     input_rt_tzm,
+> >  						     input_rt_size, &size);
+> >  	if (PTR_ERR(output_rt_tzm) == -EOVERFLOW)
+> >  		/* Try again with the size requested by the TZ */
+> > -		output_rt_tzm = __qcom_scm_pas_get_rsc_table(ctx->pas_id,
+> > +		output_rt_tzm = __qcom_scm_pas_get_rsc_table(dev, ctx->pas_id,
+> >  							     input_rt_tzm,
+> >  							     input_rt_size,
+> >  							     &size);
+> > @@ -945,16 +866,20 @@ struct resource_table *qcom_scm_pas_get_rsc_table(struct qcom_scm_pas_context *c
+> >  
+> >  	return ret ? ERR_PTR(ret) : tbl_ptr;
+> >  }
+> > +
+> > +struct resource_table *qcom_scm_pas_get_rsc_table(struct qcom_scm_pas_context *ctx,
+> > +						  void *input_rt,
+> > +						  size_t input_rt_size,
+> > +						  size_t *output_rt_size)
+> > +{
+> > +	return __qcom_scm_pas_get_rsc_table2(__scm->dev,
+> 
+> Instead of using integar, we could use addition of more '_' to reflect
+> inner level functions.. 
 
+Let me rather drop the integer as part of last patch when I am already
+dropping wrappers.
 
->
-> Thanks,
-> Icenowy
->
->>> [    0.334960] [<ffffffff80c0a144>]
->>> drm_fb_helper_damage_work+0x8c/0x1d8
->>> [    0.334960] [<ffffffff8028fac8>] process_one_work+0x198/0x348
->>> [    0.334960] [<ffffffff802906c0>] worker_thread+0x238/0x390
->>> [    0.334960] [<ffffffff8029c0d8>] kthread+0x160/0x198
->>> [    0.334960] [<ffffffff8021fd8c>]
->>> ret_from_kernel_thread+0x14/0x1c
->>>
->>> [    0.334960] ---[ end trace 0000000000000000 ]---
->>> ```
->>>
->>>>>> Signed-off-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
->>>>> Oh forgot to attach when crafting v2:
->>>>>
->>>>> ```
->>>>> Acked-by: Thomas Zimmermann <tzimmermann@suse.de>
->>>>> ```
->>>>>
->>>>>> ---
->>>>>> Changes in v2:
->>>>>> - Re-formatted Loongson product model numbers per request
->>>>>> from
->>>>>> Huacai.
->>>>>>
->>>>>>     drivers/gpu/drm/loongson/lsdc_crtc.c | 1 -
->>>>>>     1 file changed, 1 deletion(-)
->>>>>>
->>>>>> diff --git a/drivers/gpu/drm/loongson/lsdc_crtc.c
->>>>>> b/drivers/gpu/drm/loongson/lsdc_crtc.c
->>>>>> index 587fbe285e9ef..b3af8e0cdb15f 100644
->>>>>> --- a/drivers/gpu/drm/loongson/lsdc_crtc.c
->>>>>> +++ b/drivers/gpu/drm/loongson/lsdc_crtc.c
->>>>>> @@ -721,7 +721,6 @@ static const struct drm_crtc_funcs
->>>>>> ls7a1000_crtc_funcs = {
->>>>>>     	.late_register = lsdc_crtc_late_register,
->>>>>>     	.enable_vblank = lsdc_crtc_enable_vblank,
->>>>>>     	.disable_vblank = lsdc_crtc_disable_vblank,
->>>>>> -	.get_vblank_timestamp =
->>>>>> drm_crtc_vblank_helper_get_vblank_timestamp,
->>>>>>     	.atomic_print_state = lsdc_crtc_atomic_print_state,
->>>>>>     };
->>>>>>     
+> 
+> > +					     (struct qcom_pas_context *)ctx,
+> > +					     input_rt, input_rt_size,
+> > +					     output_rt_size);
+> > +}
+> >  EXPORT_SYMBOL_GPL(qcom_scm_pas_get_rsc_table);
+> >  
+> > -/**
+> > - * qcom_scm_pas_auth_and_reset() - Authenticate the given peripheral firmware
+> > - *				   and reset the remote processor
+> > - * @pas_id:	peripheral authentication service id
+> > - *
+> > - * Return 0 on success.
+> > - */
+> > -int qcom_scm_pas_auth_and_reset(u32 pas_id)
+> > +static int __qcom_scm_pas_auth_and_reset(struct device *dev, u32 pas_id)
+> >  {
+> >  	int ret;
+> >  	struct qcom_scm_desc desc = {
+> > @@ -974,7 +899,7 @@ int qcom_scm_pas_auth_and_reset(u32 pas_id)
+> >  	if (ret)
+> >  		goto disable_clk;
+> >  
+> > -	ret = qcom_scm_call(__scm->dev, &desc, &res);
+> > +	ret = qcom_scm_call(dev, &desc, &res);
+> >  	qcom_scm_bw_disable();
+> >  
+> >  disable_clk:
+> > @@ -982,28 +907,15 @@ int qcom_scm_pas_auth_and_reset(u32 pas_id)
+> >  
+> >  	return ret ? : res.result[0];
+> >  }
+> > +
+> > +int qcom_scm_pas_auth_and_reset(u32 pas_id)
+> > +{
+> > +	return __qcom_scm_pas_auth_and_reset(__scm->dev, pas_id);
+> > +}
+> >  EXPORT_SYMBOL_GPL(qcom_scm_pas_auth_and_reset);
+> >  
+> > -/**
+> > - * qcom_scm_pas_prepare_and_auth_reset() - Prepare, authenticate, and reset the
+> > - *					   remote processor
+> > - *
+> > - * @ctx:	Context saved during call to qcom_scm_pas_context_init()
+> > - *
+> > - * This function performs the necessary steps to prepare a PAS subsystem,
+> > - * authenticate it using the provided metadata, and initiate a reset sequence.
+> > - *
+> > - * It should be used when Linux is in control setting up the IOMMU hardware
+> > - * for remote subsystem during secure firmware loading processes. The preparation
+> > - * step sets up a shmbridge over the firmware memory before TrustZone accesses the
+> > - * firmware memory region for authentication. The authentication step verifies
+> > - * the integrity and authenticity of the firmware or configuration using secure
+> > - * metadata. Finally, the reset step ensures the subsystem starts in a clean and
+> > - * sane state.
+> > - *
+> > - * Return: 0 on success, negative errno on failure.
+> > - */
+> > -int qcom_scm_pas_prepare_and_auth_reset(struct qcom_scm_pas_context *ctx)
+> > +static int __qcom_scm_pas_prepare_and_auth_reset(struct device *dev,
+> > +						 struct qcom_pas_context *ctx)
+> >  {
+> >  	u64 handle;
+> >  	int ret;
+> > @@ -1014,7 +926,7 @@ int qcom_scm_pas_prepare_and_auth_reset(struct qcom_scm_pas_context *ctx)
+> >  	 * memory region and then invokes a call to TrustZone to authenticate.
+> >  	 */
+> >  	if (!ctx->use_tzmem)
+> > -		return qcom_scm_pas_auth_and_reset(ctx->pas_id);
+> > +		return __qcom_scm_pas_auth_and_reset(dev, ctx->pas_id);
+> >  
+> >  	/*
+> >  	 * When Linux runs @ EL2 Linux must create the shmbridge itself and then
+> > @@ -1024,20 +936,45 @@ int qcom_scm_pas_prepare_and_auth_reset(struct qcom_scm_pas_context *ctx)
+> >  	if (ret)
+> >  		return ret;
+> >  
+> > -	ret = qcom_scm_pas_auth_and_reset(ctx->pas_id);
+> > +	ret = __qcom_scm_pas_auth_and_reset(dev, ctx->pas_id);
+> >  	qcom_tzmem_shm_bridge_delete(handle);
+> >  
+> >  	return ret;
+> >  }
+> > +
+> > +int qcom_scm_pas_prepare_and_auth_reset(struct qcom_scm_pas_context *ctx)
+> > +{
+> > +	return __qcom_scm_pas_prepare_and_auth_reset(__scm->dev,
+> > +						     (struct qcom_pas_context *)ctx);
+> > +}
+> >  EXPORT_SYMBOL_GPL(qcom_scm_pas_prepare_and_auth_reset);
+> >  
+> > -/**
+> > - * qcom_scm_pas_shutdown() - Shut down the remote processor
+> > - * @pas_id:	peripheral authentication service id
+> > - *
+> > - * Returns 0 on success.
+> > - */
+> > -int qcom_scm_pas_shutdown(u32 pas_id)
+> > +static int __qcom_scm_pas_set_remote_state(struct device *dev, u32 state,
+> > +					   u32 pas_id)
+> > +{
+> > +	struct qcom_scm_desc desc = {
+> > +		.svc = QCOM_SCM_SVC_BOOT,
+> > +		.cmd = QCOM_SCM_BOOT_SET_REMOTE_STATE,
+> > +		.arginfo = QCOM_SCM_ARGS(2),
+> > +		.args[0] = state,
+> > +		.args[1] = pas_id,
+> > +		.owner = ARM_SMCCC_OWNER_SIP,
+> > +	};
+> > +	struct qcom_scm_res res;
+> > +	int ret;
+> > +
+> > +	ret = qcom_scm_call(dev, &desc, &res);
+> > +
+> > +	return ret ? : res.result[0];
+> > +}
+> > +
+> > +int qcom_scm_set_remote_state(u32 state, u32 id)
+> > +{
+> > +	return __qcom_scm_pas_set_remote_state(__scm->dev, state, id);
+> > +}
+> > +EXPORT_SYMBOL_GPL(qcom_scm_set_remote_state);
+> > +
+> > +static int __qcom_scm_pas_shutdown(struct device *dev, u32 pas_id)
+> >  {
+> >  	int ret;
+> >  	struct qcom_scm_desc desc = {
+> > @@ -1057,7 +994,7 @@ int qcom_scm_pas_shutdown(u32 pas_id)
+> >  	if (ret)
+> >  		goto disable_clk;
+> >  
+> > -	ret = qcom_scm_call(__scm->dev, &desc, &res);
+> > +	ret = qcom_scm_call(dev, &desc, &res);
+> >  	qcom_scm_bw_disable();
+> >  
+> >  disable_clk:
+> > @@ -1065,16 +1002,14 @@ int qcom_scm_pas_shutdown(u32 pas_id)
+> >  
+> >  	return ret ? : res.result[0];
+> >  }
+> > +
+> > +int qcom_scm_pas_shutdown(u32 pas_id)
+> > +{
+> > +	return __qcom_scm_pas_shutdown(__scm->dev, pas_id);
+> > +}
+> >  EXPORT_SYMBOL_GPL(qcom_scm_pas_shutdown);
+> >  
+> > -/**
+> > - * qcom_scm_pas_supported() - Check if the peripheral authentication service is
+> > - *			      available for the given peripherial
+> > - * @pas_id:	peripheral authentication service id
+> > - *
+> > - * Returns true if PAS is supported for this peripheral, otherwise false.
+> > - */
+> > -bool qcom_scm_pas_supported(u32 pas_id)
+> > +static bool __qcom_scm_pas_supported(struct device *dev, u32 pas_id)
+> >  {
+> >  	int ret;
+> >  	struct qcom_scm_desc desc = {
+> > @@ -1086,16 +1021,49 @@ bool qcom_scm_pas_supported(u32 pas_id)
+> >  	};
+> >  	struct qcom_scm_res res;
+> >  
+> > -	if (!__qcom_scm_is_call_available(__scm->dev, QCOM_SCM_SVC_PIL,
+> > +	if (!__qcom_scm_is_call_available(dev, QCOM_SCM_SVC_PIL,
+> >  					  QCOM_SCM_PIL_PAS_IS_SUPPORTED))
+> >  		return false;
+> >  
+> > -	ret = qcom_scm_call(__scm->dev, &desc, &res);
+> > +	ret = qcom_scm_call(dev, &desc, &res);
+> >  
+> >  	return ret ? false : !!res.result[0];
+> >  }
+> > +
+> > +bool qcom_scm_pas_supported(u32 pas_id)
+> > +{
+> > +	return __qcom_scm_pas_supported(__scm->dev, pas_id);
+> > +}
+> >  EXPORT_SYMBOL_GPL(qcom_scm_pas_supported);
+> >  
+> > +static struct qcom_pas_ops qcom_pas_ops_scm = {
+> > +	.drv_name		= "qcom_scm",
+> > +	.supported		= __qcom_scm_pas_supported,
+> > +	.init_image		= __qcom_scm_pas_init_image2,
+> > +	.mem_setup		= __qcom_scm_pas_mem_setup,
+> > +	.get_rsc_table		= __qcom_scm_pas_get_rsc_table2,
+> > +	.auth_and_reset		= __qcom_scm_pas_auth_and_reset,
+> > +	.prepare_and_auth_reset	= __qcom_scm_pas_prepare_and_auth_reset,
+> > +	.set_remote_state	= __qcom_scm_pas_set_remote_state,
+> > +	.shutdown		= __qcom_scm_pas_shutdown,
+> > +	.metadata_release	= __qcom_scm_pas_metadata_release,
+> > +};
+> > +
+> > +/**
+> > + * qcom_scm_is_pas_available() - Check if the peripheral authentication service
+> > + *				 is available via SCM or not
+> > + *
+> > + * Returns true if PAS is available, otherwise false.
+> > + */
+> > +static bool qcom_scm_is_pas_available(void)
+> > +{
+> > +	if (!__qcom_scm_is_call_available(__scm->dev, QCOM_SCM_SVC_PIL,
+> > +					  QCOM_SCM_PIL_PAS_AUTH_AND_RESET))
+> > +		return false;
+> > +
+> > +	return true;
+> > +}
+> > +
+> >  static int __qcom_scm_pas_mss_reset(struct device *dev, bool reset)
+> >  {
+> >  	struct qcom_scm_desc desc = {
+> > @@ -2782,6 +2750,11 @@ static int qcom_scm_probe(struct platform_device *pdev)
+> >  
+> >  	__get_convention();
+> >  
+> > +	if (qcom_scm_is_pas_available()) {
+> > +		qcom_pas_ops_scm.dev = scm->dev;
+> > +		qcom_pas_ops_register(&qcom_pas_ops_scm);
+> > +	}
+> > +
+> >  	/*
+> >  	 * If "download mode" is requested, from this point on warmboot
+> >  	 * will cause the boot stages to enter download mode, unless
+> > @@ -2818,6 +2791,7 @@ static void qcom_scm_shutdown(struct platform_device *pdev)
+> >  {
+> >  	/* Clean shutdown, disable download mode to allow normal restart */
+> >  	qcom_scm_set_download_mode(QCOM_DLOAD_NODUMP);
+> > +	qcom_pas_ops_unregister();
+> >  }
+> >  
+> >  static const struct of_device_id qcom_scm_dt_match[] = {
+> > -- 
+> > 2.51.0
+> > 
+> 
+> nit: please double check the alignment due to name and 'static' addition
+> to the function..
 
--- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
+Alignment is fine, it doesn't show appropriately on the plain text
+emails.
 
-
+-Sumit
