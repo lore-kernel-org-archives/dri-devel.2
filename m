@@ -4,38 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2FFA5F483F0
-	for <dri-devel@archiver.kernel.org>; Mon, 23 Mar 2026 20:03:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7BA71F483F2
+	for <dri-devel@archiver.kernel.org>; Mon, 23 Mar 2026 20:10:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 47D0A10E18D;
-	Mon, 23 Mar 2026 20:03:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AA0AD10E3CE;
+	Mon, 23 Mar 2026 20:10:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="V3bPvp4W";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="kpJke4pi";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BC48910E057;
- Mon, 23 Mar 2026 20:03:17 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7C2C310E057;
+ Mon, 23 Mar 2026 20:10:49 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 223E0600AC;
- Mon, 23 Mar 2026 20:03:16 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 39E24C4CEF7;
- Mon, 23 Mar 2026 20:03:10 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 15389441BE;
+ Mon, 23 Mar 2026 20:10:49 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0DC58C4CEF7;
+ Mon, 23 Mar 2026 20:10:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1774296195;
- bh=Ry9/ThWWm3NaJS9J3iVFhUufSXRZider2VTGGVSZX4U=;
+ s=k20201202; t=1774296648;
+ bh=Nu64mlY3XWdB/UpmDs5KmjCgHvRnp4f74MyqaEjMcSo=;
  h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=V3bPvp4Wdw1HLhSEqO/pabWccNaY498YACGXN3O+FZpo9FjukTwWbpqvcmE2F/XmD
- QZL5OhTizu5WvdlI7OG0seoyzZnigqpECWskMbvqRy/y9M1XvKD8CVpPFfRAXqSgIl
- wJpSamxOoYYM2ZKor2b6GB3b1TGRpLT+zL4ApYg01UJVYUzPW2xL6nZSjhiXQAAR8q
- zmNnMhkLR9hRfdtYqtFizqt3jKTWaNYjU3zTRL4SU+tfgV3N6lW+hTKnChBljDrKTF
- SKtLZpYwbKPUYVGUAD2OFdab3ZuEmW2XCoCjxgABgbTr1TBT6CmU3SD4Br23pu5BNl
- fwmW91a7puHAw==
-Message-ID: <ad64f739-4cbd-42df-8dfb-2e5f89a96f2a@kernel.org>
-Date: Mon, 23 Mar 2026 21:03:09 +0100
+ b=kpJke4piH13sLowqeW1ymsR3YHAJzBvrh2tafIlfnppwQZ+DuP5tQtQBLqocDVXBG
+ 0KKgbqTXQjs4Yu8/FoXm/n3lX4/QsBnZO7/6MFvhbsRLrIODfHDYKZLUAxIREaMJ1T
+ HYlZ4GEQrJWCe757vyluxTdXn8cmAyTIM1CQJ8WS7gEdLr3wdYgpL1JxXXpyWZHuip
+ gt/3DT2fds1uGtMkWBiztX/XjBKEeZVB1uwUx3OBL4nAPtw+Mwho2PstqljJYLgejA
+ mWmi10c2UhZKV0+Dv3OEQdPAtWnF8UDxyRSmArDgyd5lFE44u+i+77UKFlt7fh861/
+ 8razqpxdwgRHQ==
+Message-ID: <9dc0b270-f7e3-4bcc-9838-df49cb1e609c@kernel.org>
+Date: Mon, 23 Mar 2026 21:10:42 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 05/13] mm/page_vma_mapped: Add flag to
- page_vma_mapped_walk::flags to track device private pages
+Subject: Re: [PATCH v6 00/13] Remove device private pages from physical
+ address space
 To: Alistair Popple <apopple@nvidia.com>
 Cc: Jordan Niethe <jniethe@nvidia.com>, linux-mm@kvack.org,
  balbirs@nvidia.com, matthew.brost@intel.com, akpm@linux-foundation.org,
@@ -47,9 +47,10 @@ Cc: Jordan Niethe <jniethe@nvidia.com>, linux-mm@kvack.org,
  Felix.Kuehling@amd.com, jhubbard@nvidia.com, maddy@linux.ibm.com,
  mpe@ellerman.id.au, ying.huang@linux.alibaba.com
 References: <20260202113642.59295-1-jniethe@nvidia.com>
- <20260202113642.59295-6-jniethe@nvidia.com>
- <81e7bd1c-54d5-4f88-969a-685177447c51@kernel.org>
- <abzSSHQUnDs_AFoz@nvdebian.thelocal>
+ <4b5b222a-18e8-4d48-9acb-39e5bfe4e5f7@kernel.org>
+ <abiloqDpIs046DJJ@nvdebian.thelocal>
+ <b1ae55b3-8058-40ef-96f5-5caf97b1ace5@kernel.org>
+ <abzUKN62gOA5b6FN@nvdebian.thelocal>
 From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=david@kernel.org; keydata=
@@ -96,7 +97,7 @@ Autocrypt: addr=david@kernel.org; keydata=
  3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
  CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
  qIws/H2t
-In-Reply-To: <abzSSHQUnDs_AFoz@nvdebian.thelocal>
+In-Reply-To: <abzUKN62gOA5b6FN@nvdebian.thelocal>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -114,85 +115,115 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
->>>  #define DEFINE_FOLIO_VMA_WALK(name, _folio, _vma, _address, _flags)	\
->>>  	struct page_vma_mapped_walk name = {				\
->>> -		.pfn = folio_pfn(_folio),				\
->>> +		.pfn = folio_page_vma_walk_pfn(_folio),			\
->>>  		.nr_pages = folio_nr_pages(_folio),			\
->>>  		.pgoff = folio_pgoff(_folio),				\
->>>  		.vma = _vma,						\
->>>  		.address = _address,					\
->>> -		.flags = _flags,					\
->>> +		.flags = page_vma_walk_flags(_folio, _flags),		\
->>>  	}
+On 3/20/26 06:52, Alistair Popple wrote:
+> On 2026-03-18 at 19:44 +1100, "David Hildenbrand (Arm)" <david@kernel.org> wrote...
+>> On 3/17/26 02:47, Alistair Popple wrote:
+>>> On 2026-03-07 at 03:16 +1100, "David Hildenbrand (Arm)" <david@kernel.org> wrote...
+>>>
+>>> Thanks David for taking the time to do a thorough review. I will let Jordan
+>>> respond to most of the comments but wanted to add some of my own as I helped
+>>> with the initial idea.
+>>>
+>>>
+>>> I disagree - this isn't hacking in another/new zone-device thing it is cleaning
+>>> up/reworking a pre-existing zone-device thing (DEVICE_PRIVATE pages). My initial
+>>> hope was it wouldn't actually involve too much churn on the core-mm side.
 >>
->> That's all rather horrible ...
+>> ... and there is quite some.
 >>
->>
->> I was asking myself recently, why something that is called
->> "page_vma_mapped_walk" consume a pfn. It's just a horrible interface.
+>> stuff like make_readable_exclusive_migration_entry_from_page() must be
+>> reworked.
 > 
-> I don't disagree, and in fact it used to consume a page until 2aff7a4755be ("mm:
-> Convert page_vma_mapped_walk to work on PFNs"). If this was a page it would
-> basically resolve all the hackiness of this patch because we would no longer
-> have to pass PFN context around. So I wonder if there would be any opposition to
-> changing this back to taking a page?
+> Yeah, I was displeased to (re)discover the migration entry business when we
+> fleshed this series out. The idea was basically that raw device-private pfns
+> can't be used sensibly by anything in the core-mm anyway so presumably nothing
+> was.
+> 
+> That turned out to be only somewhat true. The exceptions are:
+> 
+> 1. page_vma_mapped which I think we have a solution for based on the comments to
+>    patch 5.
 
-Are there cases where we pass a struct-page-less PFN?
-
-The offenders are pfn_mkclean_range() and mapping_wrprotect_range().
-
-pfn_mkclean_range() is only used by fs/dax.c
-
-At least the caller immediately does a
-
-	dax_flush(dax_dev, page_address(pfn_to_page(pfn)), count * PAGE_SIZE);
-
-Afterwards where, apparently, a page for the PFN exists? :)
-
-
-mapping_wrprotect_range() is only used by drivers/video/fbdev/core/fb_defio.c
-
-fb_deferred_io_work() just calls page_to_pfn(page). Huh?
-
-Best to explore the history what's going on there.
-
-
-My best guess is that they don't want to modify page state. But that can
-be expressed by the helper functions and doesn't require us to have such
-a weird implementation.
+Yes, if we just have the page/folio we are in a better position. I
+*suspect* that we want to pass a page range, as the other two weird
+cases might pass a page, that, in the future might not be a folio anymore.
 
 > 
->>
->>
->> * DEFINE_FOLIO_VMA_WALK() users obviously receive a folio.
->> * mm/migrate_device.c just abuses page_vma_mapped_walk() to make
->>   set_pmd_migration_entry() work. But we have a folio.
->> * page_mapped_in_vma() has a page/folio.
->>
->> mapping_wrprotect_range_one() and pfn_mkclean_range() are the real
->> issues. They all end up calling page_vma_mkclean_one(), which does not
->> operate on pages/folios.
->>
->> Ideally, the odd pfn case would use it's own simplified infrastructure.
->>
->>
->> So, could we simply add a folio+page pointer in case we have one, and
->> use that one if set, leaving leaving the pfn unset?
->>
->> Then, the pfn would only be set for the
->> mapping_wrprotect_range_one/pfn_mkclean_range case. I don't think
->> device-private folios would ever have to mess with that.
->>
->>
->> Then, you just always have a folio+page and don't even have to worry
->> about the pfn?
-> 
-> That sounds reasonable to me. We were hesitant to add a page back to the
-> interface given it had been removed previously but lets try implementing this to
-> see what it looks like.
+> 2. migration entries which obviously we will have to see if we can rework.
 
-Thanks!
+Please look into encoding this internally, using one of the highest PFN
+bits or sth like that. We don't have to support this on all weird
+architectures.
+
+> 
+> 3. hmm_range_fault()
+
+Yes.
+
+> 
+> 4. page snapshots, although that's actually only used to test zero_pfn so we
+>    could probably drop that if we just guarantee device private offsets are
+>    always invalid pfns.
+
+Right, I think that can be more reasonably cleaned up.
+
+[...]
+
+>>
+>> It will likely still be error prone, but I have no idea how on earth we
+>> could possible catch reliably for an "unsigned long" pfn whether it is a
+>> PFN (it's right there in the name ...) or something completely different.
+> 
+> The idea was (at least for device-private) that you never needed the PFN,
+> only the page. Ie: that calling page_to_pfn() on a device-private page could,
+> conceptually at least, just crash the kernel because it should never happen.
+> 
+> Obviously we identified some exceptions to that rule, the biggest being
+> migration entries, hence the helpers for those.
+> 
+>> We don't want another pfn_t, it would be too much churn to convert most
+>> of MM.
+> 
+> Given I removed pfn_t I don't need convincing of that :-)
+
+:)
+
+>>>
+>>> So any core-mm churn is really just making this more explicit, but this series
+>>> doesn't add any new requirements.
+>>
+>> Again, maybe it can be done in a better way. I did not enjoy some of the
+>> code changes I was reading.
+> 
+> Ok. Was there anything outside the exceptions above that you did not enjoy?
+
+The last patch was hard to review and I am not sure what else is hiding
+in there. As said, breaking the patch into logical pieces will make this
+a lot easier to review.
+
+> 
+> One idea we did have was to make the PFNs "obviously" invalid PFNs, for example
+> by setting the MSB which exceeds the physical addressing capabilities of
+> every arch/platform. That would allow dropping the hmm and page-snapshot flags
+> although is still a bit of a hack.
+
+I mean, that might be cleaner, because *maybe* one could just teach
+pfn_valid() about that? Or have another, more lightweight helper that
+really just checks for "ordinary" vs. "special" pfns. Needs some thought.
+
+Using the highest bit as "this is not an ordinary pfn" might just do.
+Maybe some highmem considerations (making sure we don't run into weird
+stuff).
+
+> 
+> Ultimately one of the issues we are trying to resolve is that to get a PFN range
+> we use get_free_mem_region(), which essentially just returns a random unused PFN
+> range from the platform/arch perspective so an architecture may not recognise
+> them as valid pfns and hence may not have allocated enough vmemmap space for
+> them. That results in pfn_to_page() overflowing into something else (usually
+> user space VAs, at least in the case of RISC-V).
+
+Yes, I think it's a noble goal :)
 
 -- 
 Cheers,
