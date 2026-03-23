@@ -4,94 +4,94 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0E44AF483F3
-	for <dri-devel@archiver.kernel.org>; Mon, 23 Mar 2026 20:13:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F03FAF483F3
+	for <dri-devel@archiver.kernel.org>; Mon, 23 Mar 2026 20:13:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6D27010E49D;
-	Mon, 23 Mar 2026 20:13:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 619CE10E43B;
+	Mon, 23 Mar 2026 20:13:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="V8Cd9pY4";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="hRKLB+2L";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="hXeIWAQp";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="BqPmyrrf";
 	dkim-atps=neutral
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 481DB10E440
- for <dri-devel@lists.freedesktop.org>; Mon, 23 Mar 2026 20:13:37 +0000 (UTC)
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A4ADE10E43B
+ for <dri-devel@lists.freedesktop.org>; Mon, 23 Mar 2026 20:13:43 +0000 (UTC)
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 62NHr9572972957
- for <dri-devel@lists.freedesktop.org>; Mon, 23 Mar 2026 20:13:37 GMT
+ 62NHqcAl2831909
+ for <dri-devel@lists.freedesktop.org>; Mon, 23 Mar 2026 20:13:43 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- 5Nx0bvZeW+J5SMSuTF/HVH8X59gK1KW+/QrWtuB3c54=; b=V8Cd9pY4PTTKTHJh
- hyt4Nv7QJjCmTsvKmac/P8ceMJdRg07YbWBu2pSVgIyUB/b/njN9F8thAAPXSUY7
- sRUv9QM1PeRB242hDzKKwkb8r9jpf39j7NMkKlALVb7zpIpM9duB/HbHVXneWmJq
- /mvXWnpwowuRA97Wr9KTkUnYx/8tTR/J1UdWTAzp4sQZBNvv+O/yhH1h3VxhZFjD
- qyDf6J1pJREjZWqXjumv68FBpz9GrXPgHZVf2EtC4UUyurn7v0SZZRcShlGFo9Vr
- BV6TlWbR/aN2+I5262Kxpn/ttgageJW/3qd7GhSiWpfmm7JyEauMcMQnMN7fQAQk
- 49/6/g==
-Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com
- [209.85.210.199])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d31jc2m0d-1
+ 6h1GbkcqRvODh/gp8Mx0/sRdMg7ZV4RUJ1froSrMVMQ=; b=hXeIWAQp4tXKWM45
+ T/jZ4fs65SZJXFX59Y8kgasgcFUANVPeq2RnqxokWA4XW73kug81gwq3n4waBDI9
+ fcS/RTvsjHljE0uTXT4UVZYVR7mAd9LxJ+SpNkQOpvfsgJBUkG0xBQuAARWhNUD2
+ XVguUzRv/AvZ9eC8LzYS6Sn37EjcvpotP9sChM1U5IMs/HuQN9fsr3s/njNXwNFm
+ XoKgnKz3ZYV0gb51jk9sDSzuEc7jRLgGLqyQT2vSZ7Y0zFPKiHfa1vwazoG0Di8H
+ Kr9KiMctN5vWpAX16KfZHUqqm5YA7MMN2eO6sXJKsFgRKXEsOy246l4Dyb+ZgIK3
+ pji7pQ==
+Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com
+ [209.85.210.197])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d364jsgp3-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Mon, 23 Mar 2026 20:13:36 +0000 (GMT)
-Received: by mail-pf1-f199.google.com with SMTP id
- d2e1a72fcca58-82a1436347eso316306b3a.2
- for <dri-devel@lists.freedesktop.org>; Mon, 23 Mar 2026 13:13:36 -0700 (PDT)
+ for <dri-devel@lists.freedesktop.org>; Mon, 23 Mar 2026 20:13:43 +0000 (GMT)
+Received: by mail-pf1-f197.google.com with SMTP id
+ d2e1a72fcca58-82a88a2704fso2151121b3a.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 23 Mar 2026 13:13:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1774296816; x=1774901616;
+ d=oss.qualcomm.com; s=google; t=1774296823; x=1774901623;
  darn=lists.freedesktop.org; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=5Nx0bvZeW+J5SMSuTF/HVH8X59gK1KW+/QrWtuB3c54=;
- b=hRKLB+2LlT75Z69QxcntvLNhXp6zsnGP65HshLpZJCI3p2iVXqpMAoDsgBOkhwMGwG
- N2e8bZjT8Jg0LFillYDJhcr8ObvJ4sym7i56ZfP/3yIPOfMFiaVmPSH7wAieU3t6KC2w
- vBqGAQNkpAHf8VLUNynR4OgBswEp7WonOMFs8zOIcCQ30NK5WDiodO9RYl/iYOgywJHo
- PnUn2sO+WwpTE7Sw+ocMq5wFqhvbIgm64vUQleTGdtC9wS8puX6+vADqZAwid8uI6yaz
- nsJ/ZqLXmUaF4FM0bm9kUv0KJAnpRBc8z2EYCHoTyx0dxw5Rw15+vQQ/FzTQ6xU4vHoN
- n0pQ==
+ :reply-to; bh=6h1GbkcqRvODh/gp8Mx0/sRdMg7ZV4RUJ1froSrMVMQ=;
+ b=BqPmyrrfCIxkFQJD35wBpjBP11jGbTRB+yG9Z5SpHQXCLqeVRHMhMpYkIOPBbdMuYE
+ 6WtE8rgZ+voqXZV97ONcRM9G7ZVbOjTZzwvIjkgKDQW0oJJiJAbNcGE8vB4w7/5t2maF
+ AE2d6NmrP5YYpaXoBcGsatyG92sUDHSsGj3toZ7y+7OwWTIdrtYvB3qhFcF30JA17E7/
+ 4uhKJOtY8kGi7RHwvjap2cPPPL9nK+3pqQyvHm8wyyP/TWZ2vJ+OINCyU6I+Pdh+JEWc
+ WIwcJhZtkWPs5KURUx0SdU8yPT35I7LDhY/OAwMn1T8skpDOdMAvLs5MwZVhZBmdgejy
+ 95Fw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774296816; x=1774901616;
+ d=1e100.net; s=20251104; t=1774296823; x=1774901623;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
  :cc:subject:date:message-id:reply-to;
- bh=5Nx0bvZeW+J5SMSuTF/HVH8X59gK1KW+/QrWtuB3c54=;
- b=ZMor3euQaw+d5gKRFTcg3lxPCin7kLozJUuOAK9+7tfkwJ67lBNZSNypihsfjFuzcL
- ChZjq/WSQBJKi311Gn9a2s5EY/Fodp8WthhJAz59QlN5CWQwh13eKcpEh9k4HJkfU1OB
- AsyyZ+N21QwtzG72VmIFJy/OflADBN6s7X3jYN/6Np63T/tJMaWErDHfkTYBehiy3uWx
- i7gftApbqm+se0Y4e1rPuJ9fZGJVs+Tt+MA42f2xzar/mOoGTzz89DcTUpXZDdzUPgMd
- 3ADKLcbq74vBsvCCGCvGrXq2DsYNI+X1E00UUKL9vGDmljN2UgHDRE5NycvKe1tXJUDK
- OztA==
+ bh=6h1GbkcqRvODh/gp8Mx0/sRdMg7ZV4RUJ1froSrMVMQ=;
+ b=UcAfktEDzkO9/JPTptpgnXJfKnNiCqBPmcii3hmGGI17s3dz0g64jwSTqix33TBB1J
+ 1lus+M3va5SBxzk3QWo/S6BxwDeBdyjL/yzVLzwfxeySYtmc+gLwZTlea1kAXhtun7le
+ jMe1DexAUyQqnJqi0lZY5zVd/HNRb8SdFz2XL2GGKgbZ/JzP6TxSe4MRc0mEJ+S1yOO6
+ IhZJ2t/e28gazOAkeNK9+Vi5Bz9wm2JdZ6AI6C4mGIWZJP2Roegj74mwRF5v8ChHhSxJ
+ hj038qJkeWDUvoC4kbrQuRnrZbyshTaTFFppO7S465cHzEuh3SS655gLL1uXp09gjKsC
+ 33EQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWxI5UBkiEZjMjH+hxu7AiFV4o3dBNwaOjJgISSNM0fFB7tkQp6UpzmIQSL5LM7FlHbUn6m/aXleqE=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwR79+kigp+BUqvE1oR2xaaXkzC1e5p5dnmjQat3J5msMTIeltk
- 6cu1m8+PHqi7a5t3Ap3K4u44WYasI/SGKGHjfXWymOshOVIes98rLEgclGv5WBHvxbHeJLWO0na
- fdwy3BA9k1xG8RggXYzuk0X6NtaAZxLZur7nnG0zN0XWsbtYwEy9Ip/sMZf/rYDq0MjsQiu8=
-X-Gm-Gg: ATEYQzynCt7ADhoOsYzLMdrn20E28ZMpnSLiRkDdsZMS41oM1BxRGag0R1IYwGyoo8z
- AqsQTzZGpEoXZVTwTUlmHvlIN+Mg1ucW1kJnkklQeztwnNQVsumnM/7jlPAg+SHDPu0i58MDbWZ
- qxzb41PERKP3KpqzNymVn6GpIu97sXFTFsmOHMgJ6LZ0l2bwiaYWWZEWAHLxRG/JrORXv5uarB8
- TpOfjP0vWLaNxX7PXy868v7pQEaRK83LrQPvyy/4UnhIFO6I31ZhaNXQ/5mYAKSjOJU2LhKcgx/
- WU8UlXq69lLW1ygPiaSBPDUm4zMFxPdSmgBZR7u0ZuxkhRnWr1wTks+Zl5/7tTkcEF4w38vGrRE
- EjZ773OgZDxIV4hGe45FxrdgsgFXpYniVT5bPIXlH6q7eaQ==
-X-Received: by 2002:a05:6a00:3a20:b0:82a:75be:d371 with SMTP id
- d2e1a72fcca58-82a8c346991mr12354212b3a.29.1774296815940; 
- Mon, 23 Mar 2026 13:13:35 -0700 (PDT)
-X-Received: by 2002:a05:6a00:3a20:b0:82a:75be:d371 with SMTP id
- d2e1a72fcca58-82a8c346991mr12354184b3a.29.1774296815364; 
- Mon, 23 Mar 2026 13:13:35 -0700 (PDT)
+ AJvYcCUn/M2B3XNtjELiXob0iGauglUy63tBJC7QBWMgoaZUaE3DLPPliw66g9HS0B9NfJTDZ2QkccctyIQ=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yyp+v9VE1qCMB+gMSCIttQ1mv+TkFbMJ3SUfDMJ4CW13QbWOJXu
+ 1cufsF0VGjG+9MC/S7635D4g7mrnWhZh3sJTUZcsnvVJxdHgZwWJkxnAPuqvEuocjktXBOW5ifE
+ 6GngnbkXfbCsYbEMmqeaq2SzWjbBUkX3OBaZIZW+iTKHVIXPiRkMID/YeeoDK2Ab2DmGhYi8=
+X-Gm-Gg: ATEYQzxaYsLCGVJtRnybJGDIzrtLbVUquJjaDvZXRLgZ8Sh+Zei4gPvj/XtX3EL4Ond
+ caKmLZM8v7TMU80RGEt1sDBKYnR92C6UcyaJ2+X9ObRyB35DfVmjGbXpdM9C2E3xI6n81t3wnnu
+ wSpc8vzEi99Nu+/f2hyucoRFhmIOGRPi8Q+PAxu/30mDz5vEo5c8opwN4dwxIYrPU43lmoULos+
+ aTlFHBrMlRqSQayzOA6gR/jbcJRInEYJrYY8O8DN8ai34XVgbaWbcBRXlqyz+vCV2GhBh5+NOaz
+ 4zasTEHe9CHGcw0iL70awqEOuDNjVMeNvMN/AcCzCBh7OebGaeCBc77dTEWWf8dc9pUch0g/vhP
+ KNlNdaboEXO/QDZ8JQB37bkQHijvgzZwDBo9A3g4U42JTag==
+X-Received: by 2002:a05:6a00:4205:b0:82a:14db:68d1 with SMTP id
+ d2e1a72fcca58-82c5bf3fa3fmr615581b3a.33.1774296822493; 
+ Mon, 23 Mar 2026 13:13:42 -0700 (PDT)
+X-Received: by 2002:a05:6a00:4205:b0:82a:14db:68d1 with SMTP id
+ d2e1a72fcca58-82c5bf3fa3fmr615561b3a.33.1774296822025; 
+ Mon, 23 Mar 2026 13:13:42 -0700 (PDT)
 Received: from hu-akhilpo-hyd.qualcomm.com ([202.46.23.25])
  by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-82b0409d148sm9510738b3a.29.2026.03.23.13.13.30
+ d2e1a72fcca58-82b0409d148sm9510738b3a.29.2026.03.23.13.13.35
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 23 Mar 2026 13:13:35 -0700 (PDT)
+ Mon, 23 Mar 2026 13:13:41 -0700 (PDT)
 From: Akhil P Oommen <akhilpo@oss.qualcomm.com>
-Date: Tue, 24 Mar 2026 01:42:22 +0530
-Subject: [PATCH 10/16] drm/msm/a6xx: Fix gpu init from secure world
+Date: Tue, 24 Mar 2026 01:42:23 +0530
+Subject: [PATCH 11/16] drm/msm/a8xx: Add SKU table for A840
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260324-a8xx-gpu-batch2-v1-10-fc95b8d9c017@oss.qualcomm.com>
+Message-Id: <20260324-a8xx-gpu-batch2-v1-11-fc95b8d9c017@oss.qualcomm.com>
 References: <20260324-a8xx-gpu-batch2-v1-0-fc95b8d9c017@oss.qualcomm.com>
 In-Reply-To: <20260324-a8xx-gpu-batch2-v1-0-fc95b8d9c017@oss.qualcomm.com>
 To: Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
@@ -109,36 +109,36 @@ Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  Akhil P Oommen <akhilpo@oss.qualcomm.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1774296753; l=6048;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1774296753; l=805;
  i=akhilpo@oss.qualcomm.com; s=20240726; h=from:subject:message-id;
- bh=LD258q8BiZPKjxboZZEHGa5/WJjqvZE6K1YLsrcGhkc=;
- b=6KkTxybuGhFG4MhRzfOXNucn9U+wGV8/nNzkWUSQhiMxHGniBVMxN4cnk3SHxU9/uhPL0PuvO
- A1QiAsvhfIWANIqqU1fgKZX/XHBSPPkejkcoW/V9X1MMP1LWR2YWQxD
+ bh=H5UIoWKcwOAS+auMl89W13gGP8KyR+VgG/pl7Eqs3ww=;
+ b=TKJvi6RCo2aYUyZ3p7K/BZECCtS+cIhE1EkWZuqvmVpyQUApl/uOvQm2q6V3bOBVRiZsKkED9
+ 4uyowwPNQsMBemb25MWQI6R5es8SS8bmXShzUHHmHzoc9KqllrbrMt9
 X-Developer-Key: i=akhilpo@oss.qualcomm.com; a=ed25519;
  pk=lmVtttSHmAUYFnJsQHX80IIRmYmXA4+CzpGcWOOsfKA=
-X-Authority-Analysis: v=2.4 cv=fKc0HJae c=1 sm=1 tr=0 ts=69c19ef0 cx=c_pps
- a=WW5sKcV1LcKqjgzy2JUPuA==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+X-Proofpoint-GUID: eedBHUbrpIc_gRIXkwT2GSPC8IsMFzVd
+X-Proofpoint-ORIG-GUID: eedBHUbrpIc_gRIXkwT2GSPC8IsMFzVd
+X-Authority-Analysis: v=2.4 cv=JcaxbEKV c=1 sm=1 tr=0 ts=69c19ef7 cx=c_pps
+ a=rEQLjTOiSrHUhVqRoksmgQ==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
  a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=EUspDBNiAAAA:8 a=BkmLZa_BGXOvOyRCPiUA:9 a=QEXdDO2ut3YA:10
- a=OpyuDcXvxspvyRM73sMx:22
-X-Proofpoint-GUID: 3hy5itQZaA6lR_mZRqTFdyQ_kL-yJlOw
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzIzMDE0OSBTYWx0ZWRfX3jwYZmq+Zf+T
- HQy6nn+F/UlFXH6ca5z0YHX1c2J1uFE9yy0JULbqVVDqTbvQB11XNPWP4t7I+IZDFAa/7v6pm60
- bVOllBtSlrJ2qho9M0h/Q1TT5PLYY677vHj2+DEcGvtQ4J/5Hg8J2R28lq3PLKvWwbhp0gJEizK
- CRR0CfvBMiM6RpWA4S0cq0/Wg0Yprh2NdWg2gp7+69U4il3oiliMtfepUhv/NWpJLP+TBrmYaWm
- aRzp6xOBbjs9gouvrq4FhFPqgGyxv4bkCfGZLbRs2NGtkbBXiatyfX51POfkRoExBpu2PbIr4Yh
- Fb2XUHfgXSju+Aw8mzfLawJz+XWXXfGv4OI/d3MsLEgV9sxhie1dsKtyGcLtFyrqhOn0bOAOiS7
- +NeREp8M2rn0h2ZgkyyxG1PXnCXj2kvOnESqrP+7LccDmu4gKFOvGMq3ipfSzO71OPLBbGdlV1t
- BQauVcs4sXMDnd1dfDA==
-X-Proofpoint-ORIG-GUID: 3hy5itQZaA6lR_mZRqTFdyQ_kL-yJlOw
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=EUspDBNiAAAA:8 a=Ml_BBXNIZAQcZvYyiGwA:9 a=QEXdDO2ut3YA:10
+ a=2VI0MkxyNR6bbpdq8BZq:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzIzMDE0OSBTYWx0ZWRfX6rvh8XbpOF9l
+ h27OksxWtkJdfmTyUXkwxzWZyUkvBWLg5OOFW22t63BUD1nWNWvTuZ4L5U0FOQMkRBgUQquzbgD
+ oExhYJLwwStaGFsq3lCVdL2xL1ftA8O+cDfa4PBHOj3YA422444ZRLoTlqkKaF9z3EZk2rf3wbg
+ UXf+936sHNiqzQ/6B9fyqolPlCY/jdi4EUm4y4W7YLWaymUsjeosA8eSGX9eggGWyZ5EtUrlWVC
+ YxBjDYHXIwNZlQFeDZSMCa/iadWmX2fA5UXFkO8Li2mH1obRsktCRWwtCa78ek1mLGMNzH5NJEx
+ BsEPchL8YB8TTRE7Sf3NkhqYNcSfIInfUCb1B34SzTVr5a7tr3sLelmY2khCtx2fUPONNHzwiDo
+ p9/cIy/Qqs0w1wZWZ2UB9+xo+MQOA6gkLopYeOcNPR4tFSEX4366k4i9KCzkBWHbpU21CB50qs2
+ B5gmopd49KFgWT7YOBg==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
  definitions=2026-03-23_05,2026-03-23_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 priorityscore=1501 phishscore=0 lowpriorityscore=0
- adultscore=0 bulkscore=0 spamscore=0 suspectscore=0 malwarescore=0
- clxscore=1015 classifier=typeunknown authscore=0 authtc= authcc=
+ clxscore=1015 impostorscore=0 phishscore=0 spamscore=0 adultscore=0
+ lowpriorityscore=0 bulkscore=0 malwarescore=0 priorityscore=1501
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
  route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2603050001
  definitions=main-2603230149
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -156,185 +156,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-A7XX_GEN2 and newer GPUs requires initialization of few configurations
-related to features/power from secure world. The SCM call to do this
-should be triggered after GDSC and clocks are enabled. So, keep this
-sequence to a6xx_gmu_resume instead of the probe.
+Add the SKU table in the catalog for A840 GPU. This data helps to pick
+the correct bin from the OPP table based on the speed_bin fuse value.
 
-Fixes: 14b27d5df3ea ("drm/msm/a7xx: Initialize a750 "software fuse"")
 Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
 ---
- drivers/gpu/drm/msm/adreno/a6xx_gmu.c | 58 ++++++++++++++++++++++++++++++++++
- drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 59 -----------------------------------
- 2 files changed, 58 insertions(+), 59 deletions(-)
+ drivers/gpu/drm/msm/adreno/a6xx_catalog.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-index cd6609bb66fe..61af3b212ba4 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-@@ -3,6 +3,7 @@
- 
- #include <linux/bitfield.h>
- #include <linux/clk.h>
-+#include <linux/firmware/qcom/qcom_scm.h>
- #include <linux/interconnect.h>
- #include <linux/of_platform.h>
- #include <linux/platform_device.h>
-@@ -1174,6 +1175,59 @@ static void a6xx_gmu_set_initial_bw(struct msm_gpu *gpu, struct a6xx_gmu *gmu)
- 	dev_pm_opp_put(gpu_opp);
- }
- 
-+static int a6xx_gmu_secure_init(struct a6xx_gpu *a6xx_gpu)
-+{
-+	struct adreno_gpu *adreno_gpu = &a6xx_gpu->base;
-+	struct msm_gpu *gpu = &adreno_gpu->base;
-+	u32 fuse_val;
-+	int ret;
-+
-+	if (adreno_is_a750(adreno_gpu) || adreno_is_a8xx(adreno_gpu)) {
-+		/*
-+		 * Assume that if qcom scm isn't available, that whatever
-+		 * replacement allows writing the fuse register ourselves.
-+		 * Users of alternative firmware need to make sure this
-+		 * register is writeable or indicate that it's not somehow.
-+		 * Print a warning because if you mess this up you're about to
-+		 * crash horribly.
-+		 */
-+		if (!qcom_scm_is_available()) {
-+			dev_warn_once(gpu->dev->dev,
-+				"SCM is not available, poking fuse register\n");
-+			a6xx_llc_write(a6xx_gpu, REG_A7XX_CX_MISC_SW_FUSE_VALUE,
-+				A7XX_CX_MISC_SW_FUSE_VALUE_RAYTRACING |
-+				A7XX_CX_MISC_SW_FUSE_VALUE_FASTBLEND |
-+				A7XX_CX_MISC_SW_FUSE_VALUE_LPAC);
-+			adreno_gpu->has_ray_tracing = true;
-+			return 0;
-+		}
-+
-+		ret = qcom_scm_gpu_init_regs(QCOM_SCM_GPU_ALWAYS_EN_REQ |
-+					     QCOM_SCM_GPU_TSENSE_EN_REQ);
-+		if (ret) {
-+			dev_warn_once(gpu->dev->dev,
-+				"SCM  call failed\n");
-+			return ret;
-+		}
-+
-+		/*
-+		 * On A7XX_GEN3 and newer, raytracing may be disabled by the
-+		 * firmware, find out whether that's the case. The scm call
-+		 * above sets the fuse register.
-+		 */
-+		fuse_val = a6xx_llc_read(a6xx_gpu,
-+					 REG_A7XX_CX_MISC_SW_FUSE_VALUE);
-+		adreno_gpu->has_ray_tracing =
-+			!!(fuse_val & A7XX_CX_MISC_SW_FUSE_VALUE_RAYTRACING);
-+	} else if (adreno_is_a740(adreno_gpu)) {
-+		/* Raytracing is always enabled on a740 */
-+		adreno_gpu->has_ray_tracing = true;
-+	}
-+
-+	return 0;
-+}
-+
-+
- int a6xx_gmu_resume(struct a6xx_gpu *a6xx_gpu)
- {
- 	struct adreno_gpu *adreno_gpu = &a6xx_gpu->base;
-@@ -1208,6 +1262,10 @@ int a6xx_gmu_resume(struct a6xx_gpu *a6xx_gpu)
- 		return ret;
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
+index 38561f26837e..f6b9792531a6 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
++++ b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
+@@ -1954,6 +1954,12 @@ static const struct adreno_info a8xx_gpus[] = {
+ 			},
+ 		},
+ 		.preempt_record_size = 19708 * SZ_1K,
++		.speedbins = ADRENO_SPEEDBINS(
++			{ 0,   0 },
++			{ 273, 1 },
++			{ 252, 2 },
++			{ 221, 3 },
++		),
  	}
+ };
  
-+	ret = a6xx_gmu_secure_init(a6xx_gpu);
-+	if (ret)
-+		return ret;
-+
- 	/* Read the slice info on A8x GPUs */
- 	a8xx_gpu_get_slice_info(gpu);
- 
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-index cdecd91094c6..cbc803d90673 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-@@ -10,7 +10,6 @@
- 
- #include <linux/bitfield.h>
- #include <linux/devfreq.h>
--#include <linux/firmware/qcom/qcom_scm.h>
- #include <linux/pm_domain.h>
- #include <linux/soc/qcom/llcc-qcom.h>
- 
-@@ -2158,56 +2157,6 @@ static void a6xx_llc_slices_init(struct platform_device *pdev,
- 		a6xx_gpu->llc_mmio = ERR_PTR(-EINVAL);
- }
- 
--static int a7xx_cx_mem_init(struct a6xx_gpu *a6xx_gpu)
--{
--	struct adreno_gpu *adreno_gpu = &a6xx_gpu->base;
--	struct msm_gpu *gpu = &adreno_gpu->base;
--	u32 fuse_val;
--	int ret;
--
--	if (adreno_is_a750(adreno_gpu) || adreno_is_a8xx(adreno_gpu)) {
--		/*
--		 * Assume that if qcom scm isn't available, that whatever
--		 * replacement allows writing the fuse register ourselves.
--		 * Users of alternative firmware need to make sure this
--		 * register is writeable or indicate that it's not somehow.
--		 * Print a warning because if you mess this up you're about to
--		 * crash horribly.
--		 */
--		if (!qcom_scm_is_available()) {
--			dev_warn_once(gpu->dev->dev,
--				"SCM is not available, poking fuse register\n");
--			a6xx_llc_write(a6xx_gpu, REG_A7XX_CX_MISC_SW_FUSE_VALUE,
--				A7XX_CX_MISC_SW_FUSE_VALUE_RAYTRACING |
--				A7XX_CX_MISC_SW_FUSE_VALUE_FASTBLEND |
--				A7XX_CX_MISC_SW_FUSE_VALUE_LPAC);
--			adreno_gpu->has_ray_tracing = true;
--			return 0;
--		}
--
--		ret = qcom_scm_gpu_init_regs(QCOM_SCM_GPU_ALWAYS_EN_REQ |
--					     QCOM_SCM_GPU_TSENSE_EN_REQ);
--		if (ret)
--			return ret;
--
--		/*
--		 * On A7XX_GEN3 and newer, raytracing may be disabled by the
--		 * firmware, find out whether that's the case. The scm call
--		 * above sets the fuse register.
--		 */
--		fuse_val = a6xx_llc_read(a6xx_gpu,
--					 REG_A7XX_CX_MISC_SW_FUSE_VALUE);
--		adreno_gpu->has_ray_tracing =
--			!!(fuse_val & A7XX_CX_MISC_SW_FUSE_VALUE_RAYTRACING);
--	} else if (adreno_is_a740(adreno_gpu)) {
--		/* Raytracing is always enabled on a740 */
--		adreno_gpu->has_ray_tracing = true;
--	}
--
--	return 0;
--}
--
--
- #define GBIF_CLIENT_HALT_MASK		BIT(0)
- #define GBIF_ARB_HALT_MASK		BIT(1)
- #define VBIF_XIN_HALT_CTRL0_MASK	GENMASK(3, 0)
-@@ -2711,14 +2660,6 @@ static struct msm_gpu *a6xx_gpu_init(struct drm_device *dev)
- 		return ERR_PTR(ret);
- 	}
- 
--	if (adreno_is_a7xx(adreno_gpu) || adreno_is_a8xx(adreno_gpu)) {
--		ret = a7xx_cx_mem_init(a6xx_gpu);
--		if (ret) {
--			a6xx_destroy(&(a6xx_gpu->base.base));
--			return ERR_PTR(ret);
--		}
--	}
--
- 	adreno_gpu->uche_trap_base = 0x1fffffffff000ull;
- 
- 	msm_mmu_set_fault_handler(to_msm_vm(gpu->vm)->mmu, gpu,
 
 -- 
 2.51.0
