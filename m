@@ -4,97 +4,99 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F18B0D58CBF
-	for <dri-devel@archiver.kernel.org>; Mon, 23 Mar 2026 21:34:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1FD08F4613C
+	for <dri-devel@archiver.kernel.org>; Mon, 23 Mar 2026 21:35:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4677E10E4CE;
-	Mon, 23 Mar 2026 21:34:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7EC2C10E4FE;
+	Mon, 23 Mar 2026 21:35:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="AgP2qOHK";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="M9tGI1lh";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Bq6DwCOg";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="hqJjkGFp";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AB5AB10E443
- for <dri-devel@lists.freedesktop.org>; Mon, 23 Mar 2026 21:34:49 +0000 (UTC)
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4179810E443
+ for <dri-devel@lists.freedesktop.org>; Mon, 23 Mar 2026 21:35:22 +0000 (UTC)
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 62NHqZC42971858
- for <dri-devel@lists.freedesktop.org>; Mon, 23 Mar 2026 21:34:49 GMT
+ 62NHqXOX3817469
+ for <dri-devel@lists.freedesktop.org>; Mon, 23 Mar 2026 21:35:21 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=XL/mxvhwSK84ExUEbd63Igwq
- 6w+EmRFKM9+Ygja1XaI=; b=AgP2qOHKIk4ZqiC0l+oS4vFqYFzVwQmqLBwWVE0h
- N9Tz7hpYt9IjDIjpinWgOPiezehmvzg+qUMjI3qs/O4ZK0eoztUfkFOzoBOYG75R
- b7MVGzuBwW7wTQJQU4kXcDTigJ7LMk4G+tfBi1iF5t2lcJhSKNYI2Abk8Maraafo
- WR/aZFHChAw/NNDvS5vvVeWkx7AAgaorfI1B+5I74tICBEJbKAw/+cZKPFVenaXI
- vMKMXzDoh4SKRExz3FcMILwXjLf1Nts/sTjZtNNMlI4OZ+Rdz7LzHaNOXdPc8sQP
- 6psdI6/RRZFwA+dI9HhNyTAArjlm018s5FccjbLTdYh3tA==
-Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com
- [209.85.160.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d31jc2tpb-1
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ 7wZB04XDAtb432QUhNE0MOhOE2cxeMMxeHACISlfOOE=; b=Bq6DwCOgyBqZox/0
+ HsOiBthrxLit9vTiND2MuSZoNnUvjAHc8+aBb16Dlpun5O821ZfzuQ4sUxbr9GEW
+ GTHL+kDBVF9eIzLtzfHKHJAhcxFuvbujn1cGa6f0WC9In41oFyhilAJbuWe0Se1J
+ DRtIoULA3h4Q56BO27VUyn8bWoeaCfl30oWc3/ySHkIJOVt5vKyD4VcMkqVi+csG
+ nppNK56jVfbhf8CfuLU2DYY75wtkIiFVXy/yJ2kaw5JjpKe4hLaKKyD6H/Ov01Ih
+ lJTfo4LZ/lXmdsiU4fF6HzVNLbuQnOavyJmqblnf+XV1lJPelUXsAHxsee2CBR3+
+ r3/z7g==
+Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com
+ [209.85.214.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d355w1wy6-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Mon, 23 Mar 2026 21:34:49 +0000 (GMT)
-Received: by mail-qt1-f198.google.com with SMTP id
- d75a77b69052e-50937cf66b5so157922151cf.3
- for <dri-devel@lists.freedesktop.org>; Mon, 23 Mar 2026 14:34:49 -0700 (PDT)
+ for <dri-devel@lists.freedesktop.org>; Mon, 23 Mar 2026 21:35:21 +0000 (GMT)
+Received: by mail-pl1-f200.google.com with SMTP id
+ d9443c01a7336-2adef9d486bso29300225ad.2
+ for <dri-devel@lists.freedesktop.org>; Mon, 23 Mar 2026 14:35:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1774301688; x=1774906488;
+ d=oss.qualcomm.com; s=google; t=1774301720; x=1774906520;
  darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=XL/mxvhwSK84ExUEbd63Igwq6w+EmRFKM9+Ygja1XaI=;
- b=M9tGI1lhTyME7YChXj5ZkDm8bxGbNOp7W7V5IxUP1e4+/enXbVPi8BEUqHclYdnV4g
- K5wVsCM4gY2MZ0VRGycW3/EgIXD0ebu4LtRdKr/0pJDVm8CVM6EFz8n4PxviVMqqfbj4
- buYelLHniB8yhW+rYklTdebK2zH0M2jCd4XlyF7+2r0hqArItuWQtDvjC8V/FFMrq7EE
- /dYlWfcILe0bsuDc31XAojWDp447rL/LXhn1sNNJBSkPQffPv0fefTYcj2tMeBu6V27u
- 06nGYCjx2NGnPwM93310Kn4Q5JjC9Ly48BDPtKBDQ4U83ZAKPtOkcJS5vujvjbT1cwy1
- tNUA==
+ h=content-transfer-encoding:in-reply-to:content-language:from
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=7wZB04XDAtb432QUhNE0MOhOE2cxeMMxeHACISlfOOE=;
+ b=hqJjkGFp+BKZc+/Mypl4W+OCBGOaStiRafLpusgNTPX3e61jZEKLTyBvnl7ZWzZSTg
+ svMwclTARxZ0o8xRfFlBKtP221du4IBjtWFsQdwDZVaCjj09j4Kmjb1gAfLY4JZTXDXq
+ Z0tbUxvLVcMM5KR2Pswy0i6CKQ6RjL0zIwgLnANjzb5uCycvviTOU2tGfmsNLEV75EB9
+ 0Nv21JjwR9igS10igJHkQa61vMNCrwnmtxAIDId2HPOq1+lJ1BB8NiP13lZvTSqv22va
+ IpuCx5dwgbpraRk8qYjJs3X9Pn+/o1Roe8Lpk8aWHB9kkqxTLxWma+fge6y4Tv1IZjbT
+ 8BKw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774301688; x=1774906488;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=XL/mxvhwSK84ExUEbd63Igwq6w+EmRFKM9+Ygja1XaI=;
- b=nE5VXHQQ4Sue+UYQrjsk+cj5irpFPudWzYkRXNGUIbKsAJ2l/RAPhjx6qc6bvNSF5F
- Yc99B/nrPGvd4eN9bG2WxA5OTJXMgcyrVfp8gmp3NNrN2SxiJHDxKXnYiDe1teKE8FqM
- eHzdkYoXW4qhYg3JlQbgHgA5FJY2rs3wwKQadaQD0ImYF/brk7kc/y6CjFqNY/5AN1Rh
- R9FyVNEzEARvxX4FDY/qo/zaal0C2y60X8jmb3aZOQAtNQIOQQajIHcQMXAIVTpROwLC
- v/8n1VZooFiOS++2pnZVwIlC/kE2+Hrb6fcUraLU1mirlfY/M1qdb6Ni3MARw195jki8
- OUcg==
+ d=1e100.net; s=20251104; t=1774301720; x=1774906520;
+ h=content-transfer-encoding:in-reply-to:content-language:from
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=7wZB04XDAtb432QUhNE0MOhOE2cxeMMxeHACISlfOOE=;
+ b=h2ostltoRLHEXYN7sR7PJaqBvIV7GlplE6Inklwb1DS+VA7jaLSd/MWFI3NtTzRaoR
+ YRsg0p9LUWzQPjhf6LLKJLwCie0zTBX+Kw/xaz5LTS5pORBNHi3+91mqeYPwdiRJyG+Z
+ DrA33bEtcBe+o/kFQ1ZU4sFiM4qZYabTgChJxtHcSXbnAhMCKDqlA5fVS//gi4F/UISX
+ 98O09SmPOhSpuzzgqxvneGn5QcIi2ASRmQXQeH5aGyDH6CMLAaJ8O7xk0aL3+PR2AFX0
+ 9EjkNBhzNPrAqo7YECBCah8TgxRtEkbp09D8nA+m4umqEt3mS3SyiECZIYqyu+cLfeym
+ F1aA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUMVlECT3ffWMeadLjEe+lfjdTrZxUHSGT+D9+NtJF2JdJPPuXndvS8XI/tw5fJRoMJhzsE8C9R+QM=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yy5R8itK9gKQEKKbhNNnDK0xh7iuZgc+FCL16PZbHDjvVsiCiqO
- m9XBVW3HfLMyr5jhk6lu+0oZZNboORNofppT3DL7/UM3KN1XJX8VBDcgreTN+Ze2HsRXep2r6RD
- EjGv90zp0frTN6Z7KcD/JfQpisnct7QWmhAoUHhFBEPqEt9raQ0XeYEDdehaZJDZ/0fvW11Q=
-X-Gm-Gg: ATEYQzwH1EAZ3QzRj1d9NCWKle5g7fHVrVL9k/S2yfBmR6feCGPFB06TKcd5PPYY4MN
- RzNIqI2llB8shsCv157mC/nsjIK7QI6x+SaDub/8L6GM1HvzCOEgIn2gmm02jOa0c+ajvMfHcKp
- RxeIdHcmI9sJN5ecK6qciMYuThjp2xljz0IciTrIGNGoJZNJgN4F3+1AY8fFDxgA7YsIDwyZOFj
- /kz1BGyjlq5cP3x8fHgK0Cfy7KFRdxVlSCO8T6NGdCVVjl3BBMkcSNAZEmAsKOUoYH99OpuT7WS
- 9ibu+jg6ergY/g83tSiotuyTj0NXR2411JtLynJiU6/RxBRkLnDBFmSXjBXDngnVe3byLesEZaM
- ZbPDKXBLEU/tMVhBY/qpaO6BwXY7d74y67dP4vvqwizI8xk8Cgo2Wc8EgqE0UBozGV3SHgO5a5l
- UXSN6PdvfgTA7y07DeTXwvt78pl4HqxcwDvBM=
-X-Received: by 2002:a05:622a:1a92:b0:509:1ffc:c538 with SMTP id
- d75a77b69052e-50b3740caadmr226535261cf.19.1774301688148; 
- Mon, 23 Mar 2026 14:34:48 -0700 (PDT)
-X-Received: by 2002:a05:622a:1a92:b0:509:1ffc:c538 with SMTP id
- d75a77b69052e-50b3740caadmr226534841cf.19.1774301687708; 
- Mon, 23 Mar 2026 14:34:47 -0700 (PDT)
-Received: from umbar.lan
- (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+ AJvYcCVvpBLxZ0qahveoOf18xXrRhF+E9iAMBBJWF77hSANxB+q0bkNT4e8y4HMsBLah0vQSSgYeR3oNoEs=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzE8tvvmBG2UMIihOwwZJYxDne0L4Ty4VaGWnC8KrEWP5sJt5ju
+ bGr+0zJALyQ+KNtKAw5YMdSKwAjDLe+BevJxOU1kmIoIelWNAc9kPCP799IGqGJCfy8BYygcplC
+ g4m7kfqFQOmBS7TSSOgvs796cnKa/VobZtyxPkhETvEQJaezk7VOWxG+qjrFMk5YFKtrDrc0=
+X-Gm-Gg: ATEYQzxKiCxvlsiSzwbarY9h5RCbMUng8ApBzg2AUT7bCyTntbKAPss/cljJgND9kQi
+ 8923MyhtMx21dzGdf54AILr5ZUAhdFac5By6LQYC2nZxhASZ8rMPA2AKFXObMP+wQK2lSZwC2Fd
+ azfM4GL+RSde8nUZFBUcClJvpa7QSJJ+zdMuxUB2Fffoqnjf/hg6paZShniUURhFcSR6M1vcF7S
+ 4LLzOfePqyACRqj+O/AcAEA/oIU9l0QSNg3NA6AgUhlM4mrHXcm1Kz5pRE7yKvxFE0mIpbQg7ok
+ ylz78NfAv+40KNh+dJN+csgfoQNdcf3k5AwgPosOG9fUh/RAc5dGPY3yJyZc+CAzLXhU5XOZ7yY
+ Oo3e0TTTHUE+Vb1cEx08zvkBi0I1kIbvsJk2hwWiiXzb1l8M=
+X-Received: by 2002:a17:902:e5c9:b0:2b0:5626:f75d with SMTP id
+ d9443c01a7336-2b0827a4f48mr121650185ad.26.1774301720339; 
+ Mon, 23 Mar 2026 14:35:20 -0700 (PDT)
+X-Received: by 2002:a17:902:e5c9:b0:2b0:5626:f75d with SMTP id
+ d9443c01a7336-2b0827a4f48mr121650025ad.26.1774301719880; 
+ Mon, 23 Mar 2026 14:35:19 -0700 (PDT)
+Received: from [192.168.1.12] ([106.222.230.237])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5a2967f8693sm82220e87.19.2026.03.23.14.34.44
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 23 Mar 2026 14:34:46 -0700 (PDT)
-Date: Mon, 23 Mar 2026 23:34:43 +0200
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Akhil P Oommen <akhilpo@oss.qualcomm.com>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>,
+ d9443c01a7336-2b08353e94asm119327655ad.25.2026.03.23.14.35.14
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 23 Mar 2026 14:35:19 -0700 (PDT)
+Message-ID: <697b9e3d-3af9-4d39-8d99-bb8b1e5a9c19@oss.qualcomm.com>
+Date: Tue, 24 Mar 2026 03:05:12 +0530
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 06/16] drm/msm/a6xx: Use barriers while updating HFI Q
+ headers
+To: rob.clark@oss.qualcomm.com
+Cc: Sean Paul <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>,
+ Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
+ <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>,
  Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  Antonino Maniscalco <antomani103@gmail.com>,
@@ -104,38 +106,38 @@ Cc: Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
  Thomas Zimmermann <tzimmermann@suse.de>, linux-arm-msm@vger.kernel.org,
  dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
  linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 12/16] drm/msm/a6xx: Add SKU detection support for X2-85
-Message-ID: <x6b2miikgofuhfnrgnuf47mrrcbz2fkvht25dilo33teafcsax@v5f5j2g2wuxp>
 References: <20260324-a8xx-gpu-batch2-v1-0-fc95b8d9c017@oss.qualcomm.com>
- <20260324-a8xx-gpu-batch2-v1-12-fc95b8d9c017@oss.qualcomm.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260324-a8xx-gpu-batch2-v1-12-fc95b8d9c017@oss.qualcomm.com>
-X-Authority-Analysis: v=2.4 cv=fKc0HJae c=1 sm=1 tr=0 ts=69c1b1f9 cx=c_pps
- a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22 a=EUspDBNiAAAA:8
- a=K4oKIo9cefoP7Fos7hIA:9 a=CjuIK1q_8ugA:10 a=dawVfQjAaf238kedN5IG:22
-X-Proofpoint-GUID: Uk3V4F28PSVZksLIBUBFvL190hasyPPW
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzIzMDE2MCBTYWx0ZWRfX+/PPepdNka+H
- POcuDKCJpobVq1m4TQujd3K9N6CmvXkOw0PD5uis9i1RSIEHC/yhzGpS3RpdLgBJfdfxBE+8vTr
- DMSuzm2zZ2RkfC7te0qmELBI+4Alxa6IR5OwQvtMBmZhwmClLdj97hjminMEfhWo9pF3V7TUfpE
- EMRFP4QQ1rl5RJ2acMGcLvV8Z7w05G9MOfT2PFBb/BlQNIr9DxK4+UfRpg4WTleJeIZg5YY4kKt
- HuycMYHsK+vhf6nEpePzi8fTvhBOkmkzm5ut01tkNFuQ6V/vgAGIoJ1acWjdA4ao9NsdV7svFQ1
- bseySBmDvPNi+HlOnwaD7RLr1qKZ3S7O0lsmPPSFs/oz2FOppLUrm7fC1qsJftUFwlXZBVUHrwm
- sRvjJnrr2boI9uD+uxE1gm07ZzIBOUM8KxpPpCMqrTp6xDJM3HOCnP+za//hRKhC2/YAaod4PiG
- P4gVDMmxg0mHw+bOn/A==
-X-Proofpoint-ORIG-GUID: Uk3V4F28PSVZksLIBUBFvL190hasyPPW
+ <20260324-a8xx-gpu-batch2-v1-6-fc95b8d9c017@oss.qualcomm.com>
+ <CACSVV02XkyT-om4LQJA_Xa-4Z+B5aKOPU_3uxtwHCa1nMXVUKg@mail.gmail.com>
+From: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+Content-Language: en-US
+In-Reply-To: <CACSVV02XkyT-om4LQJA_Xa-4Z+B5aKOPU_3uxtwHCa1nMXVUKg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Authority-Analysis: v=2.4 cv=fq7RpV4f c=1 sm=1 tr=0 ts=69c1b219 cx=c_pps
+ a=IZJwPbhc+fLeJZngyXXI0A==:117 a=WRfdsTvTEh9BIu3+I5rxZw==:17
+ a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=EUspDBNiAAAA:8 a=d0dIk93vvDk8Ins0EvIA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=uG9DUKGECoFWVXl0Dc02:22
+X-Proofpoint-ORIG-GUID: njiVbOhNeYW4TP5vA5eXjokR_F3tZE4R
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzIzMDE2MCBTYWx0ZWRfX3LQoJYUYZooJ
+ BnZihE784XNo81ydI4iDMWMwiYMMsJx/NB6gc8bn0qiqnt5keghNDIxmGIui3W3mIqTTThn0Yas
+ NyczItns0FQ3vk5bOhhrV/1Q6Phj9g3zcJklFUaUGBbd6nQIrj4CVfwt2g8ZjqdgC2NVfQ3+2Yg
+ LokYvrvmgmfBdp9CP5NeMneK7xye5X0fqpRr1Snl6BraLx5JOYSet82FvhikkVwFgBhpNmrB2pp
+ F9T+rIyHY3s1VeqUPanz6QsiQQq+kshRWeOUZlkJjKFmmn//hay51Qu8GpCYJyMUjHSTDRsn9/D
+ YaHv8o0j3Kg8JnkRAmXWCieC46gYYdMngjvyQ5BgmoyAi8cX9jiEXqr9pDeQmk0xPGdEiJCraBw
+ JqoR2ow76Z8FYAUd+r77wDAK6ZvDRH4vxm3y25X4lEwl1RWgk3zpy/zqoj8/LNaWONPtldUNC2z
+ vlQON9A43CjAQEQPnZA==
+X-Proofpoint-GUID: njiVbOhNeYW4TP5vA5eXjokR_F3tZE4R
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
  definitions=2026-03-23_05,2026-03-23_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 priorityscore=1501 phishscore=0 lowpriorityscore=0
- adultscore=0 bulkscore=0 spamscore=0 suspectscore=0 malwarescore=0
- clxscore=1015 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2603050001
- definitions=main-2603230160
+ malwarescore=0 spamscore=0 adultscore=0 clxscore=1015 impostorscore=0
+ lowpriorityscore=0 suspectscore=0 priorityscore=1501 bulkscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603230160
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -151,45 +153,73 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, Mar 24, 2026 at 01:42:24AM +0530, Akhil P Oommen wrote:
-> Adreno X2-85 series present in Glymur chipset supports a new mechanism
-> for SKU detection. A new CX_MISC register exposes the combined (or
-> final) speedbin value from both HW fuse register and the Soft Fuse
-> register.
+On 3/24/2026 2:15 AM, Rob Clark wrote:
+> On Mon, Mar 23, 2026 at 1:13 PM Akhil P Oommen <akhilpo@oss.qualcomm.com> wrote:
+>>
+>> To avoid harmful compiler optimizations and IO reordering in the HW, use
+>> barriers and READ/WRITE_ONCE helpers as necessary while accessing the HFI
+>> queue index variables.
 > 
-> Implement this new SKU detection along with a new quirk to identify the
-> GPUs that has SOFT SKU support. Also, enable this quirk for Adreno X2-85
+> This feels a bit like it should have Fixes: ?
 
-SOFT SKU -> Soft fuse?
+Ack. Will update in v2.
 
-> and add its SKU table to the catalog.
+-Akhil
+
 > 
-> Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
-> ---
->  drivers/gpu/drm/msm/adreno/a5xx_gpu.c         |  6 ++++
->  drivers/gpu/drm/msm/adreno/a6xx_catalog.c     |  9 +++++-
->  drivers/gpu/drm/msm/adreno/a6xx_gpu.c         | 41 ++++++++++++++++++++++-----
->  drivers/gpu/drm/msm/adreno/adreno_gpu.c       |  5 ----
->  drivers/gpu/drm/msm/adreno/adreno_gpu.h       |  1 +
->  drivers/gpu/drm/msm/registers/adreno/a6xx.xml |  4 +++
->  6 files changed, 53 insertions(+), 13 deletions(-)
-> 
-> @@ -1213,10 +1212,6 @@ int adreno_gpu_init(struct drm_device *drm, struct platform_device *pdev,
->  			devm_pm_opp_set_clkname(dev, "core");
->  	}
->  
-> -	if (adreno_read_speedbin(dev, &speedbin) || !speedbin)
-> -		speedbin = 0xffff;
-> -	adreno_gpu->speedbin = (uint16_t) (0xffff & speedbin);
-> -
+>> Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+>> ---
+>>  drivers/gpu/drm/msm/adreno/a6xx_hfi.c | 14 ++++++++++----
+>>  1 file changed, 10 insertions(+), 4 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_hfi.c b/drivers/gpu/drm/msm/adreno/a6xx_hfi.c
+>> index 2daaa340366d..aef00c2dd137 100644
+>> --- a/drivers/gpu/drm/msm/adreno/a6xx_hfi.c
+>> +++ b/drivers/gpu/drm/msm/adreno/a6xx_hfi.c
+>> @@ -34,7 +34,7 @@ static int a6xx_hfi_queue_read(struct a6xx_gmu *gmu,
+>>         struct a6xx_hfi_queue_header *header = queue->header;
+>>         u32 i, hdr, index = header->read_index;
+>>
+>> -       if (header->read_index == header->write_index) {
+>> +       if (header->read_index == READ_ONCE(header->write_index)) {
+>>                 header->rx_request = 1;
+>>                 return 0;
+>>         }
+>> @@ -62,7 +62,10 @@ static int a6xx_hfi_queue_read(struct a6xx_gmu *gmu,
+>>         if (!gmu->legacy)
+>>                 index = ALIGN(index, 4) % header->size;
+>>
+>> -       header->read_index = index;
+>> +       /*  Ensure all memory operations are complete before updating the read index */
+>> +       dma_mb();
+>> +
+>> +       WRITE_ONCE(header->read_index, index);
+>>         return HFI_HEADER_SIZE(hdr);
+>>  }
+>>
+>> @@ -74,7 +77,7 @@ static int a6xx_hfi_queue_write(struct a6xx_gmu *gmu,
+>>
+>>         spin_lock(&queue->lock);
+>>
+>> -       space = CIRC_SPACE(header->write_index, header->read_index,
+>> +       space = CIRC_SPACE(header->write_index, READ_ONCE(header->read_index),
+>>                 header->size);
+>>         if (space < dwords) {
+>>                 header->dropped++;
+>> @@ -95,7 +98,10 @@ static int a6xx_hfi_queue_write(struct a6xx_gmu *gmu,
+>>                         queue->data[index] = 0xfafafafa;
+>>         }
+>>
+>> -       header->write_index = index;
+>> +       /*  Ensure all memory operations are complete before updating the write index */
+>> +       dma_mb();
+>> +
+>> +       WRITE_ONCE(header->write_index, index);
+>>         spin_unlock(&queue->lock);
+>>
+>>         gmu_write(gmu, REG_A6XX_GMU_HOST2GMU_INTR_SET, 0x01);
+>>
+>> --
+>> 2.51.0
+>>
 
-You have removed this from the generic code and then added it to a5xx
-and a6xx+. Wouldn't this cause a change on a2xx - a4xx?
-
->  	gpu_name = devm_kasprintf(dev, GFP_KERNEL, "%"ADRENO_CHIPID_FMT,
->  			ADRENO_CHIPID_ARGS(config->chip_id));
->  	if (!gpu_name)
-
--- 
-With best wishes
-Dmitry
