@@ -4,45 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E1ACBF46100
-	for <dri-devel@archiver.kernel.org>; Mon, 23 Mar 2026 12:54:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E8CBAF46102
+	for <dri-devel@archiver.kernel.org>; Mon, 23 Mar 2026 12:56:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3F9B310E093;
-	Mon, 23 Mar 2026 12:54:44 +0000 (UTC)
-Received: from ni.piap.pl (ni.piap.pl [195.187.100.5])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B8B3C10E4B6
- for <dri-devel@lists.freedesktop.org>; Mon, 23 Mar 2026 12:54:41 +0000 (UTC)
-Received: from t19.piap.pl (OSB1819.piap.pl [10.0.9.19])
- by ni.piap.pl (Postfix) with ESMTPS id AAAAEC3EEAC9;
- Mon, 23 Mar 2026 13:54:37 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 ni.piap.pl AAAAEC3EEAC9
-From: =?utf-8?Q?Krzysztof_Ha=C5=82asa?= <khalasa@piap.pl>
-To: Liu Ying <victor.liu@nxp.com>
-Cc: Maxime Ripard <mripard@kernel.org>,  Marco Felsch
- <m.felsch@pengutronix.de>,  Marek Vasut <marex@nabladev.com>,  Stefan
- Agner <stefan@agner.ch>,  Simona Vetter <simona@ffwll.ch>,
- <imx@lists.linux.dev>,  Fabio Estevam <festevam@gmail.com>,  Pengutronix
- Kernel Team <kernel@pengutronix.de>,  Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>,  Sascha Hauer
- <s.hauer@pengutronix.de>,  Frank Li <Frank.Li@nxp.com>,
- <linux-kernel@vger.kernel.org>,  <dri-devel@lists.freedesktop.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,  David Airlie
- <airlied@gmail.com>,  <linux-arm-kernel@lists.infradead.org>,  Lucas Stach
- <l.stach@pengutronix.de>
-Subject: Re: i.MX8MP: Fix HDMI LCDIF FIFO underruns
-In-Reply-To: <ecd02f87-c4b7-44ed-8ecf-98e0990af34a@nxp.com> (Liu Ying's
- message of "Mon, 23 Mar 2026 16:18:55 +0800")
-References: <m3ms04caaj.fsf@t19.piap.pl>
- <32317022-3c44-4ead-9e2d-04caa12b28cb@nabladev.com>
- <m36pvjbo4xy2rtdymshjpmwu7icl3wlyiwcmmjaozo7jpe5lqk@zt7byx7iwmym>
- <20260320-amiable-hairy-bullfinch-28bfda@houat>
- <m3a4w2d4ds.fsf@t19.piap.pl>
- <ecd02f87-c4b7-44ed-8ecf-98e0990af34a@nxp.com>
-Date: Mon, 23 Mar 2026 13:54:37 +0100
-Message-ID: <m35x6mpuya.fsf@t19.piap.pl>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3FFCB10E3D8;
+	Mon, 23 Mar 2026 12:56:14 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="NoUvT0Ua";
+	dkim-atps=neutral
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BFC7510E3D3;
+ Mon, 23 Mar 2026 12:56:12 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id DBF13600CB;
+ Mon, 23 Mar 2026 12:56:11 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F94AC4CEF7;
+ Mon, 23 Mar 2026 12:55:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1774270571;
+ bh=PcarGU8E9MYAzSiGlIlaN0J/d/2KgvnXGF646Sss/6o=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=NoUvT0Ua7vExYFgPZA0igjTdgV0kBq94+evWjMhFBjOIZRv4xfdNUbiaxRXEfZMq6
+ 91VS32MQ+DNV8yrBKUUuWfsUhYYbBdqA2iOX/1ZwqUfR3o4KK55KUT2sg/AomDWEVJ
+ cML8StUwS91VgBAOaGqn9DzrXrCZkJgJmXnHsIyEns5DJl0GkuS5xEozjfMwyEYLMI
+ tUjxXbsQKfDvWtljLmC/dhr0bPEzLs3j+Dt/v6AOidSmPjND8gkQSoG0ROJevzjOye
+ BsJCTGQ6iR64jHHIJ0sY3Z/7theuY1nSZ3Mlnh6tPIwZ/YiVv44DygZqJ1F8pvKq7T
+ hl+W33yrZuphA==
+Date: Mon, 23 Mar 2026 18:25:53 +0530
+From: Sumit Garg <sumit.garg@kernel.org>
+To: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-media@vger.kernel.org, netdev@vger.kernel.org,
+ linux-wireless@vger.kernel.org, ath12k@lists.infradead.org,
+ linux-remoteproc@vger.kernel.org, andersson@kernel.org,
+ konradybcio@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, robin.clark@oss.qualcomm.com, sean@poorly.run,
+ akhilpo@oss.qualcomm.com, lumag@kernel.org, abhinav.kumar@linux.dev,
+ jesszhan0024@gmail.com, marijn.suijten@somainline.org,
+ airlied@gmail.com, simona@ffwll.ch, vikash.garodia@oss.qualcomm.com,
+ dikshita.agarwal@oss.qualcomm.com, bod@kernel.org,
+ mchehab@kernel.org, elder@kernel.org, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+ pabeni@redhat.com, jjohnson@kernel.org, mathieu.poirier@linaro.org,
+ trilokkumar.soni@oss.qualcomm.com, pavan.kondeti@oss.qualcomm.com,
+ jorge.ramirez@oss.qualcomm.com, tonyh@qti.qualcomm.com,
+ vignesh.viswanathan@oss.qualcomm.com, srinivas.kandagatla@oss.qualcomm.com,
+ amirreza.zarrabi@oss.qualcomm.com, jens.wiklander@linaro.org,
+ op-tee@lists.trustedfirmware.org, apurupa@qti.qualcomm.com,
+ skare@qti.qualcomm.com, linux-kernel@vger.kernel.org,
+ Sumit Garg <sumit.garg@oss.qualcomm.com>
+Subject: Re: [PATCH v2 02/15] firmware: qcom: Add a generic PAS service
+Message-ID: <acE4WXdiuTd1tjAp@sumit-xelite>
+References: <20260312062756.694390-1-sumit.garg@kernel.org>
+ <20260312062756.694390-3-sumit.garg@kernel.org>
+ <20260313072450.sx7vqtvh62nflhff@hu-mojha-hyd.qualcomm.com>
+ <20260313073121.qb7yq7tcga3sshcr@hu-mojha-hyd.qualcomm.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260313073121.qb7yq7tcga3sshcr@hu-mojha-hyd.qualcomm.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,52 +80,130 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Liu,
+On Fri, Mar 13, 2026 at 01:01:21PM +0530, Mukesh Ojha wrote:
+> On Fri, Mar 13, 2026 at 12:54:50PM +0530, Mukesh Ojha wrote:
+> > On Thu, Mar 12, 2026 at 11:57:43AM +0530, Sumit Garg wrote:
+> > > From: Sumit Garg <sumit.garg@oss.qualcomm.com>
+> > > 
+> > > Qcom platforms has the legacy of using non-standard SCM calls
+> > > splintered over the various kernel drivers. These SCM calls aren't
+> > > compliant with the standard SMC calling conventions which is a
+> > > prerequisite to enable migration to the FF-A specifications from Arm.
+> > > 
+> > > OP-TEE as an alternative trusted OS to Qualcomm TEE (QTEE) can't
+> > > support these non-standard SCM calls. And even for newer architectures
+> > > with S-EL2 and Hafnium support, QTEE won't be able to support SCM
+> > 
+> >  using S‑EL2 with Hafnium
+> > 
+> > > calls either with FF-A requirements coming in. And with both OP-TEE
+> > > and QTEE drivers well integrated in the TEE subsystem, it makes further
+> > > sense to reuse the TEE bus client drivers infrastructure.
+> > > 
+> > > The added benefit of TEE bus infrastructure is that there is support
+> > > for discoverable/enumerable services. With that client drivers don't
+> > > have to manually invoke a special SCM call to know the service status.
+> > > 
+> > > So enable the generic Peripheral Authentication Service (PAS) provided
+> > > by the firmware. It acts as the common layer with different TZ
+> > > backends plugged in whether it's an SCM implementation or a proper
+> > > TEE bus based PAS service implementation.
+> > > 
+> > > Signed-off-by: Sumit Garg <sumit.garg@oss.qualcomm.com>
+> > > ---
+> > >  drivers/firmware/qcom/Kconfig          |   8 +
+> > >  drivers/firmware/qcom/Makefile         |   1 +
+> > >  drivers/firmware/qcom/qcom_pas.c       | 298 +++++++++++++++++++++++++
+> > >  drivers/firmware/qcom/qcom_pas.h       |  53 +++++
+> > >  include/linux/firmware/qcom/qcom_pas.h |  41 ++++
+> > >  5 files changed, 401 insertions(+)
+> > >  create mode 100644 drivers/firmware/qcom/qcom_pas.c
+> > >  create mode 100644 drivers/firmware/qcom/qcom_pas.h
+> > >  create mode 100644 include/linux/firmware/qcom/qcom_pas.h
+> > > 
 
-Liu Ying <victor.liu@nxp.com> writes:
+<snip>
 
-> If you may use a display mode with low resolution, say 640x480p60, and
-> the issue still happens, then I bet it's not related to the panic
-> threshold settings, but more likely related to KMS detail control seqeunc=
-e.
-> This reminds me that Lucas had a patch series[1] to try to fix the
-> sequence, but it seems that it didn't fix i.MX93 LCDIF according to [2]
-> hence no landing.
+> > > diff --git a/drivers/firmware/qcom/qcom_pas.c b/drivers/firmware/qcom/qcom_pas.c
+> > > new file mode 100644
+> > > index 000000000000..beb1bae55546
+> > > --- /dev/null
+> > > +++ b/drivers/firmware/qcom/qcom_pas.c
+> > > @@ -0,0 +1,298 @@
+> > > +// SPDX-License-Identifier: GPL-2.0
+> > > +/*
+> > > + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+> > > + */
+> > > +
+> > > +#include <linux/device/devres.h>
+> > > +#include <linux/firmware/qcom/qcom_pas.h>
+> > > +#include <linux/kernel.h>
+> > > +#include <linux/module.h>
+> > > +
+> > > +#include "qcom_pas.h"
+> > > +
+> > > +struct qcom_pas_ops *ops_ptr;
+> > 
+> > Should this be static ?
+> > 
+> > > +
+> > > +/**
+> > > + * devm_qcom_pas_context_alloc() - Allocate peripheral authentication service
+> > > + *				   context for a given peripheral
+> > > + *
+> > > + * PAS context is device-resource managed, so the caller does not need
+> > > + * to worry about freeing the context memory.
+> > > + *
+> > > + * @dev:	  PAS firmware device
+> > > + * @pas_id:	  peripheral authentication service id
+> > > + * @mem_phys:	  Subsystem reserve memory start address
+> > > + * @mem_size:	  Subsystem reserve memory size
+> > > + *
+> > > + * Return: The new PAS context, or ERR_PTR() on failure.
+> > > + */
+> > > +struct qcom_pas_context *devm_qcom_pas_context_alloc(struct device *dev,
+> > > +						     u32 pas_id,
+> > > +						     phys_addr_t mem_phys,
+> > > +						     size_t mem_size)
+> > > +{
+> > > +	struct qcom_pas_context *ctx;
+> > > +
+> > > +	ctx = devm_kzalloc(dev, sizeof(*ctx), GFP_KERNEL);
+> > > +	if (!ctx)
+> > > +		return ERR_PTR(-ENOMEM);
+> > > +
+> > > +	ctx->dev = dev;
+> > > +	ctx->pas_id = pas_id;
+> > > +	ctx->mem_phys = mem_phys;
+> > > +	ctx->mem_size = mem_size;
+> > > +
+> > > +	return ctx;
+> > > +}
+> > > +EXPORT_SYMBOL_GPL(devm_qcom_pas_context_alloc);
+> > > +
+> > > +/**
+> > > + * qcom_pas_init_image() - Initialize peripheral authentication service state
+> > > + *			   machine for a given peripheral, using the metadata
+> > > + * @pas_id:	peripheral authentication service id
+> > > + * @metadata:	pointer to memory containing ELF header, program header table
+> > > + *		and optional blob of data used for authenticating the metadata
+> > > + *		and the rest of the firmware
+> > > + * @size:	size of the metadata
+> > > + * @ctx:	optional pas context
+> > > + *
+> > > + * Return: 0 on success.
+> > > + *
+> > > + * Upon successful return, the PAS metadata context (@ctx) will be used to
+> > > + * track the metadata allocation, this needs to be released by invoking
+> > > + * qcom_pas_metadata_release() by the caller.
+> > > + */
+> > > +int qcom_pas_init_image(u32 pas_id, const void *metadata, size_t size,
+> > > +			struct qcom_pas_context *ctx)
+> 
+> please, align this with previous line '(' for all the functions.
+> 
 
-It seems it depends on resolution: at 1080p60 with the DIV_ROUND_UP
-(thresholds increased by 1) it seems to work fine. At 2160p30 (twice the
-clock) there are frequent underruns. Now with thresholds increased to
-2/4 and 3/4, weston started fine 10/10, while shutdowns were 8/10.
-4/6 and 5/6 made it worse, though.
+The alignment is fine here, not sure why the plain text replies show
+them as not aligned.
 
-I don't know now. I will try to investigate a bit more tomorrow.
-Perhaps the sequence of register writes could be better, indeed.
-
-The following doesn't fix it for me either:
---- a/drivers/gpu/drm/mxsfb/lcdif_kms.c
-+++ b/drivers/gpu/drm/mxsfb/lcdif_kms.c
-@@ -358,34 +358,27 @@ static void lcdif_enable_controller(struct lcdif_drm_=
-private *lcdif)
- 	writel(INT_ENABLE_D1_PLANE_PANIC_EN,
- 	       lcdif->base + LCDC_V8_INT_ENABLE_D1);
-=20
--	reg =3D readl(lcdif->base + LCDC_V8_DISP_PARA);
--	reg |=3D DISP_PARA_DISP_ON;
--	writel(reg, lcdif->base + LCDC_V8_DISP_PARA);
--
- 	reg =3D readl(lcdif->base + LCDC_V8_CTRLDESCL0_5);
- 	reg |=3D CTRLDESCL0_5_EN;
- 	writel(reg, lcdif->base + LCDC_V8_CTRLDESCL0_5);
-+
-+	reg =3D readl(lcdif->base + LCDC_V8_DISP_PARA);
-+	reg |=3D DISP_PARA_DISP_ON;
-+	writel(reg, lcdif->base + LCDC_V8_DISP_PARA);
- }
-=20
-
---=20
-Krzysztof "Chris" Ha=C5=82asa
-
-Sie=C4=87 Badawcza =C5=81ukasiewicz
-Przemys=C5=82owy Instytut Automatyki i Pomiar=C3=B3w PIAP
-Al. Jerozolimskie 202, 02-486 Warszawa
+-Sumit
