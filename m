@@ -4,80 +4,128 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6539CF4613B
-	for <dri-devel@archiver.kernel.org>; Mon, 23 Mar 2026 15:14:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A3690F46139
+	for <dri-devel@archiver.kernel.org>; Mon, 23 Mar 2026 15:19:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C129110E06C;
-	Mon, 23 Mar 2026 15:14:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E40D410E09C;
+	Mon, 23 Mar 2026 15:19:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=imgtec.com header.i=@imgtec.com header.b="SrVT868X";
+	dkim=pass (1024-bit key; unprotected) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="aaCi/Upx";
 	dkim-atps=neutral
-Received: from mx07-00376f01.pphosted.com (mx07-00376f01.pphosted.com
- [185.132.180.163])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7E61210E043
- for <dri-devel@lists.freedesktop.org>; Mon, 23 Mar 2026 15:14:22 +0000 (UTC)
-Received: from pps.filterd (m0168889.ppops.net [127.0.0.1])
- by mx07-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 62NDMQhq3740823; Mon, 23 Mar 2026 15:14:04 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
- :content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=dk201812; bh=e
- LLIOSNlhFrN3uw67tNtIMm0sd2yew/T1IZnF79EgtM=; b=SrVT868X2e6GGjSJK
- ssdXR6ERfHDagENVhyUkNwEvVIBFeEQ44XP/C80DYT8QqvjzhP7RX5FbvuB9PYzS
- yHqcPXY5EBj9Jdd7H9lUwntLLxOlhEexu3RLlH9tGGnbUlZIRZ7et7yrqVimEI7/
- mtztLcGQ8HcW+2ZV0rN/TXrGSGZQQQ+gq4/0hJEvabHoz5dPMJbtqIhWRiZ6liSp
- ipv3BqCuu0jfx7I3aoDjk4QRxxWZmTH+Lf4Hi86O7yaAYTWpyOFGXUgfmM5ufLSu
- OjiBFRyWk5uw/PchliiAl2OmlOMaZDQj6mfgklbjKrGoQYGfDuYpizpzGEFIdV7M
- Eu84w==
-Received: from hhmail02.hh.imgtec.org
- (83-244-153-141.cust-83.exponential-e.net [83.244.153.141])
- by mx07-00376f01.pphosted.com (PPS) with ESMTPS id 4d1m9v1tt6-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 23 Mar 2026 15:14:04 +0000 (GMT)
-Received: from HHMAIL03.hh.imgtec.org (10.44.0.121) by HHMAIL02.hh.imgtec.org
- (10.100.10.20) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Mon, 23 Mar
- 2026 15:14:03 +0000
-Received: from
- 1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.ip6.arpa
- (172.25.4.249) by HHMAIL03.hh.imgtec.org (10.44.0.121) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Mon, 23 Mar 2026 15:13:53 +0000
-From: Matt Coster <matt.coster@imgtec.com>
-To: Frank Binns <frank.binns@imgtec.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Alessio Belle <alessio.belle@imgtec.com>,
- Alexandru Dadu <alexandru.dadu@imgtec.com>, Brajesh Gupta
- <brajesh.gupta@imgtec.com>
-CC: <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
-In-Reply-To: <20260313-b4-staging-layout_mars_base-v2-0-9e3c251d278e@imgtec.com>
-References: <20260313-b4-staging-layout_mars_base-v2-0-9e3c251d278e@imgtec.com>
-Subject: Re: [PATCH v2 0/2] drm/imagination: Improve power off sequence
-Message-ID: <177427883311.5888.856167998023902743.b4-ty@b4>
-Date: Mon, 23 Mar 2026 15:13:53 +0000
+Received: from TYVP286CU001.outbound.protection.outlook.com
+ (mail-japaneastazon11011043.outbound.protection.outlook.com [52.101.125.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4F4C410E043
+ for <dri-devel@lists.freedesktop.org>; Mon, 23 Mar 2026 15:19:47 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=tBEistly4OS/nVnv+VHGDLZKHl2w3vwVxBTrUukyAw8psLe/zsCNow9ZiQzlz2hjEXnw3e/hez2bpq3m0Qtd3Em6kwczJkPZG5DX4Pm3BrvFzAknePsE1o04FWmDGAD3lhyzI+E89ftaMLM+WvqlgwHNwdNpmWPa6M41cD8DKM01b/IQ2zxUAajmisc53Z+Mge25eoFUQAH4AptQmwF1BKUWQh+LG2gzcOTSdhZpMcymG26WNHsbH8u1OlmQGvaQ2lAjCK88ToYrD0/e7ixivIyqqh0FDHgmZ199VXm8fLclaqwuudt1t+U83hwJCZEdtYLZ7N1WZkClCsk/ulEtpQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ZiOm7/b+Dox7oMXkvpCo2CZtrssrqTWFOa76i7vewAY=;
+ b=OKbkWcZ/mbYsZlOpHYnKHmWv8bWMWtcjufAC7upHggcakVKsOFqXwF1r/Aao8f7AqN3cU3Fmw/B/jzzet+9sUv1JmjInJ6CUu4XRFOa0cI4EOVz9h3dcRqhuJs7XhWitJPbQmLMHiuLdIM8amc4OTyS+AJWcmo1AxGWa3V4aLOCMYfkxCGzHC5pv0mhMiEHwgwp+MDetCCnVV8xCs7SDNrrPiMBZBlOdLjD3Tok45OAWPdqX7H8pH5mKPX/cEThJnuAHBxj3+JieqebQLVSMRF010WOHaFFX76LfSxGcXFdpo5qa3gRn8oCkSsvzRRQKYylMvZoolJSZzPd01dd7tw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
+ header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ZiOm7/b+Dox7oMXkvpCo2CZtrssrqTWFOa76i7vewAY=;
+ b=aaCi/UpxAawVvAOwaP6qW2A/6r6VpMiAx+j1zTlu2icT2Ix/VSBjlaEHnJvFbv7v8gM1hb9mhl4mk7WfMi4tPHtccQmIfqTLkSkr7k6OgeMbe8qZKUG1TIpPyddnizIihrVZOzDOiqeyUfbeKiOjYAZ0IusPArTknea27SJxzfI=
+Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com (2603:1096:400:3d0::7)
+ by TYRPR01MB15881.jpnprd01.prod.outlook.com (2603:1096:405:2d5::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.31; Mon, 23 Mar
+ 2026 15:19:25 +0000
+Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com
+ ([fe80::87d1:4928:d55:97de]) by TY3PR01MB11346.jpnprd01.prod.outlook.com
+ ([fe80::87d1:4928:d55:97de%4]) with mapi id 15.20.9723.030; Mon, 23 Mar 2026
+ 15:19:27 +0000
+From: Biju Das <biju.das.jz@bp.renesas.com>
+To: Hugo Villeneuve <hugo@hugovil.com>, biju.das.au <biju.das.au@gmail.com>
+CC: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Chris Brandt
+ <Chris.Brandt@renesas.com>, Laurent Pinchart
+ <laurent.pinchart+renesas@ideasonboard.com>, Sam Ravnborg <sam@ravnborg.org>, 
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, Geert
+ Uytterhoeven <geert+renesas@glider.be>, Prabhakar Mahadev Lad
+ <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: RE: [PATCH v2 4/4] drm: renesas: rzg2l_mipi_dsi: Increase reset
+ deassertion delay to 1 msec
+Thread-Topic: [PATCH v2 4/4] drm: renesas: rzg2l_mipi_dsi: Increase reset
+ deassertion delay to 1 msec
+Thread-Index: AQHct8A+aOtg03CPv0GtnFeZnAcwLbW8MNWAgAAPJRA=
+Date: Mon, 23 Mar 2026 15:19:27 +0000
+Message-ID: <TY3PR01MB113460833AFD4BE4422E5E737864BA@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+References: <20260319164833.409126-1-biju.das.jz@bp.renesas.com>
+ <20260319164833.409126-5-biju.das.jz@bp.renesas.com>
+ <20260323102015.957b2f855b7d54aa5d33869d@hugovil.com>
+In-Reply-To: <20260323102015.957b2f855b7d54aa5d33869d@hugovil.com>
+Accept-Language: en-GB, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=bp.renesas.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: TY3PR01MB11346:EE_|TYRPR01MB15881:EE_
+x-ms-office365-filtering-correlation-id: 0f7fd8f8-1f6a-46bf-f8f5-08de88ef928c
+x-ld-processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|366016|1800799024|7416014|376014|38070700021|18002099003|22082099003|56012099003;
+x-microsoft-antispam-message-info: 0Tj3MGaogwO1c/3SufS0UkAOl8lXhR81MRsrHN7fnToOxr6HmNnwNon2dFgbsp24GONpO/lKIYsr9wFKweINeWi7LhrmAbmxFjL7pJRECMvLw7mu+2QwPLaZJb6MXA/MA58Orkq1fcFnDCfDKj0KFti8hw0wsM311Qh/GYFBnLBWw0U/RTQ0KctH1PjJWBrwq2rvdfNZcUjjJ8wTONILeuqOhUwUDAVLwgOwWwAg+/VxMwiYAjT7fnJDvD9vfF0fCK+N0n8lCkxcflMVJbjMKI934Ljrn8cxgPQa9wmW+bcTmaI0bCxSIJMfWVVLXjn5RudFJG0I+J0XHoWvSNRi825i6rZW9pLGOGciQXHPE2gckwXGvNDzhiy7qRiJ6npKcRZB+iAQVtqHIS9zBmm/dK/Y4kSLFWR3qhn9tQtSlcT23cVwwEGjzhn0X9ujeMttQPGIVMkd8Q5mTvw4KeFyPKTL9SMobc/JlYzD08vVXIDyBPnql0lIaWFYAl6FYvnHlQJ+bbYatffmlNF3WOTPqJTq+DJTgkxjbjj03d08khOmOqAH9iGvVYV4nbItMjkHjgVgS8RiWLYaocNqSZj9ftCoKYLADV6Nr1xyxIR1vHN04ukdDDXdy/UdMXfAKfBb0n7CKWcyWOzwD5W6PxPhzka3+7D46rKC96vezqI17mYyf9yr4bONy3/nDq7huUz4ZHWmLz/rOlzbi5S0s7UTDtwAN5APn8QLbmvBBVi/YpyueTICblNzaL0Wh4+x3YR5JMOzPGfA/Lk0P127F/9/otLKTZFvMxbgz1MjwkCxNVo=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:TY3PR01MB11346.jpnprd01.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(7416014)(376014)(38070700021)(18002099003)(22082099003)(56012099003);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?LaSPO8B88SWbffBp5Ncu6gaPxL4vmZrfoAeiswpdd/13ldHtEqZDgpw3SXNg?=
+ =?us-ascii?Q?NDA1IK8XkpXVputB4QmK/NaPQlNtDEdFSbfqjyKduKQsBtESKnf9GiB7RMBy?=
+ =?us-ascii?Q?3SXOgNH7+n1Op9N4LJAW+nkDt69nMSN/kU8LDrfRyD2B/LFaiHW+LbN2CaTM?=
+ =?us-ascii?Q?r55G+VQsl8dW5a988KPqays35ixREirSMLNJYlAPmOH5SpDesMSRG5vmzxAv?=
+ =?us-ascii?Q?zxV0tLPj07QxTsOxte2AL7Zs5PzC+C7qd1NIH7I2YE4TVrQpxpAjsXtAV+Rm?=
+ =?us-ascii?Q?LEExx5J8ctRnKPaR4tQfw6rA37B3tpTCVyakH+tATT5AEo+Gk1QEq++Mnvd/?=
+ =?us-ascii?Q?jmOrTfRfgL103bSaKzy6DX5OHMeZJS9aDm8OF0hap+ccCK/T10KLrr1bbU1z?=
+ =?us-ascii?Q?ZQyADnTHcMyWaqR/Z80fF0CIRt3/90K2vPPN5FdRhI43ugB4l5tQJ/fMf8Tt?=
+ =?us-ascii?Q?sokovFy3EnMn2E3sxAiBb/Sel9Wa5XWiLBAhwEg3GmuF+3RlCGN3eCk8rQt7?=
+ =?us-ascii?Q?GXdkVsXEQV1UfMlauK2qHujxW2Oz7zhpySq8PBbhVDQs8Omr16/cv73AUZmm?=
+ =?us-ascii?Q?6ahBUW+C9AZm4MUtPQrkbVXWxbjiASykTo2sSTJZsT8Yc1YmW4DPRwCfUKpH?=
+ =?us-ascii?Q?hxz67lWHIkVs+L7J7pWrcGr5WVrjmlvdi5Z83vmVqUCnXOaOA+orVy3+J0Ob?=
+ =?us-ascii?Q?Q5sjPQpKRz6j2C9Kdw5KyeieGRBB/2W/HFE/yDiasBqSe6QBr7sRaUqpRvma?=
+ =?us-ascii?Q?Vlejy2ii5/UlbYLJ9HOUq/keenpxvY3h1oscXZLv+fJ5gl4xxZKz5uczTVKJ?=
+ =?us-ascii?Q?a9EQDmXng/MzpgvCN3zRgGKUn/vrzQpwi33uxIuT2aYJvMvjw+vhmu6kTgAP?=
+ =?us-ascii?Q?J+7Tbg+DSlSwKDywk+A2lSyuSxI68nfIt815OHs4ki/uIqdpuGeMl7pcEb3z?=
+ =?us-ascii?Q?L1lqlvqqwx6lcrvKUYt159KepEEd4iPgxpesT4onHIoBz8JMO45/+Qt70gX6?=
+ =?us-ascii?Q?O6M9tOmYm03WTqAwcX2djPnpSbThqnakAtYU0GP8mSSYW1q2xwEWrhTQkGC7?=
+ =?us-ascii?Q?XLJCY9OcpWscKPCw4TvVXZskUqkVwVVqve02BWbes3aqP9on0Tr4OWnt/luP?=
+ =?us-ascii?Q?Wfy2aV3YkipMI4hZ1Jo3hZeJDDHdhEry0G31jxhS7l75ENiBsvGc4I64cdPf?=
+ =?us-ascii?Q?yZ54HskXqO55e9Zo+DeqtjnrvvU4LXfKNApvfJOEe3jAaV65eZmEdh6MjqnX?=
+ =?us-ascii?Q?n+qfF9UY9m2eBOV+xLXLFrQrdzC4lZ0mcXiGdH6KSFJVQYYsl98WlU4yLe/m?=
+ =?us-ascii?Q?5L2FpxQLreTv+Za71zdl+wdkTyZCKqg/PBqblJ/k5DtXuk++IvjMz+v8YIAt?=
+ =?us-ascii?Q?7goLeOb6TEeNDQfMelH6V8mSoz77VlCj7COws7hNF9V2NU/aICC12Kt7sUDY?=
+ =?us-ascii?Q?BOSHu/pfVATHaRsAehB9pYA3T9C3f11L2qHjN+9aT9Dux9u4PzauZy2t0Uhi?=
+ =?us-ascii?Q?QiZHXQYyjYLqTmi0Q5WY9Q/U4TXD7d1lJ2ARj34Il+TuodOtwNPbYsffC+YA?=
+ =?us-ascii?Q?UPYfkJ4bk1BN06Zx7bYTGbDI2EbuM2fygPkebVJqK4M+Jm4l3ruZliAgvCDY?=
+ =?us-ascii?Q?J0RnSS/rDRofpV/c92sx1VncW3digBy58tlW4n3lWS0xULZlf4/so3/7ed+a?=
+ =?us-ascii?Q?QQrPccyNkA3pGwMLR55aGEFil+ebFVgTCm07UFwzxrKrADylaTc1FP3tiR6w?=
+ =?us-ascii?Q?CRp0vaK4CA=3D=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.15.0
-X-Originating-IP: [172.25.4.249]
-X-Authority-Analysis: v=2.4 cv=OeWVzxTY c=1 sm=1 tr=0 ts=69c158bc cx=c_pps
- a=AKOq//PuzOIrVTIF9yBwbA==:117 a=AKOq//PuzOIrVTIF9yBwbA==:17
- a=Ylr_HOfL8O8A:10 a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=kQ-hrUj2-E3RCbRHssb7:22 a=7RYWX5rxfSByPNLylY2M:22
- a=r_1tXGB3AAAA:8 a=gXNtStLRdRagsmVLQjQA:9 a=QEXdDO2ut3YA:10
- a=t8nPyN_e6usw4ciXM-Pk:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzIzMDExNyBTYWx0ZWRfX8JqCYE+hH8b6
- B8fKhVPkxeRk79qXDxOBfeuT4zY44srArq3Ya1umYJgtao66v3wTjESkkOG756LiLi6epHkvwL2
- 6PlqLI4Lowy/kB6rFJORnCiP3AhTyCq1h4PZOdVlOkJ2Ztatd4JAeINAwfpMbBEdkrVUddBHdh9
- S47YfZspUii+6DvPkMo3xkgWpg0tqcM33r1qdkDdVIxCxxiF6CCwi6xvqEovwbDRz4xtqjYjVxR
- VBA5i3q2vvb1vAkCwc52SOKPcB+0ldOqmZrkQ50Fo5fWSxlVx/zdODD49SmHkUJvCTBy2RsstgO
- pDp9HWEyt+6A6L0DvlbJYJ3O4WIIeN3nQxcxB3RBYV42sH2vrQMPsGVPl7vMUGTprm0A3myHRd1
- 7NMsLfUIe5wQb4AbDvGjc9Jy3n2M6hqDtyCKWmRDziT8AMNHdjx51xcLJuYyl+LIi+TBZg/PHCL
- P+2JW44v4EGG9zH/ekw==
-X-Proofpoint-GUID: WYaE7SaEYwVa11_eGhUNT8vOWdsQwGKT
-X-Proofpoint-ORIG-GUID: WYaE7SaEYwVa11_eGhUNT8vOWdsQwGKT
+X-OriginatorOrg: bp.renesas.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TY3PR01MB11346.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0f7fd8f8-1f6a-46bf-f8f5-08de88ef928c
+X-MS-Exchange-CrossTenant-originalarrivaltime: 23 Mar 2026 15:19:27.0386 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: lmVMtTbaEPG8NDZjPHvf4XR4UVk+soxrTy1+hYO5C7QU0H3VmcDOIpfTvU1T1iZZrC1OZrj3a4KS5x/J793faGbKy+eKh9dXzaV5RYbKm78=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYRPR01MB15881
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,19 +141,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Hi Hugo,
 
-On Fri, 13 Mar 2026 06:38:23 +0000, Brajesh Gupta wrote:
-> 
+> -----Original Message-----
+> From: Hugo Villeneuve <hugo@hugovil.com>
+> Sent: 23 March 2026 14:20
+> Subject: Re: [PATCH v2 4/4] drm: renesas: rzg2l_mipi_dsi: Increase reset =
+deassertion delay to 1 msec
+>=20
+> Hi Biju,
+>=20
+> On Thu, 19 Mar 2026 16:48:28 +0000
+> Biju <biju.das.au@gmail.com> wrote:
+>=20
+> > From: Biju Das <biju.das.jz@bp.renesas.com>
+> >
+> > The RZ/G2L hardware manual (Rev. 1.50, May 2025), Section 34.4.2.1,
+> > requires waiting more than 1 msec after deasserting the CMN_RSTB
+> > signal before the DSI-Tx module is ready. Increase the delay from 1
+> > usec to
+> > 1 msec by replacing udelay(1) with fsleep(1000).
+> >
+> > Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
+>=20
+> In your first submission, I commented that "...this should be backported =
+to stable branches (missing
+> Fixes / Cc: stable tags)?" and you answered with "Agreed, will add fixes/=
+stable tags".
+>=20
+> If you still agree, this patch should be #3 in your list, so that it is e=
+asier/straightforward to
+> backport to stable branches.
 
+The patch order is changed. that is the reason I have not added any fixes/s=
+table tags.
 
-Applied, thanks!
+The if check in patch#3 makes it is not backportable to stable branches.
 
-[1/2] drm/imagination: Improve firmware power off for layout_mars config
-      commit: 51e39ceeca7e85a3b9ca533502a404eb5f3b0f02
-[2/2] drm/imagination: Skip 2nd thread DM association for non META Firmware
-      commit: 62a6f98cda4ec75107e96571346349a649fc63d1
+If I reorder this to patch#3 it is fixing just the delay mentioned in the h=
+ardware manual.
 
-Best regards,
--- 
-Matt Coster <matt.coster@imgtec.com>
-
+Cheers,
+Biju
