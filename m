@@ -4,23 +4,23 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 782FEEC01B1
-	for <dri-devel@archiver.kernel.org>; Mon, 23 Mar 2026 09:59:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C2988EC01B1
+	for <dri-devel@archiver.kernel.org>; Mon, 23 Mar 2026 10:05:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CC66E10E009;
-	Mon, 23 Mar 2026 09:59:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2E8A310E4BB;
+	Mon, 23 Mar 2026 10:05:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.b="QaDPqk5+";
+	dkim=pass (1024-bit key; unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.b="Fko7vEm8";
 	dkim-atps=neutral
-Received: from mail-m3286.qiye.163.com (mail-m3286.qiye.163.com
- [220.197.32.86])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A470B10E009
- for <dri-devel@lists.freedesktop.org>; Mon, 23 Mar 2026 09:59:32 +0000 (UTC)
+Received: from mail-m19731105.qiye.163.com (mail-m19731105.qiye.163.com
+ [220.197.31.105])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B436110E4BB
+ for <dri-devel@lists.freedesktop.org>; Mon, 23 Mar 2026 10:05:57 +0000 (UTC)
 Received: from [172.16.12.43] (unknown [58.22.7.114])
- by smtp.qiye.163.com (Hmail) with ESMTP id 37f125092;
- Mon, 23 Mar 2026 17:59:11 +0800 (GMT+08:00)
-Message-ID: <c349eaf2-5852-4bb6-9dac-f7240e1c8098@rock-chips.com>
-Date: Mon, 23 Mar 2026 17:59:11 +0800
+ by smtp.qiye.163.com (Hmail) with ESMTP id 37f14d637;
+ Mon, 23 Mar 2026 18:05:53 +0800 (GMT+08:00)
+Message-ID: <170a22d3-f1d6-4f71-97ca-db3edf689d93@rock-chips.com>
+Date: Mon, 23 Mar 2026 18:05:53 +0800
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v2 1/9] dt-bindings: display: rockchip: analogix-dp:
@@ -44,23 +44,22 @@ Cc: hjc@rock-chips.com, heiko@sntech.de, andy.yan@rock-chips.com,
 References: <20260319104031.1986946-1-damon.ding@rock-chips.com>
  <20260319104031.1986946-2-damon.ding@rock-chips.com>
  <20260320-amusing-magnetic-harrier-20cc40@quoll>
- <6bf2b3c9-4af0-4c3a-a34f-ebe881d4827b@rock-chips.com>
- <904ad60f-82d6-4ad9-baa1-4d5196c57c76@kernel.org>
+ <311d143b-cc78-465e-9be2-0a9a0a33ea0b@kernel.org>
 Content-Language: en-US
 From: Damon Ding <damon.ding@rock-chips.com>
-In-Reply-To: <904ad60f-82d6-4ad9-baa1-4d5196c57c76@kernel.org>
+In-Reply-To: <311d143b-cc78-465e-9be2-0a9a0a33ea0b@kernel.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0a9d1a22577503a3kunm5765aa83592746
+X-HM-Tid: 0a9d1a28788303a3kunmafb06323593c9f
 X-HM-MType: 1
 X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
- tZV1koWUFDSUNOT01LS0k3V1ktWUFJV1kPCRoVCBIfWUFZQx9CHlZLHklLQxpDGkwYGU5WFRQJFh
+ tZV1koWUFDSUNOT01LS0k3V1ktWUFJV1kPCRoVCBIfWUFZGh5CSVZIHU0ZQxpKH0wdSkhWFRQJFh
  oXVRMBExYaEhckFA4PWVdZGBILWUFZTkNVSUlVTFVKSk9ZV1kWGg8SFR0UWUFZT0tIVUpLSEpKQk
  1VSktLVUpCWQY+
 DKIM-Signature: a=rsa-sha256;
- b=QaDPqk5+K33rWGC+Sk5tDLChlbDsO/bfMYXaEULZkUQCERH77KlcWVFsyhSlXZR2Y46pQUsNpqfFa2U9iWQ3stkbwgtTG9J4/E012AU6aaPKYYdzVm+wR1iSAoKDsvA+OzjKs14O7GOkHTuwPdAlURjPYGWeJq297DIxSi/RtRQ=;
+ b=Fko7vEm8qr/yM2Scx5aIktLIO/rsbKX9HQLG3hxzupnw8xra/FYMjlKPI2owJHEspyFJD+ms/U9DaO5WfmxhCm2w1GQVeKDGIM+SQNwMZMvzBNT1QbEO9S3xjsmMIMpH/LWoSgi9tGb7pVcciBKkTO5ljMPe4juXCYwDkDNEcL8=;
  c=relaxed/relaxed; s=default; d=rock-chips.com; v=1; 
- bh=Ma+sCIU/amVun6wDil2mNjR94in5yy/hwcmilDBpqY4=;
+ bh=qCbZ2f0Kcl+hC4CPhtXEDMfwP+rqGeU660PawdGL7lw=;
  h=date:mime-version:subject:message-id:from;
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -77,103 +76,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 3/23/2026 5:24 PM, Krzysztof Kozlowski wrote:
-> On 23/03/2026 09:49, Damon Ding wrote:
->>>> diff --git a/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml b/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml
->>>> index d99b23b88cc5..d2bc8636b626 100644
->>>> --- a/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml
->>>> +++ b/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml
->>>> @@ -26,7 +26,9 @@ properties:
->>>>        items:
->>>>          - const: dp
->>>>          - const: pclk
->>>> -      - const: grf
->>>> +      - enum:
->>>> +          - grf
->>>> +          - hclk
+Hi Krzysztof,
+
+On 3/20/2026 5:41 PM, Krzysztof Kozlowski wrote:
+> On 20/03/2026 10:19, Krzysztof Kozlowski wrote:
+>> On Thu, Mar 19, 2026 at 06:40:23PM +0800, Damon Ding wrote:
+>>> The RK3588 eDP controller needs the video datapath clock "hclk" to work
+>>> well. Previously, it works without explicitly adding this clock because
+>>> the 'rockchip,vo-grf = <&vo1_grf>' property implicitly enables HCLK_VO1.
 >>>
->>> You just told me it is the same clock, no? I asked that and you
->>> confirmed? Or you replied with an answer not relevant to the question?
->>>
->>
->> Aha, I may have misunderstood your earlier advice as meaning that since
->> the RK3576 and RK3588 platforms share the same design, their clock
->> dependencies should also be identical.
->>
->> The 'grf' clock and 'hclk' clock are different.
->> On RK3399, the GRF clock is for accessing VIO GRF registers.
+>>> Fixes: f855146263b1 ("dt-bindings: display: rockchip: analogix-dp: Add support for RK3588")
+>>> Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
+>>> ---
 > 
-> OK
+> BTW, all your patches (this and previous set... actually, everything you
+> ever sent IIRC) end up marked as spam. I don't see anything in the
+> headers pointing to the issue. There is no score assigned and
+> DMARC+SPF+DKIM pass.
 > 
->> On RK3588/RK3576, the eDP 'hclk' is required as it is the parent clock
->> of 'pclk' in the AHB bus topology.
+> However it seems you are using @rock-chips.com and SMTP server 163.com,
+> so maybe that difference. Or maybe it is rock-chips lack of DMARC policy
+> (p=none dis=none)?
 > 
-> Heh, device takes pclk, so you do not need to take its parent.
-
-Emm, my explanation may not have been clear enough. At the clock tree 
-level, the hclk and pclk are two separate clocks, while pclk's parent 
-clock is hclk in the NOC design, as illustrated below:
-(Take the NOC design of RK3576 as example)
-
-PD_VOP
-   hclk_vop
-     ├─ PD_VO1/hclk_vo1
-     │    ├─ hclk_vo1_s (VO1 AHBS)
-     │    └─ pclk_vo1_s (VO1 APB)
-     └─ PD_VO0/hclk_vo0
-          ├─ hclk_vo0_s (VO0 AHB)
-          ├─ pclk_vo0   (VO0 AHBS)
-          └─ pclk_vo0_s (VO0 APBS)
-
-Then, the clock tree design is:
-
-hclk_vo0_root (200M)
-├─ hclk_spdifrx2_en
-│    └─ hclk_spdifrx2 (200M)
-├─ hclk_spdif2_en
-│    └─ hclk_spdif2 (200M)
-├─ hclk_sai6_8ch_en
-│    └─ hclk_sai6_8ch (200M)
-├─ hclk_hdcp0_en
-│    └─ hclk_hdcp0 (200M)
-├─ hclk_vo0_biu_en
-│    └─ hclk_vo0_biu (200M)
-└─ hclk_sai5_8ch_en
-      └─ hclk_sai5_8ch (200M)
-
-pclk_vo0_root (150M)
-├─ pclk_hdmitx0_en
-│    └─ pclk_hdmitx0 (150M)
-├─ pclk_vo0_grf_en
-│    └─ pclk_vo0_grf (150M)
-├─ pclk_edp0_en
-│    └─ pclk_edp0 (150M)
-├─ pclk_dsihost0_en
-│    └─ pclk_dsihost0 (150M)
-├─ pclk_hdcp0_en
-│    └─ pclk_hdcp0 (150M)
-└─ pclk_vo0_biu_en
-      └─ pclk_vo0_biu (150M)
-
-Therefore, we need take 'hclk' as reference clock.
-
+> Regardless of the reason, if you do not ever receive answers from
+> people, it is likely that is the reason.
 > 
->>
->>> If this device takes reference to grf, why does it also take grf clock?
->>> Devices MUST NOT take clocks on behalf of other devices, so please
->>> answer with a list of all clock inputs according to datasheet/manual.
->>>
->>
->> On earlier platforms, the GRF was not partitioned into separate
->> functional small GRF units as on newer designs. Therefore, the 'grf'
->> clock was designed as the clock dependency for all relevant modules.
->>
->> For RK3588/RK3576 eDP module, the list of all clock inputs is:
->>
->> CLK_EDP0_24M: Reference clock.
->> PCLK_EDP0: AHB clock.
->> HCLK_VO1/HCLK_VO0_ROOT: Video datapath clock.
 > 
+
+Thank you for the kind heads-up! And I’m sorry for the extra work you 
+have to go through checking the spam folder.
+
+It looks like I really need to have a good talk with our IT team about this.
+
+Thanks again for letting me know — much appreciated!
 
 Best regards,
 Damon
