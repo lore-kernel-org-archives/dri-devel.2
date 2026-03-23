@@ -4,66 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 97224F46101
-	for <dri-devel@archiver.kernel.org>; Mon, 23 Mar 2026 13:13:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BD638F46101
+	for <dri-devel@archiver.kernel.org>; Mon, 23 Mar 2026 13:16:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F2CBA10E4F4;
-	Mon, 23 Mar 2026 13:13:15 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="lRYjEckq";
-	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5462610E3F6;
- Mon, 23 Mar 2026 13:13:12 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 6909E600CB;
- Mon, 23 Mar 2026 13:13:11 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE057C4CEF7;
- Mon, 23 Mar 2026 13:12:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1774271591;
- bh=74qU1/t986C2nAZ4bavaRViUUE+Cf6yDDXac2agl2dM=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=lRYjEckqteg2OKaK6EkU3qHTed8L/Kuu8nYTDY12LVL7ijOi7qNUOsPD5UHqT54Vd
- tsznwZRHnAKrJhII5FqZ+AisA4ZWNApAx0Pk/9fTsh3zXc1WzfKrWVr/UCllmug7sg
- z1bdfdxrvM3rhSxNSQFvwtn2noOGHPItPmrj39sTCgHzr/TqSgg+KOov8ZOGK2Czhe
- GSelAor5vaAF5iKbd8nV8/Z7LVpo2CLj5uSDSK01vsXJNevwfD5YvOmqIgqwR/0256
- DxasYH1b85jyJCFi/cnmD4aK9ryRrVm3XpBckheqMJw6h+O2c17MKqqdPZ3cRw+ufV
- vUq6ZCOK/41uw==
-Date: Mon, 23 Mar 2026 18:42:52 +0530
-From: Sumit Garg <sumit.garg@kernel.org>
-To: Harshal Dev <harshal.dev@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-media@vger.kernel.org, netdev@vger.kernel.org,
- linux-wireless@vger.kernel.org, ath12k@lists.infradead.org,
- linux-remoteproc@vger.kernel.org, andersson@kernel.org,
- konradybcio@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, robin.clark@oss.qualcomm.com, sean@poorly.run,
- akhilpo@oss.qualcomm.com, lumag@kernel.org, abhinav.kumar@linux.dev,
- jesszhan0024@gmail.com, marijn.suijten@somainline.org,
- airlied@gmail.com, simona@ffwll.ch, vikash.garodia@oss.qualcomm.com,
- dikshita.agarwal@oss.qualcomm.com, bod@kernel.org,
- mchehab@kernel.org, elder@kernel.org, andrew+netdev@lunn.ch,
- davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
- pabeni@redhat.com, jjohnson@kernel.org, mathieu.poirier@linaro.org,
- trilokkumar.soni@oss.qualcomm.com, mukesh.ojha@oss.qualcomm.com,
- pavan.kondeti@oss.qualcomm.com, jorge.ramirez@oss.qualcomm.com,
- tonyh@qti.qualcomm.com, vignesh.viswanathan@oss.qualcomm.com,
- srinivas.kandagatla@oss.qualcomm.com,
- amirreza.zarrabi@oss.qualcomm.com, jens.wiklander@linaro.org,
- op-tee@lists.trustedfirmware.org, apurupa@qti.qualcomm.com,
- skare@qti.qualcomm.com, linux-kernel@vger.kernel.org,
- Sumit Garg <sumit.garg@oss.qualcomm.com>
-Subject: Re: [PATCH v2 02/15] firmware: qcom: Add a generic PAS service
-Message-ID: <acE8VF9c3BDNkazL@sumit-xelite>
-References: <20260312062756.694390-1-sumit.garg@kernel.org>
- <20260312062756.694390-3-sumit.garg@kernel.org>
- <124f5a78-a3be-4906-bea0-a82bb74b2f96@oss.qualcomm.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 21F9610E2E6;
+	Mon, 23 Mar 2026 13:16:36 +0000 (UTC)
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 2C84F10E2E6
+ for <dri-devel@lists.freedesktop.org>; Mon, 23 Mar 2026 13:16:34 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id C0EB61516
+ for <dri-devel@lists.freedesktop.org>; Mon, 23 Mar 2026 06:16:27 -0700 (PDT)
+Received: from [192.168.0.1] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id
+ 8C2AC3F641
+ for <dri-devel@lists.freedesktop.org>; Mon, 23 Mar 2026 06:16:33 -0700 (PDT)
+Date: Mon, 23 Mar 2026 13:16:30 +0000
+From: Liviu Dudau <liviu.dudau@arm.com>
+To: Marcin =?utf-8?Q?=C5=9Alusarz?= <marcin.slusarz@arm.com>
+Cc: Boris Brezillon <boris.brezillon@collabora.com>,
+ Steven Price <steven.price@arm.com>,
+ dri-devel@lists.freedesktop.org, Chia-I Wu <olvaffe@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Lukas Zapolskas <lukas.zapolskas@arm.com>, nd@arm.com
+Subject: Re: [PATCH v3] drm/panthor: extend timestamp query with flags
+Message-ID: <acE9LkMYQvrGKb8b@e142607>
+References: <20260318112952.645160-1-marcin.slusarz@arm.com>
+ <20260319110053.909152-1-marcin.slusarz@arm.com>
+ <abvhcedS46eLEYVB@e142607> <abvujKZxtg0zvFaz@e129842.arm.com>
+ <abwTkBi5WvItsEX-@e142607> <abwXXFgPheyA03P8@e129842.arm.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <124f5a78-a3be-4906-bea0-a82bb74b2f96@oss.qualcomm.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <abwXXFgPheyA03P8@e129842.arm.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,295 +56,172 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sun, Mar 15, 2026 at 10:03:16PM +0530, Harshal Dev wrote:
-> 
-> 
-> On 3/12/2026 11:57 AM, Sumit Garg wrote:
-> > From: Sumit Garg <sumit.garg@oss.qualcomm.com>
-> > 
-> > Qcom platforms has the legacy of using non-standard SCM calls
-> > splintered over the various kernel drivers. These SCM calls aren't
-> > compliant with the standard SMC calling conventions which is a
-> > prerequisite to enable migration to the FF-A specifications from Arm.
-> > 
-> > OP-TEE as an alternative trusted OS to Qualcomm TEE (QTEE) can't
-> > support these non-standard SCM calls. And even for newer architectures
-> > with S-EL2 and Hafnium support, QTEE won't be able to support SCM
-> > calls either with FF-A requirements coming in. And with both OP-TEE
-> > and QTEE drivers well integrated in the TEE subsystem, it makes further
-> > sense to reuse the TEE bus client drivers infrastructure.
-> > 
-> > The added benefit of TEE bus infrastructure is that there is support
-> > for discoverable/enumerable services. With that client drivers don't
-> > have to manually invoke a special SCM call to know the service status.
-> > 
-> > So enable the generic Peripheral Authentication Service (PAS) provided
-> > by the firmware. It acts as the common layer with different TZ
-> > backends plugged in whether it's an SCM implementation or a proper
-> > TEE bus based PAS service implementation.
-> > 
-> > Signed-off-by: Sumit Garg <sumit.garg@oss.qualcomm.com>
-> > ---
-> >  drivers/firmware/qcom/Kconfig          |   8 +
-> >  drivers/firmware/qcom/Makefile         |   1 +
-> >  drivers/firmware/qcom/qcom_pas.c       | 298 +++++++++++++++++++++++++
-> >  drivers/firmware/qcom/qcom_pas.h       |  53 +++++
-> >  include/linux/firmware/qcom/qcom_pas.h |  41 ++++
-> >  5 files changed, 401 insertions(+)
-> >  create mode 100644 drivers/firmware/qcom/qcom_pas.c
-> >  create mode 100644 drivers/firmware/qcom/qcom_pas.h
-> >  create mode 100644 include/linux/firmware/qcom/qcom_pas.h
-> > 
-> > diff --git a/drivers/firmware/qcom/Kconfig b/drivers/firmware/qcom/Kconfig
-> > index b477d54b495a..8653639d06db 100644
-> > --- a/drivers/firmware/qcom/Kconfig
-> > +++ b/drivers/firmware/qcom/Kconfig
-> > @@ -6,6 +6,14 @@
-> >  
-> >  menu "Qualcomm firmware drivers"
-> >  
-> > +config QCOM_PAS
-> > +	tristate
-> > +	help
-> > +	  Enable the generic Peripheral Authentication Service (PAS) provided
-> > +	  by the firmware. It acts as the common layer with different TZ
-> > +	  backends plugged in whether it's an SCM implementation or a proper
-> > +	  TEE bus based PAS service implementation.
-> > +
-> >  config QCOM_SCM
-> >  	select QCOM_TZMEM
-> >  	tristate
-> > diff --git a/drivers/firmware/qcom/Makefile b/drivers/firmware/qcom/Makefile
-> > index 0be40a1abc13..dc5ab45f906a 100644
-> > --- a/drivers/firmware/qcom/Makefile
-> > +++ b/drivers/firmware/qcom/Makefile
-> > @@ -8,3 +8,4 @@ qcom-scm-objs += qcom_scm.o qcom_scm-smc.o qcom_scm-legacy.o
-> >  obj-$(CONFIG_QCOM_TZMEM)	+= qcom_tzmem.o
-> >  obj-$(CONFIG_QCOM_QSEECOM)	+= qcom_qseecom.o
-> >  obj-$(CONFIG_QCOM_QSEECOM_UEFISECAPP) += qcom_qseecom_uefisecapp.o
-> > +obj-$(CONFIG_QCOM_PAS)		+= qcom_pas.o
-> > diff --git a/drivers/firmware/qcom/qcom_pas.c b/drivers/firmware/qcom/qcom_pas.c
-> > new file mode 100644
-> > index 000000000000..beb1bae55546
-> > --- /dev/null
-> > +++ b/drivers/firmware/qcom/qcom_pas.c
-> > @@ -0,0 +1,298 @@
-> > +// SPDX-License-Identifier: GPL-2.0
-> > +/*
-> > + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-> > + */
-> > +
-> > +#include <linux/device/devres.h>
-> > +#include <linux/firmware/qcom/qcom_pas.h>
-> > +#include <linux/kernel.h>
-> > +#include <linux/module.h>
-> > +
-> > +#include "qcom_pas.h"
-> > +
-> > +struct qcom_pas_ops *ops_ptr;
-> > +
-> > +/**
-> > + * devm_qcom_pas_context_alloc() - Allocate peripheral authentication service
-> > + *				   context for a given peripheral
-> > + *
-> > + * PAS context is device-resource managed, so the caller does not need
-> > + * to worry about freeing the context memory.
-> > + *
-> > + * @dev:	  PAS firmware device
-> > + * @pas_id:	  peripheral authentication service id
-> > + * @mem_phys:	  Subsystem reserve memory start address
-> > + * @mem_size:	  Subsystem reserve memory size
-> > + *
-> > + * Return: The new PAS context, or ERR_PTR() on failure.
-> > + */
-> > +struct qcom_pas_context *devm_qcom_pas_context_alloc(struct device *dev,
-> > +						     u32 pas_id,
-> > +						     phys_addr_t mem_phys,
-> > +						     size_t mem_size)
-> > +{
-> > +	struct qcom_pas_context *ctx;
-> > +
-> > +	ctx = devm_kzalloc(dev, sizeof(*ctx), GFP_KERNEL);
-> > +	if (!ctx)
-> > +		return ERR_PTR(-ENOMEM);
-> > +
-> > +	ctx->dev = dev;
-> > +	ctx->pas_id = pas_id;
-> > +	ctx->mem_phys = mem_phys;
-> > +	ctx->mem_size = mem_size;
-> > +
-> > +	return ctx;
-> > +}
-> > +EXPORT_SYMBOL_GPL(devm_qcom_pas_context_alloc);
-> > +
-> > +/**
-> > + * qcom_pas_init_image() - Initialize peripheral authentication service state
-> > + *			   machine for a given peripheral, using the metadata
-> > + * @pas_id:	peripheral authentication service id
-> > + * @metadata:	pointer to memory containing ELF header, program header table
-> > + *		and optional blob of data used for authenticating the metadata
-> > + *		and the rest of the firmware
-> > + * @size:	size of the metadata
-> > + * @ctx:	optional pas context
-> > + *
-> > + * Return: 0 on success.
-> > + *
-> > + * Upon successful return, the PAS metadata context (@ctx) will be used to
-> > + * track the metadata allocation, this needs to be released by invoking
-> > + * qcom_pas_metadata_release() by the caller.
-> > + */
-> > +int qcom_pas_init_image(u32 pas_id, const void *metadata, size_t size,
-> > +			struct qcom_pas_context *ctx)
-> > +{
-> 
-> I think we should check for !ctx everywhere the way we are doing in qcom_pas_metadata_release().
-> !ctx->ptr may be checked conditionally based on whether the underlying implementation
-> uses it.
+On Thu, Mar 19, 2026 at 04:33:48PM +0100, Marcin Ślusarz wrote:
+> On Thu, Mar 19, 2026 at 03:17:36PM +0000, Liviu Dudau wrote:
+> > On Thu, Mar 19, 2026 at 01:39:40PM +0100, Marcin Ślusarz wrote:
+> > > On Thu, Mar 19, 2026 at 11:43:45AM +0000, Liviu Dudau wrote:
+> > > > Hi Marcin,
+> > > > 
+> > > > On Thu, Mar 19, 2026 at 12:00:53PM +0100, Marcin Slusarz wrote:
+> > > > > ...
+> > > > > +#define VALID_TIMESTAMP_QUERY_FLAGS \
+> > > > > +		(DRM_PANTHOR_TIMESTAMP_GPU | \
+> > > > > +		 DRM_PANTHOR_TIMESTAMP_CPU_TYPE_MASK | \
+> > > > > +		 DRM_PANTHOR_TIMESTAMP_GPU_OFFSET | \
+> > > > > +		 DRM_PANTHOR_TIMESTAMP_GPU_CYCLE_COUNT | \
+> > > > > +		 DRM_PANTHOR_TIMESTAMP_FREQ | \
+> > > > > +		 DRM_PANTHOR_TIMESTAMP_DURATION)
+> > > > > +
+> > > > >  static int panthor_query_timestamp_info(struct panthor_device *ptdev,
+> > > > >  					struct drm_panthor_timestamp_info *arg)
+> > > > >  {
+> > > > >  	int ret;
+> > > > > +	u32 flags;
+> > > > > +	unsigned long irq_flags;
+> > > > > +	struct timespec64 cpu_ts;
+> > > > > +	u64 query_start_time;
+> > > > > +	bool minimize_interruption;
+> > > > > +	u32 timestamp_types = 0;
+> > > > > +
+> > > > > +	if (arg->flags != 0) {
+> > > > > +		flags = arg->flags;
+> > > > > +	} else {
+> > > > > +		/*
+> > > > > +		 * If flags are 0, then ask for the same things that we asked
+> > > > > +		 * for before flags were added.
+> > > > > +		 */
+> > > > > +		flags = DRM_PANTHOR_TIMESTAMP_GPU |
+> > > > > +			DRM_PANTHOR_TIMESTAMP_GPU_OFFSET |
+> > > > > +			DRM_PANTHOR_TIMESTAMP_FREQ;
+> > > > > +	}
+> > > > > +
+> > > > > +	switch (flags & DRM_PANTHOR_TIMESTAMP_CPU_TYPE_MASK) {
+> > > > > +	case 0:
+> > > 
+> > > Umm, this should be DRM_PANTHOR_TIMESTAMP_CPU_NONE.
 
-The ctx for this API is optional, that means the backend should check
-apporpriately for it. I will add that check for TEE backend though.
+OK, are you going to re-spin?
+
+> > > 
+> > > > > +		break;
+> > > > > +	case DRM_PANTHOR_TIMESTAMP_CPU_MONOTONIC:
+> > > > > +	case DRM_PANTHOR_TIMESTAMP_CPU_MONOTONIC_RAW:
+> > > > > +		timestamp_types++;
+> > > > > +		break;
+> > > > > +	default:
+> > > > > +		return -EINVAL;
+> > > > > +	}
+> > > > > +
+> > > > > +	if (flags & ~VALID_TIMESTAMP_QUERY_FLAGS)
+> > > > > +		return -EINVAL;
+> > > > 
+> > > > Can we move this check before the switch and simplify the switch itself to only do the timestamp_types increment?
+> > > 
+> > > DRM_PANTHOR_TIMESTAMP_CPU_TYPE_MASK is bit field that holds individual
+> > > clock type values, so we still need to validate the bit field.
+> > 
+> > The if () test eliminates the default case, and if you change the switch to:
+> > 
+> > 	switch (flags & DRM_PANTHOR_TIMESTAMP_CPU_NONE) {
+> > 	case DRM_PANTHOR_TIMESTAMP_CPU_MONOTONIC:
+> > 	case DRM_PANTHOR_TIMESTAMP_CPU_MONOTONIC_RAW:
+> > 		timestamp_types++;
+> > 		break;
+> > 	}
+> > 
+> > then it should be equivalent, right?
+> 
+> We need the default case to detect garbage values in the part of flags
+> that ands with DRM_PANTHOR_TIMESTAMP_CPU_TYPE_MASK.
+> 
+> DRM_PANTHOR_TIMESTAMP_CPU_TYPE_MASK is 7 << 1,
+
+I understand that you want to make sure that user space doesn't insert values into the
+flags and then pretends that because we didn't return an error that's now part of the
+ABI. But then maybe you should not reserve the extra bit now if you don't know how
+it's going to be used (in other words, why not make TIMESTAMP_CPU_TYPE_MASK  3 << 1?).
+
+> DRM_PANTHOR_TIMESTAMP_CPU_MONOTONIC is 1 << 1,
+> DRM_PANTHOR_TIMESTAMP_CPU_MONOTONIC_RAW is 2 << 1,
+> so 3 << 1, 4 << 1, 5 << 1, 6 << 1, 7 << 1 are all invalid values that need
+> to be rejected.
+
+I am confused about why TIMESTAMP_CPU is a continous range [0-7] while the rest of the
+flags are bits in a bitmask. A note should be added to the panthor_drm.h file to
+explain this.
 
 > 
-> > +	if (ops_ptr)
-> > +		return ops_ptr->init_image(ops_ptr->dev, pas_id,
-> > +					   metadata, size, ctx);
-> > +
-> > +	return -ENODEV;
-> > +}
-> > +EXPORT_SYMBOL_GPL(qcom_pas_init_image);
-> > +
-> > +/**
-> > + * qcom_pas_metadata_release() - release metadata context
-> > + * @ctx:	pas context
-> > + */
-> > +void qcom_pas_metadata_release(struct qcom_pas_context *ctx)
-> > +{
-> > +	if (!ctx || !ctx->ptr)
-> > +		return;
-> > +
-> > +	if (ops_ptr)
-> > +		ops_ptr->metadata_release(ops_ptr->dev, ctx);
-> > +}
-> > +EXPORT_SYMBOL_GPL(qcom_pas_metadata_release);
-> > +
-> > +/**
-> > + * qcom_pas_mem_setup() - Prepare the memory related to a given peripheral
-> > + *			  for firmware loading
-> > + * @pas_id:	peripheral authentication service id
-> > + * @addr:	start address of memory area to prepare
-> > + * @size:	size of the memory area to prepare
-> > + *
-> > + * Return: 0 on success.
-> > + */
-> > +int qcom_pas_mem_setup(u32 pas_id, phys_addr_t addr, phys_addr_t size)
-> > +{
-> > +	if (ops_ptr)
-> > +		return ops_ptr->mem_setup(ops_ptr->dev, pas_id, addr, size);
-> > +
-> > +	return -ENODEV;
-> > +}
-> > +EXPORT_SYMBOL_GPL(qcom_pas_mem_setup);
-> > +
-> > +/**
-> > + * qcom_pas_get_rsc_table() - Retrieve the resource table in passed output buffer
-> > + *			      for a given peripheral.
-> > + *
-> > + * Qualcomm remote processor may rely on both static and dynamic resources for
-> > + * its functionality. Static resources typically refer to memory-mapped
-> > + * addresses required by the subsystem and are often embedded within the
-> > + * firmware binary and dynamic resources, such as shared memory in DDR etc.,
-> > + * are determined at runtime during the boot process.
-> > + *
-> > + * On Qualcomm Technologies devices, it's possible that static resources are
-> > + * not embedded in the firmware binary and instead are provided by TrustZone.
-> > + * However, dynamic resources are always expected to come from TrustZone. This
-> > + * indicates that for Qualcomm devices, all resources (static and dynamic) will
-> > + * be provided by TrustZone PAS service.
-> > + *
-> > + * If the remote processor firmware binary does contain static resources, they
-> > + * should be passed in input_rt. These will be forwarded to TrustZone for
-> > + * authentication. TrustZone will then append the dynamic resources and return
-> > + * the complete resource table in output_rt_tzm.
-> > + *
-> > + * If the remote processor firmware binary does not include a resource table,
-> > + * the caller of this function should set input_rt as NULL and input_rt_size
-> > + * as zero respectively.
-> > + *
-> > + * More about documentation on resource table data structures can be found in
-> > + * include/linux/remoteproc.h
-> > + *
-> > + * @ctx:	    PAS context
-> > + * @pas_id:	    peripheral authentication service id
-> > + * @input_rt:       resource table buffer which is present in firmware binary
-> > + * @input_rt_size:  size of the resource table present in firmware binary
-> > + * @output_rt_size: TrustZone expects caller should pass worst case size for
-> > + *		    the output_rt_tzm.
-> > + *
-> > + * Return:
-> > + *  On success, returns a pointer to the allocated buffer containing the final
-> > + *  resource table and output_rt_size will have actual resource table size from
-> > + *  TrustZone. The caller is responsible for freeing the buffer. On failure,
-> > + *  returns ERR_PTR(-errno).
-> > + */
-> > +struct resource_table *qcom_pas_get_rsc_table(struct qcom_pas_context *ctx,
-> > +					      void *input_rt,
-> > +					      size_t input_rt_size,
-> > +					      size_t *output_rt_size)
-> > +{
-> 
-> Check for !ctx here as well.
+> And since DRM_PANTHOR_TIMESTAMP_CPU_NONE is 0 << 1, we need it too in
+> the switch to not be caught by the default case.
 
-Ack.
+It only makes sense if you explain that TIMESTAMP_CPU values are in a range. I kept reading
+the different versions of the patch thinking that they are bits in a bitmask, with
+TIMESTAMP_CPU_NONE being the logical state of not selecting any of the sources.
+
+Best regards,
+Liviu
+
 
 > 
-> > +	if (ops_ptr)
-> > +		return ops_ptr->get_rsc_table(ops_ptr->dev, ctx, input_rt,
-> > +					      input_rt_size, output_rt_size);
-> > +
-> > +	return ERR_PTR(-ENODEV);
-> > +}
-> > +EXPORT_SYMBOL_GPL(qcom_pas_get_rsc_table);
-> > +
-> > +/**
-> > + * qcom_pas_auth_and_reset() - Authenticate the given peripheral firmware
-> > + *			       and reset the remote processor
-> > + * @pas_id:	peripheral authentication service id
-> > + *
-> > + * Return: 0 on success.
-> > + */
-> > +int qcom_pas_auth_and_reset(u32 pas_id)
-> > +{
-> > +	if (ops_ptr)
-> > +		return ops_ptr->auth_and_reset(ops_ptr->dev, pas_id);
-> > +
-> > +	return -ENODEV;
-> > +}
-> > +EXPORT_SYMBOL_GPL(qcom_pas_auth_and_reset);
-> > +
-> > +/**
-> > + * qcom_pas_prepare_and_auth_reset() - Prepare, authenticate, and reset the
-> > + *				       remote processor
-> > + *
-> > + * @ctx:	Context saved during call to qcom_scm_pas_context_init()
-> > + *
-> > + * This function performs the necessary steps to prepare a PAS subsystem,
-> > + * authenticate it using the provided metadata, and initiate a reset sequence.
-> > + *
-> > + * It should be used when Linux is in control setting up the IOMMU hardware
-> > + * for remote subsystem during secure firmware loading processes. The
-> > + * preparation step sets up a shmbridge over the firmware memory before
-> > + * TrustZone accesses the firmware memory region for authentication. The
-> > + * authentication step verifies the integrity and authenticity of the firmware
-> > + * or configuration using secure metadata. Finally, the reset step ensures the
-> > + * subsystem starts in a clean and sane state.
-> > + *
-> > + * Return: 0 on success, negative errno on failure.
-> > + */
-> > +int qcom_pas_prepare_and_auth_reset(struct qcom_pas_context *ctx)
-> > +{
-> 
-> Same here.
+> > > 
+> > > > > +
+> > > > > +	if (flags & DRM_PANTHOR_TIMESTAMP_GPU)
+> > > > > +		timestamp_types++;
+> > > > > +	if (flags & DRM_PANTHOR_TIMESTAMP_GPU_CYCLE_COUNT)
+> > > > > +		timestamp_types++;
+> > > > > +
+> > > > > +	/* If user asked to obtain timestamps from more than one source,
+> > > > > +	 * then it very likely means they want them to be as close as possible.
+> > > > > +	 * If they asked for duration, then that likely means that they
+> > > > > +	 * want to know how long obtaining timestamp takes, without random
+> > > > > +	 * events, like process scheduling or interrupts.
+> > > > > +	 */
+> > > > 
+> > > > This comment makes me think that user can ask for both CPU_MONOTONIC and
+> > > > CPU_MONOTONIC_RAW timestamps, but the code is built to make them exclusive.
+> > > > Can we document better what sources can be requested simultaneously?
+> > > 
+> > > Somethine like this?
+> > > 
+> > > diff --git a/include/uapi/drm/panthor_drm.h b/include/uapi/drm/panthor_drm.h
+> > > index 8a46ef040c3d..0e455d91e77d 100644
+> > > --- a/include/uapi/drm/panthor_drm.h
+> > > +++ b/include/uapi/drm/panthor_drm.h
+> > > @@ -466,6 +466,11 @@ struct drm_panthor_timestamp_info {
+> > >          *  DRM_PANTHOR_TIMESTAMP_GPU |
+> > >          *  DRM_PANTHOR_TIMESTAMP_GPU_OFFSET |
+> > >          *  DRM_PANTHOR_TIMESTAMP_FREQ
+> > > +        *
+> > > +        * Note: these flags are exclusive to each other (only one can be used):
+> > > +        * - DRM_PANTHOR_TIMESTAMP_CPU_NONE
+> > > +        * - DRM_PANTHOR_TIMESTAMP_CPU_MONOTONIC
+> > > +        * - DRM_PANTHOR_TIMESTAMP_CPU_MONOTONIC_RAW
+> > 
+> > Yes, looks good to me.
+> > 
+> > Best regards,
+> > Liviu
+> > 
+> > >          */
+> > >         __u32 flags;
+> > >  
+> > 
+> > -- 
+> > ====================
+> > | I would like to |
+> > | fix the world,  |
+> > | but they're not |
+> > | giving me the   |
+> >  \ source code!  /
+> >   ---------------
+> >     ¯\_(ツ)_/¯
 
-Ack.
-
--Sumit
+-- 
+====================
+| I would like to |
+| fix the world,  |
+| but they're not |
+| giving me the   |
+ \ source code!  /
+  ---------------
+    ¯\_(ツ)_/¯
