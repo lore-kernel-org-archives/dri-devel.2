@@ -4,103 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3F0C2F483C6
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 952C6F483C9
 	for <dri-devel@archiver.kernel.org>; Mon, 23 Mar 2026 16:04:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 86FF110E58B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C658610E58E;
 	Mon, 23 Mar 2026 16:04:32 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="jym52Pi+";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="NqNrHZD5";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="jym52Pi+";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="NqNrHZD5";
-	dkim-atps=neutral
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 300DC10E585
- for <dri-devel@lists.freedesktop.org>; Mon, 23 Mar 2026 16:04:31 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 27A7410E57C
+ for <dri-devel@lists.freedesktop.org>; Mon, 23 Mar 2026 16:04:30 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 7EA784D36A;
- Mon, 23 Mar 2026 16:04:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1774281853; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=4tnXVQ0v65gT8OJzXRcGXicEmsQp/+E9NSJMFhfRBj0=;
- b=jym52Pi+g67eGjm6XrxxkwxTbmmmXX+wv6w1d52C+6IBoIj8tLehoLA7gHngbdAHMgl/zp
- 7po9H6hNj2qMAW8Le6GtEiXZmGiT6Mm1PleVR5gHQ+DiDMcTq7DLNvhoeYJE8FVvtx9IDV
- qdg09dt2wuarcMLvyooWTJRffoAk2Nk=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1774281853;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=4tnXVQ0v65gT8OJzXRcGXicEmsQp/+E9NSJMFhfRBj0=;
- b=NqNrHZD54iM8VqUTl2jrLgvnmK8Db55vgC9HdLwL9w2TFXRqzUBuFr5ecIiNPNXc+aA782
- uXPVdhszVbKwGvDw==
-Authentication-Results: smtp-out1.suse.de;
+ by smtp-out2.suse.de (Postfix) with ESMTPS id B09D05BD74;
+ Mon, 23 Mar 2026 16:04:15 +0000 (UTC)
+Authentication-Results: smtp-out2.suse.de;
 	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1774281853; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=4tnXVQ0v65gT8OJzXRcGXicEmsQp/+E9NSJMFhfRBj0=;
- b=jym52Pi+g67eGjm6XrxxkwxTbmmmXX+wv6w1d52C+6IBoIj8tLehoLA7gHngbdAHMgl/zp
- 7po9H6hNj2qMAW8Le6GtEiXZmGiT6Mm1PleVR5gHQ+DiDMcTq7DLNvhoeYJE8FVvtx9IDV
- qdg09dt2wuarcMLvyooWTJRffoAk2Nk=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1774281853;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=4tnXVQ0v65gT8OJzXRcGXicEmsQp/+E9NSJMFhfRBj0=;
- b=NqNrHZD54iM8VqUTl2jrLgvnmK8Db55vgC9HdLwL9w2TFXRqzUBuFr5ecIiNPNXc+aA782
- uXPVdhszVbKwGvDw==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 406D54396A;
- Mon, 23 Mar 2026 16:04:13 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 7812F4396A;
+ Mon, 23 Mar 2026 16:04:15 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id gGZMDn1kwWlfBAAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Mon, 23 Mar 2026 16:04:13 +0000
+ by imap1.dmz-prg2.suse.org with ESMTPSA id 6MocHH9kwWlfBAAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Mon, 23 Mar 2026 16:04:15 +0000
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: jfalempe@redhat.com, airlied@redhat.com, maarten.lankhorst@linux.intel.com,
  mripard@kernel.org, airlied@gmail.com, simona@ffwll.ch
 Cc: dri-devel@lists.freedesktop.org,
 	Thomas Zimmermann <tzimmermann@suse.de>
-Subject: [PATCH 06/15] drm/ast: Use constants for A2P registers
-Date: Mon, 23 Mar 2026 16:56:19 +0100
-Message-ID: <20260323160407.245773-7-tzimmermann@suse.de>
+Subject: [PATCH 14/15] drm/ast: dp501: Fix open-coded register access
+Date: Mon, 23 Mar 2026 16:56:27 +0100
+Message-ID: <20260323160407.245773-15-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260323160407.245773-1-tzimmermann@suse.de>
 References: <20260323160407.245773-1-tzimmermann@suse.de>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-6.80 / 50.00]; REPLY(-4.00)[];
- BAYES_HAM(-3.00)[100.00%]; MID_CONTAINS_FROM(1.00)[];
- NEURAL_HAM_LONG(-1.00)[-1.000]; R_MISSING_CHARSET(0.50)[];
- NEURAL_HAM_SHORT(-0.20)[-0.999]; MIME_GOOD(-0.10)[text/plain];
- RCVD_COUNT_TWO(0.00)[2]; ARC_NA(0.00)[];
- RCVD_VIA_SMTP_AUTH(0.00)[];
- FUZZY_RATELIMITED(0.00)[rspamd.com]; FROM_HAS_DN(0.00)[];
- TO_DN_SOME(0.00)[]; MIME_TRACE(0.00)[0:+];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
- FREEMAIL_TO(0.00)[redhat.com,linux.intel.com,kernel.org,gmail.com,ffwll.ch];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.de:mid,suse.de:email];
- URIBL_BLOCKED(0.00)[imap1.dmz-prg2.suse.org:helo,suse.de:mid,suse.de:email];
- RCVD_TLS_ALL(0.00)[];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- RCPT_COUNT_SEVEN(0.00)[8];
- R_RATELIMIT(0.00)[to_ip_from(RLqirfcw6gnbcr9a9yhi49fhi6)];
- FREEMAIL_ENVRCPT(0.00)[gmail.com]
+X-Rspamd-Pre-Result: action=no action; module=replies;
+ Message is reply to one we originated
+X-Rspamd-Queue-Id: B09D05BD74
+X-Rspamd-Pre-Result: action=no action; module=replies;
+ Message is reply to one we originated
+X-Rspamd-Action: no action
+X-Spamd-Result: default: False [-4.00 / 50.00];
+	REPLY(-4.00)[]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,64 +67,195 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-A2P is the AHB-to-P Bridge. A2P registers are located at the memory
-range at [0x1e720000, 0x1e73ffff]. Refer to them with constants named
-AST_REG_A2P<n>, where <n> is the byte offset into the range.
+Replace all open-coded access to SCU registers in DP501 support with
+the appropriate calls to ast_moutdwm() and ast_mindwm(). Use SCU register
+constants. Name variables according to registers.
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
 ---
- drivers/gpu/drm/ast/ast_2300.c | 6 +++---
- drivers/gpu/drm/ast/ast_reg.h  | 8 ++++++++
- 2 files changed, 11 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/ast/ast_dp501.c | 124 +++++++++++++++-----------------
+ drivers/gpu/drm/ast/ast_reg.h   |   6 ++
+ 2 files changed, 64 insertions(+), 66 deletions(-)
 
-diff --git a/drivers/gpu/drm/ast/ast_2300.c b/drivers/gpu/drm/ast/ast_2300.c
-index 1fe947178124..96d9909d942c 100644
---- a/drivers/gpu/drm/ast/ast_2300.c
-+++ b/drivers/gpu/drm/ast/ast_2300.c
-@@ -508,7 +508,7 @@ static bool cbr_dll2(struct ast_device *ast, struct ast2300_dram_param *param)
- 	dlli  = (dllmin[1] + dllmax[1]) >> 1;
- 	dlli <<= 8;
- 	dlli += (dllmin[0] + dllmax[0]) >> 1;
--	ast_moutdwm(ast, AST_REG_MCR68, ast_mindwm(ast, 0x1E720058) | (dlli << 16));
-+	ast_moutdwm(ast, AST_REG_MCR68, ast_mindwm(ast, AST_REG_A2P58) | (dlli << 16));
- 	return status;
- } /* CBRDLL2 */
+diff --git a/drivers/gpu/drm/ast/ast_dp501.c b/drivers/gpu/drm/ast/ast_dp501.c
+index 23142119d733..98d8491ce6c9 100644
+--- a/drivers/gpu/drm/ast/ast_dp501.c
++++ b/drivers/gpu/drm/ast/ast_dp501.c
+@@ -347,68 +347,65 @@ static int ast_dp512_read_edid_block(void *data, u8 *buf, unsigned int block, si
+ static bool ast_init_dvo(struct ast_device *ast)
+ {
+ 	u8 jreg;
+-	u32 data;
+-	ast_write32(ast, 0xf004, AST_REG_MCR00);
+-	ast_write32(ast, 0xf000, 0x1);
+-	ast_write32(ast, 0x12000, 0x1688a8a8);
++	u32 scu02c;
++
++	ast_moutdwm(ast, AST_REG_SCU000, AST_REG_SCU000_PROTECTION_KEY);
  
-@@ -826,7 +826,7 @@ static void ddr3_init(struct ast_device *ast, struct ast2300_dram_param *param)
- 		data = ast_mindwm(ast, AST_REG_MCR1C);
- 		data = (data >> 8) & 0xff;
+ 	jreg = ast_get_index_reg_mask(ast, AST_IO_VGACRI, 0xd0, 0xff);
+ 	if (!(jreg & 0x80)) {
++		u32 scu008;
++
+ 		/* Init SCU DVO Settings */
+-		data = ast_read32(ast, 0x12008);
+-		/* delay phase */
+-		data &= 0xfffff8ff;
+-		data |= 0x00000500;
+-		ast_write32(ast, 0x12008, data);
++
++		scu008 = ast_mindwm(ast, AST_REG_SCU008);
++		scu008 &= 0xfffff8ff;
++		scu008 |= 0x00000500; /* delay phase */
++		ast_moutdwm(ast, AST_REG_SCU008, scu008);
+ 
+ 		if (IS_AST_GEN4(ast)) {
+-			data = ast_read32(ast, 0x12084);
+-			/* multi-pins for DVO single-edge */
+-			data |= 0xfffe0000;
+-			ast_write32(ast, 0x12084, data);
+-
+-			data = ast_read32(ast, 0x12088);
+-			/* multi-pins for DVO single-edge */
+-			data |= 0x000fffff;
+-			ast_write32(ast, 0x12088, data);
+-
+-			data = ast_read32(ast, 0x12090);
+-			/* multi-pins for DVO single-edge */
+-			data &= 0xffffffcf;
+-			data |= 0x00000020;
+-			ast_write32(ast, 0x12090, data);
++			u32 scu084, scu088, scu090;
++
++			scu084 = ast_mindwm(ast, AST_REG_SCU084);
++			scu084 |= 0xfffe0000; /* multi-pins for DVO single-edge */
++			ast_moutdwm(ast, AST_REG_SCU084, scu084);
++
++			scu088 = ast_mindwm(ast, AST_REG_SCU088);
++			scu088 |= 0x000fffff; /* multi-pins for DVO single-edge */
++			ast_moutdwm(ast, AST_REG_SCU088, scu088);
++
++			scu090 = ast_mindwm(ast, AST_REG_SCU090);
++			scu090 &= 0xffffffcf;
++			scu090 |= 0x00000020; /* multi-pins for DVO single-edge */
++			ast_moutdwm(ast, AST_REG_SCU090, scu090);
+ 		} else { /* AST GEN5+ */
+-			data = ast_read32(ast, 0x12088);
+-			/* multi-pins for DVO single-edge */
+-			data |= 0x30000000;
+-			ast_write32(ast, 0x12088, data);
+-
+-			data = ast_read32(ast, 0x1208c);
+-			/* multi-pins for DVO single-edge */
+-			data |= 0x000000cf;
+-			ast_write32(ast, 0x1208c, data);
+-
+-			data = ast_read32(ast, 0x120a4);
+-			/* multi-pins for DVO single-edge */
+-			data |= 0xffff0000;
+-			ast_write32(ast, 0x120a4, data);
+-
+-			data = ast_read32(ast, 0x120a8);
+-			/* multi-pins for DVO single-edge */
+-			data |= 0x0000000f;
+-			ast_write32(ast, 0x120a8, data);
+-
+-			data = ast_read32(ast, 0x12094);
+-			/* multi-pins for DVO single-edge */
+-			data |= 0x00000002;
+-			ast_write32(ast, 0x12094, data);
++			u32 scu088, scu08c, scu0a4, scu0a8, scu094;
++
++			scu088 = ast_mindwm(ast, AST_REG_SCU088);
++			scu088 |= 0x30000000; /* multi-pins for DVO single-edge */
++			ast_moutdwm(ast, AST_REG_SCU088, scu088);
++
++			scu08c = ast_mindwm(ast, AST_REG_SCU08C);
++			scu08c |= 0x000000cf; /* multi-pins for DVO single-edge */
++			ast_moutdwm(ast, AST_REG_SCU08C, scu08c);
++
++			scu0a4 = ast_mindwm(ast, AST_REG_SCU0A4);
++			scu0a4 |= 0xffff0000; /* multi-pins for DVO single-edge */
++			ast_moutdwm(ast, AST_REG_SCU0A4, scu0a4);
++
++			scu0a8 = ast_mindwm(ast, AST_REG_SCU0A8);
++			scu0a8 |= 0x0000000f; /* multi-pins for DVO single-edge */
++			ast_moutdwm(ast, AST_REG_SCU0A8, scu0a8);
++
++			scu094 = ast_mindwm(ast, AST_REG_SCU094);
++			scu094 |= 0x00000002; /* multi-pins for DVO single-edge */
++			ast_moutdwm(ast, AST_REG_SCU094, scu094);
+ 		}
  	}
--	ast_moutdwm(ast, 0x1E720058, ast_mindwm(ast, AST_REG_MCR68) & 0xffff);
-+	ast_moutdwm(ast, AST_REG_A2P58, ast_mindwm(ast, AST_REG_MCR68) & 0xffff);
- 	data = ast_mindwm(ast, AST_REG_MCR18) | 0xC00;
- 	ast_moutdwm(ast, AST_REG_MCR18, data);
  
-@@ -1188,7 +1188,7 @@ static void ddr2_init(struct ast_device *ast, struct ast2300_dram_param *param)
- 		data = ast_mindwm(ast, AST_REG_MCR1C);
- 		data = (data >> 8) & 0xff;
- 	}
--	ast_moutdwm(ast, 0x1E720058, ast_mindwm(ast, AST_REG_MCR08) & 0xffff);
-+	ast_moutdwm(ast, AST_REG_A2P58, ast_mindwm(ast, AST_REG_MCR08) & 0xffff);
- 	data = ast_mindwm(ast, AST_REG_MCR18) | 0xC00;
- 	ast_moutdwm(ast, AST_REG_MCR18, data);
+ 	/* Force to DVO */
+-	data = ast_read32(ast, 0x1202c);
+-	data &= 0xfffbffff;
+-	ast_write32(ast, 0x1202c, data);
++	scu02c = ast_mindwm(ast, AST_REG_SCU02C);
++	scu02c &= 0xfffbffff;
++	ast_moutdwm(ast, AST_REG_SCU02C, scu02c);
  
+ 	/* Init VGA DVO Settings */
+ 	ast_set_index_reg_mask(ast, AST_IO_VGACRI, 0xa3, 0xcf, 0x80);
+@@ -418,25 +415,20 @@ static bool ast_init_dvo(struct ast_device *ast)
+ 
+ static void ast_init_analog(struct ast_device *ast)
+ {
+-	u32 data;
++	u32 scu02c;
+ 
+ 	/*
+ 	 * Set DAC source to VGA mode in SCU2C via the P2A
+-	 * bridge. First configure the P2U to target the SCU
+-	 * in case it isn't at this stage.
++	 * bridge.
+ 	 */
+-	ast_write32(ast, 0xf004, AST_REG_MCR00);
+-	ast_write32(ast, 0xf000, 0x1);
+-
+-	/* Then unlock the SCU with the magic password */
+-	ast_write32(ast, 0x12000, 0x1688a8a8);
+-	ast_write32(ast, 0x12000, 0x1688a8a8);
+-	ast_write32(ast, 0x12000, 0x1688a8a8);
+-
+-	/* Finally, clear bits [17:16] of SCU2c */
+-	data = ast_read32(ast, 0x1202c);
+-	data &= 0xfffcffff;
+-	ast_write32(ast, 0x1202c, data);
++
++	/* Unlock the SCU with the magic password */
++	ast_moutdwm_poll(ast, AST_REG_SCU000, AST_REG_SCU000_PROTECTION_KEY, 0x01);
++
++	/* Clear bits [17:16] of SCU2C */
++	scu02c = ast_mindwm(ast, AST_REG_SCU02C);
++	scu02c &= 0xfffcffff;
++	ast_moutdwm(ast, AST_REG_SCU02C, scu02c);
+ 
+ 	/* Disable DVO */
+ 	ast_set_index_reg_mask(ast, AST_IO_VGACRI, 0xa3, 0xcf, 0x00);
 diff --git a/drivers/gpu/drm/ast/ast_reg.h b/drivers/gpu/drm/ast/ast_reg.h
-index e8d4991186ca..730072a3c2cd 100644
+index c3473cad4545..9d6ea0765990 100644
 --- a/drivers/gpu/drm/ast/ast_reg.h
 +++ b/drivers/gpu/drm/ast/ast_reg.h
-@@ -188,4 +188,12 @@
+@@ -186,11 +186,17 @@
+ #define AST_REG_SCU008				AST_REG_SCU(0x008)
+ #define AST_REG_SCU00C				AST_REG_SCU(0x00c)
+ #define AST_REG_SCU020				AST_REG_SCU(0x020)
++#define AST_REG_SCU02C				AST_REG_SCU(0x02c)
+ #define AST_REG_SCU040				AST_REG_SCU(0x040)
+ #define AST_REG_SCU070				AST_REG_SCU(0x070)
+ #define AST_REG_SCU07C				AST_REG_SCU(0x07c)
++#define AST_REG_SCU084				AST_REG_SCU(0x084)
++#define AST_REG_SCU088				AST_REG_SCU(0x088)
++#define AST_REG_SCU08C				AST_REG_SCU(0x08c)
+ #define AST_REG_SCU090				AST_REG_SCU(0x090)
+ #define AST_REG_SCU094				AST_REG_SCU(0x094)
++#define AST_REG_SCU0A4				AST_REG_SCU(0x0a4)
++#define AST_REG_SCU0A8				AST_REG_SCU(0x0a8)
+ #define AST_REG_SCU100				AST_REG_SCU(0x100)
  #define AST_REG_SCU104				AST_REG_SCU(0x104)
  #define AST_REG_SCU160				AST_REG_SCU(0x160)
- 
-+/*
-+ * AHB-to-P Bus Bridge (0x1e720000 - 0x1e73ffff)
-+ */
-+
-+#define AST_REG_A2P_BASE			(0x1e720000)
-+#define AST_REG_A2P(__offset)			(AST_REG_A2P_BASE + (__offset))
-+#define AST_REG_A2P58				AST_REG_A2P(0x58)
-+
- #endif
 -- 
 2.53.0
 
