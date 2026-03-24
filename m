@@ -4,82 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 769CC10A62CE
-	for <dri-devel@archiver.kernel.org>; Thu, 26 Mar 2026 13:18:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 26B9F10A62CC
+	for <dri-devel@archiver.kernel.org>; Thu, 26 Mar 2026 13:18:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5941C10E9B6;
-	Thu, 26 Mar 2026 13:17:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 82FBB10E97A;
+	Thu, 26 Mar 2026 13:18:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="AcxSyggs";
+	dkim=pass (2048-bit key; unprotected) header.d=meta.com header.i=@meta.com header.b="UeOYGNcg";
 	dkim-atps=neutral
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com
- [209.85.128.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 887B210E182
- for <dri-devel@lists.freedesktop.org>; Tue, 24 Mar 2026 19:30:24 +0000 (UTC)
-Received: by mail-wm1-f42.google.com with SMTP id
- 5b1f17b1804b1-4870206f73bso24810815e9.3
- for <dri-devel@lists.freedesktop.org>; Tue, 24 Mar 2026 12:30:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1774380623; x=1774985423; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=4NWl+nIdcZDyj9SaWGNpDFXb3knx3+VKeGhhxFBSjxc=;
- b=AcxSyggsBbqWXe4sI5oE3yesfjDPuzWgfh3Dlg2AtegZ27o8yJrwgY/9bmce3OL9Fs
- oar0b24n1nLbmdFHXkqfR1/7TXv9RUdsLPAsnByuA/x+hwOmGToEvBmY0v7Nx1CztzXE
- IoQCzCxiVrhpVSBQ9dID6hKFGKK00n/5f9Ib8nzYH6wJ4BKhZCY9Qtg9rKgTYHp1UkkA
- QtF/Q555M3uulxFo+Um9N19jWvrN+CoNHPBjp8qdo/xGSeXXLo8YGblnjWq/ml1NI2x5
- I+tsdw5Z6GbmNOIcr4dv/yqy0mQ/o6WeTwwDwZsyavzZFegETKg4NmPrJ5UHjfBudbRM
- pLIg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774380623; x=1774985423;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=4NWl+nIdcZDyj9SaWGNpDFXb3knx3+VKeGhhxFBSjxc=;
- b=fcqikB4nMxDoLjTH0v8wIlm/HYlpt/EPPSeJiLhHtRmpezowCqnI/tnLnR6lJ9z7P0
- PvU3Pxsq1XPrIJgZhh90n9Jf32kYmfsH0Sr9iDEb1QBGt/PU54/81igr31A5LaXGdsT1
- oF4VIDu6txJ0HRMrL0/CvP9XT0HVIssr7vmTSR7sVkcKux/f7anOHtQTrtupZHk3Wu54
- YcEmGLYusXeyUKcGTXwetAbM0pw/EgrVuR1A3Q+NTHMBKdK5fJRExl0677dWRyVm77L2
- wL3sKv30nWkVgp4YgPptXn4o7SRd00FH4ELTOl5bpqbPSSsGGbIiy3/UHnmNv9tskKe1
- lgtQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCV1j3b898Jo1MWh+SBPT75EcV3eL7h6Tveb5M1tnsjYqSyPdpda4trjSeJLahiknZtAbNUg1Q/jnX8=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyfOYc+xDgSmTLr8XA+redo3uZNAyaM4gmbuH1bFLSGaUU2Ptqz
- klq8OsBhr8fGYZ0HnCg8r2S0CC8BLVVvsHeEK9h+MxTaxtBNNAZA8ntt
-X-Gm-Gg: ATEYQzziExnIY1ZSwqeSQIZigs4T4KXQXwv/J7gjJEOQwDC6I/lcRQQZRZOJViA7WMC
- 23LEYynHYuHlcVk21NUgWzUMc5sA1vbwS86TJpPw0iNviglF5m8oo0CgTDT+nNINjmXWTSOG9FV
- /DzK4kIj1bdzqQmqX4Z/StiMsAIKu1Yy5TPsNBkY7pCeflSf/jPyMVK8o3NP/DLYWL2GQFLujQL
- ZwgV3VwAEuaWUMcqkD5fHBuNaxQnJaxcYbzZZR3wtdYds49qP18Kw6skUlim/0iUMAy8KY2jdF9
- U4n8ZnZymCfo6c9k8LAG4Xivs48+yDytheF3xmB4kaXAu//sJ9xPpUzFTFO/KnsoCfEO/D0dPSP
- H+2YeF51EZhbcIosWlYQ/4iLj/BH/+83h4o7Qz9WY4ic5OJ7KQFd3zpCJv7KlWlD5wyAXjUUGwX
- VFlsJLWhfUQv9lnEp+Vm8qYdab2WQJNgk/Fbq43VRFxiyzesZbXaBYik4g/G9ujbXOspY1lonkb
- KYQe7XASgqmpLqSzTtK+LFPUAVzwA==
-X-Received: by 2002:a05:600d:486:20b0:487:386:3714 with SMTP id
- 5b1f17b1804b1-48716043919mr10455905e9.17.1774380622686; 
- Tue, 24 Mar 2026 12:30:22 -0700 (PDT)
-Received: from localhost.localdomain
- (lfbn-nan-1-1836-142.w90-104.abo.wanadoo.fr. [90.104.252.142])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-48717373ef3sm737135e9.26.2026.03.24.12.30.21
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 24 Mar 2026 12:30:22 -0700 (PDT)
-From: Julien Chauveau <chauveau.julien@gmail.com>
-To: Phong LE <ple@baylibre.com>, Neil Armstrong <neil.armstrong@linaro.org>,
- dri-devel@lists.freedesktop.org
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, Julien Chauveau <chauveau.julien@gmail.com>
-Subject: [PATCH] drm/bridge: it66121: acquire reset GPIO in probe
-Date: Tue, 24 Mar 2026 20:30:11 +0100
-Message-ID: <20260324193011.16583-1-chauveau.julien@gmail.com>
+Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com
+ [67.231.145.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1001E10E626
+ for <dri-devel@lists.freedesktop.org>; Tue, 24 Mar 2026 23:51:52 +0000 (UTC)
+Received: from pps.filterd (m0109334.ppops.net [127.0.0.1])
+ by mx0a-00082601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 62OLWXah1320219
+ for <dri-devel@lists.freedesktop.org>; Tue, 24 Mar 2026 16:51:51 -0700
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=meta.com; h=cc
+ :content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=s2048-2025-q2;
+ bh=B4WuddQzak0iMs+x+SFLQE/xEKY5OBiF+Wu5h4lGL3o=; b=UeOYGNcgp3H5
+ TduUlpqGXTYgT2Q9D/GPNOXzh9XnVHI8ldO3rbkDsSieTaencdeWe3FEzmmQFLo9
+ yQUVfQDqtlZHleg/lJFvwS2mA5wl0gAPpIwLFuR+PXtoxXqWT8gYFJKu+mf2Xy4Q
+ g2zpRB1AbAWFsikg1g4GJklKIsw0oMdms3A/+QgYl7GUTOSaqa6WHAe17JesKs9e
+ dzuZH8e8Il6fRFaEvXK231nTHShFGD/ba5KWCF36ReRxufwl8FC+zo9ke9KPpNZu
+ kqWAZ8s0mYg7rb3+pNOB8XsqnZIDtjwfzLge2BusvK0lgDmunLf4Pl1NrgxYf380
+ L1CwELs+Vg==
+Received: from maileast.thefacebook.com ([163.114.135.16])
+ by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4d42mbhct2-2
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Tue, 24 Mar 2026 16:51:51 -0700 (PDT)
+Received: from twshared25002.15.frc2.facebook.com (2620:10d:c0a8:1b::30) by
+ mail.thefacebook.com (2620:10d:c0a9:6f::237c) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.2.2562.35; Tue, 24 Mar 2026 23:51:46 +0000
+Received: by devbig259.ftw1.facebook.com (Postfix, from userid 664516)
+ id 8DA221D7CF55; Tue, 24 Mar 2026 16:46:26 -0700 (PDT)
+From: Zhiping Zhang <zhipingz@meta.com>
+To: Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, Bjorn
+ Helgaas <bhelgaas@google.com>, <linux-rdma@vger.kernel.org>,
+ <linux-pci@vger.kernel.org>, <netdev@vger.kernel.org>,
+ <dri-devel@lists.freedesktop.org>, Keith Busch <kbusch@kernel.org>, Yochai
+ Cohen <yochai@nvidia.com>, Yishai Hadas <yishaih@nvidia.com>
+CC: Bjorn Helgaas <helgaas@kernel.org>, Zhiping Zhang <zhipingz@meta.com>
+Subject: [RFC v2 1/2] vfio: add callback to get tph info for dmabuf
+Date: Tue, 24 Mar 2026 16:46:02 -0700
+Message-ID: <20260324234615.3731237-2-zhipingz@meta.com>
 X-Mailer: git-send-email 2.52.0
+In-Reply-To: <20260324234615.3731237-1-zhipingz@meta.com>
+References: <20260324234615.3731237-1-zhipingz@meta.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: quoted-printable
+X-FB-Internal: Safe
+Content-Type: text/plain
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzI0MDE4NCBTYWx0ZWRfX3WUXXCSuOFeB
+ sVWpFXgWONX8LceWOEU8wOpRHgcsp1kZjB3AsIonxyAZwLgKFezhsDGFf/uKMfuxrSOcc3adoT0
+ 7DU56URRlkWoyXXYJNeehClkMpz7OPTujFm0+vp8X5Slc1TLlBBywYyFgrWiWhZntM3J14D06X3
+ swUkmrIovnMvrYwu1n1OI7ClKnqaYMEfZj5jxEhBQuhps4aXDBEt21c4URAdUH3ys+IO5DBkFf0
+ jcpF36iqzpGhQ4f1tWRe265iac7of6ex9nnBfvogxndOgVUjMS+E1hAKJoiIorz5ARR1F5ORmbb
+ O9MKF2QTDLTE4Zsa5K7Qlqnbg/1fNIE1c4cl2zlMcGajplNxNgBuBBsFZRhTTk5WqhMd5K09hFl
+ VIRT29yCxneaiXC1DXorWAsMDJvuXVsBX5OlTsf1i71qAwO4Wp2Hmun2mT9cBQXSA58sT5wZZ3Y
+ 0MpdYwSfrJbtr4xM3/Q==
+X-Proofpoint-GUID: zbr107TwwAsv20N6x7ZfQHaLE9dH32TO
+X-Proofpoint-ORIG-GUID: zbr107TwwAsv20N6x7ZfQHaLE9dH32TO
+X-Authority-Analysis: v=2.4 cv=FNwWBuos c=1 sm=1 tr=0 ts=69c32397 cx=c_pps
+ a=MfjaFnPeirRr97d5FC5oHw==:117 a=MfjaFnPeirRr97d5FC5oHw==:17
+ a=Yq5XynenixoA:10 a=VkNPw1HP01LnGYTKEx00:22 a=7x6HtfJdh03M6CCDgxCd:22
+ a=crHB47gyY4rKiduisYu9:22 a=VabnemYjAAAA:8 a=9vb4j_dHmgPK81v2NVsA:9
+ a=gKebqoRLp9LExxC7YDUY:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-03-24_04,2026-03-24_01,2025-10-01_01
 X-Mailman-Approved-At: Thu, 26 Mar 2026 13:17:48 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -96,38 +91,156 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The it66121_ctx structure has a gpio_reset field, and it66121_hw_reset()
-calls gpiod_set_value() on it. However, the GPIO descriptor is never
-acquired via devm_gpiod_get(), leaving gpio_reset as NULL throughout
-the driver lifetime.
+This patch adds a callback to get the tph info on DMA buffer exporters.
+The tph info includes both the steering tag and the process hint (ph).
 
-gpiod_set_value() silently returns when passed a NULL descriptor, so
-the hardware reset sequence in it66121_hw_reset() is a no-op. This
-leaves the chip in an undefined state at probe time, which can prevent
-it from responding on the I2C bus.
+The steering tag and ph are encoded in the flags field of
+vfio_device_feature_dma_buf instead of adding new fields to the uapi
+struct, to preserve ABI compatibility.
 
-The DT binding marks reset-gpios as a required property, so all
-compliant device trees provide this GPIO. Add the missing
-devm_gpiod_get() call after enabling power supplies and before the
-hardware reset, so the chip is properly reset with power applied.
-
-Fixes: 988156dc2fc9 ("drm: bridge: add it66121 driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Julien Chauveau <chauveau.julien@gmail.com>
+Signed-off-by: Zhiping Zhang <zhipingz@meta.com>
 ---
- drivers/gpu/drm/bridge/ite-it66121.c | 5 +++++
- 1 file changed, 5 insertions(+)
+ drivers/vfio/pci/vfio_pci_dmabuf.c | 26 ++++++++++++++++++++++++--
+ include/linux/dma-buf.h            | 30 ++++++++++++++++++++++++++++++
+ include/uapi/linux/vfio.h          |  9 +++++++--
+ 3 files changed, 61 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/bridge/ite-it66121.c b/drivers/gpu/drm/bridge/ite-it66121.c
---- a/drivers/gpu/drm/bridge/ite-it66121.c
-+++ b/drivers/gpu/drm/bridge/ite-it66121.c
-@@ -1559,6 +1559,11 @@ static int it66121_probe(struct i2c_client *client)
- 		return ret;
- 	}
- 
-+	ctx->gpio_reset = devm_gpiod_get(dev, "reset", GPIOD_OUT_LOW);
-+	if (IS_ERR(ctx->gpio_reset))
-+		return dev_err_probe(dev, PTR_ERR(ctx->gpio_reset),
-+				     "Failed to get reset GPIO\n");
+diff --git a/drivers/vfio/pci/vfio_pci_dmabuf.c b/drivers/vfio/pci/vfio_p=
+ci_dmabuf.c
+index 478beafc6ac3..c45cb3884b85 100644
+--- a/drivers/vfio/pci/vfio_pci_dmabuf.c
++++ b/drivers/vfio/pci/vfio_pci_dmabuf.c
+@@ -17,6 +17,8 @@ struct vfio_pci_dma_buf {
+ 	struct phys_vec *phys_vec;
+ 	struct p2pdma_provider *provider;
+ 	u32 nr_ranges;
++	u16 steering_tag;
++	u8 ph;
+ 	u8 revoked : 1;
+ };
+
+@@ -60,6 +62,15 @@ vfio_pci_dma_buf_map(struct dma_buf_attachment *attach=
+ment,
+ 				       priv->size, dir);
+ }
+
++static int vfio_pci_dma_buf_get_tph(struct dma_buf *dmabuf, u16 *steerin=
+g_tag,
++				    u8 *ph)
++{
++	struct vfio_pci_dma_buf *priv =3D dmabuf->priv;
++	*steering_tag =3D priv->steering_tag;
++	*ph =3D priv->ph;
++	return 0;
++}
 +
- 	it66121_hw_reset(ctx);
+ static void vfio_pci_dma_buf_unmap(struct dma_buf_attachment *attachment=
+,
+ 				   struct sg_table *sgt,
+ 				   enum dma_data_direction dir)
+@@ -90,6 +101,7 @@ static const struct dma_buf_ops vfio_pci_dmabuf_ops =3D=
+ {
+ 	.unpin =3D vfio_pci_dma_buf_unpin,
+ 	.attach =3D vfio_pci_dma_buf_attach,
+ 	.map_dma_buf =3D vfio_pci_dma_buf_map,
++	.get_tph =3D vfio_pci_dma_buf_get_tph,
+ 	.unmap_dma_buf =3D vfio_pci_dma_buf_unmap,
+ 	.release =3D vfio_pci_dma_buf_release,
+ };
+@@ -228,7 +240,10 @@ int vfio_pci_core_feature_dma_buf(struct vfio_pci_co=
+re_device *vdev, u32 flags,
+ 	if (copy_from_user(&get_dma_buf, arg, sizeof(get_dma_buf)))
+ 		return -EFAULT;
+
+-	if (!get_dma_buf.nr_ranges || get_dma_buf.flags)
++	if (!get_dma_buf.nr_ranges ||
++	    (get_dma_buf.flags & ~(VFIO_DMABUF_FL_TPH |
++				   VFIO_DMABUF_TPH_PH_MASK |
++				   VFIO_DMABUF_TPH_ST_MASK)))
+ 		return -EINVAL;
+
+ 	/*
+@@ -285,7 +300,14 @@ int vfio_pci_core_feature_dma_buf(struct vfio_pci_co=
+re_device *vdev, u32 flags,
+ 		ret =3D PTR_ERR(priv->dmabuf);
+ 		goto err_dev_put;
+ 	}
+-
++	if (get_dma_buf.flags & VFIO_DMABUF_FL_TPH) {
++		priv->steering_tag =3D (get_dma_buf.flags &
++				      VFIO_DMABUF_TPH_ST_MASK) >>
++				     VFIO_DMABUF_TPH_ST_SHIFT;
++		priv->ph =3D (get_dma_buf.flags &
++			    VFIO_DMABUF_TPH_PH_MASK) >>
++			   VFIO_DMABUF_TPH_PH_SHIFT;
++	}
+ 	/* dma_buf_put() now frees priv */
+ 	INIT_LIST_HEAD(&priv->dmabufs_elm);
+ 	down_write(&vdev->memory_lock);
+diff --git a/include/linux/dma-buf.h b/include/linux/dma-buf.h
+index 133b9e637b55..26705c83ad80 100644
+--- a/include/linux/dma-buf.h
++++ b/include/linux/dma-buf.h
+@@ -113,6 +113,36 @@ struct dma_buf_ops {
+ 	 */
+ 	void (*unpin)(struct dma_buf_attachment *attach);
+
++	/**
++	 * @get_tph:
++	 *
++	 * Get the TPH (TLP Processing Hints) for this DMA buffer.
++	 *
++	 * This callback allows DMA buffer exporters to provide TPH including
++	 * both the steering tag and the process hints (ph), which can be used
++	 * to optimize peer-to-peer (P2P) memory access. The TPH info is typica=
+lly
++	 * used in scenarios where:
++	 * - A PCIe device (e.g., RDMA NIC) needs to access memory on another
++	 *   PCIe device (e.g., GPU),
++	 * - The system supports TPH and can use steering tags / ph to optimize
++	 *   cache placement and memory access patterns,
++	 * - The memory is exported via DMABUF for cross-device sharing.
++	 *
++	 * @dmabuf: [in] The DMA buffer for which to retrieve TPH
++	 * @steering_tag: [out] Pointer to store the 16-bit TPH steering tag va=
+lue
++	 * @ph: [out] Pointer to store the 8-bit TPH processing-hint value
++	 *
++	 * Returns:
++	 * * 0 - Success, steering tag stored in @steering_tag
++	 * * -EOPNOTSUPP - TPH steering tags not supported for this buffer
++	 * * -EINVAL - Invalid parameters
++	 *
++	 * This callback is optional. If not implemented, the buffer does not
++	 * support TPH.
++	 *
++	 */
++	int (*get_tph)(struct dma_buf *dmabuf, u16 *steering_tag, u8 *ph);
++
+ 	/**
+ 	 * @map_dma_buf:
+ 	 *
+diff --git a/include/uapi/linux/vfio.h b/include/uapi/linux/vfio.h
+index bb7b89330d35..e2a8962641d2 100644
+--- a/include/uapi/linux/vfio.h
++++ b/include/uapi/linux/vfio.h
+@@ -1505,8 +1505,13 @@ struct vfio_region_dma_range {
+ struct vfio_device_feature_dma_buf {
+ 	__u32	region_index;
+ 	__u32	open_flags;
+-	__u32   flags;
+-	__u32   nr_ranges;
++	__u32	flags;
++#define VFIO_DMABUF_FL_TPH		(1U << 0) /* TPH info is present */
++#define VFIO_DMABUF_TPH_PH_SHIFT	1         /* bits 1-2: PH (2-bit) */
++#define VFIO_DMABUF_TPH_PH_MASK	0x6U
++#define VFIO_DMABUF_TPH_ST_SHIFT	16        /* bits 16-31: steering tag *=
+/
++#define VFIO_DMABUF_TPH_ST_MASK		0xffff0000U
++	__u32	nr_ranges;
+ 	struct vfio_region_dma_range dma_ranges[] __counted_by(nr_ranges);
+ };
+
+--
+2.52.0
+
