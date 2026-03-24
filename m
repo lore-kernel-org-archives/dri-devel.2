@@ -4,167 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 230AAF532D6
-	for <dri-devel@archiver.kernel.org>; Tue, 24 Mar 2026 04:46:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E60DBF532D5
+	for <dri-devel@archiver.kernel.org>; Tue, 24 Mar 2026 05:01:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 20F9210E314;
-	Tue, 24 Mar 2026 04:46:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2939710E0CB;
+	Tue, 24 Mar 2026 05:01:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="nVkGXYcV";
+	dkim=pass (2048-bit key; unprotected) header.d=icenowy.me header.i=uwu@icenowy.me header.b="QO3gOIdd";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BD8A810E0CB;
- Tue, 24 Mar 2026 04:46:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1774327605; x=1805863605;
- h=message-id:date:subject:to:cc:references:from:
- in-reply-to:content-transfer-encoding:mime-version;
- bh=a721iKYO837N9a9R47Tw4hBCWUPTNl8ur0dGAiuVIaw=;
- b=nVkGXYcVJ0O1LWbmv2PXLL9u7PqI+Ex+PLc+p4wsQZIxiDc8nHb4EVLn
- mEALzpZdiwpvG3qoHgmj+7XNbuOdOPVQ4J5duTcHJ9qrfeA5ZL8/He5rk
- pGx0/j099dEAoZQa0Ek/QuLwAvBkDpgxCQB7I5zoidXAf0BOYbN6SNOTE
- 5o2agxJw7cSUVAolfNYY/PGOjI3ZgUKoH09mBqz2OgcKJLmNAOsopHx3L
- BLUJ411pWDGGmDpQtAxPEk+vGZ5xGJj0hur9ToyOD5PBN0LzOBWAn8kE1
- 0Vpb2Sr8aZPGwJpgEsl+snkyZGMEMmrJW5Innr2IsFc9KdoOHMpIfR7Rr g==;
-X-CSE-ConnectionGUID: Eh/5vh27TY6SuG/pnmyGhw==
-X-CSE-MsgGUID: 95p9gCTQRM2y+Qv6rioW5A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11738"; a="75308666"
-X-IronPort-AV: E=Sophos;i="6.23,138,1770624000"; d="scan'208";a="75308666"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
- by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Mar 2026 21:46:44 -0700
-X-CSE-ConnectionGUID: R0MkEhYgS/et5HhuQfvdog==
-X-CSE-MsgGUID: VImCRoeUQBiGZnkliOLWwg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,138,1770624000"; d="scan'208";a="228726792"
-Received: from orsmsx902.amr.corp.intel.com ([10.22.229.24])
- by orviesa004.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Mar 2026 21:46:44 -0700
-Received: from ORSMSX901.amr.corp.intel.com (10.22.229.23) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Mon, 23 Mar 2026 21:46:43 -0700
-Received: from ORSEDG903.ED.cps.intel.com (10.7.248.13) by
- ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37 via Frontend Transport; Mon, 23 Mar 2026 21:46:43 -0700
-Received: from BL0PR03CU003.outbound.protection.outlook.com (52.101.53.58) by
- edgegateway.intel.com (134.134.137.113) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Mon, 23 Mar 2026 21:46:43 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=c62y3guDNY7c28aMltdVhBBO8Ezc9BijD0ccNsv2KKritGVu1IqNA9lwe8FafDpdC0yx62G7xnNYimVr7P0urnUlnV7GAz/C0FPujzTSZrIW5/HbQBzmFg44XJhFhclpFnSufWNrEPxatQA9LkD3Pn1lQFZKhSSsph5QzbveJcpnj6nVLMbhWVqASuiFRfUDyP5jUNBLctz3Tno2lwa5Az442WllCif70X/r4KEYaK3o+sQnCB6qd8RxXXShkKbEqOyt/Cr0Zws6SolbFVC6wYvTbHj29+DjntTWO3kwvzQFSbRlsiyPX9mo9t92GCAcJl3Ibd3kdgEVwcNesSEDNQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=S/t1SMnQJLEIPrOXxahti1uYr81r8A2cfIZRQf/RkOo=;
- b=J/lRQWCS8laNRtWt7SYKLwAMLvi13C16WqoSZ0FzPbbgrsvejEnKb/XegtOgZH6JrhqJjCJP8V5IQhcnvM3uxxkAuashmUCkoIyqfRzPgmkVoq7gu4WrU36kl2g+U3u4FmFdVKZ99Ca5+Spf1NIL4yvLhgXR0vY5YdJlnMdJdW7N1D60dQLAc3/M+ZlXM0DENmr+Kiv1NLMzdioQfpom+eXbcEO/JxTjXs7eCr0eFAOnXqYeXzGwovDMTZieXUCQ6bbdUhMowgtluvF3QMNnoaatY7WZSEDcwGcgkplDjiYC+NrpT1A87lR/M31/Z9s/AiCZFwZXY46JYzCc36+TyA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from IA0PR11MB7307.namprd11.prod.outlook.com (2603:10b6:208:437::10)
- by MW3PR11MB4620.namprd11.prod.outlook.com (2603:10b6:303:54::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.20; Tue, 24 Mar
- 2026 04:46:41 +0000
-Received: from IA0PR11MB7307.namprd11.prod.outlook.com
- ([fe80::9d4a:f89:f548:dbc7]) by IA0PR11MB7307.namprd11.prod.outlook.com
- ([fe80::9d4a:f89:f548:dbc7%6]) with mapi id 15.20.9745.019; Tue, 24 Mar 2026
- 04:46:40 +0000
-Message-ID: <8e23a56a-cd6d-412b-b78a-caf8e99ad247@intel.com>
-Date: Tue, 24 Mar 2026 10:16:30 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v10 0/7] User readable error codes on atomic_ioctl failure
-To: Xaver Hugl <xaver.hugl@kde.org>
-CC: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+Received: from sender4-op-o12.zoho.com (sender4-op-o12.zoho.com
+ [136.143.188.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0264110E0CB
+ for <dri-devel@lists.freedesktop.org>; Tue, 24 Mar 2026 05:01:13 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1774328469; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=YHBTEQtHEDApLWuvXVC6MWyBi/WOgXdKAPcvfaeZyVFqX+4Vlbyvi61FEwoNt09Su6Sn/wjpiizrNfzz8osKiWHNF/kiSrFDe81B5fpvzF0iZhL4Wi7iXnbdhaXu1R+ScIhoY8xthZqItI+NfBqqxX8YXTgMnMlXdQhqDhkQdM0=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1774328469;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=hZWh6xyRbNCs76Wh2OdrPFxD1uv9eHLqfhkYHPs9Rtg=; 
+ b=ceNMdTohWHIwBheDZ+KehmtP2qLqKfszrY+cFzyN/M2VkNTEnUS8JI1xznUT17xhYBiu9p1ktFodoHQLNsBklT37D1XKO3IiUoRICejauh+ak2Nuvphbyc7dj9C3Cb1dVCqvaM87EtZWDfprFTS6/l1957QnFx5HOPmh/R50hy8=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=icenowy.me;
+ spf=pass  smtp.mailfrom=uwu@icenowy.me;
+ dmarc=pass header.from=<uwu@icenowy.me>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1774328469; 
+ s=zmail2; d=icenowy.me; i=uwu@icenowy.me;
+ h=Message-ID:Subject:Subject:From:From:To:To:Cc:Cc:Date:Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:MIME-Version:Message-Id:Reply-To;
+ bh=hZWh6xyRbNCs76Wh2OdrPFxD1uv9eHLqfhkYHPs9Rtg=;
+ b=QO3gOIddoqC1SlYd2bFrEYhTKIB0CIHNhuKraoi1y2pVeq9B1sjnV3J8GqEA6pNb
+ JJP1zeD2nh2nCrnsQAZrZwp3B/7sRYVdfCKUGSjTo0R2ZPc7ehlqaYdzXusXYFAB3zg
+ 7/Nyl9L4XDE4INcOWnSj0jI4Sr/dz1Bt5Smv24RdgOPHQsyrc5RyGxpYYZrV5MdQedS
+ /5BKbMZoRT7Ji9hGeSVVV2mjOyomHafCu6pwVJzkTHURz9eLgo9ghyXqxf1pXre1dET
+ Rdr6WPDc3/0imwpam2ewwQBugu6kV9y+vkSwytbSmIJcG+KurTfFT3RAvoeU512QnH7
+ hoawa2ddzA==
+Received: by mx.zohomail.com with SMTPS id 1774328465635251.53187886622527;
+ Mon, 23 Mar 2026 22:01:05 -0700 (PDT)
+Message-ID: <a5d3a7dfeb5188c72313008c9f9cb019244b118e.camel@icenowy.me>
+Subject: Re: [PATCH drm-misc-next v3 0/4] drm: verisilicon: convert
+ drm_format to vs_format in atomic_check
+From: Icenowy Zheng <uwu@icenowy.me>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard	
  <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Jani Nikula
- <jani.nikula@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>, "Joonas
- Lahtinen" <joonas.lahtinen@linux.intel.com>, Tvrtko Ursulin
- <tursulin@ursulin.net>, <harry.wentland@amd.com>, <uma.shankar@intel.com>,
- <louis.chauvet@bootlin.com>, <naveen1.kumar@intel.com>,
- <ramya.krishna.yella@intel.com>, <dri-devel@lists.freedesktop.org>,
- <intel-gfx@lists.freedesktop.org>, <intel-xe@lists.freedesktop.org>, "Suraj
- Kandpal" <suraj.kandpal@intel.com>
-References: <20260223-atomic-v10-0-f59c8def2e70@intel.com>
- <CAFZQkGw=VJnzFWnh7GT_59NhuSTiy3-VPOcKdWTZX14rkgW_uw@mail.gmail.com>
- <ec9b1e8d-daab-48a7-959a-bfc5309b3ea9@intel.com>
- <CAFZQkGxLWnrt1be4S6pJj0qVRfVPXkzvZODNNNKWjpD2NNTAeA@mail.gmail.com>
-Content-Language: en-US
-From: "Murthy, Arun R" <arun.r.murthy@intel.com>
-In-Reply-To: <CAFZQkGxLWnrt1be4S6pJj0qVRfVPXkzvZODNNNKWjpD2NNTAeA@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MA5PR01CA0134.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a01:1d5::11) To IA0PR11MB7307.namprd11.prod.outlook.com
- (2603:10b6:208:437::10)
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Date: Tue, 24 Mar 2026 13:00:58 +0800
+In-Reply-To: <20260305153817.157841-1-zhengxingda@iscas.ac.cn>
+References: <20260305153817.157841-1-zhengxingda@iscas.ac.cn>
+Organization: Anthon Open-Source Community
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA0PR11MB7307:EE_|MW3PR11MB4620:EE_
-X-MS-Office365-Filtering-Correlation-Id: 003545e5-c44d-4583-a8ff-08de89605715
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|366016|7416014|376014|18002099003|56012099003|22082099003;
-X-Microsoft-Antispam-Message-Info: 9WtX+lAHiZsVcRih/ANhwWHYKkp4Ziu8mjfkkWHRbDctxHOiO8bGAX/8i4uwnIQYumZFrICP+Arr0nKMWiRbl/lfKgw+OWbdQZz8HicNiUM6DCE7y+OCgkO1iiJQt15ajZNwdGvQswmrwdLZb9Zu3ZfNzv1EnuHsggCwtxNT9Qc9wi5kRfP3H5BlocU6NoIOWQG0T9VPo+n9uXXRE/GC1YfjdN3Bv7K7gQGHtOkRnljkaKBr5LTWswqwp5TdOHWIx+SuJLr5EbyxsgZ8vqGfdXgHWQvF4npqr9MB4oN/ugS7IqSHzC24/6R/gywsWaeQxYEOVbt6p7hg/XM9SSGFwz1Uc3O4a+zLL6q1Sy2wxacWiBc+L/qSKfc2XvrSFmeJ2LjcAo7GQk21yHX3g1lh1TWLJxXrwWaQQ4P1x5TQa4dCX0H8t9C/2cu1muw3LfJlpNOrngUoaDiIp/r34p2AlHS78sd/4g2s1fJ0G8KmWHeUyfex09JBba3MCf886jO3xLVy/XzDRVH5tOy3mUmWH6kzCQcBesy9r6sLycSPS+L8GL50KV60Fg185cNRUD2YFlq2xIuqqqpPAdXTN9821ZwvJmHbkz5k9Rsfbpp0Gzc5stSPchChOyiowtBTr8Lq3jMeHNO4CeRZxDqTIHhmxEewsVEfoqRfmJNmYLGOVIe6ehxdKGDXdZjBjhbqpb8h
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:IA0PR11MB7307.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(7416014)(376014)(18002099003)(56012099003)(22082099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TGRHMldPKzZCOXRqcmF2Ukgrajk3REppaTRVQUt4TmFQbW1XY1hmbFNNNVNr?=
- =?utf-8?B?cFhaRzQ4K3hGRDYvZFM2dUtvMklwYkVtUXJGOGhlVDA3ZEVBcklacEZhTyt0?=
- =?utf-8?B?WVU5K3ludFJtbURCcmVac1VEOXMzOGNnVFJCODBkLy9VakFYeTRpaUk1NmdH?=
- =?utf-8?B?VVRNMVZLTXpZOThsa0t1UWF5Mmt2a3gxc29YT2ZBaTd5emdUZzFDcVZqQ1dH?=
- =?utf-8?B?RVJ2dzIwUWo3OU8xcm1mQ1NYUkhnZVBPeWVEcG9zYmlUb0NEQUQvRXl4UHB4?=
- =?utf-8?B?K0hzVlI1aG5NNENIZkNXdWVpL1VDUXBGbjJvQkpzMEJEU1FuK3BXYStWSmtZ?=
- =?utf-8?B?VTA0RGUyd05JVmVYSXFwcEhZV1VKKzhzbFk4ZzdPVXpXOGJGekU0ZTlCVWtp?=
- =?utf-8?B?WEp2Q2NaazcvVDczMkxoTFgzZ0ZjQ2kyeEJaTnBGeVlhV1R0L3dCeE05Znpl?=
- =?utf-8?B?amFyUjB1TlpabnJTNkg4S2FqUnJWTGRNMWJXRUFCcmZvcGkza215QWw5SEcz?=
- =?utf-8?B?T3VlSXJxczdLcTBtUkJnNkUzeVFRWldhekJCQU5rbXkxclQwL0U1d1BINlJk?=
- =?utf-8?B?WVk2RlJkbC9Fak8zYVVzc215YlQyYkhkN1F3a3JXN2g4eTR3T2RnSmpjNzZk?=
- =?utf-8?B?Wkx3MnlZWm9nYWpHcDI5M1hzeXpuT0J5ak1zbmpIQjRLTXlJeXlZYWtneEh6?=
- =?utf-8?B?QjU0UUhEMHcyQzA1WGFpeTJQRzdKamZmZmR5cTlTTjN6VlllMU12R1N3NGlw?=
- =?utf-8?B?SkxJNWtKMnFqTkRob1VKOEMyV3lRTys5YnBpRkkwSTFzd1h4VmV5MFExWllY?=
- =?utf-8?B?SnlQcmtvNjJEazFJUW54L1pjQ3FnZTdNTXNyREtSbUVaWFdIeFk1bzVmeVdh?=
- =?utf-8?B?WU5ZTDFHQUNmZlJTWWphRlFyRS9nRXRrcmJscnVKUXMzaHR4aTdDYW90TDgy?=
- =?utf-8?B?bkFiK3grK1ZkSzF4ZFZEUXRrcnMvRGcyVWFueks0RGlVbmNtZ2tuZkpOTTlV?=
- =?utf-8?B?Wi9PajFNdEZUNEdLUVZZUklRcFJEK0c2M0x2TlNYTmFGMmRGNkl2N0ZsdUJq?=
- =?utf-8?B?V0M4aUlPaHZWa01HS1pBV1hkdkg1Z01iMGtULzN1VEJhTWRPS3dITjdzUVB3?=
- =?utf-8?B?SVJnVTlLOGVHcmxzeE54WGFkSUhiT0VSODh1ZW1TVEZJZTJJMCsrc3AySTNC?=
- =?utf-8?B?YzgyUmxCSVRQNGI2THpIR2NmRklEL3drcmR6MSs1MWM0QW1JTjE3YTF6WUcr?=
- =?utf-8?B?MnlwRWhFK2ppZHdITFR3ZExrWjhDaXRINDFoVXRFUGlEbG1OeGdVOEhoV1dZ?=
- =?utf-8?B?eUk0WGN0cDFNVDNvR2lEWitNMngzQzVHL0EvMUxGQUtRR0V0VzJ3Q05vM3pF?=
- =?utf-8?B?bkZqblNHdEx1ZnpRK092ZDFmU3l2NjRzeVBweFpKdDlaSHM2d1FiWmpwZW4r?=
- =?utf-8?B?TEVsd01qNXBTYnM1Q0FwY0RkTnhCaXVXQzRNVTZCVU5PNTk4ZEVzays4cWhs?=
- =?utf-8?B?MHhHSUkzQzZsUnZyZEZ3S3VJRlk5a0NITDM5bjc5aEUvTzYycDdyMUlUOW1P?=
- =?utf-8?B?cmlTMmliNWNtZ1RxK3YzR0lzSGwrTU9lL1p1RHNQNWxCR0U3b1NDcTIzVW4w?=
- =?utf-8?B?UVgwVkI4RjRaRjg0RzhaNG15UEdZNGE0UU9hVjlTMmNGY0lNQmM5b2J6Tkl3?=
- =?utf-8?B?VnVGOG12U2k1dVp4L0NVZ3k0Z21zdjhWRnlUdlp4UlBDOWJaWE80d2xyT2hM?=
- =?utf-8?B?NDRKYzNyM0lkamVrRFhHYmpNVE51NXQyMVZDZW0vY1R0RUZEN2ZLZlFTZE9j?=
- =?utf-8?B?ZTRiQUJ6YVRBNnl1MlRuYnRKWjdkazN6SVE1M2tmTS9WYlgvaUZkWVA1cTVa?=
- =?utf-8?B?SUloMlpUOWx3ZWdGZ1BmNVFzc1duYkNvQ1J2ZWdESVdVUjNpMGRHQ3gyL051?=
- =?utf-8?B?TzZURWJrT3JicUFENGtDYW9HTUlFT0pCK1B1RUVmVHpob3ppSlZMcHpmVTBH?=
- =?utf-8?B?aDJyOWtZV3EyV1FqUU0rdXdpdnVsWHZPSjU3YzNkQ1RLa1ZvM1g0T0FrZHU4?=
- =?utf-8?B?NDRhUVdUZm9kQ3J2T29GZDhHUVE2bXJnYmoxckN5bGhhNmNiRkpHTUhFMGJP?=
- =?utf-8?B?V2t6cnlzcnZvR0x0WkdBeTBRNlhLNFhtM0dKUS9odTJ4bVVzaHZSYjBrRlNP?=
- =?utf-8?B?eGwyb3hpaWs2M2ljOGxFY1ZpVnFWVzZpYVV3cUYwd2pYcUlrM3lENWZCclA4?=
- =?utf-8?B?YmV2ZSs0UEI2Q1NnVk1GMUdhK00yaHBnMXVZT0xRUDNuVkNLaEttQ3Vma1lS?=
- =?utf-8?B?blFoVXJlKzAxWmdKWVhLKzF5dmxTNTRuSHpZL1hhd2NlVzRJTUp6Zz09?=
-X-Exchange-RoutingPolicyChecked: fzOv0Znp+pCVFZpYP3jyn16qIDNwvATizbgt181wOULh5rj78XreoG6jW+RWVg7BOCCCxSGlg2pkuWqM32DD1YLTWBrqFzdxjgFW+9cF1dBhnTv0IMJ3VJAxrZMLm0JAp9t284x0IGIgUupWFNvY0ORsIwU2RI2HxQEDeZ4y99tK7O2AqGXu6SBomg70VUEOpYFMOun5NYyzwdHomY9vuIo4AFVVu0kQjYjZhrZ0yNOuJ1p4G4xm50iTUmN7X20cIrWVaTh/Qye/IGqLzIvL0lO5rMc1aHJM3JSsRdYPbNFMUrtlr6J2l71m1nPGh/jnNQsiJVTYxpiz0oQPXGD5IA==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 003545e5-c44d-4583-a8ff-08de89605715
-X-MS-Exchange-CrossTenant-AuthSource: IA0PR11MB7307.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Mar 2026 04:46:40.7722 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Do4MTye68kRe3LRyCA0ffEQtSIOv4GZh4rOTwug9YVqnVPvEj0cshp08E6fFeoaPn7mLPiA6ibkoNQMvjUCY5w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR11MB4620
-X-OriginatorOrg: intel.com
+X-ZohoMailClient: External
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -180,61 +72,38 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 24-03-2026 02:49, Xaver Hugl wrote:
->> Have added the remaining error codes to the enum
->> drm_mode_atomic_err_code, will push as part of patchset 11.
-> I think it would be best to limit the enum values to actionable
-> things. Connector and scanout bandwidth sound useful and pretty
-> straight-forward to me, but the three other new values don't seem
-> useful for compositors at the moment.
->
->> DRM_MODE_ATTOMIC_PIPE_BW
-> Compositors aren't aware of pipes. What would they do with that information?
+=E5=9C=A8 2026-03-05=E5=9B=9B=E7=9A=84 23:38 +0800=EF=BC=8CIcenowy Zheng=E5=
+=86=99=E9=81=93=EF=BC=9A
+> This patchset tries to move the process of converting drm_format to
+> vs_format into plane's atomic_check callback (instead of the
+> atomic_commit one, which the process currently sits) for more proper
+> error handling (because atomic_commit cannot fail).
+>=20
+> In addition, because of the original flow of primary plane's
+> atomic_check seems to be flawed, it's also updated before filling
+> vs_format is added there.
 
-There are scenarios where two pipes driving a single connector, in that 
-case compositor will be informed on the unavailability of pipe, on the 
-other hand, if a given pipe scaler factor couldnt be supported due to 
-b/w limitation, that would fall into this category. The object pointer 
-would precisely convey the property causing this error.
+Ping. It looks like this patchset didn't get a review, maybe it's
+buried in the heavy flow of dri-devel?
 
+Thanks,
+Icenowy
 
->
->> DRM_MODE_ATOMIC_MEMORY_DOMAIN
->> DRM_MODE_ATOMIC_SPEC_VIOLOATION
-> I can't think of anything a compositor would do differently with these
-> vs. "unspecified_error".
-
-Added this based on the feedback from 
-https://hackmd.io/f3bDn3kyRUalLn4LbMfCVQ#Commit-Failure-Feedback
-
->> As far as the enum INVALID_API_USAGE is concerned, there is a certain
->> understanding on the
->> usage of the atomic_ioctl,  any miss in that would fall in this
->> category.
-> Invalid API usage would mean the compositor did something it can know
-> in advance is wrong based on the KMS API. It can't be used as the
-> default value.
-
-Understand that it cant be a default error, will add another entry 
-DRM_MODE_ATOMIC_UNDEFINED_ERROR which would be the default one.
-
-
->> Some of them include
->>       - Driver doesnt support atomic, but still atomic_ioctl being used
->>       - Invalid/Junk flags
->>       - Async flip not supported
->>       - Flag page flip event along with test only is not supported
->> If changing this INVALID_API_USAGE to UNSPECIFIED_ERROR makes more
->> sense, I can change that.
-> No, they're two different things. We need both, and unspecified_error
-> needs to be the default for when the driver doesn't set anything more
-> specific.
-
-Got it as commented above, will add DRM_MODE_ATOMIC_UNDEFINED_ERROR 
-which would be for default error.
-
-Thanks and Regards,
-Arun R Murthy
--------------------
-
-> - Xaver
+>=20
+> Icenowy Zheng (4):
+> =C2=A0 drm: verisilicon: make vs_format conversion function return int
+> =C2=A0 drm: verisilicon: subclass drm_plane_state
+> =C2=A0 drm: verisilicon: call atomic helper's plane state check even if n=
+o
+> =C2=A0=C2=A0=C2=A0 CRTC
+> =C2=A0 drm: verisilicon: fill plane's vs_format in atomic_check
+>=20
+> =C2=A0drivers/gpu/drm/verisilicon/vs_plane.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0 | 53
+> ++++++++++++++++++-
+> =C2=A0drivers/gpu/drm/verisilicon/vs_plane.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0 | 18 ++++++-
+> =C2=A0.../gpu/drm/verisilicon/vs_primary_plane.c=C2=A0=C2=A0=C2=A0 | 53 +=
+++++++++++------
+> --
+> =C2=A03 files changed, 99 insertions(+), 25 deletions(-)
