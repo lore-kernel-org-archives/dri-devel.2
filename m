@@ -4,165 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1B683F532ED
-	for <dri-devel@archiver.kernel.org>; Tue, 24 Mar 2026 08:37:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D9061F532F8
+	for <dri-devel@archiver.kernel.org>; Tue, 24 Mar 2026 08:50:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 538E610E48C;
-	Tue, 24 Mar 2026 08:37:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1C74510E607;
+	Tue, 24 Mar 2026 08:50:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="OuCCDwEK";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="VHZGUAdS";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4B97C10E484;
- Tue, 24 Mar 2026 08:37:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1774341422; x=1805877422;
- h=from:to:cc:subject:date:message-id:references:
- in-reply-to:content-transfer-encoding:mime-version;
- bh=NyWuN9gzACEbQmTac9onl9MLdtL0FDRcJBXgi9Mlw3Q=;
- b=OuCCDwEKY2uEnNZSO8nkS0RmaV25vMEK9axZxYkiJZPFzKPq1xdGgptu
- F3eV72YlOqTTmSNmCQLC5sZYFHnImZsaZbqG+6F+wltWlP/AxC6PPyaP7
- UnkD20kuQs3U8Tlp8CDtUTzPYgx6RJ5g0C0FCLMfDbHbHI5bmOoW/or3N
- vqDYBJEGpvyLYfLQxE9LnynyoIgHWiYYV6u9VLx6T5b+XAzuAEuwqXRHG
- CrR8RbTFid5ksuavPUe6zKf7ciAEZKx+mhvq9rmoZagEghAzPod7c8zVJ
- g7uoetNyn3BaXLc5c8s4B40KaAG3Gkc4TuhDU6GWTLaQnW85Ig9Awr9U8 Q==;
-X-CSE-ConnectionGUID: UW6WU1lITiiM4RlY3l72Bw==
-X-CSE-MsgGUID: sM4e8WSUTa+SYKm6cSAr7A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11738"; a="86425669"
-X-IronPort-AV: E=Sophos;i="6.23,138,1770624000"; d="scan'208";a="86425669"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
- by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Mar 2026 01:37:02 -0700
-X-CSE-ConnectionGUID: nhAv6tjZSlWBf8Uh67Ii2Q==
-X-CSE-MsgGUID: R+z1e9RaRHOApbz6MoMWVw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,138,1770624000"; d="scan'208";a="229218804"
-Received: from orsmsx902.amr.corp.intel.com ([10.22.229.24])
- by orviesa005.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Mar 2026 01:37:02 -0700
-Received: from ORSMSX903.amr.corp.intel.com (10.22.229.25) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Tue, 24 Mar 2026 01:37:01 -0700
-Received: from ORSEDG902.ED.cps.intel.com (10.7.248.12) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37 via Frontend Transport; Tue, 24 Mar 2026 01:37:01 -0700
-Received: from PH0PR06CU001.outbound.protection.outlook.com (40.107.208.39) by
- edgegateway.intel.com (134.134.137.112) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Tue, 24 Mar 2026 01:37:01 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=dBqgMQOdhWGVZA5b98tB3t0NbB6+LlX0mKJYvL381ZR8gfRVWCh++a3fOpArwcZBQpP6Buu4S5Kppd5pLtrvlQ7fM7l9iKtQGwt4SL7nCYKwl+iA0RN5NVB40zLySBat+bjLGXoNvXUOTpkYIpneLS0+MVNPd78n6Chv56Qllxj3n/oNljKhr7y/519fpaOM8I1TnuCRXeGLLoC8Ue0vtsdYTyNVIW/Gx9QrkmUfZ1W7zP8pId6nXjqL5l4AFjrTPkxJuvQ96+XGZLKiXhN4oDuazafIneZjnk5Hye6bYNr8L4DiwaxYwtCpX71viRU8WigFYoZYrGWWM9W3/cOfSQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=NyWuN9gzACEbQmTac9onl9MLdtL0FDRcJBXgi9Mlw3Q=;
- b=mZxl1WS+34tvHXMujohkg2DWjs40U2u+FbkRV5QkiMwnM2S3yvMh8lQjIXeStgrOh89j/GEOYImk2Fu9IQD/szaH8Gdy7TAQgxbVWyy4ljcYgKtCM4XyxePW01EHwgOzgyoViMXGz3/edieYbc16dd9RjljCdoFeJiTTZmDXdpOqGIzHJGQmVAdtiH/74qwMR0tU8ttE1NxAk5Q80alSIeJ4FGRTqO9LCde9ntYIdeC3MOyYyR3dYlvvAVKz8U22iOXiHuqH8u8gexc//rR7HRSHDmFmvdV1USDuKHhJQYmI4ZAGcMUEsfaE2sAqvxpkEvjr6xMsm62zyjOoehSgDw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Received: from DS0PR11MB8049.namprd11.prod.outlook.com (2603:10b6:8:116::6) by
- SN7PR11MB7113.namprd11.prod.outlook.com (2603:10b6:806:298::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.20; Tue, 24 Mar
- 2026 08:36:57 +0000
-Received: from DS0PR11MB8049.namprd11.prod.outlook.com
- ([fe80::603c:772d:6793:d4eb]) by DS0PR11MB8049.namprd11.prod.outlook.com
- ([fe80::603c:772d:6793:d4eb%7]) with mapi id 15.20.9745.019; Tue, 24 Mar 2026
- 08:36:57 +0000
-From: "Manna, Animesh" <animesh.manna@intel.com>
-To: "Hogander, Jouni" <jouni.hogander@intel.com>,
- "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>
-CC: "Murthy, Arun R" <arun.r.murthy@intel.com>, "Nikula, Jani"
- <jani.nikula@intel.com>, "Deak, Imre" <imre.deak@intel.com>
-Subject: RE: [PATCH v8 2/3] drm/i915/display: Add hook to check optimization
- support for Intel platforms
-Thread-Topic: [PATCH v8 2/3] drm/i915/display: Add hook to check optimization
- support for Intel platforms
-Thread-Index: AQHctrlcjV4Wld4Ke0SvtQb42JzHErW8HaSAgAACeoCAAURYEA==
-Date: Tue, 24 Mar 2026 08:36:57 +0000
-Message-ID: <DS0PR11MB8049E02720332249E047E342F948A@DS0PR11MB8049.namprd11.prod.outlook.com>
-References: <20260318085642.3621166-1-animesh.manna@intel.com>
- <20260318085642.3621166-3-animesh.manna@intel.com>
- <c7a00eac4f5fc2d606db15d631c0ceb2b769edd4.camel@intel.com>
- <a583e5c76b0569111442005062d39f8a9db72cdb.camel@intel.com>
-In-Reply-To: <a583e5c76b0569111442005062d39f8a9db72cdb.camel@intel.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DS0PR11MB8049:EE_|SN7PR11MB7113:EE_
-x-ms-office365-filtering-correlation-id: 596b1f02-ebb6-4599-9df3-08de89808293
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|1800799024|366016|376014|7053199007|22082099003|18002099003|56012099003|38070700021;
-x-microsoft-antispam-message-info: BT/pD7O/rjfNLp/0DcVPgfwwuEvQPJrBx0cG4+0xIiUPLTV5KqeHVOffFcvbFJDGdIogtbvXhqARqw3MsWg8IkZPTyfOXgro59MXQPZzokacahF3vSTVg/N5TAOk37oOGhCS+6E1He2z+bUVqlMlGOVdPDOKTdyLJGbKkGNcHsZal7Ph1av1QKJQX7IdW0c56zKOkY+G1+ifL/ttehiYbhaB5QsBp2MX10jBOVJf2oQ9f/diPsc8siZSTVVhi/oxpqOqA9WNfqXpbvx2SdGVS6L93dhlfhjo6B6DM3BhwvPA+zLalxgTKmvrzXwhYePqyyOamjrUUuS8I6zE/MTpCJPtc7z80pBcKabs65pU6KIeNmA1lWN5YR2wiY2yWcj/p1BkHushd76Cl6ZV67cwVa7oCh81uXQg8ErzIYEuyzZ+mHt2UIOPPmo3fXMNj85OjqN8ml0yH7qlrbf2mwyg9CaOEQWscNH5zg7bOY2HuNtp8fswsr+q8Li+umFgrMArPiy1F1hZaxpztXY6oYG2Z7FarykwR9d7lleh+hwRyWt8FARCT80TxCMhhKqEqR6zlQ3QEvlHsLtTc7zTVl4WFYHOUUeW5fN9oaZuSW3/XkLFCcWLToeBYQIK9huizE8JtkvqD99QztGcO2c3g/osbiuqRM73tgw7/YZ7BwNp7+VH792/R+t8f5URIJUdSKN9PWKsKc2wMDjq1qAgCEtKl+ySPTwkBbjnz8oeWrLcoqS3hBQ20hEFRzkqWyZ+Y6uul5bWI9iE3nf/AtqShh8B2UtskUfJjidH1peZAWBouEg=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS0PR11MB8049.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014)(7053199007)(22082099003)(18002099003)(56012099003)(38070700021);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?L1l4SU4xWS9rZ0RscXE2b05RMVRlVnNVTE5Fb3B4dDB3TWNoeWhBTTJITllx?=
- =?utf-8?B?L0FoZVp6aHdTL1QzZldUc1ZNWnBINkNhc0t5cFVLSEJ1SEQ0c1I3VFk5RHY5?=
- =?utf-8?B?NjRZZjhhRDVsQ3g3a2dYTlg4dG5JRHFzQWxEd0JHdGpJTmMxWk11MlpYYUFZ?=
- =?utf-8?B?b0xzN1NWUWRzL2pTdTFOdEhiREhDeWc0c1JkNklwT0o1K1lHMC9IU0xxM05H?=
- =?utf-8?B?TWx5S1dEZzUvUmRkWFRVaGxRL0pZdGRmdHorbHl6UmtPb1pnOHg1TXQvbDNt?=
- =?utf-8?B?cFJLK3FjUFlkb2hPMzBiRWVYZnlGS2JyZlNIZGtHZVdIbDNmY0E0dlI5aU1X?=
- =?utf-8?B?Z0ZUdExuZDFvc0VpVGQ2TzhFNlhud0ZYOTdXM0NOd3B3ckJsS2hCNyt5a3FD?=
- =?utf-8?B?TmU1TVZ0RGZXUytGeENxQWt3d0ZpYjZHM0N1c1ZuK1lsQ2IrbjFxWUdQWkdl?=
- =?utf-8?B?Mit3MkNiL0F5VnpuY1BXMXZQWEdndThCNThUejE3UjhwcHlTdUZ0RkZ4RzBp?=
- =?utf-8?B?b1dMMCtHQXo4ZlBxWDRZVmlQSVVXRTUrRjZBUDN0d2tQY0FHZTVsRitiSDdn?=
- =?utf-8?B?Y09iUTJQaE5VZjJaQ0ZLRzRycXJIU1QxZElwbXNmYzlhSFppRmhIb1llUDZL?=
- =?utf-8?B?UGJJZmxKdkZkZWQxUUJHTXNMVzhYaUtqMWk0U2N1SVhYUVFFZ2Z5R285TGIv?=
- =?utf-8?B?Z0FHcXUyVktuN1lCblNXZkpicm91WSsxMkJzSzd6UXR0UXBsWDB4SGhFRFVT?=
- =?utf-8?B?WTVjU2N3VnJGOGxSQjlLTGtYYTB5UHBWM0NweFRnMC9WNWRCN01odnN2TzlY?=
- =?utf-8?B?ZUhqR3lEbEhGbWJvbmVQRllPdmNIaHBxRlRJUk9XYzBROW9EN1JteXR4UzQ5?=
- =?utf-8?B?ejdZa3R2N0JrNHBZeHFWZlVRZE9wTE82d3RCVUlUMHNOaGorRzFuSjJpeWNC?=
- =?utf-8?B?SXZNcmZmVjhBZ3dnamYvdm95YkVnZnZFZzhETFpTY3J5c1hkUXAxVnNHVGRU?=
- =?utf-8?B?M1czVDMxa2t6T1dTZVhSUWZtTDdGUWhOWHlQSzRnY0NJUjR5R2JwWUU2djBn?=
- =?utf-8?B?NXdvVFVBbG5IRjlGaUpkQmVWMmVzOUdsaHJWSHliY0MwSllHNXRsSXQxMjIz?=
- =?utf-8?B?WVArNnhMc1BvVVhoQUFCNnFtZVVTMktEL0lWOUhkNUJ4QkhFVHhLYmxjRERQ?=
- =?utf-8?B?Y2pWZ0dLdE85TC9LRHlITVRMWEhBK1hzOWhoMUVyYlRZRm5oTDlGcnk1ZWE2?=
- =?utf-8?B?ZjgyQnc2MnE4OUZsYjBkbzltWTlVK1MxNTNiaTcvbWRWTk9IdDlWeWp4ZWdV?=
- =?utf-8?B?ZDZJOE1ONnEyclNDQ3JsdVZqUVFkaTVUYXpHRStHSnU2c2hBYlg0UjlaRHFm?=
- =?utf-8?B?ZHJoaHVrWTRsbnVQb3NLOVNiQXM1eHoySUVaQWRVOXkzK1o5VGpWQmt4MXlN?=
- =?utf-8?B?QStHTVBLc1NOSG9ISndOY1NKUytROTU2d0Y2Mm1wU1lXU2dXQnRqYzZjbmdU?=
- =?utf-8?B?UHdSQTVwaUFCa1hrMjZ0ci8wMDl4ZlU4R2VZV3dtdiswdEhwd2c0b04welM5?=
- =?utf-8?B?LzU5dWJFN3FkdWppL3RUNFQ1U0xiR3dMVU5yQmRIWlNlR3hPME1GeWdLckw1?=
- =?utf-8?B?b3dmYVF4NTlPeUhpcGFTU1A4Lys3SS95dVltbnpobEhKdVdWVnVJL0RrRi96?=
- =?utf-8?B?ZTB6ZGhRbVhMYTE5OHFveTc3MDFPN3lGc0FkcjVYa3NuUkV5Si9JTk13WXEv?=
- =?utf-8?B?YzdOQUs4aTdFV1h2amZiQ3oyenBrNlAwT3ZRdlJMZEJIUnRCNGVmOW41Yjlk?=
- =?utf-8?B?Q3VWazdKNVdFOFUxRHRPWXFEaWZpTk9kbGdDNEVRR2FQenVYazJTRjAwak5F?=
- =?utf-8?B?QXp1VDV5eHRwS0VSZTN4M0ZVbjBHNzZJNlJyQnpEVFBSVk96dklBcEZta05m?=
- =?utf-8?B?OTR2anlQQTdIanRXbWttS0Vva2paZk1Rd2hiNmVuMXE5dEVGMmZoRytYY1pW?=
- =?utf-8?B?ZWxWcHRtYXI3aEtNcUJCM1ZjdFg5aDk5alhUNlZzNzN2bkNRbjRralJ1UlhE?=
- =?utf-8?B?T0xCd0IzdElGdmtrdUQ5ck9Yc3lSRktPN094OVB3THdDWXlrUWQzdUpia21F?=
- =?utf-8?B?Vm1xdVJnaWJKYUgzV2VKeTdZaE0raEJFQTFmNlRzV0RPTW1RdXdmN1pYVXdG?=
- =?utf-8?B?ZHJXUklNRjhvU2RkeUk4aDFCdDlwRG43bzRlSXdJUThGRE9sRWdZejhUeGc2?=
- =?utf-8?B?Uk9relE2K251M0dOSjErb2VlUExvMzVmUXFyUVRqaGo2RjJlVUNleStEenRn?=
- =?utf-8?B?ZmZFRTcrUjFWaGdGN2ZxRkY4M2plNG8yMnRlZW9XUFcrWkR0MzUydz09?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E90EC10E491;
+ Tue, 24 Mar 2026 08:50:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1774342201;
+ bh=Lee/DXBliWUgYPLPoeQ+8aE0c7KXDs/hyeVRnQv43tU=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=VHZGUAdSF/PsHjbOOFLHwGPWsZU7xFmQcs/j6xGsLcfQI/cp8Z9Q//YjDTVL4IiEF
+ liorvnLvwePQoPdwM/0RAb5ayFvOqlr1MMsBk20pwUMMMY1+QU1CFh1UL9EyfLZbEX
+ lywAnsfnLOlqUUWOuvIgc7l3WCC8gvp280oNfWihcjZWzMgJ7s60fLrGZ7BR/8hV3A
+ XGgkA/9desk6QjjyB5lV+jjh26qd+UUPGzJ5B6GCzS1Wf3wQ8NghJxWoOm75RBJwb2
+ XsL8D6Nxbc6anDshKOy/CEYHD2q22CMPmoSbgs5edy9oc8KvIFTZTrRFcjdfMAKD5n
+ for3vVuLC66JA==
+Received: from fedora (unknown [IPv6:2a01:e0a:2c:6930:d919:a6e:5ea1:8a9f])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256) (No client certificate requested)
+ (Authenticated sender: bbrezillon)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id B613317E4BDA;
+ Tue, 24 Mar 2026 09:50:00 +0100 (CET)
+Date: Tue, 24 Mar 2026 09:49:57 +0100
+From: Boris Brezillon <boris.brezillon@collabora.com>
+To: Matthew Brost <matthew.brost@intel.com>
+Cc: <intel-xe@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, Rodrigo Vivi
+ <rodrigo.vivi@intel.com>, Thomas =?UTF-8?B?SGVsbHN0csO2bQ==?=
+ <thomas.hellstrom@linux.intel.com>, Christian =?UTF-8?B?S8O2bmln?=
+ <christian.koenig@amd.com>, Danilo Krummrich <dakr@kernel.org>, David
+ Airlie <airlied@gmail.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Philipp Stanner <phasta@kernel.org>, Simona Vetter <simona@ffwll.ch>, Sumit
+ Semwal <sumit.semwal@linaro.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ <linux-kernel@vger.kernel.org>
+Subject: Re: [RFC PATCH 02/12] drm/dep: Add DRM dependency queue layer
+Message-ID: <20260324094957.0841801e@fedora>
+In-Reply-To: <acFzpZruqlZQnQNk@lstrano-desk.jf.intel.com>
+References: <20260316043255.226352-1-matthew.brost@intel.com>
+ <20260316043255.226352-3-matthew.brost@intel.com>
+ <20260317155512.7250be13@fedora>
+ <abs1Da8ntfAQISL6@lstrano-desk.jf.intel.com>
+ <20260319101153.169c7f36@fedora>
+ <acDGf9BYQj6KwRIX@lstrano-desk.jf.intel.com>
+ <20260323105504.2d9ae741@fedora>
+ <acFzpZruqlZQnQNk@lstrano-desk.jf.intel.com>
+Organization: Collabora
+X-Mailer: Claws Mail 4.3.1 (GTK 3.24.51; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: eGxtzykW1ggLPa3NadoApFIaRUDL74amWjiwdViMNMIi1RcflKsrU6P+SPFXe8k7waFsHhxCmp4Y60RLC9UtzhKsE+olPsSp4KSMhZ2WgyC4VUndpuJxo414DmHQ3R/7AsQeLSztGV/amZZLgI+PH1A0cHP/5TTw80t+imvsDaBOHcoG3mgnJFHXYZjSBKtnC3Rs9RwLyPSHjb/xbl97w/XxktLJhYO8gwOcOI7P56qIygQoqNoRtcJaByGeulecIsNkD01I6KhcXfhfNt2HEAxp8+3tsUwtjO2/lTKcJTc5sJ17ZiWAEmSzC1W+JKPPE/iy2UH29iO1dmzLqRYa9Q==
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR11MB8049.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 596b1f02-ebb6-4599-9df3-08de89808293
-X-MS-Exchange-CrossTenant-originalarrivaltime: 24 Mar 2026 08:36:57.2283 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: P5DKWL8r0aeOzjAKgCwByo97oebaelgsQoepXbTS48EEDSBEuoyv8udbEp9IZel7S19xYiibDcZns76hzudfVQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR11MB7113
-X-OriginatorOrg: intel.com
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -178,74 +77,575 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-DQoNCj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4gRnJvbTogSG9nYW5kZXIsIEpvdW5p
-IDxqb3VuaS5ob2dhbmRlckBpbnRlbC5jb20+DQo+IFNlbnQ6IE1vbmRheSwgTWFyY2ggMjMsIDIw
-MjYgNjo0MyBQTQ0KPiBUbzogaW50ZWwteGVAbGlzdHMuZnJlZWRlc2t0b3Aub3JnOyBkcmktZGV2
-ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnOyBNYW5uYSwNCj4gQW5pbWVzaCA8YW5pbWVzaC5tYW5u
-YUBpbnRlbC5jb20+OyBpbnRlbC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnDQo+IENjOiBNdXJ0
-aHksIEFydW4gUiA8YXJ1bi5yLm11cnRoeUBpbnRlbC5jb20+OyBOaWt1bGEsIEphbmkNCj4gPGph
-bmkubmlrdWxhQGludGVsLmNvbT47IERlYWssIEltcmUgPGltcmUuZGVha0BpbnRlbC5jb20+DQo+
-IFN1YmplY3Q6IFJlOiBbUEFUQ0ggdjggMi8zXSBkcm0vaTkxNS9kaXNwbGF5OiBBZGQgaG9vayB0
-byBjaGVjaw0KPiBvcHRpbWl6YXRpb24gc3VwcG9ydCBmb3IgSW50ZWwgcGxhdGZvcm1zDQo+IA0K
-PiBPbiBNb24sIDIwMjYtMDMtMjMgYXQgMTU6MDQgKzAyMDAsIEhvZ2FuZGVyLCBKb3VuaSB3cm90
-ZToNCj4gPiBPbiBXZWQsIDIwMjYtMDMtMTggYXQgMTQ6MjYgKzA1MzAsIEFuaW1lc2ggTWFubmEg
-d3JvdGU6DQo+ID4gPiBBZGQgYSBob29rIHRoYXQgdXNlcyB0aGUgZHJtIGNvcmUgdHVubmVsaW5n
-IGZ1bmN0aW9uIHRvIGNoZWNrDQo+ID4gPiB3aGV0aGVyIHBhbmVsIHJlcGxheSBiYW5kd2lkdGgg
-b3B0aW1pemF0aW9uIHN1cHBvcnQgaXMgcHJlc2VudC4NCj4gPiA+DQo+ID4gPiB2MjogTW92ZSBE
-SVNQTEFZX1ZFUigpIGNoZWNrIHRvDQo+ID4gPiBpbnRlbF9kcF90dW5uZWxfcHJfb3B0aW1pemF0
-aW9uX3N1cHBvcnRlZCgpLiBbSm91bmldDQo+ID4gPg0KPiA+ID4gU2lnbmVkLW9mZi1ieTogQW5p
-bWVzaCBNYW5uYSA8YW5pbWVzaC5tYW5uYUBpbnRlbC5jb20+DQo+ID4NCj4gPiBSZXZpZXdlZC1i
-eTogSm91bmkgSMO2Z2FuZGVyIDxqb3VuaS5ob2dhbmRlckBpbnRlbC5jb20+DQo+ID4NCj4gPiA+
-IC0tLQ0KPiA+ID4gwqBkcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2RwX3R1bm5l
-bC5jIHwgMTgNCj4gPiA+ICsrKysrKysrKysrKysrKysrKw0KPiA+ID4gwqBkcml2ZXJzL2dwdS9k
-cm0vaTkxNS9kaXNwbGF5L2ludGVsX2RwX3R1bm5lbC5oIHzCoCA2ICsrKysrKw0KPiA+ID4gwqAy
-IGZpbGVzIGNoYW5nZWQsIDI0IGluc2VydGlvbnMoKykNCj4gPiA+DQo+ID4gPiBkaWZmIC0tZ2l0
-IGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9kcF90dW5uZWwuYw0KPiA+ID4g
-Yi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2RwX3R1bm5lbC5jDQo+ID4gPiBp
-bmRleCAxZmQxYWM4ZDU1NmQuLmI4MWFjOWEyZDcyNyAxMDA2NDQNCj4gPiA+IC0tLSBhL2RyaXZl
-cnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfZHBfdHVubmVsLmMNCj4gPiA+ICsrKyBiL2Ry
-aXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfZHBfdHVubmVsLmMNCj4gPiA+IEBAIC0y
-OTYsNiArMjk2LDI0IEBAIGJvb2wNCj4gPiA+IGludGVsX2RwX3R1bm5lbF9id19hbGxvY19pc19l
-bmFibGVkKHN0cnVjdA0KPiA+ID4gaW50ZWxfZHAgKmludGVsX2RwKQ0KPiA+ID4gwqAJcmV0dXJu
-IGRybV9kcF90dW5uZWxfYndfYWxsb2NfaXNfZW5hYmxlZChpbnRlbF9kcC0NCj4gPiA+ID50dW5u
-ZWwpOw0KPiA+ID4gwqB9DQo+ID4gPg0KPiA+ID4gKy8qKg0KPiA+ID4gKyAqIGludGVsX2RwX3R1
-bm5lbF9wcl9vcHRpbWl6YXRpb25fc3VwcG9ydGVkIC0gUXVlcnkgdGhlIFBSIEJXDQo+ID4gPiBv
-cHRpbWl6YXRpb24gc3VwcG9ydA0KPiA+ID4gKyAqIEBpbnRlbF9kcDogRFAgcG9ydCBvYmplY3QN
-Cj4gPiA+ICsgKg0KPiA+ID4gKyAqIFF1ZXJ5IHdoZXRoZXIgYSBEUCB0dW5uZWwgc3VwcG9ydHMg
-dGhlIFBSIEJXIG9wdGltaXphdGlvbi4NCj4gPiA+ICsgKg0KPiA+ID4gKyAqIFJldHVybnMgJXRy
-dWUgaWYgdGhlIEJXIGFsbG9jYXRpb24gbW9kZSBpcyBzdXBwb3J0ZWQgb24NCj4gPiA+IEBpbnRl
-bF9kcC4NCj4gPiA+ICsgKi8NCj4gPiA+ICtib29sIGludGVsX2RwX3R1bm5lbF9wcl9vcHRpbWl6
-YXRpb25fc3VwcG9ydGVkKHN0cnVjdCBpbnRlbF9kcA0KPiA+ID4gKmludGVsX2RwKQ0KPiA+ID4g
-K3sNCj4gPiA+ICsJc3RydWN0IGludGVsX2Rpc3BsYXkgKmRpc3BsYXkgPQ0KPiA+ID4gdG9faW50
-ZWxfZGlzcGxheShpbnRlbF9kcCk7DQo+ID4gPiArDQo+ID4gPiArCWlmIChESVNQTEFZX1ZFUihk
-aXNwbGF5KSA8IDM1KQ0KPiA+ID4gKwkJcmV0dXJuIGZhbHNlOw0KPiANCj4gSnVzdCBub3RpY2Vk
-IGluIEJzcGVjIHRoYXQgdGhpcyBpcyBhY3R1YWxseSBzdXBwb3J0ZWQgYWxyZWFkeSBvbg0KPiBE
-SVNQTEFZX1ZFUigpID09IDMwLg0KDQpUaGlzIGZlYXR1cmUgbW92ZWQgZnJvbSBQVEwgdG8gTlZM
-IGR1ZSB0byBsaW1pdGF0aW9uIGZyb20gc29jIHNpZGUsIHRob3VnaCBkaXNwbGF5IGVuZ2luZSBp
-cyBzdXBwb3J0aW5nIGl0Lg0KDQpSZWdhcmRzLA0KQW5pbWVzaA0KPiANCj4gQlIsDQo+IEpvdW5p
-IEjDtmdhbmRlcg0KPiANCj4gPiA+ICsNCj4gPiA+ICsJcmV0dXJuIGRybV9kcF90dW5uZWxfcHJf
-b3B0aW1pemF0aW9uX3N1cHBvcnRlZChpbnRlbF9kcC0NCj4gPiA+ID4gdHVubmVsKTsNCj4gPiA+
-ICt9DQo+ID4gPiArDQo+ID4gPiDCoC8qKg0KPiA+ID4gwqAgKiBpbnRlbF9kcF90dW5uZWxfc3Vz
-cGVuZCAtIFN1c3BlbmQgYSBEUCB0dW5uZWwgY29ubmVjdGVkIG9uIGENCj4gPiA+IHBvcnQNCj4g
-PiA+IMKgICogQGludGVsX2RwOiBEUCBwb3J0IG9iamVjdA0KPiA+ID4gZGlmZiAtLWdpdCBhL2Ry
-aXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfZHBfdHVubmVsLmgNCj4gPiA+IGIvZHJp
-dmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9kcF90dW5uZWwuaA0KPiA+ID4gaW5kZXgg
-N2YwZjcyMGU4ZGNhLi4wM2UxNDc3MzZiNjUgMTAwNjQ0DQo+ID4gPiAtLS0gYS9kcml2ZXJzL2dw
-dS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2RwX3R1bm5lbC5oDQo+ID4gPiArKysgYi9kcml2ZXJz
-L2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2RwX3R1bm5lbC5oDQo+ID4gPiBAQCAtMzIsNiAr
-MzIsNyBAQCB2b2lkIGludGVsX2RwX3R1bm5lbF9yZXN1bWUoc3RydWN0IGludGVsX2RwDQo+ID4g
-PiAqaW50ZWxfZHAsDQo+ID4gPiDCoHZvaWQgaW50ZWxfZHBfdHVubmVsX3N1c3BlbmQoc3RydWN0
-IGludGVsX2RwICppbnRlbF9kcCk7DQo+ID4gPg0KPiA+ID4gwqBib29sIGludGVsX2RwX3R1bm5l
-bF9id19hbGxvY19pc19lbmFibGVkKHN0cnVjdCBpbnRlbF9kcA0KPiA+ID4gKmludGVsX2RwKTsN
-Cj4gPiA+ICtib29sIGludGVsX2RwX3R1bm5lbF9wcl9vcHRpbWl6YXRpb25fc3VwcG9ydGVkKHN0
-cnVjdCBpbnRlbF9kcA0KPiA+ID4gKmludGVsX2RwKTsNCj4gPiA+DQo+ID4gPiDCoHZvaWQNCj4g
-PiA+IMKgaW50ZWxfZHBfdHVubmVsX2F0b21pY19jbGVhbnVwX2luaGVyaXRlZF9zdGF0ZShzdHJ1
-Y3QNCj4gPiA+IGludGVsX2F0b21pY19zdGF0ZSAqc3RhdGUpOw0KPiA+ID4gQEAgLTc2LDYgKzc3
-LDExIEBAIHN0YXRpYyBpbmxpbmUgYm9vbA0KPiA+ID4gaW50ZWxfZHBfdHVubmVsX2J3X2FsbG9j
-X2lzX2VuYWJsZWQoc3RydWN0IGludGVsX2RwICppbnRlbF9kcA0KPiA+ID4gwqAJcmV0dXJuIGZh
-bHNlOw0KPiA+ID4gwqB9DQo+ID4gPg0KPiA+ID4gK3N0YXRpYyBpbmxpbmUgYm9vbA0KPiA+ID4g
-aW50ZWxfZHBfdHVubmVsX3ByX29wdGltaXphdGlvbl9zdXBwb3J0ZWQoc3RydWN0DQo+ID4gPiBp
-bnRlbF9kcCAqaW50ZWxfZHApDQo+ID4gPiArew0KPiA+ID4gKwlyZXR1cm4gZmFsc2U7DQo+ID4g
-PiArfQ0KPiA+ID4gKw0KPiA+ID4gwqBzdGF0aWMgaW5saW5lIHZvaWQNCj4gPiA+IMKgaW50ZWxf
-ZHBfdHVubmVsX2F0b21pY19jbGVhbnVwX2luaGVyaXRlZF9zdGF0ZShzdHJ1Y3QNCj4gPiA+IGlu
-dGVsX2F0b21pY19zdGF0ZSAqc3RhdGUpIHt9DQo+ID4gPg0KPiA+DQoNCg==
+On Mon, 23 Mar 2026 10:08:53 -0700
+Matthew Brost <matthew.brost@intel.com> wrote:
+
+> On Mon, Mar 23, 2026 at 10:55:04AM +0100, Boris Brezillon wrote:
+> > Hi Matthew,
+> >=20
+> > On Sun, 22 Mar 2026 21:50:07 -0700
+> > Matthew Brost <matthew.brost@intel.com> wrote:
+> >  =20
+> > > > > > > diff --git a/drivers/gpu/drm/dep/drm_dep_job.c b/drivers/gpu/=
+drm/dep/drm_dep_job.c
+> > > > > > > new file mode 100644
+> > > > > > > index 000000000000..2d012b29a5fc
+> > > > > > > --- /dev/null
+> > > > > > > +++ b/drivers/gpu/drm/dep/drm_dep_job.c
+> > > > > > > @@ -0,0 +1,675 @@
+> > > > > > > +// SPDX-License-Identifier: MIT
+> > > > > > > +/*
+> > > > > > > + * Copyright 2015 Advanced Micro Devices, Inc.
+> > > > > > > + *
+> > > > > > > + * Permission is hereby granted, free of charge, to any pers=
+on obtaining a
+> > > > > > > + * copy of this software and associated documentation files =
+(the "Software"),
+> > > > > > > + * to deal in the Software without restriction, including wi=
+thout limitation
+> > > > > > > + * the rights to use, copy, modify, merge, publish, distribu=
+te, sublicense,
+> > > > > > > + * and/or sell copies of the Software, and to permit persons=
+ to whom the
+> > > > > > > + * Software is furnished to do so, subject to the following =
+conditions:
+> > > > > > > + *
+> > > > > > > + * The above copyright notice and this permission notice sha=
+ll be included in
+> > > > > > > + * all copies or substantial portions of the Software.
+> > > > > > > + *
+> > > > > > > + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY=
+ KIND, EXPRESS OR
+> > > > > > > + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF M=
+ERCHANTABILITY,
+> > > > > > > + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN=
+ NO EVENT SHALL
+> > > > > > > + * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CL=
+AIM, DAMAGES OR
+> > > > > > > + * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT O=
+R OTHERWISE,
+> > > > > > > + * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE O=
+R THE USE OR
+> > > > > > > + * OTHER DEALINGS IN THE SOFTWARE.
+> > > > > > > + *
+> > > > > > > + * Copyright =C2=A9 2026 Intel Corporation
+> > > > > > > + */
+> > > > > > > +
+> > > > > > > +/**
+> > > > > > > + * DOC: DRM dependency job
+> > > > > > > + *
+> > > > > > > + * A struct drm_dep_job represents a single unit of GPU work=
+ associated with
+> > > > > > > + * a struct drm_dep_queue. The lifecycle of a job is:
+> > > > > > > + *
+> > > > > > > + * 1. **Allocation**: the driver allocates memory for the jo=
+b (typically by
+> > > > > > > + *    embedding struct drm_dep_job in a larger structure) an=
+d calls
+> > > > > > > + *    drm_dep_job_init() to initialise it. On success the jo=
+b holds one
+> > > > > > > + *    kref reference and a reference to its queue.
+> > > > > > > + *
+> > > > > > > + * 2. **Dependency collection**: the driver calls drm_dep_jo=
+b_add_dependency(),
+> > > > > > > + *    drm_dep_job_add_syncobj_dependency(), drm_dep_job_add_=
+resv_dependencies(),
+> > > > > > > + *    or drm_dep_job_add_implicit_dependencies() to register=
+ dma_fence objects
+> > > > > > > + *    that must be signalled before the job can run. Duplica=
+te fences from the
+> > > > > > > + *    same fence context are deduplicated automatically.
+> > > > > > > + *
+> > > > > > > + * 3. **Arming**: drm_dep_job_arm() initialises the job's fi=
+nished fence,
+> > > > > > > + *    consuming a sequence number from the queue. After armi=
+ng,
+> > > > > > > + *    drm_dep_job_finished_fence() returns a valid fence tha=
+t may be passed to
+> > > > > > > + *    userspace or used as a dependency by other jobs.
+> > > > > > > + *
+> > > > > > > + * 4. **Submission**: drm_dep_job_push() submits the job to =
+the queue. The
+> > > > > > > + *    queue takes a reference that it holds until the job's =
+finished fence
+> > > > > > > + *    signals and the job is freed by the put_job worker.
+> > > > > > > + *
+> > > > > > > + * 5. **Completion**: when the job's hardware work finishes =
+its finished fence
+> > > > > > > + *    is signalled and drm_dep_job_put() is called by the qu=
+eue. The driver
+> > > > > > > + *    must release any driver-private resources in &drm_dep_=
+job_ops.release.
+> > > > > > > + *
+> > > > > > > + * Reference counting uses drm_dep_job_get() / drm_dep_job_p=
+ut(). The
+> > > > > > > + * internal drm_dep_job_fini() tears down the dependency xar=
+ray and fence
+> > > > > > > + * objects before the driver's release callback is invoked.
+> > > > > > > + */
+> > > > > > > +
+> > > > > > > +#include <linux/dma-resv.h>
+> > > > > > > +#include <linux/kref.h>
+> > > > > > > +#include <linux/slab.h>
+> > > > > > > +#include <drm/drm_dep.h>
+> > > > > > > +#include <drm/drm_file.h>
+> > > > > > > +#include <drm/drm_gem.h>
+> > > > > > > +#include <drm/drm_syncobj.h>
+> > > > > > > +#include "drm_dep_fence.h"
+> > > > > > > +#include "drm_dep_job.h"
+> > > > > > > +#include "drm_dep_queue.h"
+> > > > > > > +
+> > > > > > > +/**
+> > > > > > > + * drm_dep_job_init() - initialise a dep job
+> > > > > > > + * @job: dep job to initialise
+> > > > > > > + * @args: initialisation arguments
+> > > > > > > + *
+> > > > > > > + * Initialises @job with the queue, ops and credit count fro=
+m @args.  Acquires
+> > > > > > > + * a reference to @args->q via drm_dep_queue_get(); this ref=
+erence is held for
+> > > > > > > + * the lifetime of the job and released by drm_dep_job_relea=
+se() when the last
+> > > > > > > + * job reference is dropped.
+> > > > > > > + *
+> > > > > > > + * Resources are released automatically when the last refere=
+nce is dropped
+> > > > > > > + * via drm_dep_job_put(), which must be called to release th=
+e job; drivers
+> > > > > > > + * must not free the job directly.
+> > > > > > > + *
+> > > > > > > + * Context: Process context. Allocates memory with GFP_KERNE=
+L.
+> > > > > > > + * Return: 0 on success, -%EINVAL if credits is 0,
+> > > > > > > + *   -%ENOMEM on fence allocation failure.
+> > > > > > > + */
+> > > > > > > +int drm_dep_job_init(struct drm_dep_job *job,
+> > > > > > > +		     const struct drm_dep_job_init_args *args)
+> > > > > > > +{
+> > > > > > > +	if (unlikely(!args->credits)) {
+> > > > > > > +		pr_err("drm_dep: %s: credits cannot be 0\n", __func__);
+> > > > > > > +		return -EINVAL;
+> > > > > > > +	}
+> > > > > > > +
+> > > > > > > +	memset(job, 0, sizeof(*job));
+> > > > > > > +
+> > > > > > > +	job->dfence =3D drm_dep_fence_alloc();
+> > > > > > > +	if (!job->dfence)
+> > > > > > > +		return -ENOMEM;
+> > > > > > > +
+> > > > > > > +	job->ops =3D args->ops;
+> > > > > > > +	job->q =3D drm_dep_queue_get(args->q);
+> > > > > > > +	job->credits =3D args->credits;
+> > > > > > > +
+> > > > > > > +	kref_init(&job->refcount);
+> > > > > > > +	xa_init_flags(&job->dependencies, XA_FLAGS_ALLOC);
+> > > > > > > +	INIT_LIST_HEAD(&job->pending_link);
+> > > > > > > +
+> > > > > > > +	return 0;
+> > > > > > > +}
+> > > > > > > +EXPORT_SYMBOL(drm_dep_job_init);
+> > > > > > > +
+> > > > > > > +/**
+> > > > > > > + * drm_dep_job_drop_dependencies() - release all input depen=
+dency fences
+> > > > > > > + * @job: dep job whose dependency xarray to drain
+> > > > > > > + *
+> > > > > > > + * Walks @job->dependencies, puts each fence, and destroys t=
+he xarray.
+> > > > > > > + * Any slots still holding a %DRM_DEP_JOB_FENCE_PREALLOC sen=
+tinel =E2=80=94
+> > > > > > > + * i.e. slots that were pre-allocated but never replaced =E2=
+=80=94 are silently
+> > > > > > > + * skipped; the sentinel carries no reference.  Called from
+> > > > > > > + * drm_dep_queue_run_job() in process context immediately af=
+ter
+> > > > > > > + * @ops->run_job() returns, before the final drm_dep_job_put=
+().  Releasing
+> > > > > > > + * dependencies here =E2=80=94 while still in process contex=
+t =E2=80=94 avoids calling
+> > > > > > > + * xa_destroy() from IRQ context if the job's last reference=
+ is later
+> > > > > > > + * dropped from a dma_fence callback.
+> > > > > > > + *
+> > > > > > > + * Context: Process context.
+> > > > > > > + */
+> > > > > > > +void drm_dep_job_drop_dependencies(struct drm_dep_job *job)
+> > > > > > > +{
+> > > > > > > +	struct dma_fence *fence;
+> > > > > > > +	unsigned long index;
+> > > > > > > +
+> > > > > > > +	xa_for_each(&job->dependencies, index, fence) {
+> > > > > > > +		if (unlikely(fence =3D=3D DRM_DEP_JOB_FENCE_PREALLOC))
+> > > > > > > +			continue;
+> > > > > > > +		dma_fence_put(fence);
+> > > > > > > +	}
+> > > > > > > +	xa_destroy(&job->dependencies);
+> > > > > > > +}
+> > > > > > > +
+> > > > > > > +/**
+> > > > > > > + * drm_dep_job_fini() - clean up a dep job
+> > > > > > > + * @job: dep job to clean up
+> > > > > > > + *
+> > > > > > > + * Cleans up the dep fence and drops the queue reference hel=
+d by @job.
+> > > > > > > + *
+> > > > > > > + * If the job was never armed (e.g. init failed before drm_d=
+ep_job_arm()),
+> > > > > > > + * the dependency xarray is also released here.  For armed j=
+obs the xarray
+> > > > > > > + * has already been drained by drm_dep_job_drop_dependencies=
+() in process
+> > > > > > > + * context immediately after run_job(), so it is left untouc=
+hed to avoid
+> > > > > > > + * calling xa_destroy() from IRQ context.
+> > > > > > > + *
+> > > > > > > + * Warns if @job is still linked on the queue's pending list=
+, which would
+> > > > > > > + * indicate a bug in the teardown ordering.
+> > > > > > > + *
+> > > > > > > + * Context: Any context.
+> > > > > > > + */
+> > > > > > > +static void drm_dep_job_fini(struct drm_dep_job *job)
+> > > > > > > +{
+> > > > > > > +	bool armed =3D drm_dep_fence_is_armed(job->dfence);
+> > > > > > > +
+> > > > > > > +	WARN_ON(!list_empty(&job->pending_link));
+> > > > > > > +
+> > > > > > > +	drm_dep_fence_cleanup(job->dfence);
+> > > > > > > +	job->dfence =3D NULL;
+> > > > > > > +
+> > > > > > > +	/*
+> > > > > > > +	 * Armed jobs have their dependencies drained by
+> > > > > > > +	 * drm_dep_job_drop_dependencies() in process context after=
+ run_job().     =20
+> > > > > >=20
+> > > > > > Just want to clear the confusion and make sure I get this right=
+ at the
+> > > > > > same time. To me, "process context" means a user thread enterin=
+g some
+> > > > > > syscall(). What you call "process context" is more a "thread co=
+ntext" to
+> > > > > > me. I'm actually almost certain it's always a kernel thread (a =
+workqueue
+> > > > > > worker thread to be accurate) that executes the drop_deps() aft=
+er a
+> > > > > > run_job().     =20
+> > > > >=20
+> > > > > Some of context comments likely could be cleaned up. 'process con=
+text'
+> > > > > here either in user context (bypass path) or run job work item.
+> > > > >    =20
+> > > > > >      =20
+> > > > > > > +	 * Skip here to avoid calling xa_destroy() from IRQ context.
+> > > > > > > +	 */
+> > > > > > > +	if (!armed)
+> > > > > > > +		drm_dep_job_drop_dependencies(job);     =20
+> > > > > >=20
+> > > > > > Why do we need to make a difference here. Can't we just assume =
+that the
+> > > > > > hole drm_dep_job_fini() call is unsafe in atomic context, and h=
+ave a
+> > > > > > work item embedded in the job to defer its destruction when _pu=
+t() is
+> > > > > > called in a context where the destruction is not allowed?
+> > > > > >      =20
+> > > > >=20
+> > > > > We already touched on this, but the design currently allows the l=
+ast job
+> > > > > put from dma-fence signaling path (IRQ).   =20
+> > > >=20
+> > > > It's not much about the last _put and more about what happens in the
+> > > > _release() you pass to kref_put(). My point being, if you assume
+> > > > something in _release() is not safe to be done in an atomic context,
+> > > > and _put() is assumed to be called from any context, you might as w=
+ell   =20
+> > >=20
+> > > No. DRM_DEP_QUEUE_FLAGS_JOB_PUT_IRQ_SAFE indicates that the entire job
+> > > put (including release) is IRQ-safe. If the documentation isn=E2=80=
+=99t clear, I
+> > > can clean that up. Some of my comments here [1] try to explain this
+> > > further.
+> > >=20
+> > > Setting DRM_DEP_QUEUE_FLAGS_JOB_PUT_IRQ_SAFE makes a job analogous to=
+ a
+> > > dma-fence whose release must be IRQ-safe, so there is precedent for
+> > > this. I didn=E2=80=99t want to unilaterally require that all job rele=
+ases be
+> > > IRQ-safe, as that would conflict with existing DRM scheduler jobs=E2=
+=80=94hence
+> > > the flag.
+> > >=20
+> > > The difference between non-IRQ-safe and IRQ-safe job release is only
+> > > about 12 lines of code. =20
+> >=20
+> > It's not just about the number of lines of code added to the core to
+> > deal with that case, but also complexity of the API that results from
+> > these various modes.
+> >  =20
+>=20
+> Fair enough.
+>=20
+> > > I figured that if we=E2=80=99re going to invest the time
+> > > and effort to replace DRM sched, we should aim for the best possible
+> > > implementation. Any driver can opt-in here and immediately get less C=
+PU
+> > > ultization and power savings. I will try to figure out how to measure
+> > > this and get some number here. =20
+> >=20
+> > That's key here. My gut feeling is that we have so much deferred
+> > already that adding one more work to the workqueue is not going to
+> > hurt in term of scheduling overhead (no context switch if it's
+> > scheduled on the same workqueue). Job cleanup is just the phase =20
+>=20
+> Signaling of fences in many drivers occurs in hard IRQ context rather
+> than in a work queue. I agree that if you are signaling fences from a
+> work queue, the overhead of another work item is minimal.
+
+I'm talking about the drm_dep_queue_run_job_queue() call which in turn
+calls queue_work() when a job gets reported as done. That, I think, is
+the most likely path, isn't it?
+
+>=20
+> > following the job_done() event, which also requires a deferred work to
+> > check progress on the queue anyway. And if you move the entirety of the=
+ =20
+>=20
+> Yes, I see Panthor signals fences from a work queue by looking at the
+> seqnos, but again, in many drivers this flow is IRQ-driven for fence
+> signaling latency reasons.
+
+I'm not talking about the signalling of the done_fence, but the work
+that's used to check progress on a job queue
+(drm_dep_queue_run_job_queue()).
+
+> > >  =20
+> > > > >=20
+> > > > > Once arm() is called there is a guarnette the run_job path is cal=
+led
+> > > > > either via bypass or run job work item.   =20
+> > > >=20
+> > > > Sure.
+> > > >    =20
+> > >=20
+> > > Let=E2=80=99s not gloss over this=E2=80=94this is actually a huge dif=
+ference from DRM
+> > > sched. One of the biggest problems I found with DRM sched is that if =
+you
+> > > call arm(), run_job() may or may not be called. Without this guarante=
+e,
+> > > you can=E2=80=99t do driver-side bookkeeping in arm() that is later r=
+eleased in
+> > > run_job(), which would otherwise simplify the driver design. =20
+> >=20
+> > You can do driver-side book-keeping after all jobs have been
+> > successfully initialized, which include arming their fences. The key
+> > turning point is when you start exposing those armed fences, not
+> > when you arm them. See below.
+> >  =20
+>=20
+> There is still the seqno critical section which starts at arm() and
+> closed at push() or drop of fence.
+
+That's orthogonal to the rule that says nothing after _arm() can
+fail, I think. To guarantee proper job ordering, you need extra locking
+(at the moment, we rely on the VM resv lock to serialize this in
+Panthor).
+
+> > >=20
+> > > In my opinion, it=E2=80=99s best and safest to enforce a no-failure p=
+olicy
+> > > between arm() and push(). =20
+> >=20
+> > I don't think it's safer, it's just the semantics that have been
+> > defined by drm_sched/dma_fence and that we keep forcing ourselves
+> > into. I'd rather have a well defined dma_fence state that says "that's
+> > it, I'm exposed, you have to signal me now", than this half-enforced
+> > arm()+push() model.
+> >  =20
+>=20
+> So what is the suggestion here =E2=80=94 move the asserts I have from arm=
+() to
+> something like begin_push()? We could add a dma-fence state toggle there
+> as well if we can get that part merged into dma-fence. Or should we just
+> drop the asserts/lockdep checks between arm() and push() completely? I=E2=
+=80=99m
+> open to either approach here.
+
+If we can have that INACTIVE flag added, and the associated
+dma_fence_init[64]_inactive() variants, I would say, we call
+dma_fence_init[64]_inactive() in _arm(), and we call
+dma_fence_set_active() in _push(). It'd still be valuable to have some
+sort of delimitation for the submission through some block-like macro
+with an associated context to which we can attach states and allow for
+more (optional?) runtime-checks.
+
+>=20
+> > >=20
+> > > FWIW, this came up while I was reviewing AMDXDNA=E2=80=99s DRM schedu=
+ler usage,
+> > > which had the exact issue I described above. I pointed it out and got=
+ a
+> > > reply saying, =E2=80=9Cwell, this is an API issue, right?=E2=80=9D=E2=
+=80=94and they were
+> > > correct, it is an API issue.
+> > >  =20
+> > > > >    =20
+> > > > > >=20
+> > > > > > In general, I wonder if we should distinguish between "armed" a=
+nd
+> > > > > > "publicly exposed" to help deal with this intra-batch dep thing=
+ without
+> > > > > > resorting to reservation and other tricks like that.
+> > > > > >      =20
+> > > > >=20
+> > > > > I'm not exactly sure what you suggesting but always open to ideas=
+.   =20
+> > > >=20
+> > > > Right now _arm() is what does the dma_fence_init(). But there's an
+> > > > extra step between initializing the fence object and making it
+> > > > visible to the outside world. In order for the dep to be added to t=
+he
+> > > > job, you need the fence to be initialized, but that's not quite
+> > > > external visibility, because the job is still very much a driver
+> > > > object, and if something fails, the rollback mechanism makes it so =
+all
+> > > > the deps are dropped on the floor along the job that's being destro=
+yed.
+> > > > So we won't really wait on this fence that's never going to be
+> > > > signalled.
+> > > >=20
+> > > > I see what's appealing in pretending that _arm() =3D=3D externally-=
+visible,
+> > > > but it's also forcing us to do extra pre-alloc (or other pre-init)
+> > > > operations that would otherwise not be required in the submit path.=
+ Not
+> > > > a hill I'm willing to die on, but I just thought I'd mention the fa=
+ct I
+> > > > find it weird that we put extra constraints on ourselves that are n=
+ot
+> > > > strictly needed, just because we fail to properly flag the dma_fence
+> > > > visibility transitions.   =20
+> > >=20
+> > > See the dma-resv example above. I=E2=80=99m not willing to die on thi=
+s hill
+> > > either, but again, in my opinion, for safety and as an API-level
+> > > contract, enforcing arm() as a no-failure point makes sense. It preve=
+nts
+> > > drivers from doing anything dangerous like the dma-resv example, which
+> > > is an extremely subtle bug. =20
+> >=20
+> > That's a valid point, but you're not really enforcing things at
+> > compile/run-time it's just "don't do this/that" in the docs. If you
+> > encode the is_active() state at the dma_fence level, properly change
+> > the fence state anytime it's about to be added to a public container,
+> > and make it so an active fence that's released without being signalled
+> > triggers a WARN_ON(), you've achieved more. Once you've done that, you
+> > can also relax the rule that says that "an armed fence has to be
+> > signalled" to "a fence that's active has to be signalled". With this,
+> > the pre-alloc for intra-batch deps in your drm_dep_job::deps xarray is
+> > no longer required, because you would be able to store inactive fences =
+=20
+>=20
+> I wouldn=E2=80=99t go that far or say it=E2=80=99s that simple. This woul=
+d require a
+> fairly large refactor of Xe=E2=80=99s VM bind pipeline to call arm() earl=
+ier,
+> and I=E2=80=99m not even sure it would be possible. Between arm() and pus=
+h(),
+> the seqno critical section still remains and requires locking, in
+> particulay the tricky case is kernel binds (e.g., page fault handling)
+> which use the same queue. Multiple threads can issue kernel binds
+> concurrently, as our page fault handler is multi-threaded, similar
+> to the CPU page fault handler, so critical section between arm() and
+> push() is very late in the pipeline tightly protected by a lock.
+
+This sounds like a different issue to me. That's the constraint that
+says _arm() and _push() ordering needs to be preserved to guarantee
+that jobs are properly ordered on the job queue. But that's orthogonal
+to the rule that says nothing between _arm() and _push() on a given job
+can fail. Let's take the Panthor case as an example:
+
+	for_each_job_in_batch() {
+		// This acquires the VM resv lock, and all BO locks
+		// Because queues target a specific VM and all jobs
+		// in the a SUBMIT must target the same VM, this
+		// guarantees that seqno allocation happening further
+		// down (when _arm() is called) won't be interleaved
+		// with other concurrent submissions to the same queues.
+		lock_and_prepare_resvs()
+
+		<--- Seqno critical section starts here
+	}
+
+ 	for_each_job_in_batch() {
+		// If something fails here, we drop all the jobs that
+		// are part of this SUBMIT, and the resv locks are
+		// released as part of the rollback. This means we
+		// consumed but didn't use the seqnos, thus creating
+		// a whole on the timeline, which is armless, as long
+		// as those seqnos are not recycled.
+		ret =3D faillible_stuf()
+ 		if (ret)
+ 			goto rollback;
+=20
+ 		arm(job)
+ 	}
+=20
+ 	// Nothing can fail after this point
+=20
+ 	for_each_job_in_batch() {
+		// resv locks are released here, unblocking other
+		// concurrent submissions
+ 		update_resvs(job->done_fence)
+
+		<--- Seqno critical section ends here in case of success
+
+ 		push(job)
+ 	}
+=20
+	update_submit_syncobjs();
+
+rollback:
+	unlock_resvs()
+	<--- Seqno critical section ends here in case of success
+...
+
+How wide your critical seqno section is is up to each driver, really.
+
+>=20
+> > there, as long as they become active before the job is pushed.
+> >  =20
+> > >  =20
+> > > >=20
+> > > > On the rust side it would be directly described through the type
+> > > > system (see the Visibility attribute in Daniel's branch[1]). On C s=
+ide,
+> > > > this could take the form of a new DMA_FENCE_FLAG_INACTIVE (or which=
+ever
+> > > > name you want to give it). Any operation pushing the fence to public
+> > > > container (dma_resv, syncobj, sync_file, ...) would be rejected when
+> > > > that flag is set. At _push() time, we'd clear that flag with a
+> > > > dma_fence_set_active() helper, which would reflect the fact the fen=
+ce
+> > > > can now be observed and exposed to the outside world.
+> > > >    =20
+> > >=20
+> > > Timeline squashing is problematic due to the DMA_FENCE_FLAG_INACTIVE
+> > > flag. When adding a fence to dma-resv, fences that belong to the same
+> > > timeline are immediately squashed. A later transition of the fence st=
+ate
+> > > completely breaks this behavior. =20
+> >=20
+> > That's exactly my point: as soon as you want to insert the fence to a
+> > public container, you have to make it "active", so it will never be
+> > rolled back to the previous entry in the resv. Similarly, a
+> > wait/add_callback() on an inactive fence should be rejected.
+> >  =20
+>=20
+> This is bit bigger dma-fence / treewide level change but in general I
+> believe this is a good idea.
+
+I agree it's a bit more work. It implies patching containers to reject
+insertion when the INACTIVE flag is set. If we keep !INACTIVE as the
+default (__dma_fence_init(INACTIVE) being an opt-in), fence emitters can
+be moved to this model progressively though.
