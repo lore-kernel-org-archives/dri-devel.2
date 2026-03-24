@@ -4,148 +4,130 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2D562E9A74E
-	for <dri-devel@archiver.kernel.org>; Tue, 24 Mar 2026 09:40:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9A168E9A74D
+	for <dri-devel@archiver.kernel.org>; Tue, 24 Mar 2026 09:42:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 88F8710E453;
-	Tue, 24 Mar 2026 09:40:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 042AC10E52F;
+	Tue, 24 Mar 2026 09:42:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=outlook.com header.i=@outlook.com header.b="ZoXKIVSH";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="GWzCjR/O";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="iMeNcf6p";
 	dkim-atps=neutral
-Received: from MEUPR01CU001.outbound.protection.outlook.com
- (mail-australiasoutheastazolkn19010003.outbound.protection.outlook.com
- [52.103.73.3])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B1FB210E453;
- Tue, 24 Mar 2026 09:40:26 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=rZBuBLmMYblbU5e7JOMGbzXp6GvG8pW/WjYhVcg+sIOE+mJO7+Fi6LAZNvN01E9Fvwvj66YTgEK9hxrmG3D5avgHI2kOx+jgj5hIPRTChAgLNiOA+ovYxpzkgCUc2g2y6QhM+FmxPIpk7mjEIiuCepdzOg5PgZ1xvyeDd/ZNvdDIsKswxkiiK9YjwV1VpQrg9yGAD1K5sTtjwFmwTi+cI8SEtnBRO5JaGQPc21pC57lfhX5gvFBmQRQ3yj9vTN4GjDXMJZsgb6+/teSxy4mmyhM7P7IMx7Fw4XE8jEpLEHHUlWDHhr29M3QqL6yXLxc/qCWQIom4FE2fh1nRKidKCQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Soj7WaLUBkqT6s8gc76FX7TN72ERv3y6yJFYJSpLpx0=;
- b=OaHmEgmPd6C09PryagOWOBi4xNIoqi3Oc/uaXH1S8Lrwga0mfsQeZ5XZ+VTIh6/dw6+O4i9n2awbu/9RMLqS4U5LrfuF05SjumnGeXA3Rtu4y7NZCn/+mgzJ2Y//HYM2tFJakveDSTzBnab3IiCgK4+1fQRThvVulNQIlysYcvHHtLo8Xl7Eg+Vm/zvWFE12HT8ofQux7Ok4173qhiQeTS8b/rZImmBy8f3yvak18TcAyCO+TussVm0xlzfAxWdCBioVMho+O6rkGMn7yHk1HabakIguH2+kJoMfmWb1FOZYNbOJuFWu6ZCceZLfhCuJUu9heu8yPUH7UtjibanzEA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Soj7WaLUBkqT6s8gc76FX7TN72ERv3y6yJFYJSpLpx0=;
- b=ZoXKIVSHiPCPv+ObUMAkGtoOOWOdPiPFSYVwKDS4C5vTccGbKEdMUx+4G+JSheu78tzEo2nzs2oJF/NSi4mcA1Sr37LIUoMFDMYC3nhpem8qkQaGXOTDWCj/UQQDFJXzFni2UxW0AmxAad4QIDb6ep1Rdj9AHjwxYHCZZofy0DCS8pgJITUfKLqJ03bIgC/26cKMqkM0PE0BvxkoWk6HCkfKqprjVCdPikt+YOyk3D3u5h//3kfFAMs5g4+5qWBM3j15vIdFqIpnYd7UJwjv1PlNEdcxRvvqGTJaQ6Z41w2faq8UJzBloLWF92DKjQ1x+QM7IbiokTib3L6EI2WOUA==
-Received: from SYBPR01MB7881.ausprd01.prod.outlook.com (2603:10c6:10:1b0::5)
- by SY7PR01MB10183.ausprd01.prod.outlook.com (2603:10c6:10:2ea::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.31; Tue, 24 Mar
- 2026 09:40:20 +0000
-Received: from SYBPR01MB7881.ausprd01.prod.outlook.com
- ([fe80::7cd2:d6e8:3fa0:5f0c]) by SYBPR01MB7881.ausprd01.prod.outlook.com
- ([fe80::7cd2:d6e8:3fa0:5f0c%5]) with mapi id 15.20.9723.022; Tue, 24 Mar 2026
- 09:40:20 +0000
-From: Junrui Luo <moonafterrain@outlook.com>
-Date: Tue, 24 Mar 2026 17:39:02 +0800
-Subject: [PATCH] drm/amdgpu: validate doorbell_offset in user queue
- creation
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <SYBPR01MB78816FAF00EC3DADFA588E0CAF48A@SYBPR01MB7881.ausprd01.prod.outlook.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzMDYyMT3bTMitRiXcvUVLPkxCTzpGQTcyWg2oKiVLAEUGl0bG0tAHHDj3p
- XAAAA
-X-Change-ID: 20260324-fixes-9ee6cab7bc47
-To: Alex Deucher <alexander.deucher@amd.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Shashank Sharma <shashank.sharma@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Yuhao Jiang <danisjiang@gmail.com>, 
- stable@vger.kernel.org, Junrui Luo <moonafterrain@outlook.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1626;
- i=moonafterrain@outlook.com; h=from:subject:message-id;
- bh=7BrqyfK2x4Teu3ltKzGHSlI1NLYJmUjpgjNife1M18s=;
- b=owGbwMvMwCVW+MIioLvvgwPjabUkhsxD0Vt7jpfwCXNYmzjcCfmfbvKpasoBm51/6+b5H8g4L
- 5dc97Oko5SFQYyLQVZMkeV4waVvFr5bdLf4bEmGmcPKBDKEgYtTACYiUcPIsChr/l0eTu+fp1vu
- 5C/mWu18IOBKuPz0l/FJSpM4bRbOY2L4H5558wanrmZcY+2i1vpNndJPGzvsJt+rTNpSz/i1t+U
- 8LwA=
-X-Developer-Key: i=moonafterrain@outlook.com; a=openpgp;
- fpr=C770D2F6384DB42DB44CB46371E838508B8EF040
-X-ClientProxiedBy: TY4P286CA0084.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:405:36d::14) To SYBPR01MB7881.ausprd01.prod.outlook.com
- (2603:10c6:10:1b0::5)
-X-Microsoft-Original-Message-ID: <20260324-fixes-v1-1-89a71cf075d8@outlook.com>
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6722910E52F
+ for <dri-devel@lists.freedesktop.org>; Tue, 24 Mar 2026 09:42:04 +0000 (UTC)
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 62O3e4bJ3634275
+ for <dri-devel@lists.freedesktop.org>; Tue, 24 Mar 2026 09:42:04 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ 5RZ4GYuvh+6bLS2CH+VBbgVN7UFKGCV6+Omn03Ufz8U=; b=GWzCjR/OrbINmbZJ
+ 6MOknPUvnd1eshXqPPUnmcBfnG2WVZmSf7KcqyL/OX9L6HBJopkJKyox037aSvHT
+ qKDp7TdaQ0yrC4hQnr+ok3/lFlWQlmcppcj2qMCqTbEakWkNWce8trglYrzAAJmJ
+ MxZ4UvXAIWvw3AM6yRe7jkzYXJbpJNfWrENT4iM2ViwH6XAO4yoXyrqqh8Lo8XWU
+ GFV4PlCvbFlodCFMUlGoDFbnOw1dzmVgvZxbNO9ANzme/OaBhFI4Ju5VIhFFOv0x
+ NR59P3A9dwhAcRGJjGL+IPNF22Ac8qK+UJ+fsuc4x0QeLB7HXOqLWXbimmzqlys6
+ 36yyYA==
+Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
+ [209.85.160.197])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d34k4mdsm-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Tue, 24 Mar 2026 09:42:03 +0000 (GMT)
+Received: by mail-qt1-f197.google.com with SMTP id
+ d75a77b69052e-50b2955cc1eso31499551cf.2
+ for <dri-devel@lists.freedesktop.org>; Tue, 24 Mar 2026 02:42:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1774345323; x=1774950123;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=5RZ4GYuvh+6bLS2CH+VBbgVN7UFKGCV6+Omn03Ufz8U=;
+ b=iMeNcf6pLxuM250LvHOmKuWcYGVgcNX/Zkn2Atoa5K2tc/o4LjafSdGaWMS9gVj7Hm
+ fmB7hsFaRl+Ddhbw+1D/7L5Wr/MJWhvrkv6gjLPOnZ9jVeeq3+eXifCOH0+69SjNToMG
+ KOP8L14mmTR2o19A8XTAgKmk1TkbjVPQbKec5z7m8lvy5YycxAQZDJg89MbuEvfsPenc
+ LmHm5gRIzm4DWEmjnMhylxj/NynXD0O+z2Rf0wwCCU6oljAR3pJZniLrjA/Be1fO168j
+ dlHI3LkVNBWI7MU33IvhSXpOFd56rJn4hI+PaFqDFgjz6ub89u5+fdhjc5QX557IX2mP
+ 8l5w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1774345323; x=1774950123;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=5RZ4GYuvh+6bLS2CH+VBbgVN7UFKGCV6+Omn03Ufz8U=;
+ b=T0d6YvLZWb5NuutOsvGpqnTGXYWLUx8uA7ULG7558+mAhpFsRSyuMSfNlScyka/1Dd
+ lK1CU0JyLMZJZA/cUTNQIsPP9E61nNN6L7sVSbP8P+czZDsgO1VWLHfOT7r7ZKwMhdHS
+ csea1+wJICQkzGuXosmdQFKK8tI7o8lUeJermpY/yYP9J05uoVTzNa7u0+8cwzplqaR0
+ JuZ19hZEBajx+EF8ig3OawWgJJ+M6mw1GMN5D9EM+0ISi6K+q74PO3CRHLcqi05693Qj
+ MRrAQWg9H0Um45ovlwz/SacKLV3viuYlWlWRITaYZXJfR8wRW26H4fHtlJ9zX5sG9t0G
+ 8AUA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUbX3dmh2thFAnecBQYiZKy9osTGwsdD6QEFE5i95y9/+BsdpUqUENy1vEsziR7Jez+1bPqSi9llZY=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxBPhTwuEDkEMOb0Mf2A0Rd8/TD1FXA1ZNcuXDTPZmPvWik7nI9
+ D1PyH5fn+JpnVSn7H2+ICzer3nwX8kRXVyqVvwR/V3JlcAVoWU9W18lGqOrrvUTg+hET7UANtxW
+ Kx4htlzyyGC0UcsAQRZ8CufVEYE4yStb2/WCz5HrIfW3Gg984B8l6Wj/Ms72el02FoWzF2MU=
+X-Gm-Gg: ATEYQzwLsf0vi6/e/rSkm1VJaPq4oFZbQ1cav52GVU4yh5alStB9v9w+PSb7UQDt47K
+ FbceqSyf7l8LkdaaPsYu3PLTJOpolTtrCb+I4f8CpV4I9L1Z1vBH4vWlsEu3WT7UJX5JgTArQfi
+ yxeMo5Ttjqp6mHpVyFw8XeEYpZqtpCzsDC+se3NHlXdPkrf4CVEpIkahykKywlYgeyCwfpZG0UP
+ DWPBj0XK2CRU59yR4IM25U7vwnWI3N/r9RiM/Ekg9uUPX6G40HlUARQkfK9TgaCj7/7x1nNs0Vc
+ XJJuCn3yVKqe+Rqfxcaax0t7bIEv3j+gU0MJIp7WMxRu46O49xiNeLPzibQnN6EOL3HVmVNkZpd
+ A4Ph1rPxu0klj6YwSSIt/gxp9nH/mIs27JPetGNhZsnOWm4TcLKmK6bw+RuAJCHBEmTM/glZ7jW
+ 1EYbM=
+X-Received: by 2002:ac8:7fc4:0:b0:509:1057:4a67 with SMTP id
+ d75a77b69052e-50b37425de9mr176705441cf.2.1774345322795; 
+ Tue, 24 Mar 2026 02:42:02 -0700 (PDT)
+X-Received: by 2002:ac8:7fc4:0:b0:509:1057:4a67 with SMTP id
+ d75a77b69052e-50b37425de9mr176705261cf.2.1774345322306; 
+ Tue, 24 Mar 2026 02:42:02 -0700 (PDT)
+Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl.
+ [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-b9832f43ae8sm616743066b.6.2026.03.24.02.41.57
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 24 Mar 2026 02:41:59 -0700 (PDT)
+Message-ID: <3df24e4f-afba-49c4-b9ff-62db725ff0a3@oss.qualcomm.com>
+Date: Tue, 24 Mar 2026 10:41:56 +0100
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SYBPR01MB7881:EE_|SY7PR01MB10183:EE_
-X-MS-Office365-Filtering-Correlation-Id: 828dffa0-b803-443b-2208-08de89895d16
-X-Microsoft-Antispam: BCL:0;
- ARA:14566002|23021999003|24121999003|22091999003|461199028|15080799012|8060799015|5062599005|5072599009|6090799003|51005399006|19110799012|440099028|3412199025|40105399003|1710799026;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?MFVpY0xoZE94YXBMbllsSE56cnNBR2JqZk5KSUhPOXJTcVlHUkREa1RzajZI?=
- =?utf-8?B?Ykg3VkFKVHNvdTMyS3V6Z09LMnk5clFEMTFxa0QyTm9QZHVUV2Y1S2xJOVJR?=
- =?utf-8?B?dzBGVVNQbVFzRXgrWWRlOHRWZ2pXTnM0Uzdrb3Q3S2ppaEZtdVZBWkdkS2RR?=
- =?utf-8?B?cEVMVGJDOWlrcmpRQTlNSWVJSXlMaHdpZFZKK1FoRFNuSTZ0VlZkbXJ1SWQv?=
- =?utf-8?B?SWtmTlRwU2xVdjRCUjl6c3JyQTVyakh0YVZGbkJqVGxQbGNMeUZTVDdjY3Br?=
- =?utf-8?B?M04wWUdaRWtwMHVrcU9Wbm82UEdpNUlrbmJnb0Rxay9tU29CT25SbU50aWNk?=
- =?utf-8?B?ZHUrVjhFS1RiTllyOEd6QUY1ZGNvM0FzT3NZcFhxYlVhZ1FSbEFvOVUyQVFP?=
- =?utf-8?B?WjhXSWxLaHhVVEV3Mzd3alViRGppODQwZjlIN29TRU5jNVdWRWdEZ0xZNVJ2?=
- =?utf-8?B?dGdCWlNjOFZ2WmlncWY0RkxrZnVCQVVSakYxbHFUTDNZUmlVM1pDRXhPak9S?=
- =?utf-8?B?bkZDbTBBM1Y4dlBKQVAxK2h5VXI0ZG13b09hVllxS25vTmlELzNTTDhsZ1l4?=
- =?utf-8?B?N1lVNTN1Zjlkc09na1MyNUtRMnRXd042Sy8zSm45R1c4cmdsaTJOVkVyTXJ4?=
- =?utf-8?B?bGJqZ1A2V0d4Z0wwWWpFbU5iSStwek1aOERralp6WkxGSjBCSEhETEJxSFpv?=
- =?utf-8?B?eCtxTTltWUVsWGlPQkxEcVEyUXBOMDNjc0tZcGNBTkIrT3A4eXAzTEthNkxN?=
- =?utf-8?B?eWF0ZXBybFkxTXV1NE5MVDE0WkJvZVJ1dkdMSWNvSk4yVDg1WVhWZUF4azk2?=
- =?utf-8?B?S2U3ckJKVWpZMGJnSmU5dEwraVljUG1VditiY3NSWGZPM0VodjNjTXNBZFVM?=
- =?utf-8?B?MEk2Q2w0ZkVRMW9lQmN4VTFXMkl2b3lrcGcrM0QzTUFOWDF1eDVFUHF3Tk1l?=
- =?utf-8?B?RElYMFVKZnVZRzMyc0F2RTExNkI3Q3RBSFk5RVY2NFZMSkNjUVZ4UUlDTm0z?=
- =?utf-8?B?bVNOMkdVOWhZdTZmWXpEUDhxRU15VDdEaDQ4c3BQN3o3Yi9oV3dORlhnUEdS?=
- =?utf-8?B?U2ZRM0UvK21DWjZWUi9DaGRzaG5RMGR2M0hiQmErRDVRVkRudDE5ZHBDdVdp?=
- =?utf-8?B?YUtWT25ETE5xODF0aXA2czVsZXZZb29JM0xvZlhFQ3ovN1hlekZKTkZqdzhw?=
- =?utf-8?B?bURabUp2cHRKNHIybTRlV1RBYzRlR2Iwd0xSUkdsYUNBVU5HczNXMnlNV2o3?=
- =?utf-8?B?ZnBKUnhUcjU3NmhpRXNkc0V0UW42NGFSNU5PWXBEZnRIK216OU5QMUxwR0FJ?=
- =?utf-8?B?S2doemhHMHFnZGJBSTB4dFliRlZiU3NzQjRPcXRwa2tSbU9qRDNZQzdvM0V2?=
- =?utf-8?B?Tnlzd3hjbHh2WVFKVXhYcDZIUlh5VE1tZDFxbFgzY1M0dkFKUjRxN25kbTRl?=
- =?utf-8?Q?9WBafKh7?=
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aDhJeTB6T0pOUXVHbnUxZE8rNDNkbmtYYklWenpQMUM3eU02NGpVVnAzRVRy?=
- =?utf-8?B?WGdzVGR0U211WS85QURWS3RQMGVjY2lGU0Z6NUFpL2ViUmY3Z1NUMlZoRjVX?=
- =?utf-8?B?STFBaDh0MDl4SEUwcFA4SXd4bFFxNmh2L0FhOVlKV2swUHNiMWIwQ1pKYVNM?=
- =?utf-8?B?eitodklDbHVmYWkzM21vMUVTN2pjY1JlWFhoWFJESGQzVEt3RDVWWkxpZ21a?=
- =?utf-8?B?NFZVcmM0NUhtUk5xVk1KRUxIdVRnRThibTZwOVVUbmtiUTB2ZVJNNmNQbUww?=
- =?utf-8?B?VnNucU14MDRVUTZVUWk2Z0NPYVpSWVVZTVFyNHM1dGtDclZDMSs4Q0dySk1E?=
- =?utf-8?B?bVVDWG9VbU92bjUzd3VYQmRFNDdQRGZ2blBlMTNNcGpRKzl4LzBCWkovd251?=
- =?utf-8?B?Z2N2VnIzRGRQdy8xUW1wcmZIcjcyNEx5ZUQ0ZVRKYVB5TUI2UE1GaU4vTVBQ?=
- =?utf-8?B?dU8yMUk4U09SNTFBR3R6cGVnL1hnYXVHSDkxMW1PRFJXb2l0QjVzR2d6LzUw?=
- =?utf-8?B?TGhaMDNEWFdubldMV2xNWHVEOEhIaTNsVENYNEZiWVZqdFJFSHV3RHlKRWd4?=
- =?utf-8?B?a0N0ZWs4NFR6c3JaU0VId1NRS2R1RGJKK2RNMlU2SFdXZnBNSnpTUmozaW9W?=
- =?utf-8?B?TE1EbUoyU3VmbHNLYTFhTGVaYW0vVzFFTHJ0alRodEJHQzZlNldWc3JBRE5m?=
- =?utf-8?B?LzUxMmx4TnJDTFhEcjU2aG1Pb2VYNlRZK2FhVVQyR3AxUGtaaHNtbm1HaXJK?=
- =?utf-8?B?eXFvK3dDb3dJeHFXV3RFSWcwVk5YS0N4QW1QeFpITHB1N1NXSVR5M0tRb3RX?=
- =?utf-8?B?TVRlT0lOSHJHRmo0aXdPem5hMzE2MlF1NGIrTHpvTmZzM1NvV3F4UDhDQUR5?=
- =?utf-8?B?U0lETzk4dmh6QUNVUll1KzNoVzBiQnR3Y3g1WEZvbDgwT0NHWUFBcjlWb2dH?=
- =?utf-8?B?aWd6clVPa3djTCtSUWtzNDFYTmxpMjZjdDFKK2UvRWMwTHVVMHNpaDRPVk9K?=
- =?utf-8?B?YXRrMUZlM2ZmVlJoY0g0S3RWSDloRmFpTmNjZ1dnRzBubHlLS1NiS2lVRm9Y?=
- =?utf-8?B?UFFIY1VUZFlwNDBZbncyS3FNMjhvclFqaDRpSTRjY3pYVmhuYjBycGpyRys0?=
- =?utf-8?B?VlRoYzRmbmR5VmpMWGg0NjZVY1VKenBmN1pwNmJXRGhlRTVTRDVaQUQybHBE?=
- =?utf-8?B?VE5XWDFHNUFmKzBISkN1Tnp2N0hoM1JNdngvZ1Nzb0NLOFBqaU8vN3MyN2J0?=
- =?utf-8?B?MkQvL1F2djdScmg4ZEdxaHRwMVhIQlNVYW94ZlBiT0tWZ2JzZ29CSVNVdS9a?=
- =?utf-8?B?aVltcmFmM2JuVmpYTmlKTk9tRzVYRDBDUTd3eDlxSG8xMUlPckNwRytxb1NO?=
- =?utf-8?B?U2w3L0FpMDN0UUtpZEtkV0x6Qlk5cGlvcEttakVVOWl5MjZWL3lMMmp5OUE4?=
- =?utf-8?B?eER0bWxUbHBhdjZwMmgvMjNqcVd2RE9VTzJpdmVMeHFQai9kbU9KZzVicGk5?=
- =?utf-8?B?KzdXc0JoMkNIT0xJUG9ybTlPcy9QUmsvcmpYYVRid3NVbEVIOEdxRVJQMmVD?=
- =?utf-8?B?aVRCMFVtcW5CMjlFVXU5K21XMkhtdi85aTBKSU03c3lLWGJoQitMajdtNjZD?=
- =?utf-8?B?NmZ6YnU1QkpjTDh3NE9rT1hwc3RPQitkVmZXZFUzck94UjRPNGs3QkZORDJR?=
- =?utf-8?B?NWEyWFUwWDd0SWFIcUpWd1orREZWMHY4dzJsa3BobmxqdDF1ak9RcTFlaEph?=
- =?utf-8?B?RTdBT1hQWnBqTjc0amhaVlRmNmd1cHpaRmZYak0rTWF3Z2dOK0lXaW9ndlp2?=
- =?utf-8?B?NzZuRFVvSlRMZjBlbjZRcURHM0phZktXeDBESmltOWFnNU0rRWU2SS9KVmVO?=
- =?utf-8?B?NEZiRlJ1elJPSURKQXlxUUFONU4rM28yZWxNYzBnZFFJZ1E9PQ==?=
-X-OriginatorOrg: outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 828dffa0-b803-443b-2208-08de89895d16
-X-MS-Exchange-CrossTenant-AuthSource: SYBPR01MB7881.ausprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Mar 2026 09:40:20.1731 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SY7PR01MB10183
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] misc: fastrpc: keep copied arguments inside the invoke
+ buffer
+To: Pengpeng Hou <pengpeng@iscas.ac.cn>, srini@kernel.org,
+ amahesh@qti.qualcomm.com, arnd@arndb.de, gregkh@linuxfoundation.org
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+References: <20260324014459.93364-1-pengpeng@iscas.ac.cn>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260324014459.93364-1-pengpeng@iscas.ac.cn>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: XRLynwLp5UIVVzPdQ76P5Iyzqx3Se81_
+X-Proofpoint-ORIG-GUID: XRLynwLp5UIVVzPdQ76P5Iyzqx3Se81_
+X-Authority-Analysis: v=2.4 cv=c+imgB9l c=1 sm=1 tr=0 ts=69c25c6b cx=c_pps
+ a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
+ a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=VwQbUJbxAAAA:8 a=H0nZvlvcKp4VijHwmHEA:9 a=QEXdDO2ut3YA:10 a=zgiPjhLxNE0A:10
+ a=a_PwQJl-kcHnX1M80qC6:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzI0MDA3NiBTYWx0ZWRfX4kaI2tYWIUQ1
+ 0UN0D2Gs71uBU7Gci+t6bj8sV3XmZFoaykT8cBX1H2+Fq9V6wHJcG/DwJ66kvCgbr2G57zsl/gU
+ RGpnKhle8p2SzXbnNDoV5nJG3SfF49Nwk+r3sWgz4tjGL4VEakP7oegCTmmXZKxYo8cvS5Cx/gD
+ jPOwG1onkw/mEnDzMersXJEt1alrOviP9hPuyvwX2a9NZ6qOiFH9K4Z3IkSKEfMlUIuKCkepocs
+ CHRHU3rZOFvo4sjP/qyRaMPGkemk5rsR8Njo9TOC/tZPEPF2NrULPnVyjMXcf5qQpgm2YzD3Do1
+ pAcVH9UJ+9uC5F5crRn68hpB/OZIm7Tq/vdeS7NoEGV3x34BvBWjRB7owwCvBR8gcIzdXS0CH63
+ Q9lSXVOoBVaRjbP8vr9iAOkrzxeWDR2cZD0kaO7K+x7w37BUf/NDzhL3cqgBjuBWtdPLOHzErt3
+ JB3j0Q5ZyCOxcsmA6UQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-03-24_02,2026-03-23_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 impostorscore=0 phishscore=0 lowpriorityscore=0 spamscore=0
+ suspectscore=0 priorityscore=1501 bulkscore=0 adultscore=0 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603240076
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -161,47 +143,23 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-amdgpu_userq_get_doorbell_index() passes the user-provided
-doorbell_offset to amdgpu_doorbell_index_on_bar() without bounds
-checking. An arbitrarily large doorbell_offset can cause the
-calculated doorbell index to fall outside the allocated doorbell BO,
-potentially corrupting kernel doorbell space.
+On 3/24/26 2:44 AM, Pengpeng Hou wrote:
+> fastrpc_get_args() derives rpra[i].buf.pv from the overlap offset that
+> was computed from user-controlled argument pointers and lengths. The
+> resulting destination pointer is then used for copy_from_user() without
+> first checking that it still falls inside the allocated invoke buffer.
+> 
+> Validate the overlap-derived destination range before storing it in
+> rpra[i].buf.pv and before copying inline arguments into the invoke
+> buffer.
+> ---
 
-Validate that doorbell_offset falls within the doorbell BO before
-computing the BAR index, using u64 arithmetic to prevent overflow.
+Your contribution lacks a DCO:
 
-Fixes: f09c1e6077ab ("drm/amdgpu: generate doorbell index for userqueue")
-Reported-by: Yuhao Jiang <danisjiang@gmail.com>
-Cc: stable@vger.kernel.org
-Signed-off-by: Junrui Luo <moonafterrain@outlook.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+https://docs.kernel.org/process/submitting-patches.html#sign-your-work-the-developer-s-certificate-of-origin
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-index 7c450350847d..0a1b93259887 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-@@ -600,6 +600,13 @@ amdgpu_userq_get_doorbell_index(struct amdgpu_userq_mgr *uq_mgr,
- 		goto unpin_bo;
- 	}
- 
-+	/* Validate doorbell_offset is within the doorbell BO */
-+	if ((u64)db_info->doorbell_offset * db_size + db_size >
-+	    amdgpu_bo_size(db_obj->obj)) {
-+		r = -EINVAL;
-+		goto unpin_bo;
-+	}
-+
- 	index = amdgpu_doorbell_index_on_bar(uq_mgr->adev, db_obj->obj,
- 					     db_info->doorbell_offset, db_size);
- 	drm_dbg_driver(adev_to_drm(uq_mgr->adev),
+without which we can't accept it.
 
----
-base-commit: c369299895a591d96745d6492d4888259b004a9e
-change-id: 20260324-fixes-9ee6cab7bc47
+Please run ./scripts/checkpatch.pl on the patch file
 
-Best regards,
--- 
-Junrui Luo <moonafterrain@outlook.com>
-
+Konrad
