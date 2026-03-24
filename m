@@ -4,97 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9C17AF54AAE
-	for <dri-devel@archiver.kernel.org>; Tue, 24 Mar 2026 13:11:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 93C47F54AAD
+	for <dri-devel@archiver.kernel.org>; Tue, 24 Mar 2026 13:11:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0DFF610E5D5;
-	Tue, 24 Mar 2026 13:11:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 050AA10E666;
+	Tue, 24 Mar 2026 13:11:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="XbgeiCYm";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="gXbZm1cF";
 	dkim-atps=neutral
-Received: from mail-vs1-f41.google.com (mail-vs1-f41.google.com
- [209.85.217.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F10EE10E5D4
- for <dri-devel@lists.freedesktop.org>; Tue, 24 Mar 2026 13:11:32 +0000 (UTC)
-Received: by mail-vs1-f41.google.com with SMTP id
- ada2fe7eead31-5ffabb1dfbaso772471137.3
- for <dri-devel@lists.freedesktop.org>; Tue, 24 Mar 2026 06:11:32 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1774357892; cv=none;
+Received: from mail-dl1-f46.google.com (mail-dl1-f46.google.com [74.125.82.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A581B10E666
+ for <dri-devel@lists.freedesktop.org>; Tue, 24 Mar 2026 13:11:36 +0000 (UTC)
+Received: by mail-dl1-f46.google.com with SMTP id
+ a92af1059eb24-1273c690e5bso499014c88.2
+ for <dri-devel@lists.freedesktop.org>; Tue, 24 Mar 2026 06:11:36 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1774357896; cv=none;
  d=google.com; s=arc-20240605;
- b=daZwtIJqsSzLrfI1vhbJJFlGzyM7kwEmhg3Ktz80mpF9rBdP5IUEzjwqheTkdKaD6Y
- iCcLlQJAAOoMpdKbEiPgaP0AXgugRxgb6dZADlIPa49QFs5vH09KBy4QWlPcYWfh3E23
- +diyfF9q/cRi96jfZ+F0YlUlnCgI/WM3ExCsIFIxJaGt0r1qVjeFPMSOFpy/4JX7FKUm
- BI1SM7r/1NeNpmmsVWZU/mwt38+85C9jHwzYIUp6FG65iyb2GVHeR66jrbzMuM/5mneE
- 6GUn502gk4Fj9T+i5iI4wg1oNT3KS2tYcFSun6utZ4eD6g95cKoE6CxlU61xJzAjMJ3G
- hnBA==
+ b=kkVS7LDRvkgAxj4rY9zasv4AYRn7r4dbdW6/kCWs9NsC6tVH+XwMmXw/vodvd/NSJL
+ umWVWX39+xYHhAc75sWoBOG3LWpGXYRzum1mncxjcyK3g2J8E15XscEKGmQjwdJap8Lw
+ smoxhwLKClJWju1Mas4vJNSDWVK59I2tNcs03/1GxaXNc2UPRP/9emD+Jg1rWdo8UgEi
+ 1iz9QOY2/Md70+D+A/nExxjAubi5m4sjipHXCl5JMgOhJtM3XZ5raj3KUMRYiLAHeqoi
+ uhPnPrIeFpUujfKQC/LizuGRe3P0xEUhRc8vhhJcUxy/Chy3hsxhOqcCqHOsWf25iDLg
+ UvuQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20240605; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=7hnWVjysxJQ+llkIpwUpAvaG3bbkSHFMxdZKyrsvBG4=;
- fh=R4zg0Tk7HjQwNS+ISiMVZth6mH+qOm7maRQ9u7MH5C8=;
- b=Izm5ogbnsuQ4gKeqzS5xgtrSTxIGIm07TSnmg9LxWu6kUmdP2lhKCNzn5YJoSWoqaO
- adGqrArGtfT58yDQe122QDeNwDPy9+wDmrLiqZXF6Px2E5uQSdPHoNx/axxyeOI2jEjg
- j+ngpEMQ3CvXngRNoMW3X9m+Io2sGxgeFEjzM5uiz6yLyzek4gvzaa8GL46o7guC2T3u
- eMooIXTJWBqbzU5b2iy6yAVK8IQj0emiZtmOkyfmVT0hme84rafadFlrLllFzWoMPSBT
- PICzfpzaUYzqJl3hYQ+UKo509DJgDQyhRsEZsBLco2jJHnQbIiLl1WfwffOfNS1bD0qU
- N4BQ==; darn=lists.freedesktop.org
+ bh=HQZx/kvnFzJcbke4KxeXmKPQO4Our1sxl7Tf5UayGA8=;
+ fh=hsAOzJvqExl2KA8vonHwfdRwLyZe/THQFBa9lzJpO4M=;
+ b=aiOAPSMfY49NN1Q7fdwo8guZa0Ta85ewyG7mmGZzGrELjdmbxrHxm8+UN76WyjAY20
+ dTjif9kXfXr6bqS5w2RBNXJH8B0MdnYr+QORnpqeddG4vpgNR9pSXwZOSpkxcWQN2AiU
+ eig4rmAGMduQjVF4ulzmS7ajsKrT8M5aVMR4b1a/SBTbSorudO9XAPXTMutaZEtCJNSj
+ uuAnfrVkqNTj/cPDKtobX37wHfdL1WnSoXVMq5zRtXh0HBPsS95BzPDDU/U9VnBw0m8S
+ nw+uFKUV6TdGeBFkVk9GhKRy+OGZdSYmK9J0HZUrKxouHQMCqUvJ2cskKwmHt7/BuTll
+ 5QhA==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1774357892; x=1774962692; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1774357896; x=1774962696; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=7hnWVjysxJQ+llkIpwUpAvaG3bbkSHFMxdZKyrsvBG4=;
- b=XbgeiCYmupGgo9VyhGm8lsWTDdqseO5jDslB/DD/Bg1y0hRS3dkGQJQEmdRkDP1hAM
- pNpRTw8/MwwP87a3QlG6Gm8uaiWIc0if1skVdc37AffiHncNbFmC+JVvhTaQ/AQOjxVW
- wC0/h4Mke5sfqIqehIiw200BqeOlZNgYitzWCtFbLkUwATgwg6beapRfWL4c4zaiRUbj
- bvU18NEQiafpCWXC34TAe8hP019oUKSh1HIgDKKDIDu5OjcPDp4wAnYLLRVhnsmdI1Nd
- VMpe3x49wqIZkYZmipXa6FTAilrvuzcipWT/p8B6hTuwvcGQkVV4eARnJ1nVMPBKO5DZ
- ruBA==
+ bh=HQZx/kvnFzJcbke4KxeXmKPQO4Our1sxl7Tf5UayGA8=;
+ b=gXbZm1cFP1GEQ3arec9DgjTty+IDH/MhsytHeno37+85yCPB1/CoNFbfprlwopSpD+
+ CxNFyIKGtZF2RiL/PEhxjGPr8wgFc92SqMmyHMV1Q31S/Gz+s9XDiNAfZBCHMKDvDcRo
+ 9zEeieitLoaYC/oUsvfWTiairu93uyWyxyj4lszBz1epjK/MV1y7ZPaJJQXTEzJ6Kkcb
+ p0daMHgZPPX/vkbGKhCFvxZ/nly3woixFPGAi+MFJcZrVkqvg1cQDqZRRSezx2ZE4Ct3
+ Bsf5X7gVjsDOVAsCHe/4GCfkbfy0CThfdp6JWzh1K9raTDkIZ3nX2fc3gIkdzOikSz/p
+ 9DrQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774357892; x=1774962692;
+ d=1e100.net; s=20251104; t=1774357896; x=1774962696;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=7hnWVjysxJQ+llkIpwUpAvaG3bbkSHFMxdZKyrsvBG4=;
- b=NncsncFcLR/4bGtIXP+F+PRvfrcQ1ZRB6bI/AWzgtB/jz8AjG6RZuSjEoq5Y0eI3tr
- 1eU2na8FHsaoXaQ6I3QJVGUsyRH6Z2mMn3Wx5UlTFO0hNi4IMbxe+KSAMR4PV42sPJhI
- tzZhX0oTWrQVZLqQnL4VYvjn3sg6Xa506Nhi54uh2QLAp5A0RHfrQsUuIpEpAALeufTT
- fIrSxWXQvkLfHso9WfQYq5lo9llsstQD7BRuV54aONMXYV0nP8cbXqUalTDC1zUPhjLi
- uEeWzWjC1FF2UXu/M0MfNrtKMS9mMF2Sc0tmVvlCu6il1Os0drSLzXTiEBLrSV2stdPD
- c2dA==
+ bh=HQZx/kvnFzJcbke4KxeXmKPQO4Our1sxl7Tf5UayGA8=;
+ b=UmcEo0SONDQKhMzXq7i65TppG0cLPQwUVYaZbRoHDEgaPlqP3r57hmdkk6/kZbtf1R
+ ndUutkKNtaX6b9dUuGlMv2cv00Oh0wOtmxk1znUEGxFlK9238bYIDPeF7OlZh7rBmoHH
+ p0FcmJeYHGWNz/xMUjtvrnOsLdSPvzC6TvPUZTTRefCNnOzfChqUQU2KQ0+52/iEi6n+
+ 19Rzxv59aKeSq3vKc4KzpqnGbzzMwyfSLLWqh9Yu/r8PSV49p0ZrpSNnYzCbDZcy6lXB
+ aumX5Vtn6517E8b5cJd9v0KdqZBodC+ENuFOXpVB+fpAdEtbOBqv37qKskiZbrrNGqXc
+ GbYA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWyOcQEA/GaHS9ITaBz8Jmvt6HNKh0GlfFbpl0PLyUXWIdfrvgZDS9LzL/hNaP8i6F6tmOXeIIsK/U=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwF32V0f7m+7eFWttwORQKK7NUMDZf8zJEaCsNpdw3wMT/8/0mD
- 6mDqv1RFK1tjSQBrKxE23ua3Ayl7eX4XEsJvmlWube0IMa4/qUpd6838zy2cIESmB8J38fTXyXL
- Ltg+B/AtCkmaAbIyBaTO1FWNL9w7n1zg=
-X-Gm-Gg: ATEYQzz5yumULJOTHsT98QO2kcsThTBYfZ1y7qpL+yj1VR7Pzc58XUE93cixKoLe5oh
- lYfClFpQbQq1a9QS+5NI9GdfmY6NmPacP14AgOp5nYduG6b4rLW3DeLmS4mmDzxjDdRHUs1TKxF
- UM/+AXc2Rr9TK1vCcOPzmOtkJYPSg4vRRq8KE544UFRbk+GAG96xuZBMM0QmcpUBKI1buL3Yq6r
- f3THrf4l+hjHxi7qqMbPDVqlwpemEpghdDadEP4LvAEZjjYwYXQjEvQWCoiihOgPKOnu3+p7yzi
- vathd3Y=
-X-Received: by 2002:a05:6102:3910:b0:602:8cee:8246 with SMTP id
- ada2fe7eead31-602aeb3db5fmr8903441137.16.1774357891859; Tue, 24 Mar 2026
- 06:11:31 -0700 (PDT)
+ AJvYcCUM71VlIFoRtMgfbUP3K8JfXOrRy+HSIcZs2YXJKDafkjykg5j0lv1uQBTAENl8LJN87YEYVE9ll8w=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzrTO+99SMLX6aUlfO9nXdd0zmFpcXwPfp65wAQFj4EMSouIsHr
+ om6tVbWFvSq0PVecraM+GEk065RjixI+qSLU5c8lsIbZDm5//BcpDkFGG+6R926sfehulICQeq7
+ OIkgh9K/G5OBQ2C2f0nHg3NJtIZVR2+1DHg==
+X-Gm-Gg: ATEYQzzsAAsdE8mklV4EOomOQ+jNk/siDv9hzXeYMEDbSmbOOyBbwVlzsyLlkYt1rs4
+ +MZDA7tbATxnfqNiV/I2aST5VjO7g65iHX2fUvktGq8jmlkI/04kcRnGYk2RZt0PyevVGNHqUpX
+ 4kQVBP7s6VtFRFFsBf1qNi4jrGzD8FwYp9JH98k/nchLdza6iBCEvwG75nByibtdfYJJUBLLexP
+ SEDFyAhoP8K8zMQBupRFB3uiuoSiAfS81S7C8w5ePLfoVcPEgV98Vw4+T8TCjjFR72PbAJ3SQqM
+ tp3ml6ZfD/oqwranxBpaPCI732jTTe6n+EE6aXrfTvc4uqvrOqD4k8Iw4lXP/ffNgFWDGg==
+X-Received: by 2002:a05:7022:2224:b0:128:d590:2947 with SMTP id
+ a92af1059eb24-12a726c143dmr3367139c88.4.1774357895871; Tue, 24 Mar 2026
+ 06:11:35 -0700 (PDT)
 MIME-Version: 1.0
-References: <20260322-fix-data-width-calc-v2-1-d5f28136bc4e@pm.me>
-In-Reply-To: <20260322-fix-data-width-calc-v2-1-d5f28136bc4e@pm.me>
-From: Pengyu Luo <mitltlatltl@gmail.com>
-Date: Tue, 24 Mar 2026 21:11:03 +0800
-X-Gm-Features: AQROBzA-Uf5D5nbMpZdLi_R6pDLsyJrw69YbWtlJy_Jgt4MFR_t_cYHPAAA05S0
-Message-ID: <CAH2e8h5mZSYEbQ4Y_EEQnxOKPkyuOF1W-4FQQ4XFqdkib427JA@mail.gmail.com>
-Subject: Re: [PATCH v2] drm/msm/dpu: calculate data_width like downstream
-To: Alexander Koskovich <akoskovich@pm.me>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>, 
- Abhinav Kumar <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>,
- Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Jonathan Marek <jonathan@marek.ca>, 
- Neil Armstrong <neil.armstrong@linaro.org>, linux-arm-msm@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org
+References: <20260320083247.428482-1-nichen@iscas.ac.cn>
+In-Reply-To: <20260320083247.428482-1-nichen@iscas.ac.cn>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 24 Mar 2026 09:11:24 -0400
+X-Gm-Features: AaiRm52hZWMu_Hps_nL6ZzI9xC82b-C0ijos6SKmEDSAmtR9aU33yL7mfuLLMkQ
+Message-ID: <CADnq5_Ni0AUQYWT1hP2DqA0HGdDgTGPwTa4mPszbD1nNVGqA2w@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu/userq: convert comma to semicolon
+To: Chen Ni <nichen@iscas.ac.cn>
+Cc: amd-gfx@lists.freedesktop.org, christian.koenig@amd.com, 
+ alexander.deucher@amd.com, sunil.khatri@amd.com, 
+ dri-devel@lists.freedesktop.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -112,18 +105,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Mar 23, 2026 at 2:48=E2=80=AFAM Alexander Koskovich <akoskovich@pm.=
-me> wrote:
+Applied.  thanks!
+
+Alex
+
+On Fri, Mar 20, 2026 at 4:47=E2=80=AFAM Chen Ni <nichen@iscas.ac.cn> wrote:
 >
-> Derive INTF data_width from dce_bytes_per_line rather than
-> timing->width when DSC is enabled. Use DIV_ROUND_UP to avoid
-> rounding errors.
+> Using a ',' in place of a ';' can have unintended side effects.
+> Although that is not the case here, it seems best to use ';'
+> unless ',' is intended.
 >
-> Signed-off-by: Alexander Koskovich <akoskovich@pm.me>
+> Found by inspection.
+> No functional change intended.
+> Compile tested only.
+>
+> Signed-off-by: Chen Ni <nichen@iscas.ac.cn>
 > ---
-
-Tested-by: Pengyu Luo <mitltlatltl@gmail.com> # Lenovo Legion Y700 Gen4 (SM=
-8750)
-
-Best wishes,
-Pengyu
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c b/drivers/gp=
+u/drm/amd/amdgpu/amdgpu_userq_fence.c
+> index 781896c9fd26..6daec964ca5e 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
+> @@ -961,13 +961,13 @@ int amdgpu_userq_wait_ioctl(struct drm_device *dev,=
+ void *data,
+>         }
+>
+>         num_read_bo_handles =3D wait_info->num_bo_read_handles;
+> -       ptr =3D u64_to_user_ptr(wait_info->bo_read_handles),
+> +       ptr =3D u64_to_user_ptr(wait_info->bo_read_handles);
+>         r =3D drm_gem_objects_lookup(filp, ptr, num_read_bo_handles, &gob=
+j_read);
+>         if (r)
+>                 goto free_timeline_points;
+>
+>         num_write_bo_handles =3D wait_info->num_bo_write_handles;
+> -       ptr =3D u64_to_user_ptr(wait_info->bo_write_handles),
+> +       ptr =3D u64_to_user_ptr(wait_info->bo_write_handles);
+>         r =3D drm_gem_objects_lookup(filp, ptr, num_write_bo_handles,
+>                                    &gobj_write);
+>         if (r)
+> --
+> 2.25.1
+>
