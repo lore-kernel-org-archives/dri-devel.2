@@ -4,47 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2D282F54AAA
-	for <dri-devel@archiver.kernel.org>; Tue, 24 Mar 2026 13:07:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 79C02F54AAA
+	for <dri-devel@archiver.kernel.org>; Tue, 24 Mar 2026 13:07:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E9B9B10E576;
-	Tue, 24 Mar 2026 13:07:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CE87310E5B0;
+	Tue, 24 Mar 2026 13:07:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="lasowkfk";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="QcbodRRZ";
 	dkim-atps=neutral
 Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5CBCE10E13D;
- Tue, 24 Mar 2026 13:07:48 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2F9E110E58D;
+ Tue, 24 Mar 2026 13:07:54 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-02.galae.net (Postfix) with ESMTPS id DDDA51A2FC5;
- Tue, 24 Mar 2026 13:07:46 +0000 (UTC)
+ by smtpout-02.galae.net (Postfix) with ESMTPS id 1EBBE1A2FC6;
+ Tue, 24 Mar 2026 13:07:53 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id A0D5C6011D;
- Tue, 24 Mar 2026 13:07:46 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id E5B506011D;
+ Tue, 24 Mar 2026 13:07:52 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id D3F4110451273; Tue, 24 Mar 2026 14:07:33 +0100 (CET)
+ with ESMTPSA id CC98510451277; Tue, 24 Mar 2026 14:07:44 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1774357664; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding; bh=oz2n6EGzzohxeupK2HnEka+WLJWsM35paHY/3OjrXOI=;
- b=lasowkfkGR1jPvF44IgZjk2NBlO2y0FNCjB+SkEGW4alIwhrJQJfOPfZzMT4yUoQhUMzqg
- K7MGJqRyFTlm/3+Pi3fRvYQosVj3YHVev4QC+4Y/8yxtUk4ax7bhwO3OKXCCXSPvtrp2mi
- zmPXG6uFwucE3VMM9yWvSJPOVnrTmg6IjswG6i29GemocuisliWWSi7aKzPUNzRhYDSa8f
- IitiYmZuesN+f8nAm4yFp2dabTZELhgIOSfVmsFKSMB6owRGcHaUT4RXTIII13a4LE/inW
- K3GZWVpEB/O+2XIxmxOOlUpfdbFgIBhC0HZG0hpd6AFQFnsqDuAQl9xEji1eJA==
+ t=1774357670; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ content-transfer-encoding:in-reply-to:references;
+ bh=fzs1pWNycSsS39sE+twHeUSR+qT4+7glSHwX8hsiv/I=;
+ b=QcbodRRZQ7IqeUKtkAQoCsXRCzX49zCQ7c/T+hCSVAXapnmgLoW9sIiyhNT46+mtFpU61J
+ gJKeSKsjZKwJOSysmrVxJF3olbTeDJZ2DqVTCNwCP9TRBajYIcDIENx5tLs+7THxp2dWu0
+ G/nuEQt7uiBb0r0BIkhRCZVn6pXSbqYfjcLzD/L4CbpSNR9WLcFeTQpZ4rS6QK/GzA8nkX
+ h9C6LEGO1+qyCWSTqAgOYNv4hY+3xqTMYTAflOF0bmF5eF20QckGAirTPjA+Op1MqF0Nv7
+ 40zg4pJn5YPXFwI/uVYiiJu5XpAy2TfiMXAYQmP7sGyJ6NVFPthK0xMFXjZ6wA==
 From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Subject: [PATCH v3] drm/atomic: protect bridge private_obj during bridge
- removal
-Date: Tue, 24 Mar 2026 14:07:29 +0100
-Message-Id: <20260324-drm-bridge-atomic-vs-remove-private_obj-v3-0-64deefe84044@bootlin.com>
+Date: Tue, 24 Mar 2026 14:07:30 +0100
+Subject: [PATCH v3] drm/atomic: drm_atomic_private_obj_fini: protect
+ private_obj removal from list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-B4-Tracking: v=1; b=H4sIAJGMwmkC/5WQy07DMBBFfyXymkEeu0mcrvgPhJAfEzoIx8U2F
- qjqv+O2G9jB8s6VztGdkyiUmYrYDyeRqXHhtPWg7wbhD3Z7IeDQs1BSjShRQ8gRXObQG1tTZA+
- tQKaYGsExc7OVnpN7hTAvysjRkQtedNox08qfV9PjU88HLjXlr6u44eX6f0dDkICrVzQalIrkg
- 0upvvF271MUF0tTP8gK/05WgLBDZdHoZXHW/yafb4MyvX/0j9XbKuFsIeh95LofZrJyNxltunb
- yKN2sJ63dMk9Ba1qt8aiCnscOO38DQlj9HYYBAAA=
-X-Change-ID: 20251013-drm-bridge-atomic-vs-remove-private_obj-d792805bebdc
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260324-drm-bridge-atomic-vs-remove-private_obj-v3-1-64deefe84044@bootlin.com>
+References: <20260324-drm-bridge-atomic-vs-remove-private_obj-v3-0-64deefe84044@bootlin.com>
+In-Reply-To: <20260324-drm-bridge-atomic-vs-remove-private_obj-v3-0-64deefe84044@bootlin.com>
 To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
  Rodrigo Siqueira <siqueira@igalia.com>, 
  Alex Deucher <alexander.deucher@amd.com>, 
@@ -93,93 +90,88 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This series prevents a race between DRM bridge removal and usage of the
-bridge private_obj during DRM_MODESET_LOCK_ALL_BEGIN/END() and other
-locking operations.
+Currently drm_bridge_detach() expects that the bridge private_obj is not
+locked by a drm_modeset_acquire_ctx, and it warns in case that happens:
 
-== Series description
+  drm_bridge_detach()
+  -> drm_atomic_private_obj_fini()
+     -> list_del(&obj->head) // removes priv_obj from
+                             // dev->mode_config.privobj_list
+     -> obj->funcs->atomic_destroy_state()
+     -> drm_modeset_lock_fini(&obj->lock)
+        -> WARN_ON(!list_empty(&lock->head)) // warn if priv_obj->lock
+	                                     // is still in ctx->locked
 
-The need for this series emerged during testing of DRM bridge
-hot-plugging. Very rarely on hot-unplug the following warning has appeared:
+The expectation is not respected when introducing bridge hot-plugging. In
+such case the warning triggers if the bridge is being removed concurrently
+to an operation that locks the private object using a
+drm_modeset_acquire_ctx, such as in this execution scenario:
 
-  WARNING: CPU: 0 PID: 123 at include/drm/drm_modeset_lock.h:114 drm_atomic_private_obj_fini+0x64/0x80
-  ...
-  Call trace:
-   drm_atomic_private_obj_fini+0x64/0x80
-   drm_bridge_detach+0x38/0x98
+  CPU0:
+  drm_mode_obj_get_properties_ioctl() // userspace request
+  -> DRM_MODESET_LOCK_ALL_BEGIN()
+  .  -> drm_for_each_privobj() // loop on dev->mode_config.privobj_list
+  .     - lock the privobj mutex
+  .	- add priv_obj->lock to ctx->locked
+  .	  (list of locks to be released later)
+  .
+  .                         CPU1:
+  .                         drm_bridge_detach() // bridge hot-unplug
+  .		            -> WARN triggers!
+  .
+  -> DRM_MODESET_LOCK_ALL_END()
+     -> for each lock in ctx->locked
+	- remove priv_obj->lock from ctx->locked
+        - unlock the privobj mutex
 
-This series does not depend on other series.
+Prevent this potential deadlock by using DRM_MODESET_LOCK_ALL_BEGIN/END()
+around the list removal in drm_atomic_private_obj_fini(). This ensures that
+exactly one of these happens:
 
-== Grand plan
-
-This is part of the work to support hotplug of DRM bridges. The grand plan
-was discussed in [0].
-
-Here's the work breakdown (➜ marks the current series):
-
- 1. … add refcounting to DRM bridges struct drm_bridge,
-      based on devm_drm_bridge_alloc()
-    A. ✔ add new alloc API and refcounting (v6.16)
-    B. ✔ convert all bridge drivers to new API (v6.17)
-    C. ✔ kunit tests (v6.17)
-    D. ✔ add get/put to drm_bridge_add/remove() + attach/detach()
-         and warn on old allocation pattern (v6.17)
-    E. … add get/put on drm_bridge accessors
-       1. ✔ drm_bridge_chain_get_first_bridge(), add cleanup action (v6.18)
-       2. ✔ drm_bridge_get_prev_bridge() (v6.18)
-       3. ✔ drm_bridge_get_next_bridge() (v6.19)
-       4. ✔ drm_for_each_bridge_in_chain() (v6.19)
-       5. ✔ drm_bridge_connector_init (v6.19)
-       6. … protect encoder bridge chain with a mutex
-       7. … of_drm_find_bridge
-          a. ✔ add of_drm_get_bridge() (v7.0),
-	       convert basic direct users (v7.0-v7.1)
-	  b. ✔ convert direct of_drm_get_bridge() users, part 2 (v7.0)
-	  c. ✔ convert direct of_drm_get_bridge() users, part 3 (v7.0)
-	  d. ✔… convert direct of_drm_get_bridge() users, part 4
-	        (some v7.1, some pending)
-	  e.   convert bridge-only drm_of_find_panel_or_bridge() users
-       8. drm_of_find_panel_or_bridge, *_of_get_bridge
-       9. ✔ enforce drm_bridge_add before drm_bridge_attach (v6.19)
-    F. ✔ debugfs improvements
-       1. ✔ add top-level 'bridges' file (v6.16)
-       2. ✔ show refcount and list lingering bridges (v6.19)
- 2. ➜ handle gracefully atomic updates during bridge removal
-    A. ✔ Add drm_bridge_enter/exit() to protect device resources (v7.0)
-    B. ➜ protect private_obj removal from list
-    C. ✔ Add drm_bridge_clear_and_put() (v7.1)
- 3. … DSI host-device driver interaction
- 4. ✔ removing the need for the "always-disconnected" connector
- 5. … Migrate i.MX LCDIF driver to bridge-connector
- 6.   DRM bridge hotplug
-    A.   Bridge hotplug management in the DRM core
-    B.   Device tree description
-
-[0] https://lore.kernel.org/lkml/20250206-hotplug-drm-bridge-v6-0-9d6f2c9c3058@bootlin.com/#t
+ * the concurrent code (e.g. drm_mode_obj_get_properties_ioctl()) acquires
+   all the locks first, so it can execute fully and release the
+   privobj->lock before drm_atomic_private_obj_fini() calls list_del() and
+   before the WARN_ON()
+ * drm_atomic_private_obj_fini() acquires all the locks first, so it
+   removes its privobj->lock from the dev->mode_config.privobj_list; the
+   concurrent code will run afterwards and not acquire that lock because it
+   is not present anymore
 
 Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+
 ---
+
 Changes in v3:
 - Rebased on current drm-misc-next (on 7.0-rc3)
 - Small commit message clarification
-- Link to v2: https://lore.kernel.org/r/20251021-drm-bridge-atomic-vs-remove-private_obj-v2-1-412a18399bac@bootlin.com
 
 Changes in v2:
+- added 'drm/atomic:' prefix to commit title
 - Adapted to work on top of "drm/atomic: Add dev pointer to drm_private_obj"
-- Removed 'To: jessica.zhang@oss.qualcomm.com', invalid address
-- Link to v1: https://lore.kernel.org/r/20251013-drm-bridge-atomic-vs-remove-private_obj-v1-0-1fc2e58102e0@bootlin.com
-
+- Slightly improved commit message
 ---
-Luca Ceresoli (1):
-      drm/atomic: drm_atomic_private_obj_fini: protect private_obj removal from list
-
  drivers/gpu/drm/drm_atomic.c | 6 ++++++
  1 file changed, 6 insertions(+)
----
-base-commit: 7ea0468380216c10b73633b976d33efa8c12d375
-change-id: 20251013-drm-bridge-atomic-vs-remove-private_obj-d792805bebdc
 
-Best regards,
---  
-Luca Ceresoli <luca.ceresoli@bootlin.com>
+diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
+index 41c57063f3b4..0f9c2528c9ee 100644
+--- a/drivers/gpu/drm/drm_atomic.c
++++ b/drivers/gpu/drm/drm_atomic.c
+@@ -962,7 +962,13 @@ EXPORT_SYMBOL(drm_atomic_private_obj_init);
+ void
+ drm_atomic_private_obj_fini(struct drm_private_obj *obj)
+ {
++	struct drm_modeset_acquire_ctx ctx;
++	int ret = 0;
++
++	DRM_MODESET_LOCK_ALL_BEGIN(obj->dev, ctx, 0, ret);
+ 	list_del(&obj->head);
++	DRM_MODESET_LOCK_ALL_END(obj->dev, ctx, ret);
++
+ 	obj->funcs->atomic_destroy_state(obj, obj->state);
+ 	drm_modeset_lock_fini(&obj->lock);
+ }
+
+-- 
+2.53.0
 
