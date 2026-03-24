@@ -4,100 +4,98 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E5632E9A769
-	for <dri-devel@archiver.kernel.org>; Tue, 24 Mar 2026 10:58:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 09CD8E9A762
+	for <dri-devel@archiver.kernel.org>; Tue, 24 Mar 2026 11:00:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4FCC810E59C;
-	Tue, 24 Mar 2026 10:58:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 67FD910E65A;
+	Tue, 24 Mar 2026 11:00:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="d3tCkcte";
+	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="doPgZe+8";
 	dkim-atps=neutral
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com
- [209.85.128.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2861810E59C
- for <dri-devel@lists.freedesktop.org>; Tue, 24 Mar 2026 10:58:50 +0000 (UTC)
-Received: by mail-wm1-f46.google.com with SMTP id
- 5b1f17b1804b1-486fda2a389so30584525e9.1
- for <dri-devel@lists.freedesktop.org>; Tue, 24 Mar 2026 03:58:50 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1774349929; cv=none;
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com
+ [209.85.221.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D927B10E65A
+ for <dri-devel@lists.freedesktop.org>; Tue, 24 Mar 2026 11:00:23 +0000 (UTC)
+Received: by mail-wr1-f51.google.com with SMTP id
+ ffacd0b85a97d-439b2965d4bso2690926f8f.2
+ for <dri-devel@lists.freedesktop.org>; Tue, 24 Mar 2026 04:00:23 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1774350022; cv=none;
  d=google.com; s=arc-20240605;
- b=J59El6Epv+Zzb185UJX0CJfL/e8Dzdncb7hFivqzdzJF8BbnXpcOBwmFqM4NwxRbTk
- 4XA4vcwWaLDTKUwFaE3AyyrReNjeXP1dJ8r+Qa9Je3+rCV+7NXaz/NsHPu3YI3lhrSFG
- QzOTWw7y3mWGXDBLRO5f0hgTnj6fJeFEkplfvepRb1/WHABqeN2KZHiOOlt+3YjY7Gaz
- qyYjA+E/fxJmaGPVtbR1gUcI82a5yqGoAEea+BS1iYkSWziBhhl/yDzH/c7daBnodtPs
- l8ftUzxDlTE2zEbW5UAOz1L4y57Ysb7yOgGsl6mS84e3BKrXwIr2iOIOhlgkq/BxegWi
- 9tDw==
+ b=MIgqlBPObEP2J4NN44//Oc/mHwC6SdyRp27d9awJLvZsyTzF/Leq2SUa8ItLeh5Hym
+ N2jMmV4q+KtsqtYF8BqFUBWR8ilKRfkS297ZqHwKBDtg9rsaoV6goB8X/J8FxMCY4rLd
+ L87tcCi/VGq0Y63LTWbcg/7OMtVAUKJOx0vF2ks6E/WygmCexqJL4gVZcFgWfNs3CIQg
+ 2V/rQ8y9oG+igsmygjMCF8C3q1uU3MEOQe/xkWTdwtNEa1KO9iyMyskneK+y3k0Ccv3p
+ fBsZV664tb3GFbM4PN2VEYLDe7QXEkwrGEMr2jTpteRHzav6EiJtsskmXKQnsZBHjrTH
+ W3MQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20240605; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=KHpvLLQnm+0s2ip7c/TcjqSG8s4Eycqur8euWeGF39k=;
- fh=O/amFsa47HFxDR3pmHDzfGdrhdWepBZ8YDjB12UB5l0=;
- b=HDQswg8wQW6Nh4ea5E76ctGXUe0y5LGW3KWgH2nrtVdA/5QmCGevYkcvS6Qco/IbSO
- l8iNw7Cy7YYKH9TjlBKx2/mR0E6c4GCmMJUT36bCTNhhLRnzLm2xTtrj00n60a/xtTgK
- coj8GkYWWUs7x8nyP1HlcsPsqh1hy5uECLAniWtiCzYV4FdVpzZTHzUqdo8Fv4siCwMv
- suP6JA2iS0jdd/1tPTgKC1k8raAncbjariECtNY5bZOFSgpkgogEsbVedVNu67U/mr1p
- stK3Lfv5npiNgRirTS7t6/L8A7PdC9kc7vBU5+Sdd4ZU9OvOIQbfXewF0+2/nloo9W+c
- LW5Q==; darn=lists.freedesktop.org
+ bh=jY/uy3yLMLv8f6bDRqU7cC+l89qOWFndk2uZeXEp37I=;
+ fh=iSWyb/38fRRhy1X4cJ1h6Y5VUQDL6bIYBGAZTQvhBXY=;
+ b=EPjAgJQWcnK5WEMNip8c5eKyfn3rWKF8e6UwbVDFHN8O+8tyh8dgd4Zmg/V30OoNL/
+ r2kYTB9hH+N61GLtXLTvVuiMnTGGGs/e+zPoqxcF+OCVOW3ZfQMJu7zrv8f0722YEeZS
+ 0MbK6IfSmOA6AchMLB8I6u0AgJlWB1pETfFOu2R+CjgLP8pvtsQnGRC2W5oSNlAP1kBQ
+ Q1n2oEYT1LKa0VAIfmXMA+tA6JBBiqA7G4sXxQrYE3JfmmOvY8wojsrUclHckA0YdJAf
+ bvJI7p5MEr99vyeF7orrjeNkkJW49UFYII2u+UqDDXgk8guDiPJu4ddiXYhLat1qrLEx
+ 7wqw==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20251104; t=1774349929; x=1774954729;
+ d=google.com; s=20251104; t=1774350022; x=1774954822;
  darn=lists.freedesktop.org; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=KHpvLLQnm+0s2ip7c/TcjqSG8s4Eycqur8euWeGF39k=;
- b=d3tCkcteL+2VezKZWVOIGuMMF2JOtAEmz/XVuFOc9iojC8uQhsYoP8krtrnI+DN+82
- U7MQmapwxChQsp1UkEwerHuhmraDQxxZF7NU/E/Essw/za8cSw/qMpYLaSd6++F9p0Di
- GzKQmBBHWuovwV7R8kCMmLlxdw2BxjWqEDoacXg87FqwmEmzSCVVo3wcoZwqwy/3UHZA
- Ax9eSd4aM3d6/+jOQYefIz8arX9k8yRX7uWaO7YWuk1b214TdR91Gmtvd0ilyKMdZtmG
- qfgvSH0rv1uH+Yy0/eUWqIRYeGcuerj4QVZPL6TyCkdCRZWwf4mTS+3GUn/5JJjyvnfh
- bCog==
+ bh=jY/uy3yLMLv8f6bDRqU7cC+l89qOWFndk2uZeXEp37I=;
+ b=doPgZe+8PrSWRx3IkKFrs1vsXODckofFevuPc+5yDjFupnvEoYHbD/FLMxKpkNe4do
+ wQLHVTQgB4zdSRj+PgH/XFrrYDrpivz3bBp0ztj8pmWGnK6YMsQUtjlQEBD37H1jybNv
+ Frk9Q1yhRjppOlOjT3fT6NGmCszWJuKKRmIcFI8Vnm+1In3MwM2N8oR4id4mxlGZlFzp
+ zCkW7Ssva+tEfF7u6l9fma62cpBAm8RVX0UdjTxHsPu4Gkn2oMuMU+Gf2hlB7KH+bPvy
+ wMqdtzdYr2kyGJlLiryir2xkACpAjrNH8B82H2zUuRzUy3o0T3qIMXG+Pna0tDxsaMrK
+ taMg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774349929; x=1774954729;
+ d=1e100.net; s=20251104; t=1774350022; x=1774954822;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=KHpvLLQnm+0s2ip7c/TcjqSG8s4Eycqur8euWeGF39k=;
- b=BBBiWeVkEb5oDmeum6MX+Iau6oHo9X+/q//dz/FPOMgCHqRmb7FB2a8FpwPdoILo2u
- zBzOOghOe+ieWhRr8aUtdEFz/H7djU4Euz2MXhUAfkxR1rO5hi50kdeOxVE+Q3yR97aA
- fNuaKFHYf97/BQL7VEpCNt5VyoLidUrRtoYiEQPkIK98uJmbePw45/T5lOpUR75NULUi
- ZbYggyVJUu9Mpg6wMrLfLVLsU5X9dW4jvwXrFOfiyzDUDmYuiucwXvwwXRgu4cjKdonh
- 3CumjiDeFKKoLVcOh7zyyfpri8mOr8B69fgfwEDUBJuHpFEC8q6+NfiRLUp+vRvs371c
- 0cXA==
-X-Gm-Message-State: AOJu0Yx3m31aNSkrgVz2zCYNOoIDp3CjF+N2jBgMRrmnD4swgZ+idxO9
- 8CwkYDeIZE3Z4KCg6ZVJhkcna1vzr6U7ECk7e1IjMftE0zjFu7qhd5HL7S3dnfoqMiOEQb2zcd6
- tZ+XHEdVYCFvX8P59TIUIrjEPgeZQWQVqevIRrx7i
-X-Gm-Gg: ATEYQzxS7UP5JkEilQj1Hrmc73PHBFDv6Jlc0nkwjzBhkE14dJ+kU3FRS8ZZIsOy7sm
- H/1oBdL6rGVgyRlKuhFyG7sGZqXk9z/Yuc+yPtbZb3JUijzTt7i89JNznYi/ScXeULa4yZ9NtzO
- w4aysY4Wv7H8EQMsmWLwoJTK09rkzCTl2Eap9HSmQSB7mP1z5g1o4kHbUt7E2I65w+TE1eAHlTy
- Y39wqmWekMVXQcTsY7y+p7RJFAYouQ2KaBRA3KtDzdTKI7Plt5oJArgQltSru15TsF0+EIa1duB
- Y+PpPB6+LQybOt6dOs2+8qAwjqYkgkjHGSyImA==
-X-Received: by 2002:a05:600c:3b8c:b0:486:d76c:fa51 with SMTP id
- 5b1f17b1804b1-486ff03ffa5mr209926245e9.27.1774349928185; Tue, 24 Mar 2026
- 03:58:48 -0700 (PDT)
+ bh=jY/uy3yLMLv8f6bDRqU7cC+l89qOWFndk2uZeXEp37I=;
+ b=XC8YAVHt7r2JWWjAun5m1KMwCsSf2bFgMfOq77UCB61D/CFFDZgn7/K8E0iDBOPuqY
+ c0s/NOjmVjC+or5uJUFvWm1UPw61ML6BT+FGbUne5Py8glTK2XMhl8Oyj6gZi/3CYwSD
+ 5Q9PY2zXWqoclv0cV+z7oLIFY7gDS5QZ469ns6i1mQ1fdfQxZszB9INVohBz9jp5pjFl
+ iiEly3zuDceIgtHVZg3eC7RKAwcKR64qM57M/B3KNh72LoRXwbFwipBxKHQlO0OLXnmi
+ xQkLPIOAgets9x6goGpCKGccd60JqDQtVRyDYLwHm5qF9eVlkqsJw03T2DLyDgKefF2J
+ 0yog==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVZ93Do+qpU7R2kicEqQNVOjPGc9p5NI2kXCuTiC8+10lMIMKmgECJQnsDnjF++Pj0M630xsHf51nU=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyFOrRbm27MQneE80tBdAAnS4iMa2jjznQaAMPhPYnYdaOqwpXC
+ ew0IFVpLuF3mFRxyQ3ZP4uudpyVrqpNU4bDwkN6c2aXsEQYEnJfG5MJiD70ctD88ZsUiQIYmLHt
+ uIDGFTumC5tlckJBAsKys0B0cVCK3n8v4vp4cv9LE
+X-Gm-Gg: ATEYQzzbJzb9RDsK11CDt3T3OydytxxW/mfX/2oNhRj1kR1AATRogu/flfmFUtRo5iL
+ RTWGo/KW5/ETSQyMlLUHAgLbMjxnIgk3qCvLRk3Vw5zWiyFhcHUmasWRun27GJy7/aNRuEgTc4Z
+ IDVxiTlMEzKW9U5WoU1q41JiklNVT/AZ7C1pFqjdbGLXLqQ9yrp9256VLHwvVlqLrNPvmx5Rv1u
+ e4+gFk+3mgcHlIWQXc+LkD/nqTDYOxevqDQj8QrL+QxSWl/X0H628BsXafxyGrlUjSlkBqHdLck
+ kKADUoyLammm4Sd0vcjWx3lmnQ8eJB+wYJbxHg==
+X-Received: by 2002:a05:6000:248a:b0:439:b791:f914 with SMTP id
+ ffacd0b85a97d-43b6424e64amr23847803f8f.18.1774350021888; Tue, 24 Mar 2026
+ 04:00:21 -0700 (PDT)
 MIME-Version: 1.0
-References: <20260323-b4-tyr-use-register-macro-v3-v3-0-a87daf9e4701@collabora.com>
-In-Reply-To: <20260323-b4-tyr-use-register-macro-v3-v3-0-a87daf9e4701@collabora.com>
+References: <20260323-aref-workitem-v3-0-f59729b812aa@collabora.com>
+ <20260323-aref-workitem-v3-1-f59729b812aa@collabora.com>
+In-Reply-To: <20260323-aref-workitem-v3-1-f59729b812aa@collabora.com>
 From: Alice Ryhl <aliceryhl@google.com>
-Date: Tue, 24 Mar 2026 11:58:36 +0100
-X-Gm-Features: AQROBzChC9No4ct04k5xNIFBXW8QZ-WT2wc3OVyceKvhXpdZyi6NGTcj_kNJ-Vo
-Message-ID: <CAH5fLghWAQOkH0bDw3vC5UZaCJyXaXn16D_2K8wWOraBcktg3A@mail.gmail.com>
-Subject: Re: [PATCH v3 00/12] drm/tyr: Use register! macro
-To: Deborah Brouwer <deborah.brouwer@collabora.com>
-Cc: dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org, 
- Boqun Feng <boqun@kernel.org>, Danilo Krummrich <dakr@kernel.org>, 
- Daniel Almeida <daniel.almeida@collabora.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, 
- Miguel Ojeda <ojeda@kernel.org>, Gary Guo <gary@garyguo.net>, 
+Date: Tue, 24 Mar 2026 12:00:10 +0100
+X-Gm-Features: AQROBzDRZFY5heMoUsmb4VM8gbH0UlAUMB94X-WGOk-VF8eusmXF_LNO71WO-WY
+Message-ID: <CAH5fLghpT9Sgs621=vCT8_i-ZqkZe0=HY9Wowf1h8cnuCCBegg@mail.gmail.com>
+Subject: Re: [PATCH v3 1/4] rust: workqueue: add support for ARef<T>
+To: Daniel Almeida <daniel.almeida@collabora.com>
+Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
+ Gary Guo <gary@garyguo.net>, 
  =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
  Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
- Trevor Gross <tmgross@umich.edu>, Steven Price <steven.price@arm.com>, 
- Boris Brezillon <boris.brezillon@collabora.com>,
- Dirk Behme <dirk.behme@gmail.com>, Alexandre Courbot <acourbot@nvidia.com>
+ Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>,
+ David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, rust-for-linux@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -115,18 +113,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, Mar 24, 2026 at 1:18=E2=80=AFAM Deborah Brouwer
-<deborah.brouwer@collabora.com> wrote:
+On Tue, Mar 24, 2026 at 12:27=E2=80=AFAM Daniel Almeida
+<daniel.almeida@collabora.com> wrote:
 >
-> This series changes the Tyr driver to use the kernel's register! macro
-> for hardware register access, replacing manual bit manipulation and custo=
-m
-> register structures with a more type-safe and maintainable approach.
+> Add support for the ARef<T> smart pointer. This allows an instance of
+> ARef<T> to handle deferred work directly, which can be convenient or even
+> necessary at times, depending on the specifics of the driver or subsystem=
+.
+>
+> The implementation is similar to that of Arc<T>, and a subsequent patch
+> will implement support for drm::Device as the first user. This is notably
+> important for work items that need access to the drm device, as it was no=
+t
+> possible to enqueue work on a ARef<drm::Device<T>> previously without
+> failing the orphan rule.
+>
+> Reviewed-by: Alice Ryhl <aliceryhl@google.com>
+> Acked-by: Danilo Krummrich <dakr@kernel.org>
+> Signed-off-by: Daniel Almeida <daniel.almeida@collabora.com>
+> ---
+>  rust/kernel/workqueue.rs | 85 ++++++++++++++++++++++++++++++++++++++++++=
+++----
+>  1 file changed, 79 insertions(+), 6 deletions(-)
+>
+> diff --git a/rust/kernel/workqueue.rs b/rust/kernel/workqueue.rs
+> index 706e833e9702..6ae7f3fb3496 100644
+> --- a/rust/kernel/workqueue.rs
+> +++ b/rust/kernel/workqueue.rs
+> @@ -192,9 +192,9 @@
+>      sync::Arc,
+>      sync::LockClassKey,
+>      time::Jiffies,
+> -    types::Opaque,
+> +    types::{ARef, AlwaysRefCounted, Opaque},
 
-Please double check the AI review:
-https://sashiko.dev/#/patchset/20260323-b4-tyr-use-register-macro-v3-v3-0-a=
-87daf9e4701%40collabora.com
-
-There are some concerns regarding clock cleanup on patch 3 that seem valid.
+Should be imported from sync::aref instead. This is using the
+deprecated path that we are working on removing.
 
 Alice
