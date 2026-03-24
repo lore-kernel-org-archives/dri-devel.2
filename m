@@ -4,73 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 64DB510A62CA
-	for <dri-devel@archiver.kernel.org>; Thu, 26 Mar 2026 13:18:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0D0D610A62CD
+	for <dri-devel@archiver.kernel.org>; Thu, 26 Mar 2026 13:18:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9432710E990;
-	Thu, 26 Mar 2026 13:18:21 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=meta.com header.i=@meta.com header.b="CdOCU4Nn";
-	dkim-atps=neutral
-Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com
- [67.231.145.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 08ACF10E53F
- for <dri-devel@lists.freedesktop.org>; Tue, 24 Mar 2026 23:52:04 +0000 (UTC)
-Received: from pps.filterd (m0109333.ppops.net [127.0.0.1])
- by mx0a-00082601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 62OLL7XS1433028
- for <dri-devel@lists.freedesktop.org>; Tue, 24 Mar 2026 16:52:03 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=meta.com; h=cc
- :content-transfer-encoding:content-type:date:from:message-id
- :mime-version:subject:to; s=s2048-2025-q2; bh=GTcNfaIvTV9CCY4TmT
- n6enDItgoZyUnkmTMnvSeTAAU=; b=CdOCU4NndSVgN7zKgckJpgtavyWE3HGGBo
- w0ZNInhRdhfx+BxwqlhVlGDGV4taks4QDuIJG5B5A+TVmUmih4moBce6gRIXlZ9R
- nlH9QI+MQOc0sEbqFwRMi78q6Jcm8EBjfWkMgojEMU4v4knh7rmzpDMOFuTYMM9I
- twBFxtrnbnnCymOojZFLr3UrKRg3mkhv4OTXwdFfcxJICeogrS5eANvzgjjMQkIK
- +q6K0fkL1zMPFCYURkJLNPtbHygVneLNgy7NjiP7l//Pdeo6bjqVxQ8YHTvLizIE
- 6f+ZI5WJeroXRgpfiYSwBrWxyM6aZkfBjWmCXPKGF6TuYUXjuuzA==
-Received: from maileast.thefacebook.com ([163.114.135.16])
- by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4d42eysha9-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Tue, 24 Mar 2026 16:52:03 -0700 (PDT)
-Received: from twshared22445.03.snb1.facebook.com (2620:10d:c0a8:1b::30) by
- mail.thefacebook.com (2620:10d:c0a9:6f::237c) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.2.2562.35; Tue, 24 Mar 2026 23:51:52 +0000
-Received: by devbig259.ftw1.facebook.com (Postfix, from userid 664516)
- id B181C1D7CEBE; Tue, 24 Mar 2026 16:46:15 -0700 (PDT)
-From: Zhiping Zhang <zhipingz@meta.com>
-To: Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, Bjorn
- Helgaas <bhelgaas@google.com>, <linux-rdma@vger.kernel.org>,
- <linux-pci@vger.kernel.org>, <netdev@vger.kernel.org>,
- <dri-devel@lists.freedesktop.org>, Keith Busch <kbusch@kernel.org>, Yochai
- Cohen <yochai@nvidia.com>, Yishai Hadas <yishaih@nvidia.com>
-CC: Bjorn Helgaas <helgaas@kernel.org>, Zhiping Zhang <zhipingz@meta.com>
-Subject: [RFC v2 0/2] Retrieve tph from dmabuf for PCIe P2P memory access
-Date: Tue, 24 Mar 2026 16:46:01 -0700
-Message-ID: <20260324234615.3731237-1-zhipingz@meta.com>
-X-Mailer: git-send-email 2.52.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 04E2410E9A7;
+	Thu, 26 Mar 2026 13:18:22 +0000 (UTC)
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C213310E30C
+ for <dri-devel@lists.freedesktop.org>; Tue, 24 Mar 2026 11:45:22 +0000 (UTC)
+Received: from localhost.localdomain (unknown [111.196.245.197])
+ by APP-05 (Coremail) with SMTP id zQCowADndgpKecJpRaFUCw--.54020S2;
+ Tue, 24 Mar 2026 19:45:14 +0800 (CST)
+From: Pengpeng Hou <pengpeng@iscas.ac.cn>
+To: srini@kernel.org, amahesh@qti.qualcomm.com, arnd@arndb.de,
+ gregkh@linuxfoundation.org
+Cc: konradybcio@kernel.org, thierry.escande@linaro.org,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, pengpeng@iscas.ac.cn
+Subject: [PATCH v2] misc: fastrpc: validate overlap-derived invoke buffer
+ ranges
+Date: Tue, 24 Mar 2026 19:45:14 +0800
+Message-ID: <20260324114514.79392-1-pengpeng@iscas.ac.cn>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20260324014459.93364-1-pengpeng@iscas.ac.cn>
+References: <20260324014459.93364-1-pengpeng@iscas.ac.cn>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-X-FB-Internal: Safe
-Content-Type: text/plain
-X-Authority-Analysis: v=2.4 cv=adxsXBot c=1 sm=1 tr=0 ts=69c323a3 cx=c_pps
- a=MfjaFnPeirRr97d5FC5oHw==:117 a=MfjaFnPeirRr97d5FC5oHw==:17
- a=Yq5XynenixoA:10 a=VkNPw1HP01LnGYTKEx00:22 a=7x6HtfJdh03M6CCDgxCd:22
- a=tpM8CJlwf7uhpglF1g9U:22 a=zJhtDeQ-gK41YlDc0VgA:9
-X-Proofpoint-ORIG-GUID: V8wTRy714NZoEybaSzU_UGqpCzW1ix5m
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzI0MDE4NCBTYWx0ZWRfX/DjCby4JusCr
- uKrK3p7fp8uVuiTyY6ijL7jbHM7WDLXEX01Ldb/exR2FjcRUsxi29xGeb8f42tyBJ53uo2m60d3
- uULhj+iPdQKsdbzJUADR3Pfxry2wpyfRsj96xa/JHckUmSL6A63+PM6/bIJe75bj/koTrhELerb
- NzaykG6WIkeCb2YrhndDPVuZ2WlE2SKrk1nn9aSbrDorBvheK2EgE/K0f5N1YMlLUSt1bEHld7D
- pTyZnlKBvhgWHMoG5JkCo+8CLqmlyvejyL/1PMnGuFnAiuRcOabeLoBS7V75jZvI8EC8OelmQrq
- dtVCue6o9PygmoMXXaANOLZiym/zTnckF6OmBQN58SG7sIe1FCOKUeET4OsJYO6sVEU9DEl0FDj
- 1pdeOBvYMCI0uHu93dGs2ALtb93YJUgPb8bdknEopzY/AapORU1Glz0EjisghXNc6v7Bhl+NlMA
- gvsWg3K/0FTZbTSqFGw==
-X-Proofpoint-GUID: V8wTRy714NZoEybaSzU_UGqpCzW1ix5m
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-03-24_04,2026-03-24_01,2025-10-01_01
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: zQCowADndgpKecJpRaFUCw--.54020S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxZryxCw4DKFWruw48JFWDArb_yoW5GFyfpF
+ 43Ka15CF45Xw47GF1vvFnrWryfGws5JryUGrZ3G34Svw1YqFy0qF9YkFWj93W0krWIvryj
+ krs0qaya9F47JaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUU9014x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+ rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+ 1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+ 6F4UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s
+ 0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xII
+ jxv20xvE14v26r106r15McIj6I8E87Iv67AKxVW8JVWxJwAm72CE4IkC6x0Yz7v_Jr0_Gr
+ 1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E8cxa
+ n2IY04v7MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4
+ AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE
+ 17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMI
+ IF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4l
+ IxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x0267AKxVW8Jr0_Cr1UYxBIda
+ VFxhVjvjDU0xZFpf9x0JUQZ2fUUUUU=
+X-Originating-IP: [111.196.245.197]
+X-CM-SenderInfo: pshqw1xhqjqxpvfd2hldfou0/
 X-Mailman-Approved-At: Thu, 26 Mar 2026 13:17:48 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -87,45 +65,78 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Currently, the steering tag can be used for a CPU on the motherboard; the
-ACPI check is in place to query and obtain the supported tph settings. He=
-re
-we intend to use the tph info to improve RDMA NIC memory access on a vfio=
--based
-accelerator device via PCIe peer-to-peer. When an application registers a
-RDMA memory region with DMABUF for the RDMA NIC to access the device memo=
-ry,
-the tph info of the memory region can be retrieved and used to set the
-steering tag / process hint (ph). Additional instructions or hints can be
-passed to the GPU or accelerator device for advanced memory operations,
-such as, read cache selection.
+fastrpc_get_args() derives rpra[i].buf.pv from the overlap offset that
+was computed from user-controlled argument pointers and lengths. The
+resulting destination pointer is later passed to copy_from_user() or
+memcpy() without checking that the overlap-adjusted range still stays
+inside the allocated invoke buffer.
 
-Note this RFC is for the discussion on the direction and is not intended =
-to be
-a complete implementation. If no objection, we will convert it to a Patch=
- set.
+Reject overlap-derived destinations that would point before the start of
+the invoke buffer or that would extend past the end of the allocated
+packet before storing rpra[i].buf.pv and before copying inline
+arguments into the buffer.
 
-Changes v1 -> v2:
-- Encode steering tag and ph in vfio_device_feature_dma_buf flags field
-  instead of adding new uapi struct fields, to preserve ABI compatibility
-- Fix subject prefixes: "Vfio:" -> "vfio:", "RMDA MLX5:" -> "RDMA/mlx5:"
-- Fix raw steering tag vs st_index mismatch: get_tph() now returns a raw
-  steering tag, and the mlx5 consumer converts it to an st_index via the
-  new mlx5_st_alloc_index_by_tag() API
-- Fix @tph doc typo to @steering_tag in dma-buf.h
-- Remove unused variable, fix parameter alignment, fix trailing semicolon
+Fixes: c68cfb718c8f ("misc: fastrpc: Add support for context Invoke method")
+Found by static code analysis.
+Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
+---
+v2:
+- add the missing Signed-off-by line
+- add a Fixes tag and note that the issue was found by static code analysis
+- run checkpatch and keep the patch checkpatch-clean
 
-Zhiping Zhang (2):
-  vfio: add callback to get tph info for dmabuf
-  RDMA/mlx5: get tph for p2p access when registering dmabuf mr
+ drivers/misc/fastrpc.c | 17 ++++++++++++++++-
+ 1 file changed, 16 insertions(+), 1 deletion(-)
 
- drivers/infiniband/hw/mlx5/mr.c               | 34 +++++++++++++++++++
- .../net/ethernet/mellanox/mlx5/core/lib/st.c  | 23 +++++++++----
- drivers/vfio/pci/vfio_pci_dmabuf.c            | 26 ++++++++++++--
- include/linux/dma-buf.h                       | 30 ++++++++++++++++
- include/linux/mlx5/driver.h                   |  7 ++++
- include/uapi/linux/vfio.h                     |  9 +++--
- 6 files changed, 118 insertions(+), 11 deletions(-)
+diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
+index 47356a5d5804..7dfb5eb6dc92 100644
+--- a/drivers/misc/fastrpc.c
++++ b/drivers/misc/fastrpc.c
+@@ -993,6 +993,7 @@ static int fastrpc_get_args(u32 kernel, struct fastrpc_invoke_ctx *ctx)
+ 	u64 len, rlen, pkt_size;
+ 	u64 pg_start, pg_end;
+ 	uintptr_t args;
++	uintptr_t buf_start, buf_end;
+ 	int metalen;
+ 
+ 	inbufs = REMOTE_SCALARS_INBUFS(ctx->sc);
+@@ -1016,6 +1017,8 @@ static int fastrpc_get_args(u32 kernel, struct fastrpc_invoke_ctx *ctx)
+ 	rpra = ctx->buf->virt;
+ 	list = fastrpc_invoke_buf_start(rpra, ctx->nscalars);
+ 	pages = fastrpc_phy_page_start(list, ctx->nscalars);
++	buf_start = (uintptr_t)ctx->buf->virt;
++	buf_end = buf_start + pkt_size;
+ 	args = (uintptr_t)ctx->buf->virt + metalen;
+ 	rlen = pkt_size - metalen;
+ 	ctx->rpra = rpra;
+@@ -1053,6 +1056,7 @@ static int fastrpc_get_args(u32 kernel, struct fastrpc_invoke_ctx *ctx)
+ 			pages[i].size = (pg_end - pg_start + 1) * PAGE_SIZE;
+ 
+ 		} else {
++			uintptr_t dst;
+ 
+ 			if (ctx->olaps[oix].offset == 0) {
+ 				rlen -= ALIGN(args, FASTRPC_ALIGN) - args;
+@@ -1064,7 +1068,18 @@ static int fastrpc_get_args(u32 kernel, struct fastrpc_invoke_ctx *ctx)
+ 			if (rlen < mlen)
+ 				goto bail;
+ 
+-			rpra[i].buf.pv = args - ctx->olaps[oix].offset;
++			if (ctx->olaps[oix].offset > args - buf_start) {
++				err = -EINVAL;
++				goto bail;
++			}
++
++			dst = args - ctx->olaps[oix].offset;
++			if (len > buf_end - dst) {
++				err = -EINVAL;
++				goto bail;
++			}
++
++			rpra[i].buf.pv = dst;
+ 			pages[i].addr = ctx->buf->dma_addr -
+ 					ctx->olaps[oix].offset +
+ 					(pkt_size - rlen);
+-- 
+2.50.1 (Apple Git-155)
 
---
-2.52.0
