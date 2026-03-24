@@ -4,48 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 769AEF54AD0
-	for <dri-devel@archiver.kernel.org>; Tue, 24 Mar 2026 16:06:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3C9D5F54AD7
+	for <dri-devel@archiver.kernel.org>; Tue, 24 Mar 2026 16:10:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E31B310E759;
-	Tue, 24 Mar 2026 16:06:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8E7EA10E72C;
+	Tue, 24 Mar 2026 16:10:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="OoMZU82k";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="AjDtRVP+";
 	dkim-atps=neutral
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id B0FB110E759
- for <dri-devel@lists.freedesktop.org>; Tue, 24 Mar 2026 16:06:45 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTP id 5D42F10E72C
+ for <dri-devel@lists.freedesktop.org>; Tue, 24 Mar 2026 16:10:27 +0000 (UTC)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 57C6E14BF
- for <dri-devel@lists.freedesktop.org>; Tue, 24 Mar 2026 09:06:39 -0700 (PDT)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id E9B3A1A00
+ for <dri-devel@lists.freedesktop.org>; Tue, 24 Mar 2026 09:10:20 -0700 (PDT)
 Received: from [192.168.0.1] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
  by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id
- AB7453F915
- for <dri-devel@lists.freedesktop.org>; Tue, 24 Mar 2026 09:06:44 -0700 (PDT)
+ 475073F915
+ for <dri-devel@lists.freedesktop.org>; Tue, 24 Mar 2026 09:10:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
- t=1774368404; bh=lVEq5SLYEo9et+7IEXr9LNJ4hIWnqSmCAvvglpZyIto=;
+ t=1774368626; bh=LiKq7+XEkERz+7oUFGh3hi6ZUUrEQoeRp+Pf+HHSaT8=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=OoMZU82kxbiP8GZLpZMqlPBgK5DPqX3aE4XTtqCWxSqCLFLihSz6EBJPTIYB37EzS
- UQkSJ7sBrH2xY4qdIJ+0/9M3G0fBU/NX/8adJ8VgfiEfWGyC5K2HEmosomyNrewDLZ
- aRB3HIenXDHs+T60kR7xDg7rxhU+9+JpKwQ6QuAk=
-Date: Tue, 24 Mar 2026 16:06:36 +0000
+ b=AjDtRVP+vz9ifyNK+UunPKuKsDKD7Fz9UtaHuhnGsgibZ4vP4Lp6U96+rnAE1sU0M
+ aKJ1YHeiqlDdu+MaOy4hyckoE38YpyPjaK2GNCN0fIp4mD7hA5hGp9uQXWoQJaseP0
+ VTt2QEVoc685ctV+rA4wt2sFrTIoIP3Ws9bwD4SY=
+Date: Tue, 24 Mar 2026 16:10:10 +0000
 From: Liviu Dudau <liviu.dudau@arm.com>
-To: Christian Hewitt <christianshewitt@gmail.com>
-Cc: Boris Brezillon <boris.brezillon@collabora.com>,
- Steven Price <steven.price@arm.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] drm/panthor: correct firmware related messages
-Message-ID: <acK2jA36UhlEIKkM@e142607>
-References: <20260323081132.3217646-1-christianshewitt@gmail.com>
+To: Cunyuan Liu <cunyuan.liu@cixtech.com>
+Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch,
+ robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ neil.armstrong@linaro.org, heiko@sntech.de, marex@nabladev.com,
+ dev@kael-k.io, prabhakar.mahadev-lad.rj@bp.renesas.com,
+ andre.przywara@arm.com, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ cix-kernel-upstream@cixtech.com
+Subject: Re: [PATCH v2 0/3] Arm China Linlon-D6 display controller support
+Message-ID: <acK3YnKOyPbAroFu@e142607>
+References: <20260313033119.33686-1-cunyuan.liu@cixtech.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260323081132.3217646-1-christianshewitt@gmail.com>
+In-Reply-To: <20260313033119.33686-1-cunyuan.liu@cixtech.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,46 +62,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Mar 23, 2026 at 08:11:32AM +0000, Christian Hewitt wrote:
-> Some English language corrections to firmware messages. No
-> functional changes.
+On Fri, Mar 13, 2026 at 11:31:16AM +0800, Cunyuan Liu wrote:
+> Adds Komeda DRM support for Arm China Linlon-D6. The IP is register-compatible
+> with Mali-D71, so we reuse the D71 code path.
 > 
-> Signed-off-by: Christian Hewitt <christianshewitt@gmail.com>
+>   [1/3] dt-bindings: vendor-prefixes: add Arm Technology (China) "armchina"
+>   [2/3] dt-bindings: add armchina,linlon-d6 compatible (fallback to arm,mali-d71)
+>   [3/3] drm/komeda: add Linlon-D6 product ID and of_device_id, use D71 funcs
+> 
+> Changes in v2:
+> - PATCH [2/3]: rework compatible schema using enum as suggested by Krzysztof.
+> 
+> v1: https://lore.kernel.org/dri-devel/20260311055506.12023-1-cunyuan.liu@cixtech.com/
+> 
+> Tested on Radxa Orion O6 with Linlon-D6, basic display bring-up works as expected.
+> 
+> Thanks,
+> Cunyuan
+> 
+> Cunyuan Liu (3):
+>   dt-bindings: vendor-prefixes: Add Arm Technology (China) Co., Ltd.
+>   dt-bindings: display: arm,komeda: add Arm China Linlon D6 compatible
+>   drm/komeda: Add support for Arm China Linlon-D6
+> 
+>  Documentation/devicetree/bindings/display/arm,komeda.yaml | 4 +++-
+>  Documentation/devicetree/bindings/vendor-prefixes.yaml    | 2 ++
+>  drivers/gpu/drm/arm/display/include/malidp_product.h      | 1 +
+>  drivers/gpu/drm/arm/display/komeda/d71/d71_dev.c          | 1 +
+>  drivers/gpu/drm/arm/display/komeda/komeda_drv.c           | 1 +
+>  5 files changed, 8 insertions(+), 1 deletion(-)
+> 
+> -- 
+> 2.53.0
+> 
 
-Pushed to drm-misc-next.
+Pushed the whole series to drm-misc-next.
 
 Best regards,
 Liviu
-
-> ---
->  drivers/gpu/drm/panthor/panthor_fw.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/panthor/panthor_fw.c b/drivers/gpu/drm/panthor/panthor_fw.c
-> index a64ec8756bed..349bb6b0e7bf 100644
-> --- a/drivers/gpu/drm/panthor/panthor_fw.c
-> +++ b/drivers/gpu/drm/panthor/panthor_fw.c
-> @@ -580,7 +580,7 @@ static int panthor_fw_load_section_entry(struct panthor_device *ptdev,
->  
->  	if (hdr.flags & CSF_FW_BINARY_IFACE_ENTRY_PROT) {
->  		drm_warn(&ptdev->base,
-> -			 "Firmware protected mode entry not be supported, ignoring");
-> +			 "Firmware protected mode entry is not supported, ignoring");
->  		return 0;
->  	}
->  
-> @@ -749,7 +749,7 @@ static int panthor_fw_load_entry(struct panthor_device *ptdev,
->  
->  	if ((iter->offset % sizeof(u32)) ||
->  	    (CSF_FW_BINARY_ENTRY_SIZE(ehdr) % sizeof(u32))) {
-> -		drm_err(&ptdev->base, "Firmware entry isn't 32 bit aligned, offset=0x%x size=0x%x\n",
-> +		drm_err(&ptdev->base, "Firmware entry is not 32-bit aligned, offset=0x%x size=0x%x\n",
->  			(u32)(iter->offset - sizeof(u32)), CSF_FW_BINARY_ENTRY_SIZE(ehdr));
->  		return -EINVAL;
->  	}
-> -- 
-> 2.43.0
-> 
 
 -- 
 ====================
