@@ -4,44 +4,102 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CE1D0E9A75A
-	for <dri-devel@archiver.kernel.org>; Tue, 24 Mar 2026 10:42:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E5632E9A769
+	for <dri-devel@archiver.kernel.org>; Tue, 24 Mar 2026 10:58:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1333310E145;
-	Tue, 24 Mar 2026 10:42:11 +0000 (UTC)
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id 3E66210E145
- for <dri-devel@lists.freedesktop.org>; Tue, 24 Mar 2026 10:42:09 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id AAA401476
- for <dri-devel@lists.freedesktop.org>; Tue, 24 Mar 2026 03:42:02 -0700 (PDT)
-Received: from [192.168.0.1] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id
- 7A6BC3FDF5
- for <dri-devel@lists.freedesktop.org>; Tue, 24 Mar 2026 03:42:08 -0700 (PDT)
-Date: Tue, 24 Mar 2026 10:41:56 +0000
-From: Liviu Dudau <liviu.dudau@arm.com>
-To: Marcin =?utf-8?Q?=C5=9Alusarz?= <marcin.slusarz@arm.com>
-Cc: Boris Brezillon <boris.brezillon@collabora.com>,
- Steven Price <steven.price@arm.com>,
- dri-devel@lists.freedesktop.org, Chia-I Wu <olvaffe@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Lukas Zapolskas <lukas.zapolskas@arm.com>, nd@arm.com
-Subject: Re: [PATCH v3] drm/panthor: extend timestamp query with flags
-Message-ID: <acJqdFEo4l4oi--V@e142607>
-References: <20260318112952.645160-1-marcin.slusarz@arm.com>
- <20260319110053.909152-1-marcin.slusarz@arm.com>
- <abvhcedS46eLEYVB@e142607> <abvujKZxtg0zvFaz@e129842.arm.com>
- <abwTkBi5WvItsEX-@e142607> <abwXXFgPheyA03P8@e129842.arm.com>
- <acE9LkMYQvrGKb8b@e142607> <acFmUc-qx0eO8A1F@e129842.arm.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4FCC810E59C;
+	Tue, 24 Mar 2026 10:58:52 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="d3tCkcte";
+	dkim-atps=neutral
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com
+ [209.85.128.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2861810E59C
+ for <dri-devel@lists.freedesktop.org>; Tue, 24 Mar 2026 10:58:50 +0000 (UTC)
+Received: by mail-wm1-f46.google.com with SMTP id
+ 5b1f17b1804b1-486fda2a389so30584525e9.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 24 Mar 2026 03:58:50 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1774349929; cv=none;
+ d=google.com; s=arc-20240605;
+ b=J59El6Epv+Zzb185UJX0CJfL/e8Dzdncb7hFivqzdzJF8BbnXpcOBwmFqM4NwxRbTk
+ 4XA4vcwWaLDTKUwFaE3AyyrReNjeXP1dJ8r+Qa9Je3+rCV+7NXaz/NsHPu3YI3lhrSFG
+ QzOTWw7y3mWGXDBLRO5f0hgTnj6fJeFEkplfvepRb1/WHABqeN2KZHiOOlt+3YjY7Gaz
+ qyYjA+E/fxJmaGPVtbR1gUcI82a5yqGoAEea+BS1iYkSWziBhhl/yDzH/c7daBnodtPs
+ l8ftUzxDlTE2zEbW5UAOz1L4y57Ysb7yOgGsl6mS84e3BKrXwIr2iOIOhlgkq/BxegWi
+ 9tDw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=KHpvLLQnm+0s2ip7c/TcjqSG8s4Eycqur8euWeGF39k=;
+ fh=O/amFsa47HFxDR3pmHDzfGdrhdWepBZ8YDjB12UB5l0=;
+ b=HDQswg8wQW6Nh4ea5E76ctGXUe0y5LGW3KWgH2nrtVdA/5QmCGevYkcvS6Qco/IbSO
+ l8iNw7Cy7YYKH9TjlBKx2/mR0E6c4GCmMJUT36bCTNhhLRnzLm2xTtrj00n60a/xtTgK
+ coj8GkYWWUs7x8nyP1HlcsPsqh1hy5uECLAniWtiCzYV4FdVpzZTHzUqdo8Fv4siCwMv
+ suP6JA2iS0jdd/1tPTgKC1k8raAncbjariECtNY5bZOFSgpkgogEsbVedVNu67U/mr1p
+ stK3Lfv5npiNgRirTS7t6/L8A7PdC9kc7vBU5+Sdd4ZU9OvOIQbfXewF0+2/nloo9W+c
+ LW5Q==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=google.com; s=20251104; t=1774349929; x=1774954729;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=KHpvLLQnm+0s2ip7c/TcjqSG8s4Eycqur8euWeGF39k=;
+ b=d3tCkcteL+2VezKZWVOIGuMMF2JOtAEmz/XVuFOc9iojC8uQhsYoP8krtrnI+DN+82
+ U7MQmapwxChQsp1UkEwerHuhmraDQxxZF7NU/E/Essw/za8cSw/qMpYLaSd6++F9p0Di
+ GzKQmBBHWuovwV7R8kCMmLlxdw2BxjWqEDoacXg87FqwmEmzSCVVo3wcoZwqwy/3UHZA
+ Ax9eSd4aM3d6/+jOQYefIz8arX9k8yRX7uWaO7YWuk1b214TdR91Gmtvd0ilyKMdZtmG
+ qfgvSH0rv1uH+Yy0/eUWqIRYeGcuerj4QVZPL6TyCkdCRZWwf4mTS+3GUn/5JJjyvnfh
+ bCog==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1774349929; x=1774954729;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=KHpvLLQnm+0s2ip7c/TcjqSG8s4Eycqur8euWeGF39k=;
+ b=BBBiWeVkEb5oDmeum6MX+Iau6oHo9X+/q//dz/FPOMgCHqRmb7FB2a8FpwPdoILo2u
+ zBzOOghOe+ieWhRr8aUtdEFz/H7djU4Euz2MXhUAfkxR1rO5hi50kdeOxVE+Q3yR97aA
+ fNuaKFHYf97/BQL7VEpCNt5VyoLidUrRtoYiEQPkIK98uJmbePw45/T5lOpUR75NULUi
+ ZbYggyVJUu9Mpg6wMrLfLVLsU5X9dW4jvwXrFOfiyzDUDmYuiucwXvwwXRgu4cjKdonh
+ 3CumjiDeFKKoLVcOh7zyyfpri8mOr8B69fgfwEDUBJuHpFEC8q6+NfiRLUp+vRvs371c
+ 0cXA==
+X-Gm-Message-State: AOJu0Yx3m31aNSkrgVz2zCYNOoIDp3CjF+N2jBgMRrmnD4swgZ+idxO9
+ 8CwkYDeIZE3Z4KCg6ZVJhkcna1vzr6U7ECk7e1IjMftE0zjFu7qhd5HL7S3dnfoqMiOEQb2zcd6
+ tZ+XHEdVYCFvX8P59TIUIrjEPgeZQWQVqevIRrx7i
+X-Gm-Gg: ATEYQzxS7UP5JkEilQj1Hrmc73PHBFDv6Jlc0nkwjzBhkE14dJ+kU3FRS8ZZIsOy7sm
+ H/1oBdL6rGVgyRlKuhFyG7sGZqXk9z/Yuc+yPtbZb3JUijzTt7i89JNznYi/ScXeULa4yZ9NtzO
+ w4aysY4Wv7H8EQMsmWLwoJTK09rkzCTl2Eap9HSmQSB7mP1z5g1o4kHbUt7E2I65w+TE1eAHlTy
+ Y39wqmWekMVXQcTsY7y+p7RJFAYouQ2KaBRA3KtDzdTKI7Plt5oJArgQltSru15TsF0+EIa1duB
+ Y+PpPB6+LQybOt6dOs2+8qAwjqYkgkjHGSyImA==
+X-Received: by 2002:a05:600c:3b8c:b0:486:d76c:fa51 with SMTP id
+ 5b1f17b1804b1-486ff03ffa5mr209926245e9.27.1774349928185; Tue, 24 Mar 2026
+ 03:58:48 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <acFmUc-qx0eO8A1F@e129842.arm.com>
+References: <20260323-b4-tyr-use-register-macro-v3-v3-0-a87daf9e4701@collabora.com>
+In-Reply-To: <20260323-b4-tyr-use-register-macro-v3-v3-0-a87daf9e4701@collabora.com>
+From: Alice Ryhl <aliceryhl@google.com>
+Date: Tue, 24 Mar 2026 11:58:36 +0100
+X-Gm-Features: AQROBzChC9No4ct04k5xNIFBXW8QZ-WT2wc3OVyceKvhXpdZyi6NGTcj_kNJ-Vo
+Message-ID: <CAH5fLghWAQOkH0bDw3vC5UZaCJyXaXn16D_2K8wWOraBcktg3A@mail.gmail.com>
+Subject: Re: [PATCH v3 00/12] drm/tyr: Use register! macro
+To: Deborah Brouwer <deborah.brouwer@collabora.com>
+Cc: dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org, 
+ Boqun Feng <boqun@kernel.org>, Danilo Krummrich <dakr@kernel.org>, 
+ Daniel Almeida <daniel.almeida@collabora.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, 
+ Miguel Ojeda <ojeda@kernel.org>, Gary Guo <gary@garyguo.net>, 
+ =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Trevor Gross <tmgross@umich.edu>, Steven Price <steven.price@arm.com>, 
+ Boris Brezillon <boris.brezillon@collabora.com>,
+ Dirk Behme <dirk.behme@gmail.com>, Alexandre Courbot <acourbot@nvidia.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,207 +115,18 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Mar 23, 2026 at 05:12:01PM +0100, Marcin Ślusarz wrote:
-> On Mon, Mar 23, 2026 at 01:16:30PM +0000, Liviu Dudau wrote:
-> > On Thu, Mar 19, 2026 at 04:33:48PM +0100, Marcin Ślusarz wrote:
-> > > On Thu, Mar 19, 2026 at 03:17:36PM +0000, Liviu Dudau wrote:
-> > > > On Thu, Mar 19, 2026 at 01:39:40PM +0100, Marcin Ślusarz wrote:
-> > > > > On Thu, Mar 19, 2026 at 11:43:45AM +0000, Liviu Dudau wrote:
-> > > > > > Hi Marcin,
-> > > > > > 
-> > > > > > On Thu, Mar 19, 2026 at 12:00:53PM +0100, Marcin Slusarz wrote:
-> > > > > > > ...
-> > > > > > > +#define VALID_TIMESTAMP_QUERY_FLAGS \
-> > > > > > > +		(DRM_PANTHOR_TIMESTAMP_GPU | \
-> > > > > > > +		 DRM_PANTHOR_TIMESTAMP_CPU_TYPE_MASK | \
-> > > > > > > +		 DRM_PANTHOR_TIMESTAMP_GPU_OFFSET | \
-> > > > > > > +		 DRM_PANTHOR_TIMESTAMP_GPU_CYCLE_COUNT | \
-> > > > > > > +		 DRM_PANTHOR_TIMESTAMP_FREQ | \
-> > > > > > > +		 DRM_PANTHOR_TIMESTAMP_DURATION)
-> > > > > > > +
-> > > > > > >  static int panthor_query_timestamp_info(struct panthor_device *ptdev,
-> > > > > > >  					struct drm_panthor_timestamp_info *arg)
-> > > > > > >  {
-> > > > > > >  	int ret;
-> > > > > > > +	u32 flags;
-> > > > > > > +	unsigned long irq_flags;
-> > > > > > > +	struct timespec64 cpu_ts;
-> > > > > > > +	u64 query_start_time;
-> > > > > > > +	bool minimize_interruption;
-> > > > > > > +	u32 timestamp_types = 0;
-> > > > > > > +
-> > > > > > > +	if (arg->flags != 0) {
-> > > > > > > +		flags = arg->flags;
-> > > > > > > +	} else {
-> > > > > > > +		/*
-> > > > > > > +		 * If flags are 0, then ask for the same things that we asked
-> > > > > > > +		 * for before flags were added.
-> > > > > > > +		 */
-> > > > > > > +		flags = DRM_PANTHOR_TIMESTAMP_GPU |
-> > > > > > > +			DRM_PANTHOR_TIMESTAMP_GPU_OFFSET |
-> > > > > > > +			DRM_PANTHOR_TIMESTAMP_FREQ;
-> > > > > > > +	}
-> > > > > > > +
-> > > > > > > +	switch (flags & DRM_PANTHOR_TIMESTAMP_CPU_TYPE_MASK) {
-> > > > > > > +	case 0:
-> > > > > 
-> > > > > Umm, this should be DRM_PANTHOR_TIMESTAMP_CPU_NONE.
-> > 
-> > OK, are you going to re-spin?
-> 
-> Yes, as soon as we get to some conclusion.
-> 
-> > > > > 
-> > > > > > > +		break;
-> > > > > > > +	case DRM_PANTHOR_TIMESTAMP_CPU_MONOTONIC:
-> > > > > > > +	case DRM_PANTHOR_TIMESTAMP_CPU_MONOTONIC_RAW:
-> > > > > > > +		timestamp_types++;
-> > > > > > > +		break;
-> > > > > > > +	default:
-> > > > > > > +		return -EINVAL;
-> > > > > > > +	}
-> > > > > > > +
-> > > > > > > +	if (flags & ~VALID_TIMESTAMP_QUERY_FLAGS)
-> > > > > > > +		return -EINVAL;
-> > > > > > 
-> > > > > > Can we move this check before the switch and simplify the switch itself to only do the timestamp_types increment?
-> > > > > 
-> > > > > DRM_PANTHOR_TIMESTAMP_CPU_TYPE_MASK is bit field that holds individual
-> > > > > clock type values, so we still need to validate the bit field.
-> > > > 
-> > > > The if () test eliminates the default case, and if you change the switch to:
-> > > > 
-> > > > 	switch (flags & DRM_PANTHOR_TIMESTAMP_CPU_NONE) {
-> > > > 	case DRM_PANTHOR_TIMESTAMP_CPU_MONOTONIC:
-> > > > 	case DRM_PANTHOR_TIMESTAMP_CPU_MONOTONIC_RAW:
-> > > > 		timestamp_types++;
-> > > > 		break;
-> > > > 	}
-> > > > 
-> > > > then it should be equivalent, right?
-> > > 
-> > > We need the default case to detect garbage values in the part of flags
-> > > that ands with DRM_PANTHOR_TIMESTAMP_CPU_TYPE_MASK.
-> > > 
-> > > DRM_PANTHOR_TIMESTAMP_CPU_TYPE_MASK is 7 << 1,
-> > 
-> > I understand that you want to make sure that user space doesn't insert values into the
-> > flags and then pretends that because we didn't return an error that's now part of the
-> > ABI. But then maybe you should not reserve the extra bit now if you don't know how
-> > it's going to be used (in other words, why not make TIMESTAMP_CPU_TYPE_MASK  3 << 1?).
-> 
-> I think it makes sense to reserve this bit now to make it easier to
-> extend the interface if we ever will need to. Changing uapi definition
-> is painful enough, so reserving this will rule out misuses of the current
-> value. Another point is that we would have to validate that the bit is 0
-> anyway, so I don't see why we can't include that bit in the field that
-> is supposed to go with.
+On Tue, Mar 24, 2026 at 1:18=E2=80=AFAM Deborah Brouwer
+<deborah.brouwer@collabora.com> wrote:
+>
+> This series changes the Tyr driver to use the kernel's register! macro
+> for hardware register access, replacing manual bit manipulation and custo=
+m
+> register structures with a more type-safe and maintainable approach.
 
-You do validate the bits in the if (flags & ~VALID_TIMESTAMP_QUERY_FLAGS) test if the
-QUERY_FLAGS bitfield is updated.
+Please double check the AI review:
+https://sashiko.dev/#/patchset/20260323-b4-tyr-use-register-macro-v3-v3-0-a=
+87daf9e4701%40collabora.com
 
-> 
-> > > DRM_PANTHOR_TIMESTAMP_CPU_MONOTONIC is 1 << 1,
-> > > DRM_PANTHOR_TIMESTAMP_CPU_MONOTONIC_RAW is 2 << 1,
-> > > so 3 << 1, 4 << 1, 5 << 1, 6 << 1, 7 << 1 are all invalid values that need
-> > > to be rejected.
-> > 
-> > I am confused about why TIMESTAMP_CPU is a continous range [0-7] while the rest of the
-> > flags are bits in a bitmask. A note should be added to the panthor_drm.h file to
-> > explain this.
-> 
-> Well, just look at the definition of struct drm_panthor_timestamp_info -
-> there's one to one relation between field and a DRM_PANTHOR_TIMESTAMP_* flag,
-> with an exception that CPU timestamp types have only one field (well,
-> a pair of "seconds" and "nanoseconds", but from logical perspective it's
-> only one value). There's no known reason why anyone would want to query
-> multiple CPU timestamps together with various GPU counters from _GPU_ query.
+There are some concerns regarding clock cleanup on patch 3 that seem valid.
 
-OK, so what I'm hearing is: we're reserving space for up to 6 CPU clock sources (zero is
-no CPU clock) but you can have only one active at any time (because we can't think of any
-reason why you would want more at the same time) and we currently only define two sources
-because that's what user space cares about.
-
-If you agree with this then this will be recorded in the thread and we can go back in the
-future and reference it.
-
-> 
-> > 
-> > > 
-> > > And since DRM_PANTHOR_TIMESTAMP_CPU_NONE is 0 << 1, we need it too in
-> > > the switch to not be caught by the default case.
-> > 
-> > It only makes sense if you explain that TIMESTAMP_CPU values are in a range. I kept reading
-> > the different versions of the patch thinking that they are bits in a bitmask, with
-> > TIMESTAMP_CPU_NONE being the logical state of not selecting any of the sources.
-> 
-> That should be resolved with the documentation update below, right?
-
-The documentation doesn't say anything about the intent for future values for CPU sources, but
-if you don't want to add more in the documentation at least we have this thread as reference.
-
-I don't want to turn this into a bikeshedding thread, so please do a v4 with the switch case updated
-and the documentation addition and I will ACK that.
-
-Best regards,
-Liviu
-
-> 
-> > 
-> > Best regards,
-> > Liviu
-> > 
-> > 
-> > > 
-> > > > > 
-> > > > > > > +
-> > > > > > > +	if (flags & DRM_PANTHOR_TIMESTAMP_GPU)
-> > > > > > > +		timestamp_types++;
-> > > > > > > +	if (flags & DRM_PANTHOR_TIMESTAMP_GPU_CYCLE_COUNT)
-> > > > > > > +		timestamp_types++;
-> > > > > > > +
-> > > > > > > +	/* If user asked to obtain timestamps from more than one source,
-> > > > > > > +	 * then it very likely means they want them to be as close as possible.
-> > > > > > > +	 * If they asked for duration, then that likely means that they
-> > > > > > > +	 * want to know how long obtaining timestamp takes, without random
-> > > > > > > +	 * events, like process scheduling or interrupts.
-> > > > > > > +	 */
-> > > > > > 
-> > > > > > This comment makes me think that user can ask for both CPU_MONOTONIC and
-> > > > > > CPU_MONOTONIC_RAW timestamps, but the code is built to make them exclusive.
-> > > > > > Can we document better what sources can be requested simultaneously?
-> > > > > 
-> > > > > Somethine like this?
-> > > > > 
-> > > > > diff --git a/include/uapi/drm/panthor_drm.h b/include/uapi/drm/panthor_drm.h
-> > > > > index 8a46ef040c3d..0e455d91e77d 100644
-> > > > > --- a/include/uapi/drm/panthor_drm.h
-> > > > > +++ b/include/uapi/drm/panthor_drm.h
-> > > > > @@ -466,6 +466,11 @@ struct drm_panthor_timestamp_info {
-> > > > >          *  DRM_PANTHOR_TIMESTAMP_GPU |
-> > > > >          *  DRM_PANTHOR_TIMESTAMP_GPU_OFFSET |
-> > > > >          *  DRM_PANTHOR_TIMESTAMP_FREQ
-> > > > > +        *
-> > > > > +        * Note: these flags are exclusive to each other (only one can be used):
-> > > > > +        * - DRM_PANTHOR_TIMESTAMP_CPU_NONE
-> > > > > +        * - DRM_PANTHOR_TIMESTAMP_CPU_MONOTONIC
-> > > > > +        * - DRM_PANTHOR_TIMESTAMP_CPU_MONOTONIC_RAW
-> > > > 
-> > > > Yes, looks good to me.
-> > > > 
-> > > > Best regards,
-> > > > Liviu
-> > > > 
-> > > > >          */
-> > > > >         __u32 flags;
-> > > > >  
-
--- 
-====================
-| I would like to |
-| fix the world,  |
-| but they're not |
-| giving me the   |
- \ source code!  /
-  ---------------
-    ¯\_(ツ)_/¯
+Alice
