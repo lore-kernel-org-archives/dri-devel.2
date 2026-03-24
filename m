@@ -4,140 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1E6F1E9A75C
-	for <dri-devel@archiver.kernel.org>; Tue, 24 Mar 2026 10:03:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E7A0CE9A75C
+	for <dri-devel@archiver.kernel.org>; Tue, 24 Mar 2026 10:05:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 825A810E5D3;
-	Tue, 24 Mar 2026 10:03:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5318210E0EB;
+	Tue, 24 Mar 2026 10:05:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="OE+Autr9";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Vq3wvG3o";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="DU51jTGY";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1D4C410E5CA
- for <dri-devel@lists.freedesktop.org>; Tue, 24 Mar 2026 10:03:54 +0000 (UTC)
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 62O6XZIN409104
- for <dri-devel@lists.freedesktop.org>; Tue, 24 Mar 2026 10:03:53 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- y8EZiHIjdanBhV8KTPPr7I3cX1eSVsJPrp525ZWH7N0=; b=OE+Autr9v7guW8zl
- VLY9gXRRjWOMSINfds3CEYmeOzsXFjz20hHJSmbOX2FqrXorJnsyGK8wYrSSzE27
- qoRhWFcF8Z5fw8XTwBDhNBx/0mFrWEJfnU4l7++S9T6sQK+3XF2Y/sWuMJ/k/1hW
- uk7eoV1F7v2Ygye55/AeTsnuIlg7yjTJfguDAh87LM4FNVoBldO9mFcXIeLbwssH
- fCPIU/4+zGFP845+XLyTBXUrncRL5gS0GtQ0n/tFTDbUQGowIrzo+tK5Njk5ugH8
- I6nKiDDSW96ES7rfNMFkORel+aOCZyJ1P8O1X2MpUOP/3mFLCm9M+/xzQ5sH1Y5/
- D/DioA==
-Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com
- [209.85.219.72])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d3nexrrj1-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Tue, 24 Mar 2026 10:03:53 +0000 (GMT)
-Received: by mail-qv1-f72.google.com with SMTP id
- 6a1803df08f44-89c867b7d6fso31973636d6.3
- for <dri-devel@lists.freedesktop.org>; Tue, 24 Mar 2026 03:03:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1774346633; x=1774951433;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=y8EZiHIjdanBhV8KTPPr7I3cX1eSVsJPrp525ZWH7N0=;
- b=Vq3wvG3oV+jTNq9ghUkPsZQFS9Yg03RyO1wSg1UjuZCTPFJuhgxkjDxihdj0i9812n
- 1y47S3M+/QbMT809Gs2Y2Zi+2leflrzRxSBYTuZKKp+STVjSu5sgxW08tlXdSLsYdRKv
- a21Ke5YZgW1bQlbZlCdHAi0j2J2dRr6Qry4Pd6Yv0CV+6QPCkJQDfvo3coHh5C/cSg41
- oIzqZG65YKg8OXdFsry4ZXsAB0jGyrQT4tSt6/BFQ6R68yToIs/0tJ0R0Ht4oICi+oQ/
- bP2wkBJPN2jPP2F/Wiwt2HSxe/jwYGCXcAZ3TdX7hjB2Qjs747qmXfmofl6m4mwZWKOn
- pEcA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774346633; x=1774951433;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=y8EZiHIjdanBhV8KTPPr7I3cX1eSVsJPrp525ZWH7N0=;
- b=tHFl19EAslhmXdPYCZzH19KZ5t9NQZxxzQXVi3IsmZROHQXSdxZEFNsxgtozDPjWSc
- qXZaOCHeHXFd9e7mnGOiSnHnpGglcJohTvWJFue/g+6ztBdGzqt8hRdRVQGixUmTqMu3
- 55ihhq2c8DUo+lUqbqmqD0iQ0A3N7+h3p3Yu+cq8EPc2Sg/G7C94KIBoVnCmkdKgCbO2
- 5RFvYWxCMMbZ89Z91ZCxXsnaqVcA74Jh9W4pXu9dS7fFC52Kr5xhC+e58MJIzVX576kh
- ncxGNt425jKDp/b9dSV2NJHYRtjrn4fTmLWnsvFVVS0TnJ3YuuCmGe7bd4KTl23d4O1y
- YpAQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCV03oIr0ZYIvmU3PgJbHZNy7SCFEHB77a/u/QXBdOyynoyMhr8WhR6FOoS/jSUZ5O00IlEylKwBMYU=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzQvyFCZRsSRuOmB5Fhw8JK74n1011+aC9vH26NFHUytjJCTvyg
- YQ4ABeLbQJuxJkh7biTUfl7OpfBcqXtig0USxx3+3GH4L+zXCmLMi1P+mtUqx3bjxri550SLN6g
- 69/nrWZOyIsNxicm/CJCKHDpt+GxlLMw8MxQnseAUUbqCq82vUsNVXD5eNd/tsbIhO0nfzOU=
-X-Gm-Gg: ATEYQzyDZ5pSuPwEXNvRidRMe2CHLhUoJTnGFAGNJxp1abPv81RK7eQ5yqnM8DGeqHq
- RPFxdTjxIWhmz5Y3d0FWPTYVCEs7FLCl8UQmD6mQxTXEou/rf2mWYixJM1LRBDHiFR+d0FeAw9o
- McUBS7uli48opMRAe0olorBVI2qsFSqhTudovJ7vz+1+DLYw7ZI/KhSgI8RaP+EGRd+i9eO3e+N
- Z/3GuhXHJcRHX6lJXWBpYCYHM3/KNywO4lcMAwz0nk1WpSvQWdM3eB2Fvze26y/J67xuELoKdwz
- f/60FQWFutih18JzLeWe0N3oJcYOjTdIMvQ0UGhsL3ZT6MiXOWdL2roL+a/wo6eZF2s2OWl74MM
- sUojBE2hGvqZcaIuELe0z33ZjvnFmfdeiZANnGSyb9ChcRtfVmgcC1lyyBD49uGA2d+9kcYNOmy
- Xz6Pw=
-X-Received: by 2002:a05:6214:301b:b0:89a:595c:b805 with SMTP id
- 6a1803df08f44-89c85a421acmr188082276d6.6.1774346632608; 
- Tue, 24 Mar 2026 03:03:52 -0700 (PDT)
-X-Received: by 2002:a05:6214:301b:b0:89a:595c:b805 with SMTP id
- 6a1803df08f44-89c85a421acmr188081806d6.6.1774346631903; 
- Tue, 24 Mar 2026 03:03:51 -0700 (PDT)
-Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl.
- [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b98416ac27asm493991066b.59.2026.03.24.03.03.48
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 24 Mar 2026 03:03:51 -0700 (PDT)
-Message-ID: <b64447db-bbb0-4457-b803-ebb3eca26107@oss.qualcomm.com>
-Date: Tue, 24 Mar 2026 11:03:48 +0100
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 33CD610E0EB
+ for <dri-devel@lists.freedesktop.org>; Tue, 24 Mar 2026 10:05:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1774346717;
+ bh=nHpMWAm5i2APybfh67B4LCfdQnnLqamo4esMTNZoB4Q=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=DU51jTGY5VkVP/2m0INSH+hneUd9HcV79vB2S/Sf5DglaRPzUavInkOUOvFXmwhOq
+ YYXveCR9I5h3oZR9TZkuV9HKJhNYujNjbgyvuOToEWwUEjXOJBi0H/AZzidFeN3QsZ
+ ahRtz0iP3JmaO04DKZnpAtJ/T1OLhvSHffAsyK0RV+Tmb4Xj+awHAstqxJLuZ5c0IL
+ DGTjBSbWCZLhLTrM8vuuVO/rDNCJVuFJJXOxNgKiXWMzAPzmucqtCP+QIFm7rAs/j2
+ tnOBxCZBFxBz5ZDStTFoF2v3oSDh2Iy22ZR8cHXa+2iuezLilb3U2ACV7Yx6L7j1KT
+ JzZjVgR2UlOIQ==
+Received: from fedora (unknown [IPv6:2a01:e0a:2c:6930:d919:a6e:5ea1:8a9f])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256) (No client certificate requested)
+ (Authenticated sender: bbrezillon)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 32A3F17E598B;
+ Tue, 24 Mar 2026 11:05:17 +0100 (CET)
+Date: Tue, 24 Mar 2026 11:05:13 +0100
+From: Boris Brezillon <boris.brezillon@collabora.com>
+To: Deborah Brouwer <deborah.brouwer@collabora.com>
+Cc: dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org, Boqun
+ Feng <boqun@kernel.org>, Danilo Krummrich <dakr@kernel.org>, Alice Ryhl
+ <aliceryhl@google.com>, Daniel Almeida <daniel.almeida@collabora.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Miguel Ojeda
+ <ojeda@kernel.org>, Gary Guo <gary@garyguo.net>, =?UTF-8?B?QmrDtnJu?= Roy
+ Baron <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, Andreas
+ Hindborg <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>, Steven
+ Price <steven.price@arm.com>, Dirk Behme <dirk.behme@gmail.com>, Alexandre
+ Courbot <acourbot@nvidia.com>
+Subject: Re: [PATCH v3 08/12] drm/tyr: Add fields for MEMATTR register
+Message-ID: <20260324110513.729067f4@fedora>
+In-Reply-To: <20260323-b4-tyr-use-register-macro-v3-v3-8-a87daf9e4701@collabora.com>
+References: <20260323-b4-tyr-use-register-macro-v3-v3-0-a87daf9e4701@collabora.com>
+ <20260323-b4-tyr-use-register-macro-v3-v3-8-a87daf9e4701@collabora.com>
+Organization: Collabora
+X-Mailer: Claws Mail 4.3.1 (GTK 3.24.51; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 09/16] drm/msm/adreno: Implement gx_is_on() for A8x
-To: Akhil P Oommen <akhilpo@oss.qualcomm.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Antonino Maniscalco <antomani103@gmail.com>,
- Connor Abbott <cwabbott0@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20260324-a8xx-gpu-batch2-v1-0-fc95b8d9c017@oss.qualcomm.com>
- <20260324-a8xx-gpu-batch2-v1-9-fc95b8d9c017@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260324-a8xx-gpu-batch2-v1-9-fc95b8d9c017@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzI0MDA4MCBTYWx0ZWRfX37v9BkdLOM/v
- 01tibY2w+q5h7XT8uRWZ25EudThmcpz53Ix4tCsU+q2T6WSti2f5Sg2OZ6fVXaEXAeV9h9Kb5xu
- P9ZcI1KxzUyF6Z5z/ZhUnzpXKV/VbttsjSLMCuM4flh4DDNrbkJYvy0u2ud8BDP+EfFLq8Xgd5Q
- AXxEXzfi5ydvy/6tvZxRnwxMLtCdn8ZI7qnntHPOR1sBQUT18U4rY4mC8hJipKtoATlWbAy1l9/
- h9K8UJe0julX6u6kpHBjlW/DQo0qWI2n0hri4/ZYrvp70dOU8K5/U8MnYl+TX5I5wFXqqsG3A5l
- B+25RZjcV69gxghP7gJhqoBu4F/mcsS/QqggQ2z8MZslY+EbnDGzvSMQMxEKmXBpjvqSD289b8u
- uqJLmO46JO2UWBwByFWEVVjO5iF7Ryfy8kork77v0fAfAKGok7BVH/3GNjZ2fs0qm8VsZq/3Txo
- j4RS3j+tVmkZiUZXHlQ==
-X-Proofpoint-GUID: mDBTtmvYwAJUVowFxhuiG-sG6teyrSiC
-X-Proofpoint-ORIG-GUID: mDBTtmvYwAJUVowFxhuiG-sG6teyrSiC
-X-Authority-Analysis: v=2.4 cv=Bd/VE7t2 c=1 sm=1 tr=0 ts=69c26189 cx=c_pps
- a=7E5Bxpl4vBhpaufnMqZlrw==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
- a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=EUspDBNiAAAA:8 a=Kz8JN9e6_yQgur5BIIAA:9 a=QEXdDO2ut3YA:10
- a=pJ04lnu7RYOZP9TFuWaZ:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-03-24_02,2026-03-23_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 impostorscore=0 clxscore=1015 malwarescore=0 bulkscore=0
- phishscore=0 suspectscore=0 lowpriorityscore=0 priorityscore=1501 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603240080
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -153,17 +72,205 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 3/23/26 9:12 PM, Akhil P Oommen wrote:
-> A8x has a diverged enough for a separate implementation of gx_is_on()
-> check. Add that and move them to the adreno func table.
+On Mon, 23 Mar 2026 17:18:10 -0700
+Deborah Brouwer <deborah.brouwer@collabora.com> wrote:
+
+> The MEMATTR register allows up to eight memory attributes to be
+> defined simultaneously. Add these attribute fields and helpers to
+> define them.
 > 
-> Fixes: 288a93200892 ("drm/msm/adreno: Introduce A8x GPU Support")
-> Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+> Signed-off-by: Deborah Brouwer <deborah.brouwer@collabora.com>
+
+Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
+
 > ---
+>  drivers/gpu/drm/tyr/regs.rs | 162 +++++++++++++++++++++++++++++++++++++++++++-
+>  1 file changed, 160 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/tyr/regs.rs b/drivers/gpu/drm/tyr/regs.rs
+> index 428b6d8c4d6bfd341713bbb7d79e0556a2d04415..9bf2723ab6412034be9a77930532cc89d0adb128 100644
+> --- a/drivers/gpu/drm/tyr/regs.rs
+> +++ b/drivers/gpu/drm/tyr/regs.rs
+> @@ -857,7 +857,16 @@ pub(crate) mod mmu_control {
+>      ///
+>      /// This array contains 16 instances of the MMU_AS_CONTROL register page.
+>      pub(crate) mod mmu_as_control {
+> -        use kernel::register;
+> +        use core::convert::TryFrom;
+> +
+> +        use kernel::{
+> +            error::{
+> +                code::EINVAL,
+> +                Error, //
+> +            },
+> +            num::Bounded,
+> +            register, //
+> +        };
+>  
+>          /// Maximum number of hardware address space slots.
+>          /// The actual number of slots available is usually lower.
+> @@ -875,12 +884,161 @@ pub(crate) mod mmu_as_control {
+>                  /// Base address of the translation table.
+>                  63:0    base;
+>              }
+> +        }
+> +
+> +        /// Helpers for MEMATTR Register.
+> +
+> +        #[derive(Copy, Clone, Debug)]
+> +        #[repr(u8)]
+> +        pub(crate) enum AllocPolicySelect {
+> +            /// Ignore ALLOC_R/ALLOC_W fields.
+> +            Impl = 2,
+> +            /// Use ALLOC_R/ALLOC_W fields for allocation policy.
+> +            Alloc = 3,
+> +        }
+> +
+> +        impl TryFrom<Bounded<u8, 2>> for AllocPolicySelect {
+> +            type Error = Error;
+> +
+> +            fn try_from(val: Bounded<u8, 2>) -> Result<Self, Self::Error> {
+> +                match val.get() {
+> +                    2 => Ok(Self::Impl),
+> +                    3 => Ok(Self::Alloc),
+> +                    _ => Err(EINVAL),
+> +                }
+> +            }
+> +        }
+> +
+> +        impl From<AllocPolicySelect> for Bounded<u8, 2> {
+> +            fn from(val: AllocPolicySelect) -> Self {
+> +                Bounded::try_new(val as u8).unwrap()
+> +            }
+> +        }
+>  
+> +        /// Coherency policy for memory attributes. Indicates the shareability of cached accesses.
+> +        ///
+> +        /// The hardware spec defines different interpretations of these values depending on
+> +        /// whether TRANSCFG.MODE is set to IDENTITY or not. IDENTITY mode does not use translation
+> +        /// tables (all input addresses map to the same output address); it is deprecated and not used
+> +        /// by the driver. This enum assumes that TRANSCFG.MODE is not set to IDENTITY.
+> +        #[derive(Copy, Clone, Debug)]
+> +        #[repr(u8)]
+> +        pub(crate) enum Coherency {
+> +            /// Midgard inner domain coherency.
+> +            ///
+> +            /// Most flexible mode - can map non-coherent, internally coherent, and system/IO
+> +            /// coherent memory. Used for non-cacheable memory in MAIR conversion.
+> +            MidgardInnerDomain = 0,
+> +            /// CPU inner domain coherency.
+> +            ///
+> +            /// Can map non-coherent and system/IO coherent memory. Used for write-back
+> +            /// cacheable memory in MAIR conversion to maintain CPU-GPU cache coherency.
+> +            CpuInnerDomain = 1,
+> +            /// CPU inner domain with shader coherency.
+> +            ///
+> +            /// Can map internally coherent and system/IO coherent memory. Used for
+> +            /// GPU-internal shared buffers requiring shader coherency.
+> +            CpuInnerDomainShaderCoh = 2,
+> +        }
+> +
+> +        impl TryFrom<Bounded<u8, 2>> for Coherency {
+> +            type Error = Error;
+> +
+> +            fn try_from(val: Bounded<u8, 2>) -> Result<Self, Self::Error> {
+> +                match val.get() {
+> +                    0 => Ok(Self::MidgardInnerDomain),
+> +                    1 => Ok(Self::CpuInnerDomain),
+> +                    2 => Ok(Self::CpuInnerDomainShaderCoh),
+> +                    _ => Err(EINVAL),
+> +                }
+> +            }
+> +        }
+> +
+> +        impl From<Coherency> for Bounded<u8, 2> {
+> +            fn from(val: Coherency) -> Self {
+> +                Bounded::try_new(val as u8).unwrap()
+> +            }
+> +        }
+> +
+> +        #[derive(Copy, Clone, Debug)]
+> +        #[repr(u8)]
+> +        pub(crate) enum MemoryType {
+> +            /// Normal memory (shared).
+> +            Shared = 0,
+> +            /// Normal memory, inner/outer non-cacheable.
+> +            NonCacheable = 1,
+> +            /// Normal memory, inner/outer write-back cacheable.
+> +            WriteBack = 2,
+> +            /// Triggers MEMORY_ATTRIBUTE_FAULT.
+> +            Fault = 3,
+> +        }
+> +
+> +        impl From<Bounded<u8, 2>> for MemoryType {
+> +            fn from(val: Bounded<u8, 2>) -> Self {
+> +                match val.get() {
+> +                    0 => Self::Shared,
+> +                    1 => Self::NonCacheable,
+> +                    2 => Self::WriteBack,
+> +                    3 => Self::Fault,
+> +                    _ => unreachable!(),
+> +                }
+> +            }
+> +        }
+> +
+> +        impl From<MemoryType> for Bounded<u8, 2> {
+> +            fn from(val: MemoryType) -> Self {
+> +                Bounded::try_new(val as u8).unwrap()
+> +            }
+> +        }
+> +
+> +        register! {
+> +            /// Stage 1 memory attributes (8-bit bitfield).
+> +            ///
+> +            /// This is not an actual register, but a bitfield definition used by the MEMATTR
+> +            /// register. Each of the 8 bytes in MEMATTR follows this layout.
+> +            MMU_MEMATTR_STAGE1(u8) @ 0x0 {
+> +                /// Inner cache write allocation policy.
+> +                0:0     alloc_w => bool;
+> +                /// Inner cache read allocation policy.
+> +                1:1     alloc_r => bool;
+> +                /// Inner allocation policy select.
+> +                3:2     alloc_sel ?=> AllocPolicySelect;
+> +                /// Coherency policy.
+> +                5:4     coherency ?=> Coherency;
+> +                /// Memory type.
+> +                7:6     memory_type => MemoryType;
+> +            }
+> +        }
+> +
+> +        impl TryFrom<Bounded<u64, 8>> for MMU_MEMATTR_STAGE1 {
+> +            type Error = Error;
+> +
+> +            fn try_from(val: Bounded<u64, 8>) -> Result<Self, Self::Error> {
+> +                Ok(Self::from_raw(val.get() as u8))
+> +            }
+> +        }
+> +
+> +        impl From<MMU_MEMATTR_STAGE1> for Bounded<u64, 8> {
+> +            fn from(val: MMU_MEMATTR_STAGE1) -> Self {
+> +                Bounded::try_new(u64::from(val.into_raw())).unwrap()
+> +            }
+> +        }
+> +
+> +        register! {
+>              /// Memory attributes.
+>              ///
+>              /// Each address space can configure up to 8 different memory attribute profiles.
+>              /// Each attribute profile follows the MMU_MEMATTR_STAGE1 layout.
+> -            pub(crate) MEMATTR(u64)[MAX_AS, stride = STRIDE] @ 0x2408 {}
+> +            pub(crate) MEMATTR(u64)[MAX_AS, stride = STRIDE] @ 0x2408 {
+> +                7:0     attribute0 ?=> MMU_MEMATTR_STAGE1;
+> +                15:8    attribute1 ?=> MMU_MEMATTR_STAGE1;
+> +                23:16   attribute2 ?=> MMU_MEMATTR_STAGE1;
+> +                31:24   attribute3 ?=> MMU_MEMATTR_STAGE1;
+> +                39:32   attribute4 ?=> MMU_MEMATTR_STAGE1;
+> +                47:40   attribute5 ?=> MMU_MEMATTR_STAGE1;
+> +                55:48   attribute6 ?=> MMU_MEMATTR_STAGE1;
+> +                63:56   attribute7 ?=> MMU_MEMATTR_STAGE1;
+> +            }
+>  
+>              /// Lock region address for each address space.
+>              pub(crate) LOCKADDR(u64)[MAX_AS, stride = STRIDE] @ 0x2410 {
+> 
 
-Fair, but then it'd also make sense to do so for a7 which also
-ignores SPTPRAC and has a different bitfields vs a6
-
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-
-Konrad
