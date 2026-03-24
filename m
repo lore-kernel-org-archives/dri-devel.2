@@ -4,141 +4,103 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 79035E9A779
-	for <dri-devel@archiver.kernel.org>; Tue, 24 Mar 2026 12:12:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 39254E9A777
+	for <dri-devel@archiver.kernel.org>; Tue, 24 Mar 2026 12:14:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C9BD510E4AE;
-	Tue, 24 Mar 2026 12:12:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8142F10E65C;
+	Tue, 24 Mar 2026 12:14:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=nxp.com header.i=@nxp.com header.b="HWMJ3rqq";
+	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="gMtkVQXB";
 	dkim-atps=neutral
-Received: from GVXPR05CU001.outbound.protection.outlook.com
- (mail-swedencentralazon11013046.outbound.protection.outlook.com
- [52.101.83.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5043010E4AE
- for <dri-devel@lists.freedesktop.org>; Tue, 24 Mar 2026 12:12:41 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=FdCFMEoaF/WGYW11XZ96/Adt/yKUwjAYj7dh4DP5mfX8DvmRmxEmh1ePAyCMlatr+wM6E2Aa16c7Xa1KCDvRBnYkKL/zQOYV94IdKTHLxMpA0cvbnserY5fAvrR3hRmleBli3BkH1kyBb9d+4pTsZZRYg8asTzekOqzgGiGvGPm7EAjRNrzE5vVmJC+g45VoiXG0zuF5FWJuA6YBOsJaJqEd8qLfBq2VCWIm+YNU7ehWDjAOosWLa+D9PDzbntRgL9PMUiioxjpQpOODbUUnS9YKqJ+21KLLDv7tWEJQ6vaD2LRgdOX2Xk3mfQTJ8+QmH9npcOrtidtZmNJWdAUoog==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Atv6eFwtRL59T3YyFqDJ/Mz+hcKewi4QE9chuAuE2KY=;
- b=MCQ0apNQLVgPOS/Q2XMvS/nyjpzDwxiHhcWm6sbOfgDw8XBylwTt0kyqqqbQuqXlMqVZC9BJkdFRIC3HVsu/mNZJV0SLD55jULEr6LB02GnZ8ixRV88/0ObRKyqv16rz/JrNiVB2ny2OFYwwNsY1hQ4DFNw+qIbeUBAi13sAwz4iHnrbFpsS1UAK7xbIOxeB4xtHQBAcByZuQjujiaF1O4/9340oOrGZC8G+1uHlGKGyGBgACC8Ch4v9li7nipsUF+mZ0xag74wZsnxsQQT4uLEoG1CgWzf3oJlYUpwLFhMK7dHOyirbpa5PVkvAYSgrrzyG13N90EpEgCGQsR4R8Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Atv6eFwtRL59T3YyFqDJ/Mz+hcKewi4QE9chuAuE2KY=;
- b=HWMJ3rqqhV/gwM/xqe/lO4wp9qdvSL7QtuUbwZXYzB/b7z2mtnEyF0t1PAq3BX3s9puVONHvhd4B/ecLXmbRbQmCWEH8rR2/9O9S+BNpCFh0fOe/Nbth6Qls7hMolpo2O/kUJ/+8tAzhswaijK0frPJ5UrqGvRxk60wqKsIGm8zyZHbUCkQPStUt7FE9KwvB4Yoom4iNhLqFmZfCaZs72S+C086AJ3h4bQdjJyi14cYL2nTx9/khNZKRBCSyxIMllVgQwKUtV3FNpoj37z9YKSwJMsMaKWc89EG9WDvugyWU7i4raByhz7f8Hu2i3Kju+5EhUBz7KQIKC1zRMAJ7Ug==
-Received: from PAXPR04MB9424.eurprd04.prod.outlook.com (2603:10a6:102:2b2::13)
- by DB9PR04MB8267.eurprd04.prod.outlook.com (2603:10a6:10:24b::23)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.31; Tue, 24 Mar
- 2026 12:12:35 +0000
-Received: from PAXPR04MB9424.eurprd04.prod.outlook.com
- ([fe80::671d:216f:d493:44ce]) by PAXPR04MB9424.eurprd04.prod.outlook.com
- ([fe80::671d:216f:d493:44ce%4]) with mapi id 15.20.9723.022; Tue, 24 Mar 2026
- 12:12:24 +0000
-From: Ioana Ciocoi Radulescu <ruxandra.radulescu@nxp.com>
-To: Tomeu Vizoso <tomeu@tomeuvizoso.net>
-CC: Oded Gabbay <ogabbay@kernel.org>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Sumit Semwal <sumit.semwal@linaro.org>, Rob
- Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor
- Dooley <conor+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>, Frank Li
- <frank.li@nxp.com>, =?utf-8?B?Q2hyaXN0aWFuIEvDtm5pZw==?=
- <christian.koenig@amd.com>, "dri-devel@lists.freedesktop.org"
- <dri-devel@lists.freedesktop.org>, "linux-kernel@vger.kernel.org"
- <linux-kernel@vger.kernel.org>, "linux-doc@vger.kernel.org"
- <linux-doc@vger.kernel.org>, "devicetree@vger.kernel.org"
- <devicetree@vger.kernel.org>, "imx@lists.linux.dev" <imx@lists.linux.dev>,
- "linux-arm-kernel@lists.infradead.org"
- <linux-arm-kernel@lists.infradead.org>, "linux-media@vger.kernel.org"
- <linux-media@vger.kernel.org>, "linaro-mm-sig@lists.linaro.org"
- <linaro-mm-sig@lists.linaro.org>, Jiwei Fu <jiwei.fu@nxp.com>, Forrest Shi
- <xuelin.shi@nxp.com>, Alexandru Iulian Taran <alexandru.taran@nxp.com>,
- Daniel Baluta <daniel.baluta@nxp.com>
-Subject: RE: [PATCH v2 0/9] accel: New driver for NXP's Neutron NPU
-Thread-Topic: [PATCH v2 0/9] accel: New driver for NXP's Neutron NPU
-Thread-Index: AQHcrW0Sx9bFLIZMFE+2EPv3Y6VaP7W5UsoAgARg2/A=
-Date: Tue, 24 Mar 2026 12:12:24 +0000
-Message-ID: <PAXPR04MB9424214A1AA43BD0C36653E89448A@PAXPR04MB9424.eurprd04.prod.outlook.com>
-References: <20260306-neutron-v2-0-3019bd8c91ef@nxp.com>
- <CAAObsKDAzfib86rXqt9FjXV68yRkBzmijcyR+x=1MsPYd=MQWQ@mail.gmail.com>
-In-Reply-To: <CAAObsKDAzfib86rXqt9FjXV68yRkBzmijcyR+x=1MsPYd=MQWQ@mail.gmail.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PAXPR04MB9424:EE_|DB9PR04MB8267:EE_
-x-ms-office365-filtering-correlation-id: 0b8b8777-2521-4749-7e9b-08de899e9baf
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|7416014|376014|1800799024|366016|19092799006|22082099003|18002099003|56012099003|38070700021;
-x-microsoft-antispam-message-info: MeoCeGcUI+8N228ZTzCCUFPXt+4t71FTQPcfBXhsthma3csc8q1JDpc5Ck24qFhM7/+OQEUmrOVWI/Omuys2LRlkOYqKGgqmB/ypD9SCO0eFgtAs2zD7EmDxDb19QL7g+PTkwQpJ9Trtc6XtQetzBsz2npM7Zd2aqnmZjbOzbConYD7LEM2IOm6tjh/4M46ImafHYrTesn1oXo4+o/h3CFOMysHFovhSOPceq+YC4m2zDjSzWnUOnqxmDyCUhf1b9Aw/+njM+/ZdnikqmMM7CEfzH/zGgSDDlwKdkk0nMFXTD4oYrkDLZnlJgnrlbULPagwQ3eZQRaMEju2o4S0fzDbrPEgnzTsudd/GQMBXICb/0BtXzzjE8zC9eAW/sfhxerxOf1zR1IUS93oSge4Ismt0O0wNSN74V6tmVenppnXQ52u1mgkiy8tleXMkkYs+dwlXxYa5NnWMK3bdKALCzAwh9RVkCPjvjvlTGJ9Pdbs+RMTDc2Tn7IT5XScan2f1R8Jos9HzolXaSf784TgqfsZwFaEZKETfmv2rr+Q7Y+3c22UIPZKRfF7wbUaffQOJrxuerYYdJTEwtMOvlbUIbNf7JgKXiI9h1KsbC4fIK7K24P4ozJl6+9RTBUmjrWJ1j0g2oqGfY0TZ/o1+TViCQGEJb65h14MD/Pi4f6I/iQuDph7/HlThEHY/zaaJiyTqB6Zgy2X//2ty3ze9YEwNs4r7bTiDqSzOmn98swfPoSoD19HT6ZGzolUBIMoegJNLBIvZHlstSzEl33CE6lXoIeNxxTanQpbsdSlIF9ecGzak5mtDAtG0ICsHhXmt6wH+
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PAXPR04MB9424.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(7416014)(376014)(1800799024)(366016)(19092799006)(22082099003)(18002099003)(56012099003)(38070700021);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?M2l0UTNHVGo1dFVTMVoveGdjTmwzVWFDZit5RlgyRysvbnpMS21EUWttZHJz?=
- =?utf-8?B?a2RFUlhSNUQreG5kN1ZxVWxuaVpMOVplb0c3amVQNDZKZktkbWpLTnNRd050?=
- =?utf-8?B?NFdIbDhTMjZPaG4wT1R6S1pmallRc1k2dVZTWW0vOFhCdS8yM3FTWHNUR040?=
- =?utf-8?B?RzlyMXh1eGs3NG1udkh4KzlKcWdKZmR4eDVFOE9xNUg3RXY2SHBxbW14ckdK?=
- =?utf-8?B?Wm9QRGFsK0ZPY2E3UDJvNktrQlZDOVplWDZCWDhsVnMvM0hQdmZYS05XeXUz?=
- =?utf-8?B?SkRHNjE2T3lJb2FSekRucVdRRWc3bmFBUTUwd3NYNjFsK1NCaXNLdnQ4bk42?=
- =?utf-8?B?S280eVl1ckFXcGtpZ0haWFRFYytCS1Y5Vlo2VWdTZFo2aUY3ZmtHaFhZMFky?=
- =?utf-8?B?QTdoTURKMDVGV2Z1a3pkc2FKU1Z6TmdPY0hPZUkwMU4vOEdxRjFaK1ZvTnFJ?=
- =?utf-8?B?aG84TGp1M00rVmUxY0VvT2pmRmtsbWpXV2JGbThoNTkvWnZpOEl5ZzNFbmY5?=
- =?utf-8?B?Vys5aUVxYkZGcE1Pdk52TkhRbHJ5RXBVMmNHZEJaL0ozRDRkYVpoaGFQbUxN?=
- =?utf-8?B?TThidmt4c3F5ZE45ekM2bklSV1diQTZxeStTUCtHME1GMFhQUFlIUlp1Z2c4?=
- =?utf-8?B?RzRZeUxQRTRPdzFHalEwa2UxbmIwdWNzTVRKRW9wNHlRRjBIUWgrMWMxSlUv?=
- =?utf-8?B?dWFjQmFaRUFhZzFQM2MzRFYrWkJBSG9jZnNIaDIzY1VMQ09ER3E2a1h1YVU4?=
- =?utf-8?B?UlNZUVRLTkpPclpzSVBYa0F0VXpBc1MydEtCY3lYRFBPMzJQUEZYZ1VHWjkw?=
- =?utf-8?B?QkJIa2xpcHpqVlRTbWd4NU11NlZGVFo1WDB0NFowYkNzdEdXdW5UVEJYbWh5?=
- =?utf-8?B?TWV2Vi9MY2dIVGJ0bWsxZEpDNE11dTNmZzdFQ3NZTyt2N3g0SmxiTS9rWU5Z?=
- =?utf-8?B?dVJXVjVhS2NUWWZMcFZ0REF5c3FlTWhpRmt3RCs5Yy81T2xNWWlyVEdvOEky?=
- =?utf-8?B?cVBZNitFS1dGYkxyQjh6ZThVZU82a1BNQ08zcVpLQUs5dEY2aXBNZXdPWFhz?=
- =?utf-8?B?eVBNN0JPOXI4VkNJNzZIanlrUXpzVXBCQ3Jkc1NVTWdiYyt5UVo4di80L245?=
- =?utf-8?B?RlQyTFlZU1paQTMrK01tVjI0NHo0bW54WFp2UFZHaUkrRW80SE96VEQ0OURn?=
- =?utf-8?B?bXVnY0VNeW1YSmtXa2U0MlVMN1I0THRBNkFpOUdOS25rVEUzT3E5Y0FEK0h5?=
- =?utf-8?B?cHFYU1hiZThVRjhLU0duOUxlYU5Eai9mL1AwNjA5c1EwVnk0enZHeHZuZkhy?=
- =?utf-8?B?RUE3RVFyWVFCOE4zUGFvNlV4aUNLNzNvUGY1SlFNWkcrcG5rU2c3ek1RUTQ1?=
- =?utf-8?B?QUpSQnpaOWZEMExPMHNOaVBveHhKTnhJcHRyTE9XbHFWaXJNQWE5MS9kMXNZ?=
- =?utf-8?B?dkNNODNtVGtReHhxbXZEV2lLcWorT2h4ZnZYdzJ0UXhnRkF2d0F4V21QZG9L?=
- =?utf-8?B?WGRXaVlwdkVMQjhqQlFWcVF3aklObEp5eE5zTm5KOS8wSFVIQXg1TXFvWFVy?=
- =?utf-8?B?RmVWSlhQZlNCSjRzWnNRVWVEZ295OW84WnZoU3NhR1REaWxlV282RFE1dUNO?=
- =?utf-8?B?Vzd6NkE0MWFvRmM5K2NFUGdoT1diWFY0QWthTmxpclAwdGUyV2xKTEtOdjgr?=
- =?utf-8?B?VmsxWXJQN3F1bUE5dythRUJ0ZTJOcGFVTnR2aUdZQzFGd1k2Nm1ld2lWaGhT?=
- =?utf-8?B?c1kwT3lRZFIwTWdUQ0VFTmtWSXlxRDRiUUZpSXRCREs0ZmJKbUFKeEMvVzBX?=
- =?utf-8?B?a2NYMXgyeE9xSnozVFFpVW5mM0l0SDdnSXk1d1lLSk81RjlRUjRuYTh4RUFQ?=
- =?utf-8?B?NnVjSnZvSEcwRGh4UFBHRlQ3RjhNR2Z0N0FjeGlSSzVQd3hFNTF1K0JFRmNi?=
- =?utf-8?B?bHhad0FPVE9uWTlBdVNvVGpmSUpydkMyRk9pNFNwMG5CRjA3aXg2UGJQT1JE?=
- =?utf-8?B?MFYvMkZHSUVNUURpb0o3MlIrVmtBRlhDRmNlUXhEL004RUllNGNleXhoRHRv?=
- =?utf-8?B?Sk5tYVpIaHRmSFlZSDk0R1BKRTFkRUR0a2pLbVVMbTFBQzZwV3pwSEI4aDZw?=
- =?utf-8?B?QVlJU0E5Z01Nb3BxcnJLYWZSZmtiVnVIcDNlbWlkbllWdXA5OWkwVTZwNVVH?=
- =?utf-8?B?QmZTRnMyV0NtcTZhcWh3QTFBNlNYV0JkM1U2dytuajNFdHdrWDNzV1F6OXdO?=
- =?utf-8?B?SlcyMjN3S2NyTENLTWtXc1h6UHJPenNHSjVYdWx2aXNTbk5tYnpmbGE3QU1Z?=
- =?utf-8?B?ZWdheitJTS9KZUppaHFQeEpTQjdZSzJpQnR0bktZekNWZGkrVCs5dz09?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Received: from mail-qt1-f177.google.com (mail-qt1-f177.google.com
+ [209.85.160.177])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A06E510E65C
+ for <dri-devel@lists.freedesktop.org>; Tue, 24 Mar 2026 12:14:49 +0000 (UTC)
+Received: by mail-qt1-f177.google.com with SMTP id
+ d75a77b69052e-50b6c45781aso664761cf.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 24 Mar 2026 05:14:49 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1774354488; cv=none;
+ d=google.com; s=arc-20240605;
+ b=SveB3k218IH2IpdkyQKCPI49VvaZS+BixYmmBkQMUsl4kuTN9hS+5ezlzFHfY09HmD
+ LiaBWtj5gIlzZVsfNfj5znrfnEpfHy9gV+r5cnmGiX1twfTyJs9p3S46Ni2iRJ9tDRwB
+ 48NWMwj8Yt7XIERd3JpbTnX/Lo2YQzLs4KAKYbLafDv4BrI6oxLHIu+VNA+0dR6zntHu
+ 65ZyC8a3onJOmPRdFFiumLfLFVJMgSFZqYCBQC4mJXvfBH2X83iPEt2XvxFdAxp1Ypa7
+ Z2+bi950yE95UqEC9r9VOZjBUpllwYlISXm0IClkkyzG0OREyBFLFiJkG54fuqK90tD+
+ 8UKQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=38JEbVN9/czZUHowiTyQJJi+NFgr4A1LQF8NnXOZQbo=;
+ fh=EMeO+ZLMj0UyHoakAI0gNfah3T9CVgw1mcXziouqjBE=;
+ b=gXW3xSBGTdG2nw+2KhCFc5fGlX9GQ58Pb1KDA41lyQk6vLiXitY1ODxy0BNOhq5D0Y
+ 1/uOxAj3cqWc3ZJp9ySKOQAjj7EIfFKicKTZwipJ6L19CZcun2YZkWUc0jZbOWHOZn0o
+ iAN6z2wfClLsb6trAhRSaDFxaH97ZVFQhN7IcA9oRWoSuWemkUXYlI7DMEi9J9gL8LIs
+ zvtQzzmrngVQiT8qmuboIz09nFM5qsptC50Hrv3ib5cLGWcmFo+BHbhHXo6ENwAJ64LL
+ 9c1gKaAApPUTcEr94S2DYWpam8mCbWRDqOan7oUv+6P3D/yVp06p+NHRwrNJRQjHlAqw
+ ABlQ==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=google.com; s=20251104; t=1774354488; x=1774959288;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=38JEbVN9/czZUHowiTyQJJi+NFgr4A1LQF8NnXOZQbo=;
+ b=gMtkVQXB44fiVcWHTCfGMkO7En+GfJP2F48dlW1QFByRPbs9n8m7i0X0dO4x0Jlmrd
+ GkgrHf4xWPPeEz1OwtQEGGXbtqSZAbf3Ca2OzhL6enYG5oXSWKN4wq/jMCkNDtPz9e3O
+ Bi7AEXXJWUkS6fNNCD/NPRVF8G+Avcsev7YhRABbekJVSSb5pagykXJ/GYWhq/77ah/j
+ oJVBDTl3pF22DtzMHWx7LmMvwCdduYVuyY2aPe8/dZ5g3oNnHj5oIw2bljXhOnDyl5Lp
+ vOL3bescp3FyX2x9/aaqe86rVdMPtlpy825Xve02Zd7XN9fQpRjSFJw+IKm/oN+IXrJL
+ RkWA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1774354488; x=1774959288;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=38JEbVN9/czZUHowiTyQJJi+NFgr4A1LQF8NnXOZQbo=;
+ b=f5JOLYR03uBTs2VeSvC4okBM9NJiiE+QYDAkab4dFsx9NPzD0WRUt4nr/1ZRA/vx+t
+ tKA4qk0LGrqH849hSAZm0rKYiOE1uqdfssfOJLIPeyvCcTGcqsXDGJumHJihEWgWWMze
+ EkvCH9kq1TIl9z3meHCU/K/830mqo01+b36NNPobDgCAFlaFBA7vYp8qXaRVh3JvRWKG
+ Ke2oNYHyM2xkM3bXokMZ6ddKdOBvYoPKP7g90Fne6wcjSFYPDD1Um/F50EVDGJCDUo+J
+ cBcjynxrxJFOqUshYqMdMryvpvmfxfCqLREX8jpD1CGK6OJqut3C6w2E0yFAgCMHadky
+ 47cQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWrHPrb7gt5fXjG7uQUnanGUjbOtAu81Z7RjLfeajL67QHzq9h3VFW4+xw1p/fLNqBCX4iWL3NNizE=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yw0eVZ8g83qPB/Z+wYM9mBCg3ZxzWgmnuyKiAGm4nbfDvUdC/qX
+ nit7i36OOewnQ5g3oxA6BNOzGf1iAKwuna3wjWyJVNfNMtz52165Twl2NbYmXMt/JNjWJ6c+Ok5
+ IK6R8u8coyo5AgA2VplMTIzXOgD6BwsRvax5k2x0k
+X-Gm-Gg: ATEYQzwi5Qq+LjdSpVUwjSdrQRjupU02oA8qDJWB/94jM5dnmLZHq/3Q7Jf1xd7bpP6
+ cwFD1FM2r3AhuSU8mLdk6sLv+UbHFlhem8aBCNCcDwi+KP+U3pM+GsBbi8yicstgAhHP56mYBJe
+ 2iDqPlVZxYF+W+kX3CLttHyICdVPxjO8G2AEOfmQY2qqqinCRRLgWP4NzsESpVYCVqGfSRrbSxB
+ HpHue8pmugDD73/CsgChrQKXLYVO0XeQTRXwCtmATq/oqj77hIBa7Yscv+sYaFDUSwfyNknTbM4
+ TLucc2DogQafNkyNVyxuWrF3SUQomlK2rPJfkMK5
+X-Received: by 2002:a05:622a:514e:b0:501:3b94:bcae with SMTP id
+ d75a77b69052e-50b6fbd1411mr15608601cf.8.1774354488033; Tue, 24 Mar 2026
+ 05:14:48 -0700 (PDT)
 MIME-Version: 1.0
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PAXPR04MB9424.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0b8b8777-2521-4749-7e9b-08de899e9baf
-X-MS-Exchange-CrossTenant-originalarrivaltime: 24 Mar 2026 12:12:24.2609 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: kRZmFoANN0zv4jQ+23Umzy3FvUnpxEdbJyAvDqcrsE2+Gy5pt0s1s9612ruBBVAKi8VhXjm5fGvARkYyG2qepRddKMcU0Snxtyr5pMFPlns=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR04MB8267
+References: <20260305123641.164164-1-jiri@resnulli.us>
+ <ablV_f_l7wD2m63E@google.com> <20260324120057.GC8437@ziepe.ca>
+In-Reply-To: <20260324120057.GC8437@ziepe.ca>
+From: Mostafa Saleh <smostafa@google.com>
+Date: Tue, 24 Mar 2026 12:14:36 +0000
+X-Gm-Features: AQROBzDTh0ODj4C3lU1UM-hZHPuBDyd64_bmAvFt0-7PB-OKq8PhbYOrLNqJZ2s
+Message-ID: <CAFgf54qoFhvVR2yfROGaTJmLcjuLACswVFv=trqgJwGb_DB3zA@mail.gmail.com>
+Subject: Re: [PATCH net-next v3 0/2] dma-buf: heaps: system: add an option to
+ allocate explicitly decrypted memory
+To: Jason Gunthorpe <jgg@ziepe.ca>
+Cc: Jiri Pirko <jiri@resnulli.us>, dri-devel@lists.freedesktop.org, 
+ linaro-mm-sig@lists.linaro.org, iommu@lists.linux.dev, 
+ linux-media@vger.kernel.org, sumit.semwal@linaro.org, 
+ benjamin.gaignard@collabora.com, Brian.Starkey@arm.com, jstultz@google.com, 
+ tjmercier@google.com, christian.koenig@amd.com, m.szyprowski@samsung.com, 
+ robin.murphy@arm.com, leon@kernel.org, sean.anderson@linux.dev, 
+ ptesarik@suse.com, catalin.marinas@arm.com, aneesh.kumar@kernel.org, 
+ suzuki.poulose@arm.com, steven.price@arm.com, thomas.lendacky@amd.com, 
+ john.allen@amd.com, ashish.kalra@amd.com, suravee.suthikulpanit@amd.com, 
+ linux-coco@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -154,87 +116,55 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-T24gU2F0dXJkYXksIE1hcmNoIDIxLCAyMDI2IGF0IDc6MTkgUE0sIFRvbWV1IFZpem9zbyB3cm90
-ZToNCj4gDQo+IEhpIElvYW5hLA0KPiANCj4gTG9va3MgbGlrZSB0aGUgdXNlcnNwYWNlIHBvcnRp
-b24gb2YgdGhlIGRyaXZlciBpcyBjbG9zZWQgc291cmNlIA0KPiAobGliTmV1dHJvbkRyaXZlci5z
-byk/DQo+IA0KPiBodHRwczovL2dpdGh1Yi5jb20vbnhwLWlteC90ZmxpdGUtbmV1dHJvbi1kZWxl
-Z2F0ZS9ibG9iL2xmLTYuMTIuNDlfMi4yDQo+IC4wL0NNYWtlTGlzdHMudHh0DQoNCkhpIFRvbWV1
-LA0KDQpZZXMsIGl0J3MgY2xvc2VkIGZvciBub3cuIFdlIGRvIHBsYW4gdG8gcHVibGlzaCB0aGUg
-c291cmNlIGNvZGUNCm9uIGdpdGh1YiwgYnV0IEkgYmVsaWV2ZSB0aGF0J3Mgc3RpbGwgYSBmZXcg
-bW9udGhzIGF3YXkuDQoNClRoYW5rcywNCklvYW5hDQoNCj4gDQo+IFJlZ2FyZHMsDQo+IA0KPiBU
-b21ldQ0KPiANCj4gT24gRnJpLCBNYXIgNiwgMjAyNiBhdCAyOjI34oCvUE0gSW9hbmEgQ2lvY29p
-LVJhZHVsZXNjdQ0KPiA8cnV4YW5kcmEucmFkdWxlc2N1QG54cC5jb20+IHdyb3RlOg0KPiA+DQo+
-ID4gSW50cm9kdWNlIGEgbmV3IGFjY2VsIGRyaXZlciBmb3IgdGhlIE5ldXRyb24gTmV1cmFsIFBy
-b2Nlc3NpbmcgVW5pdA0KPiA+IChOUFUpLCBhbG9uZyB3aXRoIGFzc29jaWF0ZWQgZHQtYmluZGlu
-Z3MgYW5kIERUUyBub2RlLg0KPiA+DQo+ID4gVGhlIGZpcnN0IHBhdGNoIGV4dGVuZHMgdGhlIEdF
-TSBETUEgaGVscGVyIEFQSXMgdG8gYWxsb3cgYmlkaXJlY3Rpb25hbA0KPiA+IG1hcHBpbmcgb2Yg
-bm9uLWNvaGVyZW50IERNQSBidWZmZXJzLiBXaGlsZSBub3QgcGFydCBvZiB0aGUgTmV1dHJvbg0K
-PiA+IGRyaXZlciwgaXQncyBhIHByZXJlcXVpc2l0ZSBhbGxvd2luZyB1cyB0byB1c2UgdGhlIEdF
-TSBETUEgaGVscGVyLg0KPiA+DQo+ID4gTmV1dHJvbiBpcyBhIE5ldXJhbCBQcm9jZXNzaW5nIFVu
-aXQgZnJvbSBOWFAsIHByb3ZpZGluZyBtYWNoaW5lDQo+ID4gbGVhcm5pbmcgKE1MKSBhY2NlbGVy
-YXRpb24gZm9yIGVkZ2UgQUkgYXBwbGljYXRpb25zLiBOZXV0cm9uIGlzDQo+ID4gaW50ZWdyYXRl
-ZCBvbiBOWFAgU29DcyBzdWNoIGFzIHRoZSBpLk1YOTUuDQo+ID4NCj4gPiBUaGUgTlBVIGNvbnNp
-c3RzIG9mIHRoZSBmb2xsb3dpbmc6DQo+ID4gLSBSSVNDLVYgY29yZSBydW5uaW5nIGEgcHJvcHJp
-ZXRhcnkgZmlybXdhcmUNCj4gPiAtIE9uZSBvciBtb3JlIE5ldXRyb24gY29yZXMsIHJlcHJlc2Vu
-dGluZyB0aGUgbWFpbiBjb21wdXRhdGlvbg0KPiA+ICAgZW5naW5lIHBlcmZvcm1pbmcgTUwgb3Bl
-cmF0aW9ucw0KPiA+IC0gRGVkaWNhdGVkIGZhc3QgbWVtb3J5IChUQ00pDQo+ID4gLSBETUEgZW5n
-aW5lIHRoYXQgaGFuZGxlcyBkYXRhIHRyYW5zZmVycyBiZXR3ZWVuIEREUiBhbmQgVENNDQo+ID4N
-Cj4gPiBUaGUgZmlybXdhcmUgaXMgY2xvc2VkIHNvdXJjZSBhbmQgZGlzdHJpYnV0ZWQgYXMgYSBi
-aW5hcnkgaGVyZSBbMV0uDQo+ID4NCj4gPiBUaGUgTmV1dHJvbiBzb2Z0d2FyZSBzdGFjayBhbHNv
-IGNvbnRhaW5zIGEgdXNlcnNwYWNlIGxpYnJhcnkgWzFdIGFuZCBhDQo+ID4gTGl0ZVJUIGN1c3Rv
-bSBkZWxlZ2F0ZSBbMl0gdGhhdCBhbGxvdyBpbnRlZ3JhdGlvbiB3aXRoIHN0YW5kYXJkIExpdGVS
-VA0KPiA+IHRvb2xzLg0KPiA+DQo+ID4gWzFdIGh0dHBzOi8vZ2l0aHViLmNvbS9ueHAtdXBzdHJl
-YW0vbmV1dHJvbi90cmVlL3Vwc3RyZWFtDQo+ID4gWzJdIGh0dHBzOi8vZ2l0aHViLmNvbS9ueHAt
-aW14L3RmbGl0ZS1uZXV0cm9uLWRlbGVnYXRlDQo+ID4NCj4gPiBTaWduZWQtb2ZmLWJ5OiBJb2Fu
-YSBDaW9jb2ktUmFkdWxlc2N1IDxydXhhbmRyYS5yYWR1bGVzY3VAbnhwLmNvbT4NCj4gPiAtLS0N
-Cj4gPiBDaGFuZ2VzIGluIHYyOg0KPiA+IC0gcmViYXNlIG9uIG5ld2VyIGRybS1taXNjLW5leHQN
-Cj4gPiAtIGR0IGJpbmRpbmdzOiBjbG9jayBmaXhlcyBhbmQgcmVuYW1lcw0KPiA+IC0gdXBkYXRl
-IERUUyB0byBtYXRjaCBuZXcgbmFtZXMNCj4gPiAtIHJlbW92ZSB1bm5lY2Vzc2FyeSBmaWVsZHMg
-ZnJvbSBuZXV0cm9uX2pvYiBzdHJ1Y3R1cmUNCj4gPiAtIGZpeCB1c2Ugb2YgdW5pbml0aWFsaXpl
-ZCB2YXJpYWJsZQ0KPiA+DQo+ID4gLSBMaW5rIHRvIHYxOg0KPiA+IGh0dHBzOi8vbG9yZS5rZXJu
-ZWwub3JnL3IvMjAyNjAyMjYtbmV1dHJvbi12MS0wLTQ2ZWNjYjNiYjUwYUBueHAuY29tDQo+ID4N
-Cj4gPiAtLS0NCj4gPiBJb2FuYSBDaW9jb2ktUmFkdWxlc2N1ICg5KToNCj4gPiAgICAgICBkcm0v
-Z2VtLWRtYTogQWRkIGZsYWcgZm9yIGJpZGlyZWN0aW9uYWwgbWFwcGluZyBvZiBub24tY29oZXJl
-bnQgR0VNDQo+IERNQSBidWZmZXJzDQo+ID4gICAgICAgYWNjZWwvbmV1dHJvbjogQWRkIGRvY3Vt
-ZW50YXRpb24gZm9yIE5YUCBOZXV0cm9uIGFjY2VsZXJhdG9yIGRyaXZlcg0KPiA+ICAgICAgIGR0
-LWJpbmRpbmdzOiBucHU6IEFkZCBOWFAgTmV1dHJvbg0KPiA+ICAgICAgIGFjY2VsL25ldXRyb246
-IEFkZCBkcml2ZXIgZm9yIE5YUCBOZXV0cm9uIE5QVQ0KPiA+ICAgICAgIGFjY2VsL25ldXRyb246
-IEFkZCBHRU0gYnVmZmVyIG9iamVjdCBzdXBwb3J0DQo+ID4gICAgICAgYWNjZWwvbmV1dHJvbjog
-QWRkIG1haWxib3ggc3VwcG9ydA0KPiA+ICAgICAgIGFjY2VsL25ldXRyb246IEFkZCBqb2Igc3Vi
-bWlzc2lvbiBJT0NUTA0KPiA+ICAgICAgIGFjY2VsL25ldXRyb246IEFkZCBsb2dnaW5nIHN1cHBv
-cnQNCj4gPiAgICAgICBhcm02NDogZHRzOiBpbXg5NTogQWRkIE5ldXRyb24gbm9kZQ0KPiA+DQo+
-ID4gIERvY3VtZW50YXRpb24vYWNjZWwvaW5kZXgucnN0ICAgICAgICAgICAgICAgICAgICAgIHwg
-ICAxICsNCj4gPiAgRG9jdW1lbnRhdGlvbi9hY2NlbC9uZXV0cm9uL2luZGV4LnJzdCAgICAgICAg
-ICAgICAgfCAgMTIgKw0KPiA+ICBEb2N1bWVudGF0aW9uL2FjY2VsL25ldXRyb24vbmV1dHJvbi5y
-c3QgICAgICAgICAgICB8IDEzMSArKysrKysrKw0KPiA+ICAuLi4vZGV2aWNldHJlZS9iaW5kaW5n
-cy9ucHUvbnhwLGlteDk1LW5ldXRyb24ueWFtbCB8ICA5NiArKysrKysNCj4gPiAgTUFJTlRBSU5F
-UlMgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgfCAgMTAgKw0KPiA+ICBh
-cmNoL2FybTY0L2Jvb3QvZHRzL2ZyZWVzY2FsZS9pbXg5NS5kdHNpICAgICAgICAgICB8ICAyOCAr
-Kw0KPiA+ICBkcml2ZXJzL2FjY2VsL0tjb25maWcgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICB8ICAgMSArDQo+ID4gIGRyaXZlcnMvYWNjZWwvTWFrZWZpbGUgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgIHwgICAzICstDQo+ID4gIGRyaXZlcnMvYWNjZWwvbmV1dHJvbi9LY29uZmlnICAg
-ICAgICAgICAgICAgICAgICAgIHwgIDE2ICsNCj4gPiAgZHJpdmVycy9hY2NlbC9uZXV0cm9uL01h
-a2VmaWxlICAgICAgICAgICAgICAgICAgICAgfCAgMTIgKw0KPiA+ICBkcml2ZXJzL2FjY2VsL25l
-dXRyb24vbmV1dHJvbl9kZWJ1Z2ZzLmMgICAgICAgICAgICB8ICAzNCArKw0KPiA+ICBkcml2ZXJz
-L2FjY2VsL25ldXRyb24vbmV1dHJvbl9kZWJ1Z2ZzLmggICAgICAgICAgICB8ICAxNSArDQo+ID4g
-IGRyaXZlcnMvYWNjZWwvbmV1dHJvbi9uZXV0cm9uX2RldmljZS5jICAgICAgICAgICAgIHwgMjM5
-ICsrKysrKysrKysrKysNCj4gPiAgZHJpdmVycy9hY2NlbC9uZXV0cm9uL25ldXRyb25fZGV2aWNl
-LmggICAgICAgICAgICAgfCAxNTUgKysrKysrKysrDQo+ID4gIGRyaXZlcnMvYWNjZWwvbmV1dHJv
-bi9uZXV0cm9uX2RyaXZlci5jICAgICAgICAgICAgIHwgMjYyICsrKysrKysrKysrKysrKw0KPiA+
-ICBkcml2ZXJzL2FjY2VsL25ldXRyb24vbmV1dHJvbl9kcml2ZXIuaCAgICAgICAgICAgICB8ICAx
-NiArDQo+ID4gIGRyaXZlcnMvYWNjZWwvbmV1dHJvbi9uZXV0cm9uX2dlbS5jICAgICAgICAgICAg
-ICAgIHwgMTE2ICsrKysrKysNCj4gPiAgZHJpdmVycy9hY2NlbC9uZXV0cm9uL25ldXRyb25fZ2Vt
-LmggICAgICAgICAgICAgICAgfCAgMTQgKw0KPiA+ICBkcml2ZXJzL2FjY2VsL25ldXRyb24vbmV1
-dHJvbl9qb2IuYyAgICAgICAgICAgICAgICB8IDM3Mg0KPiArKysrKysrKysrKysrKysrKysrKysN
-Cj4gPiAgZHJpdmVycy9hY2NlbC9uZXV0cm9uL25ldXRyb25fam9iLmggICAgICAgICAgICAgICAg
-fCAgNDMgKysrDQo+ID4gIGRyaXZlcnMvYWNjZWwvbmV1dHJvbi9uZXV0cm9uX21haWxib3guYyAg
-ICAgICAgICAgIHwgIDQ3ICsrKw0KPiA+ICBkcml2ZXJzL2FjY2VsL25ldXRyb24vbmV1dHJvbl9t
-YWlsYm94LmggICAgICAgICAgICB8ICA0MiArKysNCj4gPiAgZHJpdmVycy9ncHUvZHJtL2RybV9n
-ZW1fZG1hX2hlbHBlci5jICAgICAgICAgICAgICAgfCAgIDYgKy0NCj4gPiAgaW5jbHVkZS9kcm0v
-ZHJtX2dlbV9kbWFfaGVscGVyLmggICAgICAgICAgICAgICAgICAgfCAgIDMgKw0KPiA+ICBpbmNs
-dWRlL3VhcGkvZHJtL25ldXRyb25fYWNjZWwuaCAgICAgICAgICAgICAgICAgICB8IDEzMCArKysr
-KysrDQo+ID4gIDI1IGZpbGVzIGNoYW5nZWQsIDE4MDEgaW5zZXJ0aW9ucygrKSwgMyBkZWxldGlv
-bnMoLSkNCj4gPiAtLS0NCj4gPiBiYXNlLWNvbW1pdDogNjcxNjEwMWFlNDI5NDllOThhZDRiOWU3
-MWVlYmEwOGMwNTViZTQxMA0KPiA+IGNoYW5nZS1pZDogMjAyNjAyMjYtbmV1dHJvbi1jNDM1ZTM5
-ZDE2N2YNCj4gPg0KPiA+IEJlc3QgcmVnYXJkcywNCj4gPiAtLQ0KPiA+IElvYW5hIENpb2NvaS1S
-YWR1bGVzY3UgPHJ1eGFuZHJhLnJhZHVsZXNjdUBueHAuY29tPg0KPiA+DQo=
+On Tue, Mar 24, 2026 at 12:01=E2=80=AFPM Jason Gunthorpe <jgg@ziepe.ca> wro=
+te:
+>
+> On Tue, Mar 17, 2026 at 01:24:13PM +0000, Mostafa Saleh wrote:
+>
+> > On the other hand, for restricted-dma, the memory decryption is deep
+> > in the DMA direct memory allocation and the DMA API callers (for ex
+> > virtio drivers) are clueless about it and can=E2=80=99t pass any attrs.
+> > My proposal was specific to restricted-dma and won=E2=80=99t work for y=
+our case.
+>
+> How is this any different from CC?
+>
+> If the device cannot dma to "encrypted" memory, whatever that means
+> for you, then the DMA API:
+>  - Makes dma alloc coherent return "decrypted" memory, and the built
+>    in mapping of coherent memory knows about this
+>  - Makes dma_map_xxx use SWIOTLB to bounce to decrypted memory
+>
+> There is no need for something like virtio drivers to be aware of
+> any of this.
+>
+> On the other hand if the driver deliberately allocates decrypted
+> memory without using DMA API alloc coherent then it knows it did it
+> and can pass the flag to map it.
+>
+
+The problem is that the DMA API currently gets confused by this; it
+can end up double decrypting the memory or using the wrong functions
+as mentioned in [1]
+In addition to the complexity it adds to the already complicated DMA
+code. I don't have a strong opinion on how to solve this, but I
+believe we need clear boundaries (and wrappers) for cases where memory
+encryption is expected as it is starting to spill into the kernel.
+
+[1] https://lore.kernel.org/all/20260305170335.963568-1-smostafa@google.com=
+/
+
+Thanks,
+Mostafa
+
+
+> > I am wondering if the kernel should have a more solid, unified method
+> > for identifying already-decrypted memory instead. Perhaps we need a
+> > way for the DMA API to natively recognize the encryption state of a
+> > physical page (working alongside force_dma_unencrypted(dev)), rather
+> > than relying on caller-provided attributes?
+>
+> Definately not, we do not want the DMA API inspecting things like
+> this.
+>
+> Jason
