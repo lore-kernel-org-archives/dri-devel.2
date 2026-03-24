@@ -4,55 +4,98 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EA07DF54AB0
-	for <dri-devel@archiver.kernel.org>; Tue, 24 Mar 2026 13:10:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9C17AF54AAE
+	for <dri-devel@archiver.kernel.org>; Tue, 24 Mar 2026 13:11:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 622BD10E655;
-	Tue, 24 Mar 2026 13:10:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0DFF610E5D5;
+	Tue, 24 Mar 2026 13:11:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=protonmail.com header.i=@protonmail.com header.b="FK2nnl1U";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="XbgeiCYm";
 	dkim-atps=neutral
-Received: from mail-24424.protonmail.ch (mail-24424.protonmail.ch
- [109.224.244.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E971210E5D4
- for <dri-devel@lists.freedesktop.org>; Tue, 24 Mar 2026 13:10:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
- s=protonmail3; t=1774357819; x=1774617019;
- bh=d8w5CZ1DioJDLSSnZn0lUgk1zgmXdXiL/spUhVixnL4=;
- h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
- Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
- Message-ID:BIMI-Selector;
- b=FK2nnl1U1iJW2JFd3eYi+a/efk4dTWRpwXM3P/p7hU2is3URddT8zC4MxpNA0GBil
- JRaU88xJgM0zqXDmzB5xduxQ82vuGkkD/BnuJ4G8WJOvpvjKI6bk/7obXbO4fjU9rc
- AdtwnYHWSst5aiEXHqmBnGPy7LaTrHX6qjQxhMmt9uwOh4tJEZrjY7F5wd9g0MHjeH
- 7/yhVTRsx+fZjtdRCo6R5BKnf0S+pL3r7q+HVN+WLTg3Bf/pAQfNC/Hyot9OlGfy1o
- nAVmdb9K0hjZBwpg2SWNOm8cwKoabMcY8fqjgo7htiOXLTZCfEz7LiY967QTcHdHCY
- VDqJxuTpNUfzw==
-Date: Tue, 24 Mar 2026 13:10:13 +0000
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-From: cristian_ci <cristian_ci@protonmail.com>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht,
- phone-devel@vger.kernel.org
-Subject: Re: [PATCH v3 1/6] dt-bindings: display: panel: Add Novatek NT35532
- LCD DSI
-Message-ID: <GF8zsK-szOM98Ck2jznCOZ4xjuJTl9g1b0uPc1N79Dzf7PNzOiVgewdqPFGjqF3YD7tOUa2tzdc7rG_e7iNH8yjHOJ9DobsihTxRLUk8EL4=@protonmail.com>
-In-Reply-To: <sdcfwycey5ykhn2fghun7imx3tjtnwat3ny3mut5dwstl7wvw6@maqrzlycwdn5>
-References: <20260321-rimob-new-features-v3-0-d4b8ee867de7@protonmail.com>
- <20260321-rimob-new-features-v3-1-d4b8ee867de7@protonmail.com>
- <sdcfwycey5ykhn2fghun7imx3tjtnwat3ny3mut5dwstl7wvw6@maqrzlycwdn5>
-Feedback-ID: 27475468:user:proton
-X-Pm-Message-ID: 70202603ff894e828bf88287248da08abdde0c30
+Received: from mail-vs1-f41.google.com (mail-vs1-f41.google.com
+ [209.85.217.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F10EE10E5D4
+ for <dri-devel@lists.freedesktop.org>; Tue, 24 Mar 2026 13:11:32 +0000 (UTC)
+Received: by mail-vs1-f41.google.com with SMTP id
+ ada2fe7eead31-5ffabb1dfbaso772471137.3
+ for <dri-devel@lists.freedesktop.org>; Tue, 24 Mar 2026 06:11:32 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1774357892; cv=none;
+ d=google.com; s=arc-20240605;
+ b=daZwtIJqsSzLrfI1vhbJJFlGzyM7kwEmhg3Ktz80mpF9rBdP5IUEzjwqheTkdKaD6Y
+ iCcLlQJAAOoMpdKbEiPgaP0AXgugRxgb6dZADlIPa49QFs5vH09KBy4QWlPcYWfh3E23
+ +diyfF9q/cRi96jfZ+F0YlUlnCgI/WM3ExCsIFIxJaGt0r1qVjeFPMSOFpy/4JX7FKUm
+ BI1SM7r/1NeNpmmsVWZU/mwt38+85C9jHwzYIUp6FG65iyb2GVHeR66jrbzMuM/5mneE
+ 6GUn502gk4Fj9T+i5iI4wg1oNT3KS2tYcFSun6utZ4eD6g95cKoE6CxlU61xJzAjMJ3G
+ hnBA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=7hnWVjysxJQ+llkIpwUpAvaG3bbkSHFMxdZKyrsvBG4=;
+ fh=R4zg0Tk7HjQwNS+ISiMVZth6mH+qOm7maRQ9u7MH5C8=;
+ b=Izm5ogbnsuQ4gKeqzS5xgtrSTxIGIm07TSnmg9LxWu6kUmdP2lhKCNzn5YJoSWoqaO
+ adGqrArGtfT58yDQe122QDeNwDPy9+wDmrLiqZXF6Px2E5uQSdPHoNx/axxyeOI2jEjg
+ j+ngpEMQ3CvXngRNoMW3X9m+Io2sGxgeFEjzM5uiz6yLyzek4gvzaa8GL46o7guC2T3u
+ eMooIXTJWBqbzU5b2iy6yAVK8IQj0emiZtmOkyfmVT0hme84rafadFlrLllFzWoMPSBT
+ PICzfpzaUYzqJl3hYQ+UKo509DJgDQyhRsEZsBLco2jJHnQbIiLl1WfwffOfNS1bD0qU
+ N4BQ==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1774357892; x=1774962692; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=7hnWVjysxJQ+llkIpwUpAvaG3bbkSHFMxdZKyrsvBG4=;
+ b=XbgeiCYmupGgo9VyhGm8lsWTDdqseO5jDslB/DD/Bg1y0hRS3dkGQJQEmdRkDP1hAM
+ pNpRTw8/MwwP87a3QlG6Gm8uaiWIc0if1skVdc37AffiHncNbFmC+JVvhTaQ/AQOjxVW
+ wC0/h4Mke5sfqIqehIiw200BqeOlZNgYitzWCtFbLkUwATgwg6beapRfWL4c4zaiRUbj
+ bvU18NEQiafpCWXC34TAe8hP019oUKSh1HIgDKKDIDu5OjcPDp4wAnYLLRVhnsmdI1Nd
+ VMpe3x49wqIZkYZmipXa6FTAilrvuzcipWT/p8B6hTuwvcGQkVV4eARnJ1nVMPBKO5DZ
+ ruBA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1774357892; x=1774962692;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=7hnWVjysxJQ+llkIpwUpAvaG3bbkSHFMxdZKyrsvBG4=;
+ b=NncsncFcLR/4bGtIXP+F+PRvfrcQ1ZRB6bI/AWzgtB/jz8AjG6RZuSjEoq5Y0eI3tr
+ 1eU2na8FHsaoXaQ6I3QJVGUsyRH6Z2mMn3Wx5UlTFO0hNi4IMbxe+KSAMR4PV42sPJhI
+ tzZhX0oTWrQVZLqQnL4VYvjn3sg6Xa506Nhi54uh2QLAp5A0RHfrQsUuIpEpAALeufTT
+ fIrSxWXQvkLfHso9WfQYq5lo9llsstQD7BRuV54aONMXYV0nP8cbXqUalTDC1zUPhjLi
+ uEeWzWjC1FF2UXu/M0MfNrtKMS9mMF2Sc0tmVvlCu6il1Os0drSLzXTiEBLrSV2stdPD
+ c2dA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWyOcQEA/GaHS9ITaBz8Jmvt6HNKh0GlfFbpl0PLyUXWIdfrvgZDS9LzL/hNaP8i6F6tmOXeIIsK/U=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwF32V0f7m+7eFWttwORQKK7NUMDZf8zJEaCsNpdw3wMT/8/0mD
+ 6mDqv1RFK1tjSQBrKxE23ua3Ayl7eX4XEsJvmlWube0IMa4/qUpd6838zy2cIESmB8J38fTXyXL
+ Ltg+B/AtCkmaAbIyBaTO1FWNL9w7n1zg=
+X-Gm-Gg: ATEYQzz5yumULJOTHsT98QO2kcsThTBYfZ1y7qpL+yj1VR7Pzc58XUE93cixKoLe5oh
+ lYfClFpQbQq1a9QS+5NI9GdfmY6NmPacP14AgOp5nYduG6b4rLW3DeLmS4mmDzxjDdRHUs1TKxF
+ UM/+AXc2Rr9TK1vCcOPzmOtkJYPSg4vRRq8KE544UFRbk+GAG96xuZBMM0QmcpUBKI1buL3Yq6r
+ f3THrf4l+hjHxi7qqMbPDVqlwpemEpghdDadEP4LvAEZjjYwYXQjEvQWCoiihOgPKOnu3+p7yzi
+ vathd3Y=
+X-Received: by 2002:a05:6102:3910:b0:602:8cee:8246 with SMTP id
+ ada2fe7eead31-602aeb3db5fmr8903441137.16.1774357891859; Tue, 24 Mar 2026
+ 06:11:31 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+References: <20260322-fix-data-width-calc-v2-1-d5f28136bc4e@pm.me>
+In-Reply-To: <20260322-fix-data-width-calc-v2-1-d5f28136bc4e@pm.me>
+From: Pengyu Luo <mitltlatltl@gmail.com>
+Date: Tue, 24 Mar 2026 21:11:03 +0800
+X-Gm-Features: AQROBzA-Uf5D5nbMpZdLi_R6pDLsyJrw69YbWtlJy_Jgt4MFR_t_cYHPAAA05S0
+Message-ID: <CAH2e8h5mZSYEbQ4Y_EEQnxOKPkyuOF1W-4FQQ4XFqdkib427JA@mail.gmail.com>
+Subject: Re: [PATCH v2] drm/msm/dpu: calculate data_width like downstream
+To: Alexander Koskovich <akoskovich@pm.me>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>, 
+ Abhinav Kumar <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>,
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Jonathan Marek <jonathan@marek.ca>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, linux-arm-msm@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -69,191 +112,18 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Saturday, March 21st, 2026 at 17:46, Dmitry Baryshkov <dmitry.baryshkov@=
-oss.qualcomm.com> wrote:
+On Mon, Mar 23, 2026 at 2:48=E2=80=AFAM Alexander Koskovich <akoskovich@pm.=
+me> wrote:
+>
+> Derive INTF data_width from dce_bytes_per_line rather than
+> timing->width when DSC is enabled. Use DIV_ROUND_UP to avoid
+> rounding errors.
+>
+> Signed-off-by: Alexander Koskovich <akoskovich@pm.me>
+> ---
 
-> On Sat, Mar 21, 2026 at 05:23:20PM +0100, Cristian Cozzolino via B4 Relay=
- wrote:
-> > From: Cristian Cozzolino <cristian_ci@protonmail.com>
-> >
-> > Document Novatek NT35532-based DSI display panel.
-> >
-> > Signed-off-by: Cristian Cozzolino <cristian_ci@protonmail.com>
-> > ---
-> >  .../bindings/display/panel/novatek,nt35532.yaml    | 77 ++++++++++++++=
-++++++++
-> >  MAINTAINERS                                        |  5 ++
-> >  2 files changed, 82 insertions(+)
->=20
-> > +allOf:
-> > +  - $ref: panel-common.yaml#
-> > +
-> > +properties:
-> > +  compatible:
-> > +    const: novatek,nt35532
->=20
-> This is not enough to identify the panel. This name identifies the
-> controller inside the panel, however the exact settings (and the
-> behaviour) would depend on the exact TFT "glass" used with this
-> controller. Downstream usually doesn't care that much and frequently
-> just uses the controller name or the the controller with some kind of
-> "description" like ("wqhd-dsc-cmd").
+Tested-by: Pengyu Luo <mitltlatltl@gmail.com> # Lenovo Legion Y700 Gen4 (SM=
+8750)
 
-Ok but I just don't understand the following: I'd like to know (also=20
-considering that I find it difficult to find someone, outside of this=20
-ML, available to discuss this stuff, specifically) exactly why the=20
-current bindings are not enough.
-I mean: looking at schematics and datasheets of other similar devices=20
-and based on observations about my device, I believe the generic bindings=
-=20
-approach for nt35532 works quite well for panels.
-Novatek made the IC first and then whoever buys it can be a display=20
-vendor. If we talk about downstream, differences between panels are describ=
-ed=20
-there (i.e. my panel makes use of four supplies, while other ones could use=
-=20
-a different configuration).
-
-> What does it mean for the upstream:
-> - Try identifying the actual panel used for the phones. Sometimes
->   googling for spare or replacement parts would reveal such a name.
->   Sometimes it can be seen as a marking on the cable or on the backside
->   of the panel (again, googling).
-
-It seems that 'google' approach fails, in my case :( (I only know that=20
-the vendor assigned Smartron the work to design the HW - but SW too -=20
-of the device. Nevertheless, Smartron is neither OEM nor ODM, so the=20
-company was relying, at the time, on a series of chinese manufacturers to p=
-rovide=20
-parts required for this device, including panel suppliers: in general,=20
-the list of panel suppliers for Smartron includes BOE, Tianma and other kno=
-wn=20
-companies. So, this panel may be any of those, paired with NT35532, and wor=
-k=20
-anyway). Unfortunately, even if marking on the cable is known, that doesn't=
-=20
-identify the panel but the cable itself (which is available on the market,=
-=20
-though), instead, in this case.
-
-> - If not found, come up with some artificial identifier that would
->   identify the controller+glass combo (e.g. "tianma,fhd-video" or
->   "lenovo,j606f-boe-nt36523w" (where lenovo,j6006f is a device name and
->   boe is a "supplier").
-
-Assuming that resources available which I've as source of information=20
-for this panel are limited (the ones also described in v1's review thread),=
-=20
-my vendor devicetree describes the panel in  'qcom,mdss_dsi_nt35532_1080p_c=
-s_video'=20
-node and makes use of:
-
-qcom,mdss-dsi-panel-name =3D "nt35532 1080p cs video mode dsi panel";
-
-property. Until now, close-to-mainline devicetree I was using the following=
-=20
-compatible for the panel:
-
-compatible =3D "flipkart,rimob-nt35532-cs";
-
-and I'm not sure about the exact meaning of 'cs' suffix. I cannot state 'CS=
-'=20
-as panel supplier and use that upstream without proof/evidence. What do=20
-you suggest, in this regard?
-
-
-Cristian
-=20
-> - Either use both strings for compat property:
->   compatible =3D "tianma,fhd-video", "novatek,nt36672a"
->   or just the first one.
->=20
-> > +
-> > +  reg:
-> > +    maxItems: 1
-> > +
-> > +  backlight: true
-> > +  reset-gpios: true
-> > +
-> > +  avdd-supply:
-> > +    description: positive boost supply regulator
-> > +
-> > +  avee-supply:
-> > +    description: negative boost supply regulator
-> > +
-> > +  vci-supply:
-> > +    description: regulator that supplies the analog voltage
-> > +
-> > +  vddam-supply:
-> > +    description: power supply for MIPI interface
-> > +
-> > +  vddi-supply:
-> > +    description: regulator that supplies the I/O voltage
-> > +
-> > +  port: true
-> > +
-> > +required:
-> > +  - compatible
-> > +  - reg
-> > +  - reset-gpios
-> > +  - vddi-supply
-> > +  - port
-> > +
-> > +additionalProperties: false
-> > +
-> > +examples:
-> > +  - |
-> > +    #include <dt-bindings/gpio/gpio.h>
-> > +
-> > +    dsi {
-> > +        #address-cells =3D <1>;
-> > +        #size-cells =3D <0>;
-> > +
-> > +        panel@0 {
-> > +            compatible =3D "novatek,nt35532";
-> > +            reg =3D <0>;
-> > +
-> > +            backlight =3D <&pmi8950_wled>;
-> > +            reset-gpios =3D <&tlmm 61 GPIO_ACTIVE_LOW>;
-> > +            avdd-supply =3D <&lab>;
-> > +            avee-supply =3D <&ibb>;
-> > +            vci-supply =3D <&pm8953_l17>;
-> > +            vddi-supply =3D <&pm8953_l6>;
-> > +
-> > +            port {
-> > +                panel_in: endpoint {
-> > +                    remote-endpoint =3D <&dsi0_out>;
-> > +                };
-> > +            };
-> > +        };
-> > +    };
-> > +...
-> > diff --git a/MAINTAINERS b/MAINTAINERS
-> > index a626dee5c106..8ed2866bbd6e 100644
-> > --- a/MAINTAINERS
-> > +++ b/MAINTAINERS
-> > @@ -8171,6 +8171,11 @@ T:=09git https://gitlab.freedesktop.org/drm/misc=
-/kernel.git
-> >  F:=09Documentation/devicetree/bindings/display/panel/novatek,nt35510.y=
-aml
-> >  F:=09drivers/gpu/drm/panel/panel-novatek-nt35510.c
-> >
-> > +DRM DRIVER FOR NOVATEK NT35532 PANELS
-> > +M:=09Cristian Cozzolino <cristian_ci@protonmail.com>
-> > +S:=09Maintained
-> > +F:=09Documentation/devicetree/bindings/display/panel/novatek,nt35532.y=
-aml
-> > +
-> >  DRM DRIVER FOR NOVATEK NT35560 PANELS
-> >  M:=09Linus Walleij <linusw@kernel.org>
-> >  S:=09Maintained
-> >
-> > --
-> > 2.53.0
-> >
-> >
->=20
-> --
-> With best wishes
-> Dmitry
-> 
+Best wishes,
+Pengyu
