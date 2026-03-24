@@ -4,17 +4,17 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4DB26F532DE
-	for <dri-devel@archiver.kernel.org>; Tue, 24 Mar 2026 06:02:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 39A45F532DE
+	for <dri-devel@archiver.kernel.org>; Tue, 24 Mar 2026 06:02:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8FDE510E0D2;
-	Tue, 24 Mar 2026 06:02:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 93F6310E0DF;
+	Tue, 24 Mar 2026 06:02:37 +0000 (UTC)
 Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 71AFE10E0D2
- for <dri-devel@lists.freedesktop.org>; Tue, 24 Mar 2026 06:02:31 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7E70C10E0DF
+ for <dri-devel@lists.freedesktop.org>; Tue, 24 Mar 2026 06:02:32 +0000 (UTC)
 Received: from edelgard.fodlan.icenowy.me (unknown [112.94.102.202])
- by APP-03 (Coremail) with SMTP id rQCowABXZ87vKMJpkdyiCw--.45232S2;
- Tue, 24 Mar 2026 14:02:23 +0800 (CST)
+ by APP-03 (Coremail) with SMTP id rQCowABXZ87vKMJpkdyiCw--.45232S3;
+ Tue, 24 Mar 2026 14:02:25 +0800 (CST)
 From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>,
@@ -23,29 +23,32 @@ To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
 Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
  Han Gao <rabenda.cn@gmail.com>, Icenowy Zheng <uwu@icenowy.me>,
  Icenowy Zheng <zhengxingda@iscas.ac.cn>
-Subject: [PATCH -next v2 0/2] drm: verisilicon: add hardware cursor support
-Date: Tue, 24 Mar 2026 14:02:20 +0800
-Message-ID: <20260324060222.2029061-1-zhengxingda@iscas.ac.cn>
+Subject: [PATCH -next v2 1/2] drm: verisilicon: add max cursor size to HWDB
+Date: Tue, 24 Mar 2026 14:02:21 +0800
+Message-ID: <20260324060222.2029061-2-zhengxingda@iscas.ac.cn>
 X-Mailer: git-send-email 2.52.0
+In-Reply-To: <20260324060222.2029061-1-zhengxingda@iscas.ac.cn>
+References: <20260324060222.2029061-1-zhengxingda@iscas.ac.cn>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: rQCowABXZ87vKMJpkdyiCw--.45232S2
-X-Coremail-Antispam: 1UD129KBjvdXoWrKry8AF1DJr43Jry5ZF4DCFg_yoWDKrgEkr
- nruF9ruwnFka4DX3W7Ar1v9Fy2yF409F4rAay0gr9xJr1DXry5Gr1UZFWxuw1UJ3WUWFZ3
- Cws7WFn7JFsxAjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
- 9fnUUIcSsGvfJTRUUUb3xFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
- 6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
- A2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr1j
- 6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
- Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
- I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r
- 4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628v
- n2kIc2xKxwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7x
- kEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E
- 67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCw
- CI42IY6xIIjxv20xvEc7CjxVAFwI0_Jr0_Gr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1x
- MIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Jr0_GrUvcSsGvf
- C2KfnxnUUI43ZEXa7VUbGQ6JUUUUU==
+X-CM-TRANSID: rQCowABXZ87vKMJpkdyiCw--.45232S3
+X-Coremail-Antispam: 1UD129KBjvJXoW7AFWrAFW5GFWxCF4DWr1ftFb_yoW8uw1kpF
+ 47tryDWa98Ja13trn7J3y2gFyfCas5JaySgryrK34F9rs0gayUXa43Ca4YkFZ5tr1xAryY
+ qF4v9rW3Cr4IyF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUUm014x267AKxVW5JVWrJwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+ rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2048vs2IY020E87I2jVAFwI0_Jr4l82xGYIkIc2
+ x26xkF7I0E14v26r1I6r4UM28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8wA2z4x0
+ Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr1j6F4UJw
+ A2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oVCq3wAS
+ 0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2
+ IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0
+ Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628vn2kIc2
+ xKxwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWU
+ JVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67
+ kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY
+ 6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0x
+ vEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVj
+ vjDU0xZFpf9x0JUqkskUUUUU=
 X-Originating-IP: [112.94.102.202]
 X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -63,30 +66,75 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Verisilicon display controllers have the hardware cursor feature.
+Different display controller variants support different maximum cursor
+size. All known DC8200 variants support both 32x32 and 64x64, but some
+DC8000 variants support either only 32x32 or up to 256x256.
 
-The hardware cursor layer is a simplistic and restrictive layer as the
-topmost layer of the display output. It can only support ARGB8888 images
-and some certain square power-of-two sizes (32x32 is supported on all
-DCs).
+The minimum size is fixed at 32 and only PoT square sizes are supported.
 
-This patchset adds support for the hardware cursor as a cursor plane.
+Add the max cursor size field to HWDB and fill all entries with 64.
 
-Icenowy Zheng (2):
-  drm: verisilicon: add max cursor size to HWDB
-  drm: verisilicon: add support for cursor planes
+Signed-off-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+---
+Changes in v2:
+- Added a comment about the cursor being square.
 
- drivers/gpu/drm/verisilicon/Makefile          |   3 +-
- drivers/gpu/drm/verisilicon/vs_crtc.c         |  11 +-
- drivers/gpu/drm/verisilicon/vs_cursor_plane.c | 273 ++++++++++++++++++
- .../drm/verisilicon/vs_cursor_plane_regs.h    |  44 +++
- drivers/gpu/drm/verisilicon/vs_hwdb.c         |   4 +
- drivers/gpu/drm/verisilicon/vs_hwdb.h         |   5 +
- drivers/gpu/drm/verisilicon/vs_plane.h        |   1 +
- 7 files changed, 338 insertions(+), 3 deletions(-)
- create mode 100644 drivers/gpu/drm/verisilicon/vs_cursor_plane.c
- create mode 100644 drivers/gpu/drm/verisilicon/vs_cursor_plane_regs.h
+ drivers/gpu/drm/verisilicon/vs_hwdb.c | 4 ++++
+ drivers/gpu/drm/verisilicon/vs_hwdb.h | 5 +++++
+ 2 files changed, 9 insertions(+)
 
+diff --git a/drivers/gpu/drm/verisilicon/vs_hwdb.c b/drivers/gpu/drm/verisilicon/vs_hwdb.c
+index 09336af0900ae..2a0f7c59afa3a 100644
+--- a/drivers/gpu/drm/verisilicon/vs_hwdb.c
++++ b/drivers/gpu/drm/verisilicon/vs_hwdb.c
+@@ -95,6 +95,7 @@ static struct vs_chip_identity vs_chip_identities[] = {
+ 		.customer_id = ~0U,
+ 
+ 		.display_count = 2,
++		.max_cursor_size = 64,
+ 		.formats = &vs_formats_no_yuv444,
+ 	},
+ 	{
+@@ -103,6 +104,7 @@ static struct vs_chip_identity vs_chip_identities[] = {
+ 		.customer_id = 0x30B,
+ 
+ 		.display_count = 2,
++		.max_cursor_size = 64,
+ 		.formats = &vs_formats_no_yuv444,
+ 	},
+ 	{
+@@ -111,6 +113,7 @@ static struct vs_chip_identity vs_chip_identities[] = {
+ 		.customer_id = 0x310,
+ 
+ 		.display_count = 2,
++		.max_cursor_size = 64,
+ 		.formats = &vs_formats_with_yuv444,
+ 	},
+ 	{
+@@ -119,6 +122,7 @@ static struct vs_chip_identity vs_chip_identities[] = {
+ 		.customer_id = 0x311,
+ 
+ 		.display_count = 2,
++		.max_cursor_size = 64,
+ 		.formats = &vs_formats_no_yuv444,
+ 	},
+ };
+diff --git a/drivers/gpu/drm/verisilicon/vs_hwdb.h b/drivers/gpu/drm/verisilicon/vs_hwdb.h
+index 92192e4fa0862..2065ecb730437 100644
+--- a/drivers/gpu/drm/verisilicon/vs_hwdb.h
++++ b/drivers/gpu/drm/verisilicon/vs_hwdb.h
+@@ -20,6 +20,11 @@ struct vs_chip_identity {
+ 	u32 customer_id;
+ 
+ 	u32 display_count;
++	/*
++	 * The hardware only supports square cursor planes, so this field
++	 * is both the maximum width and height in pixels.
++	 */
++	int32_t max_cursor_size;
+ 	const struct vs_formats *formats;
+ };
+ 
 -- 
 2.52.0
 
