@@ -4,93 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BDBA2E9A779
-	for <dri-devel@archiver.kernel.org>; Tue, 24 Mar 2026 12:01:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5905BE9A777
+	for <dri-devel@archiver.kernel.org>; Tue, 24 Mar 2026 12:07:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 283A010E656;
-	Tue, 24 Mar 2026 12:01:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B87F210E0E6;
+	Tue, 24 Mar 2026 12:07:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=ziepe.ca header.i=@ziepe.ca header.b="J7YDnvZX";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="g0EC9O++";
 	dkim-atps=neutral
-Received: from mail-ot1-f44.google.com (mail-ot1-f44.google.com
- [209.85.210.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0496710E4AE
- for <dri-devel@lists.freedesktop.org>; Tue, 24 Mar 2026 12:01:00 +0000 (UTC)
-Received: by mail-ot1-f44.google.com with SMTP id
- 46e09a7af769-7d7f9285560so1746934a34.1
- for <dri-devel@lists.freedesktop.org>; Tue, 24 Mar 2026 05:01:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ziepe.ca; s=google; t=1774353660; x=1774958460; darn=lists.freedesktop.org; 
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date:from:to
- :cc:subject:date:message-id:reply-to;
- bh=6xGeDSaplrfa0s0FkTnYgpWTfeJHarWr6HfnS+Tx8gc=;
- b=J7YDnvZXJKK7is9so5VhzfY9Z+2I3PjoR/yTHbSUSdpUgeaSEFVaHJ3y8AKYW9sV6t
- tQIr88r+gAnc6RaTTzQkOndzba8320CVYBtHIm3axDl/wC2JNdptWmmxt8MRRJPYDEZT
- +nPErmjAj7T8uICnfRSYfbxwkpKtQJnKz6t2azp8SKVBKDjqQJc9g4unWfWEDb385egZ
- NaEnHqUoSMXoeTMPXpDLkn2vyZE6X+dwlKT4VvAeBkZcV+MN1/OSFylWPqjGidh8HZsE
- yml6OQ22L3OQ+MbMAqIvgYFLJ59SUWddetzvivtrzbCYNNxJniNcM1seNi5JpmkxcNuW
- +01Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774353660; x=1774958460;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=6xGeDSaplrfa0s0FkTnYgpWTfeJHarWr6HfnS+Tx8gc=;
- b=NF0A2eeiLGNfNTnUwgA/AdHRutmDFPJwltS7audcs4tYfBPeVTJSUaMzk4IjLZFBsx
- X/ufrwBuUe1mHgN3/CjGJwvm34UN/0TpDbV4DmuSgXZcuf8wKIwNwhwPZ+PrHcbQz1RS
- /36NMCkayonLVga0XoPxGcjZVzR0OGyfNJSPPRIro9KTPJXai4jyLR9zi/nHisUna7tz
- rSUkS32oIpHMbhbTIBjDmYYUaXLqgzRerx/qpGvgnEcGRyIStAdoUg9P3/BziUTzQsNv
- VgbbFdDt/QXASt/9CtAXmAFHA+o0RCug3/wpP3RTiu3YolVHSIXFqeejDhR15BBPI0lX
- vCOw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVL0AE0zgGpC2y2G2nJ8s1nhTUDkQJFMPgV0G4CWiinv9mLsutMWaf/3MwkltcTbH8H47Ukn2w5Hds=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yx8hY5b5DqXXiQ2YCqet8Ey4tOOyAS0fh5jmZBspyjO70QWDK0u
- N4IAQWjzYe48f87dO8n6M8IoEcSm331gTeR6g0bAAE8BMBDXFFdDTplILmyQpgvihE4=
-X-Gm-Gg: ATEYQzzKcyCg8+IgQBVC2/K+51E3wWdB0b8yRwx/GbWo2GXYdtd3Td7rRli1Iolm6TG
- MTOQCU3Jar/EuQk4It1ThbXLWpRsl5MV+sKzbJKPRvDlq4Js1oYuxVYlsSZ/Ru9SBReQjJ9XOPZ
- RP3zxZ/aDEfx4GrCSYVRfRu/kGikgRIVFCSYx3prgPMvV2Ie/zWD7kCMD+JW6tfv4/XtJekxrF4
- l7BzhpUZztVhQkcl9Jynzt2RrXjENCNzh8h69h+5y5+3nzMh//W+B68wqvQWppvpwR6uxCVkcf/
- 0B3SMm2oiFU8HZsgTPyr4wQ/2tUzlDOl8km42L1kVxoVpYbzPpd/LO7XCPbz2RbJhLRZbY3tcIH
- xu/jhdj6d/wYSZ7HCrPVLvMMaIcDb1twfJKSM05FThElN+Q5psCrwSDBAiSDeN0+0mmRdIPy/gN
- luD8Z6yJg+AWQHuU+ialP0X9mJzkms+A7piD7T24RihfjrcOM8b66xIyr0VT9WPm1f7dC2Gv8Gl
- KnQ4Buy
-X-Received: by 2002:a05:6820:174b:b0:67d:f88f:d83d with SMTP id
- 006d021491bc7-67df88fef36mr1271317eaf.29.1774353659590; 
- Tue, 24 Mar 2026 05:00:59 -0700 (PDT)
-Received: from ziepe.ca
- (mctnnbsa70w-159-2-73-22.dhcp-dynamic.fibreop.nb.bellaliant.net.
- [159.2.73.22]) by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-89c85335402sm138526236d6.25.2026.03.24.05.00.58
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 24 Mar 2026 05:00:58 -0700 (PDT)
-Received: from jgg by wakko with local (Exim 4.97)
- (envelope-from <jgg@ziepe.ca>) id 1w50RN-00000000GV5-3aCE;
- Tue, 24 Mar 2026 09:00:57 -0300
-Date: Tue, 24 Mar 2026 09:00:57 -0300
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: Mostafa Saleh <smostafa@google.com>
-Cc: Jiri Pirko <jiri@resnulli.us>, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, iommu@lists.linux.dev,
- linux-media@vger.kernel.org, sumit.semwal@linaro.org,
- benjamin.gaignard@collabora.com, Brian.Starkey@arm.com,
- jstultz@google.com, tjmercier@google.com, christian.koenig@amd.com,
- m.szyprowski@samsung.com, robin.murphy@arm.com, leon@kernel.org,
- sean.anderson@linux.dev, ptesarik@suse.com, catalin.marinas@arm.com,
- aneesh.kumar@kernel.org, suzuki.poulose@arm.com,
- steven.price@arm.com, thomas.lendacky@amd.com, john.allen@amd.com,
- ashish.kalra@amd.com, suravee.suthikulpanit@amd.com,
- linux-coco@lists.linux.dev
-Subject: Re: [PATCH net-next v3 0/2] dma-buf: heaps: system: add an option to
- allocate explicitly decrypted memory
-Message-ID: <20260324120057.GC8437@ziepe.ca>
-References: <20260305123641.164164-1-jiri@resnulli.us>
- <ablV_f_l7wD2m63E@google.com>
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6BA1410E0E6
+ for <dri-devel@lists.freedesktop.org>; Tue, 24 Mar 2026 12:07:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1774354020;
+ bh=ubfQ5sFYc+8HUyk1HQxZuMAJG4jL8zp3kLREeiVyfiw=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=g0EC9O++iVRkZQILS0+vCwZpSu9DE22Pm49wjNuVfoq9lS/1X20106mg0G3e9br+6
+ VCHHrI5oWgb1BjPjThaEh95z2x5zX0+aq4gLJaEESf+BA7yqSqUqnBEPr4lwDPpIFq
+ 7JgrXM/phdJijkXnW7RSwNCHjGeKKSON0mABSJYq6eqodwltr3YLOBYZhcHEwf9ptV
+ ButJ7WseC8l0dnoS7htRrTZHlpYrNvmacMuLbwjNokJTw6kTzu8eWbq0wM6RGfjcHO
+ ayXF8sIoLWaWZKNfVxGR03OMZWuoc5yY/YG6vXaIFU90Ygh+OzDsZcjWKxEcFFFvGj
+ Q2Wt8tA8iRjTg==
+Received: from fedora (unknown [IPv6:2a01:e0a:2c:6930:d919:a6e:5ea1:8a9f])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256) (No client certificate requested)
+ (Authenticated sender: bbrezillon)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 2C71717E5AA1;
+ Tue, 24 Mar 2026 13:06:59 +0100 (CET)
+Date: Tue, 24 Mar 2026 13:06:53 +0100
+From: Boris Brezillon <boris.brezillon@collabora.com>
+To: "Danilo Krummrich" <dakr@kernel.org>
+Cc: "Deborah Brouwer" <deborah.brouwer@collabora.com>,
+ <dri-devel@lists.freedesktop.org>, <rust-for-linux@vger.kernel.org>, "Boqun
+ Feng" <boqun@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>, "Daniel
+ Almeida" <daniel.almeida@collabora.com>, "Maarten Lankhorst"
+ <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
+ "Thomas Zimmermann" <tzimmermann@suse.de>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Miguel Ojeda"
+ <ojeda@kernel.org>, "Gary Guo" <gary@garyguo.net>, =?UTF-8?B?QmrDtnJu?= Roy
+ Baron <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>,
+ "Andreas Hindborg" <a.hindborg@kernel.org>, "Trevor Gross"
+ <tmgross@umich.edu>, "Steven Price" <steven.price@arm.com>, "Dirk Behme"
+ <dirk.behme@gmail.com>, "Alexandre Courbot" <acourbot@nvidia.com>
+Subject: Re: [PATCH v3 01/12] drm/tyr: Use register! macro for GPU_CONTROL
+Message-ID: <20260324130653.74f9c2ab@fedora>
+In-Reply-To: <DHAZ380DRB8A.19SI1OUABRWTP@kernel.org>
+References: <20260323-b4-tyr-use-register-macro-v3-v3-0-a87daf9e4701@collabora.com>
+ <20260323-b4-tyr-use-register-macro-v3-v3-1-a87daf9e4701@collabora.com>
+ <DHAZ380DRB8A.19SI1OUABRWTP@kernel.org>
+Organization: Collabora
+X-Mailer: Claws Mail 4.3.1 (GTK 3.24.51; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <ablV_f_l7wD2m63E@google.com>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,35 +74,52 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, Mar 17, 2026 at 01:24:13PM +0000, Mostafa Saleh wrote:
+On Tue, 24 Mar 2026 12:23:54 +0100
+"Danilo Krummrich" <dakr@kernel.org> wrote:
 
-> On the other hand, for restricted-dma, the memory decryption is deep
-> in the DMA direct memory allocation and the DMA API callers (for ex
-> virtio drivers) are clueless about it and can’t pass any attrs.
-> My proposal was specific to restricted-dma and won’t work for your case.
+> On Tue Mar 24, 2026 at 1:18 AM CET, Deborah Brouwer wrote:
+> > +    register! {
+> > +        /// GPU identification register.
+> > +        pub(crate) GPU_ID(u32) @ 0x0 {
+> > +            /// Status of the GPU release.
+> > +            3:0     ver_status;
+> > +            /// Minor release version number.
+> > +            11:4    ver_minor;
+> > +            /// Major release version number.
+> > +            15:12   ver_major;
+> > +            /// Product identifier.
+> > +            19:16   prod_major;
+> > +            /// Architecture patch revision.
+> > +            23:20   arch_rev;
+> > +            /// Architecture minor revision.
+> > +            27:24   arch_minor;
+> > +            /// Architecture major revision.
+> > +            31:28   arch_major;
+> > +        }  
+> 
+> Are you sure that this is the field order you want to choose for Tyr? nova-core
+> had this order in the past (we're changing this currently), as it came from
+> OpenRM headers, but it is pretty unusual for datasheets and TRMs, which is also
+> why the register!() macro examples use the typical and recommended order, i.e.
+> 
+> 	pub(crate) GPU_ID(u32) @ 0x0 {
+> 	    /// Architecture major revision.
+> 	    31:28   arch_major;
+> 	    /// Architecture minor revision.
+> 	    27:24   arch_minor;
+> 	    /// Architecture patch revision.
+> 	    23:20   arch_rev;
+> 	    /// Product identifier.
+> 	    19:16   prod_major;
+> 	    /// Major release version number.
+> 	    15:12   ver_major;
+> 	    /// Minor release version number.
+> 	    11:4    ver_minor;
+> 	    /// Status of the GPU release.
+> 	    3:0     ver_status;
+> 	}
 
-How is this any different from CC?
-
-If the device cannot dma to "encrypted" memory, whatever that means
-for you, then the DMA API:
- - Makes dma alloc coherent return "decrypted" memory, and the built
-   in mapping of coherent memory knows about this
- - Makes dma_map_xxx use SWIOTLB to bounce to decrypted memory
-
-There is no need for something like virtio drivers to be aware of
-any of this.
-
-On the other hand if the driver deliberately allocates decrypted
-memory without using DMA API alloc coherent then it knows it did it
-and can pass the flag to map it.
-
-> I am wondering if the kernel should have a more solid, unified method
-> for identifying already-decrypted memory instead. Perhaps we need a
-> way for the DMA API to natively recognize the encryption state of a
-> physical page (working alongside force_dma_unencrypted(dev)), rather
-> than relying on caller-provided attributes?
-
-Definately not, we do not want the DMA API inspecting things like
-this.
-
-Jason
+It's defined in ascending bit order in the datasheets we have, so if
+we're ever going to auto-generate those from the xml, we'd likely have
+the same definitions Deborah came up with, unless the script re-orders
+things in descending bit order.
