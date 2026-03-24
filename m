@@ -4,49 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A6881E9A779
-	for <dri-devel@archiver.kernel.org>; Tue, 24 Mar 2026 12:33:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 21000D58CC9
+	for <dri-devel@archiver.kernel.org>; Tue, 24 Mar 2026 12:35:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0CA6910E5E8;
-	Tue, 24 Mar 2026 12:33:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7EF2C10E692;
+	Tue, 24 Mar 2026 12:35:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="A5BpoCf1";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="ClwhG9FX";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 43CA210E5DC;
- Tue, 24 Mar 2026 12:33:23 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id E676140842;
- Tue, 24 Mar 2026 12:33:22 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 466D8C19424;
- Tue, 24 Mar 2026 12:33:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1774355602;
- bh=jd8iVirtHQ4a5z51jmWDeiI63f96fl/GYIMFhoiXT9Y=;
- h=From:To:Cc:Subject:In-Reply-To:References:Date:From;
- b=A5BpoCf1CuEzAIZr7XecZLh1Rcjabh7TpKaVKGTqVHRJxv4ehXOrffc+r9SrLlUnw
- uoLfiHcP+XUkQP+w5nHstdGab3j/yEN/RstGQRIm89vbdoD5/dtc2NSZlh7gNJYW42
- SHPWWusNQMhrQSjwvf4H7hfWL/nbpaLqUf5lDPBaLzGFuNFWXyfRiPKMmqNijTz5ZH
- p2M3SD2WjFwkvysh0Dzy91RTuUjdJJjYNL+k+iQQUn/2c9Ku4gya7K48owBayDba5Q
- kSGoAkdFDTbY/Px9SISKl8hIUFTwokDuB5i6MPOTH35ix265XBaEpk9XEb20F5m2bZ
- EqVzdC6Bgjx4w==
-From: Andreas Hindborg <a.hindborg@kernel.org>
-To: Danilo Krummrich <dakr@kernel.org>, aliceryhl@google.com,
- acourbot@nvidia.com, ojeda@kernel.org, boqun@kernel.org, gary@garyguo.net,
- bjorn3_gh@protonmail.com, lossin@kernel.org, tmgross@umich.edu,
- abdiel.janulgue@gmail.com, daniel.almeida@collabora.com,
- robin.murphy@arm.com
-Cc: driver-core@lists.linux.dev, nouveau@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org,
- linux-kernel@vger.kernel.org, Danilo Krummrich <dakr@kernel.org>
-Subject: Re: [PATCH 0/8] dma::Coherent & dma::CoherentInit API
-In-Reply-To: <20260303162314.94363-1-dakr@kernel.org>
-References: <9A1gWen63AbJmi06Y_vu_qF1S86nj3fcQEil9RzLAn8QkIYpCOrLMNO7JcgIP0BccPHhzaYaQ_te1S_gKuHRgg==@protonmail.internalid>
- <20260303162314.94363-1-dakr@kernel.org>
-Date: Tue, 24 Mar 2026 13:33:13 +0100
-Message-ID: <87cy0tqueu.fsf@kernel.org>
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8A2EA10E692
+ for <dri-devel@lists.freedesktop.org>; Tue, 24 Mar 2026 12:35:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1774355748;
+ bh=7Dcg5eco6i/ujT7qNFwgJkN4hiRsS7Dg+Wf5hnusGso=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=ClwhG9FXQusc5qYjKWyYHeQaddYHdiBA+Zf704OTV9o5/WfE8ZaedkQVzec8FKP8L
+ h4c97kpzeKTmVEAO91j5P0g+b4K9xNr5nft7i1O07yDV3H/q3eou6V6JqOGkIJo+sq
+ 57yI3yY1u2MLN1e4SYhJkim+XCkrmPOlNpn5EJPjtzDEVjx//+Kq38kYWnZDo6ekMl
+ nlkxJuJy27Jbmi8i+QLGwCx+jLEO2yMquVVrq+dBvf50oJv4dW4X/vJRL2kpdBt9gO
+ kH9+UzMnsPwT8PlI5j2fyO30pPRsaqJGKIE5gJtPPxj5uoMbNZh7uZRIXIbrA+WwL/
+ xAmaVXVJoOyhA==
+Received: from fedora (unknown [IPv6:2a01:e0a:2c:6930:d919:a6e:5ea1:8a9f])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256) (No client certificate requested)
+ (Authenticated sender: bbrezillon)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 7F21217E5B23;
+ Tue, 24 Mar 2026 13:35:47 +0100 (CET)
+Date: Tue, 24 Mar 2026 13:35:42 +0100
+From: Boris Brezillon <boris.brezillon@collabora.com>
+To: Alice Ryhl <aliceryhl@google.com>
+Cc: Deborah Brouwer <deborah.brouwer@collabora.com>,
+ dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org, Boqun Feng
+ <boqun@kernel.org>, Danilo Krummrich <dakr@kernel.org>, Daniel Almeida
+ <daniel.almeida@collabora.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Miguel Ojeda <ojeda@kernel.org>, Gary Guo
+ <gary@garyguo.net>, =?UTF-8?B?QmrDtnJu?= Roy Baron
+ <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, Andreas
+ Hindborg <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>, Steven
+ Price <steven.price@arm.com>, Dirk Behme <dirk.behme@gmail.com>, Alexandre
+ Courbot <acourbot@nvidia.com>
+Subject: Re: [PATCH v3 00/12] drm/tyr: Use register! macro
+Message-ID: <20260324133542.0401c33e@fedora>
+In-Reply-To: <CAH5fLghWAQOkH0bDw3vC5UZaCJyXaXn16D_2K8wWOraBcktg3A@mail.gmail.com>
+References: <20260323-b4-tyr-use-register-macro-v3-v3-0-a87daf9e4701@collabora.com>
+ <CAH5fLghWAQOkH0bDw3vC5UZaCJyXaXn16D_2K8wWOraBcktg3A@mail.gmail.com>
+Organization: Collabora
+X-Mailer: Claws Mail 4.3.1 (GTK 3.24.51; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,51 +73,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-"Danilo Krummrich" <dakr@kernel.org> writes:
+On Tue, 24 Mar 2026 11:58:36 +0100
+Alice Ryhl <aliceryhl@google.com> wrote:
 
-> This patch series introduces the dma::Coherent API Gary worked out in the
-> context of his I/O projection work.
->
-> Additionally, introduce dma::CoherentInit, a type that encapsulates a
-> dma::Coherent object before its DMA address is exposed to the device.
-> dma::CoherentInit can guarantee exclusive access to the inner dma::Coherent
-> object and implement Deref and DerefMut.
->
-> Also add Coherent::init() and Coherent::init_with_attrs() so we can directly
-> initialize a new dma::Coherent object through an impl Init<T, E>.
->
-> Danilo Krummrich (5):
->   rust: dma: use "kernel vertical" style for imports
->   rust: dma: introduce dma::CoherentInit for memory initialization
->   rust: dma: add Coherent:init() and Coherent::init_with_attrs()
->   gpu: nova-core: use Coherent::init to initialize GspFwWprMeta
->   gpu: nova-core: convert Gsp::new() to use CoherentInit
->
-> Gary Guo (3):
->   rust: dma: add generalized container for types other than slices
->   rust: dma: add zeroed constructor to `Coherent`
->   gpu: nova-core: convert to new dma::Coherent API
->
->  drivers/gpu/nova-core/dma.rs      |  19 +-
->  drivers/gpu/nova-core/falcon.rs   |   7 +-
->  drivers/gpu/nova-core/firmware.rs |  10 +-
->  drivers/gpu/nova-core/gsp.rs      |  65 ++--
->  drivers/gpu/nova-core/gsp/boot.rs |   7 +-
->  drivers/gpu/nova-core/gsp/cmdq.rs |  55 +--
->  drivers/gpu/nova-core/gsp/fw.rs   |  82 ++--
->  rust/kernel/device.rs             |   4 +-
->  rust/kernel/dma.rs                | 626 +++++++++++++++++++++++-------
->  samples/rust/rust_dma.rs          |   8 +-
->  10 files changed, 619 insertions(+), 264 deletions(-)
->
->
-> base-commit: 1195fcbda62f12108dc9be56fa4173897905b90c
+> On Tue, Mar 24, 2026 at 1:18=E2=80=AFAM Deborah Brouwer
+> <deborah.brouwer@collabora.com> wrote:
+> >
+> > This series changes the Tyr driver to use the kernel's register! macro
+> > for hardware register access, replacing manual bit manipulation and cus=
+tom
+> > register structures with a more type-safe and maintainable approach. =20
+>=20
+> Please double check the AI review:
+> https://sashiko.dev/#/patchset/20260323-b4-tyr-use-register-macro-v3-v3-0=
+-a87daf9e4701%40collabora.com
+>=20
+> There are some concerns regarding clock cleanup on patch 3 that seem vali=
+d.
 
-What did you base this on?
+I think all comments are valid except
 
+> The commit message explicitly notes that the previous format matches
+> the ID printed by the panthor driver. Is there a strong technical
+> reason to break this log consistency between related DRM drivers just
+> to avoid a single bit shift operation?
 
-Best regards,
-Andreas Hindborg
+I don't think there was a good reason to hide the lower half of the raw
+ID in Panthor. It's true that all the fields in the lower 16-bits are
+extracted and printed separately, but it's just super confusing to have
+only the higher 16 bits exposed (I've been tricked multiple times when
+looking at some logs, and had to go look back at the source code to
+remember what this raw id was exactly).
 
+TLDR; that's one case where I think diverging from Panthor is a good
+thing. I don't mind if the decision is to not expose the raw ID at
+all and have all the fields extracted with something like
 
+	mali-<name> (arch: <major>.<minor> product: <product> version: <major>.<mi=
+nor>.<status>)
 
+or if we decide to keep the raw ID around.
