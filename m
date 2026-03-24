@@ -4,53 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7B70AF532FA
-	for <dri-devel@archiver.kernel.org>; Tue, 24 Mar 2026 09:08:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 537F0F532FA
+	for <dri-devel@archiver.kernel.org>; Tue, 24 Mar 2026 09:09:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B6F8F10E477;
-	Tue, 24 Mar 2026 09:08:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B724810E634;
+	Tue, 24 Mar 2026 09:09:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Qykw1c8Q";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="dU2AF34M";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ECA1710E477
- for <dri-devel@lists.freedesktop.org>; Tue, 24 Mar 2026 09:08:02 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 65C8D60120;
- Tue, 24 Mar 2026 09:08:01 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B2C56C19424;
- Tue, 24 Mar 2026 09:08:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1774343281;
- bh=aloDp/7Ws3xGvuTGLdeYo2Gmfmhdjd5m4AaJNfMivvY=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=Qykw1c8QhGvr0CMdMWaZbIIVEdZJSQnfdBvKvw8YB0DB08JYSWRbpM3LC10hB8X43
- +GHutMbDbU04IZInw4qZUDCTMN9rZv806jJd1tnVwmMOVb2p0dA2ua1mGcsIk7avLK
- hgQuDNbvRyrPMOsHPb30TMrAFfjXgD9OeCvhqK5GlMwUpgvywag+yKWqpbkmWmkamI
- p+0lX+5ZUt5gnFVz9X+3Yai8o+LCjQBsLAih32mzZHfcHIMwd0gbBCaamD6p1bLfq7
- iuQG3lXgbVVsbdz9OTHxutg2/IO9xg8Ve2YYlwiulBydjExA7pGNvKAZLfHpYCTPKG
- QBCpbDpj25WRQ==
-Date: Tue, 24 Mar 2026 10:07:58 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Aaron Kling <webgeek1234@gmail.com>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>, 
- Jessica Zhang <jesszhan0024@gmail.com>,
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4F59910E634
+ for <dri-devel@lists.freedesktop.org>; Tue, 24 Mar 2026 09:09:00 +0000 (UTC)
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+ by smtpout-02.galae.net (Postfix) with ESMTPS id E25C31A2FBD;
+ Tue, 24 Mar 2026 09:08:58 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+ by smtpout-01.galae.net (Postfix) with ESMTPS id B41F36011D;
+ Tue, 24 Mar 2026 09:08:58 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
+ with ESMTPSA id B7A061045116C; Tue, 24 Mar 2026 10:08:52 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+ t=1774343337; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ content-transfer-encoding; bh=zk2OpegAMJiCNxvll5oNlkpQYOrJ2hMu552NiCOVNiI=;
+ b=dU2AF34M4EZmzQR4Bri8TqIm9Jf64bxTGNlyNwlZe4327aw83E19d+74+eaZONsU9maBhF
+ rRw58bV9NPEDBhRnGHNxiaL+K2pjZw1ugLW4jXCIiKBWjVjxG6dGf6Xqk0Gaq26h65O0HA
+ ZNkp+qcBokkOhguTtXj9n1c86Cn7EwQlHZjMrhchouML0Vc+Oo2OM0ewwRfVJTBYLY7rGy
+ z+NTCGMHbZPFF7vt2ITPezwdmuR2Prr/kbj+5iJ4nPyGKt9JcIRigHKwoKwuIN6OCS+rIW
+ aclnt7cuXzuvseeJOZWzMnKyU12EzQCXyqxFvY7DcCkqAtqV0Li3S4522HKgEw==
+From: Luca Ceresoli <luca.ceresoli@bootlin.com>
+Date: Tue, 24 Mar 2026 10:08:49 +0100
+Subject: [PATCH RESEND] drm/bridge: drm_bridge_get/put(): document NULL
+ pointer behaviour
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260324-drm-bridge-alloc-getput-document-null-check-v1-1-fb0877c49d7e@bootlin.com>
+To: Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, Teguh Sobirin <teguh@sobir.in>
-Subject: Re: [PATCH v3 1/2] dt-bindings: display: panel: Add ChipWealth
- CH13726A AMOLED driver
-Message-ID: <20260324-dexterous-snake-of-progress-ea8783@quoll>
-References: <20260323-ch13726a-v3-0-e28b6f97fe80@gmail.com>
- <20260323-ch13726a-v3-1-e28b6f97fe80@gmail.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260323-ch13726a-v3-1-e28b6f97fe80@gmail.com>
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: Liu Ying <victor.liu@nxp.com>, Hui Pu <Hui.Pu@gehealthcare.com>, 
+ Ian Ray <ian.ray@gehealthcare.com>, 
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>
+X-Mailer: b4 0.14.3
+X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,43 +68,57 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Mar 23, 2026 at 12:08:32PM -0500, Aaron Kling wrote:
-> The Chip Wealth Technology CH13726A AMOLED driver is a single chip
-> solution for MIPI-DSI. This is used for the AYN Thor bottom panel.
-> 
-> Signed-off-by: Aaron Kling <webgeek1234@gmail.com>
-> ---
->  .../display/panel/chipwealth,ch13726a.yaml         | 65 ++++++++++++++++++++++
->  1 file changed, 65 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/display/panel/chipwealth,ch13726a.yaml b/Documentation/devicetree/bindings/display/panel/chipwealth,ch13726a.yaml
-> new file mode 100644
-> index 0000000000000000000000000000000000000000..5d964900795653401a871994bcf6403cdeaad64f
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/display/panel/chipwealth,ch13726a.yaml
-> @@ -0,0 +1,65 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/display/panel/chipwealth,ch13726a.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Chip Wealth Technology CH13726A AMOLED driver
-> +
-> +maintainers:
-> +  - Neil Armstrong <neil.armstrong@linaro.org>
-> +
-> +description:
-> +  Chip Wealth Technology CH13726A is a single-chip solution
-> +  for AMOLED connected using a MIPI-DSI video interface.
+drm_bridge_get and drm_bridge_put() do nothing when they are passed a NULL
+pointer, and they do so since their initial addition in commit 30d1b37d4c02
+("drm/bridge: add support for refcounting").
 
-Here you describe the hardware, including what I asked last time -
-explain why this is ayntec thor panel, but not chipwealth,ch13726a.
+This allows simpler code in various places when using these
+functions. However it's not documented, so it's not clear whether it is
+part of the API "contract" or just a current implementation detail that
+might change in the future.
 
-Then also name the file as the compatible. If you do not know the part
-(model?) number, then why do you think filename should be called
-ch13726a?
+There is no visible reason to remove this NULL check, so document it,
+making it part of the contract, letting users count on it.
+
+Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+---
+Historical note: I thought this was documented from the beginning and
+realized it's not the case when someone proposed adding a 'if (bridge)
+drm_bridge_put(bridge)' to a driver [0]. Let's fix it now.
+
+[0] https://lore.kernel.org/lkml/DG0CHD0TAH9A.27UW4KKY2O9V7@bootlin.com/
+---
+ drivers/gpu/drm/drm_bridge.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/drm_bridge.c b/drivers/gpu/drm/drm_bridge.c
+index 3b165a0d1e77..3108249a63cd 100644
+--- a/drivers/gpu/drm/drm_bridge.c
++++ b/drivers/gpu/drm/drm_bridge.c
+@@ -282,7 +282,7 @@ static void __drm_bridge_free(struct kref *kref)
+ 
+ /**
+  * drm_bridge_get - Acquire a bridge reference
+- * @bridge: DRM bridge
++ * @bridge: DRM bridge; if NULL this function does nothing
+  *
+  * This function increments the bridge's refcount.
+  *
+@@ -300,7 +300,7 @@ EXPORT_SYMBOL(drm_bridge_get);
+ 
+ /**
+  * drm_bridge_put - Release a bridge reference
+- * @bridge: DRM bridge
++ * @bridge: DRM bridge; if NULL this function does nothing
+  *
+  * This function decrements the bridge's reference count and frees the
+  * object if the reference count drops to zero.
+
+---
+base-commit: a50007089e078a1b7a826559a02277b1601ee189
+change-id: 20260129-drm-bridge-alloc-getput-document-null-check-a551e64b8fc1
 
 Best regards,
-Krzysztof
+-- 
+Luca Ceresoli <luca.ceresoli@bootlin.com>
 
