@@ -4,42 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 982E1F532FA
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F2F1BF532F6
 	for <dri-devel@archiver.kernel.org>; Tue, 24 Mar 2026 08:58:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EFE7510E60E;
-	Tue, 24 Mar 2026 08:58:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1F74E10E613;
+	Tue, 24 Mar 2026 08:58:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="OKw1YMxP";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="DwzH36ci";
 	dkim-atps=neutral
 Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 13D0A10E60E
- for <dri-devel@lists.freedesktop.org>; Tue, 24 Mar 2026 08:58:42 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DBC4810E60B
+ for <dri-devel@lists.freedesktop.org>; Tue, 24 Mar 2026 08:58:38 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-02.galae.net (Postfix) with ESMTPS id 025441A2FC1;
- Tue, 24 Mar 2026 08:58:41 +0000 (UTC)
+ by smtpout-02.galae.net (Postfix) with ESMTPS id AB3F11A2FC2;
+ Tue, 24 Mar 2026 08:58:37 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id C689E6011D;
- Tue, 24 Mar 2026 08:58:40 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 7F5D76011D;
+ Tue, 24 Mar 2026 08:58:37 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 151AA10451140; Tue, 24 Mar 2026 09:58:36 +0100 (CET)
+ with ESMTPSA id AEAB210450FEB; Tue, 24 Mar 2026 09:58:33 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1774342719; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ t=1774342716; h=from:subject:date:message-id:to:cc:mime-version:content-type:
  content-transfer-encoding:in-reply-to:references;
- bh=8mMcYEXUydZGS/Fj4aUMVLorw/18mDZTJVFYNGb7XMU=;
- b=OKw1YMxPQSbqPviE7lZb7Y5jieL3u4cLiz2S2nUo4eSx+5JokOgnDrZaIHHF0y02LT0mHt
- rss3/bSjgNYJsJ+aGjCOuWFEpeF0JBIbRxL4JwwT4OoO3UT3USGNerr3saWXm21Fcl7qDU
- nTDcc1SGM3YkqfobgsLsSywcHqYCtyjMrlTSYlon/km1jXQa4UEX6TdumtAHRYkUS7TaB5
- UTXebyG1KF9x9inoeUzDC394kwqG3Mc2laPbc2+mgsYz865T0806zuHysqXZJIARDgIH7s
- VLByfDXLWRSIvsfDjS+f8jFDS2xaczRYlAUz5KSsMAYdKGbn2jRlJvokQInGOQ==
+ bh=1R1hfV70zQ5KkVzrmjTH8wbuM0KDVDayRY41Ek0UC1M=;
+ b=DwzH36ciAxpiTJ+0cx3J96DXyNbwN/Ui1rBu1amDqqkttZtpE17Tlfs/bO6A9rmdjd9Yzk
+ MXvNS4OsXZoTey3Ed6jyvqdC8gZadSwRxUG5fqua/u5Vv2ug7p6LDppZBL/NRaXsFmZHvH
+ J0K8SKDnxvN/KXZE7BL+qJ32Q8qE5MDgT+tVb/x443kuyFELmqXTsNUs24369A24qOmRYT
+ GPql25yYQDiTmumIOZqCUshwLYgQxqfLb9zsg4jbSkcro2aH+NPZjWNI45NQk2OkGlUYBf
+ Bpq9X/J/h3b/bHv5hx7ICW3vkQ7eq7PJqihsi1C3fAqj10p+4YfiRQlOp/nQ5w==
 From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Date: Tue, 24 Mar 2026 09:58:12 +0100
-Subject: [PATCH v5 5/7] drm/bridge: prevent encoder chain changes while
- iterating with list_for_each_entry_from()
+Date: Tue, 24 Mar 2026 09:58:11 +0100
+Subject: [PATCH v5 4/7] drm/bridge: lock the encoder chain in scoped
+ for_each loops
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260324-drm-bridge-alloc-encoder-chain-mutex-v5-5-8bf786c5c7e6@bootlin.com>
+Message-Id: <20260324-drm-bridge-alloc-encoder-chain-mutex-v5-4-8bf786c5c7e6@bootlin.com>
 References: <20260324-drm-bridge-alloc-encoder-chain-mutex-v5-0-8bf786c5c7e6@bootlin.com>
 In-Reply-To: <20260324-drm-bridge-alloc-encoder-chain-mutex-v5-0-8bf786c5c7e6@bootlin.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -71,128 +71,149 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-These loops in drm_bridge.c iterate over the encoder chain using
-list_for_each_entry_from(), which does not prevent changes to the bridge
-chain while iterating over it.
+drm_for_each_bridge_in_chain_scoped() and
+drm_for_each_bridge_in_chain_from() currently get/put the bridge at each
+iteration. But they don't protect the encoder chain, so it could change
+(bridges added/removed) while some code is iterating over the list
+itself. Such code can then derail on incorrect pointers.
 
-Convert most of those loops to instead use
-drm_for_each_bridge_in_chain_from(), which locks the chain.
+To make iterations safe, augment these for_each macros to lock the encoder
+chain mutex at the beginning and unlock it at the end of the loop (be it at
+the end of the list, or earlier due to a 'break' or 'return' statement).
 
-This also simplifies code.
-
-All the "simple" loops are converted here. The only ones not touched are
-those in drm_atomic_bridge_chain_pre_enable() and
-drm_atomic_bridge_chain_post_disable(), because they have nested loops
-which are not well handled by drm_for_each_bridge_in_chain_from(). Those
-two functions are handled by a separate commit.
+This change requires more operations when starting and ending the loop. To
+avoid making the macros even more complex, move these operations to helper
+functions. Also remname some of the existing helper functions for
+consistency.
 
 Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
----
- drivers/gpu/drm/drm_bridge.c | 35 ++++++++++++-----------------------
- 1 file changed, 12 insertions(+), 23 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_bridge.c b/drivers/gpu/drm/drm_bridge.c
-index 42ca4b243579..37feb8143de4 100644
---- a/drivers/gpu/drm/drm_bridge.c
-+++ b/drivers/gpu/drm/drm_bridge.c
-@@ -725,7 +725,7 @@ void drm_bridge_detach(struct drm_bridge *bridge)
+---
+
+Changed in v4:
+- Slightly improve kerneldoc to clarify a bridge reference is held in
+  addition to the mutex
+
+Changed in v3:
+- Re-add drm_bridge_get/put()
+
+Changed in v2:
+- Fixed infinite loop in drm_for_each_bridge_in_chain_scoped() when
+  encoder->bridge_chain is empty, reported here:
+  https://lore.kernel.org/lkml/202509301358.38036b85-lkp@intel.com/
+- Slightly improved commit message
+---
+ include/drm/drm_bridge.h | 73 +++++++++++++++++++++++++++++++-----------------
+ 1 file changed, 47 insertions(+), 26 deletions(-)
+
+diff --git a/include/drm/drm_bridge.h b/include/drm/drm_bridge.h
+index 66ab89cf48aa..9aa10219ae36 100644
+--- a/include/drm/drm_bridge.h
++++ b/include/drm/drm_bridge.h
+@@ -1456,26 +1456,37 @@ drm_bridge_chain_get_last_bridge(struct drm_encoder *encoder)
+ 						      struct drm_bridge, chain_node));
+ }
+ 
+-/**
+- * drm_bridge_get_next_bridge_and_put - Get the next bridge in the chain
+- *                                      and put the previous
+- * @bridge: bridge object
+- *
+- * Same as drm_bridge_get_next_bridge() but additionally puts the @bridge.
+- *
+- * RETURNS:
+- * the next bridge in the chain after @bridge, or NULL if @bridge is the last.
+- */
+-static inline struct drm_bridge *
+-drm_bridge_get_next_bridge_and_put(struct drm_bridge *bridge)
++/* Internal to drm_for_each_bridge_in_chain*() */
++static inline struct drm_bridge *__drm_for_each_bridge_in_chain_next(struct drm_bridge *bridge)
+ {
+ 	struct drm_bridge *next = drm_bridge_get_next_bridge(bridge);
+ 
++	if (!next)
++		mutex_unlock(&bridge->encoder->bridge_chain_mutex);
++
+ 	drm_bridge_put(bridge);
+ 
+ 	return next;
+ }
+ 
++/* Internal to drm_for_each_bridge_in_chain*() */
++DEFINE_FREE(__drm_for_each_bridge_in_chain_cleanup, struct drm_bridge *,
++	if (_T) { mutex_unlock(&_T->encoder->bridge_chain_mutex); drm_bridge_put(_T); })
++
++/* Internal to drm_for_each_bridge_in_chain_scoped() */
++static inline struct drm_bridge *
++__drm_for_each_bridge_in_chain_scoped_start(struct drm_encoder *encoder)
++{
++	mutex_lock(&encoder->bridge_chain_mutex);
++
++	struct drm_bridge *bridge = drm_bridge_chain_get_first_bridge(encoder);
++
++	if (!bridge)
++		mutex_unlock(&encoder->bridge_chain_mutex);
++
++	return bridge;
++}
++
  /**
-  * drm_bridge_chain_mode_valid - validate the mode against all bridges in the
-  *				 encoder chain.
-- * @bridge: bridge control structure
-+ * @first_bridge: bridge control structure
-  * @info: display info against which the mode shall be validated
-  * @mode: desired mode to be validated
+  * drm_for_each_bridge_in_chain_scoped - iterate over all bridges attached
+  *                                       to an encoder
+@@ -1485,14 +1496,24 @@ drm_bridge_get_next_bridge_and_put(struct drm_bridge *bridge)
   *
-@@ -739,17 +739,14 @@ void drm_bridge_detach(struct drm_bridge *bridge)
-  * MODE_OK on success, drm_mode_status Enum error code on failure
+  * Iterate over all bridges present in the bridge chain attached to @encoder.
+  *
+- * Automatically gets/puts the bridge reference while iterating, and puts
+- * the reference even if returning or breaking in the middle of the loop.
++ * Automatically gets/puts the bridge reference while iterating and locks
++ * the encoder chain mutex to prevent chain modifications while iterating.
   */
+-#define drm_for_each_bridge_in_chain_scoped(encoder, bridge)		\
+-	for (struct drm_bridge *bridge __free(drm_bridge_put) =		\
+-	     drm_bridge_chain_get_first_bridge(encoder);		\
+-	     bridge;							\
+-	     bridge = drm_bridge_get_next_bridge_and_put(bridge))
++#define drm_for_each_bridge_in_chain_scoped(encoder, bridge)				\
++	for (struct drm_bridge *bridge __free(__drm_for_each_bridge_in_chain_cleanup) =	\
++		__drm_for_each_bridge_in_chain_scoped_start((encoder));			\
++	     bridge;									\
++	     bridge = __drm_for_each_bridge_in_chain_next(bridge))			\
++
++/* Internal to drm_for_each_bridge_in_chain_from() */
++static inline struct drm_bridge *
++__drm_for_each_bridge_in_chain_from_start(struct drm_bridge *bridge)
++{
++	drm_bridge_get(bridge);
++	mutex_lock(&bridge->encoder->bridge_chain_mutex);
++
++	return bridge;
++}
+ 
+ /**
+  * drm_for_each_bridge_in_chain_from - iterate over all bridges starting
+@@ -1504,14 +1525,14 @@ drm_bridge_get_next_bridge_and_put(struct drm_bridge *bridge)
+  * Iterate over all bridges in the encoder chain starting from
+  * @first_bridge, included.
+  *
+- * Automatically gets/puts the bridge reference while iterating, and puts
+- * the reference even if returning or breaking in the middle of the loop.
++ * Automatically gets/puts the bridge reference while iterating and locks
++ * the encoder chain mutex to prevent chain modifications while iterating.
+  */
+-#define drm_for_each_bridge_in_chain_from(first_bridge, bridge)		\
+-	for (struct drm_bridge *bridge __free(drm_bridge_put) =		\
+-		     drm_bridge_get(first_bridge);			\
+-	     bridge;							\
+-	     bridge = drm_bridge_get_next_bridge_and_put(bridge))
++#define drm_for_each_bridge_in_chain_from(first_bridge, bridge)				\
++	for (struct drm_bridge *bridge __free(__drm_for_each_bridge_in_chain_cleanup) =	\
++		__drm_for_each_bridge_in_chain_from_start(first_bridge);		\
++	     bridge;									\
++	     bridge = __drm_for_each_bridge_in_chain_next(bridge))			\
+ 
  enum drm_mode_status
--drm_bridge_chain_mode_valid(struct drm_bridge *bridge,
-+drm_bridge_chain_mode_valid(struct drm_bridge *first_bridge,
- 			    const struct drm_display_info *info,
- 			    const struct drm_display_mode *mode)
- {
--	struct drm_encoder *encoder;
--
--	if (!bridge)
-+	if (!first_bridge)
- 		return MODE_OK;
- 
--	encoder = bridge->encoder;
--	list_for_each_entry_from(bridge, &encoder->bridge_chain, chain_node) {
-+	drm_for_each_bridge_in_chain_from(first_bridge, bridge) {
- 		enum drm_mode_status ret;
- 
- 		if (!bridge->funcs->mode_valid)
-@@ -767,7 +764,7 @@ EXPORT_SYMBOL(drm_bridge_chain_mode_valid);
- /**
-  * drm_bridge_chain_mode_set - set proposed mode for all bridges in the
-  *			       encoder chain
-- * @bridge: bridge control structure
-+ * @first_bridge: bridge control structure
-  * @mode: desired mode to be set for the encoder chain
-  * @adjusted_mode: updated mode that works for this encoder chain
-  *
-@@ -776,20 +773,16 @@ EXPORT_SYMBOL(drm_bridge_chain_mode_valid);
-  *
-  * Note: the bridge passed should be the one closest to the encoder
-  */
--void drm_bridge_chain_mode_set(struct drm_bridge *bridge,
-+void drm_bridge_chain_mode_set(struct drm_bridge *first_bridge,
- 			       const struct drm_display_mode *mode,
- 			       const struct drm_display_mode *adjusted_mode)
- {
--	struct drm_encoder *encoder;
--
--	if (!bridge)
-+	if (!first_bridge)
- 		return;
- 
--	encoder = bridge->encoder;
--	list_for_each_entry_from(bridge, &encoder->bridge_chain, chain_node) {
-+	drm_for_each_bridge_in_chain_from(first_bridge, bridge)
- 		if (bridge->funcs->mode_set)
- 			bridge->funcs->mode_set(bridge, mode, adjusted_mode);
--	}
- }
- EXPORT_SYMBOL(drm_bridge_chain_mode_set);
- 
-@@ -1013,7 +1006,7 @@ EXPORT_SYMBOL(drm_atomic_bridge_chain_pre_enable);
- 
- /**
-  * drm_atomic_bridge_chain_enable - enables all bridges in the encoder chain
-- * @bridge: bridge control structure
-+ * @first_bridge: bridge control structure
-  * @state: atomic state being committed
-  *
-  * Calls &drm_bridge_funcs.atomic_enable (falls back on
-@@ -1023,22 +1016,18 @@ EXPORT_SYMBOL(drm_atomic_bridge_chain_pre_enable);
-  *
-  * Note: the bridge passed should be the one closest to the encoder
-  */
--void drm_atomic_bridge_chain_enable(struct drm_bridge *bridge,
-+void drm_atomic_bridge_chain_enable(struct drm_bridge *first_bridge,
- 				    struct drm_atomic_state *state)
- {
--	struct drm_encoder *encoder;
--
--	if (!bridge)
-+	if (!first_bridge)
- 		return;
- 
--	encoder = bridge->encoder;
--	list_for_each_entry_from(bridge, &encoder->bridge_chain, chain_node) {
-+	drm_for_each_bridge_in_chain_from(first_bridge, bridge)
- 		if (bridge->funcs->atomic_enable) {
- 			bridge->funcs->atomic_enable(bridge, state);
- 		} else if (bridge->funcs->enable) {
- 			bridge->funcs->enable(bridge);
- 		}
--	}
- }
- EXPORT_SYMBOL(drm_atomic_bridge_chain_enable);
- 
+ drm_bridge_chain_mode_valid(struct drm_bridge *bridge,
 
 -- 
 2.53.0
