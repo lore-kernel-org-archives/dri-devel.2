@@ -4,96 +4,133 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A3CEBF54AB9
-	for <dri-devel@archiver.kernel.org>; Tue, 24 Mar 2026 13:32:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9A463F54AB9
+	for <dri-devel@archiver.kernel.org>; Tue, 24 Mar 2026 13:36:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 08CF610E6D0;
-	Tue, 24 Mar 2026 13:32:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D812010E12E;
+	Tue, 24 Mar 2026 13:36:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ePsdTKWm";
+	dkim=pass (2048-bit key; unprotected) header.d=nxp.com header.i=@nxp.com header.b="kUW/fOxg";
 	dkim-atps=neutral
-Received: from mail-dl1-f44.google.com (mail-dl1-f44.google.com [74.125.82.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 006BC10E6D0
- for <dri-devel@lists.freedesktop.org>; Tue, 24 Mar 2026 13:32:03 +0000 (UTC)
-Received: by mail-dl1-f44.google.com with SMTP id
- a92af1059eb24-1277863a912so507096c88.0
- for <dri-devel@lists.freedesktop.org>; Tue, 24 Mar 2026 06:32:03 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1774359123; cv=none;
- d=google.com; s=arc-20240605;
- b=WH9pYGX4Mu2BiLWwXK40Q2fU8v4qXlYMD2Jajg9cPFV2jgYb9G04FqzOvlJXXUvfsA
- 4mrSK8NL34IN+pULG/jAiQXZG5anEgzABA9UHItD1WCk9wvTqeVY1eA7yfKk53NSYiJD
- 1z3nmqgHkN9VAF9M8Nv6De3MMKEwd4mZbtHHRYfWknLRomwZ8+mQhMsapzJqMi6DjSW8
- xuSIEZ0JiHTVDL5GDtpWSv/y+0UPzCu5OK2DkHbYYif4b6sEHITLUcj/MQMTbG1mXn3U
- Q7/EWOMzKNSA9TsASCheo4Gxa+Cu6p1tS3BDxBXPfbT03OFXTDK5yEJghmHCHDmbp2xP
- dJMA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=j5883fLgA4Kxp5uDjU6jNZrlbfEleppgZMvpZ9qx8xQ=;
- fh=2wmsj/IAQHbcllOQdizRK2Ntg3YRPEE2Ll7/OKMliTk=;
- b=YtmT/fa4w9Fsp/D/IKMgTlQ8yIIUnx2eIoOsT+VTQySDjsIsRlxgAdlCiTHMnHHYfx
- h/8m0mjZQmZjPAKTlUFK4sMvCx98HuGqsQrVlQR3S/Pt16yErGjWkSU4a3I1VAuwNMKq
- ANCkd0vV0VVLjedsb7NN/LaMeqfEALoNuo9RsKXhN7p2Yi+5/CxKM9XCl3i7QtI0gXN/
- v6Sb2Rh9+9QtO588W4XxA7eyx+t9U8dRuVDi2d6RtvuQuTrgMEFj467EApGiNwlIgMAJ
- VaZ820joTQubtMEIqHGZ2ex/L5m0GUheOFAgYJNlZV8kKLpD3DrkXZcsh1VT/0T1qcPA
- 0SGQ==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1774359123; x=1774963923; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=j5883fLgA4Kxp5uDjU6jNZrlbfEleppgZMvpZ9qx8xQ=;
- b=ePsdTKWmlKuBLhY5gaor493LRdIvw/A9fOukZ3DnwdE2Ke2GTeZHcrOK4stEuEuX0W
- GJhG+RZ+lmyMq6c4JqoIV5s/TSoO9NZFtVdgEQ3ryPjx/WESg0phz+JcAp1EJF7W8nbO
- ISaeDgZN56cjUhirq4KIApK8sC5Bo7HN1f1Ih4L/lBUiU91T9TaW9llOwmKFQ5v3Tqy3
- mOJjAz6UqvxQlGiQhBu9/wFVIf2i9bfhWsfgUIXE6ftRtvSYzvmFl6LPwFJC2reeJHaU
- jlj3M+HBFdONmXCqpMkxYetZhgd/n69YpWJHpFLodCIfriQxf7U19krfyNQb7cVjKXNi
- eqQA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774359123; x=1774963923;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=j5883fLgA4Kxp5uDjU6jNZrlbfEleppgZMvpZ9qx8xQ=;
- b=o1FR8r3p7QHXc52iSmFp/TxAU4ehIFdpkFPPos1N3rrh+7n4cWvd7As8FdpxesWmZr
- Y33yJuze7epIiV0ML2AmPwNUL20hzgJJ+ALZQkFFTXTyfN72WDucAUpKrOIRGQk0wj5t
- 6ywjJFElOaCHiTd4307dSGvKzI4UPjixdGZucZhnqLTj1UTa3Y+Y/8ImtIYUKHct4rpF
- bHA2oqhzMKCeeVi8c4a1SSbQPQhkWTTC+1JqMxstWJrbb2LdR3d+2EBSo2sjg2gl4GBi
- ZG/VuEKqSsyUg+A6VSPKd9MWZzxMvE2Nkz1n+tsw8hA0FL8ha3DgxxJiUXB2SiolASlp
- 0vVQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWY28tRt4ikQ07agMBi0XDApDolcHsSYGKySUbnx5PqL9SAUYdRrfdYoVTkTonbySDDEWqK2lpwECg=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yw899bzAaAZqaX0FSA3PLKHS/IpTiPBqA0+SUELfm/GIvBIILnB
- Y8blYWhXVq8w8PyYKnbWZ/6GZw/73y+DbPrGG0vQnIioNdLfLb76iOk0O0oxTZcVYJ+fEU4t7j3
- tKimFCtRaNy7wLbdvtpY8AjV9E/FmNxc=
-X-Gm-Gg: ATEYQzyZf8NypAaEWqR2o+s1cgbCeEudkgh/gNObL+tYnCc/gHK0tyuh3klnm8ezcOS
- N0qUqK1LSvMEDLi197QM+mo12Z2n/566Crv4yFXA6knFhNQp5xFsbhKmWxujU+X1Sb7X43/n9b2
- JFB6Y7Wew3LszT3W9N9W79Omb3sudJ0WACxofN3CWKE/NsxUOnP0tlptxhrTHOVel1qpWFHhrz4
- pozXI4AOHjQ/Czb4iFiytZZDAM/xpoWvTsFL3l1tsYhvQSD06Zo7zVqNPvbgo7VXRvjfQSZ0Lpd
- sQxvzddnl38OQWQEgH2FFtFzEYsSpGjnVEQxqY8bwuDkzTJNoZVWnZB3Djg3DKkFgnPumg==
-X-Received: by 2002:a05:7022:60c:b0:127:def:dd72 with SMTP id
- a92af1059eb24-12a72646221mr3600922c88.2.1774359123172; Tue, 24 Mar 2026
- 06:32:03 -0700 (PDT)
-MIME-Version: 1.0
-References: <SYBPR01MB78816FAF00EC3DADFA588E0CAF48A@SYBPR01MB7881.ausprd01.prod.outlook.com>
-In-Reply-To: <SYBPR01MB78816FAF00EC3DADFA588E0CAF48A@SYBPR01MB7881.ausprd01.prod.outlook.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 24 Mar 2026 09:31:51 -0400
-X-Gm-Features: AaiRm5082bmB1vEFeF97G50_iqqBjFx7HoPxAOrnxaX1HwxWGKygBeGTgapRc_0
-Message-ID: <CADnq5_N83j3ZjNKXH2K8jEod0s64JB_pdugGsx4AURoPjpveSA@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: validate doorbell_offset in user queue
- creation
-To: Junrui Luo <moonafterrain@outlook.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Shashank Sharma <shashank.sharma@amd.com>, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Yuhao Jiang <danisjiang@gmail.com>, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Received: from AS8PR04CU009.outbound.protection.outlook.com
+ (mail-westeuropeazon11011058.outbound.protection.outlook.com [52.101.70.58])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BC34A10E12E
+ for <dri-devel@lists.freedesktop.org>; Tue, 24 Mar 2026 13:36:52 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=UI/hCC1thlhlS8PVm2BSryfE76o6HTPphKa/HDSHVWSWf9VM+QmHYkO/E1Pm3GFAzGnYXiihcmNPCQ/KHdATZCvhpX0hrMor8xNt+O/Mo6cxboe8elH6WLvII6gN85azcghosmd5rf586DSsQRnNryRhAK/p0AGdwoPHNANilqU7MM3sboLnsCtHVffxwFu+L9WTQ5ZWpajVPRFEdKbOA9+W45WAj3aZeIXNg/+4NM5u8YZRdrXyYKnNpJCwROY871PmYRDtFdVraX4yPiLjhRWcnNbpOF+i/ze6qU5JYJmN3MBUpNzt2LHheV/bRh+96+ZtiI1wnM7X80N1iIkP1w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=xhIQ1SBclHKw+Q8c8AXe0Esq5oz+eGAWfktGJnFBl0Y=;
+ b=fplOjtIyrfVmV7pLsX7stBu1moG/B6MQ7+wVbfocuCAzlFRuBxvh9p0Q4P1kESV6jALUAJ0Y3HH8SD/1Q2vMRbaK28zs+UTZEOC7i/KrXoBZ7/RyrJ7yJPMavI27EDH5imeuma/MJt8RhwDlre4Dy3v9oTfvbuW+ziDmU03liixYB7E0R1da2VloPeAYJzSCJg4Q1wTIPP+vUYuaq3RKqldqU/plXvWFZk7fEk++nTRxKKrQGfpfblClLGsVgZlOdHxKCm7BGP3UpVBoUw0+VuwVzF8awgv2FGMlAbDc+BBNhAx+iEGbO1NSxOfqBhYMyzs54Q902yPbd9eVV7kM5A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=xhIQ1SBclHKw+Q8c8AXe0Esq5oz+eGAWfktGJnFBl0Y=;
+ b=kUW/fOxg/RaxOU9OcpHHwtA0AaecN5hBtrHo5Ddqm6SXm1JFBzJIGtmlYLPsmiGxsRG1nXtjPfK4P+FcyDrRJJBpplO/V6/3tYmZwo1sNRmgBGqOeVAXaR9eyugjvlkuAa6YYDeqasBFY5GQK1qyUAqYuhpInV99zqp3VCYfxWoQ0t2wmyW2Y7G+nTicpsJUwWm3wQVExhVBRpfzPHCMG37mHbmzTGcQvFPilJcaIUkOJTA5FLWpMQzWnLfT3bNtAPTYFvkJZOEl8oh9oxJEvYpwAk6OpN+GzGPIDoxT03DMIiEhIi717sWFQl+D3kbQqHUgVAHdllhlFEGDx6PZUg==
+Received: from PAXPR04MB9424.eurprd04.prod.outlook.com (2603:10a6:102:2b2::13)
+ by PAWPR04MB9765.eurprd04.prod.outlook.com (2603:10a6:102:389::6)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.31; Tue, 24 Mar
+ 2026 13:36:43 +0000
+Received: from PAXPR04MB9424.eurprd04.prod.outlook.com
+ ([fe80::671d:216f:d493:44ce]) by PAXPR04MB9424.eurprd04.prod.outlook.com
+ ([fe80::671d:216f:d493:44ce%4]) with mapi id 15.20.9723.022; Tue, 24 Mar 2026
+ 13:36:37 +0000
+From: Ioana Ciocoi Radulescu <ruxandra.radulescu@nxp.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>, Oded Gabbay <ogabbay@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Sumit Semwal
+ <sumit.semwal@linaro.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
+ <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Shawn Guo
+ <shawnguo@kernel.org>, Frank Li <frank.li@nxp.com>,
+ =?iso-8859-1?Q?Christian_K=F6nig?= <christian.koenig@amd.com>
+CC: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "imx@lists.linux.dev" <imx@lists.linux.dev>,
+ "linux-arm-kernel@lists.infradead.org"
+ <linux-arm-kernel@lists.infradead.org>, "linux-media@vger.kernel.org"
+ <linux-media@vger.kernel.org>, "linaro-mm-sig@lists.linaro.org"
+ <linaro-mm-sig@lists.linaro.org>, Jiwei Fu <jiwei.fu@nxp.com>, Forrest Shi
+ <xuelin.shi@nxp.com>, Alexandru Iulian Taran <alexandru.taran@nxp.com>,
+ Daniel Baluta <daniel.baluta@nxp.com>
+Subject: RE: [PATCH v2 4/9] accel/neutron: Add driver for NXP Neutron NPU
+Thread-Topic: [PATCH v2 4/9] accel/neutron: Add driver for NXP Neutron NPU
+Thread-Index: AQHcrW0UFol7c/rrhUWH45PRn/N4EbWhjjwAgBw7vqA=
+Date: Tue, 24 Mar 2026 13:36:37 +0000
+Message-ID: <PAXPR04MB9424461788159F730884F9F39448A@PAXPR04MB9424.eurprd04.prod.outlook.com>
+References: <20260306-neutron-v2-0-3019bd8c91ef@nxp.com>
+ <20260306-neutron-v2-4-3019bd8c91ef@nxp.com>
+ <110dace9-3ff9-4750-813f-93c6827b105c@kernel.org>
+In-Reply-To: <110dace9-3ff9-4750-813f-93c6827b105c@kernel.org>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: PAXPR04MB9424:EE_|PAWPR04MB9765:EE_
+x-ms-office365-filtering-correlation-id: e597c0ac-3b0e-4f5d-6340-08de89aa5fcf
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|376014|7416014|1800799024|366016|19092799006|38070700021|921020|18002099003|22082099003|56012099003;
+x-microsoft-antispam-message-info: 4/KnLqZUXvPYBH4vN/okmUyXk4OPiEdhPT/NsEzNNnUeEtRCSe7kMYhFz19l8kfw3QYL9oMz7QfCuqnrAZZlyLBa02bwjhG+6w64gSemxrDa11d4r7pElS1UWSWcJqPx+7fVLQggY44IA1P27EvGJfMpeOOcniDlyXo4uhpSjndjhzOQOgWfpo41NScUKVBlk1wr9V/nipRnSon9j9VxoVZlfXdvt5HnhOjzQl96ThzXFw9Mor/I2t9Fkt+mtK2jMG1QiKC4a2z/iKwbSu8QfgPz5d67Jm1QSnbVvxeAGlFZR9d2D8BtGkv5nAB3o7o6qIlw7lLCz3VQpoEP3wqmCvIaX8IfWtxaZNZMyyqIry9E3UQfQOnwabeX+fj8QH0F9ep0ZaNkyfEi9CGdYqA7tzrDUkYKNXsxY0TkPsY/j9AvLK+445ua0C6Yx8KaLrM4vzzpGnj52f3dq7efWksEo1kCIU9j8Bx4wUgriMagt3kfqwrnFbHhVagIoj2EvDbmK3bIrujK0cH+zs0RAAk1LQP+ZTkGi2e+6SKxL4tDtoAeT9vL3pDGdb6Z40LFQj0XqZ13b23NWebU7bC3Lik+l3939vBbz9FOhbUzfcwfohgPufptsJ68yfM2HBlCz2P3lnFBD/3MonSUhLf3JxmNxnDerNSyjAVGNrYT9oRmvXV7v71OHDF7BjZlwNo1dErOgejocN8aClhinbW2Odv5nOqwih3NI4LJ2irUFXdL+hIm+BKVVlmePzwbYvusFqhXtOnhLDOL5gD18gPClGq3Dg==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PAXPR04MB9424.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(7416014)(1800799024)(366016)(19092799006)(38070700021)(921020)(18002099003)(22082099003)(56012099003);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?lwyAYR148TNzzl1QT8LGoqpuh5R1Y8Fnxf/cisCflxIqrC+9wPCdAjDqBP?=
+ =?iso-8859-1?Q?nVV7ib5QnC/0fMCbsR60iZykLkqDj6f8XHYszh9e3i8fU7LD1vYj9KN+ES?=
+ =?iso-8859-1?Q?lB7ONsv8KlhtWWiDiNMFCUX1glbpiCvqpvaSlCZ3t+8zdEtrwWxsiYE4e4?=
+ =?iso-8859-1?Q?DKtILmqtKI4FnptguDETTbNorBFU/YXCC5PmWF0iN8cQSEwJx3hGeylERa?=
+ =?iso-8859-1?Q?JjEQuZYQ/7WOKXXRe8oucPL/Y/DNK6BnFwssCNk3mcTjYzDF2RNzIczvli?=
+ =?iso-8859-1?Q?QTnqdjaQTTyYC+UBxZwf7eYYYymC0gRdBMDGMDtfd/hqBQMSBk2jo58Py2?=
+ =?iso-8859-1?Q?Ru03UmJjE8b4pin0Ej6ogTQSiRmDy9dHh2nSpyzO6Eg8HyM2U/E7MUsq/X?=
+ =?iso-8859-1?Q?NQ/tAg+MugpfcSABb2fnPC0mmJ/d8SXbhAnddpcSmCODlQm3F5YJ29ZIzG?=
+ =?iso-8859-1?Q?uIIDIk2QVol3q1LtJkYhhcVtPILsp4d1PemkjisXd+xeC90HdnH4rrfJC5?=
+ =?iso-8859-1?Q?OcBc2paa78f8+BrrhtxbSK3RmeC5ul7FzEiEwnsF1obBLqOqIesfVRmiX+?=
+ =?iso-8859-1?Q?nwVxYlbmYcOAMDfa5s5SpLHEoButKb3a+SUfSnRwMKijbyrck5oJkBou4h?=
+ =?iso-8859-1?Q?Zb6qAsVF+TbmP4w+9rMiltKtEVvhDnoXV0d70J7RYLKJPOllclQ7hCVAIO?=
+ =?iso-8859-1?Q?5pmR6vXw3oDBBnafxGYqWolqX3t+lm33SUPG8hprNXxF/xNFvy5jp5vUtB?=
+ =?iso-8859-1?Q?W/u3qHuGx7pBO9RGCUVHMIlVW0qyzlDhPDhUbaJM5Gn501J/iYhKiuOKnH?=
+ =?iso-8859-1?Q?Djttynq5+jtbpy+NCNUJjzHIC3/d+X/RKzXur6bCdMfG2dL7hF2dF9zDBK?=
+ =?iso-8859-1?Q?Z6d7VjFl22BeETPhAaKqXe7lXA06/b7fhf82rhCVG/QJwhj4W9himfbg84?=
+ =?iso-8859-1?Q?lVcZ8fX8ksrYy4OYx6P97ExLILtAuKx2QIhwKyJVvplPNPsD6V/mqeq+kT?=
+ =?iso-8859-1?Q?Uh8c+3ra/PUFDp4dMKsBFMiy1LTO09vo6tcW0jDqUUI2SJyIGw65AwTRTO?=
+ =?iso-8859-1?Q?Wya2PXcUATbQ1vorTuJM/zwy67AVgGqQIzNYaze4kmPsPtZhs9nimwPnBf?=
+ =?iso-8859-1?Q?PJ0MjPWELC3GWJUFdYjjnNHdMqH4ZLcKU486qtLVilXdbUcUXzGeUYNhI6?=
+ =?iso-8859-1?Q?KRoUsqN/bvIaSNEIySQoh46xrtgsW9j2g3V9sI9MApbDWANB0AOVwaAtUQ?=
+ =?iso-8859-1?Q?z+gdKsOrlIlaPMZQsV8DZ6eQLuX55E2/Pu0AnJRsVBZITkglZ08sY/jnIL?=
+ =?iso-8859-1?Q?p9NrapBuXLL2sPlKRALyfTH5CUwp8h2zEYRlRP20zwGcukvHlpbIWRS5Mt?=
+ =?iso-8859-1?Q?6RgsTNCip6j4k9/D+Jin/aAERJDt26hWwWgPs0BBqizz1T4qt+uarHPMn6?=
+ =?iso-8859-1?Q?AFMSHRZf3fIkBO658ZGvPEGWiF60gYkE9zgQxfatoPrI4Div5/lGhautJx?=
+ =?iso-8859-1?Q?ejGZSPtT46Spz8flhf6Zm6ki6KSIZGZzBOssK0Ek35CbVqbYcuTHyc6cPl?=
+ =?iso-8859-1?Q?6Bmj76szsDwNG6exCBOPruJ7lUYYdUo7Z7JgOFntcWafCeBrOS7YDlwylW?=
+ =?iso-8859-1?Q?uSEcq/shYNeDoHiMmTWffCcF6YSvVvlqpCYBRu6V8GwRjjQKUNT2nQDbOf?=
+ =?iso-8859-1?Q?IOocz4u8lIxMPpO80kH1D48xRsVrq3yEKtVvZlBMutI2OZeGFbYsvjMKGT?=
+ =?iso-8859-1?Q?zEbYY19h3naUQqm/PquLhw5rWU0dFRDdIW4Ux6umX31GBaHAeS3Z1muVHd?=
+ =?iso-8859-1?Q?H6H2Gosh0A=3D=3D?=
+Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: PAXPR04MB9424.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e597c0ac-3b0e-4f5d-6340-08de89aa5fcf
+X-MS-Exchange-CrossTenant-originalarrivaltime: 24 Mar 2026 13:36:37.7720 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: A8Z2QEOs0bVPHY8QhX5+CeUgbdunAuougPCvGIpozEE2Xrd/fbRE6H4LmnFl9I6nXfMd8UDzkLxvJ0DwL9RC6vtiFR4QpdP825u6KnJLAK8=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAWPR04MB9765
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,55 +146,202 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Applied.  Thanks!
+On Friday, March 6, 2026 at 4:22 PM, Krzysztof Kozlowski wrote:
+> On 06/03/2026 14:27, Ioana Ciocoi-Radulescu wrote:
+> >
+> > diff --git a/MAINTAINERS b/MAINTAINERS index
+> > 8a5b27b061da..f7a687eb6b54 100644
+> > --- a/MAINTAINERS
+> > +++ b/MAINTAINERS
+> > @@ -19191,6 +19191,16 @@ S:	Orphan
+> >  F:	Documentation/devicetree/bindings/net/nfc/nxp,nci.yaml
+> >  F:	drivers/nfc/nxp-nci
+> >
+> > +NXP Neutron NPU DRIVER
+>=20
+> s/Neutron/NEUTRON/ as everything here is in uppercase
 
-On Tue, Mar 24, 2026 at 5:49=E2=80=AFAM Junrui Luo <moonafterrain@outlook.c=
-om> wrote:
->
-> amdgpu_userq_get_doorbell_index() passes the user-provided
-> doorbell_offset to amdgpu_doorbell_index_on_bar() without bounds
-> checking. An arbitrarily large doorbell_offset can cause the
-> calculated doorbell index to fall outside the allocated doorbell BO,
-> potentially corrupting kernel doorbell space.
->
-> Validate that doorbell_offset falls within the doorbell BO before
-> computing the BAR index, using u64 arithmetic to prevent overflow.
->
-> Fixes: f09c1e6077ab ("drm/amdgpu: generate doorbell index for userqueue")
-> Reported-by: Yuhao Jiang <danisjiang@gmail.com>
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Junrui Luo <moonafterrain@outlook.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 7 +++++++
->  1 file changed, 7 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/=
-amd/amdgpu/amdgpu_userq.c
-> index 7c450350847d..0a1b93259887 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-> @@ -600,6 +600,13 @@ amdgpu_userq_get_doorbell_index(struct amdgpu_userq_=
-mgr *uq_mgr,
->                 goto unpin_bo;
->         }
->
-> +       /* Validate doorbell_offset is within the doorbell BO */
-> +       if ((u64)db_info->doorbell_offset * db_size + db_size >
-> +           amdgpu_bo_size(db_obj->obj)) {
-> +               r =3D -EINVAL;
-> +               goto unpin_bo;
-> +       }
-> +
->         index =3D amdgpu_doorbell_index_on_bar(uq_mgr->adev, db_obj->obj,
->                                              db_info->doorbell_offset, db=
-_size);
->         drm_dbg_driver(adev_to_drm(uq_mgr->adev),
->
-> ---
-> base-commit: c369299895a591d96745d6492d4888259b004a9e
-> change-id: 20260324-fixes-9ee6cab7bc47
->
+Ok.
+
+>=20
+> > +M:	Ioana Ciocoi Radulescu <ruxandra.radulescu@nxp.com>
+> > +M:	Jiwei Fu <jiwei.fu@nxp.com>
+> > +L:	dri-devel@lists.freedesktop.org
+> > +S:	Maintained
+> > +T:	git https://gitlab.freedesktop.org/drm/misc/kernel.git
+> > +F:	Documentation/accel/neutron/
+> > +F:	drivers/accel/neutron/
+> > +F:	include/uapi/drm/neutron_accel.h
+>=20
+>=20
+> >
+> > diff --git a/drivers/accel/Makefile b/drivers/accel/Makefile index
+> > 1d3a7251b950..698136e12cce 100644
+> > --- a/drivers/accel/Makefile
+> > +++ b/drivers/accel/Makefile
+> > @@ -4,5 +4,6 @@ obj-$(CONFIG_DRM_ACCEL_AMDXDNA)		+=3D
+> amdxdna/
+> >  obj-$(CONFIG_DRM_ACCEL_ARM_ETHOSU)	+=3D ethosu/
+> >  obj-$(CONFIG_DRM_ACCEL_HABANALABS)	+=3D habanalabs/
+> >  obj-$(CONFIG_DRM_ACCEL_IVPU)		+=3D ivpu/
+> > +obj-$(CONFIG_DRM_ACCEL_NXP_NEUTRON)	+=3D neutron/
+> >  obj-$(CONFIG_DRM_ACCEL_QAIC)		+=3D qaic/
+> > -obj-$(CONFIG_DRM_ACCEL_ROCKET)		+=3D rocket/
+> > \ No newline at end of file
+>=20
+> You still have patch warnings.
+
+Yeah, so the last line of this Makefile lacked the line ending and vim
+fixed that on its own when I edited the file. I can add the neutron line
+and leave the rest untouched, just making sure this is what you're
+requesting?
+
+>=20
+> > +obj-$(CONFIG_DRM_ACCEL_ROCKET)		+=3D rocket/
+> > diff --git a/drivers/accel/neutron/Kconfig
+> > b/drivers/accel/neutron/Kconfig new file mode 100644 index
+> > 000000000000..37b8ecb49804
+> > --- /dev/null
+> > +++ b/drivers/accel/neutron/Kconfig
+> > @@ -0,0 +1,16 @@
+> > +# SPDX-License-Identifier: GPL-2.0+
+> > +
+> > +config DRM_ACCEL_NXP_NEUTRON
+> > +	tristate "NXP Neutron NPU"
+> > +	depends on HAS_IOMEM
+> > +	depends on DRM_ACCEL
+> > +	depends on ARCH_MXC
+>=20
+> Missing compile test
+
+Will add.
+
+>=20
+> > +	select DRM_GEM_DMA_HELPER
+> > +	select DRM_SCHED
+> > +	help
+> > +	  Enables driver for NXP Neutron NPU.
+> > +
+> > +	  Select this if you have an NXP SoC with Neutron, like i.MX95,
+> > +	  and want to run machine learning applications.
+> > +
+> > +	  If built as module, the module is named neutron.
+>=20
+> ...
+>=20
+> > +
+> > +	ret =3D devm_request_threaded_irq(dev, ndev->irq, NULL,
+> > +					neutron_irq_handler_thread,
+> > +					IRQF_ONESHOT, KBUILD_MODNAME,
+> ndev);
+> > +	if (ret) {
+> > +		dev_err(dev, "Failed to request irq %d\n", ndev->irq);
+>=20
+> Drop, not needed.
+
+Ok
+
+>=20
+> > +		return ret;
+> > +	}
+> > +
+> > +	ret =3D of_reserved_mem_device_init(&pdev->dev);
+> > +	if (ret) {
+> > +		dev_err(dev, "Failed to initialize reserved memory\n");
+> > +		return ret;
+> > +	}
+> > +
+> > +	ret =3D devm_pm_runtime_enable(dev);
+> > +	if (ret)
+> > +		goto free_reserved;
+> > +
+> > +	pm_runtime_set_autosuspend_delay(dev,
+> NEUTRON_SUSPEND_DELAY_MS);
+> > +	pm_runtime_use_autosuspend(dev);
+> > +
+> > +	ret =3D drm_dev_register(&ndev->base, 0);
+> > +	if (ret)
+> > +		goto free_reserved;
+> > +
+> > +	return 0;
+> > +
+> > +free_reserved:
+> > +	of_reserved_mem_device_release(&pdev->dev);
+> > +
+> > +	return ret;
+> > +}
+> > +
+> > +static void neutron_remove(struct platform_device *pdev) {
+> > +	struct neutron_device *ndev =3D platform_get_drvdata(pdev);
+> > +
+> > +	drm_dev_unregister(&ndev->base);
+> > +	of_reserved_mem_device_release(&pdev->dev);
+> > +}
+> > +
+> > +static int neutron_runtime_suspend(struct device *dev) {
+> > +	struct neutron_device *ndev =3D dev_get_drvdata(dev);
+> > +
+> > +	neutron_disable_irq(ndev);
+> > +	neutron_shutdown(ndev);
+> > +
+> > +	clk_bulk_disable_unprepare(ndev->num_clks, ndev->clks);
+> > +
+> > +	return 0;
+> > +}
+> > +
+> > +static int neutron_runtime_resume(struct device *dev) {
+> > +	struct neutron_device *ndev =3D dev_get_drvdata(dev);
+> > +	int ret;
+> > +
+> > +	ret =3D clk_bulk_prepare_enable(ndev->num_clks, ndev->clks);
+> > +	if (ret)
+> > +		return ret;
+> > +
+> > +	ret =3D neutron_boot(ndev);
+> > +	if (ret) {
+> > +		clk_bulk_disable_unprepare(ndev->num_clks, ndev->clks);
+> > +		return ret;
+> > +	}
+> > +
+> > +	neutron_enable_irq(ndev);
+> > +
+> > +	return 0;
+> > +}
+> > +
+> > +static const struct dev_pm_ops neutron_pm_ops =3D {
+> > +	SYSTEM_SLEEP_PM_OPS(pm_runtime_force_suspend,
+> pm_runtime_force_resume)
+> > +	RUNTIME_PM_OPS(neutron_runtime_suspend,
+> neutron_runtime_resume,
+> > +NULL) };
+> > +
+> > +static const struct of_device_id neutron_match_table[] =3D {
+> > +	{ .compatible =3D "nxp,imx95-neutron" },
+> > +	{}
+> > +};
+> > +
+> > +MODULE_DEVICE_TABLE(of, neutron_match_table);
+> > +
+> > +static struct platform_driver neutron_driver =3D {
+> > +	.probe	=3D &neutron_probe,
+> > +	.remove	=3D &neutron_remove,
+> > +	.driver	=3D {
+> > +		.name		=3D "neutron",
+> > +		.of_match_table	=3D
+> of_match_ptr(neutron_match_table),
+>=20
+> Drop of_match_ptr. You will have (or you have already same as v1) here
+> warning.
+
+Will fix. But how do I get to see the warning here? Tried building with
+W=3D1 and OF support disabled but it didn't complain.
+
+Thanks!
+Ioana
+
+>=20
+> > +		.pm		=3D pm_ptr(&neutron_pm_ops),
+> > +	},
+> > +};
 > Best regards,
-> --
-> Junrui Luo <moonafterrain@outlook.com>
->
+> Krzysztof
