@@ -4,93 +4,95 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 21976F54AA0
-	for <dri-devel@archiver.kernel.org>; Tue, 24 Mar 2026 13:19:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 95313F54AA0
+	for <dri-devel@archiver.kernel.org>; Tue, 24 Mar 2026 13:21:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7729810E6AB;
-	Tue, 24 Mar 2026 13:19:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BE83410E6B7;
+	Tue, 24 Mar 2026 13:21:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ShoTM7G4";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ahlLYRIN";
 	dkim-atps=neutral
-Received: from mail-dl1-f52.google.com (mail-dl1-f52.google.com [74.125.82.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 52F4C10E6A8
- for <dri-devel@lists.freedesktop.org>; Tue, 24 Mar 2026 13:19:30 +0000 (UTC)
-Received: by mail-dl1-f52.google.com with SMTP id
- a92af1059eb24-12a70b4de9bso246242c88.3
- for <dri-devel@lists.freedesktop.org>; Tue, 24 Mar 2026 06:19:30 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1774358369; cv=none;
+Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com
+ [74.125.82.175])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AC69D10E6B8
+ for <dri-devel@lists.freedesktop.org>; Tue, 24 Mar 2026 13:21:13 +0000 (UTC)
+Received: by mail-dy1-f175.google.com with SMTP id
+ 5a478bee46e88-2c151551a6eso22117eec.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 24 Mar 2026 06:21:13 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1774358473; cv=none;
  d=google.com; s=arc-20240605;
- b=Yn12bBQ2C7B7xL0L3c+MCG0s9nx/OfWVmdoK0nhuLB4wgfZhoWLBKn0VlOuamw3eFv
- iGzroD7hr8WzSrLOmc/FZ8DJGb7V/n4O6FqZJsT5LIXgGLa7nZ9QKv8vXWdBbsdMG6iL
- HE68WrEJrvR1frluF1GOuh6Od85RORU+h16/sb/hRTWfFgJvKZiDBmbilRs4Trx9FMqb
- tEgGMGE54j/5Bme4EatAoXxaFJF1sxTqOXTIZJ3W/SIKxPmX5H5vwIDlyHPmd6atKEI6
- GpcFHHG2Q6Sy9vGJIOdCN40Ld3ctTCHp97Bg8MR6K/zRNcsBXeSi4GG3WZ5RWaWsVNap
- qcpQ==
+ b=A1T2Mc1WBsAQs2yzpQFX4F2hz2eUp2ufrXyF/6fXZkNQIjFlceRN8P87/Nvz2W7phx
+ QGuiDxzRIgLNkQE9VS8UfEuwP6zNyMn7LxRsqE1hM5pkeJy7ZQnB4nt3Q/JyDTYsE/gS
+ o8ahx9pAPwdpHmL/7oDBF5vFd82kjR8EcG+DM1eaJTetpPDHZlelOUWVpehL0Cj6UeZY
+ 8y1ZCe2lyGZLVpp91Nd/uixHkRACdZQpNNrwpx1yVU2UuuNa31jQnIHgVYJCPJoNi6QS
+ hkd8n2hvrW3yH1BGBv3RH0PJWCKjlhvXl0I1bSEjeauzBZlTbBQzgm7cvHoSL6DKy5BD
+ YQhA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20240605; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=BsRLgUtA5JSsXZ4xXw8vk1eoQqR+UCw1mR7ln0dyj1E=;
- fh=t13M0fC6mPDIueafjCVK8JG5F1SdBz3we8DYFJ6CoeQ=;
- b=CcG1MF4sh664DFPXxulOqKJSGbg87XOtYZmyhC/dMlKrI8kAQ5BobxX9A3GKDfLX2P
- rgUyxKJK7CxFbEm2dsQNSN0MOd31D+kqvCvw/biDjqcuU03CnK3NlC2dWpzMcz0aISum
- Q2692/+K7jrWRGlTiISDJlxm0eYFf5NT8fD2fKsutFf65totc+5tDM+9NLwZZGo/gVdq
- S9ryLI4Wey82VeqzraKLZgQxealeqmxQdhNvh79RTh4E6j5gB+zVwOtGCxILOTeZUzK8
- lWTbUhRhl4WmaxkQ52zhB49049xDd2vxbIAnpnsib1Rh7WtjpWEYOTeFsS+rn3Sb8Tbm
- WRtg==; darn=lists.freedesktop.org
+ bh=CutxZk0UywMMX9SEC6rWk5Mmx6PoN5/HmY4U6NLKJsA=;
+ fh=pMiuNguW75IGYga0HiUq1CPZmKesGFhBs4kucZgZBM4=;
+ b=kL+u3Qb1qBGgPi8xDaavFSFqBoa2G8+LRjxkfk3QXzp07dAbqMt5824rkJlCzrnSXZ
+ cxtJbMf1+ONiUVWDyWTrQL2HTmtNpNyN9jHLr4OK4iQnREAuI8gybVlhEq3n+GZRbsxa
+ f2Q1q4h/es7WkznIR4zdRo13owWt+5fS6MChXVW8MtTxjKaNoYzXA9/SggmGTtfbMYtZ
+ iEMNMu7ST1qXWZ+q0w8w4DQUqsOTPEY3kZ0coRyucAhyLXNjGyA7UmyKNq+2v7NhKq9Y
+ 6OLfbcWa/nxKgzmiZJhDMdztZTgMisb2Ywr72huZeqmYlIJ+exhiGw6HIsRAoAaRsUco
+ Xzxw==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1774358369; x=1774963169; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1774358473; x=1774963273; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=BsRLgUtA5JSsXZ4xXw8vk1eoQqR+UCw1mR7ln0dyj1E=;
- b=ShoTM7G40GOcdeRA93SYQ+pyvrjJd8Aavyl5JNHa1v+8h9F7EtVhR9zdGQ2wrZB7JE
- YwNupUct3+AJYa8dDZNLgTAMR3XFFf2XCoUH5pt0DVct1/h+tKFbOhXAzvowSClOfxb7
- 6wTAp4ebKs/4sdPo4dUUlUNcwyD30EPqD8MEN4rnATZhf6G0fYbnhO06gszTDSvxy/QK
- jspjBb4VKO2nbFcJnVXrk4LCULJUY9lWTedTnGzvuLSg3n7BEkrAp0bCyW0p8kl2T7kq
- z3b4mKULjq+3yPaERJNv7raOOXY7HgmeTBKYtFYPUFiqlV0LYrUh6zISvEqFrikSRbxt
- TZFA==
+ bh=CutxZk0UywMMX9SEC6rWk5Mmx6PoN5/HmY4U6NLKJsA=;
+ b=ahlLYRIN1ZudEmBhLHheNKZaz6xMm9fSFXZLIPOnmq0aOy1Dy5v5ZDKYgPM4HaN63t
+ PR0GwN5qOEVzwcNYp3UFoTcLQ0TZQz99gKvk0LdIHRRt+tWDPcwcF95/+EPYhX4x0Egs
+ 3PN9gNMZ+ED6xdiu5cy9oDdC91JHKNZNi18D7/vwExhvAQi6pwlilb4f5RTJDXKvhOTu
+ cbHnbDnUa5p2WnutNt3343bErxmb6gmihjwkfCCHfDrM0eWKbPXx35dATHTEKcPmSTCs
+ BNgVFyoEhsMgDVIDYKtMfmOUMz/UTqdBb6/uQsszf6deKU9wohgmm3mOmM3ZlA44ttbM
+ MPcQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774358369; x=1774963169;
+ d=1e100.net; s=20251104; t=1774358473; x=1774963273;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=BsRLgUtA5JSsXZ4xXw8vk1eoQqR+UCw1mR7ln0dyj1E=;
- b=NMOHi9S8h8M2U/G3tkqCvLN3M32xqtgEILpLIFEJC3hqVBLWCKhdnEvUhb/e3CSLGC
- lETlDePHoPVrZ5Reln4cmzlCmbijJLbSj/22q0UW+3uCp4EHwT8DkZJoUD7uwzi/kytf
- rFUfmWMrOitDD+SWrWvORl0xMX+YtKQjZERZ5yUW64mS5U9B6yXUH624ZK8XQh12hDic
- vb4XOVIl69obG9fKVMWjLoY7GJ9haDRsvtUZt9vrqnLRcBg8mgAyR5LtXcQ7QsLTx8LH
- TA+0TJ7tERvE5k3KHp9QknbJMo+At/oZTXYXKP1h/XZAS/2dAh/A/Y0rGDUlT3nJukKa
- xyPw==
+ bh=CutxZk0UywMMX9SEC6rWk5Mmx6PoN5/HmY4U6NLKJsA=;
+ b=ERzK8jBo4cdDWhCS8rNvcSrPewOe4PA6QY64LycEBvLX70TtRM5WMdNMcvXhiO3Vck
+ LqcO8so8wD4KXBVW07vL2Wkj+wLX8UvSsN3Lx/fM1TW8OkxAwbxCtPjmkHI+zKo/ZCin
+ sT81L1OxXWq0tUKnGbCfAucZnsU6weaS17/SOv0tlNx4XsIoZjh9yIykxQJFyhLHdFa5
+ rcZYM7JxuqklKd/szTx4B4nXLNMcKtbRnijipwHeAVQM0iDU/72+RCiJv+v1PC6fRJlT
+ JmhYwgPRYQShsBOoMVmY/8WcZ2IBc8pIfbpnEi0is2Bbk1LLgt9Dp2Mywit3jnKOz55a
+ +IUQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCU/+5RZFa+7SRgze+l4fJqY8m+fPZCIZvRicgmMlE+lpjGP8V29xWjGX3wV1j5uYLA92kETldW3uXg=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yx0P1xsicexBc4P4DP3Xjc1MPDU2lea4EGluu597Cqa35TV0a3S
- IlQKpWOqzGBsP9aRjJtda6KMkvgHvqNNObjvBkHwj7z2tQ3n9lwZqhDw7V+Qk5Q2PNXWpjRdx9i
- 8j9xIilL3aSFIcahJtt1gk0dMVifW1K4=
-X-Gm-Gg: ATEYQzyhx90IyEAgLEyPzXdmAUWdRwM+iVgo+ed8TRsUOEZav3BQU3AqWlD/VEC53x4
- 6a/bVgVG5ac6tsumaJBzYDVrRgBXyf1N30T8PxFvEe83x+QrbqM6bpb5D52k9IgkPCGLquOLRe/
- zOA2RGIrNcfMxy1xIpDh0u3i9KfPgDbN6tKcq0zB2m7nPAy3tHEUdt+Oo+Nnu0UHJx7zRAwFWsT
- 7sXli6z99FkdW0UofqHG6chlNEl2HxjYEzyUfNiKQp1m8zYZ0R8KoBxNUSU5D9jJXG4Ql5ggAKj
- 2PrqlOKJK4y0uBRPHY2uxhazRjoxM60opoWqm5sFek7/QXszA1dGwFTUZSTT9iN3h76peQ==
-X-Received: by 2002:a05:7022:f8d:b0:11e:332:1e01 with SMTP id
- a92af1059eb24-12a726a9b6amr3506204c88.3.1774358369493; Tue, 24 Mar 2026
- 06:19:29 -0700 (PDT)
+ AJvYcCWB64AbrqnZZfYQNiXkXKQijFu+l6Mth7RjLh+2IFwD+SJxTy/5aHRyNR98MegZvbvCsMZTrMHYpqI=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwEUJSZI2FB5Xkbe7Ukg1i64UEon/5rmXDlEnam9tOpPkmC6kfB
+ Fxi6ll6EudOiwA+x+L79+6OMdWp3U14VFjv9s6vmsD34F9Q33bnj8i+UZiqFHJJX/lOON08tP7j
+ ej9smFGW7tzEEXOGlHXWRg4vNCkcm4Z4=
+X-Gm-Gg: ATEYQzxL/hvrzKtEY7AgPKEyex0efamTGXszspnLZdmjg0NcCLAGDgMjmX5uRjUgzAn
+ mgXUMdO0xCQzUf2/iUen74aniCSj+17WCdSzGhDlfDS50+ZbwVhYFSKtZT6fTM8xUR497aghTIy
+ OkjfJ5+s1PIA/cb+UpYn0aoOzdnLVO8jQ56ZBe+ZZp3Abm7iLMxrMciKZnLeHG+xiQESS5H7Rbc
+ nPzI5TxRcht0+CtYzaqmKpfckrinlJQv23dQd/jdQ1tf6tA3KYQ/4zBxZMzWneTiohA//GJl3E4
+ 5JfE//oeDER9IV8Clp2xy9xfAIkd8aAKXmd8LvhA1/t6cfoFj0GIeZvGd3RVytqMOsSXnQ==
+X-Received: by 2002:a05:7022:6b81:b0:119:e56b:c3f3 with SMTP id
+ a92af1059eb24-12a726b5c4emr3201201c88.3.1774358472868; Tue, 24 Mar 2026
+ 06:21:12 -0700 (PDT)
 MIME-Version: 1.0
-References: <20260321105728.6304-1-kexinsun@smail.nju.edu.cn>
-In-Reply-To: <20260321105728.6304-1-kexinsun@smail.nju.edu.cn>
+References: <20260321052033.23472-1-mario.kleiner.de@gmail.com>
+In-Reply-To: <20260321052033.23472-1-mario.kleiner.de@gmail.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 24 Mar 2026 09:19:17 -0400
-X-Gm-Features: AaiRm526BG_rM9muwvFrczqMS3-tFt9tDF8XTVojFBAC5700mXENfyNJwBxRyIg
-Message-ID: <CADnq5_PO_Ns7=48ZOKa+08gwO038BzJm8K_KqE1Zz7XTa+M5uw@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: update outdated comment for renamed
- amdgpu_fence_driver_init()
-To: Kexin Sun <kexinsun@smail.nju.edu.cn>
-Cc: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com, 
- simona@ffwll.ch, timur.kristof@gmail.com, tglx@kernel.org, mingo@kernel.org, 
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, julia.lawall@inria.fr, xutong.ma@inria.fr, 
- yunbolyu@smu.edu.sg, ratnadiraw@smu.edu.sg
+Date: Tue, 24 Mar 2026 09:21:01 -0400
+X-Gm-Features: AaiRm53DpWv5pr0QiHY6HEkx6D6NV3ewBXmw1gn7c17yw41TFZ5-avxtdFneTm4
+Message-ID: <CADnq5_OTKJCJf-szPfak1r04fawGhJ-9H=Uzvyh3dmTmP1KYLg@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/display: Change dither policy for 10 bpc output
+ back to dithering
+To: Mario Kleiner <mario.kleiner.de@gmail.com>, "Wentland,
+ Harry" <Harry.Wentland@amd.com>, Alex Hung <alex.hung@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ stable@vger.kernel.org, Aric Cyr <aric.cyr@amd.com>, 
+ Anthony Koo <anthony.koo@amd.com>, Rodrigo Siqueira <rodrigo.siqueira@amd.com>,
+ Krunoslav Kovac <krunoslav.kovac@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -108,38 +110,95 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Applied.  thanks!
++ Harry, Alex
 
-On Sat, Mar 21, 2026 at 7:44=E2=80=AFAM Kexin Sun <kexinsun@smail.nju.edu.c=
-n> wrote:
+On Sat, Mar 21, 2026 at 1:29=E2=80=AFAM Mario Kleiner
+<mario.kleiner.de@gmail.com> wrote:
 >
-> The function amdgpu_fence_driver_init() was renamed to
-> amdgpu_fence_driver_sw_init() by commit 067f44c8b459
-> ("drm/amdgpu: avoid over-handle of fence driver fini in s3
-> test (v2)").  Update the stale reference in the
-> amdgpu_fence_driver_init_ring() kdoc.
+> Commit d5df648ec830 ("drm/amd/display: Change dither policy for 10bpc to
+> round") degraded display of 12 bpc color precision output to 10 bpc sinks
+> by switching 10 bpc output from dithering to "truncate to 10 bpc".
 >
-> Assisted-by: unnamed:deepseek-v3.2 coccinelle
-> Signed-off-by: Kexin Sun <kexinsun@smail.nju.edu.cn>
+> I don't find the argumentation in that commit convincing, but the
+> consequences highly unfortunate, especially for applications that
+> require effective > 10 bpc precision output of > 10 bpc framebuffers.
+>
+> The argument wasn't something strong like "there are hardware design
+> defects or limitations which require us to work around broken dithering
+> to 10 bpc", or "there are some special use cases which do require
+> truncation to 10 bpc", but essentially "at some point in the past we
+> used truncation in Polaris/Vega times and it looks like it got
+> inadvertently changed for Navi, so let's do that again". I couldn't find
+> evidence for that in the git commit logs for this. The commit message als=
+o
+> acknowledges that using dithering "...makes some sense for FP16...
+> ...but not for ARGB2101010 surfaces..."
+>
+> The problem with this is that it makes fp16 surfaces, and especially
+> rgba16 fixed point surfaces, less useful. These are now well
+> supported by Mesa 25.3 and later via OpenGL + EGL, Vulkan/WSI, and by
+> OSS AMDVLK Vulkan/WSI/display, and also by GNOME 50 mutter under Wayland,
+> and they used to provide more than 10 bpc effective precision at the
+> output.
+>
+> Even for 8 or 10 bpc surfaces, the color pipeline behind the framebuffer,
+> e.g., gamma tables, CTM, can be used for color correction and will
+> benefit from an effective > 10 bpc output precision via dithering,
+> retaining some precision that would get lost on the way through the
+> pipeline, e.g., due to non-linear gamma functions.
+>
+> Scientific apps rely on this for > 10 bpc display precision. Truncating
+> to 10 bpc, instead of dithering the pipeline internal 12 bpc precision
+> down to 10 bpc, causes a serious loss of precision. This also creates the
+> undesirable and slightly absurd situation that using a cheap monitor
+> with only 8 bpc input and display panel will yield roughly 12 bpc
+> precision via dithering from 12 -> 8 bpc, whereas investment into a
+> more expensive monitor with 10 bpc input and native 10 bpc display will
+> only yield 10 bpc, even if a fp16 or rgb16 framebuffer and/or a properly
+> set up color pipeline (gamma tables, CTM's etc. with more than 10 bpc out
+> precision) would allow effective 12 bpc precision output.
+>
+> Therefore this patch proposes reverting that commit and going back to
+> dithering down to 10 bpc, consistent with the behaviour for 6 bpc or 8 bp=
+c
+> output.
+>
+> Successfully tested on AMD Polaris DCE 11.2 and Raven Ridge DCN 1.0 with
+> a native 10 bpc capable monitor, outputting a RGBA16 unorm framebuffer an=
+d
+> measuring resulting color precision with a photometer. No apparent visual
+> artifacts or problems were observed, and effective precision was measured
+> to be 12 bpc again, as expected.
+>
+> Fixes: d5df648ec830 ("drm/amd/display: Change dither policy for 10bpc to =
+round")
+> Signed-off-by: Mario Kleiner <mario.kleiner.de@gmail.com>
+> Tested-by: Mario Kleiner <mario.kleiner.de@gmail.com>
+> Cc: stable@vger.kernel.org
+> Cc: Aric Cyr <aric.cyr@amd.com>
+> Cc: Anthony Koo <anthony.koo@amd.com>
+> Cc: Rodrigo Siqueira <rodrigo.siqueira@amd.com>
+> Cc: Krunoslav Kovac <krunoslav.kovac@amd.com>
+> Cc: Alex Deucher <alexander.deucher@amd.com>
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c | 2 +-
+>  drivers/gpu/drm/amd/display/dc/core/dc_resource.c | 2 +-
 >  1 file changed, 1 insertion(+), 1 deletion(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c b/drivers/gpu/drm/=
-amd/amdgpu/amdgpu_fence.c
-> index 1054d66c54fa..37534f66c755 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
-> @@ -458,7 +458,7 @@ int amdgpu_fence_driver_start_ring(struct amdgpu_ring=
- *ring,
->   * @ring: ring to init the fence driver on
->   *
->   * Init the fence driver for the requested ring (all asics).
-> - * Helper function for amdgpu_fence_driver_init().
-> + * Helper function for amdgpu_fence_driver_sw_init().
->   */
->  int amdgpu_fence_driver_init_ring(struct amdgpu_ring *ring)
->  {
+> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c b/drivers/=
+gpu/drm/amd/display/dc/core/dc_resource.c
+> index c9fbb64d706a..29db5404c4a0 100644
+> --- a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
+> +++ b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
+> @@ -5056,7 +5056,7 @@ void resource_build_bit_depth_reduction_params(stru=
+ct dc_stream_state *stream,
+>                         option =3D DITHER_OPTION_SPATIAL8;
+>                         break;
+>                 case COLOR_DEPTH_101010:
+> -                       option =3D DITHER_OPTION_TRUN10;
+> +                       option =3D DITHER_OPTION_SPATIAL10;
+>                         break;
+>                 default:
+>                         option =3D DITHER_OPTION_DISABLE;
 > --
-> 2.25.1
+> 2.43.0
 >
