@@ -4,82 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 85F7FF54AC5
-	for <dri-devel@archiver.kernel.org>; Tue, 24 Mar 2026 14:27:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7C070F54AC6
+	for <dri-devel@archiver.kernel.org>; Tue, 24 Mar 2026 14:37:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E2D9010E0B0;
-	Tue, 24 Mar 2026 14:27:57 +0000 (UTC)
-Received: from relay.hostedemail.com (smtprelay0014.hostedemail.com
- [216.40.44.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 64B4910E0B0
- for <dri-devel@lists.freedesktop.org>; Tue, 24 Mar 2026 14:27:57 +0000 (UTC)
-Received: from omf02.hostedemail.com (a10.router.float.18 [10.200.18.1])
- by unirelay09.hostedemail.com (Postfix) with ESMTP id 1F17D9396F;
- Tue, 24 Mar 2026 14:27:53 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by
- omf02.hostedemail.com (Postfix) with ESMTPA id DC83180011; 
- Tue, 24 Mar 2026 14:27:20 +0000 (UTC)
-Date: Tue, 24 Mar 2026 10:28:02 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: "Vineeth Pillai (Google)" <vineeth@bitbyteword.org>
-Cc: Peter Zijlstra <peterz@infradead.org>, Dmitry Ilvokhin <d@ilvokhin.com>,
- Masami Hiramatsu <mhiramat@kernel.org>, Mathieu Desnoyers
- <mathieu.desnoyers@efficios.com>, Ingo Molnar <mingo@redhat.com>, Jens
- Axboe <axboe@kernel.dk>, io-uring@vger.kernel.org, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub Kicinski
- <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Alexei Starovoitov
- <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, Marcelo Ricardo
- Leitner <marcelo.leitner@gmail.com>, Xin Long <lucien.xin@gmail.com>, Jon
- Maloy <jmaloy@redhat.com>, Aaron Conole <aconole@redhat.com>, Eelco
- Chaudron <echaudro@redhat.com>, Ilya Maximets <i.maximets@ovn.org>,
- netdev@vger.kernel.org, bpf@vger.kernel.org, linux-sctp@vger.kernel.org,
- tipc-discussion@lists.sourceforge.net, dev@openvswitch.org, Jiri Pirko
- <jiri@resnulli.us>, Oded Gabbay <ogabbay@kernel.org>, Koby Elbaz
- <koby.elbaz@intel.com>, dri-devel@lists.freedesktop.org, "Rafael J.
- Wysocki" <rafael@kernel.org>, Viresh Kumar <viresh.kumar@linaro.org>,
- "Gautham R. Shenoy" <gautham.shenoy@amd.com>, Huang Rui
- <ray.huang@amd.com>, Mario Limonciello <mario.limonciello@amd.com>, Len
- Brown <lenb@kernel.org>, Srinivas Pandruvada
- <srinivas.pandruvada@linux.intel.com>, linux-pm@vger.kernel.org, MyungJoo
- Ham <myungjoo.ham@samsung.com>, Kyungmin Park <kyungmin.park@samsung.com>,
- Chanwoo Choi <cw00.choi@samsung.com>, Christian =?UTF-8?B?S8O2bmln?=
- <christian.koenig@amd.com>, Sumit Semwal <sumit.semwal@linaro.org>,
- linaro-mm-sig@lists.linaro.org, Eddie James <eajames@linux.ibm.com>, Andrew
- Jeffery <andrew@codeconstruct.com.au>, Joel Stanley <joel@jms.id.au>,
- linux-fsi@lists.ozlabs.org, David Airlie <airlied@gmail.com>, Simona Vetter
- <simona@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>, Danilo
- Krummrich <dakr@kernel.org>, Matthew Brost <matthew.brost@intel.com>,
- Philipp Stanner <phasta@kernel.org>, Harry Wentland
- <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- amd-gfx@lists.freedesktop.org, Jiri Kosina <jikos@kernel.org>, Benjamin
- Tissoires <bentiss@kernel.org>, linux-input@vger.kernel.org, Wolfram Sang
- <wsa+renesas@sang-engineering.com>, linux-i2c@vger.kernel.org, Mark Brown
- <broonie@kernel.org>, Michael Hennerich <michael.hennerich@analog.com>,
- Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, linux-spi@vger.kernel.org,
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, "Martin K.
- Petersen" <martin.petersen@oracle.com>, linux-scsi@vger.kernel.org, Chris
- Mason <clm@fb.com>, David Sterba <dsterba@suse.com>,
- linux-btrfs@vger.kernel.org, Thomas Gleixner <tglx@linutronix.de>, Andrew
- Morton <akpm@linux-foundation.org>, SeongJae Park <sj@kernel.org>,
- linux-mm@kvack.org, Borislav Petkov <bp@alien8.de>, Dave Hansen
- <dave.hansen@linux.intel.com>, x86@kernel.org,
- linux-trace-kernel@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 00/19] tracepoint: Avoid double static_branch
- evaluation at guarded call sites
-Message-ID: <20260324102802.4f8af148@gandalf.local.home>
-In-Reply-To: <20260323160052.17528-1-vineeth@bitbyteword.org>
-References: <20260323160052.17528-1-vineeth@bitbyteword.org>
-X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 955FB10E6E2;
+	Tue, 24 Mar 2026 14:37:47 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="PqgKbgJe";
+	dkim-atps=neutral
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 33A5F10E6E2;
+ Tue, 24 Mar 2026 14:37:46 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id 8017E60120;
+ Tue, 24 Mar 2026 14:37:45 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D50C4C2BC87;
+ Tue, 24 Mar 2026 14:37:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1774363065;
+ bh=3M1pZU/Rt+tvSzSNAmvvsplHgsc63Xp92Dg1sukL488=;
+ h=From:To:Cc:Subject:In-Reply-To:References:Date:From;
+ b=PqgKbgJeA0TFHNoShupCs/8BjLfjfpRdFRc1+QL9ZroTHAZf625/7hlReKSHx5E/X
+ ujj1Czq7HLgl5sgc86N/UZqJmKXs5sXug11u7ckU6kFsKZeFu8y2ivJczOV62YjaJO
+ +HCznSqBIDkIwgkH35og13sT0N5yAszfd7Sosv/UfL/ncpPo13dT7INSEP9bD8Qifv
+ x9OR4odB+qoi2Zp/6YzvsORLj3eUER7PaXs2RiLdKK505wnePKh/fIFJPEKvFjH3jb
+ 99ew1U06WRjPOp1dXTb0oM3PLvncpi9kyk82CSA6c9e07DUqyz2PSGKu2acRbKnOpo
+ RTSgXB53nQebw==
+From: Andreas Hindborg <a.hindborg@kernel.org>
+To: Gary Guo <gary@garyguo.net>, Danilo Krummrich <dakr@kernel.org>,
+ aliceryhl@google.com, acourbot@nvidia.com, ojeda@kernel.org,
+ boqun@kernel.org, gary@garyguo.net, bjorn3_gh@protonmail.com,
+ lossin@kernel.org, tmgross@umich.edu, abdiel.janulgue@gmail.com,
+ daniel.almeida@collabora.com, robin.murphy@arm.com
+Cc: driver-core@lists.linux.dev, nouveau@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 2/8] rust: dma: add generalized container for types
+ other than slices
+In-Reply-To: <DHB2JCKXZ5ZN.LA5E3HY3YHGS@garyguo.net>
+References: <20260320194626.36263-1-dakr@kernel.org>
+ <8WwJUXIwwCnCTXlAJw77hgSFS-jjhGgfJQoyIaVPdDf99QqTFd1uHhEj56PCo9Ihv-koAQP7826Vpx8HZkKE5A==@protonmail.internalid>
+ <20260320194626.36263-3-dakr@kernel.org> <877br1qr6v.fsf@kernel.org>
+ <MfXnI_tAbjftGXdPiZWkQbZEmqAq3Fqd6UudPSK5GVeEK_lnU03F5MJcFcuaSNTf26g4UzcjPm6myrYKFUXz6w==@protonmail.internalid>
+ <DHB2JCKXZ5ZN.LA5E3HY3YHGS@garyguo.net>
+Date: Tue, 24 Mar 2026 15:37:35 +0100
+Message-ID: <87341pz428.fsf@t14s.mail-host-address-is-not-set>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Stat-Signature: rgnt1g9q8d9rzsk6azwgoui85joqhwik
-X-Rspamd-Server: rspamout04
-X-Rspamd-Queue-Id: DC83180011
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX19u4yDoihzmlvbQbp4GBKk4Sx0FsrK0H8g=
-X-HE-Tag: 1774362440-296898
-X-HE-Meta: U2FsdGVkX18Kg3NfvHLPV0rnp3UrERb/HeySVgjR0PuCDys+LVJ4s2L8fsy1rJHv82yu9UO4h+xU9iEx3z3YFKVS1OFx2Vvti4rEmq0enV2xaTwbpZ+YWf60TFzb8QMlheid4NsXOVqOYcFPHCn+ZrWqPDCdrmq0l+tkyLSeYhbpJixFuANIjXhtSBZInyEBtAAqHPqUuWZ3PdZupXAY7JMTASH2KNw+CMFxYOXnDTbb38gpzJzBKiUcyoxK6GlO0db0aEPLlOAMHWKzcQEu5msgaweBGFFWtD9G0uWRbe+OcS9gBl+SI1CDJFvGCt0Z8gh5xinNWW7KF0gSIEh3ZlA0AO0+B5wCRjivVxgdquYH5bWbk7CtReb5es0u0tOp
+Content-Type: text/plain
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,22 +66,152 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, 23 Mar 2026 12:00:19 -0400
-"Vineeth Pillai (Google)" <vineeth@bitbyteword.org> wrote:
+"Gary Guo" <gary@garyguo.net> writes:
 
-> When a caller already guards a tracepoint with an explicit enabled check:
-> 
->   if (trace_foo_enabled() && cond)
->       trace_foo(args);
+> On Tue Mar 24, 2026 at 1:42 PM GMT, Andreas Hindborg wrote:
+>> "Danilo Krummrich" <dakr@kernel.org> writes:
+>>
+>>> +    /// Returns a reference to the data in the region.
+>>>      ///
+>>> -    /// # Examples
+>>> +    /// # Safety
+>>>      ///
+>>> -    /// ```
+>>> -    /// # use kernel::device::{Bound, Device};
+>>> -    /// use kernel::dma::{attrs::*, CoherentAllocation};
+>>> +    /// * Callers must ensure that the device does not read/write to/from memory while the returned
+>>> +    ///   slice is live.
+>>> +    /// * Callers must ensure that this call does not race with a write to the same region while
+>>> +    ///   the returned slice is live.
+>>> +    #[inline]
+>>> +    pub unsafe fn as_ref(&self) -> &T {
+>>> +        // SAFETY: per safety requirement.
+>>
+>> Is this enough? Don't you need to assert a valid bit pattern? I assume
+>> you get this from `FromBytes`, but that bound is not on `T` in this impl
+>> block.
+>
+> Concetually `Coherent<T>` is a container of `T` so it should always hold a valid
+> bit pattern for the type. Perhaps this should be added to the type invariant.
+>
+> FromBytes is only needed at the constructor level as that's the only place where
+> you're asserting that initial bit pattern is valid.
 
-Thanks Vineeth!
+Makes sense to add the invariant and assert at construction time.
 
-I'm going to start pulling in this series. I'll take the first patch, and
-then any patch that has an Acked-by or Reviewed-by from the maintainer.
+>
+>
+>>
+>>> +        unsafe { &*self.as_ptr() }
+>>> +    }
+>>> +
+>>> +    /// Returns a mutable reference to the data in the region.
+>>>      ///
+>>> -    /// # fn test(dev: &Device<Bound>) -> Result {
+>>> -    /// let c: CoherentAllocation<u64> =
+>>> -    ///     CoherentAllocation::alloc_attrs(dev, 4, GFP_KERNEL, DMA_ATTR_NO_WARN)?;
+>>> -    /// # Ok::<(), Error>(()) }
+>>> -    /// ```
+>>> -    pub fn alloc_attrs(
+>>> +    /// # Safety
+>>> +    ///
+>>> +    /// * Callers must ensure that the device does not read/write to/from memory while the returned
+>>> +    ///   slice is live.
+>>> +    /// * Callers must ensure that this call does not race with a read or write to the same region
+>>> +    ///   while the returned slice is live.
+>>> +    #[expect(clippy::mut_from_ref, reason = "unsafe to use API")]
+>>> +    #[inline]
+>>> +    pub unsafe fn as_mut(&self) -> &mut T {
+>>> +        // SAFETY: per safety requirement.
+>>
+>> Same.
+>>
+>>> +        unsafe { &mut *self.as_mut_ptr() }
+>>> +    }
+>>> +
+>>> +    /// Reads the value of `field` and ensures that its type is [`FromBytes`].
+>>> +    ///
+>>> +    /// # Safety
+>>> +    ///
+>>> +    /// This must be called from the [`dma_read`] macro which ensures that the `field` pointer is
+>>> +    /// validated beforehand.
+>>> +    ///
+>>> [...]
+>>> +
+>>> +impl<T: AsBytes + FromBytes> Coherent<T> {
+>>> +    /// Allocates a region of `T` of coherent memory.
+>>> +    #[expect(unused)]
+>>> +    fn alloc_with_attrs(
+>>>          dev: &device::Device<Bound>,
+>>> -        count: usize,
+>>>          gfp_flags: kernel::alloc::Flags,
+>>>          dma_attrs: Attrs,
+>>> -    ) -> Result<CoherentAllocation<T>> {
+>>> -        build_assert!(
+>>> -            core::mem::size_of::<T>() > 0,
+>>> -            "It doesn't make sense for the allocated type to be a ZST"
+>>> -        );
+>>> +    ) -> Result<Self> {
+>>> +        const {
+>>> +            assert!(
+>>> +                core::mem::size_of::<T>() > 0,
+>>> +                "It doesn't make sense for the allocated type to be a ZST"
+>>> +            );
+>>> +        }
+>>>
+>>> -        let size = count
+>>> -            .checked_mul(core::mem::size_of::<T>())
+>>> -            .ok_or(EOVERFLOW)?;
+>>>          let mut dma_handle = 0;
+>>>          // SAFETY: Device pointer is guaranteed as valid by the type invariant on `Device`.
+>>>          let addr = unsafe {
+>>>              bindings::dma_alloc_attrs(
+>>>                  dev.as_raw(),
+>>> -                size,
+>>> +                core::mem::size_of::<T>(),
+>>>                  &mut dma_handle,
+>>>                  gfp_flags.as_raw(),
+>>>                  dma_attrs.as_raw(),
+>>>              )
+>>>          };
+>>> -        let addr = NonNull::new(addr).ok_or(ENOMEM)?;
+>>> +        let cpu_addr = NonNull::new(addr.cast()).ok_or(ENOMEM)?;
+>>>          // INVARIANT:
+>>> -        // - We just successfully allocated a coherent region which is accessible for
+>>> -        //   `count` elements, hence the cpu address is valid. We also hold a refcounted reference
+>>> -        //   to the device.
+>>> -        // - The allocated `size` is equal to `size_of::<T> * count`.
+>>> -        // - The allocated `size` fits into a `usize`.
+>>> +        // - We just successfully allocated a coherent region which is adequately sized for `T`,
+>>> +        //   hence the cpu address is valid.
+>>
+>> The invariant says "valid for the lifetime", do you need to argue for
+>> the duration of the validity?
+>
+> It says "For the lifetime of an instance of ..." which is basically equal to
+> saying nothing. I think that part should just be removed.
 
-For patches without acks, I'll leave alone and then after the first patch
-gets merged into mainline, the maintainers could pull in their own patches
-at their own convenience. Unless of course they speak up now if they want
-me to take them ;-)
+Sounds good.
 
--- Steve
+>
+>>
+>>> +        // - We also hold a refcounted reference to the device.
+>>
+>> This does not relate to the second invariant of `Self`.
+>
+> The second invariant is about size, which is addressed in the first bullet
+> point. This is about the third invariant, which the doc-comemnt just says "TODO"
+> currently.
+
+So it is not an invariant, and it should not be covered here.
+
+I would suggest that if you use bullet list both in definition and
+justification, please make sure the justification bullets match the
+definition bullets. If you need to, you can make sub-lists by indenting.
+
+
+Best regards,
+Andreas Hindborg
+
+
+
