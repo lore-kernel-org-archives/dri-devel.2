@@ -4,93 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8394DE9A77C
-	for <dri-devel@archiver.kernel.org>; Tue, 24 Mar 2026 12:24:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A6881E9A779
+	for <dri-devel@archiver.kernel.org>; Tue, 24 Mar 2026 12:33:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6B24310E67F;
-	Tue, 24 Mar 2026 12:24:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0CA6910E5E8;
+	Tue, 24 Mar 2026 12:33:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=ziepe.ca header.i=@ziepe.ca header.b="hWmE4IB/";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="A5BpoCf1";
 	dkim-atps=neutral
-Received: from mail-qv1-f42.google.com (mail-qv1-f42.google.com
- [209.85.219.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 15FD410E679
- for <dri-devel@lists.freedesktop.org>; Tue, 24 Mar 2026 12:24:19 +0000 (UTC)
-Received: by mail-qv1-f42.google.com with SMTP id
- 6a1803df08f44-89c4feaaeb4so63098526d6.2
- for <dri-devel@lists.freedesktop.org>; Tue, 24 Mar 2026 05:24:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ziepe.ca; s=google; t=1774355058; x=1774959858; darn=lists.freedesktop.org; 
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date:from:to
- :cc:subject:date:message-id:reply-to;
- bh=MbJdAPBjjvkAIehxkYzkMUXQO8EVBsVDqYb4hAUTKqI=;
- b=hWmE4IB/dPmsjoclnmx4sMNC+m4NoPPuOVmls/v0Hjrf7SH7kPNrD/mnddHJcTWo8F
- Ey/d1u0oFpFlT04mTJGmF/vS9g+joXPg6Tgbgc0LwXutwEJYEaeU6ULQPbobmDrKpqUb
- 7OwLw/P3IPGxAIrD/hXunBOmNYFHEnKxJ0uz03sBFHovgvT6kiqEitMXkyZSUoFC9nlo
- 6cAM35gBGh36j6euzx1R4cWpZr8jZEAVpNqq3+qzKsAGloFrZe4e3q+ZgKZrUr4/IqM3
- u4h8XrK+wLyoLVSly9n2+8QYTHPkI7xW2cw5QQWXkbGQe4PAYVGavrVRroku841CSy5P
- xDOA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774355058; x=1774959858;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=MbJdAPBjjvkAIehxkYzkMUXQO8EVBsVDqYb4hAUTKqI=;
- b=fP27AHInuR5tGxNI1PB2aotZ+jKj7vw7Y+U6LLq0m03eP60D3N2QG77TqakFrcMjIr
- 0So3x349HxzpMapxl5gl3mmTxvY7qSHGg3TalPoPQhFvWKwIim7Hq6YwGyYxsqccouh3
- iDIs4nG1/HvU8kyIeMyzwfw4HIjTejec3frZknsjRU20SvzbhfEpDk5RJmO4qIhOZPrS
- wpDlgQ+JcKcOE0A6C8foOJC4SZnI60pJFIuwrMLUzfBO2RazHUB72rYDC7BegX2FXXRA
- TNbkTL4BtDHWxT8mSj2cvd8voQtzFPP1SgIHh2J0PS1HWLnkZpbEd6Z2jn2htIg4cErQ
- dhjQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWbDKRDr/i44pzAiHVmvTYlAddadPuNC7b1f+ybnGfCr760RZCz22cUAklPuukDYN0x6wP5TG+2v8Q=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwW7Z9OvqSr/qynvRRlp1iZHM7mfHxA+DUfkl/LHuOgdUBqrqsC
- Tv+qeihfTljorYVk69+K8/4i3D41SkioItA9q5460r5JjyzMDZkTbOM5SG7HIBHtPcs=
-X-Gm-Gg: ATEYQzyIpNOceg0K0quocmIgVFvT8aDs6WwvG66mf/ufZo0F7S778MPQqfKIRoGNUg/
- kA8unl5qnOG9j0cVRQq4v7XJ8ASjeDFr+8MaN20LCtJHURGmrPbq9FRX09IVD5OndEd8o+sQS5s
- VNBURUeTOT/xBx8zwj2H0CXgK6urEtG7PkV5buA2nKvcEAsYAyX8HghLJcbL9vgl/h/Fx94BJ+q
- yYadnibsYxGNomLoAR+omnrreiIIVvzN2dwczYPqDc5wjdlIkgSCtNH8htFOjZQA7QEIRPE5NGd
- rb972zCW+qyW7y7GMG+caVj/5BbV1hk4Lbe19+ne91vZSM2yRSBugK3BdvRD4fqNADhb4wCwUqS
- K8+fnTJbWBkDIeBEePYQJcPRF0FnGzHSuS5VYqiNjmS/YI46Sq4DgEXIfW4Lj0SI2xcQbW5RINO
- Lsi6OQPUXb9LIrR6tioisJGAEsJ6pMVg5kVM/cn59b2Tcd5ua2lMWJMrL/GPbXZaAn8GGBnQ==
-X-Received: by 2002:a05:6214:27c5:b0:899:fd64:1b72 with SMTP id
- 6a1803df08f44-89c85a5bebbmr256219296d6.41.1774355057813; 
- Tue, 24 Mar 2026 05:24:17 -0700 (PDT)
-Received: from ziepe.ca
- (mctnnbsa70w-159-2-73-22.dhcp-dynamic.fibreop.nb.bellaliant.net.
- [159.2.73.22]) by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-89c8536afb4sm134637326d6.42.2026.03.24.05.24.17
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 24 Mar 2026 05:24:17 -0700 (PDT)
-Received: from jgg by wakko with local (Exim 4.97)
- (envelope-from <jgg@ziepe.ca>) id 1w50nw-00000000Gf5-2Wfl;
- Tue, 24 Mar 2026 09:24:16 -0300
-Date: Tue, 24 Mar 2026 09:24:16 -0300
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: Mostafa Saleh <smostafa@google.com>
-Cc: Jiri Pirko <jiri@resnulli.us>, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, iommu@lists.linux.dev,
- linux-media@vger.kernel.org, sumit.semwal@linaro.org,
- benjamin.gaignard@collabora.com, Brian.Starkey@arm.com,
- jstultz@google.com, tjmercier@google.com, christian.koenig@amd.com,
- m.szyprowski@samsung.com, robin.murphy@arm.com, leon@kernel.org,
- sean.anderson@linux.dev, ptesarik@suse.com, catalin.marinas@arm.com,
- aneesh.kumar@kernel.org, suzuki.poulose@arm.com,
- steven.price@arm.com, thomas.lendacky@amd.com, john.allen@amd.com,
- ashish.kalra@amd.com, suravee.suthikulpanit@amd.com,
- linux-coco@lists.linux.dev
-Subject: Re: [PATCH net-next v3 0/2] dma-buf: heaps: system: add an option to
- allocate explicitly decrypted memory
-Message-ID: <20260324122416.GD8437@ziepe.ca>
-References: <20260305123641.164164-1-jiri@resnulli.us>
- <ablV_f_l7wD2m63E@google.com> <20260324120057.GC8437@ziepe.ca>
- <CAFgf54qoFhvVR2yfROGaTJmLcjuLACswVFv=trqgJwGb_DB3zA@mail.gmail.com>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 43CA210E5DC;
+ Tue, 24 Mar 2026 12:33:23 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id E676140842;
+ Tue, 24 Mar 2026 12:33:22 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 466D8C19424;
+ Tue, 24 Mar 2026 12:33:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1774355602;
+ bh=jd8iVirtHQ4a5z51jmWDeiI63f96fl/GYIMFhoiXT9Y=;
+ h=From:To:Cc:Subject:In-Reply-To:References:Date:From;
+ b=A5BpoCf1CuEzAIZr7XecZLh1Rcjabh7TpKaVKGTqVHRJxv4ehXOrffc+r9SrLlUnw
+ uoLfiHcP+XUkQP+w5nHstdGab3j/yEN/RstGQRIm89vbdoD5/dtc2NSZlh7gNJYW42
+ SHPWWusNQMhrQSjwvf4H7hfWL/nbpaLqUf5lDPBaLzGFuNFWXyfRiPKMmqNijTz5ZH
+ p2M3SD2WjFwkvysh0Dzy91RTuUjdJJjYNL+k+iQQUn/2c9Ku4gya7K48owBayDba5Q
+ kSGoAkdFDTbY/Px9SISKl8hIUFTwokDuB5i6MPOTH35ix265XBaEpk9XEb20F5m2bZ
+ EqVzdC6Bgjx4w==
+From: Andreas Hindborg <a.hindborg@kernel.org>
+To: Danilo Krummrich <dakr@kernel.org>, aliceryhl@google.com,
+ acourbot@nvidia.com, ojeda@kernel.org, boqun@kernel.org, gary@garyguo.net,
+ bjorn3_gh@protonmail.com, lossin@kernel.org, tmgross@umich.edu,
+ abdiel.janulgue@gmail.com, daniel.almeida@collabora.com,
+ robin.murphy@arm.com
+Cc: driver-core@lists.linux.dev, nouveau@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Danilo Krummrich <dakr@kernel.org>
+Subject: Re: [PATCH 0/8] dma::Coherent & dma::CoherentInit API
+In-Reply-To: <20260303162314.94363-1-dakr@kernel.org>
+References: <9A1gWen63AbJmi06Y_vu_qF1S86nj3fcQEil9RzLAn8QkIYpCOrLMNO7JcgIP0BccPHhzaYaQ_te1S_gKuHRgg==@protonmail.internalid>
+ <20260303162314.94363-1-dakr@kernel.org>
+Date: Tue, 24 Mar 2026 13:33:13 +0100
+Message-ID: <87cy0tqueu.fsf@kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAFgf54qoFhvVR2yfROGaTJmLcjuLACswVFv=trqgJwGb_DB3zA@mail.gmail.com>
+Content-Type: text/plain
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,42 +62,51 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, Mar 24, 2026 at 12:14:36PM +0000, Mostafa Saleh wrote:
-> On Tue, Mar 24, 2026 at 12:01 PM Jason Gunthorpe <jgg@ziepe.ca> wrote:
-> >
-> > On Tue, Mar 17, 2026 at 01:24:13PM +0000, Mostafa Saleh wrote:
-> >
-> > > On the other hand, for restricted-dma, the memory decryption is deep
-> > > in the DMA direct memory allocation and the DMA API callers (for ex
-> > > virtio drivers) are clueless about it and can’t pass any attrs.
-> > > My proposal was specific to restricted-dma and won’t work for your case.
-> >
-> > How is this any different from CC?
-> >
-> > If the device cannot dma to "encrypted" memory, whatever that means
-> > for you, then the DMA API:
-> >  - Makes dma alloc coherent return "decrypted" memory, and the built
-> >    in mapping of coherent memory knows about this
-> >  - Makes dma_map_xxx use SWIOTLB to bounce to decrypted memory
-> >
-> > There is no need for something like virtio drivers to be aware of
-> > any of this.
-> >
-> > On the other hand if the driver deliberately allocates decrypted
-> > memory without using DMA API alloc coherent then it knows it did it
-> > and can pass the flag to map it.
-> >
-> 
-> The problem is that the DMA API currently gets confused by this; it
-> can end up double decrypting the memory or using the wrong functions
-> as mentioned in [1]
+"Danilo Krummrich" <dakr@kernel.org> writes:
 
-I fully belive there are bugs, but the API design is sound. If you use
-the coherent allocations from the DMA API then it knows decryption has
-happened when it generates a dma_addr_t and there should be no issue.
+> This patch series introduces the dma::Coherent API Gary worked out in the
+> context of his I/O projection work.
+>
+> Additionally, introduce dma::CoherentInit, a type that encapsulates a
+> dma::Coherent object before its DMA address is exposed to the device.
+> dma::CoherentInit can guarantee exclusive access to the inner dma::Coherent
+> object and implement Deref and DerefMut.
+>
+> Also add Coherent::init() and Coherent::init_with_attrs() so we can directly
+> initialize a new dma::Coherent object through an impl Init<T, E>.
+>
+> Danilo Krummrich (5):
+>   rust: dma: use "kernel vertical" style for imports
+>   rust: dma: introduce dma::CoherentInit for memory initialization
+>   rust: dma: add Coherent:init() and Coherent::init_with_attrs()
+>   gpu: nova-core: use Coherent::init to initialize GspFwWprMeta
+>   gpu: nova-core: convert Gsp::new() to use CoherentInit
+>
+> Gary Guo (3):
+>   rust: dma: add generalized container for types other than slices
+>   rust: dma: add zeroed constructor to `Coherent`
+>   gpu: nova-core: convert to new dma::Coherent API
+>
+>  drivers/gpu/nova-core/dma.rs      |  19 +-
+>  drivers/gpu/nova-core/falcon.rs   |   7 +-
+>  drivers/gpu/nova-core/firmware.rs |  10 +-
+>  drivers/gpu/nova-core/gsp.rs      |  65 ++--
+>  drivers/gpu/nova-core/gsp/boot.rs |   7 +-
+>  drivers/gpu/nova-core/gsp/cmdq.rs |  55 +--
+>  drivers/gpu/nova-core/gsp/fw.rs   |  82 ++--
+>  rust/kernel/device.rs             |   4 +-
+>  rust/kernel/dma.rs                | 626 +++++++++++++++++++++++-------
+>  samples/rust/rust_dma.rs          |   8 +-
+>  10 files changed, 619 insertions(+), 264 deletions(-)
+>
+>
+> base-commit: 1195fcbda62f12108dc9be56fa4173897905b90c
 
-Now, if drivers are using the DMA API wrong, like trying to double map
-coherent allocations then they are broken. I also would not be
-surprised to find cases like this.
+What did you base this on?
 
-Jason
+
+Best regards,
+Andreas Hindborg
+
+
+
