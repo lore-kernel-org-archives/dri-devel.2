@@ -4,79 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9038110A62CA
-	for <dri-devel@archiver.kernel.org>; Thu, 26 Mar 2026 13:17:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 817CE10A62CC
+	for <dri-devel@archiver.kernel.org>; Thu, 26 Mar 2026 13:17:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4A8D310E985;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7C13A10E986;
 	Thu, 26 Mar 2026 13:17:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=meta.com header.i=@meta.com header.b="VDQr8Afa";
+	dkim=pass (2048-bit key; unprotected) header.d=mandrillapp.com header.i=@mandrillapp.com header.b="hLkiZOrD";
+	dkim=pass (2048-bit key; unprotected) header.d=vates.tech header.i=teddy.astie@vates.tech header.b="mOxAh5Q0";
 	dkim-atps=neutral
-Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com
- [67.231.145.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BE02810E626
- for <dri-devel@lists.freedesktop.org>; Tue, 24 Mar 2026 23:51:53 +0000 (UTC)
-Received: from pps.filterd (m0528007.ppops.net [127.0.0.1])
- by mx0a-00082601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 62OKfGnr1831230
- for <dri-devel@lists.freedesktop.org>; Tue, 24 Mar 2026 16:51:53 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=meta.com; h=cc
- :content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=s2048-2025-q2;
- bh=oGyXd3xG5pggurnnSOT71i0oSkKn9mw956kLM6mwDgM=; b=VDQr8AfaXbHH
- CXynrSWPSPxPAjkD3kcSwIcmegl0Sz5fpHZyNkdUGDfRt33TtKZPFqYk/iqR64IV
- ZQK5YC27Ayu0nDD5EcbUn+mHXSLEH1+p/S6ebARVBaUwgPLjBuLtgXjnt36l8E0e
- cQgtw5nOPLsTZSG+yhfYaQjezIS9/M4TlvJO8QB6XJDLrAe3zF9Vo+9IUgOs/vME
- tmmON1rwWrP/CrVdpAuBaJ/0x0IG9SILhL8qGSX3ZRAD5Eg6tMYMuCxToLPaj67z
- 0PqA41C84edawzAwX63UH961xsYfZ1qpiq6a3GYeJk5CxuXJSEBEZh7ppBgrvfh5
- LQeEsTLeVg==
-Received: from mail.thefacebook.com ([163.114.134.16])
- by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4d41vat0hh-4
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Tue, 24 Mar 2026 16:51:53 -0700 (PDT)
-Received: from twshared18017.01.snb2.facebook.com (2620:10d:c085:208::7cb7) by
- mail.thefacebook.com (2620:10d:c08b:78::2ac9) with Microsoft SMTP
- Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.2.2562.35; Tue, 24 Mar 2026 23:51:51 +0000
-Received: by devbig259.ftw1.facebook.com (Postfix, from userid 664516)
- id 496D01D7CF69; Tue, 24 Mar 2026 16:46:28 -0700 (PDT)
-From: Zhiping Zhang <zhipingz@meta.com>
-To: Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, Bjorn
- Helgaas <bhelgaas@google.com>, <linux-rdma@vger.kernel.org>,
- <linux-pci@vger.kernel.org>, <netdev@vger.kernel.org>,
- <dri-devel@lists.freedesktop.org>, Keith Busch <kbusch@kernel.org>, Yochai
- Cohen <yochai@nvidia.com>, Yishai Hadas <yishaih@nvidia.com>
-CC: Bjorn Helgaas <helgaas@kernel.org>, Zhiping Zhang <zhipingz@meta.com>
-Subject: [RFC v2 2/2] RDMA/mlx5: get tph for p2p access when registering
- dmabuf mr
-Date: Tue, 24 Mar 2026 16:46:03 -0700
-Message-ID: <20260324234615.3731237-3-zhipingz@meta.com>
-X-Mailer: git-send-email 2.52.0
-In-Reply-To: <20260324234615.3731237-1-zhipingz@meta.com>
-References: <20260324234615.3731237-1-zhipingz@meta.com>
+X-Greylist: delayed 1097 seconds by postgrey-1.36 at gabe;
+ Tue, 24 Mar 2026 18:18:27 UTC
+Received: from mail132-30.atl131.mandrillapp.com
+ (mail132-30.atl131.mandrillapp.com [198.2.132.30])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 14C0E10E616
+ for <dri-devel@lists.freedesktop.org>; Tue, 24 Mar 2026 18:18:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
+ s=mte1; t=1774375209; x=1774645209;
+ bh=5UEBEVoFw//9avZMtrqgrtr3/YITnllGPjBvoyHdWeI=;
+ h=From:Subject:Message-Id:To:References:In-Reply-To:Feedback-ID:
+ Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+ Subject:From;
+ b=hLkiZOrDG9As5kyfosM0F1LL4DLWqr05QUIfHVTq8Myv2hQXII2jiy99OvOc1WCPv
+ QqaLKxs7iYNRH4uPL75Wb8JH9Kcg7dPpc1iaKqvb4wErHvzZacPkkIlVDq+skt1EQh
+ +otb+nU1Dt7Lifmt0owdYci3gEp8TvTYBYdyt8ArUzwLx5EysvT3cGHzSY2WduTVtN
+ r9MMs+AjHJaOYcAYUIllu/bR3Oa2Sia9INQiablRIFZx8CqWZt5SbNjNvzfciTCLSx
+ gvmhijR4bDn8icFoXrRDMaVT8UobdWIoUTtxJSuZ3rmYq8JC++xOyARPrjYHmuHvLw
+ SnlnrfMLBYmYQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
+ t=1774375209; x=1774635709; i=teddy.astie@vates.tech;
+ bh=5UEBEVoFw//9avZMtrqgrtr3/YITnllGPjBvoyHdWeI=;
+ h=From:Subject:Message-Id:To:References:In-Reply-To:Feedback-ID:
+ Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+ Subject:From;
+ b=mOxAh5Q0RqZ5wMwrHUAf8WnRtJMVLgV9KqPfzeMArXJd9d87rdL35NHv9lELwLT4s
+ 9Do6WCwyzd4Flvb4yIXwmo4bLVkD5eUhqvIWCKMhleEaa8Tetofoy7XVzJUi45MOwa
+ 8xHqsLWvAsjhnyK/zTZsd3D8YgO7/5oGXXAxOf1a8xoRkNVJw3LVbE/l5PaBSynn5d
+ r50zdJdTFt0Jqo5MBZ9ZApgcdibbPXsj/Vz5tNzoopXLKlngH1XsEyQ9hu0/USFLYl
+ /WXV/bv59ZNwmScTs39pEbkGCW5rIcO3hHQ2tCO8tHt3ZPv/JVI4bMNdoQPsWONUzd
+ VHPmA27VnUSpw==
+Received: from pmta09.mandrill.prod.atl01.rsglab.com (localhost [127.0.0.1])
+ by mail132-30.atl131.mandrillapp.com (Mailchimp) with ESMTP id
+ 4fgHr93R2PzP0NNT3
+ for <dri-devel@lists.freedesktop.org>; Tue, 24 Mar 2026 18:00:09 +0000 (GMT)
+From: "Teddy Astie" <teddy.astie@vates.tech>
+Subject: =?utf-8?Q?Re:=20Mapping=20non-pinned=20memory=20from=20one=20Xen=20domain=20into=20another?=
+Received: from [37.26.189.201] by mandrillapp.com id
+ fbccbb3eb42947acbb724ae8f6fa1b00; Tue, 24 Mar 2026 18:00:09 +0000
+X-Bm-Disclaimer: Yes
+X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
+X-Bm-Transport-Timestamp: 1774375206965
+Message-Id: <5123c11c-3b8a-4633-809f-16c24418a4ce@vates.tech>
+To: "Demi Marie Obenour" <demiobenour@gmail.com>,
+ "Xen developer discussion" <xen-devel@lists.xenproject.org>,
+ dri-devel@lists.freedesktop.org, linux-mm@kvack.org,
+ "Jan Beulich" <jbeulich@suse.com>, "Val Packett" <val@invisiblethingslab.com>,
+ "Ariadne Conill" <ariadne@ariadne.space>,
+ "Andrew Cooper" <andrew.cooper3@citrix.com>, "Juergen Gross" <jgross@suse.com>
+References: <84462c4b-7813-4ad1-aeb2-862ae4f3a627@gmail.com>
+In-Reply-To: <84462c4b-7813-4ad1-aeb2-862ae4f3a627@gmail.com>
+X-Native-Encoded: 1
+X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,
+ =20including=20all=20headers,
+ =20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.fbccbb3eb42947acbb724ae8f6fa1b00?=
+X-Mandrill-User: md_30504962
+Feedback-ID: 30504962:30504962.20260324:md
+Date: Tue, 24 Mar 2026 18:00:09 +0000
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-X-FB-Internal: Safe
-Content-Type: text/plain
-X-Authority-Analysis: v=2.4 cv=D8pK6/Rj c=1 sm=1 tr=0 ts=69c32399 cx=c_pps
- a=CB4LiSf2rd0gKozIdrpkBw==:117 a=CB4LiSf2rd0gKozIdrpkBw==:17
- a=Yq5XynenixoA:10 a=VkNPw1HP01LnGYTKEx00:22 a=7x6HtfJdh03M6CCDgxCd:22
- a=4h92JMTCafKA-fb_NiOh:22 a=VabnemYjAAAA:8 a=YIu6cGBJ8C_R0mlkFEgA:9
- a=gKebqoRLp9LExxC7YDUY:22
-X-Proofpoint-ORIG-GUID: -ZMVZw6Y-_D6CLI1Ic_Jvb0OjStW5xI8
-X-Proofpoint-GUID: -ZMVZw6Y-_D6CLI1Ic_Jvb0OjStW5xI8
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzI0MDE4NCBTYWx0ZWRfX2WjmCpOBPXxS
- /GJIhaNv7D+IaVdkXHDld90PrRQ6omQNqjgYWNUflX2Sdzvm3P0C3GOKFt1sc4NVXbceTwtiqlg
- iJUen1blPusJAwwG8kCHTpVhooJ92bLDaYHIyUePhNSDVd3oQ00CHVc7++cuVmViR+KKXiLxfpP
- SVHMGfvI462+UyOeZ1maDSqlpQ02r8U+PoISklokE13DdBS0ZYNiSR6+VDQqXl2UBOq2mtNudGT
- 9Tn5EZl3YMvkY0vcX2Ot7zquLO0TW6hNhb6PaBY4O5cDrVjYNDpjD0HGQ46u/9xF4fGVapxmCiL
- FTn+dnvNk+BRqjcjwvMo9H9e95PkpK8UBeJ33aMnx0lhCcOkWh5LWgrduExoFCmfRhwTk8u41x2
- gBo4zM5sWOFZZhlBzaF3OFa821hZ7a4RkGmnknK3VidNw89tXtjFpZUlDRtqhZS1nCkPgLD42AD
- R9ufhP89BP+9qnkax+A==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-03-24_04,2026-03-24_01,2025-10-01_01
 X-Mailman-Approved-At: Thu, 26 Mar 2026 13:17:48 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -93,167 +89,242 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This patch adds support to retrieve tph info from dmabuf during mr
-registration for P2P memory access. A new helper get_tph_mr_dmabuf()
-queries the dmabuf exporter for tph (steering tag and processing hint)
-and converts the raw steering tag to an st_index via
-mlx5_st_alloc_index_by_tag(). The DMAH workflow for CPU still takes
-precedence in the process.
+Hello,
 
-The new mlx5_st_alloc_index_by_tag() API is extracted from
-mlx5_st_alloc_index() to allow callers that already have a raw steering
-tag value (e.g., from a dmabuf) to allocate an st_index directly,
-without requiring a CPU ID and memory type lookup.
+I assume all this only concerns HVM/PVH DomU, I don't think it is doable 
+for PV DomU (if that matters).
 
-Signed-off-by: Zhiping Zhang <zhipingz@meta.com>
+Le 24/03/2026 =C3=A0 15:17, Demi Marie Obenour a =C3=A9crit=C2=A0:
+> Here is a proposed design document for supporting mapping GPU VRAM
+> and/or file-backed memory into other domains.  It's not in the form of
+> a patch because the leading + characters would just make it harder to
+> read for no particular gain, and because this is still RFC right now.
+> Once it is ready to merge, I'll send a proper patch.  Nevertheless,
+> you can consider this to be
+> 
+> Signed-off-by: Demi Marie Obenour <demiobenour@gmail.com>
+> 
+> This approach is very different from the "frontend-allocates"
+> approach used elsewhere in Xen.  It is very much Linux-centric,
+> rather than Xen-centric.  In fact, MMU notifiers were invented for
+> KVM, and this approach is exactly the same as the one KVM implements.
+> However, to the best of my understanding, the design described here is
+> the only viable one.  Linux MM and GPU drivers require it, and changes
+> to either to relax this requirement will not be accepted upstream.
+> ---
+> # Memory lending: Mapping pageable memory, such as GPU VRAM, from one Xen=
+ domain into another
+> 
+> ## Background
+> 
+> Some Linux kernel subsystems require full control over certain memory
+> regions.  This includes the ability to handle page faults from any
+> entity accessing this memory.  Such entities include not only that
+> kernel's userspace, but also kernels belonging to other guests.
+> 
+> For instance, GPU drivers reserve the right to migrate data between
+> VRAM and system RAM at any time.  Furthermore, there is a set of
+> page tables between the "aperture" (mapped as a PCI BAR) and the
+> actual VRAM.  This means that the GPU driver can make the memory
+> temporarily inaccessible to the CPU.  This is in fact _required_
+> when resizable BAR is not supported, as otherwise there is too much
+> VRAM to expose it all via a single BAR.
+> 
+> Since the backing storage of this memory must be movable, pinning
+> it is not supported.  However, the existing grant table interface
+> requires pinned memory.  Therefore, such memory currently cannot be
+> shared with another guest.  As a result, implementing virtio-GPU blob
+> objects is not possible.  Since blob objects are a prerequisite for
+> both Venus and native contexts, supporting Vulkan via virtio-GPU on
+> Xen is also impossible.
+> 
+
+I'm not sure Vulkan fully allow memory to be moved between RAM and VRAM. 
+Or at least, you would need to lie a bit on the 
+VK_MEMORY_HEAP_DEVICE_LOCAL_BIT property.
+
+So I assume there is a way to choose between having memory as VRAM or as 
+RAM somehow, unless it is only a hint ?
+
+> Direct Access to Differentiated Memory (DAX) also relies on non-pinned
+> memory.  In the (now rare) case of persistent memory, it is because
+> the filesystem may need to move data blocks around on disk.  In the
+> case of virtio-pmem and virtio-fs, it is because page faults on write
+> operations are used to inform filesystems that they need to write the
+> data back at some point.  Without these page faults, filesystems will
+> not write back the data and silent data loss will result.
+> 
+> There are other use-cases for this too.  For instance, virtio-GPU
+> cross-domain Wayland exposes host shared memory buffers to the guest.
+> These buffers are mmap()'d file descriptors provided by the Wayland
+> compositor, and as such are not guaranteed to be anonymous memory.
+> Using grant tables for such mappings would conflict with the design
+> of existing virtio-GPU implementations, which assume that GPU VRAM
+> and shared memory can be handled uniformly.
+> 
+> Additionally, this is needed to support paging guest memory out to the
+> host's disks.  While this is significantly less efficient than using
+> an in-guest balloon driver, it has the advantage of not requiring
+> guest cooperation.  Therefore, it can be useful for situations in
+> which the performance of a guest is irrelevant, but where saving the
+> guest isn't appropriate.
+> 
+> ## Informing drivers that they must stop using memory: MMU notifiers
+> 
+> Kernel drivers, such as xen_privcmd, in the same domain that has
+> the GPU (the "host") may map GPU memory buffers.  However, they must
+> register an *MMU notifier*.  This is a callback that Linux core memory
+> management code ("MM") uses to tell the driver that it must stop
+> all accesses to the memory.  Once the memory is no longer accessed,
+> Linux assumes it can do whatever it wants with this memory:
+> 
+> - The GPU driver can move it from VRAM to system RAM or visa versa,
+>   move it within VRAM or system RAM, or it temporarily inaccessible
+>   so that other VRAM can be accessed.
+> - MM can swap the page out to disk/zram/etc.
+> - MM can move the page in system RAM to create huge pages.
+> - MM can write the pages out to their backing files and then free them.
+> - Anything else in Linux can do whatever it wants with the memory.
+> 
+> Suspending access to memory is not allowed to block indefinitely.
+> It can sleep, but it must finish in finite time regardless of what
+> userspace (or other VMs) do.  Otherwise, bad things (which I believe
+> includes deadlocks) may result.  I believe it can fail temporarily,
+> but permanent failure is also not allowed.  Once the MMU notifier
+> has succeeded, userspace or other domains **must not be allowed to
+> access the memory**.  This would be an exploitable use-after-free
+> vulnerability.
+> 
+> Due to these requirements, MMU notifier callbacks must not require
+> cooperation from other guests.  This means that they are not allowed to
+> wait for memory that has been granted to another guest to no longer
+> be mapped by that guest.  Therefore, MMU notifiers and the use of
+> grant tables are inherently incompatible.
+
+
+> 
+> ## Memory lending: A different approach
+> 
+> Instead, xen_privcmd must use a different hypercall to _lend_ memory to
+> another domain (the "guest").  When MM triggers the guest MMU notifier,
+> xen_privcmd _tells_ Xen (via hypercall) to revoke the guest's access
+> to the memory.  This hypercall _must succeed in bounded time_ even
+> if the guest is malicious.
+> 
+> Since the other guests are not aware this has happened, they will
+> continue to access the memory.  This will cause p2m faults, which
+> trap to Xen.  Xen normally kills the guest in this situation which is
+> obviously not desired behavior.  Instead, Xen must pause the guest
+> and inform the host's kernel.  xen_privcmd will have registered a
+> handler for such events, so it will be informed when this happens.
+> 
+> When xen_privcmd is told that a guest wants to access the revoked
+> page, it will ask core MM to make the page available.  Once the page
+> _is_ available, core MM will inform xen_privcmd, which will in turn
+> provide a page to Xen that will be mapped into the guest's stage 2
+> translation tables.  This page will generally be different than the
+> one that was originally lent.
+> 
+> Requesting a new page can fail.  This is usually due to rare errors,
+> such as a GPU being hot-unplugged or an I/O error faulting pages
+> from disk.  In these cases, the old content of the page is lost.
+> 
+> When this happens, xen_privcmd can do one of two things:
+> 
+> 1. It can provide a page that is filled with zeros.
+> 2. It can tell Xen that it is unable to fulfill the request.
+> 
+> Which choice it makes is under userspace control.  If userspace
+> chooses the second option, Xen injects a fault into the guest.
+> It is up to the guest to handle the fault correctly.
+> 
+Is it some ioreq-like mechanism where :
+- A guest access a "non-ready" page
+- Nothing there -> pagefault (e.g NPF) and guest vCPU is blocked
+- Xen asks Dom0 what to do (event channel, VIRQ, ...)
+- Dom0 explicitly maps memory to the guest (or do any other operation)
+- Guest resumes execution with the page mapped
+
+Something that looks a bit similar to "memory paging".
+
+> ## Restrictions on lent memory
+> 
+> Lent memory is still considered to belong to the lending domain.
+> The borrowing domain can only access it via its p2m.  Hypercalls made
+> by the borrowing domain act as if the borrowed memory was not present.
+> This includes, but is not limited to:
+> 
+> - Using pointers to borrowed memory in hypercall arguments.
+> - Granting borrowed memory to other VMs.
+> - Any other operation that depends on whether a page is accessible
+>    by a domain.
+
+What about emulated instructions that refers to this memory ?
+
+> 
+> Furthermore:
+> 
+> - Borrowed memory isn't mapped into the IOMMU of any PCIe devices
+>    the guest has attached, because IOTLB faults generally are not
+>    replayable.
+> 
+
+Given that (as written bellow) Borrowed memory is a part of some form of 
+emulated BAR or special region, there is no guarantee that DMA will work 
+properly anyway (unless P2P DMA support is advertised).
+
+Splitting the IOMMU side from the P2M is not a good idea as it rules out 
+the "IOMMU HAP PT Share" optimization.
+
+> - Foreign mapping hypercalls that reference lent memory will fail.
+>    Otherwise, the domain making the foreign mapping hypercall could
+>    continue to access the borrowed memory after the lease had been
+>    revoked.  This is true even if the domain performing the foreign
+>    mapping is an all-powerful dom0.  Otherwise, an emulated device
+>    could access memory whose lease had been revoked.
+> 
+> This also means that live migration of a domain that has borrowed
+> memory requires cooperation from the lending domain.  For now, it
+> will be considered out of scope.  Live migration is typically used
+> with server workloads, and accelerators for server hardware often
+> support SR-IOV.
+> 
+> ## Where will lent memory appear in a guest's address space?
+> 
+> Typically, lent memory will be an emulated PCI BAR.  It may be emulated
+> by dom0 or an alternate ioreq server.  However, it is not *required*
+> to be a PCI BAR.
+> 
+
 ---
- drivers/infiniband/hw/mlx5/mr.c               | 34 +++++++++++++++++++
- .../net/ethernet/mellanox/mlx5/core/lib/st.c  | 23 +++++++++----
- include/linux/mlx5/driver.h                   |  7 ++++
- 3 files changed, 57 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/infiniband/hw/mlx5/mr.c b/drivers/infiniband/hw/mlx5=
-/mr.c
-index 665323b90b64..041922ba3bff 100644
---- a/drivers/infiniband/hw/mlx5/mr.c
-+++ b/drivers/infiniband/hw/mlx5/mr.c
-@@ -46,6 +46,8 @@
- #include "data_direct.h"
- #include "dmah.h"
+While the design could work (albeit the implied complexity), I'm not a 
+big fan of it, or at least, it needs to consider some constraints for 
+having reasonable performance.
+One of the big issue is that a performance-sensitive system (virtualized 
+GPU) is interlocking with several "hard to optimize" subsystem like P2M 
+or Dom0 having to process a paging event.
 
-+MODULE_IMPORT_NS("DMA_BUF");
-+
- enum {
- 	MAX_PENDING_REG_MR =3D 8,
- };
-@@ -1622,6 +1624,36 @@ static struct dma_buf_attach_ops mlx5_ib_dmabuf_at=
-tach_ops =3D {
- 	.move_notify =3D mlx5_ib_dmabuf_invalidate_cb,
- };
+Modifying the P2M (especially removing entries) is a fairly expensive 
+operation as it sometimes requires pausing all the vCPUs each time it's 
+done.
 
-+static void get_tph_mr_dmabuf(struct mlx5_ib_dev *dev, int fd, u16 *st_i=
-ndex,
-+			      u8 *ph)
-+{
-+	struct dma_buf *dmabuf;
-+	u16 steering_tag;
-+	int ret;
-+
-+	dmabuf =3D dma_buf_get(fd);
-+	if (IS_ERR(dmabuf))
-+		return;
-+
-+	if (!dmabuf->ops->get_tph)
-+		goto end_dbuf_put;
-+
-+	ret =3D dmabuf->ops->get_tph(dmabuf, &steering_tag, ph);
-+	if (ret) {
-+		mlx5_ib_dbg(dev, "get_tph failed (%d)\n", ret);
-+		goto end_dbuf_put;
-+	}
-+
-+	ret =3D mlx5_st_alloc_index_by_tag(dev->mdev, steering_tag, st_index);
-+	if (ret) {
-+		*ph =3D MLX5_IB_NO_PH;
-+		mlx5_ib_dbg(dev, "st_alloc_index_by_tag failed (%d)\n", ret);
-+	}
-+
-+end_dbuf_put:
-+	dma_buf_put(dmabuf);
-+}
-+
- static struct ib_mr *
- reg_user_mr_dmabuf(struct ib_pd *pd, struct device *dma_device,
- 		   u64 offset, u64 length, u64 virt_addr,
-@@ -1664,6 +1696,8 @@ reg_user_mr_dmabuf(struct ib_pd *pd, struct device =
-*dma_device,
- 		ph =3D dmah->ph;
- 		if (dmah->valid_fields & BIT(IB_DMAH_CPU_ID_EXISTS))
- 			st_index =3D mdmah->st_index;
-+	} else {
-+		get_tph_mr_dmabuf(dev, fd, &st_index, &ph);
- 	}
+If it's done at 4k granularity, it would also lack superpage support, 
+which wouldn't help either. (doing things at the 2M+ scale would help, 
+but I don't know enough how MMU notifier does things.
 
- 	mr =3D alloc_cacheable_mr(pd, &umem_dmabuf->umem, virt_addr,
-diff --git a/drivers/net/ethernet/mellanox/mlx5/core/lib/st.c b/drivers/n=
-et/ethernet/mellanox/mlx5/core/lib/st.c
-index 997be91f0a13..112c55ede731 100644
---- a/drivers/net/ethernet/mellanox/mlx5/core/lib/st.c
-+++ b/drivers/net/ethernet/mellanox/mlx5/core/lib/st.c
-@@ -92,23 +92,18 @@ void mlx5_st_destroy(struct mlx5_core_dev *dev)
- 	kfree(st);
- }
+While I agree that grants is not a adequate mechanism for this (for 
+multiples reasons), I'm not fully convinced of the proposal.
+I would prefer a strategy where we map a fixed amount of RAM+VRAM as a 
+blob, along with some form of cooperative hotplug mechanism to 
+dynamically provision the amount.
 
--int mlx5_st_alloc_index(struct mlx5_core_dev *dev, enum tph_mem_type mem=
-_type,
--			unsigned int cpu_uid, u16 *st_index)
-+int mlx5_st_alloc_index_by_tag(struct mlx5_core_dev *dev, u16 tag,
-+			       u16 *st_index)
- {
- 	struct mlx5_st_idx_data *idx_data;
- 	struct mlx5_st *st =3D dev->st;
- 	unsigned long index;
- 	u32 xa_id;
--	u16 tag;
- 	int ret;
 
- 	if (!st)
- 		return -EOPNOTSUPP;
-
--	ret =3D pcie_tph_get_cpu_st(dev->pdev, mem_type, cpu_uid, &tag);
--	if (ret)
--		return ret;
--
- 	if (st->direct_mode) {
- 		*st_index =3D tag;
- 		return 0;
-@@ -152,6 +147,20 @@ int mlx5_st_alloc_index(struct mlx5_core_dev *dev, e=
-num tph_mem_type mem_type,
- 	mutex_unlock(&st->lock);
- 	return ret;
- }
-+EXPORT_SYMBOL_GPL(mlx5_st_alloc_index_by_tag);
-+
-+int mlx5_st_alloc_index(struct mlx5_core_dev *dev, enum tph_mem_type mem=
-_type,
-+			unsigned int cpu_uid, u16 *st_index)
-+{
-+	u16 tag;
-+	int ret;
-+
-+	ret =3D pcie_tph_get_cpu_st(dev->pdev, mem_type, cpu_uid, &tag);
-+	if (ret)
-+		return ret;
-+
-+	return mlx5_st_alloc_index_by_tag(dev, tag, st_index);
-+}
- EXPORT_SYMBOL_GPL(mlx5_st_alloc_index);
-
- int mlx5_st_dealloc_index(struct mlx5_core_dev *dev, u16 st_index)
-diff --git a/include/linux/mlx5/driver.h b/include/linux/mlx5/driver.h
-index 04dcd09f7517..c1d2d603bd96 100644
---- a/include/linux/mlx5/driver.h
-+++ b/include/linux/mlx5/driver.h
-@@ -1177,10 +1177,17 @@ int mlx5_dm_sw_icm_dealloc(struct mlx5_core_dev *=
-dev, enum mlx5_sw_icm_type type
- 			   u64 length, u16 uid, phys_addr_t addr, u32 obj_id);
-
- #ifdef CONFIG_PCIE_TPH
-+int mlx5_st_alloc_index_by_tag(struct mlx5_core_dev *dev, u16 tag,
-+			       u16 *st_index);
- int mlx5_st_alloc_index(struct mlx5_core_dev *dev, enum tph_mem_type mem=
-_type,
- 			unsigned int cpu_uid, u16 *st_index);
- int mlx5_st_dealloc_index(struct mlx5_core_dev *dev, u16 st_index);
- #else
-+static inline int mlx5_st_alloc_index_by_tag(struct mlx5_core_dev *dev,
-+					     u16 tag, u16 *st_index)
-+{
-+	return -EOPNOTSUPP;
-+}
- static inline int mlx5_st_alloc_index(struct mlx5_core_dev *dev,
- 				      enum tph_mem_type mem_type,
- 				      unsigned int cpu_uid, u16 *st_index)
 --
-2.52.0
+Teddy Astie | Vates XCP-ng Developer
+
+XCP-ng & Xen Orchestra - Vates solutions
+
+web: https://vates.tech
+
 
