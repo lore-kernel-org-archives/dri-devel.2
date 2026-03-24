@@ -4,50 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7CBCBF54AD0
-	for <dri-devel@archiver.kernel.org>; Tue, 24 Mar 2026 15:25:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C1E7BF54ACF
+	for <dri-devel@archiver.kernel.org>; Tue, 24 Mar 2026 15:25:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CFCB110E5D7;
-	Tue, 24 Mar 2026 15:25:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2A3DB10E671;
+	Tue, 24 Mar 2026 15:25:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="jVEcK4Sy";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="W7b9Dzg8";
 	dkim-atps=neutral
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id 30EEB10E70F
- for <dri-devel@lists.freedesktop.org>; Tue, 24 Mar 2026 15:25:26 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 7793314BF
- for <dri-devel@lists.freedesktop.org>; Tue, 24 Mar 2026 08:25:19 -0700 (PDT)
-Received: from [192.168.0.1] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id
- 332683F836
- for <dri-devel@lists.freedesktop.org>; Tue, 24 Mar 2026 08:25:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
- t=1774365925; bh=uwPKBBZ4H8ET5yPwi0SdlITDXHozT6ps2YNd8n1q0UA=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=jVEcK4Syhu4tIDt8vonEPR63Jc9IMV3d6vKYXVxE8OdizQMf6MGD08R2hhtnNpPwU
- U1xK6/Is/Z0xBmFXRcIRbLT4AMRL8GMNunoMSFbuNzun4/bxJlaJEPMPiS3VBAd9OF
- /OLb1d5Y0GSYZyZVF8ycjPbV+FREMa8UM1S9Zk7k=
-Date: Tue, 24 Mar 2026 15:25:22 +0000
-From: Liviu Dudau <liviu.dudau@arm.com>
-To: Marcin Slusarz <marcin.slusarz@arm.com>
-Cc: Boris Brezillon <boris.brezillon@collabora.com>,
- Steven Price <steven.price@arm.com>,
- dri-devel@lists.freedesktop.org, Chia-I Wu <olvaffe@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
+ [136.143.188.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 95AE310E67A;
+ Tue, 24 Mar 2026 15:25:29 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1774365913; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=FHAKaU6BZH80IYFqEa3eAOZmceU7Hw+oHbexTK3eflxpH++56aFzspdGD7Fc12ynCOXfZQVJd9bcZWjwCFjsDJdXd/qtZatHC1Rud+V5OMP1eY3nO8BK1jkBLSVt4romPtgiJT6VcoNkg3hN76JhnHASYpkhGEYe0kg182x0twQ=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1774365913;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=MWYjgfX6VpVyfxxQYgJCWmWSXFOd4Jy+zVQGptpNyRU=; 
+ b=cuBVRg8nYCe9MzDT4bLrQ7fGmsLUudcZXpvvDk38PwW+lH4miAfyy83W0sHiPNHhxgO6MQ+El0w0S3e1iv3+uAqkxGZkh0lz2yrPy8qgzrzBWE6jsNiWUKTyRTfmRyXx+wcA4jAnFLGmgXbVYXgVQo4iLMD91DRQUOLchrS28rI=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
+ dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1774365913; 
+ s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
+ h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:Content-Type:Message-Id:Reply-To;
+ bh=MWYjgfX6VpVyfxxQYgJCWmWSXFOd4Jy+zVQGptpNyRU=;
+ b=W7b9Dzg87cNtQZjUxQcIWP5d1fUlh74bGCuiDBpP7e1E7x+QckPPaaRL/YfpIHEY
+ fr0OC1PYoNrmYBhJYsupkxZMdNtmuVq4nvkaiubS40pMBY1AIpRiXLCJinL7o4CivQT
+ kYMBx9OBcg7SfRKOcdYRLXUEPo2cn2bjEgZMd/kk=
+Received: by mx.zohomail.com with SMTPS id 1774365912399120.92841279798449;
+ Tue, 24 Mar 2026 08:25:12 -0700 (PDT)
+From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Lukas Zapolskas <lukas.zapolskas@arm.com>, nd@arm.com
-Subject: Re: [PATCH v4] drm/panthor: extend timestamp query with flags
-Message-ID: <acKs4rhuWeYGH_29@e142607>
-References: <20260318112952.645160-1-marcin.slusarz@arm.com>
- <20260324132557.1707286-1-marcin.slusarz@arm.com>
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ Ville =?UTF-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
+ Daniel Stone <daniels@collabora.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Michel =?UTF-8?B?RMOkbnplcg==?= <michel.daenzer@mailbox.org>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, kernel@collabora.com,
+ Derek Foreman <derek.foreman@collabora.com>,
+ Marius Vlad <marius.vlad@collabora.com>
+Subject: Re: [PATCH v5 0/3] Add "link bpc" DRM property
+Date: Tue, 24 Mar 2026 16:25:05 +0100
+Message-ID: <4265353.aeNJFYEL58@workhorse>
+In-Reply-To: <eff61423-a854-44c1-8634-30e2bd61e005@mailbox.org>
+References: <20260319-link-bpc-v5-0-5306cd04a708@collabora.com>
+ <8676926.T7Z3S40VBb@workhorse>
+ <eff61423-a854-44c1-8634-30e2bd61e005@mailbox.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260324132557.1707286-1-marcin.slusarz@arm.com>
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,329 +78,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, Mar 24, 2026 at 02:25:57PM +0100, Marcin Slusarz wrote:
-> Flags now control which data user space wants to query,
-> there is more information sources, and there's ability
-> to query duration of multiple timestamp reads.
-> 
-> New sources:
-> - CPU's monotonic,
-> - CPU's monotonic raw,
-> - GPU's cycle count
-> 
-> These changes should make the implementation of
-> VK_KHR_calibrated_timestamps more accurate and much simpler.
-> 
-> Signed-off-by: Marcin Slusarz <marcin.slusarz@arm.com>
-> Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
+On Monday, 23 March 2026 18:27:41 Central European Standard Time Michel D=
+=C3=A4nzer wrote:
+> On 3/23/26 17:55, Nicolas Frattaroli wrote:
+> >
+> > "Someone might not understand its purpose" is, in my eyes, not a valid =
+reason to
+> > not have this property, [...]
+> Per my previous posts, that's not my concern.
+>=20
+>=20
+>=20
 
-Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
+Then what is your concern? That the link-bpc property does not
+consider DSC and dithering? Two things which the max-bpc property
+also does not consider?
 
-Best regards,
-Liviu
+Please clearly state where your problem with this property is (and
+not with how your understanding of the Weston MR uses it) so that
+I can make forward progress here. If all you want is a clearer
+description of the property in the comment that accompanies it,
+then I can do that, and I said I agree with this point. But you
+seem to be arguing from a position of not wanting the property to
+exist at all, which is not something I can address. Userspace needs
+a way to close the feedback loop here, or it won't be able to make
+the right content-specific trade-offs.
 
-> ---
-> Changes in v4:
->  - 0 replaced by DRM_PANTHOR_TIMESTAMP_CPU_NONE in CPU_TYPE_MASK switch
->  - extended documentation for flags
-> Changes in v3:
->  - {} around multiline statements
->  - added comment about default flags
->  - added VALID_TIMESTAMP_QUERY_FLAGS
->  - used u64_to_user_ptr
-> Changes in v2:
->  - added DRM_PANTHOR_TIMESTAMP_CPU_NONE
->  - cpu_timestamp_nsec extended to u64
->  - pad1 removed
->  - copy_from_user -> copy_struct_from_user
->  - looking at size replaced by looking at flags
->  - more comments
-> ---
->  drivers/gpu/drm/panthor/panthor_drv.c | 134 ++++++++++++++++++++++++--
->  include/uapi/drm/panthor_drm.h        |  63 +++++++++++-
->  2 files changed, 189 insertions(+), 8 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/panthor/panthor_drv.c b/drivers/gpu/drm/panthor/panthor_drv.c
-> index 165dddfde6ca..9e65af453119 100644
-> --- a/drivers/gpu/drm/panthor/panthor_drv.c
-> +++ b/drivers/gpu/drm/panthor/panthor_drv.c
-> @@ -13,7 +13,9 @@
->  #include <linux/pagemap.h>
->  #include <linux/platform_device.h>
->  #include <linux/pm_runtime.h>
-> +#include <linux/sched/clock.h>
->  #include <linux/time64.h>
-> +#include <linux/time_namespace.h>
->  
->  #include <drm/drm_auth.h>
->  #include <drm/drm_debugfs.h>
-> @@ -761,22 +763,135 @@ static void panthor_submit_ctx_cleanup(struct panthor_submit_ctx *ctx,
->  	kvfree(ctx->jobs);
->  }
->  
-> +#define VALID_TIMESTAMP_QUERY_FLAGS \
-> +		(DRM_PANTHOR_TIMESTAMP_GPU | \
-> +		 DRM_PANTHOR_TIMESTAMP_CPU_TYPE_MASK | \
-> +		 DRM_PANTHOR_TIMESTAMP_GPU_OFFSET | \
-> +		 DRM_PANTHOR_TIMESTAMP_GPU_CYCLE_COUNT | \
-> +		 DRM_PANTHOR_TIMESTAMP_FREQ | \
-> +		 DRM_PANTHOR_TIMESTAMP_DURATION)
-> +
->  static int panthor_query_timestamp_info(struct panthor_device *ptdev,
->  					struct drm_panthor_timestamp_info *arg)
->  {
->  	int ret;
-> +	u32 flags;
-> +	unsigned long irq_flags;
-> +	struct timespec64 cpu_ts;
-> +	u64 query_start_time;
-> +	bool minimize_interruption;
-> +	u32 timestamp_types = 0;
-> +
-> +	if (arg->flags != 0) {
-> +		flags = arg->flags;
-> +	} else {
-> +		/*
-> +		 * If flags are 0, then ask for the same things that we asked
-> +		 * for before flags were added.
-> +		 */
-> +		flags = DRM_PANTHOR_TIMESTAMP_GPU |
-> +			DRM_PANTHOR_TIMESTAMP_GPU_OFFSET |
-> +			DRM_PANTHOR_TIMESTAMP_FREQ;
-> +	}
-> +
-> +	switch (flags & DRM_PANTHOR_TIMESTAMP_CPU_TYPE_MASK) {
-> +	case DRM_PANTHOR_TIMESTAMP_CPU_NONE:
-> +		break;
-> +	case DRM_PANTHOR_TIMESTAMP_CPU_MONOTONIC:
-> +	case DRM_PANTHOR_TIMESTAMP_CPU_MONOTONIC_RAW:
-> +		timestamp_types++;
-> +		break;
-> +	default:
-> +		return -EINVAL;
-> +	}
-> +
-> +	if (flags & ~VALID_TIMESTAMP_QUERY_FLAGS)
-> +		return -EINVAL;
-> +
-> +	if (flags & DRM_PANTHOR_TIMESTAMP_GPU)
-> +		timestamp_types++;
-> +	if (flags & DRM_PANTHOR_TIMESTAMP_GPU_CYCLE_COUNT)
-> +		timestamp_types++;
-> +
-> +	/* If user asked to obtain timestamps from more than one source,
-> +	 * then it very likely means they want them to be as close as possible.
-> +	 * If they asked for duration, then that likely means that they
-> +	 * want to know how long obtaining timestamp takes, without random
-> +	 * events, like process scheduling or interrupts.
-> +	 */
-> +	minimize_interruption =
-> +		(flags & DRM_PANTHOR_TIMESTAMP_DURATION) ||
-> +		(timestamp_types >= 2);
->  
->  	ret = panthor_device_resume_and_get(ptdev);
->  	if (ret)
->  		return ret;
->  
-> +	if (flags & DRM_PANTHOR_TIMESTAMP_FREQ) {
->  #ifdef CONFIG_ARM_ARCH_TIMER
-> -	arg->timestamp_frequency = arch_timer_get_cntfrq();
-> +		arg->timestamp_frequency = arch_timer_get_cntfrq();
->  #else
-> -	arg->timestamp_frequency = 0;
-> +		arg->timestamp_frequency = 0;
->  #endif
-> -	arg->current_timestamp = gpu_read64_counter(ptdev, GPU_TIMESTAMP);
-> -	arg->timestamp_offset = gpu_read64(ptdev, GPU_TIMESTAMP_OFFSET);
-> +	} else {
-> +		arg->timestamp_frequency = 0;
-> +	}
-> +
-> +	if (flags & DRM_PANTHOR_TIMESTAMP_GPU_OFFSET)
-> +		arg->timestamp_offset = gpu_read64(ptdev, GPU_TIMESTAMP_OFFSET);
-> +	else
-> +		arg->timestamp_offset = 0;
-> +
-> +	if (minimize_interruption) {
-> +		preempt_disable();
-> +		local_irq_save(irq_flags);
-> +	}
-> +
-> +	if (flags & DRM_PANTHOR_TIMESTAMP_DURATION)
-> +		query_start_time = local_clock();
-> +	else
-> +		query_start_time = 0;
-> +
-> +	if (flags & DRM_PANTHOR_TIMESTAMP_GPU)
-> +		arg->current_timestamp = gpu_read64_counter(ptdev, GPU_TIMESTAMP);
-> +	else
-> +		arg->current_timestamp = 0;
-> +
-> +	switch (flags & DRM_PANTHOR_TIMESTAMP_CPU_TYPE_MASK) {
-> +	case DRM_PANTHOR_TIMESTAMP_CPU_MONOTONIC:
-> +		ktime_get_ts64(&cpu_ts);
-> +		break;
-> +	case DRM_PANTHOR_TIMESTAMP_CPU_MONOTONIC_RAW:
-> +		ktime_get_raw_ts64(&cpu_ts);
-> +		break;
-> +	default:
-> +		break;
-> +	}
-> +
-> +	if (flags & DRM_PANTHOR_TIMESTAMP_GPU_CYCLE_COUNT)
-> +		arg->cycle_count = gpu_read64_counter(ptdev, GPU_CYCLE_COUNT);
-> +	else
-> +		arg->cycle_count = 0;
-> +
-> +	if (flags & DRM_PANTHOR_TIMESTAMP_DURATION)
-> +		arg->duration_nsec = local_clock() - query_start_time;
-> +	else
-> +		arg->duration_nsec = 0;
-> +
-> +	if (minimize_interruption) {
-> +		local_irq_restore(irq_flags);
-> +		preempt_enable();
-> +	}
-> +
-> +	if (flags & DRM_PANTHOR_TIMESTAMP_CPU_TYPE_MASK) {
-> +		timens_add_monotonic(&cpu_ts);
-> +
-> +		arg->cpu_timestamp_sec = cpu_ts.tv_sec;
-> +		arg->cpu_timestamp_nsec = cpu_ts.tv_nsec;
-> +	} else {
-> +		arg->cpu_timestamp_sec = 0;
-> +		arg->cpu_timestamp_nsec = 0;
-> +	}
->  
->  	pm_runtime_put(ptdev->base.dev);
->  	return 0;
-> @@ -851,8 +966,14 @@ static int panthor_ioctl_dev_query(struct drm_device *ddev, void *data, struct d
->  		return PANTHOR_UOBJ_SET(args->pointer, args->size, ptdev->csif_info);
->  
->  	case DRM_PANTHOR_DEV_QUERY_TIMESTAMP_INFO:
-> -		ret = panthor_query_timestamp_info(ptdev, &timestamp_info);
-> +		ret = copy_struct_from_user(&timestamp_info,
-> +					    sizeof(timestamp_info),
-> +					    u64_to_user_ptr(args->pointer),
-> +					    args->size);
-> +		if (ret)
-> +			return ret;
->  
-> +		ret = panthor_query_timestamp_info(ptdev, &timestamp_info);
->  		if (ret)
->  			return ret;
->  
-> @@ -1680,6 +1801,7 @@ static void panthor_debugfs_init(struct drm_minor *minor)
->   *       - adds DRM_IOCTL_PANTHOR_BO_SYNC ioctl
->   *       - adds DRM_IOCTL_PANTHOR_BO_QUERY_INFO ioctl
->   *       - adds drm_panthor_gpu_info::selected_coherency
-> + * - 1.8 - extends DEV_QUERY_TIMESTAMP_INFO with flags
->   */
->  static const struct drm_driver panthor_drm_driver = {
->  	.driver_features = DRIVER_RENDER | DRIVER_GEM | DRIVER_SYNCOBJ |
-> @@ -1693,7 +1815,7 @@ static const struct drm_driver panthor_drm_driver = {
->  	.name = "panthor",
->  	.desc = "Panthor DRM driver",
->  	.major = 1,
-> -	.minor = 7,
-> +	.minor = 8,
->  
->  	.gem_create_object = panthor_gem_create_object,
->  	.gem_prime_import_sg_table = drm_gem_shmem_prime_import_sg_table,
-> diff --git a/include/uapi/drm/panthor_drm.h b/include/uapi/drm/panthor_drm.h
-> index b401ac585d6a..0e455d91e77d 100644
-> --- a/include/uapi/drm/panthor_drm.h
-> +++ b/include/uapi/drm/panthor_drm.h
-> @@ -409,6 +409,38 @@ struct drm_panthor_csif_info {
->  	__u32 pad;
->  };
->  
-> +/**
-> + * enum drm_panthor_timestamp_info_flags - drm_panthor_timestamp_info.flags
-> + */
-> +enum drm_panthor_timestamp_info_flags {
-> +	/** @DRM_PANTHOR_TIMESTAMP_GPU: Query GPU time. */
-> +	DRM_PANTHOR_TIMESTAMP_GPU = 1 << 0,
-> +
-> +	/** @DRM_PANTHOR_TIMESTAMP_CPU_NONE: Don't query CPU time. */
-> +	DRM_PANTHOR_TIMESTAMP_CPU_NONE = 0 << 1,
-> +
-> +	/** @DRM_PANTHOR_TIMESTAMP_CPU_MONOTONIC: Query CPU time using CLOCK_MONOTONIC. */
-> +	DRM_PANTHOR_TIMESTAMP_CPU_MONOTONIC = 1 << 1,
-> +
-> +	/** @DRM_PANTHOR_TIMESTAMP_CPU_MONOTONIC_RAW: Query CPU time using CLOCK_MONOTONIC_RAW. */
-> +	DRM_PANTHOR_TIMESTAMP_CPU_MONOTONIC_RAW = 2 << 1,
-> +
-> +	/** @DRM_PANTHOR_TIMESTAMP_CPU_TYPE_MASK: Space reserved for CPU clock type. */
-> +	DRM_PANTHOR_TIMESTAMP_CPU_TYPE_MASK = 7 << 1,
-> +
-> +	/** @DRM_PANTHOR_TIMESTAMP_GPU_OFFSET: Query GPU offset. */
-> +	DRM_PANTHOR_TIMESTAMP_GPU_OFFSET = 1 << 4,
-> +
-> +	/** @DRM_PANTHOR_TIMESTAMP_GPU_CYCLE_COUNT: Query GPU cycle count. */
-> +	DRM_PANTHOR_TIMESTAMP_GPU_CYCLE_COUNT = 1 << 5,
-> +
-> +	/** @DRM_PANTHOR_TIMESTAMP_FREQ: Query timestamp frequency. */
-> +	DRM_PANTHOR_TIMESTAMP_FREQ = 1 << 6,
-> +
-> +	/** @DRM_PANTHOR_TIMESTAMP_DURATION: Return duration of time query. */
-> +	DRM_PANTHOR_TIMESTAMP_DURATION = 1 << 7,
-> +};
-> +
->  /**
->   * struct drm_panthor_timestamp_info - Timestamp information
->   *
-> @@ -421,11 +453,38 @@ struct drm_panthor_timestamp_info {
->  	 */
->  	__u64 timestamp_frequency;
->  
-> -	/** @current_timestamp: The current timestamp. */
-> +	/** @current_timestamp: The current GPU timestamp. */
->  	__u64 current_timestamp;
->  
-> -	/** @timestamp_offset: The offset of the timestamp timer. */
-> +	/** @timestamp_offset: The offset of the GPU timestamp timer. */
->  	__u64 timestamp_offset;
-> +
-> +	/**
-> +	 * @flags: Bitmask of drm_panthor_timestamp_info_flags.
-> +	 *
-> +	 * If set to 0, then it is interpreted as:
-> +	 *  DRM_PANTHOR_TIMESTAMP_GPU |
-> +	 *  DRM_PANTHOR_TIMESTAMP_GPU_OFFSET |
-> +	 *  DRM_PANTHOR_TIMESTAMP_FREQ
-> +	 *
-> +	 * Note: these flags are exclusive to each other (only one can be used):
-> +	 * - DRM_PANTHOR_TIMESTAMP_CPU_NONE
-> +	 * - DRM_PANTHOR_TIMESTAMP_CPU_MONOTONIC
-> +	 * - DRM_PANTHOR_TIMESTAMP_CPU_MONOTONIC_RAW
-> +	 */
-> +	__u32 flags;
-> +
-> +	/** @duration_nsec: Duration of time query. */
-> +	__u32 duration_nsec;
-> +
-> +	/** @cycle_count: Value of GPU_CYCLE_COUNT. */
-> +	__u64 cycle_count;
-> +
-> +	/** @cpu_timestamp_sec: Seconds part of CPU timestamp. */
-> +	__u64 cpu_timestamp_sec;
-> +
-> +	/** @cpu_timestamp_nsec: Nanseconds part of CPU timestamp. */
-> +	__u64 cpu_timestamp_nsec;
->  };
->  
->  /**
-> -- 
-> 2.34.1
-> 
+Kind regards,
+Nicolas Frattaroli
 
--- 
-====================
-| I would like to |
-| fix the world,  |
-| but they're not |
-| giving me the   |
- \ source code!  /
-  ---------------
-    ¯\_(ツ)_/¯
+
