@@ -4,41 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7BD2FF532FA
-	for <dri-devel@archiver.kernel.org>; Tue, 24 Mar 2026 08:58:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A9158F532F6
+	for <dri-devel@archiver.kernel.org>; Tue, 24 Mar 2026 08:58:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D114A10E5FD;
-	Tue, 24 Mar 2026 08:58:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 08A4110E606;
+	Tue, 24 Mar 2026 08:58:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="newzPJl9";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="V2sj8kij";
 	dkim-atps=neutral
 Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EC51E10E5FD
- for <dri-devel@lists.freedesktop.org>; Tue, 24 Mar 2026 08:58:27 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D0B6510E606
+ for <dri-devel@lists.freedesktop.org>; Tue, 24 Mar 2026 08:58:30 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-04.galae.net (Postfix) with ESMTPS id 50F96C58098;
- Tue, 24 Mar 2026 08:58:53 +0000 (UTC)
+ by smtpout-04.galae.net (Postfix) with ESMTPS id E5E02C58095;
+ Tue, 24 Mar 2026 08:58:56 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 1E8E16011D;
- Tue, 24 Mar 2026 08:58:26 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id B4F536011D;
+ Tue, 24 Mar 2026 08:58:29 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id C31F110450F4C; Tue, 24 Mar 2026 09:58:21 +0100 (CET)
+ with ESMTPSA id DB98E10450FBD; Tue, 24 Mar 2026 09:58:25 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1774342705; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ t=1774342708; h=from:subject:date:message-id:to:cc:mime-version:content-type:
  content-transfer-encoding:in-reply-to:references;
- bh=TUGbOsIY0mCBqRd2VsrTNDFjTrEiiFOg8V/6WFL6PJI=;
- b=newzPJl9C2yQ3YixFSm+vHc5j3V+1/xcAh99YXaTn3Mrz++ioL3+VNihAU4wkMKoq/i5gW
- K/YBglsL0XzcPbMvRUtAE1uFfXg5nl2uN/zceFJDZsjsGfygts0DhuI210KomtmxU0VrxQ
- An2Z8TY6tkz4YOlC8gVo14pwq/R/Iy146L0a2kQ6TDWPgyh24Nh3uHVlrCm2Nrvq+H3//A
- sSAM7P1IhBrgGnc+HWQbCg3cs0nzmLPvGCDUpUCFpcWC+jFHWCWVEEXf7ZbIZrkMAKShsH
- +P303nrR/zFFHMUK9jreVSyLB1uE5x2tOisRvaOWiP5SdXEGCjRcb+cumLA7HQ==
+ bh=dTPjWWPYXj8pYDGBW4Mu8+D8bWZWJwrgTHxQSd0GcUQ=;
+ b=V2sj8kijmrig/BHwN7UJAGn4Bj/smYmcny7KCaHMCSnkX/Og8pP4P3rGPsw1BMcT8ZEba8
+ Qluj6SoLFGV0OlC7Inuh5spElqszNzX3u1ICx4Ex6hlO4Kkk9EH0DcGEabF4hGJADVT9g0
+ gJCZbIsNVAVQCEmRCjKFQ9wyWEx+0y2alxyjTwcrznYC+tVb875zWsnckJ2lLZsEXcFwCV
+ hmM6/eSDobo2JnTwPJV8GzCyxe6dllyLbM6SYFSgE5e7plTAb0bzmum1gnzHmofgIa2V6I
+ BWBA0BX+WvBYP9Fl978GB4KK0gLE3Tp5mtidGO6OdTDeX5p76tX6t0lQqH0spA==
 From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Date: Tue, 24 Mar 2026 09:58:08 +0100
-Subject: [PATCH v5 1/7] drm/encoder: add mutex to protect the bridge chain
+Date: Tue, 24 Mar 2026 09:58:09 +0100
+Subject: [PATCH v5 2/7] drm/encoder: drm_encoder_cleanup: lock the encoder
+ chain mutex during removal
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260324-drm-bridge-alloc-encoder-chain-mutex-v5-1-8bf786c5c7e6@bootlin.com>
+Message-Id: <20260324-drm-bridge-alloc-encoder-chain-mutex-v5-2-8bf786c5c7e6@bootlin.com>
 References: <20260324-drm-bridge-alloc-encoder-chain-mutex-v5-0-8bf786c5c7e6@bootlin.com>
 In-Reply-To: <20260324-drm-bridge-alloc-encoder-chain-mutex-v5-0-8bf786c5c7e6@bootlin.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -70,71 +71,116 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The per-encoder bridge chain is currently assumed to be static once it is
-fully initialized. Work is in progress to add hot-pluggable bridges,
-breaking that assumption.
+drm_encoder_cleanup() modifies the encoder chain by removing bridges via
+drm_bridge_detach(). Protect this whole operation by taking the mutex, so
+that:
 
-With bridge removal, the encoder chain can change without notice, removing
-tail bridges. This can be problematic while iterating over the chain.
+ * any users iterating over the chain will not access it during the change
+ * other code willing to modify the list (drm_bridge_attach()) will wait
+   until drm_encoder_cleanup() is done
 
-Add a mutex to be taken whenever looping or changing the encoder chain.
+Note that the _safe macro in use here is providing a different and
+orthogonal kind of protection than the mutex:
 
-Reviewed-by: Maxime Ripard <mripard@kernel.org>
+ 1. list_for_each_entry_safe() allows removing the current entry from the
+    list it is iterating on, synchronously; the non-safe version would be
+    unable to find the next entry after the current entry has been removed
+ 2. the mutex being added allows to ensure that the list is not used
+    asynchronously by other code while it is being modified; this prevents
+    such other concurrent code to derail because it is iterating over an
+    element while it is removed
+
+The _safe macro, which works by taking the "next" pointer in addition to
+the "current" one, does not even try to provide the protection at item 2
+above. This is visible e.g. when the "next" element is removed by other
+concurrent code. This is what would happen without the added mutex:
+
+ 1. start loop: list_for_each_entry_safe(pos, n, ...) sets:
+    pos = list_first_entry()   = (bridge 1)
+    n   = list_next_entry(pos) = (bridge 2)
+ 2. enter the loop 1st time, do something with *pos (bridge 1)
+ 3. in the meanwhile bridge 2 is hot-unplugged
+    -> another thread removes bridge 2
+       -> drm_bridge_detach()
+          -> list_del() sets (bridge 2)->next = LIST_POISON1
+ 4. loop iteration 1 finishes, list_for_each_entry_safe() sets:
+    pos = n (previously set to bridge 2)
+    n   = (bridge 2)->next = LIST_POISON1
+ 5. enter the loop 2nd time, do something with *pos (bridge 2)
+ 6. loop iteration 2 finishes, list_for_each_entry_safe() sets:
+    pos = n = LIST_POISON1 ==> bug!
+
+However, simply adding mutex_[un]lock(&encoder->bridge_chain_mutex)
+before/after the list_for_each_entry_safe() seems a simple and good
+solution, but it is introducing a possible ABBA deadlock (found by
+PROVE_LOCKING). The two code paths involved are:
+
+ * drm_encoder_cleanup():
+   - takes the bridge_chain_mutex (A)
+   - calls drm_bridge_detach -> drm_atomic_private_obj_fini ->
+     DRM_MODESET_LOCK_ALL_BEGIN() which takes all locks in the
+     acquisition context (B)
+ * drm_mode_getconnector() (and other code paths):
+   - calls drm_helper_probe_single_connector_modes() which:
+     - takes a drm_modeset_lock in the acquisition context (B)
+     - calls __drm_helper_update_and_validate ->
+       drm_bridge_chain_mode_valid -> drm_for_each_bridge_in_chain_from()
+       which takes the bridge_chain_mutex (A)
+
+To avoid this potential ABBA deadlock, move all list items to a temporary
+list while holding the bridge_chain_mutex, then detach all elements from
+the temporary list without the mutex.
+
 Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+
 ---
+
+Changes in v5:
+- Small commit message improvement
 
 Changes in v3:
-- Removed the drm_encoder_chain_[un]lock() wrappers
+- Prevent ABBA deadlock by using a temporary list
+- Improve commit message
 
 Changes in v2:
-- Added documentation to new APIs
+- Expanded commit messge with rationale, as discussed
 ---
- drivers/gpu/drm/drm_encoder.c | 2 ++
- include/drm/drm_encoder.h     | 4 ++++
- 2 files changed, 6 insertions(+)
+ drivers/gpu/drm/drm_encoder.c | 16 ++++++++++++++--
+ 1 file changed, 14 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/gpu/drm/drm_encoder.c b/drivers/gpu/drm/drm_encoder.c
-index 8f2bc6a28482..3261f142baea 100644
+index 3261f142baea..0d5dbed06db4 100644
 --- a/drivers/gpu/drm/drm_encoder.c
 +++ b/drivers/gpu/drm/drm_encoder.c
-@@ -129,6 +129,7 @@ static int __drm_encoder_init(struct drm_device *dev,
- 	}
+@@ -189,14 +189,26 @@ void drm_encoder_cleanup(struct drm_encoder *encoder)
+ {
+ 	struct drm_device *dev = encoder->dev;
+ 	struct drm_bridge *bridge, *next;
++	LIST_HEAD(tmplist);
  
- 	INIT_LIST_HEAD(&encoder->bridge_chain);
-+	mutex_init(&encoder->bridge_chain_mutex);
- 	list_add_tail(&encoder->head, &dev->mode_config.encoder_list);
- 	encoder->index = dev->mode_config.num_encoder++;
- 
-@@ -202,6 +203,7 @@ void drm_encoder_cleanup(struct drm_encoder *encoder)
- 	kfree(encoder->name);
- 	list_del(&encoder->head);
- 	dev->mode_config.num_encoder--;
-+	mutex_destroy(&encoder->bridge_chain_mutex);
- 
- 	memset(encoder, 0, sizeof(*encoder));
- }
-diff --git a/include/drm/drm_encoder.h b/include/drm/drm_encoder.h
-index 977a9381c8ba..eded7c34481a 100644
---- a/include/drm/drm_encoder.h
-+++ b/include/drm/drm_encoder.h
-@@ -25,6 +25,7 @@
- 
- #include <linux/list.h>
- #include <linux/ctype.h>
-+#include <linux/mutex.h>
- #include <drm/drm_crtc.h>
- #include <drm/drm_mode.h>
- #include <drm/drm_mode_object.h>
-@@ -189,6 +190,9 @@ struct drm_encoder {
+ 	/* Note that the encoder_list is considered to be static; should we
+ 	 * remove the drm_encoder at runtime we would have to decrement all
+ 	 * the indices on the drm_encoder after us in the encoder_list.
  	 */
- 	struct list_head bridge_chain;
  
-+	/** @bridge_chain_mutex: protect bridge_chain from changes while iterating */
-+	struct mutex bridge_chain_mutex;
+-	list_for_each_entry_safe(bridge, next, &encoder->bridge_chain,
+-				 chain_node)
++	/*
++	 * We need the bridge_chain_mutex to modify the chain, but
++	 * drm_bridge_detach() will call DRM_MODESET_LOCK_ALL_BEGIN() (in
++	 * drm_modeset_lock_fini()), resulting in a possible ABBA circular
++	 * deadlock. Avoid it by first moving all the bridges to a
++	 * temporary list holding the lock, and then calling
++	 * drm_bridge_detach() without the lock.
++	 */
++	mutex_lock(&encoder->bridge_chain_mutex);
++	list_cut_before(&tmplist, &encoder->bridge_chain, &encoder->bridge_chain);
++	mutex_unlock(&encoder->bridge_chain_mutex);
 +
- 	const struct drm_encoder_funcs *funcs;
- 	const struct drm_encoder_helper_funcs *helper_private;
++	list_for_each_entry_safe(bridge, next, &tmplist, chain_node)
+ 		drm_bridge_detach(bridge);
  
+ 	drm_mode_object_unregister(dev, &encoder->base);
 
 -- 
 2.53.0
