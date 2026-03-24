@@ -4,59 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E60DBF532D5
-	for <dri-devel@archiver.kernel.org>; Tue, 24 Mar 2026 05:01:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 73A19F532D8
+	for <dri-devel@archiver.kernel.org>; Tue, 24 Mar 2026 05:30:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2939710E0CB;
-	Tue, 24 Mar 2026 05:01:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AB9B210E46B;
+	Tue, 24 Mar 2026 05:30:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=icenowy.me header.i=uwu@icenowy.me header.b="QO3gOIdd";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="IwWTEQB3";
 	dkim-atps=neutral
-Received: from sender4-op-o12.zoho.com (sender4-op-o12.zoho.com
- [136.143.188.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0264110E0CB
- for <dri-devel@lists.freedesktop.org>; Tue, 24 Mar 2026 05:01:13 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1774328469; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=YHBTEQtHEDApLWuvXVC6MWyBi/WOgXdKAPcvfaeZyVFqX+4Vlbyvi61FEwoNt09Su6Sn/wjpiizrNfzz8osKiWHNF/kiSrFDe81B5fpvzF0iZhL4Wi7iXnbdhaXu1R+ScIhoY8xthZqItI+NfBqqxX8YXTgMnMlXdQhqDhkQdM0=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1774328469;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=hZWh6xyRbNCs76Wh2OdrPFxD1uv9eHLqfhkYHPs9Rtg=; 
- b=ceNMdTohWHIwBheDZ+KehmtP2qLqKfszrY+cFzyN/M2VkNTEnUS8JI1xznUT17xhYBiu9p1ktFodoHQLNsBklT37D1XKO3IiUoRICejauh+ak2Nuvphbyc7dj9C3Cb1dVCqvaM87EtZWDfprFTS6/l1957QnFx5HOPmh/R50hy8=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=icenowy.me;
- spf=pass  smtp.mailfrom=uwu@icenowy.me;
- dmarc=pass header.from=<uwu@icenowy.me>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1774328469; 
- s=zmail2; d=icenowy.me; i=uwu@icenowy.me;
- h=Message-ID:Subject:Subject:From:From:To:To:Cc:Cc:Date:Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:MIME-Version:Message-Id:Reply-To;
- bh=hZWh6xyRbNCs76Wh2OdrPFxD1uv9eHLqfhkYHPs9Rtg=;
- b=QO3gOIddoqC1SlYd2bFrEYhTKIB0CIHNhuKraoi1y2pVeq9B1sjnV3J8GqEA6pNb
- JJP1zeD2nh2nCrnsQAZrZwp3B/7sRYVdfCKUGSjTo0R2ZPc7ehlqaYdzXusXYFAB3zg
- 7/Nyl9L4XDE4INcOWnSj0jI4Sr/dz1Bt5Smv24RdgOPHQsyrc5RyGxpYYZrV5MdQedS
- /5BKbMZoRT7Ji9hGeSVVV2mjOyomHafCu6pwVJzkTHURz9eLgo9ghyXqxf1pXre1dET
- Rdr6WPDc3/0imwpam2ewwQBugu6kV9y+vkSwytbSmIJcG+KurTfFT3RAvoeU512QnH7
- hoawa2ddzA==
-Received: by mx.zohomail.com with SMTPS id 1774328465635251.53187886622527;
- Mon, 23 Mar 2026 22:01:05 -0700 (PDT)
-Message-ID: <a5d3a7dfeb5188c72313008c9f9cb019244b118e.camel@icenowy.me>
-Subject: Re: [PATCH drm-misc-next v3 0/4] drm: verisilicon: convert
- drm_format to vs_format in atomic_check
-From: Icenowy Zheng <uwu@icenowy.me>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard	
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Date: Tue, 24 Mar 2026 13:00:58 +0800
-In-Reply-To: <20260305153817.157841-1-zhengxingda@iscas.ac.cn>
-References: <20260305153817.157841-1-zhengxingda@iscas.ac.cn>
-Organization: Anthon Open-Source Community
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7110710E435;
+ Tue, 24 Mar 2026 05:30:27 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 1FC68405B1;
+ Tue, 24 Mar 2026 05:30:27 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB708C19424;
+ Tue, 24 Mar 2026 05:30:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1774330227;
+ bh=526IhjsOFPVmG2tNWNSg5v0vlx2brzpXsRolpXsjTxo=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=IwWTEQB3juSgzdL+5oAblN8Vg5C2TndIzXIJ+/psD+qLI87dPTnoZjI03lh86g1OB
+ mpSx1LZMSw/DBe07y/3Zp7OwHRoXIwmNyksCLyArn6Wgy/ZHCvMbVGNpS90y0hARXP
+ F0cEESScMmvPYn5UufI98xv5QMoRbgZrZzhD7xIu0KifQHEz3rXAPZncO9dZT6B7kz
+ f7eteFWu1GwBo5+I9vrgiWwlDtSUwgSH1mRAXD6RYsxRwmK/CWvAd8Nwsx8c7aA7z2
+ z6dYz7z5nVUXZFH9xdB88UIr+/EMARSpJjWMql6MVkuv6lSlxP20W2BfZ5GZOiuE6l
+ rVsq+mtBjuYfg==
+Date: Tue, 24 Mar 2026 11:00:10 +0530
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Vladimir Oltean <vladimir.oltean@nxp.com>
+Cc: linux-phy@lists.infradead.org, Vinod Koul <vkoul@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, 
+ linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
+ linux-can@vger.kernel.org, 
+ linux-gpio@vger.kernel.org, linux-ide@vger.kernel.org,
+ linux-kernel@vger.kernel.org, 
+ linux-media@vger.kernel.org, linux-pci@vger.kernel.org,
+ linux-renesas-soc@vger.kernel.org, 
+ linux-riscv@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+ linux-samsung-soc@vger.kernel.org, linux-scsi@vger.kernel.org,
+ linux-sunxi@lists.linux.dev, 
+ linux-tegra@vger.kernel.org, linux-usb@vger.kernel.org, netdev@vger.kernel.org,
+ spacemit@lists.linux.dev, UNGLinuxDriver@microchip.com, 
+ "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
+ "Martin K. Petersen" <martin.petersen@oracle.com>, 
+ Nitin Rawat <quic_nitirawa@quicinc.com>
+Subject: Re: [PATCH v5 phy-next 10/27] scsi: ufs: qcom: keep parallel track
+ of PHY power state
+Message-ID: <ezrcjjwtg5n76w4m65l27szu5mywx66ti3xuprkfcp3x6quvbf@2rew4zrnnbt2>
+References: <20260319223241.1351137-1-vladimir.oltean@nxp.com>
+ <20260319223241.1351137-11-vladimir.oltean@nxp.com>
 MIME-Version: 1.0
-X-ZohoMailClient: External
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260319223241.1351137-11-vladimir.oltean@nxp.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,38 +75,108 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-=E5=9C=A8 2026-03-05=E5=9B=9B=E7=9A=84 23:38 +0800=EF=BC=8CIcenowy Zheng=E5=
-=86=99=E9=81=93=EF=BC=9A
-> This patchset tries to move the process of converting drm_format to
-> vs_format into plane's atomic_check callback (instead of the
-> atomic_commit one, which the process currently sits) for more proper
-> error handling (because atomic_commit cannot fail).
->=20
-> In addition, because of the original flow of primary plane's
-> atomic_check seems to be flawed, it's also updated before filling
-> vs_format is added there.
+On Fri, Mar 20, 2026 at 12:32:24AM +0200, Vladimir Oltean wrote:
+> As explained in the similar ufs-exynos.c change, PHY consumer drivers
+> should not look at the phy->power_count, because in the general case
+> there might also be other consumers who have called phy_power_on() too,
+> so the fact that the power_count is non-zero does not mean that we did.
+> 
+> Moreover, struct phy will become opaque soon, so the qcom UFS driver
+> will not be able to apply this pattern. Keep parallel track of the PHY
+> power state, instead of looking at a field which will become unavailable
+> (phy->power_count).
+> 
+> About treating the phy_power_off() return code: from an API perspective,
+> this should have probably returned void, otherwise consumers would be
+> stuck in a state they can't escape. The provider, phy-qcom-qmp-ufs.c,
+> does return 0 in its power_off() implementation. I consider it safe to
+> discard potential errors from phy_power_off() instead of complicating
+> the phy_powered_on logic.
+> 
 
-Ping. It looks like this patchset didn't get a review, maybe it's
-buried in the heavy flow of dri-devel?
+You could even simplify the code by getting rid of the 'phy_powered_on' check
+altogether. There is no real need to track the PHY power state in this driver.
+It is safe to call phy_power_off() without any checks.
 
-Thanks,
-Icenowy
+- Mani
 
->=20
-> Icenowy Zheng (4):
-> =C2=A0 drm: verisilicon: make vs_format conversion function return int
-> =C2=A0 drm: verisilicon: subclass drm_plane_state
-> =C2=A0 drm: verisilicon: call atomic helper's plane state check even if n=
-o
-> =C2=A0=C2=A0=C2=A0 CRTC
-> =C2=A0 drm: verisilicon: fill plane's vs_format in atomic_check
->=20
-> =C2=A0drivers/gpu/drm/verisilicon/vs_plane.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0 | 53
-> ++++++++++++++++++-
-> =C2=A0drivers/gpu/drm/verisilicon/vs_plane.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0 | 18 ++++++-
-> =C2=A0.../gpu/drm/verisilicon/vs_primary_plane.c=C2=A0=C2=A0=C2=A0 | 53 +=
-++++++++++------
-> --
-> =C2=A03 files changed, 99 insertions(+), 25 deletions(-)
+> Signed-off-by: Vladimir Oltean <vladimir.oltean@nxp.com>
+> ---
+> Cc: "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>
+> Cc: Manivannan Sadhasivam <mani@kernel.org>
+> Cc: "Martin K. Petersen" <martin.petersen@oracle.com>
+> Cc: Nitin Rawat <quic_nitirawa@quicinc.com>
+> 
+> v4->v5: patch is new
+> ---
+>  drivers/ufs/host/ufs-qcom.c | 9 +++++++--
+>  drivers/ufs/host/ufs-qcom.h | 1 +
+>  2 files changed, 8 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/ufs/host/ufs-qcom.c b/drivers/ufs/host/ufs-qcom.c
+> index 375fd24ba458..3b8bd9968235 100644
+> --- a/drivers/ufs/host/ufs-qcom.c
+> +++ b/drivers/ufs/host/ufs-qcom.c
+> @@ -508,9 +508,10 @@ static int ufs_qcom_power_up_sequence(struct ufs_hba *hba)
+>  	if (ret)
+>  		return ret;
+>  
+> -	if (phy->power_count)
+> +	if (host->phy_powered_on) {
+>  		phy_power_off(phy);
+> -
+> +		host->phy_powered_on = false;
+> +	}
+>  
+>  	/* phy initialization - calibrate the phy */
+>  	ret = phy_init(phy);
+> @@ -531,6 +532,7 @@ static int ufs_qcom_power_up_sequence(struct ufs_hba *hba)
+>  			__func__, ret);
+>  		goto out_disable_phy;
+>  	}
+> +	host->phy_powered_on = true;
+>  
+>  	ret = phy_calibrate(phy);
+>  	if (ret) {
+> @@ -1268,6 +1270,7 @@ static int ufs_qcom_setup_clocks(struct ufs_hba *hba, bool on,
+>  				dev_err(hba->dev, "phy power off failed, ret=%d\n", err);
+>  				return err;
+>  			}
+> +			host->phy_powered_on = false;
+>  		}
+>  		break;
+>  	case POST_CHANGE:
+> @@ -1277,6 +1280,7 @@ static int ufs_qcom_setup_clocks(struct ufs_hba *hba, bool on,
+>  				dev_err(hba->dev, "phy power on failed, ret = %d\n", err);
+>  				return err;
+>  			}
+> +			host->phy_powered_on = true;
+>  
+>  			/* enable the device ref clock for HS mode*/
+>  			if (ufshcd_is_hs_mode(&hba->pwr_info))
+> @@ -1467,6 +1471,7 @@ static void ufs_qcom_exit(struct ufs_hba *hba)
+>  
+>  	ufs_qcom_disable_lane_clks(host);
+>  	phy_power_off(host->generic_phy);
+> +	host->phy_powered_on = false;
+>  	phy_exit(host->generic_phy);
+>  }
+>  
+> diff --git a/drivers/ufs/host/ufs-qcom.h b/drivers/ufs/host/ufs-qcom.h
+> index 1111ab34da01..72ce0687fa42 100644
+> --- a/drivers/ufs/host/ufs-qcom.h
+> +++ b/drivers/ufs/host/ufs-qcom.h
+> @@ -282,6 +282,7 @@ struct ufs_qcom_host {
+>  	struct clk_bulk_data *clks;
+>  	u32 num_clks;
+>  	bool is_lane_clks_enabled;
+> +	bool phy_powered_on;
+>  
+>  	struct icc_path *icc_ddr;
+>  	struct icc_path *icc_cpu;
+> -- 
+> 2.43.0
+> 
+
+-- 
+மணிவண்ணன் சதாசிவம்
