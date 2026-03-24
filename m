@@ -4,81 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D96EF532EF
-	for <dri-devel@archiver.kernel.org>; Tue, 24 Mar 2026 08:26:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F2B51F532EF
+	for <dri-devel@archiver.kernel.org>; Tue, 24 Mar 2026 08:32:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E241D10E0F7;
-	Tue, 24 Mar 2026 08:26:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 594BF10E5B4;
+	Tue, 24 Mar 2026 08:32:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=imgtec.com header.i=@imgtec.com header.b="WK7FF2vC";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="FNzUo5ss";
 	dkim-atps=neutral
-Received: from mx07-00376f01.pphosted.com (mx07-00376f01.pphosted.com
- [185.132.180.163])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6C2A410E0F7
- for <dri-devel@lists.freedesktop.org>; Tue, 24 Mar 2026 08:26:33 +0000 (UTC)
-Received: from pps.filterd (m0168889.ppops.net [127.0.0.1])
- by mx07-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 62O5KdIe1246547; Tue, 24 Mar 2026 08:26:21 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
- :content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=dk201812; bh=Z
- eCx4yiHfZEQZF3tML9kt006n7n/sZHXpeN5wfxDeK4=; b=WK7FF2vCekKLB6ooG
- ullo/bRQo7+2fpshXXJVF1O6qxcy3q2J2dD/6gHRob6XolrDsk4GAdujeo26C7uz
- XvHHx9fFlZKBn8x1IVAp1N7jo5tHZ6RHKs/ftP6YOAOupKJyXuXHZivoOVL4+ZuE
- 8bFx2+u8QuVAiv6Y80B9On0oZv02IgLIfoPHg8z5oJWnKuc8FGua0atrPOSlpR4+
- y1UQEDdMtPiznd1cBs0Ekj+3Lkm730GyfRAkJp+Ze2X8UcSr2n+T83+UzavOqV6g
- 7/XpEwPt2R8fIDbQqOssDHpHeEfnJ/WAQfiJoU5wcKAtzp4B0/O3k9I58q/R9G2I
- ZZUTw==
-Received: from hhmail02.hh.imgtec.org
- (83-244-153-141.cust-83.exponential-e.net [83.244.153.141])
- by mx07-00376f01.pphosted.com (PPS) with ESMTPS id 4d1m9v2fwt-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 24 Mar 2026 08:26:21 +0000 (GMT)
-Received: from HHMAIL03.hh.imgtec.org (10.44.0.121) by HHMAIL02.hh.imgtec.org
- (10.100.10.20) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Tue, 24 Mar
- 2026 08:26:20 +0000
-Received: from
- 1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.ip6.arpa
- (172.25.2.112) by HHMAIL03.hh.imgtec.org (10.44.0.121) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Tue, 24 Mar 2026 08:26:19 +0000
-From: Matt Coster <matt.coster@imgtec.com>
-To: Frank Binns <frank.binns@imgtec.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Alexandru Dadu <alexandru.dadu@imgtec.com>
-CC: <linux-kernel@vger.kernel.org>, <dri-devel@lists.freedesktop.org>, Alessio
- Belle <alessio.belle@imgtec.com>, Brajesh Gupta <brajesh.gupta@imgtec.com>,
- Sarah Walker <sarah.walker@imgtec.com>
-In-Reply-To: <20260323-b4-firmware-context-reset-notification-handling-v3-0-1a66049a9a65@imgtec.com>
-References: <20260323-b4-firmware-context-reset-notification-handling-v3-0-1a66049a9a65@imgtec.com>
-Subject: Re: [PATCH v3 0/3] drm/imagination: Firmware handling of context
- reset notification
-Message-ID: <177434077946.51891.15629076276414317145.b4-ty@b4>
-Date: Tue, 24 Mar 2026 08:26:19 +0000
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 192C710E5B4
+ for <dri-devel@lists.freedesktop.org>; Tue, 24 Mar 2026 08:32:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1774341146; x=1805877146;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=0jRrOAI03t67hrsoD6qZ/ZOKagtZrC7OAtNILxB5xbE=;
+ b=FNzUo5ss734bmE3KjpODVCbDYflzSqsSZEDHcOnJchDjwteXiJ7HLlLA
+ iSgmcbYmhgfsR+4+v9XYjZSRgpPU6NBpgvmO719myH3DdWWNovqVX2EoX
+ 1TRQJvTRC/Hg2PU7/p8DfsgIhJLGYcUF5WwpSIpvUsy9Xf3NVXtLiUT78
+ Tk6PHAHnd9KtmrSSekGH29bOu0CcbQS8wti2FGqDyL9FkL+bcZJ7ZgfY0
+ O7GSOUetKNj9GiPzkggT5PrU6tAGTApiNfxgX8BMaj1veAZTIuMfSfEOi
+ vx3a0r/EghWha48sVSr8enQ6Nyqjnn7aOo2hpbmcq/K70e5yH7RcrnH3V Q==;
+X-CSE-ConnectionGUID: G6S6Hm+HTIiUCoC7wKG9WA==
+X-CSE-MsgGUID: EMhqjFqRRd2l9bAS14nWUw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11738"; a="79207287"
+X-IronPort-AV: E=Sophos;i="6.23,138,1770624000"; d="scan'208";a="79207287"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+ by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Mar 2026 01:32:26 -0700
+X-CSE-ConnectionGUID: 5+GSlt+8S7iEDpFZ+lGAUA==
+X-CSE-MsgGUID: sVAPbTj3SJy/LxDXbosa4Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,138,1770624000"; d="scan'208";a="217718803"
+Received: from unknown (HELO [10.102.88.30]) ([10.102.88.30])
+ by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Mar 2026 01:32:24 -0700
+Message-ID: <f6ed76a2-0907-4c56-a3a7-7b0eec4a3c08@linux.intel.com>
+Date: Tue, 24 Mar 2026 09:32:21 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.15.0
-X-Originating-IP: [172.25.2.112]
-X-Authority-Analysis: v=2.4 cv=OeWVzxTY c=1 sm=1 tr=0 ts=69c24aad cx=c_pps
- a=AKOq//PuzOIrVTIF9yBwbA==:117 a=AKOq//PuzOIrVTIF9yBwbA==:17
- a=dzNZb8ZTwNYA:10 a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=kQ-hrUj2-E3RCbRHssb7:22 a=7RYWX5rxfSByPNLylY2M:22
- a=r_1tXGB3AAAA:8 a=QhRLQRg2HGD5HPNRYNsA:9 a=QEXdDO2ut3YA:10
- a=t8nPyN_e6usw4ciXM-Pk:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzI0MDA2NyBTYWx0ZWRfX3mmZr2iinUxH
- I6noqEKO40MnW7KiGmun+ePrNFh7LQ5rvgsiwSzPekmt1Ebi1ZfUFM+PGiTfk+B2UOBiGY8JfIM
- +frDOl1ItXydOZIdfiWy4mCG4V4yi7lcHZsP9uRDuYO0OwHGqbempBphyB0Kt+NW3JVQNPE8APS
- DjsMJ2FLNO3olhnUNzC9vnV7dRPeKHJedthuXwdtnpHSCWLz8wptyZsfWECQgXH8vWUpIkYsvnG
- UTiv2undHkfM6kmRWlRqIi76jBeh9wmtj6zA/AMsYEO/U0TaoNXq1l2rpRP2MnUX+tx+ZI9meA5
- WmGMQw8RU1NjWalOdyUOOVc1vf8JTrSfEso29JyflFSnymTOaZRIZXe+qGB5+VS413Ruw7b79sn
- 0EgLLkU4nQfqhrW82+dW1IWfRmwOeqaQtaTCFXZ6+KiRA9NXwJ5s8eZ9Q+5AeVhFrF+qX3TFVnW
- PDyiJdWf02Az2Fz4hNw==
-X-Proofpoint-GUID: XmmJIU0U4MHBjXJeqQRWlnO6acEDws9O
-X-Proofpoint-ORIG-GUID: XmmJIU0U4MHBjXJeqQRWlnO6acEDws9O
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] accel/ivpu: Add disable clock relinquish workaround for
+ NVL-A0
+To: Lizhi Hou <lizhi.hou@amd.com>, dri-devel@lists.freedesktop.org
+Cc: oded.gabbay@gmail.com, jeff.hugo@oss.qualcomm.com,
+ maciej.falkowski@linux.intel.com, andrzej.kacprowski@linux.intel.com,
+ stable@vger.kernel.org
+References: <20260323095029.64613-1-karol.wachowski@linux.intel.com>
+ <0317ba0d-6260-6e4f-ad5d-514297da7d73@amd.com>
+Content-Language: en-US
+From: Karol Wachowski <karol.wachowski@linux.intel.com>
+Organization: Intel Technology Poland sp. z o.o. - ul. Slowackiego 173, 80-298
+ Gdansk - KRS 101882 - NIP 957-07-52-316
+In-Reply-To: <0317ba0d-6260-6e4f-ad5d-514297da7d73@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,22 +75,54 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On 3/23/2026 5:53 PM, Lizhi Hou wrote:
+> 
+> On 3/23/26 02:50, Karol Wachowski wrote:
+>> Turn on disable clock relinquish workaround for Nova Lake A0.
+>> Without this workaround NPU may not power off correctly after
+>> inference, leading to unexpected system behavior.
+>>
+>> Fixes: 550f4dd2cedd ("accel/ivpu: Add support for Nova Lake's NPU")
+>> Cc: <stable@vger.kernel.org> # v6.19+
+>>
+>> Signed-off-by: Karol Wachowski <karol.wachowski@linux.intel.com>
+>> ---
+>>   drivers/accel/ivpu/ivpu_drv.h | 1 +
+>>   drivers/accel/ivpu/ivpu_hw.c  | 6 ++++--
+>>   2 files changed, 5 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/drivers/accel/ivpu/ivpu_drv.h b/drivers/accel/ivpu/
+>> ivpu_drv.h
+>> index 5b34b6f50e69..f1b6155065ff 100644
+>> --- a/drivers/accel/ivpu/ivpu_drv.h
+>> +++ b/drivers/accel/ivpu/ivpu_drv.h
+>> @@ -35,6 +35,7 @@
+>>   #define IVPU_HW_IP_60XX 60
+>>     #define IVPU_HW_IP_REV_LNL_B0 4
+>> +#define IVPU_HW_IP_REV_NVL_A0 0
+>>     #define IVPU_HW_BTRS_MTL 1
+>>   #define IVPU_HW_BTRS_LNL 2
+>> diff --git a/drivers/accel/ivpu/ivpu_hw.c b/drivers/accel/ivpu/ivpu_hw.c
+>> index d69cd0d93569..d4a9bcda4100 100644
+>> --- a/drivers/accel/ivpu/ivpu_hw.c
+>> +++ b/drivers/accel/ivpu/ivpu_hw.c
+>> @@ -70,8 +70,10 @@ static void wa_init(struct ivpu_device *vdev)
+>>       if (ivpu_hw_btrs_gen(vdev) == IVPU_HW_BTRS_MTL)
+>>           vdev->wa.interrupt_clear_with_0 =
+>> ivpu_hw_btrs_irqs_clear_with_0_mtl(vdev);
+>>   -    if (ivpu_device_id(vdev) == PCI_DEVICE_ID_LNL &&
+>> -        ivpu_revision(vdev) < IVPU_HW_IP_REV_LNL_B0)
+>> +    if ((ivpu_device_id(vdev) == PCI_DEVICE_ID_LNL &&
+>> +         ivpu_revision(vdev) < IVPU_HW_IP_REV_LNL_B0) ||
+>> +        (ivpu_device_id(vdev) == PCI_DEVICE_ID_NVL &&
+>> +         ivpu_revision(vdev) == IVPU_HW_IP_REV_NVL_A0))
+> Reviewed-by: Lizhi.hou <lizhi.hou@amd.com>
 
-On Mon, 23 Mar 2026 20:31:27 +0200, Alexandru Dadu wrote:
-> - patch 1: Adds missing context reset reasons.
-> - patch 2: Fixes the reset_reason from enum to u32 in the fwif.
-> - patch 3: Adds the implementation of the context reset notification.
+Thank you, applied to drm-misc-fixes.
 
-Applied, thanks!
+Karol
 
-[1/3] drm/imagination: Add missing rogue context reset reasons
-      commit: da173557a2b090d7d8c155283ba489a287983ced
-[2/3] drm/imagination: Switch reset_reason fields from enum to u32
-      commit: d2f83a6cd598bf413f1acf34153bd1d71023fbab
-[3/3] drm/imagination: Implement handling of context reset notification
-      commit: d994acc526c70d40ec9029cfe03d08ee411083c5
-
-Best regards,
--- 
-Matt Coster <matt.coster@imgtec.com>
+>>           vdev->wa.disable_clock_relinquish = true;
+>>         if (ivpu_test_mode & IVPU_TEST_MODE_CLK_RELINQ_ENABLE)
+> 
 
