@@ -4,50 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E1F1410A62CA
-	for <dri-devel@archiver.kernel.org>; Thu, 26 Mar 2026 13:17:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 21EE110A62C6
+	for <dri-devel@archiver.kernel.org>; Thu, 26 Mar 2026 13:17:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 486D410E97F;
-	Thu, 26 Mar 2026 13:17:57 +0000 (UTC)
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C28F110E59D
- for <dri-devel@lists.freedesktop.org>; Tue, 24 Mar 2026 11:45:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 531E710E9B4;
+	Thu, 26 Mar 2026 13:17:58 +0000 (UTC)
+Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3FF4910E0F3;
+ Tue, 24 Mar 2026 08:51:36 +0000 (UTC)
 Received: from localhost.localdomain (unknown [111.196.245.197])
- by APP-05 (Coremail) with SMTP id zQCowADHVAhKecJpRKFUCw--.8338S2;
- Tue, 24 Mar 2026 19:45:14 +0800 (CST)
+ by APP-01 (Coremail) with SMTP id qwCowACHMGyTUMJpOqb8Cg--.13633S2;
+ Tue, 24 Mar 2026 16:51:31 +0800 (CST)
 From: Pengpeng Hou <pengpeng@iscas.ac.cn>
-To: Konrad Dybcio <konradybcio@kernel.org>
-Cc: Pengpeng Hou <pengpeng@iscas.ac.cn>,
- Srinivas Kandagatla <srini@kernel.org>,
- Amol Maheshwari <amahesh@qti.qualcomm.com>, Arnd Bergmann <arnd@arndb.de>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Thierry Escande <thierry.escande@linaro.org>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] misc: fastrpc: keep copied arguments inside the invoke
- buffer
-Date: Tue, 24 Mar 2026 19:45:14 +0800
-Message-ID: <20260324114514.79391-1-pengpeng@iscas.ac.cn>
+To: harry.wentland@amd.com, sunpeng.li@amd.com, siqueira@igalia.com,
+ alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
+ simona@ffwll.ch
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, pengpeng@iscas.ac.cn
+Subject: [PATCH] drm/amd/display: bios_parser: fix GPIO I2C line off-by-one
+Date: Tue, 24 Mar 2026 16:51:30 +0800
+Message-ID: <20260324085130.74534-1-pengpeng@iscas.ac.cn>
 X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20260324014459.93364-1-pengpeng@iscas.ac.cn>
-References: <20260324014459.93364-1-pengpeng@iscas.ac.cn>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: zQCowADHVAhKecJpRKFUCw--.8338S2
-X-Coremail-Antispam: 1UD129KBjDUn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7v73
- VFW2AGmfu7bjvjm3AaLaJ3UjIYCTnIWjp_UUUYB7AC8VAFwI0_Gr0_Xr1l1xkIjI8I6I8E
- 6xAIw20EY4v20xvaj40_Wr0E3s1l1IIY67AEw4v_JrI_Jryl8cAvFVAK0II2c7xJM28Cjx
- kF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVW8JVW5JwA2z4x0Y4vE2Ix0cI8I
- cVCY1x0267AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aV
- CY1x0267AKxVW0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAq
- x4xG6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6x
- CaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwAC
- I402YVCY1x02628vn2kIc2xKxwCF04k20xvY0x0EwIxGrwCF54CYxVCY1x0262kKe7AKxV
- WUtVW8ZwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E
- 7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcV
- C0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Jr0_Gr1lIxAIcVCF
- 04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r4j6F4UMIIF0xvEx4A2jsIEc7
- CjxVAFwI0_Gr1j6F4UJbIYCTnIWIevJa73UjIFyTuYvjfU0-BEUUUUU
+X-CM-TRANSID: qwCowACHMGyTUMJpOqb8Cg--.13633S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7AryUKw4UAryxZF1UKFWUXFb_yoW8Gry5pw
+ 47GF1Fq39Yy3WFkrZ8Za4UuFW8u3s5JFy8tF4rK34SkrnrZr48C345GFyY9ry5Kr1ruayS
+ qFW5Way7uF1vyF7anT9S1TB71UUUUUDqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUU9014x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+ rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+ 1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+ 6F4UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s
+ 0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xII
+ jxv20xvE14v26r106r15McIj6I8E87Iv67AKxVW8JVWxJwAm72CE4IkC6x0Yz7v_Jr0_Gr
+ 1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E8cxa
+ n2IY04v7MxkF7I0En4kS14v26r4a6rW5MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4
+ AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE
+ 17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMI
+ IF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4l
+ IxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x0267AKxVW8Jr0_Cr1UYxBIda
+ VFxhVjvjDU0xZFpf9x0pRdb1nUUUUU=
 X-Originating-IP: [111.196.245.197]
 X-CM-SenderInfo: pshqw1xhqjqxpvfd2hldfou0/
 X-Mailman-Approved-At: Thu, 26 Mar 2026 13:17:48 +0000
@@ -66,13 +62,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Konrad,
+get_gpio_i2c_info() computes the number of GPIO I2C assignment records
+present in the BIOS table and then uses bfI2C_LineMux as an array index
+into header->asGPIO_Info[]. The current check only rejects values
+strictly larger than the record count, so an index equal to count still
+falls through and reaches the fixed table one element past the end.
 
-Thanks for pointing that out.
+Reject indices at or above the number of available records before using
+them as an array index.
 
-I have added the missing Signed-off-by line, ran checkpatch on the patch
-file, and prepared a cleaned up v2.
+Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
+---
+ drivers/gpu/drm/amd/display/dc/bios/bios_parser.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Best regards,
-Pengpeng
+diff --git a/drivers/gpu/drm/amd/display/dc/bios/bios_parser.c b/drivers/gpu/drm/amd/display/dc/bios/bios_parser.c
+index 8b3084cc59fd..85c8f5479a52 100644
+--- a/drivers/gpu/drm/amd/display/dc/bios/bios_parser.c
++++ b/drivers/gpu/drm/amd/display/dc/bios/bios_parser.c
+@@ -1952,7 +1952,7 @@ static enum bp_result get_gpio_i2c_info(struct bios_parser *bp,
+ 	count = (le16_to_cpu(header->sHeader.usStructureSize)
+ 			- sizeof(ATOM_COMMON_TABLE_HEADER))
+ 				/ sizeof(ATOM_GPIO_I2C_ASSIGMENT);
+-	if (count < record->sucI2cId.bfI2C_LineMux)
++	if (count <= record->sucI2cId.bfI2C_LineMux)
+ 		return BP_RESULT_BADBIOSTABLE;
+ 
+ 	/* get the GPIO_I2C_INFO */
+-- 
+2.50.1 (Apple Git-155)
 
