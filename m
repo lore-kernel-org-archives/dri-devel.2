@@ -4,46 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2529AF532C4
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DAFEEF532C5
 	for <dri-devel@archiver.kernel.org>; Tue, 24 Mar 2026 00:18:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 16DB610E573;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 058A610E56F;
 	Tue, 24 Mar 2026 00:18:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=deborah.brouwer@collabora.com header.b="MO2q+RBm";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=deborah.brouwer@collabora.com header.b="FG9/WLqQ";
 	dkim-atps=neutral
 Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
  [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 079E410E505
- for <dri-devel@lists.freedesktop.org>; Tue, 24 Mar 2026 00:18:26 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1774311502; cv=none; 
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A53A310E464
+ for <dri-devel@lists.freedesktop.org>; Tue, 24 Mar 2026 00:18:19 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1774311496; cv=none; 
  d=zohomail.com; s=zohoarc; 
- b=lAH7vwivSgwq++HcdcOyLo/w59Vw9ERUFf1mnzVqzFbdOkVbQkGsz9Jm+5lkLBH9V3/PrCJRxdlA1bTBd3ws1Numh9raS1Q+rua1XU6UIuH4ANyfMadwRwcIlrPFLc861MqflJiX7Q/IhvmwgwGRSGHXhvbHN+P6zdDR77TyXmk=
+ b=fWeuLpGS7R1h+XRWbb3EvpbdbGtrJ5SM9BHJ9dW9F/z7+0IeUsMAle89jwC9rC2AqLkeBEY0THmxZJh/TgmfqoXtjU6F3EhVACJuQUUUzjgrkZC26R/rsKmIFIvTOFyQR0ofN2ISANN0Xs87Vda/yR17+A8wdlBtKMHX9QFSnN8=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1774311502;
+ s=zohoarc; t=1774311496;
  h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=KQpX+v61IHHdbwq3jnORj4SrTacjHP8jinwRfZX56L4=; 
- b=Uwl3jpeEhtlieedVs+vNR8mv6BhnAKXX7dmfN4+hU44LTknx9+j2Oa7379TlkYbyFczS21Bp6C2zcQxYhmCvrr1CJ4Ihl2CutH/1GsqX1aEvtjpOvROP5+kDntmnwx8QMsgXGfUK+Jrakz4U+VOHLRmDFL1Bm3yAnQ69nOIvvnU=
+ bh=BZb8QIRx44/ilYbS5qAz0VTwhN8BJ3suoOjGoNdases=; 
+ b=QrZ9QaJRqbAHEe6xT4yCeJ3jmwm4sKNkDi3N3hVi2V+gXPkifJ13m7vQMQg1g+6Ux2MrUVmLYPgpEXvdijrA4U03N64UJFLBmjUfa00GFazGXIo2MEAMBv5hSezsW3BuflFnihHpXwNYlxHC+IyNfUzc7oIBvQ8cynnPwl7nJDc=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
  dkim=pass  header.i=collabora.com;
  spf=pass  smtp.mailfrom=deborah.brouwer@collabora.com;
  dmarc=pass header.from=<deborah.brouwer@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1774311502; 
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1774311496; 
  s=zohomail; d=collabora.com; i=deborah.brouwer@collabora.com; 
  h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:References:In-Reply-To:To:To:Cc:Cc:Reply-To;
- bh=KQpX+v61IHHdbwq3jnORj4SrTacjHP8jinwRfZX56L4=;
- b=MO2q+RBm/DGiSFuPNvVHTQWUfyQu1JP5kUyH/d/z6VZJe58p/LLtn2/LyOdIo8+v
- GxOsfZkKlFIdsCRlLlFLO1qMlwZ+w6sfJbKGzvqxSQK/ALO3/OlcI+BNPnqdO+kbpI7
- vS/PUAm5tEebdz4FJs8Y34JF5z5VemPtNZBt+t5M=
-Received: by mx.zohomail.com with SMTPS id 1774311502015342.0233472743241;
- Mon, 23 Mar 2026 17:18:22 -0700 (PDT)
+ bh=BZb8QIRx44/ilYbS5qAz0VTwhN8BJ3suoOjGoNdases=;
+ b=FG9/WLqQDevyA93sY/hvuQj412ctvB9T6/hMFXAGix2w/SBIg/+q5P3TTkG6OUZK
+ Ir4zJ5X+F/DSy4lhhLdjTb35201X54lzHMKNl8ahceA+dTx/BCSV5BIpcDccticE7+P
+ rISw0sN5CpVT3/FDhYJQ9wPnIbnf2ui8TRJzc9IQ=
+Received: by mx.zohomail.com with SMTPS id 1774311494749290.23201100936217;
+ Mon, 23 Mar 2026 17:18:14 -0700 (PDT)
 From: Deborah Brouwer <deborah.brouwer@collabora.com>
-Date: Mon, 23 Mar 2026 17:18:11 -0700
-Subject: [PATCH v3 09/12] drm/tyr: Add fields for COMMAND register
+Date: Mon, 23 Mar 2026 17:18:06 -0700
+Subject: [PATCH v3 04/12] drm/tyr: Use register! macro for JOB_CONTROL
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260323-b4-tyr-use-register-macro-v3-v3-9-a87daf9e4701@collabora.com>
+Message-Id: <20260323-b4-tyr-use-register-macro-v3-v3-4-a87daf9e4701@collabora.com>
 References: <20260323-b4-tyr-use-register-macro-v3-v3-0-a87daf9e4701@collabora.com>
 In-Reply-To: <20260323-b4-tyr-use-register-macro-v3-v3-0-a87daf9e4701@collabora.com>
 To: dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org, 
@@ -62,13 +62,13 @@ Cc: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
  Deborah Brouwer <deborah.brouwer@collabora.com>, 
  Boqun Feng <boqun@kernel.org>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2654;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3583;
  i=deborah.brouwer@collabora.com; h=from:subject:message-id;
- bh=GenPpPmuP0v5sT/X+5OG/phJ/Z2yLyF2hy7MjjkNbls=;
- b=owGbwMvMwCVWuULzOU9c7WvG02pJDJkHbzjs+56V/V8k9MNbB1N7mSPK2dZPqlMmTA+/tXtXw
- +sXijfqO0pZGMS4GGTFFFnO2hv1iFe9N9Kd/78ZZg4rE8gQBi5OAZjI/vmMDHeZpzKGnjnyU0NF
- lqfhasDthSZfymp2ln949vyu2MsHV+UZ/qnxRH7fvXey3d8rjSWC/HsbH646csl24kMrn38ma96
- uz2ECAA==
+ bh=ea9U4nLBHdPFka/eNcJuSDgiBbDOLnFdTTQrtQNPTqY=;
+ b=owGbwMvMwCVWuULzOU9c7WvG02pJDJkHbzj8Ys70ndXanRYd26RZ5BDLy36kaBe3zOL1p6+d/
+ L/P/vGmjlIWBjEuBlkxRZaz9kY94lXvjXTn/2+GmcPKBDKEgYtTACbyMIDhf9jxbm3F8Jf3Zq50
+ Tjky88HM/XfPvdKc5bL872TjVyqzZXwZGba0hQd8OusmNM1GrDLxYB/HnYaZcTG1UbebQ4IDTf3
+ zeAE=
 X-Developer-Key: i=deborah.brouwer@collabora.com; a=openpgp;
  fpr=CD3F328C177AEF322D9FFF8379A829E70C5E7DEB
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -86,74 +86,97 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The MMU COMMAND register accepts specific commands. Enumerate those
-commands and use the register! macro to ensure that only those commands
-can be written to the MMU COMMAND register.
+Convert the JOB_CONTROL register definitions to use the `register!` macro.
 
+Using the `register!` macro allows us to replace manual bit masks and
+shifts with typed register and field accessors, which makes the code
+easier to read and avoids errors from bit manipulation.
+
+Co-developed-by: Daniel Almeida <daniel.almeida@collabora.com>
+Signed-off-by: Daniel Almeida <daniel.almeida@collabora.com>
+Reviewed-by: Daniel Almeida <daniel.almeida@collabora.com>
 Signed-off-by: Deborah Brouwer <deborah.brouwer@collabora.com>
 ---
- drivers/gpu/drm/tyr/regs.rs | 47 ++++++++++++++++++++++++++++++++++++++++++++-
- 1 file changed, 46 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/tyr/regs.rs | 58 ++++++++++++++++++++++++++++++++++++++-------
+ 1 file changed, 50 insertions(+), 8 deletions(-)
 
 diff --git a/drivers/gpu/drm/tyr/regs.rs b/drivers/gpu/drm/tyr/regs.rs
-index 9bf2723ab6412034be9a77930532cc89d0adb128..6fbd6268724eb6b2ea8d76c5d991353dcbe87068 100644
+index 5ba4919263af29c6e88435099cf801fa5874b117..bae3f917dd3ad3fe0dfd8425a119347f9d1ebbe8 100644
 --- a/drivers/gpu/drm/tyr/regs.rs
 +++ b/drivers/gpu/drm/tyr/regs.rs
-@@ -1048,8 +1048,53 @@ fn from(val: MMU_MEMATTR_STAGE1) -> Self {
-                 63:12   base;
-             }
+@@ -28,7 +28,6 @@
+ #![allow(dead_code)]
  
-+        }
-+
-+        /// Helpers for MMU COMMAND register.
-+        #[derive(Copy, Clone, Debug)]
-+        #[repr(u8)]
-+        pub(crate) enum MmuCommand {
-+            /// No operation, nothing happens.
-+            Nop = 0,
-+            /// Propagate settings to the MMU.
-+            Update = 1,
-+            /// Lock an address region.
-+            Lock = 2,
-+            /// Unlock an address region.
-+            Unlock = 3,
-+            /// Clean and invalidate the L2 cache, then unlock.
-+            FlushPt = 4,
-+            /// Clean and invalidate all caches, then unlock.
-+            FlushMem = 5,
-+        }
-+
-+        impl TryFrom<Bounded<u32, 8>> for MmuCommand {
-+            type Error = Error;
-+
-+            fn try_from(val: Bounded<u32, 8>) -> Result<Self, Self::Error> {
-+                match val.get() {
-+                    0 => Ok(MmuCommand::Nop),
-+                    1 => Ok(MmuCommand::Update),
-+                    2 => Ok(MmuCommand::Lock),
-+                    3 => Ok(MmuCommand::Unlock),
-+                    4 => Ok(MmuCommand::FlushPt),
-+                    5 => Ok(MmuCommand::FlushMem),
-+                    _ => Err(EINVAL),
-+                }
-+            }
-+        }
-+
-+        impl From<MmuCommand> for Bounded<u32, 8> {
-+            fn from(cmd: MmuCommand) -> Self {
-+                (cmd as u8).into()
-+            }
-+        }
-+
-+        register! {
-             /// MMU command register for each address space. Write only.
--            pub(crate) COMMAND(u32)[MAX_AS, stride = STRIDE] @ 0x2418 {}
-+            pub(crate) COMMAND(u32)[MAX_AS, stride = STRIDE] @ 0x2418 {
-+                7:0     command ?=> MmuCommand;
-+            }
+ use kernel::{
+-    bits::bit_u32,
+     device::{
+         Bound,
+         Device, //
+@@ -787,14 +786,57 @@ fn from(status: McuStatus) -> Self {
+     }
+ }
  
-             /// Fault status register for each address space. Read only.
-             pub(crate) FAULTSTATUS(u32)[MAX_AS, stride = STRIDE] @ 0x241c {}
+-pub(crate) const JOB_IRQ_RAWSTAT: Register<0x1000> = Register;
+-pub(crate) const JOB_IRQ_CLEAR: Register<0x1004> = Register;
+-pub(crate) const JOB_IRQ_MASK: Register<0x1008> = Register;
+-pub(crate) const JOB_IRQ_STAT: Register<0x100c> = Register;
+-
+-pub(crate) const JOB_IRQ_GLOBAL_IF: u32 = bit_u32(31);
+-
+ pub(crate) const MMU_IRQ_RAWSTAT: Register<0x2000> = Register;
+ pub(crate) const MMU_IRQ_CLEAR: Register<0x2004> = Register;
+ pub(crate) const MMU_IRQ_MASK: Register<0x2008> = Register;
+ pub(crate) const MMU_IRQ_STAT: Register<0x200c> = Register;
++
++/// These registers correspond to the JOB_CONTROL register page.
++/// They are involved in communication between the firmware running on the MCU and the host.
++pub(crate) mod job_control {
++    use kernel::register;
++
++    register! {
++        /// Raw status of job interrupts.
++        ///
++        /// Write to this register to trigger these interrupts.
++        /// Writing a 1 to a bit forces that bit on.
++        pub(crate) JOB_IRQ_RAWSTAT(u32) @ 0x1000 {
++            /// CSG request. These bits indicate that CSGn requires attention from the host.
++            30:0    csg;
++            /// GLB request. Indicates that the GLB interface requires attention from the host.
++            31:31   glb;
++        }
++
++        /// Clear job interrupts. Write only.
++        ///
++        /// Write a 1 to a bit to clear the corresponding bit in [`JOB_IRQ_RAWSTAT`].
++        pub(crate) JOB_IRQ_CLEAR(u32) @ 0x1004 {
++            /// Clear CSG request interrupts.
++            30:0    csg;
++            /// Clear GLB request interrupt.
++            31:31   glb;
++        }
++
++        /// Mask for job interrupts.
++        ///
++        /// Set each bit to 1 to enable the corresponding interrupt source or to 0 to disable it.
++        pub(crate) JOB_IRQ_MASK(u32) @ 0x1008 {
++            /// Enable CSG request interrupts.
++            30:0    csg;
++            /// Enable GLB request interrupt.
++            31:31   glb;
++        }
++
++        /// Active job interrupts. Read only.
++        ///
++        /// This register contains the result of ANDing together [`JOB_IRQ_RAWSTAT`] and
++        /// [`JOB_IRQ_MASK`].
++        pub(crate) JOB_IRQ_STATUS(u32) @ 0x100c {
++            /// CSG request interrupt status.
++            30:0    csg;
++            /// GLB request interrupt status.
++            31:31   glb;
++        }
++    }
++}
 
 -- 
 2.52.0
