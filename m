@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7A3C0F532FD
-	for <dri-devel@archiver.kernel.org>; Tue, 24 Mar 2026 09:09:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 65EE3F532FE
+	for <dri-devel@archiver.kernel.org>; Tue, 24 Mar 2026 09:11:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DD0E710E636;
-	Tue, 24 Mar 2026 09:09:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C82B610E637;
+	Tue, 24 Mar 2026 09:11:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="NeRVdyX1";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="d35X0Uta";
 	dkim-atps=neutral
 Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
  [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 189FD10E636;
- Tue, 24 Mar 2026 09:09:04 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1774343335; cv=none; 
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 63F9110E637;
+ Tue, 24 Mar 2026 09:11:47 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1774343500; cv=none; 
  d=zohomail.com; s=zohoarc; 
- b=O0Hdz56be/8KaHfU9qnv3CO8OOJ1oPU1gv/AfF3/JP/4zwrnLAxuDF/FHcQ6sEr5QhZfMjhwOsw/8dylYbQKkyu3SQ5xdRTd02Fh3wb6cQJb9qqIVVXhWv+JYvoyEigRscSGqPq6YuV+57ecOwGUuKSGDriS4fqjSdPV9QC87ow=
+ b=d8MnFBQkKpHJ4TH23zDPo4o46LfLDPrpOVdPHNE8ffXdXoFxGc7Z2FEQ4wf6xDvr2cm7f+ehIE1nYTny/bZbLEgXKPGNowaLSVzidCx+RDP0QVrCp1rUpzEgSWZboLirKnaw3feRFwxKdgLPp9qDSBWOC9EQ+PdE64D0Fb72wRo=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1774343335;
+ s=zohoarc; t=1774343500;
  h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=joZ/1jdRFsPMk+xnPDVTFuNcjEEqbrkRjRzofTM5y0Q=; 
- b=Bkk073o7CGNuNgfxwcsSNmdXkqYpB9+yCsJgihwThSjtzCzaC4iPwvv5IyiW5UF04sy0odFUxXc71w+u2dvWgFKxS8I6f18fTjcVxFLJN1oWSRPb/jOPskxsY7ZfE3p0C7BC0M2RIqpsajThcey1eXbPO3jeSRTv4zfzwv/+pYU=
+ bh=AQWLMORUnkVbiNjJGAhEshPKUTqZoxqhRKKnwPG0jLg=; 
+ b=NH0ufGdazv3xhvW3Ffcl7B4X+OXgsO2OwuF9YchQH2o1qCxwFwAHLOp6Zc9AN4bYNWjkBXcO8A/Gl4hBfRmU2ZDpNdH4anSXnKBrZDzPcZvm1CE1utnQ6TUPnwdidE/PxAo/b5tjhVe35PQLV7xLoUd4trRPY7FM8r/TZMm+Zzk=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
  dkim=pass  header.i=collabora.com;
  spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
  dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1774343335; 
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1774343500; 
  s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
  h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:Content-Type:Message-Id:Reply-To;
- bh=joZ/1jdRFsPMk+xnPDVTFuNcjEEqbrkRjRzofTM5y0Q=;
- b=NeRVdyX1dTbevqzn5YIfXosyF0UznGO96JvhmesokmSGQWQI1PuKPJY5PxaBLNfk
- aO2qz4uWcrFf9eeiv0zzHeE41A0MOn5cZVCjzVpQuTlLI2mW1wbjo8h/W1GWtS2MYIz
- vBg6qJfzwjHSB6VC3nouwGENd1IUXhjC25DDdmwQ=
-Received: by mx.zohomail.com with SMTPS id 1774343334007578.4758740983518;
- Tue, 24 Mar 2026 02:08:54 -0700 (PDT)
+ bh=AQWLMORUnkVbiNjJGAhEshPKUTqZoxqhRKKnwPG0jLg=;
+ b=d35X0UtaEM7Po2FmSfpYS/6GcdVCuoJdv3y7/qdxC4D7X6PAayQR7Kq9dY6FsyOk
+ EqCn9VqIS2DDtW5r6H2IvfwLjVfCoPmKAaXUTbFOlMt00Gc2rXszoXyC6oQA7gOJ0jf
+ iE+gFM6eC7gQYaMiIKr+UMRYfL2+ysQVrvP/2n1E=
+Received: by mx.zohomail.com with SMTPS id 1774343497883801.6427108884712;
+ Tue, 24 Mar 2026 02:11:37 -0700 (PDT)
 From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 To: Jani Nikula <jani.nikula@linux.intel.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
@@ -67,13 +67,13 @@ Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  amd-gfx@lists.freedesktop.org, linux-mediatek@lists.infradead.org,
  linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
  linux-sunxi@lists.linux.dev, Jani Nikula <jani.nikula@intel.com>
-Subject: Re: [PATCH v3 14/14] drm/display: hdmi: Use drm_output_color_format
- instead of hdmi_colorspace
-Date: Tue, 24 Mar 2026 10:08:44 +0100
-Message-ID: <3687080.mvXUDI8C0e@workhorse>
-In-Reply-To: <20260305-drm-rework-color-formats-v3-14-f3935f6db579@kernel.org>
+Subject: Re: [PATCH v3 04/14] drm/amdgpu: display: Convert to
+ drm_output_color_format
+Date: Tue, 24 Mar 2026 10:11:29 +0100
+Message-ID: <7113873.lOV4Wx5bFT@workhorse>
+In-Reply-To: <20260305-drm-rework-color-formats-v3-4-f3935f6db579@kernel.org>
 References: <20260305-drm-rework-color-formats-v3-0-f3935f6db579@kernel.org>
- <20260305-drm-rework-color-formats-v3-14-f3935f6db579@kernel.org>
+ <20260305-drm-rework-color-formats-v3-4-f3935f6db579@kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7Bit
 Content-Type: text/plain; charset="utf-8"
@@ -92,48 +92,58 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thursday, 5 March 2026 10:05:06 Central European Standard Time Maxime Ripard wrote:
-> The hdmi_colorspace enum was defined to represent the colorspace value
-> of the HDMI infoframes. It was later used by some HDMI drivers to
-> express the output format they should be setting up.
+On Thursday, 5 March 2026 10:04:56 Central European Standard Time Maxime Ripard wrote:
+> Now that we introduced a new drm_output_color_format enum to represent
+> what DRM_COLOR_FORMAT_* bits were representing, we can switch to the new
+> enum.
 > 
-> During the introduction of the HDMI helpers, it then was used to
-> represent it in the drm_connector_hdmi_state structure.
+> The main difference is that while DRM_COLOR_FORMAT_ was a bitmask,
+> drm_output_color_format is a proper enum. However, the enum was done is
+> such a way than DRM_COLOR_FORMAT_X = BIT(DRM_OUTPUT_COLOR_FORMAT_X) so
+> the transitition is easier.
 > 
-> However, it's always been somewhat redundant with the DRM_COLOR_FORMAT_*
-> defines, and now with the drm_output_color_format enum. Let's
-> consolidate around drm_output_color_format in drm_connector_hdmi_state
-> to facilitate the current effort to provide a global output format
-> selection mechanism.
+> The only thing we need to consider is if the original code meant to use
+> that value as a bitmask, in which case we do need to keep the bit shift,
+> or as a discriminant in which case we don't.
 > 
 > Acked-by: Jani Nikula <jani.nikula@intel.com>
 > Signed-off-by: Maxime Ripard <mripard@kernel.org>
 > ---
->  drivers/gpu/drm/bridge/inno-hdmi.c                 |   6 +-
->  drivers/gpu/drm/bridge/ite-it6263.c                |   2 +-
->  drivers/gpu/drm/display/drm_bridge_connector.c     |   4 +-
->  drivers/gpu/drm/display/drm_hdmi_helper.c          |   7 +-
->  drivers/gpu/drm/display/drm_hdmi_state_helper.c    |  52 ++++--
->  drivers/gpu/drm/drm_bridge.c                       |   2 +-
->  drivers/gpu/drm/drm_connector.c                    |  16 +-
->  drivers/gpu/drm/mediatek/mtk_hdmi_v2.c             |   8 +-
->  drivers/gpu/drm/sun4i/sun4i_hdmi_enc.c             |   2 +-
->  drivers/gpu/drm/tests/drm_connector_test.c         |  80 ++++-----
->  drivers/gpu/drm/tests/drm_hdmi_state_helper_test.c | 182 ++++++++++-----------
->  drivers/gpu/drm/vc4/vc4_hdmi.c                     |  18 +-
->  drivers/gpu/drm/vc4/vc4_hdmi.h                     |   2 +-
->  include/drm/bridge/dw_hdmi_qp.h                    |   2 +-
->  include/drm/display/drm_hdmi_helper.h              |   3 +-
->  include/drm/drm_bridge.h                           |   5 +-
->  include/drm/drm_connector.h                        |   9 +-
->  17 files changed, 213 insertions(+), 187 deletions(-)
+>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index a8e4e3ab5e40276b3c723297ca6520688079e0a7..2fe9044e1e91d7581fd5032b9883548f8e5e1b43 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -6723,15 +6723,15 @@ static void fill_stream_properties_from_drm_display_mode(
+>  		timing_out->pixel_encoding = PIXEL_ENCODING_YCBCR420;
+>  	else if (drm_mode_is_420_also(info, mode_in)
+>  			&& aconnector
+>  			&& aconnector->force_yuv420_output)
+>  		timing_out->pixel_encoding = PIXEL_ENCODING_YCBCR420;
+> -	else if ((connector->display_info.color_formats & DRM_COLOR_FORMAT_YCBCR422)
+> +	else if ((connector->display_info.color_formats & BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR422))
+>  			&& aconnector
+>  			&& aconnector->force_yuv422_output)
+>  		timing_out->pixel_encoding = PIXEL_ENCODING_YCBCR422;
+> -	else if ((connector->display_info.color_formats & DRM_COLOR_FORMAT_YCBCR444)
+> +	else if ((connector->display_info.color_formats & BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR444))
+>  			&& stream->signal == SIGNAL_TYPE_HDMI_TYPE_A)
+>  		timing_out->pixel_encoding = PIXEL_ENCODING_YCBCR444;
+>  	else
+>  		timing_out->pixel_encoding = PIXEL_ENCODING_RGB;
+>  
+> 
 > 
 
-Since I've been relying this for a while now and could find no further
-issues with the conversion, I'll give this a:
+Tested-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 
-Reviewed-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+I've been running this patch as part of my color format work and it
+works precisely as it's supposed to (which is also quite evident from
+the simple conversion in the code.)
 
-Thank you for the refactor!
+Kind regards,
+Nicolas Frattaroli
 
 
