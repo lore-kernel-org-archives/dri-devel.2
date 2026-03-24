@@ -4,84 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5CD1EF532C7
-	for <dri-devel@archiver.kernel.org>; Tue, 24 Mar 2026 02:30:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6875CF532C6
+	for <dri-devel@archiver.kernel.org>; Tue, 24 Mar 2026 02:36:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9C36110E08D;
-	Tue, 24 Mar 2026 02:30:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 75AA110E591;
+	Tue, 24 Mar 2026 02:36:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=samsung.com header.i=@samsung.com header.b="RTFBubUc";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="c2rFPM4H";
 	dkim-atps=neutral
-Received: from mailout2.samsung.com (mailout2.samsung.com [203.254.224.25])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9B6A110E08D
- for <dri-devel@lists.freedesktop.org>; Tue, 24 Mar 2026 02:30:04 +0000 (UTC)
-Received: from epcas5p2.samsung.com (unknown [182.195.41.40])
- by mailout2.samsung.com (KnoxPortal) with ESMTP id
- 20260324023002epoutp02ad5126bb5b565193f0eaea49762f7467~fphiFvHS71570015700epoutp023
- for <dri-devel@lists.freedesktop.org>; Tue, 24 Mar 2026 02:30:02 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.samsung.com
- 20260324023002epoutp02ad5126bb5b565193f0eaea49762f7467~fphiFvHS71570015700epoutp023
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
- s=mail20170921; t=1774319402;
- bh=xiEG8fs8U4waGFe76frAqj8GUGT8PfbUsJqfEpDU4H0=;
- h=From:To:Cc:In-Reply-To:Subject:Date:References:From;
- b=RTFBubUceVdG5dBZjg2EJuOun+7AvU7K1xXJVOiY75v5S6AwPDX0GCIymngOFAphd
- E4RA3K/kK+gtTKLgy3khdnDiPmc2cGWIz79uHvHB6IujWAiNQY1L9e+YM2hT5hM2cb
- 67/UCzZXuKEnGh+5DWuT53H601jKazX4GP44bHGA=
-Received: from epsnrtp02.localdomain (unknown [182.195.42.154]) by
- epcas5p3.samsung.com (KnoxPortal) with ESMTPS id
- 20260324023002epcas5p3c3a08032a55b26ba4a7023fdeaebf3cd~fphhsTMXr1327213272epcas5p3T;
- Tue, 24 Mar 2026 02:30:02 +0000 (GMT)
-Received: from epcpadp1new (unknown [182.195.40.141]) by
- epsnrtp02.localdomain (Postfix) with ESMTP id 4ffvBx72xwz2SSKf; Tue, 24 Mar
- 2026 02:30:01 +0000 (GMT)
-Received: from epsmtip1.samsung.com (unknown [182.195.34.30]) by
- epcas5p4.samsung.com (KnoxPortal) with ESMTPA id
- 20260323172713epcas5p4dd04df01adb71b7563e1cac14b927632~fiHlqRiPK1063110631epcas5p4A;
- Mon, 23 Mar 2026 17:27:13 +0000 (GMT)
-Received: from INBRO002756 (unknown [107.122.3.168]) by epsmtip1.samsung.com
- (KnoxPortal) with ESMTPA id
- 20260323172656epsmtip1078ac64ab1a734cd90e8019874a7de3a~fiHV3p2Rc1639516395epsmtip1L;
- Mon, 23 Mar 2026 17:26:55 +0000 (GMT)
-From: "Alim Akhtar" <alim.akhtar@samsung.com>
-To: "'Vladimir Oltean'" <vladimir.oltean@nxp.com>,
- <linux-phy@lists.infradead.org>
-Cc: "'Vinod Koul'" <vkoul@kernel.org>, "'Neil Armstrong'"
- <neil.armstrong@linaro.org>, <dri-devel@lists.freedesktop.org>,
- <freedreno@lists.freedesktop.org>, <linux-arm-kernel@lists.infradead.org>,
- <linux-arm-msm@vger.kernel.org>, <linux-can@vger.kernel.org>,
- <linux-gpio@vger.kernel.org>, <linux-ide@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <linux-media@vger.kernel.org>,
- <linux-pci@vger.kernel.org>, <linux-renesas-soc@vger.kernel.org>,
- <linux-riscv@lists.infradead.org>, <linux-rockchip@lists.infradead.org>,
- <linux-samsung-soc@vger.kernel.org>, <linux-scsi@vger.kernel.org>,
- <linux-sunxi@lists.linux.dev>, <linux-tegra@vger.kernel.org>,
- <linux-usb@vger.kernel.org>, <netdev@vger.kernel.org>,
- <spacemit@lists.linux.dev>, <UNGLinuxDriver@microchip.com>, "'Bart Van
- Assche'" <bvanassche@acm.org>, "'Peter Griffin'" <peter.griffin@linaro.org>,
- "'James E.J. Bottomley'" <James.Bottomley@HansenPartnership.com>, "'Martin
- K. Petersen'" <martin.petersen@oracle.com>, "'Krzysztof Kozlowski'"
- <krzk@kernel.org>, "'Chanho Park'" <chanho61.park@samsung.com>
-In-Reply-To: <20260319223241.1351137-10-vladimir.oltean@nxp.com>
-Subject: RE: [PATCH v5 phy-next 09/27] scsi: ufs: exynos: stop poking into
- struct phy guts
-Date: Mon, 23 Mar 2026 22:56:51 +0530
-Message-ID: <1891546521.01774319401971.JavaMail.epsvc@epcpadp1new>
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D522310E590;
+ Tue, 24 Mar 2026 02:36:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1774319789; x=1805855789;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=aoVES+fNMNs0j0AQvGkOu6fbsfT5KvJjw5UEr76m16c=;
+ b=c2rFPM4Hp9ZGFj97+XC+TjKSff7QbpFrbGAuVc0alQ3We7iijSVur2Wd
+ PlG8P1r+iuT2oDYKNPzp/qeNaVM7siLCRj8x4sE7cQ+Rml869EQ5CW1zk
+ IG77jzl8T9UwNuYUBFNnf7bzs/xVukIT7oB6ln99nZVteqY4zpD5a3qog
+ bgnmB0m2Cn9wXVXSug/ABPZIJVtMOir259TYqrL9+xbkGROzMGQIpN8UV
+ yCCMCEHP0YRKjrbKZNezbDoCqirrkUlxfKTHbCzlQLd4LFlfw1UR9ffzc
+ mFZcuq0KfkdpqhO3770kCsb+rlzrnAE+gfBzQil/l59jkLk+QJ7iWtoaI A==;
+X-CSE-ConnectionGUID: 0dvvV1+tQNqT9Z3JDvNtAA==
+X-CSE-MsgGUID: 5MTGczAkTYKIfbbtNGdwzg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11738"; a="78928372"
+X-IronPort-AV: E=Sophos;i="6.23,138,1770624000"; d="scan'208";a="78928372"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+ by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Mar 2026 19:36:29 -0700
+X-CSE-ConnectionGUID: 6x2O7qloT6m+V/gv1QMnhg==
+X-CSE-MsgGUID: qAssdncyTimEG2xi13nzSw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,138,1770624000"; d="scan'208";a="225882632"
+Received: from black.igk.intel.com ([10.91.253.5])
+ by fmviesa004.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Mar 2026 19:36:27 -0700
+Date: Tue, 24 Mar 2026 03:36:24 +0100
+From: Raag Jadav <raag.jadav@intel.com>
+To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+Cc: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ airlied@gmail.com, simona@ffwll.ch, mripard@kernel.org,
+ matthew.brost@intel.com, rodrigo.vivi@intel.com,
+ riana.tauro@intel.com, andrealmeid@igalia.com
+Subject: Re: [PATCH v2 0/3] Update 'none' recovery method for DRM wedged event
+Message-ID: <acH4qEdJwwRApZ0t@black.igk.intel.com>
+References: <20260305130720.3685754-1-raag.jadav@intel.com>
+ <aa_OxUm6vthhaorE@black.igk.intel.com>
+ <acFJuRlHeJ8OyLi6@black.igk.intel.com>
+ <5d2171ca-aa9b-4b8f-9ea3-eabb823ef2d6@amd.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-X-Mailer: Microsoft Outlook 16.0
-Thread-Index: AQJoz1sM+EbPjkyDopxrfJVWkMJWdwIGLiEOAj0DJam0ghnJMA==
-Content-Language: en-us
-X-CMS-MailID: 20260323172713epcas5p4dd04df01adb71b7563e1cac14b927632
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-CMS-TYPE: 105P
-X-CPGSPASS: Y
-X-Hop-Count: 3
-X-CMS-RootMailID: 20260319223312epcas5p183a1e0c31206025da8cf00b5d745a0ce
-References: <20260319223241.1351137-1-vladimir.oltean@nxp.com>
- <CGME20260319223312epcas5p183a1e0c31206025da8cf00b5d745a0ce@epcas5p1.samsung.com>
- <20260319223241.1351137-10-vladimir.oltean@nxp.com>
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <5d2171ca-aa9b-4b8f-9ea3-eabb823ef2d6@amd.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,68 +74,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-HI Vladimir,
-
-> -----Original Message-----
-> From: Vladimir Oltean <vladimir.oltean@nxp.com>
-> Sent: Friday, March 20, 2026 4:02 AM
-> To: linux-phy@lists.infradead.org
-> Cc: Vinod Koul <vkoul@kernel.org>; Neil Armstrong
-> <neil.armstrong@linaro.org>; dri-devel@lists.freedesktop.org;
-> freedreno@lists.freedesktop.org; linux-arm-kernel@lists.infradead.org;
-> linux-arm-msm@vger.kernel.org; linux-can@vger.kernel.org; linux-
-> gpio@vger.kernel.org; linux-ide@vger.kernel.org; linux-
-> kernel@vger.kernel.org; linux-media@vger.kernel.org; linux-
-> pci@vger.kernel.org; linux-renesas-soc@vger.kernel.org; linux-
-> riscv@lists.infradead.org; linux-rockchip@lists.infradead.org;
-linux-samsung-
-> soc@vger.kernel.org; linux-scsi@vger.kernel.org;
-linux-sunxi@lists.linux.dev;
-> linux-tegra@vger.kernel.org; linux-usb@vger.kernel.org;
-> netdev@vger.kernel.org; spacemit@lists.linux.dev;
-> UNGLinuxDriver@microchip.com; Bart Van Assche <bvanassche@acm.org>;
-> Alim Akhtar <alim.akhtar@samsung.com>; Peter Griffin
-> <peter.griffin@linaro.org>; James E.J. Bottomley
-> <James.Bottomley@HansenPartnership.com>; Martin K. Petersen
-> <martin.petersen@oracle.com>; Krzysztof Kozlowski <krzk@kernel.org>;
-> Chanho Park <chanho61.park@samsung.com>
-> Subject: [PATCH v5 phy-next 09/27] scsi: ufs: exynos: stop poking into
-struct
-> phy guts
+On Mon, Mar 23, 2026 at 03:11:58PM +0100, Christian König wrote:
+> On 3/23/26 15:10, Raag Jadav wrote:
+> > On Tue, Mar 10, 2026 at 08:56:58AM +0100, Raag Jadav wrote:
+> >> On Thu, Mar 05, 2026 at 06:36:46PM +0530, Raag Jadav wrote:
+> >>> Currently 'none' recovery method for wedged event expects no explicit
+> >>> recovery from userspace consumer but it expects driver to have reset
+> >>> the device, which may not always be the case. Update documentation and
+> >>> log to reflect this expectation.
+> >>
+> >> Anything I can do to move this forward?
 > 
-> The Exynos host controller driver is clearly a PHY consumer (gets the
-> ufs->phy using devm_phy_get()), but pokes into the guts of struct phy
-> to get the generic_phy->power_count.
-> 
-> The UFS core (specifically ufshcd_link_startup()) may call the variant
-> operation exynos_ufs_pre_link() -> exynos_ufs_phy_init() multiple times if
-> the link startup fails and needs to be retried.
-> 
-> However ufs-exynos shouldn't be doing what it's doing, i.e. looking at the
-> generic_phy->power_count, because in the general sense of the API, a
-> single Generic PHY may have multiple consumers. If ufs-exynos looks at
-> generic_phy->power_count, there's no guarantee that this ufs-exynos
-> instance is the one who previously bumped that power count. So it may be
-> powering down the PHY on behalf of another consumer.
-> 
-> The correct way in which this should be handled is ufs-exynos should
-> *remember* whether it has initialized and powered up the PHY before, and
-> power it down during link retries. Not rely on the power_count (which,
-btw,
-> on the writer side is modified under &phy->mutex, but on the reader side
-is
-> accessed unlocked). This is a discouraged pattern even if here it doesn't
-> cause functional problems.
-> 
-> Signed-off-by: Vladimir Oltean <vladimir.oltean@nxp.com>
-> Reviewed-by: Bart Van Assche <bvanassche@acm.org>
-> ---
-Thanks for the patch
-Acked-by: Alim Akhtar <alim.akhtar@samsung.com>
+> Invent some tech to clone certain people so that we have more reviewers.
 
-Tested this patch for basic UFS functionality, UFS still works. 
-Feel free to add
-Tested-by: Alim Akhtar <alim.akhtar@samsung.com>
+If this allows my clones to also review my patches, I fully support this :)
 
+> > Ping.
+> 
+> I will take a look now.
 
+Thank you, I think it's safe to land through drm-misc (if anyone has access).
 
+Raag
+
+> >>> v2: Rephrase documentation (Rodrigo)
+> >>>
+> >>> Raag Jadav (3):
+> >>>   drm/doc: Update documentation for 'none' recovery method
+> >>>   drm: Update log for 'none' recovery method
+> >>>   drm/xe: Send 'none' recovery method for
+> >>>     XE_WEDGED_MODE_UPON_ANY_HANG_NO_RESET
+> >>>
+> >>>  Documentation/gpu/drm-uapi.rst | 14 +++++++-------
+> >>>  drivers/gpu/drm/drm_drv.c      |  2 +-
+> >>>  drivers/gpu/drm/xe/xe_device.c |  9 ++++++++-
+> >>>  3 files changed, 16 insertions(+), 9 deletions(-)
+> >>>
+> >>> -- 
+> >>> 2.43.0
+> >>>
+> 
