@@ -4,140 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 32688E9A75D
-	for <dri-devel@archiver.kernel.org>; Tue, 24 Mar 2026 10:19:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CE1D0E9A75A
+	for <dri-devel@archiver.kernel.org>; Tue, 24 Mar 2026 10:42:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9874B10E654;
-	Tue, 24 Mar 2026 10:19:39 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="h91XH7rc";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="kT3ER5bh";
-	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DDB7E10E0B0
- for <dri-devel@lists.freedesktop.org>; Tue, 24 Mar 2026 10:19:37 +0000 (UTC)
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 62O4k6FW1910825
- for <dri-devel@lists.freedesktop.org>; Tue, 24 Mar 2026 10:19:37 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- CKixAeLWoJLGVNQVekhuVvT5gS+Oyk19qzq72tM18NE=; b=h91XH7rcJHqPCAfu
- G+pY189rLDu1muW8+dnKCceVhZDdEi07XOOGUr4aoR9W0Fc2laZ/V4qaCoSE/yOY
- 2XG34b+eEbouMjFVJT2zXsQA8whL2wSzULTlbPytNdFmI57Ps4P0gZ8w2SVJc23h
- 3PErbHOGsLmKk1ef58AgMoSKremKyvATuUvvDQrtGAYZusbe12JG45TeFUdYKwi8
- X+CKLOzN3EcjEGVFGPOLd+3wZ2pnTTSKJZVxCG64nUCaBE7auuiqOivJqX/TGTTr
- GDwjpd7TMnC5bMU5f6BDQG7ECg7M+6nAqbFila2H6pimyRN7IovXyBcIbtXnDlSX
- 3L0/vA==
-Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com
- [209.85.160.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d3awytxye-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Tue, 24 Mar 2026 10:19:37 +0000 (GMT)
-Received: by mail-qt1-f200.google.com with SMTP id
- d75a77b69052e-50b2d15c360so40088551cf.2
- for <dri-devel@lists.freedesktop.org>; Tue, 24 Mar 2026 03:19:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1774347576; x=1774952376;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=CKixAeLWoJLGVNQVekhuVvT5gS+Oyk19qzq72tM18NE=;
- b=kT3ER5bhOzX1ge2QaNAckzpXXBqzU8DuBvsw5FVlYBOCVTqVwzy1EZA/4h9W91wadG
- rkt4Nw3oJhv9hh8XL4pFaiqGFqGPUTus4SsJzFOQ0uyy7UMBVxAsi0JIB3drrIvUXkIn
- Ap8IN04IEmKDQG6fwb6dddgqidIcpFeNcljlQd9zLg3wZ10roGIm4/ChWbf0xoWAflYr
- Yoz7q7UyFLygUiziPW6xJOktY+TZqa3n2g66Hd42TF1v1uG0HIUWR2w7f5eYWZLL9jy1
- psdSWsZMF5zNEyzak2tNvX6yfiUb/Qp0+cVz36iozviji7HC2zJjsIVMpUi2uVmU0L5L
- MRzA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774347576; x=1774952376;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=CKixAeLWoJLGVNQVekhuVvT5gS+Oyk19qzq72tM18NE=;
- b=IUNM/GQ2nN4sKqvIV8Xz+G3e560m/hthDbHCoTVhmJFB+eaWspiimVnfWn5iJIFJ7J
- mXk0V8vO3OSJ+O2nNDsssDiVDiofmOK0qK5SgTC4swsaiNXrAT10EOGwex12AM1wMSYv
- NEh/SVt/Hoylt3JxjT+pmRpLElv3xO8VgGkJ+hC7+R8obfYVE6WymBLNI6kss1GsZvOo
- wsHuF173rLoY3XCkIKYlrpBKX4WOSJvGzPjLXrS/6BlS672wp6+QXB7NOfYRAisDezQ3
- mBNT/2ro5OBuOCth+8qBSHmbiLxcalyDv8jbt/xTlZEZ0hXGH2E7G3JtKsDM1OgIkv4S
- 11bQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVE8PksbaVBIzJj16BfryAE6ErnkC567JVUDyRLcgrv1g2QodH6zt4lRPnssudrc8cww/DLB3kC0do=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzthKjDiHZBpVATXaPJ2M8Gdw5KUEguhoRkT1yQvz+AUczPMvwr
- wHn08vN/zilncZMvvKUV+Njn2vEFe2d6zilyYBSPLmV6EjJGQy6Er5jAb3TR190fSMRuiao/tM8
- nGlHs+0qN0q2wwnnU13SnFI+HdkOlNcsfIoSDD7dJ4pIhULBuxqiGPtSGCYrRaQFLK4db6fk=
-X-Gm-Gg: ATEYQzwan4KaVqTaYV5hM5SF02eKsE0km2J0eejRjQywED+NtC7JvaGeP/akSlYxoqh
- luo+knsBSue3D6EITQvkmLVVdOoRmrE0gDM7JV6/W93gXONQjx/IzeB1RRNCfACGCqytvqwpDyu
- vo3gqVG3bJnwRG1eK9HvlkIGjzG6cxkU+4xclOw7ZlOXMMeFPaVQD6uFhtsJlFJ/JZGd3jtG/6P
- vybHhp6eU+Zpi9KOWDjXkay9s3aIi6dHqEZtDcc4p3RwQMXjZ/DtD7zn3xVdB147i7+l4mog0VB
- 7ULtDPBNTpsVlM4yPyqrJ8yqClKinqpuBRvDd8UmG+WA6UTqs+MoSbKj55Dt2hSCfGZq4H/9Lsj
- +lZRR87zWs/JZaTQonnck5XCj4dwqNcLTxbg90eqzACDBJBiF6XismCzv83Spbpl3ZJgOAoEl68
- fsOuc=
-X-Received: by 2002:a05:6214:2b06:b0:89c:534b:735b with SMTP id
- 6a1803df08f44-89c859c0a39mr169030196d6.2.1774347576280; 
- Tue, 24 Mar 2026 03:19:36 -0700 (PDT)
-X-Received: by 2002:a05:6214:2b06:b0:89c:534b:735b with SMTP id
- 6a1803df08f44-89c859c0a39mr169029816d6.2.1774347575872; 
- Tue, 24 Mar 2026 03:19:35 -0700 (PDT)
-Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl.
- [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b9832f8dff5sm614789466b.24.2026.03.24.03.19.30
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 24 Mar 2026 03:19:33 -0700 (PDT)
-Message-ID: <f6f63df8-8e7b-43e8-a6a7-b561cf1b95fe@oss.qualcomm.com>
-Date: Tue, 24 Mar 2026 11:19:29 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 16/16] drm/msm/adreno: Expose a PARAM to check AQE support
-To: Akhil P Oommen <akhilpo@oss.qualcomm.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Antonino Maniscalco <antomani103@gmail.com>,
- Connor Abbott <cwabbott0@gmail.com>,
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1333310E145;
+	Tue, 24 Mar 2026 10:42:11 +0000 (UTC)
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 3E66210E145
+ for <dri-devel@lists.freedesktop.org>; Tue, 24 Mar 2026 10:42:09 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id AAA401476
+ for <dri-devel@lists.freedesktop.org>; Tue, 24 Mar 2026 03:42:02 -0700 (PDT)
+Received: from [192.168.0.1] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id
+ 7A6BC3FDF5
+ for <dri-devel@lists.freedesktop.org>; Tue, 24 Mar 2026 03:42:08 -0700 (PDT)
+Date: Tue, 24 Mar 2026 10:41:56 +0000
+From: Liviu Dudau <liviu.dudau@arm.com>
+To: Marcin =?utf-8?Q?=C5=9Alusarz?= <marcin.slusarz@arm.com>
+Cc: Boris Brezillon <boris.brezillon@collabora.com>,
+ Steven Price <steven.price@arm.com>,
+ dri-devel@lists.freedesktop.org, Chia-I Wu <olvaffe@gmail.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20260324-a8xx-gpu-batch2-v1-0-fc95b8d9c017@oss.qualcomm.com>
- <20260324-a8xx-gpu-batch2-v1-16-fc95b8d9c017@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260324-a8xx-gpu-batch2-v1-16-fc95b8d9c017@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzI0MDA4MiBTYWx0ZWRfXywSe9AGdJF5I
- A0XLsSbbDGr3f5EJKPv/khVV0p6lkbcfX0DhfYjcIn7MpM6oueUtBX5zuaFd4hV2/4OagaHZdc6
- /ed6Dr+aSyYXaweDEoHV4iP78Q8Am9f4+9BW5zYwbbmMgeVMv8Yq6d1tmpHnyeC0Z2PwAMvuD9U
- AiCMP4pMcv4WwaAL2Yoh669icSYlc7T67ykasXrymACXUlPzIH2+TOm2WA9sp7wcZFn3PzPa9gO
- ZHjVdO2buMYpFUat1ITBajNIajdDwITTpuYfhYliHFR6cNO14ZPSM5GYG+ILGBumNoaN4W62YIh
- mfIOgfzY6WSiCaZjc3vZSKJ9mZl20yTOG5U8QUtaViGuqBM9WNKYsqqR3jY1e3iLAYkNzQLI4qo
- 4gH/2/RpXz6zRgEunrvWU5IfH5NMEpxWjEMc89mU4rCvJlila/tpDWQVN8bD3Q66bvSUaOkEMe7
- EK43O4wm9GE8GQEHXgg==
-X-Proofpoint-ORIG-GUID: MUbFAxFD5YlWFQN_r5XFSZstgglPWnkw
-X-Authority-Analysis: v=2.4 cv=KuhAGGWN c=1 sm=1 tr=0 ts=69c26539 cx=c_pps
- a=JbAStetqSzwMeJznSMzCyw==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
- a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
- a=EUspDBNiAAAA:8 a=jFzL61rkNVMoSztU-kMA:9 a=QEXdDO2ut3YA:10
- a=uxP6HrT_eTzRwkO_Te1X:22
-X-Proofpoint-GUID: MUbFAxFD5YlWFQN_r5XFSZstgglPWnkw
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-03-24_02,2026-03-23_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 malwarescore=0 phishscore=0 priorityscore=1501 impostorscore=0
- spamscore=0 adultscore=0 lowpriorityscore=0 clxscore=1015 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603240082
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Lukas Zapolskas <lukas.zapolskas@arm.com>, nd@arm.com
+Subject: Re: [PATCH v3] drm/panthor: extend timestamp query with flags
+Message-ID: <acJqdFEo4l4oi--V@e142607>
+References: <20260318112952.645160-1-marcin.slusarz@arm.com>
+ <20260319110053.909152-1-marcin.slusarz@arm.com>
+ <abvhcedS46eLEYVB@e142607> <abvujKZxtg0zvFaz@e129842.arm.com>
+ <abwTkBi5WvItsEX-@e142607> <abwXXFgPheyA03P8@e129842.arm.com>
+ <acE9LkMYQvrGKb8b@e142607> <acFmUc-qx0eO8A1F@e129842.arm.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <acFmUc-qx0eO8A1F@e129842.arm.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -153,23 +57,207 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 3/23/26 9:12 PM, Akhil P Oommen wrote:
-> AQE (Applicaton Qrisc Engine) is required to support VK ray-pipeline. Two
-> conditions should be met to use this HW:
->   1. AQE firmware should be loaded and programmed
->   2. Preemption support
+On Mon, Mar 23, 2026 at 05:12:01PM +0100, Marcin Ślusarz wrote:
+> On Mon, Mar 23, 2026 at 01:16:30PM +0000, Liviu Dudau wrote:
+> > On Thu, Mar 19, 2026 at 04:33:48PM +0100, Marcin Ślusarz wrote:
+> > > On Thu, Mar 19, 2026 at 03:17:36PM +0000, Liviu Dudau wrote:
+> > > > On Thu, Mar 19, 2026 at 01:39:40PM +0100, Marcin Ślusarz wrote:
+> > > > > On Thu, Mar 19, 2026 at 11:43:45AM +0000, Liviu Dudau wrote:
+> > > > > > Hi Marcin,
+> > > > > > 
+> > > > > > On Thu, Mar 19, 2026 at 12:00:53PM +0100, Marcin Slusarz wrote:
+> > > > > > > ...
+> > > > > > > +#define VALID_TIMESTAMP_QUERY_FLAGS \
+> > > > > > > +		(DRM_PANTHOR_TIMESTAMP_GPU | \
+> > > > > > > +		 DRM_PANTHOR_TIMESTAMP_CPU_TYPE_MASK | \
+> > > > > > > +		 DRM_PANTHOR_TIMESTAMP_GPU_OFFSET | \
+> > > > > > > +		 DRM_PANTHOR_TIMESTAMP_GPU_CYCLE_COUNT | \
+> > > > > > > +		 DRM_PANTHOR_TIMESTAMP_FREQ | \
+> > > > > > > +		 DRM_PANTHOR_TIMESTAMP_DURATION)
+> > > > > > > +
+> > > > > > >  static int panthor_query_timestamp_info(struct panthor_device *ptdev,
+> > > > > > >  					struct drm_panthor_timestamp_info *arg)
+> > > > > > >  {
+> > > > > > >  	int ret;
+> > > > > > > +	u32 flags;
+> > > > > > > +	unsigned long irq_flags;
+> > > > > > > +	struct timespec64 cpu_ts;
+> > > > > > > +	u64 query_start_time;
+> > > > > > > +	bool minimize_interruption;
+> > > > > > > +	u32 timestamp_types = 0;
+> > > > > > > +
+> > > > > > > +	if (arg->flags != 0) {
+> > > > > > > +		flags = arg->flags;
+> > > > > > > +	} else {
+> > > > > > > +		/*
+> > > > > > > +		 * If flags are 0, then ask for the same things that we asked
+> > > > > > > +		 * for before flags were added.
+> > > > > > > +		 */
+> > > > > > > +		flags = DRM_PANTHOR_TIMESTAMP_GPU |
+> > > > > > > +			DRM_PANTHOR_TIMESTAMP_GPU_OFFSET |
+> > > > > > > +			DRM_PANTHOR_TIMESTAMP_FREQ;
+> > > > > > > +	}
+> > > > > > > +
+> > > > > > > +	switch (flags & DRM_PANTHOR_TIMESTAMP_CPU_TYPE_MASK) {
+> > > > > > > +	case 0:
+> > > > > 
+> > > > > Umm, this should be DRM_PANTHOR_TIMESTAMP_CPU_NONE.
+> > 
+> > OK, are you going to re-spin?
 > 
-> Expose a new MSM_PARAM to allow userspace to query its support.
+> Yes, as soon as we get to some conclusion.
 > 
-> Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
-> ---
+> > > > > 
+> > > > > > > +		break;
+> > > > > > > +	case DRM_PANTHOR_TIMESTAMP_CPU_MONOTONIC:
+> > > > > > > +	case DRM_PANTHOR_TIMESTAMP_CPU_MONOTONIC_RAW:
+> > > > > > > +		timestamp_types++;
+> > > > > > > +		break;
+> > > > > > > +	default:
+> > > > > > > +		return -EINVAL;
+> > > > > > > +	}
+> > > > > > > +
+> > > > > > > +	if (flags & ~VALID_TIMESTAMP_QUERY_FLAGS)
+> > > > > > > +		return -EINVAL;
+> > > > > > 
+> > > > > > Can we move this check before the switch and simplify the switch itself to only do the timestamp_types increment?
+> > > > > 
+> > > > > DRM_PANTHOR_TIMESTAMP_CPU_TYPE_MASK is bit field that holds individual
+> > > > > clock type values, so we still need to validate the bit field.
+> > > > 
+> > > > The if () test eliminates the default case, and if you change the switch to:
+> > > > 
+> > > > 	switch (flags & DRM_PANTHOR_TIMESTAMP_CPU_NONE) {
+> > > > 	case DRM_PANTHOR_TIMESTAMP_CPU_MONOTONIC:
+> > > > 	case DRM_PANTHOR_TIMESTAMP_CPU_MONOTONIC_RAW:
+> > > > 		timestamp_types++;
+> > > > 		break;
+> > > > 	}
+> > > > 
+> > > > then it should be equivalent, right?
+> > > 
+> > > We need the default case to detect garbage values in the part of flags
+> > > that ands with DRM_PANTHOR_TIMESTAMP_CPU_TYPE_MASK.
+> > > 
+> > > DRM_PANTHOR_TIMESTAMP_CPU_TYPE_MASK is 7 << 1,
+> > 
+> > I understand that you want to make sure that user space doesn't insert values into the
+> > flags and then pretends that because we didn't return an error that's now part of the
+> > ABI. But then maybe you should not reserve the extra bit now if you don't know how
+> > it's going to be used (in other words, why not make TIMESTAMP_CPU_TYPE_MASK  3 << 1?).
+> 
+> I think it makes sense to reserve this bit now to make it easier to
+> extend the interface if we ever will need to. Changing uapi definition
+> is painful enough, so reserving this will rule out misuses of the current
+> value. Another point is that we would have to validate that the bit is 0
+> anyway, so I don't see why we can't include that bit in the field that
+> is supposed to go with.
 
-[...]
+You do validate the bits in the if (flags & ~VALID_TIMESTAMP_QUERY_FLAGS) test if the
+QUERY_FLAGS bitfield is updated.
 
-> +	case MSM_PARAM_AQE:
-> +		*value =  (adreno_gpu->funcs->aqe_is_enabled &&
-> +			   adreno_gpu->funcs->aqe_is_enabled(adreno_gpu)) ? 1 : 0;
+> 
+> > > DRM_PANTHOR_TIMESTAMP_CPU_MONOTONIC is 1 << 1,
+> > > DRM_PANTHOR_TIMESTAMP_CPU_MONOTONIC_RAW is 2 << 1,
+> > > so 3 << 1, 4 << 1, 5 << 1, 6 << 1, 7 << 1 are all invalid values that need
+> > > to be rejected.
+> > 
+> > I am confused about why TIMESTAMP_CPU is a continous range [0-7] while the rest of the
+> > flags are bits in a bitmask. A note should be added to the panthor_drm.h file to
+> > explain this.
+> 
+> Well, just look at the definition of struct drm_panthor_timestamp_info -
+> there's one to one relation between field and a DRM_PANTHOR_TIMESTAMP_* flag,
+> with an exception that CPU timestamp types have only one field (well,
+> a pair of "seconds" and "nanoseconds", but from logical perspective it's
+> only one value). There's no known reason why anyone would want to query
+> multiple CPU timestamps together with various GPU counters from _GPU_ query.
 
-&& already makes this a boolean
+OK, so what I'm hearing is: we're reserving space for up to 6 CPU clock sources (zero is
+no CPU clock) but you can have only one active at any time (because we can't think of any
+reason why you would want more at the same time) and we currently only define two sources
+because that's what user space cares about.
 
-Konrad
+If you agree with this then this will be recorded in the thread and we can go back in the
+future and reference it.
+
+> 
+> > 
+> > > 
+> > > And since DRM_PANTHOR_TIMESTAMP_CPU_NONE is 0 << 1, we need it too in
+> > > the switch to not be caught by the default case.
+> > 
+> > It only makes sense if you explain that TIMESTAMP_CPU values are in a range. I kept reading
+> > the different versions of the patch thinking that they are bits in a bitmask, with
+> > TIMESTAMP_CPU_NONE being the logical state of not selecting any of the sources.
+> 
+> That should be resolved with the documentation update below, right?
+
+The documentation doesn't say anything about the intent for future values for CPU sources, but
+if you don't want to add more in the documentation at least we have this thread as reference.
+
+I don't want to turn this into a bikeshedding thread, so please do a v4 with the switch case updated
+and the documentation addition and I will ACK that.
+
+Best regards,
+Liviu
+
+> 
+> > 
+> > Best regards,
+> > Liviu
+> > 
+> > 
+> > > 
+> > > > > 
+> > > > > > > +
+> > > > > > > +	if (flags & DRM_PANTHOR_TIMESTAMP_GPU)
+> > > > > > > +		timestamp_types++;
+> > > > > > > +	if (flags & DRM_PANTHOR_TIMESTAMP_GPU_CYCLE_COUNT)
+> > > > > > > +		timestamp_types++;
+> > > > > > > +
+> > > > > > > +	/* If user asked to obtain timestamps from more than one source,
+> > > > > > > +	 * then it very likely means they want them to be as close as possible.
+> > > > > > > +	 * If they asked for duration, then that likely means that they
+> > > > > > > +	 * want to know how long obtaining timestamp takes, without random
+> > > > > > > +	 * events, like process scheduling or interrupts.
+> > > > > > > +	 */
+> > > > > > 
+> > > > > > This comment makes me think that user can ask for both CPU_MONOTONIC and
+> > > > > > CPU_MONOTONIC_RAW timestamps, but the code is built to make them exclusive.
+> > > > > > Can we document better what sources can be requested simultaneously?
+> > > > > 
+> > > > > Somethine like this?
+> > > > > 
+> > > > > diff --git a/include/uapi/drm/panthor_drm.h b/include/uapi/drm/panthor_drm.h
+> > > > > index 8a46ef040c3d..0e455d91e77d 100644
+> > > > > --- a/include/uapi/drm/panthor_drm.h
+> > > > > +++ b/include/uapi/drm/panthor_drm.h
+> > > > > @@ -466,6 +466,11 @@ struct drm_panthor_timestamp_info {
+> > > > >          *  DRM_PANTHOR_TIMESTAMP_GPU |
+> > > > >          *  DRM_PANTHOR_TIMESTAMP_GPU_OFFSET |
+> > > > >          *  DRM_PANTHOR_TIMESTAMP_FREQ
+> > > > > +        *
+> > > > > +        * Note: these flags are exclusive to each other (only one can be used):
+> > > > > +        * - DRM_PANTHOR_TIMESTAMP_CPU_NONE
+> > > > > +        * - DRM_PANTHOR_TIMESTAMP_CPU_MONOTONIC
+> > > > > +        * - DRM_PANTHOR_TIMESTAMP_CPU_MONOTONIC_RAW
+> > > > 
+> > > > Yes, looks good to me.
+> > > > 
+> > > > Best regards,
+> > > > Liviu
+> > > > 
+> > > > >          */
+> > > > >         __u32 flags;
+> > > > >  
+
+-- 
+====================
+| I would like to |
+| fix the world,  |
+| but they're not |
+| giving me the   |
+ \ source code!  /
+  ---------------
+    ¯\_(ツ)_/¯
