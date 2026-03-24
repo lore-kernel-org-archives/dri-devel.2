@@ -4,44 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5B9B8FEC0FE
-	for <dri-devel@archiver.kernel.org>; Tue, 24 Mar 2026 19:37:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 22004FEC109
+	for <dri-devel@archiver.kernel.org>; Tue, 24 Mar 2026 19:53:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A4AA610E62A;
-	Tue, 24 Mar 2026 19:37:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 42C4C10E5F1;
+	Tue, 24 Mar 2026 19:53:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="mJEuEmU0";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="CGBn0ynj";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F0E7A10E485;
- Tue, 24 Mar 2026 19:37:49 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id B4EA143250;
- Tue, 24 Mar 2026 19:37:49 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 74674C19424;
- Tue, 24 Mar 2026 19:37:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1774381069;
- bh=FSMbDfBQchxcTGQjhWPZ05ODXKaW0VAxUcIbKCRCGqs=;
- h=Date:From:To:Cc:Subject:In-Reply-To:From;
- b=mJEuEmU0owy6a2jdKYB8/R9rQU8F4zXiwbP8QDPHGsOOTKVIgdHFju1XuLLaXdXGM
- gU30O+8h/l9fksp4pppehaocDR9Gs6i4atxEukrk2iZyv0pbnc2CoAQwdty8J8gfKr
- Qo9toOvHDQ3aEWsYoUer4AudPSFRRrpL1YVfqEvsgi1nHC/JvKja811h2dszHPexAO
- w5Y97WcTxEnQrnqPCRW+1q2639lIGViRuxE3aAm5pwhbTQh/L50cmnd2ScIThkSNFO
- TXfRixrw+17rDFz09P9ZnIrXwu9h9vuu4NM2hN9vcsZBXja3KYud5M8HAOBW2t0pjW
- ioY6iHLowdpTw==
-Date: Tue, 24 Mar 2026 14:37:48 -0500
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Simon Richter <Simon.Richter@hogyros.de>
-Cc: linux-pci@vger.kernel.org, intel-xe@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH v3 1/5] vgaarb: pass vga_get_uninterruptible() errors to
- userspace
-Message-ID: <20260324193748.GA1149226@bhelgaas>
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E13DF10E06D;
+ Tue, 24 Mar 2026 19:53:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1774382029; x=1805918029;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=42rT3SIGPmyvbyvEqlNTF5uxxcBXVhvc5i/A4d+Id/U=;
+ b=CGBn0ynjmh076HoifniSgFEbPHEZmEq0+vIizcv0L86Kytx1aL0t2U5m
+ 6GUFDKh37o+s4ivwORfI3nb7ytU7j5/j+0dC8bTKnKtZf37yi4KyQRzUJ
+ V3U3moDB0ZObKY9wD0ri/6c9ko8hWGMlVuRtJ3khB5yWOpv02Xt2+BpOQ
+ qbz9vYBEUPTFqVE2/c2X08OuAhNcPeLR1DHshwFqVp6l5RIOWhNhbwG4L
+ bSXcJyheNk51hVdV9eEECoy35vGz2DVMwr6dRVBrKaA5nlA6cfNwgCGIx
+ sr1ZpHOgt8PwwwFXXhCvzkkJ3cDrJ3qeFOwb64Y2rQer66SbgLTAlWRnQ g==;
+X-CSE-ConnectionGUID: lGUel0pAR0KuWjHViLF/MQ==
+X-CSE-MsgGUID: voQ/3tb7Q7SpHI3Etapihg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11739"; a="79269896"
+X-IronPort-AV: E=Sophos;i="6.23,138,1770624000"; d="scan'208";a="79269896"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+ by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Mar 2026 12:53:48 -0700
+X-CSE-ConnectionGUID: bv/SM0XXQLOd1k3yTDy84Q==
+X-CSE-MsgGUID: hZyr5j3TSKi1jqU5SfUZgw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,138,1770624000"; d="scan'208";a="228502299"
+Received: from klitkey1-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.245.244.220])
+ by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Mar 2026 12:53:38 -0700
+Date: Tue, 24 Mar 2026 21:53:35 +0200
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Sandy Huang <hjc@rock-chips.com>,
+ Heiko =?iso-8859-1?Q?St=FCbner?= <heiko@sntech.de>,
+ Andy Yan <andy.yan@rock-chips.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, Dmitry Baryshkov <lumag@kernel.org>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Rob Herring <robh@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>, kernel@collabora.com,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, linux-doc@vger.kernel.org,
+ Werner Sembach <wse@tuxedocomputers.com>,
+ Andri Yngvason <andri@yngvason.is>, Marius Vlad <marius.vlad@collabora.com>
+Subject: Re: [PATCH v11 03/22] drm: Add new general DRM property "color format"
+Message-ID: <acLrv5hLyNss-Px5@intel.com>
+References: <20260324-color-format-v11-0-605559af4fb4@collabora.com>
+ <20260324-color-format-v11-3-605559af4fb4@collabora.com>
+ <acLDPYuaVI2-12JX@intel.com> <23910073.EfDdHjke4D@workhorse>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <20260307173538.763188-2-Simon.Richter@hogyros.de>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <23910073.EfDdHjke4D@workhorse>
+X-Patchwork-Hint: comment
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,46 +101,77 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sun, Mar 08, 2026 at 02:35:34AM +0900, Simon Richter wrote:
-> If VGA routing cannot be established, vga_get_uninterruptible() returns an
-> error and does not increment the lock count. Pass the error on, and don't
-> call vga_put() when userspace closes the handle.
-
-I applied this, but I'm a little confused about the "don't call
-vga_put() when userspace closes the handle" part.  Does that happen in
-this patch and I'm just missing it?  This patch changes the "lock"
-case, and the only vga_put() call I see is in the "unlock" case.
-
-> Signed-off-by: Simon Richter <Simon.Richter@hogyros.de>
-> ---
->  drivers/pci/vgaarb.c | 7 ++++++-
->  1 file changed, 6 insertions(+), 1 deletion(-)
+On Tue, Mar 24, 2026 at 08:10:11PM +0100, Nicolas Frattaroli wrote:
+> On Tuesday, 24 March 2026 18:00:45 Central European Standard Time Ville Syrjälä wrote:
+> > On Tue, Mar 24, 2026 at 05:01:07PM +0100, Nicolas Frattaroli wrote:
+> > > +enum drm_connector_color_format {
+> > > +	/**
+> > > +	 * @DRM_CONNECTOR_COLOR_FORMAT_AUTO: The driver or display protocol
+> > > +	 * helpers should pick a suitable color format. All implementations of a
+> > > +	 * specific display protocol must behave the same way with "AUTO", but
+> > > +	 * different display protocols do not necessarily have the same "AUTO"
+> > > +	 * semantics.
+> > > +	 *
+> > > +	 * For HDMI, "AUTO" picks RGB, but falls back to YCbCr 4:2:0 if the
+> > > +	 * bandwidth required for full-scale RGB is not available, or the mode
+> > > +	 * is YCbCr 4:2:0-only, as long as the mode and output both support
+> > > +	 * YCbCr 4:2:0.
+> > > +	 *
+> > > +	 * For display protocols other than HDMI, the recursive bridge chain
+> > > +	 * format selection picks the first chain of bridge formats that works,
+> > > +	 * as has already been the case before the introduction of the "color
+> > > +	 * format" property. Non-HDMI bridges should therefore either sort their
+> > > +	 * bus output formats by preference, or agree on a unified auto format
+> > > +	 * selection logic that's implemented in a common state helper (like
+> > > +	 * how HDMI does it).
+> > > +	 */
+> > > +	DRM_CONNECTOR_COLOR_FORMAT_AUTO = 0,
+> > > +
+> > > +	/**
+> > > +	 * @DRM_CONNECTOR_COLOR_FORMAT_RGB444: RGB output format
+> > > +	 */
+> > > +	DRM_CONNECTOR_COLOR_FORMAT_RGB444,
+> > > +
+> > > +	/**
+> > > +	 * @DRM_CONNECTOR_COLOR_FORMAT_YCBCR444: YCbCr 4:4:4 output format (ie.
+> > > +	 * not subsampled)
+> > > +	 */
+> > > +	DRM_CONNECTOR_COLOR_FORMAT_YCBCR444,
+> > > +
+> > > +	/**
+> > > +	 * @DRM_CONNECTOR_COLOR_FORMAT_YCBCR422: YCbCr 4:2:2 output format (ie.
+> > > +	 * with horizontal subsampling)
+> > > +	 */
+> > > +	DRM_CONNECTOR_COLOR_FORMAT_YCBCR422,
+> > > +
+> > > +	/**
+> > > +	 * @DRM_CONNECTOR_COLOR_FORMAT_YCBCR420: YCbCr 4:2:0 output format (ie.
+> > > +	 * with horizontal and vertical subsampling)
+> > > +	 */
+> > > +	DRM_CONNECTOR_COLOR_FORMAT_YCBCR420,
+> > 
+> > Seems like this should document what the quantization range
+> > should be for each format.
+> > 
 > 
-> diff --git a/drivers/pci/vgaarb.c b/drivers/pci/vgaarb.c
-> index d9383bf541e7..22b2b6ebdefd 100644
-> --- a/drivers/pci/vgaarb.c
-> +++ b/drivers/pci/vgaarb.c
-> @@ -1134,6 +1134,7 @@ static ssize_t vga_arb_write(struct file *file, const char __user *buf,
->  	char kbuf[64], *curr_pos;
->  	size_t remaining = count;
->  
-> +	int err;
->  	int ret_val;
->  	int i;
->  
-> @@ -1165,7 +1166,11 @@ static ssize_t vga_arb_write(struct file *file, const char __user *buf,
->  			goto done;
->  		}
->  
-> -		vga_get_uninterruptible(pdev, io_state);
-> +		err = vga_get_uninterruptible(pdev, io_state);
-> +		if (err) {
-> +			ret_val = err;
-> +			goto done;
-> +		}
->  
->  		/* Update the client's locks lists */
->  		for (i = 0; i < MAX_USER_CARDS; i++) {
-> -- 
-> 2.47.3
+> I don't think so? If you want per-component bit depth values,
+> DRM_FORMAT_* defines would be the appropriate values to use. This
+> enum is more abstract than that, and is there to communicate
+> YUV vs. RGB and chroma subsampling, with bit depth being handled
+> by other properties.
 > 
+> If you mean the factor used for subsampling, then that'd only be
+> relevant if YCBCR410 was supported where one chroma plane isn't
+> halved but quartered in resolution. I suspect 4:1:0 will never
+> be added; no digital display protocol standard supports it to my
+> knowledge, and hopefully none ever will.
+
+No, I mean the quantization range (16-235 vs. 0-255 etc).
+
+The i915 behaviour is that YCbCr is always limited range,
+RGB can either be full or limited range depending on the 
+"Broadcast RGB" property and other related factors.
+
+-- 
+Ville Syrjälä
+Intel
