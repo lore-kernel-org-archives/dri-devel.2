@@ -4,125 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 892DAF54AD0
-	for <dri-devel@archiver.kernel.org>; Tue, 24 Mar 2026 16:04:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4FB57F54AD2
+	for <dri-devel@archiver.kernel.org>; Tue, 24 Mar 2026 16:04:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DD51110E62D;
-	Tue, 24 Mar 2026 16:04:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B89FE10E62C;
+	Tue, 24 Mar 2026 16:04:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="IVK1IIHD";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="PkSzPmmO";
 	dkim-atps=neutral
-Received: from CH5PR02CU005.outbound.protection.outlook.com
- (mail-northcentralusazon11012038.outbound.protection.outlook.com
- [40.107.200.38])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 44CF810E621
- for <dri-devel@lists.freedesktop.org>; Tue, 24 Mar 2026 16:04:25 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=KxSz35Mfca02p+KYbY15D+W/Tc/SQPdcVFBOsrkzmwDeBynD2vRHXaCGEkI0jAXu/HOwDRxIFPq8JUJRGzM9zfYB+s/KE1G3PCyHsEZ28SWlHnk7E8KO5wDOttcdr33ubcd/09MSq5thCYYv3DHErcY4Y0ymC40Nhr2JxYo/gudMA7Z+mwpCKintDvRwYdMxplON/DAo/uvTwSS00QvygEJB/hE3Nqizzxxg5nTusuhpgnXBm7W6bmV2aekidSBZyvk6omKys03OJvTHt/crs61Xy3Z7xYRjAqaeQsRQuRDYVhEO4iBwWBvW5RYHYFrrBt3GBd9uTbAd7uCkfDn34Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=0iIZ5/pxc7JbWTlXAC4XGzazSEUu9I3ipS9gqpMj+DA=;
- b=P86NctsPa4fIQLrNCQq8xTZFLBxbrPelildYvU723t8mBDynBnxI6G563aGhrFJobzjnFYZUZZpQudD4XROFuid006xSmyE8PkqeIwC8ivq231sal/KvaF2CCJS9sDP1G8Du7s/kxK7vN5GYz44PTdEnrBRD58IUHEtepGAOXbYCPvEnanI1clU8InZjb4EzqEkrYOT2vl4BEl4zT/ah/hlj6LOFFbbtIQ3p3V9CXTyJRXy3rKE/SHToAUVzwAuKHv11BbG4FpxBAUNsTog+4khQPbMiKA4BBJ122OXrZPyb7FIBYco8NvHMC0UzGe/bJZvBEyZCAwFR09UB0dsGew==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0iIZ5/pxc7JbWTlXAC4XGzazSEUu9I3ipS9gqpMj+DA=;
- b=IVK1IIHDj/u2yTb7ZBK0FFQkgNfJhdNb7yoPHiYbyPs2IbpclJH90gy5WVwYRot5o5RBsQBfQAFrckDzGk1PkihqscAz6lJ+kLtRxPH/m0V9BpKG3en+qft2C70U33X9MZ9pELuMXm9SEBmBTQYzc5fzW+YyhrocttAmdPOu7C8=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by PH7PR12MB9068.namprd12.prod.outlook.com (2603:10b6:510:1f4::7)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.20; Tue, 24 Mar
- 2026 16:04:18 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.20.9745.019; Tue, 24 Mar 2026
- 16:04:18 +0000
-Message-ID: <23ad27a7-5086-4a03-8a1d-e7b7dbbfd825@amd.com>
-Date: Tue, 24 Mar 2026 17:04:14 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] drm: fix dead default for DRM_TTM_KUNIT_TEST
-To: Julian Braha <julianbraha@gmail.com>, mripard@kernel.org,
- maarten.lankhorst@linux.intel.com, tzimmermann@suse.de,
- karolina.stolarek@intel.com
-Cc: airlied@gmail.com, simona@ffwll.ch, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-References: <20260323124118.1414913-1-julianbraha@gmail.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260323124118.1414913-1-julianbraha@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FRYP281CA0008.DEUP281.PROD.OUTLOOK.COM (2603:10a6:d10::18)
- To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
+ [136.143.188.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DB58C10E62C;
+ Tue, 24 Mar 2026 16:04:26 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1774368256; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=OxMcIOVv2rZimfePgomnAkVHEykgXiHSoyjceWNDz2mAVIw2cUrUytZMZl/xhK4v7RcHu6F57E1nDhK599X8BkiZLuLbuQ08Hk/EN6/i5afUmvSWLGTFuQUbLn0OHMuD+F99GucLKMgi5el/ArneDIQUx9SJcAjaz987qF2ePWQ=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1774368256;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=mW0Ja2FbkQHM1K+7Np14cKRo9Q3SNA4jFH3nNeqjQjs=; 
+ b=OXiUG7yhwkEW+pbzvU25XnRGX3gNaTxD2/cDLeww1+ZY0QRhnZIiXP2sFH1IvgeIy4FVUt/+/x6r0cuggZcwkNrrvkMWmLYjVoByYWLPQRHHyUwlNVlvEBgH1lXOmBPRmzlozGqC+MZnNNfEJR4jVOTtH0bdaMnvVT2om3AdWh0=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
+ dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1774368256; 
+ s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
+ h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:References:In-Reply-To:To:To:Cc:Cc:Reply-To;
+ bh=mW0Ja2FbkQHM1K+7Np14cKRo9Q3SNA4jFH3nNeqjQjs=;
+ b=PkSzPmmOHOEjnlNylJPJecDc3n8wZNITM9m1ju36Xik8kzfRVlCn/JCQfndgeGuI
+ OeCMkS7mGpc2lZ4bdiq2Vk3GXwVUhkzmrcq1gRaO8A5eI9qV+1/fYekNE75atgVhpk9
+ AkSFFP822v0w0FgrfYsMlmyy8weI+5/3yMhfyMgE=
+Received: by mx.zohomail.com with SMTPS id 17743682546421005.1292512966011;
+ Tue, 24 Mar 2026 09:04:14 -0700 (PDT)
+From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+Date: Tue, 24 Mar 2026 17:01:25 +0100
+Subject: [PATCH v11 21/22] drm/tests: bridge: Add test for HDMI output bus
+ formats helper
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|PH7PR12MB9068:EE_
-X-MS-Office365-Filtering-Correlation-Id: f8f6124b-6de1-4098-efbb-08de89bf0133
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|366016|376014|7053199007|18002099003|22082099003|56012099003;
-X-Microsoft-Antispam-Message-Info: G9g3Qq4GYQisIOXNXf+q1vvRgQrTHv1OqDsc3SWUvI2ThpYELJkSJQHOXxvcUdYiWAwjmKso4wXSxc9pcRYz0x0fQQR4uzt8AtrIvYUx520xj2XvbZNjtK6rdNMDboSunMBethGFRKna4QLlhpW/gt0F+WHFjFXpVFnoP2OzaGZFerjNHZdCvmsQgnLaSvhTZkX1I04nFbW1ZmIK+ykRHwlimW/3NGxpdUDu5d14Sug1lC7AvKMDYiokywRAFCdzvAwrznmr6c/PxiLWPtyPfTkTeCgqGPTQDjUIP6+XOuut4JvVcMPI74l60BVQhU9MpSoeiLajeCe4gG6Pv4AlF5lLvIJkOR0McwSBtN/IPWJjmpVUt3f6JFigDgmm+mz4cOismj/jVhxewrqgsbdoMcsyIfUxaAG1y+A7iCyjeZD3ie9jn1u1ngG6HhN0yXZWN6Y++RG0PkucglVLDWMRyiONfsi355vyxxjTW7/rZ7QksbBb7PbUgpEUgSGdtxdCPUoz1ZhmC+Rq9QTJuhbtk6C+Tm/mYkYx93OfIebYdTKkI52O9EWInwmNw9mJrVaCB7mA8ema5Rsv2aWz2maejogtkU+PcToPpSqHtaWu9b8vsKZd7XW+XXlWioyJUe49JImnW12bEP+2tlxaj+GO2rgl2z+MGR2H6UDwi6cownQF+Fa7QeLH12iODHbKWX288cF9qd6tUnkKciJWODtVg6tZQuoTRsBdrBZVsYbx3Dg=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014)(7053199007)(18002099003)(22082099003)(56012099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dXU1MGRCclZrVGFubWppcERSTEs2UXIrZjFDUUZSaU56V2pwdFF2VVo2WHZv?=
- =?utf-8?B?QWJIUXlzeFR1ZkRnQVhDOHU3aUVva1ZFMHZKdzNYSlNrZjhBV0d5RnRaeWFn?=
- =?utf-8?B?RDg2V2pPWVJxUVJxckJRblJsLzc5M2xoY1hJVnNkZEQyOG1LYmI3bzdhc0VQ?=
- =?utf-8?B?cDdLT24vWmhiUzNFWUN1YWlkYUNwQjdrVmlSdmRxT0xQU3FhV2hMK1NITm5x?=
- =?utf-8?B?eElycnVVY2VMR3dpQzNJMXlYWmEzY0dJN1EyTk51SldKcStDZlptR2tVOEVH?=
- =?utf-8?B?dWVzd0V6ditYajNDdDRBUDdRSW9KSTZGdUI2UTFsOGdSckZaSFJXQk92WFMr?=
- =?utf-8?B?eXpBaGhqZmt5d1IzRk9IYktlL1ZmUjBMa1pSYkZFMTd1SjNRSEtDZmF0MkNv?=
- =?utf-8?B?OXJsTkMwWnJuMGNJMVlXbGhTRVBMM3c0dVo1cUZocDZJUlpYZTluRmJYZjVX?=
- =?utf-8?B?SDhWUHNsMjRnWDVEalM5RHZqNVJaMURMbEdQNlZVR0I4dzRHQ09DaHZjYUo4?=
- =?utf-8?B?MjFERXNiWG1Na2Q5UWE5U2I2b1lrTCtCUjFyQ1I5Z2NqODYwT0o5ZVVXWG45?=
- =?utf-8?B?NVRVcjZiUTBnelJIaUgrenVQU2NkTFBnN1hsODQ0Q2pEeElXVUpHRk9MQmth?=
- =?utf-8?B?alBTQ2JsdjBYL093cnhlZTk5b1orc2dyTm5VUkxJYkdEb2FScUtxeGF6dlY4?=
- =?utf-8?B?UjJTSXdSbk42L2RZVE1HMDVRSGNBRWlnRHFhOVdCTkx5MUpBNE9hMTlaR2lZ?=
- =?utf-8?B?Y0NFTDFCblBRSXJWaE9jU2dqMjZCWnY4Y0xBN1B5dmtKdWlqeFcya2dqQk45?=
- =?utf-8?B?YURMZVNNSGMxV1FuRUlkZ1ZyblhsdjBFT0VCb2tPQ2xDQngxOW42c2dQOTEy?=
- =?utf-8?B?eUEyWklBanMrWkhKQkNOWUJXVHYvV2tzdW52SDgxNkFsSG5DZTZXV3FPT09Y?=
- =?utf-8?B?NnlCM01YcmpLdHZFNlIxTElpMEFDejBZVVFhVFBsU2Y1MUxPeDc0cDQ3d0Ny?=
- =?utf-8?B?TDZ6NTRwUGNnbDFHUkw2WTl0bk4yUDdSWkdwdXVaVHhLWkhpSkdUekwwQ2dJ?=
- =?utf-8?B?VE5YSGNXTWVzeXI2b1pHZ1dydnZIL3FjSFNIRGhQcEtGdTQ1NTBUdVZ1MmtO?=
- =?utf-8?B?WnFRalc1UEFjc1JWZlR3SlRrdmVqbU9IZ1FmMVZnMXY1bTcxQUxSZ1RySGN6?=
- =?utf-8?B?U3dWRnYzbDJNWk44K2ovbXpGZDBnUHRteCtRRFgwOVdCVTlWQi9PdXYrOXVJ?=
- =?utf-8?B?M2p0ZUIyQytkSGtNY3V3aUI0SGIveVhDMHY0NHBndjBWSXdXMTdmaXJrTTA4?=
- =?utf-8?B?QnJUTWhyUzBwQlFldW1PVDZ4VUdNaFBlVitWU1hteDE1SWFtWFMzR3VxS3JQ?=
- =?utf-8?B?VTR4TTkwaHpZNXRnR1VscC82TStZSWUreVFweVAwd3F0LzJ6RXdkSSswK2dr?=
- =?utf-8?B?MmR6cW9Oa3hPVWg2SWpyRm5IT3lpOU56K01zWGZneEsyYWNOZTRvUTNlK3Qx?=
- =?utf-8?B?OVZEZjBxQXorTG4vek9pUDdBaEJ4K2swdkY1ODJ2VW00L256UVJ3NFd5dTRv?=
- =?utf-8?B?dG9iU216WFlhREErVEtkUEQrZ1BodGQ1Nll0WjdMSlpmN2FwRnFjUmVhV0VB?=
- =?utf-8?B?QXpoR2g2a2dQMU9pRnNULzI0S2NSTHhWRU0ya2lwTEZoM0ZEZ2xXdW5mRE5s?=
- =?utf-8?B?L2V0L3B2TUQzMW9sbGtyTWpJMXZiVkE3OWRONTc4QUYxT0pIZmQwbFVDa01N?=
- =?utf-8?B?c0tnWlVQVmx1cFN3V0RvUk9vUlhxRS9kWFV3NzBwRkROdHZQNnVhK0QyMnhZ?=
- =?utf-8?B?NkdIeTlTZ2d6MzNuTW4rckYzay9MMExJdi9uaTUyZFJJbk5ETVZsaUp5NVND?=
- =?utf-8?B?OG9pMlBRWWZJTW9IR0JLQVdIWjd5a3ROU2l5MHBvbnVKelhGZ3FSWmgwSmJj?=
- =?utf-8?B?c0twb1Y4UEdKRGlMZ2hvNHBmRUFWWWNvTk1acjEwcmN5TE5wQVRFejBNSjk4?=
- =?utf-8?B?dXVEd0VOdHErN05pck8weThaMGc4S1ZvVHZ0aVpzME5rUHM5ODhKOGdDdDZz?=
- =?utf-8?B?VEt4NEk4Y2FyTG5zNjJuV08yQ0dxZDdvWnVCNzNnWW8xRmczcTlCalRBZnNS?=
- =?utf-8?B?c1V3Nk11dnRjUitpQlFjeXZPcjJoMkI0QXRWR1Q4VGZZTXhwOHFzcm9rclor?=
- =?utf-8?B?N0RPbkEzenMwZU5ERzVoT3U1QURwV3hDeGYzYmFNYWlBK1dkdEJ6OTdzS2kx?=
- =?utf-8?B?ZmRaL1lDbk5XY1p5UkcxWnVGdG83VnM0M0FBQjJXdlF6THlBWklvendpd0FN?=
- =?utf-8?Q?e1c4Dzr9keNlvnI+tP?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f8f6124b-6de1-4098-efbb-08de89bf0133
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Mar 2026 16:04:18.6945 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 9giczwjyHVcsdKeWcZJXceoIDi0yfMpQgP1uPkRvt2n8jCwe87yZ4ZvohuCL5UWR
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB9068
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260324-color-format-v11-21-605559af4fb4@collabora.com>
+References: <20260324-color-format-v11-0-605559af4fb4@collabora.com>
+In-Reply-To: <20260324-color-format-v11-0-605559af4fb4@collabora.com>
+To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
+ Rodrigo Siqueira <siqueira@igalia.com>, 
+ Alex Deucher <alexander.deucher@amd.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Sandy Huang <hjc@rock-chips.com>, 
+ =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
+ Andy Yan <andy.yan@rock-chips.com>, 
+ Jani Nikula <jani.nikula@linux.intel.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, Dmitry Baryshkov <lumag@kernel.org>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, Rob Herring <robh@kernel.org>, 
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>
+Cc: kernel@collabora.com, amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
+ linux-doc@vger.kernel.org, 
+ Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+X-Mailer: b4 0.15.0
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -138,42 +89,240 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 3/23/26 13:41, Julian Braha wrote:
-> The DRM_TTM_KUNIT_TEST config option should default
-> to KUNIT_ALL_TESTS so that if all tests are enabled then
-> it is included, but currently the 'default KUNIT_ALL_TESTS'
-> statement is shadowed by an unconditional 'default n',
-> meaning that this second default statement is currently dead code.
-> 
-> This dead code was found by kconfirm, a static analysis
-> tool for Kconfig.
-> 
-> Signed-off-by: Julian Braha <julianbraha@gmail.com>
+The common atomic_get_output_bus_fmts helper for HDMI bridge connectors,
+called drm_atomic_helper_bridge_get_hdmi_output_bus_fmts, should return
+an array of output bus formats depending on the supported formats of the
+connector, and the current output BPC.
 
-Reviewed and pushed to drm-misc-next.
+Add a test to exercise some of this helper.
 
-Thanks,
-Christian.
+Reviewed-by: Maxime Ripard <mripard@kernel.org>
+Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+---
+ drivers/gpu/drm/tests/drm_bridge_test.c | 184 ++++++++++++++++++++++++++++++++
+ 1 file changed, 184 insertions(+)
 
-> ---
-> v2: removed fixes tag
-> ---
->  drivers/gpu/drm/Kconfig.debug | 1 -
->  1 file changed, 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/Kconfig.debug b/drivers/gpu/drm/Kconfig.debug
-> index 05dc43c0b8c5..75c186f938b0 100644
-> --- a/drivers/gpu/drm/Kconfig.debug
-> +++ b/drivers/gpu/drm/Kconfig.debug
-> @@ -86,7 +86,6 @@ config DRM_KUNIT_TEST
-> 
->  config DRM_TTM_KUNIT_TEST
->         tristate "KUnit tests for TTM" if !KUNIT_ALL_TESTS
-> -       default n
->         depends on DRM && KUNIT && MMU && (UML || COMPILE_TEST)
->         select DRM_TTM
->         select DRM_BUDDY
-> --
-> 2.51.2
-> 
+diff --git a/drivers/gpu/drm/tests/drm_bridge_test.c b/drivers/gpu/drm/tests/drm_bridge_test.c
+index cb821c606070..d9bd930b1197 100644
+--- a/drivers/gpu/drm/tests/drm_bridge_test.c
++++ b/drivers/gpu/drm/tests/drm_bridge_test.c
+@@ -5,6 +5,7 @@
+ #include <linux/cleanup.h>
+ #include <linux/media-bus-format.h>
+ 
++#include <drm/drm_atomic_helper.h>
+ #include <drm/drm_atomic_state_helper.h>
+ #include <drm/drm_atomic_uapi.h>
+ #include <drm/drm_bridge.h>
+@@ -118,6 +119,28 @@ static const struct drm_bridge_funcs drm_test_bridge_atomic_funcs = {
+ 	.atomic_reset		= drm_atomic_helper_bridge_reset,
+ };
+ 
++static int dummy_clear_infoframe(struct drm_bridge *bridge)
++{
++	return 0;
++}
++
++static int dummy_write_infoframe(struct drm_bridge *bridge, const u8 *buffer,
++				 size_t len)
++{
++	return 0;
++}
++
++static const struct drm_bridge_funcs drm_test_bridge_bus_fmts_funcs = {
++	.atomic_get_output_bus_fmts	= drm_atomic_helper_bridge_get_hdmi_output_bus_fmts,
++	.atomic_destroy_state		= drm_atomic_helper_bridge_destroy_state,
++	.atomic_duplicate_state		= drm_atomic_helper_bridge_duplicate_state,
++	.atomic_reset			= drm_atomic_helper_bridge_reset,
++	.hdmi_write_avi_infoframe	= dummy_write_infoframe,
++	.hdmi_write_hdmi_infoframe	= dummy_write_infoframe,
++	.hdmi_clear_avi_infoframe	= dummy_clear_infoframe,
++	.hdmi_clear_hdmi_infoframe	= dummy_clear_infoframe,
++};
++
+ /**
+  * struct fmt_tuple - a tuple of input/output MEDIA_BUS_FMT_*
+  */
+@@ -539,6 +562,83 @@ drm_test_bridge_chain_init(struct kunit *test, unsigned int num_bridges,
+ 	return priv;
+ }
+ 
++static struct drm_bridge_init_priv *
++drm_test_bridge_hdmi_init(struct kunit *test, const struct drm_bridge_funcs *funcs,
++			  unsigned int supported_formats, int max_bpc)
++{
++	struct drm_bridge_init_priv *priv;
++	struct drm_encoder *enc;
++	struct drm_bridge *bridge;
++	struct drm_device *drm;
++	struct device *dev;
++	int ret;
++
++	dev = drm_kunit_helper_alloc_device(test);
++	if (IS_ERR(dev))
++		return ERR_CAST(dev);
++
++	priv = drm_kunit_helper_alloc_drm_device(test, dev,
++						 struct drm_bridge_init_priv, drm,
++						 DRIVER_MODESET | DRIVER_ATOMIC);
++	if (IS_ERR(priv))
++		return ERR_CAST(priv);
++
++	priv->test_bridge = devm_drm_bridge_alloc(dev, struct drm_bridge_priv, bridge, funcs);
++	if (IS_ERR(priv->test_bridge))
++		return ERR_CAST(priv->test_bridge);
++
++	priv->test_bridge->data = priv;
++
++	drm = &priv->drm;
++	priv->plane = drm_kunit_helper_create_primary_plane(test, drm,
++							    NULL,
++							    NULL,
++							    NULL, 0,
++							    NULL);
++	if (IS_ERR(priv->plane))
++		return ERR_CAST(priv->plane);
++
++	priv->crtc = drm_kunit_helper_create_crtc(test, drm,
++						  priv->plane, NULL,
++						  NULL,
++						  NULL);
++	if (IS_ERR(priv->crtc))
++		return ERR_CAST(priv->crtc);
++
++	enc = &priv->encoder;
++	ret = drmm_encoder_init(drm, enc, NULL, DRM_MODE_ENCODER_TMDS, NULL);
++	if (ret)
++		return ERR_PTR(ret);
++
++	enc->possible_crtcs = drm_crtc_mask(priv->crtc);
++
++	bridge = &priv->test_bridge->bridge;
++	bridge->type = DRM_MODE_CONNECTOR_HDMIA;
++	bridge->supported_formats = supported_formats;
++	bridge->max_bpc = max_bpc;
++	bridge->ops |= DRM_BRIDGE_OP_HDMI;
++	bridge->vendor = "LNX";
++	bridge->product = "KUnit";
++
++	ret = drm_kunit_bridge_add(test, bridge);
++	if (ret)
++		return ERR_PTR(ret);
++
++	ret = drm_bridge_attach(enc, bridge, NULL, 0);
++	if (ret)
++		return ERR_PTR(ret);
++
++	priv->connector = drm_bridge_connector_init(drm, enc);
++	if (IS_ERR(priv->connector))
++		return ERR_CAST(priv->connector);
++
++	drm_connector_attach_encoder(priv->connector, enc);
++
++	drm_mode_config_reset(drm);
++
++	return priv;
++}
++
+ /*
+  * Test that drm_bridge_get_current_state() returns the last committed
+  * state for an atomic bridge.
+@@ -786,10 +886,94 @@ static void drm_test_drm_bridge_helper_reset_crtc_legacy(struct kunit *test)
+ 	KUNIT_EXPECT_EQ(test, bridge_priv->disable_count, 1);
+ }
+ 
++/*
++ * Test that a bridge using the drm_atomic_helper_bridge_get_hdmi_output_bus_fmts()
++ * function for &drm_bridge_funcs.atomic_get_output_bus_fmts behaves as expected
++ * for an HDMI connector bridge. Does so by creating an HDMI bridge connector
++ * with RGB444, YCBCR444, and YCBCR420 (but not YCBCR422) as supported formats,
++ * sets the output depth to 8 bits per component, and then validates the returned
++ * list of bus formats.
++ */
++static void drm_test_drm_bridge_helper_hdmi_output_bus_fmts(struct kunit *test)
++{
++	struct drm_connector_state *conn_state;
++	struct drm_bridge_state *bridge_state;
++	struct drm_modeset_acquire_ctx ctx;
++	struct drm_bridge_init_priv *priv;
++	struct drm_crtc_state *crtc_state;
++	struct drm_atomic_state *state;
++	struct drm_display_mode *mode;
++	unsigned int num_output_fmts;
++	struct drm_bridge *bridge;
++	u32 *out_bus_fmts;
++	int ret;
++
++	priv = drm_test_bridge_hdmi_init(test, &drm_test_bridge_bus_fmts_funcs,
++					 BIT(DRM_OUTPUT_COLOR_FORMAT_RGB444) |
++					 BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR444) |
++					 BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR420),
++					 12);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, priv);
++
++	bridge = &priv->test_bridge->bridge;
++
++	drm_modeset_acquire_init(&ctx, 0);
++
++	state = drm_kunit_helper_atomic_state_alloc(test, &priv->drm, &ctx);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, state);
++
++retry_commit:
++	conn_state = drm_atomic_get_connector_state(state, priv->connector);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, conn_state);
++
++	conn_state->hdmi.output_bpc = 8;
++
++	mode = drm_kunit_display_mode_from_cea_vic(test, &priv->drm, 16);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, mode);
++
++	ret = drm_atomic_set_crtc_for_connector(conn_state, priv->crtc);
++	if (ret == -EDEADLK) {
++		drm_modeset_backoff(&ctx);
++		goto retry_commit;
++	}
++	KUNIT_ASSERT_EQ(test, ret, 0);
++
++	crtc_state = drm_atomic_get_crtc_state(state, priv->crtc);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, crtc_state);
++
++	ret = drm_atomic_set_mode_for_crtc(crtc_state, mode);
++	if (ret == -EDEADLK) {
++		drm_modeset_backoff(&ctx);
++		goto retry_commit;
++	}
++	KUNIT_ASSERT_EQ(test, ret, 0);
++
++	crtc_state->enable = true;
++	crtc_state->active = true;
++
++	bridge_state = drm_atomic_get_bridge_state(state, bridge);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, bridge_state);
++
++	out_bus_fmts = bridge->funcs->atomic_get_output_bus_fmts(
++		bridge, bridge_state, crtc_state, conn_state, &num_output_fmts);
++	KUNIT_EXPECT_NOT_NULL(test, out_bus_fmts);
++	KUNIT_EXPECT_EQ(test, num_output_fmts, 3);
++
++	KUNIT_EXPECT_EQ(test, out_bus_fmts[0], MEDIA_BUS_FMT_RGB888_1X24);
++	KUNIT_EXPECT_EQ(test, out_bus_fmts[1], MEDIA_BUS_FMT_YUV8_1X24);
++	KUNIT_EXPECT_EQ(test, out_bus_fmts[2], MEDIA_BUS_FMT_UYYVYY8_0_5X24);
++
++	drm_modeset_drop_locks(&ctx);
++	drm_modeset_acquire_fini(&ctx);
++
++	kfree(out_bus_fmts);
++}
++
+ static struct kunit_case drm_bridge_helper_reset_crtc_tests[] = {
+ 	KUNIT_CASE(drm_test_drm_bridge_helper_reset_crtc_atomic),
+ 	KUNIT_CASE(drm_test_drm_bridge_helper_reset_crtc_atomic_disabled),
+ 	KUNIT_CASE(drm_test_drm_bridge_helper_reset_crtc_legacy),
++	KUNIT_CASE(drm_test_drm_bridge_helper_hdmi_output_bus_fmts),
+ 	{ }
+ };
+ 
+
+-- 
+2.53.0
 
