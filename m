@@ -4,47 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A18A1FEC0FD
-	for <dri-devel@archiver.kernel.org>; Tue, 24 Mar 2026 19:33:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 64C19FEC0FA
+	for <dri-devel@archiver.kernel.org>; Tue, 24 Mar 2026 19:34:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E4D5910E182;
-	Tue, 24 Mar 2026 19:33:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C221010E5D9;
+	Tue, 24 Mar 2026 19:34:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="KRekaKKZ";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="VIobglsX";
 	dkim-atps=neutral
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
- [213.167.242.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9565010E65B
- for <dri-devel@lists.freedesktop.org>; Tue, 24 Mar 2026 19:33:15 +0000 (UTC)
-Received: from killaraus.ideasonboard.com
- (2001-14ba-703d-e500--2a1.rev.dnainternet.fi [IPv6:2001:14ba:703d:e500::2a1])
- by perceval.ideasonboard.com (Postfix) with UTF8SMTPSA id 81622591;
- Tue, 24 Mar 2026 20:31:56 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1774380716;
- bh=8SHW4vqyRDiHZ525hvVTra1ahe2CRERg8tA7pJuY1Qg=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=KRekaKKZ0NZXiT6ogz3MmxbJbJPUYJqD498up6STRhgg9quAl1HjEsPYdIHUx9RLu
- rxv2ecV1oSut79aw92UHOyXRfKWzNThm/jcn3MKv6FKPuTiWFyTOuzRQfTm6vzZ8UX
- 6n/WPzzZLvIHnJbio9cdOUjb9uHosTUeP687GNKo=
-Date: Tue, 24 Mar 2026 21:33:11 +0200
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
-Cc: tomm.merciai@gmail.com, geert@linux-m68k.org,
- linux-renesas-soc@vger.kernel.org, biju.das.jz@bp.renesas.com,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] drm: rz-du: Ensure correct suspend/resume ordering with
- VSP
-Message-ID: <20260324193311.GB2461076@killaraus.ideasonboard.com>
-References: <20260324180512.2277875-1-tommaso.merciai.xr@bp.renesas.com>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B6BAF10E485;
+ Tue, 24 Mar 2026 19:34:47 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 837E3400DD;
+ Tue, 24 Mar 2026 19:34:47 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47733C19424;
+ Tue, 24 Mar 2026 19:34:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1774380887;
+ bh=R8I4mdhtlC1Y2rsYo7HXdjeN+ixJqbw10kbyE8reKig=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:From;
+ b=VIobglsXliT085fJ7tTtsNbvortGGRFcanYJOJ5yzPvJxjzlAKbDvW7Bnlc1rRVo5
+ /NP01GkFOWl+pJnNxtZIaNau+od5syO0Aw+9yMOF0D4tqV9Yxvo3bBhKHi9VOCpQyy
+ vGKjr1KhPobO6upQAfkAOM0/BE5jn1hG/clWZWOj2HcDtY3AYmWLW+mqTzfhZSvAqU
+ doz33itB2g0+Yu9IlbfX1dyT+qsGsvGf1WknWCrbc1qtp3tqRXGi1VvsH59uLiZ4eO
+ Hdpa2re8nrpody5agAj/EmDko203caTcAPlOdvP6Lcy0X0aWQKyCrFqnEEMwxi1NVi
+ VlXS3mEPOHyEg==
+Date: Tue, 24 Mar 2026 14:34:45 -0500
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: Simon Richter <Simon.Richter@hogyros.de>
+Cc: linux-pci@vger.kernel.org, intel-xe@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH v3 0/5] Bridges without VGA support
+Message-ID: <20260324193445.GA1149183@bhelgaas>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260324180512.2277875-1-tommaso.merciai.xr@bp.renesas.com>
+In-Reply-To: <20260307173538.763188-1-Simon.Richter@hogyros.de>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,91 +56,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, Mar 24, 2026 at 07:05:05PM +0100, Tommaso Merciai wrote:
-> The VSP serves as an interface to memory and a compositor to the DU. It
-> therefore needs to be suspended after and resumed before the DU, to be
-> properly stopped and restarted in a controlled fashion driven by the DU
-> driver. This currently works by chance. Avoid relying on luck by
-> enforcing the correct suspend/resume ordering with device links.
+On Sun, Mar 08, 2026 at 02:35:33AM +0900, Simon Richter wrote:
+> Hi,
 > 
-> Based on similar work done by Laurent Pinchart for R-Car DU.
-
-If the R-Car DU patch gets merged before this one, you could mention the
-commit ID here.
-
+> reformatted the descriptions to follow the style guide, removed unlikely()
+> from return code checks.
 > 
-> Signed-off-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
-
-Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
-
-> ---
->  drivers/gpu/drm/renesas/rz-du/rzg2l_du_vsp.c | 16 ++++++++++++++++
->  drivers/gpu/drm/renesas/rz-du/rzg2l_du_vsp.h |  2 ++
->  2 files changed, 18 insertions(+)
+> Companion patch for i915/xe is v3 of
 > 
-> diff --git a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_vsp.c b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_vsp.c
-> index bd486377f037..eb626c3cc421 100644
-> --- a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_vsp.c
-> +++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_vsp.c
-> @@ -20,6 +20,7 @@
->  #include <drm/drm_vblank.h>
->  
->  #include <linux/bitops.h>
-> +#include <linux/device.h>
->  #include <linux/dma-mapping.h>
->  #include <linux/of_platform.h>
->  #include <linux/platform_device.h>
-> @@ -293,6 +294,9 @@ static void rzg2l_du_vsp_cleanup(struct drm_device *dev, void *res)
->  {
->  	struct rzg2l_du_vsp *vsp = res;
->  
-> +	if (vsp->link)
-> +		device_link_del(vsp->link);
-> +
->  	put_device(vsp->vsp);
->  }
->  
-> @@ -317,6 +321,18 @@ int rzg2l_du_vsp_init(struct rzg2l_du_vsp *vsp, struct device_node *np,
->  	if (ret < 0)
->  		return ret;
->  
-> +	/*
-> +	 * Enforce suspend/resume ordering between the DU (consumer) and the
-> +	 * VSP (supplier). The DU will be suspended before and resume after the
-> +	 * VSP.
-> +	 */
-> +	vsp->link = device_link_add(rcdu->dev, vsp->vsp, DL_FLAG_STATELESS);
-> +	if (!vsp->link) {
-> +		dev_err(rcdu->dev, "Failed to create device link to VSP %s\n",
-> +			dev_name(vsp->vsp));
-> +		return -EINVAL;
-> +	}
-> +
->  	ret = vsp1_du_init(vsp->vsp);
->  	if (ret < 0)
->  		return ret;
-> diff --git a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_vsp.h b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_vsp.h
-> index 322eb80dcbaf..a22aaf0843ed 100644
-> --- a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_vsp.h
-> +++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_vsp.h
-> @@ -15,6 +15,7 @@
->  #include <linux/scatterlist.h>
->  
->  struct device;
-> +struct device_link;
->  struct drm_framebuffer;
->  struct rzg2l_du_device;
->  struct rzg2l_du_format_info;
-> @@ -29,6 +30,7 @@ struct rzg2l_du_vsp_plane {
->  struct rzg2l_du_vsp {
->  	unsigned int index;
->  	struct device *vsp;
-> +	struct device_link *link;
->  	struct rzg2l_du_device *dev;
->  };
->  
+>   https://patchwork.freedesktop.org/series/161721/
+> 
+> which can be applied independently and should probably go in before the
+> __must_check patches at least.
+> 
+> Not sure if these should have a Cc stable. If yes, there is a backport of
+> the i915/xe patch as well (what patchwork calls "v4").
+> 
+> Simon Richter (5):
+>   vgaarb: pass vga_get_uninterruptible() errors to userspace
+>   vgaarb: pass errors from pci_set_vga_state() up
+>   vgaarb: mark vga_get() and wrappers as __must_check
+>   pci: check if VGA decoding was really activated
+>   pci: mark pci_set_vga_state() as __must_check
+> 
+>  drivers/pci/pci.c      |  6 ++++++
+>  drivers/pci/vgaarb.c   | 20 +++++++++++++++++---
+>  include/linux/pci.h    |  4 ++--
+>  include/linux/vgaarb.h | 15 ++++++++-------
+>  4 files changed, 33 insertions(+), 12 deletions(-)
 
--- 
-Regards,
-
-Laurent Pinchart
+Applied to pci/vga for v7.1, thanks!
