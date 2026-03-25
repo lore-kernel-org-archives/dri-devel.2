@@ -4,29 +4,29 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 49504FEA806
-	for <dri-devel@archiver.kernel.org>; Wed, 25 Mar 2026 04:02:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D40A4FEA806
+	for <dri-devel@archiver.kernel.org>; Wed, 25 Mar 2026 04:02:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 46A7810E732;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 80FDE10E745;
 	Wed, 25 Mar 2026 04:02:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=mediatek.com header.i=@mediatek.com header.b="KYLPQK3+";
+	dkim=pass (1024-bit key; unprotected) header.d=mediatek.com header.i=@mediatek.com header.b="riQv/22H";
 	dkim-atps=neutral
 Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2824210E732
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Mar 2026 04:02:47 +0000 (UTC)
-X-UUID: 789f84d027ff11f1a39cd589f645bc18-20260325
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C853710E732
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Mar 2026 04:02:48 +0000 (UTC)
+X-UUID: 78a2544427ff11f1a39cd589f645bc18-20260325
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com;
  s=dk; 
  h=Content-Type:Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:CC:To:From;
- bh=Jt6qClMpSxG69acldOGZvCU50hx3UA7l99LsgXHFcPc=; 
- b=KYLPQK3+p3RuuDYI4LT+vpeLoaNia2VmeX2y/2RNGI1lwzIkAM+v08LdtwJfUD1xsMgv1haADwxkaPboyW0cPps85SEZy+xyaFs3OwRE6QvjuNAGtTSFfzTR/doJWkAafTRQx1npDo78iJCpeElNg5VQLIOaWr6DnkUD839Idag=;
+ bh=CqQKgebwenzZY4Z6DoNffua+Zv/Kky7+EqV5Xd0Vr1g=; 
+ b=riQv/22HUluE7yRFeUflv0gYb09km0EA74AeJ52B8DSUmVupSbg76aq+YX+/yASOqLYeDFTmX90/7+RXeTXHOlhsroXPnjyTRuDVaAnY8gyV7KqJH/jrt7Pv2yCKlIy5y0meE1VTjP5Ed3oTSh34iHyRPJ9iSujEk+50hW0JryI=;
 X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.12, REQID:209a124e-e25d-4e5e-b887-6c43f91bc1b5, IP:0,
+X-CID-O-INFO: VERSION:1.3.12, REQID:03e4417b-02a0-4b85-8519-c013ef0eb45e, IP:0,
  U
  RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
  release,TS:0
-X-CID-META: VersionHash:e7bac3a, CLOUDID:fa451ad5-060f-4ecc-9ee0-121eeeb4a682,
+X-CID-META: VersionHash:e7bac3a, CLOUDID:acb32d94-f8ef-4ca8-bea0-143568f9ca1d,
  B
  ulkID:nil,BulkQuantity:0,Recheck:0,SF:81|82|102|836|888|898,TC:-5,Content:
  0|15|50,EDM:-3,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:-1,COL:0,OSI
@@ -35,11 +35,11 @@ X-CID-BVR: 2,SSN|SDN
 X-CID-BAS: 2,SSN|SDN,0,_
 X-CID-FACTOR: TF_CID_SPAM_SNR
 X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 789f84d027ff11f1a39cd589f645bc18-20260325
+X-UUID: 78a2544427ff11f1a39cd589f645bc18-20260325
 Received: from mtkmbs11n1.mediatek.inc [(172.21.101.185)] by
  mailgw02.mediatek.com (envelope-from <jason-jh.lin@mediatek.com>)
  (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
- with ESMTP id 1094163050; Wed, 25 Mar 2026 12:02:41 +0800
+ with ESMTP id 2086179839; Wed, 25 Mar 2026 12:02:41 +0800
 Received: from mtkmbs13n2.mediatek.inc (172.21.101.108) by
  MTKMBS14N1.mediatek.inc (172.21.101.75) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
@@ -62,10 +62,10 @@ CC: Matthias Brugger <matthias.bgg@gmail.com>, Jason-JH Lin
  <linux-kernel@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
  <linux-mediatek@lists.infradead.org>, <linux-arm-kernel@lists.infradead.org>, 
  <linux-media@vger.kernel.org>
-Subject: [PATCH v2 1/2] soc: mediatek: mtk-cmdq: Remove shift_pa parameter
- from cmdq_pkt_jump()
-Date: Wed, 25 Mar 2026 12:02:09 +0800
-Message-ID: <20260325040239.2112517-2-jason-jh.lin@mediatek.com>
+Subject: [PATCH v2 2/2] media: platform: mtk-mdp3: Use cmdq_pkt_jump_rel()
+ without shift_pa
+Date: Wed, 25 Mar 2026 12:02:10 +0800
+Message-ID: <20260325040239.2112517-3-jason-jh.lin@mediatek.com>
 X-Mailer: git-send-email 2.45.2
 In-Reply-To: <20260325040239.2112517-1-jason-jh.lin@mediatek.com>
 References: <20260325040239.2112517-1-jason-jh.lin@mediatek.com>
@@ -88,115 +88,58 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Since shift_pa will be stored in the cmdq_mbox_priv structure within
-cmdq_pkt, all shift_pa parameters in CMDQ helper APIs can be removed.
+With the removal of the shift_pa parameter, cmdq_pkt_jump_rel_temp()
+can be replaced by the new cmdq_pkt_jump_rel() without shift_pa.
 
-Remove the shift_pa parameters from cmdq_pkt_jump(), cmdq_pkt_jump_abs(),
-and cmdq_pkt_jump_rel().
+Then, remove the cmdq_shift_pa variable in the mdp_dev structure for
+each mbox client.
 
 Signed-off-by: Jason-JH Lin <jason-jh.lin@mediatek.com>
 Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 ---
- drivers/soc/mediatek/mtk-cmdq-helper.c |  6 +++---
- include/linux/soc/mediatek/mtk-cmdq.h  | 20 ++++++++------------
- 2 files changed, 11 insertions(+), 15 deletions(-)
+ drivers/media/platform/mediatek/mdp3/mtk-mdp3-cmdq.c | 2 +-
+ drivers/media/platform/mediatek/mdp3/mtk-mdp3-core.c | 2 --
+ drivers/media/platform/mediatek/mdp3/mtk-mdp3-core.h | 1 -
+ 3 files changed, 1 insertion(+), 4 deletions(-)
 
-diff --git a/drivers/soc/mediatek/mtk-cmdq-helper.c b/drivers/soc/mediatek/mtk-cmdq-helper.c
-index f8ee6c9ade89..9cec6a096d8b 100644
---- a/drivers/soc/mediatek/mtk-cmdq-helper.c
-+++ b/drivers/soc/mediatek/mtk-cmdq-helper.c
-@@ -562,7 +562,7 @@ int cmdq_pkt_assign(struct cmdq_pkt *pkt, u16 reg_idx, u32 value)
- }
- EXPORT_SYMBOL(cmdq_pkt_assign);
+diff --git a/drivers/media/platform/mediatek/mdp3/mtk-mdp3-cmdq.c b/drivers/media/platform/mediatek/mdp3/mtk-mdp3-cmdq.c
+index 96a66aadf0cd..6afd0164213e 100644
+--- a/drivers/media/platform/mediatek/mdp3/mtk-mdp3-cmdq.c
++++ b/drivers/media/platform/mediatek/mdp3/mtk-mdp3-cmdq.c
+@@ -628,7 +628,7 @@ static struct mdp_cmdq_cmd *mdp_cmdq_prepare(struct mdp_dev *mdp,
+ 		goto err_free_path;
+ 	}
+ 	cmdq_pkt_eoc(&cmd->pkt);
+-	cmdq_pkt_jump_rel_temp(&cmd->pkt, CMDQ_INST_SIZE, mdp->cmdq_shift_pa[pp_idx]);
++	cmdq_pkt_jump_rel(&cmd->pkt, CMDQ_INST_SIZE);
  
--int cmdq_pkt_jump_abs(struct cmdq_pkt *pkt, dma_addr_t addr, u8 shift_pa)
-+int cmdq_pkt_jump_abs(struct cmdq_pkt *pkt, dma_addr_t addr)
- {
- 	struct cmdq_instruction inst = {
- 		.op = CMDQ_CODE_JUMP,
-@@ -573,11 +573,11 @@ int cmdq_pkt_jump_abs(struct cmdq_pkt *pkt, dma_addr_t addr, u8 shift_pa)
- }
- EXPORT_SYMBOL(cmdq_pkt_jump_abs);
+ 	for (i = 0; i < num_comp; i++) {
+ 		s32 inner_id = MDP_COMP_NONE;
+diff --git a/drivers/media/platform/mediatek/mdp3/mtk-mdp3-core.c b/drivers/media/platform/mediatek/mdp3/mtk-mdp3-core.c
+index 8f4da4cf55d2..22fadc6668b1 100644
+--- a/drivers/media/platform/mediatek/mdp3/mtk-mdp3-core.c
++++ b/drivers/media/platform/mediatek/mdp3/mtk-mdp3-core.c
+@@ -309,8 +309,6 @@ static int mdp_probe(struct platform_device *pdev)
+ 			ret = PTR_ERR(mdp->cmdq_clt[i]);
+ 			goto err_mbox_destroy;
+ 		}
+-
+-		mdp->cmdq_shift_pa[i] = cmdq_get_shift_pa(mdp->cmdq_clt[i]->chan);
+ 	}
  
--int cmdq_pkt_jump_rel(struct cmdq_pkt *pkt, s32 offset, u8 shift_pa)
-+int cmdq_pkt_jump_rel(struct cmdq_pkt *pkt, s32 offset)
- {
- 	struct cmdq_instruction inst = {
- 		.op = CMDQ_CODE_JUMP,
--		.value = (u32)offset >> shift_pa
-+		.value = (u32)offset >> pkt->priv.shift_pa
- 	};
- 	return cmdq_pkt_append_command(pkt, inst);
- }
-diff --git a/include/linux/soc/mediatek/mtk-cmdq.h b/include/linux/soc/mediatek/mtk-cmdq.h
-index 03bb85462566..3d0de1a9cac1 100644
---- a/include/linux/soc/mediatek/mtk-cmdq.h
-+++ b/include/linux/soc/mediatek/mtk-cmdq.h
-@@ -418,17 +418,15 @@ int cmdq_pkt_poll_addr(struct cmdq_pkt *pkt, dma_addr_t addr, u32 value, u32 mas
-  *			 contains more instruction.
-  * @pkt:        the CMDQ packet
-  * @addr:       absolute physical address of target instruction buffer
-- * @shift_pa:	shift bits of physical address in CMDQ instruction. This value
-- *		is got by cmdq_get_shift_pa().
-  *
-  * Return: 0 for success; else the error code is returned
-  */
--int cmdq_pkt_jump_abs(struct cmdq_pkt *pkt, dma_addr_t addr, u8 shift_pa);
-+int cmdq_pkt_jump_abs(struct cmdq_pkt *pkt, dma_addr_t addr);
+ 	init_waitqueue_head(&mdp->callback_wq);
+diff --git a/drivers/media/platform/mediatek/mdp3/mtk-mdp3-core.h b/drivers/media/platform/mediatek/mdp3/mtk-mdp3-core.h
+index 05cade1d098e..430251f63754 100644
+--- a/drivers/media/platform/mediatek/mdp3/mtk-mdp3-core.h
++++ b/drivers/media/platform/mediatek/mdp3/mtk-mdp3-core.h
+@@ -126,7 +126,6 @@ struct mdp_dev {
+ 	u32					id_count;
+ 	struct ida				mdp_ida;
+ 	struct cmdq_client			*cmdq_clt[MDP_PP_MAX];
+-	u8					cmdq_shift_pa[MDP_PP_MAX];
+ 	wait_queue_head_t			callback_wq;
  
- /* This wrapper has to be removed after all users migrated to jump_abs */
--static inline int cmdq_pkt_jump(struct cmdq_pkt *pkt, dma_addr_t addr, u8 shift_pa)
-+static inline int cmdq_pkt_jump(struct cmdq_pkt *pkt, dma_addr_t addr)
- {
--	return cmdq_pkt_jump_abs(pkt, addr, shift_pa);
-+	return cmdq_pkt_jump_abs(pkt, addr);
- }
- 
- /**
-@@ -438,12 +436,10 @@ static inline int cmdq_pkt_jump(struct cmdq_pkt *pkt, dma_addr_t addr, u8 shift_
-  *			 target address should contains more instruction.
-  * @pkt:	the CMDQ packet
-  * @offset:	relative offset of target instruction buffer from current PC.
-- * @shift_pa:	shift bits of physical address in CMDQ instruction. This value
-- *		is got by cmdq_get_shift_pa().
-  *
-  * Return: 0 for success; else the error code is returned
-  */
--int cmdq_pkt_jump_rel(struct cmdq_pkt *pkt, s32 offset, u8 shift_pa);
-+int cmdq_pkt_jump_rel(struct cmdq_pkt *pkt, s32 offset);
- 
- /**
-  * cmdq_pkt_jump_rel_temp() - Temporary wrapper for new CMDQ helper API
-@@ -460,7 +456,7 @@ int cmdq_pkt_jump_rel(struct cmdq_pkt *pkt, s32 offset, u8 shift_pa);
-  */
- static inline int cmdq_pkt_jump_rel_temp(struct cmdq_pkt *pkt, s32 offset, u8 shift_pa)
- {
--	return cmdq_pkt_jump_rel(pkt, offset, shift_pa);
-+	return cmdq_pkt_jump_rel(pkt, offset);
- }
- 
- /**
-@@ -602,17 +598,17 @@ static inline int cmdq_pkt_poll_addr(struct cmdq_pkt *pkt, dma_addr_t addr, u32
- 	return -EINVAL;
- }
- 
--static inline int cmdq_pkt_jump_abs(struct cmdq_pkt *pkt, dma_addr_t addr, u8 shift_pa)
-+static inline int cmdq_pkt_jump_abs(struct cmdq_pkt *pkt, dma_addr_t addr)
- {
- 	return -EINVAL;
- }
- 
--static inline int cmdq_pkt_jump(struct cmdq_pkt *pkt, dma_addr_t addr, u8 shift_pa)
-+static inline int cmdq_pkt_jump(struct cmdq_pkt *pkt, dma_addr_t addr)
- {
- 	return -EINVAL;
- }
- 
--static inline int cmdq_pkt_jump_rel(struct cmdq_pkt *pkt, s32 offset, u8 shift_pa)
-+static inline int cmdq_pkt_jump_rel(struct cmdq_pkt *pkt, s32 offset)
- {
- 	return -EINVAL;
- }
+ 	struct v4l2_device			v4l2_dev;
 -- 
 2.43.0
 
