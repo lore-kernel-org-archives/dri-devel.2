@@ -4,75 +4,153 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5C802FEA803
-	for <dri-devel@archiver.kernel.org>; Wed, 25 Mar 2026 04:05:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 85613FEA806
+	for <dri-devel@archiver.kernel.org>; Wed, 25 Mar 2026 04:21:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BBDFE10E751;
-	Wed, 25 Mar 2026 04:05:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D6EBB10E1E1;
+	Wed, 25 Mar 2026 04:21:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=mediatek.com header.i=@mediatek.com header.b="Cur7N8ZL";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="gWgBC/WY";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="dO9aJ9pm";
 	dkim-atps=neutral
-Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D5D3C10E74F
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Mar 2026 04:05:05 +0000 (UTC)
-X-UUID: caaa9b5227ff11f1a39cd589f645bc18-20260325
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com;
- s=dk; 
- h=Content-Type:Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:CC:To:From;
- bh=5EmVMlVF6F/sW77krrXtoXn+FTQFaHjK8lLFyo5xvjw=; 
- b=Cur7N8ZL7Cmfiy+JHzPi68NZUtxIA0IxQZbXMlB0iOayEULa0wxIKEJihU2zls+z25E+4bTH5yg/najCX36DaccM1rBLL1eJIS+KlDtey0e/6GAGYMOhUcPM8Gc10AKwFatFTMCUZSlgkKXFCYO5Cjj0w21W1f/AJf2PT018+Ck=;
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.12, REQID:4c4494ea-2e38-4a75-9ee2-795bd476cf1f, IP:0,
- U
- RL:0,TC:0,Content:39,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
- :release,TS:39
-X-CID-META: VersionHash:e7bac3a, CLOUDID:afb92d94-f8ef-4ca8-bea0-143568f9ca1d,
- B
- ulkID:nil,BulkQuantity:0,Recheck:0,SF:81|82|102|836|888|898,TC:-5,Content:
- 4|15|50,EDM:-3,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:-1,COL:0,OSI
- :0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: caaa9b5227ff11f1a39cd589f645bc18-20260325
-Received: from mtkmbs10n2.mediatek.inc [(172.21.101.183)] by
- mailgw02.mediatek.com (envelope-from <jason-jh.lin@mediatek.com>)
- (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
- with ESMTP id 1543015400; Wed, 25 Mar 2026 12:04:59 +0800
-Received: from mtkmbs13n2.mediatek.inc (172.21.101.108) by
- MTKMBS14N1.mediatek.inc (172.21.101.75) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.29; Wed, 25 Mar 2026 12:04:58 +0800
-Received: from mtksitap99.mediatek.inc (10.233.130.16) by
- mtkmbs13n2.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
- 15.2.2562.29 via Frontend Transport; Wed, 25 Mar 2026 12:04:58 +0800
-From: Jason-JH Lin <jason-jh.lin@mediatek.com>
-To: Jassi Brar <jassisinghbrar@gmail.com>, Chun-Kuang Hu
- <chunkuang.hu@kernel.org>, AngeloGioacchino Del Regno
- <angelogioacchino.delregno@collabora.com>, Nicolas Dufresne
- <nicolas@ndufresne.ca>, Mauro Carvalho Chehab <mchehab@kernel.org>
-CC: Matthias Brugger <matthias.bgg@gmail.com>, Jason-JH Lin
- <jason-jh.lin@mediatek.com>, Nancy Lin <nancy.lin@mediatek.com>, Singo Chang
- <singo.chang@mediatek.com>, Paul-PL Chen <paul-pl.chen@mediatek.com>, Moudy
- Ho <moudy.ho@mediatek.com>, Xiandong Wang <xiandong.wang@mediatek.com>,
- Sirius Wang <sirius.wang@mediatek.com>, Fei Shao <fshao@chromium.org>,
- Chen-yu Tsai <wenst@chromium.org>,
- <Project_Global_Chrome_Upstream_Group@mediatek.com>,
- <linux-kernel@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <linux-mediatek@lists.infradead.org>, <linux-arm-kernel@lists.infradead.org>, 
- <linux-media@vger.kernel.org>
-Subject: [PATCH v2 2/3] soc: mediatek: mtk-cmdq: Remove cmdq_pkt_write() and
- cmdq_pkt_write_mask()
-Date: Wed, 25 Mar 2026 12:04:21 +0800
-Message-ID: <20260325040457.2113120-3-jason-jh.lin@mediatek.com>
-X-Mailer: git-send-email 2.45.2
-In-Reply-To: <20260325040457.2113120-1-jason-jh.lin@mediatek.com>
-References: <20260325040457.2113120-1-jason-jh.lin@mediatek.com>
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8A45610E1E1
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Mar 2026 04:21:55 +0000 (UTC)
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 62P3o2CG1208643
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Mar 2026 04:21:54 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=D/aJ7qmx0lND45eyidmiAx7I
+ 2GBrkxtFsVI8mdbQxBI=; b=gWgBC/WYtC5ct/0L9Twud+l8ArZCJLaYvwRswi+F
+ gULyF17mpvd7CWGUaiBEx8yw6NharI+b6oa8cMumJbvJhK7xjA2S4Nk9lAtJRx1z
+ vj4ILg/nDDArTTiBJ0yiTdrQ+ryGZOxqjquQH46dTflOv38D+emUbwjYOB7JnHaa
+ +JXH3P0HdSa3FKiW+2l6o1OsSXtz1/GvV7dfLBzAI2cHDoldtwDlHjHMXKb7KFDh
+ OeSBgvwowZ0/I58usORfubkAL/WWbXVRbw84znEpLalNtbOmmK9KfpJyQn5I742V
+ w1+EFxrgUxkRMX9tTzX5BjD2nTW5qxdjudO4zI2mlMvCJQ==
+Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com
+ [209.85.214.197])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d485982p5-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Mar 2026 04:21:54 +0000 (GMT)
+Received: by mail-pl1-f197.google.com with SMTP id
+ d9443c01a7336-2b061868724so81663065ad.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 24 Mar 2026 21:21:54 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1774412513; cv=none;
+ d=google.com; s=arc-20240605;
+ b=ZTRrQX5gHFq52HrjEqwj0cEHqA8V8JYU1EHUpvTSLxNRAF1J+8QxfdR06NLBfjCAPq
+ DwPS8DFE+zkanBgPTFZfpd4VX3Lkig4Ltc8uY9LGs+MDqPyGUf3fjeKEdij0pBz3Bacs
+ Fyy94POUfHKyKzS+P+PV2tVzyeGuaMhutLi17eyy6Ixa79hF/8LZL0TxEhlIeVyTyg3i
+ idGD0fhbGIw5NgkVSYMAKxQfhcqWArgBm464WKvp8Pxs6ogj2kt128j9ToqFUd2pFQ48
+ FaFd6oYkJQSgT9Z/IcYwOEC/axmNEK51PcCyArF8CXApZsftBHIti9An6aq9dFb18hiI
+ myXA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:dkim-signature;
+ bh=D/aJ7qmx0lND45eyidmiAx7I2GBrkxtFsVI8mdbQxBI=;
+ fh=xDKfBr+WO6GcAwb3IThvyFXYnFtnZ2JpNRI/FnF79H8=;
+ b=JDJ/HV7jOyxSU8pHhtOKlfcWTRQ7x4igYI+FMFMSfRSSDXvSMYMsJ9kbPHOahB0SPk
+ tpo2zm00XiVmBVFP9q6LStgX8pMzuGT5c5Y0vzMrJRhwDl0b/a3tY0fPNw5MJLLMJSXE
+ HOTkw657rKWPFV0R5XZuDWOUKkWr29Y7NPEgCaUn500zLwnDeRByT4BcFOHCt3/qRB8W
+ 5wavjvG9550ih8KLXXX3+S9Nv96nHNQEuwnGvX3F52/7qXvaTIrcscXrmQpckodulE+/
+ c+oYsTtvtC1fCyYU5BJyn2CrkNm7f09jJf+0GIggXy9/H6F2KqbgWgp4bcJQrrbyw/ds
+ WxHg==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1774412513; x=1775017313;
+ darn=lists.freedesktop.org; 
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=D/aJ7qmx0lND45eyidmiAx7I2GBrkxtFsVI8mdbQxBI=;
+ b=dO9aJ9pmcp6RQWaRKx/TNdHtrVwv5rHV8CExYCWrh8tICAePaDdrl423+6SPV9lp7r
+ Sgl0j5XbLqzWeBUJGucuh6g3x5UW6+91ut+gw1cMQGP5/25erna4pXZmoEwuRD+x2nCc
+ qK7NyJAfWIdSbVhr+W5j6zQvr68zZQQj3MGYk8sdpq4xumFELs1et+SWOcajJG1I1evx
+ Vx+az1Hr9POxZmM42tdwJXi0EcATvHgbdxzSP1i8t649woCp1ywSU1EOIw9VhHq6m6bq
+ JLI0sMYD/X410G2cH92xgAVX+vlCDkD2OCN11nAigcL6SRb7gc0cgA38qamFENAYuv8g
+ 2J+Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1774412513; x=1775017313;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=D/aJ7qmx0lND45eyidmiAx7I2GBrkxtFsVI8mdbQxBI=;
+ b=rql2m6KHOERaE72Dz+jcAOFndhKWtXdQi3Z++kCaQQyRUkCJsxq0aNPVnFF4imwdBw
+ SRlYihZzcEo9/UGqcAEPv5eWhUmnNwsDkrNECSy6jxlwfRYQ1IoX3XpERyx51VR1niYX
+ v7anBMK48lMjOQ5YSX8Sl12fFmJxyaMAy7+QfJHdJqCiwwyytOpST3Fd/rLWXNvis1Al
+ JjXMvrp+08g3IqMFjuTFO4jM4OAB4EwNjFkA/HJjGVYgBG6hMvStZoUkOHHbcZpgOzM0
+ 3041KllanvMsVTJRw79pXc8lNlxr2mhBu+HzsSzSk04P42NNalg/gLclk3hd7vzyO/jO
+ fuCg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVsBhJymihwPQDUcuq7kagmePeBFmBkF0wBQbfrd1UzY19G9hY5sVZMiOU4Ic+gVOyMd7IUS3GCScU=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YydP013wMAqnX15XK0cJeCB7cGeCigb19NmbqUNF1oQeNwoFl65
+ Wh6Nc7cH7sUsqOTGWJaz00yjW+bd22pLheSemlwKTD9OHKb886dO0YGl5mBBK2pF4Fr3QNO98Si
+ in4CmtDJXxkQCoMPknelouJIerv/AhPsO03e6+AC1DG7lKEL+huMxTifKOeTiOpmBh+Sj050oNl
+ SBfa/ywcCp0Xn1m7NOeGKxAywk7mXc8NFaAOJwJtGGLld68iaVzOfGNFs6
+X-Gm-Gg: ATEYQzyl79FEshPH+IzTN3yGfX0sRegZOludGvapkXH8Mgf27rRNpRf4Wx5XLFKRp1O
+ 9QkUWd7ErbN/AVz/99JOiUrwB1rj4t+GjFl2rDQ1+sd8RRWd1b1rtoXvMrkPJM8u1k02O+W/AZX
+ EXaSCoA4T8qhTXub7m+xrQZkvIlGm/NGyECobwVuzJ7O6pQNgETt5yZXtcWZ2JRqDIxKAIpn7mg
+ aqw0Ao=
+X-Received: by 2002:a17:903:910:b0:2ae:ced7:4650 with SMTP id
+ d9443c01a7336-2b0b0a7f74bmr22620825ad.24.1774412513399; 
+ Tue, 24 Mar 2026 21:21:53 -0700 (PDT)
+X-Received: by 2002:a17:903:910:b0:2ae:ced7:4650 with SMTP id
+ d9443c01a7336-2b0b0a7f74bmr22620335ad.24.1774412512717; Tue, 24 Mar 2026
+ 21:21:52 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-MTK: N
+References: <20260314-dp-connector-hpd-v1-0-786044cedc17@oss.qualcomm.com>
+ <20260314-dp-connector-hpd-v1-2-786044cedc17@oss.qualcomm.com>
+ <20260318174000.GK633439@killaraus.ideasonboard.com>
+In-Reply-To: <20260318174000.GK633439@killaraus.ideasonboard.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Date: Wed, 25 Mar 2026 06:21:40 +0200
+X-Gm-Features: AaiRm536djLXP7MN5Nm6e9xQKmaKLozPoJuN46DeXHIu6HD0mmKI5CD3EYTj1tw
+Message-ID: <CAO9ioeVyAgcki2N=9uN4w=1D20385H4aXgra7_MF9yXnwxoVpA@mail.gmail.com>
+Subject: Re: [PATCH 2/2] drm/bridge: display-connector: trigger initial HPD
+ event for DP
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Robert Foss <rfoss@kernel.org>, Jonas Karlman <jonas@kwiboo.se>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Tomi Valkeinen <tomi.valkeinen@ti.com>,
+ Boris Brezillon <boris.brezillon@collabora.com>,
+ Sam Ravnborg <sam@ravnborg.org>,
+ Sebastian Reichel <sebastian.reichel@collabora.com>,
+ Yongxing Mou <yongxing.mou@oss.qualcomm.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzI1MDAyNyBTYWx0ZWRfXyNPGv7HhOVIe
+ reuSejwGU4XsCq/94/eP1jGdZoKPAHyGHsQSzgifKkFRpeHvfojYn76/jq+9QlxUS8f0orbs6VV
+ Yafry1AX9JI2RCn5QktwlnNBLvV8HNO9QoxwEfkE2dTW04XPcHnV64rvG3ZClaPxXf3Xfn2GaBK
+ HSH+Bb52LA+8XtKxqGJuaDK3/ROEPsg4jsGO+v2H8eY7+VFb9rbaP8RmiUjDAeYMLIw3MmCShXM
+ B82q33F0JMybopAvX7BzfIeDgq5QX2spzuvmYNRT2pZ/O21fxoxK3Cko8oksyjupKugCFXWTz9u
+ tg4rtcwYlzlFaUIHmcfTOTbGj0Ej15UUvBThwdqmyFLmKfdi9dksPzwhXUEwwhkAd+0uRfXXzEQ
+ xCOq2dfmT12TramOlnVI8OX15r3TlowEhzJNswhGYhKUobHyHwvCWDV6AfMwUmiAlKN/ikgQjgC
+ 7KPWT4eroliGuaIQ1nw==
+X-Authority-Analysis: v=2.4 cv=VODQXtPX c=1 sm=1 tr=0 ts=69c362e2 cx=c_pps
+ a=cmESyDAEBpBGqyK7t0alAg==:117 a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=_glEPmIy2e8OvE2BGh3C:22 a=P1BnusSwAAAA:8 a=EUspDBNiAAAA:8
+ a=WyTQnvZ4-TvxbGU1kG0A:9 a=QEXdDO2ut3YA:10 a=1OuFwYUASf3TG4hYMiVC:22
+ a=D0XLA9XvdZm18NrgonBM:22
+X-Proofpoint-GUID: z0ipUJoiapdrkBYM5m2tYRa0z1vbUp3Q
+X-Proofpoint-ORIG-GUID: z0ipUJoiapdrkBYM5m2tYRa0z1vbUp3Q
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-03-25_01,2026-03-24_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 lowpriorityscore=0 malwarescore=0 phishscore=0
+ priorityscore=1501 spamscore=0 impostorscore=0 clxscore=1015 adultscore=0
+ bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2603050001
+ definitions=main-2603250027
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,164 +166,55 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The original cmdq_pkt_write() and cmdq_pkt_write_mask() only supported
-generating GCE instructions with subsys ID. They have been replaced by
-cmdq_pkt_write_pa(), cmdq_pkt_write_subsys(), cmdq_pkt_write_mask_pa()
-and cmdq_pkt_write_mask_subsys().
+Hi,
 
-These 2 functions can now be removed as they are no longer in use.
+On Wed, 18 Mar 2026 at 19:40, Laurent Pinchart
+<laurent.pinchart@ideasonboard.com> wrote:
+>
 
-Signed-off-by: Jason-JH Lin <jason-jh.lin@mediatek.com>
-Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
----
- drivers/soc/mediatek/mtk-cmdq-helper.c | 49 ++++++++++----------------
- include/linux/soc/mediatek/mtk-cmdq.h  | 35 ------------------
- 2 files changed, 18 insertions(+), 66 deletions(-)
+Sorry, I missed your email.
 
-diff --git a/drivers/soc/mediatek/mtk-cmdq-helper.c b/drivers/soc/mediatek/mtk-cmdq-helper.c
-index 9cec6a096d8b..be5e6d80f4c0 100644
---- a/drivers/soc/mediatek/mtk-cmdq-helper.c
-+++ b/drivers/soc/mediatek/mtk-cmdq-helper.c
-@@ -215,18 +215,6 @@ static int cmdq_pkt_mask(struct cmdq_pkt *pkt, u32 mask)
- 	return cmdq_pkt_append_command(pkt, inst);
- }
- 
--int cmdq_pkt_write(struct cmdq_pkt *pkt, u8 subsys, u16 offset, u32 value)
--{
--	struct cmdq_instruction inst = {
--		.op = CMDQ_CODE_WRITE,
--		.value = value,
--		.offset = offset,
--		.subsys = subsys
--	};
--	return cmdq_pkt_append_command(pkt, inst);
--}
--EXPORT_SYMBOL(cmdq_pkt_write);
--
- int cmdq_pkt_write_pa(struct cmdq_pkt *pkt, u8 subsys /*unused*/, u32 pa_base,
- 		      u16 offset, u32 value)
- {
-@@ -243,27 +231,16 @@ EXPORT_SYMBOL(cmdq_pkt_write_pa);
- int cmdq_pkt_write_subsys(struct cmdq_pkt *pkt, u8 subsys, u32 pa_base /*unused*/,
- 			  u16 offset, u32 value)
- {
--	return cmdq_pkt_write(pkt, subsys, offset, value);
-+	struct cmdq_instruction inst = {
-+		.op = CMDQ_CODE_WRITE,
-+		.value = value,
-+		.offset = offset,
-+		.subsys = subsys
-+	};
-+	return cmdq_pkt_append_command(pkt, inst);
- }
- EXPORT_SYMBOL(cmdq_pkt_write_subsys);
- 
--int cmdq_pkt_write_mask(struct cmdq_pkt *pkt, u8 subsys,
--			u16 offset, u32 value, u32 mask)
--{
--	u16 offset_mask = offset;
--	int err;
--
--	if (mask != GENMASK(31, 0)) {
--		err = cmdq_pkt_mask(pkt, mask);
--		if (err < 0)
--			return err;
--
--		offset_mask |= CMDQ_WRITE_ENABLE_MASK;
--	}
--	return cmdq_pkt_write(pkt, subsys, offset_mask, value);
--}
--EXPORT_SYMBOL(cmdq_pkt_write_mask);
--
- int cmdq_pkt_write_mask_pa(struct cmdq_pkt *pkt, u8 subsys /*unused*/, u32 pa_base,
- 			   u16 offset, u32 value, u32 mask)
- {
-@@ -281,7 +258,17 @@ EXPORT_SYMBOL(cmdq_pkt_write_mask_pa);
- int cmdq_pkt_write_mask_subsys(struct cmdq_pkt *pkt, u8 subsys, u32 pa_base /*unused*/,
- 			       u16 offset, u32 value, u32 mask)
- {
--	return cmdq_pkt_write_mask(pkt, subsys, offset, value, mask);
-+	u16 offset_mask = offset;
-+	int err;
-+
-+	if (mask != GENMASK(31, 0)) {
-+		err = cmdq_pkt_mask(pkt, mask);
-+		if (err < 0)
-+			return err;
-+
-+		offset_mask |= CMDQ_WRITE_ENABLE_MASK;
-+	}
-+	return cmdq_pkt_write_subsys(pkt, subsys, pa_base, offset_mask, value);
- }
- EXPORT_SYMBOL(cmdq_pkt_write_mask_subsys);
- 
-diff --git a/include/linux/soc/mediatek/mtk-cmdq.h b/include/linux/soc/mediatek/mtk-cmdq.h
-index be67bee043ce..0e8fb4743d18 100644
---- a/include/linux/soc/mediatek/mtk-cmdq.h
-+++ b/include/linux/soc/mediatek/mtk-cmdq.h
-@@ -124,17 +124,6 @@ int cmdq_pkt_create(struct cmdq_client *client, struct cmdq_pkt *pkt, size_t siz
-  */
- void cmdq_pkt_destroy(struct cmdq_client *client, struct cmdq_pkt *pkt);
- 
--/**
-- * cmdq_pkt_write() - append write command to the CMDQ packet
-- * @pkt:	the CMDQ packet
-- * @subsys:	the CMDQ sub system code
-- * @offset:	register offset from CMDQ sub system
-- * @value:	the specified target register value
-- *
-- * Return: 0 for success; else the error code is returned
-- */
--int cmdq_pkt_write(struct cmdq_pkt *pkt, u8 subsys, u16 offset, u32 value);
--
- /**
-  * cmdq_pkt_write_pa() - append write command to the CMDQ packet with pa_base
-  * @pkt:	the CMDQ packet
-@@ -161,19 +150,6 @@ int cmdq_pkt_write_pa(struct cmdq_pkt *pkt, u8 subsys /*unused*/,
- int cmdq_pkt_write_subsys(struct cmdq_pkt *pkt, u8 subsys,
- 			  u32 pa_base /*unused*/, u16 offset, u32 value);
- 
--/**
-- * cmdq_pkt_write_mask() - append write command with mask to the CMDQ packet
-- * @pkt:	the CMDQ packet
-- * @subsys:	the CMDQ sub system code
-- * @offset:	register offset from CMDQ sub system
-- * @value:	the specified target register value
-- * @mask:	the specified target register mask
-- *
-- * Return: 0 for success; else the error code is returned
-- */
--int cmdq_pkt_write_mask(struct cmdq_pkt *pkt, u8 subsys,
--			u16 offset, u32 value, u32 mask);
--
- /**
-  * cmdq_pkt_write_mask_pa() - append write command with mask to the CMDQ packet with pa
-  * @pkt:	the CMDQ packet
-@@ -471,11 +447,6 @@ static inline int cmdq_pkt_create(struct cmdq_client *client, struct cmdq_pkt *p
- 
- static inline void cmdq_pkt_destroy(struct cmdq_client *client, struct cmdq_pkt *pkt) { }
- 
--static inline int cmdq_pkt_write(struct cmdq_pkt *pkt, u8 subsys, u16 offset, u32 value)
--{
--	return -ENOENT;
--}
--
- static inline int cmdq_pkt_write_pa(struct cmdq_pkt *pkt, u8 subsys /*unused*/,
- 				    u32 pa_base, u16 offset, u32 value)
- {
-@@ -488,12 +459,6 @@ static inline int cmdq_pkt_write_subsys(struct cmdq_pkt *pkt, u8 subsys,
- 	return -ENOENT;
- }
- 
--static inline int cmdq_pkt_write_mask(struct cmdq_pkt *pkt, u8 subsys,
--				      u16 offset, u32 value, u32 mask)
--{
--	return -ENOENT;
--}
--
- static inline int cmdq_pkt_write_mask_pa(struct cmdq_pkt *pkt, u8 subsys /*unused*/,
- 					 u32 pa_base, u16 offset, u32 value, u32 mask)
- {
--- 
-2.43.0
+>
+> On Sat, Mar 14, 2026 at 02:43:12AM +0200, Dmitry Baryshkov wrote:
+> > If the DisplayPort drivers use display-connector for the HPD detection,
+> > the internal HPD state machine might be not active and thus the hardware
+> > might be not able to handle cable detection correctly. Instead it will
+> > depend on the externall HPD notifications to set the cable state,
+> > bypassing the internal HPD state machine (for example this is the case
+> > for the msm DP driver).
+> >
+> > However if the cable has been plugged before the HPD IRQ has been
+> > enabled, there will be no HPD event coming. The drivers might fail
+> > detection in such a case. Trigger the HPD notification after enabling
+> > the HPD IRQ, propagating the cable insertion state.
+>
+> The explanation makes sense, but it sounds like to could apply the same
+> way to HDMI. What am I missing ?
 
+Well... First of all, since HDMI doesn't have all DP magic, there is
+no difference between HPD pin state and the display being plugged in
+(so, e.g. dp-connector can't implement OP_DETECT, while hdmi-connector
+does). For HDMI we usually don't have a complicated state machine in
+the hardware. Nor do we have a an AUX bus with timeouts, etc.
+
+>
+> Also, wouldn't it be better if the DRM core interrogated the state of
+> the HPD signal when enabling HPD, instead of relying on all drivers to
+> implement something similar as this patch ?
+
+Most of the drivers don't require this. It is only limited to the
+OP_HPD bridges which don't implement OP_DETECT.
+
+>
+> > Fixes: 2e2bf3a5584d ("drm/bridge: display-connector: add DP support")
+> > Reported-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+> > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> > ---
+> >  drivers/gpu/drm/bridge/display-connector.c | 19 +++++++++++++++++++
+> >  1 file changed, 19 insertions(+)
+
+
+
+--
+With best wishes
+Dmitry
