@@ -4,135 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E4B0D109C04D
-	for <dri-devel@archiver.kernel.org>; Wed, 25 Mar 2026 18:12:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4C69A109C052
+	for <dri-devel@archiver.kernel.org>; Wed, 25 Mar 2026 18:17:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5B3FB10E8E0;
-	Wed, 25 Mar 2026 18:12:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9F22110E8E1;
+	Wed, 25 Mar 2026 18:17:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="AZRGGGjB";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="CjFFBLhE";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="qy3VrHY/";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="VJwnAzuT";
+	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="Exr7mhL2";
 	dkim-atps=neutral
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 54BF410E8E0
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Mar 2026 18:12:13 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id EA1814D26E;
- Wed, 25 Mar 2026 18:12:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1774462332; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=opQ+HU2+Lj+mjTSpUh79mph5xhuPaJJBS3gcPzghQLE=;
- b=AZRGGGjBQeIhTBsux5gT+zlnYzU6pMqv1YHCuZMCwAx28JLupRIV9Wdg4AuhnzyP+f0f+r
- BRe1wxTDzSH0iU3i4uSAM6kBmhchOQ2FH8Ah7Av7vR0G6YxjVSLHh/VbWIS0yrKlRVyPCP
- xWCiJ4hDe5xSYvqg4WKN/UzZgq4IPcs=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1774462332;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=opQ+HU2+Lj+mjTSpUh79mph5xhuPaJJBS3gcPzghQLE=;
- b=CjFFBLhEwJ55/W79H+mH5XuTCDJmFrWv3T80XzUmSuNP2kbMAeHjNscyQGUhfuZUcjzROs
- hiXy4i9JOMcBHxDg==
-Authentication-Results: smtp-out1.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b="qy3VrHY/";
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=VJwnAzuT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1774462331; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=opQ+HU2+Lj+mjTSpUh79mph5xhuPaJJBS3gcPzghQLE=;
- b=qy3VrHY/LSM61s7zwmnTkZBEuukK8LlaSYQ5RLz0zJnKf4I2zUysf0/AJ5iqPCqDXPdC28
- Mwx5fZInNN75ZNzgXQgrXz1FkKDvKSIdY+vpFldB00QiHErAl2gRTXtLeVn8oRCfkGuErv
- IdaFta63sUt+QhVrFtlfXNwmLsMBlHg=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1774462331;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=opQ+HU2+Lj+mjTSpUh79mph5xhuPaJJBS3gcPzghQLE=;
- b=VJwnAzuTmjIldDgksQVgoFxgXXntO348YSwA+TvuKp0KLkAOYWqlNK53q2rTWQZpLy3ETb
- TmgLL185NO1W/NBg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id A9E0544527;
- Wed, 25 Mar 2026 18:12:11 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id +kK/J3slxGlgMAAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Wed, 25 Mar 2026 18:12:11 +0000
-Message-ID: <a71cc09f-8eb8-4fa1-8b0b-d0a10ad1aa38@suse.de>
-Date: Wed, 25 Mar 2026 19:12:11 +0100
+Received: from lankhorst.se (unknown [141.105.120.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6D0CD10E8AF;
+ Wed, 25 Mar 2026 18:17:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lankhorst.se;
+ s=default; t=1774462664;
+ bh=bf4ClMtMnbfFXZqSVHtSADODFpA56j8cwmLWASB70GM=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=Exr7mhL2ml0fV/3tLbo33/lSHrlzCHmV8igF6VbRx29vg6qUZ6qLDAkvilurV61u7
+ QXmY7xi6d2JNNjPHypQF1tFSFSFQylAEuovZ2Z02TmvwR/cw0rS5Xo3FYBrmn2MfDd
+ fJT+OWaI+h6jQtIH30wpv1fXlmDDoIh5o89r0ZD1PoKdYU5+Mu4zc6n1Hi8j8OPDki
+ fHdsEQTVVPKjjM4b2VI0/cn9phBkdQDawjAaxFZTGkL14XJA7Q06TiNYRff/fJrx/Y
+ KUmBa1ZoaF22781UV4HvIfPkgvzNEUAgABxccmTpJLnvUBNOQWe6WDgh9gvU7cOrKA
+ TR6RXZiyNuIEw==
+Message-ID: <13dfeca9-81f1-4cb7-8e7a-de6c6936cd0f@lankhorst.se>
+Date: Wed, 25 Mar 2026 19:17:42 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 03/15] drm/ast: Use constants for AHBC registers
-To: Jocelyn Falempe <jfalempe@redhat.com>, airlied@redhat.com,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@gmail.com,
- simona@ffwll.ch
-Cc: dri-devel@lists.freedesktop.org
-References: <20260323160407.245773-1-tzimmermann@suse.de>
- <20260323160407.245773-4-tzimmermann@suse.de>
- <a5b1cc89-8d52-4f4b-93f6-a3429e49d281@redhat.com>
+Subject: Re: [PATCH v2 1/1] drm: Fix use-after-free on framebuffers and
+ property blobs when calling drm_dev_unplug
+To: Guenter Roeck <linux@roeck-us.net>
+Cc: dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
+References: <20260313151728.14990-3-dev@lankhorst.se>
+ <20260313151728.14990-4-dev@lankhorst.se>
+ <a89da668-578f-4ae0-809b-f0e68e3550e1@roeck-us.net>
 Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <a5b1cc89-8d52-4f4b-93f6-a3429e49d281@redhat.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Action: no action
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[]; RCPT_COUNT_SEVEN(0.00)[7];
- MIME_TRACE(0.00)[0:+]; FUZZY_RATELIMITED(0.00)[rspamd.com];
- FREEMAIL_TO(0.00)[redhat.com,linux.intel.com,kernel.org,gmail.com,ffwll.ch];
- RCVD_VIA_SMTP_AUTH(0.00)[]; ARC_NA(0.00)[];
- MID_RHS_MATCH_FROM(0.00)[]; FREEMAIL_ENVRCPT(0.00)[gmail.com];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- RCVD_TLS_ALL(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
- FROM_HAS_DN(0.00)[]; TO_DN_SOME(0.00)[];
- RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:dkim,suse.de:mid,suse.de:email,suse.com:url];
- DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received,2a07:de40:b281:104:10:150:64:97:from];
- DKIM_TRACE(0.00)[suse.de:+]
-X-Rspamd-Queue-Id: EA1814D26E
+From: Maarten Lankhorst <dev@lankhorst.se>
+In-Reply-To: <a89da668-578f-4ae0-809b-f0e68e3550e1@roeck-us.net>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -148,82 +57,391 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi
+Hey,
 
-Am 25.03.26 um 17:03 schrieb Jocelyn Falempe:
-> On 23/03/2026 16:56, Thomas Zimmermann wrote:
->> AHBC is the Advanced High-Speed Bus Controller. AHBC registers are
->> located in the memory range within [0x1e600000, 0x1e61ffff]. Refer
->> to them with constants named AST_REG_AHBC<n>, where <n> is the byte
->> offset into the range.
->
-> I think adding a macro AST_REG_AHBC84 doesn't provide more information 
-> over using directly AST_REG_AHBC(0x84).
+Whatever the simple driver is used, is drm_atomic_helper_shutdown() calle=
+d somewhere in it?
 
-I thought about using the latter only. But then I choose the constants, 
-such as AHBC84, as they are directly grep-able in the documentation. 
-They also seem a bit safer against typos, such as AHBC84 vs AHBC48.
+Kind regards,
+~Maarten Lankhorst
 
-Best regards
-Thomas
+Den 2026-03-25 kl. 18:26, skrev Guenter Roeck:
+> Hi,
+>=20
+> On Fri, Mar 13, 2026 at 04:17:27PM +0100, Maarten Lankhorst wrote:
+>> When trying to do a rather aggressive test of igt's "xe_module_load
+>> --r reload" with a full desktop environment and game running I noticed=
 
-
-
->
-> Reviewed-by: Jocelyn Falempe <jfalempe@redhat.com>
->
+>> a few OOPSes when dereferencing freed pointers, related to
+>> framebuffers and property blobs after the compositor exits.
 >>
->> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
->> ---
->>   drivers/gpu/drm/ast/ast_2500.c |  6 +++---
->>   drivers/gpu/drm/ast/ast_reg.h  | 11 +++++++++++
->>   2 files changed, 14 insertions(+), 3 deletions(-)
+>> Solve this by guarding the freeing in drm_file with drm_dev_enter/exit=
+,
+>> and immediately put the references from struct drm_file objects during=
+
+>> drm_dev_unplug().
 >>
->> diff --git a/drivers/gpu/drm/ast/ast_2500.c 
->> b/drivers/gpu/drm/ast/ast_2500.c
->> index 2a52af0ded56..f751a27e7eb3 100644
->> --- a/drivers/gpu/drm/ast/ast_2500.c
->> +++ b/drivers/gpu/drm/ast/ast_2500.c
->> @@ -109,9 +109,9 @@ void ast_2500_patch_ahb(void __iomem *regs)
->>       u32 data;
->>         /* Clear bus lock condition */
->> -    __ast_moutdwm(regs, 0x1e600000, 0xAEED1A03);
->> -    __ast_moutdwm(regs, 0x1e600084, 0x00010000);
->> -    __ast_moutdwm(regs, 0x1e600088, 0x00000000);
->> +    __ast_moutdwm(regs, AST_REG_AHBC00, AST_REG_AHBC00_PROTECT_KEY);
->> +    __ast_moutdwm(regs, AST_REG_AHBC84, 0x00010000);
->> +    __ast_moutdwm(regs, AST_REG_AHBC88, 0x00000000);
->>       __ast_moutdwm(regs, 0x1e6e2000, 0x1688A8A8);
->>         data = __ast_mindwm(regs, 0x1e6e2070);
->> diff --git a/drivers/gpu/drm/ast/ast_reg.h 
->> b/drivers/gpu/drm/ast/ast_reg.h
->> index ca9403efc7f9..0bc033dbac55 100644
->> --- a/drivers/gpu/drm/ast/ast_reg.h
->> +++ b/drivers/gpu/drm/ast/ast_reg.h
->> @@ -87,4 +87,15 @@
->>   #define AST_REG_P2A04                AST_REG_P2A(0xf004)
->>   #define AST_REG_P2A04_BASE_MASK            GENMASK(31, 16)
->>   +/*
->> + * AHB Controller (0x1e600000 - 0x1e61ffff)
->> + */
->> +
->> +#define AST_REG_AHBC_BASE            (0x1e600000)
->> +#define AST_REG_AHBC(__offset)            (AST_REG_AHBC_BASE + 
->> (__offset))
->> +#define AST_REG_AHBC00                AST_REG_AHBC(0x00)
->> +#define AST_REG_AHBC00_PROTECT_KEY        (0xaeed1a03)
->> +#define AST_REG_AHBC84                AST_REG_AHBC(0x84)
->> +#define AST_REG_AHBC88                AST_REG_AHBC(0x88)
->> +
->>   #endif
->
-
--- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
-
+>=20
+> With this patch in v6.18.20, I get the warning backtraces below.
+> The backtraces are gone with the patch reverted.
+>=20
+> Guenter
+>=20
+> ---
+> [    0.000000] Linux version 6.18.20-spi+ (groeck@server.roeck-us.net) =
+(gcc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0, GNU ld (GNU Binutils for Ub=
+untu) 2.42) #1 SMP PREEMPT_DYNAMIC Wed Mar 25 08:22:19 PDT 2026
+> [    0.000000] Command line: BOOT_IMAGE=3D/boot/vmlinuz-6.18.20-spi+ ro=
+ot=3DUUID=3Dce436484-f920-47a8-a8c4-c17ff3a877e8 ro quiet splash amdgpu.g=
+pu_recovery=3D1 amdgpu.ppfeaturemask=3D0xfff73fff vt.handoff=3D7
+> ...
+> [    4.254064] nouveau 0000:2b:00.0: NVIDIA GK208B (b060b0b1)
+> ...
+> [    5.440862] ------------[ cut here ]------------
+> [    5.440864] WARNING: CPU: 5 PID: 502 at drivers/gpu/drm/drm_mode_con=
+fig.c:537 drm_mode_config_cleanup+0x313/0x360
+> [    5.440868] Modules linked in: qrtr cmac algif_hash algif_skcipher a=
+f_alg bnep sunrpc binfmt_misc nls_iso8859_1 amd_atl intel_rapl_msr intel_=
+rapl_common snd_hda_codec_alc882 snd_hda_codec_realtek_lib snd_hda_codec_=
+generic snd_hda_codec_nvhdmi snd_hda_codec_hdmi snd_hda_intel snd_hda_cod=
+ec btusb btmtk snd_hda_core btrtl btbcm snd_intel_dspcfg btintel snd_inte=
+l_sdw_acpi snd_hwdep edac_mce_amd nouveau bluetooth snd_pcm kvm_amd snd_s=
+eq_midi mxm_wmi snd_seq_midi_event drm_gpuvm joydev input_leds snd_rawmid=
+i ee1004 gpu_sched kvm snd_seq snd_seq_device irqbypass polyval_clmulni s=
+nd_timer ghash_clmulni_intel aesni_intel drm_ttm_helper snd rapl ttm drm_=
+exec drm_display_helper cec rc_core video i2c_piix4 ccp soundcore i2c_smb=
+us wmi_bmof k10temp bfq gpio_amdpt mac_hid sch_fq_codel nct6683 msr parpo=
+rt_pc ppdev lp parport nvme_fabrics efi_pstore nfnetlink dmi_sysfs ip_tab=
+les x_tables autofs4 hid_generic nvme usbhid hid nvme_core igb r8169 nvme=
+_keyring i2c_algo_bit nvme_auth ahci realtek dca hkdf libahci wmi
+> [    5.440902] CPU: 5 UID: 0 PID: 502 Comm: plymouthd Not tainted 6.18.=
+20-spi+ #1 PREEMPT(full)=20
+> [    5.440903] Hardware name: Micro-Star International Co., Ltd. MS-7C9=
+4/MAG B550M MORTAR MAX WIFI (MS-7C94), BIOS 1.G0 08/22/2023
+> [    5.440904] RIP: 0010:drm_mode_config_cleanup+0x313/0x360
+> [    5.440906] Code: 8b 45 d0 65 48 2b 05 84 22 0b 02 75 64 48 83 c4 58=
+ 5b 41 5c 41 5d 41 5e 41 5f 5d 31 c0 31 d2 31 c9 31 f6 31 ff c3 cc cc cc =
+cc <0f> 0b 48 8d 75 88 4c 89 e7 e8 1f 12 fe ff eb 10 48 8b 70 60 48 c7
+> [    5.440907] RSP: 0018:ffffcf1442017bb0 EFLAGS: 00010202
+> [    5.440908] RAX: ffff89bcc2268258 RBX: ffff89bcc2268290 RCX: 0000000=
+000000000
+> [    5.440909] RDX: ffff89bcc2269308 RSI: 0000000000000000 RDI: 0000000=
+000000000
+> [    5.440909] RBP: ffffcf1442017c30 R08: 0000000000000000 R09: 0000000=
+000000000
+> [    5.440910] R10: 0000000000000000 R11: 0000000000000000 R12: ffff89b=
+cc2268000
+> [    5.440910] R13: ffff89bcc2268298 R14: ffff89bcc5c3f480 R15: dead000=
+000000100
+> [    5.440911] FS:  0000713c25451000(0000) GS:ffff89cbe2cf3000(0000) kn=
+lGS:0000000000000000
+> [    5.440912] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+> [    5.440912] CR2: 0000713c1bfff000 CR3: 00000001179c3000 CR4: 0000000=
+000f50ef0
+> [    5.440913] PKRU: 55555554
+> [    5.440914] Call Trace:
+> [    5.440914]  <TASK>
+> [    5.440916]  ? drm_managed_release+0xc2/0x160
+> [    5.440918]  drm_mode_config_init_release+0xe/0x20
+> [    5.440919]  drm_managed_release+0x8f/0x160
+> [    5.440920]  drm_minor_release+0x5f/0x90
+> [    5.440921]  drm_release+0xda/0x140
+> [    5.440923]  __fput+0xed/0x2d0
+> [    5.440925]  fput_close_sync+0x3d/0xa0
+> [    5.440927]  __x64_sys_close+0x3e/0x90
+> [    5.440928]  x64_sys_call+0x1b5e/0x26a0
+> [    5.440930]  do_syscall_64+0x80/0x570
+> [    5.440934]  ? x64_sys_call+0x1144/0x26a0
+> [    5.440935]  ? do_syscall_64+0xb8/0x570
+> [    5.440937]  ? __vm_munmap+0xdb/0x190
+> [    5.440939]  ? __x64_sys_munmap+0x1b/0x30
+> [    5.440941]  ? x64_sys_call+0x1be5/0x26a0
+> [    5.440942]  ? do_syscall_64+0xb8/0x570
+> [    5.440943]  ? irqentry_exit+0x43/0x50
+> [    5.440944]  ? exc_page_fault+0x90/0x1b0
+> [    5.440946]  entry_SYSCALL_64_after_hwframe+0x76/0x7e
+> [    5.440947] RIP: 0033:0x713c256fa74c
+> [    5.440948] Code: 0f 05 48 3d 00 f0 ff ff 77 3c c3 0f 1f 00 55 48 89=
+ e5 48 83 ec 10 89 7d fc e8 10 1e f8 ff 8b 7d fc 89 c2 b8 03 00 00 00 0f =
+05 <48> 3d 00 f0 ff ff 77 2c 89 d7 89 45 fc e8 72 1e f8 ff 8b 45 fc c9
+> [    5.440949] RSP: 002b:00007ffc9c194100 EFLAGS: 00000293 ORIG_RAX: 00=
+00000000000003
+> [    5.440950] RAX: ffffffffffffffda RBX: 000055df73527870 RCX: 0000713=
+c256fa74c
+> [    5.440951] RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000=
+00000000b
+> [    5.440951] RBP: 00007ffc9c194110 R08: 000000055df73528 R09: 0000000=
+000000007
+> [    5.440952] R10: 000055df73528bc0 R11: 0000000000000293 R12: 0000713=
+c25450f88
+> [    5.440952] R13: 0000000000000013 R14: 000055df7356f6b0 R15: 000055d=
+f73526130
+> [    5.440953]  </TASK>
+> [    5.440954] ---[ end trace 0000000000000000 ]---
+> [    5.440955] [drm:drm_mode_config_cleanup] *ERROR* connector Unknown-=
+1 leaked!
+> [    5.440971] ------------[ cut here ]------------
+> [    5.440971] WARNING: CPU: 5 PID: 502 at drivers/gpu/drm/drm_mode_con=
+fig.c:571 drm_mode_config_cleanup+0x34f/0x360
+> [    5.440973] Modules linked in: qrtr cmac algif_hash algif_skcipher a=
+f_alg bnep sunrpc binfmt_misc nls_iso8859_1 amd_atl intel_rapl_msr intel_=
+rapl_common snd_hda_codec_alc882 snd_hda_codec_realtek_lib snd_hda_codec_=
+generic snd_hda_codec_nvhdmi snd_hda_codec_hdmi snd_hda_intel snd_hda_cod=
+ec btusb btmtk snd_hda_core btrtl btbcm snd_intel_dspcfg btintel snd_inte=
+l_sdw_acpi snd_hwdep edac_mce_amd nouveau bluetooth snd_pcm kvm_amd snd_s=
+eq_midi mxm_wmi snd_seq_midi_event drm_gpuvm joydev input_leds snd_rawmid=
+i ee1004 gpu_sched kvm snd_seq snd_seq_device irqbypass polyval_clmulni s=
+nd_timer ghash_clmulni_intel aesni_intel drm_ttm_helper snd rapl ttm drm_=
+exec drm_display_helper cec rc_core video i2c_piix4 ccp soundcore i2c_smb=
+us wmi_bmof k10temp bfq gpio_amdpt mac_hid sch_fq_codel nct6683 msr parpo=
+rt_pc ppdev lp parport nvme_fabrics efi_pstore nfnetlink dmi_sysfs ip_tab=
+les x_tables autofs4 hid_generic nvme usbhid hid nvme_core igb r8169 nvme=
+_keyring i2c_algo_bit nvme_auth ahci realtek dca hkdf libahci wmi
+> [    5.440995] CPU: 5 UID: 0 PID: 502 Comm: plymouthd Tainted: G       =
+ W           6.18.20-spi+ #1 PREEMPT(full)=20
+> [    5.440997] Tainted: [W]=3DWARN
+> [    5.440997] Hardware name: Micro-Star International Co., Ltd. MS-7C9=
+4/MAG B550M MORTAR MAX WIFI (MS-7C94), BIOS 1.G0 08/22/2023
+> [    5.440998] RIP: 0010:drm_mode_config_cleanup+0x34f/0x360
+> [    5.440999] Code: 70 60 48 c7 c7 a7 90 93 ba e8 3d bb 00 00 48 8d 7d=
+ 88 e8 c4 32 fe ff 48 85 c0 75 e2 48 8d 7d 88 e8 d6 31 fe ff e9 7b fd ff =
+ff <0f> 0b e9 79 fe ff ff 0f 0b eb 8e e8 01 a4 65 00 90 90 90 90 90 90
+> [    5.441000] RSP: 0018:ffffcf1442017bb0 EFLAGS: 00010293
+> [    5.441001] RAX: ffff89bcd7c61bc8 RBX: ffff89bcc2268368 RCX: 0000000=
+000000000
+> [    5.441001] RDX: 0000000000000000 RSI: 0000000000000000 RDI: ffff89b=
+cc2268368
+> [    5.441002] RBP: ffffcf1442017c30 R08: 0000000000000000 R09: 0000000=
+000000000
+> [    5.441002] R10: 0000000000000000 R11: 0000000000000000 R12: ffff89b=
+cc2268000
+> [    5.441002] R13: ffff89bcc2268390 R14: ffff89bcc2268230 R15: dead000=
+000000100
+> [    5.441003] FS:  0000713c25451000(0000) GS:ffff89cbe2cf3000(0000) kn=
+lGS:0000000000000000
+> [    5.441004] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+> [    5.441004] CR2: 0000713c1bfff000 CR3: 00000001179c3000 CR4: 0000000=
+000f50ef0
+> [    5.441005] PKRU: 55555554
+> [    5.441005] Call Trace:
+> [    5.441006]  <TASK>
+> [    5.441006]  ? drm_managed_release+0xc2/0x160
+> [    5.441008]  drm_mode_config_init_release+0xe/0x20
+> [    5.441009]  drm_managed_release+0x8f/0x160
+> [    5.441010]  drm_minor_release+0x5f/0x90
+> [    5.441011]  drm_release+0xda/0x140
+> [    5.441012]  __fput+0xed/0x2d0
+> [    5.441013]  fput_close_sync+0x3d/0xa0
+> [    5.441014]  __x64_sys_close+0x3e/0x90
+> [    5.441015]  x64_sys_call+0x1b5e/0x26a0
+> [    5.441017]  do_syscall_64+0x80/0x570
+> [    5.441018]  ? x64_sys_call+0x1144/0x26a0
+> [    5.441019]  ? do_syscall_64+0xb8/0x570
+> [    5.441021]  ? __vm_munmap+0xdb/0x190
+> [    5.441023]  ? __x64_sys_munmap+0x1b/0x30
+> [    5.441024]  ? x64_sys_call+0x1be5/0x26a0
+> [    5.441025]  ? do_syscall_64+0xb8/0x570
+> [    5.441026]  ? irqentry_exit+0x43/0x50
+> [    5.441027]  ? exc_page_fault+0x90/0x1b0
+> [    5.441029]  entry_SYSCALL_64_after_hwframe+0x76/0x7e
+> [    5.441029] RIP: 0033:0x713c256fa74c
+> [    5.441030] Code: 0f 05 48 3d 00 f0 ff ff 77 3c c3 0f 1f 00 55 48 89=
+ e5 48 83 ec 10 89 7d fc e8 10 1e f8 ff 8b 7d fc 89 c2 b8 03 00 00 00 0f =
+05 <48> 3d 00 f0 ff ff 77 2c 89 d7 89 45 fc e8 72 1e f8 ff 8b 45 fc c9
+> [    5.441031] RSP: 002b:00007ffc9c194100 EFLAGS: 00000293 ORIG_RAX: 00=
+00000000000003
+> [    5.441031] RAX: ffffffffffffffda RBX: 000055df73527870 RCX: 0000713=
+c256fa74c
+> [    5.441032] RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000=
+00000000b
+> [    5.441032] RBP: 00007ffc9c194110 R08: 000000055df73528 R09: 0000000=
+000000007
+> [    5.441033] R10: 000055df73528bc0 R11: 0000000000000293 R12: 0000713=
+c25450f88
+> [    5.441033] R13: 0000000000000013 R14: 000055df7356f6b0 R15: 000055d=
+f73526130
+> [    5.441035]  </TASK>
+> [    5.441035] ---[ end trace 0000000000000000 ]---
+> [    5.441036] ------------[ cut here ]------------
+> [    5.441036] platform simple-framebuffer.0: [drm] drm_WARN_ON(refcoun=
+t_read(&shmem->vmap_use_count))
+> [    5.441041] WARNING: CPU: 5 PID: 502 at drivers/gpu/drm/drm_gem_shme=
+m_helper.c:170 drm_gem_shmem_free+0x111/0x1a0
+> [    5.441043] Modules linked in: qrtr cmac algif_hash algif_skcipher a=
+f_alg bnep sunrpc binfmt_misc nls_iso8859_1 amd_atl intel_rapl_msr intel_=
+rapl_common snd_hda_codec_alc882 snd_hda_codec_realtek_lib snd_hda_codec_=
+generic snd_hda_codec_nvhdmi snd_hda_codec_hdmi snd_hda_intel snd_hda_cod=
+ec btusb btmtk snd_hda_core btrtl btbcm snd_intel_dspcfg btintel snd_inte=
+l_sdw_acpi snd_hwdep edac_mce_amd nouveau bluetooth snd_pcm kvm_amd snd_s=
+eq_midi mxm_wmi snd_seq_midi_event drm_gpuvm joydev input_leds snd_rawmid=
+i ee1004 gpu_sched kvm snd_seq snd_seq_device irqbypass polyval_clmulni s=
+nd_timer ghash_clmulni_intel aesni_intel drm_ttm_helper snd rapl ttm drm_=
+exec drm_display_helper cec rc_core video i2c_piix4 ccp soundcore i2c_smb=
+us wmi_bmof k10temp bfq gpio_amdpt mac_hid sch_fq_codel nct6683 msr parpo=
+rt_pc ppdev lp parport nvme_fabrics efi_pstore nfnetlink dmi_sysfs ip_tab=
+les x_tables autofs4 hid_generic nvme usbhid hid nvme_core igb r8169 nvme=
+_keyring i2c_algo_bit nvme_auth ahci realtek dca hkdf libahci wmi
+> [    5.441066] CPU: 5 UID: 0 PID: 502 Comm: plymouthd Tainted: G       =
+ W           6.18.20-spi+ #1 PREEMPT(full)=20
+> [    5.441067] Tainted: [W]=3DWARN
+> [    5.441067] Hardware name: Micro-Star International Co., Ltd. MS-7C9=
+4/MAG B550M MORTAR MAX WIFI (MS-7C94), BIOS 1.G0 08/22/2023
+> [    5.441068] RIP: 0010:drm_gem_shmem_free+0x111/0x1a0
+> [    5.441069] Code: 4c 8b 67 50 4d 85 e4 75 03 4c 8b 27 e8 68 4f 02 00=
+ 48 c7 c1 e8 03 8a ba 4c 89 e2 48 c7 c7 66 7b 93 ba 48 89 c6 e8 8f 09 46 =
+ff <0f> 0b e9 4b ff ff ff 48 8b 7b 08 48 85 ff 74 04 48 8b 7f 08 4c 8b
+> [    5.441070] RSP: 0018:ffffcf1442017ad0 EFLAGS: 00010246
+> [    5.441070] RAX: 0000000000000000 RBX: ffff89bcc8704400 RCX: 0000000=
+000000000
+> [    5.441071] RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000=
+000000000
+> [    5.441071] RBP: ffffcf1442017ae0 R08: 0000000000000000 R09: 0000000=
+000000000
+> [    5.441072] R10: 0000000000000000 R11: 0000000000000000 R12: ffff89b=
+cc2bec900
+> [    5.441072] R13: ffff89bcc2268000 R14: 0000000000000000 R15: ffff89b=
+cc2268228
+> [    5.441073] FS:  0000713c25451000(0000) GS:ffff89cbe2cf3000(0000) kn=
+lGS:0000000000000000
+> [    5.441073] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+> [    5.441074] CR2: 0000713c1bfff000 CR3: 00000001179c3000 CR4: 0000000=
+000f50ef0
+> [    5.441075] PKRU: 55555554
+> [    5.441075] Call Trace:
+> [    5.441075]  <TASK>
+> [    5.441076]  drm_gem_shmem_object_free+0x9/0x20
+> [    5.441077]  drm_gem_object_handle_put_unlocked+0x12c/0x140
+> [    5.441079]  drm_framebuffer_cleanup+0x60/0xe0
+> [    5.441080]  drm_gem_fb_destroy+0x79/0xc0
+> [    5.441081]  drm_framebuffer_free+0x43/0xa0
+> [    5.441083]  drm_mode_config_cleanup+0x29c/0x360
+> [    5.441084]  ? drm_mode_config_cleanup+0x1f2/0x360
+> [    5.441085]  ? drm_managed_release+0xc2/0x160
+> [    5.441086]  drm_mode_config_init_release+0xe/0x20
+> [    5.441087]  drm_managed_release+0x8f/0x160
+> [    5.441088]  drm_minor_release+0x5f/0x90
+> [    5.441089]  drm_release+0xda/0x140
+> [    5.441090]  __fput+0xed/0x2d0
+> [    5.441091]  fput_close_sync+0x3d/0xa0
+> [    5.441092]  __x64_sys_close+0x3e/0x90
+> [    5.441094]  x64_sys_call+0x1b5e/0x26a0
+> [    5.441095]  do_syscall_64+0x80/0x570
+> [    5.441096]  ? x64_sys_call+0x1144/0x26a0
+> [    5.441097]  ? do_syscall_64+0xb8/0x570
+> [    5.441099]  ? __vm_munmap+0xdb/0x190
+> [    5.441101]  ? __x64_sys_munmap+0x1b/0x30
+> [    5.441102]  ? x64_sys_call+0x1be5/0x26a0
+> [    5.441103]  ? do_syscall_64+0xb8/0x570
+> [    5.441104]  ? irqentry_exit+0x43/0x50
+> [    5.441105]  ? exc_page_fault+0x90/0x1b0
+> [    5.441106]  entry_SYSCALL_64_after_hwframe+0x76/0x7e
+> [    5.441107] RIP: 0033:0x713c256fa74c
+> [    5.441108] Code: 0f 05 48 3d 00 f0 ff ff 77 3c c3 0f 1f 00 55 48 89=
+ e5 48 83 ec 10 89 7d fc e8 10 1e f8 ff 8b 7d fc 89 c2 b8 03 00 00 00 0f =
+05 <48> 3d 00 f0 ff ff 77 2c 89 d7 89 45 fc e8 72 1e f8 ff 8b 45 fc c9
+> [    5.441109] RSP: 002b:00007ffc9c194100 EFLAGS: 00000293 ORIG_RAX: 00=
+00000000000003
+> [    5.441109] RAX: ffffffffffffffda RBX: 000055df73527870 RCX: 0000713=
+c256fa74c
+> [    5.441110] RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000=
+00000000b
+> [    5.441110] RBP: 00007ffc9c194110 R08: 000000055df73528 R09: 0000000=
+000000007
+> [    5.441111] R10: 000055df73528bc0 R11: 0000000000000293 R12: 0000713=
+c25450f88
+> [    5.441111] R13: 0000000000000013 R14: 000055df7356f6b0 R15: 000055d=
+f73526130
+> [    5.441112]  </TASK>
+> [    5.441113] ---[ end trace 0000000000000000 ]---
+> [    5.441151] ------------[ cut here ]------------
+> [    5.441152] platform simple-framebuffer.0: [drm] drm_WARN_ON(refcoun=
+t_read(&shmem->pages_pin_count))
+> [    5.441155] WARNING: CPU: 5 PID: 502 at drivers/gpu/drm/drm_gem_shme=
+m_helper.c:182 drm_gem_shmem_free+0x18d/0x1a0
+> [    5.441157] Modules linked in: qrtr cmac algif_hash algif_skcipher a=
+f_alg bnep sunrpc binfmt_misc nls_iso8859_1 amd_atl intel_rapl_msr intel_=
+rapl_common snd_hda_codec_alc882 snd_hda_codec_realtek_lib snd_hda_codec_=
+generic snd_hda_codec_nvhdmi snd_hda_codec_hdmi snd_hda_intel snd_hda_cod=
+ec btusb btmtk snd_hda_core btrtl btbcm snd_intel_dspcfg btintel snd_inte=
+l_sdw_acpi snd_hwdep edac_mce_amd nouveau bluetooth snd_pcm kvm_amd snd_s=
+eq_midi mxm_wmi snd_seq_midi_event drm_gpuvm joydev input_leds snd_rawmid=
+i ee1004 gpu_sched kvm snd_seq snd_seq_device irqbypass polyval_clmulni s=
+nd_timer ghash_clmulni_intel aesni_intel drm_ttm_helper snd rapl ttm drm_=
+exec drm_display_helper cec rc_core video i2c_piix4 ccp soundcore i2c_smb=
+us wmi_bmof k10temp bfq gpio_amdpt mac_hid sch_fq_codel nct6683 msr parpo=
+rt_pc ppdev lp parport nvme_fabrics efi_pstore nfnetlink dmi_sysfs ip_tab=
+les x_tables autofs4 hid_generic nvme usbhid hid nvme_core igb r8169 nvme=
+_keyring i2c_algo_bit nvme_auth ahci realtek dca hkdf libahci wmi
+> [    5.441179] CPU: 5 UID: 0 PID: 502 Comm: plymouthd Tainted: G       =
+ W           6.18.20-spi+ #1 PREEMPT(full)=20
+> [    5.441180] Tainted: [W]=3DWARN
+> [    5.441180] Hardware name: Micro-Star International Co., Ltd. MS-7C9=
+4/MAG B550M MORTAR MAX WIFI (MS-7C94), BIOS 1.G0 08/22/2023
+> [    5.441181] RIP: 0010:drm_gem_shmem_free+0x18d/0x1a0
+> [    5.441182] Code: 4c 8b 67 50 4d 85 e4 75 03 4c 8b 27 e8 ec 4e 02 00=
+ 48 c7 c1 58 04 8a ba 4c 89 e2 48 c7 c7 66 7b 93 ba 48 89 c6 e8 13 09 46 =
+ff <0f> 0b e9 35 ff ff ff 66 66 2e 0f 1f 84 00 00 00 00 00 90 90 90 90
+> [    5.441182] RSP: 0018:ffffcf1442017ad0 EFLAGS: 00010246
+> [    5.441183] RAX: 0000000000000000 RBX: ffff89bcc8704400 RCX: 0000000=
+000000000
+> [    5.441184] RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000=
+000000000
+> [    5.441184] RBP: ffffcf1442017ae0 R08: 0000000000000000 R09: 0000000=
+000000000
+> [    5.441184] R10: 0000000000000000 R11: 0000000000000000 R12: ffff89b=
+cc2bec900
+> [    5.441185] R13: ffff89bcc2268000 R14: 0000000000000000 R15: ffff89b=
+cc2268228
+> [    5.441186] FS:  0000713c25451000(0000) GS:ffff89cbe2cf3000(0000) kn=
+lGS:0000000000000000
+> [    5.441186] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+> [    5.441187] CR2: 0000713c1bfff000 CR3: 00000001179c3000 CR4: 0000000=
+000f50ef0
+> [    5.441187] PKRU: 55555554
+> [    5.441188] Call Trace:
+> [    5.441188]  <TASK>
+> [    5.441188]  drm_gem_shmem_object_free+0x9/0x20
+> [    5.441189]  drm_gem_object_handle_put_unlocked+0x12c/0x140
+> [    5.441191]  drm_framebuffer_cleanup+0x60/0xe0
+> [    5.441192]  drm_gem_fb_destroy+0x79/0xc0
+> [    5.441193]  drm_framebuffer_free+0x43/0xa0
+> [    5.441194]  drm_mode_config_cleanup+0x29c/0x360
+> [    5.441195]  ? drm_mode_config_cleanup+0x1f2/0x360
+> [    5.441196]  ? drm_managed_release+0xc2/0x160
+> [    5.441197]  drm_mode_config_init_release+0xe/0x20
+> [    5.441198]  drm_managed_release+0x8f/0x160
+> [    5.441199]  drm_minor_release+0x5f/0x90
+> [    5.441200]  drm_release+0xda/0x140
+> [    5.441201]  __fput+0xed/0x2d0
+> [    5.441202]  fput_close_sync+0x3d/0xa0
+> [    5.441204]  __x64_sys_close+0x3e/0x90
+> [    5.441205]  x64_sys_call+0x1b5e/0x26a0
+> [    5.441206]  do_syscall_64+0x80/0x570
+> [    5.441208]  ? x64_sys_call+0x1144/0x26a0
+> [    5.441209]  ? do_syscall_64+0xb8/0x570
+> [    5.441210]  ? __vm_munmap+0xdb/0x190
+> [    5.441212]  ? __x64_sys_munmap+0x1b/0x30
+> [    5.441213]  ? x64_sys_call+0x1be5/0x26a0
+> [    5.441214]  ? do_syscall_64+0xb8/0x570
+> [    5.441216]  ? irqentry_exit+0x43/0x50
+> [    5.441216]  ? exc_page_fault+0x90/0x1b0
+> [    5.441218]  entry_SYSCALL_64_after_hwframe+0x76/0x7e
+> [    5.441219] RIP: 0033:0x713c256fa74c
+> [    5.441219] Code: 0f 05 48 3d 00 f0 ff ff 77 3c c3 0f 1f 00 55 48 89=
+ e5 48 83 ec 10 89 7d fc e8 10 1e f8 ff 8b 7d fc 89 c2 b8 03 00 00 00 0f =
+05 <48> 3d 00 f0 ff ff 77 2c 89 d7 89 45 fc e8 72 1e f8 ff 8b 45 fc c9
+> [    5.441234] RSP: 002b:00007ffc9c194100 EFLAGS: 00000293 ORIG_RAX: 00=
+00000000000003
+> [    5.441236] RAX: ffffffffffffffda RBX: 000055df73527870 RCX: 0000713=
+c256fa74c
+> [    5.441237] RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000=
+00000000b
+> [    5.441238] RBP: 00007ffc9c194110 R08: 000000055df73528 R09: 0000000=
+000000007
+> [    5.441238] R10: 000055df73528bc0 R11: 0000000000000293 R12: 0000713=
+c25450f88
+> [    5.441239] R13: 0000000000000013 R14: 000055df7356f6b0 R15: 000055d=
+f73526130
+> [    5.441241]  </TASK>
+> [    5.441241] ---[ end trace 0000000000000000 ]---
 
