@@ -4,162 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F3AE2FEA832
-	for <dri-devel@archiver.kernel.org>; Wed, 25 Mar 2026 07:57:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B46EDFEA830
+	for <dri-devel@archiver.kernel.org>; Wed, 25 Mar 2026 07:58:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6D4E410E7FF;
-	Wed, 25 Mar 2026 07:57:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 15C8010E801;
+	Wed, 25 Mar 2026 07:58:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="b8b2Icgj";
+	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="JZd6dp6O";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6058310E7FD;
- Wed, 25 Mar 2026 07:57:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1774425437; x=1805961437;
- h=message-id:date:subject:to:cc:references:from:
- in-reply-to:content-transfer-encoding:mime-version;
- bh=jfWY/zQUgHwCYkQJJ7MpxxttLet+o4TCcRl0PWdHrE0=;
- b=b8b2IcgjVr+DA+x4ORswiMQ2SR2OiqYDPpOnvjswX/bYFkYpsM9kNKyh
- j9aom0JZr5Z5RwwOmcSFcaPecX6HiXWhrBqt3vJex9UP9rkVC5lOfqttu
- X8q8hBf6YDDsjlH+4WDrB5xEQJt2vc9Z9Xaprn2SkhaB9RsPmQwLPLZDQ
- xdVlQGq+yGui0nH6MVPafWVEiu4c7J9y78AxmTNxedt5vlEHT6pxkj574
- 3vZ1E6sWXVP3orIDmkFh4eSy9gvSWhvKFpcXpwd5s8MTn47vH3nzxTE96
- b9T7ozaT32/ygXx2LW2oOcpHmmjxVfwHvhQ3SioC8mXGiMSBPbLotP7CN A==;
-X-CSE-ConnectionGUID: kVrZureVSUyD3I+whjgs6Q==
-X-CSE-MsgGUID: YGT6xYQmRr2suRnLz7GSYg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11739"; a="100904035"
-X-IronPort-AV: E=Sophos;i="6.23,139,1770624000"; d="scan'208";a="100904035"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
- by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Mar 2026 00:57:17 -0700
-X-CSE-ConnectionGUID: ntdhYkjsTpmCDcIUz77lqQ==
-X-CSE-MsgGUID: EEGZRRmsQW+nQtrCCv1bmA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,139,1770624000"; d="scan'208";a="247635525"
-Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
- by fmviesa002.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Mar 2026 00:57:17 -0700
-Received: from ORSMSX901.amr.corp.intel.com (10.22.229.23) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Wed, 25 Mar 2026 00:57:16 -0700
-Received: from ORSEDG902.ED.cps.intel.com (10.7.248.12) by
- ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37 via Frontend Transport; Wed, 25 Mar 2026 00:57:16 -0700
-Received: from CH4PR04CU002.outbound.protection.outlook.com (40.107.201.10) by
- edgegateway.intel.com (134.134.137.112) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Wed, 25 Mar 2026 00:57:15 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=CK48dxe33sKVKZBqNVPY2W501CpB8lpKWY2yYgTci2hSJyjr49EsksQTtP49+FMtHTkBoe1oYCEBYYw96YTUokkmlCbWYqhENKubyokKbpfcdlPjFLdJf0tCG9Ms1qkvthYf7DI0kz5P3UuRU11GdqIT+fNn6c1qpt6si9o7dnA+c1uxLgHMallVGuuzUgymxmdbFCK1DKg5kYh/NPAY8DbpvS9JvkD75P/YMFN9FgGhCiyaFpXBfiHa0EbxcQTUfLqQbm6LKN3PvJz9E/Vev+t9MwBw3Oygb2RmNhanhMoKpwHZqpTbbsx//Xs2EhU2IHjWFPRUvJEwmHC2Hv9vSA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=n1YpnKN37fOHx0ZluMcdTtPqqq3Qkjn5Vmu0YWMtcLQ=;
- b=d3kF4UZBi+JkAauTg7BQ4mfxPobbhHsOtD/O34TUyunuRoiNSiRL+2KDTwbNxDTYmwwUUSgJbqnAsxmB9djgay4NVj66c3SyMFTxbAk1TndlJ6t2rV3tVkeBSqT9nrcOu4KfLOXpHErRFUu0bUlPOJo2aIeCgRS1b3A6mj+5s8Mz1M8WUMbaYugKnRzb5N6jB1YjYZ56FvjBHUFlTxMfpA8rVVy7KlH15ZvSbRasG5vOM7U5Chn5tCjY4e6HJH337jieQtC/TIZIHgHEZxqOATbITHV+9NNbus2Ra+cQydpka16iuzDh1QAtElhKZq5Eet1QcveVgWB+HJbspED3Fw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from DM4PR11MB5341.namprd11.prod.outlook.com (2603:10b6:5:390::22)
- by SJ0PR11MB5056.namprd11.prod.outlook.com (2603:10b6:a03:2d5::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.20; Wed, 25 Mar
- 2026 07:57:13 +0000
-Received: from DM4PR11MB5341.namprd11.prod.outlook.com
- ([fe80::68b9:ea3c:8166:3cc4]) by DM4PR11MB5341.namprd11.prod.outlook.com
- ([fe80::68b9:ea3c:8166:3cc4%4]) with mapi id 15.20.9723.013; Wed, 25 Mar 2026
- 07:57:13 +0000
-Message-ID: <01b89e62-15c6-4f4b-ba14-5eba2b3d16b6@intel.com>
-Date: Wed, 25 Mar 2026 13:27:04 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 02/19] drm/dp: Clean up DPRX feature enumeration macros
-To: Jani Nikula <jani.nikula@linux.intel.com>,
- =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
-CC: <intel-gfx@lists.freedesktop.org>, <intel-xe@lists.freedesktop.org>,
- <dri-devel@lists.freedesktop.org>, <jouni.hogander@intel.com>,
- <animesh.manna@intel.com>
-References: <20260311113611.3393194-1-ankit.k.nautiyal@intel.com>
- <20260311113611.3393194-3-ankit.k.nautiyal@intel.com>
- <abP4vUF0YH2uA3-P@intel.com>
- <789bea1d1c00fc95782adcfe1ff0a85129b206a8@intel.com>
-Content-Language: en-US
-From: "Nautiyal, Ankit K" <ankit.k.nautiyal@intel.com>
-In-Reply-To: <789bea1d1c00fc95782adcfe1ff0a85129b206a8@intel.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: MA5PR01CA0143.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a01:1b9::6) To DM4PR11MB5341.namprd11.prod.outlook.com
- (2603:10b6:5:390::22)
+Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com
+ [209.85.214.180])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2A81610E7FD
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Mar 2026 07:58:24 +0000 (UTC)
+Received: by mail-pl1-f180.google.com with SMTP id
+ d9443c01a7336-2aecefc7503so47295025ad.1
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Mar 2026 00:58:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=chromium.org; s=google; t=1774425504; x=1775030304;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=fzYr866Y+nhDeVzwxBplwIhb3zjPYVx7VrTJzl9KpOQ=;
+ b=JZd6dp6OWcSOjPgHodAKazcJmViQV7DughvE0m+iqNayzboZLBQP0phNgkxJh6Krnb
+ OuuAbKTF3CvnLuEDDYK+vxEcj71znegNmUFngpauJRbCWk32E/v645/URzu/8Ya+Jv+V
+ DuduG/zgVY7hiocYs7l7A7XuuSMQJeNELQ5t0=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1774425504; x=1775030304;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=fzYr866Y+nhDeVzwxBplwIhb3zjPYVx7VrTJzl9KpOQ=;
+ b=j8iPjL02Rv0j2Hxq/jx8sO9aJ3uaxgCcOl37fW1N8skcTGvrj+ZhnS6RYAKX7OZPj3
+ S0uEAcYJGSpqyWKDeEo+HmgjLI9FIjIUvjP4RK94lOOAMmAQpOxzajH1nHaaaQpbnpHE
+ fYenj8UZThaZijiD2qAIdtXdfbXwcNbwlu/3IHVnuXOn3NtrFKm+6ArVcYY8sfycEVaZ
+ FcMU2JVNMvygi1B2CqxltCqqlWySWzK0YHdIJ2GNm65yz6DYHaergezuFWBB03+NnD95
+ k7qCduoXJniXq2ievS+HvVesnnZMNEuuCDLOTaJ4DW4f/46Ep3FJnFtfSpoONJZSEbN+
+ MP4g==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUhSWujVn0d2Y3n47yo1F0WFTLJKjMl0ui+a3zUe6IPML5gqZ6lSX0ypwKdqen2m01lJMIRn43ikt4=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwZSipZnpbQ4kiB8xu3yArrrBr1Tjg4FVpO07mTgB6TZc2xqK+j
+ CdIvH9JXqyINi7dWyhIH40PicOoChr5sKgogmtVcu4Wt5Quk382KR3htOrbfmjJ9vg==
+X-Gm-Gg: ATEYQzzOsKF4W8FKynC0J8Moj7zxCPWG+0UGzb4ZWFbmJoH1QTZMDPuwLOawJpwTuCk
+ adzUcKn4/8gfvZ63G/BuM5IcgF7860K5YGwPXkMigkIk9X7MJT/9/phWdlNPg0cPzEuVYmVD/bU
+ Z6ABGgBq33bkQipDNwyuv43lOQuf0NggIswhhog/+QAU3+yeHtAvDJxBNh25QSHLzF/loF2SfBB
+ WYi1gEEL/A5SxjFSOrYp0KtlQrbuaLitlDKcvKHXNyBzRUaKl9LYlZCV6m0QHUwB4F/3NMwKdYM
+ H3ijc13K6ghilrAZ2M0fma5wXRnq747sopK02+1y91mxP813visdI4o0k5T6bbce4Z3XthZzt6C
+ WTg65t7Duq6TYZ+kR1hIps81UNibekR2326uHElwRYvvKuQNKObkBBlcbYG8aCAUtSrte3SFqox
+ sBgN6YCMfZ3vVkRc7TQc6173QV6rgIOaJ8KU1L6/aBLtkJF9MwppDLFiwzj8hQT1zWN+I/Zm4m+
+ mCQleM=
+X-Received: by 2002:a17:903:37c3:b0:2b0:5aab:c40a with SMTP id
+ d9443c01a7336-2b0b0af4c01mr28590075ad.31.1774425503648; 
+ Wed, 25 Mar 2026 00:58:23 -0700 (PDT)
+Received: from wenstp920.tpe.corp.google.com
+ ([2a00:79e0:201d:8:7ff0:bee3:7d45:eab])
+ by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-2b08366c3f7sm219682465ad.60.2026.03.25.00.58.20
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 25 Mar 2026 00:58:23 -0700 (PDT)
+From: Chen-Yu Tsai <wenst@chromium.org>
+To: Stephen Boyd <sboyd@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Frank Binns <frank.binns@imgtec.com>, Matt Coster <matt.coster@imgtec.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>
+Cc: Icenowy Zheng <zhengxingda@iscas.ac.cn>, Icenowy Zheng <icenowy@aosc.io>,
+ Chen-Yu Tsai <wenst@chromium.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, linux-clk@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-mediatek@lists.infradead.org,
+ dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH v2 0/5] powervr: MT8173 GPU support
+Date: Wed, 25 Mar 2026 15:19:44 +0800
+Message-ID: <20260325071951.544031-1-wenst@chromium.org>
+X-Mailer: git-send-email 2.53.0.1018.g2bb0e51243-goog
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR11MB5341:EE_|SJ0PR11MB5056:EE_
-X-MS-Office365-Filtering-Correlation-Id: b61c20ee-1949-4156-b03e-08de8a441f74
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|376014|1800799024|18002099003|22082099003|56012099003; 
-X-Microsoft-Antispam-Message-Info: gHXTZbDRLKuSGXLVDfbdoCQR468GplEvgiDkqX0PUYxGYjO05GLyh2A3fu0KG0sqUbP5tlRMp2+/VKbcgjE8sw+nPhXEwn0Exk9y8g1hTjr2a/C/LJMERZTn7OwmiLi22ybh1AM6aTw9dicU6+9YzKHd1XYnhEGHjYPEDpbloh8MYVbAc5h7VQ/0SAnS4aqhaVCfuFcorgUmRk9rNU5XF9KUxRePBJVJ2iFGymLLVZNgcwehBrlDyaFn0uJ4vba/Pu1Rm4UCLrqiU2NSKL1+BLzIZno89esbl2Ix8VOlrGBocqJaa0QaN1bJGOKJ89VUOyKKScvMYvowgujJqOVDkpCB0W4QuzH+YVsMHaQkG4c7vNJ0XtWo5fWXhKuoU6Vd9j2wDXPysFyb24kU7/WzuVDLTS82DM3VBvwes8pYlcEpJ5uT9oYqqc+nQE1DLJKmoQHE0ol17l2VdovyxmybtP8iRPfX4QWWyibaVenViGZbCrdyqCJ6bKUNhkMc2PAhneNkuaRnWackkcOnCkkgl2MTUCaoVrB+z89oTwuOmWaUFHI7MGUypJnZUzyvhTXSuqAznpUefWyjjdj2F4cpzFfRExMEWV5Q5siffeEKsQ5LDVp1C/BO6yLi/OVGOqGKDV8Ru8EDR+vYjPIHnW1JvQhaX64vgltmrfJF3qHr6BXcn3muaQGpNhiYZdGUJr+aEdEIKXSPkg6qqUrTaLHCnwJrFn05CoAXNOtMM2REfII=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR11MB5341.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(1800799024)(18002099003)(22082099003)(56012099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?QXJFRjZsT0JBN2gxemNMZzcwbTVjL1NPM0hHVW9IRFB1ZmkvdUJlbFRqME92?=
- =?utf-8?B?SGRqeTFHSFppQnlwZU9jOUJHaWxNZHpKOUlNQjBVeFZGNGE0Y0YrYjBZcmxS?=
- =?utf-8?B?TjFJdmFlYUR3NXZjMkQ2amN2M2cyTmpUc3cvRDRvZklIdTA3a3JNTDR5dE5y?=
- =?utf-8?B?cWp3QXExblNpN3FHRzVxclVkdWhGSEptZW1Sd2JHRk1uUEp4SGQzSEVtUmxZ?=
- =?utf-8?B?Q3dVdXRIWjFDR0dqQUg4MGNBVmlLWEJyd0V5L2xPY1VzRjhjU3hOSG1FSHpY?=
- =?utf-8?B?dWR1WnJ0d2kwdDc4dFp1WHp2cSsxOFIyT3pvLyswQ2N6azlTNm5wcmJqZ24v?=
- =?utf-8?B?OWgvVi9kMVNOY2V2NmZFSTNoZFprb0xrcjcvSGRNTDRSNTdvaVRTdnNBQXBI?=
- =?utf-8?B?L0oySHV6NDZoQWVWMVo5L3hLM2ZONGMyTmNMcXV3YnREUElQWWZ5RlFjS094?=
- =?utf-8?B?YlFiRTRsWWJQdDM0L2RaZ0dDR2txZW8rMXZHU2V2SkhFMkJBTmFQL3lkQXVE?=
- =?utf-8?B?elZnUUZPVXhnQzNRUEF1ZzdzdDJhSnhQellLTWlrSU9VTWplWGhkUktLSmhT?=
- =?utf-8?B?bC9YK1cyYzhTb2dOWUVFYlRUUUd5WlJpWXltbkxLTm1NV0xGRTc4dXdSaUxk?=
- =?utf-8?B?UVVMWTRZUmJDTGZHZVNCS3FNZ1hiUy9hTGt4ZG5oeWlJT0VoaEJyMHgrZzlC?=
- =?utf-8?B?RHRrbmRVZUxTK1ZrQzRjMENRbjJ4N1lQdTVkVGNNTUF3Wmw4bURmZmhUWEMz?=
- =?utf-8?B?L0pMTmlyYVlZZTMzUTMxaFU5bGZNSE9UR01tREh0VDVjRzk3dWtVUDFaRFla?=
- =?utf-8?B?RzZVK3VmeWxiOFk2VzRXYnFhb0dyZUdXcVpjYUlXZkEvcmw2Sjc3aWhvWmVa?=
- =?utf-8?B?bzk0N0dxR29JVEtXL0dVYzMrMHVVSUtNT1o3V1dUQzk4OHJvRjhacFk4UDVL?=
- =?utf-8?B?ZkVwcDNuSHFBbUF5NGgvVC9QcSszWHpCVmVETlNaVkluTk1YZlhBUTkrQWJV?=
- =?utf-8?B?ZVpGMnhMVDBNc0FMOVRvVWRuUzY2K2kwTDV0SVNtMHRYN1ZaTXl5Rm4xWlUv?=
- =?utf-8?B?RGJjbTRZTVdCbndtblJRNWFZUU5pR1picDdJOWd1NEJQVnRSdjQveXFleWVn?=
- =?utf-8?B?bHY3NWRvQ295YURoYUJiS3Nsbyt0eUxxa21SZld6STQzSGZFcTFtODNPQXJZ?=
- =?utf-8?B?U0lpb1BmdHZ3S24zNEw1VmlJUGYwV3dBRnpNamY2d2RXUlpwdDhORlBhcDcv?=
- =?utf-8?B?bUFFbytMS255a1NKZThtM3p4cjcwS2xwcHJWODdZeXQyaW5FNzdvWGpUSVJu?=
- =?utf-8?B?TXVST3ZIaDJNWHFiMkN6QWY2VHpsbW12NHVWby84UG4wUHk4eEpXRFY3b2pB?=
- =?utf-8?B?Sm9yeWlQSEM0Zmw2OWJKM1dNRUFiaUo3a2QyelJLM1huTjgrK1djalh0R1hG?=
- =?utf-8?B?OHZaVHB1STZOTHZDcGY4Ym55K0RTRURPMTQvRng1STd3enZ3MG5PU2dHbUJy?=
- =?utf-8?B?WnBzTDh3SnJkQXJDM05HamJrZEZNRzM2L2dFOGNKYnhjL1h0Q2JUK2JSR3E1?=
- =?utf-8?B?Rjd4Q0lxVDlVL3EzZGV2MXR0Q3ZrN0s0dkFpWkFQWmlHMy9pcEhBcUFSV3lF?=
- =?utf-8?B?RytwMHlyT1FaWldOa05vWnlkdHFvVmljMWFHME1NbW1Dc1ZGQVZvclZTb01T?=
- =?utf-8?B?MGZXK2Y5STVSWXdVdVZQeHVXOXYyN0U1MVVpOWVyV1R5bDViT2xYYWFFWEYv?=
- =?utf-8?B?ODBqdXdIN2V2SFFpMUx3a2hRdzdRQ3U3d1dWZFNoOUFJUldDbjBac2EwOEtj?=
- =?utf-8?B?M1djTWsrbnBKYW1hNzNCdktPTFBWTzluWHBBUzVXODd0ZXFhWGt2Ym11dEhB?=
- =?utf-8?B?cC94RXFwZ3k4VUlUMTBYSXk1RERBZHFVbTVxQkN4NVdyTDYzM1VPMTFqU2Ra?=
- =?utf-8?B?SERFNmhUMDU3M2tSd3VwaEZiN0JmaGhmVTJsbzNkakZBaHZQOWVaeTJkcS9P?=
- =?utf-8?B?clp3M0lTazdRSUtsdGR1Q29rNDM3QWc5dTJTcWJzc2Z0QlRFSGFNZGdNU0Q5?=
- =?utf-8?B?NzVNMCtpRFlEK1VGYm1yWkg1eVhBUDJmWlZwNXJXOC9GNE9ONzFaeHpFdXAy?=
- =?utf-8?B?UHFqUzNweUt1Z01FNXFaZUpqUjkzNS84ZmQxNkhyUkNxay9qSTJqbW54TEZP?=
- =?utf-8?B?NDhGb1NYSERucW9zNFU3dnJRSkx1KzgvZVBON2lkbkNpWGMrZG9NQWZ5WWtE?=
- =?utf-8?B?aEtMa0h6NEdpNERXOExhaFJFeEVOYVhERzh1ZUxhbG1XcXc5MjRuTjh2Q0pX?=
- =?utf-8?B?Y1pqdkpxSkFDbG1VWUZJUmZKTDA0aDA2dDJ3ZVVCSVZFS09GUUgzMVNEc2ZT?=
- =?utf-8?Q?53l1E2WKG7UYhvA4=3D?=
-X-Exchange-RoutingPolicyChecked: vRYWPuWUsxEFdQTQg6RKIektr/fdMVplWVl64q4sK+gyxRhoVAIbRZT5kWsqW/s9IkggBlq1wFBNUEOdqn35fBy0MtIjcVhcM5AtH/xfp8J7n2C+NPahshKdVR+j896YlwfgK22iuOU7/g1j+0uI8ZKs/23HEBXFfvHwOkZFEiyWwqzFcsOAnkVzT7pxcr42j5lBEN7AUjduWUfI5STwS5vZxuAoGAGOPE1ckBE4j/ytMMzG4LxH851Fs0YUYIElmjshBaekrI+TBHxBcIpzJTkx3PDlyyb5YQMgzbV2P8no/NBABmg/ARHiksrtW/8NAXq3WgG1NS9Rgl1PIML2QA==
-X-MS-Exchange-CrossTenant-Network-Message-Id: b61c20ee-1949-4156-b03e-08de8a441f74
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR11MB5341.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Mar 2026 07:57:13.3631 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: q/CEYqiUtMFwkVbughJi8C2RMv4TqtjnMyF9VIU2Drv2quESUt5ns7M/J/H4u6GWKPaBqMGRHYNGxfVMGqSuM9ch386TF6HU+y9o57EPHiE=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR11MB5056
-X-OriginatorOrg: intel.com
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -175,61 +94,87 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Hi everyone,
 
-On 3/17/2026 9:35 PM, Jani Nikula wrote:
-> On Fri, 13 Mar 2026, Ville Syrjälä <ville.syrjala@linux.intel.com> wrote:
->> On Wed, Mar 11, 2026 at 05:05:54PM +0530, Ankit Nautiyal wrote:
->>> Align the DP_DPRX feature enumeration macros for better readability and
->>> consistency, and use the BIT() macro instead of open-coded shifts.
->>>
->>> Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
->> If we really want to go for BIT() someone should do a full pass
->> over the whole file...
-> Should also use BIT_U8() and GENMASK_U8().
+This is v2 of my MT8173 PowerVR GPU support series.
 
+Changes since v1:
+- Adapted to changed DT bindings
+- Dropped driver change
+- Use same power domain for "a" and "b" GPU power domains
 
-Thanks for the review and the suggestions.
-
-Agreed that a proper conversion to BIT(), BIT_U8(), and GENMASK_U8()
-should really be done consistently across the whole file. That would
-be a larger cleanup and probably deserves a separate patch/series.
-
-For this change I’ve kept the scope intentionally minimal and focused
-only on the touched definitions.
-
-Thanks again for the review.
+This update was requested by Icenowy.
 
 
-Regards,
+This series enables the PowerVR GPU found in the MT8173 SoC, found in
+some Chromebooks.
 
-Ankit
+This version is different from the initial powervr driver submission [1]
+in that it splits out the GPU glue layer support out of the powervr
+driver and into a separate clock and power domain driver. The glue code
+is otherwise the same, and also the same as found in the ChromeOS
+kernels, with some extra comments and macro names added where possible.
 
->
->> In the meantime
->> Reviewed-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
->>
->>> ---
->>>   include/drm/display/drm_dp.h | 8 ++++----
->>>   1 file changed, 4 insertions(+), 4 deletions(-)
->>>
->>> diff --git a/include/drm/display/drm_dp.h b/include/drm/display/drm_dp.h
->>> index 4ea3b5b08a12..49f0154eb93c 100644
->>> --- a/include/drm/display/drm_dp.h
->>> +++ b/include/drm/display/drm_dp.h
->>> @@ -1202,10 +1202,10 @@
->>>   # define DP_DPRX_SLEEP_WAKE_TIMEOUT_PERIOD_80_MS	0x04
->>>   # define DP_DPRX_SLEEP_WAKE_TIMEOUT_PERIOD_100_MS	0x05
->>>   
->>> -#define DP_DPRX_FEATURE_ENUMERATION_LIST_CONT_1         0x2214 /* 2.0 E11 */
->>> -# define DP_ADAPTIVE_SYNC_SDP_SUPPORTED    (1 << 0)
->>> -# define DP_AS_SDP_FIRST_HALF_LINE_OR_3840_PIXEL_CYCLE_WINDOW_NOT_SUPPORTED (1 << 1)
->>> -# define DP_VSC_EXT_SDP_FRAMEWORK_VERSION_1_SUPPORTED  (1 << 4)
->>> +#define DP_DPRX_FEATURE_ENUMERATION_LIST_CONT_1					0x2214 /* 2.0 E11 */
->>> +# define DP_ADAPTIVE_SYNC_SDP_SUPPORTED						BIT(0)
->>> +# define DP_AS_SDP_FIRST_HALF_LINE_OR_3840_PIXEL_CYCLE_WINDOW_NOT_SUPPORTED	BIT(1)
->>> +# define DP_VSC_EXT_SDP_FRAMEWORK_VERSION_1_SUPPORTED				BIT(4)
->>>   
->>>   #define DP_128B132B_SUPPORTED_LINK_RATES       0x2215 /* 2.0 */
->>>   # define DP_UHBR10                             (1 << 0)
->>> -- 
->>> 2.45.2
+Patch 1 adds a binding for the glue layer, called mfgtop. The glue layer
+contains clock and power controls for the GPU.
+
+Patch 2 adds a driver for the glue layer.
+
+Patch 3 adds an entry for the MT8173 GPU and 6XT series to the PowerVR
+binding.
+
+Patch 4 adds an entry for the PowerVR 6XT series GPU to the driver.
+
+Patch 5 corrects the clock for the GPU (called MFG) power domain.
+
+Patch 6 adds device nodes for the GPU and glue layer to the MT8173 dtsi
+file.
+
+Patch 2 and 6 depend on patch 1 to build. I suppose some common
+immutable tree would be needed from the MediaTek maintainers.
+
+The kernel driver successfully probes the hardware and loads the
+"rogue_4.40.2.51_v1.fw" firmware provided by Imagination Technologies [2].
+Userspace was tested with Mesa 24.0.8 from Debian Trixie rebuilt with
+the powervr vulkan driver enabled. `vulkaninfo` gives some information
+about the GPU (attached at the end), but running the `triangle` example
+from the Sascha Willems demos [3] with -DUSE_D2D_WSI=ON as recommended [4]
+failed with:
+
+    Can't find a display and a display mode!
+
+Same program worked correctly on a BeaglePlay and displayed a color
+gradient triangle. Not sure what went wrong here.
+
+Anyway, please have a look and test.
+
+
+Thanks
+ChenYu
+
+[1] https://lore.kernel.org/dri-devel/20220815165156.118212-2-sarah.walker@imgtec.com/
+[2] https://gitlab.freedesktop.org/imagination/linux-firmware/-/tree/powervr
+[3] https://github.com/SaschaWillems/Vulkan
+[4] https://lore.kernel.org/dri-devel/f2b2671e-5acc-4dec-9c2e-3c9cd2e1f19e@imgtec.com/
+
+Chen-Yu Tsai (5):
+  dt-bindings: clock: mediatek: Add mt8173 mfgtop
+  clk: mediatek: Add mt8173-mfgtop driver
+  dt-bindings: gpu: powervr-rogue: Add MediaTek MT8173 GPU
+  arm64: dts: mediatek: mt8173: Fix MFG_ASYNC power domain clock
+  arm64: dts: mediatek: mt8173: Add GPU device nodes
+
+ .../clock/mediatek,mt8173-mfgtop.yaml         |  70 +++++
+ .../bindings/gpu/img,powervr-rogue.yaml       |   1 +
+ arch/arm64/boot/dts/mediatek/mt8173.dtsi      |  33 ++-
+ drivers/clk/mediatek/Kconfig                  |   9 +
+ drivers/clk/mediatek/Makefile                 |   1 +
+ drivers/clk/mediatek/clk-mt8173-mfgtop.c      | 243 ++++++++++++++++++
+ include/dt-bindings/clock/mt8173-clk.h        |   7 +
+ 7 files changed, 363 insertions(+), 1 deletion(-)
+ create mode 100644 Documentation/devicetree/bindings/clock/mediatek,mt8173-mfgtop.yaml
+ create mode 100644 drivers/clk/mediatek/clk-mt8173-mfgtop.c
+
+-- 
+2.53.0.1018.g2bb0e51243-goog
+
