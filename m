@@ -4,86 +4,86 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0252E109C033
-	for <dri-devel@archiver.kernel.org>; Wed, 25 Mar 2026 16:45:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 93DEB109C045
+	for <dri-devel@archiver.kernel.org>; Wed, 25 Mar 2026 16:46:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5667010E7F9;
-	Wed, 25 Mar 2026 16:45:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DC11210E840;
+	Wed, 25 Mar 2026 16:46:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="I3CA/vDV";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="JGK9GP7+";
 	dkim-atps=neutral
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8A11B10E7F9
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Mar 2026 16:45:39 +0000 (UTC)
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4585D10E80F
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Mar 2026 16:46:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1774457138;
+ s=mimecast20190719; t=1774457182;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=Ftd/0TQGIE9c59GDOnzxjZSo9Rgf5/Q6QtZeZaOnsDc=;
- b=I3CA/vDVX44nGQ0ZPnYqDbaCnUPU0GNj6PC3cyOn3fN6OHt2rNJrAShq0Xz49vWxSqKUND
- DmYVeY7BecuttqoSuLT/zWX3H8rNKpYUYXyGdnV/7JI1oYttW38QDibsi/5C079qOpjx5j
- iPFjDTNtf0tkI+huwTigvf2wBPdrF6g=
-Received: from mail-lj1-f197.google.com (mail-lj1-f197.google.com
- [209.85.208.197]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=RBp0EM/0gMbUmG1WoZ9pCgnQGr1i9P//5UlJPVlMc9s=;
+ b=JGK9GP7+bkRL9F0qUgmH27Dtporg8bU/uGU9O+bth7aRfNs+dagE0zp40KBtvQMd5WDUdm
+ 213iGHtna1d+bRqmWn78YVHC0iPPQivVTpBWYPzBQdJA8ZDKW8rF09u1ycP5cOMSTFsk1c
+ /MoMKMOGFdf8jy79ysRm2MJyBTxBgHU=
+Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
+ [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-18-RVHpMEGNNkKihRlZtBSOtw-1; Wed, 25 Mar 2026 12:45:37 -0400
-X-MC-Unique: RVHpMEGNNkKihRlZtBSOtw-1
-X-Mimecast-MFC-AGG-ID: RVHpMEGNNkKihRlZtBSOtw_1774457136
-Received: by mail-lj1-f197.google.com with SMTP id
- 38308e7fff4ca-38a4197d57dso3027061fa.0
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Mar 2026 09:45:36 -0700 (PDT)
+ us-mta-599-VTu2uXLhPGeYwNU4a0rWpw-1; Wed, 25 Mar 2026 12:46:21 -0400
+X-MC-Unique: VTu2uXLhPGeYwNU4a0rWpw-1
+X-Mimecast-MFC-AGG-ID: VTu2uXLhPGeYwNU4a0rWpw_1774457180
+Received: by mail-wm1-f72.google.com with SMTP id
+ 5b1f17b1804b1-486fcc05b20so346705e9.3
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Mar 2026 09:46:20 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774457136; x=1775061936;
+ d=1e100.net; s=20251104; t=1774457180; x=1775061980;
  h=content-transfer-encoding:in-reply-to:from:content-language
  :references:cc:to:subject:user-agent:mime-version:date:message-id
  :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=Ftd/0TQGIE9c59GDOnzxjZSo9Rgf5/Q6QtZeZaOnsDc=;
- b=XoOb6169yUa9WaLcuvl09dWdDlbH5KsvPmOFfg58DH5gNZZc4SezL8bXatXHOY9EOJ
- bHrVdptUNZ5BaoeN/TYCxui3/otJum9kwZiC+dxxszo5sUQahS9dowtuFLSH7Ygxvw05
- 4t9VqkE+1biD4eR49UUpfB0qOh3qgE+FO2aekPstt0kAmxMop4MUxfs21Rc3+CSCM6qN
- QoSgwfSY5t1zjeuFYHD1NviXRI81wxHqkBEeE8WdLu/rwsHbXkg3ExFlJNGcHXTteChT
- SbhIguuhAHR+JwqLoKbOew950j9gMLqYlbEoEtqDqmB/aYwFii20gRXSVLSPNJhkyESX
- IPHw==
-X-Gm-Message-State: AOJu0Ywhglp+LVE5ZpvQHQa4jrS8DRdfMv4m7y8/9R+anZVtM7PGx4W5
- sERyDuWhTa2WcHHbqfJB4Jqaxe4H2nUttdUovQa5fhKZ33Pl+PZHSHKHWqE4EilczQuYhXmgDri
- s+nSpnc5l+mjoDrXoBjbFfrnTlhnMSMR3H4yaJPTs0lqsPPTUrQ1J+4NmyZif/ivWRUf9kA==
-X-Gm-Gg: ATEYQzyqcUdKi+rENiY/Gg5+c7sTXBIV2kyNR7AjJwx0SfyrIKCpYHRjpZYQZjjhy87
- +FWViHuFLdiDF2MJn6oeoxlmo+Dvt7f9eZRJvrDsiZQw4AjZabYrAd00oSbbRaQ1eib54bxZLNC
- 8T6etIifAaidtrkRaTeWmkGlWDrzLbkjbMU/isFry974dQm1toS/zdieccXNHW2W78laf+N8LG3
- I3k2dZca3ikocNHTWuSDQb8EqY/ViUWhNxGV6unHtu+O3JtUzFXNc18FBQ66kdk1tGmJ3TrmFgJ
- wr8UaKix/JRg6TxM7hWzgWZeaSocjUx/6Z0q3I3axe9Z7U7KMNQAaPSaWYW5E0Y9vtYirS/O+XP
- 4yje8wu1B6b2G9IOMFPbLZJ2dniBd9PCxrFPY7lzm+5hjdGtJ29HUL8iW7F3vNQ==
-X-Received: by 2002:a05:6512:318b:b0:5a2:7851:7d46 with SMTP id
- 2adb3069b0e04-5a29b9936e9mr1372504e87.35.1774457135456; 
- Wed, 25 Mar 2026 09:45:35 -0700 (PDT)
-X-Received: by 2002:a05:6512:318b:b0:5a2:7851:7d46 with SMTP id
- 2adb3069b0e04-5a29b9936e9mr1372478e87.35.1774457134879; 
- Wed, 25 Mar 2026 09:45:34 -0700 (PDT)
+ bh=RBp0EM/0gMbUmG1WoZ9pCgnQGr1i9P//5UlJPVlMc9s=;
+ b=riTiaKM9ttYxbyBlckCzpPC5fym4jluE9ePy/eyL1ABMD7yAd3yMkBjTz7GVd9wBL6
+ a0G9ZjEihXvG0l7ovm0jwqu0clKfSqB8XlF8kUmVOzKP3CceIg9TD8O9ELXmeTRegva/
+ nEc1vT0Nfn1/viRTv80z8ne5i6uku+ID9XPKMdUN7GCMO/PCs1onlQpH4kqbD8RCyChV
+ mJClhvHLZgB9ag8kZgWdQ3mDBU0EoKXQvoo4uLVoK7vtOMSbhlHOBP3QgARbQIF/sbas
+ zTEllIks35OiIw+Bre+p842U+gNjP39s7x5amKBCyNtQKhNIVwbrnQpP++knXNmZ/4xk
+ kRyg==
+X-Gm-Message-State: AOJu0YxyqDfQ4n6jfnbYIQqoPe88TCBR/N/+/jTCtkBa0Ald7swg1/5V
+ e29IdXYKjcAuXsD2UXzT12TYw6vbssYuONEHcFZaLuxlBBXqvCoVA7AJepH+OsKaaZO3gf3EEbx
+ /++Tcn00XZHKUid4n3tGUw8g+x3+7/2Ueyva4C9YIKK4hbDI0c/BhCWdTFI5aPf4/xsPs0A==
+X-Gm-Gg: ATEYQzySN/8aQSGtVObXD8pD+8L/bvdoOJWmdZw2r5ZNg29zuDQ0arIRbFfJDXA2fGz
+ DlUwKjOmMcs/yrFRzSpM1h5TozzHC5lxj+RA3TrzIDUHcmiGmJgMxuEiKLuzkbXQxORggdFkvcG
+ eqevUmNckAlclwY9SGPeoJdMoez6Qybfl9E8S45Fx/rxmVa4JrxnhAgDUOm2BvufK7crXrIAEXa
+ /L3WxY5iAnPGFJiVf3H3o/bK6yltv9lPBa5oDlvRY0ZrfzTIWHb93pBu4Pyw01zE8Q4k79GAeHN
+ mDrWOlg3geQe9qyz9j2tCDNc68RT4LMUFpg5kd9VdwXIvDmnntQ08i0jUe42sdFtJYs5P5qNgdj
+ ClyrSAvWpuZ0Zqd10cPDcVlxT2L0VTGXzoTT+b0f5vTkcMYl+0EVuQic5Y4RKfA==
+X-Received: by 2002:a05:600c:c490:b0:485:3ff1:d5ed with SMTP id
+ 5b1f17b1804b1-48715fc7437mr62356465e9.1.1774457179709; 
+ Wed, 25 Mar 2026 09:46:19 -0700 (PDT)
+X-Received: by 2002:a05:600c:c490:b0:485:3ff1:d5ed with SMTP id
+ 5b1f17b1804b1-48715fc7437mr62355975e9.1.1774457179238; 
+ Wed, 25 Mar 2026 09:46:19 -0700 (PDT)
 Received: from ?IPV6:2a01:e0a:c:37e0:8998:e0cf:68cc:1b62?
  ([2a01:e0a:c:37e0:8998:e0cf:68cc:1b62])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5a2a063eec2sm18067e87.1.2026.03.25.09.45.32
+ 5b1f17b1804b1-48711709e95sm145315835e9.8.2026.03.25.09.46.18
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 25 Mar 2026 09:45:34 -0700 (PDT)
-Message-ID: <3c8c508d-5048-4be7-8bf6-ec3c704d4943@redhat.com>
-Date: Wed, 25 Mar 2026 17:45:31 +0100
+ Wed, 25 Mar 2026 09:46:18 -0700 (PDT)
+Message-ID: <9c2653db-69e5-40b0-b79b-de5c00fec892@redhat.com>
+Date: Wed, 25 Mar 2026 17:46:17 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 12/15] drm/ast: Gen4: Fix open-coded register access
+Subject: Re: [PATCH 13/15] drm/ast: Gen6: Fix open-coded register access
 To: Thomas Zimmermann <tzimmermann@suse.de>, airlied@redhat.com,
  maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@gmail.com,
  simona@ffwll.ch
 Cc: dri-devel@lists.freedesktop.org
 References: <20260323160407.245773-1-tzimmermann@suse.de>
- <20260323160407.245773-13-tzimmermann@suse.de>
+ <20260323160407.245773-14-tzimmermann@suse.de>
 From: Jocelyn Falempe <jfalempe@redhat.com>
-In-Reply-To: <20260323160407.245773-13-tzimmermann@suse.de>
+In-Reply-To: <20260323160407.245773-14-tzimmermann@suse.de>
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: tjqNN2foYQWkJjOLBQpusq42G8l5d2Y9mvo_h5de3GQ_1774457136
+X-Mimecast-MFC-PROC-ID: OSowOAGcKov-sTVZ3DuZFZZUcMfyjWD0DGLaMtySROo_1774457180
 X-Mimecast-Originator: redhat.com
 Content-Language: en-US, fr
 Content-Type: text/plain; charset=UTF-8; format=flowed
@@ -104,43 +104,34 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 On 23/03/2026 16:56, Thomas Zimmermann wrote:
-> Replace all open-coded access to MCR and SCU registers in Gen4 with the
-> appropriate calls to ast_moutdwm() and ast_mindwm(). Use MCR and SCU
-> register constants. Name variables according to registers.
-
+> Replace all open-coded access to SCU registers in Gen6 with the
+> appropriate calls to ast_moutdwm() and ast_mindwm(). Use SCU register
+> constants. Name variables according to registers.
+> 
 Thanks, it looks good to me.
 
 Reviewed-by: Jocelyn Falempe <jfalempe@redhat.com>
 
-> 
 > Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
 > ---
->   drivers/gpu/drm/ast/ast_2300.c | 24 +++++++++---------------
->   drivers/gpu/drm/ast/ast_reg.h  |  1 +
->   2 files changed, 10 insertions(+), 15 deletions(-)
+>   drivers/gpu/drm/ast/ast_2500.c | 8 +++++---
+>   1 file changed, 5 insertions(+), 3 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/ast/ast_2300.c b/drivers/gpu/drm/ast/ast_2300.c
-> index 96d9909d942c..cbeac6990c27 100644
-> --- a/drivers/gpu/drm/ast/ast_2300.c
-> +++ b/drivers/gpu/drm/ast/ast_2300.c
-> @@ -1245,22 +1245,15 @@ static void ast_post_chip_2300(struct ast_device *ast)
+> diff --git a/drivers/gpu/drm/ast/ast_2500.c b/drivers/gpu/drm/ast/ast_2500.c
+> index 39f401dd1f47..e442cb6a23d9 100644
+> --- a/drivers/gpu/drm/ast/ast_2500.c
+> +++ b/drivers/gpu/drm/ast/ast_2500.c
+> @@ -507,6 +507,8 @@ static void ast_post_chip_2500(struct ast_device *ast)
 >   
 >   	reg = ast_get_index_reg_mask(ast, AST_IO_VGACRI, 0xd0, 0xff);
->   	if ((reg & 0x80) == 0) {/* vga only */
-> -		ast_write32(ast, 0xf004, AST_REG_MCR00);
-> -		ast_write32(ast, 0xf000, 0x1);
-> -		ast_write32(ast, 0x12000, 0x1688a8a8);
-> -		do {
-> -			;
-> -		} while (ast_read32(ast, 0x12000) != 0x1);
-> +		u32 scu008, scu040;
+>   	if ((reg & AST_IO_VGACRD0_VRAM_INIT_STATUS_MASK) == 0) {/* vga only */
+> +		u32 scu008;
+> +
+>   		/* Clear bus lock condition */
+>   		ast_2500_patch_ahb(ast->regs);
 >   
-> -		ast_write32(ast, 0x10000, 0xfc600309);
-> -		do {
-> -			;
-> -		} while (ast_read32(ast, 0x10000) != 0x1);
-> +		ast_moutdwm_poll(ast, AST_REG_SCU000, AST_REG_SCU000_PROTECTION_KEY, 0x01);
-> +		ast_moutdwm_poll(ast, AST_REG_MCR00, AST_REG_MCR00_PROTECTION_KEY, 0x01);
+> @@ -540,9 +542,9 @@ static void ast_post_chip_2500(struct ast_device *ast)
+>   			ast_moutdwm(ast, AST_REG_SCU07C, 0x00004000);
 >   
 >   		/* Slow down CPU/AHB CLK in VGA only mode */
 > -		temp = ast_read32(ast, 0x12008);
@@ -150,30 +141,6 @@ Reviewed-by: Jocelyn Falempe <jfalempe@redhat.com>
 > +		scu008 |= 0x00000073;
 > +		ast_moutdwm(ast, AST_REG_SCU008, scu008);
 >   
->   		param.dram_freq = 396;
->   		param.dram_type = AST_DDR3;
-> @@ -1306,8 +1299,9 @@ static void ast_post_chip_2300(struct ast_device *ast)
->   			ddr2_init(ast, &param);
->   		}
->   
-> -		temp = ast_mindwm(ast, AST_REG_SCU040);
-> -		ast_moutdwm(ast, AST_REG_SCU040, temp | 0x40);
-> +		scu040 = ast_mindwm(ast, AST_REG_SCU040);
-> +		scu040 |= 0x00000040;
-> +		ast_moutdwm(ast, AST_REG_SCU040, scu040);
->   	}
->   
->   	/* wait ready */
-> diff --git a/drivers/gpu/drm/ast/ast_reg.h b/drivers/gpu/drm/ast/ast_reg.h
-> index 9ebdbbde9a47..c3473cad4545 100644
-> --- a/drivers/gpu/drm/ast/ast_reg.h
-> +++ b/drivers/gpu/drm/ast/ast_reg.h
-> @@ -183,6 +183,7 @@
->   #define AST_REG_SCU(__offset)			(AST_REG_SCU_BASE + (__offset))
->   #define AST_REG_SCU000				AST_REG_SCU(0x000)
->   #define AST_REG_SCU000_PROTECTION_KEY		(0x1688a8a8)
-> +#define AST_REG_SCU008				AST_REG_SCU(0x008)
->   #define AST_REG_SCU00C				AST_REG_SCU(0x00c)
->   #define AST_REG_SCU020				AST_REG_SCU(0x020)
->   #define AST_REG_SCU040				AST_REG_SCU(0x040)
+>   		if (!ast_dram_init_2500(ast))
+>   			drm_err(dev, "DRAM init failed !\n");
 
