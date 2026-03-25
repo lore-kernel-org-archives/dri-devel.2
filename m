@@ -4,129 +4,161 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 67FD7106B50E
-	for <dri-devel@archiver.kernel.org>; Wed, 25 Mar 2026 12:14:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9521B106B50B
+	for <dri-devel@archiver.kernel.org>; Wed, 25 Mar 2026 12:17:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A5ACE10E89D;
-	Wed, 25 Mar 2026 12:14:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E73E310E8A5;
+	Wed, 25 Mar 2026 12:17:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="oGV4oEdo";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="RR3IfW4n";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="KjlOVI75";
 	dkim-atps=neutral
-Received: from BYAPR05CU005.outbound.protection.outlook.com
- (mail-westusazon11010070.outbound.protection.outlook.com [52.101.85.70])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 81CE110E867
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Mar 2026 12:14:30 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=PYHl9/aAIpQoe+EqSPX04NM/HJKLnaZobRci8q5tNZyIkUyvw1KLiymlHjIjH23G1Z1ko8gudfM6eUJssPISJU3TT2ex4NQlBOhl9uXxvRBzsINvAzR1SxG4JOfTcHVaOFvzlgdpZlTG508vphvhhx2dHDEK2LYztL6cGJonNR87IANYl9nsCNq1+HsbrBZfM+JlhUQi47Hs0VDWTftIrToluftB54XWgrKHRyxHa/Zll27WNojrQKLvkAItLmuGXC6QxGAmGoAZ5XVH9BTsktIyh7EwaZPb0bmd1T1CZGh47moVWIqhA+6hY/b7hOl/THgKAjiCe22lraJZ86YP8g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Bzk8l0wBEZlfkcUQp/6QC5TUxt2SlkMJY8QfrZKKHOg=;
- b=MQUC1XwXqbKn2qb6GBbfHt0YfuAroXs86m4IhYA9HxzgaEroIeHfF/RiJvOcBgOLVt6ImBV/ix/pzZRMFB38BI9QY7uJV3QueJif2hh26YasrCm2JuQmtSpKnyO1eVbgGIwTKJv4THPPuzxDvajg6o/y6KqNrAw9U1ONOs+A33z+t0Th6U9VX4whw9nsX2qIjSE8cGlHi+u+Y9v6mYsbrcvpF972aIcFv7E3/2Y/fXrmfoQnlhz7nIvOr4vX6e7Vv0Lkh3puFGc+Z279hkLlN0wP1iFs328YxjR0/F0jYtmDY/V/xVLpW2xsrUa290pZ2fVEv7YoR5RhgQ9iDnJHzQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Bzk8l0wBEZlfkcUQp/6QC5TUxt2SlkMJY8QfrZKKHOg=;
- b=oGV4oEdoXV7PmoqmMdioORBvxbx+78Ke/JrMuvQWjXeKegss88oAOCpHn4H2HsaLHj4dA/N/LYt2dKjW/yuYqHZBdIg4+udWBn/eCjw6ruSBKoa+e5PVIC/4Y9ZzitUo/5+2bQ5e4hl3eD0/3az+ptflznqTQhc/TQUd8w3Ko8CwovSFzy1qFSQOkrY+C905OlSsTEfo1+tTDn/4eepSkVbq+tp8blnvaQSZ9hys1sCqhka/JZv4N4C4V8N6sNSszpyIHRczctW4eibiTorz4LfGHoeYyf5YRe+aWajDNWPxO2vIjXSLw1TDP2JAu2+Bro4MZ2wrXqTqyvoyihN/BA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from BL0PR12MB2353.namprd12.prod.outlook.com (2603:10b6:207:4c::31)
- by SJ1PR12MB6313.namprd12.prod.outlook.com (2603:10b6:a03:458::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.20; Wed, 25 Mar
- 2026 12:14:26 +0000
-Received: from BL0PR12MB2353.namprd12.prod.outlook.com
- ([fe80::99b:dcff:8d6d:78e0]) by BL0PR12MB2353.namprd12.prod.outlook.com
- ([fe80::99b:dcff:8d6d:78e0%4]) with mapi id 15.20.9769.006; Wed, 25 Mar 2026
- 12:14:26 +0000
-From: Eliot Courtney <ecourtney@nvidia.com>
-Date: Wed, 25 Mar 2026 21:13:47 +0900
-Subject: [PATCH v3 9/9] gpu: nova-core: gsp: add FaultMethodBufferSize RM
- control command
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BCF1810E8A6
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Mar 2026 12:16:59 +0000 (UTC)
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 62PBG6x22993662
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Mar 2026 12:16:58 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=qcppdkim1; bh=OVzaIuHWFCgICrC8E9z9Qn
+ bCHnVGjS2giAh9YNd8wbg=; b=RR3IfW4nt+CY5707Qq/eEB46BKn0eNvduv5NL+
+ PkK7vpJ17Emm3B/Wc9dlVM4aaoPVUcjDj/K/evvYOx+K1JaFwJ9gBrcT7kxsY82j
+ H/sf3j8zUvh0txMZtaezUCUtnB8ZfKWpWijxNfVGAgLGNuLYvgW7wOysY67FkGBz
+ 2n/Tt7YhF7Jd1UWaqMsJ9Ik2EZ5pxaK+hrH6UYs7+8+zPqUnIdLxG95aQ1U8seYl
+ 1/sAqgrzhfSiy/dUEh2AJbJvNLQ7Co+9tMcTS2jVIDLYUv1j4GNTBJTD2Uju8crt
+ ILN32auwkdGLXLi97wb3IYQT9GdfJUWuPFkEmF5M/HaVKYhw==
+Received: from mail-ua1-f72.google.com (mail-ua1-f72.google.com
+ [209.85.222.72])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d4dy4gc36-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Mar 2026 12:16:58 +0000 (GMT)
+Received: by mail-ua1-f72.google.com with SMTP id
+ a1e0cc1a2514c-94e9c0edfcfso11902651241.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Mar 2026 05:16:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1774441018; x=1775045818;
+ darn=lists.freedesktop.org; 
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=OVzaIuHWFCgICrC8E9z9QnbCHnVGjS2giAh9YNd8wbg=;
+ b=KjlOVI75nu9Zq9IJn3OSpPIt9gzbAcgIRgdXe8/RGLzeUWtfKrsIMVX8LISDxqNZZi
+ XrmfMjN80f/ZYdoC0fS746xJrfnb9yIImgSnZbasVzQVXvMlpEOlIlDwZKW9aZ3oQuzc
+ 3noSsdNIcJmzDMnaCMYthzJMR2V5dhfG7tiAi4iqzGYebqpSheYxdw0wm39Qr48E12/g
+ vmiZmU6KMq6ak9r7yjS8OPye5gH6hnvHlYSMWhq37XWGrg58CrAOPtnNFgDLlGEkHmL/
+ 2keG+UvyYEhyx8y1QV+6ucbdadtCuYuNQNYLSCdv8IKHL+UUTCom26O4JpI94LcEzJnC
+ Pt/A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1774441018; x=1775045818;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=OVzaIuHWFCgICrC8E9z9QnbCHnVGjS2giAh9YNd8wbg=;
+ b=e4eGrRTtMMOSvuwiXxuFHEeIy8c9JIF7/uwNA6VL4gvk8zf6xpTN5sG0tPKUXnq3vE
+ B+bXKM+DZK4AOOGKqpLRKfxXZX40UZ7psqPux8J6pWQXxCRa2tAvD5p2OY6Iy/86KlPD
+ 8G0dwjxPIGzm55Evf8+F0Ug/cuYeEDkwuRHr+gzO1dHTGirXaplpigClZOECrS7y0yQ1
+ 4nRqNa/Sqd04Y3Tf6BXJt3ldPbK3lv1ertUXGOQA/kAD5JsbE7bAy1h0yvUhNCq4HAAq
+ D+MS0UrXsOxK2R0XlJoOz7L50QEH/k1pbzlaX4/KS7+IPnfiK8NygvyHKh/2FgP9X0es
+ gM4g==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCX+Bn+ot7VgVvHM+wBBBswDHfrZJP8D/Qt7zqqpHg7yhe7GLLwGI/vCnPMN5v605sL7H9ydEIvkV1g=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyR06QIL7Lq6vazHisB40BxKSzBf3GuHT/xVi9R5bjOapt6ErVD
+ xHF/w/G2jnkF/4pWaymWRBgxKQQ1cDv2lnH2vYrkGt/qt+9hhNrjaK4qopS2scXsRDn8Kq+oG7Y
+ FdDp0r+QIdL3Y8Ys3z9dq9brqEX2IWT6fCxA/hZVEhP7uvRVQUAgnAEEA0+fGczJkJqgIpc0=
+X-Gm-Gg: ATEYQzxKHzi5Nc3ZmXiRMMSEwMZ+qOf7IgObK8zvv3xYiMR7R0mXKeTm9fNBH9qeimD
+ inr7gdLcsn5BXYCb00VESJX/zfTvU/VHJv8ThS7EbHfaWhNuXHx+KYCbvCBGKpw4Fdp6jZCBudL
+ Wj3/NP5yiHLnSsQkAtwUXbfbUMD5gx/SfO0golJYVdqf7ngFkjJULrMIjGu6tg1dsvORdxnUCmj
+ GNNCo6y9q6HInVGJ5cLh8q3SSkhFQby8oJ7Gi3EKYOzzHaaghbb3WtoHbXZ5C/M59BzkqJtQCEx
+ OQ/9d/RBJHUG1pPo6e3OoD95gDTXpkhBlEJFxuMAE7BjZ1UyObfvLDoaxXDNNUZVif0r++gmEWG
+ wgI6/T8l0CetIDuQ5/FFfcSkHtgNidHV8jA4xRbN4ztwn
+X-Received: by 2002:a05:6102:5694:b0:602:7470:2428 with SMTP id
+ ada2fe7eead31-603870bc884mr1638635137.10.1774441017982; 
+ Wed, 25 Mar 2026 05:16:57 -0700 (PDT)
+X-Received: by 2002:a05:6102:5694:b0:602:7470:2428 with SMTP id
+ ada2fe7eead31-603870bc884mr1638619137.10.1774441017566; 
+ Wed, 25 Mar 2026 05:16:57 -0700 (PDT)
+Received: from [127.0.1.1] ([178.197.219.94]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-43b8a106339sm6480356f8f.36.2026.03.25.05.16.55
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 25 Mar 2026 05:16:56 -0700 (PDT)
+From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: [PATCH v3 0/8] drm/msm: Add Qualcomm Eliza SoC support
+Date: Wed, 25 Mar 2026 13:16:41 +0100
+Message-Id: <20260325-drm-display-eliza-v3-0-dc2b2f0c74a2@oss.qualcomm.com>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260325-rmcontrol-v3-9-f3101093484e@nvidia.com>
-References: <20260325-rmcontrol-v3-0-f3101093484e@nvidia.com>
-In-Reply-To: <20260325-rmcontrol-v3-0-f3101093484e@nvidia.com>
-To: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
- Alexandre Courbot <acourbot@nvidia.com>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>
-Cc: John Hubbard <jhubbard@nvidia.com>, Alistair Popple <apopple@nvidia.com>, 
- Joel Fernandes <joelagnelf@nvidia.com>, Timur Tabi <ttabi@nvidia.com>, 
- rust-for-linux@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Eliot Courtney <ecourtney@nvidia.com>
+X-B4-Tracking: v=1; b=H4sIACrSw2kC/23NSw6CMBCA4auQri1pp4DoynsYF6UPmQQottqIh
+ LtbSExcsJnkn2S+mUkwHk0g52wm3kQM6IYU4pAR1crhbijq1AQYVEwwoNr3VGMYOzlR0+FH0ko
+ UVnMlFD8Jku5Gbyy+N/N6S91ieDo/bS8iX7c/TexokVNGa15w4LppoLEXF0L+eMlOub7P0yArG
+ uEfKvYgSJCRrDyebAWirHegZVm+ujiX6gIBAAA=
+X-Change-ID: 20260302-drm-display-eliza-634fd1c3c193
+To: Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ Jonathan Marek <jonathan@marek.ca>,
+ Krishna Manikandan <quic_mkrishn@quicinc.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Krzysztof Kozlowski <krzk@kernel.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 X-Mailer: b4 0.15.0
-X-ClientProxiedBy: TY4P286CA0077.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:405:36d::6) To BL0PR12MB2353.namprd12.prod.outlook.com
- (2603:10b6:207:4c::31)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL0PR12MB2353:EE_|SJ1PR12MB6313:EE_
-X-MS-Office365-Filtering-Correlation-Id: fe47d53e-1d1b-49da-6671-08de8a680e71
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|10070799003|366016|376014|18002099003|22082099003|56012099003;
-X-Microsoft-Antispam-Message-Info: 2jTB9RDeTHTOXxgqI2cbc+UorweWFfC3SZwe+PpIiM7ORyZnlDoLa5NyQqsfpYYC9T066lvoFFpfErh3/+oQgLecToHM1wROP9LWjBZ0JvtRivMh1p8t4kv6o37I+VouxVVAvHf7hDSRBRMyWm5JGP6qhVlZWNc9EOI209OFS+c8rIN8lpwX3fQ4uM7MUovjLgGV2JVKOIDwQL06SjH5DRfJ/ifWXvGHxCptncpKR7GBXgPzi+2eDWfuKJepwpAZU0POnwiPdLM3x9tPGpmjjK+i+/aBZTkHUIqdigDSEz/DIG6kX8nMhPgWa1mQ1YvAGUmKNEzeFXp4XogS7ElfbP7vmgX/mRMIRo/iu9KxaoSsFyfkS/tVdJpMQN2OIatczhmcpHsAODI1l0JE4oBSOiEvUefRWVl2FRxDrEJTbHTwtukRxKr31lGgc9ZwzQco/HyMVivZokT/oHxj8RM9SjUn3VYOs50YTQsOEkAOGUXd4WKGt05Otq0jePanYmEyZSOcM1TCZQR4d51xR7QJdBL966qg7dUr3vjkohQmkzS9hcWmOCS1oHPdMbF4WLCMFiJwbqupuk1fzAn+0Z0O7zFfcFw1AFY1VVYB/u4xrIQwiEHiq3nnD3Vl6KMmPowGKcZNEgZ/RC+HdvlzIuBGTg5movN/TLiZ/3xLlK9gYxFooEzmeaAy8HV0rh+G5O2VIS7LmlQ0Pa2ajXXIqmLI/49jkibBCY2RpqsHptvqPvI=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BL0PR12MB2353.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(10070799003)(366016)(376014)(18002099003)(22082099003)(56012099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RGl4VkgwalRlbCtpZFhqa0FlTjUxK0EwTFNJT1FxbG9tZ3luWUNnK0Ria0k4?=
- =?utf-8?B?QmpINW5lcnZ4TGxTN0h0SUQzaStmcXUyZTBqYm94ZFBDNFhCVkFKeWhGYmYv?=
- =?utf-8?B?bHFGWXovZFlQM25rOXFJaDh5UVl6T1hCU2kwdXZ4TGwvaDZhYmJ5QmJOQkVa?=
- =?utf-8?B?aGVOTGJVMEZzM3N4KzJtNWE2SW5Qb3lpajgyd3Y1NXh2SG4yZTQrZnoxNXBI?=
- =?utf-8?B?SlQvV2ZwOFJZS3J6MnFmTkVtNjlrY3V6WWVkUkF6NFdjVkRESXJ1MTJ0ckto?=
- =?utf-8?B?RnRScW9TL0dpdVJzMCtrVDdSZ1FBaVFmVExkU2NiMGJHM1RNQ0RuWUdSZXgv?=
- =?utf-8?B?NzZwcytCSlZqby9va2VhRmtWOURQWk51OUhxVmloY1RVRXlTLzF0aHFpUHM1?=
- =?utf-8?B?TGg1VkNKSHY1a2R1Vlc1UUFrZklGN2VQRGQ2N2VEd1NuaFNwTmgrQWQydktx?=
- =?utf-8?B?RytjNkFkc0FZRC9xVUhlWnNFTkhYWlByaXh3VGR3TjhEd25acEJzK2dYMklY?=
- =?utf-8?B?bUdvL3RyN3hxNmdGeEtPT2FYU1JIajlpeHJ2a3J4bnczYnVNSTJwMnlUQ2NQ?=
- =?utf-8?B?b3FreFkyakVRdmhYL0owVmVib2tYS1ZlYzVNWDhIaXMzSExIZmN5YXpxakpR?=
- =?utf-8?B?QUxjVS9WUTFKV3J0VE4zdm03ZGFjNFN2R2w1MnlpNDZ2eEorQ2RhRTZweHdT?=
- =?utf-8?B?SUlJMUpZcHlBVEY2U25UcHByUEhIL3R6eEwrNTM3MEVhV3lzRDdQWkpMVm5o?=
- =?utf-8?B?aklsQWl4aW5mYWJvRllmdWNSclAxT1BpNG16ZGY3V3BVc3V6Z1Y0d1FobUFh?=
- =?utf-8?B?eUcrWjJwbkdhNnhINzhCa3Z2c0ZwRG5uay9TREVWczdDd0VkWlZxL1drUG5Q?=
- =?utf-8?B?Zk9rcENaQm9ONWdXVHh4b3hoWVRTODJJNzZlL2FHcGRwbG8xN3B0TjZSVElI?=
- =?utf-8?B?eDc0dHNQQ1JJdmo4T3d5dnM3V3Vrb3UxOCszOEZUQ2w3ZUk3ZHdNd0tFV3lQ?=
- =?utf-8?B?Qk45dWlFck84WnFOR0J6MkwrSThVbG5oSGE2Mzl6cm1KNDYyZnppMGNNZlR6?=
- =?utf-8?B?TmNYQlU5TjJZdFJ3TG84S3ppQ0FhS1BxSjhVbTdDcWpJcEZnUWJveWZ5RVIx?=
- =?utf-8?B?bzVFb1R4eGVEcURLckVHWENsYmhkWHlUcXZJcGNpYXY5K05pMVFCajd0Y0g5?=
- =?utf-8?B?UlFMQ2tjTU4yM1UrTTJ5clpFVE9pakU1R0g1STR5NFRhY2s4dng0SnJpc0RL?=
- =?utf-8?B?UWw5T0FHYmR3OFZ3WkV6OUE3ckpXWVpCWFpidFpUSlFyTDR2VE1JU05OYWgy?=
- =?utf-8?B?MWxEZFIrT21KN1k5WW9rUk5BZVhQbHlNNiswYzFXYklMZWdra2lBeGZ2T09r?=
- =?utf-8?B?a1psc0dyenhyMkllWTRGeWlubk11RDVCWCs3bVFMTzZmQ0sybE5FYzBrTDcx?=
- =?utf-8?B?ZG9qVWFNTEhRb2J3K2piOGtLV3RYZDNZR1BvSVBySkZnbmhidVpHcE9URWVp?=
- =?utf-8?B?cDFBeGxzeDRGRzdOaW1kSlliZmQzR0w4UXZyOE1za0psMlNYTjliSi9mYXIz?=
- =?utf-8?B?MHhSUFdHbmZKR0N0NmQ4L21obm1Wb0lpaWVab01MRkQ2eXFpYVdEY3pTbUpN?=
- =?utf-8?B?TWc0YXIzRmpIaTF6bEJCME9aUmJiUVFVSUtobWh2WEhNTktZQW9QRWhvZnNZ?=
- =?utf-8?B?MnlOZEFlWW5nd2hpRFNqVmM2dlJQb1dwRDUxQVEzM2N0a1JMS3BEZFB5MW5P?=
- =?utf-8?B?aFpuZlc3Sk95MUdqSWJpNmVoZ2RtbjFROVJ0VUR0WmpQN2VZeVBOYzlqU1Vu?=
- =?utf-8?B?bzJaU0VreG5ja3Z0V0FtUEp2MlRhcGlSVUZZV2E1OHBWT2tLU0g5bUc5Q3Fr?=
- =?utf-8?B?bVVwbjVOSEdKTG9yMDNQc3VnekFLeHVCMXNyWUl0SENnbEh2a3pzcDh1dEtH?=
- =?utf-8?B?RFZSNXVtWVhQMzFxNExsODJQQmZESTF4Q2x6SE5OME1tcUZ5akI2SC9hbEdY?=
- =?utf-8?B?bHVYUk5BQVZBV1ZXMVZOc3FJS2Z5QXdMcFkvM2NjMml3bFhkUy9PTnNZbzdj?=
- =?utf-8?B?WlhTWU0yZWE3U3JicEx4NGwrY202TERGeEtuYzNwMmw1M0lzL1NYZ3NoSjZa?=
- =?utf-8?B?MnIwTG5CUk5KaGJQOHpPMXpaemdlVnRRT3QvajFRWWh2MEpXK3JEeWV0R1hJ?=
- =?utf-8?B?bHI1c3BXazladGIrNktMdFZ1aVloMFFTRGtEaU1wRDlYd2JLK01QRXA4S0Zk?=
- =?utf-8?B?YzhTRlFQY29WUHJpS0hPaXpLYTRNS3Y5N0phempFeGhaL2o0NjRoUVpHd05h?=
- =?utf-8?B?T2hlVjFhakVMMHB3L2g4Q3R2YXk5M3htNEk4WkpiVUhEN0xnNXZ2aW84SEVs?=
- =?utf-8?Q?++8d5/5STKF4HMlkze393E2ohb3mmUTIwZm03zQ9dAQlO?=
-X-MS-Exchange-AntiSpam-MessageData-1: a4ymx+uWaK693w==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: fe47d53e-1d1b-49da-6671-08de8a680e71
-X-MS-Exchange-CrossTenant-AuthSource: BL0PR12MB2353.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Mar 2026 12:14:25.9819 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: iPssakCdHJcAb533qM9exZrCJNiPlsTJTFpOHxh4ZZyM2YEu2pE4UP+vvmx/UDeLzXed+QNjnAHfBr684H+QWw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR12MB6313
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2133;
+ i=krzysztof.kozlowski@oss.qualcomm.com; h=from:subject:message-id;
+ bh=uTGT+HwoXv3r5ZEopikDz0sZtchwtzveYy4ceCEFL6k=;
+ b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBpw9Ivgtj85TYGF809/neI0AN9sHw5BoGn4llqV
+ hMIIJQ1UnaJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCacPSLwAKCRDBN2bmhouD
+ 101bD/0QGddyyISd3zfx+N2t3rQhikfcuLeZvwIo2WHhFJCJHQLHENy8ivKO7I/oe4982lZ8A6C
+ dJS1a4MO0e174ZCEAVaTACeQBRlXmeic3Qq43tid5xQEU59vzqe1g4l0Go0xzTROjGqM9u7tLdo
+ rzSZN8Pi5P6EQPNcXcycef9Rg5FoBhmheuXU9bJVPAnHre6e2fPxGVPTLfWUEBS9/mGrq5LEM+T
+ Q8EJmvoReokW+YjddIbbJ0Sq2hIsOtoNiEYVQmW0jNqPsrWDvU0bdmiSquMhpQmtyRCqZ0wKPz+
+ SLgSoHdhY6aEuqv33gGbw0ndPWMmSaTUVZQDth+zXA2dWdMUhUXlhkMq4hnmej34C+PFZIP1rXB
+ nmMsWoOL61LGKD2/TpkS47Bk1VH2kIYNHlTp27pcMiPXnq/16ewG0jT6aOvdt74tY+2YXW+kVm/
+ EKy5rjT0w1Z8oy0SDWCFV3Be3XAORNJq1LwSGCMcRrQl+k44s6qIZHC4/PPlvfBgfD+XGwPI2lJ
+ Xv9HT/nJplPEEtwSKIqNvndawRx2xGoOCM/sddyU60w7d2ArHHZOJP5F7tfWkxy02Wmdsbu5J5s
+ 7RXCqI6S5O/n4EjGlTmNkXqi1QN2JjWWcRrDHKO1c3mb26hmRqN2WeZML/ZJ/vCiDEKULgTrZPA
+ F+mdC1Bo/lJbP+Q==
+X-Developer-Key: i=krzysztof.kozlowski@oss.qualcomm.com; a=openpgp;
+ fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzI1MDA4NyBTYWx0ZWRfX3eJVJLAXVe2i
+ L4grqzIQeUt9U5T1BeAbl22qUZDZttmsHdb8eN5xpM31UDt3wf7V7VT+VOUxBxFnNq6IY7p70Bs
+ ZRz9A/QQ3A+7zwbBsVamXABoLtY1jhgec+oxDIWy048TQg1CiFekJB1pSPxqPxIOeG05MFtAZ3C
+ 9iTe2/nzabfGtPWwa6hUDmfbaCI60t8quo6WmMDPEAcT1lWVbVhX7lKZyV0OVzArAQ2jBxaUISB
+ hXDxwaZXfJkCYAaJGSoNQxuhBY5IUFSE58XkZmIZeoUjmaHuM/rGaW4fgw6oBmLs/+2PLxvZY/k
+ fFgkvXNUeIbg0EFMUbuH0SLXLSeDbGjRw3dhws1MqmLLJRX+8LDDlaDPEKtE2/KaEZrWyMNIVra
+ 1AuxU0y9y/p84KI5Dc2v2adZptvIbUzw5h/UFJ6yuk1KfNxX67HtPZePr0gE1BXkv2HMQHjCWxH
+ IdgMmcGren6iT8s2LGg==
+X-Proofpoint-ORIG-GUID: -bHGv-ieb72k5UsHPtk2umECmJUQahZI
+X-Proofpoint-GUID: -bHGv-ieb72k5UsHPtk2umECmJUQahZI
+X-Authority-Analysis: v=2.4 cv=eeUwvrEH c=1 sm=1 tr=0 ts=69c3d23a cx=c_pps
+ a=ULNsgckmlI/WJG3HAyAuOQ==:117 a=gOEeR9iKwsj33Yj5oN/cWg==:17
+ a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
+ a=bC-a23v3AAAA:8 a=EUspDBNiAAAA:8 a=dxrMdQflyC4LrkcXn-kA:9 a=QEXdDO2ut3YA:10
+ a=1WsBpfsz9X-RYQiigVTh:22 a=FO4_E8m0qiDe52t0p3_H:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-03-25_04,2026-03-24_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 lowpriorityscore=0 clxscore=1015 bulkscore=0 adultscore=0
+ suspectscore=0 spamscore=0 priorityscore=1501 malwarescore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603250087
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -142,172 +174,55 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add `CeGetFaultMethodBufferSizeParams` which wraps the bindings.
+Changes in v3:
+- Re-order soc/ubwc patch to be last in the series. Maybe it should be
+  sent separately?
+  Use defines for .ubwc_swizzle value
+- Tags
+- Link to v2: https://patch.msgid.link/20260304-drm-display-eliza-v2-0-ea0579f62358@oss.qualcomm.com
 
-Add `FaultMethodBufferSize` RM control command which returns the fault
-method buffer size we should use. This is needed for channel allocation.
+Changes in v2:
+- Add Rb tags.
+- Changes after review - changelog per individual patches
+- Link to v1: https://patch.msgid.link/20260303-drm-display-eliza-v1-0-814121dbb2bf@oss.qualcomm.com
 
-Finally, print out the fault method buffer size on GSP boot.
+The MDSS on Eliza SoC is evolution of one in SM8750, with several blocks
+removed and added HDMI.
 
-Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
+This posting brings working and tested DSI panel, while DP on USB was
+not yet tested and HDMI was not prepared.
+
+Best regards,
+Krzysztof
+
 ---
- drivers/gpu/nova-core/gsp/boot.rs        | 11 +++++++++++
- drivers/gpu/nova-core/gsp/commands.rs    |  2 --
- drivers/gpu/nova-core/gsp/fw/rm.rs       | 25 ++++++++++++++++++++---
- drivers/gpu/nova-core/gsp/rm/commands.rs | 34 ++++++++++++++++++++++++++++----
- 4 files changed, 63 insertions(+), 9 deletions(-)
+Krzysztof Kozlowski (8):
+      dt-bindings: display/msm: dp-controller: Add Eliza SoC
+      dt-bindings: display/msm: dsi-phy-7nm: Add Eliza SoC
+      dt-bindings: display/msm: dsi-controller-main: Add Eliza SoC
+      dt-bindings: display/msm: qcom,sm8650-dpu: Add Eliza SoC
+      dt-bindings: display/msm: qcom,eliza-mdss: Add Eliza SoC
+      drm/msm/dpu: Add support for Eliza SoC
+      drm/msm/mdss: Add support for Eliza SoC
+      soc: qcom: ubwc: Add configuration Eliza SoC
 
-diff --git a/drivers/gpu/nova-core/gsp/boot.rs b/drivers/gpu/nova-core/gsp/boot.rs
-index e55210ebb6d1..8a4ad4c6ea98 100644
---- a/drivers/gpu/nova-core/gsp/boot.rs
-+++ b/drivers/gpu/nova-core/gsp/boot.rs
-@@ -33,6 +33,10 @@
-     gpu::Chipset,
-     gsp::{
-         commands,
-+        rm::commands::{
-+            FaultMethodBufferSize,
-+            RmControl, //
-+        },
-         sequencer::{
-             GspSequencer,
-             GspSequencerParams, //
-@@ -232,6 +236,13 @@ pub(crate) fn boot(
-             Err(e) => dev_warn!(pdev, "GPU name unavailable: {:?}\n", e),
-         }
- 
-+        match RmControl::new(info.client(), info.subdevice(), FaultMethodBufferSize)
-+            .send(&self.cmdq, bar)
-+        {
-+            Ok(size) => dev_info!(pdev, "Fault method buffer size: {} bytes\n", size),
-+            Err(e) => dev_warn!(pdev, "Failed to get fault method buffer size: {:?}\n", e),
-+        }
-+
-         Ok(())
-     }
- }
-diff --git a/drivers/gpu/nova-core/gsp/commands.rs b/drivers/gpu/nova-core/gsp/commands.rs
-index 8c9599aa227b..56655bade9ab 100644
---- a/drivers/gpu/nova-core/gsp/commands.rs
-+++ b/drivers/gpu/nova-core/gsp/commands.rs
-@@ -285,13 +285,11 @@ pub(crate) fn gpu_name(&self) -> core::result::Result<&str, GpuNameError> {
-     }
- 
-     /// Returns the client handle allocated by GSP-RM.
--    #[expect(dead_code)]
-     pub(crate) fn client(&self) -> Handle<Client> {
-         self.client
-     }
- 
-     /// Returns the subdevice handle allocated by GSP-RM.
--    #[expect(dead_code)]
-     pub(crate) fn subdevice(&self) -> Handle<Subdevice> {
-         self.subdevice
-     }
-diff --git a/drivers/gpu/nova-core/gsp/fw/rm.rs b/drivers/gpu/nova-core/gsp/fw/rm.rs
-index 1c6e8b4c4865..73913541d9d4 100644
---- a/drivers/gpu/nova-core/gsp/fw/rm.rs
-+++ b/drivers/gpu/nova-core/gsp/fw/rm.rs
-@@ -8,9 +8,12 @@
-     }, //
- };
- 
--use crate::gsp::commands::{
--    Client,
--    Handle, //
-+use crate::{
-+    gsp::commands::{
-+        Client,
-+        Handle, //
-+    },
-+    num, //
- };
- 
- use super::{
-@@ -85,3 +88,19 @@ unsafe impl FromBytes for GspRmControl {}
- 
- // SAFETY: This struct contains no padding.
- unsafe impl AsBytes for GspRmControl {}
-+
-+/// Wrapper for [`bindings::NV2080_CTRL_CE_GET_FAULT_METHOD_BUFFER_SIZE_PARAMS`].
-+#[repr(transparent)]
-+pub(crate) struct CeGetFaultMethodBufferSizeParams(
-+    bindings::NV2080_CTRL_CE_GET_FAULT_METHOD_BUFFER_SIZE_PARAMS,
-+);
-+
-+impl CeGetFaultMethodBufferSizeParams {
-+    /// Returns the CE fault method buffer size in bytes.
-+    pub(crate) fn size(&self) -> usize {
-+        num::u32_as_usize(self.0.size)
-+    }
-+}
-+
-+// SAFETY: This struct only contains integer types for which all bit patterns are valid.
-+unsafe impl FromBytes for CeGetFaultMethodBufferSizeParams {}
-diff --git a/drivers/gpu/nova-core/gsp/rm/commands.rs b/drivers/gpu/nova-core/gsp/rm/commands.rs
-index 8845ca0a0225..de290f4845f4 100644
---- a/drivers/gpu/nova-core/gsp/rm/commands.rs
-+++ b/drivers/gpu/nova-core/gsp/rm/commands.rs
-@@ -1,8 +1,14 @@
- // SPDX-License-Identifier: GPL-2.0
- 
--use core::array;
-+use core::{
-+    array,
-+    mem::size_of, //
-+};
- 
--use kernel::prelude::*;
-+use kernel::{
-+    prelude::*,
-+    transmute::FromBytes, //
-+};
- 
- use crate::{
-     driver::Bar0,
-@@ -14,7 +20,8 @@
-         },
-         commands::{
-             Client,
--            Handle, //
-+            Handle,
-+            Subdevice, //
-         },
-         fw::{
-             rm::*,
-@@ -75,7 +82,6 @@ pub(crate) struct RmControl<T>
-     cmd: T,
- }
- 
--#[expect(unused)]
- impl<T: RmControlCommand> RmControl<T> {
-     /// Creates a new RM control command.
-     pub(crate) fn new(client: Handle<Client>, object: Handle<T::Target>, cmd: T) -> Self {
-@@ -139,3 +145,23 @@ pub(crate) trait RmControlCommand {
-     /// reply type.
-     fn parse_reply(&self, params: &[u8]) -> Result<Self::Reply>;
- }
-+
-+/// RM control command for querying the fault method buffer size. This is required for setting up
-+/// channels.
-+pub(crate) struct FaultMethodBufferSize;
-+
-+impl RmControlCommand for FaultMethodBufferSize {
-+    const FUNCTION: RmControlMsgFunction = RmControlMsgFunction::CeGetFaultMethodBufferSize;
-+    const LEN: usize = size_of::<CeGetFaultMethodBufferSizeParams>();
-+    type Reply = usize;
-+    type Target = Subdevice;
-+
-+    fn write_payload(&self, dst: &mut SBufferIter<array::IntoIter<&mut [u8], 2>>) -> Result {
-+        dst.write_all(&[0u8; Self::LEN])
-+    }
-+
-+    fn parse_reply(&self, params: &[u8]) -> Result<Self::Reply> {
-+        let reply = CeGetFaultMethodBufferSizeParams::from_bytes(params).ok_or(EINVAL)?;
-+        Ok(reply.size())
-+    }
-+}
+ .../bindings/display/msm/dp-controller.yaml        |   1 +
+ .../bindings/display/msm/dsi-controller-main.yaml  |   4 +
+ .../bindings/display/msm/dsi-phy-7nm.yaml          |   4 +
+ .../bindings/display/msm/qcom,eliza-mdss.yaml      | 494 +++++++++++++++++++++
+ .../bindings/display/msm/qcom,sm8650-dpu.yaml      |   1 +
+ .../gpu/drm/msm/disp/dpu1/catalog/dpu_12_4_eliza.h | 365 +++++++++++++++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c     |   1 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h     |   1 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c            |   1 +
+ drivers/gpu/drm/msm/msm_mdss.c                     |   1 +
+ drivers/soc/qcom/ubwc_config.c                     |  12 +
+ 11 files changed, 885 insertions(+)
+---
+base-commit: 85964cdcad0fac9a0eb7b87a0f9d88cc074b854c
+change-id: 20260302-drm-display-eliza-634fd1c3c193
 
--- 
-2.53.0
+Best regards,
+--  
+Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
