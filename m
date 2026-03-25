@@ -4,36 +4,37 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1D586106B53F
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4F145106B53D
 	for <dri-devel@archiver.kernel.org>; Wed, 25 Mar 2026 14:02:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6B0CB10E7EB;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7976A10E7EC;
 	Wed, 25 Mar 2026 14:02:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="L56yRSK5";
+	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="QF0d4g8K";
 	dkim-atps=neutral
 Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
  [213.167.242.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 821A010E7E5
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Mar 2026 14:02:02 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5743C10E7E5
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Mar 2026 14:02:00 +0000 (UTC)
 Received: from [127.0.1.1] (91-158-153-178.elisa-laajakaista.fi
  [91.158.153.178])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id C61701E7A;
- Wed, 25 Mar 2026 15:00:42 +0100 (CET)
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id 98FB91BCF;
+ Wed, 25 Mar 2026 15:00:40 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1774447243;
- bh=JS1u+tUvofCvVSFd4SoansSSnQ5kaOnrcifXFx5nnmE=;
+ s=mail; t=1774447241;
+ bh=z0ohKrl3nNbmQTLz1wlnzqyZg5t58xltjjEsw+ctQ5I=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=L56yRSK5LSAW72x7ziwsJlq8V3bxUl+Q9EliERJLXX8C4VaBVnOwMMUIZLNNXm9LF
- iGpMUEYAaIgGh8mtlk9Onjsx134ShIaOY7htF72pZ/b8TTovmjPy0Zt3GZPdHRf/x0
- wtel72Amst5+f1AJXYMwwFSzToWyZ3z8WybIZhjk=
+ b=QF0d4g8Kh3BPE6L2eXkONe+b8r2Rte/T6Dszu5QsrAqshNc+P4ne0FbAdQivpQTXg
+ pVGC9dKYZ9Sf49m+yUyZW2qTp3RHKT4EbAO87sQfLX6Jh/qiwNBgH94Em2xgfBEGAt
+ m7IVyUk1SnG93ZkxBBlVD3KLS5BmTH0d/Z/q5Hu4=
 From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Date: Wed, 25 Mar 2026 16:01:32 +0200
-Subject: [PATCH v9 09/11] drm: xlnx: zynqmp: Add support for Y8 and XYYY2101010
+Date: Wed, 25 Mar 2026 16:01:30 +0200
+Subject: [PATCH v9 07/11] drm: xlnx: zynqmp: Use drm helpers when
+ calculating buffer sizes
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260325-xilinx-formats-v9-9-d03b7e3752e4@ideasonboard.com>
+Message-Id: <20260325-xilinx-formats-v9-7-d03b7e3752e4@ideasonboard.com>
 References: <20260325-xilinx-formats-v9-0-d03b7e3752e4@ideasonboard.com>
 In-Reply-To: <20260325-xilinx-formats-v9-0-d03b7e3752e4@ideasonboard.com>
 To: Vishal Sagar <vishal.sagar@amd.com>, 
@@ -50,21 +51,21 @@ Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  Pekka Paalanen <ppaalanen@gmail.com>, 
  Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 X-Mailer: b4 0.15-dev-c25d1
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2157;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1623;
  i=tomi.valkeinen@ideasonboard.com; h=from:subject:message-id;
- bh=JS1u+tUvofCvVSFd4SoansSSnQ5kaOnrcifXFx5nnmE=;
- b=owEBbQKS/ZANAwAIAfo9qoy8lh71AcsmYgBpw+rNHh2hc2H4ErbtLvFQWv0j3SL4Hapl9SQ5K
- DqfYMbQ68KJAjMEAAEIAB0WIQTEOAw+ll79gQef86f6PaqMvJYe9QUCacPqzQAKCRD6PaqMvJYe
- 9eaKD/wIu50aUSGtxqrodliSnBZosxTRfcNTCDHkaNUgWesS19AFIEfhyQRPtbPpKC7m4lkLphi
- us74wLHIHyhBae5SklY4vx20QAIiFhxwsEsC2EGZos0xRzlGkgEodgrT2KPOfYSJS3SqMvn6IJK
- HJtphlQKrc3OFRtZfCa3QJ2lly7dLCnjd21zAjkMB0dI9uK60KdtldlUk6ifZ+JeS/Lra98Wr1f
- 5bMG0Kw37GNOWhNX5XUkNaexkthOfl+qCLdCiCuToe3aOpNXQ0nX33B6KkF4mUH6yd16HxNMywt
- HAdIVC6Mq+ANm5RtW3hyKnRUvyQMZZqe+shBmAVOB/58b5yKZ84AumsrnBmLuGuLI7jS7OYxOxy
- wQSg5TC3aVzmA7sLKuo0z+fh6/yNWFg8/TgrGXOY78A75nmZgH5Ajedil63b75oGHalzUWkRzb7
- Ghbtnoc3fS5kOd8DZhg0QzSjOY7e0+1Jf7TXD76QgFuDDUnbm5aL8+oRQ5i3NEWzGIuiYGQX565
- KgqkHo4Bvbo1bKb8JyK3IP5ZbcPpf/y03s22KNm9g41r3nZzLfX5b3GRWDH2IxMVWvotkwV1GCc
- HGqApk3L8AI2vhxVTjfW2eT11RGfgAnS9DNUw/7EOAqMjFSkWRxGIRCYQpcRloH7A+KTCBYkkBE
- qjLZjrkicr9kqUA==
+ bh=z0ohKrl3nNbmQTLz1wlnzqyZg5t58xltjjEsw+ctQ5I=;
+ b=owEBbQKS/ZANAwAIAfo9qoy8lh71AcsmYgBpw+rM1t8SmQCwqK8q+2874g4y6W+UFEHPA5hLY
+ P1NTp9GrruJAjMEAAEIAB0WIQTEOAw+ll79gQef86f6PaqMvJYe9QUCacPqzAAKCRD6PaqMvJYe
+ 9eeDEACjFTftnIo4/vHE+Zbd/vinVkVUNXpCS2jTkFIphNpxKMEFHsw7tW07kBC3+PW1UIz513A
+ HLXt3o2mABa2ycziWgJfIsVDzbO2nKSPakHWbExsms2XRQ567n4dZQC3y92nRX0pcI3U+GQsPbC
+ I/KGUItD4iqGJcAuZUaA3Cn7GtbM2Ln+XeGFpdpdqNq3TlFa9ZX7dfcaL1JV43ZBiKlOzGfwR4k
+ SVLndy8Jg/nAuIPwI95nQQufCjTvgsyqOzLZuofGU93kloYDGSDX4E3U25yKRbM2pRbccNxj+/R
+ RSI9rvkcNLX0OLT+WSYTfePHO3TUXNziuxVd3EOgGcQc5Zbkn5hXar1FGDRpW2u/4rynhKe7rhn
+ 6/7ie2yQZoRICLxCQYYbA2ayWBjGOuTehWshn7VfhHvviCY2vh6Iej+t9h79wi8OhHocxnnymk3
+ tUVh3QW2WWTOYspyZaGkjpfjhIWEGpBr5QAZa5b2WwlzDmVhlxHVbg66k3mE4fq24kCEcm/Y8gv
+ yA9Efs8Fj7DluezJKBic7LrzOkmFvJUOEh17JRc7JwRnrNPJcZ98Hj94t0dp+p9NUCyVJi8Ss29
+ sYi3nvJzSpxERRAYpKzzlsIePpGy1x/3rfFnkJEL6q3nu63/y3m0TaeNcBgEVEIWwbnqueDWAYo
+ a6+4lwMinVAQ2wA==
 X-Developer-Key: i=tomi.valkeinen@ideasonboard.com; a=openpgp;
  fpr=C4380C3E965EFD81079FF3A7FA3DAA8CBC961EF5
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -82,68 +83,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add support for Y8 and XYYY2101010 formats. We also need to add new csc
-matrices for these y-only formats.
+Use drm helpers, drm_format_info_plane_width(),
+drm_format_info_plane_height() and drm_format_info_min_pitch() to
+calculate sizes for the DMA.
 
-Reviewed-by: Vishal Sagar <vishal.sagar@amd.com>
+This cleans up the code, but also makes it possible to support more
+complex formats (like P030, XV20).
+
 Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
 Signed-off-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 ---
- drivers/gpu/drm/xlnx/zynqmp_disp.c | 27 ++++++++++++++++++++++++++-
- 1 file changed, 26 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/xlnx/zynqmp_disp.c | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/gpu/drm/xlnx/zynqmp_disp.c b/drivers/gpu/drm/xlnx/zynqmp_disp.c
-index 40deca67b83b..99bc68481020 100644
+index 9a8f38230cb4..12a8d643915f 100644
 --- a/drivers/gpu/drm/xlnx/zynqmp_disp.c
 +++ b/drivers/gpu/drm/xlnx/zynqmp_disp.c
-@@ -307,6 +307,16 @@ static const struct zynqmp_disp_format avbuf_vid_fmts[] = {
- 		.buf_fmt	= ZYNQMP_DISP_AV_BUF_FMT_NL_VID_YV16CI_10,
- 		.swap		= false,
- 		.sf		= scaling_factors_101010,
-+	}, {
-+		.drm_fmt	= DRM_FORMAT_Y8,
-+		.buf_fmt	= ZYNQMP_DISP_AV_BUF_FMT_NL_VID_MONO,
-+		.swap		= false,
-+		.sf		= scaling_factors_888,
-+	}, {
-+		.drm_fmt	= DRM_FORMAT_XYYY2101010,
-+		.buf_fmt	= ZYNQMP_DISP_AV_BUF_FMT_NL_VID_YONLY_10,
-+		.swap		= false,
-+		.sf		= scaling_factors_101010,
- 	},
- };
+@@ -1116,16 +1116,19 @@ int zynqmp_disp_layer_update(struct zynqmp_disp_layer *layer,
+ 		return 0;
  
-@@ -697,6 +707,17 @@ static const u32 csc_sdtv_to_rgb_offsets[] = {
- 	0x0, 0x1800, 0x1800
- };
- 
-+/* In Y-only mode the single Y channel is on the third column  */
-+static const u16 csc_sdtv_to_rgb_yonly_matrix[] = {
-+	0x0, 0x0, 0x1000,
-+	0x0, 0x0, 0x1000,
-+	0x0, 0x0, 0x1000,
-+};
+ 	for (i = 0; i < info->num_planes; i++) {
+-		unsigned int width = state->crtc_w / (i ? info->hsub : 1);
+-		unsigned int height = state->crtc_h / (i ? info->vsub : 1);
+ 		struct zynqmp_disp_layer_dma *dma = &layer->dmas[i];
+ 		struct dma_async_tx_descriptor *desc;
+ 		dma_addr_t dma_addr;
++		unsigned int width;
++		unsigned int height;
 +
-+static const u32 csc_sdtv_to_rgb_yonly_offsets[] = {
-+	0x0, 0x0, 0x0
-+};
-+
- /**
-  * zynqmp_disp_blend_set_output_format - Set the output format of the blender
-  * @disp: Display controller
-@@ -846,7 +867,11 @@ static void zynqmp_disp_blend_layer_enable(struct zynqmp_disp *disp,
- 				ZYNQMP_DISP_V_BLEND_LAYER_CONTROL(layer->id),
- 				val);
++		width = drm_format_info_plane_width(info, state->crtc_w, i);
++		height = drm_format_info_plane_height(info, state->crtc_h, i);
  
--	if (layer->drm_fmt->is_yuv) {
-+	if (layer->drm_fmt->format == DRM_FORMAT_Y8 ||
-+	    layer->drm_fmt->format == DRM_FORMAT_XYYY2101010) {
-+		coeffs = csc_sdtv_to_rgb_yonly_matrix;
-+		offsets = csc_sdtv_to_rgb_yonly_offsets;
-+	} else if (layer->drm_fmt->is_yuv) {
- 		coeffs = csc_sdtv_to_rgb_matrix;
- 		offsets = csc_sdtv_to_rgb_offsets;
- 	} else {
+ 		dma_addr = drm_fb_dma_get_gem_addr(state->fb, state, i);
+ 
+ 		dma->xt.numf = height;
+-		dma->sgl.size = width * info->cpp[i];
++		dma->sgl.size = drm_format_info_min_pitch(info, i, width);
+ 		dma->sgl.icg = state->fb->pitches[i] - dma->sgl.size;
+ 		dma->xt.src_start = dma_addr;
+ 		dma->xt.frame_size = 1;
 
 -- 
 2.43.0
