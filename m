@@ -4,36 +4,36 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CCE7E106B53F
-	for <dri-devel@archiver.kernel.org>; Wed, 25 Mar 2026 14:02:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D487B1093168
+	for <dri-devel@archiver.kernel.org>; Wed, 25 Mar 2026 14:02:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C9DAD10E7D7;
-	Wed, 25 Mar 2026 14:01:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8E46F10E7E3;
+	Wed, 25 Mar 2026 14:01:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="YMD8X8jn";
+	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="lF587bCn";
 	dkim-atps=neutral
 Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
  [213.167.242.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5096810E7B7
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Mar 2026 14:01:58 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0A94110E0A6
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Mar 2026 14:01:54 +0000 (UTC)
 Received: from [127.0.1.1] (91-158-153-178.elisa-laajakaista.fi
  [91.158.153.178])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id 6BE081B98;
- Wed, 25 Mar 2026 15:00:38 +0100 (CET)
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id DB3651862;
+ Wed, 25 Mar 2026 15:00:33 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1774447239;
- bh=XTxjhStge5b34jQfjrGGMsMID3TFrZgT3RgEqY8UjG0=;
+ s=mail; t=1774447234;
+ bh=qsLARDIVnkaD/ICi7soozFniWWJmCvAqHDdDTOWdWNc=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=YMD8X8jns4uDHLzwHFu9Bm1RYZeCsAwsqIK9Fr1SSKV+yivPbXD+t/92rvRoDtJXf
- euoUBR5Xm3Tw9zZEarpnWhhBw8wgvZHz+jfZHAnLUACysbup4uIm/jOtfn5jWtJ9MB
- ky788Mzfvl0Dh4y2Gs3CB4N9bRKos0ytKC2LsKIY=
+ b=lF587bCnjk96kRIOnhLuuZueHe6u03Vp48+mNFLsNW4Pn+IP+ZHuEXrXTPRHZ7+YO
+ sVMWc/lOjpLOvYigVwDEMy0SL0MykDKv6vWKrevGybIK9X2lBY/QjMNpk41q9xBPjT
+ LZuYpKDrbMbZPOmwB41f7K/QiJ3Q6ErMJV34RaKc=
 From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Date: Wed, 25 Mar 2026 16:01:28 +0200
-Subject: [PATCH v9 05/11] drm/fourcc: Add DRM_FORMAT_X403
+Date: Wed, 25 Mar 2026 16:01:24 +0200
+Subject: [PATCH v9 01/11] drm/fourcc: Add warning for bad bpp
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260325-xilinx-formats-v9-5-d03b7e3752e4@ideasonboard.com>
+Message-Id: <20260325-xilinx-formats-v9-1-d03b7e3752e4@ideasonboard.com>
 References: <20260325-xilinx-formats-v9-0-d03b7e3752e4@ideasonboard.com>
 In-Reply-To: <20260325-xilinx-formats-v9-0-d03b7e3752e4@ideasonboard.com>
 To: Vishal Sagar <vishal.sagar@amd.com>, 
@@ -50,21 +50,21 @@ Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  Pekka Paalanen <ppaalanen@gmail.com>, 
  Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 X-Mailer: b4 0.15-dev-c25d1
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1968;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1792;
  i=tomi.valkeinen@ideasonboard.com; h=from:subject:message-id;
- bh=XTxjhStge5b34jQfjrGGMsMID3TFrZgT3RgEqY8UjG0=;
- b=owEBbQKS/ZANAwAIAfo9qoy8lh71AcsmYgBpw+rLkvL4i5CCE4QvT4u7VPQXxuNh1PtPDLv/S
- sEsSS9DIR6JAjMEAAEIAB0WIQTEOAw+ll79gQef86f6PaqMvJYe9QUCacPqywAKCRD6PaqMvJYe
- 9Z0ID/sEG941XOzF9xdZxkXjDwBfDlwvu0TxDdNSQgwzslLQ1EpZMRta0nHIKwAMJemG6oEWgN5
- vN8jaizVeVcCOyTQ3guSaIX9aewDyr0AWTY+Pqp1UxC0j/GoizlGT5TsB/tH3D/R2WAu5m2ONDi
- gXwqxdkSwohEF8jf8ttrm4XnQ1EtRlAcP0cOjD14GlQjMDGdQ5ur4FlDfZHUSocuQv7Q2IYrS6H
- se+0hJGQOHNGE90cN3zD2DWfM6I7hlHBglP7Ycq/6iwUtfd36KWFoBVKgYtT7hb98R+aSIVHGTu
- /cMejTWLA57pVhsPHGlDo1qMus5T2XiKdC/5wIrFbXOGaY08XOBt7LPouof1RXXzX+HQB5wRY6V
- /HjSAWFzjwVKoYYWmHWDvywzFyqr4hir4Bzz9kODuSpyTttEmp3wU1EQyRA/xRExGgAfFRs+xTI
- 4zoSISR/jN0O7IojZzRcNxPazBrJ1OS2xNp+g/IXtIxYPzlr6y3NweykIOH/Dj6LZ6c1tVw3cwX
- P2q8v9Ch117gC64E3t8BYYNyMO5qsbivJHQgrPtYuda+ZmJY3k4S1P0SwQ2haJhH1RzdjzTmIy6
- ZGbMadswitLTG82blnVsbBksRnJgr15+PaoBj5giUlYjWLvQ3eSDJkl4PaLPM6GHraRPIiDDXzV
- n5yHwO+M0gaZzEg==
+ bh=qsLARDIVnkaD/ICi7soozFniWWJmCvAqHDdDTOWdWNc=;
+ b=owEBbQKS/ZANAwAIAfo9qoy8lh71AcsmYgBpw+rKDYNdViLCLpYqmZY0SWmqG5dqG7vwwbdHf
+ xBeIPg+ZiCJAjMEAAEIAB0WIQTEOAw+ll79gQef86f6PaqMvJYe9QUCacPqygAKCRD6PaqMvJYe
+ 9b6yEACZbXoKPDiWE2N5P6E9h8U/nh2IAvHlKdisK3dSbhI2w8QJyHDIZ35PsOGhEmhynk0rSEC
+ SXYP4gXR+V7WlAnsroPmcagxUtt7WZGZXoRWCkWxd8YgN+BX1ETCWADTXvry4oYUI7tJV2Hf/QD
+ 4KJ9fwZcTFHZVqDq0EQjHmMv7SplpqL0RJwYVAxqgquFRz0FJpj1qH0+5qlOKa24psIzq6ICCFn
+ TpAlP2/wenQ/0cxFdZEIa+wwxKQcWid280+84DCs6vsG1KT0OuvFsh46TPUGxIA5vC4FIjgifJJ
+ /hlaA1gtlFYC7JSui0UBOKfhNYH/vkF895MuKub+jpODFhYg74i71rSdLHYS0S8UWSRFNxBnwA9
+ XE1W38JfDpDJ3J+UzOZC3M0FJweCx29QWhNLik9+S5P0E4yrUk8xLef2CNdQZtbHsF/WCN7JDOh
+ HL9/CUpJz7Xv9PgLdzPeIjUtEWcCZw3gLqJrTyKvrTUPef2/N1bifxV/nVg/wSf6F28nZSR1TCb
+ ygayljh2ewhRZfynm1FbwB2kiSaCgr2zCnK6xdi0S+ECp1odkv+62iEqYsWg+J9kwB31hcuoA52
+ fW0FJIuUMBYfhqQQY5RfqMfFTN2vmJ82TwV8nKHsZtdK5psK0Raza5Cf0EikElS9tonfTihy2KU
+ QhlNqqK4aCPb+sg==
 X-Developer-Key: i=tomi.valkeinen@ideasonboard.com; a=openpgp;
  fpr=C4380C3E965EFD81079FF3A7FA3DAA8CBC961EF5
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -82,51 +82,53 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add X403, a 3 plane 10 bits per component non-subsampled YCbCr format.
+drm_format_info_bpp() cannot be used for formats which do not have an
+integer bits-per-pixel in a pixel block.
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Reviewed-by: Vishal Sagar <vishal.sagar@amd.com>
+E.g. DRM_FORMAT_P030's plane 0 has three 10-bit pixels (Y components),
+and two padding bits, in a 4 byte block. That is 10.666... bits per
+pixel when considering the whole 4 byte block, which is what
+drm_format_info_bpp() does. Thus a driver that supports such formats
+cannot use drm_format_info_bpp(),
+
+It is a driver bug if this happens, but so handle wrong calls by
+printing a warning and returning 0.
+
 Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 Signed-off-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 ---
- drivers/gpu/drm/drm_fourcc.c  | 3 +++
- include/uapi/drm/drm_fourcc.h | 9 +++++++++
- 2 files changed, 12 insertions(+)
+ drivers/gpu/drm/drm_fourcc.c | 14 +++++++++++---
+ 1 file changed, 11 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/gpu/drm/drm_fourcc.c b/drivers/gpu/drm/drm_fourcc.c
-index 4fc1880603bc..de8c98b166f1 100644
+index e0d533611040..e662aea9d105 100644
 --- a/drivers/gpu/drm/drm_fourcc.c
 +++ b/drivers/gpu/drm/drm_fourcc.c
-@@ -388,6 +388,9 @@ const struct drm_format_info *__drm_format_info(u32 format)
- 		{ .format = DRM_FORMAT_XYYY2101010,	.depth = 0,  .num_planes = 1,
- 		  .char_per_block = { 4, 0, 0 }, .block_w = { 3, 0, 0 }, .block_h = { 1, 0, 0 },
- 		  .hsub = 1, .vsub = 1, .is_yuv = true },
-+		{ .format = DRM_FORMAT_X403,		.depth = 0,  .num_planes = 3,
-+		  .char_per_block = { 4, 4, 4 }, .block_w = { 3, 3, 3 }, .block_h = { 1, 1, 1 },
-+		  .hsub = 1, .vsub = 1, .is_yuv = true },
- 	};
- 
- 	unsigned int i;
-diff --git a/include/uapi/drm/drm_fourcc.h b/include/uapi/drm/drm_fourcc.h
-index c6d4754ec202..385da5942716 100644
---- a/include/uapi/drm/drm_fourcc.h
-+++ b/include/uapi/drm/drm_fourcc.h
-@@ -402,6 +402,15 @@ extern "C" {
+@@ -491,12 +491,20 @@ EXPORT_SYMBOL(drm_format_info_block_height);
   */
- #define DRM_FORMAT_Q401		fourcc_code('Q', '4', '0', '1')
- 
-+/*
-+ * 3 plane non-subsampled (444) YCbCr
-+ * 10 bpc, 30 bits per sample image data in a single contiguous buffer.
-+ * index 0: Y plane,  [31:0] x:Y2:Y1:Y0    [2:10:10:10] little endian
-+ * index 1: Cb plane, [31:0] x:Cb2:Cb1:Cb0 [2:10:10:10] little endian
-+ * index 2: Cr plane, [31:0] x:Cr2:Cr1:Cr0 [2:10:10:10] little endian
-+ */
-+#define DRM_FORMAT_X403		fourcc_code('X', '4', '0', '3')
+ unsigned int drm_format_info_bpp(const struct drm_format_info *info, int plane)
+ {
++	unsigned int block_size;
 +
- /*
-  * 3 plane YCbCr LSB aligned
-  * In order to use these formats in a similar fashion to MSB aligned ones
+ 	if (!info || plane < 0 || plane >= info->num_planes)
+ 		return 0;
+ 
+-	return info->char_per_block[plane] * 8 /
+-	       (drm_format_info_block_width(info, plane) *
+-		drm_format_info_block_height(info, plane));
++	block_size = drm_format_info_block_width(info, plane) *
++		     drm_format_info_block_height(info, plane);
++
++	if (info->char_per_block[plane] * 8 % block_size) {
++		pr_warn("unable to return an integer bpp\n");
++		return 0;
++	}
++
++	return info->char_per_block[plane] * 8 / block_size;
+ }
+ EXPORT_SYMBOL(drm_format_info_bpp);
+ 
 
 -- 
 2.43.0
