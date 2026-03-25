@@ -4,131 +4,135 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 576BEFEA82E
-	for <dri-devel@archiver.kernel.org>; Wed, 25 Mar 2026 07:43:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AB868FEA82D
+	for <dri-devel@archiver.kernel.org>; Wed, 25 Mar 2026 07:47:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8236010E7D8;
-	Wed, 25 Mar 2026 07:43:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8200310E7E9;
+	Wed, 25 Mar 2026 07:47:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="Sztwv1LS";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="eTJ7x9sQ";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Byyr7Abr";
 	dkim-atps=neutral
-Received: from PH8PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11012005.outbound.protection.outlook.com [40.107.209.5])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5598F10E7D7
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Mar 2026 07:43:51 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=xi/bqpNrAyYhrNpunCDwGs4WKe6MXSa4mnbH+BoKTeCi6FL75Vnm7NikzLjVJoGDaBueeeurKOsCiO1ornOY4FI2EoBbPOtR8KnMfR4q0ktcHciJrxYhk6TLUvUiVdiol6PPLrEalLc/Vwadul9eW78GxT7OKq9xN849bRpUXxosFg62rSFsFSClxdz09USRznUm0tw82QgSAxeofHno3jojF2PGAC5fKugokWJd2VesYyMhb+77hHcVzNo/h1vnMQzun9PBspRJlTbBrng7O96YdqZkfuGR9XzWAT1w9mdcFwb6HRNX+/+fNdx0SOKujUAjZBjMZ4iLPUC/ODRvhQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=4xESHBlL6y2rZhItRKyAgTjz4UQ4YQRyfZA56z+gOZI=;
- b=B99p+sffRzTZ7pHbgNylHl/r7HpBO0l1NHQe5Ne29o0P/2XYs43e61vpt5HLXARJOZW7n7kkjNQohKCJLKNWceVQYaGSlAhPXuRy2InkLpNNBvgYeIkQ9CGj2ET+e2Kp2ouIsRLL4h8UoGNMvrD7RRlmVb72iP3dXylwdjHR72qdI4+PTxbKzoCSweK/ABcmCKx2Duep3wDetczGbRBxRAY/l+X/VIEzj6PwrCQSXm06R4oI3Kubwoo9dIRtRujclIbKZ9uLAT6y7PC54SvsnfPnkc0zBfgiNeS82/YXqEtodo8ZtVWM0xsmxNjwHKdXE8hDfAu0fl9UaNk76cXz8g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4xESHBlL6y2rZhItRKyAgTjz4UQ4YQRyfZA56z+gOZI=;
- b=Sztwv1LSepeshuWDgzu0khuKjgXRQpB+ctktcOgYSp29g+vra4pmsbSloSV/JEEB74XvsCKObZu5Nd7xdkr8I2B5Bm/qCFpRgzqeP8fvcO8g3ii8qRkN+ebyVIV7fAUjOgOuG7zDkPzoOQWfeaXjfZHVNLcy/QdiFRaVRF/ZbBuRqy6Qa9DRrBnxjoPUObcbjiKONvRSsFED1JUsu+E4IL1yRmfm+A7m06feiZvLHtYX3h+X4AHHKHWm5eotVbunGTW368RsM4nLeCzOBTuGjmL42JuOYYRjC8G49iGEArW2+X4IbeBYRtlW4urIviWBX88wD+iMgty57L2/GdUC7Q==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from BL0PR12MB2353.namprd12.prod.outlook.com (2603:10b6:207:4c::31)
- by MW4PR12MB7484.namprd12.prod.outlook.com (2603:10b6:303:212::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.15; Wed, 25 Mar
- 2026 07:43:47 +0000
-Received: from BL0PR12MB2353.namprd12.prod.outlook.com
- ([fe80::99b:dcff:8d6d:78e0]) by BL0PR12MB2353.namprd12.prod.outlook.com
- ([fe80::99b:dcff:8d6d:78e0%4]) with mapi id 15.20.9745.012; Wed, 25 Mar 2026
- 07:43:46 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 25 Mar 2026 16:43:42 +0900
-Message-Id: <DHBP16AEXWIJ.33T5PPE3ZRMHI@nvidia.com>
-To: "Alistair Popple" <apopple@nvidia.com>, "Eliot Courtney"
- <ecourtney@nvidia.com>
-Cc: "Danilo Krummrich" <dakr@kernel.org>, "Alice Ryhl"
- <aliceryhl@google.com>, "Alexandre Courbot" <acourbot@nvidia.com>, "David
- Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "John
- Hubbard" <jhubbard@nvidia.com>, "Joel Fernandes" <joelagnelf@nvidia.com>,
- "Timur Tabi" <ttabi@nvidia.com>, <rust-for-linux@vger.kernel.org>,
- <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v2 6/9] gpu: nova-core: use KVVec for SBufferIter flush
-From: "Eliot Courtney" <ecourtney@nvidia.com>
-X-Mailer: aerc 0.21.0-0-g5549850facc2
-References: <20260318-rmcontrol-v2-0-9a9fa6f1c4c3@nvidia.com>
- <20260318-rmcontrol-v2-6-9a9fa6f1c4c3@nvidia.com>
- <abzMyv_WHE4CUyFf@nvdebian.thelocal>
-In-Reply-To: <abzMyv_WHE4CUyFf@nvdebian.thelocal>
-X-ClientProxiedBy: TY4PR01CA0046.jpnprd01.prod.outlook.com
- (2603:1096:405:372::18) To BL0PR12MB2353.namprd12.prod.outlook.com
- (2603:10b6:207:4c::31)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6186610E7B7
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Mar 2026 07:47:15 +0000 (UTC)
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 62P4eO7s2807988
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Mar 2026 07:47:15 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=jbmWobzZxEkWqGh44BpBynlL
+ LpPaqHanh5XtZddkKA8=; b=eTJ7x9sQFm/PvYzoR84aHo2WzU2a3JA5/VU2PwGp
+ dKHXrfYznOlhvX6P77J1TfW8rw233jn8A5RiqJQKn7N0syjZSGosGWrTLQ7Uwedb
+ l4MVwo3NNpzAwez1Bd/RnwdrTWIZKv2TFK7uth0w5slkRnSzOfO4XypeJ+WZVNE5
+ 9Fq8F+yl39ATHEiHngXMfeD6wfMrC+iH5mg4vP0hXPHrMRWi9GRQX2UxgElYVmpF
+ JYEbjd7o9gkiqD6zOExvjGmQsvBkBs/tEI3XKj3zY5bRnC3MVPbdUsRqzGtm+JXl
+ 8tqBZM8nXFMuagOqpbjCjNyAZ0djxs8YEbjkQEtiUcyGYg==
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com
+ [209.85.160.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d3t9eky9f-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Mar 2026 07:47:14 +0000 (GMT)
+Received: by mail-qt1-f200.google.com with SMTP id
+ d75a77b69052e-5090bc4823cso22739511cf.3
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Mar 2026 00:47:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1774424833; x=1775029633;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=jbmWobzZxEkWqGh44BpBynlLLpPaqHanh5XtZddkKA8=;
+ b=Byyr7AbrXBmj36WnoKtnmz0e7tCBbIa63hKQxBv7rBw+5Cxy4agp6SyxWIomcX8WTo
+ qRim7XNozOiONHxUsWG+UiJuAk1RRPPU65Upr3xe5YIpp0hWArvDfVLWhGB+hqgESBXp
+ eWcklDJHqy7XRMDCM2xOxKve+qLh2xpmXphzaVCIzNDA/0axOB+2X+cZ8SGri6xpjX4z
+ Wymdt+t2OsHpO2utjwrZeIa/2sOXB1feTMjCf3EaxyJ1+R+auoCnT8OiJr83uJjo69xo
+ JXxtZyFL30zZyVsW3T45lX9Jwc36ph7IUQWSS8G55IH/jZ8lkDneuktBW9CKVQazPnTj
+ 3vlQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1774424833; x=1775029633;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=jbmWobzZxEkWqGh44BpBynlLLpPaqHanh5XtZddkKA8=;
+ b=YW2/mq6x0XQWKvjmNhCXz4SPxArE/x8CEcZ83pemsB9Ru2AaSsJReb3LUTar+bm918
+ u8Us0XDNU8cgTymK0pXz/gGZVyHXxPjCtvL1mYk6T6sBQKfgwYGmEnwVreeq7USE+dtq
+ BMBjA729wg+WTyNes7wYCh+1X8UYcReV/u8FmiQqAsKQW0Z8HaOZ4DPrqTs/mx7oEPI3
+ 13z9Wj9oHGONAPlsyVi34vDYEDelt1ufgLndzvYjj33bVMS+eI04KnAwYXD0abe9o/ve
+ BrjmwFOo6iMr9NBDBzGO6GjYtlfJrhnPWEqRFfwichcqK/6oX64qGbGhR/oN2XYDg24i
+ c0mg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWveIvPE63f8HfdEtSyM6/ObAh0C/HjQA+3qwhAYgY4wM4svB0ssTmYDjXO7MZ57BvmIph8PiyWi9I=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwllaqnuD+m0zIjx7PJN3IhQA9Hs5P0SH6sfXBdoEfrvT8SwyzU
+ pmeehvTKLHpUU+bg+zdHnfm5eU0pvFNR83g4kbkfXRzLO2E7h4O1QbNJnNcoG3jdd1xZlADrg+z
+ HNhwLAmucvZssivcgzRPzTsPJm6HOpR56eahS5L30rcdBS7iZGffVQm07v6CdyXVKyC/Yv0qQSu
+ nUz7A=
+X-Gm-Gg: ATEYQzwguF2XdVbmnKTuqrqiba+/YlAm44rGgfsfuXIilBEkFO3MM4gMbHH3JRpmYUr
+ 7WMjtLa8r8s6peQzJJwbxcWoxvZ4sfkXENKL3d3kUsD58/3DiL62MY8hHgAG3B34AMFDXqwnDie
+ p48OKGObX1cDtv+XsqokTdPFdp0MJSqazUqGSEFDiTYU85ms1LAlxg6YMBcHVPfq5S4nWkpmD30
+ Azz6tkQrHmUghq1sTUQJv8+zrDkMSS4XlGB+EXulrabkLeY1NpWjLI6Q2SngCMGjxBz6eFE198f
+ NF9NJK8tWz0u7iPNgPhiU5H5BYxFGxJTrZJJg2hdZ24NmkClVm3eeLnSEhmjzL6JBj5hq9DtqV6
+ lBcH3EOOy8K/TUQmc0vEHHMCRBkbx9ddbbBqFyp0j+ML+Bksf+1/9QlQbzlVKUWbi9AGEc0hBQM
+ G8Q9xCUfki1WwXP5It4UGAL7B70mqE4GUZdF4=
+X-Received: by 2002:a05:622a:5b95:b0:509:2448:41a with SMTP id
+ d75a77b69052e-50b80de0052mr34310121cf.42.1774424833617; 
+ Wed, 25 Mar 2026 00:47:13 -0700 (PDT)
+X-Received: by 2002:a05:622a:5b95:b0:509:2448:41a with SMTP id
+ d75a77b69052e-50b80de0052mr34309991cf.42.1774424833214; 
+ Wed, 25 Mar 2026 00:47:13 -0700 (PDT)
+Received: from umbar.lan
+ (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-5a285206f73sm3623553e87.54.2026.03.25.00.47.11
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 25 Mar 2026 00:47:11 -0700 (PDT)
+Date: Wed, 25 Mar 2026 09:47:10 +0200
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Jun Nie <jun.nie@linaro.org>
+Cc: Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Dmitry Baryshkov <lumag@kernel.org>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v19 4/4] drm/msm/dpu: Enable quad-pipe for DSC and
+ dual-DSI case
+Message-ID: <o43ppkmsdrg4c3tz4zhg2y2mszuryjxxyaowaw7l6ldhzjyzn4@omf7wa5yboy7>
+References: <20260312-msm-next-quad-pipe-split-v19-0-4ffa2b06c996@linaro.org>
+ <20260312-msm-next-quad-pipe-split-v19-4-4ffa2b06c996@linaro.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL0PR12MB2353:EE_|MW4PR12MB7484:EE_
-X-MS-Office365-Filtering-Correlation-Id: 46b48a8b-a893-463f-37c3-08de8a423f06
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|366016|1800799024|10070799003|18002099003|22082099003|56012099003;
-X-Microsoft-Antispam-Message-Info: L661JTgpLkOe3b/HzVmv6doRupzX3Tcpqcvcmey4x9sMen2YnDfKm1JiSiBf4TqTjp8iQNm8m2YR9qSbwb+uzi4kyL7JdGCFOWgDpGHbc4jD88s2Nt/iSyVCV9CqnaHxEtiuDJ4Py2wPF3/nNfJkBHTPa8e+J92bP/XHLuAnmkt78Whqdd0eL4S0N3KkptB85fUWJka8vH7jrWY9q7hJIOePiLccSYOUbYQajypyr3F3tsQYT8WvgTKpFIGgPC1MDdG9OPqmDGtl3x0vdW35qnqRkQoOb70HCIfVPEmtwzsGr+doPhaYoH4XDVRv24RhkpvRb8vS62ut0U+a/P08ulf0TEzl11NMtCUImvn5b6p1/FJVQhnyZ93dBoe31NumqtqdPkhc9w8L5p9EDcZm0DjiNqtQLvudaMt2+Lz7iqbH874jjpThV+WL2lwMsa20mcm0uRBuQWlt3d9LXZtWv1dCcV9D9BWjWJH+byY3ZC67dJLLie2X18bEPMlhLj7CUavP/n2RwFTReq4kf55s98HY8jd5bzq6m1Slt2tJY7eMZAskdERO8QcF1I2MrM+qR5VZLXV20QDibSJsBuDYxnVH8l5QI6Uk/aXWteiIgmvglmHDSqE/9mfeKYNL1BA28S/dVn6qPCLZ7sdVECnjXInQBzRWjgSKaeHFHjc2y8q9fohO2e47tTAKGQK62/pMdd8ssqjGdePuSFiS8B3xmR/p/hoFTpuab1thk/VNPjY=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BL0PR12MB2353.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(366016)(1800799024)(10070799003)(18002099003)(22082099003)(56012099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WklzVkRSRjdPL2grVThtUWFTWTFXdTBUT0w2dTB6MHdlSklCR29CekFQYVBY?=
- =?utf-8?B?cXE1dWV6WERhaXB5dmEyWFVKOEsvbUhHeUdYdElXV2ZZc0RUU0VucnBCM2dD?=
- =?utf-8?B?OVpYUDFRUzdGSlNaNUx5NGtKdGxIbldpUHVlWVdzYWNlNGtnSVFUazd3N0Nm?=
- =?utf-8?B?OVErbDF6VElEcDVLRjZzeVBXZzE5QkdqRWxOemxtUnBtOEpTa3k0RlUwZ0lZ?=
- =?utf-8?B?U0ZGQ3BHNkpTajhoai9BYzNLcm1kTzc1cnE3TGFReVNNb1RyVkJ2bzcvMi9O?=
- =?utf-8?B?UVh0TEx0alJBdUtUakZNeTB0M21uTEllZGd5T3dUSzljeUZNNFFvVzl2RHEz?=
- =?utf-8?B?Mnp1blBXSjN1emJXcU53WXIwWklOdEVPdURzQzB6Q2pObms3dEFvc0FhN0Qx?=
- =?utf-8?B?WlJteFpWTkptNjgzMzlBb3o4R0pwWTY0TlF3Q284c0o1Z1E0ei9KSEJsbmJ5?=
- =?utf-8?B?QzBlZXNsSHNYVCtQRm1XTEJMSmY1THpFejEzVE1WL2ZWbHV4SUtlbmpYZklv?=
- =?utf-8?B?QnY4Ti9KOVJHZGd2MndVV3FvSnROaEtySCtYVTNWUVkzWjE2WEc4ODJnalZl?=
- =?utf-8?B?cFJ2cjI3Z0tXa3NqMXJURmFtSnN2WGNZMTkwN09OOW8zd3lpUzBVRzR1YVZG?=
- =?utf-8?B?UzYvcElFY2pvd0tWRkRiUDlNczRPOUdEMTFuN3YxdXRqZ3MzMm14ZnluMWVH?=
- =?utf-8?B?aWFIRlQ2SjlmalVXQXVnUktlVjByUXlYQnZPWDUzSHJHSEdVcGZBdEZNN01I?=
- =?utf-8?B?QmlhT0FlTW5MbGlxVjBuV2I0OTdJWnAveXFBMGxmeithWjA4bnp5TVdUNUE1?=
- =?utf-8?B?dGJQb1VtMy9Ec2VNVjhvNDRhRk9JN1QvL243THhoNWZLTHBXc2FhVzVveUV3?=
- =?utf-8?B?S2pkUTBZZHA2U2ZQYnBVKzFtTlNPRENZbXd6QmV3QXI0b3U0by9LNUcrT2Zi?=
- =?utf-8?B?L2N3RGZKQmgrZWxKUkZlQTRHbXhXWU56cEhmODBVeG91emtKK2Z2ejJqYkEx?=
- =?utf-8?B?S3cyUXV4Y0IxR0hkV1BjZHFHK0V3QzFLK1dnZEkvOXplOGYyNkZDajlNd2Rl?=
- =?utf-8?B?cVlsQmVaQUhSV3BUQmtrUmNLYXNPQUl3Q1JWNWdzVSt6ekxFbHRxc1FRR3Yw?=
- =?utf-8?B?eVNiMjNHeWRGeEhKMHFBV2pGbEtGSDdZU2VNSDJiUDlDTkgvTmFyQ1YrMlNN?=
- =?utf-8?B?bEF2Yy8xWWp6cUx3dDhjSEVraHQ5MVpMeEhZRW9pNzErN2Y1d2llVGlpYjNO?=
- =?utf-8?B?MWJ5R21sWmpsMGNvRFFNT0NzTjd6SWttVWNCVVJXSGJ0OVJoeGJmWUplQzI5?=
- =?utf-8?B?ejA5eFAzVFFsTTBrVERTSjJSUElkQ1ozaFBuSWF0RmdpOGlReGRWbnd2TExI?=
- =?utf-8?B?QVQ5WnRsMDBsS1pEUDVHQUcrZEJnV0E5NHF5eHdkcVUySTdkN3lhUzBLSndY?=
- =?utf-8?B?TldMVDhJYmkydFVLRWVGaXBkNlZNYW1taHYxamorUHh2bW1XVkpNSlZQbDJX?=
- =?utf-8?B?NlY5SC9IbFZxZjBJaHVxUm9oeXowU3VRL280dkJzbGkwTjczVkRTeUoxU3ZI?=
- =?utf-8?B?aGc2TFQwZ2d2ZTlGVUxMZkVtWk9YNGdwNzBZNzhGVm11UklVbWgrQmZsZDF0?=
- =?utf-8?B?ZXI0WDVkZ0MyQnJNU3pEaEovcHNOeWRlckFDcjFXYzZpWU1LNzNPMDcreDhp?=
- =?utf-8?B?NEZPUG10RkI4djFqV09BM1NRRUQyNjBJSGVFckh1WUthcXhWbUdkMnVTdGVx?=
- =?utf-8?B?bjBLc1NmYytaeG1PeVVMaGFOdFBwTUREWnp0dy9xUHpIT0Q1ZGFWcVVwYkti?=
- =?utf-8?B?ME5uZWVLTUF3dTlWTDc1VzFyeGE0Yjc4VGMxdHFFNERxY3pxNHdJOTVOVHJH?=
- =?utf-8?B?d0s2eVV1YjFZa0dKV0dPSlNPRTY5S1dxV3kvV1A4bGN1RnAwcVk2RGN4bElm?=
- =?utf-8?B?NWlRK0tpZ1JWUHMvZWFHUkV3bERYNkhBbHVTaFQ1NnJqdk5kak00L2dEZEgr?=
- =?utf-8?B?M2xVekk4VHJjdWtZajVGa0lta2dRbzZUMFpCcXpkUzJVU0hoMFNkZTB1VGhS?=
- =?utf-8?B?Y2s5RWdMMFIwTkhSUGllV3p5Z0grZSt5QWlQWUc0cDAzMzgrd2NCVXUySzZK?=
- =?utf-8?B?YzhWeGlqYTd5eEtiaW1HTXZDVFBjMXNzdDYzSVU0NG5rbnNTWnovZFgxUy9T?=
- =?utf-8?B?NjI4SFh2VnpRVS9WczZKRlRvQy9NYkhaT0w3Q0REelUwUHdnY05vMlp1bVF1?=
- =?utf-8?B?dzRZUjZaQnlGK1UvNW5TZUl4andrRFdWc0E0OFpxYnJkWmQyaHFwYWQzdXNX?=
- =?utf-8?B?ZlZCUi9UaG5SaHNEYU9IZ21PTEVYb2NITEtGRDFUZ0pIYjQ1Y2NMVnBFZHZs?=
- =?utf-8?Q?hpoOfE/BTSjyQ6XJwy0ooQuuroZ5gkZCJ9l/IDoX+6+U3?=
-X-MS-Exchange-AntiSpam-MessageData-1: 6cgol+caAxZaCg==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 46b48a8b-a893-463f-37c3-08de8a423f06
-X-MS-Exchange-CrossTenant-AuthSource: BL0PR12MB2353.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Mar 2026 07:43:46.7311 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: xHuxOu/qpK7uW+/x39c5pcselaT0R93h3ENTy20ykpsn26BU7vt8Tr2yPMy0wNYcChk1kogRFbpadpi7+IvWOw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7484
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260312-msm-next-quad-pipe-split-v19-4-4ffa2b06c996@linaro.org>
+X-Proofpoint-ORIG-GUID: BrlCP8PIBSncUb50OlXs0iyVjE2cBMTN
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzI1MDA1NCBTYWx0ZWRfX0838/T22/H1h
+ lcUMqsfvNOXW8SoXHOw6W2ILyg7s+PC1Wbfq15mEN6ngxl1/35SkgrhmpaYPKlDfoK7fIu+320w
+ Rq9j9BaoEiIHRxvraVF6oTYJFd1XKr/N0gwvCbjv02rzccMHJfN3meBSgMW7HmyNVwKC9Hf8V3S
+ 8sZlcQY43oKn3wHMRWXobole/5e8Ey4B+wjmBLmGcZqVEQXwnbqmm4CiA7cirJ73jQGdlZrjKlm
+ IynfH9i825nRckcP01RTwt5qF1WDfqelp5t6NgS7lYrLJZZDqcuIyzN+ysV9nORdjItwhTL8PR2
+ LOEufbnsIt6N0u/xEskpBHgIOOZp/wn1ZoDhNbDDSBMA2lvD3LnnJOCQYad79BCJMzegXzSFEbQ
+ 7tIt2rv64H84giTia69VMmCN8KS/F5avYQKzRr5Ks7q/OT04flWt79MXLzlZ2fiD94hXZxSxjIM
+ 7qWocZJIc/Y3bgFcecg==
+X-Authority-Analysis: v=2.4 cv=DdAaa/tW c=1 sm=1 tr=0 ts=69c39302 cx=c_pps
+ a=JbAStetqSzwMeJznSMzCyw==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22 a=e5mUnYsNAAAA:8
+ a=VwQbUJbxAAAA:8 a=KKAkSRfTAAAA:8 a=COk6AnOGAAAA:8 a=EUspDBNiAAAA:8
+ a=qWzgL6TmHCyCF3KwFOUA:9 a=CjuIK1q_8ugA:10 a=uxP6HrT_eTzRwkO_Te1X:22
+ a=Vxmtnl_E_bksehYqCbjh:22 a=cvBusfyB2V15izCimMoJ:22 a=TjNXssC_j7lpFel5tvFf:22
+X-Proofpoint-GUID: BrlCP8PIBSncUb50OlXs0iyVjE2cBMTN
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-03-25_02,2026-03-24_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 suspectscore=0 priorityscore=1501 impostorscore=0 bulkscore=0
+ lowpriorityscore=0 phishscore=0 malwarescore=0 clxscore=1015 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603250054
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -144,86 +148,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri Mar 20, 2026 at 1:32 PM JST, Alistair Popple wrote:
-> On 2026-03-18 at 18:14 +1100, Eliot Courtney <ecourtney@nvidia.com> wrote=
-...
->> Change flush_into_kvec to return KVVec instead of KVec. KVVec uses
->> vmalloc for large allocations, which is appropriate since RPC reply
->> payloads can be large (>=3D20 KiB).
->
-> Out of curiosity do you know if there is any upper limit on payload size?
+On Thu, Mar 12, 2026 at 04:28:13PM +0800, Jun Nie wrote:
+> To support high-resolution cases that exceed the width constrain
+> or scenarios that surpass the maximum MDP clock rate, additional
+> pipes are necessary to enable parallel data processing within
+> the width constraints and MDP clock rate.
+> 
+> Expand pipe array size to 4. Request 4 mixers and 4 DSCs for
+> high-resolution cases where dual interfaces are enabled for virtual
+> plane case. More use cases can be incorporated later if quad-pipe
+> capabilities are required.
+> 
+> Signed-off-by: Jun Nie <jun.nie@linaro.org>
+> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> Reviewed-by: Jessica Zhang <quic_jesszhan@quicinc.com>
+> Patchwork: https://patchwork.freedesktop.org/patch/675418/
+> Link: https://lore.kernel.org/r/20250918-v6-16-rc2-quad-pipe-upstream-4-v16-10-ff6232e3472f@linaro.org
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> ---
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c         | 48 ++++++++++++++++--------
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h         |  6 +--
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c      | 29 +++++---------
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h |  2 +-
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h   |  2 +-
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h      |  2 +-
+>  6 files changed, 47 insertions(+), 42 deletions(-)
+> 
 
-IIRC the largest one I saw in openrm was a few hundred KiB.
-Theoretically, the largest complete payload you could have in a single
-message is ~64 KiB since we don't support continuation records on the
-receive path.
+This patch can no longer be applied due to the conflict. I will try
+picking up other three patches from the series.
 
->
-> And is there any concern about performance of vmalloc() vs. kmalloc() for=
- RPC
-> messages?
-
-`KVVec` uses `KVmalloc` which tries `Kmalloc` first. Most of the time,
-`Kmalloc` should work. So this shouldn't regress performance really in
-the common case, and it's required for the longer RPCs.
-
->
->> Update GspSequence to use KVVec accordingly.
->>=20
->> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
->> ---
->>  drivers/gpu/nova-core/gsp/sequencer.rs | 4 ++--
->>  drivers/gpu/nova-core/sbuffer.rs       | 6 +++---
->>  2 files changed, 5 insertions(+), 5 deletions(-)
->>=20
->> diff --git a/drivers/gpu/nova-core/gsp/sequencer.rs b/drivers/gpu/nova-c=
-ore/gsp/sequencer.rs
->> index 474e4c8021db..c8f587d2d57b 100644
->> --- a/drivers/gpu/nova-core/gsp/sequencer.rs
->> +++ b/drivers/gpu/nova-core/gsp/sequencer.rs
->> @@ -42,7 +42,7 @@ struct GspSequence {
->>      /// Current command index for error reporting.
->>      cmd_index: u32,
->>      /// Command data buffer containing the sequence of commands.
->> -    cmd_data: KVec<u8>,
->> +    cmd_data: KVVec<u8>,
->>  }
->> =20
->>  impl MessageFromGsp for GspSequence {
->> @@ -54,7 +54,7 @@ fn read(
->>          msg: &Self::Message,
->>          sbuffer: &mut SBufferIter<array::IntoIter<&[u8], 2>>,
->>      ) -> Result<Self, Self::InitError> {
->> -        let cmd_data =3D sbuffer.flush_into_kvec(GFP_KERNEL)?;
->> +        let cmd_data =3D sbuffer.read_to_vec(GFP_KERNEL)?;
->>          Ok(GspSequence {
->>              cmd_index: msg.cmd_index(),
->>              cmd_data,
->> diff --git a/drivers/gpu/nova-core/sbuffer.rs b/drivers/gpu/nova-core/sb=
-uffer.rs
->> index 3a41d224c77a..ae2facdcbdd4 100644
->> --- a/drivers/gpu/nova-core/sbuffer.rs
->> +++ b/drivers/gpu/nova-core/sbuffer.rs
->> @@ -162,11 +162,11 @@ pub(crate) fn read_exact(&mut self, mut dst: &mut =
-[u8]) -> Result {
->>          Ok(())
->>      }
->> =20
->> -    /// Read all the remaining data into a [`KVec`].
->> +    /// Read all the remaining data into a [`KVVec`].
->>      ///
->>      /// `self` will be empty after this operation.
->> -    pub(crate) fn flush_into_kvec(&mut self, flags: kernel::alloc::Flag=
-s) -> Result<KVec<u8>> {
->> -        let mut buf =3D KVec::<u8>::new();
->> +    pub(crate) fn read_to_vec(&mut self, flags: kernel::alloc::Flags) -=
-> Result<KVVec<u8>> {
->> +        let mut buf =3D KVVec::<u8>::new();
->> =20
->>          if let Some(slice) =3D core::mem::take(&mut self.cur_slice) {
->>              buf.extend_from_slice(slice, flags)?;
->>=20
->> --=20
->> 2.53.0
->>=20
-
+-- 
+With best wishes
+Dmitry
