@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D41E8FC72DA
-	for <dri-devel@archiver.kernel.org>; Wed, 25 Mar 2026 00:15:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3850CF54AD6
+	for <dri-devel@archiver.kernel.org>; Wed, 25 Mar 2026 00:24:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F1D9B10E19A;
-	Wed, 25 Mar 2026 00:15:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8766310E103;
+	Wed, 25 Mar 2026 00:24:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="Oe8kknJK";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="WckuwsK5";
 	dkim-atps=neutral
 Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
  [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A8FDF10E19A
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Mar 2026 00:15:08 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1774397695; cv=none; 
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9B6C210E103
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Mar 2026 00:24:36 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1774398262; cv=none; 
  d=zohomail.com; s=zohoarc; 
- b=HlYfxOoLxwZja9sgQXmVkVCO6dVeb4IwRup2krl2XzIsmtJ5BEDvWjuWCP3SaQI/Ad1uCl/u4zC05yjUukrk2/T9aI+c4xYNrDxbeq3pJkCRe3HuS9RD7ik6SHTR1B9gzH1QyAMkvyh3CtQipB8J52C0+uNMzWWqRePnl60sQd8=
+ b=ioBaOBDYHN1pA/qUobSi1UxFvWX3HhIJiqkqRnA3V7de9If6uEwPoNi50BSzGilh3xbzjZGybrBaJoGHAFVEQLbH9Y3k0n3eWQ0G/+DSNk+l8cc/E71cEh6jDbQ629WpYfCX/nYrft/YV0l8ZEw3KLxrXxcCC48Sj3/Zpb47vjE=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1774397695;
+ s=zohoarc; t=1774398262;
  h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=W3Y0haO+2wzmpdMU5tBOU8f/F7viKZSwK9pnoRs70fQ=; 
- b=R3lGjmMB3jj5KJQKAn84RxtbSTy+LRs/UHKoDd8GbzE+AwGj6GstXRdQ9esyYMYUqRDZgAttH7ou6Ofy3Y9+tdhPRnPVnqX/T+DhHFSRP28N6eZCntKyEmfxTGQEom+kMw1Flyuy3jq+69LUGAjyr1Jhbj8wwR/81NWK9vQNudQ=
+ bh=FadbsWQSsibTWhj6kcnF+tTW9yGDAqMOi2i62Cf+E24=; 
+ b=ItjtVWKT8uzzHgcwX1JS8OHiM0sj/aolNHiOCFYUDhuXNwoDcTGsMkHzaeMBePITZhDjtJG5pymcg4CjoqZx1/2rjbWyvxs0zDBZcj8raWq8oQJ9pLFl6LBKISbJSMDlXeJqns+6SjAcUKszjJBCpiES9iHgT0othKE7Im8U064=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
  dkim=pass  header.i=collabora.com;
  spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
  dmarc=pass header.from=<adrian.larumbe@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1774397695; 
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1774398262; 
  s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
  h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:References:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
- bh=W3Y0haO+2wzmpdMU5tBOU8f/F7viKZSwK9pnoRs70fQ=;
- b=Oe8kknJKrGWo26qkCcRUdYstCrw9sWsh3Js2dUtREIT//oxQlJkMi4pC1a1Tqtgm
- 02hVOkKeL15gdNtm/jvO9dJpWXTgwBV0qLXVJ0Z971ExQSLVQR0kynQpDGwzLSlfteU
- V9xxgezvJxVzwjdQN3ck+knCvC1ihAVsmaOLcaCM=
-Received: by mx.zohomail.com with SMTPS id 1774397693427401.0771956050568;
- Tue, 24 Mar 2026 17:14:53 -0700 (PDT)
-Date: Wed, 25 Mar 2026 00:14:46 +0000
+ bh=FadbsWQSsibTWhj6kcnF+tTW9yGDAqMOi2i62Cf+E24=;
+ b=WckuwsK5bP2kcbzUxfOBmcwyYqHEo46d/hOddXcJ50/1LvDw8G5Jrr2gPW8YnGvd
+ FHkah0ZSpyHZEaXz8cgD8AtO/X+mQyt6GhE+cuYD1y2qixxMxVX/yaRfPhLdfPH9jhd
+ NwTxv56gvNbOEg/HeF8+XzKhlCvdkURAf1IoSxpY=
+Received: by mx.zohomail.com with SMTPS id 1774398260780199.51785247793293;
+ Tue, 24 Mar 2026 17:24:20 -0700 (PDT)
+Date: Wed, 25 Mar 2026 00:24:14 +0000
 From: =?utf-8?Q?Adri=C3=A1n?= Larumbe <adrian.larumbe@collabora.com>
 To: Boris Brezillon <boris.brezillon@collabora.com>
 Cc: Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>, 
@@ -55,14 +55,14 @@ Cc: Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
  Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
  Alice Ryhl <aliceryhl@google.com>, Chia-I Wu <olvaffe@gmail.com>, 
  kernel@collabora.com
-Subject: Re: [PATCH v5 9/9] drm/panthor: Add a GEM shrinker
-Message-ID: <acMkjZ0MkKLCnLvi@sobremesa>
+Subject: Re: [PATCH v5 5/9] drm/panthor: Part ways with drm_gem_shmem_object
+Message-ID: <acMpCVRIV2E4KqJB@sobremesa>
 References: <20260309151119.290217-1-boris.brezillon@collabora.com>
- <20260309151119.290217-10-boris.brezillon@collabora.com>
+ <20260309151119.290217-6-boris.brezillon@collabora.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260309151119.290217-10-boris.brezillon@collabora.com>
+In-Reply-To: <20260309151119.290217-6-boris.brezillon@collabora.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,1480 +78,1357 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi, seems that I have more questions about this patch.
-
 On 09.03.2026 16:11, Boris Brezillon wrote:
-> From: Akash Goel <akash.goel@arm.com>
+> While drm_gem_shmem_object does most of the job we need it to do, the
+> way sub-resources (pages, sgt, vmap) are handled and their lifetimes
+> gets in the way of BO reclaim. There has been attempts to address
+> that [1], but in the meantime, new gem_shmem users were introduced
+> (accel drivers), and some of them manually free some of these resources.
+> This makes things harder to control/sanitize/validate.
 >
-> This implementation is losely based on the MSM shrinker, and it's
-> relying on the drm_gpuvm eviction/validation infrastructure.
+> Thomas Zimmerman is not a huge fan of enforcing lifetimes of sub-resources
+> and forcing gem_shmem users to go through new gem_shmem helpers when they
+> need manual control of some sort, and I believe this is a dead end if
+> we don't force users to follow some stricter rules through carefully
+> designed helpers, because there will always be one user doing crazy things
+> with gem_shmem_object internals, which ends up tripping out the common
+> helpers when they are called.
 >
-> Right now we only support swapout/eviction, but we could add an extra
-> flag to specify when buffer content doesn't need to be preserved to
-> avoid the swapout/swapin dance.
+> The consensus we reached was that we would be better off forking
+> gem_shmem in panthor. So here we are, parting ways with gem_shmem. The
+> current transition tries to minimize the changes, but there are still
+> some aspects that are different, the main one being that we no longer
+> have a pages_use_count, and pages stays around until the GEM object is
+> destroyed (or when evicted once we've added a shrinker). The sgt also
+> no longer retains pages. This is losely based on how msm does things by
+> the way.
 >
-> Locking is a bit of a nightmare, but using _trylock() all the way in
-> the reclaim path seems to make lockdep happy. And yes, we might be
-> missing opportunities to reclaim when the system is under heavy GPU
-> load/heavy memory pressure/heavy GPU VM activity, but that's better
-> than no reclaim at all.
+> If there's any interest in sharing code (probably with msm, since the
+> panthor shrinker is going to be losely based on the msm implementation),
+> we can always change gears and do that once we have everything
+> working/merged.
+>
+> [1]https://patchwork.kernel.org/project/dri-devel/patch/20240105184624.508603-1-dmitry.osipenko@collabora.com/
 >
 > v2:
-> - Move gpu_mapped_shared next to the mmapped LRU
-> - Add a bunch of missing is_[vm_bo,vma]_evicted() tests
-> - Only test mmap_count to check if a BO is mmaped
-> - Remove stale comment about shrinker not being a thing
-> - Allow pin_count to be non-zero in panthor_gem_swapin_locked()
-> - Fix panthor_gem_sync() to check for BO residency before doing the CPU sync
-> - Fix the value returned by panthor_gem_shrinker_count() in case some
->   memory has been released
-> - Check drmm_mutex_init() ret code
-> - Explicitly mention that PANTHOR_GEM_UNRECLAIMABLE is the initial state
->   of all BOs
+> - Fix refcounting
+> - Add a _locked suffix to a bunch of functions expecting the resv lock
+>   to be held
+> - Take the lock before releasing resources in panthor_gem_free_object()
 >
 > v3:
-> - Make panthor_gem_try_evict() static
-> - Collect {A,R}-bs
+> - Use ERR_CAST() to fix an ERR-ptr deref
+> - Add missing resv_[un]lock() around a panthor_gem_backing_unpin_locked()
+>   call
 >
 > v4:
-> - Update the reclaim_state in panthor_gem_mmap()
-> - Don't reclaim GPU-mapped BOs if can_block() returns false
-> - Skip evicited vm_bos in panthor_vm_update_bo_reclaim_lru_locked() to
->   avoid spurious WARN_ON()s
-> - Explain why we have to do this
->   select_evicted_vma/repopulate_evicted_vma dance
+> - Fix an error path in panthor_gem_vmap_get_locked()
+> - Don't leave bo->base.pages with an ERR_PTR()
+> - Make panthor_gem_{pin,unpin}[_locked]() more consistent
+> - Don't fail in panthor_gem_dev_map_get_sgt_locked() if the pages are not
+>   allocated
 >
-> v5:
-> - Properly report the reclaimable size in panthor_gem_debugfs_print_bos()
-> - Check panthor_vm_lock_region() errors in
->   panthor_vm_evict_bo_mappings_locked()
-> - Fix lock order inversion (dma_resv_wait_timeout() inside gpuva.lock)
+> -v5:
+> - Add missing static specifier on our vm_ops
 >
-> Signed-off-by: Akash Goel <akash.goel@arm.com>
-> Co-developed-by: Boris Brezillon <boris.brezillon@collabora.com>
 > Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
-> Acked-by: Liviu Dudau <liviu.dudau@arm.com>
-> Reviewed-by: Steven Price <steven.price@arm.com>
 > ---
->  drivers/gpu/drm/panthor/panthor_device.c |  11 +-
->  drivers/gpu/drm/panthor/panthor_device.h |  73 ++++
->  drivers/gpu/drm/panthor/panthor_gem.c    | 468 ++++++++++++++++++++++-
->  drivers/gpu/drm/panthor/panthor_gem.h    |  68 ++++
->  drivers/gpu/drm/panthor/panthor_mmu.c    | 359 ++++++++++++++++-
->  drivers/gpu/drm/panthor/panthor_mmu.h    |   8 +
->  6 files changed, 960 insertions(+), 27 deletions(-)
+>  drivers/gpu/drm/panthor/Kconfig         |   1 -
+>  drivers/gpu/drm/panthor/panthor_drv.c   |   7 +-
+>  drivers/gpu/drm/panthor/panthor_fw.c    |  16 +-
+>  drivers/gpu/drm/panthor/panthor_gem.c   | 700 ++++++++++++++++++++----
+>  drivers/gpu/drm/panthor/panthor_gem.h   |  62 ++-
+>  drivers/gpu/drm/panthor/panthor_mmu.c   |  48 +-
+>  drivers/gpu/drm/panthor/panthor_sched.c |   9 +-
+>  7 files changed, 669 insertions(+), 174 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/panthor/panthor_device.c b/drivers/gpu/drm/panthor/panthor_device.c
-> index 54fbb1aa07c5..bc62a498a8a8 100644
-> --- a/drivers/gpu/drm/panthor/panthor_device.c
-> +++ b/drivers/gpu/drm/panthor/panthor_device.c
-> @@ -2,6 +2,7 @@
->  /* Copyright 2018 Marty E. Plummer <hanetzer@startmail.com> */
->  /* Copyright 2019 Linaro, Ltd, Rob Herring <robh@kernel.org> */
->  /* Copyright 2023 Collabora ltd. */
-> +/* Copyright 2025 ARM Limited. All rights reserved. */
+> diff --git a/drivers/gpu/drm/panthor/Kconfig b/drivers/gpu/drm/panthor/Kconfig
+> index 55b40ad07f3b..911e7f4810c3 100644
+> --- a/drivers/gpu/drm/panthor/Kconfig
+> +++ b/drivers/gpu/drm/panthor/Kconfig
+> @@ -8,7 +8,6 @@ config DRM_PANTHOR
+>  	depends on MMU
+>  	select DEVFREQ_GOV_SIMPLE_ONDEMAND
+>  	select DRM_EXEC
+> -	select DRM_GEM_SHMEM_HELPER
+>  	select DRM_GPUVM
+>  	select DRM_SCHED
+>  	select IOMMU_IO_PGTABLE_LPAE
+> diff --git a/drivers/gpu/drm/panthor/panthor_drv.c b/drivers/gpu/drm/panthor/panthor_drv.c
+> index c77190bb357c..8bb8fc18182f 100644
+> --- a/drivers/gpu/drm/panthor/panthor_drv.c
+> +++ b/drivers/gpu/drm/panthor/panthor_drv.c
+> @@ -19,6 +19,7 @@
+>  #include <drm/drm_debugfs.h>
+>  #include <drm/drm_drv.h>
+>  #include <drm/drm_exec.h>
+> +#include <drm/drm_file.h>
+>  #include <drm/drm_ioctl.h>
+>  #include <drm/drm_print.h>
+>  #include <drm/drm_syncobj.h>
+> @@ -1457,7 +1458,7 @@ static int panthor_ioctl_bo_query_info(struct drm_device *ddev, void *data,
+>  	args->create_flags = bo->flags;
 >
->  #include <linux/clk.h>
->  #include <linux/mm.h>
-> @@ -122,6 +123,7 @@ void panthor_device_unplug(struct panthor_device *ptdev)
->  	panthor_sched_unplug(ptdev);
->  	panthor_fw_unplug(ptdev);
->  	panthor_mmu_unplug(ptdev);
-> +	panthor_gem_shrinker_unplug(ptdev);
->  	panthor_gpu_unplug(ptdev);
->  	panthor_pwr_unplug(ptdev);
+>  	args->extra_flags = 0;
+> -	if (drm_gem_is_imported(&bo->base.base))
+> +	if (drm_gem_is_imported(&bo->base))
+>  		args->extra_flags |= DRM_PANTHOR_BO_IS_IMPORTED;
 >
-> @@ -291,10 +293,14 @@ int panthor_device_init(struct panthor_device *ptdev)
->  	if (ret)
->  		goto err_unplug_gpu;
+>  	drm_gem_object_put(obj);
+> @@ -1671,8 +1672,7 @@ static const struct drm_driver panthor_drm_driver = {
+>  	.major = 1,
+>  	.minor = 7,
 >
-> -	ret = panthor_mmu_init(ptdev);
-> +	ret = panthor_gem_shrinker_init(ptdev);
->  	if (ret)
->  		goto err_unplug_gpu;
+> -	.gem_create_object = panthor_gem_create_object,
+> -	.gem_prime_import_sg_table = drm_gem_shmem_prime_import_sg_table,
+> +	.gem_prime_import_sg_table = panthor_gem_prime_import_sg_table,
+>  	.gem_prime_import = panthor_gem_prime_import,
+>  #ifdef CONFIG_DEBUG_FS
+>  	.debugfs_init = panthor_debugfs_init,
+> @@ -1822,3 +1822,4 @@ module_exit(panthor_exit);
+>  MODULE_AUTHOR("Panthor Project Developers");
+>  MODULE_DESCRIPTION("Panthor DRM Driver");
+>  MODULE_LICENSE("Dual MIT/GPL");
+> +MODULE_IMPORT_NS("DMA_BUF");
+> diff --git a/drivers/gpu/drm/panthor/panthor_fw.c b/drivers/gpu/drm/panthor/panthor_fw.c
+> index 5a904ca64525..9e61d26c3a15 100644
+> --- a/drivers/gpu/drm/panthor/panthor_fw.c
+> +++ b/drivers/gpu/drm/panthor/panthor_fw.c
+> @@ -628,7 +628,6 @@ static int panthor_fw_load_section_entry(struct panthor_device *ptdev,
+>  		u32 cache_mode = hdr.flags & CSF_FW_BINARY_IFACE_ENTRY_CACHE_MODE_MASK;
+>  		struct panthor_gem_object *bo;
+>  		u32 vm_map_flags = 0;
+> -		struct sg_table *sgt;
+>  		u64 va = hdr.va.start;
 >
-> +	ret = panthor_mmu_init(ptdev);
-> +	if (ret)
-> +		goto err_unplug_shrinker;
-> +
->  	ret = panthor_fw_init(ptdev);
->  	if (ret)
->  		goto err_unplug_mmu;
-> @@ -326,6 +332,9 @@ int panthor_device_init(struct panthor_device *ptdev)
->  err_unplug_mmu:
->  	panthor_mmu_unplug(ptdev);
+>  		if (!(hdr.flags & CSF_FW_BINARY_IFACE_ENTRY_WR))
+> @@ -666,11 +665,12 @@ static int panthor_fw_load_section_entry(struct panthor_device *ptdev,
+>  		panthor_fw_init_section_mem(ptdev, section);
 >
-> +err_unplug_shrinker:
-> +	panthor_gem_shrinker_unplug(ptdev);
-> +
->  err_unplug_gpu:
->  	panthor_gpu_unplug(ptdev);
+>  		bo = to_panthor_bo(section->mem->obj);
+> -		sgt = drm_gem_shmem_get_pages_sgt(&bo->base);
+> -		if (IS_ERR(sgt))
+> -			return PTR_ERR(sgt);
 >
-> diff --git a/drivers/gpu/drm/panthor/panthor_device.h b/drivers/gpu/drm/panthor/panthor_device.h
-> index b6696f73a536..5cba272f9b4d 100644
-> --- a/drivers/gpu/drm/panthor/panthor_device.h
-> +++ b/drivers/gpu/drm/panthor/panthor_device.h
-> @@ -14,6 +14,7 @@
->  #include <linux/spinlock.h>
+> -		dma_sync_sgtable_for_device(ptdev->base.dev, sgt, DMA_TO_DEVICE);
+> +		/* An sgt should have been requested when the kernel BO was GPU-mapped. */
+> +		if (drm_WARN_ON_ONCE(&ptdev->base, !bo->dmap.sgt))
+> +			return -EINVAL;
+> +
+> +		dma_sync_sgtable_for_device(ptdev->base.dev, bo->dmap.sgt, DMA_TO_DEVICE);
+>  	}
 >
->  #include <drm/drm_device.h>
-> +#include <drm/drm_gem.h>
->  #include <drm/drm_mm.h>
->  #include <drm/gpu_scheduler.h>
->  #include <drm/panthor_drm.h>
-> @@ -178,6 +179,78 @@ struct panthor_device {
->  	/** @devfreq: Device frequency scaling management data. */
->  	struct panthor_devfreq *devfreq;
+>  	if (hdr.va.start == CSF_MCU_SHARED_REGION_START)
+> @@ -730,8 +730,10 @@ panthor_reload_fw_sections(struct panthor_device *ptdev, bool full_reload)
+>  			continue;
 >
-> +	/** @reclaim: Reclaim related stuff */
-> +	struct {
-> +		/** @reclaim.shrinker: Shrinker instance */
-> +		struct shrinker *shrinker;
+>  		panthor_fw_init_section_mem(ptdev, section);
+> -		sgt = drm_gem_shmem_get_pages_sgt(&to_panthor_bo(section->mem->obj)->base);
+> -		if (!drm_WARN_ON(&ptdev->base, IS_ERR_OR_NULL(sgt)))
 > +
-> +		/** @reclaim.lock: Lock protecting all LRUs */
-> +		struct mutex lock;
-> +
-> +		/**
-> +		 * @reclaim.unused: BOs with unused pages
-> +		 *
-> +		 * Basically all buffers that got mmapped, vmapped or GPU mapped and
-> +		 * then unmapped. There should be no contention on these buffers,
-> +		 * making them ideal to reclaim.
-> +		 */
-> +		struct drm_gem_lru unused;
-> +
-> +		/**
-> +		 * @reclaim.mmapped: mmap()-ed buffers
-> +		 *
-> +		 * Those are relatively easy to reclaim since we don't need user
-> +		 * agreement, we can simply teardown the mapping and let it fault on
-> +		 * the next access.
-> +		 */
-> +		struct drm_gem_lru mmapped;
-> +
-> +		/**
-> +		 * @reclaim.gpu_mapped_shared: shared BO LRU list
-> +		 *
-> +		 * That's the most tricky BO type to reclaim, because it involves
-> +		 * tearing down all mappings in all VMs where this BO is mapped,
-> +		 * which increases the risk of contention and thus decreases the
-> +		 * likeliness of success.
-> +		 */
-> +		struct drm_gem_lru gpu_mapped_shared;
-> +
-> +		/**
-> +		 * @reclaim.vms: VM LRU list
-> +		 *
-> +		 * VMs that have reclaimable BOs only mapped to a single VM are placed
-> +		 * in this LRU. Reclaiming such BOs implies waiting for VM idleness
-> +		 * (no in-flight GPU jobs targeting this VM), meaning we can't reclaim
-> +		 * those if we're in a context where we can't block/sleep.
-> +		 */
-> +		struct list_head vms;
-> +
-> +		/**
-> +		 * @reclaim.gpu_mapped_count: Global counter of pages that are GPU mapped
-> +		 *
-> +		 * Allows us to get the number of reclaimable pages without walking
-> +		 * the vms and gpu_mapped_shared LRUs.
-> +		 */
-> +		long gpu_mapped_count;
-> +
-> +		/**
-> +		 * @reclaim.retry_count: Number of times we ran the shrinker without being
-> +		 * able to reclaim stuff
-> +		 *
-> +		 * Used to stop scanning GEMs when too many attempts were made
-> +		 * without progress.
-> +		 */
-> +		atomic_t retry_count;
-> +
-> +#ifdef CONFIG_DEBUG_FS
-> +		/**
-> +		 * @reclaim.nr_pages_reclaimed_on_last_scan: Number of pages reclaimed on the last
-> +		 * shrinker scan
-> +		 */
-> +		unsigned long nr_pages_reclaimed_on_last_scan;
-> +#endif
-> +	} reclaim;
-> +
->  	/** @unplug: Device unplug related fields. */
->  	struct {
->  		/** @lock: Lock used to serialize unplug operations. */
+> +		/* An sgt should have been requested when the kernel BO was GPU-mapped. */
+> +		sgt = to_panthor_bo(section->mem->obj)->dmap.sgt;
+> +		if (!drm_WARN_ON_ONCE(&ptdev->base, !sgt))
+>  			dma_sync_sgtable_for_device(ptdev->base.dev, sgt, DMA_TO_DEVICE);
+>  	}
+>  }
 > diff --git a/drivers/gpu/drm/panthor/panthor_gem.c b/drivers/gpu/drm/panthor/panthor_gem.c
-> index 7c127d908c6f..855ce378afce 100644
+> index 5065f99c9bc4..86749e2dc993 100644
 > --- a/drivers/gpu/drm/panthor/panthor_gem.c
 > +++ b/drivers/gpu/drm/panthor/panthor_gem.c
-> @@ -2,8 +2,10 @@
->  /* Copyright 2019 Linaro, Ltd, Rob Herring <robh@kernel.org> */
->  /* Copyright 2023 Collabora ltd. */
->  /* Copyright 2025 Amazon.com, Inc. or its affiliates */
-> +/* Copyright 2025 ARM Limited. All rights reserved. */
->
->  #include <linux/cleanup.h>
-> +#include <linux/debugfs.h>
->  #include <linux/dma-buf.h>
+> @@ -8,9 +8,11 @@
 >  #include <linux/dma-mapping.h>
 >  #include <linux/err.h>
-> @@ -12,6 +14,8 @@
+>  #include <linux/slab.h>
+> +#include <linux/vmalloc.h>
 >
 >  #include <drm/drm_debugfs.h>
 >  #include <drm/drm_file.h>
-> +#include <drm/drm_gpuvm.h>
-> +#include <drm/drm_managed.h>
->  #include <drm/drm_prime.h>
+> +#include <drm/drm_prime.h>
 >  #include <drm/drm_print.h>
 >  #include <drm/panthor_drm.h>
-> @@ -114,6 +118,103 @@ should_map_wc(struct panthor_gem_object *bo)
+>
+> @@ -44,7 +46,7 @@ static void panthor_gem_debugfs_bo_init(struct panthor_gem_object *bo)
+>
+>  static void panthor_gem_debugfs_bo_add(struct panthor_gem_object *bo)
+>  {
+> -	struct panthor_device *ptdev = container_of(bo->base.base.dev,
+> +	struct panthor_device *ptdev = container_of(bo->base.dev,
+>  						    struct panthor_device, base);
+>
+>  	bo->debugfs.creator.tgid = current->tgid;
+> @@ -57,7 +59,7 @@ static void panthor_gem_debugfs_bo_add(struct panthor_gem_object *bo)
+>
+>  static void panthor_gem_debugfs_bo_rm(struct panthor_gem_object *bo)
+>  {
+> -	struct panthor_device *ptdev = container_of(bo->base.base.dev,
+> +	struct panthor_device *ptdev = container_of(bo->base.dev,
+>  						    struct panthor_device, base);
+>
+>  	if (list_empty(&bo->debugfs.node))
+> @@ -80,9 +82,9 @@ static void panthor_gem_debugfs_bo_init(struct panthor_gem_object *bo) {}
+>  #endif
+>
+>  static bool
+> -should_map_wc(struct panthor_gem_object *bo, struct panthor_vm *exclusive_vm)
+> +should_map_wc(struct panthor_gem_object *bo)
+>  {
+> -	struct panthor_device *ptdev = container_of(bo->base.base.dev, struct panthor_device, base);
+> +	struct panthor_device *ptdev = container_of(bo->base.dev, struct panthor_device, base);
+>
+>  	/* We can't do uncached mappings if the device is coherent,
+>  	 * because the zeroing done by the shmem layer at page allocation
+> @@ -112,6 +114,210 @@ should_map_wc(struct panthor_gem_object *bo, struct panthor_vm *exclusive_vm)
 >  	return true;
 >  }
 >
-> +static bool is_gpu_mapped(struct panthor_gem_object *bo,
-> +			  enum panthor_gem_reclaim_state *state)
+> +static void
+> +panthor_gem_backing_cleanup_locked(struct panthor_gem_object *bo)
 > +{
-> +	struct drm_gpuvm *vm = NULL;
-> +	struct drm_gpuvm_bo *vm_bo;
-> +
-> +	drm_gem_for_each_gpuvm_bo(vm_bo, &bo->base) {
-> +		/* Skip evicted GPU mappings. */
-> +		if (vm_bo->evicted)
-> +			continue;
-> +
-> +		if (!vm) {
-> +			*state = PANTHOR_GEM_GPU_MAPPED_PRIVATE;
-> +			vm = vm_bo->vm;
-> +		} else if (vm != vm_bo->vm) {
-
-I might be wrong to think that no two VM_BO's for a given BO can have the same
-VM, but if that were the case, then the above check could be omitted and left
-as an 'else'.
-
-> +			*state = PANTHOR_GEM_GPU_MAPPED_SHARED;
-> +			break;
-> +		}
-> +	}
-> +
-> +	return !!vm;
-> +}
-> +
-> +static enum panthor_gem_reclaim_state
-> +panthor_gem_evaluate_reclaim_state_locked(struct panthor_gem_object *bo)
-> +{
-> +	enum panthor_gem_reclaim_state gpu_mapped_state;
-> +
 > +	dma_resv_assert_held(bo->base.resv);
-> +	lockdep_assert_held(&bo->base.gpuva.lock);
 > +
-> +	/* If pages have not been allocated, there's nothing to reclaim. */
 > +	if (!bo->backing.pages)
-> +		return PANTHOR_GEM_UNRECLAIMABLE;
-> +
-> +	/* If memory is pinned, we prevent reclaim. */
-> +	if (refcount_read(&bo->backing.pin_count))
-> +		return PANTHOR_GEM_UNRECLAIMABLE;
-> +
-> +	if (is_gpu_mapped(bo, &gpu_mapped_state))
-> +		return gpu_mapped_state;
-> +
-> +	if (refcount_read(&bo->cmap.mmap_count))
-> +		return PANTHOR_GEM_MMAPPED;
-> +
-> +	return PANTHOR_GEM_UNUSED;
-> +}
-> +
-> +void panthor_gem_update_reclaim_state_locked(struct panthor_gem_object *bo,
-> +					     enum panthor_gem_reclaim_state *old_statep)
-> +{
-> +	struct panthor_device *ptdev = container_of(bo->base.dev, struct panthor_device, base);
-> +	enum panthor_gem_reclaim_state old_state = bo->reclaim_state;
-> +	enum panthor_gem_reclaim_state new_state;
-> +	bool was_gpu_mapped, is_gpu_mapped;
-> +
-> +	if (old_statep)
-> +		*old_statep = old_state;
-> +
-> +	new_state = panthor_gem_evaluate_reclaim_state_locked(bo);
-> +	if (new_state == old_state)
 > +		return;
 > +
-> +	was_gpu_mapped = old_state == PANTHOR_GEM_GPU_MAPPED_SHARED ||
-> +			 old_state == PANTHOR_GEM_GPU_MAPPED_PRIVATE;
-> +	is_gpu_mapped = new_state == PANTHOR_GEM_GPU_MAPPED_SHARED ||
-> +			new_state == PANTHOR_GEM_GPU_MAPPED_PRIVATE;
-> +
-> +	if (is_gpu_mapped && !was_gpu_mapped)
-> +		ptdev->reclaim.gpu_mapped_count += bo->base.size >> PAGE_SHIFT;
-> +	else if (!is_gpu_mapped && was_gpu_mapped)
-> +		ptdev->reclaim.gpu_mapped_count -= bo->base.size >> PAGE_SHIFT;
-> +
-> +	switch (new_state) {
-> +	case PANTHOR_GEM_UNUSED:
-> +		drm_gem_lru_move_tail(&ptdev->reclaim.unused, &bo->base);
-> +		break;
-> +	case PANTHOR_GEM_MMAPPED:
-> +		drm_gem_lru_move_tail(&ptdev->reclaim.mmapped, &bo->base);
-> +		break;
-> +	case PANTHOR_GEM_GPU_MAPPED_PRIVATE:
-> +		panthor_vm_update_bo_reclaim_lru_locked(bo);
-> +		break;
-> +	case PANTHOR_GEM_GPU_MAPPED_SHARED:
-> +		drm_gem_lru_move_tail(&ptdev->reclaim.gpu_mapped_shared, &bo->base);
-> +		break;
-> +	case PANTHOR_GEM_UNRECLAIMABLE:
-> +		drm_gem_lru_remove(&bo->base);
-> +		break;
-> +	default:
-> +		drm_WARN(&ptdev->base, true, "invalid GEM reclaim state (%d)\n", new_state);
-> +		break;
-> +	}
-> +
-> +	bo->reclaim_state = new_state;
+> +	drm_gem_put_pages(&bo->base, bo->backing.pages, true, false);
+> +	bo->backing.pages = NULL;
 > +}
 > +
->  static void
->  panthor_gem_backing_cleanup_locked(struct panthor_gem_object *bo)
->  {
-> @@ -157,8 +258,12 @@ static int panthor_gem_backing_pin_locked(struct panthor_gem_object *bo)
->  		return 0;
->
->  	ret = panthor_gem_backing_get_pages_locked(bo);
-> -	if (!ret)
-> +	if (!ret) {
->  		refcount_set(&bo->backing.pin_count, 1);
-> +		mutex_lock(&bo->base.gpuva.lock);
-> +		panthor_gem_update_reclaim_state_locked(bo, NULL);
-> +		mutex_unlock(&bo->base.gpuva.lock);
+> +static int
+> +panthor_gem_backing_get_pages_locked(struct panthor_gem_object *bo)
+> +{
+> +	struct page **pages;
+> +
+> +	dma_resv_assert_held(bo->base.resv);
+> +
+> +	if (bo->backing.pages)
+> +		return 0;
+> +
+> +	pages = drm_gem_get_pages(&bo->base);
+> +	if (IS_ERR(pages)) {
+> +		drm_dbg_kms(bo->base.dev, "Failed to get pages (%pe)\n", pages);
+
+I suppose this should be drm_dbg_driver() instead.
+
+> +		return PTR_ERR(pages);
 > +	}
->
->  	return ret;
->  }
-> @@ -172,6 +277,9 @@ static void panthor_gem_backing_unpin_locked(struct panthor_gem_object *bo)
->  		/* We don't release anything when pin_count drops to zero.
->  		 * Pages stay there until an explicit cleanup is requested.
->  		 */
-> +		mutex_lock(&bo->base.gpuva.lock);
-> +		panthor_gem_update_reclaim_state_locked(bo, NULL);
-> +		mutex_unlock(&bo->base.gpuva.lock);
->  	}
->  }
->
-> @@ -535,6 +643,46 @@ void panthor_gem_unpin(struct panthor_gem_object *bo)
->  	dma_resv_unlock(bo->base.resv);
->  }
->
-> +int panthor_gem_swapin_locked(struct panthor_gem_object *bo)
+> +
+> +	bo->backing.pages = pages;
+> +	return 0;
+> +}
+> +
+> +static int panthor_gem_backing_pin_locked(struct panthor_gem_object *bo)
+> +{
+> +	int ret;
+> +
+> +	dma_resv_assert_held(bo->base.resv);
+> +	drm_WARN_ON_ONCE(bo->base.dev, drm_gem_is_imported(&bo->base));
+> +
+> +	if (refcount_inc_not_zero(&bo->backing.pin_count))
+> +		return 0;
+> +
+> +	ret = panthor_gem_backing_get_pages_locked(bo);
+> +	if (!ret)
+> +		refcount_set(&bo->backing.pin_count, 1);
+> +
+> +	return ret;
+> +}
+> +
+> +static void panthor_gem_backing_unpin_locked(struct panthor_gem_object *bo)
+> +{
+> +	dma_resv_assert_held(bo->base.resv);
+> +	drm_WARN_ON_ONCE(bo->base.dev, drm_gem_is_imported(&bo->base));
+> +
+> +	if (refcount_dec_and_test(&bo->backing.pin_count)) {
+> +		/* We don't release anything when pin_count drops to zero.
+> +		 * Pages stay there until an explicit cleanup is requested.
+> +		 */
+> +	}
+> +}
+> +
+> +static void
+> +panthor_gem_dev_map_cleanup_locked(struct panthor_gem_object *bo)
+> +{
+> +	dma_resv_assert_held(bo->base.resv);
+> +
+> +	if (!bo->dmap.sgt)
+> +		return;
+> +
+> +	dma_unmap_sgtable(drm_dev_dma_dev(bo->base.dev), bo->dmap.sgt, DMA_BIDIRECTIONAL, 0);
+> +	sg_free_table(bo->dmap.sgt);
+> +	kfree(bo->dmap.sgt);
+> +	bo->dmap.sgt = NULL;
+> +}
+> +
+> +static struct sg_table *
+> +panthor_gem_dev_map_get_sgt_locked(struct panthor_gem_object *bo)
 > +{
 > +	struct sg_table *sgt;
 > +	int ret;
 > +
 > +	dma_resv_assert_held(bo->base.resv);
 > +
-> +	if (drm_WARN_ON_ONCE(bo->base.dev, drm_gem_is_imported(&bo->base)))
-> +		return -EINVAL;
+> +	if (bo->dmap.sgt)
+> +		return bo->dmap.sgt;
 > +
+> +	/* Pages stay around after they've been allocated. At least that stands
+> +	 * until we add a shrinker.
+> +	 */
 
-Following call is redundant because it's already being done in panthor_gem_dev_map_get_sgt_locked().
+I think you forgot to remove this comment in the last commit in the series.
 
 > +	ret = panthor_gem_backing_get_pages_locked(bo);
 > +	if (ret)
-> +		return ret;
+> +		return ERR_PTR(ret);
 > +
-> +	sgt = panthor_gem_dev_map_get_sgt_locked(bo);
+> +	sgt = drm_prime_pages_to_sg(bo->base.dev, bo->backing.pages,
+> +				    bo->base.size >> PAGE_SHIFT);
+
+I've always wondered why this function is called drm_prime_pages_to_sg() and not just
+drm_gem_pages_to_sg(), since it's not only used for populating exported prime objects,
+and also I suspect it might better fit into drivers/gpu/drm/drm_gem.c (same place as
+drm_gem_get_pages). Anyway, this is probably beyond the point of this series.
+
 > +	if (IS_ERR(sgt))
-> +		return PTR_ERR(sgt);
+> +		return sgt;
+> +
+> +	/* Map the pages for use by the h/w. */
+> +	ret = dma_map_sgtable(drm_dev_dma_dev(bo->base.dev), sgt, DMA_BIDIRECTIONAL, 0);
+> +	if (ret)
+> +		goto err_free_sgt;
+> +
+> +	bo->dmap.sgt = sgt;
+> +	return sgt;
+> +
+> +err_free_sgt:
+> +	sg_free_table(sgt);
+> +	kfree(sgt);
+> +	return ERR_PTR(ret);
+> +}
+> +
+> +struct sg_table *
+> +panthor_gem_get_dev_sgt(struct panthor_gem_object *bo)
+> +{
+> +	struct sg_table *sgt;
+> +
+> +	dma_resv_lock(bo->base.resv, NULL);
+> +	sgt = panthor_gem_dev_map_get_sgt_locked(bo);
+> +	dma_resv_unlock(bo->base.resv);
+> +
+> +	return sgt;
+> +}
+> +
+> +static void
+> +panthor_gem_vmap_cleanup_locked(struct panthor_gem_object *bo)
+> +{
+> +	if (!bo->cmap.vaddr)
+> +		return;
+> +
+> +	vunmap(bo->cmap.vaddr);
+> +	bo->cmap.vaddr = NULL;
+> +	panthor_gem_backing_unpin_locked(bo);
+> +}
+> +
+> +static int
+> +panthor_gem_prep_for_cpu_map_locked(struct panthor_gem_object *bo)
+> +{
+> +	if (should_map_wc(bo)) {
+> +		struct sg_table *sgt;
+> +
+> +		sgt = panthor_gem_dev_map_get_sgt_locked(bo);
+> +		if (IS_ERR(sgt))
+> +			return PTR_ERR(sgt);
+> +	}
 > +
 > +	return 0;
 > +}
 > +
-> +static void panthor_gem_evict_locked(struct panthor_gem_object *bo)
+> +static void *
+> +panthor_gem_vmap_get_locked(struct panthor_gem_object *bo)
+> +{
+> +	pgprot_t prot = PAGE_KERNEL;
+> +	void *vaddr;
+> +	int ret;
+> +
+> +	dma_resv_assert_held(bo->base.resv);
+> +
+> +	if (drm_WARN_ON_ONCE(bo->base.dev, drm_gem_is_imported(&bo->base)))
+> +		return ERR_PTR(-EINVAL);
+> +
+> +	if (refcount_inc_not_zero(&bo->cmap.vaddr_use_count)) {
+> +		drm_WARN_ON_ONCE(bo->base.dev, !bo->cmap.vaddr);
+> +		return bo->cmap.vaddr;
+> +	}
+> +
+> +	ret = panthor_gem_backing_pin_locked(bo);
+> +	if (ret)
+> +		return ERR_PTR(ret);
+> +
+> +	ret = panthor_gem_prep_for_cpu_map_locked(bo);
+> +	if (ret)
+> +		goto err_unpin;
+> +
+> +	if (should_map_wc(bo))
+> +		prot = pgprot_writecombine(prot);
+> +
+> +	vaddr = vmap(bo->backing.pages, bo->base.size >> PAGE_SHIFT, VM_MAP, prot);
+> +	if (!vaddr) {
+> +		ret = -ENOMEM;
+> +		goto err_unpin;
+> +	}
+> +
+> +	bo->cmap.vaddr = vaddr;
+> +	refcount_set(&bo->cmap.vaddr_use_count, 1);
+> +	return vaddr;
+> +
+> +err_unpin:
+> +	panthor_gem_backing_unpin_locked(bo);
+> +	return ERR_PTR(ret);
+> +}
+> +
+> +static void
+> +panthor_gem_vmap_put_locked(struct panthor_gem_object *bo)
 > +{
 > +	dma_resv_assert_held(bo->base.resv);
-> +	lockdep_assert_held(&bo->base.gpuva.lock);
 > +
 > +	if (drm_WARN_ON_ONCE(bo->base.dev, drm_gem_is_imported(&bo->base)))
 > +		return;
 > +
-> +	if (drm_WARN_ON_ONCE(bo->base.dev, refcount_read(&bo->backing.pin_count)))
-> +		return;
-> +
-> +	if (drm_WARN_ON_ONCE(bo->base.dev, !bo->backing.pages))
-> +		return;
-> +
-> +	panthor_gem_dev_map_cleanup_locked(bo);
-> +	panthor_gem_backing_cleanup_locked(bo);
-> +	panthor_gem_update_reclaim_state_locked(bo, NULL);
+> +	if (refcount_dec_and_test(&bo->cmap.vaddr_use_count))
+> +		panthor_gem_vmap_cleanup_locked(bo);
 > +}
 > +
->  static struct sg_table *panthor_gem_get_sg_table(struct drm_gem_object *obj)
+>  static void panthor_gem_free_object(struct drm_gem_object *obj)
 >  {
 >  	struct panthor_gem_object *bo = to_panthor_bo(obj);
-> @@ -607,8 +755,12 @@ static int panthor_gem_mmap(struct drm_gem_object *obj, struct vm_area_struct *v
+> @@ -127,8 +333,19 @@ static void panthor_gem_free_object(struct drm_gem_object *obj)
 >
->  	if (!refcount_inc_not_zero(&bo->cmap.mmap_count)) {
->  		dma_resv_lock(obj->resv, NULL);
-> -		if (!refcount_inc_not_zero(&bo->cmap.mmap_count))
-> +		if (!refcount_inc_not_zero(&bo->cmap.mmap_count)) {
->  			refcount_set(&bo->cmap.mmap_count, 1);
-> +			mutex_lock(&bo->base.gpuva.lock);
-> +			panthor_gem_update_reclaim_state_locked(bo, NULL);
-> +			mutex_unlock(&bo->base.gpuva.lock);
-> +		}
->  		dma_resv_unlock(obj->resv);
->  	}
+>  	mutex_destroy(&bo->label.lock);
 >
-> @@ -690,6 +842,10 @@ static vm_fault_t blocking_page_setup(struct vm_fault *vmf,
->  	} else {
->  		struct page *page = bo->backing.pages[page_offset];
->
-> +		mutex_lock(&bo->base.gpuva.lock);
-> +		panthor_gem_update_reclaim_state_locked(bo, NULL);
-> +		mutex_unlock(&bo->base.gpuva.lock);
+> -	drm_gem_free_mmap_offset(&bo->base.base);
+> -	drm_gem_shmem_free(&bo->base);
+> +	if (drm_gem_is_imported(obj)) {
+> +		drm_prime_gem_destroy(obj, bo->dmap.sgt);
+> +	} else {
+> +		dma_resv_lock(obj->resv, NULL);
+> +		panthor_gem_vmap_cleanup_locked(bo);
+> +		panthor_gem_dev_map_cleanup_locked(bo);
+> +		panthor_gem_backing_cleanup_locked(bo);
+> +		dma_resv_unlock(obj->resv);
+> +	}
 > +
->  		if (mmap_lock_held)
->  			ret = insert_page(vmf, page);
->  		else
-> @@ -763,7 +919,9 @@ static void panthor_gem_vm_close(struct vm_area_struct *vma)
+> +	drm_gem_object_release(obj);
+> +
+> +	kfree(bo);
+>  	drm_gem_object_put(vm_root_gem);
+>  }
 >
->  	dma_resv_lock(bo->base.resv, NULL);
->  	if (refcount_dec_and_test(&bo->cmap.mmap_count)) {
-> -		/* Nothing to do, pages are reclaimed lazily. */
-> +		mutex_lock(&bo->base.gpuva.lock);
-> +		panthor_gem_update_reclaim_state_locked(bo, NULL);
-> +		mutex_unlock(&bo->base.gpuva.lock);
+> @@ -159,15 +376,15 @@ panthor_gem_prime_begin_cpu_access(struct dma_buf *dma_buf,
+>  {
+>  	struct drm_gem_object *obj = dma_buf->priv;
+>  	struct drm_device *dev = obj->dev;
+> -	struct drm_gem_shmem_object *shmem = to_drm_gem_shmem_obj(obj);
+> +	struct panthor_gem_object *bo = to_panthor_bo(obj);
+>  	struct dma_buf_attachment *attach;
+>
+>  	dma_resv_lock(obj->resv, NULL);
+> -	if (shmem->sgt)
+> -		dma_sync_sgtable_for_cpu(dev->dev, shmem->sgt, dir);
+> +	if (bo->dmap.sgt)
+> +		dma_sync_sgtable_for_cpu(drm_dev_dma_dev(dev), bo->dmap.sgt, dir);
+>
+> -	if (shmem->vaddr)
+> -		invalidate_kernel_vmap_range(shmem->vaddr, shmem->base.size);
+> +	if (bo->cmap.vaddr)
+> +		invalidate_kernel_vmap_range(bo->cmap.vaddr, bo->base.size);
+>
+>  	list_for_each_entry(attach, &dma_buf->attachments, node) {
+>  		struct sg_table *sgt = attach->priv;
+> @@ -186,7 +403,7 @@ panthor_gem_prime_end_cpu_access(struct dma_buf *dma_buf,
+>  {
+>  	struct drm_gem_object *obj = dma_buf->priv;
+>  	struct drm_device *dev = obj->dev;
+> -	struct drm_gem_shmem_object *shmem = to_drm_gem_shmem_obj(obj);
+> +	struct panthor_gem_object *bo = to_panthor_bo(obj);
+>  	struct dma_buf_attachment *attach;
+>
+>  	dma_resv_lock(obj->resv, NULL);
+> @@ -197,11 +414,11 @@ panthor_gem_prime_end_cpu_access(struct dma_buf *dma_buf,
+>  			dma_sync_sgtable_for_device(attach->dev, sgt, dir);
 >  	}
->  	dma_resv_unlock(bo->base.resv);
 >
-> @@ -800,6 +958,7 @@ panthor_gem_alloc_object(uint32_t flags)
->  	if (!bo)
->  		return ERR_PTR(-ENOMEM);
+> -	if (shmem->vaddr)
+> -		flush_kernel_vmap_range(shmem->vaddr, shmem->base.size);
+> +	if (bo->cmap.vaddr)
+> +		flush_kernel_vmap_range(bo->cmap.vaddr, bo->base.size);
 >
-> +	bo->reclaim_state = PANTHOR_GEM_UNRECLAIMABLE;
->  	bo->base.funcs = &panthor_gem_funcs;
->  	bo->flags = flags;
->  	mutex_init(&bo->label.lock);
-> @@ -958,6 +1117,7 @@ panthor_gem_sync(struct drm_gem_object *obj, u32 type,
->  	struct sg_table *sgt;
->  	struct scatterlist *sgl;
->  	unsigned int count;
+> -	if (shmem->sgt)
+> -		dma_sync_sgtable_for_device(dev->dev, shmem->sgt, dir);
+> +	if (bo->dmap.sgt)
+> +		dma_sync_sgtable_for_device(drm_dev_dma_dev(dev), bo->dmap.sgt, dir);
+>
+>  	dma_resv_unlock(obj->resv);
+>  	return 0;
+> @@ -258,53 +475,339 @@ panthor_gem_prime_import(struct drm_device *dev,
+>  	return drm_gem_prime_import(dev, dma_buf);
+>  }
+>
+> +static void panthor_gem_print_info(struct drm_printer *p, unsigned int indent,
+> +				   const struct drm_gem_object *obj)
+> +{
+> +	const struct panthor_gem_object *bo = to_panthor_bo(obj);
+> +
+> +	if (drm_gem_is_imported(&bo->base))
+> +		return;
+> +
+> +	drm_printf_indent(p, indent, "resident=%s\n", str_true_false(bo->backing.pages));
+> +	drm_printf_indent(p, indent, "pages_pin_count=%u\n", refcount_read(&bo->backing.pin_count));
+> +	drm_printf_indent(p, indent, "vmap_use_count=%u\n",
+> +			  refcount_read(&bo->cmap.vaddr_use_count));
+> +	drm_printf_indent(p, indent, "vaddr=%p\n", bo->cmap.vaddr);
+> +}
+> +
+> +static int panthor_gem_pin_locked(struct drm_gem_object *obj)
+> +{
+> +	if (!drm_gem_is_imported(obj))
+> +		return panthor_gem_backing_pin_locked(to_panthor_bo(obj));
+> +
+> +	return 0;
+> +}
+> +
+> +static void panthor_gem_unpin_locked(struct drm_gem_object *obj)
+> +{
+> +	if (!drm_gem_is_imported(obj))
+> +		panthor_gem_backing_unpin_locked(to_panthor_bo(obj));
+> +}
+> +
+> +int panthor_gem_pin(struct panthor_gem_object *bo)
+> +{
+> +	int ret = 0;
+> +
+> +	if (drm_gem_is_imported(&bo->base))
+> +		return 0;
+> +
+> +	if (refcount_inc_not_zero(&bo->backing.pin_count))
+> +		return 0;
+> +
+> +	dma_resv_lock(bo->base.resv, NULL);
+> +	ret = panthor_gem_backing_pin_locked(bo);
+> +	dma_resv_unlock(bo->base.resv);
+> +
+> +	return ret;
+> +}
+> +
+> +void panthor_gem_unpin(struct panthor_gem_object *bo)
+> +{
+> +	if (drm_gem_is_imported(&bo->base))
+> +		return;
+> +
+> +	if (refcount_dec_not_one(&bo->backing.pin_count))
+> +		return;
+> +
+> +	dma_resv_lock(bo->base.resv, NULL);
+> +	panthor_gem_backing_unpin_locked(bo);
+> +	dma_resv_unlock(bo->base.resv);
+> +}
+> +
+> +static struct sg_table *panthor_gem_get_sg_table(struct drm_gem_object *obj)
+> +{
+> +	struct panthor_gem_object *bo = to_panthor_bo(obj);
+> +
+> +	drm_WARN_ON_ONCE(obj->dev, drm_gem_is_imported(obj));
+> +	drm_WARN_ON_ONCE(obj->dev, !bo->backing.pages);
+> +	drm_WARN_ON_ONCE(obj->dev, !refcount_read(&bo->backing.pin_count));
+> +
+> +	return drm_prime_pages_to_sg(obj->dev, bo->backing.pages, obj->size >> PAGE_SHIFT);
+> +}
+> +
+> +static int panthor_gem_vmap_locked(struct drm_gem_object *obj,
+> +				   struct iosys_map *map)
+> +{
+> +	struct panthor_gem_object *bo = to_panthor_bo(obj);
+> +	void *vaddr;
+> +
+> +	dma_resv_assert_held(obj->resv);
+> +
+> +	if (drm_gem_is_imported(obj))
+> +		return dma_buf_vmap(obj->import_attach->dmabuf, map);
+> +
+> +	vaddr = panthor_gem_vmap_get_locked(bo);
+> +	if (IS_ERR(vaddr))
+> +		return PTR_ERR(vaddr);
+> +
+> +	iosys_map_set_vaddr(map, vaddr);
+> +	return 0;
+> +}
+> +
+> +static void panthor_gem_vunmap_locked(struct drm_gem_object *obj,
+> +				      struct iosys_map *map)
+> +{
+> +	struct panthor_gem_object *bo = to_panthor_bo(obj);
+> +
+> +	dma_resv_assert_held(obj->resv);
+> +
+> +	if (drm_gem_is_imported(obj)) {
+> +		dma_buf_vunmap(obj->import_attach->dmabuf, map);
+> +	} else {
+> +		drm_WARN_ON_ONCE(obj->dev, bo->cmap.vaddr != map->vaddr);
+> +		panthor_gem_vmap_put_locked(bo);
+> +	}
+> +}
+> +
+> +static int panthor_gem_mmap(struct drm_gem_object *obj, struct vm_area_struct *vma)
+> +{
+> +	struct panthor_gem_object *bo = to_panthor_bo(obj);
 > +	int ret;
->
->  	/* Make sure the range is in bounds. */
->  	if (offset + size < offset || offset + size > bo->base.size)
-> @@ -984,9 +1144,21 @@ panthor_gem_sync(struct drm_gem_object *obj, u32 type,
->  	if (size == 0)
->  		return 0;
->
-> -	sgt = panthor_gem_get_dev_sgt(bo);
-> -	if (IS_ERR(sgt))
-> -		return PTR_ERR(sgt);
-> +	ret = dma_resv_lock_interruptible(bo->base.resv, NULL);
+> +
+> +	if (drm_gem_is_imported(obj)) {
+> +		/* Reset both vm_ops and vm_private_data, so we don't end up with
+> +		 * vm_ops pointing to our implementation if the dma-buf backend
+> +		 * doesn't set those fields.
+> +		 */
+> +		vma->vm_private_data = NULL;
+> +		vma->vm_ops = NULL;
+> +
+> +		ret = dma_buf_mmap(obj->dma_buf, vma, 0);
+> +
+> +		/* Drop the reference drm_gem_mmap_obj() acquired.*/
+> +		if (!ret)
+> +			drm_gem_object_put(obj);
+> +
+> +		return ret;
+> +	}
+> +
+> +	if (is_cow_mapping(vma->vm_flags))
+> +		return -EINVAL;
+> +
+> +	dma_resv_lock(obj->resv, NULL);
+> +	ret = panthor_gem_backing_get_pages_locked(bo);
+> +	if (!ret)
+> +		ret = panthor_gem_prep_for_cpu_map_locked(bo);
+> +	dma_resv_unlock(obj->resv);
+> +
 > +	if (ret)
 > +		return ret;
 > +
-> +	/* If there's no pages, there's no point pulling those back, bail out early. */
-> +	if (!bo->backing.pages) {
-> +		ret = 0;
-> +		goto out_unlock;
+> +	vm_flags_set(vma, VM_PFNMAP | VM_DONTEXPAND | VM_DONTDUMP);
+> +	vma->vm_page_prot = vm_get_page_prot(vma->vm_flags);
+> +	if (should_map_wc(bo))
+> +		vma->vm_page_prot = pgprot_writecombine(vma->vm_page_prot);
+> +
+> +	return 0;
+> +}
+> +
+>  static enum drm_gem_object_status panthor_gem_status(struct drm_gem_object *obj)
+>  {
+>  	struct panthor_gem_object *bo = to_panthor_bo(obj);
+>  	enum drm_gem_object_status res = 0;
+>
+> -	if (drm_gem_is_imported(&bo->base.base) || bo->base.pages)
+> +	if (drm_gem_is_imported(&bo->base) || bo->backing.pages)
+>  		res |= DRM_GEM_OBJECT_RESIDENT;
+>
+>  	return res;
+>  }
+>
+> -static const struct drm_gem_object_funcs panthor_gem_funcs = {
+> -	.free = panthor_gem_free_object,
+> -	.print_info = drm_gem_shmem_object_print_info,
+> -	.pin = drm_gem_shmem_object_pin,
+> -	.unpin = drm_gem_shmem_object_unpin,
+> -	.get_sg_table = drm_gem_shmem_object_get_sg_table,
+> -	.vmap = drm_gem_shmem_object_vmap,
+> -	.vunmap = drm_gem_shmem_object_vunmap,
+> -	.mmap = drm_gem_shmem_object_mmap,
+> -	.status = panthor_gem_status,
+> -	.export = panthor_gem_prime_export,
+> -	.vm_ops = &drm_gem_shmem_vm_ops,
+> +static bool try_map_pmd(struct vm_fault *vmf, unsigned long addr, struct page *page)
+> +{
+> +#ifdef CONFIG_ARCH_SUPPORTS_PMD_PFNMAP
+> +	unsigned long pfn = page_to_pfn(page);
+> +	unsigned long paddr = pfn << PAGE_SHIFT;
+> +	bool aligned = (addr & ~PMD_MASK) == (paddr & ~PMD_MASK);
+> +
+> +	if (aligned &&
+> +	    pmd_none(*vmf->pmd) &&
+> +	    folio_test_pmd_mappable(page_folio(page))) {
+> +		pfn &= PMD_MASK >> PAGE_SHIFT;
+> +		if (vmf_insert_pfn_pmd(vmf, pfn, false) == VM_FAULT_NOPAGE)
+> +			return true;
+> +	}
+> +#endif
+> +
+> +	return false;
+> +}
+> +
+> +static vm_fault_t panthor_gem_fault(struct vm_fault *vmf)
+> +{
+> +	struct vm_area_struct *vma = vmf->vma;
+> +	struct drm_gem_object *obj = vma->vm_private_data;
+> +	struct panthor_gem_object *bo = to_panthor_bo(vma->vm_private_data);
+> +	loff_t num_pages = obj->size >> PAGE_SHIFT;
+> +	vm_fault_t ret;
+> +	pgoff_t page_offset;
+> +	unsigned long pfn;
+> +
+> +	/* Offset to faulty address in the VMA. */
+> +	page_offset = vmf->pgoff - vma->vm_pgoff;
+> +
+> +	dma_resv_lock(bo->base.resv, NULL);
+> +
+> +	if (page_offset >= num_pages ||
+> +	    drm_WARN_ON_ONCE(obj->dev, !bo->backing.pages)) {
+> +		ret = VM_FAULT_SIGBUS;
+> +		goto out;
 > +	}
 > +
-> +	sgt = panthor_gem_dev_map_get_sgt_locked(bo);
-> +	if (IS_ERR(sgt)) {
-> +		ret = PTR_ERR(sgt);
-> +		goto out_unlock;
+> +	if (try_map_pmd(vmf, vmf->address, bo->backing.pages[page_offset])) {
+> +		ret = VM_FAULT_NOPAGE;
+> +		goto out;
 > +	}
->
->  	for_each_sgtable_dma_sg(sgt, sgl, count) {
->  		if (size == 0)
-> @@ -1030,7 +1202,11 @@ panthor_gem_sync(struct drm_gem_object *obj, u32 type,
->  			dma_sync_single_for_cpu(dma_dev, paddr, len, DMA_FROM_DEVICE);
->  	}
->
-> -	return 0;
-> +	ret = 0;
 > +
-> +out_unlock:
+> +	pfn = page_to_pfn(bo->backing.pages[page_offset]);
+> +	ret = vmf_insert_pfn(vma, vmf->address, pfn);
+> +
+> + out:
 > +	dma_resv_unlock(bo->base.resv);
+> +
 > +	return ret;
+> +}
+> +
+> +static void panthor_gem_vm_open(struct vm_area_struct *vma)
+> +{
+> +	struct panthor_gem_object *bo = to_panthor_bo(vma->vm_private_data);
+> +
+> +	drm_WARN_ON(bo->base.dev, drm_gem_is_imported(&bo->base));
+> +
+> +	dma_resv_lock(bo->base.resv, NULL);
+> +
+> +	/* We should have already pinned the pages when the buffer was first
+> +	 * mmap'd, vm_open() just grabs an additional reference for the new
+> +	 * mm the vma is getting copied into (ie. on fork()).
+> +	 */
+> +	drm_WARN_ON_ONCE(bo->base.dev, !bo->backing.pages);
+> +
+> +	dma_resv_unlock(bo->base.resv);
+> +
+> +	drm_gem_vm_open(vma);
+> +}
+> +
+> +static const struct vm_operations_struct panthor_gem_vm_ops = {
+> +	.fault = panthor_gem_fault,
+> +	.open = panthor_gem_vm_open,
+> +	.close = drm_gem_vm_close,
+>  };
+>
+> -/**
+> - * panthor_gem_create_object - Implementation of driver->gem_create_object.
+> - * @ddev: DRM device
+> - * @size: Size in bytes of the memory the object will reference
+> - *
+> - * This lets the GEM helpers allocate object structs for us, and keep
+> - * our BO stats correct.
+> - */
+> -struct drm_gem_object *panthor_gem_create_object(struct drm_device *ddev, size_t size)
+> -{
+> -	struct panthor_gem_object *obj;
+> +static const struct drm_gem_object_funcs panthor_gem_funcs = {
+> +	.free = panthor_gem_free_object,
+> +	.print_info = panthor_gem_print_info,
+> +	.pin = panthor_gem_pin_locked,
+> +	.unpin = panthor_gem_unpin_locked,
+> +	.get_sg_table = panthor_gem_get_sg_table,
+> +	.vmap = panthor_gem_vmap_locked,
+> +	.vunmap = panthor_gem_vunmap_locked,
+> +	.mmap = panthor_gem_mmap,
+> +	.status = panthor_gem_status,
+> +	.export = panthor_gem_prime_export,
+> +	.vm_ops = &panthor_gem_vm_ops,
+> +};
+>
+> -	obj = kzalloc_obj(*obj);
+> -	if (!obj)
+> +static struct panthor_gem_object *
+> +panthor_gem_alloc_object(uint32_t flags)
+> +{
+> +	struct panthor_gem_object *bo;
+> +
+> +	bo = kzalloc_obj(*bo);
+> +	if (!bo)
+>  		return ERR_PTR(-ENOMEM);
+>
+> -	obj->base.base.funcs = &panthor_gem_funcs;
+> -	mutex_init(&obj->label.lock);
+> +	bo->base.funcs = &panthor_gem_funcs;
+> +	bo->flags = flags;
+> +	mutex_init(&bo->label.lock);
+> +	panthor_gem_debugfs_bo_init(bo);
+> +	return bo;
+> +}
+>
+> -	panthor_gem_debugfs_bo_init(obj);
+> +static struct panthor_gem_object *
+> +panthor_gem_create(struct drm_device *dev, size_t size, uint32_t flags,
+> +		   struct panthor_vm *exclusive_vm, u32 usage_flags)
+> +{
+> +	struct panthor_gem_object *bo;
+> +	int ret;
+>
+> -	return &obj->base.base;
+> +	bo = panthor_gem_alloc_object(flags);
+> +	if (IS_ERR(bo))
+> +		return bo;
+> +
+> +	size = PAGE_ALIGN(size);
+> +	ret = drm_gem_object_init(dev, &bo->base, size);
+> +	if (ret)
+> +		goto err_put;
+> +
+> +	/* Our buffers are kept pinned, so allocating them
+> +	 * from the MOVABLE zone is a really bad idea, and
+> +	 * conflicts with CMA. See comments above new_inode()
+> +	 * why this is required _and_ expected if you're
+> +	 * going to pin these pages.
+> +	 */
+> +	mapping_set_gfp_mask(bo->base.filp->f_mapping,
+> +			     GFP_HIGHUSER | __GFP_RETRY_MAYFAIL | __GFP_NOWARN);
+> +
+> +	ret = drm_gem_create_mmap_offset(&bo->base);
+> +	if (ret)
+> +		goto err_put;
+> +
+> +	if (exclusive_vm) {
+> +		bo->exclusive_vm_root_gem = panthor_vm_root_gem(exclusive_vm);
+> +		drm_gem_object_get(bo->exclusive_vm_root_gem);
+> +		bo->base.resv = bo->exclusive_vm_root_gem->resv;
+> +	}
+> +
+> +	panthor_gem_debugfs_set_usage_flags(bo, usage_flags);
+> +	return bo;
+> +
+> +err_put:
+> +	drm_gem_object_put(&bo->base);
+> +	return ERR_PTR(ret);
+> +}
+> +
+> +struct drm_gem_object *
+> +panthor_gem_prime_import_sg_table(struct drm_device *dev,
+> +				  struct dma_buf_attachment *attach,
+> +				  struct sg_table *sgt)
+> +{
+> +	struct panthor_gem_object *bo;
+> +	int ret;
+> +
+> +	bo = panthor_gem_alloc_object(0);
+> +	if (IS_ERR(bo))
+> +		return ERR_CAST(bo);
+> +
+> +	drm_gem_private_object_init(dev, &bo->base, attach->dmabuf->size);
+> +
+> +	ret = drm_gem_create_mmap_offset(&bo->base);
+> +	if (ret)
+> +		goto err_put;
+> +
+> +	bo->dmap.sgt = sgt;
+> +	return &bo->base;
+> +
+> +err_put:
+> +	drm_gem_object_put(&bo->base);
+> +	return ERR_PTR(ret);
 >  }
 >
 >  /**
-> @@ -1040,11 +1216,13 @@ panthor_gem_sync(struct drm_gem_object *obj, u32 type,
->   */
->  void panthor_kernel_bo_destroy(struct panthor_kernel_bo *bo)
+> @@ -325,54 +828,22 @@ panthor_gem_create_with_handle(struct drm_file *file,
+>  			       u64 *size, u32 flags, u32 *handle)
 >  {
-> +	struct panthor_device *ptdev;
->  	struct panthor_vm *vm;
+>  	int ret;
+> -	struct drm_gem_shmem_object *shmem;
+>  	struct panthor_gem_object *bo;
 >
->  	if (IS_ERR_OR_NULL(bo))
->  		return;
+> -	shmem = drm_gem_shmem_create(ddev, *size);
+> -	if (IS_ERR(shmem))
+> -		return PTR_ERR(shmem);
+> -
+> -	bo = to_panthor_bo(&shmem->base);
+> -	bo->flags = flags;
+> -	bo->base.map_wc = should_map_wc(bo, exclusive_vm);
+> -
+> -	if (exclusive_vm) {
+> -		bo->exclusive_vm_root_gem = panthor_vm_root_gem(exclusive_vm);
+> -		drm_gem_object_get(bo->exclusive_vm_root_gem);
+> -		bo->base.base.resv = bo->exclusive_vm_root_gem->resv;
+> -	}
+> -
+> -	panthor_gem_debugfs_set_usage_flags(bo, 0);
+> -
+> -	/* If this is a write-combine mapping, we query the sgt to force a CPU
+> -	 * cache flush (dma_map_sgtable() is called when the sgt is created).
+> -	 * This ensures the zero-ing is visible to any uncached mapping created
+> -	 * by vmap/mmap.
+> -	 * FIXME: Ideally this should be done when pages are allocated, not at
+> -	 * BO creation time.
+> -	 */
+> -	if (shmem->map_wc) {
+> -		struct sg_table *sgt;
+> -
+> -		sgt = drm_gem_shmem_get_pages_sgt(shmem);
+> -		if (IS_ERR(sgt)) {
+> -			ret = PTR_ERR(sgt);
+> -			goto out_put_gem;
+> -		}
+> -	}
+> +	bo = panthor_gem_create(ddev, *size, flags, exclusive_vm, 0);
+> +	if (IS_ERR(bo))
+> +		return PTR_ERR(bo);
 >
-> +	ptdev = container_of(bo->obj->dev, struct panthor_device, base);
->  	vm = bo->vm;
->  	panthor_kernel_bo_vunmap(bo);
+>  	/*
+>  	 * Allocate an id of idr table where the obj is registered
+>  	 * and handle has the id what user can see.
+>  	 */
+> -	ret = drm_gem_handle_create(file, &shmem->base, handle);
+> +	ret = drm_gem_handle_create(file, &bo->base, handle);
+>  	if (!ret)
+> -		*size = bo->base.base.size;
+> +		*size = bo->base.size;
 >
-> @@ -1052,6 +1230,8 @@ void panthor_kernel_bo_destroy(struct panthor_kernel_bo *bo)
->  		    to_panthor_bo(bo->obj)->exclusive_vm_root_gem != panthor_vm_root_gem(vm));
->  	panthor_vm_unmap_range(vm, bo->va_node.start, bo->va_node.size);
->  	panthor_vm_free_va(vm, &bo->va_node);
-> +	if (vm == panthor_fw_vm(ptdev))
-> +		panthor_gem_unpin(to_panthor_bo(bo->obj));
->  	drm_gem_object_put(bo->obj);
->  	panthor_vm_put(vm);
->  	kfree(bo);
-> @@ -1100,6 +1280,12 @@ panthor_kernel_bo_create(struct panthor_device *ptdev, struct panthor_vm *vm,
->
->  	kbo->obj = &bo->base;
->
-> +	if (vm == panthor_fw_vm(ptdev)) {
-> +		ret = panthor_gem_pin(bo);
-> +		if (ret)
-> +			goto err_put_obj;
-> +	}
-> +
->  	panthor_gem_kernel_bo_set_label(kbo, name);
->
->  	/* The system and GPU MMU page size might differ, which becomes a
-> @@ -1111,7 +1297,7 @@ panthor_kernel_bo_create(struct panthor_device *ptdev, struct panthor_vm *vm,
->  	size = ALIGN(size, panthor_vm_page_size(vm));
->  	ret = panthor_vm_alloc_va(vm, gpu_va, size, &kbo->va_node);
->  	if (ret)
-> -		goto err_put_obj;
-> +		goto err_unpin;
->
->  	ret = panthor_vm_map_bo_range(vm, bo, 0, size, kbo->va_node.start, vm_map_flags);
->  	if (ret)
-> @@ -1123,6 +1309,10 @@ panthor_kernel_bo_create(struct panthor_device *ptdev, struct panthor_vm *vm,
->  err_free_va:
->  	panthor_vm_free_va(vm, &kbo->va_node);
->
-> +err_unpin:
-> +	if (vm == panthor_fw_vm(ptdev))
-> +		panthor_gem_unpin(bo);
-> +
->  err_put_obj:
->  	drm_gem_object_put(&bo->base);
->
-> @@ -1131,6 +1321,233 @@ panthor_kernel_bo_create(struct panthor_device *ptdev, struct panthor_vm *vm,
->  	return ERR_PTR(ret);
+> -out_put_gem:
+>  	/* drop reference from allocate - handle holds it now. */
+> -	drm_gem_object_put(&shmem->base);
+> -
+> +	drm_gem_object_put(&bo->base);
+>  	return ret;
 >  }
 >
-> +static bool can_swap(void)
-> +{
-> +	return get_nr_swap_pages() > 0;
-> +}
-> +
-> +static bool can_block(struct shrink_control *sc)
-> +{
-> +	if (!(sc->gfp_mask & __GFP_DIRECT_RECLAIM))
-> +		return false;
-> +	return current_is_kswapd() || (sc->gfp_mask & __GFP_RECLAIM);
-> +}
-> +
-> +static unsigned long
-> +panthor_gem_shrinker_count(struct shrinker *shrinker, struct shrink_control *sc)
-> +{
-> +	struct panthor_device *ptdev = shrinker->private_data;
-> +	unsigned long count;
-> +
-> +	/* We currently don't have a flag to tell when the content of a
-> +	 * BO can be discarded.
-> +	 */
-> +	if (!can_swap())
-> +		return 0;
-> +
-> +	count = ptdev->reclaim.unused.count;
-> +	count += ptdev->reclaim.mmapped.count;
-> +
-> +	if (can_block(sc))
-> +		count += ptdev->reclaim.gpu_mapped_count;
-> +
-> +	return count ? count : SHRINK_EMPTY;
-> +}
-> +
-> +static bool panthor_gem_try_evict_no_resv_wait(struct drm_gem_object *obj,
-> +					       struct ww_acquire_ctx *ticket)
-> +{
-> +	/*
-> +	 * Track last locked entry for unwinding locks in error and
-> +	 * success paths
-> +	 */
-> +	struct panthor_gem_object *bo = to_panthor_bo(obj);
-> +	struct drm_gpuvm_bo *vm_bo, *last_locked = NULL;
-> +	enum panthor_gem_reclaim_state old_state;
-> +	int ret = 0;
-> +
-> +	/* To avoid potential lock ordering issue between bo_gpuva and
-> +	 * mapping->i_mmap_rwsem, unmap the pages from CPU side before
-> +	 * acquring the bo_gpuva lock. As the bo_resv lock is held, CPU
-> +	 * page fault handler won't be able to map in the pages whilst
-> +	 * eviction is in progress.
-> +	 */
-> +	drm_vma_node_unmap(&bo->base.vma_node, bo->base.dev->anon_inode->i_mapping);
-> +
-> +	/* We take this lock when walking the list to prevent
-> +	 * insertion/deletion.
-> +	 */
-> +	/* We can only trylock in that path, because
-> +	 * - allocation might happen while some of these locks are held
-> +	 * - lock ordering is different in other paths
-> +	 *     vm_resv -> bo_resv -> bo_gpuva
-> +	 *     vs
-> +	 *     bo_resv -> bo_gpuva -> vm_resv
-> +	 *
-> +	 * If we fail to lock that's fine, we back off and will get
-> +	 * back to it later.
-> +	 */
-> +	if (!mutex_trylock(&bo->base.gpuva.lock))
-> +		return false;
-> +
-> +	drm_gem_for_each_gpuvm_bo(vm_bo, obj) {
-> +		struct dma_resv *resv = drm_gpuvm_resv(vm_bo->vm);
-> +
-> +		if (resv == obj->resv)
-> +			continue;
-> +
-> +		if (!dma_resv_trylock(resv)) {
-> +			ret = -EDEADLK;
-> +			goto out_unlock;
-> +		}
-> +
-> +		last_locked = vm_bo;
+> @@ -417,18 +888,17 @@ panthor_gem_sync(struct drm_gem_object *obj, u32 type,
+>  		 u64 offset, u64 size)
+>  {
+>  	struct panthor_gem_object *bo = to_panthor_bo(obj);
+> -	struct drm_gem_shmem_object *shmem = &bo->base;
+> -	const struct drm_device *dev = shmem->base.dev;
+> +	struct device *dma_dev = drm_dev_dma_dev(bo->base.dev);
+>  	struct sg_table *sgt;
+>  	struct scatterlist *sgl;
+>  	unsigned int count;
+>
+>  	/* Make sure the range is in bounds. */
+> -	if (offset + size < offset || offset + size > shmem->base.size)
+> +	if (offset + size < offset || offset + size > bo->base.size)
+>  		return -EINVAL;
+>
+>  	/* Disallow CPU-cache maintenance on imported buffers. */
+> -	if (drm_gem_is_imported(&shmem->base))
+> +	if (drm_gem_is_imported(&bo->base))
+>  		return -EINVAL;
+>
+>  	switch (type) {
+> @@ -441,14 +911,14 @@ panthor_gem_sync(struct drm_gem_object *obj, u32 type,
+>  	}
+>
+>  	/* Don't bother if it's WC-mapped */
+> -	if (shmem->map_wc)
+> +	if (should_map_wc(bo))
+>  		return 0;
+>
+>  	/* Nothing to do if the size is zero. */
+>  	if (size == 0)
+>  		return 0;
+>
+> -	sgt = drm_gem_shmem_get_pages_sgt(shmem);
+> +	sgt = panthor_gem_get_dev_sgt(bo);
+>  	if (IS_ERR(sgt))
+>  		return PTR_ERR(sgt);
+>
+> @@ -489,9 +959,9 @@ panthor_gem_sync(struct drm_gem_object *obj, u32 type,
+>  		 *
+>  		 * for the flush+invalidate case.
+>  		 */
+> -		dma_sync_single_for_device(dev->dev, paddr, len, DMA_TO_DEVICE);
+> +		dma_sync_single_for_device(dma_dev, paddr, len, DMA_TO_DEVICE);
+>  		if (type == DRM_PANTHOR_BO_SYNC_CPU_CACHE_FLUSH_AND_INVALIDATE)
+> -			dma_sync_single_for_cpu(dev->dev, paddr, len, DMA_FROM_DEVICE);
+> +			dma_sync_single_for_cpu(dma_dev, paddr, len, DMA_FROM_DEVICE);
+>  	}
+>
+>  	return 0;
+> @@ -541,7 +1011,6 @@ panthor_kernel_bo_create(struct panthor_device *ptdev, struct panthor_vm *vm,
+>  			 size_t size, u32 bo_flags, u32 vm_map_flags,
+>  			 u64 gpu_va, const char *name)
+>  {
+> -	struct drm_gem_shmem_object *obj;
+>  	struct panthor_kernel_bo *kbo;
+>  	struct panthor_gem_object *bo;
+>  	u32 debug_flags = PANTHOR_DEBUGFS_GEM_USAGE_FLAG_KERNEL;
+> @@ -554,25 +1023,18 @@ panthor_kernel_bo_create(struct panthor_device *ptdev, struct panthor_vm *vm,
+>  	if (!kbo)
+>  		return ERR_PTR(-ENOMEM);
+>
+> -	obj = drm_gem_shmem_create(&ptdev->base, size);
+> -	if (IS_ERR(obj)) {
+> -		ret = PTR_ERR(obj);
+> -		goto err_free_bo;
+> -	}
+> -
+> -	bo = to_panthor_bo(&obj->base);
+> -	kbo->obj = &obj->base;
+> -	bo->flags = bo_flags;
+> -	bo->base.map_wc = should_map_wc(bo, vm);
+> -	bo->exclusive_vm_root_gem = panthor_vm_root_gem(vm);
+> -	drm_gem_object_get(bo->exclusive_vm_root_gem);
+> -	bo->base.base.resv = bo->exclusive_vm_root_gem->resv;
+> -
+>  	if (vm == panthor_fw_vm(ptdev))
+>  		debug_flags |= PANTHOR_DEBUGFS_GEM_USAGE_FLAG_FW_MAPPED;
+>
+> +	bo = panthor_gem_create(&ptdev->base, size, bo_flags, vm, debug_flags);
+> +	if (IS_ERR(bo)) {
+> +		ret = PTR_ERR(bo);
+> +		goto err_free_kbo;
 > +	}
 > +
-> +	/* Update the state before trying to evict the buffer, if the state was
-> +	 * updated to something that's harder to reclaim (higher value in the
-> +	 * enum), skip it (will be processed when the relevant LRU is).
-> +	 */
-> +	panthor_gem_update_reclaim_state_locked(bo, &old_state);
-> +	if (old_state < bo->reclaim_state) {
-> +		ret = -EAGAIN;
-> +		goto out_unlock;
-> +	}
+> +	kbo->obj = &bo->base;
 > +
-> +	/* Couldn't teardown the GPU mappings? Skip. */
-> +	ret = panthor_vm_evict_bo_mappings_locked(bo);
-> +	if (ret)
-> +		goto out_unlock;
-> +
-> +	/* If everything went fine, evict the object. */
-> +	panthor_gem_evict_locked(bo);
-> +
-> +out_unlock:
-> +	if (last_locked) {
-> +		drm_gem_for_each_gpuvm_bo(vm_bo, obj) {
-> +			struct dma_resv *resv = drm_gpuvm_resv(vm_bo->vm);
-> +
-> +			if (resv == obj->resv)
-> +				continue;
-> +
-> +			dma_resv_unlock(resv);
-> +
-> +			if (last_locked == vm_bo)
-> +				break;
-> +		}
-> +	}
-> +	mutex_unlock(&bo->base.gpuva.lock);
-> +
-> +	return ret == 0;
-> +}
-> +
-> +static bool panthor_gem_try_evict(struct drm_gem_object *obj,
-> +				  struct ww_acquire_ctx *ticket)
-> +{
-> +	struct panthor_gem_object *bo = to_panthor_bo(obj);
-> +
-> +	/* Wait was too long, skip. */
-> +	if (dma_resv_wait_timeout(obj->resv, DMA_RESV_USAGE_BOOKKEEP, false, 10) <= 0)
-> +		return false;
-> +
-> +	return panthor_gem_try_evict_no_resv_wait(&bo->base, ticket);
-> +}
-> +
-> +static unsigned long
-> +panthor_gem_shrinker_scan(struct shrinker *shrinker, struct shrink_control *sc)
-> +{
-> +	struct panthor_device *ptdev = shrinker->private_data;
-> +	unsigned long remaining = 0;
-> +	unsigned long freed = 0;
-> +
-> +	if (!can_swap())
-> +		goto out;
-> +
-> +	freed += drm_gem_lru_scan(&ptdev->reclaim.unused,
-> +				  sc->nr_to_scan - freed, &remaining,
-> +				  panthor_gem_try_evict_no_resv_wait, NULL);
-> +	if (freed >= sc->nr_to_scan)
-> +		goto out;
-> +
-> +	freed += drm_gem_lru_scan(&ptdev->reclaim.mmapped,
-> +				  sc->nr_to_scan - freed, &remaining,
-> +				  panthor_gem_try_evict_no_resv_wait, NULL);
-> +	if (freed >= sc->nr_to_scan)
-> +		goto out;
-> +
-> +	if (!can_block(sc))
-> +		goto out;
-> +
-> +	freed += panthor_mmu_reclaim_priv_bos(ptdev, sc->nr_to_scan - freed,
-> +					      &remaining, panthor_gem_try_evict);
-> +	if (freed >= sc->nr_to_scan)
-> +		goto out;
-> +
-> +	freed += drm_gem_lru_scan(&ptdev->reclaim.gpu_mapped_shared,
-> +				  sc->nr_to_scan - freed, &remaining,
-> +				  panthor_gem_try_evict, NULL);
-> +
-> +out:
-> +#ifdef CONFIG_DEBUG_FS
-> +	/* This is racy, but that's okay, because this is just debugfs
-> +	 * reporting and doesn't need to be accurate.
-> +	 */
-> +	ptdev->reclaim.nr_pages_reclaimed_on_last_scan = freed;
-> +#endif
-> +
-> +	/* If there are things to reclaim, try a couple times before giving up. */
-> +	if (!freed && remaining > 0 &&
-> +	    atomic_inc_return(&ptdev->reclaim.retry_count) < 2)
-> +		return 0;
-> +
-> +	atomic_set(&ptdev->reclaim.retry_count, 0);
-> +
-> +	if (freed)
-> +		return freed;
-> +
-> +	/* There's nothing left to reclaim, or the resources are contended. Give up now. */
-> +	return SHRINK_STOP;
-> +}
-> +
-> +int panthor_gem_shrinker_init(struct panthor_device *ptdev)
-> +{
-> +	struct shrinker *shrinker;
-> +	int ret;
-> +
-> +	ret = drmm_mutex_init(&ptdev->base, &ptdev->reclaim.lock);
-> +	if (ret)
-> +		return ret;
-> +
-> +	INIT_LIST_HEAD(&ptdev->reclaim.vms);
-> +	drm_gem_lru_init(&ptdev->reclaim.unused, &ptdev->reclaim.lock);
-> +	drm_gem_lru_init(&ptdev->reclaim.mmapped, &ptdev->reclaim.lock);
-> +	drm_gem_lru_init(&ptdev->reclaim.gpu_mapped_shared, &ptdev->reclaim.lock);
-> +	ptdev->reclaim.gpu_mapped_count = 0;
-> +
-> +	/* Teach lockdep about lock ordering wrt. shrinker: */
-> +	fs_reclaim_acquire(GFP_KERNEL);
-> +	might_lock(&ptdev->reclaim.lock);
-> +	fs_reclaim_release(GFP_KERNEL);
-> +
-> +	shrinker = shrinker_alloc(0, "drm-panthor-gem");
-> +	if (!shrinker)
-> +		return -ENOMEM;
-> +
-> +	shrinker->count_objects = panthor_gem_shrinker_count;
-> +	shrinker->scan_objects = panthor_gem_shrinker_scan;
-> +	shrinker->private_data = ptdev;
-> +	ptdev->reclaim.shrinker = shrinker;
-> +
-> +	shrinker_register(shrinker);
-> +	return 0;
-> +}
-> +
-> +void panthor_gem_shrinker_unplug(struct panthor_device *ptdev)
-> +{
-> +	if (ptdev->reclaim.shrinker)
-> +		shrinker_free(ptdev->reclaim.shrinker);
-> +}
-> +
->  #ifdef CONFIG_DEBUG_FS
->  struct gem_size_totals {
->  	size_t size;
-> @@ -1174,6 +1591,7 @@ static void panthor_gem_debugfs_bo_print(struct panthor_gem_object *bo,
+>  	panthor_gem_kernel_bo_set_label(kbo, name);
+> -	panthor_gem_debugfs_set_usage_flags(to_panthor_bo(kbo->obj), debug_flags);
+>
+>  	/* The system and GPU MMU page size might differ, which becomes a
+>  	 * problem for FW sections that need to be mapped at explicit address
+> @@ -596,9 +1058,9 @@ panthor_kernel_bo_create(struct panthor_device *ptdev, struct panthor_vm *vm,
+>  	panthor_vm_free_va(vm, &kbo->va_node);
+>
+>  err_put_obj:
+> -	drm_gem_object_put(&obj->base);
+> +	drm_gem_object_put(&bo->base);
+>
+> -err_free_bo:
+> +err_free_kbo:
+>  	kfree(kbo);
+>  	return ERR_PTR(ret);
+>  }
+> @@ -646,7 +1108,7 @@ static void panthor_gem_debugfs_bo_print(struct panthor_gem_object *bo,
 >  					 struct seq_file *m,
 >  					 struct gem_size_totals *totals)
 >  {
-> +	enum panthor_gem_reclaim_state reclaim_state = bo->reclaim_state;
->  	unsigned int refcount = kref_read(&bo->base.refcount);
+> -	unsigned int refcount = kref_read(&bo->base.base.refcount);
+> +	unsigned int refcount = kref_read(&bo->base.refcount);
 >  	char creator_info[32] = {};
 >  	size_t resident_size;
-> @@ -1209,6 +1627,8 @@ static void panthor_gem_debugfs_bo_print(struct panthor_gem_object *bo,
+>  	u32 gem_usage_flags = bo->debugfs.flags;
+> @@ -656,21 +1118,21 @@ static void panthor_gem_debugfs_bo_print(struct panthor_gem_object *bo,
+>  	if (!refcount)
+>  		return;
 >
->  	totals->size += bo->base.size;
+> -	resident_size = bo->base.pages ? bo->base.base.size : 0;
+> +	resident_size = bo->backing.pages ? bo->base.size : 0;
+>
+>  	snprintf(creator_info, sizeof(creator_info),
+>  		 "%s/%d", bo->debugfs.creator.process_name, bo->debugfs.creator.tgid);
+>  	seq_printf(m, "%-32s%-16d%-16d%-16zd%-16zd0x%-16lx",
+>  		   creator_info,
+> -		   bo->base.base.name,
+> +		   bo->base.name,
+>  		   refcount,
+> -		   bo->base.base.size,
+> +		   bo->base.size,
+>  		   resident_size,
+> -		   drm_vma_node_start(&bo->base.base.vma_node));
+> +		   drm_vma_node_start(&bo->base.vma_node));
+>
+> -	if (drm_gem_is_imported(&bo->base.base))
+> +	if (drm_gem_is_imported(&bo->base))
+>  		gem_state_flags |= PANTHOR_DEBUGFS_GEM_STATE_FLAG_IMPORTED;
+> -	if (bo->base.base.dma_buf)
+> +	if (bo->base.dma_buf)
+>  		gem_state_flags |= PANTHOR_DEBUGFS_GEM_STATE_FLAG_EXPORTED;
+>
+>  	seq_printf(m, "0x%-8x 0x%-10x", gem_state_flags, gem_usage_flags);
+> @@ -679,10 +1141,8 @@ static void panthor_gem_debugfs_bo_print(struct panthor_gem_object *bo,
+>  		seq_printf(m, "%s\n", bo->label.str ? : "");
+>  	}
+>
+> -	totals->size += bo->base.base.size;
+> +	totals->size += bo->base.size;
 >  	totals->resident += resident_size;
-> +	if (reclaim_state != PANTHOR_GEM_UNRECLAIMABLE)
-> +		totals->reclaimable += resident_size;
+> -	if (bo->base.madv > 0)
+> -		totals->reclaimable += resident_size;
 >  }
 >
 >  static void panthor_gem_debugfs_print_bos(struct panthor_device *ptdev,
-> @@ -1249,10 +1669,42 @@ static struct drm_info_list panthor_gem_debugfs_list[] = {
->  	{ "gems", panthor_gem_show_bos, 0, NULL },
->  };
->
-> +static int shrink_get(void *data, u64 *val)
-> +{
-> +	struct panthor_device *ptdev =
-> +		container_of(data, struct panthor_device, base);
-> +
-> +	*val = ptdev->reclaim.nr_pages_reclaimed_on_last_scan;
-> +	return 0;
-> +}
-> +
-> +static int shrink_set(void *data, u64 val)
-> +{
-> +	struct panthor_device *ptdev =
-> +		container_of(data, struct panthor_device, base);
-> +	struct shrink_control sc = {
-> +		.gfp_mask = GFP_KERNEL,
-> +		.nr_to_scan = val,
-> +	};
-> +
-> +	fs_reclaim_acquire(GFP_KERNEL);
-> +	if (ptdev->reclaim.shrinker)
-> +		panthor_gem_shrinker_scan(ptdev->reclaim.shrinker, &sc);
-> +	fs_reclaim_release(GFP_KERNEL);
-> +
-> +	return 0;
-> +}
-> +
-> +DEFINE_DEBUGFS_ATTRIBUTE(panthor_gem_debugfs_shrink_fops,
-> +			 shrink_get, shrink_set,
-> +			 "0x%08llx\n");
-> +
->  void panthor_gem_debugfs_init(struct drm_minor *minor)
->  {
->  	drm_debugfs_create_files(panthor_gem_debugfs_list,
->  				 ARRAY_SIZE(panthor_gem_debugfs_list),
->  				 minor->debugfs_root, minor);
-> +	debugfs_create_file("shrink", 0600, minor->debugfs_root,
-> +			    minor->dev, &panthor_gem_debugfs_shrink_fops);
->  }
->  #endif
 > diff --git a/drivers/gpu/drm/panthor/panthor_gem.h b/drivers/gpu/drm/panthor/panthor_gem.h
-> index c0a18dca732c..30281fad7327 100644
+> index 94b2d17cf032..b66478c9590c 100644
 > --- a/drivers/gpu/drm/panthor/panthor_gem.h
 > +++ b/drivers/gpu/drm/panthor/panthor_gem.h
-> @@ -1,6 +1,7 @@
->  /* SPDX-License-Identifier: GPL-2.0 or MIT */
->  /* Copyright 2019 Linaro, Ltd, Rob Herring <robh@kernel.org> */
->  /* Copyright 2023 Collabora ltd. */
-> +/* Copyright 2025 ARM Limited. All rights reserved. */
->
+> @@ -5,7 +5,7 @@
 >  #ifndef __PANTHOR_GEM_H__
 >  #define __PANTHOR_GEM_H__
-> @@ -93,6 +94,65 @@ struct panthor_gem_dev_map {
->  	struct sg_table *sgt;
+>
+> -#include <drm/drm_gem_shmem_helper.h>
+> +#include <drm/drm_gem.h>
+>  #include <drm/drm_mm.h>
+>
+>  #include <linux/iosys-map.h>
+> @@ -60,12 +60,51 @@ struct panthor_gem_debugfs {
+>  	u32 flags;
 >  };
 >
 > +/**
-> + * enum panthor_gem_reclaim_state - Reclaim state of a GEM object
-> + *
-> + * This is defined in descending reclaimability order and some part
-> + * of the code depends on that.
+> + * struct panthor_gem_backing - GEM memory backing related data
 > + */
-> +enum panthor_gem_reclaim_state {
-> +	/**
-> +	 * @PANTHOR_GEM_UNUSED: GEM is currently unused
-> +	 *
-> +	 * This can happen when the GEM was previously vmap-ed, mmap-ed,
-> +	 * and/or GPU mapped and got unmapped. Because pages are lazily
-> +	 * returned to the shmem layer, we want to keep a list of such
-> +	 * BOs, because they should be fairly easy to reclaim (no need
-> +	 * to wait for GPU to be done, and no need to tear down user
-> +	 * mappings either).
-> +	 */
-> +	PANTHOR_GEM_UNUSED,
+> +struct panthor_gem_backing {
+> +	/** @pages: Pages requested with drm_gem_get_pages() */
+> +	struct page **pages;
 > +
-> +	/**
-> +	 * @PANTHOR_GEM_MMAPPED: GEM is currently mmap-ed
-> +	 *
-> +	 * When a GEM has pages allocated and the mmap_count is > 0, the
-> +	 * GEM is placed in the mmapped list. This comes right after
-> +	 * unused because we can relatively easily tear down user mappings.
-> +	 */
-> +	PANTHOR_GEM_MMAPPED,
+> +	/** @pin_count: Number of active pin requests on this GEM */
+> +	refcount_t pin_count;
+> +};
 > +
-> +	/**
-> +	 * @PANTHOR_GEM_GPU_MAPPED_PRIVATE: GEM is GPU mapped to only one VM
-> +	 *
-> +	 * When a GEM is mapped to a single VM, reclaim requests have more
-> +	 * chances to succeed, because we only need to synchronize against
-> +	 * a single GPU context. This is more annoying than reclaiming
-> +	 * mmap-ed pages still, because we have to wait for in-flight jobs
-> +	 * to land, and we might not be able to acquire all necessary locks
-> +	 * at reclaim time either.
-> +	 */
-> +	PANTHOR_GEM_GPU_MAPPED_PRIVATE,
+> +/**
+> + * struct panthor_gem_cpu_map - GEM CPU mapping related data
+> + */
+> +struct panthor_gem_cpu_map {
+> +	/** @vaddr: Address returned by vmap() */
+> +	void *vaddr;
 > +
-> +	/**
-> +	 * @PANTHOR_GEM_GPU_MAPPED_SHARED: GEM is GPU mapped to multiple VMs
-> +	 *
-> +	 * Like PANTHOR_GEM_GPU_MAPPED_PRIVATE, but the synchronization across
-> +	 * VMs makes such BOs harder to reclaim.
-> +	 */
-> +	PANTHOR_GEM_GPU_MAPPED_SHARED,
+> +	/** @vaddr_use_count: Number of active vmap() requests on this GEM */
+> +	refcount_t vaddr_use_count;
+> +};
 > +
-> +	/**
-> +	 * @PANTHOR_GEM_UNRECLAIMABLE: GEM can't be reclaimed
-> +	 *
-> +	 * Happens when the GEM memory is pinned. It's also the state all GEM
-> +	 * objects start in, because no memory is allocated until explicitly
-> +	 * requested by a CPU or GPU map, meaning there's nothing to reclaim
-> +	 * until such an allocation happens.
-> +	 */
-> +	PANTHOR_GEM_UNRECLAIMABLE,
+> +/**
+> + * struct panthor_gem_dev_map - GEM device mapping related data
+> + */
+> +struct panthor_gem_dev_map {
+> +	/** @sgt: Device mapped sg_table for this GEM */
+> +	struct sg_table *sgt;
 > +};
 > +
 >  /**
 >   * struct panthor_gem_object - Driver specific GEM object.
 >   */
-> @@ -109,6 +169,9 @@ struct panthor_gem_object {
->  	/** @dmap: Device mapping state */
->  	struct panthor_gem_dev_map dmap;
->
-> +	/** @reclaim_state: Cached reclaim state */
-> +	enum panthor_gem_reclaim_state reclaim_state;
+>  struct panthor_gem_object {
+> -	/** @base: Inherit from drm_gem_shmem_object. */
+> -	struct drm_gem_shmem_object base;
+> +	/** @base: Inherit from drm_gem_object. */
+> +	struct drm_gem_object base;
 > +
+> +	/** @backing: Memory backing state */
+> +	struct panthor_gem_backing backing;
+> +
+> +	/** @cmap: CPU mapping state */
+> +	struct panthor_gem_cpu_map cmap;
+> +
+> +	/** @dmap: Device mapping state */
+> +	struct panthor_gem_dev_map dmap;
+>
 >  	/**
 >  	 * @exclusive_vm_root_gem: Root GEM of the exclusive VM this GEM object
->  	 * is attached to.
-> @@ -190,6 +253,11 @@ struct sg_table *
->  panthor_gem_get_dev_sgt(struct panthor_gem_object *bo);
->  int panthor_gem_pin(struct panthor_gem_object *bo);
->  void panthor_gem_unpin(struct panthor_gem_object *bo);
-> +int panthor_gem_swapin_locked(struct panthor_gem_object *bo);
-> +void panthor_gem_update_reclaim_state_locked(struct panthor_gem_object *bo,
-> +					     enum panthor_gem_reclaim_state *old_state);
-> +int panthor_gem_shrinker_init(struct panthor_device *ptdev);
-> +void panthor_gem_shrinker_unplug(struct panthor_device *ptdev);
+> @@ -130,22 +169,25 @@ struct panthor_kernel_bo {
+>  	void *kmap;
+>  };
 >
+> -static inline
+> -struct panthor_gem_object *to_panthor_bo(struct drm_gem_object *obj)
+> -{
+> -	return container_of(to_drm_gem_shmem_obj(obj), struct panthor_gem_object, base);
+> -}
+> +#define to_panthor_bo(obj) container_of_const(obj, struct panthor_gem_object, base)
+>
+>  void panthor_gem_init(struct panthor_device *ptdev);
+>
+> -struct drm_gem_object *panthor_gem_create_object(struct drm_device *ddev, size_t size);
+> -
+> +struct drm_gem_object *
+> +panthor_gem_prime_import_sg_table(struct drm_device *dev,
+> +				  struct dma_buf_attachment *attach,
+> +				  struct sg_table *sgt);
+>  int
+>  panthor_gem_create_with_handle(struct drm_file *file,
+>  			       struct drm_device *ddev,
+>  			       struct panthor_vm *exclusive_vm,
+>  			       u64 *size, u32 flags, uint32_t *handle);
+>
+> +struct sg_table *
+> +panthor_gem_get_dev_sgt(struct panthor_gem_object *bo);
+> +int panthor_gem_pin(struct panthor_gem_object *bo);
+> +void panthor_gem_unpin(struct panthor_gem_object *bo);
+> +
 >  void panthor_gem_bo_set_label(struct drm_gem_object *obj, const char *label);
 >  void panthor_gem_kernel_bo_set_label(struct panthor_kernel_bo *bo, const char *label);
+>  int panthor_gem_sync(struct drm_gem_object *obj,
 > diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/panthor/panthor_mmu.c
-> index 5d07c1b96e0a..4b415aaedaa9 100644
+> index f490e0bf6cac..3f73a35fe1fa 100644
 > --- a/drivers/gpu/drm/panthor/panthor_mmu.c
 > +++ b/drivers/gpu/drm/panthor/panthor_mmu.c
-> @@ -1,6 +1,7 @@
->  // SPDX-License-Identifier: GPL-2.0 or MIT
->  /* Copyright 2019 Linaro, Ltd, Rob Herring <robh@kernel.org> */
->  /* Copyright 2023 Collabora ltd. */
-> +/* Copyright 2025 ARM Limited. All rights reserved. */
->
+> @@ -5,6 +5,7 @@
 >  #include <drm/drm_debugfs.h>
 >  #include <drm/drm_drv.h>
-> @@ -131,6 +132,9 @@ struct panthor_vma {
->  	 * Only map related flags are accepted.
->  	 */
->  	u32 flags;
-> +
-> +	/** @evicted: True if the VMA has been evicted. */
-> +	bool evicted;
->  };
->
->  /**
-> @@ -191,13 +195,8 @@ struct panthor_vm_op_ctx {
->  		/** @map.bo_offset: Offset in the buffer object. */
->  		u64 bo_offset;
->
-> -		/**
-> -		 * @map.sgt: sg-table pointing to pages backing the GEM object.
-> -		 *
-> -		 * This is gathered at job creation time, such that we don't have
-> -		 * to allocate in ::run_job().
-> -		 */
-> -		struct sg_table *sgt;
-> +		/** @map.bo: the BO being mapped. */
-> +		struct panthor_gem_object *bo;
->
->  		/**
->  		 * @map.new_vma: The new VMA object that will be inserted to the VA tree.
-> @@ -385,6 +384,18 @@ struct panthor_vm {
->  		/** @locked_region.size: Size of the locked region. */
->  		u64 size;
->  	} locked_region;
-> +
-> +	/** @reclaim: Fields related to BO reclaim. */
-> +	struct {
-> +		/** @reclaim.lru: LRU of BOs that are only mapped to this VM. */
-> +		struct drm_gem_lru lru;
-> +
-> +		/**
-> +		 * @reclaim.lru_node: Node used to insert the VM in
-> +		 * panthor_device::reclaim::vms.
-> +		 */
-> +		struct list_head lru_node;
-> +	} reclaim;
->  };
->
->  /**
-> @@ -689,6 +700,16 @@ int panthor_vm_active(struct panthor_vm *vm)
->  	if (refcount_inc_not_zero(&vm->as.active_cnt))
->  		goto out_dev_exit;
->
-> +	/* As soon as active is called, we place the VM at the end of the VM LRU.
-> +	 * If something fails after that, the only downside is that this VM that
-> +	 * never became active in the first place will be reclaimed last, but
-> +	 * that's an acceptable trade-off.
-> +	 */
-> +	mutex_lock(&ptdev->reclaim.lock);
-> +	if (vm->reclaim.lru.count)
-> +		list_move_tail(&vm->reclaim.lru_node, &ptdev->reclaim.vms);
-> +	mutex_unlock(&ptdev->reclaim.lock);
-> +
->  	/* Make sure we don't race with lock/unlock_region() calls
->  	 * happening around VM bind operations.
->  	 */
-> @@ -1084,7 +1105,15 @@ static void panthor_vm_bo_free(struct drm_gpuvm_bo *vm_bo)
+>  #include <drm/drm_exec.h>
+> +#include <drm/drm_file.h>
+>  #include <drm/drm_gpuvm.h>
+>  #include <drm/drm_managed.h>
+>  #include <drm/drm_print.h>
+> @@ -1083,8 +1084,7 @@ static void panthor_vm_bo_free(struct drm_gpuvm_bo *vm_bo)
 >  {
 >  	struct panthor_gem_object *bo = to_panthor_bo(vm_bo->obj);
 >
-> -	panthor_gem_unpin(bo);
-> +	/* We couldn't call this when we unlinked, because the resv lock can't
-> +	 * be taken in the dma signalling path, so call it now.
-> +	 */
-> +	dma_resv_lock(bo->base.resv, NULL);
-> +	mutex_lock(&bo->base.gpuva.lock);
-> +	panthor_gem_update_reclaim_state_locked(bo, NULL);
-> +	mutex_unlock(&bo->base.gpuva.lock);
-> +	dma_resv_unlock(bo->base.resv);
-> +
+> -	if (!drm_gem_is_imported(&bo->base.base))
+> -		drm_gem_shmem_unpin(&bo->base);
+> +	panthor_gem_unpin(bo);
 >  	kfree(vm_bo);
 >  }
 >
-> @@ -1105,6 +1134,11 @@ static void panthor_vm_cleanup_op_ctx(struct panthor_vm_op_ctx *op_ctx,
->  	if (op_ctx->map.vm_bo)
->  		drm_gpuvm_bo_put_deferred(op_ctx->map.vm_bo);
+> @@ -1206,7 +1206,7 @@ static int panthor_vm_prepare_map_op_ctx(struct panthor_vm_op_ctx *op_ctx,
+>  		return -EINVAL;
 >
-> +	if (op_ctx->map.bo) {
-> +		panthor_gem_unpin(op_ctx->map.bo);
-> +		drm_gem_object_put(&op_ctx->map.bo->base);
-> +	}
-> +
->  	for (u32 i = 0; i < ARRAY_SIZE(op_ctx->preallocated_vmas); i++)
->  		kfree(op_ctx->preallocated_vmas[i]);
+>  	/* Make sure the VA and size are in-bounds. */
+> -	if (size > bo->base.base.size || offset > bo->base.base.size - size)
+> +	if (size > bo->base.size || offset > bo->base.size - size)
+>  		return -EINVAL;
 >
-> @@ -1264,18 +1298,17 @@ static int panthor_vm_prepare_map_op_ctx(struct panthor_vm_op_ctx *op_ctx,
+>  	/* If the BO has an exclusive VM attached, it can't be mapped to other VMs. */
+> @@ -1223,39 +1223,30 @@ static int panthor_vm_prepare_map_op_ctx(struct panthor_vm_op_ctx *op_ctx,
 >  	if (ret)
 >  		goto err_cleanup;
 >
-> +	drm_gem_object_get(&bo->base);
-> +	op_ctx->map.bo = bo;
-> +
->  	sgt = panthor_gem_get_dev_sgt(bo);
+> -	if (!drm_gem_is_imported(&bo->base.base)) {
+> -		/* Pre-reserve the BO pages, so the map operation doesn't have to
+> -		 * allocate. This pin is dropped in panthor_vm_bo_free(), so
+> -		 * once we have successfully called drm_gpuvm_bo_create(),
+> -		 * GPUVM will take care of dropping the pin for us.
+> -		 */
+> -		ret = drm_gem_shmem_pin(&bo->base);
+> -		if (ret)
+> -			goto err_cleanup;
+> -	}
+> +	/* Pre-reserve the BO pages, so the map operation doesn't have to
+> +	 * allocate.
+> +	 */
+> +	ret = panthor_gem_pin(bo);
+> +	if (ret)
+> +		goto err_cleanup;
+>
+> -	sgt = drm_gem_shmem_get_pages_sgt(&bo->base);
+> +	sgt = panthor_gem_get_dev_sgt(bo);
 >  	if (IS_ERR(sgt)) {
-> -		panthor_gem_unpin(bo);
+> -		if (!drm_gem_is_imported(&bo->base.base))
+> -			drm_gem_shmem_unpin(&bo->base);
+> -
+> +		panthor_gem_unpin(bo);
 >  		ret = PTR_ERR(sgt);
 >  		goto err_cleanup;
 >  	}
 >
-> -	op_ctx->map.sgt = sgt;
-> -
->  	preallocated_vm_bo = drm_gpuvm_bo_create(&vm->base, &bo->base);
+>  	op_ctx->map.sgt = sgt;
+>
+> -	preallocated_vm_bo = drm_gpuvm_bo_create(&vm->base, &bo->base.base);
+> +	preallocated_vm_bo = drm_gpuvm_bo_create(&vm->base, &bo->base);
 >  	if (!preallocated_vm_bo) {
-> -		panthor_gem_unpin(bo);
+> -		if (!drm_gem_is_imported(&bo->base.base))
+> -			drm_gem_shmem_unpin(&bo->base);
+> -
+> +		panthor_gem_unpin(bo);
 >  		ret = -ENOMEM;
 >  		goto err_cleanup;
 >  	}
-> @@ -1294,6 +1327,13 @@ static int panthor_vm_prepare_map_op_ctx(struct panthor_vm_op_ctx *op_ctx,
+>
+>  	op_ctx->map.vm_bo = drm_gpuvm_bo_obtain_prealloc(preallocated_vm_bo);
+> -
+>  	op_ctx->map.bo_offset = offset;
+>
+>  	/* L1, L2 and L3 page tables.
+> @@ -1283,7 +1274,7 @@ static int panthor_vm_prepare_map_op_ctx(struct panthor_vm_op_ctx *op_ctx,
+>  	}
+>
+>  	/* Insert BO into the extobj list last, when we know nothing can fail. */
+> -	if (bo->base.base.resv != panthor_vm_resv(vm)) {
+> +	if (bo->base.resv != panthor_vm_resv(vm)) {
+>  		dma_resv_lock(panthor_vm_resv(vm), NULL);
+>  		drm_gpuvm_bo_extobj_add(op_ctx->map.vm_bo);
 >  		dma_resv_unlock(panthor_vm_resv(vm));
+> @@ -2054,9 +2045,9 @@ static void panthor_vma_link(struct panthor_vm *vm,
+>  {
+>  	struct panthor_gem_object *bo = to_panthor_bo(vma->base.gem.obj);
+>
+> -	mutex_lock(&bo->base.base.gpuva.lock);
+> +	mutex_lock(&bo->base.gpuva.lock);
+>  	drm_gpuva_link(&vma->base, vm_bo);
+> -	mutex_unlock(&bo->base.base.gpuva.lock);
+> +	mutex_unlock(&bo->base.gpuva.lock);
+>  }
+>
+>  static void panthor_vma_unlink(struct panthor_vma *vma)
+> @@ -2108,11 +2099,12 @@ static int panthor_gpuva_sm_step_map(struct drm_gpuva_op *op, void *priv)
+>  static bool
+>  iova_mapped_as_huge_page(struct drm_gpuva_op_map *op, u64 addr)
+>  {
+> +	struct panthor_gem_object *bo = to_panthor_bo(op->gem.obj);
+>  	const struct page *pg;
+>  	pgoff_t bo_offset;
+>
+>  	bo_offset = addr - op->va.addr + op->gem.offset;
+> -	pg = to_panthor_bo(op->gem.obj)->base.pages[bo_offset >> PAGE_SHIFT];
+> +	pg = bo->backing.pages[bo_offset >> PAGE_SHIFT];
+>
+>  	return folio_size(page_folio(pg)) >= SZ_2M;
+>  }
+> @@ -2181,7 +2173,7 @@ static int panthor_gpuva_sm_step_remap(struct drm_gpuva_op *op,
+>  		u64 size = op->remap.prev->va.addr + op->remap.prev->va.range - unmap_start;
+>
+>  		ret = panthor_vm_map_pages(vm, unmap_start, flags_to_prot(unmap_vma->flags),
+> -					   bo->base.sgt, offset, size);
+> +					   bo->dmap.sgt, offset, size);
+>  		if (ret)
+>  			return ret;
+>
+> @@ -2195,7 +2187,7 @@ static int panthor_gpuva_sm_step_remap(struct drm_gpuva_op *op,
+>  		u64 size = unmap_start + unmap_range - op->remap.next->va.addr;
+>
+>  		ret = panthor_vm_map_pages(vm, addr, flags_to_prot(unmap_vma->flags),
+> -					   bo->base.sgt, op->remap.next->gem.offset, size);
+> +					   bo->dmap.sgt, op->remap.next->gem.offset, size);
+>  		if (ret)
+>  			return ret;
+>
+> diff --git a/drivers/gpu/drm/panthor/panthor_sched.c b/drivers/gpu/drm/panthor/panthor_sched.c
+> index c15941ebe07a..ccd93ae32c23 100644
+> --- a/drivers/gpu/drm/panthor/panthor_sched.c
+> +++ b/drivers/gpu/drm/panthor/panthor_sched.c
+> @@ -3,7 +3,7 @@
+>
+>  #include <drm/drm_drv.h>
+>  #include <drm/drm_exec.h>
+> -#include <drm/drm_gem_shmem_helper.h>
+> +#include <drm/drm_file.h>
+>  #include <drm/drm_managed.h>
+>  #include <drm/drm_print.h>
+>  #include <drm/gpu_scheduler.h>
+> @@ -871,8 +871,7 @@ panthor_queue_get_syncwait_obj(struct panthor_group *group, struct panthor_queue
+>  	int ret;
+>
+>  	if (queue->syncwait.kmap) {
+> -		bo = container_of(queue->syncwait.obj,
+> -				  struct panthor_gem_object, base.base);
+> +		bo = to_panthor_bo(queue->syncwait.obj);
+>  		goto out_sync;
 >  	}
 >
-> +	/* And finally update the BO state. */
-> +	dma_resv_lock(bo->base.resv, NULL);
-> +	mutex_lock(&bo->base.gpuva.lock);
-> +	panthor_gem_update_reclaim_state_locked(bo, NULL);
-> +	mutex_unlock(&bo->base.gpuva.lock);
-> +	dma_resv_unlock(bo->base.resv);
-> +
->  	return 0;
+> @@ -882,7 +881,7 @@ panthor_queue_get_syncwait_obj(struct panthor_group *group, struct panthor_queue
+>  	if (drm_WARN_ON(&ptdev->base, IS_ERR_OR_NULL(bo)))
+>  		goto err_put_syncwait_obj;
 >
->  err_cleanup:
-> @@ -1881,6 +1921,10 @@ static void panthor_vm_free(struct drm_gpuvm *gpuvm)
->  	struct panthor_vm *vm = container_of(gpuvm, struct panthor_vm, base);
->  	struct panthor_device *ptdev = vm->ptdev;
->
-> +	mutex_lock(&ptdev->reclaim.lock);
-> +	list_del_init(&vm->reclaim.lru_node);
-> +	mutex_unlock(&ptdev->reclaim.lock);
-> +
->  	mutex_lock(&vm->heaps.lock);
->  	if (drm_WARN_ON(&ptdev->base, vm->heaps.pool))
->  		panthor_heap_pool_destroy(vm->heaps.pool);
-> @@ -2094,7 +2138,7 @@ static int panthor_gpuva_sm_step_map(struct drm_gpuva_op *op, void *priv)
->  	panthor_vma_init(vma, op_ctx->flags & PANTHOR_VM_MAP_FLAGS);
->
->  	ret = panthor_vm_map_pages(vm, op->map.va.addr, flags_to_prot(vma->flags),
-> -				   op_ctx->map.sgt, op->map.gem.offset,
-> +				   op_ctx->map.bo->dmap.sgt, op->map.gem.offset,
->  				   op->map.va.range);
->  	if (ret) {
->  		panthor_vm_op_ctx_return_vma(op_ctx, vma);
-> @@ -2178,8 +2222,10 @@ static int panthor_gpuva_sm_step_remap(struct drm_gpuva_op *op,
->  	 * atomicity. panthor_vm_lock_region() bails out early if the new region
->  	 * is already part of the locked region, so no need to do this check here.
+> -	queue->syncwait.obj = &bo->base.base;
+> +	queue->syncwait.obj = &bo->base;
+>  	ret = drm_gem_vmap(queue->syncwait.obj, &map);
+>  	if (drm_WARN_ON(&ptdev->base, ret))
+>  		goto err_put_syncwait_obj;
+> @@ -896,7 +895,7 @@ panthor_queue_get_syncwait_obj(struct panthor_group *group, struct panthor_queue
+>  	 * drm_gem_shmem_sync() is a NOP if map_wc=true, so no need to check
+>  	 * it here.
 >  	 */
-> -	panthor_vm_lock_region(vm, unmap_start, unmap_range);
-> -	panthor_vm_unmap_pages(vm, unmap_start, unmap_range);
-> +	if (!unmap_vma->evicted) {
-> +		panthor_vm_lock_region(vm, unmap_start, unmap_range);
-> +		panthor_vm_unmap_pages(vm, unmap_start, unmap_range);
-> +	}
->
->  	if (op->remap.prev) {
->  		struct panthor_gem_object *bo = to_panthor_bo(op->remap.prev->gem.obj);
-> @@ -2193,6 +2239,7 @@ static int panthor_gpuva_sm_step_remap(struct drm_gpuva_op *op,
->
->  		prev_vma = panthor_vm_op_ctx_get_vma(op_ctx);
->  		panthor_vma_init(prev_vma, unmap_vma->flags);
-> +		prev_vma->evicted = unmap_vma->evicted;
->  	}
->
->  	if (op->remap.next) {
-> @@ -2207,6 +2254,7 @@ static int panthor_gpuva_sm_step_remap(struct drm_gpuva_op *op,
->
->  		next_vma = panthor_vm_op_ctx_get_vma(op_ctx);
->  		panthor_vma_init(next_vma, unmap_vma->flags);
-> +		next_vma->evicted = unmap_vma->evicted;
->  	}
->
->  	drm_gpuva_remap(prev_vma ? &prev_vma->base : NULL,
-> @@ -2236,19 +2284,221 @@ static int panthor_gpuva_sm_step_unmap(struct drm_gpuva_op *op,
->  	struct panthor_vma *unmap_vma = container_of(op->unmap.va, struct panthor_vma, base);
->  	struct panthor_vm *vm = priv;
->
-> -	panthor_vm_unmap_pages(vm, unmap_vma->base.va.addr,
-> -			       unmap_vma->base.va.range);
-> +	if (!unmap_vma->evicted) {
-> +		panthor_vm_unmap_pages(vm, unmap_vma->base.va.addr,
-> +				       unmap_vma->base.va.range);
-> +	}
-> +
->  	drm_gpuva_unmap(&op->unmap);
->  	panthor_vma_unlink(unmap_vma);
->  	return 0;
->  }
->
-> +void panthor_vm_update_bo_reclaim_lru_locked(struct panthor_gem_object *bo)
-> +{
-> +	struct panthor_device *ptdev = container_of(bo->base.dev, struct panthor_device, base);
-> +	struct panthor_vm *vm = NULL;
-> +	struct drm_gpuvm_bo *vm_bo;
-> +
-> +	dma_resv_assert_held(bo->base.resv);
-> +	lockdep_assert_held(&bo->base.gpuva.lock);
-> +
-> +	drm_gem_for_each_gpuvm_bo(vm_bo, &bo->base) {
-> +		if (vm_bo->evicted)
-> +			continue;
-> +
-> +		/* We're only supposed to have one non-evicted vm_bo in the list if we get
-> +		 * there.
-> +		 */
-> +		drm_WARN_ON(&ptdev->base, vm);
-> +		vm = container_of(vm_bo->vm, struct panthor_vm, base);
-> +
-> +		mutex_lock(&ptdev->reclaim.lock);
-> +		drm_gem_lru_move_tail_locked(&vm->reclaim.lru, &bo->base);
-> +		if (list_empty(&vm->reclaim.lru_node))
-> +			list_move(&vm->reclaim.lru_node, &ptdev->reclaim.vms);
-> +		mutex_unlock(&ptdev->reclaim.lock);
-> +	}
-> +}
-> +
-> +int panthor_vm_evict_bo_mappings_locked(struct panthor_gem_object *bo)
-> +{
-> +	struct drm_gpuvm_bo *vm_bo;
-> +	int ret = 0;
-> +
-> +	drm_gem_for_each_gpuvm_bo(vm_bo, &bo->base) {
-> +		struct panthor_vm *vm = container_of(vm_bo->vm, struct panthor_vm, base);
-> +		struct drm_gpuva *va;
-> +
-> +		/* Skip already evicted GPU mappings. */
-> +		if (vm_bo->evicted)
-> +			continue;
-> +
-> +		if (!mutex_trylock(&vm->op_lock))
-> +			return -EDEADLK;
-> +
-> +		drm_gpuvm_bo_evict(vm_bo, true);
-> +		drm_gpuvm_bo_for_each_va(va, vm_bo) {
-> +			struct panthor_vma *vma = container_of(va, struct panthor_vma, base);
-> +
-> +			if (vma->evicted)
-> +				continue;
-> +
-> +			ret = panthor_vm_lock_region(vm, va->va.addr, va->va.range);
-> +			if (ret)
-> +				break;
-> +
-> +			panthor_vm_unmap_pages(vm, va->va.addr, va->va.range);
-> +			panthor_vm_unlock_region(vm);
-> +			vma->evicted = true;
-> +		}
-> +
-> +		mutex_unlock(&vm->op_lock);
-> +
-> +		if (ret)
-> +			break;
-> +	}
-> +
-> +	return ret;
-> +}
-> +
-> +static struct panthor_vma *select_evicted_vma(struct drm_gpuvm_bo *vm_bo,
-> +					      struct panthor_vm_op_ctx *op_ctx)
-> +{
-> +	struct panthor_vm *vm = container_of(vm_bo->vm, struct panthor_vm, base);
-> +	struct panthor_vma *first_evicted_vma = NULL;
-> +	struct drm_gpuva *va;
-> +
-> +	/* Take op_lock to protect against va insertion/removal. */
-> +	mutex_lock(&vm->op_lock);
-> +	drm_gpuvm_bo_for_each_va(va, vm_bo) {
-> +		struct panthor_vma *vma = container_of(va, struct panthor_vma, base);
-> +
-> +		if (vma->evicted) {
-> +			first_evicted_vma = vma;
-> +			panthor_vm_init_op_ctx(op_ctx, va->va.range, va->va.addr, vma->flags);
-> +			op_ctx->map.bo_offset = va->gem.offset;
-> +			break;
-> +		}
-> +	}
-> +	mutex_unlock(&vm->op_lock);
-> +
-> +	return first_evicted_vma;
-> +}
-> +
-> +static int remap_evicted_vma(struct drm_gpuvm_bo *vm_bo,
-> +			     struct panthor_vma *evicted_vma,
-> +			     struct panthor_vm_op_ctx *op_ctx)
-> +{
-> +	struct panthor_vm *vm = container_of(vm_bo->vm, struct panthor_vm, base);
-> +	struct panthor_gem_object *bo = to_panthor_bo(vm_bo->obj);
-> +	struct drm_gpuva *va;
-> +	bool found = false;
-> +	int ret;
-> +
-> +	ret = panthor_vm_op_ctx_prealloc_pts(op_ctx);
-> +	if (ret)
-> +		goto out_cleanup;
-> +
-> +	/* Take op_lock to protect against va insertion/removal. Note that the
-> +	 * evicted_vma selection was done with the same lock held, but we had
-> +	 * to release it so we can allocate PTs, because this very same lock
-> +	 * is taken in a DMA-signalling path.
-> +	 */
-> +	mutex_lock(&vm->op_lock);
-> +	drm_gpuvm_bo_for_each_va(va, vm_bo) {
-> +		struct panthor_vma *vma = container_of(va, struct panthor_vma, base);
-> +
-> +		if (vma != evicted_vma)
-> +			continue;
-> +
-> +		/* Because we had to release the lock between the evicted_vma selection
-> +		 * and its repopulation, we can't rely solely on pointer equality (the
-> +		 * VMA might have been freed and a new one allocated at the same address).
-> +		 * If the evicted bit is still set, we're sure it's our VMA, because
-> +		 * population/eviction is serialized with the BO resv lock.
-> +		 */
-> +		if (vma->evicted)
-> +			found = true;
-> +
-> +		break;
-> +	}
-> +
-> +	if (found) {
-> +		vm->op_ctx = op_ctx;
-> +		ret = panthor_vm_lock_region(vm, evicted_vma->base.va.addr,
-> +					     evicted_vma->base.va.range);
-> +		if (!ret) {
-> +			ret = panthor_vm_map_pages(vm, evicted_vma->base.va.addr,
-> +						   flags_to_prot(evicted_vma->flags),
-> +						   bo->dmap.sgt,
-> +						   evicted_vma->base.gem.offset,
-> +						   evicted_vma->base.va.range);
-> +		}
-> +
-> +		if (!ret)
-> +			evicted_vma->evicted = false;
-> +
-> +		panthor_vm_unlock_region(vm);
-> +		vm->op_ctx = NULL;
-> +	}
-> +
-> +	mutex_unlock(&vm->op_lock);
-> +
-> +out_cleanup:
-> +	panthor_vm_cleanup_op_ctx(op_ctx, vm);
-> +	return ret;
-> +}
-> +
-> +static int panthor_vm_restore_vmas(struct drm_gpuvm_bo *vm_bo)
-> +{
-> +	struct panthor_vm *vm = container_of(vm_bo->vm, struct panthor_vm, base);
-> +	struct panthor_gem_object *bo = to_panthor_bo(vm_bo->obj);
-> +	struct panthor_vm_op_ctx op_ctx;
-> +
-> +	if (drm_WARN_ON_ONCE(&vm->ptdev->base, !bo->dmap.sgt))
-> +		return -EINVAL;
-> +
-> +	for (struct panthor_vma *vma = select_evicted_vma(vm_bo, &op_ctx);
-> +	     vma; vma = select_evicted_vma(vm_bo, &op_ctx)) {
-> +		int ret;
-> +
-> +		ret = remap_evicted_vma(vm_bo, vma, &op_ctx);
-> +		if (ret)
-> +			return ret;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static int panthor_vm_bo_validate(struct drm_gpuvm_bo *vm_bo,
-> +				  struct drm_exec *exec)
-> +{
-> +	struct panthor_gem_object *bo = to_panthor_bo(vm_bo->obj);
-> +	int ret;
-> +
-> +	ret = panthor_gem_swapin_locked(bo);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = panthor_vm_restore_vmas(vm_bo);
-> +	if (ret)
-> +		return ret;
-> +
-> +	drm_gpuvm_bo_evict(vm_bo, false);
-> +	mutex_lock(&bo->base.gpuva.lock);
-> +	panthor_gem_update_reclaim_state_locked(bo, NULL);
-> +	mutex_unlock(&bo->base.gpuva.lock);
-> +	return 0;
-> +}
-> +
->  static const struct drm_gpuvm_ops panthor_gpuvm_ops = {
->  	.vm_free = panthor_vm_free,
->  	.vm_bo_free = panthor_vm_bo_free,
->  	.sm_step_map = panthor_gpuva_sm_step_map,
->  	.sm_step_remap = panthor_gpuva_sm_step_remap,
->  	.sm_step_unmap = panthor_gpuva_sm_step_unmap,
-> +	.vm_bo_validate = panthor_vm_bo_validate,
->  };
->
->  /**
-> @@ -2463,6 +2713,8 @@ panthor_vm_create(struct panthor_device *ptdev, bool for_mcu,
->  	vm->kernel_auto_va.start = auto_kernel_va_start;
->  	vm->kernel_auto_va.end = vm->kernel_auto_va.start + auto_kernel_va_size - 1;
->
-> +	drm_gem_lru_init(&vm->reclaim.lru, &ptdev->reclaim.lock);
-> +	INIT_LIST_HEAD(&vm->reclaim.lru_node);
->  	INIT_LIST_HEAD(&vm->node);
->  	INIT_LIST_HEAD(&vm->as.lru_node);
->  	vm->as.id = -1;
-> @@ -2810,7 +3062,78 @@ int panthor_vm_prepare_mapped_bos_resvs(struct drm_exec *exec, struct panthor_vm
->  	if (ret)
->  		return ret;
->
-> -	return drm_gpuvm_prepare_objects(&vm->base, exec, slot_count);
-> +	ret = drm_gpuvm_prepare_objects(&vm->base, exec, slot_count);
-> +	if (ret)
-> +		return ret;
-> +
-> +	return drm_gpuvm_validate(&vm->base, exec);
-> +}
-> +
-> +unsigned long
-> +panthor_mmu_reclaim_priv_bos(struct panthor_device *ptdev,
-> +			     unsigned int nr_to_scan, unsigned long *remaining,
-> +			     bool (*shrink)(struct drm_gem_object *,
-> +					    struct ww_acquire_ctx *))
-> +{
-> +	unsigned long freed = 0;
-> +	LIST_HEAD(remaining_vms);
-> +	LIST_HEAD(vms);
-> +
-> +	mutex_lock(&ptdev->reclaim.lock);
-> +	list_splice_init(&ptdev->reclaim.vms, &vms);
-> +
-> +	while (freed < nr_to_scan) {
-> +		struct panthor_vm *vm;
-> +
-> +		vm = list_first_entry_or_null(&vms, typeof(*vm),
-> +					      reclaim.lru_node);
-> +		if (!vm)
-> +			break;
-> +
-> +		if (!kref_get_unless_zero(&vm->base.kref)) {
-> +			list_del_init(&vm->reclaim.lru_node);
-> +			continue;
-> +		}
-> +
-> +		mutex_unlock(&ptdev->reclaim.lock);
-> +
-> +		freed += drm_gem_lru_scan(&vm->reclaim.lru, nr_to_scan - freed,
-> +					  remaining, shrink, NULL);
-> +
-> +		mutex_lock(&ptdev->reclaim.lock);
-> +
-> +		/* If the VM is still in the temporary list, remove it so we
-> +		 * can proceed with the next VM.
-> +		 */
-> +		if (vm->reclaim.lru_node.prev == &vms) {
-> +			list_del_init(&vm->reclaim.lru_node);
-> +
-> +			/* Keep the VM around if there are still things to
-> +			 * reclaim, so we can preserve the LRU order when
-> +			 * re-inserting in ptdev->reclaim.vms at the end.
-> +			 */
-> +			if (vm->reclaim.lru.count > 0)
-> +				list_add_tail(&vm->reclaim.lru_node, &remaining_vms);
-> +		}
-> +
-> +		mutex_unlock(&ptdev->reclaim.lock);
-> +
-> +		panthor_vm_put(vm);
-> +
-> +		mutex_lock(&ptdev->reclaim.lock);
-> +	}
-> +
-> +	/* Re-insert VMs with remaining data to reclaim at the beginning of
-> +	 * the LRU. Note that any activeness change on the VM that happened
-> +	 * while we were reclaiming would have moved the VM out of our
-> +	 * temporary [remaining_]vms list, meaning anything we re-insert here
-> +	 * preserves the LRU order.
-> +	 */
-> +	list_splice_tail(&vms, &remaining_vms);
-> +	list_splice(&remaining_vms, &ptdev->reclaim.vms);
-> +	mutex_unlock(&ptdev->reclaim.lock);
-> +
-> +	return freed;
->  }
->
->  /**
-> diff --git a/drivers/gpu/drm/panthor/panthor_mmu.h b/drivers/gpu/drm/panthor/panthor_mmu.h
-> index 0e268fdfdb2f..3522fbbce369 100644
-> --- a/drivers/gpu/drm/panthor/panthor_mmu.h
-> +++ b/drivers/gpu/drm/panthor/panthor_mmu.h
-> @@ -1,6 +1,7 @@
->  /* SPDX-License-Identifier: GPL-2.0 or MIT */
->  /* Copyright 2019 Linaro, Ltd, Rob Herring <robh@kernel.org> */
->  /* Copyright 2023 Collabora ltd. */
-> +/* Copyright 2025 ARM Limited. All rights reserved. */
->
->  #ifndef __PANTHOR_MMU_H__
->  #define __PANTHOR_MMU_H__
-> @@ -46,6 +47,13 @@ struct panthor_vm *panthor_vm_create(struct panthor_device *ptdev, bool for_mcu,
->  				     u64 kernel_auto_va_start,
->  				     u64 kernel_auto_va_size);
->
-> +void panthor_vm_update_bo_reclaim_lru_locked(struct panthor_gem_object *bo);
-> +int panthor_vm_evict_bo_mappings_locked(struct panthor_gem_object *bo);
-> +unsigned long
-> +panthor_mmu_reclaim_priv_bos(struct panthor_device *ptdev,
-> +			     unsigned int nr_to_scan, unsigned long *remaining,
-> +			     bool (*shrink)(struct drm_gem_object *,
-> +					    struct ww_acquire_ctx *));
->  int panthor_vm_prepare_mapped_bos_resvs(struct drm_exec *exec,
->  					struct panthor_vm *vm,
->  					u32 slot_count);
+> -	panthor_gem_sync(&bo->base.base, queue->syncwait.offset,
+> +	panthor_gem_sync(&bo->base, queue->syncwait.offset,
+>  			 queue->syncwait.sync64 ?
+>  			 sizeof(struct panthor_syncobj_64b) :
+>  			 sizeof(struct panthor_syncobj_32b),
 > --
 > 2.53.0
 
