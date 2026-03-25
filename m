@@ -4,99 +4,161 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 696B7FEA82F
-	for <dri-devel@archiver.kernel.org>; Wed, 25 Mar 2026 08:09:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8CA9BFEA831
+	for <dri-devel@archiver.kernel.org>; Wed, 25 Mar 2026 08:09:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C86F110E816;
-	Wed, 25 Mar 2026 08:09:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E876510E818;
+	Wed, 25 Mar 2026 08:09:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="Q/hji/hI";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="QOIlxscn";
 	dkim-atps=neutral
-Received: from mail-lf1-f45.google.com (mail-lf1-f45.google.com
- [209.85.167.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 53CF310E816
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Mar 2026 08:09:00 +0000 (UTC)
-Received: by mail-lf1-f45.google.com with SMTP id
- 2adb3069b0e04-5a27eb8311bso4654460e87.1
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Mar 2026 01:09:00 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1774426139; cv=none;
- d=google.com; s=arc-20240605;
- b=A4LkUE+2+q7N8basGPBZok/iym2V1GEwJv+rlCqO572ACFUFMi7UqRYpkP06dfslmz
- A4xCa4YQ2S/OHMLJBucIzjAUMBSoIdfUMEnkwXpr6Pxr6eaU2Aw3OXMSnba8vcSqxm2m
- lW6YG57fAMJm+SZ7zKgc5f7R+GqWfkMDzLbh5ugxBYSce01hflIioHT2dMlPSMubrbBq
- bNAqDT66Fe0VAjJy64BEaG3EyiogK6ddvdkLIMhoM/e8X4XQ6jAoeMZ7mB5K2l4krlCO
- cXlj3pFsq91bC16CP6MoQFY8Wl9Xtunlyiyq0j03m+bitsDWI/PfS+zGRD6tfywVr4Tk
- LNaw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=g0KgYtYkqUP59BqGGG61EV18AeUer+TehEbvZYdIpWI=;
- fh=R3c8EIy21+YsyJg1F9N/SMkYySdkrnHmraOcHaHF8yo=;
- b=WshMunywJCoAvCGoCdnTEzvqxsttZK1vNGBFRFUJ78obMWPcCCRd8f+3KVtSLRhSA8
- 2jDw72F+XYNpoXGrxcUutBl+uRw7GTj0XPtCxU8Qg3dZdria9vXBac19EPJtoh/TZzhu
- WEFz7oP2X0bY3OWTg4+TAVufwjspOhrvTMJ9NoVB/6Pohi68F0fpxzqDSeAkoi8kUA0X
- Fyvj7klc61edqu0yWmrtkb8Uniz5bgAw3suvCC0V2h4vIBPBL57CjiiLWmpkntvRbklc
- PJwn/bGO40LZ7OCMljh0QVuAyBnNK0ntuIp0Ey+yWJloyfRM3pg/J3ZN/UkqAYy2nGZS
- GPrA==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1774426139; x=1775030939;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=g0KgYtYkqUP59BqGGG61EV18AeUer+TehEbvZYdIpWI=;
- b=Q/hji/hIVQ08UQptQv3+oD3shMjUVFbJRiw4ZI6c7kTQH5q+z1OZpz7fknMUK0+3+p
- oqehZz00fKMDEhf0bkUoOeRiG7Ov143ln94DylO8CfWRZZKA9k2G7sbn/d18np+3VIlP
- ryEX8K4SLW+333ocpsBeFCUhUA70efI1GukSw=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774426139; x=1775030939;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=g0KgYtYkqUP59BqGGG61EV18AeUer+TehEbvZYdIpWI=;
- b=KlE04dW7kBTQoXgBO0HKLhfNfUyheT9ld1VLr/HJVBF+rLVkAaOoBwxiV9mMEFYYip
- Rkts8o8w/HQwPL1eLKL/Bi0AcsxpRDe6Ts3CkMFxSZ3VYqhKIarGUfXzUHZOdsR81k61
- wrgBdwOqU9DyxccBTcWdcN8RfkX0nA8MgnBKsZ9UUATIeKpoN0Q7RKoMgsszG5inZnjc
- /ruEYoIr1opieYJWVLLOF9YAib9HbW1MlQwTX6wwSLUl6XBTPEpTpLs+WOpDRaWRpgKg
- 1DVfqMhkJfdAUMc8vkGVJCKHmYQp+iSxVOWXxAS3lKfd0xHhihkoX1HQX4O7yiQ0BNr2
- kc6g==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXS5L4URkXRVbn0ujA0RO099oN+E/qmH5AcBTee6ttkrXAGsjETqdcZPMvcS436cYQvmqeys7rjWIg=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzqOZWx9iIepoMUc7OUQeor3jYohwTBYA5RAvxhaEk9wK5adQGS
- a8aax7LtmrI8apuhrIK7rSrJK5o37zkW0KFEDAFcNsSXdw+2Il/8tMzAyAbCl/FrJ9sPsUCW9C8
- kUAUVigvLfSxqHzwOAuvulD1NUhOo5rcIyChmdTMp
-X-Gm-Gg: ATEYQzz9wBhk80T6LeSUHExGOACc8ka2z6i4V6ADnafH9H1UUeCeR5Sf8zAbCW92Qzk
- Oi9Ar8/FXudL58STIJJ0gNfP4BH+Qqn8/iN+WENnYZw+yileFufrNgfyo1IhsqTZ1gWs/j0fnCc
- aAqaVAEgIN6P7I0NhxDKAifkIKxDrH2HD7o/HcdfE0/ybOH9uQKO38bc13htqqKlSNy8R6zpYz1
- g0X9KRveG3H7MKQh8jg1DAkGmmVvu51zyjlI9tGE8SBmluH/YsTgwqR4kdS4hXPQNby+AsDGM+T
- uwuFKK0mXES0U539Bi3cQcWcXO25DgJIcXl0
-X-Received: by 2002:a05:6512:2206:b0:5a2:7ddd:ec16 with SMTP id
- 2adb3069b0e04-5a29b99baa7mr981433e87.40.1774426138566; Wed, 25 Mar 2026
- 01:08:58 -0700 (PDT)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1C15F10E800;
+ Wed, 25 Mar 2026 08:09:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1774426192; x=1805962192;
+ h=message-id:date:subject:to:cc:references:from:
+ in-reply-to:content-transfer-encoding:mime-version;
+ bh=Ho34sYdN9KHl9rfbMujVK5A2b2cPgtzBUWGiG4WlDcE=;
+ b=QOIlxscn81HnFm8Lw1zPN9oaUStN3mho16aSoJXwkYcjAwWyHQwZBTxR
+ VY1Hnv1kHwcsp4HrOfh2/vzz7WItm264WWbCbB8mVgsUW4/fDUEdgF5rc
+ UCy40/yEM+vLSLLjaZEppMUQOOQ7ijk6LYBqxVecDVY+BFVE2Eyv5f6dN
+ 9tqLj3hjWuxeZ077n3gMSkc9puH1qtDQYzgit6Jx5qr0xykmvVn4dkN57
+ EwuLEzIZmewxWSHffje2atxJn4hncPdwWAfy0pV0ja24DvGsOxXegWFL9
+ 4DXm8uaq5gQ2LG+UGmAXejByMs4VqoOhZhlnAr8YlWIDAt+OvqVx+tjuz Q==;
+X-CSE-ConnectionGUID: cb7YyxLXT62/XN6UHj/t8Q==
+X-CSE-MsgGUID: WOt6dij6TruoT99N3KT4ug==
+X-IronPort-AV: E=McAfee;i="6800,10657,11739"; a="75175018"
+X-IronPort-AV: E=Sophos;i="6.23,139,1770624000"; d="scan'208";a="75175018"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+ by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Mar 2026 01:09:52 -0700
+X-CSE-ConnectionGUID: hsHHepKwTwiZKvSuJ886qw==
+X-CSE-MsgGUID: sL5vuWUoQD6sUwhQgx4N8g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,139,1770624000"; d="scan'208";a="223808015"
+Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
+ by orviesa010.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Mar 2026 01:09:52 -0700
+Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
+ ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37; Wed, 25 Mar 2026 01:09:51 -0700
+Received: from ORSEDG903.ED.cps.intel.com (10.7.248.13) by
+ ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37 via Frontend Transport; Wed, 25 Mar 2026 01:09:51 -0700
+Received: from BL0PR03CU003.outbound.protection.outlook.com (52.101.53.38) by
+ edgegateway.intel.com (134.134.137.113) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37; Wed, 25 Mar 2026 01:09:50 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=YbxZZqQUVE0J1+TPSJ24nCseXYXz4vYrvmAPHlTJWGEttcBKmH9yXInPuaG7Q+THWSi68CUptirk4NQxf2ewSWsKRmDx+c3dtaJPBUCkK7ZeFScqqPFCEiVumqnnAAcKUtqT+9y3PVYm1DOixqGZH3X7ItBnk8LGUOWq8Vgo8a5FL7mZLl4CXUE0c2mZa2Go38rezjyeXfRdlXPur0r+NyYNhaa6X3zhymMsDgk9fUuoeTxzh9HPnQygQzfl7h4SvOtXEtxql1Wc97RdYtheX1wuUFuAkqNR/2ha0JtgiaTjbR35meH0pzdDGYriY7pAyCti0WUNYTsUplpzz6eKZg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=A4w1JdIuvlsSIn3S+HmAWYXaB8KhJjV+MYo+BEN4oqI=;
+ b=Xz/pH5dvPt62Bci0fTcK/3NmeP/FNmctdMotxzNagDrl2xWzbAJ7iH3tgNsvhqmbSlm1DwtjkFo02dpItSAgcbhLRFYGs+2WrIxeSOKhtN/LziLnLuUl1viPw5/aIj6kZj17zfW+7OOSfAb7gAj3BSlm4dm9T5oAT8xCYTWxEGUlK2KF6OyvScFdd0742QdnUqacqvaiXVFogvA+4QXIX9i2TPFUA5Xw0w6TcGH26ANwtrKrWz52Bk5+vztYKcZiX8Y6x/xvLTEHhd7rfCYRMrri7JCVuQ9CbsRbFAGFybi9FJiN4iRXMnckeVNQFFakr1XpE5P2VfprTfojoFyKow==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from DM4PR11MB5341.namprd11.prod.outlook.com (2603:10b6:5:390::22)
+ by DM3PPF607052E81.namprd11.prod.outlook.com (2603:10b6:f:fc00::f26) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.4; Wed, 25 Mar
+ 2026 08:09:43 +0000
+Received: from DM4PR11MB5341.namprd11.prod.outlook.com
+ ([fe80::68b9:ea3c:8166:3cc4]) by DM4PR11MB5341.namprd11.prod.outlook.com
+ ([fe80::68b9:ea3c:8166:3cc4%4]) with mapi id 15.20.9723.013; Wed, 25 Mar 2026
+ 08:09:43 +0000
+Message-ID: <af46d721-5894-4843-acd9-7dd1af0b6e3e@intel.com>
+Date: Wed, 25 Mar 2026 13:39:35 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 13/19] drm/i915/display: Add helper for AS SDP
+ transmission time selection
+To: =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
+CC: <intel-gfx@lists.freedesktop.org>, <intel-xe@lists.freedesktop.org>,
+ <dri-devel@lists.freedesktop.org>, <jouni.hogander@intel.com>,
+ <animesh.manna@intel.com>
+References: <20260311113611.3393194-1-ankit.k.nautiyal@intel.com>
+ <20260311113611.3393194-14-ankit.k.nautiyal@intel.com>
+ <abQE2snfAjPn0st5@intel.com>
+Content-Language: en-US
+From: "Nautiyal, Ankit K" <ankit.k.nautiyal@intel.com>
+In-Reply-To: <abQE2snfAjPn0st5@intel.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: MA5PR01CA0237.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:a01:1f4::13) To DM4PR11MB5341.namprd11.prod.outlook.com
+ (2603:10b6:5:390::22)
 MIME-Version: 1.0
-References: <20260325071951.544031-1-wenst@chromium.org>
- <93c1d325461cc0ffad890d64870de680506338c4.camel@icenowy.me>
-In-Reply-To: <93c1d325461cc0ffad890d64870de680506338c4.camel@icenowy.me>
-From: Chen-Yu Tsai <wenst@chromium.org>
-Date: Wed, 25 Mar 2026 16:08:47 +0800
-X-Gm-Features: AQROBzAcEDSwfaWS447vAKoAeNwXBwZATTBP1wT6QXTz02f-QcFivNXEvPY79i4
-Message-ID: <CAGXv+5FL2rs35V4F0bwq-a4ccvFaWKcr1cuKxT6sfTj9h+d6iA@mail.gmail.com>
-Subject: Re: [PATCH v2 0/5] powervr: MT8173 GPU support
-To: Icenowy Zheng <uwu@icenowy.me>
-Cc: Stephen Boyd <sboyd@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
- Frank Binns <frank.binns@imgtec.com>, Matt Coster <matt.coster@imgtec.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, 
- linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-mediatek@lists.infradead.org, dri-devel@lists.freedesktop.org, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM4PR11MB5341:EE_|DM3PPF607052E81:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8520b7d6-323a-4cee-f85a-08de8a45deb1
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|376014|366016|18002099003|56012099003|22082099003; 
+X-Microsoft-Antispam-Message-Info: akB4Wopst6cvjiUdj8bU2xuswpiNq+qZQfhrM/j6QdnsRX4wZI8JV8Arb0CUu+Wx8lVr/qs+dffG5OfFZ2wT/4ijJyoJ7b7eoI7vtDeW1+oyfrAj7LOy2+D8vGgxuXXdsPRN6rnym1Y7NFYEWFcE63HmU2PXOpmjzEjpDaX2tfxUD8/FHX4MOomtAAFMOJQXQ5kE7YQZEyrPo8jVnBMzxjpkjmpE6KdWP0HB6cNCawocFsff+/M3/IfrQ6Pap6akCtQx0tk//RPxIP2AjJT4Dss0dtFBURTHIQN/Imo0QOknsQ78m9FuJYulm10+HGSwq6MZk5Qsqunxr1ihuqCSMkw+NGfat4Csy7uAPWk3D94WYzYu/oQpT0CU+gpizDr5U05QIe+SihdSkp9R94cyDJOCAzaNal3IqRFWxpfI3mqaayzAVTihknX87I8ORRdooWJhf1GBrM7r8gMS/OSYgnIl/rL9+x/DuMVTY1N7j7wUtutK51drtlxZ0xiM72HYtsouG69pSFLIdD65a65v7IcIzYbXx5XqtvL6Wu38s4spkTT8Ja9WWtWMTl3gR+xODBVefMUPzINtsYKK6Gsdf4R7zPMBW4Q2xm2ztsluDFGvjO8Uw3MyJfqKF0hU1vqNv/OQ6WGxnTES8CdvQWE7G77pKt9fiGM4HHKN0+MmYQ8kU7DM5HjXIfFCaSHfVC6WJiozHQXr7AuH2oil0QMVm7mH8Vwv0/j8EJp1brNULJ0=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM4PR11MB5341.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(366016)(18002099003)(56012099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZFFBZzJaWGd4QlJFRHdZMmJPZzhBN1drRkQ4SUNUUitoNWdtaWZOVEN0Q2RP?=
+ =?utf-8?B?eUwxeFovWVNzMjhUcEgwcTJvNnh6QjIyS2hYdERzN2tuY2FRMkp3eGZ2WWtv?=
+ =?utf-8?B?V1ZPYjZ2ejVMWUJDMG5haDdkSWFEbXJPY0xIa3hRaE9xRUpJVnZibHFWRkor?=
+ =?utf-8?B?aWZaT2wwSjE3aWluVERLYTJzbHpLSVBGRWdJVVVCdExmM3JubjhFUGVaUFRl?=
+ =?utf-8?B?aDhTV3pnTDdDMkdrUnFBNzVrY0l3TmdzV2dEUlpoMVJzcHltMi9YZEg5ZGky?=
+ =?utf-8?B?OS9RQmxISW91MWxTbVdqRVVvR0NVb3ZRTlZIZkhYWUJIWXR5Q3JHV3dsM2dI?=
+ =?utf-8?B?ZjFCVHNEUjhYeHRCRGY2TStwV21samRSN3ppc2hiNXBGSm85UW9sbFQySUJW?=
+ =?utf-8?B?dnhwYy9iMEppZGxvUjduem5rdmFCWEpRK0NzWmZPYlVYM0U5SUNDU2FHS1Mz?=
+ =?utf-8?B?VUIvOWRNYXo2dW8xc1JhMDZQREk0YVJ3RXF6NURqeGRnNnloOFNxejVrMXoz?=
+ =?utf-8?B?NFY5akFyK3BISWtkdlBPZFpBa2xXNjVicnkvY0lETUVhZ2NTZ05BUUYweDVq?=
+ =?utf-8?B?NXJRblJPRFNPQmtpOE4rc1orU2YyMm9OOVFGTVVXSGQ4TGhJM0dqbW1DOEN3?=
+ =?utf-8?B?QmlzbXFtblpBTjhrOFR4V0l3UEFjMmxNQUlWN1BDT0VKVW11a1gwdGp3a2c2?=
+ =?utf-8?B?dllJOWJuanJhVEZ6ZjZ2eW5DeEVRb1d4SlhTRkR6VUw3OEVsUW9KQnkrZWEw?=
+ =?utf-8?B?L21NR21hRUo0Z0ZQVm5qajFQZjhBZFF4MGFnTVEvbm80M25yTlNyeTR4b0E5?=
+ =?utf-8?B?VlVQc3h6WWFjN0gvOWszL2p2dXR4WjYrckkrNk5CNnB5cW1GRU1FbmhsWGRx?=
+ =?utf-8?B?ZnkyQXV0aUdhVlhpZnJOeUkySE51dmFyL0dUWjFzYlVkTnprT200NmZWSTIy?=
+ =?utf-8?B?cTM2blM3SXJwdGo0Zm01TjRXOC8rSE9CQ3ZqdTd0Q3cwODVnZnRWUEZzaEFq?=
+ =?utf-8?B?d0pZTHpRc1MySHpNOWNFbXYvQ2tKekVlS3lVNDFkSTFxVlMwc0M1azV2U29M?=
+ =?utf-8?B?RWpaNENkVDVJYWF1WG94aG1TM0RHSjNoN3hNSWFxcnRrTzhZVmZsQUN1M0hV?=
+ =?utf-8?B?OHZ6SitsY1Z0TmNNVkc3cENBWTNHWXZiYWlxT1NuTlQ4YmxWbVdyQzVIS1JN?=
+ =?utf-8?B?OXBaYkxBQTBpOSszQ2hodG0xZWlNMWhyK3czSXN6R2FnUU1DZFcyZThhYjN1?=
+ =?utf-8?B?NDZsN3RhcDJNYWpSb2k4T1JReEFBSkF6OGRjTjFyWnNPUWxqUGxBeGdNT1RJ?=
+ =?utf-8?B?VzkrSWF0cnZJR1htTWk3eWoyOWVRcTJUWDJ5OGtxalQwRWtFdHZuNVRTaWVt?=
+ =?utf-8?B?dmMrNCtHcWU4M2tHOWhaekRjMDJXN1l4MlNIajk3RVdTc2hwUHlVUHJYTHd6?=
+ =?utf-8?B?STZMUjFQMnd5SDdBTGsxNlhvZFlhLzhCSEtRMks1VWJVdEtianVGZWJOWFdC?=
+ =?utf-8?B?a3dEb1lNUGVHZFR3Tkh1SWdoKy9CSXBlMFhIRmo1VXlBKzY4RU0xSWFadzNm?=
+ =?utf-8?B?Mm96UTZWNWNpQTgwRkxvTE44QkNDU1RlMWNSZ3pqL0JoZWN2MXFLT3FFOTZY?=
+ =?utf-8?B?SHdRV3Fha3JuS2F4aWpCbDlIb1FidmVtYlBqRlJTNk1qTjR3aUI0SkkrcENj?=
+ =?utf-8?B?Q1hKMjhkQVFScVRxYmVlOXNwcTVuKy9rWVU2Uk9PVDlWRnUyaDVhMHY1a25T?=
+ =?utf-8?B?RjE5clJxTWsxOEtwMnlHajZrU0J3b3M3NlhGOCtwRGJicXFEdzhnZi9aNkMx?=
+ =?utf-8?B?eFMrak9RclNUemtPT1VzMURMOHdjZ0ZNWHUzM3BlS2Q3ZWJYZjdZTVlLc0cw?=
+ =?utf-8?B?RHlmS08vMVFpTGF4cTFEeFJYUHltRjhyWHZxdkxnQUFjaVdFTnhjT2Izbkl2?=
+ =?utf-8?B?dUFNMGRpcDRHZktodTBJWTNzeFRTOXRFR0RRb3Zhc2pERFhsWmhHYnFvYnhW?=
+ =?utf-8?B?TGRTWTJ2NTE2bk42UDBkQ3pRQ21EcEtYdThvRHBIa2V0bVdjcmZSRTJSdk52?=
+ =?utf-8?B?WFJBYmFhbUtTbHNndlR1a3g3WkZkYjk4KzZzUWZuejJBeENleDBTYWVtdENa?=
+ =?utf-8?B?MElWcDJsNlJkNm1pY01HdThpakovTkNyb2J5OU5FeWpDa2YwYjFNaGtBSmhn?=
+ =?utf-8?B?SjBMcWo4Q3BDc2JHN3hkR3hEL1ZrcXpJL2E5RStkTkxNYzVYWklJbmVNRXpa?=
+ =?utf-8?B?RmpIV3k3dTJFYy9pTG92R3JCN2Fnd0lpR3Avbk5VY1BhbVBFMEpwU0ZlZG1s?=
+ =?utf-8?B?aHNRV250Wit3aVpYQjZCWjV3bzRVQXNabmVKQml5eVRRQTRWL1VaYnk0eVNM?=
+ =?utf-8?Q?5tWqlz3LM4a9ia/M=3D?=
+X-Exchange-RoutingPolicyChecked: uMbvg47ALmN/qmx4JD34vpg7mNBSN+geuCJUd2hvS3hrgg4azQLOuB8HcieZcipa5XA2UiENOA8Iv02wKRsOeIUnmhcm+j3/fpNfoiAt9+kENu+rUwdJUWAgiYeT6W64lBgXNnMX1m8fQKBz/kf8Z6by2YoX+JrILJX/h5lEeCuW7ZCxEGdrg2f/BAa1QVylTxP6byySU7JrYboVra/6ih2ikp8425BItrrj0DNfplTzL4p87WjTCMjnIiwRjI0PwsxsW2aZTP6wYbYKZA4krxFjV35IpR5/9De27NxEsYATL5bOlcSmYj7A3aaqABloeA9VBUYJ123J1827rEl0aA==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8520b7d6-323a-4cee-f85a-08de8a45deb1
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR11MB5341.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Mar 2026 08:09:43.6084 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: q++uKEEiISX8LTcKeomdOoLP8wBGG3pIcBV0oPzT0wi6v6E/FzF5j8B0a/SqcHABRyXhxiyhwCiu/Xj3gZZm6rjMvn4VwuKFOb3HdhRJArI=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM3PPF607052E81
+X-OriginatorOrg: intel.com
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,131 +174,115 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Mar 25, 2026 at 4:04=E2=80=AFPM Icenowy Zheng <uwu@icenowy.me> wrot=
-e:
+
+On 3/13/2026 6:06 PM, Ville Syrjälä wrote:
+> On Wed, Mar 11, 2026 at 05:06:05PM +0530, Ankit Nautiyal wrote:
+>> AS SDP may be transmitted at T1 or T2 depending on Panel Replay and
+>> Adaptive Sync SDP configuration as per DP 2.1. Current we are using
+>> T1 only, but future PR/AS SDP modes/features may require T2 or dynamic
+>> selection.
+>>
+>> Introduce a helper to return the appropriate AS SDP transmission time so
+>> that a single value is consistently used for programming PR_ALPM.
+>> For now this returns T1.
+>>
+>> v2: Avoid adding new member to crtc_state; use a helper. (Ville)
+>>
+>> Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+>> ---
+>>   drivers/gpu/drm/i915/display/intel_alpm.c | 20 +++++++++++++++++++-
+>>   drivers/gpu/drm/i915/display/intel_dp.c   |  9 +++++++++
+>>   drivers/gpu/drm/i915/display/intel_dp.h   |  2 ++
+>>   3 files changed, 30 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/gpu/drm/i915/display/intel_alpm.c b/drivers/gpu/drm/i915/display/intel_alpm.c
+>> index a7350ce8e716..0a6da3f926d3 100644
+>> --- a/drivers/gpu/drm/i915/display/intel_alpm.c
+>> +++ b/drivers/gpu/drm/i915/display/intel_alpm.c
+>> @@ -11,6 +11,7 @@
+>>   #include "intel_crtc.h"
+>>   #include "intel_de.h"
+>>   #include "intel_display_types.h"
+>> +#include "intel_display_utils.h"
+>>   #include "intel_dp.h"
+>>   #include "intel_dp_aux.h"
+>>   #include "intel_psr.h"
+>> @@ -359,6 +360,23 @@ void intel_alpm_lobf_compute_config(struct intel_dp *intel_dp,
+>>   	crtc_state->has_lobf = true;
+>>   }
+>>   
+>> +static int get_pr_alpm_as_sdp_transmission_time(const struct intel_crtc_state *crtc_state)
+> The type should be u32 since it returns a (partial) register value.
+
+Ohh yes. I will change this.
+
+
 >
-> =E5=9C=A8 2026-03-25=E4=B8=89=E7=9A=84 15:19 +0800=EF=BC=8CChen-Yu Tsai=
-=E5=86=99=E9=81=93=EF=BC=9A
-> > Hi everyone,
-> >
-> > This is v2 of my MT8173 PowerVR GPU support series.
-> >
-> > Changes since v1:
-> > - Adapted to changed DT bindings
-> > - Dropped driver change
-> > - Use same power domain for "a" and "b" GPU power domains
-> >
-> > This update was requested by Icenowy.
-> >
-> >
-> > This series enables the PowerVR GPU found in the MT8173 SoC, found in
-> > some Chromebooks.
-> >
-> > This version is different from the initial powervr driver submission
-> > [1]
-> > in that it splits out the GPU glue layer support out of the powervr
-> > driver and into a separate clock and power domain driver. The glue
-> > code
-> > is otherwise the same, and also the same as found in the ChromeOS
-> > kernels, with some extra comments and macro names added where
-> > possible.
-> >
-> > Patch 1 adds a binding for the glue layer, called mfgtop. The glue
-> > layer
-> > contains clock and power controls for the GPU.
-> >
-> > Patch 2 adds a driver for the glue layer.
-> >
-> > Patch 3 adds an entry for the MT8173 GPU and 6XT series to the
-> > PowerVR
-> > binding.
-> >
-> > Patch 4 adds an entry for the PowerVR 6XT series GPU to the driver.
-> >
-> > Patch 5 corrects the clock for the GPU (called MFG) power domain.
-> >
-> > Patch 6 adds device nodes for the GPU and glue layer to the MT8173
-> > dtsi
-> > file.
-> >
-> > Patch 2 and 6 depend on patch 1 to build. I suppose some common
-> > immutable tree would be needed from the MediaTek maintainers.
-> >
-> > The kernel driver successfully probes the hardware and loads the
-> > "rogue_4.40.2.51_v1.fw" firmware provided by Imagination Technologies
-> > [2].
-> > Userspace was tested with Mesa 24.0.8 from Debian Trixie rebuilt with
-> > the powervr vulkan driver enabled. `vulkaninfo` gives some
-> > information
-> > about the GPU (attached at the end), but running the `triangle`
-> > example
-> > from the Sascha Willems demos [3] with -DUSE_D2D_WSI=3DON as
-> > recommended [4]
-> > failed with:
-> >
-> >     Can't find a display and a display mode!
+>> +{
+>> +	int as_sdp_setup_time = intel_dp_as_sdp_transmission_time();
+>> +
+>> +	switch (as_sdp_setup_time) {
+>> +	case DP_PR_AS_SDP_SETUP_TIME_T1:
+>> +		return PR_ALPM_CTL_ADAPTIVE_SYNC_SDP_POSITION_T1;
+>> +	case DP_PR_AS_SDP_SETUP_TIME_DYNAMIC:
+>> +		return PR_ALPM_CTL_ADAPTIVE_SYNC_SDP_POSITION_T1_OR_T2;
+>> +	case DP_PR_AS_SDP_SETUP_TIME_T2:
+>> +		return PR_ALPM_CTL_ADAPTIVE_SYNC_SDP_POSITION_T2;
+>> +	default:
+>> +		MISSING_CASE(as_sdp_setup_time);
+>> +		return PR_ALPM_CTL_ADAPTIVE_SYNC_SDP_POSITION_T1;
+>> +	}
+>> +}
+>> +
+>>   static void lnl_alpm_configure(struct intel_dp *intel_dp,
+>>   			       const struct intel_crtc_state *crtc_state)
+>>   {
+>> @@ -382,7 +400,7 @@ static void lnl_alpm_configure(struct intel_dp *intel_dp,
+>>   			ALPM_CTL_AUX_LESS_WAKE_TIME(crtc_state->alpm_state.aux_less_wake_lines);
+>>   
+>>   		if (intel_dp->as_sdp_supported) {
+>> -			u32 pr_alpm_ctl = PR_ALPM_CTL_ADAPTIVE_SYNC_SDP_POSITION_T1;
+>> +			u32 pr_alpm_ctl = get_pr_alpm_as_sdp_transmission_time(crtc_state);
+>>   
+>>   			if (crtc_state->link_off_after_as_sdp_when_pr_active)
+>>   				pr_alpm_ctl |= PR_ALPM_CTL_ALLOW_LINK_OFF_BETWEEN_AS_SDP_AND_SU;
+>> diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+>> index e6148e7f0ebc..74a8af3cf18c 100644
+>> --- a/drivers/gpu/drm/i915/display/intel_dp.c
+>> +++ b/drivers/gpu/drm/i915/display/intel_dp.c
+>> @@ -7439,3 +7439,12 @@ bool intel_dp_joiner_candidate_valid(struct intel_connector *connector,
+>>   
+>>   	return true;
+>>   }
+>> +
+>> +int intel_dp_as_sdp_transmission_time(void)
+>> +{
+>> +	/*
+>> +	 * For now we use T1 as the transmission time.
+>> +	 * This can be later changed as per requirements.
+>> +	 */
+> IIRC Bspec actually says we must use T1.
+
+
+Hmm.. I will check with Bspec and update the relavent Bspec number too.
+
+Regards,
+Ankit
+
+
 >
-> I think when using D2D the demos want width and height to be explicitly
-> specified, otherwise it seems to hardcode 1280x720.
->
-> If you're using an elm, could you try to add `-w 1920 -h 1080` or for
-> hana `-w 1366 -h 768` ?
-
-I only did the basic `vulkaninfo` test this time around. To do anything
-interesting probably requires the Mesa 26.1 release.
-
-    PVR_I_WANT_A_BROKEN_VULKAN_DRIVER=3D1 \
-        vkmark --winsys kms -D b81f54f8568deb0fb70a6a1ed845b65d
-
-just reports "Error: Device specified by uuid is not available"
-
-This is with Mesa 26.0.2 packages from Debian testing. At least now
-have the powervr vulkan driver enabled by default, so I don't have
-to rebuild the packages again.
-
-
-ChenYu
-
-> Thanks
-> Icenowy
->
-> >
-> > Same program worked correctly on a BeaglePlay and displayed a color
-> > gradient triangle. Not sure what went wrong here.
-> >
-> > Anyway, please have a look and test.
-> >
-> >
-> > Thanks
-> > ChenYu
-> >
-> > [1]
-> > https://lore.kernel.org/dri-devel/20220815165156.118212-2-sarah.walker@=
-imgtec.com/
-> > [2]
-> > https://gitlab.freedesktop.org/imagination/linux-firmware/-/tree/powerv=
-r
-> > [3] https://github.com/SaschaWillems/Vulkan
-> > [4]
-> > https://lore.kernel.org/dri-devel/f2b2671e-5acc-4dec-9c2e-3c9cd2e1f19e@=
-imgtec.com/
-> >
-> > Chen-Yu Tsai (5):
-> >   dt-bindings: clock: mediatek: Add mt8173 mfgtop
-> >   clk: mediatek: Add mt8173-mfgtop driver
-> >   dt-bindings: gpu: powervr-rogue: Add MediaTek MT8173 GPU
-> >   arm64: dts: mediatek: mt8173: Fix MFG_ASYNC power domain clock
-> >   arm64: dts: mediatek: mt8173: Add GPU device nodes
-> >
-> >  .../clock/mediatek,mt8173-mfgtop.yaml         |  70 +++++
-> >  .../bindings/gpu/img,powervr-rogue.yaml       |   1 +
-> >  arch/arm64/boot/dts/mediatek/mt8173.dtsi      |  33 ++-
-> >  drivers/clk/mediatek/Kconfig                  |   9 +
-> >  drivers/clk/mediatek/Makefile                 |   1 +
-> >  drivers/clk/mediatek/clk-mt8173-mfgtop.c      | 243
-> > ++++++++++++++++++
-> >  include/dt-bindings/clock/mt8173-clk.h        |   7 +
-> >  7 files changed, 363 insertions(+), 1 deletion(-)
-> >  create mode 100644
-> > Documentation/devicetree/bindings/clock/mediatek,mt8173-mfgtop.yaml
-> >  create mode 100644 drivers/clk/mediatek/clk-mt8173-mfgtop.c
+>> +	return DP_PR_AS_SDP_SETUP_TIME_T1;
+>> +}
+>> diff --git a/drivers/gpu/drm/i915/display/intel_dp.h b/drivers/gpu/drm/i915/display/intel_dp.h
+>> index 2849b9ecdc71..2e4609d9d05c 100644
+>> --- a/drivers/gpu/drm/i915/display/intel_dp.h
+>> +++ b/drivers/gpu/drm/i915/display/intel_dp.h
+>> @@ -238,4 +238,6 @@ bool intel_dp_joiner_candidate_valid(struct intel_connector *connector,
+>>   	for ((__num_joined_pipes) = 1; (__num_joined_pipes) <= (I915_MAX_PIPES); (__num_joined_pipes)++) \
+>>   		for_each_if(intel_dp_joiner_candidate_valid(__connector, (__mode)->hdisplay, __num_joined_pipes))
+>>   
+>> +int intel_dp_as_sdp_transmission_time(void);
+>> +
+>>   #endif /* __INTEL_DP_H__ */
+>> -- 
+>> 2.45.2
