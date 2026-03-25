@@ -4,125 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9AF8C109C05A
-	for <dri-devel@archiver.kernel.org>; Wed, 25 Mar 2026 18:59:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 41925109C059
+	for <dri-devel@archiver.kernel.org>; Wed, 25 Mar 2026 19:23:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7B40210E837;
-	Wed, 25 Mar 2026 18:59:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5D79110E0E4;
+	Wed, 25 Mar 2026 19:23:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="AH6Y5ORw";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="dMXDB05d";
+	dkim=pass (2048-bit key; unprotected) header.d=resnulli-us.20230601.gappssmtp.com header.i=@resnulli-us.20230601.gappssmtp.com header.b="1qv/k/55";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 46EF810E851
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Mar 2026 18:59:35 +0000 (UTC)
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 62PFRKQR1432152
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Mar 2026 18:59:34 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:date:from:message-id:mime-version
- :subject:to; s=qcppdkim1; bh=jQ/oQs6UJQqcj3OwossbpML3FdcdNFDAZeD
- Kh0U7al4=; b=AH6Y5ORwmX/fye6TGIHruZfMQHtoZP9RYg+ew2hfYoNoeLFpp41
- q0mVpuN9vD/dD4zD4tTUaCo5Bo0jAZ9iQQicEkBUsZvY4Lq18wW684EsZddKYP2w
- LWO0bRNJBsvtaDhUjW8Np88teMNVSQB11XaZrx+/gGn1YAR0+eDO3QAlk3DhfRKD
- NpVeu9f3beC1MIT2x6dTpEAc7KZFn6y/xMJ8MXp1ihsuwZgQy2Lda54r8MquR3S0
- cOHwGMuzm4AsQG2AbS8jbNTxuE1OsX0Pk0rYlDc8b1jRGujLSjAxb/UqUaHbrdAD
- aoC4V8N07dCE6W3tK4OX1OFNoUiuxqwkvDQ==
-Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com
- [209.85.214.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d4jc50tvs-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Mar 2026 18:59:34 +0000 (GMT)
-Received: by mail-pl1-f198.google.com with SMTP id
- d9443c01a7336-2b060c14ccbso4433885ad.0
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Mar 2026 11:59:34 -0700 (PDT)
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com
+ [209.85.128.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6933810E0E4
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Mar 2026 19:23:55 +0000 (UTC)
+Received: by mail-wm1-f47.google.com with SMTP id
+ 5b1f17b1804b1-486b9675d36so2091905e9.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Mar 2026 12:23:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1774465173; x=1775069973;
+ d=resnulli-us.20230601.gappssmtp.com; s=20230601; t=1774466634; x=1775071434;
  darn=lists.freedesktop.org; 
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=jQ/oQs6UJQqcj3OwossbpML3FdcdNFDAZeDKh0U7al4=;
- b=dMXDB05dj8GZ3cmn5JSrds+I6+HXzNluxUHITRsZfJSct9CVwTpH/85vBEN7N2Agjf
- Zq6tRHHOxNEduVsDZjtl/Bd6KXo9xXZNHUlhDsxslqbQQF1OI+wkKK/57DvsrkOa87iQ
- 5pc5XoAMUh88MjCz90Nyfd5WDkX1GEVPlV9gEc3pClo5+Omurz0GWg+5EYZV8EBf5kZ3
- BfUBVIgXXnKui9eT6qPRhzGI6VG/aA9rambbZnWq4QJt87c73EvXRupxxo1Dp5TWPjHk
- cbXISNRswJ6vz+BXoNr+DpxELm2v4hMJ0A+roB3RnfEAXmYRCEOJmkrlO1iajnFzZn9c
- LPcQ==
+ bh=q9oYYl5Ubh4Ping1zst+E8em20zAUpauFfgriVu6hpE=;
+ b=1qv/k/55OC6ycQx6ywMZaK8Y72dLQ6QBpYy7yPEbbn8F6vDQQO41KWw1ZTy6pVkdJs
+ LSpxQUCv7gVDrd4evFxTU02FP+RQAGtzPlREwrKCtKhLTCQWyXuEcC8ZTe9DtsaEXfzY
+ l7xVK22+XN3cz8Hg3fj+0zLyk7LqwewSYxu1uKHthiwTN4odOOjR5HBvVXlgXAk4KFcN
+ fRTwyc5ZM6hGV7Xpd/JIpcosdxMjmXRazb0++4ACVfh78BSZpWPlrqfkWoUgWvHjn0zF
+ rsidI1MDEFizYbNG2XvWw1m2jvYWi0RqeY6njx6p+RUG2P7Z1Py/eQTLD9hxrFcwwnkD
+ e0jA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774465173; x=1775069973;
+ d=1e100.net; s=20251104; t=1774466634; x=1775071434;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=jQ/oQs6UJQqcj3OwossbpML3FdcdNFDAZeDKh0U7al4=;
- b=Cin6KQFh7jbEpFHlOD1qJJyo9CEXT1YgMfdpv6SplDHTS6OQHB5LZHgLvO/QIqnA+l
- YWvSywpYrZHiRTgjo3AuAjGlKCQuWMEX/oxx17BvW1jtWKUzgAzehMT5UdXm0lPHViCp
- m02+HlYSiItojCINZsn85wWMsmRhhCvXVwrZMF5BFMaQoyHJ+oBCD88KOTE6HL7lsgOW
- D8Fm7vawKX43bBQ3NPa93JNBeecnOnnJ+Cvf6uL01zKVOGWCgH/PNu5U45C8VjmftSR7
- PQHKa6XzpyOTImywZedGpMqssyBw/60XTMAe19oJnkTX/jA1HsPG6KSOjNVU7TLiDhQ/
- halA==
-X-Gm-Message-State: AOJu0YxmFA/HH24n2LdR+4A9kqZmfcaOIo4Hy5ELxdmpJ8xIjMgLsjfl
- OTpjA4sskRuNqviqUMVZximeCArP5pZMuZn0ky8pHr/YoPob6F86qiuxah5g6vXrA19XfaH0OpB
- N1wM2C7mxS71LQzYUIbEaIoxIkeqMD0Bo6YHHQHPwUloq1QJgCaw8OOHZXuDFqm+jZFiisglr1F
- ry5ns=
-X-Gm-Gg: ATEYQzzvj4hsk0AqVf1J6jP7Oe28+KMTSMfry5vVWSUC3+ZcFYJXzY1eybxmziGTkUs
- JOL2/ZykuQuseEz58p05x59hHgo4mHkL5oNbvO+2NU30KM9Nxw0eWxMj7Twh7P87ZG67FAsncr+
- CxWqOO5fqrS1kIWAzMbRMNmy8mJaSrmejOEYC2VbkwgelvckmOyicrJq8U/gPu0plgzIN17SJWb
- +3fYzcjZui0/g1yN/K8cwfKTI61no2xVykWvTiVwxPTdKxxtu880P5q7OVoWoaIGL5mdwVQ2Bf9
- 2LBiY9dnMDizXpWjjSIHuP205f64WItj1ZwrTPjglcEJ8krducdaOtj8CJoAZZSRm341CsM6Mjx
- NvmWtph6xo6vDcBshEY3u9ARAhdkfKVuD
-X-Received: by 2002:a17:903:1b6f:b0:2b0:6263:6a05 with SMTP id
- d9443c01a7336-2b0b0b1e31dmr50542505ad.51.1774465173086; 
- Wed, 25 Mar 2026 11:59:33 -0700 (PDT)
-X-Received: by 2002:a17:903:1b6f:b0:2b0:6263:6a05 with SMTP id
- d9443c01a7336-2b0b0b1e31dmr50542095ad.51.1774465172583; 
- Wed, 25 Mar 2026 11:59:32 -0700 (PDT)
-Received: from localhost ([2601:1c0:5000:d5c:4ec8:83f5:8254:6891])
- by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2b0bc87ebf1sm5764125ad.44.2026.03.25.11.59.31
+ bh=q9oYYl5Ubh4Ping1zst+E8em20zAUpauFfgriVu6hpE=;
+ b=owc1oBZoNKDcLD+/HxZGYJ8VdsaBfDUvIF+mMT7MsZqDfloV7KZ24C+3NWsK4Kr6LJ
+ Bxd8KJN1J0aiGSVUfIiU8qn7KPUHmg5shGNZGsH1SDmLm+CwloNAOFB9xtiz/xhjFQTW
+ iNWqh2ya4Jp6h31bDpESbe20PhDVXeuuZkRQfeDYUMDUbIYvYF8kl/NsiZ0D6mSJB4iV
+ ykNYjrsioYItAgUg19pTQzXn/95DTUPIlif9/UF9gGHAmrt49eQ1u0vxFPTS3dCCv8jU
+ k5UuruwfsUye0bbo9MlPUQl05RfxsvEfhRLRYL5a2HTVPYYEdVyAvAk0OLptIv2Jxfsg
+ d37Q==
+X-Gm-Message-State: AOJu0YwVV4/KRIN6/ckeH6HIfvN0KTmLzHP9WOFgfKkMVqmYwZuuPESO
+ gvF8wwAhjkTtBdiyCljhKP7zJ6qNwfIwvLzwGZJD5ILH8GPeT7KmAiapNLfaJooSklyvmIQF4Ea
+ 6oJVeFEjqeA==
+X-Gm-Gg: ATEYQzxFMZ7SOGD61+6ksG5gSW3tp7GQfFhOwuDHMFgo8QQaE1QrsjM/HyKT32Aco1q
+ l5fpBEY9zzycUtk4JngilXKGmSNaoV2c7NTngski1I15V7O60168Z1bMRoK8rzaG7M2xet+ofTz
+ kxUsfetl06z9O2qMVDxdo8gLOlzCrjpYZXA3yOZ7+y2BfPU7xOzJEQuTrd5UkprbqCYIXcRI9zD
+ ZSa9Kigv7G18/vTIyCb1LIO49qXPOHpUThPhe+A4CeYngUnYXJrfye7cQP8FeKa+Gz7mIy7avH1
+ d3Fg5FdQB37RWtoylEsPq+UmhqhS1oZuQrBz/jIAGFNS3hCAWvuNtP+oKLvNjFOcG5ujUnKsq7H
+ UkbMrFJFvWiPsSqPoDTn2RSZLpeA0JPphGrpNq6x/K3+SEO3VGPHlN+l+g9r5f/AZE6kQu+HXBQ
+ xXVPwjoVNYIDKX+jjhq07eeIMwlKR7
+X-Received: by 2002:a05:600c:1f12:b0:485:41c4:e2e5 with SMTP id
+ 5b1f17b1804b1-4871605686dmr70437725e9.27.1774466633448; 
+ Wed, 25 Mar 2026 12:23:53 -0700 (PDT)
+Received: from localhost ([140.209.217.211]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-43b919e7111sm1855634f8f.37.2026.03.25.12.23.52
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 25 Mar 2026 11:59:32 -0700 (PDT)
-From: Rob Clark <robin.clark@oss.qualcomm.com>
-To: dri-devel@lists.freedesktop.org
-Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH] drm/msm: Reject fb creation from _NO_SHARE objs
-Date: Wed, 25 Mar 2026 11:59:26 -0700
-Message-ID: <20260325185926.1265661-1-robin.clark@oss.qualcomm.com>
-X-Mailer: git-send-email 2.53.0
+ Wed, 25 Mar 2026 12:23:53 -0700 (PDT)
+From: Jiri Pirko <jiri@resnulli.us>
+To: dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+ iommu@lists.linux.dev, linux-media@vger.kernel.org
+Cc: sumit.semwal@linaro.org, benjamin.gaignard@collabora.com,
+ Brian.Starkey@arm.com, jstultz@google.com, tjmercier@google.com,
+ christian.koenig@amd.com, m.szyprowski@samsung.com, robin.murphy@arm.com,
+ jgg@ziepe.ca, leon@kernel.org, sean.anderson@linux.dev, ptesarik@suse.com,
+ catalin.marinas@arm.com, aneesh.kumar@kernel.org, suzuki.poulose@arm.com,
+ steven.price@arm.com, thomas.lendacky@amd.com, john.allen@amd.com,
+ ashish.kalra@amd.com, suravee.suthikulpanit@amd.com,
+ linux-coco@lists.linux.dev
+Subject: [PATCH v5 0/2] dma-buf: heaps: system: add an option to allocate
+ explicitly shared/decrypted memory
+Date: Wed, 25 Mar 2026 20:23:50 +0100
+Message-ID: <20260325192352.437608-1-jiri@resnulli.us>
+X-Mailer: git-send-email 2.51.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: cGDePQ8OZohHF1fmW321-nP8NyBXvq66
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzI1MDEzOCBTYWx0ZWRfXwXovf0RbI3a2
- GlYYOmRe4OXoCcoIigdeAHpHBEBVYy1oFXcwRSQSdOsZUI9uHLkjgIY/3TgCY4hsZi9+jkfazft
- rerwup8To7R1051hxXZ3bTZjqjwgjukFKUKc6gX/peSbTOzvdqYqlQr5f7pV/0haw6JGKlFMWFP
- YnQsDJJVprUgg6rv2j9ujtRbcSbVOsT6Jba33VDOuwMjCknyuHVk7T5kVAE5iXc+XmmEeD8T5m2
- 0w2sQDuXtFdEh5wjcYMFEXxafg5ve1YUty3OPrMqeJlwrDXGO7cfRo7fGmuzy6HRUp5l5Ue7rHl
- /Z2s7ik8DEojSk+aPKwu+daSOnRkH/6HxoBen/BZP49n9Yd/7U16iJUMFVhwAqKYiBKdLr4CETS
- uV+fv3JhV3qIh2/UtMUZUdF5RqDyfRaRE6gd+qEMnno4z/ouDz93fycoo0hIYl3/QyXh5AnNAhQ
- I/HTZ2wZ0hUOVyMsOUQ==
-X-Proofpoint-ORIG-GUID: cGDePQ8OZohHF1fmW321-nP8NyBXvq66
-X-Authority-Analysis: v=2.4 cv=KaLfcAYD c=1 sm=1 tr=0 ts=69c43096 cx=c_pps
- a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=xqWC_Br6kY4A:10 a=Yq5XynenixoA:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=yx91gb_oNiZeI1HMLzn7:22 a=EUspDBNiAAAA:8 a=LRWyuCbFSbfGocd5_k0A:9
- a=GvdueXVYPmCkWapjIL-Q:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-03-25_05,2026-03-24_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 spamscore=0 adultscore=0 phishscore=0 bulkscore=0
- priorityscore=1501 suspectscore=0 clxscore=1015 impostorscore=0
- lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2603050001
- definitions=main-2603250138
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -138,33 +93,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-It would be an error to map these into kms->vm.  So reject this as early
-as possible, when creating an fb.
+From: Jiri Pirko <jiri@nvidia.com>
 
-Fixes: b58e12a66e47 ("drm/msm: Add _NO_SHARE flag")
-Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
----
- drivers/gpu/drm/msm/msm_fb.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+Confidential computing (CoCo) VMs/guests, such as AMD SEV and Intel TDX,
+run with private/encrypted memory which creates a challenge
+for devices that do not support DMA to it (no TDISP support).
 
-diff --git a/drivers/gpu/drm/msm/msm_fb.c b/drivers/gpu/drm/msm/msm_fb.c
-index 1eff615ff9bf..ce1725990a48 100644
---- a/drivers/gpu/drm/msm/msm_fb.c
-+++ b/drivers/gpu/drm/msm/msm_fb.c
-@@ -219,7 +219,12 @@ static struct drm_framebuffer *msm_framebuffer_init(struct drm_device *dev,
- 			 + mode_cmd->offsets[i];
- 
- 		if (bos[i]->size < min_size) {
--			ret = -EINVAL;
-+			ret = UERR(EINVAL, dev, "plane %d too small", i);
-+			goto fail;
-+		}
-+
-+		if (to_msm_bo(bos[i])->flags & MSM_BO_NO_SHARE) {
-+			ret = UERR(EINVAL, dev, "Cannot map _NO_SHARE to kms vm");
- 			goto fail;
- 		}
- 
+For kernel-only DMA operations, swiotlb bounce buffering provides a
+transparent solution by copying data through shared memory.
+However, the only way to get this memory into userspace is via the DMA
+API's dma_alloc_pages()/dma_mmap_pages() type interfaces which limits
+the use of the memory to a single DMA device, and is incompatible with
+pin_user_pages().
+
+These limitations are particularly problematic for the RDMA subsystem
+which makes heavy use of pin_user_pages() and expects flexible memory
+usage between many different DMA devices.
+
+This patch series enables userspace to explicitly request shared
+(decrypted) memory allocations from new dma-buf system_cc_shared heap.
+Userspace can mmap this memory and pass the dma-buf fd to other
+existing importers such as RDMA or DRM devices to access the
+memory. The DMA API is improved to allow the dma heap exporter to DMA
+map the shared memory to each importing device.
+
+Based on dma-mapping-for-next e7442a68cd1ee797b585f045d348781e9c0dde0d
+
+Jiri Pirko (2):
+  dma-mapping: introduce DMA_ATTR_CC_SHARED for shared memory
+  dma-buf: heaps: system: add system_cc_shared heap for explicitly
+    shared memory
+
+ drivers/dma-buf/heaps/system_heap.c | 103 ++++++++++++++++++++++++++--
+ include/linux/dma-mapping.h         |  10 +++
+ include/trace/events/dma.h          |   3 +-
+ kernel/dma/direct.h                 |  14 +++-
+ kernel/dma/mapping.c                |  13 +++-
+ 5 files changed, 132 insertions(+), 11 deletions(-)
+
 -- 
-2.53.0
+2.51.1
 
