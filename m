@@ -4,58 +4,127 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F04C0109C04D
-	for <dri-devel@archiver.kernel.org>; Wed, 25 Mar 2026 18:31:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 94C6B109C059
+	for <dri-devel@archiver.kernel.org>; Wed, 25 Mar 2026 18:40:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 26A3310E466;
-	Wed, 25 Mar 2026 18:31:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C1ED510E900;
+	Wed, 25 Mar 2026 18:40:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=protonmail.com header.i=@protonmail.com header.b="EDFwCxBz";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="alB8XlKp";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Q2iY3huJ";
 	dkim-atps=neutral
-Received: from mail-43166.protonmail.ch (mail-43166.protonmail.ch
- [185.70.43.166])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CD5D110E466
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Mar 2026 18:31:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
- s=protonmail3; t=1774463513; x=1774722713;
- bh=j86thck0cTqsFgXxw60goLvNyAwdeaXAk0Tlweu0J7A=;
- h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
- Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
- Message-ID:BIMI-Selector;
- b=EDFwCxBz+oeTss4TdxJTaOi/GaI36MwEjl7TfA4WB3rpdj8VmPUDgXenXHZ+Xs5Vp
- FYua2lTAJmXiR/LEBCTiCS8ZVvICPaSG+f7cnjKmRjiiK+NHT8PQ6aU8nHPThumDyE
- tgYF+KDwh7TAubhbT6vUjNx8/gzHrUd4oedw4KBHV6bzp2CfDb8cDO5/QAoj9CaYox
- Ljn6XpU2v5U1N1qQIDqt6kZrpWH8nqOrrWMMk6q0KGzbIaaWnaJXTLShy4VHEzZ6hK
- hPKB2rlqj2UupFz5+9PHA80/MNApMOExCxjN7+A8o8skPdhPziayWCQjtyNlHiBrhG
- rvGQOQXBbGLZg==
-Date: Wed, 25 Mar 2026 18:31:47 +0000
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-From: cristian_ci <cristian_ci@protonmail.com>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht,
- phone-devel@vger.kernel.org
-Subject: Re: [PATCH v3 1/6] dt-bindings: display: panel: Add Novatek NT35532
- LCD DSI
-Message-ID: <E_O40YTvp6FW2yHa_lQOmzZwB1BZ7r_uCfh82T3BeO-SLK255eefzThCZDYJ2PFi3Hlnp3JXL7JWrlIU2ymh7m68wkNMTsM7jcMa8XxuxCs=@protonmail.com>
-In-Reply-To: <fh7rfswcwcrquijgjq547b6jjuq2v3wxiweh5xnnd4z5ql5n7r@gt425ujkpctu>
-References: <20260321-rimob-new-features-v3-0-d4b8ee867de7@protonmail.com>
- <20260321-rimob-new-features-v3-1-d4b8ee867de7@protonmail.com>
- <sdcfwycey5ykhn2fghun7imx3tjtnwat3ny3mut5dwstl7wvw6@maqrzlycwdn5>
- <GF8zsK-szOM98Ck2jznCOZ4xjuJTl9g1b0uPc1N79Dzf7PNzOiVgewdqPFGjqF3YD7tOUa2tzdc7rG_e7iNH8yjHOJ9DobsihTxRLUk8EL4=@protonmail.com>
- <fh7rfswcwcrquijgjq547b6jjuq2v3wxiweh5xnnd4z5ql5n7r@gt425ujkpctu>
-Feedback-ID: 27475468:user:proton
-X-Pm-Message-ID: c9e8d4bc47d850f720563065e567891a08ab9c34
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BB3A310E900
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Mar 2026 18:40:51 +0000 (UTC)
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 62PFH9lt3532408
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Mar 2026 18:40:50 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:date:from:message-id:mime-version
+ :subject:to; s=qcppdkim1; bh=mvdkUSKRAO5A5qk1dmV1+LN6vXJ34iPcEA/
+ OJJ+Ig1M=; b=alB8XlKpiWAXN7LlE++Jw/vtqeVlgKNabedRgJSzMbrw9weiY+0
+ pFhM4qnkvY7YkAITdIWAaJEJJMBhH4goIivhBCWU/NmedpPjl/KYIVDcKthRoXak
+ fG3SNQA0d8tfma0H4qbTz4tf3Ly8Q9THXD1KhLX5Tqr9AyeOQJU04EAz+FtuhLL3
+ ydf7fhs2RMlB+FE8VU/PchGISiynzi4tKD36mru5QwhPdo3H5vrM7Krp/c7G9oX7
+ 6sAHwcHOEP78AKDfrf+zXLFSLc9a26OIqyI21+OcoZYLp+NSx4n9IhU4twQdiTJq
+ /tvvOCC4m0XwFS05lvrdVe0z5gqRRFALk+g==
+Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com
+ [209.85.216.69])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d4dy4hudt-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Mar 2026 18:40:50 +0000 (GMT)
+Received: by mail-pj1-f69.google.com with SMTP id
+ 98e67ed59e1d1-35b8f351debso349719a91.1
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Mar 2026 11:40:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1774464049; x=1775068849;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=mvdkUSKRAO5A5qk1dmV1+LN6vXJ34iPcEA/OJJ+Ig1M=;
+ b=Q2iY3huJN4G5aBIk+1KlDxYNULjc4q1BuzjSAsYZR65KqqTbAfbkGMyCNDMhc6IZ1V
+ fnQEegtSC77S7hNfoi6KJMRTtkxIRXsevYMO13KwkIeW47BXVh2wKtaN6v2hlT7GykmR
+ S+BYGPJA1mda0j4bWwh9zMdQutYWDSEQS5QEFNesBwuqJu6f1GWS6FCi+HM3IJoyeC/N
+ n8FbOrqV8T6LL6j+w/afhUhWnbMJXC8mOwkUGrwpPTpCJim8w8BPMuYbcubPiHUrZH+k
+ 7VEiaOovRDhqWAy3kvAYBXRQerMzu0cCkichLfPPRtspU4eQPn3JmYwpyaovbpuQNE53
+ VYEw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1774464049; x=1775068849;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=mvdkUSKRAO5A5qk1dmV1+LN6vXJ34iPcEA/OJJ+Ig1M=;
+ b=hHzSSgEk9RqQyAcaMdZFeuywQUBGy5LWC+U5BcJXGOSyRBveZZtdlzzAjGkIqQr83m
+ w0t467Hs2o/UACmlYH1ZAd+UDbq9Rqpyy07IriV73Jo2M9LkOP73qikaHdlJ591o9eqi
+ 3gyeNlfjGihr4MhPt8SO+P105MiIQCkmDDKHE8iimilIURq6v1XfrvNAcYgE6SvzCdqI
+ 9pblv0zxoO/Jhm0CRaipUiPGTKX1MymUFVuDtt4UgZsqN0RDEAGdMuapcsMahVPjCTNJ
+ 6B1SFOEyHnpdwaF3s0YkRhJfj6WvTj903jZ5K+2bRudydQm8IDXd+uVRQCW83kVxnoqB
+ hpMw==
+X-Gm-Message-State: AOJu0YyrIp2gKT/iyjudDt2rwCCtOIo52jK+ruaA5XJ3DF3HpW83dYUP
+ aASpXU95SIhEliQSsiXVa1EYPP3KkfOB+y3unsRkNIm+Huc9l9jNcaGImJec8u0jmMgh5m2vTvS
+ ZUh+IF9e3kjpVAuTleSx7nU0wBLlvBD6GQnmQ0XGupnuupxebmdm34o6wkWt2hL6Bm0AJvKpBis
+ SATPE=
+X-Gm-Gg: ATEYQzwS162a8hi6m06JL3fPHSHSs5MuSDp47fE5PJnBeB5Gxg02tGY6MSn/iKdE+rN
+ 2yCv9QYMvjxyrgaEO4O+CP/QdvF26fxmaFUCOvxn9EoftrJKZeVnIlvRLt8QMg+dgd1p/rJGaJS
+ xeKQIn8rxe5Xfs9HJDcFnmn74wY6ys9HhfQnfdrqB/sMTfE4S/pJJ1DJlX6CynLlC1nIvuIoAdJ
+ EKnuFc9v4RTNyxuiiDhzYzMFtyQVSywglyTh6Iaaujp4qI0vC3mcpzT1KDtP98hxcJKDoxvk2Rv
+ y+WYS4E/LMewFBRr0cuugl+ToPbeLB0ougjRMqmf+C1+1FGwIzFvGZPgWJ8G4JpKrPFMghbDxHD
+ DRS5gwNRzj5Er3VCWvpzsiZybATomjBBe
+X-Received: by 2002:a17:90b:6c3:b0:35a:1762:92ed with SMTP id
+ 98e67ed59e1d1-35c0ddc589bmr3883536a91.24.1774464049578; 
+ Wed, 25 Mar 2026 11:40:49 -0700 (PDT)
+X-Received: by 2002:a17:90b:6c3:b0:35a:1762:92ed with SMTP id
+ 98e67ed59e1d1-35c0ddc589bmr3883507a91.24.1774464049121; 
+ Wed, 25 Mar 2026 11:40:49 -0700 (PDT)
+Received: from localhost ([2601:1c0:5000:d5c:4ec8:83f5:8254:6891])
+ by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-35c0e7452d8sm3198165a91.11.2026.03.25.11.40.48
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 25 Mar 2026 11:40:48 -0700 (PDT)
+From: Rob Clark <robin.clark@oss.qualcomm.com>
+To: dri-devel@lists.freedesktop.org
+Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Connor Abbott <cwabbott0@gmail.com>, Sean Paul <sean@poorly.run>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH] drm/msm/a6xx: Fix HLSQ register dumpping
+Date: Wed, 25 Mar 2026 11:40:42 -0700
+Message-ID: <20260325184043.1259312-1-robin.clark@oss.qualcomm.com>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzI1MDEzNiBTYWx0ZWRfX3B36hMm382gy
+ h6XqNf6dOaff4w2loIDPUyQ9m4VMuCmdWS+GcqCJghZGmJ6fXHN1m6klFVXTQMoZyfFJbqB9MBs
+ 72THzZYyeaalZM8gVBLe8PntWDmAC3bNJwP778hB93U0+pN5e5qbMn+x06GfWwIw1arv/EUc3yB
+ B9iXoff+QsbovivhZkqq1GccvkrOpDCtTQxhtsGQEU3gm0jDgrygdmTpW7FD9CteIPwJ008322O
+ mJLyoeXHVoctLnvWAeTCy39SYAEbxYc8/vfZt1xZzlx3vEijT8MMLgjmNgV/YAMmV0wan15wLZX
+ 9ZzgezbItBmwvcv2rVS57JO940DAzIJ5SE3bwy72l3bhpt7RU23PJpOBeZmEoxcgJ0gLX04ZroU
+ LM7gbJK9Tu6WK3tD1YHB8U3ColjzOz70WQqfc5p7OyCl6y+gtBqM3JUubC06W91cgxgP1Eft2vC
+ T/+ISyiGISkzvyqHyPg==
+X-Proofpoint-ORIG-GUID: hTqblc4eddhRBeZHcjfzUOkeHHzfQWO3
+X-Proofpoint-GUID: hTqblc4eddhRBeZHcjfzUOkeHHzfQWO3
+X-Authority-Analysis: v=2.4 cv=eeUwvrEH c=1 sm=1 tr=0 ts=69c42c32 cx=c_pps
+ a=vVfyC5vLCtgYJKYeQD43oA==:117 a=xqWC_Br6kY4A:10 a=Yq5XynenixoA:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=ZpdpYltYx_vBUK5n70dp:22 a=pGLkceISAAAA:8 a=EUspDBNiAAAA:8
+ a=AYjmxK_A9T-BKwGzHN8A:9 a=rl5im9kqc5Lf4LNbBjHf:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-03-25_05,2026-03-24_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 lowpriorityscore=0 clxscore=1015 bulkscore=0 adultscore=0
+ suspectscore=0 spamscore=0 priorityscore=1501 malwarescore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603250136
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,128 +140,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tuesday, March 24th, 2026 at 23:20, Dmitry Baryshkov <dmitry.baryshkov@o=
-ss.qualcomm.com> wrote:
+Fix the bitfield offset of HLSQ_READ_SEL state-type bitfield.  Otherwise
+we are always reading TP state when we wanted SP or HLSQ state.
 
-> On Tue, Mar 24, 2026 at 01:10:13PM +0000, cristian_ci wrote:
-> > On Saturday, March 21st, 2026 at 17:46, Dmitry Baryshkov <dmitry.barysh=
-kov@oss.qualcomm.com> wrote:
-> >
-> > > This is not enough to identify the panel. This name identifies the
-> > > controller inside the panel, however the exact settings (and the
-> > > behaviour) would depend on the exact TFT "glass" used with this
-> > > controller. Downstream usually doesn't care that much and frequently
-> > > just uses the controller name or the the controller with some kind of
-> > > "description" like ("wqhd-dsc-cmd").
-> >
-> > Ok but I just don't understand the following: I'd like to know (also
-> > considering that I find it difficult to find someone, outside of this
-> > ML, available to discuss this stuff, specifically) exactly why the
-> > current bindings are not enough.
-> > I mean: looking at schematics and datasheets of other similar devices
-> > and based on observations about my device, I believe the generic bindin=
-gs
-> > approach for nt35532 works quite well for panels.
-> > Novatek made the IC first and then whoever buys it can be a display
-> > vendor. If we talk about downstream, differences between panels are des=
-cribed
-> > there (i.e. my panel makes use of four supplies, while other ones could=
- use
-> > a different configuration).
->=20
-> Different "glass" means different programming sequences. Take a look
-> at the existing drivers which handle multiple panels. Sequences, modes,
-> etc. are different though the DDIC (controller) is the same. For Android
-> kernels this is handled by putting all the information into the DT. This
-> approach does not align well with the upstream DT expectations /
-> guidelines / philosophy / etc.
+Reported-by: Connor Abbott <cwabbott0@gmail.com>
+Suggested-by: Connor Abbott <cwabbott0@gmail.com>
+Fixes: 1707add81551 ("drm/msm/a6xx: Add a6xx gpu state")
+Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
+---
+ drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-True. I completely forgot about that, my bad. Yes, vendors handle init=20
-sequences, modes and other information in the DT, while upstream puts=20
-initialization into panel driver. Now, I've looked at panel-sitronix-st7703=
-.c=20
-driver to get an example of multiple panels supported by the same DDIC=20
-driver.
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
+index d2d6b2fd3cba..f7598d0c3975 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
++++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
+@@ -1013,7 +1013,7 @@ static void a6xx_get_crashdumper_hlsq_registers(struct msm_gpu *gpu,
+ 	u64 out = dumper->iova + A6XX_CD_DATA_OFFSET;
+ 	int i, regcount = 0;
+ 
+-	in += CRASHDUMP_WRITE(in, REG_A6XX_HLSQ_DBG_READ_SEL, regs->val1);
++	in += CRASHDUMP_WRITE(in, REG_A6XX_HLSQ_DBG_READ_SEL, (regs->val1 & 0xff) << 8);
+ 
+ 	for (i = 0; i < regs->count; i += 2) {
+ 		u32 count = RANGE(regs->registers, i);
+-- 
+2.53.0
 
-> For example, let's take two NT35532 panels described by [1], [2]. The
-> sequences are somewhat similar, but the contents is completely
-> different. From the upstream point of view, each should be described by
-> its own compatible string (so that the kernel can identify them).
->=20
-> [1] https://github.com/eliot-shao/qcom/blob/master/display/LCM-NT35532-JM=
-55FH-1080p/kernel/arch/arm/boot/dts/qcom/dsi-panel-nt35532-jm55fh-1080p-vid=
-eo.dtsi
-> [2] https://github.com/balika011/android_kernel_xiaomi_msm8953/blob/maste=
-r/arch/arm/boot/dts/qcom/dsi-panel-nt35532-fhd-video.dtsi
->=20
-> >
-> > > What does it mean for the upstream:
-> > > - Try identifying the actual panel used for the phones. Sometimes
-> > >   googling for spare or replacement parts would reveal such a name.
-> > >   Sometimes it can be seen as a marking on the cable or on the backsi=
-de
-> > >   of the panel (again, googling).
-> >
-> > It seems that 'google' approach fails, in my case :( (I only know that
-> > the vendor assigned Smartron the work to design the HW - but SW too -
-> > of the device. Nevertheless, Smartron is neither OEM nor ODM, so the
-> > company was relying, at the time, on a series of chinese manufacturers =
-to provide
-> > parts required for this device, including panel suppliers: in general,
-> > the list of panel suppliers for Smartron includes BOE, Tianma and other=
- known
-> > companies. So, this panel may be any of those, paired with NT35532, and=
- work
-> > anyway). Unfortunately, even if marking on the cable is known, that doe=
-sn't
-> > identify the panel but the cable itself (which is available on the mark=
-et,
-> > though), instead, in this case.
-> >
-> > > - If not found, come up with some artificial identifier that would
-> > >   identify the controller+glass combo (e.g. "tianma,fhd-video" or
-> > >   "lenovo,j606f-boe-nt36523w" (where lenovo,j6006f is a device name a=
-nd
-> > >   boe is a "supplier").
-> >
-> > Assuming that resources available which I've as source of information
-> > for this panel are limited (the ones also described in v1's review thre=
-ad),
-> > my vendor devicetree describes the panel in  'qcom,mdss_dsi_nt35532_108=
-0p_cs_video'
-> > node and makes use of:
-> >
-> > qcom,mdss-dsi-panel-name =3D "nt35532 1080p cs video mode dsi panel";
-> >
-> > property. Until now, close-to-mainline devicetree I was using the follo=
-wing
-> > compatible for the panel:
-> >
-> > compatible =3D "flipkart,rimob-nt35532-cs";
->=20
-> In the lack of any information, this is probably as good as anything
-> else. Please describe in your commit message that you don't know the
-> exact vendor of the panel (nor the id of the panel).=20
-
-Ok, apart adding a new compatible ("flipkart,rimob-panel-nt35532-cs") to=20
-dt-bindings (patch 1/6) - leaving  "novatek,nt35532" as fallback - and=20
-setting that to panel node (patch 3/6), I'll have to change (patch 2/6)=20
-too, by renaming nt35532_on to rimob_panel_on and so on for nt35532_off,=20
-nt35532_mode; by adding a new struct named rimob_panel_desc defining=20
-.mode, .on, .off members and moving .lanes, .format and .mode_flags from=20
-nt35532_probe to this new desc specific struct and by adding .data argument=
-=20
-to nt35532_of_match. What about the other nt35532 functions (i.e. nt35532_r=
-eset)?
-
-> > and I'm not sure about the exact meaning of 'cs' suffix. I cannot state=
- 'CS'
-> > as panel supplier and use that upstream without proof/evidence. What do
-> > you suggest, in this regard?
-> >
-> >
->=20
-> --
-> With best wishes
-> Dmitry
-> 
