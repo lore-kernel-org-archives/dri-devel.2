@@ -4,130 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 35454109C029
-	for <dri-devel@archiver.kernel.org>; Wed, 25 Mar 2026 14:55:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 471BD109C029
+	for <dri-devel@archiver.kernel.org>; Wed, 25 Mar 2026 14:57:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8432410E1B6;
-	Wed, 25 Mar 2026 14:55:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9766F10E20A;
+	Wed, 25 Mar 2026 14:57:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="gPPx5UtP";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="lveoloIP";
 	dkim-atps=neutral
-Received: from CWXP265CU010.outbound.protection.outlook.com
- (mail-ukwestazon11022072.outbound.protection.outlook.com [52.101.101.72])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E51E310E16D;
- Wed, 25 Mar 2026 14:55:22 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=gRaHB7CW5u+tS2pgnbrABSH7O0DYW6lHzNPe95Chd4G3qLY2dyT8ZoCbL1CYE13eC65T7ynpO90YPtLb8nlMgd8PbGRoAv9v7MhoMiw5JOPyohSfAKRQHauNIj8vpTK1SRdt6VZwcgH9KuECGlK9ZfCgt65kOtn1WRAHVuvmbbixOIRCiqyyaBYshotBpVccVC4G+sIims7K+g/O3PhAMxHt8H9MV/pt1eFXWkzR+G4uriSz7+EiqH5szuVzqrw5H8zW5OqZVUExpZfsBR24ATjk4cguezxCam7Y6uChKFp/5dHMagnluEscZdC8EZ+fV77klbKYrlXvgsMBcajZ9A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zZj6M/YvMlO3sPD0GZKMWU1sa0bNM13zwzP1YjNC+8Y=;
- b=MmpTwBCt3UXqeK2Q1nyOavmfqq6T6TESeGIpGXM4Aq9sNCNnN9DgoUEWW2Ok5zCQTJiyDfP7RJtqC9hT5i9JlGQ2zGtI610NSRPv1M06rzZ5gUfurEkwVHKkwPZZDlzlVRrlIxMngK4AC/d3bq0sqodXV6wc/dt0o39TXBtdvSWOTIB7MBAzajsWoniHvGOvGRfcpkeEvLPfAicRLR1ObjYpRINqIvHSSkeALQnqfcRfEK26bVNerrx57dK4TAfnigp0LUWQjWustxmddMomk2mADRv7z+i8SIykojQvcWTWQoNJ0L3g8V/7GODDKweII0ru5OtD/LBoLDF+2/t84w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
- dkim=pass header.d=garyguo.net; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zZj6M/YvMlO3sPD0GZKMWU1sa0bNM13zwzP1YjNC+8Y=;
- b=gPPx5UtP5zz7SSpluQA1sEaKD+LRruOPeAUVSrgv56hWunOJxxFkMt9DNuK/tJ309JmRv6dIAtFKS5V7g8tlDciaXzb87emgd9tnOp9bcowwmqRyhhgq4LMhOtjaM95T1+ZDo6maHFH76DCrjjGsTEyRP7h9P7NexQ3OtbX2D6s=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=garyguo.net;
-Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:488::16)
- by LO7P265MB7762.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:414::19)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.31; Wed, 25 Mar
- 2026 14:55:19 +0000
-Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- ([fe80::1c3:ceba:21b4:9986]) by LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- ([fe80::1c3:ceba:21b4:9986%5]) with mapi id 15.20.9745.019; Wed, 25 Mar 2026
- 14:55:18 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 25 Mar 2026 14:55:18 +0000
-Message-Id: <DHBY7MICRY6U.1YAZLYRZJTICG@garyguo.net>
-Cc: <acourbot@nvidia.com>, <aliceryhl@google.com>,
- <abdiel.janulgue@gmail.com>, <daniel.almeida@collabora.com>,
- <robin.murphy@arm.com>, <a.hindborg@kernel.org>, <ojeda@kernel.org>,
- <boqun@kernel.org>, <bjorn3_gh@protonmail.com>, <lossin@kernel.org>,
- <tmgross@umich.edu>, <ttabi@nvidia.com>, <nouveau@lists.freedesktop.org>,
- <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
- <driver-core@lists.linux.dev>, <rust-for-linux@vger.kernel.org>
-Subject: Re: [PATCH 1/3] rust: uaccess: generalize write_dma() to accept any
- Coherent<T>
-From: "Gary Guo" <gary@garyguo.net>
-To: "Danilo Krummrich" <dakr@kernel.org>, "Gary Guo" <gary@garyguo.net>
-X-Mailer: aerc 0.21.0
-References: <20260325003921.3420-1-dakr@kernel.org>
- <DHBVS7DX89G2.34ELW7TJAH7M8@garyguo.net>
- <DHBWR17G0AIE.30MDYBUT7PNZL@kernel.org>
-In-Reply-To: <DHBWR17G0AIE.30MDYBUT7PNZL@kernel.org>
-X-ClientProxiedBy: LO4P123CA0657.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:316::6) To LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:488::16)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6E20F10E16D;
+ Wed, 25 Mar 2026 14:57:01 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 3729A4024F;
+ Wed, 25 Mar 2026 14:57:01 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8BAB7C4CEF7;
+ Wed, 25 Mar 2026 14:57:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1774450621;
+ bh=kODB/4Odan0TLyX1+H2rGTJ1SkOip0pPH/GqtThBgFg=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=lveoloIP8+97OC9m2l5bBmtBw6c3CSQdSICZGVMCZbaVAtz/7499RlssUCIk3l9al
+ BWGtZaB/Gwx87SRUYZ4cMxnfQOw/wFD3DxPoaz6ZMwVdXpkyx08nrQ9XGu9iAX/z5D
+ dXQvJWfV6yPc172xpKNvXzEkN0NwwG2R1phfqiDxfT8sDpBvBgM+V2xyA1LtHBt10T
+ rerF3gSEDkGf6dqX15xt8IzhWyiX9IARja5LRQxUZ3+w4ei87vSIWEb3ti0JiuO53z
+ NhJjjPjGV9Y3DR3hKAwYyg+sRfCMTELoq9pie6SsHbeivGmpPiJrLsmd6IyREGDtzg
+ sr4f14070acsA==
+Date: Wed, 25 Mar 2026 15:56:58 +0100
+From: Maxime Ripard <mripard@kernel.org>
+To: Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
+Cc: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, 
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>, 
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>, Sandy Huang <hjc@rock-chips.com>, 
+ Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>,
+ Andy Yan <andy.yan@rock-chips.com>, 
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, 
+ Dmitry Baryshkov <lumag@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>, 
+ Rob Herring <robh@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
+ Shuah Khan <skhan@linuxfoundation.org>, kernel@collabora.com,
+ amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ linux-doc@vger.kernel.org, 
+ Werner Sembach <wse@tuxedocomputers.com>, Andri Yngvason <andri@yngvason.is>, 
+ Marius Vlad <marius.vlad@collabora.com>
+Subject: Re: [PATCH v11 03/22] drm: Add new general DRM property "color format"
+Message-ID: <20260325-magnificent-ultraviolet-oarfish-baefbc@houat>
+References: <20260324-color-format-v11-0-605559af4fb4@collabora.com>
+ <20260324-color-format-v11-3-605559af4fb4@collabora.com>
+ <acLDPYuaVI2-12JX@intel.com> <23910073.EfDdHjke4D@workhorse>
+ <acLrv5hLyNss-Px5@intel.com>
+ <20260325-neat-elegant-raven-ebc9ab@houat>
+ <acPA60Ci3n_t__xF@intel.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LOVP265MB8871:EE_|LO7P265MB7762:EE_
-X-MS-Office365-Filtering-Correlation-Id: c16ed98a-005f-4a0d-64d9-08de8a7e8824
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|10070799003|366016|376014|7416014|18002099003|22082099003|56012099003;
-X-Microsoft-Antispam-Message-Info: w7CF+Bsr5PRyst5hZoi1v1Int+MXZfsrpi9HxNDniXb4OPBXUa+gCg8KhUshSKLZX1UGCkmF5BNY/ikF5qvB5Brbe5F4Pq/OfJoAosGySwy86SgvNUm2IDdBicSYzxj7YGOso8G4orsmCUA+2NRq3kiqtozMrUkxquh8rAaQgE76VhK4nNDK4aE5qfXVjOKqhIU3hRV3xf/cNse25zKahLx0XqpRmtKKrr9SPheUDWYl3kXEeCeFizSqlEYJic9trrA+jFJgLtvUDzhqnk3iL2okB/P2AgJFW+ViOJ5bYAucuDNgdBC4qAK0DpCpqoyxVudqI5SpAd4UoSl19VbhEcoFv8jLSz5pOB0REwon+1Yl30kGWR3Kl+TaAmmrXmEKWEFf+irYwhn7n1noMv87WgE34fJCTxQIM1KVcwlXNSW22gLALECXdjdvb8ZNSnc0OTW+2Q2XQYhIRS6kzX2zK6UQvLAbsfm+V3tfE1Yq/lXhA+e7Vjh9wJ/qORpZNjwkWKqUyUHMPRMiGeLN5OaHXbiNB0qT1HYk8B5O1paarT0lK1A68cXCg/7gPl/LAuxnvfAr3drfK3+cKQGmIU4wAEdKY+FfWx2idNruVYrKQBpVxPepblg7bE/x5DzgIoX3i6AOVAU3Pt8MvP5WYvKlwmPMo8kRIvnN7q5Jaj8hJgHVRva/U1Dx0Q6QKAxPQya+eY7Nd9+WLdTBw/J7TZQoGMBH7anIPmieJOtKSQ03NVY=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(10070799003)(366016)(376014)(7416014)(18002099003)(22082099003)(56012099003);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UGtaM3VqRzdrNjkxNnlZNGJhZURJM2U3RkZBVlM0Y05nTjgrVk1ramlxOGd2?=
- =?utf-8?B?ZnlxV3UzVlhaZnNYd2RDTU1jUE1aVlJKZ1NzV3BxUTAwTmgwczBPbm01NGxB?=
- =?utf-8?B?ODV4TGh6R1Z6N25wbWppZzAyWEM2RnJGVnB6L0I3NFQ4UThoUlgyNUpjN3NK?=
- =?utf-8?B?WFhvZHh0M01obHNRTjA0Y2FGa1F0UVNVTlhVVmVQeHZBYUFXZVRwQUcwQ2M3?=
- =?utf-8?B?RGU0VWp0RWlXeU40QkxIREpHWVlpUjZxUnliY0VHRzUrZGRaeHU4M0lxb1dh?=
- =?utf-8?B?dzdNSmhTMTZ5dU1DZ3dXMTZObVE1WWhkbS95NHhud1loWUtOcmVrSGpnYkhF?=
- =?utf-8?B?WU5MNlVKTkt5WSt5YTdQVEZsSmYyUXFTL2htS2lqbE9rWE5UN1RSZWZhMUkz?=
- =?utf-8?B?anp2NGdKQkVZNGt0cUxZeXhWcTFDM1NTcFdyYjRzNVBVY3g2dG80elpaZHlT?=
- =?utf-8?B?R3JiNGxpVjJjN0RJeXhkZGtJeXhTQkVNeGFuNExtc3ZsMkxXczNkS01DUGow?=
- =?utf-8?B?QjdQZGlNRUtxQ0xyQ1JXNm94WUEySE8rY3d2Rm81c1pUTVNnblZaWENubFNn?=
- =?utf-8?B?SjVIcWZaQnRlQzR0L2tpRFRCUXpZSTJmdWlRcmkvS1JRVUFYWlQvYjZrUWxr?=
- =?utf-8?B?Nk5BL2xodjVObWNXZDZtWlgyblJZeVBQV2twTTFEV1N3QzVNWDRWUm1kSnE3?=
- =?utf-8?B?L3VzZVBleXJUSVJmSklIM1lVTHptelRabituQTBNWFZHYkFMWFVkcXhqMXdk?=
- =?utf-8?B?MkV0UUhTMUVWTEpDYlQzYWdJcGFGclJqNzZiejJKU1B5VTYwOFd2T3k0bjB1?=
- =?utf-8?B?cithQlpVWEQxdzdmQzJHNDkrQXZzdU9Nd2toRmpnaklOWFMrWVNmclBoNytk?=
- =?utf-8?B?QmRBMTFacURwTGZHckk0U21nTE1PdHcvSG9OVTJ2MmNHck5VekpyVXI1QzlD?=
- =?utf-8?B?a210Vnk3UHBoRlBXY0ZzSjVCaThoZEdNVUw3NklxK3RYZ0ZkbnQ1T2d3eVlN?=
- =?utf-8?B?U29FclJXbS9WdVREN1FsL2VYTzF2cDZlbUlGTmtRZExjWUV0STZmYlNuYVJJ?=
- =?utf-8?B?UmY3V3FpdlZ1UUNwcWJiTWNNWWZRRmYzSUhYQ2d6SmxoUFJJRVp1MVNBeU44?=
- =?utf-8?B?KzFqUWlqTlhKRUxtWTdOelJnZ1Bla0EweHRrY3ZKNEJmNkdkam56WVE3WU1k?=
- =?utf-8?B?dHVXdlZIODR5VHBEV3ZsS1RJK0xJU1ViUkwzU2lBTFZTWGRmZDAycXN3c2FO?=
- =?utf-8?B?Ujl2TXJacm1kMXJiZG04QU5tQzgyS1RsSFdWUVF5b0RsYU15RUxvNXdxSXU2?=
- =?utf-8?B?V3N2bnRWYlBJSFVSd3ljRjN4V3RQamh5bDBwNmxOZWxNcEthRWRZVXRNekdv?=
- =?utf-8?B?bkpudm1ZQmpGUFROTFl6OGJEbmdRS3F3SUp6eXJ4WTYvcE5xU1dBb01WQ0p6?=
- =?utf-8?B?UksyaUZiV3FUMU5VS0hpTEpaR2JLcGhVdDZFVGNqVHZjNzkvQXVNTTh4VSsw?=
- =?utf-8?B?alVVT2xKc3UyUGVxNE05Z2s3VHZHR3BxZ2w0alJiQ2VPak5TUjlhME10NUxL?=
- =?utf-8?B?NlpXeGF6SzYvVzM2SmVWM2tyK20vZWlDbTRXY1cyTGZkd0hqWmd2Mmpaenhz?=
- =?utf-8?B?bU1OMW9aSm5TT1BqMENpUkFUenBiUW5UUDNmQU53WVBvMC9SVmtYeXY2ZVND?=
- =?utf-8?B?TlpMamtZSmIvUXljOExhMUkwMFd3dUR6c3JQaG1OWHZwMGhTbEE4SE1oZ3hx?=
- =?utf-8?B?a3A1MlJkZStLcW5IcFdWRytscVpHUEZBdWE2WXVUWFZTUTFRc1RzQnJDWjc4?=
- =?utf-8?B?MWNoUGI3Vk9ZYzdzWFVNK2QwNEpNMnVRb2h0ajVla3VjL0M2YTB6VFJ3T0kx?=
- =?utf-8?B?VThmbWEydzNtZ1Y3ajhXZkpMVERJeDljR2Y0SVBkNFgwc2pVU0NKUUJlRSsx?=
- =?utf-8?B?UU9yeGh0SnJXcFhPVTROb1NhMHNZZ1pjMk1WeWhRYmVQVVdyTTVJWTBGWUZ4?=
- =?utf-8?B?ckd0andwMFBNYkl6MHhVRjIvZzVnTHgwM3JHWUhNWHlTNmhQalJjMlgwVkZC?=
- =?utf-8?B?V2s2V0VIeE9VdCtLUGp5MlNRSS9EVFdaWXRxb0ZaRFVCZlJZNFA2ZmhOZ1JK?=
- =?utf-8?B?T0ozMUZxcVlEdXc3UWo2UlI2aXZ4RFIrK0s0M0ZkSHZpa0FYVXRyRVJJdUc0?=
- =?utf-8?B?WjRxcHV3aGxFU2ZjcXFyVXIreHJWTXM1M01WTzlpT2JoaXcvbWE1N25UZkk0?=
- =?utf-8?B?TjZ1VXE2QW5nWldXY3kvS09KWnJ2cmxjdkdBeHpOWkg3WFVvNnlHMCtXTDVJ?=
- =?utf-8?B?bkh2YzRDMitkY0YvY1NZV01JM0o3eEcrQmdHK0I3eWNtYkMyUitPZz09?=
-X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: c16ed98a-005f-4a0d-64d9-08de8a7e8824
-X-MS-Exchange-CrossTenant-AuthSource: LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Mar 2026 14:55:18.9054 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Zx1nXChAN7WXnZnm+yjiSfhYjXKVYK8RG43Oq0fRAJLNQ88Ys3IysQV+DHF63PpGdJzhwLLb9R2AF2Oi9FdgGQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO7P265MB7762
+Content-Type: multipart/signed; micalg=pgp-sha384;
+ protocol="application/pgp-signature"; boundary="mhdva7e7vsga4kjf"
+Content-Disposition: inline
+In-Reply-To: <acPA60Ci3n_t__xF@intel.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -143,66 +90,153 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed Mar 25, 2026 at 1:46 PM GMT, Danilo Krummrich wrote:
-> On Wed Mar 25, 2026 at 2:01 PM CET, Gary Guo wrote:
->> I think there is a reason, which is that it weakens the strong typing th=
-at we
->> have. I think it'll be better to have this be
->>
->>     fn write_dma<T>(&mut self, view: View<'_, Coherent<T>, [u8]>, offset=
-: usize) -> Result
 
-Correcting myself, this will be
+--mhdva7e7vsga4kjf
+Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v11 03/22] drm: Add new general DRM property "color
+ format"
+MIME-Version: 1.0
 
-    fn write_dma<T>(&mut self, view: View<'_, Coherent<T>, [u8]>) -> Result
+On Wed, Mar 25, 2026 at 01:03:07PM +0200, Ville Syrj=E4l=E4 wrote:
+> On Wed, Mar 25, 2026 at 09:24:27AM +0100, Maxime Ripard wrote:
+> > On Tue, Mar 24, 2026 at 09:53:35PM +0200, Ville Syrj=E4l=E4 wrote:
+> > > On Tue, Mar 24, 2026 at 08:10:11PM +0100, Nicolas Frattaroli wrote:
+> > > > On Tuesday, 24 March 2026 18:00:45 Central European Standard Time V=
+ille Syrj=E4l=E4 wrote:
+> > > > > On Tue, Mar 24, 2026 at 05:01:07PM +0100, Nicolas Frattaroli wrot=
+e:
+> > > > > > +enum drm_connector_color_format {
+> > > > > > +	/**
+> > > > > > +	 * @DRM_CONNECTOR_COLOR_FORMAT_AUTO: The driver or display pr=
+otocol
+> > > > > > +	 * helpers should pick a suitable color format. All implement=
+ations of a
+> > > > > > +	 * specific display protocol must behave the same way with "A=
+UTO", but
+> > > > > > +	 * different display protocols do not necessarily have the sa=
+me "AUTO"
+> > > > > > +	 * semantics.
+> > > > > > +	 *
+> > > > > > +	 * For HDMI, "AUTO" picks RGB, but falls back to YCbCr 4:2:0 =
+if the
+> > > > > > +	 * bandwidth required for full-scale RGB is not available, or=
+ the mode
+> > > > > > +	 * is YCbCr 4:2:0-only, as long as the mode and output both s=
+upport
+> > > > > > +	 * YCbCr 4:2:0.
+> > > > > > +	 *
+> > > > > > +	 * For display protocols other than HDMI, the recursive bridg=
+e chain
+> > > > > > +	 * format selection picks the first chain of bridge formats t=
+hat works,
+> > > > > > +	 * as has already been the case before the introduction of th=
+e "color
+> > > > > > +	 * format" property. Non-HDMI bridges should therefore either=
+ sort their
+> > > > > > +	 * bus output formats by preference, or agree on a unified au=
+to format
+> > > > > > +	 * selection logic that's implemented in a common state helpe=
+r (like
+> > > > > > +	 * how HDMI does it).
+> > > > > > +	 */
+> > > > > > +	DRM_CONNECTOR_COLOR_FORMAT_AUTO =3D 0,
+> > > > > > +
+> > > > > > +	/**
+> > > > > > +	 * @DRM_CONNECTOR_COLOR_FORMAT_RGB444: RGB output format
+> > > > > > +	 */
+> > > > > > +	DRM_CONNECTOR_COLOR_FORMAT_RGB444,
+> > > > > > +
+> > > > > > +	/**
+> > > > > > +	 * @DRM_CONNECTOR_COLOR_FORMAT_YCBCR444: YCbCr 4:4:4 output f=
+ormat (ie.
+> > > > > > +	 * not subsampled)
+> > > > > > +	 */
+> > > > > > +	DRM_CONNECTOR_COLOR_FORMAT_YCBCR444,
+> > > > > > +
+> > > > > > +	/**
+> > > > > > +	 * @DRM_CONNECTOR_COLOR_FORMAT_YCBCR422: YCbCr 4:2:2 output f=
+ormat (ie.
+> > > > > > +	 * with horizontal subsampling)
+> > > > > > +	 */
+> > > > > > +	DRM_CONNECTOR_COLOR_FORMAT_YCBCR422,
+> > > > > > +
+> > > > > > +	/**
+> > > > > > +	 * @DRM_CONNECTOR_COLOR_FORMAT_YCBCR420: YCbCr 4:2:0 output f=
+ormat (ie.
+> > > > > > +	 * with horizontal and vertical subsampling)
+> > > > > > +	 */
+> > > > > > +	DRM_CONNECTOR_COLOR_FORMAT_YCBCR420,
+> > > > >=20
+> > > > > Seems like this should document what the quantization range
+> > > > > should be for each format.
+> > > > >=20
+> > > >=20
+> > > > I don't think so? If you want per-component bit depth values,
+> > > > DRM_FORMAT_* defines would be the appropriate values to use. This
+> > > > enum is more abstract than that, and is there to communicate
+> > > > YUV vs. RGB and chroma subsampling, with bit depth being handled
+> > > > by other properties.
+> > > >=20
+> > > > If you mean the factor used for subsampling, then that'd only be
+> > > > relevant if YCBCR410 was supported where one chroma plane isn't
+> > > > halved but quartered in resolution. I suspect 4:1:0 will never
+> > > > be added; no digital display protocol standard supports it to my
+> > > > knowledge, and hopefully none ever will.
+> > >=20
+> > > No, I mean the quantization range (16-235 vs. 0-255 etc).
+> > >=20
+> > > The i915 behaviour is that YCbCr is always limited range,
+> > > RGB can either be full or limited range depending on the=20
+> > > "Broadcast RGB" property and other related factors.
+> >=20
+> > So far the HDMI state has both the format and quantization range as
+> > different fields. I'm not sure we need to document the range in the
+> > format field, maybe only mention it's not part of the format but has a
+> > field of its own?
+>=20
+> I think we only have it for RGB (on some drivers only?). For YCbCr
+> I think the assumption is limited range everywhere.
+>=20
+> But I'm not really concerned about documenting struct members.
+> What I'm talking about is the *uapi* docs. Surely userspace
+> will want to know what the new property actually does so the
+> uapi needs to be documented properly. And down the line some
+> new driver might also implement the wrong behaviour if there
+> is no clear specification.
 
-(without offset, similar to the write_slice).
+Ack
 
->>
->> once we have I/O view and expect people to create cast views into bytes
->> explicitly.
->>
->
-> There is technically no difference between the above and the below, excep=
-t that
-> for the above the user has to create the View first, i.e. it needs additi=
-onal
-> code. What's the advantage?
+> So I'm thinking (or perhaps hoping) the rule might be something like:
+> - YCbCr limited range=20
+> - RGB full range if "Broadcast RGB" property is not present
 
-It prevents misuses. If you have a `[u8]` or `[u8; SIZE]` already, the chan=
-ge is
-going to be small:
+Isn't it much more complicated than that for HDMI though? My
+recollection was that any VIC but VIC1 would be limited range, and
+anything else full range?
 
-    u.write_dma(c, offset, count)
+> - RGB full or limited range based on the "Broadcast RGB" property
+>   if it's present
+>=20
+> I think the "Broadcast RGB" property itself might also be lacking
+> proper uapi docs, so that may need to be remedied as well.
 
-vs.
+I took care of documenting it when merging the HDMI helpers:
+https://docs.kernel.org/gpu/drm-kms.html#hdmi-specific-connector-properties
 
-    u.write_dma(io_project!(c, [offset..][..count]))
+Maxime
 
-[
-    PS. it looks like with current proposals w/ virtual places, we might be=
- able
-    to get this written as
+--mhdva7e7vsga4kjf
+Content-Type: application/pgp-signature; name="signature.asc"
 
-        u.write_dma(c[offset..][..count])
+-----BEGIN PGP SIGNATURE-----
 
-    a few years down the road if we're successful.
-]
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCacP3tQAKCRAnX84Zoj2+
+dqD6AX9ruA9VQEK32t44/SErwn8ouTAnQA9K9i0WTlcaidv+2oyLtolh4CEvzUcR
+Knh9fq4Bfjj/Wa5dcOSnIESCkqTRH/yo4UCESrmghwhyznX8ffjBrkE/aWSPhI2B
+5bfXV1iang==
+=9m7S
+-----END PGP SIGNATURE-----
 
-However, using a view will prevent you from feeding an arbitary
-`Coherent<FooBar>` and just write it to user space. `offset` and `count` in=
- the
-API really doesn't make too much sense at all if `T` is not array/slice of =
-u8.
-
-Best,
-Gary
-
->
->>> +    pub fn write_dma<T: KnownSize + AsBytes + ?Sized>(
->>> +        &mut self,
->>> +        alloc: &Coherent<T>,
->>> +        offset: usize,
->>> +        count: usize,
->>> +    ) -> Result {
-
+--mhdva7e7vsga4kjf--
