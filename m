@@ -4,144 +4,166 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 93E51FEA803
-	for <dri-devel@archiver.kernel.org>; Wed, 25 Mar 2026 04:34:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4D11FFEA80A
+	for <dri-devel@archiver.kernel.org>; Wed, 25 Mar 2026 05:21:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7B7B910E193;
-	Wed, 25 Mar 2026 04:34:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 70DC410E1DF;
+	Wed, 25 Mar 2026 05:21:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="UxXtUFqX";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="InKjl/Eo";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="OTM/lQ+H";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CA76910E193
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Mar 2026 04:34:25 +0000 (UTC)
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 62OJOaWQ1862769
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Mar 2026 04:34:24 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=EHUp7/16YUMBtKGES+yYYqc2
- 0LzNJsKIcI6vCitDSoc=; b=UxXtUFqX1/6g2nxsMa/K3D44muLA4QP/qfif7ikK
- 0PfGqXPH2DkXPdFnv2JwH9dBZrMi+CJqXZ0Fx5kAQPk9xIyNvrptcTe2T39UgZRD
- PqQ9HCtVYJnygYaIfjzbz/TXWLO5j1HuJqsSRgROj20zluZNW1VYdXF495ZZnzmo
- kQW5B/W7yOkgLxG3oM1WyUL0pFOI4P4e6nmddPEUOF8OeK5190ahq1G2S+KRAZLx
- FjtOUwxDpHveFbF9HNRmUu11f7KytW5gnm2N/GHuedbMnGAxOs/bt4U7Z2UpMdLK
- 7xeadyqyfvYZQ6/nJzG5hnrxVaUQfMPYQJzdZGp34rGkDA==
-Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com
- [209.85.160.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d40rasdtd-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Mar 2026 04:34:24 +0000 (GMT)
-Received: by mail-qt1-f200.google.com with SMTP id
- d75a77b69052e-50917996cfaso133432381cf.0
- for <dri-devel@lists.freedesktop.org>; Tue, 24 Mar 2026 21:34:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1774413264; x=1775018064;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=EHUp7/16YUMBtKGES+yYYqc20LzNJsKIcI6vCitDSoc=;
- b=InKjl/EoNM7YfzTElXvU+y/j/AHx2Jcil+6cUI6MOSMHHw39OLvUwkuGf2xp/V1fO/
- OhW0lCgkUElb7vnF89hNDXki/6vPfSQ8TW6RYkss8UjhPEtk1fn3Cjy9FqI80t9YdNsj
- vcDKY0VScROF7O+jGYSZCD4lNK+zyzmGdQeY8NQcY1yHFA/sCMq6WHXuQiBqlhjQH7Up
- 3+OfA07jtgUzkbOAhx0KDnN09GTgFz6GRYnzvjXHetsuHzcgkRE/MVirPAbYfyzfulOa
- jf5Hn8q5Jd7BOYWb8Gxi8LWHo90B4fSMF4PrGeSQgg8NBTVrFlgIlJ8K1u/vBgzPnTt8
- ca6w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774413264; x=1775018064;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=EHUp7/16YUMBtKGES+yYYqc20LzNJsKIcI6vCitDSoc=;
- b=kPXTKv1tAvZX94MTaqYWn5xB0cIGB7U9Ij91mGrPz3LIP/UYourD94v08Ta8Sew+Jt
- 1rqYHO41V5eebvREFMbKIHVFQIVG1TTtMIY/h2qIaHJVydVmrFbSkn/HEDrYFMgyPRQF
- uBg6awRR80hH5dRgnqLuG7umzG3FOqAmABHi7UnT6ff8F/79HzIK4PjOnf011SbNc+gX
- 07IxPgRJYoMv3Wo1z3VxRkZua5WFF1xuCyDy1CgXwFNYlPrQnAA1wsYCLPGDC83aRb5Q
- w+ON7eGaz5MbSEk14I1tSsNZ+2g0UGjt5fTFIUcJKaZGk33rLUSl6wWf7etvYHa6bp67
- o9ng==
-X-Forwarded-Encrypted: i=1;
- AJvYcCW1882Y6CRhJX17umJpIqEwYsbjpPAt2oGxjjgILan31VBObP7YW0kxrpr0mRJ97izNjM+izFHdOw8=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzBLwn/8c+9/7mpbaMPhmnHLuvtGSAK0uZgZ7Le8maEozETQpnq
- OWp6jq1zw4k/Ybp/u16bLoRCwuitZWPUKp3z9LtkAGEm5MGH33Ye6SPfqogGholuS0oRGvD1A6c
- Y28QQSUGMR6qwxdHR2cRajzwPXMh/wM1VwCC44AvkaZVX0WkFtgi6aA/zdVzGqat7qSNHaLo=
-X-Gm-Gg: ATEYQzwW1fuDGvLJcexADe4JKcAoNhEkHAWYB/P6Wgv5COkVQI2E8q8hu0VBzM61g/b
- XyT/ITQkm60tanh6QS2EQkx4HxujXpt3I01et0wbL340Ujq94OLcssmKQEqRLGkIf9Kf6B9YGBn
- LI7WfRv7Z4osf1pgnHYufnYFYshdpFHBqrBcRKfXKGf1TlPEQ/L3Ts4EK6MNp7B7x/t9z/3bcCx
- cpOmjP7e/6qzqN+DUTT4lt/gpM2gKEJW0oJEnXT0bNGYcaxGKdkSzK28Dw8G9LVH7QUcWEc8/Dk
- CVuzkDo9pygeR7pegpxFlgOKJamGsVCJgM+XohgKOn7WH2Vit/g57MPo9P9UAHo6Ry42nPV4cia
- KnY7jjPPzaxlGlBg4+kXy8JNl7qSXZDVcEFLT7JAIeOAo/yecJyr+HZzexzcO3LSaoYvtmlQkb/
- d0s4O0G6XTd/p40i9bQCkD1jzk2G2YHKL6b84=
-X-Received: by 2002:a05:622a:4ce:b0:509:1987:7626 with SMTP id
- d75a77b69052e-50b80ed53b8mr28888471cf.68.1774413263899; 
- Tue, 24 Mar 2026 21:34:23 -0700 (PDT)
-X-Received: by 2002:a05:622a:4ce:b0:509:1987:7626 with SMTP id
- d75a77b69052e-50b80ed53b8mr28888091cf.68.1774413263409; 
- Tue, 24 Mar 2026 21:34:23 -0700 (PDT)
-Received: from umbar.lan
- (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5a285207500sm3648167e87.41.2026.03.24.21.34.20
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 24 Mar 2026 21:34:21 -0700 (PDT)
-Date: Wed, 25 Mar 2026 06:34:18 +0200
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Sumit Garg <sumit.garg@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-media@vger.kernel.org, netdev@vger.kernel.org,
- linux-wireless@vger.kernel.org, ath12k@lists.infradead.org,
- linux-remoteproc@vger.kernel.org, andersson@kernel.org,
- konradybcio@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, robin.clark@oss.qualcomm.com, sean@poorly.run,
- akhilpo@oss.qualcomm.com, lumag@kernel.org, abhinav.kumar@linux.dev,
- jesszhan0024@gmail.com, marijn.suijten@somainline.org,
- airlied@gmail.com, simona@ffwll.ch, vikash.garodia@oss.qualcomm.com,
- dikshita.agarwal@oss.qualcomm.com, bod@kernel.org, mchehab@kernel.org,
- elder@kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
- jjohnson@kernel.org, mathieu.poirier@linaro.org,
- trilokkumar.soni@oss.qualcomm.com, mukesh.ojha@oss.qualcomm.com,
- pavan.kondeti@oss.qualcomm.com, jorge.ramirez@oss.qualcomm.com,
- tonyh@qti.qualcomm.com, vignesh.viswanathan@oss.qualcomm.com,
- srinivas.kandagatla@oss.qualcomm.com,
- amirreza.zarrabi@oss.qualcomm.com, jens.wiklander@linaro.org,
- op-tee@lists.trustedfirmware.org, apurupa@qti.qualcomm.com,
- skare@qti.qualcomm.com, Sumit Garg <sumit.garg@oss.qualcomm.com>
-Subject: Re: [PATCH 10/14] drm/msm: Switch to generic PAS TZ APIs
-Message-ID: <v4ffww2r4ljqqbmvsc5jcr4ztqjbpfb42xryjeuz4abqiwup3a@2gfeelhjzzz4>
-References: <20260306105027.290375-1-sumit.garg@kernel.org>
- <20260306105027.290375-11-sumit.garg@kernel.org>
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3A40F10E0BC;
+ Wed, 25 Mar 2026 05:21:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1774416092; x=1805952092;
+ h=message-id:date:subject:to:cc:references:from:
+ in-reply-to:mime-version;
+ bh=0L7yd6KjvHm0ZQf24rBBEy+dmUYKc7C5EXJemMSMsnw=;
+ b=OTM/lQ+HOdWZUihBiiehuCNg0Sc6MfVQP198lvvneYAJogkEM++6Qt16
+ 4B5vd+z8/teADBS6bb73e4aytnVT9+cgk5rpdVoJrzvTSFJCni16Qecg2
+ o+Gg/2BMX41bsIAwKy+sGVH1dxKzqnHGQrLQwZehoG5R97GdPFZobPCmz
+ AWfY+UD7hVkV1zZcGLfhnprVrwkuY3v2VQ6I1vXPWOBlN3AMKyKHqH2qE
+ /CNQBlkd2+3NuKb34+hFusNSVhPPt6mGv4MbuYu3i+xk+kJleqz1T0GOW
+ 3yTSF9NYKBEVzjI+CsFvGoT0avWLbvIwkixZVR5N6RKt/k54HE7s/7HdM w==;
+X-CSE-ConnectionGUID: AC13gqQLR32k7L1JPEaDww==
+X-CSE-MsgGUID: Ms8cOMMlTLakZaSZRHt2EQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11739"; a="75162355"
+X-IronPort-AV: E=Sophos;i="6.23,139,1770624000"; d="scan'208,217";a="75162355"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+ by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Mar 2026 22:21:31 -0700
+X-CSE-ConnectionGUID: iUXN2BOdRyejtHzdz+jcJA==
+X-CSE-MsgGUID: d6JpmQZ7RymNFBrbkERABw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,139,1770624000"; 
+ d="scan'208,217";a="220158954"
+Received: from fmsmsx901.amr.corp.intel.com ([10.18.126.90])
+ by fmviesa010.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Mar 2026 22:21:30 -0700
+Received: from FMSMSX901.amr.corp.intel.com (10.18.126.90) by
+ fmsmsx901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37; Tue, 24 Mar 2026 22:21:30 -0700
+Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
+ FMSMSX901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37 via Frontend Transport; Tue, 24 Mar 2026 22:21:30 -0700
+Received: from PH0PR06CU001.outbound.protection.outlook.com (40.107.208.6) by
+ edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37; Tue, 24 Mar 2026 22:21:29 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=C+WB3s+7DsNlLuJ7eyWaHed8ZEFQA941WWn3FswIkslemK1eZmnj8RVi2TfYSig7hPfpmfjmOLQC70OmPE1RaqAMhQFOymq9/c+M9jN8rQx/alIWjpmzeQz9cmNeQFG4DrhJbK+7+NDbNkqdkZ1tUj0DSZd65PvG8f9RYPza8OPq8pgkZ/J+Ezr2It2yHLgxhA0dHevKEyzoYFgMkhbCUoiJDqfUXgjH2F8Dm/I7mtb9J4P+HVo5e86gtyY61yuRXt2phYe3fQ1JsNrLi4oC9dbVO+b1quUTOTUiUM/mLL69ABJ8AJ+tXNbVBfPs2OrMTG9oOWYo12tOoZ0BE+K3GA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=pKZyK1vzyY1e5qUo8Ek/Ugtd/yPZ4uyKheUh2eAPFNw=;
+ b=Qv0/i0uj1TSxT1nqeTpYvyG//MQIq0aCr2G7d1TnIyLoZnZBkwVFQ1ZhaciaaFtAjBJZJli3pqRGT5OcLFLqueSvYwNu9tNz1+dz/bmt5GsEs0LMWwiGDExin/N4AE4ViXKRNm7fPG4872STghmGnO8j0/Bw3jjYEuf/OF6siYyTdFfmNQnRaQpXW4DraFeuYJuUpcg3B6wdCwnbhwyW4svOkghypaOpEFDsDMmaLMCB5EQ2BkrP0EZlC2W8/7p+eF2ej84wvfr6qb+mCZzaQq4UKAoRNawyrj3dYDjluI1VqBlyiBSqqVk5OwGhtGc2vdyvA8GodrzX8PS5aknV2w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from LV3PR11MB8695.namprd11.prod.outlook.com (2603:10b6:408:211::15)
+ by PH8PR11MB6779.namprd11.prod.outlook.com (2603:10b6:510:1ca::17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.20; Wed, 25 Mar
+ 2026 05:21:27 +0000
+Received: from LV3PR11MB8695.namprd11.prod.outlook.com
+ ([fe80::ccc3:3fd6:58f5:927]) by LV3PR11MB8695.namprd11.prod.outlook.com
+ ([fe80::ccc3:3fd6:58f5:927%3]) with mapi id 15.20.9745.019; Wed, 25 Mar 2026
+ 05:21:27 +0000
+Content-Type: multipart/alternative;
+ boundary="------------t5vEK6At6E9JRJknleTNywGq"
+Message-ID: <3b1013f3-8ba2-4b13-888a-000e26f4128a@intel.com>
+Date: Wed, 25 Mar 2026 10:51:18 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC v6 1/1] drm/xe/pf: Restrict device query responses in
+ admin-only PF mode
+To: "Dixit, Ashutosh" <ashutosh.dixit@intel.com>
+CC: <intel-xe@lists.freedesktop.org>, Michal Wajdeczko
+ <michal.wajdeczko@intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ =?UTF-8?Q?Piotr_Pi=C3=B3rkowski?= <piotr.piorkowski@intel.com>, Matthew Brost
+ <matthew.brost@intel.com>, =?UTF-8?Q?Thomas_Hellstr=C3=B6m?=
+ <thomas.hellstrom@linux.intel.com>, =?UTF-8?Q?Micha=C5=82_Winiarski?=
+ <michal.winiarski@intel.com>, Dunajski Bartosz <bartosz.dunajski@intel.com>,
+ <dri-devel@lists.freedesktop.org>
+References: <20260316064100.2542412-3-satyanarayana.k.v.p@intel.com>
+ <20260316064100.2542412-4-satyanarayana.k.v.p@intel.com>
+ <875x6lq64y.wl-ashutosh.dixit@intel.com>
+Content-Language: en-US
+From: "K V P, Satyanarayana" <satyanarayana.k.v.p@intel.com>
+In-Reply-To: <875x6lq64y.wl-ashutosh.dixit@intel.com>
+X-ClientProxiedBy: MA5P287CA0120.INDP287.PROD.OUTLOOK.COM
+ (2603:1096:a01:1d0::6) To LV3PR11MB8695.namprd11.prod.outlook.com
+ (2603:10b6:408:211::15)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260306105027.290375-11-sumit.garg@kernel.org>
-X-Authority-Analysis: v=2.4 cv=Jvr8bc4C c=1 sm=1 tr=0 ts=69c365d0 cx=c_pps
- a=JbAStetqSzwMeJznSMzCyw==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22 a=EUspDBNiAAAA:8
- a=kPJGyq6PTXsXdZOMel8A:9 a=CjuIK1q_8ugA:10 a=uxP6HrT_eTzRwkO_Te1X:22
-X-Proofpoint-ORIG-GUID: 8TEbB6ehb4_9TkHcIxjRnFbq0fx7WcBl
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzI1MDAyOCBTYWx0ZWRfX60gpbatsv09S
- EY9iZLElNQK6ZDDJco6u4QcQjygOylL5XFDT+DsWYBW8dYR9v9YcjkHD1ju37CmqWMU6t8Nk0Fs
- BdamZ4GHXpyV/7AHSRQTTK0w3D07Y6AOwLkeNRg62sXer4mCSqYcx6BH8bKt3tzmF8jLA0roMop
- Uyu7pcLxDu0xqczFcX8bs+Ui794k0+j52d9+ugt7KynI+O+WmH3TAvGs/QLSxpJNbCt0amhyTKf
- DcVuEWp5q/KPLnLmoVtGHZr2Dx+/JHqq4VRLqs2uAFTotX2QY2IYluU9f4NDKCYJ+ZSraErOgh9
- M2Cv+bh0dUe4OT9IZT9+k0T3X+NZpkRrLPLP/KwfbUYVL3HflWN0paFEenOFV2ePttnDch3l9Wm
- kzAcQKNZuZv+WW7/F7QZkFrWFHtYZDDN/KyhSbMW1iExM+vordxBFqCNSchyMydZ2oF9TGsIl5q
- UMwmT6msOggb6JoILqg==
-X-Proofpoint-GUID: 8TEbB6ehb4_9TkHcIxjRnFbq0fx7WcBl
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-03-25_01,2026-03-24_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 adultscore=0 impostorscore=0 suspectscore=0 phishscore=0
- priorityscore=1501 spamscore=0 clxscore=1015 bulkscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603250028
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LV3PR11MB8695:EE_|PH8PR11MB6779:EE_
+X-MS-Office365-Filtering-Correlation-Id: c0e78a91-4111-4760-10e1-08de8a2e5d10
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|376014|1800799024|8096899003|18002099003|56012099003|22082099003;
+X-Microsoft-Antispam-Message-Info: GESSLLSpZnqUuG3d4+uxHbgjyKqNDaQqdTpLhMF0OCIE/KUFUY2btVSAJ+880m5HYyoM9tym5ScUURN8Y+DDmd0uu4zdoz9TNPZI7Wo3FBMOQ+ve2XFpxQDWd6RCCe/9LL4RzetcQ8g8pR492/gKuLIvozZ3cSlRGl6aEx6uSrDyyL36ObhWTTej7mPeM84G30ePc4W66MINI2ySyzgJe7s2Naq5q0OCHPVQy5ZW7qtrvb45IFnriD7TR3oG5SbHCf6AmGG8zHgP7IznI2je1HaHAitJHoqtmTVS/hGwgaCX1vjJarX99fxvig/R593ltLA26BWCQP0tlzMuT7N7VCqQn2y7lG/qcVsFlYfmv6MTJJ/czL2pgZBmD4Bqtf9O/807m2e5AZOGTT75MFUJ1WhuLZddwxTiCakvonpg3ZA95rUuwfNHnleT+chdpL3PgXLgWqnWaF9gLqK3NSUnrWwKSsUEi0P36ZHuN2OiugymZj349f7cfhYTyv0oYdbM9WXxYQajy7FscygvWn8L3sEtJnUEgXii0xPFRZNGyFLEZSZZ8+uiBXwzjZ9/54ZngjSZEv616gCJEEf0qIIQGdHBUJj6NPZOp9AbBVnbo2lZN9LLVVcBW1DMxLXRuS/X2T0lcDpjk/fIOAnXapnwyb7lysKosqGSFSecKTLSKsW9vUSPfNclP1/NvKiwe2PpRiJV27XuStk8PsO2bOTdOavpigdEobQ0HAiKrbksEys=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:LV3PR11MB8695.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(376014)(1800799024)(8096899003)(18002099003)(56012099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZmF3bmQ4VjlqTWpDVHlOWEpaaFBZakRaSWxyQmxERGJTcjFRcFlIQVNhQlNV?=
+ =?utf-8?B?Y2tWYVpERFV1ZCs0K3dsOVZ0Zk5yVzBBclNUUUxwRlcrVkd1bnA5RHdwRFAv?=
+ =?utf-8?B?K0xnblREb1FaTmNhUkFpSkhiVUxzd2ZRSTZZR01MdCt2d0t1MlVmK05VRXJL?=
+ =?utf-8?B?SnJ3U1c3SkUzRVdwUENJb2NTai91VlpBdTlHcnBVdTVyZitOZzhtWStId1U4?=
+ =?utf-8?B?MGpWdEFPWk82WDJuS1pMcDFxd3dRVmtCdyt1emRHTlJ6TkQyVXcwN2tNblo2?=
+ =?utf-8?B?NE1oWHpqaG5Jeit0aTc0VDRjSkVFUHBMRFY5bTVBeTZIbFQ2UTNlOEZ3QVRV?=
+ =?utf-8?B?eUpZcnI1TFp5UFlJTkkxdUdOT3o1ZjhhaElaYkdOaVY2UG85QjFiclBCU1Vt?=
+ =?utf-8?B?RlJXclhlMlJyK05ybDZwNVhzbnFKaFhKd2R4SzVWc3luekthU2hvWlBvQWdn?=
+ =?utf-8?B?TnREYnc4VjhwdDBXUGYzdUZzWHgwTGV2UVk2bzIxK3czeUh6STlLU3RyYUpR?=
+ =?utf-8?B?Tmh4NGNYRUVtWkFmVVE0aFRsb3dKczd1U2pjY0dFQlI5YUg4WitLOVNWWFlW?=
+ =?utf-8?B?MHBkc01ZNnU1UWY4Qzg4V0NGWThJSStHWEUxMnhINWFwbzlWekU0Zjh0MXpW?=
+ =?utf-8?B?SHI0OFF2V3JkSGFVbUN6b1ZqQ2ZKZ0FZWmVvanFFb091VlhQY2tYMW5WL0Vs?=
+ =?utf-8?B?amI1UVhJK2pJUmNmUWE1NENUNG1sQ1NSblUwZmRUMHc2ZGpBRUZsS05zUEtM?=
+ =?utf-8?B?STBjN21QV2l2bjA1c3dDZE1HNU8zOE5aaTRoS0pMcmpsUlNCbnh6cm53NzJm?=
+ =?utf-8?B?TXhKaCsraTdBa0dQdnU0VGNEZmJpTU93dEZhdU5IdWNldnlXdzlZQWkyNTFE?=
+ =?utf-8?B?V0RMVi9MSFR2RlAxRkI4MjREWjdKblF0VURmY0JNRGVOOTRPUkhIUzEvYVl2?=
+ =?utf-8?B?RENKZFgrVDVORU1XYkdiOEJGWmpVMWM0RldHcGhSVDUwdjNTMDU3MEl1WHp5?=
+ =?utf-8?B?WTNzVkU4ZnQvNmNxU3hDS2hjczVyVTFJQ2liNTBHUjNNSi9FQWM4Tjd0RWZI?=
+ =?utf-8?B?d3E3dGdKMHo2L3BtdHl2WG5zcVVmWGRBcmh6emRISEVpUVlTaUVpaDg1MVk4?=
+ =?utf-8?B?Vjc3cUR4OXBjaWdKMXloRW8wR1N4K1Z1Ukk2VnhUSHNOdWJjSkgzcFR4ZnVF?=
+ =?utf-8?B?VkpjM0xGSEZ3MDdKbkl3dEx6UXBWMkdhbkpyOFhleHZJajV2cE9JWnhFbC9p?=
+ =?utf-8?B?b2VBU1hpUTQwc012WHQ3WERwZUpLQm9Jbm5rVWRWY0N0cjI0WlNsdGRaSTBT?=
+ =?utf-8?B?MW5uSUtrenpWdkFmdldDWjhMWmFETTFmczFYRUdzOEw1VGxxaHhzQlpidzFX?=
+ =?utf-8?B?Si9zRkdra0J4MTQ4ZWx5Rjh5WkFrQ1o2bVZBYXZTcjJwZ1VVWmpxNkhQQTNj?=
+ =?utf-8?B?ZVNvdW5OWVBmZFlQSWpWOUFLUC9TSUtMWjZqeElXc3U1UlEzOG9qdmR1cUxT?=
+ =?utf-8?B?NU02K3JhbktkUG1SSUcwMHBkdHBuY3BMVEVGb0h2VDNlWDdMQXM4V0gxOWxP?=
+ =?utf-8?B?SFltTmZEK0lmc0cvbFEvK1hzSEFsRjBTeWlNWDB0Y3NoMEhZei9UQ3Rkcjhy?=
+ =?utf-8?B?REZJVmxaZDlPbllOdFlXdUU3UGZ5aGNqZTJlTktRdWVUdGJVWGZBQjl5d1h5?=
+ =?utf-8?B?VVJIMEVFckZsQVE2aFNVWGNvS1ZiYUtNTFg2WlE5MU5TRWt6eHNDTVZJRVhS?=
+ =?utf-8?B?L0hjTlM2b0pLS2M0OS9kWW9ORTgxbFozU3NKRElyNGpUVWgvWmZSZHlUNmNK?=
+ =?utf-8?B?RVlDeStBd2FvM1NKdEx6QWs4K2Z6ckJHMm55Um43bFJ4RDJibXRCUDVTdDhO?=
+ =?utf-8?B?VEJhSmRuNlZ6M0hyTGhzWktTTWxHYlFpd0hOb1ZMSjNsYmJYZUI0LzFEZkxT?=
+ =?utf-8?B?RC9mK0pYT21VMXluZkF6aWYxNkVnY1Rpc0ZPUkljSjYwbG40dXo0bmI5S3dD?=
+ =?utf-8?B?clhZR0FYa1RlMnROOXBmVUhuZGRZTU5yWXVPMWMxOFBHdElkZEp2djlDZ1lo?=
+ =?utf-8?B?RC8rVW13VmRnR2l6aE1BdWc0SWQ2WFhpZVVkMlBNR2l0WnhEek55dzNtUHZr?=
+ =?utf-8?B?WmJrcWFBZVVHQ0RNaEMwYjVrOWxtMHVmNzJXYTNleTZYcDNkVDQ4Yko2VUNx?=
+ =?utf-8?B?UTJab05ZS2NmdCtVb0lxVVZiN1NHcXRTL0RXajJWb1FHbmxQdjhBT0hQcitj?=
+ =?utf-8?B?Q0swcE41RTljb3lrZ3F0dkEwRU44VjQzam9TRUUxUE5YaUVjYmlOLzN6SjZW?=
+ =?utf-8?B?eU15bUF0SElCVm5RaTNLUGVtaUlBeTROMFNzZWRoc0pTc1pKWEhqN214R1lY?=
+ =?utf-8?Q?ukhjeUrrq4eU4hag=3D?=
+X-Exchange-RoutingPolicyChecked: Wbbhatz+uo0xM/oyCmAqpVZRttcqIphSeldVmJ13CLMOkrNtWOk1MAYVAGBfPhVutomYnrPjCEAg46gCAhqQj0R2tH2vTzdnRDpLZi1WD1LVvOP7WJR/apnu7MG63ldbLRBwtL44HQaPSWmlgcF7rhaNJruh7DuRqRmNFACov5mhxePgmQ+X6uNZ/X61ITevF4h8z4r4SZXqsTFDxTRi9Z+zXUylEl+8w3H1sRP+Skxf64QXX//MbGKhwUjJhqkP1LDds9JdiLlGldgYtJAM5OxQbKf9ZVm3pzBtEoP/AtC9gpM4e25GUN4RtWg7iikh6a+xi7mBQplkDg+PlrFEmw==
+X-MS-Exchange-CrossTenant-Network-Message-Id: c0e78a91-4111-4760-10e1-08de8a2e5d10
+X-MS-Exchange-CrossTenant-AuthSource: LV3PR11MB8695.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Mar 2026 05:21:27.1405 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: kIWNv7dgw/utp5vrQ0Q1d/5A+aGVv92dMRgkPGfhhZXfrVMo2pDHA/xpcd/dmMF7qvuVIx838E5iNF4rsWQMC1b2++g+gZrcno7v9B/wGZ8=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR11MB6779
+X-OriginatorOrg: intel.com
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -157,47 +179,149 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, Mar 06, 2026 at 04:20:23PM +0530, Sumit Garg wrote:
-> From: Sumit Garg <sumit.garg@oss.qualcomm.com>
-> 
-> Switch drm/msm client drivers over to generic PAS TZ APIs. Generic PAS
-> TZ service allows to support multiple TZ implementation backends like QTEE
-> based SCM PAS service, OP-TEE based PAS service and any further future TZ
-> backend service.
-> 
-> Signed-off-by: Sumit Garg <sumit.garg@oss.qualcomm.com>
-> ---
->  drivers/gpu/drm/msm/adreno/a5xx_gpu.c   |  4 ++--
->  drivers/gpu/drm/msm/adreno/adreno_gpu.c | 11 ++++++-----
->  2 files changed, 8 insertions(+), 7 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/adreno/a5xx_gpu.c b/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
-> index ef9fd6171af7..3283852f9a14 100644
-> --- a/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
-> +++ b/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
-> @@ -5,7 +5,7 @@
->  #include <linux/kernel.h>
->  #include <linux/types.h>
->  #include <linux/cpumask.h>
-> -#include <linux/firmware/qcom/qcom_scm.h>
-> +#include <linux/firmware/qcom/qcom_pas.h>
-
-Missing `select QCOM_PAS`.
+--------------t5vEK6At6E9JRJknleTNywGq
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
 
 
->  #include <linux/pm_opp.h>
->  #include <linux/nvmem-consumer.h>
->  #include <linux/slab.h>
-> @@ -653,7 +653,7 @@ static int a5xx_zap_shader_resume(struct msm_gpu *gpu)
->  	if (adreno_is_a506(adreno_gpu))
->  		return 0;
->  
-> -	ret = qcom_scm_set_remote_state(SCM_GPU_ZAP_SHADER_RESUME, GPU_PAS_ID);
-> +	ret = qcom_pas_set_remote_state(SCM_GPU_ZAP_SHADER_RESUME, GPU_PAS_ID);
->  	if (ret)
->  		DRM_ERROR("%s: zap-shader resume failed: %d\n",
->  			gpu->name, ret);
+On 25-Mar-26 2:47 AM, Dixit, Ashutosh wrote:
+> On Sun, 15 Mar 2026 23:41:02 -0700, Satyanarayana K V P wrote:
+>> ---
+>> V5 -> V6:
+>> - Updated commit message.
+>> - Return number of engines and memory regions as zero instead of returning
+>> query size as zero (Michal Wajdeczko).
+>> - Allow all other query IOCTLs excepts query_engines and query_mem_regions
+>> (Michal Wajdeczko).
+> Can someone explain the reason to move away from the approach in v5? Afais
+> v6 has issues of this sort:
+The V6 is due to comment from Rodrigo from V5 "
 
--- 
-With best wishes
-Dmitry
+Looking to this patch I got myself wondering if query.size == 0 is
+long-term proof...   I mean, if we need to get some OA/RAS/telemetry
+kind of API that end up needing some kind of query information....
+
+Michals, thoughts on this?
+
+I know, I know, this solution is indeed much better than my
+proposal of no ioctl exposed. But I mean, since we are taking
+this path and allowing some ioctl. Shouldn't we prepare at least
+the query for that and then only limiting the number of engines
+and memory regions to zero?"
+
+
+and comment from you (Dixit, Ashutosh)as well.
+
+
+"Also, there were some questions about supporting OA in the
+admin-only-pf. Here are some high level points about this:
+
+* OA/EUSTALL is not supported in VF's in current products, this might
+   change in the future
+* OA/EUSTALL in admin-only-pf can be used to profile global counts across
+   VF's
+* OA/EUSTALL themselves don't allow workload submission etc. They only
+   allow reading profiling data from HW
+* OA/EUSTALL in admin-only-pf will need the observation ioctl to be
+   supported. Also, some other query ioctls such as hw configuration,
+   topology, frequency will be needed to make sense of OA/EUSTALL data."
+
+>
+> * query_engines will return 0 engines but query_hwconfig will return > 0
+>    engines
+> * query_engines will return 0 engines but query_oa_units will list out the
+>    engines
+> * query_oa_units will return valid oa support but observation ioctl will
+>    fail
+>
+> v5 seems to have avoided contradictions of this sort. Or this doesn't
+> matter? Thanks.
+Since we are not exposing any other IOCTLs, even if query_hwconfig  and
+
+query_oa_units find number of engines > 0, the UMD can't submit any WL. So, should be 
+fine right.
+
+--------------t5vEK6At6E9JRJknleTNywGq
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+
+<!DOCTYPE html><html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 25-Mar-26 2:47 AM, Dixit, Ashutosh
+      wrote:<br>
+    </div>
+    <blockquote type="cite" cite="mid:875x6lq64y.wl-ashutosh.dixit@intel.com">
+      <pre wrap="" class="moz-quote-pre">On Sun, 15 Mar 2026 23:41:02 -0700, Satyanarayana K V P wrote:
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">
+---
+V5 -&gt; V6:
+- Updated commit message.
+- Return number of engines and memory regions as zero instead of returning
+query size as zero (Michal Wajdeczko).
+- Allow all other query IOCTLs excepts query_engines and query_mem_regions
+(Michal Wajdeczko).
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+Can someone explain the reason to move away from the approach in v5? Afais
+v6 has issues of this sort:</pre>
+    </blockquote>
+    The V6 is due to comment from Rodrigo from V5 &quot;
+    <pre class="content" style="box-sizing: border-box; overflow: auto; font-family: Menlo, Monaco, Consolas, &quot;Courier New&quot;, monospace; font-size: 13px; display: block; padding: 9.5px; margin: 0px 0px 10px; line-height: 14.3px; color: rgb(51, 51, 51); word-break: break-all; overflow-wrap: break-word; background-color: white; border: 0px; border-radius: 0px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;">Looking to this patch I got myself wondering if query.size == 0 is
+long-term proof...   I mean, if we need to get some OA/RAS/telemetry
+kind of API that end up needing some kind of query information....
+
+Michals, thoughts on this?
+
+I know, I know, this solution is indeed much better than my
+proposal of no ioctl exposed. But I mean, since we are taking
+this path and allowing some ioctl. Shouldn't we prepare at least
+the query for that and then only limiting the number of engines
+and memory regions to zero?&quot;
+</pre>
+    <br>
+    <pre class="content" style="box-sizing: border-box; overflow: auto; font-family: Menlo, Monaco, Consolas, &quot;Courier New&quot;, monospace; font-size: 13px; display: block; padding: 9.5px; margin: 0px 0px 10px; line-height: 14.3px; color: rgb(51, 51, 51); word-break: break-all; overflow-wrap: break-word; background-color: white; border: 0px; border-radius: 0px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;">and comment from you (Dixit, Ashutosh)as well.
+</pre>
+    <br>
+    <pre>&quot;Also, there were some questions about supporting OA in the
+admin-only-pf. Here are some high level points about this:
+
+* OA/EUSTALL is not supported in VF's in current products, this might
+  change in the future
+* OA/EUSTALL in admin-only-pf can be used to profile global counts across
+  VF's
+* OA/EUSTALL themselves don't allow workload submission etc. They only
+  allow reading profiling data from HW
+* OA/EUSTALL in admin-only-pf will need the observation ioctl to be
+  supported. Also, some other query ioctls such as hw configuration,
+  topology, frequency will be needed to make sense of OA/EUSTALL data.&quot;</pre>
+    <blockquote type="cite" cite="mid:875x6lq64y.wl-ashutosh.dixit@intel.com">
+      <pre wrap="" class="moz-quote-pre">
+
+* query_engines will return 0 engines but query_hwconfig will return &gt; 0
+  engines
+* query_engines will return 0 engines but query_oa_units will list out the
+  engines
+* query_oa_units will return valid oa support but observation ioctl will
+  fail
+
+v5 seems to have avoided contradictions of this sort. Or this doesn't
+matter? Thanks.</pre>
+    </blockquote>
+    Since we are not exposing any other IOCTLs, even if&nbsp;<span style="white-space: pre-wrap">query_hwconfig</span>&nbsp; and&nbsp;
+    <pre wrap="" class="moz-quote-pre">query_oa_units <span style="white-space: normal">&nbsp;find number of engines &gt; 0, the UMD can't submit any WL.
+So, should be fine right.&nbsp;</span></pre>
+    <blockquote type="cite" cite="mid:875x6lq64y.wl-ashutosh.dixit@intel.com">
+      <pre wrap="" class="moz-quote-pre">
+</pre>
+    </blockquote>
+  </body>
+</html>
+
+--------------t5vEK6At6E9JRJknleTNywGq--
