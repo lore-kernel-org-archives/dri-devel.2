@@ -4,37 +4,36 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4F145106B53D
-	for <dri-devel@archiver.kernel.org>; Wed, 25 Mar 2026 14:02:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0ED2F106B53D
+	for <dri-devel@archiver.kernel.org>; Wed, 25 Mar 2026 14:02:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7976A10E7EC;
-	Wed, 25 Mar 2026 14:02:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 74F9310E7F1;
+	Wed, 25 Mar 2026 14:02:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="QF0d4g8K";
+	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="CzYZ5d5z";
 	dkim-atps=neutral
 Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
  [213.167.242.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5743C10E7E5
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Mar 2026 14:02:00 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4350210E7E3
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Mar 2026 14:01:59 +0000 (UTC)
 Received: from [127.0.1.1] (91-158-153-178.elisa-laajakaista.fi
  [91.158.153.178])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id 98FB91BCF;
- Wed, 25 Mar 2026 15:00:40 +0100 (CET)
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id 82DBA1B9D;
+ Wed, 25 Mar 2026 15:00:39 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1774447241;
- bh=z0ohKrl3nNbmQTLz1wlnzqyZg5t58xltjjEsw+ctQ5I=;
+ s=mail; t=1774447240;
+ bh=mMRpsHYy1pqwmXc7aWTQaKqbMPHXmze9/AesB8a3FEQ=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=QF0d4g8Kh3BPE6L2eXkONe+b8r2Rte/T6Dszu5QsrAqshNc+P4ne0FbAdQivpQTXg
- pVGC9dKYZ9Sf49m+yUyZW2qTp3RHKT4EbAO87sQfLX6Jh/qiwNBgH94Em2xgfBEGAt
- m7IVyUk1SnG93ZkxBBlVD3KLS5BmTH0d/Z/q5Hu4=
+ b=CzYZ5d5z+Hs1MaNufYwdYoS7qRVVk4GZYzb44PDTC4zvsAgsNZUIPzFP+9CNNNb2s
+ ajT9yRD/pw8Kgo1iltEcKgRFAMyuaw7oOwSm0R8lpxi7nGZVvF5D4OJMZcNp7Q8BHA
+ l50wF+igAdUT9mw2So2370fd+NRHcckXD91nYVnE=
 From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Date: Wed, 25 Mar 2026 16:01:30 +0200
-Subject: [PATCH v9 07/11] drm: xlnx: zynqmp: Use drm helpers when
- calculating buffer sizes
+Date: Wed, 25 Mar 2026 16:01:29 +0200
+Subject: [PATCH v9 06/11] drm/fourcc: Add DRM_FORMAT_XVUY2101010
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260325-xilinx-formats-v9-7-d03b7e3752e4@ideasonboard.com>
+Message-Id: <20260325-xilinx-formats-v9-6-d03b7e3752e4@ideasonboard.com>
 References: <20260325-xilinx-formats-v9-0-d03b7e3752e4@ideasonboard.com>
 In-Reply-To: <20260325-xilinx-formats-v9-0-d03b7e3752e4@ideasonboard.com>
 To: Vishal Sagar <vishal.sagar@amd.com>, 
@@ -51,21 +50,21 @@ Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  Pekka Paalanen <ppaalanen@gmail.com>, 
  Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 X-Mailer: b4 0.15-dev-c25d1
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1623;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2393;
  i=tomi.valkeinen@ideasonboard.com; h=from:subject:message-id;
- bh=z0ohKrl3nNbmQTLz1wlnzqyZg5t58xltjjEsw+ctQ5I=;
- b=owEBbQKS/ZANAwAIAfo9qoy8lh71AcsmYgBpw+rM1t8SmQCwqK8q+2874g4y6W+UFEHPA5hLY
- P1NTp9GrruJAjMEAAEIAB0WIQTEOAw+ll79gQef86f6PaqMvJYe9QUCacPqzAAKCRD6PaqMvJYe
- 9eeDEACjFTftnIo4/vHE+Zbd/vinVkVUNXpCS2jTkFIphNpxKMEFHsw7tW07kBC3+PW1UIz513A
- HLXt3o2mABa2ycziWgJfIsVDzbO2nKSPakHWbExsms2XRQ567n4dZQC3y92nRX0pcI3U+GQsPbC
- I/KGUItD4iqGJcAuZUaA3Cn7GtbM2Ln+XeGFpdpdqNq3TlFa9ZX7dfcaL1JV43ZBiKlOzGfwR4k
- SVLndy8Jg/nAuIPwI95nQQufCjTvgsyqOzLZuofGU93kloYDGSDX4E3U25yKRbM2pRbccNxj+/R
- RSI9rvkcNLX0OLT+WSYTfePHO3TUXNziuxVd3EOgGcQc5Zbkn5hXar1FGDRpW2u/4rynhKe7rhn
- 6/7ie2yQZoRICLxCQYYbA2ayWBjGOuTehWshn7VfhHvviCY2vh6Iej+t9h79wi8OhHocxnnymk3
- tUVh3QW2WWTOYspyZaGkjpfjhIWEGpBr5QAZa5b2WwlzDmVhlxHVbg66k3mE4fq24kCEcm/Y8gv
- yA9Efs8Fj7DluezJKBic7LrzOkmFvJUOEh17JRc7JwRnrNPJcZ98Hj94t0dp+p9NUCyVJi8Ss29
- sYi3nvJzSpxERRAYpKzzlsIePpGy1x/3rfFnkJEL6q3nu63/y3m0TaeNcBgEVEIWwbnqueDWAYo
- a6+4lwMinVAQ2wA==
+ bh=mMRpsHYy1pqwmXc7aWTQaKqbMPHXmze9/AesB8a3FEQ=;
+ b=owEBbQKS/ZANAwAIAfo9qoy8lh71AcsmYgBpw+rMeGeIX+tjkHGVyKWPVcJBq8bi+sdc5udzo
+ K5EWZPuDymJAjMEAAEIAB0WIQTEOAw+ll79gQef86f6PaqMvJYe9QUCacPqzAAKCRD6PaqMvJYe
+ 9QnoEACAcV4mlK32P0a/e8KNd2MbnUHbYyXT0m4m1cvYxM/pkSSW7xoNsFkseRkUtuE+gk9lg9N
+ JNX/7r7ka5bRDyiFhhXWZnCxCcpwI1GD5r5q4sxYJFpkTTr+wu/O/2rGioiyOP1O5ya5PJroW6l
+ FEqm7b1ASX1zBid82WUBjqJfSRHkV/J2rrxaeeKi8TYn7AvNEOWrIZV4G7uAYMfzkBSbgozqfd5
+ RRD0oI+WQ+472BlYAolRlOvadS/QIumPYqDWOTtbVOgHeM1PNZvaEtANzsBBIs1O7bSBYkZqrUJ
+ DZjq8/cBsdV69TscHseLwoLagHZ0Wx+KFJn+t/JewWWm081AOdWU+BR7o60r+6LEKAyl3O+Z3UX
+ NftyNqtzLlGZ1rEf965GWN+NsI7Xs/I08KBIAIGQq9vQ27iiupygAQECk0RCCBE1Bh4WwA5FP/6
+ 1vp7YaZ9HgHLLqihqdhakhDLJjjycEq174f2saagv4vkXpihS62kN0Y7h/1SVCecTpky202h8Ph
+ 6BqgvyPr/lWR8TJA+m6bGfhHbf6jVwjla3VrwstHaHxXOUkqmUa/Re+Kr7aUU5vanjHlnj5HMiJ
+ UO4lxMQ/+GHb535HDR/k0kCe4SfdEpPYpLe3EJ2qFEOb2cHabtmDjoF84hR6euhX3FPG8xoiWRq
+ Q6zJLeoX1RuAavg==
 X-Developer-Key: i=tomi.valkeinen@ideasonboard.com; a=openpgp;
  fpr=C4380C3E965EFD81079FF3A7FA3DAA8CBC961EF5
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -83,46 +82,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Use drm helpers, drm_format_info_plane_width(),
-drm_format_info_plane_height() and drm_format_info_min_pitch() to
-calculate sizes for the DMA.
-
-This cleans up the code, but also makes it possible to support more
-complex formats (like P030, XV20).
+Add XVUY2101010, a 10 bits per component YCbCr format in a 32 bit
+container.
 
 Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Reviewed-by: Vishal Sagar <vishal.sagar@amd.com>
+Reviewed-by: Simon Ser <contact@emersion.fr>
 Signed-off-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 ---
- drivers/gpu/drm/xlnx/zynqmp_disp.c | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/drm_fourcc.c  | 1 +
+ include/uapi/drm/drm_fourcc.h | 1 +
+ 2 files changed, 2 insertions(+)
 
-diff --git a/drivers/gpu/drm/xlnx/zynqmp_disp.c b/drivers/gpu/drm/xlnx/zynqmp_disp.c
-index 9a8f38230cb4..12a8d643915f 100644
---- a/drivers/gpu/drm/xlnx/zynqmp_disp.c
-+++ b/drivers/gpu/drm/xlnx/zynqmp_disp.c
-@@ -1116,16 +1116,19 @@ int zynqmp_disp_layer_update(struct zynqmp_disp_layer *layer,
- 		return 0;
+diff --git a/drivers/gpu/drm/drm_fourcc.c b/drivers/gpu/drm/drm_fourcc.c
+index de8c98b166f1..c4ce7ee74dea 100644
+--- a/drivers/gpu/drm/drm_fourcc.c
++++ b/drivers/gpu/drm/drm_fourcc.c
+@@ -288,6 +288,7 @@ const struct drm_format_info *__drm_format_info(u32 format)
+ 		{ .format = DRM_FORMAT_VYUY,		.depth = 0,  .num_planes = 1, .cpp = { 2, 0, 0 }, .hsub = 2, .vsub = 1, .is_yuv = true },
+ 		{ .format = DRM_FORMAT_XYUV8888,	.depth = 0,  .num_planes = 1, .cpp = { 4, 0, 0 }, .hsub = 1, .vsub = 1, .is_yuv = true },
+ 		{ .format = DRM_FORMAT_VUY888,          .depth = 0,  .num_planes = 1, .cpp = { 3, 0, 0 }, .hsub = 1, .vsub = 1, .is_yuv = true },
++		{ .format = DRM_FORMAT_XVUY2101010,     .depth = 0,  .num_planes = 1, .cpp = { 4, 0, 0 }, .hsub = 1, .vsub = 1, .is_yuv = true },
+ 		{ .format = DRM_FORMAT_AYUV,		.depth = 0,  .num_planes = 1, .cpp = { 4, 0, 0 }, .hsub = 1, .vsub = 1, .has_alpha = true, .is_yuv = true },
+ 		{ .format = DRM_FORMAT_Y210,            .depth = 0,  .num_planes = 1, .cpp = { 4, 0, 0 }, .hsub = 2, .vsub = 1, .is_yuv = true },
+ 		{ .format = DRM_FORMAT_Y212,            .depth = 0,  .num_planes = 1, .cpp = { 4, 0, 0 }, .hsub = 2, .vsub = 1, .is_yuv = true },
+diff --git a/include/uapi/drm/drm_fourcc.h b/include/uapi/drm/drm_fourcc.h
+index 385da5942716..2c8f5d637e16 100644
+--- a/include/uapi/drm/drm_fourcc.h
++++ b/include/uapi/drm/drm_fourcc.h
+@@ -264,6 +264,7 @@ extern "C" {
+ #define DRM_FORMAT_XVUY8888	fourcc_code('X', 'V', 'U', 'Y') /* [31:0] X:Cr:Cb:Y 8:8:8:8 little endian */
+ #define DRM_FORMAT_VUY888	fourcc_code('V', 'U', '2', '4') /* [23:0] Cr:Cb:Y 8:8:8 little endian */
+ #define DRM_FORMAT_VUY101010	fourcc_code('V', 'U', '3', '0') /* Y followed by U then V, 10:10:10. Non-linear modifier only */
++#define DRM_FORMAT_XVUY2101010	fourcc_code('X', 'Y', '3', '0') /* [31:0] x:Cr:Cb:Y 2:10:10:10 little endian */
  
- 	for (i = 0; i < info->num_planes; i++) {
--		unsigned int width = state->crtc_w / (i ? info->hsub : 1);
--		unsigned int height = state->crtc_h / (i ? info->vsub : 1);
- 		struct zynqmp_disp_layer_dma *dma = &layer->dmas[i];
- 		struct dma_async_tx_descriptor *desc;
- 		dma_addr_t dma_addr;
-+		unsigned int width;
-+		unsigned int height;
-+
-+		width = drm_format_info_plane_width(info, state->crtc_w, i);
-+		height = drm_format_info_plane_height(info, state->crtc_h, i);
- 
- 		dma_addr = drm_fb_dma_get_gem_addr(state->fb, state, i);
- 
- 		dma->xt.numf = height;
--		dma->sgl.size = width * info->cpp[i];
-+		dma->sgl.size = drm_format_info_min_pitch(info, i, width);
- 		dma->sgl.icg = state->fb->pitches[i] - dma->sgl.size;
- 		dma->xt.src_start = dma_addr;
- 		dma->xt.frame_size = 1;
+ /*
+  * packed Y2xx indicate for each component, xx valid data occupy msb
 
 -- 
 2.43.0
