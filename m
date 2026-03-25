@@ -4,56 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DAFC8106B50E
-	for <dri-devel@archiver.kernel.org>; Wed, 25 Mar 2026 12:12:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0B5D7106B50D
+	for <dri-devel@archiver.kernel.org>; Wed, 25 Mar 2026 12:12:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3D66910E88A;
-	Wed, 25 Mar 2026 12:12:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 662B810E214;
+	Wed, 25 Mar 2026 12:12:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="IsJuwkgG";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="V/jWgnNh";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 183D310E87F;
- Wed, 25 Mar 2026 12:12:09 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7D96F10E890;
+ Wed, 25 Mar 2026 12:12:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1774440729; x=1805976729;
+ t=1774440735; x=1805976735;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=WcVoh6Yiisa5db2/ihYbE8WTvvuTN9O8uPGE2C3efv8=;
- b=IsJuwkgGFWzYf02JSlaeBUs78jc6f/j+w9mkiTDvM0S8DYVHrWBflcSY
- OzZ5PMW8PXJocUB4vMkq+iuhhZZHklT1xt8ml/WIVZKVqR9hzJH2xh/qa
- c37xkxPpjJvUcha7ym+jwpk8XMJ0YRp/29TezKEifm4ygirNSjxruSSY4
- kobm42FFq2kgqJjPAhDEsZJuye4u3o0RNE3J0lPqE2wfS/mU8Hb9o8q8Y
- NBjD7nI5yIAsPzE30FoxkVmEQkqMkh7QmEKCdf7DaJN+NjXs0dcozFtpn
- T1/TlgzraqeWaEndxewZEKWH3DeR043sUFDwIeu3mwNHg9ziMNFO27GZ0 A==;
-X-CSE-ConnectionGUID: 1GNz3mNIQg+YYSFHLH3bbA==
-X-CSE-MsgGUID: /CNHPIT6Q+qWi1s3edQoAg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11739"; a="63022394"
-X-IronPort-AV: E=Sophos;i="6.23,140,1770624000"; d="scan'208";a="63022394"
+ bh=jvOIzA1WV+mz9tDjj02acqLmRUuHO3GCbd0rS4IJQ6w=;
+ b=V/jWgnNhmw8d1c9FbCekumBI4u06byA20e5hn4e01OatSo2WdBNsX6uD
+ MGLpzB5XA8ITmrf8mBMIIZCHoxvAhLzvH77aeKZM6G0sfJPlbN9h8GV8U
+ 8vAyVyf9+GcHOZlH8m5I35B32AId2GV5JX87KigEYFL+3tz4Xeoxffy38
+ IAq6JgLlvZ44xv5617UnX+kS7vqfFjawACFaoYyx9hNXcdlBlHi71LxQR
+ wsLz1/tmuI5LYyVK/agJ+cEJeLzuffiCP0tGStR80xkvoj0w13OlY6CUa
+ EO0IRNEeMJyhVES/oemTChBceAJMPbFxk7v5Yt/VScJPBBk3iCANszpEf w==;
+X-CSE-ConnectionGUID: JRQAkUzwTMmlekM7twwgkQ==
+X-CSE-MsgGUID: gxn5luZ/TqyTl77KSUZ1QQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11739"; a="63022443"
+X-IronPort-AV: E=Sophos;i="6.23,140,1770624000"; d="scan'208";a="63022443"
 Received: from orviesa008.jf.intel.com ([10.64.159.148])
  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Mar 2026 05:12:08 -0700
-X-CSE-ConnectionGUID: P/nemmyJRiyY36K68Ih2Sg==
-X-CSE-MsgGUID: 5cWwdR0dSpGuA+ccVyBYfA==
+ 25 Mar 2026 05:12:15 -0700
+X-CSE-ConnectionGUID: c08ewhVSQUuvI1CuD8WBAg==
+X-CSE-MsgGUID: lSuA7RmtS6C7LqFPQYYnng==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,140,1770624000"; d="scan'208";a="224673436"
+X-IronPort-AV: E=Sophos;i="6.23,140,1770624000"; d="scan'208";a="224673462"
 Received: from srr4-3-linux-101-amanna.iind.intel.com ([10.223.74.76])
- by orviesa008.jf.intel.com with ESMTP; 25 Mar 2026 05:12:06 -0700
+ by orviesa008.jf.intel.com with ESMTP; 25 Mar 2026 05:12:13 -0700
 From: Animesh Manna <animesh.manna@intel.com>
 To: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org
 Cc: jouni.hogander@intel.com, imre.deak@intel.com, jani.nikula@intel.com,
  arun.r.murthy@intel.com, Animesh Manna <animesh.manna@intel.com>
-Subject: [PATCH v9 1/3] drm/i915/display: Add drm helper to check pr
- optimization support
-Date: Wed, 25 Mar 2026 17:11:52 +0530
-Message-Id: <20260325114154.3688550-2-animesh.manna@intel.com>
+Subject: [PATCH v9 3/3] drm/i915/display: Panel Replay BW optimization for
+ DP2.0 tunneling
+Date: Wed, 25 Mar 2026 17:11:54 +0530
+Message-Id: <20260325114154.3688550-4-animesh.manna@intel.com>
 X-Mailer: git-send-email 2.29.0
 In-Reply-To: <20260325114154.3688550-1-animesh.manna@intel.com>
 References: <20260325114154.3688550-1-animesh.manna@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -70,86 +69,113 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add api to check panel replay optimization supported or not to
-drm-core DP tunneling framework which can be used by other driver
-as well.
+Unused bandwidth can be used by external display agents for Panel Replay
+enabled DP panel during idleness with link on. Enable source to replace
+dummy data from the display with data from another agent by programming
+TRANS_DP2_CTL [Panel Replay Tunneling Enable].
 
-v2: Split generic drm changes from Intel specific changes. [Jouni]
+v2:
+- Enable pr bw optimization along with panel replay enable. [Jani]
 
-Reviewed-by: Jouni Högander <jouni.hogander@intel.com>
-Suggested-by: Imre Deak <imre.deak@intel.com>
+v3:
+- Write TRANS_DP2_CTL once for both bw optimization and panel replay
+enable. [Jani]
+
+v4:
+- Read DPCD once in init() and store in panel_replay_caps. [Jouni]
+
+v5:
+- Avoid reading DPCD for edp. [Jouni]
+- Use drm_dp_dpcd_read_byte() and some cosmetic changes. [Jani]
+
+v6:
+- Extend the corresponding interface defined in drm_dp_tunnel.c
+to query the Panel Replay optimization capability. [Imre]
+
+v7:
+- Clear TRANS_DP2_PR_TUNNELING_ENABLE if pr bw optimization
+is not allowed. [Jouni]
+- Move intel_dp_is_edp() check. [Jouni]
+
+Bspec: 68920
+Reviewed-by: Arun R Murthy <arun.r.murthy@intel.com>
 Signed-off-by: Animesh Manna <animesh.manna@intel.com>
 ---
- drivers/gpu/drm/display/drm_dp_tunnel.c | 17 +++++++++++++++++
- include/drm/display/drm_dp_tunnel.h     |  6 ++++++
- 2 files changed, 23 insertions(+)
+ .../gpu/drm/i915/display/intel_display_regs.h |  1 +
+ drivers/gpu/drm/i915/display/intel_psr.c      | 25 +++++++++++++++++--
+ 2 files changed, 24 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/display/drm_dp_tunnel.c b/drivers/gpu/drm/display/drm_dp_tunnel.c
-index f442430d8de7..39c07cb4123b 100644
---- a/drivers/gpu/drm/display/drm_dp_tunnel.c
-+++ b/drivers/gpu/drm/display/drm_dp_tunnel.c
-@@ -149,6 +149,7 @@ struct drm_dp_tunnel {
- 	bool bw_alloc_enabled:1;
- 	bool has_io_error:1;
- 	bool destroyed:1;
-+	bool pr_optimization_support:1;
- };
+diff --git a/drivers/gpu/drm/i915/display/intel_display_regs.h b/drivers/gpu/drm/i915/display/intel_display_regs.h
+index 4746e9ebd920..dada8dc27ea4 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_regs.h
++++ b/drivers/gpu/drm/i915/display/intel_display_regs.h
+@@ -2263,6 +2263,7 @@
+ #define TRANS_DP2_CTL(trans)			_MMIO_TRANS(trans, _TRANS_DP2_CTL_A, _TRANS_DP2_CTL_B)
+ #define  TRANS_DP2_128B132B_CHANNEL_CODING	REG_BIT(31)
+ #define  TRANS_DP2_PANEL_REPLAY_ENABLE		REG_BIT(30)
++#define  TRANS_DP2_PR_TUNNELING_ENABLE		REG_BIT(26)
+ #define  TRANS_DP2_DEBUG_ENABLE			REG_BIT(23)
  
- struct drm_dp_tunnel_group_state;
-@@ -508,6 +509,8 @@ create_tunnel(struct drm_dp_tunnel_mgr *mgr,
- 
- 	tunnel->bw_alloc_supported = tunnel_reg_bw_alloc_supported(regs);
- 	tunnel->bw_alloc_enabled = tunnel_reg_bw_alloc_enabled(regs);
-+	tunnel->pr_optimization_support = tunnel_reg(regs, DP_TUNNELING_CAPABILITIES) &
-+					  DP_PANEL_REPLAY_OPTIMIZATION_SUPPORT;
- 
- 	if (!add_tunnel_to_group(mgr, drv_group_id, tunnel)) {
- 		kfree(tunnel);
-@@ -1036,6 +1039,20 @@ bool drm_dp_tunnel_bw_alloc_is_enabled(const struct drm_dp_tunnel *tunnel)
- }
- EXPORT_SYMBOL(drm_dp_tunnel_bw_alloc_is_enabled);
- 
-+/**
-+ * drm_dp_tunnel_pr_optimization_supported - Query the PR BW optimization support
-+ * @tunnel: Tunnel object
-+ *
-+ * Query if the PR BW optimization is supported for @tunnel.
-+ *
-+ * Returns %true if the PR BW optimiation is supported for @tunnel.
-+ */
-+bool drm_dp_tunnel_pr_optimization_supported(const struct drm_dp_tunnel *tunnel)
-+{
-+	return tunnel && tunnel->pr_optimization_support;
-+}
-+EXPORT_SYMBOL(drm_dp_tunnel_pr_optimization_supported);
-+
- static int clear_bw_req_state(struct drm_dp_aux *aux)
- {
- 	u8 bw_req_mask = DP_BW_REQUEST_SUCCEEDED | DP_BW_REQUEST_FAILED;
-diff --git a/include/drm/display/drm_dp_tunnel.h b/include/drm/display/drm_dp_tunnel.h
-index 87212c847915..4aa3ce9fd829 100644
---- a/include/drm/display/drm_dp_tunnel.h
-+++ b/include/drm/display/drm_dp_tunnel.h
-@@ -53,6 +53,7 @@ int drm_dp_tunnel_destroy(struct drm_dp_tunnel *tunnel);
- int drm_dp_tunnel_enable_bw_alloc(struct drm_dp_tunnel *tunnel);
- int drm_dp_tunnel_disable_bw_alloc(struct drm_dp_tunnel *tunnel);
- bool drm_dp_tunnel_bw_alloc_is_enabled(const struct drm_dp_tunnel *tunnel);
-+bool drm_dp_tunnel_pr_optimization_supported(const struct drm_dp_tunnel *tunnel);
- int drm_dp_tunnel_alloc_bw(struct drm_dp_tunnel *tunnel, int bw);
- int drm_dp_tunnel_get_allocated_bw(struct drm_dp_tunnel *tunnel);
- int drm_dp_tunnel_update_state(struct drm_dp_tunnel *tunnel);
-@@ -140,6 +141,11 @@ static inline bool drm_dp_tunnel_bw_alloc_is_enabled(const struct drm_dp_tunnel
- 	return false;
+ #define _TRANS_DP2_VFREQHIGH_A			0x600a4
+diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
+index c13116e6f17f..992bd9ffac70 100644
+--- a/drivers/gpu/drm/i915/display/intel_psr.c
++++ b/drivers/gpu/drm/i915/display/intel_psr.c
+@@ -44,6 +44,7 @@
+ #include "intel_dmc.h"
+ #include "intel_dp.h"
+ #include "intel_dp_aux.h"
++#include "intel_dp_tunnel.h"
+ #include "intel_dsb.h"
+ #include "intel_frontbuffer.h"
+ #include "intel_hdmi.h"
+@@ -1023,11 +1024,27 @@ static u8 frames_before_su_entry(struct intel_dp *intel_dp)
+ 	return frames_before_su_entry;
  }
  
-+static inline bool drm_dp_tunnel_pr_optimization_supported(const struct drm_dp_tunnel *tunnel)
++static bool intel_psr_allow_pr_bw_optimization(struct intel_dp *intel_dp)
 +{
-+	return false;
++	if (intel_dp_is_edp(intel_dp))
++		return false;
++
++	if (!intel_dp_tunnel_bw_alloc_is_enabled(intel_dp))
++		return false;
++
++	if (!intel_dp_tunnel_pr_optimization_supported(intel_dp))
++		return false;
++
++	return true;
 +}
 +
- static inline int
- drm_dp_tunnel_alloc_bw(struct drm_dp_tunnel *tunnel, int bw)
+ static void dg2_activate_panel_replay(struct intel_dp *intel_dp)
  {
+ 	struct intel_display *display = to_intel_display(intel_dp);
+ 	struct intel_psr *psr = &intel_dp->psr;
+ 	enum transcoder cpu_transcoder = intel_dp->psr.transcoder;
++	u32 dp2_ctl_set = TRANS_DP2_PANEL_REPLAY_ENABLE;
++	u32 dp2_ctl_clear = 0;
+ 
+ 	if (intel_dp_is_edp(intel_dp) && psr->sel_update_enabled) {
+ 		u32 val = psr->su_region_et_enabled ?
+@@ -1040,12 +1057,16 @@ static void dg2_activate_panel_replay(struct intel_dp *intel_dp)
+ 			       val);
+ 	}
+ 
++	if (intel_psr_allow_pr_bw_optimization(intel_dp))
++		dp2_ctl_set |= TRANS_DP2_PR_TUNNELING_ENABLE;
++	else
++		dp2_ctl_clear = TRANS_DP2_PR_TUNNELING_ENABLE;
++
+ 	intel_de_rmw(display,
+ 		     PSR2_MAN_TRK_CTL(display, intel_dp->psr.transcoder),
+ 		     0, ADLP_PSR2_MAN_TRK_CTL_SF_CONTINUOS_FULL_FRAME);
+ 
+-	intel_de_rmw(display, TRANS_DP2_CTL(intel_dp->psr.transcoder), 0,
+-		     TRANS_DP2_PANEL_REPLAY_ENABLE);
++	intel_de_rmw(display, TRANS_DP2_CTL(intel_dp->psr.transcoder), dp2_ctl_clear, dp2_ctl_set);
+ }
+ 
+ static void hsw_activate_psr2(struct intel_dp *intel_dp)
 -- 
 2.29.0
 
