@@ -4,71 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9C8C2103A9AD
-	for <dri-devel@archiver.kernel.org>; Wed, 25 Mar 2026 11:44:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 16F82106B503
+	for <dri-devel@archiver.kernel.org>; Wed, 25 Mar 2026 11:51:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 056C110E7D1;
-	Wed, 25 Mar 2026 11:44:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6C2AB10E218;
+	Wed, 25 Mar 2026 11:51:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="kvvAHspv";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="F8VoBQpQ";
 	dkim-atps=neutral
-Received: from mail-ed1-f73.google.com (mail-ed1-f73.google.com
- [209.85.208.73])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 725CB10E7D1
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Mar 2026 11:44:26 +0000 (UTC)
-Received: by mail-ed1-f73.google.com with SMTP id
- 4fb4d7f45d1cf-668c932088fso6954047a12.1
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Mar 2026 04:44:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20251104; t=1774439065; x=1775043865;
- darn=lists.freedesktop.org; 
- h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
- :date:from:to:cc:subject:date:message-id:reply-to;
- bh=xUNk5DBarhia0VP1Ved6SPUtX2O9K1Wf39PDjoKefxc=;
- b=kvvAHspvHg6SttDRRKuSQJSK69WuFc0BLUiEq2M6neGUGZXQmLRAgukcL/ux5mhUyI
- 3uwclg5fWXEo7aoPhBOP3DsOnBZVvHARSJMMNJe+K+RB8ifPbBt22ynUkLluSu5kc8RW
- yHx/7CFO39wisW2+JmNXoCa2MMjOm5lZtx6DVPdc87p3+d4LOSJKGAo7l+L1OntqcnOr
- yfUywMb32m4TVgFAFfF8NCbjaWSHAqjQ9WCB9v3JPcnPJzpwpLvSrKEJTvavqzyVGz0y
- rzgBKW8FGnO2dk2ju/QD8GSPML86KhfQj2CAMPwwL9BpX8vpn8/REMMLGRFMsSFJwI/V
- iAcA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774439065; x=1775043865;
- h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
- :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=xUNk5DBarhia0VP1Ved6SPUtX2O9K1Wf39PDjoKefxc=;
- b=GqONyAS93I/jwhTWOKxUZ1pFV7LDP0w/K9PTGMZxD7reOUHMid2OjDKvfzMboEtznB
- btCyyxU0hysE/xcC4971gE9U3oTbBYnkvsaqMm8CuMRlZ6P45W6Gp9Wunk+WE4K+mSAf
- +6qLfb0QZPbjse4Ma1cpFoCe1djwTY2BWQZHh7bIRNnb17+hTTgpftJzNlXiMkIxMYRv
- n+cxyohcs2DoEIi5CI2Xgf+W53wMtu18vE4AKtsGElcdrD28Fwp6/UMOv3BuAvNODYBN
- aeGGTW/DMoEGSX9Awx0ujSA3TDE0vCG24JY64jJnebx0Yo9BYM2yJmoVFpYBkX8qEtHu
- pO5g==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWdvPulgcN6SgayER6c10/SkzaFQjwULuvEtTklsuQP1KhCWtFaDZ2okGxkSmB4TJIIjR8qe8sMhPs=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzZ6sK330GfYjnz2DxOQLRzEeTMPUZuSrd0rByPi6HikN4UboaP
- Y+mAnapRGrFnlTGpX5c3N66RoLVfUb5q1IZzJYaVFkBdbIbbh66vsIj2ydCaybmzXW3QNtDWd5o
- XavFho4poE+7x8D/Qww==
-X-Received: from edgg21.prod.google.com ([2002:a05:6402:1ed5:b0:668:8a5e:6647])
- (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6402:2116:b0:667:7fcb:3a2c with SMTP id
- 4fb4d7f45d1cf-66a826b30b2mr2152133a12.24.1774439064945; 
- Wed, 25 Mar 2026 04:44:24 -0700 (PDT)
-Date: Wed, 25 Mar 2026 11:44:23 +0000
-In-Reply-To: <20260325003921.3420-1-dakr@kernel.org>
-Mime-Version: 1.0
-References: <20260325003921.3420-1-dakr@kernel.org>
-Message-ID: <acPKl5HXwd6e4Sl2@google.com>
-Subject: Re: [PATCH 1/3] rust: uaccess: generalize write_dma() to accept any
- Coherent<T>
-From: Alice Ryhl <aliceryhl@google.com>
-To: Danilo Krummrich <dakr@kernel.org>
-Cc: acourbot@nvidia.com, abdiel.janulgue@gmail.com, 
- daniel.almeida@collabora.com, robin.murphy@arm.com, a.hindborg@kernel.org, 
- ojeda@kernel.org, boqun@kernel.org, gary@garyguo.net, 
- bjorn3_gh@protonmail.com, lossin@kernel.org, tmgross@umich.edu, 
- ttabi@nvidia.com, nouveau@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- driver-core@lists.linux.dev, rust-for-linux@vger.kernel.org
-Content-Type: text/plain; charset="utf-8"
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6455B10E218;
+ Wed, 25 Mar 2026 11:51:27 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id B3E2143A4F;
+ Wed, 25 Mar 2026 11:51:26 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F905C2BCB2;
+ Wed, 25 Mar 2026 11:51:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1774439486;
+ bh=ijQZYkQ8huX8bzZfiuwKK5l/O+taUFGXBf7mUcCwX/o=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=F8VoBQpQxXDFHPLwjgn+FimF064VYiGnb02ISTZuo7sMCK/Or3p4aIxqTZnuLA+uL
+ /r3T+Vz7lEc5yc54KjVTpnI+VbV4XN+l9Nl46axhDOOVHgzVdpo/UGmLK8hQXPEUNR
+ ynBx5dd5yG3uJQWeeWTgH1cW2In1W0YVJ8QoBnAUk6K4WIL8a0REi+e01oXpRwalXe
+ gSeFc6w+k+DbJNNIa/GojyKKWjfTcx03289D4/2LfiEs6Mel5pKCUogETaR2OKLgYy
+ 1ahoOxct2eimH12qdt9HBRcDZVXFXVZm9/7QyfTkESgul2vKzgUyr+V1bDmNBkVBYO
+ nsJxO9bsBzs0w==
+Date: Wed, 25 Mar 2026 17:21:14 +0530
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Vladimir Oltean <vladimir.oltean@nxp.com>
+Cc: linux-phy@lists.infradead.org, Vinod Koul <vkoul@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, 
+ linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
+ linux-can@vger.kernel.org, 
+ linux-gpio@vger.kernel.org, linux-ide@vger.kernel.org,
+ linux-kernel@vger.kernel.org, 
+ linux-media@vger.kernel.org, linux-pci@vger.kernel.org,
+ linux-renesas-soc@vger.kernel.org, 
+ linux-riscv@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+ linux-samsung-soc@vger.kernel.org, linux-scsi@vger.kernel.org,
+ linux-sunxi@lists.linux.dev, 
+ linux-tegra@vger.kernel.org, linux-usb@vger.kernel.org, netdev@vger.kernel.org,
+ spacemit@lists.linux.dev, UNGLinuxDriver@microchip.com, 
+ "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
+ "Martin K. Petersen" <martin.petersen@oracle.com>, 
+ Nitin Rawat <quic_nitirawa@quicinc.com>
+Subject: Re: [PATCH v5 phy-next 10/27] scsi: ufs: qcom: keep parallel track
+ of PHY power state
+Message-ID: <vu3cxpynr5mu2fzkrtmjcwijc5jz323wlnbc3r7lp2wxqmhydx@z5xhgf4myw2d>
+References: <20260319223241.1351137-1-vladimir.oltean@nxp.com>
+ <20260319223241.1351137-11-vladimir.oltean@nxp.com>
+ <ezrcjjwtg5n76w4m65l27szu5mywx66ti3xuprkfcp3x6quvbf@2rew4zrnnbt2>
+ <20260325114309.3k7xkfrffpxp5xq4@skbuf>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260325114309.3k7xkfrffpxp5xq4@skbuf>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,12 +77,50 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Mar 25, 2026 at 01:39:15AM +0100, Danilo Krummrich wrote:
-> Generalize write_dma() from &Coherent<[u8]> to &Coherent<T> where
-> T: KnownSize + AsBytes + ?Sized. The function body only uses as_ptr()
-> and size(), which work for any such T, so there is no reason to
-> restrict it to byte slices.
+On Wed, Mar 25, 2026 at 01:43:09PM +0200, Vladimir Oltean wrote:
+> On Tue, Mar 24, 2026 at 11:00:10AM +0530, Manivannan Sadhasivam wrote:
+> > On Fri, Mar 20, 2026 at 12:32:24AM +0200, Vladimir Oltean wrote:
+> > > As explained in the similar ufs-exynos.c change, PHY consumer drivers
+> > > should not look at the phy->power_count, because in the general case
+> > > there might also be other consumers who have called phy_power_on() too,
+> > > so the fact that the power_count is non-zero does not mean that we did.
+> > > 
+> > > Moreover, struct phy will become opaque soon, so the qcom UFS driver
+> > > will not be able to apply this pattern. Keep parallel track of the PHY
+> > > power state, instead of looking at a field which will become unavailable
+> > > (phy->power_count).
+> > > 
+> > > About treating the phy_power_off() return code: from an API perspective,
+> > > this should have probably returned void, otherwise consumers would be
+> > > stuck in a state they can't escape. The provider, phy-qcom-qmp-ufs.c,
+> > > does return 0 in its power_off() implementation. I consider it safe to
+> > > discard potential errors from phy_power_off() instead of complicating
+> > > the phy_powered_on logic.
+> > > 
+> > 
+> > You could even simplify the code by getting rid of the 'phy_powered_on' check
+> > altogether. There is no real need to track the PHY power state in this driver.
+> > It is safe to call phy_power_off() without any checks.
+> > 
+> > - Mani
 > 
-> Signed-off-by: Danilo Krummrich <dakr@kernel.org>
+> Ok.. as the author of commit 7bac65687510 ("scsi: ufs: qcom: Power off
+> the PHY if it was already powered on in ufs_qcom_power_up_sequence()"),
+> I assume you have hardware to test. Would you mind writing a patch that
+> I could pick up to replace this one with?
+> 
 
-Reviewed-by: Alice Ryhl <aliceryhl@google.com>
+Sure, will do.
+
+> I suppose that the power_count test is somehow no longer necessary after
+> commit 77d2fa54a945 ("scsi: ufs: qcom : Refactor phy_power_on/off
+> calls"), but frankly I don't see it - the ufshcd state machine is a bit
+> too complicated for me to just statically analyze.
+
+I believe I added the power_count check for phy_exit(). But since that got
+moved, the check becomes no longer necessary.
+
+- Mani
+
+-- 
+மணிவண்ணன் சதாசிவம்
