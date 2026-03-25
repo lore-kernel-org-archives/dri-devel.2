@@ -4,64 +4,161 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AB866FEA82E
-	for <dri-devel@archiver.kernel.org>; Wed, 25 Mar 2026 08:04:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CA0F8FEA831
+	for <dri-devel@archiver.kernel.org>; Wed, 25 Mar 2026 08:08:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0D80910E80E;
-	Wed, 25 Mar 2026 08:04:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C7C9B10E812;
+	Wed, 25 Mar 2026 08:08:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=icenowy.me header.i=uwu@icenowy.me header.b="Sl6z+LVf";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="E2eYzBKz";
 	dkim-atps=neutral
-Received: from sender4-op-o12.zoho.com (sender4-op-o12.zoho.com
- [136.143.188.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 407E810E80E
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Mar 2026 08:04:16 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1774425848; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=EgJc1itclomWbWoYY1L0OXodJvSl3a1QmTBciFyHoo53RSblmuzqjezxGM3ARt34orpOu1t8h1NUM51T6pu639Te5wEhsJ+/78IKnSZ+FspgYAoHBppJJYzBY9EzBg0N+wQ904fE5IJhMu6iyd9sR1eRy5ksKwaQaI7RhGmjDG4=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1774425848;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=045P43LH4bNvn5f+Wj8qPpIAq39tX2DOOtWxfqbqqi4=; 
- b=UMYXmhZFE8dvtG54X+chFjKgsOiilppx6SVhpLEWoRvSVndcUzaOC82upwF500bi67FboElP+JoJSlg7G0p8a9Yz2GxcGb7cYhfJ3FVNtfT86FxYcCyPShFDeY0pKEYWNWrHqE/Gbz29ovEBO/IRLrMSsllWD1kArypBdm58dOg=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=icenowy.me;
- spf=pass  smtp.mailfrom=uwu@icenowy.me;
- dmarc=pass header.from=<uwu@icenowy.me>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1774425847; 
- s=zmail2; d=icenowy.me; i=uwu@icenowy.me;
- h=Message-ID:Subject:Subject:From:From:To:To:Cc:Cc:Date:Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:MIME-Version:Message-Id:Reply-To;
- bh=045P43LH4bNvn5f+Wj8qPpIAq39tX2DOOtWxfqbqqi4=;
- b=Sl6z+LVf4xDcYVH/a1jR9lE/BTcZh/OoV71DF1S4GAgqSxXkwDYhpb2ZybFVGIE7
- Hc50FGhvDt/TJPOsZv7dhOhsfYf+Wbp5lPlfCn42tkY2mRs3ezuex+5ci1hQaB/uOBC
- Ah5RS9ptrfwqvP2/rQugPjOfNRKQzduPClQNe+KEins/36S8XH5db3rjSG/sd8qKbY8
- QZQWcRkctSSY8cKd0WT8rAxZ4SqOwunhcRuBmfu5/6Rp9ZpLufvZmAywygwzSM4IxSI
- JCNRQ1+L6xUX7NoM7Msgfr5PEnHx3mNQ8YW9YxmG8i8AMN3TYmYVRTYrTtT17WRT/or
- 4ugIoE/5jw==
-Received: by mx.zohomail.com with SMTPS id 1774425845845509.8994376356012;
- Wed, 25 Mar 2026 01:04:05 -0700 (PDT)
-Message-ID: <93c1d325461cc0ffad890d64870de680506338c4.camel@icenowy.me>
-Subject: Re: [PATCH v2 0/5] powervr: MT8173 GPU support
-From: Icenowy Zheng <uwu@icenowy.me>
-To: Chen-Yu Tsai <wenst@chromium.org>, Stephen Boyd <sboyd@kernel.org>, 
- Matthias Brugger <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno
- <angelogioacchino.delregno@collabora.com>,  Frank Binns
- <frank.binns@imgtec.com>, Matt Coster <matt.coster@imgtec.com>, Maarten
- Lankhorst	 <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>,  Thomas Zimmermann <tzimmermann@suse.de>
-Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-mediatek@lists.infradead.org, dri-devel@lists.freedesktop.org, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Date: Wed, 25 Mar 2026 16:03:57 +0800
-In-Reply-To: <20260325071951.544031-1-wenst@chromium.org>
-References: <20260325071951.544031-1-wenst@chromium.org>
-Organization: Anthon Open-Source Community
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B248F10E4EC;
+ Wed, 25 Mar 2026 08:08:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1774426091; x=1805962091;
+ h=message-id:date:subject:to:cc:references:from:
+ in-reply-to:content-transfer-encoding:mime-version;
+ bh=3dWXmSPmLOJi3JHUkJbg4AMM50iD70r3J4OAHCP+bO8=;
+ b=E2eYzBKzGFY+R1neDvV7CBYlF0JYIGT4sFDD4n18rdFXA+bAqa4kei1K
+ XtlJUeJq6ydclQs8bOUOEJxJvASp6ZgbRah8DrqQvA6bGIU3jCB8WxuE4
+ 1s5wQs8ATU9oXRADvuJnl2P8/2zxV889j3fZakLtKffXEdGVzVvIGY3YW
+ mIAWjT9V35F59GErKKo8eGXfXkLqVdHWgjwFI1nEfY5qq1L4uRdVBhFLY
+ HrdHnYoKlLqzz71SU7ka/r6ooCJ9ULwLSxTSIWUenv8bQHGMRIVhl3m0c
+ rbZle2VsHnxvUJOC50SB3BJRTedk1sxCVQw78qTIM41leWB9sMAYs1iEJ Q==;
+X-CSE-ConnectionGUID: E1xah7amQ7qEGjbsLE8wBw==
+X-CSE-MsgGUID: 4clnbkfBR3W+aq354yH36g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11739"; a="86151692"
+X-IronPort-AV: E=Sophos;i="6.23,139,1770624000"; d="scan'208";a="86151692"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+ by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Mar 2026 01:08:10 -0700
+X-CSE-ConnectionGUID: Y/W8BrNvTKGLsh4OuJacfg==
+X-CSE-MsgGUID: Fq5FUEuERyqQ51V9ZcjbNQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,139,1770624000"; d="scan'208";a="221278283"
+Received: from fmsmsx903.amr.corp.intel.com ([10.18.126.92])
+ by fmviesa007.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Mar 2026 01:08:10 -0700
+Received: from FMSMSX902.amr.corp.intel.com (10.18.126.91) by
+ fmsmsx903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37; Wed, 25 Mar 2026 01:08:09 -0700
+Received: from fmsedg902.ED.cps.intel.com (10.1.192.144) by
+ FMSMSX902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37 via Frontend Transport; Wed, 25 Mar 2026 01:08:09 -0700
+Received: from BN8PR05CU002.outbound.protection.outlook.com (52.101.57.58) by
+ edgegateway.intel.com (192.55.55.82) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37; Wed, 25 Mar 2026 01:08:09 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=lNqKPtUsjDcZJ339mKLya8HLbAmjjWXVjDu3xG4pnOjK62IzgZrpuW6VkFMwqw6rhHes4750MPnZ6Zrn7knMJePDujmzd2SzmvZxN8A9UVE76RI79YNj9+eC9pwuz7PfQPw92A8SLgdcjTtTdYUh2Q5Ze103YBAla6dWPJ1qUjnbl6JuXRBhKjYCIM8LBDsiji8oSQM+0+GPMR0U9BrzsGDDYw4x6u3SHMn9aGwZwddFrEhJ2By7L1Yzv87ra11SHwVpuG3sNMLrwe0Zie4F+IhqjWyurVD3Ie4Tc+7R+R6X/z6pkMODSM/HkP1h+IBx68evGqezjbru5u1KMGUvmA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=fWByUcqsum8mYn8VMa6EBu776TizX51QJN8/7kSESSI=;
+ b=ZFsQ8iKISFvbx5hIrIMevGFMp1pjkNkAW80c0b4gHoWuUei45RhpEarv8F0wMRrjZQqxL1HrgFeE33rhoWJczzvk0RhOH6w3MKJpX5F6Hf4unzX++aVGGKR/betFaqeJPvjgENLPugXLeVdXJARUfK8VwO718BVeO68AOx5jGX9s6J6ogWI0auWX7zRBnjW1WMa0Hs2PjmAiKspRaZ3tWOUYA9Hzt2qS6e/bFqX5Rohu95rMhXpjfPAjJFO0JVACzWtAAdoYvGqdKtJqdWWN3ClieXwR++2BTKJ0LXzoODH6A0ekQPIsMHyFLlOuFzDp0sPWlaGvLv6kPZvYT1W75A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from DM4PR11MB5341.namprd11.prod.outlook.com (2603:10b6:5:390::22)
+ by DM3PPF607052E81.namprd11.prod.outlook.com (2603:10b6:f:fc00::f26) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.4; Wed, 25 Mar
+ 2026 08:08:07 +0000
+Received: from DM4PR11MB5341.namprd11.prod.outlook.com
+ ([fe80::68b9:ea3c:8166:3cc4]) by DM4PR11MB5341.namprd11.prod.outlook.com
+ ([fe80::68b9:ea3c:8166:3cc4%4]) with mapi id 15.20.9723.013; Wed, 25 Mar 2026
+ 08:08:07 +0000
+Message-ID: <6bf0994e-b662-47ae-a542-eaaf92180d16@intel.com>
+Date: Wed, 25 Mar 2026 13:38:00 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 12/19] drm/i915/psr: Write the PR config DPCDs in burst
+ mode
+To: =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
+CC: <intel-gfx@lists.freedesktop.org>, <intel-xe@lists.freedesktop.org>,
+ <dri-devel@lists.freedesktop.org>, <jouni.hogander@intel.com>,
+ <animesh.manna@intel.com>
+References: <20260311113611.3393194-1-ankit.k.nautiyal@intel.com>
+ <20260311113611.3393194-13-ankit.k.nautiyal@intel.com>
+ <abQEUmV5SZVWCAX7@intel.com>
+Content-Language: en-US
+From: "Nautiyal, Ankit K" <ankit.k.nautiyal@intel.com>
+In-Reply-To: <abQEUmV5SZVWCAX7@intel.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: MA5P287CA0229.INDP287.PROD.OUTLOOK.COM
+ (2603:1096:a01:1b1::9) To DM4PR11MB5341.namprd11.prod.outlook.com
+ (2603:10b6:5:390::22)
 MIME-Version: 1.0
-X-ZohoMailClient: External
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM4PR11MB5341:EE_|DM3PPF607052E81:EE_
+X-MS-Office365-Filtering-Correlation-Id: e4bbe773-4c40-446a-8101-08de8a45a5d8
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|376014|366016|18002099003|7053199007|56012099003|22082099003;
+X-Microsoft-Antispam-Message-Info: bxNgv60iuOufvGN38PfsFY+FyB401Sb/t02z6jzoYb/8r550hCXXTZ/TOrrXMd3nxpzrl+4PrdNaIli74dUBIeN2NPe372l+Nx6Q5bCLoL744Gy2YRISeK/4aX3mdoJ3+GmNeOVUUAyDFUAktGnOxTzftA2ooTsC3YhcHpKRrQf4ZFQGB63K24a2ARFQfKeFv0h2k5vlix62i0NZodWSxmtsBzhrNBeCijpwV8XK7qUoMaG8eHhjg3XFe0zBqLRU3P0VQL6h7sTveayUSpNQ/+sUWPeeKT8MmnYo9VEp16V3YvTMk+pJYsfSzPqsjINb6zj07g49CVYvpShn62rZ+ld2m5enHZKc07tP6+Zn9JHz9TMeE5T3LIsNLsH7+1DJ8W2m8SNCMcCKVX0BhZmOUMAmKNwsZgcqVnLFK8YW57WVjyZp0zycrf2gflCRk/2VqNqASml+E5eZ62Uu2xaWGElK47xNPD2SyId4t1OhreYLolb9lI5F4X8WYNsYu8vTEDIaIe/BKSZ7kpr+w8C6kiPh0tfi1PYuBuiHHo0FwGyxOEiQJ8zjTfF6B4MkeYZUs0tbMJ9HmMDWUU5L1jWCEWYzGsBH+Jpyc8xGPCn7dCXcwB5O1bfrG7pK0xiAQiyHyU61KjeUtotzCU4bFmrQzz99Bw9rTMxpUN1wAgl0OYF0WhLMAeoRTbxawrp270WFlr6AH91HPS6najXLcENdvec4cU4mdhHXc7ST2scFfjA=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM4PR11MB5341.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(366016)(18002099003)(7053199007)(56012099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NG9ZUlNRdlQxeGowbjVXbGwvTFMxOVlzdXpDa0h3T0dkM3NwWGxaZmxETVhO?=
+ =?utf-8?B?V3liaVc3WlVIODJQbjdkdmhnS1grUzhoTEM5QjZ3cEp1WW1tcm1Ra09DK29B?=
+ =?utf-8?B?K0llU3l0VnRncHBUVTBaSVFBTzdod0pRSWtSRXQ0elczd09qbjFvVVBGckw3?=
+ =?utf-8?B?TVFnbS92WWl1UnFmT3c5NGRSUElzeHgrRmEycUhKYWlKQnRVYm8weU44VHpv?=
+ =?utf-8?B?ZUY3bDBOSkdKME5MRkJvYU12eVpyRHRmb3VVWFlNdlN2M2F0eEkwR3Y3cUxq?=
+ =?utf-8?B?UVQ2VXM0TmVzV0xXNUN1K3ZoZmFxbWM1M1Y1TnRpWU9UbHlQTHBQVURFaEEy?=
+ =?utf-8?B?eHBLbTE1dmRDYUtUS3lYNk1TYjJRTGtCNFJPOU9pVXVsUG5RM0lGcGN5cVhB?=
+ =?utf-8?B?ZEhuaXNSaW42ekdxOGdxTnk4TFpHcFV4a2grMWFnakNXbXdFc0tXbU9FMGZ4?=
+ =?utf-8?B?TnpacWRzMDdjZHVHUDhhZ0hOTkc1dGRxTHpUbHNlS0VnbE55SmM0Z1Z5S2NR?=
+ =?utf-8?B?TS9DVDVBT25qUTZqbzdtaXRKQVVpcjdQRU9BNlhWOFJvWC9rZWpmQkJJWjRV?=
+ =?utf-8?B?VGE5YmNZN25rYmo4QytSaEJZeVptYkJ3bmlFNGkrc3JFYktyaEpwdnBiZ0py?=
+ =?utf-8?B?YTNvRjU4b0hxbFFrWlhvNyt3L2hFU1FyWll1Z0FxejhvZ25JZDB3dlFtcElh?=
+ =?utf-8?B?SmNKYlc2cjFkMklwT01tM3lQZUN3U29IdFArMkMzc3RHWllFZ2I3a0FyZ2xP?=
+ =?utf-8?B?VVlNbXVrRzF5d3JGZFhYcWFHMHlBU1RVTlptbndITFBOSS9QR3BaN1piS0lZ?=
+ =?utf-8?B?UUxZME9aM3F6cm55VlVoR090QjBjY2pueDB6LzI1RldzK0RlQ1U5d1F6UnpH?=
+ =?utf-8?B?TndIc3I2RkxiOHFCRjR0TGN1NEJUcDVDQXh5MExnOTIrOGI4R1VWbzJ2Z0xp?=
+ =?utf-8?B?Y0JWWjdSaHkwTTBYNmFQWi9HRitkYVlpT0RUY0JtTjh0aWVibThaa0p4Tzg3?=
+ =?utf-8?B?QUxkbGJMS0NCUWJ3a29nV2V5bmExWnBSa29scSt6OXdjUkhZbitld0NtZFRa?=
+ =?utf-8?B?L0pXRjAwQUtpQjZoSStZNE1aOHpYcTdQWnBCYzM3VkVQOFpwTi9DQnhJelgx?=
+ =?utf-8?B?a2hrY2RtanBEaGtGWm9FZVZReEV3bUtvWHRMRWFibXY0SlRuaENndjBaLzNt?=
+ =?utf-8?B?dkI5WmFCbGdONTFsdjlBZDVDQXZCVE0zaTUybjZ6YXZOSWxuSHFFR2o1ellE?=
+ =?utf-8?B?YmVlS2t6RHVwWUxwWVlXRGlEZ1NUUlBsbEFaNndRVWhjSWdmQnRsa3UvbGU5?=
+ =?utf-8?B?V0RIQjJnWnpaMEJ3VnpsdFkvTmkzRnRUYm03Sm9JeFNucjhRVExubjBVRElX?=
+ =?utf-8?B?aEgwN2F2L1c2UXZvekV3OEU3YTRFVUdVMW9GSlBLSkw4Z1dVa0V3bmdERzgz?=
+ =?utf-8?B?K2s5dmlhdkNBNDFZK2pQb1VVY2VhVENHelIxY0ErSFZhZHgveTdGMHplODBk?=
+ =?utf-8?B?RENqWEJBWEV3MmM1NFJXYTlTeXNGYkdiYzVzR1NkV2prMDJWU3lERUE2cGJD?=
+ =?utf-8?B?dmZWaDFRcXRXcFZxU01UQWV5OGsySkNYclB4UWJzRlEvOW5iVk8rOFFjMEdm?=
+ =?utf-8?B?ck90ZmNUNzcxWjNLdmd3RWJmcFAwa296OUFWTFVHTWNiQUJWWXVTL1dmVkNo?=
+ =?utf-8?B?ZUZja2IrVEpFSnBXVVlUSDhGdThQck12eFNET2d3UDE0L0lxZjhMaVUyRUZn?=
+ =?utf-8?B?SWdVSFh6UFZHZUd1a0h1S1VjRFpadkpPRm1taDRycUp4cWluSFNkbzZiWTA0?=
+ =?utf-8?B?VC83c2NmMmwwOG16SzFvRm13SCtWcDBadHprSWx3bEtac1V3SW12bUpZdisz?=
+ =?utf-8?B?R3NsamVwbjlsQmlHRGhwOEd2S1FRcFBzRFBhaXNsbkk2OFNKOUs3UUVuTG5S?=
+ =?utf-8?B?cUw5eGs0aGZhT0I2czQ4UFpaUHd3N2dHUjRPRHUvampJMFFKbS9BVzFyaGZ1?=
+ =?utf-8?B?YWRNcUZFYTM2V3p0aGgrNnc1Uk5VTC80R0hoMGNmUCt6NUZmQ1YrRTdYbGFZ?=
+ =?utf-8?B?enZDZjI0ZVozOU9mYWw4ODBDMlpMc0NFdmVkUSt3QkVZQm1HakZjNUlVVUEz?=
+ =?utf-8?B?WGt4ZnRDWTljUTFJd28wMmZMNDNSSWh1KzFIWDVaOVRhbzhPdEhtcVVEQ2RR?=
+ =?utf-8?B?dHU1enRwblhRUGh2MFlDOW42aVB6aUl4bTQ2SDhpNmhidE9CZVhWazRvOU04?=
+ =?utf-8?B?aWlKbklOMy9BeXdnQURYM2dVUFJjR1lzeVZ1Vk9wdE1mN0duYjNqV2lDUEVZ?=
+ =?utf-8?B?c0kxRGFyQXpnUnp6bURxVjUySHh1dEhyTmJ1clQrYlExQTJyMm02QVdjSkhB?=
+ =?utf-8?Q?QzcIamiRZk5OYzBc=3D?=
+X-Exchange-RoutingPolicyChecked: fZl3UFFkc5kDzId1BdP3Sid3fyOWm1ioMsV6Cxl6hZKlLcz7ys7XXN37xcsBzoIuVkcAd46ftdDqQzp2MSxPI1H6pnqqiEJ95l/2+YiuYh/E6btZQ9OfqxFf3TRYlOEj6NeuNdZSZUqlrEa5bN0EtHf/X0txQnyJRfJAcnTfb8k8ziB5YFVY1d91qOdBB0kpOEHLrHZ6naY1/pSWFCIaKZMwk4XcYDwP086CXLRN94h7z45D/Z4QVVATK4CplVxqZGHE0bOuHIK6ABjhwA6SCxH/V9946OM3ANKrpq0a6LePHmSEPgu0opQWK/vUly/o7djynZN/VNMzMpj15fbM9A==
+X-MS-Exchange-CrossTenant-Network-Message-Id: e4bbe773-4c40-446a-8101-08de8a45a5d8
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR11MB5341.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Mar 2026 08:08:07.6805 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: veda8ke/YPd3HthW++gKFt+grlgVfWmCG5RhpsDh51MnjeQMRcZgsYWqC2ve44Y5jd2fA2QXSZTOp+37fIv949QSXSl4ClyT47WnEkCqj6A=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM3PPF607052E81
+X-OriginatorOrg: intel.com
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,121 +174,81 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-=E5=9C=A8 2026-03-25=E4=B8=89=E7=9A=84 15:19 +0800=EF=BC=8CChen-Yu Tsai=E5=
-=86=99=E9=81=93=EF=BC=9A
-> Hi everyone,
->=20
-> This is v2 of my MT8173 PowerVR GPU support series.
->=20
-> Changes since v1:
-> - Adapted to changed DT bindings
-> - Dropped driver change
-> - Use same power domain for "a" and "b" GPU power domains
->=20
-> This update was requested by Icenowy.
->=20
->=20
-> This series enables the PowerVR GPU found in the MT8173 SoC, found in
-> some Chromebooks.
->=20
-> This version is different from the initial powervr driver submission
-> [1]
-> in that it splits out the GPU glue layer support out of the powervr
-> driver and into a separate clock and power domain driver. The glue
-> code
-> is otherwise the same, and also the same as found in the ChromeOS
-> kernels, with some extra comments and macro names added where
-> possible.
->=20
-> Patch 1 adds a binding for the glue layer, called mfgtop. The glue
-> layer
-> contains clock and power controls for the GPU.
->=20
-> Patch 2 adds a driver for the glue layer.
->=20
-> Patch 3 adds an entry for the MT8173 GPU and 6XT series to the
-> PowerVR
-> binding.
->=20
-> Patch 4 adds an entry for the PowerVR 6XT series GPU to the driver.
->=20
-> Patch 5 corrects the clock for the GPU (called MFG) power domain.
->=20
-> Patch 6 adds device nodes for the GPU and glue layer to the MT8173
-> dtsi
-> file.
->=20
-> Patch 2 and 6 depend on patch 1 to build. I suppose some common
-> immutable tree would be needed from the MediaTek maintainers.
->=20
-> The kernel driver successfully probes the hardware and loads the
-> "rogue_4.40.2.51_v1.fw" firmware provided by Imagination Technologies
-> [2].
-> Userspace was tested with Mesa 24.0.8 from Debian Trixie rebuilt with
-> the powervr vulkan driver enabled. `vulkaninfo` gives some
-> information
-> about the GPU (attached at the end), but running the `triangle`
-> example
-> from the Sascha Willems demos [3] with -DUSE_D2D_WSI=3DON as
-> recommended [4]
-> failed with:
->=20
-> =C2=A0=C2=A0=C2=A0 Can't find a display and a display mode!
 
-I think when using D2D the demos want width and height to be explicitly
-specified, otherwise it seems to hardcode 1280x720.
+On 3/13/2026 6:04 PM, Ville Syrjälä wrote:
+> On Wed, Mar 11, 2026 at 05:06:04PM +0530, Ankit Nautiyal wrote:
+>> Replace the consecutive single-byte writes to PANEL_REPLAY_CONFIG and
+>> CONFIG2 with one drm_dp_dpcd_write() burst starting at PANEL_REPLAY_CONFIG,
+>> reducing AUX transactions.
+>>
+>> Suggested-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
+>> Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+>> ---
+>>   drivers/gpu/drm/i915/display/intel_psr.c | 18 ++++++++++++------
+>>   1 file changed, 12 insertions(+), 6 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
+>> index 5041a5a138d1..ee6e26abd05e 100644
+>> --- a/drivers/gpu/drm/i915/display/intel_psr.c
+>> +++ b/drivers/gpu/drm/i915/display/intel_psr.c
+>> @@ -774,27 +774,33 @@ static bool psr2_su_region_et_valid(struct intel_connector *connector, bool pane
+>>   static void _panel_replay_enable_sink(struct intel_dp *intel_dp,
+>>   				      const struct intel_crtc_state *crtc_state)
+>>   {
+>> -	u8 val = DP_PANEL_REPLAY_ENABLE |
+>> +	struct intel_display *display = to_intel_display(intel_dp);
+>> +	u8 panel_replay_config = DP_PANEL_REPLAY_ENABLE |
+>>   		DP_PANEL_REPLAY_VSC_SDP_CRC_EN |
+>>   		DP_PANEL_REPLAY_UNRECOVERABLE_ERROR_EN |
+>>   		DP_PANEL_REPLAY_RFB_STORAGE_ERROR_EN |
+>>   		DP_PANEL_REPLAY_ACTIVE_FRAME_CRC_ERROR_EN;
+>>   	u8 panel_replay_config2 = DP_PANEL_REPLAY_CRC_VERIFICATION;
+>> +	u8 buf[2];
+> u8 panel_replay_config[2];
+>
+> would reduce the number of variables we have to contend with.
 
-If you're using an elm, could you try to add `-w 1920 -h 1080` or for
-hana `-w 1366 -h 768` ?
 
-Thanks
-Icenowy
+Makes sense. I will change as suggested in the next version.
 
->=20
-> Same program worked correctly on a BeaglePlay and displayed a color
-> gradient triangle. Not sure what went wrong here.
->=20
-> Anyway, please have a look and test.
->=20
->=20
-> Thanks
-> ChenYu
->=20
-> [1]
-> https://lore.kernel.org/dri-devel/20220815165156.118212-2-sarah.walker@im=
-gtec.com/
-> [2]
-> https://gitlab.freedesktop.org/imagination/linux-firmware/-/tree/powervr
-> [3] https://github.com/SaschaWillems/Vulkan
-> [4]
-> https://lore.kernel.org/dri-devel/f2b2671e-5acc-4dec-9c2e-3c9cd2e1f19e@im=
-gtec.com/
->=20
-> Chen-Yu Tsai (5):
-> =C2=A0 dt-bindings: clock: mediatek: Add mt8173 mfgtop
-> =C2=A0 clk: mediatek: Add mt8173-mfgtop driver
-> =C2=A0 dt-bindings: gpu: powervr-rogue: Add MediaTek MT8173 GPU
-> =C2=A0 arm64: dts: mediatek: mt8173: Fix MFG_ASYNC power domain clock
-> =C2=A0 arm64: dts: mediatek: mt8173: Add GPU device nodes
->=20
-> =C2=A0.../clock/mediatek,mt8173-mfgtop.yaml=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0 |=C2=A0 70 +++++
-> =C2=A0.../bindings/gpu/img,powervr-rogue.yaml=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0 |=C2=A0=C2=A0 1 +
-> =C2=A0arch/arm64/boot/dts/mediatek/mt8173.dtsi=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0 |=C2=A0 33 ++-
-> =C2=A0drivers/clk/mediatek/Kconfig=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=
-=A0 9 +
-> =C2=A0drivers/clk/mediatek/Makefile=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 =
-1 +
-> =C2=A0drivers/clk/mediatek/clk-mt8173-mfgtop.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0 | 243
-> ++++++++++++++++++
-> =C2=A0include/dt-bindings/clock/mt8173-clk.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 7 +
-> =C2=A07 files changed, 363 insertions(+), 1 deletion(-)
-> =C2=A0create mode 100644
-> Documentation/devicetree/bindings/clock/mediatek,mt8173-mfgtop.yaml
-> =C2=A0create mode 100644 drivers/clk/mediatek/clk-mt8173-mfgtop.c
+
+>
+>> +	int ret;
+>>   
+>>   	if (crtc_state->has_sel_update)
+>> -		val |= DP_PANEL_REPLAY_SU_ENABLE;
+>> +		panel_replay_config |= DP_PANEL_REPLAY_SU_ENABLE;
+>>   
+>>   	if (crtc_state->enable_psr2_su_region_et)
+>> -		val |= DP_PANEL_REPLAY_ENABLE_SU_REGION_ET;
+>> +		panel_replay_config |= DP_PANEL_REPLAY_ENABLE_SU_REGION_ET;
+>>   
+>>   	if (crtc_state->req_psr2_sdp_prior_scanline)
+>>   		panel_replay_config2 |=
+>>   			DP_PANEL_REPLAY_SU_REGION_SCANLINE_CAPTURE;
+>>   
+>> -	drm_dp_dpcd_writeb(&intel_dp->aux, PANEL_REPLAY_CONFIG, val);
+>> +	buf[0] = panel_replay_config;
+>> +	buf[1] = panel_replay_config2;
+>> +
+>> +	ret = drm_dp_dpcd_write(&intel_dp->aux, PANEL_REPLAY_CONFIG, buf, sizeof(buf));
+>>   
+>> -	drm_dp_dpcd_writeb(&intel_dp->aux, PANEL_REPLAY_CONFIG2,
+>> -			   panel_replay_config2);
+>> +	if (ret < 0 || ret != sizeof(buf))
+> The < 0 check is redunadnt.
+
+You are right, the other condition is sufficient. I will drop the 
+redundant check.
+
+Regards,
+Ankit
+
+
+>
+>> +		drm_dbg_kms(display->drm, "Failed to write Panel Replay Configs\n");
+>>   }
+>>   
+>>   static void _psr_enable_sink(struct intel_dp *intel_dp,
+>> -- 
+>> 2.45.2
