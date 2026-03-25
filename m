@@ -4,41 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F182FFEA810
-	for <dri-devel@archiver.kernel.org>; Wed, 25 Mar 2026 06:35:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A5934FEA810
+	for <dri-devel@archiver.kernel.org>; Wed, 25 Mar 2026 06:39:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5108010E473;
-	Wed, 25 Mar 2026 06:35:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 07A1410E779;
+	Wed, 25 Mar 2026 06:39:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="IUcXR7VE";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="SnEKLPbS";
 	dkim-atps=neutral
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 40A8F10E473
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Mar 2026 06:35:26 +0000 (UTC)
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 45E5010E779
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Mar 2026 06:39:47 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-02.galae.net (Postfix) with ESMTPS id 7BFC31A2FDB;
- Wed, 25 Mar 2026 06:35:24 +0000 (UTC)
+ by smtpout-04.galae.net (Postfix) with ESMTPS id 390F4C580A9;
+ Wed, 25 Mar 2026 06:40:12 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 2E561601A1;
- Wed, 25 Mar 2026 06:35:24 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 738E3601A1;
+ Wed, 25 Mar 2026 06:39:44 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 6AB151045133A; Wed, 25 Mar 2026 07:35:13 +0100 (CET)
+ with ESMTPSA id 9AB6A1045133B; Wed, 25 Mar 2026 07:39:38 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1774420523; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ t=1774420783; h=from:subject:date:message-id:to:cc:mime-version:content-type:
  content-transfer-encoding:in-reply-to:references;
- bh=enRmiZzFY7ZSDKwHVRqjzzPEJ2fLjJuj2O8TfjEEIN0=;
- b=IUcXR7VEkEcm7Khc99r2rl8qYegHD8WP0AJ31dIcYkW44hN3J3AhLRoSBN89yleiyFRWgs
- BHYlXW4JU+mqZz3soF8hw6Khux+XB4Lg1xu9kzBRMzN8tNLHQtxTbx8+Bds1O2R2J29/T8
- IbdVlXc59Slydk7ZgA1nvi6sDGAkOjF4VpbqaLh2KmLIWivWQK/+mn1xDrnHDAZ7djMrBw
- snNbNAEytUpzdGPnN8v8rhSCFLG5u4M6rsBhXsJssLVcyETq0KgsNgiPJZ6LEuv00t3H9G
- iBwAESRtx9mptz074bN1hZQYKK9g0CEkeJOUNk6uXvOYHUHsiVY/51fWerzvlA==
+ bh=9v+zUH5+6hT9ekX+/2AKVnTprP1sxA4Cyh6xCtkQnuE=;
+ b=SnEKLPbS+hdKeMSaTZJOywBErRbN+PN1ZYM63zrVB7c5V+ptcLTTr7r0zGmRMTExWZjJ0z
+ KdverCejpwo7KI9O1UHDqsSWLv8jSrqjuUS6Aq9ISzj9LRtcIXBbRBWGlm5ojO4bbIXLki
+ Z1WARPbOrRc0DfveFd4NhdOu3FQoASV1U0n/f8fOOfNDCNla684i6r1dlr46sN/3kqeMbf
+ HK8pG3YAuomrRbq2lxNIY0OR9py2QJXicnPwfWcX0uvNqM4D+k/IojFQQcAs5uCzmiE8Z5
+ LBtHFLfDzANvgaco+SsVRenJpck4GDczd7ItI+FgnvfBJy9rqZeBH1dePjJWiQ==
 Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Date: Wed, 25 Mar 2026 07:35:12 +0100
-Message-Id: <DHBNKQ0P26BR.3FW24D4XYQ2NA@bootlin.com>
-Subject: Re: [RESEND v3] drm/bridge: analogix_dp: Reuse
- &link_train.training_lane[] to set DPCD DP_TRAINING_LANEx_SET
+Date: Wed, 25 Mar 2026 07:39:37 +0100
+Message-Id: <DHBNO3V2TQMX.1MR761QT9RZT9@bootlin.com>
 Cc: <Laurent.pinchart@ideasonboard.com>, <jonas@kwiboo.se>,
  <jernej.skrabec@gmail.com>, <maarten.lankhorst@linux.intel.com>,
  <mripard@kernel.org>, <tzimmermann@suse.de>, <airlied@gmail.com>,
@@ -49,9 +47,12 @@ Cc: <Laurent.pinchart@ideasonboard.com>, <jonas@kwiboo.se>,
 To: "Damon Ding" <damon.ding@rock-chips.com>, <andrzej.hajda@intel.com>,
  <neil.armstrong@linaro.org>, <rfoss@kernel.org>
 From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
+Subject: Re: [PATCH v3 1/4] drm/bridge: analogix_dp: Apply DP helper API
+ drm_dp_dpcd_read_link_status()
 X-Mailer: aerc 0.20.1
-References: <20251111022103.1350183-1-damon.ding@rock-chips.com>
-In-Reply-To: <20251111022103.1350183-1-damon.ding@rock-chips.com>
+References: <20251110085823.1197472-1-damon.ding@rock-chips.com>
+ <20251110085823.1197472-2-damon.ding@rock-chips.com>
+In-Reply-To: <20251110085823.1197472-2-damon.ding@rock-chips.com>
 X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -68,14 +69,8 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue Nov 11, 2025 at 3:21 AM CET, Damon Ding wrote:
-> In analogix_dp_link_start(), &link_train.training_lane[] is used to
-> set phy PE/VS configurations, and buf[] is initialized with the same
-> values to set DPCD DP_TRAINING_LANEx_SET.
->
-> It makes sense to reuse &link_train.training_lane[] to set DPCD
-> DP_TRAINING_LANEx_SET, which can remove the redundant assignments
-> and make codes more concise.
+On Mon Nov 10, 2025 at 9:58 AM CET, Damon Ding wrote:
+> Use existing DP helper API to read link status related DPCDs.
 >
 > Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
 > Tested-by: Marek Szyprowski <m.szyprowski@samsung.com>
