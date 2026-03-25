@@ -4,86 +4,86 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 05AFB109C035
-	for <dri-devel@archiver.kernel.org>; Wed, 25 Mar 2026 16:09:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8D8B7109C035
+	for <dri-devel@archiver.kernel.org>; Wed, 25 Mar 2026 16:09:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5F16810E7CF;
-	Wed, 25 Mar 2026 16:09:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DF10410E7D9;
+	Wed, 25 Mar 2026 16:09:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="BV1AVPfW";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="gqwIOloo";
 	dkim-atps=neutral
 Received: from us-smtp-delivery-124.mimecast.com
  (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 98D9A10E7CF
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Mar 2026 16:09:12 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 240FC10E7D9
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Mar 2026 16:09:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1774454950;
+ s=mimecast20190719; t=1774454956;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=jZalVxZgEcNNnZJt7pjfFHebrqcIrsAS/RYSEgv2xRQ=;
- b=BV1AVPfWPlgbeVsDjV7kzlO6V3nVIsXyZ4+M2uGyhjOD6+YhsVS1FPRqrGRm8NmF4WDP7D
- tbbzfDbfZeYNbkeJtb34WfwYYIEKsNvtjH5JyN2WnG8vKA8RCiE0miGlA+uBJtj5C60sbw
- TdkDQDIbx1MWTlVfn/uorR1Cpduc8hw=
-Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
- [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=/Zh1fr2iQV6ZRapNVMXyC+ar16a1KnzWPqrnp2XoJ30=;
+ b=gqwIOlooW7OL4OK6lgy7QN+4P/qzFFrAdi8ErhQSNpizXDiee6BPNLQCmENofW4/JoQCi8
+ 5RWsxIwgccFC1LLRwOL1qsz8j9t6b+SpLgWTf5oHoYvII/DkMdZ7FHoQopCK5C88CenZnr
+ yJTJQEV697E40gBrZTUoXkQyYpo9LLU=
+Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
+ [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-694-rLVF9YvNOqmATvvmehjpig-1; Wed, 25 Mar 2026 12:08:09 -0400
-X-MC-Unique: rLVF9YvNOqmATvvmehjpig-1
-X-Mimecast-MFC-AGG-ID: rLVF9YvNOqmATvvmehjpig_1774454885
-Received: by mail-wr1-f70.google.com with SMTP id
- ffacd0b85a97d-439b3011be7so5254173f8f.1
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Mar 2026 09:08:06 -0700 (PDT)
+ us-mta-56-Aj-yiqrYPtSmjV5GM98aSQ-1; Wed, 25 Mar 2026 12:09:15 -0400
+X-MC-Unique: Aj-yiqrYPtSmjV5GM98aSQ-1
+X-Mimecast-MFC-AGG-ID: Aj-yiqrYPtSmjV5GM98aSQ_1774454954
+Received: by mail-wm1-f71.google.com with SMTP id
+ 5b1f17b1804b1-48718273180so92445e9.2
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Mar 2026 09:09:14 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774454885; x=1775059685;
+ d=1e100.net; s=20251104; t=1774454954; x=1775059754;
  h=content-transfer-encoding:in-reply-to:from:content-language
  :references:cc:to:subject:user-agent:mime-version:date:message-id
  :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=jZalVxZgEcNNnZJt7pjfFHebrqcIrsAS/RYSEgv2xRQ=;
- b=lLi73cB76a4e5UqcoFmrshSRlijRNlZ0ne6QvxgUMbZzjVRc1Sj+msa8Pvq3AOLp1Y
- sV3b8JkcprrhomLJfG8oXgCNePeUkQkgbKbmV+gKnMee5iQ5Q+isiWFdjZaWjA+4XyhF
- HzsassxZuwE+HO2tI3Ifq97jIJ8luxd8BkTk5UsXPQSKPJVyWJQZhx2+PVG3QEaOJ1ku
- NMZ5YHzLEjMvy6WIllmfHCZtbGJLCKbpY/Ec871xkh+DbyypLhT7btnw+RT8v4J3JLtD
- 01Oc50VSIa4MPLFIqUUR6FJ9zlHcwNjWPL6t5dUXcpM6egJpuuiolSWO3075tmLBnJXL
- re5A==
-X-Gm-Message-State: AOJu0YyRfIFXUpAtJQSjpYfzSyDhOUQujEL3vM4kM18O+Xmsjp86bzyP
- zASFXrWxRnTPMVYZquURzbu7Ozpoxn0YiLMcMQL07xJszSp6jHhDWv2ln8xviysOp/YaewYpW8u
- 0dFb/g4aWq5FffXvxTvE4ld9R/ORM777djYTBVES9BXwvawNj5LZAVPkLYKf9JnUq1I5nPg==
-X-Gm-Gg: ATEYQzw17h9Nn+IjG2faZFz4bIo66MTFr3jLCWu8rdAJCajR5tBkvpF4n8CoECEjf/p
- nLqNbPtt8r66GRRmwlZLsVFxsHakDABuMoNaCJ1lJ15yttpxCahvl/bq258934f2tKkVa9MuoXS
- nlIz1zhMGkYGXaLsg3Y0DGNdoBYDRUWeb9LmqXBqw0X7o4GUOw1JYGEnpn8jZcpnzEM9fvbOIvK
- SxOpCbGbbTW51qRoE9u6BJU1QZ9caV43W6fpo4S14JVo5yWKi+vuvGCOpfdfDyrqE7zonAMwqvj
- 2n7cBfD4gcmvYJq+ywoJJFKiyt0RFp46GRxVK93+uHQ4gp4JM9D/LOrfaw94bJnpow0D8WyV0I2
- F9nKecxa+Iq9lnx0tOVfwKn3igoqzPlyy5gGTg6Syn9qLT1PMdu/uCW6qXe5RIg==
-X-Received: by 2002:a05:6000:18a8:b0:439:b440:b8a2 with SMTP id
- ffacd0b85a97d-43b88a0d156mr5892955f8f.28.1774454884605; 
- Wed, 25 Mar 2026 09:08:04 -0700 (PDT)
-X-Received: by 2002:a05:6000:18a8:b0:439:b440:b8a2 with SMTP id
- ffacd0b85a97d-43b88a0d156mr5892908f8f.28.1774454883992; 
- Wed, 25 Mar 2026 09:08:03 -0700 (PDT)
+ bh=/Zh1fr2iQV6ZRapNVMXyC+ar16a1KnzWPqrnp2XoJ30=;
+ b=lgiDcRwDslatGUBgVTXzdIAqrPC2NBRWeuZIewc6SyBcsvSVh8orp/3AjBPE7qhMAL
+ TbHZ3Od5zNgSwKQQVV2wRmkVjtHWYu6xzpO4jBumnjHWEvhq2YvjNHs59dlgy4IFA/4s
+ OF6F7Iow5cP1VmyRlInBS5woyC9dxJoUsy7rhls3naFt6a7MysTkR5+P+1pGegmDjc57
+ nu9wdgX1bjmlLNcgRbSVl/EbYEdVh43Swu+lGZqNIkwYZpHMEE7Sb4NllUPuW3Tfr7kJ
+ qHirtTgZGygBebTfAiPZxl8o1PUxGwy3R3qhU651F4yx18gKvOLfQ933V0hajo7daFuA
+ Ps3g==
+X-Gm-Message-State: AOJu0YyvsIXL3DwFvfsAOzT6yKt+NN6UHtlQxDZXQ/mdtGQAZhOtiZ84
+ fqx6AjgNGeItyzJSe/pzHxa3gsbD3b1+DNt/RwCdvcSm5Cphi43Hu+A3vXRIFb1ezi05Q7AIDsN
+ /OvkfxYQiGh2gkWIlT4pR0p5gSFRZf3it99x3dPsX//ibfkLvDZCgmy/PheiswIeW+0HZ/A==
+X-Gm-Gg: ATEYQzzXVxKkVWYU90+NdGAZWB3jxWTw6t9atE7Ff/O5yJIy5zgZaFplMnalLQ+Q7VJ
+ ogi5/12xdPpDHEhwR2nsr3hwh5yyOWH7E6UNyNC/6xaKKvSY3k9kYw05FU0xlYGJreaokeEzg4H
+ 9CleBOJhORdVWU9IO+8xzn8uZMBPnqddiVDGjGW+T8rzoxJQZLTVf6Ui0A6bbjZi48a7xSPoibh
+ gZOZHCzIL63QuuIVGb0Svy0u6oi+00hWtiD3q2LL2acbAarax3fflwtJVFY+N613lpfEbt/++/Z
+ qh/DcyFEHcIlpbvj86boXMLLJ/wWpWYqVmzie9mufHLdRhN4Z21UI7jGfEsjsogtH5BhSSUKt6l
+ lJNpCB8kYLxkPVCpVXLcExRkTWieeHPYToN+5yLY+HPAx2mhqF+ivSAlNBc1DCQ==
+X-Received: by 2002:a05:600c:154a:b0:485:3b00:f939 with SMTP id
+ 5b1f17b1804b1-48715fd617dmr67211415e9.8.1774454953522; 
+ Wed, 25 Mar 2026 09:09:13 -0700 (PDT)
+X-Received: by 2002:a05:600c:154a:b0:485:3b00:f939 with SMTP id
+ 5b1f17b1804b1-48715fd617dmr67210815e9.8.1774454952994; 
+ Wed, 25 Mar 2026 09:09:12 -0700 (PDT)
 Received: from ?IPV6:2a01:e0a:c:37e0:8998:e0cf:68cc:1b62?
  ([2a01:e0a:c:37e0:8998:e0cf:68cc:1b62])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-43b91942f24sm940224f8f.11.2026.03.25.09.08.02
+ ffacd0b85a97d-43b91942e52sm781157f8f.9.2026.03.25.09.09.12
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 25 Mar 2026 09:08:03 -0700 (PDT)
-Message-ID: <e6c0838f-66f0-4e2a-a8b4-067267619ea9@redhat.com>
-Date: Wed, 25 Mar 2026 17:08:00 +0100
+ Wed, 25 Mar 2026 09:09:12 -0700 (PDT)
+Message-ID: <1042a83e-05f1-4258-b6fa-8f45f267ed13@redhat.com>
+Date: Wed, 25 Mar 2026 17:09:10 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 06/15] drm/ast: Use constants for A2P registers
+Subject: Re: [PATCH 07/15] drm/ast: Use constants for WDT registers
 To: Thomas Zimmermann <tzimmermann@suse.de>, airlied@redhat.com,
  maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@gmail.com,
  simona@ffwll.ch
 Cc: dri-devel@lists.freedesktop.org
 References: <20260323160407.245773-1-tzimmermann@suse.de>
- <20260323160407.245773-7-tzimmermann@suse.de>
+ <20260323160407.245773-8-tzimmermann@suse.de>
 From: Jocelyn Falempe <jfalempe@redhat.com>
-In-Reply-To: <20260323160407.245773-7-tzimmermann@suse.de>
+In-Reply-To: <20260323160407.245773-8-tzimmermann@suse.de>
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: PzKlCXkZYxpwQqjZ5QZtF8uV4a2HTqou4Qeuiu5cjIA_1774454885
+X-Mimecast-MFC-PROC-ID: 92AeHA_REylr5xXHlnWwZSZ_xysf02w4ROIE_PwtErc_1774454954
 X-Mimecast-Originator: redhat.com
 Content-Language: en-US, fr
 Content-Type: text/plain; charset=UTF-8; format=flowed
@@ -104,9 +104,14 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 On 23/03/2026 16:56, Thomas Zimmermann wrote:
-> A2P is the AHB-to-P Bridge. A2P registers are located at the memory
-> range at [0x1e720000, 0x1e73ffff]. Refer to them with constants named
-> AST_REG_A2P<n>, where <n> is the byte offset into the range.
+> WDT is the Watchdog timer. WDC registers are located at the memory
+> range at [0x1e785000, 0x1e785fff]. There are currently up to 8
+> watchdog timers in the range, of which 2 are being used by AST2500.
+> 
+> Refer to them with macros named AST_REG_WDT<n>, where <n> is the byte
+> offset into the watchdog timer's memory range. Each macro also takes
+> the index of the watchdog timer to access. A new watchdog timer starts
+> at each 0x40 byte offset.
 
 Thanks, it looks good to me.
 
@@ -114,56 +119,76 @@ Reviewed-by: Jocelyn Falempe <jfalempe@redhat.com>
 > 
 > Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
 > ---
->   drivers/gpu/drm/ast/ast_2300.c | 6 +++---
->   drivers/gpu/drm/ast/ast_reg.h  | 8 ++++++++
->   2 files changed, 11 insertions(+), 3 deletions(-)
+>   drivers/gpu/drm/ast/ast_2500.c | 20 ++++++++++----------
+>   drivers/gpu/drm/ast/ast_reg.h  | 13 +++++++++++++
+>   2 files changed, 23 insertions(+), 10 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/ast/ast_2300.c b/drivers/gpu/drm/ast/ast_2300.c
-> index 1fe947178124..96d9909d942c 100644
-> --- a/drivers/gpu/drm/ast/ast_2300.c
-> +++ b/drivers/gpu/drm/ast/ast_2300.c
-> @@ -508,7 +508,7 @@ static bool cbr_dll2(struct ast_device *ast, struct ast2300_dram_param *param)
->   	dlli  = (dllmin[1] + dllmax[1]) >> 1;
->   	dlli <<= 8;
->   	dlli += (dllmin[0] + dllmax[0]) >> 1;
-> -	ast_moutdwm(ast, AST_REG_MCR68, ast_mindwm(ast, 0x1E720058) | (dlli << 16));
-> +	ast_moutdwm(ast, AST_REG_MCR68, ast_mindwm(ast, AST_REG_A2P58) | (dlli << 16));
->   	return status;
->   } /* CBRDLL2 */
->   
-> @@ -826,7 +826,7 @@ static void ddr3_init(struct ast_device *ast, struct ast2300_dram_param *param)
->   		data = ast_mindwm(ast, AST_REG_MCR1C);
->   		data = (data >> 8) & 0xff;
+> diff --git a/drivers/gpu/drm/ast/ast_2500.c b/drivers/gpu/drm/ast/ast_2500.c
+> index d141b34548a9..f0639f1ef062 100644
+> --- a/drivers/gpu/drm/ast/ast_2500.c
+> +++ b/drivers/gpu/drm/ast/ast_2500.c
+> @@ -127,9 +127,9 @@ void ast_2500_patch_ahb(void __iomem *regs)
+>   		 *	[1]:= 1:WDT will be cleeared and disabled after timeout occurs
+>   		 *	[0]:= 1:WDT enable
+>   		 */
+> -		__ast_moutdwm(regs, 0x1E785004, 0x00000010);
+> -		__ast_moutdwm(regs, 0x1E785008, 0x00004755);
+> -		__ast_moutdwm(regs, 0x1E78500c, 0x00000033);
+> +		__ast_moutdwm(regs, AST_REG_WDT04(0), 0x00000010);
+> +		__ast_moutdwm(regs, AST_REG_WDT08(0), 0x00004755);
+> +		__ast_moutdwm(regs, AST_REG_WDT0C(0), 0x00000033);
+>   		udelay(1000);
 >   	}
-> -	ast_moutdwm(ast, 0x1E720058, ast_mindwm(ast, AST_REG_MCR68) & 0xffff);
-> +	ast_moutdwm(ast, AST_REG_A2P58, ast_mindwm(ast, AST_REG_MCR68) & 0xffff);
->   	data = ast_mindwm(ast, AST_REG_MCR18) | 0xC00;
->   	ast_moutdwm(ast, AST_REG_MCR18, data);
 >   
-> @@ -1188,7 +1188,7 @@ static void ddr2_init(struct ast_device *ast, struct ast2300_dram_param *param)
->   		data = ast_mindwm(ast, AST_REG_MCR1C);
->   		data = (data >> 8) & 0xff;
->   	}
-> -	ast_moutdwm(ast, 0x1E720058, ast_mindwm(ast, AST_REG_MCR08) & 0xffff);
-> +	ast_moutdwm(ast, AST_REG_A2P58, ast_mindwm(ast, AST_REG_MCR08) & 0xffff);
->   	data = ast_mindwm(ast, AST_REG_MCR18) | 0xC00;
->   	ast_moutdwm(ast, AST_REG_MCR18, data);
+> @@ -304,12 +304,12 @@ static void set_mpll_2500(struct ast_device *ast)
 >   
+>   static void reset_mmc_2500(struct ast_device *ast)
+>   {
+> -	ast_moutdwm(ast, 0x1E78505C, 0x00000004);
+> -	ast_moutdwm(ast, 0x1E785044, 0x00000001);
+> -	ast_moutdwm(ast, 0x1E785048, 0x00004755);
+> -	ast_moutdwm(ast, 0x1E78504C, 0x00000013);
+> +	ast_moutdwm(ast, AST_REG_WDT1C(1), 0x00000004);
+> +	ast_moutdwm(ast, AST_REG_WDT04(1), 0x00000001);
+> +	ast_moutdwm(ast, AST_REG_WDT08(1), 0x00004755);
+> +	ast_moutdwm(ast, AST_REG_WDT0C(1), 0x00000013);
+>   	mdelay(100);
+> -	ast_moutdwm(ast, 0x1E785054, 0x00000077);
+> +	ast_moutdwm(ast, AST_REG_WDT14(1), 0x00000077);
+>   	ast_moutdwm(ast, AST_REG_MCR00, AST_REG_MCR00_PROTECTION_KEY);
+>   }
+>   
+> @@ -508,8 +508,8 @@ static void ast_post_chip_2500(struct ast_device *ast)
+>   		ast_2500_patch_ahb(ast->regs);
+>   
+>   		/* Disable watchdog */
+> -		ast_moutdwm(ast, 0x1E78502C, 0x00000000);
+> -		ast_moutdwm(ast, 0x1E78504C, 0x00000000);
+> +		ast_moutdwm(ast, AST_REG_WDT2C(0), 0x00000000);
+> +		ast_moutdwm(ast, AST_REG_WDT0C(1), 0x00000000);
+>   
+>   		/*
+>   		 * Reset USB port to patch USB unknown device issue
 > diff --git a/drivers/gpu/drm/ast/ast_reg.h b/drivers/gpu/drm/ast/ast_reg.h
-> index e8d4991186ca..730072a3c2cd 100644
+> index 730072a3c2cd..5effe6897b51 100644
 > --- a/drivers/gpu/drm/ast/ast_reg.h
 > +++ b/drivers/gpu/drm/ast/ast_reg.h
-> @@ -188,4 +188,12 @@
->   #define AST_REG_SCU104				AST_REG_SCU(0x104)
->   #define AST_REG_SCU160				AST_REG_SCU(0x160)
+> @@ -196,4 +196,17 @@
+>   #define AST_REG_A2P(__offset)			(AST_REG_A2P_BASE + (__offset))
+>   #define AST_REG_A2P58				AST_REG_A2P(0x58)
 >   
 > +/*
-> + * AHB-to-P Bus Bridge (0x1e720000 - 0x1e73ffff)
+> + * Watchdog timer (0x1e785000 - 0x1e785fff)
 > + */
 > +
-> +#define AST_REG_A2P_BASE			(0x1e720000)
-> +#define AST_REG_A2P(__offset)			(AST_REG_A2P_BASE + (__offset))
-> +#define AST_REG_A2P58				AST_REG_A2P(0x58)
+> +#define AST_REG_WDT_BASE(__n)			(0x1e785000 + (__n) * 0x40)
+> +#define AST_REG_WDT(__n, __offset)		(AST_REG_WDT_BASE((__n)) + (__offset))
+> +#define AST_REG_WDT04(__n)			AST_REG_WDT((__n), 0x04)
+> +#define AST_REG_WDT08(__n)			AST_REG_WDT((__n), 0x08)
+> +#define AST_REG_WDT0C(__n)			AST_REG_WDT((__n), 0x0c)
+> +#define AST_REG_WDT14(__n)			AST_REG_WDT((__n), 0x14)
+> +#define AST_REG_WDT1C(__n)			AST_REG_WDT((__n), 0x1c)
+> +#define AST_REG_WDT2C(__n)			AST_REG_WDT((__n), 0x2c)
 > +
 >   #endif
 
