@@ -4,75 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 84FFBFEA82F
-	for <dri-devel@archiver.kernel.org>; Wed, 25 Mar 2026 08:24:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0138DFEA82E
+	for <dri-devel@archiver.kernel.org>; Wed, 25 Mar 2026 08:31:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EEAED10E81D;
-	Wed, 25 Mar 2026 08:24:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 373B510E4EA;
+	Wed, 25 Mar 2026 08:31:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="kaJIRIiM";
+	dkim=pass (2048-bit key; unprotected) header.d=icenowy.me header.i=uwu@icenowy.me header.b="m8fDSXm7";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CA58110E4ED;
- Wed, 25 Mar 2026 08:24:31 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id E1B15600C4;
- Wed, 25 Mar 2026 08:24:30 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A04AC4CEF7;
- Wed, 25 Mar 2026 08:24:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1774427070;
- bh=OXpyySfKyZH4/xByTVF+CcO5Zm0m2JZxVDe7zJkMYr8=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=kaJIRIiM3CnzwTWAxlLjWYuN0VEiT2i58200iLTs297ZcYBUEFDNIhOPVeqTiRFi/
- 1+VVucUcVSoJ8DoS1T16p7GrjEFwg83fDBOfRd7ydbm5ejQCKRihL3YvqIkN0RNeuf
- OlUomozQwJgbcsHSEZKjsU7/eZO1VDQPNMyj7wd0g8xe4mnqKTInaen1jPjbjGo+0G
- 0GXEqRpJTGRGl3g3JUmpJxT6x2rRkXsbL4SkbpofUy3YU/SmpZL3hsTnHlkewmUNEF
- aaDj5+h4PjxK3B4GV49wKBPVgtAxSQ7bZpGp7gUdkfeX+Vn4YzLopCgxRE9Lwm+k3K
- DPUz5V/bvQhrw==
-Date: Wed, 25 Mar 2026 09:24:27 +0100
-From: Maxime Ripard <mripard@kernel.org>
-To: Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
-Cc: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, 
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
- Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>, 
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Thomas Zimmermann <tzimmermann@suse.de>,
- Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>, Sandy Huang <hjc@rock-chips.com>, 
- Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>,
- Andy Yan <andy.yan@rock-chips.com>, 
- Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, 
- Dmitry Baryshkov <lumag@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>, 
- Rob Herring <robh@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
- Shuah Khan <skhan@linuxfoundation.org>, kernel@collabora.com,
- amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- linux-doc@vger.kernel.org, 
- Werner Sembach <wse@tuxedocomputers.com>, Andri Yngvason <andri@yngvason.is>, 
- Marius Vlad <marius.vlad@collabora.com>
-Subject: Re: [PATCH v11 03/22] drm: Add new general DRM property "color format"
-Message-ID: <20260325-neat-elegant-raven-ebc9ab@houat>
-References: <20260324-color-format-v11-0-605559af4fb4@collabora.com>
- <20260324-color-format-v11-3-605559af4fb4@collabora.com>
- <acLDPYuaVI2-12JX@intel.com> <23910073.EfDdHjke4D@workhorse>
- <acLrv5hLyNss-Px5@intel.com>
+Received: from sender4-op-o12.zoho.com (sender4-op-o12.zoho.com
+ [136.143.188.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5AEC710E4EA
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Mar 2026 08:31:14 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1774427469; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=Tyy2JscmFeXuNquAONvjESaenDfPxxRBJwbVDF+F6CspYdRP0THK77xpmIfKM8PMC1kYj2Ef/rG5wjlWS0A/kqXWQjfz9oEYokEizNoVoe1Re5F9m5/NYO9SIO3MXm6mddHJtEOFQFE62RS9m0LyHO1ftVv0kL5q4D3r/G6DXzM=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1774427469;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=Spa+zFtTwKq/xwqL8Z460sYoU7uK43OPtIBMa8MAK2k=; 
+ b=RnuGUVU2EXOf3k5jelhLGon3XphGBJssDU2A1nQc0hWTIyTqGBsqKWEmmvHfza1MsUKYQBUSw3wxSOw3NS/Pin9aJs3KmW0Df3QsdaOin92ocfAfVO0AlzN4T6o1eja2MiFDYS9K/4DlYIApdUq6I0imzvpsoHCbOwtdrgc0LOM=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=icenowy.me;
+ spf=pass  smtp.mailfrom=uwu@icenowy.me;
+ dmarc=pass header.from=<uwu@icenowy.me>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1774427469; 
+ s=zmail2; d=icenowy.me; i=uwu@icenowy.me;
+ h=Message-ID:Subject:Subject:From:From:To:To:Cc:Cc:Date:Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:MIME-Version:Message-Id:Reply-To;
+ bh=Spa+zFtTwKq/xwqL8Z460sYoU7uK43OPtIBMa8MAK2k=;
+ b=m8fDSXm7BdFQUyxuJ00+cdp8h2tIr0kX2FbCE3bUPTXHDjreydmBvIBVbKvWMirf
+ ZxlRx8+Ic5QAeI7QC7nutldlgXcVoFUfvVoooiuCzq4N9VWrcXyZkSf8cerX0fKwmxN
+ JnJ7ukhTEUyuxKP5RGMWnJJFSIvVFP4h6GNORgEDLy11SxLumAZoogUpm/NW2K9NbaZ
+ cLRZLOZiNjIGEU103spEJ36xKwWBmcF96dsyN5ZuHk+aF+OVY+Lf/BMN3zjYmchAm4C
+ cDKUnV6rOdZ+jIGL0fm1oLj/6oKa/6hVvbklDK9oVqslcZOOQorssqClzYckfhLEV8c
+ VXdlgRFsGw==
+Received: by mx.zohomail.com with SMTPS id 1774427467195309.4266563704275;
+ Wed, 25 Mar 2026 01:31:07 -0700 (PDT)
+Message-ID: <0739597b7a9c162525c10d82c3993e37af1c8a75.camel@icenowy.me>
+Subject: Re: [PATCH v2 0/5] powervr: MT8173 GPU support
+From: Icenowy Zheng <uwu@icenowy.me>
+To: Chen-Yu Tsai <wenst@chromium.org>
+Cc: Stephen Boyd <sboyd@kernel.org>, Matthias Brugger
+ <matthias.bgg@gmail.com>,  AngeloGioacchino Del Regno
+ <angelogioacchino.delregno@collabora.com>, Frank Binns
+ <frank.binns@imgtec.com>, Matt Coster	 <matt.coster@imgtec.com>, Maarten
+ Lankhorst <maarten.lankhorst@linux.intel.com>,  Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
+ <airlied@gmail.com>,  Simona Vetter <simona@ffwll.ch>,
+ linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-mediatek@lists.infradead.org, dri-devel@lists.freedesktop.org, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Date: Wed, 25 Mar 2026 16:30:59 +0800
+In-Reply-To: <CAGXv+5FL2rs35V4F0bwq-a4ccvFaWKcr1cuKxT6sfTj9h+d6iA@mail.gmail.com>
+References: <20260325071951.544031-1-wenst@chromium.org>
+ <93c1d325461cc0ffad890d64870de680506338c4.camel@icenowy.me>
+ <CAGXv+5FL2rs35V4F0bwq-a4ccvFaWKcr1cuKxT6sfTj9h+d6iA@mail.gmail.com>
+Organization: Anthon Open-Source Community
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha384;
- protocol="application/pgp-signature"; boundary="wbwmiqkexkho5cib"
-Content-Disposition: inline
-In-Reply-To: <acLrv5hLyNss-Px5@intel.com>
+X-ZohoMailClient: External
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,121 +80,167 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-
---wbwmiqkexkho5cib
-Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v11 03/22] drm: Add new general DRM property "color
- format"
-MIME-Version: 1.0
-
-On Tue, Mar 24, 2026 at 09:53:35PM +0200, Ville Syrj=E4l=E4 wrote:
-> On Tue, Mar 24, 2026 at 08:10:11PM +0100, Nicolas Frattaroli wrote:
-> > On Tuesday, 24 March 2026 18:00:45 Central European Standard Time Ville=
- Syrj=E4l=E4 wrote:
-> > > On Tue, Mar 24, 2026 at 05:01:07PM +0100, Nicolas Frattaroli wrote:
-> > > > +enum drm_connector_color_format {
-> > > > +	/**
-> > > > +	 * @DRM_CONNECTOR_COLOR_FORMAT_AUTO: The driver or display protoc=
-ol
-> > > > +	 * helpers should pick a suitable color format. All implementatio=
-ns of a
-> > > > +	 * specific display protocol must behave the same way with "AUTO"=
-, but
-> > > > +	 * different display protocols do not necessarily have the same "=
-AUTO"
-> > > > +	 * semantics.
-> > > > +	 *
-> > > > +	 * For HDMI, "AUTO" picks RGB, but falls back to YCbCr 4:2:0 if t=
-he
-> > > > +	 * bandwidth required for full-scale RGB is not available, or the=
- mode
-> > > > +	 * is YCbCr 4:2:0-only, as long as the mode and output both suppo=
-rt
-> > > > +	 * YCbCr 4:2:0.
-> > > > +	 *
-> > > > +	 * For display protocols other than HDMI, the recursive bridge ch=
-ain
-> > > > +	 * format selection picks the first chain of bridge formats that =
-works,
-> > > > +	 * as has already been the case before the introduction of the "c=
-olor
-> > > > +	 * format" property. Non-HDMI bridges should therefore either sor=
-t their
-> > > > +	 * bus output formats by preference, or agree on a unified auto f=
-ormat
-> > > > +	 * selection logic that's implemented in a common state helper (l=
-ike
-> > > > +	 * how HDMI does it).
-> > > > +	 */
-> > > > +	DRM_CONNECTOR_COLOR_FORMAT_AUTO =3D 0,
-> > > > +
-> > > > +	/**
-> > > > +	 * @DRM_CONNECTOR_COLOR_FORMAT_RGB444: RGB output format
-> > > > +	 */
-> > > > +	DRM_CONNECTOR_COLOR_FORMAT_RGB444,
-> > > > +
-> > > > +	/**
-> > > > +	 * @DRM_CONNECTOR_COLOR_FORMAT_YCBCR444: YCbCr 4:4:4 output forma=
-t (ie.
-> > > > +	 * not subsampled)
-> > > > +	 */
-> > > > +	DRM_CONNECTOR_COLOR_FORMAT_YCBCR444,
-> > > > +
-> > > > +	/**
-> > > > +	 * @DRM_CONNECTOR_COLOR_FORMAT_YCBCR422: YCbCr 4:2:2 output forma=
-t (ie.
-> > > > +	 * with horizontal subsampling)
-> > > > +	 */
-> > > > +	DRM_CONNECTOR_COLOR_FORMAT_YCBCR422,
-> > > > +
-> > > > +	/**
-> > > > +	 * @DRM_CONNECTOR_COLOR_FORMAT_YCBCR420: YCbCr 4:2:0 output forma=
-t (ie.
-> > > > +	 * with horizontal and vertical subsampling)
-> > > > +	 */
-> > > > +	DRM_CONNECTOR_COLOR_FORMAT_YCBCR420,
-> > >=20
-> > > Seems like this should document what the quantization range
-> > > should be for each format.
-> > >=20
+=E5=9C=A8 2026-03-25=E4=B8=89=E7=9A=84 16:08 +0800=EF=BC=8CChen-Yu Tsai=E5=
+=86=99=E9=81=93=EF=BC=9A
+> On Wed, Mar 25, 2026 at 4:04=E2=80=AFPM Icenowy Zheng <uwu@icenowy.me> wr=
+ote:
 > >=20
-> > I don't think so? If you want per-component bit depth values,
-> > DRM_FORMAT_* defines would be the appropriate values to use. This
-> > enum is more abstract than that, and is there to communicate
-> > YUV vs. RGB and chroma subsampling, with bit depth being handled
-> > by other properties.
+> > =E5=9C=A8 2026-03-25=E4=B8=89=E7=9A=84 15:19 +0800=EF=BC=8CChen-Yu Tsai=
+=E5=86=99=E9=81=93=EF=BC=9A
+> > > Hi everyone,
+> > >=20
+> > > This is v2 of my MT8173 PowerVR GPU support series.
+> > >=20
+> > > Changes since v1:
+> > > - Adapted to changed DT bindings
+> > > - Dropped driver change
+> > > - Use same power domain for "a" and "b" GPU power domains
+> > >=20
+> > > This update was requested by Icenowy.
+> > >=20
+> > >=20
+> > > This series enables the PowerVR GPU found in the MT8173 SoC,
+> > > found in
+> > > some Chromebooks.
+> > >=20
+> > > This version is different from the initial powervr driver
+> > > submission
+> > > [1]
+> > > in that it splits out the GPU glue layer support out of the
+> > > powervr
+> > > driver and into a separate clock and power domain driver. The
+> > > glue
+> > > code
+> > > is otherwise the same, and also the same as found in the ChromeOS
+> > > kernels, with some extra comments and macro names added where
+> > > possible.
+> > >=20
+> > > Patch 1 adds a binding for the glue layer, called mfgtop. The
+> > > glue
+> > > layer
+> > > contains clock and power controls for the GPU.
+> > >=20
+> > > Patch 2 adds a driver for the glue layer.
+> > >=20
+> > > Patch 3 adds an entry for the MT8173 GPU and 6XT series to the
+> > > PowerVR
+> > > binding.
+> > >=20
+> > > Patch 4 adds an entry for the PowerVR 6XT series GPU to the
+> > > driver.
+> > >=20
+> > > Patch 5 corrects the clock for the GPU (called MFG) power domain.
+> > >=20
+> > > Patch 6 adds device nodes for the GPU and glue layer to the
+> > > MT8173
+> > > dtsi
+> > > file.
+> > >=20
+> > > Patch 2 and 6 depend on patch 1 to build. I suppose some common
+> > > immutable tree would be needed from the MediaTek maintainers.
+> > >=20
+> > > The kernel driver successfully probes the hardware and loads the
+> > > "rogue_4.40.2.51_v1.fw" firmware provided by Imagination
+> > > Technologies
+> > > [2].
+> > > Userspace was tested with Mesa 24.0.8 from Debian Trixie rebuilt
+> > > with
+> > > the powervr vulkan driver enabled. `vulkaninfo` gives some
+> > > information
+> > > about the GPU (attached at the end), but running the `triangle`
+> > > example
+> > > from the Sascha Willems demos [3] with -DUSE_D2D_WSI=3DON as
+> > > recommended [4]
+> > > failed with:
+> > >=20
+> > > =C2=A0=C2=A0=C2=A0 Can't find a display and a display mode!
 > >=20
-> > If you mean the factor used for subsampling, then that'd only be
-> > relevant if YCBCR410 was supported where one chroma plane isn't
-> > halved but quartered in resolution. I suspect 4:1:0 will never
-> > be added; no digital display protocol standard supports it to my
-> > knowledge, and hopefully none ever will.
+> > I think when using D2D the demos want width and height to be
+> > explicitly
+> > specified, otherwise it seems to hardcode 1280x720.
+> >=20
+> > If you're using an elm, could you try to add `-w 1920 -h 1080` or
+> > for
+> > hana `-w 1366 -h 768` ?
 >=20
-> No, I mean the quantization range (16-235 vs. 0-255 etc).
+> I only did the basic `vulkaninfo` test this time around. To do
+> anything
+> interesting probably requires the Mesa 26.1 release.
 >=20
-> The i915 behaviour is that YCbCr is always limited range,
-> RGB can either be full or limited range depending on the=20
-> "Broadcast RGB" property and other related factors.
+> =C2=A0=C2=A0=C2=A0 PVR_I_WANT_A_BROKEN_VULKAN_DRIVER=3D1 \
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 vkmark --winsys kms -D b81f54f=
+8568deb0fb70a6a1ed845b65d
+>=20
+> just reports "Error: Device specified by uuid is not available"
 
-So far the HDMI state has both the format and quantization range as
-different fields. I'm not sure we need to document the range in the
-format field, maybe only mention it's not part of the format but has a
-field of its own?
+I am very sorry to tell you that, when I run Sascha's demo with Mesa
+main, I got GPU lost immediately...
 
-Maxime
+```
+[  441.509433] powervr 13000000.gpu: [drm] *ERROR* GPU device lost
+```
 
---wbwmiqkexkho5cib
-Content-Type: application/pgp-signature; name="signature.asc"
+Icenowy
 
------BEGIN PGP SIGNATURE-----
-
-iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCacObuwAKCRAnX84Zoj2+
-ds1XAXsG3ZPGasIIoc6AjqXiDJncnXTY0PaMBBbXGSy+Rcyhb1RiReK8zMl508aI
-ahxZUfcBfAz2j3skdPxRfMkkduKBzOjrHQhv19x1nGeExVWXWq31x8ihOc0Sjroj
-z0wjpE2yrQ==
-=ee+x
------END PGP SIGNATURE-----
-
---wbwmiqkexkho5cib--
+>=20
+> This is with Mesa 26.0.2 packages from Debian testing. At least now
+> have the powervr vulkan driver enabled by default, so I don't have
+> to rebuild the packages again.
+>=20
+>=20
+> ChenYu
+>=20
+> > Thanks
+> > Icenowy
+> >=20
+> > >=20
+> > > Same program worked correctly on a BeaglePlay and displayed a
+> > > color
+> > > gradient triangle. Not sure what went wrong here.
+> > >=20
+> > > Anyway, please have a look and test.
+> > >=20
+> > >=20
+> > > Thanks
+> > > ChenYu
+> > >=20
+> > > [1]
+> > > https://lore.kernel.org/dri-devel/20220815165156.118212-2-sarah.walke=
+r@imgtec.com/
+> > > [2]
+> > > https://gitlab.freedesktop.org/imagination/linux-firmware/-/tree/powe=
+rvr
+> > > [3] https://github.com/SaschaWillems/Vulkan
+> > > [4]
+> > > https://lore.kernel.org/dri-devel/f2b2671e-5acc-4dec-9c2e-3c9cd2e1f19=
+e@imgtec.com/
+> > >=20
+> > > Chen-Yu Tsai (5):
+> > > =C2=A0 dt-bindings: clock: mediatek: Add mt8173 mfgtop
+> > > =C2=A0 clk: mediatek: Add mt8173-mfgtop driver
+> > > =C2=A0 dt-bindings: gpu: powervr-rogue: Add MediaTek MT8173 GPU
+> > > =C2=A0 arm64: dts: mediatek: mt8173: Fix MFG_ASYNC power domain clock
+> > > =C2=A0 arm64: dts: mediatek: mt8173: Add GPU device nodes
+> > >=20
+> > > =C2=A0.../clock/mediatek,mt8173-mfgtop.yaml=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 70 +++++
+> > > =C2=A0.../bindings/gpu/img,powervr-rogue.yaml=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0 |=C2=A0=C2=A0 1 +
+> > > =C2=A0arch/arm64/boot/dts/mediatek/mt8173.dtsi=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0 |=C2=A0 33 ++-
+> > > =C2=A0drivers/clk/mediatek/Kconfig=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=
+=A0=C2=A0 9 +
+> > > =C2=A0drivers/clk/mediatek/Makefile=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=
+=A0 1 +
+> > > =C2=A0drivers/clk/mediatek/clk-mt8173-mfgtop.c=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0 | 243
+> > > ++++++++++++++++++
+> > > =C2=A0include/dt-bindings/clock/mt8173-clk.h=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 7 +
+> > > =C2=A07 files changed, 363 insertions(+), 1 deletion(-)
+> > > =C2=A0create mode 100644
+> > > Documentation/devicetree/bindings/clock/mediatek,mt8173-
+> > > mfgtop.yaml
+> > > =C2=A0create mode 100644 drivers/clk/mediatek/clk-mt8173-mfgtop.c
