@@ -4,153 +4,144 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 85613FEA806
-	for <dri-devel@archiver.kernel.org>; Wed, 25 Mar 2026 04:21:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 93E51FEA803
+	for <dri-devel@archiver.kernel.org>; Wed, 25 Mar 2026 04:34:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D6EBB10E1E1;
-	Wed, 25 Mar 2026 04:21:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7B7B910E193;
+	Wed, 25 Mar 2026 04:34:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="gWgBC/WY";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="dO9aJ9pm";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="UxXtUFqX";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="InKjl/Eo";
 	dkim-atps=neutral
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
  [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8A45610E1E1
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Mar 2026 04:21:55 +0000 (UTC)
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CA76910E193
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Mar 2026 04:34:25 +0000 (UTC)
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 62P3o2CG1208643
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Mar 2026 04:21:54 GMT
+ 62OJOaWQ1862769
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Mar 2026 04:34:24 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=D/aJ7qmx0lND45eyidmiAx7I
- 2GBrkxtFsVI8mdbQxBI=; b=gWgBC/WYtC5ct/0L9Twud+l8ArZCJLaYvwRswi+F
- gULyF17mpvd7CWGUaiBEx8yw6NharI+b6oa8cMumJbvJhK7xjA2S4Nk9lAtJRx1z
- vj4ILg/nDDArTTiBJ0yiTdrQ+ryGZOxqjquQH46dTflOv38D+emUbwjYOB7JnHaa
- +JXH3P0HdSa3FKiW+2l6o1OsSXtz1/GvV7dfLBzAI2cHDoldtwDlHjHMXKb7KFDh
- OeSBgvwowZ0/I58usORfubkAL/WWbXVRbw84znEpLalNtbOmmK9KfpJyQn5I742V
- w1+EFxrgUxkRMX9tTzX5BjD2nTW5qxdjudO4zI2mlMvCJQ==
-Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com
- [209.85.214.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d485982p5-1
+ :references:subject:to; s=qcppdkim1; bh=EHUp7/16YUMBtKGES+yYYqc2
+ 0LzNJsKIcI6vCitDSoc=; b=UxXtUFqX1/6g2nxsMa/K3D44muLA4QP/qfif7ikK
+ 0PfGqXPH2DkXPdFnv2JwH9dBZrMi+CJqXZ0Fx5kAQPk9xIyNvrptcTe2T39UgZRD
+ PqQ9HCtVYJnygYaIfjzbz/TXWLO5j1HuJqsSRgROj20zluZNW1VYdXF495ZZnzmo
+ kQW5B/W7yOkgLxG3oM1WyUL0pFOI4P4e6nmddPEUOF8OeK5190ahq1G2S+KRAZLx
+ FjtOUwxDpHveFbF9HNRmUu11f7KytW5gnm2N/GHuedbMnGAxOs/bt4U7Z2UpMdLK
+ 7xeadyqyfvYZQ6/nJzG5hnrxVaUQfMPYQJzdZGp34rGkDA==
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com
+ [209.85.160.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d40rasdtd-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Mar 2026 04:21:54 +0000 (GMT)
-Received: by mail-pl1-f197.google.com with SMTP id
- d9443c01a7336-2b061868724so81663065ad.1
- for <dri-devel@lists.freedesktop.org>; Tue, 24 Mar 2026 21:21:54 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1774412513; cv=none;
- d=google.com; s=arc-20240605;
- b=ZTRrQX5gHFq52HrjEqwj0cEHqA8V8JYU1EHUpvTSLxNRAF1J+8QxfdR06NLBfjCAPq
- DwPS8DFE+zkanBgPTFZfpd4VX3Lkig4Ltc8uY9LGs+MDqPyGUf3fjeKEdij0pBz3Bacs
- Fyy94POUfHKyKzS+P+PV2tVzyeGuaMhutLi17eyy6Ixa79hF/8LZL0TxEhlIeVyTyg3i
- idGD0fhbGIw5NgkVSYMAKxQfhcqWArgBm464WKvp8Pxs6ogj2kt128j9ToqFUd2pFQ48
- FaFd6oYkJQSgT9Z/IcYwOEC/axmNEK51PcCyArF8CXApZsftBHIti9An6aq9dFb18hiI
- myXA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:dkim-signature;
- bh=D/aJ7qmx0lND45eyidmiAx7I2GBrkxtFsVI8mdbQxBI=;
- fh=xDKfBr+WO6GcAwb3IThvyFXYnFtnZ2JpNRI/FnF79H8=;
- b=JDJ/HV7jOyxSU8pHhtOKlfcWTRQ7x4igYI+FMFMSfRSSDXvSMYMsJ9kbPHOahB0SPk
- tpo2zm00XiVmBVFP9q6LStgX8pMzuGT5c5Y0vzMrJRhwDl0b/a3tY0fPNw5MJLLMJSXE
- HOTkw657rKWPFV0R5XZuDWOUKkWr29Y7NPEgCaUn500zLwnDeRByT4BcFOHCt3/qRB8W
- 5wavjvG9550ih8KLXXX3+S9Nv96nHNQEuwnGvX3F52/7qXvaTIrcscXrmQpckodulE+/
- c+oYsTtvtC1fCyYU5BJyn2CrkNm7f09jJf+0GIggXy9/H6F2KqbgWgp4bcJQrrbyw/ds
- WxHg==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Mar 2026 04:34:24 +0000 (GMT)
+Received: by mail-qt1-f200.google.com with SMTP id
+ d75a77b69052e-50917996cfaso133432381cf.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 24 Mar 2026 21:34:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1774412513; x=1775017313;
+ d=oss.qualcomm.com; s=google; t=1774413264; x=1775018064;
  darn=lists.freedesktop.org; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=D/aJ7qmx0lND45eyidmiAx7I2GBrkxtFsVI8mdbQxBI=;
- b=dO9aJ9pmcp6RQWaRKx/TNdHtrVwv5rHV8CExYCWrh8tICAePaDdrl423+6SPV9lp7r
- Sgl0j5XbLqzWeBUJGucuh6g3x5UW6+91ut+gw1cMQGP5/25erna4pXZmoEwuRD+x2nCc
- qK7NyJAfWIdSbVhr+W5j6zQvr68zZQQj3MGYk8sdpq4xumFELs1et+SWOcajJG1I1evx
- Vx+az1Hr9POxZmM42tdwJXi0EcATvHgbdxzSP1i8t649woCp1ywSU1EOIw9VhHq6m6bq
- JLI0sMYD/X410G2cH92xgAVX+vlCDkD2OCN11nAigcL6SRb7gc0cgA38qamFENAYuv8g
- 2J+Q==
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=EHUp7/16YUMBtKGES+yYYqc20LzNJsKIcI6vCitDSoc=;
+ b=InKjl/EoNM7YfzTElXvU+y/j/AHx2Jcil+6cUI6MOSMHHw39OLvUwkuGf2xp/V1fO/
+ OhW0lCgkUElb7vnF89hNDXki/6vPfSQ8TW6RYkss8UjhPEtk1fn3Cjy9FqI80t9YdNsj
+ vcDKY0VScROF7O+jGYSZCD4lNK+zyzmGdQeY8NQcY1yHFA/sCMq6WHXuQiBqlhjQH7Up
+ 3+OfA07jtgUzkbOAhx0KDnN09GTgFz6GRYnzvjXHetsuHzcgkRE/MVirPAbYfyzfulOa
+ jf5Hn8q5Jd7BOYWb8Gxi8LWHo90B4fSMF4PrGeSQgg8NBTVrFlgIlJ8K1u/vBgzPnTt8
+ ca6w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774412513; x=1775017313;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=D/aJ7qmx0lND45eyidmiAx7I2GBrkxtFsVI8mdbQxBI=;
- b=rql2m6KHOERaE72Dz+jcAOFndhKWtXdQi3Z++kCaQQyRUkCJsxq0aNPVnFF4imwdBw
- SRlYihZzcEo9/UGqcAEPv5eWhUmnNwsDkrNECSy6jxlwfRYQ1IoX3XpERyx51VR1niYX
- v7anBMK48lMjOQ5YSX8Sl12fFmJxyaMAy7+QfJHdJqCiwwyytOpST3Fd/rLWXNvis1Al
- JjXMvrp+08g3IqMFjuTFO4jM4OAB4EwNjFkA/HJjGVYgBG6hMvStZoUkOHHbcZpgOzM0
- 3041KllanvMsVTJRw79pXc8lNlxr2mhBu+HzsSzSk04P42NNalg/gLclk3hd7vzyO/jO
- fuCg==
+ d=1e100.net; s=20251104; t=1774413264; x=1775018064;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=EHUp7/16YUMBtKGES+yYYqc20LzNJsKIcI6vCitDSoc=;
+ b=kPXTKv1tAvZX94MTaqYWn5xB0cIGB7U9Ij91mGrPz3LIP/UYourD94v08Ta8Sew+Jt
+ 1rqYHO41V5eebvREFMbKIHVFQIVG1TTtMIY/h2qIaHJVydVmrFbSkn/HEDrYFMgyPRQF
+ uBg6awRR80hH5dRgnqLuG7umzG3FOqAmABHi7UnT6ff8F/79HzIK4PjOnf011SbNc+gX
+ 07IxPgRJYoMv3Wo1z3VxRkZua5WFF1xuCyDy1CgXwFNYlPrQnAA1wsYCLPGDC83aRb5Q
+ w+ON7eGaz5MbSEk14I1tSsNZ+2g0UGjt5fTFIUcJKaZGk33rLUSl6wWf7etvYHa6bp67
+ o9ng==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVsBhJymihwPQDUcuq7kagmePeBFmBkF0wBQbfrd1UzY19G9hY5sVZMiOU4Ic+gVOyMd7IUS3GCScU=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YydP013wMAqnX15XK0cJeCB7cGeCigb19NmbqUNF1oQeNwoFl65
- Wh6Nc7cH7sUsqOTGWJaz00yjW+bd22pLheSemlwKTD9OHKb886dO0YGl5mBBK2pF4Fr3QNO98Si
- in4CmtDJXxkQCoMPknelouJIerv/AhPsO03e6+AC1DG7lKEL+huMxTifKOeTiOpmBh+Sj050oNl
- SBfa/ywcCp0Xn1m7NOeGKxAywk7mXc8NFaAOJwJtGGLld68iaVzOfGNFs6
-X-Gm-Gg: ATEYQzyl79FEshPH+IzTN3yGfX0sRegZOludGvapkXH8Mgf27rRNpRf4Wx5XLFKRp1O
- 9QkUWd7ErbN/AVz/99JOiUrwB1rj4t+GjFl2rDQ1+sd8RRWd1b1rtoXvMrkPJM8u1k02O+W/AZX
- EXaSCoA4T8qhTXub7m+xrQZkvIlGm/NGyECobwVuzJ7O6pQNgETt5yZXtcWZ2JRqDIxKAIpn7mg
- aqw0Ao=
-X-Received: by 2002:a17:903:910:b0:2ae:ced7:4650 with SMTP id
- d9443c01a7336-2b0b0a7f74bmr22620825ad.24.1774412513399; 
- Tue, 24 Mar 2026 21:21:53 -0700 (PDT)
-X-Received: by 2002:a17:903:910:b0:2ae:ced7:4650 with SMTP id
- d9443c01a7336-2b0b0a7f74bmr22620335ad.24.1774412512717; Tue, 24 Mar 2026
- 21:21:52 -0700 (PDT)
-MIME-Version: 1.0
-References: <20260314-dp-connector-hpd-v1-0-786044cedc17@oss.qualcomm.com>
- <20260314-dp-connector-hpd-v1-2-786044cedc17@oss.qualcomm.com>
- <20260318174000.GK633439@killaraus.ideasonboard.com>
-In-Reply-To: <20260318174000.GK633439@killaraus.ideasonboard.com>
+ AJvYcCW1882Y6CRhJX17umJpIqEwYsbjpPAt2oGxjjgILan31VBObP7YW0kxrpr0mRJ97izNjM+izFHdOw8=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzBLwn/8c+9/7mpbaMPhmnHLuvtGSAK0uZgZ7Le8maEozETQpnq
+ OWp6jq1zw4k/Ybp/u16bLoRCwuitZWPUKp3z9LtkAGEm5MGH33Ye6SPfqogGholuS0oRGvD1A6c
+ Y28QQSUGMR6qwxdHR2cRajzwPXMh/wM1VwCC44AvkaZVX0WkFtgi6aA/zdVzGqat7qSNHaLo=
+X-Gm-Gg: ATEYQzwW1fuDGvLJcexADe4JKcAoNhEkHAWYB/P6Wgv5COkVQI2E8q8hu0VBzM61g/b
+ XyT/ITQkm60tanh6QS2EQkx4HxujXpt3I01et0wbL340Ujq94OLcssmKQEqRLGkIf9Kf6B9YGBn
+ LI7WfRv7Z4osf1pgnHYufnYFYshdpFHBqrBcRKfXKGf1TlPEQ/L3Ts4EK6MNp7B7x/t9z/3bcCx
+ cpOmjP7e/6qzqN+DUTT4lt/gpM2gKEJW0oJEnXT0bNGYcaxGKdkSzK28Dw8G9LVH7QUcWEc8/Dk
+ CVuzkDo9pygeR7pegpxFlgOKJamGsVCJgM+XohgKOn7WH2Vit/g57MPo9P9UAHo6Ry42nPV4cia
+ KnY7jjPPzaxlGlBg4+kXy8JNl7qSXZDVcEFLT7JAIeOAo/yecJyr+HZzexzcO3LSaoYvtmlQkb/
+ d0s4O0G6XTd/p40i9bQCkD1jzk2G2YHKL6b84=
+X-Received: by 2002:a05:622a:4ce:b0:509:1987:7626 with SMTP id
+ d75a77b69052e-50b80ed53b8mr28888471cf.68.1774413263899; 
+ Tue, 24 Mar 2026 21:34:23 -0700 (PDT)
+X-Received: by 2002:a05:622a:4ce:b0:509:1987:7626 with SMTP id
+ d75a77b69052e-50b80ed53b8mr28888091cf.68.1774413263409; 
+ Tue, 24 Mar 2026 21:34:23 -0700 (PDT)
+Received: from umbar.lan
+ (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-5a285207500sm3648167e87.41.2026.03.24.21.34.20
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 24 Mar 2026 21:34:21 -0700 (PDT)
+Date: Wed, 25 Mar 2026 06:34:18 +0200
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Date: Wed, 25 Mar 2026 06:21:40 +0200
-X-Gm-Features: AaiRm536djLXP7MN5Nm6e9xQKmaKLozPoJuN46DeXHIu6HD0mmKI5CD3EYTj1tw
-Message-ID: <CAO9ioeVyAgcki2N=9uN4w=1D20385H4aXgra7_MF9yXnwxoVpA@mail.gmail.com>
-Subject: Re: [PATCH 2/2] drm/bridge: display-connector: trigger initial HPD
- event for DP
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Robert Foss <rfoss@kernel.org>, Jonas Karlman <jonas@kwiboo.se>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Tomi Valkeinen <tomi.valkeinen@ti.com>,
- Boris Brezillon <boris.brezillon@collabora.com>,
- Sam Ravnborg <sam@ravnborg.org>,
- Sebastian Reichel <sebastian.reichel@collabora.com>,
- Yongxing Mou <yongxing.mou@oss.qualcomm.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzI1MDAyNyBTYWx0ZWRfXyNPGv7HhOVIe
- reuSejwGU4XsCq/94/eP1jGdZoKPAHyGHsQSzgifKkFRpeHvfojYn76/jq+9QlxUS8f0orbs6VV
- Yafry1AX9JI2RCn5QktwlnNBLvV8HNO9QoxwEfkE2dTW04XPcHnV64rvG3ZClaPxXf3Xfn2GaBK
- HSH+Bb52LA+8XtKxqGJuaDK3/ROEPsg4jsGO+v2H8eY7+VFb9rbaP8RmiUjDAeYMLIw3MmCShXM
- B82q33F0JMybopAvX7BzfIeDgq5QX2spzuvmYNRT2pZ/O21fxoxK3Cko8oksyjupKugCFXWTz9u
- tg4rtcwYlzlFaUIHmcfTOTbGj0Ej15UUvBThwdqmyFLmKfdi9dksPzwhXUEwwhkAd+0uRfXXzEQ
- xCOq2dfmT12TramOlnVI8OX15r3TlowEhzJNswhGYhKUobHyHwvCWDV6AfMwUmiAlKN/ikgQjgC
- 7KPWT4eroliGuaIQ1nw==
-X-Authority-Analysis: v=2.4 cv=VODQXtPX c=1 sm=1 tr=0 ts=69c362e2 cx=c_pps
- a=cmESyDAEBpBGqyK7t0alAg==:117 a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=_glEPmIy2e8OvE2BGh3C:22 a=P1BnusSwAAAA:8 a=EUspDBNiAAAA:8
- a=WyTQnvZ4-TvxbGU1kG0A:9 a=QEXdDO2ut3YA:10 a=1OuFwYUASf3TG4hYMiVC:22
- a=D0XLA9XvdZm18NrgonBM:22
-X-Proofpoint-GUID: z0ipUJoiapdrkBYM5m2tYRa0z1vbUp3Q
-X-Proofpoint-ORIG-GUID: z0ipUJoiapdrkBYM5m2tYRa0z1vbUp3Q
+To: Sumit Garg <sumit.garg@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-media@vger.kernel.org, netdev@vger.kernel.org,
+ linux-wireless@vger.kernel.org, ath12k@lists.infradead.org,
+ linux-remoteproc@vger.kernel.org, andersson@kernel.org,
+ konradybcio@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, robin.clark@oss.qualcomm.com, sean@poorly.run,
+ akhilpo@oss.qualcomm.com, lumag@kernel.org, abhinav.kumar@linux.dev,
+ jesszhan0024@gmail.com, marijn.suijten@somainline.org,
+ airlied@gmail.com, simona@ffwll.ch, vikash.garodia@oss.qualcomm.com,
+ dikshita.agarwal@oss.qualcomm.com, bod@kernel.org, mchehab@kernel.org,
+ elder@kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ jjohnson@kernel.org, mathieu.poirier@linaro.org,
+ trilokkumar.soni@oss.qualcomm.com, mukesh.ojha@oss.qualcomm.com,
+ pavan.kondeti@oss.qualcomm.com, jorge.ramirez@oss.qualcomm.com,
+ tonyh@qti.qualcomm.com, vignesh.viswanathan@oss.qualcomm.com,
+ srinivas.kandagatla@oss.qualcomm.com,
+ amirreza.zarrabi@oss.qualcomm.com, jens.wiklander@linaro.org,
+ op-tee@lists.trustedfirmware.org, apurupa@qti.qualcomm.com,
+ skare@qti.qualcomm.com, Sumit Garg <sumit.garg@oss.qualcomm.com>
+Subject: Re: [PATCH 10/14] drm/msm: Switch to generic PAS TZ APIs
+Message-ID: <v4ffww2r4ljqqbmvsc5jcr4ztqjbpfb42xryjeuz4abqiwup3a@2gfeelhjzzz4>
+References: <20260306105027.290375-1-sumit.garg@kernel.org>
+ <20260306105027.290375-11-sumit.garg@kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260306105027.290375-11-sumit.garg@kernel.org>
+X-Authority-Analysis: v=2.4 cv=Jvr8bc4C c=1 sm=1 tr=0 ts=69c365d0 cx=c_pps
+ a=JbAStetqSzwMeJznSMzCyw==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22 a=EUspDBNiAAAA:8
+ a=kPJGyq6PTXsXdZOMel8A:9 a=CjuIK1q_8ugA:10 a=uxP6HrT_eTzRwkO_Te1X:22
+X-Proofpoint-ORIG-GUID: 8TEbB6ehb4_9TkHcIxjRnFbq0fx7WcBl
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzI1MDAyOCBTYWx0ZWRfX60gpbatsv09S
+ EY9iZLElNQK6ZDDJco6u4QcQjygOylL5XFDT+DsWYBW8dYR9v9YcjkHD1ju37CmqWMU6t8Nk0Fs
+ BdamZ4GHXpyV/7AHSRQTTK0w3D07Y6AOwLkeNRg62sXer4mCSqYcx6BH8bKt3tzmF8jLA0roMop
+ Uyu7pcLxDu0xqczFcX8bs+Ui794k0+j52d9+ugt7KynI+O+WmH3TAvGs/QLSxpJNbCt0amhyTKf
+ DcVuEWp5q/KPLnLmoVtGHZr2Dx+/JHqq4VRLqs2uAFTotX2QY2IYluU9f4NDKCYJ+ZSraErOgh9
+ M2Cv+bh0dUe4OT9IZT9+k0T3X+NZpkRrLPLP/KwfbUYVL3HflWN0paFEenOFV2ePttnDch3l9Wm
+ kzAcQKNZuZv+WW7/F7QZkFrWFHtYZDDN/KyhSbMW1iExM+vordxBFqCNSchyMydZ2oF9TGsIl5q
+ UMwmT6msOggb6JoILqg==
+X-Proofpoint-GUID: 8TEbB6ehb4_9TkHcIxjRnFbq0fx7WcBl
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
  definitions=2026-03-25_01,2026-03-24_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 lowpriorityscore=0 malwarescore=0 phishscore=0
- priorityscore=1501 spamscore=0 impostorscore=0 clxscore=1015 adultscore=0
- bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2603050001
- definitions=main-2603250027
+ lowpriorityscore=0 adultscore=0 impostorscore=0 suspectscore=0 phishscore=0
+ priorityscore=1501 spamscore=0 clxscore=1015 bulkscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603250028
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -166,55 +157,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi,
+On Fri, Mar 06, 2026 at 04:20:23PM +0530, Sumit Garg wrote:
+> From: Sumit Garg <sumit.garg@oss.qualcomm.com>
+> 
+> Switch drm/msm client drivers over to generic PAS TZ APIs. Generic PAS
+> TZ service allows to support multiple TZ implementation backends like QTEE
+> based SCM PAS service, OP-TEE based PAS service and any further future TZ
+> backend service.
+> 
+> Signed-off-by: Sumit Garg <sumit.garg@oss.qualcomm.com>
+> ---
+>  drivers/gpu/drm/msm/adreno/a5xx_gpu.c   |  4 ++--
+>  drivers/gpu/drm/msm/adreno/adreno_gpu.c | 11 ++++++-----
+>  2 files changed, 8 insertions(+), 7 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/adreno/a5xx_gpu.c b/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
+> index ef9fd6171af7..3283852f9a14 100644
+> --- a/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
+> +++ b/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
+> @@ -5,7 +5,7 @@
+>  #include <linux/kernel.h>
+>  #include <linux/types.h>
+>  #include <linux/cpumask.h>
+> -#include <linux/firmware/qcom/qcom_scm.h>
+> +#include <linux/firmware/qcom/qcom_pas.h>
 
-On Wed, 18 Mar 2026 at 19:40, Laurent Pinchart
-<laurent.pinchart@ideasonboard.com> wrote:
->
-
-Sorry, I missed your email.
-
->
-> On Sat, Mar 14, 2026 at 02:43:12AM +0200, Dmitry Baryshkov wrote:
-> > If the DisplayPort drivers use display-connector for the HPD detection,
-> > the internal HPD state machine might be not active and thus the hardware
-> > might be not able to handle cable detection correctly. Instead it will
-> > depend on the externall HPD notifications to set the cable state,
-> > bypassing the internal HPD state machine (for example this is the case
-> > for the msm DP driver).
-> >
-> > However if the cable has been plugged before the HPD IRQ has been
-> > enabled, there will be no HPD event coming. The drivers might fail
-> > detection in such a case. Trigger the HPD notification after enabling
-> > the HPD IRQ, propagating the cable insertion state.
->
-> The explanation makes sense, but it sounds like to could apply the same
-> way to HDMI. What am I missing ?
-
-Well... First of all, since HDMI doesn't have all DP magic, there is
-no difference between HPD pin state and the display being plugged in
-(so, e.g. dp-connector can't implement OP_DETECT, while hdmi-connector
-does). For HDMI we usually don't have a complicated state machine in
-the hardware. Nor do we have a an AUX bus with timeouts, etc.
-
->
-> Also, wouldn't it be better if the DRM core interrogated the state of
-> the HPD signal when enabling HPD, instead of relying on all drivers to
-> implement something similar as this patch ?
-
-Most of the drivers don't require this. It is only limited to the
-OP_HPD bridges which don't implement OP_DETECT.
-
->
-> > Fixes: 2e2bf3a5584d ("drm/bridge: display-connector: add DP support")
-> > Reported-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
-> > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> > ---
-> >  drivers/gpu/drm/bridge/display-connector.c | 19 +++++++++++++++++++
-> >  1 file changed, 19 insertions(+)
+Missing `select QCOM_PAS`.
 
 
+>  #include <linux/pm_opp.h>
+>  #include <linux/nvmem-consumer.h>
+>  #include <linux/slab.h>
+> @@ -653,7 +653,7 @@ static int a5xx_zap_shader_resume(struct msm_gpu *gpu)
+>  	if (adreno_is_a506(adreno_gpu))
+>  		return 0;
+>  
+> -	ret = qcom_scm_set_remote_state(SCM_GPU_ZAP_SHADER_RESUME, GPU_PAS_ID);
+> +	ret = qcom_pas_set_remote_state(SCM_GPU_ZAP_SHADER_RESUME, GPU_PAS_ID);
+>  	if (ret)
+>  		DRM_ERROR("%s: zap-shader resume failed: %d\n",
+>  			gpu->name, ret);
 
---
+-- 
 With best wishes
 Dmitry
