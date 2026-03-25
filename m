@@ -4,127 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 59AA1109C05D
-	for <dri-devel@archiver.kernel.org>; Wed, 25 Mar 2026 21:07:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DD3DA106B504
+	for <dri-devel@archiver.kernel.org>; Wed, 25 Mar 2026 21:11:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8544210E8A1;
-	Wed, 25 Mar 2026 21:07:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4C3AD10E19E;
+	Wed, 25 Mar 2026 21:11:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="fyS4bElx";
+	dkim=pass (1024-bit key; secure) header.d=ffwll.ch header.i=@ffwll.ch header.b="bzMRQD9b";
 	dkim-atps=neutral
-Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com
- [74.125.82.178])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9886610E888
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Mar 2026 21:07:15 +0000 (UTC)
-Received: by mail-dy1-f178.google.com with SMTP id
- 5a478bee46e88-2c160308a54so539929eec.0
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Mar 2026 14:07:15 -0700 (PDT)
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com
+ [209.85.221.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 27D3810E19E
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Mar 2026 21:11:34 +0000 (UTC)
+Received: by mail-wr1-f51.google.com with SMTP id
+ ffacd0b85a97d-43b40fb7f95so225286f8f.3
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Mar 2026 14:11:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1774472835; x=1775077635; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:autocrypt:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to;
- bh=xRdg58NXsOBhswYnVO/BUNp/4H/9GSgQvPvpHxsKQpY=;
- b=fyS4bElx6Ugb4mWXmPL0UieD8eo/knWwa+hnFc7/nNqCphd2/Mxs6PiEIOOX1vIRS9
- MOJbYgSepDkcJ6FbPS5+jSPQj8YOHo/bSh1AOmBE4Ed5WcqSkY3/HYGyvQuYOrMEv0ZM
- m7UmXanVIYsYiC2G6pDHexN97cuzb+7ZCkxTkv9v3+lkngUHzTmvEKM/vLyFJlSjm83O
- Mv3t2v7h4tF/BJQcRnVU2xjp8Sc7gREaPIrBwTIY/91UgqfAdw2yJ2Dr3T89+bNW1Q7Y
- FwdnmlJtTPwSEK3j6V6cY//q5q/J1BwtczAXzC8tWOtZMm0R7g04hUyzXDcK7yQvDntS
- bydQ==
+ d=ffwll.ch; s=google; t=1774473093; x=1775077893; darn=lists.freedesktop.org; 
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=dnIL4wZv97aEMtNlFlTWEL+mxDNk9MQIoyZ5TjA/L4g=;
+ b=bzMRQD9bK94CZUWs6BtS5z7dqWJgLxtJAeJBelfNJm0CukIDiJOJENKh6Tz8wPd2l7
+ z0SdRzvc3H9EvKCNUjvdDPfBRiV/JKNO9ulRjeBgictntNdlW2Xo43XekK9J+LU/8ULP
+ Ta45Ofuz1ro1SUDlWFtz5fqcDDXn2f+CK5cpU=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774472835; x=1775077635;
- h=content-transfer-encoding:in-reply-to:autocrypt:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=xRdg58NXsOBhswYnVO/BUNp/4H/9GSgQvPvpHxsKQpY=;
- b=d+At3hMg+b+I9aMM0Q1oKBo1Wu8cKKesW/nvi5c3fPJRT77DEmBJUlcxliaLiMmL2+
- juc9VRANtc5fJzbaqmpAqkSJeMsPGN+mbJJyeaSPkmTWnlmkxX/+al7lzo1ypyyzjXLI
- y1bwW0Q6R72hddATlxqHixL5gBUH1BtzLwd+7Jz/59IUTHj1Pij1s19zzx5fKtO3TRbs
- mK/utFcsbBaNfBkd3ps+ZbhNpMYOU5fZJX/SnWGAuim8Tze86QJHi1DjylTdB7bzqkeK
- lvpzzHtm3mdjfAfuFoP1I2wHkIz9xeResvVH9ctCUSeyL1ZL4uBfRuPPimFafdPH4o0f
- nwsQ==
-X-Gm-Message-State: AOJu0YxUvUxWxwPA70WHgOtvIyw5uh6LyiLLyyju/0vUD/x2ALcKZ9QH
- YM0DQO5GrlpGfgUNL3IUUk8aFXGB2k7O2/mrZLL9EWWGV7mTnE1IZmaS
-X-Gm-Gg: ATEYQzzLxdaRWL6n60zd0gEjlAMsIjfmILnRx7y8+wmBJdlkMrLQo+LrWTm5i59PIq1
- 1xGBzNMAJUwnEtO9/6RqmLR1wlTAYf4NjvYxauhD6WMwRBinS7h7BSgijIxI9Sh2QsFOzYCMfvw
- Kou76b6kxj9TaLQCy6PJQluzaNRgt9zm8hBc6sAnaVD+Y3cY0ep7eDTMTP7NWLGCkCJAuktOzPE
- YziZ25iZvkQSbE8ozcss0tkaBL+arr2cM+z/QkCs51qw5NJimQjzE9PtcuBTpN7hx0flLbGzpnZ
- U6HyHolEoA9/M6Xu3Cj20eqY6cI89Ziesp06S/P7Vytd5p4TIk3Z4vNHZx4TjXxfl9MijI9kpFa
- ojk8i+q1/G49/6mgyATMx/DlfA2BX3fXc2vGZdgIbcFeX1ntBO4PGlp7JM+WDTZSf/nw2Fg2mkC
- JXGJQ177yjX4bIBoyHqwnEi0gI+53tApM1KBqHe7HCzY27BCzUOa5RL/0QAX6y94b+00X6fSMB
-X-Received: by 2002:a05:7301:1f01:b0:2c1:71a8:3841 with SMTP id
- 5a478bee46e88-2c171a891e0mr178257eec.19.1774472834482; 
- Wed, 25 Mar 2026 14:07:14 -0700 (PDT)
-Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5?
- ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+ d=1e100.net; s=20251104; t=1774473093; x=1775077893;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=dnIL4wZv97aEMtNlFlTWEL+mxDNk9MQIoyZ5TjA/L4g=;
+ b=orbPlA9QrJD5S/IS2yf3Va8FQBGRXDuQHLQMQ/aN3Wr8Q/R94R0O7CGg/DH/wuTe9U
+ n/BzbFwK7P/oJWr3RXRzbZChJb9TN7HewW1C3TtwkCHgXGcl+lKrLjQrPzPnntkdAwNS
+ VKwS3Pbl6l8+Wgq33odZxn++qX3D9CaGehM2jcpMir93SeKH8Glfm5NCkDwXSL9mFwyv
+ 4qo5rdsyd92Sly7PjBwqtUW9+Py8infFQQ2fES8CNN3zTU+1H/PROetuUbvc79see8Ue
+ fZ1FvENpb3laTet6jsro1CmkA9jyV3vu5nyOUkdb6dcewNAUa64gk9QSW95qoRxjjEmp
+ HOdA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXAETkwujp7zUKSj5rGF+24gbpWjIZ6RmgwjhmEPV9BApDOzGn0rakGaCw1SzCwGz6TZleIXW9n63Y=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzH6C3aqBDuvgiMSuKnBYhhbRNYx7fez3BPia//nDa5tc2rQpPx
+ GjX8h3S2vvKBnCNsAxRTb/Afhz0VP3x2kgWUtk43ulAC98LflDOVUowvd9a8uwE5zrM=
+X-Gm-Gg: ATEYQzwTJhyg9gyUi9mfpjA0DBVKpsHJih7sazciyL+LvbK4/2KdJhrMRnshnnE6zmZ
+ kUWvpgcLTwkep9OPzu3CNqZX6PZca+YRDJsj1vAR+tcRSRX+ZiY5DvpP1/UhYUm15a+HeGcKFgL
+ Qs42BDE5RA6dtnc7oBnZgwG5I9Bs5X4t1hOsnkDwqrLx9IPdDfNXYoNxIeRZlt1aHKdAmZdkeBY
+ qBHXBSboOeB/lbEriQM9tOaiaS8LsLaz9lp9fxT3TLFDH3qRKEafPhtrNo7iCwaLoNfIdUbp2NF
+ G80Qp5pg924+tMfL6p4kMdDddzXMLrtEQx3K5+d8o/ru9k1Dm55H2WiN3ru999diUtUNCjXfD4O
+ oTDOwlSpKVlwlwlbjxUGiyYWJaHjzJrqxYcG4Ege385S7cszM5By4CAR4eiE0GYy8aKOnOY2hUx
+ EKR6U42VoX8KCfQTzwFl9/C93lZU9jCbWNY14=
+X-Received: by 2002:a05:6000:26c1:b0:439:b623:a9e9 with SMTP id
+ ffacd0b85a97d-43b889a83fcmr6920220f8f.19.1774473092683; 
+ Wed, 25 Mar 2026 14:11:32 -0700 (PDT)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:5485:d4b2:c087:b497])
  by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-2c16ed9f751sm692814eec.14.2026.03.25.14.07.13
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 25 Mar 2026 14:07:13 -0700 (PDT)
-Message-ID: <8b97ef2d-1e22-4a38-b3d3-1f54d5da1ded@roeck-us.net>
-Date: Wed, 25 Mar 2026 14:07:12 -0700
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
+ ffacd0b85a97d-43b919432f0sm2910367f8f.13.2026.03.25.14.11.31
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 25 Mar 2026 14:11:31 -0700 (PDT)
+Date: Wed, 25 Mar 2026 22:11:30 +0100
+From: Simona Vetter <simona.vetter@ffwll.ch>
+To: Guenter Roeck <linux@roeck-us.net>
+Cc: Maarten Lankhorst <dev@lankhorst.se>, dri-devel@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org,
+ Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
 Subject: Re: [PATCH v2 1/1] drm: Fix use-after-free on framebuffers and
  property blobs when calling drm_dev_unplug
-To: Maarten Lankhorst <dev@lankhorst.se>
-Cc: dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
+Message-ID: <acRPgts0pCLw8yLq@phenom.ffwll.local>
 References: <20260313151728.14990-3-dev@lankhorst.se>
  <20260313151728.14990-4-dev@lankhorst.se>
  <a89da668-578f-4ae0-809b-f0e68e3550e1@roeck-us.net>
- <42a3616f-f072-47bf-80c8-da4f27b38fe0@lankhorst.se>
- <ec546b71-3b8e-4262-8578-a391f635dc17@roeck-us.net>
- <8ee09620-dd9b-413a-9596-8489d30db312@lankhorst.se>
-Content-Language: en-US
-From: Guenter Roeck <linux@roeck-us.net>
-Autocrypt: addr=linux@roeck-us.net; keydata=
- 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
- np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
-In-Reply-To: <8ee09620-dd9b-413a-9596-8489d30db312@lankhorst.se>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <a89da668-578f-4ae0-809b-f0e68e3550e1@roeck-us.net>
+X-Operating-System: Linux phenom 6.18.5+deb14-amd64 
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -140,279 +92,495 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 3/25/26 13:31, Maarten Lankhorst wrote:
-> Hey,
-> 
-> Den 2026-03-25 kl. 21:12, skrev Guenter Roeck:
->> Hi Maarten,
->>
->> On Wed, Mar 25, 2026 at 07:28:06PM +0100, Maarten Lankhorst wrote:
->>> Hello,
->>>
->>> What about this patch?
->>>
->>> Kind regards,
->>> ~Maarten Lankhorst
->>>
->>> ------8<---------
->>> diff --git a/drivers/gpu/drm/sysfb/simpledrm.c b/drivers/gpu/drm/sysfb/simpledrm.c
->>> index 0358164a623c9..ae49aaf99fb2c 100644
->>> --- a/drivers/gpu/drm/sysfb/simpledrm.c
->>> +++ b/drivers/gpu/drm/sysfb/simpledrm.c
->>> @@ -588,6 +588,11 @@ static const struct drm_mode_config_funcs simpledrm_mode_config_funcs = {
->>>    * Init / Cleanup
->>>    */
->>>   
->>> +static void simpledrm_shutdown(struct drm_device *dev, void *arg)
->>> +{
->>> +	drm_atomic_helper_shutdown(dev);
->>> +}
->>> +
->>>   static struct simpledrm_device *simpledrm_device_create(struct drm_driver *drv,
->>>   							struct platform_device *pdev)
->>>   {
->>> @@ -808,6 +813,10 @@ static struct simpledrm_device *simpledrm_device_create(struct drm_driver *drv,
->>>   
->>>   	drm_mode_config_reset(dev);
->>>   
->>> +	ret = drmm_add_action_or_reset(dev, simpledrm_shutdown, NULL);
->>> +	if (ret)
->>> +		return ERR_PTR(ret);
->>> +
->>>   	return sdev;
->>>   }
->>>   
->>
->> Unfortunately, this results in an exciting new set of refcount underflows.
-> 
-> 
-> Thank you, that's very fascinating and unexpected..
-> 
-> What happens if you loudly complain on fd close instead?
-> ---------8<----
+On Wed, Mar 25, 2026 at 10:26:40AM -0700, Guenter Roeck wrote:
+> Hi,
+>=20
+> On Fri, Mar 13, 2026 at 04:17:27PM +0100, Maarten Lankhorst wrote:
+> > When trying to do a rather aggressive test of igt's "xe_module_load
+> > --r reload" with a full desktop environment and game running I noticed
+> > a few OOPSes when dereferencing freed pointers, related to
+> > framebuffers and property blobs after the compositor exits.
+> >=20
+> > Solve this by guarding the freeing in drm_file with drm_dev_enter/exit,
+> > and immediately put the references from struct drm_file objects during
+> > drm_dev_unplug().
+> >=20
+>=20
+> With this patch in v6.18.20, I get the warning backtraces below.
+> The backtraces are gone with the patch reverted.
+
+Yeah, this needs to be reverted, reasoning below. Maarten, can you please
+take care of that and feed the revert through the usual channels? I don't
+think it's critical enough that we need to fast-track this into drm.git
+directly.
+
+Quoting the patch here again:
+
+>  drivers/gpu/drm/drm_file.c        | 5 ++++-
+>  drivers/gpu/drm/drm_mode_config.c | 9 ++++++---
+>  2 files changed, 10 insertions(+), 4 deletions(-)
+>=20
 > diff --git a/drivers/gpu/drm/drm_file.c b/drivers/gpu/drm/drm_file.c
-> index c8c7155319951..237ab6d606127 100644
+> index ec820686b3021..f52141f842a1f 100644
 > --- a/drivers/gpu/drm/drm_file.c
 > +++ b/drivers/gpu/drm/drm_file.c
-> @@ -251,7 +251,7 @@ void drm_file_free(struct drm_file *file)
->   	drm_events_release(file);
->   
->   	if (drm_core_check_feature(dev, DRIVER_MODESET) &&
-> -	    drm_dev_enter(dev, &idx)) {
-> +	    !WARN_ON(!drm_dev_enter(dev, &idx))) {
->   		drm_fb_release(file);
->   		drm_property_destroy_user_blobs(dev, file);
->   		drm_dev_exit(idx);
+> @@ -233,6 +233,7 @@ static void drm_events_release(struct drm_file *file_=
+priv)
+>  void drm_file_free(struct drm_file *file)
+>  {
+>  	struct drm_device *dev;
+> +	int idx;
+> =20
+>  	if (!file)
+>  		return;
+> @@ -249,9 +250,11 @@ void drm_file_free(struct drm_file *file)
+> =20
+>  	drm_events_release(file);
+> =20
+> -	if (drm_core_check_feature(dev, DRIVER_MODESET)) {
+> +	if (drm_core_check_feature(dev, DRIVER_MODESET) &&
+> +	    drm_dev_enter(dev, &idx)) {
 
-With or without the simpledrm changes above ?
+This is misplaced for two reasons:
 
-Thanks,
-Guenter
+- Even if we'd want to guarantee that we hold a drm_dev_enter/exit
+  reference during framebuffer teardown, we'd need to do this
+  _consistently over all callsites. Not ad-hoc in just one place that a
+  testcase hits. This also means kerneldoc updates of the relevant hooks
+  and at least a bunch of acks from other driver people to document the
+  consensus.
 
+- More importantly, this is driver responsibilities in general unless we
+  have extremely good reasons to the contrary. Which means this must be
+  placed in xe.
 
-> ---------------
->> Guenter
->>
->> ---
->> [    0.000000] Linux version 6.18.20-spi+ (groeck@server.roeck-us.net) (gcc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0, GNU ld (GNU Binutils for Ubuntu) 2.42) #1 SMP PREEMPT_DYNAMIC Wed Mar 25 12:10:19 PDT 2026
->> [    0.000000] Command line: BOOT_IMAGE=/boot/vmlinuz-6.18.20-spi+ root=UUID=ce436484-f920-47a8-a8c4-c17ff3a877e8 ro quiet splash amdgpu.gpu_recovery=1 amdgpu.ppfeaturemask=0xfff73fff vt.handoff=7
->> ...
->> [    3.806644] nouveau 0000:2b:00.0: NVIDIA GK208B (b060b0b1)
->> ...
->> [    4.644370] nouveau 0000:2b:00.0: drm: VRAM: 2048 MiB
->> [    4.644373] nouveau 0000:2b:00.0: drm: GART: 1048576 MiB
->> [    4.644375] nouveau 0000:2b:00.0: drm: TMDS table version 2.0
->> [    4.645032] nouveau 0000:2b:00.0: drm: MM: using COPY for buffer copies
->> [    4.645959] snd_hda_intel 0000:2b:00.1: bound 0000:2b:00.0 (ops nv50_audio_component_bind_ops [nouveau])
->> [    4.647016] nouveau 0000:2b:00.0: [drm] Registered 4 planes with drm panic
->> [    4.647019] [drm] Initialized nouveau 1.4.0 for 0000:2b:00.0 on minor 1
->> ...
->> [    4.728390] fbcon: nouveaudrmfb (fb0) is primary device
->> [    4.728392] fbcon: Deferring console take-over
->> [    4.728393] nouveau 0000:2b:00.0: [drm] fb0: nouveaudrmfb frame buffer device
->> [    4.826620] nouveau 0000:2b:00.0: drm: Failure to read SCDC_TMDS_CONFIG: -6
->> ...
->> [    4.986925] ------------[ cut here ]------------
->> [    4.986926] refcount_t: addition on 0; use-after-free.
->> [    4.986933] WARNING: CPU: 2 PID: 493 at lib/refcount.c:25 refcount_warn_saturate+0x12e/0x150
->> [    4.986938] Modules linked in: qrtr bnep sunrpc binfmt_misc nls_iso8859_1 amd_atl intel_rapl_msr intel_rapl_common snd_hda_codec_alc882 snd_hda_codec_realtek_lib snd_hda_codec_generic snd_hda_codec_nvhdmi snd_hda_codec_hdmi snd_hda_intel snd_hda_codec snd_hda_core edac_mce_amd snd_intel_dspcfg snd_intel_sdw_acpi snd_hwdep kvm_amd snd_pcm snd_seq_midi snd_seq_midi_event snd_rawmidi kvm snd_seq btusb snd_seq_device snd_timer btmtk btrtl irqbypass polyval_clmulni btbcm snd ghash_clmulni_intel btintel aesni_intel bluetooth joydev input_leds ee1004 soundcore ccp rapl nouveau mxm_wmi drm_gpuvm gpu_sched drm_ttm_helper ttm drm_exec drm_display_helper cec rc_core i2c_piix4 video i2c_smbus wmi_bmof k10temp bfq gpio_amdpt mac_hid sch_fq_codel nct6683 msr parport_pc ppdev lp parport nvme_fabrics efi_pstore nfnetlink dmi_sysfs ip_tables x_tables autofs4 hid_generic nvme usbhid hid igb nvme_core r8169 i2c_algo_bit nvme_keyring ahci realtek dca nvme_auth libahci hkdf wmi
->> [    4.986973] CPU: 2 UID: 0 PID: 493 Comm: plymouthd Not tainted 6.18.20-spi+ #1 PREEMPT(full)
->> [    4.986974] Hardware name: Micro-Star International Co., Ltd. MS-7C94/MAG B550M MORTAR MAX WIFI (MS-7C94), BIOS 1.G0 08/22/2023
->> [    4.986975] RIP: 0010:refcount_warn_saturate+0x12e/0x150
->> [    4.986977] Code: 1d 28 43 ec 01 80 fb 01 0f 87 fe 61 6c ff 83 e3 01 0f 85 52 ff ff ff 48 c7 c7 18 a3 66 89 c6 05 08 43 ec 01 01 e8 a2 76 80 ff <0f> 0b e9 38 ff ff ff 48 c7 c7 f0 a2 66 89 c6 05 ef 42 ec 01 01 e8
->> [    4.986978] RSP: 0018:ffffcdec80873990 EFLAGS: 00010246
->> [    4.986979] RAX: 0000000000000000 RBX: 0000000000000000 RCX: 0000000000000000
->> [    4.986979] RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000000000000
->> [    4.986980] RBP: ffffcdec80873998 R08: 0000000000000000 R09: 0000000000000000
->> [    4.986980] R10: 0000000000000000 R11: 0000000000000000 R12: ffff8af0493f7c80
->> [    4.986981] R13: ffff8af0493f7c80 R14: ffff8af04085e740 R15: dead000000000100
->> [    4.986982] FS:  0000739d3374e000(0000) GS:ffff8aff93d73000(0000) knlGS:0000000000000000
->> [    4.986983] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
->> [    4.986983] CR2: 0000739d2f268000 CR3: 0000000113bd6000 CR4: 0000000000f50ef0
->> [    4.986984] PKRU: 55555554
->> [    4.986984] Call Trace:
->> [    4.986985]  <TASK>
->> [    4.986987]  drm_dev_get+0x53/0x80
->> [    4.986989]  drm_atomic_state_init+0x7b/0xe0
->> [    4.986991]  drm_atomic_state_alloc+0x98/0xb0
->> [    4.986992]  drm_atomic_helper_disable_all+0x1d/0x1c0
->> [    4.986994]  drm_atomic_helper_shutdown+0x9c/0x140
->> [    4.986995]  simpledrm_shutdown+0xe/0x20
->> [    4.986997]  drm_managed_release+0x8f/0x160
->> [    4.986999]  drm_minor_release+0x5f/0x90
->> [    4.987000]  drm_release+0xda/0x140
->> [    4.987001]  __fput+0xed/0x2d0
->> [    4.987010]  fput_close_sync+0x3d/0xa0
->> [    4.987012]  __x64_sys_close+0x3e/0x90
->> [    4.987015]  x64_sys_call+0x1b5e/0x26a0
->> [    4.987019]  do_syscall_64+0x80/0x530
->> [    4.987022]  ? x64_sys_call+0x1144/0x26a0
->> [    4.987024]  ? do_syscall_64+0xb8/0x530
->> [    4.987025]  ? from_kgid_munged+0x17/0x30
->> [    4.987028]  ? cp_new_stat+0x141/0x180
->> [    4.987030]  ? __do_sys_newfstat+0x4c/0x80
->> [    4.987032]  ? __x64_sys_newfstat+0x15/0x20
->> [    4.987034]  ? x64_sys_call+0x204a/0x26a0
->> [    4.987035]  ? do_syscall_64+0xb8/0x530
->> [    4.987037]  ? __x64_sys_newfstat+0x15/0x20
->> [    4.987038]  ? x64_sys_call+0x204a/0x26a0
->> [    4.987040]  ? do_syscall_64+0xb8/0x530
->> [    4.987041]  ? irqentry_exit_to_user_mode+0x2e/0x320
->> [    4.987043]  ? irqentry_exit+0x43/0x50
->> [    4.987044]  ? exc_page_fault+0x90/0x1b0
->> [    4.987046]  entry_SYSCALL_64_after_hwframe+0x76/0x7e
->> [    4.987047] RIP: 0033:0x739d339f774c
->> [    4.987048] Code: 0f 05 48 3d 00 f0 ff ff 77 3c c3 0f 1f 00 55 48 89 e5 48 83 ec 10 89 7d fc e8 10 1e f8 ff 8b 7d fc 89 c2 b8 03 00 00 00 0f 05 <48> 3d 00 f0 ff ff 77 2c 89 d7 89 45 fc e8 72 1e f8 ff 8b 45 fc c9
->> [    4.987049] RSP: 002b:00007ffd8ca10660 EFLAGS: 00000293 ORIG_RAX: 0000000000000003
->> [    4.987050] RAX: ffffffffffffffda RBX: 0000615423195870 RCX: 0000739d339f774c
->> [    4.987051] RDX: 0000000000000000 RSI: 0000000000000000 RDI: 000000000000000b
->> [    4.987052] RBP: 00007ffd8ca10670 R08: 0000000615423196 R09: 0000000000000007
->> [    4.987053] R10: 0000615423196bc0 R11: 0000000000000293 R12: 0000739d3374df88
->> [    4.987055] R13: 0000000000000013 R14: 0000615423209840 R15: 0000615423194130
->> [    4.987057]  </TASK>
->> [    4.987058] ---[ end trace 0000000000000000 ]---
->> [    4.987114] ------------[ cut here ]------------
->> [    4.987115] refcount_t: underflow; use-after-free.
->> [    4.987119] WARNING: CPU: 2 PID: 493 at lib/refcount.c:28 refcount_warn_saturate+0xfb/0x150
->> [    4.987121] Modules linked in: qrtr bnep sunrpc binfmt_misc nls_iso8859_1 amd_atl intel_rapl_msr intel_rapl_common snd_hda_codec_alc882 snd_hda_codec_realtek_lib snd_hda_codec_generic snd_hda_codec_nvhdmi snd_hda_codec_hdmi snd_hda_intel snd_hda_codec snd_hda_core edac_mce_amd snd_intel_dspcfg snd_intel_sdw_acpi snd_hwdep kvm_amd snd_pcm snd_seq_midi snd_seq_midi_event snd_rawmidi kvm snd_seq btusb snd_seq_device snd_timer btmtk btrtl irqbypass polyval_clmulni btbcm snd ghash_clmulni_intel btintel aesni_intel bluetooth joydev input_leds ee1004 soundcore ccp rapl nouveau mxm_wmi drm_gpuvm gpu_sched drm_ttm_helper ttm drm_exec drm_display_helper cec rc_core i2c_piix4 video i2c_smbus wmi_bmof k10temp bfq gpio_amdpt mac_hid sch_fq_codel nct6683 msr parport_pc ppdev lp parport nvme_fabrics efi_pstore nfnetlink dmi_sysfs ip_tables x_tables autofs4 hid_generic nvme usbhid hid igb nvme_core r8169 i2c_algo_bit nvme_keyring ahci realtek dca nvme_auth libahci hkdf wmi
->> [    4.987147] CPU: 2 UID: 0 PID: 493 Comm: plymouthd Tainted: G        W           6.18.20-spi+ #1 PREEMPT(full)
->> [    4.987149] Tainted: [W]=WARN
->> [    4.987149] Hardware name: Micro-Star International Co., Ltd. MS-7C94/MAG B550M MORTAR MAX WIFI (MS-7C94), BIOS 1.G0 08/22/2023
->> [    4.987150] RIP: 0010:refcount_warn_saturate+0xfb/0x150
->> [    4.987151] Code: eb 9a 0f b6 1d 56 43 ec 01 80 fb 01 0f 87 41 62 6c ff 83 e3 01 75 85 48 c7 c7 48 a3 66 89 c6 05 3a 43 ec 01 01 e8 d5 76 80 ff <0f> 0b e9 6b ff ff ff 0f b6 1d 28 43 ec 01 80 fb 01 0f 87 fe 61 6c
->> [    4.987152] RSP: 0018:ffffcdec808739b0 EFLAGS: 00010246
->> [    4.987153] RAX: 0000000000000000 RBX: 0000000000000000 RCX: 0000000000000000
->> [    4.987154] RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000000000000
->> [    4.987154] RBP: ffffcdec808739b8 R08: 0000000000000000 R09: 0000000000000000
->> [    4.987155] R10: 0000000000000000 R11: 0000000000000000 R12: ffff8af045e46000
->> [    4.987155] R13: ffff8af042b0ba00 R14: ffff8af04085e740 R15: dead000000000100
->> [    4.987156] FS:  0000739d3374e000(0000) GS:ffff8aff93d73000(0000) knlGS:0000000000000000
->> [    4.987157] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
->> [    4.987158] CR2: 0000739d2f268000 CR3: 0000000113bd6000 CR4: 0000000000f50ef0
->> [    4.987159] PKRU: 55555554
->> [    4.987159] Call Trace:
->> [    4.987159]  <TASK>
->> [    4.987160]  drm_dev_put+0x8c/0x90
->> [    4.987162]  __drm_atomic_state_free+0xbe/0xe0
->> [    4.987163]  drm_atomic_helper_disable_all+0xd0/0x1c0
->> [    4.987164]  drm_atomic_helper_shutdown+0x9c/0x140
->> [    4.987165]  simpledrm_shutdown+0xe/0x20
->> [    4.987167]  drm_managed_release+0x8f/0x160
->> [    4.987168]  drm_minor_release+0x5f/0x90
->> [    4.987169]  drm_release+0xda/0x140
->> [    4.987171]  __fput+0xed/0x2d0
->> [    4.987172]  fput_close_sync+0x3d/0xa0
->> [    4.987174]  __x64_sys_close+0x3e/0x90
->> [    4.987175]  x64_sys_call+0x1b5e/0x26a0
->> [    4.987177]  do_syscall_64+0x80/0x530
->> [    4.987178]  ? x64_sys_call+0x1144/0x26a0
->> [    4.987180]  ? do_syscall_64+0xb8/0x530
->> [    4.987182]  ? from_kgid_munged+0x17/0x30
->> [    4.987183]  ? cp_new_stat+0x141/0x180
->> [    4.987185]  ? __do_sys_newfstat+0x4c/0x80
->> [    4.987187]  ? __x64_sys_newfstat+0x15/0x20
->> [    4.987188]  ? x64_sys_call+0x204a/0x26a0
->> [    4.987189]  ? do_syscall_64+0xb8/0x530
->> [    4.987191]  ? __x64_sys_newfstat+0x15/0x20
->> [    4.987193]  ? x64_sys_call+0x204a/0x26a0
->> [    4.987194]  ? do_syscall_64+0xb8/0x530
->> [    4.987195]  ? irqentry_exit_to_user_mode+0x2e/0x320
->> [    4.987196]  ? irqentry_exit+0x43/0x50
->> [    4.987197]  ? exc_page_fault+0x90/0x1b0
->> [    4.987199]  entry_SYSCALL_64_after_hwframe+0x76/0x7e
->> [    4.987200] RIP: 0033:0x739d339f774c
->> [    4.987201] Code: 0f 05 48 3d 00 f0 ff ff 77 3c c3 0f 1f 00 55 48 89 e5 48 83 ec 10 89 7d fc e8 10 1e f8 ff 8b 7d fc 89 c2 b8 03 00 00 00 0f 05 <48> 3d 00 f0 ff ff 77 2c 89 d7 89 45 fc e8 72 1e f8 ff 8b 45 fc c9
->> [    4.987201] RSP: 002b:00007ffd8ca10660 EFLAGS: 00000293 ORIG_RAX: 0000000000000003
->> [    4.987202] RAX: ffffffffffffffda RBX: 0000615423195870 RCX: 0000739d339f774c
->> [    4.987203] RDX: 0000000000000000 RSI: 0000000000000000 RDI: 000000000000000b
->> [    4.987203] RBP: 00007ffd8ca10670 R08: 0000000615423196 R09: 0000000000000007
->> [    4.987204] R10: 0000615423196bc0 R11: 0000000000000293 R12: 0000739d3374df88
->> [    4.987204] R13: 0000000000000013 R14: 0000615423209840 R15: 0000615423194130
->> [    4.987206]  </TASK>
->> [    4.987206] ---[ end trace 0000000000000000 ]---
->> [    4.987226] ------------[ cut here ]------------
->> [    4.987227] WARNING: CPU: 2 PID: 493 at drivers/gpu/drm/drm_mode_config.c:571 drm_mode_config_cleanup+0x34f/0x360
->> [    4.987229] Modules linked in: qrtr bnep sunrpc binfmt_misc nls_iso8859_1 amd_atl intel_rapl_msr intel_rapl_common snd_hda_codec_alc882 snd_hda_codec_realtek_lib snd_hda_codec_generic snd_hda_codec_nvhdmi snd_hda_codec_hdmi snd_hda_intel snd_hda_codec snd_hda_core edac_mce_amd snd_intel_dspcfg snd_intel_sdw_acpi snd_hwdep kvm_amd snd_pcm snd_seq_midi snd_seq_midi_event snd_rawmidi kvm snd_seq btusb snd_seq_device snd_timer btmtk btrtl irqbypass polyval_clmulni btbcm snd ghash_clmulni_intel btintel aesni_intel bluetooth joydev input_leds ee1004 soundcore ccp rapl nouveau mxm_wmi drm_gpuvm gpu_sched drm_ttm_helper ttm drm_exec drm_display_helper cec rc_core i2c_piix4 video i2c_smbus wmi_bmof k10temp bfq gpio_amdpt mac_hid sch_fq_codel nct6683 msr parport_pc ppdev lp parport nvme_fabrics efi_pstore nfnetlink dmi_sysfs ip_tables x_tables autofs4 hid_generic nvme usbhid hid igb nvme_core r8169 i2c_algo_bit nvme_keyring ahci realtek dca nvme_auth libahci hkdf wmi
->> [    4.987252] CPU: 2 UID: 0 PID: 493 Comm: plymouthd Tainted: G        W           6.18.20-spi+ #1 PREEMPT(full)
->> [    4.987254] Tainted: [W]=WARN
->> [    4.987255] Hardware name: Micro-Star International Co., Ltd. MS-7C94/MAG B550M MORTAR MAX WIFI (MS-7C94), BIOS 1.G0 08/22/2023
->> [    4.987255] RIP: 0010:drm_mode_config_cleanup+0x34f/0x360
->> [    4.987257] Code: 70 60 48 c7 c7 d7 90 73 89 e8 3d bb 00 00 48 8d 7d 88 e8 c4 32 fe ff 48 85 c0 75 e2 48 8d 7d 88 e8 d6 31 fe ff e9 7b fd ff ff <0f> 0b e9 79 fe ff ff 0f 0b eb 8e e8 01 a4 65 00 90 90 90 90 90 90
->> [    4.987257] RSP: 0018:ffffcdec80873a10 EFLAGS: 00010297
->> [    4.987258] RAX: ffff8af053f78e48 RBX: ffff8af045e46368 RCX: 0000000000000000
->> [    4.987259] RDX: 0000000000000000 RSI: 0000000000000000 RDI: ffff8af045e46368
->> [    4.987259] RBP: ffffcdec80873a90 R08: 0000000000000000 R09: 0000000000000000
->> [    4.987260] R10: 0000000000000000 R11: 0000000000000000 R12: ffff8af045e46000
->> [    4.987260] R13: ffff8af045e46390 R14: ffff8af045e46230 R15: dead000000000100
->> [    4.987261] FS:  0000739d3374e000(0000) GS:ffff8aff93d73000(0000) knlGS:0000000000000000
->> [    4.987262] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
->> [    4.987262] CR2: 0000739d2f268000 CR3: 0000000113bd6000 CR4: 0000000000f50ef0
->> [    4.987263] PKRU: 55555554
->> [    4.987263] Call Trace:
->> [    4.987264]  <TASK>
->> [    4.987264]  ? drm_managed_release+0xc2/0x160
->> [    4.987266]  drm_mode_config_init_release+0xe/0x20
->> [    4.987267]  drm_managed_release+0x8f/0x160
->> [    4.987268]  drm_minor_release+0x5f/0x90
->> [    4.987269]  drm_release+0xda/0x140
->> [    4.987271]  __fput+0xed/0x2d0
->> [    4.987272]  fput_close_sync+0x3d/0xa0
->> [    4.987273]  __x64_sys_close+0x3e/0x90
->> [    4.987275]  x64_sys_call+0x1b5e/0x26a0
->> [    4.987276]  do_syscall_64+0x80/0x530
->> [    4.987278]  ? x64_sys_call+0x1144/0x26a0
->> [    4.987279]  ? do_syscall_64+0xb8/0x530
->> [    4.987281]  ? from_kgid_munged+0x17/0x30
->> [    4.987282]  ? cp_new_stat+0x141/0x180
->> [    4.987284]  ? __do_sys_newfstat+0x4c/0x80
->> [    4.987286]  ? __x64_sys_newfstat+0x15/0x20
->> [    4.987287]  ? x64_sys_call+0x204a/0x26a0
->> [    4.987289]  ? do_syscall_64+0xb8/0x530
->> [    4.987290]  ? __x64_sys_newfstat+0x15/0x20
->> [    4.987291]  ? x64_sys_call+0x204a/0x26a0
->> [    4.987293]  ? do_syscall_64+0xb8/0x530
->> [    4.987294]  ? irqentry_exit_to_user_mode+0x2e/0x320
->> [    4.987295]  ? irqentry_exit+0x43/0x50
->> [    4.987296]  ? exc_page_fault+0x90/0x1b0
->> [    4.987298]  entry_SYSCALL_64_after_hwframe+0x76/0x7e
->> [    4.987298] RIP: 0033:0x739d339f774c
->> [    4.987299] Code: 0f 05 48 3d 00 f0 ff ff 77 3c c3 0f 1f 00 55 48 89 e5 48 83 ec 10 89 7d fc e8 10 1e f8 ff 8b 7d fc 89 c2 b8 03 00 00 00 0f 05 <48> 3d 00 f0 ff ff 77 2c 89 d7 89 45 fc e8 72 1e f8 ff 8b 45 fc c9
->> [    4.987300] RSP: 002b:00007ffd8ca10660 EFLAGS: 00000293 ORIG_RAX: 0000000000000003
->> [    4.987301] RAX: ffffffffffffffda RBX: 0000615423195870 RCX: 0000739d339f774c
->> [    4.987302] RDX: 0000000000000000 RSI: 0000000000000000 RDI: 000000000000000b
->> [    4.987302] RBP: 00007ffd8ca10670 R08: 0000000615423196 R09: 0000000000000007
->> [    4.987303] R10: 0000615423196bc0 R11: 0000000000000293 R12: 0000739d3374df88
->> [    4.987303] R13: 0000000000000013 R14: 0000615423209840 R15: 0000615423194130
->> [    4.987304]  </TASK>
->> [    4.987305] ---[ end trace 0000000000000000 ]---
->> ...
->> [    5.124594] nouveau 0000:2b:00.0: drm: Failure to read SCDC_TMDS_CONFIG: -6
->> ...
->> [   14.891109] nouveau 0000:2b:00.0: drm: Failure to read SCDC_TMDS_CONFIG: -6
->> [   14.891114] fbcon: Taking over console
->> [   14.923125] Console: switching to colour frame buffer device 240x67
->> [   15.349010] workqueue: drm_fb_helper_damage_work hogged CPU for >10000us 4 times, consider switching to WQ_UNBOUND
->> [   16.124537] nouveau 0000:2b:00.0: drm: Failure to read SCDC_TMDS_CONFIG: -6
->> [   17.855855] nouveau 0000:2b:00.0: drm: Failure to read SCDC_TMDS_CONFIG: -6
-> 
+>  		drm_fb_release(file);
+>  		drm_property_destroy_user_blobs(dev, file);
+> +		drm_dev_exit(idx);
+>  	}
+> =20
+>  	if (drm_core_check_feature(dev, DRIVER_SYNCOBJ))
+> diff --git a/drivers/gpu/drm/drm_mode_config.c b/drivers/gpu/drm/drm_mode=
+_config.c
+> index 84ae8a23a3678..e349418978f79 100644
+> --- a/drivers/gpu/drm/drm_mode_config.c
+> +++ b/drivers/gpu/drm/drm_mode_config.c
+> @@ -583,10 +583,13 @@ void drm_mode_config_cleanup(struct drm_device *dev)
+>  	 */
+>  	WARN_ON(!list_empty(&dev->mode_config.fb_list));
+>  	list_for_each_entry_safe(fb, fbt, &dev->mode_config.fb_list, head) {
+> -		struct drm_printer p =3D drm_dbg_printer(dev, DRM_UT_KMS, "[leaked fb]=
+");
+> +		if (list_empty(&fb->filp_head) || drm_framebuffer_read_refcount(fb) > =
+1) {
+> +			struct drm_printer p =3D drm_dbg_printer(dev, DRM_UT_KMS, "[leaked fb=
+]");
 
+This is also wrong:
+
+- Firstly, it's a completely independent bug, we do not smash two bugfixes
+  into one patch.
+
+- Secondly, it's again a driver bug: drm_mode_cleanup must be called when
+  the last drm_device reference disappears (hence the existence of
+  drmm_mode_config_init), not when the driver gets unbound. The fact that
+  this shows up in a callchain from a devres cleanup means the intel
+  driver gets this wrong (like almost everyone else because historically
+  we didn't know better).
+
+  If we don't follow this rule, then we get races with this code here
+  running concurrently with drm_file fb cleanups, which just does not
+  work. Review pointed that out, but then shrugged it off with a confused
+  explanation:
+
+  https://lore.kernel.org/all/e61e64c796ccfb17ae673331a3df4b877bf42d82.came=
+l@linux.intel.com/
+
+  Yes this also means a lot of the other drm_device teardown that drivers
+  do happens way too early. There is a massive can of worms here of a
+  magnitude that most likely is much, much bigger than what you can
+  backport to stable kernels. Hotunplug is _hard_.
+
+Anyway, with the above as justification, on the revert:
+
+Acked-by: Simona Vetter <simona.vetter@ffwll.ch>
+
+And I Reported-by credits to Guenter.
+
+Cheers, Sima
+
+> =20
+> -		drm_printf(&p, "framebuffer[%u]:\n", fb->base.id);
+> -		drm_framebuffer_print_info(&p, 1, fb);
+> +			drm_printf(&p, "framebuffer[%u]:\n", fb->base.id);
+> +			drm_framebuffer_print_info(&p, 1, fb);
+> +		}
+> +		list_del_init(&fb->filp_head);
+>  		drm_framebuffer_free(&fb->base.refcount);
+>  	}
+
+>=20
+> Guenter
+>=20
+> ---
+> [    0.000000] Linux version 6.18.20-spi+ (groeck@server.roeck-us.net) (g=
+cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0, GNU ld (GNU Binutils for Ubuntu=
+) 2.42) #1 SMP PREEMPT_DYNAMIC Wed Mar 25 08:22:19 PDT 2026
+> [    0.000000] Command line: BOOT_IMAGE=3D/boot/vmlinuz-6.18.20-spi+ root=
+=3DUUID=3Dce436484-f920-47a8-a8c4-c17ff3a877e8 ro quiet splash amdgpu.gpu_r=
+ecovery=3D1 amdgpu.ppfeaturemask=3D0xfff73fff vt.handoff=3D7
+> ...
+> [    4.254064] nouveau 0000:2b:00.0: NVIDIA GK208B (b060b0b1)
+> ...
+> [    5.440862] ------------[ cut here ]------------
+> [    5.440864] WARNING: CPU: 5 PID: 502 at drivers/gpu/drm/drm_mode_confi=
+g.c:537 drm_mode_config_cleanup+0x313/0x360
+> [    5.440868] Modules linked in: qrtr cmac algif_hash algif_skcipher af_=
+alg bnep sunrpc binfmt_misc nls_iso8859_1 amd_atl intel_rapl_msr intel_rapl=
+_common snd_hda_codec_alc882 snd_hda_codec_realtek_lib snd_hda_codec_generi=
+c snd_hda_codec_nvhdmi snd_hda_codec_hdmi snd_hda_intel snd_hda_codec btusb=
+ btmtk snd_hda_core btrtl btbcm snd_intel_dspcfg btintel snd_intel_sdw_acpi=
+ snd_hwdep edac_mce_amd nouveau bluetooth snd_pcm kvm_amd snd_seq_midi mxm_=
+wmi snd_seq_midi_event drm_gpuvm joydev input_leds snd_rawmidi ee1004 gpu_s=
+ched kvm snd_seq snd_seq_device irqbypass polyval_clmulni snd_timer ghash_c=
+lmulni_intel aesni_intel drm_ttm_helper snd rapl ttm drm_exec drm_display_h=
+elper cec rc_core video i2c_piix4 ccp soundcore i2c_smbus wmi_bmof k10temp =
+bfq gpio_amdpt mac_hid sch_fq_codel nct6683 msr parport_pc ppdev lp parport=
+ nvme_fabrics efi_pstore nfnetlink dmi_sysfs ip_tables x_tables autofs4 hid=
+_generic nvme usbhid hid nvme_core igb r8169 nvme_keyring i2c_algo_bit nvme=
+_auth ahci realtek dca hkdf libahci wmi
+> [    5.440902] CPU: 5 UID: 0 PID: 502 Comm: plymouthd Not tainted 6.18.20=
+-spi+ #1 PREEMPT(full)=20
+> [    5.440903] Hardware name: Micro-Star International Co., Ltd. MS-7C94/=
+MAG B550M MORTAR MAX WIFI (MS-7C94), BIOS 1.G0 08/22/2023
+> [    5.440904] RIP: 0010:drm_mode_config_cleanup+0x313/0x360
+> [    5.440906] Code: 8b 45 d0 65 48 2b 05 84 22 0b 02 75 64 48 83 c4 58 5=
+b 41 5c 41 5d 41 5e 41 5f 5d 31 c0 31 d2 31 c9 31 f6 31 ff c3 cc cc cc cc <=
+0f> 0b 48 8d 75 88 4c 89 e7 e8 1f 12 fe ff eb 10 48 8b 70 60 48 c7
+> [    5.440907] RSP: 0018:ffffcf1442017bb0 EFLAGS: 00010202
+> [    5.440908] RAX: ffff89bcc2268258 RBX: ffff89bcc2268290 RCX: 000000000=
+0000000
+> [    5.440909] RDX: ffff89bcc2269308 RSI: 0000000000000000 RDI: 000000000=
+0000000
+> [    5.440909] RBP: ffffcf1442017c30 R08: 0000000000000000 R09: 000000000=
+0000000
+> [    5.440910] R10: 0000000000000000 R11: 0000000000000000 R12: ffff89bcc=
+2268000
+> [    5.440910] R13: ffff89bcc2268298 R14: ffff89bcc5c3f480 R15: dead00000=
+0000100
+> [    5.440911] FS:  0000713c25451000(0000) GS:ffff89cbe2cf3000(0000) knlG=
+S:0000000000000000
+> [    5.440912] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+> [    5.440912] CR2: 0000713c1bfff000 CR3: 00000001179c3000 CR4: 000000000=
+0f50ef0
+> [    5.440913] PKRU: 55555554
+> [    5.440914] Call Trace:
+> [    5.440914]  <TASK>
+> [    5.440916]  ? drm_managed_release+0xc2/0x160
+> [    5.440918]  drm_mode_config_init_release+0xe/0x20
+> [    5.440919]  drm_managed_release+0x8f/0x160
+> [    5.440920]  drm_minor_release+0x5f/0x90
+> [    5.440921]  drm_release+0xda/0x140
+> [    5.440923]  __fput+0xed/0x2d0
+> [    5.440925]  fput_close_sync+0x3d/0xa0
+> [    5.440927]  __x64_sys_close+0x3e/0x90
+> [    5.440928]  x64_sys_call+0x1b5e/0x26a0
+> [    5.440930]  do_syscall_64+0x80/0x570
+> [    5.440934]  ? x64_sys_call+0x1144/0x26a0
+> [    5.440935]  ? do_syscall_64+0xb8/0x570
+> [    5.440937]  ? __vm_munmap+0xdb/0x190
+> [    5.440939]  ? __x64_sys_munmap+0x1b/0x30
+> [    5.440941]  ? x64_sys_call+0x1be5/0x26a0
+> [    5.440942]  ? do_syscall_64+0xb8/0x570
+> [    5.440943]  ? irqentry_exit+0x43/0x50
+> [    5.440944]  ? exc_page_fault+0x90/0x1b0
+> [    5.440946]  entry_SYSCALL_64_after_hwframe+0x76/0x7e
+> [    5.440947] RIP: 0033:0x713c256fa74c
+> [    5.440948] Code: 0f 05 48 3d 00 f0 ff ff 77 3c c3 0f 1f 00 55 48 89 e=
+5 48 83 ec 10 89 7d fc e8 10 1e f8 ff 8b 7d fc 89 c2 b8 03 00 00 00 0f 05 <=
+48> 3d 00 f0 ff ff 77 2c 89 d7 89 45 fc e8 72 1e f8 ff 8b 45 fc c9
+> [    5.440949] RSP: 002b:00007ffc9c194100 EFLAGS: 00000293 ORIG_RAX: 0000=
+000000000003
+> [    5.440950] RAX: ffffffffffffffda RBX: 000055df73527870 RCX: 0000713c2=
+56fa74c
+> [    5.440951] RDX: 0000000000000000 RSI: 0000000000000000 RDI: 000000000=
+000000b
+> [    5.440951] RBP: 00007ffc9c194110 R08: 000000055df73528 R09: 000000000=
+0000007
+> [    5.440952] R10: 000055df73528bc0 R11: 0000000000000293 R12: 0000713c2=
+5450f88
+> [    5.440952] R13: 0000000000000013 R14: 000055df7356f6b0 R15: 000055df7=
+3526130
+> [    5.440953]  </TASK>
+> [    5.440954] ---[ end trace 0000000000000000 ]---
+> [    5.440955] [drm:drm_mode_config_cleanup] *ERROR* connector Unknown-1 =
+leaked!
+> [    5.440971] ------------[ cut here ]------------
+> [    5.440971] WARNING: CPU: 5 PID: 502 at drivers/gpu/drm/drm_mode_confi=
+g.c:571 drm_mode_config_cleanup+0x34f/0x360
+> [    5.440973] Modules linked in: qrtr cmac algif_hash algif_skcipher af_=
+alg bnep sunrpc binfmt_misc nls_iso8859_1 amd_atl intel_rapl_msr intel_rapl=
+_common snd_hda_codec_alc882 snd_hda_codec_realtek_lib snd_hda_codec_generi=
+c snd_hda_codec_nvhdmi snd_hda_codec_hdmi snd_hda_intel snd_hda_codec btusb=
+ btmtk snd_hda_core btrtl btbcm snd_intel_dspcfg btintel snd_intel_sdw_acpi=
+ snd_hwdep edac_mce_amd nouveau bluetooth snd_pcm kvm_amd snd_seq_midi mxm_=
+wmi snd_seq_midi_event drm_gpuvm joydev input_leds snd_rawmidi ee1004 gpu_s=
+ched kvm snd_seq snd_seq_device irqbypass polyval_clmulni snd_timer ghash_c=
+lmulni_intel aesni_intel drm_ttm_helper snd rapl ttm drm_exec drm_display_h=
+elper cec rc_core video i2c_piix4 ccp soundcore i2c_smbus wmi_bmof k10temp =
+bfq gpio_amdpt mac_hid sch_fq_codel nct6683 msr parport_pc ppdev lp parport=
+ nvme_fabrics efi_pstore nfnetlink dmi_sysfs ip_tables x_tables autofs4 hid=
+_generic nvme usbhid hid nvme_core igb r8169 nvme_keyring i2c_algo_bit nvme=
+_auth ahci realtek dca hkdf libahci wmi
+> [    5.440995] CPU: 5 UID: 0 PID: 502 Comm: plymouthd Tainted: G        W=
+           6.18.20-spi+ #1 PREEMPT(full)=20
+> [    5.440997] Tainted: [W]=3DWARN
+> [    5.440997] Hardware name: Micro-Star International Co., Ltd. MS-7C94/=
+MAG B550M MORTAR MAX WIFI (MS-7C94), BIOS 1.G0 08/22/2023
+> [    5.440998] RIP: 0010:drm_mode_config_cleanup+0x34f/0x360
+> [    5.440999] Code: 70 60 48 c7 c7 a7 90 93 ba e8 3d bb 00 00 48 8d 7d 8=
+8 e8 c4 32 fe ff 48 85 c0 75 e2 48 8d 7d 88 e8 d6 31 fe ff e9 7b fd ff ff <=
+0f> 0b e9 79 fe ff ff 0f 0b eb 8e e8 01 a4 65 00 90 90 90 90 90 90
+> [    5.441000] RSP: 0018:ffffcf1442017bb0 EFLAGS: 00010293
+> [    5.441001] RAX: ffff89bcd7c61bc8 RBX: ffff89bcc2268368 RCX: 000000000=
+0000000
+> [    5.441001] RDX: 0000000000000000 RSI: 0000000000000000 RDI: ffff89bcc=
+2268368
+> [    5.441002] RBP: ffffcf1442017c30 R08: 0000000000000000 R09: 000000000=
+0000000
+> [    5.441002] R10: 0000000000000000 R11: 0000000000000000 R12: ffff89bcc=
+2268000
+> [    5.441002] R13: ffff89bcc2268390 R14: ffff89bcc2268230 R15: dead00000=
+0000100
+> [    5.441003] FS:  0000713c25451000(0000) GS:ffff89cbe2cf3000(0000) knlG=
+S:0000000000000000
+> [    5.441004] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+> [    5.441004] CR2: 0000713c1bfff000 CR3: 00000001179c3000 CR4: 000000000=
+0f50ef0
+> [    5.441005] PKRU: 55555554
+> [    5.441005] Call Trace:
+> [    5.441006]  <TASK>
+> [    5.441006]  ? drm_managed_release+0xc2/0x160
+> [    5.441008]  drm_mode_config_init_release+0xe/0x20
+> [    5.441009]  drm_managed_release+0x8f/0x160
+> [    5.441010]  drm_minor_release+0x5f/0x90
+> [    5.441011]  drm_release+0xda/0x140
+> [    5.441012]  __fput+0xed/0x2d0
+> [    5.441013]  fput_close_sync+0x3d/0xa0
+> [    5.441014]  __x64_sys_close+0x3e/0x90
+> [    5.441015]  x64_sys_call+0x1b5e/0x26a0
+> [    5.441017]  do_syscall_64+0x80/0x570
+> [    5.441018]  ? x64_sys_call+0x1144/0x26a0
+> [    5.441019]  ? do_syscall_64+0xb8/0x570
+> [    5.441021]  ? __vm_munmap+0xdb/0x190
+> [    5.441023]  ? __x64_sys_munmap+0x1b/0x30
+> [    5.441024]  ? x64_sys_call+0x1be5/0x26a0
+> [    5.441025]  ? do_syscall_64+0xb8/0x570
+> [    5.441026]  ? irqentry_exit+0x43/0x50
+> [    5.441027]  ? exc_page_fault+0x90/0x1b0
+> [    5.441029]  entry_SYSCALL_64_after_hwframe+0x76/0x7e
+> [    5.441029] RIP: 0033:0x713c256fa74c
+> [    5.441030] Code: 0f 05 48 3d 00 f0 ff ff 77 3c c3 0f 1f 00 55 48 89 e=
+5 48 83 ec 10 89 7d fc e8 10 1e f8 ff 8b 7d fc 89 c2 b8 03 00 00 00 0f 05 <=
+48> 3d 00 f0 ff ff 77 2c 89 d7 89 45 fc e8 72 1e f8 ff 8b 45 fc c9
+> [    5.441031] RSP: 002b:00007ffc9c194100 EFLAGS: 00000293 ORIG_RAX: 0000=
+000000000003
+> [    5.441031] RAX: ffffffffffffffda RBX: 000055df73527870 RCX: 0000713c2=
+56fa74c
+> [    5.441032] RDX: 0000000000000000 RSI: 0000000000000000 RDI: 000000000=
+000000b
+> [    5.441032] RBP: 00007ffc9c194110 R08: 000000055df73528 R09: 000000000=
+0000007
+> [    5.441033] R10: 000055df73528bc0 R11: 0000000000000293 R12: 0000713c2=
+5450f88
+> [    5.441033] R13: 0000000000000013 R14: 000055df7356f6b0 R15: 000055df7=
+3526130
+> [    5.441035]  </TASK>
+> [    5.441035] ---[ end trace 0000000000000000 ]---
+> [    5.441036] ------------[ cut here ]------------
+> [    5.441036] platform simple-framebuffer.0: [drm] drm_WARN_ON(refcount_=
+read(&shmem->vmap_use_count))
+> [    5.441041] WARNING: CPU: 5 PID: 502 at drivers/gpu/drm/drm_gem_shmem_=
+helper.c:170 drm_gem_shmem_free+0x111/0x1a0
+> [    5.441043] Modules linked in: qrtr cmac algif_hash algif_skcipher af_=
+alg bnep sunrpc binfmt_misc nls_iso8859_1 amd_atl intel_rapl_msr intel_rapl=
+_common snd_hda_codec_alc882 snd_hda_codec_realtek_lib snd_hda_codec_generi=
+c snd_hda_codec_nvhdmi snd_hda_codec_hdmi snd_hda_intel snd_hda_codec btusb=
+ btmtk snd_hda_core btrtl btbcm snd_intel_dspcfg btintel snd_intel_sdw_acpi=
+ snd_hwdep edac_mce_amd nouveau bluetooth snd_pcm kvm_amd snd_seq_midi mxm_=
+wmi snd_seq_midi_event drm_gpuvm joydev input_leds snd_rawmidi ee1004 gpu_s=
+ched kvm snd_seq snd_seq_device irqbypass polyval_clmulni snd_timer ghash_c=
+lmulni_intel aesni_intel drm_ttm_helper snd rapl ttm drm_exec drm_display_h=
+elper cec rc_core video i2c_piix4 ccp soundcore i2c_smbus wmi_bmof k10temp =
+bfq gpio_amdpt mac_hid sch_fq_codel nct6683 msr parport_pc ppdev lp parport=
+ nvme_fabrics efi_pstore nfnetlink dmi_sysfs ip_tables x_tables autofs4 hid=
+_generic nvme usbhid hid nvme_core igb r8169 nvme_keyring i2c_algo_bit nvme=
+_auth ahci realtek dca hkdf libahci wmi
+> [    5.441066] CPU: 5 UID: 0 PID: 502 Comm: plymouthd Tainted: G        W=
+           6.18.20-spi+ #1 PREEMPT(full)=20
+> [    5.441067] Tainted: [W]=3DWARN
+> [    5.441067] Hardware name: Micro-Star International Co., Ltd. MS-7C94/=
+MAG B550M MORTAR MAX WIFI (MS-7C94), BIOS 1.G0 08/22/2023
+> [    5.441068] RIP: 0010:drm_gem_shmem_free+0x111/0x1a0
+> [    5.441069] Code: 4c 8b 67 50 4d 85 e4 75 03 4c 8b 27 e8 68 4f 02 00 4=
+8 c7 c1 e8 03 8a ba 4c 89 e2 48 c7 c7 66 7b 93 ba 48 89 c6 e8 8f 09 46 ff <=
+0f> 0b e9 4b ff ff ff 48 8b 7b 08 48 85 ff 74 04 48 8b 7f 08 4c 8b
+> [    5.441070] RSP: 0018:ffffcf1442017ad0 EFLAGS: 00010246
+> [    5.441070] RAX: 0000000000000000 RBX: ffff89bcc8704400 RCX: 000000000=
+0000000
+> [    5.441071] RDX: 0000000000000000 RSI: 0000000000000000 RDI: 000000000=
+0000000
+> [    5.441071] RBP: ffffcf1442017ae0 R08: 0000000000000000 R09: 000000000=
+0000000
+> [    5.441072] R10: 0000000000000000 R11: 0000000000000000 R12: ffff89bcc=
+2bec900
+> [    5.441072] R13: ffff89bcc2268000 R14: 0000000000000000 R15: ffff89bcc=
+2268228
+> [    5.441073] FS:  0000713c25451000(0000) GS:ffff89cbe2cf3000(0000) knlG=
+S:0000000000000000
+> [    5.441073] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+> [    5.441074] CR2: 0000713c1bfff000 CR3: 00000001179c3000 CR4: 000000000=
+0f50ef0
+> [    5.441075] PKRU: 55555554
+> [    5.441075] Call Trace:
+> [    5.441075]  <TASK>
+> [    5.441076]  drm_gem_shmem_object_free+0x9/0x20
+> [    5.441077]  drm_gem_object_handle_put_unlocked+0x12c/0x140
+> [    5.441079]  drm_framebuffer_cleanup+0x60/0xe0
+> [    5.441080]  drm_gem_fb_destroy+0x79/0xc0
+> [    5.441081]  drm_framebuffer_free+0x43/0xa0
+> [    5.441083]  drm_mode_config_cleanup+0x29c/0x360
+> [    5.441084]  ? drm_mode_config_cleanup+0x1f2/0x360
+> [    5.441085]  ? drm_managed_release+0xc2/0x160
+> [    5.441086]  drm_mode_config_init_release+0xe/0x20
+> [    5.441087]  drm_managed_release+0x8f/0x160
+> [    5.441088]  drm_minor_release+0x5f/0x90
+> [    5.441089]  drm_release+0xda/0x140
+> [    5.441090]  __fput+0xed/0x2d0
+> [    5.441091]  fput_close_sync+0x3d/0xa0
+> [    5.441092]  __x64_sys_close+0x3e/0x90
+> [    5.441094]  x64_sys_call+0x1b5e/0x26a0
+> [    5.441095]  do_syscall_64+0x80/0x570
+> [    5.441096]  ? x64_sys_call+0x1144/0x26a0
+> [    5.441097]  ? do_syscall_64+0xb8/0x570
+> [    5.441099]  ? __vm_munmap+0xdb/0x190
+> [    5.441101]  ? __x64_sys_munmap+0x1b/0x30
+> [    5.441102]  ? x64_sys_call+0x1be5/0x26a0
+> [    5.441103]  ? do_syscall_64+0xb8/0x570
+> [    5.441104]  ? irqentry_exit+0x43/0x50
+> [    5.441105]  ? exc_page_fault+0x90/0x1b0
+> [    5.441106]  entry_SYSCALL_64_after_hwframe+0x76/0x7e
+> [    5.441107] RIP: 0033:0x713c256fa74c
+> [    5.441108] Code: 0f 05 48 3d 00 f0 ff ff 77 3c c3 0f 1f 00 55 48 89 e=
+5 48 83 ec 10 89 7d fc e8 10 1e f8 ff 8b 7d fc 89 c2 b8 03 00 00 00 0f 05 <=
+48> 3d 00 f0 ff ff 77 2c 89 d7 89 45 fc e8 72 1e f8 ff 8b 45 fc c9
+> [    5.441109] RSP: 002b:00007ffc9c194100 EFLAGS: 00000293 ORIG_RAX: 0000=
+000000000003
+> [    5.441109] RAX: ffffffffffffffda RBX: 000055df73527870 RCX: 0000713c2=
+56fa74c
+> [    5.441110] RDX: 0000000000000000 RSI: 0000000000000000 RDI: 000000000=
+000000b
+> [    5.441110] RBP: 00007ffc9c194110 R08: 000000055df73528 R09: 000000000=
+0000007
+> [    5.441111] R10: 000055df73528bc0 R11: 0000000000000293 R12: 0000713c2=
+5450f88
+> [    5.441111] R13: 0000000000000013 R14: 000055df7356f6b0 R15: 000055df7=
+3526130
+> [    5.441112]  </TASK>
+> [    5.441113] ---[ end trace 0000000000000000 ]---
+> [    5.441151] ------------[ cut here ]------------
+> [    5.441152] platform simple-framebuffer.0: [drm] drm_WARN_ON(refcount_=
+read(&shmem->pages_pin_count))
+> [    5.441155] WARNING: CPU: 5 PID: 502 at drivers/gpu/drm/drm_gem_shmem_=
+helper.c:182 drm_gem_shmem_free+0x18d/0x1a0
+> [    5.441157] Modules linked in: qrtr cmac algif_hash algif_skcipher af_=
+alg bnep sunrpc binfmt_misc nls_iso8859_1 amd_atl intel_rapl_msr intel_rapl=
+_common snd_hda_codec_alc882 snd_hda_codec_realtek_lib snd_hda_codec_generi=
+c snd_hda_codec_nvhdmi snd_hda_codec_hdmi snd_hda_intel snd_hda_codec btusb=
+ btmtk snd_hda_core btrtl btbcm snd_intel_dspcfg btintel snd_intel_sdw_acpi=
+ snd_hwdep edac_mce_amd nouveau bluetooth snd_pcm kvm_amd snd_seq_midi mxm_=
+wmi snd_seq_midi_event drm_gpuvm joydev input_leds snd_rawmidi ee1004 gpu_s=
+ched kvm snd_seq snd_seq_device irqbypass polyval_clmulni snd_timer ghash_c=
+lmulni_intel aesni_intel drm_ttm_helper snd rapl ttm drm_exec drm_display_h=
+elper cec rc_core video i2c_piix4 ccp soundcore i2c_smbus wmi_bmof k10temp =
+bfq gpio_amdpt mac_hid sch_fq_codel nct6683 msr parport_pc ppdev lp parport=
+ nvme_fabrics efi_pstore nfnetlink dmi_sysfs ip_tables x_tables autofs4 hid=
+_generic nvme usbhid hid nvme_core igb r8169 nvme_keyring i2c_algo_bit nvme=
+_auth ahci realtek dca hkdf libahci wmi
+> [    5.441179] CPU: 5 UID: 0 PID: 502 Comm: plymouthd Tainted: G        W=
+           6.18.20-spi+ #1 PREEMPT(full)=20
+> [    5.441180] Tainted: [W]=3DWARN
+> [    5.441180] Hardware name: Micro-Star International Co., Ltd. MS-7C94/=
+MAG B550M MORTAR MAX WIFI (MS-7C94), BIOS 1.G0 08/22/2023
+> [    5.441181] RIP: 0010:drm_gem_shmem_free+0x18d/0x1a0
+> [    5.441182] Code: 4c 8b 67 50 4d 85 e4 75 03 4c 8b 27 e8 ec 4e 02 00 4=
+8 c7 c1 58 04 8a ba 4c 89 e2 48 c7 c7 66 7b 93 ba 48 89 c6 e8 13 09 46 ff <=
+0f> 0b e9 35 ff ff ff 66 66 2e 0f 1f 84 00 00 00 00 00 90 90 90 90
+> [    5.441182] RSP: 0018:ffffcf1442017ad0 EFLAGS: 00010246
+> [    5.441183] RAX: 0000000000000000 RBX: ffff89bcc8704400 RCX: 000000000=
+0000000
+> [    5.441184] RDX: 0000000000000000 RSI: 0000000000000000 RDI: 000000000=
+0000000
+> [    5.441184] RBP: ffffcf1442017ae0 R08: 0000000000000000 R09: 000000000=
+0000000
+> [    5.441184] R10: 0000000000000000 R11: 0000000000000000 R12: ffff89bcc=
+2bec900
+> [    5.441185] R13: ffff89bcc2268000 R14: 0000000000000000 R15: ffff89bcc=
+2268228
+> [    5.441186] FS:  0000713c25451000(0000) GS:ffff89cbe2cf3000(0000) knlG=
+S:0000000000000000
+> [    5.441186] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+> [    5.441187] CR2: 0000713c1bfff000 CR3: 00000001179c3000 CR4: 000000000=
+0f50ef0
+> [    5.441187] PKRU: 55555554
+> [    5.441188] Call Trace:
+> [    5.441188]  <TASK>
+> [    5.441188]  drm_gem_shmem_object_free+0x9/0x20
+> [    5.441189]  drm_gem_object_handle_put_unlocked+0x12c/0x140
+> [    5.441191]  drm_framebuffer_cleanup+0x60/0xe0
+> [    5.441192]  drm_gem_fb_destroy+0x79/0xc0
+> [    5.441193]  drm_framebuffer_free+0x43/0xa0
+> [    5.441194]  drm_mode_config_cleanup+0x29c/0x360
+> [    5.441195]  ? drm_mode_config_cleanup+0x1f2/0x360
+> [    5.441196]  ? drm_managed_release+0xc2/0x160
+> [    5.441197]  drm_mode_config_init_release+0xe/0x20
+> [    5.441198]  drm_managed_release+0x8f/0x160
+> [    5.441199]  drm_minor_release+0x5f/0x90
+> [    5.441200]  drm_release+0xda/0x140
+> [    5.441201]  __fput+0xed/0x2d0
+> [    5.441202]  fput_close_sync+0x3d/0xa0
+> [    5.441204]  __x64_sys_close+0x3e/0x90
+> [    5.441205]  x64_sys_call+0x1b5e/0x26a0
+> [    5.441206]  do_syscall_64+0x80/0x570
+> [    5.441208]  ? x64_sys_call+0x1144/0x26a0
+> [    5.441209]  ? do_syscall_64+0xb8/0x570
+> [    5.441210]  ? __vm_munmap+0xdb/0x190
+> [    5.441212]  ? __x64_sys_munmap+0x1b/0x30
+> [    5.441213]  ? x64_sys_call+0x1be5/0x26a0
+> [    5.441214]  ? do_syscall_64+0xb8/0x570
+> [    5.441216]  ? irqentry_exit+0x43/0x50
+> [    5.441216]  ? exc_page_fault+0x90/0x1b0
+> [    5.441218]  entry_SYSCALL_64_after_hwframe+0x76/0x7e
+> [    5.441219] RIP: 0033:0x713c256fa74c
+> [    5.441219] Code: 0f 05 48 3d 00 f0 ff ff 77 3c c3 0f 1f 00 55 48 89 e=
+5 48 83 ec 10 89 7d fc e8 10 1e f8 ff 8b 7d fc 89 c2 b8 03 00 00 00 0f 05 <=
+48> 3d 00 f0 ff ff 77 2c 89 d7 89 45 fc e8 72 1e f8 ff 8b 45 fc c9
+> [    5.441234] RSP: 002b:00007ffc9c194100 EFLAGS: 00000293 ORIG_RAX: 0000=
+000000000003
+> [    5.441236] RAX: ffffffffffffffda RBX: 000055df73527870 RCX: 0000713c2=
+56fa74c
+> [    5.441237] RDX: 0000000000000000 RSI: 0000000000000000 RDI: 000000000=
+000000b
+> [    5.441238] RBP: 00007ffc9c194110 R08: 000000055df73528 R09: 000000000=
+0000007
+> [    5.441238] R10: 000055df73528bc0 R11: 0000000000000293 R12: 0000713c2=
+5450f88
+> [    5.441239] R13: 0000000000000013 R14: 000055df7356f6b0 R15: 000055df7=
+3526130
+> [    5.441241]  </TASK>
+> [    5.441241] ---[ end trace 0000000000000000 ]---
+
+--=20
+Simona Vetter
+Software Engineer
+http://blog.ffwll.ch
