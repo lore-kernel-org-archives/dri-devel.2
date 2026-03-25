@@ -4,136 +4,143 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BC701106B53F
-	for <dri-devel@archiver.kernel.org>; Wed, 25 Mar 2026 14:05:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BDD921093168
+	for <dri-devel@archiver.kernel.org>; Wed, 25 Mar 2026 14:20:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2B42110E83C;
-	Wed, 25 Mar 2026 14:05:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2C5A710E7E4;
+	Wed, 25 Mar 2026 14:20:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=web.de header.i=markus.elfring@web.de header.b="QzdjOiqL";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="oi1d1FLj";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="spSLEUM5";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="oi1d1FLj";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="spSLEUM5";
 	dkim-atps=neutral
-Received: from mout.web.de (mout.web.de [212.227.17.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A829C10E7F8
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Mar 2026 14:05:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
- s=s29768273; t=1774447553; x=1775052353; i=markus.elfring@web.de;
- bh=u23klA8/tUFH4NA33VZFcitcYgHXv0lrbMT5xAzySEc=;
- h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:To:Cc:From:
- Subject:Content-Type:Content-Transfer-Encoding:cc:
- content-transfer-encoding:content-type:date:from:message-id:
- mime-version:reply-to:subject:to;
- b=QzdjOiqLE/TiUEBemDhtFb5OqKzTgVn2DSBC3vDGQU+4Cg/nB6Kx/j6eApAH2RcA
- yRAaf9sbh3l2w+MGmzA3VIR7uLyIEf3C+1xKCkemJHX+BE8SbQb2nder9GVGESTlc
- HUelhIf+qNANxoSa+A9kCE6l/LseHiSv163O0TvaQg/+90bOkd33NA35ulUHGJN+x
- h3v626N8DhQdP1GV30wc/NJCZeHtXQLn1+rqakkr++946lc+V1GQfvUwfXs0MQKWZ
- wPuS89egg+rRxoNWfsBkoiuiz8acfUqfYKkjHAdUWk7ItzgeY0Wq6WgetbqXC1672
- fyLGdVWSMhHoERzOGw==
-X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
-Received: from client.hidden.invalid by smtp.web.de (mrweb105
- [213.165.67.124]) with ESMTPSA (Nemesis) id 1M2xrq-1w8hBs3Qui-007TS5; Wed, 25
- Mar 2026 15:05:52 +0100
-Message-ID: <e3631a8e-b4a4-4e14-822d-2199f1576cc9@web.de>
-Date: Wed, 25 Mar 2026 15:05:49 +0100
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D6BCA10E7C0
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Mar 2026 14:20:23 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 796004D24C;
+ Wed, 25 Mar 2026 14:20:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1774448422; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=wjDJGISJSX0hloQxe1dFj9Ns4z9Is64OM9eMBQcRhHY=;
+ b=oi1d1FLjoLszm9HTAgFFQff8TyrBQo43xlM7wtjm9RHsNZU32ObS3CUWBiuXmyi57G0m7B
+ cyL19yCS7y7Fqu42K8w94lTtYJ74jzJgV+MRrm/B5h1X09btHn7hRWtMq4WR0wkfWgcX9K
+ Za56WGfyAqrSseTl9Z7Nju1uX1pD0pU=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1774448422;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=wjDJGISJSX0hloQxe1dFj9Ns4z9Is64OM9eMBQcRhHY=;
+ b=spSLEUM5Bb81CLrT3EOOq1UE9n2gY7vBdGkd2g2s1slw2xuWTmtA7zL8Ja80iTe7W3MP/J
+ p9rQDbWJ03y9/EBQ==
+Authentication-Results: smtp-out1.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=oi1d1FLj;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=spSLEUM5
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1774448422; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=wjDJGISJSX0hloQxe1dFj9Ns4z9Is64OM9eMBQcRhHY=;
+ b=oi1d1FLjoLszm9HTAgFFQff8TyrBQo43xlM7wtjm9RHsNZU32ObS3CUWBiuXmyi57G0m7B
+ cyL19yCS7y7Fqu42K8w94lTtYJ74jzJgV+MRrm/B5h1X09btHn7hRWtMq4WR0wkfWgcX9K
+ Za56WGfyAqrSseTl9Z7Nju1uX1pD0pU=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1774448422;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=wjDJGISJSX0hloQxe1dFj9Ns4z9Is64OM9eMBQcRhHY=;
+ b=spSLEUM5Bb81CLrT3EOOq1UE9n2gY7vBdGkd2g2s1slw2xuWTmtA7zL8Ja80iTe7W3MP/J
+ p9rQDbWJ03y9/EBQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 37E8A4443F;
+ Wed, 25 Mar 2026 14:20:22 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id lxlVDCbvw2nwPgAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Wed, 25 Mar 2026 14:20:22 +0000
+Message-ID: <650ff427-2438-4206-a6e2-6a0cfba9e316@suse.de>
+Date: Wed, 25 Mar 2026 15:20:21 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: nouveau@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Danilo Krummrich <dakr@kernel.org>, David Airlie <airlied@gmail.com>,
- Lyude Paul <lyude@redhat.com>,
+Subject: Re: [PATCH] drm/ioc32: stop speculation on the drm_compat_ioctl path
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ dri-devel@lists.freedesktop.org
+Cc: linux-kernel@vger.kernel.org,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Simona Vetter <simona@ffwll.ch>,
- Thomas Zimmermann <tzimmermann@suse.de>
-Content-Language: en-GB, de-DE
-Cc: LKML <linux-kernel@vger.kernel.org>, kernel-janitors@vger.kernel.org,
- Felix Gu <ustc.gu@gmail.com>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
- Sakari Ailus <sakari.ailus@linux.intel.com>
-From: Markus Elfring <Markus.Elfring@web.de>
-Subject: [PATCH] drm/nouveau: Omit a redundant pm_runtime_mark_last_busy()
- call in nouveau_pmops_runtime_idle()
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:d5UJvMslD2Hr4TKib2ej8EpiK17V/AqdMAvX/HeRHdEV4eQZ+0h
- qT5l+WbwB7AvX67crgHdTNM3gRM17iMrmiAjFtlZ/krFcXVfCABMQn4mMUqSDdOZtMxuwjt
- q23TeT6t8zYceYPnj7SQthCMhQswWUFa9NHiBd/BvUmWGlwkEf35IH2d4hXkNYul867tW4L
- fdRhPHXFR/EvzVDftpzaA==
-UI-OutboundReport: notjunk:1;M01:P0:Fzpy3f+nNR0=;K/7aauDN3bLCn8p13OuAjpBSJvQ
- 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
- Py
+ Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, stable <stable@kernel.org>
+References: <2026032451-playing-rummage-8fa2@gregkh>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <2026032451-playing-rummage-8fa2@gregkh>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Rspamd-Action: no action
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ NEURAL_HAM_SHORT(-0.20)[-1.000];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ MIME_GOOD(-0.10)[text/plain]; MX_GOOD(-0.01)[];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ URIBL_BLOCKED(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,intel.com:email,suse.de:dkim,suse.de:mid,suse.de:email,linuxfoundation.org:email,suse.com:url];
+ FUZZY_RATELIMITED(0.00)[rspamd.com];
+ RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
+ TO_DN_SOME(0.00)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ MIME_TRACE(0.00)[0:+]; ARC_NA(0.00)[];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com]; RCVD_TLS_ALL(0.00)[];
+ SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+ RCVD_COUNT_TWO(0.00)[2];
+ DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received,2a07:de40:b281:104:10:150:64:97:from];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ FREEMAIL_CC(0.00)[vger.kernel.org,linux.intel.com,kernel.org,gmail.com,ffwll.ch];
+ MID_RHS_MATCH_FROM(0.00)[];
+ RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+ RCPT_COUNT_SEVEN(0.00)[8]; DKIM_TRACE(0.00)[suse.de:+];
+ RCVD_VIA_SMTP_AUTH(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim, suse.de:mid, suse.de:email,
+ imap1.dmz-prg2.suse.org:helo, imap1.dmz-prg2.suse.org:rdns, suse.com:url,
+ linuxfoundation.org:email]
+X-Rspamd-Queue-Id: 796004D24C
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -149,36 +156,63 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Markus Elfring <elfring@users.sourceforge.net>
-Date: Wed, 25 Mar 2026 14:55:01 +0100
 
-The device's last busy timestamp was set in a wrapper function since
-the commit 08071e64cb642ae19ebd6ffeb13b4f3d130b5860 ("PM: runtime:
-Mark last busy stamp in pm_runtime_autosuspend()").
-Thus delete a pm_runtime_mark_last_busy() call before
-a pm_runtime_autosuspend() call.
 
-The source code was transformed by using the Coccinelle software.
+Am 24.03.26 um 17:42 schrieb Greg Kroah-Hartman:
+> The drm compat ioctl path takes a user controlled pointer, and then
+> dereferences it into a table of function pointers, the signature method
+> of spectre problems.  Fix this up by calling array_index_nospec() on the
+> index to the function pointer list.
+>
+> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+> Cc: Maxime Ripard <mripard@kernel.org>
+> Cc: Thomas Zimmermann <tzimmermann@suse.de>
+> Cc: David Airlie <airlied@gmail.com>
+> Cc: Simona Vetter <simona@ffwll.ch>
+> Cc: stable <stable@kernel.org>
+> Assisted-by: gkh_clanker_2000
+> Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+> ---
+> My scripts caught this codepath as not being "protected" for the
+> old-school spectre attack.  I don't know how realistic it is, but it
+> seems like this is the correct thing to be doing for a 32bit ioctl on
+> the drm path, as "local" users can make these.
 
-Signed-off-by: Markus Elfring <elfring@users.sourceforge.net>
-=2D--
- drivers/gpu/drm/nouveau/nouveau_drm.c | 1 -
- 1 file changed, 1 deletion(-)
+Seems reasonable.
 
-diff --git a/drivers/gpu/drm/nouveau/nouveau_drm.c b/drivers/gpu/drm/nouve=
-au/nouveau_drm.c
-index 5d8475e4895e..62ac9593230f 100644
-=2D-- a/drivers/gpu/drm/nouveau/nouveau_drm.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_drm.c
-@@ -1209,7 +1209,6 @@ nouveau_pmops_runtime_idle(struct device *dev)
- 		return -EBUSY;
- 	}
-=20
--	pm_runtime_mark_last_busy(dev);
- 	pm_runtime_autosuspend(dev);
- 	/* we don't want the main rpm_idle to call suspend - we want to autosusp=
-end */
- 	return 1;
-=2D-=20
-2.53.0
+Acked-by: Thomas Zimmermann <tzimmermann@suse.de>
+
+>
+>   drivers/gpu/drm/drm_ioc32.c | 2 ++
+>   1 file changed, 2 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/drm_ioc32.c b/drivers/gpu/drm/drm_ioc32.c
+> index e6b5b06de148..f3e40d1e6098 100644
+> --- a/drivers/gpu/drm/drm_ioc32.c
+> +++ b/drivers/gpu/drm/drm_ioc32.c
+> @@ -28,6 +28,7 @@
+>    * IN THE SOFTWARE.
+>    */
+>   #include <linux/compat.h>
+> +#include <linux/nospec.h>
+>   #include <linux/ratelimit.h>
+>   #include <linux/export.h>
+>   
+> @@ -374,6 +375,7 @@ long drm_compat_ioctl(struct file *filp, unsigned int cmd, unsigned long arg)
+>   	if (nr >= ARRAY_SIZE(drm_compat_ioctls))
+>   		return drm_ioctl(filp, cmd, arg);
+>   
+> +	nr = array_index_nospec(nr, ARRAY_SIZE(drm_compat_ioctls));
+>   	fn = drm_compat_ioctls[nr].fn;
+>   	if (!fn)
+>   		return drm_ioctl(filp, cmd, arg);
+
+-- 
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
+
 
