@@ -4,105 +4,144 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 23CA4109C059
-	for <dri-devel@archiver.kernel.org>; Wed, 25 Mar 2026 18:46:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D5B96109C057
+	for <dri-devel@archiver.kernel.org>; Wed, 25 Mar 2026 18:56:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5587E10E8A7;
-	Wed, 25 Mar 2026 18:46:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3CE3210E883;
+	Wed, 25 Mar 2026 18:56:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="GdfpSDhg";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Dqi8fZhE";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="XuhXq1P4";
 	dkim-atps=neutral
-Received: from CH5PR02CU005.outbound.protection.outlook.com
- (mail-northcentralusazon11012062.outbound.protection.outlook.com
- [40.107.200.62])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1BEEF10E8A7
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Mar 2026 18:46:25 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=BXZelXaZ4KrvmbwkInFJf6eyrYnVdBRQkrDp07VEB1YP+QnUNgGkVqoa/QAr/chwodZ0iXHCGKN35MzLoIIQUh1SCUwB3r9o7CK0aOY44WPClqok8zfrc4qmPMx2xsrWuXhz3ryF3C0Id1c94CBPI4oayZolmMQK8SJexqAGcl4V2Z98XvqBm7IHdaT6vNWpIaanEG+90B1FJIA9DHQ8XS8JCpcTx95q48WykJ61RmOk4IBPKI3Gnit/isbuI645fVw122xxdaPlmBFnBoPEdeedaSCUPhcYUpa2gTdr/CKS2EI2TBGcKYjOqjhaRHFe8l9svpgkdN/haWs+poxCig==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=toA0A9BEpHVAgD8Y3AnVEOvDpaWh6NTLUD2L4DGLsWM=;
- b=SvgKiqGlbab0WIGIUbDDufDaXSM2DBHucjfziwvGjpQcyX7wwnx24otKqXSv7tVmzxfLm0Dk2pvwLg6Sx6iskL0g+HbkywuAtRJT6gq6Yg3gKqMWBdBl06keT1KLAlpOZD6Lom12LCF/CZwlGaMy2y/rbxrKuHpIlDSq/L60ZYxcXaPR5Ss3QR5kJbgXf+XcQZZNMFFUYh49VGkazaSF5v3lqZ2GniCDFfYDAZhyZh2CIiIzje32U+gqLxT0RUp83KLjbJHRnkKDMB1XBToz1TSuUf1k9rVgD5GQ+Rzfk2akL6QLKYkAK+zyXgJXqnPkAVEaAyFp++RUIyZVGGyMtA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=toA0A9BEpHVAgD8Y3AnVEOvDpaWh6NTLUD2L4DGLsWM=;
- b=GdfpSDhgDVhNOdahlcl0rFMJBGWdonNEYD8MdZ6FfAqtwuL6nRsUKuPm26eSQQIYYEmfR9WXs6XGmFvuXMP2bqfu21wm61Olq+Hj7gAFBYNKOqitj7uiVw2pOSqcJRyqIzIkCtjf5T/dkQBgi3p0/93bhzVNZsYUiazRnGx8uqI=
-Received: from BY3PR04CA0023.namprd04.prod.outlook.com (2603:10b6:a03:217::28)
- by MN0PR12MB6248.namprd12.prod.outlook.com (2603:10b6:208:3c0::6)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.20; Wed, 25 Mar
- 2026 18:46:16 +0000
-Received: from SJ1PEPF000026C7.namprd04.prod.outlook.com
- (2603:10b6:a03:217:cafe::63) by BY3PR04CA0023.outlook.office365.com
- (2603:10b6:a03:217::28) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9723.31 via Frontend Transport; Wed,
- 25 Mar 2026 18:46:10 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- SJ1PEPF000026C7.mail.protection.outlook.com (10.167.244.104) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9745.21 via Frontend Transport; Wed, 25 Mar 2026 18:46:16 +0000
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Wed, 25 Mar
- 2026 13:46:13 -0500
-Received: from [172.19.71.207] (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
- Transport; Wed, 25 Mar 2026 13:46:13 -0500
-Message-ID: <45bc86ee-cc0f-2b99-f876-9e8861be365e@amd.com>
-Date: Wed, 25 Mar 2026 11:46:13 -0700
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8270810E883
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Mar 2026 18:56:20 +0000 (UTC)
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 62PFH4Ku1258007
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Mar 2026 18:56:20 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:reply-to:subject:to; s=
+ qcppdkim1; bh=1e2MlX7Q5yGvC4wRUrIN7z7NiBV97AYd7Lbslop8jFk=; b=Dq
+ i8fZhEOE4bdDjHrrgnNQW6t+IFgODulEIF3FcQPkXf2Gi60GyZMD3ujRaxwnUwXx
+ Ye/p3pyIrfBeV5wNSpUH5zFawDjb6sj1B5UQZKoOPoPrYKoTWDRSdGomUwtA9BcC
+ Z5Lgo2JHE46tSmZ2caJauPgZ8lt3rr0BwQ5W7mt+NHbyqCMcn3IVri6gyqVwyChk
+ RBbxIlT4h6zcx9UuvOCyV1SSouBYtvIKvYLZ+Dqa8JLqRnyPwCgUrEoyulGqxAt4
+ WTfn3Si56k3DW2LiS+y53RVfMwskK448oGEvC9dt/9E+X40lNOd4/WhJSf3zTDnq
+ Q05Ee7O+HOTKrKx475iw==
+Received: from mail-ot1-f69.google.com (mail-ot1-f69.google.com
+ [209.85.210.69])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d4dm2syhe-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Mar 2026 18:56:20 +0000 (GMT)
+Received: by mail-ot1-f69.google.com with SMTP id
+ 46e09a7af769-7d4be1dee67so503786a34.1
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Mar 2026 11:56:19 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1774464979; cv=none;
+ d=google.com; s=arc-20240605;
+ b=DQohDWc1rrs91JnBJvTTi6pWaLcnJ1Jb7Inp6rFKfL35sDbOmAQZZZ8L68chMM6IQC
+ keZPKyr0hq6gsR7/4hMA1+aND0gTGWxERbKd93fk9P4XfwLdNV3JHdmNcRl8EjGWLDjc
+ SjCiOLoJhO1ovCLXp6j1jxQwkgWbg6wGQkpZaMkDYNwX9HuShU5dgge2u9Xl9sVr217U
+ 7r67TswwdothfolT3PI8UyWKbhjqUk1tms921ImlzmDn2Ql1DeA/EfqDPeKlGRdtXz4F
+ Zl7Irn02X5TFqZLpT/CYPyaDTp7SDT6KiYfBnBre/ULpIji/Lf2cBaRgmZSZzoCR40mM
+ Yf/A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :reply-to:in-reply-to:references:mime-version:dkim-signature;
+ bh=1e2MlX7Q5yGvC4wRUrIN7z7NiBV97AYd7Lbslop8jFk=;
+ fh=ZD+n65FybRu4utSB3YFSNMtpc0pF8tP/4b/VE+BYTXI=;
+ b=jsVslcAJON82aoXZdFxUzGU6XbXzHY8S/Brym2tkw6u5deTqlluS768xCAPNY55G1U
+ 9IGxSeEYUYLx16kVBnfCk/ZFt1050exeAEiMqD4dWu9U0zJqO7pGezDTzF2FUeN87zym
+ i0uqDhEz2i/8rPrgx7jJK6kb5gVLZk4ZtRW31vW+G1ulJLnAqYbI4hF3KjgKRkIZ8yF3
+ v6SWVTUorWEavQPqJNH98EVSQTogCsHnPg7hmMnBcA7dQNR93JJOg3AkhMHPoJKAciOc
+ 6lGwRSbhEYWiv3pxTJ1fBQezSH1ZJQ5EUtqf0kniagttMLgw+UW3TXp924SEN2M1rSRy
+ hqPQ==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1774464979; x=1775069779;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :reply-to:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=1e2MlX7Q5yGvC4wRUrIN7z7NiBV97AYd7Lbslop8jFk=;
+ b=XuhXq1P41f/zcBKcyJcfdDa+mJaVTSZ1HOnTbw2UHKCEO/54XiBf4h76p+mA/7DXv/
+ bteuLJunCQpeskgTI/KRWEpzhUC68pThM5kJHkoaSWupKnE1HYojLDv+pBl6tEKeQQ0L
+ a7OKClePe4VECRyx/l1+cYi/D2kmVA5Gv4xfJAVFoEhKtyQOwEDokqxWF/BWsbLk2sje
+ pCSiOBTVsP7+vqdy0dWpEp5J2o48a6vTrFF4NUKKd2W8nv2b3VxZ48wtK1Xd6rNIGGu6
+ zFbcgPueBR3cbDnxVgXS7UI/BeRGUfKDKYEx3YOv53SdkseDxYebxFZ5X+90Fif+JrpQ
+ k28Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1774464979; x=1775069779;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :reply-to:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=1e2MlX7Q5yGvC4wRUrIN7z7NiBV97AYd7Lbslop8jFk=;
+ b=Ty4jHl6kMikEC+E5isLdr+WHTa1Rlna9NBzj0sTqdV2KWX6VAgmto+Q5o9L+G5wXMF
+ odsg0c2MWidUBTS/3p7oueG/Pn1jsqsrSCgSQzuMrZHS2wu6mLejRRnfOTtl18D+Td0I
+ fkC4ZeX/dMiXkvmS7GcmqbohhtRhNQ4quMWKZc2ck/eXDfzO0DDRW0yzbCAakPu7Dl/x
+ 9El69jOOmxrKpldTHfjk9Y6cAIOp5dRYXaQxhG9u0bYKaS8ApDZN69D0zPQSHNyN22gf
+ FjJycgML8wRMNXCjriHPrf6ywPMaYzdli4bHZTTLyydLdI2Ou1eZ0T7tMh37ip6KRtXE
+ eg6Q==
+X-Gm-Message-State: AOJu0YxjSoENgoJ62x8m2Xayw3Uzin1LapZqSoKq8qryRu50OP8VmKy1
+ GI5vQ8QwC2Z4t/ULTDQZ6TLYHwOExzZCpI1YBWgKDIOR0luEhbjiiloGjq74KlAcQsiNfPOU0hp
+ FRzVwvpJGtNwTHNhK0qko5DOMm3m1Zn+ha7wn89pgX4hwZgm9pZ87BxlOk8Wq4XvOlblPDmtnZG
+ EY8/rNesKAoojS9A/LDERNBmPMXf/jh/wfwJNP9SpFUwdu9Q==
+X-Gm-Gg: ATEYQzwSrVVVDuSjw0rv3+XwRZHOwExhAFLLpSuU4oJl6PeXCJLHXPSPzX8JY6tgpFm
+ L81mxTifFEOm/ZxskjFOHqD/dEKhrmYKnhidgwfkGe5G0WX3g09CDB3pndJRQfvL4q+UsZP4Bhp
+ wvGnlavfTIOgGj4ZwILbTGiYBjmbz2kbTtdmI07a5HvJwaX259IXKordeRPJtU2HnVu+Ke49oNs
+ s3JF4hReKnR5TEHfR/bWbwGFeShj914wqUbxg==
+X-Received: by 2002:a05:6830:498b:b0:7d7:e844:7f4e with SMTP id
+ 46e09a7af769-7d9d677ea27mr2451093a34.22.1774464979237; 
+ Wed, 25 Mar 2026 11:56:19 -0700 (PDT)
+X-Received: by 2002:a05:6830:498b:b0:7d7:e844:7f4e with SMTP id
+ 46e09a7af769-7d9d677ea27mr2451070a34.22.1774464978853; Wed, 25 Mar 2026
+ 11:56:18 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Subject: Re: [PATCH V1] accel/amdxdna: Add per-process BO memory usage query
- support
-Content-Language: en-US
-To: Mario Limonciello <mario.limonciello@amd.com>, <ogabbay@kernel.org>,
- <quic_jhugo@quicinc.com>, <dri-devel@lists.freedesktop.org>,
- <maciej.falkowski@linux.intel.com>
-CC: Max Zhen <max.zhen@amd.com>, <linux-kernel@vger.kernel.org>,
- <sonal.santan@amd.com>
-References: <20260324163159.2425461-1-lizhi.hou@amd.com>
- <1e573513-b281-4ae3-9140-7a87ee9dab08@amd.com>
-From: Lizhi Hou <lizhi.hou@amd.com>
-In-Reply-To: <1e573513-b281-4ae3-9140-7a87ee9dab08@amd.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF000026C7:EE_|MN0PR12MB6248:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8a62ea30-97b3-4a75-89a7-08de8a9ecbea
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|36860700016|82310400026|18002099003|22082099003|56012099003;
-X-Microsoft-Antispam-Message-Info: dzDjBNUusz9JMstq0rqEKuagBYiwTCBTOevlu8DQ/2rs6rYSgHeJrHSP0naJ4ez/8/1k6YYSfR80Ju2+80vp5It3b0zBRN4LgX8P/eFR7ChlAQ6r+Cq+cYrpO6Sc9VwJ7Ubr/QcOxZuMEFgiC3+wYqmdqt8nDL9az693cLnsfLOJiyuw4qWw3Tcey6L0DR7f4YN6xG82R0mWm5g0F43n5VbIuds6GjioEx7gu0NAkNSKREnY7MXFCgKKBsMbc7etau3H/rVd29i1Amod2Z7M8k3mBTrmJUQnV/Uzh78UywWvZIY0GlhS4sOFDgBlKRPeVfC+Q16YlP/yUDy0wBM7zr7xBDlhBtTK659fKTjQVaBsEUwjr16w8hDgKTMpEsDEt993uHHDRkwYIfLQu814NZLkax0gLcpinKwFbSCZSHsSny1xAHQj9UPMNsYknCel62Wjx73nN82y2lUZouRhmQuivQ0926upE+0mlb22iUBtK/qTuRd9IlU3a0dzWLLVq0HVthgwqU2MQcJm3zv0nz6sHQ7B08/3quAFhWSjukm0NSKd+gG2XDGt2oVJoY6pJs5aDRoCgyJ6WVqjTh+0Nt4NGOpjZl99Eu6lYh7/GJHpR8kzHgVK+De1BkZAx/6dKL9CR5zDMXrcRigJ47CFZQdwK432CZzKIzLxWjx2hKYX550lauhrbjXzkKjlwq2uvPrflagAufu3V9inf/f8UqFZkeYivg92YGngEJSMkaIoIsfU0p+11uFIYUX/JOiiekTepa3sloZD2AWxyqVjXA==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(36860700016)(82310400026)(18002099003)(22082099003)(56012099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: bujNFmJ2GvgOl4yB++siMn2cg3pFydL5exm3fVPJiO60aIn3TnMDv6Ad8Q5NZiBcrY5w+SMmdIg98iAq9cs0ZnMCb0ow0jL6BLXXxOdJyRIflkaP476mzDIbI5BMHEiRhaKSy+Ry97uEaSSnPamBxkKNMTMpbqkvruTRGIJVr74YSaN8Mp1tGRneHttTFXSuXAbU2nM/rq4yvlLzSMxlZKzWFYQhsHE7ppfGXK6fWEAm7xq8BG8QrSROzYgzwRj/9J/HzVMJr6n0VRyB28+VRWxzvvhOxo3PaEHafBNzHHg9Uxk1K1mWtIjcFAM1k9c58Y2fYQC6O64LPdHyPM5NN8/KJh6e6/fXr8WY3EoxRW50fw8YoR70bmzSAfFbAxjysHF8zi5/n12OKQ39OIfVs8inOmutMzoWwudwk3NtSTr/Iw7pijhGfmv41ciHRmgu
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Mar 2026 18:46:16.2420 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8a62ea30-97b3-4a75-89a7-08de8a9ecbea
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF000026C7.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6248
+References: <20260324220519.1221471-1-robin.clark@oss.qualcomm.com>
+ <u45hgj7ypgf4jzbqxlaxihskk7gmfy675ez7lcxnkm4mg2sxiu@skqnmucupa5m>
+ <CACSVV02g3=4BqNEVx6aviR_zhe6frz8JHEvW7SgF3bbdwFkQwg@mail.gmail.com>
+In-Reply-To: <CACSVV02g3=4BqNEVx6aviR_zhe6frz8JHEvW7SgF3bbdwFkQwg@mail.gmail.com>
+From: Rob Clark <rob.clark@oss.qualcomm.com>
+Date: Wed, 25 Mar 2026 11:56:07 -0700
+X-Gm-Features: AQROBzAIj3aK3dp0n1ee0bOtWSWXRjR_MI1rtJw_xSIbBPYbwdgK_uvXCOkauIs
+Message-ID: <CACSVV03uBvrdG0c8g3dzWbq5TeDXM6K9HGGmvSxMPORBNH+aRw@mail.gmail.com>
+Subject: Re: [PATCH 1/2] drm/msm: Disallow foreign mapping of _NO_SHARE
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ open list <linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzI1MDEzOCBTYWx0ZWRfXwglETfxBD10q
+ k5dH2GEg++0F9z8XojHTpRPn17LnAJLqX8hV2bHOsaxSsNp7wCxdtmF1VaLC5mu1rEk/0YuTSci
+ D0C+R7m8DQiqcAmXuMK4jhoWdHgcOD9bPxpQE85UsUiDdrN8PS1ICZHkR/C2tDzZ4xZqljjrl9R
+ 4IgmtWu8qllKN40gSUoLOjnMQ5hVUJ1jomSNoS+9q9YKcmRay9HG1BMO9jnF/OIJFUWi4A4lGMx
+ 0HZB3Onyu0wY11vU3Dws1VA2+WwywF7//YR7bQPB0Y+Xkar/ZF2uoc5HHZbx56UOM+Piq8I8+C3
+ fJ77IhkMnwmVWSNbPyZA1srKgwu9z1XhWFqSfhWUu6bp6q5Q53aMoYAw6mu8uX868P51nsteA9O
+ eiiwM1sYat2EJ2PdYEjU15Z+YEJuVbXnoTqPghQXSklWr3dXkNRoYleb4YAo3dwK6x6vbx5iIkQ
+ MHxgedJX+GOxDh7VT+Q==
+X-Proofpoint-GUID: YKmPWJem5CvoWvsMRol3AtD5q9duib4Z
+X-Authority-Analysis: v=2.4 cv=Fo0IPmrq c=1 sm=1 tr=0 ts=69c42fd4 cx=c_pps
+ a=z9lCQkyTxNhZyzAvolXo/A==:117 a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=Um2Pa8k9VHT-vaBCBUpS:22 a=EUspDBNiAAAA:8 a=H6UpWBCqU9_EBLoxlZIA:9
+ a=QEXdDO2ut3YA:10 a=EyFUmsFV_t8cxB2kMr4A:22
+X-Proofpoint-ORIG-GUID: YKmPWJem5CvoWvsMRol3AtD5q9duib4Z
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-03-25_05,2026-03-24_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 adultscore=0 malwarescore=0 clxscore=1015 spamscore=0
+ bulkscore=0 phishscore=0 priorityscore=1501 suspectscore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603250138
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,434 +154,69 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: rob.clark@oss.qualcomm.com
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Applied to drm-misc-next.
+On Wed, Mar 25, 2026 at 8:17=E2=80=AFAM Rob Clark <rob.clark@oss.qualcomm.c=
+om> wrote:
+>
+> On Tue, Mar 24, 2026 at 3:20=E2=80=AFPM Dmitry Baryshkov
+> <dmitry.baryshkov@oss.qualcomm.com> wrote:
+> >
+> > On Tue, Mar 24, 2026 at 03:05:17PM -0700, Rob Clark wrote:
+> > > This restriction applies to mapping of _NO_SHARE objs in the kms vm a=
+s
+> > > well as importing/exporting BOs.  Since the DPU has it's own VM, scan=
+out
+> > > counts as "exporting" a BO from outside of it's host VM.
+> > >
+> > > Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
+> > > ---
+> > > v2: Fix issue with MAP_NULL
+> > >
+> > >  drivers/gpu/drm/msm/msm_gem_vma.c | 6 ++++++
+> > >  1 file changed, 6 insertions(+)
+> > >
+> > > diff --git a/drivers/gpu/drm/msm/msm_gem_vma.c b/drivers/gpu/drm/msm/=
+msm_gem_vma.c
+> > > index 1c6b0920c0d8..43d61e0919bd 100644
+> > > --- a/drivers/gpu/drm/msm/msm_gem_vma.c
+> > > +++ b/drivers/gpu/drm/msm/msm_gem_vma.c
+> > > @@ -373,6 +373,12 @@ msm_gem_vma_new(struct drm_gpuvm *gpuvm, struct =
+drm_gem_object *obj,
+> > >       struct msm_gem_vma *vma;
+> > >       int ret;
+> > >
+> > > +     /* _NO_SHARE objs cannot be mapped outside of their "host" vm: =
+*/
+> > > +     if (obj && (to_msm_bo(obj)->flags & MSM_BO_NO_SHARE) &&
+> > > +         GEM_WARN_ON(obj->resv !=3D drm_gpuvm_resv(gpuvm))) {
+> >
+> > Can this be used to spam the logs?
+>
+> yeah, perhaps it should use UERR() instead
 
-On 3/24/26 10:01, Mario Limonciello wrote:
->
->
-> On 3/24/26 11:31, Lizhi Hou wrote:
->> From: Max Zhen <max.zhen@amd.com>
->>
->> Add support for querying per-process buffer object (BO) memory
->> usage through the amdxdna GET_ARRAY UAPI.
->>
->> Introduce a new query type, DRM_AMDXDNA_BO_USAGE, along with
->> struct amdxdna_drm_bo_usage to report BO memory usage statistics,
->> including heap, total, and internal usage.
->>
->> Track BO memory usage on a per-client basis by maintaining counters
->> in GEM open/close and heap allocation/free paths. This ensures the
->> reported statistics reflect the current memory footprint of each
->> process.
->>
->> Wire the new query into the GET_ARRAY implementation to expose
->> the usage information to userspace.
->>
->> Signed-off-by: Max Zhen <max.zhen@amd.com>
->> Reviewed-by: Lizhi Hou <lizhi.hou@amd.com>
->> Signed-off-by: Lizhi Hou <lizhi.hou@amd.com>
-> I'm assuming you also have userspace side ready for this too right?
-> If you have a link handy can you please include it when committing.
->
-> Reviewed-by: Mario Limonciello (AMD) <superm1@kernel.org>
->
->> ---
->>   drivers/accel/amdxdna/aie2_pci.c        |   4 +
->>   drivers/accel/amdxdna/amdxdna_gem.c     | 134 ++++++++++++++++++++++--
->>   drivers/accel/amdxdna/amdxdna_gem.h     |   7 +-
->>   drivers/accel/amdxdna/amdxdna_pci_drv.c |   6 +-
->>   drivers/accel/amdxdna/amdxdna_pci_drv.h |   4 +
->>   include/uapi/drm/amdxdna_accel.h        |  35 +++++++
->>   6 files changed, 177 insertions(+), 13 deletions(-)
->>
->> diff --git a/drivers/accel/amdxdna/aie2_pci.c 
->> b/drivers/accel/amdxdna/aie2_pci.c
->> index 9e39bfe75971..f1ac4e00bd9f 100644
->> --- a/drivers/accel/amdxdna/aie2_pci.c
->> +++ b/drivers/accel/amdxdna/aie2_pci.c
->> @@ -865,6 +865,7 @@ static int aie2_hwctx_status_cb(struct 
->> amdxdna_hwctx *hwctx, void *arg)
->>       tmp->command_submissions = hwctx->priv->seq;
->>       tmp->command_completions = hwctx->priv->completed;
->>       tmp->pasid = hwctx->client->pasid;
->> +    tmp->heap_usage = hwctx->client->heap_usage;
->>       tmp->priority = hwctx->qos.priority;
->>       tmp->gops = hwctx->qos.gops;
->>       tmp->fps = hwctx->qos.fps;
->> @@ -1148,6 +1149,9 @@ static int aie2_get_array(struct amdxdna_client 
->> *client,
->>       case DRM_AMDXDNA_HW_LAST_ASYNC_ERR:
->>           ret = aie2_get_array_async_error(xdna->dev_handle, args);
->>           break;
->> +    case DRM_AMDXDNA_BO_USAGE:
->> +        ret = amdxdna_drm_get_bo_usage(&xdna->ddev, args);
->> +        break;
->>       default:
->>           XDNA_ERR(xdna, "Not supported request parameter %u", 
->> args->param);
->>           ret = -EOPNOTSUPP;
->> diff --git a/drivers/accel/amdxdna/amdxdna_gem.c 
->> b/drivers/accel/amdxdna/amdxdna_gem.c
->> index 27712704e42d..238ee244d4a6 100644
->> --- a/drivers/accel/amdxdna/amdxdna_gem.c
->> +++ b/drivers/accel/amdxdna/amdxdna_gem.c
->> @@ -63,6 +63,8 @@ amdxdna_gem_heap_alloc(struct amdxdna_gem_obj *abo)
->>           goto unlock_out;
->>       }
->>   +    client->heap_usage += mem->size;
->> +
->>       drm_gem_object_get(to_gobj(heap));
->>     unlock_out:
->> @@ -74,16 +76,17 @@ amdxdna_gem_heap_alloc(struct amdxdna_gem_obj *abo)
->>   static void
->>   amdxdna_gem_heap_free(struct amdxdna_gem_obj *abo)
->>   {
->> +    struct amdxdna_client *client = abo->client;
->>       struct amdxdna_gem_obj *heap;
->>   -    mutex_lock(&abo->client->mm_lock);
->> +    mutex_lock(&client->mm_lock);
->>         drm_mm_remove_node(&abo->mm_node);
->> -
->> -    heap = abo->client->dev_heap;
->> +    client->heap_usage -= abo->mem.size;
->> +    heap = client->dev_heap;
->>       drm_gem_object_put(to_gobj(heap));
->>   -    mutex_unlock(&abo->client->mm_lock);
->> +    mutex_unlock(&client->mm_lock);
->>   }
->>     static struct amdxdna_gem_obj *
->> @@ -102,6 +105,8 @@ amdxdna_gem_create_obj(struct drm_device *dev, 
->> size_t size)
->>       abo->mem.dma_addr = AMDXDNA_INVALID_ADDR;
->>       abo->mem.uva = AMDXDNA_INVALID_ADDR;
->>       abo->mem.size = size;
->> +    abo->open_ref = 0;
->> +    abo->internal = false;
->>       INIT_LIST_HEAD(&abo->mem.umap_list);
->>         return abo;
->> @@ -508,13 +513,55 @@ static void amdxdna_imported_obj_free(struct 
->> amdxdna_gem_obj *abo)
->>       kfree(abo);
->>   }
->>   +static inline bool
->> +amdxdna_gem_skip_bo_usage(struct amdxdna_gem_obj *abo)
->> +{
->> +    /* Do not count imported BOs since the buffer is not allocated 
->> by us. */
->> +    if (is_import_bo(abo))
->> +        return true;
->> +
->> +    /* Already counted as part of HEAP BO */
->> +    if (abo->type == AMDXDNA_BO_DEV)
->> +        return true;
->> +
->> +    return false;
->> +}
->> +
->> +static void
->> +amdxdna_gem_add_bo_usage(struct amdxdna_gem_obj *abo)
->> +{
->> +    struct amdxdna_client *client = abo->client;
->> +
->> +    if (amdxdna_gem_skip_bo_usage(abo))
->> +        return;
->> +
->> +    guard(mutex)(&client->mm_lock);
->> +
->> +    client->total_bo_usage += abo->mem.size;
->> +    if (abo->internal)
->> +        client->total_int_bo_usage += abo->mem.size;
->> +}
->> +
->> +static void
->> +amdxdna_gem_del_bo_usage(struct amdxdna_gem_obj *abo)
->> +{
->> +    struct amdxdna_client *client = abo->client;
->> +
->> +    if (amdxdna_gem_skip_bo_usage(abo))
->> +        return;
->> +
->> +    guard(mutex)(&client->mm_lock);
->> +
->> +    client->total_bo_usage -= abo->mem.size;
->> +    if (abo->internal)
->> +        client->total_int_bo_usage -= abo->mem.size;
->> +}
->> +
->>   static void amdxdna_gem_obj_free(struct drm_gem_object *gobj)
->>   {
->>       struct amdxdna_dev *xdna = to_xdna_dev(gobj->dev);
->>       struct amdxdna_gem_obj *abo = to_xdna_obj(gobj);
->>   -    XDNA_DBG(xdna, "BO type %d xdna_addr 0x%llx", abo->type, 
->> amdxdna_gem_dev_addr(abo));
->> -
->>       amdxdna_hmm_unregister(abo, NULL);
->>       flush_workqueue(xdna->notifier_wq);
->>   @@ -543,9 +590,13 @@ static int amdxdna_gem_obj_open(struct 
->> drm_gem_object *gobj, struct drm_file *fi
->>       int ret;
->>         guard(mutex)(&abo->lock);
->> +    abo->open_ref++;
->>   -    if (!abo->client)
->> +    if (abo->open_ref == 1) {
->> +        /* Attached to the client when first opened by it. */
->>           abo->client = filp->driver_priv;
->> +        amdxdna_gem_add_bo_usage(abo);
->> +    }
->>       if (amdxdna_iova_on(xdna)) {
->>           ret = amdxdna_iommu_map_bo(xdna, abo);
->>           if (ret)
->> @@ -555,6 +606,20 @@ static int amdxdna_gem_obj_open(struct 
->> drm_gem_object *gobj, struct drm_file *fi
->>       return 0;
->>   }
->>   +static void amdxdna_gem_obj_close(struct drm_gem_object *gobj, 
->> struct drm_file *filp)
->> +{
->> +    struct amdxdna_gem_obj *abo = to_xdna_obj(gobj);
->> +
->> +    guard(mutex)(&abo->lock);
->> +    abo->open_ref--;
->> +
->> +    if (abo->open_ref == 0) {
->> +        amdxdna_gem_del_bo_usage(abo);
->> +        /* Detach from the client when last closed by it. */
->> +        abo->client = NULL;
->> +    }
->> +}
->> +
->>   static int amdxdna_gem_dev_obj_vmap(struct drm_gem_object *obj, 
->> struct iosys_map *map)
->>   {
->>       struct amdxdna_gem_obj *abo = to_xdna_obj(obj);
->> @@ -575,6 +640,7 @@ static const struct drm_gem_object_funcs 
->> amdxdna_gem_dev_obj_funcs = {
->>   static const struct drm_gem_object_funcs amdxdna_gem_shmem_funcs = {
->>       .free = amdxdna_gem_obj_free,
->>       .open = amdxdna_gem_obj_open,
->> +    .close = amdxdna_gem_obj_close,
->>       .print_info = drm_gem_shmem_object_print_info,
->>       .pin = drm_gem_shmem_object_pin,
->>       .unpin = drm_gem_shmem_object_unpin,
->> @@ -708,10 +774,13 @@ amdxdna_drm_create_share_bo(struct drm_device 
->> *dev,
->>       if (IS_ERR(abo))
->>           return ERR_CAST(abo);
->>   -    if (args->type == AMDXDNA_BO_DEV_HEAP)
->> +    if (args->type == AMDXDNA_BO_DEV_HEAP) {
->>           abo->type = AMDXDNA_BO_DEV_HEAP;
->> -    else
->> +        abo->internal = true;
->> +    } else {
->>           abo->type = AMDXDNA_BO_SHARE;
->> +        abo->internal = args->type == AMDXDNA_BO_CMD;
->> +    }
->>         return abo;
->>   }
->> @@ -783,6 +852,11 @@ amdxdna_drm_create_dev_bo(struct drm_device *dev,
->>       gobj = to_gobj(abo);
->>       gobj->funcs = &amdxdna_gem_dev_obj_funcs;
->>       abo->type = AMDXDNA_BO_DEV;
->> +    abo->internal = true;
->> +    /*
->> +     * DEV BOs cannot be alive when client is gone, it's OK to
->> +     * always establish the connection.
->> +     */
->>       abo->client = client;
->>         ret = amdxdna_gem_heap_alloc(abo);
->> @@ -826,7 +900,7 @@ int amdxdna_drm_create_bo_ioctl(struct drm_device 
->> *dev, void *data, struct drm_f
->>       if (IS_ERR(abo))
->>           return PTR_ERR(abo);
->>   -    /* ready to publish object to userspace */
->> +    /* Ready to publish object to userspace and count for BO usage. */
->>       ret = drm_gem_handle_create(filp, to_gobj(abo), &args->handle);
->>       if (ret) {
->>           XDNA_ERR(xdna, "Create handle failed");
->> @@ -986,3 +1060,43 @@ int amdxdna_drm_sync_bo_ioctl(struct drm_device 
->> *dev,
->>       drm_gem_object_put(gobj);
->>       return ret;
->>   }
->> +
->> +int amdxdna_drm_get_bo_usage(struct drm_device *dev, struct 
->> amdxdna_drm_get_array *args)
->> +{
->> +    size_t min_sz = min(args->element_size, sizeof(struct 
->> amdxdna_drm_bo_usage));
->> +    char __user *buf = u64_to_user_ptr(args->buffer);
->> +    struct amdxdna_dev *xdna = to_xdna_dev(dev);
->> +    struct amdxdna_client *tmp_client;
->> +    struct amdxdna_drm_bo_usage tmp;
->> +
->> +    drm_WARN_ON(dev, !mutex_is_locked(&xdna->dev_lock));
->> +
->> +    if (args->num_element != 1)
->> +        return -EINVAL;
->> +
->> +    if (copy_from_user(&tmp, buf, min_sz))
->> +        return -EFAULT;
->> +
->> +    if (!tmp.pid)
->> +        return -EINVAL;
->> +
->> +    tmp.total_usage = 0;
->> +    tmp.internal_usage = 0;
->> +    tmp.heap_usage = 0;
->> +
->> +    list_for_each_entry(tmp_client, &xdna->client_list, node) {
->> +        if (tmp.pid != tmp_client->pid)
->> +            continue;
->> +
->> +        mutex_lock(&tmp_client->mm_lock);
->> +        tmp.total_usage += tmp_client->total_bo_usage;
->> +        tmp.internal_usage += tmp_client->total_int_bo_usage;
->> +        tmp.heap_usage += tmp_client->heap_usage;
->> +        mutex_unlock(&tmp_client->mm_lock);
->> +    }
->> +
->> +    if (copy_to_user(buf, &tmp, min_sz))
->> +        return -EFAULT;
->> +
->> +    return 0;
->> +}
->> diff --git a/drivers/accel/amdxdna/amdxdna_gem.h 
->> b/drivers/accel/amdxdna/amdxdna_gem.h
->> index a77d9344f8a4..4fc48a1189d2 100644
->> --- a/drivers/accel/amdxdna/amdxdna_gem.h
->> +++ b/drivers/accel/amdxdna/amdxdna_gem.h
->> @@ -41,8 +41,9 @@ struct amdxdna_gem_obj {
->>       struct amdxdna_client        *client;
->>       u8                type;
->>       bool                pinned;
->> -    struct mutex            lock; /* Protects: pinned, mem.kva */
->> +    struct mutex            lock; /* Protects: pinned, mem.kva, 
->> open_ref */
->>       struct amdxdna_mem        mem;
->> +    int                open_ref;
->>         /* Below members are initialized when needed */
->>       struct drm_mm            mm; /* For AMDXDNA_BO_DEV_HEAP */
->> @@ -50,6 +51,9 @@ struct amdxdna_gem_obj {
->>       u32                assigned_hwctx;
->>       struct dma_buf            *dma_buf;
->>       struct dma_buf_attachment    *attach;
->> +
->> +    /* True, if BO is managed by XRT, not application */
->> +    bool                internal;
->>   };
->>     #define to_gobj(obj)    (&(obj)->base.base)
->> @@ -98,5 +102,6 @@ void amdxdna_gem_unpin(struct amdxdna_gem_obj *abo);
->>   int amdxdna_drm_create_bo_ioctl(struct drm_device *dev, void *data, 
->> struct drm_file *filp);
->>   int amdxdna_drm_get_bo_info_ioctl(struct drm_device *dev, void 
->> *data, struct drm_file *filp);
->>   int amdxdna_drm_sync_bo_ioctl(struct drm_device *dev, void *data, 
->> struct drm_file *filp);
->> +int amdxdna_drm_get_bo_usage(struct drm_device *dev, struct 
->> amdxdna_drm_get_array *args);
->>     #endif /* _AMDXDNA_GEM_H_ */
->> diff --git a/drivers/accel/amdxdna/amdxdna_pci_drv.c 
->> b/drivers/accel/amdxdna/amdxdna_pci_drv.c
->> index d83be00daf2b..b50a7d1f8a11 100644
->> --- a/drivers/accel/amdxdna/amdxdna_pci_drv.c
->> +++ b/drivers/accel/amdxdna/amdxdna_pci_drv.c
->> @@ -36,9 +36,10 @@ MODULE_FIRMWARE("amdnpu/17f0_11/npu_7.sbin");
->>    * 0.5: Support getting telemetry data
->>    * 0.6: Support preemption
->>    * 0.7: Support getting power and utilization data
->> + * 0.8: Support BO usage query
->>    */
->>   #define AMDXDNA_DRIVER_MAJOR        0
->> -#define AMDXDNA_DRIVER_MINOR        7
->> +#define AMDXDNA_DRIVER_MINOR        8
->>     /*
->>    * Bind the driver base on (vendor_id, device_id) pair and later 
->> use the
->> @@ -120,11 +121,12 @@ static void amdxdna_client_cleanup(struct 
->> amdxdna_client *client)
->>       amdxdna_hwctx_remove_all(client);
->>       xa_destroy(&client->hwctx_xa);
->>       cleanup_srcu_struct(&client->hwctx_srcu);
->> -    mutex_destroy(&client->mm_lock);
->>         if (client->dev_heap)
->>           drm_gem_object_put(to_gobj(client->dev_heap));
->>   +    mutex_destroy(&client->mm_lock);
->> +
->>       if (!IS_ERR_OR_NULL(client->sva))
->>           iommu_sva_unbind_device(client->sva);
->>       mmdrop(client->mm);
->> diff --git a/drivers/accel/amdxdna/amdxdna_pci_drv.h 
->> b/drivers/accel/amdxdna/amdxdna_pci_drv.h
->> index e91d14ae5190..0661749917d6 100644
->> --- a/drivers/accel/amdxdna/amdxdna_pci_drv.h
->> +++ b/drivers/accel/amdxdna/amdxdna_pci_drv.h
->> @@ -138,6 +138,10 @@ struct amdxdna_client {
->>       struct iommu_sva        *sva;
->>       int                pasid;
->>       struct mm_struct        *mm;
->> +
->> +    size_t                heap_usage;
->> +    size_t                total_bo_usage;
->> +    size_t                total_int_bo_usage;
->>   };
->>     #define amdxdna_for_each_hwctx(client, hwctx_id, entry)        \
->> diff --git a/include/uapi/drm/amdxdna_accel.h 
->> b/include/uapi/drm/amdxdna_accel.h
->> index bddaaaf945cf..61d3686fa3b1 100644
->> --- a/include/uapi/drm/amdxdna_accel.h
->> +++ b/include/uapi/drm/amdxdna_accel.h
->> @@ -591,8 +591,37 @@ struct amdxdna_async_error {
->>       __u64 ex_err_code;
->>   };
->>   +/**
->> + * struct amdxdna_drm_bo_usage - all types of BO usage
->> + * BOs managed by XRT/SHIM/driver is counted as internal.
->> + * Others are counted as external which are managed by applications.
->> + *
->> + * Among all types of BOs:
->> + *   AMDXDNA_BO_DEV_HEAP - is counted for internal.
->> + *   AMDXDNA_BO_SHARE    - is counted for external.
->> + *   AMDXDNA_BO_CMD      - is counted for internal.
->> + *   AMDXDNA_BO_DEV      - is counted by heap_usage only, not internal
->> + *                         or external. It does not add to the total 
->> memory
->> + *                         footprint since its mem comes from heap 
->> which is
->> + *                         already counted as internal.
->> + */
->> +struct amdxdna_drm_bo_usage {
->> +    /** @pid: The ID of the process to query from. */
->> +    __s64 pid;
->> +    /** @total_usage: Total BO size used by process. */
->> +    __u64 total_usage;
->> +    /** @internal_usage: Total internal BO size used by process. */
->> +    __u64 internal_usage;
->> +    /** @heap_usage: Total device BO size used by process. */
->> +    __u64 heap_usage;
->> +};
->> +
->> +/*
->> + * Supported params in struct amdxdna_drm_get_array
->> + */
->>   #define DRM_AMDXDNA_HW_CONTEXT_ALL    0
->>   #define DRM_AMDXDNA_HW_LAST_ASYNC_ERR    2
->> +#define DRM_AMDXDNA_BO_USAGE        6
->>     /**
->>    * struct amdxdna_drm_get_array - Get information array.
->> @@ -605,6 +634,12 @@ struct amdxdna_drm_get_array {
->>        *
->>        * %DRM_AMDXDNA_HW_CONTEXT_ALL:
->>        * Returns all created hardware contexts.
->> +     *
->> +     * %DRM_AMDXDNA_HW_LAST_ASYNC_ERR:
->> +     * Returns last async error.
->> +     *
->> +     * %DRM_AMDXDNA_BO_USAGE:
->> +     * Returns usage of heap/internal/external BOs.
->>        */
->>       __u32 param;
->>       /**
->
+So, for the case that I was concerned about, we should actually just
+reject creating a drm fb from _NO_SHARE BO(s) (and report error w/
+UERR()).  I'll send a patch for that.  With that, I think it is safe
+to keep this WARN_ON(), since the only path to hit it should be a
+driver bug.
+
+BR,
+-R
+
+> >
+> > > +             return ERR_PTR(-EINVAL);
+> > > +     }
+> > > +
+> > >       drm_gpuvm_resv_assert_held(&vm->base);
+> > >
+> > >       vma =3D kzalloc(sizeof(*vma), GFP_KERNEL);
+> > > --
+> > > 2.53.0
+> > >
+> >
+> > --
+> > With best wishes
+> > Dmitry
