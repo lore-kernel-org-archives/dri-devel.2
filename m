@@ -4,29 +4,29 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A6506FEA806
-	for <dri-devel@archiver.kernel.org>; Wed, 25 Mar 2026 03:59:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 49504FEA806
+	for <dri-devel@archiver.kernel.org>; Wed, 25 Mar 2026 04:02:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1309710E731;
-	Wed, 25 Mar 2026 03:59:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 46A7810E732;
+	Wed, 25 Mar 2026 04:02:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=mediatek.com header.i=@mediatek.com header.b="LxXdAA72";
+	dkim=pass (1024-bit key; unprotected) header.d=mediatek.com header.i=@mediatek.com header.b="KYLPQK3+";
 	dkim-atps=neutral
-Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6E31C10E710
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Mar 2026 03:58:51 +0000 (UTC)
-X-UUID: eb8d0ffe27fe11f1a02d4725871ece0b-20260325
+Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2824210E732
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Mar 2026 04:02:47 +0000 (UTC)
+X-UUID: 789f84d027ff11f1a39cd589f645bc18-20260325
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com;
  s=dk; 
  h=Content-Type:Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:CC:To:From;
- bh=Zi0EsqAj1sYQUEgknJXO80h5SJY/7QS8HqlrDd4HOhk=; 
- b=LxXdAA72Kpd40I9VgSdU25Wq4lEG8Jjaz0aj89FUZLw6Z1IdMPqqX9Jy3ErDdJYmqvSR00xqXefhQnIhltuQcDL7TFiTVps8AfkkVkM7zYwNcDLmvMsdofPZ1cV+JCoFpQZJ24OT32q3ttOfphFJIY6xaHDBFThnoryo4Bjpcdc=;
+ bh=Jt6qClMpSxG69acldOGZvCU50hx3UA7l99LsgXHFcPc=; 
+ b=KYLPQK3+p3RuuDYI4LT+vpeLoaNia2VmeX2y/2RNGI1lwzIkAM+v08LdtwJfUD1xsMgv1haADwxkaPboyW0cPps85SEZy+xyaFs3OwRE6QvjuNAGtTSFfzTR/doJWkAafTRQx1npDo78iJCpeElNg5VQLIOaWr6DnkUD839Idag=;
 X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.12, REQID:6f55c087-4dec-44e5-b0fa-bf5050c4ce69, IP:0,
+X-CID-O-INFO: VERSION:1.3.12, REQID:209a124e-e25d-4e5e-b887-6c43f91bc1b5, IP:0,
  U
  RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
  release,TS:0
-X-CID-META: VersionHash:e7bac3a, CLOUDID:cea42d94-f8ef-4ca8-bea0-143568f9ca1d,
+X-CID-META: VersionHash:e7bac3a, CLOUDID:fa451ad5-060f-4ecc-9ee0-121eeeb4a682,
  B
  ulkID:nil,BulkQuantity:0,Recheck:0,SF:81|82|102|836|888|898,TC:-5,Content:
  0|15|50,EDM:-3,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:-1,COL:0,OSI
@@ -35,18 +35,18 @@ X-CID-BVR: 2,SSN|SDN
 X-CID-BAS: 2,SSN|SDN,0,_
 X-CID-FACTOR: TF_CID_SPAM_SNR
 X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: eb8d0ffe27fe11f1a02d4725871ece0b-20260325
-Received: from mtkmbs13n2.mediatek.inc [(172.21.101.108)] by
- mailgw01.mediatek.com (envelope-from <jason-jh.lin@mediatek.com>)
+X-UUID: 789f84d027ff11f1a39cd589f645bc18-20260325
+Received: from mtkmbs11n1.mediatek.inc [(172.21.101.185)] by
+ mailgw02.mediatek.com (envelope-from <jason-jh.lin@mediatek.com>)
  (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
- with ESMTP id 1111101162; Wed, 25 Mar 2026 11:58:45 +0800
-Received: from mtkmbs13n1.mediatek.inc (172.21.101.193) by
- mtkmbs11n2.mediatek.inc (172.21.101.187) with Microsoft SMTP Server
+ with ESMTP id 1094163050; Wed, 25 Mar 2026 12:02:41 +0800
+Received: from mtkmbs13n2.mediatek.inc (172.21.101.108) by
+ MTKMBS14N1.mediatek.inc (172.21.101.75) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.29; Wed, 25 Mar 2026 11:58:43 +0800
+ 15.2.2562.29; Wed, 25 Mar 2026 12:02:40 +0800
 Received: from mtksitap99.mediatek.inc (10.233.130.16) by
- mtkmbs13n1.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
- 15.2.2562.29 via Frontend Transport; Wed, 25 Mar 2026 11:58:43 +0800
+ mtkmbs13n2.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
+ 15.2.2562.29 via Frontend Transport; Wed, 25 Mar 2026 12:02:40 +0800
 From: Jason-JH Lin <jason-jh.lin@mediatek.com>
 To: Jassi Brar <jassisinghbrar@gmail.com>, Chun-Kuang Hu
  <chunkuang.hu@kernel.org>, AngeloGioacchino Del Regno
@@ -62,13 +62,13 @@ CC: Matthias Brugger <matthias.bgg@gmail.com>, Jason-JH Lin
  <linux-kernel@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
  <linux-mediatek@lists.infradead.org>, <linux-arm-kernel@lists.infradead.org>, 
  <linux-media@vger.kernel.org>
-Subject: [PATCH v2 1/5] soc: mediatek: Use pkt_write function pointer for
- subsys ID compatibility
-Date: Wed, 25 Mar 2026 11:57:38 +0800
-Message-ID: <20260325035836.2110757-2-jason-jh.lin@mediatek.com>
+Subject: [PATCH v2 1/2] soc: mediatek: mtk-cmdq: Remove shift_pa parameter
+ from cmdq_pkt_jump()
+Date: Wed, 25 Mar 2026 12:02:09 +0800
+Message-ID: <20260325040239.2112517-2-jason-jh.lin@mediatek.com>
 X-Mailer: git-send-email 2.45.2
-In-Reply-To: <20260325035836.2110757-1-jason-jh.lin@mediatek.com>
-References: <20260325035836.2110757-1-jason-jh.lin@mediatek.com>
+In-Reply-To: <20260325040239.2112517-1-jason-jh.lin@mediatek.com>
+References: <20260325040239.2112517-1-jason-jh.lin@mediatek.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -88,59 +88,115 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Switch to pkt_write and reg_write_mask function pointers for register
-access, enabling compatibility with platforms regardless of subsys ID
-support.
+Since shift_pa will be stored in the cmdq_mbox_priv structure within
+cmdq_pkt, all shift_pa parameters in CMDQ helper APIs can be removed.
+
+Remove the shift_pa parameters from cmdq_pkt_jump(), cmdq_pkt_jump_abs(),
+and cmdq_pkt_jump_rel().
 
 Signed-off-by: Jason-JH Lin <jason-jh.lin@mediatek.com>
 Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 ---
- drivers/soc/mediatek/mtk-mmsys.c | 8 +++++---
- drivers/soc/mediatek/mtk-mutex.c | 5 +++--
- 2 files changed, 8 insertions(+), 5 deletions(-)
+ drivers/soc/mediatek/mtk-cmdq-helper.c |  6 +++---
+ include/linux/soc/mediatek/mtk-cmdq.h  | 20 ++++++++------------
+ 2 files changed, 11 insertions(+), 15 deletions(-)
 
-diff --git a/drivers/soc/mediatek/mtk-mmsys.c b/drivers/soc/mediatek/mtk-mmsys.c
-index bb4639ca0b8c..2f3e0778bb17 100644
---- a/drivers/soc/mediatek/mtk-mmsys.c
-+++ b/drivers/soc/mediatek/mtk-mmsys.c
-@@ -167,9 +167,11 @@ static void mtk_mmsys_update_bits(struct mtk_mmsys *mmsys, u32 offset, u32 mask,
- 	u32 tmp;
- 
- 	if (mmsys->cmdq_base.size && cmdq_pkt) {
--		ret = cmdq_pkt_write_mask(cmdq_pkt, mmsys->cmdq_base.subsys,
--					  mmsys->cmdq_base.offset + offset, val,
--					  mask);
-+		ret = mmsys->cmdq_base.pkt_write_mask(cmdq_pkt,
-+						      mmsys->cmdq_base.subsys,
-+						      mmsys->cmdq_base.pa_base,
-+						      mmsys->cmdq_base.offset + offset,
-+						      val, mask);
- 		if (ret)
- 			pr_debug("CMDQ unavailable: using CPU write\n");
- 		else
-diff --git a/drivers/soc/mediatek/mtk-mutex.c b/drivers/soc/mediatek/mtk-mutex.c
-index 38179e8cd98f..eb5d381ff5af 100644
---- a/drivers/soc/mediatek/mtk-mutex.c
-+++ b/drivers/soc/mediatek/mtk-mutex.c
-@@ -990,6 +990,7 @@ int mtk_mutex_enable_by_cmdq(struct mtk_mutex *mutex, void *pkt)
- 	struct mtk_mutex_ctx *mtx = container_of(mutex, struct mtk_mutex_ctx,
- 						 mutex[mutex->id]);
- 	struct cmdq_pkt *cmdq_pkt = (struct cmdq_pkt *)pkt;
-+	dma_addr_t en_addr = mtx->addr + DISP_REG_MUTEX_EN(mutex->id);
- 
- 	WARN_ON(&mtx->mutex[mutex->id] != mutex);
- 
-@@ -998,8 +999,8 @@ int mtk_mutex_enable_by_cmdq(struct mtk_mutex *mutex, void *pkt)
- 		return -ENODEV;
- 	}
- 
--	cmdq_pkt_write(cmdq_pkt, mtx->cmdq_reg.subsys,
--		       mtx->addr + DISP_REG_MUTEX_EN(mutex->id), 1);
-+	mtx->cmdq_reg.pkt_write(cmdq_pkt, mtx->cmdq_reg.subsys, en_addr, en_addr, 1);
-+
- 	return 0;
+diff --git a/drivers/soc/mediatek/mtk-cmdq-helper.c b/drivers/soc/mediatek/mtk-cmdq-helper.c
+index f8ee6c9ade89..9cec6a096d8b 100644
+--- a/drivers/soc/mediatek/mtk-cmdq-helper.c
++++ b/drivers/soc/mediatek/mtk-cmdq-helper.c
+@@ -562,7 +562,7 @@ int cmdq_pkt_assign(struct cmdq_pkt *pkt, u16 reg_idx, u32 value)
  }
- EXPORT_SYMBOL_GPL(mtk_mutex_enable_by_cmdq);
+ EXPORT_SYMBOL(cmdq_pkt_assign);
+ 
+-int cmdq_pkt_jump_abs(struct cmdq_pkt *pkt, dma_addr_t addr, u8 shift_pa)
++int cmdq_pkt_jump_abs(struct cmdq_pkt *pkt, dma_addr_t addr)
+ {
+ 	struct cmdq_instruction inst = {
+ 		.op = CMDQ_CODE_JUMP,
+@@ -573,11 +573,11 @@ int cmdq_pkt_jump_abs(struct cmdq_pkt *pkt, dma_addr_t addr, u8 shift_pa)
+ }
+ EXPORT_SYMBOL(cmdq_pkt_jump_abs);
+ 
+-int cmdq_pkt_jump_rel(struct cmdq_pkt *pkt, s32 offset, u8 shift_pa)
++int cmdq_pkt_jump_rel(struct cmdq_pkt *pkt, s32 offset)
+ {
+ 	struct cmdq_instruction inst = {
+ 		.op = CMDQ_CODE_JUMP,
+-		.value = (u32)offset >> shift_pa
++		.value = (u32)offset >> pkt->priv.shift_pa
+ 	};
+ 	return cmdq_pkt_append_command(pkt, inst);
+ }
+diff --git a/include/linux/soc/mediatek/mtk-cmdq.h b/include/linux/soc/mediatek/mtk-cmdq.h
+index 03bb85462566..3d0de1a9cac1 100644
+--- a/include/linux/soc/mediatek/mtk-cmdq.h
++++ b/include/linux/soc/mediatek/mtk-cmdq.h
+@@ -418,17 +418,15 @@ int cmdq_pkt_poll_addr(struct cmdq_pkt *pkt, dma_addr_t addr, u32 value, u32 mas
+  *			 contains more instruction.
+  * @pkt:        the CMDQ packet
+  * @addr:       absolute physical address of target instruction buffer
+- * @shift_pa:	shift bits of physical address in CMDQ instruction. This value
+- *		is got by cmdq_get_shift_pa().
+  *
+  * Return: 0 for success; else the error code is returned
+  */
+-int cmdq_pkt_jump_abs(struct cmdq_pkt *pkt, dma_addr_t addr, u8 shift_pa);
++int cmdq_pkt_jump_abs(struct cmdq_pkt *pkt, dma_addr_t addr);
+ 
+ /* This wrapper has to be removed after all users migrated to jump_abs */
+-static inline int cmdq_pkt_jump(struct cmdq_pkt *pkt, dma_addr_t addr, u8 shift_pa)
++static inline int cmdq_pkt_jump(struct cmdq_pkt *pkt, dma_addr_t addr)
+ {
+-	return cmdq_pkt_jump_abs(pkt, addr, shift_pa);
++	return cmdq_pkt_jump_abs(pkt, addr);
+ }
+ 
+ /**
+@@ -438,12 +436,10 @@ static inline int cmdq_pkt_jump(struct cmdq_pkt *pkt, dma_addr_t addr, u8 shift_
+  *			 target address should contains more instruction.
+  * @pkt:	the CMDQ packet
+  * @offset:	relative offset of target instruction buffer from current PC.
+- * @shift_pa:	shift bits of physical address in CMDQ instruction. This value
+- *		is got by cmdq_get_shift_pa().
+  *
+  * Return: 0 for success; else the error code is returned
+  */
+-int cmdq_pkt_jump_rel(struct cmdq_pkt *pkt, s32 offset, u8 shift_pa);
++int cmdq_pkt_jump_rel(struct cmdq_pkt *pkt, s32 offset);
+ 
+ /**
+  * cmdq_pkt_jump_rel_temp() - Temporary wrapper for new CMDQ helper API
+@@ -460,7 +456,7 @@ int cmdq_pkt_jump_rel(struct cmdq_pkt *pkt, s32 offset, u8 shift_pa);
+  */
+ static inline int cmdq_pkt_jump_rel_temp(struct cmdq_pkt *pkt, s32 offset, u8 shift_pa)
+ {
+-	return cmdq_pkt_jump_rel(pkt, offset, shift_pa);
++	return cmdq_pkt_jump_rel(pkt, offset);
+ }
+ 
+ /**
+@@ -602,17 +598,17 @@ static inline int cmdq_pkt_poll_addr(struct cmdq_pkt *pkt, dma_addr_t addr, u32
+ 	return -EINVAL;
+ }
+ 
+-static inline int cmdq_pkt_jump_abs(struct cmdq_pkt *pkt, dma_addr_t addr, u8 shift_pa)
++static inline int cmdq_pkt_jump_abs(struct cmdq_pkt *pkt, dma_addr_t addr)
+ {
+ 	return -EINVAL;
+ }
+ 
+-static inline int cmdq_pkt_jump(struct cmdq_pkt *pkt, dma_addr_t addr, u8 shift_pa)
++static inline int cmdq_pkt_jump(struct cmdq_pkt *pkt, dma_addr_t addr)
+ {
+ 	return -EINVAL;
+ }
+ 
+-static inline int cmdq_pkt_jump_rel(struct cmdq_pkt *pkt, s32 offset, u8 shift_pa)
++static inline int cmdq_pkt_jump_rel(struct cmdq_pkt *pkt, s32 offset)
+ {
+ 	return -EINVAL;
+ }
 -- 
 2.43.0
 
