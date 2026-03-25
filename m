@@ -4,86 +4,86 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AB0D7109C03E
-	for <dri-devel@archiver.kernel.org>; Wed, 25 Mar 2026 16:40:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C191109C044
+	for <dri-devel@archiver.kernel.org>; Wed, 25 Mar 2026 16:44:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1864610E7ED;
-	Wed, 25 Mar 2026 16:40:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BC86710E7F4;
+	Wed, 25 Mar 2026 16:44:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="QpZovXWt";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="Nn+C6op5";
 	dkim-atps=neutral
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CC49610E7ED
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Mar 2026 16:40:26 +0000 (UTC)
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4762710E7F4
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Mar 2026 16:44:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1774456826;
+ s=mimecast20190719; t=1774457081;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=QWF5451DdJjpuCOBGxODnCSZvDdxLZoAb40UluyoYsw=;
- b=QpZovXWtA4FFmgYSWQudn0+e4DZeOL1kiwPmrhzElVfLhwFNgnS6zaLgoBpYX5NOK1u2Gl
- pgI7p/qvM8JSuFQ3nNMpzRDgmsiNm4NnapHB85pGlYmHsApzUjAwmfKeQ16y8KUM9iB8Vb
- mTJ8VLmy0CjfS1XigmHGUmP1dsy0oLA=
-Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
- [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=hag9Om+N0BhkXbwkXBlt0GuHkm0yG2VPjdywxx8ijkg=;
+ b=Nn+C6op5otL13zTS+ovdH/iC7+eamkjUhW6vx4vmLCy0QhKlwuJ7vha3Ha06Ri+NLyuUUJ
+ inzwU2otCb7U/2rrWEcjfs+ViltCXUlg4LA8eN6jXjMABDWlrwfdfm4QMKWBZL6m3zVDqn
+ sJGUhn2gVtH4rhQG4yPftkXMIbanWVU=
+Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
+ [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-564-8u-FjYT7PZ67It53CJNIHA-1; Wed, 25 Mar 2026 12:40:24 -0400
-X-MC-Unique: 8u-FjYT7PZ67It53CJNIHA-1
-X-Mimecast-MFC-AGG-ID: 8u-FjYT7PZ67It53CJNIHA_1774456823
-Received: by mail-wr1-f69.google.com with SMTP id
- ffacd0b85a97d-439c794ec8eso5864120f8f.1
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Mar 2026 09:40:24 -0700 (PDT)
+ us-mta-523-9rtiXSY6OzeupekYYrDh4A-1; Wed, 25 Mar 2026 12:44:39 -0400
+X-MC-Unique: 9rtiXSY6OzeupekYYrDh4A-1
+X-Mimecast-MFC-AGG-ID: 9rtiXSY6OzeupekYYrDh4A_1774457078
+Received: by mail-wr1-f70.google.com with SMTP id
+ ffacd0b85a97d-439c794ec8eso5875587f8f.1
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Mar 2026 09:44:39 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774456823; x=1775061623;
+ d=1e100.net; s=20251104; t=1774457078; x=1775061878;
  h=content-transfer-encoding:in-reply-to:from:content-language
  :references:cc:to:subject:user-agent:mime-version:date:message-id
  :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=QWF5451DdJjpuCOBGxODnCSZvDdxLZoAb40UluyoYsw=;
- b=LZ68eUAj348nwIi0PDfv+HkD2/Zo4YosSgrqFryeL+LRNSd6pLyPX+nG3Vj+Z+lW3F
- Rfalcq7PDYBu7Aeo9taTvt3jD8iXob9OKo4+u0G2m1nkuTcDJfA6Bia5QpSduaYUZ7ro
- mUIIjCeVIatYDdje3WIsowzXvUgm61YOCJwjef8nOQkOBRnjSD/NDf/zvU6FF6uAAhH+
- cP5W/eAsYFKqAWzr1TVJdOJLh33t2a7uMXZR415UY+N/OAFQ61xHyHYlP7AjaFhuD3O0
- kwNiOJ3aZICIkM0B2pXwjMmOEMyDnFWN9FI8DpJrff058QIFd5uDfWdR4d5m2V8eOBUj
- hS2w==
-X-Gm-Message-State: AOJu0YwlkV/soc1V1rQ/aHCBzjWZW5WYc7wd127GhYI5nUIDuwJuZxQO
- y+D5UqJ5aYpEOBM4iHvk3B0GN+7gpQoXTYf4temcCre/fjdSK24P8e/D6/ftlhymzNZgQMqspmX
- +9jTjMT+7HrzlSwCk3QgYepxcixRXpSC35dMIKVOeSk5hROr1Juttj0quTI8hkynwJCCKZA==
-X-Gm-Gg: ATEYQzwy1AzjGDWirQ/nHUjWl3/3hayDG2QuAFt0rZ1ctuKZnTyYUUtolTySICDyxX8
- J7yBZLQqdO6ugFwXnuYRUNwzm7ocGgib54ZnLUtJLs/IYy+ArfWcLFbJGP1j2V3cVjRUmD6xbxb
- +bO9r6XD6BI66idBnzOEi5ChPZcD1xGKDpAMxCGazArGJWEy1C2OSKWwaE8FK50Rz9gz0bQyfdh
- 5PcULosmNng/xZEr2sh8C+NxrxZPGkE00FxM2Js7wF4TKSkUqJ3MU4ua16t07Ml+7sDJ6a7BgOB
- YO2QKE5gYuHZDyql9As4A/U8yGzs/koTqSChwmB1EbjO+BRNwkwK4wScPjGyyEtGZck5e9rVWbs
- ahTShN17n+KnndtyM0jZhCN+VTWritfJRfWZmUlnwUlO0wegq+vONwQ+PB2abCw==
-X-Received: by 2002:a05:6000:230c:b0:43b:5767:8f2a with SMTP id
- ffacd0b85a97d-43b889991ecmr6257689f8f.22.1774456823126; 
- Wed, 25 Mar 2026 09:40:23 -0700 (PDT)
-X-Received: by 2002:a05:6000:230c:b0:43b:5767:8f2a with SMTP id
- ffacd0b85a97d-43b889991ecmr6257648f8f.22.1774456822665; 
- Wed, 25 Mar 2026 09:40:22 -0700 (PDT)
+ bh=hag9Om+N0BhkXbwkXBlt0GuHkm0yG2VPjdywxx8ijkg=;
+ b=Pr8x0PncQikH45nuBN4ti1Eu/FZREHPYzE9Unn2u2O9Nct3e2fervzrrmwk6XZ3vSU
+ OzD6M8mILL0/Vtpqsbi2B7oMhKkaahJHVAy2e/xMg4mtEAbZtDRslnOfk//hC/Ec0Rw7
+ W1+myFXH/dvBsWu5sF3QUJ6wySumzZsI62igfAhRSOBa3jrwfVwKK4DJCjqLDcRzDRrq
+ QnEoMhW/FtkKEE6I9PUWUB6x/dBRBu13AT8L6pM+rtiNRs9QeytELHZTsWekzkN/9Nwo
+ KUOHAD+YdL14ByCIMPyBAHmtf1nsc8Onby+hub6/k6zvXOC7rkzqi4gWHRn45LghcmJn
+ Kk1w==
+X-Gm-Message-State: AOJu0YymsfXV5OcxnH+JN+n3FQe/AyCA8v2DImLF6t4QJdrc3uf85D2J
+ 80mf+z6BTFa11ZuI4dVNm1ArOvh/lG0k+PDKUT0ra3gPRFGc8UtKlyk6ry3/JBUqIWcvrna7/0s
+ 7ojp2LCPDRrpHNeGxiTb3YKmvO2lTcz+Taf92Zwd/NuER1/ZeDctdIvY5M5MZeweRUkRsyA==
+X-Gm-Gg: ATEYQzyboT4l8LFhRzPDe7U2Sbiqo7GpDH/1eMRTW17slpKa6WQDA0MmaW9PKxMlM8d
+ 71kt8s/TuW+281iJMoLBYvCPnPc8JFtHFJNudL49hFfTNkSGUNV4NgXvuVUcZQ7k3Gq5O7otrQt
+ ibYccoj5fzmZ7HRTkMQSWA5rIXysvNQqMMOdGqYIF3uiouPvMKPc+mTE8Xzba2xCxYcLClu6aCz
+ Zt9DYpa9mw21dSvNOgxVCpcygOUmCDpWqrovLIBrsw1t1EAsZmbi/GqPl1rhNukq3z3Pw15Fg9v
+ G6h47G++LaDn1MURT6YSpUbx9DssBAvClcRj++kZGfCUN6wYWpy3HhLAsrXN7RCx288LYiabVKy
+ Uk6VWZPWT60S4mkMn7oAGKWr50TbrRgKAbIVHYv6oci5dT49mh0PP2Pyzz8y3CA==
+X-Received: by 2002:a05:6000:3101:b0:43b:3b80:6776 with SMTP id
+ ffacd0b85a97d-43b889e34edmr6804228f8f.30.1774457078304; 
+ Wed, 25 Mar 2026 09:44:38 -0700 (PDT)
+X-Received: by 2002:a05:6000:3101:b0:43b:3b80:6776 with SMTP id
+ ffacd0b85a97d-43b889e34edmr6804177f8f.30.1774457077805; 
+ Wed, 25 Mar 2026 09:44:37 -0700 (PDT)
 Received: from ?IPV6:2a01:e0a:c:37e0:8998:e0cf:68cc:1b62?
  ([2a01:e0a:c:37e0:8998:e0cf:68cc:1b62])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-43b919dfb54sm918421f8f.31.2026.03.25.09.40.20
+ ffacd0b85a97d-43b9192e528sm874199f8f.1.2026.03.25.09.44.36
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 25 Mar 2026 09:40:22 -0700 (PDT)
-Message-ID: <9e9ba14f-ab89-4b1d-8207-ff22af087bf7@redhat.com>
-Date: Wed, 25 Mar 2026 17:40:19 +0100
+ Wed, 25 Mar 2026 09:44:37 -0700 (PDT)
+Message-ID: <0ed60038-1511-49a4-8c68-44f264ad4373@redhat.com>
+Date: Wed, 25 Mar 2026 17:44:35 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 10/15] drm/ast: Gen1: Fix open-coded register access
+Subject: Re: [PATCH 11/15] drm/ast: Gen2: Fix open-coded register access
 To: Thomas Zimmermann <tzimmermann@suse.de>, airlied@redhat.com,
  maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@gmail.com,
  simona@ffwll.ch
 Cc: dri-devel@lists.freedesktop.org
 References: <20260323160407.245773-1-tzimmermann@suse.de>
- <20260323160407.245773-11-tzimmermann@suse.de>
+ <20260323160407.245773-12-tzimmermann@suse.de>
 From: Jocelyn Falempe <jfalempe@redhat.com>
-In-Reply-To: <20260323160407.245773-11-tzimmermann@suse.de>
+In-Reply-To: <20260323160407.245773-12-tzimmermann@suse.de>
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: n6TSu8BO7kqC6I64B-uGuNKlDh-d2hfya2_4qanTOM8_1774456823
+X-Mimecast-MFC-PROC-ID: Hx4nBu4Q3H6eammctU0KYcovHMb1TFIy3HZs7nh6Src_1774457078
 X-Mimecast-Originator: redhat.com
 Content-Language: en-US, fr
 Content-Type: text/plain; charset=UTF-8; format=flowed
@@ -104,115 +104,157 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 On 23/03/2026 16:56, Thomas Zimmermann wrote:
-> Replace all open-coded access to MCR registers in Gen1 with the
-> appropriate calls to ast_moutdwm() and ast_mindwm(). Use MCR register
-> constants.
+> Replace all open-coded access to MCR and SCU registers in Gen2 with the
+> appropriate calls to ast_moutdwm() and ast_mindwm(). Use MCR and SCU
+> register constants. Name variables according to registers.
 > 
-> For the poll loop on MCR100, add ast_moutdwm_poll(). The helper polls
-> the register until it has been updated to the given value. Relax the
-> CPU while busy-waiting.
+> The values in MCR04 that control VRAM allocation do not look correct.
+> Leave a FIXME comment for later investigation.
 
 Thanks, it looks good to me.
 
 Reviewed-by: Jocelyn Falempe <jfalempe@redhat.com>
+
 > 
 > Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
 > ---
->   drivers/gpu/drm/ast/ast_2000.c | 18 +++++++-----------
->   drivers/gpu/drm/ast/ast_drv.c  | 12 ++++++++++++
->   drivers/gpu/drm/ast/ast_drv.h  |  1 +
->   drivers/gpu/drm/ast/ast_reg.h  |  2 ++
->   4 files changed, 22 insertions(+), 11 deletions(-)
+>   drivers/gpu/drm/ast/ast_2100.c | 73 ++++++++++++++++++----------------
+>   1 file changed, 38 insertions(+), 35 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/ast/ast_2000.c b/drivers/gpu/drm/ast/ast_2000.c
-> index e683edf595e2..4cf951b3533d 100644
-> --- a/drivers/gpu/drm/ast/ast_2000.c
-> +++ b/drivers/gpu/drm/ast/ast_2000.c
-> @@ -99,20 +99,15 @@ static const struct ast_dramstruct ast2000_dram_table_data[] = {
->   static void ast_post_chip_2000(struct ast_device *ast)
+> diff --git a/drivers/gpu/drm/ast/ast_2100.c b/drivers/gpu/drm/ast/ast_2100.c
+> index 930e9f2d0ccf..5cf8ad9c3446 100644
+> --- a/drivers/gpu/drm/ast/ast_2100.c
+> +++ b/drivers/gpu/drm/ast/ast_2100.c
+> @@ -40,21 +40,19 @@
+>   
+>   static enum ast_dram_layout ast_2100_get_dram_layout_p2a(struct ast_device *ast)
+>   {
+> -	u32 mcr_cfg;
+> +	u32 mcr04;
+>   	enum ast_dram_layout dram_layout;
+>   
+> -	ast_write32(ast, 0xf004, AST_REG_MCR00);
+> -	ast_write32(ast, 0xf000, 0x1);
+> -	mcr_cfg = ast_read32(ast, 0x10004);
+> +	mcr04 = ast_mindwm(ast, AST_REG_MCR04);
+>   
+> -	switch (mcr_cfg & 0x0c) {
+> +	switch (mcr04 & GENMASK(3, 2)) {
+>   	case 0:
+>   	case 4:
+>   	default:
+>   		dram_layout = AST_DRAM_512Mx16;
+>   		break;
+>   	case 8:
+> -		if (mcr_cfg & 0x40)
+> +		if (mcr04 & 0x40)
+>   			dram_layout = AST_DRAM_1Gx16;
+>   		else
+>   			dram_layout = AST_DRAM_512Mx32;
+> @@ -300,51 +298,52 @@ static void cbrdlli_ast2150(struct ast_device *ast, int busw)
+>   static void ast_post_chip_2100(struct ast_device *ast)
 >   {
 >   	u8 j;
-> -	u32 temp, i;
+> -	u32 data, temp, i;
 > -	const struct ast_dramstruct *dram_reg_info;
+> -	enum ast_dram_layout dram_layout  = ast_2100_get_dram_layout_p2a(ast);
 > +	u32 i;
+> +	enum ast_dram_layout dram_layout = ast_2100_get_dram_layout_p2a(ast);
+> +	u32 mcr120;
+> +	u32 scu00c, scu040;
 >   
 >   	j = ast_get_index_reg_mask(ast, AST_IO_VGACRI, 0xd0, 0xff);
 >   
 >   	if ((j & 0x80) == 0) { /* VGA only */
-> -		dram_reg_info = ast2000_dram_table_data;
+> +		const struct ast_dramstruct *dram_reg_info;
+> +
+>   		if (ast->chip == AST2100 || ast->chip == AST2200)
+>   			dram_reg_info = ast2100_dram_table_data;
+>   		else
+>   			dram_reg_info = ast1100_dram_table_data;
+>   
 > -		ast_write32(ast, 0xf004, AST_REG_MCR00);
 > -		ast_write32(ast, 0xf000, 0x1);
-> -		ast_write32(ast, 0x10100, 0xa8);
-> +		const struct ast_dramstruct *dram_reg_info = ast2000_dram_table_data;
-> +		u32 mcr140;
->   
+> -		ast_write32(ast, 0x12000, 0x1688A8A8);
 > -		do {
 > -			;
-> -		} while (ast_read32(ast, 0x10100) != 0xa8);
-> +		ast_moutdwm_poll(ast, AST_REG_MCR100, 0xa8, 0xa8);
+> -		} while (ast_read32(ast, 0x12000) != 0x01);
+> -
+> -		ast_write32(ast, 0x10000, 0xfc600309);
+> -		do {
+> -			;
+> -		} while (ast_read32(ast, 0x10000) != 0x01);
+> +		ast_moutdwm_poll(ast, AST_REG_SCU000, AST_REG_SCU000_PROTECTION_KEY, 0x01);
+> +		ast_moutdwm_poll(ast, AST_REG_MCR00, AST_REG_MCR00_PROTECTION_KEY, 0x01);
 >   
 >   		while (!AST_DRAMSTRUCT_IS(dram_reg_info, INVALID)) {
 >   			if (AST_DRAMSTRUCT_IS(dram_reg_info, UDELAY)) {
-> @@ -124,8 +119,9 @@ static void ast_post_chip_2000(struct ast_device *ast)
->   			dram_reg_info++;
+>   				for (i = 0; i < 15; i++)
+>   					udelay(dram_reg_info->data);
+>   			} else if (AST_DRAMSTRUCT_IS_REG(dram_reg_info, AST_REG_MCR04)) {
+> +				u32 mcr04;
+> +				u32 scu070;
+> +
+>   				switch (dram_layout) {
+>   				case AST_DRAM_1Gx16:
+> -					data = 0x00000d89;
+> +					mcr04 = 0x00000d89;
+>   					break;
+>   				case AST_DRAM_1Gx32:
+> -					data = 0x00000c8d;
+> +					mcr04 = 0x00000c8d;
+>   					break;
+>   				default:
+> -					data = dram_reg_info->data;
+> +					mcr04 = dram_reg_info->data;
+>   					break;
+>   				}
+>   
+> -				temp = ast_read32(ast, 0x12070);
+> -				temp &= 0xc;
+> -				temp <<= 2;
+> -				ast_moutdwm(ast, dram_reg_info->index, data | temp);
+> +				/*
+> +				 * FIXME: There might be bits already in MCR04[5:4]. Should
+> +				 *        we only do this in the default case?
+> +				 */
+> +				scu070 = ast_mindwm(ast, AST_REG_SCU070);
+> +				mcr04 |= (scu070 & GENMASK(3, 2)) << 2;
+> +
+> +				ast_moutdwm(ast, dram_reg_info->index, mcr04);
+>   			} else {
+>   				ast_moutdwm(ast, dram_reg_info->index, dram_reg_info->data);
+>   			}
+> @@ -352,19 +351,23 @@ static void ast_post_chip_2100(struct ast_device *ast)
 >   		}
 >   
-> -		temp = ast_read32(ast, 0x10140);
-> -		ast_write32(ast, 0x10140, temp | 0x40);
-> +		mcr140 = ast_mindwm(ast, AST_REG_MCR140);
-> +		mcr140 |= 0x00000040;
-> +		ast_moutdwm(ast, AST_REG_MCR140, mcr140);
+>   		/* AST 2100/2150 DRAM calibration */
+> -		data = ast_read32(ast, 0x10120);
+> -		if (data == 0x5061) { /* 266Mhz */
+> -			data = ast_read32(ast, 0x10004);
+> -			if (data & 0x40)
+> +		mcr120 = ast_mindwm(ast, AST_REG_MCR120);
+> +		if (mcr120 == 0x5061) { /* 266Mhz */
+> +			u32 mcr04 = ast_mindwm(ast, AST_REG_MCR04);
+> +
+> +			if (mcr04 & 0x40)
+>   				cbrdlli_ast2150(ast, 16); /* 16 bits */
+>   			else
+>   				cbrdlli_ast2150(ast, 32); /* 32 bits */
+>   		}
+>   
+> -		temp = ast_read32(ast, 0x1200c);
+> -		ast_write32(ast, 0x1200c, temp & 0xfffffffd);
+> -		temp = ast_read32(ast, 0x12040);
+> -		ast_write32(ast, 0x12040, temp | 0x40);
+> +		scu00c = ast_mindwm(ast, AST_REG_SCU00C);
+> +		scu00c &= 0xfffffffd;
+> +		ast_moutdwm(ast, AST_REG_SCU00C, scu00c);
+> +
+> +		scu040 = ast_mindwm(ast, AST_REG_SCU040);
+> +		scu040 |= 0x00000040;
+> +		ast_moutdwm(ast, AST_REG_SCU040, scu040);
 >   	}
 >   
 >   	/* wait ready */
-> diff --git a/drivers/gpu/drm/ast/ast_drv.c b/drivers/gpu/drm/ast/ast_drv.c
-> index 3da0cce0a3f6..6fe549f16309 100644
-> --- a/drivers/gpu/drm/ast/ast_drv.c
-> +++ b/drivers/gpu/drm/ast/ast_drv.c
-> @@ -102,6 +102,18 @@ void ast_moutdwm(struct ast_device *ast, u32 r, u32 v)
->   	__ast_moutdwm(ast->regs, r, v);
->   }
->   
-> +void ast_moutdwm_poll(struct ast_device *ast, u32 r, u32 v, u32 res)
-> +{
-> +	void __iomem *regs = ast->regs;
-> +
-> +	__ast_selseg(regs, r);
-> +	__ast_wrseg32(regs, r, v);
-> +
-> +	do {
-> +		cpu_relax();
-> +	} while (__ast_rdseg32(regs, r) != res);
-> +}
-> +
->   /*
->    * AST device
->    */
-> diff --git a/drivers/gpu/drm/ast/ast_drv.h b/drivers/gpu/drm/ast/ast_drv.h
-> index 3eedf8239333..4f221b848d68 100644
-> --- a/drivers/gpu/drm/ast/ast_drv.h
-> +++ b/drivers/gpu/drm/ast/ast_drv.h
-> @@ -361,6 +361,7 @@ u32 __ast_mindwm(void __iomem *regs, u32 r);
->   void __ast_moutdwm(void __iomem *regs, u32 r, u32 v);
->   u32 ast_mindwm(struct ast_device *ast, u32 r);
->   void ast_moutdwm(struct ast_device *ast, u32 r, u32 v);
-> +void ast_moutdwm_poll(struct ast_device *ast, u32 r, u32 v, u32 res);
->   
->   /*
->    * VBIOS
-> diff --git a/drivers/gpu/drm/ast/ast_reg.h b/drivers/gpu/drm/ast/ast_reg.h
-> index a01af2bfbae6..9ebdbbde9a47 100644
-> --- a/drivers/gpu/drm/ast/ast_reg.h
-> +++ b/drivers/gpu/drm/ast/ast_reg.h
-> @@ -140,8 +140,10 @@
->   #define AST_REG_MCR80				AST_REG_MCR(0x80)
->   #define AST_REG_MCR84				AST_REG_MCR(0x84)
->   #define AST_REG_MCR88				AST_REG_MCR(0x88)
-> +#define AST_REG_MCR100				AST_REG_MCR(0x100)
->   #define AST_REG_MCR108				AST_REG_MCR(0x108)
->   #define AST_REG_MCR120				AST_REG_MCR(0x120)
-> +#define AST_REG_MCR140				AST_REG_MCR(0x140)
->   #define AST_REG_MCR200				AST_REG_MCR(0x200)
->   #define AST_REG_MCR204				AST_REG_MCR(0x204)
->   #define AST_REG_MCR208				AST_REG_MCR(0x208)
 
