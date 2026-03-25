@@ -4,90 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6580BFEA80C
-	for <dri-devel@archiver.kernel.org>; Wed, 25 Mar 2026 06:08:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F182FFEA810
+	for <dri-devel@archiver.kernel.org>; Wed, 25 Mar 2026 06:35:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BFC3310E77D;
-	Wed, 25 Mar 2026 06:08:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5108010E473;
+	Wed, 25 Mar 2026 06:35:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="RdXZUI74";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="IUcXR7VE";
 	dkim-atps=neutral
-Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com
- [209.85.210.173])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 76A7B10E77D
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Mar 2026 06:08:47 +0000 (UTC)
-Received: by mail-pf1-f173.google.com with SMTP id
- d2e1a72fcca58-82a3d3235c9so1837651b3a.2
- for <dri-devel@lists.freedesktop.org>; Tue, 24 Mar 2026 23:08:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1774418927; x=1775023727; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=Zoa2MoiF0mKzbu/HxLLzZaaZ2klLwju72NrX2oHwXew=;
- b=RdXZUI74IHOejxylxvprxdAeD0TWp6QpUFO2sLynPEOTi1e/5/IlvLLQxHAxgImpCE
- vthCcV6ag6xjPtuaOKkevRNvhbnSy2nDWFVwjRYr/IwcXrHodI4FOxtPO+zc3QpsPmSD
- kUdTOe4DNvnAtjC1DBB4MU+3MQatX8HqB2Tj9dqofAkd5lu/9asNiSnWk8dnQMYPE3FM
- u22oGPaKdd9v+kapYNt5AA8UUb5RurmRuycHrktrFfWGiYE/30pMXQLxGbXgOHPfp8td
- NmBUoxNqW2UfRZgI4UgTkwuqZI3URJYF7yaXLvep/rGCSsaiii/52rP01NZBIhjIcujm
- jKGw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774418927; x=1775023727;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=Zoa2MoiF0mKzbu/HxLLzZaaZ2klLwju72NrX2oHwXew=;
- b=TlbHYwNs8VL7Vm/eS/jfDrGe0uAKNLGMDR3+raRJfb3FZdcvW3+dCz8I8SkBS+FH4Q
- f16I//JkzdjpJELcnoK6L7zXTKMEtulnq6MnTQj39qWUeAFLknXM9v/2NVINQFq0ya70
- wcARePA0G5Pym+JIfq+bzIv0NtiboR8rCVmrSnoyt+8dqnkbvsOWyyK6T0GcKr0O9jqa
- eDBcIBfYJkrfeQhgh2+7i2IsfTM83ZawdEvSP0zHEBrlcivrRB+dYlLVeHhgdVF8yFBv
- 2KOFNzEatZsgifngPZBQfG4dy8qkBfWkccsZWfb9X/hyxSUGeRp/gV586atXGfpqt5I8
- IBZA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXmHB+0gezmRArfti7IvJVi9LVUgl6nzGK+IQp8BZ8kJ3WnSqzHMysaaCP2Faosxz6EKOyLpS+uwBM=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxOXtECvmH07hbODScb9Gy/V84/IwSahj+eU4O12daORDpRBSGb
- TQO3zPtnQyucnvav5Wpz8AnJto+T+PqhmLkxeiS+ERmB8zmYPBH7hpuu
-X-Gm-Gg: ATEYQzxayh/ddVK1Vvl5buOFLABZ6prJC1YeNZAZKgzsxNyir28RBu2y+q8XxdF1gO4
- pn+b9+63IQtnLIzfEd1wMMcZMgLLLdNd7XJa1rzMdX4Acm4kMKtQTxawYw2vIRZX3bFM/KRDxCb
- YQoebt4fZAr4iR+QmIVpYF6ge431j0HXbx//8+38bPCqLRelVfDlvLULojbmNXOvZKGZcoZ3Yxm
- 4A5XduAOes78UoMg+tLYUd0bDgebHSiBdZ3eIuCTtFaDSUmlWyv1I/0sgu9zYognh6GnJtx2RMP
- 1gWr/K87S1zf0JRGToQ0ND8knr9mhmEY6LpW9Cu3e+ZVRKGLmeVCIj79RkGiHSEAREVhOe0QWx9
- Uej1USoIGkjEfYJW+uul/NY3hMsOW0V44FiWMIIqr73wYe08axGvJfGb7YlmrNrdc6XHdmC6x62
- vM+d5v6e+R3lyaTX1V6q1Nj+5oxWlgSO75xPCqeTUDmuZneyqQ6ATKviJJ5Q==
-X-Received: by 2002:a05:6a00:2da7:b0:82a:7758:1416 with SMTP id
- d2e1a72fcca58-82c6de6df6amr2498384b3a.12.1774418926718; 
- Tue, 24 Mar 2026 23:08:46 -0700 (PDT)
-Received: from [172.16.20.13] ([136.226.252.245])
- by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-82c76e5a6fcsm503033b3a.59.2026.03.24.23.08.39
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 24 Mar 2026 23:08:46 -0700 (PDT)
-Message-ID: <d93f15af-219c-4118-bc33-e2ddd2188922@gmail.com>
-Date: Wed, 25 Mar 2026 11:39:07 +0530
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 0/2] drm: bridge: ti-sn65dsi83: Improve dual-link LVDS
- support
-To: Alexander Stein <alexander.stein@ew.tq-group.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>, Marek Vasut <marex@nabladev.com>,
- andrzej.hajda@intel.com, neil.armstrong@linaro.org, rfoss@kernel.org,
- dri-devel@lists.freedesktop.org
-Cc: Laurent.pinchart@ideasonboard.com, jonas@kwiboo.se,
- jernej.skrabec@gmail.com, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch,
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- valentin@compulab.co.il, philippe.schenker@toradex.com,
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
-References: <20260312043743.261475-1-tessolveupstream@gmail.com>
- <DH6T0NTZHP93.2DWN4BWDPP331@bootlin.com>
- <1ecbcd57-83d9-410c-8e1a-d6a171321ccd@gmail.com>
- <3019871.ElGaqSPkdT@steina-w>
-Content-Language: en-US
-From: tessolveupstream@gmail.com
-In-Reply-To: <3019871.ElGaqSPkdT@steina-w>
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 40A8F10E473
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Mar 2026 06:35:26 +0000 (UTC)
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+ by smtpout-02.galae.net (Postfix) with ESMTPS id 7BFC31A2FDB;
+ Wed, 25 Mar 2026 06:35:24 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 2E561601A1;
+ Wed, 25 Mar 2026 06:35:24 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
+ with ESMTPSA id 6AB151045133A; Wed, 25 Mar 2026 07:35:13 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+ t=1774420523; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ content-transfer-encoding:in-reply-to:references;
+ bh=enRmiZzFY7ZSDKwHVRqjzzPEJ2fLjJuj2O8TfjEEIN0=;
+ b=IUcXR7VEkEcm7Khc99r2rl8qYegHD8WP0AJ31dIcYkW44hN3J3AhLRoSBN89yleiyFRWgs
+ BHYlXW4JU+mqZz3soF8hw6Khux+XB4Lg1xu9kzBRMzN8tNLHQtxTbx8+Bds1O2R2J29/T8
+ IbdVlXc59Slydk7ZgA1nvi6sDGAkOjF4VpbqaLh2KmLIWivWQK/+mn1xDrnHDAZ7djMrBw
+ snNbNAEytUpzdGPnN8v8rhSCFLG5u4M6rsBhXsJssLVcyETq0KgsNgiPJZ6LEuv00t3H9G
+ iBwAESRtx9mptz074bN1hZQYKK9g0CEkeJOUNk6uXvOYHUHsiVY/51fWerzvlA==
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Date: Wed, 25 Mar 2026 07:35:12 +0100
+Message-Id: <DHBNKQ0P26BR.3FW24D4XYQ2NA@bootlin.com>
+Subject: Re: [RESEND v3] drm/bridge: analogix_dp: Reuse
+ &link_train.training_lane[] to set DPCD DP_TRAINING_LANEx_SET
+Cc: <Laurent.pinchart@ideasonboard.com>, <jonas@kwiboo.se>,
+ <jernej.skrabec@gmail.com>, <maarten.lankhorst@linux.intel.com>,
+ <mripard@kernel.org>, <tzimmermann@suse.de>, <airlied@gmail.com>,
+ <simona@ffwll.ch>, <dmitry.baryshkov@oss.qualcomm.com>,
+ <dianders@chromium.org>, <m.szyprowski@samsung.com>,
+ <andy.yan@rock-chips.com>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>
+To: "Damon Ding" <damon.ding@rock-chips.com>, <andrzej.hajda@intel.com>,
+ <neil.armstrong@linaro.org>, <rfoss@kernel.org>
+From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
+X-Mailer: aerc 0.20.1
+References: <20251111022103.1350183-1-damon.ding@rock-chips.com>
+In-Reply-To: <20251111022103.1350183-1-damon.ding@rock-chips.com>
+X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,64 +68,22 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-
-
-On 24-03-2026 16:40, Alexander Stein wrote:
-> Am Dienstag, 24. März 2026, 12:00:43 CET schrieb tessolveupstream@gmail.com:
->> [snip]
->>> Thanks for the detailed explanation.
->> Regarding the panel timings, they are not explicitly defined in the DTS. 
->> The panel is currently using the timings provided by the panel driver 
->> (panel-simple.c), specifically:
->>
->> static const struct display_timing auo_g133han01_timings = {
->>         .pixelclock = { 134000000, 141200000, 149000000 },
->>         .hactive = { 1920, 1920, 1920 },
->>         .hfront_porch = { 39, 58, 77 },
->>         .hback_porch = { 59, 88, 117 },
->>         .hsync_len = { 28, 42, 56 },
->>         .vactive = { 1080, 1080, 1080 },
->>         .vfront_porch = { 3, 8, 11 },
->>         .vback_porch = { 5, 14, 19 },
->>         .vsync_len = { 4, 14, 19 },
->> };
->>
->> The panel I am using is based on AUO G133HAN01, and the datasheet can 
->> be found here:
->> https://datasheet4u.com/pdf/1257948/G133HAN01.0.pdf > About CHA_DSI_CLK_RANGE: what is your DSI clock?
->>>
->>
->> In the current working configuration, the measured clock frequencies 
->> are:
->> DSI_CLK: ~422MHz
->> LVDS_CLK(both A & B Channels): ~70MHz
->>> Finally I don't think the swing values are problematic, so I'd leave them
->>> as the last thing to check.
-> 
-> I managed to get this display running with this DSI->LVDS bridge on
-> TQMa8MxML/TQMa8MxNL (imx8mm or imx8mn) platform.
-> See [1] for the DT. What platform/ DSI host are you using?
+On Tue Nov 11, 2025 at 3:21 AM CET, Damon Ding wrote:
+> In analogix_dp_link_start(), &link_train.training_lane[] is used to
+> set phy PE/VS configurations, and buf[] is initialized with the same
+> values to set DPCD DP_TRAINING_LANEx_SET.
 >
+> It makes sense to reuse &link_train.training_lane[] to set DPCD
+> DP_TRAINING_LANEx_SET, which can remove the redundant assignments
+> and make codes more concise.
+>
+> Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
+> Tested-by: Marek Szyprowski <m.szyprowski@samsung.com>
+> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
-Thanks for sharing your setup.
+Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 
-I am currently working on the Qualcomm QCS615 platform. The setup 
-is as follows:
-
-- SoC: QCS615
-- Bridge: TI SN65DSI84 (DSI to dual-link LVDS)
-- Panel: AUO G133HAN01
-
-I am currently using the following DT overlay:
-(talos-evk-lvds-auo,g133han01.dtso)
-https://lore.kernel.org/all/20260302121159.1938694-1-tessolveupstream@gmail.com/T/#m00e90e7ff95915bbdb21dbd786c232526e3360a2
-
-Could you please confirm whether the display was brought up on your platform 
-using only the DT changes you shared, without requiring any driver 
-modifications?
- 
-> Best regards,
-> Alexander
-> 
-> [1] https://lore.kernel.org/all/20260316135820.760073-2-alexander.stein@ew.tq-group.com/
-
+--
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
