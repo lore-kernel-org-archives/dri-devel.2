@@ -4,52 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 56F1C106B50F
-	for <dri-devel@archiver.kernel.org>; Wed, 25 Mar 2026 12:14:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 363E1106B50E
+	for <dri-devel@archiver.kernel.org>; Wed, 25 Mar 2026 12:14:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DCCEC10E89E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6091610E897;
 	Wed, 25 Mar 2026 12:14:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="dq6e2q+E";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="FDYLL/8I";
 	dkim-atps=neutral
 Received: from CH4PR04CU002.outbound.protection.outlook.com
  (mail-northcentralusazon11013006.outbound.protection.outlook.com
  [40.107.201.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DD0E310E894
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A545410E895
  for <dri-devel@lists.freedesktop.org>; Wed, 25 Mar 2026 12:14:02 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ep2v34lVcMPgFEvue9lJrpaYi/1LH+c0t+ovVkwnKlzE0efZDFnVCQkUj9SrEX2UmyRhLJcMw9mhoyBB1dsGqd8YMzUzFdJhpj1Sj3CdKXCHY1Yjc2c0vGsdQ/A757E+4GmEMJF/unj3DLRP6m8rs35btFpE1XotoUCf+QbNGO8+JuTfsofmYUFAF6/1sKYNOw9PSFZsxVIQt+1ieuHTNZAZeBdGXZvWGRLDAb1FZArs8xklyFsFZTlGzYEmxmWhAKK3mAzaUNPw4/u+YroJM3kwrxKrek8SlQWlaxPBeOGR5AHAcuQ826E0m9QgcbPXY+MkhbuN6D8soTTkRN+GLw==
+ b=fseDHAnvtezJ5TWbM0rL3F473Tn5Q/6lMzC1TPkb1hdCwwQwSqY7T/m3D87ZCTFOEFAFOSBThql51WRLN6uW1YDJ2hegmDTrw5fLer+m/be9UA72eLB8XQVMX5A815ga5UfDEQaha7DkfGuRLxaauFwIWjc2WY+Yx1R0akJXJKOs46yyeZKbH95MfCeO2YDDK0L2eEdoQ/+ZdG0B8LjXkmeZvUaIcsAge1gsFcmWLURo50FUSqml0hapHteL3XKWUtVC22bsscDE+uvUZZeg329Dg7w/iH5bUlgRNAl6MA59A3I8ZUbhulsmN092pXlZVFQlmmz4HMnX/Ti93XA6XQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=WzSwQOmvjY4sYtqZtOreKEykQCR1/tb0rDwprvzqNus=;
- b=yVQKJv7DGG9qWzvzbxSEUCLGlMRgk4ocswwu9W9vYDKdUpgqW/BWu7LZE8Xz6a87UKkLbouWj/XNv1mGXLXalz+Wqui554Q+DpTW2oh0S7ZjEPuvsUjjgFpaOGmLr+NmJjywQ6ZcK4FmiPqossnrwPdFKkR1GzejijlSzcLTMv2Z8UzFx0qS6Sdh3ApzXiyIqAfbxaxm8cqduRy/OpIfrD3pXYeuhN6scfA7BL3ohYUQFsUvzFGVslarjaVI4b1FPmWzh2C4s4/+JcFojQDunbWY+NJLaeHscMGnIf6XlGmeZwjZyClw7RKFaelM1OiUMUOKwYxZJJVP+TOxGYwZbw==
+ bh=d3rhb5WgWWz6atyvtVrDptA1s76ZL3JwNecug9mDQ4Y=;
+ b=rXyvnRhM0PpU1TCOYSQkmQtERp7OFm4vKJTt+OGTMnTf4knlGsX+qWHUH/JUjGjplsTKPntViT/hpfaYOTfMsPt79ojOk/aN2qYD3Dog/nkYuf4pE0IU7z7TBMWtFZIuw99WF6Ko82zoFtFoN/ECn1vgYWncTSqn409/rSpMSBIyMquaJ59JyQ21EJ51KBpzNSlDS+ydQd8HWQUdieFu5nP+28Rf68o04V7ydifCEWT9hS10FBcfHW4pBODMJZEKslHkxzTK75CUI1IaFKbHH1qt3m/YG6SdAxwSjBevzOvzWPK2X+3xdQ59sTmbYxAEQ149zs3ZtTT8GtpmI09aCQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WzSwQOmvjY4sYtqZtOreKEykQCR1/tb0rDwprvzqNus=;
- b=dq6e2q+EGtvEqeBHY7gCysI4HJmblzgIezV2+yHPVaQORbSqQG4Yfu2fzx/bG4HNJdIxR6gQd5Bwx+weHWyAoz6mT5fWIuEOy1edZfHCM8+8QT/pkqy71a87wwrnxs2tWilGQFlCzsjitKnCD5Z35VvLN+5BufeYtpnmQMAViDsfqVGoZq+sw7d3lkaojbKKpvH95sSf1lWQHwORQ1/Ik/MaDnJJTs7KK7f4hlWWvz9zvaae9x88skv12F1wrc+ZzXFmFEs0hY7lQIthFFATnn8Fanyg7AG80Bn9WK/UfdfpvgTXiTp+VSZ/rQU7R9TzN1Um2xfWpphs1R7kM4qgiw==
+ bh=d3rhb5WgWWz6atyvtVrDptA1s76ZL3JwNecug9mDQ4Y=;
+ b=FDYLL/8IVhc32VTMRONcn/e4oLx/+wwepGKneYVC3hXFlPFNjZ/rP8Devc60Nuho/ecfJU19E14r0C38nEchzlFcV6elpZ2k5ZR8fERGm12hkDcE5PVDiUGZVhLGypCyj+gTOhjCoRgBYSMVH8DQF8msIAchL0YmkOR6T6OXrPfyAygQk85HdKQ2DRNPW7+ogire1XyRctYdOIP53yIilTGLLlDrUIERDWLL4ZDo8c/yE6aszm/ALqe/h1ImDd9W3Alcx1XIoCEU0DG/pRf8u55BOkQRAYpa+Amj8gtwk9o3Pr6bm33cxwT2iFnlfhNdkW5PzVrxAPhzicxURLZVRw==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
 Received: from BL0PR12MB2353.namprd12.prod.outlook.com (2603:10b6:207:4c::31)
  by DM6PR12MB4298.namprd12.prod.outlook.com (2603:10b6:5:21e::9) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.20; Wed, 25 Mar
- 2026 12:13:59 +0000
+ 2026 12:13:56 +0000
 Received: from BL0PR12MB2353.namprd12.prod.outlook.com
  ([fe80::99b:dcff:8d6d:78e0]) by BL0PR12MB2353.namprd12.prod.outlook.com
  ([fe80::99b:dcff:8d6d:78e0%4]) with mapi id 15.20.9769.006; Wed, 25 Mar 2026
- 12:13:59 +0000
+ 12:13:56 +0000
 From: Eliot Courtney <ecourtney@nvidia.com>
-Date: Wed, 25 Mar 2026 21:13:41 +0900
-Subject: [PATCH v3 3/9] gpu: nova-core: gsp: expose GSP-RM internal client
- and subdevice handles
+Date: Wed, 25 Mar 2026 21:13:40 +0900
+Subject: [PATCH v3 2/9] gpu: nova-core: gsp: add NvStatus enum for RM
+ control errors
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260325-rmcontrol-v3-3-f3101093484e@nvidia.com>
+Message-Id: <20260325-rmcontrol-v3-2-f3101093484e@nvidia.com>
 References: <20260325-rmcontrol-v3-0-f3101093484e@nvidia.com>
 In-Reply-To: <20260325-rmcontrol-v3-0-f3101093484e@nvidia.com>
 To: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
@@ -60,73 +60,73 @@ Cc: John Hubbard <jhubbard@nvidia.com>, Alistair Popple <apopple@nvidia.com>,
  rust-for-linux@vger.kernel.org, dri-devel@lists.freedesktop.org, 
  linux-kernel@vger.kernel.org, Eliot Courtney <ecourtney@nvidia.com>
 X-Mailer: b4 0.15.0
-X-ClientProxiedBy: SJ0P220CA0017.NAMP220.PROD.OUTLOOK.COM
- (2603:10b6:a03:41b::27) To BL0PR12MB2353.namprd12.prod.outlook.com
+X-ClientProxiedBy: BY5PR13CA0022.namprd13.prod.outlook.com
+ (2603:10b6:a03:180::35) To BL0PR12MB2353.namprd12.prod.outlook.com
  (2603:10b6:207:4c::31)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: BL0PR12MB2353:EE_|DM6PR12MB4298:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8ec2f980-a463-48ed-7b5b-08de8a67fed5
+X-MS-Office365-Filtering-Correlation-Id: 33f10fb9-4115-45ba-184d-08de8a67fcd9
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
  ARA:13230040|376014|366016|1800799024|10070799003|56012099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: U5Kal+blkbAE2GMYUXwM1DzESqfvw5Ke3eHsQtFy1eHF0Ui5Q0nJtF878mkaxeSQin28OKgas5nZDBaDug0GcfqfTp2T1ohfAYpZ/YINGMDd/2ZFHxrdD7FwMN9P7iEgqSrhK3dr7a48u8AxGQJCGe5fHy3HM+zLlv0DUcoAPkXNdwf2mMts/8M2G76Z0vERhfMvlgX1JrcNhOc8S1NE/EKijEYBjMQfGu9/C1Uy2crCm2NQYEiRfHq2ZZL8ZMi/AYYgjSzfD+4I6GULCaEIwN3d2svo3kEflEPtJCVO5/uUp2OK9QKMWPlr2aLX5tmZWYWPC2MB6szLqhQUxTByyXSv8WuylonUxokgq8LEi+dy6w73QJUmVwxd524yZYohG6B0YMGDSIukCL2GvtW9JaJmqrr6WLuwPnHYomwx+SjvVll6cpFevtEJrc85oB4XyRErNNiJ7SIOACWSRzMY7cZxhCh8Q70/He2JjfPZDnGzhbCQ9N0SltcLmh9t8Oea8RDmNgiiAY2HEfOzeXkh0vjhLrUDf9U92OuQ3Ig6QbS+fy4ZG011sTLPlWF94+YFzhGaovTJqji8TI8jR1oq0LgPrpmqbHFYQ3j0N/hFLcZwLgKEV+VBmvnJ3Q5U6ExoxzQbtHFblAc0bHXyluy+1WVngUzF9RWS7HUKHRBkeW5gZtOHexsmtBjLxkhAwLeaJhRCjLfO2vF+JJuFzTXNLvuWPIPzcb/9bouFqRi4o40=
+X-Microsoft-Antispam-Message-Info: PnUmt0JkEXwyia+XQ3Jp9jpnnqj4k3qhDI//gkMEx7uHYNZDgssv2vTa+ZlyG26qDGqQQ2+EoJKOitCxpkXNaKlclwvQfRpKqt15SbncFr19D3quMT5+h/5+RvEzVz+iwmS9WqXnV6cE6fhHJjrvoi/usQnPT/9nkqF+k7TkJ4eS+iOLBYoBV3XnAA69UdJMe6PLTNo7FtLOgJ88PdH8Zj6lzYuqbOpm7V6aPOKqoLdTnXrZNt6nTK4jRU0qJJ0dc5N/oxSNH1ypwJfBDBi9TL5jHmUYglSiWxIXYbzgbyF02lq1AG33TYLvri65SlO4OGN9yMFvhBaVdj1qlh36qDWGr9GOiKCv73g+FNav+bvQgyuz9v3qy+GIU9aciK0Ipvgpd+2K+d7QxHMFfWFPIfXtSbwEm3QK+guMil6hPeGEHVvefG6OgHJMJtmfGcZ7BrittSD4kYCJbiVB9by4xz+z13Ch921NghrBhgOUgpNxDzq9FkWeFWC5fhC96DPEzkcr6LdZHZLDgxi7vIEJ63e1oBXXDRErUIAOGoUzQ1IbKalYe3J1BCurevuNZ6lIyjUgLspCN0Vnju3KeKnBbs5BMyNFJrymxe/qn/0XBgmNxnNMDahjet20aEnUi/HWTAQE+IS6fATkUPXq33LJBzRwULPUFsWgoJE9q2CntW+5qZeHNmbWqTSVNuXduBiyiofzU2E5PHN0LRwXVZjYpHCRR8MpKTs77r0WGKGXZVI=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:BL0PR12MB2353.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFS:(13230040)(376014)(366016)(1800799024)(10070799003)(56012099003)(22082099003)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZEtsRzE1bWltNlJxQkxZdU0xMlhrU0JhcUVpaU9PRGhFUDBYcDB6bml3eldJ?=
- =?utf-8?B?dzNDdEdaUUl1WXRXbnlGNUJuL2xYZ0twdTNBNVM3dUVic0tsN1duakJUcnVQ?=
- =?utf-8?B?cXpFOXN4K3dJVkI4WWs4U0FJNUVPV3hNRTYzTVR1ZmErRUZVL2gzeGhmVFVV?=
- =?utf-8?B?dXdQaXZNby81dFE1b2p2NDJnYlY1SjNyc1VQOThrTHdFUHBDQW8yRGk4ci9S?=
- =?utf-8?B?YVFWNGYwcVV1SkhQUDJkMTRRQnQ5N0JYMSsvV01SOUxvZGFZbXdGRjloVk1w?=
- =?utf-8?B?M3prbUgzTE1YR1hJd2xGY2prZHNQeFRYMGhYUkV5YlJFOGoycFdvQ0pTUU1H?=
- =?utf-8?B?N1NDak80c2R1dXh2LzYvdThTWDlzV1JVMkRBei9GTWgzRWhZUGpFQ2M0UTNq?=
- =?utf-8?B?VVF4SEtKTExxOWZ0a055MkV4YUlEYUQvUUdlNHBka1MyZ3BlZVZXcGo2aytX?=
- =?utf-8?B?Tlg2ZlZGT0VEYmxkclJqQW9ET1BzeVV0WmtxODFkRkZhdEVzdXNMbXRQamdi?=
- =?utf-8?B?djc5M3pCb0RoT0VlTkdaODdzSU42cXdsMmZUZFRtQ05LSDVSU1JYZGlrbGdn?=
- =?utf-8?B?aVFCTGd2dWcrTUc5SjRudWZLOXNzZGZwbDZJVlhubEl5Q09HbUhERitUT3ZF?=
- =?utf-8?B?NWNJK3lNWEluaWN2T1h5RTJIQ3VsRWhjRU5JczRsT0prTDI3N0pyRGhGMDhC?=
- =?utf-8?B?N2ZyRGFza1pOR3NWdDhpVlB3RGdJbnF4NW1seE4rNFZpMG1kbUFSeGdkRkpo?=
- =?utf-8?B?N3pVVmNhT1VRSERIa2pXdTV4Z3ZCVHpvVjcxMVBjcVNEbStkOG9wWVRMcGhX?=
- =?utf-8?B?a29PVXlSdjV5WXQ0N3BXVXNScVBxUWtZNDhXT3ZHc2pZK2lmSlp4N240eVN6?=
- =?utf-8?B?OFRBMXYweHBnVE50UnE3eVdPUDFIdDBVTlRFVEJpT1JGOVpJNUF4MS9PSG0y?=
- =?utf-8?B?enpPb2hsVERxdU91ZERrdXRVck41d0htVkUwbmE5Ym1BcGZOV09iSXNZMWI4?=
- =?utf-8?B?cWhvMS9hMm04RGx3bWZ5Y1dYZkUwYlF0S2JpLzVKd0pWcEV4MDdDQm44VkZK?=
- =?utf-8?B?ODFRZFlTK0RZSnVOQkR1amk0cTMvRU9kU1RKdkd3THAwbm9ZM2V5L2drQjVQ?=
- =?utf-8?B?eTZzSExoN3F1Smx0bXllbk45d1Jsb243RXdCTEIrUEZrSGNIZUViUFVQODJQ?=
- =?utf-8?B?UnRKWDlRcDVDbmIrWDlCVmZaVGY4OXUyQjlaZW1yR1RXM2RVWGhBRzRHSVFI?=
- =?utf-8?B?SG5xS01kMXR3Z0hRZmUwOE15TlBEMFY2RGdUOGhndFVCaHVWbHJtWEwyVWg3?=
- =?utf-8?B?VEVGUTc0VDkwMXp2UklyZFZ4dTRvLzNrMGttelhsakxRR01LQUlSRjZYRTV5?=
- =?utf-8?B?TE9CRERqZkxzNWU1NUFEamM2aFBhbFNqay8veGZObzRpbE1NSEFVTU5jZjUy?=
- =?utf-8?B?eG9rbFF4TnJWdXFkRjZ0dWxZb2VCM0w5ZWpzRXFpN3ZYb0M0V1VlYlNyZTEy?=
- =?utf-8?B?T2Z5SnA0T3h1UG9QRjFqVU90aXVSY3p0NG5ObWpyeFBVTDlMMVBGbkwxbExK?=
- =?utf-8?B?c1gvK2lJYTM5eWg1L0hBREduRTFmRlVCb3RwNXBsNXNoNitVV21rOEZqQWY0?=
- =?utf-8?B?THROY0hjbkhiRjZBa2cyb2RjQjdDNFhhcFFyakRNNXVjL1Boa05oenAzWk4r?=
- =?utf-8?B?aTU2VUdKZC9qS1FKcjVuRTJrZERURk5zVEdza2hqUXpwWW9UNDhzcjgySERK?=
- =?utf-8?B?M0JnYkhRaHRxVmxDZlMzbnhXdnFZK2k2ODVRbXpaVkRyVmZYODhFZklZUnk3?=
- =?utf-8?B?VzJBT0tOTEZ5MXZxSDlFNlhOUUFxUE5USHhiK1NPTVZhOVRNRXhuaUs0ZTJV?=
- =?utf-8?B?ZytXTDNTczEyVUpmaEt2TFJXcG5WREV4S01ZaXc1QWE3Q3JFeEFUaUZqZDNH?=
- =?utf-8?B?R2ZUNTZUQ0ZTa2pmNHBBSm1pb2hsazFwTlk5MkN6dGZWS3Z6Ujh0a2MzaDdV?=
- =?utf-8?B?VFRESHl6QjJCU0hpRmMzS240b3pVek5WNCtmTVI4eVRhNHkwdC9jVW1Gd0Iv?=
- =?utf-8?B?akpQVE8yMU45eE1XUmJhb3lqSGtrZi8zbVd5bEZ0NDZVMkxCMmhLa1Jackw0?=
- =?utf-8?B?aEorNHlXUER0VCs4Z0Q5V2pxTnREOUUyKyt5VEMzeG9YUlE0NU5CM0VpNTlV?=
- =?utf-8?B?dG1tVTNnMnkwSERKRXhKci92aDJ6WEhQN3R4aTJ4ZEJUbHZjbERWL3pXWGVQ?=
- =?utf-8?B?bldNeEw2a2w1dkd2SHR2RExuTFR0NmN1U1hxSk80NGx6UE42RmRoZU5yNTQ0?=
- =?utf-8?B?RW1BVFZtT2pLZVg0VWFYTEtZNDlRTjJDM2tkdHNjbjlsVzVoYW1QVkdhUTky?=
- =?utf-8?Q?gEigYQcM7morPGgPHibVDxs6Rhr1UIl0Uv6Z8TJ3PGb57?=
-X-MS-Exchange-AntiSpam-MessageData-1: f/o6eE9aGYP7lg==
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cGtpcjNwTFk1TG9mRjU2UXh3MFJ3MmtlSFRuL20rTDVYeGY4ZXAvdFk2S3F5?=
+ =?utf-8?B?U0l0TldTVXFyNUJUUWhqcnltQ0RGK0NVWFRXZ3I1SWxXbDFhUEdlRGJhV3pP?=
+ =?utf-8?B?UXNXaFZvRVg1SjQxMmlmM3V0clVOS1F4MUlsdFFaYUpYR1R1VmcwTGQ4UzNG?=
+ =?utf-8?B?cDFKRytWUlJOU2NBZzFMTHFnbEI1bkdOOUMxdHp5ZEltSlBOS2NkV1M1L3RY?=
+ =?utf-8?B?cXYyaGQ0QkdsLzJuSlcrbkdEekpZMnFUOFYweTZsMHUrY0VCRVUxdEVLMUly?=
+ =?utf-8?B?Sjljbk9mV2JVZFVZQ3hlakQybTl4NkVMeklqM2NteXhnK1JtcERoQXE1OWhO?=
+ =?utf-8?B?dm9qb0JtaHdDVXNjZU0wU0R5U21oUEoyd0dxYTFKa0pDM1NCNVUwb0s1ZFpN?=
+ =?utf-8?B?NDdjakRsT3pKU2VmdExaaFNkcURFcG0wN0k4S3o5eDNJTW01ZVExTjdjdWF4?=
+ =?utf-8?B?QUpWYU85UFQ1NkxTU1FZRDUxTXdoQUVJT2hmUzlaUE1wbnh6QjFJbDdxcnJs?=
+ =?utf-8?B?SGFLeWErTDZnNlVSZ3dFZkh5WnkzRU9CeWpiQ3RsK0xQL2lpcmhLeFlGN1Nk?=
+ =?utf-8?B?b3FnQnJMbjdTN1RhcStRSGV3WmtNdmZxajZwRDlCZGhQTkRMYzZDT1I5VjN0?=
+ =?utf-8?B?QkxKR1RFdUYxaGZ5U0t6VTMyWGhTZWpsTnkrNldyMGVBMVJFcHFiMFNlUmRm?=
+ =?utf-8?B?M3czbUZJdndQYjV2d200emlwUTE2Z1IzcnhwT2pOb3VHOW5lb1AzSHBRc01w?=
+ =?utf-8?B?YjN1ZUVleTF5L0VoUThEbTd3UTVBbHlvWkduaGUzUmloVHRoVjg1SFhJQWZ2?=
+ =?utf-8?B?UHYrUnVoSHA2ekZYSUYzdzMxRk4rL2JsbExRTDROSFcxcGVMWDlNUUZUS2lR?=
+ =?utf-8?B?SDN5RjJmVitvdVo5N1lwWGRvNGllNG1QL2ZUZlR3em1xSFdmOEh4V3hYWlhH?=
+ =?utf-8?B?TUFkRFdQa3JUWHBURDhveENmdkF6a1J2T1NFMTFRb2x1ajFVRW5aNHhjS0x5?=
+ =?utf-8?B?Nm90cHFYSk5IZTFZeVk5Y1JOM1ltRWFTbW1ZVFkyWnRnejNWSktUb3pmdUZo?=
+ =?utf-8?B?bnRvTHR4SmxTd0EyN2drd1BpR2VwUlFaVjMvcHZ6QVlqRXdQSkdmcGczL3pJ?=
+ =?utf-8?B?N2F0S3Z4cjVpbVIxbmpsUXh0QTJ3M0Nvd3VBR2ppL3gvYzl5TnB2Z1I4UWJW?=
+ =?utf-8?B?NlpveVU2Sm95bHE0SERDQmtQU2lFY09GdkVyZVlXZUpsNHNFT2Y3VXY5dURt?=
+ =?utf-8?B?R2NzS1ZWWW9ZdkV0bHh6bmNUcGpFeUNmNDIySGYwZ0pVYmhSaDFUUHcxWWJG?=
+ =?utf-8?B?SEVnYVhtRXpVcFZaOHFFd2dDOHVXZ2szSWFXQUNMeVV1WFU5K2FFN2RHWDk3?=
+ =?utf-8?B?bjFOT3NWMmJ0K1pwS0RQdXJKWVBjYTZYUzFsYU5mcUlhZmQvVWR6a0V0dVBl?=
+ =?utf-8?B?blFlcnhNYjdtd0tzQ0k1bmhVM093U3NWTGhTelhVcUJHdFlsbGJyalRrMk8r?=
+ =?utf-8?B?dCtSbEdYYkQ0WFQvems5T3Z2VXI2Z3BrLzVrTTQwcGdndmxLbjBqQ0p2b3I0?=
+ =?utf-8?B?VXd4cXg2UTZrMzY0S2JxdmRJdU85bkdwSktEeHlUeDNPUjVKY1h1R3NDZjI3?=
+ =?utf-8?B?bE1KMElqb0NFQVc1UllGNVByRlF3VmRTUlZnRnFVc2RJN3NpYUg5YUhEd1pm?=
+ =?utf-8?B?U3ZxOWEyQVc0VmVaTW5kTHNIcC9OTlNFUzRDRXFldFNPRmxaMnNYd1g5NE1a?=
+ =?utf-8?B?U3pEOTdsZGNReU1OQVVTQ3JsY3AzaDd0NTBlRkpNZVIxRUoxR3ZEZmoyUUhL?=
+ =?utf-8?B?OHNCMkFHL0tGZTNvVm81MnZJVkhDcXVveGk3akptQzd3YnBLdGszdTJydGdE?=
+ =?utf-8?B?NXVnd1ZzRkxINkduVTdZaDlkTG1BUnhCVEhQS3FRSXBHaHFzckF1cGttRXh3?=
+ =?utf-8?B?bWFtOHJneGRTUGFXQUZpU0RZckp3Vkw0OXk4aFN3YlE4c3hCb0JFZDhycnpJ?=
+ =?utf-8?B?MkU3NE1WMjlSSzJPRndLWll2blJxMVpHYkJiOHliOVN5S2tuZnJBeTNvOS9h?=
+ =?utf-8?B?TVpja1pkSWZBb2RGUTFWZnR6cFptWEZaVStpTXBINUYrcExnVDdQZTZwUFVt?=
+ =?utf-8?B?cUhpOThremNabm5xSWg1Ly9rSC9LSGJ4a2VydEVoUHJGN1BGSm5nSytGMWxm?=
+ =?utf-8?B?Z2FBUjN5Y0YzcmFicXRtUnRHYjFMN2QxY3ljNm10ZjNEWm1MU1o2MWgzaTd6?=
+ =?utf-8?B?SWhjVWRzYVN6TXlTRjBvMjVlZEVzNXY3NGR6NkxCOC9GMWhLd3NvTG5TOUds?=
+ =?utf-8?B?NlJMNWM3RWltK0RCV2Q2bXREQTBTL1pxTU00QlJaMCtVRkhOY1U0cjF0TDZz?=
+ =?utf-8?Q?1nrZvQsFJSFg2+OAbg9ri7cHBtOgJLdDHKu7CEspzfbfz?=
+X-MS-Exchange-AntiSpam-MessageData-1: F3QiCcBO76DGCQ==
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8ec2f980-a463-48ed-7b5b-08de8a67fed5
+X-MS-Exchange-CrossTenant-Network-Message-Id: 33f10fb9-4115-45ba-184d-08de8a67fcd9
 X-MS-Exchange-CrossTenant-AuthSource: BL0PR12MB2353.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Mar 2026 12:13:59.6057 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Mar 2026 12:13:56.3648 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Gu5JKNufKGc7OSlQT6B9opTLeyLY4ysaeiEBvZEUhwyi3DsLps5Dr90EwrA5M3usZl5YMYJDKutS0wED9AXvOA==
+X-MS-Exchange-CrossTenant-UserPrincipalName: Qw7YTheuBb8bS1/m+jbIPpvbA/A0TVtW6VbrcoMnZOBp2r4BjMCOseX9saIcwLryyWsyv0WbJ2ZvKn4aC89NAg==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4298
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -143,156 +143,426 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Expose the `hInternalClient` and `hInternalSubdevice` handles. These are
-needed for RM control calls.
+Add NvStatus enum that wraps the raw NV_STATUS u32 codes returned by RM
+control RPCs.
 
 Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
 ---
- drivers/gpu/nova-core/gsp/commands.rs    | 65 ++++++++++++++++++++++++++++++++
- drivers/gpu/nova-core/gsp/fw/commands.rs | 19 +++++++++-
- 2 files changed, 83 insertions(+), 1 deletion(-)
+ drivers/gpu/nova-core/gsp/fw.rs | 401 ++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 401 insertions(+)
 
-diff --git a/drivers/gpu/nova-core/gsp/commands.rs b/drivers/gpu/nova-core/gsp/commands.rs
-index c89c7b57a751..f3566f3ea6a7 100644
---- a/drivers/gpu/nova-core/gsp/commands.rs
-+++ b/drivers/gpu/nova-core/gsp/commands.rs
-@@ -4,6 +4,7 @@
-     array,
-     convert::Infallible,
-     ffi::FromBytesUntilNulError,
-+    marker::PhantomData,
-     str::Utf8Error, //
- };
+diff --git a/drivers/gpu/nova-core/gsp/fw.rs b/drivers/gpu/nova-core/gsp/fw.rs
+index 0c8a74f0e8ac..cb4bda253193 100644
+--- a/drivers/gpu/nova-core/gsp/fw.rs
++++ b/drivers/gpu/nova-core/gsp/fw.rs
+@@ -97,6 +97,407 @@ pub(in crate::gsp) fn advance_cpu_write_ptr(qs: &Coherent<GspMem>, count: u32) {
+ pub(crate) const GSP_MSG_QUEUE_ELEMENT_SIZE_MAX: usize =
+     num::u32_as_usize(bindings::GSP_MSG_QUEUE_ELEMENT_SIZE_MAX);
  
-@@ -34,6 +35,54 @@
-     sbuffer::SBufferIter,
- };
- 
-+/// Marker type for a GSP-RM client handle.
-+///
-+/// A client handle identifies a client which provides a namespace for RM objects. Lookup of objects
-+/// happens within the client namespace.
-+pub(crate) struct Client;
++/// Status code returned by GSP-RM RPCs.
++#[derive(Copy, Clone, Debug, PartialEq, Eq)]
++pub(crate) enum NvStatus {
++    Ok,
++    AlreadySignalled,
++    BrokenFb,
++    BufferTooSmall,
++    BusyRetry,
++    CallbackNotScheduled,
++    CardNotPresent,
++    CycleDetected,
++    DmaInUse,
++    DmaMemNotLocked,
++    DmaMemNotUnlocked,
++    DualLinkInuse,
++    EccError,
++    FabricManagerNotPresent,
++    FatalError,
++    FeatureNotEnabled,
++    FifoBadAccess,
++    FlcnError,
++    FreqNotSupported,
++    Generic,
++    GpuDmaNotInitialized,
++    GpuInDebugMode,
++    GpuInFullchipReset,
++    GpuIsLost,
++    GpuMemoryOnliningFailure,
++    GpuNotFullPower,
++    GpuUuidNotFound,
++    HotSwitch,
++    I2cError,
++    I2cSpeedTooHigh,
++    IllegalAction,
++    InUse,
++    InflateCompressedDataFailed,
++    InsertDuplicateName,
++    InsufficientPermissions,
++    InsufficientPower,
++    InsufficientResources,
++    InsufficientZbcEntry,
++    InvalidAccessType,
++    InvalidAddress,
++    InvalidArgument,
++    InvalidBase,
++    InvalidChannel,
++    InvalidClass,
++    InvalidClient,
++    InvalidCommand,
++    InvalidData,
++    InvalidDevice,
++    InvalidDmaSpecifier,
++    InvalidEvent,
++    InvalidFlags,
++    InvalidFunction,
++    InvalidHeap,
++    InvalidIndex,
++    InvalidIrqLevel,
++    InvalidLicense,
++    InvalidLimit,
++    InvalidLockState,
++    InvalidMethod,
++    InvalidObject,
++    InvalidObjectBuffer,
++    InvalidObjectHandle,
++    InvalidObjectNew,
++    InvalidObjectOld,
++    InvalidObjectParent,
++    InvalidOffset,
++    InvalidOperation,
++    InvalidOwner,
++    InvalidParamStruct,
++    InvalidParameter,
++    InvalidPath,
++    InvalidPointer,
++    InvalidRead,
++    InvalidRegistryKey,
++    InvalidRequest,
++    InvalidState,
++    InvalidStringLength,
++    InvalidWrite,
++    InvalidXlate,
++    IrqEdgeTriggered,
++    IrqNotFiring,
++    KeyRotationInProgress,
++    LibRmVersionMismatch,
++    MaxSessionLimitReached,
++    MemoryError,
++    MemoryTrainingFailed,
++    MismatchedSlave,
++    MismatchedTarget,
++    MissingTableEntry,
++    ModuleLoadFailed,
++    MoreDataAvailable,
++    MoreProcessingRequired,
++    MultipleMemoryTypes,
++    NoFreeFifos,
++    NoIntrPending,
++    NoMemory,
++    NoSuchDomain,
++    NoValidPath,
++    NotCompatible,
++    NotReady,
++    NotSupported,
++    NvlinkClockError,
++    NvlinkConfigurationError,
++    NvlinkFabricFailure,
++    NvlinkFabricNotReady,
++    NvlinkInitError,
++    NvlinkMinionError,
++    NvlinkTrainingError,
++    ObjectNotFound,
++    ObjectTypeMismatch,
++    OperatingSystem,
++    OtherDeviceFound,
++    OutOfRange,
++    OverlappingUvmCommit,
++    PageTableNotAvail,
++    PidNotFound,
++    PmuNotReady,
++    PrivSecViolation,
++    ProtectionFault,
++    QueueTaskSlotNotAvailable,
++    RcError,
++    ReductionManagerNotAvailable,
++    RejectedVbios,
++    ResetRequired,
++    ResourceLost,
++    ResourceRetirementError,
++    RiscvError,
++    SecureBootFailed,
++    SignalPending,
++    StateInUse,
++    TestOnlyCodeNotEnabled,
++    Timeout,
++    TimeoutRetry,
++    TooManyPrimaries,
++    UvmAddressInUse,
++    Unknown(u32),
++}
 +
-+/// Marker type for a GSP-RM device handle.
-+///
-+/// A device handle identifies a logical GPU device instance under a client. In multi-GPU
-+/// configurations it can represent a grouped or logical device.
-+#[expect(dead_code)]
-+pub(crate) struct Device;
++impl From<NvStatus> for Result {
++    fn from(status: NvStatus) -> Self {
++        match status {
++            NvStatus::Ok => Ok(()),
 +
-+/// Marker type for a GSP-RM subdevice handle.
-+///
-+/// A subdevice handle identifies a child of a device that selects one specific GPU within that
-+/// device.
-+pub(crate) struct Subdevice;
++            NvStatus::BufferTooSmall | NvStatus::MoreDataAvailable => Err(EMSGSIZE),
 +
-+/// A typed GSP-RM object handle.
-+///
-+/// These handles form a tree structure with different types of RM objects, with client at the root.
-+/// An RM object is anything identified by a valid handle. For example, the tree may look like
-+/// Client -> Device -> Subdevice, where there may be multiple devices under each client, and
-+/// multiple subdevices under each device.
-+#[derive(Debug)]
-+pub(crate) struct Handle<T>(u32, PhantomData<T>);
++            NvStatus::BusyRetry
++            | NvStatus::DmaInUse
++            | NvStatus::DualLinkInuse
++            | NvStatus::GpuInFullchipReset
++            | NvStatus::InUse
++            | NvStatus::KeyRotationInProgress
++            | NvStatus::NotReady
++            | NvStatus::NvlinkFabricNotReady
++            | NvStatus::PmuNotReady
++            | NvStatus::StateInUse
++            | NvStatus::UvmAddressInUse => Err(EBUSY),
 +
-+impl<T> Clone for Handle<T> {
-+    fn clone(&self) -> Self {
-+        *self
++            NvStatus::CardNotPresent
++            | NvStatus::FabricManagerNotPresent
++            | NvStatus::InvalidDevice
++            | NvStatus::ReductionManagerNotAvailable => Err(ENODEV),
++
++            NvStatus::FeatureNotEnabled
++            | NvStatus::FreqNotSupported
++            | NvStatus::NotSupported
++            | NvStatus::TestOnlyCodeNotEnabled => Err(ENOTSUPP),
++
++            NvStatus::GpuUuidNotFound
++            | NvStatus::MissingTableEntry
++            | NvStatus::NoSuchDomain
++            | NvStatus::NoValidPath
++            | NvStatus::ObjectNotFound => Err(ENOENT),
++
++            NvStatus::I2cSpeedTooHigh
++            | NvStatus::InvalidAccessType
++            | NvStatus::InvalidArgument
++            | NvStatus::InvalidBase
++            | NvStatus::InvalidChannel
++            | NvStatus::InvalidClass
++            | NvStatus::InvalidClient
++            | NvStatus::InvalidCommand
++            | NvStatus::InvalidData
++            | NvStatus::InvalidDmaSpecifier
++            | NvStatus::InvalidEvent
++            | NvStatus::InvalidFlags
++            | NvStatus::InvalidFunction
++            | NvStatus::InvalidHeap
++            | NvStatus::InvalidIndex
++            | NvStatus::InvalidIrqLevel
++            | NvStatus::InvalidLimit
++            | NvStatus::InvalidLockState
++            | NvStatus::InvalidMethod
++            | NvStatus::InvalidObject
++            | NvStatus::InvalidObjectBuffer
++            | NvStatus::InvalidObjectHandle
++            | NvStatus::InvalidObjectNew
++            | NvStatus::InvalidObjectOld
++            | NvStatus::InvalidObjectParent
++            | NvStatus::InvalidOffset
++            | NvStatus::InvalidOperation
++            | NvStatus::InvalidOwner
++            | NvStatus::InvalidParamStruct
++            | NvStatus::InvalidParameter
++            | NvStatus::InvalidPath
++            | NvStatus::InvalidRegistryKey
++            | NvStatus::InvalidRequest
++            | NvStatus::InvalidState
++            | NvStatus::InvalidStringLength
++            | NvStatus::InvalidXlate
++            | NvStatus::LibRmVersionMismatch
++            | NvStatus::MismatchedSlave
++            | NvStatus::MismatchedTarget
++            | NvStatus::MultipleMemoryTypes
++            | NvStatus::NotCompatible
++            | NvStatus::ObjectTypeMismatch
++            | NvStatus::OverlappingUvmCommit
++            | NvStatus::RejectedVbios => Err(EINVAL),
++
++            NvStatus::IllegalAction => Err(EPERM),
++
++            NvStatus::InsertDuplicateName => Err(EEXIST),
++
++            NvStatus::InsufficientPermissions
++            | NvStatus::InvalidLicense
++            | NvStatus::PrivSecViolation => Err(EACCES),
++
++            NvStatus::InsufficientResources | NvStatus::NoMemory | NvStatus::PageTableNotAvail => {
++                Err(ENOMEM)
++            }
++
++            NvStatus::InsufficientZbcEntry
++            | NvStatus::MaxSessionLimitReached
++            | NvStatus::NoFreeFifos
++            | NvStatus::QueueTaskSlotNotAvailable
++            | NvStatus::TooManyPrimaries => Err(ENOSPC),
++
++            NvStatus::InvalidAddress | NvStatus::InvalidPointer | NvStatus::ProtectionFault => {
++                Err(EFAULT)
++            }
++
++            NvStatus::MoreProcessingRequired | NvStatus::TimeoutRetry => Err(EAGAIN),
++
++            NvStatus::OutOfRange => Err(ERANGE),
++
++            NvStatus::PidNotFound => Err(ESRCH),
++
++            NvStatus::SignalPending => Err(EINTR),
++
++            NvStatus::Timeout => Err(ETIMEDOUT),
++
++            _ => Err(EIO),
++        }
 +    }
 +}
-+impl<T> Copy for Handle<T> {}
 +
-+impl<T> Handle<T> {
-+    /// Creates a new handle from a raw value.
-+    pub(crate) fn new(raw: u32) -> Self {
-+        Self(raw, PhantomData)
-+    }
-+
-+    /// Returns the raw handle value.
-+    #[expect(dead_code)]
-+    pub(crate) fn as_raw(self) -> u32 {
-+        self.0
++impl From<u32> for NvStatus {
++    fn from(value: u32) -> Self {
++        match value {
++            bindings::NV_OK => Self::Ok,
++            bindings::NV_ERR_ALREADY_SIGNALLED => Self::AlreadySignalled,
++            bindings::NV_ERR_BROKEN_FB => Self::BrokenFb,
++            bindings::NV_ERR_BUFFER_TOO_SMALL => Self::BufferTooSmall,
++            bindings::NV_ERR_BUSY_RETRY => Self::BusyRetry,
++            bindings::NV_ERR_CALLBACK_NOT_SCHEDULED => Self::CallbackNotScheduled,
++            bindings::NV_ERR_CARD_NOT_PRESENT => Self::CardNotPresent,
++            bindings::NV_ERR_CYCLE_DETECTED => Self::CycleDetected,
++            bindings::NV_ERR_DMA_IN_USE => Self::DmaInUse,
++            bindings::NV_ERR_DMA_MEM_NOT_LOCKED => Self::DmaMemNotLocked,
++            bindings::NV_ERR_DMA_MEM_NOT_UNLOCKED => Self::DmaMemNotUnlocked,
++            bindings::NV_ERR_DUAL_LINK_INUSE => Self::DualLinkInuse,
++            bindings::NV_ERR_ECC_ERROR => Self::EccError,
++            bindings::NV_ERR_FABRIC_MANAGER_NOT_PRESENT => Self::FabricManagerNotPresent,
++            bindings::NV_ERR_FATAL_ERROR => Self::FatalError,
++            bindings::NV_ERR_FEATURE_NOT_ENABLED => Self::FeatureNotEnabled,
++            bindings::NV_ERR_FIFO_BAD_ACCESS => Self::FifoBadAccess,
++            bindings::NV_ERR_FLCN_ERROR => Self::FlcnError,
++            bindings::NV_ERR_FREQ_NOT_SUPPORTED => Self::FreqNotSupported,
++            bindings::NV_ERR_GENERIC => Self::Generic,
++            bindings::NV_ERR_GPU_DMA_NOT_INITIALIZED => Self::GpuDmaNotInitialized,
++            bindings::NV_ERR_GPU_IN_DEBUG_MODE => Self::GpuInDebugMode,
++            bindings::NV_ERR_GPU_IN_FULLCHIP_RESET => Self::GpuInFullchipReset,
++            bindings::NV_ERR_GPU_IS_LOST => Self::GpuIsLost,
++            bindings::NV_ERR_GPU_MEMORY_ONLINING_FAILURE => Self::GpuMemoryOnliningFailure,
++            bindings::NV_ERR_GPU_NOT_FULL_POWER => Self::GpuNotFullPower,
++            bindings::NV_ERR_GPU_UUID_NOT_FOUND => Self::GpuUuidNotFound,
++            bindings::NV_ERR_HOT_SWITCH => Self::HotSwitch,
++            bindings::NV_ERR_I2C_ERROR => Self::I2cError,
++            bindings::NV_ERR_I2C_SPEED_TOO_HIGH => Self::I2cSpeedTooHigh,
++            bindings::NV_ERR_ILLEGAL_ACTION => Self::IllegalAction,
++            bindings::NV_ERR_IN_USE => Self::InUse,
++            bindings::NV_ERR_INFLATE_COMPRESSED_DATA_FAILED => Self::InflateCompressedDataFailed,
++            bindings::NV_ERR_INSERT_DUPLICATE_NAME => Self::InsertDuplicateName,
++            bindings::NV_ERR_INSUFFICIENT_PERMISSIONS => Self::InsufficientPermissions,
++            bindings::NV_ERR_INSUFFICIENT_POWER => Self::InsufficientPower,
++            bindings::NV_ERR_INSUFFICIENT_RESOURCES => Self::InsufficientResources,
++            bindings::NV_ERR_INSUFFICIENT_ZBC_ENTRY => Self::InsufficientZbcEntry,
++            bindings::NV_ERR_INVALID_ACCESS_TYPE => Self::InvalidAccessType,
++            bindings::NV_ERR_INVALID_ADDRESS => Self::InvalidAddress,
++            bindings::NV_ERR_INVALID_ARGUMENT => Self::InvalidArgument,
++            bindings::NV_ERR_INVALID_BASE => Self::InvalidBase,
++            bindings::NV_ERR_INVALID_CHANNEL => Self::InvalidChannel,
++            bindings::NV_ERR_INVALID_CLASS => Self::InvalidClass,
++            bindings::NV_ERR_INVALID_CLIENT => Self::InvalidClient,
++            bindings::NV_ERR_INVALID_COMMAND => Self::InvalidCommand,
++            bindings::NV_ERR_INVALID_DATA => Self::InvalidData,
++            bindings::NV_ERR_INVALID_DEVICE => Self::InvalidDevice,
++            bindings::NV_ERR_INVALID_DMA_SPECIFIER => Self::InvalidDmaSpecifier,
++            bindings::NV_ERR_INVALID_EVENT => Self::InvalidEvent,
++            bindings::NV_ERR_INVALID_FLAGS => Self::InvalidFlags,
++            bindings::NV_ERR_INVALID_FUNCTION => Self::InvalidFunction,
++            bindings::NV_ERR_INVALID_HEAP => Self::InvalidHeap,
++            bindings::NV_ERR_INVALID_INDEX => Self::InvalidIndex,
++            bindings::NV_ERR_INVALID_IRQ_LEVEL => Self::InvalidIrqLevel,
++            bindings::NV_ERR_INVALID_LICENSE => Self::InvalidLicense,
++            bindings::NV_ERR_INVALID_LIMIT => Self::InvalidLimit,
++            bindings::NV_ERR_INVALID_LOCK_STATE => Self::InvalidLockState,
++            bindings::NV_ERR_INVALID_METHOD => Self::InvalidMethod,
++            bindings::NV_ERR_INVALID_OBJECT => Self::InvalidObject,
++            bindings::NV_ERR_INVALID_OBJECT_BUFFER => Self::InvalidObjectBuffer,
++            bindings::NV_ERR_INVALID_OBJECT_HANDLE => Self::InvalidObjectHandle,
++            bindings::NV_ERR_INVALID_OBJECT_NEW => Self::InvalidObjectNew,
++            bindings::NV_ERR_INVALID_OBJECT_OLD => Self::InvalidObjectOld,
++            bindings::NV_ERR_INVALID_OBJECT_PARENT => Self::InvalidObjectParent,
++            bindings::NV_ERR_INVALID_OFFSET => Self::InvalidOffset,
++            bindings::NV_ERR_INVALID_OPERATION => Self::InvalidOperation,
++            bindings::NV_ERR_INVALID_OWNER => Self::InvalidOwner,
++            bindings::NV_ERR_INVALID_PARAM_STRUCT => Self::InvalidParamStruct,
++            bindings::NV_ERR_INVALID_PARAMETER => Self::InvalidParameter,
++            bindings::NV_ERR_INVALID_PATH => Self::InvalidPath,
++            bindings::NV_ERR_INVALID_POINTER => Self::InvalidPointer,
++            bindings::NV_ERR_INVALID_READ => Self::InvalidRead,
++            bindings::NV_ERR_INVALID_REGISTRY_KEY => Self::InvalidRegistryKey,
++            bindings::NV_ERR_INVALID_REQUEST => Self::InvalidRequest,
++            bindings::NV_ERR_INVALID_STATE => Self::InvalidState,
++            bindings::NV_ERR_INVALID_STRING_LENGTH => Self::InvalidStringLength,
++            bindings::NV_ERR_INVALID_WRITE => Self::InvalidWrite,
++            bindings::NV_ERR_INVALID_XLATE => Self::InvalidXlate,
++            bindings::NV_ERR_IRQ_EDGE_TRIGGERED => Self::IrqEdgeTriggered,
++            bindings::NV_ERR_IRQ_NOT_FIRING => Self::IrqNotFiring,
++            bindings::NV_ERR_KEY_ROTATION_IN_PROGRESS => Self::KeyRotationInProgress,
++            bindings::NV_ERR_LIB_RM_VERSION_MISMATCH => Self::LibRmVersionMismatch,
++            bindings::NV_ERR_MAX_SESSION_LIMIT_REACHED => Self::MaxSessionLimitReached,
++            bindings::NV_ERR_MEMORY_ERROR => Self::MemoryError,
++            bindings::NV_ERR_MEMORY_TRAINING_FAILED => Self::MemoryTrainingFailed,
++            bindings::NV_ERR_MISMATCHED_SLAVE => Self::MismatchedSlave,
++            bindings::NV_ERR_MISMATCHED_TARGET => Self::MismatchedTarget,
++            bindings::NV_ERR_MISSING_TABLE_ENTRY => Self::MissingTableEntry,
++            bindings::NV_ERR_MODULE_LOAD_FAILED => Self::ModuleLoadFailed,
++            bindings::NV_ERR_MORE_DATA_AVAILABLE => Self::MoreDataAvailable,
++            bindings::NV_ERR_MORE_PROCESSING_REQUIRED => Self::MoreProcessingRequired,
++            bindings::NV_ERR_MULTIPLE_MEMORY_TYPES => Self::MultipleMemoryTypes,
++            bindings::NV_ERR_NO_FREE_FIFOS => Self::NoFreeFifos,
++            bindings::NV_ERR_NO_INTR_PENDING => Self::NoIntrPending,
++            bindings::NV_ERR_NO_MEMORY => Self::NoMemory,
++            bindings::NV_ERR_NO_SUCH_DOMAIN => Self::NoSuchDomain,
++            bindings::NV_ERR_NO_VALID_PATH => Self::NoValidPath,
++            bindings::NV_ERR_NOT_COMPATIBLE => Self::NotCompatible,
++            bindings::NV_ERR_NOT_READY => Self::NotReady,
++            bindings::NV_ERR_NOT_SUPPORTED => Self::NotSupported,
++            bindings::NV_ERR_NVLINK_CLOCK_ERROR => Self::NvlinkClockError,
++            bindings::NV_ERR_NVLINK_CONFIGURATION_ERROR => Self::NvlinkConfigurationError,
++            bindings::NV_ERR_NVLINK_FABRIC_FAILURE => Self::NvlinkFabricFailure,
++            bindings::NV_ERR_NVLINK_FABRIC_NOT_READY => Self::NvlinkFabricNotReady,
++            bindings::NV_ERR_NVLINK_INIT_ERROR => Self::NvlinkInitError,
++            bindings::NV_ERR_NVLINK_MINION_ERROR => Self::NvlinkMinionError,
++            bindings::NV_ERR_NVLINK_TRAINING_ERROR => Self::NvlinkTrainingError,
++            bindings::NV_ERR_OBJECT_NOT_FOUND => Self::ObjectNotFound,
++            bindings::NV_ERR_OBJECT_TYPE_MISMATCH => Self::ObjectTypeMismatch,
++            bindings::NV_ERR_OPERATING_SYSTEM => Self::OperatingSystem,
++            bindings::NV_ERR_OTHER_DEVICE_FOUND => Self::OtherDeviceFound,
++            bindings::NV_ERR_OUT_OF_RANGE => Self::OutOfRange,
++            bindings::NV_ERR_OVERLAPPING_UVM_COMMIT => Self::OverlappingUvmCommit,
++            bindings::NV_ERR_PAGE_TABLE_NOT_AVAIL => Self::PageTableNotAvail,
++            bindings::NV_ERR_PID_NOT_FOUND => Self::PidNotFound,
++            bindings::NV_ERR_PMU_NOT_READY => Self::PmuNotReady,
++            bindings::NV_ERR_PRIV_SEC_VIOLATION => Self::PrivSecViolation,
++            bindings::NV_ERR_PROTECTION_FAULT => Self::ProtectionFault,
++            bindings::NV_ERR_QUEUE_TASK_SLOT_NOT_AVAILABLE => Self::QueueTaskSlotNotAvailable,
++            bindings::NV_ERR_RC_ERROR => Self::RcError,
++            bindings::NV_ERR_REDUCTION_MANAGER_NOT_AVAILABLE => Self::ReductionManagerNotAvailable,
++            bindings::NV_ERR_REJECTED_VBIOS => Self::RejectedVbios,
++            bindings::NV_ERR_RESET_REQUIRED => Self::ResetRequired,
++            bindings::NV_ERR_RESOURCE_LOST => Self::ResourceLost,
++            bindings::NV_ERR_RESOURCE_RETIREMENT_ERROR => Self::ResourceRetirementError,
++            bindings::NV_ERR_RISCV_ERROR => Self::RiscvError,
++            bindings::NV_ERR_SECURE_BOOT_FAILED => Self::SecureBootFailed,
++            bindings::NV_ERR_SIGNAL_PENDING => Self::SignalPending,
++            bindings::NV_ERR_STATE_IN_USE => Self::StateInUse,
++            bindings::NV_ERR_TEST_ONLY_CODE_NOT_ENABLED => Self::TestOnlyCodeNotEnabled,
++            bindings::NV_ERR_TIMEOUT => Self::Timeout,
++            bindings::NV_ERR_TIMEOUT_RETRY => Self::TimeoutRetry,
++            bindings::NV_ERR_TOO_MANY_PRIMARIES => Self::TooManyPrimaries,
++            bindings::NV_ERR_UVM_ADDRESS_IN_USE => Self::UvmAddressInUse,
++            other => Self::Unknown(other),
++        }
 +    }
 +}
 +
- /// The `GspSetSystemInfo` command.
- pub(crate) struct SetSystemInfo<'a> {
-     pdev: &'a pci::Device<device::Bound>,
-@@ -192,6 +241,8 @@ fn init(&self) -> impl Init<Self::Command, Self::InitError> {
- /// The reply from the GSP to the [`GetGspInfo`] command.
- pub(crate) struct GetGspStaticInfoReply {
-     gpu_name: [u8; 64],
-+    client: Handle<Client>,
-+    subdevice: Handle<Subdevice>,
- }
+ /// Empty type to group methods related to heap parameters for running the GSP firmware.
+ enum GspFwHeapParams {}
  
- impl MessageFromGsp for GetGspStaticInfoReply {
-@@ -205,6 +256,8 @@ fn read(
-     ) -> Result<Self, Self::InitError> {
-         Ok(GetGspStaticInfoReply {
-             gpu_name: msg.gpu_name_str(),
-+            client: msg.client(),
-+            subdevice: msg.subdevice(),
-         })
-     }
- }
-@@ -231,6 +284,18 @@ pub(crate) fn gpu_name(&self) -> core::result::Result<&str, GpuNameError> {
-             .to_str()
-             .map_err(GpuNameError::InvalidUtf8)
-     }
-+
-+    /// Returns the client handle allocated by GSP-RM.
-+    #[expect(dead_code)]
-+    pub(crate) fn client(&self) -> Handle<Client> {
-+        self.client
-+    }
-+
-+    /// Returns the subdevice handle allocated by GSP-RM.
-+    #[expect(dead_code)]
-+    pub(crate) fn subdevice(&self) -> Handle<Subdevice> {
-+        self.subdevice
-+    }
- }
- 
- /// Send the [`GetGspInfo`] command and awaits for its reply.
-diff --git a/drivers/gpu/nova-core/gsp/fw/commands.rs b/drivers/gpu/nova-core/gsp/fw/commands.rs
-index db46276430be..9fce6ffefbce 100644
---- a/drivers/gpu/nova-core/gsp/fw/commands.rs
-+++ b/drivers/gpu/nova-core/gsp/fw/commands.rs
-@@ -10,7 +10,14 @@
-     }, //
- };
- 
--use crate::gsp::GSP_PAGE_SIZE;
-+use crate::gsp::{
-+    commands::{
-+        Client,
-+        Handle,
-+        Subdevice, //
-+    },
-+    GSP_PAGE_SIZE, //
-+};
- 
- use super::bindings;
- 
-@@ -121,6 +128,16 @@ impl GspStaticConfigInfo {
-     pub(crate) fn gpu_name_str(&self) -> [u8; 64] {
-         self.0.gpuNameString
-     }
-+
-+    /// Returns the client handle allocated by GSP-RM.
-+    pub(crate) fn client(&self) -> Handle<Client> {
-+        Handle::new(self.0.hInternalClient)
-+    }
-+
-+    /// Returns the subdevice handle allocated by GSP-RM.
-+    pub(crate) fn subdevice(&self) -> Handle<Subdevice> {
-+        Handle::new(self.0.hInternalSubdevice)
-+    }
- }
- 
- // SAFETY: Padding is explicit and will not contain uninitialized data.
 
 -- 
 2.53.0
