@@ -4,127 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 95B91109C045
-	for <dri-devel@archiver.kernel.org>; Wed, 25 Mar 2026 16:58:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 28E74109C048
+	for <dri-devel@archiver.kernel.org>; Wed, 25 Mar 2026 17:26:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1F77710E820;
-	Wed, 25 Mar 2026 16:58:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4F42610E2A5;
+	Wed, 25 Mar 2026 17:26:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="cMF01w3P";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="iPVXgkmt";
 	dkim-atps=neutral
-Received: from SN4PR0501CU005.outbound.protection.outlook.com
- (mail-southcentralusazon11011010.outbound.protection.outlook.com
- [40.93.194.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8235610E820;
- Wed, 25 Mar 2026 16:58:28 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=acDw+AvDZT0zm7GTkB4mGu8qwtEHSLDnnJvE0AvY2dKn6z8DGJTUa0YR27peDeHRet5mUP5IDBb/O2lY6IjpmJ2YFRWK8YKTZiSetGA6CwjVsk0CGU5SaAGnZ9zNmKxx3IFTCNrZWZfvssEvwC8UK9HhIphJNp1zKBF1oCTTrvyPs1ONBzmu4kRRisWxxmZxsogZJIKcYC4ojLafs2ry2qPOrnGvDyLaD//Colk0VkXwmZ9sGPJBCGohYr/fOOqaWoIsvqodg4XPhRtMWQih2IrcgqZd8zvuviWL/oQvSpwQAWmqTsYAvJTykLHQDNLu3d8QTOuMT90HliE62fgODg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=a8+sTUOovXwqjlom9LmHCrDE6eFoKGZpp4wxT7H9hIc=;
- b=v9tMt3TlBWLyo2Xm5HQU5jlwcSpQPp6/RNUlnsuZg6LxdwrxNttXuFVBtuKAPxjV4naVVrX/dp/7AmIwWbGnJq2sMKCF9C8NUVlKJam4K6ABQLuvZ0UfsSwkynpY+2bLSC1TOiYAXinNGFQSGpL3hUdAAJ5IO7o4jogZdtZp3SoUS038Z27Lezmobni8cAFgdIASt8fa+1yVwO2pxdqRMmj0hTWtdTA7H4i1w0M8YT7I/jwXfo6H7KotKm5fVttaEU4llK1rixFfi7d11p0hl83BvDZVzRfB0w3k06rQLg7XFvzGKsma36+acZRI2UXc/PkqmKTnT3MuWXLT3rzxng==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=a8+sTUOovXwqjlom9LmHCrDE6eFoKGZpp4wxT7H9hIc=;
- b=cMF01w3P68pJit0kpFztzo3tOQZzkWCTrjF+use4oXy2prEdMObOHr2a1uwnlGYWJztC9XlOM9LpMvneZLKfQvBBFEV5fDgkJd2s1hL6gjKIO3XwN6i+VdH/utev1xQ3bwmhCFYFJYYAu+hEnJZiiJKT+qUH1OOsD8IQ8WMlmuE=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BL1PR12MB5126.namprd12.prod.outlook.com (2603:10b6:208:312::8)
- by BL4PR12MB9723.namprd12.prod.outlook.com (2603:10b6:208:4ed::16)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.9; Wed, 25 Mar
- 2026 16:58:21 +0000
-Received: from BL1PR12MB5126.namprd12.prod.outlook.com
- ([fe80::c3e7:1bc5:2b91:1cfe]) by BL1PR12MB5126.namprd12.prod.outlook.com
- ([fe80::c3e7:1bc5:2b91:1cfe%6]) with mapi id 15.20.9769.004; Wed, 25 Mar 2026
- 16:58:20 +0000
-Message-ID: <968daa97-55cb-4cc4-b6da-def2376ef57e@amd.com>
-Date: Wed, 25 Mar 2026 12:58:15 -0400
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 00/10] CSC Colorop with COLOR_RANGE and COLOR_ENCODING
-To: "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-Cc: Alex Hung <alex.hung@amd.com>, Daniel Stone <daniels@collabora.com>,
- Uma Shankar <uma.shankar@intel.com>,
- Louis Chauvet <louis.chauvet@bootlin.com>, Melissa Wen <mwen@igalia.com>,
- Simon Ser <contact@emersion.fr>
-References: <20260317160350.229028-1-harry.wentland@amd.com>
- <9fbdff81-f909-4baf-9560-1104acf36ff0@intel.com>
-Content-Language: en-US
-From: Harry Wentland <harry.wentland@amd.com>
-In-Reply-To: <9fbdff81-f909-4baf-9560-1104acf36ff0@intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YQZPR01CA0186.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:8b::6) To BL1PR12MB5126.namprd12.prod.outlook.com
- (2603:10b6:208:312::8)
+Received: from mail-dy1-f173.google.com (mail-dy1-f173.google.com
+ [74.125.82.173])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8FCA010E2A5
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Mar 2026 17:26:43 +0000 (UTC)
+Received: by mail-dy1-f173.google.com with SMTP id
+ 5a478bee46e88-2c156c4a9efso126260eec.1
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Mar 2026 10:26:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1774459603; x=1775064403; darn=lists.freedesktop.org;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date:sender
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=tvRZ6E+yMl13uIQUUI3907KPcsQ+xqV3ra3DlioAVL8=;
+ b=iPVXgkmtTyhyfkQ/PD7VO5YXBXkrO7/ciLjLz4lcOF0f9w1s6B7HowFOSBKbwlUNa+
+ ahmTyGOKSVYiRJdQ6u6Wzunhfo6rkYLmRhWPfiLi4WdG+esDOhyZmSAa8aAwQO1lL/2/
+ /VDk4TZL9uWBVqtLEd3bwpPvyHiq6gTf7S3hMpg/lo9ZR3/SfUWTUHMnsXxLr98MzeCZ
+ WYKzU95ScaoulRoEpIU1gH+Ym/QqAJkrPFzPUKSZxH3Pi7Aog1/q7Si6EOOJHaZHPebu
+ EzEzcGRwW3JLCi1kg/QTONTiJ/UAwLQ424uSkAQKoFj98bJL2+yLKVBgUULvF2YI+Rpc
+ hIxA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1774459603; x=1775064403;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date:sender
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=tvRZ6E+yMl13uIQUUI3907KPcsQ+xqV3ra3DlioAVL8=;
+ b=Kl6FqQL0N81mva5G1RdFfd6q0PneN1Yfgfb/JyZXgLvWmGYVwyaHjmxaf6VP+V4MLa
+ f1KurL5MgtToGElucw6C6nKb9uE66VeaXD6EFQkAfF4fWhZH3dsB/JCu4j9SLq3BCxzE
+ jis9JC9Pwz9QddtBY6BHXBcK2IPlyTeJcGkDoUbgGFQDKX4SvypJp9RO6IzErDBO76My
+ pxh1qgd8cr/PmTTXMiWpU5fi4+A9zQqLZe3DQ6O1L0PkCXYqCnqdWUI0Km2pCUM5mbqd
+ 50doZnf7WV+Hg90SJ64YVSwaYC46d1x1BDgcIl2ZrgrF36NUB9dmy0rb2YVydNn106mQ
+ ISjQ==
+X-Gm-Message-State: AOJu0Yzh4W/Ur9qwhxNadQHAJNId4+h9a8dsGhaUCIlfqXq4ddU0FinH
+ zlMOuvhXQNytuB4Ueo4TEoLnEJVnUSPzdy47yK8CD3/DVMT9v17Tfheb
+X-Gm-Gg: ATEYQzx/eIcjD21eHr1i6SBoqpVF7plMDJVwO0JYBEaB6it89z2PIilJaPX+Elk0NKN
+ +df6ouM/hFTkMiuk5P238GUOAhpNykhuE4LC4LlKCz5HYjqa2uA1XCt5V0SR1btqzoTTyHXp+Dk
+ 73+UzXlvQDsr8wTvYiRn+55WTXVh+j4zpLetQvOCKO1WxxQ5hcXY7LNHtp9Uj95W0EoBcMarxav
+ j8TZpe2YE8MY/ZErsCG5ktbo0eNsisTtN0ljx/gpaBW2IeS7AAsuxrXSwi+jghLMh76bWAsz769
+ cSCyvWaCR/BW0zuyUIreRuVz64UJiCMLAieu+TOsjuktz9shrLKWgRRSQUBsqB6NAaY205EAJh5
+ LoEPLu/B2w/BVd9W5V/Qw5ns1lh3fpI2LiWqAmQl87n0RDwZb3XzsYW5KI8omoVXiqvQKtHmdWW
+ lvxzILFevTjS8JBQsigJqgypcONdBehKcTSr6k
+X-Received: by 2002:a05:7300:dc05:b0:2c0:f424:b545 with SMTP id
+ 5a478bee46e88-2c15d350374mr2462662eec.15.1774459602414; 
+ Wed, 25 Mar 2026 10:26:42 -0700 (PDT)
+Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+ by smtp.gmail.com with ESMTPSA id
+ 5a478bee46e88-2c16ea7bde3sm259550eec.0.2026.03.25.10.26.41
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 25 Mar 2026 10:26:41 -0700 (PDT)
+Date: Wed, 25 Mar 2026 10:26:40 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: Maarten Lankhorst <dev@lankhorst.se>
+Cc: dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
+Subject: Re: [PATCH v2 1/1] drm: Fix use-after-free on framebuffers and
+ property blobs when calling drm_dev_unplug
+Message-ID: <a89da668-578f-4ae0-809b-f0e68e3550e1@roeck-us.net>
+References: <20260313151728.14990-3-dev@lankhorst.se>
+ <20260313151728.14990-4-dev@lankhorst.se>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL1PR12MB5126:EE_|BL4PR12MB9723:EE_
-X-MS-Office365-Filtering-Correlation-Id: ffc51049-6d6a-4774-0595-08de8a8fb7b6
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|366016|376014|56012099003|18002099003|22082099003; 
-X-Microsoft-Antispam-Message-Info: XReHvNuxMDzxXsFRxCo3YMNkYnpUbZXnLrhfmo/6eSVqkWikGVaddnq5UsdbKxa3TBL7ZHMQlFb9SaFgCFpWAnXIa6VLQ+rbtpCcgjPFEXOybaQ7RiVme9opv/avijENH+78Y8CiEkwgqoYTZQFSSpQONV7LDx+6Ku4tDYt4FbayRAIYFQHrPyrLBWCWVID0yh4INAqRgyNLQ6HafhiF1HpvnodNPY0bMvv4QXHTLxxG2SAfqzvLuHo1sAY57GLm3eGENPyNjgApnD1P7FtUIOYUq3m8TQZW0QjsnrAerjKvNQG3MIbM9nACjHyVmegIa3qA+42fHFJsjFS4sQc8Sv4U6DRYKq57kW15h4EjueH+dAGKsVW9Mc3didqQKhH9keqfO2u7EJWl8CZmKs7TRv5Gh97GokyoOCwFzkYHYcObpcJSa3HSyrDUvyjL4LyWl46DJP+0ulh2/7o5+Xz6Ne2+oMa0FY6QBDxucj3xcxcxH/RZRldKGPO7JVoAdl+lq7iYgZlXHTXm1P7EEgfzjTQBlkuYuSQwQQRil6TPooR+CFIWKsUgd/dhp+y2ZeYo6v4scrRMOnNwUJvGhSUyPx9jlZnq4r+9V/it9ealI9ej9h+CTTPMs/W/H0jv3iZSoRH8y/etlJoKlgSWNfSlqFxG1HQChdr/ofHGw5av2KVwb8A9gh2Ch8oHKHzLjmOl
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BL1PR12MB5126.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014)(56012099003)(18002099003)(22082099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cktJdjM5U244ck1naU9sVEhaazNaVnVkcG14MVdWNUk0d2lOcjVMK2NkS2l0?=
- =?utf-8?B?WmF1R1Nhdm5OOTRKUVZERE80blQvRElheHdQd1UyR1dlKzg1S1lXRTBaZnBi?=
- =?utf-8?B?N3lRWTZCWjd0d0NHR0czeE53S1VqZ09qSmtuUjhiRnAxZnFjdmw3NzZRc3dh?=
- =?utf-8?B?YWo4aS9zNDNrL0ZmeVlRUFhjWkl4b3FQWEs2d1A2N0hhQjJqWmZ6TWxPNWs1?=
- =?utf-8?B?cFNyUmpvTEJOV2dQL2pTT2FVZUNHODJiQXUvSW1RT3VxdVIxTUVWdTVhMjA0?=
- =?utf-8?B?VTJlVFIyeVFub2hOc3hsb2RvWTdLVjZvYno2NFRjd05JdnlHV08xU1JvK296?=
- =?utf-8?B?dndISHNwbHdxTEVReFZVbW1ocWRWUWFQSUthc3dkVzl0cE16V3JLSHlucUh4?=
- =?utf-8?B?bmFwcWVIUWpxOVZCYzd3ZFp4VXpyaUphYlpOUzJYNlhOTU1rT1lTdDBFRXdi?=
- =?utf-8?B?S1lTQ0RxOUgyVFdYMWo5em9pdjZwelk0M2ZEWDhvZ1ZxL3ZtTHJodG1oRkly?=
- =?utf-8?B?RU1mcGplM3k0eU9ub2dyaWxIYWlnY2FkMStQWDdVa2lLbXVXRnVaVk5VZCtV?=
- =?utf-8?B?ekFHblpmYWYrSFAzcHBTYmtvay9sbGZXcFZKSDZ0Wm5Qd05HenRqSFVTOVVE?=
- =?utf-8?B?aytLU1dKUm9sM0o4bHJ4OGVhTTVld1BOcGxxSzJaY3FaZFVuUEFzRlZaZHVX?=
- =?utf-8?B?cVJxbUNwUHExVlc5bThWclp0ZmNRNXp4c092ODdFWTJUK0V0T3dvU3VIUDJ1?=
- =?utf-8?B?ZUJxWTlQRlo0c1lPU1phQnVxVDNESUV5N2libTVPS3ZKdmJsTk41RHFNNFhl?=
- =?utf-8?B?cWVoWjhzWnJRWm1ick5nWEJZOXZRYjc3NVdDSFBVWG8vbkU3amY3Nlhrb0E5?=
- =?utf-8?B?NTgyY3p5dHNFdGtTQjhBQjRibDhEbkNoTi9pUmovV1BPUmpFU3ZnbVNQb0pN?=
- =?utf-8?B?Ui9OZE9GRkZhUUZDVFk3elpFYWl1TXZmS2sxd1FtQlc2MEtQMkgyZjU4VDJk?=
- =?utf-8?B?OGc2K1dITlJvV2dib1JiRW4wb2t2dTlSaXRTZnZWU1k4SzZ3SkpNTG5wNWd5?=
- =?utf-8?B?WVMwQldKLythWmJoUDUxSUlGWDJtZUh4aFkvVG9nNWtPZitwTGNHeUVwS0c0?=
- =?utf-8?B?bGNDTmdxOUNmS3ZlVHA1V2VJNmlwbzVlVUJuaVZNNmpzT0JIbUpSNnZUMGl3?=
- =?utf-8?B?M1R6S1ZXMnBGZkVZWUpXN053NkFTMlZCSXJYaXErRHZvRkVLcHdhWWpBcktm?=
- =?utf-8?B?S0FpVm5NME95aURpSklLTE55cjVmU3FkVjJESHBEV0t1b3M0a0VGZnVpU2Q2?=
- =?utf-8?B?SUZYWnJpczNZcWxzdG0rUzBnYy9Sbi8yL0hEU3RLZ25ENHlIMjQ1MlJybUJj?=
- =?utf-8?B?TXptQWl0STBQVEcyUXVxU2I2K2cxSlNOL3ZNQ29Oa0FhQU9kMzUwQW13YklQ?=
- =?utf-8?B?c2xJQllmeVpudW1EVjRnMG1PQURSUmRjWHo2eXFxYkplMllCTVdKV0VzLzVN?=
- =?utf-8?B?U0J5aWpwaEJOT0VYdVBLMzBRTVJTc3ZZcTJnc2RWdWRBWjhWL0QyT1VLSHNS?=
- =?utf-8?B?S2c3c1BYZkRHME1qYXg0ZmMwejNhbXNjVkVVeU02K3p4VWQwK0F2NldtUWc4?=
- =?utf-8?B?alBia2xzOS9ETUo5UjRxUjdwUFZqYko5dlFqa2JQcGlGNXhUTit4M0NKOGRE?=
- =?utf-8?B?a1BpT3g0Y2NEeTVHVXJXak5Wa2JjdW5xTXhZTVRYMENwT3ZwZUtrR2VCell1?=
- =?utf-8?B?MXlDaEpEYnF4MnBTOGZMVGR6SEZuTTBWcnduQVVnRllWVWdXQXZnSjZaTWVX?=
- =?utf-8?B?UjFhdWdldXJtTktSdWdNSTFjZkp5T2hOM1pnSkhHRy8rdlRVd012Mlh4ZGFI?=
- =?utf-8?B?Z0dkQVhHeTNuU254OSsyMmdRQXIrWnVvVHNyTnNUM3p1bGpMMlh0dmNlemhG?=
- =?utf-8?B?ejl3Ukp0a0RFQnNzSnE2VDE3cStqMC9acmdCYXlwL1Q0OER3NTlOZllEalBJ?=
- =?utf-8?B?ZExUdWNJQVZtakNjckltdjRrbFR2S2dnNVlaV0YxRDNBdnI1bEpTZGw2bHFo?=
- =?utf-8?B?VkhhdGp6Y3JPaWNVdDFJTWVvYkgzZ2xGLzNyT1Q1cEgrTUJuYklEUkM0bXhw?=
- =?utf-8?B?SDYyRlQ5WllaYmxRbWR6bWFhd3U5ckhYc1h4TUhFRjFldkJyRGRNT0NlQlRC?=
- =?utf-8?B?OEs1ajNMckJNSkRCSWhIUC96eko0ME54dkxHTmxQdFA4SmF6OENYelM3bHdZ?=
- =?utf-8?B?M2xGNVNmMXYrL0RyZUtSa1Z4ODJJZGtwbXhxRlRoUjBLVm1JamJxbUp3ZTJZ?=
- =?utf-8?B?N1ZsRjRVa2h5MFZSQmpZZWxzZDh5eldkcUsxVGU3R1ZnRDdIanZndz09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ffc51049-6d6a-4774-0595-08de8a8fb7b6
-X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5126.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Mar 2026 16:58:20.2235 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: eAu8klcqpPizjq3rvnLnpKNUAZLJFxkw9lbzHuxG7nCdFkQlvYPxT+dZ1hxoGPTvftAXnsqQORpnWonWtzQkwg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL4PR12MB9723
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20260313151728.14990-4-dev@lankhorst.se>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -140,129 +91,378 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Hi,
 
+On Fri, Mar 13, 2026 at 04:17:27PM +0100, Maarten Lankhorst wrote:
+> When trying to do a rather aggressive test of igt's "xe_module_load
+> --r reload" with a full desktop environment and game running I noticed
+> a few OOPSes when dereferencing freed pointers, related to
+> framebuffers and property blobs after the compositor exits.
+>=20
+> Solve this by guarding the freeing in drm_file with drm_dev_enter/exit,
+> and immediately put the references from struct drm_file objects during
+> drm_dev_unplug().
+>=20
 
-On 2026-03-24 13:01, Borah, Chaitanya Kumar wrote:
-> Hello Harry,
-> 
-> Few thoughts on the series from Intel perspective.
-> 
-> On 3/17/2026 9:33 PM, Harry Wentland wrote:
->> When we merged the drm_plane color pipeline API the major gap
->> that existed was the lack of a color-space conversion colorop.
->> We deprecated any legacy drm_plane color properties, which
->> means that the COLOR_RANGE and COLOR_ENCODING properties can't
->> be used with the COLOR_PIPELINE property on a drm_plane. In
->> practice this means that we can't use a COLOR_PIPELINE on
->> YCbCr encoded framebuffers.
->>
->> This patchset adds a CSC colorop with the COLOR_RANGE and
->> COLOR_ENCODING properties and implements support in VKMS and
->> amdgpu.
->>
-> 
-> AFAIU, while COLOR_RANGE and COLOR_ENCODING were plane properties, they were more representative of how the framebuffer provided to the plane should be interpreted, rather than selecting a transformation. So using them to define CSC behavior is bit of a semantic drift.
-> 
+With this patch in v6.18.20, I get the warning backtraces below.
+The backtraces are gone with the patch reverted.
 
-I guess CSC is misleading for this colorop. YUV conversion would
-describe it better.
+Guenter
 
-> From, Intel's HW perspective we could re-use this CSC colorop but it would be
-> preferable to introduce new enums like "YCbCr709 to RGB", "YCbCr601 to RGB" as discussed in [1]. That way we can still represent the "RGB709 to RGB2020" conversion that Intel's fixed matrix CSC supports (instead of inventing a new colorop). We might need to change the name of colorop to something like Fixed Matrix to be inclusive of both YCbCr to RGB conversion and Primary conversion.
-> 
-
-At the core your CSC FF colorop and the one I'm trying to introduce are
-both backed by a fixed matrix. We could even express the range via the
-CSC FF colorop by introducing full and limited matrix variants for
-YCbCr to RGB conversion, like "YCbCr709 limited to RGB" (which is
-probably the norm for SDR/sRGB) and "YCbCr709 full to RGB" for full
-range YCbCr content.
-
-For BT.601, BT.709, BT.2020 and full and limited range that would give
-us 6 enum entries, which is quite manageable.
-
-Intel would then only advertise the full-range enums, plus the RGB-to-RGB
-CSC enums (like RGB709 to RGB2020) while AMD would advertise full and
-limited range YCbCr to RGB enums only, no RGB-to-RGB variants.
-
-If this makes sense to you I'll be happy to rework my YUV conversion
-patches based on that. I think that'll work fine.
-
-> Regarding the range property, we could re-use the COLOR_RANGE property as you have done. In the case of Intel, we would only expose DRM_COLOR_YCBCR_FULL_RANGE as supported for this CSC, and use a separate colorop to perform YUV range correction. This allows userspace to still pass limited-range framebuffers. I am assuming here that it matters for user-space if the conversion was done in limited or full range.
-> 
-
-It sounds like you'd need another colorop for range conversion. I wonder if
-it makes sense to also use the CSC FF block for that and introduce a
-"YUV limited to YUV full" range conversion enum. In that case naming the
-op named_matrix, might work better, as it can express range conversion,
-YUV conversion, and color space conversions.
-
-Harry
-
-> [1] https://lore.kernel.org/dri-devel/20260306165307.3233194-2-chaitanya.kumar.borah@intel.com/
-> 
-> ==
-> Chaitanya
-> 
->> An alternate way of possibly representing this has been proposed
->> here:
->> https://patchwork.freedesktop.org/patch/709860
->>
->> This code has been tested with IGT and an experimental KWin branch.
->>
->> IGT branch:
->> https://gitlab.freedesktop.org/hwentland/igt-gpu-tools/-/tree/csc-colorop
->>
->> KWin branch:
->> https://invent.kde.org/hwentlan/kwin/-/tree/csc-3dlut
->>
->> The kernel branch containing these changes, based on drm-misc-next
->> can be found at:
->> https://gitlab.freedesktop.org/hwentland/linux/-/tree/csc-colorop
->>
->> In order to successfully use this branch you might need a few
->> bugfixes. The kernel tree containing those fixes plus these patches
->> can be found at:
->> https://gitlab.freedesktop.org/hwentland/linux/-/tree/csc-colorop-all
->>
->> Further background on this work can be found at:
->> https://hwentland.github.io/2026/03/10/plane-color-pipeline-csc-3d-lut-kwin.html
->>
->> Cc: Alex Hung <alex.hung@amd.com>
->> Cc: Daniel Stone <daniels@collabora.com>
->> Cc: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
->> Cc: Uma Shankar <uma.shankar@intel.com>
->> Cc: Louis Chauvet <louis.chauvet@bootlin.com>
->> Cc: Melissa Wen <mwen@igalia.com>
->> Cc: Simon Ser <contact@emersion.fr>
->>
->> Harry Wentland (10):
->>    drm/colorop: Add CSC colorop type
->>    drm/colorop: Add CSC colorop initialization helper
->>    drm/atomic: Add CSC colorop state handling
->>    drm/vkms: Add CSC colorop support
->>    drm/vkms: Add atomic check and matrix handling for CSC colorop
->>    drm/amd/display: Implement CSC colorop support
->>    drm/amd/display: Use GAMCOR for first TF if CSC is used
->>    drm/amd/display: Check CSC colorop bypass before programming
->>    drm/amd/display: Check actual state during commit_tail
->>    drm/amd/display: Set color_space to plane_infos
->>
->>   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  14 ++-
->>   .../amd/display/amdgpu_dm/amdgpu_dm_color.c   | 115 +++++++++++++++++-
->>   .../amd/display/amdgpu_dm/amdgpu_dm_colorop.c |  25 +++-
->>   drivers/gpu/drm/drm_atomic.c                  |   6 +
->>   drivers/gpu/drm/drm_atomic_uapi.c             |   8 ++
->>   drivers/gpu/drm/drm_colorop.c                 |  91 ++++++++++++++
->>   drivers/gpu/drm/vkms/vkms_colorop.c           |  64 +++++++---
->>   drivers/gpu/drm/vkms/vkms_composer.c          |   5 +
->>   drivers/gpu/drm/vkms/vkms_plane.c             |  50 +++++++-
->>   include/drm/drm_colorop.h                     |  39 ++++++
->>   include/uapi/drm/drm_mode.h                   |   1 +
->>   11 files changed, 388 insertions(+), 30 deletions(-)
->>
->> -- 
->> 2.53.0
->>
-> 
-
+---
+[    0.000000] Linux version 6.18.20-spi+ (groeck@server.roeck-us.net) (gcc=
+ (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0, GNU ld (GNU Binutils for Ubuntu) =
+2.42) #1 SMP PREEMPT_DYNAMIC Wed Mar 25 08:22:19 PDT 2026
+[    0.000000] Command line: BOOT_IMAGE=3D/boot/vmlinuz-6.18.20-spi+ root=
+=3DUUID=3Dce436484-f920-47a8-a8c4-c17ff3a877e8 ro quiet splash amdgpu.gpu_r=
+ecovery=3D1 amdgpu.ppfeaturemask=3D0xfff73fff vt.handoff=3D7
+=2E..
+[    4.254064] nouveau 0000:2b:00.0: NVIDIA GK208B (b060b0b1)
+=2E..
+[    5.440862] ------------[ cut here ]------------
+[    5.440864] WARNING: CPU: 5 PID: 502 at drivers/gpu/drm/drm_mode_config.=
+c:537 drm_mode_config_cleanup+0x313/0x360
+[    5.440868] Modules linked in: qrtr cmac algif_hash algif_skcipher af_al=
+g bnep sunrpc binfmt_misc nls_iso8859_1 amd_atl intel_rapl_msr intel_rapl_c=
+ommon snd_hda_codec_alc882 snd_hda_codec_realtek_lib snd_hda_codec_generic =
+snd_hda_codec_nvhdmi snd_hda_codec_hdmi snd_hda_intel snd_hda_codec btusb b=
+tmtk snd_hda_core btrtl btbcm snd_intel_dspcfg btintel snd_intel_sdw_acpi s=
+nd_hwdep edac_mce_amd nouveau bluetooth snd_pcm kvm_amd snd_seq_midi mxm_wm=
+i snd_seq_midi_event drm_gpuvm joydev input_leds snd_rawmidi ee1004 gpu_sch=
+ed kvm snd_seq snd_seq_device irqbypass polyval_clmulni snd_timer ghash_clm=
+ulni_intel aesni_intel drm_ttm_helper snd rapl ttm drm_exec drm_display_hel=
+per cec rc_core video i2c_piix4 ccp soundcore i2c_smbus wmi_bmof k10temp bf=
+q gpio_amdpt mac_hid sch_fq_codel nct6683 msr parport_pc ppdev lp parport n=
+vme_fabrics efi_pstore nfnetlink dmi_sysfs ip_tables x_tables autofs4 hid_g=
+eneric nvme usbhid hid nvme_core igb r8169 nvme_keyring i2c_algo_bit nvme_a=
+uth ahci realtek dca hkdf libahci wmi
+[    5.440902] CPU: 5 UID: 0 PID: 502 Comm: plymouthd Not tainted 6.18.20-s=
+pi+ #1 PREEMPT(full)=20
+[    5.440903] Hardware name: Micro-Star International Co., Ltd. MS-7C94/MA=
+G B550M MORTAR MAX WIFI (MS-7C94), BIOS 1.G0 08/22/2023
+[    5.440904] RIP: 0010:drm_mode_config_cleanup+0x313/0x360
+[    5.440906] Code: 8b 45 d0 65 48 2b 05 84 22 0b 02 75 64 48 83 c4 58 5b =
+41 5c 41 5d 41 5e 41 5f 5d 31 c0 31 d2 31 c9 31 f6 31 ff c3 cc cc cc cc <0f=
+> 0b 48 8d 75 88 4c 89 e7 e8 1f 12 fe ff eb 10 48 8b 70 60 48 c7
+[    5.440907] RSP: 0018:ffffcf1442017bb0 EFLAGS: 00010202
+[    5.440908] RAX: ffff89bcc2268258 RBX: ffff89bcc2268290 RCX: 00000000000=
+00000
+[    5.440909] RDX: ffff89bcc2269308 RSI: 0000000000000000 RDI: 00000000000=
+00000
+[    5.440909] RBP: ffffcf1442017c30 R08: 0000000000000000 R09: 00000000000=
+00000
+[    5.440910] R10: 0000000000000000 R11: 0000000000000000 R12: ffff89bcc22=
+68000
+[    5.440910] R13: ffff89bcc2268298 R14: ffff89bcc5c3f480 R15: dead0000000=
+00100
+[    5.440911] FS:  0000713c25451000(0000) GS:ffff89cbe2cf3000(0000) knlGS:=
+0000000000000000
+[    5.440912] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+[    5.440912] CR2: 0000713c1bfff000 CR3: 00000001179c3000 CR4: 0000000000f=
+50ef0
+[    5.440913] PKRU: 55555554
+[    5.440914] Call Trace:
+[    5.440914]  <TASK>
+[    5.440916]  ? drm_managed_release+0xc2/0x160
+[    5.440918]  drm_mode_config_init_release+0xe/0x20
+[    5.440919]  drm_managed_release+0x8f/0x160
+[    5.440920]  drm_minor_release+0x5f/0x90
+[    5.440921]  drm_release+0xda/0x140
+[    5.440923]  __fput+0xed/0x2d0
+[    5.440925]  fput_close_sync+0x3d/0xa0
+[    5.440927]  __x64_sys_close+0x3e/0x90
+[    5.440928]  x64_sys_call+0x1b5e/0x26a0
+[    5.440930]  do_syscall_64+0x80/0x570
+[    5.440934]  ? x64_sys_call+0x1144/0x26a0
+[    5.440935]  ? do_syscall_64+0xb8/0x570
+[    5.440937]  ? __vm_munmap+0xdb/0x190
+[    5.440939]  ? __x64_sys_munmap+0x1b/0x30
+[    5.440941]  ? x64_sys_call+0x1be5/0x26a0
+[    5.440942]  ? do_syscall_64+0xb8/0x570
+[    5.440943]  ? irqentry_exit+0x43/0x50
+[    5.440944]  ? exc_page_fault+0x90/0x1b0
+[    5.440946]  entry_SYSCALL_64_after_hwframe+0x76/0x7e
+[    5.440947] RIP: 0033:0x713c256fa74c
+[    5.440948] Code: 0f 05 48 3d 00 f0 ff ff 77 3c c3 0f 1f 00 55 48 89 e5 =
+48 83 ec 10 89 7d fc e8 10 1e f8 ff 8b 7d fc 89 c2 b8 03 00 00 00 0f 05 <48=
+> 3d 00 f0 ff ff 77 2c 89 d7 89 45 fc e8 72 1e f8 ff 8b 45 fc c9
+[    5.440949] RSP: 002b:00007ffc9c194100 EFLAGS: 00000293 ORIG_RAX: 000000=
+0000000003
+[    5.440950] RAX: ffffffffffffffda RBX: 000055df73527870 RCX: 0000713c256=
+fa74c
+[    5.440951] RDX: 0000000000000000 RSI: 0000000000000000 RDI: 00000000000=
+0000b
+[    5.440951] RBP: 00007ffc9c194110 R08: 000000055df73528 R09: 00000000000=
+00007
+[    5.440952] R10: 000055df73528bc0 R11: 0000000000000293 R12: 0000713c254=
+50f88
+[    5.440952] R13: 0000000000000013 R14: 000055df7356f6b0 R15: 000055df735=
+26130
+[    5.440953]  </TASK>
+[    5.440954] ---[ end trace 0000000000000000 ]---
+[    5.440955] [drm:drm_mode_config_cleanup] *ERROR* connector Unknown-1 le=
+aked!
+[    5.440971] ------------[ cut here ]------------
+[    5.440971] WARNING: CPU: 5 PID: 502 at drivers/gpu/drm/drm_mode_config.=
+c:571 drm_mode_config_cleanup+0x34f/0x360
+[    5.440973] Modules linked in: qrtr cmac algif_hash algif_skcipher af_al=
+g bnep sunrpc binfmt_misc nls_iso8859_1 amd_atl intel_rapl_msr intel_rapl_c=
+ommon snd_hda_codec_alc882 snd_hda_codec_realtek_lib snd_hda_codec_generic =
+snd_hda_codec_nvhdmi snd_hda_codec_hdmi snd_hda_intel snd_hda_codec btusb b=
+tmtk snd_hda_core btrtl btbcm snd_intel_dspcfg btintel snd_intel_sdw_acpi s=
+nd_hwdep edac_mce_amd nouveau bluetooth snd_pcm kvm_amd snd_seq_midi mxm_wm=
+i snd_seq_midi_event drm_gpuvm joydev input_leds snd_rawmidi ee1004 gpu_sch=
+ed kvm snd_seq snd_seq_device irqbypass polyval_clmulni snd_timer ghash_clm=
+ulni_intel aesni_intel drm_ttm_helper snd rapl ttm drm_exec drm_display_hel=
+per cec rc_core video i2c_piix4 ccp soundcore i2c_smbus wmi_bmof k10temp bf=
+q gpio_amdpt mac_hid sch_fq_codel nct6683 msr parport_pc ppdev lp parport n=
+vme_fabrics efi_pstore nfnetlink dmi_sysfs ip_tables x_tables autofs4 hid_g=
+eneric nvme usbhid hid nvme_core igb r8169 nvme_keyring i2c_algo_bit nvme_a=
+uth ahci realtek dca hkdf libahci wmi
+[    5.440995] CPU: 5 UID: 0 PID: 502 Comm: plymouthd Tainted: G        W  =
+         6.18.20-spi+ #1 PREEMPT(full)=20
+[    5.440997] Tainted: [W]=3DWARN
+[    5.440997] Hardware name: Micro-Star International Co., Ltd. MS-7C94/MA=
+G B550M MORTAR MAX WIFI (MS-7C94), BIOS 1.G0 08/22/2023
+[    5.440998] RIP: 0010:drm_mode_config_cleanup+0x34f/0x360
+[    5.440999] Code: 70 60 48 c7 c7 a7 90 93 ba e8 3d bb 00 00 48 8d 7d 88 =
+e8 c4 32 fe ff 48 85 c0 75 e2 48 8d 7d 88 e8 d6 31 fe ff e9 7b fd ff ff <0f=
+> 0b e9 79 fe ff ff 0f 0b eb 8e e8 01 a4 65 00 90 90 90 90 90 90
+[    5.441000] RSP: 0018:ffffcf1442017bb0 EFLAGS: 00010293
+[    5.441001] RAX: ffff89bcd7c61bc8 RBX: ffff89bcc2268368 RCX: 00000000000=
+00000
+[    5.441001] RDX: 0000000000000000 RSI: 0000000000000000 RDI: ffff89bcc22=
+68368
+[    5.441002] RBP: ffffcf1442017c30 R08: 0000000000000000 R09: 00000000000=
+00000
+[    5.441002] R10: 0000000000000000 R11: 0000000000000000 R12: ffff89bcc22=
+68000
+[    5.441002] R13: ffff89bcc2268390 R14: ffff89bcc2268230 R15: dead0000000=
+00100
+[    5.441003] FS:  0000713c25451000(0000) GS:ffff89cbe2cf3000(0000) knlGS:=
+0000000000000000
+[    5.441004] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+[    5.441004] CR2: 0000713c1bfff000 CR3: 00000001179c3000 CR4: 0000000000f=
+50ef0
+[    5.441005] PKRU: 55555554
+[    5.441005] Call Trace:
+[    5.441006]  <TASK>
+[    5.441006]  ? drm_managed_release+0xc2/0x160
+[    5.441008]  drm_mode_config_init_release+0xe/0x20
+[    5.441009]  drm_managed_release+0x8f/0x160
+[    5.441010]  drm_minor_release+0x5f/0x90
+[    5.441011]  drm_release+0xda/0x140
+[    5.441012]  __fput+0xed/0x2d0
+[    5.441013]  fput_close_sync+0x3d/0xa0
+[    5.441014]  __x64_sys_close+0x3e/0x90
+[    5.441015]  x64_sys_call+0x1b5e/0x26a0
+[    5.441017]  do_syscall_64+0x80/0x570
+[    5.441018]  ? x64_sys_call+0x1144/0x26a0
+[    5.441019]  ? do_syscall_64+0xb8/0x570
+[    5.441021]  ? __vm_munmap+0xdb/0x190
+[    5.441023]  ? __x64_sys_munmap+0x1b/0x30
+[    5.441024]  ? x64_sys_call+0x1be5/0x26a0
+[    5.441025]  ? do_syscall_64+0xb8/0x570
+[    5.441026]  ? irqentry_exit+0x43/0x50
+[    5.441027]  ? exc_page_fault+0x90/0x1b0
+[    5.441029]  entry_SYSCALL_64_after_hwframe+0x76/0x7e
+[    5.441029] RIP: 0033:0x713c256fa74c
+[    5.441030] Code: 0f 05 48 3d 00 f0 ff ff 77 3c c3 0f 1f 00 55 48 89 e5 =
+48 83 ec 10 89 7d fc e8 10 1e f8 ff 8b 7d fc 89 c2 b8 03 00 00 00 0f 05 <48=
+> 3d 00 f0 ff ff 77 2c 89 d7 89 45 fc e8 72 1e f8 ff 8b 45 fc c9
+[    5.441031] RSP: 002b:00007ffc9c194100 EFLAGS: 00000293 ORIG_RAX: 000000=
+0000000003
+[    5.441031] RAX: ffffffffffffffda RBX: 000055df73527870 RCX: 0000713c256=
+fa74c
+[    5.441032] RDX: 0000000000000000 RSI: 0000000000000000 RDI: 00000000000=
+0000b
+[    5.441032] RBP: 00007ffc9c194110 R08: 000000055df73528 R09: 00000000000=
+00007
+[    5.441033] R10: 000055df73528bc0 R11: 0000000000000293 R12: 0000713c254=
+50f88
+[    5.441033] R13: 0000000000000013 R14: 000055df7356f6b0 R15: 000055df735=
+26130
+[    5.441035]  </TASK>
+[    5.441035] ---[ end trace 0000000000000000 ]---
+[    5.441036] ------------[ cut here ]------------
+[    5.441036] platform simple-framebuffer.0: [drm] drm_WARN_ON(refcount_re=
+ad(&shmem->vmap_use_count))
+[    5.441041] WARNING: CPU: 5 PID: 502 at drivers/gpu/drm/drm_gem_shmem_he=
+lper.c:170 drm_gem_shmem_free+0x111/0x1a0
+[    5.441043] Modules linked in: qrtr cmac algif_hash algif_skcipher af_al=
+g bnep sunrpc binfmt_misc nls_iso8859_1 amd_atl intel_rapl_msr intel_rapl_c=
+ommon snd_hda_codec_alc882 snd_hda_codec_realtek_lib snd_hda_codec_generic =
+snd_hda_codec_nvhdmi snd_hda_codec_hdmi snd_hda_intel snd_hda_codec btusb b=
+tmtk snd_hda_core btrtl btbcm snd_intel_dspcfg btintel snd_intel_sdw_acpi s=
+nd_hwdep edac_mce_amd nouveau bluetooth snd_pcm kvm_amd snd_seq_midi mxm_wm=
+i snd_seq_midi_event drm_gpuvm joydev input_leds snd_rawmidi ee1004 gpu_sch=
+ed kvm snd_seq snd_seq_device irqbypass polyval_clmulni snd_timer ghash_clm=
+ulni_intel aesni_intel drm_ttm_helper snd rapl ttm drm_exec drm_display_hel=
+per cec rc_core video i2c_piix4 ccp soundcore i2c_smbus wmi_bmof k10temp bf=
+q gpio_amdpt mac_hid sch_fq_codel nct6683 msr parport_pc ppdev lp parport n=
+vme_fabrics efi_pstore nfnetlink dmi_sysfs ip_tables x_tables autofs4 hid_g=
+eneric nvme usbhid hid nvme_core igb r8169 nvme_keyring i2c_algo_bit nvme_a=
+uth ahci realtek dca hkdf libahci wmi
+[    5.441066] CPU: 5 UID: 0 PID: 502 Comm: plymouthd Tainted: G        W  =
+         6.18.20-spi+ #1 PREEMPT(full)=20
+[    5.441067] Tainted: [W]=3DWARN
+[    5.441067] Hardware name: Micro-Star International Co., Ltd. MS-7C94/MA=
+G B550M MORTAR MAX WIFI (MS-7C94), BIOS 1.G0 08/22/2023
+[    5.441068] RIP: 0010:drm_gem_shmem_free+0x111/0x1a0
+[    5.441069] Code: 4c 8b 67 50 4d 85 e4 75 03 4c 8b 27 e8 68 4f 02 00 48 =
+c7 c1 e8 03 8a ba 4c 89 e2 48 c7 c7 66 7b 93 ba 48 89 c6 e8 8f 09 46 ff <0f=
+> 0b e9 4b ff ff ff 48 8b 7b 08 48 85 ff 74 04 48 8b 7f 08 4c 8b
+[    5.441070] RSP: 0018:ffffcf1442017ad0 EFLAGS: 00010246
+[    5.441070] RAX: 0000000000000000 RBX: ffff89bcc8704400 RCX: 00000000000=
+00000
+[    5.441071] RDX: 0000000000000000 RSI: 0000000000000000 RDI: 00000000000=
+00000
+[    5.441071] RBP: ffffcf1442017ae0 R08: 0000000000000000 R09: 00000000000=
+00000
+[    5.441072] R10: 0000000000000000 R11: 0000000000000000 R12: ffff89bcc2b=
+ec900
+[    5.441072] R13: ffff89bcc2268000 R14: 0000000000000000 R15: ffff89bcc22=
+68228
+[    5.441073] FS:  0000713c25451000(0000) GS:ffff89cbe2cf3000(0000) knlGS:=
+0000000000000000
+[    5.441073] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+[    5.441074] CR2: 0000713c1bfff000 CR3: 00000001179c3000 CR4: 0000000000f=
+50ef0
+[    5.441075] PKRU: 55555554
+[    5.441075] Call Trace:
+[    5.441075]  <TASK>
+[    5.441076]  drm_gem_shmem_object_free+0x9/0x20
+[    5.441077]  drm_gem_object_handle_put_unlocked+0x12c/0x140
+[    5.441079]  drm_framebuffer_cleanup+0x60/0xe0
+[    5.441080]  drm_gem_fb_destroy+0x79/0xc0
+[    5.441081]  drm_framebuffer_free+0x43/0xa0
+[    5.441083]  drm_mode_config_cleanup+0x29c/0x360
+[    5.441084]  ? drm_mode_config_cleanup+0x1f2/0x360
+[    5.441085]  ? drm_managed_release+0xc2/0x160
+[    5.441086]  drm_mode_config_init_release+0xe/0x20
+[    5.441087]  drm_managed_release+0x8f/0x160
+[    5.441088]  drm_minor_release+0x5f/0x90
+[    5.441089]  drm_release+0xda/0x140
+[    5.441090]  __fput+0xed/0x2d0
+[    5.441091]  fput_close_sync+0x3d/0xa0
+[    5.441092]  __x64_sys_close+0x3e/0x90
+[    5.441094]  x64_sys_call+0x1b5e/0x26a0
+[    5.441095]  do_syscall_64+0x80/0x570
+[    5.441096]  ? x64_sys_call+0x1144/0x26a0
+[    5.441097]  ? do_syscall_64+0xb8/0x570
+[    5.441099]  ? __vm_munmap+0xdb/0x190
+[    5.441101]  ? __x64_sys_munmap+0x1b/0x30
+[    5.441102]  ? x64_sys_call+0x1be5/0x26a0
+[    5.441103]  ? do_syscall_64+0xb8/0x570
+[    5.441104]  ? irqentry_exit+0x43/0x50
+[    5.441105]  ? exc_page_fault+0x90/0x1b0
+[    5.441106]  entry_SYSCALL_64_after_hwframe+0x76/0x7e
+[    5.441107] RIP: 0033:0x713c256fa74c
+[    5.441108] Code: 0f 05 48 3d 00 f0 ff ff 77 3c c3 0f 1f 00 55 48 89 e5 =
+48 83 ec 10 89 7d fc e8 10 1e f8 ff 8b 7d fc 89 c2 b8 03 00 00 00 0f 05 <48=
+> 3d 00 f0 ff ff 77 2c 89 d7 89 45 fc e8 72 1e f8 ff 8b 45 fc c9
+[    5.441109] RSP: 002b:00007ffc9c194100 EFLAGS: 00000293 ORIG_RAX: 000000=
+0000000003
+[    5.441109] RAX: ffffffffffffffda RBX: 000055df73527870 RCX: 0000713c256=
+fa74c
+[    5.441110] RDX: 0000000000000000 RSI: 0000000000000000 RDI: 00000000000=
+0000b
+[    5.441110] RBP: 00007ffc9c194110 R08: 000000055df73528 R09: 00000000000=
+00007
+[    5.441111] R10: 000055df73528bc0 R11: 0000000000000293 R12: 0000713c254=
+50f88
+[    5.441111] R13: 0000000000000013 R14: 000055df7356f6b0 R15: 000055df735=
+26130
+[    5.441112]  </TASK>
+[    5.441113] ---[ end trace 0000000000000000 ]---
+[    5.441151] ------------[ cut here ]------------
+[    5.441152] platform simple-framebuffer.0: [drm] drm_WARN_ON(refcount_re=
+ad(&shmem->pages_pin_count))
+[    5.441155] WARNING: CPU: 5 PID: 502 at drivers/gpu/drm/drm_gem_shmem_he=
+lper.c:182 drm_gem_shmem_free+0x18d/0x1a0
+[    5.441157] Modules linked in: qrtr cmac algif_hash algif_skcipher af_al=
+g bnep sunrpc binfmt_misc nls_iso8859_1 amd_atl intel_rapl_msr intel_rapl_c=
+ommon snd_hda_codec_alc882 snd_hda_codec_realtek_lib snd_hda_codec_generic =
+snd_hda_codec_nvhdmi snd_hda_codec_hdmi snd_hda_intel snd_hda_codec btusb b=
+tmtk snd_hda_core btrtl btbcm snd_intel_dspcfg btintel snd_intel_sdw_acpi s=
+nd_hwdep edac_mce_amd nouveau bluetooth snd_pcm kvm_amd snd_seq_midi mxm_wm=
+i snd_seq_midi_event drm_gpuvm joydev input_leds snd_rawmidi ee1004 gpu_sch=
+ed kvm snd_seq snd_seq_device irqbypass polyval_clmulni snd_timer ghash_clm=
+ulni_intel aesni_intel drm_ttm_helper snd rapl ttm drm_exec drm_display_hel=
+per cec rc_core video i2c_piix4 ccp soundcore i2c_smbus wmi_bmof k10temp bf=
+q gpio_amdpt mac_hid sch_fq_codel nct6683 msr parport_pc ppdev lp parport n=
+vme_fabrics efi_pstore nfnetlink dmi_sysfs ip_tables x_tables autofs4 hid_g=
+eneric nvme usbhid hid nvme_core igb r8169 nvme_keyring i2c_algo_bit nvme_a=
+uth ahci realtek dca hkdf libahci wmi
+[    5.441179] CPU: 5 UID: 0 PID: 502 Comm: plymouthd Tainted: G        W  =
+         6.18.20-spi+ #1 PREEMPT(full)=20
+[    5.441180] Tainted: [W]=3DWARN
+[    5.441180] Hardware name: Micro-Star International Co., Ltd. MS-7C94/MA=
+G B550M MORTAR MAX WIFI (MS-7C94), BIOS 1.G0 08/22/2023
+[    5.441181] RIP: 0010:drm_gem_shmem_free+0x18d/0x1a0
+[    5.441182] Code: 4c 8b 67 50 4d 85 e4 75 03 4c 8b 27 e8 ec 4e 02 00 48 =
+c7 c1 58 04 8a ba 4c 89 e2 48 c7 c7 66 7b 93 ba 48 89 c6 e8 13 09 46 ff <0f=
+> 0b e9 35 ff ff ff 66 66 2e 0f 1f 84 00 00 00 00 00 90 90 90 90
+[    5.441182] RSP: 0018:ffffcf1442017ad0 EFLAGS: 00010246
+[    5.441183] RAX: 0000000000000000 RBX: ffff89bcc8704400 RCX: 00000000000=
+00000
+[    5.441184] RDX: 0000000000000000 RSI: 0000000000000000 RDI: 00000000000=
+00000
+[    5.441184] RBP: ffffcf1442017ae0 R08: 0000000000000000 R09: 00000000000=
+00000
+[    5.441184] R10: 0000000000000000 R11: 0000000000000000 R12: ffff89bcc2b=
+ec900
+[    5.441185] R13: ffff89bcc2268000 R14: 0000000000000000 R15: ffff89bcc22=
+68228
+[    5.441186] FS:  0000713c25451000(0000) GS:ffff89cbe2cf3000(0000) knlGS:=
+0000000000000000
+[    5.441186] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+[    5.441187] CR2: 0000713c1bfff000 CR3: 00000001179c3000 CR4: 0000000000f=
+50ef0
+[    5.441187] PKRU: 55555554
+[    5.441188] Call Trace:
+[    5.441188]  <TASK>
+[    5.441188]  drm_gem_shmem_object_free+0x9/0x20
+[    5.441189]  drm_gem_object_handle_put_unlocked+0x12c/0x140
+[    5.441191]  drm_framebuffer_cleanup+0x60/0xe0
+[    5.441192]  drm_gem_fb_destroy+0x79/0xc0
+[    5.441193]  drm_framebuffer_free+0x43/0xa0
+[    5.441194]  drm_mode_config_cleanup+0x29c/0x360
+[    5.441195]  ? drm_mode_config_cleanup+0x1f2/0x360
+[    5.441196]  ? drm_managed_release+0xc2/0x160
+[    5.441197]  drm_mode_config_init_release+0xe/0x20
+[    5.441198]  drm_managed_release+0x8f/0x160
+[    5.441199]  drm_minor_release+0x5f/0x90
+[    5.441200]  drm_release+0xda/0x140
+[    5.441201]  __fput+0xed/0x2d0
+[    5.441202]  fput_close_sync+0x3d/0xa0
+[    5.441204]  __x64_sys_close+0x3e/0x90
+[    5.441205]  x64_sys_call+0x1b5e/0x26a0
+[    5.441206]  do_syscall_64+0x80/0x570
+[    5.441208]  ? x64_sys_call+0x1144/0x26a0
+[    5.441209]  ? do_syscall_64+0xb8/0x570
+[    5.441210]  ? __vm_munmap+0xdb/0x190
+[    5.441212]  ? __x64_sys_munmap+0x1b/0x30
+[    5.441213]  ? x64_sys_call+0x1be5/0x26a0
+[    5.441214]  ? do_syscall_64+0xb8/0x570
+[    5.441216]  ? irqentry_exit+0x43/0x50
+[    5.441216]  ? exc_page_fault+0x90/0x1b0
+[    5.441218]  entry_SYSCALL_64_after_hwframe+0x76/0x7e
+[    5.441219] RIP: 0033:0x713c256fa74c
+[    5.441219] Code: 0f 05 48 3d 00 f0 ff ff 77 3c c3 0f 1f 00 55 48 89 e5 =
+48 83 ec 10 89 7d fc e8 10 1e f8 ff 8b 7d fc 89 c2 b8 03 00 00 00 0f 05 <48=
+> 3d 00 f0 ff ff 77 2c 89 d7 89 45 fc e8 72 1e f8 ff 8b 45 fc c9
+[    5.441234] RSP: 002b:00007ffc9c194100 EFLAGS: 00000293 ORIG_RAX: 000000=
+0000000003
+[    5.441236] RAX: ffffffffffffffda RBX: 000055df73527870 RCX: 0000713c256=
+fa74c
+[    5.441237] RDX: 0000000000000000 RSI: 0000000000000000 RDI: 00000000000=
+0000b
+[    5.441238] RBP: 00007ffc9c194110 R08: 000000055df73528 R09: 00000000000=
+00007
+[    5.441238] R10: 000055df73528bc0 R11: 0000000000000293 R12: 0000713c254=
+50f88
+[    5.441239] R13: 0000000000000013 R14: 000055df7356f6b0 R15: 000055df735=
+26130
+[    5.441241]  </TASK>
+[    5.441241] ---[ end trace 0000000000000000 ]---
