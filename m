@@ -4,64 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A6EB510AB804
-	for <dri-devel@archiver.kernel.org>; Thu, 26 Mar 2026 18:55:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A672410AB802
+	for <dri-devel@archiver.kernel.org>; Thu, 26 Mar 2026 18:55:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BA75C10EBD9;
-	Thu, 26 Mar 2026 18:55:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7428310EBEC;
+	Thu, 26 Mar 2026 18:55:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="JIOIMwNg";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="kecb9Wbb";
 	dkim-atps=neutral
-Received: from mail-oa1-f42.google.com (mail-oa1-f42.google.com
- [209.85.160.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5A30910EBB9
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Mar 2026 18:55:24 +0000 (UTC)
-Received: by mail-oa1-f42.google.com with SMTP id
- 586e51a60fabf-4043b27ddeaso852576fac.1
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Mar 2026 11:55:24 -0700 (PDT)
+Received: from mail-oa1-f47.google.com (mail-oa1-f47.google.com
+ [209.85.160.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 42C7410EBE9
+ for <dri-devel@lists.freedesktop.org>; Thu, 26 Mar 2026 18:55:42 +0000 (UTC)
+Received: by mail-oa1-f47.google.com with SMTP id
+ 586e51a60fabf-41c0aae84e5so970851fac.3
+ for <dri-devel@lists.freedesktop.org>; Thu, 26 Mar 2026 11:55:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1774551323; x=1775156123; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1774551341; x=1775156141; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=PHBDIqz9/qVForB86mGxoTdQjucG23eTecUbThbELwQ=;
- b=JIOIMwNgut7zpMR8MY6Xy82gDArQYbm9cCsWN0ZFE21J40w277YRUOuNlCPk84KOi9
- 7/UyDl5h1agq1AtdRFRoCZTktR5iED2zCW0h4qZmkib2+KdNRv5xZh/1a3conav6jqIi
- dMnBkmeYVVmzgJU+yqntxT4d9oAORE/N13UB3PBW+3px71qTxNCSqoubbPnl4eb24Y+r
- M8ufdhKwPH/YZMAxfuh/ddMp6Zmq60bdJznVfAEePubGKm0utAzWmsTuq4m8OHetDYTv
- SPfNL2Jsp17+gOZXY1GnNMHhfp9NvcdoFbNGqa0lKHXEEZ6GUxFU/9CsTHq75m6g+Rkd
- IZtw==
+ bh=93dR2Z7/f38EiX2nhH8I335LY48jx/pTe8LM2CbujQc=;
+ b=kecb9WbbHe0WJPkkW9xYW6t8hBEBq8OQ23n7G6ZP/lhh1HqeogNq1ZB6UvbGmz58hm
+ C83d+dGlcAkdgECZaJ/pVD9jhxO6y7YndsV6f6BCjzGNoG+lE8fMM0PQ4nEejwja3FAL
+ QFz1a2I92n7i3cikCYwCCc9p54GKPqh38mWdZEFnTpDIupMbLHXT7Vug1Y4tSkzZMNkR
+ SUWeCxlKMXYV4Wba9wfSudsrQ0SZQ9W6G27WEsNhcFNigAE2sXKpFZBrvq37ujajJfKu
+ 55ImOKrPurq+HkBX1qqg1GRcgrc04p93W/rtanU/0o8wBmC+tFoZfcixbAwc08S2ej8b
+ lg8g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774551323; x=1775156123;
+ d=1e100.net; s=20251104; t=1774551341; x=1775156141;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=PHBDIqz9/qVForB86mGxoTdQjucG23eTecUbThbELwQ=;
- b=mVIZUVhS4nUa4cE61f+sGTuydB1z0EmbM18vqz9piBR6FAs8xXztFAdOxDIyaj74HM
- 9Moulv49alG+dJBC5AZmQkUbW9GBWNYOeqvftLRyevISEG+PEH7hJDD/kNza/N5iPuWK
- Ns7tdHrysjgubOft9wMW6lxhAVf5WYs7pEFreRNfFjoabvPPdDrvdplK8UNEN2jbbCBz
- 8ryKJ4cwYfjRVBmb4fd2vmBgxxSoEebQRHls2YYwmBpS0oqaVtWJCWbuTjO84DibQstn
- bXScONeOpNMQguo9VD4z9qPjIa+CQbbs9B5rJu+TdQ937pLM/+93Ym2k4mkNuTK28lAb
- lh5Q==
+ bh=93dR2Z7/f38EiX2nhH8I335LY48jx/pTe8LM2CbujQc=;
+ b=DsdCyIyiE5L8/wHVmEE5UPQJZj9hoEV00JIvV5+0nCeuaNDtxsBKcV3fxecpwlPzbP
+ Uh1dzvbTrbhwK+tgfjktPEXcUIucJ388FFd/q7O/9D3lOKS+Y21FVt3d5KOKEeBxHk/f
+ E9Fisf+7j3QiAlXhjheqnayHAl2x39+EK725gYtna7Dv/3suKhcVlI/Luu9n/sNpxcTt
+ ZOhagT1lIHt7Vv816ikv3G1Zscy+/XUOxjoVYZcJAxX3rklr/+y+cUUo4WxKLfYvowSd
+ bb1CHMm/cU3MPWaX2eVz8sFzdWwHoUnKkbAQ85QQWYWhu8zwvpbwm2VUgkQx0pKTrIj6
+ SxRA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVVEJ+TqHVbim8MQmdDv8eyKRXihNctwgkO2I4rA3RsghvdYrNH6aEuPP2awnHIQtOSqwgQjVI+uN8=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yxl0DwmfmJntc638+LEWqW4G1/RJpfJiPOuNHtKM0LnoIYjgzRz
- xD6Ay3W/fnMvyJeaMqZes82ptznmP6YbwDtL4isIHHuPe54XkTwm5oiG
-X-Gm-Gg: ATEYQzxjB2r4H2CcfXGiCxrA9wxfyNbMINK7otgWh4DX4hPgqcAIfuLatmMyTtCDNw2
- SsNBf1sP9q1SLQFgicUN+PujJGPNE/JWnu+gcpwv4U659BsG3rmSDD7hnyHhCZzcxGjt9otDjP1
- zweJoHRUiqa6rS/FJkXfXyjK7nUpM7FppRnPiOuUjHqY6LbKAVjQ7zw86zN3SSTZ+TISbX1u2vs
- EhoUFIsvSLjETrIaaPED5F0gYsnS8JyapGsIE2cqcW7ckQOQ6EhcdIN/QgPxYBUiwx+rxUh7GhL
- PCoqs687lq5NlovATYTe9evnSP0FIm/ZQzpQ48HGxvd2FgWW+dFotef1BKooUCYLioNcT5QscfE
- fU71IEvN2Y5MtX2GwEcE13HUEtqR5yo8Gf0ZbhBSt4S3L0EVCKzB+veZZ/mA0U3ns5/EvP7OlVL
- FKlaBvPsj2HUGAn/GeMVcrWadRRX1GQqxGIVngItskDsbUBRVG
-X-Received: by 2002:a05:6871:520d:b0:417:5970:28ea with SMTP id
- 586e51a60fabf-41ca715a2acmr4330662fac.51.1774551323554; 
- Thu, 26 Mar 2026 11:55:23 -0700 (PDT)
+ AJvYcCW8toSFQc6nKqJrO8qSSaA/T6iee7tW5/W8hU3WlyrJsVxHpdsHhHgpycXm2H6SnstwQc1T49gAkKc=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yz6TkHq16uUxiNjI4UwPjmtUtvUq0BzlZ6gKqBYCFxgl6Q75PGT
+ 7GO68zwhcRB8mmRU8KIxTpIuhjba8pEJ3TLLWRu0us5ttO644hJGl72b
+X-Gm-Gg: ATEYQzzAACBx5lTLDon5/FtGy6km8YTEP+wANXgL42IJoAJWjHRro6GmKw4QsagrJ6/
+ FuPBzItJbUz1wX3ykdd0URQmmD9VEVWMZfwHpdokETXaLpmg5e2v4TSNOyPrG9YF9eL9ynNkiO9
+ TU8a8c3lB7fs3VfYd22nKegLvwd3lCiRj2XbVrB/RRTxM3TS70q5dP+syafYnPvbMwFCblU/fxV
+ 1foltt620NKg/CUS6Dw1U6w7UNG/a/ITj1Q9K7NbreegaeVrffhM5InndGkeXFKpHVw8cVp3kxn
+ G11N2VgipNiY0CtL8X21WoL6AYe2Q7pDZE/4lJuH6Ta0wkUYORbktrlrMHuv9lCYTa6e213EVR7
+ UE/gsTgacH8Y07AaXFxdmYv+HZsn7KAiMHwLmt7pJZdLGGB7A4NzPC8Bof6IdGO/NySVv46lKLY
+ EzMdoDQXfUAMTEB80njZObJWkaeJNvUU6YRj2ZcnzH/Ksj4nO3
+X-Received: by 2002:a05:6870:209:b0:417:2b13:f2cd with SMTP id
+ 586e51a60fabf-41ca6d734dcmr4697103fac.10.1774551341455; 
+ Thu, 26 Mar 2026 11:55:41 -0700 (PDT)
 Received: from frodo (c-98-38-17-99.hsd1.co.comcast.net. [98.38.17.99])
  by smtp.googlemail.com with ESMTPSA id
- 586e51a60fabf-41cc7760c08sm3075171fac.4.2026.03.26.11.55.22
+ 586e51a60fabf-41cc7760c08sm3075171fac.4.2026.03.26.11.55.39
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 26 Mar 2026 11:55:23 -0700 (PDT)
+ Thu, 26 Mar 2026 11:55:40 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: linux-kernel@vger.kernel.org, airlied@gmail.com, simona@ffwll.ch,
  jbaron@akamai.com, gregkh@linuxfoundation.org
@@ -71,16 +71,14 @@ Cc: jim.cromie@gmail.com, mripard@kernel.org, tzimmermann@suse.de,
  matthew.auld@intel.com, arunpravin.paneerselvam@amd.com,
  louis.chauvet@bootlin.com, skhan@linuxfoundation.org, pmladek@suse.com,
  ukaszb@chromium.org, dri-devel@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- Philipp Hahn <phahn-oss@avm.de>
-Subject: [PATCH v12 36/69] dyndbg: Ignore additional arguments from pr_fmt
-Date: Thu, 26 Mar 2026 12:53:40 -0600
-Message-ID: <20260326185413.1205870-37-jim.cromie@gmail.com>
+ intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+Subject: [PATCH v12 45/69] drm-dyndbg: DRM_CLASSMAP_USE in amdgpu driver
+Date: Thu, 26 Mar 2026 12:53:49 -0600
+Message-ID: <20260326185413.1205870-46-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260326185413.1205870-1-jim.cromie@gmail.com>
 References: <20260326185413.1205870-1-jim.cromie@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -97,74 +95,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Philipp Hahn <phahn-oss@avm.de>
+Following the dyndbg-api-fix, replace DECLARE_DYNDBG_CLASSMAP with
+DRM_CLASSMAP_USE.  This refs the defined & exported classmap, rather
+than re-declaring it redundantly, and error-prone-ly.
 
-pr_fmt can be used to add a common prefix to any output from a module:
-	#define pr_fmt(fmt) KBUILD_MODNAME ".%s " fmt, __func__
+This resolves the appearance of "class:_UNKNOWN_" in the control file
+for the driver's drm_dbg()s.
 
-But adding additional arguments breaks dynamic debug:
-> error: macro "DEFINE_DYNAMIC_DEBUG_METADATA_CLS" passed 4 arguments, but takes just 3
-> |         pr_debug_ratelimited("%s", "Hello world!");
-> |                                                  ^
-> note: macro "DEFINE_DYNAMIC_DEBUG_METADATA_CLS" defined here
-> | #define DEFINE_DYNAMIC_DEBUG_METADATA_CLS(name, cls, fmt)       \
-> |
-> error: ‘DEFINE_DYNAMIC_DEBUG_METADATA_CLS’ undeclared (first use in this function)
-> |         DEFINE_DYNAMIC_DEBUG_METADATA_CLS(name, _DPRINTK_CLASS_DFLT, fmt)
-> |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-> note: in expansion of macro ‘DEFINE_DYNAMIC_DEBUG_METADATA’
-> |         DEFINE_DYNAMIC_DEBUG_METADATA(descriptor, pr_fmt(fmt));         \
-> |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-> note: in expansion of macro ‘pr_debug_ratelimited’
-> |         pr_debug_ratelimited("%s", "Hello world!");
-> |         ^~~~~~~~~~~~~~~~~~~~
+Fixes: f158936b60a7 ("drm: POC drm on dyndbg - use in core, 2 helpers, 3 drivers.")
 
-Add an additional ', ...' to DEFINE_DYNAMIC_DEBUG_METADATA_CLS to slurp
-any additional argument, which `pr_fmt` might add.
-
-Signed-off-by: Philipp Hahn <phahn-oss@avm.de>
-[pr_fmt change on _submod]
-Reviewed-by: Jim Cromie <jim.cromie@gmail.com>
+Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
 ---
- include/linux/dynamic_debug.h | 2 +-
- lib/test_dynamic_debug.c      | 4 ++--
- 2 files changed, 3 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 12 +-----------
+ 1 file changed, 1 insertion(+), 11 deletions(-)
 
-diff --git a/include/linux/dynamic_debug.h b/include/linux/dynamic_debug.h
-index 1b401f398a3c..49f37d6a4eab 100644
---- a/include/linux/dynamic_debug.h
-+++ b/include/linux/dynamic_debug.h
-@@ -344,7 +344,7 @@ void __dynamic_ibdev_dbg(struct _ddebug *descriptor,
- 		dump_stack();					\
- }
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+index 95d26f086d54..e5dd051eeba9 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+@@ -249,17 +249,7 @@ int amdgpu_rebar = -1; /* auto */
+ int amdgpu_user_queue = -1;
+ uint amdgpu_hdmi_hpd_debounce_delay_ms;
  
--#define DEFINE_DYNAMIC_DEBUG_METADATA_CLS(name, cls, fmt)	\
-+#define DEFINE_DYNAMIC_DEBUG_METADATA_CLS(name, cls, fmt, ...)	\
- 	static struct _ddebug  __aligned(8)			\
- 	__section("__dyndbg_descriptors") name = {		\
- 		.modname = KBUILD_MODNAME,			\
-diff --git a/lib/test_dynamic_debug.c b/lib/test_dynamic_debug.c
-index db555f5f8ea4..779309898422 100644
---- a/lib/test_dynamic_debug.c
-+++ b/lib/test_dynamic_debug.c
-@@ -23,7 +23,7 @@
-  * the usage clearer.
-  */
- #if defined(TEST_DYNAMIC_DEBUG_SUBMOD)
--  #define pr_fmt(fmt) "test_dd_submod: " fmt
-+  #define pr_fmt(fmt) "test_dd_submod: %s " fmt, __func__
- #else
-   #define pr_fmt(fmt) "test_dd: " fmt
- #endif
-@@ -214,7 +214,7 @@ static int __init test_dynamic_debug_init(void)
+-DECLARE_DYNDBG_CLASSMAP(drm_debug_classes, DD_CLASS_TYPE_DISJOINT_BITS, 0,
+-			"DRM_UT_CORE",
+-			"DRM_UT_DRIVER",
+-			"DRM_UT_KMS",
+-			"DRM_UT_PRIME",
+-			"DRM_UT_ATOMIC",
+-			"DRM_UT_VBL",
+-			"DRM_UT_STATE",
+-			"DRM_UT_LEASE",
+-			"DRM_UT_DP",
+-			"DRM_UT_DRMRES");
++DRM_CLASSMAP_USE(drm_debug_classes);
  
- static void __exit test_dynamic_debug_exit(void)
- {
--	pr_debug("exited\n");
-+	pr_debug_ratelimited("exited\n");
- }
- 
- module_init(test_dynamic_debug_init);
+ struct amdgpu_mgpu_info mgpu_info = {
+ 	.mutex = __MUTEX_INITIALIZER(mgpu_info.mutex),
 -- 
 2.53.0
 
