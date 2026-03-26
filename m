@@ -4,39 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E32FE1099B5F
-	for <dri-devel@archiver.kernel.org>; Thu, 26 Mar 2026 06:56:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0DE56109E55D
+	for <dri-devel@archiver.kernel.org>; Thu, 26 Mar 2026 06:56:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 74B6D10E9F6;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 79FDA10E9F7;
 	Thu, 26 Mar 2026 06:56:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="muupA6xp";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="cz8K/L+w";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 111C910E9FA
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Mar 2026 06:55:54 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 561E610E9FD
+ for <dri-devel@lists.freedesktop.org>; Thu, 26 Mar 2026 06:56:00 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 4367C60138;
+ by sea.source.kernel.org (Postfix) with ESMTP id 56774445AF;
  Thu, 26 Mar 2026 06:55:53 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id DAB90C19423;
- Thu, 26 Mar 2026 06:55:52 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 38802C2BCB7;
+ Thu, 26 Mar 2026 06:55:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linux.dev; s=korg;
- t=1774508152; bh=cVzToFCe33VrJM/WwjDX3rjnBkbQL/Y1ZuE5gIYqw6c=;
+ t=1774508153; bh=l+K9zW15YdA7Rr803fNe8iacgAff7Ccyrsy1728ZtCA=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=muupA6xpwmVSbpL3UZDzPtHpwOPY0ijfu/iexw+KjRshXbahF40VZ7O+IaiavN3AS
- EV2zr/xJr86FVaOpAVf7M0lfS8eu/KUEC0Sm/KZgm/80/3LNs4Ct3QpkhBN5LaclQT
- 2fkKLvRqs5H2CQN9MoV9GO3EH0B35undDg79b/Vs=
+ b=cz8K/L+wrIbWc5nQiNk0BFPTqtXHv9bT4/a0JdKgXiZ1X2DYWGSMNej0L4IB1qLN2
+ arU+Irt31vNlk4zwQfLDFk5NW6sY8sdB6jf6ZdhtiS9f5YqD0hk73po3ZMEWN43avL
+ VmLGaNO1rpiBWbh4DXbkhySnSJhwIlZas7E79fyg=
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id CFCDF109E55C;
- Thu, 26 Mar 2026 06:55:52 +0000 (UTC)
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 2D127109E55C;
+ Thu, 26 Mar 2026 06:55:53 +0000 (UTC)
 From: Alvin Sun <alvin.sun@linux.dev>
-Date: Thu, 26 Mar 2026 14:52:59 +0800
-Subject: [PATCH 06/13] rust: revocable: make LazyRevocable use HazPtrRevocable
+Date: Thu, 26 Mar 2026 14:53:03 +0800
+Subject: [PATCH 10/13] drm/tyr: expose Vm gpuvm_core, gpuvm and va_range as
+ pub(crate)
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260326-b4-tyr-debugfs-v1-6-074badd18716@linux.dev>
+Message-Id: <20260326-b4-tyr-debugfs-v1-10-074badd18716@linux.dev>
 References: <20260326-b4-tyr-debugfs-v1-0-074badd18716@linux.dev>
 In-Reply-To: <20260326-b4-tyr-debugfs-v1-0-074badd18716@linux.dev>
 To: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
@@ -51,11 +52,11 @@ To: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
 Cc: rust-for-linux@vger.kernel.org, dri-devel@lists.freedesktop.org, 
  Alvin Sun <alvin.sun@linux.dev>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1774508149; l=2008;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1774508149; l=1015;
  i=alvin.sun@linux.dev; s=20260317; h=from:subject:message-id;
- bh=cVzToFCe33VrJM/WwjDX3rjnBkbQL/Y1ZuE5gIYqw6c=;
- b=XUnWhjubL8fAm1EhdhBfzPB0BgpmYzDqVT9Ggv0zPFi67X/+spX3TYsl45ghINL+qxdYwIqhB
- J7TcDDtcpAHBfguI4PE+LMu2O+n0DYVVZgq5ndgkAA7SYS/+cW9Q9Q8
+ bh=l+K9zW15YdA7Rr803fNe8iacgAff7Ccyrsy1728ZtCA=;
+ b=Z2102NPJrLYhjTFTHtNjxbwByB2im8luathC5tg30XFDs7fqzPxHYQxaYNfs9Gnk4ze5VU0OU
+ m7Np+bRkkAnAIFgr0///hHaP/vbwssLEI4Z2Gx0ewURZ8c5KWShSpXS
 X-Developer-Key: i=alvin.sun@linux.dev; a=ed25519;
  pk=CHcwQp8GSoj25V/L1ZWNSQjWp9eSIb0s9LKr0Nm3WuE=
 X-Endpoint-Received: by B4 Relay for alvin.sun@linux.dev/20260317 with
@@ -75,57 +76,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Change LazyRevocable to use the existing HazPtrRevocable backend instead
-of the RCU-based Revocable. init() now returns HazPtrRevokeHandle and
-try_access(ctx) forwards to the hazptr-based implementation.
+Allow the debugfs module to read VM and GPU VA state for the gpuvas file.
 
 Signed-off-by: Alvin Sun <alvin.sun@linux.dev>
 ---
- rust/kernel/revocable.rs | 18 +++++++++++-------
- 1 file changed, 11 insertions(+), 7 deletions(-)
+ drivers/gpu/drm/tyr/vm.rs | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/rust/kernel/revocable.rs b/rust/kernel/revocable.rs
-index eabb76ce92c43..e974c75a90ec0 100644
---- a/rust/kernel/revocable.rs
-+++ b/rust/kernel/revocable.rs
-@@ -421,7 +421,7 @@ fn deref(&self) -> &Self::Target {
- #[pin_data]
- pub struct LazyRevocable<T> {
+diff --git a/drivers/gpu/drm/tyr/vm.rs b/drivers/gpu/drm/tyr/vm.rs
+index 936c3049812b3..ccf4493065a49 100644
+--- a/drivers/gpu/drm/tyr/vm.rs
++++ b/drivers/gpu/drm/tyr/vm.rs
+@@ -306,12 +306,12 @@ pub(crate) struct Vm {
+     pdev: ARef<platform::Device>,
+     /// DRM GPUVM core for managing virtual address space.
      #[pin]
--    once: SetOnce<Revocable<T>>,
-+    once: SetOnce<HazPtrRevocable<T>>,
+-    gpuvm_core: Mutex<GpuVmCore<GpuVmData>>,
++    pub(crate) gpuvm_core: Mutex<GpuVmCore<GpuVmData>>,
+     /// Non-core part of the GPUVM. Can be used for stuff that doesn't modify the
+     /// internal mapping tree, like GpuVm::obtain()
+-    gpuvm: ARef<GpuVm<GpuVmData>>,
++    pub(crate) gpuvm: ARef<GpuVm<GpuVmData>>,
+     /// VA range for this VM.
+-    va_range: Range<u64>,
++    pub(crate) va_range: Range<u64>,
  }
  
- impl<T> LazyRevocable<T> {
-@@ -440,18 +440,22 @@ pub const fn new() -> Self {
-     pub fn init<E: Into<Error>>(
-         self: Pin<&Self>,
-         init: impl PinInit<T, E>,
--    ) -> Result<RevokeHandle<'_, T>> {
-+    ) -> Result<HazPtrRevokeHandle<'_, T>> {
-         // SAFETY: `once` is structurally pinned.
-         let once = unsafe { self.map_unchecked(|x| &x.once) };
--        let revocable = once.pin_init(Revocable::new(init))?;
--        Ok(RevokeHandle::new(revocable))
-+        let revocable = once.pin_init(HazPtrRevocable::new(init))?;
-+        Ok(HazPtrRevokeHandle::new(revocable))
-     }
- 
-     /// Tries to access the revocable wrapped object.
-     ///
--    /// Returns `None` if the object has not been initialized, or it has been revoked and is therefore no longer accessible.
--    pub fn try_access(&self) -> Option<RevocableGuard<'_, T>> {
--        self.once.as_ref()?.try_access()
-+    /// Returns `None` if the object has not been initialized, or it has been revoked and is
-+    /// therefore no longer accessible.
-+    pub fn try_access<'a>(
-+        &self,
-+        ctx: Pin<&'a mut HazptrCtx>,
-+    ) -> Option<HazPtrRevocableGuard<'a, T>> {
-+        self.once.as_ref()?.try_access(ctx)
-     }
- }
- 
+ impl Vm {
 
 -- 
 2.43.0
