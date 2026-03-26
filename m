@@ -4,53 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 536FC10A62ED
-	for <dri-devel@archiver.kernel.org>; Thu, 26 Mar 2026 14:28:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 53A4D10A62F9
+	for <dri-devel@archiver.kernel.org>; Thu, 26 Mar 2026 14:32:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 21BD310E196;
-	Thu, 26 Mar 2026 14:28:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A8E0710E2E2;
+	Thu, 26 Mar 2026 14:32:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=emersion.fr header.i=@emersion.fr header.b="DoS9cECl";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Vd43CdQ6";
 	dkim-atps=neutral
-Received: from mail-4327.protonmail.ch (mail-4327.protonmail.ch [185.70.43.27])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0A24310EA92
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Mar 2026 14:28:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=emersion.fr;
- s=protonmail; t=1774535198; x=1774794398;
- bh=m+sNoheho1OrFl4QBII3exZTKJg8TKL0T5hDuECTkLo=;
- h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
- Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
- Message-ID:BIMI-Selector;
- b=DoS9cEClyno2/RZIqQZcV5U/T9aKFKlY15dR6v6FQZHcG9zhSQHsehnabaUTGwaAq
- d9QIqhI5KuvjDX1D1yjAT3tMexeWnm39VNsAOp8ZDZU+e8skfAdGY4AlPjbmtFHDMn
- Z94mydzAEX40tQmmKY9256ReGEfaZtk90UjabzM8YE+0lKaYcs26akbayYtHC/JPpg
- Rn6Zr0gbs1ACeh4FIPpq3Hyj8IgBrtkDX9dCR2d+493fuP+CB6y6qP1Tib/3tszJYB
- 5CfcD0xx7LhP6rAn6z9Fd86YPKHnE/bO1hQWrrbPp2n7HtWyET2YfkSJRXAsXNyqj3
- 013jZ0bte9flw==
-Date: Thu, 26 Mar 2026 14:26:29 +0000
-To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-From: Simon Ser <contact@emersion.fr>
-Cc: Vishal Sagar <vishal.sagar@amd.com>,
- Anatoliy Klymenko <anatoliy.klymenko@amd.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0081C10E2E2
+ for <dri-devel@lists.freedesktop.org>; Thu, 26 Mar 2026 14:32:26 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 0C79E4019E;
+ Thu, 26 Mar 2026 14:32:26 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 29BEBC19424;
+ Thu, 26 Mar 2026 14:32:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1774535545;
+ bh=3kR327q9ckJQqlfugrikih1gk3aATjl53ULYBNoCvxk=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=Vd43CdQ6V1fKHCmT4n+fRqxRwaMTzQXI2h0jXoJFCMxF0EAweCUAwTcLeH1RogVP1
+ pUOG7C2pIZfvIiwy1DAUX2TT5JapWzQNljaIwzzKBDJJdDQ1J3MGRlKQpngg2nPs8k
+ /eDYjxQ2QnbxpalBE009/+peORFBGE7LilX7ryznfSaMxvKr2PKwUmzmo6moHp3MKu
+ d3xuGloDI2NvNaQA3GLi8HBqbdxk9ADdYKFpehiLm+j3T2aett5m8HC47sK48qexg+
+ F8GDtIav/v3+LMFsCQgmcmhC/fK8TN+CkDiPiMTHy0DCY2i00xkSXJkO/A7H0vExvp
+ 8V2s3CkoaLn8g==
+Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
+ by mailfauth.phl.internal (Postfix) with ESMTP id 2BFA9F4006C;
+ Thu, 26 Mar 2026 10:32:24 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+ by phl-compute-05.internal (MEProxy); Thu, 26 Mar 2026 10:32:24 -0400
+X-ME-Sender: <xms:eEPFaUKQijTAG5gIA4Zgngse6ptJggxhWobZAOvUDd7IbhYCZnzdIA>
+ <xme:eEPFacFuaRmqIhOHdKKluc-NAYQiXj6cWEGxu6F-lsbpvqoxIscOJ4lahOO-cdzwK
+ eZGYbROSAu9I5sIozxMjspoGe1knsEHjOJI9KnRmW9zBZhryiwJxw>
+X-ME-Received: <xmr:eEPFab6X9xj-XlzOLdXzIO7oL2I-iPTcm2Lxe_9dYKyoQlyt1RTCvZdj0tf7gtJNX1sSyqab1sFCmJmEWQljfC_HG0_R3jDF>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefgedrtddtgdefvdejieefucetufdoteggodetrf
+ dotffvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfurfetoffkrfgpnffqhgenuceu
+ rghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujf
+ gurhepfffhvfevuffkfhggtggujgesthdtredttddtvdenucfhrhhomhepuehoqhhunhcu
+ hfgvnhhguceosghoqhhunheskhgvrhhnvghlrdhorhhgqeenucggtffrrghtthgvrhhnpe
+ egudejuedtheegkeekuedukefhkeejieehvdefueeileejgfeuleegkeehheehfeenucff
+ ohhmrghinhepfhhrvggvuggvshhkthhophdrohhrghenucevlhhushhtvghrufhiiigvpe
+ dtnecurfgrrhgrmhepmhgrihhlfhhrohhmpegsohhquhhnodhmvghsmhhtphgruhhthhhp
+ vghrshhonhgrlhhithihqdduieejtdelkeegjeduqddujeejkeehheehvddqsghoqhhunh
+ eppehkvghrnhgvlhdrohhrghesfhhigihmvgdrnhgrmhgvpdhnsggprhgtphhtthhopedu
+ ledpmhhouggvpehsmhhtphhouhhtpdhrtghpthhtoheprghlvhhinhdrshhunheslhhinh
+ hugidruggvvhdprhgtphhtthhopehojhgvuggrsehkvghrnhgvlhdrohhrghdprhgtphht
+ thhopehgrghrhiesghgrrhihghhuohdrnhgvthdprhgtphhtthhopegsjhhorhhnfegpgh
+ hhsehprhhothhonhhmrghilhdrtghomhdprhgtphhtthhopehlohhsshhinheskhgvrhhn
+ vghlrdhorhhgpdhrtghpthhtoheprgdrhhhinhgusghorhhgsehkvghrnhgvlhdrohhrgh
+ dprhgtphhtthhopegrlhhitggvrhihhhhlsehgohhoghhlvgdrtghomhdprhgtphhtthho
+ pehtmhhgrhhoshhssehumhhitghhrdgvughupdhrtghpthhtohepuggrkhhrsehkvghrnh
+ gvlhdrohhrgh
+X-ME-Proxy: <xmx:eEPFaX2ty8_EB9zKOasNX6_Vg07_74xQMUyc0K9POlifHyU97schWQ>
+ <xmx:eEPFaXh-wn701z2CgKfDayQUbvRGhCZbmLNROT3HRH8eM9fk--BAcA>
+ <xmx:eEPFaTThxYF8tU5HYeIuDVVFg-ZqiZEgbLo1cvjQV5kCvG5rXzW3-Q>
+ <xmx:eEPFaZ6P5NfpfGLimHqpBwSsSIeS9jskOb6-EALxJYSUkBgr1fDmaw>
+ <xmx:eEPFabzx0isKo9jTzM6gqKdJ3587hDhEoxC2uHSp_IWTAuGiHjcAy6eD>
+Feedback-ID: i8dbe485b:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 26 Mar 2026 10:32:23 -0400 (EDT)
+Date: Thu, 26 Mar 2026 07:32:22 -0700
+From: Boqun Feng <boqun@kernel.org>
+To: Alvin Sun <alvin.sun@linux.dev>
+Cc: Miguel Ojeda <ojeda@kernel.org>, Gary Guo <gary@garyguo.net>,
+ =?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
+ Danilo Krummrich <dakr@kernel.org>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Michal Simek <michal.simek@amd.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- Geert Uytterhoeven <geert@linux-m68k.org>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Pekka Paalanen <ppaalanen@gmail.com>, Dmitry Baryshkov <lumag@kernel.org>
-Subject: Re: [PATCH v9 02/11] drm/fourcc: Add DRM_FORMAT_XV20
-Message-ID: <aocdbgbLe5WhUEOGeLg3P7fRDM8i72H9zBuUnoAjjsuvBLfMPofrPtaUEjII_43KXf1wCbv1G9UutJKMkWLaEcBSnrlUV78Wrhu6l_Z0xi8=@emersion.fr>
-In-Reply-To: <20260325-xilinx-formats-v9-2-d03b7e3752e4@ideasonboard.com>
-References: <20260325-xilinx-formats-v9-0-d03b7e3752e4@ideasonboard.com>
- <20260325-xilinx-formats-v9-2-d03b7e3752e4@ideasonboard.com>
-Feedback-ID: 1358184:user:proton
-X-Pm-Message-ID: d647f5d8f1d869e3931ef15cf27673cf762af5d1
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ rust-for-linux@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ rcu@vger.kernel.org, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+Subject: Re: [PATCH 00/13] drm/tyr: add debugfs support
+Message-ID: <acVDdh8KxfgUhPFw@tardis.local>
+References: <20260326-b4-tyr-debugfs-v1-0-074badd18716@linux.dev>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260326-b4-tyr-debugfs-v1-0-074badd18716@linux.dev>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,27 +101,121 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wednesday, March 25th, 2026 at 15:02, Tomi Valkeinen <tomi.valkeinen@ide=
-asonboard.com> wrote:
+Hi Alvin,
 
-> XV20 is 2 plane 10 bit per component YCbCr 2x1 subsampled format. XV20
-> is similar to the already existing P030 format, which is 2x2 subsampled.
+[cc rcu list and Mathieu]
 
-I don't know for sure the multi-planar YCbCr format name scheme we're
-using, but here are my observations looking at P, Q and S formats:
+On Thu, Mar 26, 2026 at 02:52:53PM +0800, Alvin Sun wrote:
+> This patchset contains:
+> - hazptr: Add hazard pointer abstraction to kernel::sync
+> - revocable: Introduce HazPtrRevocable, and adapt Gary Guo's downstream
+>   LazyRevocable implementation to use hazard pointers internally,
+>   enabling safe sharing of debugfs-root data across the tyr module and
+>   DRM driver
+> - drm: Add device and GEM helper functions to support debugfs
+> - tyr: Add debugfs infrastructure and interfaces to expose GEM/VM
+>   information
+> 
+> See the full dependency and commit history at [1].
+> 
 
-- The first digit indicates sub-sampling. 0 for 2x2, 2 for 2x1, 4 for none.
-- The two other digits indicate bits for the Y channel, one of 10, 12, 16.
-  One exception: Q401 indicates reverse order for Cb and Cr planes when com=
-pared
-  to Q410.
+Thank you for the nice work!
 
-P030 is a bit of an outlier here since it's the only one with multiple
-Y samples. NV formats are also multi-planar but seem to use a completely
-separate scheme.
+I know the context of why you're doing this because we had some
+discussion on zulip, but maybe most of people on the list don't. So
+could you add a "why" or "motivation" part in the cover letter for the
+next time? It's about syncing with everyone on the same page so that
+they can review with the context ;-) Thanks!
 
-Given the above I'd say what would make most sense to me is to use P230:
-keep the last two digits and change the first one to indicate that the
-only difference is the sub-sampling. Does that make sense to you?
+Also since this is about hazptr and RCU, could you Cc
+rcu@vger.kernel.org and Mathieu the next time? Thanks!
 
-Simon
+Regards,
+Boqun
+
+> Link: https://gitlab.freedesktop.org/panfrost/linux/-/issues/11
+> Link: https://gitlab.freedesktop.org/panfrost/linux/-/merge_requests/59 [1]
+> Signed-off-by: Alvin Sun <alvin.sun@linux.dev>
+
+> ---
+> Alvin Sun (11):
+>       rust: sync: set_once: Rename InitError variants to fix clippy warning
+>       rust: sync: add hazard pointer abstraction
+>       rust: revocable: add HazPtrRevocable
+>       rust: revocable: make LazyRevocable use HazPtrRevocable
+>       rust: drm: add Device::primary_index()
+>       rust: drm/gem: add GEM object query helpers for debugfs
+>       rust: drm/gem/shmem: add resident_size() and madv() for debugfs
+>       drm/tyr: expose Vm gpuvm_core, gpuvm and va_range as pub(crate)
+>       drm/tyr: add debugfs infrastructure
+>       drm/tyr: add vms and gpuvas debugfs interface
+>       drm/tyr: add gems field and gems debugfs interface
+> 
+> Gary Guo (2):
+>       rust: sync: support [pin_]init for `SetOnce`
+>       rust: revocable: add lazily instantiated revocable variant
+> 
+>  drivers/gpu/drm/tyr/debugfs.rs  | 190 ++++++++++++++++++++++++++++++++++++
+>  drivers/gpu/drm/tyr/driver.rs   |  18 +++-
+>  drivers/gpu/drm/tyr/fw.rs       |   7 +-
+>  drivers/gpu/drm/tyr/mmu.rs      |   6 +-
+>  drivers/gpu/drm/tyr/tyr.rs      |  39 +++++++-
+>  drivers/gpu/drm/tyr/vm.rs       |   6 +-
+>  rust/bindings/bindings_helper.h |   1 +
+>  rust/helpers/hazptr.c           |  13 +++
+>  rust/helpers/helpers.c          |   1 +
+>  rust/kernel/drm/device.rs       |  10 ++
+>  rust/kernel/drm/gem/mod.rs      |  49 +++++++++-
+>  rust/kernel/drm/gem/shmem.rs    |  21 ++++
+>  rust/kernel/revocable.rs        | 209 +++++++++++++++++++++++++++++++++++++++-
+>  rust/kernel/sync.rs             |   1 +
+>  rust/kernel/sync/hazptr.rs      |  91 +++++++++++++++++
+>  rust/kernel/sync/set_once.rs    | 120 +++++++++++++++++++----
+>  16 files changed, 746 insertions(+), 36 deletions(-)
+> ---
+> base-commit: 34cb4f916af10153c87fabaf6c34e4cafa170427
+> change-id: 20260320-b4-tyr-debugfs-3fcaff064297
+> prerequisite-change-id: 20260202-io-81fd368f7565:v2
+> prerequisite-patch-id: 74873afed2b65f5a11c33f0c0c54375c55079109
+> prerequisite-patch-id: ae853e8eb8d58c77881371960be4ae92755e83c6
+> prerequisite-patch-id: 0ab78b50648c7d8f66b83c32ed2af0ec3ede42a3
+> prerequisite-patch-id: 8d20a8db8cf4660c682ee91f3db04e640c144e33
+> prerequisite-patch-id: 299de9cd2789c19c22e2816f7c817d80d5a4f1db
+> prerequisite-patch-id: 661ee334905f359daa8fb8d808ed5f4a8085f5c9
+> prerequisite-change-id: 20260117-register-ccaba1d21713:v9
+> prerequisite-patch-id: e4cb34ef09bccb92e1c35435e346b3a0459d3cdf
+> prerequisite-patch-id: 2c3c42ae9f3f4544c088dffbe4a0527f28b1c135
+> prerequisite-patch-id: 9f40e176e1b67bada943e376950debabb3f196d5
+> prerequisite-patch-id: ccc86d3ab9f62883c90d1275c99720942bd2bcb3
+> prerequisite-patch-id: 216427f1fdf94755cca0ed0676c4290f85d45e5c
+> prerequisite-patch-id: 7e1ea4d184297dfaba1351a7cb23e3b6827fed46
+> prerequisite-patch-id: 29ff9ffe37669d23b5509bfefb0cc1f8950eaa7c
+> prerequisite-patch-id: e5723722ff970c585cbf559456fa4cda05f28952
+> prerequisite-patch-id: afdae76e12011bb158d2008b8cd1ffba084db0bb
+> prerequisite-patch-id: b0473d5c7af0bbeec6f6ec8dd36d8a09cc180fed
+> prerequisite-message-id: <20260206223431.693765-1-lyude@redhat.com>
+> prerequisite-patch-id: 454c4fe7a7bcc65b2c9cc69dd5dd8e4c1d952297
+> prerequisite-patch-id: aff529cc205f5ab35518b8e4568e6e1319eecaa9
+> prerequisite-patch-id: 9f7d5c4a8ed052f5c5f2a28c862a9392d7a812cc
+> prerequisite-patch-id: ec9d104ba7c67488f19e6dd1a50d1ec4f682f333
+> prerequisite-patch-id: e7a844bd6254643d1f23827886b487c196ee9968
+> prerequisite-patch-id: 3c57ebf13497cf57c586b955d5ce90f2f9fd8cdc
+> prerequisite-patch-id: 1a327345ac71599ece0b2272fba81472f70c568c
+> prerequisite-change-id: 20251128-gpuvm-rust-b719cac27ad6:v5
+> prerequisite-patch-id: 6a8ddd47a2e1c769c65a942b3d9315e6ae5cae7e
+> prerequisite-patch-id: d4ee9fb80025c4fd8129c3477cc3dc36e13076cb
+> prerequisite-patch-id: 0ad35cd3dfcf8a8804e9fed8df3e5612cf07da69
+> prerequisite-patch-id: 275a900645e14169911ee00bab54553c84b48ad0
+> prerequisite-patch-id: 2a2de2f6c4fac065de5c459026daa2c32f340d22
+> prerequisite-patch-id: 9a721bc700da778f2554cf32917dda4807744520
+> prerequisite-message-id: <20260131001602.2095470-1-lyude@redhat.com>
+> prerequisite-patch-id: 6c622d1df9166ad081acba46237f8cecbf728356
+> prerequisite-patch-id: 769892e477c161e6c7a57519ec635b1455310f1d
+> prerequisite-patch-id: 3c5f5070ded87e95a8045083a55501fbbe9f6313
+> prerequisite-patch-id: 10fbd8695264e67421946dda4d39e29d5fe77c64
+> 
+> Best regards,
+> -- 
+> Alvin Sun <alvin.sun@linux.dev>
+> 
+> 
