@@ -4,79 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3CE6910A88D9
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2E82F10A88D2
 	for <dri-devel@archiver.kernel.org>; Thu, 26 Mar 2026 15:26:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 68D0410EA86;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6A41410EA93;
 	Thu, 26 Mar 2026 15:25:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="RJcMF+pR";
+	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="Hqjjub+w";
 	dkim-atps=neutral
-Received: from mail-wm1-f74.google.com (mail-wm1-f74.google.com
- [209.85.128.74])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 51ED910EA86
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Mar 2026 15:25:56 +0000 (UTC)
-Received: by mail-wm1-f74.google.com with SMTP id
- 5b1f17b1804b1-486fb29a8b8so8509155e9.0
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Mar 2026 08:25:56 -0700 (PDT)
+Received: from mail-wm1-f73.google.com (mail-wm1-f73.google.com
+ [209.85.128.73])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D3B1F10EA93
+ for <dri-devel@lists.freedesktop.org>; Thu, 26 Mar 2026 15:25:57 +0000 (UTC)
+Received: by mail-wm1-f73.google.com with SMTP id
+ 5b1f17b1804b1-4853466655dso10410975e9.3
+ for <dri-devel@lists.freedesktop.org>; Thu, 26 Mar 2026 08:25:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20251104; t=1774538755; x=1775143555;
+ d=google.com; s=20251104; t=1774538756; x=1775143556;
  darn=lists.freedesktop.org; 
- h=cc:to:from:subject:message-id:mime-version:date:from:to:cc:subject
- :date:message-id:reply-to;
- bh=om+QlX/arFDy0e2W8eDPmTq2CH+SEUH/vE4G0xRQ2Bc=;
- b=RJcMF+pRyYEQnHK6px/x2WnSAQhEElod3RFEc8g6NRks79RfKzcLuqPZ7duwgHZ8q6
- Qtc6DqlJ54btdDKvSChkakPecGEUAW30IhHDUH+6DugAF5j8Ld/9ROz0BOdPYwEHMq4V
- uHUKzqFRtEfQxWIT++UPgZLyWIb91l0ZjTvQjSRfo3lBpSBCJFGFwd//ySQaq47hpR8a
- DOBwsp9SI0+AZvTK5NhDCddoJuOfBx6vi3e/OalDHUv8BO5efU67jJeDtMuAMU0XXSEx
- Z544m1b93WpWVn02P/UCXUqx/PBLGNd/AcyteNwsdjH0z6YLMRGLkWSCYNhD79zJ2HEK
- 9EwQ==
+ h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
+ :date:from:to:cc:subject:date:message-id:reply-to;
+ bh=eGI812ogRgf7xjY2uKTJWNIiKDkrlv+vQMBI465KlG4=;
+ b=Hqjjub+wPGtj5nMJKmt/5+aoYatMW0CakArRUwE/uHF90TsXTjFABOeZzIsXTKNFHR
+ DriGPbneCLhxNbqKMMQ5N47A6zRsqfwKALzZT0AbuzJlAT6OQ7T+aL+MJH6vMLiuOqFr
+ lHC2eFbhicfERQvybm6yKnBKv55owJHc9mncuFTCy8FNi6cTsWHvR1Caez7uQVbSg4eY
+ 7eG71zGeaiEf5zAK+6rxAswu1b6jUuBPGIqN5j1+Qjn2H0vBnRnOTo02t2b2OdrQLt5+
+ fWV8XAmRYCftvXRqZ6ytTu/Xjbtw+0nusUn8jgmSaP3EcTlsQSTsvWVbmhPjR+bTUvYa
+ jPtw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774538755; x=1775143555;
- h=cc:to:from:subject:message-id:mime-version:date:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to;
- bh=om+QlX/arFDy0e2W8eDPmTq2CH+SEUH/vE4G0xRQ2Bc=;
- b=YVKeIcaxYkZpa3Kx1VLslXGtiZtQmEUNPfb1o5xgJBI0FnBOcKdVF7y20FEycL3oZ9
- hZOxEulWxVxdooP0SgKKNQUNZcBtQ625jufKq0JbKhcPqnerNFcF2qVhXoKWU4ols4hA
- jtkRXOkD2+plGX2hMnyjuxcUbf8V0OIpO9gBP9Y5LkkS7UflJ9MSO9byZgB2pZB3KWKz
- +B53bl+IdCAyYEioOIn2OtenZq265JH86VUymteqe1JnFvDW+8MQOLzlPlmrR1TQFHCZ
- 5RMM88hWNLLj+b/82zxv271X59sDDA+4+HdhNtIcmMZwpuyv6azMeDHaFngExWTIw0mP
- p31g==
+ d=1e100.net; s=20251104; t=1774538756; x=1775143556;
+ h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
+ :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=eGI812ogRgf7xjY2uKTJWNIiKDkrlv+vQMBI465KlG4=;
+ b=oIzTgJWldShwNSZYUmW17RcJy1ATA/EpHzKMo+mDMp2UB7iPftmxjnExXjLxewc59Z
+ PWX0js5f0LQROAj6GTJjQG567GH5R9W9VXOzWYV2+pOTXh9HZ9EvfX8kDbUe+URhksNe
+ o/SKvKmD9cZemSZY+yMi09WJ+hlydjTqxExjvbX3/OzjU6SipqVVNKxSBDMSbhCPJ8ZF
+ FhJ7XcYzXbCiKVSj6Z0jPwNhVX5ntDuAu7lzvM/b6BNaJelRWh3v5xkKOjQRFWOQ5ggw
+ VD7mBgJgsOzNfLGIAnwa9fbZAt3oZNCW352EJv4k7ACF9y/0BahmZJ0ceYs1P6SucfFT
+ XY5w==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVnfLKZjtEZXhDx5lqJRWM5o//tdU01HgQiujPa7J61bmLB1/6kPNkQCOuyoNwalTtJIZs0AmZJeWI=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyxiwJMyT0/RZhqJQxgEIWIx2uRXFUupFOm++rdQnHgX7nZiv/T
- 3BBQuHypFHGjpTfHwhsE1Tv+2wZizO5QRhFUgMoEMZLK3mqWRZ3zNz0gwlIKyGpKxLL6e1/ttiQ
- V47RYl+Uo5wb8e+H9XA==
-X-Received: from wmlv9.prod.google.com ([2002:a05:600c:2149:b0:485:38ca:51c9])
+ AJvYcCUDcV27ppE0nr1y0pVRbVx/dKuYFFCfyfH5hi7n00RjVRIi7cJICF9bitj0g/9Qm9MiBya0MNS5Okk=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwNGreNG9WG5r7YylEqstwlZlAjxbbEt8M5c8vC6y53PpXojPhe
+ 6kgteVCsD8i26jszONcOP/GyZ6UmFlfHIcp0o6npOVmvQXVFFjZZd+a03+5J12hbAM2NnuDQJYH
+ mNnRCcEnrLydHV2/N5g==
+X-Received: from wmsk8-n2.prod.google.com
+ ([2002:a05:600d:8488:20b0:483:6cc0:9daf])
  (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:600c:8b88:b0:485:3ff1:d5c5 with SMTP id
- 5b1f17b1804b1-48715fc321fmr120406325e9.7.1774538754679; 
- Thu, 26 Mar 2026 08:25:54 -0700 (PDT)
-Date: Thu, 26 Mar 2026 15:25:35 +0000
+ 2002:a05:600c:83c5:b0:487:467:4276 with SMTP id
+ 5b1f17b1804b1-487160ab146mr116334945e9.30.1774538756267; 
+ Thu, 26 Mar 2026 08:25:56 -0700 (PDT)
+Date: Thu, 26 Mar 2026 15:25:36 +0000
+In-Reply-To: <20260326-drm-rust-next-fix-aref-v1-0-7f6f58d2828a@google.com>
 Mime-Version: 1.0
-X-B4-Tracking: v=1; b=H4sIAO9PxWkC/x2M0QpAQBBFf0XzbGqtEL8iD8sO5sHSLNqSfzd5O
- XVO3ftAJGGK0GUPCN0ceQ8qRZ7BtLqwELJXB2tsbUpbo5cN5YonBkonzpzQCc1YtRU1o1eYCXR
- 8aOT0H/fD+36UYnQ4aAAAAA==
-X-Change-Id: 20260326-drm-rust-next-fix-aref-595e7bd5e70c
+References: <20260326-drm-rust-next-fix-aref-v1-0-7f6f58d2828a@google.com>
 X-Developer-Key: i=aliceryhl@google.com; a=openpgp;
  fpr=49F6C1FAA74960F43A5B86A1EE7A392FDE96209F
-X-Developer-Signature: v=1; a=openpgp-sha256; l=634; i=aliceryhl@google.com;
- h=from:subject:message-id; bh=RZsjeUqn25AVS1/YOuDCPaoEUOHvybw/va1386aHCnc=;
- b=owEBbQKS/ZANAwAKAQRYvu5YxjlGAcsmYgBpxU/7DkSrgNEEzysIB26qjOah54fqgX0T1BPNJ
- IT2v1Q1JKWJAjMEAAEKAB0WIQSDkqKUTWQHCvFIvbIEWL7uWMY5RgUCacVP+wAKCRAEWL7uWMY5
- Rkt/D/4on0M56vdD32mLqcWxL2DQL4BtYqtPqQGL7iWmhKvJZi2M8bsCdzb1lc/OZcdYeYNAEBy
- IWXZ7OgQDxIBRdEB2Zg/ihrAtrhb/U803bZMXF8QWusZyMJ1ELw0XI0m8olmsUSYJfvZwzcC8rr
- JczP8GTXxKdp2XgffX7mranpLJ1+sCBIvvQK1i/vwE+Xc2MzxTlUxKZr1ViJQYRMstdNM1o6XDe
- QbLcQEYCpMzAhKyAsbt9Xmw7cstJJjLBbEpazR6MyYrOiIZThtwY5lUv16fCwJvJCpql7ngVAjz
- oM1f0VrOFEbVPEhl1KIoZogd/F307eLEXBr491le3eFouS0U9Cii2uyQ0c/1ULtuK2/C19sd8ki
- bKaiLUt68B3RfGd/07/14Wv+kjIQl+BV83Hek6AgcGMRW5Qmir4wjubX4BZSSifKsBQwV5Qr5tK
- RMuExTq6Cts3+k4Hxags6GFuPwmGe4cGa84EnuyEwBm62AQeg7mrBqhJMpSMZHq/2FOU78539DA
- 9xU+gAJInp492s5MaaCPBIkrVcgaHMr096usAzqh7xKB9ojyNTIrmu+1Z8yvxOsJIWQsFk5aXib
- ssKH9xFgOgMhMcOl7y/vlGfzfg2TbwZYmrpPsmn2TKztquQ+rePSzDLsDi5MuM5BDxDpfsvOEJB
- AiBNAiLISinrT8g==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=891; i=aliceryhl@google.com;
+ h=from:subject:message-id; bh=8ETadglAjaG7AHLMZ/ghtdaqP5Ysza0qOceDqwHbL0k=;
+ b=owEBbQKS/ZANAwAKAQRYvu5YxjlGAcsmYgBpxVABHNAGQa6Y/giqeifOnyYAZavwDyC4n21IH
+ nfASus7yRCJAjMEAAEKAB0WIQSDkqKUTWQHCvFIvbIEWL7uWMY5RgUCacVQAQAKCRAEWL7uWMY5
+ Rk+fD/9ZmJclSHvBZCxLoRTkDpgIuciOQJ6vLTB0kGsN4F6NHU9YJJiv8T3av5opWjHbwO1TD/V
+ xVJqjqsQTA6XtxkhuyuG1bkDprPCbbS4Ov7R/so49fqtdvD7J7wosm6jxKJNQ4R/84hjwNepgt3
+ JS6mbNFawhn5yXNeoqpGUuApD+v40ieMCWkF5Nxt2WcpxqMjQalOsuiqexuegOjVsAAbKm4Qp6q
+ ykaMkMgHXDUCZzY2QRyMN8tdPnADOvGM4T9Ib1aVLmeS8TM8rImO8pqFaIPuiJEvZ0+ElREcsSy
+ FpbH4K3SNFdMLIrSJ1y6U7RNHoYAV/ERPey7PLEs4RghjXkMPdInBne5GjZzPbqEpBQtTtPjLTq
+ /DIu4rdTN0zq87aYfg/34Q0bGeiBBQfnWPKLfibPcS/NFOn6Ifm7yu6z03tAlcfVWGvRl6KlM+C
+ dWdFa5Nj/vjUC+IlBvFNDaZlBKuAb07aUEI9HuqKJyUXEFpkWmD8Y6jqFJpGNBbKFopISUBYG7S
+ KrpW5B7+U3ZwQ8IvZ8VFzCIXQsRFRXuPxvv5/a6kCEXUuSoGDZnqm9wTan50A7dFPIsuMlvPbgX
+ lBAvl/qOTFKRn6QtxsE8ytT7p4U48aqaubSM8IHt9ZdOTh00fda6S15IQtMUWis8KLxen4WDyCG
+ 1g8UORg/BkD6tJA==
 X-Mailer: b4 0.14.3
-Message-ID: <20260326-drm-rust-next-fix-aref-v1-0-7f6f58d2828a@google.com>
-Subject: [drm-rust-next PATCH 0/2] Fix sync::aref imports
+Message-ID: <20260326-drm-rust-next-fix-aref-v1-1-7f6f58d2828a@google.com>
+Subject: [PATCH drm-rust-next 1/2] rust: workqueue: use new sync::aref path
+ for imports
 From: Alice Ryhl <aliceryhl@google.com>
 To: Danilo Krummrich <dakr@kernel.org>
 Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
@@ -102,23 +102,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-A few imports of types::ARef were merged into drm-rust-next, but this
-old path is being removed in rust-next this cycle. Thus update them.
+ARef and AlwaysRefCounted are being moved to sync::aref, and the
+re-exports under types are planned to be removed. Thus, update imports
+to the new path.
 
 Signed-off-by: Alice Ryhl <aliceryhl@google.com>
 ---
-Alice Ryhl (2):
-      rust: workqueue: use new sync::aref path for imports
-      rust: drm: use new sync::aref path for imports
+ rust/kernel/workqueue.rs | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
 
- rust/kernel/drm/gem/mod.rs | 2 +-
- rust/kernel/workqueue.rs   | 8 +++++---
- 2 files changed, 6 insertions(+), 4 deletions(-)
----
-base-commit: 206bada308d0d715d62ac841784af34a2ca22ff6
-change-id: 20260326-drm-rust-next-fix-aref-595e7bd5e70c
+diff --git a/rust/kernel/workqueue.rs b/rust/kernel/workqueue.rs
+index 4ee4ff567197..019feafd3459 100644
+--- a/rust/kernel/workqueue.rs
++++ b/rust/kernel/workqueue.rs
+@@ -189,10 +189,12 @@
+     alloc::{AllocError, Flags},
+     container_of,
+     prelude::*,
+-    sync::Arc,
+-    sync::LockClassKey,
++    sync::{
++        aref::{ARef, AlwaysRefCounted},
++        Arc, LockClassKey,
++    },
+     time::Jiffies,
+-    types::{ARef, AlwaysRefCounted, Opaque},
++    types::Opaque,
+ };
+ use core::{marker::PhantomData, ptr::NonNull};
+ 
 
-Best regards,
 -- 
-Alice Ryhl <aliceryhl@google.com>
+2.53.0.1018.g2bb0e51243-goog
 
