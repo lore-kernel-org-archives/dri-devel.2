@@ -4,88 +4,131 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 53A4D10A62F9
-	for <dri-devel@archiver.kernel.org>; Thu, 26 Mar 2026 14:32:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DD3B510A62F3
+	for <dri-devel@archiver.kernel.org>; Thu, 26 Mar 2026 14:40:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A8E0710E2E2;
-	Thu, 26 Mar 2026 14:32:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3244810E119;
+	Thu, 26 Mar 2026 14:40:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Vd43CdQ6";
+	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="RKJLi8++";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0081C10E2E2
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Mar 2026 14:32:26 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 0C79E4019E;
- Thu, 26 Mar 2026 14:32:26 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 29BEBC19424;
- Thu, 26 Mar 2026 14:32:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1774535545;
- bh=3kR327q9ckJQqlfugrikih1gk3aATjl53ULYBNoCvxk=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=Vd43CdQ6V1fKHCmT4n+fRqxRwaMTzQXI2h0jXoJFCMxF0EAweCUAwTcLeH1RogVP1
- pUOG7C2pIZfvIiwy1DAUX2TT5JapWzQNljaIwzzKBDJJdDQ1J3MGRlKQpngg2nPs8k
- /eDYjxQ2QnbxpalBE009/+peORFBGE7LilX7ryznfSaMxvKr2PKwUmzmo6moHp3MKu
- d3xuGloDI2NvNaQA3GLi8HBqbdxk9ADdYKFpehiLm+j3T2aett5m8HC47sK48qexg+
- F8GDtIav/v3+LMFsCQgmcmhC/fK8TN+CkDiPiMTHy0DCY2i00xkSXJkO/A7H0vExvp
- 8V2s3CkoaLn8g==
-Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
- by mailfauth.phl.internal (Postfix) with ESMTP id 2BFA9F4006C;
- Thu, 26 Mar 2026 10:32:24 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
- by phl-compute-05.internal (MEProxy); Thu, 26 Mar 2026 10:32:24 -0400
-X-ME-Sender: <xms:eEPFaUKQijTAG5gIA4Zgngse6ptJggxhWobZAOvUDd7IbhYCZnzdIA>
- <xme:eEPFacFuaRmqIhOHdKKluc-NAYQiXj6cWEGxu6F-lsbpvqoxIscOJ4lahOO-cdzwK
- eZGYbROSAu9I5sIozxMjspoGe1knsEHjOJI9KnRmW9zBZhryiwJxw>
-X-ME-Received: <xmr:eEPFab6X9xj-XlzOLdXzIO7oL2I-iPTcm2Lxe_9dYKyoQlyt1RTCvZdj0tf7gtJNX1sSyqab1sFCmJmEWQljfC_HG0_R3jDF>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefgedrtddtgdefvdejieefucetufdoteggodetrf
- dotffvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfurfetoffkrfgpnffqhgenuceu
- rghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujf
- gurhepfffhvfevuffkfhggtggujgesthdtredttddtvdenucfhrhhomhepuehoqhhunhcu
- hfgvnhhguceosghoqhhunheskhgvrhhnvghlrdhorhhgqeenucggtffrrghtthgvrhhnpe
- egudejuedtheegkeekuedukefhkeejieehvdefueeileejgfeuleegkeehheehfeenucff
- ohhmrghinhepfhhrvggvuggvshhkthhophdrohhrghenucevlhhushhtvghrufhiiigvpe
- dtnecurfgrrhgrmhepmhgrihhlfhhrohhmpegsohhquhhnodhmvghsmhhtphgruhhthhhp
- vghrshhonhgrlhhithihqdduieejtdelkeegjeduqddujeejkeehheehvddqsghoqhhunh
- eppehkvghrnhgvlhdrohhrghesfhhigihmvgdrnhgrmhgvpdhnsggprhgtphhtthhopedu
- ledpmhhouggvpehsmhhtphhouhhtpdhrtghpthhtoheprghlvhhinhdrshhunheslhhinh
- hugidruggvvhdprhgtphhtthhopehojhgvuggrsehkvghrnhgvlhdrohhrghdprhgtphht
- thhopehgrghrhiesghgrrhihghhuohdrnhgvthdprhgtphhtthhopegsjhhorhhnfegpgh
- hhsehprhhothhonhhmrghilhdrtghomhdprhgtphhtthhopehlohhsshhinheskhgvrhhn
- vghlrdhorhhgpdhrtghpthhtoheprgdrhhhinhgusghorhhgsehkvghrnhgvlhdrohhrgh
- dprhgtphhtthhopegrlhhitggvrhihhhhlsehgohhoghhlvgdrtghomhdprhgtphhtthho
- pehtmhhgrhhoshhssehumhhitghhrdgvughupdhrtghpthhtohepuggrkhhrsehkvghrnh
- gvlhdrohhrgh
-X-ME-Proxy: <xmx:eEPFaX2ty8_EB9zKOasNX6_Vg07_74xQMUyc0K9POlifHyU97schWQ>
- <xmx:eEPFaXh-wn701z2CgKfDayQUbvRGhCZbmLNROT3HRH8eM9fk--BAcA>
- <xmx:eEPFaTThxYF8tU5HYeIuDVVFg-ZqiZEgbLo1cvjQV5kCvG5rXzW3-Q>
- <xmx:eEPFaZ6P5NfpfGLimHqpBwSsSIeS9jskOb6-EALxJYSUkBgr1fDmaw>
- <xmx:eEPFabzx0isKo9jTzM6gqKdJ3587hDhEoxC2uHSp_IWTAuGiHjcAy6eD>
-Feedback-ID: i8dbe485b:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 26 Mar 2026 10:32:23 -0400 (EDT)
-Date: Thu, 26 Mar 2026 07:32:22 -0700
-From: Boqun Feng <boqun@kernel.org>
-To: Alvin Sun <alvin.sun@linux.dev>
-Cc: Miguel Ojeda <ojeda@kernel.org>, Gary Guo <gary@garyguo.net>,
- =?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
- Danilo Krummrich <dakr@kernel.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- rust-for-linux@vger.kernel.org, dri-devel@lists.freedesktop.org,
- rcu@vger.kernel.org, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-Subject: Re: [PATCH 00/13] drm/tyr: add debugfs support
-Message-ID: <acVDdh8KxfgUhPFw@tardis.local>
+Received: from CWXP265CU008.outbound.protection.outlook.com
+ (mail-ukwestazon11020125.outbound.protection.outlook.com [52.101.195.125])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4124C10EA6E
+ for <dri-devel@lists.freedesktop.org>; Thu, 26 Mar 2026 14:40:18 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=G8x7jjkNy/jkty5BfH1RZEhg5gOmb/+tEF8ALXrkAq4w2+D2mgL5VAAuPAlI9knTqD+RwlmEGrjB4leFKsu+RdKJydWwoyfYAwRZe2o17KY7RhZrvNXpbtBz3PewpoQknXh5a79frx1cZmXyZMJ/4OyOhJ5uXQMnmQaZDAyiqYuaORN8yPzJgv+lUsl0k32M7yzKrxjPn8+0W+m/DcTpLLJ9i9//6uFpF0qn/RqZM8XGv0kOJa9GXeb2ylNBpMuc7Su6HaTzmYRfqhdPSFZvu3Elip4aUmN1EqvTK5734IO97/YVD/zSdt26WlDBubaAf0Eme0K9tCmNenjekdaswA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=0hzy8vV2nwlsjEpnXJRF0Pyh6ynsZ2EScaoO7byWUCU=;
+ b=STplBPlBnQ8j0niye5bRvxRQJl0wMGdPH/yUzoYeqMmA2mMLEDOoeuUDzZMxQG90kV4G9Pbz9WZB7biBQePeNZbewBeL6Luy03CBnluPhyzyxFMFBf8DFu4P0GXHJM/41nAmuz6TGGZaYFPgdKQ3GgjoUSlPRttOC4QXB/JdHJe43WcRtuh5eR5na7Un5d8kb0Gs13yqAl/uS9mdgTF/eDFH9cu1l7Ix4sJQZpqmuLCw39AhajBlmKu1b2QuQJoZKHRQ+dYp+2M/3REmrtxCSMldk7hFrwOg4iskm8FaviPbzp0KpOMFNqPdykV9ABLJZuVsvq3udMOrOh9nVqAH7g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
+ dkim=pass header.d=garyguo.net; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=0hzy8vV2nwlsjEpnXJRF0Pyh6ynsZ2EScaoO7byWUCU=;
+ b=RKJLi8++py1CrUudvHKlZ05ssnLkbbLda+bWi7NwK/ug12cfxJV4IFCVqEQ9Wii6DYll8MzdIIe8LyKB2N763GqQKpeiV+YLtulHvBbg+PoLcG9/kVujDNAHBGqDs61E+aq898Nqc5utQyNq/arvGFuRkdBFdLhKyipikyIPnOI=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=garyguo.net;
+Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:488::16)
+ by CWLP265MB1812.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:5e::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.22; Thu, 26 Mar
+ 2026 14:40:12 +0000
+Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::1c3:ceba:21b4:9986]) by LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::1c3:ceba:21b4:9986%5]) with mapi id 15.20.9745.022; Thu, 26 Mar 2026
+ 14:40:12 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 26 Mar 2026 14:40:12 +0000
+Message-Id: <DHCSILUEKVYC.3DNKLNI6RBENX@garyguo.net>
+From: "Gary Guo" <gary@garyguo.net>
+To: "Alvin Sun" <alvin.sun@linux.dev>, "Miguel Ojeda" <ojeda@kernel.org>,
+ "Boqun Feng" <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>,
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
+ <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Alice
+ Ryhl" <aliceryhl@google.com>, "Trevor Gross" <tmgross@umich.edu>, "Danilo
+ Krummrich" <dakr@kernel.org>, "David Airlie" <airlied@gmail.com>, "Simona
+ Vetter" <simona@ffwll.ch>, "Sumit Semwal" <sumit.semwal@linaro.org>,
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, "Daniel
+ Almeida" <daniel.almeida@collabora.com>
+Cc: <rust-for-linux@vger.kernel.org>, <dri-devel@lists.freedesktop.org>
+Subject: Re: [PATCH 03/13] rust: sync: set_once: Rename InitError variants
+ to fix clippy warning
+X-Mailer: aerc 0.21.0
 References: <20260326-b4-tyr-debugfs-v1-0-074badd18716@linux.dev>
+ <20260326-b4-tyr-debugfs-v1-3-074badd18716@linux.dev>
+In-Reply-To: <20260326-b4-tyr-debugfs-v1-3-074badd18716@linux.dev>
+X-ClientProxiedBy: LNXP123CA0021.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:d2::33) To LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:488::16)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260326-b4-tyr-debugfs-v1-0-074badd18716@linux.dev>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LOVP265MB8871:EE_|CWLP265MB1812:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2088ece1-8770-4817-5d25-08de8b459676
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|10070799003|376014|7416014|1800799024|921020|22082099003|18002099003|56012099003;
+X-Microsoft-Antispam-Message-Info: AEMl96NM3hTPV9RzftdFEYxJzdmU3Ifkmu1Y4D3JSpylTO1JMoX2NS8BxtwPZEyKudVH2hXUMgut4E2gDDXv4u/9N20bfCGBP42s82ou8sKWLE2xQ5R181icsEDXEksv+qwMSBRBMKtRf5J7R4liPQTzDptVUy5TknOS6yjsh9o5WkSTXVFjwrgrALw+ZdwiEyPlpq9K2jVHl+RpWt/2bT3HMYBH01YMGRsgTsZo+iViEuFr9996NhzqaQLXu1yNNfuTMkRf7cUlYp/5V87gRfeJyQpbcZOFapZCjwY7C8CVAarZJpaVabghfEkyP2MA0OS2lmtq/mr0ib/I9ApS5rdrslqbIAETdDZrrRyhTbFTStn3aWSd6ZZILbh/baT6acejU5wuI8bsMJHv1rTPsLtc0YmpXABYRUtHaRmcJAjjGf2SwM8TLeVQu422nJf+SqsZQRc+5iTYcbOkY8e4t1gtEs4uHRJWA0Ks6WKQiw67bbjC/G0/ZNv+H/PVp9Sp1JSB5zaQ578B9uwPN1Mfm85uGn7wzaffleXDs5j3ajhl3xgDf3mEuUExv3buflvbyvqtrpLiEuRpx91TMiKCS3AWaUPghLNPBPVvRoMM2B0Vq7e34dLoeBlUXppPu3mPdM8Pm6qEYbRBt+ARV088SUv03fyokOaynVDmkbrugHPzWPBQD9GUwnz6YaERHEZ23eL4n+kGU6mhpaZp3pGcsTnb5liFikJHvS3ZR/KTJhDYB4hVw4Dtg3gJcGn7uJr9qCBzaH2utGaKFLtIiXaW/A==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(10070799003)(376014)(7416014)(1800799024)(921020)(22082099003)(18002099003)(56012099003);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cVNuQmFRUmJHbldmRHg5QlhiRVpocVpyWlJuYnZ2dGwzNkZjU1NmZzhFTm5M?=
+ =?utf-8?B?Uy9ibDlra0VaRUM5c2Y4aGpla1VaR2wyaW9uTlhDZXpzNnFEQld5cUJsQjE0?=
+ =?utf-8?B?Mk5jcGpjckZVcmtXNnFkOU5yb1BiS2V5TlhQcXNRcFRMUjY1UTVtQ05rTHRr?=
+ =?utf-8?B?U0h3dW8zWHFtYnRmRXQwaS9IZGdZU1VYOEttd0prcHFDVW9RK0E2S1ZpbXFj?=
+ =?utf-8?B?SVBJZm01aHNMS2crS3A0TWNyclF2SUJjdnh6L1hBZFFCZ2VkdElwM2d1WDQ2?=
+ =?utf-8?B?TTNZYVFCdUh6bVNLY2ovQXZMU1dlOXg2T1JqL1VoVG5FYlFVNHpIUzlUSmJ6?=
+ =?utf-8?B?NVRtV0wxY2hJbjhuRTZVcWZ3bU5hcEZPbXlVblhVZytxeVU1TWt5NGFJa0NO?=
+ =?utf-8?B?Y2Fyd3BUbGN2YXVMUDNNaHhYcmlETkJBVzdsK3A3c0hyTU14eC9xTUhzSHdS?=
+ =?utf-8?B?NHhuM01hYzNVR0VFMWl5djU0ZW1PSFh1WEpMT1dUMUhkbnJGeEFJcTliNzhh?=
+ =?utf-8?B?ODF3Q1ZMRFJwK0ZFcW9ZbHNjOTc4TFhIeFBuQmt4NjhORTNHZzdKMmZFNy9u?=
+ =?utf-8?B?LzVWUVlUUVVSNGM3eGxCRTJyZVd6R0phZHUvRnEwanlGM014ODZhL25xdTR4?=
+ =?utf-8?B?S0JZRHNiS3dmamtmMHNoTXZkV3lldnNDZlk5aXhkU2RnSGJ3RVNtRUI5aDFt?=
+ =?utf-8?B?M0QvcXF5bzFiU0ZuUWFabUxkTDdxc1JxWllOOUFjK1ZMeTVRc29GWi9HSzFC?=
+ =?utf-8?B?czdUS2ZLdzZicEw1bnpSV3RPOEhxY1FsaHpyRkhBQUZzMnVMTVMyYkZlaHpZ?=
+ =?utf-8?B?UVBOdHU0ZUIraXNtYmpNYjd5K3pzQUZmQ3JLMU5jK0pCcnJaUUI4cU5YanJi?=
+ =?utf-8?B?YWpTMHMzU0J2OElkLzJObXRtdmZ2b2VPb1N2NmViT3dpYkkrVW5oZFluYnRT?=
+ =?utf-8?B?WVl6ZG9JRENIUUVubXM1cU5pRnRjZUorbENndWxYaEtHRnhKNExOWE1yZ09a?=
+ =?utf-8?B?ZGYvSUFuWmFBb3pya2FBWjc0MWc0SzM5R3kyUnZKeHZGbTZSbTNXTzNCaUNz?=
+ =?utf-8?B?SHJ3dFBGcGllcEl0WkEzb2lNcnMvVmZrQnNxclNvczVsaTJjV0x0bEovQy85?=
+ =?utf-8?B?SHBvb2pyYmtLNW5Wd0R3cUkraWUrNkFuVzYzaU5sbzRPczgwdWE3RTRtY0tU?=
+ =?utf-8?B?Vk0ydlVNSlE0S2dSbTZOUCtZcExZWVRxdXl1YktabldnekhTQ0FMYWZESFlD?=
+ =?utf-8?B?TjhjU3Z5SlFGODV2b2hZUk4xUnVyaHh2eUNZd0FJalJET0cxRkd4Zkd3Y0JT?=
+ =?utf-8?B?MVZ4YzJSZ1JFSnBsRDBZYU0wdWNZeGdHMWpGOEM2OWFIUFdmRERTdVludG5T?=
+ =?utf-8?B?SFk5clZPb3RUNXZzaEdsY0lHd3Q0aTBQV2RTUmdhaSsvWmszRUtLZmhjTExS?=
+ =?utf-8?B?WURpTXRSbnFYNGVlZUlYTWpLS3JuOGhYQzRoc1JqaHpzRERhZHFEQkxSRlB0?=
+ =?utf-8?B?ek5KclY3azljZVZFTm1TMzd3enpZMUNMUUViU3A5MjVMYUxzMHFDdW5pR3JV?=
+ =?utf-8?B?NzhNOWZmZTg0WmtOT2pEcjdua2tEVkd5T0RBVDJGTkVZcmlLODVmUEFxVDJq?=
+ =?utf-8?B?cFRoc0FnRC9HdUp3ZnB5QWV4Y2t3VjF5QXc2aTBGY3d3djRCMlMwMzgzNWxi?=
+ =?utf-8?B?cWpWVndJSlQ2ZlZwbU5lNzE0REpZTmpMSzV2bkdjVVdhLzk1ejVReUZRNzk0?=
+ =?utf-8?B?OVNCcGFvUXV6OFFOcGhySnAzamUzNVFPTUdtVzFDZi9SdEFNdFlCVG1ZdG03?=
+ =?utf-8?B?akk1djJwcGhNdlNsa1UyU2t6bFFTb0llTnQ3SWQ3bWZtbS9oWEVucXNqbW1G?=
+ =?utf-8?B?clo0VVhMNVJjTGcyTTlvQndXeGVFZHF4bDZNaUk1b1FIeDBvTWdseEZTd2Qw?=
+ =?utf-8?B?WHgzSnRWTitvVzVWQzdGYlUxWVZHbW1zcisybS8vNTdhWlFuVnAxLzJ4czBJ?=
+ =?utf-8?B?dmg2U2F6a1doOHpSOWppSHVYOG5hNEFBSzhBdFhhQUFINVlSeVRvMllWS29j?=
+ =?utf-8?B?VitEZzdhQ3FZSVF6bGFITmpxeVFZT1ZPaENqaUUwYlpxL0xQZ0hjajlVbGVo?=
+ =?utf-8?B?ZnlLTFA3MlVzM25tNDY0OUxtZG9qOUJvS1dOLzJZTzdoNTFJTXhZNmVpZlRy?=
+ =?utf-8?B?L1VrQWhCVm5ONDNsR2wwM1B2NzB6dTNsV1hvR1lKYlJiTHlOcktJTUtWWTRC?=
+ =?utf-8?B?KzROSlp4czdNVGM3M0d6S1h1a2JpTmF5Sk9WWDBaM0RzU2Zab051WVp6czZp?=
+ =?utf-8?B?SHl1Z0lYcUJqLzVEVEFTOW5TWkFuM1FVVmdIR2FNekxZWVNSZVhkdz09?=
+X-OriginatorOrg: garyguo.net
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2088ece1-8770-4817-5d25-08de8b459676
+X-MS-Exchange-CrossTenant-AuthSource: LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Mar 2026 14:40:12.7302 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: mEIdebxuXV8BYPga0ifEVSJeLHMdKb/wKFfOHO263cjYHOSJWWUuOfTwq8V527xwZM9bCLjjX6mvPdTekiLoEw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CWLP265MB1812
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,121 +144,76 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Alvin,
+On Thu Mar 26, 2026 at 6:52 AM GMT, Alvin Sun wrote:
+> Fixes clippy warning:
+> warning: all variants have the same postfix: `Init`
+>   --> rust/kernel/sync/set_once.rs:68:1
 
-[cc rcu list and Mathieu]
+I am not sure that this makes the code look nicer :/
 
-On Thu, Mar 26, 2026 at 02:52:53PM +0800, Alvin Sun wrote:
-> This patchset contains:
-> - hazptr: Add hazard pointer abstraction to kernel::sync
-> - revocable: Introduce HazPtrRevocable, and adapt Gary Guo's downstream
->   LazyRevocable implementation to use hazard pointers internally,
->   enabling safe sharing of debugfs-root data across the tyr module and
->   DRM driver
-> - drm: Add device and GEM helper functions to support debugfs
-> - tyr: Add debugfs infrastructure and interfaces to expose GEM/VM
->   information
-> 
-> See the full dependency and commit history at [1].
-> 
+AlreadyInit is very clear on what's wrong, which `InitError::Already` is we=
+ird.
 
-Thank you for the nice work!
+Perhaps just allow this warning.
 
-I know the context of why you're doing this because we had some
-discussion on zulip, but maybe most of people on the list don't. So
-could you add a "why" or "motivation" part in the cover letter for the
-next time? It's about syncing with everyone on the same page so that
-they can review with the context ;-) Thanks!
+Best,
+Gary
 
-Also since this is about hazptr and RCU, could you Cc
-rcu@vger.kernel.org and Mathieu the next time? Thanks!
-
-Regards,
-Boqun
-
-> Link: https://gitlab.freedesktop.org/panfrost/linux/-/issues/11
-> Link: https://gitlab.freedesktop.org/panfrost/linux/-/merge_requests/59 [1]
+>
 > Signed-off-by: Alvin Sun <alvin.sun@linux.dev>
+> ---
+>  rust/kernel/sync/set_once.rs | 18 +++++++++---------
+>  1 file changed, 9 insertions(+), 9 deletions(-)
+>
+> diff --git a/rust/kernel/sync/set_once.rs b/rust/kernel/sync/set_once.rs
+> index db9c5423fade3..3af5538aae1d4 100644
+> --- a/rust/kernel/sync/set_once.rs
+> +++ b/rust/kernel/sync/set_once.rs
+> @@ -67,17 +67,17 @@ fn default() -> Self {
+>  #[derive(Debug)]
+>  pub enum InitError<E> {
+>      /// The `Once` has already been initialized.
+> -    AlreadyInit,
+> +    Already,
+>      /// The `Once` is being raced to initialize by another thread.
+> -    RacedInit,
+> +    Raced,
+>      /// Error occurs during initialization.
+> -    DuringInit(E),
+> +    Inner(E),
+>  }
+> =20
+>  impl<E> From<E> for InitError<E> {
+>      #[inline]
+>      fn from(err: E) -> Self {
+> -        InitError::DuringInit(err)
+> +        InitError::Inner(err)
+>      }
+>  }
+> =20
+> @@ -85,9 +85,9 @@ impl<E: Into<Error>> From<InitError<E>> for Error {
+>      #[inline]
+>      fn from(this: InitError<E>) -> Self {
+>          match this {
+> -            InitError::AlreadyInit =3D> EEXIST,
+> -            InitError::RacedInit =3D> EBUSY,
+> -            InitError::DuringInit(e) =3D> e.into(),
+> +            InitError::Already =3D> EEXIST,
+> +            InitError::Raced =3D> EBUSY,
+> +            InitError::Inner(e) =3D> e.into(),
+>          }
+>      }
+>  }
+> @@ -155,8 +155,8 @@ pub fn init<E>(&self, init: impl Init<T, E>) -> Resul=
+t<&T, InitError<E>> {
+>                      }
+>                  }
+>              }
+> -            Err(1) =3D> Err(InitError::RacedInit),
+> -            Err(_) =3D> Err(InitError::AlreadyInit),
+> +            Err(1) =3D> Err(InitError::Raced),
+> +            Err(_) =3D> Err(InitError::Already),
+>          }
+>      }
+> =20
 
-> ---
-> Alvin Sun (11):
->       rust: sync: set_once: Rename InitError variants to fix clippy warning
->       rust: sync: add hazard pointer abstraction
->       rust: revocable: add HazPtrRevocable
->       rust: revocable: make LazyRevocable use HazPtrRevocable
->       rust: drm: add Device::primary_index()
->       rust: drm/gem: add GEM object query helpers for debugfs
->       rust: drm/gem/shmem: add resident_size() and madv() for debugfs
->       drm/tyr: expose Vm gpuvm_core, gpuvm and va_range as pub(crate)
->       drm/tyr: add debugfs infrastructure
->       drm/tyr: add vms and gpuvas debugfs interface
->       drm/tyr: add gems field and gems debugfs interface
-> 
-> Gary Guo (2):
->       rust: sync: support [pin_]init for `SetOnce`
->       rust: revocable: add lazily instantiated revocable variant
-> 
->  drivers/gpu/drm/tyr/debugfs.rs  | 190 ++++++++++++++++++++++++++++++++++++
->  drivers/gpu/drm/tyr/driver.rs   |  18 +++-
->  drivers/gpu/drm/tyr/fw.rs       |   7 +-
->  drivers/gpu/drm/tyr/mmu.rs      |   6 +-
->  drivers/gpu/drm/tyr/tyr.rs      |  39 +++++++-
->  drivers/gpu/drm/tyr/vm.rs       |   6 +-
->  rust/bindings/bindings_helper.h |   1 +
->  rust/helpers/hazptr.c           |  13 +++
->  rust/helpers/helpers.c          |   1 +
->  rust/kernel/drm/device.rs       |  10 ++
->  rust/kernel/drm/gem/mod.rs      |  49 +++++++++-
->  rust/kernel/drm/gem/shmem.rs    |  21 ++++
->  rust/kernel/revocable.rs        | 209 +++++++++++++++++++++++++++++++++++++++-
->  rust/kernel/sync.rs             |   1 +
->  rust/kernel/sync/hazptr.rs      |  91 +++++++++++++++++
->  rust/kernel/sync/set_once.rs    | 120 +++++++++++++++++++----
->  16 files changed, 746 insertions(+), 36 deletions(-)
-> ---
-> base-commit: 34cb4f916af10153c87fabaf6c34e4cafa170427
-> change-id: 20260320-b4-tyr-debugfs-3fcaff064297
-> prerequisite-change-id: 20260202-io-81fd368f7565:v2
-> prerequisite-patch-id: 74873afed2b65f5a11c33f0c0c54375c55079109
-> prerequisite-patch-id: ae853e8eb8d58c77881371960be4ae92755e83c6
-> prerequisite-patch-id: 0ab78b50648c7d8f66b83c32ed2af0ec3ede42a3
-> prerequisite-patch-id: 8d20a8db8cf4660c682ee91f3db04e640c144e33
-> prerequisite-patch-id: 299de9cd2789c19c22e2816f7c817d80d5a4f1db
-> prerequisite-patch-id: 661ee334905f359daa8fb8d808ed5f4a8085f5c9
-> prerequisite-change-id: 20260117-register-ccaba1d21713:v9
-> prerequisite-patch-id: e4cb34ef09bccb92e1c35435e346b3a0459d3cdf
-> prerequisite-patch-id: 2c3c42ae9f3f4544c088dffbe4a0527f28b1c135
-> prerequisite-patch-id: 9f40e176e1b67bada943e376950debabb3f196d5
-> prerequisite-patch-id: ccc86d3ab9f62883c90d1275c99720942bd2bcb3
-> prerequisite-patch-id: 216427f1fdf94755cca0ed0676c4290f85d45e5c
-> prerequisite-patch-id: 7e1ea4d184297dfaba1351a7cb23e3b6827fed46
-> prerequisite-patch-id: 29ff9ffe37669d23b5509bfefb0cc1f8950eaa7c
-> prerequisite-patch-id: e5723722ff970c585cbf559456fa4cda05f28952
-> prerequisite-patch-id: afdae76e12011bb158d2008b8cd1ffba084db0bb
-> prerequisite-patch-id: b0473d5c7af0bbeec6f6ec8dd36d8a09cc180fed
-> prerequisite-message-id: <20260206223431.693765-1-lyude@redhat.com>
-> prerequisite-patch-id: 454c4fe7a7bcc65b2c9cc69dd5dd8e4c1d952297
-> prerequisite-patch-id: aff529cc205f5ab35518b8e4568e6e1319eecaa9
-> prerequisite-patch-id: 9f7d5c4a8ed052f5c5f2a28c862a9392d7a812cc
-> prerequisite-patch-id: ec9d104ba7c67488f19e6dd1a50d1ec4f682f333
-> prerequisite-patch-id: e7a844bd6254643d1f23827886b487c196ee9968
-> prerequisite-patch-id: 3c57ebf13497cf57c586b955d5ce90f2f9fd8cdc
-> prerequisite-patch-id: 1a327345ac71599ece0b2272fba81472f70c568c
-> prerequisite-change-id: 20251128-gpuvm-rust-b719cac27ad6:v5
-> prerequisite-patch-id: 6a8ddd47a2e1c769c65a942b3d9315e6ae5cae7e
-> prerequisite-patch-id: d4ee9fb80025c4fd8129c3477cc3dc36e13076cb
-> prerequisite-patch-id: 0ad35cd3dfcf8a8804e9fed8df3e5612cf07da69
-> prerequisite-patch-id: 275a900645e14169911ee00bab54553c84b48ad0
-> prerequisite-patch-id: 2a2de2f6c4fac065de5c459026daa2c32f340d22
-> prerequisite-patch-id: 9a721bc700da778f2554cf32917dda4807744520
-> prerequisite-message-id: <20260131001602.2095470-1-lyude@redhat.com>
-> prerequisite-patch-id: 6c622d1df9166ad081acba46237f8cecbf728356
-> prerequisite-patch-id: 769892e477c161e6c7a57519ec635b1455310f1d
-> prerequisite-patch-id: 3c5f5070ded87e95a8045083a55501fbbe9f6313
-> prerequisite-patch-id: 10fbd8695264e67421946dda4d39e29d5fe77c64
-> 
-> Best regards,
-> -- 
-> Alvin Sun <alvin.sun@linux.dev>
-> 
-> 
