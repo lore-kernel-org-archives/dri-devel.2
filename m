@@ -4,59 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7068010A3D8C
-	for <dri-devel@archiver.kernel.org>; Thu, 26 Mar 2026 12:32:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C202010A3D8D
+	for <dri-devel@archiver.kernel.org>; Thu, 26 Mar 2026 12:32:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BD60410E97B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D895510E99C;
 	Thu, 26 Mar 2026 12:32:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="EEvb1ne1";
+	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="b8/GBS9m";
 	dkim-atps=neutral
-Received: from mail-wm1-f73.google.com (mail-wm1-f73.google.com
- [209.85.128.73])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6CDD610EA01
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Mar 2026 12:32:34 +0000 (UTC)
-Received: by mail-wm1-f73.google.com with SMTP id
- 5b1f17b1804b1-48544725bdeso17378215e9.2
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Mar 2026 05:32:34 -0700 (PDT)
+Received: from mail-wm1-f74.google.com (mail-wm1-f74.google.com
+ [209.85.128.74])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1C62910E8DB
+ for <dri-devel@lists.freedesktop.org>; Thu, 26 Mar 2026 12:32:32 +0000 (UTC)
+Received: by mail-wm1-f74.google.com with SMTP id
+ 5b1f17b1804b1-486fa35b005so12040485e9.2
+ for <dri-devel@lists.freedesktop.org>; Thu, 26 Mar 2026 05:32:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20251104; t=1774528353; x=1775133153;
+ d=google.com; s=20251104; t=1774528351; x=1775133151;
  darn=lists.freedesktop.org; 
  h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
  :date:from:to:cc:subject:date:message-id:reply-to;
- bh=DCR1+XiCejEoTZukOGzTXx300luMCdEPMVOduAGAhwQ=;
- b=EEvb1ne1z2Wr5Btsec81XclUeC/t7ZhXFrGPj45DtKB6wE58t85PjR8NlJ4FRCU7Zv
- 0OCAVv9MilPRXvfRm2mquCvDF+vuVbpN2DCrtMp0TOLea8EhO0CMjDWrsKLxNGBExlDa
- tezuMOuGoUATnB3fQejcEc+xyDHB5hGMVcdj/dgsyF+0da6c7SSb0YdLm3LtnHWQX+yP
- Nw/Yceudx3McbiNYbWs3w0gzQsaxNmpo09TX11P++OYV90ipeybOYa5ef+GjcN2TgREG
- TEAFBx6kgAnRyc0DD/gH/QGQqgH/I2qDpa6UySCZiNJRbfEUSSU7m9pEtxP0n2c2VWN4
- yfrw==
+ bh=PW5D3P/yH7ZM4fd9U5FDHBCN6E6TiesVaLAHRbrJtkU=;
+ b=b8/GBS9m6Fc777oUFEWkd1sM6HW0p4oSiYNRJaZrZY8cyo9/VmNSegPbEoo6wcWV6i
+ G/w1NI5xzmhKW/TsKrsfpZWpU/2/lwHAM1W0hqjWysKvZNcPLvbZntPKvjUOUT6Vmb1X
+ lCSpc8WOT76p5I3IFceAAq1qxANv+hqEzOsSCPMbi6poLvEiYJrYmbGYonwp6u+Wggo/
+ gm3iJay7kOvYELexHaNNQvC9m5JjST6TigOiMeqyQHV7c9yUx2aliGTjEa2drB4alVti
+ PrizFm5u1tSYlL2C2LNPMEwP/62AYCxIZqSWEbMxPXAK5jgh908eJK1nKJxy/HDtiN9i
+ GD/g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774528353; x=1775133153;
+ d=1e100.net; s=20251104; t=1774528351; x=1775133151;
  h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
  :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=DCR1+XiCejEoTZukOGzTXx300luMCdEPMVOduAGAhwQ=;
- b=VeEk3OZ1+4wbl6bsNKcbDJ+BbIQ7p4Kb8cO1z9KFx52bkv0lbjZ+uYlm62ywKlRJpN
- FEOe/vonW8jxh+kfXBZvZuBP4VX9QJ5yXZuQnuCdbSaUAEcEOgzfKFCoh5CoXpxUAuJ+
- JlxgF84vp0V8bw9sz70m141kfbUx9UbYuHkpOhI1ajiVkB2urdbPEtAADOKuLT6S6aZF
- 86ofLmNBU2mlDbwaNOLaZ0/984vjL194Yyf0OSiEn4sq5smM2H2el459kFV+XCVk358K
- OZOkS4a5ENPPHvJpq4hMqJPiL536Ad0zElX6p1haKSmqHYo3JMdKuCjm6Jfb78y1Zez7
- e0kA==
-X-Gm-Message-State: AOJu0YzlNRwCwvW83XTtgmKGYwzfQxJTjpBO2UmvwVK303ENC7OxExzp
- NpfInekIylChpS8nxiAO5HG4RTvwOxjib5yEhL4f4pjo1G0G/Eh6kSSo26tDLbNfkc02WDCIncM
- p+LkCUEgk/mN1lw==
-X-Received: from wmoo19.prod.google.com ([2002:a05:600d:113:b0:487:238e:327b])
+ bh=PW5D3P/yH7ZM4fd9U5FDHBCN6E6TiesVaLAHRbrJtkU=;
+ b=K7cbzwhcV4Ayv1T7tRsXldmHLsw6Zqws4xmnuW4xk7O1I8Yd79J+y5stzL5f+P9wNt
+ xQfhJ1UnkMcmzys8LgpThDR94UR3CzzFFwYhNkIxesARASLbRaqSydh5LHmH6iJANGST
+ YTQ6HvOxITK9BEN4Kc8//ZllDml/Odif3Dpe0slVKmeRMpjj3DUmsL03//toZvrQdsQN
+ REiOhppf9LvgyUGrZ8XaHeTeVWh0RbOo3pOTk9+y7jEQhY4jRUZcR7jYYPRHgdf02TBO
+ 3AqcsXZetHUOBZN281V9mtkXe2UeL+cH5dkEZ4V/cemdNRtj2dlgYzDth7VYYI6jcDuw
+ pJ6g==
+X-Gm-Message-State: AOJu0YyoBu8ywOfQONi2iqxJp33AKdTOTWTdS2v5HMvTSeF86ZPgG188
+ 1lXnSBU/20mLu+6tqzie0ZIFJvreE9WUotlhzZrH2sVC3e83riO/ZBQayuYnZTWoddrLow8ySTe
+ S6b7RxmcIGZUxHw==
+X-Received: from wmoq3.prod.google.com ([2002:a05:600c:46c3:b0:482:ef72:5793])
  (user=jackmanb job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:600c:1d1d:b0:486:ffa3:592 with SMTP id
- 5b1f17b1804b1-48716071b2amr111318865e9.24.1774528352832; 
- Thu, 26 Mar 2026 05:32:32 -0700 (PDT)
-Date: Thu, 26 Mar 2026 12:31:59 +0000
+ 2002:a05:600c:1394:b0:485:4388:348b with SMTP id
+ 5b1f17b1804b1-48715f0389dmr114277655e9.0.1774528350455; 
+ Thu, 26 Mar 2026 05:32:30 -0700 (PDT)
+Date: Thu, 26 Mar 2026 12:31:57 +0000
 In-Reply-To: <20260326-gfp64-v2-0-d916021cecdf@google.com>
 Mime-Version: 1.0
 References: <20260326-gfp64-v2-0-d916021cecdf@google.com>
 X-Mailer: b4 0.14.3
-Message-ID: <20260326-gfp64-v2-3-d916021cecdf@google.com>
-Subject: [PATCH v2 3/4] mm/kfence: Use special gfp_t format specifier
+Message-ID: <20260326-gfp64-v2-1-d916021cecdf@google.com>
+Subject: [PATCH v2 1/4] drm/managed: Use special gfp_t format specifier
 From: Brendan Jackman <jackmanb@google.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>, 
@@ -94,22 +94,24 @@ the size of gfp_t.
 
 Signed-off-by: Brendan Jackman <jackmanb@google.com>
 ---
- mm/kfence/kfence_test.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/drm_managed.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/mm/kfence/kfence_test.c b/mm/kfence/kfence_test.c
-index 5725a367246d9..10424cd25e5a6 100644
---- a/mm/kfence/kfence_test.c
-+++ b/mm/kfence/kfence_test.c
-@@ -263,7 +263,7 @@ static void *test_alloc(struct kunit *test, size_t size, gfp_t gfp, enum allocat
- 		break;
+diff --git a/drivers/gpu/drm/drm_managed.c b/drivers/gpu/drm/drm_managed.c
+index 247f468731de0..a9da94319b052 100644
+--- a/drivers/gpu/drm/drm_managed.c
++++ b/drivers/gpu/drm/drm_managed.c
+@@ -232,8 +232,8 @@ void *drmm_kmalloc(struct drm_device *dev, size_t size, gfp_t gfp)
+ 
+ 	dr = alloc_dr(NULL, size, gfp, dev_to_node(dev->dev));
+ 	if (!dr) {
+-		drm_dbg_drmres(dev, "failed to allocate %zu bytes, %u flags\n",
+-			       size, gfp);
++		drm_dbg_drmres(dev, "failed to allocate %zu bytes, %pGg\n",
++			       size, &gfp);
+ 		return NULL;
  	}
- 
--	kunit_info(test, "%s: size=%zu, gfp=%x, policy=%s, cache=%i\n", __func__, size, gfp,
-+	kunit_info(test, "%s: size=%zu, gfp=%pGg, policy=%s, cache=%i\n", __func__, size, &gfp,
- 		   policy_name, !!test_cache);
- 
- 	/*
+ 	dr->node.name = kstrdup_const("kmalloc", gfp);
 
 -- 
 2.51.2
