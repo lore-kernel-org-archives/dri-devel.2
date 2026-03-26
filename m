@@ -4,69 +4,137 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 91BEA109E557
-	for <dri-devel@archiver.kernel.org>; Thu, 26 Mar 2026 05:57:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7B1ED109E559
+	for <dri-devel@archiver.kernel.org>; Thu, 26 Mar 2026 06:27:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EE60310E962;
-	Thu, 26 Mar 2026 05:57:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7C2CF10E236;
+	Thu, 26 Mar 2026 06:27:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=icenowy.me header.i=uwu@icenowy.me header.b="gkYCDRH1";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="WoKgx5hQ";
 	dkim-atps=neutral
-Received: from sender4-op-o12.zoho.com (sender4-op-o12.zoho.com
- [136.143.188.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5335E10E2B4
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Mar 2026 05:57:08 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1774504622; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=Mkf6zUtwlT2CtdV8DayQHX/AuQiNtB4rQ32WTmol5rl4U4fv/8V9VnmFyRPQaTqm0d5362E1BE6YT1THilTYoqWmnvgNkU+I9nkOg3GXNIqzEBeynE9fGxR3MkEDbKxUBm3Ta4c7bQP4F2NDxF9nlOLoKO1nLSA5f35Pb0djXkk=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1774504622;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=xh5QcYAfEMFXHbh0WK42+35rw1y3aSrFCHR3K9Wbzu4=; 
- b=HisGqtURNgasPUPl/AfZVgF8IhOghkyFg7CEhUspEnrT4SCFUiIOCnpdeZ6vtx9RUPh0k02uKCKBZIk7TqRpEYOKrE1PoIEzC9pd3DI/eekrvn5uD43uo9OXyxZYhu1KpZZkg0U/2xXGNRlT+r3DysiP3ScLTXA/Ex3P531Hc/A=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=icenowy.me;
- spf=pass  smtp.mailfrom=uwu@icenowy.me;
- dmarc=pass header.from=<uwu@icenowy.me>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1774504622; 
- s=zmail2; d=icenowy.me; i=uwu@icenowy.me;
- h=Message-ID:Subject:Subject:From:From:To:To:Cc:Cc:Date:Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:MIME-Version:Message-Id:Reply-To;
- bh=xh5QcYAfEMFXHbh0WK42+35rw1y3aSrFCHR3K9Wbzu4=;
- b=gkYCDRH1D9/3bbcfsNZVUGpV7eHZORKaF6UnoL3qaiM/T7ol0/ONeIqlT9SogZiM
- AM8c9eUJgaX5Y0UMF2TpTVg/gQMpRMPL6mqr2AL+1i7hg+kPFbiHc/Ctt7f1a/D6xyQ
- GFC97KbEyLkCriYzRT3Q1LA2Q6kIn3FYabwsY96OMTTx2TkdEfukQjIFCusVJVzf51V
- upg9GQwkQ1AWPnl00HVj2BI/s/UdIqdxfYsuu66WlSJxMrDXMLZIwNER+TbA0NVSbV3
- KgGHoTpeq2nO4F9L+vOPi9/vXtvLiRirGR/pVTIG53cIJlcEm+5eivVqh+zJPY34M9F
- 01O8EI1peA==
-Received: by mx.zohomail.com with SMTPS id 1774504620418841.5970104476653;
- Wed, 25 Mar 2026 22:57:00 -0700 (PDT)
-Message-ID: <fbba135320ea666a5ad127c9da58276f2afd3494.camel@icenowy.me>
-Subject: Re: [PATCH v2 0/5] powervr: MT8173 GPU support
-From: Icenowy Zheng <uwu@icenowy.me>
-To: Chen-Yu Tsai <wenst@chromium.org>
-Cc: Stephen Boyd <sboyd@kernel.org>, Matthias Brugger
- <matthias.bgg@gmail.com>,  AngeloGioacchino Del Regno
- <angelogioacchino.delregno@collabora.com>, Frank Binns
- <frank.binns@imgtec.com>, Matt Coster	 <matt.coster@imgtec.com>, Maarten
- Lankhorst <maarten.lankhorst@linux.intel.com>,  Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
- <airlied@gmail.com>,  Simona Vetter <simona@ffwll.ch>,
- linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-mediatek@lists.infradead.org, dri-devel@lists.freedesktop.org, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Date: Thu, 26 Mar 2026 13:56:52 +0800
-In-Reply-To: <42fb6b7dfc6a9d66649e0a7040cdafc1289ddf63.camel@icenowy.me>
-References: <20260325071951.544031-1-wenst@chromium.org>
- <93c1d325461cc0ffad890d64870de680506338c4.camel@icenowy.me>
- <CAGXv+5FL2rs35V4F0bwq-a4ccvFaWKcr1cuKxT6sfTj9h+d6iA@mail.gmail.com>
- <0739597b7a9c162525c10d82c3993e37af1c8a75.camel@icenowy.me>
- <42fb6b7dfc6a9d66649e0a7040cdafc1289ddf63.camel@icenowy.me>
-Organization: Anthon Open-Source Community
-Content-Type: text/plain; charset="UTF-8"
+Received: from PH7PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11010046.outbound.protection.outlook.com [52.101.201.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ECF0110E236
+ for <dri-devel@lists.freedesktop.org>; Thu, 26 Mar 2026 06:27:43 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=e2RQHiFN2jSx3ZOJ2HfQOKnbeUIwYL51v7FOs2B4m1sKKQgfWwMFssx7Wq+PYmWYn0TW5RGlCLSFSmwbpkVoiiuOVGrZTp2dp9PF/d74ZYijVBW5lbd/kCk1D46OK/hwlppiun3pVo3IM/pznsMKjwGgxPVzAEKEtgIBaIhQnlLQoGKYrWghXDuRpfOEoq1RlJCO1h8GQ0wXysmeQgiCinE9t6YH+AjoWUIH5IDNBoGlyhutxAR2ILo93o98N+BRMjnXi0HWSagevEj3Vq7go83Rq4aW6sQGptTZHf+MKmXhg4ZE1hldlO3eozhSzb+zkGqcb+unOSKIeUBXezMgqA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=hAxpekvi2sCPvA7o2y7Ee50F43WImFJSPMYna/VM7sI=;
+ b=JiOE8dtJpbH3BrvdxlngptUubgcZefjRb1yNR/tPlraf1pNbLBD0IO8P8FFjQ1F1/Jx4j+7W23BtwhM15HEWD7dpXxNSwoSsIK4bxEOig+oqJda013bkBwv+acjYzu7vDUz6ysFgWYE8SHcqNFPYhuzORUM2WZXFPA7JAEkGGRvjMJwzS7uQndXwy87mA85v+/wEs7wryYmtLZ2RyLddLb89PzLtNXUdvoaQCfGCFmZIOU4hET036006suBXRXmp4ac0Afq+91PEEGgYM+4Yv6JnO0BSlJiuJR8S4uvJXZMIEBuJDNcaU7QHVbah9YUyRfS1GfIyOGwtjBBW7GpYag==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=hAxpekvi2sCPvA7o2y7Ee50F43WImFJSPMYna/VM7sI=;
+ b=WoKgx5hQA7yuTolnHXnE50XKmRcfpQF5RZggfAaY4Uy1/6ZaLYc3jnQ36Qed0R+/RvVUe+XF9x0W/H5mqQiuFwDm83jyhSZgz4ZTGZCVrZZ9ENCZQdliHa7syKUTrHy4JI1NWaSgqdvvzTZpstCGUAXFciUBHEerI4zSSKvgwxTypPR2sQL8cQTjZLsO2MTmyPeT37IRfv7FT4ZcJrnOI9qXqAgMf8ZHhl4nwrEcLC9wz71pe061BClyl6FF9GidNvH+3H6ZIEcDfsm2cTWJhEtgEZbQIX+LdBO7fnbPVdCa6w++XS27Ag18qQvv79JZcH9yJAYod5sMPgqU3DSSCA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from CH2PR12MB3990.namprd12.prod.outlook.com (2603:10b6:610:28::18)
+ by LV3PR12MB9167.namprd12.prod.outlook.com (2603:10b6:408:196::19)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.7; Thu, 26 Mar
+ 2026 06:27:31 +0000
+Received: from CH2PR12MB3990.namprd12.prod.outlook.com
+ ([fe80::7de1:4fe5:8ead:5989]) by CH2PR12MB3990.namprd12.prod.outlook.com
+ ([fe80::7de1:4fe5:8ead:5989%6]) with mapi id 15.20.9769.004; Thu, 26 Mar 2026
+ 06:27:31 +0000
 Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 26 Mar 2026 15:27:27 +0900
+Message-Id: <DHCI1C0Y1YR4.3F2S7J2D03FQZ@nvidia.com>
+Cc: "John Hubbard" <jhubbard@nvidia.com>, "Alistair Popple"
+ <apopple@nvidia.com>, "Joel Fernandes" <joelagnelf@nvidia.com>, "Timur
+ Tabi" <ttabi@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>, "Eliot Courtney"
+ <ecourtney@nvidia.com>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>, <linux-riscv@lists.infradead.org>,
+ <linux-doc@vger.kernel.org>, <rust-for-linux@vger.kernel.org>, "Alexandre
+ Courbot" <acourbot@nvidia.com>
+Subject: Re: [PATCH v4 00/10] gpu: nova-core: convert registers to use the
+ kernel register macro
+From: "Alexandre Courbot" <acourbot@nvidia.com>
+To: "Danilo Krummrich" <dakr@kernel.org>, "Alice Ryhl"
+ <aliceryhl@google.com>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
+ <simona@ffwll.ch>, "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>,
+ "Maxime Ripard" <mripard@kernel.org>, "Thomas Zimmermann"
+ <tzimmermann@suse.de>, "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng"
+ <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>,
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
+ <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Trevor
+ Gross" <tmgross@umich.edu>
+References: <20260325-b4-nova-register-v4-0-bdf172f0f6ca@nvidia.com>
+In-Reply-To: <20260325-b4-nova-register-v4-0-bdf172f0f6ca@nvidia.com>
+X-ClientProxiedBy: TYWPR01CA0027.jpnprd01.prod.outlook.com
+ (2603:1096:400:aa::14) To CH2PR12MB3990.namprd12.prod.outlook.com
+ (2603:10b6:610:28::18)
 MIME-Version: 1.0
-X-ZohoMailClient: External
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH2PR12MB3990:EE_|LV3PR12MB9167:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2c9657d8-8455-40df-511f-08de8b00c247
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|7416014|1800799024|10070799003|366016|56012099003|22082099003|18002099003|921020;
+X-Microsoft-Antispam-Message-Info: dbaVikYnapmtQm6PAtRmjijA1oeGT+6KuSNX0wEyyLO7lXbfHB45XDbntAmaSZkzSCHn80lSCqdf/p5yOK2gDGe5u1hEL5tntY/FuqUspZmZtDD7rb5lnTq2RoTG6t+T84/pOPWQqZQdIOoOAxJET/8DqUy2JpNtCHkDr/267dazQVUTyqshh1onSVXnTs+D/o5R1Z3FVavsOrkrER9tyCnJNmNhm1LweJGTtJzwGYgN/13PDx2JZsihiQVYDlNMvl+cKmEUMN6m6iT3tXoGPIhEvyq7mahiARTZ+XSD9qdexAeN33sMzVF3vYSzHKn5U5Wq06JQHK3CqRuvzlHzHT0mr4qFZmNC8N6lJOMynTnpvAivaxOF64WqwrTD9oQOiboO/o/awaw+6ZZHY+K1ve8EOKXQsc82abcQ2vkuZwwGOduUywre/wx9wnW8ij42n8EU+MS/p1ZY58gcVphg9hm4QbQI/3+QMrzBqz1wILu3DUrYh95EGkmlt0RvbQ/dDolkfdamBSOWIqDXczQFQEcEUVgoFFtG2EHVges8kT5ANoMPalNllWw5eBvfB/hOIMjwAS/efswBuQ7Vx5OwGATuLAtIr4+WjjeM6qQQ8y3IhQxD5zsYt74zjpMTOscl4fk7E+z6zA8eXjF44/T9VyeFkAMQfhINMyEQhSksu4Syq+w9KBD5n8T5AYf5/nwYvm6X8R27d1G1gXRmIbCOjOp14oiniz8M2yfZvfzDonK4dSAU37IYEtTmLvntiR4AJ8vkQ+2QkpqU+Y1EoYahoQ==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CH2PR12MB3990.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(7416014)(1800799024)(10070799003)(366016)(56012099003)(22082099003)(18002099003)(921020);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UFNsRDZZaW5TbFZCVlI0YUM1WkIvWVYzVXJJVTFuYUlKTi9udGtRd1haKzNB?=
+ =?utf-8?B?U256MGhhbytvU3R5a2p2TUZwZjdnUSsvblhPbGhXMC9vTGdRSjVYY1JQTUV0?=
+ =?utf-8?B?NFNxNUxiaEYwdEFndjM4dTVlZEdxd3B3R1NzaHN0YUJqRkJ6RmhsYlNCQnkx?=
+ =?utf-8?B?YXpGbkVxYk5FaHZXQ0xFUHJZL0g4dDM2a3JyTDRTanlkQmxveENsdHQ3QVcv?=
+ =?utf-8?B?Y1hOc3dOM3Q0WWtwejhabmJaNkpzeGdVejNxa3FkM2MxYmlCd0tLdk5vbTJi?=
+ =?utf-8?B?NUtzMTRGdkxDNDlPOE5QL1RuVkRkTDRENm81cHVoT3VyZVJqY1Joay9xT0c0?=
+ =?utf-8?B?aTB1K3JyZVN6QnAxWUlsMGYrNG5hc0FqQVNJamV5azJvdFFiWGxxVC9CNEZR?=
+ =?utf-8?B?MGRkZjdjUC9ScmZ4TmtkVjBCYjVFai9iT05naWhlYzdMNXVGWDBPOUorRkZS?=
+ =?utf-8?B?V3hjZFdnY0lnSE4xcG1pd0k1aWw4c2VVQ0VwS3hZb08wZmdsWlY3eGZmTUhD?=
+ =?utf-8?B?ZWJYR0NJNDFLcHRleDJKTFZUZTNvdXU5RVBna09ubTZaWU8rRkpWVTYzY2Qx?=
+ =?utf-8?B?c09UMXdZOWVBeGtRMVU2cElDaHN2OUJyWXJBdElYVjJPei9vUU5kcEk2dG94?=
+ =?utf-8?B?L2lreFpaL0hWRFVIaEo2NmdUeVc2ZVkzdUl1YjJWYjM2MDYwakRTaUZWbTd6?=
+ =?utf-8?B?N2VZQll2OFFQL3ZoTnZwVWNpa25zU1AwUndKQkNCVFBjcDNPbXdaVlNCOGFp?=
+ =?utf-8?B?K0hQTWRZS0RMRHM1VHZqdGxManlmMDVIcGlOdFl6TEh6S2kyd001NSsrZ2do?=
+ =?utf-8?B?c28wM0tTdWx2NGVuNmhkL3NXMXo0L1BkZGlscjMrZnZPdGZCckZQYWVrZ2xT?=
+ =?utf-8?B?V1djdGEvMWpWRkpPcWh2cDZrejJjMWV1OEVDQ01BZUlwcURnbzFaVUlyVkpY?=
+ =?utf-8?B?QUZ4WkRoaVBkWGdUOTU2WEsrTnNEdzlPdkZJM1lhTlZZOEd5NlY5dnB6THUy?=
+ =?utf-8?B?c0ZWWE51VzhUdDJVcWwzR0RxMGhlQXhSb1d3N1dHYm1IUmUwdWZPMEtSRUZG?=
+ =?utf-8?B?MTJhbFQzcEIyYXUrSjkyR0hOMkJDZWJrWDN3b3MyeG9NckZ6ZGhJQmJ5d0Fp?=
+ =?utf-8?B?MUttelEwNk5mVFBlNjk0UWUyZ3Z0a0JmdTBacFhtbS96WmRBOHN4dU05a1NR?=
+ =?utf-8?B?ZDVmWjE3U0JnSHFIUXIyMDA3TmFZRTRqS1pRWUpsN3ZNaytwNnJSMGlSQkhD?=
+ =?utf-8?B?VG1nYWhrVUdTaFoyUUYva25xTEp0UDVkbStPUXV5SnBlL0lUTGJwSHFPdFhr?=
+ =?utf-8?B?RFRqclp4RjJaNHRwYWExSGtaUzQzZnphK3lGRGMwNlFhTTRuYzNnSDRnaGhH?=
+ =?utf-8?B?ZmdldWVCYTJTaVR1VlEwdjVJL0ZzWmZvaUVCaWkrYi9QLzhKZFlFYXVqSWh1?=
+ =?utf-8?B?MzBuL2ZYUHFOek1iT2JhRE52M0RCNS9QcVBveWxLaHhLUFpNQWFTTWVWYnpE?=
+ =?utf-8?B?bDNaQmRlM3ZUMFZncmNJT2FqSnVsNUdzTmlCcklVQWhyZk5UTDFaWHlMYWNR?=
+ =?utf-8?B?TFRPY2RZQUlEb1VZUVhYUDkrc2VNMWxSb29sdmp5Y0N6dWFHUXVtSlhzb0tY?=
+ =?utf-8?B?ODNUNWxUUHVCdDIvaU15VkNYbyt4bGZqUHRFZ3BnbWhYZm1DQWVCUE1Lc1ds?=
+ =?utf-8?B?YW8vV3pLeTVQTEhkYUNtOWVNYUw2RW1pRnVPb3dsRm1tc1RHTGxFWTdwUzB1?=
+ =?utf-8?B?cGEwczR1TUVOcXBhYmYvUnpaVGh6aW1JWnhvbkRoOEhYeEVXQWJGc21ldUI2?=
+ =?utf-8?B?cnpHcEFIVUJXYThlVUdqQk96ZWNqbmlBQkdKOXFJRE5xb3lUMnM2M1prdUFO?=
+ =?utf-8?B?dHk0KytXOE9aRUM3Z0NvdEpCaTZvVjZ1b1NwUGNNUXlmZUpDU0p6UnZxN0ZV?=
+ =?utf-8?B?blVYTC9tRU1ybGJhMzg4TUNITlRUVlo3d3Jwa3RTaU5uR0JkYjRRTzd6VDlq?=
+ =?utf-8?B?Wkk5bnhIR2lWclVPK2tHR0dVcnRNTW1pc3F1dVNRd01jUGtpUi9sSWhKaC9r?=
+ =?utf-8?B?MkZRR3R1NW9uOXpkSStmeERBOTRYSnZlRjkrQ1JqcEI1UFBqNWRZQTJ0Mkt1?=
+ =?utf-8?B?YVhIbUtSL0tYK0x5OFBVTitoV3lHRDZqaEhFS1E5VUI3RVNlNXIxWk1reVlx?=
+ =?utf-8?B?ZFdtVzE5K0FJbzI3RFZjNG4wUjJQM0hMRFlxNFB1RkdScEQ0Z1RZcDhRdXFv?=
+ =?utf-8?B?TCtzczduVTViWVZ1VndQSktET3FHdW5LY3lMWHZkT2hvU3BDdkdnaEEzYTJo?=
+ =?utf-8?B?dlFLV1F4YktocHVYbkgrSldiVFRPaVRtem1TVnFmUUdDYTdCQ2VPbUVpZ0VC?=
+ =?utf-8?Q?DVWBUmlZhLXQLkQyMGM7uqnZqVdAHag7C9vOFBey0/HTC?=
+X-MS-Exchange-AntiSpam-MessageData-1: YHVrDBj3enTbQQ==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2c9657d8-8455-40df-511f-08de8b00c247
+X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB3990.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Mar 2026 06:27:31.2218 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Hga1OnuMlkO3gTTnfyeFCZlo2McgLI60oFuW+R25kRbJrfWNG/1WGfb0WwkpKPrUbZe3efIyp6DPDlPFOzaaaQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR12MB9167
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,212 +150,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-=E5=9C=A8 2026-03-25=E4=B8=89=E7=9A=84 17:11 +0800=EF=BC=8CIcenowy Zheng=E5=
-=86=99=E9=81=93=EF=BC=9A
-> =E5=9C=A8 2026-03-25=E4=B8=89=E7=9A=84 16:30 +0800=EF=BC=8CIcenowy Zheng=
-=E5=86=99=E9=81=93=EF=BC=9A
-> > =E5=9C=A8 2026-03-25=E4=B8=89=E7=9A=84 16:08 +0800=EF=BC=8CChen-Yu Tsai=
-=E5=86=99=E9=81=93=EF=BC=9A
-> > > On Wed, Mar 25, 2026 at 4:04=E2=80=AFPM Icenowy Zheng <uwu@icenowy.me=
+On Wed Mar 25, 2026 at 11:46 AM JST, Alexandre Courbot wrote:
+> nova-core carried its own helper macro to declare register types. Its
+> purpose was to be temporary since the beginning, and to serve as a
+> testbed to develop an equivalent that could be used kernel-wide.
 >
-> > > wrote:
-> > > >=20
-> > > > =E5=9C=A8 2026-03-25=E4=B8=89=E7=9A=84 15:19 +0800=EF=BC=8CChen-Yu =
-Tsai=E5=86=99=E9=81=93=EF=BC=9A
-> > > > > Hi everyone,
-> > > > >=20
-> > > > > This is v2 of my MT8173 PowerVR GPU support series.
-> > > > >=20
-> > > > > Changes since v1:
-> > > > > - Adapted to changed DT bindings
-> > > > > - Dropped driver change
-> > > > > - Use same power domain for "a" and "b" GPU power domains
-> > > > >=20
-> > > > > This update was requested by Icenowy.
-> > > > >=20
-> > > > >=20
-> > > > > This series enables the PowerVR GPU found in the MT8173 SoC,
-> > > > > found in
-> > > > > some Chromebooks.
-> > > > >=20
-> > > > > This version is different from the initial powervr driver
-> > > > > submission
-> > > > > [1]
-> > > > > in that it splits out the GPU glue layer support out of the
-> > > > > powervr
-> > > > > driver and into a separate clock and power domain driver. The
-> > > > > glue
-> > > > > code
-> > > > > is otherwise the same, and also the same as found in the
-> > > > > ChromeOS
-> > > > > kernels, with some extra comments and macro names added where
-> > > > > possible.
-> > > > >=20
-> > > > > Patch 1 adds a binding for the glue layer, called mfgtop. The
-> > > > > glue
-> > > > > layer
-> > > > > contains clock and power controls for the GPU.
-> > > > >=20
-> > > > > Patch 2 adds a driver for the glue layer.
-> > > > >=20
-> > > > > Patch 3 adds an entry for the MT8173 GPU and 6XT series to
-> > > > > the
-> > > > > PowerVR
-> > > > > binding.
-> > > > >=20
-> > > > > Patch 4 adds an entry for the PowerVR 6XT series GPU to the
-> > > > > driver.
-> > > > >=20
-> > > > > Patch 5 corrects the clock for the GPU (called MFG) power
-> > > > > domain.
-> > > > >=20
-> > > > > Patch 6 adds device nodes for the GPU and glue layer to the
-> > > > > MT8173
-> > > > > dtsi
-> > > > > file.
-> > > > >=20
-> > > > > Patch 2 and 6 depend on patch 1 to build. I suppose some
-> > > > > common
-> > > > > immutable tree would be needed from the MediaTek maintainers.
-> > > > >=20
-> > > > > The kernel driver successfully probes the hardware and loads
-> > > > > the
-> > > > > "rogue_4.40.2.51_v1.fw" firmware provided by Imagination
-> > > > > Technologies
-> > > > > [2].
-> > > > > Userspace was tested with Mesa 24.0.8 from Debian Trixie
-> > > > > rebuilt
-> > > > > with
-> > > > > the powervr vulkan driver enabled. `vulkaninfo` gives some
-> > > > > information
-> > > > > about the GPU (attached at the end), but running the
-> > > > > `triangle`
-> > > > > example
-> > > > > from the Sascha Willems demos [3] with -DUSE_D2D_WSI=3DON as
-> > > > > recommended [4]
-> > > > > failed with:
-> > > > >=20
-> > > > > =C2=A0=C2=A0=C2=A0 Can't find a display and a display mode!
-> > > >=20
-> > > > I think when using D2D the demos want width and height to be
-> > > > explicitly
-> > > > specified, otherwise it seems to hardcode 1280x720.
-> > > >=20
-> > > > If you're using an elm, could you try to add `-w 1920 -h 1080`
-> > > > or
-> > > > for
-> > > > hana `-w 1366 -h 768` ?
-> > >=20
-> > > I only did the basic `vulkaninfo` test this time around. To do
-> > > anything
-> > > interesting probably requires the Mesa 26.1 release.
-> > >=20
-> > > =C2=A0=C2=A0=C2=A0 PVR_I_WANT_A_BROKEN_VULKAN_DRIVER=3D1 \
-> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 vkmark --winsys kms -D b81=
-f54f8568deb0fb70a6a1ed845b65d
-> > >=20
-> > > just reports "Error: Device specified by uuid is not available"
-> >=20
-> > I am very sorry to tell you that, when I run Sascha's demo with
-> > Mesa
-> > main, I got GPU lost immediately...
-> >=20
-> > ```
-> > [=C2=A0 441.509433] powervr 13000000.gpu: [drm] *ERROR* GPU device lost
-> > ```
+> That equivalent has now been merged, so it is time to retire the
+> nova-core local version.
+>
+> The kernel register macro has evolved into something significantly
+> different from the one in nova-core, so it cannot be used as a drop-in
+> replacement. All declarations and sites using registers need to be
+> updated. No semantic change should happen as a result.
+>
+> All the patches in this series could also be squashed into a single one
+> without altering their reviewability significantly.
+>
+> I hope to be able to merge this quickly so we can rebase in-flight
+> series to use the updated register syntax.
+>
+> This series is based on drm-rust-next as of 2026-03-25 and has been
+> tested on Turing.
+>
+> Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
 
-The device lost message seems to be some bug of the open source KMD or
-the firmware.
-
-When I disable runtime power management of the 13000000.gpu device,
-this message does not appear, instead the following message appears and
-the GPU can continue to accept jobs:
-
-```
-powervr 13000000.gpu: [drm] Received unknown FWCCB command 2abc0070
-```
-
->=20
-> However, Zink on PowerVR works, and on Lichee Pi 4A I also got
-> `VK_ERROR_DEVICE_LOST` when running Sascha's demos (although the
-> kernel
-> does not report device lost).
->=20
-> I bet it's a regression on the VK_KHR_display code.
-
-I'm now sure that it's a regression, it's now tracked at [1].
-
-[1] https://gitlab.freedesktop.org/mesa/mesa/-/issues/15161
-
->=20
-> Thanks,
-> Icenowy
->=20
-> >=20
-> > Icenowy
-> >=20
-> > >=20
-> > > This is with Mesa 26.0.2 packages from Debian testing. At least
-> > > now
-> > > have the powervr vulkan driver enabled by default, so I don't
-> > > have
-> > > to rebuild the packages again.
-> > >=20
-> > >=20
-> > > ChenYu
-> > >=20
-> > > > Thanks
-> > > > Icenowy
-> > > >=20
-> > > > >=20
-> > > > > Same program worked correctly on a BeaglePlay and displayed a
-> > > > > color
-> > > > > gradient triangle. Not sure what went wrong here.
-> > > > >=20
-> > > > > Anyway, please have a look and test.
-> > > > >=20
-> > > > >=20
-> > > > > Thanks
-> > > > > ChenYu
-> > > > >=20
-> > > > > [1]
-> > > > > https://lore.kernel.org/dri-devel/20220815165156.118212-2-sarah.w=
-alker@imgtec.com/
-> > > > > [2]
-> > > > > https://gitlab.freedesktop.org/imagination/linux-firmware/-/tree/=
-powervr
-> > > > > [3] https://github.com/SaschaWillems/Vulkan
-> > > > > [4]
-> > > > > https://lore.kernel.org/dri-devel/f2b2671e-5acc-4dec-9c2e-3c9cd2e=
-1f19e@imgtec.com/
-> > > > >=20
-> > > > > Chen-Yu Tsai (5):
-> > > > > =C2=A0 dt-bindings: clock: mediatek: Add mt8173 mfgtop
-> > > > > =C2=A0 clk: mediatek: Add mt8173-mfgtop driver
-> > > > > =C2=A0 dt-bindings: gpu: powervr-rogue: Add MediaTek MT8173 GPU
-> > > > > =C2=A0 arm64: dts: mediatek: mt8173: Fix MFG_ASYNC power domain
-> > > > > clock
-> > > > > =C2=A0 arm64: dts: mediatek: mt8173: Add GPU device nodes
-> > > > >=20
-> > > > > =C2=A0.../clock/mediatek,mt8173-mfgtop.yaml=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 70 +++++
-> > > > > =C2=A0.../bindings/gpu/img,powervr-rogue.yaml=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 1 +
-> > > > > =C2=A0arch/arm64/boot/dts/mediatek/mt8173.dtsi=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0 |=C2=A0 33 ++-
-> > > > > =C2=A0drivers/clk/mediatek/Kconfig=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=
-=C2=A0=C2=A0 9 +
-> > > > > =C2=A0drivers/clk/mediatek/Makefile=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=
-=C2=A0 1 +
-> > > > > =C2=A0drivers/clk/mediatek/clk-mt8173-mfgtop.c=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0 | 243
-> > > > > ++++++++++++++++++
-> > > > > =C2=A0include/dt-bindings/clock/mt8173-clk.h=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 7 +
-> > > > > =C2=A07 files changed, 363 insertions(+), 1 deletion(-)
-> > > > > =C2=A0create mode 100644
-> > > > > Documentation/devicetree/bindings/clock/mediatek,mt8173-
-> > > > > mfgtop.yaml
-> > > > > =C2=A0create mode 100644 drivers/clk/mediatek/clk-mt8173-mfgtop.c
+Pushed to drm-rust-next, thanks!
