@@ -4,129 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6F0C410A3D8E
-	for <dri-devel@archiver.kernel.org>; Thu, 26 Mar 2026 12:48:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 579CB10A62CD
+	for <dri-devel@archiver.kernel.org>; Thu, 26 Mar 2026 13:07:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 94C6D10E951;
-	Thu, 26 Mar 2026 12:48:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5753110E262;
+	Thu, 26 Mar 2026 13:07:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="cyAxGiXa";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="NVcikHjG";
 	dkim-atps=neutral
-Received: from CH4PR04CU002.outbound.protection.outlook.com
- (mail-northcentralusazon11013035.outbound.protection.outlook.com
- [40.107.201.35])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9EA6910E9F0;
- Thu, 26 Mar 2026 12:48:17 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=nRHLIavLkWzWX7Z/CcZa4n3WFrJIN6oi5X4pNIuI8jHHulCNHWeJkGVjiWO4sTcDl7T250N2yivBerPjpTz6eckMrsneeqs2LZKZIbYdO8r4JI1WmzildaK0Ob0CplYE+y4zMS1lTH6NXIjtWO/xUVMuVKI8fL2vqTqsxHZTiVni/GEt6wHZy5QlOxeHFYzg4iknCFGdjvjPXyqFjb6l3WcK6a68Lw6vcHCCCAF6vAURXtjsVHsIbWa88BPibbmcWS218wKeiPb6PCWaW4gCbefOWvG0Dse+8LeXPwSyTu+MJZYmTV10k1RoIrbGZhagKW5HokEIzY2EcoMmOhnKoA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+3O506dJcL1pShLqRQGTt0zwEjCwSVvtPKVRf9aHZLE=;
- b=AFPghjfDsEHD8TNeA/tkgtQE9aRvRLLFLN53C+vkT8fi/NnzsABcB0QJZatqfkGXIr9tdS+6UmUnIwzJck0cRE9T3ea6j2zWn/ymx65LfDZPzqumJSp9aybUNvvi0ZwAT5ZJ0D8/J5qlUTdmL6aH4gM/RaAiw1D3Rygek6IXpld4LvgPESNi6B/hRBI1Dgjs+7byZKBxdkMV+g8CzaIFtXkw9WQNCg0xOBi6gj42hKKrwz624kAcekBdp+bvb0aJ2MoivzytyZMF8gOBKC45Vvl6MxP2es7lXZyUWI/xLp1aqLnq/vsQeO6q1P0xMuoN5Is7hUwq7gQ++JgFCu+pjA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+3O506dJcL1pShLqRQGTt0zwEjCwSVvtPKVRf9aHZLE=;
- b=cyAxGiXaMcf+WW0w7dSMGyqQnNYQZbUM6ytEbsR9a6RUUiiyrfivswrI2EttHWLEu8aG3hppTOGc6clh3yOWzifmantrtSPKOnE5MUtb8Na/B+rPPFvnc5MuEHzb9DAEtgipgFDsELmeEGFWuzJoj4hwG5KWr6MfSDTbxvJ0Zwg=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by LV8PR12MB9207.namprd12.prod.outlook.com (2603:10b6:408:187::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.7; Thu, 26 Mar
- 2026 12:48:12 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.20.9769.006; Thu, 26 Mar 2026
- 12:48:12 +0000
-Message-ID: <ca366b4a-ae51-4387-b0e7-86e9844b01e1@amd.com>
-Date: Thu, 26 Mar 2026 13:48:05 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 00/12] drm/amdgpu: use all SDMA instances for TTM
- clears and moves
-To: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>, David Airlie
- <airlied@gmail.com>, Felix Kuehling <Felix.Kuehling@amd.com>,
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Simona Vetter <simona@ffwll.ch>, Sumit Semwal <sumit.semwal@linaro.org>,
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E4FFE10E213;
+ Thu, 26 Mar 2026 13:07:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1774530454; x=1806066454;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=B3uzQ8tIYnAOOnEmjyfuJEJc59MwMvhEpnCIu1AwAkA=;
+ b=NVcikHjGcGId5j+J7DOnW5+LBax9NgjMLGKBZlicW+dycu8wPFPLa+qc
+ qhbK5GMHtOFjFvuqg2bB+H+EcENE72859Qy+3JH70V+xC4i65S8xE9W6f
+ KLImi4F5y5lxcAEEQej/+VcrEr0/ZWU5Hx4u1yezfn2EvYu7HBVLai9xo
+ W8BefGKj/nsriULIdkWWQhHDOfnm0XDnMjtLF9ynKRH8l2s4gDQBIpDkw
+ pMDYSGk2tO6HHTXarR+bTdPbEgRLwMGIs5JafqGdc5w5V/O0kR+paorAZ
+ 4wcubL3pg1jH6FdInns4i5Jd/6diJVN/yO3EcPgrAp7Y/FnK6rmWAecIa g==;
+X-CSE-ConnectionGUID: dAHMOkHKSQO0DDnVsLL6RA==
+X-CSE-MsgGUID: TlcT7fMdQm2o0SIjg8tbqw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11740"; a="75784613"
+X-IronPort-AV: E=Sophos;i="6.23,142,1770624000"; d="scan'208";a="75784613"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+ by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Mar 2026 06:07:30 -0700
+X-CSE-ConnectionGUID: 0oV4jNW1QTiG57YtCW6P5g==
+X-CSE-MsgGUID: HuDaOTRoSHOHVl+3MDMk5A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,142,1770624000"; d="scan'208";a="224070220"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost)
+ ([10.245.244.14])
+ by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Mar 2026 06:07:18 -0700
+Date: Thu, 26 Mar 2026 15:07:15 +0200
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+Cc: Maxime Ripard <mripard@kernel.org>,
+ Harry Wentland <harry.wentland@amd.com>,
+ Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Sandy Huang <hjc@rock-chips.com>,
+ Heiko =?iso-8859-1?Q?St=FCbner?= <heiko@sntech.de>,
+ Andy Yan <andy.yan@rock-chips.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, Dmitry Baryshkov <lumag@kernel.org>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Rob Herring <robh@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>, kernel@collabora.com,
  amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org
-References: <20260203102236.3456-1-pierre-eric.pelloux-prayer@amd.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260203102236.3456-1-pierre-eric.pelloux-prayer@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR2P281CA0162.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:99::12) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, linux-doc@vger.kernel.org,
+ Werner Sembach <wse@tuxedocomputers.com>,
+ Andri Yngvason <andri@yngvason.is>, Marius Vlad <marius.vlad@collabora.com>
+Subject: Re: [PATCH v11 03/22] drm: Add new general DRM property "color format"
+Message-ID: <acUvg3Y7kMf2qioK@intel.com>
+References: <20260324-color-format-v11-0-605559af4fb4@collabora.com>
+ <20260325-neat-elegant-raven-ebc9ab@houat>
+ <acPA60Ci3n_t__xF@intel.com> <3979783.tdWV9SEqCh@workhorse>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|LV8PR12MB9207:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6b911031-1fec-4645-069d-08de8b35f0b6
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|1800799024|376014|18002099003|56012099003|22082099003; 
-X-Microsoft-Antispam-Message-Info: 0MvPLb7L2ImW0qO5qq+dBxRNE0V1uSR5B4gTdSJLCcrrP1FB0KyQG4VnXMHETR/1bzRiS/7gO0T4hr6NsRdgafJIbCDHlQ/x2iUPtW+urDHNi6rTEUZZCUfNGMtLcAuxaA2m9Airw2qCVHYYRjoKDoQJgt+TkjG9uOUqA83ZcudBwfgIX8yf74k/c0hT1FbnHrnGfU3lXsUGv3H+8dP51Rw/re7U1Ham/KbJBDurkftNHt3fIg20vXaoTQ1UlU7h7HHRKlsItRl/EQc4eY3u0CvhSgJrR6qLuD/haEeBsGA9AZoVcsOZzycNfNHQVM8JfqD8Ai8f8/SPJ6EbysvUfEBcSZNQ7Km05sLYAkj+XQyepwkWZW3NG8drg13EWPrukF7CMAv3GAJZkv2GxebXbfvZdhy1DJunFhOTk/GJHdxZPRjeXY9DtYXnH23675m3xmsn80FAso2dHSk2nOBtAOX3oH4Cz6nu1BGQRSmbGDvJkP/48ObPlvEir1qWSeQ2Y7gDOfRD2b2+mhdbMsGvJNnIlZ3WPwHzZd5KQ2jxS8n9DLzPXMYLgoCNRgD0Mr4pgvddAYRHu7HeUotFJYZVUMqDqqatM2h+iNF1bXDTrqC2EiorWuC3hImpmuiSEGP/7ludmFbm2vk6e+VPs1HP0mBI02wjtNOVvR/orXxBJVboPcfipCzpZUPohHtIgGF/
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014)(18002099003)(56012099003)(22082099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?V015NngvTmJmYWtKdjZ6ZzRKbzY5S1drWmhUUk82TjdDeFRZdGVuR2F0bWZa?=
- =?utf-8?B?UGJQdm05U2tZRUN4ZFArZkMrVWJsZ1phaUNsZXB4K01VbHhnZXdXbUpZY0sv?=
- =?utf-8?B?Nm5ybDJSMWZkY21iYSt1bTlJbDhTS2g1MjhBRVBjUTJZQWo2NElmRUhKd09l?=
- =?utf-8?B?U3Zucjk2Q0JXMFlvTzg2YWVra0JqWTZJYU5hdTh2SllGTi80Y3NoK2svU0hM?=
- =?utf-8?B?VnlIcVA0Q1RSUjYzeUIyaGZtdlYyeGM4YnEwcVVyT3N0TjZGNFloTy9qbWM1?=
- =?utf-8?B?Vjc1Z2xUWjlFM0ljMjBYNGIveDlva2QyNXRHNWxjS1FIUUVUUmIyWnEyOEhr?=
- =?utf-8?B?WXhBYXY5d1FtQ1ZLV2l0NDVJeVpEb2paemIyVUIrZEFlUENMbFdPS3VxN3ND?=
- =?utf-8?B?UndsRDBMN3dSb21VR0JtYVhHUkt2WkhFelY1UnY0REpHSW5UMlFKOTNXdjZY?=
- =?utf-8?B?NWM5a3VzdjRvcUlLdFV3V2tUbU15eE5GaUd2cEZYNWxIWS8vS3JkTVVsZjhs?=
- =?utf-8?B?cWFGcGpRS2tQR2IyYWhXM2x5M2MyZU5BTXh3cTVaQmFpejhuYlA5Vnp5bnVG?=
- =?utf-8?B?SUZvOXVWWENIMENKK3FZYitDdURyTHhmaXRSU3pqYVZrck5Sc3NrU2JoWVlC?=
- =?utf-8?B?TTJXM0J1UTJkdlQ1R0JuY3V2SVJydEtwU1pxNnNGQUNXNC94RWpBWGYwMTc4?=
- =?utf-8?B?UU9qVjB2OVlhSnVSc3lFd0MzYVkyKzVMY1JNWXFyQkh4M24zYTZnNklMMlVZ?=
- =?utf-8?B?VXpRZ3ZTVFdEZVpGSUU1US9jZWU3OUU5U2JmRmhPVXBWU2pMSVY2U3RjL0Zl?=
- =?utf-8?B?SmhhU0JrNHA2ejJtOFV3eXdJUElFcDlIZ01uaU94TGZ2bUg3RkkydUFSTDFG?=
- =?utf-8?B?ZWZYWVhLK2hZZHRWdXkwYkhGUDVYMnViYTFjRE1ybTkxQmcydWpVTGw2SDJ6?=
- =?utf-8?B?KzQyNnFFYWQyZWMvd1ZKdWlXdERsZXRYV2FVbEhmMnRON201cEtPcTF0NFJm?=
- =?utf-8?B?WVhMWjVhdHFnK2tLWURXbzFvdlkvK2RxenMyWTQzRk1mY3VUNUliaVJoQjhC?=
- =?utf-8?B?QWFPekcxYU9rOEhVdFNEY3hTcmVhOGFEd0NmVXdtb0loVm1lbkJwTGRSZkhP?=
- =?utf-8?B?Zmp4cDlHNDYxdEsvRTQxU0F5NmFmbWNzZk5DaGdYdStwSUVQeG9wRGdnRHB6?=
- =?utf-8?B?VmQ1VWhSaTRkZjBZVkhneDFmc0FSRDVxUVFPQk5GUjN5SXc5K3UyelJNYmVE?=
- =?utf-8?B?ZDIwVkowbmxZOWhIa0xVMTBLRU14K25TWkVQNlhrWXMyNnYwV1ordVNsSjBi?=
- =?utf-8?B?SDhMWGZHdVY1VjI1ZWlZZWZIQ1FNMnBWaDluUkdudTBnRWVmc0JzaXpzZWJC?=
- =?utf-8?B?WFRtLzByVkpHK2diQkhMVkFQVXJKOW4reGk4eHhCSUp4THJMOC9DZG1oNXV6?=
- =?utf-8?B?dVd2VFpGQXRYOWlqSkhTdytCVnhXUVh5bUZYUXUyTmwwczNxbGJXZ0l6cFEw?=
- =?utf-8?B?eE8xZWFRaE1ZQ1lBQldyTllZSGNLN2NHSUtMdHZ0Mi9HWGovdlVlMU1lQXE3?=
- =?utf-8?B?aWVOMnpZNFZ1U3ppUnlTZno2RW9aNjdmNlowODZUT2lYMHJrSm56Vi9xSHhj?=
- =?utf-8?B?T2M4aEdrQS85QmNHMWlRejE3dWdnMThmY0NJdUNLZG5kNWpmYWdYMDY2K0xD?=
- =?utf-8?B?UFNNcTkzRDBjY2xSSE5WMTdNT0NiMlV4NTZMRHNhZnBvV0svSjJSRmxUUFNn?=
- =?utf-8?B?V1dUcVY3bEhxZHhoUmRjZnZCYW5rUS9aZi9qenp4RWFkU0JFNllZeVlUVGNF?=
- =?utf-8?B?UWZPaGJabWdXOVdUQTJiRFN2b29HN0RuUklmT3NHUjIwNU9rV0ErS0gzaFNm?=
- =?utf-8?B?UGh4R1BPQkRTODVJeDYwV0hNdG13SGJ4dGFQWUthR0cyYVhCbm5uL1JpZXh1?=
- =?utf-8?B?S2dNdjFQR2M5ZGo3ZWJBNHg2R3hVVm9OTzVjbnR2eTBIR1FpZW16SmdMaHlw?=
- =?utf-8?B?WUxHdHNRbXAvYlVqZFUrSzJTdzBTYWVlOWFyOWNIbDl3TjhiTGlIQU5Rc3lW?=
- =?utf-8?B?VS9jWnloSXF2SUx0Q0xYanFDQ1hKVUlvNVBiTWlLTUdFeGtyeUw0MjkvZUxt?=
- =?utf-8?B?ckZpTkJVYnl2cVpmOGxOQUhDaXkzbklBYkptVVZZNEdlZXZEZ1grYzA5THU4?=
- =?utf-8?B?V2ZCL1BWZXBWcE13OFNaSlZQZ0N2d1lvanZSNFpxdDl0TUE2YlZmMTFKNHB1?=
- =?utf-8?B?S29hM3VRVTladEUvM0E1eW82eExvTVRsYkRmalNtZGJXSDd6SGFaZ0VabHBk?=
- =?utf-8?Q?95un2f+vJdrSB4s2UE?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6b911031-1fec-4645-069d-08de8b35f0b6
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Mar 2026 12:48:12.4725 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: xUWCJ9tyHaysMu419CKFN1/inIYO6ldAOgMag8ofZwhtVSb8UnWpjXrrATEqbeyQ
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9207
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <3979783.tdWV9SEqCh@workhorse>
+X-Patchwork-Hint: comment
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -142,71 +101,138 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Finally coming back to this patch set here.
+On Thu, Mar 26, 2026 at 01:44:03PM +0100, Nicolas Frattaroli wrote:
+> On Wednesday, 25 March 2026 12:03:07 Central European Standard Time Ville Syrjälä wrote:
+> > On Wed, Mar 25, 2026 at 09:24:27AM +0100, Maxime Ripard wrote:
+> > > On Tue, Mar 24, 2026 at 09:53:35PM +0200, Ville Syrjälä wrote:
+> > > > On Tue, Mar 24, 2026 at 08:10:11PM +0100, Nicolas Frattaroli wrote:
+> > > > > On Tuesday, 24 March 2026 18:00:45 Central European Standard Time Ville Syrjälä wrote:
+> > > > > > On Tue, Mar 24, 2026 at 05:01:07PM +0100, Nicolas Frattaroli wrote:
+> > > > > > > +enum drm_connector_color_format {
+> > > > > > > +	/**
+> > > > > > > +	 * @DRM_CONNECTOR_COLOR_FORMAT_AUTO: The driver or display protocol
+> > > > > > > +	 * helpers should pick a suitable color format. All implementations of a
+> > > > > > > +	 * specific display protocol must behave the same way with "AUTO", but
+> > > > > > > +	 * different display protocols do not necessarily have the same "AUTO"
+> > > > > > > +	 * semantics.
+> > > > > > > +	 *
+> > > > > > > +	 * For HDMI, "AUTO" picks RGB, but falls back to YCbCr 4:2:0 if the
+> > > > > > > +	 * bandwidth required for full-scale RGB is not available, or the mode
+> > > > > > > +	 * is YCbCr 4:2:0-only, as long as the mode and output both support
+> > > > > > > +	 * YCbCr 4:2:0.
+> > > > > > > +	 *
+> > > > > > > +	 * For display protocols other than HDMI, the recursive bridge chain
+> > > > > > > +	 * format selection picks the first chain of bridge formats that works,
+> > > > > > > +	 * as has already been the case before the introduction of the "color
+> > > > > > > +	 * format" property. Non-HDMI bridges should therefore either sort their
+> > > > > > > +	 * bus output formats by preference, or agree on a unified auto format
+> > > > > > > +	 * selection logic that's implemented in a common state helper (like
+> > > > > > > +	 * how HDMI does it).
+> > > > > > > +	 */
+> > > > > > > +	DRM_CONNECTOR_COLOR_FORMAT_AUTO = 0,
+> > > > > > > +
+> > > > > > > +	/**
+> > > > > > > +	 * @DRM_CONNECTOR_COLOR_FORMAT_RGB444: RGB output format
+> > > > > > > +	 */
+> > > > > > > +	DRM_CONNECTOR_COLOR_FORMAT_RGB444,
+> > > > > > > +
+> > > > > > > +	/**
+> > > > > > > +	 * @DRM_CONNECTOR_COLOR_FORMAT_YCBCR444: YCbCr 4:4:4 output format (ie.
+> > > > > > > +	 * not subsampled)
+> > > > > > > +	 */
+> > > > > > > +	DRM_CONNECTOR_COLOR_FORMAT_YCBCR444,
+> > > > > > > +
+> > > > > > > +	/**
+> > > > > > > +	 * @DRM_CONNECTOR_COLOR_FORMAT_YCBCR422: YCbCr 4:2:2 output format (ie.
+> > > > > > > +	 * with horizontal subsampling)
+> > > > > > > +	 */
+> > > > > > > +	DRM_CONNECTOR_COLOR_FORMAT_YCBCR422,
+> > > > > > > +
+> > > > > > > +	/**
+> > > > > > > +	 * @DRM_CONNECTOR_COLOR_FORMAT_YCBCR420: YCbCr 4:2:0 output format (ie.
+> > > > > > > +	 * with horizontal and vertical subsampling)
+> > > > > > > +	 */
+> > > > > > > +	DRM_CONNECTOR_COLOR_FORMAT_YCBCR420,
+> > > > > > 
+> > > > > > Seems like this should document what the quantization range
+> > > > > > should be for each format.
+> > > > > > 
+> > > > > 
+> > > > > I don't think so? If you want per-component bit depth values,
+> > > > > DRM_FORMAT_* defines would be the appropriate values to use. This
+> > > > > enum is more abstract than that, and is there to communicate
+> > > > > YUV vs. RGB and chroma subsampling, with bit depth being handled
+> > > > > by other properties.
+> > > > > 
+> > > > > If you mean the factor used for subsampling, then that'd only be
+> > > > > relevant if YCBCR410 was supported where one chroma plane isn't
+> > > > > halved but quartered in resolution. I suspect 4:1:0 will never
+> > > > > be added; no digital display protocol standard supports it to my
+> > > > > knowledge, and hopefully none ever will.
+> > > > 
+> > > > No, I mean the quantization range (16-235 vs. 0-255 etc).
+> > > > 
+> > > > The i915 behaviour is that YCbCr is always limited range,
+> > > > RGB can either be full or limited range depending on the 
+> > > > "Broadcast RGB" property and other related factors.
+> > > 
+> > > So far the HDMI state has both the format and quantization range as
+> > > different fields. I'm not sure we need to document the range in the
+> > > format field, maybe only mention it's not part of the format but has a
+> > > field of its own?
+> > 
+> > I think we only have it for RGB (on some drivers only?). For YCbCr
+> > I think the assumption is limited range everywhere.
+> > 
+> > But I'm not really concerned about documenting struct members.
+> > What I'm talking about is the *uapi* docs. Surely userspace
+> > will want to know what the new property actually does so the
+> > uapi needs to be documented properly. And down the line some
+> > new driver might also implement the wrong behaviour if there
+> > is no clear specification.
+> > 
+> > So I'm thinking (or perhaps hoping) the rule might be something like:
+> > - YCbCr limited range 
+> > - RGB full range if "Broadcast RGB" property is not present
+> > - RGB full or limited range based on the "Broadcast RGB" property
+> >   if it's present
+> > 
+> > I think the "Broadcast RGB" property itself might also be lacking
+> > proper uapi docs, so that may need to be remedied as well.
+> > 
+> > 
+> 
+> Alright, so in v12 I'll do the following:
+> 
+> - Add a line to all YCBCR connector formats that specifies they're
+>   limited range as long as Broadcast RGB is limited. Whether it's limited
+>   range when Broadcast RGB is full is purposefully left undefined.
 
-Fell free to add Reviewed-by: Christian KÃ¶nig <christian.koenig@amd.com> to the first two patches as well and then please start pushing the patches to amd-staging-drm-next.
+"Broadcast RGB", as the name implies, only affects RGB output.
 
-I probably need to go over the last patches once more, but I think it would be better to have the first few upstream first.
-
-Regards,
-Christian.
-
-On 2/3/26 11:22, Pierre-Eric Pelloux-Prayer wrote:
-> The drm/ttm patch modifies TTM to support multiple contexts for the pipelined moves.
+>   In the future, we can expand this to state they're limited range by
+>   default unless some other property is set. If we're not re-using
+>   Broadcast RGB for that, this will work out fine, because users who
+>   don't know about the eventual new property won't have this behaviour
+>   changed. If we do re-use "Broadcast RGB" for that, then only users
+>   relying on things we explicitly left undefined will get surprise
+>   full range YCBCR.
+> - Add a line to the RGB connector format that specifies its range
+>   depends on the "Broadcast RGB" property
 > 
-> Then amdgpu/ttm is updated to express dependencies between jobs explicitely,
-> instead of relying on the ordering of execution guaranteed by the use of a single
-> instance.
-> With all of this in place, we can use multiple entities, with each having access
-> to the available SDMA instances.
+> This is a bit of a mess, because it's entirely reasonable that a
+> future YCBCR range property would want to default to full range
+> so that users get the most color out of their monitors. But with
+> this description of the connector color formats, we can't do that.
 > 
-> This rework also gives the opportunity to merge the clear functions into a single
-> one and to optimize a bit GART usage.
+> If there are alternate suggestions, I'm open for them. We can't
+> really rename "Broadcast RGB" but if I had a time machine, that'd
+> be my first choice.
 > 
-> Since v3 some patches have been already reviewed and merged separately:
-> - https://lists.freedesktop.org/archives/amd-gfx/2026-January/137747.html
-> - https://gitlab.freedesktop.org/drm/kernel/-/commit/ddf055b80a544d6f36f77be5f0c6d3c80177d57c
-> This version depend on them.
-> 
-> v3: https://lists.freedesktop.org/archives/dri-devel/2025-November/537830.html
-> 
-> Pierre-Eric Pelloux-Prayer (12):
->   drm/amdgpu: allocate clear entities dynamically
->   drm/amdgpu: allocate move entities dynamically
->   drm/amdgpu: round robin through clear_entities in amdgpu_fill_buffer
->   drm/amdgpu: use TTM_NUM_MOVE_FENCES when reserving fences
->   drm/amdgpu: use multiple entities in amdgpu_move_blit
->   drm/amdgpu: pass all the sdma scheds to amdgpu_mman
->   drm/amdgpu: only use working sdma schedulers for ttm
->   drm/amdgpu: create multiple clear/move ttm entities
->   drm/amdgpu: give ttm entities access to all the sdma scheds
->   drm/amdgpu: get rid of amdgpu_ttm_clear_buffer
->   drm/amdgpu: rename amdgpu_fill_buffer as amdgpu_ttm_clear_buffer
->   drm/amdgpu: split amdgpu_ttm_set_buffer_funcs_status in 2 funcs
-> 
->  drivers/gpu/drm/amd/amdgpu/amdgpu.h           |   2 +
->  drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c        |   5 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    |  16 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c       |   4 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_object.c    |  17 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c       | 329 ++++++++++--------
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h       |  29 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c      |   6 +-
->  drivers/gpu/drm/amd/amdgpu/cik_sdma.c         |  13 +-
->  drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c        |   8 +-
->  drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c        |   8 +-
->  drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c        |  15 +-
->  drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c      |  12 +-
->  drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c        |  11 +-
->  drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c        |  14 +-
->  drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c        |   5 +-
->  drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c        |   5 +-
->  drivers/gpu/drm/amd/amdgpu/sdma_v7_1.c        |  12 +-
->  drivers/gpu/drm/amd/amdgpu/si_dma.c           |  12 +-
->  drivers/gpu/drm/amd/amdkfd/kfd_migrate.c      |   5 +-
->  drivers/gpu/drm/amd/amdkfd/kfd_svm.c          |   3 +-
->  .../amd/display/amdgpu_dm/amdgpu_dm_plane.c   |   6 +-
->  .../drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c  |   6 +-
->  23 files changed, 300 insertions(+), 243 deletions(-)
+> Kind regards,
+> Nicolas Frattaroli
 > 
 
+-- 
+Ville Syrjälä
+Intel
