@@ -4,141 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DF50C10AB80C
-	for <dri-devel@archiver.kernel.org>; Thu, 26 Mar 2026 19:13:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4467210AB807
+	for <dri-devel@archiver.kernel.org>; Thu, 26 Mar 2026 19:28:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 27DD110EC16;
-	Thu, 26 Mar 2026 19:13:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E4CA510E034;
+	Thu, 26 Mar 2026 19:28:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="CFHNKyqk";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="bzTy0Kl+";
+	dkim=pass (2048-bit key; secure) header.d=sntech.de header.i=@sntech.de header.b="NmXGA9yd";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 09B6110EAEF
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Mar 2026 19:13:49 +0000 (UTC)
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 62QF9gf82451413
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Mar 2026 19:13:49 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- I8pRdQFOK7i3p0sQMgJhiV+GCt2MC+4BNvCTFNypBOI=; b=CFHNKyqkP/dNZD0J
- g50OFbVBMt06oP5e//g9SbH6Vfo22br8uvtblaB/5B2w0bd9VVekMJVWCv7N77r4
- dKUkY0bCdCb0zBLaAMgo8tIv+dCgukMe+Je8px6HWxakvTOEhb4spkJnAxCC/FkE
- LJG05GorAHChuNiKWzpW+9AwpFVna6WprFnwhLj4sDRfGrxTAb5mzc2vU9R24EJe
- y1l7ImFgY+aTPdgoyVTtDYxEyU/391qnfF1XLEpBE0dG0zt38r1loX8x3FleQGkB
- X4N8yvd04sJo2z9wVVMmmV1DrtNg7zWxwO5wpaL2SxnJZ7ECCObJ25Xwk2NAjkex
- 5hikMg==
-Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com
- [209.85.214.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d4q1t48bq-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Mar 2026 19:13:48 +0000 (GMT)
-Received: by mail-pl1-f197.google.com with SMTP id
- d9443c01a7336-2a90510a6d1so13195115ad.0
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Mar 2026 12:13:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1774552428; x=1775157228;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:in-reply-to:content-language:from
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=I8pRdQFOK7i3p0sQMgJhiV+GCt2MC+4BNvCTFNypBOI=;
- b=bzTy0Kl+MRM1968wtXJYQ1tiaHJ1DHiWfQb5m32ijyBNJCqWeHAO/V28pibQlVI8ty
- ld2E4nybxtI9KrNVuG8m/2qZDXae8VBeZMAX8xVPc3YZEx73SYxzxRPkuL7tdF7lqRC1
- w4+fseYZFO+lXqCib7cPUt5xJfQ0mSN+TQ1MO5BxhV/HOe6dGiZ2RAP4AonyHn+TS09I
- RnV4SbRTJHI4I+SQJ4N/mOaSyl4RBerTY/b6/dFLR6x29ig5NUPUArErj92EiBC7OGye
- fp5PA3XIe1K+B5brE5DJJjceWSahKcK6iu9aNdzyHzdfDoHTFdmzvb1lJqn6bM6xE/c5
- uT5g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774552428; x=1775157228;
- h=content-transfer-encoding:in-reply-to:content-language:from
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=I8pRdQFOK7i3p0sQMgJhiV+GCt2MC+4BNvCTFNypBOI=;
- b=D7fqkEoht5KxO9U+ljMu7sQWEXu6S8lODQKBMDFKFI9xARq/T0YLADvd7KLN606ymy
- fAOfg96Jv7+tXIClYXbq3KXhi5boNSQE9fmizwH1uLw8+sJfuB9HZm4hkc8mCHcudBbG
- 3E9FWE4gFjKIEtWv9ig9uo/EejrbLanZ13Jt/r8Meiyxab1rYrxjNNUhNtz2XN3FZ8tb
- 7W57bjDUy0dDuTc7tHGOkgVwKDKmZ/dxrDEETVecVHXwU93b+0dakpRrwav9xBjWh1sb
- gRYqy0qZMqBTu/j6u+sRxbSH7Ud/V3kLo0oiQ9LWRMVJ16CYuu6nSMqR65MzTJuN8n9P
- VtDw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCX8zxUEsjUIFZqUTiggjhkQZVb3wYTN39fbzHSOxr+DDjPRzzT+p84dgPoHZBujMx8bUfzunV2r7Q0=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyVd5FkQAQO1zbS9J622ZvRj45V7tYNVVeZxfglCNdZxo7uK8/L
- 3VramX1+DiFlu1mm4ggrbdQk4ejc28y8K76in/TuXdSGwZ1VAIk0LjND52lse1JtOY6CoQ2nJrL
- gzPuf60ChiE5mpwYpEcMTMN61CRTf5S6m7xQeeeD1UzsQvatOV+nkb3BcMiC2O5IX9y33ZNY=
-X-Gm-Gg: ATEYQzxcF456veY63GVPFfvs3jAAIk+RQXUK90aVpf6tyggghBvRh1Zx+NvlXu3P379
- 1s5xT6SW7cSx+2c2yxmxEczC/DlB8tsCz0iJ87RA+1R4oEEPi8NQcLnproPGxdDXPcLSN+EXNds
- ASahCjBAMOldz8w3ehuZ2hiBY+w2nAEh6+2hyIR8+iYe6qa89QTe66RLge4ngdgkO2null2ZXuz
- o2IbgA2wySEhbMpO1yheN+/nquNg0ZWSl+uWEZQQnQdHpprCfCvUkWkab163T9GQ57TwPGypCuF
- K1eD2Kn+BIT0/TiWfXziWegMvaZX7YjEiBDio7FlxK9E5dOY8hL0VYiX6NOaHcZAmekxyYY7+De
- uy+lkwVPPERq7AChrxYE7/nrfIkYd/ARbRySMOOMsDlhT
-X-Received: by 2002:a17:902:e94c:b0:2b0:5a4c:726f with SMTP id
- d9443c01a7336-2b0c48e9a76mr28339855ad.15.1774552427556; 
- Thu, 26 Mar 2026 12:13:47 -0700 (PDT)
-X-Received: by 2002:a17:902:e94c:b0:2b0:5a4c:726f with SMTP id
- d9443c01a7336-2b0c48e9a76mr28339615ad.15.1774552427007; 
- Thu, 26 Mar 2026 12:13:47 -0700 (PDT)
-Received: from [10.91.121.222] ([202.46.22.19])
- by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2b0bc8f3b98sm34857235ad.70.2026.03.26.12.13.41
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 26 Mar 2026 12:13:46 -0700 (PDT)
-Message-ID: <281e5ea3-ae44-4939-b800-face97ac2d6e@oss.qualcomm.com>
-Date: Fri, 27 Mar 2026 00:43:39 +0530
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 12/16] drm/msm/a6xx: Add SKU detection support for X2-85
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Antonino Maniscalco <antomani103@gmail.com>,
- Connor Abbott <cwabbott0@gmail.com>,
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1E18F10E034
+ for <dri-devel@lists.freedesktop.org>; Thu, 26 Mar 2026 19:28:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de; 
+ s=gloria202408;
+ h=Content-Type:Content-Transfer-Encoding:MIME-Version:
+ References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
+ bh=P8q1b7BVCr0bxZwKjgU8Z7Ivc8vxFh7zx0HI/IRg014=; b=NmXGA9ydxp031MJXvgcF0ptzp7
+ XnxCZcHUteZX1hWuh3E/f7+WPpkpdHYHTGAs0t3XHOIesKna/h1MQCEtpDxqq5Aeu64B6rF4zPCHe
+ 3Jief1YqMvdmf1FSJR7SQZO4vnkflxKLX7b01HSqpmpZXuLZoaT94whOqHimtZQVK0MBKyr/I4ihV
+ ed39NYWtlj7ywDMsyZPY58FuQ30fqgI+tCaujN3rw6lCsPbaKVpYzAFIbLxGbY6A8H0U/y9Z5fkpj
+ zsHWtwTIhTh2pXZZKcSLlS1xp3b6/DVvcNUfYfxAzMuD7QTCOxCrTUDiaXoco6w/oEPu6I2EghD0D
+ 4cpvgQ4A==;
+From: Heiko Stuebner <heiko@sntech.de>
+To: Sandy Huang <hjc@rock-chips.com>, Andy Yan <andy.yan@rock-chips.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>, Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+Cc: kernel@collabora.com, dri-devel@lists.freedesktop.org,
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
  linux-kernel@vger.kernel.org
-References: <20260324-a8xx-gpu-batch2-v1-0-fc95b8d9c017@oss.qualcomm.com>
- <20260324-a8xx-gpu-batch2-v1-12-fc95b8d9c017@oss.qualcomm.com>
- <x6b2miikgofuhfnrgnuf47mrrcbz2fkvht25dilo33teafcsax@v5f5j2g2wuxp>
-From: Akhil P Oommen <akhilpo@oss.qualcomm.com>
-Content-Language: en-US
-In-Reply-To: <x6b2miikgofuhfnrgnuf47mrrcbz2fkvht25dilo33teafcsax@v5f5j2g2wuxp>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=e7cLiKp/ c=1 sm=1 tr=0 ts=69c5856c cx=c_pps
- a=cmESyDAEBpBGqyK7t0alAg==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=EUspDBNiAAAA:8 a=pFeaMtMCVmKtNNfMW7wA:9 a=QEXdDO2ut3YA:10
- a=1OuFwYUASf3TG4hYMiVC:22
-X-Proofpoint-GUID: pju54EZoBV3IT6M5leRbfxuEjurTHgjV
-X-Proofpoint-ORIG-GUID: pju54EZoBV3IT6M5leRbfxuEjurTHgjV
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzI2MDEzOCBTYWx0ZWRfX1E5QfxzelWPr
- MwiavbTmqHCTZIkZAOEBJa8454zJr/DFKjN5EWtqpGPPVW2P3ofRTJyeyhOgramuObthIYf3Zjg
- A+xkqiK5mmBPjJh0emiF/zxYHCyoDTm1pYt2bD4/wFxV4n6QvPboXcVkH69PIo8l7eXedpEy1Xk
- zWftGcrGpoVlXoCJJsYf87KwyAAk5YZg17BCV1F+pGl0ISrlIrtCxAAXOvaD3YZjhJkU0OdRznX
- gDXqEgpGqE4ZdzBeb4u8hejhMIO96C0NHw7e24MTWNrcl2IzKL/CRxyFdVxzs7++lYxVQTrom5o
- BlKksnpC1J2DyL/QgOCmwjKE24T0wMlcVjZ8ZVe6vOy6RiaUY+kDLxzDJdfpxQYA91GPFMCwmej
- 5fVP5Urr5Iznt0MgyANyP7asS1Li7JidNa558t40LgFaSZpdTx9CB8wK4zoYjA7VvWmZrmy1UvI
- SdeWCaJDzB5N7Et8rug==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-03-26_03,2026-03-26_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 impostorscore=0 spamscore=0 bulkscore=0 phishscore=0
- suspectscore=0 clxscore=1015 lowpriorityscore=0 malwarescore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603260138
+Subject: Re: [PATCH v2 7/8] drm/bridge: synopsys: dw-dp: Unregister AUX
+ channel on bridge detach
+Date: Thu, 26 Mar 2026 20:28:02 +0100
+Message-ID: <2053748.usQuhbGJ8B@phil>
+In-Reply-To: <20260310-drm-rk-fixes-v2-7-645ecfb43f49@collabora.com>
+References: <20260310-drm-rk-fixes-v2-0-645ecfb43f49@collabora.com>
+ <20260310-drm-rk-fixes-v2-7-645ecfb43f49@collabora.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -154,51 +64,60 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 3/24/2026 3:04 AM, Dmitry Baryshkov wrote:
-> On Tue, Mar 24, 2026 at 01:42:24AM +0530, Akhil P Oommen wrote:
->> Adreno X2-85 series present in Glymur chipset supports a new mechanism
->> for SKU detection. A new CX_MISC register exposes the combined (or
->> final) speedbin value from both HW fuse register and the Soft Fuse
->> register.
->>
->> Implement this new SKU detection along with a new quirk to identify the
->> GPUs that has SOFT SKU support. Also, enable this quirk for Adreno X2-85
-> 
-> SOFT SKU -> Soft fuse?
-> 
->> and add its SKU table to the catalog.
->>
->> Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
->> ---
->>  drivers/gpu/drm/msm/adreno/a5xx_gpu.c         |  6 ++++
->>  drivers/gpu/drm/msm/adreno/a6xx_catalog.c     |  9 +++++-
->>  drivers/gpu/drm/msm/adreno/a6xx_gpu.c         | 41 ++++++++++++++++++++++-----
->>  drivers/gpu/drm/msm/adreno/adreno_gpu.c       |  5 ----
->>  drivers/gpu/drm/msm/adreno/adreno_gpu.h       |  1 +
->>  drivers/gpu/drm/msm/registers/adreno/a6xx.xml |  4 +++
->>  6 files changed, 53 insertions(+), 13 deletions(-)
->>
->> @@ -1213,10 +1212,6 @@ int adreno_gpu_init(struct drm_device *drm, struct platform_device *pdev,
->>  			devm_pm_opp_set_clkname(dev, "core");
->>  	}
->>  
->> -	if (adreno_read_speedbin(dev, &speedbin) || !speedbin)
->> -		speedbin = 0xffff;
->> -	adreno_gpu->speedbin = (uint16_t) (0xffff & speedbin);
->> -
-> 
-> You have removed this from the generic code and then added it to a5xx
-> and a6xx+. Wouldn't this cause a change on a2xx - a4xx?
+Am Montag, 9. M=C3=A4rz 2026, 23:44:35 Mitteleurop=C3=A4ische Normalzeit sc=
+hrieb Cristian Ciocaltea:
+> The DisplayPort AUX channel gets initialized and registered during
+> dw_dp_bind(), but it is never unregistered, which may lead to resource
+> leaks and/or use-after-free:
+>=20
+> [  224.661371] BUG: KASAN: slab-use-after-free in device_is_dependent+0xe=
+0/0x2b0
+> [  224.662015] Read of size 8 at addr ffff00011aee8550 by task modprobe/6=
+58
+> ...
+> [  224.662796]  device_is_dependent+0xe0/0x2b0
+> [  224.662802]  device_is_dependent+0x108/0x2b0
+> [  224.662808]  device_link_add+0x1f8/0x10b0
+> [  224.662813]  devm_of_phy_get_by_index+0x120/0x200
+> [  224.662819]  dw_dp_bind+0x34c/0xb10 [dw_dp]
+> [  224.662830]  dw_dp_rockchip_bind+0x194/0x250 [rockchipdrm]
+> [  224.662864]  component_bind_all+0x3a8/0x720
+> [  224.662869]  rockchip_drm_bind+0x120/0x390 [rockchipdrm]
+> [  224.662899]  try_to_bring_up_aggregate_device+0x76c/0x838
+> [  224.662904]  component_master_add_with_match+0x1f4/0x230
+> [  224.662909]  rockchip_drm_platform_probe+0x420/0x538 [rockchipdrm]
+> [  224.662939]  platform_probe+0xe8/0x168
+> [  224.662945]  really_probe+0x340/0x828
+> [  224.662950]  __driver_probe_device+0x2e0/0x350
+> [  224.662954]  driver_probe_device+0x80/0x140
+> [  224.662959]  __driver_attach+0x398/0x460
+> [  224.662964]  bus_for_each_dev+0xe0/0x198
+> [  224.662968]  driver_attach+0x50/0x68
+> [  224.662972]  bus_add_driver+0x2a0/0x4c0
+> [  224.662977]  driver_register+0x294/0x360
+> [  224.662982]  __platform_driver_register+0x7c/0x98
+> [  224.662987]  rockchip_drm_init+0xc4/0xff8 [rockchipdrm]
+> ...
+>=20
+> Unregister the AUX adapter on bridge detach.
 
-In the the devicetree, only a5x and a6x chipsets are users of the
-speed_bin cells. Also, I believe Mesa handles speedbin=0 correctly for
-A4x and older chipsets. So we can ignore those.
+that sounds sort of asymmetrical though. drm_bridge_funcs has attach and
+detach callbacks and the component-framework also has bind and unbind
+callbacks.
 
--Akhil.
+This might cause confusion later on I guess, especially as I don't know
+if there could be a bridge attach, after the detach that unregisters the
+aux adapter.
 
-> 
->>  	gpu_name = devm_kasprintf(dev, GFP_KERNEL, "%"ADRENO_CHIPID_FMT,
->>  			ADRENO_CHIPID_ARGS(config->chip_id));
->>  	if (!gpu_name)
-> 
+Looking at the AnalogixDP for example, it does the the register and
+unregister in the bind/unbind callbacks of the core driver.
+
+So I guess the in my eyes cleaner way would be to introduce a
+dw_dp_unbind() function and put the aux unregister there?
+
+At least that way, everything would be at the same "level".
+
+
+Heiko
+
 
