@@ -4,117 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9FACE106F302
-	for <dri-devel@archiver.kernel.org>; Thu, 26 Mar 2026 08:38:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5DDB4106F305
+	for <dri-devel@archiver.kernel.org>; Thu, 26 Mar 2026 08:50:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 127B510E9F3;
-	Thu, 26 Mar 2026 08:38:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1993310EA11;
+	Thu, 26 Mar 2026 08:50:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="tFGtCj0g";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="eWGx2gOL";
 	dkim-atps=neutral
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com
- [209.85.221.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 00AB810EA18
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Mar 2026 08:38:41 +0000 (UTC)
-Received: by mail-wr1-f49.google.com with SMTP id
- ffacd0b85a97d-43b527ac5d0so330149f8f.2
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Mar 2026 01:38:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1774514320; x=1775119120; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:organization:autocrypt
- :content-language:references:cc:to:subject:reply-to:from:user-agent
- :mime-version:date:message-id:from:to:cc:subject:date:message-id
- :reply-to; bh=jqy37fTLBIgdrRRJV6oiAJlRmShF96nT8C9cnYI6+hQ=;
- b=tFGtCj0gNKBMqU+Z4VtG2sum3I3hY6ZwM1Nxia/pvsl1x1c0fhAJMipI1ZzslKPite
- HGP6PGrdqDyZThk0T7sjJTbEvQLxKCUv0h29N1khy7T9dg6kPXQo4ew7RE6piZTmfiPi
- vY/WVdFnq2zjMqYnAqFesgA/uFzFwrg6aNguaWQwsfZk4Su5KQNDolEF74O8fdJoKqp0
- TjD8k+huCYXGALlenWIj5UCquFd1xymyzqOJTSspHJzeTseWpL+JYOnbpf7Yk1eFSJuc
- WgizpHNx2igVaWcmafvzSovzNYXenAiavv+SudlNTi3xKLi3qVomLlYSst4AOWHKKsbC
- gWfQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774514320; x=1775119120;
- h=content-transfer-encoding:in-reply-to:organization:autocrypt
- :content-language:references:cc:to:subject:reply-to:from:user-agent
- :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=jqy37fTLBIgdrRRJV6oiAJlRmShF96nT8C9cnYI6+hQ=;
- b=cx1nfwjQp17iLSle5brd4j+ch1omyStQkS5FBJ9Gnb72EYeGK76BGqMT/ARSasW/gm
- srODN2LzHQ5J5uzsJn3qosaveuiLje/Ifo3q4rqhTzxnfoaFPeSUaXlZFChpCFyMsbGb
- AXSBwYI+iyIwCT6flwFVvawX2gXtcCVNgIsq1pYFTgRiiOIb5xVRRZ0a4D+DR3ZVN3x6
- JVKS/tivqW/5YiatIqVylDhvnhbL/ixGVlRrHjxJeT+VozjLgr/x0TIw3u1d4YpIeWPo
- wPMSjNUSZeP2KJFowhl5e2DD7CO0Gg0mfbrJqn+sGp3m2udUCRpTOh1qMKNL8LnAUL6S
- HRDQ==
-X-Gm-Message-State: AOJu0YyAgvtVjsSLYwnY4zhsVthqgytuSBaceYwYe2c/9W5P8zVif6Wr
- W/RRNSZ14FY3LrvJWDQokd1q4DO83yI6lYenpI3Qz//C/+adZN6T70u7S0VB+eNWs40=
-X-Gm-Gg: ATEYQzwA26Hu6BXjcfykNqp4wZj6ieJ9C17u2UILR5LwRfqc+z6vtHaLo54TqMBOD5G
- YKBj7osnoXFysT80Od++hD2NzEenN8Mi/5NdJ8ATt6HAk7VztBXHUQ42kBN3MJJgEn7TvuyFRY6
- JwTipdIoOcsgQGwfVhSXo5ohFcyQ+aCL7oxSkRXMgsQLO4rFL9PH+pBaLHId1nzUr7RK7ZARGni
- rGTMLqLA4DZEWZgOYHF1ynqo8Ml2sZXhu0QJqalEsheWHFOPemcs9MVIi9uLv3gpFmq3sAULKRn
- tm3TdzSVr3jOIn7i9VWq0f+I8+BEnQZ0kOEKisZEssqVWT9t/B4fbpJMRUsbT1terPpi8K3/BwO
- AGBzhe82oQZdfHnq6C5c8LehSY8HV6GZBTmdmLaFtDIbkuH7A07Nlu0saorL9XOF4NQseyyDPk0
- M0xTTSTjMwYQhHHUxk8DkBCuHNd/wm+mCFVjeNg3hm9vV4m8Ox25IK/DLUijKFAKVPj5mgRrxh/
- njKu2Qp2klitWgq8Q==
-X-Received: by 2002:a05:6000:4381:b0:43b:4468:b114 with SMTP id
- ffacd0b85a97d-43b889db4b2mr9444918f8f.23.1774514320331; 
- Thu, 26 Mar 2026 01:38:40 -0700 (PDT)
-Received: from ?IPV6:2a01:e0a:106d:1080:8431:f88b:714d:f78d?
- ([2a01:e0a:106d:1080:8431:f88b:714d:f78d])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-43b919e68a6sm7333599f8f.33.2026.03.26.01.38.39
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 26 Mar 2026 01:38:39 -0700 (PDT)
-Message-ID: <dc18d8b4-34d8-4c66-bcd3-e20c4af50319@linaro.org>
-Date: Thu, 26 Mar 2026 09:38:39 +0100
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CE54E10EA11;
+ Thu, 26 Mar 2026 08:50:19 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 34BCC44222;
+ Thu, 26 Mar 2026 08:50:19 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 42667C116C6;
+ Thu, 26 Mar 2026 08:50:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1774515019;
+ bh=Nk3OQJcQa7+IWGZDgf0ivm4hL2jKChEzfHAOrtGBL30=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=eWGx2gOLvfHG1xA6EpBU5XssaH7AfwFrQA3TL8MLeYvE58DFfYB+nnd8vYfaFzkd5
+ tZa3gLuhJniQtc+eMnqm0Ci4fM8aZ8bZw0zdRPKw8aPsmlkX0QrttqDtSHEKcGgU0P
+ eSuGGXg+6WgNmt5i6568+PjflSOR56src4Ur83Ye/WgmFoofV3I6YFNt3sF/wd8bf3
+ 4D3T+8od5S/QtunojXburPPXiBzJzjIyK4/8BljTxruiOtlHbtOQXSsvFooGr9s8mY
+ ENWjxKH8Ox3u0OzttcoWYRmtEVP+sj1YLfb6OvbG9+iC2I2DZ6VyEUFE/c+JHNVoVu
+ SyL5V108Zuppg==
+Date: Thu, 26 Mar 2026 14:20:01 +0530
+From: Sumit Garg <sumit.garg@kernel.org>
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-media@vger.kernel.org, netdev@vger.kernel.org,
+ linux-wireless@vger.kernel.org, ath12k@lists.infradead.org,
+ linux-remoteproc@vger.kernel.org, andersson@kernel.org,
+ konradybcio@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, robin.clark@oss.qualcomm.com, sean@poorly.run,
+ akhilpo@oss.qualcomm.com, lumag@kernel.org, abhinav.kumar@linux.dev,
+ jesszhan0024@gmail.com, marijn.suijten@somainline.org,
+ airlied@gmail.com, simona@ffwll.ch, vikash.garodia@oss.qualcomm.com,
+ dikshita.agarwal@oss.qualcomm.com, bod@kernel.org,
+ mchehab@kernel.org, elder@kernel.org, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+ pabeni@redhat.com, jjohnson@kernel.org, mathieu.poirier@linaro.org,
+ trilokkumar.soni@oss.qualcomm.com, mukesh.ojha@oss.qualcomm.com,
+ pavan.kondeti@oss.qualcomm.com, jorge.ramirez@oss.qualcomm.com,
+ tonyh@qti.qualcomm.com, vignesh.viswanathan@oss.qualcomm.com,
+ srinivas.kandagatla@oss.qualcomm.com,
+ amirreza.zarrabi@oss.qualcomm.com, jens.wiklander@linaro.org,
+ op-tee@lists.trustedfirmware.org, apurupa@qti.qualcomm.com,
+ skare@qti.qualcomm.com, Sumit Garg <sumit.garg@oss.qualcomm.com>
+Subject: Re: [PATCH 10/14] drm/msm: Switch to generic PAS TZ APIs
+Message-ID: <acTzOTUVL6uYQZwh@sumit-xelite>
+References: <20260306105027.290375-1-sumit.garg@kernel.org>
+ <20260306105027.290375-11-sumit.garg@kernel.org>
+ <v4ffww2r4ljqqbmvsc5jcr4ztqjbpfb42xryjeuz4abqiwup3a@2gfeelhjzzz4>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH 2/4] drm/panel: simple: add JuTouch JT070TM041
-To: Steffen Trumtrar <s.trumtrar@pengutronix.de>,
- Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Thierry Reding
- <thierry.reding@gmail.com>, Sam Ravnborg <sam@ravnborg.org>,
- Shawn Guo <shawnguo@kernel.org>, Frank Li <Frank.Li@nxp.com>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, imx@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org
-References: <20260325-v7-0-topic-imx8mp-skov-dts-jutouch-7inch-v1-0-10255d236439@pengutronix.de>
- <20260325-v7-0-topic-imx8mp-skov-dts-jutouch-7inch-v1-2-10255d236439@pengutronix.de>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <20260325-v7-0-topic-imx8mp-skov-dts-jutouch-7inch-v1-2-10255d236439@pengutronix.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <v4ffww2r4ljqqbmvsc5jcr4ztqjbpfb42xryjeuz4abqiwup3a@2gfeelhjzzz4>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,71 +75,57 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 3/25/26 12:32, Steffen Trumtrar wrote:
-> Add JuTouch Technology JT070TM041 7" 1024x600 LVDS panel support.
+On Wed, Mar 25, 2026 at 06:34:18AM +0200, Dmitry Baryshkov wrote:
+> On Fri, Mar 06, 2026 at 04:20:23PM +0530, Sumit Garg wrote:
+> > From: Sumit Garg <sumit.garg@oss.qualcomm.com>
+> > 
+> > Switch drm/msm client drivers over to generic PAS TZ APIs. Generic PAS
+> > TZ service allows to support multiple TZ implementation backends like QTEE
+> > based SCM PAS service, OP-TEE based PAS service and any further future TZ
+> > backend service.
+> > 
+> > Signed-off-by: Sumit Garg <sumit.garg@oss.qualcomm.com>
+> > ---
+> >  drivers/gpu/drm/msm/adreno/a5xx_gpu.c   |  4 ++--
+> >  drivers/gpu/drm/msm/adreno/adreno_gpu.c | 11 ++++++-----
+> >  2 files changed, 8 insertions(+), 7 deletions(-)
+> > 
+> > diff --git a/drivers/gpu/drm/msm/adreno/a5xx_gpu.c b/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
+> > index ef9fd6171af7..3283852f9a14 100644
+> > --- a/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
+> > +++ b/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
+> > @@ -5,7 +5,7 @@
+> >  #include <linux/kernel.h>
+> >  #include <linux/types.h>
+> >  #include <linux/cpumask.h>
+> > -#include <linux/firmware/qcom/qcom_scm.h>
+> > +#include <linux/firmware/qcom/qcom_pas.h>
 > 
-> Signed-off-by: Steffen Trumtrar <s.trumtrar@pengutronix.de>
-> ---
->   drivers/gpu/drm/panel/panel-simple.c | 32 ++++++++++++++++++++++++++++++++
->   1 file changed, 32 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/panel/panel-simple.c b/drivers/gpu/drm/panel/panel-simple.c
-> index 91ab280869bac..6ac263f83793b 100644
-> --- a/drivers/gpu/drm/panel/panel-simple.c
-> +++ b/drivers/gpu/drm/panel/panel-simple.c
-> @@ -2940,6 +2940,35 @@ static const struct panel_desc innolux_zj070na_01p = {
->   	},
->   };
->   
-> +static const struct display_timing jutouch_jt070tm041_timing = {
-> +	.pixelclock = { 40800000, 51200000, 67200000 },
-> +	.hactive = { 1024, 1024, 1024 },
-> +	.hfront_porch = { 16, 160, 216 },
-> +	.hback_porch = { 160, 160, 160 },
-> +	.hsync_len = { 1, 1, 140 },
-> +	.vactive = { 600, 600, 600 },
-> +	.vfront_porch = { 1, 12, 127 },
-> +	.vback_porch = { 23, 23, 23 },
-> +	.vsync_len = { 1, 1, 20 },
-> +};
-> +
-> +static const struct panel_desc jutouch_jt070tm041 = {
-> +	.timings = &jutouch_jt070tm041_timing,
-> +	.num_timings = 1,
-> +	.bpc = 8,
-> +	.size = {
-> +		.width = 154,
-> +		.height = 86,
-> +	},
-> +	.delay = {
-> +		.enable = 50,
-> +		.disable = 50,
-> +	},
-> +	.bus_format = MEDIA_BUS_FMT_RGB888_1X7X4_SPWG,
-> +	.bus_flags = DRM_BUS_FLAG_DE_HIGH,
-> +	.connector_type = DRM_MODE_CONNECTOR_LVDS,
-> +};
-> +
->   static const struct display_timing jutouch_jt101tm023_timing = {
->   	.pixelclock = { 66300000, 72400000, 78900000 },
->   	.hactive = { 1280, 1280, 1280 },
-> @@ -5352,6 +5381,9 @@ static const struct of_device_id platform_of_match[] = {
->   	}, {
->   		.compatible = "innolux,zj070na-01p",
->   		.data = &innolux_zj070na_01p,
-> +	}, {
-> +		.compatible = "jutouch,jt070tm041",
-> +		.data = &jutouch_jt070tm041,
->   	}, {
->   		.compatible = "jutouch,jt101tm023",
->   		.data = &jutouch_jt101tm023,
-> 
+> Missing `select QCOM_PAS`.
 
-Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+Sure, I will add that in next spin.
 
-Thanks,
-Neil
+-Sumit
+
+> 
+> 
+> >  #include <linux/pm_opp.h>
+> >  #include <linux/nvmem-consumer.h>
+> >  #include <linux/slab.h>
+> > @@ -653,7 +653,7 @@ static int a5xx_zap_shader_resume(struct msm_gpu *gpu)
+> >  	if (adreno_is_a506(adreno_gpu))
+> >  		return 0;
+> >  
+> > -	ret = qcom_scm_set_remote_state(SCM_GPU_ZAP_SHADER_RESUME, GPU_PAS_ID);
+> > +	ret = qcom_pas_set_remote_state(SCM_GPU_ZAP_SHADER_RESUME, GPU_PAS_ID);
+> >  	if (ret)
+> >  		DRM_ERROR("%s: zap-shader resume failed: %d\n",
+> >  			gpu->name, ret);
+> 
+> -- 
+> With best wishes
+> Dmitry
+> 
