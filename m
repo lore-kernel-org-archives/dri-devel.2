@@ -4,125 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1E91910ED661
-	for <dri-devel@archiver.kernel.org>; Fri, 27 Mar 2026 13:46:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1743610ED679
+	for <dri-devel@archiver.kernel.org>; Fri, 27 Mar 2026 13:46:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7669D10EE57;
-	Fri, 27 Mar 2026 13:46:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 095AF10EE58;
+	Fri, 27 Mar 2026 13:46:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=meta.com header.i=@meta.com header.b="S+c8kVnG";
+	dkim=pass (2048-bit key; unprotected) header.d=mandrillapp.com header.i=@mandrillapp.com header.b="vEsv4QQs";
+	dkim=pass (2048-bit key; unprotected) header.d=vates.tech header.i=teddy.astie@vates.tech header.b="l8JHY/Te";
 	dkim-atps=neutral
-Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com
- [67.231.145.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 06F0F10E025
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Mar 2026 22:55:57 +0000 (UTC)
-Received: from pps.filterd (m0109334.ppops.net [127.0.0.1])
- by mx0a-00082601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 62QJ6v1l3537767
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Mar 2026 15:55:57 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=meta.com; h=cc
- :content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=s2048-2025-q2;
- bh=gWmaYzOqDIhtbUb8Zs5Nf1ednm4S50xRfwW0Jz6U+w0=; b=S+c8kVnGsspV
- a654lLZZ0b8EsEWQ7eZrMsM3U42hl5QQn43gPcbCwg1iIRVkzVp2dRFBMOENsKwv
- SFukOMCLHJB+BVExRhe9tAQ85TnRLm8BMieG/xu8T5GxAF4nxZYBRBXXNSu81mfz
- 72IHHjWgJ7wrMUq4HLUK01uWKkwfjjbYiSew0OJdVYtTd9jpySKJMO9QYnD5wD1F
- hO4pop4o2ClGk5kOI5qvHHOrYSB5X7rKufRQLoSTlAVCrJgs3+MLzJEtviKWKK4E
- rl7jpexzUWHR2QNxm3b2slr+Jfm5udNi6cLbkjrHBtc/MhaQw/bPV2OzMvUx4TNz
- 3tP95BR8hg==
-Received: from mail-oa1-f70.google.com (mail-oa1-f70.google.com
- [209.85.160.70])
- by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4d51u79e55-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Mar 2026 15:55:57 -0700 (PDT)
-Received: by mail-oa1-f70.google.com with SMTP id
- 586e51a60fabf-41c08879ba3so7882106fac.0
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Mar 2026 15:55:57 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1774565756; cv=none;
- d=google.com; s=arc-20240605;
- b=FCO3AAVXvOpGxLn2AXlsb6RjV2ThvToUoRg/KVvK1YzNQB8QFk/Ty7PIcgBAug5h7G
- xRNS2ISyTA6ou8SEgZERsKYYkp89fgG23VouoMi9BWT/3PnxEXbslU6Dx20DgOci13K2
- /WEkcp4g2ZdOIqcsTINSjLXMImJzx0UNdZEfjStcxhig0keeCerKHVjtqGq4/oKeZeYK
- 4kS/8TNvvMZiPrAEnnVmXK4KeeJaYIYDViAmhi/5DNz3iVdp3DAKwR1XoRTrpNJGK1RC
- OfvpPzr7GcQCUE8RtZSnxaeKYuECh6r0ePza8l9eGBlCN1f6WnABcw0JPC1ivh8ILkr/
- z8WQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version;
- bh=VGlyvxOOFksgPXoMLERC1kCayld4eO3E5k/3hyTOpHg=;
- fh=TKkx7tFt7K5G9O3tEY78ujwsCpO8CMLeFGkx3wJzAhs=;
- b=iu+PunW/lAz2+D05EVsYjQkbcrjqAB73eOprXj7Hwf6HhYS8MUdN1gR85CBTnYipy8
- KRCQ3q7TbEAykSQEarhRjZ+cvhm4Be92Q/Gv0BytwXgCbitlYppdKFBzjINVetBrafDg
- pXC+hcf3qJhiFpoprqFScnweZjUWUD1VN1ScGXcmr6t0Gq8rftIfbddvSHzdP3mR1QRr
- 2YjbuzAwZdFr5okWXNB/FajeKTH7HFAZLV0A1C6dTC35+zO1GzuQnb8jvTkRRzemWxbl
- 3RZ/dVvagfg4IngpzjeMer7czp9OITy+oK/t7BqrzARRyRK8DVbKmRDKiMkSoA27msGB
- 8hVg==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774565756; x=1775170556;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=VGlyvxOOFksgPXoMLERC1kCayld4eO3E5k/3hyTOpHg=;
- b=ZHGRHfGTZZXzhSRJXZxxq10q0Z/du9HwejQirsOmv264Jqj5Y4kakTyyaSIbHNIwFn
- ODjSCe08JSllIwmIZOqhROMNJUKcxbHHBfUmKVudV7JBsJiqbD8/ZZcchheO/DbKvlQF
- YuGMtMgVqVFNDGRCR1yB1IdTetqXbU+D5DyQR0Vz9RWPoYimC87BICcfRLIbUaAa0Ghr
- ZlFTaSULzIVwFhAKZm0kJs0PBPAjbFdZiCHhTCEVag2HYVIetAfbJ2xUp/ajh9tVr7iR
- QRQ8MUgTbyj4bnFW4SBE69knqyIr1OdxAAORVhAzqwkz11aNXYW0yKPogEzrXmhoNw0A
- K16A==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXEgUd7Y2mrjp5aA2TjZ6H+HZ0YuKfwdM2iAAbMoK72/EWcnFWU0ULwzpciRlUL8oC/5OQoSAEzPVc=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyOfDBbeecuCl/gmnjk2AKwvvGgVU5dUGCvcrw6/5wbZ1ixWgjN
- nTe47EVnADzWkDnYh57br90Ioc9x0rfDpFZw6YYqBXiJDuwUMD2sG/NkFTN9zoyohpS2cDcqqLe
- Vkum0SAPi10j60EsbEWJl5ijEMeZzfvKUyCrHucOIcvctxbxCn1xHPW1I+8vBlbdwuwChrhwxha
- eN/d8RrCG0PT+A6T253zk+8MHdVqZNbr6IgRgMGtg2WYM=
-X-Gm-Gg: ATEYQzw5KQRlcPeDSNrFxaNm+8ahcVtlfCEoDUlCunAgQNuCPLP7HdrqBYGOtyVDuDQ
- XfXV+f3a3Qm5HP7CmtHetON2cBSfoL/iO0sgISWY14e9Nstv+n4zaVUWp9/497SYCRvK2DXStfx
- +iRP+Cl/dykDRjsC3ZcDddaAF1n5a/6ldwlFp0htPMkRzLSLLU82XQske4xWUOChRTdN04/kNCa
- UQ98nu8GqT0a7LbJSZLHQ==
-X-Received: by 2002:a05:6808:1b20:b0:45e:fd68:3dd7 with SMTP id
- 5614622812f47-46a7aa42abemr1548512b6e.32.1774565756386; 
- Thu, 26 Mar 2026 15:55:56 -0700 (PDT)
-X-Received: by 2002:a05:6808:1b20:b0:45e:fd68:3dd7 with SMTP id
- 5614622812f47-46a7aa42abemr1548497b6e.32.1774565755966; Thu, 26 Mar 2026
- 15:55:55 -0700 (PDT)
+X-Greylist: delayed 966 seconds by postgrey-1.36 at gabe;
+ Thu, 26 Mar 2026 18:42:58 UTC
+Received: from mail179-37.suw41.mandrillapp.com
+ (mail179-37.suw41.mandrillapp.com [198.2.179.37])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5D96B10EB9E
+ for <dri-devel@lists.freedesktop.org>; Thu, 26 Mar 2026 18:42:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
+ s=mte1; t=1774549609; x=1774819609;
+ bh=1AD6XtpInmedqkHt3lklQZZmmP5HZmKfK2sFPcPiL8Q=;
+ h=From:Subject:Message-Id:To:References:In-Reply-To:Feedback-ID:
+ Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+ Subject:From;
+ b=vEsv4QQsazjAHRM3hDgnHJS/DV6TE2qRjFuL1KhzeJEGCPdaWKlZPr6GPJY8sd6Lw
+ DZbmBwgTTq5yuaPvSCCKPsOI6uX2VDeZ4cIxWKN2g8+e3cQnaHllnigRL447kxoEs6
+ y/YoG1nYUFel6p0+ipkWJz8SeNBs8+HM9Stb+fk9Bog5M6eoUo5e4gPumDYRZbPDgy
+ V1oIXg50UiDsBtspuPVmZwNkXymBPS2yKgqdIrNnE5dRjSFLPIilbAUGnUud8evcBP
+ 2kbvHboKx2habjDMpda3HioZuqiWVkllMSer9+izacIc6QWMyYD6orGVNHYpw7ipka
+ /uw4MohVwXkLg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
+ t=1774549609; x=1774810109; i=teddy.astie@vates.tech;
+ bh=1AD6XtpInmedqkHt3lklQZZmmP5HZmKfK2sFPcPiL8Q=;
+ h=From:Subject:Message-Id:To:References:In-Reply-To:Feedback-ID:
+ Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+ Subject:From;
+ b=l8JHY/Tea6yBGHD1sI4FsunVDPU7/Y++mbqvOpZSJoQBLtQfgCYHF2QDpq3fUF0G5
+ ZOJNfuLl/mrRjHZIfkczqwaAAGxKopAkS+iAB/75GKxEACbuTACL7DEj4EFtSQa5fs
+ 0WuDayNMs/82LGffSVpuHGz91NrlfQSQlqakKSfNY86YFvMegVGZ+eQoOxjs5+X8q0
+ lNWw2MZRVQPeQzjGf0eYFqALRkbag1S7yGwyvJmoO8ZkAbAxAoAA9itHVNLTgPWImw
+ 8lITpTTpOP3FDfQFiM6Xdaj0AZ12vLBF70kI7ILOUaOHnMuRl6/GC7/iB+ZlW+EcHc
+ 5urfVUKW3eWCg==
+Received: from pmta12.mandrill.prod.suw01.rsglab.com (localhost [127.0.0.1])
+ by mail179-37.suw41.mandrillapp.com (Mailchimp) with ESMTP id
+ 4fhXL156QczG0CLrw
+ for <dri-devel@lists.freedesktop.org>; Thu, 26 Mar 2026 18:26:49 +0000 (GMT)
+From: "Teddy Astie" <teddy.astie@vates.tech>
+Subject: =?utf-8?Q?Re:=20Mapping=20non-pinned=20memory=20from=20one=20Xen=20domain=20into=20another?=
+Received: from [37.26.189.201] by mandrillapp.com id
+ c38559d027fa401bab8ffad53858cee2; Thu, 26 Mar 2026 18:26:49 +0000
+X-Bm-Disclaimer: Yes
+X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
+X-Bm-Transport-Timestamp: 1774549607657
+Message-Id: <df6194cf-1fc4-4a20-ad46-6eeab1d920a2@vates.tech>
+To: "Demi Marie Obenour" <demiobenour@gmail.com>,
+ "Xen developer discussion" <xen-devel@lists.xenproject.org>,
+ dri-devel@lists.freedesktop.org, linux-mm@kvack.org,
+ "Jan Beulich" <jbeulich@suse.com>, "Val Packett" <val@invisiblethingslab.com>,
+ "Ariadne Conill" <ariadne@ariadne.space>,
+ "Andrew Cooper" <andrew.cooper3@citrix.com>, "Juergen Gross" <jgross@suse.com>
+References: <84462c4b-7813-4ad1-aeb2-862ae4f3a627@gmail.com>
+ <5123c11c-3b8a-4633-809f-16c24418a4ce@vates.tech>
+ <4f201188-31ac-4dac-9cc6-79c4283486e5@gmail.com>
+In-Reply-To: <4f201188-31ac-4dac-9cc6-79c4283486e5@gmail.com>
+X-Native-Encoded: 1
+X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,
+ =20including=20all=20headers,
+ =20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.c38559d027fa401bab8ffad53858cee2?=
+X-Mandrill-User: md_30504962
+Feedback-ID: 30504962:30504962.20260326:md
+Date: Thu, 26 Mar 2026 18:26:49 +0000
 MIME-Version: 1.0
-References: <20260324234615.3731237-1-zhipingz@meta.com>
- <20260324234615.3731237-2-zhipingz@meta.com>
- <20260325082534.GN814676@unreal> <acW2BwQKaUbS3eL9@kbusch-mbp>
-In-Reply-To: <acW2BwQKaUbS3eL9@kbusch-mbp>
-From: Zhiping Zhang <zhipingz@meta.com>
-Date: Thu, 26 Mar 2026 15:55:44 -0700
-X-Gm-Features: AQROBzDisNUSNgd3TlIskyBeYU1qigTy8IXoqXl2UWp2Iq9LIcNA3h_mkSfPwow
-Message-ID: <CAH3zFs1nbAKpYxwzMcwpC_Sdy+3tE0n0wUzxJ411gV-q1O++qQ@mail.gmail.com>
-Subject: Re: [RFC v2 1/2] vfio: add callback to get tph info for dmabuf
-To: Keith Busch <kbusch@kernel.org>
-Cc: Leon Romanovsky <leon@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>,
- Bjorn Helgaas <bhelgaas@google.com>, linux-rdma@vger.kernel.org,
- linux-pci@vger.kernel.org, netdev@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Yochai Cohen <yochai@nvidia.com>,
- Yishai Hadas <yishaih@nvidia.com>, Bjorn Helgaas <helgaas@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-X-Proofpoint-ORIG-GUID: GWERgCZw1jKshPz0s_V_xt6HbPKSzHnW
-X-Authority-Analysis: v=2.4 cv=cIvtc1eN c=1 sm=1 tr=0 ts=69c5b97d cx=c_pps
- a=nSjmGuzVYOmhOUYzIAhsAg==:117 a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=7x6HtfJdh03M6CCDgxCd:22 a=crHB47gyY4rKiduisYu9:22
- a=VwQbUJbxAAAA:8 a=NFdbOB6VLuGm633tFYQA:9 a=QEXdDO2ut3YA:10
- a=1zu1i0D7hVQfj8NKfPKu:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzI2MDE2NCBTYWx0ZWRfX9yedUhJcr94h
- GFrv9nOo0T3d1ah0BOgSWLoGrwbJeVAsAqtAqnx8+rL4yBZhwnc6ZhGE18U/+dBiTyMZ8rq6EY6
- Ypjd4g4GlBUuLV51VjvQvv8Gi65j+HJ7WdzfxxDEmDnLBObTd1tsu3iqYzu0XRSELiWGqryROvs
- +Qp10CaGydi1djQkNHZn6hm+sawV6u3XtIKlwxqQf9vafD9nSwA7Stnut6AYLrXKjNtJ4EwORwX
- yQnq78aluUUSrFGO38XUJF/g9Y75c0vLESwzWaN+WdGYW60qOgzUxvwfAktl6gzB9oCIJKMn1k0
- eiPv6tSXyOfjxYTjs7QUC03qZwnzD/dBSVxHe1WrYb1djoOYZNXiNq0x+P+FREoG32jFOzoIFx4
- 2Go7+5CG/nKcMLXfIkcHdz98qC3C4/HgKoskBPEfkxNitLb8DMHy2u3cuB4c3Jd6DgYsZJc3v+N
- CZQjoenXaZevpQzknHw==
-X-Proofpoint-GUID: GWERgCZw1jKshPz0s_V_xt6HbPKSzHnW
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-03-26_03,2026-03-26_01,2025-10-01_01
 X-Mailman-Approved-At: Fri, 27 Mar 2026 13:46:04 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -139,55 +91,147 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Mar 26, 2026 at 3:41=E2=80=AFPM Keith Busch <kbusch@kernel.org> wro=
-te:
->
-> >
-> On Wed, Mar 25, 2026 at 10:25:34AM +0200, Leon Romanovsky wrote:
-> > On Tue, Mar 24, 2026 at 04:46:02PM -0700, Zhiping Zhang wrote:
-> > >  struct vfio_device_feature_dma_buf {
-> > >     __u32   region_index;
-> > >     __u32   open_flags;
-> > > -   __u32   flags;
-> > > -   __u32   nr_ranges;
-> > > +   __u32   flags;
-> > > +#define VFIO_DMABUF_FL_TPH         (1U << 0) /* TPH info is present =
-*/
-> > > +#define VFIO_DMABUF_TPH_PH_SHIFT   1         /* bits 1-2: PH (2-bit)=
- */
-> > > +#define VFIO_DMABUF_TPH_PH_MASK    0x6U
-> > > +#define VFIO_DMABUF_TPH_ST_SHIFT   16        /* bits 16-31: steering=
- tag */
-> > > +#define VFIO_DMABUF_TPH_ST_MASK            0xffff0000U
-> >
-> > This extension of flags is basically kills future extension of this
-> > struct for anything that includes TPH.
-> >
-> > Add new
-> > enum vfio_device_feature_dma_buf_flags {
-> >     VFIO_DMABUF_FL_TPH  =3D 1 << 0
-> > }
+Le 26/03/2026 =C3=A0 18:18, Demi Marie Obenour a =C3=A9crit=C2=A0:
+> On 3/24/26 14:00, Teddy Astie wrote:
+>>> ## Restrictions on lent memory>>
+>>> Lent memory is still considered to belong to the lending domain.
+>>> The borrowing domain can only access it via its p2m.  Hypercalls made
+>>> by the borrowing domain act as if the borrowed memory was not present.
+>>> This includes, but is not limited to:
+>>>
+>>> - Using pointers to borrowed memory in hypercall arguments.
+>>> - Granting borrowed memory to other VMs.
+>>> - Any other operation that depends on whether a page is accessible
+>>>     by a domain.
+>>
+>> What about emulated instructions that refers to this memory ?
+> 
+> This would be allowed if (and only if) it can trigger paging as you
+> wrote above.
+> 
+>>> Furthermore:
+>>>
+>>> - Borrowed memory isn't mapped into the IOMMU of any PCIe devices
+>>>     the guest has attached, because IOTLB faults generally are not
+>>>     replayable.
+>>>
+>>
+>> Given that (as written bellow) Borrowed memory is a part of some form of
+>> emulated BAR or special region, there is no guarantee that DMA will work
+>> properly anyway (unless P2P DMA support is advertised).
+>>
+>> Splitting the IOMMU side from the P2M is not a good idea as it rules out
+>> the "IOMMU HAP PT Share" optimization.
+> 
+> If the pages are mapped in the IOMMU, paging them out requires an
+> IOTLB invalidation.  My understanding is that these are far too slow.
+> 
 
-yes we can do that.
+yes (aside specific cases like with paravirtualized IOMMU), but only if 
+you have a device in the guest.
 
-> >
-> > > +   __u32   nr_ranges;
-> >
-> > add your "__u16 steering_tag" and "__u8 ph" fields here.
->
-That is what I did in V1, Leon.
+The problem is that that would force us to modify the ABI to have 
+"non-DMA-able" memory in the guest, which doesn't exist yet aside 
+specific cases like grants in PV.
 
-> You're suggesting that Ziping append the new fields to the end of this
-> struct? I don't think we can modify the layout of a uapi.
->
-> If we can't carve the space for this out of the existing unused flags
-> field, I think we'd have to introduce a new vfio device feature that
-> basically copies VFIO_DEVICE_FEATURE_DMA_BUF with the extra hints
-> fields.
->
-if not using the fields in the flag, then we probably have to
-introduce a new vfio
-device feature.
+> How important is sharing the HAP and IOMMU page tables?
+> 
+>>> - Foreign mapping hypercalls that reference lent memory will fail.
+>>>     Otherwise, the domain making the foreign mapping hypercall could
+>>>     continue to access the borrowed memory after the lease had been
+>>>     revoked.  This is true even if the domain performing the foreign
+>>>     mapping is an all-powerful dom0.  Otherwise, an emulated device
+>>>     could access memory whose lease had been revoked.
+>>>
+>>> This also means that live migration of a domain that has borrowed
+>>> memory requires cooperation from the lending domain.  For now, it
+>>> will be considered out of scope.  Live migration is typically used
+>>> with server workloads, and accelerators for server hardware often
+>>> support SR-IOV.
+>>>
+>>> ## Where will lent memory appear in a guest's address space?
+>>>
+>>> Typically, lent memory will be an emulated PCI BAR.  It may be emulated
+>>> by dom0 or an alternate ioreq server.  However, it is not *required*
+>>> to be a PCI BAR.
+>>>
+>>
+>> ---
+>>
+>> While the design could work (albeit the implied complexity), I'm not a
+>> big fan of it, or at least, it needs to consider some constraints for
+>> having reasonable performance.
+>> One of the big issue is that a performance-sensitive system (virtualized
+>> GPU) is interlocking with several "hard to optimize" subsystem like P2M
+>> or Dom0 having to process a paging event.
+>>
+>> Modifying the P2M (especially removing entries) is a fairly expensive
+>> operation as it sometimes requires pausing all the vCPUs each time it's
+>> done.
+> 
+> Not every GPU supports recoverable page faults.  Even when they
+> are supported, they are extremely expensive.  Each of them involves
+> a round-trip from the GPU to the CPU and back, which means that a
+> potentially very large number of GPU cores are blocked until the
+> CPU can respond.  Therefore, GPU driver developers avoid relying on
+> GPU page faults whenever possible.  Instead, data is moved in large
+> chunks using a dedicated DMA engine in the GPU.
+> As a result, I'm not too concerned with the cost of P2M manipulation.
+> Anything that requires making a GPU buffer temporarily inaccessible
+> is already an expensive process, and driver developers have strong
+> incentives to keep the time the buffer is unmapped as short as
+> possible.
+> If performance turns out to be a problem, something like KVM's
+> asynchronous page faults might be a better solution.
+> 
 
-> > >     struct vfio_region_dma_range dma_ranges[] __counted_by(nr_ranges);
-> > >  };
+Asynchronous page fault looks like a interesting and potentially easier 
+to implement.
+
+IIUC, the idea is to make the pages disappears on the guest behalf, and 
+the guest would have to deal with the eventual page fault. Currently in 
+Xen, a unhandled #NPF is fatal, but that could be tuned down for 
+specific regions and transformed into a #PF or another exception for the 
+guest to handle.
+
+We have actually a similar need for SEV-ES MMIO handling, as we need to 
+distinguish "MMIO-related NPF" (to paravirtualize through GHCB) to the 
+other NPF; which needs to be configured in advance in page-tables (so 
+that the CPU choose between #VC and VMEXIT#NPF).
+
+It would also need some form of para-virtualization coming from virtio 
+or a new Xen PV driver for the guest to be made aware of this mechanism.
+I also assume that the guest handles properly that kind of event.
+
+>> If it's done at 4k granularity, it would also lack superpage support,
+>> which wouldn't help either. (doing things at the 2M+ scale would help,
+>> but I don't know enough how MMU notifier does things.
+>>
+>> While I agree that grants is not a adequate mechanism for this (for
+>> multiples reasons), I'm not fully convinced of the proposal.
+>> I would prefer a strategy where we map a fixed amount of RAM+VRAM as a
+>> blob, along with some form of cooperative hotplug mechanism to
+>> dynamically provision the amount.
+> 
+> I asked the GPU driver developers about pinning VRAM like this a couple
+> years ago or so.  The response I got was that it isn't supported.
+> I suspect that anyone needing VRAM pinning for graphics workloads is
+> using non-upstreamable hacks, most likely specific to a single driver.
+> 
+> More generally, the entire graphics stack receives essentially no
+> testing under Xen.  There have been bugs that have affected Qubes OS
+> users for months or more, and they went unfixed because they couldn't
+> be reproduced outside of Xen.  To the upstream graphics developers,
+> Xen might as well not exist.  This means that any solution that
+> requires changing the graphics stack is not a practical option,
+> and I do not expect this to change in the foreseeable future.
+
+
+--
+Teddy Astie | Vates XCP-ng Developer
+
+XCP-ng & Xen Orchestra - Vates solutions
+
+web: https://vates.tech
+
+
