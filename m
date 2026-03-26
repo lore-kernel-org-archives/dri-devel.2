@@ -4,88 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 579CB10A62CD
-	for <dri-devel@archiver.kernel.org>; Thu, 26 Mar 2026 13:07:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D556B10A62CB
+	for <dri-devel@archiver.kernel.org>; Thu, 26 Mar 2026 13:12:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5753110E262;
-	Thu, 26 Mar 2026 13:07:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 42E2E10E1DE;
+	Thu, 26 Mar 2026 13:12:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="NVcikHjG";
+	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="WEoLRpMR";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E4FFE10E213;
- Thu, 26 Mar 2026 13:07:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1774530454; x=1806066454;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=B3uzQ8tIYnAOOnEmjyfuJEJc59MwMvhEpnCIu1AwAkA=;
- b=NVcikHjGcGId5j+J7DOnW5+LBax9NgjMLGKBZlicW+dycu8wPFPLa+qc
- qhbK5GMHtOFjFvuqg2bB+H+EcENE72859Qy+3JH70V+xC4i65S8xE9W6f
- KLImi4F5y5lxcAEEQej/+VcrEr0/ZWU5Hx4u1yezfn2EvYu7HBVLai9xo
- W8BefGKj/nsriULIdkWWQhHDOfnm0XDnMjtLF9ynKRH8l2s4gDQBIpDkw
- pMDYSGk2tO6HHTXarR+bTdPbEgRLwMGIs5JafqGdc5w5V/O0kR+paorAZ
- 4wcubL3pg1jH6FdInns4i5Jd/6diJVN/yO3EcPgrAp7Y/FnK6rmWAecIa g==;
-X-CSE-ConnectionGUID: dAHMOkHKSQO0DDnVsLL6RA==
-X-CSE-MsgGUID: TlcT7fMdQm2o0SIjg8tbqw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11740"; a="75784613"
-X-IronPort-AV: E=Sophos;i="6.23,142,1770624000"; d="scan'208";a="75784613"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
- by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Mar 2026 06:07:30 -0700
-X-CSE-ConnectionGUID: 0oV4jNW1QTiG57YtCW6P5g==
-X-CSE-MsgGUID: HuDaOTRoSHOHVl+3MDMk5A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,142,1770624000"; d="scan'208";a="224070220"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost)
- ([10.245.244.14])
- by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Mar 2026 06:07:18 -0700
-Date: Thu, 26 Mar 2026 15:07:15 +0200
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Cc: Maxime Ripard <mripard@kernel.org>,
- Harry Wentland <harry.wentland@amd.com>,
- Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Sandy Huang <hjc@rock-chips.com>,
- Heiko =?iso-8859-1?Q?St=FCbner?= <heiko@sntech.de>,
- Andy Yan <andy.yan@rock-chips.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, Dmitry Baryshkov <lumag@kernel.org>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Rob Herring <robh@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>, kernel@collabora.com,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-rockchip@lists.infradead.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, linux-doc@vger.kernel.org,
- Werner Sembach <wse@tuxedocomputers.com>,
- Andri Yngvason <andri@yngvason.is>, Marius Vlad <marius.vlad@collabora.com>
-Subject: Re: [PATCH v11 03/22] drm: Add new general DRM property "color format"
-Message-ID: <acUvg3Y7kMf2qioK@intel.com>
-References: <20260324-color-format-v11-0-605559af4fb4@collabora.com>
- <20260325-neat-elegant-raven-ebc9ab@houat>
- <acPA60Ci3n_t__xF@intel.com> <3979783.tdWV9SEqCh@workhorse>
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
+ [213.167.242.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B7D9810E213
+ for <dri-devel@lists.freedesktop.org>; Thu, 26 Mar 2026 13:12:36 +0000 (UTC)
+Received: from [127.0.1.1] (91-158-153-178.elisa-laajakaista.fi
+ [91.158.153.178])
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id 5EDD19A9;
+ Thu, 26 Mar 2026 14:11:15 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+ s=mail; t=1774530676;
+ bh=rXG4UaTkhdBDUrBbY+IrNeY5w5J0q/UWD4rfx+BbDqY=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+ b=WEoLRpMRVOmAlS2S4q28co3eC91JwYqgVFSFcvjH/c1FJReRD0/ocUBevrEBjQO3Q
+ 3EB1TdB2Y66zkaR+u5cPH2Ixlh3H/r4/As4my1pxR1QRrmoQt4yVS0BpHIbKr+uSNR
+ AbjprNfdkcdOwxlHEQuz9V1etcGpsYKqb1ubsOHI=
+From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Date: Thu, 26 Mar 2026 15:12:11 +0200
+Subject: [PATCH 1/8] drm/bridge: tc358762: Clean up register defines
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <3979783.tdWV9SEqCh@workhorse>
-X-Patchwork-Hint: comment
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260326-tc358762-fixes-v1-1-65f479227af5@ideasonboard.com>
+References: <20260326-tc358762-fixes-v1-0-65f479227af5@ideasonboard.com>
+In-Reply-To: <20260326-tc358762-fixes-v1-0-65f479227af5@ideasonboard.com>
+To: Marek Vasut <marex@denx.de>, Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+X-Mailer: b4 0.15-dev-c25d1
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2518;
+ i=tomi.valkeinen@ideasonboard.com; h=from:subject:message-id;
+ bh=rXG4UaTkhdBDUrBbY+IrNeY5w5J0q/UWD4rfx+BbDqY=;
+ b=owEBbQKS/ZANAwAIAfo9qoy8lh71AcsmYgBpxTC9rtx0SrhmfdwgN+Vll0deoIYDIFaTyUfmr
+ xcmPNK1CHuJAjMEAAEIAB0WIQTEOAw+ll79gQef86f6PaqMvJYe9QUCacUwvQAKCRD6PaqMvJYe
+ 9dvRD/9PN/6p3aU2QCxzt8gec148EDgD/hdvjYlSDkrQ8Dgdj/ZqCHsc60HInEy0uxo/BqMMB9b
+ mhO/QX9tJFX5QCUD6xLva2SscERRUyg3/Q6UYbt/Tsd5cBXbNIMrFMtl74S1o9vzs++leRt+Xv1
+ TKOpwPgZsdo4PxvfaqJwYLa++27ccrFbzXIk3ed5LOl/irIFXY1enQaZy172hss7U4e0YU+uGJ3
+ A/WpYJMVdkn438E8A9kb1adSige4Vb6sNsxqcnqHAdIicxeNHk1V21IkLLdnlEEYYdxbGqDGbl5
+ +vbLiqq7pnqDfNBrUSZgdafD7lsQCxC+crvCd3lG6wrfwkjLUPh/1ouS0/4rBoL0V0bpbWoxeKZ
+ Lg3upY0LQqb/Ly6NcEgrzNWUVcxbI6dmA44kvDBjROkqGcz6NJZyRbcvHVfZuuvP/q9JVJlatnv
+ NhF6Q28TMfFCyekRXmM6QQPzuZvCgSvm4+h88NghNakleSJIN+CDynBr1LO6sCem5oLD51nd78M
+ AhRCa7X0W2lwh8v/khqZDz0MkFM3KJ08GZkPunr/Ic4iWfIh9oY2mMZyFALhPlqZGqRG3HKhgN8
+ 6ydRGZExdftochLnggrMdRK+ighQIXF3YgWJqJDx+vx0aCL9LUFhGc7r2y0H8dygiI/ReHRtT+b
+ 5ZtEHwVMtnnzLLw==
+X-Developer-Key: i=tomi.valkeinen@ideasonboard.com; a=openpgp;
+ fpr=C4380C3E965EFD81079FF3A7FA3DAA8CBC961EF5
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,138 +78,79 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Mar 26, 2026 at 01:44:03PM +0100, Nicolas Frattaroli wrote:
-> On Wednesday, 25 March 2026 12:03:07 Central European Standard Time Ville Syrjälä wrote:
-> > On Wed, Mar 25, 2026 at 09:24:27AM +0100, Maxime Ripard wrote:
-> > > On Tue, Mar 24, 2026 at 09:53:35PM +0200, Ville Syrjälä wrote:
-> > > > On Tue, Mar 24, 2026 at 08:10:11PM +0100, Nicolas Frattaroli wrote:
-> > > > > On Tuesday, 24 March 2026 18:00:45 Central European Standard Time Ville Syrjälä wrote:
-> > > > > > On Tue, Mar 24, 2026 at 05:01:07PM +0100, Nicolas Frattaroli wrote:
-> > > > > > > +enum drm_connector_color_format {
-> > > > > > > +	/**
-> > > > > > > +	 * @DRM_CONNECTOR_COLOR_FORMAT_AUTO: The driver or display protocol
-> > > > > > > +	 * helpers should pick a suitable color format. All implementations of a
-> > > > > > > +	 * specific display protocol must behave the same way with "AUTO", but
-> > > > > > > +	 * different display protocols do not necessarily have the same "AUTO"
-> > > > > > > +	 * semantics.
-> > > > > > > +	 *
-> > > > > > > +	 * For HDMI, "AUTO" picks RGB, but falls back to YCbCr 4:2:0 if the
-> > > > > > > +	 * bandwidth required for full-scale RGB is not available, or the mode
-> > > > > > > +	 * is YCbCr 4:2:0-only, as long as the mode and output both support
-> > > > > > > +	 * YCbCr 4:2:0.
-> > > > > > > +	 *
-> > > > > > > +	 * For display protocols other than HDMI, the recursive bridge chain
-> > > > > > > +	 * format selection picks the first chain of bridge formats that works,
-> > > > > > > +	 * as has already been the case before the introduction of the "color
-> > > > > > > +	 * format" property. Non-HDMI bridges should therefore either sort their
-> > > > > > > +	 * bus output formats by preference, or agree on a unified auto format
-> > > > > > > +	 * selection logic that's implemented in a common state helper (like
-> > > > > > > +	 * how HDMI does it).
-> > > > > > > +	 */
-> > > > > > > +	DRM_CONNECTOR_COLOR_FORMAT_AUTO = 0,
-> > > > > > > +
-> > > > > > > +	/**
-> > > > > > > +	 * @DRM_CONNECTOR_COLOR_FORMAT_RGB444: RGB output format
-> > > > > > > +	 */
-> > > > > > > +	DRM_CONNECTOR_COLOR_FORMAT_RGB444,
-> > > > > > > +
-> > > > > > > +	/**
-> > > > > > > +	 * @DRM_CONNECTOR_COLOR_FORMAT_YCBCR444: YCbCr 4:4:4 output format (ie.
-> > > > > > > +	 * not subsampled)
-> > > > > > > +	 */
-> > > > > > > +	DRM_CONNECTOR_COLOR_FORMAT_YCBCR444,
-> > > > > > > +
-> > > > > > > +	/**
-> > > > > > > +	 * @DRM_CONNECTOR_COLOR_FORMAT_YCBCR422: YCbCr 4:2:2 output format (ie.
-> > > > > > > +	 * with horizontal subsampling)
-> > > > > > > +	 */
-> > > > > > > +	DRM_CONNECTOR_COLOR_FORMAT_YCBCR422,
-> > > > > > > +
-> > > > > > > +	/**
-> > > > > > > +	 * @DRM_CONNECTOR_COLOR_FORMAT_YCBCR420: YCbCr 4:2:0 output format (ie.
-> > > > > > > +	 * with horizontal and vertical subsampling)
-> > > > > > > +	 */
-> > > > > > > +	DRM_CONNECTOR_COLOR_FORMAT_YCBCR420,
-> > > > > > 
-> > > > > > Seems like this should document what the quantization range
-> > > > > > should be for each format.
-> > > > > > 
-> > > > > 
-> > > > > I don't think so? If you want per-component bit depth values,
-> > > > > DRM_FORMAT_* defines would be the appropriate values to use. This
-> > > > > enum is more abstract than that, and is there to communicate
-> > > > > YUV vs. RGB and chroma subsampling, with bit depth being handled
-> > > > > by other properties.
-> > > > > 
-> > > > > If you mean the factor used for subsampling, then that'd only be
-> > > > > relevant if YCBCR410 was supported where one chroma plane isn't
-> > > > > halved but quartered in resolution. I suspect 4:1:0 will never
-> > > > > be added; no digital display protocol standard supports it to my
-> > > > > knowledge, and hopefully none ever will.
-> > > > 
-> > > > No, I mean the quantization range (16-235 vs. 0-255 etc).
-> > > > 
-> > > > The i915 behaviour is that YCbCr is always limited range,
-> > > > RGB can either be full or limited range depending on the 
-> > > > "Broadcast RGB" property and other related factors.
-> > > 
-> > > So far the HDMI state has both the format and quantization range as
-> > > different fields. I'm not sure we need to document the range in the
-> > > format field, maybe only mention it's not part of the format but has a
-> > > field of its own?
-> > 
-> > I think we only have it for RGB (on some drivers only?). For YCbCr
-> > I think the assumption is limited range everywhere.
-> > 
-> > But I'm not really concerned about documenting struct members.
-> > What I'm talking about is the *uapi* docs. Surely userspace
-> > will want to know what the new property actually does so the
-> > uapi needs to be documented properly. And down the line some
-> > new driver might also implement the wrong behaviour if there
-> > is no clear specification.
-> > 
-> > So I'm thinking (or perhaps hoping) the rule might be something like:
-> > - YCbCr limited range 
-> > - RGB full range if "Broadcast RGB" property is not present
-> > - RGB full or limited range based on the "Broadcast RGB" property
-> >   if it's present
-> > 
-> > I think the "Broadcast RGB" property itself might also be lacking
-> > proper uapi docs, so that may need to be remedied as well.
-> > 
-> > 
-> 
-> Alright, so in v12 I'll do the following:
-> 
-> - Add a line to all YCBCR connector formats that specifies they're
->   limited range as long as Broadcast RGB is limited. Whether it's limited
->   range when Broadcast RGB is full is purposefully left undefined.
+Move the defines around and rename for clarity and consistency. No
+functional change.
 
-"Broadcast RGB", as the name implies, only affects RGB output.
+Signed-off-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+---
+ drivers/gpu/drm/bridge/tc358762.c | 21 ++++++++++-----------
+ 1 file changed, 10 insertions(+), 11 deletions(-)
 
->   In the future, we can expand this to state they're limited range by
->   default unless some other property is set. If we're not re-using
->   Broadcast RGB for that, this will work out fine, because users who
->   don't know about the eventual new property won't have this behaviour
->   changed. If we do re-use "Broadcast RGB" for that, then only users
->   relying on things we explicitly left undefined will get surprise
->   full range YCBCR.
-> - Add a line to the RGB connector format that specifies its range
->   depends on the "Broadcast RGB" property
-> 
-> This is a bit of a mess, because it's entirely reasonable that a
-> future YCBCR range property would want to default to full range
-> so that users get the most color out of their monitors. But with
-> this description of the connector color formats, we can't do that.
-> 
-> If there are alternate suggestions, I'm open for them. We can't
-> really rename "Broadcast RGB" but if I had a time machine, that'd
-> be my first choice.
-> 
-> Kind regards,
-> Nicolas Frattaroli
-> 
+diff --git a/drivers/gpu/drm/bridge/tc358762.c b/drivers/gpu/drm/bridge/tc358762.c
+index 98df3e667d4a..833fd9913c75 100644
+--- a/drivers/gpu/drm/bridge/tc358762.c
++++ b/drivers/gpu/drm/bridge/tc358762.c
+@@ -29,17 +29,22 @@
+ 
+ /* PPI layer registers */
+ #define PPI_STARTPPI		0x0104 /* START control bit */
++#define PPI_STARTPPI_STARTPPI	BIT(0)
++
+ #define PPI_LPTXTIMECNT		0x0114 /* LPTX timing signal */
+ #define PPI_D0S_ATMR		0x0144
+ #define PPI_D1S_ATMR		0x0148
+ #define PPI_D0S_CLRSIPOCOUNT	0x0164 /* Assertion timer for Lane 0 */
+ #define PPI_D1S_CLRSIPOCOUNT	0x0168 /* Assertion timer for Lane 1 */
+-#define PPI_START_FUNCTION	1
+ 
+ /* DSI layer registers */
+ #define DSI_STARTDSI		0x0204 /* START control bit of DSI-TX */
++#define DSI_STARTDSI_STARTDSI	BIT(0)
++
+ #define DSI_LANEENABLE		0x0210 /* Enables each lane */
+-#define DSI_RX_START		1
++#define DSI_LANEENABLE_CLEN	BIT(0)
++#define DSI_LANEENABLE_L0EN	BIT(1)
++#define DSI_LANEENABLE_L1EN	BIT(2)
+ 
+ /* LCDC/DPI Host Registers, based on guesswork that this matches TC358764 */
+ #define LCDCTRL			0x0420 /* Video Path Control */
+@@ -60,14 +65,8 @@
+ /* System Controller Registers */
+ #define SYSCTRL			0x0464
+ 
+-/* System registers */
+ #define LPX_PERIOD		3
+ 
+-/* Lane enable PPI and DSI register bits */
+-#define LANEENABLE_CLEN		BIT(0)
+-#define LANEENABLE_L0EN		BIT(1)
+-#define LANEENABLE_L1EN		BIT(2)
+-
+ struct tc358762 {
+ 	struct device *dev;
+ 	struct drm_bridge bridge;
+@@ -118,7 +117,7 @@ static int tc358762_init(struct tc358762 *ctx)
+ 	u32 lcdctrl;
+ 
+ 	tc358762_write(ctx, DSI_LANEENABLE,
+-		       LANEENABLE_L0EN | LANEENABLE_CLEN);
++		       DSI_LANEENABLE_L0EN | DSI_LANEENABLE_CLEN);
+ 	tc358762_write(ctx, PPI_D0S_CLRSIPOCOUNT, 5);
+ 	tc358762_write(ctx, PPI_D1S_CLRSIPOCOUNT, 5);
+ 	tc358762_write(ctx, PPI_D0S_ATMR, 0);
+@@ -141,8 +140,8 @@ static int tc358762_init(struct tc358762 *ctx)
+ 	tc358762_write(ctx, SYSCTRL, 0x040f);
+ 	msleep(100);
+ 
+-	tc358762_write(ctx, PPI_STARTPPI, PPI_START_FUNCTION);
+-	tc358762_write(ctx, DSI_STARTDSI, DSI_RX_START);
++	tc358762_write(ctx, PPI_STARTPPI, PPI_STARTPPI_STARTPPI);
++	tc358762_write(ctx, DSI_STARTDSI, DSI_STARTDSI_STARTDSI);
+ 
+ 	msleep(100);
+ 
 
 -- 
-Ville Syrjälä
-Intel
+2.43.0
+
