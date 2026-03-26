@@ -4,79 +4,93 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5AB1D10A88E7
-	for <dri-devel@archiver.kernel.org>; Thu, 26 Mar 2026 17:03:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CAE9210A88E7
+	for <dri-devel@archiver.kernel.org>; Thu, 26 Mar 2026 17:14:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 45EE210E1FB;
-	Thu, 26 Mar 2026 17:03:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B264010E053;
+	Thu, 26 Mar 2026 17:14:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="SYJhxnrS";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=martyn.welch@collabora.com header.b="NeDsS1PI";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 936B710E1FB;
- Thu, 26 Mar 2026 17:02:54 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 5FC0B60054;
- Thu, 26 Mar 2026 17:02:50 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8CE36C19423;
- Thu, 26 Mar 2026 17:02:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1774544570;
- bh=IQI/txVcFLr4SQuaJ4+73DkdYZEcK7MrNDOrGnm30ww=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=SYJhxnrSJGjkl2DyA0SD6tr3Iuz0bmP56WdE8RujYhI0+szob6l5AX+KDdb1uJX5g
- ayYGOuKmnnqNtTpD+gwuEgLkSwVTdiqOD3P3kQ4J6ebtlrxK4E1kT/SqQjKPwLHh1g
- 3l2e+KWgNDsIb/C6n6qhwsAht2eaRryQtwqf6TdjCjAiINMNwxjPFU5ZXyZpVXQ0P7
- yTHU2YwuPXXMv43NjDqgU/t/BKP8UGUJUjCl8oqNCTZdN4LjRSY7ANts9vZVHgq+h/
- 7WKFP+UzgELQY0w4DeN+tXHLPpVLp7KV7jeeV1a8rS2xXcroys7LJ8CugsHLgy1d7W
- 1BxMu+CyO6M+A==
-Date: Thu, 26 Mar 2026 18:02:47 +0100
-From: Maxime Ripard <mripard@kernel.org>
-To: Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
-Cc: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, 
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
- Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>, 
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Thomas Zimmermann <tzimmermann@suse.de>,
- Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>, Sandy Huang <hjc@rock-chips.com>, 
- Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>,
- Andy Yan <andy.yan@rock-chips.com>, 
- Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, 
- Dmitry Baryshkov <lumag@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>, 
- Rob Herring <robh@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
- Shuah Khan <skhan@linuxfoundation.org>, kernel@collabora.com,
- amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- linux-doc@vger.kernel.org, 
- Werner Sembach <wse@tuxedocomputers.com>, Andri Yngvason <andri@yngvason.is>, 
- Marius Vlad <marius.vlad@collabora.com>
-Subject: Re: [PATCH v11 03/22] drm: Add new general DRM property "color format"
-Message-ID: <20260326-pumpkin-goshawk-of-stamina-0ccb84@houat>
-References: <20260324-color-format-v11-0-605559af4fb4@collabora.com>
- <20260324-color-format-v11-3-605559af4fb4@collabora.com>
- <acLDPYuaVI2-12JX@intel.com> <23910073.EfDdHjke4D@workhorse>
- <acLrv5hLyNss-Px5@intel.com>
- <20260325-neat-elegant-raven-ebc9ab@houat>
- <acPA60Ci3n_t__xF@intel.com>
- <20260325-magnificent-ultraviolet-oarfish-baefbc@houat>
- <acQsw3Wi_xVlBZ8d@intel.com>
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
+ [136.143.188.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E151B10E053
+ for <dri-devel@lists.freedesktop.org>; Thu, 26 Mar 2026 17:14:47 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1774545262; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=kqAZwu1ySKx6jur+08R360LzwVwNexY+I9eifdZiGiuS/VO+cJvBsAsNCtFs45jfyD2UkAtmAgFrL924JMAactXBcGDT5HYIFmNCy1xxBzit0PasNKufuP25O2YvhY0L5YXmsFd4fedTYNcC4M/nxBxfYAz1mDhR2kevHyDPbGk=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1774545262;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=hIwHPgKroczcraBFmjBx7sfSYocmTQ5ow6bV/DaRoOc=; 
+ b=j0BXiYRNWAAHv6Sqt6V9YCMLkInUDD0PFBR4ukE5EMXeCw2N5fttFNgBdIRPfrEiZffWgMLzxGXM9lmp+rC4+orSxBH1y0vYjoZvM7o8JyN6jpVarGK9a8VuUTbHQa9FjaXljnzEztWEgdQjYNrmUiMb1aIT7J5o76Q4LFuScfg=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=martyn.welch@collabora.com;
+ dmarc=pass header.from=<martyn.welch@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1774545262; 
+ s=zohomail; d=collabora.com; i=martyn.welch@collabora.com;
+ h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+ bh=hIwHPgKroczcraBFmjBx7sfSYocmTQ5ow6bV/DaRoOc=;
+ b=NeDsS1PIKBLqQEwWGWTBMga7hItj0jFa5ZyblKGysbeGmszU+yKU14Rwo8bF9p5E
+ ePtFvq3CEHN3szypTv4rV6b9b4olr8+UBQD95nBMTAIb3PTHywGgLgh1C+s/U5TtN+a
+ 8nUbLCamqQDGAA2g6JFUI0+zxXgYb5psFOsNEo9E=
+Received: by mx.zohomail.com with SMTPS id 1774545258284948.1058809311842;
+ Thu, 26 Mar 2026 10:14:18 -0700 (PDT)
+Message-ID: <25aaed3b-1f15-44ca-bd0e-e16c683ee403@collabora.com>
+Date: Thu, 26 Mar 2026 17:13:59 +0000
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha384;
- protocol="application/pgp-signature"; boundary="sztu7fljo7ruak3p"
-Content-Disposition: inline
-In-Reply-To: <acQsw3Wi_xVlBZ8d@intel.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/8] drm/mxsfb/lcdif: use DRM_BRIDGE_ATTACH_NO_CONNECTOR
+ and the bridge-connector
+To: Luca Ceresoli <luca.ceresoli@bootlin.com>, Marek Vasut <marex@denx.de>,
+ Stefan Agner <stefan@agner.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Liu Ying <victor.liu@nxp.com>, Rob Herring <robh@kernel.org>,
+ Saravana Kannan <saravanak@kernel.org>
+Cc: "Kory Maincent (TI.com)" <kory.maincent@bootlin.com>,
+ =?UTF-8?Q?Herv=C3=A9_Codina?= <herve.codina@bootlin.com>,
+ Hui Pu <Hui.Pu@gehealthcare.com>, Ian Ray <ian.ray@gehealthcare.com>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+ dri-devel@lists.freedesktop.org, imx@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, Adam Ford <aford173@gmail.com>,
+ Alexander Stein <alexander.stein@ew.tq-group.com>,
+ Anson Huang <Anson.Huang@nxp.com>,
+ Christopher Obbard <christopher.obbard@linaro.org>,
+ Daniel Scally <dan.scally@ideasonboard.com>,
+ Emanuele Ghidoli <emanuele.ghidoli@toradex.com>,
+ Fabio Estevam <festevam@denx.de>,
+ Francesco Dolcini <francesco.dolcini@toradex.com>,
+ Frieder Schrempf <frieder.schrempf@kontron.de>,
+ Gilles Talis <gilles.talis@gmail.com>,
+ =?UTF-8?B?R29yYW4gUmHEkWVub3ZpxIc=?= <goran.radni@gmail.com>,
+ Heiko Schocher <hs@denx.de>,
+ Joao Paulo Goncalves <joao.goncalves@toradex.com>,
+ Josua Mayer <josua@solid-run.com>,
+ Kieran Bingham <kieran.bingham@ideasonboard.com>,
+ Marco Felsch <m.felsch@pengutronix.de>,
+ Oleksij Rempel <o.rempel@pengutronix.de>, Peng Fan <peng.fan@nxp.com>,
+ Philippe Schenker <philippe.schenker@toradex.com>,
+ Richard Hu <richard.hu@technexion.com>, Shengjiu Wang
+ <shengjiu.wang@nxp.com>,
+ Stefan Eichenberger <stefan.eichenberger@toradex.com>,
+ Vitor Soares <vitor.soares@toradex.com>
+References: <20260320-drm-lcdif-dbanc-v1-0-479a04133e70@bootlin.com>
+Content-Language: en-US
+From: Martyn Welch <martyn.welch@collabora.com>
+In-Reply-To: <20260320-drm-lcdif-dbanc-v1-0-479a04133e70@bootlin.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ZohoMailClient: External
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,160 +106,162 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On 20/03/2026 10:46, Luca Ceresoli wrote:
+> This series modernizes the i.mx8mp LCDIF driver to use the
+> bridge-connector, which is the current best practice in DRM.
+> 
+> == Call for testing on i.MX8MP boards (especially those using HDMI)!
+> 
+> This series applies changes to how video output devices are probed on
+> i.MX8MP, especially those using HDMI. Even though I have put care in not
+> breaking anything, there could potentially be pitfalls I haven't realized,
+> causing regressions on existing boards.
+> 
+> I have thus added in Cc all developers which appeared active on dts files
+> for imx8mp boards involving video. I would appreciate testing on as many
+> boards as possible, along with a Tested-by tag, or a report about any
+> issues encountered.
+> 
+> Thanks in advance to all testers!
+> 
 
---sztu7fljo7ruak3p
-Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v11 03/22] drm: Add new general DRM property "color
- format"
-MIME-Version: 1.0
+Tested-by: Martyn Welch <martyn.welch@collabora.com>
 
-On Wed, Mar 25, 2026 at 08:43:15PM +0200, Ville Syrj=E4l=E4 wrote:
-> On Wed, Mar 25, 2026 at 03:56:58PM +0100, Maxime Ripard wrote:
-> > On Wed, Mar 25, 2026 at 01:03:07PM +0200, Ville Syrj=E4l=E4 wrote:
-> > > On Wed, Mar 25, 2026 at 09:24:27AM +0100, Maxime Ripard wrote:
-> > > > On Tue, Mar 24, 2026 at 09:53:35PM +0200, Ville Syrj=E4l=E4 wrote:
-> > > > > On Tue, Mar 24, 2026 at 08:10:11PM +0100, Nicolas Frattaroli wrot=
-e:
-> > > > > > On Tuesday, 24 March 2026 18:00:45 Central European Standard Ti=
-me Ville Syrj=E4l=E4 wrote:
-> > > > > > > On Tue, Mar 24, 2026 at 05:01:07PM +0100, Nicolas Frattaroli =
-wrote:
-> > > > > > > > +enum drm_connector_color_format {
-> > > > > > > > +	/**
-> > > > > > > > +	 * @DRM_CONNECTOR_COLOR_FORMAT_AUTO: The driver or displa=
-y protocol
-> > > > > > > > +	 * helpers should pick a suitable color format. All imple=
-mentations of a
-> > > > > > > > +	 * specific display protocol must behave the same way wit=
-h "AUTO", but
-> > > > > > > > +	 * different display protocols do not necessarily have th=
-e same "AUTO"
-> > > > > > > > +	 * semantics.
-> > > > > > > > +	 *
-> > > > > > > > +	 * For HDMI, "AUTO" picks RGB, but falls back to YCbCr 4:=
-2:0 if the
-> > > > > > > > +	 * bandwidth required for full-scale RGB is not available=
-, or the mode
-> > > > > > > > +	 * is YCbCr 4:2:0-only, as long as the mode and output bo=
-th support
-> > > > > > > > +	 * YCbCr 4:2:0.
-> > > > > > > > +	 *
-> > > > > > > > +	 * For display protocols other than HDMI, the recursive b=
-ridge chain
-> > > > > > > > +	 * format selection picks the first chain of bridge forma=
-ts that works,
-> > > > > > > > +	 * as has already been the case before the introduction o=
-f the "color
-> > > > > > > > +	 * format" property. Non-HDMI bridges should therefore ei=
-ther sort their
-> > > > > > > > +	 * bus output formats by preference, or agree on a unifie=
-d auto format
-> > > > > > > > +	 * selection logic that's implemented in a common state h=
-elper (like
-> > > > > > > > +	 * how HDMI does it).
-> > > > > > > > +	 */
-> > > > > > > > +	DRM_CONNECTOR_COLOR_FORMAT_AUTO =3D 0,
-> > > > > > > > +
-> > > > > > > > +	/**
-> > > > > > > > +	 * @DRM_CONNECTOR_COLOR_FORMAT_RGB444: RGB output format
-> > > > > > > > +	 */
-> > > > > > > > +	DRM_CONNECTOR_COLOR_FORMAT_RGB444,
-> > > > > > > > +
-> > > > > > > > +	/**
-> > > > > > > > +	 * @DRM_CONNECTOR_COLOR_FORMAT_YCBCR444: YCbCr 4:4:4 outp=
-ut format (ie.
-> > > > > > > > +	 * not subsampled)
-> > > > > > > > +	 */
-> > > > > > > > +	DRM_CONNECTOR_COLOR_FORMAT_YCBCR444,
-> > > > > > > > +
-> > > > > > > > +	/**
-> > > > > > > > +	 * @DRM_CONNECTOR_COLOR_FORMAT_YCBCR422: YCbCr 4:2:2 outp=
-ut format (ie.
-> > > > > > > > +	 * with horizontal subsampling)
-> > > > > > > > +	 */
-> > > > > > > > +	DRM_CONNECTOR_COLOR_FORMAT_YCBCR422,
-> > > > > > > > +
-> > > > > > > > +	/**
-> > > > > > > > +	 * @DRM_CONNECTOR_COLOR_FORMAT_YCBCR420: YCbCr 4:2:0 outp=
-ut format (ie.
-> > > > > > > > +	 * with horizontal and vertical subsampling)
-> > > > > > > > +	 */
-> > > > > > > > +	DRM_CONNECTOR_COLOR_FORMAT_YCBCR420,
-> > > > > > >=20
-> > > > > > > Seems like this should document what the quantization range
-> > > > > > > should be for each format.
-> > > > > > >=20
-> > > > > >=20
-> > > > > > I don't think so? If you want per-component bit depth values,
-> > > > > > DRM_FORMAT_* defines would be the appropriate values to use. Th=
-is
-> > > > > > enum is more abstract than that, and is there to communicate
-> > > > > > YUV vs. RGB and chroma subsampling, with bit depth being handled
-> > > > > > by other properties.
-> > > > > >=20
-> > > > > > If you mean the factor used for subsampling, then that'd only be
-> > > > > > relevant if YCBCR410 was supported where one chroma plane isn't
-> > > > > > halved but quartered in resolution. I suspect 4:1:0 will never
-> > > > > > be added; no digital display protocol standard supports it to my
-> > > > > > knowledge, and hopefully none ever will.
-> > > > >=20
-> > > > > No, I mean the quantization range (16-235 vs. 0-255 etc).
-> > > > >=20
-> > > > > The i915 behaviour is that YCbCr is always limited range,
-> > > > > RGB can either be full or limited range depending on the=20
-> > > > > "Broadcast RGB" property and other related factors.
-> > > >=20
-> > > > So far the HDMI state has both the format and quantization range as
-> > > > different fields. I'm not sure we need to document the range in the
-> > > > format field, maybe only mention it's not part of the format but ha=
-s a
-> > > > field of its own?
-> > >=20
-> > > I think we only have it for RGB (on some drivers only?). For YCbCr
-> > > I think the assumption is limited range everywhere.
-> > >=20
-> > > But I'm not really concerned about documenting struct members.
-> > > What I'm talking about is the *uapi* docs. Surely userspace
-> > > will want to know what the new property actually does so the
-> > > uapi needs to be documented properly. And down the line some
-> > > new driver might also implement the wrong behaviour if there
-> > > is no clear specification.
-> >=20
-> > Ack
-> >=20
-> > > So I'm thinking (or perhaps hoping) the rule might be something like:
-> > > - YCbCr limited range=20
-> > > - RGB full range if "Broadcast RGB" property is not present
-> >=20
-> > Isn't it much more complicated than that for HDMI though? My
-> > recollection was that any VIC but VIC1 would be limited range, and
-> > anything else full range?
->=20
-> Do we have some driver that implements the CTA-861 CE vs. IT mode
-> logic but doesn't expose the "Broadcast RGB" property? I was hoping
-> those would always go hand in hand now.
+Using Ezurio Nitrogen8M Plus ENC Carrier Board with i.MX88MP SOM and 
+1280x800 HDMI display.
 
-I'm not sure. i915 and the HDMI state helpers handle it properly (I
-think?) but it looks like only vc4 registers the Broadcast RGB property
-and uses the HDMI state helpers.
 
-And it looks like amdgpu registers Broadcast RGB but doesn't use
-drm_default_rgb_quant_range() which seems suspicious?
+> == Review recommendation
+> 
+> I recommend reviewing patches in this order to be understood more
+> effectively:
+> 
+>   * Cover letter
+>   * Patches 1-5 are small preliminary cleanups/improvements
+>   * Patch 8 is the goal of this series, but would not work alone
+>   * Patch 7 this lets patch 8 work; but in turn it can't work alone
+>   * Patch 6 lets patch 7 work
+> 
+> == Series description
+> 
+> This series is not strictly related to DRM bridge hotplug, it is rather a
+> preparation step. Introducing hotplug would need two different approaches:
+> one for the new way, for drivers using bridge-connector and
+> DRM_BRIDGE_ATTACH_NO_CONNECTOR, another for drivers using the "old, legacy
+> way" where the last bridge is supposed to instantiate the
+> drm_connector. Hotplug is complicated enough in one case, so it makes sense
+> to only support the new way.
+> 
+> The hardware I'm working on is an i.MX8MP, whose LCDIF driver is still
+> using the old way. So this series converts to the new way as a preparation
+> step.
+> 
+> Patch 8 does the conversion, which is simple. However this would introduce
+> a regression on some boards. Here's why:
+> 
+> There are 3 instances of the LCDIF in i.MX8MP:
+> 
+>   * LCDIF1, driving the DSI output
+>   * LCDIF2, driving the LVDS output
+>   * LCDIF3, driving the HDMI output
+> 
+> The device drivers of peripherals connected to LCDIF1 and LCDIF2 already
+> support the DRM_BRIDGE_ATTACH_NO_CONNECTOR flag. So far so good.
+> 
+> LCDIF3 is more tricky. The HDMI pipeline is:
+> 
+>    LCDIF3 -> fsl,imx8mp-hdmi-pvi -> fsl,imx8mp-hdmi-tx -> HDMI connector
+> 
+> The fsl,imx8mp-hdmi-tx (hdmi-tx) component supports both cases (with or
+> without DRM_BRIDGE_ATTACH_NO_CONNECTOR), but in the
+> DRM_BRIDGE_ATTACH_NO_CONNECTOR case it does not create a drm_connector,
+> thus preventing the creation of the pipeline. To make it work a connector
+> must be created, and the way to do so is describing the connector in the
+> device tree (compatible = "hdmi-connector"), so the display-driver will add
+> the connector along with a wrapping bridge.
+> 
+> Unfortunately not all device trees in mainline have an hdmi-connector
+> node. Adding one is easy, but would break existing hardware upgrading to a
+> newer kernel without upgrading the device tree blob. This is addressed by
+> patch 7 reusing an existing approach to add such a node to the live device
+> tree at init time using a device tree overlay for boards which don't have
+> one.
+> 
+> Finally, patch 7 cannot work alone because of a bad interaction between
+> devlink and device tree overlays. Patch 6 solves that.
+> 
+> == Grand plan
+> 
+> This is part of the work to support hotplug of DRM bridges. The grand plan
+> was discussed in [0].
+> 
+> Here's the work breakdown (➜ marks the current series):
+> 
+>   1. … add refcounting to DRM bridges struct drm_bridge,
+>        based on devm_drm_bridge_alloc()
+>      A. ✔ add new alloc API and refcounting (v6.16)
+>      B. ✔ convert all bridge drivers to new API (v6.17)
+>      C. ✔ kunit tests (v6.17)
+>      D. ✔ add get/put to drm_bridge_add/remove() + attach/detach()
+>           and warn on old allocation pattern (v6.17)
+>      E. … add get/put on drm_bridge accessors
+>         1. ✔ drm_bridge_chain_get_first_bridge(), add cleanup action (v6.18)
+>         2. ✔ drm_bridge_get_prev_bridge() (v6.18)
+>         3. ✔ drm_bridge_get_next_bridge() (v6.19)
+>         4. ✔ drm_for_each_bridge_in_chain() (v6.19)
+>         5. ✔ drm_bridge_connector_init (v6.19)
+>         6. … protect encoder bridge chain with a mutex
+>         7. … of_drm_find_bridge
+>            a. ✔ add of_drm_get_bridge() (v7.0),
+> 	       convert basic direct users (v7.0-v7.1)
+> 	  b. ✔ convert direct of_drm_get_bridge() users, part 2 (v7.0)
+> 	  c. ✔ convert direct of_drm_get_bridge() users, part 3 (v7.0)
+> 	  d. ✔… convert direct of_drm_get_bridge() users, part 4
+> 	        (some v7.1, some pending)
+> 	  e.   convert bridge-only drm_of_find_panel_or_bridge() users
+>         8. drm_of_find_panel_or_bridge, *_of_get_bridge
+>         9. ✔ enforce drm_bridge_add before drm_bridge_attach (v6.19)
+>      F. ✔ debugfs improvements
+>         1. ✔ add top-level 'bridges' file (v6.16)
+>         2. ✔ show refcount and list lingering bridges (v6.19)
+>   2. … handle gracefully atomic updates during bridge removal
+>      A. ✔ Add drm_bridge_enter/exit() to protect device resources (v7.0)
+>      B. … protect private_obj removal from list
+>      C. ✔ Add drm_bridge_clear_and_put() (v7.1)
+>   3. … DSI host-device driver interaction
+>   4. ✔ removing the need for the "always-disconnected" connector
+>   5. ➜ Migrate i.MX LCDIF driver to bridge-connector
+>   6.   DRM bridge hotplug
+>      A.   Bridge hotplug management in the DRM core
+>      B.   Device tree description
+> 
+> [0] https://lore.kernel.org/lkml/20250206-hotplug-drm-bridge-v6-0-9d6f2c9c3058@bootlin.com/#t
+> 
+> Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+> ---
+> Luca Ceresoli (8):
+>        drm/mxsfb/lcdif: simplify remote pointer management using __free
+>        drm/mxsfb/lcdif: don't unnecessarily loop over ports
+>        drm/mxsfb/lcdif: use dev_err_probe() consistently in lcdif_attach_bridge
+>        drm/bridge: dw-hdmi: document the output_port field
+>        drm/bridge: dw-hdmi: warn on unsupported attach combination
+>        drm/bridge: dw-hdmi: move next_bridge lookup to attach time
+>        drm/bridge: imx8mp-hdmi-tx: add an hdmi-connector when missing using a DT overlay at boot time
+>        drm/mxsfb/lcdif: use DRM_BRIDGE_ATTACH_NO_CONNECTOR and the bridge-connector
+> 
+>   drivers/gpu/drm/bridge/imx/Kconfig                 | 17 +++++
+>   drivers/gpu/drm/bridge/imx/Makefile                |  2 +
+>   .../bridge/imx/imx8mp-hdmi-tx-connector-fixup.c    | 60 +++++++++++++++
+>   .../bridge/imx/imx8mp-hdmi-tx-connector-fixup.dtso | 38 ++++++++++
+>   drivers/gpu/drm/bridge/imx/imx8mp-hdmi-tx.c        |  1 +
+>   drivers/gpu/drm/bridge/synopsys/dw-hdmi.c          | 45 ++++-------
+>   drivers/gpu/drm/mxsfb/Kconfig                      |  1 +
+>   drivers/gpu/drm/mxsfb/lcdif_drv.c                  | 88 +++++++++-------------
+>   include/drm/bridge/dw_hdmi.h                       |  5 ++
+>   9 files changed, 174 insertions(+), 83 deletions(-)
+> ---
+> base-commit: 8402cf4fc8f8d5756dc81cf9fda1dccdb3622634
+> change-id: 20260306-drm-lcdif-dbanc-83dd948327de
+> 
+> Best regards,
 
-Maxime
-
---sztu7fljo7ruak3p
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCacVmrwAKCRAnX84Zoj2+
-djmKAXsEmUptwl0y0uTt0hUtaZxnRjjESVJQSddNJJtwkngvSvLKrVU57NG4oOLY
-OT9kC7ABgJp0yaEoRAtymIjzcn0p0cg7ukDU4WiKAyXKh4xAWn3poLiUScARRszO
-IyTM52RBAA==
-=jTyX
------END PGP SIGNATURE-----
-
---sztu7fljo7ruak3p--
