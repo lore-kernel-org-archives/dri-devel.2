@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A02AA109E53D
-	for <dri-devel@archiver.kernel.org>; Thu, 26 Mar 2026 02:19:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 658BA109E53D
+	for <dri-devel@archiver.kernel.org>; Thu, 26 Mar 2026 02:31:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 143AF10E1D3;
-	Thu, 26 Mar 2026 02:19:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D9B3510E1D4;
+	Thu, 26 Mar 2026 02:31:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="sre7zWdJ";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="NAjgbQZP";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BF86410E053;
- Thu, 26 Mar 2026 02:19:45 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F327010E1D4
+ for <dri-devel@lists.freedesktop.org>; Thu, 26 Mar 2026 02:31:13 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 7F71044219;
- Thu, 26 Mar 2026 02:19:45 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 40C39C2BCB0;
- Thu, 26 Mar 2026 02:19:45 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id C790660053;
+ Thu, 26 Mar 2026 02:31:07 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D6CDCC4CEF7;
+ Thu, 26 Mar 2026 02:31:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1774491585;
- bh=xjze9U0KGxUtPZhnGjAmYRMpkSRQ9LRTSM1swxtBVH0=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=sre7zWdJkwyHIBVNbNcQdwkoTMBVvPqAPpBUsifEItoB9/faCUfVf2/2yJdPlXxOp
- tgZNjsFi1PYwcyJahXWzzXXqu1U5VZkj84iaZ7DmNIPdjZ00YVnZs38rQK2jYJj889
- vdtczH+Wny36V19NA3gFD5ubR0VVbjeZjHQBsLOaGbqGoazg80XOG33dFXNqzdOMIZ
- A/WeWwEYMih49HI90FltiIyJs1Q/TEiJjxlJSFrHmRlPsD+qoNXNc1/cz8gTi5yMnr
- 7Bwh2k4uLbwNbKHM61so7z2MY9nPlcLEswRfdwSGo42iENpVsRr+/3XN8XjLXj1fQl
- Q7EGtD88RoXJA==
-Date: Wed, 25 Mar 2026 16:19:44 -1000
-From: Tejun Heo <tj@kernel.org>
-To: Matthew Brost <matthew.brost@intel.com>
-Cc: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Lai Jiangshan <jiangshanlai@gmail.com>, linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH 01/12] workqueue: Add interface to teach lockdep to
- warn on reclaim violations
-Message-ID: <acSXwPliraMdYTFH@slm.duckdns.org>
-References: <20260316043255.226352-1-matthew.brost@intel.com>
- <20260316043255.226352-2-matthew.brost@intel.com>
- <acQGehvhyfU5j6uL@slm.duckdns.org> <acSQxyclGs7FYvbS@gsse-cloud1>
+ s=k20201202; t=1774492267;
+ bh=1luHTjr8ISZj/JtJBLwaNEaHlIFIG7hcmwlKfkRBWDw=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=NAjgbQZP9xdyldpkB7+1mA8zi3L5NCsPIhg5//cvdFEbAvqGcM84Pv3r2h/eqbtiA
+ Cu/EqHLRhPSKtVpdVuTY/f5utJlgzChvesqqEPtr3Et13PXBplWut7mHNXTZYO4Mdd
+ kb/ZWlrvb/+ewvySSYWeQYaK9w99HD8OaEth0xSMST/lqxP6K4yfT3J2NvARsQ4Vjg
+ oiSQ1Xm9RSKkoF/Ur0Tphmp6E8PR2Ej1Oa8hTfPZxQEUZfOSKfSKztgn2fOLjzfg4H
+ 9GvwmgY3H8AUP414a4VtPWf7z3hJeYnuKj7L/6JYcO0i5Jjwp+1GS8WevM9sPs1BHV
+ /sahA8BClidaA==
+Message-ID: <b1333a9f-1034-4e3d-a1bd-b6e1348a9f87@kernel.org>
+Date: Wed, 25 Mar 2026 21:31:05 -0500
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <acSQxyclGs7FYvbS@gsse-cloud1>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH V1] accel/amdxdna: Fix leak when pinning ubuf pages
+To: Lizhi Hou <lizhi.hou@amd.com>, ogabbay@kernel.org,
+ quic_jhugo@quicinc.com, dri-devel@lists.freedesktop.org,
+ maciej.falkowski@linux.intel.com
+Cc: Max Zhen <max.zhen@amd.com>, linux-kernel@vger.kernel.org,
+ sonal.santan@amd.com
+References: <20260326010642.2596525-1-lizhi.hou@amd.com>
+Content-Language: en-US
+From: Mario Limonciello <superm1@kernel.org>
+In-Reply-To: <20260326010642.2596525-1-lizhi.hou@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,46 +61,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hello,
 
-On Wed, Mar 25, 2026 at 06:49:59PM -0700, Matthew Brost wrote:
-> On Wed, Mar 25, 2026 at 05:59:54AM -1000, Tejun Heo wrote:
-> > Sorry about the tardiness. Traveling during spring break. Getting more than
-> > I can catch up with each day.
-> > 
-> > On Sun, Mar 15, 2026 at 09:32:44PM -0700, Matthew Brost wrote:
-> > > @@ -403,6 +403,7 @@ enum wq_flags {
-> > >  	 */
-> > >  	WQ_POWER_EFFICIENT	= 1 << 7,
-> > >  	WQ_PERCPU		= 1 << 8, /* bound to a specific cpu */
-> > > +	WQ_MEM_WARN_ON_RECLAIM	= 1 << 9, /* teach lockdep to warn on reclaim */
-> > 
-> > Shouldn't this require WQ_MEM_RECLAIM?
+
+On 3/25/26 20:06, Lizhi Hou wrote:
+> From: Max Zhen <max.zhen@amd.com>
 > 
-> Yes, so what is suggestion here? If WQ_MEM_WARN_ON_RECLAIM is set
-> without WQ_MEM_RECLAIM fail the WQ creation with -EINVAL?
-
-Yes.
-
-> > Why is this function necessary? It feels rather odd to use wq as the source
-> > of this information. Shouldn't that be an innate knowledge of the code
-> > that's using this?
+> When pin_user_pages_fast() returns fewer pages than requested, the pages
+> that were successfully pinned are not released, leading to a leak.
 > 
-> This, for example, would be used in DRM sched (the existing scheduler)
-> or DRM dep (the proposed replacement) to ensure that driver-allocated
-> WQs passed into the layers are created with these flags. DRM sched or
-> DRM dep has strict DMA-fencing, thus reclaim rule that we expect DRM
-> drivers to follow. Historically, DRM drivers have broken these rules
-> quite often, and we no longer want to give them the opportunity to do
-> so—lockdep should enforce them.
+> Fix this by unpinning any partially pinned pages before returning failure.
+> 
+> Fixes: bd72d4acda10 ("accel/amdxdna: Support user space allocated buffer")
+> Signed-off-by: Max Zhen <max.zhen@amd.com>
+> Signed-off-by: Lizhi Hou <lizhi.hou@amd.com>
+Reviewed-by: Mario Limonciello (AMD) <superm1@kernel.org>
+> ---
+>   drivers/accel/amdxdna/amdxdna_ubuf.c | 12 ++++++++----
+>   1 file changed, 8 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/accel/amdxdna/amdxdna_ubuf.c b/drivers/accel/amdxdna/amdxdna_ubuf.c
+> index fb999aa25318..4c0647057759 100644
+> --- a/drivers/accel/amdxdna/amdxdna_ubuf.c
+> +++ b/drivers/accel/amdxdna/amdxdna_ubuf.c
+> @@ -196,13 +196,17 @@ struct dma_buf *amdxdna_get_ubuf(struct drm_device *dev,
+>   		ret = pin_user_pages_fast(va_ent[i].vaddr, npages,
+>   					  FOLL_WRITE | FOLL_LONGTERM,
+>   					  &ubuf->pages[start]);
+> -		if (ret < 0 || ret != npages) {
+> -			ret = -ENOMEM;
+> +		if (ret >= 0) {
+> +			start += ret;
+> +			if (ret != npages) {
+> +				XDNA_ERR(xdna, "Partially pinned pages %d/%u", ret, npages);
+> +				ret = -ENOMEM;
+> +				goto destroy_pages;
+> +			}
+> +		} else {
+>   			XDNA_ERR(xdna, "Failed to pin pages ret %d", ret);
+>   			goto destroy_pages;
+>   		}
+> -
+> -		start += ret;
+>   	}
+>   
+>   	exp_info.ops = &amdxdna_ubuf_dmabuf_ops;
 
-I see. Yeah, that makes sense. Please feel free to add
-
- Acked-by: Tejun Heo <tj@kernel.org>
-
-Please let me know how you wanna route the patch.
-
-Thanks.
-
--- 
-tejun
