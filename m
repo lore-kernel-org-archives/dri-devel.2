@@ -4,75 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 16D8710A1E81
-	for <dri-devel@archiver.kernel.org>; Thu, 26 Mar 2026 11:46:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E0C4A10A3D7F
+	for <dri-devel@archiver.kernel.org>; Thu, 26 Mar 2026 11:59:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 68CD710E989;
-	Thu, 26 Mar 2026 11:46:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 477A310E9BE;
+	Thu, 26 Mar 2026 11:59:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="B3kK2qHN";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="FaX23d+e";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A6E2B10E989
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Mar 2026 11:46:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1774525589; x=1806061589;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=ofJzlAWKgixcp4+wTysf5ew1gWizcxE8ZddUuSZ46FE=;
- b=B3kK2qHNicrnJ4eotRid50udhNbiqGdJ2BCYD7bpRbfwvDG5FS+wyKbN
- Rr0XaWYQXlGqenCijXc1gtaPKAIxd/umh04KDz0kMt3MYiZ5UX347hivm
- uQnW92lKwtWPWn2p5D3KeBXdGel8Lih74xckhS1+hJoXLr4lnsOZ5hpx9
- pXvuX2LZzG45vba2qHX2LpHmVfvu24tegFtOj0ZoRmeq4dy8HeNRCtKiA
- f9Tptqk5vUYox0e+3ey49i5Xxu7ZQmz8rVtCeoliZmF8HbEy00kU+I9Pn
- 323hTO9gl+9lB8LZdMAyWnRNyho5e8TO8UTfae/PEHi5tP+BJsf4tThck A==;
-X-CSE-ConnectionGUID: Yw11hCiKQk6kdmwZ7lWwFg==
-X-CSE-MsgGUID: 1CUid4bQSKu+ceDTgcAXJw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11740"; a="75469569"
-X-IronPort-AV: E=Sophos;i="6.23,142,1770624000"; d="scan'208";a="75469569"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
- by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Mar 2026 04:46:29 -0700
-X-CSE-ConnectionGUID: ljPFRTexQ8ye6RJur4lN3A==
-X-CSE-MsgGUID: AiWrJJphTGGDsFLxII67gA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,142,1770624000"; d="scan'208";a="229052926"
-Received: from lkp-server01.sh.intel.com (HELO 3905d212be1b) ([10.239.97.150])
- by orviesa003.jf.intel.com with ESMTP; 26 Mar 2026 04:46:22 -0700
-Received: from kbuild by 3905d212be1b with local (Exim 4.98.2)
- (envelope-from <lkp@intel.com>) id 1w5jAI-000000008oL-3xnO;
- Thu, 26 Mar 2026 11:46:18 +0000
-Date: Thu, 26 Mar 2026 19:46:14 +0800
-From: kernel test robot <lkp@intel.com>
-To: Alexandre Courbot <acourbot@nvidia.com>,
- Danilo Krummrich <dakr@kernel.org>,
- Alice Ryhl <aliceryhl@google.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
+ [136.143.188.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6ECE410E9CD
+ for <dri-devel@lists.freedesktop.org>; Thu, 26 Mar 2026 11:59:11 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1774526345; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=eibIxsY4jbugMMsUsRzfo4YlKvNyygN1G/z8U3/IkGyIh8Zq0DkQhFwzN4tw5pi+hEU0gh5jdWnl2z78AMpnuEn2NsjfJO/AjvITE58ayAf9z2v4DsrSNNP3tasAgHD6TlCrTncyfu6cQIgf2sRZWnj9sTxmV1CwuSf1xUmvNN4=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1774526345;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=Ul3Elmvarjeo2F5dZsfHqeijZFTBr3ip2K2uSBcgO+g=; 
+ b=E/1m/krGiAxQ4hNv/5Mpn4vgVj5fFNbwsCMTFv0u41/ZCLamFFB9qv+Xvse2/lTguR/ApgPRASdggCk4N2A1UNyNMtEI0SiNy815MXaBW8sPXVVVPQjUN92Ki87TR0vCnOxVBfKOgrlsjggAPj1XtZ5YBkpWahI2ewD3DbWdg9k=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
+ dmarc=pass header.from=<adrian.larumbe@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1774526345; 
+ s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
+ h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:References:MIME-Version:Content-Type:Content-Transfer-Encoding:In-Reply-To:Message-Id:Reply-To;
+ bh=Ul3Elmvarjeo2F5dZsfHqeijZFTBr3ip2K2uSBcgO+g=;
+ b=FaX23d+eST4NvBkpuAforAXC1w55gz/e6Ca5LBk3is7dXSXr9k1BIT/VPol8QgIu
+ +dOHKibJ4DnlVUQM9Bagr2q1Ws43B6EOTWcy4O9+xOMyAXEs/wPBnFMYTQTdjoibHd0
+ yrEdWG4ZlahccvvmnXiakw2qLuzG79LoXwr8otCM=
+Received: by mx.zohomail.com with SMTPS id 1774526344009716.8538221987557;
+ Thu, 26 Mar 2026 04:59:04 -0700 (PDT)
+Date: Thu, 26 Mar 2026 11:58:59 +0000
+From: =?utf-8?Q?Adri=C3=A1n?= Larumbe <adrian.larumbe@collabora.com>
+To: Biju Das <biju.das.jz@bp.renesas.com>
+Cc: Boris Brezillon <boris.brezillon@collabora.com>, 
+ Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>, 
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
- Gary Guo <gary@garyguo.net>,
- =?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
- Trevor Gross <tmgross@umich.edu>
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
- John Hubbard <jhubbard@nvidia.com>, Alistair Popple <apopple@nvidia.com>,
- Joel Fernandes <joelagnelf@nvidia.com>,
- Timur Tabi <ttabi@nvidia.com>, Zhi Wang <zhiw@nvidia.com>,
- Eliot Courtney <ecourtney@nvidia.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-riscv@lists.infradead.org, linux-doc@vger.kernel.org,
- rust-for-linux@vger.kernel.org, Alexandre Courbot <acourbot@nvidia.com>
-Subject: Re: [PATCH v4 08/10] gpu: nova-core: convert falcon registers to
- kernel register macro
-Message-ID: <202603261919.gCMgXdPS-lkp@intel.com>
-References: <20260325-b4-nova-register-v4-8-bdf172f0f6ca@nvidia.com>
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, 
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>, 
+ "linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>
+Subject: Re: [PATCH v2 2/4] drm/panfrost: Drop redundant optional clock
+ checks in runtime PM
+Message-ID: <acUfZmYoDA_ZKVBk@sobremesa>
+References: <20260320164158.487406-1-biju.das.jz@bp.renesas.com>
+ <20260320164158.487406-3-biju.das.jz@bp.renesas.com>
+ <ab25E0kTBA4EjZ3Y@sobremesa>
+ <TY3PR01MB11346F3DF5ACB55B5FE8DC96F864CA@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+ <TY3PR01MB11346DD20F7E2AB23A54A274B864DA@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+ <acLFYNHPODCYArCk@sobremesa>
+ <TY3PR01MB11346F913241559462D109F2D8656A@TY3PR01MB11346.jpnprd01.prod.outlook.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260325-b4-nova-register-v4-8-bdf172f0f6ca@nvidia.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <TY3PR01MB11346F913241559462D109F2D8656A@TY3PR01MB11346.jpnprd01.prod.outlook.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,36 +81,113 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Alexandre,
+On 26.03.2026 08:55, Biju Das wrote:
+> Hi Adrian,
+>
+> > -----Original Message-----
+> > From: Adrián Larumbe <adrian.larumbe@collabora.com>
+> > Sent: 24 March 2026 17:11
+> > Subject: Re: [PATCH v2 2/4] drm/panfrost: Drop redundant optional clock checks in runtime PM
+> >
+> > On 21.03.2026 14:16, Biju Das wrote:
+> > > Hi Adrián Larumbe,
+> > >
+> > > Thanks for the feedback.
+> > >
+> > > > -----Original Message-----
+> > > > From: dri-devel <dri-devel-bounces@lists.freedesktop.org> On Behalf
+> > > > Of Biju Das
+> > > > Sent: 20 March 2026 21:32
+> > > > Subject: RE: [PATCH v2 2/4] drm/panfrost: Drop redundant optional
+> > > > clock checks in runtime PM
+> > > >
+> > > >
+> > > >
+> > > > > -----Original Message-----
+> > > > > From: dri-devel <dri-devel-bounces@lists.freedesktop.org> On
+> > > > > Behalf Of Adrián Larumbe
+> > > > > Sent: 20 March 2026 21:20
+> > > > > Subject: Re: [PATCH v2 2/4] drm/panfrost: Drop redundant optional
+> > > > > clock checks in runtime PM
+> > > > >
+> > > > > Hi Biju,
+> > > > >
+> > > > > On 20.03.2026 16:41, Biju wrote:
+> > > > > > From: Biju Das <biju.das.jz@bp.renesas.com>
+> > > > > >
+> > > > > > The clk_enable() and clk_disable() APIs already handle NULL
+> > > > > > clock pointers gracefully — clk_enable() returns 0 and
+> > > > > > clk_disable() returns immediately when passed a NULL or optional
+> > > > > > clock. The explicit if
+> > > > > > (pfdev->bus_clock) guards around these calls in the runtime
+> > > > > > suspend/resume paths are therefore unnecessary. Remove them to simplify the code.
+> > > > > >
+> > > > > > Reviewed-by: Steven Price <steven.price@arm.com>
+> > > > > > Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
+> > > > > > ---
+> > > > > > v1->v2:
+> > > > > >  * Collected tag
+> > > > > > ---
+> > > > > >  drivers/gpu/drm/panfrost/panfrost_device.c | 12 ++++--------
+> > > > > >  1 file changed, 4 insertions(+), 8 deletions(-)
+> > > > > >
+> > > > > > diff --git a/drivers/gpu/drm/panfrost/panfrost_device.c
+> > > > > > b/drivers/gpu/drm/panfrost/panfrost_device.c
+> > > > > > index dedc13e56631..01e702a0b2f0 100644
+> > > > > > --- a/drivers/gpu/drm/panfrost/panfrost_device.c
+> > > > > > +++ b/drivers/gpu/drm/panfrost/panfrost_device.c
+> > > > > > @@ -429,11 +429,9 @@ static int panfrost_device_runtime_resume(struct device *dev)
+> > > > > >  		if (ret)
+> > > > > >  			goto err_clk;
+> > > > > >
+> > > > > > -		if (pfdev->bus_clock) {
+> > > > > > -			ret = clk_enable(pfdev->bus_clock);
+> > > > > > -			if (ret)
+> > > > > > -				goto err_bus_clk;
+> > > > > > -		}
+> > > > > > +		ret = clk_enable(pfdev->bus_clock);
+> > > > > > +		if (ret)
+> > > > > > +			goto err_bus_clk;
+> > > > > >  	}
+> > > > >
+> > > > > It seems clk_prepare_enable() can also deal with NULL clock device
+> > > > > pointers gracefully, so maybe you could also do away with pointer checks in panfrost_clk_init?
+> > > >
+> > > > This is the only check and no need to print rate for optional clk.
+> > > > That is the reason I have not touched this.
+> > > >
+> > > > 	if (pfdev->bus_clock) {
+> > > > 		rate = clk_get_rate(pfdev->bus_clock);
+> > > > 		dev_info(pfdev->base.dev, "bus_clock rate = %lu\n", rate);
+> > > >
+> > > > 		err = clk_prepare_enable(pfdev->bus_clock);
+> > > > 		if (err)
+> > > > 			goto disable_clock;
+> > > > 	}
+> > >
+> > > The above block is good for optional clock.
+> > >
+> > > Otherwise, there will be 2 checks for optional clk.
+> > >
+> > > One here:
+> > >
+> > > if (pfdev->bus_clock) {
+> > > 	rate = clk_get_rate(pfdev->bus_clock);
+> > > 	dev_info(pfdev->base.dev, "bus_clock rate = %lu\n", rate); }
+> > >
+> > > and one inside the clk_prepare_enable():
+> > >
+> > > err = clk_prepare_enable(pfdev->bus_clock);
+> > >
+> > > Please let me know your thoughts.
+> >
+> > You're right, it's probably best to leave it the way it is.
+>
+> If you are happy with the series, can you please merge it?
 
-kernel test robot noticed the following build warnings:
+Will do, I'll add my Rb's and let you know when it's merged.
 
-[auto build test WARNING on dff8302ca1d0e773c90dbeeb05e759f995c95482]
+> Cheers,
+> Biju
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Alexandre-Courbot/gpu-nova-core-introduce-bounded_enum-macro/20260326-064653
-base:   dff8302ca1d0e773c90dbeeb05e759f995c95482
-patch link:    https://lore.kernel.org/r/20260325-b4-nova-register-v4-8-bdf172f0f6ca%40nvidia.com
-patch subject: [PATCH v4 08/10] gpu: nova-core: convert falcon registers to kernel register macro
-config: loongarch-randconfig-001-20260326 (https://download.01.org/0day-ci/archive/20260326/202603261919.gCMgXdPS-lkp@intel.com/config)
-compiler: clang version 18.1.8 (https://github.com/llvm/llvm-project 3b5b5c1ec4a3095ab096dd780e84d7ab81f3d7ff)
-rustc: rustc 1.88.0 (6b00bc388 2025-06-23)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260326/202603261919.gCMgXdPS-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202603261919.gCMgXdPS-lkp@intel.com/
-
-All warnings (new ones prefixed by >>):
-
->> warning: unused import: `num::Bounded`
-   --> drivers/gpu/nova-core/falcon.rs:24:5
-   |
-   24 |     num::Bounded,
-   |     ^^^^^^^^^^^^
-   |
-   = note: `#[warn(unused_imports)]` on by default
-
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+Adrian Larumbe
