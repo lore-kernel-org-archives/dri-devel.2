@@ -4,64 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2130E10AB803
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DC03410AB805
 	for <dri-devel@archiver.kernel.org>; Thu, 26 Mar 2026 18:57:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7E29610EBF5;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 80D4610EBF6;
 	Thu, 26 Mar 2026 18:57:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="dkjCJnPg";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="YgL126Zf";
 	dkim-atps=neutral
-Received: from mail-oi1-f173.google.com (mail-oi1-f173.google.com
- [209.85.167.173])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7DA7610EBF1
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Mar 2026 18:56:12 +0000 (UTC)
-Received: by mail-oi1-f173.google.com with SMTP id
- 5614622812f47-4670676ba03so501340b6e.1
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Mar 2026 11:56:12 -0700 (PDT)
+Received: from mail-ot1-f47.google.com (mail-ot1-f47.google.com
+ [209.85.210.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B1CB110EBED
+ for <dri-devel@lists.freedesktop.org>; Thu, 26 Mar 2026 18:55:40 +0000 (UTC)
+Received: by mail-ot1-f47.google.com with SMTP id
+ 46e09a7af769-7d8b2703f37so1135411a34.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 26 Mar 2026 11:55:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1774551372; x=1775156172; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1774551340; x=1775156140; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=NDrEVSsHN3/NxzQ31ZhlYG+/I6Z2jtFfe5b8tEwBAEg=;
- b=dkjCJnPgmwZXQDBSDoi4aUBvvDBV3dRyMClnqWfixRKMZiVaJ1gFMO9H7oZzwSkgyT
- cSZkqTprD3AzNqcs3OfIVGaOWUvWDT2Ox/yzC/xgbRDPEeqCBNXBUNZu/ynKZ0ab7CFy
- Do1vcb3l9QJF9zOWPsp4Gg8aRHTCj5gtET66AIdrZV9Vmnkb+8lS4mCdBW+pVYEqnb7K
- MRDtwIE9RfQ27NlRewnjxi7VE/6HkZ8KGBAYaMy6zgv/h4cd9IoRdPKZomUieaZPS3fU
- v93H1PvKkr8gDB+D3WuaDSVjN5bbl+UqUFV7HYjfLshM1GLr3SYlS1tF5UO9b1c/qAtL
- 7xdg==
+ bh=26vMP3nfkpOdAIVisqGbQnZnw5iiyCO+aaCVYuAOEzg=;
+ b=YgL126Zfb5gq5ReaihNiWNA+xK6A8mLKXUZjxzcZaz/s8UwL4YYuGAggdaRJ+JOmdN
+ qOFJkldmt5eJ5+K4FA+71zUibjsgOp6ZjIt7CaG6ePBp120kZrjwi91RPb7E903rxtCj
+ 5D5AhLKhm8fJ1TPiJQgwpzgnjsN8rTcz3jFqHWNu1OP6IOceA1z2+JWlBU/p72QaiT1e
+ QFlNjQ1PTUrT/miNS2rAJVyIHTzkpiWON3RX45+936d+YBJQlKFMCjNn4pL1yGuZ9dkL
+ 02Hr0RLeOBHmYXB9FpLLh4IBpe5qcOXYqvIbRx8bKvyRtL8xeDL/PEltS2VIsBT8KXRt
+ T3Hw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774551372; x=1775156172;
+ d=1e100.net; s=20251104; t=1774551340; x=1775156140;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=NDrEVSsHN3/NxzQ31ZhlYG+/I6Z2jtFfe5b8tEwBAEg=;
- b=UWu5a4XFztFgAU8LtvXhZDoP0NHMxDXma9E9LB/WPiByDeh6pAqdWiGhx0egBq2yGZ
- wYxnRpkOKsw7iQ/+K6tghYt2n6TcDXZEFsjiHq9C3CjZWCogG9Z7tCkUbNVESWqzGYiB
- 1rpnimkDHOk/AEOOtv00s/HyDznZGyiF0nNt7kaCUggAKjshla7Rf6b3KKKZP4uE+1Qq
- Zi/FNzMN9D+fvPsrXzi1u9ZVHasrudJ8nJk0f7+TMX8Cxo+42gq2H+yg6gR5Dvhlzcm8
- kP+kpIkAxyY/OYZy1pO1J8OiSxafOtT9VLogJon/dNHoRFQa1SRF2fv77hoLutxSg4he
- Oxeg==
+ bh=26vMP3nfkpOdAIVisqGbQnZnw5iiyCO+aaCVYuAOEzg=;
+ b=TC2724dSZA83sbQ1IlOhXbyD4VUpJwcU/4odHh6k4Bcgx4IAfui1OTg5azd0po88Et
+ 9rvtb1MfCoehPZmdkYrwV6/LwyjkJWPag0flmdF0ZW4e9pu/tu4Oi/HStzDwaMXKgCO1
+ WBAqIjf2cCAZHGJIEVg7PE4ifrP1NLKwHdgxwQlrOkP+/6l8S0tyHhPG7lsYC3Y6Y8mM
+ iA9vGNy/xs5jpbZgkmor5uK+vZfTnkYh3aCAA4kyw7bwS0lcWkNp3awSYvEGUX3vahGE
+ x/IZ3qucdvAYZkSJHaVnIXvtpdRhvDxhLAzPeYgUF/nFV7MgHaSWFn8wtu+fMnuL5+G+
+ 8vIQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXXpMnKwJULntD6BSMzg4XsBU4siPkZ+S2wMFT0jt4MHmz0HAYyNQQOEgoczi55e/bVnUSCJzX/0n0=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyAul1SVY7izk1G0ZKf8zrlMSfTb67CwrLfLypMLuA69GymL5re
- 0F3ZT/5Mw/T+/SKROble8UbelftrX+6Y5teIlsvueev3B0FdUxx+puu3
-X-Gm-Gg: ATEYQzyS3D4qzGgZ55qvwOGnVCmcDYehMI9g6idZRsNnV6lkOvVU0yPb9WctnGDjzex
- gFGVUOL7QQL63RKBhXpgitcdDh6E6bYaKq9Z/VKvaGYIOYZVk5boxiNlM12mzI7lm/O8nfDawm8
- sZhhYbilWLiAMY44NvbPSXiUlOPb8EDoT3hTxAqP0w4RVcAo5Wblal2ZfntdcWR2TK4xiViAri6
- OwLRf9ZqDD0NOhSpu8l9Q2TvB+xUIeybwhUjlVaEeq3iRd+fB9edhV27bk0D62zKbUwq/1WWSec
- 31nsF43F7Rp6jf/W2H2DKbZ+za4eVSyXSzEd6I3Md4K3NjBHCcxWwdDKOEXfgYHcC4z4/Es11oo
- DwOYE9tQ4zKadrz2nOtKFgGIqo7+mswFKp7g8VnqRjjgkpS/kenmeKP1N2FMSdeOTZXHU1h2Sr7
- vu2dBmqZIJh2uhWnJ3uPTimrw8GeAWij3eA81C2weByx/LOosZ
-X-Received: by 2002:a05:6808:c295:b0:467:2926:123d with SMTP id
- 5614622812f47-46a5c77d4b2mr3987875b6e.47.1774551371661; 
- Thu, 26 Mar 2026 11:56:11 -0700 (PDT)
+ AJvYcCVV54elaFn7H4pNhS2wNTnsZGbH7KyoasXnjnk8ychuZLIUWA/5lqB9WRSCNXRPBGpbNsE1srZuayE=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yz0IxbdhVMXhQwgGY2AfEZjaWrbc6on9gh7kAvi3tc3JHywufew
+ dtLq4SElXUskUQ12bi15I1OG6Ya2zWeupO8UrLppN3YgiW7NAtbCU8XB
+X-Gm-Gg: ATEYQzx6FSE87Nw3O8Czh4XYE18INrao/xYur3Zz9bshaaJjwP71Lo3oubF//iQ1GvX
+ 5LkGkb/w4UUFU7BPWql56gJ2TTkaadQqmvc/zKREe5k/YRIUbNAg0z0GWzf0hmciB9QyJzlskoc
+ yy5F4BvaK2NCoq302UYG8FEmxJPKc4pM+oMJg2RGpXp0hF9PODtAi17kHrOQZHqU5u4QRna7S+P
+ HPeZR0DG2GPjVgol6KQSmYxVaU3SL8Jk6gwRJ86OhdXOUBMnhyCLsgHvPVF28aKve5I/F6fffh2
+ sov2BGRkfolRi6puKsC9Zq+kXCvf304xzXjrXNPirg9Nk4ROipqYL9O8N/45wfnHKN+taXKbW4A
+ PDbEF4QDmGXE1ydwhWa1+wlcrKHD9xHyMBMNhxci0HKeqsG0cFPNN4h9cJC+UiMZebEEVHBq7sV
+ TTeuCWOQRF1O1Wc/t2i6pW6sdDjOSB+8mqm6UBsSFEE/XTgG1L
+X-Received: by 2002:a05:6820:2289:b0:67e:14bd:5ef3 with SMTP id
+ 006d021491bc7-67e14bd605dmr669706eaf.30.1774551339843; 
+ Thu, 26 Mar 2026 11:55:39 -0700 (PDT)
 Received: from frodo (c-98-38-17-99.hsd1.co.comcast.net. [98.38.17.99])
  by smtp.googlemail.com with ESMTPSA id
- 586e51a60fabf-41cc7760c08sm3075171fac.4.2026.03.26.11.56.10
+ 586e51a60fabf-41cc7760c08sm3075171fac.4.2026.03.26.11.55.38
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 26 Mar 2026 11:56:11 -0700 (PDT)
+ Thu, 26 Mar 2026 11:55:39 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: linux-kernel@vger.kernel.org, airlied@gmail.com, simona@ffwll.ch,
  jbaron@akamai.com, gregkh@linuxfoundation.org
@@ -72,9 +72,9 @@ Cc: jim.cromie@gmail.com, mripard@kernel.org, tzimmermann@suse.de,
  louis.chauvet@bootlin.com, skhan@linuxfoundation.org, pmladek@suse.com,
  ukaszb@chromium.org, dri-devel@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-Subject: [PATCH v12 66/69] accel: add -DDYNAMIC_DEBUG_MODULE to subdir-ccflags
-Date: Thu, 26 Mar 2026 12:54:10 -0600
-Message-ID: <20260326185413.1205870-67-jim.cromie@gmail.com>
+Subject: [PATCH v12 44/69] drm_print: modernize an archaic comment
+Date: Thu, 26 Mar 2026 12:53:48 -0600
+Message-ID: <20260326185413.1205870-45-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260326185413.1205870-1-jim.cromie@gmail.com>
 References: <20260326185413.1205870-1-jim.cromie@gmail.com>
@@ -95,46 +95,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-With CONFIG_DRM_USE_DYNAMIC_DEBUG=y and CONFIG_DYNAMIC_DEBUG=n,
-accelerator modules are currently missing the _dynamic_func_call_cls
-macro, due to its conditional definition in dynamic_debug.h, which
-depends upon -DDYNAMIC_DEBUG_MODULE.
-
-So add that to subir-ccflags for all accels, in accel/Makefile.
-
-Notes:
-
-The added "indirection" allows modules to individually enable
-dynamic-debug, where a CONFIG_ option would be global to the build.
-
-Several accelerator modules make drm*dbg() calls, so in effect they
-*are* DRM modules.
+In the year 2025 it is no longer noteworthy that drm.debug logging is
+adjustable at runtime, via sysfs node.  Simplify the statement.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- drivers/accel/Makefile | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+ include/drm/drm_print.h | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/accel/Makefile b/drivers/accel/Makefile
-index 1d3a7251b950..44db786ea223 100644
---- a/drivers/accel/Makefile
-+++ b/drivers/accel/Makefile
-@@ -1,8 +1,13 @@
- # SPDX-License-Identifier: GPL-2.0-only
- 
-+# several accel modules use drm*dbg, so they *are* DRM modules.
-+# When built with only CONFIG_DYNAMIC_DEBUG_CORE
-+# (and not CONFIG_DYNAMIC_DEBUG), they need this flag
-+subdir-ccflags-$(CONFIG_DRM_USE_DYNAMIC_DEBUG) += -DDYNAMIC_DEBUG_MODULE
-+
- obj-$(CONFIG_DRM_ACCEL_AMDXDNA)		+= amdxdna/
- obj-$(CONFIG_DRM_ACCEL_ARM_ETHOSU)	+= ethosu/
- obj-$(CONFIG_DRM_ACCEL_HABANALABS)	+= habanalabs/
- obj-$(CONFIG_DRM_ACCEL_IVPU)		+= ivpu/
- obj-$(CONFIG_DRM_ACCEL_QAIC)		+= qaic/
--obj-$(CONFIG_DRM_ACCEL_ROCKET)		+= rocket/
-\ No newline at end of file
-+obj-$(CONFIG_DRM_ACCEL_ROCKET)		+= rocket/
+diff --git a/include/drm/drm_print.h b/include/drm/drm_print.h
+index 94064ec6c229..c3df2f3f47d8 100644
+--- a/include/drm/drm_print.h
++++ b/include/drm/drm_print.h
+@@ -89,10 +89,9 @@ extern unsigned long __drm_debug;
+  *  - ...
+  *  - drm.debug=0x1ff will enable all messages
+  *
+- * An interesting feature is that it's possible to enable verbose logging at
+- * run-time by echoing the debug value in its sysfs node::
++ * You can also alter the logged categories at run-time:
+  *
+- *   # echo 0xf > /sys/module/drm/parameters/debug
++ *   #> echo 0xf > /sys/module/drm/parameters/debug
+  *
+  */
+ enum drm_debug_category {
 -- 
 2.53.0
 
