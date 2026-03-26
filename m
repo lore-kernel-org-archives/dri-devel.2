@@ -4,49 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3E94610AB822
-	for <dri-devel@archiver.kernel.org>; Thu, 26 Mar 2026 22:41:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 689FA10AB82B
+	for <dri-devel@archiver.kernel.org>; Thu, 26 Mar 2026 22:44:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A71BA10E51B;
-	Thu, 26 Mar 2026 22:41:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BEB4910E6C8;
+	Thu, 26 Mar 2026 22:44:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="PsnTFjOZ";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="MC3Cngq2";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 081E710E51B
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Mar 2026 22:41:18 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2AE9F10E6C8
+ for <dri-devel@lists.freedesktop.org>; Thu, 26 Mar 2026 22:44:43 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 3F48B60054;
- Thu, 26 Mar 2026 22:41:14 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6F329C116C6;
- Thu, 26 Mar 2026 22:41:13 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id E508641AC6;
+ Thu, 26 Mar 2026 22:44:42 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD8E5C2BCB2;
+ Thu, 26 Mar 2026 22:44:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1774564873;
- bh=O9RE3qPQOrONRsorAVN2XwchrtUcoeQXGzvczDsoM0I=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=PsnTFjOZKBZWQ4+ymH6V5CbVtPOKgtB7APar8wQbMHAL324LaZ3YA1lEqUplGxxJM
- 7gowm/jZDTt4f9FAUW6Sei6Jhgt0w6JS9eeWENbE6MagiwxaAYVHC0tb/Z6vqwqwSw
- zjuFISZZNCdmocM8GAFf1hQDyceBOcpfyTHl+zMcCmQNOiHamfaY0Q78xxZpPA5hn4
- aiLf0dU4cUcJmDQ7Aa0y2Ho8lDqdhnV16Fk4Xb2dg9gInBLlHG60kzH3DVFNztBTte
- zSlHh29e3e8PT/Nc7LWEzjm8oOGVmmTtEeGptW1/E5KVeXER+QTapM/Q/1Z2wScHex
- nsy13cDBr1Vcg==
-Date: Thu, 26 Mar 2026 16:41:11 -0600
-From: Keith Busch <kbusch@kernel.org>
-To: Leon Romanovsky <leon@kernel.org>
-Cc: Zhiping Zhang <zhipingz@meta.com>, Jason Gunthorpe <jgg@ziepe.ca>,
- Bjorn Helgaas <bhelgaas@google.com>, linux-rdma@vger.kernel.org,
- linux-pci@vger.kernel.org, netdev@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Yochai Cohen <yochai@nvidia.com>,
- Yishai Hadas <yishaih@nvidia.com>, Bjorn Helgaas <helgaas@kernel.org>
-Subject: Re: [RFC v2 1/2] vfio: add callback to get tph info for dmabuf
-Message-ID: <acW2BwQKaUbS3eL9@kbusch-mbp>
-References: <20260324234615.3731237-1-zhipingz@meta.com>
- <20260324234615.3731237-2-zhipingz@meta.com>
- <20260325082534.GN814676@unreal>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260325082534.GN814676@unreal>
+ s=k20201202; t=1774565082;
+ bh=wnemq+UwHPEA9TsXFKQBlPjccCQwV5RXihejKuCyumY=;
+ h=Date:Subject:Cc:To:From:References:In-Reply-To:From;
+ b=MC3Cngq2BkdL0ni2bWYq3Ex8/iXcPdbnWbOn3pV5plkdsixqUt+EL3qLRuij1CGMM
+ FRsloTP8OEXnVqrIB+urWx6LDARXOwoOBjJe0OjIFxcby6Tramx8N1Wtf/Floe6DVt
+ Tv2vHVayknEwAVbYr/CRCgD7qhfUBYwtc+uBc3OsIlPx3DJYz2FYq4nbGSfRULOiQB
+ JkUHkMzoIY2CEv3O6YZg6phNwD+Tz3ciDndGJtyfEJlRnGzHCtEER4c0uf3QHC+JOA
+ vjve1r6DZ6kbrAxi7MQ/lH5ml2Oq1e+fGAgpgZ5Ing8+w8rurWh+a1zWZl1rZv3UIv
+ lvr+QbOjhK1SQ==
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 26 Mar 2026 23:44:38 +0100
+Message-Id: <DHD2TIKMD3E7.3L229ON925VS5@kernel.org>
+Subject: Re: [PATCH v5 04/11] drm/gpuvm: Add a helper to check if two VA can
+ be merged
+Cc: <linux-kernel@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ "Steven Price" <steven.price@arm.com>, "Boris Brezillon"
+ <boris.brezillon@collabora.com>, "Janne Grunau" <j@jannau.net>,
+ <kernel@collabora.com>, "Caterina Shablia"
+ <caterina.shablia@collabora.com>, "Matthew Brost"
+ <matthew.brost@intel.com>, =?utf-8?q?Thomas_Hellstr=C3=B6m?=
+ <thomas.hellstrom@linux.intel.com>, "Alice Ryhl" <aliceryhl@google.com>,
+ "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>, "Maxime Ripard"
+ <mripard@kernel.org>, "Thomas Zimmermann" <tzimmermann@suse.de>, "David
+ Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>
+To: =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>
+From: "Danilo Krummrich" <dakr@kernel.org>
+References: <20260313150956.1618635-1-adrian.larumbe@collabora.com>
+ <20260313150956.1618635-5-adrian.larumbe@collabora.com>
+In-Reply-To: <20260313150956.1618635-5-adrian.larumbe@collabora.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,39 +67,105 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Mar 25, 2026 at 10:25:34AM +0200, Leon Romanovsky wrote:
-> On Tue, Mar 24, 2026 at 04:46:02PM -0700, Zhiping Zhang wrote:
-> >  struct vfio_device_feature_dma_buf {
-> >  	__u32	region_index;
-> >  	__u32	open_flags;
-> > -	__u32   flags;
-> > -	__u32   nr_ranges;
-> > +	__u32	flags;
-> > +#define VFIO_DMABUF_FL_TPH		(1U << 0) /* TPH info is present */
-> > +#define VFIO_DMABUF_TPH_PH_SHIFT	1         /* bits 1-2: PH (2-bit) */
-> > +#define VFIO_DMABUF_TPH_PH_MASK	0x6U
-> > +#define VFIO_DMABUF_TPH_ST_SHIFT	16        /* bits 16-31: steering tag */
-> > +#define VFIO_DMABUF_TPH_ST_MASK		0xffff0000U
-> 
-> This extension of flags is basically kills future extension of this
-> struct for anything that includes TPH.
-> 
-> Add new
-> enum vfio_device_feature_dma_buf_flags {
->     VFIO_DMABUF_FL_TPH  = 1 << 0
-> }
-> 
-> > +	__u32	nr_ranges;
-> 
-> add your "__u16 steering_tag" and "__u8 ph" fields here.
+On Fri Mar 13, 2026 at 4:09 PM CET, Adri=C3=A1n Larumbe wrote:
+> From: Boris Brezillon <boris.brezillon@collabora.com>
+>
+> We are going to add flags/properties that will impact the VA merging
+> ability. Instead of sprinkling tests all over the place in
+> __drm_gpuvm_sm_map(), let's add a helper aggregating all these checks
+> can call it for every existing VA we walk through in the
+> __drm_gpuvm_sm_map() loop.
+>
+> Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
+> Signed-off-by: Caterina Shablia <caterina.shablia@collabora.com>
 
-You're suggesting that Ziping append the new fields to the end of this
-struct? I don't think we can modify the layout of a uapi.
+This needs your Signed-off-by: as well. Does it need Caterina's Co-develope=
+d-by:
+tag as well?
 
-If we can't carve the space for this out of the existing unused flags
-field, I think we'd have to introduce a new vfio device feature that
-basically copies VFIO_DEVICE_FEATURE_DMA_BUF with the extra hints
-fields.
- 
-> >  	struct vfio_region_dma_range dma_ranges[] __counted_by(nr_ranges);
-> >  };
+> ---
+>  drivers/gpu/drm/drm_gpuvm.c | 46 +++++++++++++++++++++++++++----------
+>  1 file changed, 34 insertions(+), 12 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/drm_gpuvm.c b/drivers/gpu/drm/drm_gpuvm.c
+> index 3c2b6102e818..4af7b71abcb4 100644
+> --- a/drivers/gpu/drm/drm_gpuvm.c
+> +++ b/drivers/gpu/drm/drm_gpuvm.c
+> @@ -2378,16 +2378,47 @@ op_unmap_cb(const struct drm_gpuvm_ops *fn, void =
+*priv,
+>  	return fn->sm_step_unmap(&op, priv);
+>  }
+> =20
+> +static bool can_merge(struct drm_gpuvm *gpuvm, const struct drm_gpuva *v=
+a,
+> +		      const struct drm_gpuva_op_map *new_map)
+
+Not public, but please add some documentation regardless; it's not very obv=
+ious
+what the function should achieve semantically from just looking at its
+signature.
+
+> +{
+> +	struct drm_gpuva_op_map existing_map =3D {
+> +		.va.addr =3D va->va.addr,
+> +		.va.range =3D va->va.range,
+> +		.gem.offset =3D va->gem.offset,
+> +		.gem.obj =3D va->gem.obj,
+> +	};
+
+IIRC, previously this was a temporary struct drm_gpuva; this seems better (=
+also
+because its scope is limited to this function), but it still feels like an
+abuse of this structure.
+
+Anyways, I get that you want it for the swap() trick below, but I think it =
+can
+also easily be done without the swap() trick. What about this?
+
+	static bool can_merge(struct drm_gpuvm *gpuvm, const struct drm_gpuva *va,
+		      const struct drm_gpuva_op_map *new_map)
+	{
+		/* Only GEM-based mappings can be merged, and they must point to
+		 * the same GEM object.
+		 */
+		if (va->gem.obj !=3D new_map->gem.obj || !new_map->gem.obj)
+			return false;
+=09
+		/* We assume the caller already checked that VAs overlap or are
+		 * contiguous.
+		 */
+		if (drm_WARN_ON(gpuvm->drm,
+				new_map->va.addr > va->va.addr + va->va.range ||
+				va->va.addr > new_map->va.addr + new_map->va.range))
+			return false;
+=09
+		/* u64 underflow is fine: both sides negate equally, preserving
+		 * the equality.
+		 */
+		return va->va.addr - new_map->va.addr =3D=3D
+		       va->gem.offset - new_map->gem.offset;
+	}
+
+> +	const struct drm_gpuva_op_map *a =3D new_map, *b =3D &existing_map;
+> +
+> +	/* Only GEM-based mappings can be merged, and they must point to
+> +	 * the same GEM object.
+> +	 */
+> +	if (a->gem.obj !=3D b->gem.obj || !a->gem.obj)
+> +		return false;
+> +
+> +	/* Order VAs for the rest of the checks. */
+> +	if (a->va.addr > b->va.addr)
+> +		swap(a, b);
+> +
+> +	/* We assume the caller already checked that VAs overlap or are
+> +	 * contiguous.
+> +	 */
+> +	if (drm_WARN_ON(gpuvm->drm, b->va.addr > a->va.addr + a->va.range))
+> +		return false;
+> +
+> +	/* We intentionally ignore u64 underflows because all we care about
+> +	 * here is whether the VA diff matches the GEM offset diff.
+> +	 */
+> +	return b->va.addr - a->va.addr =3D=3D b->gem.offset - a->gem.offset;
+> +}
