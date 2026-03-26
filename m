@@ -4,64 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2409310AB833
-	for <dri-devel@archiver.kernel.org>; Thu, 26 Mar 2026 23:47:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 740DF10AB82D
+	for <dri-devel@archiver.kernel.org>; Thu, 26 Mar 2026 23:47:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7D08410EB32;
-	Thu, 26 Mar 2026 23:47:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BD8E510EB69;
+	Thu, 26 Mar 2026 23:47:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Jg3f/ESN";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="YxVCSMAM";
 	dkim-atps=neutral
-Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com
- [209.85.215.173])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0FFD810EB15
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Mar 2026 23:47:38 +0000 (UTC)
-Received: by mail-pg1-f173.google.com with SMTP id
- 41be03b00d2f7-c76864f4e58so40359a12.1
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Mar 2026 16:47:38 -0700 (PDT)
+Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com
+ [209.85.215.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B0B7C10EB69
+ for <dri-devel@lists.freedesktop.org>; Thu, 26 Mar 2026 23:47:50 +0000 (UTC)
+Received: by mail-pg1-f171.google.com with SMTP id
+ 41be03b00d2f7-c739d32b72cso1037361a12.2
+ for <dri-devel@lists.freedesktop.org>; Thu, 26 Mar 2026 16:47:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1774568857; x=1775173657; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1774568870; x=1775173670; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=jlXNZ6YErxvr6V0/1Nzao8eMwm0DA+edMLaU07KmQkY=;
- b=Jg3f/ESNVIajf4EAF6z/Lwq6W5RRa/FNZ56WVBiRRGnFSNHsdsqhFQ/1wgSme8Dp9s
- goE3MOFHc9RY6UXKGt/G7BmnMH56rEhgWf9aXTenbk/DoyITyon5GRdM8AoGMHBbnQHs
- /905cmTvQz3e/IOQvZFn0lw3XKrj1+H20J7gaaW2BzK1oM5yo6f2uq/OZQyRVVL4rRTs
- rgMOrU8m6uiE/ncKB0mOxvJhcZTFxt0/HMAQIlMKj+QbiNncSn3qAPVgDkY+GBNd1iPq
- VVW2eEZ8pxS/MRNZy1RDDZHPgHYANTihEvXfarADVsIZgbRj2/J7fZdWTCk6HuPTHNgs
- oN8g==
+ bh=9pCNIYnvbijot8BuXxZwdBSIjs5gTuAaUWfD7Zd1qpw=;
+ b=YxVCSMAMa5WpEsxTFYENjZ6HjUu4wwKmjr8Z3h2S8sGC+mJUa3v0b82kgIXG0bEJHw
+ HD/vAad5TLX2ZoFLZsf+SkGPvRZMcWzT2o7iO9GTvog9vFK9cUs1jJEmSjI+FDVNpGnK
+ FNWMqIlcSidMY31aCpwAR+EC7PNuO2BvD7W1bnIVDh/hSUx4byw7uWlLSuZgGpCYv1t7
+ TA0duyrHXngVaTMoXNf/wcpuc3INcyHaMkIixRokSUybtE1wUlvo9t0+FeAWxk029C9j
+ cFNVQNeudehg/iVcgHUAI0nHx9Z3nfOIIq8Ntn9AFpJ/MI6AdhSPPkNk3Rx7XAId2w4A
+ Awdg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774568857; x=1775173657;
+ d=1e100.net; s=20251104; t=1774568870; x=1775173670;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=jlXNZ6YErxvr6V0/1Nzao8eMwm0DA+edMLaU07KmQkY=;
- b=GLqRHuMRWVcPjMzdRXhGRCWnqeFMhQK7HboQwRSvK2Qh3q2OMr2F4gl2QqtXuAplNJ
- bqbvO4tIEAd/ejvFtEHot309vmRGZIam4CQDskLR/jJQjK+wacMyla0qsAiM0wmFbDOq
- mY31DXfziSDXVGcKuaUgz+31BQNnRmrqtr7/ixKIpb+3RL7MK0QUHk9HmBCKENDIXpUQ
- ke98ti/tNQ8sHMETo06tAGJkVRxBgGjkmlHQ2k794lAlD2EHYZPB1FMP4S3126MvdphL
- y1x/h0OhDudGywTskw95TrVLnx5KNQzM4lllFNQjnIQ3q4q+Vq6H5V4ZC1Ox4TC5RBWT
- 17yg==
+ bh=9pCNIYnvbijot8BuXxZwdBSIjs5gTuAaUWfD7Zd1qpw=;
+ b=kOLlU8BAcBuxgA0yCHIo+qUiePouhdF2tQirq2SoTQnjVkTK0wdg0lGwcfNbv6XNyy
+ aP+mF9pGAhbP3o45pTXoYjnHcSu9veCWy7UvCBIqnGAHaCDEhoS0ay/k9yndeCnaGobB
+ Vp6HAca0EGh80ZTaMlOfzpRNr4UK/s1O4bXZKrK5INB/SzUAzknkJ92DyubyjHCyLPzw
+ +MPl0i+e188Hx5LVYp1XtBXb4x0dT1icoOOOFd/1g3GPrjzcCaeB8AH+t0dFvQU6R3hT
+ ZlrZ+/BbAAuVPLWDsl4t+VfPxKR8Re7aRVQp/x2YvT8rAVSq84zPOIWPCDyTUjh1HKdu
+ jthg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUEeHFBPwZli1ttYN+X8hxgG6+83xN7r31Ka7QvOttxKEtsZxWEEwYQhOH9znOtceUi4GCd/vQyoNc=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yy8onJ3o0NxJKz+bYVj6VOQN1JTnY+xetgGP7TEmNOZ5uYQwq0N
- Hl6rMGaffhM+Lg3WzyZ61WCchvZxLi/k4amqgPsX3eHT+YuwD0axmT1Q
-X-Gm-Gg: ATEYQzyGskIBnmcMELG8LXeAcqkkbZizNtm3nxcmxZWNnJfZ0uyqJ6BZDnlhKNmosIP
- 7A24S4f9mOw25J6HHq+/w/0ur3JdCeC6G28/xiGelgrKa8wjeVyb+JLPRQMZzVKTMPOFbLkLtm/
- w2QcIWyOKglEfgCpuOiq74nOt/lTA7yAWnujIVD46zs2aawODX3A/+azkvqaYVepiTuCiH5RIo1
- pCYwjhZbKNsxxE3Hmfz6EOBF0T76hYhTnUwTDhjJfQvVvEYMvuxaxpXZO++z5jG0Q5ePAOxOo3o
- qQvA7AMldQP/ar3TscmT4/m79MVMSF2gdAHisvy69h1DKts3H8A+lwPht7QqKL7mBETkhEUr/z1
- yOCixTY+ccnRBBuOLDRP/kibmI5bX463UHeCzCl4MkRTOkwtWpBUP699yosW5uh5KW1MwbMsgTl
- YCINi15rdXCm7j54XG8pR5mAaqQWBZUfsG6YLc5kzpQQlXZqypeHdIRDw=
-X-Received: by 2002:a05:6a20:3d83:b0:398:4bf2:4285 with SMTP id
- adf61e73a8af0-39c877fe4bamr553257637.16.1774568857439; 
- Thu, 26 Mar 2026 16:47:37 -0700 (PDT)
+ AJvYcCUXHczzJG9aRYg1Yheq7Gj3X3rKBw78gBrLNrmzyywFIQQMfbyXNVT9+OPqBXn27nH/4gHakJMZjrE=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyzVagKA4oBwrbcfiksSNANBU8R9PuLIy/ObW2MgRAz4QagYYpf
+ yF/ZqhCzkeYFgdv7JYwm2KwGUxqXkKvI+2s9wqQVwWrR6jN5rq1NABUF
+X-Gm-Gg: ATEYQzzllO9CnKDwWlZuGb61fx3cE/oTlgO8X/XsO0fXVMyWVzSAgq330stAtmG9e5P
+ tkJ0F+yflyKqa+0M++TXiu825wgiz+o/61Zi1vkxDw0Y4+7UE1J6Rr7xZqlZMaUMLpHlGjEB8fE
+ 5Wag0RMaOMqFf+0GyZ1FYkW+e5sFd9cqcbmocN4Cc3BPqNV6CAujQYJdzvJCcNahKfRsHxrTdhE
+ KaIjVxv/T+QIDdwBjnFU2ZbA8VBRIg4CRglDJe1gYif1PgM44zzPoITZtElZ/JArZwwD3KRVYLO
+ Doydu8liwKrSm3ev25HP26//TIQ4krDBEFLrNzl/mPp1TMvL3QIyWFJNwlSGamtZ0nft6Ei0kbT
+ +a/16SRQ1WBQHFrWFyMibyHsNZ1dvXE69MyMyk4lukJr8CLbenPHZZEcdYu5LuqtvKIsNkyK4sg
+ sWdlw8+yD5DB5037iPBn5PS/76NZUQibULTq1pjXEyZiZdzq8Qht63om6m7/SXR8yklQ==
+X-Received: by 2002:a05:6300:210e:b0:398:919a:ddf5 with SMTP id
+ adf61e73a8af0-39c878d5394mr525263637.24.1774568870090; 
+ Thu, 26 Mar 2026 16:47:50 -0700 (PDT)
 Received: from ryzen ([2601:644:8000:5b5d::8bd])
  by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-c7673933816sm3201162a12.21.2026.03.26.16.47.35
+ 41be03b00d2f7-c7673933816sm3201162a12.21.2026.03.26.16.47.48
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 26 Mar 2026 16:47:36 -0700 (PDT)
+ Thu, 26 Mar 2026 16:47:49 -0700 (PDT)
 From: Rosen Penev <rosenp@gmail.com>
 To: stable@vger.kernel.org
 Cc: Alex Deucher <alexander.deucher@amd.com>,
@@ -81,13 +81,15 @@ Cc: Alex Deucher <alexander.deucher@amd.com>,
  amd-gfx@lists.freedesktop.org (open list:RADEON and AMDGPU DRM DRIVERS),
  dri-devel@lists.freedesktop.org (open list:DRM DRIVERS),
  linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH for 6.12 1/9] drm/amd/amdgpu: decouple ASPM with pcie dpm
-Date: Thu, 26 Mar 2026 16:47:08 -0700
-Message-ID: <20260326234716.16723-2-rosenp@gmail.com>
+Subject: [PATCH for 6.12 7/9] drm/amd/display: Adjust DCE 8-10 clock,
+ don't overclock by 15%
+Date: Thu, 26 Mar 2026 16:47:14 -0700
+Message-ID: <20260326234716.16723-8-rosenp@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260326234716.16723-1-rosenp@gmail.com>
 References: <20260326234716.16723-1-rosenp@gmail.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -104,34 +106,69 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Kenneth Feng <kenneth.feng@amd.com>
+From: Timur Kristóf <timur.kristof@gmail.com>
 
-[ Upstream commit df0e722fbdbedb6f2b682dc2fad9e0c221e3622d ]
+[ Upstream commit 1ae45b5d4f371af8ae51a3827d0ec9fe27eeb867 ]
 
-ASPM doesn't need to be disabled if pcie dpm is disabled.
-So ASPM can be independantly enabled.
+Adjust the nominal (and performance) clocks for DCE 8-10,
+and set them to 625 MHz, which is the value used by the legacy
+display code in amdgpu_atombios_get_clock_info.
 
-Signed-off-by: Kenneth Feng <kenneth.feng@amd.com>
-Reviewed-by: Yang Wang <kevinyang.wang@amd.com>
+This was tested with Hawaii, Tonga and Fiji.
+These GPUs can output 4K 60Hz (10-bit depth) at 625 MHz.
+
+The extra 15% clock was added as a workaround for a Polaris issue
+which uses DCE 11, and should not have been used on DCE 8-10 which
+are already hardcoded to the highest possible display clock.
+Unfortunately, the extra 15% was mistakenly copied and kept
+even on code paths which don't affect Polaris.
+
+This commit fixes that and also	adds a check to	make sure
+not to exceed the maximum DCE 8-10 display clock.
+
+Fixes: 8cd61c313d8b ("drm/amd/display: Raise dispclk value for Polaris")
+Fixes: dc88b4a684d2 ("drm/amd/display: make clk mgr soc specific")
+Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
+Reviewed-by: Rodrigo Siqueira <siqueira@igalia.com>
+Reviewed-by: Alex Hung <alex.hung@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Rosen Penev <rosenp@gmail.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 2 --
- 1 file changed, 2 deletions(-)
+ .../drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c  | 12 +++++-------
+ 1 file changed, 5 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index d5e6d5ec69c8..dbee43c58741 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -1782,8 +1782,6 @@ bool amdgpu_device_should_use_aspm(struct amdgpu_device *adev)
- 	}
- 	if (adev->flags & AMD_IS_APU)
- 		return false;
--	if (!(adev->pm.pp_feature & PP_PCIE_DPM_MASK))
--		return false;
- 	return pcie_aspm_enabled(adev->pdev);
- }
+diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c
+index 5dbe89d9b72d..6131ede2db7a 100644
+--- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c
++++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c
+@@ -72,9 +72,9 @@ static const struct state_dependent_clocks dce80_max_clks_by_state[] = {
+ /* ClocksStateLow */
+ { .display_clk_khz = 352000, .pixel_clk_khz = 330000},
+ /* ClocksStateNominal */
+-{ .display_clk_khz = 600000, .pixel_clk_khz = 400000 },
++{ .display_clk_khz = 625000, .pixel_clk_khz = 400000 },
+ /* ClocksStatePerformance */
+-{ .display_clk_khz = 600000, .pixel_clk_khz = 400000 } };
++{ .display_clk_khz = 625000, .pixel_clk_khz = 400000 } };
  
+ int dentist_get_divider_from_did(int did)
+ {
+@@ -403,11 +403,9 @@ static void dce_update_clocks(struct clk_mgr *clk_mgr_base,
+ {
+ 	struct clk_mgr_internal *clk_mgr_dce = TO_CLK_MGR_INTERNAL(clk_mgr_base);
+ 	struct dm_pp_power_level_change_request level_change_req;
+-	int patched_disp_clk = context->bw_ctx.bw.dce.dispclk_khz;
+-
+-	/*TODO: W/A for dal3 linux, investigate why this works */
+-	if (!clk_mgr_dce->dfs_bypass_active)
+-		patched_disp_clk = patched_disp_clk * 115 / 100;
++	const int max_disp_clk =
++		clk_mgr_dce->max_clks_by_state[DM_PP_CLOCKS_STATE_PERFORMANCE].display_clk_khz;
++	int patched_disp_clk = MIN(max_disp_clk, context->bw_ctx.bw.dce.dispclk_khz);
+ 
+ 	level_change_req.power_level = dce_get_required_clocks_state(clk_mgr_base, context);
+ 	/* get max clock state from PPLIB */
 -- 
 2.53.0
 
