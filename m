@@ -4,63 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9A41C10AB802
-	for <dri-devel@archiver.kernel.org>; Thu, 26 Mar 2026 18:54:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 131BC10AB803
+	for <dri-devel@archiver.kernel.org>; Thu, 26 Mar 2026 18:54:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8C4C010EAF8;
-	Thu, 26 Mar 2026 18:54:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6813010EB20;
+	Thu, 26 Mar 2026 18:54:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="FveDn4J6";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="AtLSE+SM";
 	dkim-atps=neutral
-Received: from mail-oa1-f51.google.com (mail-oa1-f51.google.com
- [209.85.160.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 90E6610E28A
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Mar 2026 18:54:30 +0000 (UTC)
-Received: by mail-oa1-f51.google.com with SMTP id
- 586e51a60fabf-40ee9b945d5so939884fac.0
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Mar 2026 11:54:30 -0700 (PDT)
+Received: from mail-oa1-f41.google.com (mail-oa1-f41.google.com
+ [209.85.160.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D1DB410EB43
+ for <dri-devel@lists.freedesktop.org>; Thu, 26 Mar 2026 18:54:34 +0000 (UTC)
+Received: by mail-oa1-f41.google.com with SMTP id
+ 586e51a60fabf-40f0e14b9f9so935267fac.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 26 Mar 2026 11:54:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1774551270; x=1775156070; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=20j/tkgEdgd9CCuui6wAsvaKhO91qX8t/1cdIGjfW6Q=;
- b=FveDn4J6vUpR213Hd8Bu4Cgr8uTtmA1h6ZSKpOG/oILgsxSZc6DnJGb7GBAC0KAsEJ
- JfYcNTZDL/ae+0l+UuHz3VC854fhQ1jeBe2mMXIweXw6SPQc+VFhGUgoQ8p8ErJhbkNQ
- 07OiWDcz53eNQ7Q49Xd0FybuQbiZYGLc2fLnZHou5/f6Wf4BSWZeQ2yieKOrZQbjiszy
- x9KmMEKly6IkEI0I01wEZYZM38ICCAoTT5VeLzwU+2lNw9ZGIr/p9TAKXtosqb0eXRTV
- YsXlYkkJsBOBgdipsZneWiqNF4nB691+EDPvQTut6ZyUMFhQdOAiQiS1WhkuRGkqEuSv
- oTtA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774551270; x=1775156070;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=gmail.com; s=20251104; t=1774551274; x=1775156074; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=20j/tkgEdgd9CCuui6wAsvaKhO91qX8t/1cdIGjfW6Q=;
- b=GQqvE7Q9cz9a1k8z6z9F9BC1SntGbEj/nxeLe/+9uteOFwTj0eKK4CPLIRzdk/nQOj
- zX595dYrok4iatKPGTpY1DFrWelPp1jWPqTJ1lldYTZxVv+rFucv7BrsucQ/w2+HKcMF
- yBYqu8LojHCy9U2agBnElw8UclZW+YrpOt0WFnCBHsWeE0kEus3UEqit8IGPm5LSw9uq
- zAX6eg4+04lAuICjXWmxq56PtzxO7y+x/Er+i3ceMuQiSZs90eRgyP8PXfcUh+LfIhDW
- 8Y2MzK+cujOroeu8oyY7ZwlfACnNdh0fA6JYrbxPFuKY1Hys8LqQaD+zyi2/1F78CRib
- ldww==
+ bh=OqKdylESk9B/a6b5Oi5X2s5Hl7NPYjGcR39u69Tcphw=;
+ b=AtLSE+SM/cyi/AJqCyCwyl8xkqZurtAXHz4zObtgqTH5xjTI0fPfEp/yYvF4Mlq8ev
+ lh4a3zdQqi+CNZYibSy0XVgUfGo7lFLcwd5E3hfUSpu2bC+DqcQaqRcDO0LBcIhUH4cg
+ KcNNYTFqzj9iInmSQwB02f+Ep0845PSfj1/oi30kn6tSGBSrPUr8aUlS74koGJJUsbGj
+ Gspa7dICjzplX0FaeMaKog6SCQ3zHXDuErBBlCEK1NFmvIxm4hj1Jw5aBbx6MHsSk9TK
+ kWY2oMZcnqstaGXPRPDO9jPB2FtwEmn06ZEekxHJiMUV15OgFc6ZwtO1Vsl64iWdb22N
+ i+ew==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1774551274; x=1775156074;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=OqKdylESk9B/a6b5Oi5X2s5Hl7NPYjGcR39u69Tcphw=;
+ b=UEkFPgo05/DaZgA5qfONjRkqR/7mbF4hPx1MCIo4nlz0m+0zvgQEMAManZ8xVtDlGQ
+ pFM8d1D8cDN7jyxhJFeCXkdOi5sS8dporVSbggpTjpzdjS7bG12GwDmRvpuvz0Ukxuzq
+ ROBBndrwcRV2uXqiaKMeYHzrPkPsWd/AsqimD+dmPdw8XoyIQhZdGKyGwvRU7V4XHGa4
+ 3j7UftNXxL2AbuDCmd8UUEKVaq206D/yaDTqB/UOk49MpmX24TLkNPo3u0L0phGYOya2
+ 4iWxVvkGpl1kS8/Zs05DyhPdobRbECGuuQWZ6+Sc+XRDkpXqMj4QJF8azdlYik/rNM1+
+ 7t8w==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVlW2L7IczwvfGyOmyc5ymLnAirGWeaW4I2yud+cez71xnNjN1QKYitpJ92inMWR3WFfXO4tLV0GUo=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzJmjiWb1QbFPCP1DDdw6GZf+dUeayNqFkIsrCKa8gLNgKiwF9B
- VBu75lQ0tZC8EOpEzWROQnjXuzTavmhJUqrI0x4+JQvPQ1eaq2/rVCcK
-X-Gm-Gg: ATEYQzyQYVXAjWIgufWjfVq9Ab9WFlSyKVOMICFatjIKxz3lLP/mAAdcjRhaEe1Ayg0
- kn2TJSnBPWoCtJJ5EB4tE07COxGAzP9UhrPkXSGKwDtgPJZYzb4D7AKskEVb7pH39D1OCrc8cTm
- P0vbKCjAZ7yTR/jT5WByTwuj1vna04wqH1KAPFSRXvHuNfh5vmPDSv7xqDNzSHwQYq/5OacV1aH
- rMG5xNFN1bGwGp+kecWPk/qg74P6/Qu0nv5gA+woHmV3wENi1/LWK0kyRzTFOhtWL/folBFj1LV
- inTmPMwzdMi98jM0640Q1jVj+EhwGKcJxJTThz3EMyUqFIV/bPEQhbQhA34G/GoJQPnBSLCxQTz
- 2TWprN28tJe3OW8+4xAr+UYjf9XfsGed22R9TzSSvDrF/5NSYw0R6HZD91HGNg48mkOraMrILCg
- GS7GYnlQNl7j5qrA2rtgeKWVmFFAOLCjRDoR9CGysj9kDEa1oxlZwr1hm0EPQ=
-X-Received: by 2002:a05:6870:194b:b0:409:9a0b:b733 with SMTP id
- 586e51a60fabf-41ca6d6a50emr4660671fac.10.1774551269559; 
- Thu, 26 Mar 2026 11:54:29 -0700 (PDT)
+ AJvYcCU+588fvPKgb9svOY41H4fEkK05E/WrTzVMgd/jdWEFmR8xZ0Xdjd6cLy2dkSbifsssKEYl6Tu1kNo=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxWFQR02t8tgGKG/MdKhey8XngcrJRzOt+Ku5OGt1L7rPzFIsSL
+ zYODGT1C45MTCbdvUUYKEvw46UjgK/skh817c8jTmAcCiH8ZcYvdFhes
+X-Gm-Gg: ATEYQzw/9hkIYO3E7fGnsV38be3UHOY/OyusHajk/mU9IfEyn0bljkVVJctb9ADPrar
+ kP44wOHSg8BDkDP+Xx0QFJ9pWe0qdcij5MstZ+MkJvFQhdkxNQf5zROAlBoXsGfoSXjkUWZCyHc
+ wQN3FWzYJg9w2er3c+o3VWcTOgriPYZO0hfzmYo6LmT1Bs1K7nDL+VM1wACJEz8LTUCnosz6yhe
+ vZ/JxMSAv0k3f2r4Ed/jZov5esz4PJuxbjp7PhPEM7c3EujLnvCOnYnDbY6x3NV5+PNu+IPOtom
+ MowPDW9tXuViNt+oqK6H1GZvRSMIuCwl+9DcuumZAEFAyx7Mk/fqwOA38mlIDyNOfAW4bcROL2+
+ rBXjKQqD2e0Mj0tlgjwsjw7HoAZ3JKmh4fJ/cxU+gRmv76dUDGq0QVmR5dy74PVoLG1JSdJ7VhB
+ njp8sFpK8EEMjsZnMSrln9kLh1vGdmDE61ZFSoVbiOvCmJCbIO
+X-Received: by 2002:a05:6871:2b0d:b0:41c:4af:7f5f with SMTP id
+ 586e51a60fabf-41ca6fcdc85mr4146349fac.28.1774551273959; 
+ Thu, 26 Mar 2026 11:54:33 -0700 (PDT)
 Received: from frodo (c-98-38-17-99.hsd1.co.comcast.net. [98.38.17.99])
  by smtp.googlemail.com with ESMTPSA id
- 586e51a60fabf-41cc7760c08sm3075171fac.4.2026.03.26.11.54.28
+ 586e51a60fabf-41cc7760c08sm3075171fac.4.2026.03.26.11.54.32
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 26 Mar 2026 11:54:29 -0700 (PDT)
+ Thu, 26 Mar 2026 11:54:33 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: linux-kernel@vger.kernel.org, airlied@gmail.com, simona@ffwll.ch,
  jbaron@akamai.com, gregkh@linuxfoundation.org
@@ -71,12 +72,13 @@ Cc: jim.cromie@gmail.com, mripard@kernel.org, tzimmermann@suse.de,
  louis.chauvet@bootlin.com, skhan@linuxfoundation.org, pmladek@suse.com,
  ukaszb@chromium.org, dri-devel@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-Subject: [PATCH v12 00/69] Fix CONFIG_DRM_USE_DYNAMIC_DEBUG=y
-Date: Thu, 26 Mar 2026 12:53:04 -0600
-Message-ID: <20260326185413.1205870-1-jim.cromie@gmail.com>
+Subject: [PATCH v12 03/69] dyndbg.lds.S: fix lost dyndbg sections in modules
+Date: Thu, 26 Mar 2026 12:53:07 -0600
+Message-ID: <20260326185413.1205870-4-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260326185413.1205870-1-jim.cromie@gmail.com>
+References: <20260326185413.1205870-1-jim.cromie@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -93,169 +95,105 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+In an (unused) experimental variation of this series, I had trouble
+with __dyndbg* sections getting lost in drm drivers.  While it didn't
+happen in this series, it exposed a non-obvious weakness.  So fix it,
+by following the model demonstrated in codetag.lds.h.
 
--v11 is here
-https://lore.kernel.org/lkml/20260313132103.2529746-1-jim.cromie@gmail.com/
+Introduce include/asm-generic/dyndbg.lds.h, with 2 macros:
 
--v12 has a few changes:
+DYNDBG_SECTIONS moves the 2 BOUNDED_SECTION_BY calls from DATA_DATA in
+vmlinux.lds.h, which now includes the file and calls the new macro.
 
-vmlinux.lds.h is refactored:
-- BOUNDED_SECTION* macros are pulled into bounded_section.lds.h
-- dynamic-debug sections are factored into dyndbg.lds.h,
-  which reuses bounded_section.lds.h
-- scripts/module.lds.S gets proper output sections for dyndbg
-  this fixes lost sections seen in some setups
-- based upon codetag.lds.h
+MOD_DYNDBG_SECTIONS also has the 2 BOUNDED_SECTION_BY calls, but wraps
+them with output section syntax to keep them as known and separate ELF
+sections in the module.ko.
 
-DYNAMIC_DEBUG_CLASSMAP_USE*() is refined:
-- previous had static class-map decl and unique names
-- now have extern'd <classname>-<usermod> names, matching 1-per-module model
-- now with compile-time offset check
-- _USE/_USE_ together allows more squashing
+dyndbg.lds.h includes (reuses) bounded-section.lds.h
 
-better modprobe-time classmap definition error detection:
-- test descriptors for unknown class-names
-- more complete class-map/user conflict detection
+scripts/module.lds.S: now calls MOD_DYNDBG_SECTIONS right before the
+CODETAG macro (consistent with their placements in vmlinux.lds.h), and
+also includes dyndbg.lds.h
 
-rebased onto -rc5
-- applies cleanly to drm-misc-fixes
-- passes a few more tests on DRM-CI
+This isolates vmlinux.lds.h from further __dyndbg section additions.
 
-include patch from Philipp Hahn <phahn-oss@avm.de>
-
-clean subsystem chunks
-- dyndbg 1st
-- drm - fixes for DRM-CI, adapt,use new API, un-BROKEN
-- drm/accel - least mature, I have no HW
-
-Jim Cromie (68):
-  dyndbg: fix NULL ptr on i386 due to section mis-alignment
-  vmlinux.lds.h: move BOUNDED_SECTION_* macros to reuse later
-  dyndbg.lds.S: fix lost dyndbg sections in modules
-  vmlinux.lds.h: drop unused HEADERED_SECTION* macros
-  dyndbg: factor ddebug_match_desc out from ddebug_change
-  dyndbg: add stub macro for DECLARE_DYNDBG_CLASSMAP
-  docs/dyndbg: update examples \012 to \n
-  docs/dyndbg: explain flags parse 1st
-  test-dyndbg: fixup CLASSMAP usage error
-  dyndbg: reword "class unknown," to "class:_UNKNOWN_"
-  dyndbg: make ddebug_class_param union members same size
-  dyndbg: drop NUM_TYPE_ARRAY
-  dyndbg: tweak pr_fmt to avoid expansion conflicts
-  dyndbg: reduce verbose/debug clutter
-  dyndbg: refactor param_set_dyndbg_classes and below
-  dyndbg: tighten fn-sig of ddebug_apply_class_bitmap
-  dyndbg: replace classmap list with a vector
-  dyndbg: macrofy a 2-index for-loop pattern
-  dyndbg,module: make proper substructs in _ddebug_info
-  dyndbg: move mod_name down from struct ddebug_table to _ddebug_info
-  dyndbg: hoist classmap-filter-by-modname up to ddebug_add_module
-  dyndbg-API: remove DD_CLASS_TYPE_(DISJOINT|LEVEL)_NAMES and code
-  selftests-dyndbg: add a dynamic_debug run_tests target
-  dyndbg: change __dynamic_func_call_cls* macros into expressions
-  dyndbg-API: replace DECLARE_DYNDBG_CLASSMAP
-  dyndbg: detect class_id reservation conflicts
-  dyndbg: check DYNAMIC_DEBUG_CLASSMAP_DEFINE args at compile-time
-  dyndbg-test: change do_prints testpoint to accept a loopct
-  dyndbg-API: promote DYNAMIC_DEBUG_CLASSMAP_PARAM to API
-  dyndbg: treat comma as a token separator
-  dyndbg: split multi-query strings with %
-  selftests-dyndbg: add test_mod_submod
-  dyndbg: resolve "protection" of class'd pr_debug
-  dyndbg: harden classmap and descriptor validation
-  docs/dyndbg: add classmap info to howto
-  dyndbg-test: verify DYNAMIC_DEBUG_CLASSMAP_USE_() compile-time CHECK
-  drm: use correct ccflags-y spelling
-  drm_buddy: fix power-of-2 rounding errs
-  drm_print: fix drm_printer dynamic debug bypass
-  drm_vblank: avoid bit-test when DRM_USE_DYNAMIC_DEBUG=y
-  drm-dyndbg: adapt drm core to use dyndbg classmaps-v2
-  drm-dyndbg: adapt DRM to invoke DYNAMIC_DEBUG_CLASSMAP_PARAM
-  drm_print: modernize an archaic comment
-  drm-dyndbg: DRM_CLASSMAP_USE in amdgpu driver
-  drm-dyndbg: DRM_CLASSMAP_USE in i915 driver
-  drm-dyndbg: DRM_CLASSMAP_USE in drm_crtc_helper
-  drm-dyndbg: DRM_CLASSMAP_USE in drm_dp_helper
-  drm-dyndbg: DRM_CLASSMAP_USE in nouveau
-  drm-dyndbg: add DRM_CLASSMAP_USE to Xe driver
-  drm-dyndbg: add DRM_CLASSMAP_USE to virtio_gpu
-  drm-dyndbg: add DRM_CLASSMAP_USE to simpledrm
-  drm-dyndbg: add DRM_CLASSMAP_USE to bochs
-  drm-dyndbg: add DRM_CLASSMAP_USE to etnaviv
-  drm-dyndbg: add DRM_CLASSMAP_USE to gma500 driver
-  drm-dyndbg: add DRM_CLASSMAP_USE to radeon
-  drm-dyndbg: add DRM_CLASSMAP_USE to vmwgfx driver
-  drm-dyndbg: add DRM_CLASSMAP_USE to vkms driver
-  drm-dyndbg: add DRM_CLASSMAP_USE to udl driver
-  drm-dyndbg: add DRM_CLASSMAP_USE to mgag200 driver
-  drm-dyndbg: add DRM_CLASSMAP_USE to the gud driver
-  drm-dyndbg: add DRM_CLASSMAP_USE to the qxl driver
-  drm-dyndbg: add DRM_CLASSMAP_USE to the drm_gem_shmem_helper driver
-  drm-dyndbg: restore CONFIG_DRM_USE_DYNAMIC_DEBUG un-BROKEN
-  drm-dyndbg: set CONFIG_DRM_USE_DYNAMIC_DEBUG=y
-  accel: add -DDYNAMIC_DEBUG_MODULE to subdir-ccflags
-  accel/ivpu: implement IVPU_DBG_* as a dyndbg classmap
-  accel/ethosu: call DRM_CLASSMAP_USE
-  accel/rocket: call DRM_CLASSMAP_USE
-
-Philipp Hahn (1):
-  dyndbg: Ignore additional arguments from pr_fmt
-
- .../admin-guide/dynamic-debug-howto.rst       | 184 +++-
- MAINTAINERS                                   |   3 +-
- drivers/accel/Makefile                        |   7 +-
- drivers/accel/ethosu/ethosu_drv.c             |   3 +
- drivers/accel/ivpu/ivpu_drv.c                 |  27 +-
- drivers/accel/ivpu/ivpu_drv.h                 |  45 +-
- drivers/accel/rocket/rocket_gem.c             |   2 +
- drivers/gpu/drm/Kconfig.debug                 |   3 +-
- drivers/gpu/drm/Makefile                      |   3 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       |  12 +-
- drivers/gpu/drm/display/drm_dp_helper.c       |  12 +-
- drivers/gpu/drm/drm_buddy.c                   |   4 +-
- drivers/gpu/drm/drm_crtc_helper.c             |  12 +-
- drivers/gpu/drm/drm_gem_shmem_helper.c        |   1 +
- drivers/gpu/drm/drm_print.c                   |  39 +-
- drivers/gpu/drm/drm_vblank.c                  |   9 +-
- drivers/gpu/drm/etnaviv/etnaviv_drv.c         |   2 +
- drivers/gpu/drm/gma500/psb_drv.c              |   2 +
- drivers/gpu/drm/gud/gud_drv.c                 |   2 +
- drivers/gpu/drm/i915/i915_params.c            |  12 +-
- drivers/gpu/drm/mgag200/mgag200_drv.c         |   2 +
- drivers/gpu/drm/nouveau/nouveau_drm.c         |  12 +-
- drivers/gpu/drm/qxl/qxl_drv.c                 |   2 +
- drivers/gpu/drm/radeon/radeon_drv.c           |   2 +
- drivers/gpu/drm/sysfb/simpledrm.c             |   2 +
- drivers/gpu/drm/tiny/bochs.c                  |   2 +
- drivers/gpu/drm/udl/udl_main.c                |   2 +
- drivers/gpu/drm/virtio/virtgpu_drv.c          |   2 +
- drivers/gpu/drm/vkms/vkms_drv.c               |   2 +
- drivers/gpu/drm/vmwgfx/vmwgfx_drv.c           |   2 +
- drivers/gpu/drm/xe/xe_drm_client.c            |   2 +
- include/asm-generic/bounded_sections.lds.h    |  21 +
- include/asm-generic/dyndbg.lds.h              |  26 +
- include/asm-generic/vmlinux.lds.h             |  48 +-
- include/drm/drm_print.h                       |  22 +-
- include/linux/dynamic_debug.h                 | 309 +++++--
- kernel/module/main.c                          |  15 +-
- lib/Kconfig.debug                             |  24 +-
- lib/Makefile                                  |   5 +
- lib/dynamic_debug.c                           | 831 ++++++++++++------
- lib/test_dynamic_debug.c                      | 211 +++--
- lib/test_dynamic_debug_submod.c               |  21 +
- scripts/module.lds.S                          |   2 +
- tools/testing/selftests/Makefile              |   1 +
- .../testing/selftests/dynamic_debug/Makefile  |   9 +
- tools/testing/selftests/dynamic_debug/config  |   7 +
- .../dynamic_debug/dyndbg_selftest.sh          | 373 ++++++++
- 47 files changed, 1747 insertions(+), 594 deletions(-)
- create mode 100644 include/asm-generic/bounded_sections.lds.h
+Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+---
+ include/asm-generic/dyndbg.lds.h  | 19 +++++++++++++++++++
+ include/asm-generic/vmlinux.lds.h |  6 ++----
+ scripts/module.lds.S              |  2 ++
+ 3 files changed, 23 insertions(+), 4 deletions(-)
  create mode 100644 include/asm-generic/dyndbg.lds.h
- create mode 100644 lib/test_dynamic_debug_submod.c
- create mode 100644 tools/testing/selftests/dynamic_debug/Makefile
- create mode 100644 tools/testing/selftests/dynamic_debug/config
- create mode 100755 tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
 
+diff --git a/include/asm-generic/dyndbg.lds.h b/include/asm-generic/dyndbg.lds.h
+new file mode 100644
+index 000000000000..f95683aa16b6
+--- /dev/null
++++ b/include/asm-generic/dyndbg.lds.h
+@@ -0,0 +1,19 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++#ifndef __ASM_GENERIC_DYNDBG_LDS_H
++#define __ASM_GENERIC_DYNDBG_LDS_H
++
++#include <asm-generic/bounded_sections.lds.h>
++#define DYNDBG_SECTIONS()					\
++	. = ALIGN(8);						\
++	BOUNDED_SECTION_BY(__dyndbg, ___dyndbg)			\
++	BOUNDED_SECTION_BY(__dyndbg_classes, ___dyndbg_classes)
++
++#define MOD_DYNDBG_SECTIONS()                                           \
++	__dyndbg : {							\
++		BOUNDED_SECTION_BY(__dyndbg, ___dyndbg)			\
++	}								\
++	__dyndbg_classes : {						\
++		BOUNDED_SECTION_BY(__dyndbg_classes, ___dyndbg_classes)	\
++	}
++
++#endif /* __ASM_GENERIC_DYNDBG_LDS_H */
+diff --git a/include/asm-generic/vmlinux.lds.h b/include/asm-generic/vmlinux.lds.h
+index 462f124ad457..b59f343818b0 100644
+--- a/include/asm-generic/vmlinux.lds.h
++++ b/include/asm-generic/vmlinux.lds.h
+@@ -340,6 +340,7 @@
+ /*
+  * .data section
+  */
++#include <asm-generic/dyndbg.lds.h>
+ #define DATA_DATA							\
+ 	*(.xiptext)							\
+ 	*(DATA_MAIN)							\
+@@ -353,10 +354,7 @@
+ 	*(.data..do_once)						\
+ 	STRUCT_ALIGN();							\
+ 	*(__tracepoints)						\
+-	/* implement dynamic printk debug */				\
+-	. = ALIGN(8);							\
+-	BOUNDED_SECTION_BY(__dyndbg_classes, ___dyndbg_classes)		\
+-	BOUNDED_SECTION_BY(__dyndbg, ___dyndbg)				\
++	DYNDBG_SECTIONS()						\
+ 	CODETAG_SECTIONS()						\
+ 	LIKELY_PROFILE()		       				\
+ 	BRANCH_PROFILE()						\
+diff --git a/scripts/module.lds.S b/scripts/module.lds.S
+index 054ef99e8288..8a7b0741bf8d 100644
+--- a/scripts/module.lds.S
++++ b/scripts/module.lds.S
+@@ -10,6 +10,7 @@
+ #endif
+ 
+ #include <asm-generic/codetag.lds.h>
++#include <asm-generic/dyndbg.lds.h>
+ 
+ SECTIONS {
+ 	/DISCARD/ : {
+@@ -60,6 +61,7 @@ SECTIONS {
+ 		*(.rodata..L*)
+ 	}
+ 
++	MOD_DYNDBG_SECTIONS()
+ 	MOD_SEPARATE_CODETAG_SECTIONS()
+ }
+ 
 -- 
 2.53.0
 
