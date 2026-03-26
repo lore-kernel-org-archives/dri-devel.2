@@ -4,53 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EFB4610AB82E
-	for <dri-devel@archiver.kernel.org>; Thu, 26 Mar 2026 23:18:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EAE3110AB832
+	for <dri-devel@archiver.kernel.org>; Thu, 26 Mar 2026 23:39:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 56F8810EB78;
-	Thu, 26 Mar 2026 23:18:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7DE6910EAB0;
+	Thu, 26 Mar 2026 23:39:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="SExRwnYV";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="R0SZu8VZ";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F07D010EA33
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Mar 2026 23:18:11 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F2B8F10EAB0
+ for <dri-devel@lists.freedesktop.org>; Thu, 26 Mar 2026 23:39:38 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id A9E5343B92;
- Thu, 26 Mar 2026 23:18:11 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 58A22C116C6;
- Thu, 26 Mar 2026 23:18:08 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id A09EA40AC1;
+ Thu, 26 Mar 2026 23:39:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC028C116C6;
+ Thu, 26 Mar 2026 23:39:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1774567091;
- bh=UmIsA1Hp8/Hqt5C7CdY95JzKtszZD0igX6Ar7eTPMHM=;
+ s=k20201202; t=1774568377;
+ bh=MiT8ZV+7RfdHE/6jDwL7NJzlSNwavzfqYu9JOAIr5nQ=;
  h=Date:Subject:Cc:To:From:References:In-Reply-To:From;
- b=SExRwnYVKoPF3hQ7zlSdsGgq6dYMvN+Wyoa3S1kU6uFxcF6Y8HwNQmjq7/0sT/2MY
- iT5BjKYa4zN9JrnuXx3N61lTWWNWfTY+xJDk490WS9XFpurxlLR+brm1bYA0Ej/GLO
- YWV3DjOvZFwFq0hz/B3hpUJIZfsSShvbBw22vy6170lyYmlZeh/FzG4C4+FItQcNdg
- fbi5LQzOMZ81dyheuXDr/vj+q4qydPc2ygObYac7LmsM6ITXRUNYyPd9i6Nag66hJH
- cGngck+wG74Fx2UW3AsARA+eRlJaPYcb9COcOT3VzCLizNMiOu5VdJyM0UvZY3qrek
- IvkbPo7tT3b9w==
+ b=R0SZu8VZt0BbFTv9GlGLwRtUOFEF/OOxc0PEOxt+bwlNjSo8w79wAhRuBGctk47dw
+ QvbGuDkgedI49upIaOP9fm70ZbnjaJMoBvsPWPcmKDgCjgBMC9bxCNQ/Ws4++kmqf9
+ zpLHbpTY+uuFRnFiL6Eu4KPXPnfl3Zv+6dTsqRVw5/rUZrU9My3xSMzG+cSx1Li9Ie
+ i3/lfF95955hmXmlQY9Osiv9eSl5wNsedMN4QtaD31TZXQuoJx/IlgLp9+ClLZmQpA
+ 4bUQ1EDpFdlHEc164TuYfAyuyBOKJ2yGJGIFzFCL5q8pu63ldkVkKU7Yvcjw/xNh1Z
+ E8G5VaRzRRrsA==
 Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Date: Fri, 27 Mar 2026 00:18:06 +0100
-Message-Id: <DHD3J5BKEG5P.U0R7DT73MJ0Q@kernel.org>
-Subject: Re: [PATCH v5 06/11] drm/gpuvm: Add DRM_GPUVA_REPEAT flag and logic
+Date: Fri, 27 Mar 2026 00:39:33 +0100
+Message-Id: <DHD3ZK92KSI6.1CHSK2HLBSQI0@kernel.org>
+Subject: Re: [PATCH v5 07/11] drm/gpuvm: Ensure correctness of unmap/remaps
+ of repeated regions
 Cc: <linux-kernel@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
  "Steven Price" <steven.price@arm.com>, "Boris Brezillon"
  <boris.brezillon@collabora.com>, "Janne Grunau" <j@jannau.net>,
- <kernel@collabora.com>, "Asahi Lina" <lina+kernel@asahilina.net>, "Caterina
- Shablia" <caterina.shablia@collabora.com>, "Matthew Brost"
- <matthew.brost@intel.com>, =?utf-8?q?Thomas_Hellstr=C3=B6m?=
- <thomas.hellstrom@linux.intel.com>, "Alice Ryhl" <aliceryhl@google.com>,
- "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>, "Maxime Ripard"
- <mripard@kernel.org>, "Thomas Zimmermann" <tzimmermann@suse.de>, "David
- Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>
+ <kernel@collabora.com>, "Matthew Brost" <matthew.brost@intel.com>,
+ =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ "Alice Ryhl" <aliceryhl@google.com>, "Maarten Lankhorst"
+ <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
+ "Thomas Zimmermann" <tzimmermann@suse.de>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>
 To: =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>
 From: "Danilo Krummrich" <dakr@kernel.org>
 References: <20260313150956.1618635-1-adrian.larumbe@collabora.com>
- <20260313150956.1618635-7-adrian.larumbe@collabora.com>
-In-Reply-To: <20260313150956.1618635-7-adrian.larumbe@collabora.com>
+ <20260313150956.1618635-8-adrian.larumbe@collabora.com>
+In-Reply-To: <20260313150956.1618635-8-adrian.larumbe@collabora.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,89 +67,104 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 On Fri Mar 13, 2026 at 4:09 PM CET, Adri=C3=A1n Larumbe wrote:
-> From: Asahi Lina <lina+kernel@asahilina.net>
+> When an unmap or map operation that leads to a remap intersects with a
+> GPU VA that spans over a repeated range, the newly spawned VAs must
+> preserve the repeated property, ie, VA's range must be a multiple of
+> gem.range, and also the VA's start address must be on a gem.range
+> boundary. When this doesn't hold, disallow such operations and notify
+> UM with an invalid argument error.
 >
-> To be able to support "fake sparse" mappings without relying on GPU page
-> fault handling, drivers may need to create large (e.g. 4GiB) mappings of
-> the same page repeatedly (or same range of pages). Doing this through
-> individual mappings would be very wasteful. This can be handled better
-> by using a flag on map creation, but to do it safely, drm_gpuvm needs to
-> be aware of this special case.
+> Signed-off-by: Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com>
+> ---
+>  drivers/gpu/drm/drm_gpuvm.c | 67 +++++++++++++++++++++++++++++++++++++
+>  include/drm/drm_gpuvm.h     |  7 +++-
+>  2 files changed, 73 insertions(+), 1 deletion(-)
 >
-> Add a flag that signals that a given mapping is a page mapping, which is
-> repeated all over the entire requested VA range. This tweaks the
-> sm_map() logic to treat the GEM offsets differently when mappings are
-> a repeated ones so they are not incremented as they would be with regular
-> mappings.
->
-> The size of the GEM portion to repeat is passed through
-> drm_gpuva::gem::range. Most of the time it will be a page size, but
-> it can be bigger as long as it's less than drm_gpuva::va::range, and
-> drm_gpuva::va::range is a multiple of drm_gpuva::gem::range.
->
-> Signed-off-by: Asahi Lina <lina+kernel@asahilina.net>
-> Signed-off-by: Caterina Shablia <caterina.shablia@collabora.com>
+> diff --git a/drivers/gpu/drm/drm_gpuvm.c b/drivers/gpu/drm/drm_gpuvm.c
+> index ca7445f767fc..80750119221d 100644
+> --- a/drivers/gpu/drm/drm_gpuvm.c
+> +++ b/drivers/gpu/drm/drm_gpuvm.c
+> @@ -2462,6 +2462,65 @@ static int validate_map_request(struct drm_gpuvm *=
+gpuvm,
+>  	return 0;
+>  }
+> =20
+> +static int
+> +validate_repeated_unmap_request(struct drm_gpuvm *gpuvm,
+> +				u64 req_addr, u64 req_end)
 
-In v4 I also mentioned:
+I think the name is misleading, this is called from both __drm_gpuvm_sm_map=
+()
+and __drm_gpuvm_sm_unmap().
 
-	I also think this feature deserves its own section in the global GPUVM
-	documentation -- please add a corresponding paragraph.
-
-	Also it seems that we need to update the documentation which shows all pot=
-ential
-	cases when calling __drm_gpuvm_sm_map() [1].
-
-	[1] https://docs.kernel.org/gpu/drm-mm.html#split-and-merge
-
-Why did this not happen?
-
-> +static int validate_map_request(struct drm_gpuvm *gpuvm,
-> +				const struct drm_gpuva_op_map *op)
 > +{
-> +	if (unlikely(!drm_gpuvm_range_valid(gpuvm, op->va.addr, op->va.range)))
-> +		return -EINVAL;
+> +	struct drm_gpuva *first, *last, *va;
+> +	u64 multiple;
 > +
-> +	if (op->flags & DRM_GPUVA_REPEAT) {
-> +		u64 va_range =3D op->va.range;
+> +	if (!(gpuvm->flags & DRM_GPUVM_HAS_REPEAT_MAPS))
+> +		return 0;
 > +
-> +		/* For a repeated mapping, GEM range must be > 0
-> +		 * and a multiple of the VA range.
-> +		 */
-> +		if (unlikely(!op->gem.repeat_range ||
-> +			     va_range < op->gem.repeat_range ||
-> +			     do_div(va_range, op->gem.repeat_range)))
-> +			return -EINVAL;
+> +	/* Find the first and last VAs the map request intersects with */
+> +	first =3D last =3D NULL;
+> +	drm_gpuvm_for_each_va_range(va, gpuvm, req_addr, req_end) {
+> +		if (!first)
+> +			first =3D va;
+> +		last =3D va;
+> +	}
+
+Can't this be covered with two calls to drm_gpuva_find_first()? I.e. for th=
+e
+last you can call drm_gpuva_find_first(gpuvm, req_end - 1, 1), as you are o=
+nly
+interested if it spans across the req_end boundary.
+
+This way this becomes O(log N) rather than O(N), where N can actually be ve=
+ry
+large.
+
+> +
+> +	if (!first)
+> +		return 0;
+> +
+> +	if (first->flags & DRM_GPUVA_REPEAT) {
+> +		u64 addr =3D first->va.addr;
+> +		u64 range =3D first->va.range;
+> +		u64 end =3D addr + range;
+> +
+> +		drm_WARN_ON(gpuvm->drm, first->gem.repeat_range =3D=3D 0);
+
+How can this ever happen? Why do we need to check it here? If that's invali=
+d
+reject it when creating the VA instead.
+
+> +
+> +		if (addr < req_addr) {
+> +			multiple =3D req_addr;
+> +			if (do_div(multiple, first->gem.repeat_range))
+> +				return -EINVAL;
+> +		}
+> +
+> +		if (end > req_end) {
+> +			multiple =3D req_end;
+> +			if (do_div(multiple, first->gem.repeat_range))
+> +				return -EINVAL;
+> +			return 0;
+> +		}
 > +	}
 > +
-> +	if (op->flags & DRM_GPUVA_INVALIDATED)
-> +		return -EINVAL;
-
-This seems unrelated to this patch.
-
+> +	if ((first !=3D last) && (last->flags & DRM_GPUVA_REPEAT)) {
+> +		u64 addr =3D last->va.addr;
+> +		u64 range =3D last->va.range;
+> +		u64 end =3D addr + range;
+> +
+> +		drm_WARN_ON(last->vm->drm, last->gem.repeat_range =3D=3D 0);
+> +
+> +		if (end > req_end) {
+> +			multiple =3D req_end;
+> +			if (do_div(multiple, last->gem.repeat_range))
+> +				return -EINVAL;
+> +		}
+> +	}
 > +
 > +	return 0;
 > +}
-> +
->  static int
->  __drm_gpuvm_sm_map(struct drm_gpuvm *gpuvm,
->  		   const struct drm_gpuvm_ops *ops, void *priv,
-> @@ -2429,7 +2475,8 @@ __drm_gpuvm_sm_map(struct drm_gpuvm *gpuvm,
->  	u64 req_end =3D req_addr + req_range;
->  	int ret;
-> =20
-> -	if (unlikely(!drm_gpuvm_range_valid(gpuvm, req_addr, req_range)))
-> +	ret =3D validate_map_request(gpuvm, &req->map);
-> +	if (unlikely(ret))
->  		return -EINVAL;
-> =20
->  	drm_gpuvm_for_each_va_range_safe(va, next, gpuvm, req_addr, req_end) {
-> @@ -2463,7 +2510,9 @@ __drm_gpuvm_sm_map(struct drm_gpuvm *gpuvm,
->  					.va.addr =3D req_end,
->  					.va.range =3D range - req_range,
->  					.gem.obj =3D obj,
-> -					.gem.offset =3D offset + req_range,
-> +					.gem.repeat_range =3D va->gem.repeat_range,
-> +					.gem.offset =3D offset +
-> +						(va->flags & DRM_GPUVA_REPEAT ? 0 : req_range),
-
-This seems to be a repeating pattern, can we factor this into a helper?
