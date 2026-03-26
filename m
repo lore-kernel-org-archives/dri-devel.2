@@ -4,104 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B2F6109E535
-	for <dri-devel@archiver.kernel.org>; Thu, 26 Mar 2026 01:07:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BA4BB109E52B
+	for <dri-devel@archiver.kernel.org>; Thu, 26 Mar 2026 01:24:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8EDD910E114;
-	Thu, 26 Mar 2026 01:07:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2E1C010E167;
+	Thu, 26 Mar 2026 01:24:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="3qAlu+En";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="gLMpKjxp";
 	dkim-atps=neutral
-Received: from SJ2PR03CU001.outbound.protection.outlook.com
- (mail-westusazon11012063.outbound.protection.outlook.com [52.101.43.63])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5A47310E114
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Mar 2026 01:07:08 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=zMzLBpVzxjI6VQG6NO4Z8n17mJMnAFRbOUh2XHdzWXgk9yChCHhGzFTzBXH3/ZNflm8z58DbJkW84TMEfokZXYlA9eSn8zjNd/ZkdJXAF2Gj3rTGCqwCOhAic9G7axAFKJOn14vSzRoL+1FaWqaD++Qvot/SZRwDEUrqSP6BRku2WPlcgV2mNcYt4Olm04aPeMlsZKGVMiz0swzXU15t62p6nvzYkTXJxXBke/GLdRYVM80GRaUABNr/mk8YCn4L+rwrxOkXpEDmPMUi+4fdff7RxepuApjiODiMmuFTCB3JEdr8WQ62yxxFT4yzEcbKSNsswQ8bslFbmfbOSECKVw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=NQiYuWMD40WM4Ynu3i6qD1dNU6uPs8iWcnHNayzSWBc=;
- b=WVleulkFBh235eGZ9nvecpR/Ehrg0B/2/dnY7UP3e/h1qefTvQ0m2u3Xu/Sp65p/XzcE73BGeWSBj6YuF9bHHIk1Nfo/4dcFMVwousYSj1JhuaHLQ2dKSKMZv1MidvNzv9mbJWNJPB/uvCY6D9TkPy4Cn+r8cyIQ8dM6R9L1qotApeY4UfT1wlw7/HB0a5L35M66QuR9fDDMiqHIkbn7EUyeFPX4Ph8NJ/cBwmvlENSNJUFsfp0bmnfkz+3LNAFCOR9t3kmfuqxJfYns8TGGNUNr85H6gdcOkLKe3kgkSumpBLAG9rvrMfnTlF8zJe4pjCWeYRbN1YoFN9MswTMPHw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=NQiYuWMD40WM4Ynu3i6qD1dNU6uPs8iWcnHNayzSWBc=;
- b=3qAlu+EnSZ8fkJVv4oCfd8aIk3M7YlymuhnRBCGycVPoJUy65itutMEZPhQm7oAB9rELDklyhoE5S6lTZJJVK2jmXxoMOgjzUI/vc5bvrSR18AmiFOqd+fp7EABK44E74Uhcyul2Vqk1DTnoqCdFPN9HQiIpmGXofEt4VClIV3I=
-Received: from SJ2PR07CA0018.namprd07.prod.outlook.com (2603:10b6:a03:505::22)
- by SJ0PR12MB6989.namprd12.prod.outlook.com (2603:10b6:a03:448::16)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.20; Thu, 26 Mar
- 2026 01:07:03 +0000
-Received: from SJ1PEPF00002319.namprd03.prod.outlook.com
- (2603:10b6:a03:505:cafe::2f) by SJ2PR07CA0018.outlook.office365.com
- (2603:10b6:a03:505::22) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9723.33 via Frontend Transport; Thu,
- 26 Mar 2026 01:06:58 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- SJ1PEPF00002319.mail.protection.outlook.com (10.167.242.229) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9745.21 via Frontend Transport; Thu, 26 Mar 2026 01:07:03 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.17; Wed, 25 Mar
- 2026 20:07:02 -0500
-Received: from satlexmb07.amd.com (10.181.42.216) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 25 Mar
- 2026 20:06:49 -0500
-Received: from xsjlizhih51.xilinx.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
- Transport; Wed, 25 Mar 2026 20:06:49 -0500
-From: Lizhi Hou <lizhi.hou@amd.com>
-To: <ogabbay@kernel.org>, <quic_jhugo@quicinc.com>,
- <dri-devel@lists.freedesktop.org>, <mario.limonciello@amd.com>,
- <maciej.falkowski@linux.intel.com>
-CC: Max Zhen <max.zhen@amd.com>, <linux-kernel@vger.kernel.org>,
- <sonal.santan@amd.com>, Lizhi Hou <lizhi.hou@amd.com>
-Subject: [PATCH V1] accel/amdxdna: Fix leak when pinning ubuf pages
-Date: Wed, 25 Mar 2026 18:06:42 -0700
-Message-ID: <20260326010642.2596525-1-lizhi.hou@amd.com>
-X-Mailer: git-send-email 2.34.1
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5270610E112
+ for <dri-devel@lists.freedesktop.org>; Thu, 26 Mar 2026 01:24:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1774488295; x=1806024295;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=Eq6Xay26AJu925QH9dEoTNSTESWdI6fBXbTFQNVzJrc=;
+ b=gLMpKjxptrQNrHE17huAy6AKgAjYqZVyFwQt3OfyiEICWLmIrr3t7S9+
+ ixJCGAms66MnGBtbVLuAAZ/oP4qFKHLWWc7qyYTSVEvLUSEYt27LGg0OK
+ EiYqd+SnRB4bGWekxFYNtWm0UbdUAu/6gwwie8pW6jLtG0xeaGaWBdxtB
+ cpH3UvgA2aMXMRETlzEs5Uy/pizePCwJVe6ObiMuPxqboj0VobWD9GXLz
+ 1GNFJG+AlPzn32rMdmGBd11vYQ2mIpGmfkUrqMGmSVMtWbFGaWM2npspN
+ N/tFzJkRUA//vOpjBUUMceGRux4rD1MGUUy6zgU/i85gSxUZeRwZVuKVA Q==;
+X-CSE-ConnectionGUID: P09vzeyjS2etf5qpJORfcQ==
+X-CSE-MsgGUID: ymKzWds9SdqONo3LQzQw4g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11740"; a="78135434"
+X-IronPort-AV: E=Sophos;i="6.23,141,1770624000"; d="scan'208";a="78135434"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+ by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Mar 2026 18:24:55 -0700
+X-CSE-ConnectionGUID: Q+MclzIbSm+lrW2N1XA8Fw==
+X-CSE-MsgGUID: ZoLMXqn5RwaIMsxxafBSzg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,141,1770624000"; d="scan'208";a="225107174"
+Received: from lkp-server01.sh.intel.com (HELO 3905d212be1b) ([10.239.97.150])
+ by orviesa007.jf.intel.com with ESMTP; 25 Mar 2026 18:24:50 -0700
+Received: from kbuild by 3905d212be1b with local (Exim 4.98.2)
+ (envelope-from <lkp@intel.com>) id 1w5ZSo-000000007xp-25Yb;
+ Thu, 26 Mar 2026 01:24:46 +0000
+Date: Thu, 26 Mar 2026 09:24:18 +0800
+From: kernel test robot <lkp@intel.com>
+To: Chen-Yu Tsai <wenst@chromium.org>, Stephen Boyd <sboyd@kernel.org>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Frank Binns <frank.binns@imgtec.com>, Matt Coster <matt.coster@imgtec.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>
+Cc: oe-kbuild-all@lists.linux.dev, Icenowy Zheng <zhengxingda@iscas.ac.cn>,
+ Chen-Yu Tsai <wenst@chromium.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, linux-clk@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-mediatek@lists.infradead.org,
+ dri-devel@lists.freedesktop.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 2/5] clk: mediatek: Add mt8173-mfgtop driver
+Message-ID: <202603260926.gAEaAK0A-lkp@intel.com>
+References: <20260325071951.544031-3-wenst@chromium.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-Received-SPF: None (SATLEXMB04.amd.com: lizhi.hou@amd.com does not designate
- permitted sender hosts)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF00002319:EE_|SJ0PR12MB6989:EE_
-X-MS-Office365-Filtering-Correlation-Id: ab68b9e0-db1b-4117-9ce3-08de8ad3fda5
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|36860700016|82310400026|376014|18002099003|56012099003;
-X-Microsoft-Antispam-Message-Info: ZpXwy7vDQiPeheul73sKS+9WRbmm6+Z8yEg4RB/yS5xdsLtHIqSNxnC2kPtgH1HgSbB3xu7IOfq6QlUsOjieg5xSeM86kBL8GxkdZf9RV1TKqwQ29gup2cgrMc1IBJFsINihe+hr5Bs2sIMWIaA0K30wQPJck+YeiTIewsLfcNBTla9yixNReeiOIOsomRUSwxTdYJkuRj1N9viEXQOMoYClnctRH/EgWCUgL5J39CBLMQ+wI01h84W0Im4B2D8PEl1vrAxMiTEwyf5lOS3bGicOheUf5RlB8JSmRVZIdenJq4p4u+LB9C9e2LdtvAYraQ67QK6tGEoIEwEfZrLrmFy5++biy1XnvtT5h4BzCVTRF8nt9vg5aChV6RtNqh6JLy2oD7zmGTv+BDboJuDOadScY+CrUuCm8eKWiQTw5cHWSlgN7f8rk9X5TxSfjAogrqeKvSUvymYzuxlegCKL/sIc9KY7yA5/xLViV7LGAgY0wN6mZGSEjL1+A9MHpsF6yHlWFOUUHj6y0zLhFo0hETplbl9ytYR0tYta8VXLlAsKMZHmDVv43ql8XosoPDC+zG5PbLdzkW4aAUxvsscosSz7xcWhMlK1SNzW0a00idrsh0xPsIrzjlTLp+CI/Wk1ESzW8Oas563bL+dRiMWEloS5VTeTzKIq7iswWzs0o75YcCIUdeoNdfcIU30vPWQkvAAZKkX0Qx+8HAsW0AIea9PIavgOc/GFe8FU/yHPdxAMiKybZaL0a0uGnpVwfgjFLhNIldWJnR1GBE8gBXGICg==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(36860700016)(82310400026)(376014)(18002099003)(56012099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: VyuwwV8Jbh/vMku4SzlW2JVnFhcozny+NMQn7EChVBwivDNYSun50fkZaHWZiuUTMfi73Q0NO2o2OSsXg/mFi+Pe4RsTUvDe4EVYIobWstW+3mt47Q2axNys67JWZBfnUkPiBdGh41PsM2sA0oJQaVL/ja+olw0eHp/czceur/xjZqD+UgmluxVS36kBOEfQX/4vqx9DDA0ofv1BUXIxwXh46Vt5Rz0xUxPERPMxTlQoEscUNY6/hBBB/kmoUsHEBIZJU5e6BTpVIUUd414RWqLxLx/oKZLM4080G0p2XXtrjQQn0IMLd1K11WYaAIpHaJW5zXIflDpz1s/jpyAGyhDobStzHa+b3gt/S4K1GhjIjij8XGqoY8Ex1ZZDhRPHix1iqvtB+Q2hCgiJKOKNsEpnhuyRxCrlFkbsRMRA/4CXOizZDMfhj9F+TJNCJVl7
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Mar 2026 01:07:03.0306 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ab68b9e0-db1b-4117-9ce3-08de8ad3fda5
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF00002319.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB6989
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260325071951.544031-3-wenst@chromium.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,46 +79,146 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Max Zhen <max.zhen@amd.com>
+Hi Chen-Yu,
 
-When pin_user_pages_fast() returns fewer pages than requested, the pages
-that were successfully pinned are not released, leading to a leak.
+kernel test robot noticed the following build errors:
 
-Fix this by unpinning any partially pinned pages before returning failure.
+[auto build test ERROR on clk/clk-next]
+[also build test ERROR on robh/for-next drm-misc/drm-misc-next linus/master v7.0-rc5 next-20260325]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-Fixes: bd72d4acda10 ("accel/amdxdna: Support user space allocated buffer")
-Signed-off-by: Max Zhen <max.zhen@amd.com>
-Signed-off-by: Lizhi Hou <lizhi.hou@amd.com>
----
- drivers/accel/amdxdna/amdxdna_ubuf.c | 12 ++++++++----
- 1 file changed, 8 insertions(+), 4 deletions(-)
+url:    https://github.com/intel-lab-lkp/linux/commits/Chen-Yu-Tsai/dt-bindings-clock-mediatek-Add-mt8173-mfgtop/20260325-202618
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/clk/linux.git clk-next
+patch link:    https://lore.kernel.org/r/20260325071951.544031-3-wenst%40chromium.org
+patch subject: [PATCH v2 2/5] clk: mediatek: Add mt8173-mfgtop driver
+config: loongarch-randconfig-002-20260326 (https://download.01.org/0day-ci/archive/20260326/202603260926.gAEaAK0A-lkp@intel.com/config)
+compiler: loongarch64-linux-gcc (GCC) 14.3.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260326/202603260926.gAEaAK0A-lkp@intel.com/reproduce)
 
-diff --git a/drivers/accel/amdxdna/amdxdna_ubuf.c b/drivers/accel/amdxdna/amdxdna_ubuf.c
-index fb999aa25318..4c0647057759 100644
---- a/drivers/accel/amdxdna/amdxdna_ubuf.c
-+++ b/drivers/accel/amdxdna/amdxdna_ubuf.c
-@@ -196,13 +196,17 @@ struct dma_buf *amdxdna_get_ubuf(struct drm_device *dev,
- 		ret = pin_user_pages_fast(va_ent[i].vaddr, npages,
- 					  FOLL_WRITE | FOLL_LONGTERM,
- 					  &ubuf->pages[start]);
--		if (ret < 0 || ret != npages) {
--			ret = -ENOMEM;
-+		if (ret >= 0) {
-+			start += ret;
-+			if (ret != npages) {
-+				XDNA_ERR(xdna, "Partially pinned pages %d/%u", ret, npages);
-+				ret = -ENOMEM;
-+				goto destroy_pages;
-+			}
-+		} else {
- 			XDNA_ERR(xdna, "Failed to pin pages ret %d", ret);
- 			goto destroy_pages;
- 		}
--
--		start += ret;
- 	}
- 
- 	exp_info.ops = &amdxdna_ubuf_dmabuf_ops;
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202603260926.gAEaAK0A-lkp@intel.com/
+
+All errors (new ones prefixed by >>):
+
+   drivers/pmdomain/governor.c: In function 'default_suspend_ok':
+>> drivers/pmdomain/governor.c:88:24: error: 'struct dev_pm_info' has no member named 'ignore_children'
+      88 |         if (!dev->power.ignore_children)
+         |                        ^
+--
+   drivers/pmdomain/core.c: In function 'genpd_queue_power_off_work':
+>> drivers/pmdomain/core.c:941:20: error: 'pm_wq' undeclared (first use in this function)
+     941 |         queue_work(pm_wq, &genpd->power_off_work);
+         |                    ^~~~~
+   drivers/pmdomain/core.c:941:20: note: each undeclared identifier is reported only once for each function it appears in
+   drivers/pmdomain/core.c: In function 'genpd_dev_pm_qos_notifier':
+>> drivers/pmdomain/core.c:1138:39: error: 'struct dev_pm_info' has no member named 'ignore_children'
+    1138 |                 if (!dev || dev->power.ignore_children)
+         |                                       ^
+   drivers/pmdomain/core.c: In function 'rtpm_status_str':
+>> drivers/pmdomain/core.c:3614:23: error: 'struct dev_pm_info' has no member named 'runtime_error'
+    3614 |         if (dev->power.runtime_error)
+         |                       ^
+>> drivers/pmdomain/core.c:3616:28: error: 'struct dev_pm_info' has no member named 'disable_depth'
+    3616 |         else if (dev->power.disable_depth)
+         |                            ^
+>> drivers/pmdomain/core.c:3618:28: error: 'struct dev_pm_info' has no member named 'runtime_status'
+    3618 |         else if (dev->power.runtime_status < ARRAY_SIZE(status_lookup))
+         |                            ^
+   drivers/pmdomain/core.c:3619:45: error: 'struct dev_pm_info' has no member named 'runtime_status'
+    3619 |                 p = status_lookup[dev->power.runtime_status];
+         |                                             ^
+
+Kconfig warnings: (for reference only)
+   WARNING: unmet direct dependencies detected for PM_GENERIC_DOMAINS
+   Depends on [n]: PM [=n]
+   Selected by [m]:
+   - COMMON_CLK_MT8173_MFGTOP [=m] && COMMON_CLK [=y] && (ARCH_MEDIATEK || COMPILE_TEST [=y]) && COMMON_CLK_MT8173 [=m]
+
+
+vim +88 drivers/pmdomain/governor.c
+
+a5bef810ad9816 drivers/base/power/domain_governor.c Rafael J. Wysocki 2012-04-29   49  
+b02c999ac325e9 drivers/base/power/domain_governor.c Rafael J. Wysocki 2011-12-01   50  /**
+9df3921e026532 drivers/base/power/domain_governor.c Ulf Hansson       2016-03-31   51   * default_suspend_ok - Default PM domain governor routine to suspend devices.
+b02c999ac325e9 drivers/base/power/domain_governor.c Rafael J. Wysocki 2011-12-01   52   * @dev: Device to check.
+3b2714c5d2d26d drivers/base/power/domain_governor.c Randy Dunlap      2023-12-05   53   *
+3b2714c5d2d26d drivers/base/power/domain_governor.c Randy Dunlap      2023-12-05   54   * Returns: true if OK to suspend, false if not OK to suspend
+b02c999ac325e9 drivers/base/power/domain_governor.c Rafael J. Wysocki 2011-12-01   55   */
+9df3921e026532 drivers/base/power/domain_governor.c Ulf Hansson       2016-03-31   56  static bool default_suspend_ok(struct device *dev)
+b02c999ac325e9 drivers/base/power/domain_governor.c Rafael J. Wysocki 2011-12-01   57  {
+66d29d802ef3bf drivers/base/power/domain_governor.c Ulf Hansson       2022-05-11   58  	struct gpd_timing_data *td = dev_gpd_data(dev)->td;
+6ff7bb0d02f829 drivers/base/power/domain_governor.c Rafael J. Wysocki 2012-05-01   59  	unsigned long flags;
+a5bef810ad9816 drivers/base/power/domain_governor.c Rafael J. Wysocki 2012-04-29   60  	s64 constraint_ns;
+b02c999ac325e9 drivers/base/power/domain_governor.c Rafael J. Wysocki 2011-12-01   61  
+b02c999ac325e9 drivers/base/power/domain_governor.c Rafael J. Wysocki 2011-12-01   62  	dev_dbg(dev, "%s()\n", __func__);
+b02c999ac325e9 drivers/base/power/domain_governor.c Rafael J. Wysocki 2011-12-01   63  
+6ff7bb0d02f829 drivers/base/power/domain_governor.c Rafael J. Wysocki 2012-05-01   64  	spin_lock_irqsave(&dev->power.lock, flags);
+6ff7bb0d02f829 drivers/base/power/domain_governor.c Rafael J. Wysocki 2012-05-01   65  
+6ff7bb0d02f829 drivers/base/power/domain_governor.c Rafael J. Wysocki 2012-05-01   66  	if (!td->constraint_changed) {
+9df3921e026532 drivers/base/power/domain_governor.c Ulf Hansson       2016-03-31   67  		bool ret = td->cached_suspend_ok;
+6ff7bb0d02f829 drivers/base/power/domain_governor.c Rafael J. Wysocki 2012-05-01   68  
+6ff7bb0d02f829 drivers/base/power/domain_governor.c Rafael J. Wysocki 2012-05-01   69  		spin_unlock_irqrestore(&dev->power.lock, flags);
+6ff7bb0d02f829 drivers/base/power/domain_governor.c Rafael J. Wysocki 2012-05-01   70  		return ret;
+6ff7bb0d02f829 drivers/base/power/domain_governor.c Rafael J. Wysocki 2012-05-01   71  	}
+6ff7bb0d02f829 drivers/base/power/domain_governor.c Rafael J. Wysocki 2012-05-01   72  	td->constraint_changed = false;
+9df3921e026532 drivers/base/power/domain_governor.c Ulf Hansson       2016-03-31   73  	td->cached_suspend_ok = false;
+0759e80b84e34a drivers/base/power/domain_governor.c Rafael J. Wysocki 2017-11-07   74  	td->effective_constraint_ns = 0;
+8262331eaaf751 drivers/base/power/domain_governor.c Viresh Kumar      2019-07-04   75  	constraint_ns = __dev_pm_qos_resume_latency(dev);
+6ff7bb0d02f829 drivers/base/power/domain_governor.c Rafael J. Wysocki 2012-05-01   76  
+6ff7bb0d02f829 drivers/base/power/domain_governor.c Rafael J. Wysocki 2012-05-01   77  	spin_unlock_irqrestore(&dev->power.lock, flags);
+6ff7bb0d02f829 drivers/base/power/domain_governor.c Rafael J. Wysocki 2012-05-01   78  
+0759e80b84e34a drivers/base/power/domain_governor.c Rafael J. Wysocki 2017-11-07   79  	if (constraint_ns == 0)
+a5bef810ad9816 drivers/base/power/domain_governor.c Rafael J. Wysocki 2012-04-29   80  		return false;
+a5bef810ad9816 drivers/base/power/domain_governor.c Rafael J. Wysocki 2012-04-29   81  
+a5bef810ad9816 drivers/base/power/domain_governor.c Rafael J. Wysocki 2012-04-29   82  	constraint_ns *= NSEC_PER_USEC;
+a5bef810ad9816 drivers/base/power/domain_governor.c Rafael J. Wysocki 2012-04-29   83  	/*
+a5bef810ad9816 drivers/base/power/domain_governor.c Rafael J. Wysocki 2012-04-29   84  	 * We can walk the children without any additional locking, because
+6ff7bb0d02f829 drivers/base/power/domain_governor.c Rafael J. Wysocki 2012-05-01   85  	 * they all have been suspended at this point and their
+6ff7bb0d02f829 drivers/base/power/domain_governor.c Rafael J. Wysocki 2012-05-01   86  	 * effective_constraint_ns fields won't be modified in parallel with us.
+a5bef810ad9816 drivers/base/power/domain_governor.c Rafael J. Wysocki 2012-04-29   87  	 */
+a5bef810ad9816 drivers/base/power/domain_governor.c Rafael J. Wysocki 2012-04-29  @88  	if (!dev->power.ignore_children)
+a5bef810ad9816 drivers/base/power/domain_governor.c Rafael J. Wysocki 2012-04-29   89  		device_for_each_child(dev, &constraint_ns,
+a5bef810ad9816 drivers/base/power/domain_governor.c Rafael J. Wysocki 2012-04-29   90  				      dev_update_qos_constraint);
+b02c999ac325e9 drivers/base/power/domain_governor.c Rafael J. Wysocki 2011-12-01   91  
+0759e80b84e34a drivers/base/power/domain_governor.c Rafael J. Wysocki 2017-11-07   92  	if (constraint_ns == PM_QOS_RESUME_LATENCY_NO_CONSTRAINT_NS) {
+704d2ce6603f7e drivers/base/power/domain_governor.c Rafael J. Wysocki 2017-11-07   93  		/* "No restriction", so the device is allowed to suspend. */
+0759e80b84e34a drivers/base/power/domain_governor.c Rafael J. Wysocki 2017-11-07   94  		td->effective_constraint_ns = PM_QOS_RESUME_LATENCY_NO_CONSTRAINT_NS;
+704d2ce6603f7e drivers/base/power/domain_governor.c Rafael J. Wysocki 2017-11-07   95  		td->cached_suspend_ok = true;
+0759e80b84e34a drivers/base/power/domain_governor.c Rafael J. Wysocki 2017-11-07   96  	} else if (constraint_ns == 0) {
+704d2ce6603f7e drivers/base/power/domain_governor.c Rafael J. Wysocki 2017-11-07   97  		/*
+704d2ce6603f7e drivers/base/power/domain_governor.c Rafael J. Wysocki 2017-11-07   98  		 * This triggers if one of the children that don't belong to a
+0759e80b84e34a drivers/base/power/domain_governor.c Rafael J. Wysocki 2017-11-07   99  		 * domain has a zero PM QoS constraint and it's better not to
+0759e80b84e34a drivers/base/power/domain_governor.c Rafael J. Wysocki 2017-11-07  100  		 * suspend then.  effective_constraint_ns is zero already and
+0759e80b84e34a drivers/base/power/domain_governor.c Rafael J. Wysocki 2017-11-07  101  		 * cached_suspend_ok is false, so bail out.
+704d2ce6603f7e drivers/base/power/domain_governor.c Rafael J. Wysocki 2017-11-07  102  		 */
+704d2ce6603f7e drivers/base/power/domain_governor.c Rafael J. Wysocki 2017-11-07  103  		return false;
+704d2ce6603f7e drivers/base/power/domain_governor.c Rafael J. Wysocki 2017-11-07  104  	} else {
+2b1d88cda32f81 drivers/base/power/domain_governor.c Ulf Hansson       2015-10-15  105  		constraint_ns -= td->suspend_latency_ns +
+2b1d88cda32f81 drivers/base/power/domain_governor.c Ulf Hansson       2015-10-15  106  				td->resume_latency_ns;
+704d2ce6603f7e drivers/base/power/domain_governor.c Rafael J. Wysocki 2017-11-07  107  		/*
+0759e80b84e34a drivers/base/power/domain_governor.c Rafael J. Wysocki 2017-11-07  108  		 * effective_constraint_ns is zero already and cached_suspend_ok
+0759e80b84e34a drivers/base/power/domain_governor.c Rafael J. Wysocki 2017-11-07  109  		 * is false, so if the computed value is not positive, return
+0759e80b84e34a drivers/base/power/domain_governor.c Rafael J. Wysocki 2017-11-07  110  		 * right away.
+704d2ce6603f7e drivers/base/power/domain_governor.c Rafael J. Wysocki 2017-11-07  111  		 */
+704d2ce6603f7e drivers/base/power/domain_governor.c Rafael J. Wysocki 2017-11-07  112  		if (constraint_ns <= 0)
+a5bef810ad9816 drivers/base/power/domain_governor.c Rafael J. Wysocki 2012-04-29  113  			return false;
+704d2ce6603f7e drivers/base/power/domain_governor.c Rafael J. Wysocki 2017-11-07  114  
+a5bef810ad9816 drivers/base/power/domain_governor.c Rafael J. Wysocki 2012-04-29  115  		td->effective_constraint_ns = constraint_ns;
+704d2ce6603f7e drivers/base/power/domain_governor.c Rafael J. Wysocki 2017-11-07  116  		td->cached_suspend_ok = true;
+704d2ce6603f7e drivers/base/power/domain_governor.c Rafael J. Wysocki 2017-11-07  117  	}
+a98f1b78ecf325 drivers/base/power/domain_governor.c Ulf Hansson       2015-10-13  118  
+a5bef810ad9816 drivers/base/power/domain_governor.c Rafael J. Wysocki 2012-04-29  119  	/*
+a5bef810ad9816 drivers/base/power/domain_governor.c Rafael J. Wysocki 2012-04-29  120  	 * The children have been suspended already, so we don't need to take
+9df3921e026532 drivers/base/power/domain_governor.c Ulf Hansson       2016-03-31  121  	 * their suspend latencies into account here.
+a5bef810ad9816 drivers/base/power/domain_governor.c Rafael J. Wysocki 2012-04-29  122  	 */
+9df3921e026532 drivers/base/power/domain_governor.c Ulf Hansson       2016-03-31  123  	return td->cached_suspend_ok;
+b02c999ac325e9 drivers/base/power/domain_governor.c Rafael J. Wysocki 2011-12-01  124  }
+b02c999ac325e9 drivers/base/power/domain_governor.c Rafael J. Wysocki 2011-12-01  125  
+
 -- 
-2.34.1
-
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
