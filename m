@@ -4,170 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8E302109E557
-	for <dri-devel@archiver.kernel.org>; Thu, 26 Mar 2026 05:51:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 91BEA109E557
+	for <dri-devel@archiver.kernel.org>; Thu, 26 Mar 2026 05:57:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CF83610E953;
-	Thu, 26 Mar 2026 05:51:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EE60310E962;
+	Thu, 26 Mar 2026 05:57:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="T+WIPRxd";
+	dkim=pass (2048-bit key; unprotected) header.d=icenowy.me header.i=uwu@icenowy.me header.b="gkYCDRH1";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3799010E951;
- Thu, 26 Mar 2026 05:51:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1774504314; x=1806040314;
- h=message-id:date:subject:to:cc:references:from:
- in-reply-to:content-transfer-encoding:mime-version;
- bh=elkcOSlY7KYeLU2UX4Gc56blCttq9Nl7F/mufVaE+/4=;
- b=T+WIPRxdMr0H3bZ8wDQRfA21I/ro/6EupRqUKlaSTV4/+qkz34y1YghB
- AgE4VB9mJAv5KB5JSsydPjXyESxO1MRJreVRPzk4ceSZRdPlSsoyiVVSO
- 1ZB0/FYymODqP7Kf4OrXgPgzeY1ei+LiY2wbDqf79HLLKqjiDZUlrtRqx
- +oB3KzX7Ne4lZNSz+lMJ4bcEmdwGTwjm+yLfCQlXOaZzBHX7jD29EpzCd
- BG4ZtyGTQQa0++oYcgnk2MNA/c74LQprZNaATAAWIGsVG1klSNwqi2i31
- wr2MtWkrFwFW2xpgn4XK3+U/eVS1y/iNkkQsqEe+JyxapJ/M4+Hyi4OH0 Q==;
-X-CSE-ConnectionGUID: WbBH0ECZSc+hFXFtus4x8g==
-X-CSE-MsgGUID: pE1KBvrZRsaJP+3+MawSWA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11740"; a="93133122"
-X-IronPort-AV: E=Sophos;i="6.23,141,1770624000"; d="scan'208";a="93133122"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
- by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Mar 2026 22:51:53 -0700
-X-CSE-ConnectionGUID: W5fLoAElSSikGPoq1w/5FQ==
-X-CSE-MsgGUID: U4re5yk3Ss2Mi+ZciUiGpg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,141,1770624000"; d="scan'208";a="225155427"
-Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
- by orviesa007.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Mar 2026 22:51:52 -0700
-Received: from FMSMSX901.amr.corp.intel.com (10.18.126.90) by
- fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Wed, 25 Mar 2026 22:51:51 -0700
-Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
- FMSMSX901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37 via Frontend Transport; Wed, 25 Mar 2026 22:51:51 -0700
-Received: from MW6PR02CU001.outbound.protection.outlook.com (52.101.48.11) by
- edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Wed, 25 Mar 2026 22:51:51 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=IVGGmvmLT9n9BYnHxhgB4TmAbXS3DzWte1K3Zn4+zt03lp3iQ7WLJmh9jp6f/53Z8psXXDFt9n7VSlt44/PUTEJc9d+szHKKAQtDQFpuWhWXqVFdQz8ZTllfLqoJx3o9COELhmdVOn0KoL5z2Hp2yxdup6Ne619ScqbwgwcvCxNlsTr0bZIpui4eV77YItBhwZYaFYLaZ8y7EKbfZFNf5RmQlsVKq4oRKpULIq78SSUJxXgCa2cXbqWH1J6XmI0+hYimMbTPVQ4RP8U8ClKRFPqM3lo8AWZAKchMAqJ6udllQjO6ku04EHuMHUSZG2i6gZY9/tA0ee+SeaooDdAeSw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=WJDBXPmHAKpfx4pd/SJU9KK5+fJu3pCIzrDCiak13Q0=;
- b=FZhUIR3l59fS0suxMGH/UIXYDwJKrGXJ5gD4mfAM/4b9nVNP3rTVvokBxdZGc4wc/xhhvYpHU/H7rxFsQTNBIc2t/XFIP1Z3JRmhKYNMvDcz1gXC7flBomFjv3xYEhhpRvD2pgP6jACgnCQ5oAY5tHHses3j4Fgf/kL5GvI6/M3pYCgHukVAhxxIdcQI16TpekPBIrOJot1+Zz45ZWErbjrp/g3c2v+CMyuMvlW3rYEj8aQaWrETZcYoN+EhCwp2A2Cn/kxObovl6lRQosN+1wMPjGY+QUL1ZY1FkuAsYvHVgP9YQDmztndrRh2hxQRv8V2b7dapywTQxiuPW0AnFA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from SJ1PR11MB6129.namprd11.prod.outlook.com (2603:10b6:a03:488::12)
- by DM4PR11MB6478.namprd11.prod.outlook.com (2603:10b6:8:89::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.20; Thu, 26 Mar
- 2026 05:51:43 +0000
-Received: from SJ1PR11MB6129.namprd11.prod.outlook.com
- ([fe80::45f:5907:efdb:cb5b]) by SJ1PR11MB6129.namprd11.prod.outlook.com
- ([fe80::45f:5907:efdb:cb5b%3]) with mapi id 15.20.9745.019; Thu, 26 Mar 2026
- 05:51:43 +0000
-Message-ID: <dbb27ec4-cdc6-4ead-9daf-664d97e86cd0@intel.com>
-Date: Thu, 26 Mar 2026 11:21:32 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] drm/atomic: track individual colorop updates
-To: Alex Hung <alex.hung@amd.com>, Melissa Wen <mwen@igalia.com>,
- <airlied@gmail.com>, <alexander.deucher@amd.com>, <christian.koenig@amd.com>, 
- <harry.wentland@amd.com>, <maarten.lankhorst@linux.intel.com>,
- <mripard@kernel.org>, <simona@ffwll.ch>, <siqueira@igalia.com>,
- <sunpeng.li@amd.com>, <tzimmermann@suse.de>
-CC: Simon Ser <contact@emersion.fr>, Uma Shankar <uma.shankar@intel.com>,
- Xaver Hugl <xaver.hugl@kde.org>, <amd-gfx@lists.freedesktop.org>,
- <kernel-dev@igalia.com>, Rob Clark <robin.clark@oss.qualcomm.com>, "Dmitry
- Baryshkov" <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, "Marijn
- Suijten" <marijn.suijten@somainline.org>, <linux-arm-msm@vger.kernel.org>,
- <dri-devel@lists.freedesktop.org>, <freedreno@lists.freedesktop.org>
-References: <20260323131942.494217-1-mwen@igalia.com>
- <20260323131942.494217-2-mwen@igalia.com>
- <feea29b7-fb28-4ac1-be74-b42c52173c59@intel.com>
- <197d2909-8644-4380-b752-ffef6f300faa@igalia.com>
- <70d47573-a0cb-4f65-8838-1956f8a672fa@amd.com>
-Content-Language: en-GB
-From: "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>
-In-Reply-To: <70d47573-a0cb-4f65-8838-1956f8a672fa@amd.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: MA5PR01CA0134.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a01:1d5::11) To SJ1PR11MB6129.namprd11.prod.outlook.com
- (2603:10b6:a03:488::12)
+Received: from sender4-op-o12.zoho.com (sender4-op-o12.zoho.com
+ [136.143.188.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5335E10E2B4
+ for <dri-devel@lists.freedesktop.org>; Thu, 26 Mar 2026 05:57:08 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1774504622; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=Mkf6zUtwlT2CtdV8DayQHX/AuQiNtB4rQ32WTmol5rl4U4fv/8V9VnmFyRPQaTqm0d5362E1BE6YT1THilTYoqWmnvgNkU+I9nkOg3GXNIqzEBeynE9fGxR3MkEDbKxUBm3Ta4c7bQP4F2NDxF9nlOLoKO1nLSA5f35Pb0djXkk=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1774504622;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=xh5QcYAfEMFXHbh0WK42+35rw1y3aSrFCHR3K9Wbzu4=; 
+ b=HisGqtURNgasPUPl/AfZVgF8IhOghkyFg7CEhUspEnrT4SCFUiIOCnpdeZ6vtx9RUPh0k02uKCKBZIk7TqRpEYOKrE1PoIEzC9pd3DI/eekrvn5uD43uo9OXyxZYhu1KpZZkg0U/2xXGNRlT+r3DysiP3ScLTXA/Ex3P531Hc/A=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=icenowy.me;
+ spf=pass  smtp.mailfrom=uwu@icenowy.me;
+ dmarc=pass header.from=<uwu@icenowy.me>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1774504622; 
+ s=zmail2; d=icenowy.me; i=uwu@icenowy.me;
+ h=Message-ID:Subject:Subject:From:From:To:To:Cc:Cc:Date:Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:MIME-Version:Message-Id:Reply-To;
+ bh=xh5QcYAfEMFXHbh0WK42+35rw1y3aSrFCHR3K9Wbzu4=;
+ b=gkYCDRH1D9/3bbcfsNZVUGpV7eHZORKaF6UnoL3qaiM/T7ol0/ONeIqlT9SogZiM
+ AM8c9eUJgaX5Y0UMF2TpTVg/gQMpRMPL6mqr2AL+1i7hg+kPFbiHc/Ctt7f1a/D6xyQ
+ GFC97KbEyLkCriYzRT3Q1LA2Q6kIn3FYabwsY96OMTTx2TkdEfukQjIFCusVJVzf51V
+ upg9GQwkQ1AWPnl00HVj2BI/s/UdIqdxfYsuu66WlSJxMrDXMLZIwNER+TbA0NVSbV3
+ KgGHoTpeq2nO4F9L+vOPi9/vXtvLiRirGR/pVTIG53cIJlcEm+5eivVqh+zJPY34M9F
+ 01O8EI1peA==
+Received: by mx.zohomail.com with SMTPS id 1774504620418841.5970104476653;
+ Wed, 25 Mar 2026 22:57:00 -0700 (PDT)
+Message-ID: <fbba135320ea666a5ad127c9da58276f2afd3494.camel@icenowy.me>
+Subject: Re: [PATCH v2 0/5] powervr: MT8173 GPU support
+From: Icenowy Zheng <uwu@icenowy.me>
+To: Chen-Yu Tsai <wenst@chromium.org>
+Cc: Stephen Boyd <sboyd@kernel.org>, Matthias Brugger
+ <matthias.bgg@gmail.com>,  AngeloGioacchino Del Regno
+ <angelogioacchino.delregno@collabora.com>, Frank Binns
+ <frank.binns@imgtec.com>, Matt Coster	 <matt.coster@imgtec.com>, Maarten
+ Lankhorst <maarten.lankhorst@linux.intel.com>,  Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
+ <airlied@gmail.com>,  Simona Vetter <simona@ffwll.ch>,
+ linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-mediatek@lists.infradead.org, dri-devel@lists.freedesktop.org, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Date: Thu, 26 Mar 2026 13:56:52 +0800
+In-Reply-To: <42fb6b7dfc6a9d66649e0a7040cdafc1289ddf63.camel@icenowy.me>
+References: <20260325071951.544031-1-wenst@chromium.org>
+ <93c1d325461cc0ffad890d64870de680506338c4.camel@icenowy.me>
+ <CAGXv+5FL2rs35V4F0bwq-a4ccvFaWKcr1cuKxT6sfTj9h+d6iA@mail.gmail.com>
+ <0739597b7a9c162525c10d82c3993e37af1c8a75.camel@icenowy.me>
+ <42fb6b7dfc6a9d66649e0a7040cdafc1289ddf63.camel@icenowy.me>
+Organization: Anthon Open-Source Community
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PR11MB6129:EE_|DM4PR11MB6478:EE_
-X-MS-Office365-Filtering-Correlation-Id: a11fbae3-d13b-4438-e984-08de8afbc218
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|366016|376014|7416014|921020|56012099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: mXr0dCyZAAnTdzczJtHYGkSE6X0Vo+UYK8iWD4sk1J9JuYIwmYNbJxKW55h+/+OpRJ1wrF78IuiePHyTKyQnHa1rw2QvUNkrWA1uoLHfJjvUf2n0f1FJgIpcxOrLRzk0//R1Rge6hT66DrM9ch3bMyLawnqu6H72A5y6xFVJlDmn1UcdC7qk+mDHK62GqqDggCTk2Y5cDRwRrpoLiVO2TXqjl74Kf5JzfztkBhcW5H5UJXAfq1wZsWNOOBsKFMpH5zfxsuDQUdp/UNnIykzWkO8CGJU/TRYQcWkZym75XPdYAumOaTtr4WEnTletyxTBQm0yK9fHp/IcqNgZ46iKiciQkYvbu0jlPA7jcmmfXCcAxpFOz8GVbZmIr/t5oYv5KnaxY+7d7AIBFWIqyjVjTt7U3teUTJrfHj1RU+FtoOpwgfjM++HdDoaEE0obDnWAz9/Bqf/np0eEenQaNYUUE2E7BXH1O+76OmKIReeMgtm18jSc4NlMb+Fn0xSc5QAfdkizFLjNmrqPYK4gm0qBQ0mECR08jck7OJZtzUUJjPb1TVIumtKGHF0QsQiPcNvc+9fBGeeLIXnSBjpNq2h/s2WMNCuHE3ujWb81mgVKobLx5UY2n4tS5l6NwnV8mAgmRSZMcg0oux23QnP1uBPSJtpsQXjEnpJXYvc7/P3hZ9whwKcJsX6SWtwQ/fMe+etDt9SDNMF6cde4sd/G74W+4lMFyXTKkfM7HAsfoSksPuYCeu1hxplN+a1yBXw8IxFhyPq/m7j9dpoLIEXMPkwC0w==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SJ1PR11MB6129.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014)(7416014)(921020)(56012099003)(22082099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Z2dtZUUvek5WajF1dU1uWVhTdm1qdXdLRVVCb0I4bzYzSWZJUnI0dkJGYW1G?=
- =?utf-8?B?WW1YVW4zTjEzMFpKT2dwRm9sZzExRnkzZnFIZXB3RTdWYnpDYWNHNWtCbTRv?=
- =?utf-8?B?NGJGcTFWbXZGUitpOHQyU2w2TDJEMmFxUmxRek8vbU52WDFLTnNHcGtRU3J0?=
- =?utf-8?B?MXlmSHh3amErMkkvR0dxbGpKTTRzU1V5Wk1mTStrSEo0YWdYVFZNd1M1Qkc3?=
- =?utf-8?B?MlhZTEErbk40d2lqNVErb2wzU0NYNmYxOFlqcHE4UG1tOWowY2FHRiswd0F1?=
- =?utf-8?B?UnRrQUhKVFkwdGlFSFpIYnRaZlFyTFUwS1JkYVVCRG5HWXRJV1RyUFVLZzVF?=
- =?utf-8?B?NTg1NU1yRVNxait5TUFzSVhPMUU0M0Y3S1lUMkYzTHpLdjR0cEJjRlhQRTUw?=
- =?utf-8?B?QTVhWWROajlNME10VVd3MFY3RWpxRDdEdEIxY285eHUxSjBJQ3h3cWpOVjIy?=
- =?utf-8?B?Ujd4c0wxN0d4TVIvSy9aT0RjQVJxWXZ6RndJWWxqRUJnbUYvSEZiRTcyU0NY?=
- =?utf-8?B?OVlrRFIxV29TRmtyaFBPNzlvK2ZnQ3lIemZrdWFVV2tqc3dRd1Vha2hRMlgr?=
- =?utf-8?B?SmoySXdUV1I3TGoyNHFUTzRsRmcvempuc1Q0WDBwdmowbDMvbTl5WjVGR1Zt?=
- =?utf-8?B?YWt2TFExcG9NUDAxYndBY25Ca2FKSUFaeGJ1eXFQaW9ldTYyUTcydXo3bVRl?=
- =?utf-8?B?Sk43NzQ0cU55SGRSeFpzTzdHRnRCV0ZyY1pWNjI0RUtnN1FvY3hXNXhZYkkz?=
- =?utf-8?B?VE5LNnorK0RJbTU5RmtSdEVCTUtpWG4xcFFqWi9aUWVoRDNoSEVDUXZpUzhI?=
- =?utf-8?B?elBCTkxrNjNsdW5jVzFKU2FIQXlXNUt2dTBrc1J0QTBWSnBOQTdtcEZPbTlT?=
- =?utf-8?B?dmFqTlhOclZ6aXRVS25DdlVZaHlkVWtINzNaRFZxK0U2R3VYdEwvcTNtb2Ns?=
- =?utf-8?B?UzJVb3Jmb1g2eURiZStJb3BocU5DaU55Y01tb1JsaGZIQ1VqT3FTaWlIRW54?=
- =?utf-8?B?MXhQc0k5aWFHMFRDVWk1WVBmeVZSeG5XMUl6SHlHbDVJTFBzR1pDN3ZhQThL?=
- =?utf-8?B?QUgwdjN2amVGS0htRUJhb28yc2xObTZ1S3d4ZUxHc3M4eTBnaC9OWDNoVUxK?=
- =?utf-8?B?VS9rU3lKZnI3QU9hSWJwckd1ZmxKdUlpRmYzQVdDQUVUUVlxaHlIMUptR3JO?=
- =?utf-8?B?M3Zadi9odUkvdHk3OGJuTmlSaHdzcFRiQnYxWGt0c2p0R29CdjVFNWc0Wmlq?=
- =?utf-8?B?cjNTb3RpeUVDaWxPcVc4blQyLzBrVys4VEtvUHREWnV2NzUzbTByT0VaNy9u?=
- =?utf-8?B?dTMxL0Eva05jVGVQTW5jNW4vY2dmVVVLMkUrUTQ4a2gwQjU4SjlwWUlQcGFR?=
- =?utf-8?B?REE0V3ZOUSt1MWRObnErbURrOHJkTHJoRm41Qnlsekp5ZUtNMFQ1M3Y2eTdh?=
- =?utf-8?B?TnNGM1pmcURJZ0c3aGlUU1VoUmxQNVcyNU5Ub3prZ21XSzhkbitVem5IZDlS?=
- =?utf-8?B?ZmxHbmhPcG05ZFFJdWh5emw4UjJpWmllbVllK2VKLy95MjEzRVZkSHhTM1Nh?=
- =?utf-8?B?MHNxUEJFOFV3QmdDYTEyZEh0eE1JWHVBYVdXVE5rL0dZdVIwcmppZUtDQXlV?=
- =?utf-8?B?TUZ1eUVLS24vN1hUWXVMYjRQQ0ZrUVdDbUswb09PNC9rem5Xc0lOdWE0bThW?=
- =?utf-8?B?dVhBaG1UbjZ6V2VCelhDSWpDZ2tCcXZkRzlnRjgzVS9SdG1wTGt2ckFwdVdW?=
- =?utf-8?B?ODlBV04wR2RMbEQwZS9nbEVVVjFNeGZlbXFFdWNlUmhranZwN1RHb3czZ0hC?=
- =?utf-8?B?WUFYZ0tJY3Y5K0VvS05uNVI1cEQ0RjdhY0VwK2dVeXhWR1ZUbjlaYjlyQ1BE?=
- =?utf-8?B?bW1SbGNKS2J0MmViRk5Ub1lVQzJWNnhjdkE3bm5LczBpSkdJcGJ2WmVCSDFy?=
- =?utf-8?B?MmJsYkltc2JJMElzRm5XK21aVTJReGoxR0c1QlFqWWFVSjBOQVUwbXVPZ3dZ?=
- =?utf-8?B?UXJ4OHJqZGpVQXdMejAyWmNzc0ptWWlPUDFhWERjanVNTDBPN0ZJWnRFSVhh?=
- =?utf-8?B?SnptY0NsTnFlQksrRmhBaVA5eFZTZ1VjRlpxNE9STGloUCtGU0pJUmRYczFP?=
- =?utf-8?B?MXFWMHRoM1FDMzlYQUVUUkdZVis5QnJrck1qUmUvRmhkQlhmNlJ1enR6Z1Q1?=
- =?utf-8?B?d0EvcWF4QkZwRlgyZjdOeTFVemVuam1BKy8xTW16d3JLTUJMbmt4c3VOeFZT?=
- =?utf-8?B?cUk3ejdMN2x2eTgrcXphajVIVGdOemhIclJkZ3IwZmxTQm5zbzMrSXpkcWFQ?=
- =?utf-8?B?cDUrT01lWjZOaUhWR01XNnY1UHg3b0tKT2FITGVSTFl5SU5jS3BuVms5TFhX?=
- =?utf-8?Q?ibOuX9rwshiJeXtI=3D?=
-X-Exchange-RoutingPolicyChecked: lIKSZGjPtfAcGTpmKlkaJmddO1TUkGv8ZCHDm1fFwO3xbvvpwilAJyuB2+cR+uk+UGUzXNUfqWubbbYvnn1taorIvPnL9X2AFHHfgIOhAwJr1ad2ttSeoVN8V1kTSKbJQqUxHRbR1Czu9W6qz9MsD5v4PVj3v8h36mXdoM+L70FSXjrWsGYxGfNTsrrmte3UYiYT+T2XMNirqw3FeHfGLS0tkVL2sT3l5gTfhEb32QFV0IKX1WWWSwZ8Ay4PRZgI2sEJlJlO49JYlkiperd6PrGzWFe4d6WbdU8qfu5axoXGt+F2VAIdNuXxqFgS5lAUEQFVCjdVFv4SAehAaetFqQ==
-X-MS-Exchange-CrossTenant-Network-Message-Id: a11fbae3-d13b-4438-e984-08de8afbc218
-X-MS-Exchange-CrossTenant-AuthSource: SJ1PR11MB6129.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Mar 2026 05:51:43.3996 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Aw0fQ2yksXKGCeQUi+pNVAkxLfmmz5INyOyVrC74vuYtwG+/wlSutya9Edi5FakceuY3CBi8g9Vd8iNoc36aN/C1pI/yayltSCcUcGwQkF4=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR11MB6478
-X-OriginatorOrg: intel.com
+X-ZohoMailClient: External
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -183,249 +82,212 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+=E5=9C=A8 2026-03-25=E4=B8=89=E7=9A=84 17:11 +0800=EF=BC=8CIcenowy Zheng=E5=
+=86=99=E9=81=93=EF=BC=9A
+> =E5=9C=A8 2026-03-25=E4=B8=89=E7=9A=84 16:30 +0800=EF=BC=8CIcenowy Zheng=
+=E5=86=99=E9=81=93=EF=BC=9A
+> > =E5=9C=A8 2026-03-25=E4=B8=89=E7=9A=84 16:08 +0800=EF=BC=8CChen-Yu Tsai=
+=E5=86=99=E9=81=93=EF=BC=9A
+> > > On Wed, Mar 25, 2026 at 4:04=E2=80=AFPM Icenowy Zheng <uwu@icenowy.me=
+>
+> > > wrote:
+> > > >=20
+> > > > =E5=9C=A8 2026-03-25=E4=B8=89=E7=9A=84 15:19 +0800=EF=BC=8CChen-Yu =
+Tsai=E5=86=99=E9=81=93=EF=BC=9A
+> > > > > Hi everyone,
+> > > > >=20
+> > > > > This is v2 of my MT8173 PowerVR GPU support series.
+> > > > >=20
+> > > > > Changes since v1:
+> > > > > - Adapted to changed DT bindings
+> > > > > - Dropped driver change
+> > > > > - Use same power domain for "a" and "b" GPU power domains
+> > > > >=20
+> > > > > This update was requested by Icenowy.
+> > > > >=20
+> > > > >=20
+> > > > > This series enables the PowerVR GPU found in the MT8173 SoC,
+> > > > > found in
+> > > > > some Chromebooks.
+> > > > >=20
+> > > > > This version is different from the initial powervr driver
+> > > > > submission
+> > > > > [1]
+> > > > > in that it splits out the GPU glue layer support out of the
+> > > > > powervr
+> > > > > driver and into a separate clock and power domain driver. The
+> > > > > glue
+> > > > > code
+> > > > > is otherwise the same, and also the same as found in the
+> > > > > ChromeOS
+> > > > > kernels, with some extra comments and macro names added where
+> > > > > possible.
+> > > > >=20
+> > > > > Patch 1 adds a binding for the glue layer, called mfgtop. The
+> > > > > glue
+> > > > > layer
+> > > > > contains clock and power controls for the GPU.
+> > > > >=20
+> > > > > Patch 2 adds a driver for the glue layer.
+> > > > >=20
+> > > > > Patch 3 adds an entry for the MT8173 GPU and 6XT series to
+> > > > > the
+> > > > > PowerVR
+> > > > > binding.
+> > > > >=20
+> > > > > Patch 4 adds an entry for the PowerVR 6XT series GPU to the
+> > > > > driver.
+> > > > >=20
+> > > > > Patch 5 corrects the clock for the GPU (called MFG) power
+> > > > > domain.
+> > > > >=20
+> > > > > Patch 6 adds device nodes for the GPU and glue layer to the
+> > > > > MT8173
+> > > > > dtsi
+> > > > > file.
+> > > > >=20
+> > > > > Patch 2 and 6 depend on patch 1 to build. I suppose some
+> > > > > common
+> > > > > immutable tree would be needed from the MediaTek maintainers.
+> > > > >=20
+> > > > > The kernel driver successfully probes the hardware and loads
+> > > > > the
+> > > > > "rogue_4.40.2.51_v1.fw" firmware provided by Imagination
+> > > > > Technologies
+> > > > > [2].
+> > > > > Userspace was tested with Mesa 24.0.8 from Debian Trixie
+> > > > > rebuilt
+> > > > > with
+> > > > > the powervr vulkan driver enabled. `vulkaninfo` gives some
+> > > > > information
+> > > > > about the GPU (attached at the end), but running the
+> > > > > `triangle`
+> > > > > example
+> > > > > from the Sascha Willems demos [3] with -DUSE_D2D_WSI=3DON as
+> > > > > recommended [4]
+> > > > > failed with:
+> > > > >=20
+> > > > > =C2=A0=C2=A0=C2=A0 Can't find a display and a display mode!
+> > > >=20
+> > > > I think when using D2D the demos want width and height to be
+> > > > explicitly
+> > > > specified, otherwise it seems to hardcode 1280x720.
+> > > >=20
+> > > > If you're using an elm, could you try to add `-w 1920 -h 1080`
+> > > > or
+> > > > for
+> > > > hana `-w 1366 -h 768` ?
+> > >=20
+> > > I only did the basic `vulkaninfo` test this time around. To do
+> > > anything
+> > > interesting probably requires the Mesa 26.1 release.
+> > >=20
+> > > =C2=A0=C2=A0=C2=A0 PVR_I_WANT_A_BROKEN_VULKAN_DRIVER=3D1 \
+> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 vkmark --winsys kms -D b81=
+f54f8568deb0fb70a6a1ed845b65d
+> > >=20
+> > > just reports "Error: Device specified by uuid is not available"
+> >=20
+> > I am very sorry to tell you that, when I run Sascha's demo with
+> > Mesa
+> > main, I got GPU lost immediately...
+> >=20
+> > ```
+> > [=C2=A0 441.509433] powervr 13000000.gpu: [drm] *ERROR* GPU device lost
+> > ```
 
+The device lost message seems to be some bug of the open source KMD or
+the firmware.
 
-On 3/26/2026 8:38 AM, Alex Hung wrote:
-> 
-> 
-> On 3/25/26 20:13, Melissa Wen wrote:
->>
->>
->> On 25/03/2026 06:08, Borah, Chaitanya Kumar wrote:
->>> Hi Melissa,
->>>
->>> On 3/23/2026 6:45 PM, Melissa Wen wrote:
->>>> As we do for CRTC color mgmt properties, use color_mgmt_changed flag to
->>>> track any value changes in the color pipeline of a given plane, so that
->>>> drivers can update color blocks as soon as plane color pipeline or
->>>> individual colorop values change.
->>>>
->>>> Reviewed-by: Harry Wentland <harry.wentland@amd.com> #v1
->>>> Signed-off-by: Melissa Wen <mwen@igalia.com>
->>>> ---
->>>>
->>>>   v2: add linux types to provide bool for MSM driver (kernel bot)
->>>> ---
->>>>   drivers/gpu/drm/drm_atomic_uapi.c | 53 +++++++++++++++++++++++ 
->>>> +-------
->>>>   include/drm/drm_atomic_uapi.h     |  4 ++-
->>>>   2 files changed, 45 insertions(+), 12 deletions(-)
->>>>
->>>> diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/ 
->>>> drm_atomic_uapi.c
->>>> index 87de41fb4459..713fa9e81732 100644
->>>> --- a/drivers/gpu/drm/drm_atomic_uapi.c
->>>> +++ b/drivers/gpu/drm/drm_atomic_uapi.c
->>>> @@ -265,13 +265,19 @@ EXPORT_SYMBOL(drm_atomic_set_fb_for_plane);
->>>>    *
->>>>    * Helper function to select the color pipeline on a plane by setting
->>>>    * it to the first drm_colorop element of the pipeline.
->>>> + *
->>>> + * Return: true if plane color pipeline value changed, false 
->>>> otherwise.
->>>>    */
->>>> -void
->>>> +bool
->>>>   drm_atomic_set_colorop_for_plane(struct drm_plane_state *plane_state,
->>>>                    struct drm_colorop *colorop)
->>>>   {
->>>>       struct drm_plane *plane = plane_state->plane;
->>>>   +    /* Color pipeline didn't change */
->>>> +    if (plane_state->color_pipeline == colorop)
->>>> +        return false;
->>>> +
->>>>       if (colorop)
->>>>           drm_dbg_atomic(plane->dev,
->>>>                      "Set [COLOROP:%d] for [PLANE:%d:%s] state %p\n",
->>>> @@ -283,6 +289,8 @@ drm_atomic_set_colorop_for_plane(struct 
->>>> drm_plane_state *plane_state,
->>>>                      plane->base.id, plane->name, plane_state);
->>>>         plane_state->color_pipeline = colorop;
->>>> +
->>>> +    return true;
->>>>   }
->>>>   EXPORT_SYMBOL(drm_atomic_set_colorop_for_plane);
->>>>   @@ -600,7 +608,7 @@ static int 
->>>> drm_atomic_plane_set_property(struct drm_plane *plane,
->>>>           if (val && !colorop)
->>>>               return -EACCES;
->>>>   -        drm_atomic_set_colorop_for_plane(state, colorop);
->>>> +        state->color_mgmt_changed |= 
->>>> drm_atomic_set_colorop_for_plane(state, colorop);
->>>>       } else if (property == config->prop_fb_damage_clips) {
->>>>           ret = drm_property_replace_blob_from_id(dev,
->>>>                       &state->fb_damage_clips,
->>>> @@ -709,11 +717,11 @@ drm_atomic_plane_get_property(struct drm_plane 
->>>> *plane,
->>>>   static int drm_atomic_color_set_data_property(struct drm_colorop 
->>>> *colorop,
->>>>                             struct drm_colorop_state *state,
->>>>                             struct drm_property *property,
->>>> -                          uint64_t val)
->>>> +                          uint64_t val,
->>>> +                          bool *replaced)
->>>>   {
->>>>       ssize_t elem_size = -1;
->>>>       ssize_t size = -1;
->>>> -    bool replaced = false;
->>>>         switch (colorop->type) {
->>>>       case DRM_COLOROP_1D_LUT:
->>>> @@ -735,28 +743,39 @@ static int 
->>>> drm_atomic_color_set_data_property(struct drm_colorop *colorop,
->>>>                            &state->data,
->>>>                            val,
->>>>                            -1, size, elem_size,
->>>> -                         &replaced);
->>>> +                         replaced);
->>>>   }
->>>>     static int drm_atomic_colorop_set_property(struct drm_colorop 
->>>> *colorop,
->>>>                          struct drm_colorop_state *state,
->>>>                          struct drm_file *file_priv,
->>>>                          struct drm_property *property,
->>>> -                       uint64_t val)
->>>> +                       uint64_t val,
->>>> +                       bool *replaced)
->>>>   {
->>>>       if (property == colorop->bypass_property) {
->>>> -        state->bypass = val;
->>>> +        if (state->bypass != val) {
->>>> +            state->bypass = val;
->>>> +            *replaced = true;
->>>> +        }
->>>>       } else if (property == colorop->lut1d_interpolation_property) {
->>>>           colorop->lut1d_interpolation = val;
->>>>       } else if (property == colorop->curve_1d_type_property) {
->>>> -        state->curve_1d_type = val;
->>>> +        if (state->curve_1d_type != val) {
->>>> +            state->curve_1d_type = val;
->>>> +            *replaced = true;
->>>> +        }
->>>>       } else if (property == colorop->multiplier_property) {
->>>> -        state->multiplier = val;
->>>> +        if (state->multiplier != val) {
->>>> +            state->multiplier = val;
->>>> +            *replaced = true;
->>>> +        }
->>>>       } else if (property == colorop->lut3d_interpolation_property) {
->>>>           colorop->lut3d_interpolation = val;
->>>
->>> I think it would be prudent to add this logic for both the 1dlut and 
->>> 3dlut interpolation properties. Even though they have just one value 
->>> exposed right now, that might change in future.
->>
->> I didn't include interpolations in the color_mgmt_changed logic 
->> because there is a comment in `include/drm/drm_colorop.h` saying that 
->> they are read-only.
->> But thinking better about it, and I think we should not allow 
->> `drm_atomic_colorop_set_property()` calls to change values of these 
->> properties if they are read-only.
->> I didn't track the discussions about what are the plans for these 
->> properties, how the userspace knows they are read-only properties and 
->> shouldn't set any value?
-> 
-> It has been a while but I don't remember that userspace needs to set 
-> this value, so this can be a mistake. Device driver just need to give a 
-> supported interpolation that best describes the hardware.
-> 
-> We can remove setting them in drm_atomic_colorop_set_property if 
-> everybody agrees.
-> 
+When I disable runtime power management of the 13000000.gpu device,
+this message does not appear, instead the following message appears and
+the GPU can continue to accept jobs:
 
-In that case, they need to be marked DRM_MODE_PROP_IMMUTABLE at creation.
+```
+powervr 13000000.gpu: [drm] Received unknown FWCCB command 2abc0070
+```
 
-==
-Chaitanya
+>=20
+> However, Zink on PowerVR works, and on Lichee Pi 4A I also got
+> `VK_ERROR_DEVICE_LOST` when running Sascha's demos (although the
+> kernel
+> does not report device lost).
+>=20
+> I bet it's a regression on the VK_KHR_display code.
 
->>
->>>
->>>>       } else if (property == colorop->data_property) {
->>>>           return drm_atomic_color_set_data_property(colorop, state,
->>>> -                              property, val);
->>>> +                              property, val,
->>>> +                              replaced);
->>>>       } else {
->>>>           drm_dbg_atomic(colorop->dev,
->>>>                      "[COLOROP:%d:%d] unknown property [PROP:%d:%s]\n",
->>>> @@ -1273,6 +1292,8 @@ int drm_atomic_set_property(struct 
->>>> drm_atomic_state *state,
->>>>       case DRM_MODE_OBJECT_COLOROP: {
->>>>           struct drm_colorop *colorop = obj_to_colorop(obj);
->>>>           struct drm_colorop_state *colorop_state;
->>>> +        struct drm_plane_state *plane_state;
->>>> +        bool replaced = false;
->>>>             colorop_state = drm_atomic_get_colorop_state(state, 
->>>> colorop);
->>>>           if (IS_ERR(colorop_state)) {
->>>> @@ -1281,7 +1302,17 @@ int drm_atomic_set_property(struct 
->>>> drm_atomic_state *state,
->>>>           }
->>>>             ret = drm_atomic_colorop_set_property(colorop, 
->>>> colorop_state,
->>>> -                              file_priv, prop, prop_value);
->>>> +                              file_priv, prop, prop_value,
->>>> +                              &replaced);
->>>> +        if (ret || !replaced)
->>>> +            break;
->>>> +
->>>> +        plane_state = drm_atomic_get_plane_state(state, colorop- 
->>>> >plane);
->>>> +        if (IS_ERR(plane_state)) {
->>>> +            ret = PTR_ERR(plane_state);
->>>> +            break;
->>>> +        }
->>>> +        plane_state->color_mgmt_changed = true;
->>>
->>> I am not sure if it was the intention of the uapi design but as I 
->>> understand there are no guardrails for setting a colorop in an 
->>> "inactive" pipeline.
->>>
->>> So, color_mgmt_changed  is set to true even if a colorop from a color 
->>> pipeline that is not currently selected(or set to Bypass) by the 
->>> user- space is changed.
->>> I guess, the driver needs to be intelligent enough to ignore those 
->>> colorop but should we reject it at drm core?
->>>
->>
->> Thanks for pointing it out, makes sense!
->> I agree that drm core should reject changes in inactive pipelines.
->>
->> Melissa
->>
->>
->>> ==
->>> Chaitanya
->>>
->>>>           break;
->>>>       }
->>>>       default:
->>>> diff --git a/include/drm/drm_atomic_uapi.h b/include/drm/ 
->>>> drm_atomic_uapi.h
->>>> index 436315523326..4e7e78f711e2 100644
->>>> --- a/include/drm/drm_atomic_uapi.h
->>>> +++ b/include/drm/drm_atomic_uapi.h
->>>> @@ -29,6 +29,8 @@
->>>>   #ifndef DRM_ATOMIC_UAPI_H_
->>>>   #define DRM_ATOMIC_UAPI_H_
->>>>   +#include <linux/types.h>
->>>> +
->>>>   struct drm_crtc_state;
->>>>   struct drm_display_mode;
->>>>   struct drm_property_blob;
->>>> @@ -50,7 +52,7 @@ drm_atomic_set_crtc_for_plane(struct 
->>>> drm_plane_state *plane_state,
->>>>                     struct drm_crtc *crtc);
->>>>   void drm_atomic_set_fb_for_plane(struct drm_plane_state *plane_state,
->>>>                    struct drm_framebuffer *fb);
->>>> -void drm_atomic_set_colorop_for_plane(struct drm_plane_state 
->>>> *plane_state,
->>>> +bool drm_atomic_set_colorop_for_plane(struct drm_plane_state 
->>>> *plane_state,
->>>>                         struct drm_colorop *colorop);
->>>>   int __must_check
->>>>   drm_atomic_set_crtc_for_connector(struct drm_connector_state 
->>>> *conn_state,
->>>
->>
-> 
+I'm now sure that it's a regression, it's now tracked at [1].
 
+[1] https://gitlab.freedesktop.org/mesa/mesa/-/issues/15161
+
+>=20
+> Thanks,
+> Icenowy
+>=20
+> >=20
+> > Icenowy
+> >=20
+> > >=20
+> > > This is with Mesa 26.0.2 packages from Debian testing. At least
+> > > now
+> > > have the powervr vulkan driver enabled by default, so I don't
+> > > have
+> > > to rebuild the packages again.
+> > >=20
+> > >=20
+> > > ChenYu
+> > >=20
+> > > > Thanks
+> > > > Icenowy
+> > > >=20
+> > > > >=20
+> > > > > Same program worked correctly on a BeaglePlay and displayed a
+> > > > > color
+> > > > > gradient triangle. Not sure what went wrong here.
+> > > > >=20
+> > > > > Anyway, please have a look and test.
+> > > > >=20
+> > > > >=20
+> > > > > Thanks
+> > > > > ChenYu
+> > > > >=20
+> > > > > [1]
+> > > > > https://lore.kernel.org/dri-devel/20220815165156.118212-2-sarah.w=
+alker@imgtec.com/
+> > > > > [2]
+> > > > > https://gitlab.freedesktop.org/imagination/linux-firmware/-/tree/=
+powervr
+> > > > > [3] https://github.com/SaschaWillems/Vulkan
+> > > > > [4]
+> > > > > https://lore.kernel.org/dri-devel/f2b2671e-5acc-4dec-9c2e-3c9cd2e=
+1f19e@imgtec.com/
+> > > > >=20
+> > > > > Chen-Yu Tsai (5):
+> > > > > =C2=A0 dt-bindings: clock: mediatek: Add mt8173 mfgtop
+> > > > > =C2=A0 clk: mediatek: Add mt8173-mfgtop driver
+> > > > > =C2=A0 dt-bindings: gpu: powervr-rogue: Add MediaTek MT8173 GPU
+> > > > > =C2=A0 arm64: dts: mediatek: mt8173: Fix MFG_ASYNC power domain
+> > > > > clock
+> > > > > =C2=A0 arm64: dts: mediatek: mt8173: Add GPU device nodes
+> > > > >=20
+> > > > > =C2=A0.../clock/mediatek,mt8173-mfgtop.yaml=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 70 +++++
+> > > > > =C2=A0.../bindings/gpu/img,powervr-rogue.yaml=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 1 +
+> > > > > =C2=A0arch/arm64/boot/dts/mediatek/mt8173.dtsi=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0 |=C2=A0 33 ++-
+> > > > > =C2=A0drivers/clk/mediatek/Kconfig=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=
+=C2=A0=C2=A0 9 +
+> > > > > =C2=A0drivers/clk/mediatek/Makefile=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=
+=C2=A0 1 +
+> > > > > =C2=A0drivers/clk/mediatek/clk-mt8173-mfgtop.c=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0 | 243
+> > > > > ++++++++++++++++++
+> > > > > =C2=A0include/dt-bindings/clock/mt8173-clk.h=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 7 +
+> > > > > =C2=A07 files changed, 363 insertions(+), 1 deletion(-)
+> > > > > =C2=A0create mode 100644
+> > > > > Documentation/devicetree/bindings/clock/mediatek,mt8173-
+> > > > > mfgtop.yaml
+> > > > > =C2=A0create mode 100644 drivers/clk/mediatek/clk-mt8173-mfgtop.c
