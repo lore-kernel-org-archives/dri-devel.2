@@ -4,139 +4,161 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0C3AA109E546
-	for <dri-devel@archiver.kernel.org>; Thu, 26 Mar 2026 04:32:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1C966109E54B
+	for <dri-devel@archiver.kernel.org>; Thu, 26 Mar 2026 04:45:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 346E210E91B;
-	Thu, 26 Mar 2026 04:32:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D0E8010E8EA;
+	Thu, 26 Mar 2026 04:45:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="hKKR2OBd";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="TiC7WvWA";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="GQ9YPybX";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 238C610E8F7
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Mar 2026 04:31:58 +0000 (UTC)
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 62PKhex3142445
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Mar 2026 04:31:58 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:message-id
- :mime-version:subject:to; s=qcppdkim1; bh=jJRKMt5STVkyb1Y7d1ZgMO
- 1sueYs1DgBavRo6QS64AI=; b=hKKR2OBdmKOqiTdbZ33hIuMhZ7JhUlOiO93CcH
- DiZtkKn4ZzwolbcR/CwQhTILnreUv0fRddHGSqh7q0cmXbE/A7mxKhFV+R1ogc80
- lhHH8vDCGt17uqM3QSpcv6tfZtbD+MICx7s++bLr/jcSBgS1AnRDFwtNXLG+6ayz
- hRWyuph9K6ZJv/lP6CNm2H2/ExRSupTSt7/cu0Tzu76LkaQFFCyPBepQ2M3/WvIc
- J9xuBcB+qkvEhxejPXgEff/oU7iMB3As+oCu9W/mvN0R5oXzMczXpQY23wX84u+o
- IHBEI8tJUF7r/+BXEfR4A/GWj8EKWFS9KP2gol5WElMqucsg==
-Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com
- [209.85.210.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d4q0917d1-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Mar 2026 04:31:58 +0000 (GMT)
-Received: by mail-pf1-f200.google.com with SMTP id
- d2e1a72fcca58-82c6dd66f6dso1254447b3a.1
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Mar 2026 21:31:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1774499518; x=1775104318;
- darn=lists.freedesktop.org; 
- h=cc:to:message-id:content-transfer-encoding:mime-version:subject
- :date:from:from:to:cc:subject:date:message-id:reply-to;
- bh=jJRKMt5STVkyb1Y7d1ZgMO1sueYs1DgBavRo6QS64AI=;
- b=TiC7WvWA9wr3guOxDuZN39Axe/ruNhnsxJR9pH5fDqxsWhi4zBd1mn7i/fYlLqvd3S
- eO0/q02ZWLo5/PLvufGGMNXzyxzT3Vq63DYQaDpW8SiAXG4OIckY8/7pVYtYSBJAeOBb
- gGVmu7hRQudgZs6HqUL7TEzTVy7608WfmPSlrqERFwyfZGDANOviTSCjjR/iDDs/EdWO
- bSZBxj4+9VtqlYjHPX2u5aDoFHr1ViqEMFo8vB65pQXg55snCQBevuivWFq5tJZxDI32
- xSIFCW+89dherv+EFwlofBAB86/nDQKc42pDYue40dJ9RbflEAMBPTeZtWpbP3fjSrxc
- RMug==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774499518; x=1775104318;
- h=cc:to:message-id:content-transfer-encoding:mime-version:subject
- :date:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=jJRKMt5STVkyb1Y7d1ZgMO1sueYs1DgBavRo6QS64AI=;
- b=qP4f06xLINW383NgOGKaj7oTEKHDC0br70nPOG2O6VSZTocz1sybwKKA3teDBP5Mw8
- t2DaAA8jovhmxtLpfQdHlJspxn/kzQTVt9EyUaA5pyx4M9eJ/TDFO5ie+7qJtSNydV6j
- esOCYtPwVn1GsAXOIAh+/aioufqZs4QaMKIw+RcwxpPPG4npviXcPmqXbGs4PbSXIiXy
- eObVZWjLMuDgmu5swtXaJHdDncxFWgsqBBzIgcdpwWQsz8HphidQ/I6sT6VKRjDvkzb2
- g/zx3ymXDEYBl02HlbFAKc5sIEzPlZhBzhEeEUCTercF5JW1gODnAzb8O6F6NJLrWsbR
- VZXw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVBR8PABxZjWODHtKMlTtp2Ff1yLjIqa/w4l6ycp/PiphIzrp6dr9vT3CbImfbqQX3d+eVZ2xAX55w=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzHAaap5oPQOUQsFGOkNkVLveFBjvrTh5Db2J+hu1DWQe4jf80F
- J+n/Obo6zos3asbZho9Qy5hP3jcDwrKDqrWddzOmaZD1//+EsKFLBHf7YowKTgNrOA1sWH5klA5
- E3bmNRqkehwNHmfzaluWCprDdPWhVraA3N5Bqe7qnAJggdRsP6Sr7uV6BI+nHPiaCizdd9hA=
-X-Gm-Gg: ATEYQzwj8bIqkWXuketsws+RrqU+PxExouW8zgT+4kjiYD0ZGeJ1EB9W23g7Wjm4s7s
- Gk4jhcgOOtXVp/gD2GVIJIdCI74KUdfqlmQWIkeb9SuNCwV7JWrtxZVLrBtR6SATekay3Pv/ajd
- 6ue/uPBNGb5Ff7I4Myg8NIoyeXUzcVMZtU73shRIstXk7ObeRPbmia+zBy3h0+9zPUU3Pb9LxlT
- /Ds0gF5lSYq/fkLb4+MzepLs4TcAS0Q1Eb8y+zd9Vm3T/V9eHtwkviM5jCOmMD1WatCcupHEOcM
- POE6uX0jIHimCYGbj6i2PM+mCEBLlK/vodxS381UZ+WhX02hHD+NOf32dphfv/T3T7u0bhpQel+
- b4W0HMnaYwGJn3NvmUUi3AxkxIOg15Bc8EXXc8vHcaMtD5eCv9c/H9Qov
-X-Received: by 2002:a05:6a00:4b0a:b0:829:809e:8981 with SMTP id
- d2e1a72fcca58-82c6e0e616dmr6256933b3a.31.1774499517615; 
- Wed, 25 Mar 2026 21:31:57 -0700 (PDT)
-X-Received: by 2002:a05:6a00:4b0a:b0:829:809e:8981 with SMTP id
- d2e1a72fcca58-82c6e0e616dmr6256897b3a.31.1774499517105; 
- Wed, 25 Mar 2026 21:31:57 -0700 (PDT)
-Received: from hu-arandive-hyd.qualcomm.com ([202.46.22.19])
- by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-82c7d22c8e8sm1177396b3a.24.2026.03.25.21.31.52
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 25 Mar 2026 21:31:56 -0700 (PDT)
-From: Aniket Randive <aniket.randive@oss.qualcomm.com>
-Date: Thu, 26 Mar 2026 10:01:48 +0530
-Subject: [PATCH v1] i2c: qcom-geni: Skip extra TX DMA TRE for single read
- message in GPI mode
-MIME-Version: 1.0
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 67A6D10E8AB;
+ Thu, 26 Mar 2026 04:45:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1774500308; x=1806036308;
+ h=date:from:to:cc:subject:message-id:
+ content-transfer-encoding:mime-version;
+ bh=jpYGC+E1KOueWFf0/f01teCKCB9aByNQxhXChvoQXGQ=;
+ b=GQ9YPybXfWHQM3gyOAAPDUtDK29uybGVoNL4to/huy3SFf1JlNlqemdW
+ gDFlm2yeiaf49AVfZ6qOrzUxCAYoE/r9f1ttfmz6ld5sFVhYgyhocRUr+
+ Ow0HKH6IMUGL8+flATIhw9/yeDdL4iJ5Yfw3hotgkn+W1gH0gPE2VeT5F
+ viNzukXVCQK6GMMV4+EAxZqRj3sDhMQLbNHPyFVEbqO17InfR621//Mko
+ FKKMUAUi09oLntA4gAOyKsyQWCghqvB8q98r/B3ug14THfrUvNSia5Z0S
+ QKhgfIMgtaDCo6EytpeHx9ghTMnpE/IrrY2XEL3oOlsLlt4XTBUkrMYME A==;
+X-CSE-ConnectionGUID: hMO65GTBSi64iuGhsc3irA==
+X-CSE-MsgGUID: 0Uc3znDvRxW5S8CPZACXBQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11740"; a="63101752"
+X-IronPort-AV: E=Sophos;i="6.23,141,1770624000"; d="scan'208";a="63101752"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+ by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Mar 2026 21:45:08 -0700
+X-CSE-ConnectionGUID: 6vQ9LHgeTOuZsFUW5wRzXw==
+X-CSE-MsgGUID: Nsb9VUKuRCO6hKbTcR15rw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,141,1770624000"; d="scan'208";a="224076345"
+Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
+ by orviesa010.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Mar 2026 21:45:07 -0700
+Received: from FMSMSX901.amr.corp.intel.com (10.18.126.90) by
+ fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37; Wed, 25 Mar 2026 21:45:06 -0700
+Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
+ FMSMSX901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37 via Frontend Transport; Wed, 25 Mar 2026 21:45:06 -0700
+Received: from CO1PR03CU002.outbound.protection.outlook.com (52.101.46.63) by
+ edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37; Wed, 25 Mar 2026 21:45:06 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=E9Js73jCGf+ZYdy7hwUB6R4uWKeonrdMXWXAy5lSHvIYzPwpNwtNODFB62ftSKXsFmgI85vKbQyc5FYhWKd2kmx5TxVtyElTcRY0CS18VT63QIaCgkZmcIhxSs/kWRQfKHV2ljHljbUZpqJGY7mHSW2UVeDIKB+6gN0eqHOEsM2DCodOHj92b3o7mPX3tj+fqzv2O/V15LuBEnybgvUhuxUKhEaohZg29X2j88sDS2dwox5CJemxzUtFbuIaA82g818DcbovgqXZlibN8ZNTRoYJVBJhe7qcGO03a9EfBZDMzlz1Hv02tFYT70tW1z/pmXvVKBnJZsl0oTJIdkS3Fw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=mlDWQCFRQuLAf49updIAq89jD53ZUINFdP1gsUKYrKw=;
+ b=FuwOraTmtOcB0plR9+Ohm2dMhpq0BTsz0cpXgMaofS8DY0gk0AyM9maWhJvgttWCQBcypPHfNH3sKpSDEBC0yjFqatno1JDJ+jV4/czHiWwSAyskrWiNXMg10ke93o+rF1cPBaJyIhMplU6Lj43RchSMPrQqEemrZTcBAv42qXdlFzk10DLEKW728jKxyPhb3rtdRe04Dq9mBXqo1svdZvyA5PfNYEB6TkSqvmZ9mLMWp4IQasSzT2g/fkaL6yjoRC17yM3oH7/xuBlRq+WLRgjx3v4430jHA7FHWeblf6NvQue8XeqG2VHiOtpcb2Mn1KAXFcMnu1hspK5me/35rg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from DS0PR11MB6519.namprd11.prod.outlook.com (2603:10b6:8:d1::5) by
+ SA1PR11MB6870.namprd11.prod.outlook.com (2603:10b6:806:2b4::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.7; Thu, 26 Mar
+ 2026 04:44:57 +0000
+Received: from DS0PR11MB6519.namprd11.prod.outlook.com
+ ([fe80::c336:8ed1:4b09:4414]) by DS0PR11MB6519.namprd11.prod.outlook.com
+ ([fe80::c336:8ed1:4b09:4414%3]) with mapi id 15.20.9745.019; Thu, 26 Mar 2026
+ 04:44:57 +0000
+Date: Wed, 25 Mar 2026 21:44:54 -0700
+From: Matthew Brost <matthew.brost@intel.com>
+To: Dave Airlie <airlied@gmail.com>, Simona Vetter <simona.vetter@ffwll.ch>
+CC: Jani Nikula <jani.nikula@linux.intel.com>, Joonas Lahtinen
+ <joonas.lahtinen@linux.intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Thomas Zimmermann
+ <tzimmermann@suse.de>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Matthew Brost <matthew.brost@intel.com>,
+ Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>, "Oded
+ Gabbay" <ogabbay@kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <intel-gfx@lists.freedesktop.org>, <intel-xe@lists.freedesktop.org>,
+ <dim-tools@lists.freedesktop.org>
+Subject: [PULL] drm-xe-next
+Message-ID: <acS5xmWC3ivPTmyV@gsse-cloud1.jf.intel.com>
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260326-skip_extra_dma_tre-v1-1-deef018895dc@oss.qualcomm.com>
-X-B4-Tracking: v=1; b=H4sIALO2xGkC/yWM0QqDMAwAf0XyvIKNOLb9yhiltqnLxpwkVQTx3
- +3m4x3craAkTAq3agWhmZW/QwF7qiA8/dCT4VgYsMZz3WBr9M2joyWLd/HjXRYyvgkJMV1svHZ
- QwlEo8fKf3mG28DicTt2LQv7dYNt26Um64XoAAAA=
-X-Change-ID: 20260325-skip_extra_dma_tre-a3cf22f81d9b
-To: Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>,
- Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>,
- Andi Shyti <andi.shyti@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>,
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: linux-i2c@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
- Maramaina Naresh <naresh.maramaina@oss.qualcomm.com>,
- Aniket Randive <aniket.randive@oss.qualcomm.com>
-X-Mailer: b4 0.15.1
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1774499512; l=2657;
- i=aniket.randive@oss.qualcomm.com; s=20260325; h=from:subject:message-id;
- bh=NpFXvrYh3Fb7+pGlr/Z61Pb78xmA51Vjq3Rxx3qOVtg=;
- b=F4oCSfY3o5eliC5a/9PowUrf5FxpGtSwz/W4vzzQWSTjf14iwuzX8WrayFTCnK9XM9yo9kEL2
- Iw5BwmRKNyMAZKpj1OK+i5GLjGWoi4vXfVo03bhtCg3FGxQGx7hFxXK
-X-Developer-Key: i=aniket.randive@oss.qualcomm.com; a=ed25519;
- pk=4o37X1ZqGbCO/T2SR8kq/HnWvq0yb1RUlFuNukovbQk=
-X-Authority-Analysis: v=2.4 cv=fufRpV4f c=1 sm=1 tr=0 ts=69c4b6be cx=c_pps
- a=mDZGXZTwRPZaeRUbqKGCBw==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
- a=EUspDBNiAAAA:8 a=QTaY6CSZEmO6sGPGzGoA:9 a=QEXdDO2ut3YA:10
- a=zc0IvFSfCIW2DFIPzwfm:22
-X-Proofpoint-GUID: wFGCXSRB45Ga0IPiibBdnIdqQt6Tm_iv
-X-Proofpoint-ORIG-GUID: wFGCXSRB45Ga0IPiibBdnIdqQt6Tm_iv
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzI2MDAzMiBTYWx0ZWRfX1x++pOMhO6QX
- nN/zonE9GZhbtieleLVlLIIITBQhRIpWLV7Wi0UDFS5icZMUW6HFhfJZH0Oj/n6jHBEdvodsvuV
- vcpUhEtF4oULEqelNn4ubYs3pB9wzxKDkBlg3YRs+BVVgcKCKYZe6xgaqwQSD9Nhj7vUqfI0FTy
- In//tnkOvDuuQdWyBe82zs9z04Q1dh9TFQ1Flg20oicH3gbWqJ3Oe0m3zdmSpP1IGaYZI4cPqaj
- k+G9WA2WcdSIvJxmPHQVtoHHX/Udh+nKkMb+NitiAJ1PqVjz8f/5CqCkNnC1pkG9gEtY19kx+WX
- 1uBECVj5zryEeRlt9zCmkblBF2dIqJE/TTVBc3hdCyHUd0PseFC2aaY/+2RgIV0Bp1/3u351Ac4
- QkOUSND0nFPYITnDs01YN5EnTlhH+VxPFQ7Zn+QkdXvTGCkXXuqM7pwTcLWVupebxHE/xpEo0hp
- pH2NnMlJo6T95oxGQfQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-03-26_01,2026-03-24_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 adultscore=0 priorityscore=1501 malwarescore=0 lowpriorityscore=0
- suspectscore=0 bulkscore=0 phishscore=0 impostorscore=0 clxscore=1011
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603260032
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: MW4PR04CA0270.namprd04.prod.outlook.com
+ (2603:10b6:303:88::35) To DS0PR11MB6519.namprd11.prod.outlook.com
+ (2603:10b6:8:d1::5)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS0PR11MB6519:EE_|SA1PR11MB6870:EE_
+X-MS-Office365-Filtering-Correlation-Id: c77db274-0519-40c6-86e1-08de8af26e85
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|376014|7416014|366016|18002099003|56012099003; 
+X-Microsoft-Antispam-Message-Info: xFd56V31bECFk4kl3FH8AOefw6HgHyqLRHaLpUSmEAfO2aEOG5h/q2yiyNdqVvPQwlFM6CLMYOe6B1ZtHQYtU/dIQSL6XqU8stczZfU6HCki+EPu+Qzw0wdTv8gEGjuK1QXuprFwqgtIGg/Atuy3n7/0bfHwhzYZGyEwrDjkQ/QY9INnvOxK8FvO+v73W8XaokQg3Ju71BNbzZ0IXD/mDRYRPzvDZEaQl+zC9PxpaLUmy9Cvfo5+SkuTfuBFVIa2yV28wwHfHh77Vm4QkEfan9pMUxwPedp07TXpa2hYK7L5o/Bb+s1Y+dvmKoiZOvTQMpImOwWZhWWqruOkyvjIL4GphlVknEsFtTH74CVDJ9MEKqd0yLWG9a1s9/aJghdzgATy1f7CQfqkIqtGII5tQ7LXl1iy8VQowFFvOnXsPKqi0/swWJSYd5ATEKqXYRlIGZns2YuK4kQKhY98exElJnKSGWavZXai/MarRcTMoX7avYeE2HU2Uk+hoPSRYjqtPEg9HaCJglY3Mjeh/uOltpy0NA0fD62UIGX3pL1xaKzPIhi2Zwv8bkSlC1mSMpUI+Jg3QGWfQUFmnPvDQZiDAE44umPGluvTfEkzIfYPttnPB1mRIbRYY+paNEYpuATU6IOwsWxeZkoGuSbb5y86aPPJlo4NVJHaIx3kIFAL26Suo60PvlVemRcoX0UQUvkW
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS0PR11MB6519.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(7416014)(366016)(18002099003)(56012099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?N2NCVFUzMTlxLzY4RllGR2ZsQ1d5VVlwUVpta0xEdHVQYjYrS21DNDBZMmVI?=
+ =?utf-8?B?WUlWZlhEN1NDaXVVN3lJWmVYeERneTU1ajVjMkdpb2E2QjJrZmx2TjlwU2xo?=
+ =?utf-8?B?bTdiS3ZHd0VFbjVFNUpEM0dHQVVxSnBBT0hFalRHZDdJV2p2bm9xaDE2TzNj?=
+ =?utf-8?B?bEs5c1RCNVNZZ0dQYkJaVUZGTmJhM2kzMnFKWVBoQ0pEVVZlU1o0d2g2cHFp?=
+ =?utf-8?B?dnl2TWVWaEkzLzY5Ym9Vc1BRRkpiNjdKYjU0TkdrYWlEc2d1SUk4ODg3SEpm?=
+ =?utf-8?B?MGVzRmlOMzAzWHNNWk9XZ25zeEtueG1HWEN0blNsS0pia2pXdENpeGlTQ1hv?=
+ =?utf-8?B?QU1Ianl3cjhHbHJQbFlqR0p6eDdwdTg0dzhKb2JUakxlcG5oTG9rNzNmdEZT?=
+ =?utf-8?B?VHRyUDlMRFE1VmxleWR1a3dlOU5vVlZka2pzT2s3dmxDb3RGeHdqQXJreFNZ?=
+ =?utf-8?B?YW1OTkwrcTAzT1FGNTFMNFpET1I3Rmlyb2dFcU5YWThkRW9oYldEYzdZQ2Y2?=
+ =?utf-8?B?aThUWXVzc0Z6YlBzQm0zZ0xrTVN4MzFjWGF1aXRuSkNBVUFKOHdqMEJFNWF4?=
+ =?utf-8?B?NTJhdGZLOFRMSkV4L1phczN2dUgyU2cwZWtRekNpZTFhc2RpN3Qyd3d3TXRG?=
+ =?utf-8?B?TjcxTHI3T0JUeTJnbTFEQ1g5eVZ2aVp5SWUvWHlaTlM0Y0QvZU02MkRQRFhJ?=
+ =?utf-8?B?QTQvVS9RSldUUS9JendjL1ZXM1d3RzhzSnFoT1NsN1kwVlBGekVkSUVHa1pU?=
+ =?utf-8?B?U291NWtacUozRVJmYm9reTE3RzVjOVpieTBaS3h2bmliQnF0UkpNTVlxcmp3?=
+ =?utf-8?B?cHpVcEFlUzBnVEpaLy8xZ3dSM3RML3FVSEJyRmh3QTJaU3lWTDJZQ2IweXRo?=
+ =?utf-8?B?TlFmSUVaVG5Rc212SlN3T29wVjNKNnZtVlJNb1JTRG9vUEZmUW55SS9KTnFj?=
+ =?utf-8?B?YnFZQm9UZmZvczhiMm5YNG5ReUVIYUdjOHRuTDg2azN5VXZYckVRd2Vrc2xF?=
+ =?utf-8?B?NjV6TXdRa0Q5NVR4V1RHZ2FKQVhvdGl6U2pjUnRCSzRKMzRJbWlWZHFsb2Y5?=
+ =?utf-8?B?NlJSZGJoc3Q4VGE2MnNveWZBNThmdU9lRUNybUdudUx0T0RyL0NialFpOWZ5?=
+ =?utf-8?B?N0IyT0twajRrY2pTNVdkdzRxM3BTWjRpKzlJUTdZMm1Za3Z1K1RPRGQzN0FF?=
+ =?utf-8?B?RndpS2xVTWZ0RWlqemVLTkVtUjdiajU5R1FpLzNzSWx6OGVjTnM3OE9rNmxr?=
+ =?utf-8?B?SUgrUDlyRmlFU3p4OHpaNE1UWHVWdnlzcEF1MitBNkhXdzNpUHhvdEhJWGdW?=
+ =?utf-8?B?Qk5QQ3pHOFJBTHNxMXZtdW1PZnY0YVJOUFhCeUZaVDltN1o4dG1uemZMcU44?=
+ =?utf-8?B?V3NIYWJIL2hLdVZlMVQyUFgwNzA2eW5qM1JDeTRod0sxZGw4SWhKR2tLMWJw?=
+ =?utf-8?B?cUg3N0tEQ1JQRnY3dFoybmVWbTczczF0LzVHYXg3SFUzUjkremJxSC9YRm4y?=
+ =?utf-8?B?ejgrdG84S1B0QWdXYVNqenRaTUsxSXJldTJwS25WdkpuT3lmLzA0K0dybmNH?=
+ =?utf-8?B?YWIwRmYxd2pkTFVRRVhNNkQyVXRJOU1OZVp5TUkyR0Vvb1REcmpYWVRraWM3?=
+ =?utf-8?B?RFc1cmtwZU02aTVzd21tOHdqa0pKdlkrUVd3cWc0N2ZYU2xpbGdQa25GaFRC?=
+ =?utf-8?B?THp2ejcrdjY1cHpodjBURW1ab1hKcmlacWE0WjZ6ZzVCL3h3bGxwd3FvODd1?=
+ =?utf-8?B?QTlCR0lkdjlub3JyM1F5VUhYbVcwYzVTYnlRMnlIWlJidGp4S0h5K2pDay9J?=
+ =?utf-8?B?NytYblhkR0RnQWlRUENGbVJlKzVud25HeXJML1JBNWR5YUp4RGlWNnpzdXJ4?=
+ =?utf-8?B?UHRJWFhzTG9VSUUwd2gvajVpMkVwb2trYndUMmxjb2JycHNlc21oQVpBemM3?=
+ =?utf-8?B?UFFPRzVaWFFHdDFZRGp5ZksvcURTRG51OFdxZmdWVjFOaG03UjY1VFJqSnJM?=
+ =?utf-8?B?UVA3SHptQVNDbE5lajdCaDNVRFh5eXhNVkhtSktMVm8xaUt4R1ZEQkJmTFVH?=
+ =?utf-8?B?K1YveVhoMlYzZTN1L3BpUGpaNHNBSWQ3eTFGaG5JWFhGNFA4MzFQT0htUHAy?=
+ =?utf-8?B?dTloUUs3RWxTRHBkcWxTb0h5a1ZvdWJWdnpFZ01yMTBBU0Q5MlF6SXMzVjlW?=
+ =?utf-8?B?UmFxQTNHNVEzbXdCclpRYmV6WGRGWmZIdXJrdU9RRXc0anVtM1hTSEJxallo?=
+ =?utf-8?B?N2R2cXlDVXdPT2lPUTEyaU9IMnlJaTVvN2MrZWRwSUYwa2Y0WFJ2ZjBUZlRq?=
+ =?utf-8?B?YUduUDZyY052aEdtOXYwZHVubnJSM29lTW9ZQnRUSTJaRmwzY05veDlwRGFH?=
+ =?utf-8?Q?P//goMUW2W0ZJ6TM=3D?=
+X-Exchange-RoutingPolicyChecked: IpXBbEZv6ZU7MK71z0iW4vWBfD9dcpQXpRi+k5aohKxEyBQDMTgZmIFp1YCzQB4uinx9QdtMp0mZt/vgldwPCNk1bCWnunheAeFXS7XKnrqIvabWUFUoMVhPhx3mXT8RZsrexDlqMYfHTAk3sMiUsyyqqdHIgUdU4J7eEC97Oq8YtMmFOaWRUumxpERZ4DUP0Y1rH5jaLhabtY7K54rfghPmMsipeVV00wCWoECbPGbu2+fvfgZwGfoH2dox1XY0Taw4jCg+Cl7xWyI7T6b33pbs1JfhEOIEBIfeoEtIlL9ZqsCILgqIRiv6MGQ6lGlDzFgJaysEcONysxKTOO9Ztg==
+X-MS-Exchange-CrossTenant-Network-Message-Id: c77db274-0519-40c6-86e1-08de8af26e85
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR11MB6519.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Mar 2026 04:44:57.6010 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: V+aWL/z4A2of4sw9cUmckM8szKYQLxadp6R5oGxmAMQkea2MtQqJ5OussAnskgeA0B2wop64eUASctCQcUF8Pw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR11MB6870
+X-OriginatorOrg: intel.com
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -152,77 +174,255 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-In GPI mode, the I2C GENI driver incorrectly generates an extra TX DMA
-TRE on the TX channel during single read message transfer. This results
-in an unnecessary write operation on the I2C bus, which is not required.
+drm-xe-next-2026-03-25:
+Hi Dave and Sima,
 
-Update the logic to avoid generating the extra TX DMA TRE for single
-read message, ensuring correct behavior and preventing redundant
-transfers.
+Here goes our third, perhaps, final drm-xe-next PR towards 7.1.
 
-Co-developed-by: Maramaina Naresh <naresh.maramaina@oss.qualcomm.com>
-Signed-off-by: Maramaina Naresh <naresh.maramaina@oss.qualcomm.com>
-Signed-off-by: Aniket Randive <aniket.randive@oss.qualcomm.com>
----
- drivers/i2c/busses/i2c-qcom-geni.c | 18 +++++++++++++-----
- 1 file changed, 13 insertions(+), 5 deletions(-)
+In the big things we have:
+- THP support in drm_pagemap
+- xe_vm_get_property_ioctl
 
-diff --git a/drivers/i2c/busses/i2c-qcom-geni.c b/drivers/i2c/busses/i2c-qcom-geni.c
-index a4acb78fafb6..2706309bbebb 100644
---- a/drivers/i2c/busses/i2c-qcom-geni.c
-+++ b/drivers/i2c/busses/i2c-qcom-geni.c
-@@ -625,8 +625,8 @@ static int geni_i2c_gpi(struct geni_i2c_dev *gi2c, struct i2c_msg msgs[],
- {
- 	struct gpi_i2c_config *peripheral;
- 	unsigned int flags;
--	void *dma_buf;
--	dma_addr_t addr;
-+	void *dma_buf = NULL;
-+	dma_addr_t addr = 0;
- 	enum dma_data_direction map_dirn;
- 	enum dma_transfer_direction dma_dirn;
- 	struct dma_async_tx_descriptor *desc;
-@@ -639,6 +639,11 @@ static int geni_i2c_gpi(struct geni_i2c_dev *gi2c, struct i2c_msg msgs[],
- 	gi2c_gpi_xfer = &gi2c->i2c_multi_desc_config;
- 	msg_idx = gi2c_gpi_xfer->msg_idx_cnt;
- 
-+	if (op == I2C_WRITE && msgs[msg_idx].flags & I2C_M_RD) {
-+		peripheral->multi_msg = true;
-+		goto skip_dma;
-+	}
-+
- 	dma_buf = i2c_get_dma_safe_msg_buf(&msgs[msg_idx], 1);
- 	if (!dma_buf) {
- 		ret = -ENOMEM;
-@@ -668,6 +673,7 @@ static int geni_i2c_gpi(struct geni_i2c_dev *gi2c, struct i2c_msg msgs[],
- 		flags = DMA_PREP_INTERRUPT | DMA_CTRL_ACK;
- 	}
- 
-+skip_dma:
- 	/* set the length as message for rx txn */
- 	peripheral->rx_len = msgs[msg_idx].len;
- 	peripheral->op = op;
-@@ -740,9 +746,11 @@ static int geni_i2c_gpi(struct geni_i2c_dev *gi2c, struct i2c_msg msgs[],
- 	return 0;
- 
- err_config:
--	dma_unmap_single(gi2c->se.dev->parent, addr,
--			 msgs[msg_idx].len, map_dirn);
--	i2c_put_dma_safe_msg_buf(dma_buf, &msgs[msg_idx], false);
-+	if (op == I2C_WRITE && (msgs[msg_idx].flags & I2C_M_RD)) {
-+		dma_unmap_single(gi2c->se.dev->parent, addr,
-+				 msgs[msg_idx].len, map_dirn);
-+		i2c_put_dma_safe_msg_buf(dma_buf, &msgs[msg_idx], false);
-+	}
- 
- out:
- 	gi2c->err = ret;
+Thanks,
+Matt
 
----
-base-commit: 785f0eb2f85decbe7c1ef9ae922931f0194ffc2e
-change-id: 20260325-skip_extra_dma_tre-a3cf22f81d9b
+UAPI Changes:
+- Implement xe_vm_get_property_ioctl (Jonathan)
 
-Best regards,
---  
-Aniket Randive <aniket.randive@oss.qualcomm.com>
+Cross-subsystem Changes:
+- Enable THP support in drm_pagemap (Francois, Brost)
 
+Core Changes:
+- Improve VF FLR synchronization for Xe VFIO (Piotr)
+
+Driver Changes:
+- Fix confusion with locals on context creation (Tomasz, Fixes)
+- Add new SVM copy GT stats per size (Francois)
+- always keep track of remap prev/next (Auld, Fixes)
+- AuxCCS handling and render compression modifiers (Tvrtko)
+- Implement recent spec updates to Wa_16025250150 (Roper)
+- xe3p_lpg: L2 flush optimization (Tejas)
+- vf: Improve getting clean NULL context (Wajdeczko)
+- pf: Fix use-after-free in migration restore (Winiarski. Fixes)
+- Fix format specifier for printing pointer differences (Nathan Chancellor, Fixes)
+- Extend Wa_14026781792 for xe3lpg (Niton)
+- xe3p_lpg: Add Wa_16029437861 (Varun)
+- Fix spelling mistakes and comment style in ttm_resource.c (Varun)
+- Merge drm/drm-next into drm-xe-next (Thomas)
+- Fix missing runtime PM reference in ccs_mode_store (Sanjay, Fixes)
+- Fix uninitialized new_ts when capturing context timestamp (Umesh)
+- Allow reading after disabling OA stream (Ashutosh)
+- Page Reclamation Fixes (Brian Nguyen, Fixes)
+- Include running dword offset in default_lrc dumps (Roper)
+- Assert/Deassert I2C IRQ (Raag)
+- Fixup reset, wedge, unload corner cases (Zhanjun, Brost)
+- Fail immediately on GuC load error (Daniele)
+- Fix kernel-doc for DRM_XE_VM_BIND_FLAG_DECOMPRESS (Niton, Fixes)
+- Drop redundant entries for Wa_16021867713 & Wa_14019449301 (Roper, Fixes)
+The following changes since commit d93f8ea0e5ad41d661496d205fac3e2fbd9358c0:
+
+  Merge tag 'drm-intel-next-2026-03-16' of https://gitlab.freedesktop.org/drm/i915/kernel into drm-next (2026-03-17 15:44:26 +1000)
+
+are available in the Git repository at:
+
+  https://gitlab.freedesktop.org/drm/xe/kernel.git tags/drm-xe-next-2026-03-25
+
+for you to fetch changes up to 3d4939c0ec011ad6dfda7c13362b3d2013425789:
+
+  drm/xe: Fix confusion with locals on context creation (2026-03-25 18:24:52 -0700)
+
+----------------------------------------------------------------
+
+UAPI Changes:
+- Implement xe_vm_get_property_ioctl (Jonathan)
+
+Cross-subsystem Changes:
+- Enable THP support in drm_pagemap (Francois, Brost)
+
+Core Changes:
+- Improve VF FLR synchronization for Xe VFIO (Piotr)
+
+Driver Changes:
+- Fix confusion with locals on context creation (Tomasz, Fixes)
+- Add new SVM copy GT stats per size (Francois)
+- always keep track of remap prev/next (Auld, Fixes)
+- AuxCCS handling and render compression modifiers (Tvrtko)
+- Implement recent spec updates to Wa_16025250150 (Roper)
+- xe3p_lpg: L2 flush optimization (Tejas)
+- vf: Improve getting clean NULL context (Wajdeczko)
+- pf: Fix use-after-free in migration restore (Winiarski. Fixes)
+- Fix format specifier for printing pointer differences (Nathan Chancellor, Fixes)
+- Extend Wa_14026781792 for xe3lpg (Niton)
+- xe3p_lpg: Add Wa_16029437861 (Varun)
+- Fix spelling mistakes and comment style in ttm_resource.c (Varun)
+- Merge drm/drm-next into drm-xe-next (Thomas)
+- Fix missing runtime PM reference in ccs_mode_store (Sanjay, Fixes)
+- Fix uninitialized new_ts when capturing context timestamp (Umesh)
+- Allow reading after disabling OA stream (Ashutosh)
+- Page Reclamation Fixes (Brian Nguyen, Fixes)
+- Include running dword offset in default_lrc dumps (Roper)
+- Assert/Deassert I2C IRQ (Raag)
+- Fixup reset, wedge, unload corner cases (Zhanjun, Brost)
+- Fail immediately on GuC load error (Daniele)
+- Fix kernel-doc for DRM_XE_VM_BIND_FLAG_DECOMPRESS (Niton, Fixes)
+- Drop redundant entries for Wa_16021867713 & Wa_14019449301 (Roper, Fixes)
+
+----------------------------------------------------------------
+Ashutosh Dixit (1):
+      drm/xe/oa: Allow reading after disabling OA stream
+
+Brian Nguyen (3):
+      drm/xe: Skip over non leaf pte for PRL generation
+      drm/xe: Move page reclaim done_handler to own func
+      drm/xe: Skip adding PRL entry to NULL VMA
+
+Daniele Ceraolo Spurio (1):
+      drm/xe/guc: Fail immediately on GuC load error
+
+Francois Dugast (4):
+      drm/pagemap: Unlock and put folios when possible
+      drm/pagemap: Add helper to access zone_device_data
+      drm/pagemap: Enable THP support for GPU memory migration
+      drm/xe: Add new SVM copy GT stats per size
+
+Jonathan Cavitt (4):
+      drm/xe/xe_pagefault: Disallow writes to read-only VMAs
+      drm/xe/uapi: Define drm_xe_vm_get_property
+      drm/xe/xe_vm: Add per VM fault info
+      drm/xe/xe_vm: Implement xe_vm_get_property_ioctl
+
+Matt Roper (3):
+      drm/xe/wa: Drop redundant entries for Wa_16021867713 & Wa_14019449301
+      drm/xe: Include running dword offset in default_lrc dumps
+      drm/xe: Implement recent spec updates to Wa_16025250150
+
+Matthew Auld (1):
+      drm/xe: always keep track of remap prev/next
+
+Matthew Brost (5):
+      drm/xe: Always kill exec queues in xe_guc_submit_pause_abort
+      drm/xe: Forcefully tear down exec queues in GuC submit fini
+      drm/xe: Trigger queue cleanup if not in wedged mode 2
+      drm/xe: Open-code GGTT MMIO access protection
+      drm/pagemap: Correct cpages calculation for migrate_vma_setup
+
+Michal Wajdeczko (3):
+      drm/xe: Add PR_CTR_CTRL/THRSH register definitions
+      drm/xe: Add MI_SEMAPHORE_WAIT command definition
+      drm/xe/vf: Improve getting clean NULL context
+
+Michał Winiarski (1):
+      drm/xe/pf: Fix use-after-free in migration restore
+
+Nathan Chancellor (1):
+      drm/xe: Fix format specifier for printing pointer differences
+
+Nitin Gote (2):
+      drm/xe/uapi: Fix kernel-doc for DRM_XE_VM_BIND_FLAG_DECOMPRESS
+      drm/xe: Extend Wa_14026781792 for xe3lpg
+
+Piotr Piórkowski (2):
+      drm/xe/pf: Add FLR_PREPARE state to VF control flow
+      vfio/xe: Notify PF about VF FLR in reset_prepare
+
+Raag Jadav (1):
+      drm/xe/i2c: Assert/Deassert I2C IRQ
+
+Sanjay Yadav (1):
+      drm/xe: Fix missing runtime PM reference in ccs_mode_store
+
+Tejas Upadhyay (4):
+      drm/xe/xe3p_lpg: flush shrinker bo cachelines manually
+      drm/xe/pat: define coh_mode 2way
+      drm/xe/xe3p_lpg: Restrict UAPI to enable L2 flush optimization
+      drm/xe/xe3p: Skip TD flush
+
+Thomas Hellström (1):
+      Merge drm/drm-next into drm-xe-next
+
+Tomasz Lis (1):
+      drm/xe: Fix confusion with locals on context creation
+
+Tvrtko Ursulin (12):
+      drm/xe: Rename XE_BO_FLAG_SCANOUT to XE_BO_FLAG_FORCE_WC
+      drm/xe: Use write-combine mapping when populating DPT
+      drm/xe/xelpg: Limit AuxCCS ring buffer programming to Alderlake
+      drm/xe/xelp: Quiesce memory traffic before invalidating AuxCCS
+      drm/xe/xelp: Wait for AuxCCS invalidation to complete
+      drm/xe: Move aux table invalidation to ring ops
+      drm/xe/xelp: Add AuxCCS invalidation to the indirect context workarounds
+      drm/xe/display: Move remapped plane loop out of __xe_pin_fb_vma_dpt
+      drm/xe/display: Change write_dpt_remapped_tiled function signature
+      drm/xe/display: Respect remapped plane alignment
+      drm/xe/display: Add support for AuxCCS
+      drm/xe/xelp: Expose AuxCCS frame buffer modifiers on Alderlake-P
+
+Umesh Nerlige Ramappa (1):
+      drm/xe/lrc: Fix uninitialized new_ts when capturing context timestamp
+
+Varun Gupta (2):
+      drm/ttm: Fix spelling mistakes and comment style in ttm_resource.c
+      drm/xe/xe3p_lpg: Add Wa_16029437861
+
+Zhanjun Dong (3):
+      drm/xe: Use XE_WEDGED_MODE_UPON_ANY_HANG_NO_RESET enum instead of magic number
+      drm/xe/guc: Ensure CT state transitions via STOP before DISABLED
+      drm/xe/uc: Drop xe_guc_sanitize in favor of managed cleanup
+
+ drivers/gpu/drm/drm_gpusvm.c                      |   7 +-
+ drivers/gpu/drm/drm_pagemap.c                     | 157 ++++++++++++---
+ drivers/gpu/drm/ttm/ttm_resource.c                |  28 +--
+ drivers/gpu/drm/xe/display/intel_fbdev_fb.c       |  12 +-
+ drivers/gpu/drm/xe/display/xe_display.c           |   8 +
+ drivers/gpu/drm/xe/display/xe_display_bo.c        |   6 +-
+ drivers/gpu/drm/xe/display/xe_dsb_buffer.c        |   4 +-
+ drivers/gpu/drm/xe/display/xe_fb_pin.c            | 118 ++++++++----
+ drivers/gpu/drm/xe/display/xe_initial_plane.c     |   2 +-
+ drivers/gpu/drm/xe/instructions/xe_mi_commands.h  |  19 ++
+ drivers/gpu/drm/xe/regs/xe_engine_regs.h          |   8 +
+ drivers/gpu/drm/xe/regs/xe_gt_regs.h              |   1 +
+ drivers/gpu/drm/xe/xe_bo.c                        |  24 ++-
+ drivers/gpu/drm/xe/xe_bo.h                        |   2 +-
+ drivers/gpu/drm/xe/xe_device.c                    |  33 ++++
+ drivers/gpu/drm/xe/xe_device.h                    |   1 +
+ drivers/gpu/drm/xe/xe_ggtt.c                      |  15 +-
+ drivers/gpu/drm/xe/xe_gt.c                        |   9 +-
+ drivers/gpu/drm/xe/xe_gt_ccs_mode.c               |   2 +
+ drivers/gpu/drm/xe/xe_gt_sriov_pf_control.c       |  78 ++++++--
+ drivers/gpu/drm/xe/xe_gt_sriov_pf_control.h       |   1 +
+ drivers/gpu/drm/xe/xe_gt_sriov_pf_control_types.h |   2 +
+ drivers/gpu/drm/xe/xe_gt_stats.c                  |   6 +
+ drivers/gpu/drm/xe/xe_gt_stats_types.h            |   6 +
+ drivers/gpu/drm/xe/xe_guc.c                       |  35 +++-
+ drivers/gpu/drm/xe/xe_guc.h                       |   1 +
+ drivers/gpu/drm/xe/xe_guc_ct.c                    |  24 +--
+ drivers/gpu/drm/xe/xe_guc_fwif.h                  |   1 +
+ drivers/gpu/drm/xe/xe_guc_submit.c                |  87 ++++++---
+ drivers/gpu/drm/xe/xe_i2c.c                       |  15 +-
+ drivers/gpu/drm/xe/xe_lrc.c                       |  96 +++++++---
+ drivers/gpu/drm/xe/xe_oa.c                        |   7 +-
+ drivers/gpu/drm/xe/xe_page_reclaim.c              |  26 +++
+ drivers/gpu/drm/xe/xe_page_reclaim.h              |   3 +
+ drivers/gpu/drm/xe/xe_pagefault.c                 |  32 ++++
+ drivers/gpu/drm/xe/xe_pat.c                       |  14 +-
+ drivers/gpu/drm/xe/xe_pat.h                       |   5 +-
+ drivers/gpu/drm/xe/xe_pt.c                        |  50 +++--
+ drivers/gpu/drm/xe/xe_ring_ops.c                  | 143 ++++++++++++--
+ drivers/gpu/drm/xe/xe_ring_ops_types.h            |   8 +-
+ drivers/gpu/drm/xe/xe_sched_job_types.h           |   2 +
+ drivers/gpu/drm/xe/xe_sriov_packet.c              |   2 +
+ drivers/gpu/drm/xe/xe_sriov_pf_control.c          |  24 +++
+ drivers/gpu/drm/xe/xe_sriov_pf_control.h          |   1 +
+ drivers/gpu/drm/xe/xe_sriov_vfio.c                |   1 +
+ drivers/gpu/drm/xe/xe_svm.c                       |  27 ++-
+ drivers/gpu/drm/xe/xe_uc.c                        |  22 +--
+ drivers/gpu/drm/xe/xe_vm.c                        | 223 +++++++++++++++++++++-
+ drivers/gpu/drm/xe/xe_vm.h                        |  12 ++
+ drivers/gpu/drm/xe/xe_vm_madvise.c                |  25 ++-
+ drivers/gpu/drm/xe/xe_vm_types.h                  |  33 ++++
+ drivers/gpu/drm/xe/xe_wa.c                        |  27 +--
+ drivers/vfio/pci/xe/main.c                        |  14 ++
+ include/drm/drm_pagemap.h                         |  21 ++
+ include/drm/intel/xe_sriov_vfio.h                 |  11 ++
+ include/uapi/drm/xe_drm.h                         |  92 ++++++++-
+ 56 files changed, 1340 insertions(+), 293 deletions(-)
