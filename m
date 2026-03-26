@@ -4,64 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DC03410AB805
-	for <dri-devel@archiver.kernel.org>; Thu, 26 Mar 2026 18:57:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B8B8C10AB802
+	for <dri-devel@archiver.kernel.org>; Thu, 26 Mar 2026 18:57:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 80D4610EBF6;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C1B5610EBF8;
 	Thu, 26 Mar 2026 18:57:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="YgL126Zf";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="a9J9CkT+";
 	dkim-atps=neutral
-Received: from mail-ot1-f47.google.com (mail-ot1-f47.google.com
- [209.85.210.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B1CB110EBED
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Mar 2026 18:55:40 +0000 (UTC)
-Received: by mail-ot1-f47.google.com with SMTP id
- 46e09a7af769-7d8b2703f37so1135411a34.1
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Mar 2026 11:55:40 -0700 (PDT)
+Received: from mail-oo1-f51.google.com (mail-oo1-f51.google.com
+ [209.85.161.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3422910EBF0
+ for <dri-devel@lists.freedesktop.org>; Thu, 26 Mar 2026 18:55:52 +0000 (UTC)
+Received: by mail-oo1-f51.google.com with SMTP id
+ 006d021491bc7-67e02b821cfso804919eaf.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 26 Mar 2026 11:55:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1774551340; x=1775156140; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1774551351; x=1775156151; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=26vMP3nfkpOdAIVisqGbQnZnw5iiyCO+aaCVYuAOEzg=;
- b=YgL126Zfb5gq5ReaihNiWNA+xK6A8mLKXUZjxzcZaz/s8UwL4YYuGAggdaRJ+JOmdN
- qOFJkldmt5eJ5+K4FA+71zUibjsgOp6ZjIt7CaG6ePBp120kZrjwi91RPb7E903rxtCj
- 5D5AhLKhm8fJ1TPiJQgwpzgnjsN8rTcz3jFqHWNu1OP6IOceA1z2+JWlBU/p72QaiT1e
- QFlNjQ1PTUrT/miNS2rAJVyIHTzkpiWON3RX45+936d+YBJQlKFMCjNn4pL1yGuZ9dkL
- 02Hr0RLeOBHmYXB9FpLLh4IBpe5qcOXYqvIbRx8bKvyRtL8xeDL/PEltS2VIsBT8KXRt
- T3Hw==
+ bh=4Ts/LFRGubV+qE5nUbczy5fsPH9e9tt1w1L0GvmpB2A=;
+ b=a9J9CkT+kUB+PG+4uyuxrBUUPB4aDXS4onJlaKHlmZKYYcCbEnbeGaO0ggHa/u0qOR
+ 5+V64ZG/9HDLNyB4Cc9OUCz2aKcbsyLcd0vuzvwXeXjC8TAQ8X2XQJtm3g2htadXH6g5
+ PGMH0Xe+F5Em/8T1MI5EA4b4o7IwOrkAoinn3QSodX5I33qW6q3IrBPTSP19uLfyOrNl
+ WQ/7nSNodYoasB0EkErai70C9+3Ff+/PmWM8Oq5IvHTG+LIhBNa3LV8GUoth7NBy9rfn
+ +uCE4GfZrD643hhRz8gKJyBHyCzczFzCStOYsmcRVmV2kUEZHH18h8YpK7bp1vCYOKnI
+ FEog==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774551340; x=1775156140;
+ d=1e100.net; s=20251104; t=1774551351; x=1775156151;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=26vMP3nfkpOdAIVisqGbQnZnw5iiyCO+aaCVYuAOEzg=;
- b=TC2724dSZA83sbQ1IlOhXbyD4VUpJwcU/4odHh6k4Bcgx4IAfui1OTg5azd0po88Et
- 9rvtb1MfCoehPZmdkYrwV6/LwyjkJWPag0flmdF0ZW4e9pu/tu4Oi/HStzDwaMXKgCO1
- WBAqIjf2cCAZHGJIEVg7PE4ifrP1NLKwHdgxwQlrOkP+/6l8S0tyHhPG7lsYC3Y6Y8mM
- iA9vGNy/xs5jpbZgkmor5uK+vZfTnkYh3aCAA4kyw7bwS0lcWkNp3awSYvEGUX3vahGE
- x/IZ3qucdvAYZkSJHaVnIXvtpdRhvDxhLAzPeYgUF/nFV7MgHaSWFn8wtu+fMnuL5+G+
- 8vIQ==
+ bh=4Ts/LFRGubV+qE5nUbczy5fsPH9e9tt1w1L0GvmpB2A=;
+ b=BlBbIFfkhAwzX+8PQX2xB3lHkbPOFSwOx3Vzw3iVvkzIi0Q2xfpulQ7dbcwTw/rwqN
+ 6KzM5S54cXA2cbEumlp5VA13ygvpKRhfaVrnrXfiNvPd8Wv/SHtWIsaXZfHjF8Rnl9hP
+ zJQS/ElywKjNqU5wQq0Xwf7jKuEiZi1OVMLxbKap1+Dx58IoB18M8Y5OmucDs9uYl/c+
+ Mw4O7Wy0cKsT8VF4UuEvLV2CQk1eeHF1WK4OLu+QcirOR/ZQeNG9JsGAz80Hpi479TLo
+ /uKElLfyTyY9TUxxseDpSjB96hcU+IaFjbC31ukOODzY5WztWAYTUpPtol/DYuixkWx1
+ 7x9Q==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVV54elaFn7H4pNhS2wNTnsZGbH7KyoasXnjnk8ychuZLIUWA/5lqB9WRSCNXRPBGpbNsE1srZuayE=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yz0IxbdhVMXhQwgGY2AfEZjaWrbc6on9gh7kAvi3tc3JHywufew
- dtLq4SElXUskUQ12bi15I1OG6Ya2zWeupO8UrLppN3YgiW7NAtbCU8XB
-X-Gm-Gg: ATEYQzx6FSE87Nw3O8Czh4XYE18INrao/xYur3Zz9bshaaJjwP71Lo3oubF//iQ1GvX
- 5LkGkb/w4UUFU7BPWql56gJ2TTkaadQqmvc/zKREe5k/YRIUbNAg0z0GWzf0hmciB9QyJzlskoc
- yy5F4BvaK2NCoq302UYG8FEmxJPKc4pM+oMJg2RGpXp0hF9PODtAi17kHrOQZHqU5u4QRna7S+P
- HPeZR0DG2GPjVgol6KQSmYxVaU3SL8Jk6gwRJ86OhdXOUBMnhyCLsgHvPVF28aKve5I/F6fffh2
- sov2BGRkfolRi6puKsC9Zq+kXCvf304xzXjrXNPirg9Nk4ROipqYL9O8N/45wfnHKN+taXKbW4A
- PDbEF4QDmGXE1ydwhWa1+wlcrKHD9xHyMBMNhxci0HKeqsG0cFPNN4h9cJC+UiMZebEEVHBq7sV
- TTeuCWOQRF1O1Wc/t2i6pW6sdDjOSB+8mqm6UBsSFEE/XTgG1L
-X-Received: by 2002:a05:6820:2289:b0:67e:14bd:5ef3 with SMTP id
- 006d021491bc7-67e14bd605dmr669706eaf.30.1774551339843; 
- Thu, 26 Mar 2026 11:55:39 -0700 (PDT)
+ AJvYcCXMc0wRmORnrG4EExI5oVhlgHiePFFCtvdMxt0IW7tfoUcQSPPOBWV7qdZhkJVSnnaz1VBZzORp/5E=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzRTtYaQOiqJOcbHRlMRZZdPDugXRvSta/YxzK4Hz9CYkQxR1KR
+ TvvkxRQwtGyJEd/amlD0bL16MJVjplxm6xAKZoKYJ1XmKVkhyME+qAG1
+X-Gm-Gg: ATEYQzxRxRHWtS5kSgSwk3qgXxA4zYtK8j/jbwtGNHfgz1YcuK/yCi717ItC1hbV8W4
+ W+0Y3Sx67ZWj/TtxCo0N7GmEw6et8gUHPDsQ/VzpXBT5tPmM9C65wtWyMiW8aJ7VXB92UQfCWUS
+ 4iTuozgTAngJ3LezvvEsA2iLG8brSYxP5MXB8584ioUXhWp4J1QROgguoEHj5xal2rx18U4DomW
+ i3M7pBatVioqCyxk3kC8vvloYrbPl7MeR31nZ2lCJNizYw4EOaxPKytGNzqhTM3rEeiMupI3p4Z
+ Na7bFuTtCiqhwZSH89IQyoBMgqOoZvTOk9pW8BjXpymqY360JRZHsVNAkS6P2NC8vI1RMg7iQc+
+ z4hc6pVquKTjRwHbYDv1X3QF7d/kyZd8hBUb/7wao5YY1Gr8sUF42Qbm2GMnuB/o5YFjXUyRh9i
+ QgwUTFJ7dL661rLFkqmpa39D68+oQYEn6Jab1z9h1Chn1p/gSd
+X-Received: by 2002:a05:6820:152a:b0:67b:af3e:b1de with SMTP id
+ 006d021491bc7-67dff5a94a4mr3770147eaf.69.1774551351454; 
+ Thu, 26 Mar 2026 11:55:51 -0700 (PDT)
 Received: from frodo (c-98-38-17-99.hsd1.co.comcast.net. [98.38.17.99])
  by smtp.googlemail.com with ESMTPSA id
- 586e51a60fabf-41cc7760c08sm3075171fac.4.2026.03.26.11.55.38
+ 586e51a60fabf-41cc7760c08sm3075171fac.4.2026.03.26.11.55.50
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 26 Mar 2026 11:55:39 -0700 (PDT)
+ Thu, 26 Mar 2026 11:55:51 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: linux-kernel@vger.kernel.org, airlied@gmail.com, simona@ffwll.ch,
  jbaron@akamai.com, gregkh@linuxfoundation.org
@@ -72,9 +72,9 @@ Cc: jim.cromie@gmail.com, mripard@kernel.org, tzimmermann@suse.de,
  louis.chauvet@bootlin.com, skhan@linuxfoundation.org, pmladek@suse.com,
  ukaszb@chromium.org, dri-devel@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-Subject: [PATCH v12 44/69] drm_print: modernize an archaic comment
-Date: Thu, 26 Mar 2026 12:53:48 -0600
-Message-ID: <20260326185413.1205870-45-jim.cromie@gmail.com>
+Subject: [PATCH v12 52/69] drm-dyndbg: add DRM_CLASSMAP_USE to simpledrm
+Date: Thu, 26 Mar 2026 12:53:56 -0600
+Message-ID: <20260326185413.1205870-53-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260326185413.1205870-1-jim.cromie@gmail.com>
 References: <20260326185413.1205870-1-jim.cromie@gmail.com>
@@ -95,31 +95,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-In the year 2025 it is no longer noteworthy that drm.debug logging is
-adjustable at runtime, via sysfs node.  Simplify the statement.
+tiny/simpledrm has 3 DRM_UT_DRIVER debugs, make them controllable when
+CONFIG_DRM_USE_DYNAMIC_DEBUG=y by telling dyndbg that the module has
+class'd debugs.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- include/drm/drm_print.h | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/sysfb/simpledrm.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/include/drm/drm_print.h b/include/drm/drm_print.h
-index 94064ec6c229..c3df2f3f47d8 100644
---- a/include/drm/drm_print.h
-+++ b/include/drm/drm_print.h
-@@ -89,10 +89,9 @@ extern unsigned long __drm_debug;
-  *  - ...
-  *  - drm.debug=0x1ff will enable all messages
-  *
-- * An interesting feature is that it's possible to enable verbose logging at
-- * run-time by echoing the debug value in its sysfs node::
-+ * You can also alter the logged categories at run-time:
-  *
-- *   # echo 0xf > /sys/module/drm/parameters/debug
-+ *   #> echo 0xf > /sys/module/drm/parameters/debug
-  *
+diff --git a/drivers/gpu/drm/sysfb/simpledrm.c b/drivers/gpu/drm/sysfb/simpledrm.c
+index 7a95d2dacd9d..8958e115abc1 100644
+--- a/drivers/gpu/drm/sysfb/simpledrm.c
++++ b/drivers/gpu/drm/sysfb/simpledrm.c
+@@ -35,6 +35,8 @@
+ #define DRIVER_MAJOR	1
+ #define DRIVER_MINOR	0
+ 
++DRM_CLASSMAP_USE(drm_debug_classes);
++
+ /*
+  * Helpers for simplefb
   */
- enum drm_debug_category {
 -- 
 2.53.0
 
