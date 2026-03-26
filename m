@@ -4,59 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 067E610A3D81
-	for <dri-devel@archiver.kernel.org>; Thu, 26 Mar 2026 12:32:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7068010A3D8C
+	for <dri-devel@archiver.kernel.org>; Thu, 26 Mar 2026 12:32:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C46C410E99B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id BD60410E97B;
 	Thu, 26 Mar 2026 12:32:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="kRQJ3uFG";
+	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="EEvb1ne1";
 	dkim-atps=neutral
 Received: from mail-wm1-f73.google.com (mail-wm1-f73.google.com
  [209.85.128.73])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1549F10E9A7
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Mar 2026 12:32:33 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6CDD610EA01
+ for <dri-devel@lists.freedesktop.org>; Thu, 26 Mar 2026 12:32:34 +0000 (UTC)
 Received: by mail-wm1-f73.google.com with SMTP id
- 5b1f17b1804b1-486fcc05b20so5635375e9.3
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Mar 2026 05:32:33 -0700 (PDT)
+ 5b1f17b1804b1-48544725bdeso17378215e9.2
+ for <dri-devel@lists.freedesktop.org>; Thu, 26 Mar 2026 05:32:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20251104; t=1774528352; x=1775133152;
+ d=google.com; s=20251104; t=1774528353; x=1775133153;
  darn=lists.freedesktop.org; 
  h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
  :date:from:to:cc:subject:date:message-id:reply-to;
- bh=44Rl4IuwAjVXDZrVO8Bc7181pdJEclCn1gduNsTGsBw=;
- b=kRQJ3uFGDbXohs/hom0LL5NtWYzVP5Y1d0f8hVgrtq7zJdBcgDp62FBYtWn438KGeh
- zyEjRLMTdwNw9nPmgqhWMd7RWTeFWQCTlkEhB89rSNJ/w11MkBh6nCXD5ybMy/AUCH3/
- xqti+IygqUPRTZTufmVnyUII7j7S46p2xM6jV0cA23IBzdq5QENwkdLxAtHi94O9z0ED
- ghi3Jk/I82SIz8mRPBcEPuymHwrAjtNAKNrFzARcpDbOgUOpfcd23Q94wgsjiDVrF1qX
- k2uHn59iiqDfaWPHFNMwQm9GrU+m/XaAEPjAkyyjRGzBlNUGxbX32wq1ojJASUKzNXK/
- tIQQ==
+ bh=DCR1+XiCejEoTZukOGzTXx300luMCdEPMVOduAGAhwQ=;
+ b=EEvb1ne1z2Wr5Btsec81XclUeC/t7ZhXFrGPj45DtKB6wE58t85PjR8NlJ4FRCU7Zv
+ 0OCAVv9MilPRXvfRm2mquCvDF+vuVbpN2DCrtMp0TOLea8EhO0CMjDWrsKLxNGBExlDa
+ tezuMOuGoUATnB3fQejcEc+xyDHB5hGMVcdj/dgsyF+0da6c7SSb0YdLm3LtnHWQX+yP
+ Nw/Yceudx3McbiNYbWs3w0gzQsaxNmpo09TX11P++OYV90ipeybOYa5ef+GjcN2TgREG
+ TEAFBx6kgAnRyc0DD/gH/QGQqgH/I2qDpa6UySCZiNJRbfEUSSU7m9pEtxP0n2c2VWN4
+ yfrw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774528352; x=1775133152;
+ d=1e100.net; s=20251104; t=1774528353; x=1775133153;
  h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
  :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=44Rl4IuwAjVXDZrVO8Bc7181pdJEclCn1gduNsTGsBw=;
- b=IlpUHEivtlvNtHU6KQo1SB2KBO4dk5auV0y1aprRPlGUv04oZfRIKkLXubyyWXfT1F
- HayhPhuBWTYTVYQF0nksYzvHGDhiEJtBBNydUhSq36uN9tAQFNI52ESsR0T9tLXPooXi
- 5u45uF9A5PXmgasra3PEEaKukfPGYpwpndU8Y2YBJASRv8iF4HoMV0CuZWHJji2+9aou
- VyD1sAh4lru4bpSSBJAeYlHFj3XiEylMDhuNGpCzt/nynsttNxT2ilQCJXz/UN5duO+V
- tdQHqn3gvj5q0AHRtQ5B8lzzA/Lee2KelYXSntdEYvOQ5BYuSFlQ2HiDzrkWowT3FsGg
- NYCA==
-X-Gm-Message-State: AOJu0YwESdIaIVkGes+Tk4rVl872RWwbue+BZaAlwQsmg0MpYE2Rk7lS
- hYPH+mmQwrzmfqv6jtLIOA36NQYhJdzsgJsBShtpkUDHZgc364c0rzcE7I/TDvP4xl06r4Yaihv
- uPXjVJ07CuVO6cA==
-X-Received: from wmcq12.prod.google.com ([2002:a05:600c:c10c:b0:487:247f:cb9e])
+ bh=DCR1+XiCejEoTZukOGzTXx300luMCdEPMVOduAGAhwQ=;
+ b=VeEk3OZ1+4wbl6bsNKcbDJ+BbIQ7p4Kb8cO1z9KFx52bkv0lbjZ+uYlm62ywKlRJpN
+ FEOe/vonW8jxh+kfXBZvZuBP4VX9QJ5yXZuQnuCdbSaUAEcEOgzfKFCoh5CoXpxUAuJ+
+ JlxgF84vp0V8bw9sz70m141kfbUx9UbYuHkpOhI1ajiVkB2urdbPEtAADOKuLT6S6aZF
+ 86ofLmNBU2mlDbwaNOLaZ0/984vjL194Yyf0OSiEn4sq5smM2H2el459kFV+XCVk358K
+ OZOkS4a5ENPPHvJpq4hMqJPiL536Ad0zElX6p1haKSmqHYo3JMdKuCjm6Jfb78y1Zez7
+ e0kA==
+X-Gm-Message-State: AOJu0YzlNRwCwvW83XTtgmKGYwzfQxJTjpBO2UmvwVK303ENC7OxExzp
+ NpfInekIylChpS8nxiAO5HG4RTvwOxjib5yEhL4f4pjo1G0G/Eh6kSSo26tDLbNfkc02WDCIncM
+ p+LkCUEgk/mN1lw==
+X-Received: from wmoo19.prod.google.com ([2002:a05:600d:113:b0:487:238e:327b])
  (user=jackmanb job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:600c:5296:b0:483:7783:537b with SMTP id
- 5b1f17b1804b1-4871605bde7mr108915255e9.24.1774528351509; 
- Thu, 26 Mar 2026 05:32:31 -0700 (PDT)
-Date: Thu, 26 Mar 2026 12:31:58 +0000
+ 2002:a05:600c:1d1d:b0:486:ffa3:592 with SMTP id
+ 5b1f17b1804b1-48716071b2amr111318865e9.24.1774528352832; 
+ Thu, 26 Mar 2026 05:32:32 -0700 (PDT)
+Date: Thu, 26 Mar 2026 12:31:59 +0000
 In-Reply-To: <20260326-gfp64-v2-0-d916021cecdf@google.com>
 Mime-Version: 1.0
 References: <20260326-gfp64-v2-0-d916021cecdf@google.com>
 X-Mailer: b4 0.14.3
-Message-ID: <20260326-gfp64-v2-2-d916021cecdf@google.com>
-Subject: [PATCH v2 2/4] iwlegacy: 3945-mac: Fixup allocation failure log
+Message-ID: <20260326-gfp64-v2-3-d916021cecdf@google.com>
+Subject: [PATCH v2 3/4] mm/kfence: Use special gfp_t format specifier
 From: Brendan Jackman <jackmanb@google.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>, 
@@ -89,38 +89,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Fix 2 issues spotted by AI[0]:
-
-1. Missing space after the full stop.
-
-2. Wrong GFP flags are printed.
-
-And also switch to %pGg for the GFP flags. This produces nice readable
-output and decouples the format string from the size of gfp_t.
-
-[0] https://sashiko.dev/#/patchset/20260319-gfp64-v1-0-2c73b8d42b7f%40google.com
+%pGg produces nice readable output and decouples the format string from
+the size of gfp_t.
 
 Signed-off-by: Brendan Jackman <jackmanb@google.com>
 ---
- drivers/net/wireless/intel/iwlegacy/3945-mac.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ mm/kfence/kfence_test.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/net/wireless/intel/iwlegacy/3945-mac.c b/drivers/net/wireless/intel/iwlegacy/3945-mac.c
-index c148654aa9533..88b31e0b9568c 100644
---- a/drivers/net/wireless/intel/iwlegacy/3945-mac.c
-+++ b/drivers/net/wireless/intel/iwlegacy/3945-mac.c
-@@ -1002,9 +1002,9 @@ il3945_rx_allocate(struct il_priv *il, gfp_t priority)
- 				D_INFO("Failed to allocate SKB buffer.\n");
- 			if (rxq->free_count <= RX_LOW_WATERMARK &&
- 			    net_ratelimit())
--				IL_ERR("Failed to allocate SKB buffer with %0x."
-+				IL_ERR("Failed to allocate SKB buffer with %pGg. "
- 				       "Only %u free buffers remaining.\n",
--				       priority, rxq->free_count);
-+				       &gfp_mask, rxq->free_count);
- 			/* We don't reschedule replenish work here -- we will
- 			 * call the restock method and if it still needs
- 			 * more buffers it will schedule replenish */
+diff --git a/mm/kfence/kfence_test.c b/mm/kfence/kfence_test.c
+index 5725a367246d9..10424cd25e5a6 100644
+--- a/mm/kfence/kfence_test.c
++++ b/mm/kfence/kfence_test.c
+@@ -263,7 +263,7 @@ static void *test_alloc(struct kunit *test, size_t size, gfp_t gfp, enum allocat
+ 		break;
+ 	}
+ 
+-	kunit_info(test, "%s: size=%zu, gfp=%x, policy=%s, cache=%i\n", __func__, size, gfp,
++	kunit_info(test, "%s: size=%zu, gfp=%pGg, policy=%s, cache=%i\n", __func__, size, &gfp,
+ 		   policy_name, !!test_cache);
+ 
+ 	/*
 
 -- 
 2.51.2
