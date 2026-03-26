@@ -4,87 +4,163 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 86AEF109E55D
-	for <dri-devel@archiver.kernel.org>; Thu, 26 Mar 2026 06:58:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 038BB109E55D
+	for <dri-devel@archiver.kernel.org>; Thu, 26 Mar 2026 06:58:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5955310EA02;
-	Thu, 26 Mar 2026 06:58:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6D0F810EA09;
+	Thu, 26 Mar 2026 06:58:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="BgQfXCxa";
+	dkim=pass (2048-bit key; unprotected) header.d=nxp.com header.i=@nxp.com header.b="MzLD9Djq";
 	dkim-atps=neutral
-Received: from mail-pg1-f176.google.com (mail-pg1-f176.google.com
- [209.85.215.176])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 82DC210EA06
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Mar 2026 06:58:43 +0000 (UTC)
-Received: by mail-pg1-f176.google.com with SMTP id
- 41be03b00d2f7-c742bc88d87so292645a12.1
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Mar 2026 23:58:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1774508319; x=1775113119;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:date:message-id:subject
- :references:in-reply-to:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=SdEPxGlOLVBGmER9WSTa0ssfO+YRW1Jn+IHrzAWzqJM=;
- b=BgQfXCxaqQbRzduPq5Rr7IbvgseFz+NmRR4Js9LbLeCMkstw3nkvC7grjvewtBnwoQ
- V98R0r9JhE19JaGcl8r4SMcrbCk2h/uGlUxILamNtOMXlw30zp9P0WmSG0BZ054+DTsg
- 0tr+Y+/K+KBsfDwkynTDphMUZx6rZYwBHyLno=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774508319; x=1775113119;
- h=content-transfer-encoding:mime-version:date:message-id:subject
- :references:in-reply-to:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=SdEPxGlOLVBGmER9WSTa0ssfO+YRW1Jn+IHrzAWzqJM=;
- b=STkyzAvelRwLmfSHWmYCgo8kH5cLtgwP+TUE0uzVTjmUebyfwwLPRLJ3wiHJuxDwvI
- vC3PxNd4JBatGfBDJHgjbIVCNb95lEX/CE4LAJG2/7iUvxtPaL1p9r4pvV5YuP+a/mvH
- dpLrGnGhjmkFK7gd5BI5o6ucO6+gQeBhHa3klBB8c9iLfky1nIeIn0NH1h92cpFezIhl
- +tXp3cLMfDNsnF/UD9vAF32fIY44HUsdnXbD99nJQXv6163p1Mtqi9xFaTXaEEcuFIQx
- OfgMKQ4dlK8lGd6V0qVMZMETcQylP0YnAqem9v7+XO8SKHzDy+09U1jKC3wQAoKMGMez
- nHTA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWRihJemQ4ncS5G4D63S/hoIsrsF0BrpcrSKD9ilf2daeFKL0NNHLUDKdu6NaUhDXvj+EIYMcyNlDA=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yww69GY0MrJ2qTbnC7ruF+ED7/5zgkqv5g57PSUKosJKyFr+f7G
- MBrpsoT2DDdz/C5M/UzBPj4JUe2nthPBaJfR3XLEYaS8eROJ0ph8gXeLwVKWY/QdGw==
-X-Gm-Gg: ATEYQzzjBIc58lJ6WkHcKZ+cVesMA4Nc461UdYnXTNVy+tyNITG++krp+GjKNh5xxDo
- PcMS5qa9C4AxiyE96UPX7ndu2kKZSygFzrvgsJoL8mAjuA/fh+U1nRSkph/dvMIGeWpycVK3ytQ
- jmO/F22yTZIpG0BhRrIVBs9tqxL2nsUQPaKPlhXsggjQBfKkomPqztSevDOC9Jqj1IWujbXIjUz
- Z/LB8CW9Q+2crKSK2Pja/sbkjaLQennHg6qW/jUnlW8xDIIwzU3iiFQEzKfLHno6AbpG4GFw0/K
- LlKsFBkL6QQpj8jGt1lBI6Mbhgeln9IPRLDSevfoTwCt12P8PrJDndi6Mt4KJWsru96u8WlZNmK
- Oq8isrczRzGfFZmfWtjJzpF8Oiypz/a/CxOn3uJ+vqQHjV85tapwQesumXHC7H2wpwSmxpey8uq
- FgBwHU6MI6VjzO7eR3zT0PsLK8Q8dYrdn7c2OVQosZwT9GhoQ845mfXlQYrivyQ5Y3OCCtBruKO
- DhZyEI3
-X-Received: by 2002:a05:6a20:729f:b0:398:7b1d:87ce with SMTP id
- adf61e73a8af0-39c4ab57c36mr7202940637.20.1774508318941; 
- Wed, 25 Mar 2026 23:58:38 -0700 (PDT)
-Received: from wenstp920.tpe.corp.google.com
- ([2a00:79e0:201d:8:3ed5:7e63:b37c:a7d7])
- by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-c76736e54e4sm1345254a12.0.2026.03.25.23.58.35
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 25 Mar 2026 23:58:38 -0700 (PDT)
-From: Chen-Yu Tsai <wenst@chromium.org>
-To: Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
- Chun-Kuang Hu <chunkuang.hu@kernel.org>, 
- Philipp Zabel <p.zabel@pengutronix.de>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec <jernej@kernel.org>, 
- Samuel Holland <samuel@sholland.org>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Chen-Yu Tsai <wenst@chromium.org>
-Cc: linux-sunxi@lists.linux.dev, Paul Kocialkowski <paulk@sys-base.io>, 
- linux-mediatek@lists.infradead.org, dri-devel@lists.freedesktop.org, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20260311094929.3393338-1-wenst@chromium.org>
-References: <20260311094929.3393338-1-wenst@chromium.org>
-Subject: Re: [PATCH v2 0/4] drm/gem-dma: Support dedicated DMA device for
- allocation
-Message-Id: <177450831563.1057981.13951871384462146640.b4-ty@chromium.org>
-Date: Thu, 26 Mar 2026 14:58:35 +0800
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Received: from GVXPR05CU001.outbound.protection.outlook.com
+ (mail-swedencentralazon11013022.outbound.protection.outlook.com
+ [52.101.83.22])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EBAB810EA19
+ for <dri-devel@lists.freedesktop.org>; Thu, 26 Mar 2026 06:58:50 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=oHdjFxyNGJqxeWr/Xm37CSVp5t7/F+lf/YiiVWHNRifwzNg6R1rorJHJA7dLqCYX/WIX3Fs92w5zXXHKYU5154s4N8aPJOzrkFP75nOGuP6JeSKa5n0Jg8Wgua04/5AUNLxQ6fdBsf4UC4ixixmcRFhyrpwfLvYe57OxLX5sDjwkqKQ13t2AFhJl1EDZp+KWCP60Vw4GwA0CKNuOkZ28NzXrFlCRDAmXruETM93FBSa1aQ7Hd3QbprTZmvFqItYumF0PlgFgFshqZJAZbfesszdxhU3oRP3ZiEss/dbotGD8/nJDp7oqlseCwf5YooSsCRo7oWPCsQ4na/SHQxX1gA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=EgWYvRkvAa5X4azX7BSK6y2mI7ax3agQ0W4G9Z0Teag=;
+ b=WkZpMXJZdxiHWI64n7eSUiBpxLujYU4xBgBC/tSkm0lEGm2Hq63pi5c2VOJqnpvmwpC9LXCF/g3n8HLDKhn9dlF2DaJ8pGc2Wltu/QshMLedLAU3tOAxZkOPpU/8y+kTIsWyUP+xgClU61l/L/At4S3en7L9dlsNv+6E+ukE/dsa++yU7JIsHr2lGH4JDNOIayRklznBhFccy4cD6xI8pm9jO9WCPk3novWj5Fl7qfRlMRHRQ9eC1MDiTMO7zwNEVWQt4LgIHySkcmhsrXuxwbP1NHI/+B4UZayZRoWLBC+s1/ZwhbaX0+CmVPVAb17nkVCvHtCYIsf9LJOLxTwPiw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=EgWYvRkvAa5X4azX7BSK6y2mI7ax3agQ0W4G9Z0Teag=;
+ b=MzLD9Djq+JUrfdW//WVITO2KZuEvg3eyiIatHgOCj5jDV+ry5ZZn2zTNtfHMKr/LMIwYClq41GSAf+cnHZHqeQ/9JCQl18pgB0mvDaftZoCaA/mDLOJkdoJZG1DjPzPRGL6B74p7pcgOnhiUaA/GWwP5d5gKo7B6qJ33ixW8kS8i5PBE6bMpzhcOwsvtth80+ndW1xrAayISYqNn92AiTn8HDBVQfUwpcHkxCtB/0XxUqBFP7h2YPtDMECLapVWgwxAUWZN486J2X/w7Ut20/DPZ4Npm+zzjEFRQvCpLAw498M+Wp31DBk7keOAmS68yDt95zygGeWEmsP088ioQxA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from AM7PR04MB7046.eurprd04.prod.outlook.com (2603:10a6:20b:113::22)
+ by DBBPR04MB7740.eurprd04.prod.outlook.com (2603:10a6:10:1ee::23)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.20; Thu, 26 Mar
+ 2026 06:58:46 +0000
+Received: from AM7PR04MB7046.eurprd04.prod.outlook.com
+ ([fe80::4609:64af:8a4b:fd64]) by AM7PR04MB7046.eurprd04.prod.outlook.com
+ ([fe80::4609:64af:8a4b:fd64%3]) with mapi id 15.20.9745.019; Thu, 26 Mar 2026
+ 06:58:45 +0000
+Message-ID: <299ea117-c628-4094-88f3-47c8d898e15e@nxp.com>
+Date: Thu, 26 Mar 2026 14:59:50 +0800
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/8] drm/mxsfb/lcdif: don't unnecessarily loop over ports
+To: Luca Ceresoli <luca.ceresoli@bootlin.com>, Marek Vasut <marex@denx.de>,
+ Stefan Agner <stefan@agner.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>
+Cc: "Kory Maincent (TI.com)" <kory.maincent@bootlin.com>,
+ =?UTF-8?Q?Herv=C3=A9_Codina?= <herve.codina@bootlin.com>,
+ Hui Pu <Hui.Pu@gehealthcare.com>, Ian Ray <ian.ray@gehealthcare.com>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+ dri-devel@lists.freedesktop.org, imx@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, Adam Ford <aford173@gmail.com>,
+ Alexander Stein <alexander.stein@ew.tq-group.com>,
+ Anson Huang <Anson.Huang@nxp.com>,
+ Christopher Obbard <christopher.obbard@linaro.org>,
+ Daniel Scally <dan.scally@ideasonboard.com>,
+ Emanuele Ghidoli <emanuele.ghidoli@toradex.com>,
+ Fabio Estevam <festevam@denx.de>,
+ Francesco Dolcini <francesco.dolcini@toradex.com>,
+ Frieder Schrempf <frieder.schrempf@kontron.de>,
+ Gilles Talis <gilles.talis@gmail.com>,
+ =?UTF-8?B?R29yYW4gUmHEkWVub3ZpxIc=?= <goran.radni@gmail.com>,
+ Heiko Schocher <hs@denx.de>,
+ Joao Paulo Goncalves <joao.goncalves@toradex.com>,
+ Josua Mayer <josua@solid-run.com>,
+ Kieran Bingham <kieran.bingham@ideasonboard.com>,
+ Marco Felsch <m.felsch@pengutronix.de>,
+ Martyn Welch <martyn.welch@collabora.com>,
+ Oleksij Rempel <o.rempel@pengutronix.de>, Peng Fan <peng.fan@nxp.com>,
+ Philippe Schenker <philippe.schenker@toradex.com>,
+ Richard Hu <richard.hu@technexion.com>, Shengjiu Wang
+ <shengjiu.wang@nxp.com>,
+ Stefan Eichenberger <stefan.eichenberger@toradex.com>,
+ Vitor Soares <vitor.soares@toradex.com>
+References: <20260320-drm-lcdif-dbanc-v1-0-479a04133e70@bootlin.com>
+ <20260320-drm-lcdif-dbanc-v1-2-479a04133e70@bootlin.com>
+From: Liu Ying <victor.liu@nxp.com>
+Content-Language: en-US
+In-Reply-To: <20260320-drm-lcdif-dbanc-v1-2-479a04133e70@bootlin.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.14.3
+X-ClientProxiedBy: MA5P287CA0230.INDP287.PROD.OUTLOOK.COM
+ (2603:1096:a01:1b1::14) To AM7PR04MB7046.eurprd04.prod.outlook.com
+ (2603:10a6:20b:113::22)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AM7PR04MB7046:EE_|DBBPR04MB7740:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8558d67a-6327-4b3c-f30e-08de8b051f92
+X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|366016|376014|19092799006|7416014|921020|56012099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: 0YONILRC0gUPcS3JNIsUmBq8PrM1zjVGJGnmYiecUEpojGqXjytnq3a64izerA664iGWFBYYBaTEc0VwwWKufgH4cQztxCnLVFZvEFt9wgMmABhdNziNnqPpaMulmNq/0SiFvahpoH99IOdtlwrHYnZ2JBoOa5KhKPN+s/wkGHSb/Fk68o6pR6RSWvBK7X3uK+tRSUj3fhPRWjiWsT9nxSvvqrWx5N/UcBiGY6trHIN9U1UQ6f9q1WDXQuBqJdrjvRg3r8XljGraM8cTLhnr4IxKQ0bRwZ9nRaGoPJV67Ak+6nzP8wYb1EfQMns2E4yUWaLke46lngUamSJf2OrpgkAT9f8GtneQdD36J/f73z50BvID/dFAj3RVMBlpP/zfE6jyWUGhJ3KyBEQ22ekDZlU5xonsa2EvEXt/eEVYx8BkKFRJoxVxiIUpQ1QD/fM8W+q/SEAdLYlA3fQyVY5gGv/En4LXXPpX0LeCUHBxJzAWJGKvc+ot1wU+ZhP7hY7hAhV4BfKutwOFRmAUHxLjrTEdmlMf4ojyaWfRoJOrzd10kUdhmFaDhcyaawL8aHqPx4iogbxsrg/oI+cOm9vI6RJAF43QB8ROnV0coUixL/C+aQtCZDYTNN7Nny0tW8mZScdBgPohEEdWRdXaXv66e9owmvpDNLqD+JNTz0zcaPtYjINK9lkybRWsPI48ZU599v6MKcwSED5Jk9ahuKUxebWk4rr+MddwDmTxYsU6QMnvV5TX5K6dnguHEojrE+V1ygJiyyqdDPCnSNQ40eFcCg==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:AM7PR04MB7046.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(376014)(19092799006)(7416014)(921020)(56012099003)(22082099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SDBaM0Z6MjlnS1VyaXhpS3NHWHY3dDlIWTFrUXdyVmVqVEdDYXlnK2gxK244?=
+ =?utf-8?B?eCtVQUVkektjTWRVaU1aOUJvQXpPYzZZQnlITTl3L3VzTVRhZEErNGp3NnFE?=
+ =?utf-8?B?UzAxSU8vbjZ4UGJUcWM3eDRCMG5DckZ3TU13d0lkSTdtN0t6dzRkZm5aY2FP?=
+ =?utf-8?B?NGY2dnBVY3lTT0trMmE0dEFTRUgzTHpBR2JaRHJpMTNsakljck8yL1Bva25u?=
+ =?utf-8?B?RFlFVWRrYi8wODByVFo3NWpXc1BwMmZSK3ZwNTN4KzdIZ0pyN3had0FtNHlW?=
+ =?utf-8?B?ZktJbkZleTJRRVpPSnhhZU1ROFgzS2orbDMwVHJaYkw4NUtISE81bCtDLzVw?=
+ =?utf-8?B?cnR0eWtpV3IvVHBEenA1SE4zZjl1RkZQeXl5Ty95S2NodTRQaURETjA1bzRJ?=
+ =?utf-8?B?TjRMbElhOVY1TWRPZTFNSnlIajJPOHYrY1o3REJlUllFcWRMOGpMdDV4ZG56?=
+ =?utf-8?B?S3huTTVaQjF0NWRjYXBWQ2xoby9ycFdEUnhUUWd2YVQwMGJLaTNMemxKNmpU?=
+ =?utf-8?B?aGxvMDVGRFoxOE9VOFloR2M1LzlzdVRXSWZqdXpoUE55QWxndjM2Y0lYUDBR?=
+ =?utf-8?B?ME1vUlBTeUY0cVp6Y1p4c0d6WDVsem9iQThRUGU1ZDFHajlXQ2IxSStVejB4?=
+ =?utf-8?B?dWhEbkRqb2ljc01tTjJNQ3V6dEFZMzVDWFVmUlFPQzYxOWxMRWhxdXdBR0xU?=
+ =?utf-8?B?VHkyV3NxMTFoVTFWNXpWYkQ5WnFWbXVCT0ZPbkdqMEhsZyt1MW05SDRaSHBw?=
+ =?utf-8?B?aU44OVdIeUlTanM4WThBNlRNQkRKb3g5eVBOOUtFRmJuNFY0UFFJV1lFNUtt?=
+ =?utf-8?B?d2RhLzF4QWI5UHBEV2xTTE5kQ1pRWlVRMmRqUGowQjZkUTM5N3NYVmRkNmZQ?=
+ =?utf-8?B?V0lSK3VFTDB2QWxnUmczUjg4ZXRXVDdmWWJSN3FtWVAxbzBGUlRKT0RaMkNF?=
+ =?utf-8?B?MmN3eTdhV2x4eFVIVlA2SmFYV0NmbzJGZWZhTVBrMDFNbGdWZ0tWc2pJSGsx?=
+ =?utf-8?B?SlNEN2pHR2N5cUwyK1ZPd3RRd2p1RE9tTFo5YVJ2cW44Nmxkb2NqVkh1UXAy?=
+ =?utf-8?B?a0hYdEpGZVRpUEhjRlV6OXhMczEzVzlLVEg0MzBIbjhEVlFydUI5QjNSRUty?=
+ =?utf-8?B?empZaUNhVHZ1UXd3UWtRdGRMYi9GakFDTTdybE9QKzdTUXJqWEhRK3pkck5Z?=
+ =?utf-8?B?bFZWVXgwWHRweUtuSmEzOTU3SjNOOUlPWnhQMENMTWxHUm9weG90eUQ2TnBU?=
+ =?utf-8?B?WXZpSEgxMEJ4aVgyQVgxQWlhclA0TDFPcEUralBPbktQajBYdXI3c2pqQzZN?=
+ =?utf-8?B?dUVYMysvUEJNc1VDQ2Q5azl2NTVadVlhL1FCNmZRMnZHNDNaaGRxOGlEOWVM?=
+ =?utf-8?B?STVSbzZ0S1dvN203M3pQM1I3K3pDcGRiUmw2NFphY2s0OU1zcDUwUjZGcXd5?=
+ =?utf-8?B?TUxzMnNvZUxzdUpXcjR2WURCTmkzVnpvMmdtREhsQ0xjNXc1YWF3ZGRLK0kx?=
+ =?utf-8?B?QTFOZXh0RjJrVHJ1WGpWeHBNeFVhdXZ0dlRzVWMyeU5IQlZORmg4Nk9hL0Jo?=
+ =?utf-8?B?SlJ0WXg0Qjd6QmkyTVBnVy9IR1JVbUVLWHl1TkNGMVlJZ09BN3BaZjBMVWR5?=
+ =?utf-8?B?WFB0QzZjcG1BbWxtWWJpZGkzRXREdXE3elBnUURqNXJQb0ZudkkwR1VrNS9L?=
+ =?utf-8?B?ek1HQ21BMVF0ZUtQQWtFU1F0blZTbkc5NW9hVzU5U2w1TGNnUEU1czVJZk15?=
+ =?utf-8?B?L0NkQ3lId25admYycGR1c01weGtHSzFWa3RzR1ZGVjY1Qy9qMzIvNWZDV2ND?=
+ =?utf-8?B?NFAyeTNpMnVmcHBQRVVTd0RpL3IzcEdyTVF3YmZmRm53NGVmNnVzUUE0M05w?=
+ =?utf-8?B?WW5lS1lHZ0lmRWlrNXJza1JzT1RXRXZOdml3Vng4ZVN2c0lBSmRDelQ1Y0xF?=
+ =?utf-8?B?MmZZQThQcFdyazJxZklFcmREYmZjaWtMNXBnb2xZUEl4OXV2akVsSjJGTnZQ?=
+ =?utf-8?B?SHBRem9wQUZwLy9Yd2t1Q0lXemxYTTRoYkQrZHlldThzRnU3VkZhZjk2MjhI?=
+ =?utf-8?B?b3RMWmo2OG8yZUJnNGorZE9CT2NoQVQzNVZJcXJ2eGltRkxlVHJSNVV6Nk5V?=
+ =?utf-8?B?YUlKSHlvNG5KOEVEaE5UamVVdVMxWCtsaEFFMkx4TXZ1d3dyYTMrT2ZCSWg1?=
+ =?utf-8?B?dGdqbk5pcFNUSGo2QUhYRTlBd1VreS9nd2ljMXNBQzdkQXg0bGFMZjVad3VV?=
+ =?utf-8?B?Um80SW5rU3JEaklURlhYSTVCSThuL3RQVXBHcmZ4b1o3M1pUK2E4c2hRd21W?=
+ =?utf-8?B?cUc2Z0gwL1FYanJCaUJTWnVDQU9NM0tqazVZWnlzUVZ1ZGNOTDBidz09?=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8558d67a-6327-4b3c-f30e-08de8b051f92
+X-MS-Exchange-CrossTenant-AuthSource: AM7PR04MB7046.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Mar 2026 06:58:45.8570 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Rhl0QAVqs78gtx0KWv7HkvX+OfzCvgfIlo2BciVcEfe+h8VhH9jmvnBFLuj6zgI7x30rG8KbbX4klMBmkknmnQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBBPR04MB7740
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,29 +176,52 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, 11 Mar 2026 17:49:24 +0800, Chen-Yu Tsai wrote:
-> This is v2 of my "support dedicated DMA device for allocation and mmap
-> in GEM DMA helpers" series.
+Hi Luca,
+
+On Fri, Mar 20, 2026 at 11:46:13AM +0100, Luca Ceresoli wrote:
+> According to the bindings [0] there can be only one port. The in-tree board
+> device trees also don't contain multiple ports (searched thos matching
+
+s/thos/those/
+
+> 'fsl,imx(23|28|6sx|8mp|93)-lcdif').
 > 
-> Changes since v1:
-> - Link to v1: https://lore.kernel.org/all/20260310032511.2545500-1-wenst@chromium.org/
-> - Collected tags
-> - Removed reference to mtk_gem.c from the Makefile
+> Avoid an unnecessary loop around multipltle ports. This allows to greatly
+
+s/multipltle/multiple/
+
+> simplify the code.
 > 
-> [...]
+> [0] Documentation/devicetree/bindings/display/fsl,lcdif.yaml
+> 
+> Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+> 
+> ---
+> 
+> Viewing this patch with '--ignore-all-space' is recommended
+> ---
+>  drivers/gpu/drm/mxsfb/lcdif_drv.c | 77 ++++++++++++++-------------------------
+>  1 file changed, 27 insertions(+), 50 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/mxsfb/lcdif_drv.c b/drivers/gpu/drm/mxsfb/lcdif_drv.c
+> index 756ca96373c8..83e134c04882 100644
+> --- a/drivers/gpu/drm/mxsfb/lcdif_drv.c
+> +++ b/drivers/gpu/drm/mxsfb/lcdif_drv.c
+> @@ -48,61 +48,38 @@ static const struct drm_encoder_funcs lcdif_encoder_funcs = {
+>  static int lcdif_attach_bridge(struct lcdif_drm_private *lcdif)
+>  {
+>  	struct device *dev = lcdif->drm->dev;
+> -	struct device_node *ep;
+> +	struct drm_encoder *encoder;
+>  	struct drm_bridge *bridge;
+>  	int ret;
+>  
+> -	for_each_endpoint_of_node(dev->of_node, ep) {
 
-Applied to drm-misc-next in drm-misc, thanks!
+The single i.MX93 LCDIF may connect with a DPI/LVDS/MIPI DSI encoder.
+Each encoder maps to an endpoint in a port, hence 3 endpoints in all.
+See lcdif node in imx91_93_common.dtsi and imx93.dtsi in linux-next/master.
 
-[1/4] drm/prime: Limit scatter list size with dedicated DMA device
-      commit: 864279920b2b2c1dd491eba0d0c64764c0c03d9f
-[2/4] drm/gem-dma: Support dedicated DMA device for allocation and mapping
-      commit: a9da24732aaa80d631bffc8a1390836d4b896690
-[3/4] drm/mediatek: Set dedicated DMA device and drop custom GEM callbacks
-      commit: e21b1a91430d5ff626a35f72951ed80268e26de6
-[4/4] drm/sun4i: Use backend/mixer as dedicated DMA device
-      commit: 25e90f486f5bc8f606f4263c9d86e2d2b1db4613
-
-Best regards,
 -- 
-Chen-Yu Tsai <wenst@chromium.org>
-
+Regards,
+Liu Ying
