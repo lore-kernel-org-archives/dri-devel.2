@@ -4,40 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 160F5109E55C
-	for <dri-devel@archiver.kernel.org>; Thu, 26 Mar 2026 06:56:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 02BFB109E55D
+	for <dri-devel@archiver.kernel.org>; Thu, 26 Mar 2026 06:56:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 50B2210E9E9;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6F6EF10E9F5;
 	Thu, 26 Mar 2026 06:56:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="PogGYfhg";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="HzcOaDlW";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1077A10E9F7
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0F6AC10E9E9
  for <dri-devel@lists.freedesktop.org>; Thu, 26 Mar 2026 06:55:53 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id CC61B44564;
+ by sea.source.kernel.org (Postfix) with ESMTP id B5B314448F;
  Thu, 26 Mar 2026 06:55:52 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 953B3C2BCB3;
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 8B904C2BC87;
  Thu, 26 Mar 2026 06:55:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linux.dev; s=korg;
- t=1774508152; bh=FCONyIAtz9r1krwef4xl9DMaJxiE39hUdR/53kVkXkY=;
+ t=1774508152; bh=nS0GufUfvXxDa4kFrf9OO8gI4KuETIxkK6IuHNVkZhs=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=PogGYfhgKO88kimc2vTiiBjMEp8BJjrLCLJuQe7A596L6vO3PNXFTMyG6IQLZnneg
- 1qefTVGYftb+Mb5Shz8IppN7iWWpOoUiivPbuIozVR10kCqubgFWPeBqud46unK5a0
- KsvN3S6zNWftpwnitiCsclV06olo/CErPZZlwxQk=
+ b=HzcOaDlW9Otc1cya9wt98CuMl6bR1Sv5Yb3MBd8TAcUYEh4HQhi7H1ksBZR8Mt+mo
+ iC9Ldlktqua9IYbxCBvySV1sUgFjxRQ5OJUDLoPl+TvZ/BhJP3H3abj4ZrvqzPgFg9
+ 1fBBNVdCVlDxwh9d/PCiHb/zX2s0v0k0igMaxlUg=
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id 8AB43109E55C;
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 77FA2109E55D;
  Thu, 26 Mar 2026 06:55:52 +0000 (UTC)
 From: Alvin Sun <alvin.sun@linux.dev>
-Date: Thu, 26 Mar 2026 14:52:55 +0800
-Subject: [PATCH 02/13] rust: revocable: add lazily instantiated revocable
- variant
+Date: Thu, 26 Mar 2026 14:52:54 +0800
+Subject: [PATCH 01/13] rust: sync: support [pin_]init for `SetOnce`
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260326-b4-tyr-debugfs-v1-2-074badd18716@linux.dev>
+Message-Id: <20260326-b4-tyr-debugfs-v1-1-074badd18716@linux.dev>
 References: <20260326-b4-tyr-debugfs-v1-0-074badd18716@linux.dev>
 In-Reply-To: <20260326-b4-tyr-debugfs-v1-0-074badd18716@linux.dev>
 To: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
@@ -52,11 +51,11 @@ To: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
 Cc: rust-for-linux@vger.kernel.org, dri-devel@lists.freedesktop.org, 
  Alvin Sun <alvin.sun@linux.dev>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1774508149; l=3394;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1774508149; l=6987;
  i=alvin.sun@linux.dev; s=20260317; h=from:subject:message-id;
- bh=JCy0YveUUx2PxZVI94KUIjqKl/C8px/HZ+jhmQr0Dks=;
- b=/3wc7yexWjygUwGQE3Uq9UvBOv7UVYqCidZ6dkDG/T4jCh7C7NSN54PIOyTvEvIBhdHsuoEmV
- EFCaKay4NliAGoNOCHPfG28dtvIK8pEfICjBJcJdoJp2L9VwdKAzotv
+ bh=VFdTtaWWr68iX6gfsDxBRXDRn2N0TRXehh4KrqY/38I=;
+ b=/o3V32QCp2CR+Jn1WHwoRnaw9uA8+jsE/N7LshGopcDzQyJ3X678/PGrdMj46O5bSESw36mXh
+ Z7aRjKaSUQeDFPm6E0kn4KPejXPYLVCn94+I9zLaJOAP6fOehrzwrKG
 X-Developer-Key: i=alvin.sun@linux.dev; a=ed25519;
  pk=CHcwQp8GSoj25V/L1ZWNSQjWp9eSIb0s9LKr0Nm3WuE=
 X-Endpoint-Received: by B4 Relay for alvin.sun@linux.dev/20260317 with
@@ -78,111 +77,187 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Gary Guo <gary@garyguo.net>
 
-Add a `LazyRevocable` type, an variant to `Revocable` where
-the data is initialized lazily. This type can be constructed as const and
-put into statics.
+Make `SetOnce` support initialization via `impl Init` or `impl PinInit`.
+
+This adds a possible failing path if an initializer fails. In such case,
+the state is dropped back to 0 instead of keep increasing; so the monotonicity
+invariant is dropped. The order for initialization is upgraded from Relaxed
+to Acquire so it can observe the effect of a previously failed initialization.
 
 Signed-off-by: Gary Guo <gary@garyguo.net>
 Signed-off-by: Alvin Sun <alvin.sun@linux.dev>
 ---
- rust/kernel/revocable.rs | 80 +++++++++++++++++++++++++++++++++++++++++++++++-
- 1 file changed, 79 insertions(+), 1 deletion(-)
+ rust/kernel/sync/set_once.rs | 120 +++++++++++++++++++++++++++++++++++--------
+ 1 file changed, 99 insertions(+), 21 deletions(-)
 
-diff --git a/rust/kernel/revocable.rs b/rust/kernel/revocable.rs
-index 0f4ae673256d5..70733ff5961cd 100644
---- a/rust/kernel/revocable.rs
-+++ b/rust/kernel/revocable.rs
-@@ -7,7 +7,12 @@
+diff --git a/rust/kernel/sync/set_once.rs b/rust/kernel/sync/set_once.rs
+index 139cef05e935f..db9c5423fade3 100644
+--- a/rust/kernel/sync/set_once.rs
++++ b/rust/kernel/sync/set_once.rs
+@@ -2,11 +2,23 @@
  
- use pin_init::Wrapper;
+ //! A container that can be initialized at most once.
  
--use crate::{bindings, prelude::*, sync::rcu, types::Opaque};
-+use crate::{
-+    bindings,
-+    prelude::*,
-+    sync::{rcu, SetOnce},
-+    types::Opaque,
++use core::{
++    cell::UnsafeCell,
++    mem::MaybeUninit, //
 +};
- use core::{
-     marker::PhantomData,
-     ops::Deref,
-@@ -261,3 +266,76 @@ fn deref(&self) -> &Self::Target {
-         unsafe { &*self.data_ref }
++use pin_init::{
++    Init,
++    PinInit, //
++};
++
+ use super::atomic::{
+-    ordering::{Acquire, Relaxed, Release},
+-    Atomic,
++    ordering::{
++        Acquire,
++        Release, //
++    },
++    Atomic, //
+ };
+-use core::{cell::UnsafeCell, mem::MaybeUninit};
++use crate::prelude::*;
+ 
+ /// A container that can be populated at most once. Thread safe.
+ ///
+@@ -15,13 +27,13 @@
+ ///
+ /// # Invariants
+ ///
+-/// - `init` may only increase in value.
+ /// - `init` may only assume values in the range `0..=2`.
+ /// - `init == 0` if and only if `value` is uninitialized.
+ /// - `init == 1` if and only if there is exactly one thread with exclusive
+ ///   access to `self.value`.
+ /// - `init == 2` if and only if `value` is initialized and valid for shared
+ ///   access.
++/// - once `init == 2`, it must remain so.
+ ///
+ /// # Example
+ ///
+@@ -51,6 +63,35 @@ fn default() -> Self {
      }
  }
-+
-+/// A handle to perform revocation on a [`Revocable`].
-+///
-+/// The associated `Revocable` is revoked when the handle is dropped.
-+pub struct RevokeHandle<'a, T>(&'a Revocable<T>);
-+
-+impl<'a, T> RevokeHandle<'a, T> {
-+    /// Create a revoke-on-drop handle on an existing revocable.
-+    pub fn new(revocable: &'a Revocable<T>) -> Self {
-+        Self(revocable)
-+    }
-+
-+    /// Dismiss the handle.
-+    ///
-+    /// This method consumes ownership without revoking the `Revocable`.
-+    pub fn dismiss(self) {
-+        core::mem::forget(self);
-+    }
+ 
++/// Error that can occur during initialization of `SetOnce`.
++#[derive(Debug)]
++pub enum InitError<E> {
++    /// The `Once` has already been initialized.
++    AlreadyInit,
++    /// The `Once` is being raced to initialize by another thread.
++    RacedInit,
++    /// Error occurs during initialization.
++    DuringInit(E),
 +}
 +
-+impl<'a, T> Drop for RevokeHandle<'a, T> {
-+    fn drop(&mut self) {
-+        self.0.revoke();
++impl<E> From<E> for InitError<E> {
++    #[inline]
++    fn from(err: E) -> Self {
++        InitError::DuringInit(err)
 +    }
 +}
 +
-+/// An object that is initialized and can become inaccessible at runtime.
-+///
-+/// [`Revocable`] is initialized at the beginning, and can be made inaccessible at runtime.
-+/// `LazyRevocable` is uninitialized at the beginning, and can be initialized later; it can be
-+/// revoked in a similar manner to [`Revocable`]. Once revoked, it cannot be initialized again.
-+#[pin_data]
-+pub struct LazyRevocable<T> {
-+    #[pin]
-+    once: SetOnce<Revocable<T>>,
-+}
-+
-+impl<T> LazyRevocable<T> {
-+    /// Creates a new lazy revocable instance.
-+    ///
-+    /// The instance starts uninitialized, where all accesses would fail.
-+    pub const fn new() -> Self {
-+        LazyRevocable {
-+            once: SetOnce::new(),
++impl<E: Into<Error>> From<InitError<E>> for Error {
++    #[inline]
++    fn from(this: InitError<E>) -> Self {
++        match this {
++            InitError::AlreadyInit => EEXIST,
++            InitError::RacedInit => EBUSY,
++            InitError::DuringInit(e) => e.into(),
 +        }
 +    }
-+
-+    /// Initialize a `LazyRevocable` and obtain a handle to revoke the content if successful.
-+    ///
-+    /// An error would be returned if the revocable has already been initialized.
-+    pub fn init<E: Into<Error>>(
-+        self: Pin<&Self>,
-+        init: impl PinInit<T, E>,
-+    ) -> Result<RevokeHandle<'_, T>> {
-+        // SAFETY: `once` is structurally pinned.
-+        let once = unsafe { self.map_unchecked(|x| &x.once) };
-+        let revocable = once.pin_init(Revocable::new(init))?;
-+        Ok(RevokeHandle::new(revocable))
-+    }
-+
-+    /// Tries to access the revocable wrapped object.
-+    ///
-+    /// Returns `None` if the object has not been initialized, or it has been revoked and is therefore no longer accessible.
-+    pub fn try_access(&self) -> Option<RevocableGuard<'_, T>> {
-+        self.once.as_ref()?.try_access()
-+    }
 +}
 +
-+impl<T> Default for LazyRevocable<T> {
-+    fn default() -> Self {
-+        Self::new()
+ impl<T> SetOnce<T> {
+     /// Create a new [`SetOnce`].
+     ///
+@@ -76,31 +117,68 @@ pub fn as_ref(&self) -> Option<&T> {
+         }
+     }
+ 
+-    /// Populate the [`SetOnce`].
++    /// Populate the [`SetOnce`] with an initializer.
+     ///
+-    /// Returns `true` if the [`SetOnce`] was successfully populated.
+-    pub fn populate(&self, value: T) -> bool {
++    /// Returns the initialized reference if the [`SetOnce`] was successfully populated.
++    pub fn init<E>(&self, init: impl Init<T, E>) -> Result<&T, InitError<E>> {
+         // INVARIANT: If the swap succeeds:
+-        //  - We increase `init`.
+         //  - We write the valid value `1` to `init`.
++        //  - The previous value is not `2`, so it is valid to move to `1`.
+         //  - Only one thread can succeed in this write, so we have exclusive access after the
+         //    write.
+-        if let Ok(0) = self.init.cmpxchg(0, 1, Relaxed) {
+-            // SAFETY: By the type invariants of `Self`, the fact that we succeeded in writing `1`
+-            // to `self.init` means we obtained exclusive access to `self.value`.
+-            unsafe { core::ptr::write(self.value.get().cast(), value) };
+-            // INVARIANT:
+-            //  - We increase `init`.
+-            //  - We write the valid value `2` to `init`.
+-            //  - We release our exclusive access to `self.value` and it is now valid for shared
+-            //    access.
+-            self.init.store(2, Release);
+-            true
+-        } else {
+-            false
++        match self.init.cmpxchg(0, 1, Acquire) {
++            Ok(_) => {
++                // SAFETY:
++                // - By the type invariants of `Self`, the fact that we succeeded in writing `1`
++                //   to `self.init` means we obtained exclusive access to `self.value`.
++                // - When `Err` is returned, we did not set `self.init` to `2` so the `Drop` is not
++                //   armed.
++                match unsafe { init.__init(self.value.get().cast()) } {
++                    Ok(()) => {
++                        // INVARIANT:
++                        //  - The previous value is `1`, so it is valid to move to `2`.
++                        //  - We write the valid value `2` to `init`.
++                        //  - We release our exclusive access to `self.value` and it is now valid
++                        //    for shared access.
++                        self.init.store(2, Release);
++                        // SAFETY: we have just initialized the value.
++                        Ok(unsafe { &*self.value.get().cast() })
++                    }
++                    Err(err) => {
++                        // INVARIANT:
++                        //  - The previous value is `1`, so it is valid to move to `0`.
++                        //  - We write the valid value `0` to `init`.
++                        //  - We release our exclusive access to `self.value` and it is now valid
++                        //    for shared access.
++                        self.init.store(0, Release);
++                        Err(err.into())
++                    }
++                }
++            }
++            Err(1) => Err(InitError::RacedInit),
++            Err(_) => Err(InitError::AlreadyInit),
+         }
+     }
+ 
++    /// Populate the [`SetOnce`] with a pinned initializer.
++    ///
++    /// Returns the initialized reference if the [`SetOnce`] was successfully populated.
++    pub fn pin_init<E>(self: Pin<&Self>, init: impl PinInit<T, E>) -> Result<&T, InitError<E>> {
++        // SAFETY:
++        // - `__pinned_init` satisfy all requirements of `init_from_closure`
++        // - calling `__pinned_init` require additional that the slot is pinned, which is satisfied
++        //   given `self: Pin<&Self>`.
++        self.get_ref()
++            .init(unsafe { pin_init::init_from_closure(|slot| init.__pinned_init(slot)) })
 +    }
-+}
++
++    /// Populate the [`SetOnce`].
++    ///
++    /// Returns `true` if the [`SetOnce`] was successfully populated.
++    pub fn populate(&self, value: T) -> bool {
++        self.init(value).is_ok()
++    }
++
+     /// Get a copy of the contained object.
+     ///
+     /// Returns [`None`] if the [`SetOnce`] is empty.
 
 -- 
 2.43.0
