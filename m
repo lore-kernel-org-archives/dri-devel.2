@@ -4,88 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C4D5C10A62CA
-	for <dri-devel@archiver.kernel.org>; Thu, 26 Mar 2026 13:23:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 17E3010A62CE
+	for <dri-devel@archiver.kernel.org>; Thu, 26 Mar 2026 13:27:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1F57510E0A8;
-	Thu, 26 Mar 2026 13:23:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4F9F610EA14;
+	Thu, 26 Mar 2026 13:27:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="CDF7N1vC";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="HBcXyV1a";
 	dkim-atps=neutral
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
- [213.167.242.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D77BB10E0A8
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Mar 2026 13:23:29 +0000 (UTC)
-Received: from [192.168.88.20] (91-158-153-178.elisa-laajakaista.fi
- [91.158.153.178])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id CB51F9A9;
- Thu, 26 Mar 2026 14:22:09 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1774531330;
- bh=JxDk4DT8jSWcmmkeIVS/kzYPz6iomyafF8PNNvZ3hfw=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=CDF7N1vCSUGIoMkka/zOWsfISPVi5YiLXtVszedDTSvG6X5R2hSVfZwkZEiDNS1Ed
- GutjSkJNvoDBmx1NYULjFK14twW7bi+sN6WcNTxhSW/zB5fHr4Z1H/xVrdu8y4/b64
- BUoli8PGs66Wtn4hvdVI1K9qfX4pqnasBVXgQK88=
-Message-ID: <253484a3-0074-4cca-9fa3-2d43092d63ed@ideasonboard.com>
-Date: Thu, 26 Mar 2026 15:23:25 +0200
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
+ [136.143.188.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A1A4D10EA0F;
+ Thu, 26 Mar 2026 13:27:13 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1774531618; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=inF8c0T9S04BCFBJF/AFqs0QQE1fnL6+L0KLfp2qflAKOoeaNF7POilnvsA4ogT6zDYEJzs/DCseE80aWKaUz95nmU2U1FPPkxmNHr6fa9tAABj6/T0/YzxGOEfjkI2vE7iix4wdHGsYY+jGCIIpca2Is5cbPETQB2cW49W/Z1Q=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1774531618;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=AMrMoDyMoCm1J1RqpO4nLs9/wPH8TbeR8ZH8ieMqM3M=; 
+ b=F/uVOgmOl/+m0cjgsZP2y8CQcCEJp7/Yg24rmTHvQeop6slol6pRNfz33yzdJwytMxRzBykwUO1UZRD6U1RSUHwIQfw2LwMYGCPCK7s0zi3sF3kvj1eLwMbFVG/l1Kolu1GsIta26G2M2I0EuRjqkDbRVtjCfe7IrS/JP9zacG8=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
+ dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1774531618; 
+ s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
+ h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:Content-Type:Message-Id:Reply-To;
+ bh=AMrMoDyMoCm1J1RqpO4nLs9/wPH8TbeR8ZH8ieMqM3M=;
+ b=HBcXyV1aOElHJrP/+ER67nmCR0XxtxLBZgcVosoR2oun5PXk84eq4XCERgt0txCj
+ n1btqz4DhdJsscJVr/Z3XksBjfuJCDRFbqPwSO1mPImfxdfB188suw3+SZnrbcmpGbo
+ LUMkv9IiZsZn/W4s/g4yu3jAGvxeNMghnaVP+9zg=
+Received: by mx.zohomail.com with SMTPS id 177453161763075.0968772878656;
+ Thu, 26 Mar 2026 06:26:57 -0700 (PDT)
+From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+To: Ville =?UTF-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
+Cc: Maxime Ripard <mripard@kernel.org>,
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Sandy Huang <hjc@rock-chips.com>,
+ Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>,
+ Andy Yan <andy.yan@rock-chips.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, Dmitry Baryshkov <lumag@kernel.org>,
+ Sascha Hauer <s.hauer@pengutronix.de>, Rob Herring <robh@kernel.org>,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ kernel@collabora.com, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ linux-doc@vger.kernel.org, Werner Sembach <wse@tuxedocomputers.com>,
+ Andri Yngvason <andri@yngvason.is>, Marius Vlad <marius.vlad@collabora.com>
+Subject: Re: [PATCH v11 03/22] drm: Add new general DRM property "color format"
+Date: Thu, 26 Mar 2026 14:26:47 +0100
+Message-ID: <16004581.uLZWGnKmhe@workhorse>
+In-Reply-To: <acUvg3Y7kMf2qioK@intel.com>
+References: <20260324-color-format-v11-0-605559af4fb4@collabora.com>
+ <3979783.tdWV9SEqCh@workhorse> <acUvg3Y7kMf2qioK@intel.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 0/4] drm: rcar-du: Improve device_link handling
-To: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
- dri-devel@lists.freedesktop.org
-Cc: linux-renesas-soc@vger.kernel.org,
- Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>,
- Biju Das <biju.das.jz@bp.renesas.com>
-References: <20260323164526.2292491-1-laurent.pinchart+renesas@ideasonboard.com>
-From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Content-Language: en-US
-Autocrypt: addr=tomi.valkeinen@ideasonboard.com; keydata=
- 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
-In-Reply-To: <20260323164526.2292491-1-laurent.pinchart+renesas@ideasonboard.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,40 +90,172 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi,
+On Thursday, 26 March 2026 14:07:15 Central European Standard Time Ville Sy=
+rj=C3=A4l=C3=A4 wrote:
+> On Thu, Mar 26, 2026 at 01:44:03PM +0100, Nicolas Frattaroli wrote:
+> > On Wednesday, 25 March 2026 12:03:07 Central European Standard Time Vil=
+le Syrj=C3=A4l=C3=A4 wrote:
+> > > On Wed, Mar 25, 2026 at 09:24:27AM +0100, Maxime Ripard wrote:
+> > > > On Tue, Mar 24, 2026 at 09:53:35PM +0200, Ville Syrj=C3=A4l=C3=A4 w=
+rote:
+> > > > > On Tue, Mar 24, 2026 at 08:10:11PM +0100, Nicolas Frattaroli wrot=
+e:
+> > > > > > On Tuesday, 24 March 2026 18:00:45 Central European Standard Ti=
+me Ville Syrj=C3=A4l=C3=A4 wrote:
+> > > > > > > On Tue, Mar 24, 2026 at 05:01:07PM +0100, Nicolas Frattaroli =
+wrote:
+> > > > > > > > +enum drm_connector_color_format {
+> > > > > > > > +	/**
+> > > > > > > > +	 * @DRM_CONNECTOR_COLOR_FORMAT_AUTO: The driver or displa=
+y protocol
+> > > > > > > > +	 * helpers should pick a suitable color format. All imple=
+mentations of a
+> > > > > > > > +	 * specific display protocol must behave the same way wit=
+h "AUTO", but
+> > > > > > > > +	 * different display protocols do not necessarily have th=
+e same "AUTO"
+> > > > > > > > +	 * semantics.
+> > > > > > > > +	 *
+> > > > > > > > +	 * For HDMI, "AUTO" picks RGB, but falls back to YCbCr 4:=
+2:0 if the
+> > > > > > > > +	 * bandwidth required for full-scale RGB is not available=
+, or the mode
+> > > > > > > > +	 * is YCbCr 4:2:0-only, as long as the mode and output bo=
+th support
+> > > > > > > > +	 * YCbCr 4:2:0.
+> > > > > > > > +	 *
+> > > > > > > > +	 * For display protocols other than HDMI, the recursive b=
+ridge chain
+> > > > > > > > +	 * format selection picks the first chain of bridge forma=
+ts that works,
+> > > > > > > > +	 * as has already been the case before the introduction o=
+f the "color
+> > > > > > > > +	 * format" property. Non-HDMI bridges should therefore ei=
+ther sort their
+> > > > > > > > +	 * bus output formats by preference, or agree on a unifie=
+d auto format
+> > > > > > > > +	 * selection logic that's implemented in a common state h=
+elper (like
+> > > > > > > > +	 * how HDMI does it).
+> > > > > > > > +	 */
+> > > > > > > > +	DRM_CONNECTOR_COLOR_FORMAT_AUTO =3D 0,
+> > > > > > > > +
+> > > > > > > > +	/**
+> > > > > > > > +	 * @DRM_CONNECTOR_COLOR_FORMAT_RGB444: RGB output format
+> > > > > > > > +	 */
+> > > > > > > > +	DRM_CONNECTOR_COLOR_FORMAT_RGB444,
+> > > > > > > > +
+> > > > > > > > +	/**
+> > > > > > > > +	 * @DRM_CONNECTOR_COLOR_FORMAT_YCBCR444: YCbCr 4:4:4 outp=
+ut format (ie.
+> > > > > > > > +	 * not subsampled)
+> > > > > > > > +	 */
+> > > > > > > > +	DRM_CONNECTOR_COLOR_FORMAT_YCBCR444,
+> > > > > > > > +
+> > > > > > > > +	/**
+> > > > > > > > +	 * @DRM_CONNECTOR_COLOR_FORMAT_YCBCR422: YCbCr 4:2:2 outp=
+ut format (ie.
+> > > > > > > > +	 * with horizontal subsampling)
+> > > > > > > > +	 */
+> > > > > > > > +	DRM_CONNECTOR_COLOR_FORMAT_YCBCR422,
+> > > > > > > > +
+> > > > > > > > +	/**
+> > > > > > > > +	 * @DRM_CONNECTOR_COLOR_FORMAT_YCBCR420: YCbCr 4:2:0 outp=
+ut format (ie.
+> > > > > > > > +	 * with horizontal and vertical subsampling)
+> > > > > > > > +	 */
+> > > > > > > > +	DRM_CONNECTOR_COLOR_FORMAT_YCBCR420,
+> > > > > > >=20
+> > > > > > > Seems like this should document what the quantization range
+> > > > > > > should be for each format.
+> > > > > > >=20
+> > > > > >=20
+> > > > > > I don't think so? If you want per-component bit depth values,
+> > > > > > DRM_FORMAT_* defines would be the appropriate values to use. Th=
+is
+> > > > > > enum is more abstract than that, and is there to communicate
+> > > > > > YUV vs. RGB and chroma subsampling, with bit depth being handled
+> > > > > > by other properties.
+> > > > > >=20
+> > > > > > If you mean the factor used for subsampling, then that'd only be
+> > > > > > relevant if YCBCR410 was supported where one chroma plane isn't
+> > > > > > halved but quartered in resolution. I suspect 4:1:0 will never
+> > > > > > be added; no digital display protocol standard supports it to my
+> > > > > > knowledge, and hopefully none ever will.
+> > > > >=20
+> > > > > No, I mean the quantization range (16-235 vs. 0-255 etc).
+> > > > >=20
+> > > > > The i915 behaviour is that YCbCr is always limited range,
+> > > > > RGB can either be full or limited range depending on the=20
+> > > > > "Broadcast RGB" property and other related factors.
+> > > >=20
+> > > > So far the HDMI state has both the format and quantization range as
+> > > > different fields. I'm not sure we need to document the range in the
+> > > > format field, maybe only mention it's not part of the format but ha=
+s a
+> > > > field of its own?
+> > >=20
+> > > I think we only have it for RGB (on some drivers only?). For YCbCr
+> > > I think the assumption is limited range everywhere.
+> > >=20
+> > > But I'm not really concerned about documenting struct members.
+> > > What I'm talking about is the *uapi* docs. Surely userspace
+> > > will want to know what the new property actually does so the
+> > > uapi needs to be documented properly. And down the line some
+> > > new driver might also implement the wrong behaviour if there
+> > > is no clear specification.
+> > >=20
+> > > So I'm thinking (or perhaps hoping) the rule might be something like:
+> > > - YCbCr limited range=20
+> > > - RGB full range if "Broadcast RGB" property is not present
+> > > - RGB full or limited range based on the "Broadcast RGB" property
+> > >   if it's present
+> > >=20
+> > > I think the "Broadcast RGB" property itself might also be lacking
+> > > proper uapi docs, so that may need to be remedied as well.
+> > >=20
+> > >=20
+> >=20
+> > Alright, so in v12 I'll do the following:
+> >=20
+> > - Add a line to all YCBCR connector formats that specifies they're
+> >   limited range as long as Broadcast RGB is limited. Whether it's limit=
+ed
+> >   range when Broadcast RGB is full is purposefully left undefined.
+>=20
+> "Broadcast RGB", as the name implies, only affects RGB output.
 
-On 23/03/2026 18:45, Laurent Pinchart wrote:
-> Hello,
-> 
-> This small patch series came out of the review of [1].
-> 
-> I noticed that the DU driver enforces suspend/resume ordering with the
-> CMMs but not with the VSPs, which patch 1/4 fixes. This in turn made me
-> notice that the driver leaks the device_link instances to the CMM.
-> Patches 2/4 and 3/4 refactor CMM handling a bit, to prepare for 4/4 that
-> fixes the leak.
-> 
-> Changes compared to v1 are minor, see individual patches for details.
-> 
-> [1] https://lore.kernel.org/r/02669d4630e04fe24c17dd2576ec8b27ded458f0.1765541401.git.tommaso.merciai.xr@bp.renesas.com
-> 
-> Laurent Pinchart (4):
->   drm: rcar-du: Ensure correct suspend/resume ordering with VSP
->   drm: rcar-du: Store CMM device pointer instead of platform_device
->   drm: rcar-du: Use __free() to simplify device_node handling
->   drm: rcar-du: Don't leak device_link to CMM
-> 
->  drivers/gpu/drm/renesas/rcar-du/rcar_cmm.c    | 26 +++++-----
->  drivers/gpu/drm/renesas/rcar-du/rcar_cmm.h    | 18 +++----
->  .../gpu/drm/renesas/rcar-du/rcar_du_crtc.c    | 16 +++---
->  .../gpu/drm/renesas/rcar-du/rcar_du_crtc.h    |  3 +-
->  drivers/gpu/drm/renesas/rcar-du/rcar_du_drv.h |  8 ++-
->  drivers/gpu/drm/renesas/rcar-du/rcar_du_kms.c | 52 +++++++++----------
->  drivers/gpu/drm/renesas/rcar-du/rcar_du_vsp.c | 16 ++++++
->  drivers/gpu/drm/renesas/rcar-du/rcar_du_vsp.h |  2 +
->  8 files changed, 81 insertions(+), 60 deletions(-)
-> 
-Looks good to me. Pushed to drm-misc-next.
+Alright, I'll scratch the overcomplicated undefined behaviour thing
+and just say it's limited range, and in the future, we can extend it
+to limited range by default but full range if another new property is
+set.
 
- Tomi
+>=20
+> >   In the future, we can expand this to state they're limited range by
+> >   default unless some other property is set. If we're not re-using
+> >   Broadcast RGB for that, this will work out fine, because users who
+> >   don't know about the eventual new property won't have this behaviour
+> >   changed. If we do re-use "Broadcast RGB" for that, then only users
+> >   relying on things we explicitly left undefined will get surprise
+> >   full range YCBCR.
+> > - Add a line to the RGB connector format that specifies its range
+> >   depends on the "Broadcast RGB" property
+> >=20
+> > This is a bit of a mess, because it's entirely reasonable that a
+> > future YCBCR range property would want to default to full range
+> > so that users get the most color out of their monitors. But with
+> > this description of the connector color formats, we can't do that.
+> >=20
+> > If there are alternate suggestions, I'm open for them. We can't
+> > really rename "Broadcast RGB" but if I had a time machine, that'd
+> > be my first choice.
+> >=20
+> > Kind regards,
+> > Nicolas Frattaroli
+> >=20
+>=20
+>=20
+
+
+
 
