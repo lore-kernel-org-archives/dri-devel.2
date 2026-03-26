@@ -4,66 +4,87 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BA4BB109E52B
-	for <dri-devel@archiver.kernel.org>; Thu, 26 Mar 2026 01:24:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DA4B5109E538
+	for <dri-devel@archiver.kernel.org>; Thu, 26 Mar 2026 01:28:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2E1C010E167;
-	Thu, 26 Mar 2026 01:24:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C55DF10E112;
+	Thu, 26 Mar 2026 01:28:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="gLMpKjxp";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="MLfhqhkz";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5270610E112
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Mar 2026 01:24:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1774488295; x=1806024295;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=Eq6Xay26AJu925QH9dEoTNSTESWdI6fBXbTFQNVzJrc=;
- b=gLMpKjxptrQNrHE17huAy6AKgAjYqZVyFwQt3OfyiEICWLmIrr3t7S9+
- ixJCGAms66MnGBtbVLuAAZ/oP4qFKHLWWc7qyYTSVEvLUSEYt27LGg0OK
- EiYqd+SnRB4bGWekxFYNtWm0UbdUAu/6gwwie8pW6jLtG0xeaGaWBdxtB
- cpH3UvgA2aMXMRETlzEs5Uy/pizePCwJVe6ObiMuPxqboj0VobWD9GXLz
- 1GNFJG+AlPzn32rMdmGBd11vYQ2mIpGmfkUrqMGmSVMtWbFGaWM2npspN
- N/tFzJkRUA//vOpjBUUMceGRux4rD1MGUUy6zgU/i85gSxUZeRwZVuKVA Q==;
-X-CSE-ConnectionGUID: P09vzeyjS2etf5qpJORfcQ==
-X-CSE-MsgGUID: ymKzWds9SdqONo3LQzQw4g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11740"; a="78135434"
-X-IronPort-AV: E=Sophos;i="6.23,141,1770624000"; d="scan'208";a="78135434"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
- by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Mar 2026 18:24:55 -0700
-X-CSE-ConnectionGUID: Q+MclzIbSm+lrW2N1XA8Fw==
-X-CSE-MsgGUID: ZoLMXqn5RwaIMsxxafBSzg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,141,1770624000"; d="scan'208";a="225107174"
-Received: from lkp-server01.sh.intel.com (HELO 3905d212be1b) ([10.239.97.150])
- by orviesa007.jf.intel.com with ESMTP; 25 Mar 2026 18:24:50 -0700
-Received: from kbuild by 3905d212be1b with local (Exim 4.98.2)
- (envelope-from <lkp@intel.com>) id 1w5ZSo-000000007xp-25Yb;
- Thu, 26 Mar 2026 01:24:46 +0000
-Date: Thu, 26 Mar 2026 09:24:18 +0800
-From: kernel test robot <lkp@intel.com>
-To: Chen-Yu Tsai <wenst@chromium.org>, Stephen Boyd <sboyd@kernel.org>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Frank Binns <frank.binns@imgtec.com>, Matt Coster <matt.coster@imgtec.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>
-Cc: oe-kbuild-all@lists.linux.dev, Icenowy Zheng <zhengxingda@iscas.ac.cn>,
- Chen-Yu Tsai <wenst@chromium.org>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, linux-clk@vger.kernel.org,
- devicetree@vger.kernel.org, linux-mediatek@lists.infradead.org,
- dri-devel@lists.freedesktop.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/5] clk: mediatek: Add mt8173-mfgtop driver
-Message-ID: <202603260926.gAEaAK0A-lkp@intel.com>
-References: <20260325071951.544031-3-wenst@chromium.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260325071951.544031-3-wenst@chromium.org>
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 24F9B10E112;
+ Thu, 26 Mar 2026 01:28:52 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id 6626160103;
+ Thu, 26 Mar 2026 01:28:51 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3592AC4CEF7;
+ Thu, 26 Mar 2026 01:28:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1774488531;
+ bh=0Cq7OMqDyz29Hy/YQIvOOTgh39yp/jjxAwDycnlq/O0=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=MLfhqhkzsxa7tc0jHzhytzV6qchl81dHU9KAPgpYRYmOHYLzk4wblKHPtqEHyv28p
+ Q/b1ZGVBAKVMA2DtsWIH4xs0i1VJ2p7crVWlc/njQGIq3j2rxJcz4zZlqQtGtXSKGY
+ qE7kmn3skAAmdHpynUh6G1IcDYzRBpRJQJ2v9dHtuEYl1SHM9u79m3ODxDTtFbRHwF
+ TrXVRIXikjQcC748T/h8YzRRuj5Is74hno4IqadGPqhCATzpJM+vXtHmT1645lImlw
+ xbcKSEnaeY6vjDCFgor9rDZ7RPAf5TB+nN0PUncVs3G3ToCrGTMxxDR5q52eHlIdvK
+ yL93d9yknBOTA==
+Date: Thu, 26 Mar 2026 10:28:40 +0900
+From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+To: "Vineeth Pillai (Google)" <vineeth@bitbyteword.org>
+Cc: Steven Rostedt <rostedt@goodmis.org>, Peter Zijlstra
+ <peterz@infradead.org>, Dmitry Ilvokhin <d@ilvokhin.com>, Masami Hiramatsu
+ <mhiramat@kernel.org>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ Ingo Molnar <mingo@redhat.com>, Jens Axboe <axboe@kernel.dk>,
+ io-uring@vger.kernel.org, "David S. Miller" <davem@davemloft.net>, Eric
+ Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo
+ Abeni <pabeni@redhat.com>, Alexei Starovoitov <ast@kernel.org>, Daniel
+ Borkmann <daniel@iogearbox.net>, Marcelo Ricardo Leitner
+ <marcelo.leitner@gmail.com>, Xin Long <lucien.xin@gmail.com>, Jon Maloy
+ <jmaloy@redhat.com>, Aaron Conole <aconole@redhat.com>, Eelco Chaudron
+ <echaudro@redhat.com>, Ilya Maximets <i.maximets@ovn.org>,
+ netdev@vger.kernel.org, bpf@vger.kernel.org, linux-sctp@vger.kernel.org,
+ tipc-discussion@lists.sourceforge.net, dev@openvswitch.org, Jiri Pirko
+ <jiri@resnulli.us>, Oded Gabbay <ogabbay@kernel.org>, Koby Elbaz
+ <koby.elbaz@intel.com>, dri-devel@lists.freedesktop.org,
+ "Rafael J. Wysocki" <rafael@kernel.org>, Viresh Kumar
+ <viresh.kumar@linaro.org>, "Gautham R. Shenoy" <gautham.shenoy@amd.com>,
+ Huang Rui <ray.huang@amd.com>, Mario Limonciello
+ <mario.limonciello@amd.com>, Len Brown <lenb@kernel.org>, Srinivas
+ Pandruvada <srinivas.pandruvada@linux.intel.com>, linux-pm@vger.kernel.org,
+ MyungJoo Ham <myungjoo.ham@samsung.com>, Kyungmin Park
+ <kyungmin.park@samsung.com>, Chanwoo Choi <cw00.choi@samsung.com>,
+ Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>, Sumit Semwal
+ <sumit.semwal@linaro.org>, linaro-mm-sig@lists.linaro.org, Eddie James
+ <eajames@linux.ibm.com>, Andrew Jeffery <andrew@codeconstruct.com.au>, Joel
+ Stanley <joel@jms.id.au>, linux-fsi@lists.ozlabs.org, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Alex Deucher
+ <alexander.deucher@amd.com>, Danilo Krummrich <dakr@kernel.org>, Matthew
+ Brost <matthew.brost@intel.com>, Philipp Stanner <phasta@kernel.org>, Harry
+ Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ amd-gfx@lists.freedesktop.org, Jiri Kosina <jikos@kernel.org>, Benjamin
+ Tissoires <bentiss@kernel.org>, linux-input@vger.kernel.org, Wolfram Sang
+ <wsa+renesas@sang-engineering.com>, linux-i2c@vger.kernel.org, Mark Brown
+ <broonie@kernel.org>, Michael Hennerich <michael.hennerich@analog.com>,
+ Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, linux-spi@vger.kernel.org,
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+ "Martin K. Petersen" <martin.petersen@oracle.com>,
+ linux-scsi@vger.kernel.org, Chris Mason <clm@fb.com>, David Sterba
+ <dsterba@suse.com>, linux-btrfs@vger.kernel.org, Thomas Gleixner
+ <tglx@linutronix.de>, Andrew Morton <akpm@linux-foundation.org>, SeongJae
+ Park <sj@kernel.org>, linux-mm@kvack.org, Borislav Petkov <bp@alien8.de>,
+ Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+ linux-trace-kernel@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 01/19] tracepoint: Add trace_call__##name() API
+Message-Id: <20260326102840.80a270ec818fea7e000aeef4@kernel.org>
+In-Reply-To: <20260323160052.17528-2-vineeth@bitbyteword.org>
+References: <20260323160052.17528-1-vineeth@bitbyteword.org>
+ <20260323160052.17528-2-vineeth@bitbyteword.org>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,146 +100,91 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Chen-Yu,
+On Mon, 23 Mar 2026 12:00:20 -0400
+"Vineeth Pillai (Google)" <vineeth@bitbyteword.org> wrote:
 
-kernel test robot noticed the following build errors:
+> Add trace_call__##name() as a companion to trace_##name().  When a
+> caller already guards a tracepoint with an explicit enabled check:
+> 
+>   if (trace_foo_enabled() && cond)
+>       trace_foo(args);
+> 
+> trace_foo() internally repeats the static_branch_unlikely() test, which
+> the compiler cannot fold since static branches are patched binary
+> instructions.  This results in two static-branch evaluations for every
+> guarded call site.
+> 
+> trace_call__##name() calls __do_trace_##name() directly, skipping the
+> redundant static-branch re-check.  This avoids leaking the internal
+> __do_trace_##name() symbol into call sites while still eliminating the
+> double evaluation:
+> 
+>   if (trace_foo_enabled() && cond)
+>       trace_invoke_foo(args);   /* calls __do_trace_foo() directly */
 
-[auto build test ERROR on clk/clk-next]
-[also build test ERROR on robh/for-next drm-misc/drm-misc-next linus/master v7.0-rc5 next-20260325]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+nit: trace_call_foo() instead of trace_invoke_foo()?
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Chen-Yu-Tsai/dt-bindings-clock-mediatek-Add-mt8173-mfgtop/20260325-202618
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/clk/linux.git clk-next
-patch link:    https://lore.kernel.org/r/20260325071951.544031-3-wenst%40chromium.org
-patch subject: [PATCH v2 2/5] clk: mediatek: Add mt8173-mfgtop driver
-config: loongarch-randconfig-002-20260326 (https://download.01.org/0day-ci/archive/20260326/202603260926.gAEaAK0A-lkp@intel.com/config)
-compiler: loongarch64-linux-gcc (GCC) 14.3.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260326/202603260926.gAEaAK0A-lkp@intel.com/reproduce)
+Anyway looks good to me.
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202603260926.gAEaAK0A-lkp@intel.com/
-
-All errors (new ones prefixed by >>):
-
-   drivers/pmdomain/governor.c: In function 'default_suspend_ok':
->> drivers/pmdomain/governor.c:88:24: error: 'struct dev_pm_info' has no member named 'ignore_children'
-      88 |         if (!dev->power.ignore_children)
-         |                        ^
---
-   drivers/pmdomain/core.c: In function 'genpd_queue_power_off_work':
->> drivers/pmdomain/core.c:941:20: error: 'pm_wq' undeclared (first use in this function)
-     941 |         queue_work(pm_wq, &genpd->power_off_work);
-         |                    ^~~~~
-   drivers/pmdomain/core.c:941:20: note: each undeclared identifier is reported only once for each function it appears in
-   drivers/pmdomain/core.c: In function 'genpd_dev_pm_qos_notifier':
->> drivers/pmdomain/core.c:1138:39: error: 'struct dev_pm_info' has no member named 'ignore_children'
-    1138 |                 if (!dev || dev->power.ignore_children)
-         |                                       ^
-   drivers/pmdomain/core.c: In function 'rtpm_status_str':
->> drivers/pmdomain/core.c:3614:23: error: 'struct dev_pm_info' has no member named 'runtime_error'
-    3614 |         if (dev->power.runtime_error)
-         |                       ^
->> drivers/pmdomain/core.c:3616:28: error: 'struct dev_pm_info' has no member named 'disable_depth'
-    3616 |         else if (dev->power.disable_depth)
-         |                            ^
->> drivers/pmdomain/core.c:3618:28: error: 'struct dev_pm_info' has no member named 'runtime_status'
-    3618 |         else if (dev->power.runtime_status < ARRAY_SIZE(status_lookup))
-         |                            ^
-   drivers/pmdomain/core.c:3619:45: error: 'struct dev_pm_info' has no member named 'runtime_status'
-    3619 |                 p = status_lookup[dev->power.runtime_status];
-         |                                             ^
-
-Kconfig warnings: (for reference only)
-   WARNING: unmet direct dependencies detected for PM_GENERIC_DOMAINS
-   Depends on [n]: PM [=n]
-   Selected by [m]:
-   - COMMON_CLK_MT8173_MFGTOP [=m] && COMMON_CLK [=y] && (ARCH_MEDIATEK || COMPILE_TEST [=y]) && COMMON_CLK_MT8173 [=m]
+Acked-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
 
 
-vim +88 drivers/pmdomain/governor.c
+> 
+> Three locations are updated:
+> - __DECLARE_TRACE: invoke form omits static_branch_unlikely, retains
+>   the LOCKDEP RCU-watching assertion.
+> - __DECLARE_TRACE_SYSCALL: same, plus retains might_fault().
+> - !TRACEPOINTS_ENABLED stub: empty no-op so callers compile cleanly
+>   when tracepoints are compiled out.
+> 
+> Suggested-by: Steven Rostedt <rostedt@goodmis.org>
+> Suggested-by: Peter Zijlstra <peterz@infradead.org>
+> Signed-off-by: Vineeth Pillai (Google) <vineeth@bitbyteword.org>
+> Assisted-by: Claude:claude-sonnet-4-6
+> ---
+>  include/linux/tracepoint.h | 11 +++++++++++
+>  1 file changed, 11 insertions(+)
+> 
+> diff --git a/include/linux/tracepoint.h b/include/linux/tracepoint.h
+> index 22ca1c8b54f32..ed969705341f1 100644
+> --- a/include/linux/tracepoint.h
+> +++ b/include/linux/tracepoint.h
+> @@ -294,6 +294,10 @@ static inline struct tracepoint *tracepoint_ptr_deref(tracepoint_ptr_t *p)
+>  			WARN_ONCE(!rcu_is_watching(),			\
+>  				  "RCU not watching for tracepoint");	\
+>  		}							\
+> +	}								\
+> +	static inline void trace_call__##name(proto)			\
+> +	{								\
+> +		__do_trace_##name(args);				\
+>  	}
+>  
+>  #define __DECLARE_TRACE_SYSCALL(name, proto, args, data_proto)		\
+> @@ -313,6 +317,11 @@ static inline struct tracepoint *tracepoint_ptr_deref(tracepoint_ptr_t *p)
+>  			WARN_ONCE(!rcu_is_watching(),			\
+>  				  "RCU not watching for tracepoint");	\
+>  		}							\
+> +	}								\
+> +	static inline void trace_call__##name(proto)			\
+> +	{								\
+> +		might_fault();						\
+> +		__do_trace_##name(args);				\
+>  	}
+>  
+>  /*
+> @@ -398,6 +407,8 @@ static inline struct tracepoint *tracepoint_ptr_deref(tracepoint_ptr_t *p)
+>  #define __DECLARE_TRACE_COMMON(name, proto, args, data_proto)		\
+>  	static inline void trace_##name(proto)				\
+>  	{ }								\
+> +	static inline void trace_call__##name(proto)			\
+> +	{ }								\
+>  	static inline int						\
+>  	register_trace_##name(void (*probe)(data_proto),		\
+>  			      void *data)				\
+> -- 
+> 2.53.0
+> 
 
-a5bef810ad9816 drivers/base/power/domain_governor.c Rafael J. Wysocki 2012-04-29   49  
-b02c999ac325e9 drivers/base/power/domain_governor.c Rafael J. Wysocki 2011-12-01   50  /**
-9df3921e026532 drivers/base/power/domain_governor.c Ulf Hansson       2016-03-31   51   * default_suspend_ok - Default PM domain governor routine to suspend devices.
-b02c999ac325e9 drivers/base/power/domain_governor.c Rafael J. Wysocki 2011-12-01   52   * @dev: Device to check.
-3b2714c5d2d26d drivers/base/power/domain_governor.c Randy Dunlap      2023-12-05   53   *
-3b2714c5d2d26d drivers/base/power/domain_governor.c Randy Dunlap      2023-12-05   54   * Returns: true if OK to suspend, false if not OK to suspend
-b02c999ac325e9 drivers/base/power/domain_governor.c Rafael J. Wysocki 2011-12-01   55   */
-9df3921e026532 drivers/base/power/domain_governor.c Ulf Hansson       2016-03-31   56  static bool default_suspend_ok(struct device *dev)
-b02c999ac325e9 drivers/base/power/domain_governor.c Rafael J. Wysocki 2011-12-01   57  {
-66d29d802ef3bf drivers/base/power/domain_governor.c Ulf Hansson       2022-05-11   58  	struct gpd_timing_data *td = dev_gpd_data(dev)->td;
-6ff7bb0d02f829 drivers/base/power/domain_governor.c Rafael J. Wysocki 2012-05-01   59  	unsigned long flags;
-a5bef810ad9816 drivers/base/power/domain_governor.c Rafael J. Wysocki 2012-04-29   60  	s64 constraint_ns;
-b02c999ac325e9 drivers/base/power/domain_governor.c Rafael J. Wysocki 2011-12-01   61  
-b02c999ac325e9 drivers/base/power/domain_governor.c Rafael J. Wysocki 2011-12-01   62  	dev_dbg(dev, "%s()\n", __func__);
-b02c999ac325e9 drivers/base/power/domain_governor.c Rafael J. Wysocki 2011-12-01   63  
-6ff7bb0d02f829 drivers/base/power/domain_governor.c Rafael J. Wysocki 2012-05-01   64  	spin_lock_irqsave(&dev->power.lock, flags);
-6ff7bb0d02f829 drivers/base/power/domain_governor.c Rafael J. Wysocki 2012-05-01   65  
-6ff7bb0d02f829 drivers/base/power/domain_governor.c Rafael J. Wysocki 2012-05-01   66  	if (!td->constraint_changed) {
-9df3921e026532 drivers/base/power/domain_governor.c Ulf Hansson       2016-03-31   67  		bool ret = td->cached_suspend_ok;
-6ff7bb0d02f829 drivers/base/power/domain_governor.c Rafael J. Wysocki 2012-05-01   68  
-6ff7bb0d02f829 drivers/base/power/domain_governor.c Rafael J. Wysocki 2012-05-01   69  		spin_unlock_irqrestore(&dev->power.lock, flags);
-6ff7bb0d02f829 drivers/base/power/domain_governor.c Rafael J. Wysocki 2012-05-01   70  		return ret;
-6ff7bb0d02f829 drivers/base/power/domain_governor.c Rafael J. Wysocki 2012-05-01   71  	}
-6ff7bb0d02f829 drivers/base/power/domain_governor.c Rafael J. Wysocki 2012-05-01   72  	td->constraint_changed = false;
-9df3921e026532 drivers/base/power/domain_governor.c Ulf Hansson       2016-03-31   73  	td->cached_suspend_ok = false;
-0759e80b84e34a drivers/base/power/domain_governor.c Rafael J. Wysocki 2017-11-07   74  	td->effective_constraint_ns = 0;
-8262331eaaf751 drivers/base/power/domain_governor.c Viresh Kumar      2019-07-04   75  	constraint_ns = __dev_pm_qos_resume_latency(dev);
-6ff7bb0d02f829 drivers/base/power/domain_governor.c Rafael J. Wysocki 2012-05-01   76  
-6ff7bb0d02f829 drivers/base/power/domain_governor.c Rafael J. Wysocki 2012-05-01   77  	spin_unlock_irqrestore(&dev->power.lock, flags);
-6ff7bb0d02f829 drivers/base/power/domain_governor.c Rafael J. Wysocki 2012-05-01   78  
-0759e80b84e34a drivers/base/power/domain_governor.c Rafael J. Wysocki 2017-11-07   79  	if (constraint_ns == 0)
-a5bef810ad9816 drivers/base/power/domain_governor.c Rafael J. Wysocki 2012-04-29   80  		return false;
-a5bef810ad9816 drivers/base/power/domain_governor.c Rafael J. Wysocki 2012-04-29   81  
-a5bef810ad9816 drivers/base/power/domain_governor.c Rafael J. Wysocki 2012-04-29   82  	constraint_ns *= NSEC_PER_USEC;
-a5bef810ad9816 drivers/base/power/domain_governor.c Rafael J. Wysocki 2012-04-29   83  	/*
-a5bef810ad9816 drivers/base/power/domain_governor.c Rafael J. Wysocki 2012-04-29   84  	 * We can walk the children without any additional locking, because
-6ff7bb0d02f829 drivers/base/power/domain_governor.c Rafael J. Wysocki 2012-05-01   85  	 * they all have been suspended at this point and their
-6ff7bb0d02f829 drivers/base/power/domain_governor.c Rafael J. Wysocki 2012-05-01   86  	 * effective_constraint_ns fields won't be modified in parallel with us.
-a5bef810ad9816 drivers/base/power/domain_governor.c Rafael J. Wysocki 2012-04-29   87  	 */
-a5bef810ad9816 drivers/base/power/domain_governor.c Rafael J. Wysocki 2012-04-29  @88  	if (!dev->power.ignore_children)
-a5bef810ad9816 drivers/base/power/domain_governor.c Rafael J. Wysocki 2012-04-29   89  		device_for_each_child(dev, &constraint_ns,
-a5bef810ad9816 drivers/base/power/domain_governor.c Rafael J. Wysocki 2012-04-29   90  				      dev_update_qos_constraint);
-b02c999ac325e9 drivers/base/power/domain_governor.c Rafael J. Wysocki 2011-12-01   91  
-0759e80b84e34a drivers/base/power/domain_governor.c Rafael J. Wysocki 2017-11-07   92  	if (constraint_ns == PM_QOS_RESUME_LATENCY_NO_CONSTRAINT_NS) {
-704d2ce6603f7e drivers/base/power/domain_governor.c Rafael J. Wysocki 2017-11-07   93  		/* "No restriction", so the device is allowed to suspend. */
-0759e80b84e34a drivers/base/power/domain_governor.c Rafael J. Wysocki 2017-11-07   94  		td->effective_constraint_ns = PM_QOS_RESUME_LATENCY_NO_CONSTRAINT_NS;
-704d2ce6603f7e drivers/base/power/domain_governor.c Rafael J. Wysocki 2017-11-07   95  		td->cached_suspend_ok = true;
-0759e80b84e34a drivers/base/power/domain_governor.c Rafael J. Wysocki 2017-11-07   96  	} else if (constraint_ns == 0) {
-704d2ce6603f7e drivers/base/power/domain_governor.c Rafael J. Wysocki 2017-11-07   97  		/*
-704d2ce6603f7e drivers/base/power/domain_governor.c Rafael J. Wysocki 2017-11-07   98  		 * This triggers if one of the children that don't belong to a
-0759e80b84e34a drivers/base/power/domain_governor.c Rafael J. Wysocki 2017-11-07   99  		 * domain has a zero PM QoS constraint and it's better not to
-0759e80b84e34a drivers/base/power/domain_governor.c Rafael J. Wysocki 2017-11-07  100  		 * suspend then.  effective_constraint_ns is zero already and
-0759e80b84e34a drivers/base/power/domain_governor.c Rafael J. Wysocki 2017-11-07  101  		 * cached_suspend_ok is false, so bail out.
-704d2ce6603f7e drivers/base/power/domain_governor.c Rafael J. Wysocki 2017-11-07  102  		 */
-704d2ce6603f7e drivers/base/power/domain_governor.c Rafael J. Wysocki 2017-11-07  103  		return false;
-704d2ce6603f7e drivers/base/power/domain_governor.c Rafael J. Wysocki 2017-11-07  104  	} else {
-2b1d88cda32f81 drivers/base/power/domain_governor.c Ulf Hansson       2015-10-15  105  		constraint_ns -= td->suspend_latency_ns +
-2b1d88cda32f81 drivers/base/power/domain_governor.c Ulf Hansson       2015-10-15  106  				td->resume_latency_ns;
-704d2ce6603f7e drivers/base/power/domain_governor.c Rafael J. Wysocki 2017-11-07  107  		/*
-0759e80b84e34a drivers/base/power/domain_governor.c Rafael J. Wysocki 2017-11-07  108  		 * effective_constraint_ns is zero already and cached_suspend_ok
-0759e80b84e34a drivers/base/power/domain_governor.c Rafael J. Wysocki 2017-11-07  109  		 * is false, so if the computed value is not positive, return
-0759e80b84e34a drivers/base/power/domain_governor.c Rafael J. Wysocki 2017-11-07  110  		 * right away.
-704d2ce6603f7e drivers/base/power/domain_governor.c Rafael J. Wysocki 2017-11-07  111  		 */
-704d2ce6603f7e drivers/base/power/domain_governor.c Rafael J. Wysocki 2017-11-07  112  		if (constraint_ns <= 0)
-a5bef810ad9816 drivers/base/power/domain_governor.c Rafael J. Wysocki 2012-04-29  113  			return false;
-704d2ce6603f7e drivers/base/power/domain_governor.c Rafael J. Wysocki 2017-11-07  114  
-a5bef810ad9816 drivers/base/power/domain_governor.c Rafael J. Wysocki 2012-04-29  115  		td->effective_constraint_ns = constraint_ns;
-704d2ce6603f7e drivers/base/power/domain_governor.c Rafael J. Wysocki 2017-11-07  116  		td->cached_suspend_ok = true;
-704d2ce6603f7e drivers/base/power/domain_governor.c Rafael J. Wysocki 2017-11-07  117  	}
-a98f1b78ecf325 drivers/base/power/domain_governor.c Ulf Hansson       2015-10-13  118  
-a5bef810ad9816 drivers/base/power/domain_governor.c Rafael J. Wysocki 2012-04-29  119  	/*
-a5bef810ad9816 drivers/base/power/domain_governor.c Rafael J. Wysocki 2012-04-29  120  	 * The children have been suspended already, so we don't need to take
-9df3921e026532 drivers/base/power/domain_governor.c Ulf Hansson       2016-03-31  121  	 * their suspend latencies into account here.
-a5bef810ad9816 drivers/base/power/domain_governor.c Rafael J. Wysocki 2012-04-29  122  	 */
-9df3921e026532 drivers/base/power/domain_governor.c Ulf Hansson       2016-03-31  123  	return td->cached_suspend_ok;
-b02c999ac325e9 drivers/base/power/domain_governor.c Rafael J. Wysocki 2011-12-01  124  }
-b02c999ac325e9 drivers/base/power/domain_governor.c Rafael J. Wysocki 2011-12-01  125  
 
 -- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+Masami Hiramatsu (Google) <mhiramat@kernel.org>
