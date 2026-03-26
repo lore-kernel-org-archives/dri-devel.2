@@ -4,86 +4,161 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2CDF2106F30F
-	for <dri-devel@archiver.kernel.org>; Thu, 26 Mar 2026 09:15:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 02824106F311
+	for <dri-devel@archiver.kernel.org>; Thu, 26 Mar 2026 09:24:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7865210E9D6;
-	Thu, 26 Mar 2026 09:15:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5B2B510EA28;
+	Thu, 26 Mar 2026 09:24:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.b="BBz6saw1";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="bjP/ZdjK";
 	dkim-atps=neutral
-Received: from mail-m49248.qiye.163.com (mail-m49248.qiye.163.com
- [45.254.49.248])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 512FF10E9ED
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Mar 2026 09:15:18 +0000 (UTC)
-Received: from [172.16.12.43] (unknown [58.22.7.114])
- by smtp.qiye.163.com (Hmail) with ESMTP id 3865a941e;
- Thu, 26 Mar 2026 17:15:11 +0800 (GMT+08:00)
-Message-ID: <ea1bf890-c4be-4d66-ad26-a6bdb58a9292@rock-chips.com>
-Date: Thu, 26 Mar 2026 17:15:11 +0800
-MIME-Version: 1.0
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E3A4110E22E;
+ Thu, 26 Mar 2026 09:23:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1774517042; x=1806053042;
+ h=message-id:date:subject:to:cc:references:from:
+ in-reply-to:content-transfer-encoding:mime-version;
+ bh=ofS//b9WmTebZhAFijz7STY6oXhHxfVAR01JsCa09mg=;
+ b=bjP/ZdjKyn/w/VgoNUSk9Yu7gQMmAXwJ+gdhIczM+Tm7ygopP1BRmaIL
+ 4XqS0zyy+mKbSxYAJmvREPv0Cee/GHU/8XnT7fcp8qI3EuFyCyNuFoMOR
+ t+Ld/i4Hej6DIPl1yH1gbpbO9I8v8AmPQomfGp1Ea7zQaqawflnQB4eT0
+ wvQCdHE5AD4MssgD9LdnqFO1nTzqCGpkzG4YYLQ70QlxONvTZYi/skDgn
+ d1LHXOYPE1+N/m9uOIcROTvGUk8TbfMf5oYP+0CT/ZTomx+O4T1LP6m9R
+ kAwGzx4slRvPJgpWfU+k+wAOyau8bDQazm4IpprWY0JdWPph3oNsnBioz w==;
+X-CSE-ConnectionGUID: 4kPM2tLMQ2u/pmFsRFX9fQ==
+X-CSE-MsgGUID: wDF1f+mQTcKtJcFveH+mUQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11740"; a="101022680"
+X-IronPort-AV: E=Sophos;i="6.23,141,1770624000"; d="scan'208";a="101022680"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+ by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Mar 2026 02:23:56 -0700
+X-CSE-ConnectionGUID: OtCqoXW9SnWvKSuIWWHcNA==
+X-CSE-MsgGUID: fVxKQT/HTMm59bX1KsVdYw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,141,1770624000"; d="scan'208";a="224012045"
+Received: from fmsmsx903.amr.corp.intel.com ([10.18.126.92])
+ by orviesa006.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Mar 2026 02:23:56 -0700
+Received: from FMSMSX903.amr.corp.intel.com (10.18.126.92) by
+ fmsmsx903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37; Thu, 26 Mar 2026 02:23:55 -0700
+Received: from fmsedg901.ED.cps.intel.com (10.1.192.143) by
+ FMSMSX903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37 via Frontend Transport; Thu, 26 Mar 2026 02:23:55 -0700
+Received: from BN1PR04CU002.outbound.protection.outlook.com (52.101.56.33) by
+ edgegateway.intel.com (192.55.55.81) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37; Thu, 26 Mar 2026 02:23:54 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=axPlCBkEeP8we0Omx8MytFqUyIIKBZbsqEA90lrhTYZ1EPzxXoWI+2ydr36ENqFMv9FV5XEJxahZ4pImu3YcnggmY6bfkW2fX9Dca4UK6bOaxAHnElEoGYlNeRWJT7DfJWzSit/r48f0ItEmnS73bl+B5Vek+fWRZBiD7xnXfCHRcQSirxA3tBC98IW2zqRfrYyhCj7LkfIGZirqVjUqUcXhl6EWpyKrHQujxbtEyGmj4OWUIiSxTI07WTy4ZTWgDzgaxyvJqYegwC6FEf//HabZ+tGUgU54o4z20hvf4Nt7cx6qduPIISFce7rhxG2r7dyfWvqmdhOjKPF5RA2ORA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=sujiaquIhmo7XDert2hFCmkFx2ZXcvNvjQNMeLz3gqI=;
+ b=IILLdOkw0dChwb6KffYi+GJvsfe3U41uPdmrBP2sxENNT482Zeh/J/hYiDoO8gz1Siv8MtwL603GJJWBWUUiXCtLW7cXWvQwvZyIr9UfQnyxVirgJey/J4qJlhUSnDW1Aqs4CLv+6yIaHi+YLP3mgkBJSxpThbWokL5hc75CuMDx4M6Qjy8VnOyeHd2zio7/7x7XMBNsRTEbV2fkserMmJZNmO46N4n1eQG4RPCgLmlYO+bNgL8ro8h5XamE+ZBS9y6ejBUEyiLVReCeN+R0Lwir2HIWPU8N27Eyu1QLHU/KdhHO7cXy+8kzSIZt9hlzPo1gK3QOY3OgyTI+YHMs4w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from DM4PR11MB5341.namprd11.prod.outlook.com (2603:10b6:5:390::22)
+ by SJ1PR11MB6132.namprd11.prod.outlook.com (2603:10b6:a03:45d::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.20; Thu, 26 Mar
+ 2026 09:23:52 +0000
+Received: from DM4PR11MB5341.namprd11.prod.outlook.com
+ ([fe80::68b9:ea3c:8166:3cc4]) by DM4PR11MB5341.namprd11.prod.outlook.com
+ ([fe80::68b9:ea3c:8166:3cc4%4]) with mapi id 15.20.9723.013; Thu, 26 Mar 2026
+ 09:23:52 +0000
+Message-ID: <a3f1e02e-349a-4a3f-9bc5-08c14a43922c@intel.com>
+Date: Thu, 26 Mar 2026 14:53:43 +0530
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 4/8] drm/bridge: dw-hdmi: document the output_port field
-To: Liu Ying <victor.liu@nxp.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>, 
- Marek Vasut <marex@denx.de>, Stefan Agner <stefan@agner.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>
-Cc: "Kory Maincent (TI.com)" <kory.maincent@bootlin.com>,
- =?UTF-8?Q?Herv=C3=A9_Codina?= <herve.codina@bootlin.com>,
- Hui Pu <Hui.Pu@gehealthcare.com>, Ian Ray <ian.ray@gehealthcare.com>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
- dri-devel@lists.freedesktop.org, imx@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, Adam Ford <aford173@gmail.com>,
- Alexander Stein <alexander.stein@ew.tq-group.com>,
- Anson Huang <Anson.Huang@nxp.com>,
- Christopher Obbard <christopher.obbard@linaro.org>,
- Daniel Scally <dan.scally@ideasonboard.com>,
- Emanuele Ghidoli <emanuele.ghidoli@toradex.com>,
- Fabio Estevam <festevam@denx.de>,
- Francesco Dolcini <francesco.dolcini@toradex.com>,
- Frieder Schrempf <frieder.schrempf@kontron.de>,
- Gilles Talis <gilles.talis@gmail.com>,
- =?UTF-8?B?R29yYW4gUmHEkWVub3ZpxIc=?= <goran.radni@gmail.com>,
- Heiko Schocher <hs@denx.de>,
- Joao Paulo Goncalves <joao.goncalves@toradex.com>,
- Josua Mayer <josua@solid-run.com>,
- Kieran Bingham <kieran.bingham@ideasonboard.com>,
- Marco Felsch <m.felsch@pengutronix.de>,
- Martyn Welch <martyn.welch@collabora.com>,
- Oleksij Rempel <o.rempel@pengutronix.de>, Peng Fan <peng.fan@nxp.com>,
- Philippe Schenker <philippe.schenker@toradex.com>,
- Richard Hu <richard.hu@technexion.com>, Shengjiu Wang
- <shengjiu.wang@nxp.com>,
- Stefan Eichenberger <stefan.eichenberger@toradex.com>,
- Vitor Soares <vitor.soares@toradex.com>
-References: <20260320-drm-lcdif-dbanc-v1-0-479a04133e70@bootlin.com>
- <20260320-drm-lcdif-dbanc-v1-4-479a04133e70@bootlin.com>
- <050c6532-8122-4ded-9946-3ce1a86d2be0@nxp.com>
+Subject: Re: [PATCH 13/19] drm/i915/display: Add helper for AS SDP
+ transmission time selection
+To: =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
+CC: <intel-gfx@lists.freedesktop.org>, <intel-xe@lists.freedesktop.org>,
+ <dri-devel@lists.freedesktop.org>, <jouni.hogander@intel.com>,
+ <animesh.manna@intel.com>
+References: <20260311113611.3393194-1-ankit.k.nautiyal@intel.com>
+ <20260311113611.3393194-14-ankit.k.nautiyal@intel.com>
+ <abQE2snfAjPn0st5@intel.com>
 Content-Language: en-US
-From: Damon Ding <damon.ding@rock-chips.com>
-In-Reply-To: <050c6532-8122-4ded-9946-3ce1a86d2be0@nxp.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-HM-Tid: 0a9d296d244d03a3kunm1010b4977b1d91
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
- tZV1koWUFDSUNOT01LS0k3V1ktWUFJV1kPCRoVCBIfWUFZGR5OS1ZLSxpMSBpMSh0fGE1WFRQJFh
- oXVRMBExYaEhckFA4PWVdZGBILWUFZTkNVSUlVTFVKSk9ZV1kWGg8SFR0UWUFZT0tIVUpLSEpKQk
- xVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
- b=BBz6saw1bA1HipARZJu1Th3JeGDhlWRDZM5b3IG6nb6VPuZJDLQA30JTB/X6J79LLkbgUnkqaZqnmMnVOtKWw03gpXLqkD6fTgBZcfRXfa74ymJvbj3O7FKcBLPHT1zk8aZ8xOSoV6SuC+/1g7OjciB+8/8J4m3qKQN1tjIqK4Y=;
- c=relaxed/relaxed; s=default; d=rock-chips.com; v=1; 
- bh=hV1UzNvduceK201Bbs4LBHoL7oLLk3YAabMlA/Ugb6M=;
- h=date:mime-version:subject:message-id:from;
+From: "Nautiyal, Ankit K" <ankit.k.nautiyal@intel.com>
+In-Reply-To: <abQE2snfAjPn0st5@intel.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: MA5PR01CA0220.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:a01:1f3::16) To DM4PR11MB5341.namprd11.prod.outlook.com
+ (2603:10b6:5:390::22)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM4PR11MB5341:EE_|SJ1PR11MB6132:EE_
+X-MS-Office365-Filtering-Correlation-Id: a28f2ab5-25c3-4103-608f-08de8b1964c6
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|376014|366016|18002099003|56012099003|22082099003; 
+X-Microsoft-Antispam-Message-Info: PS670WA4ZFUokol+3dveY+wHShiB4Va1j6nS4VNXeYspe33CKo6qaYAKxQx56nH0T42XlcU4uWuqBQGedLnudrK5eDcGsJb2RhnGerRDEln7Sn9laFg3QBMsUCi5IkFY1XvQxT+OLa3Rx7cFJp4jXcyCg1riWDZ8Mm4s6mPk8Rh1yDgqkCEm8bNW1NYc+u7zsIn/w3BnCVzqKQTB7XjfoeorwCTAYGFrLOg12Ms0pcCrJtN3IIz0Dx2ThN6nJ08h6ov/s1czlx/yfT8JaDtIrAcNXpD80rGv0s/MHYf/SN8B2ZeAvSbBBc5Ltw85zLVaTSaTRlI9J9w/1bFyW9CFUad8dcoqrVdY3Id9kzkc1vjxSUg8zItEzXR6UTe/DZFMv01qWjgQiPxHHVnEMeJG7zaK0hMBDKGMFs0ZdFChQGxciKjzsAfSpKoDFUAZScRBePOY3HRel3+wQiqMCaRPzPz6laI8cVx8OF1d4AtWUPimSaOnD5bmBrVt7j1pJC4wIZ29O6kkW/lj4m/NgWFUBHhqxNI7VxAGwxv9b+ZAwF80MR9MqlXjgAFNyxdAkw03cAgtj62f3loCZMlZPLFpTgWiVLNl7ybE6PGVc6tzDEjtOK8ERde66KS98lRWMaDXyng8xkCHkmHxWLFfhe6FUfnXnBwlRtxXYqrXduLt+2ygqoQIo3xBXTIjoi0CZJ9o19WB833hGTFpshID4pLc5QVVun75nrFB/XeIFKU45v4=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM4PR11MB5341.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(366016)(18002099003)(56012099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MTBxMG9aVnF3aE8rYnd4aGNrRnN3MTJnWGtIcExSSjhGYzIvWkZyU1QxNWxE?=
+ =?utf-8?B?LzU3NDF2bE0wUE5OVjhoczFmSTN2M0t2Z0NmcERRcUJkRlo4QmJzWHpOaEtl?=
+ =?utf-8?B?QTRyME9JOSs4SVhVTVhTdWtpZDJhRTRyMUN5NUtIQVAva1ZmeitJekwvS2dH?=
+ =?utf-8?B?L2trWXoxTmhIYkxMR3M5ZWsvaURiYy8xQ1IrNW5mbFl3SU5xZlBUYU9aclNR?=
+ =?utf-8?B?ZGJRWHZDUzVqV1RERXdSbDNZclE2c2k5VjBEcVJ2enQ3T0tuNGFDTGlSK3JE?=
+ =?utf-8?B?d0tHQU1YcG5hdnh6Wk9ULzlGT2ZpWXRwekxkQ1dUcXUvSmUwbk1YQnRFU2s1?=
+ =?utf-8?B?dDNwZ1AxZ3VVWlVrbFEzR2JMbndIcm1MWUc3SGgwRERTNWZCcTRKVmhVRXRT?=
+ =?utf-8?B?YUNadHQ1c0ZuaWNzVTNnT3Z5bVZPMFJzdERrUlRYOUd3S2x5K2MwdGZMcklX?=
+ =?utf-8?B?NDdIOVhYRGVNZ21qdzZGK3V0cnNpN1VHWEk1NmtqM0JHcko1NFRGUDBTU3pp?=
+ =?utf-8?B?K2lZVFJWVTNXMFRXcTgzWHBUNzl0TjFDQXZJZEpTaUlwMWZsQ0c1dWtHaGZ4?=
+ =?utf-8?B?N2FGTk8rYUQyQ2ozcFJBeTNrUkM2MytVdzRaMGxMRXd2b3hVVWhEWWkvTFV0?=
+ =?utf-8?B?cVpNbEYvc0hHdzFtWmJRSEVhMUxaaXY0cEt6eWtSdEgxdmU1cFFhSDFscG5h?=
+ =?utf-8?B?bnduZkhHUlBKVlovOEdQSlJYOGxmN0d2WTBKcHZkd3FBWGxWMCtzRDhRcExB?=
+ =?utf-8?B?MzZvK2ZxT2JyQXBBVzhLdVRuRFIxVncyRzZhWmMwUS9BTnBhb3dXT0lMMENl?=
+ =?utf-8?B?UFlQRXppUllpZWJPdGx4WVhnbkhqUUNCQU9uWEVMSnV2alYrcDhJRDZQYlA3?=
+ =?utf-8?B?bGV0R0NVRUVrc2VlTExYbyt1WWlKaFJKUDhkOUhKaUZwQ3dzNC90OC9DTCtz?=
+ =?utf-8?B?M3ZXYVlCNEEveXRwSnJSOEhGR0hUNWpEWlpBRkJtODBqV3FhakNlOHBjQ1BM?=
+ =?utf-8?B?eGhHbUF0bnd4dDlaYlJjQ0FpQjN0NS9WZkNIaXZkazdSQ3lFbzVuNVlhVGdz?=
+ =?utf-8?B?d2p0alZOTGo5MVVTUTdCQTZVNXI0TXU4dWZkVmVER1k1UGl6a2VxbE0yMXN3?=
+ =?utf-8?B?b1BlUjMrQVBGVWgyeTlxVEJDYkE1Wm00ZjdRWXJXR1JkTFdwdVRUTW5vUVEy?=
+ =?utf-8?B?aVdvZHkwU1FKVXZ2Nk0yaDYyYlI1bXdPbHRhTDNsbWtiZlN0YXBiTlNELzVh?=
+ =?utf-8?B?elZMTkNRVmI5M1FsbkFsZ0hHanJRbkVJSzIxRjhFbTdlUUFIQm1KbjdIQ0R0?=
+ =?utf-8?B?V2RyUDlVT3hMQ1FXaHY3SEZWd2hSdUtlaDU4TldWR2NMODBLOGFsdE1CM29T?=
+ =?utf-8?B?Z0R6a3pjMzRWOGxhOU4rQUZLZTAvb2hneExLelM2QURzR0JJZWU3ZERJRUZr?=
+ =?utf-8?B?QjFycTRsZGFNenlYeHRIbmVESE1vUE03aVhqQ2FSdWJ1ZVlkYm5SbnQ1RFlW?=
+ =?utf-8?B?cDJkQ25zR0VPOXNtaVVmQkF2YXJnME5RTSswL0hxQTBKZUtTaXd6RlRMaXRr?=
+ =?utf-8?B?S0FUZFcrT3BPVDNXSEsrN0ZFTWhnMER0ZUp4RjU3Mjg5RlJqTk1OQjYwalY0?=
+ =?utf-8?B?RDQyMVU5Mm9oazZXWkFtTlQrSUxaclIxZDh5OGV2czl5eVB4b0s3Y2ZGRi9F?=
+ =?utf-8?B?V094c1FLUi9XN1UrVUR4bjlPaUZXQlhaWVgwV0tFOUtrOEV4ME9hU0cxeWo2?=
+ =?utf-8?B?OE56VGVHaU5iaC9rZHJmUjBTaU5CNThRVmRjeUZyR0NObEFiV1drY3NWTTRr?=
+ =?utf-8?B?V1NKOGhyUXRwUEg3TFBaR1RDWXNsTnBLYk85dXRhZngxWWcyNUpJSFRFUERM?=
+ =?utf-8?B?dCtsUEJESzE0b2I0Sy9iZ1phQktaMUN5MUtMWFVSRUFwekxpSzI4d1pOZWZB?=
+ =?utf-8?B?QWdHVUR3cFBYRXdFTStJZ1Y0OWUvNVRlcGpmMjcxRW5qcmpzOGpSZHppek5x?=
+ =?utf-8?B?aVdhdjdmT01JWlVseU90d2lTS3J4YVZTUDhCTlk0VElRQWZUMmV0TXNrRmNa?=
+ =?utf-8?B?Qkh0NWVsZUpZRThmdldYVG1ER0ZUOHVGL2IzV2c1QjZXSFh5QVBGYTFLZ1Nl?=
+ =?utf-8?B?QzhoRlBUaldTYzNnNlNLd242MERFYjJEYlhvam1HRlpmMkNyMWpFUmVnTGRL?=
+ =?utf-8?B?Wk9IeU1nTVZZaFdsT1JaM0VYRjN0YUFKMFFnQmo3WUlPYjZxTVlGSGpMV2pS?=
+ =?utf-8?B?MkZMU3EwWjNOMnVEcG5QOGNuZk5BZkdRNjFCdDFDTkllMzl2NzhHeVdXZDlW?=
+ =?utf-8?B?SHpXZGxIV01OaUdWOW81OTd4aStnc01OSjZ3UFZpVkxyNnZMUzUwcmpKMjk0?=
+ =?utf-8?Q?j4FIPboPTLjK+Y2A=3D?=
+X-Exchange-RoutingPolicyChecked: oO/gQ4oOvG2g3gC6UVeMiReIIbuoZQb2D6GlMuC7Mrt5xu8s9gKJyycWU428j/tRmDqzklwpK5h42yFnz5YCQlwWI/nlACSAkR6GQaAPxemN5iBiYjtrGSvCn5ZmK0o2TqIXV4SYdnPiKNHnDWRrVLA+E04w6t+LvMvrYV5juCNkkxJ2JqpzHO0VOyCstlL+1bscPfJqp6qfk6k3MDGDBYgc3dN73qvXUvyUZtHYUrxyltKshirSg6Vz3reGzSBVXOgqlr8epuWpUOhIY138ozJ6RjQinQrkI+BMXTzHUnBrxUfDt1qpIPIm44h46P/46Iswe/lt0oK8FdlnpBdKrQ==
+X-MS-Exchange-CrossTenant-Network-Message-Id: a28f2ab5-25c3-4103-608f-08de8b1964c6
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR11MB5341.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Mar 2026 09:23:52.0032 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 4v1jd6VmEk+Tz9tqVl2L3jxyTDI1IkVAgvSVImUwQa8PQkUWw2NQYpbXUCT9wWxH6wsPdruT2RLM3Nu2XB6UaWXH2FH66D9HdCMzWaj1DSM=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR11MB6132
+X-OriginatorOrg: intel.com
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,65 +174,136 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 3/26/2026 3:25 PM, Liu Ying wrote:
-> Hi Luca,
-> 
-> On Fri, Mar 20, 2026 at 11:46:15AM +0100, Luca Ceresoli wrote:
->> The meaning of this flag may not be obvious at first sight.
+
+On 3/13/2026 6:06 PM, Ville Syrjälä wrote:
+> On Wed, Mar 11, 2026 at 05:06:05PM +0530, Ankit Nautiyal wrote:
+>> AS SDP may be transmitted at T1 or T2 depending on Panel Replay and
+>> Adaptive Sync SDP configuration as per DP 2.1. Current we are using
+>> T1 only, but future PR/AS SDP modes/features may require T2 or dynamic
+>> selection.
 >>
->> Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+>> Introduce a helper to return the appropriate AS SDP transmission time so
+>> that a single value is consistently used for programming PR_ALPM.
+>> For now this returns T1.
+>>
+>> v2: Avoid adding new member to crtc_state; use a helper. (Ville)
+>>
+>> Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 >> ---
->>   include/drm/bridge/dw_hdmi.h | 5 +++++
->>   1 file changed, 5 insertions(+)
+>>   drivers/gpu/drm/i915/display/intel_alpm.c | 20 +++++++++++++++++++-
+>>   drivers/gpu/drm/i915/display/intel_dp.c   |  9 +++++++++
+>>   drivers/gpu/drm/i915/display/intel_dp.h   |  2 ++
+>>   3 files changed, 30 insertions(+), 1 deletion(-)
 >>
-
-First of all, these changes related to the DW HDMI controller work well 
-when tested on RK3399 HDMI.
-
->> diff --git a/include/drm/bridge/dw_hdmi.h b/include/drm/bridge/dw_hdmi.h
->> index 336f062e1f9d..45f6ba1a8ee1 100644
->> --- a/include/drm/bridge/dw_hdmi.h
->> +++ b/include/drm/bridge/dw_hdmi.h
->> @@ -126,6 +126,11 @@ struct dw_hdmi_phy_ops {
->>   struct dw_hdmi_plat_data {
->>   	struct regmap *regm;
+>> diff --git a/drivers/gpu/drm/i915/display/intel_alpm.c b/drivers/gpu/drm/i915/display/intel_alpm.c
+>> index a7350ce8e716..0a6da3f926d3 100644
+>> --- a/drivers/gpu/drm/i915/display/intel_alpm.c
+>> +++ b/drivers/gpu/drm/i915/display/intel_alpm.c
+>> @@ -11,6 +11,7 @@
+>>   #include "intel_crtc.h"
+>>   #include "intel_de.h"
+>>   #include "intel_display_types.h"
+>> +#include "intel_display_utils.h"
+>>   #include "intel_dp.h"
+>>   #include "intel_dp_aux.h"
+>>   #include "intel_psr.h"
+>> @@ -359,6 +360,23 @@ void intel_alpm_lobf_compute_config(struct intel_dp *intel_dp,
+>>   	crtc_state->has_lobf = true;
+>>   }
 >>   
+>> +static int get_pr_alpm_as_sdp_transmission_time(const struct intel_crtc_state *crtc_state)
+> The type should be u32 since it returns a (partial) register value.
+>
+>> +{
+>> +	int as_sdp_setup_time = intel_dp_as_sdp_transmission_time();
+>> +
+>> +	switch (as_sdp_setup_time) {
+>> +	case DP_PR_AS_SDP_SETUP_TIME_T1:
+>> +		return PR_ALPM_CTL_ADAPTIVE_SYNC_SDP_POSITION_T1;
+>> +	case DP_PR_AS_SDP_SETUP_TIME_DYNAMIC:
+>> +		return PR_ALPM_CTL_ADAPTIVE_SYNC_SDP_POSITION_T1_OR_T2;
+>> +	case DP_PR_AS_SDP_SETUP_TIME_T2:
+>> +		return PR_ALPM_CTL_ADAPTIVE_SYNC_SDP_POSITION_T2;
+>> +	default:
+>> +		MISSING_CASE(as_sdp_setup_time);
+>> +		return PR_ALPM_CTL_ADAPTIVE_SYNC_SDP_POSITION_T1;
+>> +	}
+>> +}
+>> +
+>>   static void lnl_alpm_configure(struct intel_dp *intel_dp,
+>>   			       const struct intel_crtc_state *crtc_state)
+>>   {
+>> @@ -382,7 +400,7 @@ static void lnl_alpm_configure(struct intel_dp *intel_dp,
+>>   			ALPM_CTL_AUX_LESS_WAKE_TIME(crtc_state->alpm_state.aux_less_wake_lines);
+>>   
+>>   		if (intel_dp->as_sdp_supported) {
+>> -			u32 pr_alpm_ctl = PR_ALPM_CTL_ADAPTIVE_SYNC_SDP_POSITION_T1;
+>> +			u32 pr_alpm_ctl = get_pr_alpm_as_sdp_transmission_time(crtc_state);
+>>   
+>>   			if (crtc_state->link_off_after_as_sdp_when_pr_active)
+>>   				pr_alpm_ctl |= PR_ALPM_CTL_ALLOW_LINK_OFF_BETWEEN_AS_SDP_AND_SU;
+>> diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+>> index e6148e7f0ebc..74a8af3cf18c 100644
+>> --- a/drivers/gpu/drm/i915/display/intel_dp.c
+>> +++ b/drivers/gpu/drm/i915/display/intel_dp.c
+>> @@ -7439,3 +7439,12 @@ bool intel_dp_joiner_candidate_valid(struct intel_connector *connector,
+>>   
+>>   	return true;
+>>   }
+>> +
+>> +int intel_dp_as_sdp_transmission_time(void)
+>> +{
 >> +	/*
->> +	 * The HDMI output port number (which must be 1) if it is described
-> 
-> I'd rephrase:
-> The HDMI output port number must be 1 ...
-> 
-
-Yes, the output port number should be 1, but I found that the output 
-port number in the Rockchip-side dw-hdmi driver remains 0.
-
-Therefore, it may be better to adapt the dw-hdmi drivers across all 
-platforms to the bridge-connector architecture simultaneously.
-
-This would allow removing &dw_hdmi_plat_data.output_port and unify the 
-setting of DRM_BRIDGE_ATTACH_NO_CONNECTOR during the attach stage.
-(Just as the Analogix DP driver does [0])
-
-[0] 
-https://lore.kernel.org/all/20260319071452.1961274-1-damon.ding@rock-chips.com/
-
->> +	 * in the device tree. 0 if the device tree does not describe the
->> +	 * next component (legacy mode).
-> 
-> Maybe be a bit more specific about "legacy mode":
-> legacy mode without DRM_BRIDGE_ATTACH_NO_CONNECTOR flag when attaching bridge
-> ?
-> 
-> Reviewed-by: Liu Ying <victor.liu@nxp.com>
-> 
+>> +	 * For now we use T1 as the transmission time.
+>> +	 * This can be later changed as per requirements.
 >> +	 */
->>   	unsigned int output_port;
+> IIRC Bspec actually says we must use T1.
+
+
+I am a bit confused. As per spec 68920:
+
+"When Panel Replay is inactive (this includes entry and exit frames), 
+then the Source will always send the AS SDP on T1.
+
+When Panel Replay is active, then the position of the packet may change 
+depending on the V. Total mode and whether the target refresh rate (TRR) 
+has been reached or not.
+
+As per the table, T2 is needed for Fixed Vtotal mode and a case of Fixed 
+average Vtotal (TRR reached)."
+
+However the above is coming from the DP spec.
+
+Later the spec mentions :
+
+The position of the AS SDPs must be kept at T1 if Software plans on 
+doing refresh rate changes while DC6v is enabled
+
+PR_ALPM_CTL[ Adaptive Sync SDP Position ] = 01b (T1 Always)
+
+DPCD 0011Ah[7:6] = 00b
+
+
+So I guess we can just go with T1 for now?
+
+
+Regards,
+
+Ankit
+
+>
+>> +	return DP_PR_AS_SDP_SETUP_TIME_T1;
+>> +}
+>> diff --git a/drivers/gpu/drm/i915/display/intel_dp.h b/drivers/gpu/drm/i915/display/intel_dp.h
+>> index 2849b9ecdc71..2e4609d9d05c 100644
+>> --- a/drivers/gpu/drm/i915/display/intel_dp.h
+>> +++ b/drivers/gpu/drm/i915/display/intel_dp.h
+>> @@ -238,4 +238,6 @@ bool intel_dp_joiner_candidate_valid(struct intel_connector *connector,
+>>   	for ((__num_joined_pipes) = 1; (__num_joined_pipes) <= (I915_MAX_PIPES); (__num_joined_pipes)++) \
+>>   		for_each_if(intel_dp_joiner_candidate_valid(__connector, (__mode)->hdisplay, __num_joined_pipes))
 >>   
->>   	unsigned long input_bus_encoding;
->>
-> 
-
-Best regards,
-Damon
-
+>> +int intel_dp_as_sdp_transmission_time(void);
+>> +
+>>   #endif /* __INTEL_DP_H__ */
+>> -- 
+>> 2.45.2
