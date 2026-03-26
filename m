@@ -4,52 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0D0D610A62CD
-	for <dri-devel@archiver.kernel.org>; Thu, 26 Mar 2026 13:18:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C4D5C10A62CA
+	for <dri-devel@archiver.kernel.org>; Thu, 26 Mar 2026 13:23:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 04E2410E9A7;
-	Thu, 26 Mar 2026 13:18:22 +0000 (UTC)
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C213310E30C
- for <dri-devel@lists.freedesktop.org>; Tue, 24 Mar 2026 11:45:22 +0000 (UTC)
-Received: from localhost.localdomain (unknown [111.196.245.197])
- by APP-05 (Coremail) with SMTP id zQCowADndgpKecJpRaFUCw--.54020S2;
- Tue, 24 Mar 2026 19:45:14 +0800 (CST)
-From: Pengpeng Hou <pengpeng@iscas.ac.cn>
-To: srini@kernel.org, amahesh@qti.qualcomm.com, arnd@arndb.de,
- gregkh@linuxfoundation.org
-Cc: konradybcio@kernel.org, thierry.escande@linaro.org,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, pengpeng@iscas.ac.cn
-Subject: [PATCH v2] misc: fastrpc: validate overlap-derived invoke buffer
- ranges
-Date: Tue, 24 Mar 2026 19:45:14 +0800
-Message-ID: <20260324114514.79392-1-pengpeng@iscas.ac.cn>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20260324014459.93364-1-pengpeng@iscas.ac.cn>
-References: <20260324014459.93364-1-pengpeng@iscas.ac.cn>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1F57510E0A8;
+	Thu, 26 Mar 2026 13:23:31 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="CDF7N1vC";
+	dkim-atps=neutral
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
+ [213.167.242.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D77BB10E0A8
+ for <dri-devel@lists.freedesktop.org>; Thu, 26 Mar 2026 13:23:29 +0000 (UTC)
+Received: from [192.168.88.20] (91-158-153-178.elisa-laajakaista.fi
+ [91.158.153.178])
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id CB51F9A9;
+ Thu, 26 Mar 2026 14:22:09 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+ s=mail; t=1774531330;
+ bh=JxDk4DT8jSWcmmkeIVS/kzYPz6iomyafF8PNNvZ3hfw=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=CDF7N1vCSUGIoMkka/zOWsfISPVi5YiLXtVszedDTSvG6X5R2hSVfZwkZEiDNS1Ed
+ GutjSkJNvoDBmx1NYULjFK14twW7bi+sN6WcNTxhSW/zB5fHr4Z1H/xVrdu8y4/b64
+ BUoli8PGs66Wtn4hvdVI1K9qfX4pqnasBVXgQK88=
+Message-ID: <253484a3-0074-4cca-9fa3-2d43092d63ed@ideasonboard.com>
+Date: Thu, 26 Mar 2026 15:23:25 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: zQCowADndgpKecJpRaFUCw--.54020S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxZryxCw4DKFWruw48JFWDArb_yoW5GFyfpF
- 43Ka15CF45Xw47GF1vvFnrWryfGws5JryUGrZ3G34Svw1YqFy0qF9YkFWj93W0krWIvryj
- krs0qaya9F47JaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUU9014x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
- rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
- 1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
- 6F4UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s
- 0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xII
- jxv20xvE14v26r106r15McIj6I8E87Iv67AKxVW8JVWxJwAm72CE4IkC6x0Yz7v_Jr0_Gr
- 1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E8cxa
- n2IY04v7MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4
- AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE
- 17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMI
- IF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4l
- IxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x0267AKxVW8Jr0_Cr1UYxBIda
- VFxhVjvjDU0xZFpf9x0JUQZ2fUUUUU=
-X-Originating-IP: [111.196.245.197]
-X-CM-SenderInfo: pshqw1xhqjqxpvfd2hldfou0/
-X-Mailman-Approved-At: Thu, 26 Mar 2026 13:17:48 +0000
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 0/4] drm: rcar-du: Improve device_link handling
+To: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
+ dri-devel@lists.freedesktop.org
+Cc: linux-renesas-soc@vger.kernel.org,
+ Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>,
+ Biju Das <biju.das.jz@bp.renesas.com>
+References: <20260323164526.2292491-1-laurent.pinchart+renesas@ideasonboard.com>
+From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Content-Language: en-US
+Autocrypt: addr=tomi.valkeinen@ideasonboard.com; keydata=
+ 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
+In-Reply-To: <20260323164526.2292491-1-laurent.pinchart+renesas@ideasonboard.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,78 +101,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-fastrpc_get_args() derives rpra[i].buf.pv from the overlap offset that
-was computed from user-controlled argument pointers and lengths. The
-resulting destination pointer is later passed to copy_from_user() or
-memcpy() without checking that the overlap-adjusted range still stays
-inside the allocated invoke buffer.
+Hi,
 
-Reject overlap-derived destinations that would point before the start of
-the invoke buffer or that would extend past the end of the allocated
-packet before storing rpra[i].buf.pv and before copying inline
-arguments into the buffer.
+On 23/03/2026 18:45, Laurent Pinchart wrote:
+> Hello,
+> 
+> This small patch series came out of the review of [1].
+> 
+> I noticed that the DU driver enforces suspend/resume ordering with the
+> CMMs but not with the VSPs, which patch 1/4 fixes. This in turn made me
+> notice that the driver leaks the device_link instances to the CMM.
+> Patches 2/4 and 3/4 refactor CMM handling a bit, to prepare for 4/4 that
+> fixes the leak.
+> 
+> Changes compared to v1 are minor, see individual patches for details.
+> 
+> [1] https://lore.kernel.org/r/02669d4630e04fe24c17dd2576ec8b27ded458f0.1765541401.git.tommaso.merciai.xr@bp.renesas.com
+> 
+> Laurent Pinchart (4):
+>   drm: rcar-du: Ensure correct suspend/resume ordering with VSP
+>   drm: rcar-du: Store CMM device pointer instead of platform_device
+>   drm: rcar-du: Use __free() to simplify device_node handling
+>   drm: rcar-du: Don't leak device_link to CMM
+> 
+>  drivers/gpu/drm/renesas/rcar-du/rcar_cmm.c    | 26 +++++-----
+>  drivers/gpu/drm/renesas/rcar-du/rcar_cmm.h    | 18 +++----
+>  .../gpu/drm/renesas/rcar-du/rcar_du_crtc.c    | 16 +++---
+>  .../gpu/drm/renesas/rcar-du/rcar_du_crtc.h    |  3 +-
+>  drivers/gpu/drm/renesas/rcar-du/rcar_du_drv.h |  8 ++-
+>  drivers/gpu/drm/renesas/rcar-du/rcar_du_kms.c | 52 +++++++++----------
+>  drivers/gpu/drm/renesas/rcar-du/rcar_du_vsp.c | 16 ++++++
+>  drivers/gpu/drm/renesas/rcar-du/rcar_du_vsp.h |  2 +
+>  8 files changed, 81 insertions(+), 60 deletions(-)
+> 
+Looks good to me. Pushed to drm-misc-next.
 
-Fixes: c68cfb718c8f ("misc: fastrpc: Add support for context Invoke method")
-Found by static code analysis.
-Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
----
-v2:
-- add the missing Signed-off-by line
-- add a Fixes tag and note that the issue was found by static code analysis
-- run checkpatch and keep the patch checkpatch-clean
-
- drivers/misc/fastrpc.c | 17 ++++++++++++++++-
- 1 file changed, 16 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
-index 47356a5d5804..7dfb5eb6dc92 100644
---- a/drivers/misc/fastrpc.c
-+++ b/drivers/misc/fastrpc.c
-@@ -993,6 +993,7 @@ static int fastrpc_get_args(u32 kernel, struct fastrpc_invoke_ctx *ctx)
- 	u64 len, rlen, pkt_size;
- 	u64 pg_start, pg_end;
- 	uintptr_t args;
-+	uintptr_t buf_start, buf_end;
- 	int metalen;
- 
- 	inbufs = REMOTE_SCALARS_INBUFS(ctx->sc);
-@@ -1016,6 +1017,8 @@ static int fastrpc_get_args(u32 kernel, struct fastrpc_invoke_ctx *ctx)
- 	rpra = ctx->buf->virt;
- 	list = fastrpc_invoke_buf_start(rpra, ctx->nscalars);
- 	pages = fastrpc_phy_page_start(list, ctx->nscalars);
-+	buf_start = (uintptr_t)ctx->buf->virt;
-+	buf_end = buf_start + pkt_size;
- 	args = (uintptr_t)ctx->buf->virt + metalen;
- 	rlen = pkt_size - metalen;
- 	ctx->rpra = rpra;
-@@ -1053,6 +1056,7 @@ static int fastrpc_get_args(u32 kernel, struct fastrpc_invoke_ctx *ctx)
- 			pages[i].size = (pg_end - pg_start + 1) * PAGE_SIZE;
- 
- 		} else {
-+			uintptr_t dst;
- 
- 			if (ctx->olaps[oix].offset == 0) {
- 				rlen -= ALIGN(args, FASTRPC_ALIGN) - args;
-@@ -1064,7 +1068,18 @@ static int fastrpc_get_args(u32 kernel, struct fastrpc_invoke_ctx *ctx)
- 			if (rlen < mlen)
- 				goto bail;
- 
--			rpra[i].buf.pv = args - ctx->olaps[oix].offset;
-+			if (ctx->olaps[oix].offset > args - buf_start) {
-+				err = -EINVAL;
-+				goto bail;
-+			}
-+
-+			dst = args - ctx->olaps[oix].offset;
-+			if (len > buf_end - dst) {
-+				err = -EINVAL;
-+				goto bail;
-+			}
-+
-+			rpra[i].buf.pv = dst;
- 			pages[i].addr = ctx->buf->dma_addr -
- 					ctx->olaps[oix].offset +
- 					(pkt_size - rlen);
--- 
-2.50.1 (Apple Git-155)
+ Tomi
 
