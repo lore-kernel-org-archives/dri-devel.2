@@ -4,44 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2050010AB81B
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3A43510AB81C
 	for <dri-devel@archiver.kernel.org>; Thu, 26 Mar 2026 19:41:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7A10D10E674;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 81CD010E6CF;
 	Thu, 26 Mar 2026 19:41:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=sntech.de header.i=@sntech.de header.b="LH8F33gG";
+	dkim=pass (2048-bit key; secure) header.d=sntech.de header.i=@sntech.de header.b="a5JDTmqq";
 	dkim-atps=neutral
 Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3302910E674
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Mar 2026 19:41:25 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 501B410E674
+ for <dri-devel@lists.freedesktop.org>; Thu, 26 Mar 2026 19:41:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de; 
  s=gloria202408;
  h=Content-Transfer-Encoding:Content-Type:MIME-Version:
  References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
- bh=UqTxQ4+4Pepmm+b7jcLTYHrn6v3kt/yLegb5GQyalhs=; b=LH8F33gGysSTYfISC7040NDRaD
- DsLmNS1xma9eh6z+mEvhsnZUTmXRnynwKegM5QzVVxZq8Ss75LiexyIC7Z3S3SH9imRTftaDHfm/2
- LcxircO6NNZ7pjq/na0O/42/KFwgedsC93YYts7AbtX2gTNE33RyY94x89hkMS9RBHSrh4hmJNrAb
- Gj9w/BbAFUmL+PVjDUQaT5m3eS20BqWF7085khKiY6KhOG9TkeRYEpJrg9uTv1zKqGD3imK0+492c
- st1y+9uWqr5wZWApsARXySbB0SxxiY04zmsl+62vohNDC4aRJ4tZRW3FFKMmJdd8Up/df6VIfO4nG
- Ny4iJquA==;
+ bh=vAkWmARhLdVP3gbtcCX8NsX3ZXhUuRpLFStqhcpudag=; b=a5JDTmqql5yF9JATcx3NeEWjwO
+ NsUy++drtotrp1/hSszJT1yhZ1d2peCWYpHZiwqssh29XNHatmnj4ShyEJNuMZF9/CaO4q2MHz71Q
+ 4hYYsB5ADnVM6Sp/UdkXO1t5U/B1EyOJKQJyL6kpBLd3NmqxKl/KUaH0o9jLwo11xkQkBIG2/MPUp
+ bBUJCq1NXKAsF3kWMwhQ42E+e+AMm5SFylTTBZ7lymZuFxVnonDAuTEgPnsy7M9Rz71cORdlowGB7
+ EzTLoBC7dqPC1QZw9PDNC2+ibUux+Ujp6tqlaVMUnsKRxPnvKB+atkwuawmGc3/i5/1Ao5PsYuU9b
+ lLAFU0rg==;
 From: Heiko Stuebner <heiko@sntech.de>
 To: Sandy Huang <hjc@rock-chips.com>, Andy Yan <andy.yan@rock-chips.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>,
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
- linux-rockchip@lists.infradead.org,
- Sergey Shtylyov <s.shtylyov@auroraos.dev>
-Cc: Heiko Stuebner <heiko@sntech.de>, linux-arm-kernel@lists.infradead.org,
- stable@vger.kernel.org
-Subject: Re: [PATCH RESEND] drm/rockchip: cdn-dp: add missing check in
- cdn_dp_config_video()
-Date: Thu, 26 Mar 2026 20:41:03 +0100
-Message-ID: <177455405026.1277100.9686566905955604923.b4-ty@sntech.de>
+ Simona Vetter <simona@ffwll.ch>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+Cc: Heiko Stuebner <heiko@sntech.de>, kernel@collabora.com,
+ dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: (subset) [PATCH v2 0/8] Rockchip DRM use-after-free &
+ null-ptr-deref fixes
+Date: Thu, 26 Mar 2026 20:41:01 +0100
+Message-ID: <177455405022.1277100.574051493111614473.b4-ty@sntech.de>
 X-Mailer: git-send-email 2.47.3
-In-Reply-To: <adf6b313-f7db-4d8f-9000-8c65446ba041@auroraos.dev>
-References: <adf6b313-f7db-4d8f-9000-8c65446ba041@auroraos.dev>
+In-Reply-To: <20260310-drm-rk-fixes-v2-0-645ecfb43f49@collabora.com>
+References: <20260310-drm-rk-fixes-v2-0-645ecfb43f49@collabora.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -61,20 +67,33 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
-On Fri, 30 Jan 2026 23:35:42 +0300, Sergey Shtylyov wrote:
-> The result of cdn_dp_reg_write() is checked everywhere (with the error
-> being logged by the callers) except one place in cdn_dp_config_video().
-> Add the missing result check, bailing out early on error...
+On Tue, 10 Mar 2026 00:44:28 +0200, Cristian Ciocaltea wrote:
+> The first three patches in the series are fixes for use-after-free &
+> null-ptr-deref related issues found in dw_dp and inno-hdmi Rockchip DRM
+> drivers.
 > 
-> Found by Linux Verification Center (linuxtesting.org) with the Svace static
-> analysis tool.
+> The following three patches provide a few minor improvements to dw_dp
+> and dw_hdmi_qp, while the remaining two address use-after-free and
+> memory allocation in DW DP core library.
 > 
 > [...]
 
 Applied, thanks!
 
-[1/1] drm/rockchip: cdn-dp: add missing check in cdn_dp_config_video()
-      commit: 46c31e1604d121221167cb09380de8c7d53290b9
+[1/8] drm/rockchip: inno-hdmi: Switch to drmm_kzalloc()
+      commit: 3cc50e7f73fcf79f28660b9d91566b13cb62e520
+[2/8] drm/rockchip: dw_dp: Switch to drmm_kzalloc()
+      commit: ed9da8d23020352ad24c528db09b5acdd78b81fd
+[3/8] drm/rockchip: dw_dp: Fix null-ptr-deref in dw_dp_remove()
+      commit: 9456381d8b60bb7dd42f2f04afe5ee4ce6e0bc12
+[4/8] drm/rockchip: dw_dp: Simplify error handling
+      commit: 26cb3e26efa7cc84289966cab871889f6ca93616
+[5/8] drm/rockchip: dw_dp: Drop unnecessary #include
+      commit: 31a98842a11fcb52a2db9b1b498d5ac11793e35f
+[6/8] drm/rockchip: dw_hdmi_qp: Switch to drmm_encoder_init()
+      commit: e1f7b7cbd74c6561944f5dda345dab59ad391acb
+[8/8] drm/bridge: synopsys: dw-dp: Drop useless memory allocation
+      commit: 971a6d5d41315f3bfe1e1207f24da9a191c949ff
 
 Best regards,
 -- 
