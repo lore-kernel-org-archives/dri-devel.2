@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 70D2510A88E7
-	for <dri-devel@archiver.kernel.org>; Thu, 26 Mar 2026 17:31:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3200D10A88F2
+	for <dri-devel@archiver.kernel.org>; Thu, 26 Mar 2026 17:31:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CF17310EBB0;
-	Thu, 26 Mar 2026 17:31:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3805110EBB2;
+	Thu, 26 Mar 2026 17:31:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="n/LqlNsK";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="kKMSbr4+";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 12F5810EB79
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1827310EBA4
  for <dri-devel@lists.freedesktop.org>; Thu, 26 Mar 2026 17:31:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
  s=mail; t=1774546299;
- bh=6S6X6w6unuVLgPGbQxKbzXT/phbegI3vC2Fyg0CPYNg=;
+ bh=Cc/hsE27RhzeShv1G95aL+9ZQZFkIaFrEmCWFQE08M0=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=n/LqlNsK0TStOQobeLQFpjno9z/GIJvfVSSU+pFEKI6oUzBcpfxEnRcWVFQprCn+O
- TZefqhWiZvnMkL8NWKwbugc1yOCMxZELJ3LITSe4C3SfKWGCiuKXfOizYAXL/V9Aoh
- WOFyqL1P4sA/eEilUhwYG6d/3ySox9e42OhkqrrFkQhgNnH707wLBYmB5ZlPfqXd2E
- oaDuYf2cc8NY8TR6qlUXH/e95c0ZiH4g+yxtzmtcf8dtkvjL6K27pG7901NgFPcjS1
- +T36Qq747rWsJccndqZNza892GrYy2xbFt2wEsCbuzOUA1gKWQrUcEUJs18dL3IKwo
- UlCIxxyk5nhmA==
+ b=kKMSbr4+2ODo+Rtfv32nwMmdqlqG1VLNXRQ75PG8XA3TvpfVG3vnNhXCRKyMdGTkJ
+ lZhWARAyvWznXFBOyvGkD/3oGAJwL0CZSuWqP2toKtKx4lSAmoYbJxCPLPTlmKimx6
+ YCl3BC+T/0wQViDGeIdc/lnbEOi4FnIjgxN4ZtEcSHlMDoU3WaYRDA26TyJaq1vGtn
+ Ay5EeoTWalqXZyISsfmFtNNnxh/bfXTr8/o1mdkY1JN9CmGc54l3k9LZ2HWC2o+gUq
+ XzGPRkcQZJv7LUzBaz0QGhO8kwdnPUz8ArdEeazXEI4Nu2Op0RkYNyNETn2m2Nfkhu
+ +6mF9nz6toh6g==
 Received: from jupiter.universe (dyndsl-091-248-208-149.ewe-ip-backbone.de
  [91.248.208.149])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits))
  (No client certificate requested) (Authenticated sender: sre)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 05E2517E6197;
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 01EDF17E6196;
  Thu, 26 Mar 2026 18:31:39 +0100 (CET)
 Received: by jupiter.universe (Postfix, from userid 1000)
- id 4D05048003D; Thu, 26 Mar 2026 18:31:38 +0100 (CET)
+ id 48240480031; Thu, 26 Mar 2026 18:31:38 +0100 (CET)
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
-Date: Thu, 26 Mar 2026 18:31:34 +0100
-Subject: [PATCH 10/10] drm/bridge: synopsys: dw-dp: Add audio support
+Date: Thu, 26 Mar 2026 18:31:31 +0100
+Subject: [PATCH 07/10] drm/bridge: synopsys: dw-dp: Add Runtime PM support
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260326-synopsys-dw-dp-improvements-v1-10-501849162290@collabora.com>
+Message-Id: <20260326-synopsys-dw-dp-improvements-v1-7-501849162290@collabora.com>
 References: <20260326-synopsys-dw-dp-improvements-v1-0-501849162290@collabora.com>
 In-Reply-To: <20260326-synopsys-dw-dp-improvements-v1-0-501849162290@collabora.com>
 To: Sandy Huang <hjc@rock-chips.com>, 
@@ -61,21 +61,21 @@ Cc: Damon Ding <damon.ding@rock-chips.com>,
  linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
  kernel@collabora.com, Sebastian Reichel <sebastian.reichel@collabora.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=8786;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3017;
  i=sebastian.reichel@collabora.com; h=from:subject:message-id;
- bh=6S6X6w6unuVLgPGbQxKbzXT/phbegI3vC2Fyg0CPYNg=;
- b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGnFbXpvByZfOmHKat1/ps0xUz9oHrPUciQg0
- eVtIttocHoN+YkCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJpxW16AAoJENju1/PI
- O/qaescP/ju7HzPDSpER9MK0kBVpGo7FZ3rqhnwiBdCzY34xZUh28y4kqYiSE98xMvTWhRj/Zlx
- A1o+fr+ujAblgphCeIma1XdzVA14msksbYPx4y2/OYktoxvbXI3KpEQ64Sb+cua0de4Ysapx/ng
- tQZ0+/SJJH90xe+p0oTeatoQSllt7TKvYfiUNAmSRM3keXL7YgGVJupUOVWnbl9HKYZ3NMxYrir
- HVzDnWsHQCbPDbZkFtsY7RJwvOBRUHQoTdTNv0PxLnrCQXB5x92KYe/hZu+pOptYi3DfvP7LOJx
- aaJid00+pc067PHV23/WaizLJigXcSpAB8EhX/NdXj9hCZ91BsGpNsL1kMHJBrRB8K9JZqTWgA+
- gtoxNm5EFKn9V6v5jWYxXfcRh5Yz2g/y9vFN94cE5bC8fILTHIcGnMCmWsj28sGMMEaNGEGhIjz
- TwynUvFCtSwZVEnYzQ/lttTD4RO9dFYS52Jd4l9Oq+7g4mVLQRdXwqbLEFDTSBT9mqvcJdjyE1q
- ITebgI02Z6hKs6sbghBIlNk0xI3AroxanKyau/vhooN0/R4Y0WlZBM68GcngIl1cVbFOypLh9IQ
- GvwrXRqa7C8t0jPYvAimTxAMBpkuvIrJMiPc0RMYlYgFwlrxKN0ioXwSe2KdBFnYlHMYcqS0yCt
- Zb9bQrmw4iyLjnjsVnjgh+A==
+ bh=Cc/hsE27RhzeShv1G95aL+9ZQZFkIaFrEmCWFQE08M0=;
+ b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGnFbXq20wXgacG8r8YAcir/+b19fw2zDTf/H
+ 3txgWvXsne7bYkCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJpxW16AAoJENju1/PI
+ O/qa5AQQAIcAjV/ywr3p/SPXBeOqCkYyHh0KXePSvx5bZhJnU0J78RfBgTWznpDQA0odvWFTDpm
+ +hKyHMqRXVu0lX5NoSLNOGVXGUJQgCn1PPRO5ddBBm4hnCj7cc5F4ecm5F4RytGNYAsubHAQYuD
+ FBPaxWH9Of8BjZikrs6kmZHwqXSy/hdr0hzkWgKZJtEfAicbbKx9dbXC4L4KgQXAJyw1nPNYHga
+ DtTvBkyMNbaSE4OBp7lc1KINB2BuxAfGF/M05x/WoA9VPNDxId7YrRTaXyQ09UBdHsGc0YgeFZa
+ g2ynBTAucekIXvP0NznzEm7TkkhGAuvav5PHgewhDXSzVfHO7Or5vA7zRoZ2usSuEw1RfSUMaB7
+ QtEgbqnFPxq9mJYuWWZoPjbvpP9TOt5VvfuvxAIpM0+GO1VCJUeszmYPbOks+QHpFaCaec8g3xl
+ VU5xB0yYLCS8U4ysHNs6F6B1F4q58sB0XA0U/Q28u3+sglNpB613A3K3iLmfP0wf6T3j083HYav
+ aS5OEFVzqXjL9FO/q3bJQ4SuSSn8soh0lZ8/CAzuNN8Xse1bhWdaxqBoAW3LME6sy4Nn3C8EQN/
+ r2SFdttjU0duTm7zSMPRjfJMCalEqUvLRy8W8UNoVoNMWZZgqbx4nEGbF3QjmbpPm9Hkv2E1MI+
+ vZUxmij3e1yltmQxw/OwlGQ==
 X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
  fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -93,285 +93,94 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Implement audio support for the Synopsys DesignWare DisplayPort
-controller.
+Add runtime PM stubs to the Synopsys DesignWare DisplayPort bridge
+driver. Support is not enabled automatically and must be hooked up
+in the vendor specific glue code.
 
 Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 ---
- drivers/gpu/drm/bridge/synopsys/dw-dp.c | 197 +++++++++++++++++++++++++++++++-
- 1 file changed, 196 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/bridge/synopsys/dw-dp.c | 27 +++++++++++++++++++++++++++
+ include/drm/bridge/dw_dp.h              |  3 +++
+ 2 files changed, 30 insertions(+)
 
 diff --git a/drivers/gpu/drm/bridge/synopsys/dw-dp.c b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-index 9ee9e3b9d912..add22acea719 100644
+index df2d629287fd..9ee9e3b9d912 100644
 --- a/drivers/gpu/drm/bridge/synopsys/dw-dp.c
 +++ b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-@@ -23,17 +23,21 @@
- #include <drm/drm_bridge.h>
- #include <drm/drm_bridge_connector.h>
- #include <drm/display/drm_dp_helper.h>
-+#include <drm/display/drm_hdmi_audio_helper.h>
- #include <drm/drm_edid.h>
- #include <drm/drm_of.h>
- #include <drm/drm_print.h>
- #include <drm/drm_probe_helper.h>
- #include <drm/drm_simple_kms_helper.h>
+@@ -1465,6 +1465,8 @@ static ssize_t dw_dp_aux_transfer(struct drm_dp_aux *aux,
+ 	if (WARN_ON(msg->size > 16))
+ 		return -E2BIG;
  
-+#include <sound/hdmi-codec.h>
++	ACQUIRE(pm_runtime_active_auto, pm)(dp->dev);
 +
- #define DW_DP_VERSION_NUMBER			0x0000
- #define DW_DP_VERSION_TYPE			0x0004
- #define DW_DP_ID				0x0008
+ 	switch (msg->request & ~DP_AUX_I2C_MOT) {
+ 	case DP_AUX_NATIVE_WRITE:
+ 	case DP_AUX_I2C_WRITE:
+@@ -1655,6 +1657,8 @@ static void dw_dp_bridge_atomic_enable(struct drm_bridge *bridge,
+ 	struct drm_connector_state *conn_state;
+ 	int ret;
  
- #define DW_DP_CONFIG_REG1			0x0100
-+#define AUDIO_SELECT				GENMASK(2, 1)
- #define DW_DP_CONFIG_REG2			0x0104
- #define DW_DP_CONFIG_REG3			0x0108
- 
-@@ -110,6 +114,10 @@
- #define HBR_MODE_ENABLE				BIT(10)
- #define AUDIO_DATA_WIDTH			GENMASK(9, 5)
- #define AUDIO_DATA_IN_EN			GENMASK(4, 1)
-+#define AUDIO_DATA_IN_EN_CHANNEL12		BIT(0)
-+#define AUDIO_DATA_IN_EN_CHANNEL34		BIT(1)
-+#define AUDIO_DATA_IN_EN_CHANNEL56		BIT(2)
-+#define AUDIO_DATA_IN_EN_CHANNEL78		BIT(3)
- #define AUDIO_INF_SELECT			BIT(0)
- 
- #define DW_DP_SDP_VERTICAL_CTRL			0x0500
-@@ -253,6 +261,8 @@
- 
- #define SDP_REG_BANK_SIZE			16
- 
-+#define DW_DP_SDP_VERSION			0x12
-+
- struct dw_dp_link_caps {
- 	bool enhanced_framing;
- 	bool tps3_supported;
-@@ -305,6 +315,19 @@ struct dw_dp_hotplug {
- 	bool long_hpd;
- };
- 
-+enum dw_dp_audio_interface_support {
-+	DW_DP_AUDIO_I2S_ONLY = 0,
-+	DW_DP_AUDIO_SPDIF_ONLY = 1,
-+	DW_DP_AUDIO_I2S_AND_SPDIF = 2,
-+	DW_DP_AUDIO_NONE = 3,
-+};
-+
-+enum dw_dp_audio_interface {
-+	DW_DP_AUDIO_I2S = 0,
-+	DW_DP_AUDIO_SPDIF = 1,
-+	DW_DP_AUDIO_UNUSED,
-+};
-+
- struct dw_dp {
- 	struct drm_bridge bridge;
- 	struct device *dev;
-@@ -320,6 +343,8 @@ struct dw_dp {
- 	int irq;
- 	struct work_struct hpd_work;
- 	struct dw_dp_hotplug hotplug;
-+	enum dw_dp_audio_interface audio_interface;
-+	int audio_channels;
- 	/* Serialize hpd status access */
- 	struct mutex irq_lock;
- 
-@@ -1844,6 +1869,163 @@ static void dw_dp_bridge_oob_notify(struct drm_bridge *bridge,
- 		dev_err_once(dp->dev, "Missing platform handler for OOB HPD handling\n");
- }
- 
-+static int dw_dp_audio_infoframe_send(struct dw_dp *dp)
-+{
-+	struct hdmi_audio_infoframe frame;
-+	struct dw_dp_sdp sdp;
-+	int ret;
-+
-+	ret = hdmi_audio_infoframe_init(&frame);
-+	if (ret < 0)
-+		return ret;
-+
-+	frame.coding_type = HDMI_AUDIO_CODING_TYPE_STREAM;
-+	frame.sample_frequency = HDMI_AUDIO_SAMPLE_FREQUENCY_STREAM;
-+	frame.sample_size = HDMI_AUDIO_SAMPLE_SIZE_STREAM;
-+	frame.channels = dp->audio_channels;
-+
-+	ret = hdmi_audio_infoframe_pack_for_dp(&frame, &sdp.base, DW_DP_SDP_VERSION);
-+	if (ret < 0)
-+		return ret;
-+
-+	sdp.flags = DW_DP_SDP_VERTICAL_INTERVAL;
-+
-+	return dw_dp_send_sdp(dp, &sdp);
-+}
-+
-+static int dw_dp_audio_prepare(struct drm_bridge *bridge,
-+			       struct drm_connector *connector,
-+			       struct hdmi_codec_daifmt *daifmt,
-+			       struct hdmi_codec_params *params)
-+{
-+	struct dw_dp *dp = bridge_to_dp(bridge);
-+	u8 audio_data_in_en, supported_audio_interfaces;
-+	u32 cfg1;
-+	int ret;
-+
 +	pm_runtime_get_sync(dp->dev);
 +
-+	dp->audio_channels = params->cea.channels;
-+	switch (params->cea.channels) {
-+	case 1:
-+	case 2:
-+		audio_data_in_en = AUDIO_DATA_IN_EN_CHANNEL12;
-+		break;
-+	case 8:
-+		audio_data_in_en = AUDIO_DATA_IN_EN_CHANNEL12 |
-+				   AUDIO_DATA_IN_EN_CHANNEL34 |
-+				   AUDIO_DATA_IN_EN_CHANNEL56 |
-+				   AUDIO_DATA_IN_EN_CHANNEL78;
-+		break;
-+	default:
-+		dev_err(dp->dev, "invalid audio channels %d\n", dp->audio_channels);
-+		return -EINVAL;
-+	}
-+
-+	switch (daifmt->fmt) {
-+	case HDMI_SPDIF:
-+		dp->audio_interface = DW_DP_AUDIO_SPDIF;
-+		break;
-+	case HDMI_I2S:
-+		/*
-+		 * It is recommended to use SPDIF instead of I2S, since I2S mode requires
-+		 * manually inserting PCUV control bits from userspace and this is done
-+		 * automatically in hardware for SPDIF mode.
-+		 */
-+		dp->audio_interface = DW_DP_AUDIO_I2S;
-+		break;
-+	default:
-+		dev_err(dp->dev, "invalid DAI format %d\n", daifmt->fmt);
-+		return -EINVAL;
-+	}
-+
-+	regmap_read(dp->regmap, DW_DP_CONFIG_REG1, &cfg1);
-+	supported_audio_interfaces = FIELD_GET(AUDIO_SELECT, cfg1);
-+
-+	if (supported_audio_interfaces != DW_DP_AUDIO_I2S_AND_SPDIF &&
-+	    supported_audio_interfaces != dp->audio_interface) {
-+		dev_err(dp->dev, "unsupported DAI %d\n", daifmt->fmt);
-+		return -EINVAL;
-+	}
-+
-+	clk_prepare_enable(dp->spdif_clk);
-+	clk_prepare_enable(dp->i2s_clk);
-+
-+	regmap_update_bits(dp->regmap, DW_DP_AUD_CONFIG1,
-+			   AUDIO_DATA_IN_EN | NUM_CHANNELS | AUDIO_DATA_WIDTH |
-+			   AUDIO_INF_SELECT | HBR_MODE_ENABLE,
-+			   FIELD_PREP(AUDIO_DATA_IN_EN, audio_data_in_en) |
-+			   FIELD_PREP(NUM_CHANNELS, dp->audio_channels - 1) |
-+			   FIELD_PREP(AUDIO_DATA_WIDTH, params->sample_width) |
-+			   FIELD_PREP(AUDIO_INF_SELECT, dp->audio_interface) |
-+			   FIELD_PREP(HBR_MODE_ENABLE, 0));
-+
-+	/* Wait for inf switch */
-+	usleep_range(20, 40);
-+
-+	if (dp->audio_interface == DW_DP_AUDIO_I2S)
-+		clk_disable_unprepare(dp->spdif_clk);
-+	else if (dp->audio_interface == DW_DP_AUDIO_SPDIF)
-+		clk_disable_unprepare(dp->i2s_clk);
-+
-+	/*
-+	 * Send audio stream during vertical and horizontal blanking periods.
-+	 * Send out audio timestamp SDP once per video frame during the vertical
-+	 * blanking period
-+	 */
-+	regmap_update_bits(dp->regmap, DW_DP_SDP_VERTICAL_CTRL,
-+			   EN_AUDIO_STREAM_SDP | EN_AUDIO_TIMESTAMP_SDP,
-+			   FIELD_PREP(EN_AUDIO_STREAM_SDP, 1) |
-+			   FIELD_PREP(EN_AUDIO_TIMESTAMP_SDP, 1));
-+	regmap_update_bits(dp->regmap, DW_DP_SDP_HORIZONTAL_CTRL,
-+			   EN_AUDIO_STREAM_SDP,
-+			   FIELD_PREP(EN_AUDIO_STREAM_SDP, 1));
-+
-+	ret = dw_dp_audio_infoframe_send(dp);
-+	if (ret < 0)
-+		dev_err(dp->dev, "failed to send audio infoframe\n");
-+
-+	dev_dbg(dp->dev, "audio start with %d channels using DAI=%d\n",
-+		dp->audio_channels, dp->audio_interface);
-+
-+	return 0;
-+}
-+
-+static void dw_dp_audio_shutdown(struct drm_bridge *bridge,
-+				 struct drm_connector *connector)
-+{
-+	struct dw_dp *dp = bridge_to_dp(bridge);
-+
-+	dev_dbg(dp->dev, "audio shutdown\n");
-+
-+	/* Disable all audio streams */
-+	regmap_update_bits(dp->regmap, DW_DP_AUD_CONFIG1, AUDIO_DATA_IN_EN,
-+			   FIELD_PREP(AUDIO_DATA_IN_EN, 0));
-+
-+	if (dp->audio_interface == DW_DP_AUDIO_SPDIF)
-+		clk_disable_unprepare(dp->spdif_clk);
-+	else if (dp->audio_interface == DW_DP_AUDIO_I2S)
-+		clk_disable_unprepare(dp->i2s_clk);
-+
-+	dp->audio_interface = DW_DP_AUDIO_UNUSED;
-+
+ 	connector = drm_atomic_get_new_connector_for_encoder(state, bridge->encoder);
+ 	if (!connector) {
+ 		dev_err(dp->dev, "failed to get connector\n");
+@@ -1709,6 +1713,7 @@ static void dw_dp_bridge_atomic_disable(struct drm_bridge *bridge,
+ 	dw_dp_link_disable(dp);
+ 	bitmap_zero(dp->sdp_reg_bank, SDP_REG_BANK_SIZE);
+ 	dw_dp_reset(dp);
 +	pm_runtime_put_autosuspend(dp->dev);
-+}
+ }
+ 
+ static bool dw_dp_hpd_detect_link(struct dw_dp *dp, struct drm_connector *connector)
+@@ -1729,6 +1734,8 @@ static enum drm_connector_status dw_dp_bridge_detect(struct drm_bridge *bridge,
+ {
+ 	struct dw_dp *dp = bridge_to_dp(bridge);
+ 
++	ACQUIRE(pm_runtime_active_auto, pm)(dp->dev);
 +
-+static int dw_dp_audio_mute_stream(struct drm_bridge *bridge,
-+				   struct drm_connector *connector,
-+				   bool enable, int direction)
+ 	if (!dw_dp_hpd_detect(dp))
+ 		return connector_status_disconnected;
+ 
+@@ -2155,6 +2162,26 @@ struct dw_dp *dw_dp_bind(struct device *dev, struct drm_encoder *encoder,
+ }
+ EXPORT_SYMBOL_GPL(dw_dp_bind);
+ 
++int dw_dp_runtime_suspend(struct dw_dp *dp)
 +{
-+	struct dw_dp *dp = bridge_to_dp(bridge);
-+
-+	dev_dbg(dp->dev, "audio %smute\n", enable ? "" : "un");
-+
-+	regmap_update_bits(dp->regmap, DW_DP_AUD_CONFIG1, AUDIO_MUTE,
-+			   FIELD_PREP(AUDIO_MUTE, enable));
++	clk_disable_unprepare(dp->aux_clk);
++	clk_disable_unprepare(dp->apb_clk);
 +
 +	return 0;
 +}
++EXPORT_SYMBOL_GPL(dw_dp_runtime_suspend);
 +
- static const struct drm_bridge_funcs dw_dp_bridge_funcs = {
- 	.atomic_duplicate_state = dw_dp_bridge_atomic_duplicate_state,
- 	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
-@@ -1858,6 +2040,10 @@ static const struct drm_bridge_funcs dw_dp_bridge_funcs = {
- 	.edid_read = dw_dp_bridge_edid_read,
- 	.detach = dw_dp_bridge_detach,
- 	.oob_notify = dw_dp_bridge_oob_notify,
++int dw_dp_runtime_resume(struct dw_dp *dp)
++{
++	clk_prepare_enable(dp->apb_clk);
++	clk_prepare_enable(dp->aux_clk);
 +
-+	.dp_audio_prepare = dw_dp_audio_prepare,
-+	.dp_audio_shutdown = dw_dp_audio_shutdown,
-+	.dp_audio_mute_stream = dw_dp_audio_mute_stream,
- };
- 
- static int dw_dp_link_retrain(struct dw_dp *dp)
-@@ -2084,10 +2270,19 @@ struct dw_dp *dw_dp_bind(struct device *dev, struct drm_encoder *encoder,
- 	}
- 
- 	bridge->of_node = dev->of_node;
--	bridge->ops = DRM_BRIDGE_OP_DETECT | DRM_BRIDGE_OP_EDID | DRM_BRIDGE_OP_HPD;
-+	bridge->ops = DRM_BRIDGE_OP_DP_AUDIO |
-+		      DRM_BRIDGE_OP_DETECT |
-+		      DRM_BRIDGE_OP_EDID |
-+		      DRM_BRIDGE_OP_HPD;
- 	bridge->type = DRM_MODE_CONNECTOR_DisplayPort;
- 	bridge->ycbcr_420_allowed = true;
- 
-+	dp->audio_interface = DW_DP_AUDIO_UNUSED;
-+	bridge->hdmi_audio_dev = dev;
-+	bridge->hdmi_audio_max_i2s_playback_channels = 8;
-+	bridge->hdmi_audio_dai_port = 1;
-+	bridge->hdmi_audio_spdif_playback = true;
++	dw_dp_init_hw(dp);
 +
- 	ret = devm_drm_bridge_add(dev, bridge);
- 	if (ret)
- 		return ERR_PTR(ret);
++	return 0;
++}
++EXPORT_SYMBOL_GPL(dw_dp_runtime_resume);
++
+ MODULE_AUTHOR("Andy Yan <andyshrk@163.com>");
+ MODULE_DESCRIPTION("DW DP Core Library");
+ MODULE_LICENSE("GPL");
+diff --git a/include/drm/bridge/dw_dp.h b/include/drm/bridge/dw_dp.h
+index 4aacd0e56f50..8377f4be8e9e 100644
+--- a/include/drm/bridge/dw_dp.h
++++ b/include/drm/bridge/dw_dp.h
+@@ -27,4 +27,7 @@ struct dw_dp_plat_data {
+ 
+ struct dw_dp *dw_dp_bind(struct device *dev, struct drm_encoder *encoder,
+ 			 const struct dw_dp_plat_data *plat_data);
++
++int dw_dp_runtime_suspend(struct dw_dp *dp);
++int dw_dp_runtime_resume(struct dw_dp *dp);
+ #endif /* __DW_DP__ */
 
 -- 
 2.53.0
