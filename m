@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 48B8710A88EC
-	for <dri-devel@archiver.kernel.org>; Thu, 26 Mar 2026 17:31:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 059E010A88EE
+	for <dri-devel@archiver.kernel.org>; Thu, 26 Mar 2026 17:31:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AF46810EB75;
-	Thu, 26 Mar 2026 17:31:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1095910EB90;
+	Thu, 26 Mar 2026 17:31:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="RqvAEkDB";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="gg3RkyV7";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2132810EB75
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Mar 2026 17:31:43 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 17AA510EB9B
+ for <dri-devel@lists.freedesktop.org>; Thu, 26 Mar 2026 17:31:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1774546298;
- bh=F8JAjw7zuFpQ0NaM9MjWnMhCvWSZlJX0EsmVnxMtSKc=;
+ s=mail; t=1774546299;
+ bh=WK6R+7QJFKVea6UgKC346gGcxVko+iiFZdNswmotuwk=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=RqvAEkDBBnfVkfv8HZIRJd5sSoFDIicDfbfvbGE2IDHWH9KzCBt7+s+9qlNugDg/h
- lvx9xJxqazzWqi4+Z1p3zIAFoYDydkb6qCl710bu7kWaVeRju1/e3lLdxun+8zXUcd
- Ky5WbpjbazNc8nfciWgrSQNsW8vLV1WeVnO4s3i1xW8fvEPNAGpp8TQF9uR/G3/J5u
- /ddUmdMgNBREosgIJV6ramH0AkPOjH9C6DMV2t0sl845i6VcHOz2tlRqvwlBYfIOzQ
- 5SltSl3scDkAS/T3/eNoCx6CGAA/x4EuI0/6sWrZZLcfC47EIcx4iSjahd97mQpSUE
- GzH/aXHUjvY3w==
+ b=gg3RkyV7SLcdChSgalrdAL3vJb9j9SMuQhkKCcMJb3pX5UWbvd1aqGeNaxf6QRoL0
+ ilbr7f4Fs8cAByGC1kVpWZ07JLqdRAWVCZfA7DWOctm/Uk9OLy0Ew9RygX6itm0tCc
+ MthaTvYfY0rf2dEwSYYY5Af02jdyuroeu6LuZLvM1hXcDGVRCnFWCPiWY1XPt1BN0g
+ QP4W9fbpkyPM7FeKrPvjshJZigQf22dS5LgvnqhEJchyWXEbZbcUNknCAb1O5diXfr
+ 8aFGAR1rvTjdpg0y8RFQeQW0Jv4W/LRb0HxZo3TXjjKX8RI97/r8d/N4E13HGaqbnb
+ p84G7n2h5slGw==
 Received: from jupiter.universe (dyndsl-091-248-208-149.ewe-ip-backbone.de
  [91.248.208.149])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits))
  (No client certificate requested) (Authenticated sender: sre)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 880BC17E618F;
- Thu, 26 Mar 2026 18:31:38 +0100 (CET)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 2DB8C17E6199;
+ Thu, 26 Mar 2026 18:31:39 +0100 (CET)
 Received: by jupiter.universe (Postfix, from userid 1000)
- id 418EF48002D; Thu, 26 Mar 2026 18:31:38 +0100 (CET)
+ id 3FCDB480028; Thu, 26 Mar 2026 18:31:38 +0100 (CET)
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
-Date: Thu, 26 Mar 2026 18:31:27 +0100
-Subject: [PATCH 03/10] drm/bridge: synopsys: dw-dp: Add follow-up bridge
- support
+Date: Thu, 26 Mar 2026 18:31:25 +0100
+Subject: [PATCH 01/10] drm/bridge: synopsys: dw-dp: Simplify driver data
+ setting
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260326-synopsys-dw-dp-improvements-v1-3-501849162290@collabora.com>
+Message-Id: <20260326-synopsys-dw-dp-improvements-v1-1-501849162290@collabora.com>
 References: <20260326-synopsys-dw-dp-improvements-v1-0-501849162290@collabora.com>
 In-Reply-To: <20260326-synopsys-dw-dp-improvements-v1-0-501849162290@collabora.com>
 To: Sandy Huang <hjc@rock-chips.com>, 
@@ -62,21 +62,21 @@ Cc: Damon Ding <damon.ding@rock-chips.com>,
  linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
  kernel@collabora.com, Sebastian Reichel <sebastian.reichel@collabora.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2142;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1169;
  i=sebastian.reichel@collabora.com; h=from:subject:message-id;
- bh=F8JAjw7zuFpQ0NaM9MjWnMhCvWSZlJX0EsmVnxMtSKc=;
- b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGnFbXlSm0BskU2K+eIvRC3EQjnd0YNvceXZS
- Isa6hpg1H8Ta4kCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJpxW15AAoJENju1/PI
- O/qaqhwQAIoD9cmmn+KtfXZ+6pSS5GjMwJRAQDFsDEF2VfUxha3XwrtIoVyNqtmoIy0rBxL69hw
- aa1C9mjlrj0NsWzYbG+9ohoRTxHt4cRlsbSTxU7vq6PwaoNI1Ad2YBhVCL1eABsw5XmPSQ5r3L2
- O2z6dxLmFEimjk0s3ofczG2E0lxw8UvIpna4tP/KosGrudM6yTBKrM88QyWZs+rJ0cBCx5/NZLf
- 8DNUMxoxRPhkLIZWOlu9W12bcfmwFLlzlo5lCVXJzEw7nvIp7cJAzrZ1wlkXwG9fTid8m9KuBMI
- A/TAqCgm+XDvXlJDkuQqeW387a6bTY0qgXtny6l+pLb4Pi8C1ETA0VR9I6GMjt+9cmva9AeLTpX
- vIrFQ39RH8NL/pvsORlsJrfvOzy0FP6j6DErCjhweFDOOkaAtWSpGuI915rIRglFJBJ+IH91BOk
- NGN5oDQHGohOpTBibcC1+YkX/3Z3qOboGFYBF8lemwP6s/W1oOnfZaZxlfAwIj4vtIKB98FaNiJ
- Bk9YrdSpXreG9O5L9ZBqkK40xfVQqitsgmAf2sX69cfrEY9NrTw+KYklaqjva7BBAPLAtcTI40C
- bYT+1uLNLcEN+WtCTO8Tahl3euWOhCZE4YX4Dq62CxlHUw0Sp/4gGXQjsq8TanRTzd21T6qouKJ
- 88aIEnf6AEtdb46OhdLkn3g==
+ bh=WK6R+7QJFKVea6UgKC346gGcxVko+iiFZdNswmotuwk=;
+ b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGnFbXlTLjLV50RceYH4oIZermgoMgC6bev7s
+ AivxRoBxfY/BokCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJpxW15AAoJENju1/PI
+ O/qaYXAP/R7QF9aI9g2V8v1VTeFd7/PWpJusJmFvAilKsdiOPl8EBa5EZ6UuZyTltH/dy9yEGJm
+ v8bI6yo7HDFBonXoRdr80VtAqf4bq3lLuDysjRBUj6sx3UK4fHY9fOTO46yazuMq9Bn/m6ibK90
+ qHZpCfzhTGIW9rO8MyXUYtMuwGiI3lrgy5nEpp6xsjjWs1nFfQ4s81nLniom/pItzNuwCLPlUxu
+ 3+pIoX2QhRki4+jRdVI2LgWUATAOAEY+pPP4fHjBNd5O+ZB7efI8zIVfQjoU/kqLp8dO3mkc40k
+ B6XzZIy2p7Xjr5ABc+sKmd8DPACpOiQPI5n7sRC0YK75yKH9hCiLCHeYmL7XAK7kvx08qN9IN0a
+ JlWs6X+tSblxgdccUcLTxSaCrWK4boMsDcWmky+lK6+T9ZCUIu2mlEmKx5yM7u2RZfmCIRMOHtS
+ rZzRbYJoLQyuTII6tNh8fMxBny49analj8D/gWrawy+dNsKnpc5y5kCSSwq+JnQmlff4zdG8IPL
+ aBpx5oWIyAjQJQ1+6AaQFSapFXJNrCpOeVzRUPKkVaEKNI3Oa+Bh0/oMm2fL6RQkZuOLqujueza
+ TeCuf9nT5oyNaeAupV/7+c1S2cGTKL7agfJHJh0obqGXnkNjhbaaeuUoZtoDn47d4Azrpc7n5Bv
+ 9djN06H9FpQu1Ijg9yCoy5g==
 X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
  fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -94,67 +94,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add support to use USB-C connectors with the DP altmode helper code on
-devicetree based platforms. To get this working there must be a DRM
-bridge chain from the DisplayPort controller to the USB-C connector.
-E.g. on Rockchip RK3576:
-
-root@rk3576 # cat /sys/kernel/debug/dri/0/encoder-0/bridges
-bridge[0]: dw_dp_bridge_funcs
-        refcount: 7
-        type: [10] DP
-        OF: /soc/dp@27e40000:rockchip,rk3576-dp
-        ops: [0x47] detect edid hpd
-bridge[1]: drm_aux_bridge_funcs
-        refcount: 4
-        type: [0] Unknown
-        OF: /soc/phy@2b010000:rockchip,rk3576-usbdp-phy
-        ops: [0x0]
-bridge[2]: drm_aux_hpd_bridge_funcs
-        refcount: 5
-        type: [10] DP
-        OF: /soc/i2c@2ac50000/typec-portc@22/connector:usb-c-connector
-        ops: [0x4] hpd
+There is no need to get the platform device just for setting up
+the driver data. Simplify the logic.
 
 Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 ---
- drivers/gpu/drm/bridge/synopsys/dw-dp.c | 16 +++++++++++++++-
- 1 file changed, 15 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/rockchip/dw_dp-rockchip.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/bridge/synopsys/dw-dp.c b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-index 222862d962d9..c3a108f1faa9 100644
---- a/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-+++ b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-@@ -1978,7 +1978,7 @@ struct dw_dp *dw_dp_bind(struct device *dev, struct drm_encoder *encoder,
+diff --git a/drivers/gpu/drm/rockchip/dw_dp-rockchip.c b/drivers/gpu/drm/rockchip/dw_dp-rockchip.c
+index 22c0911f1896..dd8db923d6d7 100644
+--- a/drivers/gpu/drm/rockchip/dw_dp-rockchip.c
++++ b/drivers/gpu/drm/rockchip/dw_dp-rockchip.c
+@@ -74,7 +74,6 @@ static const struct drm_encoder_helper_funcs dw_dp_encoder_helper_funcs = {
+ 
+ static int dw_dp_rockchip_bind(struct device *dev, struct device *master, void *data)
  {
- 	struct platform_device *pdev = to_platform_device(dev);
- 	struct dw_dp *dp;
--	struct drm_bridge *bridge;
-+	struct drm_bridge *bridge, *next_bridge;
- 	void __iomem *res;
- 	int ret;
+-	struct platform_device *pdev = to_platform_device(dev);
+ 	const struct dw_dp_plat_data *plat_data;
+ 	struct drm_device *drm_dev = data;
+ 	struct rockchip_dw_dp *dp;
+@@ -87,7 +86,7 @@ static int dw_dp_rockchip_bind(struct device *dev, struct device *master, void *
+ 		return -ENOMEM;
  
-@@ -2072,6 +2072,20 @@ struct dw_dp *dw_dp_bind(struct device *dev, struct drm_encoder *encoder,
- 		goto unregister_aux;
- 	}
+ 	dp->dev = dev;
+-	platform_set_drvdata(pdev, dp);
++	dev_set_drvdata(dev, dp);
  
-+	next_bridge = devm_drm_of_get_bridge(dev, dev->of_node, 1, 0);
-+	if (IS_ERR(next_bridge)) {
-+		ret = PTR_ERR(next_bridge);
-+		dev_err_probe(dev, ret, "failed to get follow-up bridge.\n");
-+		goto unregister_aux;
-+	}
-+
-+	ret = drm_bridge_attach(encoder, next_bridge, bridge,
-+				DRM_BRIDGE_ATTACH_NO_CONNECTOR);
-+	if (ret) {
-+		dev_err_probe(dev, ret, "Failed to attach next bridge\n");
-+		goto unregister_aux;
-+	}
-+
- 	dw_dp_init_hw(dp);
- 
- 	ret = phy_init(dp->phy);
+ 	plat_data = of_device_get_match_data(dev);
+ 	if (!plat_data)
 
 -- 
 2.53.0
