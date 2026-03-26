@@ -4,64 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6823810AB804
-	for <dri-devel@archiver.kernel.org>; Thu, 26 Mar 2026 18:55:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7AC7210AB803
+	for <dri-devel@archiver.kernel.org>; Thu, 26 Mar 2026 18:55:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5BD5410EBCC;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 620AF10EBCE;
 	Thu, 26 Mar 2026 18:55:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="I1fUeIbt";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="HuNfxYmf";
 	dkim-atps=neutral
-Received: from mail-oo1-f51.google.com (mail-oo1-f51.google.com
- [209.85.161.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 00B8910EBBB
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Mar 2026 18:55:15 +0000 (UTC)
-Received: by mail-oo1-f51.google.com with SMTP id
- 006d021491bc7-67bad873c3eso872529eaf.3
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Mar 2026 11:55:15 -0700 (PDT)
+Received: from mail-oa1-f53.google.com (mail-oa1-f53.google.com
+ [209.85.160.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 741A610EBB9
+ for <dri-devel@lists.freedesktop.org>; Thu, 26 Mar 2026 18:55:05 +0000 (UTC)
+Received: by mail-oa1-f53.google.com with SMTP id
+ 586e51a60fabf-40ea611d1a4so611503fac.2
+ for <dri-devel@lists.freedesktop.org>; Thu, 26 Mar 2026 11:55:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1774551315; x=1775156115; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1774551305; x=1775156105; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=Op8z6BF2VC082oV6Way2DdykcbiTU1bYqkraAfxcvx0=;
- b=I1fUeIbtPITKTkwDMr8kIeFxFQsvUf+AfZZdEsactlJj0XgkiTUNf3lnxJpeNZ9iG4
- K92c451L63v9SXNOZz0YsV1dQVwDx0Okat/N2rJ1Zt09hXGvK3wVnwsnKUc4ZI4pqte3
- FUvyRBvIVS/SKmVTailxyizfW1i5IDX3refRHrbQb/NLK6HKZkTZ6DKTIn37Ee+o/BUT
- OAzUbeLxEXvspdpwbdKMd5eZ8hps62SHKP4v0icCarPe6u27AoRifHFyjA5rtugZO8Gs
- 2SNPIyRTsUCteyoGrGKB88AX5w1N/g/9Ug01YUlKQKq9+hp9GvhzHEyIrvXsYf1N3Ijg
- fqJw==
+ bh=BywPGIITms02mnic3SBKxshcp4ITWYCl/PnFGo9zSWo=;
+ b=HuNfxYmfQSohi9dBga6tj9aS2RS/vC3uFKRsDyYnILM3fUigpsNzQ2KGVDkeBCYqQn
+ /P3s3ixvPFLiTRh3LAAtQhmzs5fpTq9CSJqsqFKOQKEllo4aK5JoQaCj2LrU8sLnumCV
+ x9MtjkCRzwb7JfbAL+Om/HQF6Ss9NhXJxvkyCeDrzPzN8ue4AIpgdbKe1bWI1SWwicjM
+ xtQp6mdb5urArZaiEns/o8LpfSBSwrWCN77Y3EvKCYlWzHXXsQrmb6SxqJrrkZccXlb4
+ +/w02GZSlzgIxOHYTpzF1k8xPdmy4+90JU841hMYlDvfVhaidzEMDhkQNYKZmu6Rzccy
+ YGJA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774551315; x=1775156115;
+ d=1e100.net; s=20251104; t=1774551305; x=1775156105;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=Op8z6BF2VC082oV6Way2DdykcbiTU1bYqkraAfxcvx0=;
- b=P0M8kbuCmmh3Vpshlclgug/RCNYTqrkJfrDCgzrqOkRB715Tz8C3VlB3+VNbxfNPLe
- 3/QCVW+fUcr8fD6peAtW7NmL1c81G6fAzLhMFIxrWvXCgqdY1vanSFBY0OtJI21cCr3M
- +im0KDnNC5bdXYoErNOITYZn9ULznAJY7FHoTcCeUYti0ng82b7CA4AAP/pn5GdUJ8Yd
- JEk8JVP8JvMoUq5Ps9srQlVZ+/JrCflyQ104LFDXkLP4Kvt6VR9Xk4f7c9yJs+xkgFRC
- BJmseRvOmMaxj4UEJ+TrE03Xp7wFhr+qkc7JiD5nnUOK57Lbt4bPxMKQBN/gAvnDrEYu
- +Ubw==
+ bh=BywPGIITms02mnic3SBKxshcp4ITWYCl/PnFGo9zSWo=;
+ b=EKK66LxgWC8weR8MAR+f4lA7xYO0SZhQg9dg+0R+cAzLqBFXZ7lK6srMmgM+l1Fq5T
+ F0eN46VhEOfkBKRwLBKTuNJ1cL9ib+4GYtFlZtBgcV6U2hqS9IXr38j4DS/RxtkuO9nV
+ Kz4UMRAKD/xC6USBmms2xScyQCmyHUP+I0KPwDheFVHFvGyNwBMYcyB4RtD4FlhLtR3D
+ UUnBvhGfpuAd/r0G/4Ak5vvI44LaWql6SmF+LNTehDjqnLUEG6PPW7RKVk6serzjBMM+
+ Q/9aD5pp8zgjZumLZaj4rMM0Qkfpk+/kACz+F5POKxDy0oQciCA69E6pq4LVMbFpg9bp
+ OfnA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVYOd289D2J3wDBtgewKUCzLyN74g5CVKhSGxyGp5B8jfuhu7tvL0YcfnvycAgeWS97HRoD9KQcUso=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyUZ/s7+wlCFfA3T3+u5Tqcm7HO11yCmGXZ7YWVMV+K/9lsdH9j
- Bzym404Rpp3NWwy5+rx8Sj2HWse6G4b8os7PR+JDnlnU6jzbEge5onoY
-X-Gm-Gg: ATEYQzw97wCzEM5NiPCsyOsqCSvPVNEmDIIDdrcf5P5++I/w/o0hTT34z8kgpLO+GxE
- IS1mXyYpVXUTWGlgTqTy6huYEXV2TIHFyB272r/iYvHQ77LQR060PXrmgOTWK/F0P2Gm9tC7Fb7
- Sqh3k6g5e/QIpu6aXG3Hk5jpAq8AfyXBJWMpAXRC/dLE7OcU6AUlhtCqJjiPqpVXXL8l5j4NZxe
- IizAlAg69yo7XCMUJKHrLrDaAy+TYcErNKO6VQdjiCcEGuZfBoXMBgh6iSYQQSYWmip7rbt5nPZ
- bdxIm7KtBJneMkkHLMButu1ZhOeu3nZgV5opO/wDraWKSYyReQWq1rJMv0XPk5ZGZr9sGOqCW5N
- OIfuHv2ZxvYMXRR/jnzvBfnsR3bBoFgQLfiUcOMi5AzqkMKvcd/G55MS9MyLKzwLgP5uOCOnRZl
- asda6JiRYdMO/apRGZ6YyT8vFKhYrfOpOazPicYE1c3F5ewwuf
-X-Received: by 2002:a05:6820:8c1:b0:67c:305f:ac67 with SMTP id
- 006d021491bc7-67dff3cfa80mr4059105eaf.11.1774551315200; 
- Thu, 26 Mar 2026 11:55:15 -0700 (PDT)
+ AJvYcCUX4rAE3t4ZZxTerMgIf7rux+3+trmSLIXuVtZvzZnoeF3Tv9IPKa9sTtKRMHSGkac0aRF5d9KeE5U=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyqxKTdH+Fy2pHJbrda5ypzhVlUqARN0qSapcCMABdzHhzPO3m3
+ TWQ03BOdbMnP+nbnjljokK5Tww9o8o2vwamK7NspCxU9KdoaG+kIAxNG
+X-Gm-Gg: ATEYQzwxWGujoZiGYdU5k9mufX82DwpN2GCIYCaKcwwcnosZSSGkqRZCaTiTw0UkfhK
+ 8aNHlBdLb1KKpUyW/X2E0iyW3KUyNAWkp1wHgmdex3fx9uogrQaAgs0gHSKROS7rprTuifu6xQa
+ r2+RxI3L9aYCzSeNm5of2ahLXOjQk8d8SLNl9j/ZlbAQBI0nnjEFZmakesmEkwaW4cE53gLjc42
+ TsP9Kh9N6d3lZerx6cvUFY1O/xzgr6HXmrdkI4TJ2yIwzOSTtUp/Dvx5vErydfxiE2A9gsZP2lc
+ ewbRr5uHtUl/n2jx8dPUtctVNZv2PfEyPxvYJvd7P/ehdu/56gRgrmM8F1sbAMIcxiv2II+EWNI
+ f525SIrLlqeVjCY5rFRHpjwNn0Dx6Ojb5x8dNOBpcosv1XyiiLtjxfA4VbiECjl4PEivGn2w9PZ
+ 5fCXCeibQPqi+hjZfdYd8QROw/fhD57fN4FQfFbvEf6OefRc8P
+X-Received: by 2002:a05:6871:5d14:b0:41c:b0bc:d47e with SMTP id
+ 586e51a60fabf-41cb0bcda7dmr4134040fac.11.1774551304565; 
+ Thu, 26 Mar 2026 11:55:04 -0700 (PDT)
 Received: from frodo (c-98-38-17-99.hsd1.co.comcast.net. [98.38.17.99])
  by smtp.googlemail.com with ESMTPSA id
- 586e51a60fabf-41cc7760c08sm3075171fac.4.2026.03.26.11.55.13
+ 586e51a60fabf-41cc7760c08sm3075171fac.4.2026.03.26.11.55.03
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 26 Mar 2026 11:55:14 -0700 (PDT)
+ Thu, 26 Mar 2026 11:55:03 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: linux-kernel@vger.kernel.org, airlied@gmail.com, simona@ffwll.ch,
  jbaron@akamai.com, gregkh@linuxfoundation.org
@@ -72,9 +72,10 @@ Cc: jim.cromie@gmail.com, mripard@kernel.org, tzimmermann@suse.de,
  louis.chauvet@bootlin.com, skhan@linuxfoundation.org, pmladek@suse.com,
  ukaszb@chromium.org, dri-devel@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-Subject: [PATCH v12 30/69] dyndbg: treat comma as a token separator
-Date: Thu, 26 Mar 2026 12:53:34 -0600
-Message-ID: <20260326185413.1205870-31-jim.cromie@gmail.com>
+Subject: [PATCH v12 23/69] selftests-dyndbg: add a dynamic_debug run_tests
+ target
+Date: Thu, 26 Mar 2026 12:53:27 -0600
+Message-ID: <20260326185413.1205870-24-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260326185413.1205870-1-jim.cromie@gmail.com>
 References: <20260326185413.1205870-1-jim.cromie@gmail.com>
@@ -96,169 +97,401 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Treat comma as a token terminator, just like a space.  This allows a
-user to avoid quoting hassles when spaces are otherwise needed:
+Add a selftest script for dynamic-debug.  The config requires
+CONFIG_TEST_DYNAMIC_DEBUG=m and CONFIG_TEST_DYNAMIC_DEBUG_SUBMOD=m,
+which tacitly requires either CONFIG_DYNAMIC_DEBUG=y or
+CONFIG_DYNAMIC_DEBUG_CORE=y
 
- :#> modprobe drm dyndbg=class,DRM_UT_CORE,+p\;class,DRM_UT_KMS,+p
+ATM this has just basic_tests(), which modify pr_debug() flags in the
+builtin params module.  This means they're available to manipulate and
+observe the effects in "cat control".
 
-or as a boot arg:
+This is backported from another feature branch; the support-fns (thx
+Lukas) have unused features at the moment, they'll get used shortly.
 
- drm.dyndbg=class,DRM_UT_CORE,+p  # todo: support multi-query here
+The script enables simple virtme-ng testing:
 
-Given the many ways a boot-line +args can be assembled and then passed
-in/down/around shell based tools, this may allow side-stepping all
-sorts of quoting hassles thru those layers.
+   [jimc@gandalf b0-ftrace]$ vrun_t
+   virtme-ng 1.32+115.g07b109d
+   doing: vng --name v6.14-rc4-60-gd5f48427de0c \
+	  --user root -v -p 4 -a dynamic_debug.verbose=3 V=1 \
+	  -- ../tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
+   virtme: waiting for virtiofsd to start
+   ..
 
-existing query format:
+And add dynamic_debug to TARGETS, so `make run_tests` sees it properly
+For the impatient, set TARGETS explicitly:
 
- modprobe test_dynamic_debug dyndbg="class D2_CORE +p"
+  [root@v6 selftests]# make TARGETS=dynamic_debug run_tests
+  make[1]: Nothing to be done for 'all'.
+  TAP version 13
+  1..1
+  # timeout set to 45
+  # selftests: dynamic_debug: dyndbg_selftest.sh
+  # # BASIC_TESTS    95.422122] dyndbg: query 0: 0"=_" mod:*
+  ...
 
-new format:
+NOTES
 
- modprobe test_dynamic_debug dyndbg=class,D2_CORE,+p
+check KCONFIG_CONFIG to avoid silly fails
 
-ALSO
+Several tests are dependent upon config choices. Lets avoid failing
+where that is noise.
 
-selftests-dyndbg: add comma_terminator_tests
+The KCONFIG_CONFIG var exists to convey the config-file around.  If
+the var names a file, read it and extract the relevant CONFIG items,
+and use them to skip the dependent tests, thus avoiding the fails that
+would follow, and the disruption to whatever CI is running these
+selftests.
 
-New fn validates parsing and effect of queries using combinations of
-commas and spaces to delimit the tokens.
+If the envar doesn't name a config-file, ".config" is assumed.
 
-It manipulates pr-debugs in builtin module/params, so might have deps
-I havent foreseen on odd configurations.
+CONFIG_DYNAMIC_DEBUG=y:
+
+basic-tests() and comma-terminator-tests() test for the presence of
+the builtin pr_debugs in module/main.c, which I deemed stable and
+therefore safe to count.  That said, the test fails if only
+CONFIG_DYNAMIC_DEBUG_CORE=y is set.  It could be rewritten to test
+against test-dynamic-debug.ko, but that just trades one config
+dependence for another.
+
+CONFIG_TEST_DYNAMIC_DEBUG=m
+
+As written, test_percent_splitting() modprobes test_dynamic_debug,
+enables several classes, and counts them.  It could be re-written to
+work for the builtin module also, but builtin test modules are not a
+common or desirable build/config.
 
 Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
 Co-developed-by: Łukasz Bartosik <ukaszb@chromium.org>
 Signed-off-by: Łukasz Bartosik <ukaszb@chromium.org>
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- .../admin-guide/dynamic-debug-howto.rst       |  9 +++++---
- lib/dynamic_debug.c                           | 17 +++++++++++----
- .../dynamic_debug/dyndbg_selftest.sh          | 21 ++++++++++++++++++-
- 3 files changed, 39 insertions(+), 8 deletions(-)
+ MAINTAINERS                                   |   1 +
+ tools/testing/selftests/Makefile              |   1 +
+ .../testing/selftests/dynamic_debug/Makefile  |   9 +
+ tools/testing/selftests/dynamic_debug/config  |   7 +
+ .../dynamic_debug/dyndbg_selftest.sh          | 257 ++++++++++++++++++
+ 5 files changed, 275 insertions(+)
+ create mode 100644 tools/testing/selftests/dynamic_debug/Makefile
+ create mode 100644 tools/testing/selftests/dynamic_debug/config
+ create mode 100755 tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
 
-diff --git a/Documentation/admin-guide/dynamic-debug-howto.rst b/Documentation/admin-guide/dynamic-debug-howto.rst
-index 9c2f096ed1d8..dbf901150587 100644
---- a/Documentation/admin-guide/dynamic-debug-howto.rst
-+++ b/Documentation/admin-guide/dynamic-debug-howto.rst
-@@ -78,11 +78,12 @@ Command Language Reference
- ==========================
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 7d10988cbc62..b6104f33c3fc 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -9029,6 +9029,7 @@ S:	Maintained
+ F:	include/linux/dynamic_debug.h
+ F:	lib/dynamic_debug.c
+ F:	lib/test_dynamic_debug.c
++F:	tools/testing/selftests/dynamic_debug/*
  
- At the basic lexical level, a command is a sequence of words separated
--by spaces or tabs.  So these are all equivalent::
-+by spaces, tabs, or commas.  So these are all equivalent::
- 
-   :#> ddcmd file svcsock.c line 1603 +p
-   :#> ddcmd "file svcsock.c line 1603 +p"
-   :#> ddcmd '  file   svcsock.c     line  1603 +p  '
-+  :#> ddcmd file,svcsock.c,line,1603,+p
- 
- Command submissions are bounded by a write() system call.
- Multiple commands can be written together, separated by ``;`` or ``\n``::
-@@ -167,9 +168,11 @@ module
-     The given string is compared against the module name
-     of each callsite.  The module name is the string as
-     seen in ``lsmod``, i.e. without the directory or the ``.ko``
--    suffix and with ``-`` changed to ``_``.  Examples::
-+    suffix and with ``-`` changed to ``_``.
- 
--	module sunrpc
-+    Examples::
+ DYNAMIC INTERRUPT MODERATION
+ M:	Tal Gilboa <talgi@nvidia.com>
+diff --git a/tools/testing/selftests/Makefile b/tools/testing/selftests/Makefile
+index 450f13ba4cca..e4fc4dd80cf9 100644
+--- a/tools/testing/selftests/Makefile
++++ b/tools/testing/selftests/Makefile
+@@ -27,6 +27,7 @@ TARGETS += drivers/net/team
+ TARGETS += drivers/net/virtio_net
+ TARGETS += drivers/platform/x86/intel/ifs
+ TARGETS += dt
++TARGETS += dynamic_debug
+ TARGETS += efivarfs
+ TARGETS += exec
+ TARGETS += fchmodat2
+diff --git a/tools/testing/selftests/dynamic_debug/Makefile b/tools/testing/selftests/dynamic_debug/Makefile
+new file mode 100644
+index 000000000000..6d06fa7f1040
+--- /dev/null
++++ b/tools/testing/selftests/dynamic_debug/Makefile
+@@ -0,0 +1,9 @@
++# SPDX-License-Identifier: GPL-2.0-only
++# borrowed from Makefile for user memory selftests
 +
-+	module,sunrpc	# with ',' as token separator
- 	module nfsd
- 	module drm*	# both drm, drm_kms_helper
- 
-diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-index c6f3b0452dfa..16cff6c3b81a 100644
---- a/lib/dynamic_debug.c
-+++ b/lib/dynamic_debug.c
-@@ -320,6 +320,14 @@ static int ddebug_change(const struct ddebug_query *query, struct flag_settings
- 	return nfound;
- }
- 
-+static char *skip_spaces_and_commas(const char *str)
-+{
-+	str = skip_spaces(str);
-+	while (*str == ',')
-+		str = skip_spaces(++str);
-+	return (char *)str;
++# No binaries, but make sure arg-less "make" doesn't trigger "run_tests"
++all:
++
++TEST_PROGS := dyndbg_selftest.sh
++
++include ../lib.mk
+diff --git a/tools/testing/selftests/dynamic_debug/config b/tools/testing/selftests/dynamic_debug/config
+new file mode 100644
+index 000000000000..0f906ff53908
+--- /dev/null
++++ b/tools/testing/selftests/dynamic_debug/config
+@@ -0,0 +1,7 @@
++
++# basic tests ref the builtin params module
++CONFIG_DYNAMIC_DEBUG=m
++
++# more testing is possible with these
++# CONFIG_TEST_DYNAMIC_DEBUG=m
++# CONFIG_TEST_DYNAMIC_DEBUG_SUBMOD=m
+diff --git a/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh b/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
+new file mode 100755
+index 000000000000..465fad3f392c
+--- /dev/null
++++ b/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
+@@ -0,0 +1,257 @@
++#!/bin/bash
++# SPDX-License-Identifier: GPL-2.0-only
++
++V=${V:=0}  # invoke as V=1 $0  for global verbose
++RED="\033[0;31m"
++GREEN="\033[0;32m"
++YELLOW="\033[0;33m"
++BLUE="\033[0;34m"
++MAGENTA="\033[0;35m"
++CYAN="\033[0;36m"
++NC="\033[0;0m"
++error_msg=""
++
++[ -e /proc/dynamic_debug/control ] || {
++    echo -e "${RED}: this test requires CONFIG_DYNAMIC_DEBUG=y ${NC}"
++    exit 0 # nothing to test here, no good reason to fail.
 +}
 +
- /*
-  * Split the buffer `buf' into space-separated words.
-  * Handles simple " and ' quoting, i.e. without nested,
-@@ -333,8 +341,8 @@ static int ddebug_tokenize(char *buf, char *words[], int maxwords)
- 	while (*buf) {
- 		char *end;
- 
--		/* Skip leading whitespace */
--		buf = skip_spaces(buf);
-+		/* Skip leading whitespace and comma */
-+		buf = skip_spaces_and_commas(buf);
- 		if (!*buf)
- 			break;	/* oh, it was trailing whitespace */
- 		if (*buf == '#')
-@@ -350,7 +358,7 @@ static int ddebug_tokenize(char *buf, char *words[], int maxwords)
- 				return -EINVAL;	/* unclosed quote */
- 			}
- 		} else {
--			for (end = buf; *end && !isspace(*end); end++)
-+			for (end = buf; *end && !isspace(*end) && *end != ','; end++)
- 				;
- 			if (end == buf) {
- 				pr_err("parse err after word:%d=%s\n", nwords,
-@@ -622,7 +630,8 @@ static int ddebug_exec_queries(char *query, const char *modname)
- 		if (split)
- 			*split++ = '\0';
- 
--		query = skip_spaces(query);
-+		query = skip_spaces_and_commas(query);
++# need info to avoid failures due to untestable configs
 +
- 		if (!query || !*query || *query == '#')
- 			continue;
- 
-diff --git a/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh b/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
-index 465fad3f392c..c7bf521f36ee 100755
---- a/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
-+++ b/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
-@@ -216,7 +216,7 @@ function check_err_msg() {
- function basic_tests {
-     echo -e "${GREEN}# BASIC_TESTS ${NC}"
-     if [ $LACK_DD_BUILTIN -eq 1 ]; then
--	echo "SKIP"
-+	echo "SKIP - test requires params, which is a builtin module"
- 	return
-     fi
-     ddcmd =_ # zero everything
-@@ -238,8 +238,27 @@ EOF
-     ddcmd =_
- }
- 
-+function comma_terminator_tests {
-+    echo -e "${GREEN}# COMMA_TERMINATOR_TESTS ${NC}"
++[ -f "$KCONFIG_CONFIG" ] || KCONFIG_CONFIG=".config"
++if [ -f "$KCONFIG_CONFIG" ]; then
++    echo "# consulting KCONFIG_CONFIG: $KCONFIG_CONFIG"
++    grep -q "CONFIG_DYNAMIC_DEBUG=y" $KCONFIG_CONFIG ; LACK_DD_BUILTIN=$?
++    grep -q "CONFIG_TEST_DYNAMIC_DEBUG=m" $KCONFIG_CONFIG ; LACK_TMOD=$?
++    grep -q "CONFIG_TEST_DYNAMIC_DEBUG_SUBMOD=m" $KCONFIG_CONFIG ; LACK_TMOD_SUBMOD=$?
++    if [ $V -eq 1 ]; then
++	echo LACK_DD_BUILTIN: $LACK_DD_BUILTIN
++	echo LACK_TMOD: $LACK_TMOD
++	echo LACK_TMOD_SUBMOD: $LACK_TMOD_SUBMOD
++    fi
++else
++    LACK_DD_BUILTIN=0
++    LACK_TMOD=0
++    LACK_TMOD_SUBMOD=0
++fi
++
++function vx () {
++    echo $1 > /sys/module/dynamic_debug/parameters/verbose
++}
++
++function ddgrep () {
++    grep $1 /proc/dynamic_debug/control
++}
++
++function doprints () {
++    cat /sys/module/test_dynamic_debug/parameters/do_prints
++}
++
++function ddcmd () {
++    exp_exit_code=0
++    num_args=$#
++    if [ "${@:$#}" = "pass" ]; then
++	num_args=$#-1
++    elif [ "${@:$#}" = "fail" ]; then
++        num_args=$#-1
++	exp_exit_code=1
++    fi
++    args=${@:1:$num_args}
++    output=$((echo "$args" > /proc/dynamic_debug/control) 2>&1)
++    exit_code=$?
++    error_msg=$(echo $output | cut -d ":" -f 5 | sed -e 's/^[[:space:]]*//')
++    handle_exit_code $BASH_LINENO $FUNCNAME $exit_code $exp_exit_code
++}
++
++function handle_exit_code() {
++    local exp_exit_code=0
++    [ $# == 4 ] && exp_exit_code=$4
++    if [ $3 -ne $exp_exit_code ]; then
++        echo -e "${RED}: $BASH_SOURCE:$1 $2() expected to exit with code $exp_exit_code"
++	[ $3 == 1 ] && echo "Error: '$error_msg'"
++        exit
++    fi
++}
++
++# $1 - pattern to match, pattern in $1 is enclosed by spaces for a match ""\s$1\s"
++# $2 - number of times the pattern passed in $1 is expected to match
++# $3 - optional can be set either to "-r" or "-v"
++#       "-r" means relaxed matching in this case pattern provided in $1 is passed
++#       as is without enclosing it with spaces
++#       "-v" prints matching lines
++# $4 - optional when $3 is set to "-r" then $4 can be used to pass "-v"
++function check_match_ct {
++    pattern="\s$1\s"
++    exp_cnt=0
++
++    [ "$3" == "-r" ] && pattern="$1"
++    let cnt=$(ddgrep "$pattern" | wc -l)
++    if [ $V -eq 1 ] || [ "$3" == "-v" ] || [ "$4" == "-v" ]; then
++        echo -ne "${BLUE}" && ddgrep $pattern && echo -ne "${NC}"
++    fi
++    [ $# -gt 1 ] && exp_cnt=$2
++    if [ $cnt -ne $exp_cnt ]; then
++        echo -e "${RED}: $BASH_SOURCE:$BASH_LINENO check failed expected $exp_cnt on $1, got $cnt"
++        exit
++    else
++        echo ": $cnt matches on $1"
++    fi
++}
++
++# $1 - trace instance name
++# #2 - if > 0 then directory is expected to exist, if <= 0 then otherwise
++# $3 - "-v" for verbose
++function check_trace_instance_dir {
++    if [ -e /sys/kernel/tracing/instances/$1 ]; then
++        if [ "$3" == "-v" ] ; then
++            echo "ls -l /sys/kernel/tracing/instances/$1: "
++            ls -l /sys/kernel/tracing/instances/$1
++        fi
++	if [ $2 -le 0 ]; then
++            echo -e "${RED}: $BASH_SOURCE:$BASH_LINENO error trace instance \
++		    '/sys/kernel/tracing/instances/$1' does exist"
++	    exit
++	fi
++    else
++	if [ $2 -gt 0 ]; then
++            echo -e "${RED}: $BASH_SOURCE:$BASH_LINENO error trace instance \
++		    '/sys/kernel/tracing/instances/$1' does not exist"
++	    exit
++        fi
++    fi
++}
++
++function tmark {
++    echo $* > /sys/kernel/tracing/trace_marker
++}
++
++# $1 - trace instance name
++# $2 - line number
++# $3 - if > 0 then the instance is expected to be opened, otherwise
++# the instance is expected to be closed
++function check_trace_instance {
++    output=$(tail -n9 /proc/dynamic_debug/control | grep ": Opened trace instances" \
++	    | xargs -n1 | grep $1)
++    if [ "$output" != $1 ] && [ $3 -gt 0 ]; then
++        echo -e "${RED}: $BASH_SOURCE:$2 trace instance $1 is not opened"
++        exit
++    fi
++    if [ "$output" == $1 ] && [ $3 -le 0 ]; then
++        echo -e "${RED}: $BASH_SOURCE:$2 trace instance $1 is not closed"
++        exit
++    fi
++}
++
++function is_trace_instance_opened {
++    check_trace_instance $1 $BASH_LINENO 1
++}
++
++function is_trace_instance_closed {
++    check_trace_instance $1 $BASH_LINENO 0
++}
++
++# $1 - trace instance directory to delete
++# $2 - if > 0 then directory is expected to be deleted successfully, if <= 0 then otherwise
++function del_trace_instance_dir() {
++    exp_exit_code=1
++    [ $2 -gt 0 ] && exp_exit_code=0
++    output=$((rmdir /sys/kernel/debug/tracing/instances/$1) 2>&1)
++    exit_code=$?
++    error_msg=$(echo $output | cut -d ":" -f 3 | sed -e 's/^[[:space:]]*//')
++    handle_exit_code $BASH_LINENO $FUNCNAME $exit_code $exp_exit_code
++}
++
++function error_log_ref {
++    # to show what I got
++    : echo "# error-log-ref: $1"
++    : echo cat \$2
++}
++
++function ifrmmod {
++    lsmod | grep $1 2>&1>/dev/null && rmmod $1
++}
++
++# $1 - text to search for
++function search_trace() {
++    search_trace_name 0 1 $1
++}
++
++# $1 - trace instance name, 0 for global event trace
++# $2 - line number counting from the bottom
++# $3 - text to search for
++function search_trace_name() {
++	if [ "$1" = "0" ]; then
++	    buf=$(cat /sys/kernel/debug/tracing/trace)
++	    line=$(tail -$2 /sys/kernel/debug/tracing/trace | head -1 | sed -e 's/^[[:space:]]*//')
++	else
++	    buf=$(cat /sys/kernel/debug/tracing/instances/$1/trace)
++	    line=$(tail -$2 /sys/kernel/debug/tracing/instances/$1/trace | head -1 | \
++		   sed -e 's/^[[:space:]]*//')
++	fi
++	if [ $2 = 0 ]; then
++	    # whole-buf check
++	    output=$(echo $buf | grep "$3")
++	else
++	    output=$(echo $line | grep "$3")
++	fi
++	if [ "$output" = "" ]; then
++            echo -e "${RED}: $BASH_SOURCE:$BASH_LINENO search for '$3' failed \
++		    in line '$line' or '$buf'"
++	    exit
++	fi
++	if [ $V = 1 ]; then
++	    echo -e "${MAGENTA}: search_trace_name in $1 found: \n$output \nin:${BLUE} $buf ${NC}"
++        fi
++}
++
++# $1 - error message to check
++function check_err_msg() {
++    if [ "$error_msg" != "$1" ]; then
++        echo -e "${RED}: $BASH_SOURCE:$BASH_LINENO error message '$error_msg' \
++		does not match with '$1'"
++        exit
++    fi
++}
++
++function basic_tests {
++    echo -e "${GREEN}# BASIC_TESTS ${NC}"
 +    if [ $LACK_DD_BUILTIN -eq 1 ]; then
-+	echo "SKIP - test requires params, which is a builtin module"
++	echo "SKIP"
 +	return
 +    fi
-+    # try combos of spaces & commas
++    ddcmd =_ # zero everything
++    check_match_ct =p 0
++
++    # module params are builtin to handle boot args
 +    check_match_ct '\[params\]' 4 -r
-+    ddcmd module,params,=_		# commas as spaces
-+    ddcmd module,params,+mpf		# turn on module's pr-debugs
++    ddcmd module params +mpf
 +    check_match_ct =pmf 4
-+    ddcmd ,module ,, ,  params, -p
-+    check_match_ct =mf 4
-+    ddcmd " , module ,,, ,  params, -m"	#
-+    check_match_ct =f 4
++
++    # multi-cmd input, newline separated, with embedded comments
++    cat <<"EOF" > /proc/dynamic_debug/control
++      module params =_				# clear params
++      module params +mf				# set flags
++      module params func parse_args +sl		# other flags
++EOF
++    check_match_ct =mf 3
++    check_match_ct =mfsl 1
 +    ddcmd =_
 +}
 +
- tests_list=(
-     basic_tests
-+    comma_terminator_tests
- )
- 
- # Run tests
++tests_list=(
++    basic_tests
++)
++
++# Run tests
++
++ifrmmod test_dynamic_debug_submod
++ifrmmod test_dynamic_debug
++
++for test in "${tests_list[@]}"
++do
++    $test
++    echo ""
++done
++echo -en "${GREEN}# Done on: "
++date
++echo -en "${NC}"
 -- 
 2.53.0
 
