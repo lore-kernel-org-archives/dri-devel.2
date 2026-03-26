@@ -4,64 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A4CF910AB802
-	for <dri-devel@archiver.kernel.org>; Thu, 26 Mar 2026 18:55:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AA56310AB803
+	for <dri-devel@archiver.kernel.org>; Thu, 26 Mar 2026 18:55:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B54DB10EBEF;
-	Thu, 26 Mar 2026 18:55:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8542D10EBE6;
+	Thu, 26 Mar 2026 18:55:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Whj8soNe";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="izavzM6r";
 	dkim-atps=neutral
-Received: from mail-oi1-f169.google.com (mail-oi1-f169.google.com
- [209.85.167.169])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 80C8810EBE9
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Mar 2026 18:55:36 +0000 (UTC)
-Received: by mail-oi1-f169.google.com with SMTP id
- 5614622812f47-467ed6463b1so832085b6e.0
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Mar 2026 11:55:36 -0700 (PDT)
+Received: from mail-oa1-f46.google.com (mail-oa1-f46.google.com
+ [209.85.160.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E2CD810EBF0
+ for <dri-devel@lists.freedesktop.org>; Thu, 26 Mar 2026 18:55:29 +0000 (UTC)
+Received: by mail-oa1-f46.google.com with SMTP id
+ 586e51a60fabf-404254ffe8aso774820fac.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 26 Mar 2026 11:55:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1774551336; x=1775156136; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1774551329; x=1775156129; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=odzxhFrE/OaIR8r3wWCi5vPBwW9g54UQJlDBz7itpic=;
- b=Whj8soNecmKGgQWvasvwBJ29mkqJii6kC7a7rxjOYRkJYrXzfpL1c3N07i3fB/9AGJ
- LM4tVWKJUAoybNderynx7yoML9KQ16lr41+/kmtDHdW7ptwpxl+dfNdlPgnXljfhxEEe
- GOKcVJbeI9A2rATpJpC0Ez5K3n3Gsocu3oU+sVfq3A3RNzlCevWWrYgIwRFkpl15ojg0
- ZG6IqGtxrLFNAQhMCukitFBdEX622/Z+6w+suLHMqbbmvqu2XZQWAE4ox/bqqWpvUwJx
- Amg9PodlpY5oNfXriWyzbX1pP8CTEwlLAnerXJN+IM5LelGW4BemopcfWQT6fugm2NX2
- VtUA==
+ bh=BSisvrIuxABye56v+k4UdRTAwS5HV0U80AJ6AJkDqLc=;
+ b=izavzM6r3fKe0qk3c65nD4xsENxTsjUFoMxZtpFpXily1O4EngvisOya5qKP9bEbEI
+ cjWSv0c12dUI+PnfrcJpwlbl31DV5mSyJcLBlDs9AxaV3B6p/oi7daq0IAanXxq7ciRf
+ wu8ZjgrNwlxqDwd7nmPKa7tdbmBPmMWWN0INk89FLOvy8cmXflAtgBs2eLlY6kZfruQg
+ 8L61MFB/0vIFScrtv45CIH+2IS4r7vOyJF7POwGtdrLa84u647SJZy+RPm9M95TqZ2JS
+ hDIPPGQMra5LvVv+pK905/GdVATufteh9iMvvSUAaw/ek61BNGQA0FVKYHQwmUAwffwH
+ cmuw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774551336; x=1775156136;
+ d=1e100.net; s=20251104; t=1774551329; x=1775156129;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=odzxhFrE/OaIR8r3wWCi5vPBwW9g54UQJlDBz7itpic=;
- b=lh0bU8J3qEWPkiudtEECAwKfpT3lrmOp5R1XBn6bk3W3F4bOmLM8xX4iMsbsXrR8Ve
- RwPd3gIp7uftf92BaDz8XPlLyPqBGQvGiFuHhH9uXEOLxCOoHmZ1Bd9+je+2qXpv3cjz
- wfncUsBwjwING+9EKGkYIsxPk6+8ZbpNMbZXeZMaOFxXnemldDjd43O0rYvr2EWSecwt
- fvSft/U6Aay3vyxLDnlo5vOua3PyyBjG1Z6y6iRkFdZ+F+q5q5L6XEH7UStTtCfAQYDd
- PQWUdmiIUh+XB+F6Jno+qbzeUHiWs4jl0pqr/Vv5KbwASjZqggnzV2BOwpMU9Mfrb1lg
- xoFQ==
+ bh=BSisvrIuxABye56v+k4UdRTAwS5HV0U80AJ6AJkDqLc=;
+ b=gQZxLd0N7lfndczsMTROE4XJNs62/TrJdA0PI7JTf8zzad9vs4vbVeUiRYaEn5+s5D
+ dZdnNv4t155HoZTEIgTAcp1XoW4LEEl0ZP+YmJgm97ZvKDz+pzNA2pS5Hq0KrQ46EUhN
+ eHqGDIgG2iCSo4EEEQQb5xMlZMt4jVwgGz4Neq2X7LuhmN2VDbV8GHH1Rz66/nwyBLVJ
+ MhagrEuloyfoAIUhZZs0pUg2Qg6j8bKDbeTeAAkn5LLR+kyM+UjXUtHikjpwcXSd+mrC
+ JUQU/EMBRs2TsWPKYV+QWkG79jeA+loeCtC+HwkFW0qt6Otlx6c0wU7OhcHkFTSbneyi
+ xZ4Q==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVCMw38u70/T6GeM4mOsqvj+u7bu0CyvW+4nol1DR2gV6rpLswsMQxi7a/JxGAYu/Xzv4qFdlz+n68=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yzh4GEc9luQonHjw2lXUG72fJMIlZ7AEgnaSspVAj25ZngySmbv
- LFZB66qnFI18YK/BCs6k9kTEaed/AD0ErDoGSKLFZEvZSTKyYVeo2pyK
-X-Gm-Gg: ATEYQzzMMwWLT2kQOlFNdyQF3MjPnGFrarUs4YNULO5JVwiIM2iqXGroHexeuJjLAlU
- N3j4EStDGd8WiPrKwCRqGxUJ5Vc1hMMXwbOZUp1ihtD8VFiIyApbrp6fLhxYSA8sBtRTuHiksbV
- ve26cGX9YvH4qoPqwpIDH0luN4lbNfh7PtQBO8GaV6gS4tsTTWCTuD9846eKuX8+wrCrxZUl/MO
- AwpsywYqo/eptPBnbyIYTWZca3px8ZqMnlCyV7aPTcNvvdgS1WhL0c7iHc6mq+2Gy5jBZvOf/ds
- iPkSB7v3suk9ko6teoIHrtbZJVQNG1bIMKlIaCJ78pigoDnOdDcb+JQgrXEZvKtQ66grV35i37x
- phNBtR2NwVpgvzT7bIGeSpPCw8440bSxmc/R9JkPnp41wXijT1rpGft5OwX2iQftvlFr3FXXF72
- hIm9SwyNVsaviMkWwI6ZNwZw8XsqPBpYlRZtR6p6620rFjtT/5
-X-Received: by 2002:a05:6808:5246:b0:467:1f90:412d with SMTP id
- 5614622812f47-46a5c5a5802mr3709128b6e.11.1774551335668; 
- Thu, 26 Mar 2026 11:55:35 -0700 (PDT)
+ AJvYcCWA5M9DrmLngUEU6jMwMtjom3Y2opaSogZdptNjCasjm/e8fl5qFKDCoW8sbPxbHZq8Hl/+M1qG2wU=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YztBzpBhmD+XLTVtY/Y8rgQ2lR0dtvm2o0UMS38nOcJ5WDq5BY/
+ E8ZCNLh3MVo8svQzwAlb3gozOadUeh24T768GfTeGmdwhBEyxlEpGFe6
+X-Gm-Gg: ATEYQzxyR9FRs4T1imyJTuf2GHVftEH+uxt0pEPKTx7kGVV8wnYkEft84OjM8MoUzsg
+ zlSn0BmShMmcrgSVLJZ5AWAYJJsfveTdCWK0IlGPvzxDE2ozlIKJOGXQmm463VF+J7Xhp3eU3pn
+ mQG45gKnwo9L2bx/QuKtZfB9CnZdzmzttHp1ihmy5RR0KXkKqUYwGuer+YnYmIoSU3lMsUfxSpk
+ f7+a1J0GKjEI1jRqy1Gi5isWeS/dJJJhW7qb7x9MRinGK1rfsfBfQWXP0Q1Rk8iURs3ij5bJus9
+ ZvAtPIF2XaleHByrIb2oOTFI8Qo+J1NbN3J7EVGcLgB0BjDLs57lTrQnh0mVvYtJWf1wO5zFgX+
+ cJCvMqSnSvNystV21M/6lEeZ/xElenX5xfGVC0Juf73dvmpjaK8+9y/djCWaYEJenTVUPuCA4Za
+ x32baeqDJvOiUFRrSKiFie6x7pntWO8dNlsoEDGJsMtheBuypwi0z8L1Ez9Uw=
+X-Received: by 2002:a05:6870:b0e4:b0:40e:a9c5:5c32 with SMTP id
+ 586e51a60fabf-41cd7b187d0mr1250153fac.8.1774551329111; 
+ Thu, 26 Mar 2026 11:55:29 -0700 (PDT)
 Received: from frodo (c-98-38-17-99.hsd1.co.comcast.net. [98.38.17.99])
  by smtp.googlemail.com with ESMTPSA id
- 586e51a60fabf-41cc7760c08sm3075171fac.4.2026.03.26.11.55.34
+ 586e51a60fabf-41cc7760c08sm3075171fac.4.2026.03.26.11.55.26
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 26 Mar 2026 11:55:35 -0700 (PDT)
+ Thu, 26 Mar 2026 11:55:28 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: linux-kernel@vger.kernel.org, airlied@gmail.com, simona@ffwll.ch,
  jbaron@akamai.com, gregkh@linuxfoundation.org
@@ -72,10 +72,9 @@ Cc: jim.cromie@gmail.com, mripard@kernel.org, tzimmermann@suse.de,
  louis.chauvet@bootlin.com, skhan@linuxfoundation.org, pmladek@suse.com,
  ukaszb@chromium.org, dri-devel@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-Subject: [PATCH v12 41/69] drm_vblank: avoid bit-test when
- DRM_USE_DYNAMIC_DEBUG=y
-Date: Thu, 26 Mar 2026 12:53:45 -0600
-Message-ID: <20260326185413.1205870-42-jim.cromie@gmail.com>
+Subject: [PATCH v12 38/69] drm: use correct ccflags-y spelling
+Date: Thu, 26 Mar 2026 12:53:42 -0600
+Message-ID: <20260326185413.1205870-39-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260326185413.1205870-1-jim.cromie@gmail.com>
 References: <20260326185413.1205870-1-jim.cromie@gmail.com>
@@ -96,65 +95,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-drm_crtc_vblank_helper_get_vblank_timestamp_internal() is called about
-~100 times per sec, on a single display. It currently calls
-drm_debug_enabled(DRM_UT_VBL) to avoid doing ktime_to_timespec64()
-conversions when drm_dbg_vbl() is disabled.
+Incorrectly spelled CFLAGS- failed to add -DDYNAMIC_DEBUG_MODULE,
+which disabled dynamic-debug in modules built with:
 
-When CONFIG_DRM_USE_DYNAMIC_DEBUG=Y, that bit-test is redundant,
-because its also done by the static-key inside drm_dbg_vbl().
+CONFIG_DYNAMIC_DEBUG=n		# 1
+CONFIG_DYNAMIC_DEBUG_CORE=y	# 2
+CONFIG_DRM_USE_DYNAMIC_DEBUG=y	# 3
 
-In this case, we can move the ktime conversions into the drm_dbg_vbl()
-argument list (using a comma operator to evaluate the assignment, then
-pass the address of its LHS).  Then the __dynamic_func_call() wrapping
-the func guards the arg-list too, avoiding its evaluation when its not
-being printed.
+NB: this adds the flag (when 3) more often than strictly needed;
+modules built with CONFIG_DYNAMIC_DEBUG=y (!1) don't need the flag.
 
-When CONFIG_DRM_USE_DYNAMIC_DEBUG=N, the bit-test is needed, because
-the conversion in the arg-list is not guarded, and we'd do the
-conversions even when the callsite is disabled.
-
-We can optimize for both Y/N cases by changing
-drm_debug_enabled(DRM_UT_VBL) to __drm_debug_enabled(DRM_UT_VBL).
-This gives us the short-circuit when the static-key guard is there,
-and the bit-test by drm_debug_enabled_raw() otherwise.
-
-TLDR: we could change __drm_debug_enabled() to call _instrumented()
-instead of _raw() for the =N case, but that should be accompanied by
-some experiments and results.
-
+Fixes: 84ec67288c10 ("drm_print: wrap drm_*_dbg in dyndbg descriptor factory macro")
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
--v12-
-restore (previously dropped) drm_debug_enabled, with __ alterations.
----
- drivers/gpu/drm/drm_vblank.c | 9 ++++-----
- 1 file changed, 4 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/Makefile | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/drm_vblank.c b/drivers/gpu/drm/drm_vblank.c
-index f78bf37f1e0a..8ec025e12c67 100644
---- a/drivers/gpu/drm/drm_vblank.c
-+++ b/drivers/gpu/drm/drm_vblank.c
-@@ -803,15 +803,14 @@ drm_crtc_vblank_helper_get_vblank_timestamp_internal(
- 	 */
- 	*vblank_time = ktime_sub_ns(etime, delta_ns);
+diff --git a/drivers/gpu/drm/Makefile b/drivers/gpu/drm/Makefile
+index ec2c5ff82382..da36a9dbf170 100644
+--- a/drivers/gpu/drm/Makefile
++++ b/drivers/gpu/drm/Makefile
+@@ -3,7 +3,8 @@
+ # Makefile for the drm device driver.  This driver provides support for the
+ # Direct Rendering Infrastructure (DRI) in XFree86 4.1.0 and higher.
  
--	if (!drm_debug_enabled(DRM_UT_VBL))
-+	if (!__drm_debug_enabled(DRM_UT_VBL))
- 		return true;
+-CFLAGS-$(CONFIG_DRM_USE_DYNAMIC_DEBUG)	+= -DDYNAMIC_DEBUG_MODULE
++ccflags-$(CONFIG_DRM_USE_DYNAMIC_DEBUG)		+= -DDYNAMIC_DEBUG_MODULE
++subdir-ccflags-$(CONFIG_DRM_USE_DYNAMIC_DEBUG)	+= -DDYNAMIC_DEBUG_MODULE
  
--	ts_etime = ktime_to_timespec64(etime);
--	ts_vblank_time = ktime_to_timespec64(*vblank_time);
--
- 	drm_dbg_vbl(dev,
- 		    "crtc %u : v p(%d,%d)@ %ptSp -> %ptSp [e %d us, %d rep]\n",
--		    pipe, hpos, vpos, &ts_etime, &ts_vblank_time,
-+		    pipe, hpos, vpos,
-+		    (ts_etime = ktime_to_timespec64(etime), &ts_etime),
-+		    (ts_vblank_time = ktime_to_timespec64(*vblank_time), &ts_vblank_time),
- 		    duration_ns / 1000, i);
- 
- 	return true;
+ # Unconditionally enable W=1 warnings locally
+ # --- begin copy-paste W=1 warnings from scripts/Makefile.warn
 -- 
 2.53.0
 
