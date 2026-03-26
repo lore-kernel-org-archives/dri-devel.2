@@ -4,64 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C5CE410AB808
-	for <dri-devel@archiver.kernel.org>; Thu, 26 Mar 2026 18:58:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 98BAE10AB80C
+	for <dri-devel@archiver.kernel.org>; Thu, 26 Mar 2026 18:58:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E0CAD10EC0C;
-	Thu, 26 Mar 2026 18:58:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2949B10EC0D;
+	Thu, 26 Mar 2026 18:58:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="NSOxAFem";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="XrHNz6CC";
 	dkim-atps=neutral
-Received: from mail-oa1-f47.google.com (mail-oa1-f47.google.com
- [209.85.160.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 642A810EBF0
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Mar 2026 18:56:03 +0000 (UTC)
-Received: by mail-oa1-f47.google.com with SMTP id
- 586e51a60fabf-40f0e14b9f9so936221fac.1
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Mar 2026 11:56:03 -0700 (PDT)
+Received: from mail-oi1-f173.google.com (mail-oi1-f173.google.com
+ [209.85.167.173])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 69AE410EBF2
+ for <dri-devel@lists.freedesktop.org>; Thu, 26 Mar 2026 18:56:16 +0000 (UTC)
+Received: by mail-oi1-f173.google.com with SMTP id
+ 5614622812f47-466f1c3c627so783889b6e.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 26 Mar 2026 11:56:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1774551362; x=1775156162; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1774551376; x=1775156176; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=hVWjZWuErU/TT0M/gLtU2+Pv2Hf/DF/3aPzw5cJbYqU=;
- b=NSOxAFem8i/tNrxRVVawg4jU9Uf13f0Z2Qm9vNtf7kHjMlfEC+xyPWqX821hK/un0d
- wDj3avjCg9P9AHkuwwbRWUZfd3Aro6fWdmzDbV+I+fO1/mI41spiSvROI/p+czSHW0FB
- 4c9Um57AnLdRjIfsNIkGyNNGdglUKDkruRTelDdrmXp28zrckfezrguWx8ZBGabJzcw1
- AXkVvj8zYYrvkzk2NbFxNyPscCjvOcnoy9hJ58ivJ0aQ43bHZEfLWhA+RyEQxN19MN9i
- OR+7XAKiWsBAx7GguBakMFLFOxmwyTvYGmrO80rvPkeJBH1/j6km4xEqd8yX/qaDdpTn
- M3gg==
+ bh=FB+tfLWkD+EbK14YUmCdfR6TCrKrYU/mryJ+Tht/PKw=;
+ b=XrHNz6CCgaDEUAEukvcraDrd2glQXYXVpWkB7rhXY2nf3WX+5hlbxBnTALSuuh8Uwe
+ y0EzW8aSNpA5ez7iRydKoSlT69VBke5mS5l7s6jyyK1au7n7gtggTcnwkfVyiPCXX/Dy
+ yKLKAjuc4fQfL3yGyOYebh7AKGV5j+Fi8i8tB0+VUkq73FstiSgzA6lxS+VCJqwSciEG
+ q1pZPirCsrcfGun1fepGu+VrmR0MrHJCga/J+2N5Gaq5+gaG51tqGAsiFT8qjY0q1A04
+ 3QFgQrBLaoH86LYC9onq/Y1NBbJakcWVOTldKlTFcaJi2l7njV6h7wC+B5ngSoHHlBSS
+ yFlg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774551362; x=1775156162;
+ d=1e100.net; s=20251104; t=1774551376; x=1775156176;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=hVWjZWuErU/TT0M/gLtU2+Pv2Hf/DF/3aPzw5cJbYqU=;
- b=DtFSoI0cVNi4W96mnPDvTQprZNL29Uf3w3QFiXnG997xkYlFSGtShVbtkw/Y+ndqtd
- aSpAVKoR08HFTm0YuViFbzSJ8GjYhR7PTvsA9revFKmw1rLyLZnaMhvGqSXUWQ+pN8eM
- uhKYn2nEY26FRcFpPhRmfrEaweTH12yCHyqXNCcjfKcrktcpP0dnR40HQY4YQdHAc0ec
- apKzm5bbcr/pKJkDlzpBpG41c8IqyoU33AdoiVSTPYhhRQt9sXxGsZeaE/J4qWlkVzl5
- mTsVcssfh9ztFhh0c9BCns65eLpwI1P/7ODY+FcrxtaoBgPzm59TbLhiB2HwW/LYAjJ6
- dESg==
+ bh=FB+tfLWkD+EbK14YUmCdfR6TCrKrYU/mryJ+Tht/PKw=;
+ b=kxswbzE0zuymLQOA6xki+CgpnUj2DiIITWBBRyDbnPy2qyzphcyMvSBrEKjRqIIohw
+ DXvlUmxTy9+ynC0GjbvAgtoDJdsBAJ+BgdwxTuws6ZCoyQySQL+XYOktFHse5j2BR1rh
+ 8n85MDjHyAtcWitlqN7AUu/TCgGAJUYw691etftbg/EIrBsu+urSppADnKFbViGMuAT6
+ zLwtn9ZsegMr7THaAW5ACFWVmOpWeIleCWn8Wfo8YV6x2wqboT9xin5Mb0/mjFsbWprV
+ CzMFFE04o2x/FCIWLbhw9Ucr6+5enLJTqmHUDy7YQlH2efzG1W802L2HMJbg1w/3zab8
+ WO2Q==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVIXZ9dkvaIsIcg3yHijYsEzsVLZqlAxF93gsjSe/xOdpHLdQN9I2mcNUTILghWlilD9Kr4/7snss4=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yz63nWbYMaRt3BmS7mes7ZkdEidN1A5gSbiRt7p6L3ZD+B6FbQr
- 4DctLVYBrh9UV8zJSwvQun+Uf0wQ0XiRO/gAXvh1s7sfqlw9JXbajqA+
-X-Gm-Gg: ATEYQzwLQN2fCXXzi6B8zf/JpMJzuO4hB8a4c5jXffDGil5pPz6F5oSSzsuUCtbBMsm
- jhVEG/XQIwiKp7QfjHFUqeq2bn0ph8/l2RSq4ZvjdEXVHpjAZ44ugVHTGCbBnzqp6fxihkVooYz
- Dnhd0Of46FTcdz8Hfk9b49bXqC/6bRlqydfKb7xoBfWM5M84Swd0OgPdBtmEm87eQMJXAgUP7H9
- hzJXMJPU80PJhggOi5TZLyfSV49oOzlp/d9kEsy2Dg7gVW+hu/qhcJaM1YFQNWnyw8XbH4k1g2e
- V5vBd31ANw74QAjeuaReZuyhC0bnHw1YnToH1qLNchL7qLc51rDwOyBk1y+9gTrkkUiwAsZr2pM
- I7Cxcyqri1d7GFACq9vVgEJ93f3+N42YZLrOtC2yYf6KlXH583ce5VPs0yKcyK3CWKoJdKfUSUn
- UqZkwqv7TBR5D/ofO2ClfaGaWPUJYIFRosYW+kDscI15YeIQnO
-X-Received: by 2002:a05:6870:6486:b0:416:414:bbd7 with SMTP id
- 586e51a60fabf-41ca6e689c4mr4624024fac.21.1774551362660; 
- Thu, 26 Mar 2026 11:56:02 -0700 (PDT)
+ AJvYcCUO3ekJaBqcwsbkxtEsxOlfM7DLCYCDKtKYjqQIK31mnFiva4XD1mdp6KEUqmIInK2vAC4LrkOPmzs=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzaJ0Y0HaWxMjXMDK+514a33chdy/1hMBr5TwrHOkVNury3tLcc
+ gzjSbnS5lIEyWHVtewRSDu/na7U52WSb+p0+IRgBJ7cRctROC4l8Fk4A
+X-Gm-Gg: ATEYQzzLeXiFS8fpCdDyayVMoOOiA2g8olk6E8rFvWtFnUjeSrF33Wb4bykv/QUJ1Od
+ 8mlgVH36mVooLm1s0A+ER3cKjCKrK9dHXHWJMdnKjkWx/qzs/gfIXc7HR0t3xdhxO2Ut2LBSRAn
+ 6LWtYlb3JmnBEpZdaA4N1G3QRAmU2aU7ERgRG8c7AgMRtV8ghL0FIzAaFfr6graiPOxMEZut6RE
+ isVT4FiI0b3kjTaVxnC7rhmZG8Nw/Kse0HuzG/BDXyrXzShczGMHehXuaBbfdV8MmOHUQ/lHaou
+ 2cMmAnuNEQy92XOtlSxlFHyHmNF3CQ5WbrDl7qH7Tq7meSu12sTox3iNVu3db5GuPr6EqghaEzf
+ +MfG+xp6wbigqLaXqsv+YkvPCaGtiwrCmrKnGsNgXmhJ4V55YU/U8qrhy285J1R3yNiX03Xvs89
+ +5PpItsxoNtvt501yLEGxq71K2NpwAcHRqycHJTa78tsxNF3wZ
+X-Received: by 2002:a05:6808:6f92:b0:467:db5:8b1c with SMTP id
+ 5614622812f47-46a5c610272mr3956953b6e.21.1774551375644; 
+ Thu, 26 Mar 2026 11:56:15 -0700 (PDT)
 Received: from frodo (c-98-38-17-99.hsd1.co.comcast.net. [98.38.17.99])
  by smtp.googlemail.com with ESMTPSA id
- 586e51a60fabf-41cc7760c08sm3075171fac.4.2026.03.26.11.56.01
+ 586e51a60fabf-41cc7760c08sm3075171fac.4.2026.03.26.11.56.14
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 26 Mar 2026 11:56:02 -0700 (PDT)
+ Thu, 26 Mar 2026 11:56:15 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: linux-kernel@vger.kernel.org, airlied@gmail.com, simona@ffwll.ch,
  jbaron@akamai.com, gregkh@linuxfoundation.org
@@ -72,9 +72,9 @@ Cc: jim.cromie@gmail.com, mripard@kernel.org, tzimmermann@suse.de,
  louis.chauvet@bootlin.com, skhan@linuxfoundation.org, pmladek@suse.com,
  ukaszb@chromium.org, dri-devel@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-Subject: [PATCH v12 60/69] drm-dyndbg: add DRM_CLASSMAP_USE to mgag200 driver
-Date: Thu, 26 Mar 2026 12:54:04 -0600
-Message-ID: <20260326185413.1205870-61-jim.cromie@gmail.com>
+Subject: [PATCH v12 69/69] accel/rocket: call DRM_CLASSMAP_USE
+Date: Thu, 26 Mar 2026 12:54:13 -0600
+Message-ID: <20260326185413.1205870-70-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260326185413.1205870-1-jim.cromie@gmail.com>
 References: <20260326185413.1205870-1-jim.cromie@gmail.com>
@@ -95,28 +95,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The mgag200 driver has a number of DRM_UT_* debugs, make them
-controllable when CONFIG_DRM_USE_DYNAMIC_DEBUG=y by telling dyndbg
-that the module uses them.
+rocket.ko has several drm*dbg() calls, it must call DRM_CLASSMAP_USE
+to tell dynamic-debug what classmap enables them.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- drivers/gpu/drm/mgag200/mgag200_drv.c | 2 ++
+ drivers/accel/rocket/rocket_gem.c | 2 ++
  1 file changed, 2 insertions(+)
 
-diff --git a/drivers/gpu/drm/mgag200/mgag200_drv.c b/drivers/gpu/drm/mgag200/mgag200_drv.c
-index a32be27c39e8..02a703e5de80 100644
---- a/drivers/gpu/drm/mgag200/mgag200_drv.c
-+++ b/drivers/gpu/drm/mgag200/mgag200_drv.c
-@@ -28,6 +28,8 @@ static int mgag200_modeset = -1;
- MODULE_PARM_DESC(modeset, "Disable/Enable modesetting");
- module_param_named(modeset, mgag200_modeset, int, 0400);
+diff --git a/drivers/accel/rocket/rocket_gem.c b/drivers/accel/rocket/rocket_gem.c
+index b6a385d2edfc..0d06857b96ad 100644
+--- a/drivers/accel/rocket/rocket_gem.c
++++ b/drivers/accel/rocket/rocket_gem.c
+@@ -11,6 +11,8 @@
+ #include "rocket_drv.h"
+ #include "rocket_gem.h"
  
 +DRM_CLASSMAP_USE(drm_debug_classes);
 +
- int mgag200_init_pci_options(struct pci_dev *pdev, u32 option, u32 option2)
+ static void rocket_gem_bo_free(struct drm_gem_object *obj)
  {
- 	struct device *dev = &pdev->dev;
+ 	struct rocket_gem_object *bo = to_rocket_bo(obj);
 -- 
 2.53.0
 
