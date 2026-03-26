@@ -4,63 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3310B106F2F3
-	for <dri-devel@archiver.kernel.org>; Thu, 26 Mar 2026 08:23:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EEEF4106F301
+	for <dri-devel@archiver.kernel.org>; Thu, 26 Mar 2026 08:28:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8E10510E950;
-	Thu, 26 Mar 2026 08:23:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 59BBB10E8E2;
+	Thu, 26 Mar 2026 08:28:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=nxp.com header.i=@nxp.com header.b="SzDZKgCX";
+	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="Fzrj1O+a";
 	dkim-atps=neutral
-Received: from GVXPR05CU001.outbound.protection.outlook.com
- (mail-swedencentralazon11013058.outbound.protection.outlook.com
- [52.101.83.58])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 87EA810E950
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Mar 2026 08:23:28 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=tBgzPM0Gp3Pr0An/Eg6KTARKi0neemHxr7hB3IbSt9J9nobP/bZcfWi+hMUMrU6CZV3itCwoh0DfQGWjLNEluLQVIrNv9q5iu+SqHkQhcFXFyI4GueCJauaVdKlqvfqAB1wpjX1P5zIHYyOBQIikNuaOGzyDKb1zsaiOafATyV1SHMZIcr9wfOnQFWLE7vVU28cmdMCdQCWwkkBHUCgKUVKLejcjcYDDznomQLbkCqkU9AoMCsP8tOzPx1jYHWTEHTeFw6Y/XEmTIIfycQRztMoYEAnvNu9GiGaPYBOS+M1lpiyPuzsXbTh7Itb2vM5wJgMY1RpdsyuofWCwDHU/9Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ahM4FZ/sGUBy9A/iZIaqV5Ti7Slg5GqTam0boyLzh30=;
- b=jD2+Sq4TD7ucDj9KvMZ3Z69DjBfnHG2VaPUY5FOUf19FNy0raHNtCyKiyZzSPmS1pl9Bw43BlieQWmLoeN5u2982FCO7cQZ4ikuSmKEebY38Qg2fDIps+eqtLVVxxoFI7GFNToMW0eWwEi0nk1sM6NCRnVcy/MKYO1nY5VLqLxlA+Zl2uYutPWD8JErQNgcGd9FBgydv6XHufdUP2CpeX6XQ2PBJ6PVJtO8Oct4IsR78/TszU/V7Xj2tD0ydCa3FfQsEMtF8UfEhmSZT+vfUWz6FH2BoZdod3ZG5oifHj9U5J2HRTnOYdhXZRFaG2ar3Xnz11/W1Z4fkf2B0rZlscg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ahM4FZ/sGUBy9A/iZIaqV5Ti7Slg5GqTam0boyLzh30=;
- b=SzDZKgCXwI2iu99lZd13EvLw08dqOYUuSOytY2OkChIQGbTLYtSa/0E7egD2qdTYP6hvQVOXdkkea3Of8hNqu8LJMqcU56PBbSDgk0xtohnYRJnYrLD1eL5PSt5M6nQTVpVSvvp96gTMZXSdt6rYr7bj6bwfdy6D07pgRnA22QwgV0kPO7E2wunUJWQRlzfpeVbmxPSoiujo8lHe0gxD8x0FJLUkeZkpHP8haQn1W7v3VLYuLSBAuhSJx251kMjrNvHqyO3X2qHeSTEe7urn2xrl9NyMIa/wKTEtvwnmm1wXZT+iE+lQt0zPJJTogbNizobXIdOpO0Tt9gNqD8xvFw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from AM7PR04MB7046.eurprd04.prod.outlook.com (2603:10a6:20b:113::22)
- by AS8PR04MB8326.eurprd04.prod.outlook.com (2603:10a6:20b:3ff::10)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.22; Thu, 26 Mar
- 2026 08:23:21 +0000
-Received: from AM7PR04MB7046.eurprd04.prod.outlook.com
- ([fe80::4609:64af:8a4b:fd64]) by AM7PR04MB7046.eurprd04.prod.outlook.com
- ([fe80::4609:64af:8a4b:fd64%3]) with mapi id 15.20.9745.019; Thu, 26 Mar 2026
- 08:23:21 +0000
-Message-ID: <ab0e656c-dd4c-4c23-aa69-5106c1769c1e@nxp.com>
-Date: Thu, 26 Mar 2026 16:24:23 +0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 8/8] drm/mxsfb/lcdif: use DRM_BRIDGE_ATTACH_NO_CONNECTOR
- and the bridge-connector
-To: Luca Ceresoli <luca.ceresoli@bootlin.com>, Marek Vasut <marex@denx.de>,
- Stefan Agner <stefan@agner.ch>,
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
+ [213.167.242.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CBCEC10E8EB
+ for <dri-devel@lists.freedesktop.org>; Thu, 26 Mar 2026 08:28:48 +0000 (UTC)
+Received: from killaraus.ideasonboard.com
+ (2001-14ba-703d-e500--2a1.rev.dnainternet.fi [IPv6:2001:14ba:703d:e500::2a1])
+ by perceval.ideasonboard.com (Postfix) with UTF8SMTPSA id 6B5F79A9;
+ Thu, 26 Mar 2026 09:27:26 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+ s=mail; t=1774513646;
+ bh=yfngKaXk1lR9J6oYOujL5obBl9ThYhl8QscJrSNy51Y=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=Fzrj1O+adtfCfyE/eBToDWt/mQpS99NgOGfOAZWpuZfZE/1eZJYCf/Ji4xCylANYd
+ 2T9QmuxQn4wmxSxowxLFRVqihJYtOqzQRD2fBsdYoURPXFvDue42+pRrhr82LbGLdx
+ NwKBSso9dJNGLFQJrpnRWz8foK5SJQvgLHEOLavM=
+Date: Thu, 26 Mar 2026 10:28:43 +0200
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Luca Ceresoli <luca.ceresoli@bootlin.com>
+Cc: Marek Vasut <marex@denx.de>, Stefan Agner <stefan@agner.ch>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
  Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>
-Cc: "Kory Maincent (TI.com)" <kory.maincent@bootlin.com>,
- =?UTF-8?Q?Herv=C3=A9_Codina?= <herve.codina@bootlin.com>,
+ Fabio Estevam <festevam@gmail.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Robert Foss <rfoss@kernel.org>, Jonas Karlman <jonas@kwiboo.se>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Liu Ying <victor.liu@nxp.com>, Rob Herring <robh@kernel.org>,
+ Saravana Kannan <saravanak@kernel.org>,
+ "Kory Maincent (TI.com)" <kory.maincent@bootlin.com>,
+ =?utf-8?B?SGVydsOp?= Codina <herve.codina@bootlin.com>,
  Hui Pu <Hui.Pu@gehealthcare.com>, Ian Ray <ian.ray@gehealthcare.com>,
  Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
  dri-devel@lists.freedesktop.org, imx@lists.linux.dev,
@@ -75,7 +60,7 @@ Cc: "Kory Maincent (TI.com)" <kory.maincent@bootlin.com>,
  Francesco Dolcini <francesco.dolcini@toradex.com>,
  Frieder Schrempf <frieder.schrempf@kontron.de>,
  Gilles Talis <gilles.talis@gmail.com>,
- =?UTF-8?B?R29yYW4gUmHEkWVub3ZpxIc=?= <goran.radni@gmail.com>,
+ Goran =?utf-8?B?UmHEkWVub3ZpxIc=?= <goran.radni@gmail.com>,
  Heiko Schocher <hs@denx.de>,
  Joao Paulo Goncalves <joao.goncalves@toradex.com>,
  Josua Mayer <josua@solid-run.com>,
@@ -84,84 +69,19 @@ Cc: "Kory Maincent (TI.com)" <kory.maincent@bootlin.com>,
  Martyn Welch <martyn.welch@collabora.com>,
  Oleksij Rempel <o.rempel@pengutronix.de>, Peng Fan <peng.fan@nxp.com>,
  Philippe Schenker <philippe.schenker@toradex.com>,
- Richard Hu <richard.hu@technexion.com>, Shengjiu Wang
- <shengjiu.wang@nxp.com>,
+ Richard Hu <richard.hu@technexion.com>,
+ Shengjiu Wang <shengjiu.wang@nxp.com>,
  Stefan Eichenberger <stefan.eichenberger@toradex.com>,
  Vitor Soares <vitor.soares@toradex.com>
+Subject: Re: [PATCH 7/8] drm/bridge: imx8mp-hdmi-tx: add an hdmi-connector
+ when missing using a DT overlay at boot time
+Message-ID: <20260326082843.GB2670326@killaraus.ideasonboard.com>
 References: <20260320-drm-lcdif-dbanc-v1-0-479a04133e70@bootlin.com>
- <20260320-drm-lcdif-dbanc-v1-8-479a04133e70@bootlin.com>
-From: Liu Ying <victor.liu@nxp.com>
-Content-Language: en-US
-In-Reply-To: <20260320-drm-lcdif-dbanc-v1-8-479a04133e70@bootlin.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: SG2P153CA0020.APCP153.PROD.OUTLOOK.COM (2603:1096:4:c7::7)
- To AM7PR04MB7046.eurprd04.prod.outlook.com
- (2603:10a6:20b:113::22)
+ <20260320-drm-lcdif-dbanc-v1-7-479a04133e70@bootlin.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM7PR04MB7046:EE_|AS8PR04MB8326:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0ff13eff-7be4-40dd-c8de-08de8b10f0d5
-X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|19092799006|7416014|376014|366016|1800799024|22082099003|56012099003|18002099003|921020;
-X-Microsoft-Antispam-Message-Info: mFBjXksgKBmoX8FDVpUTMvcgAU6HxpoxQyCExhCatrhIzUUd9efiC6bNS67WlvVdN+lDEeVGA3TiOYjWHCUrbYiq5CEVILcDVB99wNmRlveAIZYwucb7ZOGq6+AcuIQ+rIG/hknXB4d4MjJkY5HONQ2wzDvTJZT1HBWk+iX/XlsnQn6lZV+fdvQMGhwOk6leDh9PxHAxFoMzTYdoK05/HLW2KVPCBIekUpYKUOHECJXfUFnT7URWfXDOIY9qTLF+H3PCqW/9VV6vNkYBAF+ACXHN8aJVxQ+xgJ0XKJjPEixejy6MCBPQYcCfG5Dh7K3OR3hpweMu9wHEcrsJ66Vt5LeM5/+roqyGtXL2EQaqb9QxzrBT9iiFqIinLv7GFhleExBeXyvfnPwE1fOSxflGu8HUNLlVpfNJxqxjDG6GTZB4peGu72qyrWLzu+FOAyBAbH+UPzIbEOEB7LijcLrZY3pCyGkTuAzNUeAMoOoirlRevpCEo5qM4qx8EJIS3n5LEuOtnEPcardP0A8mk+yYpZUy8NkglLVwowcqjCkpMsKxfxCjsXryzWePHX+/xPKdcOALbos/JCQd51BMIL9GH7rtVQADyVextrffe7PCVBgMAe2IBOq6yEHhcjVeXmqnKlAwK9QvRLXN8pIPE7TE7jgc9fsJ65i/vd4kL5Fnnxh0Ac9rlNdw7BDyhu/UTLD+KLgmXzsGFQS8Sk5fVdQn2OJJ4m6xoQPiTv9q006qic+HoZ6PGxGdqHWJq3mV6it76WTw8P1ucGQH5eehHsFr1A==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:AM7PR04MB7046.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(19092799006)(7416014)(376014)(366016)(1800799024)(22082099003)(56012099003)(18002099003)(921020);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZUwraGV2aVI2WWN3YWRvUlR4RE5zUGl6dEtMeUtHOGN5SGV3U3JIM3lRSHps?=
- =?utf-8?B?NE5UUjdQWDhnUEdsazA3MXdaVk43bEZoTWdoVlVKWTQrYWF1M3lGVkszK1NV?=
- =?utf-8?B?SGlZTjJUamhMUlRVUU9DcExmd01QM2lFTkhMQ2VlbTlMRGc5bjFoNEFCZlNM?=
- =?utf-8?B?eXorL3pCbGZsR0JrTTNyNkttVGVFVzlKaGlvc1lRUFBKYTR1TnMrQVlRY25j?=
- =?utf-8?B?cis3cSthQm1mZjlLYTBDcEE4eU1WV0g4UDVYak1IVUJ0L3BHdUNBUE43M2ph?=
- =?utf-8?B?Kyt1ajBuYVpvVVltN2tYNG9zSFRUbzZTMUxIbkRiMWtMbVNLbXZPcmx1Rm9T?=
- =?utf-8?B?L1ZlZ0R4Y0M3NkpBVUEvOHdkZDRJSVJpMVVhaUY1d3JlSU1yaUZhbUhXQ2lX?=
- =?utf-8?B?bHlMSlRTL0EreWtKTVBqNlMvNE41TjNrYlZ4d0dIRlB1aGtpck9MQXl4NjJ6?=
- =?utf-8?B?VzZOdmg2MTR0Y3JTQWFKUkN4ODhIWVJpcldCMFNGNE8wOXQzZTNjcDYyTXBO?=
- =?utf-8?B?WVo5bWxTWWRuZUgyenZPZ29OYUpSbjVNTXhOV21OVkd3YXVkdkRucjl0K3c5?=
- =?utf-8?B?SVRORWFTNnVQanRZZllERitiWktDU1ZkUFFiUnNsYmZDbUtGc29ySFRoUUJC?=
- =?utf-8?B?U2FjTG9oUHFuejdUU2N0RHZPcjZJVU5wa3RQR01DU1hCVlpMUFNnaFBBSC9m?=
- =?utf-8?B?TkllbVEvdloxeGlOVTVmdTlOYktDNkxJdHplemtrZ05IUUQyb012OTMxUktP?=
- =?utf-8?B?N2hvUXJUcFNLeWNUTEpMWmNNZkMwYXJpUkVPbFJJYzFmbFJOT1pCYW5yUTRW?=
- =?utf-8?B?Zy9pazNVaUZHeWt0R0hpSzZGTlFpdC8rdnI2eVlYcmw5NzdUVmdqSklRamdE?=
- =?utf-8?B?dGpYWUFiUHpHSmc4dHRCOTV0Y096cEhuSUQvcWZqNUhtdmpPSnlJRjFOVkZZ?=
- =?utf-8?B?MkY4UnpvYWh4RXJNajVGYlZvL0ZtME5wYUpuMkRteXFZZjlpYXpNSjhvN1F6?=
- =?utf-8?B?YjB0YXh1UWIxcVNTdkVjOG82SWV0VmIzZFQzdnU2K2V6UXkxMmo4dkJUMGNU?=
- =?utf-8?B?Rm51dWJhTXVBWEJlV1pERzhDd2JoWWRjajdZRXphRU84WWlOVjc0SjZVMzY3?=
- =?utf-8?B?c25PaHQzMS9NbmRiZU1UWEpaSWVuak44eWg3R25SNWR6MVNPZHdBdVNpZ0sz?=
- =?utf-8?B?ZitqcGRSR0w2M0V5ZlZlRHVaaTZFaG5DckdIUWI2ZE93VUdFSHpoamw3ZFZK?=
- =?utf-8?B?MmtIQk9YZWxFbTZicUhtbktXQ3RUeTJqVmxLNzJBdEpFdWxaajJRcEZvaU9v?=
- =?utf-8?B?akZQa2k0NC85MU5FcW5JUVhoNEJOT3BhbmJtMTNkUzByTFJqN2ZCeVJCQlBH?=
- =?utf-8?B?TjcyY0lGV09tWEV5S1kwdFVuVkVJMlQySE5MakRBd2lXT2FCVGc4amxaeHpm?=
- =?utf-8?B?OFpmQ3NWNlRkVEltVWpUcTlKUFVzbVNiRzdlQi9PeExXVDdwRE9wZ1N1Z01a?=
- =?utf-8?B?Yjc1RzNpNEh2SUlPUER4dm1lVkVEZ3VTOUM1SWREVTE2RFB2Qjk4bDlxYW9x?=
- =?utf-8?B?UTVhZ2pkemorR20wN1M3TTVmSDV5L1lLbWFoMkplR3RXbXUrWm9Id3FUU3BO?=
- =?utf-8?B?a1lHZGVKUlVlek1UU0FIZmZaQWZDUFd6YWFwYXNXOEFXNHlJa010cGV2RDMv?=
- =?utf-8?B?a1d0L1M5dzFtdi9ZMERrQVQ5WTQ3anF2NkJTSDVBak5zeFZyNE5WWlJmejA5?=
- =?utf-8?B?KzhpZEZYc0xTY0l6WnpzNWpON3VnNnpDV1lra3BLaFBOSUNiQ3lLcjJvcjFm?=
- =?utf-8?B?WmpSVHFadm14OWRuVnptK3lvMUJ1aXNIc3EwS3M1L0NwS0d0SDZRc0NLWTMy?=
- =?utf-8?B?blVuamtLalgyY3U3TmFwL1RKYzc0WWx6ZWlVbU1vMHc5d1JqSXlScmlvMU9F?=
- =?utf-8?B?MXU0R2dQbjZCWHJkcUd4VjVmd0Urangzb24vS3lLaCs0OVlzN1k0bTl2a0NV?=
- =?utf-8?B?eWNKampoK2lRc2g5WFJUT0RYQlh1SEkrUzAzeERtZzlCb2JrNVI4ZDJadzd0?=
- =?utf-8?B?bWtaTUhMcmhuTXVqNjFDWE1sUWpjaXRaOTJOSzRWaE1hVDUzai9pNmh2eG90?=
- =?utf-8?B?K2RwdVhpeFlPaXBUOHNOc3F1K2V6WEVld0VJQ0w0eDRxZU1NYVIzWk5EbERU?=
- =?utf-8?B?YmlYMDJLY25wWUI2Tm1Gemp6Qk9YMTZYWFRTK0J3YXNFcVI4RG5Ja1FOTlRE?=
- =?utf-8?B?WVgzcjBhTTRyYWVpT1JSaU5CaDhNcWM5THVpbUFQZW01VUZ5SVd2RVgySHNu?=
- =?utf-8?B?WXZaUXUxbkE0ZE9sQW4rOE05YzVxRmxDcWNPMWN6Z3MvckhiM05QZz09?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0ff13eff-7be4-40dd-c8de-08de8b10f0d5
-X-MS-Exchange-CrossTenant-AuthSource: AM7PR04MB7046.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Mar 2026 08:23:21.0842 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: VvlqP6jQHUXLgIP92Kiw07yWzvaF4946dBmXNU3YacAyjck9aEKWl8QCKi4tDOvpnTrYQ1EQGTI7eqbv5TZglQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB8326
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260320-drm-lcdif-dbanc-v1-7-479a04133e70@bootlin.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -179,33 +99,235 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Hi Luca,
 
-On Fri, Mar 20, 2026 at 11:46:19AM +0100, Luca Ceresoli wrote:
-> Convert this driver to DRM_BRIDGE_ATTACH_NO_CONNECTOR and to the
-> drm_bridge_connector framework which is the current DRM bridge best
-> practice.
+On Fri, Mar 20, 2026 at 11:46:18AM +0100, Luca Ceresoli wrote:
+> The imx8mp-hdmi-tx one of many drivers based on dw-hdmi. dw-hdmi in turn
+> can operate in two different modes, depending on the platform data as set
+> by the driver:
+> 
+>  A. hdmi->plat_data->output_port = 0:
+>     the HDMI output (port@1) in device tree is not used [0]
+> 
+>  B. hdmi->plat_data->output_port = 1:
+>     the HDMI output (port@1) is parsed to find the next bridge
+> 
+> The imx8mp-hdmi-tx driver falls in case A. This implies next_bridge will
+> always be NULL, and so dw_hdmi_bridge_attach() [1] will always fail if
+> called with the DRM_BRIDGE_ATTACH_NO_CONNECTOR flag.
+> 
+> In fact case A assumes that DRM_BRIDGE_ATTACH_NO_CONNECTOR is not set and
+> in that case it adds the connector programmatically at bridge attach time.
+> 
+> Support for DRM_BRIDGE_ATTACH_NO_CONNECTOR is implemented by dw-hdmi.c in
+> case B. So, in preparation to support DRM_BRIDGE_ATTACH_NO_CONNECTOR in
+> imx8mp-hdmi-tx, move to case B by setting hdmi->plat_data->output_port = 1.
+> 
+> However this change requires that port@1 is connected to a "next
+> bridge" DT node, typically the HDMI connector, because dw-hdmi won't add
+> the connector when using DRM_BRIDGE_ATTACH_NO_CONNECTOR.
+> 
+> Many dts files for imx8mp-based boards in the kernel have such a connector
+> described and linked to port@1, so a connector is added by the
+> display-connector driver along with a bridge wrapping it. Sadly some of
+> those dts files don't have the connector described. Adding it would solve
+> the problem easily, but this would break existing devices which do not
+> update the dtb when upgrading to a newer kernel.
+
+I think this series should also fix the in-tree dts files, to pave the
+way for removing the workaround.
+
+> To preserve backward compatibility for such devices, introduce a module
+> adding the hdmi-connector node to the live device tree at init time. This
+> allows the dw-hdmi code to find the next bridge (the one wrapping the
+> hdmi-connector) and let the pipeline work as before.
+> 
+> [0] https://elixir.bootlin.com/linux/v7.0-rc1/source/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c#L3310
+> [1] https://elixir.bootlin.com/linux/v7.0-rc1/source/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c#L2907
 > 
 > Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
-> ---
->  drivers/gpu/drm/mxsfb/Kconfig     |  1 +
->  drivers/gpu/drm/mxsfb/lcdif_drv.c | 12 +++++++++++-
->  2 files changed, 12 insertions(+), 1 deletion(-)
 > 
-> diff --git a/drivers/gpu/drm/mxsfb/Kconfig b/drivers/gpu/drm/mxsfb/Kconfig
-> index 264e74f45554..1a8a5d1ba8c0 100644
-> --- a/drivers/gpu/drm/mxsfb/Kconfig
-> +++ b/drivers/gpu/drm/mxsfb/Kconfig
-> @@ -33,6 +33,7 @@ config DRM_IMX_LCDIF
->  	select DRM_GEM_DMA_HELPER
->  	select DRM_PANEL
->  	select DRM_PANEL_BRIDGE
-> +	select DRM_BRIDGE_CONNECTOR
+> ---
+> 
+> This patch is inspired by commit 0ff223d99147 ("drm/tilcdc: Convert legacy
+> panel binding via DT overlay at boot time")
+> ---
+>  drivers/gpu/drm/bridge/imx/Kconfig                 | 17 ++++++
+>  drivers/gpu/drm/bridge/imx/Makefile                |  2 +
+>  .../bridge/imx/imx8mp-hdmi-tx-connector-fixup.c    | 60 ++++++++++++++++++++++
+>  .../bridge/imx/imx8mp-hdmi-tx-connector-fixup.dtso | 38 ++++++++++++++
+>  drivers/gpu/drm/bridge/imx/imx8mp-hdmi-tx.c        |  1 +
+>  5 files changed, 118 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/bridge/imx/Kconfig b/drivers/gpu/drm/bridge/imx/Kconfig
+> index b9028a5e5a06..b9ce140a93dc 100644
+> --- a/drivers/gpu/drm/bridge/imx/Kconfig
+> +++ b/drivers/gpu/drm/bridge/imx/Kconfig
+> @@ -25,6 +25,23 @@ config DRM_IMX8MP_DW_HDMI_BRIDGE
+>  	  Choose this to enable support for the internal HDMI encoder found
+>  	  on the i.MX8MP SoC.
+>  
+> +config DRM_IMX8MP_DW_HDMI_BRIDGE_CONNECTOR_FIXUP
+> +	bool "Support device tree blobs without an hdmi-connector node"
+> +	default y
 
-Also, select DRM_DISPLAY_HELPER.
+Can't we enable the workaround unconditionally ? Distributions will need
+to enable this option anyway as they can't know what device they will
+boot on. I fear a configuration option will confuse users and waste time
+on debugging.
 
->  	help
->  	  Choose this option if you have an LCDIFv3 LCD controller.
->  	  Those devices are found in various i.MX SoC (i.MX8MP,
+> +	depends on DRM_IMX8MP_DW_HDMI_BRIDGE
+> +	depends on OF
+> +	select OF_OVERLAY
+> +	select DRM_DISPLAY_CONNECTOR
+> +	help
+> +	  Modifies at early boot the live device tree of boards using the
+> +	  i.MX8MP fsl,imx8mp-hdmi-tx adding a hdmi-connector node linked to
+> +	  the htmi-tx. This is needed to support bridge-connector usage in
+> +	  the i.MX8MP LCDIF driver.
+> +
+> +	  You need this if you use the i.MX8MP HDMI output and your board
+> +	  device tree file does not have an hdmi-connector node connected
+> +	  to it.
+> +
+>  config DRM_IMX8MP_HDMI_PAI
+>  	tristate "Freescale i.MX8MP HDMI PAI bridge support"
+>  	depends on OF
+> diff --git a/drivers/gpu/drm/bridge/imx/Makefile b/drivers/gpu/drm/bridge/imx/Makefile
+> index 8d01fda25451..84499fe2e444 100644
+> --- a/drivers/gpu/drm/bridge/imx/Makefile
+> +++ b/drivers/gpu/drm/bridge/imx/Makefile
+> @@ -1,6 +1,8 @@
+>  obj-$(CONFIG_DRM_IMX_LDB_HELPER) += imx-ldb-helper.o
+>  obj-$(CONFIG_DRM_IMX_LEGACY_BRIDGE) += imx-legacy-bridge.o
+>  obj-$(CONFIG_DRM_IMX8MP_DW_HDMI_BRIDGE) += imx8mp-hdmi-tx.o
+> +obj-$(CONFIG_DRM_IMX8MP_DW_HDMI_BRIDGE_CONNECTOR_FIXUP) += imx8mp-hdmi-tx-connector-fixup.o \
+> +							   imx8mp-hdmi-tx-connector-fixup.dtbo.o
+>  obj-$(CONFIG_DRM_IMX8MP_HDMI_PAI) += imx8mp-hdmi-pai.o
+>  obj-$(CONFIG_DRM_IMX8MP_HDMI_PVI) += imx8mp-hdmi-pvi.o
+>  obj-$(CONFIG_DRM_IMX8QM_LDB) += imx8qm-ldb.o
+> diff --git a/drivers/gpu/drm/bridge/imx/imx8mp-hdmi-tx-connector-fixup.c b/drivers/gpu/drm/bridge/imx/imx8mp-hdmi-tx-connector-fixup.c
+> new file mode 100644
+> index 000000000000..8c423b9bfa50
+> --- /dev/null
+> +++ b/drivers/gpu/drm/bridge/imx/imx8mp-hdmi-tx-connector-fixup.c
+> @@ -0,0 +1,60 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * Add an hdmi-connector node to boards using the imx8mp hdmi_tx which
+> + * don't have one. This is needed for the i.MX LCDIF to work with
+> + * DRM_BRIDGE_ATTACH_NO_CONNECTOR.
+> + *
+> + * Copyright (C) 2026 GE HealthCare
+> + * Author: Luca Ceresoli <luca.ceresoli@bootlin.com>
+> + */
+> +
+> +#include <linux/kernel.h>
+> +#include <linux/of.h>
+> +#include <linux/of_fdt.h>
+> +#include <linux/slab.h>
+> +
+> +/* Embedded dtbo symbols created by cmd_wrap_S_dtb in scripts/Makefile.dtbs */
+> +extern char __dtbo_imx8mp_hdmi_tx_connector_fixup_begin[];
+> +extern char __dtbo_imx8mp_hdmi_tx_connector_fixup_end[];
+> +
+> +static int __init imx8mp_hdmi_tx_connector_fixup_init(void)
+> +{
+> +	struct device_node *hdmi_tx __free(device_node) = NULL;
+> +	struct device_node *endpoint __free(device_node) = NULL;
+> +	struct device_node *hdmi_conn __free(device_node) = NULL;
+> +	void *dtbo_start;
+> +	u32 dtbo_size;
+> +	int ovcs_id;
+> +	int err;
+> +
+> +	hdmi_tx = of_find_node_by_path("/soc@0/bus@32c00000/hdmi@32fd8000");
+> +	if (!of_device_is_available(hdmi_tx))
+> +		return 0;
+> +
+> +	/* If endpoint exists, assume an hdmi-connector exists already */
+> +	endpoint = of_find_node_by_path("/soc@0/bus@32c00000/hdmi@32fd8000/ports/port@1/endpoint");
+> +	if (endpoint)
+> +		return 0;
+> +
+> +	dtbo_start = __dtbo_imx8mp_hdmi_tx_connector_fixup_begin;
+> +	dtbo_size = __dtbo_imx8mp_hdmi_tx_connector_fixup_end -
+> +		    __dtbo_imx8mp_hdmi_tx_connector_fixup_begin;
+> +
+> +	err = of_overlay_fdt_apply(dtbo_start, dtbo_size, &ovcs_id, NULL);
+> +	if (err)
+> +		return err;
+> +
+> +	hdmi_conn = of_find_node_by_name(NULL, "fixup-hdmi-connector");
+> +	if (!hdmi_conn) {
+> +		err = -ENODEV;
+> +		goto overlay_remove;
+> +	}
+> +
+> +	return 0;
+> +
+> +overlay_remove:
+> +	of_overlay_remove(&ovcs_id);
+> +	return err;
+> +}
+> +
+> +subsys_initcall(imx8mp_hdmi_tx_connector_fixup_init);
+> diff --git a/drivers/gpu/drm/bridge/imx/imx8mp-hdmi-tx-connector-fixup.dtso b/drivers/gpu/drm/bridge/imx/imx8mp-hdmi-tx-connector-fixup.dtso
+> new file mode 100644
+> index 000000000000..ee718ca1b11b
+> --- /dev/null
+> +++ b/drivers/gpu/drm/bridge/imx/imx8mp-hdmi-tx-connector-fixup.dtso
+> @@ -0,0 +1,38 @@
+> +// SPDX-License-Identifier: GPL-2.0+
+> +/*
+> + * DTS overlay adding an hdmi-connector node to boards using the imx8mp hdmi_tx
+> + *
+> + * Copyright (C) 2026 GE HealthCare
+> + * Author: Luca Ceresoli <luca.ceresoli@bootlin.com>
+> + */
+> +
+> +/dts-v1/;
+> +/plugin/;
+> +
+> +&{/} {
+> +	fixup-hdmi-connector {
+> +		compatible = "hdmi-connector";
+> +		label = "HDMI";
+> +		type = "a";
+> +
+> +		port {
+> +			fixup_hdmi_connector_in: endpoint {
+> +				remote-endpoint = <&hdmi_tx_out>;
+> +			};
+> +		};
+> +	};
+> +
+> +	soc@0 {
+> +		bus@32c00000 {
+> +			hdmi@32fd8000 {
+> +				ports {
+> +					port@1 {
+> +						hdmi_tx_out: endpoint {
+> +							remote-endpoint = <&fixup_hdmi_connector_in>;
+> +						};
+> +					};
+> +				};
+> +			};
+> +		};
+> +	};
+> +};
+> diff --git a/drivers/gpu/drm/bridge/imx/imx8mp-hdmi-tx.c b/drivers/gpu/drm/bridge/imx/imx8mp-hdmi-tx.c
+> index 32fd3554e267..8e8cfd66f23b 100644
+> --- a/drivers/gpu/drm/bridge/imx/imx8mp-hdmi-tx.c
+> +++ b/drivers/gpu/drm/bridge/imx/imx8mp-hdmi-tx.c
+> @@ -138,6 +138,7 @@ static int imx8mp_dw_hdmi_probe(struct platform_device *pdev)
+>  	plat_data->phy_name = "SAMSUNG HDMI TX PHY";
+>  	plat_data->priv_data = hdmi;
+>  	plat_data->phy_force_vendor = true;
+> +	plat_data->output_port = 1;
+>  
+>  	platform_set_drvdata(pdev, hdmi);
+>  
 
 -- 
 Regards,
-Liu Ying
+
+Laurent Pinchart
