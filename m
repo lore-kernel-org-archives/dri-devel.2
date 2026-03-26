@@ -4,159 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4D904109E52B
-	for <dri-devel@archiver.kernel.org>; Thu, 26 Mar 2026 01:50:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D9B89109E535
+	for <dri-devel@archiver.kernel.org>; Thu, 26 Mar 2026 01:54:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9C27E10E8F9;
-	Thu, 26 Mar 2026 01:50:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EDA3110E1C2;
+	Thu, 26 Mar 2026 01:54:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="NAt0QEhN";
+	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="QvJaHRlY";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E65C710E1C2;
- Thu, 26 Mar 2026 01:50:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1774489813; x=1806025813;
- h=date:from:to:cc:subject:message-id:references:
- content-transfer-encoding:in-reply-to:mime-version;
- bh=lmXewP9Lv32JfCESh32IdBqlD5+15qRB3NgMS4NrCzw=;
- b=NAt0QEhN6lagc4/yBzEZrql+OOc0mumjRQX8z3BJuCqgyIZr/LjVAht7
- wdg6DKFNCI4BAvrubusPfE7VbDLBWm/euxs6VDvW+yLkNH3bXs0BYTMSh
- jwr5ZuE2uxS8yAwbiniDT+IbOIdDerX5bf6NTS6/vqAuyY5ZsRjAUm6JM
- I9shuUoLDipa2YAffNiIEDdWqBcjCw2lYlGm2OOt+MOu795hQmFviv/Pq
- bmWBNsyiXgMnFYLOZecYXkOd66WgX/4O5F3ai8uYaKVp7wCk9RspN5scU
- n26iLsoPavozwllWPiu+SFLmXfSmGiniUwmASfgobywF8BH6BfZUQNA5f g==;
-X-CSE-ConnectionGUID: HC06C0IhSnyfiVoB6hY+NA==
-X-CSE-MsgGUID: hfBr1LVuRsuK4C297M2G2g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11740"; a="86158560"
-X-IronPort-AV: E=Sophos;i="6.23,141,1770624000"; d="scan'208";a="86158560"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
- by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Mar 2026 18:50:12 -0700
-X-CSE-ConnectionGUID: 4Y4fJo+RRSuZA6zbqvkAUA==
-X-CSE-MsgGUID: 4Nn7SczIT1SGZow+edcRfg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,141,1770624000"; d="scan'208";a="224798388"
-Received: from orsmsx902.amr.corp.intel.com ([10.22.229.24])
- by orviesa009.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Mar 2026 18:50:12 -0700
-Received: from ORSMSX903.amr.corp.intel.com (10.22.229.25) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Wed, 25 Mar 2026 18:50:11 -0700
-Received: from ORSEDG901.ED.cps.intel.com (10.7.248.11) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37 via Frontend Transport; Wed, 25 Mar 2026 18:50:11 -0700
-Received: from BL0PR03CU003.outbound.protection.outlook.com (52.101.53.57) by
- edgegateway.intel.com (134.134.137.111) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Wed, 25 Mar 2026 18:50:10 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=T0WGIKJvG/rai1CTl3Tf7FOXy3e/5ECTeb1Y4F6F2C/2ocn4SuGcwTXcVuTOGCW2ecdZYJEIExLyj0BbuyJwSoy9aQarYYYSZZ+vWBFmumExKi5dRUw9FYpC/Y9VYRK6EofVnXQAVzmjJhpOoHc3mtr9OTIPCkBmI31iR3r9SnIFuDpr6TbRpzIikZ4T2KsGZ/4xNeKXNGAewBct1AcPgdtIQ+Ft8Z80SsKIrK9+Xwqyp2yEaCizYiOzK27g+VlB4YiW4qODmQd62JDeNkcFtPnns9yT+MKffN8Mmx06lIAl/XBFQLYZvDb5aYfmvJY9LgJ501TI7ZHSDAVSJlWySQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=R+WQ7hPOAsvDy7kvdyfuAnxYhmks6CjT9aoh5TTxKkk=;
- b=CYpOOToWc14PpZEqbxbnL7uSq9+ZWjcQvaFrSRX9YvNafaqoHZAnS0mWpFiCvtzMAYb/HwrJapnSGi3xJ5dj9+oJmJxUjHcw7jTk42gh6cyYErD1Qomvn9au7yracqDm/aFGNPvjJMNNHOrGhNi+JYejM9TR7NjGav1Szw/nIR3f0dWPKGPRU6cJl9t1w6TlsG4vddUH5WdKCBfh+/VQWNH9ah3OKRwmhQgLc/HzzRoIMMvrMJMzmiazUGDDoAD19HyuHSnxvr2YAX7qaHL+A8VrWbngs5YpF848TZURQGFmLlA8Nz3ZQOtnjmU3YI3bxp60O6EzAqIMZUXuhgqJcQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from DS0PR11MB6519.namprd11.prod.outlook.com (2603:10b6:8:d1::5) by
- SJ2PR11MB7618.namprd11.prod.outlook.com (2603:10b6:a03:4cc::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.20; Thu, 26 Mar
- 2026 01:50:02 +0000
-Received: from DS0PR11MB6519.namprd11.prod.outlook.com
- ([fe80::c336:8ed1:4b09:4414]) by DS0PR11MB6519.namprd11.prod.outlook.com
- ([fe80::c336:8ed1:4b09:4414%3]) with mapi id 15.20.9745.019; Thu, 26 Mar 2026
- 01:50:02 +0000
-Date: Wed, 25 Mar 2026 18:49:59 -0700
-From: Matthew Brost <matthew.brost@intel.com>
-To: Tejun Heo <tj@kernel.org>
-CC: <intel-xe@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>, "Lai
- Jiangshan" <jiangshanlai@gmail.com>, <linux-kernel@vger.kernel.org>
-Subject: Re: [RFC PATCH 01/12] workqueue: Add interface to teach lockdep to
- warn on reclaim violations
-Message-ID: <acSQxyclGs7FYvbS@gsse-cloud1>
-References: <20260316043255.226352-1-matthew.brost@intel.com>
- <20260316043255.226352-2-matthew.brost@intel.com>
- <acQGehvhyfU5j6uL@slm.duckdns.org>
-Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <acQGehvhyfU5j6uL@slm.duckdns.org>
-X-ClientProxiedBy: MW4PR04CA0194.namprd04.prod.outlook.com
- (2603:10b6:303:86::19) To DS0PR11MB6519.namprd11.prod.outlook.com
- (2603:10b6:8:d1::5)
+Received: from mail-pf1-f169.google.com (mail-pf1-f169.google.com
+ [209.85.210.169])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 54CA910E1BB
+ for <dri-devel@lists.freedesktop.org>; Thu, 26 Mar 2026 01:54:13 +0000 (UTC)
+Received: by mail-pf1-f169.google.com with SMTP id
+ d2e1a72fcca58-82a67ce6969so358619b3a.1
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Mar 2026 18:54:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=chromium.org; s=google; t=1774490053; x=1775094853;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=Xcdp7IsK8iyD34L5HISg9Ao7kXj1r2bEu5hpo8TsYx0=;
+ b=QvJaHRlYINeh+IQg1t1Kk8CVQmsDTUdVzh+AlG5ZYsOrcRlsge4lPIzyAfaUI+836c
+ 8otGUuOoTbWP0N67b9vY14bJ5C3UsbScVFlRVOPND5CSuFtnFlWSmypwVCwom/QzE8F8
+ AiFbpclNuJyTvTrr78s/I1ZC9K11nO+6yCxVs=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1774490053; x=1775094853;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=Xcdp7IsK8iyD34L5HISg9Ao7kXj1r2bEu5hpo8TsYx0=;
+ b=DdjYTlJ7qm1KHdWtjPNsDgfWAX/c7MyYqFONpVnFnAAsvOgBLy3HaxqMU7BgBaf3dI
+ 7cpaJWltM0WdAqXsObqjSEVHI+peSMeL37N7/gb7Q3m7xUHu4knBA+2n2phsRWakG8uS
+ J9Mi3g2eLXovtS4G6A+l4ZrdQom9gZ+WQOqLCCJonWOZCqO8l7Df6BLSzDaLvkG+XtA6
+ FSqcWklB7S3FFcNDc0ZzSOyFdu7KTqGkp1otglYot5uJ5D/cAiDMSCTj0JGXPCr6hbCn
+ SPXGDTBRUr0aVY4de3nHr6JQHbnFGMuSnXw4OxFov+6GHZRumjSUs5i/v3f0IH73JYky
+ IKtQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVb1SPNMM9Pw7F3FkHOKS1epGtJ01RIU2xwfjRGdckT/D9lIrHNkFSUPb9maKhnB2if2zhyUNCGMfI=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyS3lozl5Zs1c/uiun1H3wKkiG/WV6WuXEJnvJxJR6em6/XhL5y
+ hYgs2YiQFeCatg2MOsDm3fk+tcsibw9WP2CuKMdewf9U13/TqGc18hHsSVdMzjxsCQ==
+X-Gm-Gg: ATEYQzyv6owOSuwBaGKW6MuA8TiA0Mle1+5ndoycwpO/xMaYu5fyeG8cwHcx4ioxrHn
+ dOF8luKymOyhcQYqIz6LjErLDy49wsFI/fiy3GQzaWWFIJxxbLU4TkGMxb7mfzJw1FF5pyC6U6M
+ MquAqU/laLUM7hJdbgf3g/mEtUuwVHkYKjQ/+z1vGnYIUXWnYzb6Mtase2wFB5y/gjggTbxGkac
+ cNcKfe25ik/YCvB1sQu7eFXCPKl79ZLmrN1Ydotygv5tDiJfKfkGJ73bCOrlsCykYL4J3rzLDnk
+ ws+qI0MKmC+iv/m/tOZZA890VszBHcJwgeFtcubwvqF5yQiKg5v99VWUoxfUVUuWH4681gthdUF
+ /oEoHwVp2p8KfEmowhvk6LO1hNQiAAp+jYrTiYb3sHUhiOXy8+2yDP544u18IHQqhRL41wxG0XR
+ nCHbODWCclv8Xh2jrRKxCWYcJQLd0X+GLmo5NA3u/2H/htN5DSkfefpcy3IHLqkYg=
+X-Received: by 2002:a05:6a00:390b:b0:82a:687e:c048 with SMTP id
+ d2e1a72fcca58-82c6df8e77bmr5314949b3a.30.1774490052823; 
+ Wed, 25 Mar 2026 18:54:12 -0700 (PDT)
+Received: from google.com ([2a00:79e0:2031:6:bba3:6463:d2dc:395a])
+ by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-82c7d390979sm947769b3a.32.2026.03.25.18.54.09
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 25 Mar 2026 18:54:12 -0700 (PDT)
+Date: Thu, 26 Mar 2026 10:54:07 +0900
+From: Sergey Senozhatsky <senozhatsky@chromium.org>
+To: Rob Clark <robin.clark@oss.qualcomm.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>
+Cc: Sean Paul <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>, 
+ Akhil P Oommen <akhilpo@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Tomasz Figa <tfiga@chromium.org>, 
+ Sergey Senozhatsky <senozhatsky@chromium.org>
+Subject: Re: [RFC PATCH] drm: gpu: msm: forbid mem reclaim from reset
+Message-ID: <acSRDNA8fCP7qAFJ@google.com>
+References: <20260127073341.2862078-1-senozhatsky@chromium.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR11MB6519:EE_|SJ2PR11MB7618:EE_
-X-MS-Office365-Filtering-Correlation-Id: 924a76c8-4759-46af-e195-08de8ad9fed0
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|1800799024|376014|22082099003|56012099003|18002099003; 
-X-Microsoft-Antispam-Message-Info: h8TUhB4/s2uyw4lhdLSlY0fK8x4IEbBrSW29gVVoH+uBYb7uyEUwpfPMgDt/iHpjbn7Wd8c/26JA3Al9MQrGy0LYqschIbM5oF+ntOXmK2lB4PYx1u6J2cFP2Pe1C5RQ/VomjecDlZiaEDWonMYJ4aUOjXBMKjp91GdaqYGv/iFGoHL7ZqRhw4kT5bD6tGf64eFd9t1Zgn4OCOfFyzZSYbVLmIF3iHWWJcr+p80iMcCrhGtHVkxiHzTU2WlHiGXLQXxd5aLibJLgxHScBmhiO+rgEVLyO5J0uCM7qbBpYLptKfWWF63q77ofdjLXWgcugZrwq8nnN4StD6X627A4HQnPDsnoEaVyt2Yj8Fe6QJlrF7YG8JTnKZ9WcjRvCl7pfY/HdaLXTF02qcS8xKNHEFSXFGjU3+cP4lWFOm3OTJVqva3sqUrReizuSU/j61/kb1FZr3+UVFrdNPXD2KIPotiQ/VCxpYegPKXqi+Mv9y/Xyb/BKJ6C4pihFJA73go1lMgxZ5jZdDFE2UwlCnkTm7l7jF1nBg+ZdIRrmMpA4X+sYoiPpXF/bmZOzu+laSZxle/OmU58wGoYgEvfRwazN3KH8qAhnKVPx6cIO9YUGW5jqfjPhmKqp1do1EXg3qOUQd/gb4I5sZKwuCHjOrR/oidk7x5BJK+gJZZ7LVBLPCjbL0luuq1SGkCI0jZARPMr0EZ6HjZsqRkhRr0/XLeLZKCwvnVmirouma507lOQ/G0=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS0PR11MB6519.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014)(22082099003)(56012099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TjJ1SHdDWWVVa2lEUjlmVUhaV3NOZkpPRXlZU05XSTdzazhYUDFkM01JYStJ?=
- =?utf-8?B?eHhiYjJZRzRZMnA2VGRqMDN3S3RiajFpWGVJMzJra2NER3lhMk1LeVZsV3pw?=
- =?utf-8?B?SlBZbXhZV3M2TWxvcU9uMWhRbkt6QmpMVGd0OVlUTFRuREwrY21wTXBiRHNq?=
- =?utf-8?B?WkppU1FjRUtua3p0Y0szZ003SjkrV2w1SlZFZHRZL0xtUXB0NXVCOXQvbTFU?=
- =?utf-8?B?a0dMRFhocHBMWkJXbkZPMkFhVnJPQ3FWKzdrbXQvVGE4ejBFelk0WkZiTVB6?=
- =?utf-8?B?VGI2c21RMXIydzhJLzhwcExWeW9qR1RIbFdWMlg0d1djZzRvZXdNZ0RhNDJ1?=
- =?utf-8?B?Q3lNcU5UQ1gyeDUxaXRHWklSWUZsUk5wL0tyalhkWGpUQURqb3hRSW90SXB5?=
- =?utf-8?B?dURESXdybmxuc0UzMXNNbWdLUHhRTlEvdEtlZHNZMnd4WHpvNUlseTZ5eHNC?=
- =?utf-8?B?ZDZpSW56WTdvNG5XblFwVDRpSXBoSzc1K3ZhZk8zQmNraHNMWlJ5RVQ5MFMw?=
- =?utf-8?B?Qlc1RzRZdEV1OEhtd29USHQ4K2VETFdMdDlRRFVJM3E4bm5kM24wU0szTUJM?=
- =?utf-8?B?S3IwMzYvWitmakc1TG9zdU41UFhQRlVOVlhXbjZsaVFQMHFOa2xIRDc3MHg1?=
- =?utf-8?B?MmZUYVFIOWMxUXBUV0RNMzhVbVVQcGdkZHNVdXgwRHdRSzBnS0NnZEhQbEJu?=
- =?utf-8?B?Q0ZUK2NGS2x2Q3NtcldOUnZUZ2NQL1J2MUFldHBEYWdrdTVRNGR6TjV5RDdW?=
- =?utf-8?B?dHhmWU9DaWJ3YWdvTytJRk9SWGZtNlhIMnVOckdTKzNXK25HalhpTkpaZzMr?=
- =?utf-8?B?enNDaW9Dc1BCU1N0U1hIKzEvdTFYUzFEUFJVWndZMHBIaEpIcXRuNEZBV09y?=
- =?utf-8?B?cEtuSndTVUlLQVFmTWFkYXp4NkJzbG8rbmVydU1iME41T0c0cEMyMUFlUWNp?=
- =?utf-8?B?SUhwZ1hUMktZWTRJWnR0TEM4Y1plVWdoOUk4Q1NBbnA4NXNrR0VKc3NEam9j?=
- =?utf-8?B?Ujc5VXp0dEt3OFNzU0FwSncyYWhnSndYV2UxOW5NaHdQSjArRUNHSWp1cXR4?=
- =?utf-8?B?NFl2UW1jbDhpKzZ6aEYvWlc5VG9lN095M25JWElXYjZGTjgwc01nWDhIUlgr?=
- =?utf-8?B?eEJlRHhTUVBiRlBQL1ZaRmovNmpYMUc3YTZ5U2JWRkZranBJVUdrcExyenJO?=
- =?utf-8?B?UGZIaEhRSk9jZkg0NnNqTGxYU0RWai93T3FZU2ZkTm1maGVvdUZpTEppOHRa?=
- =?utf-8?B?TTVyelowR3M2VHF0cmVRdnhMelZxNWlzdUlURkg3SzZrR3Zzb0RxbmVGR05W?=
- =?utf-8?B?Tm52WmVpenhOZ1FJRFpCVzBQOFByZUN2MWNlN2FUdko3czlXWllqMUhTcEdv?=
- =?utf-8?B?QW5EbFE1aEQzMnIwaG5sY09YemM0NWMxYzBCVEgzMmZ3cUVIemFIOHZqMkxT?=
- =?utf-8?B?THh3YzA1ZG1pbFRIUFhmbnBBd3VvTWZQUzNaSmNHRWVoSWc3WWJVc1NYcmNr?=
- =?utf-8?B?Uk5OTHh0RmIwUmpnSmZzb1NCeU0zRzQzN1pHS2g3MXFGZVg5TFZWZUdrTGtz?=
- =?utf-8?B?Q0lIWUtyWkRBdmFOSHJQbVFocjlDU3VNaDdZOXVlTG9kV3FiZ0Y4VXlhdWho?=
- =?utf-8?B?N0dwUjRKeW1hVW1tcFo0TFdNTks3TUpFOHJtRW9PdHJrNFJoekxRZldFb0lZ?=
- =?utf-8?B?OUlpdE5KUVBNcTF5R1ZJbHZpcDY3TUZseWFoZG9OREsxUlRDNEs4aE50aFMr?=
- =?utf-8?B?NkNmV0lSbWdDRHZJTENVbW5hT29WOGhHMFJqTnhLWXQxOGVYSlhleDBmbXhF?=
- =?utf-8?B?bFd4SWFWVXlWbm5MUGp6MjVIQ3JNRCt0SUpLZUtpUjRhSHZ4ODQ0d2l6c3NT?=
- =?utf-8?B?R1hNYTV1dkRxWDJVbUZWRXNaTlRTb0ZpZWJMUm9qV1lXUDNKYmx4RkFDN2RY?=
- =?utf-8?B?Yjk1d2FQN0hkNXl6RHgrNndqZ09WRWtqZlNxVFdjcGxYc1FOaHVVRk5yenBk?=
- =?utf-8?B?b08wckJrWCswaFZJMTdtaGJVaUNGOWlCc2tLSHRBaVFKVUc4RzF3WllXWTBR?=
- =?utf-8?B?bE1DN3ZtN3ZZbk1vbDJwdTM3ZGJDRFZyUld6WEpUR2xweDJEb1ZWWHRpa3Zl?=
- =?utf-8?B?azBXcXRDYzBSMEs0UmpjNzhSOU1Dd3lnYUZjblRJY2hyaFl4WTYxS2REOTJJ?=
- =?utf-8?B?NkwzMlJobHUxNHZ3Z2JhbHpZdGtFZ09GZlA2bUdFb2dLTkZyZy9TMG1GSFVL?=
- =?utf-8?B?d3FURFlnc2d1bjVYdzZOU3Vna1dlV0xmSUtSRmlFMU0rSmVsUGtWZ0ZDd0NP?=
- =?utf-8?B?VVoxOW5lT1VTbUl4bjlSaGxMdWtlUGhYV2tCNG8xSkpFcVFxSzZqZjVadUpD?=
- =?utf-8?Q?Dx7hywaChhidosYs=3D?=
-X-Exchange-RoutingPolicyChecked: buFiQ2tn6JZVbHabpamEBPzyaUKIOkbXhjwNMbFtLP62NLZeIxMsxRxQ0OktUQaEasNiAGAPj5NWlyReiQuelj3Cj/KFfWs9QU2Wem7MOhXF0MyyWHmNAsvqySEShjxq8zgtaqfH77W0fA/TGax6GpzRS2Ga7F6mrGUKNOgTeyafRASfzJITXV/u2zRXkgtiw/iLp0HYWB1/gTgALgr95Iurm63QCXATFDR6wc5l8ed8eMJbZeWUx1pgf86x+RgW3BcE1xLMfEm5vr2WvZ9tA432rnoj62Q3+IELATW4m3rov9NE+FW61+r6xLkJ7feNMeFf7YJzeiTy1s6v+nj/Aw==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 924a76c8-4759-46af-e195-08de8ad9fed0
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR11MB6519.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Mar 2026 01:50:02.2181 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: mNVTQLqud9BxFPjoFCa4F2EulX1pdygsjrfe6YSKFbJQB7WPiJZKTQp/Uu0tKtqCVPLm9pJacgtN/1XK//xmWw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR11MB7618
-X-OriginatorOrg: intel.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260127073341.2862078-1-senozhatsky@chromium.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -172,62 +94,147 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Mar 25, 2026 at 05:59:54AM -1000, Tejun Heo wrote:
-> Sorry about the tardiness. Traveling during spring break. Getting more than
-> I can catch up with each day.
+On (26/01/27 16:33), Sergey Senozhatsky wrote:
+> We sometimes get into a situtation where GPU hangcheck fails to
+> recover GPU:
 > 
-> On Sun, Mar 15, 2026 at 09:32:44PM -0700, Matthew Brost wrote:
-> > @@ -403,6 +403,7 @@ enum wq_flags {
-> >  	 */
-> >  	WQ_POWER_EFFICIENT	= 1 << 7,
-> >  	WQ_PERCPU		= 1 << 8, /* bound to a specific cpu */
-> > +	WQ_MEM_WARN_ON_RECLAIM	= 1 << 9, /* teach lockdep to warn on reclaim */
+> [..]
+> msm_dpu ae01000.display-controller: [drm:hangcheck_handler] *ERROR* (IPv4: 1): hangcheck detected gpu lockup rb 0!
+> msm_dpu ae01000.display-controller: [drm:hangcheck_handler] *ERROR* (IPv4: 1): completed fence: 7840161
+> msm_dpu ae01000.display-controller: [drm:hangcheck_handler] *ERROR* (IPv4: 1): submitted fence: 7840162
+> msm_dpu ae01000.display-controller: [drm:hangcheck_handler] *ERROR* (IPv4: 1): hangcheck detected gpu lockup rb 0!
+> msm_dpu ae01000.display-controller: [drm:hangcheck_handler] *ERROR* (IPv4: 1): completed fence: 7840162
+> msm_dpu ae01000.display-controller: [drm:hangcheck_handler] *ERROR* (IPv4: 1): submitted fence: 7840163
+> [..]
 > 
-> Shouldn't this require WQ_MEM_RECLAIM?
+> The problem is that msm_job worker is blocked on gpu->lock
 > 
+> INFO: task ring0:155 blocked for more than 122 seconds.
+> Not tainted 6.6.99-08727-gaac38b365d2c #1
+> task:ring0 state:D stack:0 pid:155 ppid:2 flags:0x00000008
+> Call trace:
+> __switch_to+0x108/0x208
+> schedule+0x544/0x11f0
+> schedule_preempt_disabled+0x30/0x50
+> __mutex_lock_common+0x410/0x850
+> __mutex_lock_slowpath+0x28/0x40
+> mutex_lock+0x5c/0x90
+> msm_job_run+0x9c/0x140
+> drm_sched_main+0x514/0x938
+> kthread+0x114/0x138
+> ret_from_fork+0x10/0x20
+> 
+> which is owned by recover worker, which is waiting for DMA fences
+> from a memory reclaim path, under the very same gpu->lock
+> 
+> INFO: task ring0:155 is blocked on a mutex likely owned by task gpu-worker:154.
+> task:gpu-worker state:D stack:0 pid:154 ppid:2 flags:0x00000008
+> Call trace:
+> __switch_to+0x108/0x208
+> schedule+0x544/0x11f0
+> schedule_timeout+0x1f8/0x770
+> dma_fence_default_wait+0x108/0x218
+> dma_fence_wait_timeout+0x6c/0x1c0
+> dma_resv_wait_timeout+0xe4/0x118
+> active_purge+0x34/0x98
+> drm_gem_lru_scan+0x1d0/0x388
+> msm_gem_shrinker_scan+0x1cc/0x2e8
+> shrink_slab+0x228/0x478
+> shrink_node+0x380/0x730
+> try_to_free_pages+0x204/0x510
+> __alloc_pages_direct_reclaim+0x90/0x158
+> __alloc_pages_slowpath+0x1d4/0x4a0
+> __alloc_pages+0x9f0/0xc88
+> vm_area_alloc_pages+0x17c/0x260
+> __vmalloc_node_range+0x1c0/0x420
+> kvmalloc_node+0xe8/0x108
+> msm_gpu_crashstate_capture+0x1e4/0x280
+> recover_worker+0x1c0/0x638
+> kthread_worker_fn+0x150/0x2d8
+> kthread+0x114/0x138
+> 
+> So no one can make any further progress.
+> 
+> Forbid recover/fault worker to enter memory reclaim (under
+> gpu->lock) to address this deadlock scenario.
+> 
+> Cc: Tomasz Figa <tfiga@chromium.org>
+> Signed-off-by: Sergey Senozhatsky <senozhatsky@chromium.org>
 
-Yes, so what is suggestion here? If WQ_MEM_WARN_ON_RECLAIM is set
-without WQ_MEM_RECLAIM fail the WQ creation with -EINVAL?
 
-> > +/**
-> > + * workqueue_is_reclaim_annotated() - Test whether a workqueue is annotated for
-> > + * reclaim safety
-> > + * @wq: workqueue to test
-> > + *
-> > + * Returns true if @wq is flags have both %WQ_MEM_WARN_ON_RECLAIM and
-> > + * %WQ_MEM_RECLAIM set. A workqueue marked with these flags indicates that it
-> > + * participates in reclaim paths, and therefore must not perform memory
-> > + * allocations that can recurse into reclaim (e.g., GFP_KERNEL is not allowed).
-> > + *
-> > + * Drivers can use this helper to enforce reclaim-safe behavior on workqueues
-> > + * that are created or provided elsewhere in the code.
-> > + *
-> > + * Return:
-> > + * true if the workqueue is reclaim-annotated, false otherwise.
-> > + */
-> > +bool workqueue_is_reclaim_annotated(struct workqueue_struct *wq)
-> > +{
-> > +	return (wq->flags & WQ_MEM_WARN_ON_RECLAIM) &&
-> > +		(wq->flags & WQ_MEM_RECLAIM);
-> > +}
-> > +EXPORT_SYMBOL_GPL(workqueue_is_reclaim_annotated);
+Folks, can somebody please review/pickup this patch?  It solves a real
+(deadlock) problem that we observe in the field.
+
+// keeping the patch body just in case
+
+> ---
+>  drivers/gpu/drm/msm/msm_gpu.c | 11 +++++++++++
+>  1 file changed, 11 insertions(+)
 > 
-> Why is this function necessary? It feels rather odd to use wq as the source
-> of this information. Shouldn't that be an innate knowledge of the code
-> that's using this?
-
-This, for example, would be used in DRM sched (the existing scheduler)
-or DRM dep (the proposed replacement) to ensure that driver-allocated
-WQs passed into the layers are created with these flags. DRM sched or
-DRM dep has strict DMA-fencing, thus reclaim rule that we expect DRM
-drivers to follow. Historically, DRM drivers have broken these rules
-quite often, and we no longer want to give them the opportunity to do
-so—lockdep should enforce them.
-
-Matt
-
-> 
-> Thanks.
-> 
+> diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_gpu.c
+> index 995549d0bbbc..ddcd9e1c217a 100644
+> --- a/drivers/gpu/drm/msm/msm_gpu.c
+> +++ b/drivers/gpu/drm/msm/msm_gpu.c
+> @@ -17,6 +17,7 @@
+>  #include <linux/string_helpers.h>
+>  #include <linux/devcoredump.h>
+>  #include <linux/sched/task.h>
+> +#include <linux/sched/mm.h>
+>  
+>  /*
+>   * Power Management:
+> @@ -469,6 +470,7 @@ static void recover_worker(struct kthread_work *work)
+>  	struct msm_gem_submit *submit;
+>  	struct msm_ringbuffer *cur_ring = gpu->funcs->active_ring(gpu);
+>  	char *comm = NULL, *cmd = NULL;
+> +	unsigned int noreclaim_flag;
+>  	struct task_struct *task;
+>  	int i;
+>  
+> @@ -506,6 +508,8 @@ static void recover_worker(struct kthread_work *work)
+>  			msm_gem_vm_unusable(submit->vm);
+>  	}
+>  
+> +	noreclaim_flag = memalloc_noreclaim_save();
+> +
+>  	get_comm_cmdline(submit, &comm, &cmd);
+>  
+>  	if (comm && cmd) {
+> @@ -524,6 +528,8 @@ static void recover_worker(struct kthread_work *work)
+>  	pm_runtime_get_sync(&gpu->pdev->dev);
+>  	msm_gpu_crashstate_capture(gpu, submit, NULL, comm, cmd);
+>  
+> +	memalloc_noreclaim_restore(noreclaim_flag);
+> +
+>  	kfree(cmd);
+>  	kfree(comm);
+>  
+> @@ -588,6 +594,7 @@ void msm_gpu_fault_crashstate_capture(struct msm_gpu *gpu, struct msm_gpu_fault_
+>  	struct msm_gem_submit *submit;
+>  	struct msm_ringbuffer *cur_ring = gpu->funcs->active_ring(gpu);
+>  	char *comm = NULL, *cmd = NULL;
+> +	unsigned int noreclaim_flag;
+>  
+>  	mutex_lock(&gpu->lock);
+>  
+> @@ -595,6 +602,8 @@ void msm_gpu_fault_crashstate_capture(struct msm_gpu *gpu, struct msm_gpu_fault_
+>  	if (submit && submit->fault_dumped)
+>  		goto resume_smmu;
+>  
+> +	noreclaim_flag = memalloc_noreclaim_save();
+> +
+>  	if (submit) {
+>  		get_comm_cmdline(submit, &comm, &cmd);
+>  
+> @@ -610,6 +619,8 @@ void msm_gpu_fault_crashstate_capture(struct msm_gpu *gpu, struct msm_gpu_fault_
+>  	msm_gpu_crashstate_capture(gpu, submit, fault_info, comm, cmd);
+>  	pm_runtime_put_sync(&gpu->pdev->dev);
+>  
+> +	memalloc_noreclaim_restore(noreclaim_flag);
+> +
+>  	kfree(cmd);
+>  	kfree(comm);
+>  
 > -- 
-> tejun
+> 2.53.0.rc1.217.geba53bf80e-goog
+> 
