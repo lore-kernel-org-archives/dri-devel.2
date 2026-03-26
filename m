@@ -4,147 +4,111 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0100D106F303
-	for <dri-devel@archiver.kernel.org>; Thu, 26 Mar 2026 08:32:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CA8F6106F301
+	for <dri-devel@archiver.kernel.org>; Thu, 26 Mar 2026 08:33:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 50C5410E270;
-	Thu, 26 Mar 2026 08:32:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 355C210E29E;
+	Thu, 26 Mar 2026 08:33:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="NT5JPASR";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="CuMX6tf7";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8C79C10E243;
- Thu, 26 Mar 2026 08:32:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1774513927; x=1806049927;
- h=date:from:to:cc:subject:message-id:in-reply-to: mime-version;
- bh=1G20wEi8xJfEJKa1L00MdUY72df8E05Uv1eeGIaSWSQ=;
- b=NT5JPASR6D/Wx/lqOdYWZfLbqnXQpwjmBipQfX54gTYc1Hj4LD/QotIu
- m/EcSqfdqq6E2CihxlsjIyamxDQQjO9/ytqBkaiUDrkmjLd737+xvhDrl
- dVfw0P7AaBl+D2GsXXqMqW1gW0SWZFK2Nywr/KkIs8ScJkKuk5L9MEQ4a
- ZKGlZAKTWkWum72AHJxoOFoBfJWGnTm3CB9QUsu2gFep9yk6w46zeYNT2
- AF88oqmZ1cUeVUSSLghzuasnWtPxpuyCvT1C1QGGv7lIHuqXaTIZgVi3a
- ZnJ29KZfQeTfnwGyIAt3/0DnyJvxmrOXkEoHmSlavY3n6CkfM+gPy0Mhc g==;
-X-CSE-ConnectionGUID: 5GOMn5tWQj6XLeikR9z6hA==
-X-CSE-MsgGUID: lK6LJJBPRTCCxGDyqRSkjg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11740"; a="75677794"
-X-IronPort-AV: E=Sophos;i="6.23,141,1770624000"; d="scan'208";a="75677794"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
- by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Mar 2026 01:32:04 -0700
-X-CSE-ConnectionGUID: Bwf2Od8fRoSjJp8JnmKhlw==
-X-CSE-MsgGUID: oo0UdV8FSlKx7DUpZHEFcg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,141,1770624000"; d="scan'208";a="224872465"
-Received: from orsmsx902.amr.corp.intel.com ([10.22.229.24])
- by orviesa009.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Mar 2026 01:32:03 -0700
-Received: from ORSMSX901.amr.corp.intel.com (10.22.229.23) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Thu, 26 Mar 2026 01:32:02 -0700
-Received: from ORSEDG901.ED.cps.intel.com (10.7.248.11) by
- ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37 via Frontend Transport; Thu, 26 Mar 2026 01:32:02 -0700
-Received: from SN4PR0501CU005.outbound.protection.outlook.com (40.93.194.48)
- by edgegateway.intel.com (134.134.137.111) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Thu, 26 Mar 2026 01:32:02 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=c+YyTrSId6J92cMo8a2EgNHwhfScLkyT29u1ooVBUiaJe6KXrfoxo/KACWZuq+ZrAxwgl0Tbd8c6OkOopeUGeWODiwJceW2DzLNcZ/jsO49fTCeZxVrOIPE8ngmxB0YEdOOAO9KvTwgYgwyw18L+P+CnCyEFEEoBSDTZUMLdN562B2BhtcJJ4OmoCdiLcQB7OILOk/3XD1WTEteQ4UrBGbI+TdemjwxFTb494s2LH2orPfFBUKq6H7BVh0/Ds5rn+TSgreQL6G/i9TovfRokiwISkb9GLCswNgcTU8KjeBV4vfVFupOgzxcBsimtvnaeeT/CdWKepOyDkPphTPBoNQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=OG7K0MVwaeIvk0V+GC64fgVUaKGkQ9AFdSSybwgD04o=;
- b=Ax9xyjRKgQsqbabV09Bz5ESN69dgijVL8snRhtnPZbgkXGkqzhbbkW+hOByCGXh6X7QBQZpUkyRMyspsQtdDJqCCeQE9RMQ2eTMrzDt4tnL0NGLTxFDcClVG9gBmHul6DhgrjtJJkF/MoTkRbRPuOHxlZhfTtb5Jinr185U9jl5y+FzsmBDOw1GBToe1G72tOjyWXCFVejnoGlmh3jWjRrdYVXj3g0tPzWT2xDelMy16l/Wk9sLbftZzpqZ2jrg5SWbEMoSu1NgrDXJqklZQdIGrKrJWOtfeJaGPjvvfocEit1aSmkktTVpsDEkBy+41o1gd2NEoiKWEphxt1qkElw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from PH0PR11MB5832.namprd11.prod.outlook.com (2603:10b6:510:141::7)
- by DM4PR11MB5995.namprd11.prod.outlook.com (2603:10b6:8:5e::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.7; Thu, 26 Mar
- 2026 08:31:58 +0000
-Received: from PH0PR11MB5832.namprd11.prod.outlook.com
- ([fe80::106e:78dd:4c96:d707]) by PH0PR11MB5832.namprd11.prod.outlook.com
- ([fe80::106e:78dd:4c96:d707%3]) with mapi id 15.20.9745.019; Thu, 26 Mar 2026
- 08:31:58 +0000
-Date: Thu, 26 Mar 2026 16:31:50 +0800
-From: kernel test robot <oliver.sang@intel.com>
-To: Christian =?iso-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>
-CC: <oe-lkp@lists.linux.dev>, <lkp@intel.com>, Christian
- =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- <linux-media@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <linaro-mm-sig@lists.linaro.org>, <intel-gfx@lists.freedesktop.org>,
- <intel-xe@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
- <tursulin@ursulin.net>, <sumit.semwal@linaro.org>, <oliver.sang@intel.com>
-Subject: Re: [PATCH] dma-buf/dma_fence_array: remove unused functionality
-Message-ID: <202603261503.3e8f7afc-lkp@intel.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20260317145039.2418-1-christian.koenig@amd.com>
-X-ClientProxiedBy: SI1PR02CA0011.apcprd02.prod.outlook.com
- (2603:1096:4:1f7::19) To PH0PR11MB5832.namprd11.prod.outlook.com
- (2603:10b6:510:141::7)
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com
+ [209.85.128.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 783F610E29E
+ for <dri-devel@lists.freedesktop.org>; Thu, 26 Mar 2026 08:33:50 +0000 (UTC)
+Received: by mail-wm1-f53.google.com with SMTP id
+ 5b1f17b1804b1-486fba7ce4cso6857665e9.3
+ for <dri-devel@lists.freedesktop.org>; Thu, 26 Mar 2026 01:33:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1774514029; x=1775118829; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:organization:autocrypt
+ :content-language:references:cc:to:subject:reply-to:from:user-agent
+ :mime-version:date:message-id:from:to:cc:subject:date:message-id
+ :reply-to; bh=LlFbzvdK/QjehwI/ahd2UAunEZQRZ3Ftqd+hlVRhyxA=;
+ b=CuMX6tf7+Adi8Bfqakp/EC//8rZzk/oFL6y6bM8j0RfG/ZsOHcTyUWER6efARrlh9J
+ j+Nvmz78RuMw/hAyh9uHSTnElaunrTKvbirPUZWEe+s+dZGlrvwfrxKHo5kJZ/xKF6M7
+ yG7bfua79qCwYsgn1INSLFQuDsrsguHSSjpUkBRpvqlbDlfiJaorsehiEAW0ETWwvxnS
+ yRRioY09EncZIw2d9NlDgvLRM5z3PEuBfvqPBO5yc44CYFi7ZKp08TyMpCTO2V6FZM2v
+ A9axRJJLUxrgK6T0fQ//w4Yr5ZC7TkCkVbozrYwlhXFQbEF0e14RxZzSzjQcIhnfzplO
+ tu4g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1774514029; x=1775118829;
+ h=content-transfer-encoding:in-reply-to:organization:autocrypt
+ :content-language:references:cc:to:subject:reply-to:from:user-agent
+ :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=LlFbzvdK/QjehwI/ahd2UAunEZQRZ3Ftqd+hlVRhyxA=;
+ b=nSfk/zQqIsowIyv5qGj7mgeOlq7BWBcStr96V0qIg+13YYD9Mvi7k2iV8of6PHUxwv
+ XrBH4F07MvGWMl1YSdfPy5RWECTNB5TKDSChIuNgJDqqScxoIxtOjt9JdMHvr9+saLd/
+ uOfYNc3KiZYiCdc+WYrJ+NKqMOULYQpb7U5AYZopXGKTRyZK0bjYbGhwyIQ3O6v0Flqs
+ L2MoctiisP+PEcGgyHQ8Jo37Fm9YT6rBStdoYKt/UtqymaRnD0rUx4If6UHXpnKHgmg/
+ RnnAThEqNaILaFjNwaZgnSIDjGMVkWyfI3E5V5X6GwPvfF6e3agRCmNHiDQM5S0iyxby
+ fT4Q==
+X-Gm-Message-State: AOJu0Yws4EXkNp9rOrciP43lQTd2ADZbkFOvCmTnf1bW7XLc+qG75kYV
+ pSonkoMNHCNPGV7fG5CPQQKXuTy9gmkmcGXPB09k4L02ELwHMBXZAjXmmLnjx51yJZM=
+X-Gm-Gg: ATEYQzzuhfZjexOszI/Jl0TSZSHGgUMCXTl/9G8B/9mJ/u6u63VhjPMr76eX2eW4z2U
+ s95GrReqHcqbZr/bkuEfBVvb0944MmBBxzRkEMWwLCDoy/MixMN5JT8zNoufFCPJwQIYgaeP3WL
+ LT57GojwnlcepjsMppk5YvUhTaK7ZvplrFdKkNeQbz4na10Bktg9fyEf9+TszYZdYXYHetI0EeF
+ UsM+qZQ4dtvzNu/Z0gQbWTB3jsdzNwvZmUo9Fc254ZtT5sN30cfjltt2OUcr8L3fC/m7v4BWUep
+ Xzk/p/ydrobbpiChVft3sYVw5RPBNQWgdDSSZpiXhIfudVfC+45buioUx60ihruFg+7dotYKjUO
+ Ig2TMHzHsdW49WzMBs93tvuhN2kX+IeaI3/KJMZV2dvdipWP7z5XDXETHHUkEEC/53wVDC8IiR4
+ 65IACRIKcFz6ccXgCE6S+IZdLjNe08GfiuXVrQxdH5P3Vs+QANUraL5MUF8xOPsuudJliLjWKxd
+ bXYlE8gyvLAsMiJ3g==
+X-Received: by 2002:a05:600c:4ed0:b0:487:288:1199 with SMTP id
+ 5b1f17b1804b1-487160934dcmr99014245e9.28.1774514028792; 
+ Thu, 26 Mar 2026 01:33:48 -0700 (PDT)
+Received: from ?IPV6:2a01:e0a:106d:1080:8431:f88b:714d:f78d?
+ ([2a01:e0a:106d:1080:8431:f88b:714d:f78d])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-48722be608bsm20860305e9.0.2026.03.26.01.33.47
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 26 Mar 2026 01:33:48 -0700 (PDT)
+Message-ID: <3827b0ab-69c7-4e46-b1fb-a9fa99399299@linaro.org>
+Date: Thu, 26 Mar 2026 09:33:47 +0100
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH0PR11MB5832:EE_|DM4PR11MB5995:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0742f861-8c62-47a0-66fb-08de8b122568
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|7416014|376014|366016|22082099003|56012099003|18002099003;
-X-Microsoft-Antispam-Message-Info: QgLdaqNCRhIUqPOIWQeziQhbJMZYyTS6FR9swIhaeA8zIj1ejyDNHv+61yx8IxKSkZLs5aQ9gHJ/bTyCuQinOc3v4x+hUBJg4kyoq3WIVr4RakCW7qbwjnkRA/qIANOY0Z/shWlyKIbgI8k2jmaXRJIhLSmiktKue1zNL9jdviqI2wJSEaxbARnvVkrwlBNUxgiDXhGrdyAghrP35oDrQ9kGvRj+JcaAKa6A3LRz42WYAQJo8vPPuM7cnxu++Jj7J8GqMN9fzoqKpc9Ut1IbpyxuQkKmlVHw/WXez6PkvYd4F5nGIBjQCwbqkCiTQlgrkC+NcECHrzz0LDh6vqhzX6eYvwi1VxAjzuFdreVZfGpSoG2qcGYkT10vzc4cVhP1omNR1+5eZKXqlj+NxD4Sz2PBMuIV8M+V0xoVGojTcqNyaKJu1cdQaXnEPd/KSUxmNJ/5yyXRyRB5YJk/NPT6CyvHhdgmkZS4VbvRB3wyaDz8S3cYnI/KwDe4M8RF4CNTL1MqRXMaA5sGjcILD3euaETDq+7D/1Ow8ibZSl5G8gICE/XHn0dbS6Dxs/E58wqAK8j1KAcrC+3hb5BmjZJmq41OKeOGCEJgeK2cfe1UQStDgj+U5E2+IJg7r53TuL67npQG/QVVxsUtQXWFDBjAaKlau3MmOFlC6np+a6dAPN+UFsLQK45v1NcHZdI91df13R0YcIqkNN7sIKL/u2kEYA==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH0PR11MB5832.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(7416014)(376014)(366016)(22082099003)(56012099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?1JlKNC0I2n66I7WYyiAiWYahxa2M2Xwxfg7mpsKv+j/B0dF2n0KkI0JtwmEW?=
- =?us-ascii?Q?jiWBnQ9t6DPPIefPfmajgVNvm8q2LX6id+m7PsYh/6DykVjlOrYYmUCHZ1E3?=
- =?us-ascii?Q?EqSqrjvZU/clu8MFpddfzdnMRqXDcOwbUqWPufIO0G9sycMnR4f+q/NSHUgv?=
- =?us-ascii?Q?3vFsTmftiTdiZ4FpH5OnSBx1K5YsRAvjLFuwQQher3aWA9K+UHH4XaXLb3SR?=
- =?us-ascii?Q?Szn3ANkvvB8G/p9fDxcQdpoNCY2uTonCzSlwAm8o9zRnUyI1RFBMekyiRyJV?=
- =?us-ascii?Q?odsuQcApCM3PyT0EentONL1Yc4419K/dhOIEAwYYsNYAfBjq0M8EUgp1UbrM?=
- =?us-ascii?Q?empgWe5fbUlkA+jm0SkW5GBRebUDPyTx6I5Qtsd2OQqBCo+O+jPf42jiiGko?=
- =?us-ascii?Q?zd8w7Uj6OhifxH+yxCTk12z0P3Ca+BvMKsr5b2x6+ArzU9jDIcL+kP32+oJY?=
- =?us-ascii?Q?Tz+QWB/azwUMgPaPmiaL3AFIp6TllPRcg7hRrziC3RvYk7QVD8qK9CjVlZ14?=
- =?us-ascii?Q?+6eCZOYn98xF8y4cF5xd8pHR63HYeXZT5Hn2YBvzT3COm8+2zB1J4QdLMUEV?=
- =?us-ascii?Q?WNlBAujdkEQdNSWh5FzIBcyoRGEWMkohUy2TCv1rw24YjgGOg61HshzpHB5V?=
- =?us-ascii?Q?eKwPAi6tDQnyUnjC1FviQ2iCCW4190+ycjeDfNqVockHgDELE+XHTgwsu79C?=
- =?us-ascii?Q?TOSqk/ypG1XMCTK95itk9biPvOFVZRTR+RzbDRing2xwTtPqmNjbVCWzQG9r?=
- =?us-ascii?Q?Ad1ZWIC43SLkOnz8FWl4scwzyjFtqL8v5ibnbo8C95/CerzEy1fE6e9G89RX?=
- =?us-ascii?Q?A9m1UPKh/ohq6KVLXmQOqv+ZaRRJRduRBEFyMpyvqXnaFjTIo8InmTYayt85?=
- =?us-ascii?Q?TvLkYCinRJz95E++kFazNLNCDJWmJYijwF629MYPMaZxdvyYU15S7aMBQDse?=
- =?us-ascii?Q?TEXu+bmbJUMaCcX/40DMqcL70xdXDECKcvEwffEYit58S2iEXoKAfDgbkDaS?=
- =?us-ascii?Q?yQ5/2tEoaYcIicO3Sp+mVaMF6rVntBAqq/k5VS3s/KLdFi09K2wJO/F+27H/?=
- =?us-ascii?Q?mXPIYEnyLiZmxBW+TmmT+qWyZoTw4JHnnxvQjvqtMF5FK4N9velW00Tr7zJj?=
- =?us-ascii?Q?9XEHct2hibQnrSOQAS/8yldfwaFW1gMXo3a53tccPUQnwA5Th0qTFHBzzn99?=
- =?us-ascii?Q?GGhDCqnqvj1Ht/ihnyo75Fn69d975tWWMc3shE3ZlHV4qZi10pRU4Gsna+Io?=
- =?us-ascii?Q?u7d4POA4wEx6zJ1cyp5ls+5XMhpLlQECXa5xTCuqX0ydPYaZDJq4vyE6N1Ei?=
- =?us-ascii?Q?yIEzZS7558UTtIEhNJWvpFBVkQl/pN9aPaJyr9/BBe+sgvwiVu+LXw2PIzTA?=
- =?us-ascii?Q?oDdjzJkPMOi4cY95etVa4BRWbJcOz+2uju7T9KhM3DBPvuowJZlD9UuqQf1a?=
- =?us-ascii?Q?InaPP8ssd6/gJ1JlmqNLr6aPtnxD5a8uG2w6V7kJobnx4Eq/NS+6xV+CgTCI?=
- =?us-ascii?Q?CcDJPRSXAzSvxAhBpmWwyFqhmX9Z7KxpU1+eUzfoRU6SRokLq+vrmZLrqXxW?=
- =?us-ascii?Q?StXy3qgV3ijgERtRC+/3J/OgENH7J43G7HlXiKvKd3UhaIQeMgwiHu0ordbr?=
- =?us-ascii?Q?kZbwY4KfDFgphq8oYgxcmLW2S6nQ6RVUFm/IWUpmpQraOEGhyg4Lwfa0y8Z6?=
- =?us-ascii?Q?cP3QgbGGOi68mqLfA2NYcOQFDlFrbYXz0xCcDFlzGevPQIstxLZy/EunEdXs?=
- =?us-ascii?Q?A5Ts5my2Ew=3D=3D?=
-X-Exchange-RoutingPolicyChecked: mOAFjiz5HVYxZdi5Eu7lWw6IpcB1MAI5vjX7+xcasSKzUABOaGU7bbMYkDw6onlpQ2WefY3wGZcB1KqZd5qRfOtRMEkA83/X5EHJpbbZT8XqNywF2+9NI/iBwQHkf2IbhYLnzCxW2Ew28MYNhJgyjSME5cP0LUS+F5j8wpLXxj2JfXBK2dae/lSk1B1AZM0H/wL/9pjDORoMTLYYQ4pSRG8b1Y/HYYTN9CMlmUs1o1kVahUgBR3Noj0+KReuFxaZPO0GceL3v8EyO7uRsxI8R3gmgFSPDRXrojLE4pzH+AG0EryyN215q2z2iCycCqhqzQ+HDH6T9K2hkoN8NT2bfQ==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0742f861-8c62-47a0-66fb-08de8b122568
-X-MS-Exchange-CrossTenant-AuthSource: PH0PR11MB5832.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Mar 2026 08:31:58.7724 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: pSRCcu9jNSk9AhabkAxFELugB8x5/uNiB27mz5ZL5OT7vRt8eri/j7UQ0qhUE5CRibi8700pFpzVsy9AsDyblQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR11MB5995
-X-OriginatorOrg: intel.com
+User-Agent: Mozilla Thunderbird
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH 2/2] drm/panel: simple: Add Tianma TM050RDH03 panel
+To: Liu Ying <victor.liu@nxp.com>, Jessica Zhang <jesszhan0024@gmail.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Thierry Reding
+ <thierry.reding@gmail.com>, Sam Ravnborg <sam@ravnborg.org>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260227-tianma-tm050rdh03-v1-0-cab78a0d765d@nxp.com>
+ <20260227-tianma-tm050rdh03-v1-2-cab78a0d765d@nxp.com>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <20260227-tianma-tm050rdh03-v1-2-cab78a0d765d@nxp.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -157,72 +121,38 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On 2/27/26 10:31, Liu Ying wrote:
+> Add the Tianma Micro-electronics TM050RDH03 5.0" WVGA TFT LCD panel.
+> 
+> Reuse panel ontat,kd50g21-40nt-a1's panel description as they are
+> identical.
+> 
+> Signed-off-by: Liu Ying <victor.liu@nxp.com>
+> ---
+>   drivers/gpu/drm/panel/panel-simple.c | 3 +++
+>   1 file changed, 3 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/panel/panel-simple.c b/drivers/gpu/drm/panel/panel-simple.c
+> index e5fc9b072404..af84a90015fe 100644
+> --- a/drivers/gpu/drm/panel/panel-simple.c
+> +++ b/drivers/gpu/drm/panel/panel-simple.c
+> @@ -5519,6 +5519,9 @@ static const struct of_device_id platform_of_match[] = {
+>   	}, {
+>   		.compatible = "tianma,p0700wxf1mbaa",
+>   		.data = &tianma_p0700wxf1mbaa,
+> +	}, {
+> +		.compatible = "tianma,tm050rdh03",
+> +		.data = &ontat_kd50g21_40nt_a1,
+>   	}, {
+>   		.compatible = "tianma,tm070jdhg30",
+>   		.data = &tianma_tm070jdhg30,
+> 
 
+Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
 
-Hello,
-
-kernel test robot noticed "kernel-selftests.sync.sync_test.Testing_sync_framework.test_merge_stress_random_merge.fail" on:
-
-commit: 26fa53bf886f191e90f8149224b10cda533e601d ("[PATCH] dma-buf/dma_fence_array: remove unused functionality")
-url: https://github.com/intel-lab-lkp/linux/commits/Christian-K-nig/dma-buf-dma_fence_array-remove-unused-functionality/20260318-024706
-base: https://gitlab.freedesktop.org/drm/misc/kernel.git drm-misc-next
-patch link: https://lore.kernel.org/all/20260317145039.2418-1-christian.koenig@amd.com/
-patch subject: [PATCH] dma-buf/dma_fence_array: remove unused functionality
-
-in testcase: kernel-selftests
-version: kernel-selftests-x86_64-c369299895a5-1_20260323
-with following parameters:
-
-	group: sync
-
-
-config: x86_64-rhel-9.4-kselftests
-compiler: gcc-14
-test machine: 36 threads 1 sockets Intel(R) Core(TM) i9-9980XE CPU @ 3.00GHz (Skylake) with 32G memory
-
-(please refer to attached dmesg/kmsg for entire log/backtrace)
-
-
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <oliver.sang@intel.com>
-| Closes: https://lore.kernel.org/oe-lkp/202603261503.3e8f7afc-lkp@intel.com
-
-
-TAP version 13
-1..1
-# timeout set to 300
-# selftests: sync: sync_test
-# TAP version 13
-# 1..10
-# # [RUN]	Testing sync framework
-# ok 1 [RUN]	test_alloc_timeline
-# ok 2 [RUN]	test_alloc_fence
-# ok 3 [RUN]	test_alloc_fence_negative
-# ok 4 [RUN]	test_fence_one_timeline_wait
-# ok 5 [RUN]	test_fence_one_timeline_merge
-# ok 6 [RUN]	test_fence_merge_same_fence
-# ok 7 [RUN]	test_fence_multi_timeline_wait
-# ok 8 [RUN]	test_stress_two_threads_shared_timeline
-# ok 9 [RUN]	test_consumer_stress_multi_producer_single_consumer
-# # [ERROR]	Failure waiting on fence until timeout
-# not ok 10 [RUN]	test_merge_stress_random_merge
-# Bail out! 1 out of 10 sync tests failed
-# # Totals: pass:9 fail:1 xfail:0 xpass:0 skip:0 error:0
-not ok 1 selftests: sync: sync_test # exit=1
-
-
-
-The kernel config and materials to reproduce are available at:
-https://download.01.org/0day-ci/archive/20260326/202603261503.3e8f7afc-lkp@intel.com
-
-
-
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
-
+Thanks,
+Neil
