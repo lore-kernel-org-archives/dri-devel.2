@@ -4,64 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B4C19106F314
-	for <dri-devel@archiver.kernel.org>; Thu, 26 Mar 2026 09:43:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EA00C106F313
+	for <dri-devel@archiver.kernel.org>; Thu, 26 Mar 2026 09:43:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EBFE210EA5F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id EBC8D10E9E8;
 	Thu, 26 Mar 2026 09:43:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="bqypSFDr";
+	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="QIau6ry+";
 	dkim-atps=neutral
-Received: from mail-pg1-f170.google.com (mail-pg1-f170.google.com
- [209.85.215.170])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0380010E9E8
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Mar 2026 09:43:21 +0000 (UTC)
-Received: by mail-pg1-f170.google.com with SMTP id
- 41be03b00d2f7-c757a9251faso360426a12.1
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Mar 2026 02:43:20 -0700 (PDT)
+Received: from mail-pg1-f176.google.com (mail-pg1-f176.google.com
+ [209.85.215.176])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5F06910E960
+ for <dri-devel@lists.freedesktop.org>; Thu, 26 Mar 2026 09:43:18 +0000 (UTC)
+Received: by mail-pg1-f176.google.com with SMTP id
+ 41be03b00d2f7-c766a95a72dso586802a12.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 26 Mar 2026 02:43:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1774518200; x=1775123000;
+ d=chromium.org; s=google; t=1774518198; x=1775122998;
  darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=gKCyFU3ic+mjTuSY0uUxaZ2dkgAoaG2cSvjjvcWGNkc=;
- b=bqypSFDrpudo44Kec9jPBPMv8/Xv80b4B/t+o9yT78Nxy4acb+UR/ojcAFy0odVjz/
- 0QAvtZ2dWYcgagtbaRjDev9h4UB1fOWhfNqSOZ7HCDfATl4BKB/ChiVCIeh+uRBrToJU
- yGW99eQ9imEnDuDCsKjHxtvFTM2Dsw+YFtCxs=
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=8lf5f+G0S/Ym9PSzIEzaYi3iHD/hBsSPQKrLmQgNjdI=;
+ b=QIau6ry+q3qlxNDL0hSUQ/cDB843TeMKQCB7F7NhHdxwFC1xFKZLYQeV3OxzN1dKdB
+ +3PuqJ9tQZO22Z5GvVH4v/YaUe4qrGzAJ6TlZ5Z/YLrlVAJVT5wEY5Gf78MQ4BiYoHEd
+ vzErWBc0X/WdQ+M9W6B7yrsqKD6t7ZP6Rrm6o=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774518200; x=1775123000;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=gKCyFU3ic+mjTuSY0uUxaZ2dkgAoaG2cSvjjvcWGNkc=;
- b=CPce8QC1dIjs8O/Nk4MN2fw473NQ6ex56kWNl7vRFjc5mqs7gGs8ltI1YMCqmKqIK2
- T0XH0kdO07JU3FJFsVQ71ExwOHagM8M78fX3C3QqsjzmuXi/YHQoZvt2Eot64SDJ4pA6
- 3CV2Vkg/dQDJyPeKxshPkoPB8oL+hw5AYEvo4FFnpxUa2Y6v6m2aN+Ik0HlvFZye+pN5
- 18V/x55FE+Guftr4gu+/wva69FI7iE3v0JqgTdsVf5TdAOgLwdzM8Lhs+fsemJFB6QMy
- oodFSb6hOghd98Iu7tYb9bDFgWhZabosFKyx4ziJuYFeh2kSfRS1VztB+LMLY2qnlwiO
- YOzQ==
+ d=1e100.net; s=20251104; t=1774518198; x=1775122998;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=8lf5f+G0S/Ym9PSzIEzaYi3iHD/hBsSPQKrLmQgNjdI=;
+ b=o2QFq5CFgKl3p/Gep2PHtiJI5/MJ+lS7eunYeYE1m9bRb7pM87qtlGny6gKrEFEhhI
+ 92V+8AkLn7fBAqHSsebJJRGzkO3+ngu7mmTrJadyOq0B27c2L/Ykhuj4ABHIhkEcKLpA
+ phAeUVuXon5vqzNJidbipvxfx9XqRWXt7eFRUFRmJcOphsOgV2mjiaSWL9Lo/vLxSE8m
+ 42po7y8/pi1ZMARue6eo+T3cG+CiOmJfPgGAxd7RGDbxr9Jx0i0zmSlWhMyh0DNRRA5L
+ AE2viUXUd2nspV3FE7tMYG6wZOts+jGchc7/OebEq20ma4gvi5XF+5okEt956YJscSoP
+ IVUA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCW/Pcr4fUA9gB/CRlERyXl5hSjXIKl33bHhoZ5+6RWOTPm0W3/7564ZZqv6Wf6dTrTQbL/4AU2fJ38=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyoMY/KGjmM/YvBkCjBQDYXQ3mCR6UbKrhegrwk6uCjJR+wFaGY
- IDbN/vn6Js+EzW3zI/Y9ilUlWMcIIzyw+L66NghijACjxR2PmVVf8aBoQtqLN8v1Dw==
-X-Gm-Gg: ATEYQzx8eOkNyV1VaJHLtFyrXwoM/swgYIBOlKUbxsObgB8HfYECt3kyfMYwTjIpx4a
- Yop5xNJEdOzp0nBau5ZI4lmksvK+RnmSDME80sud6Ya1dv/KidBMUac1wAlEZTdPKPX6MrgBF8w
- wB9hf3V3scLw3qx/4Pj7puo9CgOftDHp0St2Q1wlnP495B8qR7N44d9nvt8eTWgJHzXs5cI6UMB
- Opp3lPR3omACfid+7Jw2UwfWutmUYESWY1o/YagNHMlPS0/3f9hUGjVHxIgxgoMl+LQBmr0M4ay
- aBPE5riJBlyxTsZZvg1WtbuVsrdsYQRNSEHbNveYBx5XO9JvqkKdSCqAL989xGrVcGsZ0LKv69D
- nSE9DwxL48FC5irLYO2hUkjftSAtTE+c97ZNr3Q8KDOsqxMrni9arEF+EYA6l5B0BcG2tSzgIaA
- cnEh+2kU5iBRU5yHJPpPg9q9x3jbATj2NzFyJiAz1YhwnUKa6L9xsEA+cqRzKSBH23tWHMHXavj
- G1kDTbj716GvRNWPHo=
-X-Received: by 2002:a05:6a20:7491:b0:398:9379:d056 with SMTP id
- adf61e73a8af0-39c4abeac6amr7815749637.16.1774518200463; 
- Thu, 26 Mar 2026 02:43:20 -0700 (PDT)
+ AJvYcCWKv9gV+VoVqnEJLAfN0sbJutAap1cnmQGBhNlqaE5wwZBsvOx90IZ9GKgzk3gdTa0KsN8wykfKgdY=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzLPUWhjFmAkETtnn4utQchVZYo6qgJCqPBNdh18BO/cN3l0jOz
+ 35jQDoKrVflHBKZO6IDbmYEuX7ovU0T5nCLpr9eW8VkiBIioGz0eCXS6MbGW8GWBig==
+X-Gm-Gg: ATEYQzzyP/KmcNN0lfLctDwjBipw4rCFVz5hbyPsbnrD3v2jOnzpBFw+5qz7nZ8zslj
+ SE6d54tGEcs6X8hyr/JFvs1wfXacDV+L5FbcgrBRMKb7PIwzsUHYJ34pg6qYmxfYTb2tHo5Oeaw
+ 5ckR6HfZUtysxRn/7UJYnSb0qdGwjbSU1iWy97MuYrRP6M5crwKfpnVEa9REcvcTjAZC8NmOsyj
+ o7uLh9yZG3VtiX6FAbxe99VzdEyfjpgtJKqb+Qzm8iioWBrPSKz031RhEd8La3uF3TUePOnt93x
+ 6h/PqImKuC4PnVl45vmHx8N660qh7+OhtUS6oVUfUrCmijk5qIg930jHyb0GPsGcEdpwhSah3gL
+ oaT1osaljICpMbOJcRetYVJE8xIdyYWlX2vYA6JFUxgTSoxUdExxANEr3e7KXETWgHfT33z0mMx
+ GWmPXmqB122cahoC+N8mNGEC6t3J/QagIEy8eeLt7x4GcSHAhQKFV3rLeoLgfwrZRMgnQRf9u/M
+ LZKRZdxx3JdYxHu+T0=
+X-Received: by 2002:a05:6a20:258a:b0:39b:862e:634d with SMTP id
+ adf61e73a8af0-39c4ad52456mr7291868637.39.1774518197965; 
+ Thu, 26 Mar 2026 02:43:17 -0700 (PDT)
 Received: from wenstp920.tpe.corp.google.com
  ([2a00:79e0:201d:8:3ed5:7e63:b37c:a7d7])
  by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-c76737f28fasm1673312a12.7.2026.03.26.02.43.18
+ 41be03b00d2f7-c76737f28fasm1673312a12.7.2026.03.26.02.43.15
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 26 Mar 2026 02:43:20 -0700 (PDT)
+ Thu, 26 Mar 2026 02:43:17 -0700 (PDT)
 From: Chen-Yu Tsai <wenst@chromium.org>
 To: Inki Dae <inki.dae@samsung.com>, Seung-Woo Kim <sw0312.kim@samsung.com>,
  Kyungmin Park <kyungmin.park@samsung.com>,
@@ -71,12 +70,10 @@ Cc: Chen-Yu Tsai <wenst@chromium.org>, David Airlie <airlied@gmail.com>,
  Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
  linux-samsung-soc@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  linux-kernel@vger.kernel.org
-Subject: [PATCH 1/4] drm/exynos: Internalize exynos_drm_gem_free_object()
-Date: Thu, 26 Mar 2026 17:43:03 +0800
-Message-ID: <20260326094308.1161335-2-wenst@chromium.org>
+Subject: [PATCH 0/4] drm/exynos: Random cleanups
+Date: Thu, 26 Mar 2026 17:43:02 +0800
+Message-ID: <20260326094308.1161335-1-wenst@chromium.org>
 X-Mailer: git-send-email 2.53.0.1018.g2bb0e51243-goog
-In-Reply-To: <20260326094308.1161335-1-wenst@chromium.org>
-References: <20260326094308.1161335-1-wenst@chromium.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -94,60 +91,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-exynos_drm_gem_free_object() is only provided as a callback for GEM
-objects. It does not need to be exposed to the rest of the driver.
+Hi,
 
-Move it above where it is used and internalize it to just the GEM
-functions.
+Here are some cleanups for the exynos drm driver. This was done as part
+of the conversion of the driver to GEM DMA helpers. These patches have
+no dependency, unlike the actual conversion, so I am sending them
+separately for inclusion now.
 
-Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
----
- drivers/gpu/drm/exynos/exynos_drm_gem.c | 10 +++++-----
- drivers/gpu/drm/exynos/exynos_drm_gem.h |  3 ---
- 2 files changed, 5 insertions(+), 8 deletions(-)
+Please take a look.
 
-diff --git a/drivers/gpu/drm/exynos/exynos_drm_gem.c b/drivers/gpu/drm/exynos/exynos_drm_gem.c
-index 69ef6cda1ce9..59fd736a1fb9 100644
---- a/drivers/gpu/drm/exynos/exynos_drm_gem.c
-+++ b/drivers/gpu/drm/exynos/exynos_drm_gem.c
-@@ -133,6 +133,11 @@ void exynos_drm_gem_destroy(struct exynos_drm_gem *exynos_gem)
- 	kfree(exynos_gem);
- }
- 
-+static void exynos_drm_gem_free_object(struct drm_gem_object *obj)
-+{
-+	exynos_drm_gem_destroy(to_exynos_gem(obj));
-+}
-+
- static const struct vm_operations_struct exynos_drm_gem_vm_ops = {
- 	.open = drm_gem_vm_open,
- 	.close = drm_gem_vm_close,
-@@ -318,11 +323,6 @@ int exynos_drm_gem_get_ioctl(struct drm_device *dev, void *data,
- 	return 0;
- }
- 
--void exynos_drm_gem_free_object(struct drm_gem_object *obj)
--{
--	exynos_drm_gem_destroy(to_exynos_gem(obj));
--}
--
- int exynos_drm_gem_dumb_create(struct drm_file *file_priv,
- 			       struct drm_device *dev,
- 			       struct drm_mode_create_dumb *args)
-diff --git a/drivers/gpu/drm/exynos/exynos_drm_gem.h b/drivers/gpu/drm/exynos/exynos_drm_gem.h
-index 79d7e1a87419..8b5bd20ae8c1 100644
---- a/drivers/gpu/drm/exynos/exynos_drm_gem.h
-+++ b/drivers/gpu/drm/exynos/exynos_drm_gem.h
-@@ -88,9 +88,6 @@ static inline void exynos_drm_gem_put(struct exynos_drm_gem *exynos_gem)
- int exynos_drm_gem_get_ioctl(struct drm_device *dev, void *data,
- 				      struct drm_file *file_priv);
- 
--/* free gem object. */
--void exynos_drm_gem_free_object(struct drm_gem_object *obj);
--
- /* create memory region for drm framebuffer. */
- int exynos_drm_gem_dumb_create(struct drm_file *file_priv,
- 			       struct drm_device *dev,
+
+Thanks
+ChenYu
+
+Chen-Yu Tsai (4):
+  drm/exynos: Internalize exynos_drm_gem_free_object()
+  drm/exynos: Use DRM core dedicated DMA device tracking facility
+  drm/exynos: Drop exynos_drm_gem.size field
+  drm/exynos: Drop MAX_FB_BUFFER in favor of DRM_FORMAT_MAX_PLANES
+
+ drivers/gpu/drm/exynos/exynos_drm_dma.c | 11 +++---
+ drivers/gpu/drm/exynos/exynos_drm_drv.c |  1 -
+ drivers/gpu/drm/exynos/exynos_drm_drv.h |  9 -----
+ drivers/gpu/drm/exynos/exynos_drm_fb.c  |  6 +--
+ drivers/gpu/drm/exynos/exynos_drm_g2d.c | 13 ++++---
+ drivers/gpu/drm/exynos/exynos_drm_gem.c | 50 +++++++++++--------------
+ drivers/gpu/drm/exynos/exynos_drm_gem.h |  8 ----
+ drivers/gpu/drm/exynos/exynos_drm_ipp.c |  2 +-
+ drivers/gpu/drm/exynos/exynos_drm_ipp.h |  4 +-
+ 9 files changed, 41 insertions(+), 63 deletions(-)
+
 -- 
 2.53.0.1018.g2bb0e51243-goog
 
