@@ -4,70 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F0EFA10F3DE3
-	for <dri-devel@archiver.kernel.org>; Sat, 28 Mar 2026 10:16:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F1FAF10F3DE2
+	for <dri-devel@archiver.kernel.org>; Sat, 28 Mar 2026 10:16:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2996A10E32C;
-	Sat, 28 Mar 2026 10:16:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3399A10E360;
+	Sat, 28 Mar 2026 10:16:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=zohomail.com header.i=ming.li@zohomail.com header.b="RfM4V5cM";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="llZt98kd";
 	dkim-atps=neutral
-X-Greylist: delayed 903 seconds by postgrey-1.36 at gabe;
- Fri, 27 Mar 2026 14:48:27 UTC
-Received: from sender4-pp-o94.zoho.com (sender4-pp-o94.zoho.com
- [136.143.188.94])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A074E10EE4B
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Mar 2026 14:48:27 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1774622001; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=nUljK+qPzkYuVja+whhHMc0Zqr0M6hxb9rBEptKzX4J+TXATTg+him+nzPhHAAJIu01j9yl9Djb+lJzBFZxpO4DxtGZbBQkVrlKngZZQoCCS2pKaOP3qjzgtf0+Utw2rgzPvi4QUz+LBIi9MShCVWnXG5yooKLgW7ujckGeYHO0=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1774622001;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=Y7oh+a8faCMP0nn2EAP8q8UOeOBQTSgBhDx/Ls2KJr4=; 
- b=YkO5hHZW6oJ7/gKoZkW6uJtS/upBQLzMMVw28KuPslkHzh1MHK+Jx4rTCsi43ESCwVJ/g8py0VSHTSBJIykFTbsnA/hXx+tu3jbI8+fIBEHO1Lh5c8wSHzFxuIIBGUxsps7a2Qvl8a9O0jr/OWv1O1Q8vv0PBEPksas6uKcQePk=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=zohomail.com;
- spf=pass  smtp.mailfrom=ming.li@zohomail.com;
- dmarc=pass header.from=<ming.li@zohomail.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1774622001; 
- s=zm2022; d=zohomail.com; i=ming.li@zohomail.com;
- h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:To:To:Cc:Cc:Feedback-ID:Reply-To;
- bh=Y7oh+a8faCMP0nn2EAP8q8UOeOBQTSgBhDx/Ls2KJr4=;
- b=RfM4V5cMNMR705uZ8k7dsBzmDifyma3junLIxjCSeWyrLgYMLhEy/kE+Bbc2KeCB
- paN+bvdUPe9E/s7S9pJ42af1fm+8012gTfIyRscrDu8hiukwXEjgaDsmLafYIEnOLI+
- tBV24CfyLNwhs+2Ww675A52Fi/cgwRG5erZX21kY=
-Received: by mx.zohomail.com with SMTPS id 1774621998416686.6503783790713;
- Fri, 27 Mar 2026 07:33:18 -0700 (PDT)
-From: Li Ming <ming.li@zohomail.com>
-Date: Fri, 27 Mar 2026 22:33:12 +0800
-Subject: [PATCH] dma-fence: Dereference correct dma_fence in
- dma_fence_chain_find_seqno()
+Received: from mail-ot1-f54.google.com (mail-ot1-f54.google.com
+ [209.85.210.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 13EBD10EF7F
+ for <dri-devel@lists.freedesktop.org>; Fri, 27 Mar 2026 23:41:11 +0000 (UTC)
+Received: by mail-ot1-f54.google.com with SMTP id
+ 46e09a7af769-7d7eb85fb81so2545749a34.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 27 Mar 2026 16:41:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1774654870; x=1775259670; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=QAtDSZs50EeshBJ9P3Sdb8obeKvPVzY8hUsp0sxpj8Y=;
+ b=llZt98kdH1vUnu5+phszopU264C9ZAqSc+n8I2Sw/l9/l3JfNmVEKP3/LzeidngH/8
+ aPxLdJfEK8PaujpotwT5pSLqozVqvaV4wHKIr6u81qIYC9PlBPxOUoU0CiMmNCCO9yTG
+ RopBQc87Miu5PJB4qPYK1Zls688J/HzVv5hH1NcBQcjqWoV4Cqn271vdfJQ+nJOzfnLn
+ Npov7QfK4fbgBAekLb0rHSrFOxtwZ9ewgV8q/liJ36uToPgZwP2nOio6KfPmvPETELDD
+ Y1qwowKGNjnT6vuNREonuKkzRltamcTtyXhv9yL+RDhee6hjR7a8hUUCBIl6pX/LK2uO
+ wySw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1774654870; x=1775259670;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=QAtDSZs50EeshBJ9P3Sdb8obeKvPVzY8hUsp0sxpj8Y=;
+ b=hGDaKvodZkr7c03wxDH3CC96lzP6fgRpLhIyVVKdyODeZDG084YcrBRfZ9waz52SPZ
+ t85qi672L52HTBW8t+YVVqasRfXt+hJXfXtRQHumUmWltsdUd2LmIPiaHOm0jzuKtWck
+ qpqB/P3foyjE3r/j6xdr8AaxVs4Q+pj14m7RXtUKgZok2Wa6iNucH2enkC5zPdnPwy0J
+ QpJc/8hoi8nxw84MRZU4u71iieeZUz9Y+uanubMVRScQ7XBGNwE2QOZIgWwWja71cGJB
+ JmrP2NDKwC+2ND8qxcEBk1jrW6lPqz2CvpK887DnZI5eNvD4YZP6kZ3OLJGb9nYv3OOq
+ N9gQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXHuxZ4nnQMF5PsmPMz7Q0KyILMPaGmS+RjU4/Oz77sYP45au8mLxAr37+47LvxnHG8co8rmeBQabo=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzyRMthfRNaNtQMcDD3H5/BFmSAHHyUu5xvRRh09LuCPtQRLg7y
+ jZwV2u3l5bgsKQNrHD8JyRVRLT8+qpRPDKJQ5IouBjfaoHzr1AaQHzhc
+X-Gm-Gg: ATEYQzxvRp2Hu4GeunVSEMvqDQSSFh8fhPfqnzCDZWtKgG8qknz2NvN0gJhuHbCTAsQ
+ aLMOAczNHYP8ZFXJx7WnqCr5BNzvk+tkeIFMahMxtPqVDL1d2kRw2jy3t5YqXimCLFRlKvXK8Eo
+ xYZea5Czaa+xjvguw1gL1L4G4zKfpf9x8nxlNTFo3vL507m7gADIt5+q3mL0qa1u+ma8uNWdWVN
+ cGL4YgLM8BKXG4VO+GoqmySuB7x8HT7s4y4aruGKNThcLlWKRLjuufob2k8LsQRkuxy8zRKU25K
+ 1kaMGsSotJ31D5NKTOXpUle2Vl/++SSeSdFZLe9a8nZ1lxQyv/6iOySE8gtHLe8x3+Rg3N1Jbwi
+ tp7MNBQF+bUmNB5eNAckavSwO4QdY83chhkPm8aLkdvc7P5shSr5I9eGjKxc5QIK/B/VTgKE4Rg
+ 9XqwVRUaaWTE8Wl9XcSZa31yCS3kkaAEd2GYBkOg5KveZLslWTguUc/hB8PH4EHfGoA87Z
+X-Received: by 2002:a05:6830:4118:b0:7d7:d1f0:7493 with SMTP id
+ 46e09a7af769-7d9faed2cb8mr2537144a34.18.1774654869024; 
+ Fri, 27 Mar 2026 16:41:09 -0700 (PDT)
+Received: from Mac (c-76-107-126-43.hsd1.tn.comcast.net. [76.107.126.43])
+ by smtp.gmail.com with ESMTPSA id
+ 46e09a7af769-7da0a3b2e37sm529867a34.10.2026.03.27.16.41.07
+ (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+ Fri, 27 Mar 2026 16:41:08 -0700 (PDT)
+From: David Baum <davidbaum461@gmail.com>
+To: alexdeucher@gmail.com,
+	christian.koenig@amd.com,
+	lijo.lazar@amd.com
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ David Baum <davidbaum461@gmail.com>
+Subject: [PATCH] drm/amdgpu: fix resource leak in RAS error query on mode
+ check failure
+Date: Fri, 27 Mar 2026 18:40:27 -0500
+Message-ID: <20260327234027.44745-1-davidbaum461@gmail.com>
+X-Mailer: git-send-email 2.50.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260327-fix_dma_fence_chain_find_seqno-v1-1-60e80bfb43c8@zohomail.com>
-X-B4-Tracking: v=1; b=H4sIACeVxmkC/x2NQQqEMBAEvyJz3kCMi4JfERmC6ezOwVETWATx7
- w57LOjquqiiCCqNzUUFP6myqUH7amj5Rv3ASTKm4EPvuzC4LCenNXKGLmDbiHIWTVxx6OaGmBD
- 7NzJ8S3ayF5jxD0zzfT/Zd5u7cAAAAA==
-X-Change-ID: 20260327-fix_dma_fence_chain_find_seqno-7adea64efe01
-To: Sumit Semwal <sumit.semwal@linaro.org>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Lionel Landwerlin <lionel.g.landwerlin@intel.com>
-Cc: =?utf-8?q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>, 
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org, 
- Li Ming <ming.li@zohomail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1774621995; l=1233;
- i=ming.li@zohomail.com; s=20260210; h=from:subject:message-id;
- bh=+zLhFjmQDcbbt7AWjLmj5y51IOac2tCxLouPPcLnI8s=;
- b=n+W96xE4botpec3dm4ZtmEfoa2crfqwYysFYGgIGPd40VUnYgxh6GUDVRA02g7GKPnyDIfZ3a
- px4khNDWLaaBfqUeciHdC5QYk3tNhwpvOgC0sEslcxLi0Jq0gaKY6Al
-X-Developer-Key: i=ming.li@zohomail.com; a=ed25519;
- pk=JfhrdHjyYJMXt47Hy8d/fsqZuhGPD4Z3whV5lTfVvhE=
-Feedback-ID: rr08011228940aa66380fa0d4b662a568400000d279bad22d5095ea3e85f9414054fc86fffc237db77815a9796:zu08011227ab6f83bf04d1505dc422a3a70000adc505029736d0771b9faea9619460ca47f63293d14ccafe3a:rf0801122d88732d6b5a5151da13656a3e00007c881f111584b5d382ba029be96c8375f169bebdf57c1d7ad2c58728b9fa40:ZohoMail
-X-ZohoMailClient: External
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Sat, 28 Mar 2026 10:16:18 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -84,38 +90,38 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-dma_fence_chain_find_seqno() uses dma_fence_chain_for_each() to walk a
-given dma_fence_chain. dma_fence_chain_for_each() always holds a
-reference for the current fence during iteration. The reference must
-be dropped after breaking out. Instead of dereferencing the last fence
-as intended, dma_fence_chain_find_seqno() incorrectly dereferences the
-first fence in the chain.
+amdgpu_ras_query_error_status_with_event() calls
+amdgpu_ras_error_data_init(&err_data) to allocate error data resources,
+but when the subsequent amdgpu_ras_get_error_query_mode() call fails,
+the function returns -EINVAL directly without calling
+amdgpu_ras_error_data_fini() to release those resources.
 
-Fixes: 7bf60c52e093 ("dma-buf: add new dma_fence_chain container v7")
-Signed-off-by: Li Ming <ming.li@zohomail.com>
+Fix this by setting the return value and jumping to the existing
+out_fini_err_data cleanup label, which is already used by the other
+error paths in this function.
+
+Signed-off-by: David Baum <davidbaum461@gmail.com>
 ---
- drivers/dma-buf/dma-fence-chain.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/dma-buf/dma-fence-chain.c b/drivers/dma-buf/dma-fence-chain.c
-index a8a90acf4f34..71fa173aef13 100644
---- a/drivers/dma-buf/dma-fence-chain.c
-+++ b/drivers/dma-buf/dma-fence-chain.c
-@@ -103,7 +103,7 @@ int dma_fence_chain_find_seqno(struct dma_fence **pfence, uint64_t seqno)
- 		    to_dma_fence_chain(*pfence)->prev_seqno < seqno)
- 			break;
- 	}
--	dma_fence_put(&chain->base);
-+	dma_fence_put(*pfence);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+index c0336ca9b..3c7ac9c13 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+@@ -1515,8 +1515,10 @@ static int amdgpu_ras_query_error_status_with_event(struct amdgpu_device *adev,
+ 	if (ret)
+ 		return ret;
  
- 	return 0;
- }
-
----
-base-commit: c369299895a591d96745d6492d4888259b004a9e
-change-id: 20260327-fix_dma_fence_chain_find_seqno-7adea64efe01
-
-Best regards,
+-	if (!amdgpu_ras_get_error_query_mode(adev, &error_query_mode))
+-		return -EINVAL;
++	if (!amdgpu_ras_get_error_query_mode(adev, &error_query_mode)) {
++		ret = -EINVAL;
++		goto out_fini_err_data;
++	}
+ 
+ 	memset(&qctx, 0, sizeof(qctx));
+ 	qctx.evid.type = type;
 -- 
-Li Ming <ming.li@zohomail.com>
+2.50.1 (Apple Git-155)
 
