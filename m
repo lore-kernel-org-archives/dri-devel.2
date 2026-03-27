@@ -4,135 +4,99 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9467D10AB82F
-	for <dri-devel@archiver.kernel.org>; Fri, 27 Mar 2026 00:18:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9F28A10AB832
+	for <dri-devel@archiver.kernel.org>; Fri, 27 Mar 2026 00:40:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F098210EC1A;
-	Fri, 27 Mar 2026 00:18:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1583410EC1F;
+	Fri, 27 Mar 2026 00:40:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="dJ1cRI6C";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="T6iXBHPF";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="azZgb3gO";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2AA2D10EBE0
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Mar 2026 00:18:03 +0000 (UTC)
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 62QI57gb1476111
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Mar 2026 00:18:02 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- vh8ik5Yl+pBvNFbXoIfyhUJq3wlpS+a/bJ7UQeBXlWQ=; b=dJ1cRI6Ca6X+/VOg
- Zieb1aWwkKAanPOpas1sjVntbhgqH6osC71dNlkBKnbO1oHl/vi0TX1yr1FlCOsG
- CtnLHbNw5V75d0p6zupTwSovJ2ZDC/PHuemoo4wRp8yGKGY5ey8BV52QOtYf5m69
- sTqLcAGev8lMRz8JoM8TGk3OIH/UFTJ78EJnC5tqVX2kVLftJLMvPR6XAlJHQfX5
- G7XCe7I4qhGENtEbbYsbixKVNgY7nTfXVWbfOj9i3Nlx38jmEK5i61M1rMPAh6Ho
- jOgR3KwbeIePdppjs/hbvZdcinkCyjHVpP8loEBdR1PwyesCj+Hb8JlTFisTl7ua
- k4swmA==
-Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com
- [209.85.210.199])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d59s4111p-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Mar 2026 00:18:02 +0000 (GMT)
-Received: by mail-pf1-f199.google.com with SMTP id
- d2e1a72fcca58-82a77f807e4so2741175b3a.3
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Mar 2026 17:18:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1774570681; x=1775175481;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:in-reply-to:content-language:from
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=vh8ik5Yl+pBvNFbXoIfyhUJq3wlpS+a/bJ7UQeBXlWQ=;
- b=T6iXBHPFQ+ic7IJUUQ7Eu6PzEFZtJYG2cLTb3regxLbwXuLXeT3tBR9bBRy5JlobUZ
- qzZHPhQ3+H2zTaLQRaEBqujGeOR3O1tqWYTW5WB7QJp9F/YixsgC9ciGQDPjWMlyqZrW
- sN7MwIqgVfvavvqKm41x8Fg974kSzLRXnSBESbfAhDLMw8FahLBFbdOuzUKD03gyu33o
- PFft3jw6kxG5DSkrz/tN413VoL6ePM09a1eKEhl9pIVfXUBvnJRwl7y2mbXN+qRIbiNE
- SXZj01qjEnA+8hz9hNBww5w4stEe3mHazaWyUFtft3ndjvagPmUFgKLtM8uxXusEvvqM
- UeGQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774570681; x=1775175481;
- h=content-transfer-encoding:in-reply-to:content-language:from
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=vh8ik5Yl+pBvNFbXoIfyhUJq3wlpS+a/bJ7UQeBXlWQ=;
- b=bglDSR4oHpBaw01XPml2vq1aqrpVsDflIbGrDJKCuUThLMX7KWKsMbnNgBcGyGv7o9
- 4wGBwtMtjRGSntLrOaNL6ZleKg4CHoIY05Wyn7cl+WMAqE0CEs3exD8mRaZ5CMozFYpW
- CQndSgR4dzfSuKig3IspFmpjekpJH9S3FyEnTdlTk1PG5Hpgh0mptlxp4Yqg7bhkhEzm
- GTHTBZxJIAQnUloALx8cZIkYWAJyBGt6fj5KXhKpaDdhzlsc/CuNSArc6hfLkGuzHw4I
- d/Mtd7UjuqAhSb6usCOTrlgvuQdXEBV7ZlfrndYF11mf3HpAwNkoYJk1sbc1eJ5WP0Uu
- EYHg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWIv/cJ1GaxZ2jE9cZwUTPLQNi7kDwyxhc9geAI4cEBS7pccStw0FXXTKSmcztK62HDox4LcnxSi64=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yy4q8H/dFtDqyT+CVTtA/mfaaIab0QhDP4vN/UxulpxeqjID0b+
- d6TxpyMxNVD/6VOUZdglSQRjRGOsiMCYfFDjYIJpotGeiEZzRBW0Zu+lTT2/rcn0koSdI7lLGzY
- PN7E4T+T8vq4SljXxJ5XX1Yogdgagf4DbpP5iMOjYsYu40KPVdqMxkHuZgPcnW+fSQFzHSME=
-X-Gm-Gg: ATEYQzxpZuQvMdWo1iSsH5In8Iw2UUaA+ZQXUlZGFCkowtdVZo7I/VRxfrYknH91ZLk
- uLNOraNgOfwfMXtwqLETFEyZnu3YsMxSqmBWDrHK/OX70DmXj2xE5JB7tHzMd2exa6M7S6oRSKf
- zxefGcLF6UFM56rcOivjodijyAQPB/j5tcaOtIDwID07gWnKyK7vZIsTp2tLidkVt2xSYWl2jNg
- tGD9kbdZleBEp3UMF2HuZxQttT5XdruXrZugslbZIb7RpcXr9wbYZxHd5wIBqdSxFNOmPBMFqWP
- UZkXe/z6HwRwAZALuJk12PORP88p/KN1UdqsazgLoRFb+4UbPryC1VHNOTddSCopdaP6kjBOMAU
- nPhnDiupXkOvGPBaqeSg1Z72xwdqukDLp2I2xXpFqFg/g
-X-Received: by 2002:a05:6a00:3698:b0:81e:e09d:2687 with SMTP id
- d2e1a72fcca58-82c95af13f9mr405556b3a.1.1774570680878; 
- Thu, 26 Mar 2026 17:18:00 -0700 (PDT)
-X-Received: by 2002:a05:6a00:3698:b0:81e:e09d:2687 with SMTP id
- d2e1a72fcca58-82c95af13f9mr405532b3a.1.1774570680352; 
- Thu, 26 Mar 2026 17:18:00 -0700 (PDT)
-Received: from [192.168.1.7] ([106.222.235.17])
- by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-82c7d3ff085sm3575721b3a.57.2026.03.26.17.17.55
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 26 Mar 2026 17:17:59 -0700 (PDT)
-Message-ID: <fe3177bd-a3d2-4c0a-ab6f-9752eaf32fc4@oss.qualcomm.com>
-Date: Fri, 27 Mar 2026 05:47:54 +0530
+Received: from BN8PR05CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11011001.outbound.protection.outlook.com [52.101.57.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9DCB810EB3D
+ for <dri-devel@lists.freedesktop.org>; Fri, 27 Mar 2026 00:40:42 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=CF+TSgc0JMUzY00EwLl4mH+ucuiYk4XCUg3FWu/C6Px+0njmRLwBnSFaGYjt8BTjxuGp4c8DTYt9Yh52/4e7PES3FD9nADRegChqxmStTGXvmAKPrSsJaC0NDvp9fZ4w0C2lAs0ZS6JHsffpzTqra3L/o6GRSZMm8pEM4rGs3QBR/P8iEWq2qTHZyHr+jXVGXct58+HIJ/KreAv/Uo0zBW+5YGCm5P98Ih1oYUCfM6tNG6L8RyGe4EoyE7ZzK0aS/ryBmOMWYzyeMNa5eyAKeqLfFvedDvmVLk6m2CDzpoUDhYWel+zAfPooMThtfEiwIQ1HdT6pH5rK7yDwOda7qA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=GEkVjVnW2REG+PlmxIG0ELRn75T4B9Sy01HEhN/UlP4=;
+ b=yRVqTEgtARQ/N6+TmxBsmYjoZB7zAb5Hf6UXa723WKbLHIetVyvO24AKhIKZWHo0zLr/DEp/UrrgINOZ1YnsNPsMghPsVW8vqBPrXnTIbUcTxUMk2gJTglI9KZb1nrKf9cCmA9Nt7bJRnfDsOJ4ZWd3HE5UlcMIKoQCMRF+0HQDzTmp7eVYpofWnQ9zRewDI7UNW6djb0sc9EW6Dr2XAo859vVLAaCWhOyBaF1mUkZIyYPUoeY+qtmCmEKs36v9Z371BwkeIH5VtdPWy8PmfZwjtagrZWE9h0/4rjqPm5o47Vkh8c29Oc46igTxQ24nqUTLQEm6u1oLhVKFZG/Vu8A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=linux.intel.com smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=GEkVjVnW2REG+PlmxIG0ELRn75T4B9Sy01HEhN/UlP4=;
+ b=azZgb3gOoGw3Q+cWaQmAofP7FB7l0RYeQD/OUo01SdNyrbriw5Ur0ynjzK5AQQMWI2tFt+Xq5S/aw7PJAFfy7nkc3GaWPr84iKK4EtUrxfMWk5mC0cQhit+m5d7Rw5xQVEdJ5KgYip4U//pAfqySCUQEbOQwhn02anB7S5nMKL4=
+Received: from CH2PR07CA0058.namprd07.prod.outlook.com (2603:10b6:610:5b::32)
+ by IA1PR12MB8238.namprd12.prod.outlook.com (2603:10b6:208:3f9::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.20; Fri, 27 Mar
+ 2026 00:40:37 +0000
+Received: from DM2PEPF00003FC6.namprd04.prod.outlook.com
+ (2603:10b6:610:5b:cafe::7f) by CH2PR07CA0058.outlook.office365.com
+ (2603:10b6:610:5b::32) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9745.22 via Frontend Transport; Fri,
+ 27 Mar 2026 00:40:37 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ DM2PEPF00003FC6.mail.protection.outlook.com (10.167.23.25) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9745.21 via Frontend Transport; Fri, 27 Mar 2026 00:40:36 +0000
+Received: from kylin.lan (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Thu, 26 Mar
+ 2026 19:40:34 -0500
+From: Alex Hung <alex.hung@amd.com>
+To: <maarten.lankhorst@linux.intel.com>, <mripard@kernel.org>,
+ <tzimmermann@suse.de>, <airlied@gmail.com>, <simona@ffwll.ch>,
+ <contact@emersion.fr>, <harry.wentland@amd.com>, <mwen@igalia.com>,
+ <sebastian.wick@redhat.com>, <alex.hung@amd.com>, <daniels@collabora.com>,
+ <chaitanya.kumar.borah@intel.com>, <dri-devel@lists.freedesktop.org>
+Subject: [PATCH] drm/colorop: Mark interpolation properties as immutable and
+ atomic
+Date: Thu, 26 Mar 2026 18:39:46 -0600
+Message-ID: <20260327003946.3458610-1-alex.hung@amd.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH] drm: gpu: msm: forbid mem reclaim from reset
-To: Sergey Senozhatsky <senozhatsky@chromium.org>
-Cc: Sean Paul <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Tomasz Figa <tfiga@chromium.org>, Rob Clark <robin.clark@oss.qualcomm.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-References: <20260127073341.2862078-1-senozhatsky@chromium.org>
- <acSRDNA8fCP7qAFJ@google.com>
-From: Akhil P Oommen <akhilpo@oss.qualcomm.com>
-Content-Language: en-US
-In-Reply-To: <acSRDNA8fCP7qAFJ@google.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: waM3kY5e9nvOOnpPBLkP21XzpoTds8ms
-X-Proofpoint-GUID: waM3kY5e9nvOOnpPBLkP21XzpoTds8ms
-X-Authority-Analysis: v=2.4 cv=CoGys34D c=1 sm=1 tr=0 ts=69c5ccba cx=c_pps
- a=WW5sKcV1LcKqjgzy2JUPuA==:117 a=yg4K9g8yQ9z8uKSC4i4MOg==:17
- a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
- a=cm27Pg_UAAAA:8 a=iIcgFftJmQX6hLS7D9wA:9 a=QEXdDO2ut3YA:10
- a=OpyuDcXvxspvyRM73sMx:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzI3MDAwMCBTYWx0ZWRfXw2xgvayLHqto
- nSNVRcnIUo+thtnrWfu2TH3JbiAjjyYjsz0aS8dZy6GoXpQOAd22vXXZ9/yzHjYHcM5TMPg0Mwb
- +UsKxMbuV9E3ck8Qj50EW0sR4NW/bYcRaJlFG/iB0COTBXG0tsXFabgKjN1oAMldttXyzwlvMX8
- En7CULyqHiEW67a18xh0gODywkB4K/7W6R+buQDH6x+kQsna++tEkuy8ZZ58SuYtxrAUP1BOixD
- vkPGxpIJ9ejNIo8OrTaLWdgZgxsby3PUJYixizFCdrwUqtIF9BaBjQbVyzMTDdkXv8lpwHMf+V7
- i0Hy0DGYuoc4W6ckjgsJRELRcBd705yuT6QpbIrzHFuQy0aCe5MF0800CO5M5hhplEolh8sJp8R
- viIkY3mJQAqBtJK7UpQ0lgWCh71zM3WnRiMo+lwKICuUDxT/FfduYv045iLRWjLIniRhWe/yl3p
- +oZ2nbsIXe5aSmEoVdw==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-03-26_04,2026-03-26_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 adultscore=0 suspectscore=0 malwarescore=0 clxscore=1015
- lowpriorityscore=0 bulkscore=0 priorityscore=1501 impostorscore=0
- phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2603050001
- definitions=main-2603270000
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM2PEPF00003FC6:EE_|IA1PR12MB8238:EE_
+X-MS-Office365-Filtering-Correlation-Id: 96b1e4d7-b816-4d41-1247-08de8b997658
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|82310400026|376014|7416014|36860700016|13003099007|921020|18002099003|56012099003;
+X-Microsoft-Antispam-Message-Info: yr1sH8gy/VHrC967t3jH6viTKrghFT+b1+NfeUtWLHnj9QJtW8SUh/2f06An2XBwOGxgDOoXIk1V6ztlIl5NG8Yw1mcL67BldLQUkYgNZYg0sRE24sRaDCFiQb5AUX8Rqe6mQ3HBh/LzMGWM8RLU+cq3osRgAnZVZA6JhTYlbzymkidGjBzjPyr+t1VxTb16ygNSXd+YN64xnjoA8iJ0QDefcUPkiW0yTM8gudCWh2XXjZ8U0NQQtwIXS2j4+f5cRNMMup2+HF/9lgk5UhVQ4fHDZPAdegBDjzFcAgZzUhvUJfhTL6dtShJ+DchNQTMbO4gbh7mLbHNZg4CPsOSd/53slRz1Z2/JgBRJXZxSLu7A6f31Cc9h8pGJV46SHOBCusHKWhKFHx1UZivxqA7/Zv5rGTLuvOyrglufsupfFd7DQ0Ouw2w7n7Wx5dXtn+vNyx150062eaG4lwu+GicvnrHIoLc8JOqGsZpDI2PiI6Clt69rEbi/NLEKgab/zLKnXD9A9Ml84UZS2+DBSed88purJuqh9l5jt78PqAcvVK3eF4YvTLqDd+E1OzmEUxgoX1WpwdqJ5BMecwfxQe6sE0CTiRThmCsoYAd3pepcKG8zn0HWp/uxok2kgJvDQ1DW5cvy2SxiF63u8/3IghwUWnj8r5D/4At0wY9Bp9DlQD5H9HRAFyLFXPxd8MHLJpO9hW/RRri5IV0QQUNm+4Zii4DsVdYj9ynmhTNhtPE3Xbw/yZ1LWVKHqXKQmU/C3KNcjXZ3JoJ9xPafY5GUbvk9kw==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(82310400026)(376014)(7416014)(36860700016)(13003099007)(921020)(18002099003)(56012099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: 9DkRveSGLo8b5GgBibtvdlPqdv5ldJLZ2p6PRVETNlGRpTpmwMqCHvaOJbMykkq3GhyLikrHcjsPVquhhZh8pFCwaO5/nXrHU8CgNsRbe0Md+Gka8TWjlRPcZsC0XXeC19pC5ccdROxRX2CnBMHuK7seBsUHUtFQs6WxpUXqMhTyxy/C01a/9+YGxCDt+UAhsSJoF59NxmYjrGUCh2n5qrNC/Q2edqvA+s/X9N50Vk6QCbuq2rhxEgxkn1ZrhuDgs5F+ND5datRThGtghqwwCG+2WgaoRloc3VTznYz8pXmKC9DHDxxxTt3Y9GaoFpEkvtiQPntff++eKJplqUng3ufqlSldSVVxHMRx3lYO6Yh5yQn2mOAPlbZoa1uRVkhBYXcrSUwTLGO4R5ftlvm6oNVaoJwHhwSuJiZ7QYf+Xe4IJg7jRfteteuassII872D
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Mar 2026 00:40:36.4179 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 96b1e4d7-b816-4d41-1247-08de8b997658
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM2PEPF00003FC6.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8238
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -148,156 +112,69 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 3/26/2026 7:24 AM, Sergey Senozhatsky wrote:
-> On (26/01/27 16:33), Sergey Senozhatsky wrote:
->> We sometimes get into a situtation where GPU hangcheck fails to
->> recover GPU:
->>
->> [..]
->> msm_dpu ae01000.display-controller: [drm:hangcheck_handler] *ERROR* (IPv4: 1): hangcheck detected gpu lockup rb 0!
->> msm_dpu ae01000.display-controller: [drm:hangcheck_handler] *ERROR* (IPv4: 1): completed fence: 7840161
->> msm_dpu ae01000.display-controller: [drm:hangcheck_handler] *ERROR* (IPv4: 1): submitted fence: 7840162
->> msm_dpu ae01000.display-controller: [drm:hangcheck_handler] *ERROR* (IPv4: 1): hangcheck detected gpu lockup rb 0!
->> msm_dpu ae01000.display-controller: [drm:hangcheck_handler] *ERROR* (IPv4: 1): completed fence: 7840162
->> msm_dpu ae01000.display-controller: [drm:hangcheck_handler] *ERROR* (IPv4: 1): submitted fence: 7840163
->> [..]
->>
->> The problem is that msm_job worker is blocked on gpu->lock
->>
->> INFO: task ring0:155 blocked for more than 122 seconds.
->> Not tainted 6.6.99-08727-gaac38b365d2c #1
->> task:ring0 state:D stack:0 pid:155 ppid:2 flags:0x00000008
->> Call trace:
->> __switch_to+0x108/0x208
->> schedule+0x544/0x11f0
->> schedule_preempt_disabled+0x30/0x50
->> __mutex_lock_common+0x410/0x850
->> __mutex_lock_slowpath+0x28/0x40
->> mutex_lock+0x5c/0x90
->> msm_job_run+0x9c/0x140
->> drm_sched_main+0x514/0x938
->> kthread+0x114/0x138
->> ret_from_fork+0x10/0x20
->>
->> which is owned by recover worker, which is waiting for DMA fences
->> from a memory reclaim path, under the very same gpu->lock
+LUT1D_INTERPOLATION and LUT3D_INTERPOLATION are read-only properties but
+were missing DRM_MODE_PROP_IMMUTABLE and DRM_MODE_PROP_ATOMIC flags.
 
-I am still thinking if there is a better way to handle this. Btw, Rob
-had a few fixes related to this area recently. Do you think those would
-help in this scenario?
+Add the correct flags and remove the now-unreachable set_property
+handlers in drm_atomic_colorop_set_property().
 
--Akhil
+Link: https://lore.kernel.org/amd-gfx/dbb27ec4-cdc6-4ead-9daf-664d97e86cd0@intel.com/
+Fixes: 7fa3ee8c0a79 ("drm/colorop: Define LUT_1D interpolation")
+Fixes: db971856bbe0 ("drm/colorop: Add 3D LUT support to color pipeline")
+Suggested-by: Melissa Wen <mwen@igalia.com>
+Suggested-by: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
+Signed-off-by: Alex Hung <alex.hung@amd.com>
+---
+ drivers/gpu/drm/drm_atomic_uapi.c | 4 ----
+ drivers/gpu/drm/drm_colorop.c     | 6 ++++--
+ 2 files changed, 4 insertions(+), 6 deletions(-)
 
->>
->> INFO: task ring0:155 is blocked on a mutex likely owned by task gpu-worker:154.
->> task:gpu-worker state:D stack:0 pid:154 ppid:2 flags:0x00000008
->> Call trace:
->> __switch_to+0x108/0x208
->> schedule+0x544/0x11f0
->> schedule_timeout+0x1f8/0x770
->> dma_fence_default_wait+0x108/0x218
->> dma_fence_wait_timeout+0x6c/0x1c0
->> dma_resv_wait_timeout+0xe4/0x118
->> active_purge+0x34/0x98
->> drm_gem_lru_scan+0x1d0/0x388
->> msm_gem_shrinker_scan+0x1cc/0x2e8
->> shrink_slab+0x228/0x478
->> shrink_node+0x380/0x730
->> try_to_free_pages+0x204/0x510
->> __alloc_pages_direct_reclaim+0x90/0x158
->> __alloc_pages_slowpath+0x1d4/0x4a0
->> __alloc_pages+0x9f0/0xc88
->> vm_area_alloc_pages+0x17c/0x260
->> __vmalloc_node_range+0x1c0/0x420
->> kvmalloc_node+0xe8/0x108
->> msm_gpu_crashstate_capture+0x1e4/0x280
->> recover_worker+0x1c0/0x638
->> kthread_worker_fn+0x150/0x2d8
->> kthread+0x114/0x138
->>
->> So no one can make any further progress.
->>
->> Forbid recover/fault worker to enter memory reclaim (under
->> gpu->lock) to address this deadlock scenario.
->>
->> Cc: Tomasz Figa <tfiga@chromium.org>
->> Signed-off-by: Sergey Senozhatsky <senozhatsky@chromium.org>
-> 
-> 
-> Folks, can somebody please review/pickup this patch?  It solves a real
-> (deadlock) problem that we observe in the field.
-> 
-> // keeping the patch body just in case
-> 
->> ---
->>  drivers/gpu/drm/msm/msm_gpu.c | 11 +++++++++++
->>  1 file changed, 11 insertions(+)
->>
->> diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_gpu.c
->> index 995549d0bbbc..ddcd9e1c217a 100644
->> --- a/drivers/gpu/drm/msm/msm_gpu.c
->> +++ b/drivers/gpu/drm/msm/msm_gpu.c
->> @@ -17,6 +17,7 @@
->>  #include <linux/string_helpers.h>
->>  #include <linux/devcoredump.h>
->>  #include <linux/sched/task.h>
->> +#include <linux/sched/mm.h>
->>  
->>  /*
->>   * Power Management:
->> @@ -469,6 +470,7 @@ static void recover_worker(struct kthread_work *work)
->>  	struct msm_gem_submit *submit;
->>  	struct msm_ringbuffer *cur_ring = gpu->funcs->active_ring(gpu);
->>  	char *comm = NULL, *cmd = NULL;
->> +	unsigned int noreclaim_flag;
->>  	struct task_struct *task;
->>  	int i;
->>  
->> @@ -506,6 +508,8 @@ static void recover_worker(struct kthread_work *work)
->>  			msm_gem_vm_unusable(submit->vm);
->>  	}
->>  
->> +	noreclaim_flag = memalloc_noreclaim_save();
->> +
->>  	get_comm_cmdline(submit, &comm, &cmd);
->>  
->>  	if (comm && cmd) {
->> @@ -524,6 +528,8 @@ static void recover_worker(struct kthread_work *work)
->>  	pm_runtime_get_sync(&gpu->pdev->dev);
->>  	msm_gpu_crashstate_capture(gpu, submit, NULL, comm, cmd);
->>  
->> +	memalloc_noreclaim_restore(noreclaim_flag);
->> +
->>  	kfree(cmd);
->>  	kfree(comm);
->>  
->> @@ -588,6 +594,7 @@ void msm_gpu_fault_crashstate_capture(struct msm_gpu *gpu, struct msm_gpu_fault_
->>  	struct msm_gem_submit *submit;
->>  	struct msm_ringbuffer *cur_ring = gpu->funcs->active_ring(gpu);
->>  	char *comm = NULL, *cmd = NULL;
->> +	unsigned int noreclaim_flag;
->>  
->>  	mutex_lock(&gpu->lock);
->>  
->> @@ -595,6 +602,8 @@ void msm_gpu_fault_crashstate_capture(struct msm_gpu *gpu, struct msm_gpu_fault_
->>  	if (submit && submit->fault_dumped)
->>  		goto resume_smmu;
->>  
->> +	noreclaim_flag = memalloc_noreclaim_save();
->> +
->>  	if (submit) {
->>  		get_comm_cmdline(submit, &comm, &cmd);
->>  
->> @@ -610,6 +619,8 @@ void msm_gpu_fault_crashstate_capture(struct msm_gpu *gpu, struct msm_gpu_fault_
->>  	msm_gpu_crashstate_capture(gpu, submit, fault_info, comm, cmd);
->>  	pm_runtime_put_sync(&gpu->pdev->dev);
->>  
->> +	memalloc_noreclaim_restore(noreclaim_flag);
->> +
->>  	kfree(cmd);
->>  	kfree(comm);
->>  
->> -- 
->> 2.53.0.rc1.217.geba53bf80e-goog
->>
+diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atomic_uapi.c
+index 713fa9e81732..e831894d5a51 100644
+--- a/drivers/gpu/drm/drm_atomic_uapi.c
++++ b/drivers/gpu/drm/drm_atomic_uapi.c
+@@ -758,8 +758,6 @@ static int drm_atomic_colorop_set_property(struct drm_colorop *colorop,
+ 			state->bypass = val;
+ 			*replaced = true;
+ 		}
+-	} else if (property == colorop->lut1d_interpolation_property) {
+-		colorop->lut1d_interpolation = val;
+ 	} else if (property == colorop->curve_1d_type_property) {
+ 		if (state->curve_1d_type != val) {
+ 			state->curve_1d_type = val;
+@@ -770,8 +768,6 @@ static int drm_atomic_colorop_set_property(struct drm_colorop *colorop,
+ 			state->multiplier = val;
+ 			*replaced = true;
+ 		}
+-	} else if (property == colorop->lut3d_interpolation_property) {
+-		colorop->lut3d_interpolation = val;
+ 	} else if (property == colorop->data_property) {
+ 		return drm_atomic_color_set_data_property(colorop, state,
+ 							  property, val,
+diff --git a/drivers/gpu/drm/drm_colorop.c b/drivers/gpu/drm/drm_colorop.c
+index 398cc81ae588..34998f393f2e 100644
+--- a/drivers/gpu/drm/drm_colorop.c
++++ b/drivers/gpu/drm/drm_colorop.c
+@@ -317,7 +317,8 @@ int drm_plane_colorop_curve_1d_lut_init(struct drm_device *dev, struct drm_color
+ 	colorop->size = lut_size;
+ 
+ 	/* interpolation */
+-	prop = drm_property_create_enum(dev, 0, "LUT1D_INTERPOLATION",
++	prop = drm_property_create_enum(dev, DRM_MODE_PROP_ATOMIC | DRM_MODE_PROP_IMMUTABLE,
++					"LUT1D_INTERPOLATION",
+ 					drm_colorop_lut1d_interpolation_list,
+ 					ARRAY_SIZE(drm_colorop_lut1d_interpolation_list));
+ 	if (!prop)
+@@ -413,7 +414,8 @@ int drm_plane_colorop_3dlut_init(struct drm_device *dev, struct drm_colorop *col
+ 	colorop->size = lut_size;
+ 
+ 	/* interpolation */
+-	prop = drm_property_create_enum(dev, 0, "LUT3D_INTERPOLATION",
++	prop = drm_property_create_enum(dev, DRM_MODE_PROP_ATOMIC | DRM_MODE_PROP_IMMUTABLE,
++					"LUT3D_INTERPOLATION",
+ 					drm_colorop_lut3d_interpolation_list,
+ 					ARRAY_SIZE(drm_colorop_lut3d_interpolation_list));
+ 	if (!prop)
+-- 
+2.43.0
 
