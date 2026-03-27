@@ -4,101 +4,134 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B42E310F284C
-	for <dri-devel@archiver.kernel.org>; Fri, 27 Mar 2026 16:13:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B188010F284A
+	for <dri-devel@archiver.kernel.org>; Fri, 27 Mar 2026 16:17:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ED5BE10EF10;
-	Fri, 27 Mar 2026 16:13:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 165D510EF14;
+	Fri, 27 Mar 2026 16:17:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=fairphone.com header.i=@fairphone.com header.b="l3pzWz3P";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="EhaMoWgP";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="hx7Fow/f";
 	dkim-atps=neutral
-Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com
- [209.85.218.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5BB1A10EF19
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Mar 2026 16:12:41 +0000 (UTC)
-Received: by mail-ej1-f45.google.com with SMTP id
- a640c23a62f3a-b9358dd7f79so414378466b.1
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Mar 2026 09:12:41 -0700 (PDT)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6211310EF14
+ for <dri-devel@lists.freedesktop.org>; Fri, 27 Mar 2026 16:17:03 +0000 (UTC)
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 62RF2LFT3631417
+ for <dri-devel@lists.freedesktop.org>; Fri, 27 Mar 2026 16:17:03 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ h0uSEuoFInxVgrwB79dUUBt3ZPYXBustTfB6r5GqV4g=; b=EhaMoWgPsnhiqVsV
+ Nd8oSZSoky4XsXx2YeRGcDZypaTTiinDsVBfXcuUhTn+zWujbfYDyryYb59/V2d1
+ msvX6uzquKSoiKUM6grtzA/ptTlc9QLxhXJUBgbQFXAZl+Hgq5FXas41nEa6lB+d
+ lD+j6uv00oS23F8x8E0uMeOCmZvewQfWQU2jXuJVmJvyulrZizOiXQw0zNZfS8Qe
+ yEN1tmzAX85sBFUvmZRnNbmaEMHX8sLZ+4tGUnrrfBblFaxF2/Tm+f2Okt4JmeT5
+ 0gZr9PcmbNctyCJw5myhyQTEG0GlDvQFS5M4UmsbLcQjUtUNcvREvA7QOfQbPSvU
+ N/dLig==
+Received: from mail-dl1-f72.google.com (mail-dl1-f72.google.com [74.125.82.72])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d5v6b093w-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Fri, 27 Mar 2026 16:17:02 +0000 (GMT)
+Received: by mail-dl1-f72.google.com with SMTP id
+ a92af1059eb24-126e8ee6227so2363951c88.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 27 Mar 2026 09:17:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=fairphone.com; s=fair; t=1774627960; x=1775232760; darn=lists.freedesktop.org;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=48VlatUV+GiIhWyM6foZDkKT11onjwwumD31krhzoJ4=;
- b=l3pzWz3PfptJ1EiCGvtMguh9ncnlTikP/C+TpeE3wlzuArmn8LqamJMg7I9E0Ge6ZW
- lIZd53FPxUQKV/6E7ZHP9hQRx7sleAh5N9eHe4DLifG6zEqKaU8oD3BYG4Aae2DVx41w
- w3o0+6Wvv50jRerF7VmeZJSw1tjBy9WwBZEABLNYmXyGSDowXRcTOWIXE2pV7pp9lqQF
- lQI6OpgOQn1hG6qGbDFw9QuiYoVpU5xy0H8cebSDiHG1wM8ux//U7yiO6kvmkTY9HrAw
- n0Gpev6AoEwOsx1tjX7CuOoq/M083LiH5RI5wfUExo+dWosCuHUEPrPISG0DlmzyQDWM
- 2kyw==
+ d=oss.qualcomm.com; s=google; t=1774628222; x=1775233022;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=h0uSEuoFInxVgrwB79dUUBt3ZPYXBustTfB6r5GqV4g=;
+ b=hx7Fow/f9An0EGQcfAKi1cTSf7o7DdiiQJN2FdNo1R9a702RqgUob0PW1dkrKQEqnm
+ c4gn35ZYEZWn64hIR4nzC+9aJ/yMmgBVHiLF7mt7whPK69ZuoFlCpVabGXaNDGOd0w+/
+ 3YFgVHNYLESsuyhte7EulYdGSp03WGOFxBV2SsGa7FiG84W7Q7inlg/QwFZS2zwEMB7g
+ fG7D0zLEIowchVg/iK5/QqKtvZD2uhC5ENVyShfGRG2+eukTg+8CtbAPddlmbiz7cJNm
+ +FzjH6N7kQEXIF2mWrnwysmEQSmzxZfzihQkMXAShsqpOH+W91uy8oQ2tppcybMK3wOc
+ z+/A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774627960; x=1775232760;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
- :cc:subject:date:message-id:reply-to;
- bh=48VlatUV+GiIhWyM6foZDkKT11onjwwumD31krhzoJ4=;
- b=sc4Xei63rFflxR2d6yCz5FCvTbp0/XUChfZkFpggOB2kgBioe1mQt0xB0gzWLXXwp7
- GAGVdC0bK2uZYleP9YASAmVLk3phu+QE/qh93w5X9GRfXpWw7xl+ondUwOl8EZinaSUl
- JB8Y5Cc/P8yuyq78eB8aY7pSztUhi+ugpdaDRshRdDPvaCBp1TAaHIao7aGCb7GphGSW
- dxqVPA33zNn/qznhXR113d87SUqVWNNSpEs84+CLtJBpFfNDwb6eDnbb8ZeCF2mCINfs
- XjxRkepJe0x2dBhDJgZlIaBzo4GVR5+U+YYi/v0c8Qj5Xkj8lqutiW5RwRkbVgkoNb5B
- FJsQ==
+ d=1e100.net; s=20251104; t=1774628222; x=1775233022;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=h0uSEuoFInxVgrwB79dUUBt3ZPYXBustTfB6r5GqV4g=;
+ b=pgLJiLB/iGJhOv2i3vEMXVW7UJP42BQkkJijA/WWO87jlWmMFO8Mp1yADbo/sc3vts
+ 37JfJP9y018IJdqF0rzst5+rne4qfKmwn0mtzs2Lsv5uF0Dao7IBdoj8y8LOdNicm5vL
+ WUkq0mCyvSJyAM9YiwNxWotxPavYXBO2l2aE6i8sPMFhWXZJzEEnrSnBro778j+ubSEP
+ 8qptd00g8gp/2m8jF+v+t4ctu7kwhMa7ifY3TFZ12h1ImtF7VPASWRvXGIBIJyshQ6PL
+ RP+rKR7p+qxZhLe35i8/+mQ638i4kQ98Pyf658DYomCCI5JHON6GPKRL0v2ez/hVD32h
+ WqJA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXisitau+A6XihQ1LLS/UX4bAViIU+RTsCPBMf4SI4mRBd2OOkITfRkFvlkcpUa2ay2g33PcXcS6tQ=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yy1A9sANP3sl8r25yfNxqgW6tJj+9nWsElTTPtCmV5CuBgFk3bC
- e3gDA67G2TXYW5XPA5lgZK2qsP6h24l1qIdj8WmsEh00LgiQnZyzHSfCG64//B5McRg=
-X-Gm-Gg: ATEYQzxpuXzynESioM7LulQWNV1yuPDQsrh5MZ3zQr0oODkPVSij4PqgwPnDU1f6nkI
- JpSk3jjSrIeYf7W+JAPyWDQQDMoKMgOaeZxJU0Ou0YxQRGgZHMaIeQ6yU6zEk+kLOVYHxswmD6l
- XKa+Y5AgyXJB9zaFj+rindSF5PTJeeM3MwggXuQpZmE+6GL6wAwEuoPlbPvPf21PDl/lawtcjIU
- /zDPnThYG08jbgHiSz0K9e30wHueBZKKe2Sj1FW+yhCPmgeTnMwds8KRwwqTQR0uPNJTJ/tTCvH
- G6qYCMz+l51tmDJ3RLXH5xjvscqHC+f3MaF5sFLPgY8q36h65b46W86I+lhbCnpzXX6a2iVYeLu
- Nmmda+wV8QrigV4MZJEO7NlGlzm41tSeGyxhBit1kZowV5Yh5xkWPpl753ta8F+qy9LfZWeqQcO
- vBEeOoJAkvUGWdX+zapadXvS6vf0FyOL3GayJCKRZV4VwZH9aBataAhWMRFeG6fgVlpdW4fRLXz
- umAwg==
-X-Received: by 2002:a17:906:f5a2:b0:b97:2a5:8a4d with SMTP id
- a640c23a62f3a-b9b507a4c29mr187926966b.26.1774627959644; 
- Fri, 27 Mar 2026 09:12:39 -0700 (PDT)
-Received: from [172.16.220.101] (144-178-202-139.static.ef-service.nl.
- [144.178.202.139]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b9b20265cc0sm273518366b.15.2026.03.27.09.12.38
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 27 Mar 2026 09:12:39 -0700 (PDT)
-From: Luca Weiss <luca.weiss@fairphone.com>
-Date: Fri, 27 Mar 2026 17:12:27 +0100
-Subject: [PATCH v2 8/9] drm/msm/dpu: Add Milos support
+ AJvYcCXi0pRRHsDoEywbk2KPGT3lISTdI2ndrxHRxTbh2DjqITx6R/udh6LcDV/4O5QSsObegPHyLhLLN98=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yw+bne10lYSwGr/1wEXeq23oMJ4vlfek3RUiDXnx0rBR0LOhN9H
+ 5lpgmDY+JI88Xe9EQLjLbapu70lMhBT5tUdvmxPGjXVbfc5e0aCN9hCdhIQ/AJM8CFiXkDSLAKZ
+ ZoXPJCBPM6+jzv7RhLCbROBylSvy9x+1zhlzdt5MDP1JGNZyrqCIdzrrFbYj+22ov8ssd0Gs=
+X-Gm-Gg: ATEYQzxctxIRalPdvGb8zAntVTcT/qGvF1/Jrx7k5UlVDSCBwL/snWKAfHwt1UlNitP
+ avNo79gY5xfCMvJfTUKpZ7PaQbHvD3K8ov0G5XuVFAWAslSfhYc3IKb6gOcYjDL/Z3qV1OMxvIL
+ FP1CXWHDO69YBYg1e7oeC5rHFWLOaKJmd8ceTMh9tBVrQbE+Na1hjUaODngoICZ9CYfpsmn44mA
+ 2DPUYcgHqSn6Kb4ZBaArU+crGXRs/WVeJn7UKKLqyz8CCzI0VGUKRh5+xpOmzZ0/rot4PUswlVt
+ 4Tl1aWxgJGDCpk1RJG1CvplZl2vdoYmD2HYDbHYew2KmEMp6BhzPBghRtz2DeYb54ojk+V8jZ4G
+ oxDYamuqLUL5CI2xA1EcTTQQunOe7eRaSqsThCFJ2vB8cvi03oudCH9XwZF8VjSh2wT7jmjZNVd
+ g=
+X-Received: by 2002:a05:7022:618a:b0:12a:6b99:1ad4 with SMTP id
+ a92af1059eb24-12ab286cf5amr1634009c88.11.1774628222063; 
+ Fri, 27 Mar 2026 09:17:02 -0700 (PDT)
+X-Received: by 2002:a05:7022:618a:b0:12a:6b99:1ad4 with SMTP id
+ a92af1059eb24-12ab286cf5amr1633983c88.11.1774628221305; 
+ Fri, 27 Mar 2026 09:17:01 -0700 (PDT)
+Received: from [10.226.59.182] (i-global254.qualcomm.com. [199.106.103.254])
+ by smtp.gmail.com with ESMTPSA id
+ a92af1059eb24-12aa7624247sm8135794c88.11.2026.03.27.09.17.00
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 27 Mar 2026 09:17:00 -0700 (PDT)
+Message-ID: <5abe5ee7-f054-4e32-ad9a-c9b8f10bc423@oss.qualcomm.com>
+Date: Fri, 27 Mar 2026 10:16:59 -0600
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] accel/qaic: kcalloc + kzalloc to kzalloc
+To: Rosen Penev <rosenp@gmail.com>, linux-kernel@vger.kernel.org
+Cc: Carl Vanderlip <carl.vanderlip@oss.qualcomm.com>,
+ Oded Gabbay <ogabbay@kernel.org>, Kees Cook <kees@kernel.org>,
+ "Gustavo A. R. Silva" <gustavoars@kernel.org>,
+ "open list:QUALCOMM CLOUD AI (QAIC) DRIVER" <linux-arm-msm@vger.kernel.org>,
+ "open list:QUALCOMM CLOUD AI (QAIC) DRIVER"
+ <dri-devel@lists.freedesktop.org>,
+ open "list:KERNEL" HARDENING "(not" covered by other
+ "areas):Keyword:b__counted_by(_le|_be)?b" <linux-hardening@vger.kernel.org>
+References: <20260317003034.71618-1-rosenp@gmail.com>
+Content-Language: en-US
+From: Jeff Hugo <jeff.hugo@oss.qualcomm.com>
+In-Reply-To: <20260317003034.71618-1-rosenp@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260327-milos-mdss-v2-8-bc586683f5ca@fairphone.com>
-References: <20260327-milos-mdss-v2-0-bc586683f5ca@fairphone.com>
-In-Reply-To: <20260327-milos-mdss-v2-0-bc586683f5ca@fairphone.com>
-To: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, 
- Rob Clark <robin.clark@oss.qualcomm.com>, 
- Dmitry Baryshkov <lumag@kernel.org>, 
- Abhinav Kumar <abhinav.kumar@linux.dev>, 
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Jonathan Marek <jonathan@marek.ca>, 
- Krishna Manikandan <quic_mkrishn@quicinc.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Alexander Koskovich <akoskovich@pm.me>
-Cc: ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org, 
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
- devicetree@vger.kernel.org, Luca Weiss <luca.weiss@fairphone.com>
-X-Mailer: b4 0.15.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1774627949; l=12018;
- i=luca.weiss@fairphone.com; s=20250611; h=from:subject:message-id;
- bh=iKsxeLMALhkJyLMhTvLyLfN9d/jMx3vnocKrUpXfqKI=;
- b=T/vsj5cUTIyUBz+q1KpOW1hiA1qpYu5VrGB+gfQ9oOjH4Izzt8gb3W3MicCEne/xqWOXeogno
- EuBa6ed9FuWCLuv8qnV8mbejXBDlWCZlAPd8BS6cqFBh+nia6yAoLIK
-X-Developer-Key: i=luca.weiss@fairphone.com; a=ed25519;
- pk=O1aw+AAust5lEmgrNJ1Bs7PTY0fEsJm+mdkjExA69q8=
+X-Proofpoint-GUID: f1QMcXTOvE5MB1LevcYgEfE9NQjAyjL2
+X-Proofpoint-ORIG-GUID: f1QMcXTOvE5MB1LevcYgEfE9NQjAyjL2
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzI3MDEwNiBTYWx0ZWRfXzN2mpxxnLU9g
+ +A2Ne+BEujDxdXXerzKDdOkx65NyhQp+U3+wYrGx6Zjf5QyDX8Q8e0oLl90/gZSq2+40lf8xbSM
+ 5ki5vq6GERJmVywjKWOLTFSX2tsnS0iIJDe0lc/eE0VNqqoPPhsGLx9cSMRtWHX5z9Ga/SKzWF1
+ oyeYEYB8yUom12GxYfmEQl3qQ3MvFl1K/KOLZ4/fz4VoyukpSAoW7ICgdyTQpH7QIatCYg/FwoS
+ ONKxBJ9ZeKdKR/ytQzyEndHVgWLynR/rPKuNskmu9oukqZd6K9ms7xFziej6f/C3ozi8U688uPF
+ BH2CIo8vHPQVJ+6NJQGMmOcwzjca6vNkv2E6Hx40e+YdRkrCaETV63w4/4y1AULgg8m6RUU8sZs
+ MN/nMQ0xcs9IJZoVg55OYHedK+GLEWkOIPZBv3N452FCPn93SHTNrA7SNyiRglC3OLtDMrprshj
+ nxYtQIuH/C6zEgEuktw==
+X-Authority-Analysis: v=2.4 cv=JLs2csKb c=1 sm=1 tr=0 ts=69c6ad7e cx=c_pps
+ a=bS7HVuBVfinNPG3f6cIo3Q==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
+ a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=pGLkceISAAAA:8 a=H-3xqeJHN62Qb4ZhkN4A:9 a=QEXdDO2ut3YA:10
+ a=vBUdepa8ALXHeOFLBtFW:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-03-27_01,2026-03-26_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 lowpriorityscore=0 phishscore=0 priorityscore=1501
+ impostorscore=0 clxscore=1011 bulkscore=0 suspectscore=0 adultscore=0
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2603050001
+ definitions=main-2603270106
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,381 +147,74 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add definitions for the display hardware used on the Qualcomm Milos
-platform.
+On 3/16/2026 6:30 PM, Rosen Penev wrote:
+> Combine allocations by using a flexible array member.
+> 
+> Use __counted_by for extra runtime analysis. Move counting variable
+> assignment as required by __counted_by.
 
-Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
----
- .../gpu/drm/msm/disp/dpu1/catalog/dpu_10_2_milos.h | 279 +++++++++++++++++++++
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c     |  29 +++
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h     |   1 +
- drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c            |   1 +
- 4 files changed, 310 insertions(+)
+This fails to answer "why".  This change is not justified in the commit 
+text here.  Please see "Describe your changes" in submitting-patches.
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_10_2_milos.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_10_2_milos.h
-new file mode 100644
-index 000000000000..1aa8aea4e352
---- /dev/null
-+++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_10_2_milos.h
-@@ -0,0 +1,279 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+/*
-+ * Copyright (c) 2022. Qualcomm Innovation Center, Inc. All rights reserved.
-+ * Copyright (c) 2015-2018, 2020 The Linux Foundation. All rights reserved.
-+ * Copyright (c) 2026, Luca Weiss <luca.weiss@fairphone.com>
-+ */
-+
-+#ifndef _DPU_10_2_MILOS_H
-+#define _DPU_10_2_MILOS_H
-+
-+static const struct dpu_caps milos_dpu_caps = {
-+	.max_mixer_width = DEFAULT_DPU_OUTPUT_LINE_WIDTH,
-+	.max_mixer_blendstages = 0x7,
-+	.has_src_split = true,
-+	.has_dim_layer = true,
-+	.has_idle_pc = true,
-+	.has_3d_merge = true,
-+	.max_linewidth = 8192,
-+	.pixel_ram_size = DEFAULT_PIXEL_RAM_SIZE,
-+};
-+
-+static const struct dpu_mdp_cfg milos_mdp = {
-+	.name = "top_0",
-+	.base = 0, .len = 0x494,
-+	.clk_ctrls = {
-+		[DPU_CLK_CTRL_REG_DMA] = { .reg_off = 0x2bc, .bit_off = 20 },
-+	},
-+};
-+
-+static const struct dpu_ctl_cfg milos_ctl[] = {
-+	{
-+		.name = "ctl_0", .id = CTL_0,
-+		.base = 0x15000, .len = 0x1000,
-+		.intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 9),
-+	}, {
-+		.name = "ctl_1", .id = CTL_1,
-+		.base = 0x16000, .len = 0x1000,
-+		.intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 10),
-+	}, {
-+		.name = "ctl_2", .id = CTL_2,
-+		.base = 0x17000, .len = 0x1000,
-+		.intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 11),
-+	}, {
-+		.name = "ctl_3", .id = CTL_3,
-+		.base = 0x18000, .len = 0x1000,
-+		.intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 12),
-+	},
-+};
-+
-+static const struct dpu_sspp_cfg milos_sspp[] = {
-+	{
-+		.name = "sspp_0", .id = SSPP_VIG0,
-+		.base = 0x4000, .len = 0x344,
-+		.features = VIG_SDM845_MASK_SDMA,
-+		.sblk = &dpu_vig_sblk_qseed3_3_3,
-+		.xin_id = 0,
-+		.type = SSPP_TYPE_VIG,
-+	}, {
-+		.name = "sspp_8", .id = SSPP_DMA0,
-+		.base = 0x24000, .len = 0x344,
-+		.features = DMA_SDM845_MASK_SDMA,
-+		.sblk = &dpu_dma_sblk,
-+		.xin_id = 1,
-+		.type = SSPP_TYPE_DMA,
-+	}, {
-+		.name = "sspp_9", .id = SSPP_DMA1,
-+		.base = 0x26000, .len = 0x344,
-+		.features = DMA_SDM845_MASK_SDMA,
-+		.sblk = &dpu_dma_sblk,
-+		.xin_id = 5,
-+		.type = SSPP_TYPE_DMA,
-+	}, {
-+		.name = "sspp_10", .id = SSPP_DMA2,
-+		.base = 0x28000, .len = 0x344,
-+		.features = DMA_SDM845_MASK_SDMA,
-+		.sblk = &dpu_dma_sblk,
-+		.xin_id = 9,
-+		.type = SSPP_TYPE_DMA,
-+	},
-+};
-+
-+static const struct dpu_lm_cfg milos_lm[] = {
-+	{
-+		.name = "lm_0", .id = LM_0,
-+		.base = 0x44000, .len = 0x400,
-+		.features = MIXER_MSM8998_MASK,
-+		.sblk = &sdm845_lm_sblk,
-+		.pingpong = PINGPONG_0,
-+		.dspp = DSPP_0,
-+	}, {
-+		.name = "lm_2", .id = LM_2,
-+		.base = 0x46000, .len = 0x400,
-+		.features = MIXER_MSM8998_MASK,
-+		.sblk = &sdm845_lm_sblk,
-+		.lm_pair = LM_3,
-+		.pingpong = PINGPONG_2,
-+	}, {
-+		.name = "lm_3", .id = LM_3,
-+		.base = 0x47000, .len = 0x400,
-+		.features = MIXER_MSM8998_MASK,
-+		.sblk = &sdm845_lm_sblk,
-+		.lm_pair = LM_2,
-+		.pingpong = PINGPONG_3,
-+	},
-+};
-+
-+static const struct dpu_dspp_cfg milos_dspp[] = {
-+	{
-+		.name = "dspp_0", .id = DSPP_0,
-+		.base = 0x54000, .len = 0x1800,
-+		.sblk = &sdm845_dspp_sblk,
-+	},
-+};
-+
-+static const struct dpu_pingpong_cfg milos_pp[] = {
-+	{
-+		.name = "pingpong_0", .id = PINGPONG_0,
-+		.base = 0x69000, .len = 0,
-+		.sblk = &sc7280_pp_sblk,
-+		.intr_done = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 8),
-+	}, {
-+		.name = "pingpong_2", .id = PINGPONG_2,
-+		.base = 0x6b000, .len = 0,
-+		.sblk = &sc7280_pp_sblk,
-+		.merge_3d = MERGE_3D_1,
-+		.intr_done = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 10),
-+	}, {
-+		.name = "pingpong_3", .id = PINGPONG_3,
-+		.base = 0x6c000, .len = 0,
-+		.sblk = &sc7280_pp_sblk,
-+		.merge_3d = MERGE_3D_1,
-+		.intr_done = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 11),
-+	}, {
-+		.name = "pingpong_cwb_0", .id = PINGPONG_CWB_0,
-+		.base = 0x66000, .len = 0,
-+		.sblk = &sc7280_pp_sblk,
-+	},
-+};
-+
-+static const struct dpu_merge_3d_cfg milos_merge_3d[] = {
-+	{
-+		.name = "merge_3d_1", .id = MERGE_3D_1,
-+		.base = 0x4f000, .len = 0x8,
-+	},
-+};
-+
-+/*
-+ * NOTE: Each display compression engine (DCE) contains dual hard
-+ * slice DSC encoders so both share same base address but with
-+ * its own different sub block address.
-+ */
-+static const struct dpu_dsc_cfg milos_dsc[] = {
-+	{
-+		.name = "dce_0_0", .id = DSC_0,
-+		.base = 0x80000, .len = 0x6,
-+		.features = BIT(DPU_DSC_NATIVE_42x_EN),
-+		.sblk = &milos_dsc_sblk_0,
-+	}, {
-+		.name = "dce_0_1", .id = DSC_1,
-+		.base = 0x80000, .len = 0x6,
-+		.features = BIT(DPU_DSC_NATIVE_42x_EN),
-+		.sblk = &milos_dsc_sblk_1,
-+	},
-+};
-+
-+static const struct dpu_wb_cfg milos_wb[] = {
-+	{
-+		.name = "wb_2", .id = WB_2,
-+		.base = 0x65000, .len = 0x2c8,
-+		.features = WB_SDM845_MASK,
-+		.format_list = wb2_formats_rgb_yuv,
-+		.num_formats = ARRAY_SIZE(wb2_formats_rgb_yuv),
-+		.xin_id = 6,
-+		.maxlinewidth = 4096,
-+		.intr_wb_done = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 4),
-+	},
-+};
-+
-+static const struct dpu_cwb_cfg milos_cwb[] = {
-+	{
-+		.name = "cwb_0", .id = CWB_0,
-+		.base = 0x66200, .len = 0x8,
-+	},
-+};
-+
-+static const struct dpu_intf_cfg milos_intf[] = {
-+	{
-+		.name = "intf_0", .id = INTF_0,
-+		.base = 0x34000, .len = 0x300,
-+		.type = INTF_DP,
-+		.controller_id = MSM_DP_CONTROLLER_0,
-+		.prog_fetch_lines_worst_case = 24,
-+		.intr_underrun = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 24),
-+		.intr_vsync = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 25),
-+	}, {
-+		.name = "intf_1", .id = INTF_1,
-+		.base = 0x35000, .len = 0x300,
-+		.type = INTF_DSI,
-+		.controller_id = MSM_DSI_CONTROLLER_0,
-+		.prog_fetch_lines_worst_case = 24,
-+		.intr_underrun = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 26),
-+		.intr_vsync = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 27),
-+		.intr_tear_rd_ptr = DPU_IRQ_IDX(MDP_INTF1_TEAR_INTR, 2),
-+	}, {
-+		.name = "intf_3", .id = INTF_3,
-+		.base = 0x37000, .len = 0x300,
-+		.type = INTF_DP,
-+		.controller_id = MSM_DP_CONTROLLER_0,	/* pair with intf_0 for DP MST */
-+		.prog_fetch_lines_worst_case = 24,
-+		.intr_underrun = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 30),
-+		.intr_vsync = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 31),
-+	},
-+};
-+
-+static const struct dpu_perf_cfg milos_perf_data = {
-+	.max_bw_low = 7100000,
-+	.max_bw_high = 9800000,
-+	.min_core_ib = 2500000,
-+	.min_llcc_ib = 0,
-+	.min_dram_ib = 1600000,
-+	.min_prefill_lines = 40,
-+	/* FIXME: lut tables */
-+	.danger_lut_tbl = {0x3ffff, 0x3ffff, 0x0},
-+	.safe_lut_tbl = {0xff00, 0xfff0, 0x0fff},
-+	.qos_lut_tbl = {
-+		{.nentry = ARRAY_SIZE(sc7180_qos_linear),
-+		.entries = sc7180_qos_linear
-+		},
-+		{.nentry = ARRAY_SIZE(sc7180_qos_macrotile),
-+		.entries = sc7180_qos_macrotile
-+		},
-+		{.nentry = ARRAY_SIZE(sc7180_qos_nrt),
-+		.entries = sc7180_qos_nrt
-+		},
-+		/* TODO: macrotile-qseed is different from macrotile */
-+	},
-+	.cdp_cfg = {
-+		{.rd_enable = 1, .wr_enable = 1},
-+		{.rd_enable = 1, .wr_enable = 0}
-+	},
-+	.clk_inefficiency_factor = 105,
-+	.bw_inefficiency_factor = 120,
-+};
-+
-+static const struct dpu_mdss_version milos_mdss_ver = {
-+	.core_major_ver = 10,
-+	.core_minor_ver = 2,
-+};
-+
-+const struct dpu_mdss_cfg dpu_milos_cfg = {
-+	.mdss_ver = &milos_mdss_ver,
-+	.caps = &milos_dpu_caps,
-+	.mdp = &milos_mdp,
-+	.cdm = &dpu_cdm_5_x,
-+	.ctl_count = ARRAY_SIZE(milos_ctl),
-+	.ctl = milos_ctl,
-+	.sspp_count = ARRAY_SIZE(milos_sspp),
-+	.sspp = milos_sspp,
-+	.mixer_count = ARRAY_SIZE(milos_lm),
-+	.mixer = milos_lm,
-+	.dspp_count = ARRAY_SIZE(milos_dspp),
-+	.dspp = milos_dspp,
-+	.pingpong_count = ARRAY_SIZE(milos_pp),
-+	.pingpong = milos_pp,
-+	.dsc_count = ARRAY_SIZE(milos_dsc),
-+	.dsc = milos_dsc,
-+	.merge_3d_count = ARRAY_SIZE(milos_merge_3d),
-+	.merge_3d = milos_merge_3d,
-+	.wb_count = ARRAY_SIZE(milos_wb),
-+	.wb = milos_wb,
-+	.cwb_count = ARRAY_SIZE(milos_cwb),
-+	.cwb = milos_cwb,
-+	.intf_count = ARRAY_SIZE(milos_intf),
-+	.intf = milos_intf,
-+	.vbif = &milos_vbif,
-+	.perf = &milos_perf_data,
-+};
-+
-+#endif
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-index bb4fd5fa4b22..2e10add84fd7 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-@@ -454,6 +454,16 @@ static const struct dpu_dsc_sub_blks dsc_sblk_1 = {
- 	.ctl = {.name = "ctl", .base = 0xF80, .len = 0x10},
- };
- 
-+static const struct dpu_dsc_sub_blks milos_dsc_sblk_0 = {
-+	.enc = {.name = "enc", .base = 0x100, .len = 0x100},
-+	.ctl = {.name = "ctl", .base = 0xF00, .len = 0x80},
-+};
-+
-+static const struct dpu_dsc_sub_blks milos_dsc_sblk_1 = {
-+	.enc = {.name = "enc", .base = 0x200, .len = 0x100},
-+	.ctl = {.name = "ctl", .base = 0xF80, .len = 0x80},
-+};
-+
- static const struct dpu_dsc_sub_blks sm8750_dsc_sblk_0 = {
- 	.enc = {.name = "enc", .base = 0x100, .len = 0x100},
- 	.ctl = {.name = "ctl", .base = 0xF00, .len = 0x24},
-@@ -513,6 +523,23 @@ static const struct dpu_vbif_dynamic_ot_cfg msm8998_ot_rdwr_cfg[] = {
- 	},
- };
- 
-+static const struct dpu_vbif_cfg milos_vbif = {
-+	.len = 0x1074,
-+	.features = BIT(DPU_VBIF_QOS_REMAP),
-+	.xin_halt_timeout = 0x4000,
-+	.qos_rp_remap_size = 0x40,
-+	.qos_rt_tbl = {
-+		.npriority_lvl = ARRAY_SIZE(sdm845_rt_pri_lvl),
-+		.priority_lvl = sdm845_rt_pri_lvl,
-+		},
-+	.qos_nrt_tbl = {
-+		.npriority_lvl = ARRAY_SIZE(sdm845_nrt_pri_lvl),
-+		.priority_lvl = sdm845_nrt_pri_lvl,
-+		},
-+	.memtype_count = 16,
-+	.memtype = {3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3},
-+};
-+
- static const struct dpu_vbif_cfg msm8996_vbif = {
- 	.len = 0x1040,
- 	.default_ot_rd_limit = 32,
-@@ -754,6 +781,8 @@ static const struct dpu_qos_lut_entry sc7180_qos_nrt[] = {
- #include "catalog/dpu_9_2_x1e80100.h"
- 
- #include "catalog/dpu_10_0_sm8650.h"
-+#include "catalog/dpu_10_2_milos.h"
-+
- #include "catalog/dpu_12_0_sm8750.h"
- #include "catalog/dpu_12_2_glymur.h"
- #include "catalog/dpu_12_4_eliza.h"
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-index ba04ac24d5a9..f45faf87333e 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-@@ -766,6 +766,7 @@ struct dpu_mdss_cfg {
- extern const struct dpu_mdss_cfg dpu_eliza_cfg;
- extern const struct dpu_mdss_cfg dpu_glymur_cfg;
- extern const struct dpu_mdss_cfg dpu_kaanapali_cfg;
-+extern const struct dpu_mdss_cfg dpu_milos_cfg;
- extern const struct dpu_mdss_cfg dpu_msm8917_cfg;
- extern const struct dpu_mdss_cfg dpu_msm8937_cfg;
- extern const struct dpu_mdss_cfg dpu_msm8953_cfg;
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-index 35f7af4743d7..7c37bd51f934 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-@@ -1483,6 +1483,7 @@ static const struct of_device_id dpu_dt_match[] = {
- 	{ .compatible = "qcom,eliza-dpu", .data = &dpu_eliza_cfg, },
- 	{ .compatible = "qcom,glymur-dpu", .data = &dpu_glymur_cfg, },
- 	{ .compatible = "qcom,kaanapali-dpu", .data = &dpu_kaanapali_cfg, },
-+	{ .compatible = "qcom,milos-dpu", .data = &dpu_milos_cfg, },
- 	{ .compatible = "qcom,msm8917-mdp5", .data = &dpu_msm8917_cfg, },
- 	{ .compatible = "qcom,msm8937-mdp5", .data = &dpu_msm8937_cfg, },
- 	{ .compatible = "qcom,msm8953-mdp5", .data = &dpu_msm8953_cfg, },
+Also would be helpful for you to mention how this was tested (although 
+those details don't need to be in the commit text itself).  You are 
+touching arguably the core structure of the driver and any mistakes will 
+be devastating.
 
--- 
-2.53.0
+> Signed-off-by: Rosen Penev <rosenp@gmail.com>
+> ---
+>   drivers/accel/qaic/qaic.h     | 4 ++--
+>   drivers/accel/qaic/qaic_drv.c | 7 ++-----
+>   2 files changed, 4 insertions(+), 7 deletions(-)
+> 
+> diff --git a/drivers/accel/qaic/qaic.h b/drivers/accel/qaic/qaic.h
+> index fa7a8155658c..e237020f6aa9 100644
+> --- a/drivers/accel/qaic/qaic.h
+> +++ b/drivers/accel/qaic/qaic.h
+> @@ -152,8 +152,6 @@ struct qaic_device {
+>   	struct list_head	cntl_xfer_list;
+>   	/* Synchronizes MHI control device transactions and its xfer list */
+>   	struct mutex		cntl_mutex;
+> -	/* Array of DBC struct of this device */
+> -	struct dma_bridge_chan	*dbc;
+>   	/* Work queue for tasks related to MHI control device */
+>   	struct workqueue_struct	*cntl_wq;
+>   	/* Synchronizes all the users of device during cleanup */
+> @@ -206,6 +204,8 @@ struct qaic_device {
+>   	void			*ssr_mhi_buf;
+>   	/* DBC which is under SSR. Sentinel U32_MAX would mean that no SSR in progress */
+>   	u32			ssr_dbc;
+> +	/* Array of DBC struct of this device */
+> +	struct dma_bridge_chan	dbc[] __counted_by(num_dbc);
+>   };
+>   
+>   struct qaic_drm_device {
+> diff --git a/drivers/accel/qaic/qaic_drv.c b/drivers/accel/qaic/qaic_drv.c
+> index 63fb8c7b4abc..ab428ecd26f5 100644
+> --- a/drivers/accel/qaic/qaic_drv.c
+> +++ b/drivers/accel/qaic/qaic_drv.c
+> @@ -405,15 +405,12 @@ static struct qaic_device *create_qdev(struct pci_dev *pdev,
+>   	struct drm_device *drm;
+>   	int i, ret;
+>   
+> -	qdev = devm_kzalloc(dev, sizeof(*qdev), GFP_KERNEL);
+> +	qdev = devm_kzalloc(dev, struct_size(qdev, dbc, 16), GFP_KERNEL);
+
+I dislike the structure of this change.  16 is now in multiple places, 
+and when it will change in the near future, its going to be harder to 
+get the update right.  The existing code specifically assigns the value 
+and uses the value from that assignment for that reason.
+
+>   	if (!qdev)
+>   		return NULL;
+>   
+> -	qdev->dev_state = QAIC_OFFLINE;
+>   	qdev->num_dbc = 16;
+> -	qdev->dbc = devm_kcalloc(dev, qdev->num_dbc, sizeof(*qdev->dbc), GFP_KERNEL);
+> -	if (!qdev->dbc)
+> -		return NULL;
+> +	qdev->dev_state = QAIC_OFFLINE;
+>   
+>   	qddev = devm_drm_dev_alloc(&pdev->dev, &qaic_accel_driver, struct qaic_drm_device, drm);
+>   	if (IS_ERR(qddev))
 
