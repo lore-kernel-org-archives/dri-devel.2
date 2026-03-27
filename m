@@ -4,96 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 534B710BA431
-	for <dri-devel@archiver.kernel.org>; Fri, 27 Mar 2026 06:21:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7F96810BA432
+	for <dri-devel@archiver.kernel.org>; Fri, 27 Mar 2026 06:53:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8BE7010E0CC;
-	Fri, 27 Mar 2026 06:21:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AAFBC10E39D;
+	Fri, 27 Mar 2026 06:53:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="RB/aqBUb";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="uM9tWBQS";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2A56B10E0CC
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Mar 2026 06:21:47 +0000 (UTC)
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 62R4A5XA3341501; Fri, 27 Mar 2026 06:21:39 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- YSzXm+RZAa9Rqyx7SbN6v7Cf13JatYH15U/iDOUtR48=; b=RB/aqBUbAIIEFFOU
- c4kMCFtneX801+z8GuXWH1f7pGJr/9byBXrII71fj5Sz7Ta96kdxaERnWneaDLbi
- EGhEjHiqBR3D1Zn3j94OzxJFnj0MmFTAxL6Pewjtk+1r0WaHSQAkfzVaE4HbIemI
- 4c93ZvL3OaqY4ieLfJ5DIYga0kHNh/Km+B9cWAD7XgLTl6VTBl2QGSVJfGSUm/ms
- LF+A/AmZp564ZyAPY+xyo7rBYpAztwoFhzlNm7Y0vdiCLcEuofolRGHXCM9Ax3cq
- ZwzQI08gIaSGMt1af59bfUg5bN0YbkPSZtSeKsadoeV+MQghH7PYDkfxLbOmmHnJ
- hbbE0A==
-Received: from nasanppmta03.qualcomm.com (i-global254.qualcomm.com
- [199.106.103.254])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d5a9q20g4-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 27 Mar 2026 06:21:39 +0000 (GMT)
-Received: from nasanex01c.na.qualcomm.com (nasanex01c.na.qualcomm.com
- [10.45.79.139])
- by NASANPPMTA03.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 62R6LcXr014950
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 27 Mar 2026 06:21:38 GMT
-Received: from [10.217.219.207] (10.80.80.8) by nasanex01c.na.qualcomm.com
- (10.45.79.139) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Thu, 26 Mar
- 2026 23:21:34 -0700
-Message-ID: <341f2f06-eae0-44b1-b513-61a4a129bae2@quicinc.com>
-Date: Fri, 27 Mar 2026 11:51:31 +0530
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3678610E06E;
+ Fri, 27 Mar 2026 06:53:04 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id EF2E340AB1;
+ Fri, 27 Mar 2026 06:53:03 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5247EC19423;
+ Fri, 27 Mar 2026 06:52:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1774594383;
+ bh=+6taD/KYX6s6aOGsQO53ivGa0KI2dG/K2GEdTZ29IxI=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=uM9tWBQSBzeOskmqaDM0QvWoV4jUNiC4DsBlIKIFg7In21qbXcrgvL+npIdvVsRu4
+ qrE69iQ+kiDSqXlcivHy16z+fEY80xVdn90vInQTF9nPU0Nfe7+PBampXS2wO/gG+p
+ NgAISEoCyX1+VSpZjmfa/Wk2xePLkgGitS5duT/iqLt2Xz6gmhtYoyq/3bAsUtsGq+
+ 2OtE88H/kNHCxHKSKe13LzCtkcFHYUQtieBVLEZ/RgfH2fMVrGZXCU2jVD0wDWvbDI
+ /UHVNy1S2RfsSIT/lKpdHdy0Vk/hccjI1KCqeAffyJ+BOUCNvP4IiTCz7QCM5HVlUz
+ YXDRsPrcv0reg==
+Date: Fri, 27 Mar 2026 12:22:46 +0530
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Vladimir Oltean <vladimir.oltean@nxp.com>
+Cc: linux-phy@lists.infradead.org, Vinod Koul <vkoul@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, 
+ linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
+ linux-can@vger.kernel.org, 
+ linux-gpio@vger.kernel.org, linux-ide@vger.kernel.org,
+ linux-kernel@vger.kernel.org, 
+ linux-media@vger.kernel.org, linux-pci@vger.kernel.org,
+ linux-renesas-soc@vger.kernel.org, 
+ linux-riscv@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+ linux-samsung-soc@vger.kernel.org, linux-scsi@vger.kernel.org,
+ linux-sunxi@lists.linux.dev, 
+ linux-tegra@vger.kernel.org, linux-usb@vger.kernel.org, netdev@vger.kernel.org,
+ spacemit@lists.linux.dev, UNGLinuxDriver@microchip.com, 
+ "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
+ "Martin K. Petersen" <martin.petersen@oracle.com>, 
+ Nitin Rawat <quic_nitirawa@quicinc.com>
+Subject: Re: [PATCH v5 phy-next 10/27] scsi: ufs: qcom: keep parallel track
+ of PHY power state
+Message-ID: <gq4sswslkjaoe5hhxe2mz6z57uiumotqknkryadvfsstj4srx4@qgenqekgrqv4>
+References: <20260319223241.1351137-1-vladimir.oltean@nxp.com>
+ <20260319223241.1351137-11-vladimir.oltean@nxp.com>
+ <ezrcjjwtg5n76w4m65l27szu5mywx66ti3xuprkfcp3x6quvbf@2rew4zrnnbt2>
+ <20260325114309.3k7xkfrffpxp5xq4@skbuf>
+ <vu3cxpynr5mu2fzkrtmjcwijc5jz323wlnbc3r7lp2wxqmhydx@z5xhgf4myw2d>
+ <20260325115731.genmq2yew2p4dvbs@skbuf>
+ <20260326080444.gbesciaa5zwvcgoy@skbuf>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1] i2c: qcom-geni: Skip extra TX DMA TRE for single read
- message in GPI mode
-To: Aniket Randive <aniket.randive@oss.qualcomm.com>, Mukesh Kumar Savaliya
- <mukesh.savaliya@oss.qualcomm.com>, Viken Dadhaniya
- <viken.dadhaniya@oss.qualcomm.com>, Andi Shyti <andi.shyti@kernel.org>,
- "Sumit Semwal" <sumit.semwal@linaro.org>, =?UTF-8?Q?Christian_K=C3=B6nig?=
- <christian.koenig@amd.com>
-CC: <linux-i2c@vger.kernel.org>, <linux-arm-msm@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <linux-media@vger.kernel.org>,
- <dri-devel@lists.freedesktop.org>, <linaro-mm-sig@lists.linaro.org>,
- Maramaina Naresh <naresh.maramaina@oss.qualcomm.com>
-References: <20260326-skip_extra_dma_tre-v1-1-deef018895dc@oss.qualcomm.com>
-Content-Language: en-US
-From: Mukesh Kumar Savaliya <quic_msavaliy@quicinc.com>
-In-Reply-To: <20260326-skip_extra_dma_tre-v1-1-deef018895dc@oss.qualcomm.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nasanex01c.na.qualcomm.com (10.45.79.139)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: O8eAz8RP_v7e5AXmdYACo4b6E9ip1Q8b
-X-Proofpoint-ORIG-GUID: O8eAz8RP_v7e5AXmdYACo4b6E9ip1Q8b
-X-Authority-Analysis: v=2.4 cv=J4GnLQnS c=1 sm=1 tr=0 ts=69c621f3 cx=c_pps
- a=JYp8KDb2vCoCEuGobkYCKw==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
- a=GEpy-HfZoHoA:10 a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
- a=EUspDBNiAAAA:8 a=DM0cx9kTKsjz1JukrIkA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzI3MDA0NiBTYWx0ZWRfX6ZnL9fiECyZ7
- LMHimHdcXT+aA+1MibCeLVfagtST8511dCr1a3vtURNVnZEw4xHiwvvRhNvN3SSih1yvlx1XKVU
- pAToEwg1xvFa4h6hRW+pf96/YoiLdY87Xy+/AWg9/HsN/XKdkpY8f0ZXLGhLgVnVp1oM/jidyoF
- DuTeWboq70Z62uvuKk9UEZhRMGDmie++KvEI9Flgnm2QR5A7Gxr86XNmR2vNj8WgTkDL6AaGbfR
- 5bbT8pTBIkqgvJGiO9XixXpZuKCwK0HJkrCQHqWHd+Rhbc0hLXPYuqpeW/0U+7y+IGZWydWaJwy
- pgdTTkTwxJGJHz7AtGJ5z+aqGud8orhprJWpnyN60E/4tjD5kmZa4jkkfXvMCOQj5ytvgyPLfI9
- DRBZKb0LtQSbJTjb1A48ngeJikYaTQGF1JfvJgsBazv4Vue2p3MVbgOGOHjgxFjlg4n5n3RAKQ/
- Gsi3MwCAsC9s9N4Y32g==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-03-26_04,2026-03-26_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 clxscore=1011 phishscore=0 impostorscore=0 bulkscore=0
- suspectscore=0 malwarescore=0 priorityscore=1501 lowpriorityscore=0
- adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2603050001
- definitions=main-2603270046
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260326080444.gbesciaa5zwvcgoy@skbuf>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,89 +80,67 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-
-
-On 3/26/2026 10:01 AM, Aniket Randive wrote:
-> In GPI mode, the I2C GENI driver incorrectly generates an extra TX DMA
-> TRE on the TX channel during single read message transfer. This results
-What's the impact of this extra DMA TRE ? do you see failure/timeout, 
-anything ?
-> in an unnecessary write operation on the I2C bus, which is not required.
+On Thu, Mar 26, 2026 at 10:04:44AM +0200, Vladimir Oltean wrote:
+> On Wed, Mar 25, 2026 at 01:57:31PM +0200, Vladimir Oltean wrote:
+> > On Wed, Mar 25, 2026 at 05:21:14PM +0530, Manivannan Sadhasivam wrote:
+> > > I believe I added the power_count check for phy_exit(). But since that got
+> > > moved, the check becomes no longer necessary.
+> > 
+> > FYI, the power_count keeps track of the balance of phy_power_on() and
+> > phy_power_off() calls, whereas it is the init_count keeps track of
+> > phy_init() and phy_exit() calls. They are only related to the extent
+> > that you must respect the phy_init() -> phy_power_on() -> phy_power_off()
+> > -> phy_exit() sequence. But in any case, both should be considered
+> > PHY-internal fields. The "Order of API calls" section from
+> > Documentation/driver-api/phy/phy.rst mentions the order that I just
+> > described above, and consumers should just ensure they follow that.
 > 
-> Update the logic to avoid generating the extra TX DMA TRE for single
-> read message, ensuring correct behavior and preventing redundant
-> transfers.
-> 
-So for read, we do unwanted write too ? if so, please write it 
-accordingly.  Correct behavior needs to be justified against wrong.
-> Co-developed-by: Maramaina Naresh <naresh.maramaina@oss.qualcomm.com>
-> Signed-off-by: Maramaina Naresh <naresh.maramaina@oss.qualcomm.com>
-> Signed-off-by: Aniket Randive <aniket.randive@oss.qualcomm.com>
-> ---
->   drivers/i2c/busses/i2c-qcom-geni.c | 18 +++++++++++++-----
->   1 file changed, 13 insertions(+), 5 deletions(-)
-> 
-> diff --git a/drivers/i2c/busses/i2c-qcom-geni.c b/drivers/i2c/busses/i2c-qcom-geni.c
-> index a4acb78fafb6..2706309bbebb 100644
-> --- a/drivers/i2c/busses/i2c-qcom-geni.c
-> +++ b/drivers/i2c/busses/i2c-qcom-geni.c
-> @@ -625,8 +625,8 @@ static int geni_i2c_gpi(struct geni_i2c_dev *gi2c, struct i2c_msg msgs[],
->   {
->   	struct gpi_i2c_config *peripheral;
->   	unsigned int flags;
-> -	void *dma_buf;
-> -	dma_addr_t addr;
-> +	void *dma_buf = NULL;
-> +	dma_addr_t addr = 0;
->   	enum dma_data_direction map_dirn;
->   	enum dma_transfer_direction dma_dirn;
->   	struct dma_async_tx_descriptor *desc;
-> @@ -639,6 +639,11 @@ static int geni_i2c_gpi(struct geni_i2c_dev *gi2c, struct i2c_msg msgs[],
->   	gi2c_gpi_xfer = &gi2c->i2c_multi_desc_config;
->   	msg_idx = gi2c_gpi_xfer->msg_idx_cnt;
->   
-> +	if (op == I2C_WRITE && msgs[msg_idx].flags & I2C_M_RD) {
-> +		peripheral->multi_msg = true;
-what's the actual meaning of multi_msg here ? IIUC, this multi_msg is 
-set to true for single transfer  ? any better name if so ? Yes, need to 
-change it out of this patch.
-> +		goto skip_dma;
-> +	}
-> +
->   	dma_buf = i2c_get_dma_safe_msg_buf(&msgs[msg_idx], 1);
->   	if (!dma_buf) {
->   		ret = -ENOMEM;
-> @@ -668,6 +673,7 @@ static int geni_i2c_gpi(struct geni_i2c_dev *gi2c, struct i2c_msg msgs[],
->   		flags = DMA_PREP_INTERRUPT | DMA_CTRL_ACK;
->   	}
->   
-> +skip_dma:
->   	/* set the length as message for rx txn */
->   	peripheral->rx_len = msgs[msg_idx].len;
->   	peripheral->op = op;
-> @@ -740,9 +746,11 @@ static int geni_i2c_gpi(struct geni_i2c_dev *gi2c, struct i2c_msg msgs[],
->   	return 0;
->   
->   err_config:
-> -	dma_unmap_single(gi2c->se.dev->parent, addr,
-> -			 msgs[msg_idx].len, map_dirn);
-> -	i2c_put_dma_safe_msg_buf(dma_buf, &msgs[msg_idx], false);
-> +	if (op == I2C_WRITE && (msgs[msg_idx].flags & I2C_M_RD)) {
-> +		dma_unmap_single(gi2c->se.dev->parent, addr,
-> +				 msgs[msg_idx].len, map_dirn);
-> +		i2c_put_dma_safe_msg_buf(dma_buf, &msgs[msg_idx], false);
-> +	}
->   
->   out:
->   	gi2c->err = ret;
-> 
-> ---
-> base-commit: 785f0eb2f85decbe7c1ef9ae922931f0194ffc2e
-> change-id: 20260325-skip_extra_dma_tre-a3cf22f81d9b
-> 
-> Best regards,
-> --
-> Aniket Randive <aniket.randive@oss.qualcomm.com>
-> 
+> Ok, so we can close this topic of "checking the power_count not needed"
+> by linking to the conversation which spun off here:
+> https://lore.kernel.org/lkml/20260325120122.265973-1-manivannan.sadhasivam@oss.qualcomm.com/
 > 
 
+Sure.
+
+> Mani, I spent some more time to figure out what's really going on with
+> this unexpected phy_power_off() call. Do you think you could
+> regression-test the patch attached?
+> 
+
+I tested the patch. But it fails ufs_qcom_power_up_sequence() if PHY was already
+powered on:
+
+[   31.513321] qcom-qmp-ufs-phy 1d87000.phy: phy initialization timed-out
+[   31.513335] ufshcd-qcom 1d84000.ufshc: Failed to calibrate PHY: -110
+[   31.565273] ufshcd-qcom 1d84000.ufshc: Enabling the controller failed
+
+Funny thing is, it didn't affect the functionality since the UFS core retries
+ufshcd_hba_enable() and in the error path of ufs_qcom_power_up_sequence(),
+phy_power_off() gets called and that causes the next try to succeed. So it is
+evident that, if PHY was already powered ON, it should be powered off before
+ufs_qcom_phy_power_on(). And due to the UFS driver design,
+ufs_qcom_power_up_sequence() can get called multiple times. So we cannot just
+remove phy_power_off().
+
+Below diff on top of your patch fixes the issue:
+
+```
+diff --git a/drivers/ufs/host/ufs-qcom.c b/drivers/ufs/host/ufs-qcom.c
+index ed067247d72a..2c9fe03f349e 100644
+--- a/drivers/ufs/host/ufs-qcom.c
++++ b/drivers/ufs/host/ufs-qcom.c
+@@ -567,6 +567,8 @@ static int ufs_qcom_power_up_sequence(struct ufs_hba *hba)
+        if (ret)
+                return ret;
+ 
++       ufs_qcom_phy_power_off(host);
++
+        ret = ufs_qcom_phy_set_gear(host, mode);
+        if (ret) {
+                dev_err(hba->dev, "%s: phy_set_mode_ext() failed, ret = %d\n",
+```
+
+- Mani
+
+-- 
+மணிவண்ணன் சதாசிவம்
