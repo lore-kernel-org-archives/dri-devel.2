@@ -4,91 +4,148 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ABEC110ED64A
-	for <dri-devel@archiver.kernel.org>; Fri, 27 Mar 2026 12:10:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7545A10ED64A
+	for <dri-devel@archiver.kernel.org>; Fri, 27 Mar 2026 12:10:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B677810EDD7;
-	Fri, 27 Mar 2026 12:10:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CEE4510EDD9;
+	Fri, 27 Mar 2026 12:10:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=ziepe.ca header.i=@ziepe.ca header.b="iXqPy2T2";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Up21IAxv";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="N6qIofdg";
 	dkim-atps=neutral
-Received: from mail-qk1-f174.google.com (mail-qk1-f174.google.com
- [209.85.222.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 602E010EDD7
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Mar 2026 12:10:24 +0000 (UTC)
-Received: by mail-qk1-f174.google.com with SMTP id
- af79cd13be357-8cfdac74050so255765985a.3
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Mar 2026 05:10:24 -0700 (PDT)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 370D410EDD9
+ for <dri-devel@lists.freedesktop.org>; Fri, 27 Mar 2026 12:10:32 +0000 (UTC)
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 62R6w3GE1860230
+ for <dri-devel@lists.freedesktop.org>; Fri, 27 Mar 2026 12:10:31 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ EE0yGsx0mvjT/GTmYnfC7r+2Fd45Q0DeobTk/gC7vvM=; b=Up21IAxvjvhnBku5
+ 1WEMR0plcKU/8LVRwfLOzTqQcWm/3I+FpNYWTAfJE0dN62SjCAwOLiTXkpyOBmi1
+ F03PkTNDHh3WcdrldG8ULdMLmcQ/Oc1kjap8+L8KgAcO8jdGI2IPNhmq6/HEfpLN
+ Hx1h95vFsrzsa8PP4bVyXCHqy6IdyUtoYOcjZ9fVYdltJ9tbzr/xQ7sFTf2LHYD/
+ 4rqENwzKnPuPHAvJD0+JtODzjxU2VRtX1Vdi6PlvOy8X1W+bHnHXA+pCGN1JHGBI
+ j58bnigDIr+KkVbhN90OmOsKB0BKxod3uqxB7+n9v3z69FMEDlvgerGGDdh7lqqG
+ 2Kv71w==
+Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com
+ [209.85.216.69])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d5bxv2xpr-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Fri, 27 Mar 2026 12:10:31 +0000 (GMT)
+Received: by mail-pj1-f69.google.com with SMTP id
+ 98e67ed59e1d1-358f058973fso2910172a91.1
+ for <dri-devel@lists.freedesktop.org>; Fri, 27 Mar 2026 05:10:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ziepe.ca; s=google; t=1774613423; x=1775218223; darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=mfIjIsS8DDjImfR7uqLq3DxooHT40pwlydrjxj52iHU=;
- b=iXqPy2T2LBmMXkrkJrVprU1gy+mvUANbs68zTirdWYWzvTNY+zSXYRU3N8JtGcgULx
- O9zuuXnfUfulgLIt0Zq2EIbBx7KyQHIKfiN3oACpYaGxR7jpl7SXt/t7TMX1PtSPB1PF
- WAFcM4QG2+vuo3hdS6dNiKtbdBtmht7hP/8oWMXjOFnwCSOUObEgL5kbiEx++7QoTSHj
- 4jC/NVJJp1zQ7WmDfy+NpzUePEPp+6sixkcOL1YIBs5LnyehvaQwVuPifPUU5MJAhR0y
- sgrOfTg6eEXOYhuBThG3dmKAX/7hduJMc8ceAk2Ay4/zY6G0ibX3ZhDoxwp0VIohxOLb
- kPtg==
+ d=oss.qualcomm.com; s=google; t=1774613431; x=1775218231;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=EE0yGsx0mvjT/GTmYnfC7r+2Fd45Q0DeobTk/gC7vvM=;
+ b=N6qIofdgW4gte73jQLlARzXtAh2GSEOq1iLmPC5vTaAwjSV8c9M3eDuUGbdfcNXhlA
+ BWWL+QEPonDjiDMzPdXSfUUYvWcRMpJX/T6cUHQccibQ+B0vlQhUvCQTv2exaX3F/pu1
+ Z6woe0yEFnn5GTBEiWWHbun5NWCFbf/eBYeXjWA7dUTxA+77bBHA3FSY3j9ed5ysNMfn
+ nzU5hrpwX+me2r3cPk4ymMhMh/3zc8fdFdOAfGbuE1DBXeHq2yj4/5eliLYKS7pO4/yT
+ 9sluqDPteFa9r7uOkG2+hZATrcKXecKT4RAl/5QjaxMlHWkfeg2Y2gi/LLWaYniSqTDY
+ MxKA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774613423; x=1775218223;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=mfIjIsS8DDjImfR7uqLq3DxooHT40pwlydrjxj52iHU=;
- b=qu2fSOAT3zMHykMoe+rYcN0amvc/y9vitCLz/rQu/09jnVMT+b9Lda0V0NGaM7HujD
- KRI08SYeeR2Z0Gwzpp9uSQsZDtbSGdKB6Lsu0xWhGiQt1SN+7IK54LgxMUF1CgbcsnAd
- 6r92QS6dWgjF9NEIj7YSCwEk+hFPrt5bj5sNq5pVm2XKxrFQoSsVXHu6N5yM8qTb7aFw
- STL386WfbDevDgtQGS+qbNBu8dtHzBfYlPZC6MEWYDUOfiUQapHf734iuVUyV6bLMxDO
- OoVk2S26wtfQ5I9xMEk3eMrzdNFcx095qgm0rDVf5PfYF1XsN+8oC1qlyynBTr7Z0Eia
- LAnA==
+ d=1e100.net; s=20251104; t=1774613431; x=1775218231;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=EE0yGsx0mvjT/GTmYnfC7r+2Fd45Q0DeobTk/gC7vvM=;
+ b=EnaadtzwQYFHUPKh70L4ZmFOVJ7CKNHdWiitMEYo2+LvgcB7BVpUFUQ2zTGrqPq0ds
+ vGfbO+O5Fly1e9KhpvGzzpkcOzqmL2S/pK9pNnVj2lRz7gZi3pxGVNGYrxkT1AnKIa9i
+ bjLU5UKmlKFcGD3Ok1JaczvsRdJEmmp2W5Xsw6umODEv/iFvI4IQP90SpIMYNVk8kLW1
+ YCqnQO6EriywbaZt6Kcb26Gb6yljOcC7gagxTT1aTpsEtH2Z80scl0jVM7R85xw2XWqi
+ 1u1rj7dd2fgKzkj9sJCkBkfpinWJa+pP2mX6/5ugV4SQGAeJEOJVXhQhYB0Pfp7YNPSO
+ z+Dg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUWf2mMvjWiazAQKXNwi71D3+RBJpxRPQsmzhZ1W5lC8p5YPkM41uzwpkTLF9Rx2qGqMDU9FcX8r1g=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxgnmFQhjO8ra3Fg8ftRq1hFCF6+P3IrXOjGetfbY7JE8BeT4mH
- koRQUyqp0dauyPBPsjirgrHtH1YHQ8WSTPb0JbB34rqfNPTRIi4NY4YB5HzXwqN9a+k=
-X-Gm-Gg: ATEYQzxy1QkgELQekK+jSeHmD/ne0TDRonaH9Ovvhcfh+Eze40VheXQw0WazbOA4ZvX
- UaIrExORftAKH24Dp6fM1RiJdR52qEHLxEHI1lpJfcaXGXZNpmszP1ls3+ASmulfvasHhZ6vkdw
- kOLSt/BDg2QIJ7nq8eh/X8c2VnLP39oqz9vaFtUNpI7XssXsIB+7nCmvZGYca3+i4tYLAHwRiqC
- jzvmmBj4+5vPRziLUibEOZd/YZMtnMkV0xBFE7q2f+HZtkjxgagfl4lLrIGf+vJvSLGMInwGArN
- d8JT4BllJwQQAiQTOpnB6ITl51kM/453058PI0X0zr1v53ERWEXNgeZZFITxkJ8Vlwvt/veKuOj
- XnhCe68I6gctE0d1anEB08x8HD7ZUOe0joVH9jEJjSmkBFCf0iuepyEYXJu6vEB6i4rsijVZPPJ
- Hp3eWAZQHMjOOTEBxTi6HbYkyaIwQfbCI1XZUVpEFP9b5xl9XrSFCKxDv96lurFAoYJZOe+g==
-X-Received: by 2002:a05:620a:4589:b0:8cd:6175:9b17 with SMTP id
- af79cd13be357-8d01c5bf3ffmr259778785a.3.1774613423032; 
- Fri, 27 Mar 2026 05:10:23 -0700 (PDT)
-Received: from ziepe.ca
- (mctnnbsa70w-159-2-73-22.dhcp-dynamic.fibreop.nb.bellaliant.net.
- [159.2.73.22]) by smtp.gmail.com with ESMTPSA id
- af79cd13be357-8d00e3c3a0dsm507700285a.13.2026.03.27.05.10.21
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 27 Mar 2026 05:10:22 -0700 (PDT)
-Received: from jgg by wakko with local (Exim 4.97)
- (envelope-from <jgg@ziepe.ca>) id 1w6617-00000001CcJ-1QAP;
- Fri, 27 Mar 2026 09:10:21 -0300
-Date: Fri, 27 Mar 2026 09:10:21 -0300
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: Marek Szyprowski <m.szyprowski@samsung.com>,
- "T.J. Mercier" <tjmercier@google.com>
-Cc: Jiri Pirko <jiri@resnulli.us>, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, iommu@lists.linux.dev,
- linux-media@vger.kernel.org, sumit.semwal@linaro.org,
- benjamin.gaignard@collabora.com, Brian.Starkey@arm.com,
- jstultz@google.com, tjmercier@google.com, christian.koenig@amd.com,
- robin.murphy@arm.com, leon@kernel.org, sean.anderson@linux.dev,
- ptesarik@suse.com, catalin.marinas@arm.com, aneesh.kumar@kernel.org,
- suzuki.poulose@arm.com, steven.price@arm.com,
- thomas.lendacky@amd.com, john.allen@amd.com, ashish.kalra@amd.com,
- suravee.suthikulpanit@amd.com, linux-coco@lists.linux.dev
-Subject: Re: [PATCH v5 0/2] dma-buf: heaps: system: add an option to allocate
- explicitly shared/decrypted memory
-Message-ID: <20260327121021.GB246076@ziepe.ca>
-References: <CGME20260325192400eucas1p2ae38ff4c2b3ab35a7047cfd680d9fda3@eucas1p2.samsung.com>
- <20260325192352.437608-1-jiri@resnulli.us>
- <f2047cd7-91a8-4f6a-b6b9-0e4f143f6854@samsung.com>
+ AJvYcCVOC6Fh0uqwqyqiYtOEK9K6UEOIKSRfqB/FWiIjX08t1O4b72Cc4yK1k6OjnLyu8DP8Z6XVzc67du8=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyVJh3zYPKg5vdcRnehPrNg2PPnzwvX+MKmbBgZ8xnxzJbk4ItJ
+ QAwZig7yApTH+2GTs4XLrNNuooM0lp0UpytHaAzGJenUbj4OsCoCia8wx3Zxf7zIjCJyZxB3rY0
+ kk8aFgepzm8FpH6mj2AjuMgceb3xRT+cgnTIUuJQKFIB7x6uCTDnjLoHYD2edhu4LOZxgN+Q=
+X-Gm-Gg: ATEYQzzbtcAzFLcH5lj+ObLooDW/UAs/GNGvw6MguSRsqFAe6LVblycSMoT4W64HL78
+ Olc4PKl8FvKA0lrNWuMgQYPnLIdLa+GZn0BLW6Ih43pQmNUnJW0RAJ4fNeN4A+WAQ5tu4nNQJ04
+ 8iLorHwQVuwykU/kUS/BAaMQEZlbvlhrJZHMClU6/npy0hGAPup9VcaXS9m2bTojjIA+mz3ym75
+ EHrqkF0SJ4k+9YbikXHFncc+DylUvxsCfVKp1d+mIk/JrYY7vpMtUybPdDxbeiKfBGEECreHYB3
+ k3AR1s5Vf3sZgcKvguZvhOuvejACmUX+THMrtdB0V8Xu7i8t6861Y7LWn9smhQ7KooWzRK1UGO1
+ xEcT8bj2wUuUxc3QUDahyzn4S8g/JI2oxXOqG6mmdZnxYQsObnSw=
+X-Received: by 2002:a17:90b:1e51:b0:35b:e51a:85af with SMTP id
+ 98e67ed59e1d1-35c2fff2c76mr2299342a91.10.1774613430865; 
+ Fri, 27 Mar 2026 05:10:30 -0700 (PDT)
+X-Received: by 2002:a17:90b:1e51:b0:35b:e51a:85af with SMTP id
+ 98e67ed59e1d1-35c2fff2c76mr2299260a91.10.1774613430257; 
+ Fri, 27 Mar 2026 05:10:30 -0700 (PDT)
+Received: from [10.217.223.121] ([202.46.22.19])
+ by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-35c22a81757sm6204402a91.6.2026.03.27.05.10.17
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 27 Mar 2026 05:10:29 -0700 (PDT)
+Message-ID: <bc7b116d-de41-4b9a-9c84-1010e226bac8@oss.qualcomm.com>
+Date: Fri, 27 Mar 2026 17:40:16 +0530
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <f2047cd7-91a8-4f6a-b6b9-0e4f143f6854@samsung.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 03/15] firmware: qcom_scm: Migrate to generic PAS
+ service
+To: Sumit Garg <sumit.garg@kernel.org>, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-media@vger.kernel.org,
+ netdev@vger.kernel.org, linux-wireless@vger.kernel.org,
+ ath12k@lists.infradead.org, linux-remoteproc@vger.kernel.org
+Cc: andersson@kernel.org, konradybcio@kernel.org, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, robin.clark@oss.qualcomm.com,
+ sean@poorly.run, akhilpo@oss.qualcomm.com, lumag@kernel.org,
+ abhinav.kumar@linux.dev, jesszhan0024@gmail.com,
+ marijn.suijten@somainline.org, airlied@gmail.com, simona@ffwll.ch,
+ vikash.garodia@oss.qualcomm.com, dikshita.agarwal@oss.qualcomm.com,
+ bod@kernel.org, mchehab@kernel.org, elder@kernel.org,
+ andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, jjohnson@kernel.org,
+ mathieu.poirier@linaro.org, trilokkumar.soni@oss.qualcomm.com,
+ mukesh.ojha@oss.qualcomm.com, pavan.kondeti@oss.qualcomm.com,
+ jorge.ramirez@oss.qualcomm.com, tonyh@qti.qualcomm.com,
+ vignesh.viswanathan@oss.qualcomm.com, srinivas.kandagatla@oss.qualcomm.com,
+ amirreza.zarrabi@oss.qualcomm.com, jens.wiklander@linaro.org,
+ op-tee@lists.trustedfirmware.org, apurupa@qti.qualcomm.com,
+ skare@qti.qualcomm.com, linux-kernel@vger.kernel.org,
+ Sumit Garg <sumit.garg@oss.qualcomm.com>
+References: <20260312062756.694390-1-sumit.garg@kernel.org>
+ <20260312062756.694390-4-sumit.garg@kernel.org>
+Content-Language: en-US
+From: Harshal Dev <harshal.dev@oss.qualcomm.com>
+In-Reply-To: <20260312062756.694390-4-sumit.garg@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=A99h/qWG c=1 sm=1 tr=0 ts=69c673b7 cx=c_pps
+ a=vVfyC5vLCtgYJKYeQD43oA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=EUspDBNiAAAA:8 a=j567PbXuXaTzagYqJJIA:9 a=QEXdDO2ut3YA:10
+ a=rl5im9kqc5Lf4LNbBjHf:22
+X-Proofpoint-ORIG-GUID: b9l-TfRlMoANy2l4E3fI71z9Q554lZnW
+X-Proofpoint-GUID: b9l-TfRlMoANy2l4E3fI71z9Q554lZnW
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzI3MDA4MyBTYWx0ZWRfXxrXyixg4v+QK
+ 14XdjMhi38h1z4GD60qDpxCiUrKcb9kwAx7EKyE6g0algG0dGtMT6VA542yBI18ZW3AHG21qxFo
+ WqZdvezRfN0yyo+JbWXlwNVbhar3Z3Q4yPHb+uwZVaP1t4t5Ax6MuhebcWs7164iGnNdoSaBbQZ
+ hMPDd4pX1udPSPaMO+AwcavPbEJkt1RKxpqvjF1hs8JKSflbcnizwycq/EwZQKNUFwpk0kgHd6t
+ I1Omg/3UqGER21zUzEXc4r5k16l/k8qrqb6NAJaFPqOji2/f0LxWIDLVuy/9IP/gMoeT//sWi/a
+ U1710APDVCfRdLJrKvse+cx9uuVhYUDpQERopvtqdqcydtKoafCtq4bn2XIne+DFaEfTXMy10vo
+ lwoA0Lfe2WcbdRTxHPKhOOst1Wsxd5a4NnDYmt5Uy80fxv4EDtIx/ZorII7/wxRFm+imdOv+NaR
+ kLuSL4XKSL9+60kXeqg==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-03-26_04,2026-03-26_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 adultscore=0 malwarescore=0 spamscore=0 impostorscore=0
+ phishscore=0 bulkscore=0 lowpriorityscore=0 clxscore=1015 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603270083
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,39 +161,53 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, Mar 27, 2026 at 10:38:10AM +0100, Marek Szyprowski wrote:
-> On 25.03.2026 20:23, Jiri Pirko wrote:
-> > From: Jiri Pirko <jiri@nvidia.com>
-> >
-> > Confidential computing (CoCo) VMs/guests, such as AMD SEV and Intel TDX,
-> > run with private/encrypted memory which creates a challenge
-> > for devices that do not support DMA to it (no TDISP support).
-> >
-> > For kernel-only DMA operations, swiotlb bounce buffering provides a
-> > transparent solution by copying data through shared memory.
-> > However, the only way to get this memory into userspace is via the DMA
-> > API's dma_alloc_pages()/dma_mmap_pages() type interfaces which limits
-> > the use of the memory to a single DMA device, and is incompatible with
-> > pin_user_pages().
-> >
-> > These limitations are particularly problematic for the RDMA subsystem
-> > which makes heavy use of pin_user_pages() and expects flexible memory
-> > usage between many different DMA devices.
-> >
-> > This patch series enables userspace to explicitly request shared
-> > (decrypted) memory allocations from new dma-buf system_cc_shared heap.
-> > Userspace can mmap this memory and pass the dma-buf fd to other
-> > existing importers such as RDMA or DRM devices to access the
-> > memory. The DMA API is improved to allow the dma heap exporter to DMA
-> > map the shared memory to each importing device.
-> >
-> > Based on dma-mapping-for-next e7442a68cd1ee797b585f045d348781e9c0dde0d
+
+
+On 3/12/2026 11:57 AM, Sumit Garg wrote:
+> From: Sumit Garg <sumit.garg@oss.qualcomm.com>
 > 
-> I would like to merge this to dma-mapping-next, but I feel a bit 
-> uncomfortable with my lack of knowledge about CoCo and friends. Could 
-> those who know a bit more about it provide some Reviewed-by tags?
+> With the availability of generic PAS service, let's add SCM calls as
+> a backend to keep supporting legacy QTEE interfaces. The exported
+> qcom_scm* wrappers will get dropped once all the client drivers get
+> migrated as part of future patches.
+> 
+> Signed-off-by: Sumit Garg <sumit.garg@oss.qualcomm.com>
+> ---
+>  drivers/firmware/qcom/Kconfig    |   1 +
+>  drivers/firmware/qcom/qcom_scm.c | 336 ++++++++++++++-----------------
+>  2 files changed, 156 insertions(+), 181 deletions(-)
+>
 
-I'm confident in the CC stuff, I was hoping to see someone from dmabuf
-heap land ack that the uAPI design is OK.. TJ?
+[..]
 
-Jason
+> diff --git a/drivers/firmware/qcom/qcom_scm.c b/drivers/firmware/qcom/qcom_scm.c
+> index 8fbc96693a55..2d7937ae7c8f 100644
+> --- a/drivers/firmware/qcom/qcom_scm.c
+> +++ b/drivers/firmware/qcom/qcom_scm.c
+> @@ -13,6 +13,7 @@
+>  #include <linux/dma-mapping.h>
+
+[..]
+
+>  
+> -/**
+> - * devm_qcom_scm_pas_context_alloc() - Allocate peripheral authentication service
+> - *				       context for a given peripheral
+> - *
+> - * PAS context is device-resource managed, so the caller does not need
+> - * to worry about freeing the context memory.
+> - *
+> - * @dev:	  PAS firmware device
+> - * @pas_id:	  peripheral authentication service id
+> - * @mem_phys:	  Subsystem reserve memory start address
+> - * @mem_size:	  Subsystem reserve memory size
+> - *
+> - * Returns: The new PAS context, or ERR_PTR() on failure.
+> - */
+
+Shouldn't we drop the documentation for the exported functions in this file as part of
+patch 14/15? After this patch is applied, the devm_qcom_scm_pas_context_alloc() function
+still remains exported and available.
+
+Regards,
+Harshal
