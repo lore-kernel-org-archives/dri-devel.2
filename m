@@ -4,36 +4,37 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AE18010ED651
-	for <dri-devel@archiver.kernel.org>; Fri, 27 Mar 2026 10:22:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 86F9210ED656
+	for <dri-devel@archiver.kernel.org>; Fri, 27 Mar 2026 10:22:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 087E110ECD7;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0F37110ECE4;
 	Fri, 27 Mar 2026 10:22:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="SiN1tJT0";
+	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="G/hbaY5V";
 	dkim-atps=neutral
 Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
  [213.167.242.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4529B10E3A3
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Mar 2026 10:22:28 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3401410E3A3
+ for <dri-devel@lists.freedesktop.org>; Fri, 27 Mar 2026 10:22:31 +0000 (UTC)
 Received: from [127.0.1.1] (91-158-153-178.elisa-laajakaista.fi
  [91.158.153.178])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id 4687720B1;
- Fri, 27 Mar 2026 11:21:07 +0100 (CET)
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id 349B71E31;
+ Fri, 27 Mar 2026 11:21:10 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1774606868;
- bh=kXEBX6aktrNXxxPjgSs66smVTLORZLIDKgjSxczFR7U=;
+ s=mail; t=1774606871;
+ bh=eaeDuhTwVtvOUYbWOU6Pi8XJP6K+PPcBl3PTwjkGBnM=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=SiN1tJT0hFvNS3ysjzsXqbYqc/EEBbHz3ZtiAtVIaztL7HHD/e551eSP0YJySNaJs
- eDFW3o3aDd7sdSUQgpliaDKJoDWYSE2WsozxDZ1OInJQw2gxeb3+m008QeRhteL3D9
- TELffqDpRfIow9qLS3N0OFB5NUP6TE7VGOUoFvK4=
+ b=G/hbaY5VUiOWhtpB0qCz0Kwh7M3oL3se9SeJ0fh+/cSAgl6FzQY5T3BeMua54Gyl1
+ 2yx0sPZRY/dJ6ehXLl/9D833jiXOesH0rMngTmhcGFowFvomRsU9UaR2CjGFpsmaXx
+ w4wbM6rBjpRRE4eFdAUgX0pD2rdA6HSaBwgDt330=
 From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Date: Fri, 27 Mar 2026 12:21:52 +0200
-Subject: [PATCH v2 04/12] drm/bridge: tc358762: Configure SYSCTRL first
+Date: Fri, 27 Mar 2026 12:21:55 +0200
+Subject: [PATCH v2 07/12] drm/bridge: tc358762: Update comment about the
+ number of lanes
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260327-tc358762-fixes-v2-4-3589d3c45f4a@ideasonboard.com>
+Message-Id: <20260327-tc358762-fixes-v2-7-3589d3c45f4a@ideasonboard.com>
 References: <20260327-tc358762-fixes-v2-0-3589d3c45f4a@ideasonboard.com>
 In-Reply-To: <20260327-tc358762-fixes-v2-0-3589d3c45f4a@ideasonboard.com>
 To: Marek Vasut <marex@denx.de>, Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -47,21 +48,21 @@ Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  Dave Stevenson <dave.stevenson@raspberrypi.com>, 
  Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 X-Mailer: b4 0.15-dev-c25d1
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1636;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1121;
  i=tomi.valkeinen@ideasonboard.com; h=from:subject:message-id;
- bh=kXEBX6aktrNXxxPjgSs66smVTLORZLIDKgjSxczFR7U=;
- b=owEBbQKS/ZANAwAIAfo9qoy8lh71AcsmYgBpxlpbnS/v6u6HoN7+ye5GmbfvoMUY/5yECTcmj
- E0EwEamAJuJAjMEAAEIAB0WIQTEOAw+ll79gQef86f6PaqMvJYe9QUCacZaWwAKCRD6PaqMvJYe
- 9XnqD/0WFsh2fl9+hlduIhlAVLv/pWYjHgzuqadKDfi8t4JOYTfVb9b4VIhU8SyPJCjztiS5OpF
- 5wCXxROkYsQ+Oe04gnmxYqWdEclYe38Ef0AJvvxr8x4chyP0q7CscEwxPH+db41m0/O2Q1vWZYx
- +imhtDtZj41qavHHQPrXtWdmcQl1DL70qvkhR6YXf0QOyd6C/T0Lx1PT9y/yEG6fFbX7ZurNpN5
- jg7g30bZM7CfjJ0lA55NgT/NYR2f+k2SVGBlL7NhDEsaXZp6D6Xq9tazh1BvcsiDpnprWhGSKtr
- X+Cx0CxB3zCoYoYMd+Tk2N7+SoUbaoKd7PKfvub85A9SNIkoFV8o17Hfhim9C6lnf6eFzp96Pqo
- Ds1gEvfnMQGHXOdRuEkMyDFD063GlYMKKUz8Cb++KPWz2sj5csDjLUnwp5y3Csu6EGhBGN+GmKx
- aZGolaRtp7q7qm9J6AEz+j0N30bkUpmcudxeUsWn1l4SUtRljCVaJ/+sH3aWa1dOFWGeyq8rdoX
- Ke0u6AbI0x4nD+7Yj4R1Yir8Oe7vsw8SsjnmelDEC4v13pHlcafgCx7gQG4j6cBzN35/DF8VaXA
- 9blOZkiZ3D7989AARk2aq/M7PsyVePqh+LnX9G7Ic1SUXEilRZ5qHlZnKHGxuroIqOtU75hutVZ
- eLFZdbLthEeq4dg==
+ bh=eaeDuhTwVtvOUYbWOU6Pi8XJP6K+PPcBl3PTwjkGBnM=;
+ b=owEBbQKS/ZANAwAIAfo9qoy8lh71AcsmYgBpxlpc06X2gdz9/il55MrCCRPBxBbZ+p9fQSZqP
+ 5RqZ3j4CuWJAjMEAAEIAB0WIQTEOAw+ll79gQef86f6PaqMvJYe9QUCacZaXAAKCRD6PaqMvJYe
+ 9b7iEACbL2OHaGmQIj/peIL2x07AktnKO8Obzf7Q4y/F1ds3ofrzreYbaSBSrOFHl7TYik2/WDS
+ 1GRLfKsckKrKOs1fhDgNPkP84/4x5FbMqPOrsMZz9SyQK4+Ac3HobldG5ctOld/AfJoLbY1CREA
+ o/r94jYP5n+NhnjeOm0qbJa4PJnvwH208kEwfHR0oLYTS31niYFC492g256gAX8QGmMyg1cb7bF
+ PaW/XXdPuBTcssVHirP8MSD/7uSehCI8zBUoUq84gqGOg+XrExjlah8aX0fhMLDNLoeW0jhAPf2
+ 75JBBaoa6zHKQR8daQWOV7kXgdXZ2Wzbrsv2CO/ipnFJ2BeYZNvUT6YbP0JuJOjUAcvLajQ9k3r
+ KLJpuF+poIbL+jF1EvspN0Zu56XFHQpqYH3wF7H5gT/8VJOfMEOsrnaD9L09MPCj5e4/RtXbfKH
+ XfCPjzYE2IOuGozDPAS9aBOssmrh4qgY/yr51Y8ceVQBGgIDkHSF7Pzv2uGLczeUdo2A7V3gSof
+ BrruEE6nhY3Ypw9LrxbVn6t79QsbPqrJpu5GVfOCE6TBIGwdRd7bqdBgXyjKUSfrc8ARJ25zDov
+ pCumLfE2StVwuEh+kR9pQjoq+VXOYeyj2GyqizDmESZ3gM+iowRnI4Fo0Jq8AtMf5K2HF/tQrwR
+ lQUMam5cfliL5Yw==
 X-Developer-Key: i=tomi.valkeinen@ideasonboard.com; a=openpgp;
  fpr=C4380C3E965EFD81079FF3A7FA3DAA8CBC961EF5
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -79,49 +80,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-SYSCTRL affects the DPI output and the clock tree, but we configure it
-late, when the DPI output is already enabled and clocks are running.
-
-Move the SYSCTRL configuration to the beginning, before anything is
-enabled.
+Update comment about the number of lanes.
 
 Signed-off-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 ---
- drivers/gpu/drm/bridge/tc358762.c | 14 +++++++-------
- 1 file changed, 7 insertions(+), 7 deletions(-)
+ drivers/gpu/drm/bridge/tc358762.c | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/bridge/tc358762.c b/drivers/gpu/drm/bridge/tc358762.c
-index cbedffb7a705..053579591dba 100644
+index cc1c5ff42cbd..9fb921b3fa0d 100644
 --- a/drivers/gpu/drm/bridge/tc358762.c
 +++ b/drivers/gpu/drm/bridge/tc358762.c
-@@ -134,6 +134,13 @@ static int tc358762_init(struct tc358762 *ctx)
- {
- 	u32 lcdctrl;
+@@ -305,7 +305,14 @@ static int tc358762_probe(struct mipi_dsi_device *dsi)
+ 	ctx->dev = dev;
+ 	ctx->pre_enabled = false;
  
-+	tc358762_write(ctx, SYSCTRL,
-+		       FIELD_PREP(SYSCTRL_DPIDATA_IO_MASK, SYSCTRL_DPIDATA_IO_4MA) |
-+		       FIELD_PREP(SYSCTRL_DPISTB_IO_MASK, SYSCTRL_DPISTB_IO_4MA) |
-+		       FIELD_PREP(SYSCTRL_PCLKDIV_MASK, SYSCTRL_PCLKDIV_DIV_3));
-+
-+	msleep(100);
-+
- 	tc358762_write(ctx, DSI_LANEENABLE,
- 		       DSI_LANEENABLE_L0EN | DSI_LANEENABLE_CLEN);
- 	tc358762_write(ctx, PPI_D0S_CLRSIPOCOUNT, 5);
-@@ -157,13 +164,6 @@ static int tc358762_init(struct tc358762 *ctx)
- 
- 	tc358762_write(ctx, LCDCTRL, lcdctrl);
- 
--	tc358762_write(ctx, SYSCTRL,
--		       FIELD_PREP(SYSCTRL_DPIDATA_IO_MASK, SYSCTRL_DPIDATA_IO_4MA) |
--		       FIELD_PREP(SYSCTRL_DPISTB_IO_MASK, SYSCTRL_DPISTB_IO_4MA) |
--		       FIELD_PREP(SYSCTRL_PCLKDIV_MASK, SYSCTRL_PCLKDIV_DIV_3));
--
--	msleep(100);
--
- 	tc358762_write(ctx, PPI_STARTPPI, PPI_STARTPPI_STARTPPI);
- 	tc358762_write(ctx, DSI_STARTDSI, DSI_STARTDSI_STARTDSI);
- 
+-	/* TODO: Find out how to get dual-lane mode working */
++	/*
++	 * When using DSI clk for pixel clock (only mode supported in the driver),
++	 * the pclk is derived directly from the DSI byteclk via simple divider,
++	 * which is either 2 or 3.
++	 * The required divider can be calculated with bitspp / 8 / nlanes. Thus,
++	 * for RGB888, only nlanes = 1 works as nlanes = 2 would require divider
++	 * of 1.5.
++	 */
+ 	dsi->lanes = 1;
+ 	dsi->format = MIPI_DSI_FMT_RGB888;
+ 	dsi->mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_SYNC_PULSE |
 
 -- 
 2.43.0
