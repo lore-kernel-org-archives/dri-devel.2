@@ -4,66 +4,140 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D0B1410ED656
-	for <dri-devel@archiver.kernel.org>; Fri, 27 Mar 2026 10:23:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5EE9B10ED655
+	for <dri-devel@archiver.kernel.org>; Fri, 27 Mar 2026 10:34:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4803010ED3B;
-	Fri, 27 Mar 2026 10:23:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C4C8010ECB7;
+	Fri, 27 Mar 2026 10:34:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="CaG4DDru";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="bG/Kehax";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="h94Z1tOr";
 	dkim-atps=neutral
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
- [213.167.242.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1795810ED20
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Mar 2026 10:22:35 +0000 (UTC)
-Received: from [127.0.1.1] (91-158-153-178.elisa-laajakaista.fi
- [91.158.153.178])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id 0EBEC7CA;
- Fri, 27 Mar 2026 11:21:14 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1774606874;
- bh=vJa1wHX0BnyPQsL6cv2chd2cFvvWt5+Mje7IlZp67Qk=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=CaG4DDruDXmo20yo1VBfBXU7zpTpMKEik6AEt75SeolORQpL+3Zx7HV9aEesWzOVh
- Qzwpfd6XHfICltX+CLaAmf5OCB+xSc3Fo9rzVF+ozFzrmxXYSoH6lHCI9t8Fopo/Wr
- tZYTF6Frqe8fh3kd/AZlFei6OCHF8jEOYMGYAOL4=
-From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Date: Fri, 27 Mar 2026 12:21:59 +0200
-Subject: [PATCH v2 11/12] drm/bridge: tc358762: Drop drm_bridge_funcs.mode_set
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AAD1510E37A
+ for <dri-devel@lists.freedesktop.org>; Fri, 27 Mar 2026 10:34:47 +0000 (UTC)
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 62R6vf471749076
+ for <dri-devel@lists.freedesktop.org>; Fri, 27 Mar 2026 10:34:46 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ k7ZBDbuE2fq6hvOfuwI1jZUEIplOhdF5KT/8Xms48L4=; b=bG/KehaxCjJdS0ZG
+ STZ4lfo4a6bgLI5liA2buFRHNc8PXPWWaW9L8XTUt7rhd7cbQkXCiN6MtqqUe09U
+ mg7s8kL6G7VChghzwVxPFt/dpdlgiNcgQlnNsQBc2ps3js2cyWIlJ06crErsCYGg
+ 5PYGXmMIPzLbLIaBWVxn1MX2D8uakQWgGI4aD0+tAFbz8pUTED23o+sElZP9/VQV
+ plZESEOJ4qBqBRjvvR0IuV4UeJmwYE+ccyz6RGLRBIIPOkeVL6HCD4k22yYjlDD5
+ FshwrVKeLv7O1FUt6HjaPbgxdrqRqUY7q8PWsmWXWYSBYt32w6URDzrkEFDHkCFj
+ 56+sIg==
+Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com
+ [209.85.160.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d5mn10xk3-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Fri, 27 Mar 2026 10:34:46 +0000 (GMT)
+Received: by mail-qt1-f199.google.com with SMTP id
+ d75a77b69052e-50b33a19837so7374181cf.3
+ for <dri-devel@lists.freedesktop.org>; Fri, 27 Mar 2026 03:34:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1774607686; x=1775212486;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=k7ZBDbuE2fq6hvOfuwI1jZUEIplOhdF5KT/8Xms48L4=;
+ b=h94Z1tOr95+G4n8RuG6t0vjCDl+i/FD6YB6dm1IQ5/Pn1S0rf+V5/9N3AvqwbRjKkv
+ zLCYBzYe/ismQYwT9x+gDQ2OmmMHTpp+DT+/iX1cYt+5vanpAG4SfLoydQLT+p7efSQ/
+ QpEcCPzvPQe01AM/Kz/a7cEtmJIiY90EE9hbBlZ2eSXYKgDBbk7eRHGS1qCETi/zCOm7
+ Yix7DuL/T3FqRWWslUbLdYf6nqBklu9TmnGZgoEuoycyGsGs+OLZFCpz/w8Mfexn1Z2s
+ exK5vtKUA4CufKn0PNkqreJhdZWgdVZS407q48sVlJyS3/Ew6cG5RfgzD7bo3uJUmZP+
+ K2yQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1774607686; x=1775212486;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=k7ZBDbuE2fq6hvOfuwI1jZUEIplOhdF5KT/8Xms48L4=;
+ b=jD4KsT22Eb38VS9zgFegeP60k2CSWyofEsX5v4XCFsxwzFgbjpvfglj/e8x8AUWezy
+ iBiiri+dU99HaCk7zp04iQxH3fqDLAcWcpEISTEBBsKOR7irXarxEz4GcgtqAtlhWW3O
+ BvQBYdrV0VE026stkcb1nHg8l5BjwoeTClmKcaWoLrIgJfhsiGDqXPiO5vedQWUuyn1d
+ 0Zu980X6QZ3V5l2fD5510/nwx2yy50cIDPXxPaZSQCKnN2xNUclcIp1lOq9eehhFKHK8
+ anam2fNwoNiBUzPxzFsBd9IxA9R7x7GYcEMY5U8uSLIINgDUq0256u5eWa9CtSy0FfTc
+ +RZg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCW8VhfGMhl5CbrIPjcBbpDQUDel7drET4kAfnJG+P1NFSSzfsZENN0aEiTrF4rqMlcCZJGePkTGX0s=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwTSn+gYmDwykXGDiIjzhOJg4xjSNyWo0SVw5jRn/y5RECKKtUk
+ KmAVIgpNx65uJiwfqsm4//vjfZnaXrWZ10U9OwyxuHzJKQUZdIVP+oc0MRFy6Dca+Zom6nZD6fx
+ 6jVQ+wcQfgw3mxUW54EUGrHQXyQOfISAjURdoYvEb7lFsJ+UmSosBm+HXkSATb4cWh9J3wS4=
+X-Gm-Gg: ATEYQzyNmldv9SKHpm34bqVfmg8PvXw+AmIMWRSbMAY20w0HDOQHrpLgwgI8buoUNLq
+ GsQiwCzrIg0DeZVxDOfptJlQ0+a3NdijnlBfBzkJ9EXF3IpkqE+/4vdsdBkrVBX5P6Pf5arCSrO
+ Klhc+gw+pNj/8FIT3oj9KzSMoF1FB9kldOug/0Ur3y/2Vm4i4b/ia4KhM9pti7FVkJ2+JtmoR05
+ 1xIULef27hgLSu0FfJvwcguEU1ywihgL5qIvF1WhCeiV+UcvhZqqaQLckbGyTzvVwUonhlKOB++
+ ZnKmq1ha9rWoGvhvgIhLNS1fhfXDHVOI/0gFbmBlulGRTDUWEKHaIdWz/79H8TIVDJrqvj254+t
+ VGNpkun/WkxlnQ5CU1DOU9krjsk+80AuTeL0QeoI/q4PTXHJudvLtwOCLq8TBRsIqqLx5iZCwmr
+ KLL3E=
+X-Received: by 2002:a05:622a:1386:b0:50b:92cc:f879 with SMTP id
+ d75a77b69052e-50ba39655dcmr17410831cf.7.1774607686171; 
+ Fri, 27 Mar 2026 03:34:46 -0700 (PDT)
+X-Received: by 2002:a05:622a:1386:b0:50b:92cc:f879 with SMTP id
+ d75a77b69052e-50ba39655dcmr17410601cf.7.1774607685717; 
+ Fri, 27 Mar 2026 03:34:45 -0700 (PDT)
+Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl.
+ [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-b9b2021854fsm236805266b.4.2026.03.27.03.34.43
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 27 Mar 2026 03:34:44 -0700 (PDT)
+Message-ID: <ac26b598-78ab-4cff-8fb2-a1d657b1c478@oss.qualcomm.com>
+Date: Fri, 27 Mar 2026 11:34:42 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 07/17] drm/msm/a6xx: Add support for Debug HFI Q
+To: Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Antonino Maniscalco <antomani103@gmail.com>,
+ Connor Abbott <cwabbott0@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20260327-a8xx-gpu-batch2-v2-0-2b53c38d2101@oss.qualcomm.com>
+ <20260327-a8xx-gpu-batch2-v2-7-2b53c38d2101@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260327-a8xx-gpu-batch2-v2-7-2b53c38d2101@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260327-tc358762-fixes-v2-11-3589d3c45f4a@ideasonboard.com>
-References: <20260327-tc358762-fixes-v2-0-3589d3c45f4a@ideasonboard.com>
-In-Reply-To: <20260327-tc358762-fixes-v2-0-3589d3c45f4a@ideasonboard.com>
-To: Marek Vasut <marex@denx.de>, Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Dave Stevenson <dave.stevenson@raspberrypi.com>, 
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-X-Mailer: b4 0.15-dev-c25d1
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3084;
- i=tomi.valkeinen@ideasonboard.com; h=from:subject:message-id;
- bh=vJa1wHX0BnyPQsL6cv2chd2cFvvWt5+Mje7IlZp67Qk=;
- b=owEBbQKS/ZANAwAIAfo9qoy8lh71AcsmYgBpxlpdALRp4f/55SnqSwKMz6Q60bp0KmlGLO3dL
- s5zcAl8SGOJAjMEAAEIAB0WIQTEOAw+ll79gQef86f6PaqMvJYe9QUCacZaXQAKCRD6PaqMvJYe
- 9U+6D/4g0z7ApAIWaHQcBBJ59qkyCMTzDtExdYKYMf8rzNeo5douYdL/QRkMBMv005Vjkm2fOVD
- /LMGAet06tuTjlV4+XhJjFfGm12Y4arBboyD2WHywYWjas2RVasstOOyL94NCmkvsckT0aXg1/P
- Y4QJW+m9d1OLQvf3EsreEro73mFnMTLm4GRranW1J/7biTN+SJkriJNnjZpZyoBotkbgAyTs+Dh
- RxtbmfgfHO/tDeaP2F/DMKni6ouYJg1XUbE03PumvZqWhISGOBFC40SEJTiaqcQ0YZSkzu/8mEZ
- il0oWH2h66p1uLyRQUcejPpmi5lzXl94I3DlpSQePkuIwmly+2f1M/QiR75k6zhirTn4avAlqwM
- 0svwJe7Q+XiC8t31gP7kQRnfvLMqzQh+SKUXbfYrVoLCK1HLlkhTKNDTooXpaTm7un45JJ97eya
- IYIphant18pszZfH6L7NXfmUHbvEWGTfKKFAwQ4/ThrpqPDIJ7JfoWd/6ePMJ3M+Fy+vRaQrZkX
- z1ueuI7RWlVSVbTD+6QALj3/FzqfSQWTvHhXI+iR3a8JUGxzBqP8sR2mpztNu+sjI7C7M6pVvOt
- AVSGSGgvVwdYe6Sf2oTY7lW4mFY5/+l4Gx3XA5nuLmByi8UFSFgyIm42WIx/8sAQwn0XCVWeugr
- IMrT0v499/Prfyg==
-X-Developer-Key: i=tomi.valkeinen@ideasonboard.com; a=openpgp;
- fpr=C4380C3E965EFD81079FF3A7FA3DAA8CBC961EF5
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzI3MDA3NiBTYWx0ZWRfXwpcfjdSFsLxt
+ Nu2MoaFDwtLjMuxWNBYatq6v98FIfumXJQ6XJ8pH6NrANpdNehyYJcXFd874DnvLSVb5bpvCp2w
+ Bo8lnIRZABCXOY7oIUdGbhMUAuUAMovH7aYSOkfFS1xc9j7by3QbpUN+4G0rlKkSr40ZhfxCh1Z
+ owBztKat5/PzCLgtBpq3fcwB4QBfehd8XGlLGmROEuN8sruxnW6djnbBG84xxJ/BxX7Lb3J/E7M
+ MqN9lFZ2PoVpT8vd9UKZgck53R2/irs9stPkewqNwjX4ykXS28jSQtSmNBW3RkWSlRdicm0FWkY
+ P7eMSm+HuWK147oPWMM57TLslxmsVO0XV6OBeZXkJhiBYGh8F2jq6C1wv/edDU4Bls9ru8IQdGw
+ QvC5ynTyaA+j5j0N3nMXnpZrj5pI0h/olLSuAfLfaxVmS5V0Ow/aAB9NXHgpgUjbOWrA66vT3Md
+ Q6tIz0hho0jQTBCeMIw==
+X-Authority-Analysis: v=2.4 cv=CcwFJbrl c=1 sm=1 tr=0 ts=69c65d46 cx=c_pps
+ a=WeENfcodrlLV9YRTxbY/uA==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
+ a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=EUspDBNiAAAA:8 a=NOWTvYqtYlfs-YhqgjEA:9 a=QEXdDO2ut3YA:10
+ a=kacYvNCVWA4VmyqE58fU:22
+X-Proofpoint-ORIG-GUID: EXezy_sujguaai2G-Uq5ZU2Wtt7kAmOK
+X-Proofpoint-GUID: EXezy_sujguaai2G-Uq5ZU2Wtt7kAmOK
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-03-26_04,2026-03-26_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 spamscore=0 malwarescore=0 adultscore=0 lowpriorityscore=0
+ bulkscore=0 impostorscore=0 priorityscore=1501 clxscore=1015 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603270076
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,92 +153,14 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-drm_bridge_funcs.mode_set is deprecated. Drop it and get the
-drm_display_mode from the atomic state.
+On 3/27/26 1:13 AM, Akhil P Oommen wrote:
+> Add the Debug HFI Queue which contains the F2H messages posted from the
+> GMU firmware. Having this data in coredump is useful to debug firmware
+> issues.
+> 
+> Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+> ---
 
-Signed-off-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
----
- drivers/gpu/drm/bridge/tc358762.c | 26 ++++++++++++--------------
- 1 file changed, 12 insertions(+), 14 deletions(-)
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-diff --git a/drivers/gpu/drm/bridge/tc358762.c b/drivers/gpu/drm/bridge/tc358762.c
-index 1e16d5b2d5fe..eba910ce8bd7 100644
---- a/drivers/gpu/drm/bridge/tc358762.c
-+++ b/drivers/gpu/drm/bridge/tc358762.c
-@@ -98,7 +98,6 @@ struct tc358762 {
- 	struct regulator *regulator;
- 	struct drm_bridge *panel_bridge;
- 	struct gpio_desc *reset_gpio;
--	struct drm_display_mode mode;
- 	bool pre_enabled;
- 	int error;
- 	bool use_vtg;
-@@ -186,9 +185,18 @@ static void tc358762_enable(struct drm_bridge *bridge,
- 			    struct drm_atomic_state *state)
- {
- 	struct tc358762 *ctx = bridge_to_tc358762(bridge);
-+	struct drm_connector_state *conn_state;
-+	struct drm_crtc_state *crtc_state;
-+	struct drm_connector *connector;
-+	struct drm_display_mode *mode;
- 	u32 lcdctrl;
- 	int ret;
- 
-+	connector = drm_atomic_get_new_connector_for_encoder(state, bridge->encoder);
-+	conn_state = drm_atomic_get_new_connector_state(state, connector);
-+	crtc_state = drm_atomic_get_new_crtc_state(state, conn_state->crtc);
-+	mode = &crtc_state->mode;
-+
- 	/*
- 	 * DPIENABLE has reset default of 1. Make sure we don't output on
- 	 * DPI until we have finished the coniguration.
-@@ -213,7 +221,7 @@ static void tc358762_enable(struct drm_bridge *bridge,
- 	if (ctx->use_vtg) {
- 		struct videomode vm = { 0 };
- 
--		drm_display_mode_to_videomode(&ctx->mode, &vm);
-+		drm_display_mode_to_videomode(mode, &vm);
- 
- 		tc358762_write(ctx, LCDC_HSR_HBPR,
- 			       vm.hsync_len | (vm.hback_porch << 16));
-@@ -237,10 +245,10 @@ static void tc358762_enable(struct drm_bridge *bridge,
- 
- 	lcdctrl |= LCDCTRL_DCLK_POL;
- 
--	if (ctx->mode.flags & DRM_MODE_FLAG_PHSYNC)
-+	if (mode->flags & DRM_MODE_FLAG_PHSYNC)
- 		lcdctrl |= LCDCTRL_HSYNC_POL;
- 
--	if (ctx->mode.flags & DRM_MODE_FLAG_PVSYNC)
-+	if (mode->flags & DRM_MODE_FLAG_PVSYNC)
- 		lcdctrl |= LCDCTRL_VSYNC_POL;
- 
- 	tc358762_write(ctx, LCDCTRL, lcdctrl);
-@@ -265,15 +273,6 @@ static int tc358762_attach(struct drm_bridge *bridge,
- 				 bridge, flags);
- }
- 
--static void tc358762_bridge_mode_set(struct drm_bridge *bridge,
--				     const struct drm_display_mode *mode,
--				     const struct drm_display_mode *adj)
--{
--	struct tc358762 *ctx = bridge_to_tc358762(bridge);
--
--	drm_mode_copy(&ctx->mode, mode);
--}
--
- static const struct drm_bridge_funcs tc358762_bridge_funcs = {
- 	.atomic_post_disable = tc358762_post_disable,
- 	.atomic_pre_enable = tc358762_pre_enable,
-@@ -282,7 +281,6 @@ static const struct drm_bridge_funcs tc358762_bridge_funcs = {
- 	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
- 	.atomic_reset = drm_atomic_helper_bridge_reset,
- 	.attach = tc358762_attach,
--	.mode_set = tc358762_bridge_mode_set,
- };
- 
- static int tc358762_parse_dt(struct tc358762 *ctx)
-
--- 
-2.43.0
-
+Konrad
