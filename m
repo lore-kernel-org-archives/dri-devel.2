@@ -4,88 +4,137 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4AF7310F2865
-	for <dri-devel@archiver.kernel.org>; Fri, 27 Mar 2026 22:09:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2140710F2874
+	for <dri-devel@archiver.kernel.org>; Fri, 27 Mar 2026 22:57:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BC60610EF67;
-	Fri, 27 Mar 2026 22:09:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7DEE210EE5E;
+	Fri, 27 Mar 2026 22:57:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="YYCD7hWN";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="LXbgFEkx";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="FAyGx9Ms";
 	dkim-atps=neutral
-Received: from mail-qk1-f177.google.com (mail-qk1-f177.google.com
- [209.85.222.177])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A920310EF67
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Mar 2026 22:09:37 +0000 (UTC)
-Received: by mail-qk1-f177.google.com with SMTP id
- af79cd13be357-8cbc593a67aso281304785a.2
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Mar 2026 15:09:37 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1774649376; cv=none;
- d=google.com; s=arc-20240605;
- b=IIiCsK8qGT3WMqrcSTiNPo1Ic7imLez6U98OZEQPIhZU7Q630XvQtMVwIuuNkFtoZT
- yiA85TJHVRbfvaLARTf7mIdcROS+pkwzS14x5dSBt2FbwGgt+/4TbkLbEfBu5N4C3WGt
- Sx0PbC5LYnx26tb8bVfsX4JZl7HJZDx4ASaJ2/t2YF7ZolwijBbsIx+3oBzUBCBQANsw
- uMoNTDKaAOQMUVGD7JzDdWbzgbA5qFi7h4HdXJnU37138SYixVSepzDtTsREd8rKku0v
- jZxM/CHBMgbzoD8ZB3fL1CPH/4l++wSBvweQbggTv5OIf9T6hAJA1Sk44ccSwKAKU8tw
- A0jQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :mime-version:dkim-signature;
- bh=GmUbpSp5p2b4Tsquo/5jDoCgyOHnk+VEME/hc6fsE4E=;
- fh=A08XZwmmb57jzirbgTkluPSvjDeiJMkkojF1n6qDmTk=;
- b=K9IJskH3W+MAHbsiktYKmrg+qHVn5B3vvXAMetZIaVMhIJj4RKzDEXZdP/GmVkNwhw
- WBj+IeiQzGjoifgAhVReEKSF9SpDWvR/IdaBTqHOT5Xj4d0bdd5t4EDbT7p0F68qbU56
- 21+y3LGzjGA4EreNGsdN0/BBe98Lu9yGxx1eSxliTNzxYK2IKYkjNCIIUvLhJjHPfbz6
- OhLFovFAS+AGb/ENXOYD3WvoSC5DouF0oeBdFfLyAg4B6b+0J3wmRA8hQhQqbAFkYIB1
- Rfz2hRxV06ueFHGIreMcDLlCt5PpjH+/ZGj1w1XVjRWkLX37phQjQI/nqPNBRen7BfUZ
- c1hw==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 892C410EE5E
+ for <dri-devel@lists.freedesktop.org>; Fri, 27 Mar 2026 22:57:37 +0000 (UTC)
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 62RLfwid4127104
+ for <dri-devel@lists.freedesktop.org>; Fri, 27 Mar 2026 22:57:36 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=ZD0T2UGNWyjaocuRVZIPGls5
+ 8uRnomBelAEtEdMD7Bc=; b=LXbgFEkxwdptNZ5NlStNkQVeG0+zkErpr7g1hdkh
+ D5YSMubcjdDfNB2k4oooVFglvcGyuA7HaqsNk1hjQixBz2lZCbhRDf2PLxMI4jpf
+ z7+P5+ZfVj3TbHR/vergFA3xy/CJS2ihzmUAxo4zAuClCwaONq1AqOci9KaZ1+4Y
+ s6LPMx52rifD6nq8vB3wR1k7FAi6/dQD7Yv4TzOs0BFHXjB3krKvyoSk2Zx9UnZx
+ DD2aDOo+Gf2yRDpfuoZrmRI2gan1V28z+jvMF9zBDgwEprFeDgBdeUjbGIRq6ide
+ BozXbP3Eij4f2Qzvs5845yHX7x1nPjcYB6boetdcxp/qOg==
+Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com
+ [209.85.160.198])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d5mn136dq-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Fri, 27 Mar 2026 22:57:36 +0000 (GMT)
+Received: by mail-qt1-f198.google.com with SMTP id
+ d75a77b69052e-50b274f94f8so6072821cf.1
+ for <dri-devel@lists.freedesktop.org>; Fri, 27 Mar 2026 15:57:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1774649376; x=1775254176; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=GmUbpSp5p2b4Tsquo/5jDoCgyOHnk+VEME/hc6fsE4E=;
- b=YYCD7hWNely7B6sOYDKNJSZ1zNwkJCH7yOv7pDt39x9XelHjYI8MxW8nEpEg0QhSUF
- p7qY9mkNhfeluLBVyxtUMQra8YpPV7gIMCU5aQybzSAEE4wN4WfIp8wfeUbSFUdbI6zL
- GDiXyEG2yDhot/b+7TCZoF8r8rKd1oWwdFzM/0jBXJLl/b89cFRYqE8UpDVo+UTKaqde
- nhpT8/Y2XlV3iXCB3KW3DAysdu54TlfPbf8EJsXopdxzr8jy1PojDv5qMK0F3vw76lZi
- 7xBhhxJKe96ckD0elp8vRZIP7CulE2U1UaGLYj8amSkxYy/I7YUFzOrWNvSa5IABAm/+
- kasw==
+ d=oss.qualcomm.com; s=google; t=1774652256; x=1775257056;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=ZD0T2UGNWyjaocuRVZIPGls58uRnomBelAEtEdMD7Bc=;
+ b=FAyGx9MsppLACdf6W+QrX34jzXXyIfpBQIr2v/QVZgxemS0W7kh+vTsr2FM7N+8quT
+ VVSK1EzJJT3r+TCiOQdXwzvkcONpbZe68WOuMwx83BMqcMDYMgcTD8ZHJCG31fiOYEhl
+ JaFIyET7DVU5zLyiBT740Q/hvuteTuqDB7ejnpE3QumMNFonGs/4Rg5SAhRWZCqjPyDD
+ kvxE7HT54NPFL6xXdBuZLNdfJDiTzAJ40n+sOOIdt9/s9zz35H1X067clAoJKm48Dk5p
+ 7qqGkGL1L4VH97t4i3eJv3IBmFmGExaonvsqnOyL/rn/SfPvUMTT8e5tuSf1yQo5w/hP
+ bgwg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774649376; x=1775254176;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=GmUbpSp5p2b4Tsquo/5jDoCgyOHnk+VEME/hc6fsE4E=;
- b=hx3KMyxPOlvqKJ2gT4FRASvr5IzqUGLq+To/2tgWos2SOBfkpZODnAi3RRYpa8jJpb
- 5tdt+fqFPb+7B7rbzkftvvq9q8LsrMPS1huA52lM0gwyeuLEaUqoO1/jMxPt7a67Gk+N
- usXHegi5CUyhU4pcI7cvx/yzA6ssnD5emXBmzZSLAX+8DvrMdcY/Yu2+z+7W6edfWmgF
- lkeHMVSmHKir5wIi8Lw5qAmZdL4dpRsOJgjP12Rphyx5Cy1qTbmIOve7BJJA5YJUYoPA
- JJYoxs2PEd0N09abAFPKrIhEPT1L17I3sw6P2sOVxS6bdFV8GwLgaZvlODmiCdaYZMjx
- a2Pg==
-X-Gm-Message-State: AOJu0YzRU5ztELgAXFfEyowlJsCi4c+ibPbeyCB0qcEEOG7X7/DrXJH2
- re54bvpKjC2tjtPvbEkrzn5kxGOFiamuH0Bha5PtzpyY6LHwhcC+rQ9vkA102CIA56b1rcJkbpk
- QnXnNFT9PQROI/YHQ0npexLwTcM4g8kA=
-X-Gm-Gg: ATEYQzw76Y4nOdu6SVB/2h3gM6X9yqZ408MRWo4Hz859OBbAsthgdNo40o5vH+XhCOr
- ZrWBYWfKE3cruuIzzM7Wkg1QX7QGFpGfoo4NMILLxig8qgeqL7PcFZg6dDnO6f9vmw/wqD6Z0o8
- Nmq+KTGd96PYjUp68sBETvQ6XrStvdf+IyG9iN+CaP/YF2QwZbQXDcVKUO7WiolMr/AC0kIzGz1
- Rf/fWNHsihWaU0x+B8QoIMfzpSU8FFNY5y+ZxQgXK8nOy6DdpV41gnnxMgmsfkgT157XCoDQIUf
- EMz5vlbLF31QXawf1w39acDdCK0fsGykIDA8LnykyQucqmbXiGR9qhDMyTjD6jkj9E0=
-X-Received: by 2002:a05:620a:4589:b0:8cd:6175:9b17 with SMTP id
- af79cd13be357-8d01c5bf3ffmr568252985a.3.1774649376315; Fri, 27 Mar 2026
- 15:09:36 -0700 (PDT)
+ d=1e100.net; s=20251104; t=1774652256; x=1775257056;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=ZD0T2UGNWyjaocuRVZIPGls58uRnomBelAEtEdMD7Bc=;
+ b=Z6nJOaa5Qj5Q9tZO50tkgkOkFKwE/og/DkRsgMyHzcZgLHab9L2v2f4gXYvoo3OGIT
+ uFjjV4APbtZj33sHxUH5RvtK89SIUoq8OQpmEkp/P9/CojM37mT1ohR4uu9WnEceI5gt
+ DrI0EdQEu+pzwOzVcVJ/6VGSVOPFMPSKOeJZf9xCkxlx8kaJ1a5ibOCCI0dLF4vHwB2G
+ iIcaQJjIrnU1y19SmkB+v2t7jm2WRn/64bFLqjrXDdxronYkqk/bRfntiu4X11ujuePR
+ hbKvlDuRmJuntDSvbRysQ8eehRe0r1lyG09RkB0NYKPyiwfWOtuDXh78J1Xs296aPmz4
+ WIUg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVoQgs5VnvoJJ0F3bBI36TN1KxiMCCh9FKcVx6ItpTpJtKUuv6GQlyYqh0HF0Q2DLCDOyF35XHAn+0=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzuzV0b+ubag9jbxXlX9AcBSq4WiQ5xoS9DnG9tHkq0NbPb/17X
+ KlwNaDZRn2hFVrftFYFOabmSkaKLmiZXukIU7i9tx2yT+Uqpkl/BlbfoeAqdjvxS25bkkqd5IN4
+ xe3k7Sl6p84ANU7UmAaBhi7+FY66T9pBiriQjq/KIhgrGaRLOsp95kkGmyGCYj7Kcd1Y1hqo=
+X-Gm-Gg: ATEYQzwiE1r+zpxN2ZCFVRfZ6s0/OmdW30nacNdCvGAjP0Hr0d+2z0tex6Y90DT8HWp
+ f/4hU5MA3TH2MertMLOxZcaefx17SwDFG5EwZOlckHnhaXP+e2EvOB+HMeOqs/MMXe9RXz0MZ7F
+ 2MeWzUfWqvkxvY4HhZn9528XDQfjwBH5uRSwalT0u+2RrNJ/bco0ry3HCxlAdt3m0jQFHWqhmZD
+ apZl8QjYNdOmGeu8Tl898TF0fRROpuYPbPfhm++cOugoWfIxvokpG5h76wpEapuCd5rf3a3qWIa
+ TJnnRNqfmVV3LkDtB9mBxS7TroQDN+FflWkQfThn5emnG2UbShNTwezM2E6qiSk8D0LsHfuAgb2
+ M9eVuT6300BgU044O64rGs0rD/qUWpmfmlpakol4imHWRV3FFNu87Kg3PW5rT0K1W8VXfcEvhz4
+ h/0PfGfOI4ew5N6vnRrzGFeB9hEJnsy8fd1H4=
+X-Received: by 2002:ac8:5992:0:b0:50b:46ee:5aed with SMTP id
+ d75a77b69052e-50b993c6a6fmr91618461cf.10.1774652255704; 
+ Fri, 27 Mar 2026 15:57:35 -0700 (PDT)
+X-Received: by 2002:ac8:5992:0:b0:50b:46ee:5aed with SMTP id
+ d75a77b69052e-50b993c6a6fmr91618261cf.10.1774652255243; 
+ Fri, 27 Mar 2026 15:57:35 -0700 (PDT)
+Received: from umbar.lan
+ (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-5a2b140a4desm70884e87.33.2026.03.27.15.57.32
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 27 Mar 2026 15:57:33 -0700 (PDT)
+Date: Sat, 28 Mar 2026 00:57:30 +0200
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: cristian_ci@protonmail.com
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org
+Subject: Re: [PATCH v4 3/6] arm64: dts: qcom: msm8953-flipkart-rimob: Enable
+ display and GPU
+Message-ID: <us3ps4bgf5ekk2iudcgs2wa4b5qd4mzokec4q55pmhb6kvt6ht@qm4mmzdai2t2>
+References: <20260327-rimob-new-features-v4-0-06edff9c4509@protonmail.com>
+ <20260327-rimob-new-features-v4-3-06edff9c4509@protonmail.com>
 MIME-Version: 1.0
-From: Dave Airlie <airlied@gmail.com>
-Date: Sat, 28 Mar 2026 08:09:25 +1000
-X-Gm-Features: AQROBzA-VLtt2GlNNXTXUFpwpW4h3xD-uaAg78qnREalzCPIkGnoOYpfrA74I78
-Message-ID: <CAPM=9tyArjCxangpgvhE2MrRdkSyWMrEJWDei4eX4EjFgW8uyw@mail.gmail.com>
-Subject: [git pull] drm fixes for 7.0-rc6
-To: Linus Torvalds <torvalds@linux-foundation.org>,
- Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel <dri-devel@lists.freedesktop.org>,
- LKML <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260327-rimob-new-features-v4-3-06edff9c4509@protonmail.com>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzI3MDE2MSBTYWx0ZWRfX6G8tDbTbflpR
+ Li/Y59vpsVlEfLvYn+sA+97yvxgmI49OrwNSBlfQRLNWoC0H3seLtLSUlR3uIJhHfxJRzkza/kF
+ QT/Ic1/5aBpK33NcZOks7P1ghQvSZdywMeZURg7PHrT0Dg8er26ut1vJWUQq+U32t+aC0ZlyRLG
+ VOykwdDzn3QdaZLZWn1ZERXzQvodJ7rPLYhU6DE3D48hOelncPNjUbkDh8IdFhou9EskvNl2zIS
+ 0JTv4Wy+SpWJH0RtkDypjDR3wYiGKcptiHo14l0bnTkECo8bqftzDMAVz+v+O0HCr+Vcr2FiQFB
+ lAHxn9byGXdtkgMONsbSsd+dbBsohfpdQj9whmzsvXlH+nNnrsZRAUHIx9V4UNuNKvxhWsxCgx8
+ +nfEENOddXKTswkem9zc10U3I5lC1kpG5BfNJF0uuq72lS/qrJD6mD43DwXOupNVVrRkjGs+o46
+ ChUmprpRxiXjUDURZow==
+X-Authority-Analysis: v=2.4 cv=CcwFJbrl c=1 sm=1 tr=0 ts=69c70b60 cx=c_pps
+ a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=sfOm8-O8AAAA:8
+ a=EUspDBNiAAAA:8 a=ER6jexHYGgKHINCZH0oA:9 a=CjuIK1q_8ugA:10
+ a=dawVfQjAaf238kedN5IG:22 a=TvTJqdcANYtsRzA46cdi:22
+X-Proofpoint-ORIG-GUID: 2ozsyYo4mzKrCOwA5RipCjquCakqzPG1
+X-Proofpoint-GUID: 2ozsyYo4mzKrCOwA5RipCjquCakqzPG1
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-03-27_01,2026-03-26_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 spamscore=0 malwarescore=0 adultscore=0 lowpriorityscore=0
+ bulkscore=0 impostorscore=0 priorityscore=1501 clxscore=1015 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603270161
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,235 +150,22 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Linus,
+On Fri, Mar 27, 2026 at 03:30:49PM +0100, Cristian Cozzolino via B4 Relay wrote:
+> From: Cristian Cozzolino <cristian_ci@protonmail.com>
+> 
+> Add the description for the display panel found on this phone.
+> And with this done we can also enable the GPU and set the zap shader
+> firmware path.
+> 
+> Signed-off-by: Cristian Cozzolino <cristian_ci@protonmail.com>
+> ---
+>  .../arm64/boot/dts/qcom/msm8953-flipkart-rimob.dts | 73 ++++++++++++++++++++++
+>  1 file changed, 73 insertions(+)
+> 
 
-Weekly fixes, still a bit busy, but the usual suspects amdgpu and
-i915/xe have a bunch of small fixes, and otherwise it's just a few
-minor driver fixes.
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
-Regards,
-Dave.
 
-drm-fixes-2026-03-28-1:
-drm fixes for 7.0-rc6
-
-loognsoon:
-- update MAINTAINERS
-
-shmem:
-- fault handler fix
-
-syncobj:
-- fix GFP flags
-
-amdgpu:
-- DSC fix
-- Module parameter parsing fix
-- PASID reuse fix
-- drm_edid leak fix
-- SMU 13.x fixes
-- SMU 14.x fix
-- Fence fix in amdgpu_amdkfd_submit_ib()
-- LVDS fixes
-- GPU page fault fix for non-4K pages
-
-amdkfd:
-- Ordering fix in kfd_ioctl_create_process()
-
-i915/display:
-- DP tunnel error handling fix
-- Spurious GMBUS timeout fix
-- Unlink NV12 planes earlier
-- Order OP vs. timeout correctly in __wait_for()
-
-xe:
-- Fix UAF in SRIOV migration restore
-- Updates to HW W/a
-- VMBind remap fix
-
-ivpu:
-- poweroff fix
-
-mediatek:
-- fix register ordering
-The following changes since commit c369299895a591d96745d6492d4888259b004a9e=
-:
-
-  Linux 7.0-rc5 (2026-03-22 14:42:17 -0700)
-
-are available in the Git repository at:
-
-  https://gitlab.freedesktop.org/drm/kernel.git tags/drm-fixes-2026-03-28-1
-
-for you to fetch changes up to 5ba61d8a25ddf89915f71bf8b63c06d6ffdf06cc:
-
-  Merge tag 'mediatek-drm-fixes-20260323' of
-https://git.kernel.org/pub/scm/linux/kernel/git/chunkuang.hu/linux
-into drm-fixes (2026-03-28 08:05:36 +1000)
-
-----------------------------------------------------------------
-drm fixes for 7.0-rc6
-
-loognsoon:
-- update MAINTAINERS
-
-shmem:
-- fault handler fix
-
-syncobj:
-- fix GFP flags
-
-amdgpu:
-- DSC fix
-- Module parameter parsing fix
-- PASID reuse fix
-- drm_edid leak fix
-- SMU 13.x fixes
-- SMU 14.x fix
-- Fence fix in amdgpu_amdkfd_submit_ib()
-- LVDS fixes
-- GPU page fault fix for non-4K pages
-
-amdkfd:
-- Ordering fix in kfd_ioctl_create_process()
-
-i915/display:
-- DP tunnel error handling fix
-- Spurious GMBUS timeout fix
-- Unlink NV12 planes earlier
-- Order OP vs. timeout correctly in __wait_for()
-
-xe:
-- Fix UAF in SRIOV migration restore
-- Updates to HW W/a
-- VMBind remap fix
-
-ivpu:
-- poweroff fix
-
-mediatek:
-- fix register ordering
-
-----------------------------------------------------------------
-Alex Deucher (2):
-      drm/amd/display: check if ext_caps is valid in BL setup
-      drm/amd/display: Fix DCE LVDS handling
-
-Alex Hung (1):
-      drm/amd/display: Fix drm_edid leak in amdgpu_dm
-
-Asad Kamal (2):
-      drm/amd/pm: Skip redundant UCLK restore in smu_v13_0_6
-      drm/amd/pm: Return -EOPNOTSUPP for unsupported OD_MCLK on smu_v13_0_6
-
-Dave Airlie (5):
-      Merge tag 'amd-drm-fixes-7.0-2026-03-25' of
-https://gitlab.freedesktop.org/agd5f/linux into drm-fixes
-      Merge tag 'drm-intel-fixes-2026-03-26' of
-https://gitlab.freedesktop.org/drm/i915/kernel into drm-fixes
-      Merge tag 'drm-misc-fixes-2026-03-26' of
-https://gitlab.freedesktop.org/drm/misc/kernel into drm-fixes
-      Merge tag 'drm-xe-fixes-2026-03-26' of
-https://gitlab.freedesktop.org/drm/xe/kernel into drm-fixes
-      Merge tag 'mediatek-drm-fixes-20260323' of
-https://git.kernel.org/pub/scm/linux/kernel/git/chunkuang.hu/linux
-into drm-fixes
-
-Donet Tom (1):
-      drm/amdgpu: Handle GPU page faults correctly on non-4K page systems
-
-Eric Huang (1):
-      drm/amdgpu: prevent immediate PASID reuse case
-
-Imre Deak (1):
-      drm/i915/dp_tunnel: Fix error handling when clearing stream BW
-in atomic state
-
-Jianmin Lv (1):
-      MAINTAINERS: Update GPU driver maintainer information
-
-Karol Wachowski (1):
-      accel/ivpu: Add disable clock relinquish workaround for NVL-A0
-
-Luca Leonardo Scorcia (1):
-      drm/mediatek: dsi: Store driver data before invoking
-mipi_dsi_host_register
-
-Matt Roper (1):
-      drm/xe: Implement recent spec updates to Wa_16025250150
-
-Matthew Auld (1):
-      drm/xe: always keep track of remap prev/next
-
-Micha=C5=82 Winiarski (1):
-      drm/xe/pf: Fix use-after-free in migration restore
-
-Pedro Demarchi Gomes (1):
-      drm/shmem-helper: Fix huge page mapping in fault handler
-
-Ruijing Dong (1):
-      drm/amdgpu: fix strsep() corrupting lockup_timeout on multi-GPU (v3)
-
-Samasth Norway Ananda (1):
-      drm/i915/gmbus: fix spurious timeout on 512-byte burst reads
-
-Srinivasan Shanmugam (2):
-      drm/amdgpu: Fix fence put before wait in amdgpu_amdkfd_submit_ib
-      drm/amdkfd: Fix NULL pointer check order in kfd_ioctl_create_process
-
-Tvrtko Ursulin (1):
-      drm/syncobj: Fix xa_alloc allocation flags
-
-Ville Syrj=C3=A4l=C3=A4 (2):
-      drm/i915: Order OP vs. timeout correctly in __wait_for()
-      drm/i915: Unlink NV12 planes earlier
-
-Yang Wang (2):
-      drm/amd/pm: disable OD_FAN_CURVE if temp or pwm range invalid for smu=
- v13
-      drm/amd/pm: disable OD_FAN_CURVE if temp or pwm range invalid for smu=
- v14
-
-Yussuf Khalil (1):
-      drm/amd/display: Do not skip unrelated mode changes in DSC validation
-
- MAINTAINERS                                        |  8 +++-
- drivers/accel/ivpu/ivpu_drv.h                      |  1 +
- drivers/accel/ivpu/ivpu_hw.c                       |  6 ++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c         |  4 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c         | 13 +++++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c            | 45 ++++++++++++++----=
---
- drivers/gpu/drm/amd/amdgpu/amdgpu_ids.h            |  1 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c             |  7 ++--
- drivers/gpu/drm/amd/amdkfd/kfd_chardev.c           |  6 +--
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  | 10 ++++-
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h  |  1 +
- .../amd/display/amdgpu_dm/amdgpu_dm_mst_types.c    |  4 +-
- .../display/dc/resource/dce100/dce100_resource.c   |  6 +--
- .../display/dc/resource/dce110/dce110_resource.c   |  5 ++-
- .../display/dc/resource/dce112/dce112_resource.c   |  5 ++-
- .../display/dc/resource/dce120/dce120_resource.c   |  5 ++-
- .../amd/display/dc/resource/dce60/dce60_resource.c | 14 +++----
- .../amd/display/dc/resource/dce80/dce80_resource.c |  6 +--
- .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c   | 33 ++++++++++++++-
- .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c   | 21 ++++++----
- .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c   | 33 ++++++++++++++-
- .../gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c   | 33 ++++++++++++++-
- drivers/gpu/drm/drm_gem_shmem_helper.c             | 48 ++++++++++++------=
-----
- drivers/gpu/drm/drm_syncobj.c                      |  4 +-
- drivers/gpu/drm/i915/display/intel_display.c       |  8 +++-
- drivers/gpu/drm/i915/display/intel_dp_tunnel.c     | 20 ++++++---
- drivers/gpu/drm/i915/display/intel_dp_tunnel.h     | 11 +++--
- drivers/gpu/drm/i915/display/intel_gmbus.c         |  4 +-
- drivers/gpu/drm/i915/display/intel_plane.c         | 11 ++++-
- drivers/gpu/drm/i915/i915_wait_util.h              |  2 +-
- drivers/gpu/drm/mediatek/mtk_dsi.c                 |  9 ++--
- drivers/gpu/drm/xe/regs/xe_gt_regs.h               |  1 +
- drivers/gpu/drm/xe/xe_pt.c                         | 12 +++---
- drivers/gpu/drm/xe/xe_sriov_packet.c               |  2 +
- drivers/gpu/drm/xe/xe_vm.c                         | 22 ++++++++--
- drivers/gpu/drm/xe/xe_vm_types.h                   |  4 ++
- drivers/gpu/drm/xe/xe_wa.c                         |  3 +-
- 37 files changed, 312 insertions(+), 116 deletions(-)
+-- 
+With best wishes
+Dmitry
