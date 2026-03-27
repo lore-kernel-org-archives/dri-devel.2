@@ -4,96 +4,135 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0A479109E545
-	for <dri-devel@archiver.kernel.org>; Fri, 27 Mar 2026 09:38:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B6A3810ED640
+	for <dri-devel@archiver.kernel.org>; Fri, 27 Mar 2026 10:07:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 74CEC10ED5C;
-	Fri, 27 Mar 2026 09:38:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2399D10E392;
+	Fri, 27 Mar 2026 10:07:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="coQp3XXH";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="e9EHlytI";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="EubReH42";
 	dkim-atps=neutral
-Received: from mail-lf1-f43.google.com (mail-lf1-f43.google.com
- [209.85.167.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6F8A610ED5C
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Mar 2026 09:38:41 +0000 (UTC)
-Received: by mail-lf1-f43.google.com with SMTP id
- 2adb3069b0e04-5a12cd0bd79so2229992e87.2
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Mar 2026 02:38:41 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1774604320; cv=none;
- d=google.com; s=arc-20240605;
- b=SmfdJx/K0s9S4pZYOQ4D/1WMKdvCVmpdO0x85nAPu6QHRhRMU0l6WmB46UDMslE1kT
- Jegk7NrwM784UBBjT02cXpLTHdzfE17FGuXw1Xd0lljca2iJ+b6mrIEnPCHlMjCIg5eK
- Ok1EHtTklu3Ty1J+1ASFBRQCBr409a9P8iyUVmRO1GV1VZT0Kx39Y3mBjmm+iwJK8Blj
- JD5K2nJwM+Px6iktnzyBxjCq7TqnAaz1Lv8E0AtWpARF2wFz2SsEwlC5mRZoRJ3CNCy8
- OEyFOkb9Bk2k+H7gfYfBxzelcIzqJBMTZJmGlRdvpCJbKxSI2wbtvSDgvz5+e67O9Fa7
- u7ag==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=XCC+EsRtjQScd/hJdX4t8R6GeUfvuSert8Xa/RAjKDA=;
- fh=S3RmMoRPLtjZlE0gEWZSaFJx947guvQ+05aA/31hJHc=;
- b=JXOpQcwlzk3tyjXkqIXY1Be15GsxckgZsJzxVekeNI3VdVY88fx6Xv6qiLM5QZtr2V
- E4PmHFnvntBQQ86W2UnjH6h6RG4zR1Eo38LM4kck08bE7jLuY284DFMPFYYmJxmBjr/O
- 7lpzh0awBIb9bzu8lAbdtyHoOG1YBnOWvXEh0cg+U/atb5VsxkKocx76qVSonQ1M0azj
- IQA9P4YxNqYVQHLlee1qTG8aP8Uf2+ag3Bwgzx8n/XqFtY61BPa8SQA3syd+6b8JLqJq
- aBz3JDAQ+N3M2fXDxKsUniu7ewJb5gb+nU6g6/Aiy6V9jeH5pzPihaqGPZyJnbiKcTUo
- /AQw==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2AD5210E392
+ for <dri-devel@lists.freedesktop.org>; Fri, 27 Mar 2026 10:07:54 +0000 (UTC)
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 62R6vgo91749082
+ for <dri-devel@lists.freedesktop.org>; Fri, 27 Mar 2026 10:07:53 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ xPdH5qml1h9BZi0j2A2fsbs34QlWxVd/aklZ5kvyOTs=; b=e9EHlytIdywEPWTD
+ 39TnP0cmNofvASKvqU/gBxM+mf6hxXLeXbj5KdhdZ6WBNeDsrXHlnGjbzqdwgIzX
+ x4dJxAslVv/eeQBvs+LNVl3R8uWMP3bThaoLIoK2V4/d+o7VsxmUb00CDBMcVWIh
+ Jz76tazr9xvVXke/qU3s59wp6eDAMgiSPjFFGACIeKsi1YR+IQsN/KH9240yD5UC
+ 3MpkETytN29yoEeeTpjcWtYKblQpydUseX0pjTLYbVv2+6RZR+fLmwX8ebA0akGq
+ kVVtWkZe36msYVJfqMhLi9h1pO+jiyF9e+jVnrYAMTrADYVLzG3X5vdRaS/SSo3R
+ E8c50A==
+Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com
+ [209.85.210.197])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d5mn10ub2-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Fri, 27 Mar 2026 10:07:53 +0000 (GMT)
+Received: by mail-pf1-f197.google.com with SMTP id
+ d2e1a72fcca58-82c38b85c25so3513861b3a.3
+ for <dri-devel@lists.freedesktop.org>; Fri, 27 Mar 2026 03:07:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1774604320; x=1775209120;
+ d=oss.qualcomm.com; s=google; t=1774606072; x=1775210872;
  darn=lists.freedesktop.org; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=XCC+EsRtjQScd/hJdX4t8R6GeUfvuSert8Xa/RAjKDA=;
- b=coQp3XXH5D6fieWbyqNrrwC3cNx8hpMiDPIJtQNxJiXCZvTBWLEEgupKOyt7EcF8FL
- t5IMV0OGZe/vVtq0Hra1y0ue03/FmuoMrq8xgatzwHrgEKiTR2kkEx3OTWKWqCO79dKu
- GkX06xhKllojxjtZEKrW8PJTYRXz7HOsWKask=
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=xPdH5qml1h9BZi0j2A2fsbs34QlWxVd/aklZ5kvyOTs=;
+ b=EubReH42xeR5G1pflx9d0KLZw07tsDhfTWdHbvf51ywsjko8kv3Zy8FeiTcDn9VLEH
+ c8d05rbnGxD5HyhtGTT8BTrOgMs7j3REHbUIxMs415J4ZoCZOd2UwtH2AwKM6svYc0ed
+ IuUXt61m8kMpLKAqMz1ndFJ6f2jY8PnJviuETEtrCMjqCAp0TTgc+vPk/Dw47eCJuoKH
+ oaWaqAYJwuyeXMQbuCSh03RJ3foqe1QJFXDNB31ka6Eo8o/GwdT/m4YUjdde2EHc/YOb
+ NhcwWaoxVkVE9igao8DLZGQLuX/vELwqDMSazWzC4X0OilJRvRBtihEY9ox7g9BDtmR4
+ uJew==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774604320; x=1775209120;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=XCC+EsRtjQScd/hJdX4t8R6GeUfvuSert8Xa/RAjKDA=;
- b=sGrt6If7C1Of/ApTQ0rEgIAXL/9GmchLPMqSHZSjPxqxqm6Qv5lPWKTAx0MnQz1B7C
- DrCdN4xIOKXP+NLDyy4RQnSqfoLWFUS63LlY8hdBZyiUysE0KtvTtxZlb8OcIYBIk8za
- 1ztHNTzICR7Y0GyGLSgOYqeEjJiMTyQISM6Nbs+rBBp6/usp/ZLtln7lm8LjW6B3x3UR
- VZyvqarXyKQ+pczkuvYzFCJRNCur+CqoqxM//FMVMRXx/SI5dZym0rq0ckpluRP6LAWM
- mET8EJhSWy+xpHd1frAdiuHb36yvwcxhMi5OkPoTat1scQi5EQD4Lskep4XkQvwTjJVy
- 177Q==
+ d=1e100.net; s=20251104; t=1774606072; x=1775210872;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=xPdH5qml1h9BZi0j2A2fsbs34QlWxVd/aklZ5kvyOTs=;
+ b=siIBgATY0uAviuOClT2EWRGkwk+xgag0Ks8M6a36gOUfp1zpU8UaY8Lc5Y977x3+FZ
+ 0MRE45iB6SuY+7Hzphe5qpFSxvr65MfIwqzzdpJPYBFa5SV3Q/tioHRY8p7sH6aCdG7F
+ 1xK9swVEEQhZemKx6i7oqVJs1t/Jsy/KFLqUDoAOLNgMunYUUP9Kry3/YH9ErXG4vmeX
+ i847p7ut2x9LaeztXgELtc2cBEos1jkJd3OWcjyoZO5SfXmxgk4EW1SLunZxokKbyJYX
+ fFfuahOEzQE/UNlTd0OodQBuc6NOWrzimXPH39bpfxyD15wBJZrZGzOvx5xBaeK636nw
+ kMbA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXBcS9fx4Pipwi1AxRCW2Z04NBVeCDC7mzlLGcD1438dfEXRu0W8FBwdyD7ljO9zJ05BjKRXIgHXc8=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yxc192NT7IZY0scWKpbBpmXG+3BizdaZVtXE+dBKAjvNSs3zuIc
- w7XCRXWN4Y2JduJ03DbjwROCjiYAG2Zb6JwF4G3JmhMifnGUCPnBYO3UuvpOMBSpPiLzzcKahBP
- 8ed1AL1uoTsQguiz9IRx0Lc2XMYDTeg3SwOu8aUEW
-X-Gm-Gg: ATEYQzy1T5qB6YAArX7gpr3M+u4YRYkZnxZTcNnJA+j8WkGJpPB+Yj+TedCxs2SPnQv
- tVBQ3tgbrVF2wTXHE3kUFQe98GbCpouseKr5RclU/aIoMlwG1hXfiFOnfruK5HsA4ICzlPFUl31
- IPweqScXMz5v2ycUCVZDyjSHYTXA9dfzoGIekWDgj9EXRBgyM+rT9ALcrw2tPPPawjozlZdUWQT
- euepw1p9WWLEmg3+5Z0n+9suZp6lwCwXfwr/6W/wQKKxMNoJrL4u02B1PQY0oe/gkVv2dKPZQfK
- /kUPXOFqToSGi/cnlBj2HW/GfoZH9bQsklMxIA==
-X-Received: by 2002:a05:6512:32c8:b0:5a1:26f7:71b with SMTP id
- 2adb3069b0e04-5a2ab581efbmr751468e87.0.1774604319512; Fri, 27 Mar 2026
- 02:38:39 -0700 (PDT)
+ AJvYcCW54xgLfau302VPKPpC+oVccGmgj9a6lBdWirhcpf8h9bvMRKvLmNoRVK7rKHGhwjNlXxwFyVARyuo=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yx+Dd5BliVfkR+odYAodfZmdrJGi6uetfe5aGUccCFwQZiO3uec
+ 30QJWDt7hrYyHpLVwHmKQ4xzLDjSQt6/CPjqk8piB6MXv4tjJctJG9jzjOihkf+hMQ1mU3pLFge
+ qU/Z5nVaLkVzFT6S2mFHuFD0HxjEl0DUXBLn5TTr3G+SLZZ06e/Ixy5QOcBGKUBKQRD6ucY8=
+X-Gm-Gg: ATEYQzxye7M0j3TtKt3n7mRikC0lafP1v8gEprX3wmTPiox6aMSmKgXLOWAx/q/lL6h
+ S9NUisq1vBUTsTMZ6aU3KIiGI42tlJZC2t3b2RA7eysbGTFz7f7JfqlIDWjefEhCFdjwdcLZ2CN
+ TDBbqJNuRhU4SxqBG2AXvO9QxcD7szmNH/ZR6CMKeQQKRnneTcsbyhm+rjlNh79/rRcvApmRjWM
+ 7VDaY36oAnypm+TFZpIJXt3i4fOkXmo7j0Vco/Q3EcZt947v4teMjRt1+XyFrzDVlqg1fI/y5If
+ 0Lw3Cqdr352CyyU4+IRcYFG7oIWoqOEVroo55dd0q4sLaODygDsyeLp0AbdgYTKnX+nkGgi4XCM
+ Zy+MGRRhMg8lEo3EABd1WyKt4kv5PfgZR5CzSogBgPwoVVD+1AcELZi0=
+X-Received: by 2002:a05:6a00:3405:b0:82a:68fb:cd6d with SMTP id
+ d2e1a72fcca58-82c959d4ac7mr1873024b3a.3.1774606072051; 
+ Fri, 27 Mar 2026 03:07:52 -0700 (PDT)
+X-Received: by 2002:a05:6a00:3405:b0:82a:68fb:cd6d with SMTP id
+ d2e1a72fcca58-82c959d4ac7mr1872992b3a.3.1774606071485; 
+ Fri, 27 Mar 2026 03:07:51 -0700 (PDT)
+Received: from [10.217.218.237] ([202.46.22.19])
+ by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-82c7d1e5ee6sm5012429b3a.7.2026.03.27.03.07.47
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 27 Mar 2026 03:07:50 -0700 (PDT)
+Message-ID: <e850f14e-a938-41cb-80fe-fb92f647fc31@oss.qualcomm.com>
+Date: Fri, 27 Mar 2026 15:37:45 +0530
 MIME-Version: 1.0
-References: <20260326100248.1171828-1-wenst@chromium.org>
- <20260326100248.1171828-2-wenst@chromium.org>
- <243dbc45-cb11-4dfe-b8d1-e08f1b5f73b6@suse.de>
-In-Reply-To: <243dbc45-cb11-4dfe-b8d1-e08f1b5f73b6@suse.de>
-From: Chen-Yu Tsai <wenst@chromium.org>
-Date: Fri, 27 Mar 2026 17:38:28 +0800
-X-Gm-Features: AQROBzDiHdcvNsL4pOfZZU-Zs3-uFT9qrpPHFMaWbGHA7E62ZL_HdfLvhmVWRwU
-Message-ID: <CAGXv+5F+F9oHjuUPwf-r2qKxDdXFuNV7w5Q8qogW=GXxE0GT3A@mail.gmail.com>
-Subject: Re: [PATCH v3 1/3] drm: Introduce DRM_MODE_DUMB_KERNEL_MAP flag
-To: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1] i2c: qcom-geni: Skip extra TX DMA TRE for single read
+ message in GPI mode
+To: Mukesh Kumar Savaliya <quic_msavaliy@quicinc.com>,
+ Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>,
+ Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>,
+ Andi Shyti <andi.shyti@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: linux-i2c@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+ Maramaina Naresh <naresh.maramaina@oss.qualcomm.com>
+References: <20260326-skip_extra_dma_tre-v1-1-deef018895dc@oss.qualcomm.com>
+ <341f2f06-eae0-44b1-b513-61a4a129bae2@quicinc.com>
+Content-Language: en-US
+From: Aniket RANDIVE <aniket.randive@oss.qualcomm.com>
+In-Reply-To: <341f2f06-eae0-44b1-b513-61a4a129bae2@quicinc.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzI3MDA3NCBTYWx0ZWRfX1fwYNsz8FW8+
+ inIpE/bwglpIhl4gtNRoQ0VQJk/jlgp0cN14ki5PwJ9YOBuDjFt9mRKijtaovejjZHx3rTLSDz+
+ q8rU+UYTGDBWfiCyNcS5x43yIH3l/gTDT0O3r0YsPWLfvI5mvKek2dk1rt9mAGaL5b7sUbNG8kR
+ cUdMkRCys7a6tcJAw51MQLHxA1vEPMKyqCzg5jqlCSoivUTc3qzb74BxPE8CcyGEpQTzlb2WSX1
+ sdkyV2374LlgGqoPdXoakzGD/8ANhbXv2qv+BC+n132ebCzrMAwv6vEOVCU83ZVdiczsurtZFzi
+ Drw1hxtv3cTdGOJaMXyYz/gb3NZ0hjJzZ/4qg7vScNL3R4mTEIAIAe5faGm7GumpFR4C1zbijxg
+ YuoqzxA/6kbx7Jqjaq2SfN/ISCCb7PXmNdJ/LSDFtmdm8Pn68wJwzT5QWBNbRKt2e+65+hBCePq
+ g3JSw8+YnnV6WXNmdLg==
+X-Authority-Analysis: v=2.4 cv=CcwFJbrl c=1 sm=1 tr=0 ts=69c656f9 cx=c_pps
+ a=rEQLjTOiSrHUhVqRoksmgQ==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=EUspDBNiAAAA:8 a=3qtGEnkgDDs7DTPDeWgA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=2VI0MkxyNR6bbpdq8BZq:22
+X-Proofpoint-ORIG-GUID: jloY8dIeFtZjPRiHr6JFa8nMkOY0SLnN
+X-Proofpoint-GUID: jloY8dIeFtZjPRiHr6JFa8nMkOY0SLnN
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-03-26_04,2026-03-26_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 spamscore=0 malwarescore=0 adultscore=0 lowpriorityscore=0
+ bulkscore=0 impostorscore=0 priorityscore=1501 clxscore=1015 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603270074
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,162 +148,125 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, Mar 27, 2026 at 3:21=E2=80=AFPM Thomas Zimmermann <tzimmermann@suse=
-.de> wrote:
->
-> Hi
->
-> Am 26.03.26 um 11:01 schrieb Chen-Yu Tsai:
-> > From: Rob Herring <robh@kernel.org>
-> >
-> > Introduce a new flag, DRM_MODE_DUMB_KERNEL_MAP, for struct
-> > drm_mode_create_dumb. This flag is for internal kernel use to indicate
-> > if dumb buffer allocation needs a kernel mapping. This is needed only f=
-or
-> > GEM DMA where creating a kernel mapping or not has to be decided at
-> > allocation time because creating a mapping on demand (with vmap()) is n=
-ot
-> > guaranteed to work.
->
-> I still don't understand what you're trying to achieve. As I pointed
-> out, ever driver's memory manager potentially requires a vmap. Passing
-> around flags will not solve that problem. If vmap is not possible, the
-> driver should not provide the vmap callbacks in the first place.
-
-I'm trying to convert the Rockchip and Exynos drivers to the GEM DMA
-helpers. Both have their reasons for not using the helpers, one of them
-being that the DRM device is not the DMA device. This is already fixed
-by my other series. Both drivers also set DMA_ATTR_NO_KERNEL_MAPPING
-for buffer allocations other than the one used by fb_helper.
-
-Exynos's GEM implementation also sets extra DMA attributes at the
-allocation phase for their custom GEM create ioctl. But otherwise
-exynos is just reimplementing all the GEM DMA helpers in almost
-identical fashion. And to your point, exynos does not provide the
-vmap callback.
-
-Rockchip's GEM implementation splits the code path between DMA and
-IOMMU usage as it needs to attach and detach the DMA device from the
-IOMMU domain on the fly. This predates the DMA IOMMU framework. This
-GEM implementation provides the vmap callback, which will fail for
-direct DMA allocations without the kernel mapping.
-
-There's also something fishy about Rockchip's DRM driver. It's using
-fbdev-dma, even though it's not based on the GEM DMA helpers or even
-drm_gem_dma_object.
-
-As you are against changing the existing *_dumb_create() interface,
-I will look into reusing drm_gem_dma_object with driver-specific
-functions. I believe I will need to keep patch 2 adding dma_attrs
-though. Would that be acceptable?
-
-Once again, thank you for your patience.
 
 
-ChenYu
+On 3/27/2026 11:51 AM, Mukesh Kumar Savaliya wrote:
+> 
+> 
+> On 3/26/2026 10:01 AM, Aniket Randive wrote:
+>> In GPI mode, the I2C GENI driver incorrectly generates an extra TX DMA
+>> TRE on the TX channel during single read message transfer. This results
+> What's the impact of this extra DMA TRE ? do you see failure/timeout, 
+> anything ?
 
+This write operation is unnecessary. For a 1‑byte read operation, only 
+the CONFIG, GO and RX DMA TRE are required. However, an additional TX 
+DMA TRE is currently being added. In addition to being redundant, this 
+also results in unnecessary DMA buffer mapping for the TX DMA TRE.
 
-> Best regards
-> Thomas
->
-> >
-> > Several drivers are using reimplementing the GEM DMA helpers because
-> > they distinguish between kernel and userspace allocations to create a
-> > kernel mapping or not. Adding a flag allows migrating these drivers
-> > to the helpers while preserving their existing behavior. These include
-> > exynos, rockchip, and previously mediatek.
-> >
-> > Update the callers of drm_mode_dumb_create() to set
-> > drm_mode_dumb_create.flags to appropriate defaults. Currently, flags ca=
-n
-> > be set to anything by userspace, but is unused within the kernel. Let's
-> > force flags to zero (no kernel mapping) for userspace callers by defaul=
-t.
-> > For in kernel clients, set DRM_MODE_DUMB_KERNEL_MAP by default. Drivers
-> > can override this as needed.
-> >
-> > Signed-off-by: Rob Herring <robh@kernel.org>
-> > [wenst@chromium.org: Emit warning (once) if args->flags is not zero]
-> > [wenst@chromium.org: Moved flag def. to include/drm/drm_dumb_buffers.h]
-> > Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
-> > ---
-> > Changes since v2:
-> > - Switched to drm_warn_once()
-> > - Moved flag definition from include/uapi/ to include/drm/drm_dumb_buff=
-ers.h
-> > - Reworded commit message
-> >
-> > Changes since v1:
-> > - Emit warning if args->flags is not zero
-> > ---
-> >   drivers/gpu/drm/drm_client.c       | 2 ++
-> >   drivers/gpu/drm/drm_dumb_buffers.c | 4 ++++
-> >   include/drm/drm_dumb_buffers.h     | 3 +++
-> >   3 files changed, 9 insertions(+)
-> >
-> > diff --git a/drivers/gpu/drm/drm_client.c b/drivers/gpu/drm/drm_client.=
-c
-> > index 46c465bce98c..3d3e61823cc1 100644
-> > --- a/drivers/gpu/drm/drm_client.c
-> > +++ b/drivers/gpu/drm/drm_client.c
-> > @@ -14,6 +14,7 @@
-> >   #include <drm/drm_client_event.h>
-> >   #include <drm/drm_device.h>
-> >   #include <drm/drm_drv.h>
-> > +#include <drm/drm_dumb_buffers.h>
-> >   #include <drm/drm_file.h>
-> >   #include <drm/drm_fourcc.h>
-> >   #include <drm/drm_framebuffer.h>
-> > @@ -404,6 +405,7 @@ drm_client_buffer_create_dumb(struct drm_client_dev=
- *client, u32 width, u32 heig
-> >       dumb_args.width =3D width;
-> >       dumb_args.height =3D height;
-> >       dumb_args.bpp =3D drm_format_info_bpp(info, 0);
-> > +     dumb_args.flags =3D DRM_MODE_DUMB_KERNEL_MAP;
-> >       ret =3D drm_mode_create_dumb(dev, &dumb_args, client->file);
-> >       if (ret)
-> >               return ERR_PTR(ret);
-> > diff --git a/drivers/gpu/drm/drm_dumb_buffers.c b/drivers/gpu/drm/drm_d=
-umb_buffers.c
-> > index e2b62e5fb891..60f4c2d08641 100644
-> > --- a/drivers/gpu/drm/drm_dumb_buffers.c
-> > +++ b/drivers/gpu/drm/drm_dumb_buffers.c
-> > @@ -233,6 +233,10 @@ int drm_mode_create_dumb_ioctl(struct drm_device *=
-dev,
-> >       struct drm_mode_create_dumb *args =3D data;
-> >       int err;
-> >
-> > +     if (args->flags)
-> > +             drm_warn_once(dev, "drm_mode_create_dumb.flags is not zer=
-o.\n");
-> > +     args->flags =3D 0;
-> > +
-> >       err =3D drm_mode_create_dumb(dev, args, file_priv);
-> >       if (err) {
-> >               args->handle =3D 0;
-> > diff --git a/include/drm/drm_dumb_buffers.h b/include/drm/drm_dumb_buff=
-ers.h
-> > index 1f3a8236fb3d..4657e44533f4 100644
-> > --- a/include/drm/drm_dumb_buffers.h
-> > +++ b/include/drm/drm_dumb_buffers.h
-> > @@ -6,6 +6,9 @@
-> >   struct drm_device;
-> >   struct drm_mode_create_dumb;
-> >
-> > +/* drm_mode_create_dumb flags for internal use */
-> > +#define DRM_MODE_DUMB_KERNEL_MAP     (1<<0)
-> > +
-> >   int drm_mode_size_dumb(struct drm_device *dev,
-> >                      struct drm_mode_create_dumb *args,
-> >                      unsigned long hw_pitch_align,
->
-> --
-> --
-> Thomas Zimmermann
-> Graphics Driver Developer
-> SUSE Software Solutions Germany GmbH
-> Frankenstr. 146, 90461 N=C3=BCrnberg, Germany, www.suse.com
-> GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG N=C3=
-=BCrnberg)
->
->
+>> in an unnecessary write operation on the I2C bus, which is not required.
+>>
+>> Update the logic to avoid generating the extra TX DMA TRE for single
+>> read message, ensuring correct behavior and preventing redundant
+>> transfers.
+>>
+> So for read, we do unwanted write too ? if so, please write it 
+> accordingly.  Correct behavior needs to be justified against wrong.
+
+Yes. Currently, the driver performs an unnecessary write as part of a 
+read transaction. For a single‑byte read operation, the correct behavior 
+is to issue only the CONFIG, GO command, and an RX DMA TRE. This TX DMA 
+TRE does not contribute to the read operation and results in an 
+unintended write and redundant DMA buffer mapping. Hence, the current 
+behavior is incorrect and should be fixed to align with the required 
+hardware transaction sequence.
+
+>> Co-developed-by: Maramaina Naresh <naresh.maramaina@oss.qualcomm.com>
+>> Signed-off-by: Maramaina Naresh <naresh.maramaina@oss.qualcomm.com>
+>> Signed-off-by: Aniket Randive <aniket.randive@oss.qualcomm.com>
+>> ---
+>>   drivers/i2c/busses/i2c-qcom-geni.c | 18 +++++++++++++-----
+>>   1 file changed, 13 insertions(+), 5 deletions(-)
+>>
+>> diff --git a/drivers/i2c/busses/i2c-qcom-geni.c b/drivers/i2c/busses/ 
+>> i2c-qcom-geni.c
+>> index a4acb78fafb6..2706309bbebb 100644
+>> --- a/drivers/i2c/busses/i2c-qcom-geni.c
+>> +++ b/drivers/i2c/busses/i2c-qcom-geni.c
+>> @@ -625,8 +625,8 @@ static int geni_i2c_gpi(struct geni_i2c_dev *gi2c, 
+>> struct i2c_msg msgs[],
+>>   {
+>>       struct gpi_i2c_config *peripheral;
+>>       unsigned int flags;
+>> -    void *dma_buf;
+>> -    dma_addr_t addr;
+>> +    void *dma_buf = NULL;
+>> +    dma_addr_t addr = 0;
+>>       enum dma_data_direction map_dirn;
+>>       enum dma_transfer_direction dma_dirn;
+>>       struct dma_async_tx_descriptor *desc;
+>> @@ -639,6 +639,11 @@ static int geni_i2c_gpi(struct geni_i2c_dev 
+>> *gi2c, struct i2c_msg msgs[],
+>>       gi2c_gpi_xfer = &gi2c->i2c_multi_desc_config;
+>>       msg_idx = gi2c_gpi_xfer->msg_idx_cnt;
+>> +    if (op == I2C_WRITE && msgs[msg_idx].flags & I2C_M_RD) {
+>> +        peripheral->multi_msg = true;
+> what's the actual meaning of multi_msg here ? IIUC, this multi_msg is 
+> set to true for single transfer  ? any better name if so ? Yes, need to 
+> change it out of this patch.
+
+In the GPI driver, a DMA TRE is created only when either the operation 
+is a read or when multi_msg is set to false. This is controlled by the 
+following check during I2C TRE construction,
+
+	if (i2c->op == I2C_READ || i2c->multi_msg == false) {
+		/* create the DMA TRE */
+		tre = &desc->tre[tre_idx];
+
+Previously, when dmaengine_prep_slave_single() was invoked for a write 
+operation, this condition evaluated to true and a TX DMA TRE was created 
+on the TX channel. With the recent change, the flag is explicitly set, 
+which correctly prevents creation of a TX DMA TRE. I agree the variable 
+name can be improved for clarity and propose addressing that in a 
+follow‑up patch to keep this change minimal and focused.
+
+>> +        goto skip_dma;
+>> +    }
+>> +
+>>       dma_buf = i2c_get_dma_safe_msg_buf(&msgs[msg_idx], 1);
+>>       if (!dma_buf) {
+>>           ret = -ENOMEM;
+>> @@ -668,6 +673,7 @@ static int geni_i2c_gpi(struct geni_i2c_dev *gi2c, 
+>> struct i2c_msg msgs[],
+>>           flags = DMA_PREP_INTERRUPT | DMA_CTRL_ACK;
+>>       }
+>> +skip_dma:
+>>       /* set the length as message for rx txn */
+>>       peripheral->rx_len = msgs[msg_idx].len;
+>>       peripheral->op = op;
+>> @@ -740,9 +746,11 @@ static int geni_i2c_gpi(struct geni_i2c_dev 
+>> *gi2c, struct i2c_msg msgs[],
+>>       return 0;
+>>   err_config:
+>> -    dma_unmap_single(gi2c->se.dev->parent, addr,
+>> -             msgs[msg_idx].len, map_dirn);
+>> -    i2c_put_dma_safe_msg_buf(dma_buf, &msgs[msg_idx], false);
+>> +    if (op == I2C_WRITE && (msgs[msg_idx].flags & I2C_M_RD)) {
+>> +        dma_unmap_single(gi2c->se.dev->parent, addr,
+>> +                 msgs[msg_idx].len, map_dirn);
+>> +        i2c_put_dma_safe_msg_buf(dma_buf, &msgs[msg_idx], false);
+>> +    }
+>>   out:
+>>       gi2c->err = ret;
+>>
+>> ---
+>> base-commit: 785f0eb2f85decbe7c1ef9ae922931f0194ffc2e
+>> change-id: 20260325-skip_extra_dma_tre-a3cf22f81d9b
+>>
+>> Best regards,
+>> -- 
+>> Aniket Randive <aniket.randive@oss.qualcomm.com>
+>>
+>>
+> 
+
