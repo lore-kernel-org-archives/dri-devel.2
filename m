@@ -4,58 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9FAB610BA42C
-	for <dri-devel@archiver.kernel.org>; Fri, 27 Mar 2026 05:26:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2AAB610BA42C
+	for <dri-devel@archiver.kernel.org>; Fri, 27 Mar 2026 05:34:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E2C0210ECA7;
-	Fri, 27 Mar 2026 05:26:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5F18F10EC66;
+	Fri, 27 Mar 2026 05:34:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=protonmail.com header.i=@protonmail.com header.b="sDNBBMYV";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="VkdZNjP/";
 	dkim-atps=neutral
-Received: from mail-24430.protonmail.ch (mail-24430.protonmail.ch
- [109.224.244.30])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 35E3910ECA6
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Mar 2026 05:26:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
- s=protonmail3; t=1774589214; x=1774848414;
- bh=E+nwK/sviPTJ4YHe+rWlRmRhYCoqZkYMB6zYwWx5tr0=;
- h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
- Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
- Message-ID:BIMI-Selector;
- b=sDNBBMYVJAp1LdeUIFiSOLc1bKhghvNL2Q1/KdU+eYfNHKzsfgkEW5FXp3fipfxAF
- kxEReEJ74UPzEYehOn/I43Oft4dOT2J0vhpFHuayeKtp4GyY43vSG5zQ3PCJeBos83
- etrIxLyRi6fbZGk4iV4fWhIWaG6zTlwT8kHehaEqLVjBcMH9hpemmegLF+S8pBlX4S
- HsieuSir62nZmmtMFXiS4YrJMF1/MuFpcu3uUv3U4yWighWmEU27hvLXnfIVqDbJOw
- BcEtLsktfxf0ylr2CZN7sbpn1qqIYuojbyBf9UToMTNgNpmAWd1KiFs8yzH+rPrXv3
- MFNROqRF7aMnQ==
-Date: Fri, 27 Mar 2026 05:26:47 +0000
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-From: cristian_ci <cristian_ci@protonmail.com>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht,
- phone-devel@vger.kernel.org
-Subject: Re: [PATCH v3 3/6] arm64: dts: qcom: msm8953-flipkart-rimob: Enable
- display and GPU
-Message-ID: <63LsT_8yLkjzVTSswYeIbFl40zYY30Bo5DyyLCqYrG1E0eJ4RqKF715_8j2J0WRd3RESpYvwfPTJzw7xsCa4wdxmYGQbUArRlKz3PL1cJ5Q=@protonmail.com>
-In-Reply-To: <87943afd-2601-423e-878d-36b69ac3d6c3@oss.qualcomm.com>
-References: <20260321-rimob-new-features-v3-0-d4b8ee867de7@protonmail.com>
- <20260321-rimob-new-features-v3-3-d4b8ee867de7@protonmail.com>
- <109d21b4-5d16-4689-8383-ecd29bbbf8a6@oss.qualcomm.com>
- <7wYxWlqdcbL3ANB9n0g4t74x-dwE2yG4CmVw9TwGNmwARxbT5WsdG1fpuIDSA5ab750Gs8OUBwmVa_nZd065guKDJueytb1AmlQ05__IzmU=@protonmail.com>
- <87943afd-2601-423e-878d-36b69ac3d6c3@oss.qualcomm.com>
-Feedback-ID: 27475468:user:proton
-X-Pm-Message-ID: 13a94298c7042e78ace8ac9e771817c299e4a043
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0126610EC6C;
+ Fri, 27 Mar 2026 05:34:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1774589663; x=1806125663;
+ h=date:message-id:from:to:cc:subject:in-reply-to:
+ references:mime-version;
+ bh=eCAn9LxlIjBbvjE2Y7FAkMMMryc1Iula3Vv4wNWds64=;
+ b=VkdZNjP/SEmnZAKVAbhf3MjZTGEIeudmAUvrmicFb8yTBWmieUam3bV0
+ woAVdLV+r9RpgJHgeXQ1m8MSNjvGJO+E05ki+35p7h7dy5P1Ew/ukYxxg
+ rEhWh+kSbIDlhcnbslWCEr7/IOpcBC0gzsIatY6MO61t7NMiBS5F/ds62
+ OUjy+7N7fopclrc9s0E6ncNSRo48sGCsTBnYjbbnbhyAt4injWurcsUE8
+ HgVtl+cm7riXwMReOpYa6a+D+1Ea7TZL//RlxpASefu1dKB/fp3A0LxrU
+ eB+dZJy2SshinWpFHzrkSAX8wYr0aN5MiAsp/+n0syj1CkFalSVLPp/vm w==;
+X-CSE-ConnectionGUID: eqBBzwpgRlKsDB8J5IFIVw==
+X-CSE-MsgGUID: HFbwxfh5Rw6t2rdT3ILqZw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11741"; a="79517626"
+X-IronPort-AV: E=Sophos;i="6.23,143,1770624000"; d="scan'208";a="79517626"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+ by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Mar 2026 22:34:22 -0700
+X-CSE-ConnectionGUID: tKj0RDZESVK8s9XXnJZoOQ==
+X-CSE-MsgGUID: deu52ZlCTuyqnMP+zhLX+A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,143,1770624000"; d="scan'208";a="248553381"
+Received: from samuelyo-mobl2.amr.corp.intel.com (HELO adixit-MOBL3.intel.com)
+ ([10.125.25.157])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Mar 2026 22:34:22 -0700
+Date: Thu, 26 Mar 2026 22:34:20 -0700
+Message-ID: <87341lzvhf.wl-ashutosh.dixit@intel.com>
+From: "Dixit, Ashutosh" <ashutosh.dixit@intel.com>
+To: Michal Wajdeczko <michal.wajdeczko@intel.com>
+Cc: Satyanarayana K V P
+ <satyanarayana.k.v.p@intel.com>,<intel-xe@lists.freedesktop.org>, Rodrigo
+ Vivi <rodrigo.vivi@intel.com>, Piotr =?ISO-8859-1?Q?Pi=F3rkowski?=
+ <piotr.piorkowski@intel.com>, Matthew Brost <matthew.brost@intel.com>,
+ Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
+ =?ISO-8859-2?Q?Micha=B3?= Winiarski <michal.winiarski@intel.com>, Dunajski
+ Bartosz <bartosz.dunajski@intel.com>,<dri-devel@lists.freedesktop.org>,
+ Robert Krzemien <robert.krzemien@intel.com>
+Subject: Re: [RFC v6 1/1] drm/xe/pf: Restrict device query responses in
+ admin-only PF mode
+In-Reply-To: <8d140cfb-ad38-4548-aec0-89581c79d8e5@intel.com>
+References: <20260316064100.2542412-3-satyanarayana.k.v.p@intel.com>	<20260316064100.2542412-4-satyanarayana.k.v.p@intel.com>	<875x6lq64y.wl-ashutosh.dixit@intel.com>	<8d140cfb-ad38-4548-aec0-89581c79d8e5@intel.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?ISO-8859-4?Q?Goj=F2?=) APEL-LB/10.8 EasyPG/1.0.0
+ Emacs/30.2 (x86_64-pc-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,45 +78,87 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thursday, March 26th, 2026 at 13:08, Konrad Dybcio <konrad.dybcio@oss.qu=
-alcomm.com> wrote:
+On Wed, 25 Mar 2026 01:38:51 -0700, Michal Wajdeczko wrote:
+>
 
-> On 3/24/26 12:18 PM, cristian_ci wrote:
-> > On Monday, March 23rd, 2026 at 11:52, Konrad Dybcio <konrad.dybcio@oss.=
-qualcomm.com> wrote:
+Hi Michal,
+
+> On 3/24/2026 10:17 PM, Dixit, Ashutosh wrote:
+> > On Sun, 15 Mar 2026 23:41:02 -0700, Satyanarayana K V P wrote:
+> >>
+> >> ---
+> >> V5 -> V6:
+> >> - Updated commit message.
+> >> - Return number of engines and memory regions as zero instead of returning
+> >> query size as zero (Michal Wajdeczko).
+> >> - Allow all other query IOCTLs excepts query_engines and query_mem_regions
+> >> (Michal Wajdeczko).
 > >
-> >> On 3/21/26 5:23 PM, Cristian Cozzolino via B4 Relay wrote:
-> >>> From: Cristian Cozzolino <cristian_ci@protonmail.com>
-> >>>
-> >>> Add the description for the display panel found on this phone.
-> >>> And with this done we can also enable the GPU and set the zap shader
-> >>> firmware path.
-> >>>
-> >>> Signed-off-by: Cristian Cozzolino <cristian_ci@protonmail.com>
-> >>> ---
-> >>
-> >> [...]
-> >>
-> >>> +=09panel_default: panel-default-state {
-> >>> +=09=09pins =3D "gpio61";
-> >>> +=09=09function =3D "gpio";
-> >>> +=09=09drive-strength =3D <8>;
-> >>> +=09=09bias-disable;
-> >>> +=09=09output-high;
-> >>
-> >> This says "by default, actively drive the pin not to reset the display
-> >> panel". Is this actually necessary?
+> > Can someone explain the reason to move away from the approach in v5? Afais
+> > v6 has issues of this sort:
 > >
-> > I've tried to remove panel pinctrl stuff from the panel and the device =
-still boots/works exactly like before. So, have I to submit v4 without pinc=
-trl at all for the panel?
->=20
-> No, the pin config is useful, I'm specifically referencing the output-hig=
-h
-> property
+> > * query_engines will return 0 engines but query_hwconfig will return > 0
+> >   engines
+>
+> but those are separate queries on purpose, right?
+> and I guess that even today there could be a mismatch between these numbers:
+>
+> * query_engines = engines available for use by the user software
+> * query_hwconfig.engines = report engines present on the hardware
 
-I've commented out "output-high" property and (apparently) the device=20
-boots and works like before.
+OK, agreed.
 
-> Konrad
-> 
+>
+> > * query_engines will return 0 engines but query_oa_units will list out the
+> >   engines
+>
+> and that IMO should be considered as a desired outcome, as I guess (again)
+> that this will allow us to do some OA reporting, even if PF alone is not
+> submitting any workloads and we want to monitor how VFs are doing
+>
+> > * query_oa_units will return valid oa support but observation ioctl will
+> >   fail
+>
+> my initial idea [1] was to expose observation ioctl as well, maybe we need
+> to add it back?
+>
+> [1]
+> https://patchwork.freedesktop.org/patch/706445/?series=160349&rev=2#comment_1299475
+
+OK, maybe I am thinking, we can expose the observation ioctl, though there
+are both pros and cons to doing this.
+
+Pros: get some OA reporting out of the box. Though the tools etc. will
+      likely not work out of the box because of other missing
+      queries/ioctl's.
+
+Cons: Not sure if it is ok to "snoop" on VF information out of the
+      box. Customers might insist this is not ok and insist on the
+      observation ioctl be removed. Also, on platforms on which OA is
+      supported in VF, there might be a conflict between OA in PF vs VF.
+
+Also, even if we add the observation ioctl, only the base OA feature will
+work. But there are other OA features which require other ioctl's (say
+exec) which will not work in the admin-only-pf mode.
+
+The other option is not add the OA ioctl. And insist that to get regular OA
+reporting/tools to work, the device must be unbound and rebound in the
+normal (non-admin-only) mode.
+
+So we could go with either of these approaches. I am ok either way. Maybe
+just add the observation ioctl for now and revisit after feedback from
+customers/UMD's?
+
+Thanks.
+--
+Ashutosh
+
+
+
+>
+> >
+> > v5 seems to have avoided contradictions of this sort. Or this doesn't
+> > matter? Thanks.
+>
+> but since I'm not using any of those ioctls on daily basis, I might be wrong
+>
