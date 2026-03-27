@@ -4,55 +4,95 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2C8EC10ED674
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 115DF10ED664
 	for <dri-devel@archiver.kernel.org>; Fri, 27 Mar 2026 13:04:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6CF2E10E682;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 66F4F10E397;
 	Fri, 27 Mar 2026 13:04:38 +0000 (UTC)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5B18D10E682
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="xyqYfqlW";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="lsBisbgK";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="xyqYfqlW";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="lsBisbgK";
+	dkim-atps=neutral
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1E9F010E397
  for <dri-devel@lists.freedesktop.org>; Fri, 27 Mar 2026 13:04:37 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 386774D31C;
- Fri, 27 Mar 2026 13:04:36 +0000 (UTC)
-Authentication-Results: smtp-out1.suse.de;
+ by smtp-out2.suse.de (Postfix) with ESMTPS id DD6A05BE04;
+ Fri, 27 Mar 2026 13:04:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1774616675; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=Z2C8hHMnUTYCA9akD32oKOSDh4tMrqaneJwSjLUM5rE=;
+ b=xyqYfqlWJjZ3ZHZ5vsbsmzPtpmn4aoXQJKGzMm7dszje9Z7mkwgEt4rpgXZLM1usIrn8Yc
+ WLdqiiPORw65XC92xZQcjMqGGuewXwzU/z9qMNiJXw/AqYKaQNLyK0wv311eP5kYIX9yHt
+ 9HJPx6tB2VSqgco9IYKDr4HCCiOOw6g=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1774616675;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=Z2C8hHMnUTYCA9akD32oKOSDh4tMrqaneJwSjLUM5rE=;
+ b=lsBisbgK2CEvjQwP6F/HXVcSFVgQRxiqph6Bzx2z7ziLMYmrEfZtC6FcDbvZv9Qug8fuK0
+ sDkynJRsTiyAfeAQ==
+Authentication-Results: smtp-out2.suse.de;
 	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1774616675; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=Z2C8hHMnUTYCA9akD32oKOSDh4tMrqaneJwSjLUM5rE=;
+ b=xyqYfqlWJjZ3ZHZ5vsbsmzPtpmn4aoXQJKGzMm7dszje9Z7mkwgEt4rpgXZLM1usIrn8Yc
+ WLdqiiPORw65XC92xZQcjMqGGuewXwzU/z9qMNiJXw/AqYKaQNLyK0wv311eP5kYIX9yHt
+ 9HJPx6tB2VSqgco9IYKDr4HCCiOOw6g=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1774616675;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=Z2C8hHMnUTYCA9akD32oKOSDh4tMrqaneJwSjLUM5rE=;
+ b=lsBisbgK2CEvjQwP6F/HXVcSFVgQRxiqph6Bzx2z7ziLMYmrEfZtC6FcDbvZv9Qug8fuK0
+ sDkynJRsTiyAfeAQ==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id E425B4A0B1;
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 9BEEB4A0A2;
  Fri, 27 Mar 2026 13:04:35 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id uK6ANmOAxmmweQAAD6G6ig
+ by imap1.dmz-prg2.suse.org with ESMTPSA id vTXjJGOAxmmweQAAD6G6ig
  (envelope-from <tzimmermann@suse.de>); Fri, 27 Mar 2026 13:04:35 +0000
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: deller@gmx.de, gregkh@linuxfoundation.org, jirislaby@kernel.org,
  simona@ffwll.ch, sam@ravnborg.org
 Cc: linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org,
- Thomas Zimmermann <tzimmermann@suse.de>, stable@vger.kernel.org
-Subject: [PATCH 01/10] fbcon: Avoid OOB font access if console rotation fails
-Date: Fri, 27 Mar 2026 13:49:34 +0100
-Message-ID: <20260327130431.59481-2-tzimmermann@suse.de>
+ Thomas Zimmermann <tzimmermann@suse.de>
+Subject: [PATCH 00/10] fbcon,fonts: Refactor framebuffer console rotation
+Date: Fri, 27 Mar 2026 13:49:33 +0100
+Message-ID: <20260327130431.59481-1-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260327130431.59481-1-tzimmermann@suse.de>
-References: <20260327130431.59481-1-tzimmermann@suse.de>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Rspamd-Pre-Result: action=no action; module=replies;
- Message is reply to one we originated
-X-Rspamd-Queue-Id: 386774D31C
-X-Rspamd-Pre-Result: action=no action; module=replies;
- Message is reply to one we originated
-X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-4.00 / 50.00];
-	REPLY(-4.00)[]
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Spamd-Result: default: False [-3.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ MID_CONTAINS_FROM(1.00)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ FREEMAIL_TO(0.00)[gmx.de,linuxfoundation.org,kernel.org,ffwll.ch,ravnborg.org];
+ FUZZY_RATELIMITED(0.00)[rspamd.com];
+ FREEMAIL_ENVRCPT(0.00)[gmx.de]; ARC_NA(0.00)[];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; MIME_TRACE(0.00)[0:+];
+ RCPT_COUNT_SEVEN(0.00)[10];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; FROM_HAS_DN(0.00)[];
+ TO_DN_SOME(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
+ RCVD_COUNT_TWO(0.00)[2]; RCVD_TLS_ALL(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.de:mid]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,45 +108,66 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Clear the font buffer if the reallocation during console rotation fails
-in fbcon_rotate_font(). The putcs implementations for the rotated buffer
-will return early in this case. See [1] for an example.
+Refactor the framebuffer console rotation into individual components
+for glyphs, fonts and the overall fbcon state. Right now this is mixed
+up in fbcon_rotate.{c,h}. Also build cursor rotation on top of the new
+interfaces.
 
-Currently, fbcon_rotate_font() keeps the old buffer, which is to small
-for the rotated font. Printing to the rotated console with a high-enough
-character code will overflow the font buffer.
+Start with an OOB fix in patch 1. If buffer allocation fails, fbcon
+currently uses a too-small glyph buffer for output. Avoid that.
 
-Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-Fixes: 6cc50e1c5b57 ("[PATCH] fbcon: Console Rotation - Add support to rotate font bitmap")
-Cc: <stable@vger.kernel.org> # v2.6.15+
-Link: https://elixir.bootlin.com/linux/v6.19/source/drivers/video/fbdev/core/fbcon_ccw.c#L144 # [1]
----
- drivers/video/fbdev/core/fbcon_rotate.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+Patches 2 to 4 make a number of small improvements to the font library
+and its callers.
 
-diff --git a/drivers/video/fbdev/core/fbcon_rotate.c b/drivers/video/fbdev/core/fbcon_rotate.c
-index 1562a8f20b4f..5348f6c6f57c 100644
---- a/drivers/video/fbdev/core/fbcon_rotate.c
-+++ b/drivers/video/fbdev/core/fbcon_rotate.c
-@@ -46,6 +46,10 @@ int fbcon_rotate_font(struct fb_info *info, struct vc_data *vc)
- 		info->fbops->fb_sync(info);
- 
- 	if (par->fd_size < d_cellsize * len) {
-+		kfree(par->fontbuffer);
-+		par->fontbuffer = NULL;
-+		par->fd_size = 0;
-+
- 		dst = kmalloc_array(len, d_cellsize, GFP_KERNEL);
- 
- 		if (dst == NULL) {
-@@ -54,7 +58,6 @@ int fbcon_rotate_font(struct fb_info *info, struct vc_data *vc)
- 		}
- 
- 		par->fd_size = d_cellsize * len;
--		kfree(par->fontbuffer);
- 		par->fontbuffer = dst;
- 	}
- 
+Patches 5 to 8 refactor the font rotation. Fbcon rotation rotates each
+individual glphy in a font buffer and uses the rotated buffer's glyphs
+for output. The result looks like the console buffer has been rotated
+as a whole. Split this into helpers that rotate individual glyphs and
+a helper that rotates the font buffer of these. Then reimplement fbcon
+rotation on top. Document the public font helpers.
+
+Patch 9 rebuilds cursor rotation on top of the new glyph helpers. The
+fbcon cursor is itself a glyph that has to be rotated in sync with the
+font.
+
+Patch 10 moves the state of fbcon rotation into a single place and makes
+is a build-time conditional.
+
+Tested with fbcon under bochs on Qemu.
+
+Built upon the fbcon changes at [1].
+
+[1] https://lore.kernel.org/linux-fbdev/20260309141723.137364-1-tzimmermann@suse.de/
+
+Thomas Zimmermann (10):
+  fbcon: Avoid OOB font access if console rotation fails
+  vt: Implement helpers for struct vc_font in source file
+  lib/fonts: Provide helpers for calculating glyph pitch and size
+  lib/fonts: Clean up Makefile
+  lib/fonts: Implement glyph rotation
+  lib/fonts: Refactor glyph-pattern helpers
+  lib/fonts: Refactor glyph-rotation helpers
+  lib/fonts: Implement font rotation
+  fbcon: Fill cursor mask in helper function
+  fbcon: Put font-rotation state into separate struct
+
+ drivers/tty/vt/vt.c                     |  34 +++
+ drivers/video/fbdev/core/bitblit.c      |  35 +--
+ drivers/video/fbdev/core/fbcon.c        |  48 ++++-
+ drivers/video/fbdev/core/fbcon.h        |  14 +-
+ drivers/video/fbdev/core/fbcon_ccw.c    |  70 ++----
+ drivers/video/fbdev/core/fbcon_cw.c     |  70 ++----
+ drivers/video/fbdev/core/fbcon_rotate.c |  88 ++------
+ drivers/video/fbdev/core/fbcon_rotate.h |  71 ------
+ drivers/video/fbdev/core/fbcon_ud.c     |  67 ++----
+ include/linux/console_struct.h          |  30 +--
+ include/linux/font.h                    |  51 +++++
+ lib/fonts/Makefile                      |  36 ++--
+ lib/fonts/font_rotate.c                 | 275 ++++++++++++++++++++++++
+ lib/fonts/fonts.c                       |   2 +-
+ 14 files changed, 525 insertions(+), 366 deletions(-)
+ create mode 100644 lib/fonts/font_rotate.c
+
 -- 
 2.53.0
 
