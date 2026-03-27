@@ -4,65 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D9E7210F3DD5
-	for <dri-devel@archiver.kernel.org>; Sat, 28 Mar 2026 05:53:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E7CA510BA424
+	for <dri-devel@archiver.kernel.org>; Sat, 28 Mar 2026 06:44:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9D56910E07D;
-	Sat, 28 Mar 2026 05:53:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 13ADF10E00C;
+	Sat, 28 Mar 2026 06:44:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="YZt+6wHK";
+	dkim=pass (2048-bit key; unprotected) header.d=nabladev.com header.i=@nabladev.com header.b="ezHRUiTx";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 45D2310E07D
- for <dri-devel@lists.freedesktop.org>; Sat, 28 Mar 2026 05:53:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1774677237; x=1806213237;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=NovnRvKKD8DcWILq6IiXVqzkoes/2l5rAXk7H72hnKc=;
- b=YZt+6wHK4tKxCNmAs2d/+oiwKZArqyPoh2Kn+fIjGj5lcZ/+ZNwttrUZ
- Q3CsfTb/H33HuC/QpOaVrfsN+yeiyTO1X7T0McmKmPw3dM/E9I0J/a/ZS
- Ut5hP8OXcvG9QZ2d1vqGkrbAvjiN36oW+PCwM7GbUALEqGVcRN5We6g17
- aH8r1zC5VvjTRdfRZsN88FVMEzV6uo+Rj6XLcssErSJPSz+El4L2XhcCm
- EJA66q6X3yJ/cdGy1xfL6pJtjroq+Fc6ZEP4PPcYUKmcuAQwtSYXJ+e/W
- cTMcBIlDWhrTDLfqKRmc3Zq+0HoGF4KT2s3Yg+3/x5uKE6KtLEehTtt7V Q==;
-X-CSE-ConnectionGUID: 8ceRu88iTAa1ISm5F62MCA==
-X-CSE-MsgGUID: bCC4bQlaQDW3hr0+tn8RbA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11742"; a="75626518"
-X-IronPort-AV: E=Sophos;i="6.23,145,1770624000"; d="scan'208";a="75626518"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
- by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Mar 2026 22:53:56 -0700
-X-CSE-ConnectionGUID: fiTMB2pTRdaD1Ju/PCFH7Q==
-X-CSE-MsgGUID: tNxAW/sFQfSpkfmm/VY48w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,145,1770624000"; d="scan'208";a="224708881"
-Received: from lkp-server01.sh.intel.com (HELO 3905d212be1b) ([10.239.97.150])
- by orviesa010.jf.intel.com with ESMTP; 27 Mar 2026 22:53:52 -0700
-Received: from kbuild by 3905d212be1b with local (Exim 4.98.2)
- (envelope-from <lkp@intel.com>) id 1w6McH-00000000B6X-03aN;
- Sat, 28 Mar 2026 05:53:49 +0000
-Date: Sat, 28 Mar 2026 13:53:20 +0800
-From: kernel test robot <lkp@intel.com>
-To: Alexandre Courbot <acourbot@nvidia.com>,
- Danilo Krummrich <dakr@kernel.org>, Gary Guo <gary@garyguo.net>,
- Alice Ryhl <aliceryhl@google.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Alistair Popple <apopple@nvidia.com>
-Cc: oe-kbuild-all@lists.linux.dev, John Hubbard <jhubbard@nvidia.com>,
- Joel Fernandes <joelagnelf@nvidia.com>,
- Timur Tabi <ttabi@nvidia.com>, Zhi Wang <zhiw@nvidia.com>,
- Eliot Courtney <ecourtney@nvidia.com>,
- rust-for-linux@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Alexandre Courbot <acourbot@nvidia.com>
-Subject: Re: [PATCH v3] gpu: nova-core: gsp: fix undefined behavior in
- command queue code
-Message-ID: <202603281331.1ESuqgfz-lkp@intel.com>
-References: <20260326-cmdq-ub-fix-v3-1-96af2148ca5c@nvidia.com>
+Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 67ED810E00C
+ for <dri-devel@lists.freedesktop.org>; Sat, 28 Mar 2026 06:44:00 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
+ with ESMTPSA id 964F41125E5; Sat, 28 Mar 2026 07:43:54 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
+ s=dkim; t=1774680238;
+ h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ content-transfer-encoding:content-language:in-reply-to:references;
+ bh=K8IExplj4jNkiy6koIYs6HsbetYK5EUUl0gJcPtFT+I=;
+ b=ezHRUiTxuJwQt9p9FGgw0+VcCYPZNLrdcS82esBojW4G5HRjxLzZt9XDmrG5yGqhjfEOWz
+ DZMKBGBet8COkiky3tcehlbt9Fjka6XrG6pushgkBdPmTG+iAe63057Au7Z2hCBxfdfINg
+ DXGv4+YiV8vyVN/UCd6ZIK9BvP/YnlywaO10Eh4tdJhN9A6MjmtGo7Cf1sa5q7cs8qgs5D
+ j+2DNbD2M+suMlEPacgpl3wc+K9FRAEMSElBKXF3ukePZkl77yDhSuoJ9Yoa46+0FRRZg6
+ UxYT3L5FZY/fpPIOhnYscWsqUzH425pkUQ+P+v5yvznC7gd/qEE2eIHUabeRUw==
+Message-ID: <a4a5284d-6004-46c5-b5a3-f8eb4d9b3680@nabladev.com>
+Date: Sat, 28 Mar 2026 00:17:31 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260326-cmdq-ub-fix-v3-1-96af2148ca5c@nvidia.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v8 1/9] dt-bindings: display: fsl,ldb: Add i.MX94 LDB
+To: Liu Ying <victor.liu@nxp.com>, Marco Felsch <m.felsch@pengutronix.de>
+Cc: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>, imx@lists.linux.dev,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Marek Vasut <marex@denx.de>,
+ dri-devel@lists.freedesktop.org, Frank Li <Frank.Li@nxp.com>,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260304-dcif-upstreaming-v8-0-bec5c047edd4@oss.nxp.com>
+ <20260304-dcif-upstreaming-v8-1-bec5c047edd4@oss.nxp.com>
+ <b7968f1a-c4bc-4bad-bcf8-407ff2d8db27@nxp.com>
+ <dmqbmmpyi3ssvq67iqwbt6ww7tsaik7ifi5dnupmuhep7u5saz@ads5g7ette3y>
+ <mx6b5svmvlonil4efuiaxcmtygn7lld3nj7gcxnnauaryt2yed@gohjshakc2g6>
+ <40b3d1c8-0cf2-470d-8223-751240061735@nabladev.com>
+ <xqy67fmh42k26iagl7wqrh2dbsn7c5fytwbkcksfzagefp327j@s5hg4lpuvy3q>
+ <4e75f1d3-29ff-46a2-adb5-78a08f781834@nabladev.com>
+ <2fe36f04-97d3-4e99-97e9-7a3ac53cffdb@nxp.com>
+Content-Language: en-US
+From: Marek Vasut <marex@nabladev.com>
+In-Reply-To: <2fe36f04-97d3-4e99-97e9-7a3ac53cffdb@nxp.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,32 +75,19 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Alexandre,
+On 3/23/26 8:22 AM, Liu Ying wrote:
 
-kernel test robot noticed the following build errors:
+Hello Liu,
 
-[auto build test ERROR on dff8302ca1d0e773c90dbeeb05e759f995c95482]
-
-url:    https://github.com/intel-lab-lkp/linux/commits/Alexandre-Courbot/gpu-nova-core-gsp-fix-undefined-behavior-in-command-queue-code/20260327-003216
-base:   dff8302ca1d0e773c90dbeeb05e759f995c95482
-patch link:    https://lore.kernel.org/r/20260326-cmdq-ub-fix-v3-1-96af2148ca5c%40nvidia.com
-patch subject: [PATCH v3] gpu: nova-core: gsp: fix undefined behavior in command queue code
-config: x86_64-randconfig-102-20260327 (https://download.01.org/0day-ci/archive/20260328/202603281331.1ESuqgfz-lkp@intel.com/config)
-compiler: clang version 20.1.8 (https://github.com/llvm/llvm-project 87f0227cb60147a26a1eeb4fb06e3b505e9c7261)
-rustc: rustc 1.88.0 (6b00bc388 2025-06-23)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260328/202603281331.1ESuqgfz-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202603281331.1ESuqgfz-lkp@intel.com/
-
-All errors (new ones prefixed by >>):
-
->> ld.lld: error: undefined symbol: rust_build_error
-   >>> referenced by build_assert.rs:28 (rust/kernel/build_assert.rs:28)
-   >>>               vmlinux.o:(<nova_core::gsp::cmdq::DmaGspMem>::allocate_command)
-
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+> ... i.MX8MP LVDS bridge node is fine with the reg property, but the property
+> is not allowed for i.MX93 LVDS bridge node according to commit[1] while
+> commit[2] requires the property for all LVDS bridge nodes.  See the contradict
+> here?
+> 
+> [1] 3feaa4342637 dt-bindings: soc: imx93-media-blk-ctrl: Add PDFC subnode to schema and example
+> [2] 8aa2f0ac08d3 dt-bindings: display: bridge: ldb: Add check for reg and reg-names
+> 
+> To avoid the contradict, how about requiring the reg property only for i.MX6SX
+> and i.MX8MP LVDS bridge nodes and making it kind of optional for i.MX93 and
+> i.MX94 LVDS bridge nodes?
+I would be fine with that, thanks !
