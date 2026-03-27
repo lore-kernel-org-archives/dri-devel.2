@@ -4,79 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B660D10BA45F
-	for <dri-devel@archiver.kernel.org>; Fri, 27 Mar 2026 09:31:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E05C8109E545
+	for <dri-devel@archiver.kernel.org>; Fri, 27 Mar 2026 09:38:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2D6F210ECD0;
-	Fri, 27 Mar 2026 09:31:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 42C1910ED4F;
+	Fri, 27 Mar 2026 09:38:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="u7pSvGED";
+	dkim=pass (1024-bit key; unprotected) header.d=samsung.com header.i=@samsung.com header.b="tEJ9O1Jn";
 	dkim-atps=neutral
-Received: from mail-wr1-f74.google.com (mail-wr1-f74.google.com
- [209.85.221.74])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8FE0B10ECD0
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Mar 2026 09:31:28 +0000 (UTC)
-Received: by mail-wr1-f74.google.com with SMTP id
- ffacd0b85a97d-439c794ec8eso1412121f8f.1
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Mar 2026 02:31:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20251104; t=1774603887; x=1775208687;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:cc:to:from:subject:message-id:references
- :mime-version:in-reply-to:date:from:to:cc:subject:date:message-id
- :reply-to; bh=V1OwEf8imgEcaY7dllHNGM8XinZT2Wtp74qO0bSsJFE=;
- b=u7pSvGEDfSXPRP0kyX8jY2FpsiJY3jDoWXlg6fz6zLtMJBykQOFeL3pzKuYvr5RzH2
- TCYGhvXT16M64RKSKF/okxLMbfvvJkMVNBG7jXEMPj3GXMeLdBOZD1sy1yHEIiClvbtT
- 9vDTkFf9nvVChETQiZzmPm3AfYoQ8rgLZRsRk7oqtPwpPZgco7z2I2jbmCzPPsPY/Oz3
- XgnYSg9V35l2wDJffxepznQPRhnQctv3jSdAJEVyjHmdKJeOcehIQWdJ271KeNlk0E+R
- 6vped4EulyzoNOHR4rgrmYIF1Eu75xzlhUKw18grM6fLadbr7EQlGhKYjMXx4SQ7CVMz
- k1SA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774603887; x=1775208687;
- h=content-transfer-encoding:cc:to:from:subject:message-id:references
- :mime-version:in-reply-to:date:x-gm-message-state:from:to:cc:subject
- :date:message-id:reply-to;
- bh=V1OwEf8imgEcaY7dllHNGM8XinZT2Wtp74qO0bSsJFE=;
- b=VB760L01C5EXjT2IYodp7ol+pk+wETx0cKX44cwW2lHadw20ZQ5/l0kTT2wPxY1YOr
- SnmHk0kefkUhTozuXjh0wPIMeqgJ8YtdLdbUNRGgqpvGgPP7T0f3tnmgkt/yjyL9sk1I
- dzQmR0SITdcD1XXoXjvdt8zENb0iI1c9qUxTUW2nka03PRkbDdiWocoMenFzll2FdwHL
- aov/AJJxaIvnEduKGMckxAlWmYLeDgvxlqh1r90l2X7gPTaJSlNYNE3JfGVdTWOztj7D
- +ERE/s4wk95CDZSIOOo+czGMeDTd6LUrdgiWVHpQHRbsg/22yva7z3SIJgROpUIMkTmr
- IHBw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWlpg7CnAGErFnNqd0vhp3MUX95sIPAHhGvNIwkGxLL7BC92ueB/UtP6xtdZ/f0iyI9DQ2JjAu4MEI=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyxR1aBcwFOyS8VAyUHHVmiN0kvudCs5meDhuMVzvdxCesDuaYa
- B0tHj56IziMR9cNHKbK/cacJ6qBdwINiY0aco2E4MmxaXgRoR89kq10PvHqJZ50+jReB7zNkZGp
- mVC6r/lKeFHQTZAtNUw==
-X-Received: from wmog15.prod.google.com ([2002:a05:600c:310f:b0:47f:941a:613d])
- (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:600c:35c4:b0:485:353f:c651 with SMTP id
- 5b1f17b1804b1-48727eb7fcdmr29769655e9.22.1774603886661; 
- Fri, 27 Mar 2026 02:31:26 -0700 (PDT)
-Date: Fri, 27 Mar 2026 09:31:25 +0000
-In-Reply-To: <20260313150956.1618635-5-adrian.larumbe@collabora.com>
-Mime-Version: 1.0
-References: <20260313150956.1618635-1-adrian.larumbe@collabora.com>
- <20260313150956.1618635-5-adrian.larumbe@collabora.com>
-Message-ID: <acZObe3EktbKooBa@google.com>
-Subject: Re: [PATCH v5 04/11] drm/gpuvm: Add a helper to check if two VA can
- be merged
-From: Alice Ryhl <aliceryhl@google.com>
-To: "=?utf-8?Q?Adri=C3=A1n?= Larumbe" <adrian.larumbe@collabora.com>
-Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- Steven Price <steven.price@arm.com>,
- Boris Brezillon <boris.brezillon@collabora.com>, 
- Janne Grunau <j@jannau.net>, kernel@collabora.com, 
- Caterina Shablia <caterina.shablia@collabora.com>,
- Danilo Krummrich <dakr@kernel.org>, 
- Matthew Brost <matthew.brost@intel.com>, 
- "Thomas =?utf-8?Q?Hellstr=C3=B6m?=" <thomas.hellstrom@linux.intel.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
+Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com
+ [210.118.77.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7FA3410ED4F
+ for <dri-devel@lists.freedesktop.org>; Fri, 27 Mar 2026 09:38:15 +0000 (UTC)
+Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
+ by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id
+ 20260327093813euoutp0207e68ae41eded6f5daf4d53dc936e98c~gqTPzhMjA0964809648euoutp02i
+ for <dri-devel@lists.freedesktop.org>; Fri, 27 Mar 2026 09:38:13 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com
+ 20260327093813euoutp0207e68ae41eded6f5daf4d53dc936e98c~gqTPzhMjA0964809648euoutp02i
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+ s=mail20170921; t=1774604293;
+ bh=0wrrBT9Vgx5xYr3ZtqLPUbt27G4B7MOzYfS2jPrN8kQ=;
+ h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
+ b=tEJ9O1Jnk3kcIWa/GQWlYDVsdjOZbDe2dmIbrigJ2c8G34HJxvn4IGvWDvX6x+guU
+ 7OpBFxvD7I7peNfcsUSBPn89cUk2ApU4PUTRxPyPG696UClnlWenGkehnLiZR0L6c7
+ OM7P/DSIpX29McX5cWpjCy5Zro3ZtRdqNda5cH0o=
+Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
+ eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
+ 20260327093813eucas1p2491c30df8c61bc550d31f05d90811332~gqTPXpzSE0810508105eucas1p2a;
+ Fri, 27 Mar 2026 09:38:13 +0000 (GMT)
+Received: from [106.210.134.192] (unknown [106.210.134.192]) by
+ eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
+ 20260327093811eusmtip192818a11797378662e842d7b047a01bf~gqTNROVR00077200772eusmtip1F;
+ Fri, 27 Mar 2026 09:38:11 +0000 (GMT)
+Message-ID: <f2047cd7-91a8-4f6a-b6b9-0e4f143f6854@samsung.com>
+Date: Fri, 27 Mar 2026 10:38:10 +0100
+MIME-Version: 1.0
+User-Agent: Betterbird (Windows)
+Subject: Re: [PATCH v5 0/2] dma-buf: heaps: system: add an option to
+ allocate explicitly shared/decrypted memory
+To: Jiri Pirko <jiri@resnulli.us>, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, iommu@lists.linux.dev,
+ linux-media@vger.kernel.org
+Cc: sumit.semwal@linaro.org, benjamin.gaignard@collabora.com,
+ Brian.Starkey@arm.com, jstultz@google.com, tjmercier@google.com,
+ christian.koenig@amd.com, robin.murphy@arm.com, jgg@ziepe.ca,
+ leon@kernel.org, sean.anderson@linux.dev, ptesarik@suse.com,
+ catalin.marinas@arm.com, aneesh.kumar@kernel.org, suzuki.poulose@arm.com,
+ steven.price@arm.com, thomas.lendacky@amd.com, john.allen@amd.com,
+ ashish.kalra@amd.com, suravee.suthikulpanit@amd.com,
+ linux-coco@lists.linux.dev
+Content-Language: en-US
+From: Marek Szyprowski <m.szyprowski@samsung.com>
+In-Reply-To: <20260325192352.437608-1-jiri@resnulli.us>
+Content-Transfer-Encoding: 7bit
+X-CMS-MailID: 20260327093813eucas1p2491c30df8c61bc550d31f05d90811332
+X-Msg-Generator: CA
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+X-RootMTR: 20260325192400eucas1p2ae38ff4c2b3ab35a7047cfd680d9fda3
+X-EPHeader: CA
+X-CMS-RootMailID: 20260325192400eucas1p2ae38ff4c2b3ab35a7047cfd680d9fda3
+References: <CGME20260325192400eucas1p2ae38ff4c2b3ab35a7047cfd680d9fda3@eucas1p2.samsung.com>
+ <20260325192352.437608-1-jiri@resnulli.us>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,24 +81,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, Mar 13, 2026 at 03:09:41PM +0000, Adri=C3=A1n Larumbe wrote:
-> From: Boris Brezillon <boris.brezillon@collabora.com>
->=20
-> We are going to add flags/properties that will impact the VA merging
-> ability. Instead of sprinkling tests all over the place in
-> __drm_gpuvm_sm_map(), let's add a helper aggregating all these checks
-> can call it for every existing VA we walk through in the
-> __drm_gpuvm_sm_map() loop.
->=20
-> Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
-> Signed-off-by: Caterina Shablia <caterina.shablia@collabora.com>
+On 25.03.2026 20:23, Jiri Pirko wrote:
+> From: Jiri Pirko <jiri@nvidia.com>
+>
+> Confidential computing (CoCo) VMs/guests, such as AMD SEV and Intel TDX,
+> run with private/encrypted memory which creates a challenge
+> for devices that do not support DMA to it (no TDISP support).
+>
+> For kernel-only DMA operations, swiotlb bounce buffering provides a
+> transparent solution by copying data through shared memory.
+> However, the only way to get this memory into userspace is via the DMA
+> API's dma_alloc_pages()/dma_mmap_pages() type interfaces which limits
+> the use of the memory to a single DMA device, and is incompatible with
+> pin_user_pages().
+>
+> These limitations are particularly problematic for the RDMA subsystem
+> which makes heavy use of pin_user_pages() and expects flexible memory
+> usage between many different DMA devices.
+>
+> This patch series enables userspace to explicitly request shared
+> (decrypted) memory allocations from new dma-buf system_cc_shared heap.
+> Userspace can mmap this memory and pass the dma-buf fd to other
+> existing importers such as RDMA or DRM devices to access the
+> memory. The DMA API is improved to allow the dma heap exporter to DMA
+> map the shared memory to each importing device.
+>
+> Based on dma-mapping-for-next e7442a68cd1ee797b585f045d348781e9c0dde0d
 
-> +	/* We intentionally ignore u64 underflows because all we care about
-> +	 * here is whether the VA diff matches the GEM offset diff.
-> +	 */
-> +	return b->va.addr - a->va.addr =3D=3D b->gem.offset - a->gem.offset;
+I would like to merge this to dma-mapping-next, but I feel a bit 
+uncomfortable with my lack of knowledge about CoCo and friends. Could 
+those who know a bit more about it provide some Reviewed-by tags?
 
-Please use wrapping_sub() to make it clear to sanitizers etc that
-underflow is intentional in this case.
+Best regards
+-- 
+Marek Szyprowski, PhD
+Samsung R&D Institute Poland
 
-Alice
