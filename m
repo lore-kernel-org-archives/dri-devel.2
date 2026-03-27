@@ -4,79 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 317E310F2861
-	for <dri-devel@archiver.kernel.org>; Fri, 27 Mar 2026 17:38:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8526210F285E
+	for <dri-devel@archiver.kernel.org>; Fri, 27 Mar 2026 17:39:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 894B110EF31;
-	Fri, 27 Mar 2026 17:38:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E93A910EF32;
+	Fri, 27 Mar 2026 17:39:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="oaZu2gX6";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="YrHMNSYj";
 	dkim-atps=neutral
-Received: from mail-dl1-f46.google.com (mail-dl1-f46.google.com [74.125.82.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DB18710EF31
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Mar 2026 17:38:21 +0000 (UTC)
-Received: by mail-dl1-f46.google.com with SMTP id
- a92af1059eb24-127148c2112so215493c88.3
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Mar 2026 10:38:21 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1774633101; cv=none;
- d=google.com; s=arc-20240605;
- b=lLvm0SD1egK14rKILFPn0m6+1EujFa81kKgG15UiwMJeKBP0s50awW4bCcmQFtrBIl
- x3qGDbk0s5N9K2Sq9UMqLeKKRLC5QMdaDKHlM30pwRj0SHUYcOfhjqdtN7AZ/jyukuRH
- 4lm/o10NMQd1lDMCRCYkgSeyFfMMoIyIqqokBQ02vTAT6nu4AZQH0xh7baogaRRP6IVx
- LUap8Gh0zykrB8SKzMYbIJd14IkdhVAKeFtv9HKhf6aSZweRjkYvx71qRriHIVp403tK
- U/Md/wU0WCVz6L9YHzZKVO0D5WlcLjnO5ge4rlnBznHnIyO59VSgEDqzMl0CjOQYwtzv
- j0fw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=i4XRoGQ8ciAxF5LF/eeAmJpc/qwTn1D2VGvZGqV8ZKk=;
- fh=OEIpHNxQFzSYHloTx1qQVOVzWSiyEfDOANTmxULuiz0=;
- b=CM/jB1DOqFMPQnYAwYiDzc33EIBpR74IHhn11Jy4QcSDQw7ccXNfsZgxv9s7fyM2N+
- rMvBQCSGAo7kzD2o9XzW/dWC87THzm/S8PU8ZFOcO+Z5tp9e6utr7R3nsB6bQpcMbTF7
- 2h/OQ2bV5fAOanfO5tSaNdyZfsiHt0LV6HOHea1kkioI5c5jiX51EqN/RS7kqDNmWK68
- dyt5qhquPmC5MpBwxY6YTPFV2aQ9jf1rMmA9Jcy93RBJt9/r9uzD5+b5lmr4wKWQt44f
- CHQ7f/TsPffO3a9evonQVmMkXmU0GjGACznfKYxnuDMFIh/Cbhu0OnIdFeQKHNYWsDCP
- FOcA==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1774633101; x=1775237901; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=i4XRoGQ8ciAxF5LF/eeAmJpc/qwTn1D2VGvZGqV8ZKk=;
- b=oaZu2gX6gtlAozMu2cT3UqoX3j3EF0dVSLPzvvnlX6dHSULHxJktaV9W/AUUDKnUCd
- FZXIUhMpaqRAU2ArnkVfcTJIGvriZHSCc/nreBtvc59NV2Komb9mYQXcBTgPdl5mbrV4
- Vbv3BwtP3wuXYXd2ImexHl9QkxIBag/MIdtnMy31qkm2By/HO23s9eiLfpYNsq5GWdoB
- 9+8U94frVspAIeSbLiw9csLrZ+3etw4Ujx6Ndy5qmTujzbliV1SJklkbY72pHDT3o5jI
- yCILakjYpKfsT59M/38CE3LIaI4uQrp/dHRjb7zSwEHRRXad+8bNxPjHlPxCKBHZwpRV
- L+tg==
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 842CF10EF32
+ for <dri-devel@lists.freedesktop.org>; Fri, 27 Mar 2026 17:39:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1774633149;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=GhPdolAuW7P0xgBhYuWJf3nGp5Pv13lQ9qoFlr8i+xY=;
+ b=YrHMNSYjaWo8QwzVuju9pbfftecgjCE5YyPd4ymooJ2yAdlMRnPjQAnhf7vx+OnmaySLE+
+ kSkyP8qGvo20+lJz7gumuCVZZdeb0i9raWPrd0Lf0L/s21K3QPxgQLA4nIHL8KWIOxZ5uC
+ s/FwYV1dyQKz+KOnXFytXIA+6qw9ntU=
+Received: from mail-ej1-f71.google.com (mail-ej1-f71.google.com
+ [209.85.218.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-400-5Me6B8h8PE6DylKtYWp-UQ-1; Fri, 27 Mar 2026 13:39:08 -0400
+X-MC-Unique: 5Me6B8h8PE6DylKtYWp-UQ-1
+X-Mimecast-MFC-AGG-ID: 5Me6B8h8PE6DylKtYWp-UQ_1774633147
+Received: by mail-ej1-f71.google.com with SMTP id
+ a640c23a62f3a-b97f04b44b9so133822466b.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 27 Mar 2026 10:39:07 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774633101; x=1775237901;
+ d=1e100.net; s=20251104; t=1774633147; x=1775237947;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=i4XRoGQ8ciAxF5LF/eeAmJpc/qwTn1D2VGvZGqV8ZKk=;
- b=WiNc3d7xIFnh/nJnDTu/V9ghmbAh6LPXk7MW6zV6B8+h9EK8BmEYuFoD2/uDg6Foqd
- U+qvs7xbBfTnyxW8H1c7JnZJXnc4+HGECqf2BOSgqZcCoum6ncCcj6mzbPgKnhRjxLLe
- TJiI7WiaqQ2NYDtdrGl4c0rINBC2/pmV9Qv85HkeagMbISAU/NSDqf35l1yjoSZLh/8p
- V78zkFcBcjHzH0yd3GkkghAR4T5qN9qbfd1FATA5LMhe8IVmOfyM2jq2Pqt9BRjS1Yin
- RzI4ADzTcaOxLpA/ZS0H8W7HYhxicL1g5HYPbKxtfaNzOlwz7Gz/gQNmm2dfNKXM5lDF
- rTlQ==
+ bh=GhPdolAuW7P0xgBhYuWJf3nGp5Pv13lQ9qoFlr8i+xY=;
+ b=ICm7tIQf+dd7barwVWT1NgW0qHnp7tPVG+LGBAFAnNoYjpVyJtHZq0HCXa9mkRxodI
+ cOotbtqgEIF5sE49P5DPBHMX9msmcdIP6RIDkCTS54RSpeKxyTjZ7+o7d7qpa+PCogBB
+ zjpLi1UH3LVuUwtTlH4V4Pt4ImbQh12WmuVtGzwPD5XXSPIp7+HDqg1GfT9q3Sx76S7B
+ qR5AnNhlaMMOkC1Lp/SMA8/vTf5ogXndD9G0cwJX24nKHJu/wva94i1CJxTXHkEL4WVG
+ UtzgG03EmsvCqtLh+ofmHnw8XgnBHVzA0Bbzstk2qCQ/wpQE0j0CIN4fXob1RC438UYs
+ JdYA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWiS9OGavduwwx9e0QN9yPV7vnUeIrPgiXtCTEEF3r5NisHA4xG48KRTh8FX+VjTKBQuFuyfByBoI4=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwrBQAtrIqeb6Mm7f1qOjJIf8Of0VFQbrLuUXB3GUssgI9I2Dkj
- tqM9w+QiNeR3vIgPtKRTJg4tjC2B0YHUb96TnRCzHCZiALfjW1dvi+wvPCATBh7GLEiIw12CaWP
- qi6XxRl41vBhOYr0iNEYJZ4N7CLQCGXM=
-X-Gm-Gg: ATEYQzzsohSvyicLPRT7v1oFxamOJ4ecoXF+jPIzXyQ8ah5ZuJm0DQCrNB57M8EfYKh
- 4Wv6o0myRBNKNAeEHWxsU8U2sT5PqVoxnx5ZFUcV8UuJxNt+beKS+9d6MBPK4MpPSjMUt31zfOJ
- DfsauQPRMLKqBLyb2vh9bgQMvWG4ARo3QunO6nDJS7P2sfDQdV8rGepNogaFTr8BBgyed9kBj9x
- /XdpJrxisvMku0eG5YLVi6AFghCfuB4j/nbj/EeIk7A+nfRhqhyNniQrn/giPZxlBM4jSXP3D1u
- wo5aWK45/0Bu69AeBxnbMIsR9PmchcirbRM8OnDchFniG+cZCacjdP+7eUzpiJFcyBOivlLATZO
- fdSfQQVPUiOYgY9DqT61HJOI=
-X-Received: by 2002:a05:7300:3254:b0:2c0:fec3:fd2b with SMTP id
- 5a478bee46e88-2c185f4195cmr868301eec.5.1774633101017; Fri, 27 Mar 2026
- 10:38:21 -0700 (PDT)
+ AJvYcCU6BPnkF/J4Uq1tcW33rHbLpmpTsxqkgwdlhExn8FdacELtMjkMcYgJ4T8qTuia3JabMYSZ7IjR0Zc=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwilgkGqnf6LRU1brNSpiCGXP1d5nw9PBwixrt+270B8vsupTzf
+ 4MUb6KGkM8tUbsQf0XilI5JgZVZbmthLsKuQhdKQk7tGKUxOwG4dyguqFPdJFhk5B2Xcx+dowyV
+ NetDnUgZQpbYxP36opPnaPPxyyiHz/IjVrNi/udGqNIIlfRK5FovO04kFxp1Pjdgrtf6KUx1VUV
+ ykdETK4O91VQmGk6L/6ZKCWoSrfsj4cULrwAIvfs/EydYi
+X-Gm-Gg: ATEYQzwlWdx+tvWOId/kQ3sZp0Pg5OpeVIi7l26sVYpBE1afgnWpVx7zPPUXMzUfs8t
+ lh5KmlgZ5Jc9gZV5dfczKEPzkhwYAn4hCpR4ZjhTKzKOyUci+ex21/o/bsSFS2bxVztQ2lPsCg9
+ gd+9cwt9HNQeyoNnlAfzEskG0ttFtA72syf8mMvxZ3IXn9NnsWJ1BQpMQTZMp1erUNO/g9Iaz4l
+ xbL+g==
+X-Received: by 2002:a17:907:a28d:b0:b98:22e7:72b with SMTP id
+ a640c23a62f3a-b9b507a7bf9mr218777866b.30.1774633146683; 
+ Fri, 27 Mar 2026 10:39:06 -0700 (PDT)
+X-Received: by 2002:a17:907:a28d:b0:b98:22e7:72b with SMTP id
+ a640c23a62f3a-b9b507a7bf9mr218776066b.30.1774633146199; Fri, 27 Mar 2026
+ 10:39:06 -0700 (PDT)
 MIME-Version: 1.0
 References: <20260223-clk-send-sync-v5-0-181bf2f35652@google.com>
  <DH7L09UFWGTK.2MT0OTWH1DUV4@kernel.org>
@@ -85,16 +71,15 @@ References: <20260223-clk-send-sync-v5-0-181bf2f35652@google.com>
  <CABx5tqL+G9i1ZW7i5AHaTqUFTVRDmBvP=RycUdwjG-GOp4uzBA@mail.gmail.com>
  <CANiq72=M3H-06L7udG_LqTwLykZkAjfy2d5NXQZn5TYRJ+N37w@mail.gmail.com>
  <CABx5tq+TdGvL+SCUe87qWFgeAq-1Zf5w63jn2hLe9+YTyz4sNw@mail.gmail.com>
- <DHDOH1FXTIZT.1QKZIPZ73YNLI@kernel.org>
- <CABx5tqJho=k88A1L0neVeaiYCXpLsc7UjzGSgAug73ZC_amYag@mail.gmail.com>
-In-Reply-To: <CABx5tqJho=k88A1L0neVeaiYCXpLsc7UjzGSgAug73ZC_amYag@mail.gmail.com>
-From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Date: Fri, 27 Mar 2026 18:38:07 +0100
-X-Gm-Features: AQROBzDgjWTAFVxg45-x5LUiec7rwVNiECYCnGtFbz1GIQ6qZ-C218NzMZcOD9c
-Message-ID: <CANiq72=E=fyCjr_5zEoiUoSOYnXTzfFjE8KJRGsDeEQN1cFY=A@mail.gmail.com>
+ <CANiq72ktmUFsdpBUKnU-OvTj7rE5iZKFucubL_1bF1Ws_KYXcg@mail.gmail.com>
+In-Reply-To: <CANiq72ktmUFsdpBUKnU-OvTj7rE5iZKFucubL_1bF1Ws_KYXcg@mail.gmail.com>
+From: Brian Masney <bmasney@redhat.com>
+Date: Fri, 27 Mar 2026 13:38:54 -0400
+X-Gm-Features: AQROBzB7WfnAtTWMTsWRSmdXifxpUbNDAg86GKrLb9ikVgnMGrHcwDI5L3K7rv8
+Message-ID: <CABx5tqKKHvFPYrL=gjaOn+frDXfXpxM3-6oTzSo6QVgYMaEMPg@mail.gmail.com>
 Subject: Re: [PATCH v5 0/3] Implement Send and Sync for clk
-To: Brian Masney <bmasney@redhat.com>
-Cc: Danilo Krummrich <dakr@kernel.org>, Maxime Ripard <mripard@kernel.org>,
+To: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Cc: Maxime Ripard <mripard@kernel.org>, Danilo Krummrich <dakr@kernel.org>,
  Stephen Boyd <sboyd@kernel.org>, 
  Alice Ryhl <aliceryhl@google.com>, Michael Turquette <mturquette@baylibre.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
@@ -110,6 +95,9 @@ Cc: Danilo Krummrich <dakr@kernel.org>, Maxime Ripard <mripard@kernel.org>,
  linux-clk@vger.kernel.org, rust-for-linux@vger.kernel.org, 
  linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
  linux-pwm@vger.kernel.org, Boqun Feng <boqun@kernel.org>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: C8f6Bns7_6-GJ4xjyDqQGtSSFI8K2hhBPLOtJgdzcYQ_1774633147
+X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -127,35 +115,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, Mar 27, 2026 at 5:54=E2=80=AFPM Brian Masney <bmasney@redhat.com> w=
-rote:
+On Fri, Mar 27, 2026 at 1:28=E2=80=AFPM Miguel Ojeda
+<miguel.ojeda.sandonis@gmail.com> wrote:
+=3D> On Fri, Mar 27, 2026 at 4:17=E2=80=AFPM Brian Masney <bmasney@redhat.c=
+om> wrote:
+> >
+> > I am not a clk maintainer, so I can't leave an Acked-by for you to
+> > pick this up unfortunately. I've been quite active in the clk
+> > subsystem though the last 6 months or so.
 >
-> I mentioned to Stephen at the last LPC in Tokyo that I am interested
-> in becoming a clk co-maintainer.
+> In that case, I could take your Acked-by as an active contributor of
+> clk if you are willing to provide it, i.e. with the "# Suffix"
+> notation I introduced a year ago:
+>
+>   https://docs.kernel.org/process/submitting-patches.html#when-to-use-ack=
+ed-by-cc-and-co-developed-by
+>
+>   cd9123eeb224 ("docs: submitting-patches: clarify Acked-by and
+> introduce "# Suffix"")
+>
+> i.e. Acked-bys can nowadays be provided by other stakeholders apart
+> from maintainers, e.g. people with domain knowledge, userspace
+> reviewers of uAPI patches, key users and so on.
+>
+> Especially so since you offered to be a co-maintainer long term, so I
+> think having your Acked-by is way better that having no tag at all :)
 
-Thanks for the context, that sounds great -- more maintainers and
-reviewers are needed in the kernel.
+Sure...
 
-But, of course, it is up to Stephen.
+Acked-by: Brian Masney <bmasney@redhat.com> # Active contributor to clk
 
-Another possibility Stephen could perhaps like if he doesn't want a
-co-maintainer for everything is having a sub-maintainer for the Rust
-side, possibly in a sub-entry (e.g. "COMMON CLK FRAMEWORK [RUST]",
-i.e. with the usual square brackets we use for that), assuming you are
-interested in that.
-
-It is an approach that we have seen works well, because it is usually
-a win-win for maintainers that cannot commit time to review new Rust
-stuff, i.e. they get more people in their subsystem, they can use the
-opportunity to learn Rust (assuming they don't know it yet) and they
-can assess how often Rust changes are needed, yet they still control
-the changes (e.g. in cases a change on both sides needs to happen at
-once).
-
-[ In any case, I don't know the context behind all this -- if I can
-help with anything, please let me know. ]
-
-Thanks!
-
-Cheers,
-Miguel
