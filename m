@@ -4,65 +4,186 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A771410F2867
-	for <dri-devel@archiver.kernel.org>; Fri, 27 Mar 2026 20:04:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D2DDC10F2865
+	for <dri-devel@archiver.kernel.org>; Fri, 27 Mar 2026 20:19:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1B8D910E061;
-	Fri, 27 Mar 2026 20:04:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 372AA10EF4D;
+	Fri, 27 Mar 2026 20:19:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="IatmHvzQ";
+	dkim=pass (2048-bit key; unprotected) header.d=oracle.com header.i=@oracle.com header.b="sj7IiXU3";
+	dkim=pass (1024-bit key; unprotected) header.d=oracle.onmicrosoft.com header.i=@oracle.onmicrosoft.com header.b="TN9hJ3DF";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 172A110E061
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Mar 2026 20:04:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1774641856; x=1806177856;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=ifxJQiV/BAd1iZRjjlWQBoU0Qh3X3MZNgFKrZ5/Pzpw=;
- b=IatmHvzQX3ItmmLZEno8pgoeD5P79Rw3tUTpT8RLKk7dg5arNk2ozcs/
- 8L1yp/Qd9NpW/VGpsK5hLH9uJFrODRr8nRG6MB+UM1gQZKD2e4inq+i9F
- X4KVkkg5kWEQMRsUarAZ4Nn21CSqhTF1jQ+ItoswLdYkervXpUmmrTpKR
- ixsIMu+pLdhU+XjihZgGDFHQk/9oYNj9Dim4BV8ttQTUW4YIzzCsfvwr6
- vlTAzoYz7ED93eyoCIgjQJxFQ6Iy3m8xGic7Fc3o/I9PdtvCei1xMN2jf
- PJrG6/W8tSAdoDmEXX0rcx6LJ5VAitc0vlVmagKQBjf4zXFdxmsAfW9oG A==;
-X-CSE-ConnectionGUID: 0CrOAmjFT8aT76khsUvy+A==
-X-CSE-MsgGUID: mFoOj2TXTTibPT2lj5JGDA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11742"; a="86799067"
-X-IronPort-AV: E=Sophos;i="6.23,144,1770624000"; d="scan'208";a="86799067"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
- by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Mar 2026 13:04:15 -0700
-X-CSE-ConnectionGUID: 3TRS2icCS8maXwYpSxAeWA==
-X-CSE-MsgGUID: h370f/YRRpanq+og1/SoMg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,144,1770624000"; d="scan'208";a="263364334"
-Received: from lkp-server01.sh.intel.com (HELO 3905d212be1b) ([10.239.97.150])
- by orviesa001.jf.intel.com with ESMTP; 27 Mar 2026 13:04:10 -0700
-Received: from kbuild by 3905d212be1b with local (Exim 4.98.2)
- (envelope-from <lkp@intel.com>) id 1w6DPb-00000000Aft-3iYQ;
- Fri, 27 Mar 2026 20:04:07 +0000
-Date: Sat, 28 Mar 2026 04:03:38 +0800
-From: kernel test robot <lkp@intel.com>
-To: Alexandre Courbot <acourbot@nvidia.com>,
- Danilo Krummrich <dakr@kernel.org>, Gary Guo <gary@garyguo.net>,
- Alice Ryhl <aliceryhl@google.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Alistair Popple <apopple@nvidia.com>
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
- John Hubbard <jhubbard@nvidia.com>, Joel Fernandes <joelagnelf@nvidia.com>,
- Timur Tabi <ttabi@nvidia.com>, Zhi Wang <zhiw@nvidia.com>,
- Eliot Courtney <ecourtney@nvidia.com>,
- rust-for-linux@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Alexandre Courbot <acourbot@nvidia.com>
-Subject: Re: [PATCH v3] gpu: nova-core: gsp: fix undefined behavior in
- command queue code
-Message-ID: <202603280326.ucDKVaf2-lkp@intel.com>
-References: <20260326-cmdq-ub-fix-v3-1-96af2148ca5c@nvidia.com>
+Received: from mx0b-00069f02.pphosted.com (mx0b-00069f02.pphosted.com
+ [205.220.177.32])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 87C4B10EF44;
+ Fri, 27 Mar 2026 20:19:43 +0000 (UTC)
+Received: from pps.filterd (m0333520.ppops.net [127.0.0.1])
+ by mx0b-00069f02.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 62RGtxew2632402; Fri, 27 Mar 2026 20:19:35 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=cc
+ :content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=corp-2025-04-25; bh=cqFpaiUiYhZJV9sJcU
+ wqGpk3TcUc2GGQ1rDfuwV49BM=; b=sj7IiXU3NmAorHj2KAifRNT7p8ovJka/54
+ ZtsngaCEl/70iwNj9jJJRpzVq0/vduQffd+fbiwjOwgKYCHR52s/dVE5XNHHYVAq
+ HOMzMLYHMDzkJTjDgZkfmPfWn/6IJReITq8D0nC3UewXfKwfgFf/RxMgu0MMaucc
+ Z4mxzsi+LgpfYfVURxuRBNIEwm7UmM+V6YmspFkpq6rxRCVnoQPEqD8LtGRPOO9b
+ BBNsyjFwoJf9boxwOFR5iH4UhevamhVbZGUdxdF6qO242V3D/gXWdHHm/ftgPFv7
+ YThYqEVjsmQjdgAaNjF8hN4acJGt3E0C+wtYYwiHP60zDrjhp1/A==
+Received: from phxpaimrmta01.imrmtpd1.prodappphxaev1.oraclevcn.com
+ (phxpaimrmta01.appoci.oracle.com [138.1.114.2])
+ by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 4d1khw2tyh-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Fri, 27 Mar 2026 20:19:35 +0000 (GMT)
+Received: from pps.filterd
+ (phxpaimrmta01.imrmtpd1.prodappphxaev1.oraclevcn.com [127.0.0.1])
+ by phxpaimrmta01.imrmtpd1.prodappphxaev1.oraclevcn.com (8.18.1.2/8.18.1.2)
+ with ESMTP id 62RIB8wZ012635; Fri, 27 Mar 2026 20:19:34 GMT
+Received: from ch1pr05cu001.outbound.protection.outlook.com
+ (mail-northcentralusazon11010000.outbound.protection.outlook.com
+ [52.101.193.0])
+ by phxpaimrmta01.imrmtpd1.prodappphxaev1.oraclevcn.com (PPS) with ESMTPS id
+ 4d1hsejgan-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Fri, 27 Mar 2026 20:19:34 +0000
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=tpVl40Bgi8ZPQHwsJS6bbHRCvUez+jp55xbR0DnhURm6hvI/7R+9kkqYXePVseGCxLwcnRZeqpziD/SEMwxH0S0km+gJOWWvQ4XsTEKlWn4L+zIRxUVIBZqUbA3eyBtgtqJJ2QXYAgev/lCosV3NYRxV6mLQp3I21iVT6B7OAc6Bu1FDpq1GmMe2aPOuXrpn8vWEX7bb09/4cJKUl5sisfOARatbIC59iOEkWxoZMtmel/TQeExEWucJd8zIU9DeAw0z+5voAjQ7Jup0ezwKC+cm66FViHPxrpXnDto5anOM92LvK2xVhs3fJRqNsb7wpL09GGc4V/KWrk2tSO0ezw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=cqFpaiUiYhZJV9sJcUwqGpk3TcUc2GGQ1rDfuwV49BM=;
+ b=bYiD92MrblTz96zYz/IIBX+RVMrjhQh/Ot604ht13oWa5YcWRD3nOLYnfJFaYMa2Hf2gT2pOIbJ379AJc946sVMdkiDpLISwFmv/Ck4+rocBj1Yh1+2rlbJmmemBgQENFDpi2p0Sq4bXjY/vM6vIXbje6sZnkAsWPmlAoS8wefPIqMhmT1yLJLO38iWq6u6S8P0eqaWnTi4LwgDIwV8G5m4bfYxMA3vQhQ+1uNVj7FKdI7amcX9bYeNQSEx7v2sKWSxjBKWnQqDE64on9UW3JFDhY9YIRzElUQniG9UzOIaD4C+CfGsmrIt8uAqqVhrn1CRpnGzHcfjWqeLkJN6F9w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
+ dkim=pass header.d=oracle.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=cqFpaiUiYhZJV9sJcUwqGpk3TcUc2GGQ1rDfuwV49BM=;
+ b=TN9hJ3DFm139nBAIKy7CGhMof0Vgkur21gXhxzcaCTzI0KPKtZP+Np9b4THzeSaHo9QSDWXUCkxB4N9PSo+Rudu4WY3JYq8zV817f18LAy0dVLwbMwglSiV2X3SCRpL51Ss7wv73PuHLvwsNy4tQXbjA+Bc7ixuhfem0ZUYL1BI=
+Received: from CH0PR10MB5338.namprd10.prod.outlook.com (2603:10b6:610:cb::8)
+ by CY8PR10MB6850.namprd10.prod.outlook.com (2603:10b6:930:9e::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.23; Fri, 27 Mar
+ 2026 20:19:28 +0000
+Received: from CH0PR10MB5338.namprd10.prod.outlook.com
+ ([fe80::e525:dd71:b002:6ad5]) by CH0PR10MB5338.namprd10.prod.outlook.com
+ ([fe80::e525:dd71:b002:6ad5%6]) with mapi id 15.20.9745.023; Fri, 27 Mar 2026
+ 20:19:28 +0000
+To: Vladimir Oltean <vladimir.oltean@nxp.com>
+Cc: <linux-phy@lists.infradead.org>, Vinod Koul <vkoul@kernel.org>, Neil
+ Armstrong <neil.armstrong@linaro.org>,
+ <dri-devel@lists.freedesktop.org>, <freedreno@lists.freedesktop.org>,
+ <linux-arm-kernel@lists.infradead.org>,
+ <linux-arm-msm@vger.kernel.org>, <linux-can@vger.kernel.org>,
+ <linux-gpio@vger.kernel.org>, <linux-ide@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <linux-media@vger.kernel.org>,
+ <linux-pci@vger.kernel.org>, <linux-renesas-soc@vger.kernel.org>,
+ <linux-riscv@lists.infradead.org>, <linux-rockchip@lists.infradead.org>,
+ <linux-samsung-soc@vger.kernel.org>, <linux-scsi@vger.kernel.org>,
+ <linux-sunxi@lists.linux.dev>, <linux-tegra@vger.kernel.org>,
+ <linux-usb@vger.kernel.org>, <netdev@vger.kernel.org>,
+ <spacemit@lists.linux.dev>, <UNGLinuxDriver@microchip.com>, Bart Van
+ Assche <bvanassche@acm.org>, Alim Akhtar <alim.akhtar@samsung.com>,
+ Peter Griffin <peter.griffin@linaro.org>, "James E.J. Bottomley"
+ <James.Bottomley@HansenPartnership.com>, "Martin K. Petersen"
+ <martin.petersen@oracle.com>, Krzysztof Kozlowski <krzk@kernel.org>,
+ Chanho Park <chanho61.park@samsung.com>
+Subject: Re: [PATCH v6 phy-next 09/28] scsi: ufs: exynos: stop poking into
+ struct phy guts
+From: "Martin K. Petersen" <martin.petersen@oracle.com>
+In-Reply-To: <20260327184706.1600329-10-vladimir.oltean@nxp.com> (Vladimir
+ Oltean's message of "Fri, 27 Mar 2026 20:46:47 +0200")
+Organization: Oracle Corporation
+Message-ID: <yq1zf3t9gc5.fsf@ca-mkp.ca.oracle.com>
+References: <20260327184706.1600329-1-vladimir.oltean@nxp.com>
+ <20260327184706.1600329-10-vladimir.oltean@nxp.com>
+Date: Fri, 27 Mar 2026 16:19:26 -0400
+Content-Type: text/plain
+X-ClientProxiedBy: YT3PR01CA0118.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:85::32) To CH0PR10MB5338.namprd10.prod.outlook.com
+ (2603:10b6:610:cb::8)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260326-cmdq-ub-fix-v3-1-96af2148ca5c@nvidia.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH0PR10MB5338:EE_|CY8PR10MB6850:EE_
+X-MS-Office365-Filtering-Correlation-Id: d1e69b93-b016-4624-4b8a-08de8c3e257a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|366016|7416014|376014|56012099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: HfXrAZxF/jac9F1RLYWHkrgZVLzrCYQA3TtATgKztagbNfp5AvZ2Yi1z8JKL2QEjvMDuK+zpb0uueV31dn4T+qlym8adZK4ljmBUf6jH7hotD37QUG1iHgfiFSJzu0jGQAU/1UVxzwDrHl5PdIQAFVH1XuTljFHOP5FXWz0cVWGy5IdGyHDNcxLGMgpeq7QdJCp18Qa86voGXhGIY46/vT2Udsc7+kw+8kRM17K3tIADHEAt5Ro/LGHzFaJKi/j9TSTYEbeg/XM3tIC86x8Rk2UYoWahcgDeT5JtqloBxhgjpyTSmwh1bPEr42YmaQvv9uuO4MTNsxQibfJzvCc8HNdpOplzRHsV1r2Cb+9ZfOb5pamkiNfdhDTZBpY+tai7AwZSKsrxcEjOeomUuMrazYuVebHWzRhtklBtq7D+hW4kc3AmUNhAlBOTeCv8GPDcReQ5qEvLNsTSKlLRUPToT1wwBFBFDO821TtLMJ4QNeVoVXftUDKnBPUa9yqGmLH24grEQlp68ZWl2gblg3YBONJQKh05hiF1IfcGQ506SnWlJ9BFbI22pYvydEsz4s50Wu1PgLh+FPOjIsGKU48asXIGAydgFGQ2d+CLL2a2y18uhKJhLuxXOLoP8/weRr9ulVDUByaHBByl66caFHI62scJ/eSMDZom0wCOOBkbfpd0W3U058tI1UTb0F00P3Jmg98Kj8HFZysATG7yrm7gRpYNi4mEooAsSxDuPiAI7ak=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CH0PR10MB5338.namprd10.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(7416014)(376014)(56012099003)(18002099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?5iqZaBhuySgCrhf7EnC3Iec9JgLDNcGDcZuN/Ijt5tUlmhIdhZOtKXA7PzEC?=
+ =?us-ascii?Q?PQQPzVOJ7dpsR8pvVCYfBnsR1Xs0Rmd4AaLw/3YBC7QP8um6buV5Tcqakk7/?=
+ =?us-ascii?Q?MdSmQG9uiCbvvn0tsDwppDSnE9tsqQ+BD8WQFDmjKL6YBBiyfDoDAAAUC0sQ?=
+ =?us-ascii?Q?YZ2zRZTcjMNueD/SOpn92+LWkj5XTQV72/Bej9tkASuMlo4BbSO8txswYFjM?=
+ =?us-ascii?Q?7cp7KN34tSuGA5ETbA4JXiyCYFNqMesFFoqJ71yvcNtrubK1EpX7EvoKpiXC?=
+ =?us-ascii?Q?QXVRzSEPfxkVNGTJaOKZ0mG1z40Jq7cRexbcDivFhSc+l9lB2qqYqpS/Cbty?=
+ =?us-ascii?Q?uYyn4FQcyIVlIyQcEkzG7WKUG6gAFGWnVw+ddhIPZ0rr51PabMP3BWfGQ9qs?=
+ =?us-ascii?Q?qxwAYHnsHk9zZ5N2Vt+5UYmME+6U9B3qpcYA+k8jJqHHSosH7onsGYIPyD/K?=
+ =?us-ascii?Q?di/Vzg3QerGhuCIk+Q6sSY7oIaC/kk1DEH3Srq4b44s7kTutsSdE8UvoN3fE?=
+ =?us-ascii?Q?P8Kq4vv6SVJPOIfFQfcXOjtq2kSekJJ0csW2cECzJtNe0qS5iTVSXcQDoxrv?=
+ =?us-ascii?Q?JWhhK6hB1V5X67/1V7+2pMYVNVnP9PyCg1MJV8A8CqGFd36n3FyesfH3aPYp?=
+ =?us-ascii?Q?HNZ319HNgihswF2GRL6FAOef1SnTvwlaGCRrdXhkLxHHM32RkVBDeXMnNB6f?=
+ =?us-ascii?Q?0NZMDEzi7K9N9auDj4jfxtqGzA6rKOkn26I6quKsR+Ad327PTeqoYyKouH00?=
+ =?us-ascii?Q?DJ9q8clUXMWKxX8WFcY05GbL/1w5jXDKe2XGs0S/U1UqrKcsFiikw2cm4xrv?=
+ =?us-ascii?Q?9TVq/UMYp4n8Is+24PuRjE79xt+apN1chkCXj32ZVtPIlIBzZGo+TebkxKe3?=
+ =?us-ascii?Q?X+NeFqFoiHIfz8ZAUOEsHhRumVXt6tfDydZh5zDMexf1ZqwzWEzJV+YPOndI?=
+ =?us-ascii?Q?LILQWiMSgVR37jTgTioHJl8ehxQCD8+kh31h06YLfP0GDZY0OhI1LNzLCfGx?=
+ =?us-ascii?Q?+Q/i6fNV31cwjWjOnul/VqSGf6SukALG6zU16YndutVMKIPfsPIV8BOyUR75?=
+ =?us-ascii?Q?gNLowclhKCXuZIKyO9coB8GlDGkI6fXscmlfkFoTt0NGmdQavfcIMwogGGnl?=
+ =?us-ascii?Q?U+7MoWoi2cqbqL21lIBB6KJWMl14tbdTmuGGk58J4JHi+NGvKv3rBoerJ3Nf?=
+ =?us-ascii?Q?ir4/I/9aXdT3K01vh7ydDnig8RrTFR4hwszkRH5B2Z+bXR24F0puhKT5X+qK?=
+ =?us-ascii?Q?cPb5+UhRWwZlTOq/luIJTuPM5Z4B33CErbo6EOE/yTrwrEq8KMF5Cxfyu7vi?=
+ =?us-ascii?Q?Cj7MsvKBFvlu8P85TKVc/ySiMwJV9Kif5x/fmkHGwFCmcdOlFA5il/IiiyfY?=
+ =?us-ascii?Q?i7Eth+O2brIoKmvfJCgVrQs/JecgXOgT9NCZlnAEMJvDoMgAziaHGo+2SRGn?=
+ =?us-ascii?Q?onJXm2atnk81an3SwEPTdgp6ky74a7c4N7GNQocL2v8W526nX06uFzzmIDmn?=
+ =?us-ascii?Q?MzwS6lTeZ+K/ZsrbWqgLzGxqE9/BUD7bfgBuYL0wf55DhUa9LirNolmDBWxd?=
+ =?us-ascii?Q?SZ6FiCs0gkT0alUlvsZMB/U8KTRJxITcfm/gcqy4Jqa03HLBwWaAQgXGEXFK?=
+ =?us-ascii?Q?luetRM0PdF8+ujahaBXfQaWSHbk2rRZItpJSmvMyzmdiXkOx33vzOOhMKeDQ?=
+ =?us-ascii?Q?ARHuojCed+NWkb/h0ri9yzB4g6xUIrIJLFt6eIhSxw2KpM5rt+x+EnBN3nby?=
+ =?us-ascii?Q?MJmIiZkbcE/xV+D9U976oF3AV1K50rU=3D?=
+X-Exchange-RoutingPolicyChecked: PbmQAC00LKw8k/YjiuMp5Ru1qiU1WR1gvBFSoQ+nxZ4fKIzHcxqrpWTucCvweTgyarIMxU45S1hSoXe7STVKxg/xANU6biYvvZRnJ/moj1+3r7G1Vu1Aa07+GRuLQz5OpP5oc5DeSIYvK3aSIISlwcZL8nolKdsD/CQHRy9++KXV4WtpwGG6Nsebc7mCotlUiYd0yl6gtWsO9Judhjoc8X2MPDB/HARPDTj2jGn2nXvCqji+1b3L56l83MWQL/mNrYXfHlkBgfe/mDyDbw6zBW7NQB1E3C7O9wB1HHNdJWwgZE9y+vBU+4hkeHv9/8U1SogtKnbThnWQDq7RM9CvFQ==
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0: lCd+6SuQlBGO6+FCW3VpCSCd4jkPJEBjVbt8l2uAOAOFUMrQV6fqNKe9DISRMoLvFmzEb2oTbgKgrCR3PJies7GAU85efYBPC+5WSEQvwQ204H33fsFQXBHLquwUM3SN7L3+WRQ/RI+gOmcdE3kxQzdBlg6rFBJ6ssaVWQBgW3ad1DtQgU0nBh9f3zp/gwXmCNv0zePsSaXBATp9zWpTaSHVUz2724xeFe75z6lXId3El/iBO85giyIhrGLGyDLvj0xrBMGwGXlvY1N0j/RKXpkwKfpYeytemXBkRfqhloHY7UqeAWnRHnthWBSf4jwK/dHbXSx8xUeaYcZLPzGjZF4CGWyWY5BOnvdq0i2v/MnZqK+QcWWr3+s/SKSTIZbyoSraqJP39SsWwrwT1lhMz7xzPrjmEQTAVLyoxBP4bafGizurTGRFw25jzmpOFY1C0+U2gYrG4nXgMPxN3WcOUmvCS1vZwta39XqITM5XP4iVksLBugqfj0KEUXcI2jEoJSFWAuDIiQWhpQ65IU50avUxzXs/Lx22CWm7bDKoBAukDvsuhWhDUuYir10jfq+dbx9cdbKHY4mVRYGJdZX2JpVml2ErTHV8/aFCQZcEy5s=
+X-OriginatorOrg: oracle.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d1e69b93-b016-4624-4b8a-08de8c3e257a
+X-MS-Exchange-CrossTenant-AuthSource: CH0PR10MB5338.namprd10.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Mar 2026 20:19:27.9220 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 1LK5QnGJeluLl6RUVMduc8qqhvz3NLDibxzf/jomR3/D3tx2JHLAccsy9n+h5jGP7AXyVbQE6D5wTGMz/D2JSLXQPFN4Rd0sAgIz9oo8KSo=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR10MB6850
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-03-27_01,2026-03-26_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 phishscore=0
+ adultscore=0 bulkscore=0
+ malwarescore=0 mlxlogscore=999 mlxscore=0 spamscore=0 suspectscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2603050001
+ definitions=main-2603270142
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzI3MDE0MiBTYWx0ZWRfX1XH1GaoCCOEO
+ qsxhYZ5npBuJ2gudCoR2lKJyjbYABpU4oOakSARk6imMJpRKZYuNu9BNfGo5+r85yY6BBLo0KDz
+ f44W07fJFuX6YTpyHktKP1u34yBiBgZuDme+5RiCwnrDeNKzmjIzosShdPG6PrlUhFGFQ7hlQmq
+ hyPVoi351ID+TZZsC61gYumrAuXDq5CFufJ9BbRW038QWyOdNvHRbaOn1KDIvkkvaEJIEJTccys
+ PwJ+erNAJJh8D1APEs/5SPMrZoFW/2r7UuFc0sBTpWIdJp1OtOsqfP/u7TXag4tRXzyro94kgI8
+ wK8NpFV/vAzXJwEr7oNSeSu5xmA1NuFlntWDIvC6rRTUsNLPDtKQ19w04QP9c+JUUD+O+akA9Mu
+ aZ9Vob+HoFkqBSK57fp7CWjkHhQara6QwtabaOEorz6BFA/9MY5EFGj/QJdXwM6NM5MewCMwQRP
+ mTy1i8HhMhzgWJBPLrg==
+X-Authority-Analysis: v=2.4 cv=VIXQXtPX c=1 sm=1 tr=0 ts=69c6e657 cx=c_pps
+ a=XiAAW1AwiKB2Y8Wsi+sD2Q==:117 a=XiAAW1AwiKB2Y8Wsi+sD2Q==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
+ a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19 a=xqWC_Br6kY4A:10 a=Yq5XynenixoA:10
+ a=GoEa3M9JfhUA:10 a=VkNPw1HP01LnGYTKEx00:22 a=jiCTI4zE5U7BLdzWsZGv:22
+ a=BqU2WV_vvsyTyxaotp0D:22 a=yPCof4ZbAAAA:8 a=6mumWSTpUwaCtAzzPUsA:9
+ a=MTAcVbZMd_8A:10
+X-Proofpoint-GUID: ezV6grP-geTb0GSzJTOtB3O7MOsjfBSY
+X-Proofpoint-ORIG-GUID: ezV6grP-geTb0GSzJTOtB3O7MOsjfBSY
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,65 +199,14 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Alexandre,
 
-kernel test robot noticed the following build errors:
+Vladimir,
 
-[auto build test ERROR on dff8302ca1d0e773c90dbeeb05e759f995c95482]
+> The Exynos host controller driver is clearly a PHY consumer (gets the
+> ufs->phy using devm_phy_get()), but pokes into the guts of struct phy
+> to get the generic_phy->power_count.
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Alexandre-Courbot/gpu-nova-core-gsp-fix-undefined-behavior-in-command-queue-code/20260327-003216
-base:   dff8302ca1d0e773c90dbeeb05e759f995c95482
-patch link:    https://lore.kernel.org/r/20260326-cmdq-ub-fix-v3-1-96af2148ca5c%40nvidia.com
-patch subject: [PATCH v3] gpu: nova-core: gsp: fix undefined behavior in command queue code
-config: um-randconfig-002-20260327 (https://download.01.org/0day-ci/archive/20260328/202603280326.ucDKVaf2-lkp@intel.com/config)
-compiler: clang version 23.0.0git (https://github.com/llvm/llvm-project 054e11d1a17e5ba88bb1a8ef32fad3346e80b186)
-rustc: rustc 1.88.0 (6b00bc388 2025-06-23)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260328/202603280326.ucDKVaf2-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202603280326.ucDKVaf2-lkp@intel.com/
-
-All errors (new ones prefixed by >>):
-
-   /usr/bin/ld: warning: .tmp_vmlinux1 has a LOAD segment with RWX permissions
-   /usr/bin/ld: drivers/gpu/nova-core/nova_core.o: in function `<core::ops::range::Range<usize> as kernel::ptr::projection::ProjectIndex<[[u8; 4096]]>>::index::{closure#0}':
->> rust/kernel/build_assert.rs:28:(.text+0xfb16): undefined reference to `rust_build_error'
-   clang: error: linker command failed with exit code 1 (use -v to see invocation)
-
-
-vim +28 rust/kernel/build_assert.rs
-
-614724e780f587 Miguel Ojeda 2024-11-23   7  
-0f595bab9d1c1a Gary Guo     2022-11-10   8  /// Fails the build if the code path calling `build_error!` can possibly be executed.
-0f595bab9d1c1a Gary Guo     2022-11-10   9  ///
-0f595bab9d1c1a Gary Guo     2022-11-10  10  /// If the macro is executed in const context, `build_error!` will panic.
-0f595bab9d1c1a Gary Guo     2022-11-10  11  /// If the compiler or optimizer cannot guarantee that `build_error!` can never
-0f595bab9d1c1a Gary Guo     2022-11-10  12  /// be called, a build error will be triggered.
-0f595bab9d1c1a Gary Guo     2022-11-10  13  ///
-0f595bab9d1c1a Gary Guo     2022-11-10  14  /// # Examples
-0f595bab9d1c1a Gary Guo     2022-11-10  15  ///
-0f595bab9d1c1a Gary Guo     2022-11-10  16  /// ```
-0f595bab9d1c1a Gary Guo     2022-11-10  17  /// #[inline]
-0f595bab9d1c1a Gary Guo     2022-11-10  18  /// fn foo(a: usize) -> usize {
-0f595bab9d1c1a Gary Guo     2022-11-10  19  ///     a.checked_add(1).unwrap_or_else(|| build_error!("overflow"))
-0f595bab9d1c1a Gary Guo     2022-11-10  20  /// }
-0f595bab9d1c1a Gary Guo     2022-11-10  21  ///
-0f595bab9d1c1a Gary Guo     2022-11-10  22  /// assert_eq!(foo(usize::MAX - 1), usize::MAX); // OK.
-0f595bab9d1c1a Gary Guo     2022-11-10  23  /// // foo(usize::MAX); // Fails to compile.
-0f595bab9d1c1a Gary Guo     2022-11-10  24  /// ```
-0f595bab9d1c1a Gary Guo     2022-11-10  25  #[macro_export]
-0f595bab9d1c1a Gary Guo     2022-11-10  26  macro_rules! build_error {
-0f595bab9d1c1a Gary Guo     2022-11-10  27      () => {{
-614724e780f587 Miguel Ojeda 2024-11-23 @28          $crate::build_assert::build_error("")
-0f595bab9d1c1a Gary Guo     2022-11-10  29      }};
-0f595bab9d1c1a Gary Guo     2022-11-10  30      ($msg:expr) => {{
-614724e780f587 Miguel Ojeda 2024-11-23  31          $crate::build_assert::build_error($msg)
-0f595bab9d1c1a Gary Guo     2022-11-10  32      }};
-0f595bab9d1c1a Gary Guo     2022-11-10  33  }
-0f595bab9d1c1a Gary Guo     2022-11-10  34  
+Reviewed-by: Martin K. Petersen <martin.petersen@oracle.com>
 
 -- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+Martin K. Petersen
