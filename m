@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B424410ED674
-	for <dri-devel@archiver.kernel.org>; Fri, 27 Mar 2026 13:30:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 97E3510ED661
+	for <dri-devel@archiver.kernel.org>; Fri, 27 Mar 2026 13:30:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EF3AB10EE80;
+	by gabe.freedesktop.org (Postfix) with ESMTP id EEB5E10EE7C;
 	Fri, 27 Mar 2026 13:30:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="cp/j7Act";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="utuxB/nj";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3029910EE7C
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Mar 2026 13:30:20 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4D71C10EE7C
+ for <dri-devel@lists.freedesktop.org>; Fri, 27 Mar 2026 13:30:19 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 1719161332;
- Fri, 27 Mar 2026 13:30:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id A22E8C2BC87;
+ by sea.source.kernel.org (Postfix) with ESMTP id F07CB44510;
+ Fri, 27 Mar 2026 13:30:18 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id CD281C2BCB8;
  Fri, 27 Mar 2026 13:30:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
  s=k20201202; t=1774618218;
- bh=is/J0xWni3Iwj5Mb9WOM14V70iU+cSzyUWIAS/aDUmY=;
+ bh=o+cDd6rLPqJJvSBR0PTspOivz6thnRMenTivb5cMzPY=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
- b=cp/j7ActzYrBf+BVswj2DWP3qHl65MpIX/E9WYIhdxh2Y0wNHJex71kX46QEdKNNS
- XVXVKVJUhsyb4CGaA/MU4DIbPbKSyWytf83B3gcDmlguDfsVi2Tc8mVMOa00OEMl8y
- 3GHHBqJsRCDNPZoGsQq7aKbC5XSLX8H/rT39ORZMggLSoOwQ2A6lLobyTfS1HQXc7l
- kmeUgB/JeYXAUjqOF6HfH4mL3jHLq5RUbIthM6aQWKj39UcDz2bKz8fUGV/jXfd9k1
- nBVdy0C69yotXvmI88r/9sMm+rfIFBKozclvbTiOiXpbbBOE7uOEqj9MTU9oF90j4o
- CCK1AMEb9+WpA==
+ b=utuxB/nj/+CDzaSmUjUKjwbAKSrrBUdxwXqNrEJatIVQH751yRaPsntb/MbLOlYzp
+ KFSnd2rWXzy+iKYlUt30Y5f1VeuTP98VApE/3YnJp0lyjImUw15p/srC65EMpiDOZC
+ HUAzMYsb3DKgmWtIbvSfVPFN7fyjGnbN86ZE8Jd+V8fTXDSkepvoc8kQgCUyqqYQtd
+ zpvCVyord8+21Uq0t71LNFdazrGNPz895svHsNUubYnA6RXzGH8NQcClC6n3Pm7EcW
+ +8NdvGy+9+27b7jWAl8lh4kMc/DT5dNXLI/17XoQYOdXlWu0aRgYcsoDgiLPoqPBrd
+ YZ+JF1D+cguPg==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id 96F6D10ED67C;
+ by smtp.lore.kernel.org (Postfix) with ESMTP id BFC9010ED661;
  Fri, 27 Mar 2026 13:30:18 +0000 (UTC)
 From: Cristian Cozzolino via B4 Relay
  <devnull+cristian_ci.protonmail.com@kernel.org>
-Date: Fri, 27 Mar 2026 15:30:49 +0100
-Subject: [PATCH v4 3/6] arm64: dts: qcom: msm8953-flipkart-rimob: Enable
- display and GPU
+Date: Fri, 27 Mar 2026 15:30:51 +0100
+Subject: [PATCH v4 5/6] arm64: dts: qcom: msm8953-flipkart-rimob: Enable
+ touchscreen
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260327-rimob-new-features-v4-3-06edff9c4509@protonmail.com>
+Message-Id: <20260327-rimob-new-features-v4-5-06edff9c4509@protonmail.com>
 References: <20260327-rimob-new-features-v4-0-06edff9c4509@protonmail.com>
 In-Reply-To: <20260327-rimob-new-features-v4-0-06edff9c4509@protonmail.com>
 To: Neil Armstrong <neil.armstrong@linaro.org>, 
@@ -56,13 +56,14 @@ To: Neil Armstrong <neil.armstrong@linaro.org>,
 Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
  linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
  ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org, 
- Cristian Cozzolino <cristian_ci@protonmail.com>
+ Cristian Cozzolino <cristian_ci@protonmail.com>, 
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1774621871; l=2394;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1774621871; l=1591;
  i=cristian_ci@protonmail.com; s=20250620; h=from:subject:message-id;
- bh=Fz1tMKasVRi0ErUGo8gYPDQvReOMNw2B51NbF3qLh14=;
- b=PC0WqoLW7EOaH2sD4EMyWEzlz67YUuO2JuU0q04YpU+vAt2hNVodMSZecdqkNLvyzktm8f87z
- CdYIFPoZimCACcOBugtmhWaQVurE9q8odbtFuIzNkLVKfxeQmLHpnR5
+ bh=jTbARXkjWHmyaiFZEdymOFXmGC761kbHkBCVhgFNKAg=;
+ b=IfSwCEIRtDhlJX9itmeIG+vCObwSjOzfTK45LKDx70YAi++WLHu9OEnuop7f2mmI5ZFKHwuKk
+ 5GMZqP9t9OmAt8m1xsrocp15rulA5fvWshs7AEttxWkr1iS+odpBDa+
 X-Developer-Key: i=cristian_ci@protonmail.com; a=ed25519;
  pk=xH5IvIPUNHV1Q8R0/pq2CfuVFR/wTiAyuyi6IwedjZY=
 X-Endpoint-Received: by B4 Relay for cristian_ci@protonmail.com/20250620
@@ -86,114 +87,61 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Cristian Cozzolino <cristian_ci@protonmail.com>
 
-Add the description for the display panel found on this phone.
-And with this done we can also enable the GPU and set the zap shader
-firmware path.
+This device uses a Goodix GT5688 touch controller, connected to i2c_3.
+Add it to the device tree.
 
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 Signed-off-by: Cristian Cozzolino <cristian_ci@protonmail.com>
 ---
- .../arm64/boot/dts/qcom/msm8953-flipkart-rimob.dts | 73 ++++++++++++++++++++++
- 1 file changed, 73 insertions(+)
+ .../arm64/boot/dts/qcom/msm8953-flipkart-rimob.dts | 32 ++++++++++++++++++++++
+ 1 file changed, 32 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/qcom/msm8953-flipkart-rimob.dts b/arch/arm64/boot/dts/qcom/msm8953-flipkart-rimob.dts
-index ef4faf763132..8b72b71f4d4b 100644
+index 8620143e04a0..a1280b0e7e90 100644
 --- a/arch/arm64/boot/dts/qcom/msm8953-flipkart-rimob.dts
 +++ b/arch/arm64/boot/dts/qcom/msm8953-flipkart-rimob.dts
-@@ -78,6 +78,13 @@ vph_pwr: vph-pwr-regulator {
- 	};
- };
- 
-+&gpu {
-+	status = "okay";
-+};
-+
-+&gpu_zap_shader {
-+	firmware-name = "qcom/msm8953/flipkart/rimob/a506_zap.mbn";
-+};
- 
- &hsusb_phy {
- 	vdd-supply = <&pm8953_l3>;
-@@ -87,11 +94,70 @@ &hsusb_phy {
+@@ -94,6 +94,31 @@ &hsusb_phy {
  	status = "okay";
  };
  
-+&ibb {
-+	qcom,discharge-resistor-kohms = <32>;
-+};
-+
-+&lab {
-+	qcom,soft-start-us = <800>;
-+};
-+
-+&mdss {
-+	status = "okay";
-+};
-+
-+&mdss_dsi0 {
-+	vdda-supply = <&pm8953_s3>;
-+	vddio-supply = <&pm8953_l6>;
-+
++&i2c_3 {
 +	status = "okay";
 +
-+	panel: panel@0 {
-+		compatible = "flipkart,rimob-panel-nt35532-cs";
-+		reg = <0>;
++	touchscreen@5d {
++		compatible = "goodix,gt5688";
++		reg = <0x5d>;
 +
-+		backlight = <&pmi8950_wled>;
-+		reset-gpios = <&tlmm 61 GPIO_ACTIVE_LOW>;
-+		avdd-supply = <&lab>;
-+		avee-supply = <&ibb>;
-+		vci-supply = <&pm8953_l17>;
-+		vddi-supply = <&pm8953_l6>;
++		interrupts-extended = <&tlmm 65 IRQ_TYPE_LEVEL_LOW>;
 +
-+		pinctrl-0 = <&panel_default>;
++		pinctrl-0 = <&tsp_int_rst_default>;
 +		pinctrl-names = "default";
 +
-+		port {
-+			panel_in: endpoint {
-+				remote-endpoint = <&mdss_dsi0_out>;
-+			};
-+		};
++		irq-gpios = <&tlmm 65 GPIO_ACTIVE_HIGH>;
++		reset-gpios = <&tlmm 64 GPIO_ACTIVE_HIGH>;
++
++		VDDIO-supply = <&pm8953_l6>;
++		AVDD28-supply = <&pm8953_l10>;
++
++		touchscreen-size-x = <1080>;
++		touchscreen-size-y = <1920>;
++		touchscreen-inverted-x;
++		touchscreen-inverted-y;
 +	};
 +};
 +
-+&mdss_dsi0_out {
-+	data-lanes = <0 1 2 3>;
-+	remote-endpoint = <&panel_in>;
-+};
-+
-+&mdss_dsi0_phy {
-+	vcca-supply = <&pm8953_l3>;
-+
-+	status = "okay";
-+};
-+
- &pm8953_resin {
- 	linux,code = <KEY_VOLUMEDOWN>;
- 	status = "okay";
+ &ibb {
+ 	qcom,discharge-resistor-kohms = <32>;
  };
- 
-+&pmi8950_wled {
-+	qcom,current-limit-microamp = <10000>;
-+	qcom,num-strings = <3>;
-+	qcom,ovp-millivolt = <29500>;
-+
-+	status = "okay";
-+};
-+
- &rpm_requests {
- 	regulators {
- 		compatible = "qcom,rpm-pm8953-regulators";
-@@ -244,6 +310,13 @@ gpio_key_default: gpio-key-default-state {
- 		drive-strength = <2>;
- 		bias-pull-up;
+@@ -317,6 +342,13 @@ panel_default: panel-default-state {
+ 		drive-strength = <8>;
+ 		bias-disable;
  	};
 +
-+	panel_default: panel-default-state {
-+		pins = "gpio61";
++	tsp_int_rst_default: tsp-int-rst-default-state {
++		pins = "gpio64", "gpio65";
 +		function = "gpio";
 +		drive-strength = <8>;
-+		bias-disable;
++		bias-pull-up;
 +	};
  };
  
