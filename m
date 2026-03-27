@@ -4,122 +4,122 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A5DF210F285F
-	for <dri-devel@archiver.kernel.org>; Fri, 27 Mar 2026 17:23:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 02EAE10F285E
+	for <dri-devel@archiver.kernel.org>; Fri, 27 Mar 2026 17:24:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 191B710E082;
-	Fri, 27 Mar 2026 17:23:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6E0F010E08F;
+	Fri, 27 Mar 2026 17:24:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="PJyTmmYa";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ic3Ehwgf";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="DP/l1OL7";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="fy44rI16";
 	dkim-atps=neutral
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3D1DC10E082
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Mar 2026 17:23:46 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C0BA610E08F
+ for <dri-devel@lists.freedesktop.org>; Fri, 27 Mar 2026 17:24:47 +0000 (UTC)
 Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 62RDhhr12769894
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Mar 2026 17:23:45 GMT
+ 62RDhLhg2769486
+ for <dri-devel@lists.freedesktop.org>; Fri, 27 Mar 2026 17:24:47 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- veP/AcaZJqvwTGjl78Yki2Fb/VKChVz/2Shqnw88esQ=; b=PJyTmmYaHO8YvRjV
- EXqljG7SwMrM61ol95ODV/0upNI+nHCCB0N4MCYxPvrcZcp4+T+eYCWoRktndHq/
- VFvkb5QBdAcAsh+2V8v56hqSUl0S0H2u5tcWdwL70Tpf+ksLvE+UEA4jpTfzcu9h
- sZL/XMmuQJysz2WYr4uhJHvz1c8OPa2hh5POGesZUGWD+f4iFeTt4Nrw+dJz4Lvz
- x2rCeeF0M5meAXnEUwQxiQZZfUUfZtzGAKvVV/n1p4Jiq0AaZxQUO4dQ2TQ3ZOar
- 3D2K7p900tmnTyBGZLWBFd3PjOXfXj4REs52W6YhbI8sYrmgtcdArPWYOIQEA2fo
- 0G74IQ==
-Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com
- [74.125.82.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d5bxv41n8-1
+ RxyJzStkpJcEbJkfZenz3/xq+izSJI7BIJhAfqYYo7I=; b=DP/l1OL7qdM3E+ax
+ 1A9V0O8p5x6DDlraMIVou6P9yHfg7+l36XCne2TtNDyAYpXMJOzEuz9fUkNscNvr
+ oyR6I+soBGezrS7Px5kbJwn3NTjjU1dnjJCHX9k3NO0Gko/PD5lSCpa08R+hh4UX
+ Q5bQ+FG/nfASAPWyVS6ljifuP/dUlNY7/2yn3uttxNyijpzAaf/4IhqTjAmnODHe
+ EotJbV4WdDrqmHATeTX/OFfVpTs6O5U/OwM5Iol3Lk/qNfp9BCuJBz6f1AJF7fmB
+ 4uX7bdyo0jSbtqlevsF+CXcXQ4KoUnDALXDv3P5DkR1DpUM6VaQhzg49kUBqQM2R
+ bh5RPQ==
+Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com
+ [74.125.82.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d5bxv41r4-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Mar 2026 17:23:45 +0000 (GMT)
-Received: by mail-dy1-f198.google.com with SMTP id
- 5a478bee46e88-2c189594f54so4135279eec.1
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Mar 2026 10:23:45 -0700 (PDT)
+ for <dri-devel@lists.freedesktop.org>; Fri, 27 Mar 2026 17:24:47 +0000 (GMT)
+Received: by mail-dy1-f199.google.com with SMTP id
+ 5a478bee46e88-2c16233ee11so2235093eec.1
+ for <dri-devel@lists.freedesktop.org>; Fri, 27 Mar 2026 10:24:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1774632225; x=1775237025;
+ d=oss.qualcomm.com; s=google; t=1774632287; x=1775237087;
  darn=lists.freedesktop.org; 
  h=content-transfer-encoding:in-reply-to:from:content-language
  :references:cc:to:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=veP/AcaZJqvwTGjl78Yki2Fb/VKChVz/2Shqnw88esQ=;
- b=ic3EhwgfTUjkZT9B7T1djyMUSMd6LWpwK4nRpEyyEBDDtX+7Dl+KNmzvF1zEhpq23n
- Ml0QbBiQyjfUr1vaPH+8eX0RekcqK1MqatqDCnUfaGhcgmQvdqNG/Vd331j72BFH0vU1
- 8jrvhqwSSG1wxbAfJGRKjhsKrprMMTfDXeDB+uR/9+IZOX69ZwQja5pCpeVFSFyYzkE2
- arPQ28Nb7HLL/TGs4BHMI53oM3hl/XiBqIA2nv6EFex9FrsUPQHKYGacdYA028wF/hoE
- 2BS3biZbbR84ZunDKox4qc2tFD3wSNxyMVxihW3QT2U7GTwjrB8/loOZaWtOsMwRD4zq
- er+g==
+ bh=RxyJzStkpJcEbJkfZenz3/xq+izSJI7BIJhAfqYYo7I=;
+ b=fy44rI16NLIO9ds3Ujg4On5eCvEWXAtBnuZHOsAEfA0fTMvBkAddMvMcM6c1Floz/5
+ BdlUSstLwd50fqZRTZBJsrENV5GLshZSt5dy/BbpDh9xjKze/Q9GaUm4mPLZ9airTx3T
+ QzRCnFERuzEc3uLDdTI+HABnzKi14Mmz93lpE1qajeUV5CkPSu1EUEUV986siH8mmd/4
+ KujufFYWiO081RJsguS5yyCtDBauxM6Q+H8Pn/ICMzFak/lrKXAvFv5FbXy5esOidSWD
+ eWr1+nkXWoAxl2gZw01fKsP3hYbGRhwiRuUk6T5uXe3LmDUK5dcWzuqisizxd/GwKI3+
+ 6DEg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774632225; x=1775237025;
+ d=1e100.net; s=20251104; t=1774632287; x=1775237087;
  h=content-transfer-encoding:in-reply-to:from:content-language
  :references:cc:to:subject:user-agent:mime-version:date:message-id
  :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=veP/AcaZJqvwTGjl78Yki2Fb/VKChVz/2Shqnw88esQ=;
- b=IZa4iKZnCNR46WfIVjf/7W728CmBVYx2QbjPW0PwK2qIb4b7Z3Yx7vyN1HQwvdLSoo
- bt0IsN+n+VKusiyAeMDgT4yDS8zcFZur89lzLLTcTGf2CsDTj7osACsjpb/JmPIIAvbG
- /lWi3S9NnUQX8QSBh++ja4sm56INSDnASpI2I1Z49cv2Dy3CTtZFtQcBnVmZHUJc8MJk
- sU3syc0ZOKLqftlBbA/mGsaFvSsvhf2WYajsqk05mrr1RNt3XtruT7CDMs9kw1507885
- p8tV66yra/76k1vLoQK9/dcoW+2AJ76G80nSvIzCq/b4R7ibSe/pBVKH345cx3viM3fX
- w8/w==
+ bh=RxyJzStkpJcEbJkfZenz3/xq+izSJI7BIJhAfqYYo7I=;
+ b=obHCtqLg+G8tP8e7h8sUmVqiCgmlXgjdeBAR692Xd9ySgJURksM/Y3Fzo06FYXNyiJ
+ x8rMQo8xvo0cS8r/3THg61DLdSrgMh+9ZQFmYmDRuuHlaYPp5NHBYhdt85cz7raQuFjw
+ gR/tZwd5Q6XcKC2FzWYSFDDB0kA8trw3/3mf6JHG3Zxz1U3h8lYtDNlZu0xe9vOVCfFB
+ kTBtYkLZDZmkcu6cp4kQRQ+6Jo8RERHJ1RtZ7V11s2+Ka9XkSeNSG42FfCs2B5kJ0BDv
+ AGxpw57KfnH7BuAVy/LHVXj8MAxPIW1j2uxF8rFu0Yv2jFQ6ovopivjijMrhVI4Z0M8f
+ 4Y3Q==
 X-Forwarded-Encrypted: i=1;
- AJvYcCX2oSeJKQczJeUlTBrWqF4s1hhFvl8O1MSbOA2iKHzabZO2y8EaNYnUbEiGpfnfTZGm4kSvlE5ZiYI=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyasGO4G2P7OSou79PV+5tsRBu1kOCEQzzFxbRIy6oqn8O+D7qk
- THYC7zH9J6wnViqwn/1AVgBTVY6x105VPmBoWGc5OqLBCw41NSQhQqUR/30Y3ZcKkGANeMDPRjX
- P4Jdo6OI6Qti3KVlp+OKzKusf6wnHhzbP3MPWwhG0/jcoNMIfNeF5ekpg+w04rj/s0DX0qKk=
-X-Gm-Gg: ATEYQzyn2UDldJ/R3hJ4YVogiHDsobq6pWVOvIQY7QiHMkq+BF/Y0fClKlAkdETXWXJ
- /J8mp9BDfdwBPWs8MtlsV7CyYXGaoGtOhLHVyJ4y3fuGgNEDRs53BZkU6xDFpiwbxQGIGtbGIKn
- EVutDJ7dRgWDp0kHKE7Q8cFykkyjTG3ctmIzYuYJYRZIvzFQJuTQGz/iuGQUC4JYw9bJh5vedlC
- CI7ZtsryCCtjq7MFj5jcnhP+RiobEsmClBTr6iShLdxHY+IDQ/+gs/MN46/e9dj37S3qPVTe2kw
- oUEQJDZmuxoETkbmlQYIpz/EQE5vFhLVpVgSeQTnb/wjKJrSi1TuxnT7/fDiLiJP2UIyPNR7uOh
- Fh9fjXjuNDm2pq+EPVRto3kUb3bx8uCtqBoPVOnASzjQMZqWBaJy06ZqGj/CCxySATYj/eErnsi
- Q=
-X-Received: by 2002:a05:7300:6da4:b0:2bf:1eaf:995c with SMTP id
- 5a478bee46e88-2c185dfe422mr1792451eec.17.1774632225061; 
- Fri, 27 Mar 2026 10:23:45 -0700 (PDT)
-X-Received: by 2002:a05:7300:6da4:b0:2bf:1eaf:995c with SMTP id
- 5a478bee46e88-2c185dfe422mr1792435eec.17.1774632224491; 
- Fri, 27 Mar 2026 10:23:44 -0700 (PDT)
+ AJvYcCXvQD6xIhQUlCS+xj8Yalzfz7Nxxg+vrcFSLLWMbl6FfQfcMDtmhCHPPg1AuzgoxWJ29U0z9UM5/is=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yz9dOXwLIx/Rb0DuXMemTq9BFAcJNVNSSiYId+DHK3nTDUQiqUV
+ +kW3k78gjH2ZNa0Br3pwnmUJAzxbcPQIKAF6aJgJ3dptv5JkbURv9J6h5qwQQ+diT5WJxuKXO6l
+ F/5Uckg/LTUCI9pSq/rgXYRWzZjk0PiUlSUqUEvClWUOdyU//z0O+7Rf+JI/IWNmwPVdNvCU=
+X-Gm-Gg: ATEYQzyXdYEgypUWULY22rs9krdrV1qouPOPUMokMt3n/UBX1jXIn1J6OzRS6KTLrHV
+ Zk3NItcSErtmw+NGdS0zbX3TKZSb8DxBkYlOxWRk8BerEiadJ7gnU+9pCP8hqmZkQwkvfxiui+Y
+ z80tV0dUHaH5aEZQeTUq2x7y5yQpR3svBe+bYfUbwPYp1N0QtnnB1tCzk/9IWHCq29ay6Lnt0Bp
+ JTFheiKpebsX/ViLdCtfAm8f46uPFBEtAXnK02jNZmAwu7Yv4vHKyp0Lhryg9mFEzUh6uWkV4h2
+ 9npMFgr48Lr3WjbsfvVGFsy+wl+UxMAGUuOHBJeBl+cm++R3pOUQcemQrdvmrqkwCsdYJXd+1hl
+ Xx47cGyzRmu3BvRU5VlDSmGEPtNZOiBmRSrUNhe1Vm8LhPmfRGAWA7VHV7jtb0ywMQSCrwCYH9X
+ g=
+X-Received: by 2002:a05:7300:5b89:b0:2c1:1dea:c443 with SMTP id
+ 5a478bee46e88-2c185e460a2mr1696315eec.19.1774632286597; 
+ Fri, 27 Mar 2026 10:24:46 -0700 (PDT)
+X-Received: by 2002:a05:7300:5b89:b0:2c1:1dea:c443 with SMTP id
+ 5a478bee46e88-2c185e460a2mr1696284eec.19.1774632285930; 
+ Fri, 27 Mar 2026 10:24:45 -0700 (PDT)
 Received: from [10.226.59.182] (i-global254.qualcomm.com. [199.106.103.254])
  by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-2c16edc0436sm5589779eec.22.2026.03.27.10.23.43
+ 5a478bee46e88-2c16ed9f751sm5677152eec.14.2026.03.27.10.24.45
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 27 Mar 2026 10:23:44 -0700 (PDT)
-Message-ID: <39c164d7-5d9d-41a8-8d3e-e209317ca7c2@oss.qualcomm.com>
-Date: Fri, 27 Mar 2026 11:23:42 -0600
+ Fri, 27 Mar 2026 10:24:45 -0700 (PDT)
+Message-ID: <1af00780-e291-4444-88d8-bdd1acf93193@oss.qualcomm.com>
+Date: Fri, 27 Mar 2026 11:24:44 -0600
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] accel/qaic: Simplify bootlog line handling
+Subject: Re: [PATCH] accel/qaic: Retain bootlogs that overflow
 To: Youssef Samir <youssef.abdulrahman@oss.qualcomm.com>,
  carl.vanderlip@oss.qualcomm.com, troy.hanson@oss.qualcomm.com,
  zachary.mckevitt@oss.qualcomm.com
 Cc: ogabbay@kernel.org, lizhi.hou@amd.com, karol.wachowski@linux.intel.com,
  linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org
-References: <20251223170226.2275812-1-youssef.abdulrahman@oss.qualcomm.com>
+References: <20251223170511.2277302-1-youssef.abdulrahman@oss.qualcomm.com>
 Content-Language: en-US
 From: Jeff Hugo <jeff.hugo@oss.qualcomm.com>
-In-Reply-To: <20251223170226.2275812-1-youssef.abdulrahman@oss.qualcomm.com>
+In-Reply-To: <20251223170511.2277302-1-youssef.abdulrahman@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=A99h/qWG c=1 sm=1 tr=0 ts=69c6bd21 cx=c_pps
- a=wEP8DlPgTf/vqF+yE6f9lg==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
+X-Authority-Analysis: v=2.4 cv=A99h/qWG c=1 sm=1 tr=0 ts=69c6bd5f cx=c_pps
+ a=cFYjgdjTJScbgFmBucgdfQ==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
  a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10
  a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=EUspDBNiAAAA:8 a=ZUs9zOJhT6POFn0piIgA:9 a=QEXdDO2ut3YA:10
- a=bBxd6f-gb0O0v-kibOvt:22
-X-Proofpoint-ORIG-GUID: aL_pHPspwuUjq_d2P5vW8D7TuPsKkyig
-X-Proofpoint-GUID: aL_pHPspwuUjq_d2P5vW8D7TuPsKkyig
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzI3MDEyMCBTYWx0ZWRfX+aWeq0FxOu19
- h1Zrd4w0Ser8Ez7A1zOKlNVu5f2JjImE1C18e5uaCFpPwrybQFO2iDjmOe1Vhv+1bJHbzRp5tDo
- an0361UUZb3wNNIAONna+fOz6cbn2Q58YSMl9cR/3YLe7k75kobr1VJVUK3W9CDlm0Zv5z9qEH8
- AqjucqgjbYhajMr7mw5cJSmr1UW11ayuSThI7YWllEjvYSgRDFKHSx0YlqBnuP1Kxl9JEgP7+BB
- 8D816IwDlmhIlXQXTmMC7h9C70nAdBq+Nil3hOj8awgyOvDrZYjtf1ut5XTazoKPCWAlMV31pdu
- zR+pKpRzg9I+mtQ/JpTOXKlQNfCqqidrs2rgg7xYwF/ac0ciudFt699L43/zKWSDY5oiERQ3UJA
- ZNf3qo5cCR6zo/RnS9YAJfxeLma4zDVDo0ZVWQbl3xpkCd4dx9fus1gDTfw0ED4fOmNmSxXEk+6
- 58DyAXkCoH2w18iGBrQ==
+ a=EUspDBNiAAAA:8 a=oqBJM22TPj05MoDBPk0A:9 a=QEXdDO2ut3YA:10 a=ZXulRonScM0A:10
+ a=scEy_gLbYbu1JhEsrz4S:22
+X-Proofpoint-ORIG-GUID: 3ueUDF4cNvC__CzdAuHUrk-Y87v42CmO
+X-Proofpoint-GUID: 3ueUDF4cNvC__CzdAuHUrk-Y87v42CmO
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzI3MDEyMCBTYWx0ZWRfX/4adIB6hZebz
+ zgOok8pY74SOH1h7VrWTYV+rJfUi828FwN7FLxEI0ADLJmo31ZHWSkPyhXd+pYl00XO0Zxev6iw
+ B0JQpvDGr+jgZ5G+yTdV/N7dgy/gvUynFd12C4MMhda8jQVuR/0KmNSTxU0ueOfFP3syXy5uJ/N
+ wXL3tJE/1CLa/QWDW9+NYvyAL5cxAm8BYXV84b/+1KjQWK7rcpRrGKqv/knBSCrVdohKHsNMZSX
+ rurZ2KkquWDjbb2JjrWxJrOFzmeUta5H8Exh6hANbjIcnFoHelk4HfxKCmgxuCBQludMacc3m+s
+ xXT2DgR8603g64y55Mj8LnxDYS1yyJ8/mGx3UnNTCURseG++DR1BDM0ABm2iDD+tdrJuhJFzTnc
+ rJtC8pCaQz9s8uhSkGGVa0123NmpVrSMgKXD7tNlnwvZuKjU3OkcD95QoO187GeMQSFFp/9s6U7
+ vjFDK2HMZWw2qESedGA==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
  definitions=2026-03-27_01,2026-03-26_01,2025-10-01_01
@@ -143,20 +143,16 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 12/23/2025 10:02 AM, Youssef Samir wrote:
-> From: Troy Hanson <thanson@qti.qualcomm.com>
+On 12/23/2025 10:05 AM, Youssef Samir wrote:
+> From: Zack McKevitt <zmckevit@qti.qualcomm.com>
 > 
-> Instead of storing and emitting bootlogs as individual null-terminated
-> lines, concatenate them, and later emit them to debugfs in a single call.
+> When a bootlog requires multiple MHI messages to transfer fully, the
+> messages prior to the final message may have MHI overflow status set.
+> Preserve these log messages in the accumulating bootlog. Do not treat
+> overflow as an error.
 > 
-> Do not insert a null terminator on messages received from the device.
-> Instead use the message length when subsequently storing the message.
-> 
-> Exclude trailing nulls to normalize AIC100 and AIC200 bootlog lines.
-> 
+> Signed-off-by: Zack McKevitt <zmckevit@qti.qualcomm.com>
 > Signed-off-by: Troy Hanson <thanson@qti.qualcomm.com>
 > Signed-off-by: Youssef Samir <youssef.abdulrahman@oss.qualcomm.com>
 
-Pushed to drm-misc-next.
-
--Jeff
+Reviewed-by: Jeff Hugo <jeff.hugo@oss.qualcomm.com>
