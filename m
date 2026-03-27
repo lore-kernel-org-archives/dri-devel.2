@@ -4,31 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 77A0310ED674
-	for <dri-devel@archiver.kernel.org>; Fri, 27 Mar 2026 13:04:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5680B10ED678
+	for <dri-devel@archiver.kernel.org>; Fri, 27 Mar 2026 13:04:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CEDC910ECEC;
-	Fri, 27 Mar 2026 13:04:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 282EA10ED2A;
+	Fri, 27 Mar 2026 13:04:56 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="b11CVxWD";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="XZYegzk9";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="b11CVxWD";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="XZYegzk9";
+	dkim-atps=neutral
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 00E4D10EC8C
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Mar 2026 13:04:54 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2DFC810EC3E
+ for <dri-devel@lists.freedesktop.org>; Fri, 27 Mar 2026 13:04:49 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 035D34D39F;
- Fri, 27 Mar 2026 13:04:38 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id ACF214D395;
+ Fri, 27 Mar 2026 13:04:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1774616677; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=7VcpVHM73mKA2ZM9jxQN+8VqSFFJcUK690qm6q5lkVM=;
+ b=b11CVxWDf/kD1SSDdBCmx+N4l016RPUCA1mHO5f3fVsYKfi5DZ0h9Qky8l2EMBwg5QpeSl
+ iIm0QHA7bUOVKUhuwP5E6j5NPjRTXwWYt///SOruU8ajrBPc1BbvnF5buW610vaNejYx0O
+ wW4LPI1WQxeMZAGDglbV7Zm/NrsUGW8=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1774616677;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=7VcpVHM73mKA2ZM9jxQN+8VqSFFJcUK690qm6q5lkVM=;
+ b=XZYegzk9hsQvA0PqhQGn3HWsFR3A9RCTgce1S2lYxngpj6J/sukYCS7AUh99nKNDfk1P3e
+ nOnc2NyC/OBkz1Cg==
 Authentication-Results: smtp-out1.suse.de;
 	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1774616677; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=7VcpVHM73mKA2ZM9jxQN+8VqSFFJcUK690qm6q5lkVM=;
+ b=b11CVxWDf/kD1SSDdBCmx+N4l016RPUCA1mHO5f3fVsYKfi5DZ0h9Qky8l2EMBwg5QpeSl
+ iIm0QHA7bUOVKUhuwP5E6j5NPjRTXwWYt///SOruU8ajrBPc1BbvnF5buW610vaNejYx0O
+ wW4LPI1WQxeMZAGDglbV7Zm/NrsUGW8=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1774616677;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=7VcpVHM73mKA2ZM9jxQN+8VqSFFJcUK690qm6q5lkVM=;
+ b=XZYegzk9hsQvA0PqhQGn3HWsFR3A9RCTgce1S2lYxngpj6J/sukYCS7AUh99nKNDfk1P3e
+ nOnc2NyC/OBkz1Cg==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id B44294A0B1;
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 6CF624A0A2;
  Fri, 27 Mar 2026 13:04:37 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id WIjRKmWAxmmweQAAD6G6ig
+ by imap1.dmz-prg2.suse.org with ESMTPSA id WA9mGWWAxmmweQAAD6G6ig
  (envelope-from <tzimmermann@suse.de>); Fri, 27 Mar 2026 13:04:37 +0000
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: deller@gmx.de, gregkh@linuxfoundation.org, jirislaby@kernel.org,
@@ -36,23 +77,29 @@ To: deller@gmx.de, gregkh@linuxfoundation.org, jirislaby@kernel.org,
 Cc: linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org,
  Thomas Zimmermann <tzimmermann@suse.de>
-Subject: [PATCH 07/10] lib/fonts: Refactor glyph-rotation helpers
-Date: Fri, 27 Mar 2026 13:49:40 +0100
-Message-ID: <20260327130431.59481-8-tzimmermann@suse.de>
+Subject: [PATCH 06/10] lib/fonts: Refactor glyph-pattern helpers
+Date: Fri, 27 Mar 2026 13:49:39 +0100
+Message-ID: <20260327130431.59481-7-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260327130431.59481-1-tzimmermann@suse.de>
 References: <20260327130431.59481-1-tzimmermann@suse.de>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Rspamd-Pre-Result: action=no action; module=replies;
- Message is reply to one we originated
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Spamd-Result: default: False [-4.00 / 50.00];
-	REPLY(-4.00)[]
-X-Rspamd-Queue-Id: 035D34D39F
-X-Rspamd-Pre-Result: action=no action; module=replies;
- Message is reply to one we originated
-X-Rspamd-Action: no action
+X-Spamd-Result: default: False [-6.80 / 50.00]; REPLY(-4.00)[];
+ BAYES_HAM(-3.00)[100.00%]; MID_CONTAINS_FROM(1.00)[];
+ NEURAL_HAM_LONG(-1.00)[-1.000]; R_MISSING_CHARSET(0.50)[];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ FUZZY_RATELIMITED(0.00)[rspamd.com];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; MIME_TRACE(0.00)[0:+];
+ ARC_NA(0.00)[]; TO_DN_SOME(0.00)[];
+ FREEMAIL_TO(0.00)[gmx.de,linuxfoundation.org,kernel.org,ffwll.ch,ravnborg.org];
+ RCPT_COUNT_SEVEN(0.00)[10];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ R_RATELIMIT(0.00)[to_ip_from(RLqirfcw6gnbcr9a9yhi49fhi6)];
+ RCVD_TLS_ALL(0.00)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid,suse.de:email,imap1.dmz-prg2.suse.org:helo];
+ RCVD_COUNT_TWO(0.00)[2]; FREEMAIL_ENVRCPT(0.00)[gmx.de]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,152 +115,106 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Change the signatures of the glyph-rotation helpers to match their
-public interfaces. Drop the inline qualifier.
+Change the signatures of the pattern helpers to align them with other
+font-glyph helpers: use the font_glyph_ prefix and pass the glyph
+buffer first.
 
-Rename several variables to better match their meaning. Especially
-rename variables to bit_pitch (or a variant thereof) if they store
-a pitch value in bits per scanline. The original code is fairly
-confusing about this. Move the calculation of the bit pitch into the
-new helper font_glyph_bit_pitch().
+Calculating the position of the involved bit is somewhat obfuscated
+in the original implementation. Move it into the new helper
+__font_glphy_pos() and use the result as array index and bit position.
+
+Note that these bit helpers use a bit pitch, while other code uses a
+byte pitch. This is intentional an required here.
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
 ---
- lib/fonts/font_rotate.c | 85 ++++++++++++++++++++++++-----------------
- 1 file changed, 49 insertions(+), 36 deletions(-)
+ lib/fonts/font_rotate.c | 45 ++++++++++++++++++++++++-----------------
+ 1 file changed, 27 insertions(+), 18 deletions(-)
 
 diff --git a/lib/fonts/font_rotate.c b/lib/fonts/font_rotate.c
-index cfaf5b98f49a..f1e441a931ab 100644
+index 3e0a19c889f3..cfaf5b98f49a 100644
 --- a/lib/fonts/font_rotate.c
 +++ b/lib/fonts/font_rotate.c
-@@ -15,6 +15,12 @@
+@@ -15,21 +15,33 @@
  
  #include "font.h"
  
-+/* number of bits per line */
-+static unsigned int font_glyph_bit_pitch(unsigned int width)
-+{
-+	return round_up(width, 8);
+-static inline int pattern_test_bit(u32 x, u32 y, u32 pitch, const char *pat)
++static unsigned int __font_glyph_pos(unsigned int x, unsigned int y, unsigned int bit_pitch,
++				     unsigned int *bit)
+ {
+-	u32 tmp = (y * pitch) + x, index = tmp / 8,  bit = tmp % 8;
++	unsigned int off = y * bit_pitch + x;
++	unsigned int bit_shift = off % 8;
+ 
+-	pat += index;
+-	return (*pat) & (0x80 >> bit);
++	*bit = 0x80 >> bit_shift; /* MSB has position 0, LSB has position 7 */
++
++	return off / 8;
+ }
+ 
+-static inline void pattern_set_bit(u32 x, u32 y, u32 pitch, char *pat)
++static bool font_glyph_test_bit(const unsigned char *glyph, unsigned int x, unsigned int y,
++				unsigned int bit_pitch)
+ {
+-	u32 tmp = (y * pitch) + x, index = tmp / 8, bit = tmp % 8;
++	unsigned int bit;
++	unsigned int i = __font_glyph_pos(x, y, bit_pitch, &bit);
++
++	return glyph[i] & bit;
 +}
-+
- static unsigned int __font_glyph_pos(unsigned int x, unsigned int y, unsigned int bit_pitch,
- 				     unsigned int *bit)
- {
-@@ -44,18 +50,21 @@ static void font_glyph_set_bit(unsigned char *glyph, unsigned int x, unsigned in
- 	glyph[i] |= bit;
+ 
+-	pat += index;
++static void font_glyph_set_bit(unsigned char *glyph, unsigned int x, unsigned int y,
++			       unsigned int bit_pitch)
++{
++	unsigned int bit;
++	unsigned int i = __font_glyph_pos(x, y, bit_pitch, &bit);
+ 
+-	(*pat) |= 0x80 >> bit;
++	glyph[i] |= bit;
  }
  
--static inline void rotate_cw(const char *in, char *out, u32 width, u32 height)
-+static void __font_glyph_rotate_90(const unsigned char *glyph,
-+				   unsigned int width, unsigned int height,
-+				   unsigned char *out)
- {
--	int i, j, h = height, w = width;
--	int shift = (8 - (height % 8)) & 7;
--
--	width = (width + 7) & ~7;
--	height = (height + 7) & ~7;
--
--	for (i = 0; i < h; i++) {
--		for (j = 0; j < w; j++) {
--			if (font_glyph_test_bit(in, j, i, width))
--				font_glyph_set_bit(out, height - 1 - i - shift, j, height);
-+	unsigned int x, y;
-+	unsigned int shift = (8 - (height % 8)) & 7;
-+	unsigned int bit_pitch = font_glyph_bit_pitch(width);
-+	unsigned int out_bit_pitch = font_glyph_bit_pitch(height);
-+
-+	for (y = 0; y < height; y++) {
-+		for (x = 0; x < width; x++) {
-+			if (font_glyph_test_bit(glyph, x, y, bit_pitch)) {
-+				font_glyph_set_bit(out, out_bit_pitch - 1 - y - shift, x,
-+						   out_bit_pitch);
-+			}
+ static inline void rotate_cw(const char *in, char *out, u32 width, u32 height)
+@@ -42,9 +54,8 @@ static inline void rotate_cw(const char *in, char *out, u32 width, u32 height)
+ 
+ 	for (i = 0; i < h; i++) {
+ 		for (j = 0; j < w; j++) {
+-			if (pattern_test_bit(j, i, width, in))
+-				pattern_set_bit(height - 1 - i - shift, j,
+-						height, out);
++			if (font_glyph_test_bit(in, j, i, width))
++				font_glyph_set_bit(out, height - 1 - i - shift, j, height);
  		}
  	}
  }
-@@ -79,22 +88,24 @@ void font_glyph_rotate_90(const unsigned char *glyph, unsigned int width, unsign
- {
- 	memset(out, 0, font_glyph_size(height, width)); /* flip width/height */
+@@ -81,10 +92,9 @@ static inline void rotate_ud(const char *in, char *out, u32 width, u32 height)
  
--	rotate_cw(glyph, out, width, height);
-+	__font_glyph_rotate_90(glyph, width, height, out);
- }
- EXPORT_SYMBOL_GPL(font_glyph_rotate_90);
- 
--static inline void rotate_ud(const char *in, char *out, u32 width, u32 height)
-+static void __font_glyph_rotate_180(const unsigned char *glyph,
-+				    unsigned int width, unsigned int height,
-+				    unsigned char *out)
- {
--	int i, j;
--	int shift = (8 - (width % 8)) & 7;
--
--	width = (width + 7) & ~7;
--
--	for (i = 0; i < height; i++) {
--		for (j = 0; j < width - shift; j++) {
--			if (font_glyph_test_bit(in, j, i, width))
--				font_glyph_set_bit(out, width - (1 + j + shift),
--						   height - (1 + i), width);
-+	unsigned int x, y;
-+	unsigned int shift = (8 - (width % 8)) & 7;
-+	unsigned int bit_pitch = font_glyph_bit_pitch(width);
-+
-+	for (y = 0; y < height; y++) {
-+		for (x = 0; x < width; x++) {
-+			if (font_glyph_test_bit(glyph, x, y, bit_pitch)) {
-+				font_glyph_set_bit(out, width - (1 + x + shift), height - (1 + y),
-+						   bit_pitch);
-+			}
+ 	for (i = 0; i < height; i++) {
+ 		for (j = 0; j < width - shift; j++) {
+-			if (pattern_test_bit(j, i, width, in))
+-				pattern_set_bit(width - (1 + j + shift),
+-						height - (1 + i),
+-						width, out);
++			if (font_glyph_test_bit(in, j, i, width))
++				font_glyph_set_bit(out, width - (1 + j + shift),
++						   height - (1 + i), width);
  		}
  	}
  }
-@@ -115,22 +126,24 @@ void font_glyph_rotate_180(const unsigned char *glyph, unsigned int width, unsig
- {
- 	memset(out, 0, font_glyph_size(width, height));
+@@ -119,9 +129,8 @@ static inline void rotate_ccw(const char *in, char *out, u32 width, u32 height)
  
--	rotate_ud(glyph, out, width, height);
-+	__font_glyph_rotate_180(glyph, width, height, out);
- }
- EXPORT_SYMBOL_GPL(font_glyph_rotate_180);
- 
--static inline void rotate_ccw(const char *in, char *out, u32 width, u32 height)
-+static void __font_glyph_rotate_270(const unsigned char *glyph,
-+				    unsigned int width, unsigned int height,
-+				    unsigned char *out)
- {
--	int i, j, h = height, w = width;
--	int shift = (8 - (width % 8)) & 7;
--
--	width = (width + 7) & ~7;
--	height = (height + 7) & ~7;
--
--	for (i = 0; i < h; i++) {
--		for (j = 0; j < w; j++) {
--			if (font_glyph_test_bit(in, j, i, width))
--				font_glyph_set_bit(out, i, width - 1 - j - shift, height);
-+	unsigned int x, y;
-+	unsigned int shift = (8 - (width % 8)) & 7;
-+	unsigned int bit_pitch = font_glyph_bit_pitch(width);
-+	unsigned int out_bit_pitch = font_glyph_bit_pitch(height);
-+
-+	for (y = 0; y < height; y++) {
-+		for (x = 0; x < width; x++) {
-+			if (font_glyph_test_bit(glyph, x, y, bit_pitch))
-+				font_glyph_set_bit(out, y, bit_pitch - 1 - x - shift,
-+						   out_bit_pitch);
+ 	for (i = 0; i < h; i++) {
+ 		for (j = 0; j < w; j++) {
+-			if (pattern_test_bit(j, i, width, in))
+-				pattern_set_bit(i, width - 1 - j - shift,
+-						height, out);
++			if (font_glyph_test_bit(in, j, i, width))
++				font_glyph_set_bit(out, i, width - 1 - j - shift, height);
  		}
  	}
  }
-@@ -154,6 +167,6 @@ void font_glyph_rotate_270(const unsigned char *glyph, unsigned int width, unsig
- {
- 	memset(out, 0, font_glyph_size(height, width)); /* flip width/height */
- 
--	rotate_ccw(glyph, out, width, height);
-+	__font_glyph_rotate_270(glyph, width, height, out);
- }
- EXPORT_SYMBOL_GPL(font_glyph_rotate_270);
 -- 
 2.53.0
 
