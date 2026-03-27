@@ -4,102 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8526210F285E
-	for <dri-devel@archiver.kernel.org>; Fri, 27 Mar 2026 17:39:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2FFE710F2862
+	for <dri-devel@archiver.kernel.org>; Fri, 27 Mar 2026 17:52:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E93A910EF32;
-	Fri, 27 Mar 2026 17:39:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 846EB10E259;
+	Fri, 27 Mar 2026 17:52:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="YrHMNSYj";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="EcByUmB/";
 	dkim-atps=neutral
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 842CF10EF32
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Mar 2026 17:39:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1774633149;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=GhPdolAuW7P0xgBhYuWJf3nGp5Pv13lQ9qoFlr8i+xY=;
- b=YrHMNSYjaWo8QwzVuju9pbfftecgjCE5YyPd4ymooJ2yAdlMRnPjQAnhf7vx+OnmaySLE+
- kSkyP8qGvo20+lJz7gumuCVZZdeb0i9raWPrd0Lf0L/s21K3QPxgQLA4nIHL8KWIOxZ5uC
- s/FwYV1dyQKz+KOnXFytXIA+6qw9ntU=
-Received: from mail-ej1-f71.google.com (mail-ej1-f71.google.com
- [209.85.218.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-400-5Me6B8h8PE6DylKtYWp-UQ-1; Fri, 27 Mar 2026 13:39:08 -0400
-X-MC-Unique: 5Me6B8h8PE6DylKtYWp-UQ-1
-X-Mimecast-MFC-AGG-ID: 5Me6B8h8PE6DylKtYWp-UQ_1774633147
-Received: by mail-ej1-f71.google.com with SMTP id
- a640c23a62f3a-b97f04b44b9so133822466b.0
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Mar 2026 10:39:07 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774633147; x=1775237947;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=GhPdolAuW7P0xgBhYuWJf3nGp5Pv13lQ9qoFlr8i+xY=;
- b=ICm7tIQf+dd7barwVWT1NgW0qHnp7tPVG+LGBAFAnNoYjpVyJtHZq0HCXa9mkRxodI
- cOotbtqgEIF5sE49P5DPBHMX9msmcdIP6RIDkCTS54RSpeKxyTjZ7+o7d7qpa+PCogBB
- zjpLi1UH3LVuUwtTlH4V4Pt4ImbQh12WmuVtGzwPD5XXSPIp7+HDqg1GfT9q3Sx76S7B
- qR5AnNhlaMMOkC1Lp/SMA8/vTf5ogXndD9G0cwJX24nKHJu/wva94i1CJxTXHkEL4WVG
- UtzgG03EmsvCqtLh+ofmHnw8XgnBHVzA0Bbzstk2qCQ/wpQE0j0CIN4fXob1RC438UYs
- JdYA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCU6BPnkF/J4Uq1tcW33rHbLpmpTsxqkgwdlhExn8FdacELtMjkMcYgJ4T8qTuia3JabMYSZ7IjR0Zc=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwilgkGqnf6LRU1brNSpiCGXP1d5nw9PBwixrt+270B8vsupTzf
- 4MUb6KGkM8tUbsQf0XilI5JgZVZbmthLsKuQhdKQk7tGKUxOwG4dyguqFPdJFhk5B2Xcx+dowyV
- NetDnUgZQpbYxP36opPnaPPxyyiHz/IjVrNi/udGqNIIlfRK5FovO04kFxp1Pjdgrtf6KUx1VUV
- ykdETK4O91VQmGk6L/6ZKCWoSrfsj4cULrwAIvfs/EydYi
-X-Gm-Gg: ATEYQzwlWdx+tvWOId/kQ3sZp0Pg5OpeVIi7l26sVYpBE1afgnWpVx7zPPUXMzUfs8t
- lh5KmlgZ5Jc9gZV5dfczKEPzkhwYAn4hCpR4ZjhTKzKOyUci+ex21/o/bsSFS2bxVztQ2lPsCg9
- gd+9cwt9HNQeyoNnlAfzEskG0ttFtA72syf8mMvxZ3IXn9NnsWJ1BQpMQTZMp1erUNO/g9Iaz4l
- xbL+g==
-X-Received: by 2002:a17:907:a28d:b0:b98:22e7:72b with SMTP id
- a640c23a62f3a-b9b507a7bf9mr218777866b.30.1774633146683; 
- Fri, 27 Mar 2026 10:39:06 -0700 (PDT)
-X-Received: by 2002:a17:907:a28d:b0:b98:22e7:72b with SMTP id
- a640c23a62f3a-b9b507a7bf9mr218776066b.30.1774633146199; Fri, 27 Mar 2026
- 10:39:06 -0700 (PDT)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 172A110E1BE;
+ Fri, 27 Mar 2026 17:52:01 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id A514443C4B;
+ Fri, 27 Mar 2026 17:52:00 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E7103C19423;
+ Fri, 27 Mar 2026 17:51:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1774633920;
+ bh=zRvA02n55H6F0ORN5r8qynowYTw/58ttft03ZFRvRRY=;
+ h=Date:From:Cc:To:In-Reply-To:References:Subject:From;
+ b=EcByUmB/fhOaTUDVp1b/zq+k+LRyAaNVR6S4h9vSV8N/eofFsVaZC/p4h1A+jJNP3
+ 9rEIsTsYK+kG24THax9IbEikcfE3m5NRFmdwk6T8NP03bthRsa4BivZIuRjA2w8HGC
+ cpBkb9abwr1Gxl6Wq0l2GFOxGRV39Z38P8Kew4q4FfPiuIvQK4eix5y07qCdOTZwTi
+ lV4jmMWLqLErykoYKx78LUDOR7m3IxaBklGXU4Ej6Oeqwky7u2vdxYuTSqraAwgtpu
+ 6bXPg7JymaoTujsQjn2Zlg9PlLyOKbXSMSYxnxxsJvbNCL9LwQ5qIXzLPNBDR2RSQP
+ Ov6vM4Kz7prBQ==
+Date: Fri, 27 Mar 2026 12:51:57 -0500
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-References: <20260223-clk-send-sync-v5-0-181bf2f35652@google.com>
- <DH7L09UFWGTK.2MT0OTWH1DUV4@kernel.org>
- <20260321-awesome-hot-kingfisher-5d9f55@houat>
- <CABx5tqJvOFEzmadeXpDxSUjkghviqtP0jo+kzSB5X6u_P_j2ig@mail.gmail.com>
- <CABx5tqL+G9i1ZW7i5AHaTqUFTVRDmBvP=RycUdwjG-GOp4uzBA@mail.gmail.com>
- <CANiq72=M3H-06L7udG_LqTwLykZkAjfy2d5NXQZn5TYRJ+N37w@mail.gmail.com>
- <CABx5tq+TdGvL+SCUe87qWFgeAq-1Zf5w63jn2hLe9+YTyz4sNw@mail.gmail.com>
- <CANiq72ktmUFsdpBUKnU-OvTj7rE5iZKFucubL_1bF1Ws_KYXcg@mail.gmail.com>
-In-Reply-To: <CANiq72ktmUFsdpBUKnU-OvTj7rE5iZKFucubL_1bF1Ws_KYXcg@mail.gmail.com>
-From: Brian Masney <bmasney@redhat.com>
-Date: Fri, 27 Mar 2026 13:38:54 -0400
-X-Gm-Features: AQROBzB7WfnAtTWMTsWRSmdXifxpUbNDAg86GKrLb9ikVgnMGrHcwDI5L3K7rv8
-Message-ID: <CABx5tqKKHvFPYrL=gjaOn+frDXfXpxM3-6oTzSo6QVgYMaEMPg@mail.gmail.com>
-Subject: Re: [PATCH v5 0/3] Implement Send and Sync for clk
-To: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Cc: Maxime Ripard <mripard@kernel.org>, Danilo Krummrich <dakr@kernel.org>,
- Stephen Boyd <sboyd@kernel.org>, 
- Alice Ryhl <aliceryhl@google.com>, Michael Turquette <mturquette@baylibre.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Drew Fustini <fustini@kernel.org>, 
- Guo Ren <guoren@kernel.org>, Fu Wei <wefu@redhat.com>, 
- =?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <ukleinek@kernel.org>, 
- Michal Wilczynski <m.wilczynski@samsung.com>,
- Viresh Kumar <viresh.kumar@linaro.org>, 
- Miguel Ojeda <ojeda@kernel.org>, Gary Guo <gary@garyguo.net>, 
- =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
- Trevor Gross <tmgross@umich.edu>, Daniel Almeida <daniel.almeida@collabora.com>,
- linux-clk@vger.kernel.org, rust-for-linux@vger.kernel.org, 
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- linux-pwm@vger.kernel.org, Boqun Feng <boqun@kernel.org>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: C8f6Bns7_6-GJ4xjyDqQGtSSFI8K2hhBPLOtJgdzcYQ_1774633147
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+From: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: Simona Vetter <simona@ffwll.ch>, phone-devel@vger.kernel.org, 
+ Bjorn Andersson <andersson@kernel.org>, linux-kernel@vger.kernel.org, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ Jonathan Marek <jonathan@marek.ca>, Konrad Dybcio <konradybcio@kernel.org>, 
+ Dmitry Baryshkov <lumag@kernel.org>, devicetree@vger.kernel.org, 
+ Krishna Manikandan <quic_mkrishn@quicinc.com>, 
+ ~postmarketos/upstreaming@lists.sr.ht, Sean Paul <sean@poorly.run>, 
+ Abhinav Kumar <abhinav.kumar@linux.dev>, Conor Dooley <conor+dt@kernel.org>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ David Airlie <airlied@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, 
+ Rob Clark <robin.clark@oss.qualcomm.com>, dri-devel@lists.freedesktop.org, 
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, 
+ Alexander Koskovich <akoskovich@pm.me>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Luca Weiss <luca.weiss@fairphone.com>
+In-Reply-To: <20260327-milos-mdss-v2-4-bc586683f5ca@fairphone.com>
+References: <20260327-milos-mdss-v2-0-bc586683f5ca@fairphone.com>
+ <20260327-milos-mdss-v2-4-bc586683f5ca@fairphone.com>
+Message-Id: <177463391769.3232558.4643402365403400713.robh@kernel.org>
+Subject: Re: [PATCH v2 4/9] dt-bindings: display: msm: document the Milos
+ Mobile Display Subsystem
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,33 +75,67 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, Mar 27, 2026 at 1:28=E2=80=AFPM Miguel Ojeda
-<miguel.ojeda.sandonis@gmail.com> wrote:
-=3D> On Fri, Mar 27, 2026 at 4:17=E2=80=AFPM Brian Masney <bmasney@redhat.c=
-om> wrote:
-> >
-> > I am not a clk maintainer, so I can't leave an Acked-by for you to
-> > pick this up unfortunately. I've been quite active in the clk
-> > subsystem though the last 6 months or so.
->
-> In that case, I could take your Acked-by as an active contributor of
-> clk if you are willing to provide it, i.e. with the "# Suffix"
-> notation I introduced a year ago:
->
->   https://docs.kernel.org/process/submitting-patches.html#when-to-use-ack=
-ed-by-cc-and-co-developed-by
->
->   cd9123eeb224 ("docs: submitting-patches: clarify Acked-by and
-> introduce "# Suffix"")
->
-> i.e. Acked-bys can nowadays be provided by other stakeholders apart
-> from maintainers, e.g. people with domain knowledge, userspace
-> reviewers of uAPI patches, key users and so on.
->
-> Especially so since you offered to be a co-maintainer long term, so I
-> think having your Acked-by is way better that having no tag at all :)
 
-Sure...
+On Fri, 27 Mar 2026 17:12:23 +0100, Luca Weiss wrote:
+> Document the Mobile Display Subsystem (MDSS) on the Milos SoC.
+> 
+> Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+> ---
+>  .../bindings/display/msm/qcom,milos-mdss.yaml      | 283 +++++++++++++++++++++
+>  1 file changed, 283 insertions(+)
+> 
 
-Acked-by: Brian Masney <bmasney@redhat.com> # Active contributor to clk
+My bot found errors running 'make dt_binding_check' on your patch:
+
+yamllint warnings/errors:
+
+dtschema/dtc warnings/errors:
+Lexical error: Documentation/devicetree/bindings/display/msm/qcom,milos-mdss.example.dts:36.31-51 Unexpected 'DISP_CC_MDSS_AHB_CLK'
+Lexical error: Documentation/devicetree/bindings/display/msm/qcom,milos-mdss.example.dts:37.28-47 Unexpected 'GCC_DISP_HF_AXI_CLK'
+Lexical error: Documentation/devicetree/bindings/display/msm/qcom,milos-mdss.example.dts:38.31-51 Unexpected 'DISP_CC_MDSS_MDP_CLK'
+Lexical error: Documentation/devicetree/bindings/display/msm/qcom,milos-mdss.example.dts:40.31-52 Unexpected 'DISP_CC_MDSS_CORE_BCR'
+Lexical error: Documentation/devicetree/bindings/display/msm/qcom,milos-mdss.example.dts:42.42-61 Unexpected 'QCOM_ICC_TAG_ALWAYS'
+Lexical error: Documentation/devicetree/bindings/display/msm/qcom,milos-mdss.example.dts:43.41-60 Unexpected 'QCOM_ICC_TAG_ALWAYS'
+Lexical error: Documentation/devicetree/bindings/display/msm/qcom,milos-mdss.example.dts:44.41-65 Unexpected 'QCOM_ICC_TAG_ACTIVE_ONLY'
+Lexical error: Documentation/devicetree/bindings/display/msm/qcom,milos-mdss.example.dts:45.43-67 Unexpected 'QCOM_ICC_TAG_ACTIVE_ONLY'
+Lexical error: Documentation/devicetree/bindings/display/msm/qcom,milos-mdss.example.dts:49.38-60 Unexpected 'DISP_CC_MDSS_CORE_GDSC'
+Lexical error: Documentation/devicetree/bindings/display/msm/qcom,milos-mdss.example.dts:69.32-51 Unexpected 'GCC_DISP_HF_AXI_CLK'
+Lexical error: Documentation/devicetree/bindings/display/msm/qcom,milos-mdss.example.dts:70.35-55 Unexpected 'DISP_CC_MDSS_AHB_CLK'
+Lexical error: Documentation/devicetree/bindings/display/msm/qcom,milos-mdss.example.dts:71.35-59 Unexpected 'DISP_CC_MDSS_MDP_LUT_CLK'
+Lexical error: Documentation/devicetree/bindings/display/msm/qcom,milos-mdss.example.dts:72.35-55 Unexpected 'DISP_CC_MDSS_MDP_CLK'
+Lexical error: Documentation/devicetree/bindings/display/msm/qcom,milos-mdss.example.dts:73.35-57 Unexpected 'DISP_CC_MDSS_VSYNC_CLK'
+Lexical error: Documentation/devicetree/bindings/display/msm/qcom,milos-mdss.example.dts:80.44-66 Unexpected 'DISP_CC_MDSS_VSYNC_CLK'
+Lexical error: Documentation/devicetree/bindings/display/msm/qcom,milos-mdss.example.dts:142.35-57 Unexpected 'DISP_CC_MDSS_BYTE0_CLK'
+Lexical error: Documentation/devicetree/bindings/display/msm/qcom,milos-mdss.example.dts:143.35-62 Unexpected 'DISP_CC_MDSS_BYTE0_INTF_CLK'
+Lexical error: Documentation/devicetree/bindings/display/msm/qcom,milos-mdss.example.dts:144.35-57 Unexpected 'DISP_CC_MDSS_PCLK0_CLK'
+Lexical error: Documentation/devicetree/bindings/display/msm/qcom,milos-mdss.example.dts:145.35-56 Unexpected 'DISP_CC_MDSS_ESC0_CLK'
+Lexical error: Documentation/devicetree/bindings/display/msm/qcom,milos-mdss.example.dts:146.35-55 Unexpected 'DISP_CC_MDSS_AHB_CLK'
+Lexical error: Documentation/devicetree/bindings/display/msm/qcom,milos-mdss.example.dts:147.32-51 Unexpected 'GCC_DISP_HF_AXI_CLK'
+Lexical error: Documentation/devicetree/bindings/display/msm/qcom,milos-mdss.example.dts:155.44-70 Unexpected 'DISP_CC_MDSS_BYTE0_CLK_SRC'
+Lexical error: Documentation/devicetree/bindings/display/msm/qcom,milos-mdss.example.dts:156.44-70 Unexpected 'DISP_CC_MDSS_PCLK0_CLK_SRC'
+Lexical error: Documentation/devicetree/bindings/display/msm/qcom,milos-mdss.example.dts:157.58-74 Unexpected 'DSI_BYTE_PLL_CLK'
+Lexical error: Documentation/devicetree/bindings/display/msm/qcom,milos-mdss.example.dts:158.58-75 Unexpected 'DSI_PIXEL_PLL_CLK'
+Lexical error: Documentation/devicetree/bindings/display/msm/qcom,milos-mdss.example.dts:219.35-55 Unexpected 'DISP_CC_MDSS_AHB_CLK'
+FATAL ERROR: Syntax error parsing input tree
+make[2]: *** [scripts/Makefile.dtbs:140: Documentation/devicetree/bindings/display/msm/qcom,milos-mdss.example.dtb] Error 1
+make[2]: *** Waiting for unfinished jobs....
+make[1]: *** [/builds/robherring/dt-review-ci/linux/Makefile:1614: dt_binding_check] Error 2
+make: *** [Makefile:248: __sub-make] Error 2
+
+doc reference errors (make refcheckdocs):
+
+See https://patchwork.kernel.org/project/devicetree/patch/20260327-milos-mdss-v2-4-bc586683f5ca@fairphone.com
+
+The base for the series is generally the latest rc1. A different dependency
+should be noted in *this* patch.
+
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
+
+pip3 install dtschema --upgrade
+
+Please check and re-submit after running the above command yourself. Note
+that DT_SCHEMA_FILES can be set to your schema file to speed up checking
+your schema. However, it must be unset to test all examples with your schema.
 
