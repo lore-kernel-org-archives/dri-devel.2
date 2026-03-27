@@ -4,132 +4,103 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 946E410F284F
-	for <dri-devel@archiver.kernel.org>; Fri, 27 Mar 2026 16:50:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2027C10F2853
+	for <dri-devel@archiver.kernel.org>; Fri, 27 Mar 2026 16:54:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 096BD10EDDD;
-	Fri, 27 Mar 2026 16:50:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7FC0C10E10F;
+	Fri, 27 Mar 2026 16:54:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="EbUg4P1o";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="LC9lHaj6";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="GjcwLQmg";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9D9F210EDDD
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Mar 2026 16:50:30 +0000 (UTC)
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 62RDhHDL2769230
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Mar 2026 16:50:30 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- WhZqUgLrglsJ9egt0HZnkgp125uN+lGRSaHje0okr1Q=; b=EbUg4P1oYi7DXLRB
- 2j3XKWprS29EgjELSgLJM5Mh8umzYzmSocMiZbcpF33ehKNJWiX7LtyifXaK12Oi
- dS5aG9i3ojdCLEmb2EXHr6EZHh/+40fkI4I9tvkHAfFU2afPyQToUO5VpgtWvskS
- daETKtAzkJHH4l5XvzlRD48ScQnmd8ZeIZiNul3kbFagpnsb3Vuqru/EnKy1f4MU
- +7P8SFVn6YNzr+ktRWRQc2zmmuKTc9Sy8iRl+k+a9vyxX0VH3tpQnFLtJaHjvg5R
- nIUH7UG3Myes1PUerQNQiszQkBT3z8pR2cduCtpq5GKzR2h8eE7/2nEq4X73Mm6A
- 8cuE3Q==
-Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com
- [74.125.82.199])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d5bxv3x0p-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Mar 2026 16:50:30 +0000 (GMT)
-Received: by mail-dy1-f199.google.com with SMTP id
- 5a478bee46e88-2c1030ca85eso2619506eec.0
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Mar 2026 09:50:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1774630229; x=1775235029;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=WhZqUgLrglsJ9egt0HZnkgp125uN+lGRSaHje0okr1Q=;
- b=LC9lHaj60isK8dH28RYLIDmA+EdTETXCDzOum9eE5SzaZNAAqc0YPsleL+uGGLX1dF
- m9frVySg998ne7tWmvmsSsrKYdpzr1ICQXwz+WWbSwCJUXj08nsxeeIPPskkyo7xKaO+
- FuJBtNB/tRVtT0OHHjbqciFIKd/hoRvxqO2APloTDPKY9JOfa+zqD5WFwgF+nMLbV3O2
- tTU9cPmIVeXfW9EMeGK+LVwl1eQL5eVV7STe/zEJ+6luRC57c/oYdL9wDt1MZHpi/4t4
- q2cZSnUrebPNgSIjYSS4pHAZxYE1fUU+ZoI3LlxS3trQKfuK9KC9AoRs+++hZ2olaF+O
- 4O/Q==
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E57A210E10F
+ for <dri-devel@lists.freedesktop.org>; Fri, 27 Mar 2026 16:54:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1774630480;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=AA7FXil+Trih5c1d9kWVytFuGXphEJXf1NURtb9SB3E=;
+ b=GjcwLQmgjRaQNWkNJw2n4LWTxpzoMFftaRlHuOoCw5EB+vSUMl2Sn8W45GpY1TGYpqXbPR
+ BQaapf8qL0zwLarFwdoV2UqV1Lw+uZnlHhtBZ83YSy/QS7sPsgFJzRnvNkOYdtG94Tx2+4
+ ufAvI0d3nDVSO4mxplDr4edyuBRwoHA=
+Received: from mail-ej1-f72.google.com (mail-ej1-f72.google.com
+ [209.85.218.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-588-9SwGG1wLNRyX7-kmtp9DNg-1; Fri, 27 Mar 2026 12:54:37 -0400
+X-MC-Unique: 9SwGG1wLNRyX7-kmtp9DNg-1
+X-Mimecast-MFC-AGG-ID: 9SwGG1wLNRyX7-kmtp9DNg_1774630476
+Received: by mail-ej1-f72.google.com with SMTP id
+ a640c23a62f3a-b934e96af9dso332609766b.3
+ for <dri-devel@lists.freedesktop.org>; Fri, 27 Mar 2026 09:54:37 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774630229; x=1775235029;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=WhZqUgLrglsJ9egt0HZnkgp125uN+lGRSaHje0okr1Q=;
- b=S4dCL3vvSDkhRNHL9JCEV09HoyqsAw7S1mDdIiK3GG3cZVmj0he9mN+oG2/ztjA+QJ
- 9ZMlgMFQo+6Zh84Qs+65lAzQXMMx0wM85hcUGntt+hzDCH/lewHMjixejW4q8OgMR915
- 7hJMhUDxg62MBKNIsicQQgRGWG1H5B6n+2Hd1ueM7aaJ6tgfawBTMJKICsCTHtGWSe4f
- PonCaeOY8HP8oKEzvNGLNbVb8lGHAOONSqImwtC95kS/jpf4+CA+csRWbg98nvAlz4Sc
- lVal9qSA/pDThnBElmZQGkenBrimZZdkdsfOqkALNyxBizPvUqekJZvVwPzh7hxs7wwF
- jIjw==
+ d=1e100.net; s=20251104; t=1774630476; x=1775235276;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=AA7FXil+Trih5c1d9kWVytFuGXphEJXf1NURtb9SB3E=;
+ b=LlyKgRYQ+L2r4FQWqgo/qbRi1sbm4r1FoHergSOVRIdFH2QyZcHc2QNXcBfImCs6oh
+ XiQxvVdEaBiKSNEz835VvL2VKKHJDxpCp6f3ylX1OChu5j7Ybz8td8YEjWTbdzxc2Tbj
+ ZGPd4lMt/WAeHCKmmY2ujdEU2QD9ieE5XoDA4VH5dz/mWIUaaEUZt3+htfVntzIuUC54
+ 8Bmu5xTnbvpj2x36esguuaAeIpsj6H+ox0BzYkSHQGEqv/T9op6YLepj3Df77PuaXHgM
+ zxxL9olQFGaTvP9L4LoA9XaScoOAcSC4JGIUu8GRnc0Q+VWMc/uCCKroHKM11W3miysh
+ J9pQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVGBN+qiAXlSosxNXJ2SgVjbjnnyiRo5kjk+4Fql9kMcubTBg8xTJffrZjdCdgzsSVKex7be4n2Ifw=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwM2pio2nXNe4RbfoGZjkXL+AZNVb51YDJ6y8hBH3AmRTcpGVKO
- f2mAGihIWdO8cbDj4xXhdIkrvJXCjD8otdcb01XebVZEts/gt1B2ENodK2FssPM7sQALcfQOx+7
- F9qGijn5DtApu8K42v/wzXVNP3houC6xcr7L+r8A2x8tzSfFg23jjGEuxyrOZYIqfynYRn33jFX
- 7z7Iw=
-X-Gm-Gg: ATEYQzwo2bpfcQ4Oi0hfSHiZAPxHstrim+zsvYLgrhk8k7IP5DdNclrJCTI45/mw5di
- rpP1ml67ay3qGeuBJmGHz3XOuV4x1Gl0DX8oDi4h7LGUGAfrB64RgkW7d16YxEXrtPHBwxaVwQt
- RWiKP9Ut0B1mvvVh/2aNBx2zueBziLr0jXYXnyzKqb5kAa4plPI7mnYZL8mcaLK1atrEPtmskin
- C6qVuJLJzh7Uj3EtfviSYcK+YvnPtcXJSCtZTA5qwOg68jNlLZ6c712WqO5lurcdU7GXatPOgwH
- OFVCAcSUvAVbO9aixKo/747pMl4X+unwIWtuW1fKr3Z6OfspmG4OQlu/BSztMA4N7CLADX5fRsD
- 5+2aTYIuVdjCDsW3Ms3A0mlA1J0IIgG3rmnaYV7r8ZimLdpeaLVCkdXzPowwY0W+rpcZHOok86u
- 0=
-X-Received: by 2002:a05:7300:4348:b0:2c1:6cfd:73f3 with SMTP id
- 5a478bee46e88-2c185e4e940mr1661645eec.27.1774630229296; 
- Fri, 27 Mar 2026 09:50:29 -0700 (PDT)
-X-Received: by 2002:a05:7300:4348:b0:2c1:6cfd:73f3 with SMTP id
- 5a478bee46e88-2c185e4e940mr1661616eec.27.1774630228717; 
- Fri, 27 Mar 2026 09:50:28 -0700 (PDT)
-Received: from [10.226.59.182] (i-global254.qualcomm.com. [199.106.103.254])
- by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-2c16edc0436sm5516661eec.22.2026.03.27.09.50.27
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 27 Mar 2026 09:50:28 -0700 (PDT)
-Message-ID: <68679ac8-d914-46bb-8eb8-133f381934b4@oss.qualcomm.com>
-Date: Fri, 27 Mar 2026 10:50:27 -0600
+ AJvYcCWGlRnasudoGleAXoYQxSsbXI4A9LBQvF3cEOtzote3kje4ICZaIFp3SuHF9fRo9yxv3Xe21/kWguA=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yz684R3G12c2JbUnhZvu5ZcUoVq8KalSxNH1hXIMq/kZGZLlZ8c
+ owpNPgzYFpPNlDc06bkTb1FiQjB8ASWrmfCM89bMsKCKWDkI+xLn8FjUy8uba4Tdka5g8VPKB4C
+ TtHxtWg0UtfbeGpMRfeGa+I812YhSCe9lVCeRRP3NK0AFaHD3T+fVeqoZhHzI/f4KL0bpF+XUHP
+ xeScW/CxgJ4rrfGjzvH2fL3sA0cuX/BnaW4XyfqXCt3zfP
+X-Gm-Gg: ATEYQzyF8k8H+ydtVMCGy1/c/mNc5D7DKvigh0jId0IlwAXAU42fZQwo9cdrFnPGzzd
+ Mdccnu47p3jvABN1+IB9jcb/nD98D+SqicAAoZVa2w7AIvMe5EHFdSZZT8dztYY1T+E133Ybg3k
+ Owqesp0ot+ZrDUMmAdyWrAKa/xepCq8jrSOJdWJlTSm7qtLIJrn8BXbqD8+LtdnXbdWVTZLqNYL
+ eqbsw==
+X-Received: by 2002:a17:907:c294:b0:b96:e11e:97a3 with SMTP id
+ a640c23a62f3a-b9b509438cdmr207733466b.51.1774630476006; 
+ Fri, 27 Mar 2026 09:54:36 -0700 (PDT)
+X-Received: by 2002:a17:907:c294:b0:b96:e11e:97a3 with SMTP id
+ a640c23a62f3a-b9b509438cdmr207731766b.51.1774630475513; Fri, 27 Mar 2026
+ 09:54:35 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] accel/qaic: Handle DBC deactivation if the owner went
- away
-To: Youssef Samir <youssef.abdulrahman@oss.qualcomm.com>,
- carl.vanderlip@oss.qualcomm.com, troy.hanson@oss.qualcomm.com,
- zachary.mckevitt@oss.qualcomm.com
-Cc: ogabbay@kernel.org, lizhi.hou@amd.com, karol.wachowski@linux.intel.com,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org
-References: <20260205123415.3870898-1-youssef.abdulrahman@oss.qualcomm.com>
-Content-Language: en-US
-From: Jeff Hugo <jeff.hugo@oss.qualcomm.com>
-In-Reply-To: <20260205123415.3870898-1-youssef.abdulrahman@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=A99h/qWG c=1 sm=1 tr=0 ts=69c6b556 cx=c_pps
- a=cFYjgdjTJScbgFmBucgdfQ==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
- a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=EUspDBNiAAAA:8 a=TB8fjEhHHLHokerti4YA:9 a=QEXdDO2ut3YA:10
- a=scEy_gLbYbu1JhEsrz4S:22
-X-Proofpoint-ORIG-GUID: dkIz8Fzuc0xU98iNmGKLj8lR3cVDsFtH
-X-Proofpoint-GUID: dkIz8Fzuc0xU98iNmGKLj8lR3cVDsFtH
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzI3MDExNyBTYWx0ZWRfX08aEi4zwo5eB
- 4HJHXvn8qd5MqsvwSSHSBGWceS/dForKoLIL1rvmHkXcsv2+5epCuYmZA/rwW9Ao//NP1TqmxaX
- LBM0fkNaNHIRRT8qhUbLRgeiACmGoD2GSHz0Alw5HYEs2oz/Oq/8gWEiVN76CrALdo32taGZsQQ
- kgzkiaWN8d5xNFv7imQqeoaYffp/h64hTec17nkN9qD+zd1CDLdKQgxfyiQryXYIsPR3oh4f0dw
- 5vqw5uNPXCjxEkQH2pY8GOGaHTuE7K7zYmphrJIiMjSYDoPNdCQCxDjBV+gYWtRz514JmVb3qpm
- trL3iS90NX9XW6c6zTGTDmdDv9rS48b97IyiGK7YnpT5Teaiugu0AEY68SKnrHM8x3bp/prSGzG
- OlIy1BM7/MpgG6pvYMwQVqzxIhRg9Y6286UYCM2Eb3qJjDBWnksA15/KKMZ1EaGeb6KlUADblyX
- PA8lTIT3MseZhbxeO1Q==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-03-27_01,2026-03-26_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 adultscore=0 malwarescore=0 spamscore=0 impostorscore=0
- phishscore=0 bulkscore=0 lowpriorityscore=0 clxscore=1015 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603270117
+References: <20260223-clk-send-sync-v5-0-181bf2f35652@google.com>
+ <DH7L09UFWGTK.2MT0OTWH1DUV4@kernel.org>
+ <20260321-awesome-hot-kingfisher-5d9f55@houat>
+ <CABx5tqJvOFEzmadeXpDxSUjkghviqtP0jo+kzSB5X6u_P_j2ig@mail.gmail.com>
+ <CABx5tqL+G9i1ZW7i5AHaTqUFTVRDmBvP=RycUdwjG-GOp4uzBA@mail.gmail.com>
+ <CANiq72=M3H-06L7udG_LqTwLykZkAjfy2d5NXQZn5TYRJ+N37w@mail.gmail.com>
+ <CABx5tq+TdGvL+SCUe87qWFgeAq-1Zf5w63jn2hLe9+YTyz4sNw@mail.gmail.com>
+ <DHDOH1FXTIZT.1QKZIPZ73YNLI@kernel.org>
+In-Reply-To: <DHDOH1FXTIZT.1QKZIPZ73YNLI@kernel.org>
+From: Brian Masney <bmasney@redhat.com>
+Date: Fri, 27 Mar 2026 12:54:24 -0400
+X-Gm-Features: AQROBzBbM13XF9Lw32GUQ1TlyrNM8BNb-Fkj0IVXkv6U0HfbzJXabBJAUaFVI5s
+Message-ID: <CABx5tqJho=k88A1L0neVeaiYCXpLsc7UjzGSgAug73ZC_amYag@mail.gmail.com>
+Subject: Re: [PATCH v5 0/3] Implement Send and Sync for clk
+To: Danilo Krummrich <dakr@kernel.org>
+Cc: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Stephen Boyd <sboyd@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
+ Michael Turquette <mturquette@baylibre.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Drew Fustini <fustini@kernel.org>, 
+ Guo Ren <guoren@kernel.org>, Fu Wei <wefu@redhat.com>, 
+ =?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <ukleinek@kernel.org>, 
+ Michal Wilczynski <m.wilczynski@samsung.com>,
+ Viresh Kumar <viresh.kumar@linaro.org>, 
+ Miguel Ojeda <ojeda@kernel.org>, Gary Guo <gary@garyguo.net>, 
+ =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Trevor Gross <tmgross@umich.edu>, Daniel Almeida <daniel.almeida@collabora.com>,
+ linux-clk@vger.kernel.org, rust-for-linux@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ linux-pwm@vger.kernel.org, Boqun Feng <boqun@kernel.org>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: kGEqpJLlJOb2mGv3HW-dj1d11pryfGDn-T0NcFOwEAE_1774630476
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -145,24 +116,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 2/5/2026 5:34 AM, Youssef Samir wrote:
-> When a DBC is released, the device sends a QAIC_TRANS_DEACTIVATE_FROM_DEV
-> transaction to the host over the QAIC_CONTROL MHI channel. QAIC handles
-> this by calling decode_deactivate() to release the resources allocated for
-> that DBC. Since that handling is done in the qaic_manage_ioctl() context,
-> if the user goes away before receiving and handling the deactivation, the
-> host will be out-of-sync with the DBCs available for use, and the DBC
-> resources will not be freed unless the device is removed. If another user
-> loads and requests to activate a network, then the device assigns the same
-> DBC to that network, QAIC will "indefinitely" wait for dbc->in_use = false,
-> leading the user process to hang.
-> 
-> As a solution to this, handle QAIC_TRANS_DEACTIVATE_FROM_DEV transactions
-> that are received after the user has gone away.
-> 
-> Fixes: 129776ac2e38 ("accel/qaic: Add control path")
-> Signed-off-by: Youssef Samir <youssef.abdulrahman@oss.qualcomm.com>
+On Fri, Mar 27, 2026 at 11:42=E2=80=AFAM Danilo Krummrich <dakr@kernel.org>=
+ wrote:
+> On Fri Mar 27, 2026 at 4:17 PM CET, Brian Masney wrote:
+> > I am not a clk maintainer, so I can't leave an Acked-by for you to
+> > pick this up unfortunately. I've been quite active in the clk
+> > subsystem though the last 6 months or so.
+>
+> I'm not involved in the CLK subsystem, but maybe it would be a good chanc=
+e to
+> offer stepping up as co-maintainer (also given that Michael seems to be i=
+nactive
+> for a couple of years now). :)
 
-Applied to drm-misc-fixes.
+I mentioned to Stephen at the last LPC in Tokyo that I am interested
+in becoming a clk co-maintainer. I've sent him some git pulls for some
+of my work the last few development cycles, and he's pulled them. For
+this development cycle, I collected up some patches from others that I
+feel are ready, however I didn't hear back from Stephen yet:
 
--Jeff
+https://lore.kernel.org/linux-clk/abLV9vjYxXsKciHW@redhat.com/
+
+He separately pulled some of that work via the posted patches into
+clk-next this week. I don't know if there was something he didn't like
+in my git pull.
+
+To be honest, I initially helped with reviews trying to free up time
+for him to give feedback about my work to address some long-standing
+issues related to clk scaling that affect DRM and sound:
+
+https://lore.kernel.org/linux-clk/20260323-clk-scaling-v7-0-8e7193dc9405@re=
+dhat.com/
+The kunit tests in patch 2 and 4 clearly show the issues. (I'm working
+on some fixes to this series right now based on feedback from
+Sashiko.)
+
+I've become more interested in the clk subsystem as I learn more about
+it. There are other improvements that I am willing to make to the clk
+subsystem, however the current situation has been quite challenging to
+be honest. I will help with the linux-clk subsystem for the long term
+if there is the possibility of me eventually becoming a co-maintainer.
+Stephen can have veto power over what goes in.
+
+Brian
+
