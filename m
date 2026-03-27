@@ -4,55 +4,101 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4032610ED677
-	for <dri-devel@archiver.kernel.org>; Fri, 27 Mar 2026 13:04:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B145110ED664
+	for <dri-devel@archiver.kernel.org>; Fri, 27 Mar 2026 13:04:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8A53910EC8C;
-	Fri, 27 Mar 2026 13:04:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9AE3410ECD6;
+	Fri, 27 Mar 2026 13:04:55 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="mdH5OOOS";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="zTO/JAbr";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="mdH5OOOS";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="zTO/JAbr";
+	dkim-atps=neutral
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EC1BB10EC7D
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Mar 2026 13:04:50 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1891410EA33
+ for <dri-devel@lists.freedesktop.org>; Fri, 27 Mar 2026 13:04:41 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 958BC5BE54;
- Fri, 27 Mar 2026 13:04:38 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 7DE095BE3D;
+ Fri, 27 Mar 2026 13:04:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1774616676; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=76Lu2FhyqR0U2rrMx7Vy0WuE3C2Dk7OvXdlLMk2AL6M=;
+ b=mdH5OOOSREPZ1IUJSb0PHSMI6D07zcchroWeh1RULvFETSTOy8Zctx0EPhSYK0LUgrXiKU
+ aEWJ6MkUygguz6UWy88RpArUJTBHRqefM2wDG9ateaZ8rbByYX9u4IKHQiIlSRPr4S6QkE
+ Kcg7aExVoZAfmXGv6+RKD+zQsVy4u4g=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1774616676;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=76Lu2FhyqR0U2rrMx7Vy0WuE3C2Dk7OvXdlLMk2AL6M=;
+ b=zTO/JAbrljkCciSwQQrq2EvPiiq7b8Q29FLA+coRxxeOGmGo6IWdyC0w42VvV7S3eIsoGd
+ Ha9p/a5XAuJjN8AA==
 Authentication-Results: smtp-out2.suse.de;
 	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1774616676; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=76Lu2FhyqR0U2rrMx7Vy0WuE3C2Dk7OvXdlLMk2AL6M=;
+ b=mdH5OOOSREPZ1IUJSb0PHSMI6D07zcchroWeh1RULvFETSTOy8Zctx0EPhSYK0LUgrXiKU
+ aEWJ6MkUygguz6UWy88RpArUJTBHRqefM2wDG9ateaZ8rbByYX9u4IKHQiIlSRPr4S6QkE
+ Kcg7aExVoZAfmXGv6+RKD+zQsVy4u4g=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1774616676;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=76Lu2FhyqR0U2rrMx7Vy0WuE3C2Dk7OvXdlLMk2AL6M=;
+ b=zTO/JAbrljkCciSwQQrq2EvPiiq7b8Q29FLA+coRxxeOGmGo6IWdyC0w42VvV7S3eIsoGd
+ Ha9p/a5XAuJjN8AA==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 53AAD4A0B1;
- Fri, 27 Mar 2026 13:04:38 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 3E1D64A0A2;
+ Fri, 27 Mar 2026 13:04:36 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id UJr9EmaAxmmweQAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Fri, 27 Mar 2026 13:04:38 +0000
+ by imap1.dmz-prg2.suse.org with ESMTPSA id 0Dn3DWSAxmmweQAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Fri, 27 Mar 2026 13:04:36 +0000
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: deller@gmx.de, gregkh@linuxfoundation.org, jirislaby@kernel.org,
  simona@ffwll.ch, sam@ravnborg.org
 Cc: linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org,
  Thomas Zimmermann <tzimmermann@suse.de>
-Subject: [PATCH 09/10] fbcon: Fill cursor mask in helper function
-Date: Fri, 27 Mar 2026 13:49:42 +0100
-Message-ID: <20260327130431.59481-10-tzimmermann@suse.de>
+Subject: [PATCH 02/10] vt: Implement helpers for struct vc_font in source file
+Date: Fri, 27 Mar 2026 13:49:35 +0100
+Message-ID: <20260327130431.59481-3-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260327130431.59481-1-tzimmermann@suse.de>
 References: <20260327130431.59481-1-tzimmermann@suse.de>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Rspamd-Pre-Result: action=no action; module=replies;
- Message is reply to one we originated
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Spamd-Result: default: False [-4.00 / 50.00];
-	REPLY(-4.00)[]
-X-Rspamd-Queue-Id: 958BC5BE54
-X-Rspamd-Pre-Result: action=no action; module=replies;
- Message is reply to one we originated
-X-Rspamd-Action: no action
+X-Spamd-Result: default: False [-6.80 / 50.00]; REPLY(-4.00)[];
+ BAYES_HAM(-3.00)[100.00%]; MID_CONTAINS_FROM(1.00)[];
+ NEURAL_HAM_LONG(-1.00)[-1.000]; R_MISSING_CHARSET(0.50)[];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ RCVD_COUNT_TWO(0.00)[2]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ FUZZY_RATELIMITED(0.00)[rspamd.com]; ARC_NA(0.00)[];
+ MIME_TRACE(0.00)[0:+]; FROM_HAS_DN(0.00)[];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
+ FREEMAIL_TO(0.00)[gmx.de,linuxfoundation.org,kernel.org,ffwll.ch,ravnborg.org];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid,suse.de:email,imap1.dmz-prg2.suse.org:helo];
+ RCVD_TLS_ALL(0.00)[];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ RCPT_COUNT_SEVEN(0.00)[10]; TO_DN_SOME(0.00)[];
+ FREEMAIL_ENVRCPT(0.00)[gmx.de]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,356 +114,118 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Fbcon creates a cursor shape on the fly from the user-configured
-settings. The logic to create a glyph with the cursor's bitmap mask
-is duplicated in four places. In the cases that involve console
-rotation, the implementation further rotates the cursor glyph for
-displaying.
-
-Consolidate all cursor-mask creation in a single helper. Update the
-callers accordingly. For console rotation, use the glyph helpers to
-rotate the created cursor glyph to the correct orientation.
+Move the helpers vc_font_pitch() and vc_font_size() from the VT
+header file into source file. They are not called very often, so
+there's no benefit in keeping them in the headers. Also avoids
+including <liux/math.h> from the header.
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
 ---
- drivers/video/fbdev/core/bitblit.c   | 35 ++-----------------
- drivers/video/fbdev/core/fbcon.c     | 40 ++++++++++++++++++++++
- drivers/video/fbdev/core/fbcon.h     |  2 ++
- drivers/video/fbdev/core/fbcon_ccw.c | 51 ++++++----------------------
- drivers/video/fbdev/core/fbcon_cw.c  | 51 ++++++----------------------
- drivers/video/fbdev/core/fbcon_ud.c  | 50 +++++++--------------------
- 6 files changed, 78 insertions(+), 151 deletions(-)
+ drivers/tty/vt/vt.c            | 35 ++++++++++++++++++++++++++++++++++
+ include/linux/console_struct.h | 30 ++---------------------------
+ 2 files changed, 37 insertions(+), 28 deletions(-)
 
-diff --git a/drivers/video/fbdev/core/bitblit.c b/drivers/video/fbdev/core/bitblit.c
-index 7478accea8ec..65681dcc5930 100644
---- a/drivers/video/fbdev/core/bitblit.c
-+++ b/drivers/video/fbdev/core/bitblit.c
-@@ -329,46 +329,17 @@ static void bit_cursor(struct vc_data *vc, struct fb_info *info, bool enable,
- 	    vc->vc_cursor_type != par->p->cursor_shape ||
- 	    par->cursor_state.mask == NULL ||
- 	    par->cursor_reset) {
--		char *mask = kmalloc_array(w, vc->vc_font.height, GFP_ATOMIC);
--		int cur_height, size, i = 0;
--		u8 msk = 0xff;
-+		unsigned char *mask = kmalloc_array(vc->vc_font.height, w, GFP_ATOMIC);
+diff --git a/drivers/tty/vt/vt.c b/drivers/tty/vt/vt.c
+index e2df99e3d458..3d89d30c9596 100644
+--- a/drivers/tty/vt/vt.c
++++ b/drivers/tty/vt/vt.c
+@@ -71,6 +71,7 @@
+  * by Adam Tla/lka <atlka@pg.gda.pl>, Aug 2006
+  */
  
- 		if (!mask)
- 			return;
-+		fbcon_fill_cursor_mask(par, vc, mask);
++#include <linux/math.h>
+ #include <linux/module.h>
+ #include <linux/types.h>
+ #include <linux/sched/signal.h>
+@@ -230,6 +231,40 @@ enum {
+ 	blank_vesa_wait,
+ };
  
- 		kfree(par->cursor_state.mask);
--		par->cursor_state.mask = mask;
-+		par->cursor_state.mask = (const char *)mask;
- 
- 		par->p->cursor_shape = vc->vc_cursor_type;
- 		cursor.set |= FB_CUR_SETSHAPE;
--
--		switch (CUR_SIZE(par->p->cursor_shape)) {
--		case CUR_NONE:
--			cur_height = 0;
--			break;
--		case CUR_UNDERLINE:
--			cur_height = (vc->vc_font.height < 10) ? 1 : 2;
--			break;
--		case CUR_LOWER_THIRD:
--			cur_height = vc->vc_font.height/3;
--			break;
--		case CUR_LOWER_HALF:
--			cur_height = vc->vc_font.height >> 1;
--			break;
--		case CUR_TWO_THIRDS:
--			cur_height = (vc->vc_font.height << 1)/3;
--			break;
--		case CUR_BLOCK:
--		default:
--			cur_height = vc->vc_font.height;
--			break;
--		}
--		size = (vc->vc_font.height - cur_height) * w;
--		while (size--)
--			mask[i++] = ~msk;
--		size = cur_height * w;
--		while (size--)
--			mask[i++] = msk;
- 	}
- 
- 	par->cursor_state.enable = enable && !use_sw;
-diff --git a/drivers/video/fbdev/core/fbcon.c b/drivers/video/fbdev/core/fbcon.c
-index 8641b0b3edc4..345d9aa193f0 100644
---- a/drivers/video/fbdev/core/fbcon.c
-+++ b/drivers/video/fbdev/core/fbcon.c
-@@ -446,6 +446,46 @@ static void fbcon_del_cursor_work(struct fb_info *info)
- 	cancel_delayed_work_sync(&par->cursor_work);
- }
- 
-+void fbcon_fill_cursor_mask(struct fbcon_par *par, struct vc_data *vc, unsigned char *mask)
++/*
++ * struct vc_font
++ */
++
++/**
++ * vc_font_pitch - Calculates the number of bytes between two adjacent scanlines
++ * @font: The VC font
++ *
++ * Returns:
++ * The number of bytes between two adjacent scanlines in the font data
++ */
++unsigned int vc_font_pitch(const struct vc_font *font)
 +{
-+	static const unsigned char pattern = 0xff;
-+	unsigned int pitch = vc_font_pitch(&vc->vc_font);
-+	unsigned int cur_height, size;
-+
-+	switch (CUR_SIZE(vc->vc_cursor_type)) {
-+	case CUR_NONE:
-+		cur_height = 0;
-+		break;
-+	case CUR_UNDERLINE:
-+		if (vc->vc_font.height < 10)
-+			cur_height = 1;
-+		else
-+			cur_height = 2;
-+		break;
-+	case CUR_LOWER_THIRD:
-+		cur_height = vc->vc_font.height / 3;
-+		break;
-+	case CUR_LOWER_HALF:
-+		cur_height = vc->vc_font.height / 2;
-+		break;
-+	case CUR_TWO_THIRDS:
-+		cur_height = (vc->vc_font.height * 2) / 3;
-+		break;
-+	case CUR_BLOCK:
-+	default:
-+		cur_height = vc->vc_font.height;
-+		break;
-+	}
-+
-+	size = (vc->vc_font.height - cur_height) * pitch;
-+	while (size--)
-+		*mask++ = (unsigned char)~pattern;
-+
-+	size = cur_height * pitch;
-+	while (size--)
-+		*mask++ = pattern;
++	return DIV_ROUND_UP(font->width, 8);
 +}
++EXPORT_SYMBOL_GPL(vc_font_pitch);
 +
- #ifndef MODULE
- static int __init fb_console_setup(char *this_opt)
- {
-diff --git a/drivers/video/fbdev/core/fbcon.h b/drivers/video/fbdev/core/fbcon.h
-index 1793f34a6c84..bb0727b70631 100644
---- a/drivers/video/fbdev/core/fbcon.h
-+++ b/drivers/video/fbdev/core/fbcon.h
-@@ -192,6 +192,8 @@ extern void fbcon_set_tileops(struct vc_data *vc, struct fb_info *info);
- extern void fbcon_set_bitops_ur(struct fbcon_par *par);
- extern int  soft_cursor(struct fb_info *info, struct fb_cursor *cursor);
- 
-+void fbcon_fill_cursor_mask(struct fbcon_par *par, struct vc_data *vc, unsigned char *mask);
++/**
++ * vc_font_size - Calculates the size of the font data in bytes
++ * @font: The VC font
++ *
++ * vc_font_size() calculates the number of bytes of font data in the
++ * font specified by @font. The function calculates the size from the
++ * font parameters.
++ *
++ * Returns:
++ * The size of the font data in bytes.
++ */
++unsigned int vc_font_size(const struct vc_font *font)
++{
++	return font->height * vc_font_pitch(font) * font->charcount;
++}
++EXPORT_SYMBOL_GPL(vc_font_size);
 +
- #define FBCON_ATTRIBUTE_UNDERLINE 1
- #define FBCON_ATTRIBUTE_REVERSE   2
- #define FBCON_ATTRIBUTE_BOLD      4
-diff --git a/drivers/video/fbdev/core/fbcon_ccw.c b/drivers/video/fbdev/core/fbcon_ccw.c
-index 72453a2aaca8..723d9a33067f 100644
---- a/drivers/video/fbdev/core/fbcon_ccw.c
-+++ b/drivers/video/fbdev/core/fbcon_ccw.c
-@@ -296,57 +296,26 @@ static void ccw_cursor(struct vc_data *vc, struct fb_info *info, bool enable,
- 	    vc->vc_cursor_type != par->p->cursor_shape ||
- 	    par->cursor_state.mask == NULL ||
- 	    par->cursor_reset) {
--		char *tmp, *mask = kmalloc_array(w, vc->vc_font.width,
--						 GFP_ATOMIC);
--		int cur_height, size, i = 0;
--		int width = font_glyph_pitch(vc->vc_font.width);
-+		unsigned char *tmp, *mask;
+ /*
+  * /sys/class/tty/tty0/
+  *
+diff --git a/include/linux/console_struct.h b/include/linux/console_struct.h
+index 6ce498b31855..fe915afdece5 100644
+--- a/include/linux/console_struct.h
++++ b/include/linux/console_struct.h
+@@ -13,7 +13,6 @@
+ #ifndef _LINUX_CONSOLE_STRUCT_H
+ #define _LINUX_CONSOLE_STRUCT_H
  
--		if (!mask)
-+		tmp = kmalloc_array(vc->vc_font.height, vc_font_pitch(&vc->vc_font), GFP_ATOMIC);
-+		if (!tmp)
- 			return;
-+		fbcon_fill_cursor_mask(par, vc, tmp);
+-#include <linux/math.h>
+ #include <linux/vt.h>
+ #include <linux/wait.h>
+ #include <linux/workqueue.h>
+@@ -83,33 +82,8 @@ struct vc_font {
+ 	const unsigned char *data;
+ };
  
--		tmp = kmalloc_array(width, vc->vc_font.height, GFP_ATOMIC);
+-/**
+- * vc_font_pitch - Calculates the number of bytes between two adjacent scanlines
+- * @font: The VC font
+- *
+- * Returns:
+- * The number of bytes between two adjacent scanlines in the font data
+- */
+-static inline unsigned int vc_font_pitch(const struct vc_font *font)
+-{
+-	return DIV_ROUND_UP(font->width, 8);
+-}
 -
--		if (!tmp) {
--			kfree(mask);
-+		mask = kmalloc_array(vc->vc_font.width, w, GFP_ATOMIC);
-+		if (!mask) {
-+			kfree(tmp);
- 			return;
- 		}
-+		font_glyph_rotate_270(tmp, vc->vc_font.width, vc->vc_font.height, mask);
-+		kfree(tmp);
+-/**
+- * vc_font_size - Calculates the size of the font data in bytes
+- * @font: The VC font
+- *
+- * vc_font_size() calculates the number of bytes of font data in the
+- * font specified by @font. The function calculates the size from the
+- * font parameters.
+- *
+- * Returns:
+- * The size of the font data in bytes.
+- */
+-static inline unsigned int vc_font_size(const struct vc_font *font)
+-{
+-	return font->height * vc_font_pitch(font) * font->charcount;
+-}
++unsigned int vc_font_pitch(const struct vc_font *font);
++unsigned int vc_font_size(const struct vc_font *font);
  
- 		kfree(par->cursor_state.mask);
--		par->cursor_state.mask = mask;
-+		par->cursor_state.mask = (const char *)mask;
- 
- 		par->p->cursor_shape = vc->vc_cursor_type;
- 		cursor.set |= FB_CUR_SETSHAPE;
--
--		switch (CUR_SIZE(par->p->cursor_shape)) {
--		case CUR_NONE:
--			cur_height = 0;
--			break;
--		case CUR_UNDERLINE:
--			cur_height = (vc->vc_font.height < 10) ? 1 : 2;
--			break;
--		case CUR_LOWER_THIRD:
--			cur_height = vc->vc_font.height/3;
--			break;
--		case CUR_LOWER_HALF:
--			cur_height = vc->vc_font.height >> 1;
--			break;
--		case CUR_TWO_THIRDS:
--			cur_height = (vc->vc_font.height << 1)/3;
--			break;
--		case CUR_BLOCK:
--		default:
--			cur_height = vc->vc_font.height;
--			break;
--		}
--
--		size = (vc->vc_font.height - cur_height) * width;
--		while (size--)
--			tmp[i++] = 0;
--		size = cur_height * width;
--		while (size--)
--			tmp[i++] = 0xff;
--		font_glyph_rotate_270(tmp, vc->vc_font.width, vc->vc_font.height, mask);
--		kfree(tmp);
- 	}
- 
- 	par->cursor_state.enable = enable && !use_sw;
-diff --git a/drivers/video/fbdev/core/fbcon_cw.c b/drivers/video/fbdev/core/fbcon_cw.c
-index 5690fc1d7854..732d093d462f 100644
---- a/drivers/video/fbdev/core/fbcon_cw.c
-+++ b/drivers/video/fbdev/core/fbcon_cw.c
-@@ -279,57 +279,26 @@ static void cw_cursor(struct vc_data *vc, struct fb_info *info, bool enable,
- 	    vc->vc_cursor_type != par->p->cursor_shape ||
- 	    par->cursor_state.mask == NULL ||
- 	    par->cursor_reset) {
--		char *tmp, *mask = kmalloc_array(w, vc->vc_font.width,
--						 GFP_ATOMIC);
--		int cur_height, size, i = 0;
--		int width = font_glyph_pitch(vc->vc_font.width);
-+		unsigned char *tmp, *mask;
- 
--		if (!mask)
-+		tmp = kmalloc_array(vc->vc_font.height, vc_font_pitch(&vc->vc_font), GFP_ATOMIC);
-+		if (!tmp)
- 			return;
-+		fbcon_fill_cursor_mask(par, vc, tmp);
- 
--		tmp = kmalloc_array(width, vc->vc_font.height, GFP_ATOMIC);
--
--		if (!tmp) {
--			kfree(mask);
-+		mask = kmalloc_array(vc->vc_font.width, w, GFP_ATOMIC);
-+		if (!mask) {
-+			kfree(tmp);
- 			return;
- 		}
-+		font_glyph_rotate_90(tmp, vc->vc_font.width, vc->vc_font.height, mask);
-+		kfree(tmp);
- 
- 		kfree(par->cursor_state.mask);
--		par->cursor_state.mask = mask;
-+		par->cursor_state.mask = (const char *)mask;
- 
- 		par->p->cursor_shape = vc->vc_cursor_type;
- 		cursor.set |= FB_CUR_SETSHAPE;
--
--		switch (CUR_SIZE(par->p->cursor_shape)) {
--		case CUR_NONE:
--			cur_height = 0;
--			break;
--		case CUR_UNDERLINE:
--			cur_height = (vc->vc_font.height < 10) ? 1 : 2;
--			break;
--		case CUR_LOWER_THIRD:
--			cur_height = vc->vc_font.height/3;
--			break;
--		case CUR_LOWER_HALF:
--			cur_height = vc->vc_font.height >> 1;
--			break;
--		case CUR_TWO_THIRDS:
--			cur_height = (vc->vc_font.height << 1)/3;
--			break;
--		case CUR_BLOCK:
--		default:
--			cur_height = vc->vc_font.height;
--			break;
--		}
--
--		size = (vc->vc_font.height - cur_height) * width;
--		while (size--)
--			tmp[i++] = 0;
--		size = cur_height * width;
--		while (size--)
--			tmp[i++] = 0xff;
--		font_glyph_rotate_90(tmp, vc->vc_font.width, vc->vc_font.height, mask);
--		kfree(tmp);
- 	}
- 
- 	par->cursor_state.enable = enable && !use_sw;
-diff --git a/drivers/video/fbdev/core/fbcon_ud.c b/drivers/video/fbdev/core/fbcon_ud.c
-index f7cd89c42b01..a1981fa4701a 100644
---- a/drivers/video/fbdev/core/fbcon_ud.c
-+++ b/drivers/video/fbdev/core/fbcon_ud.c
-@@ -326,50 +326,26 @@ static void ud_cursor(struct vc_data *vc, struct fb_info *info, bool enable,
- 	    vc->vc_cursor_type != par->p->cursor_shape ||
- 	    par->cursor_state.mask == NULL ||
- 	    par->cursor_reset) {
--		char *mask = kmalloc_array(w, vc->vc_font.height, GFP_ATOMIC);
--		int cur_height, size, i = 0;
--		u8 msk = 0xff;
-+		unsigned char *tmp, *mask;
- 
--		if (!mask)
-+		tmp = kmalloc_array(vc->vc_font.height, w, GFP_ATOMIC);
-+		if (!tmp)
- 			return;
-+		fbcon_fill_cursor_mask(par, vc, tmp);
-+
-+		mask = kmalloc_array(vc->vc_font.height, w, GFP_ATOMIC);
-+		if (!mask) {
-+			kfree(tmp);
-+			return;
-+		}
-+		font_glyph_rotate_180(tmp, vc->vc_font.width, vc->vc_font.height, mask);
-+		kfree(tmp);
- 
- 		kfree(par->cursor_state.mask);
--		par->cursor_state.mask = mask;
-+		par->cursor_state.mask = (const char *)mask;
- 
- 		par->p->cursor_shape = vc->vc_cursor_type;
- 		cursor.set |= FB_CUR_SETSHAPE;
--
--		switch (CUR_SIZE(par->p->cursor_shape)) {
--		case CUR_NONE:
--			cur_height = 0;
--			break;
--		case CUR_UNDERLINE:
--			cur_height = (vc->vc_font.height < 10) ? 1 : 2;
--			break;
--		case CUR_LOWER_THIRD:
--			cur_height = vc->vc_font.height/3;
--			break;
--		case CUR_LOWER_HALF:
--			cur_height = vc->vc_font.height >> 1;
--			break;
--		case CUR_TWO_THIRDS:
--			cur_height = (vc->vc_font.height << 1)/3;
--			break;
--		case CUR_BLOCK:
--		default:
--			cur_height = vc->vc_font.height;
--			break;
--		}
--
--		size = cur_height * w;
--
--		while (size--)
--			mask[i++] = msk;
--
--		size = (vc->vc_font.height - cur_height) * w;
--
--		while (size--)
--			mask[i++] = ~msk;
- 	}
- 
- 	par->cursor_state.enable = enable && !use_sw;
+ /*
+  * Example: vc_data of a console that was scrolled 3 lines down.
 -- 
 2.53.0
 
