@@ -4,111 +4,112 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DC87210ED674
-	for <dri-devel@archiver.kernel.org>; Fri, 27 Mar 2026 13:36:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 15D8E10ED674
+	for <dri-devel@archiver.kernel.org>; Fri, 27 Mar 2026 13:39:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 537E010EE63;
-	Fri, 27 Mar 2026 13:36:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 73AB810EE85;
+	Fri, 27 Mar 2026 13:39:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="VWmrV40o";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="LnDHt21j";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="VWmrV40o";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="LnDHt21j";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="gZ2a9OOm";
 	dkim-atps=neutral
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4F2E410EE72
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Mar 2026 13:36:12 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id D2CCA5BDD9;
- Fri, 27 Mar 2026 13:35:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1774618539; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=de/kHiUF6VuakwtXrEm5bkFdfMXo2fzC8vRdmKcTitk=;
- b=VWmrV40ojdGeDd/IaOz9zG+FqfN6WBPBcSASHz4kBelVOJbh18CO1Fxsvo8X7B4aMVJmFV
- bHVR+HYoo7vwlPlplpMVnzEd8dn970v8NVpzN6dt3JMGm54mQWyiXccZ2rtIgjn2WjK6zt
- 5kN1XfQ7ihVnkEfHZIQDzMkS9Nx2UtQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1774618539;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=de/kHiUF6VuakwtXrEm5bkFdfMXo2fzC8vRdmKcTitk=;
- b=LnDHt21jy3OkW8p3tAqHgp3vpHrMpRZ0lJibysLXdetmZ90cddvD4G3UrZM75VL3Zmrl7R
- FYPdEjkXaTb3Y6DA==
-Authentication-Results: smtp-out2.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=VWmrV40o;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=LnDHt21j
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1774618539; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=de/kHiUF6VuakwtXrEm5bkFdfMXo2fzC8vRdmKcTitk=;
- b=VWmrV40ojdGeDd/IaOz9zG+FqfN6WBPBcSASHz4kBelVOJbh18CO1Fxsvo8X7B4aMVJmFV
- bHVR+HYoo7vwlPlplpMVnzEd8dn970v8NVpzN6dt3JMGm54mQWyiXccZ2rtIgjn2WjK6zt
- 5kN1XfQ7ihVnkEfHZIQDzMkS9Nx2UtQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1774618539;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=de/kHiUF6VuakwtXrEm5bkFdfMXo2fzC8vRdmKcTitk=;
- b=LnDHt21jy3OkW8p3tAqHgp3vpHrMpRZ0lJibysLXdetmZ90cddvD4G3UrZM75VL3Zmrl7R
- FYPdEjkXaTb3Y6DA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 98B714A0B2;
- Fri, 27 Mar 2026 13:35:39 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id 2E4PJKuHxmleGgAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Fri, 27 Mar 2026 13:35:39 +0000
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: jfalempe@redhat.com, airlied@redhat.com, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, airlied@gmail.com, simona@ffwll.ch
-Cc: dri-devel@lists.freedesktop.org,
-	Thomas Zimmermann <tzimmermann@suse.de>
-Subject: [PATCH v2 13/15] drm/ast: Gen6: Fix open-coded register access
-Date: Fri, 27 Mar 2026 14:33:05 +0100
-Message-ID: <20260327133532.79696-14-tzimmermann@suse.de>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260327133532.79696-1-tzimmermann@suse.de>
-References: <20260327133532.79696-1-tzimmermann@suse.de>
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C6B3810EE84;
+ Fri, 27 Mar 2026 13:39:37 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id B1D4E60103;
+ Fri, 27 Mar 2026 13:39:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A2EF8C19423;
+ Fri, 27 Mar 2026 13:39:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1774618776;
+ bh=EK3L84nzzwEQPvQOCJndbS7CWv2sJDVmRS0NFbkNFt4=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=gZ2a9OOmIUE9p1djDWK+JEQLE1+0jE5+eHqkLh0g4U+My9MeFyfXvW8YyFq805afi
+ Mrhqpi0tviIOqOjc2irCWiYCF1mQOpnX/ZgjyLQUyNzp3RFW8qM+aKwuyeQPAJgSA0
+ 6wPdrWKseyd0ZYZuS8WB7cZi1N+PVw7RrzzgJOAcllE8v4VGoNpaLbxjvxoVN3sWng
+ G22Co7kk/1POJ7t06mXgXbeqzdMcKYD7o/7DaHBMQkvF2hcgOA8JXt58wkDndNlpe1
+ 97UWhS+jO80p3kcwYdY5DfYiELCVdjQlPIugLIUtArmmyE5ZxIE/+DJ2HxOA2JDiKH
+ 6dPWYSZ4WIkWw==
+Message-ID: <2da6cbcc-677d-4ba8-9762-ecb47b157f21@kernel.org>
+Date: Fri, 27 Mar 2026 14:39:24 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-3.01 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- MID_CONTAINS_FROM(1.00)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
- R_MISSING_CHARSET(0.50)[];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[]; TO_MATCH_ENVRCPT_ALL(0.00)[]; ARC_NA(0.00)[];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FREEMAIL_TO(0.00)[redhat.com,linux.intel.com,kernel.org,gmail.com,ffwll.ch];
- MIME_TRACE(0.00)[0:+];
- RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
- TO_DN_SOME(0.00)[]; FUZZY_RATELIMITED(0.00)[rspamd.com];
- RCVD_TLS_ALL(0.00)[]; DKIM_TRACE(0.00)[suse.de:+];
- RCVD_COUNT_TWO(0.00)[2]; FROM_EQ_ENVFROM(0.00)[];
- FROM_HAS_DN(0.00)[];
- SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:mid,suse.de:dkim,suse.de:email];
- RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
- RCPT_COUNT_SEVEN(0.00)[8];
- R_RATELIMIT(0.00)[to_ip_from(RLqtkr6cif1ebgurukgmwdm7xc)];
- RCVD_VIA_SMTP_AUTH(0.00)[]; FREEMAIL_ENVRCPT(0.00)[gmail.com]
-X-Rspamd-Action: no action
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: D2CCA5BDD9
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 02/15] firmware: qcom: Add a generic PAS service
+To: Sumit Garg <sumit.garg@kernel.org>,
+ Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-media@vger.kernel.org, netdev@vger.kernel.org,
+ linux-wireless@vger.kernel.org, ath12k@lists.infradead.org,
+ linux-remoteproc@vger.kernel.org, andersson@kernel.org,
+ konradybcio@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, robin.clark@oss.qualcomm.com, sean@poorly.run,
+ akhilpo@oss.qualcomm.com, lumag@kernel.org, abhinav.kumar@linux.dev,
+ jesszhan0024@gmail.com, marijn.suijten@somainline.org, airlied@gmail.com,
+ simona@ffwll.ch, vikash.garodia@oss.qualcomm.com,
+ dikshita.agarwal@oss.qualcomm.com, bod@kernel.org, mchehab@kernel.org,
+ elder@kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ jjohnson@kernel.org, mathieu.poirier@linaro.org,
+ trilokkumar.soni@oss.qualcomm.com, pavan.kondeti@oss.qualcomm.com,
+ jorge.ramirez@oss.qualcomm.com, tonyh@qti.qualcomm.com,
+ vignesh.viswanathan@oss.qualcomm.com, srinivas.kandagatla@oss.qualcomm.com,
+ amirreza.zarrabi@oss.qualcomm.com, jens.wiklander@linaro.org,
+ op-tee@lists.trustedfirmware.org, apurupa@qti.qualcomm.com,
+ skare@qti.qualcomm.com, linux-kernel@vger.kernel.org,
+ Sumit Garg <sumit.garg@oss.qualcomm.com>
+References: <20260312062756.694390-1-sumit.garg@kernel.org>
+ <20260312062756.694390-3-sumit.garg@kernel.org>
+ <20260313072450.sx7vqtvh62nflhff@hu-mojha-hyd.qualcomm.com>
+ <acE3MR4SVCPUzcgR@sumit-xelite>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 a/A=
+In-Reply-To: <acE3MR4SVCPUzcgR@sumit-xelite>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -124,77 +125,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Replace all open-coded access to MCR and SCU registers in Gen6 with
-the appropriate calls to ast_moutdwm() and ast_mindwm(). Use MCR and
-SCU register constants. Name variables according to registers.
+On 23/03/2026 13:50, Sumit Garg wrote:
+>>> +
+>>> +#include <linux/device/devres.h>
+>>> +#include <linux/firmware/qcom/qcom_pas.h>
+>>> +#include <linux/kernel.h>
+>>> +#include <linux/module.h>
+>>> +
+>>> +#include "qcom_pas.h"
+>>> +
+>>> +struct qcom_pas_ops *ops_ptr;
+>>
+>> Should this be static ?
+> 
+> It was static earlier in v1. I dropped it based on earlier v1 discussion
+> with Krzysztof. Let me conclude that discussion on the other thread
+> again.
 
-v2:
-- also fix MCR constants
+The discussion was whether this should be singleton in the first place,
+not making it a global singleton.
 
-Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-Reviewed-by: Jocelyn Falempe <jfalempe@redhat.com>
----
- drivers/gpu/drm/ast/ast_2500.c | 16 ++++++++--------
- drivers/gpu/drm/ast/ast_reg.h  |  1 +
- 2 files changed, 9 insertions(+), 8 deletions(-)
+Of course it cannot be anything else than static - nothing should poke here.
 
-diff --git a/drivers/gpu/drm/ast/ast_2500.c b/drivers/gpu/drm/ast/ast_2500.c
-index 39f401dd1f47..03a67ec9684b 100644
---- a/drivers/gpu/drm/ast/ast_2500.c
-+++ b/drivers/gpu/drm/ast/ast_2500.c
-@@ -280,15 +280,13 @@ static void enable_cache_2500(struct ast_device *ast)
- 
- static void set_mpll_2500(struct ast_device *ast)
- {
--	u32 addr, data, param;
-+	u32 mcr, data, param;
- 
- 	/* Reset MMC */
- 	ast_moutdwm(ast, AST_REG_MCR00, AST_REG_MCR00_PROTECTION_KEY);
- 	ast_moutdwm(ast, AST_REG_MCR34, 0x00020080);
--	for (addr = 0x1e6e0004; addr < 0x1e6e0090;) {
--		ast_moutdwm(ast, addr, 0x0);
--		addr += 4;
--	}
-+	for (mcr = AST_REG_MCR04; mcr <= AST_REG_MCR8C; mcr += 4)
-+		ast_moutdwm(ast, mcr, 0x00000000);
- 	ast_moutdwm(ast, AST_REG_MCR34, 0x00020000);
- 
- 	ast_moutdwm(ast, AST_REG_SCU000, AST_REG_SCU000_PROTECTION_KEY);
-@@ -507,6 +505,8 @@ static void ast_post_chip_2500(struct ast_device *ast)
- 
- 	reg = ast_get_index_reg_mask(ast, AST_IO_VGACRI, 0xd0, 0xff);
- 	if ((reg & AST_IO_VGACRD0_VRAM_INIT_STATUS_MASK) == 0) {/* vga only */
-+		u32 scu008;
-+
- 		/* Clear bus lock condition */
- 		ast_2500_patch_ahb(ast->regs);
- 
-@@ -540,9 +540,9 @@ static void ast_post_chip_2500(struct ast_device *ast)
- 			ast_moutdwm(ast, AST_REG_SCU07C, 0x00004000);
- 
- 		/* Slow down CPU/AHB CLK in VGA only mode */
--		temp = ast_read32(ast, 0x12008);
--		temp |= 0x73;
--		ast_write32(ast, 0x12008, temp);
-+		scu008 = ast_mindwm(ast, AST_REG_SCU008);
-+		scu008 |= 0x00000073;
-+		ast_moutdwm(ast, AST_REG_SCU008, scu008);
- 
- 		if (!ast_dram_init_2500(ast))
- 			drm_err(dev, "DRAM init failed !\n");
-diff --git a/drivers/gpu/drm/ast/ast_reg.h b/drivers/gpu/drm/ast/ast_reg.h
-index c3473cad4545..b7259d44a822 100644
---- a/drivers/gpu/drm/ast/ast_reg.h
-+++ b/drivers/gpu/drm/ast/ast_reg.h
-@@ -140,6 +140,7 @@
- #define AST_REG_MCR80				AST_REG_MCR(0x80)
- #define AST_REG_MCR84				AST_REG_MCR(0x84)
- #define AST_REG_MCR88				AST_REG_MCR(0x88)
-+#define AST_REG_MCR8C				AST_REG_MCR(0x8c)
- #define AST_REG_MCR100				AST_REG_MCR(0x100)
- #define AST_REG_MCR108				AST_REG_MCR(0x108)
- #define AST_REG_MCR120				AST_REG_MCR(0x120)
--- 
-2.53.0
-
+Best regards,
+Krzysztof
