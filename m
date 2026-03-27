@@ -4,156 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 99DF710ED675
-	for <dri-devel@archiver.kernel.org>; Fri, 27 Mar 2026 13:26:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8BC3610ED674
+	for <dri-devel@archiver.kernel.org>; Fri, 27 Mar 2026 13:30:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1336A10EE78;
-	Fri, 27 Mar 2026 13:26:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E95DB10E139;
+	Fri, 27 Mar 2026 13:30:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="BFpzi7Me";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Q9DhPGOk";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E825210EE78;
- Fri, 27 Mar 2026 13:26:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1774617993; x=1806153993;
- h=date:from:to:cc:subject:message-id:references:
- in-reply-to:mime-version;
- bh=GnCVIJkZS7QyfoPghiPc/V12nV02G688FanyOG5ik7w=;
- b=BFpzi7MeKzoO6ljTqGyY9GoT2HDWLqs4luabzLhQLhwvHcme3MKb42VA
- D4g5AScRzn9WPC08ahZK9JQq/UOBbPk5LlhUuGTMqIGNyeKeMRZEpiEg0
- 76JyYpoAi9VG7el74dCFmNP8hnwjh0hgBcEOYaGkKs2lF8JnbwshPPsm1
- Sq832gIP9/M1K+M0KmOk5iTK40uvgGd1c1Dvmzy7Lgwi8sk/sr4fzCt+L
- UpEhXYH5+/5uqnD9tvlDGdqIsifLFZ2rR2hU04zL+ze0yVtOWWdHQV+6R
- WHFlWrf8rjlefLDlR1r1RPBgc623dUQ1g4d20qpnO3aM3ivXkfzRVGJNa A==;
-X-CSE-ConnectionGUID: iKCK8S/iT6mJYm8S/fJ8XA==
-X-CSE-MsgGUID: DGqRwB0LTAK+imLS2TwRdg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11741"; a="63244933"
-X-IronPort-AV: E=Sophos;i="6.23,144,1770624000"; d="scan'208";a="63244933"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
- by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Mar 2026 06:26:32 -0700
-X-CSE-ConnectionGUID: VptALvPvSfWR3eJFnYmOyQ==
-X-CSE-MsgGUID: DlEV7MMMRyy756UfIyzfAw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,144,1770624000"; d="scan'208";a="229391517"
-Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
- by orviesa003.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Mar 2026 06:26:32 -0700
-Received: from FMSMSX902.amr.corp.intel.com (10.18.126.91) by
- fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Fri, 27 Mar 2026 06:26:31 -0700
-Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
- FMSMSX902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37 via Frontend Transport; Fri, 27 Mar 2026 06:26:31 -0700
-Received: from DM1PR04CU001.outbound.protection.outlook.com (52.101.61.18) by
- edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Fri, 27 Mar 2026 06:26:30 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=CCrPGpkuGCghhIpmp6Vx+oJNE2FFeohuLzs0WNH8m/gQEMrS9FjQWkNrMC+gdvTXnv5JvtSkoNcLlNsKtxQ/8z+A9wp3N+lAdLZ8QW58M0vYGhv1W/vg3ezs2jszXJmY5s7CCIlfHumjJFM37P3zkTPb2ErqxMc7znO+jSdehnoUV8oyZYLG/M9LRN5CyFczFWySXEceHl2rfeqFN3Ajs6VoJYTcxqa/aEKDVdz/nAiUNwep/lIJUZe4k1VzWx8O1GXJe4mVDO2UaSkQY9hM6/TYcU0osekVCukZN2T4nwCLUY1dHKRscRbgjb6RYz2W5BbtDDW4/SeSGH+w1w6QUA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Nn2b2zGio5BJVnGZWYwEWhP1M7fohSsSFsKLGeZreQg=;
- b=RitruE4U0euLVA2DNX2JRkoMfUdJ1oOBFZAXrQycaJKFzxX4+gtrw4pTV9bo9Q7gKM9DDpgSnLZSsfcZGx7TD4uq7b87TzZih/vnlIYXkz02dtMQGfuA/6CrLfV23pjvVyst6w97yU5Db9WUqs0o6Ul/MWfBzrzMaASR1AzC7K4JPqmyplp9IflYpRJtlpVA26AtD/k+I7Q1jxe/7ciXbm/8UGromg3drSodmYh34lmcgSMWh00+vC0dSLhcHz7O5kbYHYld2OnXfE23WstXYoyazepcAZg2gjDWZQCECeXvZt/tZ6r1faouvGCcKcBG+xF2ZvRr1R6gXWMdmSXh3A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from CYYPR11MB8430.namprd11.prod.outlook.com (2603:10b6:930:c6::19)
- by PH8PR11MB9807.namprd11.prod.outlook.com (2603:10b6:510:3c2::13)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.10; Fri, 27 Mar
- 2026 13:26:24 +0000
-Received: from CYYPR11MB8430.namprd11.prod.outlook.com
- ([fe80::1d86:a34:519a:3b0d]) by CYYPR11MB8430.namprd11.prod.outlook.com
- ([fe80::1d86:a34:519a:3b0d%5]) with mapi id 15.20.9769.011; Fri, 27 Mar 2026
- 13:26:24 +0000
-Date: Fri, 27 Mar 2026 09:26:19 -0400
-From: Rodrigo Vivi <rodrigo.vivi@intel.com>
-To: "Dixit, Ashutosh" <ashutosh.dixit@intel.com>
-CC: Michal Wajdeczko <michal.wajdeczko@intel.com>, Satyanarayana K V P
- <satyanarayana.k.v.p@intel.com>, <intel-xe@lists.freedesktop.org>, Piotr
- =?iso-8859-1?Q?Pi=F3rkowski?= <piotr.piorkowski@intel.com>, Matthew Brost
- <matthew.brost@intel.com>, Thomas =?iso-8859-1?Q?Hellstr=F6m?=
- <thomas.hellstrom@linux.intel.com>, =?utf-8?Q?Micha=C5=82?= Winiarski
- <michal.winiarski@intel.com>, Dunajski Bartosz <bartosz.dunajski@intel.com>,
- <dri-devel@lists.freedesktop.org>, Robert Krzemien
- <robert.krzemien@intel.com>
-Subject: Re: [RFC v6 1/1] drm/xe/pf: Restrict device query responses in
- admin-only PF mode
-Message-ID: <acaFe55XHfo39z-y@intel.com>
-References: <20260316064100.2542412-3-satyanarayana.k.v.p@intel.com>
- <20260316064100.2542412-4-satyanarayana.k.v.p@intel.com>
- <875x6lq64y.wl-ashutosh.dixit@intel.com>
- <8d140cfb-ad38-4548-aec0-89581c79d8e5@intel.com>
- <87341lzvhf.wl-ashutosh.dixit@intel.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <87341lzvhf.wl-ashutosh.dixit@intel.com>
-X-ClientProxiedBy: SJ0PR05CA0185.namprd05.prod.outlook.com
- (2603:10b6:a03:330::10) To CYYPR11MB8430.namprd11.prod.outlook.com
- (2603:10b6:930:c6::19)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BE5FA10EE7C
+ for <dri-devel@lists.freedesktop.org>; Fri, 27 Mar 2026 13:30:18 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 8F5714413A;
+ Fri, 27 Mar 2026 13:30:18 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 68C2FC19423;
+ Fri, 27 Mar 2026 13:30:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1774618218;
+ bh=h50clFkchxlz1PjbdPsQIzoGz7zeASQJbxZttgo1vUc=;
+ h=From:Subject:Date:To:Cc:Reply-To:From;
+ b=Q9DhPGOkX7aULof7pyxGrSjXKZXfLpiU4ePfkdzEvn0PhAPfr3pHIjHoB3+vCejuu
+ UAGwxkRMQluva9dp/A9nU15SwKsYPdA3LslCryX7IpFy8GKx0Zu+LkZXJ3P9K4CWwK
+ yF3dNRsvnh0j/wEWIuhxnggTqcp5wQLOM6c3IavxGtHvJ+bBRbPAiSyP6HEFaswaLE
+ evqnXatCq/b6/rMca7XtKb2uk741KeltxpN9mGoxQUFwGkmS9M5ypRnPMXlVJMMLCx
+ PrBkX7cwlbehI2XIwxe7PlySW+gClH5sULVN8tC0kDmukKc7QKH4qye3P1lqd1y5kD
+ XiHeh82SEbPYw==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
+ (localhost.localdomain [127.0.0.1])
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 5253A10ED661;
+ Fri, 27 Mar 2026 13:30:18 +0000 (UTC)
+From: Cristian Cozzolino via B4 Relay
+ <devnull+cristian_ci.protonmail.com@kernel.org>
+Subject: [PATCH v4 0/6] Enable new features for flipkart-rimob
+Date: Fri, 27 Mar 2026 15:30:46 +0100
+Message-Id: <20260327-rimob-new-features-v4-0-06edff9c4509@protonmail.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CYYPR11MB8430:EE_|PH8PR11MB9807:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3f807e35-9592-4af1-439f-08de8c047113
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|366016|1800799024|56012099003|18002099003|22082099003; 
-X-Microsoft-Antispam-Message-Info: +G/KybuvFCJRO3Ec6phCdg6wRkWwXV86q6YGR/HlRRKXpjOJfh0EGkyvr+lU/ol+iteRglPOD1SbWoS/4WKIY5gVFXuroBHDY5refgxwyHfzYs/awUBRnui5Ni1x5t8yIf2QjvJDeHjVOwvToTI7aCwsZNiekpV7Y0MEYTiVVhzl5Pj8XP1bYdLnxyKVuuKQDPj2hHbf6un6yraRkzxeIZZ/ZtIJDvyeBKSsMyspZGQVHiueBgR17GSHzazJF0YNDmrQNc0nU1PqxW0WZBvM2jCmllMMXWmgjgL4Qba/5yt6WJE/6nGGGhLykgyCukmZ/hdZArOE2yO5bHs2mkYRnYdug5uM8I3MOYfpbR3WQVKCFLeTDdDT5e03qpGbmdAvaNkXazXHKDmAjLoH0rvC3+HjpNdxe/a8oKkF0wMFZY+o67AqEgxxT1d2IrdT6kzDg64oAkscR+SZiP33mVTnwS7YSLmVICK6GspF89pKQT35v9KrV/hC/PWdzRxMvve7Q2ZQmULjmi25co/AzacuntkCwsU7IClfBto/6q76AV3Bj7FB36Jh3pHiK8OBqyiRcrscqmsKPqruVb7vmWzfNB/lidIk1IVMqzyjK8aDLBz5PrtfowMzThmLqK2fz3YjJ/C8lY0s7MzUyMZzhCZ6w2ghADCFc+bOL1i/14WScHmz9UQnsXrRacVRZSPWPUZZ
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CYYPR11MB8430.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(366016)(1800799024)(56012099003)(18002099003)(22082099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?XzFpGLMkOFpCJmlsxk5Mhlh5PFl1h85thFqXUCzHZnAhoQ5XcXS1GTlj/4QE?=
- =?us-ascii?Q?ZotVeSmC1FPF6LrRRkdS4qOwP06fZrMUiJR8GWR2ef2F/GUZRGb4ujplSNtv?=
- =?us-ascii?Q?8G8k7tQz15qxwgpPHQ8wfDRoBWJnOnWnomblNa4oZFpGKj3NeEz4vl8FOfw7?=
- =?us-ascii?Q?PGq2wStMTHdudjTfv2ww4Dgh1GHDKY1MzA82G3z1NREj9RyTz9k8phc5lHtA?=
- =?us-ascii?Q?cNHWjkG9dkR9YFJmH0XGdhwuKVPJGCwLCkRC4Oeyb+Zk/BhklhzoNMEKpIDJ?=
- =?us-ascii?Q?S3Rii2GmRxBPOY6WmCH9khdOx/vEb8WvTHyGKovztYsiGzzsItwIpNSolgZL?=
- =?us-ascii?Q?lZYjBHB43Ffic8ElU1vgL4Q8vqICouPbC7RECpKE5fCzbC0UHeaB+W+0qmIn?=
- =?us-ascii?Q?mrT9hJEmeigsnHfKwqTd06uYPrE1gQyD+oEkqd3IL4r3aHnmcBSCabBDQKuU?=
- =?us-ascii?Q?L9pDL86LMe+t4JRaAUtnvh2QV6o6r6PTBNYPBd/XMmzgzDOx3jBi9EAljpZh?=
- =?us-ascii?Q?V/U1ElRMAVwS0SyWiPFqeNpwhjavSHp0diqrXQ7zuOHfr0rADErhUb+aA7Tw?=
- =?us-ascii?Q?Lm6TOaSvog25kXB+TI0cdykeLS2NjfrgSmJbOWmaPcZGcR2nQr7v/B1OxYAF?=
- =?us-ascii?Q?S63m0+RS3cihkyY/5U6zIAP2WihVW95OuGlsWfkngwjOaFoHRn5ai+tHIEkC?=
- =?us-ascii?Q?ymlYzj/2lUHPJwCeBvjUsN6OF/5TGxS7jGaXBVv1sQ9405IkkVRN7Hnyo/s4?=
- =?us-ascii?Q?FEDhSn0tG8V2K8N5Yj41eHlayO4MzRf367Di++0wAiQgQguyxZs+D0NnWSzJ?=
- =?us-ascii?Q?jPL0ZDRlwLm8ranNuJrqlbSF6q6FrvuS/b5EjOBnaVmF79bO+t832z1OuCHT?=
- =?us-ascii?Q?J2D7I3pBhml5ojM4Y+8jIbC8yx9QxbSLTgt/X4nFienj6J+9qXovSJENCpRu?=
- =?us-ascii?Q?3HuU9njYmUMJG8qVxkm5GzVegNGrRtWixAr51kT1ib/Qv9xksuq5s/tMrRb+?=
- =?us-ascii?Q?V1/cl/FMHYNYqR03mTcZ4RZggpwd0Ac5m9iJe1TAv6EFhzElVZfCG96thEbW?=
- =?us-ascii?Q?Sw/HwP6HVf+kbicsrKHQL4Dqj2mjPyLNE+KFSI2+wzw445QXpkcsWoVz9cRv?=
- =?us-ascii?Q?99BpaUPUF80oO8Q8NJlubxrPJ8o13/Ll46q4j/UriEr9ges+VUVVcmX8bRzL?=
- =?us-ascii?Q?caHTqLEhZCViwfTcMF9XpTOkDBiE48vzs83W7dnS36/bT/+/cY0L4ZPge2dg?=
- =?us-ascii?Q?fklfTLSZz2evx6ub8B//lVgoSpfI1yyNV+X3w5XeXXmE4Qyrg8uhKyxszZ2o?=
- =?us-ascii?Q?QG5uHqjGM/Lt6uAA7v3Pz90OBovJTJS6VLg9INIvrMl8nrxtY4RXW3MuVGE3?=
- =?us-ascii?Q?0oXctbVs5tPdHgNlBKGlO7bBjfiHULY75jcc2lSBsU5C5re4nJxW9ifAYYw4?=
- =?us-ascii?Q?0wiEk74hEMWgsGnWwy0rfZu3YCGxFb+BbUAbgX3CtG8lSDKtZyeHHtuh/UA1?=
- =?us-ascii?Q?yWZLUZUaIwj8Jfzd3xRlYFaofHj6g0QLBvlD8zmPjO1e3a6HAZmAnn98gJlw?=
- =?us-ascii?Q?ct5G25+XblsSW74uqDf0G3NeIiAVb4w52Pki3zJ/fyt2IIjIh4beF8itfS01?=
- =?us-ascii?Q?3HaRUSs8tCK5NMqVsN8jQt2C1urjnPzq/RtwppQ4MH4Y3Sq2rWMXeA99LFuA?=
- =?us-ascii?Q?yfYjvBzvqsZHOdm0PBucJ9c0qwfYpYzZr7kxqb0YtGg4PLjxmCKasjarli6x?=
- =?us-ascii?Q?uf8t/6PC8g=3D=3D?=
-X-Exchange-RoutingPolicyChecked: fNb5IiC422fhkuCEuP00W/dQpj9dsheAyaxhRzQvoqIUjqc5/8mzHAt7a6Y4XTYOUg4VtZxr/Kn5xf3wdGbvxJryPFcE7WINh9CvHc1hy/bkT9hgMZ4cJx1ISUGKvGzdcob8hHnY8vmh0UtFDh0LFAWqu8Z50g3ldh0vvHUNR18LrdNdkeOie+p8OAm2lXbJ+objyAqBpUfl6psS8kpUYfi5cehZckRm8expQ+wRGAMwchKLFEFZwfOb5gasIJ1nvBGGSbAkEhbBSt05M1EvxXvxCnIS9uV/y9rytOZd4U6NWQkIu9QD0yjMxzL/OxuawsGjom6k5zUYoOXrKd6LYg==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3f807e35-9592-4af1-439f-08de8c047113
-X-MS-Exchange-CrossTenant-AuthSource: CYYPR11MB8430.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Mar 2026 13:26:24.0712 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: YBc1Rx+ZEdChJI4J7YRnpmxsudSXNAJX/Hfc9EaERbcC5Z9jCWzZLFSqzkUkNy1R+ultlrnRLRv5CUYcPh7MSw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR11MB9807
-X-OriginatorOrg: intel.com
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/23N3wqCMBTH8VeRXbfYv9zsqveILuY85iA32cwK8
+ d2bQiC0y+8PzufMKEKwENG5mFGAyUbrXQpxKJDptLsDtk1qxAgrCSccB9v7Gjt44Rb0+AwQMeG
+ yEqLmumQEpcMhQGvfG3q9pe5sHH34bD8muq4/TuW4iWKCtWaGc3KSzJDLEPzoXa/t42h8j1ZzY
+ juH5h2WHEPrVlVUClFB1uE7h9Gsw5PTiFoBqFI2IP+cZVm++ykhikkBAAA=
+X-Change-ID: 20260303-rimob-new-features-037944b3a620
+To: Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+ ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org, 
+ Cristian Cozzolino <cristian_ci@protonmail.com>, 
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1774621871; l=4370;
+ i=cristian_ci@protonmail.com; s=20250620; h=from:subject:message-id;
+ bh=h50clFkchxlz1PjbdPsQIzoGz7zeASQJbxZttgo1vUc=;
+ b=vITHOrrhN3QyayyzduelM8+d7whmRf/XjXHz92bxi5wZqClsw19TuBh5I9hzbuGx35b5Tz4yy
+ 4iMSJfsYBqFDP7GaO+B8u1wJ0GgAmkn+aIcnqfTMjuybFRKIlfj+vE9
+X-Developer-Key: i=cristian_ci@protonmail.com; a=ed25519;
+ pk=xH5IvIPUNHV1Q8R0/pq2CfuVFR/wTiAyuyi6IwedjZY=
+X-Endpoint-Received: by B4 Relay for cristian_ci@protonmail.com/20250620
+ with auth_id=438
+X-Original-From: Cristian Cozzolino <cristian_ci@protonmail.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -166,96 +84,106 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: cristian_ci@protonmail.com
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Mar 26, 2026 at 10:34:20PM -0700, Dixit, Ashutosh wrote:
-> On Wed, 25 Mar 2026 01:38:51 -0700, Michal Wajdeczko wrote:
-> >
-> 
-> Hi Michal,
-> 
-> > On 3/24/2026 10:17 PM, Dixit, Ashutosh wrote:
-> > > On Sun, 15 Mar 2026 23:41:02 -0700, Satyanarayana K V P wrote:
-> > >>
-> > >> ---
-> > >> V5 -> V6:
-> > >> - Updated commit message.
-> > >> - Return number of engines and memory regions as zero instead of returning
-> > >> query size as zero (Michal Wajdeczko).
-> > >> - Allow all other query IOCTLs excepts query_engines and query_mem_regions
-> > >> (Michal Wajdeczko).
-> > >
-> > > Can someone explain the reason to move away from the approach in v5? Afais
-> > > v6 has issues of this sort:
-> > >
-> > > * query_engines will return 0 engines but query_hwconfig will return > 0
-> > >   engines
-> >
-> > but those are separate queries on purpose, right?
-> > and I guess that even today there could be a mismatch between these numbers:
-> >
-> > * query_engines = engines available for use by the user software
-> > * query_hwconfig.engines = report engines present on the hardware
-> 
-> OK, agreed.
-> 
-> >
-> > > * query_engines will return 0 engines but query_oa_units will list out the
-> > >   engines
-> >
-> > and that IMO should be considered as a desired outcome, as I guess (again)
-> > that this will allow us to do some OA reporting, even if PF alone is not
-> > submitting any workloads and we want to monitor how VFs are doing
-> >
-> > > * query_oa_units will return valid oa support but observation ioctl will
-> > >   fail
-> >
-> > my initial idea [1] was to expose observation ioctl as well, maybe we need
-> > to add it back?
-> >
-> > [1]
-> > https://patchwork.freedesktop.org/patch/706445/?series=160349&rev=2#comment_1299475
-> 
-> OK, maybe I am thinking, we can expose the observation ioctl, though there
-> are both pros and cons to doing this.
-> 
-> Pros: get some OA reporting out of the box. Though the tools etc. will
->       likely not work out of the box because of other missing
->       queries/ioctl's.
-> 
-> Cons: Not sure if it is ok to "snoop" on VF information out of the
->       box. Customers might insist this is not ok and insist on the
->       observation ioctl be removed. Also, on platforms on which OA is
->       supported in VF, there might be a conflict between OA in PF vs VF.
-> 
-> Also, even if we add the observation ioctl, only the base OA feature will
-> work. But there are other OA features which require other ioctl's (say
-> exec) which will not work in the admin-only-pf mode.
-> 
-> The other option is not add the OA ioctl. And insist that to get regular OA
-> reporting/tools to work, the device must be unbound and rebound in the
-> normal (non-admin-only) mode.
-> 
-> So we could go with either of these approaches. I am ok either way. Maybe
-> just add the observation ioctl for now and revisit after feedback from
-> customers/UMD's?
+This series enables a set of miscellaneous features for Billion Capture+ 
+(a handset using the MSM8953 SoC released in 2017):
+- Panel and GPU
+- Touchscreen
+- WiFi + Bluetooth
+- Hall sensor 
 
-yes, that's probably the way to go since we still only have the oa in the PF.
+Patches 1 and 2 provide a driver for Novatek NT35532 and its corresponding
+devicetree bindings, required for enabling panel in DTS. The remaining 
+patches are all DTS changes, aimed to enable the features listed above.
 
-In the future we might add a knob to steer where the oa is-or-not available.
+To: Neil Armstrong <neil.armstrong@linaro.org>
+To: Jessica Zhang <jesszhan0024@gmail.com>
+To: David Airlie <airlied@gmail.com>
+To: Simona Vetter <simona@ffwll.ch>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+To: Maxime Ripard <mripard@kernel.org>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+To: Bjorn Andersson <andersson@kernel.org>
+To: Konrad Dybcio <konradybcio@kernel.org>
+Cc: dri-devel@lists.freedesktop.org
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-arm-msm@vger.kernel.org
+Cc: ~postmarketos/upstreaming@lists.sr.ht
+Cc: phone-devel@vger.kernel.org 
 
-> 
-> Thanks.
-> --
-> Ashutosh
-> 
-> 
-> 
-> >
-> > >
-> > > v5 seems to have avoided contradictions of this sort. Or this doesn't
-> > > matter? Thanks.
-> >
-> > but since I'm not using any of those ioctls on daily basis, I might be wrong
-> >
+Signed-off-by: Cristian Cozzolino <cristian_ci@protonmail.com>
+---
+Changes in v4:
+- (patch 1/6): added a new compatible (since it's not possible to
+  identify panel vendor/id), matching user of this device and leaving
+  novatek,nt35532 as fallback (Dmitry);
+- (patch 2/6):
+  - according to bindings changes, make panel driver handling multiple
+    panels paired with NT35532 and use specific compatible/data;
+  - due to changes applied to panel code, remove tag received previously
+    by Dmitry.
+- (patch 3/6): 
+  - use a specific panel compatible, according to bindings changes;
+  - remove 'output-high' property from panel pinctrl, since panel is not
+    reset.
+- Link to v3: https://lore.kernel.org/r/20260321-rimob-new-features-v3-0-d4b8ee867de7@protonmail.com
+
+Changes in v3:
+- (patch 1/6): removed avdd, avee and vci supplies from 'required' properties;
+- (patch 2/6):
+  - removed "select VIDEOMODE_HELPERS" from nt35532 Kconfig entry, since 
+    its functions are not used (but this option is enabled and its code 
+    compiled anyway) by nt35532 panel driver;
+  - pick up tags (Dmitry).
+- (patch 3/6): replaced a506_zap.mdt with a506_zap.mbn firmware name
+  in gpu_zap_shader (Dmitry); 
+- (patch 5/6): pick up tags (Konrad);
+- (patch 6/6): pick up tags (Konrad);
+- Link to v2: https://lore.kernel.org/r/20260318-rimob-new-features-v2-0-c1bf8917449e@protonmail.com
+
+Changes in v2:
+- (patch 1/6): define power supplies in the bindings as per datasheet  
+  and update example;
+- (patch 2/6): add blank lines where required between mipi dsi write
+  sequences in nt35532_on() function and make use of names for mipi dcs
+  commands, instead of hex numbers, to improve readibility (Dmitry); 
+- (patch 3/6): move pinctrl lines ibto panel node and get rid of
+  sleep/reset state, since panel just uses one pinctrl state for
+  default/sleep (Dmitry). Also, update power supplies according to
+  bindings; 
+- (patch 4/6): pick up tags (Konrad,Dmitry);
+- (patch 6/6): squash hall sensor node into gpio-keys (Dmitry);
+- Link to v1: https://lore.kernel.org/r/20260308-rimob-new-features-v1-0-aa2c330572c0@protonmail.com
+
+---
+Cristian Cozzolino (6):
+      dt-bindings: display: panel: Add Novatek NT35532 LCD DSI
+      drm/panel: Add driver for Novatek NT35532
+      arm64: dts: qcom: msm8953-flipkart-rimob: Enable display and GPU
+      arm64: dts: qcom: msm8953-flipkart-rimob: Enable WiFi/Bluetooth
+      arm64: dts: qcom: msm8953-flipkart-rimob: Enable touchscreen
+      arm64: dts: qcom: msm8953-flipkart-rimob: Enable Hall sensor
+
+ .../bindings/display/panel/novatek,nt35532.yaml    |  80 +++
+ MAINTAINERS                                        |   6 +
+ .../arm64/boot/dts/qcom/msm8953-flipkart-rimob.dts | 138 +++-
+ drivers/gpu/drm/panel/Kconfig                      |  10 +
+ drivers/gpu/drm/panel/Makefile                     |   1 +
+ drivers/gpu/drm/panel/panel-novatek-nt35532.c      | 796 +++++++++++++++++++++
+ 6 files changed, 1030 insertions(+), 1 deletion(-)
+---
+base-commit: e77a5a5cfe43b4c25bd44a3818e487033287517f
+change-id: 20260303-rimob-new-features-037944b3a620
+
+Best regards,
+-- 
+Cristian Cozzolino <cristian_ci@protonmail.com>
+
+
