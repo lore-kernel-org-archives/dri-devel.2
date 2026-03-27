@@ -4,62 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 807BE10A1E63
-	for <dri-devel@archiver.kernel.org>; Fri, 27 Mar 2026 02:15:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5DCD710A1E63
+	for <dri-devel@archiver.kernel.org>; Fri, 27 Mar 2026 02:18:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 96B1C10EC5D;
-	Fri, 27 Mar 2026 02:15:13 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="Dc2OFgny";
-	dkim-atps=neutral
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
- [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A308810EC5B
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Mar 2026 02:15:11 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1774577706; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=LC1EIRM0nsq4CRa8tKo1flFXz2nLkPKBTFbU/eFNdZ5jtmFouep5hw1YqAs+1mZOAC6fOFXKfQ81GM9u6wgVltL/5RU1ZmpY2T/tRLR3qhjbWXII/ADHrjzgfwbpaTra4TOt7P6Ryd8JSwVnSwY/XVpN9JyHnJqvM5+rg0pD7HY=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1774577706;
- h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=IP/XhJElv+TyBVv6++iQhgFRW3wkYKqljaaRTwlKHGg=; 
- b=B7Ku4NcUy/x0EjOXh/64dG/Fq6TMiUXtXwbeDMg9UIzYyO+W62SRguFWHIpNXKK4TA3ej+qVWLskSPXLLtCi9PciqYg7RZOIK/Wk7jSXdmcBk1tGNEeYej+XUkeCWijCGQqE2IrYM4SBYh2cXO2gB+lnGMwlHXGTJWtrvqpBy5A=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
- dmarc=pass header.from=<adrian.larumbe@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1774577706; 
- s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
- h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:References:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
- bh=IP/XhJElv+TyBVv6++iQhgFRW3wkYKqljaaRTwlKHGg=;
- b=Dc2OFgnyysv9NpJ+1uiqm5BLgRTvHjeeTdEKH06qf9pCWSxll6GVxy/68eelTJCT
- KYPHYQCTmOUprbjlKvC/hIH3k/uhjLigZLea0WZSD+Hz4cMIuWWbaAS+zvqAnl8gzWf
- +KUiiv/Zpmf125ZjaP09hrU+K7RtHc4wcM1rDChg=
-Received: by mx.zohomail.com with SMTPS id 1774577705177729.188682794289;
- Thu, 26 Mar 2026 19:15:05 -0700 (PDT)
-Date: Fri, 27 Mar 2026 02:14:58 +0000
-From: =?utf-8?Q?Adri=C3=A1n?= Larumbe <adrian.larumbe@collabora.com>
-To: Biju <biju.das.au@gmail.com>
-Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Steven Price <steven.price@arm.com>,
- Boris Brezillon <boris.brezillon@collabora.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Magnus Damm <magnus.damm@gmail.com>, 
- Biju Das <biju.das.jz@bp.renesas.com>, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
- Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Subject: Re: [PATCH v2 0/4] Add RZ/G3L GFX support
-Message-ID: <acXoBfUu3XNg2G62@sobremesa>
-References: <20260320164158.487406-1-biju.das.jz@bp.renesas.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 67DED10EC60;
+	Fri, 27 Mar 2026 02:18:31 +0000 (UTC)
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0484910EC60
+ for <dri-devel@lists.freedesktop.org>; Fri, 27 Mar 2026 02:18:29 +0000 (UTC)
+Received: from localhost (unknown [124.16.138.129])
+ by APP-05 (Coremail) with SMTP id zQCowAAHmQzu6MVpUpagCw--.15452S2;
+ Fri, 27 Mar 2026 10:18:22 +0800 (CST)
+From: Chen Ni <nichen@iscas.ac.cn>
+To: neil.armstrong@linaro.org
+Cc: jesszhan0024@gmail.com, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
+ simona@ffwll.ch, dri-devel@lists.freedesktop.org, mitltlatltl@gmail.com,
+ Chen Ni <nichen@iscas.ac.cn>
+Subject: [PATCH] drm/panel: himax-hx83121a: Fix incorrect error check for
+ devm_drm_panel_alloc()
+Date: Fri, 27 Mar 2026 10:17:28 +0800
+Message-Id: <20260327021728.647182-1-nichen@iscas.ac.cn>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260320164158.487406-1-biju.das.jz@bp.renesas.com>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: zQCowAAHmQzu6MVpUpagCw--.15452S2
+X-Coremail-Antispam: 1UD129KBjvdXoWruFWfJr1rXr48Jr4DuF18uFg_yoWkJwb_Ga
+ 1UXF97Xr9rCr9rur1xAa1jyF92kF4kuFs7Zw1rK3s3Cry7Cr1xX347WrZ8Ar17Ga10yFWD
+ ta48ZFya9FnxWjkaLaAFLSUrUUUUbb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+ 9fnUUIcSsGvfJTRUUUbTkFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
+ 6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
+ A2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr0_
+ Cr1l84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s
+ 0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xII
+ jxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr
+ 1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E8cxa
+ n2IY04v7MxkF7I0En4kS14v26r1q6r43MxkIecxEwVAFwVW8JwCF04k20xvY0x0EwIxGrw
+ CFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE
+ 14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2
+ IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Jr0_Gr1lIxAIcVCF04k26cxK
+ x2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI
+ 0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x0JUHyIUUUUUU=
+X-Originating-IP: [124.16.138.129]
+X-CM-SenderInfo: xqlfxv3q6l2u1dvotugofq/
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,37 +62,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Applied to drm-misc-next.
+Check devm_drm_panel_alloc() return value for ERR_PTR instead of NULL.
+devm_drm_panel_alloc() returns an ERR_PTR on failure, never NULL. Using
+a NULL check skips the error path and may cause a NULL pointer
+dereference.
 
-On 20.03.2026 16:41, Biju wrote:
-> From: Biju Das <biju.das.jz@bp.renesas.com>
->
-> The Renesas RZ/G3L SoC includes the Arm Mali-G31 GPU as a 3D Graphics
-> Engine (GE3D). The Arm Mali-G31 GPU is a graphics acceleration platform
-> that is based on open standards. It supports 2D graphics, 3D graphics, and
-> General Purpose computing on GPU (GPGPU). Add the binding and driver
-> support for suspend/resume functionality along with some improvements in
-> panfrost driver.
->
-> v1->v2:
->  * Dropped duplicate err assignment
->  * Changed the format string of dev_err to "%d" and simplify the dev_err()
->    line by using err rather than the same PTR_ERR().
->  * Collected tags
->
-> Biju Das (4):
->   dt-bindings: gpu: mali-bifrost: Add compatible for RZ/G3L SoC
->   drm/panfrost: Drop redundant optional clock checks in runtime PM
->   drm/panfrost: Add bus_ace optional clock support for RZ/G2L
->   drm/panfrost: Add GPU_PM_RT support for RZ/G3L SoC
->
->  .../bindings/gpu/arm,mali-bifrost.yaml        |  2 ++
->  drivers/gpu/drm/panfrost/panfrost_device.c    | 34 ++++++++++++++-----
->  drivers/gpu/drm/panfrost/panfrost_device.h    |  1 +
->  drivers/gpu/drm/panfrost/panfrost_drv.c       |  1 +
->  4 files changed, 30 insertions(+), 8 deletions(-)
->
-> --
-> 2.43.0
+Fixes: a7c61963b727 ("drm/panel: Add Himax HX83121A panel driver")
+Signed-off-by: Chen Ni <nichen@iscas.ac.cn>
+---
+ drivers/gpu/drm/panel/panel-himax-hx83121a.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-Adrian Larumbe
+diff --git a/drivers/gpu/drm/panel/panel-himax-hx83121a.c b/drivers/gpu/drm/panel/panel-himax-hx83121a.c
+index ebe643ba4184..bed79aa06f46 100644
+--- a/drivers/gpu/drm/panel/panel-himax-hx83121a.c
++++ b/drivers/gpu/drm/panel/panel-himax-hx83121a.c
+@@ -596,8 +596,8 @@ static int himax_probe(struct mipi_dsi_device *dsi)
+ 
+ 	ctx = devm_drm_panel_alloc(dev, struct himax, panel, &himax_panel_funcs,
+ 				   DRM_MODE_CONNECTOR_DSI);
+-	if (!ctx)
+-		return -ENOMEM;
++	if (IS_ERR(ctx))
++		return PTR_ERR(ctx);
+ 
+ 	ret = devm_regulator_bulk_get_const(&dsi->dev,
+ 					    ARRAY_SIZE(himax_supplies),
+-- 
+2.25.1
+
