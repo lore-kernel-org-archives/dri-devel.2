@@ -4,100 +4,106 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B680010BA439
-	for <dri-devel@archiver.kernel.org>; Fri, 27 Mar 2026 08:24:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0B6D510BA43C
+	for <dri-devel@archiver.kernel.org>; Fri, 27 Mar 2026 08:24:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EAB2A10E398;
-	Fri, 27 Mar 2026 08:24:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BFD3E10E40D;
+	Fri, 27 Mar 2026 08:24:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="rp3Dmc+3";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="XimvivjD";
 	dkim-atps=neutral
-Received: from CH5PR02CU005.outbound.protection.outlook.com
- (mail-northcentralusazon11012046.outbound.protection.outlook.com
- [40.107.200.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 09F6D10E186;
- Fri, 27 Mar 2026 08:24:06 +0000 (UTC)
+Received: from SN4PR2101CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11012031.outbound.protection.outlook.com
+ [40.93.195.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A68D510E398;
+ Fri, 27 Mar 2026 08:24:08 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=bNI/AET2+6St0XKPSGnur9trJTVB0x0xH1GkSyILcnmk6dOgaQISlOExVIq2BTvQWYMbce1I2/2ehPioujFcKbwiLCpPMADCx/EL6zc2L7pEeCSMqP2FvkpkKDK6eF+qR4J+6RAz4cXciZ6zUNw3esLX5Rl+nJMwkSZUwCdH+0MOkkF3ckF2ACidhKJ7+3u91qIYmfqnq7dwFXOn9akm5GeqV0vs0iamT+p+7G9fj75TWUj9Wno79p4sULB2jPN//IMjpWwskaoz45ypYv48se4d/F9PNPLj2B5zqXamC8rjDhdjDuaKAfoRagDs+hgn27W10qmaGG8VeJoje3gO9g==
+ b=Hrg50yYNJAMk1KKeg7poYyLXmchonsJ64A0kw7T0CA6Xy7bep9H7OosPjuOE36Cci4rCH85Iy8e9cMEB3LXgP0x6DdLdwLp2rkE4fgsfbxMk3DTngPze6u0/pZ7GePRkpklDITPrIPnvoVzVii4KHOgZF1IqIWnZwNjdIiS88FUQh6rCIdbPrRgZf629I5qKhr/xMse9/0tlVIv3JQvkKG8gpWPalq8KwfIDZRulYY3Kiqr4PYSIg54ENywxIiTLgcQCV3YApmjLKYlNlsXVJqCa80pjkzuO0++nxjZyT98Iq8XgVQ57B0GIVV5iiVyFfTrA9N/CtHEn41d9un5TCg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=f6Gtr9jgLEqHuFZ2AZFNjNN/BphdTUuVY0Wgm6lpqZE=;
- b=iJeptjaXK1tx+olO0Xz0D9QqayVu1QLwR/M8w1OQe0vWg1iRBtnWUcRbEefJz/J10J/7ASvNxJ+J3chzmT0XutAN9T/vRy9RmIZziXi034MLi5LsPKUvdLTVo7Fr3yQNTMmrrUhAHuQcuIs6PBZ+oNyzSGPFwVlj5C0b8Db/v283f+CnkOdrDCTdeCtLDg6sfNOnXldSor92t0jv8/rXFOhgaNSetlEMDZ1V3BlxMXvJKP0fsl3eHLyyAZNViMewECBh67/r6xOrGmdnbQKKO+ND1gEOP0xZ5wObgqGgaPclhX2lDB5nnUuEEAXhQIjuBg2va9MeYVnmFgC18kCWYQ==
+ bh=4n3IxWIV1IVH9QYmj+ddhlwknVCn/ID15QsrRocUGR4=;
+ b=BYOGt0kQhMHRijFP6RNtWBSayXbCm07SSqBYADSt65q04ELIiyq8C/5bdSFovXLTjHMdV9+nzeUtc74RVEWVPdsxBdAaVvJOVsEtzH21eJSUle7BfpmmuN/VthdbJUlhkahjN5bp6VYJoU9k3Hjapj50u2I4ZynIQkBezxRyh4o396OTQtHLm7ngwhDmI+a95MJ06o9V9ElUXbyP/Br6+jZzTPNSTQl80/KaCnDMZGH5+IKw7D3AGSfhhpEluWOHAKwyKp4irxGGBz7V7+uFxFDCVU3+EhzTqFLYszKFR0ULc3BL5wtgFzOVvC0StWI/hns69LNaar+7L/dSZhRNIA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=f6Gtr9jgLEqHuFZ2AZFNjNN/BphdTUuVY0Wgm6lpqZE=;
- b=rp3Dmc+3wtEs7cg8SBkSBCyH7HzfIpMg1qbKLQWQocJaVH5hwzcndkwF/zpwQ2AICBoP0XlnM2Hq07kbwrX6YJ6TRHOVdEWP4cjHINBJuD1KsO5A7HlHyTW9ODQP9ZaLIPSC5U5YR6Xt/PFOBjrSk0RTsv4z1ZFIHfnIeaSt4fE=
-Received: from MN2PR18CA0012.namprd18.prod.outlook.com (2603:10b6:208:23c::17)
- by DM4PR12MB6423.namprd12.prod.outlook.com (2603:10b6:8:bd::8) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9769.8; Fri, 27 Mar 2026 08:24:03 +0000
-Received: from MN1PEPF0000ECDB.namprd02.prod.outlook.com
- (2603:10b6:208:23c:cafe::19) by MN2PR18CA0012.outlook.office365.com
- (2603:10b6:208:23c::17) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9745.24 via Frontend Transport; Fri,
- 27 Mar 2026 08:23:56 +0000
+ bh=4n3IxWIV1IVH9QYmj+ddhlwknVCn/ID15QsrRocUGR4=;
+ b=XimvivjDRvFTT/cl47SD8juxO90ScciSoAP/FHoe20fdGd/2l5CYeu1zz6SHCPruxmbj0I/zKrYf3sSdlQEQvrvcpEmqiqqMf/gD9jDXJrbYwbagIv3Mg96YVRcv707W8NfCTPE73bYFPK1dxmqjLw++dydB7FzRcsr+5F9PvVg=
+Received: from CH2PR03CA0026.namprd03.prod.outlook.com (2603:10b6:610:59::36)
+ by PH7PR12MB9201.namprd12.prod.outlook.com (2603:10b6:510:2e8::5)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.8; Fri, 27 Mar
+ 2026 08:23:59 +0000
+Received: from DS3PEPF0000C37E.namprd04.prod.outlook.com
+ (2603:10b6:610:59:cafe::3) by CH2PR03CA0026.outlook.office365.com
+ (2603:10b6:610:59::36) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9745.22 via Frontend Transport; Fri,
+ 27 Mar 2026 08:23:59 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- MN1PEPF0000ECDB.mail.protection.outlook.com (10.167.242.139) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9745.21 via Frontend Transport; Fri, 27 Mar 2026 08:24:03 +0000
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Fri, 27 Mar
- 2026 03:23:54 -0500
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ DS3PEPF0000C37E.mail.protection.outlook.com (10.167.23.8) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9745.21 via Frontend Transport; Fri, 27 Mar 2026 08:23:59 +0000
+Received: from SATLEXMB04.amd.com (10.181.40.145) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.17; Fri, 27 Mar
+ 2026 03:23:58 -0500
+Received: from satlexmb07.amd.com (10.181.42.216) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 27 Mar
+ 2026 03:23:58 -0500
 Received: from chenyu-station.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
- Transport; Fri, 27 Mar 2026 03:23:53 -0500
+ Transport; Fri, 27 Mar 2026 03:23:56 -0500
 From: Chenyu Chen <chen-yu.chen@amd.com>
 To: <dri-devel@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Limonciello Mario <Mario.Limonciello@amd.com>, Chenyu Chen
  <chen-yu.chen@amd.com>
-Subject: [PATCH 1/2] drm/edid: Parse AMD Vendor-Specific Data Block
-Date: Fri, 27 Mar 2026 16:21:58 +0800
-Message-ID: <20260327082342.1286878-2-chen-yu.chen@amd.com>
+Subject: [PATCH 2/2] drm/amd/display: Use drm_display_info for AMD VSDB data
+Date: Fri, 27 Mar 2026 16:21:59 +0800
+Message-ID: <20260327082342.1286878-3-chen-yu.chen@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260327082342.1286878-1-chen-yu.chen@amd.com>
 References: <20260327082342.1286878-1-chen-yu.chen@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
+Received-SPF: None (SATLEXMB04.amd.com: chen-yu.chen@amd.com does not
+ designate permitted sender hosts)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN1PEPF0000ECDB:EE_|DM4PR12MB6423:EE_
-X-MS-Office365-Filtering-Correlation-Id: dd660545-f0ff-4478-13c5-08de8bda3469
+X-MS-TrafficTypeDiagnostic: DS3PEPF0000C37E:EE_|PH7PR12MB9201:EE_
+X-MS-Office365-Filtering-Correlation-Id: 20ed74cc-3ff7-4c4c-2fc2-08de8bda3208
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|1800799024|376014|36860700016|18002099003|56012099003|22082099003;
-X-Microsoft-Antispam-Message-Info: kOBMFkdJRlY75G83zQJPpaKfMV8zxnC8GCYFmwkmPOUL1SieshSgPge5cI6RLKRIMyWh6NBIw1qTGB8E4eKnxNegUqE8s6Zz2w1uBofvwcADEulxKpGJdOoYjeP+DTpT3bKUh+AsBR2B1+OPTd/I+lf2tY3EmIprvup+wy1i2DVtyu19HBa0PrFptrL0CxYFdaMlQgWOXA2NfCLP9mrJsBeFVQR/mpc/nVnEpio4SdSE3tqLc9ggUUziWOUMhvRo/fGe8iuciwzoSFG3d6eyiTblSvz8RBCLORULOSSfmhgeZUELbjm6GuE3/BWDqvV84N5hX7UnXBSU7N+Cr0C9qNDgKITn3yPZ3U4z7hY+58LNjGur3Z/DtLmcg9Yh8kixO+4tPO1T8EEq6iRnBpfOQGYVbpzXnmcXDOCNySColJuQkSGEPgxD8pFU4LhkZMON7lk5evePr86bcyffr9VxbxhXHjYldlEfd00GQM55V+HXttydzrGG3tVB+FSHYdmZRtWoiFMEwkmx/xHYsLLc1a4G0p1Q+YXgS6En5Ggb3eL8IAx1r8KBk47t+nyr6wO9Hj+eZabSClEqVW6YWR7fu4nG+nMcqKpuW1paeEbxJV0v259xZXEzoORO2g9ULBpEiZtqkbmJGhdWgc5Y9+QGNGVbUHqSVEIhUEpzDFpGJXRk2FqUZEUdu4dfpuJ/SWHzXZSfYDp/lvWVMUrMjZ3Vi18fcB2huF3zCbwVQghsFvj7B2+QEGM4ArFTWkEMjr1C8JOov6vQf+lsCJI7R0ZsPA==
+ ARA:13230040|82310400026|376014|36860700016|1800799024|30052699003|56012099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: aTRcLMGBzEY6h4DMVC58MrqywgUiKhuWPdj+k8ub2Wz2+GnWgcNzm+O6LR/jSt/cmicLB+D2UXhgujNo+i0wekPbnjIHjZGI4QyyzzPLF7t2Wx6yawZYklMXPHLsaesuw2OAWRvR7hhdV8QdDHieYo32K/XUf2vURORrOpHZoPCkBpUvjhR61L9/kF6tSVqJFzIyJh7obEmPi4yCsZWvXU5dqqholBh3tDLA883t2XbtJsJiJFf1ob+koF3xEVFQe2r9GEDlpM0zPrdKrPn5YRpmSq4PEGN3j59xrDtVMje8BVPZpGaH98P/SNawvMLsGKqbL5W9s2rGiREUuOfBOcLQNduOWwXzfl1as3acdeqhrgTwEJrU6FnLY97WibbTNPcF4JNO0GEOYXUG7Fe060BognvtiTxWbWjMyjOuXx6tb2i5qJ96aomsA+4GoF9W/vqc9U3UawTQxBErZdXg2YTSv5I5NzZrSt/1bTjsKEeK9PVYc7C3/E4zUW/k8/RMBAw04fhLSVjFz++pgXUISY/QzHOhKDOJHwv+gKAK0tHlj5H++N9xyVV9IDNdabuA/e1CSOW4xYsTUx+xvVYKN9ygFExtTSxUuG9bI/6rKHGRoVqBGKx39kZAHrrLnPao36IT/1OLCftbmf0RxDQO3QCsR22KGAtJwujm1lsxaG09DJnijLwnYIUYgDYH3RssM6JrQyB6bFXnpmwS2wyB6tBcTw4SJhPGfzxTmCQsh8n02VWCqUg1T+G4AoSKsAYfOFW0kk4qR5GfPxm7yxxndg==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(1800799024)(376014)(36860700016)(18002099003)(56012099003)(22082099003);
+ IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(376014)(36860700016)(1800799024)(30052699003)(56012099003)(18002099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: bAd/02a1otcp0Q9ScnuvD3zGMgKstOpPkQgjULwqNRo0S04sSzj33ynzPANCUneldsYVodVIJ9NdQNXlGF/KB59BZywMgKCte0swfintLoNkBTZAOEwBGL1XTUnKB8Zlmp3xk2zjKoP2BF7qyzjTyQAw3kfl7w4uv/rUYYnfEbHK+os3Z2MTSR1ts3owKYGNJHKBMK0x3Ra1wFZomuCk78JMUmdBPsa34THsho7fRhtup3ZlzD6vRZCfVs0gZIk2W9O5xila9RqY3N7tOx6nNHqHY87SvhIv0KrOjeZgvee/nxUuc9rkDt5qHsS+l7o5ORCV6WzIUSKYKRKxyFWd5ssjWoS99ickacZFNTbTYPjEy2SnDGHQhVV3LQpxISfHAtO4tQ/rn3vTUG5WLccm9msH7I7tL4KsGalnfWXBMFmC1gU/70H7ZySWRkRCm7/o
+X-MS-Exchange-AntiSpam-MessageData-0: D6pFMJ4E0q+iE1FNl5LzIUrU6KTUsimzrwRQK5RJfWNBnMGbCLHEBMfpPNAEyWv3o5LVoqepHARIcwVhPF9Mhiyw08NmQwYSFUvOfTqbtlaNSDxHBBmls9io2/iRIXr+0hnwli9/96gyrrn323vFg5UGxryPykplx76QenVM4LBu1C9pPswOC0CXLZEbwwg7uNMy5Ic+oKzDjXNVxahUOhigThxMKwTNXb3JekvAyeRbNm6HfVWKsrCWrARGrv+CNodd75DR2oqtYpVBSEdLvA1xAUiG2liJipsev3spQOI8O+Bdl58IylJc6b7ZqdGBAHnnsyTpBmjE4W6Vs0Yx+2szA5Rjmls+sstM4D54cXhCKIUYHEpKT+ZZmC60xRTyAVXnPPOP6i0BScJ0l2DP83+xbaSttW6CaaPcQ9zeJT79AUURIDyIPq6khmuOvmF8
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Mar 2026 08:24:03.1188 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: dd660545-f0ff-4478-13c5-08de8bda3469
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Mar 2026 08:23:59.1135 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 20ed74cc-3ff7-4c4c-2fc2-08de8bda3208
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: MN1PEPF0000ECDB.namprd02.prod.outlook.com
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DS3PEPF0000C37E.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6423
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB9201
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,183 +119,213 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Parse the AMD VSDB v3 from CTA extension blocks and store the result
-in struct drm_amd_vsdb_info, a new field of drm_display_info. This
-includes replay mode, panel type, and luminance ranges.
+Replace the raw EDID byte-walking in parse_amd_vsdb() with a read
+from connector->display_info.amd_vsdb, now populated by drm_edid.
+
+Factor out panel type determination into dm_set_panel_type(), which
+checks VSDB panel_type, DPCD ext caps, and a luminance heuristic as
+fallbacks.
 
 Signed-off-by: Chenyu Chen <chen-yu.chen@amd.com>
 ---
- drivers/gpu/drm/drm_edid.c  | 72 +++++++++++++++++++++++++++++++++++++
- include/drm/drm_connector.h | 38 ++++++++++++++++++++
- 2 files changed, 110 insertions(+)
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 120 ++++++++++--------
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |  14 --
+ 2 files changed, 68 insertions(+), 66 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
-index 26bb7710a462..76280e6e1892 100644
---- a/drivers/gpu/drm/drm_edid.c
-+++ b/drivers/gpu/drm/drm_edid.c
-@@ -99,6 +99,29 @@ enum drm_edid_internal_quirk {
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 48e12f9a1818..717e8d3feb8d 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -3823,6 +3823,66 @@ static struct drm_mode_config_helper_funcs amdgpu_dm_mode_config_helperfuncs = {
+ 	.atomic_commit_setup = amdgpu_dm_atomic_setup_commit,
  };
  
- #define MICROSOFT_IEEE_OUI	0xca125c
-+#define AMD_IEEE_OUI        0x00001A
++#define DDC_MANUFACTURERNAME_SAMSUNG 0x2D4C
 +
-+#define AMD_VSDB_V3_PAYLOAD_MIN_LEN 15
-+#define AMD_VSDB_V3_PAYLOAD_MAX_LEN 20
-+
-+struct amd_vsdb_v3_payload {
-+	u8 oui[3];
-+	u8 version;
-+	u8 feature_caps;
-+	u8 rsvd0[3];
-+	u8 cs_eotf_support;
-+	u8 lum1_max;
-+	u8 lum1_min;
-+	u8 lum2_max;
-+	u8 lum2_min;
-+	u8 rsvd1[2];
-+	/*
-+	 * Bytes beyond AMD_VSDB_V3_PAYLOAD_MIN_LEN are optional; a
-+	 * monitor may provide a payload as short as 15 bytes.  Always
-+	 * check cea_db_payload_len() before accessing extra[].
-+	 */
-+	u8 extra[AMD_VSDB_V3_PAYLOAD_MAX_LEN - AMD_VSDB_V3_PAYLOAD_MIN_LEN];
-+} __packed;
- 
- struct detailed_mode_closure {
- 	struct drm_connector *connector;
-@@ -5205,6 +5228,13 @@ static bool cea_db_is_microsoft_vsdb(const struct cea_db *db)
- 		cea_db_payload_len(db) == 21;
- }
- 
-+static bool cea_db_is_amd_vsdb(const struct cea_db *db)
++static void dm_set_panel_type(struct amdgpu_dm_connector *aconnector)
 +{
-+	return cea_db_is_vendor(db, AMD_IEEE_OUI) &&
-+		cea_db_payload_len(db) >= AMD_VSDB_V3_PAYLOAD_MIN_LEN &&
-+		cea_db_payload_len(db) <= AMD_VSDB_V3_PAYLOAD_MAX_LEN;
-+}
++	struct drm_connector *connector = &aconnector->base;
++	struct drm_display_info *display_info = &connector->display_info;
++	struct dc_link *link = aconnector->dc_link;
++	struct amdgpu_device *adev;
 +
- static bool cea_db_is_vcdb(const struct cea_db *db)
- {
- 	return cea_db_is_extended_tag(db, CTA_EXT_DB_VIDEO_CAP) &&
-@@ -6401,6 +6431,45 @@ static void drm_parse_microsoft_vsdb(struct drm_connector *connector,
- 		    connector->base.id, connector->name, version, db[5]);
- }
- 
-+static void drm_parse_amd_vsdb(struct drm_connector *connector,
-+							   const struct cea_db *db)
-+{
-+	struct drm_display_info *info = &connector->display_info;
-+	const u8 *data = cea_db_data(db);
-+	const struct amd_vsdb_v3_payload *p;
++	adev = drm_to_adev(connector->dev);
 +
-+	p = (const struct amd_vsdb_v3_payload *)data;
++	link->panel_type = PANEL_TYPE_NONE;
 +
-+	if (p->version != 0x03) {
-+		drm_dbg_kms(connector->dev,
-+			    "[CONNECTOR:%d:%s] Unsupported AMD VSDB version %u\n",
-+			    connector->base.id, connector->name, p->version);
-+		return;
++	switch (display_info->amd_vsdb.panel_type) {
++	case AMD_VSDB_PANEL_TYPE_OLED:
++		link->panel_type = PANEL_TYPE_OLED;
++		break;
++	case AMD_VSDB_PANEL_TYPE_MINILED:
++		link->panel_type = PANEL_TYPE_MINILED;
++		break;
 +	}
 +
-+	info->amd_vsdb.version = p->version;
-+	info->amd_vsdb.replay_mode = p->feature_caps & 0x40;
-+	info->amd_vsdb.panel_type = (p->cs_eotf_support & 0xC0) >> 6;
-+	info->amd_vsdb.luminance_range1.max_luminance = p->lum1_max;
-+	info->amd_vsdb.luminance_range1.min_luminance = p->lum1_min;
-+	info->amd_vsdb.luminance_range2.max_luminance = p->lum2_max;
-+	info->amd_vsdb.luminance_range2.min_luminance = p->lum2_min;
++	/* If VSDB didn't determine panel type, check DPCD ext caps */
++	if (link->panel_type == PANEL_TYPE_NONE) {
++		if (link->dpcd_sink_ext_caps.bits.miniled == 1)
++			link->panel_type = PANEL_TYPE_MINILED;
++		if (link->dpcd_sink_ext_caps.bits.oled == 1)
++			link->panel_type = PANEL_TYPE_OLED;
++	}
 +
 +	/*
-+	 * The AMD VSDB v3 payload length is variable (15..20 bytes).
-+	 * All fields through p->rsvd1 (byte 14) are always present,
-+	 * but p->extra[] (bytes 15+) may not be.  Any future access to
-+	 * extra[] must be guarded with a runtime length check to avoid
-+	 * out-of-bounds reads on shorter (but spec-valid) payloads.
-+	 * For example:
-+	 *
-+	 *   int len = cea_db_payload_len(db);
-+	 *
-+	 *   if (len > AMD_VSDB_V3_PAYLOAD_MIN_LEN)
-+	 *       info->amd_vsdb.foo = p->extra[0];
++	 * TODO: get panel type from DID2 that has device technology field
++	 * to specify if it's OLED or not. But we need to wait for DID2
++	 * support in DC and EDID parser to be able to use it here.
 +	 */
++
++	if (link->panel_type == PANEL_TYPE_NONE) {
++		struct drm_amd_vsdb_info *vsdb = &display_info->amd_vsdb;
++		u32 lum1_max = vsdb->luminance_range1.max_luminance;
++		u32 lum2_max = vsdb->luminance_range2.max_luminance;
++
++		if (vsdb->version && link->local_sink &&
++		    link->local_sink->edid_caps.manufacturer_id ==
++		    DDC_MANUFACTURERNAME_SAMSUNG &&
++		    lum1_max >= ((lum2_max * 3) / 2))
++			link->panel_type = PANEL_TYPE_MINILED;
++	}
++
++	if (link->panel_type == PANEL_TYPE_OLED)
++		drm_object_property_set_value(&connector->base,
++			adev_to_drm(adev)->mode_config.panel_type_property,
++			DRM_MODE_PANEL_TYPE_OLED);
++	else
++		drm_object_property_set_value(&connector->base,
++			adev_to_drm(adev)->mode_config.panel_type_property,
++			DRM_MODE_PANEL_TYPE_UNKNOWN);
++
++	drm_dbg_kms(aconnector->base.dev, "Panel type: %d\n", link->panel_type);
 +}
 +
- static void drm_parse_cea_ext(struct drm_connector *connector,
- 			      const struct drm_edid *drm_edid)
+ static void update_connector_ext_caps(struct amdgpu_dm_connector *aconnector)
  {
-@@ -6449,6 +6518,8 @@ static void drm_parse_cea_ext(struct drm_connector *connector,
- 			drm_parse_hdmi_forum_scds(connector, data);
- 		else if (cea_db_is_microsoft_vsdb(db))
- 			drm_parse_microsoft_vsdb(connector, data);
-+		else if (cea_db_is_amd_vsdb(db))
-+			drm_parse_amd_vsdb(connector, db);
- 		else if (cea_db_is_y420cmdb(db))
- 			parse_cta_y420cmdb(connector, db, &y420cmdb_map);
- 		else if (cea_db_is_y420vdb(db))
-@@ -6641,6 +6712,7 @@ static void drm_reset_display_info(struct drm_connector *connector)
- 	info->quirks = 0;
+ 	const struct drm_panel_backlight_quirk *panel_backlight_quirk;
+@@ -3844,10 +3904,6 @@ static void update_connector_ext_caps(struct amdgpu_dm_connector *aconnector)
+ 	caps->ext_caps = &aconnector->dc_link->dpcd_sink_ext_caps;
+ 	caps->aux_support = false;
  
- 	info->source_physical_address = CEC_PHYS_ADDR_INVALID;
-+	memset(&info->amd_vsdb, 0, sizeof(info->amd_vsdb));
+-	drm_object_property_set_value(&conn_base->base,
+-				      adev_to_drm(adev)->mode_config.panel_type_property,
+-				      caps->ext_caps->bits.oled ? DRM_MODE_PANEL_TYPE_OLED : DRM_MODE_PANEL_TYPE_UNKNOWN);
+-
+ 	if (caps->ext_caps->bits.oled == 1
+ 	    /*
+ 	     * ||
+@@ -4021,6 +4077,7 @@ void amdgpu_dm_update_connector_after_detect(
+ 
+ 		amdgpu_dm_update_freesync_caps(connector, aconnector->drm_edid);
+ 		update_connector_ext_caps(aconnector);
++		dm_set_panel_type(aconnector);
+ 	} else {
+ 		hdmi_cec_unset_edid(aconnector);
+ 		drm_dp_cec_unset_edid(&aconnector->dm_dp_aux.aux);
+@@ -13167,56 +13224,15 @@ static void parse_edid_displayid_vrr(struct drm_connector *connector,
+ 	}
  }
  
- static void update_displayid_info(struct drm_connector *connector,
-diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
-index c18be8c19de0..c398dbc68bbc 100644
---- a/include/drm/drm_connector.h
-+++ b/include/drm/drm_connector.h
-@@ -667,6 +667,39 @@ enum drm_bus_flags {
- 	DRM_BUS_FLAG_SHARP_SIGNALS = BIT(8),
- };
+-static int parse_amd_vsdb(struct amdgpu_dm_connector *aconnector,
+-			  const struct edid *edid, struct amdgpu_hdmi_vsdb_info *vsdb_info)
++static int get_amd_vsdb(struct amdgpu_dm_connector *aconnector,
++			struct amdgpu_hdmi_vsdb_info *vsdb_info)
+ {
+-	u8 *edid_ext = NULL;
+-	int i;
+-	int j = 0;
+-	int total_ext_block_len;
+-
+-	if (edid == NULL || edid->extensions == 0)
+-		return -ENODEV;
+-
+-	/* Find DisplayID extension */
+-	for (i = 0; i < edid->extensions; i++) {
+-		edid_ext = (void *)(edid + (i + 1));
+-		if (edid_ext[0] == DISPLAYID_EXT)
+-			break;
+-	}
+-
+-	total_ext_block_len = EDID_LENGTH * edid->extensions;
+-	while (j < total_ext_block_len - sizeof(struct amd_vsdb_block)) {
+-		struct amd_vsdb_block *amd_vsdb = (struct amd_vsdb_block *)&edid_ext[j];
+-		unsigned int ieeeId = (amd_vsdb->ieee_id[2] << 16) | (amd_vsdb->ieee_id[1] << 8) | (amd_vsdb->ieee_id[0]);
+-
+-		if (ieeeId == HDMI_AMD_VENDOR_SPECIFIC_DATA_BLOCK_IEEE_REGISTRATION_ID &&
+-				amd_vsdb->version == HDMI_AMD_VENDOR_SPECIFIC_DATA_BLOCK_VERSION_3) {
+-			u8 panel_type;
+-			vsdb_info->replay_mode = (amd_vsdb->feature_caps & AMD_VSDB_VERSION_3_FEATURECAP_REPLAYMODE) ? true : false;
+-			vsdb_info->amd_vsdb_version = HDMI_AMD_VENDOR_SPECIFIC_DATA_BLOCK_VERSION_3;
+-			drm_dbg_kms(aconnector->base.dev, "Panel supports Replay Mode: %d\n", vsdb_info->replay_mode);
+-			panel_type = (amd_vsdb->color_space_eotf_support & AMD_VDSB_VERSION_3_PANEL_TYPE_MASK) >> AMD_VDSB_VERSION_3_PANEL_TYPE_SHIFT;
+-			switch (panel_type) {
+-			case AMD_VSDB_PANEL_TYPE_OLED:
+-				aconnector->dc_link->panel_type = PANEL_TYPE_OLED;
+-				break;
+-			case AMD_VSDB_PANEL_TYPE_MINILED:
+-				aconnector->dc_link->panel_type = PANEL_TYPE_MINILED;
+-				break;
+-			default:
+-				aconnector->dc_link->panel_type = PANEL_TYPE_NONE;
+-				break;
+-			}
+-			drm_dbg_kms(aconnector->base.dev, "Panel type: %d\n",
+-				    aconnector->dc_link->panel_type);
++	struct drm_connector *connector = &aconnector->base;
  
-+/**
-+ * struct drm_amd_vsdb_info - AMD-specific VSDB information
-+ *
-+ * This structure holds information parsed from the AMD Vendor-Specific Data
-+ * Block (VSDB) version 3.
-+ */
-+struct drm_amd_vsdb_info {
-+	/**
-+	 * @version: Version of the Vendor-Specific Data Block (VSDB)
-+	 */
-+	u8 version;
-+
-+	/**
-+	 * @replay_mode: Panel Replay supported
-+	 */
-+	bool replay_mode;
-+
-+	/**
-+	 * @panel_type: Panel technology type
-+	 */
-+	u8 panel_type;
-+
-+	/**
-+	 * @luminance_range1: Luminance for max back light
-+	 */
-+	struct drm_luminance_range_info luminance_range1;
-+
-+	/**
-+	 * @luminance_range2: Luminance for min back light
-+	 */
-+	struct drm_luminance_range_info luminance_range2;
-+};
-+
- /**
-  * struct drm_display_info - runtime data about the connected sink
-  *
-@@ -861,6 +894,11 @@ struct drm_display_info {
- 	 * Defaults to CEC_PHYS_ADDR_INVALID (0xffff).
- 	 */
- 	u16 source_physical_address;
-+
-+	/**
-+	 * @amd_vsdb: AMD-specific VSDB information.
-+	 */
-+	struct drm_amd_vsdb_info amd_vsdb;
- };
+-			return true;
+-		}
+-		j++;
+-	}
++	vsdb_info->replay_mode = connector->display_info.amd_vsdb.replay_mode;
++	vsdb_info->amd_vsdb_version = connector->display_info.amd_vsdb.version;
  
- int drm_display_info_set_bus_formats(struct drm_display_info *info,
+-	return false;
++	return connector->display_info.amd_vsdb.version != 0;
+ }
+ 
+ static int parse_hdmi_amd_vsdb(struct amdgpu_dm_connector *aconnector,
+@@ -13319,7 +13335,7 @@ void amdgpu_dm_update_freesync_caps(struct drm_connector *connector,
+ 				freesync_capable = true;
+ 		}
+ 
+-		parse_amd_vsdb(amdgpu_dm_connector, edid, &vsdb_info);
++		get_amd_vsdb(amdgpu_dm_connector, &vsdb_info);
+ 
+ 		if (vsdb_info.replay_mode) {
+ 			amdgpu_dm_connector->vsdb_info.replay_mode = vsdb_info.replay_mode;
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+index d1a14e0c12bd..63ce1f52b697 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+@@ -53,12 +53,6 @@
+ 
+ #define AMDGPU_DMUB_NOTIFICATION_MAX 8
+ 
+-#define HDMI_AMD_VENDOR_SPECIFIC_DATA_BLOCK_IEEE_REGISTRATION_ID 0x00001A
+-#define AMD_VSDB_VERSION_3_FEATURECAP_REPLAYMODE 0x40
+-#define AMD_VDSB_VERSION_3_PANEL_TYPE_MASK 0xC0
+-#define AMD_VDSB_VERSION_3_PANEL_TYPE_SHIFT 6
+-#define HDMI_AMD_VENDOR_SPECIFIC_DATA_BLOCK_VERSION_3 0x3
+-
+ enum amd_vsdb_panel_type {
+ 	AMD_VSDB_PANEL_TYPE_DEFAULT = 0,
+ 	AMD_VSDB_PANEL_TYPE_MINILED,
+@@ -97,14 +91,6 @@ struct dc_plane_state;
+ struct dmub_notification;
+ struct dmub_cmd_fused_request;
+ 
+-struct amd_vsdb_block {
+-	unsigned char ieee_id[3];
+-	unsigned char version;
+-	unsigned char feature_caps;
+-	unsigned char reserved[3];
+-	unsigned char color_space_eotf_support;
+-};
+-
+ struct common_irq_params {
+ 	struct amdgpu_device *adev;
+ 	enum dc_irq_source irq_src;
 -- 
 2.43.0
 
