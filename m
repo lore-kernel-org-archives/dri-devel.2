@@ -4,56 +4,83 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4BD3510F2840
-	for <dri-devel@archiver.kernel.org>; Fri, 27 Mar 2026 15:17:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0EBCF10F2840
+	for <dri-devel@archiver.kernel.org>; Fri, 27 Mar 2026 15:17:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9039F10E26A;
-	Fri, 27 Mar 2026 15:17:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 56D3A10EB16;
+	Fri, 27 Mar 2026 15:17:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="xaFFXeMs";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="pCE97cT6";
 	dkim-atps=neutral
-Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3059410E275;
- Fri, 27 Mar 2026 15:17:00 +0000 (UTC)
-Received: from smtp202.mailbox.org (smtp202.mailbox.org
- [IPv6:2001:67c:2050:b231:465::202])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4fj44T2mFgz9tg2;
- Fri, 27 Mar 2026 16:16:57 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; 
- t=1774624617; h=from:from:reply-to:reply-to:subject:subject:date:date:
- message-id:message-id:to:to:cc:cc:mime-version:mime-version:
- content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=hDY0gb57RNPVBah6FLw+m/fSBt0GRr88hU+z0TOglpw=;
- b=xaFFXeMslPSW7lssbm/fG6EmNQfyFbOBeC0MWSWXnlg5ylPJnaBDE2KobWphR6n2SWq38X
- hQtsQ7AqkYY1/m6lskITY07F9jEfdh4KIcjqBSdmYSw7bdLKYHmA0BtwH/XRK5IZH6g3tW
- riwmdRyPl2LaOyqu/OwdXX7ZFdXcien4QF7BqNOfJdS+EIXk/7gEuUDb/LKa+dTpgohtsT
- MDElD2XL0BQxFIkwqoHMXhB32olPrcngSh9ekfoB/STNMoM2KClWfO+T+gsf+8UIPRetOs
- y/CVnzmU8Nw+pZbrgSl7MpYZ7YdgkY+YFcQXQOhXDEncuGqtUi1wwIl3EY9WfA==
-Message-ID: <83eff75f3c6ed1039adfc0e0e2a3fec6b5659780.camel@mailbox.org>
-Subject: Re: [PATCH v7 18/29] drm/amdgpu: Remove
- drm_sched_init_args->num_rqs usage
-From: Philipp Stanner <phasta@mailbox.org>
-To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- amd-gfx@lists.freedesktop.org,  dri-devel@lists.freedesktop.org
-Cc: kernel-dev@igalia.com, intel-xe@lists.freedesktop.org, Danilo Krummrich
- <dakr@kernel.org>, Philipp Stanner <phasta@kernel.org>, Alex Deucher
- <alexander.deucher@amd.com>, Christian =?ISO-8859-1?Q?K=F6nig?=
- <christian.koenig@amd.com>
-Date: Fri, 27 Mar 2026 16:16:53 +0100
-In-Reply-To: <20260306163445.97243-19-tvrtko.ursulin@igalia.com>
-References: <20260306163445.97243-1-tvrtko.ursulin@igalia.com>
- <20260306163445.97243-19-tvrtko.ursulin@igalia.com>
-Content-Type: text/plain; charset="UTF-8"
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D18B410EB16
+ for <dri-devel@lists.freedesktop.org>; Fri, 27 Mar 2026 15:17:35 +0000 (UTC)
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+ by smtpout-02.galae.net (Postfix) with ESMTPS id 8D9F51A3024;
+ Fri, 27 Mar 2026 15:17:34 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 5A14160268;
+ Fri, 27 Mar 2026 15:17:34 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
+ with ESMTPSA id 85438104513F2; Fri, 27 Mar 2026 16:17:18 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+ t=1774624651; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ content-transfer-encoding:in-reply-to:references;
+ bh=samQROhlH4N1aha94rTVBjEKplzD2m0FuRpbiICT/nQ=;
+ b=pCE97cT6DMcM5Pa+btyh7njrKz5HZTvdev3UK+68sOiqtIEKSvHdE6yQnzgD0dfQ0MRLBZ
+ bPhrzsyzKbOvPXUqOh7DXE/5oCY2Ev5KPoNaUEXPxdPPlT5iu4GWbuSgZTDf8+r4bX7YRY
+ vto5XGJK9F73IUqDcej6wbwZusxHJgI0ef0GKKSsBOTkSCbxQsx0PsIEjdL4u0lCEIqcd9
+ As9FZeZOG3haFdHjm0REDOBGEJGzu0DkTBE2SV9Dqhr70ujDAouMYYXMsz5ZKFv25WUiC/
+ NqJA4AyX4/frpauz7xiTscRyhT3eyUSldFK4lD0vO/C5SXDBlBQswb7O79V0FQ==
+Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
-MIME-Version: 1.0
-X-MBO-RS-ID: 81cddba0a9b0f3f2d4b
-X-MBO-RS-META: 37dggwur94sf67wo4aob7umckxdtwaoj
+Content-Type: text/plain; charset=UTF-8
+Date: Fri, 27 Mar 2026 16:17:17 +0100
+Message-Id: <DHDNXJS3543H.382JEP1XJKOQK@bootlin.com>
+Cc: "Marek Vasut" <marex@denx.de>, "Stefan Agner" <stefan@agner.ch>,
+ "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>, "Maxime Ripard"
+ <mripard@kernel.org>, "Thomas Zimmermann" <tzimmermann@suse.de>, "David
+ Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Frank Li"
+ <Frank.Li@nxp.com>, "Sascha Hauer" <s.hauer@pengutronix.de>, "Pengutronix
+ Kernel Team" <kernel@pengutronix.de>, "Fabio Estevam" <festevam@gmail.com>,
+ "Andrzej Hajda" <andrzej.hajda@intel.com>, "Neil Armstrong"
+ <neil.armstrong@linaro.org>, "Robert Foss" <rfoss@kernel.org>, "Jonas
+ Karlman" <jonas@kwiboo.se>, "Jernej Skrabec" <jernej.skrabec@gmail.com>,
+ "Liu Ying" <victor.liu@nxp.com>, "Rob Herring" <robh@kernel.org>, "Saravana
+ Kannan" <saravanak@kernel.org>, "Kory Maincent (TI.com)"
+ <kory.maincent@bootlin.com>, =?utf-8?q?Herv=C3=A9_Codina?=
+ <herve.codina@bootlin.com>, "Hui Pu" <Hui.Pu@gehealthcare.com>, "Ian Ray"
+ <ian.ray@gehealthcare.com>, "Thomas Petazzoni"
+ <thomas.petazzoni@bootlin.com>, <dri-devel@lists.freedesktop.org>,
+ <imx@lists.linux.dev>, <linux-arm-kernel@lists.infradead.org>,
+ <linux-kernel@vger.kernel.org>, <devicetree@vger.kernel.org>, "Adam Ford"
+ <aford173@gmail.com>, "Alexander Stein" <alexander.stein@ew.tq-group.com>,
+ "Anson Huang" <Anson.Huang@nxp.com>, "Christopher Obbard"
+ <christopher.obbard@linaro.org>, "Daniel Scally"
+ <dan.scally@ideasonboard.com>, "Emanuele Ghidoli"
+ <emanuele.ghidoli@toradex.com>, "Fabio Estevam" <festevam@denx.de>,
+ "Francesco Dolcini" <francesco.dolcini@toradex.com>, "Frieder Schrempf"
+ <frieder.schrempf@kontron.de>, "Gilles Talis" <gilles.talis@gmail.com>,
+ =?utf-8?q?Goran_Ra=C4=91enovi=C4=87?= <goran.radni@gmail.com>, "Heiko
+ Schocher" <hs@denx.de>, "Joao Paulo Goncalves"
+ <joao.goncalves@toradex.com>, "Josua Mayer" <josua@solid-run.com>, "Kieran
+ Bingham" <kieran.bingham@ideasonboard.com>, "Marco Felsch"
+ <m.felsch@pengutronix.de>, "Martyn Welch" <martyn.welch@collabora.com>,
+ "Oleksij Rempel" <o.rempel@pengutronix.de>, "Peng Fan" <peng.fan@nxp.com>,
+ "Philippe Schenker" <philippe.schenker@toradex.com>, "Richard Hu"
+ <richard.hu@technexion.com>, "Shengjiu Wang" <shengjiu.wang@nxp.com>,
+ "Stefan Eichenberger" <stefan.eichenberger@toradex.com>, "Vitor Soares"
+ <vitor.soares@toradex.com>
+To: "Laurent Pinchart" <laurent.pinchart@ideasonboard.com>
+From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
+Subject: Re: [PATCH 7/8] drm/bridge: imx8mp-hdmi-tx: add an hdmi-connector
+ when missing using a DT overlay at boot time
+X-Mailer: aerc 0.20.1
+References: <20260320-drm-lcdif-dbanc-v1-0-479a04133e70@bootlin.com>
+ <20260320-drm-lcdif-dbanc-v1-7-479a04133e70@bootlin.com>
+ <20260326082843.GB2670326@killaraus.ideasonboard.com>
+In-Reply-To: <20260326082843.GB2670326@killaraus.ideasonboard.com>
+X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,42 +93,65 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: phasta@kernel.org
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, 2026-03-06 at 16:34 +0000, Tvrtko Ursulin wrote:
-> Remove member no longer used by the scheduler core.
->=20
-> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-> Cc: Alex Deucher <alexander.deucher@amd.com>
-> Cc: "Christian K=C3=B6nig" <christian.koenig@amd.com>
-> Cc: amd-gfx@lists.freedesktop.org
+Hi Laurent,
 
-Christian, Alex, can you ack that?
+On Thu Mar 26, 2026 at 9:28 AM CET, Laurent Pinchart wrote:
 
-Mostly pro-forma, but in case you might do something with the scheduler
-runqueues within amdgpu, it's probably good if you're explicitly aware.
+>> Many dts files for imx8mp-based boards in the kernel have such a connect=
+or
+>> described and linked to port@1, so a connector is added by the
+>> display-connector driver along with a bridge wrapping it. Sadly some of
+>> those dts files don't have the connector described. Adding it would solv=
+e
+>> the problem easily, but this would break existing devices which do not
+>> update the dtb when upgrading to a newer kernel.
+>
+> I think this series should also fix the in-tree dts files, to pave the
+> way for removing the workaround.
 
+Fixing all dts files can surely be done, but it won't allow removing the
+workaround. Any devices shipped with a dtb without the connector and
+upgrading their kernel later on but not the dtb will fail as soon as they
+upgrade to a kernel with patch 8 but with this workaround removed.
 
-P.
+That said, do you still think it's worth adding the hdmi-connector node to
+all dtbs missing it?
 
-> ---
-> =C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 1 -
-> =C2=A01 file changed, 1 deletion(-)
->=20
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm=
-/amd/amdgpu/amdgpu_device.c
-> index 3e19b51a2763..5a51bd9087e4 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -2917,7 +2917,6 @@ static int amdgpu_device_init_schedulers(struct amd=
-gpu_device *adev)
-> =C2=A0{
-> =C2=A0	struct drm_sched_init_args args =3D {
-> =C2=A0		.ops =3D &amdgpu_sched_ops,
-> -		.num_rqs =3D DRM_SCHED_PRIORITY_COUNT,
-> =C2=A0		.timeout_wq =3D adev->reset_domain->wq,
-> =C2=A0		.dev =3D adev->dev,
-> =C2=A0	};
+It should be fairly simple and IIRC it would involve a couple dozen drivers
+at most based on my initial research. However for most of them I have no
+way to know which type of connector is installed, would it be OK if we
+describe type A when the type is unknown, just like
+dw_hdmi_connector_create() does right now programmatically [0]?
 
+[0] https://elixir.bootlin.com/linux/v7.0-rc5/source/drivers/gpu/drm/bridge=
+/synopsys/dw-hdmi.c#L2601
+
+Also, if such a change is to be done, I'd definitely do it as a separate
+series, to avoid adding more stuff to this series in-flight.
+
+>> --- a/drivers/gpu/drm/bridge/imx/Kconfig
+>> +++ b/drivers/gpu/drm/bridge/imx/Kconfig
+>> @@ -25,6 +25,23 @@ config DRM_IMX8MP_DW_HDMI_BRIDGE
+>>  	  Choose this to enable support for the internal HDMI encoder found
+>>  	  on the i.MX8MP SoC.
+>>
+>> +config DRM_IMX8MP_DW_HDMI_BRIDGE_CONNECTOR_FIXUP
+>> +	bool "Support device tree blobs without an hdmi-connector node"
+>> +	default y
+>
+> Can't we enable the workaround unconditionally ? Distributions will need
+> to enable this option anyway as they can't know what device they will
+> boot on. I fear a configuration option will confuse users and waste time
+> on debugging.
+
+Sure, good point.
+
+Luca
+
+--
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
