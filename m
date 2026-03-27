@@ -4,94 +4,94 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B32B610AB82F
-	for <dri-devel@archiver.kernel.org>; Fri, 27 Mar 2026 00:15:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DA01810AB82F
+	for <dri-devel@archiver.kernel.org>; Fri, 27 Mar 2026 00:15:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 20D5D10EB6F;
-	Fri, 27 Mar 2026 00:15:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3669C10EBBC;
+	Fri, 27 Mar 2026 00:15:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="ccs3gzHv";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="SuPnbi5k";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="MqJiphnG";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="fhyYtapk";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2669110EC1D
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Mar 2026 00:15:33 +0000 (UTC)
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EF1F910EBDA
+ for <dri-devel@lists.freedesktop.org>; Fri, 27 Mar 2026 00:15:37 +0000 (UTC)
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 62QNb5Wr334208
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Mar 2026 00:15:32 GMT
+ 62QNq9rJ789787
+ for <dri-devel@lists.freedesktop.org>; Fri, 27 Mar 2026 00:15:37 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- YUhadNcE6d+rm8/73vxtaIMsY1zh3Qjnoy8Bpem4KcU=; b=ccs3gzHv8EVZASao
- xURN9WiI+9xTCT+fNNvWRzXcv0Ra4gLEIsPUYTCOF0I4MbWYxR2Lxc4kIBj/T38C
- T9JPhNOa0cGkRQ0+69TcPTWSa5hXqqPgXDSVTQ4EdyjVOOVrL3mCN9TbnouQ7cGT
- Mqg4eyKzhzy/+xPDsXNeqW+/mxru+W/zGl5wrI91FxVr9z+RNsSLUrbNJOCwlgs9
- 49SbEJSzSfmuTXVZVDI7fWKh/PvPLoieHHszYiyzYG4IuWzGGclhvB0DYBm+1LCl
- ZqKJaIsFaJYeZOvOkXpmJ5X/RpCLGqCHmL9uigN/u4qqKeeD+Xyg4kNMUx98kRVB
- 2TnpKA==
-Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com
- [209.85.214.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d527ytuwy-1
+ 6h1GbkcqRvODh/gp8Mx0/sRdMg7ZV4RUJ1froSrMVMQ=; b=MqJiphnGufhDbsoG
+ QfoaEzBQWKI9MK74OIQ3ckZmrPNAuswI7Iy6CAzTfjs8vZbQ8qTT9yajw8U2RbE7
+ e/KuxPrgMb+W6NTVrIsluasKYxXvXmj+l3uqO15KEres79bddGNXIteo//Q4Bobm
+ 41tRMi9EFHmV6pgHx7dhChMywN5fa63lcIqy7PD3iTGYTw0faulExiC1wws2d5zU
+ aIrvhQ9eltOk2sN3RtCJep9Rk6RuftClu9rQNC3Rfwcds9I8/JxwDINnzjCB3ucq
+ xwwOFFOKZDn2uzz6+x3dxgn0yMKL/ygUNV5vlYahhSy6solagOMvqJcSwYSNBF1M
+ 2Q5v5g==
+Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com
+ [209.85.216.69])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d53eqjhpq-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Mar 2026 00:15:32 +0000 (GMT)
-Received: by mail-pl1-f197.google.com with SMTP id
- d9443c01a7336-2b06b68783dso18466375ad.3
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Mar 2026 17:15:32 -0700 (PDT)
+ for <dri-devel@lists.freedesktop.org>; Fri, 27 Mar 2026 00:15:37 +0000 (GMT)
+Received: by mail-pj1-f69.google.com with SMTP id
+ 98e67ed59e1d1-35c1107da15so2341248a91.2
+ for <dri-devel@lists.freedesktop.org>; Thu, 26 Mar 2026 17:15:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1774570531; x=1775175331;
+ d=oss.qualcomm.com; s=google; t=1774570537; x=1775175337;
  darn=lists.freedesktop.org; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=YUhadNcE6d+rm8/73vxtaIMsY1zh3Qjnoy8Bpem4KcU=;
- b=SuPnbi5k89ZV6AUSHGEx3CnP1QrqIS1IF6+TIl3iNI4z8QTX/JTU9BwRciNLRKAF7G
- k7irGi4zOZZJrW5B/wDlwd2jquddwHjfKauBLUcqGAql8azd7wwu/t7r55t163NDoAvt
- 3kPOJhkIwJduWES4V/Co4zbH4B3DTRVNkzOGizg3+vzVccoFlc8GR6Ix15FjgdMLjrKy
- eixtXT2qNJM2TweUqzRwxDcCJRoizz7x7btBWYtxeoGeDVDYwoEOcP1SCxOaHzgcwn1d
- XDbrXUgOeUIuDhTzteQlnxNi1VlVQ2NMIhtDYBHvSLZm4vq1SveNcr/OovxqMiq2j1uB
- DYYg==
+ :reply-to; bh=6h1GbkcqRvODh/gp8Mx0/sRdMg7ZV4RUJ1froSrMVMQ=;
+ b=fhyYtapkFl3MUWj+Iu5cCt5+DYZyyVwkf5afxgukWe2Chx7JXn4Dd2x/4dlCE8cCvd
+ dMRkXKRn3xeFfC5rF0AQpPMpg5U1DE+Wp+i2wR5tl5oUGRFVl4tQwebRfGzymjGMd5gE
+ i52WncYzmuumIIksnNRFySwQNj0wQ0ggPBSxS731Nl+CJ9hCZIGNseQpSYoBtKDiimAp
+ 1qWgeDYLt+34cPZdEjlnaDkh3T84J+QA8LP8p4h51IjitiSEqCmnJSWp6hb/uxxMRWR8
+ SMR2sgll27ztrLplsZ72p6TJ4JukTmyOn5zh27xNOvl2fLS6NDt/iVxwVgTcQ0xirXaQ
+ MdyA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774570531; x=1775175331;
+ d=1e100.net; s=20251104; t=1774570537; x=1775175337;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
  :cc:subject:date:message-id:reply-to;
- bh=YUhadNcE6d+rm8/73vxtaIMsY1zh3Qjnoy8Bpem4KcU=;
- b=XwRByjoVKbHofIANKO9BMgiqp3zhgjD8YvaZolXgKaUn3kHmLhsxALuzjosZga++Lm
- BJTDgWmz/RmgW6Ow3M4OYku49WgnrNYHV4GYTBE/+GbcKy2MHT4ofdhiE0KgCc3D6EEo
- snzVF7KGL6ym00J/K54p0iKBjPR0r55CQvrvkroYuwoOuQ9+cLhr5gR91wNvDd0ethAw
- TUHiEKVK0TL30NrUzdqM1Vng4SUkNV7cF7N+1QqCgT/JWzO6+4e3ia/BA8Gnq1guXc1F
- sxh09qxFLY9L/eayiLUAd8XupLZuir/BFBJZH8SDEpH1Ga01zwUIetq6DbFpZ6ArVxep
- oUUA==
+ bh=6h1GbkcqRvODh/gp8Mx0/sRdMg7ZV4RUJ1froSrMVMQ=;
+ b=aVHLLXCHE7KhHrKDaOaI42Yv22wmLGGzAnWEGtY4VfQ2a4n/ky0RXnLhIngPO6gpkP
+ prqmVx/LHA/sYR2AJOnfts9FZhKEkHJY+8b5lzOAE6cEPjRKzzfmuppRJ2Nr84ph74Rz
+ WJ13Sjw9fHBWLMzy5T1ef67VsOvpSb8zyoMxutN+1Z2ZX7SbOnoToinrWiYlTSLWsZSN
+ IYamQHwx1AO6RPnBHA7VtESirzA7UWr4HBobOKkZ5WaFvxVTg5IXEuZTM97wRNgyiX4n
+ MnpvRymm+Iq2A6MglRToNItjuK19uU0xc6M2dl0G7TIGhG2l3AbpEE0CKBjMjRzoaIoL
+ F5pw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUv/UBFrfwIYt2E2FCPSVqXuCeSTV/kQDRrwYeBo0Q5TeujP0W5Ga8ZCft/0hy82wyEYkeKGfrkAUo=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YygbaJeVI5+50z+AlExwZ/svKZiDF3dRQWAu6qHs13Wfy7KVpaW
- 6/4xXaOCfOI+Z2nYLej34fX/YOYu2LBkGfUV76tEGzgovKZdSn+ZxCxI8Bj975m2bfRZ82465aB
- /mNgPao7PUSzdrhyZBYBf4qN5XgcYik8KyL2NEMpWUbtXDHQpLzY3+NMRXYZZ5vT4X97QOXo=
-X-Gm-Gg: ATEYQzynL6G4r+3akAsSCrN8yB1g+n2UaqYlSLKq8dozkENv5CpdOWAcPz4UWe43Oce
- 5zzkIXevwAjnfBAsXVf+iyzXtd2CsIwWZO4cI9V6aDaLGLH5zUeHNeVe2eFbYMwx6n7LjxN7YCv
- aBcd0fPzmKI1F/DeArQc9XXjAcSxzHqWdJDCik1wOd8dAApVQgnQ/uYaNUv+nl0ZNXai8Cs5zr2
- /mAWiT+1jWqH4Yz2ktxq+6Xt0n3f7VEoRGey6DyYpQfrI1uXICYic8SxEAQUhGqH64I/UwQxpnf
- X1gVkx0ltrtvtEipyatjEYmewEVR5k+CnPd6j85k13sWJyU/NLjityvVH9CspqkQl9O4jPhBKcd
- VDt4ENR1+aJJWaJc7Kp9iohl09JNhywtl6dQ/bo7wF/5zOg==
-X-Received: by 2002:a17:90b:4b0e:b0:359:8e5e:43de with SMTP id
- 98e67ed59e1d1-35c300c19d2mr460802a91.22.1774570531265; 
- Thu, 26 Mar 2026 17:15:31 -0700 (PDT)
-X-Received: by 2002:a17:90b:4b0e:b0:359:8e5e:43de with SMTP id
- 98e67ed59e1d1-35c300c19d2mr460749a91.22.1774570530658; 
- Thu, 26 Mar 2026 17:15:30 -0700 (PDT)
+ AJvYcCWIvWBrHQqbHthPcycytXsBKVWB4hgm2XVhbNmG/MIu4Lb6dgUD5rxqd60iZukv9/ihgPc4ZmGph5U=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxBxPz5f1SbvBWG5YqaplNEVCa6rTJfpTqpGAyWlYKm/Hehe5+r
+ 1pZ4fcfWhmxmox0/SMI5dZq6zA07MP/mveUEM0QumWThxXBp8dqSVl0Bshtr7DeNcs3QEDctYw/
+ /wInF5IHHSlbQVPBb+VNp4rdXcCi9+41vlfsaexNT/hctGsmzpHawin7Vx3RaTVGWhOdNJqY=
+X-Gm-Gg: ATEYQzx9Tewmz5/C0EPGkzcQbvIOyLSB8Mx9YsWTpPG5YafB5tPD1mItaqs0fWHpdjG
+ hVIF0icl446v9INMdjxxDg0s5Zf5NC1PHUcklxdIDz4Nf2TiIxSTXXe7aLFexdoWW+bCDyi4hXG
+ 01qMwCPqnTCE+fPsNlAX8zx0MK7RQYnzVgO9ICCGrCK7xxGbSYBXtS1gKWEG2q+O1aiuOyVhr4Q
+ UMSsN2vXcQHA/GLZkxBttWNiHY6MyiDiVYJG7Qj+XocGamiXcsu5RHbcMTCPKWcbZS5YGCuHyBu
+ s2ZDkOypGK2HdO+L2+swiQaacZBOWq74OObZ7nx9Aopc35aQqtbGTDWKLIoc7Lk20kAQZKBISX4
+ CEHq/uPy0+p75c0BvCOhm7fTNlLAlu6fuwstBIisuSk8Kqg==
+X-Received: by 2002:a17:90b:3b4f:b0:35c:cba:3453 with SMTP id
+ 98e67ed59e1d1-35c30076fe2mr470135a91.22.1774570536922; 
+ Thu, 26 Mar 2026 17:15:36 -0700 (PDT)
+X-Received: by 2002:a17:90b:3b4f:b0:35c:cba:3453 with SMTP id
+ 98e67ed59e1d1-35c30076fe2mr470108a91.22.1774570536479; 
+ Thu, 26 Mar 2026 17:15:36 -0700 (PDT)
 Received: from hu-akhilpo-hyd.qualcomm.com ([202.46.23.25])
  by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-35c2ec799eesm163155a91.10.2026.03.26.17.15.25
+ 98e67ed59e1d1-35c2ec799eesm163155a91.10.2026.03.26.17.15.31
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 26 Mar 2026 17:15:30 -0700 (PDT)
+ Thu, 26 Mar 2026 17:15:36 -0700 (PDT)
 From: Akhil P Oommen <akhilpo@oss.qualcomm.com>
-Date: Fri, 27 Mar 2026 05:43:59 +0530
-Subject: [PATCH v2 10/17] drm/msm/a6xx: Update HFI definitions
+Date: Fri, 27 Mar 2026 05:44:00 +0530
+Subject: [PATCH v2 11/17] drm/msm/a8xx: Add SKU table for A840
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260327-a8xx-gpu-batch2-v2-10-2b53c38d2101@oss.qualcomm.com>
+Message-Id: <20260327-a8xx-gpu-batch2-v2-11-2b53c38d2101@oss.qualcomm.com>
 References: <20260327-a8xx-gpu-batch2-v2-0-2b53c38d2101@oss.qualcomm.com>
 In-Reply-To: <20260327-a8xx-gpu-batch2-v2-0-2b53c38d2101@oss.qualcomm.com>
 To: Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
@@ -109,35 +109,35 @@ Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  Akhil P Oommen <akhilpo@oss.qualcomm.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1774570466; l=5196;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1774570466; l=805;
  i=akhilpo@oss.qualcomm.com; s=20240726; h=from:subject:message-id;
- bh=JC2wxvFzu+YVvl5T0xRJcUHR8veH92d6X32XhMscyIE=;
- b=JfyoEHjVEiM+OKcG5KAOjJ4wfNMvZWfIxYdQ7OxK+rhR+1eRE5YmYHC5XBPjYD+JE1TwA4s3i
- 4MuSQKKzNf+AnA4raB8hBXYwkHth996CsBQKczTafOu5xvOePEC8Ytc
+ bh=H5UIoWKcwOAS+auMl89W13gGP8KyR+VgG/pl7Eqs3ww=;
+ b=F4HSw5meUoi3jhfUWmmoDNcf7NbKh/4OwftlVELIMzRkTdituHgBBglo01cbB+1fOXlzRFHsZ
+ IOnX2+H3sqlAwz/C/8ZLBfAK4UQbCcURatEBNtjiQaj8+wNYGaLpREi
 X-Developer-Key: i=akhilpo@oss.qualcomm.com; a=ed25519;
  pk=lmVtttSHmAUYFnJsQHX80IIRmYmXA4+CzpGcWOOsfKA=
-X-Authority-Analysis: v=2.4 cv=dLurWeZb c=1 sm=1 tr=0 ts=69c5cc24 cx=c_pps
- a=cmESyDAEBpBGqyK7t0alAg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzI3MDAwMCBTYWx0ZWRfXzqSypG3B1yQo
+ jQog6X8sUS87g1xHaq/8UQKLhEX2e4/1IF8xvD2pZQuuNmPmMwQBfriVA5fcmSdxFnssr59IKX1
+ JQ1zgL0JrBcJVDEXM5Wybk3nlYNQzu5tFc4xGSmOE3kDTy+KXAf4iW/TDt33LzpBAwwK5TpQ03g
+ 4eURt2gTzZ0edb0a8RAXUKApiUJrXQtsx6Lq1ub7SGCz1+sq9LwvetCeFuv43MYLZUtsPLWahcA
+ lPFUsgnPDe5KCBeZKocI3F8RSWfR6f+X1q3pBK+UX6X9YSWv5FO1iPAow3U42YKC+2dTBU3N8sb
+ Lt6lgy8BXzd+KHq9HwCWVMhaVyxPtVtmMfyXbiKWag86ZqEmu55s7dQunX/0CjSZiWs9jj6LZbn
+ Tlzcd9TicXCSkrTmP/CsdpII2zeVFmOBcug8z9WfzSfe83Tw0ASzwt3C4KHQQzZM68JZSfJQXnE
+ fxJ8+0g8MwIaP7I+iaw==
+X-Proofpoint-GUID: G9HpYYh46Sy2J_hR4kjfgqGtdVTFogvd
+X-Authority-Analysis: v=2.4 cv=S4bUAYsP c=1 sm=1 tr=0 ts=69c5cc29 cx=c_pps
+ a=vVfyC5vLCtgYJKYeQD43oA==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
  a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=EUspDBNiAAAA:8 a=wp9Eiz2YcQHRIHTaYAUA:9 a=QEXdDO2ut3YA:10
- a=1OuFwYUASf3TG4hYMiVC:22
-X-Proofpoint-ORIG-GUID: Key9BPkRxOa3Qoigp51AhV0iqwpbE8Di
-X-Proofpoint-GUID: Key9BPkRxOa3Qoigp51AhV0iqwpbE8Di
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzI3MDAwMCBTYWx0ZWRfXzWUR/KhYlUAI
- 778FXIAO9WMHAj0SP7AGC/zy+00JsDLqrLq52vZxSjcNTQIxRkBIVpHNFX5EJtrQ22iOw42HFle
- Hxiu1CETTm0XV4nTmbgK/mcFagwL6ncN/6s2U14V9G1iVYO4MGMFAnaDW//dkV2fl1VoUihOuxq
- piAsiIVm+ASclM/KcUAKvaAPKv2LmttNCTj8mFzyE2d07zOuf1xHul7/JaKWM+kkfYMgwFLJ9yL
- GgmQZn/7fpqBb/gwL4fGc3rOVc1gKy0rh89g0gZxAeMGmLV6LMMcmIUnyYrLWmEqJE+gD2lz03d
- GBNjT2mWXC1A+wzekNuwlYWGZa6mWIDP+hYKtO8X99FXdMSmlBPusDeJXPiQuqzfBBcE6JZs8sN
- ifePqg7ewfbFGV02jrkp+SXxRKbT3h9tbJ3EhXLJhEy8Ycx/wI2Gz1GcBQiAlkeOpJjprfpXP2W
- BYvtxL3RHQDzUNRjYYA==
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=EUspDBNiAAAA:8 a=Ml_BBXNIZAQcZvYyiGwA:9 a=QEXdDO2ut3YA:10
+ a=rl5im9kqc5Lf4LNbBjHf:22
+X-Proofpoint-ORIG-GUID: G9HpYYh46Sy2J_hR4kjfgqGtdVTFogvd
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
  definitions=2026-03-26_04,2026-03-26_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 suspectscore=0 spamscore=0 priorityscore=1501 bulkscore=0
- phishscore=0 impostorscore=0 clxscore=1015 lowpriorityscore=0 malwarescore=0
+ priorityscore=1501 malwarescore=0 lowpriorityscore=0 bulkscore=0 phishscore=0
+ spamscore=0 impostorscore=0 clxscore=1015 adultscore=0 suspectscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603270000
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -155,179 +155,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Update the HFI definitions to support additional GMU based power
-features.
+Add the SKU table in the catalog for A840 GPU. This data helps to pick
+the correct bin from the OPP table based on the speed_bin fuse value.
 
 Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
 ---
- drivers/gpu/drm/msm/adreno/a6xx_hfi.c |   3 -
- drivers/gpu/drm/msm/adreno/a6xx_hfi.h | 113 +++++++++++++++++++++++++++++++++-
- 2 files changed, 111 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/msm/adreno/a6xx_catalog.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_hfi.c b/drivers/gpu/drm/msm/adreno/a6xx_hfi.c
-index 09b6bc464b47..487c2736f2b3 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_hfi.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_hfi.c
-@@ -851,7 +851,6 @@ static int a6xx_hfi_feature_ctrl_msg(struct a6xx_gmu *gmu, u32 feature, u32 enab
- 	return a6xx_hfi_send_msg(gmu, HFI_H2F_FEATURE_CTRL, &msg, sizeof(msg), NULL, 0);
- }
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
+index 38561f26837e..f6b9792531a6 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
++++ b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
+@@ -1954,6 +1954,12 @@ static const struct adreno_info a8xx_gpus[] = {
+ 			},
+ 		},
+ 		.preempt_record_size = 19708 * SZ_1K,
++		.speedbins = ADRENO_SPEEDBINS(
++			{ 0,   0 },
++			{ 273, 1 },
++			{ 252, 2 },
++			{ 221, 3 },
++		),
+ 	}
+ };
  
--#define HFI_FEATURE_IFPC 9
- #define IFPC_LONG_HYST 0x1680
- 
- static int a6xx_hfi_enable_ifpc(struct a6xx_gmu *gmu)
-@@ -862,8 +861,6 @@ static int a6xx_hfi_enable_ifpc(struct a6xx_gmu *gmu)
- 	return a6xx_hfi_feature_ctrl_msg(gmu, HFI_FEATURE_IFPC, 1, IFPC_LONG_HYST);
- }
- 
--#define HFI_FEATURE_ACD 12
--
- static int a6xx_hfi_enable_acd(struct a6xx_gmu *gmu)
- {
- 	struct a6xx_hfi_acd_table *acd_table = &gmu->acd_table;
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_hfi.h b/drivers/gpu/drm/msm/adreno/a6xx_hfi.h
-index 217708b03f6f..e10d32ce93e0 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_hfi.h
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_hfi.h
-@@ -165,6 +165,42 @@ struct a6xx_hfi_acd_table {
- 	u32 data[16 * MAX_ACD_STRIDE];
- } __packed;
- 
-+#define CLX_DATA(irated, num_phases, clx_path, extd_intf) \
-+	((extd_intf << 29) |				  \
-+	 (clx_path << 28) |				  \
-+	 (num_phases << 22) |				  \
-+	 (irated << 16))
-+
-+struct a6xx_hfi_clx_domain_v2 {
-+	/**
-+	 * @data: BITS[0:15]  Migration time
-+	 *        BITS[16:21] Current rating
-+	 *        BITS[22:27] Phases for domain
-+	 *        BITS[28:28] Path notification
-+	 *        BITS[29:31] Extra features
-+	 */
-+	u32 data;
-+	/** @clxt: CLX time in microseconds */
-+	u32 clxt;
-+	/** @clxh: CLH time in microseconds */
-+	u32 clxh;
-+	/** @urg_mode: Urgent HW throttle mode of operation */
-+	u32 urg_mode;
-+	/** @lkg_en: Enable leakage current estimate */
-+	u32 lkg_en;
-+	/** curr_budget: Current Budget */
-+	u32 curr_budget;
-+} __packed;
-+
-+#define HFI_H2F_MSG_CLX_TBL 8
-+
-+#define MAX_CLX_DOMAINS 2
-+struct a6xx_hfi_clx_table_v2_cmd {
-+	u32 hdr;
-+	u32 version;
-+	struct a6xx_hfi_clx_domain_v2 domain[MAX_CLX_DOMAINS];
-+} __packed;
-+
- #define HFI_H2F_MSG_START 10
- 
- struct a6xx_hfi_msg_start {
-@@ -176,6 +212,41 @@ struct a6xx_hfi_msg_start {
- struct a6xx_hfi_msg_feature_ctrl {
- 	u32 header;
- 	u32 feature;
-+#define HFI_FEATURE_DCVS		0
-+#define HFI_FEATURE_HWSCHED		1
-+#define HFI_FEATURE_PREEMPTION		2
-+#define HFI_FEATURE_CLOCKS_ON		3
-+#define HFI_FEATURE_BUS_ON		4
-+#define HFI_FEATURE_RAIL_ON		5
-+#define HFI_FEATURE_HWCG		6
-+#define HFI_FEATURE_LM			7
-+#define HFI_FEATURE_THROTTLE		8
-+#define HFI_FEATURE_IFPC		9
-+#define HFI_FEATURE_NAP			10
-+#define HFI_FEATURE_BCL			11
-+#define HFI_FEATURE_ACD			12
-+#define HFI_FEATURE_DIDT		13
-+#define HFI_FEATURE_DEPRECATED		14
-+#define HFI_FEATURE_CB			15
-+#define HFI_FEATURE_KPROF		16
-+#define HFI_FEATURE_BAIL_OUT_TIMER	17
-+#define HFI_FEATURE_GMU_STATS		18
-+#define HFI_FEATURE_DBQ			19
-+#define HFI_FEATURE_MINBW		20
-+#define HFI_FEATURE_CLX			21
-+#define HFI_FEATURE_LSR			23
-+#define HFI_FEATURE_LPAC		24
-+#define HFI_FEATURE_HW_FENCE		25
-+#define HFI_FEATURE_PERF_NORETAIN	26
-+#define HFI_FEATURE_DMS			27
-+#define HFI_FEATURE_THERMAL		28
-+#define HFI_FEATURE_AQE			29
-+#define HFI_FEATURE_TDCVS		30
-+#define HFI_FEATURE_DCE			31
-+#define HFI_FEATURE_IFF_PCLX		32
-+#define HFI_FEATURE_SOFT_RESET		0x10000001
-+#define HFI_FEATURE_DCVS_PROFILE	0x10000002
-+#define HFI_FEATURE_FAST_CTX_DESTROY	0x10000003
- 	u32 enable;
- 	u32 data;
- } __packed;
-@@ -199,8 +270,17 @@ struct a6xx_hfi_table {
- 	u32 header;
- 	u32 version;
- 	u32 type;
--#define HFI_TABLE_BW_VOTE 0
--#define HFI_TABLE_GPU_PERF 1
-+#define HFI_TABLE_BW_VOTE	0
-+#define HFI_TABLE_GPU_PERF	1
-+#define HFI_TABLE_DIDT		2
-+#define HFI_TABLE_ACD		3
-+#define HFI_TABLE_CLX_V1	4 /* Unused */
-+#define HFI_TABLE_CLX_V2	5
-+#define HFI_TABLE_THERM		6
-+#define HFI_TABLE_DCVS		7
-+#define HFI_TABLE_SYS_TIME	8
-+#define HFI_TABLE_GMU_DCVS	9
-+#define HFI_TABLE_LIMITS_MIT	10
- 	struct a6xx_hfi_table_entry entry[];
- } __packed;
- 
-@@ -226,4 +306,33 @@ struct a6xx_hfi_prep_slumber_cmd {
- 	u32 freq;
- } __packed;
- 
-+struct a6xx_hfi_limits_cfg {
-+	u32 enable;
-+	u32 msg_path;
-+	u32 lkg_en;
-+	/*
-+	 * BIT[0]: 0 = (static) throttle to fixed sid level
-+	 *         1 = (dynamic) throttle to sid level calculated by HW
-+	 * BIT[1]: 0 = Mx
-+	 *         1 = Bx
-+	 */
-+	u32 mode;
-+	u32 sid;
-+	/* Mitigation time in microseconds */
-+	u32 mit_time;
-+	/* Max current in mA during mitigation */
-+	u32 curr_limit;
-+} __packed;
-+
-+struct a6xx_hfi_limits_tbl {
-+	u8 feature_id;
-+#define GMU_MIT_IFF  0
-+#define GMU_MIT_PCLX 1
-+	u8 domain;
-+#define GMU_GX_DOMAIN 0
-+#define GMU_MX_DOMAIN 1
-+	u16 feature_rev;
-+	struct a6xx_hfi_limits_cfg cfg;
-+} __packed;
-+
- #endif
 
 -- 
 2.51.0
