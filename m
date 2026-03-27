@@ -4,62 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AB6CC10AB83A
-	for <dri-devel@archiver.kernel.org>; Fri, 27 Mar 2026 01:08:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 807BE10A1E63
+	for <dri-devel@archiver.kernel.org>; Fri, 27 Mar 2026 02:15:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 181C510EC3B;
-	Fri, 27 Mar 2026 01:08:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 96B1C10EC5D;
+	Fri, 27 Mar 2026 02:15:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="mJcAZoZ2";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="Dc2OFgny";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 727BE10EC3B
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Mar 2026 01:08:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1774573700;
- bh=m2NMsfxVcSr9MtrRU9gQuBS277Ks3jmJeTd5rK2rKtI=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=mJcAZoZ2atTAaWiF972aIKGMTdFFe1etiP7MWYfwy5KCIC2nmatcJY0LGbkQATO19
- dkc2D5ikQNVLaVUbN81CRCGf3pyLwwyTJ14jlSwwXxtWQ+XZEZWiZH75K5yf7FxzEQ
- /PSDe2seBIpFBpUjqJZrbxYwAxHqg1NsokAMLmYy4Qq09eNDdVzfreGwwkwgTIPclu
- pkIcOH0G+7qPHx3h7K8ItyLfmsGj7gTJU1LIyo+n4tvsaf2X+XIznrewxfTdIVOUXX
- EHXf4VBc0cnlgEQ46Ffx85XL1h8dCjUku76EOIF47IkRgP3ZTtQVz0MbnVDcaQxASh
- vOrScso0GCK8g==
-Received: from [192.168.1.90] (unknown [86.123.23.225])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested) (Authenticated sender: cristicc)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 1A9C917E6130;
- Fri, 27 Mar 2026 02:08:20 +0100 (CET)
-Message-ID: <3aec8193-22c4-4c87-8068-5a70f4690047@collabora.com>
-Date: Fri, 27 Mar 2026 03:08:19 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 7/8] drm/bridge: synopsys: dw-dp: Unregister AUX
- channel on bridge detach
-To: Heiko Stuebner <heiko@sntech.de>, Sandy Huang <hjc@rock-chips.com>,
- Andy Yan <andy.yan@rock-chips.com>,
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
+ [136.143.188.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A308810EC5B
+ for <dri-devel@lists.freedesktop.org>; Fri, 27 Mar 2026 02:15:11 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1774577706; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=LC1EIRM0nsq4CRa8tKo1flFXz2nLkPKBTFbU/eFNdZ5jtmFouep5hw1YqAs+1mZOAC6fOFXKfQ81GM9u6wgVltL/5RU1ZmpY2T/tRLR3qhjbWXII/ADHrjzgfwbpaTra4TOt7P6Ryd8JSwVnSwY/XVpN9JyHnJqvM5+rg0pD7HY=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1774577706;
+ h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=IP/XhJElv+TyBVv6++iQhgFRW3wkYKqljaaRTwlKHGg=; 
+ b=B7Ku4NcUy/x0EjOXh/64dG/Fq6TMiUXtXwbeDMg9UIzYyO+W62SRguFWHIpNXKK4TA3ej+qVWLskSPXLLtCi9PciqYg7RZOIK/Wk7jSXdmcBk1tGNEeYej+XUkeCWijCGQqE2IrYM4SBYh2cXO2gB+lnGMwlHXGTJWtrvqpBy5A=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
+ dmarc=pass header.from=<adrian.larumbe@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1774577706; 
+ s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
+ h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:References:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
+ bh=IP/XhJElv+TyBVv6++iQhgFRW3wkYKqljaaRTwlKHGg=;
+ b=Dc2OFgnyysv9NpJ+1uiqm5BLgRTvHjeeTdEKH06qf9pCWSxll6GVxy/68eelTJCT
+ KYPHYQCTmOUprbjlKvC/hIH3k/uhjLigZLea0WZSD+Hz4cMIuWWbaAS+zvqAnl8gzWf
+ +KUiiv/Zpmf125ZjaP09hrU+K7RtHc4wcM1rDChg=
+Received: by mx.zohomail.com with SMTPS id 1774577705177729.188682794289;
+ Thu, 26 Mar 2026 19:15:05 -0700 (PDT)
+Date: Fri, 27 Mar 2026 02:14:58 +0000
+From: =?utf-8?Q?Adri=C3=A1n?= Larumbe <adrian.larumbe@collabora.com>
+To: Biju <biju.das.au@gmail.com>
+Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Steven Price <steven.price@arm.com>,
+ Boris Brezillon <boris.brezillon@collabora.com>, 
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>, Andrzej Hajda
- <andrzej.hajda@intel.com>, Neil Armstrong <neil.armstrong@linaro.org>,
- Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>
-Cc: kernel@collabora.com, dri-devel@lists.freedesktop.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- linux-kernel@vger.kernel.org
-References: <20260310-drm-rk-fixes-v2-0-645ecfb43f49@collabora.com>
- <20260310-drm-rk-fixes-v2-7-645ecfb43f49@collabora.com>
- <2053748.usQuhbGJ8B@phil>
-Content-Language: en-US
-From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-In-Reply-To: <2053748.usQuhbGJ8B@phil>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Magnus Damm <magnus.damm@gmail.com>, 
+ Biju Das <biju.das.jz@bp.renesas.com>, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
+ Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: Re: [PATCH v2 0/4] Add RZ/G3L GFX support
+Message-ID: <acXoBfUu3XNg2G62@sobremesa>
+References: <20260320164158.487406-1-biju.das.jz@bp.renesas.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260320164158.487406-1-biju.das.jz@bp.renesas.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,68 +75,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hello Heiko,
+Applied to drm-misc-next.
 
-On 3/26/26 9:28 PM, Heiko Stuebner wrote:
-> Am Montag, 9. März 2026, 23:44:35 Mitteleuropäische Normalzeit schrieb Cristian Ciocaltea:
->> The DisplayPort AUX channel gets initialized and registered during
->> dw_dp_bind(), but it is never unregistered, which may lead to resource
->> leaks and/or use-after-free:
->>
->> [  224.661371] BUG: KASAN: slab-use-after-free in device_is_dependent+0xe0/0x2b0
->> [  224.662015] Read of size 8 at addr ffff00011aee8550 by task modprobe/658
->> ...
->> [  224.662796]  device_is_dependent+0xe0/0x2b0
->> [  224.662802]  device_is_dependent+0x108/0x2b0
->> [  224.662808]  device_link_add+0x1f8/0x10b0
->> [  224.662813]  devm_of_phy_get_by_index+0x120/0x200
->> [  224.662819]  dw_dp_bind+0x34c/0xb10 [dw_dp]
->> [  224.662830]  dw_dp_rockchip_bind+0x194/0x250 [rockchipdrm]
->> [  224.662864]  component_bind_all+0x3a8/0x720
->> [  224.662869]  rockchip_drm_bind+0x120/0x390 [rockchipdrm]
->> [  224.662899]  try_to_bring_up_aggregate_device+0x76c/0x838
->> [  224.662904]  component_master_add_with_match+0x1f4/0x230
->> [  224.662909]  rockchip_drm_platform_probe+0x420/0x538 [rockchipdrm]
->> [  224.662939]  platform_probe+0xe8/0x168
->> [  224.662945]  really_probe+0x340/0x828
->> [  224.662950]  __driver_probe_device+0x2e0/0x350
->> [  224.662954]  driver_probe_device+0x80/0x140
->> [  224.662959]  __driver_attach+0x398/0x460
->> [  224.662964]  bus_for_each_dev+0xe0/0x198
->> [  224.662968]  driver_attach+0x50/0x68
->> [  224.662972]  bus_add_driver+0x2a0/0x4c0
->> [  224.662977]  driver_register+0x294/0x360
->> [  224.662982]  __platform_driver_register+0x7c/0x98
->> [  224.662987]  rockchip_drm_init+0xc4/0xff8 [rockchipdrm]
->> ...
->>
->> Unregister the AUX adapter on bridge detach.
-> 
-> that sounds sort of asymmetrical though. drm_bridge_funcs has attach and
-> detach callbacks and the component-framework also has bind and unbind
-> callbacks.
-> 
-> This might cause confusion later on I guess, especially as I don't know
-> if there could be a bridge attach, after the detach that unregisters the
-> aux adapter.
-> 
-> Looking at the AnalogixDP for example, it does the the register and
-> unregister in the bind/unbind callbacks of the core driver.
-> 
-> So I guess the in my eyes cleaner way would be to introduce a
-> dw_dp_unbind() function and put the aux unregister there?
-> 
-> At least that way, everything would be at the same "level".
+On 20.03.2026 16:41, Biju wrote:
+> From: Biju Das <biju.das.jz@bp.renesas.com>
+>
+> The Renesas RZ/G3L SoC includes the Arm Mali-G31 GPU as a 3D Graphics
+> Engine (GE3D). The Arm Mali-G31 GPU is a graphics acceleration platform
+> that is based on open standards. It supports 2D graphics, 3D graphics, and
+> General Purpose computing on GPU (GPGPU). Add the binding and driver
+> support for suspend/resume functionality along with some improvements in
+> panfrost driver.
+>
+> v1->v2:
+>  * Dropped duplicate err assignment
+>  * Changed the format string of dev_err to "%d" and simplify the dev_err()
+>    line by using err rather than the same PTR_ERR().
+>  * Collected tags
+>
+> Biju Das (4):
+>   dt-bindings: gpu: mali-bifrost: Add compatible for RZ/G3L SoC
+>   drm/panfrost: Drop redundant optional clock checks in runtime PM
+>   drm/panfrost: Add bus_ace optional clock support for RZ/G2L
+>   drm/panfrost: Add GPU_PM_RT support for RZ/G3L SoC
+>
+>  .../bindings/gpu/arm,mali-bifrost.yaml        |  2 ++
+>  drivers/gpu/drm/panfrost/panfrost_device.c    | 34 ++++++++++++++-----
+>  drivers/gpu/drm/panfrost/panfrost_device.h    |  1 +
+>  drivers/gpu/drm/panfrost/panfrost_drv.c       |  1 +
+>  4 files changed, 30 insertions(+), 8 deletions(-)
+>
+> --
+> 2.43.0
 
-You are right.  As a matter of fact exporting the *_unbind() in the library was
-my first thought, but for some reason I went with the "auto" approach.
-
-I've just handled this in v3 [1].
-
-Thanks for reviewing and picking the rest of the patches!
-
-Regards,
-Cristian
-
-[1] https://lore.kernel.org/all/20260327-drm-rk-fixes-v3-0-fd2e6900c08c@collabora.com/
-
+Adrian Larumbe
