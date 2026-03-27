@@ -4,72 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5618010F284C
-	for <dri-devel@archiver.kernel.org>; Fri, 27 Mar 2026 16:12:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 881FB10F284B
+	for <dri-devel@archiver.kernel.org>; Fri, 27 Mar 2026 16:12:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 961CD10EF11;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A169310EF13;
 	Fri, 27 Mar 2026 16:12:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=fairphone.com header.i=@fairphone.com header.b="nYd7kTxI";
+	dkim=pass (2048-bit key; unprotected) header.d=fairphone.com header.i=@fairphone.com header.b="P2rO6dbW";
 	dkim-atps=neutral
-Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com
- [209.85.208.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 11CAB10EF0D
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Mar 2026 16:12:34 +0000 (UTC)
-Received: by mail-ed1-f42.google.com with SMTP id
- 4fb4d7f45d1cf-66b0684f98eso3376319a12.3
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Mar 2026 09:12:33 -0700 (PDT)
+Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com
+ [209.85.218.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C09F010EF11
+ for <dri-devel@lists.freedesktop.org>; Fri, 27 Mar 2026 16:12:37 +0000 (UTC)
+Received: by mail-ej1-f53.google.com with SMTP id
+ a640c23a62f3a-b941762394aso347708066b.1
+ for <dri-devel@lists.freedesktop.org>; Fri, 27 Mar 2026 09:12:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=fairphone.com; s=fair; t=1774627952; x=1775232752; darn=lists.freedesktop.org;
+ d=fairphone.com; s=fair; t=1774627956; x=1775232756; darn=lists.freedesktop.org;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=14WR76NKv1FwsEs5HwWnn4/wFMyJv3sPwC6I4w0TIdQ=;
- b=nYd7kTxI+ToREeNDQkcrniGuPwa8Xi2dCF2jgZ5uJ2DzEoAE/dScNo5anGfJBw+9xN
- zwcrIqC9NjXLOcsk9NFuLEmGyQb29DfsrNflaEDI0T9kU7iwnkS6+r0EFM6aqbHMqEF5
- AFkTZr+q375lVtTRwMreyheNwWqIhewITi86NTp+WOeN6sPjPpzyHgUeRAz79W4qkXJu
- wQXaXHQqPYH6thWBN1ItaobpS01JXzPYd8VU5mu/4LT4hm7GxvfFCjLaH+dieb4ouBbF
- heUMVf3le0muUeP2Uu8chM79zmbT5sYDiMaLcLL/ALsrZKLSebv0V8Vrrj71ntHWXPw1
- 5Ytw==
+ :reply-to; bh=9jDY2PYGbaZfyJpszHkpHZ5M00y7JZRiJojTTA2GybA=;
+ b=P2rO6dbW2y3IxfLpitrOOBMxy1//rw5FCnyNXEByw6axDp+pxruLiK2Qs95a3PN+lL
+ f7oeQPbj4Kh8Vhs14/jjYtag8rKdlxmr7fKN76y8VHifhkeEVTqo5tdnFEyRWr84/Dlm
+ fusMhixOFZG1Wt6ck8vPtLnMR//jRC6U+sBD7y/rwUdnHLCLO+xWxg5oRF+zOlyarKEn
+ wt0IN2UeQ9u4Ys/dKPqb4gn/ya/AouWHO+H94KJLhR+11B59y1jcqRi2KjKeqqp0uINs
+ y4Wz0oqaCQCUcCyfwhV7ydSm1f19Gc9/PDzm4CUp5tIUqNMW1lYwIyZcjsx6oac1RxQl
+ ta6Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774627952; x=1775232752;
+ d=1e100.net; s=20251104; t=1774627956; x=1775232756;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
  :cc:subject:date:message-id:reply-to;
- bh=14WR76NKv1FwsEs5HwWnn4/wFMyJv3sPwC6I4w0TIdQ=;
- b=f3oBWJcTEVdiMXyyKAw9yAlzk3TGMreDSru1npNvBF9Odce4YQl4NhIoDLOYzXIeL8
- aZKgBvu3Vif+JF43MoDMz8a6tRRk6LpK4EknxjtZzuv3mjnoNzgzYq3Hc5NpuyD73b2o
- +Txt3atUeeHZAvsDXrA+VaxSQLIS5qMHScrDyyaiZxZrtFmYAntB0RFt3L3RBFxycJRd
- psGmtQ+pEvln3ERwt8bLZLfQ4SJ0f9KsEu3lgeDb4tg163mOOELUqLyfN2nrzFsll9IX
- nDQ+kKvhR6SqNJGK8wvFFz33/hvLIe0xm8CkEYfHusQ+HC1d21jpMlyX7g12WRnjTm9B
- zfjw==
+ bh=9jDY2PYGbaZfyJpszHkpHZ5M00y7JZRiJojTTA2GybA=;
+ b=tO6kAZJhLL9tfw1PkGalPVBXPCQsWUOQHqTYLLtJhDtQscgVnoDXApyJSfnRpPeigQ
+ 4MtQrvuOSD3wh53LzBclGh/0TSQhSfRzXnheobvSCiSweozBx+mOQU8V9Gqx4dkwOTJS
+ hgyo9r0z6SKZuTu3rul9/sH8oLmB/hwZZdUOD4q4gmugIHwIBMyWyKNaZjJutmnskzrC
+ GsQkAgCNznsqfVuOdavpNdOoHnWp96uz/u4J7wJJuwITjcPifz5k/M98BJ9c02sv+nfa
+ nIk8TL7g+8y51nTK1e8sS7XpJPXNAy5yZhbiK6c6HWguILthHa33J/Lje/KYzbSVblhX
+ rziw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWyzIShg5pP5MY3GcGVXtEWkMVtqDMnorzPFgoPGxGMLyWHuKMpTnOYLHE26So4GqOIcnq0NH9CjVs=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxXBszIhHrRAoPR6bb+msI1h10bzPWPuaYymzkeqDJzkIATDh6M
- IYCKhNIDFO9ZHmYuVx1JjEqNc6Pt1p5/CAt4L4DUjaAYCLePrn/hzFusJNVt5BEnE/E=
-X-Gm-Gg: ATEYQzwZjeOKYY/4r0OAG3sOLNLkLza2TVx84nc6fzOf3s8Rwma7u8bbngvqBYMxhZl
- fQhMJKliJVNp4ec8GrWhiHiScdhyX9YB+xa6PCkzuUyIkGF6g6dNuvhwT6hD8iNch+dgAIAGUbs
- swdXZ24cGwyuGU2Ki/8035mZ5ufpHeDVDP+F/F3swAL5GQqJ0lhVaWKrbMDG7/woxuqi2hZyPcS
- HFpkUQAC9sW8CxvIGnRinQseCYSWuSc2OfeCepLqG++bbkqpCRrO9tJmowiEZ6J9MddDmjp16Ss
- wkLAmsqRKUFr76717GH92FJnheTIaijp8t4D1r8AlAcRtjTAyne7ukW2mRge4cpMcT0WDDcjPE8
- JRBjBVwasKO3P2u5yuPBQO+dPz1JrXNIVqwxyOTC0nKpNw7H7uBIT+VPpTiZT19HIfW9iZDf9Wv
- JD/fjkFzeyz3cnw8ciFwc9Fs5wEhavb3jE/Ed0if2Mn3GqBfi+yfT5HpJpP85m7mIVl2dpO73NV
- M2DoQ==
-X-Received: by 2002:a17:907:3e97:b0:b98:b51:6f51 with SMTP id
- a640c23a62f3a-b9b507a58c4mr241007366b.35.1774627952065; 
- Fri, 27 Mar 2026 09:12:32 -0700 (PDT)
+ AJvYcCUmhMmpUxaEBl1Nn9NCJQCM+0HQveF1IwNTELtKe/9rZybixR4xkIPxjNZuqk544bNDYzdJK4K+zfI=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yw4Cjr+hlfv2BO8sNsvX0dVMvLZau41fpHABZllCeegCTABMyHC
+ mJFrMnitD11BTpc0vOI7tBjhZpY35YTyyLPCecUT+LRpbq/eqiNOkQTAMoeDnup/Kp8=
+X-Gm-Gg: ATEYQzzPFMjw8I4thvY8f4LBJzyspuWoeGlAozMN6wMjNlU/+BwuVjE2pzMkZGwUCxN
+ D99CTS/RKokd10JDqwBkMEhgMuvLgntGIgjJxIdS9ZirEYos08fxK3VDmK0Ntrk02Yarj3qPYLd
+ 6jPI/Iq464P9z2y9K8XOXpaF8FqsD2204A0wF5rTuFCdEEkfy1wR7o+nP578Xnk4osA+/GXlf+L
+ TKMgPC5Oiu/W3jfjyXuYzzUCPG2zYy2l8cyr5GG5t91NjSbWDxmlw1MeNlFcBCvP7hyUPIS9hEu
+ S0q5wx2isyABpC/jdCD/ax0L9LHfBzmM1ymRXj0h2qSrHRec1DJd7lmQWJAJz/W32SKp7x8sFh2
+ hPuURvVe6aHbvYqACCS6kqU6YtKJrRNEGTxXZIQ6HxrwOVg/s5ysFc6q9ctTxVQm0mUyHS0RNy1
+ vHR5pIlK/u9RTcdng0hn/gQ7kfMjFf9DnFCAFxf0fEgR1URUYT474UlVpr0ipHq2e4RF07xsyxQ
+ rydCA==
+X-Received: by 2002:a17:907:9306:b0:b98:4abb:cc49 with SMTP id
+ a640c23a62f3a-b9b502bfd00mr209569466b.5.1774627956162; 
+ Fri, 27 Mar 2026 09:12:36 -0700 (PDT)
 Received: from [172.16.220.101] (144-178-202-139.static.ef-service.nl.
  [144.178.202.139]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b9b20265cc0sm273518366b.15.2026.03.27.09.12.30
+ a640c23a62f3a-b9b20265cc0sm273518366b.15.2026.03.27.09.12.35
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 27 Mar 2026 09:12:31 -0700 (PDT)
+ Fri, 27 Mar 2026 09:12:35 -0700 (PDT)
 From: Luca Weiss <luca.weiss@fairphone.com>
-Date: Fri, 27 Mar 2026 17:12:20 +0100
-Subject: [PATCH v2 1/9] dt-bindings: display: msm-dsi-phy-7nm: document the
- Milos DSI PHY
+Date: Fri, 27 Mar 2026 17:12:24 +0100
+Subject: [PATCH v2 5/9] soc: qcom: ubwc: Add config for Milos
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260327-milos-mdss-v2-1-bc586683f5ca@fairphone.com>
+Message-Id: <20260327-milos-mdss-v2-5-bc586683f5ca@fairphone.com>
 References: <20260327-milos-mdss-v2-0-bc586683f5ca@fairphone.com>
 In-Reply-To: <20260327-milos-mdss-v2-0-bc586683f5ca@fairphone.com>
 To: Bjorn Andersson <andersson@kernel.org>, 
@@ -91,13 +90,15 @@ To: Bjorn Andersson <andersson@kernel.org>,
 Cc: ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org, 
  linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
  dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
- devicetree@vger.kernel.org, Luca Weiss <luca.weiss@fairphone.com>
+ devicetree@vger.kernel.org, Luca Weiss <luca.weiss@fairphone.com>, 
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 X-Mailer: b4 0.15.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1774627949; l=871;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1774627949; l=1658;
  i=luca.weiss@fairphone.com; s=20250611; h=from:subject:message-id;
- bh=EVldcqfPHPh1FF7QDMATcvXChGeMKnSCWknhWuq45Jg=;
- b=7Xs0w2eewxL5CZRI6DTsd3patfJnGDWajpneO0Gb7M04cO2ebwe9xVRUTwB/8n4ryA6yQf4XM
- Wst+Ph1T2SSBnUcinUWrXd3lqAzF+0vVz4Pe5oq0O1dNKX+diUB1slP
+ bh=5cRqSrO9TWRQUaD7bTpD1ZxLquZmqnEMTYi63NVSawg=;
+ b=aIVcCFwLleXDR6BbWbAVLdZGSgSQE3T0zkh07vYu6x6K/HU3SUHpaustvo0IrxX3T00BKLHOA
+ f+oyhjM/FIkCWLIqvrDlNpWYSCHXcofk+OrlUQkx6J2XtUJlVtSdlnu
 X-Developer-Key: i=luca.weiss@fairphone.com; a=ed25519;
  pk=O1aw+AAust5lEmgrNJ1Bs7PTY0fEsJm+mdkjExA69q8=
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -115,25 +116,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Document the DSI PHY on the Milos Platform.
+Describe the Universal Bandwidth Compression (UBWC) configuration
+for the Milos SoC.
 
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
 ---
- Documentation/devicetree/bindings/display/msm/dsi-phy-7nm.yaml | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/soc/qcom/ubwc_config.c | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/display/msm/dsi-phy-7nm.yaml b/Documentation/devicetree/bindings/display/msm/dsi-phy-7nm.yaml
-index b5a0c1461250..4bdec236734c 100644
---- a/Documentation/devicetree/bindings/display/msm/dsi-phy-7nm.yaml
-+++ b/Documentation/devicetree/bindings/display/msm/dsi-phy-7nm.yaml
-@@ -20,6 +20,7 @@ properties:
-               - qcom,dsi-phy-7nm
-               - qcom,dsi-phy-7nm-8150
-               - qcom,kaanapali-dsi-phy-3nm
-+              - qcom,milos-dsi-phy-4nm
-               - qcom,sa8775p-dsi-phy-5nm
-               - qcom,sar2130p-dsi-phy-5nm
-               - qcom,sc7280-dsi-phy-7nm
+diff --git a/drivers/soc/qcom/ubwc_config.c b/drivers/soc/qcom/ubwc_config.c
+index 3fe47d8f0f63..1551f270afce 100644
+--- a/drivers/soc/qcom/ubwc_config.c
++++ b/drivers/soc/qcom/ubwc_config.c
+@@ -37,6 +37,17 @@ static const struct qcom_ubwc_cfg_data kaanapali_data = {
+ 	.macrotile_mode = true,
+ };
+ 
++static const struct qcom_ubwc_cfg_data milos_data = {
++	.ubwc_enc_version = UBWC_4_0,
++	.ubwc_dec_version = UBWC_4_0,
++	.ubwc_swizzle = UBWC_SWIZZLE_ENABLE_LVL2 |
++			UBWC_SWIZZLE_ENABLE_LVL3,
++	.ubwc_bank_spread = true,
++	/* TODO: highest_bank_bit = 14 for LP_DDR4 */
++	.highest_bank_bit = 15,
++	.macrotile_mode = true,
++};
++
+ static const struct qcom_ubwc_cfg_data msm8937_data = {
+ 	.ubwc_enc_version = UBWC_1_0,
+ 	.ubwc_dec_version = UBWC_1_0,
+@@ -247,6 +258,7 @@ static const struct of_device_id qcom_ubwc_configs[] __maybe_unused = {
+ 	{ .compatible = "qcom,kaanapali", .data = &kaanapali_data, },
+ 	{ .compatible = "qcom,glymur", .data = &glymur_data},
+ 	{ .compatible = "qcom,mahua", .data = &glymur_data },
++	{ .compatible = "qcom,milos", .data = &milos_data },
+ 	{ .compatible = "qcom,msm8226", .data = &no_ubwc_data },
+ 	{ .compatible = "qcom,msm8916", .data = &no_ubwc_data },
+ 	{ .compatible = "qcom,msm8917", .data = &no_ubwc_data },
 
 -- 
 2.53.0
