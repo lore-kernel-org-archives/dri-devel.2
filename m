@@ -4,146 +4,147 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EEDA210F2846
-	for <dri-devel@archiver.kernel.org>; Fri, 27 Mar 2026 16:02:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C84F010F284C
+	for <dri-devel@archiver.kernel.org>; Fri, 27 Mar 2026 16:08:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3897010EDA0;
-	Fri, 27 Mar 2026 16:02:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2CA1410EEE4;
+	Fri, 27 Mar 2026 16:08:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="t+7y/d0P";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="ENNf69er";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="L8qvBsdf";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="JetvWUGl";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Rq+LjPrq";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="KDbP0iNJ";
 	dkim-atps=neutral
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 673B610EDA0
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Mar 2026 16:02:00 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id DA9615BE2B;
- Fri, 27 Mar 2026 16:01:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1774627319; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=sDJSLnUthelUAKcz3N7J/HVUH8gX8oP8TosT63f/+iU=;
- b=t+7y/d0PfA2KY7ygsGFChryPUFKJssiVwAZwC2tJYjZk37j89BIiS+/rIXxr1a88ycM208
- eGEOmfl42B+v6wHeIlmvWHka5/R0CwzQFpt1o5KNkwuj4XWy8Z+e3FQquW5bPZrrYn8XQO
- Qz0hC69CQaaFG9OXolRUMlacySrNTT4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1774627319;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=sDJSLnUthelUAKcz3N7J/HVUH8gX8oP8TosT63f/+iU=;
- b=ENNf69er+Ply7JGnWhIZYbRAivm1ogeWCl1p9d+cFflpSZOgxnUwEbZzTGvLR62me94jJm
- UELBfKloemrnNIDQ==
-Authentication-Results: smtp-out2.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=L8qvBsdf;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=JetvWUGl
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1774627317; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=sDJSLnUthelUAKcz3N7J/HVUH8gX8oP8TosT63f/+iU=;
- b=L8qvBsdfMryVkUbGPsNPSUoaBanz4akltb8gTeT32L8YOx2EfCDNe3jkEXtrbsay/Udlle
- AmVmHVEyHJ8i1vXgeqtdPXpSst4KSxb2Pp8q8p45xnunNlijXfK11NiodHrPbpAK7zYfJx
- 5sVc5DptbIUhxBa2oODzicxABD4wPBY=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1774627317;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=sDJSLnUthelUAKcz3N7J/HVUH8gX8oP8TosT63f/+iU=;
- b=JetvWUGl9/pEYjEO2U/koENz1Qx9LrUTExSTQHjMvu3vk1tLKD7vXGxAdAFHH8dOAZE56Z
- Fr4o6ArLAzMMcCCQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 738CE4A0A2;
- Fri, 27 Mar 2026 16:01:57 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id ioCCGvWpxmmSMQAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Fri, 27 Mar 2026 16:01:57 +0000
-Message-ID: <7d27489a-b190-4158-91e4-e389289b4694@suse.de>
-Date: Fri, 27 Mar 2026 17:01:57 +0100
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BAB9F10EDE4
+ for <dri-devel@lists.freedesktop.org>; Fri, 27 Mar 2026 16:08:32 +0000 (UTC)
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 62RDhDaX3084549
+ for <dri-devel@lists.freedesktop.org>; Fri, 27 Mar 2026 16:08:32 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:reply-to:subject:to; s=
+ qcppdkim1; bh=jT6N8avUUDlCXZ0/BPJN6GuGWXRGuNZJ0M5UO1nZZNo=; b=Rq
+ +LjPrqgrf2iv2qyk5u9Rg0GPW21jIRAtDTHsAjMQ9aRgviBgE5av0EKpjAhozx67
+ gT7kF2OJFc20rPSvhDIKDofwMOSBZg9Oi20jKoE2lFiyQPbV50SW1Vm0NFR1vJ6H
+ JbzXpufKPwEP0HQq/ZbDFt6By9ZMasDlweoRs02GYRIf/acu3byyP3OI587MMFo9
+ 7GngHTtmEWeJsoftmAjEDfYTeJJ0xMyCu6GY1G87w4Z1i+1EzzGGkSIGgnRTzlia
+ bdWGWF1oOsK3L/89RcrY9bgiZ8lOYqTyzMipsIqsAp5y0YlzkHQl2vilj4ncX94c
+ cDZXMlR5KVD8JMfsDALA==
+Received: from mail-ot1-f72.google.com (mail-ot1-f72.google.com
+ [209.85.210.72])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d5mn1226s-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Fri, 27 Mar 2026 16:08:31 +0000 (GMT)
+Received: by mail-ot1-f72.google.com with SMTP id
+ 46e09a7af769-7d9d3230cf8so5375230a34.1
+ for <dri-devel@lists.freedesktop.org>; Fri, 27 Mar 2026 09:08:31 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1774627711; cv=none;
+ d=google.com; s=arc-20240605;
+ b=BYNMTmFkTkNZBKL82LL5rM+/0H+K3rOJV1xnFQWFGl8btq2zu4Ts8cQZoobXGycyH7
+ 200+YSRccCBVjAI7dGBFJRYkPX+dtkTZ+0xWd4yZboVEqf3H8uWzkKAwhn17Jl1D1KEO
+ 7HMjsGaV6dMVzyERWKJQ8XH1UYw3UBM8kWhUA6vnERxPnsxuQmNa0cZoiBH5yEULYiSs
+ ZNkJ8aXZDrwgYdvOsXaHUlk8g3To4eehsiVHxhN025BMdW4Qv5/kii9UqT+JGvnqRluP
+ d5FQQHvuOfrnQGYS4yAJBA1ibb8Aqy/og2z9eKjhUQInKgMcMooKk0TPgDFOHgfR6sCI
+ Hphg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :reply-to:in-reply-to:references:mime-version:dkim-signature;
+ bh=jT6N8avUUDlCXZ0/BPJN6GuGWXRGuNZJ0M5UO1nZZNo=;
+ fh=BtltpUBmVpCA2CILR0Hb06MpU7yE6LoHiAO9rljhN+E=;
+ b=AMYXP8SBgwHIIaW8V/z6zKY/olB8plAYI9gPmjpMJSE3odQRoK8fvXt0oDGFXpFcq+
+ EUWJuqolY34jI6jUNWuZ1FwWzPZRXAu/GV2zw98837tr/m6B9Yq1N3g9zVqzRCkCEwiL
+ 3kG3ixNO6fgkB7tAbHMGam/9Z4wIQsjcXePkzDO/GHxbdR8/jCSYIecAaePNq0EU+TBC
+ kS52eC3L8wQkohY568/DZB01hIru0GEGFKEAz6wROzy0L86vhbrAeOaHzl5QSOrZK78d
+ sN66S07hsepGb1Wv3E+cSg3GT3MUbtpIUJ6jxWuI2dafYL6rkZbpRBHsZqh2xA6MTKe7
+ wQNA==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1774627711; x=1775232511;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :reply-to:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=jT6N8avUUDlCXZ0/BPJN6GuGWXRGuNZJ0M5UO1nZZNo=;
+ b=KDbP0iNJX8a4uPGFcbOy39aqLXTYsINgDTxt6eV47/daX96NpSfIb3RsRZDJMmC4Zu
+ +PXwRZGP2QkObCslQ0jueAGZNfeDymnuJay8Po+BK633Tefwz5er26XroCJFiSfVFiom
+ TmbxNTKJ1Xaa8m8w9OJ4PD4gjbuApwDaEgEXVXDj/TU+A3IJnQy8ti78pBXjO8vTSEKG
+ FPwznuXHkjXGSVrSSRXZsJW7/lzMWz25ZFDID4mLN5Gy6j5ccXv5ijrQRzgCKmIsthmB
+ ber+un4HtO5WaUiubArAer1+vW09UsO4e1RADSmmY1JKG8sT76/TMLQ4Zcl7C6cvHoXJ
+ X5eg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1774627711; x=1775232511;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :reply-to:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=jT6N8avUUDlCXZ0/BPJN6GuGWXRGuNZJ0M5UO1nZZNo=;
+ b=UR/RMbdwG0eyJq2G+gR9+dzKtRbMcO3R6j6dnj/jSug5kiCnX4uDUGLzMAeOkp3/jk
+ p5xiF0qobwpIcAgJ/1vKpJU77I5TvJRE2O/Q+WXWKb6437LBCYd2T24EmY1v0PCe90Gy
+ Z0H7Vgfu0hezfo0j6f7khcwZulobb7FPnn1Bacbewr/FjeyP7uQkh46ERjmNhiw1NXUQ
+ bod0FuJNlMK1jYFEW/IykbE8NumYKSZjDKLFP2LbDuiqOkGr9BDuSw02mtftsNfNrB1x
+ R1T6KOBKFGX1vFgu5eKqw6sGw8wwCX6k8fgA/5dc8+gnO5yFp/umTLfD2sxmmSdtTkxQ
+ XFqg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWmj7HJNuHZ0bYKJIrrKDwNwfLCqaYWddcIJHyukaB89PqBoG8rMSRqlptbyt9KSBhDabVAouUeNaY=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwweKeSAKQtlok0e1sqZzO41R9YBvH1hbpHS5N96D4KEQOOQaVf
+ +uvLXcDnoV8rqnSTeiZkdYa+ad6msdlcMFpyN7NkOuts5m4DTk3MdIej5LXLb+dJtLWY9VKVV4l
+ mcoUWUdS7iVhUv5RPQ9hYqfbO7QhoMvCoTFYYysNJvjqjDAEnpvZu1i2yJ143xIYyRSAwS9BxMg
+ wcUx/ANMH5Ergo3oODtvnWe2136lUM7oIeecu9dqXuBZp1Fg==
+X-Gm-Gg: ATEYQzzrCXdadDQY0He92bBU4ELkDiMjETisD7KvkByOMOL+c5pXIEKMHbjIVW33cay
+ nLsyV0DEdmio6nrlazXinECZ7uX/p5xnEkjwEvib/NIDyxWcA9R6WCuzo9cO3VZomFmrtjUyXj+
+ UWwAqHB/LHBaqBOxBvlFo9lw/G4KBZJDX7nLtmXqh2oS9OGp008sChh2PkznxOxEZE1Nj6VLhyi
+ Qr0LVaHuurh/NL8ROnDjogeyP0+trzh6iL3nw==
+X-Received: by 2002:a05:6830:6b0b:b0:7d7:fd71:f2d4 with SMTP id
+ 46e09a7af769-7d9fae95c90mr1533792a34.3.1774627711103; 
+ Fri, 27 Mar 2026 09:08:31 -0700 (PDT)
+X-Received: by 2002:a05:6830:6b0b:b0:7d7:fd71:f2d4 with SMTP id
+ 46e09a7af769-7d9fae95c90mr1533762a34.3.1774627710605; Fri, 27 Mar 2026
+ 09:08:30 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/tilcdc: replace use of system_wq with system_percpu_wq
-To: Marco Crivellari <marco.crivellari@suse.com>,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org
-Cc: Tejun Heo <tj@kernel.org>, Lai Jiangshan <jiangshanlai@gmail.com>,
- Frederic Weisbecker <frederic@kernel.org>,
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
- Michal Hocko <mhocko@suse.com>, Jyri Sarha <jyri.sarha@iki.fi>,
+References: <20260127073341.2862078-1-senozhatsky@chromium.org>
+ <acSRDNA8fCP7qAFJ@google.com>
+ <fe3177bd-a3d2-4c0a-ab6f-9752eaf32fc4@oss.qualcomm.com>
+In-Reply-To: <fe3177bd-a3d2-4c0a-ab6f-9752eaf32fc4@oss.qualcomm.com>
+From: Rob Clark <rob.clark@oss.qualcomm.com>
+Date: Fri, 27 Mar 2026 09:08:19 -0700
+X-Gm-Features: AQROBzANslr58qDkTo4BstZrTPuot25lDdq5XN9xXqpfQR6OmMZsIelXELfMcrI
+Message-ID: <CACSVV00MFgsn8_XjXZxubJibLFE9ULrFqiEW9dQAyU404SLj1g@mail.gmail.com>
+Subject: Re: [RFC PATCH] drm: gpu: msm: forbid mem reclaim from reset
+To: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+Cc: Sergey Senozhatsky <senozhatsky@chromium.org>, Sean Paul <sean@poorly.run>,
+ Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Tomasz Figa <tfiga@chromium.org>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
-References: <20251104165731.315074-1-marco.crivellari@suse.com>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20251104165731.315074-1-marco.crivellari@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Action: no action
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FUZZY_RATELIMITED(0.00)[rspamd.com];
- RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
- ARC_NA(0.00)[]; RCPT_COUNT_TWELVE(0.00)[14];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; MIME_TRACE(0.00)[0:+];
- SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
- FREEMAIL_ENVRCPT(0.00)[gmail.com];
- FREEMAIL_CC(0.00)[kernel.org,gmail.com,linutronix.de,suse.com,iki.fi,linux.intel.com,ideasonboard.com,ffwll.ch];
- RCVD_TLS_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- TO_DN_SOME(0.00)[];
- DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from,2a07:de40:b281:106:10:150:64:167:received];
- RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
- MID_RHS_MATCH_FROM(0.00)[]; DKIM_TRACE(0.00)[suse.de:+];
- RCVD_VIA_SMTP_AUTH(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,
- imap1.dmz-prg2.suse.org:rdns, suse.com:url, suse.com:email, suse.de:dkim,
- suse.de:mid, suse.de:email]
-X-Rspamd-Queue-Id: DA9615BE2B
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzI3MDEwNiBTYWx0ZWRfX0WigwqSjsP0D
+ qD/P0BG1WdSICfZbkdth6xpF7hT80sqvrC6UT5+ahugdvMOtKvHNhDYSpaC1f6xYpGWMi52YXdS
+ C7EfaYTkjbstT1pdV+aHlcPpYX/ydQ6sEV9k8rNTYgHMhZkhvk28CZBUpL+URP6CP686NpGbYlW
+ owt61rBZma3uHn577kW3z7aX/BTBvzAkyLczFB/Y/f4LN70/6R4uOKBnYLBZJfmgJZetCxQkcjL
+ L1rrb/6zxXT8ztBGrjBgPFQNnaVg5czXcaNyfrR7314xHINBXZ+ICsNgqjGmmhItm4iZLH79h+G
+ QTVvEYi/zYfOwf8Ep3vUsh40z5/cBmhsNWud1QiAN437R9rD7+LmQZYHvpK+XqJMndIkVFZH2Q+
+ q9OVISH2Y4mZ50pNe+Tk4zSqrViNObUikKQejgHSUtK5CgNaOe2a35TQp7JHjG2ZjLuX0fkFIqA
+ cm14LO+pETMjmm467KA==
+X-Authority-Analysis: v=2.4 cv=CcwFJbrl c=1 sm=1 tr=0 ts=69c6ab7f cx=c_pps
+ a=+3WqYijBVYhDct2f5Fivkw==:117 a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=3WHJM1ZQz_JShphwDgj5:22 a=EUspDBNiAAAA:8 a=cm27Pg_UAAAA:8
+ a=6zafeYv-5ULS2h4Lh1kA:9 a=QEXdDO2ut3YA:10 a=eYe2g0i6gJ5uXG_o6N4q:22
+X-Proofpoint-ORIG-GUID: NNWzhCR_3Z8mAtpqPG2vL9RFIFsRHwh_
+X-Proofpoint-GUID: NNWzhCR_3Z8mAtpqPG2vL9RFIFsRHwh_
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-03-26_04,2026-03-26_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 spamscore=0 malwarescore=0 adultscore=0 lowpriorityscore=0
+ bulkscore=0 impostorscore=0 priorityscore=1501 clxscore=1015 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603270106
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -156,60 +157,187 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: rob.clark@oss.qualcomm.com
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-
-
-Am 04.11.25 um 17:57 schrieb Marco Crivellari:
-> Currently if a user enqueue a work item using schedule_delayed_work() the
-> used wq is "system_wq" (per-cpu wq) while queue_delayed_work() use
-> WORK_CPU_UNBOUND (used when a cpu is not specified). The same applies to
-> schedule_work() that is using system_wq and queue_work(), that makes use
-> again of WORK_CPU_UNBOUND.
+On Thu, Mar 26, 2026 at 5:18=E2=80=AFPM Akhil P Oommen <akhilpo@oss.qualcom=
+m.com> wrote:
 >
-> This lack of consistentcy cannot be addressed without refactoring the API.
+> On 3/26/2026 7:24 AM, Sergey Senozhatsky wrote:
+> > On (26/01/27 16:33), Sergey Senozhatsky wrote:
+> >> We sometimes get into a situtation where GPU hangcheck fails to
+> >> recover GPU:
+> >>
+> >> [..]
+> >> msm_dpu ae01000.display-controller: [drm:hangcheck_handler] *ERROR* (I=
+Pv4: 1): hangcheck detected gpu lockup rb 0!
+> >> msm_dpu ae01000.display-controller: [drm:hangcheck_handler] *ERROR* (I=
+Pv4: 1): completed fence: 7840161
+> >> msm_dpu ae01000.display-controller: [drm:hangcheck_handler] *ERROR* (I=
+Pv4: 1): submitted fence: 7840162
+> >> msm_dpu ae01000.display-controller: [drm:hangcheck_handler] *ERROR* (I=
+Pv4: 1): hangcheck detected gpu lockup rb 0!
+> >> msm_dpu ae01000.display-controller: [drm:hangcheck_handler] *ERROR* (I=
+Pv4: 1): completed fence: 7840162
+> >> msm_dpu ae01000.display-controller: [drm:hangcheck_handler] *ERROR* (I=
+Pv4: 1): submitted fence: 7840163
+> >> [..]
+> >>
+> >> The problem is that msm_job worker is blocked on gpu->lock
+> >>
+> >> INFO: task ring0:155 blocked for more than 122 seconds.
+> >> Not tainted 6.6.99-08727-gaac38b365d2c #1
+> >> task:ring0 state:D stack:0 pid:155 ppid:2 flags:0x00000008
+> >> Call trace:
+> >> __switch_to+0x108/0x208
+> >> schedule+0x544/0x11f0
+> >> schedule_preempt_disabled+0x30/0x50
+> >> __mutex_lock_common+0x410/0x850
+> >> __mutex_lock_slowpath+0x28/0x40
+> >> mutex_lock+0x5c/0x90
+> >> msm_job_run+0x9c/0x140
+> >> drm_sched_main+0x514/0x938
+> >> kthread+0x114/0x138
+> >> ret_from_fork+0x10/0x20
+> >>
+> >> which is owned by recover worker, which is waiting for DMA fences
+> >> from a memory reclaim path, under the very same gpu->lock
 >
-> This patch continues the effort to refactor worqueue APIs, which has begun
-> with the change introducing new workqueues and a new alloc_workqueue flag:
->
-> commit 128ea9f6ccfb ("workqueue: Add system_percpu_wq and system_dfl_wq")
-> commit 930c2ea566af ("workqueue: Add new WQ_PERCPU flag")
->
-> system_wq should be the per-cpu workqueue, yet in this name nothing makes
-> that clear, so replace system_wq with system_percpu_wq.
->
-> The old wq (system_wq) will be kept for a few release cycles.
->
-> Suggested-by: Tejun Heo <tj@kernel.org>
-> Signed-off-by: Marco Crivellari <marco.crivellari@suse.com>
+> I am still thinking if there is a better way to handle this. Btw, Rob
+> had a few fixes related to this area recently. Do you think those would
+> help in this scenario?
 
-Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
+For some reason I was thinking we used GFP_ATOMIC or similar in the
+gpu snapshot path.. but we don't :-(
 
-> ---
->   drivers/gpu/drm/tilcdc/tilcdc_crtc.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
+It does look like we handle allocation failures.  So this is probably
+a better option than fixing up GFP flags everywhere.
+
+Reviewed-by: Rob Clark <rob.clark@oss.qualcomm.com>
+
+(and apologies for overlooking this patch earlier)
+
+> -Akhil
 >
-> diff --git a/drivers/gpu/drm/tilcdc/tilcdc_crtc.c b/drivers/gpu/drm/tilcdc/tilcdc_crtc.c
-> index b5f60b2b2d0e..57518a4ab4e1 100644
-> --- a/drivers/gpu/drm/tilcdc/tilcdc_crtc.c
-> +++ b/drivers/gpu/drm/tilcdc/tilcdc_crtc.c
-> @@ -985,7 +985,7 @@ irqreturn_t tilcdc_crtc_irq(struct drm_crtc *crtc)
->   				dev_err(dev->dev,
->   					"%s(0x%08x): Sync lost flood detected, recovering",
->   					__func__, stat);
-> -				queue_work(system_wq,
-> +				queue_work(system_percpu_wq,
->   					   &tilcdc_crtc->recover_work);
->   				tilcdc_write(dev, LCDC_INT_ENABLE_CLR_REG,
->   					     LCDC_SYNC_LOST);
-
--- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
-
-
+> >>
+> >> INFO: task ring0:155 is blocked on a mutex likely owned by task gpu-wo=
+rker:154.
+> >> task:gpu-worker state:D stack:0 pid:154 ppid:2 flags:0x00000008
+> >> Call trace:
+> >> __switch_to+0x108/0x208
+> >> schedule+0x544/0x11f0
+> >> schedule_timeout+0x1f8/0x770
+> >> dma_fence_default_wait+0x108/0x218
+> >> dma_fence_wait_timeout+0x6c/0x1c0
+> >> dma_resv_wait_timeout+0xe4/0x118
+> >> active_purge+0x34/0x98
+> >> drm_gem_lru_scan+0x1d0/0x388
+> >> msm_gem_shrinker_scan+0x1cc/0x2e8
+> >> shrink_slab+0x228/0x478
+> >> shrink_node+0x380/0x730
+> >> try_to_free_pages+0x204/0x510
+> >> __alloc_pages_direct_reclaim+0x90/0x158
+> >> __alloc_pages_slowpath+0x1d4/0x4a0
+> >> __alloc_pages+0x9f0/0xc88
+> >> vm_area_alloc_pages+0x17c/0x260
+> >> __vmalloc_node_range+0x1c0/0x420
+> >> kvmalloc_node+0xe8/0x108
+> >> msm_gpu_crashstate_capture+0x1e4/0x280
+> >> recover_worker+0x1c0/0x638
+> >> kthread_worker_fn+0x150/0x2d8
+> >> kthread+0x114/0x138
+> >>
+> >> So no one can make any further progress.
+> >>
+> >> Forbid recover/fault worker to enter memory reclaim (under
+> >> gpu->lock) to address this deadlock scenario.
+> >>
+> >> Cc: Tomasz Figa <tfiga@chromium.org>
+> >> Signed-off-by: Sergey Senozhatsky <senozhatsky@chromium.org>
+> >
+> >
+> > Folks, can somebody please review/pickup this patch?  It solves a real
+> > (deadlock) problem that we observe in the field.
+> >
+> > // keeping the patch body just in case
+> >
+> >> ---
+> >>  drivers/gpu/drm/msm/msm_gpu.c | 11 +++++++++++
+> >>  1 file changed, 11 insertions(+)
+> >>
+> >> diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_g=
+pu.c
+> >> index 995549d0bbbc..ddcd9e1c217a 100644
+> >> --- a/drivers/gpu/drm/msm/msm_gpu.c
+> >> +++ b/drivers/gpu/drm/msm/msm_gpu.c
+> >> @@ -17,6 +17,7 @@
+> >>  #include <linux/string_helpers.h>
+> >>  #include <linux/devcoredump.h>
+> >>  #include <linux/sched/task.h>
+> >> +#include <linux/sched/mm.h>
+> >>
+> >>  /*
+> >>   * Power Management:
+> >> @@ -469,6 +470,7 @@ static void recover_worker(struct kthread_work *wo=
+rk)
+> >>      struct msm_gem_submit *submit;
+> >>      struct msm_ringbuffer *cur_ring =3D gpu->funcs->active_ring(gpu);
+> >>      char *comm =3D NULL, *cmd =3D NULL;
+> >> +    unsigned int noreclaim_flag;
+> >>      struct task_struct *task;
+> >>      int i;
+> >>
+> >> @@ -506,6 +508,8 @@ static void recover_worker(struct kthread_work *wo=
+rk)
+> >>                      msm_gem_vm_unusable(submit->vm);
+> >>      }
+> >>
+> >> +    noreclaim_flag =3D memalloc_noreclaim_save();
+> >> +
+> >>      get_comm_cmdline(submit, &comm, &cmd);
+> >>
+> >>      if (comm && cmd) {
+> >> @@ -524,6 +528,8 @@ static void recover_worker(struct kthread_work *wo=
+rk)
+> >>      pm_runtime_get_sync(&gpu->pdev->dev);
+> >>      msm_gpu_crashstate_capture(gpu, submit, NULL, comm, cmd);
+> >>
+> >> +    memalloc_noreclaim_restore(noreclaim_flag);
+> >> +
+> >>      kfree(cmd);
+> >>      kfree(comm);
+> >>
+> >> @@ -588,6 +594,7 @@ void msm_gpu_fault_crashstate_capture(struct msm_g=
+pu *gpu, struct msm_gpu_fault_
+> >>      struct msm_gem_submit *submit;
+> >>      struct msm_ringbuffer *cur_ring =3D gpu->funcs->active_ring(gpu);
+> >>      char *comm =3D NULL, *cmd =3D NULL;
+> >> +    unsigned int noreclaim_flag;
+> >>
+> >>      mutex_lock(&gpu->lock);
+> >>
+> >> @@ -595,6 +602,8 @@ void msm_gpu_fault_crashstate_capture(struct msm_g=
+pu *gpu, struct msm_gpu_fault_
+> >>      if (submit && submit->fault_dumped)
+> >>              goto resume_smmu;
+> >>
+> >> +    noreclaim_flag =3D memalloc_noreclaim_save();
+> >> +
+> >>      if (submit) {
+> >>              get_comm_cmdline(submit, &comm, &cmd);
+> >>
+> >> @@ -610,6 +619,8 @@ void msm_gpu_fault_crashstate_capture(struct msm_g=
+pu *gpu, struct msm_gpu_fault_
+> >>      msm_gpu_crashstate_capture(gpu, submit, fault_info, comm, cmd);
+> >>      pm_runtime_put_sync(&gpu->pdev->dev);
+> >>
+> >> +    memalloc_noreclaim_restore(noreclaim_flag);
+> >> +
+> >>      kfree(cmd);
+> >>      kfree(comm);
+> >>
+> >> --
+> >> 2.53.0.rc1.217.geba53bf80e-goog
+> >>
+>
