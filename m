@@ -4,129 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6D70610ED666
-	for <dri-devel@archiver.kernel.org>; Fri, 27 Mar 2026 12:23:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A1B8210ED674
+	for <dri-devel@archiver.kernel.org>; Fri, 27 Mar 2026 12:56:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7FC3810E1E4;
-	Fri, 27 Mar 2026 12:23:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9C53210E1C5;
+	Fri, 27 Mar 2026 12:56:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="JrZCwraO";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="hYU4MBjk";
 	dkim-atps=neutral
-Received: from LO2P265CU024.outbound.protection.outlook.com
- (mail-uksouthazon11021101.outbound.protection.outlook.com [52.101.95.101])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 302A710E1D7
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Mar 2026 12:23:45 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=gSK5TM4A3zUcgntsmwe/ZGbuTtV+ToTL8K1iEZUJEm+N3ici/VYjraJ+ZTFAiFFMcgyPjw9KWNev6DCSZEVjGpu6REJ4PIGq/juXhjhk2vyvSSzyc0+wdZhIjKrNHWmTrCTPLxWZ1zTnFEs7HpPS6qLCUAKOPq+M7UAI0kZ4GLRGSTZvMky+3Xv/wYN52q0J6etg6QfvRlUrhXnbw8xlCZq2Vlm2ffsAngI04E1k/WR2KoK4wTl4TQsMbZOhJFV+XsxXk/e5WPwB9F5yjCYZgwouTKrC6fZBkoJKSHDcC9Ke+GT4WUBFVYJtvrd1coWtFuCbqi6kq1uZiPT74VcPKQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zuuPgRy9p/gMB0MqErFDhieZBpEoajB6zFSrrh72mRU=;
- b=TU+SnKWf1jkO6gBAgxbTzME62M/7pdstAqNzROPNGaT4pHKObZqQrICr0/RtPYF0ZhEE9fOHA01qDu67ClMckU+JUquFrS+K8p47jMJyJKP938uWcm6WDKOuzYLdmTtXH81eYro+eP4OIK6W7CMXMXXdTFMI7jHIi7ZmL/TONb3b2877FuPLurJj6JeL+DCCWNjgodpajjFlCB66WzTIn+Vw3Zv0wm/bmM5m+3cLFKB3va170GEDQDEVZa+Eq7c94iA5lLQaQ+/c/yv5C/WikuSEBI23wvcL46DWaz5vORUSL72/nRIrQEKlYDylKnaEY/XUiLeHJMI+gw8hPtSdTQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
- dkim=pass header.d=garyguo.net; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zuuPgRy9p/gMB0MqErFDhieZBpEoajB6zFSrrh72mRU=;
- b=JrZCwraOvw36K9OP2aR+bCSdbpQwis/hGjW5SMToajr6FhN9Nfvm4IPY6r9KiUhWJqShvgQT1cHenvfUusxcnoscSnh/F/s4anQ8+Ch/CgFfxVrvtjKh9K11zymH3sqf7HHv+F9CPjueQ0kh9Oq53TvqfPIRvvIHdtlQAiW5/Hk=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=garyguo.net;
-Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:488::16)
- by CWXP265MB3047.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:c6::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.23; Fri, 27 Mar
- 2026 12:23:41 +0000
-Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- ([fe80::1c3:ceba:21b4:9986]) by LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- ([fe80::1c3:ceba:21b4:9986%5]) with mapi id 15.20.9745.022; Fri, 27 Mar 2026
- 12:23:41 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 27 Mar 2026 12:23:41 +0000
-Message-Id: <DHDK8MJ3KAWE.DQ9NADFYTFUW@garyguo.net>
-Subject: Re: [PATCH v3] gpu: nova-core: gsp: fix undefined behavior in
- command queue code
-From: "Gary Guo" <gary@garyguo.net>
-To: "Alexandre Courbot" <acourbot@nvidia.com>, "Danilo Krummrich"
- <dakr@kernel.org>, "Gary Guo" <gary@garyguo.net>, "Alice Ryhl"
- <aliceryhl@google.com>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
- <simona@ffwll.ch>, "Alistair Popple" <apopple@nvidia.com>
-Cc: "John Hubbard" <jhubbard@nvidia.com>, "Joel Fernandes"
- <joelagnelf@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>, "Zhi Wang"
- <zhiw@nvidia.com>, "Eliot Courtney" <ecourtney@nvidia.com>,
- <rust-for-linux@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>
-X-Mailer: aerc 0.21.0
-References: <20260326-cmdq-ub-fix-v3-1-96af2148ca5c@nvidia.com>
-In-Reply-To: <20260326-cmdq-ub-fix-v3-1-96af2148ca5c@nvidia.com>
-X-ClientProxiedBy: LO4P123CA0398.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:189::7) To LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:488::16)
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
+ [136.143.188.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0567110E1C5;
+ Fri, 27 Mar 2026 12:56:34 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1774616179; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=nrhJQcNU2St85zr7KW0VW77O0rvjPuIFsgi0f3RHLuq01R3pXJEeYUsQDtcuvZr/SlAD7bJYG7OMKTL4t3i+m69bvvJ0u6NAKpW5UThs9vJTi8fkJXOVZL+Ksgw1SoeMmFgLMRKb+jM0TiSiMgaEhVZ76X0O23g+O5H3UxXtIHA=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1774616179;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=9rZk3O9XtcgvBcy00N+ORbUqxZBMTrdkFnBuRIM06bI=; 
+ b=RiLu1f6xF46lhFrMPIJ8+LCZP1DjvY7YUR7IZQhn/d4AGGFfV/BeaO9+hlrlA4IkTc8AXYUHbrQKNC7Y9aWT+WS2A7rYiZO9tL/y7PLslKQJjeerZf3m4BARf7anBe/OG+EWt9IstJe+QY9KexW0GVTgr0q/bvBYlCGzHE58fpA=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
+ dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1774616179; 
+ s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
+ h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:Content-Type:Message-Id:Reply-To;
+ bh=9rZk3O9XtcgvBcy00N+ORbUqxZBMTrdkFnBuRIM06bI=;
+ b=hYU4MBjkdSfxJmH/kKO/j7MNFTk9XtBpm41ookcZAIDnG353SOU0DAWhw/FagFR0
+ AmxyXQ1E79tKhpvXNtkgVz3GMmzGSc6UZOkL0HpMdPVL9MIhCTOB6f/U1SJ+liOwLpg
+ 72BpbX2lR1jnhNBoBY+RhPXNy5J6gyEHCB9y3feQ=
+Received: by mx.zohomail.com with SMTPS id 17746161764209.309822167866628;
+ Fri, 27 Mar 2026 05:56:16 -0700 (PDT)
+From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+To: Maxime Ripard <mripard@kernel.org>,
+ Ville =?UTF-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
+Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Sandy Huang <hjc@rock-chips.com>,
+ Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>,
+ Andy Yan <andy.yan@rock-chips.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, Dmitry Baryshkov <lumag@kernel.org>,
+ Sascha Hauer <s.hauer@pengutronix.de>, Rob Herring <robh@kernel.org>,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ kernel@collabora.com, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ linux-doc@vger.kernel.org, Werner Sembach <wse@tuxedocomputers.com>,
+ Andri Yngvason <andri@yngvason.is>, Marius Vlad <marius.vlad@collabora.com>
+Subject: Re: [PATCH v11 03/22] drm: Add new general DRM property "color format"
+Date: Fri, 27 Mar 2026 13:56:06 +0100
+Message-ID: <4153041.tdWV9SEqCh@workhorse>
+In-Reply-To: <acVzwRyk_J24GrJ4@intel.com>
+References: <20260324-color-format-v11-0-605559af4fb4@collabora.com>
+ <20260326-pumpkin-goshawk-of-stamina-0ccb84@houat>
+ <acVzwRyk_J24GrJ4@intel.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LOVP265MB8871:EE_|CWXP265MB3047:EE_
-X-MS-Office365-Filtering-Correlation-Id: 21d0669f-68eb-40fc-ca6a-08de8bfbae99
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|10070799003|376014|1800799024|7416014|366016|22082099003|56012099003|18002099003;
-X-Microsoft-Antispam-Message-Info: BcASmrLJccgszk2Q+Oh1EsI+Mk2Z3PCEU6qG3ciOw8SeM4n0q9a2nSICn/Q1vldBGCtcOmFw+T3Jc0Yqp6h/yFA/ALPLEoTc8lcDaE0kg/6RIdbNZJuuJ51J+WlktbYLaQkS2/wbvtFU9dY+aG1LU1O7sU7LMO5nIKxyTy2liqF6S4PfX7gEetiMh2Y7dsDsbkAFXqj4WwJ9oiHvN45YLVa270Rs8mx6rc/kJX7W0Uqmui4yihcuoMCM/fBvuagibdmIYmxNZ3u2prk6qHb6XF6VshRtLxpmAWSCzR5rAJWJ+3BMAyRBi69uVG1/XtgIzXHm92k0ILB6uQDWa5SUgYPI0voc3wqis1fIhY3zDhZx6X8sepsHqGpnKSTRY8RK2pH3VK5VVX0HgOgi+qv7/O7WMdcduiFfF2tG6uHit/X8NAnhFiLPSZAJn/mXeMBOR3IfqgtG4GTC4cgPKsGpU4k+UcD2hr+6rZrMDMXwLbjzIWOdWIEP/08pfaiKz5EiuGhMbGqXtJ6WHBdKFLS6Yruln94VPBMOWMV+4/hAtRLCscyTUlJC+8rcPzG/dc/MGQhG2LaKSjC4fIJerPcJNgak+d1frEuNv0zu/7cuTCZaZ+KEX2p1onnj3IbAT7j6FCBjbsDKAee5F8lXEENFEGiM4Fexo911QHcN3mn2J/2nF9yJlJ/+XxCDhIP6AYjl
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(13230040)(10070799003)(376014)(1800799024)(7416014)(366016)(22082099003)(56012099003)(18002099003);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bXpidWM1TmJ0NzVJZDRQRDd2OUc5ZkRyOFhFdEJOV1lwSy9pb0RKQngyN00z?=
- =?utf-8?B?UDRjTTBjWUdRMlNjU09jYkNxeTVJUVo0SlAxMmxTNWl4T0J6aklucGNDYXpm?=
- =?utf-8?B?MEVIdXBPdlVUaFk4RkhHaXQ5ZCsvckpRNHJ4dHpWRU5nY0dRZXVPTVdzY2Y2?=
- =?utf-8?B?emgwVHF6UDhoK3hDOFhzcFh6SUFFUlVHbFFiR2RDRElqbkxqSWNKSGxxQS9y?=
- =?utf-8?B?UzVrcjhrZkg4VFRCRGJDWGRsQWZwbm13TE1HQzkyRTlpUkJrbFhaZ04xL2FL?=
- =?utf-8?B?RVBteWRzQUpvaUMyQWFwdktaTks3UHQ0NlpxYXFzdGc2TkQvVkVZaDN6NWpo?=
- =?utf-8?B?aCtYWXBsZnFqNU9ZSzdLY0VXV1piOUM3c0dpRlIvTU1GdUlGTHd6WlA2Z05h?=
- =?utf-8?B?VmRnVkVQZU14L2w2RWFzc3dhejA2aHNvQzBNenNrUnhQRXZPQStNYzNWN1NO?=
- =?utf-8?B?aHVIaVJnQVBpRXFUalVhQm1vc2Nsak9GQ1BVRUJCNmYwUUdHb3dUYkVYZnVh?=
- =?utf-8?B?cThqZEVtanFRUHZDc3NtZkgyK1psbmQyMTFjdEFKdzBYbjlSM2hwbVlsWHVz?=
- =?utf-8?B?T2NISmhnSnNSS2JlOUlzdFBCTmtKVjVXR3NsL1FGVW0wdEpybkhFYlRTdE5E?=
- =?utf-8?B?YWNWTllqR2NHVVhMbEJQN05JaTdaNGhydGk1NklPV0dyZEs2VXpyZldobHBu?=
- =?utf-8?B?MFkzcWxjWkk2QmMxbnJoOEszNHpPNGttT3phMm9tMHNPcjJMeCtwK3g4UW40?=
- =?utf-8?B?TXp6S0U5TUlvMi9SKzB0bjJWMFpMVURzVmMvMzBLYmVsaEN2dXoweHFKK3ow?=
- =?utf-8?B?SDB4RFpoaGx1dU1YWVk0Q05EN3BxR2piUjJCSGN1aitLNUNLYUluZVJCdmNm?=
- =?utf-8?B?SHYra1o0S1FDckZPTHpwUXRCZTZINERzU21aZXVWTlRvbGROQ094aWdiT2RH?=
- =?utf-8?B?Ti91VjBEd3hVV2djbTB4QkRFb2cwcmpDeDdIaXhrNWZmVElGc0dkV0lja2Rm?=
- =?utf-8?B?VmI0RzAzRkhvZHlCQmFvU3dLWHEweE4vS2d5MXpBbWZ5cFhTcllRcHBLZWEy?=
- =?utf-8?B?NUxvbSsxaTJiSEdrL1JuVEtrRm5ndmoyWnBZVi94aTVnbXUrV1JJUlJUWlVx?=
- =?utf-8?B?YmZ6OEtHN2JyQ2xJeDIzS2JHWlpEQWtVWUhPK0Y0ZnBibTFuWmhmR2NaQjFI?=
- =?utf-8?B?eWVKRTQwa1lENmxLcE16SHd6azgvK3A2aDlTUzExN015Zys5QnBIMnVuVVJP?=
- =?utf-8?B?UDRSc2N4LzFGaEZqOTZvRXVvWDh1empreU9qZFRTRk1zWmduYlhnY3B6WTd6?=
- =?utf-8?B?Znp6dTNmcEt1clFBaFdJTmZTZlRsU1ZsVktBLzFYS1U1MWFZb3VRUmplRUpO?=
- =?utf-8?B?WU1KeGR0NGFod29yZTVHdkIveVkvQkpWNzZXdFBIWklVeGNDTHVpcTcxREdG?=
- =?utf-8?B?RmlueWZ2UHA0UUZ6VDFFWUdTZDVSRTZlUUd3QnVQS1l0QUJWMmQyVGFjOFFW?=
- =?utf-8?B?MnR3aXc4NTRnREhlYmhGVFRLaTY0RVZPMEJGc1paZUJrV25QS2JPNkZwVUJn?=
- =?utf-8?B?OS9WWWM4UGVEMks4ODJCTGU0RnhOaXMxdzQyMW9VVmFiR0E0REtnTGJKZjJF?=
- =?utf-8?B?YmVyS2FXN2M1YjBCMVRrdWcza0dhc2VabXplSWwwa003MjgxVE52SWk1cy9L?=
- =?utf-8?B?QkNoa3NVVWo5N29iNDJtdktHNmdFZm02VkE1OXhPbFRlbjc3Y2lReTlCV3Qy?=
- =?utf-8?B?NFlZaXphV3RnRTRtbVhoUGwzTUVGUENBVmsyU0ZVUXl3dXFMamdZTG5zUzFn?=
- =?utf-8?B?eTB3TGliZGFCSzNYb1VsbkRQeE1TMGYwMnJGeTNyYklxdEdCSTI3SFl4YU94?=
- =?utf-8?B?Zzg0RDZZcFpHdjZ0MURsa05TdzhIaGoyVmxmV3ZWOUVva2lISXBMeloxMVJr?=
- =?utf-8?B?allabXo1dFVBYVRLMUl6VUdseEcxTnptWW1kbTM0U1ptQWUzVzcwRjdubHVM?=
- =?utf-8?B?dHhZUXVLK05yRFZuSE0rTHNpKzFzMUpoTWJoOVk1SnArdHVKRFFweFFEU0N0?=
- =?utf-8?B?ZU5ybklFM0o5N0FBYVJBK00xOVBkYXQvR2pqbFllVmYvRmdUanlFSnZXZVFr?=
- =?utf-8?B?T0Rwc0MyU2R0d0lxN2tYMHRkcVNxTnAyb3dHaVlzV29GYkd6RERMQkl5QWZu?=
- =?utf-8?B?amNONGNZVnhNNktNbHUrVm9MT0dQSzBzYVVaSFp1d3QvcFgrbFEwZGtvRlN6?=
- =?utf-8?B?NExSZDVnVkpZcitnT1p6Vzd6dDJGcjJIdEtmRGFOeXdKZTJMQ1JpQXJTMGxr?=
- =?utf-8?B?Z1NOK045bDRVVVRtZmpSa0h6L2djUjJBbWhSb2dGbVdnL0g4RHkwZz09?=
-X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: 21d0669f-68eb-40fc-ca6a-08de8bfbae99
-X-MS-Exchange-CrossTenant-AuthSource: LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Mar 2026 12:23:41.6679 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: k+ct6eVjxmT1tX7g9fIyC/xfSy9lvx/q/rjq1D78xsMZ+Vn9VSK2n8zeOme0Rt3evcQiUX4Nt8CEKL80VAYVhQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CWXP265MB3047
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -142,48 +91,201 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu Mar 26, 2026 at 5:43 AM GMT, Alexandre Courbot wrote:
-> `driver_read_area` and `driver_write_area` are internal methods that
-> return slices containing the area of the command queue buffer that the
-> driver has exclusive read or write access, respectively.
+On Thursday, 26 March 2026 18:58:25 Central European Standard Time Ville Sy=
+rj=C3=A4l=C3=A4 wrote:
+> On Thu, Mar 26, 2026 at 06:02:47PM +0100, Maxime Ripard wrote:
+> > On Wed, Mar 25, 2026 at 08:43:15PM +0200, Ville Syrj=C3=A4l=C3=A4 wrote:
+> > > On Wed, Mar 25, 2026 at 03:56:58PM +0100, Maxime Ripard wrote:
+> > > > On Wed, Mar 25, 2026 at 01:03:07PM +0200, Ville Syrj=C3=A4l=C3=A4 w=
+rote:
+> > > > > On Wed, Mar 25, 2026 at 09:24:27AM +0100, Maxime Ripard wrote:
+> > > > > > On Tue, Mar 24, 2026 at 09:53:35PM +0200, Ville Syrj=C3=A4l=C3=
+=A4 wrote:
+> > > > > > > On Tue, Mar 24, 2026 at 08:10:11PM +0100, Nicolas Frattaroli =
+wrote:
+> > > > > > > > On Tuesday, 24 March 2026 18:00:45 Central European Standar=
+d Time Ville Syrj=C3=A4l=C3=A4 wrote:
+> > > > > > > > > On Tue, Mar 24, 2026 at 05:01:07PM +0100, Nicolas Frattar=
+oli wrote:
+> > > > > > > > > > +enum drm_connector_color_format {
+> > > > > > > > > > +	/**
+> > > > > > > > > > +	 * @DRM_CONNECTOR_COLOR_FORMAT_AUTO: The driver or di=
+splay protocol
+> > > > > > > > > > +	 * helpers should pick a suitable color format. All i=
+mplementations of a
+> > > > > > > > > > +	 * specific display protocol must behave the same way=
+ with "AUTO", but
+> > > > > > > > > > +	 * different display protocols do not necessarily hav=
+e the same "AUTO"
+> > > > > > > > > > +	 * semantics.
+> > > > > > > > > > +	 *
+> > > > > > > > > > +	 * For HDMI, "AUTO" picks RGB, but falls back to YCbC=
+r 4:2:0 if the
+> > > > > > > > > > +	 * bandwidth required for full-scale RGB is not avail=
+able, or the mode
+> > > > > > > > > > +	 * is YCbCr 4:2:0-only, as long as the mode and outpu=
+t both support
+> > > > > > > > > > +	 * YCbCr 4:2:0.
+> > > > > > > > > > +	 *
+> > > > > > > > > > +	 * For display protocols other than HDMI, the recursi=
+ve bridge chain
+> > > > > > > > > > +	 * format selection picks the first chain of bridge f=
+ormats that works,
+> > > > > > > > > > +	 * as has already been the case before the introducti=
+on of the "color
+> > > > > > > > > > +	 * format" property. Non-HDMI bridges should therefor=
+e either sort their
+> > > > > > > > > > +	 * bus output formats by preference, or agree on a un=
+ified auto format
+> > > > > > > > > > +	 * selection logic that's implemented in a common sta=
+te helper (like
+> > > > > > > > > > +	 * how HDMI does it).
+> > > > > > > > > > +	 */
+> > > > > > > > > > +	DRM_CONNECTOR_COLOR_FORMAT_AUTO =3D 0,
+> > > > > > > > > > +
+> > > > > > > > > > +	/**
+> > > > > > > > > > +	 * @DRM_CONNECTOR_COLOR_FORMAT_RGB444: RGB output for=
+mat
+> > > > > > > > > > +	 */
+> > > > > > > > > > +	DRM_CONNECTOR_COLOR_FORMAT_RGB444,
+> > > > > > > > > > +
+> > > > > > > > > > +	/**
+> > > > > > > > > > +	 * @DRM_CONNECTOR_COLOR_FORMAT_YCBCR444: YCbCr 4:4:4 =
+output format (ie.
+> > > > > > > > > > +	 * not subsampled)
+> > > > > > > > > > +	 */
+> > > > > > > > > > +	DRM_CONNECTOR_COLOR_FORMAT_YCBCR444,
+> > > > > > > > > > +
+> > > > > > > > > > +	/**
+> > > > > > > > > > +	 * @DRM_CONNECTOR_COLOR_FORMAT_YCBCR422: YCbCr 4:2:2 =
+output format (ie.
+> > > > > > > > > > +	 * with horizontal subsampling)
+> > > > > > > > > > +	 */
+> > > > > > > > > > +	DRM_CONNECTOR_COLOR_FORMAT_YCBCR422,
+> > > > > > > > > > +
+> > > > > > > > > > +	/**
+> > > > > > > > > > +	 * @DRM_CONNECTOR_COLOR_FORMAT_YCBCR420: YCbCr 4:2:0 =
+output format (ie.
+> > > > > > > > > > +	 * with horizontal and vertical subsampling)
+> > > > > > > > > > +	 */
+> > > > > > > > > > +	DRM_CONNECTOR_COLOR_FORMAT_YCBCR420,
+> > > > > > > > >=20
+> > > > > > > > > Seems like this should document what the quantization ran=
+ge
+> > > > > > > > > should be for each format.
+> > > > > > > > >=20
+> > > > > > > >=20
+> > > > > > > > I don't think so? If you want per-component bit depth value=
+s,
+> > > > > > > > DRM_FORMAT_* defines would be the appropriate values to use=
+=2E This
+> > > > > > > > enum is more abstract than that, and is there to communicate
+> > > > > > > > YUV vs. RGB and chroma subsampling, with bit depth being ha=
+ndled
+> > > > > > > > by other properties.
+> > > > > > > >=20
+> > > > > > > > If you mean the factor used for subsampling, then that'd on=
+ly be
+> > > > > > > > relevant if YCBCR410 was supported where one chroma plane i=
+sn't
+> > > > > > > > halved but quartered in resolution. I suspect 4:1:0 will ne=
+ver
+> > > > > > > > be added; no digital display protocol standard supports it =
+to my
+> > > > > > > > knowledge, and hopefully none ever will.
+> > > > > > >=20
+> > > > > > > No, I mean the quantization range (16-235 vs. 0-255 etc).
+> > > > > > >=20
+> > > > > > > The i915 behaviour is that YCbCr is always limited range,
+> > > > > > > RGB can either be full or limited range depending on the=20
+> > > > > > > "Broadcast RGB" property and other related factors.
+> > > > > >=20
+> > > > > > So far the HDMI state has both the format and quantization rang=
+e as
+> > > > > > different fields. I'm not sure we need to document the range in=
+ the
+> > > > > > format field, maybe only mention it's not part of the format bu=
+t has a
+> > > > > > field of its own?
+> > > > >=20
+> > > > > I think we only have it for RGB (on some drivers only?). For YCbCr
+> > > > > I think the assumption is limited range everywhere.
+> > > > >=20
+> > > > > But I'm not really concerned about documenting struct members.
+> > > > > What I'm talking about is the *uapi* docs. Surely userspace
+> > > > > will want to know what the new property actually does so the
+> > > > > uapi needs to be documented properly. And down the line some
+> > > > > new driver might also implement the wrong behaviour if there
+> > > > > is no clear specification.
+> > > >=20
+> > > > Ack
+> > > >=20
+> > > > > So I'm thinking (or perhaps hoping) the rule might be something l=
+ike:
+> > > > > - YCbCr limited range=20
+> > > > > - RGB full range if "Broadcast RGB" property is not present
+> > > >=20
+> > > > Isn't it much more complicated than that for HDMI though? My
+> > > > recollection was that any VIC but VIC1 would be limited range, and
+> > > > anything else full range?
+> > >=20
+> > > Do we have some driver that implements the CTA-861 CE vs. IT mode
+> > > logic but doesn't expose the "Broadcast RGB" property? I was hoping
+> > > those would always go hand in hand now.
+> >=20
+> > I'm not sure. i915 and the HDMI state helpers handle it properly (I
+> > think?) but it looks like only vc4 registers the Broadcast RGB property
+> > and uses the HDMI state helpers.
+> >=20
+> > And it looks like amdgpu registers Broadcast RGB but doesn't use
+> > drm_default_rgb_quant_range() which seems suspicious?
 >=20
-> While their returned value is correct and safe to use, internally they
-> temporarily create a reference to the whole command-buffer slice,
-> including GSP-owned regions. These regions can change without notice,
-> and thus creating a slice to them, even if never accessed, is undefined
-> behavior.
+> If they want just manual full vs. limited then they should
+> limit the property to not expose the "auto" option at all.
 >=20
-> Fix this by rewriting these methods to use pointer projections in order
-> to create slices to valid regions only. It should eventually be replaced
-> by `IoView` and `IoSlice` once they land.
+> amdgpu also ties this in with the "colorspace" property, which
+> originally in i915 only controlled the infoframes/etc. But on
+> amdgpu it now controls various aspects of output color
+> transformation. The end result is that the property is a complete
+> mess with most of the values making no sense. And for whatever
+> reason everyone involved refused to remove/deprecate the
+> nonsensical values :/
 >=20
-> Fixes: 75f6b1de8133 ("gpu: nova-core: gsp: Add GSP command queue bindings=
- and handling")
-> Reported-by: Danilo Krummrich <dakr@kernel.org>
-> Closes: https://lore.kernel.org/all/DH47AVPEKN06.3BERUSJIB4M1R@kernel.org=
-/
-> Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
+> Looks like this series should make sure the documentation for
+> the "colorspace" property is in sync with the new property
+> as well. Currently now it's giving conflicting information.
+>=20
 
-Reviewed-by: Gary Guo <gary@garyguo.net>
+I take it the problematic information is in
 
-> ---
-> Changes in v3:
-> - Rebase on top of latest `drm-rust-next` (with `Coherent` patches).
-> - Use pointer projections. (thanks Gary!)
-> - Link to v2: https://patch.msgid.link/20260323-cmdq-ub-fix-v2-1-77d1213c=
-3f7f@nvidia.com
->=20
-> Changes in v2:
-> - Use `u32_as_usize` consistently.
-> - Reduce the number of `unsafe` blocks by computing the end offset of
->   the returned slices and creating them at the end, in one step.
-> - Take advantage of the fact that both slices have the same start index
->   regardless of the branch chosen.
-> - Improve safety comments.
-> - Link to v1: https://patch.msgid.link/20260319-cmdq-ub-fix-v1-1-0f9f6e8f=
-3ce3@nvidia.com
-> ---
->  drivers/gpu/nova-core/gsp/cmdq.rs | 104 ++++++++++++++++++++------------=
-------
->  1 file changed, 55 insertions(+), 49 deletions(-)
+    * DOC: standard connector properties
+    *
+    * Colorspace:
+
+and probably specifically BT2020_YCC's (and BT2020_RGB's?) insistence
+that they "produce RGB content".
+
+I think we probably just have to change the statement "The variants
+BT2020_RGB and BT2020_YCC are equivalent and the driver chooses between
+RGB and YCbCr on its own."
+
+The "on its own" here would get turned into "based on the color format
+property".
+
+Speaking of i915, that patch is one of the very few (5) patches in
+this series still lacking a review (hint hint nudge nudge). I'd like
+to get some more feedback on the remaining patches before I send out
+another revision, so that it's hopefully not just docs changes (I
+know better than to think those patches must be perfect and won't
+need revision.)
+
+If `drm/bridge: Act on the DRM color format property` and
+`drm/atomic-helper: Add HDMI bridge output bus formats helper` get a
+reviewed-by/acked-by and it's still crickets on the amdgpu and i915
+front, then I will just drop the amdgpu/i915 implementations so that
+they don't block this from landing.
+
+Kind regards,
+Nicolas Frattaroli
+
 
