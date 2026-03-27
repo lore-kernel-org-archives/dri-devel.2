@@ -4,62 +4,98 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2FFE710F2862
-	for <dri-devel@archiver.kernel.org>; Fri, 27 Mar 2026 17:52:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4827C10F2867
+	for <dri-devel@archiver.kernel.org>; Fri, 27 Mar 2026 18:42:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 846EB10E259;
-	Fri, 27 Mar 2026 17:52:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A053710EDE2;
+	Fri, 27 Mar 2026 18:42:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="EcByUmB/";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="dBpZj9XR";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 172A110E1BE;
- Fri, 27 Mar 2026 17:52:01 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4EEC010EDE2
+ for <dri-devel@lists.freedesktop.org>; Fri, 27 Mar 2026 18:42:54 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id A514443C4B;
- Fri, 27 Mar 2026 17:52:00 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E7103C19423;
- Fri, 27 Mar 2026 17:51:59 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id ED98E434AD;
+ Fri, 27 Mar 2026 18:42:53 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A6A7C19424;
+ Fri, 27 Mar 2026 18:42:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1774633920;
- bh=zRvA02n55H6F0ORN5r8qynowYTw/58ttft03ZFRvRRY=;
- h=Date:From:Cc:To:In-Reply-To:References:Subject:From;
- b=EcByUmB/fhOaTUDVp1b/zq+k+LRyAaNVR6S4h9vSV8N/eofFsVaZC/p4h1A+jJNP3
- 9rEIsTsYK+kG24THax9IbEikcfE3m5NRFmdwk6T8NP03bthRsa4BivZIuRjA2w8HGC
- cpBkb9abwr1Gxl6Wq0l2GFOxGRV39Z38P8Kew4q4FfPiuIvQK4eix5y07qCdOTZwTi
- lV4jmMWLqLErykoYKx78LUDOR7m3IxaBklGXU4Ej6Oeqwky7u2vdxYuTSqraAwgtpu
- 6bXPg7JymaoTujsQjn2Zlg9PlLyOKbXSMSYxnxxsJvbNCL9LwQ5qIXzLPNBDR2RSQP
- Ov6vM4Kz7prBQ==
-Date: Fri, 27 Mar 2026 12:51:57 -0500
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+ s=k20201202; t=1774636973;
+ bh=R9AHAajVl54S43rOD25tNtqd/iHB1Qz12wrBG7w2KjE=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=dBpZj9XROKl5nH06ExhS5qHZd5iNeaVJHFdt5izYFCthNqg7QZVcKU40duchyQRXL
+ n6Bjzsyg3jVM3jFLSZ2/RbYr2nvpaQd8lVGrOtvdZudWnc1HuGawO/E6T3L8m0nO9F
+ Bt/eKJSSOXZQIPbi4yUKf8ct5L2D1fHLRe+YcZ/L5fzXdamEUglYU08VnBtfjYKdXh
+ VSl6fHA/gqaxQWAXLNZsqokqkytu8TpNiXT2ycTN7ohJ7+UfkUhtL06Y0TOhaGHpL9
+ 2qXqBvH1ykv4msmQZJUc22QgwluEZ0mXIEBQHUY/z3lGSyoqc5qPFUpoaaAsID6cWQ
+ lmu5thbEFQEfg==
+Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
+ by mailfauth.phl.internal (Postfix) with ESMTP id 5096CF40074;
+ Fri, 27 Mar 2026 14:42:52 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+ by phl-compute-02.internal (MEProxy); Fri, 27 Mar 2026 14:42:52 -0400
+X-ME-Sender: <xms:rM_Gaf53wU_w_vFmN1XR_9VmQF1e9TTRE1rM87oww0jbqKn3zQiTvA>
+ <xme:rM_GaXPvT0Z2HQrHgUaQNVTRIVrWLOwO-BgCrV5k8GRfnE72m0QIvotqSXTp_orHj
+ 2gOytGhfi8Tw5WrIjza2Ip1_8Tik1hvjAcSmd5zwH2MmvzdFnQ12Q>
+X-ME-Received: <xmr:rM_GaVKjAVbZbK7E0hlnUpPhDxno_FwWS3alvOVgDWol-eNebJPQxgRTTLinzpUhbU8XuI9F0parELUQLiuRtIH53yHFxQQe>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefgedrtddtgdeffedutdefucetufdoteggodetrf
+ dotffvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfurfetoffkrfgpnffqhgenuceu
+ rghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujf
+ gurhepfffhvfevuffkfhggtggugfgjsehtkeertddttdejnecuhfhrohhmpeeuohhquhhn
+ ucfhvghnghcuoegsohhquhhnsehkvghrnhgvlhdrohhrgheqnecuggftrfgrthhtvghrnh
+ epgfdvtdefieetieefueetudehffevieffkeejvdetleffledvveetgfeufeethfeinecu
+ vehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepsghoqhhunh
+ domhgvshhmthhprghuthhhphgvrhhsohhnrghlihhthidqudeijedtleekgeejuddqudej
+ jeekheehhedvqdgsohhquhhnpeepkhgvrhhnvghlrdhorhhgsehfihigmhgvrdhnrghmvg
+ dpnhgspghrtghpthhtohepfedvpdhmohguvgepshhmthhpohhuthdprhgtphhtthhopehm
+ ihhguhgvlhdrohhjvggurgdrshgrnhguohhnihhssehgmhgrihhlrdgtohhmpdhrtghpth
+ htohepghgrrhihsehgrghrhihguhhordhnvghtpdhrtghpthhtohepfhhujhhithgrrdht
+ ohhmohhnohhrihesghhmrghilhdrtghomhdprhgtphhtthhopegrtghouhhrsghothesnh
+ hvihguihgrrdgtohhmpdhrtghpthhtohepsghoqhhunhdrfhgvnhhgsehgmhgrihhlrdgt
+ ohhmpdhrtghpthhtohepthgrmhhirhgusehkvghrnhgvlhdrohhrghdprhgtphhtthhope
+ grrdhhihhnuggsohhrgheskhgvrhhnvghlrdhorhhgpdhrtghpthhtohepohhjvggurges
+ khgvrhhnvghlrdhorhhgpdhrtghpthhtohepsghjohhrnhefpghghhesphhrohhtohhnmh
+ grihhlrdgtohhm
+X-ME-Proxy: <xmx:rM_GadFLMzx4SKFk_EBd2q_cYZurxddg5M3RCp3W13r-KO2-pIw_3w>
+ <xmx:rM_GaQwrMngO9IeycAuAvKlG4TKJtWiPzWRRnEJy5iLXeqAcanIiVQ>
+ <xmx:rM_GaRzM6IaacdY8NVZgpSijNYfeYjtBiBd74AMcjNC3_VfJbdwB2A>
+ <xmx:rM_GaeYlxRTqqcf4hORjoZECWHFuqZSzQ6j1M4n3MsRaTFYdYieCxA>
+ <xmx:rM_GabyudvqMVVB43xhTcrM2BV1ORfwR7f7w1i5eNFfiIaXHwurbBMl7>
+Feedback-ID: i8dbe485b:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 27 Mar 2026 14:42:51 -0400 (EDT)
+Date: Fri, 27 Mar 2026 11:42:50 -0700
+From: Boqun Feng <boqun@kernel.org>
+To: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Cc: Gary Guo <gary@garyguo.net>, FUJITA Tomonori <fujita.tomonori@gmail.com>, 
+ Alexandre Courbot <acourbot@nvidia.com>,
+ Boqun Feng <boqun.feng@gmail.com>,	Tamir Duberstein <tamird@kernel.org>,
+ Andreas Hindborg <a.hindborg@kernel.org>, Miguel Ojeda <ojeda@kernel.org>,
+ =?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
+ Trevor Gross <tmgross@umich.edu>,	Danilo Krummrich <dakr@kernel.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Abdiel Janulgue <abdiel.janulgue@gmail.com>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Robin Murphy <robin.murphy@arm.com>,	Yury Norov <yury.norov@gmail.com>,
+ Will Deacon <will@kernel.org>,	Peter Zijlstra <peterz@infradead.org>,
+ Mark Rutland <mark.rutland@arm.com>, Ingo Molnar <mingo@redhat.com>,
+ Waiman Long <longman@redhat.com>, Yury Norov <ynorov@nvidia.com>,
+ rust-for-linux@vger.kernel.org, nouveau@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ driver-core@lists.linux.dev, netdev@vger.kernel.org
+Subject: Re: [PATCH v3 4/4] rust: make `build_assert` module the home of
+ related macros
+Message-ID: <acbPqjBE8mqbiVkv@tardis.local>
+References: <20260319121653.2975748-1-gary@kernel.org>
+ <20260319121653.2975748-5-gary@kernel.org>
+ <CANiq72kZH-AX=QQz2V+qCfVzMsUEAPan=o1E=OZOAnivj3L3HQ@mail.gmail.com>
 MIME-Version: 1.0
-From: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: Simona Vetter <simona@ffwll.ch>, phone-devel@vger.kernel.org, 
- Bjorn Andersson <andersson@kernel.org>, linux-kernel@vger.kernel.org, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
- Jonathan Marek <jonathan@marek.ca>, Konrad Dybcio <konradybcio@kernel.org>, 
- Dmitry Baryshkov <lumag@kernel.org>, devicetree@vger.kernel.org, 
- Krishna Manikandan <quic_mkrishn@quicinc.com>, 
- ~postmarketos/upstreaming@lists.sr.ht, Sean Paul <sean@poorly.run>, 
- Abhinav Kumar <abhinav.kumar@linux.dev>, Conor Dooley <conor+dt@kernel.org>, 
- Jessica Zhang <jesszhan0024@gmail.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- David Airlie <airlied@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, 
- Rob Clark <robin.clark@oss.qualcomm.com>, dri-devel@lists.freedesktop.org, 
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, 
- Alexander Koskovich <akoskovich@pm.me>, 
- Thomas Zimmermann <tzimmermann@suse.de>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>
-To: Luca Weiss <luca.weiss@fairphone.com>
-In-Reply-To: <20260327-milos-mdss-v2-4-bc586683f5ca@fairphone.com>
-References: <20260327-milos-mdss-v2-0-bc586683f5ca@fairphone.com>
- <20260327-milos-mdss-v2-4-bc586683f5ca@fairphone.com>
-Message-Id: <177463391769.3232558.4643402365403400713.robh@kernel.org>
-Subject: Re: [PATCH v2 4/9] dt-bindings: display: msm: document the Milos
- Mobile Display Subsystem
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CANiq72kZH-AX=QQz2V+qCfVzMsUEAPan=o1E=OZOAnivj3L3HQ@mail.gmail.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,67 +111,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-
-On Fri, 27 Mar 2026 17:12:23 +0100, Luca Weiss wrote:
-> Document the Mobile Display Subsystem (MDSS) on the Milos SoC.
+On Mon, Mar 23, 2026 at 12:36:52AM +0100, Miguel Ojeda wrote:
+> On Thu, Mar 19, 2026 at 1:17 PM Gary Guo <gary@kernel.org> wrote:
+> >
+> >  rust/kernel/net/phy/reg.rs           |  8 +++++---
 > 
-> Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
-> ---
->  .../bindings/display/msm/qcom,milos-mdss.yaml      | 283 +++++++++++++++++++++
->  1 file changed, 283 insertions(+)
+> Tomonori: are you OK with these changes?
+> 
+> >  rust/kernel/num/bounded.rs           |  2 +-
+> 
+> Alexandre: are you OK with these changes?
+> 
+> >  rust/kernel/sync/atomic/internal.rs  |  9 ++++++---
+> >  rust/kernel/sync/atomic/predefine.rs |  2 +-
+> >  rust/kernel/sync/locked_by.rs        |  2 +-
+> >  rust/kernel/sync/refcount.rs         |  8 +++++---
+> 
+> Boqun: are you OK with these changes?
 > 
 
-My bot found errors running 'make dt_binding_check' on your patch:
+Acked-by: Boqun Feng <boqun@kernel.org>
 
-yamllint warnings/errors:
+Regards,
+Boqun
 
-dtschema/dtc warnings/errors:
-Lexical error: Documentation/devicetree/bindings/display/msm/qcom,milos-mdss.example.dts:36.31-51 Unexpected 'DISP_CC_MDSS_AHB_CLK'
-Lexical error: Documentation/devicetree/bindings/display/msm/qcom,milos-mdss.example.dts:37.28-47 Unexpected 'GCC_DISP_HF_AXI_CLK'
-Lexical error: Documentation/devicetree/bindings/display/msm/qcom,milos-mdss.example.dts:38.31-51 Unexpected 'DISP_CC_MDSS_MDP_CLK'
-Lexical error: Documentation/devicetree/bindings/display/msm/qcom,milos-mdss.example.dts:40.31-52 Unexpected 'DISP_CC_MDSS_CORE_BCR'
-Lexical error: Documentation/devicetree/bindings/display/msm/qcom,milos-mdss.example.dts:42.42-61 Unexpected 'QCOM_ICC_TAG_ALWAYS'
-Lexical error: Documentation/devicetree/bindings/display/msm/qcom,milos-mdss.example.dts:43.41-60 Unexpected 'QCOM_ICC_TAG_ALWAYS'
-Lexical error: Documentation/devicetree/bindings/display/msm/qcom,milos-mdss.example.dts:44.41-65 Unexpected 'QCOM_ICC_TAG_ACTIVE_ONLY'
-Lexical error: Documentation/devicetree/bindings/display/msm/qcom,milos-mdss.example.dts:45.43-67 Unexpected 'QCOM_ICC_TAG_ACTIVE_ONLY'
-Lexical error: Documentation/devicetree/bindings/display/msm/qcom,milos-mdss.example.dts:49.38-60 Unexpected 'DISP_CC_MDSS_CORE_GDSC'
-Lexical error: Documentation/devicetree/bindings/display/msm/qcom,milos-mdss.example.dts:69.32-51 Unexpected 'GCC_DISP_HF_AXI_CLK'
-Lexical error: Documentation/devicetree/bindings/display/msm/qcom,milos-mdss.example.dts:70.35-55 Unexpected 'DISP_CC_MDSS_AHB_CLK'
-Lexical error: Documentation/devicetree/bindings/display/msm/qcom,milos-mdss.example.dts:71.35-59 Unexpected 'DISP_CC_MDSS_MDP_LUT_CLK'
-Lexical error: Documentation/devicetree/bindings/display/msm/qcom,milos-mdss.example.dts:72.35-55 Unexpected 'DISP_CC_MDSS_MDP_CLK'
-Lexical error: Documentation/devicetree/bindings/display/msm/qcom,milos-mdss.example.dts:73.35-57 Unexpected 'DISP_CC_MDSS_VSYNC_CLK'
-Lexical error: Documentation/devicetree/bindings/display/msm/qcom,milos-mdss.example.dts:80.44-66 Unexpected 'DISP_CC_MDSS_VSYNC_CLK'
-Lexical error: Documentation/devicetree/bindings/display/msm/qcom,milos-mdss.example.dts:142.35-57 Unexpected 'DISP_CC_MDSS_BYTE0_CLK'
-Lexical error: Documentation/devicetree/bindings/display/msm/qcom,milos-mdss.example.dts:143.35-62 Unexpected 'DISP_CC_MDSS_BYTE0_INTF_CLK'
-Lexical error: Documentation/devicetree/bindings/display/msm/qcom,milos-mdss.example.dts:144.35-57 Unexpected 'DISP_CC_MDSS_PCLK0_CLK'
-Lexical error: Documentation/devicetree/bindings/display/msm/qcom,milos-mdss.example.dts:145.35-56 Unexpected 'DISP_CC_MDSS_ESC0_CLK'
-Lexical error: Documentation/devicetree/bindings/display/msm/qcom,milos-mdss.example.dts:146.35-55 Unexpected 'DISP_CC_MDSS_AHB_CLK'
-Lexical error: Documentation/devicetree/bindings/display/msm/qcom,milos-mdss.example.dts:147.32-51 Unexpected 'GCC_DISP_HF_AXI_CLK'
-Lexical error: Documentation/devicetree/bindings/display/msm/qcom,milos-mdss.example.dts:155.44-70 Unexpected 'DISP_CC_MDSS_BYTE0_CLK_SRC'
-Lexical error: Documentation/devicetree/bindings/display/msm/qcom,milos-mdss.example.dts:156.44-70 Unexpected 'DISP_CC_MDSS_PCLK0_CLK_SRC'
-Lexical error: Documentation/devicetree/bindings/display/msm/qcom,milos-mdss.example.dts:157.58-74 Unexpected 'DSI_BYTE_PLL_CLK'
-Lexical error: Documentation/devicetree/bindings/display/msm/qcom,milos-mdss.example.dts:158.58-75 Unexpected 'DSI_PIXEL_PLL_CLK'
-Lexical error: Documentation/devicetree/bindings/display/msm/qcom,milos-mdss.example.dts:219.35-55 Unexpected 'DISP_CC_MDSS_AHB_CLK'
-FATAL ERROR: Syntax error parsing input tree
-make[2]: *** [scripts/Makefile.dtbs:140: Documentation/devicetree/bindings/display/msm/qcom,milos-mdss.example.dtb] Error 1
-make[2]: *** Waiting for unfinished jobs....
-make[1]: *** [/builds/robherring/dt-review-ci/linux/Makefile:1614: dt_binding_check] Error 2
-make: *** [Makefile:248: __sub-make] Error 2
-
-doc reference errors (make refcheckdocs):
-
-See https://patchwork.kernel.org/project/devicetree/patch/20260327-milos-mdss-v2-4-bc586683f5ca@fairphone.com
-
-The base for the series is generally the latest rc1. A different dependency
-should be noted in *this* patch.
-
-If you already ran 'make dt_binding_check' and didn't see the above
-error(s), then make sure 'yamllint' is installed and dt-schema is up to
-date:
-
-pip3 install dtschema --upgrade
-
-Please check and re-submit after running the above command yourself. Note
-that DT_SCHEMA_FILES can be set to your schema file to speed up checking
-your schema. However, it must be unset to test all examples with your schema.
-
+> >  rust/kernel/xarray.rs                | 10 ++++++++--
+> 
+> Tamir, Andreas: are you OK with these changes?
+> 
+> > -    transmute::{AsBytes, FromBytes},
+> > +    transmute::{AsBytes, FromBytes}, //
+> 
+> Nit: We should take the chance to expand this.
+> 
+> Thanks all!
+> 
+> Cheers,
+> Miguel
