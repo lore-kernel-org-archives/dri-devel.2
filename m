@@ -4,94 +4,101 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9421910BA43A
-	for <dri-devel@archiver.kernel.org>; Fri, 27 Mar 2026 08:18:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AB97310BA43C
+	for <dri-devel@archiver.kernel.org>; Fri, 27 Mar 2026 08:24:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F3B3A10ECE3;
-	Fri, 27 Mar 2026 08:18:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E7F3210E330;
+	Fri, 27 Mar 2026 08:24:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="bb0ARMvC";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="3RPHKK+U";
 	dkim-atps=neutral
-Received: from mail-vs1-f41.google.com (mail-vs1-f41.google.com
- [209.85.217.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3445710ECE3
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Mar 2026 08:18:24 +0000 (UTC)
-Received: by mail-vs1-f41.google.com with SMTP id
- ada2fe7eead31-60327793ec9so591910137.2
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Mar 2026 01:18:24 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1774599503; cv=none;
- d=google.com; s=arc-20240605;
- b=c8+WLAlbM0s0EziTkqIc1Mw7ccG4qpO6/LvzJcKwhQ7NYITggpdHg8NZcE0Ly7O9ma
- bWO2LE1EpZPQl+ZrO2n7ox8L5M2s1tKrwR7pX/rBSiXw/AryryL3jvIdJ9qJ9KTs/tf3
- MSXvsa7+dsf4q2i8PJ8VZ+nh2IaUN2XZqb7EgYpE3DoPZH0IOP6hFCLlSq2gEz33kAJ3
- iptkC/zGVfMcVbNSxHLvtr5CDL+RA5MQdraflhSyxcpGMek99UNwz58zZJFEQpouMvsM
- TxW+PtSUVJFxBSOkQnMDQyJHsl1vePBOtpzGL7lI/0FgBr4ul3J2YtxBfGMY+pVW3cSh
- 6gsw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=QuPpLbdHrgi5gR7bQ+OPvpgg5A9XMEpoCpqb7gTJN8I=;
- fh=rIaIo6PkrT/bE5s9jmU/RepW2meUAUkTEw4IjV1BEgk=;
- b=ZK7uDSHnBlSxZnVOuR4Qh57+75pZ98Nw8WEiWYpVFjk9CD1KTEIcCMDhv/NiUNjfe1
- 25S3h2l80tH8KbkPkFvrW5ID3cT05JLJIWQtinFYm8k1QL6PmH3ASA8Jq4iX7fshwAqH
- tosi/U1ex/3AIjvM8o06C0RwyUnoaeTtyj2fROeUFI7AB8Dd4WnMecekDH2NASkdXvLM
- 8r2S/3/6wcyoqX/tOITauKhf5x1kjkyom2/8H4d52/wv1qeiJzuDFdI3b9OBK3EbPvKD
- RdNteFoUtk8nYnRKrPATc5UTqK/davoW0gXSgIBfmDjl8pxUhFLG4qzVIlWbYMrzld6h
- oABQ==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1774599503; x=1775204303; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=QuPpLbdHrgi5gR7bQ+OPvpgg5A9XMEpoCpqb7gTJN8I=;
- b=bb0ARMvCUpfCvIiU6CWjquxA2uvVHh3oLIaDDOXU2ubDm7G80BgMfnyVC87EOspHvJ
- Dbk/z4gJLj8rn4s9wplNV1ASN1xDeVgcVb3SrSBqfhRjZgktpPLuxGdhxps4HiFYfzbz
- Tp1l3JUxrkKUE5x6k7WFXI3ZKIRl/QVyMNYAqnGi6OM+Ww0VjlQi9tq24Sf8ZIz9Q8Z+
- FAgxylNuehHf/TVRl9BsFLRIOuHDWjgviD0mAAdHMAZGnGsTfpr9EClIA7lDlfEYwF36
- dcOpbYFGon46QM9hD9MhGqakkFC+3JFsGmV9snDdXc2e0P3CM/ohpYvce3XfQioWHtkF
- nD/g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774599503; x=1775204303;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=QuPpLbdHrgi5gR7bQ+OPvpgg5A9XMEpoCpqb7gTJN8I=;
- b=H2R/3nBGci0cXw+rtt08CEDSATDH0/i8WPVhejd13vgQoRj6jpvMMt4hN4R754F12w
- D6ia899sGIsfQUAmlROejid3bFlo602VVooKiL/8TksPujrJY2xxvTpH8Y7DZW4upAtw
- 1fRPQYWaJrGHvrA15gJ2OsamiWReBMUPPR8vY59qf7jsMkScLTQ6mN6eHJ6qqveDK5EF
- hGMZNZplyY1bnwoIi9+X2kSeL6m5X9KQwrENlR1p6b3L6l3MJex5CukDgR4FkZ1kO7GO
- xYPp+bD9ibUcgiuqDVe7O2aepDqN7YHhhwNnseCfCcVL43EkN1pH0U5B39hFK2nGuSTQ
- 6hYQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCV+E1hbahTqUa6hNqJpEydVTwwVvgs9IfyUB4Ypyy8L/BACreYZ24cc8AUU/KhhUoDRS+nMSbS7dc8=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yw8+QRYF+HYYlvKTMblNxfnk0h7lQyD+WB//tUb1PMzl4RRSqc2
- VFj77zgmWc6HJjz3OjtGwnToFuds1XIWeGI5w22P62xSyN5bbzO4TdR/2QwEMCKx0+gvejkxY+y
- QXgdyNPSnJ2g7zxAOFq1l4pDvVWV9Ftw=
-X-Gm-Gg: ATEYQzy+O+frYyTLMfRE1s1nU6PWj9CvrCm8wMzEGtfRUun3TrS2ee0eqFq5j+nrSTu
- I36/JsENaFP7ir0Z7AXZAicu2JMSty2hCN+xFpZNles/m/69sKvvNBySXjtnw7k8+v5vQJSF5DL
- 5zM/XvBbwGY0b5drRjrzMHPuFpNukXDsEyvCbjIghPdR5KKI3BIQqe9M/gX+u5u4GJcoKY47nLR
- EEQxGjimEAm8pAUbI/Rg6kFJgiq9Ek9D/VY3evxIOXoduM7MQ4aaDcGYA1XxqdzPol+nwc7Q/gX
- c+FM
-X-Received: by 2002:a05:6102:1588:b0:602:aac7:b8bc with SMTP id
- ada2fe7eead31-604f92ff779mr611452137.30.1774599502859; Fri, 27 Mar 2026
- 01:18:22 -0700 (PDT)
+Received: from DM5PR21CU001.outbound.protection.outlook.com
+ (mail-centralusazon11011064.outbound.protection.outlook.com [52.101.62.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 460CD10E186;
+ Fri, 27 Mar 2026 08:24:07 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=dH/j7pe/pta/xpt9NMD2ZAFj8avBUjKz9b7IS1NWDoNC8LWdVZXRQ6mlztfKB34G5w11H1n8qu1ULiHFz1+A0tm/qATEWAPSm0HTD7SQa9bHOc2dLgCqb3dOSJukwRnz5XnMJ82wDXgi1jG1RTuhO6ImMmQaMwx0CWOfY3B+x/E6sQKX07WvWGmt3w8LPxz/LT1bSjFMH5xeOHeD3x3W59q+HyJUacqiI89D951KygkgKFDDovYsKnPLFBV/cgHpadEAXAot2BQOUG96YcxnqcFLN2dH/eAOWnuoGvJae4OKuP1q/2h8M7VD171YDAB5wGWFsiudAjhe279TMVO4YA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=1Ywg4aZXzdvSDuL1KY35DamW00mUQ7DmjB4I/hf4Auw=;
+ b=gUFETCLWtlhiqMPTyvPcEFiEuBtKwsxBbJKaw8ZIRTy5WABku9bTrnt3lDJFQsDmYalItWybZJcO0NUcJd5wGVsz1QsJJpYNu0G+7sBZ3dF0dl21yJIw77QxaRBGj5VY2FH6S5F+EV7Mhxn4V7Nv4dE0WNjURk2LgAF5D4iwUOCSrk71V0Ih42QGwS406O//7SSCbruFngN6TrKhY/eJmSJqQxAnT19qS7MY2GR3JP3Ty55z8SVm6LiTHVlm7McDDbmSrAicox793doHXUcFPor0Jluo6SLXRYGlYS/05T8Q1kCYYQeiFxQEfBFdQHybf6Wk+q3mCxVGPr8Pon6ydQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=1Ywg4aZXzdvSDuL1KY35DamW00mUQ7DmjB4I/hf4Auw=;
+ b=3RPHKK+UBhS5tinoD72aXNI7rsFGsjmS7nGqS6PK1GVo37RmVuW+mOosN2OEAunHgKj1BCYbrlhL45er5jfQ9uWPaUQpBDq4DtwS+AizH6sI+JEZKUiGOgoSeryW8IzfFTarSWFhEbnaXGBB7og3kzCQQr5Uu8I0czigUsWfSYc=
+Received: from MN2PR18CA0023.namprd18.prod.outlook.com (2603:10b6:208:23c::28)
+ by DS7PR12MB6168.namprd12.prod.outlook.com (2603:10b6:8:97::8) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9769.7; Fri, 27 Mar 2026 08:24:02 +0000
+Received: from MN1PEPF0000ECDB.namprd02.prod.outlook.com
+ (2603:10b6:208:23c:cafe::12) by MN2PR18CA0023.outlook.office365.com
+ (2603:10b6:208:23c::28) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9745.22 via Frontend Transport; Fri,
+ 27 Mar 2026 08:24:02 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ MN1PEPF0000ECDB.mail.protection.outlook.com (10.167.242.139) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9745.21 via Frontend Transport; Fri, 27 Mar 2026 08:24:02 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Fri, 27 Mar
+ 2026 03:23:48 -0500
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb09.amd.com
+ (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Fri, 27 Mar
+ 2026 01:23:47 -0700
+Received: from chenyu-station.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
+ Transport; Fri, 27 Mar 2026 03:23:46 -0500
+From: Chenyu Chen <chen-yu.chen@amd.com>
+To: <dri-devel@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>
+CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Limonciello Mario <Mario.Limonciello@amd.com>, Chenyu Chen
+ <chen-yu.chen@amd.com>
+Subject: [PATCH 0/2] drm: Move AMD VSDB parsing into DRM EDID core
+Date: Fri, 27 Mar 2026 16:21:57 +0800
+Message-ID: <20260327082342.1286878-1-chen-yu.chen@amd.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-References: <20260327021728.647182-1-nichen@iscas.ac.cn>
-In-Reply-To: <20260327021728.647182-1-nichen@iscas.ac.cn>
-From: Pengyu Luo <mitltlatltl@gmail.com>
-Date: Fri, 27 Mar 2026 16:17:52 +0800
-X-Gm-Features: AQROBzAr61Da5h07D6ItHHc-QSJGbO-be55ryw14cCDr8d4zOwDCJT_TB421exk
-Message-ID: <CAH2e8h6gN7Q+1D6eTe0UQis8wi=C+FTRTvLRnWSxE3Pth2Gt0g@mail.gmail.com>
-Subject: Re: [PATCH] drm/panel: himax-hx83121a: Fix incorrect error check for
- devm_drm_panel_alloc()
-To: Chen Ni <nichen@iscas.ac.cn>
-Cc: neil.armstrong@linaro.org, jesszhan0024@gmail.com, 
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de, 
- airlied@gmail.com, simona@ffwll.ch, dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MN1PEPF0000ECDB:EE_|DS7PR12MB6168:EE_
+X-MS-Office365-Filtering-Correlation-Id: f9a6350a-e72c-4c6c-774a-08de8bda33e1
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|82310400026|376014|36860700016|56012099003|18002099003;
+X-Microsoft-Antispam-Message-Info: ma6FDAmMB3ixpGlnJjJbt4plZmd45+2gk155mIGAP+yd7cVasotRLXUEZjPdaNaqXI3jChuhC69nlXP4LxsMXrcGREufOGsTATE7E7uDG848Dp137pnRFew35nnQcUyuEHCA6hi1jTf4GR+vi0aN/npqr2RUVVXGtAWxCHPv0rUrvk4lJ4G5PzeqLALo0IiR2VvxeX8F5zEakj8+1QGla0KDGPql+SS7r4SGjOQygUrbbmvDscUaHFnO98Vcnz6OJXeGG/VDh2mF5KZNInVPj2i7xxqgwU5ZIqqWK7iAJzL/w0an4vXJfLWqbLIkQWQT/KWoOX6lJ/1EshF4MuQxE7AkuZEyJRzq5NnanSW9yGKpy3HEpOQKeuPPx6vjH3/DG5sF1fVJ1xQf86973y7nROvADfBHPD46/JILTvxIJJuQwzy9AZqKRZt4lFNmFjlrrtjPwhUeOIRLkLUZbS9/7We63oXbSuncF5cfdnepo9IRAO23KPPo0zx3HXUXIuPkiw5CFlLZhJHt7ZKNFU+XImIBjCPF8fPvwGlqNEnf1XGsGxv0bRwNd+pWP5DeF1vpQk3xVpLNHAhnT4hdjpAV6BKfyVireOcDICSAFGCRJVwhZIEzW3HLdRwABvSQ2++vQ8N1M9kPg4Bgp+Nl5EyMxwrNWxCP4UW31ef+lL0n1KXP30la16tHRtadhqfU8TQmZmiLy6wZctWbrU9qSGVHZfos4gg4RoZu5aWyU4TgilTWOuM5OvyVJ/WqSact6xVkr9ls7RtiLKGhAR1jSZDAOQ==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(82310400026)(376014)(36860700016)(56012099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: TPm9dnM3Icx77jHqrMVIINBRe0D9/QL3bGbD+GRVSgiE4o6S5USBDWjaMNJc7ogdZzUWdmpatp4C5ruk5rd+LgSTm3ohhpD/Pkak0N/DYnwIgZjbbxjysV3LGdUchmaRK7ewRfaHNXK9o2QUuhJgfjP0nBh1rJxcZEn6rLEwNScp8AK6QBJXJ9Hg8zU7/YJronaxHT+9krT0dtuFD7fqLBEQer2nQFCrfHhURjQ6fKuqtv5x/d2pUOMJfXBuV4vuF9uKnC89gm6EB0dUmMy+zTypU5PguqjgN15Rg+aIBOZ4jmEdikqZgqjiW4JVv6G3Egw5+3cZPI2Krj1MZ/386lX4X4uWKg2BxJSH1uVirQcQJvAXowqAiKxEURYE4+fu1B3429ao4iz21VyzVewDTvMzfh7lIH/UcZrokHj4yK9zjByvezZ8TZ5pUmqhOQPy
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Mar 2026 08:24:02.2399 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f9a6350a-e72c-4c6c-774a-08de8bda33e1
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: MN1PEPF0000ECDB.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6168
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,19 +114,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, Mar 27, 2026 at 10:18=E2=80=AFAM Chen Ni <nichen@iscas.ac.cn> wrote=
-:
->
-> Check devm_drm_panel_alloc() return value for ERR_PTR instead of NULL.
-> devm_drm_panel_alloc() returns an ERR_PTR on failure, never NULL. Using
-> a NULL check skips the error path and may cause a NULL pointer
-> dereference.
->
-> Fixes: a7c61963b727 ("drm/panel: Add Himax HX83121A panel driver")
-> Signed-off-by: Chen Ni <nichen@iscas.ac.cn>
+The AMD Vendor-Specific Data Block (VSDB) v3 parsing currently lives
+in amdgpu_dm, using raw byte-walking over EDID extension blocks. This
+series moves the parsing into the DRM EDID core so the data is
+available through drm_display_info for any driver.
 
-Reviewed-by: Pengyu Luo <mitltlatltl@gmail.com>
+Patch 1 adds the parser in drm_edid.c and the new drm_amd_vsdb_info
+struct in drm_connector.h.
 
---
-Best wishes,
-Pengyu
+Patch 2 updates amdgpu_dm to consume the parsed data from
+display_info instead of doing its own parsing, and factors out
+panel type determination into a dedicated function.
+
+Chenyu Chen (2):
+  drm/edid: Parse AMD Vendor-Specific Data Block
+  drm/amd/display: Use drm_display_info for AMD VSDB data
+
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 120 ++++++++++--------
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |  14 --
+ drivers/gpu/drm/drm_edid.c                    |  72 +++++++++++
+ include/drm/drm_connector.h                   |  38 ++++++
+ 4 files changed, 178 insertions(+), 66 deletions(-)
+
+-- 
+2.43.0
+
