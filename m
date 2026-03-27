@@ -4,95 +4,96 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2BAEE10ED65C
-	for <dri-devel@archiver.kernel.org>; Fri, 27 Mar 2026 11:16:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 75B8C10ED65C
+	for <dri-devel@archiver.kernel.org>; Fri, 27 Mar 2026 11:19:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8561510EDAD;
-	Fri, 27 Mar 2026 11:16:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BE02C10ED8B;
+	Fri, 27 Mar 2026 11:19:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="FdpUeDhH";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="K1/+eeG+";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="KABEZbvt";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="R3PwtxZv";
 	dkim-atps=neutral
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5CC5B10ED9A
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Mar 2026 11:16:29 +0000 (UTC)
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 394CB10ED87
+ for <dri-devel@lists.freedesktop.org>; Fri, 27 Mar 2026 11:19:35 +0000 (UTC)
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 62R6vnow3713693
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Mar 2026 11:16:29 GMT
+ 62R6wuKr2846152
+ for <dri-devel@lists.freedesktop.org>; Fri, 27 Mar 2026 11:19:34 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- 39M0iU/FwlQ8YQkgSi9icpJ8JQpEnxIpD9a2Onoqisg=; b=FdpUeDhH40V/SjWq
- E0Woyd3uNalX4EiMswBgp2o6ylOq8SovNur7UB5pIZlcVx6oA7yEma897m86vt54
- OvDSR595QnjEmGM3rFEsadMPuHt7dTHgPDoGXXsPvn2h4iWV71scH9YPR4fuJUvT
- BQfvJfQS1YXHDduijTRR8y32wlPIEipFF2/Upz4va3ZAd+rd3SuQrfGU8Hl+NtAg
- WoYoMXtCUGsmPgth94l6TVM65+C1jv9wqwV77uCTDY1N0mEqd4+ZVECZS4dcqSr1
- 8e8yhEFzI3YUYJmsG/sbABomsBX4S9xs9Mfrr4q0aJFwso3cs+tAKezDe+dz/3ek
- BdNq7Q==
-Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com
- [209.85.219.72])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d5hapsucy-1
+ TMjrA6TTi9yCOvGqK1ztiHGK4CSNrrj4NvPFBfXCxkE=; b=KABEZbvtYxZx8vLm
+ lxUSis05lkXMQT0EDjSszvh1unwpCRZ1REiD3tfUAEDiX1KeHbt9jtFwpZUsRA+m
+ X9TGPVfiPq+xvV2VngUk68Fmsp8SL65NwBI4+nYhV8xAmh6F9/fDCexAgQQ5J/TC
+ OOO0hZAUqRUQiBjzP/wMlsVB9+Etu+VHzUnDdXhsF5Qog72CBKRRML4t0d177Coo
+ gCQZvPHkPMgtV/Fxnz7kW26dph5Iu6GEu1n/dOkzwRcAL5ChSp7cacn7cCs53EUr
+ i4RLlxek8kyCl8UznEEW7pkA9Xaw1g3zhZfiHvxxYbSMFX+5L8Ti39o18dkdUk11
+ rLgiPg==
+Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com
+ [209.85.160.198])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d53eqmsf8-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Mar 2026 11:16:28 +0000 (GMT)
-Received: by mail-qv1-f72.google.com with SMTP id
- 6a1803df08f44-89cd0f68ed4so6446856d6.3
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Mar 2026 04:16:28 -0700 (PDT)
+ for <dri-devel@lists.freedesktop.org>; Fri, 27 Mar 2026 11:19:34 +0000 (GMT)
+Received: by mail-qt1-f198.google.com with SMTP id
+ d75a77b69052e-50b33a19837so7480381cf.3
+ for <dri-devel@lists.freedesktop.org>; Fri, 27 Mar 2026 04:19:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1774610188; x=1775214988;
+ d=oss.qualcomm.com; s=google; t=1774610374; x=1775215174;
  darn=lists.freedesktop.org; 
  h=content-transfer-encoding:in-reply-to:from:content-language
  :references:cc:to:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=39M0iU/FwlQ8YQkgSi9icpJ8JQpEnxIpD9a2Onoqisg=;
- b=K1/+eeG+S1qSNXTATzeeewjL4YLjTVOtrq67ywJSUZTN2aIAGCqImeRJuE/Uds0mkZ
- seZFFuM9ZtcGOgIKeXh/fqdwIdD8bMDs3gBjGdgtV6+l1MDd3RNfRTwlNph3DmViXZK3
- T8vmi6XnqlnZMYO7/Oc9F39+CceEtQfga1ueBokY0tG7kw/BVf+f5iRENm2JAFsOUq1d
- e8dFK3LdesNrEcpj7h+RP0OA+noro5h93d/LYg+DVXlZe75OLaYtujiE+WKhcrDsa8fn
- Ly9SLdb4tcZKOeopS3Ir2V/ywKblnxYi0pdhTV5koSQ3aJiVaMQJq+1d5oseARWJI3l4
- VahA==
+ bh=TMjrA6TTi9yCOvGqK1ztiHGK4CSNrrj4NvPFBfXCxkE=;
+ b=R3PwtxZvJ44i02FRjmui3we20nK3ys5RK4O8sbe1nYAD8M+THpweLQzlUr3bCRgj4X
+ gfT34kfDTcHHwbYr8+2/od73+t0/2D4CbMMMCunqSbInAMJ0sq7IDoJz6eBRfd0DPmz2
+ 3MGNp7L+XCyN5NIkP9SEmleECeTnj0oIu1jlS4K3MGB7kXp4qgu6PsEYhj42iWiEOmy/
+ 6t696L0Zq2i0RG6dhDQVkvJSwaEhR9VyBMexh0ZBt8X/lFap1+a23GAL7S1g3AcapRcN
+ 0+7VGaQzqN3YSvf48k1grO86bCCXLhVRvKEEVY6XBR5ILq7sPVth9sG1aoLpDFGceotP
+ h3cg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774610188; x=1775214988;
+ d=1e100.net; s=20251104; t=1774610374; x=1775215174;
  h=content-transfer-encoding:in-reply-to:from:content-language
  :references:cc:to:subject:user-agent:mime-version:date:message-id
  :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=39M0iU/FwlQ8YQkgSi9icpJ8JQpEnxIpD9a2Onoqisg=;
- b=PIHjsMO9Kg+45WDgN3v21GsXpTeIZ7c4GaExIythfWQeTrHarLiEyHnqpBQsrXyFlO
- 5vZ3NzDRveBq9dJ72JqejrUcUn9vkyiRCBz6AKbQq+/19nCjT97fIXvUS9B6kxYVj4pF
- BdDYJK+pMby9f0vh7HbTj9sqQS4Bjz7IIuP5bppyNJuGSs4WZp8DPE6WulrOgbMbdtpv
- L535VElaSmmzXnXW5K9CSmM9Uv6epA1h4F5G4hDRucfCnXQ1WvOANzR673/+paLL/5Sb
- YWbNYuk31Vsx9ybkGXXlE+mCGYVXnWPEKb9VmlFO7C/m0TcDfDBkZBkCKgaPV/YoAhKZ
- KgJQ==
+ bh=TMjrA6TTi9yCOvGqK1ztiHGK4CSNrrj4NvPFBfXCxkE=;
+ b=fiODezAQa3DXhpLZs0tytSKBouuH3q8fLzWehkbnK4MeosxNPAf/M4ZmsQ9jWjnQSj
+ ZXX1ELzBu9TIA6bKat+qM046+ogu+dKBs3vjFMRHPEBONniMSgTJatcHnK+YO0Gf+L3Z
+ ZoSn8wMZWjRNYqVFX1Z7ykRdxAUAwApt/gC8AA75wsr4rNNlruvqfnb2b1UuCXMUJvsq
+ GLSIwUZqyfdvGHEgc8EAm5/DOfeuxIKlTN6a1Lmw6UQKZWqi7PImPsjXOud+hHfJkNam
+ uSa3bEFUCDFZ1zZrmx1f2/vuu1/4Eeijk3rReS+IHU7iNaLDjfIil43kKQNDViAHUlts
+ pdUw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXvApNH7agKQF25PRYP8VHvtvYgt4wT/G/UQpv/HqAbOiWaTAq+ORlkdvs3afEYenU62pdFM1iOGiM=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyNIumBVEQSMm0NCOn+oj/LloghCqf679Qs7ULXJVNeS8WKYhEt
- iGrp49HIvr1SU5F7hRyR8a05UuEmoWkXdEz2erdyOj0ofstWDxJye0UOrvKegNY91tKUkz9wfYn
- Q/TTLuxuZkpGkY84m430LJ24ZMzbr5UYr76ehhbas028JQoQfYCo/vWEboCmJQzjqyinS4mQ=
-X-Gm-Gg: ATEYQzyG96lz9obLA3ZAifiXVLVUWLjuMX0/8c3byt9i8Mv9BHD9TJuOmsCmEozYXDt
- 4ijKDuCvUGpd6xMAy7OoHrwgN4PpRYkG8C1e4lEsA1VtEYy5kUXXbR7ZKMQGOB/tx8gVMOmjRK5
- cH5XDVOmi9jnjsTCF2qMixGz/DlV7Eak5a4IgtJTmIiiKk0k953WhLAU40BfeiXR3+EkrA4rPtN
- N4JOWO8bWi6pjD9GZSkL4LfJ7tmi9NMM7rSxTfG0IyL4OZBREigr7q6bzJGUI9fT0+qCQjJDgYo
- 3YTCJjEQIUZ1pUQiwsvHgoSS2SDpZb4fpUFHLwWF+vJQNhzeSboSs5i4qGm9ccyE08iazz+cqi3
- UHD3AqTP0JFmdVkEo9RXwGYMpStr/z24YwuW+Cla8n07ZTkDxkQqYmMcTwA5pZA/8wFvcIOXYK/
- 3IEr4=
-X-Received: by 2002:ad4:5f09:0:b0:89c:d5f4:7b2c with SMTP id
- 6a1803df08f44-89ce8e419femr19792266d6.5.1774610187848; 
- Fri, 27 Mar 2026 04:16:27 -0700 (PDT)
-X-Received: by 2002:ad4:5f09:0:b0:89c:d5f4:7b2c with SMTP id
- 6a1803df08f44-89ce8e419femr19791746d6.5.1774610187393; 
- Fri, 27 Mar 2026 04:16:27 -0700 (PDT)
+ AJvYcCUBoBkDg8EdGnUau+WV6aB6BaZrYbMeQRSiMs+WPNw2bwSZy+4OcLChzYW3jjrgXwapWO103QMG4Qo=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwsC9ZS6xCbGVrUNMWqMQfbAC5vypazD4BS05i2Aq/1QExAKXPN
+ M1Xrxly3+CcnZllxNCuiDqwyYPpt/tuZ4IpYODBCJsCvzf3RkSBtJZIxYlKhZ994da4HaanuQhl
+ Jgwh5al8JKWMkk1TJGju5DCwnlh+NRQiGRrh39fcVhgPtj6Z37VbK5Lf2gDy78Lwv4zWFlR0=
+X-Gm-Gg: ATEYQzyHEhK1tmufWTZ58bMn3KGW5chFACmwntXOqFNucncmPs3rK+dnBDuhgRdfohM
+ qwAL4gHataDJVlcEZiJSvwVYNm6WuTTjaQZhAZ+OJ+I3bVhn6nXLYf4QBI7tJSdbSFSlx5/whNU
+ iZhQNNnJZLpBoMwz1DA1tZwNZgJZG3+kcTNxZ+0uAEcT5Q5HxFtE++EVmk2p3TDsen88NC+zqK7
+ nIiBoFhqrTLQG0RXIpY4hdmdqZJYswh4PAgljWIZHqUTdNOzoricd2A4CgsP9q+vMr1b5LpHTKB
+ R9fukScsZsXFtDTWn1vZtUd/fan+0SL915EIdBXuE+SUcTEUr+lMnjYLcvyYskJy3Ssrq0W4UOJ
+ R11Pw/tRYSLW5WJwIhi6MzejB5ZJT1CPDaw2VSvdait08cWbzpNNvNU5iiw3JXSjxJfHgA+QDbp
+ sjuJE=
+X-Received: by 2002:ac8:7d15:0:b0:50b:6b21:2a7f with SMTP id
+ d75a77b69052e-50ba37fc306mr21756971cf.2.1774610373796; 
+ Fri, 27 Mar 2026 04:19:33 -0700 (PDT)
+X-Received: by 2002:ac8:7d15:0:b0:50b:6b21:2a7f with SMTP id
+ d75a77b69052e-50ba37fc306mr21756651cf.2.1774610373380; 
+ Fri, 27 Mar 2026 04:19:33 -0700 (PDT)
 Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl.
  [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b9b203c2225sm231157166b.37.2026.03.27.04.16.24
+ 4fb4d7f45d1cf-66ad6a4ec00sm2110378a12.23.2026.03.27.04.19.29
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 27 Mar 2026 04:16:26 -0700 (PDT)
-Message-ID: <f7412989-5454-4877-836b-268ca27c5731@oss.qualcomm.com>
-Date: Fri, 27 Mar 2026 12:16:23 +0100
+ Fri, 27 Mar 2026 04:19:32 -0700 (PDT)
+Message-ID: <b3238d53-f384-45cb-ba8a-c5b572d27e2d@oss.qualcomm.com>
+Date: Fri, 27 Mar 2026 12:19:28 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 12/17] drm/msm/a6xx: Add soft fuse detection support
+Subject: Re: [PATCH v2 17/17] drm/msm/adreno: Expose a PARAM to check AQE
+ support
 To: Akhil P Oommen <akhilpo@oss.qualcomm.com>,
  Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
  Konrad Dybcio <konradybcio@kernel.org>,
@@ -108,34 +109,34 @@ To: Akhil P Oommen <akhilpo@oss.qualcomm.com>,
 Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
 References: <20260327-a8xx-gpu-batch2-v2-0-2b53c38d2101@oss.qualcomm.com>
- <20260327-a8xx-gpu-batch2-v2-12-2b53c38d2101@oss.qualcomm.com>
+ <20260327-a8xx-gpu-batch2-v2-17-2b53c38d2101@oss.qualcomm.com>
 Content-Language: en-US
 From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260327-a8xx-gpu-batch2-v2-12-2b53c38d2101@oss.qualcomm.com>
+In-Reply-To: <20260327-a8xx-gpu-batch2-v2-17-2b53c38d2101@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=TqnrRTXh c=1 sm=1 tr=0 ts=69c6670c cx=c_pps
- a=7E5Bxpl4vBhpaufnMqZlrw==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzI3MDA3OSBTYWx0ZWRfX9YqLgOwjuXr/
+ ppg89YESa0bEvK65DhEjTrLcM+NsjhAPrdhfCO7+tD2lseATECMj3KCZyjBiXy9acCtJLR9cwlQ
+ 9AnPfXo8VoWqAE68ezGZWKI3k/wqjrggMbtsl9TfgJtrtfSR2dDIkPVViar7MXcbmpJLpiSXhfL
+ NtbSWvBGQzPCcXzmTC/h4sU7pIhGYsTxRPFZzrYZSbcotGlzW0+FqaNlQnMtXnkYxzQP9IpKTe1
+ 4dTWjVL8222kRfid8UGfhgWEUZAKytRkPt3wYpiyRBc7pK9djjtgkwvStWl5rgtNoC+OSX6USEa
+ HicAkdr6lCh5wHoCatPi/YxeK83AOge5sHAqYfX6s7VdO34VMKWJkgnyxVLtil2UwqbtOoQ2mFq
+ TY8Nrqs4obcj7lAYUq7LKM2+Cky5ajMMW6jsuyJMBRiuqNeBNZO/j1r3YmlZ2MGngQH5a3m7eA/
+ lN4NMz2DNZxDMxlMQBA==
+X-Proofpoint-GUID: c8z_DQmx9segO3GOPmAsgkY1Y5F6gPxi
+X-Authority-Analysis: v=2.4 cv=S4bUAYsP c=1 sm=1 tr=0 ts=69c667c6 cx=c_pps
+ a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
  a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=mI-EeI66H-T0GO0KZ4wA:9 a=QEXdDO2ut3YA:10
- a=pJ04lnu7RYOZP9TFuWaZ:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzI3MDA3OSBTYWx0ZWRfX4LHwrJ1quLli
- 7LWFneU2LeGKwqVFPbbC9DSXjPOkpdSxnwSbZVFXfKwsnz2FsltLyT7TOm/x25bdLZ5KRbm4FSS
- nRlEIdBK4oOe3CCjhgdcbhR0Xa1LUur/yNxoQsvP7ktXnfUihWb7ScNLptKw5Jiap/kmy5dGT5X
- e5V1aJjAeK5MGFlT80aB0AK0URdB6zmLm95sYZUQq3ttI+8htcnmiQ0jM40PONvkttrpcZLJBiW
- ZsTZPkUn1tylLcHmISbOK3fsMAZHNXxaFGkusx8qtAUaiuxlbQye45diWrC2IDGoejyYTSJjdW0
- N5MMGCu1EcVBAabGOkXxz8aSx2Ss7UG45xymW6qNmcgd/xU371xTcqFNED+W4MG+TdFUHrl/k0j
- THpGoZ/cWihEG5E+AVGr0E0ZpcqriVnsRu2tVagG/79yAsHFlUkf6cpr0lvuejldGISN1YEmeCp
- 9n0kDEw+CT3AujTCqog==
-X-Proofpoint-GUID: xZfF1aF5xVrG4vIt2pyl7Xw5w64j257X
-X-Proofpoint-ORIG-GUID: xZfF1aF5xVrG4vIt2pyl7Xw5w64j257X
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=EUspDBNiAAAA:8 a=2XNqRJ050pmYQOFmOusA:9 a=QEXdDO2ut3YA:10
+ a=dawVfQjAaf238kedN5IG:22
+X-Proofpoint-ORIG-GUID: c8z_DQmx9segO3GOPmAsgkY1Y5F6gPxi
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
  definitions=2026-03-26_04,2026-03-26_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 impostorscore=0 lowpriorityscore=0 bulkscore=0 spamscore=0
- malwarescore=0 suspectscore=0 adultscore=0 phishscore=0 priorityscore=1501
+ priorityscore=1501 malwarescore=0 lowpriorityscore=0 bulkscore=0 phishscore=0
+ spamscore=0 impostorscore=0 clxscore=1015 adultscore=0 suspectscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603270079
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -154,22 +155,25 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 On 3/27/26 1:14 AM, Akhil P Oommen wrote:
-> Recent chipsets like Glymur supports a new mechanism for SKU detection.
-> A new CX_MISC register exposes the combined (or final) speedbin value
-> from both HW fuse register and the Soft Fuse register. Implement this new
-> SKU detection along with a new quirk to identify the GPUs that has soft
-> fuse support.
+> AQE (Applicaton Qrisc Engine) is required to support VK ray-pipeline. Two
+> conditions should be met to use this HW:
+>   1. AQE firmware should be loaded and programmed
+>   2. Preemption support
 > 
-> There is a side effect of this patch on A4x and older series. The
-> speedbin field in the MSM_PARAM_CHIPID will be 0 instead of 0xffff. This
-> should be okay as Mesa correctly handles it. Speedbin was not even a
-> thing when those GPUs' support were added.
+> Expose a new MSM_PARAM to allow userspace to query its support.
 > 
 > Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
 > ---
 
-My comments here remain
+[...]
 
-https://lore.kernel.org/linux-arm-msm/20260324-a8xx-gpu-batch2-v1-0-fc95b8d9c017@oss.qualcomm.com/T/#mc97f65496ba60ecfc977bce1b5bb6d3922711ae3
+> +	case MSM_PARAM_AQE:
+> +		*value = !!(adreno_gpu->funcs->aqe_is_enabled &&
+> +			    adreno_gpu->funcs->aqe_is_enabled(adreno_gpu));
+
+again, this is a bootlean even without the !! because of the inner
+&&
+
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
 Konrad
