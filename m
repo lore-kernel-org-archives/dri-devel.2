@@ -4,104 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 603E610ED664
-	for <dri-devel@archiver.kernel.org>; Fri, 27 Mar 2026 13:05:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BFE5D10ED674
+	for <dri-devel@archiver.kernel.org>; Fri, 27 Mar 2026 13:11:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BCBA410ED7F;
-	Fri, 27 Mar 2026 13:05:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D493910EDAC;
+	Fri, 27 Mar 2026 13:11:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="YnqJ4KJJ";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="S5dkZYAR";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="YnqJ4KJJ";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="S5dkZYAR";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="FXKYULXo";
 	dkim-atps=neutral
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 23D8010ED7F
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Mar 2026 13:04:58 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 4C2494D347;
- Fri, 27 Mar 2026 13:04:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1774616678; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=UXbch6n2enq8wiRbR7KUsLz+dTkbA9k9SyrEF5tA2ts=;
- b=YnqJ4KJJEjfT9aXeAppynAeWrYSyAI97Qrj+16GoREp8oYEOVcb3L77umwSTKRPL0fp45m
- 0Cmt5JMOKZB02D3h8ydah/h4pKmSkwrbX65EEBTb8A9n37ztjGzZuBwT7KnJwtA7UGDbVo
- 6c42oTS/mo0aNE9g0T00M3KEy84Dlxk=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1774616678;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=UXbch6n2enq8wiRbR7KUsLz+dTkbA9k9SyrEF5tA2ts=;
- b=S5dkZYARHEFkJgd0aRXZ99canoOYm79S2FE5vsmRlYDM1/v1EUFGEm93R1HI1Jx/ri+sh6
- R0uEedLl6Ai/doBg==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1774616678; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=UXbch6n2enq8wiRbR7KUsLz+dTkbA9k9SyrEF5tA2ts=;
- b=YnqJ4KJJEjfT9aXeAppynAeWrYSyAI97Qrj+16GoREp8oYEOVcb3L77umwSTKRPL0fp45m
- 0Cmt5JMOKZB02D3h8ydah/h4pKmSkwrbX65EEBTb8A9n37ztjGzZuBwT7KnJwtA7UGDbVo
- 6c42oTS/mo0aNE9g0T00M3KEy84Dlxk=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1774616678;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=UXbch6n2enq8wiRbR7KUsLz+dTkbA9k9SyrEF5tA2ts=;
- b=S5dkZYARHEFkJgd0aRXZ99canoOYm79S2FE5vsmRlYDM1/v1EUFGEm93R1HI1Jx/ri+sh6
- R0uEedLl6Ai/doBg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 095744A0A2;
- Fri, 27 Mar 2026 13:04:38 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id mHQaAWaAxmmweQAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Fri, 27 Mar 2026 13:04:38 +0000
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: deller@gmx.de, gregkh@linuxfoundation.org, jirislaby@kernel.org,
- simona@ffwll.ch, sam@ravnborg.org
-Cc: linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org,
- Thomas Zimmermann <tzimmermann@suse.de>
-Subject: [PATCH 08/10] lib/fonts: Implement font rotation
-Date: Fri, 27 Mar 2026 13:49:41 +0100
-Message-ID: <20260327130431.59481-9-tzimmermann@suse.de>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260327130431.59481-1-tzimmermann@suse.de>
-References: <20260327130431.59481-1-tzimmermann@suse.de>
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4D52A10EDAC;
+ Fri, 27 Mar 2026 13:11:16 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id 1720A60103;
+ Fri, 27 Mar 2026 13:11:15 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9FD82C19423;
+ Fri, 27 Mar 2026 13:10:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1774617074;
+ bh=7UWnzrZdSof0bppbpEHEi89CB1BS2wWB8rE7AbLfxsw=;
+ h=From:To:Cc:Subject:Date:From;
+ b=FXKYULXoWx5SMZACv2tufJTQaJnJdC0sBdYmOPJayEupC3HhmRA7Rl9lsqVKlqBgJ
+ AAp15nhSlMEHwJM1YygUqFhqmGbW92x3CIft5IUBwQsztvbharJGxKCkgJ++T9aLAB
+ kXhpwPyPGY5GsnPBpjXHFaLaARgDqTx8XxdD44Q1lWG9AUoKZB4anIcAk6A/vb9xv2
+ BT8nygATOx0RRGvMBqpO58MQNiPX+P8Vv3hukqh8AQoSlANJVHr7uSWqK5w6in4/3u
+ XkLtG0qRK8ZDy4pmvRx36dKwHbvbpDc1FpLzi4txfLMLR2KSQCxLjLuhyhCZeKwRUR
+ Fut+na4Gqyshg==
+From: Sumit Garg <sumit.garg@kernel.org>
+To: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-media@vger.kernel.org, netdev@vger.kernel.org,
+ linux-wireless@vger.kernel.org, ath12k@lists.infradead.org,
+ linux-remoteproc@vger.kernel.org
+Cc: andersson@kernel.org, konradybcio@kernel.org, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, robin.clark@oss.qualcomm.com,
+ sean@poorly.run, akhilpo@oss.qualcomm.com, lumag@kernel.org,
+ abhinav.kumar@linux.dev, jesszhan0024@gmail.com,
+ marijn.suijten@somainline.org, airlied@gmail.com, simona@ffwll.ch,
+ vikash.garodia@oss.qualcomm.com, dikshita.agarwal@oss.qualcomm.com,
+ bod@kernel.org, mchehab@kernel.org, elder@kernel.org,
+ andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, jjohnson@kernel.org,
+ mathieu.poirier@linaro.org, trilokkumar.soni@oss.qualcomm.com,
+ mukesh.ojha@oss.qualcomm.com, pavan.kondeti@oss.qualcomm.com,
+ jorge.ramirez@oss.qualcomm.com, tonyh@qti.qualcomm.com,
+ vignesh.viswanathan@oss.qualcomm.com, srinivas.kandagatla@oss.qualcomm.com,
+ amirreza.zarrabi@oss.qualcomm.com, jens.wiklander@linaro.org,
+ op-tee@lists.trustedfirmware.org, apurupa@qti.qualcomm.com,
+ skare@qti.qualcomm.com, harshal.dev@oss.qualcomm.com,
+ linux-kernel@vger.kernel.org, Sumit Garg <sumit.garg@oss.qualcomm.com>
+Subject: [PATCH v3 00/15] firmware: qcom: Add OP-TEE PAS service support
+Date: Fri, 27 Mar 2026 18:40:28 +0530
+Message-ID: <20260327131043.627120-1-sumit.garg@kernel.org>
+X-Mailer: git-send-email 2.51.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-7.30 / 50.00]; REPLY(-4.00)[];
- BAYES_HAM(-3.00)[100.00%]; MID_CONTAINS_FROM(1.00)[];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- ARC_NA(0.00)[]; FUZZY_RATELIMITED(0.00)[rspamd.com];
- MIME_TRACE(0.00)[0:+]; TO_DN_SOME(0.00)[];
- RCVD_VIA_SMTP_AUTH(0.00)[];
- FREEMAIL_TO(0.00)[gmx.de,linuxfoundation.org,kernel.org,ffwll.ch,ravnborg.org];
- FREEMAIL_ENVRCPT(0.00)[gmx.de];
- R_RATELIMIT(0.00)[to_ip_from(RLqirfcw6gnbcr9a9yhi49fhi6)];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- RCPT_COUNT_SEVEN(0.00)[10]; RCVD_TLS_ALL(0.00)[];
- RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo, suse.de:mid,
- suse.de:email]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,283 +74,128 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Move the core of fbcon's font-rotation code to the font library as
-the new helper font_data_rotate(). The code can rotate in steps of
-90°. For completeness, it also copies the glyph data for multiples
-of 360°.
+From: Sumit Garg <sumit.garg@oss.qualcomm.com>
 
-Bring back the memset optimization. A memset to 0 again clears the
-whole glyph output buffer. Then use the internal rotation helpers on
-the cleared output. Fbcon's original implementation worked like this,
-but lost it during refactoring.
+Qcom platforms has the legacy of using non-standard SCM calls
+splintered over the various kernel drivers. These SCM calls aren't
+compliant with the standard SMC calling conventions which is a
+prerequisite to enable migration to the FF-A specifications from Arm.
 
-Replace fbcon's font-rotation code with the new implementations.
-All that's left to do for fbcon is to maintain its internal fbcon
-state.
+OP-TEE as an alternative trusted OS to Qualcomm TEE (QTEE) can't
+support these non-standard SCM calls. And even for newer architectures
+using S-EL2 with Hafnium support, QTEE won't be able to support SCM
+calls either with FF-A requirements coming in. And with both OP-TEE
+and QTEE drivers well integrated in the TEE subsystem, it makes further
+sense to reuse the TEE bus client drivers infrastructure.
 
-Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+The added benefit of TEE bus infrastructure is that there is support
+for discoverable/enumerable services. With that client drivers don't
+have to manually invoke a special SCM call to know the service status.
+
+So enable the generic Peripheral Authentication Service (PAS) provided
+by the firmware. It acts as the common layer with different TZ
+backends plugged in whether it's an SCM implementation or a proper
+TEE bus based PAS service implementation.
+
+The TEE PAS service ABI is designed to be extensible with additional API
+as PTA_QCOM_PAS_CAPABILITIES. This allows to accommodate any future
+extensions of the PAS service needed while still maintaining backwards
+compatibility.
+
+Currently OP-TEE support is being added to provide the backend PAS
+service implementation which can be found as part of this PR [1].
+This implementation has been tested on Kodiak/RB3Gen2 board with lemans
+EVK board being the next target. In addition to that WIN/IPQ targets
+planning to use OP-TEE will use this service too. Surely the backwards
+compatibility is maintained and tested for SCM backend.
+
+Patch summary:
+- Patch #1: adds Kodiak EL2 overlay since boot stack with TF-A/OP-TEE
+  only allow UEFI and Linux to boot in EL2.
+- Patch #2: adds generic PAS service.
+- Patch #3: migrates SCM backend to generic PAS service.
+- Patch #4: adds TEE/OP-TEE backend for generic PAS service.
+- Patch #5-#13: migrates all client drivers to generic PAS service.
+- Patch #14: drops legacy PAS SCM exported APIs.
+
+The patch-set is based on v7.0-rc5 tag and can be found in git tree here
+[2].
+
+Merge strategy:
+
+It is expected due to APIs dependency, the entire patch-set to go via
+the Qcom tree. All other subsystem maintainers, it will be great if I
+can get acks for the corresponding subsystem patches.
+
+[1] https://github.com/OP-TEE/optee_os/pull/7721
+[2] https://git.kernel.org/pub/scm/linux/kernel/git/sumit.garg/linux.git/log/?h=qcom-pas-v3
+
 ---
- drivers/video/fbdev/core/fbcon.h        |   2 +-
- drivers/video/fbdev/core/fbcon_rotate.c |  78 +++++-------------
- include/linux/font.h                    |   3 +
- lib/fonts/font_rotate.c                 | 103 ++++++++++++++++++++++++
- 4 files changed, 126 insertions(+), 60 deletions(-)
+Changes in v3:
+- Incorporated some style and misc. comments for patch #2, #3 and #4.
+- Add QCOM_PAS Kconfig dependency for various subsystems.
+- Switch from pseudo TA to proper TA invoke commands.
 
-diff --git a/drivers/video/fbdev/core/fbcon.h b/drivers/video/fbdev/core/fbcon.h
-index 1e3c1ef84762..1793f34a6c84 100644
---- a/drivers/video/fbdev/core/fbcon.h
-+++ b/drivers/video/fbdev/core/fbcon.h
-@@ -86,7 +86,7 @@ struct fbcon_par {
- 	const u8    *fontdata;
- 	u8    *cursor_src;
- 	u32    cursor_size;
--	u32    fd_size;
-+	size_t fd_size;
- 
- 	const struct fbcon_bitops *bitops;
- };
-diff --git a/drivers/video/fbdev/core/fbcon_rotate.c b/drivers/video/fbdev/core/fbcon_rotate.c
-index 588dc9d6758a..74206f5a6e98 100644
---- a/drivers/video/fbdev/core/fbcon_rotate.c
-+++ b/drivers/video/fbdev/core/fbcon_rotate.c
-@@ -8,84 +8,44 @@
-  *  more details.
-  */
- 
--#include <linux/module.h>
--#include <linux/slab.h>
--#include <linux/string.h>
-+#include <linux/errno.h>
- #include <linux/fb.h>
- #include <linux/font.h>
--#include <linux/vt_kern.h>
--#include <linux/console.h>
--#include <asm/types.h>
-+
- #include "fbcon.h"
- #include "fbcon_rotate.h"
- 
- int fbcon_rotate_font(struct fb_info *info, struct vc_data *vc)
- {
- 	struct fbcon_par *par = info->fbcon_par;
--	int len, err = 0;
--	int s_cellsize, d_cellsize, i;
--	const u8 *src;
--	u8 *dst;
-+	unsigned char *fontbuffer;
-+	int ret;
- 
- 	if (vc->vc_font.data == par->fontdata &&
- 	    par->p->con_rotate == par->cur_rotate)
--		goto finished;
-+		return 0;
- 
--	src = par->fontdata = vc->vc_font.data;
-+	par->fontdata = vc->vc_font.data;
- 	par->cur_rotate = par->p->con_rotate;
--	len = vc->vc_font.charcount;
--	s_cellsize = font_glyph_size(vc->vc_font.width, vc->vc_font.height);
--	d_cellsize = s_cellsize;
--
--	if (par->rotate == FB_ROTATE_CW ||
--	    par->rotate == FB_ROTATE_CCW)
--		d_cellsize = font_glyph_size(vc->vc_font.height, vc->vc_font.width);
- 
- 	if (info->fbops->fb_sync)
- 		info->fbops->fb_sync(info);
- 
--	if (par->fd_size < d_cellsize * len) {
--		kfree(par->fontbuffer);
--		par->fontbuffer = NULL;
--		par->fd_size = 0;
--
--		dst = kmalloc_array(len, d_cellsize, GFP_KERNEL);
--
--		if (dst == NULL) {
--			err = -ENOMEM;
--			goto finished;
--		}
--
--		par->fd_size = d_cellsize * len;
--		par->fontbuffer = dst;
-+	fontbuffer = font_data_rotate(par->p->fontdata, vc->vc_font.width,
-+				      vc->vc_font.height, vc->vc_font.charcount,
-+				      par->rotate, par->fontbuffer, &par->fd_size);
-+	if (IS_ERR(fontbuffer)) {
-+		ret = PTR_ERR(fontbuffer);
-+		goto err_kfree;
- 	}
- 
--	dst = par->fontbuffer;
-+	par->fontbuffer = fontbuffer;
- 
--	switch (par->rotate) {
--	case FB_ROTATE_UD:
--		for (i = len; i--; ) {
--			font_glyph_rotate_180(src, vc->vc_font.width, vc->vc_font.height, dst);
--			src += s_cellsize;
--			dst += d_cellsize;
--		}
--		break;
--	case FB_ROTATE_CW:
--		for (i = len; i--; ) {
--			font_glyph_rotate_90(src, vc->vc_font.width, vc->vc_font.height, dst);
--			src += s_cellsize;
--			dst += d_cellsize;
--		}
--		break;
--	case FB_ROTATE_CCW:
--		for (i = len; i--; ) {
--			font_glyph_rotate_270(src, vc->vc_font.width, vc->vc_font.height, dst);
--			src += s_cellsize;
--			dst += d_cellsize;
--		}
--		break;
--	}
-+	return 0;
-+
-+err_kfree:
-+	kfree(par->fontbuffer);
-+	par->fontbuffer = NULL; /* clear here to avoid output */
- 
--finished:
--	return err;
-+	return ret;
- }
-diff --git a/include/linux/font.h b/include/linux/font.h
-index 0a240dd70422..6845f02d739a 100644
---- a/include/linux/font.h
-+++ b/include/linux/font.h
-@@ -111,6 +111,9 @@ void font_glyph_rotate_180(const unsigned char *glyph, unsigned int width, unsig
- 			   unsigned char *out);
- void font_glyph_rotate_270(const unsigned char *glyph, unsigned int width, unsigned int height,
- 			   unsigned char *out);
-+unsigned char *font_data_rotate(font_data_t *fd, unsigned int width, unsigned int height,
-+				unsigned int charcount, unsigned int steps,
-+				unsigned char *buf, size_t *bufsize);
- 
- /*
-  * Font description
-diff --git a/lib/fonts/font_rotate.c b/lib/fonts/font_rotate.c
-index f1e441a931ab..d8c8973310c2 100644
---- a/lib/fonts/font_rotate.c
-+++ b/lib/fonts/font_rotate.c
-@@ -9,8 +9,11 @@
-  * more details.
-  */
- 
-+#include <linux/errno.h>
- #include <linux/export.h>
- #include <linux/math.h>
-+#include <linux/overflow.h>
-+#include <linux/slab.h>
- #include <linux/string.h>
- 
- #include "font.h"
-@@ -170,3 +173,103 @@ void font_glyph_rotate_270(const unsigned char *glyph, unsigned int width, unsig
- 	__font_glyph_rotate_270(glyph, width, height, out);
- }
- EXPORT_SYMBOL_GPL(font_glyph_rotate_270);
-+
-+/**
-+ * font_data_rotate - Rotate font data by multiples of 90°
-+ * @fd: The font data to rotate
-+ * @width: The glyph width in bits per scanline
-+ * @height: The number of scanlines in the glyph
-+ * @charcount: The number of glyphs in the font
-+ * @steps: Number of rotation steps of 90°
-+ * @buf: Preallocated output buffer; can be NULL
-+ * @bufsize: The size of @buf in bytes; can be NULL
-+ *
-+ * The parameters @width and @height refer to the visible number of pixels
-+ * and scanlines in a single glyph. The number of glyphs is given in @charcount.
-+ * Rotation happens in steps of 90°. The @steps parameter can have any value,
-+ * but only 0 to 3 produce distinct results. With 4 or higher, a full rotation
-+ * has been performed. You can pass any value for @steps and the helper will
-+ * perform the appropriate rotation. Note that the returned buffer is not
-+ * compatible with font_data_t. It only contains glphy data in the same format
-+ * as returned by font_data_buf(). Callers are responsible to free the returned
-+ * buffer with kfree(). Font rotation typically happens when displays get
-+ * re-oriented. To avoid unnecessary re-allocation of the memory buffer, the
-+ * caller can pass in an earlier result buffer in @buf for reuse. The buffer
-+ * size of given and returned in @bufsize. The allocation semantics are compatible
-+ * with krealloc().
-+ *
-+ * Returns:
-+ * A buffer with rotated glyphs on success, or an error pointer otherwise
-+ */
-+unsigned char *font_data_rotate(font_data_t *fd, unsigned int width, unsigned int height,
-+				unsigned int charcount, unsigned int steps,
-+				unsigned char *buf, size_t *bufsize)
-+{
-+	const unsigned char *src = font_data_buf(fd);
-+	unsigned int s_cellsize = font_glyph_size(width, height);
-+	unsigned int d_cellsize, i;
-+	unsigned char *dst;
-+	size_t size;
-+
-+	steps %= 4;
-+
-+	switch (steps) {
-+	case 0:
-+	case 2:
-+		d_cellsize = s_cellsize;
-+		break;
-+	case 1:
-+	case 3:
-+		d_cellsize = font_glyph_size(height, width); /* flip width/height */
-+		break;
-+	}
-+
-+	if (check_mul_overflow(charcount, d_cellsize, &size))
-+		return ERR_PTR(-EINVAL);
-+
-+	if (!buf || !bufsize || size > *bufsize) {
-+		dst = kmalloc_array(charcount, d_cellsize, GFP_KERNEL);
-+		if (!dst)
-+			return ERR_PTR(-ENOMEM);
-+
-+		kfree(buf);
-+		buf = dst;
-+		if (bufsize)
-+			*bufsize = size;
-+	} else {
-+		dst = buf;
-+	}
-+
-+	switch (steps) {
-+	case 0:
-+		memcpy(dst, src, size);
-+		break;
-+	case 1:
-+		memset(dst, 0, size);
-+		for (i = 0; i < charcount; ++i) {
-+			__font_glyph_rotate_90(src, width, height, dst);
-+			src += s_cellsize;
-+			dst += d_cellsize;
-+		}
-+		break;
-+	case 2:
-+		memset(dst, 0, size);
-+		for (i = 0; i < charcount; ++i) {
-+			__font_glyph_rotate_180(src, width, height, dst);
-+			src += s_cellsize;
-+			dst += d_cellsize;
-+		}
-+		break;
-+	case 3:
-+		memset(dst, 0, size);
-+		for (i = 0; i < charcount; ++i) {
-+			__font_glyph_rotate_270(src, width, height, dst);
-+			src += s_cellsize;
-+			dst += d_cellsize;
-+		}
-+		break;
-+	}
-+
-+	return buf;
-+}
-+EXPORT_SYMBOL_GPL(font_data_rotate);
+Changes in v2:
+- Fixed kernel doc warnings.
+- Polish commit message and comments for patch #2.
+- Pass proper PAS ID in set_remote_state API for media firmware drivers.
+- Added Maintainer entry and dropped MODULE_AUTHOR.
+
+Mukesh Ojha (1):
+  arm64: dts: qcom: kodiak: Add EL2 overlay
+
+Sumit Garg (14):
+  firmware: qcom: Add a generic PAS service
+  firmware: qcom_scm: Migrate to generic PAS service
+  firmware: qcom: Add a PAS TEE service
+  remoteproc: qcom_q6v5_pas: Switch over to generic PAS TZ APIs
+  remoteproc: qcom_q6v5_mss: Switch to generic PAS TZ APIs
+  soc: qcom: mdtloader: Switch to generic PAS TZ APIs
+  remoteproc: qcom_wcnss: Switch to generic PAS TZ APIs
+  remoteproc: qcom: Select QCOM_PAS generic service
+  drm/msm: Switch to generic PAS TZ APIs
+  media: qcom: Switch to generic PAS TZ APIs
+  net: ipa: Switch to generic PAS TZ APIs
+  wifi: ath12k: Switch to generic PAS TZ APIs
+  firmware: qcom_scm: Remove SCM PAS wrappers
+  MAINTAINERS: Add maintainer entry for Qualcomm PAS TZ service
+
+ MAINTAINERS                                   |   9 +
+ arch/arm64/boot/dts/qcom/Makefile             |   2 +
+ arch/arm64/boot/dts/qcom/kodiak-el2.dtso      |  35 ++
+ drivers/firmware/qcom/Kconfig                 |  19 +
+ drivers/firmware/qcom/Makefile                |   2 +
+ drivers/firmware/qcom/qcom_pas.c              | 288 +++++++++++
+ drivers/firmware/qcom/qcom_pas.h              |  50 ++
+ drivers/firmware/qcom/qcom_pas_tee.c          | 478 ++++++++++++++++++
+ drivers/firmware/qcom/qcom_scm.c              | 302 ++++-------
+ drivers/gpu/drm/msm/Kconfig                   |   1 +
+ drivers/gpu/drm/msm/adreno/a5xx_gpu.c         |   4 +-
+ drivers/gpu/drm/msm/adreno/adreno_gpu.c       |  11 +-
+ drivers/media/platform/qcom/iris/Kconfig      |  25 +-
+ .../media/platform/qcom/iris/iris_firmware.c  |   9 +-
+ drivers/media/platform/qcom/venus/Kconfig     |   1 +
+ drivers/media/platform/qcom/venus/firmware.c  |  11 +-
+ drivers/net/ipa/Kconfig                       |   2 +-
+ drivers/net/ipa/ipa_main.c                    |  13 +-
+ drivers/net/wireless/ath/ath12k/Kconfig       |   2 +-
+ drivers/net/wireless/ath/ath12k/ahb.c         |   8 +-
+ drivers/remoteproc/Kconfig                    |   1 +
+ drivers/remoteproc/qcom_q6v5_mss.c            |   5 +-
+ drivers/remoteproc/qcom_q6v5_pas.c            |  51 +-
+ drivers/remoteproc/qcom_wcnss.c               |  12 +-
+ drivers/soc/qcom/mdt_loader.c                 |  12 +-
+ include/linux/firmware/qcom/qcom_pas.h        |  43 ++
+ include/linux/firmware/qcom/qcom_scm.h        |  29 --
+ include/linux/soc/qcom/mdt_loader.h           |   6 +-
+ 28 files changed, 1114 insertions(+), 317 deletions(-)
+ create mode 100644 arch/arm64/boot/dts/qcom/kodiak-el2.dtso
+ create mode 100644 drivers/firmware/qcom/qcom_pas.c
+ create mode 100644 drivers/firmware/qcom/qcom_pas.h
+ create mode 100644 drivers/firmware/qcom/qcom_pas_tee.c
+ create mode 100644 include/linux/firmware/qcom/qcom_pas.h
+
 -- 
-2.53.0
+2.51.0
 
