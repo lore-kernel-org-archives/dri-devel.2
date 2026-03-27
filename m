@@ -4,43 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0DE7E10F2869
-	for <dri-devel@archiver.kernel.org>; Fri, 27 Mar 2026 19:39:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 515B010F2867
+	for <dri-devel@archiver.kernel.org>; Fri, 27 Mar 2026 19:39:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5553D10ED2C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6961B10ED38;
 	Fri, 27 Mar 2026 19:39:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="eVdnPTcZ";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="Qegvgyu1";
 	dkim-atps=neutral
 Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E913F10ED38
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D301410ED2C
  for <dri-devel@lists.freedesktop.org>; Fri, 27 Mar 2026 19:39:40 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-04.galae.net (Postfix) with ESMTPS id 9C11DC58750;
- Fri, 27 Mar 2026 19:40:08 +0000 (UTC)
+ by smtpout-04.galae.net (Postfix) with ESMTPS id A6998C58745;
+ Fri, 27 Mar 2026 19:40:07 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id CB4C560268;
- Fri, 27 Mar 2026 19:39:39 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id B152A60268;
+ Fri, 27 Mar 2026 19:39:38 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 4CC9510451AF7; Fri, 27 Mar 2026 20:39:38 +0100 (CET)
+ with ESMTPSA id A27E410451AEF; Fri, 27 Mar 2026 20:39:36 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1774640379; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding:in-reply-to:references;
- bh=iPhjjyjp+Si4/Cjy/AMZxhHDxGFBbRdehdgcpegxNhA=;
- b=eVdnPTcZkj+yEj+kOYZQgIHDfPsyXxufKYE1hut4TMxt3NM+syBTvsnfHfki5xAxKw0TYb
- pVaA6k0MroVQJVzX0yRelI6abyD6qY3OjvYbO5GsqYvZpTG17++BNyNQyKk6/aFY38K6tV
- 2BLr+iunWEjVQVERH1tpYO94ymvlmf70n7oWSk9v1XsNvh6HNjwHrvZrWi8pONRqKklNQv
- yo7OfLK//TMbEHuu3FoYVTLM7aL9BWjAqNrrzYn/bPDdkaXaX4gRPcOBcjE8lWgCOUflWl
- bFeENandoV7derxAKoG2gBclILlBXx/ysw4Z1QEPROSpjUFxo42TdS1hP2mnkg==
+ t=1774640378; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ content-transfer-encoding; bh=mLE15DOQB0f7iSKKawPwRv0wOdSj7ZQm/qNs4WZOIds=;
+ b=Qegvgyu1W8JnJYMq4q9eLQ444VFl4KFsHeFAnV54fbrX2TAkOZxHY/fEN63h9NFnixVQvx
+ BPY/SR8goeDPamS3FT1mO1Ce0618hYAv+dH8A+AxV0cRVVFUd1R0qNtaBW3nq3Sw0aFFos
+ j1tPyWHNrjgyXimpl2t8zTKnF4DiGeLYw6A0jHKfuktcNada3ozpQV5Nlwahpj65Mv9yiE
+ fgaW96uHlfFTAFs10oVGbYOxUCaS8Lp/BLFwVdZJyImUq5bYwaDNDWoxuVOjGiaToehGxP
+ piTwwHLfBZKZXCTAqh7bn1/1Rh4vKwWrq3E7EasJ1PwmEfHtrajiw6TSUKhc8g==
 From: Thomas Richard <thomas.richard@bootlin.com>
-Date: Fri, 27 Mar 2026 20:39:32 +0100
-Subject: [PATCH 1/2] backlight: cgbc: Remove redundant X86 dependency
+Subject: [PATCH 0/2] Remove redundant X86 dependency for the cgbc backlight
+ driver
+Date: Fri, 27 Mar 2026 20:39:31 +0100
+Message-Id: <20260327-backlight-cgbc-remove-x86-dependency-v1-0-4851c9e95371@bootlin.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260327-backlight-cgbc-remove-x86-dependency-v1-1-4851c9e95371@bootlin.com>
-References: <20260327-backlight-cgbc-remove-x86-dependency-v1-0-4851c9e95371@bootlin.com>
-In-Reply-To: <20260327-backlight-cgbc-remove-x86-dependency-v1-0-4851c9e95371@bootlin.com>
+X-B4-Tracking: v=1; b=H4sIAPPcxmkC/x3NQQ6CMBBG4auQWTtJQajiVYiLMv0tE7WQ1hAM4
+ e42Lr/NeztlJEWmW7VTwqpZ51hQnyqSycUAVl9MjWmsOZueRyfPl4bpwxJG4YT3vIK3q2WPBdE
+ jypdb4y7Sd7Vtu55Kakl46PbfDPfj+AGmm8yidgAAAA==
+X-Change-ID: 20260309-backlight-cgbc-remove-x86-dependency-40a7c9516459
 To: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>, 
  Jingoo Han <jingoohan1@gmail.com>, Helge Deller <deller@gmx.de>
 Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
@@ -63,29 +65,23 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The backlight driver depends on the MFD cgbc-core driver, which already
-depends on X86. The explicit X86 dependency for the backlight driver is
-redundant and can be safely removed.
+Remove redundant X86 dependency for the cgbc backlight driver. Additionally
+the driver is added to MAINTAINERS file.
 
 Signed-off-by: Thomas Richard <thomas.richard@bootlin.com>
 ---
+Thomas Richard (2):
+      backlight: cgbc: Remove redundant X86 dependency
+      MAINTAINERS: Add cgbc backlight driver
+
+ MAINTAINERS                     | 1 +
  drivers/video/backlight/Kconfig | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ 2 files changed, 2 insertions(+), 1 deletion(-)
+---
+base-commit: c369299895a591d96745d6492d4888259b004a9e
+change-id: 20260309-backlight-cgbc-remove-x86-dependency-40a7c9516459
 
-diff --git a/drivers/video/backlight/Kconfig b/drivers/video/backlight/Kconfig
-index a7a3fbaf7c29..07905d2ba01a 100644
---- a/drivers/video/backlight/Kconfig
-+++ b/drivers/video/backlight/Kconfig
-@@ -260,7 +260,7 @@ config BACKLIGHT_PWM
- 
- config BACKLIGHT_CGBC
- 	tristate "Congatec Board Controller (CGBC) backlight support"
--	depends on MFD_CGBC && X86
-+	depends on MFD_CGBC
- 	help
- 	  Say Y here to enable support for LCD backlight control on Congatec
- 	  x86-based boards via the CGBC (Congatec Board Controller).
-
+Best regards,
 -- 
-2.53.0
+Thomas Richard <thomas.richard@bootlin.com>
 
