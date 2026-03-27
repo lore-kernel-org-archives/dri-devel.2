@@ -4,46 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B4CA610ED674
-	for <dri-devel@archiver.kernel.org>; Fri, 27 Mar 2026 13:04:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2C8EC10ED674
+	for <dri-devel@archiver.kernel.org>; Fri, 27 Mar 2026 13:04:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4EA6A10E1F7;
-	Fri, 27 Mar 2026 13:04:28 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="BV3Rye0s";
-	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F101C10E0BE;
- Fri, 27 Mar 2026 13:04:26 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 973A340716;
- Fri, 27 Mar 2026 13:04:26 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 18093C19423;
- Fri, 27 Mar 2026 13:04:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1774616666;
- bh=rGKwmiXyHfN5+L0HwaW5Cnl1fARnmwe/8Hv058mvEgc=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=BV3Rye0sYCmQmUfEhD7/wWYugEZIBkDLg4xEPQ0H0AwKhjnfFZjVWpx9/97U/Rp1l
- UmbYyTpTwLrVH2h6I+Wr1bDNir0jfF/mUPnihm+QuZ4Z9oTiL9sB6UgqaXgDnumP9I
- ve7iiNiF6Kfj0WEaR2gLXxUdWpPboUj8wp6upKPJhE0cWmEeFiXPBIdK95AIyaey5G
- Vlguwkdm30o+vXNkkoDt0KjrFUYjmoam3PwOwanVz8/3G1HQcPBwUAAkuDh2LhWvLJ
- fun10nNZRB6XrQ1EPxUQ0gQQEg438RBY4JWPpIFY8i7UIiekfIkPkdGXDPrU86YCDk
- 6Tccau9Ty4Zpg==
-Message-ID: <1208774a-f1ba-4785-a91e-ae141f97a64d@kernel.org>
-Date: Fri, 27 Mar 2026 08:04:24 -0500
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6CF2E10E682;
+	Fri, 27 Mar 2026 13:04:38 +0000 (UTC)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5B18D10E682
+ for <dri-devel@lists.freedesktop.org>; Fri, 27 Mar 2026 13:04:37 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 386774D31C;
+ Fri, 27 Mar 2026 13:04:36 +0000 (UTC)
+Authentication-Results: smtp-out1.suse.de;
+	none
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id E425B4A0B1;
+ Fri, 27 Mar 2026 13:04:35 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id uK6ANmOAxmmweQAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Fri, 27 Mar 2026 13:04:35 +0000
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: deller@gmx.de, gregkh@linuxfoundation.org, jirislaby@kernel.org,
+ simona@ffwll.ch, sam@ravnborg.org
+Cc: linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org,
+ Thomas Zimmermann <tzimmermann@suse.de>, stable@vger.kernel.org
+Subject: [PATCH 01/10] fbcon: Avoid OOB font access if console rotation fails
+Date: Fri, 27 Mar 2026 13:49:34 +0100
+Message-ID: <20260327130431.59481-2-tzimmermann@suse.de>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260327130431.59481-1-tzimmermann@suse.de>
+References: <20260327130431.59481-1-tzimmermann@suse.de>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/2] drm: Move AMD VSDB parsing into DRM EDID core
-To: Chenyu Chen <chen-yu.chen@amd.com>, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org
-Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>
-References: <20260327082342.1286878-1-chen-yu.chen@amd.com>
-Content-Language: en-US
-From: Mario Limonciello <superm1@kernel.org>
-In-Reply-To: <20260327082342.1286878-1-chen-yu.chen@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Rspamd-Pre-Result: action=no action; module=replies;
+ Message is reply to one we originated
+X-Rspamd-Queue-Id: 386774D31C
+X-Rspamd-Pre-Result: action=no action; module=replies;
+ Message is reply to one we originated
+X-Rspamd-Action: no action
+X-Spamd-Result: default: False [-4.00 / 50.00];
+	REPLY(-4.00)[]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,30 +68,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Clear the font buffer if the reallocation during console rotation fails
+in fbcon_rotate_font(). The putcs implementations for the rotated buffer
+will return early in this case. See [1] for an example.
 
+Currently, fbcon_rotate_font() keeps the old buffer, which is to small
+for the rotated font. Printing to the rotated console with a high-enough
+character code will overflow the font buffer.
 
-On 3/27/26 03:21, Chenyu Chen wrote:
-> The AMD Vendor-Specific Data Block (VSDB) v3 parsing currently lives
-> in amdgpu_dm, using raw byte-walking over EDID extension blocks. This
-> series moves the parsing into the DRM EDID core so the data is
-> available through drm_display_info for any driver.
-> 
-> Patch 1 adds the parser in drm_edid.c and the new drm_amd_vsdb_info
-> struct in drm_connector.h.
-> 
-> Patch 2 updates amdgpu_dm to consume the parsed data from
-> display_info instead of doing its own parsing, and factors out
-> panel type determination into a dedicated function.
-> 
-> Chenyu Chen (2):
->    drm/edid: Parse AMD Vendor-Specific Data Block
->    drm/amd/display: Use drm_display_info for AMD VSDB data
-> 
->   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 120 ++++++++++--------
->   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |  14 --
->   drivers/gpu/drm/drm_edid.c                    |  72 +++++++++++
->   include/drm/drm_connector.h                   |  38 ++++++
->   4 files changed, 178 insertions(+), 66 deletions(-)
-> 
+Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+Fixes: 6cc50e1c5b57 ("[PATCH] fbcon: Console Rotation - Add support to rotate font bitmap")
+Cc: <stable@vger.kernel.org> # v2.6.15+
+Link: https://elixir.bootlin.com/linux/v6.19/source/drivers/video/fbdev/core/fbcon_ccw.c#L144 # [1]
+---
+ drivers/video/fbdev/core/fbcon_rotate.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-Reviewed-by: Mario Limonciello (AMD) <superm1@kernel.org>
+diff --git a/drivers/video/fbdev/core/fbcon_rotate.c b/drivers/video/fbdev/core/fbcon_rotate.c
+index 1562a8f20b4f..5348f6c6f57c 100644
+--- a/drivers/video/fbdev/core/fbcon_rotate.c
++++ b/drivers/video/fbdev/core/fbcon_rotate.c
+@@ -46,6 +46,10 @@ int fbcon_rotate_font(struct fb_info *info, struct vc_data *vc)
+ 		info->fbops->fb_sync(info);
+ 
+ 	if (par->fd_size < d_cellsize * len) {
++		kfree(par->fontbuffer);
++		par->fontbuffer = NULL;
++		par->fd_size = 0;
++
+ 		dst = kmalloc_array(len, d_cellsize, GFP_KERNEL);
+ 
+ 		if (dst == NULL) {
+@@ -54,7 +58,6 @@ int fbcon_rotate_font(struct fb_info *info, struct vc_data *vc)
+ 		}
+ 
+ 		par->fd_size = d_cellsize * len;
+-		kfree(par->fontbuffer);
+ 		par->fontbuffer = dst;
+ 	}
+ 
+-- 
+2.53.0
+
