@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CA5BB10F2865
-	for <dri-devel@archiver.kernel.org>; Fri, 27 Mar 2026 18:49:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3075410F286B
+	for <dri-devel@archiver.kernel.org>; Fri, 27 Mar 2026 18:49:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 03B6010EEC2;
-	Fri, 27 Mar 2026 18:49:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 759F410ED1D;
+	Fri, 27 Mar 2026 18:49:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=nxp.com header.i=@nxp.com header.b="iBRfKBCS";
+	dkim=pass (2048-bit key; unprotected) header.d=nxp.com header.i=@nxp.com header.b="FJ9FHbBC";
 	dkim-atps=neutral
-Received: from GVXPR05CU001.outbound.protection.outlook.com
- (mail-swedencentralazon11013040.outbound.protection.outlook.com
- [52.101.83.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5F9A310EEC2;
- Fri, 27 Mar 2026 18:49:23 +0000 (UTC)
+Received: from MRWPR03CU001.outbound.protection.outlook.com
+ (mail-francesouthazon11011057.outbound.protection.outlook.com
+ [40.107.130.57])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 58E5A10ED1D;
+ Fri, 27 Mar 2026 18:49:27 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=I3/PKAwXtAXVIad6peA8O2xWATxG6u18JcNRzX3lp1RxBFEbq13bzRD9zR47+JbP0BfuYY1++476vPxSUngdbdE0XUzOhqGLPUdbPRV6dCHxKCeSk4WYnKFEjAUNXMa+k5ha/3IPeJjUczFDP7Z37TrSxFR1hKJ1SwvsV/tMrjjbMnRK6L8KnBWcCKn6NjbMaimKvmP7Cr2nwH0JoqVcutuKsI9GNqLahasPXNPAr/gpEEVioaMIj+3j4XJXvyqxf7oCfvis3qDOTUjIhNO8BQyWO+Uah2dEpYZO4C1RF3dXaEsRrLYmB/AjenSaJze5vS06SB8hRaZH+dI2M9jxpQ==
+ b=BIodMkIuCkChc/4RRPRaT9fLCnas6NXAbWlfWZi9Eaq06OE+mgZ+9vn/CWuQMFSluiiIk+pZbWgGFTw6n8g10or+5wyWzHG0Dwtnpp7Y8PFyGqyjOyFiGro3j782VoMJ5xSRs04YDvJLu9pf9kVdcj35Ze/J+qT3oBOmkExgt9DFOrLXeyxGsaNg/ryrcQxk2Y89wYhNmAqWA0exffovlMJT/MrFag6YB2VeDxUyKerhs8unHrEsOPGaX5RN09newPLNvVts08/E31EojUebLrkoVS5SD3L2IzQNDo0YctjpXfO3DeTEeAwYSippXzVYNXrLwKJt0oCtBos8RUJ8/g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=oLnirqdBD16aqPK+9sV2J7E0xpKf7kYfH4HWgymhsj8=;
- b=SSf05mFeliHJ6dSOmobF2O/h522ndEIpjdTTO2XvL2xgGvg7aJ0AejYasJ7HKmDdJjjgF8XKq90isSncul9FXZRUr63VIoAr61k7GUddmR397C0KSEI7E5wgSnUqGCKO0XD0gmohy85Ht+dHpfZLsqBPUfn7nIMfH9wCVoasM9gU3z6KJPfqA5ngqoH4SZIPlaoCmjBLIrOm4Yd4jRu1Y/ctf2uk//VSXmAUwryEcnc5n9Cf8KRb3poDnB4J2ccNvTolYASmHgGqLHgCdlXJa1HvmSwhknRbcc+P2Ns7EIU+itHGHytJbUMG2nAnfVEOtwHCY1P2PUNWcUhCnT4ZVw==
+ bh=GpoPoVExRPrcjKlt7dbZSxJAk/rDF1mTOuI5RGeJuqw=;
+ b=X2B2FdzEL2af0kvxV/N+1kZ4/+GyVCaH92t5aJkFlHRm4++E8LMGYGDiiDVeCmq0GD8Pz4nHfL4rm9QAly80gEIcQVPHoluFEC83sJVjGWMSCL99zQEgo13IyZEaamKoAfdey8TfRuNIYISbi3trPlzpIhGiTNKMCau89BJUyqbWkZbJZXBAAZqwPvn+vXU9TB4WYGQnf+kNwkvgigS2xf1bUF/1A83AA3a+vNP2oRFigRZXygslwPeNFqaVBDPLPS4B8u/cGOgaFLQ2kxcDBFzi9pw6Eeg9yGiQMqiUsE1q/0nA5ri2G8rE+Bk3FpQkEnevkGftqecZPrAbP56ovw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
  header.d=nxp.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=oLnirqdBD16aqPK+9sV2J7E0xpKf7kYfH4HWgymhsj8=;
- b=iBRfKBCSlxf99uMbCf6mej8PBUH/eG+pl40tMTYlxPQVSm3fxl1V3v0TWis18SdHkGjT668Y0M6WjPFQCVOrhQkKirhJy2XqDxuhZig/BTKooGCeJiHS2kM43+y4eotR5hM+YUsefM9q7yuqNKi98bxRSGLF3biBeRAlLDmkvK7ciSyqSQ/eqa/OnO2HNOUHc7/MSUKbwn08EGRQeS/HYgsgHaRIDxCJEnfVd9/26XylYRsznnbBzn+XTZrJyLPG84uM+e28we1gi1DKSqGVbU58TVOeiDXaSvTl8/a5v7E/iGhRH+Htu6E9B79mAe6iljuPencGJ9lMOaZuY2+eqg==
+ bh=GpoPoVExRPrcjKlt7dbZSxJAk/rDF1mTOuI5RGeJuqw=;
+ b=FJ9FHbBCIYDrCOpztrwfZy9X4ew936xYMAXrmOM80HZP/HzkrMug7Rh9EYmUj0NeC5EdZqXHdhtiBLGDh3Lj4i4fnTWgVP0KLqp9fRvnQsyhX3olmuWjUp9VCkMgYRqWb3Tbjjjr/UN1ILv1O9pVIPz6dT6mXNJG8f5gAnJxY6zk4liZr60nTf2oA3AjDWkQIKFdIpx7RPDN4Rlfb073OBKp9o36OhRKPIT6y1DrFMYhpmSIaTqtzj/gl88b6E+8kxFu6pWm97vS+1u4Rk0erxdArL9IBT9Tyau5fx+1XpGuNMvshtwkCTHjLu+Yu0YmGUr2Yq63ISAU1J8W3rSj6Q==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nxp.com;
 Received: from DU2PR04MB8584.eurprd04.prod.outlook.com (2603:10a6:10:2db::24)
  by GV1PR04MB9515.eurprd04.prod.outlook.com (2603:10a6:150:24::6) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.20; Fri, 27 Mar
- 2026 18:49:19 +0000
+ 2026 18:49:24 +0000
 Received: from DU2PR04MB8584.eurprd04.prod.outlook.com
  ([fe80::3f9d:4a01:f53c:952d]) by DU2PR04MB8584.eurprd04.prod.outlook.com
  ([fe80::3f9d:4a01:f53c:952d%5]) with mapi id 15.20.9745.019; Fri, 27 Mar 2026
- 18:49:19 +0000
+ 18:49:23 +0000
 From: Vladimir Oltean <vladimir.oltean@nxp.com>
 To: linux-phy@lists.infradead.org
 Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
@@ -55,76 +55,76 @@ Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
  linux-scsi@vger.kernel.org, linux-sunxi@lists.linux.dev,
  linux-tegra@vger.kernel.org, linux-usb@vger.kernel.org,
  netdev@vger.kernel.org, spacemit@lists.linux.dev,
- UNGLinuxDriver@microchip.com, Chen-Yu Tsai <wens@kernel.org>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Samuel Holland <samuel@sholland.org>
-Subject: [PATCH v6 phy-next 21/28] media: sunxi: a83-mips-csi2: include PHY
- provider header
-Date: Fri, 27 Mar 2026 20:46:59 +0200
-Message-ID: <20260327184706.1600329-22-vladimir.oltean@nxp.com>
+ UNGLinuxDriver@microchip.com, Linus Walleij <linusw@kernel.org>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Jonathan Hunter <jonathanh@nvidia.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: [PATCH v6 phy-next 23/28] pinctrl: tegra-xusb: include PHY provider
+ header
+Date: Fri, 27 Mar 2026 20:47:01 +0200
+Message-ID: <20260327184706.1600329-24-vladimir.oltean@nxp.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260327184706.1600329-1-vladimir.oltean@nxp.com>
 References: <20260327184706.1600329-1-vladimir.oltean@nxp.com>
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-ClientProxiedBy: VI1PR07CA0146.eurprd07.prod.outlook.com
- (2603:10a6:802:16::33) To DU2PR04MB8584.eurprd04.prod.outlook.com
+X-ClientProxiedBy: WA0P291CA0010.POLP291.PROD.OUTLOOK.COM
+ (2603:10a6:1d0:1::12) To DU2PR04MB8584.eurprd04.prod.outlook.com
  (2603:10a6:10:2db::24)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: DU2PR04MB8584:EE_|GV1PR04MB9515:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1e3dd0ae-3dc9-4764-1668-08de8c318d9b
+X-MS-Office365-Filtering-Correlation-Id: 03675bf6-78f6-4f22-ba60-08de8c319068
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
  ARA:13230040|10070799003|7416014|376014|366016|1800799024|19092799006|56012099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: cG9GjQeO9//vJIpWY090tskoVt5zBBYjSp1nlJyAAZ6QZgg8FL9UcTQUUnJ36vBgayNgWz2223DHscIBwBwtPX2u1UQH5+JYW1aBms9i4mRK/M9zI0yDj1TzU2XZXvjifex8zGu8DPJI+dzMz4rSiDG3P0vObVwrogB7FPyp+FM2uF8yly4aKp4PEzYillpOiHDiwA43mAmIBsJMqXZr/9vGYsR6YCkUlKcXEnAe7plk9Z0857pZxLL4yCtK3rclv6mYYGl6g7jIcLkQ84+hbum1WSX632VW9Skj6MxlBC4O5WJ9WKOKbWxCbkHvVhS/i+nkgWoYyh8aK7eZYv9WxNFOLjlHECHz7mnFbqrVlN6xtSucNu9SjgKy7DmONutoM9M1jODXC7W6UFO9mPQdj1C2xDrpxfVbMDiwMk7vBtO1guBmPs7+miSv3RRHPXkjUQcrjuP6oIfTrQbaQwRx0cECf3tDVX0wpOWdckyorGP3RBwHzHpgFUa2wFORRA1vCkallS/CqLVIZ/Ml7Qbv8zAUJkCsJaDyjHvGt9zPCPLZSuY9fWCe/rj3TEFh2ZG1XGZt4ZCXbNTyGg9fZA5Ab1OkeAF/aRQnwU5ofk/EcjtS3g/cq0xFHYuez4dS7ebbPpvyCyKb0fF3ZOFrTKG7BPiuSLdpzLsIFt0XsrKhLmUT5GkoVoHqb8g0N+lfkoxATCDPXI7bSaidiSwE5gsK2bPzpbDQ0nmlVwdJn6V7MuE=
+X-Microsoft-Antispam-Message-Info: +e3ZALHOpYLNjGTTCwb2Yq5zK/YEY0ALL+KM8ycHZjMQJ2iwGPy6cW8NiFGxJYrHYcWkYfmnsi6EvBieVw2c1shH9vs/SXk5n/Ufc6XDVIJSokYpTuqC6GdattlREiT5y+kVYk39AbokeJs69wIGwg1G+4IyF6dUz5zszlo3zzCbl33z5oBD0cMCQIh9bm7ANiXMWMx6HOOoAanunj2aj0JhGi4nu3hIECakZ9EuVYM7hYe+TU8IjSTna4HDRP92hsyj/FxWFpnvkgjCPZqbahJ0vdlkrDrtlJWBDaWTpzNKw+Zmvkc+aXT5YzJngA7l00HHtOq84TK/SCj46nG75N7gFeW6TvwuKYhcFqdySGqoQm2RnRqjWAFnXHqhfRF2w1V9mETIqWRVe8jD3hFXIh6IaPa039Nd/bGH7X8nwxdDtfTJ9uxxuk5TeNgRt42jOR6cqmIxpiNJ4KKgNhRv0/jGZsTdZumrEg1xSPbe6CdVes6VeEGM6CBP+wiG9JqJuAg6CF4YSr778V15HIzWYhU/HXwet6+S22av15S4OPfgJP8Enl7zyh+Vf2nBssDYCTCAMUwbOsIbXvPqMNsLwBSSHdT+s6NsRM58zgcUwyY6zecN2JzVJkm/91tj6Ai5dP5pj9bUgNlw1aZoLIRgOGBAaeRSa9bFJHxhtVBAqxh9rvJUO4lP/ZKwS82rm6JwQNcecuVSP21TexB3wy4v/tgvVlfZ/a6wiZbMKtZI5yM=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DU2PR04MB8584.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
  SFS:(13230040)(10070799003)(7416014)(376014)(366016)(1800799024)(19092799006)(56012099003)(18002099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?cBCVh2IUNfbY4zYYc6gSaTObdB/fKyvlCeIXpMW78/Ly6uONzuni28xlCGhX?=
- =?us-ascii?Q?Do59MwmVDGq2NfvRZD9PJYycfXtZEWwL7dvl4yu5xY7Lk96EToqejjHTa0vZ?=
- =?us-ascii?Q?1pFt13uB+7sPI2RXnuLmEU5e2S6tMdd0cKFGbLQxBYBYR/B1NVd6mpiv8jvZ?=
- =?us-ascii?Q?vtLIvht0FdGtzqbLLRdepMvEfYvCIY+db19vQq6vkHgh2cGqXvsE4xPiXyRN?=
- =?us-ascii?Q?aFVLkJx9WnntSfmtSdGPCbOQXSiz0o2U8KWdWCojP3L78M9XRty/Mfm9VgEP?=
- =?us-ascii?Q?E/8drHbb3Ch3zU3zQOojtTL1GU8GiRKmW4vtgbsk8xblBLxBKytIBPDMhvkO?=
- =?us-ascii?Q?tHvsAollJP00m1T3VrlTTjpT9EkfKZ3J7JFUFACMbFDijOSeDHEE0dWFAbV2?=
- =?us-ascii?Q?uNwEDYfIyX8JfQXPMdPhtKYIqCuKfcmHA/hQFdb+8f206lspQZwC68obZxMh?=
- =?us-ascii?Q?tOrLOBeTFIM4R/TIXTH8CMFb2RsxNRQvKyXdcdhoowzuc1jwrafhhSE4ULiF?=
- =?us-ascii?Q?Q83TRzBPZHrFbTk4lvtZkhAIZqdAVnsMUvghTlFOiTLdzcMh+QgZnP+TPIkB?=
- =?us-ascii?Q?s72ovixSVJMhz1AlBa26aFlKejf4K9qsGWs+1F6YSzMxpFv8IOe6wbL62rF1?=
- =?us-ascii?Q?dPmw3rYvmMqpiabSdHLVe3c/iYed6AJt01J9zbSCqC6j91OM7JA9Zx3BuEpW?=
- =?us-ascii?Q?U8Xg5MOj4xGL390o89aMC88CA9AzNdi0Scfh2zDNoj9Xg353qGbQApL8sUL8?=
- =?us-ascii?Q?fqET6OtmOoP3sEgxdj1x/80qLUQ/0Mz6LtlvN1uYFRRPhW1Mk8e2OlIcma6H?=
- =?us-ascii?Q?oddhOVzpaKAZkkY/UXpWPki2okXm2ELT1afXI5SvSQuyjNkGd1YKuNzBNvF6?=
- =?us-ascii?Q?fvE50uRvONsSGX7snuAwfXXMAsJ5Qgc9heB/1ClLixIP5xzMVZSwr8UDmyD/?=
- =?us-ascii?Q?HPRGALyW3XnK7a1ASJjBEJuE8WBWGOjyjs3zi6f4jluc3XwZ0T+Ezsf6NXhU?=
- =?us-ascii?Q?vTOLByJvyJfK3l9alygDVrXK3GvmtiEkrrHgrHCIAmKkiQ8eOB2KKK2jR8EK?=
- =?us-ascii?Q?haWPna4ViYKzV53VI5wtd6tJMaxLcn0upxGKqLOXY7KxLmhucL0QoPXXtDiG?=
- =?us-ascii?Q?5OcW7tyEZrp+M4PpTqEMZAzbjJ6z44lyyGl3NP7m84hRhkFTfFaiduzghue9?=
- =?us-ascii?Q?Ov7JOf+Pbp8/wpiTCm2cZFmGw/xgfQGJ+mmMN6x5KFNDz5DQ/s3GugEU/4tt?=
- =?us-ascii?Q?lG7v4u06Zi+7HvliqiDi+8wlbJDIiYKYTIbsco/FlghU89jCaSSnc6w6jz3N?=
- =?us-ascii?Q?h7Nqsx0hBymhXkNyXGk54TbKbs8G+4X/qlH+mkfw8PcFmfRg6RCWwaJK1Nj2?=
- =?us-ascii?Q?YGl8QulFXMax9yMsEVnDZtEaY283hpFNr8BNbH5Zi0u8P5TVhxcizk5gdf0Z?=
- =?us-ascii?Q?sXhDjWZY4NBnvEvURsaW+oaz9/+fOQyA08QoOxkF/Y6OApGpUSitIILd9mX/?=
- =?us-ascii?Q?XBLZsMo5i4BqyfZybwkZFUlWCCh5eVkcT1lhd65GYTeQf28MDgMDkPvF599f?=
- =?us-ascii?Q?Cgd4lLrbMHtHe9xwtg0kaLPpIaUKwe8n32vjH5oGFsR0JsujAP0SwqEKUej5?=
- =?us-ascii?Q?Ex53tdcvr91ojULqcmz4EBt9OlYfoxnphYwpUp2u93qT0vbI/kOeY2nGmDV+?=
- =?us-ascii?Q?I5jrkM+jcLEpUAEClBKgKrGCMrfb97F9UELDHXfrrPQmqhr1M6VwDb7s0UFE?=
- =?us-ascii?Q?naiV0lFc7Grq+LR8Y7LRR7uk4ODk9IQFeeKLp1WvuQiQEoCj3avdwKqK/Rgz?=
-X-MS-Exchange-AntiSpam-MessageData-1: 4DPxYVjjlDf4PHY080mVE2rWFmKWuPr25Bg=
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?0wMN6dVlw9vXZDlf9IcHEj6v6ZCKpWP6z5DK177y5nmQAd9gZl3An8xibRBH?=
+ =?us-ascii?Q?blm3y1aLXqzsqMVjPxbyF/FY8Ub9+IySJddKhPe1T7fgHpR2qepvwJXI4fbh?=
+ =?us-ascii?Q?Agy2fZCSjRblrzQAqK6hnGTX8MgHdUUFui4cVk0j/26ZGQshP+RSvGZHQR+o?=
+ =?us-ascii?Q?Db/0fh7EgkEU3NHXDKqUrLquF958ELe53TsjRSlfyntUHM8Qqm4PUb6i/nHM?=
+ =?us-ascii?Q?TJe40ybgZt+EquVUYVf/ZO7tIn1bjqQNjK2cooP28ObSTIoPM1YB+ZmIMEr/?=
+ =?us-ascii?Q?2RvR+Yv9sMWX45qv38ZILgsqiM28Ei2OVKr9qUFvg/pRsqtQiZKuAlMR2hDO?=
+ =?us-ascii?Q?aoUxMnxu0pctCM6FaQZqWvX8vtd2fHghZfn3koKO5zF4DXzsaYBkFYqEedQX?=
+ =?us-ascii?Q?yIHnu7tRlrss3/elEDvSInpdPvK038GcOfyniFFchY2fEpNZy6ly5f17dzvH?=
+ =?us-ascii?Q?CHeZig14Chp4QxgXQ27Ll5uE5Mgzwg/WrLFy6bq9tMsYCR8TtGVhK+3zoOSC?=
+ =?us-ascii?Q?M5auWq7J5ZkRyW/W9EUrnKI77KLxWLfAsBShQcMa/VSIsEre0bm3egUTbm9a?=
+ =?us-ascii?Q?6YLPoQ7mwkWXamrAo6e307E7CXOmkdtKZzMaBdV6+wh/ygWPk2jiOzgftmRn?=
+ =?us-ascii?Q?9lW1iNylnC/00KNIHVJWT7qOsQUsqK1S3Bk2UaCg+FqTGKyBGplNWXbWS3/N?=
+ =?us-ascii?Q?9vOrBAC3K3/XX9dNmANEoGPXrSRjyEDKkzB5MthKSqMRrzSJyZY12tbQDY/4?=
+ =?us-ascii?Q?+wuUC1f2DTdqwEL8mv2KgDSf72C1wvN3CtzyCx/eiJTnWaUH1cmjEdiS9c0N?=
+ =?us-ascii?Q?/M6mBdtOLxDayL6eU2favyH63JyE/k796f2gN347TMHjBMB7k6Rso8Cc/pTp?=
+ =?us-ascii?Q?Kr5Xhs/mPMSCrwZzRb1Z0P/YEgdd1gIq4J8vGGERNBliOjUTCyOIIsi9uFss?=
+ =?us-ascii?Q?1GdnL/7Qo4J2oS7AAKurmZuQE0ndmphXi9lemVODJGaGCpOTsoZDYeDdOdsp?=
+ =?us-ascii?Q?XJ23InzcQ0rCgdBWjO5OcN7+YnSyCGpuVL60SjY+uvw+C6rOoCTH0z+lwF8O?=
+ =?us-ascii?Q?pcpBtH+8FeIr94wMTkijiW03uK/ZBHNr56cXp+DFzAwS1tBWVyKr0/N0+2A0?=
+ =?us-ascii?Q?nneQxBzowyHkEg4M3lqDElsi0c/fXDiAPOyorb3Pr77XDPHkCVrPELXu1fb2?=
+ =?us-ascii?Q?zdJ/pmutUtVN4tHZ2gGrkPKFJgNDLp0DEqXrfA4RGpuG8NSBeoB5H3csZpK3?=
+ =?us-ascii?Q?ByPDt+rXFvfsjc8j6UD3UJtdDUxhrz0Qv/Up0mKJuWktxOmVcElVdp1F9Ec/?=
+ =?us-ascii?Q?tjyREiaiz/fFzkkFPN7Z51T374CP0TpixG57P0oVHeohYndPpOd0uYcdjw0l?=
+ =?us-ascii?Q?satizeSrzcUY3rdRF3vnSUYjJ/U5cO1phe6gyA9epODkG3sYUAmV7xYVJRs1?=
+ =?us-ascii?Q?H6hk0eweGE6rmEONSuP/wAMHD3RmidAnaOpavKEOlsM/PHxd3/T4/cRebB56?=
+ =?us-ascii?Q?JIWMJzbYNcDMX670ighG3db36YR+edIvp3pAMzPVVYKGXsXQtonpw1Z0RIMG?=
+ =?us-ascii?Q?vEgYNQYKWVchZgOtGR0Ne/eSLVDtHpjR0exhSzlUf+/IvqvjCQutFCIxabos?=
+ =?us-ascii?Q?ETqXf0X7F+zhwrQF4pUoVcHoQsz3nRuQfpOmuJ56VFfuNa+chd2vAAdeNzyx?=
+ =?us-ascii?Q?HXjzq/CC/U2qNIg/OgLDBAhnbtxbphktskxkh0r01MWEHybPaQAjkNjUXdeC?=
+ =?us-ascii?Q?ChZbkGZIpSl2Nzd5fzjN+MjiBJV+OZj6iiBoCS7aQyVkwe3ItOETws9J+NSE?=
+X-MS-Exchange-AntiSpam-MessageData-1: xuHle0E1JZXY4acwVyLUuIGSwiTawt48A9M=
 X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1e3dd0ae-3dc9-4764-1668-08de8c318d9b
+X-MS-Exchange-CrossTenant-Network-Message-Id: 03675bf6-78f6-4f22-ba60-08de8c319068
 X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8584.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Mar 2026 18:49:19.1304 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Mar 2026 18:49:23.8502 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 5rn/TatKcOi8xhyPG64wvMxVKmcd3RcM1u3/dOLUxH7Tt7kklXJSaJzeArr3l2LmICZCb9/ZFfrLymzABb8MgA==
+X-MS-Exchange-CrossTenant-UserPrincipalName: Tdu+cgmosBwCOVPnivhapO7T2vZZoKmhsr52RB5UQM+L0/8xRpnPD9lC0lhhQKeOWsim9ne84JGyIwTzUz6SsA==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV1PR04MB9515
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -141,51 +141,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The introduction commit 576d196c522b ("media: sunxi: Add support for the
-A83T MIPI CSI-2 controller") says:
+The tegra-xusb pinctrl driver is also a PHY provider (calls
+devm_phy_create() for PCIe and SATA). However, according to Vinod Koul,
+having PHY provider drivers outside of drivers/phy/ is discouraged,
+although it would be difficult for me to address a proper movement here.
 
-    This implementation splits the protocol and D-PHY registers and
-    uses the PHY framework internally. The D-PHY is not registered as a
-    standalone PHY driver since it cannot be used with any other
-    controller.
-
-However, this does not matter, and is not the only instance of tight PHY
-provider <-> consumer pairing. According to Vinod Koul, having PHY
-provider drivers outside of drivers/phy/ is discouraged, although it
-would be difficult for me to address a proper movement here.
-
-So just include the private provider API header from drivers/phy/ and
-leave a FIXME in place.
+Include the private provider API header from drivers/phy/, but leave a
+FIXME in place. It will have to be moved, eventually.
 
 Signed-off-by: Vladimir Oltean <vladimir.oltean@nxp.com>
-Acked-by: Chen-Yu Tsai <wens@kernel.org>
+Reviewed-by: Linus Walleij <linusw@kernel.org>
 ---
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Chen-Yu Tsai <wens@kernel.org>
-Cc: Jernej Skrabec <jernej.skrabec@gmail.com>
-Cc: Samuel Holland <samuel@sholland.org>
+Cc: Linus Walleij <linusw@kernel.org>
+Cc: Thierry Reding <thierry.reding@gmail.com>
+Cc: Jonathan Hunter <jonathanh@nvidia.com>
+Cc: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-v4->v6: none
-v3->v4: collect tag
-v1->v3: none
+v2->v6: none
+v1->v2: collect tag
 ---
- .../media/platform/sunxi/sun8i-a83t-mipi-csi2/sun8i_a83t_dphy.c | 2 +-
+ drivers/pinctrl/tegra/pinctrl-tegra-xusb.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/media/platform/sunxi/sun8i-a83t-mipi-csi2/sun8i_a83t_dphy.c b/drivers/media/platform/sunxi/sun8i-a83t-mipi-csi2/sun8i_a83t_dphy.c
-index 24bbcc85013d..1143feeb4fcb 100644
---- a/drivers/media/platform/sunxi/sun8i-a83t-mipi-csi2/sun8i_a83t_dphy.c
-+++ b/drivers/media/platform/sunxi/sun8i-a83t-mipi-csi2/sun8i_a83t_dphy.c
-@@ -4,9 +4,9 @@
-  * Author: Paul Kocialkowski <paul.kocialkowski@bootlin.com>
-  */
- 
+diff --git a/drivers/pinctrl/tegra/pinctrl-tegra-xusb.c b/drivers/pinctrl/tegra/pinctrl-tegra-xusb.c
+index c6a51bb21215..6b609bf685c7 100644
+--- a/drivers/pinctrl/tegra/pinctrl-tegra-xusb.c
++++ b/drivers/pinctrl/tegra/pinctrl-tegra-xusb.c
+@@ -7,7 +7,6 @@
+ #include <linux/io.h>
+ #include <linux/module.h>
+ #include <linux/of.h>
 -#include <linux/phy/phy.h>
- #include <linux/regmap.h>
+ #include <linux/platform_device.h>
+ #include <linux/reset.h>
+ #include <linux/seq_file.h>
+@@ -19,6 +18,7 @@
  
-+#include "../../../../phy/phy-provider.h" /* FIXME */
- #include "sun8i_a83t_dphy.h"
- #include "sun8i_a83t_mipi_csi2.h"
+ #include <dt-bindings/pinctrl/pinctrl-tegra-xusb.h>
+ 
++#include "../../phy/phy-provider.h" /* FIXME */
+ #include "../core.h"
+ #include "../pinctrl-utils.h"
  
 -- 
 2.43.0
