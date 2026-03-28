@@ -4,129 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 36ED010D1487
-	for <dri-devel@archiver.kernel.org>; Sat, 28 Mar 2026 21:58:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A43D710D1489
+	for <dri-devel@archiver.kernel.org>; Sat, 28 Mar 2026 22:06:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 96AAA10E442;
-	Sat, 28 Mar 2026 21:58:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E21DD10E02A;
+	Sat, 28 Mar 2026 22:06:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="igUCcHe7";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="O6yLyMe8";
 	dkim-atps=neutral
-Received: from PH7PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11010024.outbound.protection.outlook.com [52.101.201.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 14E7410E2D7;
- Sat, 28 Mar 2026 21:58:08 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=oos0+bCaKLCu32KfSn1t4GiP+X8KB0ZXBYfEHcu3nQnWRpsBY3Gugi4YAjfTJy4yQyl6vpIvMzk8N6vzFg//YPOsuaNvvBG9/sk4qWj80lAB2KexSCsIoBpnY40vtjnu7uZXmBtRzc4UawqhZDizAksbHYBscAS1a3F+W6Gzf5O04C07WzE8kkjWuDMliGL6EpBdfV5q+0T+cQvNiFxU99wWwue5LHnvDl4yj1ApKTCTlnAxxMejjqFYq+r+vBGi6Vkg6xQmGRlBctTpm2pzexSMhPDlkqS/lUlk+qlw6uoKoarrIShLrNEOhAfNAHPK/hlbyLH+ARmFn8q4JHnIRQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=xtydYvEK59MlGb51P2ltZkQeWMYcEahga4IJbBb0RA8=;
- b=SQybveQCBOT2hZ98MO25zyILujVPCm0Dio0MMXat1vvCwuj2CutUO4rGIyXh8/q2W7xHeF83b642xdNQL+Z8T8BerQ3L8CZ+5OmQLyutCg+NZA3L4OZnyxHosAp6E3rK5d8tHSu4rebptaox4EYYftNNyX6tEjlBIf7FhFz53ecPJflIslo+HXCygsfV2C2c0XmSQfDoP7FCIoEsQjTVHyFXg4G6MzwodvJheoAulzjrrbnH+WnmfP1tmeJDXbfw8t7XBV3A8m87cRMbNLQc8cE7cRue3DklSGH7s9guMA0hq1uk5mO6x8dK8P366PU1fbPSlMtx6Id5JQLYG4vJjA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xtydYvEK59MlGb51P2ltZkQeWMYcEahga4IJbBb0RA8=;
- b=igUCcHe7GWPqD1wvessNGGLk2em9FknKqlhWz104dbquuHDAGvGKiPsxD3qGQITd8lCNbqj6C86XX3bMDNFZ5hXgGqoephaRWCtH9qgY8U9mA38P1ZPaRGUZwNTxjNIkZtUEESHMqJAyBj/Gm9BKta1aVZUn5eDYA7v+pHYmhzwSKZDTnB+rMUd3U88XAJYduovTOROfPDVUJgpLVDMQUGbXxDULq1k0UQwW21DaAChLv0CNHsV0le+vSMpBFqpjdNZdB18502fKayfk6T9uECCSqD+aUqWqkAWywXrOGONaZvFwQzXi+2BKBL9S3gmSmPvE3bZgwZZ5ZmchNhykHw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from CY8PR12MB7171.namprd12.prod.outlook.com (2603:10b6:930:5c::20)
- by MW4PR12MB6922.namprd12.prod.outlook.com (2603:10b6:303:207::16)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.12; Sat, 28 Mar
- 2026 21:57:57 +0000
-Received: from CY8PR12MB7171.namprd12.prod.outlook.com
- ([fe80::4487:395f:3abf:ad9]) by CY8PR12MB7171.namprd12.prod.outlook.com
- ([fe80::4487:395f:3abf:ad9%4]) with mapi id 15.20.9769.011; Sat, 28 Mar 2026
- 21:57:57 +0000
-Date: Sat, 28 Mar 2026 17:57:55 -0400
-From: Yury Norov <ynorov@nvidia.com>
-To: Tony Nguyen <anthony.l.nguyen@intel.com>
-Cc: Simon Horman <horms@kernel.org>, "David S. Miller" <davem@davemloft.net>,
- Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>,
- Andrew Morton <akpm@linux-foundation.org>,
- David Airlie <airlied@gmail.com>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Matthew Brost <matthew.brost@intel.com>,
- Paolo Abeni <pabeni@redhat.com>,
- Przemek Kitszel <przemyslaw.kitszel@intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Simona Vetter <simona@ffwll.ch>, Yury Norov <yury.norov@gmail.com>,
- Rasmus Villemoes <linux@rasmusvillemoes.dk>,
- dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
- intel-wired-lan@lists.osuosl.org,
- David Laight <david.laight.linux@gmail.com>
-Subject: Re: [PATCH v2 4/4] drm/xe: switch xe_pagefault_queue_init() to using
- bitmap_weighted_or()
-Message-ID: <achO43f7IA22uD19@yury>
-References: <20260302011159.61778-1-ynorov@nvidia.com>
- <20260302011159.61778-5-ynorov@nvidia.com>
- <20260304114319.GI71509@kernel.org>
- <51b0f779-4070-44f1-b136-77737da6dbaf@intel.com>
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E548710E02A
+ for <dri-devel@lists.freedesktop.org>; Sat, 28 Mar 2026 22:06:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1774735569; x=1806271569;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=pzc/tpsXptWa/yPOeB/pL7zDiAuIXRW8wVhhv3EJYGc=;
+ b=O6yLyMe88Nhsc3aLW49+hkCqWDJzJjnGis0wr9dlRPeEjzyYLHFAN+xB
+ D/bJw3ud7WdgNMhcJV50VQKuIem66x86YG4jY+lYKMD48tP9m/VS8qArv
+ NHoTaJfD+FQDnXwob5oo4t4fm+aq55P5VKGeVpYqc0dcJRmbjTg3RlHaA
+ HZZRL/Yf5o3HbuXRiZd2Z/s4ps1MbEGP/FdlyC/XeqivGZy5oeBRDt0Nk
+ 2LuZf4B/ZIvvaDilyQiN26fxYtdBVi6Yucmvc22s0vS3+/jhELLElTw+S
+ 4OJzq4MOfecce/zSfSQIrz7vUxI3pAJjeZJ5kubWWSKyTJQM5qsUrMbuk w==;
+X-CSE-ConnectionGUID: LSmGzH3uQR2JOR0L5nl8nQ==
+X-CSE-MsgGUID: tkYB1PAKRU6Hl1DQBSpvdQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11742"; a="75793926"
+X-IronPort-AV: E=Sophos;i="6.23,146,1770624000"; d="scan'208";a="75793926"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+ by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Mar 2026 15:06:09 -0700
+X-CSE-ConnectionGUID: w8xu/IBFTLKr5v3SzSh+tA==
+X-CSE-MsgGUID: +GVCDlQhQuiRiai87czLpA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,146,1770624000"; d="scan'208";a="225545327"
+Received: from lkp-server01.sh.intel.com (HELO 3905d212be1b) ([10.239.97.150])
+ by orviesa009.jf.intel.com with ESMTP; 28 Mar 2026 15:06:04 -0700
+Received: from kbuild by 3905d212be1b with local (Exim 4.98.2)
+ (envelope-from <lkp@intel.com>) id 1w6bn6-00000000BoL-0LI1;
+ Sat, 28 Mar 2026 22:06:00 +0000
+Date: Sun, 29 Mar 2026 06:05:27 +0800
+From: kernel test robot <lkp@intel.com>
+To: Jay Liu <jay.liu@mediatek.com>, Chun-Kuang Hu <chunkuang.hu@kernel.org>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+ dri-devel@lists.freedesktop.org, linux-mediatek@lists.infradead.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, Jay Liu <jay.liu@mediatek.com>
+Subject: Re: [PATCH v4 5/6] drm/mediatek: Support multiple CCORR component
+Message-ID: <202603290611.fr83Gu7M-lkp@intel.com>
+References: <20260324125315.4715-6-jay.liu@mediatek.com>
+MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <51b0f779-4070-44f1-b136-77737da6dbaf@intel.com>
-X-ClientProxiedBy: BN1PR12CA0019.namprd12.prod.outlook.com
- (2603:10b6:408:e1::24) To CY8PR12MB7171.namprd12.prod.outlook.com
- (2603:10b6:930:5c::20)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY8PR12MB7171:EE_|MW4PR12MB6922:EE_
-X-MS-Office365-Filtering-Correlation-Id: a17c37cc-8ee7-4ffb-da35-08de8d151255
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|7416014|376014|10070799003|366016|1800799024|56012099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: fw4MpfooHwVuwj+3QQ0eAsgJ9EvPAW77raT4ilchDf9sc95VVFLQhTpq4JB3d0wf6scZCUt3QlYNyfMpY6OX2yMSN1Gmfa0KTnJmSROvSbv9UsF4o48eSyhcInf7j3Xuv/47BGNb+1lGfGA6gNg4b676g0f+JWK55LWZqGpcBgYn1wBHiYr0osv9VMM2pIkB7dYAByUKqLQ4niqk8wncp80S5eL24wFD0iJ8fKQnORgpEOH2Z8iC7DL33GsihagSVFegtElrSOViA8ctXgIBAgG69YVyxlralmhHg4wgLK8hsTa5hvGlK+8BKInu18tnzjT4QDXemb615DEHbI7echh7GVZVWoXYAMHK9mjqXIOC4Syzg0SslVdqzaqiGtIWdlIrh0d6fo53V5qnfKLHzBbD79b43wo42jJe5eySryFv3hkhe/J9SMImwhxu9QpY+i3PlCaEZ6sNkU81UolmLlTEhSf/iDgNpf4YS0jvkfdV/1272A5BlxvYlw4PNrjTpvphLVaczvkD94RfxQs2MPEoI0FYmbg2V6xqvwvA+kLn0Ut0BTRPtZQAKk9tyM3HcZDINmQSvi9UIPpc4ICJpoKWKL4qV7BBvE6MD2RzQJK7lv19Pb/JrBiDDw0CmSwRbDvJ0lkE0mqQWDheZvyr9qPhwq3q8Nk83tldAttwR3v9XIfQQP8DljxyPaRmlFQ5h7FjQujsgcFUqN5qPYA7qJcpzqgSejqyYq15wfjg938=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CY8PR12MB7171.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(7416014)(376014)(10070799003)(366016)(1800799024)(56012099003)(22082099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?sIKJda4tGlvwb6Ug9RdyMGjyk3wchQoYJbj6u4td8+feeVCatSxfekgXNYKf?=
- =?us-ascii?Q?FvXbmVC+TgO3xiClR879ktdJhoGRLVmaktJuhup8d4fvOzGhq2Uq9FOPdncF?=
- =?us-ascii?Q?iYolEskbCXuBN5Um9qZZ53N/kr4l37p8OPiI8+AjI6MxTVXkMqxtVO/msuqN?=
- =?us-ascii?Q?aRNbgnAOcmARKU8W8nTBdLkjnaP58coQgsxO92AeichlwccAqFK7w5FQfgVA?=
- =?us-ascii?Q?MkIHMUKV5CTOV+bpeLr2vLZ3ShGZGhTOoXeywBJQOltHn0N22Qm8YdE86S0N?=
- =?us-ascii?Q?Yk9dmMDiIjw0HRS6w4ApmE8FOGzNT6tZCqkX0XdHjOVZyEkis7m0x41hLrse?=
- =?us-ascii?Q?kYCwurulsY7fNpWSdwOVLhZHAVD/ICoJnNyzUuGUpp7FYFL7U0fkf83ZZFG2?=
- =?us-ascii?Q?3hhNxHeN8AH1knTPRfePTePe/KtXv1gWDqs/wkphE3YQBlgRlSYn7NozKAgA?=
- =?us-ascii?Q?qL+6O8xRsmWQtCqLEWD8mzYWdRVLka8SgwNV6hjkAHq2Vh51DNroe1sbTCbk?=
- =?us-ascii?Q?O8R25NM77oC7No8A7Z1aPT7f9rWcy9C8KIsS3LWPJAMD3QyGfrFq+ZhQpLrO?=
- =?us-ascii?Q?rHyJ57DDH7SggFaRFDSApKSv/sTInDYMOViBvOGIYJWPti7RvHmxvjOnKJlD?=
- =?us-ascii?Q?kAWY2w8/afgLcdm+ASWOXPdgoKabLzpQKXVHg1ySdvx36AQ56y6+MKuiABgL?=
- =?us-ascii?Q?9Duc7r+ibvpOzy4+A/DzKqNpCWI5AzANLwp/ldc3QFDZUYNjFoZQt/aOwps9?=
- =?us-ascii?Q?mVIhnX8ygeoJCwL4VVjtjrXVSML6QuzRz2BqJwkpft8M0ThPKY798OySrc1T?=
- =?us-ascii?Q?zzTrzFSN7tXJX0QlBWY5A4BFlXEWKPKHDmKsg/RjbQhCG8l9s3UV0cQCaS4s?=
- =?us-ascii?Q?kqWBBfUVqqO1l1NgBj0IfyDkU77eWEph9+kXV7f5BR85KLRce8KOXM+cJ/O+?=
- =?us-ascii?Q?k32J60ViXjACTsl3FAAELh6N2tmEZ9+ZcjdC4FRIhBo4jQQEeZuSBcLBHSES?=
- =?us-ascii?Q?hNzqdisvfUqj/OKUmHx7ZE7IYeiPGw+XEE7Sf2A0IFFC6tzaWpcqhpImcJc/?=
- =?us-ascii?Q?7y0tmidMuPtKmaBMcEqWdJevZZmRPa9KyF3+tNrVrDIFWTokUY0wVKNhT3gq?=
- =?us-ascii?Q?lK4w8Ccnh/5m8CUh+G3k+3RBLflqYJyQbxaZm3kXNpiW9ZqvkW3pHE/ochH8?=
- =?us-ascii?Q?8TidP4qq5uoFnLk/lSBGJWHArPIzl0gYCW0xT+xYM4PszSxv0RhZMQ6RaNzc?=
- =?us-ascii?Q?MyhqD93SmnF3TihNqpgSYLuErPcVd2XQvAUZLb3HC6ZVD+gZRdASoS6IWUVF?=
- =?us-ascii?Q?kRC8qE/3qOy/crPRaNB3lpNfHScCPmhnkEN/FqCMdQYxa7xUFlHqeW5sfAhC?=
- =?us-ascii?Q?Bt2aYFRfAdUXxONPUARZGPcXG9wLQeNpp3ilJKn1DOQKqSTfoAI0GRwDWQ8b?=
- =?us-ascii?Q?tk/ASPxQtW6OaSLX3+vXob/bwyHaqMjykZFtEr+8w3Sj8dCGMZgwF8OZGFql?=
- =?us-ascii?Q?wNcKegX8ahdGsXdvjc3U3Xsnq/a7SDlL9sNoV6XsdJ0WqlHfAsWlyEf/T8RK?=
- =?us-ascii?Q?dqKmwgzjL1bmoLaP8iR/DOOgHGp75ePLnJ5UXnRAenNphZUvL7u9NoomnbI5?=
- =?us-ascii?Q?kfvWr70ybg+1RsbnI4pwUHMtnnYuX4WAKRJcic2IjdXqagwvxsM811tkcTqR?=
- =?us-ascii?Q?ilUaYkxKnZbp9iOpBqIYVI8Afm38wAL7s+ThPbrPAMQLcikzPuj9fliaFZzu?=
- =?us-ascii?Q?1tk/OWl83IsadadzDrgTEahj6eKAbBjMczGw7w171CVwj1vEx7l6?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a17c37cc-8ee7-4ffb-da35-08de8d151255
-X-MS-Exchange-CrossTenant-AuthSource: CY8PR12MB7171.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Mar 2026 21:57:57.6229 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: OLeoLEvCHMErQtouq823TaAhoAN3xQ9etib8vH3aOP++qPXcsr9XMr7z9RechfmNjL10g5n6ZS209E30ljiGAA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB6922
+In-Reply-To: <20260324125315.4715-6-jay.liu@mediatek.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -142,37 +80,106 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Mar 05, 2026 at 02:40:53PM -0800, Tony Nguyen wrote:
-> 
-> 
-> On 3/4/2026 3:43 AM, Simon Horman wrote:
-> > On Sun, Mar 01, 2026 at 08:11:58PM -0500, Yury Norov wrote:
-> > > The function calls bitmap_or() immediately followed by bitmap_weight().
-> > > Switch to using the dedicated bitmap_weighted_or() and save one bitmap
-> > > traverse.
-> > > 
-> > > Signed-off-by: Yury Norov <ynorov@nvidia.com>
-> > 
-> > It's not entirely clear to me why this patch is included in a patchset
-> > for the ice driver.
-> > 
-> > And it's also not clear to me why, but allmodconfigs - fo4 at least x86_32
-> > and x86_64 - fail with this patch applied to net-next [1].
-> > 
-> > ERROR: modpost: "__bitmap_weighted_or" [drivers/gpu/drm/xe/xe.ko] undefined!
-> > 
-> > [1] 2b12ffb66955 ("net: mana: Trigger VF reset/recovery on health check failure due to HWC timeout")
-> 
-> I'm also seeing the same error and no apparent reason. Since this doesn't
-> seem dependent on the others, I'll take the other 3 and this can get
-> sent/resolved separately.
+Hi Jay,
 
-That's because the symbol is not exported, and the driver is build as
-module.
+kernel test robot noticed the following build errors:
 
-It's already fixed in -next: 95d324fb1b484 ("bitmap: add test_zero_nbits()").
-Let me know if you want me to send the fix as a separate patch in your
-tree. Or I can take this patch in my branch, if you give me your tags.
+[auto build test ERROR on drm-misc/drm-misc-next]
+[also build test ERROR on drm/drm-next pza/reset/next linus/master v7.0-rc5 next-20260327]
+[cannot apply to pza/imx-drm/next]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-Thanks,
-Yury
+url:    https://github.com/intel-lab-lkp/linux/commits/Jay-Liu/dt-bindings-display-mediatek-gamma-Add-support-for-MT8196/20260328-083359
+base:   https://gitlab.freedesktop.org/drm/misc/kernel.git drm-misc-next
+patch link:    https://lore.kernel.org/r/20260324125315.4715-6-jay.liu%40mediatek.com
+patch subject: [PATCH v4 5/6] drm/mediatek: Support multiple CCORR component
+config: sparc64-allmodconfig (https://download.01.org/0day-ci/archive/20260329/202603290611.fr83Gu7M-lkp@intel.com/config)
+compiler: clang version 23.0.0git (https://github.com/llvm/llvm-project 054e11d1a17e5ba88bb1a8ef32fad3346e80b186)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260329/202603290611.fr83Gu7M-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202603290611.fr83Gu7M-lkp@intel.com/
+
+All errors (new ones prefixed by >>):
+
+>> drivers/gpu/drm/mediatek/mtk_ddp_comp.c:461:3: error: use of undeclared identifier 'DDP_COMPONENT_CCORR0'; did you mean 'DDP_COMPONENT_CCORR'?
+     461 |         [DDP_COMPONENT_CCORR0]          = { MTK_DISP_CCORR,             0, &ddp_ccorr },
+         |          ^~~~~~~~~~~~~~~~~~~~
+         |          DDP_COMPONENT_CCORR
+   include/linux/soc/mediatek/mtk-mmsys.h:27:2: note: 'DDP_COMPONENT_CCORR' declared here
+      27 |         DDP_COMPONENT_CCORR,
+         |         ^
+>> drivers/gpu/drm/mediatek/mtk_ddp_comp.c:462:3: error: use of undeclared identifier 'DDP_COMPONENT_CCORR1'; did you mean 'DDP_COMPONENT_CCORR'?
+     462 |         [DDP_COMPONENT_CCORR1]          = { MTK_DISP_CCORR,             1, &ddp_ccorr },
+         |          ^~~~~~~~~~~~~~~~~~~~
+         |          DDP_COMPONENT_CCORR
+   include/linux/soc/mediatek/mtk-mmsys.h:27:2: note: 'DDP_COMPONENT_CCORR' declared here
+      27 |         DDP_COMPONENT_CCORR,
+         |         ^
+   drivers/gpu/drm/mediatek/mtk_ddp_comp.c:462:28: warning: initializer overrides prior initialization of this subobject [-Winitializer-overrides]
+     462 |         [DDP_COMPONENT_CCORR1]          = { MTK_DISP_CCORR,             1, &ddp_ccorr },
+         |                                           ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   drivers/gpu/drm/mediatek/mtk_ddp_comp.c:461:28: note: previous initialization is here
+     461 |         [DDP_COMPONENT_CCORR0]          = { MTK_DISP_CCORR,             0, &ddp_ccorr },
+         |                                           ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   1 warning and 2 errors generated.
+
+
+vim +461 drivers/gpu/drm/mediatek/mtk_ddp_comp.c
+
+   456	
+   457	static const struct mtk_ddp_comp_match mtk_ddp_matches[DDP_COMPONENT_DRM_ID_MAX] = {
+   458		[DDP_COMPONENT_AAL0]		= { MTK_DISP_AAL,		0, &ddp_aal },
+   459		[DDP_COMPONENT_AAL1]		= { MTK_DISP_AAL,		1, &ddp_aal },
+   460		[DDP_COMPONENT_BLS]		= { MTK_DISP_BLS,		0, NULL },
+ > 461		[DDP_COMPONENT_CCORR0]		= { MTK_DISP_CCORR,		0, &ddp_ccorr },
+ > 462		[DDP_COMPONENT_CCORR1]		= { MTK_DISP_CCORR,		1, &ddp_ccorr },
+   463		[DDP_COMPONENT_COLOR0]		= { MTK_DISP_COLOR,		0, &ddp_color },
+   464		[DDP_COMPONENT_COLOR1]		= { MTK_DISP_COLOR,		1, &ddp_color },
+   465		[DDP_COMPONENT_DITHER0]		= { MTK_DISP_DITHER,		0, &ddp_dither },
+   466		[DDP_COMPONENT_DP_INTF0]	= { MTK_DP_INTF,		0, &ddp_dpi },
+   467		[DDP_COMPONENT_DP_INTF1]	= { MTK_DP_INTF,		1, &ddp_dpi },
+   468		[DDP_COMPONENT_DPI0]		= { MTK_DPI,			0, &ddp_dpi },
+   469		[DDP_COMPONENT_DPI1]		= { MTK_DPI,			1, &ddp_dpi },
+   470		[DDP_COMPONENT_DRM_OVL_ADAPTOR]	= { MTK_DISP_OVL_ADAPTOR,	0, &ddp_ovl_adaptor },
+   471		[DDP_COMPONENT_DSC0]		= { MTK_DISP_DSC,		0, &ddp_dsc },
+   472		[DDP_COMPONENT_DSC1]		= { MTK_DISP_DSC,		1, &ddp_dsc },
+   473		[DDP_COMPONENT_DSI0]		= { MTK_DSI,			0, &ddp_dsi },
+   474		[DDP_COMPONENT_DSI1]		= { MTK_DSI,			1, &ddp_dsi },
+   475		[DDP_COMPONENT_DSI2]		= { MTK_DSI,			2, &ddp_dsi },
+   476		[DDP_COMPONENT_DSI3]		= { MTK_DSI,			3, &ddp_dsi },
+   477		[DDP_COMPONENT_GAMMA]		= { MTK_DISP_GAMMA,		0, &ddp_gamma },
+   478		[DDP_COMPONENT_MERGE0]		= { MTK_DISP_MERGE,		0, &ddp_merge },
+   479		[DDP_COMPONENT_MERGE1]		= { MTK_DISP_MERGE,		1, &ddp_merge },
+   480		[DDP_COMPONENT_MERGE2]		= { MTK_DISP_MERGE,		2, &ddp_merge },
+   481		[DDP_COMPONENT_MERGE3]		= { MTK_DISP_MERGE,		3, &ddp_merge },
+   482		[DDP_COMPONENT_MERGE4]		= { MTK_DISP_MERGE,		4, &ddp_merge },
+   483		[DDP_COMPONENT_MERGE5]		= { MTK_DISP_MERGE,		5, &ddp_merge },
+   484		[DDP_COMPONENT_OD0]		= { MTK_DISP_OD,		0, &ddp_od },
+   485		[DDP_COMPONENT_OD1]		= { MTK_DISP_OD,		1, &ddp_od },
+   486		[DDP_COMPONENT_OVL0]		= { MTK_DISP_OVL,		0, &ddp_ovl },
+   487		[DDP_COMPONENT_OVL1]		= { MTK_DISP_OVL,		1, &ddp_ovl },
+   488		[DDP_COMPONENT_OVL_2L0]		= { MTK_DISP_OVL_2L,		0, &ddp_ovl },
+   489		[DDP_COMPONENT_OVL_2L1]		= { MTK_DISP_OVL_2L,		1, &ddp_ovl },
+   490		[DDP_COMPONENT_OVL_2L2]		= { MTK_DISP_OVL_2L,		2, &ddp_ovl },
+   491		[DDP_COMPONENT_POSTMASK0]	= { MTK_DISP_POSTMASK,		0, &ddp_postmask },
+   492		[DDP_COMPONENT_PWM0]		= { MTK_DISP_PWM,		0, NULL },
+   493		[DDP_COMPONENT_PWM1]		= { MTK_DISP_PWM,		1, NULL },
+   494		[DDP_COMPONENT_PWM2]		= { MTK_DISP_PWM,		2, NULL },
+   495		[DDP_COMPONENT_RDMA0]		= { MTK_DISP_RDMA,		0, &ddp_rdma },
+   496		[DDP_COMPONENT_RDMA1]		= { MTK_DISP_RDMA,		1, &ddp_rdma },
+   497		[DDP_COMPONENT_RDMA2]		= { MTK_DISP_RDMA,		2, &ddp_rdma },
+   498		[DDP_COMPONENT_RDMA4]		= { MTK_DISP_RDMA,		4, &ddp_rdma },
+   499		[DDP_COMPONENT_UFOE]		= { MTK_DISP_UFOE,		0, &ddp_ufoe },
+   500		[DDP_COMPONENT_WDMA0]		= { MTK_DISP_WDMA,		0, NULL },
+   501		[DDP_COMPONENT_WDMA1]		= { MTK_DISP_WDMA,		1, NULL },
+   502	};
+   503	
+
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
