@@ -4,72 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E48DAF3D5FF
-	for <dri-devel@archiver.kernel.org>; Sun, 29 Mar 2026 09:53:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E8656F3D601
+	for <dri-devel@archiver.kernel.org>; Sun, 29 Mar 2026 09:53:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 439AE10E44D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4022D10E44B;
 	Sun, 29 Mar 2026 09:53:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="msuQp7ZQ";
+	dkim=pass (1024-bit key; unprotected) header.d=foxmail.com header.i=@foxmail.com header.b="TaSP/b8G";
 	dkim-atps=neutral
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com
- [209.85.128.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EA97D10E004
- for <dri-devel@lists.freedesktop.org>; Sat, 28 Mar 2026 14:14:38 +0000 (UTC)
-Received: by mail-wm1-f52.google.com with SMTP id
- 5b1f17b1804b1-486ff3a0fc1so27997465e9.2
- for <dri-devel@lists.freedesktop.org>; Sat, 28 Mar 2026 07:14:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1774707277; x=1775312077; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=Nwy/UmHbJ5FiDGqALH7aEuXNGDbK1H/xfH3WQB57VvA=;
- b=msuQp7ZQ7REi8DfyllUtO+dhSpNZB5+r40UGJUUZWVQ2v/f9yUGR9HXOJzZPN8U1+B
- 72/4JqxNuz7xhDES2+0PyuuN4uL4F80MVMBBuNn0t1zVXlhtAsAQ2L85+ZCg8V516O0k
- uChTvQJGhWd/JkanSorZpXca2ejPumLHsZhijYAH8mmwe7vardVrIsfEohyr4/AHNqnq
- aJTwiacC55eh+LcOjOU9f1tvvvJX3xoyoz8m4/E069ctzAXoyvaVDR72Hj6+nw/CE1NM
- G1ZOtA0LHt8QdIzQdtPA8QScigmYP3EOxNQbHFRm9I67uicg4XvQ4uAriCD/0g3mslpu
- XhPw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774707277; x=1775312077;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=Nwy/UmHbJ5FiDGqALH7aEuXNGDbK1H/xfH3WQB57VvA=;
- b=MpZNhOWVnDwliDXJUw/T/cT1Ps7AOysQ8XInMrKbluFPu2VaxXWpCqCG2Nux/jQ6vV
- XYf4gxyBKSy6Fd8+9/5QYcFXih1XaZdk8oMzqkMxTJ4bfPCGoWR4SJImZBGohprCrIHN
- +ELXhdwIP6hp2F7goFVUo28GkyYJUe0ZajppdigpXtUoEGRhaQ/R+qPXTokkX01yZqB2
- B44SI9Vee3Vdo9NuytOARp33QiTaVppRgiCwteGmQMTwF70ZR865KmIyFqNcRn5qDrP+
- UT7hMXi7DkXVJZiIbmN6xQ1p5ETOoyD2jNQOIXa4YotvTnhoybi6edDeNLd9+cVDFFB/
- 4kUw==
-X-Gm-Message-State: AOJu0YziaP/NJJC62jK0hSafD6ISz71f8qGXwyx1Yj2pyWuJnMRPTcIC
- sUbHqZxvx3N2JWJWq2cut7LiJT49wOjiUImKa0eyD/gs7jv3PbWBcgt3pzNDSNxE
-X-Gm-Gg: ATEYQzxRqVh+4yB6JOKT/1WG8ghNp5L647MdaiQNhgkwJWjSHIWEKz13H4BebS3w+/g
- 2Oc6e3DAvUlMgDFaPTW0XGwxmgt/d8a4FF6WWryA73LxbN7kI+lhv22zFxsS4g6D8Doh8X8V1Py
- M0NQkxh40fygWcpZ9BCxlY3ok7FcCgua2nJTJZiNgwse3uQ+xKCk4EbTmZPnS1/7ALKzNwQBnMQ
- fW3F3YyO+J89gzccGPMJg4QhO+t77/u0aEJvGJzU3n0bf2CtymrN4ZnI9/8QV51xp8Tu54aWvSt
- Z3Eur88EvRyy0T820OIjEghwcwgRBWBRuFl6uj0T9FfUgiypnr1NuNhEkkPwVZmre2vRcktlYuV
- MTZMK8KYejeN1XdKlFBwzC+VAdDKb+aX0sAU3PQhfuI6U41AM1azfqn7ZANRmGUghpeWuf4iNp6
- hOI5pd9NUymHIH6bpoi54Bmq4/D7TuGSXQiWvBn9sjmrdhhl+yERAGKfkCOA==
-X-Received: by 2002:a05:600c:1d15:b0:485:2fc5:3a5 with SMTP id
- 5b1f17b1804b1-48727edf4f5mr100763635e9.26.1774707277018; 
- Sat, 28 Mar 2026 07:14:37 -0700 (PDT)
-Received: from rhel.homenet.telecomitalia.it ([87.13.132.253])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-48730628efasm80210335e9.5.2026.03.28.07.14.35
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 28 Mar 2026 07:14:36 -0700 (PDT)
-From: Adriano Vero <litaliano00.contact@gmail.com>
+X-Greylist: delayed 1879 seconds by postgrey-1.36 at gabe;
+ Sat, 28 Mar 2026 12:34:50 UTC
+Received: from out203-205-221-173.mail.qq.com (out203-205-221-173.mail.qq.com
+ [203.205.221.173])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3B53710E05B
+ for <dri-devel@lists.freedesktop.org>; Sat, 28 Mar 2026 12:34:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foxmail.com;
+ s=s201512; t=1774701286;
+ bh=WZluaPtQ69k8l7GuzC05bLl+YyxVVYSeaFjn8/5d2wA=;
+ h=From:To:Cc:Subject:Date;
+ b=TaSP/b8GrleOSknnrILVPQA9eTQUL41SVs7CaGDG2rtuzRQDG8kMjTlY5wiypfUHT
+ v+cfItS/Lj9Q2Cesyf1spmyRv/FACCFxQd6AaoRDaaFClEKmtzTD4psBr0FBkr90jK
+ LHPPz1HGaRtXvwK9f2ZkBCJKnPpwCtAZSGwIa8MM=
+Received: from furnace.. ([2408:8207:24a6:39c0:bc6b:e2e:87c0:c5dc])
+ by newxmesmtplogicsvrszc50-0.qq.com (NewEsmtp) with SMTP
+ id D591EF9; Sat, 28 Mar 2026 20:03:21 +0800
+X-QQ-mid: xmsmtpt1774699401tvx4ac6a3
+Message-ID: <tencent_E0E7D83DF383CC08960CF0070BF1E7CC8505@qq.com>
+X-QQ-XMAILINFO: MTEKjEyAppcsPuCah8PQ/+At89IggxJs4hlZiWgba03V1ZItHLvRRkJCJHXbSi
+ 19foMxPEA/JJpn5c0R0uCyK1w8izWO8GqY7bmPcxwg4maZYgOEORJQoaghwInKK0zehZeHos1iMT
+ khxxYpw31u99zmby2RzYyMWQPkvUxYpqiLdIzEgEIuU7rRC/2TzwYK1TolKmZfSlJtqilhmbVl/3
+ Xr52WsBxujH27tXLl+IoCFF3cdxgAoXYf4S3v70vfZS2Cp4INMEqRawLcpXTnsCXhtcA42hPYZak
+ se1vf2ioDp1q8Kbb+pi9BR6qyGTMQ2fVCK7vAoBtkJafN4oe+hyV66y3jF5lxmDKVpqCf/FoWZLC
+ wa+e2FegIHP29oQ3mF7X+/AeNHXubzFMpwJdoBNKvymzPf4RSOpBMKWVLap9qMeuLrZx4iYWHGBn
+ p04kpLJ47EkeKeSZPh3qtLA/8hN5BAV9sAgmXASPkgvWu4P1OZbH+YrSiMJ5NtVXHAEBoVuxzad6
+ rRXo55bMFzstv8ZAKVQQ6NTFo6EHvZrfq+VflLz3G1CUQqjl6DLE2opnAnoOyc1kHhET1UfI7Kov
+ KqoC9rj/+Z9OrHlfoW4OtznEpJcQuggiXOzFW74qTHW4DE2We7DN47eUEVZk/I+1MDn1tMu+JksT
+ r4zCu0KRK3mFiOAynZG9TmcnIl9b0oGwYCVZyg542uXSKCabOSyCwmxayjSUuStsbp0h/XeYj89V
+ 3jLJM96urHnhMSJZaCvz1zLpnXzTAVvR4XLQ+N5kMfZcdQ4mSu12Q+W2cyh0jmodz+MpNBBh8uBq
+ qWi+lvfIjSw3H74ZRCV9RcbxuWl0Ys8ghIHfSBe4JVVtrqv1Y3fcmropppFkHH4U3mUZ21yNo4ao
+ w8kInopReL3v1dAva4lMKpeZZiFuqKLfUgqErbHrV5mg/v6qH3ldIDsrl/QhQwzQIvASTbaJUVOg
+ J67TSmfwRNMBibe/6r/GstS9A5BkLGUACL6BKp4LrBOAeb+c04JxkbzIsP59uD+3gEz5QPxElmUN
+ kHCF76WEdMG9tVv8PMxPktfF2MgrI7E8S4seJFNeDEd/XhKZ1mvLO+FT4F0ZPEBd70M8t4Nw==
+X-QQ-XMRINFO: OD9hHCdaPRBwH5bRRRw8tsiH4UAatJqXfg==
+From: YoungAndSure <yangshuorex@foxmail.com>
 To: dri-devel@lists.freedesktop.org
-Cc: jani.nikula@linux.intel.com, alexander.deucher@amd.com,
- harry.wentland@amd.com, sunpeng.li@amd.com, siqueira@igalia.com,
- christian.koenig@amd.com, amd-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Adriano Vero <litaliano00.contact@gmail.com>
-Subject: [PATCH 1/2] drm/edid: populate monitor_range from DisplayID Dynamic
- Video Timing block
-Date: Sat, 28 Mar 2026 14:20:26 +0100
-Message-ID: <20260328132027.22383-1-litaliano00.contact@gmail.com>
-X-Mailer: git-send-email 2.47.3
+Cc: neil.armstrong@linaro.org, dianders@chromium.org,
+ YoungAndSure <yangshuorex@foxmail.com>
+Subject: [PATCH] drm/panel: jdi-lt070me05000: Transition to mipi_dsi *_multi()
+ functions
+Date: Sat, 28 Mar 2026 20:03:21 +0800
+X-OQ-MSGID: <20260328120321.2677141-1-yangshuorex@foxmail.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Sun, 29 Mar 2026 09:53:39 +0000
@@ -88,118 +73,126 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Some eDP panels report their VRR limits only via a DisplayID v1r2
-Dynamic Video Timing Range Limits block (tag 0x25), without setting
-DRM_EDID_FEATURE_CONTINUOUS_FREQ. drm_get_monitor_range() returns
-early for such panels, leaving monitor_range zeroed.
+Replace deprecated mipi_dsi_generic_write() and mipi_dsi_dcs_*()
+functions with their *_multi() variants in jdi_panel_init() for better
+error handling.  The multi versions handle errors automatically and
+accumulate them in mipi_dsi_multi_context, removing the need for
+repetitive error checking code.
 
-Add drm_get_monitor_range_displayid() and call it from
-update_display_info() immediately after drm_get_monitor_range(). It
-uses displayid_iter_edid_begin() to locate Dynamic Video Timing blocks
-and extracts min/max refresh rates, including the 10-bit max_vfreq
-encoding signalled by block->rev bits [2:0]. It is a no-op when
-monitor_range is already populated by the classic EDID path.
-
-All drivers reading display_info.monitor_range now receive correct VRR
-limits from DisplayID-only panels without any raw EDID access.
-
-Byte offsets verified against parse_edid_displayid_vrr() in amdgpu_dm.c.
-
-Cc: Jani Nikula <jani.nikula@linux.intel.com>
-Cc: dri-devel@lists.freedesktop.org
-Signed-off-by: Adriano Vero <litaliano00.contact@gmail.com>
+Signed-off-by: YoungAndSure <yangshuorex@foxmail.com>
 ---
- drivers/gpu/drm/drm_edid.c | 68 ++++++++++++++++++++++++++++++++++++--
- 1 file changed, 66 insertions(+), 2 deletions(-)
+ .../gpu/drm/panel/panel-jdi-lt070me05000.c    | 71 ++++---------------
+ 1 file changed, 13 insertions(+), 58 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
-index ff432ac6b..d2c360178 100644
---- a/drivers/gpu/drm/drm_edid.c
-+++ b/drivers/gpu/drm/drm_edid.c
-@@ -6504,6 +6504,71 @@ void get_monitor_range(const struct detailed_timing *timing, void *c)
- 	}
+diff --git a/drivers/gpu/drm/panel/panel-jdi-lt070me05000.c b/drivers/gpu/drm/panel/panel-jdi-lt070me05000.c
+index 3513e5c4dd..e5deb39e75 100644
+--- a/drivers/gpu/drm/panel/panel-jdi-lt070me05000.c
++++ b/drivers/gpu/drm/panel/panel-jdi-lt070me05000.c
+@@ -48,34 +48,17 @@ static inline struct jdi_panel *to_jdi_panel(struct drm_panel *panel)
+ static int jdi_panel_init(struct jdi_panel *jdi)
+ {
+ 	struct mipi_dsi_device *dsi = jdi->dsi;
+-	struct device *dev = &jdi->dsi->dev;
+-	int ret;
++	struct mipi_dsi_multi_context ctx = { .dsi = dsi };
+ 
+ 	dsi->mode_flags |= MIPI_DSI_MODE_LPM;
+ 
+-	ret = mipi_dsi_dcs_soft_reset(dsi);
+-	if (ret < 0)
+-		return ret;
++	mipi_dsi_dcs_soft_reset_multi(&ctx);
+ 
+ 	usleep_range(10000, 20000);
+ 
+-	ret = mipi_dsi_dcs_set_pixel_format(dsi, MIPI_DCS_PIXEL_FMT_24BIT << 4);
+-	if (ret < 0) {
+-		dev_err(dev, "failed to set pixel format: %d\n", ret);
+-		return ret;
+-	}
+-
+-	ret = mipi_dsi_dcs_set_column_address(dsi, 0, jdi->mode->hdisplay - 1);
+-	if (ret < 0) {
+-		dev_err(dev, "failed to set column address: %d\n", ret);
+-		return ret;
+-	}
+-
+-	ret = mipi_dsi_dcs_set_page_address(dsi, 0, jdi->mode->vdisplay - 1);
+-	if (ret < 0) {
+-		dev_err(dev, "failed to set page address: %d\n", ret);
+-		return ret;
+-	}
++	mipi_dsi_dcs_set_pixel_format_multi(&ctx, MIPI_DCS_PIXEL_FMT_24BIT << 4);
++	mipi_dsi_dcs_set_column_address_multi(&ctx, 0, jdi->mode->hdisplay - 1);
++	mipi_dsi_dcs_set_page_address_multi(&ctx, 0, jdi->mode->vdisplay - 1);
+ 
+ 	/*
+ 	 * BIT(5) BCTRL = 1 Backlight Control Block On, Brightness registers
+@@ -83,56 +66,28 @@ static int jdi_panel_init(struct jdi_panel *jdi)
+ 	 * BIT(3) BL = 1    Backlight Control On
+ 	 * BIT(2) DD = 0    Display Dimming is Off
+ 	 */
+-	ret = mipi_dsi_dcs_write(dsi, MIPI_DCS_WRITE_CONTROL_DISPLAY,
+-				 (u8[]){ 0x24 }, 1);
+-	if (ret < 0) {
+-		dev_err(dev, "failed to write control display: %d\n", ret);
+-		return ret;
+-	}
++	mipi_dsi_dcs_write_seq_multi(&ctx, MIPI_DCS_WRITE_CONTROL_DISPLAY, 0x24);
+ 
+ 	/* CABC off */
+-	ret = mipi_dsi_dcs_write(dsi, MIPI_DCS_WRITE_POWER_SAVE,
+-				 (u8[]){ 0x00 }, 1);
+-	if (ret < 0) {
+-		dev_err(dev, "failed to set cabc off: %d\n", ret);
+-		return ret;
+-	}
++	mipi_dsi_dcs_write_seq_multi(&ctx, MIPI_DCS_WRITE_POWER_SAVE, 0x00);
+ 
+-	ret = mipi_dsi_dcs_exit_sleep_mode(dsi);
+-	if (ret < 0) {
+-		dev_err(dev, "failed to set exit sleep mode: %d\n", ret);
+-		return ret;
+-	}
++	mipi_dsi_dcs_exit_sleep_mode_multi(&ctx);
+ 
+ 	msleep(120);
+ 
+-	ret = mipi_dsi_generic_write(dsi, (u8[]){0xB0, 0x00}, 2);
+-	if (ret < 0) {
+-		dev_err(dev, "failed to set mcap: %d\n", ret);
+-		return ret;
+-	}
++	mipi_dsi_generic_write_multi(&ctx, (u8[]){0xB0, 0x00}, 2);
+ 
+ 	mdelay(10);
+ 
+ 	/* Interface setting, video mode */
+-	ret = mipi_dsi_generic_write(dsi, (u8[])
+-				     {0xB3, 0x26, 0x08, 0x00, 0x20, 0x00}, 6);
+-	if (ret < 0) {
+-		dev_err(dev, "failed to set display interface setting: %d\n"
+-			, ret);
+-		return ret;
+-	}
++	mipi_dsi_generic_write_multi(&ctx,
++				     (u8[]){0xB3, 0x26, 0x08, 0x00, 0x20, 0x00}, 6);
+ 
+ 	mdelay(20);
+ 
+-	ret = mipi_dsi_generic_write(dsi, (u8[]){0xB0, 0x03}, 2);
+-	if (ret < 0) {
+-		dev_err(dev, "failed to set default values for mcap: %d\n"
+-			, ret);
+-		return ret;
+-	}
++	mipi_dsi_generic_write_multi(&ctx, (u8[]){0xB0, 0x03}, 2);
+ 
+-	return 0;
++	return ctx.accum_err;
  }
  
-+/**
-+ * drm_get_monitor_range_displayid - populate monitor_range from a
-+ * DisplayID v1r2 Dynamic Video Timing Range Limits block (tag 0x25).
-+ *
-+ * Some eDP panels report their VRR limits only in a DisplayID block,
-+ * without setting DRM_EDID_FEATURE_CONTINUOUS_FREQ. drm_get_monitor_range()
-+ * returns early for such panels, leaving monitor_range zeroed. This
-+ * function is called separately from update_display_info() as a fallback.
-+ *
-+ * Block payload layout (block->num_bytes == 9):
-+ *   data[6]       min_vfreq in Hz
-+ *   data[7]       max_vfreq low 8 bits
-+ *   data[8][1:0]  max_vfreq high bits (when block->rev & 7 is nonzero)
-+ *
-+ * Byte offsets verified against parse_edid_displayid_vrr() in amdgpu_dm.c.
-+ */
-+static void
-+drm_get_monitor_range_displayid(struct drm_connector *connector,
-+				const struct drm_edid *drm_edid)
-+{
-+	struct drm_display_info *info = &connector->display_info;
-+	const struct displayid_block *block;
-+	struct displayid_iter iter;
-+
-+	/* Only run when the classic EDID path left these zeroed */
-+	if (info->monitor_range.min_vfreq && info->monitor_range.max_vfreq)
-+		return;
-+
-+	displayid_iter_edid_begin(drm_edid, &iter);
-+	displayid_iter_for_each(block, &iter) {
-+		const u8 *data;
-+		u16 min_vfreq, max_vfreq;
-+
-+		if (block->tag != DATA_BLOCK_2_DYNAMIC_VIDEO_TIMING)
-+			continue;
-+
-+		/* rev bits [7:1] must be zero; payload must be exactly 9 bytes */
-+		if ((block->rev & 0xFE) != 0 || block->num_bytes != 9)
-+			continue;
-+
-+		data = (const u8 *)(block + 1);
-+
-+		min_vfreq = data[6];
-+
-+		/* rev bits [2:0] nonzero: max_vfreq is 10-bit */
-+		if (block->rev & 7)
-+			max_vfreq = data[7] | ((u16)(data[8] & 3) << 8);
-+		else
-+			max_vfreq = data[7];
-+
-+		if (!min_vfreq || !max_vfreq)
-+			continue;
-+
-+		info->monitor_range.min_vfreq = min_vfreq;
-+		info->monitor_range.max_vfreq = max_vfreq;
-+
-+		drm_dbg_kms(connector->dev,
-+			    "[CONNECTOR:%d:%s] DisplayID dynamic video timing range: %u-%u Hz\n",
-+			    connector->base.id, connector->name,
-+			    min_vfreq, max_vfreq);
-+		break;
-+	}
-+	displayid_iter_end(&iter);
-+}
-+
- static void drm_get_monitor_range(struct drm_connector *connector,
- 				  const struct drm_edid *drm_edid)
- {
-@@ -6691,10 +6756,9 @@ static void update_display_info(struct drm_connector *connector,
- 	info->height_mm = edid->height_cm * 10;
- 
- 	drm_get_monitor_range(connector, drm_edid);
--
-+	drm_get_monitor_range_displayid(connector, drm_edid);
- 	if (edid->revision < 3)
- 		goto out;
--
- 	if (!drm_edid_is_digital(drm_edid))
- 		goto out;
- 
+ static int jdi_panel_on(struct jdi_panel *jdi)
 -- 
-2.47.3
+2.34.1
 
