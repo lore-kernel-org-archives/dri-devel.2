@@ -4,77 +4,129 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C88A910D1485
-	for <dri-devel@archiver.kernel.org>; Sat, 28 Mar 2026 21:39:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 36ED010D1487
+	for <dri-devel@archiver.kernel.org>; Sat, 28 Mar 2026 21:58:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CD98510E083;
-	Sat, 28 Mar 2026 21:39:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 96AAA10E442;
+	Sat, 28 Mar 2026 21:58:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="rMzqlMDu";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="igUCcHe7";
 	dkim-atps=neutral
-Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com
- [209.85.208.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 226D510E11A
- for <dri-devel@lists.freedesktop.org>; Sat, 28 Mar 2026 21:39:07 +0000 (UTC)
-Received: by mail-ed1-f42.google.com with SMTP id
- 4fb4d7f45d1cf-66bb66db39dso84956a12.0
- for <dri-devel@lists.freedesktop.org>; Sat, 28 Mar 2026 14:39:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1774733945; x=1775338745; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=kXnSrL1nik3JfElYjJrrOZj+38qywDMZ4t7LJjjm5fU=;
- b=rMzqlMDufg8m8KuP4UKMMCdVpUqWT3ToeqnVoR72vQEIrD2JGArek3zpOEq2eIQ/B6
- 9yBVzMb/zABJ6JTCIKRmKvIIrXKEUroCB9gXe1R3hF2A3URY3tRlEZnlQD6IhZ66SGiy
- tlvCRdLSM7RQJMNBF0GqlRsT8HeHC5T+pyU7ZQMf28HvHDAF7QO8glokwpqbSB/JVxLx
- XqXmSJQs4KI+oZGGRVEeTHz4FPICL8BssBA9BVZN05tEy0+Ct4xVJcBUf6Xa1fMFgfPx
- N+CtLvKSiACePgKRtBZpCEyWY8LD1nRYZILR8FEq+fcZehNjlncGPwPRONGVz44Gr6q7
- seCw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774733945; x=1775338745;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=kXnSrL1nik3JfElYjJrrOZj+38qywDMZ4t7LJjjm5fU=;
- b=ZdcY5fkujVmttlXrCKcdc8TfMl1MWKlDBcFdJ/TElyOGs0PgAU8edjhrlbpQMhUMQS
- /ozuCrgn6bDhEZrOt1x9PQArb+fss7gqhRjR3gxI1MqOl4UnETWk/lh/vsCJyBnNXXUZ
- ivbdHI4U2CmXlha/MTMsw4gSXxGYH0IrSCbfaFFSoO18+7x/e05btfbFXzwIC3zwl/ED
- Na4dAIKsTNMpsbfvPzCRJUR2t5Qf/l9rlH83PA+YJ7hIZe/Sj6tKORSTUyCiccsDyJhg
- ZOz1oPbLkV02M9ft3FkabDNxfKFrC7U/+s9IPGVZpvDDIWY9QJcFGYveSHBtHJGYWg68
- IIdw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUOWrP0L+NzLSOBR2f37nbCUs4bzIYVBN3WNj7Ou0G0/iLNVv/gFhDfOH9pgHLD3uqMdYE6DyJWMis=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yx4Tet3zbOQuavgr5lvNLAdk4HNJt2K4hri/6X0py1LLRKqspc4
- sUmhUermv83AYbIw1GPANVSy9DDnswpzzYNQXw+OVWkGDv5HQw88H+8u
-X-Gm-Gg: ATEYQzzMSSb8MR54Zke87PswjBrBZFZYpTcGBumP0TftvLNFgBfQcTmLBx4Xurvnyt0
- toRmjHNw9L/nzlpLZvsSCthZdwigtHfrF4Yy9/FCxeMtRBDlq6vfhhdo8pae1WBcvGTWbJptOLz
- CcWwu0Sbf7euY1zoxIdInc93vuqCMelQZSs0d6G2aq4Us8jtgofdQt7Y7lYw5pzrMeWiqUsCwoh
- 3aPWhmThiBXxz2SsZ+0WPZ3cT96xFWUg2kdOPehssjreM6Lsz4gh/2qJ3cxjoTTutg/THLKR7jR
- DwJqdmoKs45JoHFOKZZg+ZIi5acdlSgrEIQHc6TYUJ9e9GhVY+x1fVGhaupREFhVo5CwAgOI4YN
- Ulb3EfYCaVzdIg95Z1gKxFAb2OoW9kSPPE+BdrmC+JTcy9jT7bbwsH2kJsJc4/AqeYdYjvVqp04
- AN4Htyn1SXsq47FQMu58CSGsWxsNWeD7co
-X-Received: by 2002:a05:6402:4618:b0:665:e9f:9021 with SMTP id
- 4fb4d7f45d1cf-66b2855f8d5mr3612343a12.9.1774733945154; 
- Sat, 28 Mar 2026 14:39:05 -0700 (PDT)
-Received: from localhost ([178.214.243.78]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-66b75f84708sm909093a12.21.2026.03.28.14.39.03
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 28 Mar 2026 14:39:04 -0700 (PDT)
-From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
-To: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: Eric Huang <jinhuieric.huang@amd.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, stable@vger.kernel.org,
- Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
-Subject: [PATCH] drm/amdgpu: fix sleeping allocation under spinlock in PASID
- IDR
-Date: Sun, 29 Mar 2026 02:39:00 +0500
-Message-ID: <20260328213900.19255-1-mikhail.v.gavrilov@gmail.com>
-X-Mailer: git-send-email 2.53.0
+Received: from PH7PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11010024.outbound.protection.outlook.com [52.101.201.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 14E7410E2D7;
+ Sat, 28 Mar 2026 21:58:08 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=oos0+bCaKLCu32KfSn1t4GiP+X8KB0ZXBYfEHcu3nQnWRpsBY3Gugi4YAjfTJy4yQyl6vpIvMzk8N6vzFg//YPOsuaNvvBG9/sk4qWj80lAB2KexSCsIoBpnY40vtjnu7uZXmBtRzc4UawqhZDizAksbHYBscAS1a3F+W6Gzf5O04C07WzE8kkjWuDMliGL6EpBdfV5q+0T+cQvNiFxU99wWwue5LHnvDl4yj1ApKTCTlnAxxMejjqFYq+r+vBGi6Vkg6xQmGRlBctTpm2pzexSMhPDlkqS/lUlk+qlw6uoKoarrIShLrNEOhAfNAHPK/hlbyLH+ARmFn8q4JHnIRQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=xtydYvEK59MlGb51P2ltZkQeWMYcEahga4IJbBb0RA8=;
+ b=SQybveQCBOT2hZ98MO25zyILujVPCm0Dio0MMXat1vvCwuj2CutUO4rGIyXh8/q2W7xHeF83b642xdNQL+Z8T8BerQ3L8CZ+5OmQLyutCg+NZA3L4OZnyxHosAp6E3rK5d8tHSu4rebptaox4EYYftNNyX6tEjlBIf7FhFz53ecPJflIslo+HXCygsfV2C2c0XmSQfDoP7FCIoEsQjTVHyFXg4G6MzwodvJheoAulzjrrbnH+WnmfP1tmeJDXbfw8t7XBV3A8m87cRMbNLQc8cE7cRue3DklSGH7s9guMA0hq1uk5mO6x8dK8P366PU1fbPSlMtx6Id5JQLYG4vJjA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=xtydYvEK59MlGb51P2ltZkQeWMYcEahga4IJbBb0RA8=;
+ b=igUCcHe7GWPqD1wvessNGGLk2em9FknKqlhWz104dbquuHDAGvGKiPsxD3qGQITd8lCNbqj6C86XX3bMDNFZ5hXgGqoephaRWCtH9qgY8U9mA38P1ZPaRGUZwNTxjNIkZtUEESHMqJAyBj/Gm9BKta1aVZUn5eDYA7v+pHYmhzwSKZDTnB+rMUd3U88XAJYduovTOROfPDVUJgpLVDMQUGbXxDULq1k0UQwW21DaAChLv0CNHsV0le+vSMpBFqpjdNZdB18502fKayfk6T9uECCSqD+aUqWqkAWywXrOGONaZvFwQzXi+2BKBL9S3gmSmPvE3bZgwZZ5ZmchNhykHw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from CY8PR12MB7171.namprd12.prod.outlook.com (2603:10b6:930:5c::20)
+ by MW4PR12MB6922.namprd12.prod.outlook.com (2603:10b6:303:207::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.12; Sat, 28 Mar
+ 2026 21:57:57 +0000
+Received: from CY8PR12MB7171.namprd12.prod.outlook.com
+ ([fe80::4487:395f:3abf:ad9]) by CY8PR12MB7171.namprd12.prod.outlook.com
+ ([fe80::4487:395f:3abf:ad9%4]) with mapi id 15.20.9769.011; Sat, 28 Mar 2026
+ 21:57:57 +0000
+Date: Sat, 28 Mar 2026 17:57:55 -0400
+From: Yury Norov <ynorov@nvidia.com>
+To: Tony Nguyen <anthony.l.nguyen@intel.com>
+Cc: Simon Horman <horms@kernel.org>, "David S. Miller" <davem@davemloft.net>,
+ Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ David Airlie <airlied@gmail.com>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Matthew Brost <matthew.brost@intel.com>,
+ Paolo Abeni <pabeni@redhat.com>,
+ Przemek Kitszel <przemyslaw.kitszel@intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Simona Vetter <simona@ffwll.ch>, Yury Norov <yury.norov@gmail.com>,
+ Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+ dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+ intel-wired-lan@lists.osuosl.org,
+ David Laight <david.laight.linux@gmail.com>
+Subject: Re: [PATCH v2 4/4] drm/xe: switch xe_pagefault_queue_init() to using
+ bitmap_weighted_or()
+Message-ID: <achO43f7IA22uD19@yury>
+References: <20260302011159.61778-1-ynorov@nvidia.com>
+ <20260302011159.61778-5-ynorov@nvidia.com>
+ <20260304114319.GI71509@kernel.org>
+ <51b0f779-4070-44f1-b136-77737da6dbaf@intel.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <51b0f779-4070-44f1-b136-77737da6dbaf@intel.com>
+X-ClientProxiedBy: BN1PR12CA0019.namprd12.prod.outlook.com
+ (2603:10b6:408:e1::24) To CY8PR12MB7171.namprd12.prod.outlook.com
+ (2603:10b6:930:5c::20)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY8PR12MB7171:EE_|MW4PR12MB6922:EE_
+X-MS-Office365-Filtering-Correlation-Id: a17c37cc-8ee7-4ffb-da35-08de8d151255
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|7416014|376014|10070799003|366016|1800799024|56012099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: fw4MpfooHwVuwj+3QQ0eAsgJ9EvPAW77raT4ilchDf9sc95VVFLQhTpq4JB3d0wf6scZCUt3QlYNyfMpY6OX2yMSN1Gmfa0KTnJmSROvSbv9UsF4o48eSyhcInf7j3Xuv/47BGNb+1lGfGA6gNg4b676g0f+JWK55LWZqGpcBgYn1wBHiYr0osv9VMM2pIkB7dYAByUKqLQ4niqk8wncp80S5eL24wFD0iJ8fKQnORgpEOH2Z8iC7DL33GsihagSVFegtElrSOViA8ctXgIBAgG69YVyxlralmhHg4wgLK8hsTa5hvGlK+8BKInu18tnzjT4QDXemb615DEHbI7echh7GVZVWoXYAMHK9mjqXIOC4Syzg0SslVdqzaqiGtIWdlIrh0d6fo53V5qnfKLHzBbD79b43wo42jJe5eySryFv3hkhe/J9SMImwhxu9QpY+i3PlCaEZ6sNkU81UolmLlTEhSf/iDgNpf4YS0jvkfdV/1272A5BlxvYlw4PNrjTpvphLVaczvkD94RfxQs2MPEoI0FYmbg2V6xqvwvA+kLn0Ut0BTRPtZQAKk9tyM3HcZDINmQSvi9UIPpc4ICJpoKWKL4qV7BBvE6MD2RzQJK7lv19Pb/JrBiDDw0CmSwRbDvJ0lkE0mqQWDheZvyr9qPhwq3q8Nk83tldAttwR3v9XIfQQP8DljxyPaRmlFQ5h7FjQujsgcFUqN5qPYA7qJcpzqgSejqyYq15wfjg938=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CY8PR12MB7171.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(7416014)(376014)(10070799003)(366016)(1800799024)(56012099003)(22082099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?sIKJda4tGlvwb6Ug9RdyMGjyk3wchQoYJbj6u4td8+feeVCatSxfekgXNYKf?=
+ =?us-ascii?Q?FvXbmVC+TgO3xiClR879ktdJhoGRLVmaktJuhup8d4fvOzGhq2Uq9FOPdncF?=
+ =?us-ascii?Q?iYolEskbCXuBN5Um9qZZ53N/kr4l37p8OPiI8+AjI6MxTVXkMqxtVO/msuqN?=
+ =?us-ascii?Q?aRNbgnAOcmARKU8W8nTBdLkjnaP58coQgsxO92AeichlwccAqFK7w5FQfgVA?=
+ =?us-ascii?Q?MkIHMUKV5CTOV+bpeLr2vLZ3ShGZGhTOoXeywBJQOltHn0N22Qm8YdE86S0N?=
+ =?us-ascii?Q?Yk9dmMDiIjw0HRS6w4ApmE8FOGzNT6tZCqkX0XdHjOVZyEkis7m0x41hLrse?=
+ =?us-ascii?Q?kYCwurulsY7fNpWSdwOVLhZHAVD/ICoJnNyzUuGUpp7FYFL7U0fkf83ZZFG2?=
+ =?us-ascii?Q?3hhNxHeN8AH1knTPRfePTePe/KtXv1gWDqs/wkphE3YQBlgRlSYn7NozKAgA?=
+ =?us-ascii?Q?qL+6O8xRsmWQtCqLEWD8mzYWdRVLka8SgwNV6hjkAHq2Vh51DNroe1sbTCbk?=
+ =?us-ascii?Q?O8R25NM77oC7No8A7Z1aPT7f9rWcy9C8KIsS3LWPJAMD3QyGfrFq+ZhQpLrO?=
+ =?us-ascii?Q?rHyJ57DDH7SggFaRFDSApKSv/sTInDYMOViBvOGIYJWPti7RvHmxvjOnKJlD?=
+ =?us-ascii?Q?kAWY2w8/afgLcdm+ASWOXPdgoKabLzpQKXVHg1ySdvx36AQ56y6+MKuiABgL?=
+ =?us-ascii?Q?9Duc7r+ibvpOzy4+A/DzKqNpCWI5AzANLwp/ldc3QFDZUYNjFoZQt/aOwps9?=
+ =?us-ascii?Q?mVIhnX8ygeoJCwL4VVjtjrXVSML6QuzRz2BqJwkpft8M0ThPKY798OySrc1T?=
+ =?us-ascii?Q?zzTrzFSN7tXJX0QlBWY5A4BFlXEWKPKHDmKsg/RjbQhCG8l9s3UV0cQCaS4s?=
+ =?us-ascii?Q?kqWBBfUVqqO1l1NgBj0IfyDkU77eWEph9+kXV7f5BR85KLRce8KOXM+cJ/O+?=
+ =?us-ascii?Q?k32J60ViXjACTsl3FAAELh6N2tmEZ9+ZcjdC4FRIhBo4jQQEeZuSBcLBHSES?=
+ =?us-ascii?Q?hNzqdisvfUqj/OKUmHx7ZE7IYeiPGw+XEE7Sf2A0IFFC6tzaWpcqhpImcJc/?=
+ =?us-ascii?Q?7y0tmidMuPtKmaBMcEqWdJevZZmRPa9KyF3+tNrVrDIFWTokUY0wVKNhT3gq?=
+ =?us-ascii?Q?lK4w8Ccnh/5m8CUh+G3k+3RBLflqYJyQbxaZm3kXNpiW9ZqvkW3pHE/ochH8?=
+ =?us-ascii?Q?8TidP4qq5uoFnLk/lSBGJWHArPIzl0gYCW0xT+xYM4PszSxv0RhZMQ6RaNzc?=
+ =?us-ascii?Q?MyhqD93SmnF3TihNqpgSYLuErPcVd2XQvAUZLb3HC6ZVD+gZRdASoS6IWUVF?=
+ =?us-ascii?Q?kRC8qE/3qOy/crPRaNB3lpNfHScCPmhnkEN/FqCMdQYxa7xUFlHqeW5sfAhC?=
+ =?us-ascii?Q?Bt2aYFRfAdUXxONPUARZGPcXG9wLQeNpp3ilJKn1DOQKqSTfoAI0GRwDWQ8b?=
+ =?us-ascii?Q?tk/ASPxQtW6OaSLX3+vXob/bwyHaqMjykZFtEr+8w3Sj8dCGMZgwF8OZGFql?=
+ =?us-ascii?Q?wNcKegX8ahdGsXdvjc3U3Xsnq/a7SDlL9sNoV6XsdJ0WqlHfAsWlyEf/T8RK?=
+ =?us-ascii?Q?dqKmwgzjL1bmoLaP8iR/DOOgHGp75ePLnJ5UXnRAenNphZUvL7u9NoomnbI5?=
+ =?us-ascii?Q?kfvWr70ybg+1RsbnI4pwUHMtnnYuX4WAKRJcic2IjdXqagwvxsM811tkcTqR?=
+ =?us-ascii?Q?ilUaYkxKnZbp9iOpBqIYVI8Afm38wAL7s+ThPbrPAMQLcikzPuj9fliaFZzu?=
+ =?us-ascii?Q?1tk/OWl83IsadadzDrgTEahj6eKAbBjMczGw7w171CVwj1vEx7l6?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a17c37cc-8ee7-4ffb-da35-08de8d151255
+X-MS-Exchange-CrossTenant-AuthSource: CY8PR12MB7171.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Mar 2026 21:57:57.6229 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: OLeoLEvCHMErQtouq823TaAhoAN3xQ9etib8vH3aOP++qPXcsr9XMr7z9RechfmNjL10g5n6ZS209E30ljiGAA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB6922
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,60 +142,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Commit 14b81abe7bdc ("drm/amdgpu: prevent immediate PASID reuse case")
-switched from ida to idr_alloc_cyclic() protected by a spinlock, but
-passes GFP_KERNEL to the allocator.  idr_alloc_cyclic() may need to
-allocate radix-tree nodes, which with GFP_KERNEL can sleep — illegal
-under a spinlock that disables preemption.  With CONFIG_PREEMPT or
-lockdep enabled this triggers:
+On Thu, Mar 05, 2026 at 02:40:53PM -0800, Tony Nguyen wrote:
+> 
+> 
+> On 3/4/2026 3:43 AM, Simon Horman wrote:
+> > On Sun, Mar 01, 2026 at 08:11:58PM -0500, Yury Norov wrote:
+> > > The function calls bitmap_or() immediately followed by bitmap_weight().
+> > > Switch to using the dedicated bitmap_weighted_or() and save one bitmap
+> > > traverse.
+> > > 
+> > > Signed-off-by: Yury Norov <ynorov@nvidia.com>
+> > 
+> > It's not entirely clear to me why this patch is included in a patchset
+> > for the ice driver.
+> > 
+> > And it's also not clear to me why, but allmodconfigs - fo4 at least x86_32
+> > and x86_64 - fail with this patch applied to net-next [1].
+> > 
+> > ERROR: modpost: "__bitmap_weighted_or" [drivers/gpu/drm/xe/xe.ko] undefined!
+> > 
+> > [1] 2b12ffb66955 ("net: mana: Trigger VF reset/recovery on health check failure due to HWC timeout")
+> 
+> I'm also seeing the same error and no apparent reason. Since this doesn't
+> seem dependent on the others, I'll take the other 3 and this can get
+> sent/resolved separately.
 
-  BUG: sleeping function called from invalid context at
-       ./include/linux/sched/mm.h:323
-  in_atomic(): 1, irqs_disabled(): 0, non_block: 0, pid: 570
-  ...
-  #1: ffffffffc2cd24f8 (amdgpu_pasid_idr_lock){+.+.}-{3:3},
-      at: amdgpu_pasid_alloc+0x24/0x210 [amdgpu]
-  ...
-  kmem_cache_alloc_noprof+0x41d/0x780
-  radix_tree_node_alloc.constprop.0+0x56/0x3a0
-  idr_get_free+0x330/0x830
-  idr_alloc_u32+0x14a/0x2e0
-  idr_alloc_cyclic+0xd3/0x1d0
-  amdgpu_pasid_alloc+0x51/0x210 [amdgpu]
+That's because the symbol is not exported, and the driver is build as
+module.
 
-A mutex is not an option because amdgpu_pasid_free() is reachable from
-dma-fence callbacks (amdgpu_pasid_free_cb) which may run in IRQ context.
+It's already fixed in -next: 95d324fb1b484 ("bitmap: add test_zero_nbits()").
+Let me know if you want me to send the fix as a separate patch in your
+tree. Or I can take this patch in my branch, if you give me your tags.
 
-Use idr_preload(GFP_KERNEL) before taking the spinlock to pre-allocate
-radix-tree nodes, then pass GFP_NOWAIT inside the critical section so
-the allocator draws from the preloaded pool and never sleeps.  This is
-the standard kernel pattern for IDR allocation under a spinlock.
-
-Fixes: 14b81abe7bdc ("drm/amdgpu: prevent immediate PASID reuse case")
-Cc: stable@vger.kernel.org
-Signed-off-by: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
-index d88523568b62..515775eab2ef 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
-@@ -67,10 +67,12 @@ int amdgpu_pasid_alloc(unsigned int bits)
- 	if (bits == 0)
- 		return -EINVAL;
- 
-+	idr_preload(GFP_KERNEL);
- 	spin_lock(&amdgpu_pasid_idr_lock);
- 	pasid = idr_alloc_cyclic(&amdgpu_pasid_idr, NULL, 1,
--				 1U << bits, GFP_KERNEL);
-+				 1U << bits, GFP_NOWAIT);
- 	spin_unlock(&amdgpu_pasid_idr_lock);
-+	idr_preload_end();
- 
- 	if (pasid >= 0)
- 		trace_amdgpu_pasid_allocated(pasid);
--- 
-2.53.0
-
+Thanks,
+Yury
