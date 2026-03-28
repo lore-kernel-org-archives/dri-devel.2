@@ -4,94 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1C2A710F3DE5
-	for <dri-devel@archiver.kernel.org>; Sat, 28 Mar 2026 17:50:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 87E1110BA423
+	for <dri-devel@archiver.kernel.org>; Sat, 28 Mar 2026 18:44:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 52F3C10E0AA;
-	Sat, 28 Mar 2026 17:50:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A516A10E02E;
+	Sat, 28 Mar 2026 18:44:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="rnp5eKSl";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="eFkLMVHL";
 	dkim-atps=neutral
-Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com
- [209.85.218.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C860C10E0AA
- for <dri-devel@lists.freedesktop.org>; Sat, 28 Mar 2026 17:50:12 +0000 (UTC)
-Received: by mail-ej1-f45.google.com with SMTP id
- a640c23a62f3a-b97ba4c2be2so415985666b.1
- for <dri-devel@lists.freedesktop.org>; Sat, 28 Mar 2026 10:50:12 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1774720211; cv=none;
- d=google.com; s=arc-20240605;
- b=C9zSI1YaveprVVEq2iuF+J05GzJ4/mfTrC3rzqXUOxIWW7OnCUUVq4xpWJAL2+yDox
- bYrIhyy3yHH0SBpB3KZdMANF+RIhtP0pKalhc6gTNmRtU7E9COUaSNkYTXmIs92f3396
- wUccxNcCiLEBj8AP6pNTy1VQt/lKAndB+IFR9Kzny1twbmSB/ZgVVazVIvJjkFegDDVa
- nwY04MN0ZzLVNb18gLkWglZv0rvYd6VEZHSHa6gqCJNSH/SZ1YsqClKegds3BqTS99uq
- ngF4Sip2GNMWP0uiBb6+CnPWmSJ0wZhdKKqCAmRVUiRvGtsN0idaYvZYCnkoiWxu1qnj
- J+Mg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=/MHuV8XVqKwYNXoPzgoq+11DEhh4eCt8+xddHnvccEQ=;
- fh=8Lw5uciBYSvd0ShuARV+zT57/XngiuYNDOKDnLEi45c=;
- b=jMAdyIA4bxcpidISCIFk4OfvxGGstFOc3uJPcvPM19YgVq87K+oN1T4ebqV9mVjoQU
- yAsZruV90xMGOYaKJ0PL3+Woi2hHjJTsgawTzoALQ/AKrV/cDUOwJ7mmtf7D/k0FLI1p
- Rh6UvlJG2y2GKJvN7CijbWDUBzzjRZ7icTLrI4qHXRcucLuQBXP6rCVi8KWUdgCbrel7
- j7lSeAl6HqbQApSEsjUsHDYLzm+uSK87ZVOA9hVHyThI0MlWU+aqXkEv0I7PTwo4W0n1
- Xe0cxwP0WxT8lqqMjyoGzFvj/rCYvq4eXRF9mfokXobds7BcEHXkBizkzHQs3y+OZeFq
- Oouw==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1774720211; x=1775325011; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=/MHuV8XVqKwYNXoPzgoq+11DEhh4eCt8+xddHnvccEQ=;
- b=rnp5eKSlGmWSrM0ukCCdNNowYBgVecoS/M9hhhAGVEnS1dj9KOHBW5kuTBuQ/ZRcuP
- 14135BbTFSW8yNNTtE8RMpMrzWoz3IK2yJWozpc/ONx/AvKmwPV0N46ub/+mnQtvD3oA
- xmZOCqmidDaKYHLTDfT9bmxFx13ZALr1prRzlJwzVEp4GjN84kowMUj7qjl1RAityd7Q
- I7RBcYxgdFAAmWxJRYY0fHp0b5wS2lGAW7MiudqHJogda/aiylNK2pXIkIeITFvwLeel
- p/DA4TdCCBHT2It7nIV/+veeECujyJB7A0G6RoR5GQCEynJJDoAtX2Oii/+u0iPvKhc2
- mCuQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774720211; x=1775325011;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=/MHuV8XVqKwYNXoPzgoq+11DEhh4eCt8+xddHnvccEQ=;
- b=hheKsEdOYLPwbUgt8vrBs8jHRSiMp9VFlv9FxTk7sSa9snhejNLzvbffFuPpq52wT9
- WF7dpVbSzNO8c0bLMg/dklYfsS8BEAHBizzv+eKP2lMZI6nomI8VdIavFsNvFowoOqbS
- Z8Ui+dH3EuTSkOoS7pHBSnEf7TrdZXcHdX+/CQuQmsPT7GAzmueZqWzriIHZ9/wiGRLs
- YHxeBX8tOmbBsLML2QwpqhKnviF9y1Fy0sACFX91kvGYUz+Ff0/PxY9x4iTUE90+ERHD
- yaZ9f+ONAs57udQJo7bC3zSzF6Yr6E6hgxGB1CESOpjnlJfM8NrwpRUOMtYWvybOOv9q
- Jnxw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWVJ5RXdu16EXyNhcE3BXCSXVylDZhK8Ek6MhD1B4tjo7BjELUIgnLvYInsyiky5j5URMfNIuCPi74=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxUCc9gfYv25goE+EPBBHsqBWc7S1x8Yf2/EHW3PBZr/hxYst1K
- j5WMxPmFgTZMMgo49nCNXEOh4sm5Jvzai27l2HUtJEG6YhbfauqrTCqGc0BIg2n6M/sET97nPmw
- 7Ey8QWLj32wtZ7WefIJXZVjuEQV1vAZeaSGUt2gw=
-X-Gm-Gg: ATEYQzyHshDAZ2bTxh3Eb3sobjl+U00cVekpQu/XWFvqovIrFefNrGFJ8YKt/vl/vLk
- hwRzkycwVpKJsD9+GwTq7S4T1gohZHBKREkmSehmj+seBmp9fykiXFDkakxI8HhIgv/NJaozK+a
- 9ab1tR6DiuaAvnVsM1fiCsbf8XK0d7Hh8+hkjXOG+4dfFCbD6eHNYJPgIQs3aETHhLazJT3nkSB
- cF7/YV7nz4OiinQH8cTqirTQCD45bYc/AKBkeIO7oILx3d1lr5jEzNxDJAnsFsbfq9rPy1RjaC6
- t6d53njoDJW/Ce8z6UjUb0KFthnU6hxnOL8hOKPzaabRBzlX4Ntez23s/Zo1BKfWiZGZ34si336
- 9et8CF0U=
-X-Received: by 2002:a17:907:846:b0:b98:51d6:883b with SMTP id
- a640c23a62f3a-b9b502bee4bmr483537266b.4.1774720210902; Sat, 28 Mar 2026
- 10:50:10 -0700 (PDT)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B71A210E011
+ for <dri-devel@lists.freedesktop.org>; Sat, 28 Mar 2026 18:44:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1774723494; x=1806259494;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=kmwRtxXK8xGRADi3clGnSnpebF8WnxXlg30JofNOtQ0=;
+ b=eFkLMVHLk8ilqigEKvC56uYafspHOD3kZb09tXUI+TRBNYi7cUcNpVsf
+ oz04WMeDBLGv4FCW+AjsbiqbIsNWOPCR4ovSyKYP2Ntjvsk5tyQCJB1QS
+ 3pJqRDqhf+64ouIKmfAOjj/+P0eZLCPe0IbAsMPa3quKDuWeaZmy/Nzi2
+ 09VCzqiuMzNaAohmoWwQM4eysZEb7shkGIg83hEA2AkAPcq0QxvdZdX4f
+ qDdhOk9uxdwQxjfE8g3v+whKFO7SBKDEuApgiaJHQquAE97DSQieINx6e
+ d8vY+EqFkwk/PPoFM1ecYXSynR1CEvKxl2ZPfQOoLbF6pNautBNVsV5QQ w==;
+X-CSE-ConnectionGUID: p+vPB+rYRh6h0Z3vaIDpig==
+X-CSE-MsgGUID: o1vkchkaTvuncF44UJ+LAQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11742"; a="86845874"
+X-IronPort-AV: E=Sophos;i="6.23,146,1770624000"; d="scan'208";a="86845874"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+ by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Mar 2026 11:44:53 -0700
+X-CSE-ConnectionGUID: Nc+Sx4DhReOMLCcTty2zpA==
+X-CSE-MsgGUID: MRA0+ZK0Qme1YgjotqhzrA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,146,1770624000"; d="scan'208";a="230095910"
+Received: from lkp-server01.sh.intel.com (HELO 3905d212be1b) ([10.239.97.150])
+ by orviesa004.jf.intel.com with ESMTP; 28 Mar 2026 11:44:49 -0700
+Received: from kbuild by 3905d212be1b with local (Exim 4.98.2)
+ (envelope-from <lkp@intel.com>) id 1w6YeL-00000000BgF-32UD;
+ Sat, 28 Mar 2026 18:44:45 +0000
+Date: Sun, 29 Mar 2026 02:43:48 +0800
+From: kernel test robot <lkp@intel.com>
+To: Jay Liu <jay.liu@mediatek.com>, Chun-Kuang Hu <chunkuang.hu@kernel.org>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: oe-kbuild-all@lists.linux.dev, dri-devel@lists.freedesktop.org,
+ linux-mediatek@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ Jay Liu <jay.liu@mediatek.com>
+Subject: Re: [PATCH v4 5/6] drm/mediatek: Support multiple CCORR component
+Message-ID: <202603290249.ZJ6ioqey-lkp@intel.com>
+References: <20260324125315.4715-6-jay.liu@mediatek.com>
 MIME-Version: 1.0
-References: <20260328160114.1143108-1-caiyuhe80@gmail.com>
-In-Reply-To: <20260328160114.1143108-1-caiyuhe80@gmail.com>
-From: Andy Shevchenko <andy.shevchenko@gmail.com>
-Date: Sat, 28 Mar 2026 19:49:34 +0200
-X-Gm-Features: AQROBzAslN_ZWujLGMIjg5dfPBwHz5pbP2BKbO1h93l6if0I00QuCKVboVXLlB8
-Message-ID: <CAHp75VdGieY2qTZ_HeODxLMW8P2E3O9O27K6RRJoujxB3NZ-DA@mail.gmail.com>
-Subject: Re: [PATCH] staging: fbtft: avoid empty macro argument
-To: amanohina1 <caiyuhe80@gmail.com>
-Cc: andy@kernel.org, gregkh@linuxfoundation.org, 
- dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org, 
- linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260324125315.4715-6-jay.liu@mediatek.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,15 +80,101 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sat, Mar 28, 2026 at 6:02=E2=80=AFPM amanohina1 <caiyuhe80@gmail.com> wr=
-ote:
+Hi Jay,
 
-Read Submitting Patches documentation along with
-https://git.kernel.org/pub/scm/linux/kernel/git/gregkh/staging.git/tree/dri=
-vers/staging/fbtft/README?h=3Dstaging-next
+kernel test robot noticed the following build errors:
 
-Act accordingly.
+[auto build test ERROR on drm-misc/drm-misc-next]
+[also build test ERROR on drm/drm-next pza/reset/next linus/master v7.0-rc5 next-20260327]
+[cannot apply to pza/imx-drm/next]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
---=20
-With Best Regards,
-Andy Shevchenko
+url:    https://github.com/intel-lab-lkp/linux/commits/Jay-Liu/dt-bindings-display-mediatek-gamma-Add-support-for-MT8196/20260328-083359
+base:   https://gitlab.freedesktop.org/drm/misc/kernel.git drm-misc-next
+patch link:    https://lore.kernel.org/r/20260324125315.4715-6-jay.liu%40mediatek.com
+patch subject: [PATCH v4 5/6] drm/mediatek: Support multiple CCORR component
+config: arm64-defconfig (https://download.01.org/0day-ci/archive/20260329/202603290249.ZJ6ioqey-lkp@intel.com/config)
+compiler: aarch64-linux-gcc (GCC) 15.2.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260329/202603290249.ZJ6ioqey-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202603290249.ZJ6ioqey-lkp@intel.com/
+
+All errors (new ones prefixed by >>):
+
+>> drivers/gpu/drm/mediatek/mtk_ddp_comp.c:461:10: error: 'DDP_COMPONENT_CCORR0' undeclared here (not in a function); did you mean 'DDP_COMPONENT_CCORR'?
+     461 |         [DDP_COMPONENT_CCORR0]          = { MTK_DISP_CCORR,             0, &ddp_ccorr },
+         |          ^~~~~~~~~~~~~~~~~~~~
+         |          DDP_COMPONENT_CCORR
+>> drivers/gpu/drm/mediatek/mtk_ddp_comp.c:461:10: error: array index in initializer not of integer type
+   drivers/gpu/drm/mediatek/mtk_ddp_comp.c:461:10: note: (near initialization for 'mtk_ddp_matches')
+>> drivers/gpu/drm/mediatek/mtk_ddp_comp.c:462:10: error: 'DDP_COMPONENT_CCORR1' undeclared here (not in a function); did you mean 'DDP_COMPONENT_CCORR'?
+     462 |         [DDP_COMPONENT_CCORR1]          = { MTK_DISP_CCORR,             1, &ddp_ccorr },
+         |          ^~~~~~~~~~~~~~~~~~~~
+         |          DDP_COMPONENT_CCORR
+   drivers/gpu/drm/mediatek/mtk_ddp_comp.c:462:10: error: array index in initializer not of integer type
+   drivers/gpu/drm/mediatek/mtk_ddp_comp.c:462:10: note: (near initialization for 'mtk_ddp_matches')
+   drivers/gpu/drm/mediatek/mtk_ddp_comp.c:463:43: warning: initialized field overwritten [-Woverride-init]
+     463 |         [DDP_COMPONENT_COLOR0]          = { MTK_DISP_COLOR,             0, &ddp_color },
+         |                                           ^
+   drivers/gpu/drm/mediatek/mtk_ddp_comp.c:463:43: note: (near initialization for 'mtk_ddp_matches[4]')
+
+
+vim +461 drivers/gpu/drm/mediatek/mtk_ddp_comp.c
+
+   456	
+   457	static const struct mtk_ddp_comp_match mtk_ddp_matches[DDP_COMPONENT_DRM_ID_MAX] = {
+   458		[DDP_COMPONENT_AAL0]		= { MTK_DISP_AAL,		0, &ddp_aal },
+   459		[DDP_COMPONENT_AAL1]		= { MTK_DISP_AAL,		1, &ddp_aal },
+   460		[DDP_COMPONENT_BLS]		= { MTK_DISP_BLS,		0, NULL },
+ > 461		[DDP_COMPONENT_CCORR0]		= { MTK_DISP_CCORR,		0, &ddp_ccorr },
+ > 462		[DDP_COMPONENT_CCORR1]		= { MTK_DISP_CCORR,		1, &ddp_ccorr },
+   463		[DDP_COMPONENT_COLOR0]		= { MTK_DISP_COLOR,		0, &ddp_color },
+   464		[DDP_COMPONENT_COLOR1]		= { MTK_DISP_COLOR,		1, &ddp_color },
+   465		[DDP_COMPONENT_DITHER0]		= { MTK_DISP_DITHER,		0, &ddp_dither },
+   466		[DDP_COMPONENT_DP_INTF0]	= { MTK_DP_INTF,		0, &ddp_dpi },
+   467		[DDP_COMPONENT_DP_INTF1]	= { MTK_DP_INTF,		1, &ddp_dpi },
+   468		[DDP_COMPONENT_DPI0]		= { MTK_DPI,			0, &ddp_dpi },
+   469		[DDP_COMPONENT_DPI1]		= { MTK_DPI,			1, &ddp_dpi },
+   470		[DDP_COMPONENT_DRM_OVL_ADAPTOR]	= { MTK_DISP_OVL_ADAPTOR,	0, &ddp_ovl_adaptor },
+   471		[DDP_COMPONENT_DSC0]		= { MTK_DISP_DSC,		0, &ddp_dsc },
+   472		[DDP_COMPONENT_DSC1]		= { MTK_DISP_DSC,		1, &ddp_dsc },
+   473		[DDP_COMPONENT_DSI0]		= { MTK_DSI,			0, &ddp_dsi },
+   474		[DDP_COMPONENT_DSI1]		= { MTK_DSI,			1, &ddp_dsi },
+   475		[DDP_COMPONENT_DSI2]		= { MTK_DSI,			2, &ddp_dsi },
+   476		[DDP_COMPONENT_DSI3]		= { MTK_DSI,			3, &ddp_dsi },
+   477		[DDP_COMPONENT_GAMMA]		= { MTK_DISP_GAMMA,		0, &ddp_gamma },
+   478		[DDP_COMPONENT_MERGE0]		= { MTK_DISP_MERGE,		0, &ddp_merge },
+   479		[DDP_COMPONENT_MERGE1]		= { MTK_DISP_MERGE,		1, &ddp_merge },
+   480		[DDP_COMPONENT_MERGE2]		= { MTK_DISP_MERGE,		2, &ddp_merge },
+   481		[DDP_COMPONENT_MERGE3]		= { MTK_DISP_MERGE,		3, &ddp_merge },
+   482		[DDP_COMPONENT_MERGE4]		= { MTK_DISP_MERGE,		4, &ddp_merge },
+   483		[DDP_COMPONENT_MERGE5]		= { MTK_DISP_MERGE,		5, &ddp_merge },
+   484		[DDP_COMPONENT_OD0]		= { MTK_DISP_OD,		0, &ddp_od },
+   485		[DDP_COMPONENT_OD1]		= { MTK_DISP_OD,		1, &ddp_od },
+   486		[DDP_COMPONENT_OVL0]		= { MTK_DISP_OVL,		0, &ddp_ovl },
+   487		[DDP_COMPONENT_OVL1]		= { MTK_DISP_OVL,		1, &ddp_ovl },
+   488		[DDP_COMPONENT_OVL_2L0]		= { MTK_DISP_OVL_2L,		0, &ddp_ovl },
+   489		[DDP_COMPONENT_OVL_2L1]		= { MTK_DISP_OVL_2L,		1, &ddp_ovl },
+   490		[DDP_COMPONENT_OVL_2L2]		= { MTK_DISP_OVL_2L,		2, &ddp_ovl },
+   491		[DDP_COMPONENT_POSTMASK0]	= { MTK_DISP_POSTMASK,		0, &ddp_postmask },
+   492		[DDP_COMPONENT_PWM0]		= { MTK_DISP_PWM,		0, NULL },
+   493		[DDP_COMPONENT_PWM1]		= { MTK_DISP_PWM,		1, NULL },
+   494		[DDP_COMPONENT_PWM2]		= { MTK_DISP_PWM,		2, NULL },
+   495		[DDP_COMPONENT_RDMA0]		= { MTK_DISP_RDMA,		0, &ddp_rdma },
+   496		[DDP_COMPONENT_RDMA1]		= { MTK_DISP_RDMA,		1, &ddp_rdma },
+   497		[DDP_COMPONENT_RDMA2]		= { MTK_DISP_RDMA,		2, &ddp_rdma },
+   498		[DDP_COMPONENT_RDMA4]		= { MTK_DISP_RDMA,		4, &ddp_rdma },
+   499		[DDP_COMPONENT_UFOE]		= { MTK_DISP_UFOE,		0, &ddp_ufoe },
+   500		[DDP_COMPONENT_WDMA0]		= { MTK_DISP_WDMA,		0, NULL },
+   501		[DDP_COMPONENT_WDMA1]		= { MTK_DISP_WDMA,		1, NULL },
+   502	};
+   503	
+
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
