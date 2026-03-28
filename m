@@ -4,55 +4,93 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7B80B10F3DEE
-	for <dri-devel@archiver.kernel.org>; Sat, 28 Mar 2026 17:31:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1C2A710F3DE5
+	for <dri-devel@archiver.kernel.org>; Sat, 28 Mar 2026 17:50:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B78D410E040;
-	Sat, 28 Mar 2026 17:31:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 52F3C10E0AA;
+	Sat, 28 Mar 2026 17:50:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=protonmail.com header.i=@protonmail.com header.b="JYXx2ugx";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="rnp5eKSl";
 	dkim-atps=neutral
-Received: from mail-24429.protonmail.ch (mail-24429.protonmail.ch
- [109.224.244.29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B69CA10E040
- for <dri-devel@lists.freedesktop.org>; Sat, 28 Mar 2026 17:31:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
- s=protonmail3; t=1774719059; x=1774978259;
- bh=sgqrW4vue2YRH/11cpwfBbkabMPf+9TeMN7abNY/hXQ=;
- h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
- Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
- Message-ID:BIMI-Selector;
- b=JYXx2ugxoLBqIhcply1iBLXBWtiOGWnNv8TPcXKMqbK0dTiKIhPDiY4fuMniIzG0c
- DgcG4PxASDHkVW+RCVWk1GlERuVPiwQH3xVFSHB2bS5oj6/LKbvTPgInk6MZjj08+s
- 53RJcD5kY/AwH6oCXofd2azsDtu+4m/m0L+IpTfD6gZrrhTRrfhvhL/vV3Awwtnxks
- Kiyfc7ZgE8ASj4btj4yHWeM40sFaUhE1vfH8ZsAca2dhXeLw8DfEgrwkN3rs8jkBq0
- N9USWcLMelB9iPxGrLYHaR7DvhfOBjnhydzrUol06o/2kkHkQxIdpTxr6DC0lhzOxi
- GnbAJTbZVDiew==
-Date: Sat, 28 Mar 2026 17:30:53 +0000
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-From: cristian_ci <cristian_ci@protonmail.com>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht,
- phone-devel@vger.kernel.org
-Subject: Re: [PATCH v4 3/6] arm64: dts: qcom: msm8953-flipkart-rimob: Enable
- display and GPU
-Message-ID: <O7THc5h8ZhgzNpklYKTGOnEZKlN4BtHZHjKZt2KErekNb3E-hizt2dw7xuJ8G6giEyivmvC0f6-eIfCT6fJkUA7_CVQwhAktCXfBqAVV_Zo=@protonmail.com>
-In-Reply-To: <us3ps4bgf5ekk2iudcgs2wa4b5qd4mzokec4q55pmhb6kvt6ht@qm4mmzdai2t2>
-References: <20260327-rimob-new-features-v4-0-06edff9c4509@protonmail.com>
- <20260327-rimob-new-features-v4-3-06edff9c4509@protonmail.com>
- <us3ps4bgf5ekk2iudcgs2wa4b5qd4mzokec4q55pmhb6kvt6ht@qm4mmzdai2t2>
-Feedback-ID: 27475468:user:proton
-X-Pm-Message-ID: cf18d05c5f1d325076efcda785cfdd467cb230d9
+Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com
+ [209.85.218.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C860C10E0AA
+ for <dri-devel@lists.freedesktop.org>; Sat, 28 Mar 2026 17:50:12 +0000 (UTC)
+Received: by mail-ej1-f45.google.com with SMTP id
+ a640c23a62f3a-b97ba4c2be2so415985666b.1
+ for <dri-devel@lists.freedesktop.org>; Sat, 28 Mar 2026 10:50:12 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1774720211; cv=none;
+ d=google.com; s=arc-20240605;
+ b=C9zSI1YaveprVVEq2iuF+J05GzJ4/mfTrC3rzqXUOxIWW7OnCUUVq4xpWJAL2+yDox
+ bYrIhyy3yHH0SBpB3KZdMANF+RIhtP0pKalhc6gTNmRtU7E9COUaSNkYTXmIs92f3396
+ wUccxNcCiLEBj8AP6pNTy1VQt/lKAndB+IFR9Kzny1twbmSB/ZgVVazVIvJjkFegDDVa
+ nwY04MN0ZzLVNb18gLkWglZv0rvYd6VEZHSHa6gqCJNSH/SZ1YsqClKegds3BqTS99uq
+ ngF4Sip2GNMWP0uiBb6+CnPWmSJ0wZhdKKqCAmRVUiRvGtsN0idaYvZYCnkoiWxu1qnj
+ J+Mg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=/MHuV8XVqKwYNXoPzgoq+11DEhh4eCt8+xddHnvccEQ=;
+ fh=8Lw5uciBYSvd0ShuARV+zT57/XngiuYNDOKDnLEi45c=;
+ b=jMAdyIA4bxcpidISCIFk4OfvxGGstFOc3uJPcvPM19YgVq87K+oN1T4ebqV9mVjoQU
+ yAsZruV90xMGOYaKJ0PL3+Woi2hHjJTsgawTzoALQ/AKrV/cDUOwJ7mmtf7D/k0FLI1p
+ Rh6UvlJG2y2GKJvN7CijbWDUBzzjRZ7icTLrI4qHXRcucLuQBXP6rCVi8KWUdgCbrel7
+ j7lSeAl6HqbQApSEsjUsHDYLzm+uSK87ZVOA9hVHyThI0MlWU+aqXkEv0I7PTwo4W0n1
+ Xe0cxwP0WxT8lqqMjyoGzFvj/rCYvq4eXRF9mfokXobds7BcEHXkBizkzHQs3y+OZeFq
+ Oouw==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1774720211; x=1775325011; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=/MHuV8XVqKwYNXoPzgoq+11DEhh4eCt8+xddHnvccEQ=;
+ b=rnp5eKSlGmWSrM0ukCCdNNowYBgVecoS/M9hhhAGVEnS1dj9KOHBW5kuTBuQ/ZRcuP
+ 14135BbTFSW8yNNTtE8RMpMrzWoz3IK2yJWozpc/ONx/AvKmwPV0N46ub/+mnQtvD3oA
+ xmZOCqmidDaKYHLTDfT9bmxFx13ZALr1prRzlJwzVEp4GjN84kowMUj7qjl1RAityd7Q
+ I7RBcYxgdFAAmWxJRYY0fHp0b5wS2lGAW7MiudqHJogda/aiylNK2pXIkIeITFvwLeel
+ p/DA4TdCCBHT2It7nIV/+veeECujyJB7A0G6RoR5GQCEynJJDoAtX2Oii/+u0iPvKhc2
+ mCuQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1774720211; x=1775325011;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=/MHuV8XVqKwYNXoPzgoq+11DEhh4eCt8+xddHnvccEQ=;
+ b=hheKsEdOYLPwbUgt8vrBs8jHRSiMp9VFlv9FxTk7sSa9snhejNLzvbffFuPpq52wT9
+ WF7dpVbSzNO8c0bLMg/dklYfsS8BEAHBizzv+eKP2lMZI6nomI8VdIavFsNvFowoOqbS
+ Z8Ui+dH3EuTSkOoS7pHBSnEf7TrdZXcHdX+/CQuQmsPT7GAzmueZqWzriIHZ9/wiGRLs
+ YHxeBX8tOmbBsLML2QwpqhKnviF9y1Fy0sACFX91kvGYUz+Ff0/PxY9x4iTUE90+ERHD
+ yaZ9f+ONAs57udQJo7bC3zSzF6Yr6E6hgxGB1CESOpjnlJfM8NrwpRUOMtYWvybOOv9q
+ Jnxw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWVJ5RXdu16EXyNhcE3BXCSXVylDZhK8Ek6MhD1B4tjo7BjELUIgnLvYInsyiky5j5URMfNIuCPi74=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxUCc9gfYv25goE+EPBBHsqBWc7S1x8Yf2/EHW3PBZr/hxYst1K
+ j5WMxPmFgTZMMgo49nCNXEOh4sm5Jvzai27l2HUtJEG6YhbfauqrTCqGc0BIg2n6M/sET97nPmw
+ 7Ey8QWLj32wtZ7WefIJXZVjuEQV1vAZeaSGUt2gw=
+X-Gm-Gg: ATEYQzyHshDAZ2bTxh3Eb3sobjl+U00cVekpQu/XWFvqovIrFefNrGFJ8YKt/vl/vLk
+ hwRzkycwVpKJsD9+GwTq7S4T1gohZHBKREkmSehmj+seBmp9fykiXFDkakxI8HhIgv/NJaozK+a
+ 9ab1tR6DiuaAvnVsM1fiCsbf8XK0d7Hh8+hkjXOG+4dfFCbD6eHNYJPgIQs3aETHhLazJT3nkSB
+ cF7/YV7nz4OiinQH8cTqirTQCD45bYc/AKBkeIO7oILx3d1lr5jEzNxDJAnsFsbfq9rPy1RjaC6
+ t6d53njoDJW/Ce8z6UjUb0KFthnU6hxnOL8hOKPzaabRBzlX4Ntez23s/Zo1BKfWiZGZ34si336
+ 9et8CF0U=
+X-Received: by 2002:a17:907:846:b0:b98:51d6:883b with SMTP id
+ a640c23a62f3a-b9b502bee4bmr483537266b.4.1774720210902; Sat, 28 Mar 2026
+ 10:50:10 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+References: <20260328160114.1143108-1-caiyuhe80@gmail.com>
+In-Reply-To: <20260328160114.1143108-1-caiyuhe80@gmail.com>
+From: Andy Shevchenko <andy.shevchenko@gmail.com>
+Date: Sat, 28 Mar 2026 19:49:34 +0200
+X-Gm-Features: AQROBzAslN_ZWujLGMIjg5dfPBwHz5pbP2BKbO1h93l6if0I00QuCKVboVXLlB8
+Message-ID: <CAHp75VdGieY2qTZ_HeODxLMW8P2E3O9O27K6RRJoujxB3NZ-DA@mail.gmail.com>
+Subject: Re: [PATCH] staging: fbtft: avoid empty macro argument
+To: amanohina1 <caiyuhe80@gmail.com>
+Cc: andy@kernel.org, gregkh@linuxfoundation.org, 
+ dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org, 
+ linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -69,39 +107,15 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Friday, March 27th, 2026 at 23:57, Dmitry Baryshkov <dmitry.baryshkov@os=
-s.qualcomm.com> wrote:
+On Sat, Mar 28, 2026 at 6:02=E2=80=AFPM amanohina1 <caiyuhe80@gmail.com> wr=
+ote:
 
-> On Fri, Mar 27, 2026 at 03:30:49PM +0100, Cristian Cozzolino via B4 Relay=
- wrote:
-> > From: Cristian Cozzolino <cristian_ci@protonmail.com>
-> >
-> > Add the description for the display panel found on this phone.
-> > And with this done we can also enable the GPU and set the zap shader
-> > firmware path.
-> >
-> > Signed-off-by: Cristian Cozzolino <cristian_ci@protonmail.com>
-> > ---
-> >  .../arm64/boot/dts/qcom/msm8953-flipkart-rimob.dts | 73 ++++++++++++++=
-++++++++
-> >  1 file changed, 73 insertions(+)
-> >
->=20
-> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Read Submitting Patches documentation along with
+https://git.kernel.org/pub/scm/linux/kernel/git/gregkh/staging.git/tree/dri=
+vers/staging/fbtft/README?h=3Dstaging-next
 
-I wonder if I should, instead, edit the compatible property by adding a=20
-second string (for the fallback), like this:
+Act accordingly.
 
-compatible =3D "flipkart,rimob-panel-nt35532-cs", "novatek,nt35532";
-
-and, therefore, add "novatek,nt35532" string also to (patch 1/6)'s=20
-bindings example. Let me know what you think.
-
-Thanks,
-
-Cristian.
-
-> --
-> With best wishes
-> Dmitry
-> 
+--=20
+With Best Regards,
+Andy Shevchenko
