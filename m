@@ -4,92 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C16A5F3D600
-	for <dri-devel@archiver.kernel.org>; Sun, 29 Mar 2026 09:53:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0C0C0F3D5FE
+	for <dri-devel@archiver.kernel.org>; Sun, 29 Mar 2026 09:53:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2DFFB10E0F7;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4572B10E131;
 	Sun, 29 Mar 2026 09:53:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Vp8C/7cq";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="JmpsrmG9";
 	dkim-atps=neutral
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com
- [209.85.128.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 414BB10E0C3
- for <dri-devel@lists.freedesktop.org>; Sat, 28 Mar 2026 20:43:23 +0000 (UTC)
-Received: by mail-wm1-f48.google.com with SMTP id
- 5b1f17b1804b1-482f454be5bso40015955e9.0
- for <dri-devel@lists.freedesktop.org>; Sat, 28 Mar 2026 13:43:23 -0700 (PDT)
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com
+ [209.85.128.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E496D10E004
+ for <dri-devel@lists.freedesktop.org>; Sat, 28 Mar 2026 14:14:39 +0000 (UTC)
+Received: by mail-wm1-f47.google.com with SMTP id
+ 5b1f17b1804b1-486ff201041so28818585e9.1
+ for <dri-devel@lists.freedesktop.org>; Sat, 28 Mar 2026 07:14:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1774730602; x=1775335402; darn=lists.freedesktop.org;
- h=cc:to:message-id:content-transfer-encoding:mime-version:subject
- :date:from:from:to:cc:subject:date:message-id:reply-to;
- bh=HKX+S1We1s3caipzPcYGWRj3v8GHW7uxnmBU1rD2O0M=;
- b=Vp8C/7cqm/GBUynwI/8gXDT/+wvnKQsTWoVt8NS1yZ3QxkuGZdyY7YWVvy+FV3x9ec
- AAF2EStZUNpmsibSZd42BAW1VkT51ZDi+9xc/AWnpPUJVsNG/4b+DVHL/cc1LhP1pXfH
- ioHcntr11xOp2j0/MgygdyZDvle3yJXu54q+RNqKUKImLe/xicmtl8LiJHXZY41bdTcL
- kko3IxsSVFnCKFZ91rSxQm2BeYEO1UkV5yzow07mZJWklTuyeq6YT17si3KjQVV1BODR
- zjPeI1x2RzWSROCaliT8nkAI1+ggflax1COlV1Rfvf7LSul0dAKjKDAJwtQzgrwFbFYz
- XbAw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774730602; x=1775335402;
- h=cc:to:message-id:content-transfer-encoding:mime-version:subject
- :date:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=gmail.com; s=20251104; t=1774707278; x=1775312078; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=HKX+S1We1s3caipzPcYGWRj3v8GHW7uxnmBU1rD2O0M=;
- b=mSZ6ERrKmS4Bl+m/If28Sv7P30vgPkXlt/du+qQcDEdVhHqkQ523KwtwiInGCrQ7/Y
- nWn1wrvrcFPe+1ErsB/qB6jwyfa3MnbkSJFZnlJBx+4cWYq/jvh+2Sc7IpN1k0FoKw3f
- /ELFL9/nAZ/7RkjiW8rQ9ZJjrUZsdBxU2tiOjudx4HdJtnX1BB4sYrdqa5WI/FfWKbTJ
- OQMoXooCH6hhdgjg8JjwIOstNAGvuJ0Ovp1uyZgepPx27A2kHyyCx76tgVgbopeNaal8
- zCGde35uGfhry0KPn3aqpefzlNcSiUBq/PmxWF/qvCtpabjAA/eNCQuyLD0dKw5Qom+B
- BaXA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXI2BoxRGmZsklm7b5AR2uTm+vTrbUQt2zfrljUBbV6Ux7TI8XrloZONmXyejI7udsWRBUFffTXp70=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxdxN8qvLVv+ZEZ8OuoiEFo5wNtLSxoePkGCYu33Ci6ETt2wmCJ
- HpXaGIcV3awZT8cW6XfyYJN9RXd+QrExYDSMUa5UUyAWTxTqfdfOC5fH
-X-Gm-Gg: ATEYQzwA1fwA/54CMI81p9n9DaPAqKgGPdfkIW0O/w8wuNWOvpbRZnLr1DJuIxn9hcH
- 3ltmtWisB1c4jCcg5jsxa7SvBPtfWcvfqF2k9oR8INTCIVOHg+lIF4LNZpUfAQ4TmmFyZDoUy0e
- JEc7FkFLnjulZAFHfLDkhEnFC+mQzdMIzw7fK6ZzfbrpgwXRDCgnmuUr8eJVtmrIUx1b5txrU5u
- 5YFaENt9DR/aSkwa/c1P0quo4EaLFu0qgGL3RIeLvmYrDLLveJYXuHHIJvQ2KhX5aqZhz+NtZ1e
- 0HJJQrpj9PCkLsztQjTzK5uzwV7BheSQ6SnYAZABVSe7SHvXjHEgkT+xwYQXDeaNRnHXn1jE8jV
- g4F0wN7+MwY0JzAf2pGbNERYc/xnf15e8GxFEEtQhOQ3QJVHYwwEpke3nXO3zvOS+QcnmHrkj+k
- 03tvPYNTzBoWvygILgY6cZApnox8KZXwQRhlpIcypyyurVfp3s2lT12hZ0+wNeNunxn5Iey6q4T
- OSVtKiCxtFsGZjKQ0U23dwQPw==
-X-Received: by 2002:a05:600c:4e0b:b0:485:fbd2:f72 with SMTP id
- 5b1f17b1804b1-487290a9254mr102394915e9.1.1774730601395; 
- Sat, 28 Mar 2026 13:43:21 -0700 (PDT)
-Received: from [127.0.1.1] (93-140-187-240.adsl.net.t-com.hr. [93.140.187.240])
+ bh=t4vlVVvxWEWO2r6arzInv5eisxXfXrLq1ekNSjOyYGg=;
+ b=JmpsrmG9AiUz1NeObMZGxW5oAfNw/xMQDMHyU+rBq9twuVZzw8gc3kpC9hTD9Q+GRF
+ Mx0HFwo/nmFkT9TEcX7nYFONuOAPqM6snEzhVnXkbA54sJ8fpl9nPHgjMBFbIsij1k8W
+ Pqn1Z6SStxHz8JemmhVt1v+oMOsMMqcq2QtU4HmmUxi/5m3SOm+pXZ/aJEcP3N9QVUYM
+ xTwhRU02S9R0fJQB9EOGje5lC1zYKfKw0uMu4ERvcP2kXCbrBJBg/kP+eR549HI/73Wh
+ 33+Vm+XWlY31QKUVfB3LkfBwWnah7QOQOgpYw37xnrSl4YQarJSyZnRzfxtZvXehDvpE
+ W0Sw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1774707278; x=1775312078;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=t4vlVVvxWEWO2r6arzInv5eisxXfXrLq1ekNSjOyYGg=;
+ b=Uh55y29aRcJV1xeUyDGwRyRfgixAQYE0hoowuqyHizU+JKEj6TeM+EUkZXNBRq3EPq
+ hpCGp83bnX+4Mb4uRdEcNC93vG7y1aAPQr44+T5SIXu3SettU3CZMPLkeivZeM+yGTar
+ e8eWuHU3qwmPN/uYOE+K3+JjTFjy74nahqP+6IH/VhYmmfay+yNw3CtKRzDoDljE7Oy+
+ nkdgFnwX2kOQSU5a4tV5JpNDugOXdbng09w/++/MvnDmgwdRS2xqBXSB/+daLinzz2Qz
+ VmvsM6wulBnH8B+OJxctLOcxJBGZ4BK4ONb46aPxyobdx8t6jdlTBLy6om3TMWsayGNy
+ 2h2Q==
+X-Gm-Message-State: AOJu0YwRwTKwuOyKpSXpAl4yKlNqz2BQ5gXsI0khYc2rgCF0DwcFZlb+
+ XF5SZbG6DSkW3vqmSeRNajyGgxrPTXaonmOOF4gmTg5/vS+C5gGMkfuO6Y3ic07F
+X-Gm-Gg: ATEYQzwx9wdg0FRtR6ImciImBBl01jWcsfZyK+YnRhAz0i75HyB/E2Dh1N3lgoFqMKA
+ Txhx7eid/4lzMG5sY7bNQzbeb/2G1yAAb/j1Z666S7X5DfW/MNr9ZlkmnciKAJhXLy7pN1jwNDV
+ qDxKIOPSlptkvzt+JnkB1k6Y+0TcXLXb9KTJQDL+tOuefGSSn/RF35CqeGyVHakYXXjTft7FL4j
+ C6UfygeycI2J8BiRYk1/cRailWK11MvEX1cOyOCmQCrtO5uh18Qzi3zFJqtQ89n0yxeMgBGGKL9
+ onznW41pLX/gOOEc7bIcD1lTLXrCJzNg39xjwBUq0JBidwsHBuBKmACbsRGPBgYvxtFhouNNOSw
+ CIkOgIKi2r5S9+XNSrLa0ui/MpUo7ioM4TmhrQIqy6/rMmKFfux5h49+O5SozRHR/OkTdoMWdn5
+ GW30m1VB968Ulh/DkgoHTB6/DjJDI+vzLYzRhvYsImpHXVleuxmBA6qc1OnQ==
+X-Received: by 2002:a05:600c:41c4:b0:486:fc5f:1ab9 with SMTP id
+ 5b1f17b1804b1-48727d8410cmr71470085e9.14.1774707277993; 
+ Sat, 28 Mar 2026 07:14:37 -0700 (PDT)
+Received: from rhel.homenet.telecomitalia.it ([87.13.132.253])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-48730628efasm109519825e9.5.2026.03.28.13.43.19
+ 5b1f17b1804b1-48730628efasm80210335e9.5.2026.03.28.07.14.37
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 28 Mar 2026 13:43:20 -0700 (PDT)
-From: =?utf-8?q?Duje_Mihanovi=C4=87?= <dujemihanovic32@gmail.com>
-Date: Sat, 28 Mar 2026 21:42:16 +0100
-Subject: [PATCH] backlight: ktd2801: enable BL_CORE_SUSPENDRESUME
+ Sat, 28 Mar 2026 07:14:37 -0700 (PDT)
+From: Adriano Vero <litaliano00.contact@gmail.com>
+To: dri-devel@lists.freedesktop.org
+Cc: jani.nikula@linux.intel.com, alexander.deucher@amd.com,
+ harry.wentland@amd.com, sunpeng.li@amd.com, siqueira@igalia.com,
+ christian.koenig@amd.com, amd-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Adriano Vero <litaliano00.contact@gmail.com>,
+ Rodrigo.Siqueira@amd.com
+Subject: [PATCH 2/2] drm/amd/display: remove manual DisplayID VRR parsing from
+ freesync caps
+Date: Sat, 28 Mar 2026 14:20:27 +0100
+Message-ID: <20260328132027.22383-2-litaliano00.contact@gmail.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260328132027.22383-1-litaliano00.contact@gmail.com>
+References: <20260328132027.22383-1-litaliano00.contact@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260328-ktd2801-pm-fix-v1-1-007cb103faeb@dujemihanovic.xyz>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzMDY0MT3eySFCMLA0PdglzdtMwKXUPzVAtzQ9M0i2RjcyWgpoKiVKAw2MD
- o2NpaAFlB42dgAAAA
-X-Change-ID: 20260314-ktd2801-pm-fix-17e8715f8c37
-To: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>, 
- Jingoo Han <jingoohan1@gmail.com>, Helge Deller <deller@gmx.de>
-Cc: Karel Balej <balejk@matfyz.cz>, dri-devel@lists.freedesktop.org, 
- linux-fbdev@vger.kernel.org, phone-devel@vger.kernel.org, 
- ~postmarketos/upstreaming@lists.sr.ht, linux-kernel@vger.kernel.org, 
- =?utf-8?q?Duje_Mihanovi=C4=87?= <duje@dujemihanovic.xyz>, 
- stable@vger.kernel.org
-X-Mailer: b4 0.15.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1056;
- i=duje@dujemihanovic.xyz; s=20260328; h=from:subject:message-id;
- bh=ZxchMbxwniYIWnT9R7/2Td04/zp5hTI04KiKc8j4Q4g=;
- b=owGbwMvMwCW2z0j3+uHIyKOMp9WSGDJP2KbHtWVJlUzc/WPZVv0I27N23+16d3Wnzf39bl7+j
- oXvMxyyO0pZGMS4GGTFFFmYl8pd4ksNn+hQZJsEM4eVCWQIAxenAEzkQATDX5FW8dMPdCXrznXM
- nLJB0ap+xqH2987aWyZUy7s4d+8MS2dkmPQxZZOGwjfGGCXuy282TzVXupY8dWbx9jULg9O4epL
- nMAEA
-X-Developer-Key: i=duje@dujemihanovic.xyz; a=openpgp;
- fpr=9BD463017690089DAA8DC266275F544B3B1B4792
 X-Mailman-Approved-At: Sun, 29 Mar 2026 09:53:39 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -106,38 +92,106 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Duje Mihanović <duje@dujemihanovic.xyz>
+parse_edid_displayid_vrr() walked raw DisplayID bytes via struct edid*
+to find Dynamic Video Timing Range Limits blocks when monitor_range
+was zeroed. This is a layering violation.
 
-Boards using this backlight chip do not power the backlight off on
-suspend. Enable BL_CORE_SUSPENDRESUME so the chip gets powered off by
-the backlight core on suspend.
+Now that drm_get_monitor_range_displayid() in the DRM core fills
+monitor_range from DisplayID Dynamic Video Timing blocks via the
+proper displayid_iter infrastructure, parse_edid_displayid_vrr() is
+redundant. Remove it and its drm_edid_raw() call from the VRR path.
 
-Tested on samsung,coreprimevelte.
+drm_edid_raw() remains for parse_amd_vsdb() and parse_hdmi_amd_vsdb()
+which read AMD vendor-specific CEA data blocks; those are tracked
+separately.
 
-Cc: stable@vger.kernel.org # v6.19
-Signed-off-by: Duje Mihanović <duje@dujemihanovic.xyz>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: Harry Wentland <harry.wentland@amd.com>
+Cc: Rodrigo.Siqueira@amd.com
+Signed-off-by: Adriano Vero <litaliano00.contact@gmail.com>
 ---
- drivers/video/backlight/ktd2801-backlight.c | 1 +
- 1 file changed, 1 insertion(+)
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 61 ++++---------------
+ 1 file changed, 11 insertions(+), 50 deletions(-)
 
-diff --git a/drivers/video/backlight/ktd2801-backlight.c b/drivers/video/backlight/ktd2801-backlight.c
-index 17eac1b3bce4..1b1307e03b20 100644
---- a/drivers/video/backlight/ktd2801-backlight.c
-+++ b/drivers/video/backlight/ktd2801-backlight.c
-@@ -53,6 +53,7 @@ static int ktd2801_update_status(struct backlight_device *bd)
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 085cc98bd..c61d6e1fe 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -13110,49 +13110,6 @@ static bool parse_edid_cea(struct amdgpu_dm_connector *aconnector,
+ 	return ret;
  }
  
- static const struct backlight_ops ktd2801_backlight_ops = {
-+	.options = BL_CORE_SUSPENDRESUME,
- 	.update_status = ktd2801_update_status,
- };
+-static void parse_edid_displayid_vrr(struct drm_connector *connector,
+-				     const struct edid *edid)
+-{
+-	u8 *edid_ext = NULL;
+-	int i;
+-	int j = 0;
+-	u16 min_vfreq;
+-	u16 max_vfreq;
+-
+-	if (!edid || !edid->extensions)
+-		return;
+-
+-	/* Find DisplayID extension */
+-	for (i = 0; i < edid->extensions; i++) {
+-		edid_ext = (void *)(edid + (i + 1));
+-		if (edid_ext[0] == DISPLAYID_EXT)
+-			break;
+-	}
+-
+-	if (i == edid->extensions)
+-		return;
+-
+-	while (j < EDID_LENGTH) {
+-		/* Get dynamic video timing range from DisplayID if available */
+-		if (EDID_LENGTH - j > 13 && edid_ext[j] == 0x25	&&
+-		    (edid_ext[j+1] & 0xFE) == 0 && (edid_ext[j+2] == 9)) {
+-			min_vfreq = edid_ext[j+9];
+-			if (edid_ext[j+1] & 7)
+-				max_vfreq = edid_ext[j+10] + ((edid_ext[j+11] & 3) << 8);
+-			else
+-				max_vfreq = edid_ext[j+10];
+-
+-			if (max_vfreq && min_vfreq) {
+-				connector->display_info.monitor_range.max_vfreq = max_vfreq;
+-				connector->display_info.monitor_range.min_vfreq = min_vfreq;
+-
+-				return;
+-			}
+-		}
+-		j++;
+-	}
+-}
+-
+ static int parse_amd_vsdb(struct amdgpu_dm_connector *aconnector,
+ 			  const struct edid *edid, struct amdgpu_hdmi_vsdb_info *vsdb_info)
+ {
+@@ -13288,13 +13245,17 @@ void amdgpu_dm_update_freesync_caps(struct drm_connector *connector,
+ 	if (!adev->dm.freesync_module || !dc_supports_vrr(sink->ctx->dce_version))
+ 		goto update;
  
-
----
-base-commit: 6de23f81a5e08be8fbf5e8d7e9febc72a5b5f27f
-change-id: 20260314-ktd2801-pm-fix-17e8715f8c37
-
-Best regards,
---  
-Duje Mihanović <duje@dujemihanovic.xyz>
+-	edid = drm_edid_raw(drm_edid); // FIXME: Get rid of drm_edid_raw()
+-
+-	/* Some eDP panels only have the refresh rate range info in DisplayID */
+-	if ((connector->display_info.monitor_range.min_vfreq == 0 ||
+-	     connector->display_info.monitor_range.max_vfreq == 0))
+-		parse_edid_displayid_vrr(connector, edid);
+-
++	/**
++	 * monitor_range is now populated by the DRM core from both classic
++	 * EDID Monitor Range Limits descriptors and DisplayID Dynamic Video
++	 * Timing blocks (tag 0x25) via drm_get_monitor_range_displayid().
++	 * parse_edid_displayid_vrr() has been removed.
++	 *
++	 * drm_edid_raw() is retained only for parse_amd_vsdb() and
++	 * parse_hdmi_amd_vsdb() which read AMD vendor-specific CEA blocks.
++	 * Removing those raw accesses is tracked separately.
++	 */
++	edid = drm_edid_raw(drm_edid); /* TODO: amd/hdmi vsdb refactor */
+ 	if (edid && (sink->sink_signal == SIGNAL_TYPE_DISPLAY_PORT ||
+ 		     sink->sink_signal == SIGNAL_TYPE_EDP)) {
+ 		if (amdgpu_dm_connector->dc_link &&
+-- 
+2.47.3
 
