@@ -4,56 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5818EF3D611
-	for <dri-devel@archiver.kernel.org>; Sun, 29 Mar 2026 17:43:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4F786F3D60E
+	for <dri-devel@archiver.kernel.org>; Sun, 29 Mar 2026 18:04:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5704910E075;
-	Sun, 29 Mar 2026 17:42:59 +0000 (UTC)
-Received: from metis.whiteo.stw.pengutronix.de
- (metis.whiteo.stw.pengutronix.de [185.203.201.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 12B6D10E075
- for <dri-devel@lists.freedesktop.org>; Sun, 29 Mar 2026 17:42:58 +0000 (UTC)
-Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
- by metis.whiteo.stw.pengutronix.de with esmtps
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <mfe@pengutronix.de>)
- id 1w6u9a-0005oB-Tb; Sun, 29 Mar 2026 19:42:26 +0200
-Received: from pty.whiteo.stw.pengutronix.de ([2a0a:edc0:2:b01:1d::c5])
- by drehscheibe.grey.stw.pengutronix.de with esmtps (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <mfe@pengutronix.de>) id 1w6u9Y-002kG2-08;
- Sun, 29 Mar 2026 19:42:24 +0200
-Received: from mfe by pty.whiteo.stw.pengutronix.de with local (Exim 4.98.2)
- (envelope-from <mfe@pengutronix.de>) id 1w6u9X-0000000CZdt-3qYo;
- Sun, 29 Mar 2026 19:42:23 +0200
-Date: Sun, 29 Mar 2026 19:42:23 +0200
-From: Marco Felsch <m.felsch@pengutronix.de>
-To: Liu Ying <victor.liu@nxp.com>
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Marek Vasut <marex@denx.de>, 
- Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] dt-bindings: display: bridge: ldb: Require reg property
- only for i.MX6SX/8MP LDBs
-Message-ID: <crqzju5cqhvmy5msxvuquydmnpb2ft2t3gsyr6qsre6ccqjvzz@46gfcrelczsr>
-References: <20260329-fsl_ldb_schema_fix-v1-1-351372754bc0@nxp.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1FCE310E0DC;
+	Sun, 29 Mar 2026 18:04:35 +0000 (UTC)
+Received: from relay08.th.seeweb.it (relay08.th.seeweb.it [5.144.164.169])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EC65C10E0DA;
+ Sun, 29 Mar 2026 18:04:33 +0000 (UTC)
+Received: from SoMainline.org (94-211-6-86.cable.dynamic.v4.ziggo.nl
+ [94.211.6.86])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (prime256v1) server-signature RSA-PSS (2048 bits)
+ server-digest SHA256) (No client certificate requested)
+ by m-r2.th.seeweb.it (Postfix) with ESMTPSA id C5E213F727;
+ Sun, 29 Mar 2026 20:04:30 +0200 (CEST)
+Date: Sun, 29 Mar 2026 20:04:29 +0200
+From: Marijn Suijten <marijn.suijten@somainline.org>
+To: Pengyu Luo <mitltlatltl@gmail.com>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/2] drm/msm/dsi: fix hdisplay calculation for CMD mode
+ panel
+Message-ID: <acloO6wNq4ObclGZ@SoMainline.org>
+References: <20260307111250.105772-1-mitltlatltl@gmail.com>
+ <20260307111250.105772-2-mitltlatltl@gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260329-fsl_ldb_schema_fix-v1-1-351372754bc0@nxp.com>
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
-X-SA-Exim-Mail-From: mfe@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260307111250.105772-2-mitltlatltl@gmail.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,98 +53,65 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Liu,
+On 2026-03-07 19:12:49, Pengyu Luo wrote:
+> ac47870fd795 incorrecly broke hdisplay calculation for CMD mode, fix
+> it.
 
-sorry for not writting back earlier, the last weeks were quite busy.
+Where's the what/how/why?  This commit message explains exactly nothing while a
+description is a requirement for submitting patches upstream:
 
-On 26-03-29, Liu Ying wrote:
-> LDB's parent device could be a syscon which doesn't allow a reg property
-> to be present in it's child devices, e.g., NXP i.MX93 Media blk-ctrl
-> has a child device NXP i.MX93 Parallel Display Format Configuration(PDFC)
-> without a reg property(LDB is also a child device of the Media blk-ctrl).
-> To make the LDB schema be able to describe LDBs without the reg property
-> like i.MX93 LDB, require the reg property only for i.MX6SX/8MP LDBs.
+https://docs.kernel.org/process/submitting-patches.html#describe-your-changes
 
-NACK, we want to describe the HW and from HW PoV the LDB is and was
-always part of a syscon. This is the case for all SoCs i.MX6SX/8MP/93.
+Take my version of this patch as an example.
 
-> Fixes: 8aa2f0ac08d3 ("dt-bindings: display: bridge: ldb: Add check for reg and reg-names")
-
-Therefore I would just revert this patch completely.
-
-Regards,
-  Marco
-
-> Signed-off-by: Liu Ying <victor.liu@nxp.com>
+> 
+> Fixes: ac47870fd795 ("drm/msm/dsi: fix hdisplay calculation when programming dsi registers")
+> Signed-off-by: Pengyu Luo <mitltlatltl@gmail.com>
 > ---
->  .../bindings/display/bridge/fsl,ldb.yaml           | 23 ++++++++++++++++------
->  1 file changed, 17 insertions(+), 6 deletions(-)
+>  drivers/gpu/drm/msm/dsi/dsi_host.c | 15 ++++++++++-----
+>  1 file changed, 10 insertions(+), 5 deletions(-)
 > 
-> diff --git a/Documentation/devicetree/bindings/display/bridge/fsl,ldb.yaml b/Documentation/devicetree/bindings/display/bridge/fsl,ldb.yaml
-> index 7f380879fffd..5f6dc2b11d7b 100644
-> --- a/Documentation/devicetree/bindings/display/bridge/fsl,ldb.yaml
-> +++ b/Documentation/devicetree/bindings/display/bridge/fsl,ldb.yaml
-> @@ -28,6 +28,7 @@ properties:
->      const: ldb
+> diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
+> index 7c16216e8b..f63165c7ce 100644
+> --- a/drivers/gpu/drm/msm/dsi/dsi_host.c
+> +++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
+> @@ -1016,8 +1016,9 @@ static void dsi_timing_setup(struct msm_dsi_host *msm_host, bool is_bonded_dsi)
+>  		/*
+>  		 * DPU sends 3 bytes per pclk cycle to DSI. If widebus is
+>  		 * enabled, MDP always sends out 48-bit compressed data per
+> -		 * pclk and on average, DSI consumes an amount of compressed
+> -		 * data equivalent to the uncompressed pixel depth per pclk.
+> +		 * pclk and on average, for video mode, DSI consumes only an
+> +		 * amount of compressed data equivalent to the uncompressed
+> +		 * pixel depth per pclk.
+
+This needs a source and justification (in the commit message).  For most
+panels where bpc is simply 8, the resulting rate is the same as when widebus is
+disabled, meaning that widebus has no effect on the pclk rate in video-mode?
+
+- Marijn
+
+>  		 *
+>  		 * Calculate the number of pclks needed to transmit one line of
+>  		 * the compressed data.
+> @@ -1029,10 +1030,14 @@ static void dsi_timing_setup(struct msm_dsi_host *msm_host, bool is_bonded_dsi)
+>  		 * unused anyway.
+>  		 */
+>  		h_total -= hdisplay;
+> -		if (wide_bus_enabled)
+> -			bits_per_pclk = dsc->bits_per_component * 3;
+> -		else
+> +		if (wide_bus_enabled) {
+> +			if (msm_host->mode_flags & MIPI_DSI_MODE_VIDEO)
+> +				bits_per_pclk = dsc->bits_per_component * 3;
+> +			else
+> +				bits_per_pclk = 48;
+> +		} else {
+>  			bits_per_pclk = 24;
+> +		}
 >  
->    reg:
-> +    minItems: 1
->      maxItems: 2
+>  		hdisplay = DIV_ROUND_UP(msm_dsc_get_bytes_per_line(msm_host->dsc) * 8, bits_per_pclk);
 >  
->    reg-names:
-> @@ -68,7 +69,6 @@ required:
->    - compatible
->    - clocks
->    - ports
-> -  - reg
->  
->  allOf:
->    - if:
-> @@ -83,12 +83,23 @@ allOf:
->          ports:
->            properties:
->              port@2: false
-> +
->    - if:
-> -      not:
-> -        properties:
-> -          compatible:
-> -            contains:
-> -              const: fsl,imx6sx-ldb
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            enum:
-> +              - fsl,imx6sx-ldb
-> +              - fsl,imx8mp-ldb
-> +    then:
-> +      required:
-> +        - reg
-> +
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            const: fsl,imx8mp-ldb
->      then:
->        required:
->          - reg-names
-> 
-> ---
-> base-commit: 3b058d1aeeeff27a7289529c4944291613b364e9
-> change-id: 20260329-fsl_ldb_schema_fix-4fe01c42bff3
-> 
-> Best regards,
 > -- 
-> Liu Ying <victor.liu@nxp.com>
+> 2.53.0
 > 
-> 
-
--- 
-#gernperDu 
-#CallMeByMyFirstName
-
-Pengutronix e.K.                           |                             |
-Steuerwalder Str. 21                       | https://www.pengutronix.de/ |
-31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
-Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-9    |
