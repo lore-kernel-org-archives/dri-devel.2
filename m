@@ -4,88 +4,135 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1BC2AFB3CE4
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E563AFB3CE2
 	for <dri-devel@archiver.kernel.org>; Mon, 30 Mar 2026 09:06:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0736710E511;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6C2ED10E513;
 	Mon, 30 Mar 2026 09:06:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="gL/HC7To";
+	dkim=pass (2048-bit key; unprotected) header.d=hotmail.com header.i=@hotmail.com header.b="WK3HS0Qk";
 	dkim-atps=neutral
-Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com
- [209.85.218.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B873310E0B8
- for <dri-devel@lists.freedesktop.org>; Sun, 29 Mar 2026 12:47:37 +0000 (UTC)
-Received: by mail-ej1-f44.google.com with SMTP id
- a640c23a62f3a-b9b1ffbb9f5so429859766b.2
- for <dri-devel@lists.freedesktop.org>; Sun, 29 Mar 2026 05:47:37 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1774788456; cv=none;
- d=google.com; s=arc-20240605;
- b=iMr9TPqRu3TnE8SPaTEZYcNoSZ5fDvhF8Jv/C/cxCT/hJ/xOBWUwoxRaqdHH+LjRwt
- UcWpWahKGV8VGkfz7NE+3wNvMYsIGCOW6/VKGN3YE5ak42PcRjIO5sHUrHcZvvs0GfKW
- +uOJb6w2SY7Kr/F/yBze0cldnPBsLxZmP8SgHgCR5ZM/U0H3+PnpVlepdDVmtsdlRfr8
- JM5EcA1weVpWfHY1RY97b9FrUbaAF28d/noVlPiV006DcgzLTfkAADBYsg/5is+dsEeH
- yb6TZPtqfvz3r+8egdN6oRr2SHkTRLSvNRk2I/72H/ecFTN+yvnEvSJ9u6eN9qfNmJQo
- xAKw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:dkim-signature;
- bh=DGX9MUYR34C6Cld2oVgT0V5k5hgWMn7/mYTRpsu3rY4=;
- fh=yamdC3/PPc+0MFt+AHbabBa11fylHWJWIW5k6ZaqpcU=;
- b=IwU3d6sTsVjEs4QahfwMmcjknRt643BqRDkLn+aAVdYJQ2nOSkXyYn7F1NO868TxVz
- rZbgCyCXVLBs8rNzBv/JaYAfxrvYcv6F4POEV9zjQtI9r7yTprxXHD2Y3JU9G7sboYJC
- LyNUxab4vXcNh8Iz5fYXjLyBjhLp7GsSWHtlSWLQI2CRbQ5mF3dYI1W+X77A/7c4cm9t
- MjyEFFZRDi5T1qaHUxRIucpm4iRk1fb8akpIfUZujyNA9Fw9ZU8kJPaZtBuizHTFg6tc
- JAj65fwS9kZxPs8nrje+cLiyTsLKcyu+xw+8iQ1NxsabwKni6ywUFkg99QlcGGU9gnJf
- w9Vg==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1774788456; x=1775393256; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=DGX9MUYR34C6Cld2oVgT0V5k5hgWMn7/mYTRpsu3rY4=;
- b=gL/HC7ToCg/E9A83lQX0GkTz37PLoLHjNh4/90I4FmBBTeYYqFjElkP1PEqwj4Z/u1
- ozYL3R2aZft6W11JVZEmvy707WrpK3zDzbp/DQpLh4uSvSpUxVFHjq8dlZN1b2CqUOs7
- EH2FYTIx1iJtJ5IEKluOQVcRW2cnnuTiXJu5yHWIkmrpxKHBk/v72C/LXaFxvFPnquAi
- lT63t89o+Tkai6HKmOuyQoLqRve5+uropEADieB9Uw8I3piEJBO62ZL6OPKXybRJFsF8
- cCcmyUyRh9BJ1u3iQlQlSUlQHsGkO7muVPcVbXxlb+fKXuj73US1ac5lJSNODJJAwSyg
- I7rQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774788456; x=1775393256;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=DGX9MUYR34C6Cld2oVgT0V5k5hgWMn7/mYTRpsu3rY4=;
- b=FSTrA4XW/gcO3CJu5dY3XR9LsL9obH3WuKaKIlDSu9wLZ+V9mGErrwg+4o/7XrC9W3
- jTRph87Ri8cinz8GcMfiYopt7aDOMJVOOm7uqVZ9EDxbpQQczMpChrKACcVZHwOloFwy
- mjkfw1UYgNxIookQeU/QmZuxeNQvM7B53QhvSEghB5zP17+fNsXyL8mNUbPPuBXV+RgF
- snGQgzvKAHxZyDYa9bVAyxqY/cIHK30yzrkUXEY1OOTWNnScHv9RfnA90mZNOZLVP3Um
- r8BVB4T6EKpfN99/JtxnlmbIQvzAofmKPeanXZ20KLJFUg/YkoTP8Gm58fThHMoaZo/c
- K0qQ==
-X-Gm-Message-State: AOJu0YwyMqy3MziiDxKyfJeExZqE2qgWyu7ZfjVr6PIy3GM/6C/vNZYu
- HGnHQJWpVw+W911Dg36C7FzkrSoFKS6WMtnWBAxdLpg0SshtB1G2Z0ZGvwsGIfZwdax6Jhyh3wd
- 8Ht4a7C5OgjBLTACb9QOSEQbXPtde4U1JGas=
-X-Gm-Gg: ATEYQzwj2J2B6L4olz49CqP/QLa0Ui58rXqYWrFrI8XU+4qb/f4+0Bzqbeo82paHSR6
- rDtJy/MovcMpWobkRXw81G00smhkC3DvBPz8uwK0jDhnrAPemYF4f5jw4SByksLYeDcvfCVdivT
- o/8E66djlRa3juitlMK3N7ofqJzlpoP9s1YLQI0o02ydVDd27zKi6O0+1eOkO7EVUyBwJoOXyvD
- 3M0qFWmfrgslMApBopJFua4TXCYT8P4EpJk2Tl2eWv4V/82msaOj+DFH1Mbtw3vKOiL1fDJwY1f
- KtkNb+CVeaUmflEYj9zJvx3sZVstjRQZcjBA5ESPx90Xb6BVH1Q=
-X-Received: by 2002:a17:906:6206:b0:b98:4e9b:7e49 with SMTP id
- a640c23a62f3a-b9b507b2d17mr561021866b.33.1774788455854; Sun, 29 Mar 2026
- 05:47:35 -0700 (PDT)
+Received: from CP4P284CU005.outbound.protection.outlook.com
+ (mail-brazilsouthazolkn19011034.outbound.protection.outlook.com
+ [52.103.21.34])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F1E9510E0A0;
+ Sun, 29 Mar 2026 22:22:58 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=K70+wBoB7rUiPiPVmERjEcnTI54j4Z/8LlbLeyoVUL6jzz3CRNwEXS9nboJvBsuR9o5pnZh/PRiDAh2aRCYJvm45b97fTD8MBodC57u97ko1+WL9KkfC9E75hBEd/24RP0Jsl2luMfxZ+xGRg6blDAX4w0mzSjXBFyWBO10DHUsPhItsOOIh+7yhtXrnhF2MhYoxohHyskC85Sk9f6sudmNPBzGilKmBVwOwie+AyIu3Cg2DMByXoqT1dKZexVnrVvpYZwgH+GwtFaV+wJj2jOu5Bc3vDbR6M4xcLNJxvwuQeby7fOmQViXErpTTCboF8b6fSL8ncakl3t71P9XCmA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=tlEd8/dB4frJ0xj+Zj1SnIfstxKLhi3F3D2uCJIm0os=;
+ b=TxEJ5Yx+syTTWG4UnbGr/6CwQd9Lmcxs959fthRvNaeTo8Iems4ASo3QKAh8fB0op3KcV41j+5YR0APF23WvLvTJDVrpj15NnYLbc+iReTzE0eBNWV+BKLlna5fKg4tsMKEdBwUnDZcE7etMoY2BuNEbyf8/nO8bJ20vDWe2FKEre1NHLXwJayw8JGBzubg4vyj3RxNGkDJp+Ya7duNgE8iVvUAzLYO5nyhTSem8RYa40c7UlNST5BhLGFeox0IMYDu2cAaxFxc5yA9PdnrCfSwi2st3qFOnsql2ey0R1AjJl/eHFrhCD/fxDIcdtSaGBdX1nAKthlEjP+4jBVpy5A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hotmail.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=tlEd8/dB4frJ0xj+Zj1SnIfstxKLhi3F3D2uCJIm0os=;
+ b=WK3HS0Qkz6bp3imhEHb2C6QdtnNrhAoNOARlYPXM8/OkicYOl2p7apy+64LSQ2B9PHQEEgj8XNiAfWdWj7yDosZ1niO1m54yqJDCodiKriyv//xVWkregoMxE0TePL/J+b9ejy5voABnCW/fQZrbwV8ZSWjOO2uqtOr9JkG8hKpayBYkas5gtHiHJ/ICDIw7grFOxMNdd0tBt3A+UgGuDWOY6YXbpr+0bceJz02LI8T3jfVlz2Rs9JtvhECyfDAhka0lsehoGJCSUTJnwBrjS6MVXmx7dcPl5FqHqQReryuAGoOCCRRM1pLU7YKBFu6jhDssU8f1CNUqRm9qoxNJqw==
+Received: from CP9P284MB3908.BRAP284.PROD.OUTLOOK.COM (2603:10d6:103:38c::8)
+ by RIXP284MB3865.BRAP284.PROD.OUTLOOK.COM (2603:10d6:10:17c::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.28; Sun, 29 Mar
+ 2026 22:22:53 +0000
+Received: from CP9P284MB3908.BRAP284.PROD.OUTLOOK.COM
+ ([fe80::2ed0:cdde:9d51:f021]) by CP9P284MB3908.BRAP284.PROD.OUTLOOK.COM
+ ([fe80::2ed0:cdde:9d51:f021%5]) with mapi id 15.20.9745.027; Sun, 29 Mar 2026
+ 22:22:53 +0000
+From: Yuri Martins <yurimartins2004@hotmail.com>
+To: intel-xe@lists.freedesktop.org
+Cc: Matthew Brost <matthew.brost@intel.com>,
+ =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Matthew Auld <matthew.auld@intel.com>,
+ Matt Roper <matthew.d.roper@intel.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH] drm/xe/bo: Cache vram_region_gpu_offset in struct xe_bo
+Date: Sun, 29 Mar 2026 19:22:47 -0300
+Message-ID: <CP9P284MB3908AC9B3875FD63E955D139A055A@CP9P284MB3908.BRAP284.PROD.OUTLOOK.COM>
+X-Mailer: git-send-email 2.43.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: CP5P284CA0156.BRAP284.PROD.OUTLOOK.COM
+ (2603:10d6:103:22a::15) To CP9P284MB3908.BRAP284.PROD.OUTLOOK.COM
+ (2603:10d6:103:38c::8)
+X-Microsoft-Original-Message-ID: <20260329222251.600976-1-yurimartins2004@hotmail.com>
 MIME-Version: 1.0
-References: <CAJ9xWrKayFgruqhU8bs-2E2g52sed6VjOhNoq8aqhw+uxfSGVg@mail.gmail.com>
-In-Reply-To: <CAJ9xWrKayFgruqhU8bs-2E2g52sed6VjOhNoq8aqhw+uxfSGVg@mail.gmail.com>
-From: Danilo Machado <danilomachado2002@gmail.com>
-Date: Sun, 29 Mar 2026 09:47:24 -0300
-X-Gm-Features: AQROBzAGG5Kr9qRoLQ529FDz9laRrdG7NLahT_UYtTEu_vbPFhGEBO5G_I20V_c
-Message-ID: <CAJ9xWrKwPgM-jeUJB5vMaU0u-wWp=JVCQ_38u-25J6nc3+WZzg@mail.gmail.com>
-Subject: Re: [REGRESSION][bisected] amdgpu/tonga: HDMI no signal after
- suspend/resume
-To: amd-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org, alexdeucher@gmail.com
-Content-Type: multipart/alternative; boundary="00000000000076751a064e292353"
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CP9P284MB3908:EE_|RIXP284MB3865:EE_
+X-MS-Office365-Filtering-Correlation-Id: 297967e9-84f3-4063-a14d-08de8de1b83e
+X-Microsoft-Antispam: BCL:0;
+ ARA:14566002|461199028|8060799015|41001999006|23021999003|19110799012|39105399006|5072599009|15080799012|5062599005|6090799003|40105399003|440099028|3412199025|18061999006;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?QUVpM3lybXcyeEt1R0ZmWEtWUFBHbXVDSHRmM0pGZy9qeStCdzdXbWxGTVZ6?=
+ =?utf-8?B?VzlOMlBHUzNPNm5laG1MeHA4NktCcjBqcjN6YTVXdEFDcysvK1piUXFvUU94?=
+ =?utf-8?B?cjJqWGxYdUM5SEoyd0thNUlLTW5FWlFLeWRqWFNEY3RBRU9rcWVjWUNqNkZ1?=
+ =?utf-8?B?cGZnd0VCVG8xY3hqUFkxNXozRXNmNGtPRUlmODlCVEdRUXdmT25TbjV4Szhj?=
+ =?utf-8?B?TmlJVnZlMmRzU002aFFhN3JOVGtha2xuU1BLSmI1TjRGRnNWZmYyM0ViQkFT?=
+ =?utf-8?B?dXFkU3Q2NTlqVU5VTGRsbWtCWnNvRUZFUExHdTczYTUxci9vN0V2Z1djODZY?=
+ =?utf-8?B?OXB3bTVUbUpQdlM3UkdrUkcyOVo2TENXdWZnZDRmTWIraUxWMVVlS0hnZTJK?=
+ =?utf-8?B?ZTNCY1BFRERVRmhlaGhhZlcycVVyRGpwWHBhMkU5VTJGcjJza05BQ0lqSSt4?=
+ =?utf-8?B?ZUtSeXY1ZEJQdkI0OTlWTGt3aCtObkR1Mmg0VnZnakJweG9jL1BMcEZBYkpl?=
+ =?utf-8?B?VWpDWWRvNGxyaXJOYUlqdm8zWDlnRnZxK1FpOHRhcklCVW9Hc3ljZ0NjMy8w?=
+ =?utf-8?B?RlM2anYra05RZFpzcXREMVZRVHQ3b0ZvdlVWck85aitqbzBxWDJXN3lINWhk?=
+ =?utf-8?B?cksvTGE0UFJTRmdEUlFJdUt1TmExSjJrbDk4bHVRWHJRZ3lRRUc0NHFoSXJa?=
+ =?utf-8?B?dG9qRVdpU2d3dmQ1bEovNmRuWGVRTzBZeUIzMklpVnZ5dW5WTFVmdlJSVVZt?=
+ =?utf-8?B?aXQybXNmcEgwTGxIOWxNUjJpSVlZNC8ybWV0d2hxcUFkazVDb25XMWRDVFFX?=
+ =?utf-8?B?Y3M1cmxFT0ZuS3cxKzNLTncxdE9qZTh6aWdZRVRLRG1ZMHU5Q3gxSHJ2SlhP?=
+ =?utf-8?B?dHlHWGtXTFp1MEE4cWx2L21GTUJvMGQxVnVJbXEvZU02NlZRRnZMNWFUN1Jy?=
+ =?utf-8?B?T3JHUkJKS1czam5DTEhiZWEwSXdSbEc5QU40QmFvbC9oMVZVeVN6VWExeENz?=
+ =?utf-8?B?L2RBc2d4UlJUa3dBdEd3aEZLWFV5alhwNjlWcnhQeU5XcXB4eUtBNjRNeWtt?=
+ =?utf-8?B?YXQvck5TZWY1enVrYStXRU1HVGZ0RXM0T2xZck54VXhvRGhlWmxhdGhMVjRt?=
+ =?utf-8?B?TXc4eDRXaldKMTRySWFZM0RTQzJrelNpaVc1R1pKVDlMaDZXa2FzUldXc01D?=
+ =?utf-8?B?MEJ3a1AxSUtHRXRNbFM3N055bExzc0QvVWs2VzQxLzFFdW1yaUFpNjI3VGJ6?=
+ =?utf-8?B?dW9nNW5Vam0vNGhOV2lUTko1Mms1dkl5UExEU3A5dGh2ekZ3T2FORlVCbmQr?=
+ =?utf-8?B?U2IvelBJS3I0dk9MK0tRc0hocHpJRFg5aUdDZnprekVSNFpCeWs2L2NRYnVy?=
+ =?utf-8?B?enZSQkRFUXNyM1E9PQ==?=
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MU41TDlJeU9zZEJvNEozNTNub2pmaTRnQmhBNVRldDU5UFVYV25QWXI4eFVE?=
+ =?utf-8?B?aS8yR3U4ZzA4UkM3bDlyMGhpSWcrNmFPUHFSR2QyR1c0WFBUVThxbVFIWlpm?=
+ =?utf-8?B?a0pTNXBaM3FmNHNKckZSQmNYL05qcXZTNkFuSi9qYmpGd2ZHZUVXWTJ3TUdx?=
+ =?utf-8?B?YkdYdEdJTHR2SWhuTFpXWDJRUHM5YkUveVIrUjNlWUpUcGN0MWNxV0xVc2xH?=
+ =?utf-8?B?V3p6aUlSZXhmbjNMVllpRGh1VjhRQjBVV3d3RXQzN3BoU3hiRjVzMHppVXFH?=
+ =?utf-8?B?SHkyL0RiN1ZRejREcmFRUHBEb2ZEMm5GRzdHWm9Yczh4ZjBhME5EUHA3UTM5?=
+ =?utf-8?B?YVJzU1RLTnRKVTk3aFhKQUpMOWFCcXY5ZVpXRXBJUFdTWjdhY0hNdzRkNmgw?=
+ =?utf-8?B?MjVBNDB2K2lPL055Y2hNV3lLQ3N3Vm9SUVFyeDYvYmRkWjdDWVJTRFNiNHlR?=
+ =?utf-8?B?a21RdmJXMEVrT0ZIWkN2SklyWHYvN0RZOFVlMHJkRmZkNnlkQU16alY1dTBC?=
+ =?utf-8?B?TnpTZVlqdGNVV3NXNHJmSVRaaVd3N0gySzREOUlqb3VzTDBXSGl6emRJK3Yz?=
+ =?utf-8?B?MHVJSXBRbmRKTzJuSXZvQzRxWjhNeFFpNG5LMXhlT242UC9UYjNPQVpFVVdQ?=
+ =?utf-8?B?clY1RjA5VGd2STJYaVZtSWJnRHFVWTl3anBXQzBvVzIya1dqRWxycVBOM0Vw?=
+ =?utf-8?B?bCtuYjZyRmNDTGFKN0dmT2w0Zy9keTkwSTI0WTdpQzUwUVpxTk50cVV6VktB?=
+ =?utf-8?B?aGMrZXJNQW8wV0k4WkwrUjBjZkZMcHY3Qi8wcCtUeDE3MkFnL2xMRkMyWUxQ?=
+ =?utf-8?B?enpDbGVmL1lUUzhyR2hTMW4vRVFFdmViNXkwMnRGQ2hkaWxUaDVUbHhBZzF4?=
+ =?utf-8?B?UWpFNkxiM2I4YlJLaGt5ZHVNd3N2YkpGOXNaZDBDYmZucVVLajJaY0ppUTFn?=
+ =?utf-8?B?WFpOdGFHdm9FdjhqOHVwaFRtdytmam1QT0p2dkF6MmwrVTl3S05HbXVYWWgw?=
+ =?utf-8?B?NVM1TzBmWFAyVTljM3h1WloxeGtGSUVzR1U2MTA3aXl6WmdYNk1OazBrTTBy?=
+ =?utf-8?B?azhBZk9WdWdwbVVKZGFSK0dBNUhSTWZuR2svcDN6Z3NZdEdVbXdzb1VuMWpX?=
+ =?utf-8?B?NUNPdCt5VHBRM2FrN3J1SFVGUzJxb1NhQ2F4cDZhRGl6T2plMGgxUXB6VTNZ?=
+ =?utf-8?B?YXREdjQ5UjYrdGZwbXNqQkdJYlZsdDVDNVlEZmo2UGVlRFIrcHNJVkJxU3RR?=
+ =?utf-8?B?OGx4Z0poRkswQXNzN21FNy8zekI3UU9vSG1jeUIyVXVSaTY1K0E3VTBRUVpU?=
+ =?utf-8?B?RXVmalVRVlpUU3NBSTNFRGhjRlV4aFBjaDl5VEdvQWJhQ2luNTFZUDdzZjZM?=
+ =?utf-8?B?dTd4UTdPVXJwb2ZlZjdPbjVaTHBtQUd0SSt6cE55cGhIVDRyaWRHNFJaQ1Jv?=
+ =?utf-8?B?LzVja0FSczdSdlBFdTliQkZZUXFMTWpJSXNuQzVUZkJMdWxoWXhhazFSQ2xj?=
+ =?utf-8?B?UThxTVFhdDhtaSt6Zmd3WlZWKzZxWUYxNFg1VmJEUkRIbE1ERTVpeldaQ09L?=
+ =?utf-8?B?U3BQcWkzZ0ZGOEIyK1BEd3JMZmNjRUIzbW5PdHZpZjlmUUpRK0J4Unh6Ynpj?=
+ =?utf-8?B?dkVacm0rVWhKd0JWeWVyOGRsN0FHa1BpRzlBcFZqUzRZeXQyQXd2VVVTRXV5?=
+ =?utf-8?B?aEJ0am5JNjczVTRoelJuWFJsVGZZVWYzTUVYbFBXTW5idHRlMEU4VTFJbVlF?=
+ =?utf-8?B?YkNRdlkyUWIxdEhRcFQzSGVUOXJIQzF3QVZBZDZTZFN5eUpQWEJHWVB5YmxB?=
+ =?utf-8?B?ZG1ZWFlhRUJZdDNqWGlyNUxoNTllZjdGVHg5aSthQmV3MzdZS0ZNYzJyUFA0?=
+ =?utf-8?B?aWhwMlpEUU5DbWJKNE1YRC9GeGxsZ0hCdXllVzd4am9mUnJ2VmpXSWVuTGhm?=
+ =?utf-8?B?Qyt1NHJTL1ZGSENvYnNCOFhSdVdqUDZITVV6akZiWFR0cWxGMHBYLzdzb1Rq?=
+ =?utf-8?B?VVM4UFZEbnhRPT0=?=
+X-OriginatorOrg: sct-15-20-9412-4-msonline-outlook-da224.templateTenant
+X-MS-Exchange-CrossTenant-Network-Message-Id: 297967e9-84f3-4063-a14d-08de8de1b83e
+X-MS-Exchange-CrossTenant-AuthSource: CP9P284MB3908.BRAP284.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Mar 2026 22:22:53.6661 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: RIXP284MB3865
 X-Mailman-Approved-At: Mon, 30 Mar 2026 09:06:21 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -102,668 +149,316 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
---00000000000076751a064e292353
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+The vram_region_gpu_offset() helper chases pointers through TTM resource
+manager structures on every call. An XXX comment in the codebase noted
+this was a problem in the VM bind hot path and suggested caching the
+value with a recalculation on BO move.
 
-Additional testing:
+Add a vram_gpu_offset field to struct xe_bo that is updated in
+xe_bo_move() at the 'out' label, which is the convergence point for all
+move paths. Provide xe_bo_vram_gpu_offset() as a static inline accessor.
 
-I tested with amdgpu.dc=3D0 to disable Display Core.
+Convert five callers that always operate on the BO's current resource:
+  - xe_pt.c: xe_pt_stage_bind() (VM bind hot path)
+  - xe_bo.c: __xe_bo_addr()
+  - xe_ggtt.c: xe_ggtt_map_bo()
+  - xe_lmtt.c: lmtt_insert_bo()
+  - xe_migrate.c: xe_migrate_access_memory()
 
-Result:
-- system becomes completely unresponsive after resume
-- black screen, no input response
+Two callers in xe_migrate.c (pte_update_size and emit_pte) are
+intentionally not converted because they receive a ttm_resource that
+may refer to a move destination rather than the BO's current placement.
 
-This suggests the issue is not limited to Display Core (DC),
-but likely affects the core GPU resume path.
+Replace the XXX comment on vram_region_gpu_offset() with proper kernel
+doc that directs callers to prefer the cached accessor.
 
-With DC enabled:
-- partial recovery (corrupted display, EDID failure)
+Add a KUnit live test (xe_bo_vram_gpu_offset_kunit) that validates cache
+consistency across BO creation in VRAM, eviction to system memory, and
+restoration back to VRAM.
 
-With DC disabled:
-- complete failure
+Tested on ASUS Zenbook S14 (Intel Core Ultra 7 258V) with xe_live_test
+module on Fedora.
 
-This reinforces that the regression is deeper in the amdgpu resume sequence=
-.
+Signed-off-by: Yuri Martins <yurimartins2004@hotmail.com>
+---
+ drivers/gpu/drm/xe/tests/xe_bo.c | 117 +++++++++++++++++++++++++++++++
+ drivers/gpu/drm/xe/xe_bo.c       |  17 +++--
+ drivers/gpu/drm/xe/xe_bo.h       |  15 ++++
+ drivers/gpu/drm/xe/xe_bo_types.h |   6 ++
+ drivers/gpu/drm/xe/xe_ggtt.c     |   2 +-
+ drivers/gpu/drm/xe/xe_lmtt.c     |   2 +-
+ drivers/gpu/drm/xe/xe_migrate.c  |   2 +-
+ drivers/gpu/drm/xe/xe_pt.c       |   2 +-
+ 8 files changed, 155 insertions(+), 8 deletions(-)
 
-Em sex., 27 de mar. de 2026 =C3=A0s 21:14, Danilo Machado <
-danilomachado2002@gmail.com> escreveu:
+diff --git a/drivers/gpu/drm/xe/tests/xe_bo.c b/drivers/gpu/drm/xe/tests/xe_bo.c
+index 49c95ed67d7e..ed65e25c1b11 100644
+--- a/drivers/gpu/drm/xe/tests/xe_bo.c
++++ b/drivers/gpu/drm/xe/tests/xe_bo.c
+@@ -603,9 +603,126 @@ static void xe_bo_shrink_kunit(struct kunit *test)
+ 	shrink_test_run_device(xe);
+ }
+ 
++/*
++ * Test that bo->vram_gpu_offset is kept in sync with the value computed
++ * by vram_region_gpu_offset() across BO creation, eviction to system
++ * memory, and restoration back to VRAM.
++ */
++static void vram_gpu_offset_test_run_tile(struct xe_device *xe,
++					  struct xe_tile *tile,
++					  struct kunit *test)
++{
++	struct xe_bo *bo;
++	unsigned int bo_flags = XE_BO_FLAG_VRAM_IF_DGFX(tile);
++	struct drm_exec *exec = XE_VALIDATION_OPT_OUT;
++	u64 expected;
++	long timeout;
++	int ret;
++
++	kunit_info(test, "Testing vram_gpu_offset cache on tile %u\n", tile->id);
++
++	bo = xe_bo_create_user(xe, NULL, SZ_1M, DRM_XE_GEM_CPU_CACHING_WC,
++			       bo_flags, exec);
++	if (IS_ERR(bo)) {
++		KUNIT_FAIL(test, "Failed to create bo: %pe\n", bo);
++		return;
++	}
++
++	xe_bo_lock(bo, false);
++
++	/* After creation the BO should be in VRAM on DGFX. */
++	ret = xe_bo_validate(bo, NULL, false, exec);
++	if (ret) {
++		KUNIT_FAIL(test, "Failed to validate bo: %d\n", ret);
++		goto out_unlock;
++	}
++
++	/* Wait for any async clears. */
++	timeout = dma_resv_wait_timeout(bo->ttm.base.resv,
++					DMA_RESV_USAGE_KERNEL, false, 5 * HZ);
++	if (timeout <= 0) {
++		KUNIT_FAIL(test, "Timeout waiting for bo after validate.\n");
++		goto out_unlock;
++	}
++
++	expected = vram_region_gpu_offset(bo->ttm.resource);
++	KUNIT_EXPECT_EQ(test, xe_bo_vram_gpu_offset(bo), expected);
++
++	if (xe_bo_is_vram(bo))
++		KUNIT_EXPECT_NE(test, xe_bo_vram_gpu_offset(bo), 0);
++
++	/* Evict to system memory — cache must become 0. */
++	ret = xe_bo_evict(bo, exec);
++	if (ret) {
++		KUNIT_FAIL(test, "Failed to evict bo: %d\n", ret);
++		goto out_unlock;
++	}
++
++	timeout = dma_resv_wait_timeout(bo->ttm.base.resv,
++					DMA_RESV_USAGE_KERNEL, false, 5 * HZ);
++	if (timeout <= 0) {
++		KUNIT_FAIL(test, "Timeout waiting for bo after evict.\n");
++		goto out_unlock;
++	}
++
++	expected = vram_region_gpu_offset(bo->ttm.resource);
++	KUNIT_EXPECT_EQ(test, xe_bo_vram_gpu_offset(bo), expected);
++	KUNIT_EXPECT_EQ(test, xe_bo_vram_gpu_offset(bo), (u64)0);
++
++	/* Restore back to VRAM — cache must be updated again. */
++	ret = xe_bo_validate(bo, NULL, false, exec);
++	if (ret) {
++		KUNIT_FAIL(test, "Failed to validate bo back to vram: %d\n", ret);
++		goto out_unlock;
++	}
++
++	timeout = dma_resv_wait_timeout(bo->ttm.base.resv,
++					DMA_RESV_USAGE_KERNEL, false, 5 * HZ);
++	if (timeout <= 0) {
++		KUNIT_FAIL(test, "Timeout waiting for bo after restore.\n");
++		goto out_unlock;
++	}
++
++	expected = vram_region_gpu_offset(bo->ttm.resource);
++	KUNIT_EXPECT_EQ(test, xe_bo_vram_gpu_offset(bo), expected);
++
++	if (xe_bo_is_vram(bo))
++		KUNIT_EXPECT_NE(test, xe_bo_vram_gpu_offset(bo), 0);
++
++out_unlock:
++	xe_bo_unlock(bo);
++	xe_bo_put(bo);
++}
++
++static int vram_gpu_offset_test_run_device(struct xe_device *xe)
++{
++	struct kunit *test = kunit_get_current_test();
++	struct xe_tile *tile;
++	int id;
++
++	if (!IS_DGFX(xe)) {
++		kunit_skip(test, "non-discrete device\n");
++		return 0;
++	}
++
++	guard(xe_pm_runtime)(xe);
++	for_each_tile(tile, xe, id)
++		vram_gpu_offset_test_run_tile(xe, tile, test);
++
++	return 0;
++}
++
++static void xe_bo_vram_gpu_offset_kunit(struct kunit *test)
++{
++	struct xe_device *xe = test->priv;
++
++	vram_gpu_offset_test_run_device(xe);
++}
++
+ static struct kunit_case xe_bo_tests[] = {
+ 	KUNIT_CASE_PARAM(xe_ccs_migrate_kunit, xe_pci_live_device_gen_param),
+ 	KUNIT_CASE_PARAM(xe_bo_evict_kunit, xe_pci_live_device_gen_param),
++	KUNIT_CASE_PARAM(xe_bo_vram_gpu_offset_kunit, xe_pci_live_device_gen_param),
+ 	{}
+ };
+ 
+diff --git a/drivers/gpu/drm/xe/xe_bo.c b/drivers/gpu/drm/xe/xe_bo.c
+index a7c2dc7f224c..30c4fe326827 100644
+--- a/drivers/gpu/drm/xe/xe_bo.c
++++ b/drivers/gpu/drm/xe/xe_bo.c
+@@ -1164,6 +1164,9 @@ static int xe_bo_move(struct ttm_buffer_object *ttm_bo, bool evict,
+ 		ret = xe_sriov_vf_ccs_attach_bo(bo);
+ 
+ out:
++	bo->vram_gpu_offset = ttm_bo->resource ?
++		vram_region_gpu_offset(ttm_bo->resource) : 0;
++
+ 	if ((!ttm_bo->resource || ttm_bo->resource->mem_type == XE_PL_SYSTEM) &&
+ 	    ttm_bo->ttm) {
+ 		long timeout = dma_resv_wait_timeout(ttm_bo->base.resv,
+@@ -2908,9 +2911,15 @@ int xe_managed_bo_reinit_in_vram(struct xe_device *xe, struct xe_tile *tile, str
+ 	return 0;
+ }
+ 
+-/*
+- * XXX: This is in the VM bind data path, likely should calculate this once and
+- * store, with a recalculation if the BO is moved.
++/**
++ * vram_region_gpu_offset - Compute GPU offset for a TTM resource's memory region
++ * @res: The TTM resource.
++ *
++ * Computes the GPU-visible offset for @res based on its current memory type.
++ * Callers that always operate on a BO's current resource should prefer
++ * xe_bo_vram_gpu_offset() which returns a cached value.
++ *
++ * Return: The GPU-visible offset, or 0 for system/TT memory.
+  */
+ uint64_t vram_region_gpu_offset(struct ttm_resource *res)
+ {
+@@ -3173,7 +3182,7 @@ dma_addr_t __xe_bo_addr(struct xe_bo *bo, u64 offset, size_t page_size)
+ 
+ 		xe_res_first(bo->ttm.resource, page << PAGE_SHIFT,
+ 			     page_size, &cur);
+-		return cur.start + offset + vram_region_gpu_offset(bo->ttm.resource);
++		return cur.start + offset + xe_bo_vram_gpu_offset(bo);
+ 	}
+ }
+ 
+diff --git a/drivers/gpu/drm/xe/xe_bo.h b/drivers/gpu/drm/xe/xe_bo.h
+index 68dea7d25a6b..d911f7327e8b 100644
+--- a/drivers/gpu/drm/xe/xe_bo.h
++++ b/drivers/gpu/drm/xe/xe_bo.h
+@@ -342,6 +342,21 @@ bool xe_bo_is_vm_bound(struct xe_bo *bo);
+ bool xe_bo_has_single_placement(struct xe_bo *bo);
+ uint64_t vram_region_gpu_offset(struct ttm_resource *res);
+ 
++/**
++ * xe_bo_vram_gpu_offset - Return cached GPU offset for BO's memory region
++ * @bo: The buffer object.
++ *
++ * Returns the GPU offset for the BO's current memory region. This value
++ * is cached on the BO and updated whenever the BO is moved, avoiding
++ * repeated pointer chasing through TTM resource manager structures.
++ *
++ * Return: The GPU-visible offset, or 0 for system/TT memory.
++ */
++static inline u64 xe_bo_vram_gpu_offset(struct xe_bo *bo)
++{
++	return bo->vram_gpu_offset;
++}
++
+ bool xe_bo_can_migrate(struct xe_bo *bo, u32 mem_type);
+ 
+ int xe_bo_migrate(struct xe_bo *bo, u32 mem_type, struct ttm_operation_ctx *ctc,
+diff --git a/drivers/gpu/drm/xe/xe_bo_types.h b/drivers/gpu/drm/xe/xe_bo_types.h
+index ff8317bfc1ae..622a1ec8231e 100644
+--- a/drivers/gpu/drm/xe/xe_bo_types.h
++++ b/drivers/gpu/drm/xe/xe_bo_types.h
+@@ -109,6 +109,12 @@ struct xe_bo {
+ 	 */
+ 	u64 min_align;
+ 
++	/**
++	 * @vram_gpu_offset: Cached GPU offset for BO's current memory
++	 * region, updated on move. Protected by the BO's dma-resv lock.
++	 */
++	u64 vram_gpu_offset;
++
+ 	/**
+ 	 * @madv_purgeable: user space advise on BO purgeability, protected
+ 	 * by BO's dma-resv lock.
+diff --git a/drivers/gpu/drm/xe/xe_ggtt.c b/drivers/gpu/drm/xe/xe_ggtt.c
+index a848d1a41b9b..a24ae3e0e553 100644
+--- a/drivers/gpu/drm/xe/xe_ggtt.c
++++ b/drivers/gpu/drm/xe/xe_ggtt.c
+@@ -705,7 +705,7 @@ static void xe_ggtt_map_bo(struct xe_ggtt *ggtt, struct xe_ggtt_node *node,
+ 						   pte | xe_res_dma(&cur));
+ 	} else {
+ 		/* Prepend GPU offset */
+-		pte |= vram_region_gpu_offset(bo->ttm.resource);
++		pte |= xe_bo_vram_gpu_offset(bo);
+ 
+ 		for (xe_res_first(bo->ttm.resource, 0, xe_bo_size(bo), &cur);
+ 		     cur.remaining; xe_res_next(&cur, XE_PAGE_SIZE))
+diff --git a/drivers/gpu/drm/xe/xe_lmtt.c b/drivers/gpu/drm/xe/xe_lmtt.c
+index 0c726eda9390..f9257ba1728b 100644
+--- a/drivers/gpu/drm/xe/xe_lmtt.c
++++ b/drivers/gpu/drm/xe/xe_lmtt.c
+@@ -492,7 +492,7 @@ static void lmtt_insert_bo(struct xe_lmtt *lmtt, unsigned int vfid, struct xe_bo
+ 	lmtt_assert(lmtt, IS_ALIGNED(xe_bo_size(bo), page_size));
+ 	lmtt_assert(lmtt, xe_bo_is_vram(bo));
+ 
+-	vram_offset = vram_region_gpu_offset(bo->ttm.resource);
++	vram_offset = xe_bo_vram_gpu_offset(bo);
+ 	xe_res_first(bo->ttm.resource, 0, xe_bo_size(bo), &cur);
+ 	while (cur.remaining) {
+ 		addr = xe_res_dma(&cur);
+diff --git a/drivers/gpu/drm/xe/xe_migrate.c b/drivers/gpu/drm/xe/xe_migrate.c
+index fc918b4fba54..bdaea4979e89 100644
+--- a/drivers/gpu/drm/xe/xe_migrate.c
++++ b/drivers/gpu/drm/xe/xe_migrate.c
+@@ -2499,7 +2499,7 @@ int xe_migrate_access_memory(struct xe_migrate *m, struct xe_bo *bo,
+ 
+ 	do {
+ 		struct dma_fence *__fence;
+-		u64 vram_addr = vram_region_gpu_offset(bo->ttm.resource) +
++		u64 vram_addr = xe_bo_vram_gpu_offset(bo) +
+ 			cursor.start;
+ 		int current_bytes;
+ 		u32 pitch;
+diff --git a/drivers/gpu/drm/xe/xe_pt.c b/drivers/gpu/drm/xe/xe_pt.c
+index 8e5f4f0dea3f..7cfce1a92a1a 100644
+--- a/drivers/gpu/drm/xe/xe_pt.c
++++ b/drivers/gpu/drm/xe/xe_pt.c
+@@ -782,7 +782,7 @@ xe_pt_stage_bind(struct xe_tile *tile, struct xe_vma *vma,
+ 	}
+ 
+ 	xe_walk.default_vram_pte |= XE_PPGTT_PTE_DM;
+-	xe_walk.dma_offset = (bo && !is_purged) ? vram_region_gpu_offset(bo->ttm.resource) : 0;
++	xe_walk.dma_offset = (bo && !is_purged) ? xe_bo_vram_gpu_offset(bo) : 0;
+ 	if (!range)
+ 		xe_bo_assert_held(bo);
+ 
+-- 
+2.43.0
 
-> Additional data (resume failure analysis)
->
-> Hardware:
-> - GPU: AMD Radeon R9 380 (Tonga, GCN 3)
-> - CPU: AMD Ryzen 5 5500
-> - RAM: 16 GB
-> - Display: HDMI
->
-> Software:
-> - Kernel: 6.8.0-106-generic
-> - Driver: amdgpu
-> - Display server: X11 (issue reproducible), Wayland (no hard failure)
->
-> ---
->
-> Summary:
->
-> After suspend/resume, HDMI output is not restored and the system may
-> freeze under X11.
->
-> The issue is reproducible and was not present in Linux 6.3.
->
-> ---
->
-> Key observation:
->
-> During resume, the driver fails to read EDID:
->
->     amdgpu 0000:01:00.0: [drm] *ERROR* No EDID read.
->
-> This appears to explain why HDMI output is not restored.
->
-> ---
->
-> Relevant DRM / AMDGPU log excerpt:
->
-> [drm] Display Core v3.2.266 initialized on DCE 10.0
-> amdgpu 0000:01:00.0: [drm] *ERROR* No EDID read.
-> [drm] Initialized amdgpu 3.57.0 20150101 for 0000:01:00.0
->
-> ---
->
-> Analysis:
->
-> - The failure occurs during display reinitialization after resume
-> - EDID read failure prevents proper HDMI modeset
-> - This aligns with the observed "no signal" condition
->
-> Behavior differences:
->
-> - deep sleep:
->   - full GPU/display reinitialization
->   - leads to EDID failure and system instability
->
-> - s2idle:
->   - partial resume
->   - avoids full lockup but display may still be inconsistent
->
-> This suggests the issue is in the display resume path, possibly involving=
-:
->
-> - DC state restore
-> - HDMI link training
-> - DDC/EDID communication
-> - atomic modeset reconstruction
->
-> ---
->
-> Conclusion:
->
-> This is likely a regression in the AMDGPU display resume path, where EDID
-> read fails after resume, preventing HDMI output from being restored.
->
-> ---
->
-> Additional notes:
->
-> This issue was bisected between Linux 6.3 (good) and 6.4 (bad), with the
-> transition point identified as a KVM merge commit. While not directly
-> related to AMDGPU, it may have indirectly exposed this issue via
-> timing/order changes.
->
-> ---
->
-> If needed, I can provide:
->
-> - full journalctl logs
-> - full bisect log
-> - additional testing (kernel params, debug options)
-> ------------------------------
-> *De:* Danilo Machado <danilomachado2002@hotmail.com>
-> *Enviado:* quinta-feira, 26 de mar=C3=A7o de 2026 20:38
-> *Para:* amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
-> *Cc:* Alex Deucher <alexdeucher@gmail.com>;
-> dri-devel@lists.freedesktop.org <dri-devel@lists.freedesktop.org>
-> *Assunto:* [REGRESSION][bisected] amdgpu/tonga: HDMI no signal after
-> suspend/resume
->
->
-> Hi all,
->
-> Thanks again for your feedback.
->
-> I took a closer look at the bisect results and system behavior, and I=E2=
-=80=99d
-> like to provide a more complete and consolidated report.
-> ------------------------------
->
-> Hardware:
->
->    -
->
->    GPU: AMD Radeon R9 380 (Tonga, GCN 3)
->    -
->
->    CPU: AMD Ryzen 5 5500
->    -
->
->    RAM: 16 GB
->    -
->
->    Display: HDMI
->
-> Software:
->
->    -
->
->    Driver: amdgpu
->    -
->
->    Kernel range tested: 6.3 (good) =E2=86=92 6.4 (bad)
->
-> ------------------------------
->
-> Summary:
->
-> This is a reproducible suspend/resume regression affecting HDMI output.
->
->    -
->
->    Linux 6.3 =E2=86=92 working correctly
->    -
->
->    Linux 6.4+ =E2=86=92 regression present
->
-> ------------------------------
->
-> Behavior:
->
-> After suspend/resume:
->
->    -
->
->    HDMI output does not recover ("no signal")
->    -
->
->    System may freeze under X11
->    -
->
->    Wayland does not show the same hard failure
->
-> Additionally:
->
->    -
->
->    Using "deep" sleep:
->    -
->
->       full system lockup after resume
->       -
->
->    Using "s2idle":
->    -
->
->       system resumes without hard lock
->       -
->
->       however, graphical session may return in a partially broken state
->
-> ------------------------------
->
-> Bisect result:
->
-> A full git bisect was performed between Linux 6.3 and 6.4.
->
-> First bad commit:
-> b3c98052d46948a8d65d2778c7f306ff38366aac
-> ("Merge tag 'kvm-x86-vmx-6.4'")
->
-> All intermediate commits in that range were consistently tested as GOOD.
-> ------------------------------
->
-> Analysis:
->
-> Although the bisected commit is in KVM and unlikely to directly affect
-> AMDGPU, the transition point is consistent and reproducible.
->
-> This suggests the regression may be indirectly triggered (e.g. timing or
-> ordering changes during resume), rather than caused directly by that merg=
-e.
->
-> Based on observed behavior, this appears related to the display resume
-> path, possibly involving:
->
->    -
->
->    DC state restore after resume
->    -
->
->    HDMI link training
->    -
->
->    EDID re-read
->    -
->
->    atomic modeset state reconstruction
->
-> The difference between "deep" and "s2idle" also suggests a failure during
-> full GPU/display reinitialization.
-> ------------------------------
->
-> Conclusion:
->
-> This appears to be a latent issue exposed by changes introduced during th=
-e
-> 6.4 merge window, rather than a direct regression in the bisected commit
-> itself.
-> ------------------------------
->
-> If helpful, I can assist further by:
->
->    -
->
->    providing full bisect logs
->    -
->
->    capturing detailed dmesg/journalctl before and after resume
->    -
->
->    testing patches or debug options
->    -
->
->    narrowing the range further if needed
->
-> I really appreciate the work on AMDGPU and would be glad to help within m=
-y
-> limits to investigate this further.
->
-> Thanks again for your time.
->
-> Best regards,
-> Danilo
-> Note: I had some email client configuration issues earlier, which may hav=
-e
-> caused duplicate messages or formatting problems. These have now been
-> resolved =E2=80=94 apologies for any inconvenience.
->
->
-
---=20
-*Danilo Machado*
-
---00000000000076751a064e292353
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div class=3D"gmail_default" style=3D"font-family:verdana,=
-sans-serif">Additional testing:<br><br>I tested with amdgpu.dc=3D0 to disab=
-le Display Core.<br><br>Result:<br>- system becomes completely unresponsive=
- after resume<br>- black screen, no input response<br><br>This suggests the=
- issue is not limited to Display Core (DC),<br>but likely affects the core =
-GPU resume path.<br><br>With DC enabled:<br>- partial recovery (corrupted d=
-isplay, EDID failure)<br><br>With DC disabled:<br>- complete failure<br><br=
->This reinforces that the regression is deeper in the amdgpu resume sequenc=
-e.</div></div><br><div class=3D"gmail_quote gmail_quote_container"><div dir=
-=3D"ltr" class=3D"gmail_attr">Em sex., 27 de mar. de 2026 =C3=A0s 21:14, Da=
-nilo Machado &lt;<a href=3D"mailto:danilomachado2002@gmail.com">danilomacha=
-do2002@gmail.com</a>&gt; escreveu:<br></div><blockquote class=3D"gmail_quot=
-e" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204)=
-;padding-left:1ex"><div dir=3D"ltr"><div style=3D"font-family:&quot;Calibri=
-&quot;,&quot;Helvetica&quot;,sans-serif,serif,EmojiFont;font-size:12pt;colo=
-r:rgb(0,0,0)">Additional data (resume failure analysis)</div><div style=3D"=
-font-family:&quot;Calibri&quot;,&quot;Helvetica&quot;,sans-serif,serif,Emoj=
-iFont;font-size:12pt;color:rgb(0,0,0)"><br></div><div style=3D"font-family:=
-&quot;Calibri&quot;,&quot;Helvetica&quot;,sans-serif,serif,EmojiFont;font-s=
-ize:12pt;color:rgb(0,0,0)">Hardware:</div><div style=3D"font-family:&quot;C=
-alibri&quot;,&quot;Helvetica&quot;,sans-serif,serif,EmojiFont;font-size:12p=
-t;color:rgb(0,0,0)">- GPU: AMD Radeon R9 380 (Tonga, GCN 3)</div><div style=
-=3D"font-family:&quot;Calibri&quot;,&quot;Helvetica&quot;,sans-serif,serif,=
-EmojiFont;font-size:12pt;color:rgb(0,0,0)">- CPU: AMD Ryzen 5 5500</div><di=
-v style=3D"font-family:&quot;Calibri&quot;,&quot;Helvetica&quot;,sans-serif=
-,serif,EmojiFont;font-size:12pt;color:rgb(0,0,0)">- RAM: 16 GB</div><div st=
-yle=3D"font-family:&quot;Calibri&quot;,&quot;Helvetica&quot;,sans-serif,ser=
-if,EmojiFont;font-size:12pt;color:rgb(0,0,0)">- Display: HDMI</div><div sty=
-le=3D"font-family:&quot;Calibri&quot;,&quot;Helvetica&quot;,sans-serif,seri=
-f,EmojiFont;font-size:12pt;color:rgb(0,0,0)"><br></div><div style=3D"font-f=
-amily:&quot;Calibri&quot;,&quot;Helvetica&quot;,sans-serif,serif,EmojiFont;=
-font-size:12pt;color:rgb(0,0,0)">Software:</div><div style=3D"font-family:&=
-quot;Calibri&quot;,&quot;Helvetica&quot;,sans-serif,serif,EmojiFont;font-si=
-ze:12pt;color:rgb(0,0,0)">- Kernel: 6.8.0-106-generic</div><div style=3D"fo=
-nt-family:&quot;Calibri&quot;,&quot;Helvetica&quot;,sans-serif,serif,EmojiF=
-ont;font-size:12pt;color:rgb(0,0,0)">- Driver: amdgpu</div><div style=3D"fo=
-nt-family:&quot;Calibri&quot;,&quot;Helvetica&quot;,sans-serif,serif,EmojiF=
-ont;font-size:12pt;color:rgb(0,0,0)">- Display server: X11 (issue reproduci=
-ble), Wayland (no hard failure)</div><div style=3D"font-family:&quot;Calibr=
-i&quot;,&quot;Helvetica&quot;,sans-serif,serif,EmojiFont;font-size:12pt;col=
-or:rgb(0,0,0)"><br></div><div style=3D"font-family:&quot;Calibri&quot;,&quo=
-t;Helvetica&quot;,sans-serif,serif,EmojiFont;font-size:12pt;color:rgb(0,0,0=
-)">---</div><div style=3D"font-family:&quot;Calibri&quot;,&quot;Helvetica&q=
-uot;,sans-serif,serif,EmojiFont;font-size:12pt;color:rgb(0,0,0)"><br></div>=
-<div style=3D"font-family:&quot;Calibri&quot;,&quot;Helvetica&quot;,sans-se=
-rif,serif,EmojiFont;font-size:12pt;color:rgb(0,0,0)">Summary:</div><div sty=
-le=3D"font-family:&quot;Calibri&quot;,&quot;Helvetica&quot;,sans-serif,seri=
-f,EmojiFont;font-size:12pt;color:rgb(0,0,0)"><br></div><div style=3D"font-f=
-amily:&quot;Calibri&quot;,&quot;Helvetica&quot;,sans-serif,serif,EmojiFont;=
-font-size:12pt;color:rgb(0,0,0)">After suspend/resume, HDMI output is not r=
-estored and the system may freeze under X11.</div><div style=3D"font-family=
-:&quot;Calibri&quot;,&quot;Helvetica&quot;,sans-serif,serif,EmojiFont;font-=
-size:12pt;color:rgb(0,0,0)"><br></div><div style=3D"font-family:&quot;Calib=
-ri&quot;,&quot;Helvetica&quot;,sans-serif,serif,EmojiFont;font-size:12pt;co=
-lor:rgb(0,0,0)">The issue is reproducible and was not present in Linux 6.3.=
-</div><div style=3D"font-family:&quot;Calibri&quot;,&quot;Helvetica&quot;,s=
-ans-serif,serif,EmojiFont;font-size:12pt;color:rgb(0,0,0)"><br></div><div s=
-tyle=3D"font-family:&quot;Calibri&quot;,&quot;Helvetica&quot;,sans-serif,se=
-rif,EmojiFont;font-size:12pt;color:rgb(0,0,0)">---</div><div style=3D"font-=
-family:&quot;Calibri&quot;,&quot;Helvetica&quot;,sans-serif,serif,EmojiFont=
-;font-size:12pt;color:rgb(0,0,0)"><br></div><div style=3D"font-family:&quot=
-;Calibri&quot;,&quot;Helvetica&quot;,sans-serif,serif,EmojiFont;font-size:1=
-2pt;color:rgb(0,0,0)">Key observation:</div><div style=3D"font-family:&quot=
-;Calibri&quot;,&quot;Helvetica&quot;,sans-serif,serif,EmojiFont;font-size:1=
-2pt;color:rgb(0,0,0)"><br></div><div style=3D"font-family:&quot;Calibri&quo=
-t;,&quot;Helvetica&quot;,sans-serif,serif,EmojiFont;font-size:12pt;color:rg=
-b(0,0,0)">During resume, the driver fails to read EDID:</div><div style=3D"=
-font-family:&quot;Calibri&quot;,&quot;Helvetica&quot;,sans-serif,serif,Emoj=
-iFont;font-size:12pt;color:rgb(0,0,0)"><br></div><div style=3D"font-family:=
-&quot;Calibri&quot;,&quot;Helvetica&quot;,sans-serif,serif,EmojiFont;font-s=
-ize:12pt;color:rgb(0,0,0)">=C2=A0 =C2=A0 amdgpu 0000:01:00.0: [drm] *ERROR*=
- No EDID read.</div><div style=3D"font-family:&quot;Calibri&quot;,&quot;Hel=
-vetica&quot;,sans-serif,serif,EmojiFont;font-size:12pt;color:rgb(0,0,0)"><b=
-r></div><div style=3D"font-family:&quot;Calibri&quot;,&quot;Helvetica&quot;=
-,sans-serif,serif,EmojiFont;font-size:12pt;color:rgb(0,0,0)">This appears t=
-o explain why HDMI output is not restored.</div><div style=3D"font-family:&=
-quot;Calibri&quot;,&quot;Helvetica&quot;,sans-serif,serif,EmojiFont;font-si=
-ze:12pt;color:rgb(0,0,0)"><br></div><div style=3D"font-family:&quot;Calibri=
-&quot;,&quot;Helvetica&quot;,sans-serif,serif,EmojiFont;font-size:12pt;colo=
-r:rgb(0,0,0)">---</div><div style=3D"font-family:&quot;Calibri&quot;,&quot;=
-Helvetica&quot;,sans-serif,serif,EmojiFont;font-size:12pt;color:rgb(0,0,0)"=
-><br></div><div style=3D"font-family:&quot;Calibri&quot;,&quot;Helvetica&qu=
-ot;,sans-serif,serif,EmojiFont;font-size:12pt;color:rgb(0,0,0)">Relevant DR=
-M / AMDGPU log excerpt:</div><div style=3D"font-family:&quot;Calibri&quot;,=
-&quot;Helvetica&quot;,sans-serif,serif,EmojiFont;font-size:12pt;color:rgb(0=
-,0,0)"><br></div><div style=3D"font-family:&quot;Calibri&quot;,&quot;Helvet=
-ica&quot;,sans-serif,serif,EmojiFont;font-size:12pt;color:rgb(0,0,0)">[drm]=
- Display Core v3.2.266 initialized on DCE 10.0</div><div style=3D"font-fami=
-ly:&quot;Calibri&quot;,&quot;Helvetica&quot;,sans-serif,serif,EmojiFont;fon=
-t-size:12pt;color:rgb(0,0,0)">amdgpu 0000:01:00.0: [drm] *ERROR* No EDID re=
-ad.</div><div style=3D"font-family:&quot;Calibri&quot;,&quot;Helvetica&quot=
-;,sans-serif,serif,EmojiFont;font-size:12pt;color:rgb(0,0,0)">[drm] Initial=
-ized amdgpu 3.57.0 20150101 for 0000:01:00.0</div><div style=3D"font-family=
-:&quot;Calibri&quot;,&quot;Helvetica&quot;,sans-serif,serif,EmojiFont;font-=
-size:12pt;color:rgb(0,0,0)"><br></div><div style=3D"font-family:&quot;Calib=
-ri&quot;,&quot;Helvetica&quot;,sans-serif,serif,EmojiFont;font-size:12pt;co=
-lor:rgb(0,0,0)">---</div><div style=3D"font-family:&quot;Calibri&quot;,&quo=
-t;Helvetica&quot;,sans-serif,serif,EmojiFont;font-size:12pt;color:rgb(0,0,0=
-)"><br></div><div style=3D"font-family:&quot;Calibri&quot;,&quot;Helvetica&=
-quot;,sans-serif,serif,EmojiFont;font-size:12pt;color:rgb(0,0,0)">Analysis:=
-</div><div style=3D"font-family:&quot;Calibri&quot;,&quot;Helvetica&quot;,s=
-ans-serif,serif,EmojiFont;font-size:12pt;color:rgb(0,0,0)"><br></div><div s=
-tyle=3D"font-family:&quot;Calibri&quot;,&quot;Helvetica&quot;,sans-serif,se=
-rif,EmojiFont;font-size:12pt;color:rgb(0,0,0)">- The failure occurs during =
-display reinitialization after resume</div><div style=3D"font-family:&quot;=
-Calibri&quot;,&quot;Helvetica&quot;,sans-serif,serif,EmojiFont;font-size:12=
-pt;color:rgb(0,0,0)">- EDID read failure prevents proper HDMI modeset</div>=
-<div style=3D"font-family:&quot;Calibri&quot;,&quot;Helvetica&quot;,sans-se=
-rif,serif,EmojiFont;font-size:12pt;color:rgb(0,0,0)">- This aligns with the=
- observed &quot;no signal&quot; condition</div><div style=3D"font-family:&q=
-uot;Calibri&quot;,&quot;Helvetica&quot;,sans-serif,serif,EmojiFont;font-siz=
-e:12pt;color:rgb(0,0,0)"><br></div><div style=3D"font-family:&quot;Calibri&=
-quot;,&quot;Helvetica&quot;,sans-serif,serif,EmojiFont;font-size:12pt;color=
-:rgb(0,0,0)">Behavior differences:</div><div style=3D"font-family:&quot;Cal=
-ibri&quot;,&quot;Helvetica&quot;,sans-serif,serif,EmojiFont;font-size:12pt;=
-color:rgb(0,0,0)"><br></div><div style=3D"font-family:&quot;Calibri&quot;,&=
-quot;Helvetica&quot;,sans-serif,serif,EmojiFont;font-size:12pt;color:rgb(0,=
-0,0)">- deep sleep:</div><div style=3D"font-family:&quot;Calibri&quot;,&quo=
-t;Helvetica&quot;,sans-serif,serif,EmojiFont;font-size:12pt;color:rgb(0,0,0=
-)">=C2=A0 - full GPU/display reinitialization</div><div style=3D"font-famil=
-y:&quot;Calibri&quot;,&quot;Helvetica&quot;,sans-serif,serif,EmojiFont;font=
--size:12pt;color:rgb(0,0,0)">=C2=A0 - leads to EDID failure and system inst=
-ability</div><div style=3D"font-family:&quot;Calibri&quot;,&quot;Helvetica&=
-quot;,sans-serif,serif,EmojiFont;font-size:12pt;color:rgb(0,0,0)"><br></div=
-><div style=3D"font-family:&quot;Calibri&quot;,&quot;Helvetica&quot;,sans-s=
-erif,serif,EmojiFont;font-size:12pt;color:rgb(0,0,0)">- s2idle:</div><div s=
-tyle=3D"font-family:&quot;Calibri&quot;,&quot;Helvetica&quot;,sans-serif,se=
-rif,EmojiFont;font-size:12pt;color:rgb(0,0,0)">=C2=A0 - partial resume</div=
-><div style=3D"font-family:&quot;Calibri&quot;,&quot;Helvetica&quot;,sans-s=
-erif,serif,EmojiFont;font-size:12pt;color:rgb(0,0,0)">=C2=A0 - avoids full =
-lockup but display may still be inconsistent</div><div style=3D"font-family=
-:&quot;Calibri&quot;,&quot;Helvetica&quot;,sans-serif,serif,EmojiFont;font-=
-size:12pt;color:rgb(0,0,0)"><br></div><div style=3D"font-family:&quot;Calib=
-ri&quot;,&quot;Helvetica&quot;,sans-serif,serif,EmojiFont;font-size:12pt;co=
-lor:rgb(0,0,0)">This suggests the issue is in the display resume path, poss=
-ibly involving:</div><div style=3D"font-family:&quot;Calibri&quot;,&quot;He=
-lvetica&quot;,sans-serif,serif,EmojiFont;font-size:12pt;color:rgb(0,0,0)"><=
-br></div><div style=3D"font-family:&quot;Calibri&quot;,&quot;Helvetica&quot=
-;,sans-serif,serif,EmojiFont;font-size:12pt;color:rgb(0,0,0)">- DC state re=
-store</div><div style=3D"font-family:&quot;Calibri&quot;,&quot;Helvetica&qu=
-ot;,sans-serif,serif,EmojiFont;font-size:12pt;color:rgb(0,0,0)">- HDMI link=
- training</div><div style=3D"font-family:&quot;Calibri&quot;,&quot;Helvetic=
-a&quot;,sans-serif,serif,EmojiFont;font-size:12pt;color:rgb(0,0,0)">- DDC/E=
-DID communication</div><div style=3D"font-family:&quot;Calibri&quot;,&quot;=
-Helvetica&quot;,sans-serif,serif,EmojiFont;font-size:12pt;color:rgb(0,0,0)"=
->- atomic modeset reconstruction</div><div style=3D"font-family:&quot;Calib=
-ri&quot;,&quot;Helvetica&quot;,sans-serif,serif,EmojiFont;font-size:12pt;co=
-lor:rgb(0,0,0)"><br></div><div style=3D"font-family:&quot;Calibri&quot;,&qu=
-ot;Helvetica&quot;,sans-serif,serif,EmojiFont;font-size:12pt;color:rgb(0,0,=
-0)">---</div><div style=3D"font-family:&quot;Calibri&quot;,&quot;Helvetica&=
-quot;,sans-serif,serif,EmojiFont;font-size:12pt;color:rgb(0,0,0)"><br></div=
-><div style=3D"font-family:&quot;Calibri&quot;,&quot;Helvetica&quot;,sans-s=
-erif,serif,EmojiFont;font-size:12pt;color:rgb(0,0,0)">Conclusion:</div><div=
- style=3D"font-family:&quot;Calibri&quot;,&quot;Helvetica&quot;,sans-serif,=
-serif,EmojiFont;font-size:12pt;color:rgb(0,0,0)"><br></div><div style=3D"fo=
-nt-family:&quot;Calibri&quot;,&quot;Helvetica&quot;,sans-serif,serif,EmojiF=
-ont;font-size:12pt;color:rgb(0,0,0)">This
- is likely a regression in the AMDGPU display resume path, where EDID=20
-read fails after resume, preventing HDMI output from being restored.</div><=
-div style=3D"font-family:&quot;Calibri&quot;,&quot;Helvetica&quot;,sans-ser=
-if,serif,EmojiFont;font-size:12pt;color:rgb(0,0,0)"><br></div><div style=3D=
-"font-family:&quot;Calibri&quot;,&quot;Helvetica&quot;,sans-serif,serif,Emo=
-jiFont;font-size:12pt;color:rgb(0,0,0)">---</div><div style=3D"font-family:=
-&quot;Calibri&quot;,&quot;Helvetica&quot;,sans-serif,serif,EmojiFont;font-s=
-ize:12pt;color:rgb(0,0,0)"><br></div><div style=3D"font-family:&quot;Calibr=
-i&quot;,&quot;Helvetica&quot;,sans-serif,serif,EmojiFont;font-size:12pt;col=
-or:rgb(0,0,0)">Additional notes:</div><div style=3D"font-family:&quot;Calib=
-ri&quot;,&quot;Helvetica&quot;,sans-serif,serif,EmojiFont;font-size:12pt;co=
-lor:rgb(0,0,0)"><br></div><div style=3D"font-family:&quot;Calibri&quot;,&qu=
-ot;Helvetica&quot;,sans-serif,serif,EmojiFont;font-size:12pt;color:rgb(0,0,=
-0)">This
- issue was bisected between Linux 6.3 (good) and 6.4 (bad), with the=20
-transition point identified as a KVM merge commit. While not directly=20
-related to AMDGPU, it may have indirectly exposed this issue via=20
-timing/order changes.</div><div style=3D"font-family:&quot;Calibri&quot;,&q=
-uot;Helvetica&quot;,sans-serif,serif,EmojiFont;font-size:12pt;color:rgb(0,0=
-,0)"><br></div><div style=3D"font-family:&quot;Calibri&quot;,&quot;Helvetic=
-a&quot;,sans-serif,serif,EmojiFont;font-size:12pt;color:rgb(0,0,0)">---</di=
-v><div style=3D"font-family:&quot;Calibri&quot;,&quot;Helvetica&quot;,sans-=
-serif,serif,EmojiFont;font-size:12pt;color:rgb(0,0,0)"><br></div><div style=
-=3D"font-family:&quot;Calibri&quot;,&quot;Helvetica&quot;,sans-serif,serif,=
-EmojiFont;font-size:12pt;color:rgb(0,0,0)">If needed, I can provide:</div><=
-div style=3D"font-family:&quot;Calibri&quot;,&quot;Helvetica&quot;,sans-ser=
-if,serif,EmojiFont;font-size:12pt;color:rgb(0,0,0)"><br></div><div style=3D=
-"font-family:&quot;Calibri&quot;,&quot;Helvetica&quot;,sans-serif,serif,Emo=
-jiFont;font-size:12pt;color:rgb(0,0,0)">- full journalctl logs</div><div st=
-yle=3D"font-family:&quot;Calibri&quot;,&quot;Helvetica&quot;,sans-serif,ser=
-if,EmojiFont;font-size:12pt;color:rgb(0,0,0)">- full bisect log</div><div s=
-tyle=3D"font-family:&quot;Calibri&quot;,&quot;Helvetica&quot;,sans-serif,se=
-rif,EmojiFont;font-size:12pt;color:rgb(0,0,0)">- additional testing (kernel=
- params, debug options)</div><div id=3D"m_3075601443013613040gmail-x_append=
-onsend"></div><hr style=3D"display:inline-block;width:98%"><div id=3D"m_307=
-5601443013613040gmail-x_divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, s=
-ans-serif" color=3D"#000000" style=3D"font-size:11pt"><b>De:</b> Danilo Mac=
-hado &lt;<a href=3D"mailto:danilomachado2002@hotmail.com" target=3D"_blank"=
->danilomachado2002@hotmail.com</a>&gt;<br><b>Enviado:</b> quinta-feira, 26 =
-de mar=C3=A7o de 2026 20:38<br><b>Para:</b> <a href=3D"mailto:amd-gfx@lists=
-.freedesktop.org" target=3D"_blank">amd-gfx@lists.freedesktop.org</a> &lt;<=
-a href=3D"mailto:amd-gfx@lists.freedesktop.org" target=3D"_blank">amd-gfx@l=
-ists.freedesktop.org</a>&gt;<br><b>Cc:</b> Alex Deucher &lt;<a href=3D"mail=
-to:alexdeucher@gmail.com" target=3D"_blank">alexdeucher@gmail.com</a>&gt;; =
-<a href=3D"mailto:dri-devel@lists.freedesktop.org" target=3D"_blank">dri-de=
-vel@lists.freedesktop.org</a> &lt;<a href=3D"mailto:dri-devel@lists.freedes=
-ktop.org" target=3D"_blank">dri-devel@lists.freedesktop.org</a>&gt;<br><b>A=
-ssunto:</b> [REGRESSION][bisected] amdgpu/tonga: HDMI no signal after suspe=
-nd/resume</font> <div aria-hidden=3D"true">=C2=A0</div></div><div dir=3D"lt=
-r"><p style=3D"margin-top:1em;margin-bottom:1em"><span style=3D"font-family=
-:&quot;Calibri&quot;,&quot;Helvetica&quot;,sans-serif,serif,EmojiFont;font-=
-size:12pt;color:rgb(0,0,0)">Hi all,</span></p><p style=3D"margin-top:1em;ma=
-rgin-bottom:1em"><span style=3D"font-family:&quot;Calibri&quot;,&quot;Helve=
-tica&quot;,sans-serif,serif,EmojiFont;font-size:12pt;color:rgb(0,0,0)">Than=
-ks again for your feedback.</span></p><p style=3D"margin-top:1em;margin-bot=
-tom:1em"><span style=3D"font-family:&quot;Calibri&quot;,&quot;Helvetica&quo=
-t;,sans-serif,serif,EmojiFont;font-size:12pt;color:rgb(0,0,0)">I took a clo=
-ser look at the bisect results and system behavior, and I=E2=80=99d like to=
- provide a more complete and consolidated report.</span></p><hr><p style=3D=
-"margin-top:1em;margin-bottom:1em"><span style=3D"font-family:&quot;Calibri=
-&quot;,&quot;Helvetica&quot;,sans-serif,serif,EmojiFont;font-size:12pt;colo=
-r:rgb(0,0,0)">Hardware:</span></p><ul><li style=3D"font-family:&quot;Calibr=
-i&quot;,&quot;Helvetica&quot;,sans-serif;font-size:12pt;color:rgb(0,0,0)"><=
-p role=3D"presentation" style=3D"margin-top:1em;margin-bottom:1em">GPU: AMD=
- Radeon R9 380 (Tonga, GCN 3)</p></li><li style=3D"font-family:&quot;Calibr=
-i&quot;,&quot;Helvetica&quot;,sans-serif;font-size:12pt;color:rgb(0,0,0)"><=
-p role=3D"presentation" style=3D"margin-top:1em;margin-bottom:1em">CPU: AMD=
- Ryzen 5 5500</p></li><li style=3D"font-family:&quot;Calibri&quot;,&quot;He=
-lvetica&quot;,sans-serif;font-size:12pt;color:rgb(0,0,0)"><p role=3D"presen=
-tation" style=3D"margin-top:1em;margin-bottom:1em">RAM: 16 GB</p></li><li s=
-tyle=3D"font-family:&quot;Calibri&quot;,&quot;Helvetica&quot;,sans-serif;fo=
-nt-size:12pt;color:rgb(0,0,0)"><p role=3D"presentation" style=3D"margin-top=
-:1em;margin-bottom:1em">Display: HDMI</p></li></ul><p style=3D"margin-top:1=
-em;margin-bottom:1em"><span style=3D"font-family:&quot;Calibri&quot;,&quot;=
-Helvetica&quot;,sans-serif,serif,EmojiFont;font-size:12pt;color:rgb(0,0,0)"=
->Software:</span></p><ul><li style=3D"font-family:&quot;Calibri&quot;,&quot=
-;Helvetica&quot;,sans-serif;font-size:12pt;color:rgb(0,0,0)"><p role=3D"pre=
-sentation" style=3D"margin-top:1em;margin-bottom:1em">Driver: amdgpu</p></l=
-i><li style=3D"font-family:&quot;Calibri&quot;,&quot;Helvetica&quot;,sans-s=
-erif;font-size:12pt;color:rgb(0,0,0)"><p role=3D"presentation" style=3D"mar=
-gin-top:1em;margin-bottom:1em">Kernel range tested: 6.3 (good) =E2=86=92 6.=
-4 (bad)</p></li></ul><hr><p style=3D"margin-top:1em;margin-bottom:1em"><spa=
-n style=3D"font-family:&quot;Calibri&quot;,&quot;Helvetica&quot;,sans-serif=
-,serif,EmojiFont;font-size:12pt;color:rgb(0,0,0)">Summary:</span></p><p sty=
-le=3D"margin-top:1em;margin-bottom:1em"><span style=3D"font-family:&quot;Ca=
-libri&quot;,&quot;Helvetica&quot;,sans-serif,serif,EmojiFont;font-size:12pt=
-;color:rgb(0,0,0)">This is a reproducible suspend/resume regression affecti=
-ng HDMI output.</span></p><ul><li style=3D"font-family:&quot;Calibri&quot;,=
-&quot;Helvetica&quot;,sans-serif;font-size:12pt;color:rgb(0,0,0)"><p role=
-=3D"presentation" style=3D"margin-top:1em;margin-bottom:1em">Linux 6.3 =E2=
-=86=92 working correctly</p></li><li style=3D"font-family:&quot;Calibri&quo=
-t;,&quot;Helvetica&quot;,sans-serif;font-size:12pt;color:rgb(0,0,0)"><p rol=
-e=3D"presentation" style=3D"margin-top:1em;margin-bottom:1em">Linux 6.4+ =
-=E2=86=92 regression present</p></li></ul><hr><p style=3D"margin-top:1em;ma=
-rgin-bottom:1em"><span style=3D"font-family:&quot;Calibri&quot;,&quot;Helve=
-tica&quot;,sans-serif,serif,EmojiFont;font-size:12pt;color:rgb(0,0,0)">Beha=
-vior:</span></p><p style=3D"margin-top:1em;margin-bottom:1em"><span style=
-=3D"font-family:&quot;Calibri&quot;,&quot;Helvetica&quot;,sans-serif,serif,=
-EmojiFont;font-size:12pt;color:rgb(0,0,0)">After suspend/resume:</span></p>=
-<ul><li style=3D"font-family:&quot;Calibri&quot;,&quot;Helvetica&quot;,sans=
--serif;font-size:12pt;color:rgb(0,0,0)"><p role=3D"presentation" style=3D"m=
-argin-top:1em;margin-bottom:1em">HDMI output does not recover (&quot;no sig=
-nal&quot;)</p></li><li style=3D"font-family:&quot;Calibri&quot;,&quot;Helve=
-tica&quot;,sans-serif;font-size:12pt;color:rgb(0,0,0)"><p role=3D"presentat=
-ion" style=3D"margin-top:1em;margin-bottom:1em">System may freeze under X11=
-</p></li><li style=3D"font-family:&quot;Calibri&quot;,&quot;Helvetica&quot;=
-,sans-serif;font-size:12pt;color:rgb(0,0,0)"><p role=3D"presentation" style=
-=3D"margin-top:1em;margin-bottom:1em">Wayland does not show the same hard f=
-ailure</p></li></ul><p style=3D"margin-top:1em;margin-bottom:1em"><span sty=
-le=3D"font-family:&quot;Calibri&quot;,&quot;Helvetica&quot;,sans-serif,seri=
-f,EmojiFont;font-size:12pt;color:rgb(0,0,0)">Additionally:</span></p><ul><l=
-i style=3D"font-family:&quot;Calibri&quot;,&quot;Helvetica&quot;,sans-serif=
-;font-size:12pt;color:rgb(0,0,0)"><p role=3D"presentation" style=3D"margin-=
-top:1em;margin-bottom:1em">Using &quot;deep&quot; sleep:</p></li><ul><li st=
-yle=3D"font-family:&quot;Calibri&quot;,&quot;Helvetica&quot;,sans-serif;fon=
-t-size:12pt;color:rgb(0,0,0)"><p role=3D"presentation" style=3D"margin-top:=
-1em;margin-bottom:1em">full system lockup after resume</p></li></ul><li sty=
-le=3D"font-family:&quot;Calibri&quot;,&quot;Helvetica&quot;,sans-serif;font=
--size:12pt;color:rgb(0,0,0)"><p role=3D"presentation" style=3D"margin-top:1=
-em;margin-bottom:1em">Using &quot;s2idle&quot;:</p></li><ul><li style=3D"fo=
-nt-family:&quot;Calibri&quot;,&quot;Helvetica&quot;,sans-serif;font-size:12=
-pt;color:rgb(0,0,0)"><p role=3D"presentation" style=3D"margin-top:1em;margi=
-n-bottom:1em">system resumes without hard lock</p></li><li style=3D"font-fa=
-mily:&quot;Calibri&quot;,&quot;Helvetica&quot;,sans-serif;font-size:12pt;co=
-lor:rgb(0,0,0)"><p role=3D"presentation" style=3D"margin-top:1em;margin-bot=
-tom:1em">however, graphical session may return in a partially broken state<=
-/p></li></ul></ul><hr><p style=3D"margin-top:1em;margin-bottom:1em"><span s=
-tyle=3D"font-family:&quot;Calibri&quot;,&quot;Helvetica&quot;,sans-serif,se=
-rif,EmojiFont;font-size:12pt;color:rgb(0,0,0)">Bisect result:</span></p><p =
-style=3D"margin-top:1em;margin-bottom:1em"><span style=3D"font-family:&quot=
-;Calibri&quot;,&quot;Helvetica&quot;,sans-serif,serif,EmojiFont;font-size:1=
-2pt;color:rgb(0,0,0)">A full git bisect was performed between Linux 6.3 and=
- 6.4.</span></p><p style=3D"margin-top:1em;margin-bottom:1em"><span style=
-=3D"font-family:&quot;Calibri&quot;,&quot;Helvetica&quot;,sans-serif,serif,=
-EmojiFont;font-size:12pt;color:rgb(0,0,0)">First bad commit:<br>b3c98052d46=
-948a8d65d2778c7f306ff38366aac<br>(&quot;Merge tag &#39;kvm-x86-vmx-6.4&#39;=
-&quot;)</span></p><p style=3D"margin-top:1em;margin-bottom:1em"><span style=
-=3D"font-family:&quot;Calibri&quot;,&quot;Helvetica&quot;,sans-serif,serif,=
-EmojiFont;font-size:12pt;color:rgb(0,0,0)">All intermediate commits in that=
- range were consistently tested as GOOD.</span></p><hr><p style=3D"margin-t=
-op:1em;margin-bottom:1em"><span style=3D"font-family:&quot;Calibri&quot;,&q=
-uot;Helvetica&quot;,sans-serif,serif,EmojiFont;font-size:12pt;color:rgb(0,0=
-,0)">Analysis:</span></p><p style=3D"margin-top:1em;margin-bottom:1em"><spa=
-n style=3D"font-family:&quot;Calibri&quot;,&quot;Helvetica&quot;,sans-serif=
-,serif,EmojiFont;font-size:12pt;color:rgb(0,0,0)">Although
- the bisected commit is in KVM and unlikely to directly affect AMDGPU,=20
-the transition point is consistent and reproducible.</span></p><p style=3D"=
-margin-top:1em;margin-bottom:1em"><span style=3D"font-family:&quot;Calibri&=
-quot;,&quot;Helvetica&quot;,sans-serif,serif,EmojiFont;font-size:12pt;color=
-:rgb(0,0,0)">This
- suggests the regression may be indirectly triggered (e.g. timing or=20
-ordering changes during resume), rather than caused directly by that=20
-merge.</span></p><p style=3D"margin-top:1em;margin-bottom:1em"><span style=
-=3D"font-family:&quot;Calibri&quot;,&quot;Helvetica&quot;,sans-serif,serif,=
-EmojiFont;font-size:12pt;color:rgb(0,0,0)">Based on observed behavior, this=
- appears related to the display resume path, possibly involving:</span></p>=
-<ul><li style=3D"font-family:&quot;Calibri&quot;,&quot;Helvetica&quot;,sans=
--serif;font-size:12pt;color:rgb(0,0,0)"><p role=3D"presentation" style=3D"m=
-argin-top:1em;margin-bottom:1em">DC state restore after resume</p></li><li =
-style=3D"font-family:&quot;Calibri&quot;,&quot;Helvetica&quot;,sans-serif;f=
-ont-size:12pt;color:rgb(0,0,0)"><p role=3D"presentation" style=3D"margin-to=
-p:1em;margin-bottom:1em">HDMI link training</p></li><li style=3D"font-famil=
-y:&quot;Calibri&quot;,&quot;Helvetica&quot;,sans-serif;font-size:12pt;color=
-:rgb(0,0,0)"><p role=3D"presentation" style=3D"margin-top:1em;margin-bottom=
-:1em">EDID re-read</p></li><li style=3D"font-family:&quot;Calibri&quot;,&qu=
-ot;Helvetica&quot;,sans-serif;font-size:12pt;color:rgb(0,0,0)"><p role=3D"p=
-resentation" style=3D"margin-top:1em;margin-bottom:1em">atomic modeset stat=
-e reconstruction</p></li></ul><p style=3D"margin-top:1em;margin-bottom:1em"=
-><span style=3D"font-family:&quot;Calibri&quot;,&quot;Helvetica&quot;,sans-=
-serif,serif,EmojiFont;font-size:12pt;color:rgb(0,0,0)">The difference betwe=
-en &quot;deep&quot; and &quot;s2idle&quot; also suggests a failure during f=
-ull GPU/display reinitialization.</span></p><hr><p style=3D"margin-top:1em;=
-margin-bottom:1em"><span style=3D"font-family:&quot;Calibri&quot;,&quot;Hel=
-vetica&quot;,sans-serif,serif,EmojiFont;font-size:12pt;color:rgb(0,0,0)">Co=
-nclusion:</span></p><p style=3D"margin-top:1em;margin-bottom:1em"><span sty=
-le=3D"font-family:&quot;Calibri&quot;,&quot;Helvetica&quot;,sans-serif,seri=
-f,EmojiFont;font-size:12pt;color:rgb(0,0,0)">This
- appears to be a latent issue exposed by changes introduced during the=20
-6.4 merge window, rather than a direct regression in the bisected commit
- itself.</span></p><hr><p style=3D"margin-top:1em;margin-bottom:1em"><span =
-style=3D"font-family:&quot;Calibri&quot;,&quot;Helvetica&quot;,sans-serif,s=
-erif,EmojiFont;font-size:12pt;color:rgb(0,0,0)">If helpful, I can assist fu=
-rther by:</span></p><ul><li style=3D"font-family:&quot;Calibri&quot;,&quot;=
-Helvetica&quot;,sans-serif;font-size:12pt;color:rgb(0,0,0)"><p role=3D"pres=
-entation" style=3D"margin-top:1em;margin-bottom:1em">providing full bisect =
-logs</p></li><li style=3D"font-family:&quot;Calibri&quot;,&quot;Helvetica&q=
-uot;,sans-serif;font-size:12pt;color:rgb(0,0,0)"><p role=3D"presentation" s=
-tyle=3D"margin-top:1em;margin-bottom:1em">capturing detailed dmesg/journalc=
-tl before and after resume</p></li><li style=3D"font-family:&quot;Calibri&q=
-uot;,&quot;Helvetica&quot;,sans-serif;font-size:12pt;color:rgb(0,0,0)"><p r=
-ole=3D"presentation" style=3D"margin-top:1em;margin-bottom:1em">testing pat=
-ches or debug options</p></li><li style=3D"font-family:&quot;Calibri&quot;,=
-&quot;Helvetica&quot;,sans-serif;font-size:12pt;color:rgb(0,0,0)"><p role=
-=3D"presentation" style=3D"margin-top:1em;margin-bottom:1em">narrowing the =
-range further if needed</p></li></ul><p style=3D"margin-top:1em;margin-bott=
-om:1em"><span style=3D"font-family:&quot;Calibri&quot;,&quot;Helvetica&quot=
-;,sans-serif,serif,EmojiFont;font-size:12pt;color:rgb(0,0,0)">I really appr=
-eciate the work on AMDGPU and would be glad to help within my limits to inv=
-estigate this further.</span></p><p style=3D"margin-top:1em;margin-bottom:1=
-em"><span style=3D"font-family:&quot;Calibri&quot;,&quot;Helvetica&quot;,sa=
-ns-serif,serif,EmojiFont;font-size:12pt;color:rgb(0,0,0)">Thanks again for =
-your time.</span></p><p style=3D"margin-top:1em;margin-bottom:1em"><span st=
-yle=3D"font-family:&quot;Calibri&quot;,&quot;Helvetica&quot;,sans-serif,ser=
-if,EmojiFont;font-size:12pt;color:rgb(0,0,0)">Best regards,<br>Danilo</span=
-></p><div style=3D"font-family:&quot;Calibri&quot;,&quot;Helvetica&quot;,sa=
-ns-serif,serif,EmojiFont;font-size:12pt;color:rgb(0,0,0)">Note:
- I had some email client configuration issues earlier, which may have=20
-caused duplicate messages or formatting problems. These have now been=20
-resolved =E2=80=94 apologies for any inconvenience.</div></div><br></div>
-</blockquote></div><div><br clear=3D"all"></div><br><span class=3D"gmail_si=
-gnature_prefix">-- </span><br><div dir=3D"ltr" class=3D"gmail_signature"><d=
-iv dir=3D"ltr"><i style=3D"background-color:rgb(255,255,255)">Danilo Machad=
-o</i></div></div>
-
---00000000000076751a064e292353--
