@@ -4,60 +4,136 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E8656F3D601
-	for <dri-devel@archiver.kernel.org>; Sun, 29 Mar 2026 09:53:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 65170F3D5FC
+	for <dri-devel@archiver.kernel.org>; Sun, 29 Mar 2026 10:05:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4022D10E44B;
-	Sun, 29 Mar 2026 09:53:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9AB3210E431;
+	Sun, 29 Mar 2026 10:05:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=foxmail.com header.i=@foxmail.com header.b="TaSP/b8G";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="l9S8b4Pq";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="HAcOMpYH";
 	dkim-atps=neutral
-X-Greylist: delayed 1879 seconds by postgrey-1.36 at gabe;
- Sat, 28 Mar 2026 12:34:50 UTC
-Received: from out203-205-221-173.mail.qq.com (out203-205-221-173.mail.qq.com
- [203.205.221.173])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3B53710E05B
- for <dri-devel@lists.freedesktop.org>; Sat, 28 Mar 2026 12:34:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foxmail.com;
- s=s201512; t=1774701286;
- bh=WZluaPtQ69k8l7GuzC05bLl+YyxVVYSeaFjn8/5d2wA=;
- h=From:To:Cc:Subject:Date;
- b=TaSP/b8GrleOSknnrILVPQA9eTQUL41SVs7CaGDG2rtuzRQDG8kMjTlY5wiypfUHT
- v+cfItS/Lj9Q2Cesyf1spmyRv/FACCFxQd6AaoRDaaFClEKmtzTD4psBr0FBkr90jK
- LHPPz1HGaRtXvwK9f2ZkBCJKnPpwCtAZSGwIa8MM=
-Received: from furnace.. ([2408:8207:24a6:39c0:bc6b:e2e:87c0:c5dc])
- by newxmesmtplogicsvrszc50-0.qq.com (NewEsmtp) with SMTP
- id D591EF9; Sat, 28 Mar 2026 20:03:21 +0800
-X-QQ-mid: xmsmtpt1774699401tvx4ac6a3
-Message-ID: <tencent_E0E7D83DF383CC08960CF0070BF1E7CC8505@qq.com>
-X-QQ-XMAILINFO: MTEKjEyAppcsPuCah8PQ/+At89IggxJs4hlZiWgba03V1ZItHLvRRkJCJHXbSi
- 19foMxPEA/JJpn5c0R0uCyK1w8izWO8GqY7bmPcxwg4maZYgOEORJQoaghwInKK0zehZeHos1iMT
- khxxYpw31u99zmby2RzYyMWQPkvUxYpqiLdIzEgEIuU7rRC/2TzwYK1TolKmZfSlJtqilhmbVl/3
- Xr52WsBxujH27tXLl+IoCFF3cdxgAoXYf4S3v70vfZS2Cp4INMEqRawLcpXTnsCXhtcA42hPYZak
- se1vf2ioDp1q8Kbb+pi9BR6qyGTMQ2fVCK7vAoBtkJafN4oe+hyV66y3jF5lxmDKVpqCf/FoWZLC
- wa+e2FegIHP29oQ3mF7X+/AeNHXubzFMpwJdoBNKvymzPf4RSOpBMKWVLap9qMeuLrZx4iYWHGBn
- p04kpLJ47EkeKeSZPh3qtLA/8hN5BAV9sAgmXASPkgvWu4P1OZbH+YrSiMJ5NtVXHAEBoVuxzad6
- rRXo55bMFzstv8ZAKVQQ6NTFo6EHvZrfq+VflLz3G1CUQqjl6DLE2opnAnoOyc1kHhET1UfI7Kov
- KqoC9rj/+Z9OrHlfoW4OtznEpJcQuggiXOzFW74qTHW4DE2We7DN47eUEVZk/I+1MDn1tMu+JksT
- r4zCu0KRK3mFiOAynZG9TmcnIl9b0oGwYCVZyg542uXSKCabOSyCwmxayjSUuStsbp0h/XeYj89V
- 3jLJM96urHnhMSJZaCvz1zLpnXzTAVvR4XLQ+N5kMfZcdQ4mSu12Q+W2cyh0jmodz+MpNBBh8uBq
- qWi+lvfIjSw3H74ZRCV9RcbxuWl0Ys8ghIHfSBe4JVVtrqv1Y3fcmropppFkHH4U3mUZ21yNo4ao
- w8kInopReL3v1dAva4lMKpeZZiFuqKLfUgqErbHrV5mg/v6qH3ldIDsrl/QhQwzQIvASTbaJUVOg
- J67TSmfwRNMBibe/6r/GstS9A5BkLGUACL6BKp4LrBOAeb+c04JxkbzIsP59uD+3gEz5QPxElmUN
- kHCF76WEdMG9tVv8PMxPktfF2MgrI7E8S4seJFNeDEd/XhKZ1mvLO+FT4F0ZPEBd70M8t4Nw==
-X-QQ-XMRINFO: OD9hHCdaPRBwH5bRRRw8tsiH4UAatJqXfg==
-From: YoungAndSure <yangshuorex@foxmail.com>
-To: dri-devel@lists.freedesktop.org
-Cc: neil.armstrong@linaro.org, dianders@chromium.org,
- YoungAndSure <yangshuorex@foxmail.com>
-Subject: [PATCH] drm/panel: jdi-lt070me05000: Transition to mipi_dsi *_multi()
- functions
-Date: Sat, 28 Mar 2026 20:03:21 +0800
-X-OQ-MSGID: <20260328120321.2677141-1-yangshuorex@foxmail.com>
-X-Mailer: git-send-email 2.34.1
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D8CF210E431
+ for <dri-devel@lists.freedesktop.org>; Sun, 29 Mar 2026 10:05:30 +0000 (UTC)
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 62T4ktkk3152749
+ for <dri-devel@lists.freedesktop.org>; Sun, 29 Mar 2026 10:05:29 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=JaiqO1qH1s6Lg7602BQN0CxF
+ 8FKSe/qUocsXjuCSObg=; b=l9S8b4PqvOFQrX/E7BnEIuqqHeaY7rle1VyRjVzz
+ 0wTVMOj05Gy/uwdx6o3CEzM8DWeisasE/GRkfUGySj4dHUM7D0/a0tqMQFjwfR5p
+ KRcJNK3NXlcgKlCmKs8WEjcfw9JwtJfK1hvhoiW4b9M61LGclJj4mvWZUUwY0i2e
+ an1jpXEqh8h1PQWT68rDuiBNgocdiEukL2aYskBrORCO3N0Jw4s4/EIGadbw/g7m
+ MNPcxFGRV1SEW7DYKOpCyyy3ZWxoxRTb6hy5l6VmdkpDy47FFkLPf4erPENYnAA3
+ jXgY68BBbHlQ6yRdcvov/hBNPX1Jqd/OZ9l6lTtaxg5SqQ==
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com
+ [209.85.160.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d64bm2vyt-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Sun, 29 Mar 2026 10:05:29 +0000 (GMT)
+Received: by mail-qt1-f200.google.com with SMTP id
+ d75a77b69052e-5091327215dso38613841cf.1
+ for <dri-devel@lists.freedesktop.org>; Sun, 29 Mar 2026 03:05:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1774778729; x=1775383529;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=JaiqO1qH1s6Lg7602BQN0CxF8FKSe/qUocsXjuCSObg=;
+ b=HAcOMpYHye/am9V3w/3Nie15LJHbN8z8VCOg5x89yBtXna9LJyNnhUuhlg5ynzs9fS
+ 84HOP7mMDHFAl4aeakVa0QwYPC0DsSJFsLdOYT7WgV9xGqXx1LjVvAOJZDB+0l/eU5WW
+ GAYJHppJtRP9Xv/GxVfaYlvAjCS01vexm6HIwy1rtsX/76Px5E8BV9p2fd5zDXuYpAcc
+ 9tu8hkZuF+Fm74orz8NI0LJxksvs6V4ZwKy5ILQhYU3f/wG6/+U+bS7o+QpFYn7Ay44w
+ hRxADPzVjqbMHubRnSolGelGYnV3Mde9wrxgcqRTt8sOpiZKaWQEYtO07hyAKGzM9fzx
+ uN2Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1774778729; x=1775383529;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=JaiqO1qH1s6Lg7602BQN0CxF8FKSe/qUocsXjuCSObg=;
+ b=LB5rCyVFtiw7ZKzoq+RBxfF/zWD6P845jFmoyJxOD0Z61DW/9A0KKmLwPFZHY0qAV7
+ caO8n7lqgAdsRKBaJu7z7kl7qK0FQywI1X+2vAU8080IlEqkUt4uV7YV4c0MAIPBlw7h
+ Ox+hb3qdbo/J/rJNdTCMDAUor2xJIyRtsjVSbIOys6SJyH/8gIqtvH25GLxvFqJlkUhN
+ vyhuocoNZJoMXskg4iIvl0XCnY7z/Kk8JM2lNuQz9Ix0bdiNHqr96+VqJu0vWVY3yGRo
+ SJkFTQhfWqvEVkT9TajLYuKBtaB4h4VyRmG+BOT0C9+r7HK/N71R0VcX4ygHORvFJHWC
+ FPuA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCW9l7PCF43IrWPdyXiSYylhdFoO/YQnKFS9GIPNjtY2g4AffqRmK6Bgc6u/sWdJXRNOxJpe3SXO4Uo=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzYbGIE2U6bVMazYvkBa20ZwL10b2+H2fyHH1TGOHr7dDdgp1Fk
+ Ti+I67M9gMm/3mjJIoMXBC7jtLtuaGNJZ6rMgWq7j5MNPvOKx4GsTFAOvvogxmhbT+nHY5kBwtM
+ SJXIGaCWqdDe+xrV8UNlzXgHMiTRJSZ0wuwTMG6Y1qFQoHlWpjRRuKlKvqOIZrwPi5dUdVko=
+X-Gm-Gg: ATEYQzwWVg5+DsymaEk1OhQsySdMmjrhUV/52jMUj5V/24txY1zx3DHHVfTbB0/hLtp
+ iqyN8g5Nq7rl0Br1ZUxEJkf+t/1jqtOil7JYGDxHhm+tmqhXSCz/e2W1OCN3F6H8vkLsxPxD78U
+ c5I1mg8nDYp3zwsu5b4Vvf7LRIxM4zeiSHjrtFK0XpeDOY/JJ21KX4Zp4jdxNAnAE4f4G8PL4Y4
+ eP1RQl39a0THUt0yasgbYNZwkqIDSrbH0UhrAITZjVdGf/NrSNxX6aYA3UcNrVHBQioNlK3q1Oq
+ Y3OIGZmQ5Lhxnqy5eqD6V4Z9Y3lxMW+vLgbxM0OW1vecwIya3iAmSlnjBmvxo6uFDewq3GB41ly
+ M7BNuIhRETsObmAb0LCpY245SC1ZEdVpNkizEyxOGWhnq48rQGqmuJstm8/u7FiceZDr8PUjaTV
+ tqiqVLKKS2iH34ApCmyip1mwyTVlF+CGOJcog=
+X-Received: by 2002:a05:622a:8:b0:509:2f5f:a178 with SMTP id
+ d75a77b69052e-50ba3836481mr121712661cf.21.1774778729069; 
+ Sun, 29 Mar 2026 03:05:29 -0700 (PDT)
+X-Received: by 2002:a05:622a:8:b0:509:2f5f:a178 with SMTP id
+ d75a77b69052e-50ba3836481mr121712401cf.21.1774778728557; 
+ Sun, 29 Mar 2026 03:05:28 -0700 (PDT)
+Received: from umbar.lan
+ (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+ by smtp.gmail.com with ESMTPSA id
+ 38308e7fff4ca-38c8373096esm8697771fa.15.2026.03.29.03.05.25
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 29 Mar 2026 03:05:27 -0700 (PDT)
+Date: Sun, 29 Mar 2026 13:05:24 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: cristian_ci@protonmail.com
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org
+Subject: Re: [PATCH v4 2/6] drm/panel: Add driver for Novatek NT35532
+Message-ID: <3qsp7fawh3wtvpvb7zvupfjpio4dhg7po56gudrttb2jcatqz2@gqhdobwalhlg>
+References: <20260327-rimob-new-features-v4-0-06edff9c4509@protonmail.com>
+ <20260327-rimob-new-features-v4-2-06edff9c4509@protonmail.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Sun, 29 Mar 2026 09:53:39 +0000
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260327-rimob-new-features-v4-2-06edff9c4509@protonmail.com>
+X-Proofpoint-ORIG-GUID: 4Mp2onXQES6s8kFPT_ckoeDRaw79Fmxa
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzI5MDA3NyBTYWx0ZWRfX1AOOGPWtih5G
+ 2xHSYdQxiHmsNoVNGxCTd2pYGa1kN6Y4q7uyWUVn0XL9NjnmX+9fvGXnRTby266Q2x7eb24CTIB
+ KMP0zkgLoLVVUqye2fnF5qSdaM4JOB0Uf86BzCbrwNe1YHeYorxy9TYQ8EEUNOSWo+Ryk4q/vnp
+ iOagfJE+jSYOJ25ikD8Lsmj4VrawBD4u7GKAnZwKG7J7PoY1uu3wuOAdH/1NOWoBmQwD/bwuYYT
+ NvrKjY4ISszZrfHBPmMhR52JBo04WsPNS192czlJeHmigi6DmEv9jAP7MxxIe2uUNgRG4QeSt6Y
+ WLMiGBuFppRmI1N5MmEaYXK9HL47lPOl9fCSgQ/+Ot62eJ3Y2kpqvKH69+BaUVVBCWhOTV9xva1
+ 1hEy3jQ/J8MkkUAOjccHXfDqhjroM3tTOrvvXbvKWbWugR7VqC5Mkg9Dbz+rr4oogS21tIR8IsH
+ I0mM/OIb1kPYwQuyZDA==
+X-Authority-Analysis: v=2.4 cv=eJAeTXp1 c=1 sm=1 tr=0 ts=69c8f969 cx=c_pps
+ a=JbAStetqSzwMeJznSMzCyw==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22 a=sfOm8-O8AAAA:8
+ a=EUspDBNiAAAA:8 a=f_kZLxWr8KFBRA8n9fgA:9 a=CjuIK1q_8ugA:10
+ a=uxP6HrT_eTzRwkO_Te1X:22 a=TvTJqdcANYtsRzA46cdi:22
+X-Proofpoint-GUID: 4Mp2onXQES6s8kFPT_ckoeDRaw79Fmxa
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-03-29_02,2026-03-28_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 suspectscore=0 phishscore=0 malwarescore=0 bulkscore=0
+ adultscore=0 impostorscore=0 priorityscore=1501 clxscore=1015 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603290077
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,126 +149,23 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Replace deprecated mipi_dsi_generic_write() and mipi_dsi_dcs_*()
-functions with their *_multi() variants in jdi_panel_init() for better
-error handling.  The multi versions handle errors automatically and
-accumulate them in mipi_dsi_multi_context, removing the need for
-repetitive error checking code.
+On Fri, Mar 27, 2026 at 03:30:48PM +0100, Cristian Cozzolino via B4 Relay wrote:
+> From: Cristian Cozzolino <cristian_ci@protonmail.com>
+> 
+> Add support for Novatek NT35532-based 1080p video mode DSI panel.
+> 
+> Signed-off-by: Cristian Cozzolino <cristian_ci@protonmail.com>
+> ---
+>  MAINTAINERS                                   |   1 +
+>  drivers/gpu/drm/panel/Kconfig                 |  10 +
+>  drivers/gpu/drm/panel/Makefile                |   1 +
+>  drivers/gpu/drm/panel/panel-novatek-nt35532.c | 796 ++++++++++++++++++++++++++
+>  4 files changed, 808 insertions(+)
+> 
 
-Signed-off-by: YoungAndSure <yangshuorex@foxmail.com>
----
- .../gpu/drm/panel/panel-jdi-lt070me05000.c    | 71 ++++---------------
- 1 file changed, 13 insertions(+), 58 deletions(-)
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
-diff --git a/drivers/gpu/drm/panel/panel-jdi-lt070me05000.c b/drivers/gpu/drm/panel/panel-jdi-lt070me05000.c
-index 3513e5c4dd..e5deb39e75 100644
---- a/drivers/gpu/drm/panel/panel-jdi-lt070me05000.c
-+++ b/drivers/gpu/drm/panel/panel-jdi-lt070me05000.c
-@@ -48,34 +48,17 @@ static inline struct jdi_panel *to_jdi_panel(struct drm_panel *panel)
- static int jdi_panel_init(struct jdi_panel *jdi)
- {
- 	struct mipi_dsi_device *dsi = jdi->dsi;
--	struct device *dev = &jdi->dsi->dev;
--	int ret;
-+	struct mipi_dsi_multi_context ctx = { .dsi = dsi };
- 
- 	dsi->mode_flags |= MIPI_DSI_MODE_LPM;
- 
--	ret = mipi_dsi_dcs_soft_reset(dsi);
--	if (ret < 0)
--		return ret;
-+	mipi_dsi_dcs_soft_reset_multi(&ctx);
- 
- 	usleep_range(10000, 20000);
- 
--	ret = mipi_dsi_dcs_set_pixel_format(dsi, MIPI_DCS_PIXEL_FMT_24BIT << 4);
--	if (ret < 0) {
--		dev_err(dev, "failed to set pixel format: %d\n", ret);
--		return ret;
--	}
--
--	ret = mipi_dsi_dcs_set_column_address(dsi, 0, jdi->mode->hdisplay - 1);
--	if (ret < 0) {
--		dev_err(dev, "failed to set column address: %d\n", ret);
--		return ret;
--	}
--
--	ret = mipi_dsi_dcs_set_page_address(dsi, 0, jdi->mode->vdisplay - 1);
--	if (ret < 0) {
--		dev_err(dev, "failed to set page address: %d\n", ret);
--		return ret;
--	}
-+	mipi_dsi_dcs_set_pixel_format_multi(&ctx, MIPI_DCS_PIXEL_FMT_24BIT << 4);
-+	mipi_dsi_dcs_set_column_address_multi(&ctx, 0, jdi->mode->hdisplay - 1);
-+	mipi_dsi_dcs_set_page_address_multi(&ctx, 0, jdi->mode->vdisplay - 1);
- 
- 	/*
- 	 * BIT(5) BCTRL = 1 Backlight Control Block On, Brightness registers
-@@ -83,56 +66,28 @@ static int jdi_panel_init(struct jdi_panel *jdi)
- 	 * BIT(3) BL = 1    Backlight Control On
- 	 * BIT(2) DD = 0    Display Dimming is Off
- 	 */
--	ret = mipi_dsi_dcs_write(dsi, MIPI_DCS_WRITE_CONTROL_DISPLAY,
--				 (u8[]){ 0x24 }, 1);
--	if (ret < 0) {
--		dev_err(dev, "failed to write control display: %d\n", ret);
--		return ret;
--	}
-+	mipi_dsi_dcs_write_seq_multi(&ctx, MIPI_DCS_WRITE_CONTROL_DISPLAY, 0x24);
- 
- 	/* CABC off */
--	ret = mipi_dsi_dcs_write(dsi, MIPI_DCS_WRITE_POWER_SAVE,
--				 (u8[]){ 0x00 }, 1);
--	if (ret < 0) {
--		dev_err(dev, "failed to set cabc off: %d\n", ret);
--		return ret;
--	}
-+	mipi_dsi_dcs_write_seq_multi(&ctx, MIPI_DCS_WRITE_POWER_SAVE, 0x00);
- 
--	ret = mipi_dsi_dcs_exit_sleep_mode(dsi);
--	if (ret < 0) {
--		dev_err(dev, "failed to set exit sleep mode: %d\n", ret);
--		return ret;
--	}
-+	mipi_dsi_dcs_exit_sleep_mode_multi(&ctx);
- 
- 	msleep(120);
- 
--	ret = mipi_dsi_generic_write(dsi, (u8[]){0xB0, 0x00}, 2);
--	if (ret < 0) {
--		dev_err(dev, "failed to set mcap: %d\n", ret);
--		return ret;
--	}
-+	mipi_dsi_generic_write_multi(&ctx, (u8[]){0xB0, 0x00}, 2);
- 
- 	mdelay(10);
- 
- 	/* Interface setting, video mode */
--	ret = mipi_dsi_generic_write(dsi, (u8[])
--				     {0xB3, 0x26, 0x08, 0x00, 0x20, 0x00}, 6);
--	if (ret < 0) {
--		dev_err(dev, "failed to set display interface setting: %d\n"
--			, ret);
--		return ret;
--	}
-+	mipi_dsi_generic_write_multi(&ctx,
-+				     (u8[]){0xB3, 0x26, 0x08, 0x00, 0x20, 0x00}, 6);
- 
- 	mdelay(20);
- 
--	ret = mipi_dsi_generic_write(dsi, (u8[]){0xB0, 0x03}, 2);
--	if (ret < 0) {
--		dev_err(dev, "failed to set default values for mcap: %d\n"
--			, ret);
--		return ret;
--	}
-+	mipi_dsi_generic_write_multi(&ctx, (u8[]){0xB0, 0x03}, 2);
- 
--	return 0;
-+	return ctx.accum_err;
- }
- 
- static int jdi_panel_on(struct jdi_panel *jdi)
+
 -- 
-2.34.1
-
+With best wishes
+Dmitry
