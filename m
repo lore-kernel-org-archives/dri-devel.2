@@ -4,72 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 91610F3D5FF
-	for <dri-devel@archiver.kernel.org>; Sun, 29 Mar 2026 09:53:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1B2E4F3D5FE
+	for <dri-devel@archiver.kernel.org>; Sun, 29 Mar 2026 09:53:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3BA4910E0E8;
-	Sun, 29 Mar 2026 09:53:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1854310E0D8;
+	Sun, 29 Mar 2026 09:53:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="OTjnlqXT";
+	dkim=pass (2048-bit key; unprotected) header.d=yahoo.com header.i=@yahoo.com header.b="WbfS4Qzv";
 	dkim-atps=neutral
-Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com
- [74.125.82.181])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3DF0410E060
- for <dri-devel@lists.freedesktop.org>; Sat, 28 Mar 2026 15:25:56 +0000 (UTC)
-Received: by mail-dy1-f181.google.com with SMTP id
- 5a478bee46e88-2bd9a485bd6so5942271eec.1
- for <dri-devel@lists.freedesktop.org>; Sat, 28 Mar 2026 08:25:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1774711555; x=1775316355; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=gAjwX6kT52RVXlZMnfnNFPa3vKSL/2ZW2fBqwvzrgwg=;
- b=OTjnlqXTjX7gWO5TMtdRuwwhl2G3CFNXd3/UdTABbbKLQ6jf3ERzChmlvbRYyoW2NH
- OdWfbc/arNg5zBKYiiNw5TVA/+ycNwFl9cpzp8IF1bacJnVCqM5iylsPvWHAcRfKlDBh
- ywlVDMNTWXwWhTHOXgGb7e92xRvaaFAhoPZRAtZNWECQG7AVhQkpCA7rQBdyw1AbjCpj
- eCSqxs5qwJh8aq6iWXxGVpxl+Zl1sXkWaoWjL85Bh37WWmewbHl/yvanFUzNbsyaXe3l
- Xbt6WKLDdk5LYYTYSb+eiH4ARNKzLcViwhLyPg/48RdjLM0d46IkG10JvUHp0ZNByk6P
- evXw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774711555; x=1775316355;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=gAjwX6kT52RVXlZMnfnNFPa3vKSL/2ZW2fBqwvzrgwg=;
- b=Ws6FMrhAj2tnRCRp4CKfRtnB7jHlpAr/fTpIVGNvLpECoYr6LEaMwdginBGtwN7Axb
- P31KmTBN+hB5PFxlswd7wCCZwa8oKrkNCeQeOFQf8j/fvNvUIIjIDynochyO8wgXm1pY
- xxzeO11PcTY36GiJumWp3+jWxoMsVxkgFqH49DCY8CiTCdQatQKFX3GEJU9u7SeLHaW3
- raPmhCouEsb73pgajcoFHGeXSnMJnmrE97IWYbF4PS60MCbx3gmD0ZOqYDIVaxih7ER/
- uhgEOnld0Adn55ezv89MLnETxyvh4WBkPsqkgbtWklvh/kz54MXSL/xmRfl6EGEIyLTZ
- L8Mw==
-X-Gm-Message-State: AOJu0YyaVWwz4o4ZyRpFxTjEXln4KWqMkRmBjnXT7lanxAXD7cFj6iGQ
- bmZYyhbKyw+GuSUlsUhnJUrS+EgVjEyd9rIdsavGVbaKSCY/ApW1hjQIJehzdfU6
-X-Gm-Gg: ATEYQzzqy8EX5ZwF9L+BgZ5rPX3yas/UZvdEluQHBis3ThQChKxS5ik6mT5BOZ8n+Z6
- zbD9J98gJ+YVkFKKs3dKawHPgwlBzxXjjNy4YM6wxBgny6NVZiUH4/locdID85HTcMPHtdAHiLr
- 4SRPQagpb5Wq3R1XPNAMMGJ9ULbt/lFfJvSWTEsSlOF71x0G+3fINnmuI3WjCHqMXNibx86y+n+
- tZft5cS+FQB88lpzNQikAtjnktlJlZt3HAo7ncQj7J4toWgdfBQ+xf9LNy68ibX8cDx6PSOZPKP
- jtIMZJXJg+dGyMFUvGabXjMFFq5s5PX/cJ0Mb4CeNzW13ygjyTL1mAp51GdhT9MHsoI4kaYAs2b
- xKDFAqCib8LOu64nX7xfCoUk8FQ640vxPntmK3+EUtEAxwfnrfElW9rWJ2s+oMRin61fvwzByUG
- 1AHb5FJpMIIXruqNiaqtLyGQa/FaSc82LPBq496ys=
-X-Received: by 2002:a05:7300:e60b:b0:2b9:80c1:bb5 with SMTP id
- 5a478bee46e88-2c185fb72aamr3664331eec.33.1774711554651; 
- Sat, 28 Mar 2026 08:25:54 -0700 (PDT)
-Received: from msedek-pc.localdomain ([200.28.217.234])
- by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-2c3c796d895sm2149215eec.28.2026.03.28.08.25.53
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 28 Mar 2026 08:25:54 -0700 (PDT)
-From: Miguel Sedek <miguelsedek@gmail.com>
-To: dri-devel@lists.freedesktop.org
+Received: from sonic311-23.consmr.mail.ne1.yahoo.com
+ (sonic311-23.consmr.mail.ne1.yahoo.com [66.163.188.204])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 03D4110E4BF
+ for <dri-devel@lists.freedesktop.org>; Sun, 29 Mar 2026 07:34:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048;
+ t=1774769673; bh=V7Fe5j5YmQNWtMWv+HiettIuHXaF9B12nKExBxT8Hk4=;
+ h=From:To:Cc:Subject:Date:References:From:Subject:Reply-To;
+ b=WbfS4QzvqvhefStTi/MvPdH/+0wdO8m2qItn3B4WCYAGWSidtjqIus8Q9fUoVaEuucJwKfXte43Ddf/ARXZKy4A1hNgu8dTMql60Wvx416rcOHOWzYvMzrdUxs4S+fAvhF93/9iuRLUXLH4PtxyKRMlK/CrxYtI4Bx6DYhn/g7phr14WzoZn7x4/cqRqXebf4nBlHBkbo0xo83S1w4t2KokringcE/sx3/BAIMCaTBKtIY6wl4ygkIlLSKnNB6xSvRePmmVAb8ttipjVQIXQiKqdXH16tuTIOMWwvQv4NzZ1J3oPef/vORs7kIw5D0iOyBJypeQisEGXqYbbHbaKBQ==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048;
+ t=1774769673; bh=cCbimxfdOGXC4/KwP+oN36JbXQmpwEOrlp9nc8FFdN3=;
+ h=X-Sonic-MF:From:To:Subject:Date:From:Subject;
+ b=DPjVkCZZfqzIVgvZ1Yu7gwzy08hvFjTOM+WUms4b/W2h8oCyOEhCcjCgPV9/UKsMKFQ2rzJRMCybMDvdVOUsb6AOjKdxJKHDa/PWwX8+6N3hnAG6o8ZZUaRYj0cfNqY6LOfxNqfbM1Co26CJvGKEirpWSTjvWT8UqnGilrEZ3GMMg584wD5xhzEccHv4DVEChuQb37D+DF25FXbXkyaBGa0y2IZOfKUI+5Zw77kdO+SKHGRY2vYwGDR3hBSVAnhGify9wyt0HM3LxQG8o+lChOntZoFqwFqZdKXDLH7Dy8dn13rnNWLXOWTVqY9a3Tnpa6W1uvOtmnw/wbIYBvZDPg==
+X-YMail-OSG: wiG56L0VM1lXOrMO7zYN_3EBKtFe6gaNfbn4VxGauCW_4zaeyWLtTSFI_K4VXlU
+ EVq8lBrotN1UgbHOZtnlDPQtCZnzwdeQq5fctod.kzCbXw1him0Zzw_LJHlmbyidWFdxuGh2lpbm
+ GEqj6M2ivlm91NkusoqEyoxIVifZWYrpMMVkQMkYLnLfPVlFyDCVFTKYzGWflhEcCwMaJE30RdDe
+ l2YwVBDRT7LL6V0K40EdXRM8FhDV3s4HydYtec4LFR6sTPGfLB70hayBvC2DcPlZBUh.BlkEfqhg
+ tZVQ4eL6MXghcWc3Q3d2xo7Z.uokBG0LmIxtTbbuQSdSgdu950Brs__nd6be_YohY_aQOal_KLgH
+ d2n8AemC3GRr0_40zbQ2oU6wypwy.wTxX583wUV_XeCUe3DoQvtrmQVAthC.sNFoag_BGDcaSrLx
+ Gzvtbf0qiVPQzHDzlHGRRRobYP0DR5h7SlCiqfHUNUhiEAXT1zV5pb4FsQZoO_39LKKRQyRnzXuS
+ acsF6FLJDCI8YYLgMcFnetc7EK8Z4EbYSzdiet9uiao0rq5Qg6d.eei.sqvsy1klaJZfaQp_86cm
+ 1LM7Yxg8PSpm3mm.mE3awxBGpUUmF9Rm8fUsBPd.cDWxZhjN5HnFYRJOYafM7GS8qWPqF8CwQorL
+ 11_O3z15NbcRyKFEFkM4vHWjVqqmTvnPCVRZBFTlWM5sYT13hrIs6BaKDnJ9glSyTfxvvDCOx.p_
+ k80eS7_8X2QeTOyokKXtxBvgv7RJNwxLtDmXCzL3nKklnqq6JyRK8AUkGoT5OAB5nRlaX2OZIqJu
+ pEKB8hoHCvvnh.XkkqDNNjdVL3T8yoYsAxWgvibjD69SqGyMh95pKKKWUmYLV2uYvb8OZiGYh38x
+ fEns0XbT.gVObyxX8fTZ1Ut0660FdBmndzuKt9k.bKGucvKw_yqKpcC.juPY4DOsM85jQhQMUsIK
+ giY2PsvUjpSSbXnhhu6HGEbeZ_rCfg6GEY5q2pm4d1o_7YVNCh7OmDef.WeyGfhyqrYKoZEuTeAW
+ pWzPx2F3kTH.5Ocuis1tl9qSccArVf2U6AftT4.px8d2pGfQ.ZPZfJyyxj3E2aIT.e.9ibPnowRe
+ YQ5rWY32ReBbmrVRkhR29oB5pAWHBH9_1eKaNukLYfxSokHfU9IvTeUgl99JZ04K.tR3axRf_V2Q
+ nSqtdBlqEqIV9UHZWIGXpKJuzrF2XKKsLUqU1GR_6LhaTAlpbmGkEQBV9b9ydBdXzwy2Bcf98M9.
+ BUKFznTlvaTTpokaDDvKqPCsAds3HPYeSYe043X40DEpY93YafL3svwtg648ZnSKBakeRsau9Lj2
+ ZrU6N0.reRDtIIYpnclmXLKSuhY75ineJD5rSme.L_LkOiCDWYnY_63.JBSEtmKyxZ9O455osAjM
+ 4rgtRgrIsmBOe7m77troeCD_2IIUuwx7AIQn0fb8D6rXqwAbHAYtaMMFzggWU0Gsst0yJDjAxWIi
+ A8iECGs5bTmfQkGIScICpPEYicR0o1ed5.cUappYW9m8hIqNmIKXEK0LdKam1nb.mOSU7MBqp6Ux
+ GnXFtuTaU0vpNCW_4z2rdVj65QDEC6MxeqBIUnCum2WEk6He1RWRc4h.oB4kio19n4YyBwxj3h4I
+ 0zABzRNZkNm_VNZhfXbFiJjEUJj5h8giBRJ49ExhfbQQS9GcBJnUoxHRsUF_eubvdqNHUCMRuZpq
+ KielRewyByp7LO2vzenPi893zm.aBkyO6dUBkFH_BmoX2svPw7rGc_3XoHCrM8aYp4GLwJ7TfSql
+ ATgdC5xqahwiLJE9McDL.ZqwFmu64ugmrrLuldui3IzoGt2F1sNo1dypHKoS3bWw4MTQtgByiruv
+ lgeFG.NJJ3IpUku1mAHGo3w.RHs9lIXFNpBxxWi7ZkzfYvXn4y.doqz5YO4DaUnbDohsOzO.vm1D
+ eV24BnIw7FqC8qBxzCL61lfSujwEqpKLMFCIs1tG0cMh1VLvQ12Tg.8FO5enJxfD19PGZmw6.rgW
+ Huwpb5tOMUqUMmlh0mBQTo_Bzmm3LlF6rdbKMovPRUseU70lcCNN1DblylyCFzcUYJ3ByqUTKP19
+ emvDcICj68Be9HMLGZuYfAVo_bG.y8p3ixPbSol5zVWmpItFelmqPTnBcdOseO7V6oFz.vx.nsPg
+ SgFKlzBX2kliio.pOEnUQfYbil4WKUoeqtl_XDQQyAIBVEPkj0ti86l3XqXRwHG.4PJMFI.H5ju7
+ 2mKzfWo0LhvOpCnkxQck9WyS8mjbGZ4PxNt73vuSeeDPwnakpkrAF9GTytqbn7714YtFZrU4MjeP
+ QPc8E2g9KzgVvp0tSRNcxQwQgUcnQp4.Bvsom
+X-Sonic-MF: <abhishek_sts8@yahoo.com>
+X-Sonic-ID: f9e14122-7cc6-405d-9192-7017615a970f
+Received: from sonic.gate.mail.ne1.yahoo.com by
+ sonic311.consmr.mail.ne1.yahoo.com with HTTP; Sun, 29 Mar 2026 07:34:33 +0000
+Received: by hermes--production-sg3-6959968fbd-gj7s8 (Yahoo Inc. Hermes SMTP
+ Server) with ESMTPA ID 704786d9823fd8a8253f68d6c834048e; 
+ Sun, 29 Mar 2026 07:34:27 +0000 (UTC)
+From: Abhishek Kumar <abhishek_sts8@yahoo.com>
+To: dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org
 Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- Miguel Sedek <miguelsedek@gmail.com>
-Subject: [PATCH] drm/probe-helper: signal hotplug for force-enabled connectors
- on HPD
-Date: Sat, 28 Mar 2026 12:25:50 -0300
-Message-ID: <20260328152550.20222-1-miguelsedek@gmail.com>
-X-Mailer: git-send-email 2.53.0
+ airlied@gmail.com, simona@ffwll.ch,
+ syzbot+3fc9eecaf97147282c87@syzkaller.appspotmail.com,
+ stable@vger.kernel.org, Abhishek Kumar <abhishek_sts8@yahoo.com>
+Subject: [PATCH] drm/atomic: fix vblank event leak in complete_signaling()
+Date: Sun, 29 Mar 2026 13:04:23 +0530
+Message-ID: <20260329073423.8390-1-abhishek_sts8@yahoo.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+References: <20260329073423.8390-1-abhishek_sts8.ref@yahoo.com>
 X-Mailman-Approved-At: Sun, 29 Mar 2026 09:53:39 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -86,78 +93,56 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-When a connector has DRM_FORCE_ON (set via video=CONNECTOR:e),
-check_connector_changed() calls the driver's detect() callback.
-Well-behaved drivers (e.g. NVIDIA's open kernel module) check
-connector->force and return connector_status_connected regardless
-of actual hardware state. This means the epoch counter never
-increments and no uevent reaches userspace.
+When prepare_signaling() creates a vblank event via create_vblank_event()
+but hits an error before the event is fully initialized (i.e. before
+drm_event_reserve_init() sets file_priv or a fence is assigned to
+event->base.fence), the subsequent call to complete_signaling() fails to
+free the event because its cleanup condition requires at least one of
+those fields to be set:
 
-However, the HPD interrupt itself indicates a physical state
-change on the link. A common scenario is an HDMI-connected TV
-switching to built-in apps (Netflix, etc.), which causes the TV's
-HDMI receiver to stop listening to TMDS signals. When the TV
-returns to the HDMI input, the GPU needs to re-negotiate the link,
-but no component in the stack detects this because the forced
-status masks the physical change.
+    if (event && (event->base.fence || event->base.file_priv))
 
-Add an epoch counter increment for force-enabled connectors after
-detect() returns. This ensures the hotplug uevent reaches
-userspace compositors so they can trigger a modeset for link
-re-training.
+This happens when only fence_ptr triggers event creation but a subsequent
+allocation failure occurs before the fence is assigned to the event. The
+128-byte event object is then orphaned and reported by kmemleak.
 
-Note that detect() is still called normally before the epoch
-bump. This preserves driver-side effects like scrambler
-re-initialization on vc4/i915. This approach differs from a
-prior patch [1] which skipped detect() entirely for forced
-connectors and was rejected due to regression concerns on
-scrambler re-init.
+Fix this by adding an else-if branch that frees events which have no
+completion callback set. Events allocated by
+drm_atomic_helper_setup_commit() always have completion set, so checking
+for its absence safely identifies events that were allocated by
+prepare_signaling() but never fully set up.
 
-The software polling path (output_poll_execute) already skips
-forced connectors with an explicit guard. This patch addresses
-only the hardware HPD IRQ path, which was previously unguarded.
-
-[1] https://patchwork.kernel.org/project/dri-devel/patch/20220826091121.389315-1-mrodin@de.adit-jv.com/
-
-Tested with:
-- GPU: NVIDIA RTX 5070 Ti (nvidia-open 595.58.03)
-- Display: Samsung 75" 4K TV via HDMI-A-1 (force-enabled)
-- Kernel: 6.19.10 (CachyOS)
-- Compositor: KWin 6.6.3 (Wayland)
-
-Signed-off-by: Miguel Sedek <miguelsedek@gmail.com>
+Reported-by: syzbot+3fc9eecaf97147282c87@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=3fc9eecaf97147282c87
+Fixes: 92c715fca907 ("drm/atomic: Fix double free in drm_atomic_state_default_clear")
+Cc: stable@vger.kernel.org
+Signed-off-by: Abhishek Kumar <abhishek_sts8@yahoo.com>
 ---
- drm_probe_helper.c | 17 +++++++++++++++++
- 1 file changed, 17 insertions(+)
+ drivers/gpu/drm/drm_atomic_uapi.c | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
 
-diff --git a/drm_probe_helper.c b/drm_probe_helper.c
-index 92f2176..b7d60e2 100644
---- a/drm_probe_helper.c
-+++ b/drm_probe_helper.c
-@@ -984,6 +984,23 @@ static bool check_connector_changed(struct drm_connector *connector)
- 	old_epoch_counter = connector->epoch_counter;
- 	connector->status = drm_helper_probe_detect(connector, NULL, false);
+diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atomic_uapi.c
+index 87de41fb4459..52a6b8436437 100644
+--- a/drivers/gpu/drm/drm_atomic_uapi.c
++++ b/drivers/gpu/drm/drm_atomic_uapi.c
+@@ -1523,6 +1523,17 @@ static void complete_signaling(struct drm_device *dev,
+ 		if (event && (event->base.fence || event->base.file_priv)) {
+ 			drm_event_cancel_free(dev, &event->base);
+ 			crtc_state->event = NULL;
++		} else if (event && !event->base.completion) {
++			/*
++			 * The event was allocated by prepare_signaling()
++			 * but an error path was hit before the event got
++			 * fully set up (fence or file_priv assigned).
++			 * Events from drm_atomic_helper_setup_commit()
++			 * always have completion set, so checking for its
++			 * absence safely distinguishes our events.
++			 */
++			kfree(event);
++			crtc_state->event = NULL;
+ 		}
+ 	}
  
-+	/*
-+	 * For force-enabled connectors, the driver's detect() returns the
-+	 * forced status, so the epoch counter never increments. But an HPD
-+	 * event on a forced connector still indicates a physical link state
-+	 * change (e.g. a TV switching inputs). Signal the change to
-+	 * userspace so the compositor can trigger a modeset for link
-+	 * re-training. Note: detect() is still called above so driver-side
-+	 * effects (scrambler re-init, etc.) are preserved.
-+	 */
-+	if (connector->force && old_epoch_counter == connector->epoch_counter) {
-+		connector->epoch_counter += 1;
-+		drm_dbg_kms(dev,
-+			    "[CONNECTOR:%d:%s] HPD on force-enabled connector, signaling link re-train\n",
-+			    connector->base.id, connector->name);
-+		return true;
-+	}
-+
- 	if (old_epoch_counter == connector->epoch_counter) {
- 		drm_dbg_kms(dev, "[CONNECTOR:%d:%s] Same epoch counter %llu\n",
- 			    connector->base.id,
 -- 
-2.53.0
+2.43.0
 
