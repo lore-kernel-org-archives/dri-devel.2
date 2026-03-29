@@ -4,142 +4,106 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 677EDF3D5FB
-	for <dri-devel@archiver.kernel.org>; Sun, 29 Mar 2026 15:51:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1DBDAF3D60A
+	for <dri-devel@archiver.kernel.org>; Sun, 29 Mar 2026 16:03:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8091410E086;
-	Sun, 29 Mar 2026 15:51:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 747A210E1D2;
+	Sun, 29 Mar 2026 16:03:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Ghppxhz0";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="GrOBd5aI";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ezXfy1td";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1222510E086
- for <dri-devel@lists.freedesktop.org>; Sun, 29 Mar 2026 15:51:20 +0000 (UTC)
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 62TAils54088648
- for <dri-devel@lists.freedesktop.org>; Sun, 29 Mar 2026 15:51:19 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=+XFKuPsubpCNTnF1xZlcgXY3
- EdV75Y5UQd0HC6KEMlA=; b=Ghppxhz0cewlrm+xU5N73BddzzJzL4zFWUnQgLaZ
- oV6UxWEEcMyQzO3IueRm9Jykw0oT3RhXG2qZR/KJh0naNjrbkV3KmoI4A2/IvzNQ
- RkQtm6dZqEhq7Pd614O2jlBZZtNsGicUYPSXdT2yHUquemPargpJM8cIPxPuRQjA
- ZcnW5QOobeilIxQTpP0Sw0pedHSMP2iaVYhIUeNTf+wlVi5vFOhaM1bINHMZFlKa
- iEocgYF1/ihFECxwyDGhSOb1T9zG+omGxteROAm8kdig6bv4aWquA3Qn6+7dUyp1
- kTeeu8ILtECPH+yf98EkbQnl33dKmvv/oCddauwRZO06lg==
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
- [209.85.160.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d677133we-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Sun, 29 Mar 2026 15:51:18 +0000 (GMT)
-Received: by mail-qt1-f197.google.com with SMTP id
- d75a77b69052e-5094ba09affso108983871cf.2
- for <dri-devel@lists.freedesktop.org>; Sun, 29 Mar 2026 08:51:18 -0700 (PDT)
+Received: from mail-ot1-f45.google.com (mail-ot1-f45.google.com
+ [209.85.210.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9061410E1D2
+ for <dri-devel@lists.freedesktop.org>; Sun, 29 Mar 2026 16:03:49 +0000 (UTC)
+Received: by mail-ot1-f45.google.com with SMTP id
+ 46e09a7af769-7d751ef36ccso1976766a34.0
+ for <dri-devel@lists.freedesktop.org>; Sun, 29 Mar 2026 09:03:49 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1774800227; cv=none;
+ d=google.com; s=arc-20240605;
+ b=BdsrbDafw7gbXVuFgSiQLJHGRHuq+xBqCqep4ygDmsl3+xn7cjUr0ABFdtjfqNGNKD
+ 2tRE2qUmTOh3n6bl2Vc9gqcK5eokp6HiFUMFnOTjS6ZUSlKZ5epFc4rCngPCqBLDTnOh
+ w6CTPkemxY43Q1vjP4qICzwvcUKsfhcfrRNQMhw/A16GbLq2ugDUDQr7KweknPlPTkwN
+ OhJ9C6WQR+lFKEpSqgM3JW/muAn34f8K//xkzaMxnhFp/b9NJ/laQNkHSifqB5h69HCu
+ 3GgJiN1DZnw804G6hnfrGLsk7twR2lk8eee29fUgdoDpb7TEQPiywwB5fQn0le/hHJzl
+ RKZA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=iuRiB7kx80/hvjqFvrfisUx6wOU49zwzAkhJWuxRZrs=;
+ fh=fVmxYoHI90gERUk28yfSvzaep29mcYu5Z/uuQXEuGik=;
+ b=CeNGQWWpp5WO1HAD9FXk4bM3FXFRRecrUkb6IwcOTkw9vR54iO6D+5W9x0PshsmNo8
+ a4TI4spLYFtHYDNqAL3TGBXKY1C6EmK+nTlq9BE7CKmjCUzmZcHwD1l9QoGWcrMprq4q
+ L79CehmofyiDpiR+MzXjhpYffge/XiCMr+Xl0dadyxga8J6YbXzLoQQ5NSGgwnvYBBYb
+ CtWrNcWKsogbcKd7fU8WyUehipbilphNMLyMNNQyTWWZYn9kVrE6IiUnXwFe3c1voLaA
+ z+/YJXtwoK8vLHTwPfHzDKtbnRx1RVeM4eSO2qjK9veST6LLawxLfUH45ApSpdXTfaRI
+ AuAg==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1774799478; x=1775404278;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=+XFKuPsubpCNTnF1xZlcgXY3EdV75Y5UQd0HC6KEMlA=;
- b=GrOBd5aIyi07vHtiqIr3FSamukbAgD+0iW0wWPJOZKS6yH/T2cyexbNkI6jyJjuWkU
- gxvrKJeYOIFCz2lXoaUNQ0aqnCYSF+KawKyvrG4DikRIZpMBs3Jn9VE534L37uUQZt1I
- X7G95NjtYNs7ihDR6GPP6VV3lMDklPcvy47ZOPyYZZRO4BXdcY0cIYJrTCmKGl3jL+Kk
- SI8GGoB+AeHigT2Xhe2KwEXdyw4RSStzfKKyfDrBS4OWdR7lVeBHwdhPxkk2HioZ/8eX
- aHwpM/eHVjnd4kA8mtwqX2nyDCLh7j5TRNNDCQh5YNpglPoocrmhOYXVEr4NtCdeRAKR
- L4mA==
+ d=gmail.com; s=20251104; t=1774800227; x=1775405027; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=iuRiB7kx80/hvjqFvrfisUx6wOU49zwzAkhJWuxRZrs=;
+ b=ezXfy1tdFyjVOEoji0zsczkUdtCSDK5/tsdRbbkRcQR4DZ7VctFYreJovGY4ypkrRv
+ Wv2br+gGP1EfTy9Byl+As/qt4kIx0pq+q87pMLgs65LSFwE42R99qK4Nr7XwzOYc8pGo
+ 6UXtVo4Mn0mkJ6vXddsdE7Q5tGEtgKWsruV24Awxu4vNQRSx0LL3ElFT9g+StOIpfO0c
+ UuEfIh+ruk4LzV/jkBlUHzeiUb0uKCsYX0A38V99QltQlGlPeo2r15PTpm8jdVVs5qmr
+ 0MUptNZhyCUSNIAPd9Vp0y2gcJY7wy7gGlWuAhKIPcXjL8lCT4pEDLkoPV0V5NAjLhnE
+ ouog==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774799478; x=1775404278;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=+XFKuPsubpCNTnF1xZlcgXY3EdV75Y5UQd0HC6KEMlA=;
- b=rvs0z5SRTuQrclQVwGAzensd5j+l3v3wqLrCfqIf8UHwv0C1oc7v00kfdt26I1RGa+
- oXSk3eoGiheIrFz1RdCKFZD2oc7D90j+NMDcndOv8Q3hA35/UYbq93ydxNoMtFe8DNRa
- 2evFK8WCyB5lEvTvPRGNB8bBmd7jZ7kgsIiGQuXQ5VIz5fTNZy6AylT/sZGQxE2I4kss
- 0TcxutaJP0PIfNRap4t9OhjYXS/XyUlNmqg14Jaoy7oGTXIiGp/2aWrkZv6j5yNn1yGy
- IWMbIZfRuq/3uhpB/zcJwmoL6+AeA4qXR7pioQveMw9bo1/Bjh2nCGcBfEG7fcc+UjRo
- zLKg==
+ d=1e100.net; s=20251104; t=1774800227; x=1775405027;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=iuRiB7kx80/hvjqFvrfisUx6wOU49zwzAkhJWuxRZrs=;
+ b=R8zbkV7c4C5fX7sMBjB4euEs/xf/EAe6X+hiRgCUWr0FnqR/UrmjLjHadwLRHxT6qP
+ VI86VJlqoJ2g0mp971yMYdoKbCV5g3ExvysJ6HEzQkPCZr5FGqLQ3qKyYnLidq0YkY/u
+ MfUzWm3xb+OkZO33W/Lx0R4my7uVi/UFFZN7O2uhyuxzCMIeDAbzEpeuvdSuQq/kq5B9
+ 1rHY/OV5Bufqv84fHFfCltJB4E6cs5Uvi32VS4jLaOlPKS6RHS00Hel9bmC9ugfLstu2
+ UjYp4ZdFyZLUMBbxmArQEPhV4GcUqKFngzsB1hqOuk7nK9YNWjcXWxTzYs0MC6ma35j/
+ LrUQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUxRlJZBJWcJX9pTsRnChCS7vWz2ozClyfw0CdOgv2wAGR5qhIBQc0AghPvrhvLIrn9KMLCiufD+q0=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwZCb5RMso7nFILqAcqopvxAPH+Pc8hZFSVVvy3byfKMJYNI0Ow
- 2siZPrqznqzCJKKuQzdfaE++Ny1dvfSOqvNMISS6qnGbvwwS79U9yL0c53aC7S7OP45JB6gZ9BR
- Ho+0CrK0f0v2P8NtJAZh8/QuRItq9ljL8KUOd120eV3tUskZbYsGDGcaHAuj8p1rGCRbDOOk=
-X-Gm-Gg: ATEYQzwJlmm4jqUNa/oT/hKBhoJT3Jo6KOlfESVTfHCfUIz6woX5AoNRyVoPgNMYZxE
- R+RFStKMHICzq4ksiSMrD4LopnWkrbR1/ABCcmbxiIxGqiItRuXTL6J0Jz0jS169vEnEjGwmTo4
- g08vugu/Bn01bXmOGsF7HOOl79OkMMToX7WO5Hhdx9bC0eVa2Qs/JBXsoxnK06KBKFJ5Pj17GH3
- Dw+VPX2PEalVKdvLBOMb6aTAMih6rlLVIr7WmXjtfEdlqTDk1dvgdH3dz8L3Ae9HbxOuWLpso0N
- 8mlC/Wh0NuWsSSSav2Lc9R6RqW+lCNuMdCVkjcc1BdQvQj/wUhbeKJ5unSaWVYDM4bycJUo7tIh
- NG8zqhWVr1U2optekew4NS2v8jGygG4Ou/DIlndt9JirUPrdG8t/7MT8ZjSGWon8S8n4+s18FFe
- FQdJf6ipyEN3WWk6O/ZTqpIQ2mbDk9xNSWU2E=
-X-Received: by 2002:ac8:57d4:0:b0:50b:69c2:b86 with SMTP id
- d75a77b69052e-50ba38b7f26mr125930451cf.27.1774799477708; 
- Sun, 29 Mar 2026 08:51:17 -0700 (PDT)
-X-Received: by 2002:ac8:57d4:0:b0:50b:69c2:b86 with SMTP id
- d75a77b69052e-50ba38b7f26mr125930101cf.27.1774799477136; 
- Sun, 29 Mar 2026 08:51:17 -0700 (PDT)
-Received: from umbar.lan
- (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
- by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-38c838b8db8sm9767781fa.29.2026.03.29.08.51.14
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 29 Mar 2026 08:51:15 -0700 (PDT)
-Date: Sun, 29 Mar 2026 18:51:12 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: cristian_ci <cristian_ci@protonmail.com>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org
-Subject: Re: [PATCH v4 3/6] arm64: dts: qcom: msm8953-flipkart-rimob: Enable
- display and GPU
-Message-ID: <s6kyh5wyamcxyd7xsbu5wrrpndpdb5xhxapmxze2qgblng5eiq@hl36nzg2lldg>
-References: <20260327-rimob-new-features-v4-0-06edff9c4509@protonmail.com>
- <20260327-rimob-new-features-v4-3-06edff9c4509@protonmail.com>
- <us3ps4bgf5ekk2iudcgs2wa4b5qd4mzokec4q55pmhb6kvt6ht@qm4mmzdai2t2>
- <O7THc5h8ZhgzNpklYKTGOnEZKlN4BtHZHjKZt2KErekNb3E-hizt2dw7xuJ8G6giEyivmvC0f6-eIfCT6fJkUA7_CVQwhAktCXfBqAVV_Zo=@protonmail.com>
- <o2sbqzcix74u46g74sil2c3b6mgd6zsrmafesoqltfbbrzqhjh@uochk3so46yx>
- <VRCUEe2qHZa0a8HzVvhoRtAZyXO8pBU_l96B6U1kL5EFVSJyQBfYeKDvqPit-qpPRtIjUbtl7TH0JegJ7LXvctAxgyo50K6rTC5hwNjuV5k=@protonmail.com>
+ AJvYcCVN0s8+ad5DRUbF1sy80nDgLFU8jbt9G2Pili2F8WrRXGt7ndo3xZsQDgqXMhaG7MzOCvUP9H8/ZOU=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyLGnliIIyo7hsz3wyroK5RfuzVz/evdbqXoOM+4cb3n0gvXPQ8
+ dYRqQ5BChgGTxlfMmJkGdwvkvSzs1T80YppOTnaW4fpvlspIWXsepWnxEqfZzmw/qG8s2k7hlCK
+ vtOmCBg3P+zdV3S886uM6BDHIkySGQ/E=
+X-Gm-Gg: ATEYQzxPGVEkQmsDyBzd6LTOI0HQvW/wYkMbXor9YpfB1jHwUn95NjrjsSXvmAAnvgN
+ UiOQrydSeP+SYE313xc8UCp/R6yPgweBJAzGSU2boHieoonQIHbC9cP8O4EV3isIsmPgNz59wu1
+ RJTLvhXgvNKg/dvH4Vg/xj6oNC+owzEA3hQGLkz5DYsoVng6iu/H4hSLKn5Ym2ulztUGG/A+o9g
+ 1rLmt7mSIjAkYiSaqC+4Vowex9xWP42ICwO6Ds+UjP/HZODdTdri3SsWvMfMXBOr9yDYghwwtb2
+ e3W7X+DJ
+X-Received: by 2002:a05:6808:1a1c:b0:466:ff3a:c745 with SMTP id
+ 5614622812f47-46a8a3eb1b4mr4305468b6e.21.1774800227277; Sun, 29 Mar 2026
+ 09:03:47 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <VRCUEe2qHZa0a8HzVvhoRtAZyXO8pBU_l96B6U1kL5EFVSJyQBfYeKDvqPit-qpPRtIjUbtl7TH0JegJ7LXvctAxgyo50K6rTC5hwNjuV5k=@protonmail.com>
-X-Proofpoint-GUID: XFAyK1RyRwdwxij_1Hxh_DbNljIhxXTv
-X-Authority-Analysis: v=2.4 cv=efYwvrEH c=1 sm=1 tr=0 ts=69c94a76 cx=c_pps
- a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22 a=VwQbUJbxAAAA:8
- a=pGLkceISAAAA:8 a=EUspDBNiAAAA:8 a=sfOm8-O8AAAA:8 a=j0FgyEIfbjhtT0SB758A:9
- a=CjuIK1q_8ugA:10 a=a_PwQJl-kcHnX1M80qC6:22 a=TvTJqdcANYtsRzA46cdi:22
-X-Proofpoint-ORIG-GUID: XFAyK1RyRwdwxij_1Hxh_DbNljIhxXTv
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzI5MDEyMyBTYWx0ZWRfX3dt8KzgOY4pD
- ZrTmelSbtddZwd+cZ6CPChPkSwXyxcJHF93eBPqthEGkvFoN6g/DzysfvUAk326Gjc4t2Mgwott
- E4paKU77g9vnGVKCxmGp/+w4MBrlK3IoPiXw5/+hWMO7Cm7yduXqwBTAXAjYMZSs/NZABwSCgNe
- UWZBV9fzK2uu4fUU9xsZdUoDJFNVrK4NrHRC57ZM5FzzUim88SdD1cOydIBXzREw665Ffg9n4Mu
- Ok7YShA/cbNcbktQQnTKoNH0GyNSDrd+Wd66O7UV1xP84rvJwEuK4N0wZFcJRnk2haSjWlBiwCv
- DxPHE4IQ5bkZbL5pLbnHQwvIZ73xyHNbJAXV91KVtypxBV6XgvTlu8Dp1CzxRjbl6xHjnuA6f3N
- Z+HdNtFN10eXtW/1KIgw92Nxj/fv3vbCjQfzLRwR73/YbfIuDtfxvxE1ZEE166aMHlzmocH8WJ2
- NDyCYAkwf8rf3qDNbZg==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-03-29_04,2026-03-28_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 malwarescore=0 adultscore=0 clxscore=1015 spamscore=0
- priorityscore=1501 impostorscore=0 lowpriorityscore=0 phishscore=0
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2603050001
- definitions=main-2603290123
+References: <20260325040457.2113120-1-jason-jh.lin@mediatek.com>
+ <20260325040457.2113120-4-jason-jh.lin@mediatek.com>
+In-Reply-To: <20260325040457.2113120-4-jason-jh.lin@mediatek.com>
+From: Jassi Brar <jassisinghbrar@gmail.com>
+Date: Sun, 29 Mar 2026 11:03:36 -0500
+X-Gm-Features: AQROBzDYnGEvrmF9Nv8aKI46KCu4qNGcGl029nctsf-3ar7uJysAlIX7PTC3c6A
+Message-ID: <CABb+yY2cjMskJeXsn8+hZj2DcFs05yabHbSaGT5XSi0fn45zCQ@mail.gmail.com>
+Subject: Re: [PATCH v2 3/3] mailbox: mtk-cmdq: Remove unsued
+ cmdq_get_shift_pa()
+To: Jason-JH Lin <jason-jh.lin@mediatek.com>
+Cc: Chun-Kuang Hu <chunkuang.hu@kernel.org>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+ Nicolas Dufresne <nicolas@ndufresne.ca>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Matthias Brugger <matthias.bgg@gmail.com>, Nancy Lin <nancy.lin@mediatek.com>, 
+ Singo Chang <singo.chang@mediatek.com>,
+ Paul-PL Chen <paul-pl.chen@mediatek.com>, 
+ Moudy Ho <moudy.ho@mediatek.com>, Xiandong Wang <xiandong.wang@mediatek.com>, 
+ Sirius Wang <sirius.wang@mediatek.com>, Fei Shao <fshao@chromium.org>, 
+ Chen-yu Tsai <wenst@chromium.org>,
+ Project_Global_Chrome_Upstream_Group@mediatek.com, 
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ linux-mediatek@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
+ linux-media@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -155,48 +119,69 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sun, Mar 29, 2026 at 03:26:48PM +0000, cristian_ci wrote:
-> On Sunday, March 29th, 2026 at 12:12, Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> wrote:
-> 
-> > On Sat, Mar 28, 2026 at 05:30:53PM +0000, cristian_ci wrote:
-> > > On Friday, March 27th, 2026 at 23:57, Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> wrote:
-> > >
-> > > > On Fri, Mar 27, 2026 at 03:30:49PM +0100, Cristian Cozzolino via B4 Relay wrote:
-> > > > > From: Cristian Cozzolino <cristian_ci@protonmail.com>
-> > > > >
-> > > > > Add the description for the display panel found on this phone.
-> > > > > And with this done we can also enable the GPU and set the zap shader
-> > > > > firmware path.
-> > > > >
-> > > > > Signed-off-by: Cristian Cozzolino <cristian_ci@protonmail.com>
-> > > > > ---
-> > > > >  .../arm64/boot/dts/qcom/msm8953-flipkart-rimob.dts | 73 ++++++++++++++++++++++
-> > > > >  1 file changed, 73 insertions(+)
-> > > > >
-> > > >
-> > > > Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> > >
-> > > I wonder if I should, instead, edit the compatible property by adding a
-> > > second string (for the fallback), like this:
-> > >
-> > > compatible = "flipkart,rimob-panel-nt35532-cs", "novatek,nt35532";
-> > >
-> > > and, therefore, add "novatek,nt35532" string also to (patch 1/6)'s
-> > > bindings example. Let me know what you think.
-> > 
-> > What would it mean? I think we usually don't include the IC into the
-> > compat list for the panel, but feel free to prove me wrong.
-> 
-> I've noticed use of that in this [1] patch series but I don't know why IC 
-> string is used there (in the example) if the specific panel string (the 
-> first one) is already defined in the panel driver.
-> 
-> [1] https://lore.kernel.org/linux-arm-msm/20251001135914.13754-2-caojunjie650@gmail.com/
+On Tue, Mar 24, 2026 at 11:05=E2=80=AFPM Jason-JH Lin <jason-jh.lin@mediate=
+k.com> wrote:
+>
+> Since the mailbox driver data can be obtained using cmdq_get_mbox_priv()
+> and all CMDQ users have transitioned to cmdq_get_mbox_priv(),
+> cmdq_get_shift_pa() can be removed.
+>
+> Signed-off-by: Jason-JH Lin <jason-jh.lin@mediatek.com>
+> Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collab=
+ora.com>
+> ---
+>  drivers/mailbox/mtk-cmdq-mailbox.c       |  8 --------
+>  include/linux/mailbox/mtk-cmdq-mailbox.h | 12 ------------
+>  2 files changed, 20 deletions(-)
+>
+> diff --git a/drivers/mailbox/mtk-cmdq-mailbox.c b/drivers/mailbox/mtk-cmd=
+q-mailbox.c
+> index d7c6b38888a3..f463f443e834 100644
+> --- a/drivers/mailbox/mtk-cmdq-mailbox.c
+> +++ b/drivers/mailbox/mtk-cmdq-mailbox.c
+> @@ -123,14 +123,6 @@ void cmdq_get_mbox_priv(struct mbox_chan *chan, stru=
+ct cmdq_mbox_priv *priv)
+>  }
+>  EXPORT_SYMBOL(cmdq_get_mbox_priv);
+>
+> -u8 cmdq_get_shift_pa(struct mbox_chan *chan)
+> -{
+> -       struct cmdq *cmdq =3D container_of(chan->mbox, struct cmdq, mbox)=
+;
+> -
+> -       return cmdq->pdata->shift;
+> -}
+> -EXPORT_SYMBOL(cmdq_get_shift_pa);
+> -
+>  static void cmdq_vm_init(struct cmdq *cmdq)
+>  {
+>         int i;
+> diff --git a/include/linux/mailbox/mtk-cmdq-mailbox.h b/include/linux/mai=
+lbox/mtk-cmdq-mailbox.h
+> index 07c1bfbdb8c4..a42b44d5fd49 100644
+> --- a/include/linux/mailbox/mtk-cmdq-mailbox.h
+> +++ b/include/linux/mailbox/mtk-cmdq-mailbox.h
+> @@ -96,16 +96,4 @@ struct cmdq_pkt {
+>   */
+>  void cmdq_get_mbox_priv(struct mbox_chan *chan, struct cmdq_mbox_priv *p=
+riv);
+>
+> -/**
+> - * cmdq_get_shift_pa() - get the shift bits of physical address
+> - * @chan: mailbox channel
+> - *
+> - * GCE can only fetch the command buffer address from a 32-bit register.
+> - * Some SOCs support more than 32-bit command buffer address for GCE, wh=
+ich
+> - * requires some shift bits to make the address fit into the 32-bit regi=
+ster.
+> - *
+> - * Return: the shift bits of physical address
+> - */
+> -u8 cmdq_get_shift_pa(struct mbox_chan *chan);
+> -
+>  #endif /* __MTK_CMDQ_MAILBOX_H__ */
 
-That's why I wrote "usually". In the end we also have several
-(unfortunately) panel devices which use IC for compat string, etc.
-
-
--- 
-With best wishes
-Dmitry
+I think the simplest would be to take this with the other two
+predecessor patches.
+Acked-by: Jassi Brar <jassisinghbrar@gmail.com>
