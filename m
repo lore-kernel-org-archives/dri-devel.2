@@ -4,76 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0F778F3D5FE
-	for <dri-devel@archiver.kernel.org>; Sun, 29 Mar 2026 10:18:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 46F26F3D604
+	for <dri-devel@archiver.kernel.org>; Sun, 29 Mar 2026 13:20:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 689D610E324;
-	Sun, 29 Mar 2026 10:18:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5BBFB10E48E;
+	Sun, 29 Mar 2026 13:19:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="j7czHKNi";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="DQRlphdF";
 	dkim-atps=neutral
-Received: from mail-pg1-f176.google.com (mail-pg1-f176.google.com
- [209.85.215.176])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0EE3C10E324
- for <dri-devel@lists.freedesktop.org>; Sun, 29 Mar 2026 10:18:28 +0000 (UTC)
-Received: by mail-pg1-f176.google.com with SMTP id
- 41be03b00d2f7-c648bc907ebso2464061a12.3
- for <dri-devel@lists.freedesktop.org>; Sun, 29 Mar 2026 03:18:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1774779507; x=1775384307; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=d7b45bpAQ57JsmUViAz4jU5XnEGPo0qF7/rcaW71MRg=;
- b=j7czHKNiVNY93S/lN5QpvPCla/hscur4KLDsfgnHwNXvIjObnCOfX8f+mc7YtMOtdf
- NicQJTIudFc8YTklA65jSfBsb81sVLW7tdFRu5MDgk8N1yWPd7nJJspDk4Ibu/VnHI+f
- MV9yNzi0YX58ujKAJxl5uGi9O5cCUwuObc/6AOTIkkiqf0BJBMuqTRfeKbcHHUC/erRw
- gfxTg+xUUnOQhHpq+YIYzaPvt7aKIr5WJoLRVtCsdOOgYGu81Hb+Ib2BeChw9zbkqnn1
- cj6qhGoTyX1ARvC+LV2UOSztNSUoWrsXJf0yTyUsexA5ub+CO2khywenfaPXb3tI6kvV
- qEog==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774779507; x=1775384307;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=d7b45bpAQ57JsmUViAz4jU5XnEGPo0qF7/rcaW71MRg=;
- b=IEUF2VzGhnmEnbMHJlR3IF2lW7iGLyMxD13+kEuytzWIM1MQ44KiVvMJwuyAkU3ZOl
- trq+VdlCE9wnknh2ar0DgLyEUkZi5R5e4aIMjN617LN2oUdIKKCgdTBXNHDjJEw9DIbu
- RfP9t43YXZUHivWN6q8ljweV2QIfwDY0iPYusQUgWsIKBdnkDjE+qIEw7sv2wfs2QDTt
- Kf32T1TVsyrO+q1JgrXdH9lY/TrU+A+Jx8JOUCCDXgrs96nscXHcwgKv+T1YJht77Ksa
- QPqKXKb351m9vyovRnAgjxL4qCwA2bACFXIzNvqssEpw7xwov/Dr0Y9GgtHeUknaGhIY
- fESQ==
-X-Gm-Message-State: AOJu0Yzgt7aIb2nnDTAGKcWxJywbSQ4XjMN8TnuIMwz8VEIZgj5n2fh5
- Y/Pp1dLECW+aeeR/TkWWw+dHnH5c/XlfTY50F/9rvUxCPHV2SdgIClWA
-X-Gm-Gg: ATEYQzyXEC+alU8sSGLr9UJeRA48RFf19cQ1V9fxPlXgE4StHmk5VES9mSiD7ngfH74
- +W5jIeGRy5MOjXz+Oso7rqUewm/mRLhOrut9RLr2EsSljGqUL6QRLUCV9CaVB3Geq2fY7t/IT2n
- UT7igL0UKtydBVTEKBPKWcMAROVtp3XfC6H1UOTW1AWczYlVw5sfOHcLaIUUI4YJDTTsE9Plx59
- Ipc1gWBP5XXXDZbnTvzhaAe4jLOAe+xu8Erp+Jjx9CfFWx/WYIIhgjBUPnn3AmyHQ7E507zbxB8
- UvfKZTDcersAk2jbPln1SD/Ng/ylYuEqpcPKPi+k6eLoGpmph44jFefwxJ4jxUKdciq4f2kJaLy
- CYBQVWx5RqQKlMOqwj5W28u5ULxrpAHd0dOlXC1R8+qwsq35WO12BC4YAobS8C2frGmh0duduY6
- HkyWURofTqdFQ61jqau2jjz333HQK4Hm+DgSO2mUOoWdoMQWopWUpyN5xtCAQCQL2dC/9yNw==
-X-Received: by 2002:a05:6a20:7489:b0:398:7792:3882 with SMTP id
- adf61e73a8af0-39c878aa3e3mr9089040637.16.1774779507464; 
- Sun, 29 Mar 2026 03:18:27 -0700 (PDT)
-Received: from dileep-HP-Pavilion-Laptop-15-eg2xxx..
- ([2405:201:5c1b:7001:f5c0:728b:57dd:4e75])
- by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-c76917d843esm3876218a12.29.2026.03.29.03.18.23
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 29 Mar 2026 03:18:26 -0700 (PDT)
-From: Dileep Sankhla <dileepsankhla.ds@gmail.com>
-To: Jocelyn Falempe <jfalempe@redhat.com>,
- Javier Martinez Canillas <javierm@redhat.com>,
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D58AB10E48E
+ for <dri-devel@lists.freedesktop.org>; Sun, 29 Mar 2026 13:19:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=PCuJ+sQztOoTeOVKSXpW1LrL6o/FBVeSe0mjlPreaoQ=; b=DQRlphdF/Z52h0nqR0Wqo1RK+W
+ STj0xbRdc2djw308i24RcJW0ArTGHYLjO/NKO9f6s00DqIj6ZtVlltqab2pYRTXg1k8VxEL5XUwHW
+ 8AKiZnO/pd50bqtafT50KtBzvvg1AxpekmWGkXzN5V8aw94arWbL1HieByR1MmkPhVHllxGhZ4f48
+ VnAeXuI0QD+stSafZ9B5SXxmpnLl+wWOux5glBD4qVtKnGj/dftdSBhTOaNx1u+ASC75fQQXUJmhu
+ 0br9zThmUKX/zrj0gmtnTQD2bWI2JVuK3gBL4R7IUPzyRZ6OTZmS02RzXBdgToHRVkVNTL/yzbZ7s
+ Ua6gg5gA==;
+Received: from [189.7.87.169] (helo=[192.168.0.2])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1w6q3L-008Ykj-E4; Sun, 29 Mar 2026 15:19:43 +0200
+Message-ID: <a3d06a64-d0cb-4090-8e11-95ac473910e6@igalia.com>
+Date: Sun, 29 Mar 2026 10:19:36 -0300
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 06/11] drm/vc4: Add new job submission implementation
+To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, Melissa Wen
+ <mwen@igalia.com>, Maxime Ripard <mripard@kernel.org>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
  Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Dileep Sankhla <dileepsankhla.ds@gmail.com>
-Subject: [PATCH] drm/panic: Fix panic logo alignment
-Date: Sun, 29 Mar 2026 15:54:54 +0530
-Message-ID: <20260329102454.11357-1-dileepsankhla.ds@gmail.com>
-X-Mailer: git-send-email 2.43.0
-MIME-Version: 1.0
+Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org
+References: <20260205-vc4-drm-scheduler-v1-0-c6174fd7bbc1@igalia.com>
+ <20260205-vc4-drm-scheduler-v1-6-c6174fd7bbc1@igalia.com>
+ <1d9813ab-67b9-43a8-a7ed-e713fab3140a@igalia.com>
+From: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
+Content-Language: en-US
+Autocrypt: addr=mcanal@igalia.com; keydata=
+ xsBNBGcCwywBCADgTji02Sv9zjHo26LXKdCaumcSWglfnJ93rwOCNkHfPIBll85LL9G0J7H8
+ /PmEL9y0LPo9/B3fhIpbD8VhSy9Sqz8qVl1oeqSe/rh3M+GceZbFUPpMSk5pNY9wr5raZ63d
+ gJc1cs8XBhuj1EzeE8qbP6JAmsL+NMEmtkkNPfjhX14yqzHDVSqmAFEsh4Vmw6oaTMXvwQ40
+ SkFjtl3sr20y07cJMDe++tFet2fsfKqQNxwiGBZJsjEMO2T+mW7DuV2pKHr9aifWjABY5EPw
+ G7qbrh+hXgfT+njAVg5+BcLz7w9Ju/7iwDMiIY1hx64Ogrpwykj9bXav35GKobicCAwHABEB
+ AAHNIE1hw61yYSBDYW5hbCA8bWNhbmFsQGlnYWxpYS5jb20+wsCRBBMBCAA7FiEE+ORdfQEW
+ dwcppnfRP/MOinaI+qoFAmcCwywCGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgkQ
+ P/MOinaI+qoUBQgAqz2gzUP7K3EBI24+a5FwFlruQGtim85GAJZXToBtzsfGLLVUSCL3aF/5
+ O335Bh6ViSBgxmowIwVJlS/e+L95CkTGzIIMHgyUZfNefR2L3aZA6cgc9z8cfow62Wu8eXnq
+ GM/+WWvrFQb/dBKKuohfBlpThqDWXxhozazCcJYYHradIuOM8zyMtCLDYwPW7Vqmewa+w994
+ 7Lo4CgOhUXVI2jJSBq3sgHEPxiUBOGxvOt1YBg7H9C37BeZYZxFmU8vh7fbOsvhx7Aqu5xV7
+ FG+1ZMfDkv+PixCuGtR5yPPaqU2XdjDC/9mlRWWQTPzg74RLEw5sz/tIHQPPm6ROCACFls7A
+ TQRnAsMsAQgAxTU8dnqzK6vgODTCW2A6SAzcvKztxae4YjRwN1SuGhJR2isJgQHoOH6oCItW
+ Xc1CGAWnci6doh1DJvbbB7uvkQlbeNxeIz0OzHSiB+pb1ssuT31Hz6QZFbX4q+crregPIhr+
+ 0xeDi6Mtu+paYprI7USGFFjDUvJUf36kK0yuF2XUOBlF0beCQ7Jhc+UoI9Akmvl4sHUrZJzX
+ LMeajARnSBXTcig6h6/NFVkr1mi1uuZfIRNCkxCE8QRYebZLSWxBVr3h7dtOUkq2CzL2kRCK
+ T2rKkmYrvBJTqSvfK3Ba7QrDg3szEe+fENpL3gHtH6h/XQF92EOulm5S5o0I+ceREwARAQAB
+ wsB2BBgBCAAgFiEE+ORdfQEWdwcppnfRP/MOinaI+qoFAmcCwywCGwwACgkQP/MOinaI+qpI
+ zQf+NAcNDBXWHGA3lgvYvOU31+ik9bb30xZ7IqK9MIi6TpZqL7cxNwZ+FAK2GbUWhy+/gPkX
+ it2gCAJsjo/QEKJi7Zh8IgHN+jfim942QZOkU+p/YEcvqBvXa0zqW0sYfyAxkrf/OZfTnNNE
+ Tr+uBKNaQGO2vkn5AX5l8zMl9LCH3/Ieaboni35qEhoD/aM0Kpf93PhCvJGbD4n1DnRhrxm1
+ uEdQ6HUjWghEjC+Jh9xUvJco2tUTepw4OwuPxOvtuPTUa1kgixYyG1Jck/67reJzMigeuYFt
+ raV3P8t/6cmtawVjurhnCDuURyhUrjpRhgFp+lW8OGr6pepHol/WFIOQEg==
+In-Reply-To: <1d9813ab-67b9-43a8-a7ed-e713fab3140a@igalia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -90,28 +92,88 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Display the panic logo at the top center of the screen when
-drm_panic_type is set to DRM_PANIC_TYPE_USER to keep the layout
-properly aligned.
+Hi Tvrtko,
 
-Signed-off-by: Dileep Sankhla <dileepsankhla.ds@gmail.com>
----
- drivers/gpu/drm/drm_panic.c | 2 ++
- 1 file changed, 2 insertions(+)
+On 06/03/26 08:28, Tvrtko Ursulin wrote:
+> 
+> On 05/02/2026 21:31, Maíra Canal wrote:
+>> Introduce vc4_submit.c with the job submission path rewritten to
+>> integrate with the DRM GPU scheduler. Most of this code is adapted from
+>> vc4_gem.c, with key changes concentrated in the job creation and
+>> lifecycle management. This implementation follows the same design as the
+>> v3d driver.
+>>
+>> This code coexists with the legacy path until the switchover commit.
+>>
+>> Signed-off-by: Maíra Canal <mcanal@igalia.com>
+>> ---
+>>   drivers/gpu/drm/vc4/vc4_submit.c | 509 +++++++++++++++++++++++++++++ 
+>> ++++++++++
+>>   1 file changed, 509 insertions(+)
+>>
 
-diff --git a/drivers/gpu/drm/drm_panic.c b/drivers/gpu/drm/drm_panic.c
-index d6d3b8d85dea..c7fecc5e857a 100644
---- a/drivers/gpu/drm/drm_panic.c
-+++ b/drivers/gpu/drm/drm_panic.c
-@@ -491,6 +491,8 @@ static void draw_panic_screen_user(struct drm_scanout_buffer *sb)
- 
- 	r_screen = DRM_RECT_INIT(0, 0, sb->width, sb->height);
- 	drm_panic_logo_rect(&r_logo, font);
-+	/* Center the panic logo */
-+	drm_rect_translate(&r_logo, (sb->width - r_logo.x2) / 2, 0);
- 
- 	msg_width = min(get_max_line_len(panic_msg, panic_msg_lines) * font->width, sb->width);
- 	msg_height = min(panic_msg_lines * font->height, sb->height);
--- 
-2.43.0
+[...]
 
+>> +static int
+>> +vc4_lookup_bos(struct drm_device *dev, struct drm_file *file_priv,
+>> +           struct vc4_render_job *job, u64 bo_handles, u32 bo_count)
+>> +{
+>> +    int ret = 0;
+>> +    int i;
+>> +
+>> +    job->bo_count = bo_count;
+>> +
+>> +    if (!job->bo_count) {
+>> +        drm_warn(dev, "Rendering requires BOs to validate\n");
+>> +        return -EINVAL;
+>> +    }
+>> +
+>> +    ret = drm_gem_objects_lookup(file_priv, u64_to_user_ptr(bo_handles),
+>> +                     job->bo_count, &job->bo);
+>> +    if (ret)
+>> +        return ret;
+>> +
+>> +    for (i = 0; i < job->bo_count; i++) {
+>> +        ret = vc4_bo_inc_usecnt(to_vc4_bo(job->bo[i]));
+> 
+> Quite odd model in vc4 that this can fail for completely different 
+> reasons. Looking into vc4_bo_inc_usecnt().. There are reference counts 
+> for the same bo? One GEM and one vc4, why?
+> 
+
+I just noticed that I didn't answer this question. I'm sorry for my
+overlook.
+
+So, this refcount tracks active usage: whether the BO is currently in
+use by the GPU or display. When the refcount drops to zero and madv ==
+DONTNEED, the BO goes to a purgeable pool. On the GPU path, this
+refcount is indeed redundant, but it's genuinely needed in the display
+paths (prepare_fb/cleanup_fb, async page flip), because those don't use
+dma_resv fences to track activity.
+
+I agree it's an odd design, but I believe it was needed at some point in
+history to conciliate vc4's display and rendering capabilities in a
+single driver (that is, vc4->gen == VC4_GEN_4 // RPi 0-3).
+
+To make things less redundant, I'm thinking about adding a
+vc4_bo_active() function for BO activity tracking, which will account
+both for the internal refcount and dma_resv.
+
+> The runtime invariant check is needed at this level, I mean this one?:
+> 
+>      if (WARN_ON_ONCE(vc4->gen > VC4_GEN_4))
+>          return -ENODEV;
+> 
+> It cannot be moved somewhere higher up the chain? There can legitimately 
+> be a mix of bos with different vc4_dev?
+> 
+
+No, vc4->gen is a attribute related to the HW generation. That is, for a
+single device, there can be only one generation. From my understanding,
+this guard is just a sanity-check. Just to make sure nobody will call
+this function for KMS-only devices (RPi 4-5). For RPi 4-5, there is no
+need to use the refcount path, as vc4 is not responsible for rendering
+(v3d is).
+
+Best regards,
+- Maíra
