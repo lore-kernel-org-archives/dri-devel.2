@@ -4,119 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2B1931061B06
-	for <dri-devel@archiver.kernel.org>; Mon, 30 Mar 2026 14:47:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BF5B61061B07
+	for <dri-devel@archiver.kernel.org>; Mon, 30 Mar 2026 14:50:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7291010E208;
-	Mon, 30 Mar 2026 14:47:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 059F010E632;
+	Mon, 30 Mar 2026 14:50:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="l5UtPOCp";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="B5au7j+Q";
 	dkim-atps=neutral
-Received: from OS0P286CU010.outbound.protection.outlook.com
- (mail-japanwestazon11011010.outbound.protection.outlook.com [40.107.74.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A5AB910E7C9
- for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 14:47:28 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=SyuHqsvkPQbNiSZvxvMBgXEf0WBgmljR6GtR29ugbNL4nwrx6EDRSKW1DXN3DI7PzhchdXBwSoPlz+VkP55F7QVqYyMPBkEPQ7agSXxvD1N6Fw6T4lkJOHOwAK7I33ZSC9mzr4fIQ4Rj6vuFW2KNmiujii8V/nowlAcp2htdGIIPQbVDlOfVqmx0ykSzjHngxMMuqvIW7wdUNzfrBSzU5Q49uiJxFRypnmYZPKfMc+9OGH9iPIhRnxkVjRR7EUc7A7ZJbKhsBb8cvyaFWyKYaq4oE8nB7n8a98Lcl4D8aoPwWWziw7JJiKodD+IC5lX/E+pu8piBOsLIj27wCrKb6Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Rwti3xDulfhBsqdQX2B6FQPNrGbFDNHazu+SYXII8fM=;
- b=iVyeSXXz94ndEWKk6CnghYSeTIscmyz1+SHMKddyWTVBgt9Qlzpwyz6KYbCwj12gn+lmMwOOjnr7JVmo4+auPSyayKK7dMwugecVyIqvzt8KsX4WIKv0HoXmTDxopJFyJfY70LVp3EQuw2KUkXRfverHzPY6WgIBMItbIO2cxer9F86nGVpxhULfBUSioS+ElYB7vypfvlZ7wKOr/XvZe6cpxH0lmNk5zKFNNlZ/cffNaQcljupg/ivmvP2FxtjFlMNWapu/pOHoNSchXzS/XFqvIpCZjQvyQdTb+SSggVSC3tdS4bHAbe/zYBaLPbIrTr16kQsCOu8GsK4PNbQ/TQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
- header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Rwti3xDulfhBsqdQX2B6FQPNrGbFDNHazu+SYXII8fM=;
- b=l5UtPOCpJKQMJ2SOomOFEpW7Q5/UVVCgfDWI/xTrNy+fx8976EJ9BN1EYKYoGfQctsQ6uTdWLIc3mQODM+e/L3x8KuZXYQ9a4DG6l2tJNesxzrdpbhMxwKAwwx20aXyqDBkFFfHEBHchGQR/BaHHgc3BMaPQ0DJGIado+ThkIcM=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=bp.renesas.com;
-Received: from TYCPR01MB11947.jpnprd01.prod.outlook.com (2603:1096:400:3e1::6)
- by TYTPR01MB11067.jpnprd01.prod.outlook.com (2603:1096:400:39a::8)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.28; Mon, 30 Mar
- 2026 14:47:25 +0000
-Received: from TYCPR01MB11947.jpnprd01.prod.outlook.com
- ([fe80::33f1:f7cd:46be:e4d8]) by TYCPR01MB11947.jpnprd01.prod.outlook.com
- ([fe80::33f1:f7cd:46be:e4d8%5]) with mapi id 15.20.9745.027; Mon, 30 Mar 2026
- 14:47:24 +0000
-From: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
-To: tomm.merciai@gmail.com, geert@linux-m68k.org,
- laurent.pinchart@ideasonboard.com
-Cc: linux-renesas-soc@vger.kernel.org, biju.das.jz@bp.renesas.com,
- Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org,
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
-Subject: [PATCH v2] drm: rz-du: Ensure correct suspend/resume ordering with VSP
-Date: Mon, 30 Mar 2026 16:46:47 +0200
-Message-ID: <20260330144651.817338-1-tommaso.merciai.xr@bp.renesas.com>
-X-Mailer: git-send-email 2.43.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: FR2P281CA0068.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:9a::12) To TYCPR01MB11947.jpnprd01.prod.outlook.com
- (2603:1096:400:3e1::6)
+Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com
+ [209.85.208.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4417410E632
+ for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 14:50:56 +0000 (UTC)
+Received: by mail-ed1-f46.google.com with SMTP id
+ 4fb4d7f45d1cf-66ba9dfe83bso2445104a12.3
+ for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 07:50:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1774882255; x=1775487055; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=iEQgyKbT1VQKSh6QDXL908TnF5Z4/wgCTC4niu9wvmY=;
+ b=B5au7j+QS6+AwFpgbjw/Eanpic1ynQyJcX8vtWUY6PPWbkn3fSJpy9u6hdEb8EFyAz
+ 59++Cv3qoSElMjP+8TcBMXeIWpzSLcce7XdkJI96KW6PPRUTvU10zhB3r8793gSAtTSr
+ C3eqWDPOQFDvJ06f89V1E4HvawTYUdWXl4YagUlSHCV+pjD9xbd9iZijSpjzDAdK4kB6
+ +crS2sVlF2u9MTeO7gL7fWeAyjcd8jWfX2zUMQNt32lHgkRfDt8qtePw4kzJl8dVDpNv
+ EY/iYTaP+Q9gIudKOzLTNevVOK0luS1qGpBHsuEy0GPyKOYTevV2abbo/+rXSiIscvRI
+ 79Sg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1774882255; x=1775487055;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=iEQgyKbT1VQKSh6QDXL908TnF5Z4/wgCTC4niu9wvmY=;
+ b=perjbq2DoxrbggHFW5d2iiZEE8t4ECs/5FkVXmF5Ho7k5pVZnVABhhP86ZhxayRuw2
+ MKQIqh3JXsoLS8vt2cOPeHPbVJNkV2AfULTOJ6Yv7LDu1SmrFye6OLfoJkRN7eddihjn
+ MtZngaVN9g/7nWOHNTcurEBcpVCgvuWO1GvIYZSGRSTfGMKVsD51A1fECY+Dep5t7kF8
+ kLZd0vnNk8YsiDM3y6xUb928uvTdotEe6XbXcPJK0L5v93EBOU3pF7FAtorEeYQuDPsV
+ wiiJjJL8K6A3pgtOraGIQOCWvsDC1fnz+/aEG6etgT0na3QfyaYlWQ2vAtTaFT4F6x0L
+ Au9A==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUaYNgrAzT+fgN1ij8E/a3Flep+OH+xjBy4DbWUINND7A9zEYEv07hMFcn47vfTs5adtXXdnfg18/4=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YztfoClEUGZaGkbAPx/2RbqlISwEiKbjY8is4VbTIFWkPYl+yDi
+ NZYA+B3UHIE1ijnOqy669pPWEDgKmD68vfWtuoXg+Tryrkeqnf3eXeYg
+X-Gm-Gg: ATEYQzxPSj0UFvRxcBNmnOmsbq3HO4thJJtsLX+aS/DA55ouR7f6H6TWCWhupuV90nP
+ rfvV/c3KAhTJL12LM3JkyT0Jo4qb3/1wSgAeH26Q2rUvoUEful/MPf1xgRRh57TywjRFzHzQ+LO
+ ab4XWNmcrF5Xpjcsf2oP9LyepRHCWTAzsYqUwxwjnZN/i+GYEkHsCgNTiRBHPw3M5GFYx3+ECmt
+ Ib11Sj6CjdANoU/TWLQ3XsGPGQbgHVgiWDWz7YTIQnH8rbYFSTOPUtQafRN94CZfW3jR5RZBbi6
+ 9l4hG3voFX2ps2xM0zIn0YcEXjZyQoLjgJAdYHJQY0ZiMRWZ01Nwq8asL2c9z4B/lOO116cmeig
+ L48VFvyz6GkJGU/9C57goGDYZ68gGERORs/Jd3YUxAmdVyOSnZBZWlhzInI6ZgPvXCAfOMu0FQK
+ jrKtA+FtEpivUlAhcoNU9f0XaGDa+5Fmvf3NNxO00wg1c=
+X-Received: by 2002:a17:907:2d8d:b0:b9b:207c:f7df with SMTP id
+ a640c23a62f3a-b9b507a92c1mr792638966b.29.1774882254394; 
+ Mon, 30 Mar 2026 07:50:54 -0700 (PDT)
+Received: from localhost ([178.214.243.78]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-66b7340cae2sm2848609a12.11.2026.03.30.07.50.52
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 30 Mar 2026 07:50:53 -0700 (PDT)
+From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+To: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: lijo.lazar@amd.com, Eric Huang <jinhuieric.huang@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ stable@vger.kernel.org, Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+Subject: [PATCH v4] drm/amdgpu: replace PASID IDR with XArray
+Date: Mon, 30 Mar 2026 19:50:49 +0500
+Message-ID: <20260330145049.21936-1-mikhail.v.gavrilov@gmail.com>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TYCPR01MB11947:EE_|TYTPR01MB11067:EE_
-X-MS-Office365-Filtering-Correlation-Id: b04f8f8c-8c23-43eb-5b3e-08de8e6b4167
-X-LD-Processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|7416014|52116014|376014|366016|1800799024|38350700014|18002099003|56012099003;
-X-Microsoft-Antispam-Message-Info: SuKNazvisGgEToj9j5PEoMC4o4t7ffw+kbeg809LOx4qqxMm6HMZPIDIH0zFLOcVCWLfWYCUOa3f5SBUwyc4mCNcx45SE4scRw3f9Xe9oMLyi7rIGkibmzrSEbyrgEL41elu6+b7Z6pFIF/ervJstf5POpm6ItxhCtzucEvKHfJN3gFGwQlWsOnpRdK5jgs2UglHndsWfeM3xcqHVgoeljzT1cXfUjk57PG+Bz7LERQuC0cY8su822p79JqQ9cwgBNazSRq+9qz9NkTiHIaWD+MxiY1BAu18hsTRRio1bFUstCdIddEV10oLVj1lgwhPfgm1GgVyqIGXeOMO+Nsdyytt+8oUt7NNVDmcZjUN7OW/3GcV9JkrKGCvu1HAzs7udi0eMtsg901my4umf/9hwoPYrqXw+DBjIvzmdXkeGJUbDWbBe8aDHNv8DxdeMtt8eByN4t5B4D1XJtexuYvjdzHOl6dgF/cofWCXvT8gBgTz0DJSPukLukDMNoTsvD64acC9ubjxUqnBh0CPJvQX3LzuF5kyvmGHAoL0HqCOJ55Uea+jplCKDUM6jlwc/Fobsgy1ck2C3KxJ0pImoRaDUmnBoz0vhOuzFt4tM9AhjWUOdXXSg2feXBBzryYrczf2wpeSd97GT+Vgl4wb0EcCHKs9vfd7pPpSb/N8vG1bmzVz8GmTNXr4moYmm42i/gO2mKTu/1XU9mq4v7/xfMpDQQY/hprYRrDXJLaPCER4RorOPkBDVaPjXMej5o78bQ+ytCv3xwpkfp085TvRgIaG4eKehswCrVX/V6yTzwqKopQ=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:TYCPR01MB11947.jpnprd01.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(7416014)(52116014)(376014)(366016)(1800799024)(38350700014)(18002099003)(56012099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?ia6wgK82cp0dlg0ADhGWYtRQFEgv77VKk4lZVNqbQGT1lMALNdCVamnx9hWN?=
- =?us-ascii?Q?zlZX1KC5zoDGEtwsEIiWqFpstEdcwpiJQHIUb3cBECnOJ8azorfRWCLzLb6s?=
- =?us-ascii?Q?dEBu3hZCwzsrHCRQFP64lT9m1Pp/fLRRWZpffcayIbMHN/lPThJeeITjfbbd?=
- =?us-ascii?Q?3QZ51/McWCvMwDfMIJAQzxCtPmFpJMSoehPby6/QskAUUL57hT2odVFstEhq?=
- =?us-ascii?Q?5FaS0P1+rDygvMkRaE36RYoqDx/tmr96XOmTx5A8Szk6oAvTH3HQ+2DpXEfi?=
- =?us-ascii?Q?TF0/Vcx63gWgCp3YwPaXJ6POAJd8O6j3gpn9DCBqrC0EU0KWay76G/wO2Loq?=
- =?us-ascii?Q?HgkW+c53c8ReWs5fLNsWWy/1SNGZ44b9wgnLsrhJeZasJEKmVvO4aTFdBnr5?=
- =?us-ascii?Q?9LlD4HGSjQHynt6k+AkmPYbAnQaiT1OHRpUpnJ4pCcYb21cnPLg1u2j50a53?=
- =?us-ascii?Q?HEnAnIGXCg2OV2SymtdOJ7ZTRbsxCnIDrNUbRiapxUGFHkHk8gFvPaUrx1IU?=
- =?us-ascii?Q?BR6AOeabxWBJuI/SZRRW/XfJM+Iy0lficTobM7/ipJxjITDGnEBmtWxMij0k?=
- =?us-ascii?Q?ZyiS+EIZKe9KfXZRgG7SANGCoBJVCoMy06MZgMJw8e1CkQjZMVtTH+7c8dvq?=
- =?us-ascii?Q?OR1PVHZliGOjfEKw3FQDGLTCbv+pmHKb/9M/NtkZkDSemeV2WZodxb+XVSfv?=
- =?us-ascii?Q?6CZn7m1W3OIFtXbCx6w3uLSkxKiDeD1bsXEtP2+vGVpXl7E1oDehg7Bfz4e1?=
- =?us-ascii?Q?SjBIjllY3r7svIBig4zX1AjhZtoNpH5Aq2MP5lXyy0+XMuuapjGyyzPvw2Uu?=
- =?us-ascii?Q?099p5TPfQaB5C8uexjghkGh0jCstbzO+B9vrc2M644nhPGM2e5TeJvNHAd1U?=
- =?us-ascii?Q?tot9TiWy0sN+brRBR+Wtxrz/y9jDUw9QGuc8W3H0OEHIW0eFWffPuKrXLSaP?=
- =?us-ascii?Q?NU0WjhwMKHRzoxJy8PlYKMQ+TzVBM+BAZT2oLbCUkwg7YLhcpxrCzi6odr5I?=
- =?us-ascii?Q?ALzMTbwnTZhEXcRUOB33sQlaYsVYfDfZQvVLVpq2YDd3Y/VNdBWfnbuIzR2m?=
- =?us-ascii?Q?RDZsRIIILXRldtulR1OiMsqNmKqmoWHCyHftkhFzAqLlvPORo4l6Hfb42OJ/?=
- =?us-ascii?Q?r9IlfAtX/61xrtaAZAMd9rGxoyR8h8DlLfm20phLhhYUrI28/bvZRa5w/7og?=
- =?us-ascii?Q?Eieh19LvbSP1xk+Lj7V3To2QOXE5LJS56IWORogcc/DfuiOQveb/hGbCoqWM?=
- =?us-ascii?Q?ZFgCu/3kwiUzF0OpEwteTF/D/+t6lyXiIFT17Dmr1otpBG9+/yBeN/YUPkEe?=
- =?us-ascii?Q?CET0S8CwztZGcQOyVRCGmpHXpYNe6PWXltA6x9jqiFwFEbXmP/my9iUu/4/l?=
- =?us-ascii?Q?O9tGtDjZILfM3uHW3GhJSxIcLy4v7OmJiLtzYQyBF5wJh+ELh5YEgtsaKpc8?=
- =?us-ascii?Q?W7vTK8hqs5lA3bFjhSWlrM/5SQti8SYVRDWU2/WsCbXu88aF8i3adH+epiJd?=
- =?us-ascii?Q?3oiZLeOz5RXbWGIHgCSEGAhDy1OokMRyQqs5x9Gcy3G752Lg9QsiEK4rRhLr?=
- =?us-ascii?Q?vsvXPG7KbIYgjRFPCyDu5G0XqtxuTuC9bkJrEFneaHCmnKrlmbFtfjrojBaI?=
- =?us-ascii?Q?c5/PaBQ4TxE2U0mbY7gLCGfznibaWFBa51mhqPwe3Ewz8BfcMqiyV2a/6JYm?=
- =?us-ascii?Q?/OkZNVqbi/nmeVL+0XVEOyLOU2mTfChC5C7doFTdcpqBOLdKXBpro/S+WEj4?=
- =?us-ascii?Q?fqYm5vAtU+6ix17uJ9dP4kVVNEvL+RAygAu+WVescxlvON/7m5qn?=
-X-OriginatorOrg: bp.renesas.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b04f8f8c-8c23-43eb-5b3e-08de8e6b4167
-X-MS-Exchange-CrossTenant-AuthSource: TYCPR01MB11947.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Mar 2026 14:47:24.7189 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: AGP+LamC3IJ/3h/GtpjSlbN1EvQ7Il+7KzUMgI17DfnDsGc/u2sG3qST9wFmCwvMFjqwF4phS89P20S49bkvyZnptWgYHefLdCmyBS/GckUzgf42FQJlnRJ+WJ/WXS73
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYTPR01MB11067
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,88 +88,163 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The VSP serves as an interface to memory and a compositor to the DU. It
-therefore needs to be suspended after and resumed before the DU, to be
-properly stopped and restarted in a controlled fashion driven by the DU
-driver. This currently works by chance. Avoid relying on luck by
-enforcing the correct suspend/resume ordering with device links.
+Commit 8f1de51f49be ("drm/amdgpu: prevent immediate PASID reuse case")
+converted the global PASID allocator from IDA to IDR with a spinlock
+for cyclic allocation, but introduced two locking bugs:
 
-Based on similar work done by Laurent Pinchart for R-Car DU.
-commit db5be3a7d6bd ("drm: rcar-du: Ensure correct suspend/resume
-ordering with VSP")
+1) idr_alloc_cyclic() is called with GFP_KERNEL under spin_lock(),
+   which can sleep.
 
-Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
-Signed-off-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+2) amdgpu_pasid_free() can be called from hardirq context via the
+   fence signal path (amdgpu_pasid_free_cb), but the lock is taken
+   with plain spin_lock() in process context, creating a potential
+   deadlock:
+
+     CPU0
+     ----
+     spin_lock(&amdgpu_pasid_idr_lock)   // process context, IRQs on
+     <Interrupt>
+       spin_lock(&amdgpu_pasid_idr_lock) // deadlock
+
+   The hardirq call chain is:
+
+     sdma_v6_0_process_trap_irq
+      -> amdgpu_fence_process
+       -> dma_fence_signal
+        -> drm_sched_job_done
+         -> dma_fence_signal
+          -> amdgpu_pasid_free_cb
+           -> amdgpu_pasid_free
+
+   This was observed on an RX 7900 XTX when exiting a Vulkan game
+   running under Proton/Wine, which triggers the fence callback path
+   during VM teardown.
+
+Replace the IDR + spinlock with XArray.  xa_alloc_cyclic() handles
+GFP_KERNEL pre-allocation and IRQ-safe locking internally, and
+xa_erase() is already IRQ-safe, so no explicit locking is needed.
+This fixes both bugs in a single, cleaner conversion.
+
+Suggested-by: Lijo Lazar <lijo.lazar@amd.com>
+Fixes: 8f1de51f49be ("drm/amdgpu: prevent immediate PASID reuse case")
+Cc: stable@vger.kernel.org
+Signed-off-by: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
 ---
-v1->v2:
- - Collected Laurent Pinchart tag.
- - Added commit id of the similar work on R-Car DU.
 
- drivers/gpu/drm/renesas/rz-du/rzg2l_du_vsp.c | 16 ++++++++++++++++
- drivers/gpu/drm/renesas/rz-du/rzg2l_du_vsp.h |  2 ++
- 2 files changed, 18 insertions(+)
+v4: Use xa_alloc_cyclic/xa_erase directly instead of explicit
+    xa_lock_irqsave, as suggested by Lijo Lazar.
+v3: Replace IDR with XArray instead of fixing the spinlock, as
+    suggested by Lijo Lazar.
+    https://lore.kernel.org/all/20260330110346.16548-1-mikhail.v.gavrilov@gmail.com/
+v2: Added second patch fixing the {HARDIRQ-ON-W} -> {IN-HARDIRQ-W}
+    lock inconsistency (spin_lock -> spin_lock_irqsave).
+    https://lore.kernel.org/all/20260330053025.19203-1-mikhail.v.gavrilov@gmail.com/
+v1: Fixed sleeping-under-spinlock (idr_alloc_cyclic with GFP_KERNEL)
+    using idr_preload/GFP_NOWAIT.
+    https://lore.kernel.org/all/20260328213900.19255-1-mikhail.v.gavrilov@gmail.com/
 
-diff --git a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_vsp.c b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_vsp.c
-index bd486377f037..eb626c3cc421 100644
---- a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_vsp.c
-+++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_vsp.c
-@@ -20,6 +20,7 @@
- #include <drm/drm_vblank.h>
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c | 43 +++++++++++--------------
+ 1 file changed, 19 insertions(+), 24 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
+index d88523568b62..2b63b54eaaa7 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
+@@ -22,7 +22,7 @@
+  */
+ #include "amdgpu_ids.h"
  
- #include <linux/bitops.h>
-+#include <linux/device.h>
- #include <linux/dma-mapping.h>
- #include <linux/of_platform.h>
- #include <linux/platform_device.h>
-@@ -293,6 +294,9 @@ static void rzg2l_du_vsp_cleanup(struct drm_device *dev, void *res)
+-#include <linux/idr.h>
++#include <linux/xarray.h>
+ #include <linux/dma-fence-array.h>
+ 
+ 
+@@ -35,13 +35,13 @@
+  * PASIDs are global address space identifiers that can be shared
+  * between the GPU, an IOMMU and the driver. VMs on different devices
+  * may use the same PASID if they share the same address
+- * space. Therefore PASIDs are allocated using IDR cyclic allocator
+- * (similar to kernel PID allocation) which naturally delays reuse.
+- * VMs are looked up from the PASID per amdgpu_device.
++ * space. Therefore PASIDs are allocated using an XArray cyclic
++ * allocator (similar to kernel PID allocation) which naturally delays
++ * reuse. VMs are looked up from the PASID per amdgpu_device.
+  */
+ 
+-static DEFINE_IDR(amdgpu_pasid_idr);
+-static DEFINE_SPINLOCK(amdgpu_pasid_idr_lock);
++static DEFINE_XARRAY_ALLOC(amdgpu_pasid_xa);
++static u32 amdgpu_pasid_xa_next;
+ 
+ /* Helper to free pasid from a fence callback */
+ struct amdgpu_pasid_cb {
+@@ -53,8 +53,7 @@ struct amdgpu_pasid_cb {
+  * amdgpu_pasid_alloc - Allocate a PASID
+  * @bits: Maximum width of the PASID in bits, must be at least 1
+  *
+- * Uses kernel's IDR cyclic allocator (same as PID allocation).
+- * Allocates sequentially with automatic wrap-around.
++ * Uses XArray cyclic allocator for sequential allocation with wrap-around.
+  *
+  * Returns a positive integer on success. Returns %-EINVAL if bits==0.
+  * Returns %-ENOSPC if no PASID was available. Returns %-ENOMEM on
+@@ -62,20 +61,22 @@ struct amdgpu_pasid_cb {
+  */
+ int amdgpu_pasid_alloc(unsigned int bits)
  {
- 	struct rzg2l_du_vsp *vsp = res;
+-	int pasid;
++	u32 pasid;
++	int r;
  
-+	if (vsp->link)
-+		device_link_del(vsp->link);
-+
- 	put_device(vsp->vsp);
+ 	if (bits == 0)
+ 		return -EINVAL;
+ 
+-	spin_lock(&amdgpu_pasid_idr_lock);
+-	pasid = idr_alloc_cyclic(&amdgpu_pasid_idr, NULL, 1,
+-				 1U << bits, GFP_KERNEL);
+-	spin_unlock(&amdgpu_pasid_idr_lock);
++	r = xa_alloc_cyclic(&amdgpu_pasid_xa, &pasid, xa_mk_value(0),
++			    XA_LIMIT(1, (1U << bits) - 1),
++			    &amdgpu_pasid_xa_next, GFP_KERNEL);
+ 
+-	if (pasid >= 0)
++	if (r >= 0) {
+ 		trace_amdgpu_pasid_allocated(pasid);
++		return pasid;
++	}
+ 
+-	return pasid;
++	return r;
  }
  
-@@ -317,6 +321,18 @@ int rzg2l_du_vsp_init(struct rzg2l_du_vsp *vsp, struct device_node *np,
- 	if (ret < 0)
- 		return ret;
+ /**
+@@ -86,9 +87,7 @@ void amdgpu_pasid_free(u32 pasid)
+ {
+ 	trace_amdgpu_pasid_freed(pasid);
  
-+	/*
-+	 * Enforce suspend/resume ordering between the DU (consumer) and the
-+	 * VSP (supplier). The DU will be suspended before and resume after the
-+	 * VSP.
-+	 */
-+	vsp->link = device_link_add(rcdu->dev, vsp->vsp, DL_FLAG_STATELESS);
-+	if (!vsp->link) {
-+		dev_err(rcdu->dev, "Failed to create device link to VSP %s\n",
-+			dev_name(vsp->vsp));
-+		return -EINVAL;
-+	}
-+
- 	ret = vsp1_du_init(vsp->vsp);
- 	if (ret < 0)
- 		return ret;
-diff --git a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_vsp.h b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_vsp.h
-index 322eb80dcbaf..a22aaf0843ed 100644
---- a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_vsp.h
-+++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_vsp.h
-@@ -15,6 +15,7 @@
- #include <linux/scatterlist.h>
+-	spin_lock(&amdgpu_pasid_idr_lock);
+-	idr_remove(&amdgpu_pasid_idr, pasid);
+-	spin_unlock(&amdgpu_pasid_idr_lock);
++	xa_erase(&amdgpu_pasid_xa, pasid);
+ }
  
- struct device;
-+struct device_link;
- struct drm_framebuffer;
- struct rzg2l_du_device;
- struct rzg2l_du_format_info;
-@@ -29,6 +30,7 @@ struct rzg2l_du_vsp_plane {
- struct rzg2l_du_vsp {
- 	unsigned int index;
- 	struct device *vsp;
-+	struct device_link *link;
- 	struct rzg2l_du_device *dev;
- };
+ static void amdgpu_pasid_free_cb(struct dma_fence *fence,
+@@ -625,13 +624,9 @@ void amdgpu_vmid_mgr_fini(struct amdgpu_device *adev)
+ }
  
+ /**
+- * amdgpu_pasid_mgr_cleanup - cleanup PASID manager
+- *
+- * Cleanup the IDR allocator.
++ * amdgpu_pasid_mgr_cleanup - Cleanup PASID manager
+  */
+ void amdgpu_pasid_mgr_cleanup(void)
+ {
+-	spin_lock(&amdgpu_pasid_idr_lock);
+-	idr_destroy(&amdgpu_pasid_idr);
+-	spin_unlock(&amdgpu_pasid_idr_lock);
++	xa_destroy(&amdgpu_pasid_xa);
+ }
 -- 
-2.43.0
+2.53.0
 
