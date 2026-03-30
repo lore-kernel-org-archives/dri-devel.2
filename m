@@ -4,56 +4,137 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 36579FB3D04
-	for <dri-devel@archiver.kernel.org>; Mon, 30 Mar 2026 10:39:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 722E9FB3D05
+	for <dri-devel@archiver.kernel.org>; Mon, 30 Mar 2026 10:39:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9643610E617;
-	Mon, 30 Mar 2026 10:39:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D5B1F10E501;
+	Mon, 30 Mar 2026 10:39:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="UTGmSygW";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="HwCDMRH1";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="KI+dj0Kr";
 	dkim-atps=neutral
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id D844F10E61A
- for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 10:39:05 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 0C7661C00;
- Mon, 30 Mar 2026 03:38:59 -0700 (PDT)
-Received: from [10.57.61.249] (unknown [10.57.61.249])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 29DCF3F915;
- Mon, 30 Mar 2026 03:39:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
- t=1774867144; bh=SIk70OLqSrRNeFwNU7snZxxX8G3ys2ug7ym3PFeR8as=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=UTGmSygWDkemRNFxhKpu5KuyQIO5EUu2F9oKA3KO/80AbmKHK0oytKygGtHTI8Ctl
- a8J33VrSZ/vkd6brZC5rvEMYJAa4AlrH1Tx8RBOYY4CZ3xnAVQjEl5MahUrejyflxc
- HAGyY5ao+9eBooiPY4U//lXwUy7HTg5fmabRgFmc=
-Message-ID: <8b2b65a3-3db8-469f-90ae-6abccdb3c71a@arm.com>
-Date: Mon, 30 Mar 2026 11:39:00 +0100
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3B09310E5BF
+ for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 10:39:24 +0000 (UTC)
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 62U6sVWQ3526846
+ for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 10:39:23 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=a9i9wrLS9XNkBua3QA++xjrO
+ xjkkqC29YQgu3tBNhLI=; b=HwCDMRH1XWzCE4KKq7grLfD1WJmh6yWbX6Or3xeL
+ 9eFlssE1zhIJeOvFHZIQquZoeMezdrdbpJcU0xOI3Hcx4XByF2kSPPmy+wzi5kco
+ XZqu0JgzcCQTPOcZeqaapt8cLMA+sBR4jN4Px9a/gfArg1XRvXhoTOawtj/sWU7H
+ aiwrNKuot13cm9t7gd1pVcDHLjgAjXOUcJNd/+CX2pwqppBZHtn3f7rfqeUoqZqQ
+ jHbeTG4Db+aRdmElmheQ+1XcEZAZqH+3o2WfmRZ3BE+Pc18V2NjopIFgWJDOlilY
+ EWsh6q8QJnpKGXxNXbRWAafS/SbG7h5+MbeELmwzlXxQ7Q==
+Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
+ [209.85.160.197])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d6v9c3pv6-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 10:39:23 +0000 (GMT)
+Received: by mail-qt1-f197.google.com with SMTP id
+ d75a77b69052e-50925fed647so142399521cf.3
+ for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 03:39:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1774867163; x=1775471963;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=a9i9wrLS9XNkBua3QA++xjrOxjkkqC29YQgu3tBNhLI=;
+ b=KI+dj0KrswQpQhfyY56oe4bX6U/E5fEt5Tzw7KVCiUJ3Dw5KtlfB5ZVmiUB4W+amFM
+ EdcyeD/XVzOtYSUIs6ZYcfWbzI+uvOkFkElUCLfhQ0YGgs/QB17vXSGg52APUdjau65e
+ i75qkkmMCrJHAHvphjsXwOko37dhrER3VgIdjLqISVtO2JfzQX9kpMQyAjlZdp8fk4qO
+ gu9LgCeK6orYMC8UBQWbyTHGLyKnL2KzbLWEV/+WSsOYnNaEwkKrJ+Bn2rSgQaWzStxB
+ pyWs9YjrBODiYAYnAqrjhZXgIpPsh1zsXoo4vKt9xp6d/tm5/OltBSbg5dKAFeEd8SVz
+ r1xQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1774867163; x=1775471963;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=a9i9wrLS9XNkBua3QA++xjrOxjkkqC29YQgu3tBNhLI=;
+ b=RQmuU9MgPg+4L/6AupjxJjESYn1R12rpMYcBg3vKtjGig05/ujMjM9o+m/aWf1O5GB
+ r45kIiun/ohFeEH7jObX868Woch7xRasrVSr8kCzclCNnq8cKex7zmDdwq7wQwgFIxNY
+ YZFm15Q1OHjiKZ5C3wIyjanj1X4ssGQw+5lkM4GZ0DWWGwm5VhXNXED4abPGfsMc5Rt2
+ SYiPOqbGnDPrwJ31JDJds4Q+oD6LKBR0NOJz31grSLSjGX7QinpFi5OPEdaUYDawCuzj
+ 8UUxwtgOtJriBcENt6fBw3QxSr5jinHMwb5PAwU7uO/G7ApIlh8QNo7xPlVFzNTTEiZz
+ Or/Q==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWy8wAd2tXIR/7A82DfB00NSJrC9shM1Y+2dgKj/t+9zDQ7i4MoV9HP3BCYthNOKaUIs/zhnb8/iO4=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzustiZt7sGuMRG9jS79NyAXgCr5TZBanHBUOv94T2hSFrC3miA
+ NsK+oq5n/rzckHllbTuoAse3SWM27X+s/vZmczwFvE/5OuLxzD940NqSoSp1OTjg6itkuMairVz
+ 4HVEQ/cahtWwGVd2YSyfL7uGgxiL2R7Ezm1ywY9TRS+utRC8qXAWWiDo4VQp8HH9bVZm2GxI=
+X-Gm-Gg: ATEYQzyVNGJfJ0MfSQHN3ZlE1Hgxvgqj2rR62tSPb6DB7J8zWgf3ZXevVETZ3xL0QTd
+ RhC0RrBLNyKVG6RvDU38Mfbk7sf1a6KwJBwXnLz7wU96g9tS+N3GeR5x/cPvoi/8BZXxKEzRBv5
+ c+LI5Cg+PyqPKZPtp8ZYMyJP4Tf8cbNs19/V2PKrDHMt6jPRrsQwE79nCRAuMJ6bX27lAjDFvlE
+ EEP18f/nmGiPDHbs7OfAnOLdqpkcUjJfJmzSRM/sEkSzgrRhnnEVUYPgx4D3MhIC4CngoxO+c7/
+ wJG2fwEe6jjsIUFLKt9rUlAO1BuBFWczejjcsvQx8rZpBpklEJOgG4NfRv+qYrfUbCn85kHvEXI
+ S4KRIEnsfGlGMCRD8T0fDrJ4r43DD8ulBRj/KAMm+wkbcmH/4sfteqCPXjhAizgCfXHmOQNlxVd
+ rY88xlF94lxhetj1hWO7QpoAsHpkqdV1xQMPs=
+X-Received: by 2002:ac8:5814:0:b0:50b:526c:541c with SMTP id
+ d75a77b69052e-50ba3990f78mr156194601cf.50.1774867162607; 
+ Mon, 30 Mar 2026 03:39:22 -0700 (PDT)
+X-Received: by 2002:ac8:5814:0:b0:50b:526c:541c with SMTP id
+ d75a77b69052e-50ba3990f78mr156194271cf.50.1774867162120; 
+ Mon, 30 Mar 2026 03:39:22 -0700 (PDT)
+Received: from umbar.lan
+ (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+ by smtp.gmail.com with ESMTPSA id
+ 38308e7fff4ca-38c838dece4sm14492121fa.35.2026.03.30.03.39.20
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 30 Mar 2026 03:39:21 -0700 (PDT)
+Date: Mon, 30 Mar 2026 13:39:18 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
+ Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>
+Subject: Re: [PATCH v3 14/38] drm/msm/dp: Add support for programming
+ p1/p2/p3 register blocks
+Message-ID: <ssiui2np2gvy3euj77t6rzpnvwzd6plnxaed6xpn3awj3fzswd@utphaip4lr7p>
+References: <20250825-msm-dp-mst-v3-0-01faacfcdedd@oss.qualcomm.com>
+ <20250825-msm-dp-mst-v3-14-01faacfcdedd@oss.qualcomm.com>
+ <34he7xawyuq5z4iiyq4y4ehkjhfalx2vxhtejgyxly4zgyqma7@4uqoas4sz3nl>
+ <bd0fa742-fcba-47a8-81fa-aa43d9ff4edd@oss.qualcomm.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 0/9] drm/panthor: Add a GEM shrinker
-To: Boris Brezillon <boris.brezillon@collabora.com>,
- Liviu Dudau <liviu.dudau@arm.com>,
- =?UTF-8?Q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>
-Cc: dri-devel@lists.freedesktop.org, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Akash Goel <akash.goel@arm.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Akhil P Oommen <akhilpo@oss.qualcomm.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Dmitry Osipenko <dmitry.osipenko@collabora.com>,
- Chris Diamand <chris.diamand@arm.com>, Danilo Krummrich <dakr@kernel.org>,
- Matthew Brost <matthew.brost@intel.com>,
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Alice Ryhl <aliceryhl@google.com>, Chia-I Wu <olvaffe@gmail.com>,
- kernel@collabora.com
-References: <20260330094848.2169422-1-boris.brezillon@collabora.com>
-From: Steven Price <steven.price@arm.com>
-Content-Language: en-GB
-In-Reply-To: <20260330094848.2169422-1-boris.brezillon@collabora.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <bd0fa742-fcba-47a8-81fa-aa43d9ff4edd@oss.qualcomm.com>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzMwMDA4MyBTYWx0ZWRfX8cJ5F5j5n8Sp
+ hE5TcQtE7nmvuK96FNx6UsTjEnbdQmUZaG454+8PotXzdjjY5znIiqfBTDCcEo4mVJKiSJOvpL6
+ I6E5pfb3iHduOKrVb0hji4nFsdG5vMNAZshEHaOSdZ8bFDG0VCM4/oSWdnKMne1tMFS211bkU2M
+ EAZ8i9s/UZq4tV9rC2B/JQmX2AK8ksjLzxH2HAe4oKIRevG6kjJePTI10sSWLF4qMiFYwncphZK
+ Jx9tmxKWDIq1ZwqbUhUUOKL8Dfm16CLx+6bvMT2uR7rgVyivsW9v+srbZ6ZJ1i21LZX3LgRKKTY
+ 6u0uvfekNRqjmdMvrRxzCUE+qlYu/5Ntj/vmJ0GKnLAfTJU4rg62lzXXF7X2sthpTTGlUggVmqO
+ +vAx1hWLl6UBVbi32DqDh1lOw3q/1GqhdHuThNtUrOcoHJeFWpiMYX5PDFsX3co1buWJueFEwsW
+ x0t7KHNftjWFMGuHxEg==
+X-Authority-Analysis: v=2.4 cv=EIQLElZC c=1 sm=1 tr=0 ts=69ca52db cx=c_pps
+ a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22 a=COk6AnOGAAAA:8
+ a=EUspDBNiAAAA:8 a=M3gvwMrBDJyNMj2JsOwA:9 a=CjuIK1q_8ugA:10
+ a=a_PwQJl-kcHnX1M80qC6:22 a=TjNXssC_j7lpFel5tvFf:22
+X-Proofpoint-GUID: 6rj6hamFY04XZcwWGcbZcGjZdznxC3e4
+X-Proofpoint-ORIG-GUID: 6rj6hamFY04XZcwWGcbZcGjZdznxC3e4
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-03-29_05,2026-03-28_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 lowpriorityscore=0 impostorscore=0 malwarescore=0 adultscore=0
+ phishscore=0 spamscore=0 clxscore=1015 priorityscore=1501 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603300083
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,163 +150,165 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Boris,
+On Mon, Mar 30, 2026 at 06:27:41PM +0800, Yongxing Mou wrote:
+> 
+> 
+> On 8/26/2025 1:59 AM, Dmitry Baryshkov wrote:
+> > On Mon, Aug 25, 2025 at 10:16:00PM +0800, Yongxing Mou wrote:
+> > > From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+> > > 
+> > > QCS8300 supports 4-stream MST. This patch adds support for the additional
+> > > pixel register blocks (p1, p2, p3), enabling multi-stream configurations.
+> > > 
+> > > To reduce code duplication, introduce helper functions msm_dp_read_pn and
+> > > msm_dp_write_pn. All pixel clocks (PCLKs) share the same register layout,
+> > > but use different base addresses.
+> > > 
+> > > Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+> > > Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+> > > ---
+> > >   drivers/gpu/drm/msm/dp/dp_display.c | 39 +++++++++++++--------
+> > >   drivers/gpu/drm/msm/dp/dp_panel.c   | 68 ++++++++++++++++++-------------------
+> > >   2 files changed, 59 insertions(+), 48 deletions(-)
+> > > 
+> > > diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+> > > index 3422f18bdec71a99407edfe943d31957d0e8847a..935a0c57a928b15a1e9a6f1fab2576b7b09acb8e 100644
+> > > --- a/drivers/gpu/drm/msm/dp/dp_display.c
+> > > +++ b/drivers/gpu/drm/msm/dp/dp_display.c
+> > > @@ -84,8 +84,8 @@ struct msm_dp_display_private {
+> > >   	void __iomem *link_base;
+> > >   	size_t link_len;
+> > > -	void __iomem *p0_base;
+> > > -	size_t p0_len;
+> > > +	void __iomem *pixel_base[DP_STREAM_MAX];
+> > > +	size_t pixel_len;
+> > >   	int max_stream;
+> > >   };
+> > > @@ -619,7 +619,7 @@ static int msm_dp_init_sub_modules(struct msm_dp_display_private *dp)
+> > >   		goto error_link;
+> > >   	}
+> > > -	dp->panel = msm_dp_panel_get(dev, dp->aux, dp->link, dp->link_base, dp->p0_base);
+> > > +	dp->panel = msm_dp_panel_get(dev, dp->aux, dp->link, dp->link_base, dp->pixel_base);
+> > 
+> > Why do we need to pass pixel base here? Shouldn't it be pixel_base[P0]?
+> > 
+> In the current implementation, dp->panel holds the full
+> pixel_base[DP_STREAM_MAX] instead of just the pixel base corresponding to
+> itself, so this likely needs to be revisited.
+> 
+> > >   	if (IS_ERR(dp->panel)) {
+> > >   		rc = PTR_ERR(dp->panel);
+> > >   		DRM_ERROR("failed to initialize panel, rc = %d\n", rc);
+> > > @@ -937,8 +937,8 @@ void msm_dp_snapshot(struct msm_disp_state *disp_state, struct msm_dp *dp)
+> > >   				    msm_dp_display->aux_base, "dp_aux");
+> > >   	msm_disp_snapshot_add_block(disp_state, msm_dp_display->link_len,
+> > >   				    msm_dp_display->link_base, "dp_link");
+> > > -	msm_disp_snapshot_add_block(disp_state, msm_dp_display->p0_len,
+> > > -				    msm_dp_display->p0_base, "dp_p0");
+> > > +	msm_disp_snapshot_add_block(disp_state, msm_dp_display->pixel_len,
+> > > +				    msm_dp_display->pixel_base[0], "dp_p0");
+> > 
+> > This should add all blocks used on this platform.
+> > 
+> Let mark to be done here. Since a helper function is required here to check
+> whether the pixel clocks for stream 1/2/3 are really enabled.
 
-On 30/03/2026 10:48, Boris Brezillon wrote:
-> Hello,
-> 
-> This is an attempt at adding a GEM shrinker to panthor so the system
-> can finally reclaim GPU memory.
-> 
-> This implementation is losely based on the MSM shrinker (which is why
-> I added the MSM maintainers in Cc), and it's relying on the drm_gpuvm
-> eviction/validation infrastructure.
-> 
-> I've only done very basic IGT-based [1] and chromium-based (opening
-> a lot of tabs on Aquarium until the system starts reclaiming+swapping
-> out GPU buffers) testing, but I'm posting this early so I can get
-> preliminary feedback on the implementation. If someone knows about
-> better tools/ways to test the shrinker, please let me know.
+I don't understand the comment.
 
-I did my own pretty basic testing (glmark with memhog) and managed to hit this:
+> > >   }
+> > >   void msm_dp_display_set_psr(struct msm_dp *msm_dp_display, bool enter)
+> > > @@ -1181,12 +1181,13 @@ static void __iomem *msm_dp_ioremap(struct platform_device *pdev, int idx, size_
+> > >   #define DP_DEFAULT_AUX_SIZE	0x0200
+> > >   #define DP_DEFAULT_LINK_OFFSET	0x0400
+> > >   #define DP_DEFAULT_LINK_SIZE	0x0C00
+> > > -#define DP_DEFAULT_P0_OFFSET	0x1000
+> > > -#define DP_DEFAULT_P0_SIZE	0x0400
+> > > +#define DP_DEFAULT_PIXEL_OFFSET	0x1000
+> > > +#define DP_DEFAULT_PIXEL_SIZE	0x0400
+> > 
+> > No need to touch this. It's only required for legacy bindings.
+> > 
+> Thanks, will fix it.
+> > >   static int msm_dp_display_get_io(struct msm_dp_display_private *display)
+> > >   {
+> > >   	struct platform_device *pdev = display->msm_dp_display.pdev;
+> > > +	int i;
+> > >   	display->ahb_base = msm_dp_ioremap(pdev, 0, &display->ahb_len);
+> > >   	if (IS_ERR(display->ahb_base))
+> > > @@ -1206,7 +1207,7 @@ static int msm_dp_display_get_io(struct msm_dp_display_private *display)
+> > >   		 * reg is specified, so fill in the sub-region offsets and
+> > >   		 * lengths based on this single region.
+> > >   		 */
+> > > -		if (display->ahb_len < DP_DEFAULT_P0_OFFSET + DP_DEFAULT_P0_SIZE) {
+> > > +		if (display->ahb_len < DP_DEFAULT_PIXEL_OFFSET + DP_DEFAULT_PIXEL_SIZE) {
+> > >   			DRM_ERROR("legacy memory region not large enough\n");
+> > >   			return -EINVAL;
+> > >   		}
+> > > @@ -1216,8 +1217,10 @@ static int msm_dp_display_get_io(struct msm_dp_display_private *display)
+> > >   		display->aux_len = DP_DEFAULT_AUX_SIZE;
+> > >   		display->link_base = display->ahb_base + DP_DEFAULT_LINK_OFFSET;
+> > >   		display->link_len = DP_DEFAULT_LINK_SIZE;
+> > > -		display->p0_base = display->ahb_base + DP_DEFAULT_P0_OFFSET;
+> > > -		display->p0_len = DP_DEFAULT_P0_SIZE;
+> > > +		for (i = DP_STREAM_0; i < display->max_stream; i++)
+> > > +			display->pixel_base[i] = display->ahb_base +
+> > > +						 (i+1) * DP_DEFAULT_PIXEL_OFFSET;
+> > > +		display->pixel_len = DP_DEFAULT_PIXEL_SIZE;
+> > >   		return 0;
+> > >   	}
+> > > @@ -1228,10 +1231,18 @@ static int msm_dp_display_get_io(struct msm_dp_display_private *display)
+> > >   		return PTR_ERR(display->link_base);
+> > >   	}
+> > > -	display->p0_base = msm_dp_ioremap(pdev, 3, &display->p0_len);
+> > > -	if (IS_ERR(display->p0_base)) {
+> > > -		DRM_ERROR("unable to remap p0 region: %pe\n", display->p0_base);
+> > > -		return PTR_ERR(display->p0_base);
+> > > +	display->pixel_base[0] = msm_dp_ioremap(pdev, 3, &display->pixel_len);
+> > > +	if (IS_ERR(display->pixel_base[0])) {
+> > > +		DRM_ERROR("unable to remap p0 region: %pe\n", display->pixel_base[0]);
+> > > +		return PTR_ERR(display->pixel_base[0]);
+> > > +	}
+> > > +
+> > > +	for (i = DP_STREAM_1; i < display->max_stream; i++) {
+> > > +		/* pixels clk reg index start from 3*/
+> > > +		display->pixel_base[i] = msm_dp_ioremap(pdev, i + 3, &display->pixel_len);
+> > > +		if (IS_ERR(display->pixel_base[i]))
+> > > +			DRM_DEBUG_DP("unable to remap p%d region: %pe\n", i,
+> > > +					      display->pixel_base[i]);
+> > >   	}
+> > >   	return 0;
+> > > diff --git a/drivers/gpu/drm/msm/dp/dp_panel.c b/drivers/gpu/drm/msm/dp/dp_panel.c
+> > > index eae125972934bb2fb3b716dc47ae71cd0421bd1a..e8c1cf0c7dab7217b8bfe7ecd586af33d7547ca9 100644
+> > > --- a/drivers/gpu/drm/msm/dp/dp_panel.c
+> > > +++ b/drivers/gpu/drm/msm/dp/dp_panel.c
+> > > @@ -26,7 +26,7 @@ struct msm_dp_panel_private {
+> > >   	struct drm_dp_aux *aux;
+> > >   	struct msm_dp_link *link;
+> > >   	void __iomem *link_base;
+> > > -	void __iomem *p0_base;
+> > > +	void __iomem *pixel_base[DP_STREAM_MAX];
+> > >   	bool panel_on;
+> > >   };
+> > > @@ -45,24 +45,24 @@ static inline void msm_dp_write_link(struct msm_dp_panel_private *panel,
+> > >   	writel(data, panel->link_base + offset);
+> > >   }
+> > > -static inline void msm_dp_write_p0(struct msm_dp_panel_private *panel,
+> > > +static inline void msm_dp_write_pn(struct msm_dp_panel_private *panel,
+> > >   			       u32 offset, u32 data)
+> > 
+> > Is it really multiplexed on the panel level? I'd assume that each panel
+> > is connected to only one stream instance... If that's not the case, such
+> > details must be explained in the commit message.
+> > 
+> Yes, each panel is connected to only one stream instance. We just use
+> **pixel_base + stream_id to determine which pixel block the request should
+> be sent to. Just like your first comment, do you mean that the panel should
+> only carry the pixel block address corresponding to itself, rather than the
+> 4 blocks?
 
-[  265.053172] ============================================
-[  265.053667] WARNING: possible recursive locking detected
-[  265.054159] 7.0.0-rc3-00694-gadfa5ca08767 #1 Not tainted
-[  265.054655] --------------------------------------------
-[  265.055143] glmark2-es2-drm/443 is trying to acquire lock:
-[  265.055651] ffff0001194011a8 (reservation_ww_class_mutex){+.+.}-{4:4}, at: drm_gpuvm_bo_deferred_cleanup+0x100/0x2c0 [drm_gpuvm]
-[  265.056738] 
-[  265.056738] but task is already holding lock:
-[  265.057278] ffff80008b7c79e8 (reservation_ww_class_mutex){+.+.}-{4:4}, at: panthor_ioctl_group_submit+0x424/0x560 [panthor]
-[  265.058324] 
-[  265.058324] other info that might help us debug this:
-[  265.058927]  Possible unsafe locking scenario:
-[  265.058927] 
-[  265.059475]        CPU0
-[  265.059706]        ----
-[  265.059939]   lock(reservation_ww_class_mutex);
-[  265.060365]   lock(reservation_ww_class_mutex);
-[  265.060788] 
-[  265.060788]  *** DEADLOCK ***
-[  265.060788] 
-[  265.061338]  May be due to missing lock nesting notation
-[  265.061338] 
-[  265.061964] 3 locks held by glmark2-es2-drm/443:
-[  265.062395]  #0: ffff80008493c458 (drm_unplug_srcu){.+.+}-{0:0}, at: drm_dev_enter+0x0/0x140
-[  265.063188]  #1: ffff80008b7c79c0 (reservation_ww_class_acquire){+.+.}-{0:0}, at: panthor_ioctl_group_submit+0x424/0x560 [panthor]
-[  265.064288]  #2: ffff80008b7c79e8 (reservation_ww_class_mutex){+.+.}-{4:4}, at: panthor_ioctl_group_submit+0x424/0x560 [panthor]
-[  265.065370] 
-[  265.065370] stack backtrace:
-[  265.065780] CPU: 4 UID: 1000 PID: 443 Comm: glmark2-es2-drm Not tainted 7.0.0-rc3-00694-gadfa5ca08767 #1 PREEMPT 
-[  265.065787] Hardware name: Radxa ROCK 5B (DT)
-[  265.065791] Call trace:
-[  265.065793]  show_stack+0x18/0x24 (C)
-[  265.065802]  dump_stack_lvl+0x6c/0x94
-[  265.065810]  dump_stack+0x1c/0x28
-[  265.065815]  print_deadlock_bug+0x224/0x238
-[  265.065822]  __lock_acquire+0xe54/0x1600
-[  265.065829]  lock_acquire+0x3cc/0x420
-[  265.065834]  __ww_mutex_lock.constprop.0+0x1fc/0x2c40
-[  265.065844]  ww_mutex_lock+0x50/0x168
-[  265.065850]  drm_gpuvm_bo_deferred_cleanup+0x100/0x2c0 [drm_gpuvm]
-[  265.065862]  panthor_vm_cleanup_op_ctx+0x188/0x270 [panthor]
-[  265.065881]  panthor_vm_bo_validate+0x404/0x758 [panthor]
-[  265.065898]  drm_gpuvm_validate+0x28c/0xf50 [drm_gpuvm]
-[  265.065907]  panthor_vm_prepare_mapped_bos_resvs+0x64/0x80 [panthor]
-[  265.065925]  panthor_ioctl_group_submit+0x418/0x560 [panthor]
-[  265.065942]  drm_ioctl_kernel+0x15c/0x2c0
-[  265.065947]  drm_ioctl+0x56c/0xb1c
-[  265.065952]  __arm64_sys_ioctl+0x124/0x1a4
-[  265.065961]  invoke_syscall+0x70/0x260
-[  265.065967]  el0_svc_common.constprop.0+0xac/0x230
-[  265.065972]  do_el0_svc+0x40/0x58
-[  265.065976]  el0_svc+0x4c/0x210
-[  265.065981]  el0t_64_sync_handler+0xa0/0xe4
-[  265.065986]  el0t_64_sync+0x198/0x19c
+Yes.
 
-Thanks,
-Steve
 
-> A few words about some design/implementation choices:
-> - No MADVISE support because I want to see if we can live with just
->   transparent reclaim
-> - We considered basing this implementation on the generic shrinker work
->   started by Dmitry [2], but
->   1. with the activeness/idleness tracking happening at the VM
->      granularity, having per-BO LRUs would caused a lot of
->      list_move()s that are not really needed (the VM as a whole
->      become active/idle, we can track individual BOs)
->   2. Thomas Zimmermann recently suggested that we should have our
->      own GEM implementation instead of trying to add this extra reclaim
->      complexity to gem-shmem. There are some plans to create a
->      gem-uma (Unified Memory Architecture) lib that would do more
->      than gem-shmem but in a way that doesn't force all its users
->      to pay the overhead (size overhead of the gem object, mostly)
->      for features they don't use. Patch "Part ways with
->      drm_gem_shmem_object" is showing what this component-based lib
->      API could look like if it were to be extracted
-> - At the moment we only support swapout, but we could add an
->   extra flag to specify when buffer content doesn't need to be
->   preserved to avoid the swapout/swapin dance. First candidate for
->   this DISCARD_ON_RECLAIM flag would probably be the tiler heap chunks.
-> - Reclaim uses _try_lock() all the way because of the various lock order
->   inversions between the reclaim path and submission paths. That means
->   we don't try very hard to reclaim hot GPU buffers, but the locking is
->   such a mess that I don't really see a better option to be honest.
-> 
-> 
-> Changes in v2:
-> - No fundamental changes in this v2, since the feedback I got were more
->   focused on bugs than the overall approach. Check the changelog in each
->   patch for more details.
-> 
-> Changes in v3:
-> - Mostly fixes (see the changelog in each patch)
-> 
-> Changes in v4:
-> - Only fixes (see the changelog in each patch)
-> 
-> Changes in v5:
-> - Only fixes (see the changelog in each patch)
-> 
-> Changes in v6:
-> - Fix huge fault handling and various other things reported by Adrian
->   and the review bot (see the changelog in each patch for more)
-> 
-> Regards,
-> 
-> Boris
-> 
-> [1]https://gitlab.freedesktop.org/bbrezillon/igt-gpu-tools/-/commit/fc76934a5579767d2aabe787d40e38a17c3f4ea4
-> [2]https://lkml.org/lkml/2024/1/5/665
-> 
-> Akash Goel (1):
->   drm/panthor: Add a GEM shrinker
-> 
-> Boris Brezillon (8):
->   drm/gem: Consider GEM object reclaimable if shrinking fails
->   drm/panthor: Move panthor_gems_debugfs_init() to panthor_gem.c
->   drm/panthor: Group panthor_kernel_bo_xxx() helpers
->   drm/panthor: Don't call drm_gpuvm_bo_extobj_add() if the object is
->     private
->   drm/panthor: Part ways with drm_gem_shmem_object
->   drm/panthor: Lazily allocate pages on mmap()
->   drm/panthor: Split panthor_vm_prepare_map_op_ctx() to prepare for
->     reclaim
->   drm/panthor: Track the number of mmap on a BO
-> 
->  drivers/gpu/drm/drm_gem.c                |   10 +
->  drivers/gpu/drm/panthor/Kconfig          |    1 -
->  drivers/gpu/drm/panthor/panthor_device.c |   11 +-
->  drivers/gpu/drm/panthor/panthor_device.h |   73 ++
->  drivers/gpu/drm/panthor/panthor_drv.c    |   33 +-
->  drivers/gpu/drm/panthor/panthor_fw.c     |   16 +-
->  drivers/gpu/drm/panthor/panthor_gem.c    | 1453 ++++++++++++++++++----
->  drivers/gpu/drm/panthor/panthor_gem.h    |  136 +-
->  drivers/gpu/drm/panthor/panthor_mmu.c    |  502 ++++++--
->  drivers/gpu/drm/panthor/panthor_mmu.h    |    8 +
->  drivers/gpu/drm/panthor/panthor_sched.c  |    9 +-
->  11 files changed, 1911 insertions(+), 341 deletions(-)
-> 
-
+-- 
+With best wishes
+Dmitry
