@@ -4,63 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 50B3CFF4943
-	for <dri-devel@archiver.kernel.org>; Mon, 30 Mar 2026 05:30:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AF381FF493A
+	for <dri-devel@archiver.kernel.org>; Mon, 30 Mar 2026 05:30:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 974CE10E43E;
-	Mon, 30 Mar 2026 05:30:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 265CB10E445;
+	Mon, 30 Mar 2026 05:30:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ilPfBF3q";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="FxZmLNJJ";
 	dkim-atps=neutral
-Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com
- [209.85.208.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8939B10E438
- for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 05:30:43 +0000 (UTC)
-Received: by mail-ed1-f41.google.com with SMTP id
- 4fb4d7f45d1cf-66bf6aa4858so381364a12.2
- for <dri-devel@lists.freedesktop.org>; Sun, 29 Mar 2026 22:30:43 -0700 (PDT)
+Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com
+ [209.85.218.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 974F710E441
+ for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 05:30:46 +0000 (UTC)
+Received: by mail-ej1-f53.google.com with SMTP id
+ a640c23a62f3a-b97a9f4b4dcso523013666b.3
+ for <dri-devel@lists.freedesktop.org>; Sun, 29 Mar 2026 22:30:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1774848642; x=1775453442; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1774848645; x=1775453445; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=kXnSrL1nik3JfElYjJrrOZj+38qywDMZ4t7LJjjm5fU=;
- b=ilPfBF3qwkb2vyVHwH8hXNXnBFinmYb77CIRjcWpKf+QCu0ZJ4pJsQo55AajdtCwSu
- DXVFV6R7favjCGJYjWAMjQ9JOaRjNV5IERMs7m0MsAhaK992D+WOpcosq4vTGR8t8TCh
- Ycx5avDeN4zpGjfS+4wRQSSyvktSJw/MeKLA0Apt0HvxujBF2uUxlIKH6EEiV+deBJkB
- rHVYfmRVoEzR61mMbJriA1410h0HZOmXn8xgV32h/oCBIa2SyP4cmhQzgUaOCjo5Vj93
- CK5R4v5GrqRxf9xXUvUAhygQSPwJW5dl01HiuynVlcyKeJWXHGFPYM/WZULnFbPftGgy
- Xkow==
+ bh=p4h/NQNA+UNY/vL0CTGhvWEa0MkHre3ParL6tgrkGUs=;
+ b=FxZmLNJJXfyT/qnskOZXZVs4/VzlIWk5vThZWEY6I+I6QkDXLKBOBkURDJB4inxgkE
+ o1bwR7p8esp7xQwXjYgdWzSXGgfQrm+24gDM0PEA9cN4dwZ4lvrF7eWURrucemcJPJUC
+ DU6FlYFRX64+lWjy3a5u4hUl3UFxtADqNogd1sPiqfFG6pYeRY/w8+MY6AIoUbTDSeYW
+ Mv9cw+Zatjki+lQPfgdW2H3U5YSbUPgscPage6MdQ7RxH22+OROZF7W0U+R8YVSvIJIj
+ EvmRliOaHm0J+oluieHlnWz/yFg6XKuZa3Ia+xgfdADkf4djDvzv5JwiYb8SVgBB/cl1
+ 67qA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774848642; x=1775453442;
+ d=1e100.net; s=20251104; t=1774848645; x=1775453445;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=kXnSrL1nik3JfElYjJrrOZj+38qywDMZ4t7LJjjm5fU=;
- b=C0f4geNNSAyHc28ecwU2ZNmlQJyZYqrwTmAwhSj9jCjewtG/xCUDA1mvAcCFevtREr
- YqtyY8hTCfxL9dVYx759kz/FT7IvsNM6z5hq3PP+ypooOR2gMEb/AcEQP6N8AcBYCayB
- Zaa9DtfB2ZSRprqU31QZWvx0JYgMFfsZ9FKYz1K6lx7ZeVneYq1fA3qlg43EVCjCqKcR
- HPqAYfTwkZFNpEabsEbuo2OgGQZnGFjW67/Pk3GAJHO7M3i8M2tG+0Mad3NCuZEdJJqs
- zShO2tiC8T3hb+g8Ynt9vLhTOixaQno5AQr7fg6YtLiwpr1iez8NfwrseLfDvdjWOdR4
- CRUQ==
+ bh=p4h/NQNA+UNY/vL0CTGhvWEa0MkHre3ParL6tgrkGUs=;
+ b=Dt6UAotC8s2ysHd/0pCdkSAfhqmrvBjcQcHoBeu3RcfFUQeej3du9siumV98QLhiet
+ 6mkBvYov5sWYtM9r4HOpLPcGzqrUn9yIxxNRMmnSW7dcN7jmaU7uwmafUheN5p8KANgX
+ Urvt+GjlP5JVlvJmIjyFWOtBYaJ3/fP2gV9IAJDoKxpSUdtrQ3GXvBssfYjaqa9Aqvu2
+ WbrceE5kGlgHOCWcFMrM9w/yB14vdEbGh+dZuMutN2XXLgx6syrr1GQr1tKRQwc9FiGU
+ /YHbGTJteqYA+0dumIRO2HMNlmqvSe+O/4QezV96W8zCNq28h7xgE/eswls58iP/0PEV
+ Q7vA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUy+bGl0TyHvEGOMzKLSfpeojtuTCiJdXHbTvX0It4IaAd03u/JbdoR0QXbe4uGo2rwdSFw8yKqsmk=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxzeC/Smh0t61rrEM1Jk2oTNNZsXI533pukBb8stdTmgjMcMOhf
- NLMubeItE/7o9TPqJV1AeVSfIH7C8LQQIDTpbjBDvXqN69HbkYNlRdUV
-X-Gm-Gg: ATEYQzyz3OcOr8qsftY14tpnBI3EzeJv/z46N35R+5nqfI+pwRAmjo/qE+0spT0qJpM
- Vq+KF/7bepR+d+SPvHB+6cuu+pF4QxJ+42RvARa7u4V2c/rF5cIEx0/YHA4IH1lrw1G/Prxt1Q5
- X2TvKc+baSe9Oh9yPG1WvcLucnpqV+kkrQ0ZVfnLPZYDIhqhGcXMUjVBnQz5+FKDmwja33SHzSA
- p3wjuG02h9kuhDpdQZQPupH5ip/gGjWUgf50+77/D6AJzzS2KHsyGtrT+SyhiVjKkWXEvu2SziE
- L2QAtjhOg3LA240fXcP47uRvp3zUaSh0gZzQ9U/BXp6bJbLcxMVrB6rx97JvQWB3yMXZu1mAmeH
- JY7PRwv8PBwOhoXoUsjr2+wKn8b5Z/5njOMto9cuR5Pw1oDIgHCOa5gGKYpJbGVPy0ZvgMifwfb
- xbBCrZ0OJquqhWb1YlIBljyPAyg8biZArQ
-X-Received: by 2002:a17:907:3d52:b0:b98:6984:661c with SMTP id
- a640c23a62f3a-b9b50301618mr717804066b.10.1774848641892; 
- Sun, 29 Mar 2026 22:30:41 -0700 (PDT)
+ AJvYcCV8px/6nlApPC5XzPeAgEo9s5iLcf/AIahLDIucLIcjL4QsIXd/mOukA6Aq/cdhRyrsnB0XcUJJF7k=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yx5dfVyN7K0HjulRuvFBqqd1N78cPDDCAd3oqbTGLFfddQhx6Zm
+ ZXnQWJXY9u3voiCr7nN1/HnD4NasF+4mKV4Nsk3KhUDj7si5kTPArVzh
+X-Gm-Gg: ATEYQzzgZUSvk7msi0Ig5cjUkQ1gWlt2RDSmkT5LDfuIE2DIUETusqwGG2QOt1q8bGR
+ 2AoexU2ERxMVgAVPtbu1X2rFjSotwc3lqFxKGMlzedzwLcsX415MKLVMFFTLIp30IS/UqqeG6kD
+ X1YKYVXwGVzcPW11jF76iwepSDOxHPM0BzFI5I04Gp0Ev6woLgLS7fzE21UOG7qhsk/VhpSVves
+ 1LI9GMmR4khOAAilZ/s75l8pxm1XVPHjdAnSSxN/00VsgTs0bBRTL/puvlV/pM50b9MDrXDJqCH
+ eEyuzZ0Vw01M3Vx5Mj1PB1jbF+lXR/PeARBS0TbSHZRPkjoz1Dw77KVFXsnpm7T2B82NXK9qWRq
+ E4xDVjnI4WTk/Z8LYNjYzMtHEukkCUox10ZF0aPl/F5lcuVu+jVVLqXh0PN1pC87AZNt+RjiR0S
+ xhCE0ATWKPEcanr+INEf+BRroViNuBDN9L
+X-Received: by 2002:a17:907:9614:b0:b9b:e5d:71d0 with SMTP id
+ a640c23a62f3a-b9b5098bb2bmr700871866b.53.1774848644973; 
+ Sun, 29 Mar 2026 22:30:44 -0700 (PDT)
 Received: from localhost ([178.214.243.78]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b9b7b1a5fc9sm240417066b.36.2026.03.29.22.30.39
+ a640c23a62f3a-b9b7b1a5fc9sm240417066b.36.2026.03.29.22.30.43
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 29 Mar 2026 22:30:40 -0700 (PDT)
+ Sun, 29 Mar 2026 22:30:44 -0700 (PDT)
 From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
 To: Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
@@ -68,15 +68,13 @@ Cc: Eric Huang <jinhuieric.huang@amd.com>, David Airlie <airlied@gmail.com>,
  Simona Vetter <simona@ffwll.ch>, amd-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, stable@vger.kernel.org,
  Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
-Subject: [PATCH v2 1/2] drm/amdgpu: fix sleeping allocation under spinlock in
- PASID IDR
-Date: Mon, 30 Mar 2026 10:30:24 +0500
-Message-ID: <20260330053025.19203-2-mikhail.v.gavrilov@gmail.com>
+Subject: [PATCH v2 2/2] drm/amdgpu: use spin_lock_irqsave for PASID IDR lock
+Date: Mon, 30 Mar 2026 10:30:25 +0500
+Message-ID: <20260330053025.19203-3-mikhail.v.gavrilov@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260330053025.19203-1-mikhail.v.gavrilov@gmail.com>
 References: <20260330053025.19203-1-mikhail.v.gavrilov@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -93,60 +91,87 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Commit 14b81abe7bdc ("drm/amdgpu: prevent immediate PASID reuse case")
-switched from ida to idr_alloc_cyclic() protected by a spinlock, but
-passes GFP_KERNEL to the allocator.  idr_alloc_cyclic() may need to
-allocate radix-tree nodes, which with GFP_KERNEL can sleep — illegal
-under a spinlock that disables preemption.  With CONFIG_PREEMPT or
-lockdep enabled this triggers:
+amdgpu_pasid_free() can be called from hardirq context via the fence
+signal path:
 
-  BUG: sleeping function called from invalid context at
-       ./include/linux/sched/mm.h:323
-  in_atomic(): 1, irqs_disabled(): 0, non_block: 0, pid: 570
-  ...
-  #1: ffffffffc2cd24f8 (amdgpu_pasid_idr_lock){+.+.}-{3:3},
-      at: amdgpu_pasid_alloc+0x24/0x210 [amdgpu]
-  ...
-  kmem_cache_alloc_noprof+0x41d/0x780
-  radix_tree_node_alloc.constprop.0+0x56/0x3a0
-  idr_get_free+0x330/0x830
-  idr_alloc_u32+0x14a/0x2e0
-  idr_alloc_cyclic+0xd3/0x1d0
-  amdgpu_pasid_alloc+0x51/0x210 [amdgpu]
+  sdma_v6_0_process_trap_irq
+   -> amdgpu_fence_process
+    -> dma_fence_signal
+     -> drm_sched_job_done
+      -> dma_fence_signal
+       -> amdgpu_pasid_free_cb
+        -> amdgpu_pasid_free
+         -> spin_lock(&amdgpu_pasid_idr_lock)  <- hardirq context
 
-A mutex is not an option because amdgpu_pasid_free() is reachable from
-dma-fence callbacks (amdgpu_pasid_free_cb) which may run in IRQ context.
+But the lock was originally taken with plain spin_lock() in process
+context (amdgpu_pasid_alloc), creating an inconsistent
+{HARDIRQ-ON-W} -> {IN-HARDIRQ-W} lock state that can deadlock if an
+interrupt arrives while the lock is held on the same CPU.
 
-Use idr_preload(GFP_KERNEL) before taking the spinlock to pre-allocate
-radix-tree nodes, then pass GFP_NOWAIT inside the critical section so
-the allocator draws from the preloaded pool and never sleeps.  This is
-the standard kernel pattern for IDR allocation under a spinlock.
+Use spin_lock_irqsave/spin_unlock_irqrestore for all call sites of
+amdgpu_pasid_idr_lock to prevent the deadlock.
 
-Fixes: 14b81abe7bdc ("drm/amdgpu: prevent immediate PASID reuse case")
+This patch applies on top of "drm/amdgpu: fix sleeping allocation
+under spinlock in PASID IDR".
+
+Fixes: 8f1de51f49be ("drm/amdgpu: prevent immediate PASID reuse case")
 Cc: stable@vger.kernel.org
 Signed-off-by: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c | 16 ++++++++++------
+ 1 file changed, 10 insertions(+), 6 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
-index d88523568b62..515775eab2ef 100644
+index 515775eab2ef..762ceb3c708a 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
-@@ -67,10 +67,12 @@ int amdgpu_pasid_alloc(unsigned int bits)
+@@ -62,16 +62,17 @@ struct amdgpu_pasid_cb {
+  */
+ int amdgpu_pasid_alloc(unsigned int bits)
+ {
++	unsigned long flags;
+ 	int pasid;
+ 
  	if (bits == 0)
  		return -EINVAL;
  
-+	idr_preload(GFP_KERNEL);
- 	spin_lock(&amdgpu_pasid_idr_lock);
+ 	idr_preload(GFP_KERNEL);
+-	spin_lock(&amdgpu_pasid_idr_lock);
++	spin_lock_irqsave(&amdgpu_pasid_idr_lock, flags);
  	pasid = idr_alloc_cyclic(&amdgpu_pasid_idr, NULL, 1,
--				 1U << bits, GFP_KERNEL);
-+				 1U << bits, GFP_NOWAIT);
- 	spin_unlock(&amdgpu_pasid_idr_lock);
-+	idr_preload_end();
+ 				 1U << bits, GFP_NOWAIT);
+-	spin_unlock(&amdgpu_pasid_idr_lock);
++	spin_unlock_irqrestore(&amdgpu_pasid_idr_lock, flags);
+ 	idr_preload_end();
  
  	if (pasid >= 0)
- 		trace_amdgpu_pasid_allocated(pasid);
+@@ -86,11 +87,12 @@ int amdgpu_pasid_alloc(unsigned int bits)
+  */
+ void amdgpu_pasid_free(u32 pasid)
+ {
++	unsigned long flags;
+ 	trace_amdgpu_pasid_freed(pasid);
+ 
+-	spin_lock(&amdgpu_pasid_idr_lock);
++	spin_lock_irqsave(&amdgpu_pasid_idr_lock, flags);
+ 	idr_remove(&amdgpu_pasid_idr, pasid);
+-	spin_unlock(&amdgpu_pasid_idr_lock);
++	spin_unlock_irqrestore(&amdgpu_pasid_idr_lock, flags);
+ }
+ 
+ static void amdgpu_pasid_free_cb(struct dma_fence *fence,
+@@ -633,7 +635,9 @@ void amdgpu_vmid_mgr_fini(struct amdgpu_device *adev)
+  */
+ void amdgpu_pasid_mgr_cleanup(void)
+ {
+-	spin_lock(&amdgpu_pasid_idr_lock);
++	unsigned long flags;
++
++	spin_lock_irqsave(&amdgpu_pasid_idr_lock, flags);
+ 	idr_destroy(&amdgpu_pasid_idr);
+-	spin_unlock(&amdgpu_pasid_idr_lock);
++	spin_unlock_irqrestore(&amdgpu_pasid_idr_lock, flags);
+ }
 -- 
 2.53.0
 
