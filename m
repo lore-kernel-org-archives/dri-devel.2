@@ -4,84 +4,137 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 57BD410D14A1
-	for <dri-devel@archiver.kernel.org>; Mon, 30 Mar 2026 11:16:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6561E10D14A0
+	for <dri-devel@archiver.kernel.org>; Mon, 30 Mar 2026 11:22:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7BFDE10E47E;
-	Mon, 30 Mar 2026 11:16:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BCD8310E60B;
+	Mon, 30 Mar 2026 11:22:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="awzCZVap";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="eN+/nEud";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="df68qtHE";
 	dkim-atps=neutral
-Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com
- [209.85.214.182])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 124A510E4A3
- for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 11:15:59 +0000 (UTC)
-Received: by mail-pl1-f182.google.com with SMTP id
- d9443c01a7336-2aaf59c4f7cso17747535ad.1
- for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 04:15:59 -0700 (PDT)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AC90F10E666
+ for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 11:22:51 +0000 (UTC)
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 62U7fklh350298
+ for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 11:22:51 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ plDxEJIEjCNBQg3n0O4+/HclwzWxwaqEltwNdOaJVbs=; b=eN+/nEudwXb+wVXd
+ Hlj7gMrI1Nxnan1OU5Gb7o6sIQo4OdbCDAH4gPtAgRNax21N9Xr9M0jB1l5xU1O/
+ NYdr8qQcwIQf370OTMeLJ5WZvl8PbCgsP4DoLpSzEN++Lqws3njCQZdYgzbVJ96b
+ r+n8VPsSbKkztsg30WPBqSzztDGn0NODb7bTqrOUH/2v38d6Gnlvz9I6OLiEnvgm
+ oGNOhtNNcnz/z+3IRGjPaRqziSaSLqA5n8WciNbzISDKkkWpBsVbzQyuiPvJGPFx
+ d9mckR9y5Nbg9ODrq91rWBoXs6Ibz4kEg+0o+0VPy1Gu57k4ZwH6uKFHpG2qdaoZ
+ y7dKxg==
+Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com
+ [209.85.219.71])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d6wqeks81-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 11:22:51 +0000 (GMT)
+Received: by mail-qv1-f71.google.com with SMTP id
+ 6a1803df08f44-89cd0f68ed4so17596256d6.3
+ for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 04:22:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1774869358; x=1775474158; darn=lists.freedesktop.org;
- h=in-reply-to:references:to:from:subject:cc:message-id:date
- :content-transfer-encoding:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=QwbMmOxnhNPJFKX0tFv66f1BEnM4IowI567cylvFxpY=;
- b=awzCZVap13P7QWZuNv6Fuj8DpZ0/X/wdBgUBILBcQKrr2GTd3HTaPQ/hn4oemfxFLb
- jWlVpICM6jw/X2vd1CJCl2SpDGLuV6Z1u7B+eVmc40myhVX1ALcFwdxjUC8pI2EocqGu
- BIt0P3nAreONeGPS+LFiRWxzSHy4pw+KM9rI3rQitxoLdOZ8kiQ5tF5moRChfocriZf3
- chXsy0JYCDofXolAHaF1oPWWL0BG1w7KMkNRgX59UaLiOlnIXS7LRhrlub6j2wVcceAG
- /mHSsRYWDQf9El8FgMvmyclD6dVujqdo1aRlCqxZUHHGr2loTXIkF285bphQG/ZFhd83
- LozA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774869358; x=1775474158;
- h=in-reply-to:references:to:from:subject:cc:message-id:date
- :content-transfer-encoding:mime-version:x-gm-gg:x-gm-message-state
+ d=oss.qualcomm.com; s=google; t=1774869770; x=1775474570;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=QwbMmOxnhNPJFKX0tFv66f1BEnM4IowI567cylvFxpY=;
- b=mZW14fMIf2UXCc/m0aPP1HIuypTsLNwx+3BudnwBxaOVqqZSCFPGK9RaXzrn10xV1X
- RegPVoexYEcREjqXy8j0uv7DZG9nV8VYquSlv7yB5HSSXrQ7uynbhIZvrh5fkjjxZBLo
- ATe00Yz2qqw+sm15jHcpVJuysiuiXp4IjqATVDzhhEIg9eArChwMx4KDeT5H3Gzfb4Gi
- fQIF+5QCqTI0OcyR19aRn1KPo0q5mDlb0Z0BIMipfdTHK5P/b7tg3CG8l0Txll3EeBD1
- 9zEwr4gG1k6fCQ/DUu/elC9yCfqrvFMUv2OSQK9hgBXzMOF1hihOwQR4x2ybRjDaC3QB
- kqpA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUwNsU0HrVq6tnHq+NAc1ETFGqd4XENM6djuqFbqOciMnflclX7Aso0FVVk8O5XyGAqDCqFcsQWGw8=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzZKR8hVR2BfBVZoIuy6eVR1bzAarNaFSps4gFcZ0kdft+JZsHR
- 42fSAVoPqnO4WonUMMxMWfpfUDUbsTAKoRpeACjphgU9u9cbRzT8eWqx
-X-Gm-Gg: ATEYQzxlBwcfk7V/tRqHDRiYN9/0UfpPnuEuve3RcudHhbkIkYvz333l3PYtWRo3zFj
- D335I0Ol2f7soYDmf3ueY0I/K8a02YXSl8iF8fh52CPV/X9DiFzDewaOUQYWGlGeWtoYHuhOP1X
- 9fJz0FD98jHwVtTiZxs3OC3XQWkZ2YGcvaFehxE7CSVPyCWHI5y2Llh/4ZL/JWLl4vHV1uCywi3
- NnBcVyV41Gu5QKHpMcCMtIBBNjmRg1Ev6mXBsCnM5FEFt4ytRU9cWXBVImRt3KYWpCOWdN+9pmV
- C7AQWCZ9IvUaL+GXGOR4xlyl/haWHVcC8w+3djRh0jEtie2532ZypbDYVun8IQCIQv0PS3e8t9n
- MNlXxKaczzXEsPjPY4NL+XADkdFrwmT4/9Xk7UDUX8oATlZRzv9YhSRurX6jF9VA8ZwvXJiOZGw
- fhxxMsl0WR2qh2F3U=
-X-Received: by 2002:a17:903:1392:b0:2b0:708f:4dc7 with SMTP id
- d9443c01a7336-2b0cdcdc34emr86397435ad.29.1774869358504; 
- Mon, 30 Mar 2026 04:15:58 -0700 (PDT)
-Received: from localhost ([240d:1a:f76:b500:4431:46e3:c76b:79bc])
- by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2b242642b59sm78870575ad.16.2026.03.30.04.15.55
+ bh=plDxEJIEjCNBQg3n0O4+/HclwzWxwaqEltwNdOaJVbs=;
+ b=df68qtHELbNDJKi4sHGE2th8z7qjOpOx9Drc2eHJ0QpsFt89Z7JDm2KWr+U+nubpZg
+ LqaVHmAiH4d4oysA6CRfwleRe6DFw4a8KLLooJ0aVkXOU36m8MpxrEN2Zl9/+UFv+iN2
+ LXjOuLGkjRjjSfQK/87KyIG47uu9qFaF+rgvGqS0ubrW5hR8jE2VO5S3GbdGgtSD4NVi
+ 3A02cpkZK4dxI4tmklbQaKnUYt2g77JaFVWAH2uhDB4ndGXsykknwpzzSVsJm26iu3i4
+ BrUwg+dxGiAdoXFt9eHQWtXyDAH2CjLbGy98lUjAu2//3jQJcnS2rhePdF+gq5vXO9bL
+ IoqQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1774869770; x=1775474570;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=plDxEJIEjCNBQg3n0O4+/HclwzWxwaqEltwNdOaJVbs=;
+ b=JVsijQ0oRUPO5V1rtVXAzMWjc9ypA2PO9knm+fhS8uKJwmGQtuqzKyC2WMoT4/F0Ci
+ U8iOdgw6O9ksV0P/un9pkzobA1x6fxpYUsESKLusGucySxMLd9/fxaY/aX7ArQ6x5An0
+ 0l4fhK2wC7SL+4m1YcVJzDr8Q2ezVzfKSOhhY+5BjHistv/n2to+PIqeVZEyXLp6Vz/r
+ 2v70kXoFIw1qm718Kzp9whPp4RnB37ZMTlFzSVH3prkAI653+4KGHZmu2zozvYgq/hCF
+ hZcbyBwWtPBgjPms43tGfgFYhlaIORkKbO0r4qLs82HjUmiZi8WPQu1qHIpQg3lPvGg7
+ jsbQ==
+X-Gm-Message-State: AOJu0Yzb4xLi6dTxh8DNChdH2JGd2lygvFb6h4SoB2tNrSBJJWyk8e1v
+ XTmZhozxVkpa20Ns27WwhxVwjMDaozJfjsdtVdgpqZUNyUMKDkAYSgANKVF+jupntj6by63xDrU
+ gpZ2AX4H8rU5AArcSJFDPgshJqu0gXiFPDGGfi0bKmK+EQGTZ4xuxb1fsjhwxZJwDSZ8DYVY=
+X-Gm-Gg: ATEYQzzTfAqNG8a5K49AJzGcVx2/5Z2jdB9p7gU6r/pemxdA8Z6nhEuYzdCHXYu5yDW
+ HuCJOl2j0SGuFo2oEivk/cczKQ1eGsMXTCq7bWndDOyWRXd83IXx53uhMLUwiQi8CMhrcLJ62WU
+ Pn8ZCWIvqkbLNhFch92rC8suA8qY6RQ2L058Iz94lNFKlLgmiPHdxaUmTMFkyxYzSzhsd6m5yeP
+ jojLU91OTzzMBdwf8MKExv6skAVTIYy52pZ5L/kt83jq2SRhhACTkeO3rV+axHUKvX5I0iI+obh
+ R0YDs4lmINwoSBM1heGnQI26zQov+cDS4SbEizstKfxHqzKgvIKdP9ZsOy9AEZDRnrbw6MNeiVb
+ JO4FedZgsdbx3HP8FyCIuYHkmLePGF8Vz0+814CWSDV0K5G0aL5nwY6POr7EOjD2G1ur1pDuEr8
+ SKOwI=
+X-Received: by 2002:a05:6214:528a:b0:89c:5473:bf47 with SMTP id
+ 6a1803df08f44-89ce8df70cbmr125942696d6.4.1774869770144; 
+ Mon, 30 Mar 2026 04:22:50 -0700 (PDT)
+X-Received: by 2002:a05:6214:528a:b0:89c:5473:bf47 with SMTP id
+ 6a1803df08f44-89ce8df70cbmr125942386d6.4.1774869769508; 
+ Mon, 30 Mar 2026 04:22:49 -0700 (PDT)
+Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl.
+ [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-b9b7ae24d6bsm276245966b.6.2026.03.30.04.22.46
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 30 Mar 2026 04:15:57 -0700 (PDT)
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
+ Mon, 30 Mar 2026 04:22:48 -0700 (PDT)
+Message-ID: <ecfae618-b2fd-426d-ab2c-c13ba5d764f1@oss.qualcomm.com>
+Date: Mon, 30 Mar 2026 13:22:45 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 3/6] arm64: dts: qcom: msm8953-flipkart-rimob: Enable
+ display and GPU
+To: cristian_ci@protonmail.com, Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org
+References: <20260327-rimob-new-features-v4-0-06edff9c4509@protonmail.com>
+ <20260327-rimob-new-features-v4-3-06edff9c4509@protonmail.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260327-rimob-new-features-v4-3-06edff9c4509@protonmail.com>
 Content-Type: text/plain; charset=UTF-8
-Date: Mon, 30 Mar 2026 20:15:55 +0900
-Message-Id: <DHG2ODK6STM0.25M7U46EBUSZB@gmail.com>
-Cc: "Danilo Krummrich" <dakr@kernel.org>, "Alice Ryhl"
- <aliceryhl@google.com>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
- <simona@ffwll.ch>, "Alistair Popple" <apopple@nvidia.com>,
- <oe-kbuild-all@lists.linux.dev>, "John Hubbard" <jhubbard@nvidia.com>,
- "Joel Fernandes" <joelagnelf@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>,
- "Zhi Wang" <zhiw@nvidia.com>, "Eliot Courtney" <ecourtney@nvidia.com>,
- <rust-for-linux@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v3] gpu: nova-core: gsp: fix undefined behavior in
- command queue code
-From: "Alexandre Courbot" <gnurou@gmail.com>
-To: "kernel test robot" <lkp@intel.com>, "Gary Guo" <gary@garyguo.net>
-References: <20260326-cmdq-ub-fix-v3-1-96af2148ca5c@nvidia.com>
- <202603281331.1ESuqgfz-lkp@intel.com>
-In-Reply-To: <202603281331.1ESuqgfz-lkp@intel.com>
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=Jo78bc4C c=1 sm=1 tr=0 ts=69ca5d0b cx=c_pps
+ a=UgVkIMxJMSkC9lv97toC5g==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
+ a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=VwQbUJbxAAAA:8 a=sfOm8-O8AAAA:8 a=EUspDBNiAAAA:8 a=ER6jexHYGgKHINCZH0oA:9
+ a=QEXdDO2ut3YA:10 a=1HOtulTD9v-eNWfpl4qZ:22 a=TvTJqdcANYtsRzA46cdi:22
+X-Proofpoint-GUID: GYjAkb471xur6Z6B29GIrE4SRGNmqtYW
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzMwMDA4OSBTYWx0ZWRfX//qJS1PZlsgO
+ 8a315PpVAtHcsWMj4JgBl9gR96Ou/RAil8+4jNO5SxfRuAb+XDj/HHvN7pAFzu65bsqW5z52K3+
+ HHZhLDGfV35a/4Rqqmh8CKS3r5WIXgJ6Y1hJUNC4FQ97944lJFnMccIKeTD9rWAxixqr15cnjkB
+ CBUgJMQA1A/59uSPFMioeC8wG0Cl9m8Xei7moiywpi+FQyrm+BaOBnymfXcF+kFxl6Uyk4uKIQA
+ JMpHAraKbSZ0QHTIMbWRKiGBFdepSaRJrCqRH6bYtVrs16td5kiGzTtqhuHteYpnDRPPztyLXYM
+ Bcy85OsAZ+gyQM5BBTRsV0AlU+Arjd+CBlPJHaQobNqUeixbBr8T0iT0xQMXB3eJbxEH2QNoqzE
+ M0qQmRJMBgt/mqY3GxCZ6tsscfGljvkiqtFr3BI5PEd9vJFXdwqagfFc+UgQvMtoOr20th3rRC6
+ lnVyUCH4XVmT2ZsEWzg==
+X-Proofpoint-ORIG-GUID: GYjAkb471xur6Z6B29GIrE4SRGNmqtYW
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-03-29_05,2026-03-28_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 phishscore=0 bulkscore=0 malwarescore=0 suspectscore=0
+ impostorscore=0 adultscore=0 priorityscore=1501 spamscore=0 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603300089
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,55 +150,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sat Mar 28, 2026 at 2:53 PM JST, kernel test robot wrote:
-> Hi Alexandre,
->
-> kernel test robot noticed the following build errors:
->
-> [auto build test ERROR on dff8302ca1d0e773c90dbeeb05e759f995c95482]
->
-> url:    https://github.com/intel-lab-lkp/linux/commits/Alexandre-Courbot/=
-gpu-nova-core-gsp-fix-undefined-behavior-in-command-queue-code/20260327-003=
-216
-> base:   dff8302ca1d0e773c90dbeeb05e759f995c95482
-> patch link:    https://lore.kernel.org/r/20260326-cmdq-ub-fix-v3-1-96af21=
-48ca5c%40nvidia.com
-> patch subject: [PATCH v3] gpu: nova-core: gsp: fix undefined behavior in =
-command queue code
-> config: x86_64-randconfig-102-20260327 (https://download.01.org/0day-ci/a=
-rchive/20260328/202603281331.1ESuqgfz-lkp@intel.com/config)
-> compiler: clang version 20.1.8 (https://github.com/llvm/llvm-project 87f0=
-227cb60147a26a1eeb4fb06e3b505e9c7261)
-> rustc: rustc 1.88.0 (6b00bc388 2025-06-23)
-> reproduce (this is a W=3D1 build): (https://download.01.org/0day-ci/archi=
-ve/20260328/202603281331.1ESuqgfz-lkp@intel.com/reproduce)
->
-> If you fix the issue in a separate patch/commit (i.e. not just a new vers=
-ion of
-> the same patch/commit), kindly add following tags
-> | Reported-by: kernel test robot <lkp@intel.com>
-> | Closes: https://lore.kernel.org/oe-kbuild-all/202603281331.1ESuqgfz-lkp=
-@intel.com/
->
-> All errors (new ones prefixed by >>):
->
->>> ld.lld: error: undefined symbol: rust_build_error
->    >>> referenced by build_assert.rs:28 (rust/kernel/build_assert.rs:28)
->    >>>               vmlinux.o:(<nova_core::gsp::cmdq::DmaGspMem>::alloca=
-te_command)
+On 3/27/26 3:30 PM, Cristian Cozzolino via B4 Relay wrote:
+> From: Cristian Cozzolino <cristian_ci@protonmail.com>
+> 
+> Add the description for the display panel found on this phone.
+> And with this done we can also enable the GPU and set the zap shader
+> firmware path.
+> 
+> Signed-off-by: Cristian Cozzolino <cristian_ci@protonmail.com>
+> ---
 
-Been able to reproduce this, but only if I use the 0day compiler (i.e.
-just taking the `.config` is not enough).
+[...]
 
-Bisected all the pointer projections, and the one that triggers this
-failure is this line of `driver_write_area`:
+>  &rpm_requests {
+>  	regulators {
+>  		compatible = "qcom,rpm-pm8953-regulators";
+> @@ -244,6 +310,13 @@ gpio_key_default: gpio-key-default-state {
+>  		drive-strength = <2>;
+>  		bias-pull-up;
+>  	};
+> +
+> +	panel_default: panel-default-state {
+> +		pins = "gpio61";
+> +		function = "gpio";
+> +		drive-strength = <8>;
+> +		bias-disable;
+> +	};
 
-    ptr::project!(mut data, [tx..rx - 1]),
+Nit: ideally the pin entries would be ordered by the GPIO index,
+via:
 
-... more precisely, the `rx - 1` bit (no problem if I just use `rx`).
+https://docs.kernel.org/devicetree/bindings/dts-coding-style.html#order-of-nodes
 
-This really shouldn't happen because the conditional block we are in has
-already determined that `rx !=3D 0 ` and `tx > rx`, so the expression
-should be perfectly safe.
 
-I'll keep turning the knobs until I find something that works.
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+
+Konrad
