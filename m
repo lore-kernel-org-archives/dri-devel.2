@@ -4,60 +4,82 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D70AFFB3CE5
-	for <dri-devel@archiver.kernel.org>; Mon, 30 Mar 2026 09:49:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C1199FB3CE5
+	for <dri-devel@archiver.kernel.org>; Mon, 30 Mar 2026 09:52:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2721410E57E;
-	Mon, 30 Mar 2026 09:49:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 277C410E5D0;
+	Mon, 30 Mar 2026 09:52:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="Sx7l6psS";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="HW+bM5/W";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DB4ED10E5AC
- for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 09:49:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1774864145;
- bh=vJ9VxiSezaHmUT4R1gM2vBrOcIXoOjygXM32L+tr6kY=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=Sx7l6psSi64c0+QbHSdp8hr2GMbkQJ6Zzu13V+KlVD0HeRxGbs4FV7CUqQwZckOSq
- JSQaJ4SYFLPtOJtJ7cVJ3e8O39HTytmnhhU3LPOjSHU/E0FOwI77gECku/JwO4eSPE
- Iv6kCSP0K2joKs6B5GlMZmiysT1KNPU7Pr4IAH8wYViFL6H+TW+yY0VYYArjwTH5qe
- aYeu7efcOFm700zg2OgLFivHUjue77Kv3IQ/A96jhg1fXGP5VLxKZlyNaV+mW4eG3R
- 6cgf7TS4H9Ah8BUuosagiFbDYOgzuSeLchIjFke78M7c6iWt+v27mbp98q9UaCzeBi
- k/5SXE+mOL9Sg==
-Received: from fedora (unknown [IPv6:2a01:e0a:2c:6930:a2a7:f53:ebb0:945e])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested) (Authenticated sender: bbrezillon)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id BC58D17E41C5;
- Mon, 30 Mar 2026 11:49:04 +0200 (CEST)
-From: Boris Brezillon <boris.brezillon@collabora.com>
-To: Boris Brezillon <boris.brezillon@collabora.com>,
- Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
- =?UTF-8?q?Adri=C3=A1n=20Larumbe?= <adrian.larumbe@collabora.com>
-Cc: dri-devel@lists.freedesktop.org, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Akash Goel <akash.goel@arm.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Akhil P Oommen <akhilpo@oss.qualcomm.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Dmitry Osipenko <dmitry.osipenko@collabora.com>,
- Chris Diamand <chris.diamand@arm.com>, Danilo Krummrich <dakr@kernel.org>,
- Matthew Brost <matthew.brost@intel.com>,
- =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Alice Ryhl <aliceryhl@google.com>, Chia-I Wu <olvaffe@gmail.com>,
- kernel@collabora.com
-Subject: [PATCH v6 8/9] drm/panthor: Track the number of mmap on a BO
-Date: Mon, 30 Mar 2026 11:48:47 +0200
-Message-ID: <20260330094848.2169422-9-boris.brezillon@collabora.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260330094848.2169422-1-boris.brezillon@collabora.com>
-References: <20260330094848.2169422-1-boris.brezillon@collabora.com>
+Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com
+ [209.85.208.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C678B10E5D0
+ for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 09:52:41 +0000 (UTC)
+Received: by mail-ed1-f46.google.com with SMTP id
+ 4fb4d7f45d1cf-66b2f6e983bso4562921a12.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 02:52:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1774864360; x=1775469160; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=cn7BPueizG0aOaXVcVQhQ6g9SE/PtvAJOzX0fQc+gbI=;
+ b=HW+bM5/W/+DEd7jQzYLILlo3fIo0M0O9TNrDLKfJTqmKp1BOzQd3ivaMZ2BuxjzFtT
+ stx9SIstRiJpCObB5BgwI5MYQvdKE4z5KV+6WLqtEVNlI4oTKuBRhImfkMAeFYvLyHbD
+ z+XzmVxZtj1uImth7A0kClbcusJ7ofcwKvnVKvr7Ym180kt50N06S66ClgJQXVezCrpo
+ vI6EX5xuXVGgmnSXFtYDZhyCuVHV/pIcNs0rzZmD6loKEwIDA9Ru859ZltajSxLNpZOG
+ RuAEHmMqZUwnhZWA4JHPRyoxAMa1izZchNRypP15ZOWtvZ+Q1kCn6rC/t8mDB3ucAEpo
+ rELw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1774864360; x=1775469160;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=cn7BPueizG0aOaXVcVQhQ6g9SE/PtvAJOzX0fQc+gbI=;
+ b=lcEuXzy6yISlGzrneGcRuILqQxabZiYOGdB2NKlWj+nlHQU1R3QqQiPpe97OzS4fxT
+ VIF+ul/JzUGNYgvR/Xgw8r8hqhFDEObMxV75GqYPiK6YUr7on5y3Hshs2aXpus2+GMSp
+ EXSqiJbdKHaGx0KPzCZhsNxkeWtZgQBrIsW+Q8AA6BGV+ij1FB65QnhGfQEekTgQTauy
+ s6BV7gJktS39gc7jV5Yb5eynHo1b26JHZ1TKYiy/4plzi0hrsA9sbF+bGgo2FTy1mbQf
+ k05V7oqUaATvF4jFZvyT1weA5GO4Ism9HnBq1iNOOs5V2dm3NrMh3fPNbBIQNRMRMsys
+ OyQw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWLNUj11j7X86BmnuJogdc56P92+a2hcQVy05AQ1bIOXdRJZ1I/ZvwLLvbeSfcvJHRIyF6iKkQdlWM=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyvtZbO3F1nuEdzuk/V75n8j1xeNi+GA6Yp+l2Gz+9yY5pnR/tX
+ n2SAn3t4t1SRdfzgPTX0sUPebhSwVdfLjWlybDFglm3O3om8VJWMT6Oj
+X-Gm-Gg: ATEYQzyy79w1IiEzbNfpK3P1MWGLq67ejKnXpR9t0TivsFtrNnsyBDqt8hUbPHNCsyI
+ zs9oQoHVO74Ylv6BnLRuXOXfXpRkp5BcSMr/ba5JHmjyi5FKgu1oYyOWuV+yAwtlX8qEmyDF1Dw
+ fjShFVS9cE1GaDFwRzyM+Ln+5Tzs7UK8Mdtf4aD/3ZqWShBcFbUynyI1MNiUFr4MzPsCGADKYkj
+ GvY3VkaCe72MM85eDWSIybi6m9Vi+lsUzh5AK0eBk7n1hI+D+Rtyyn1wxwRBVR8KbmeSCId9fbM
+ 4edUdOwW86wY0oB8wlt6tv+ok+uHMZqSLEK5iV1ilY4gugZ91kLt1YyiEvMaIqkpXQFA+NblmtT
+ j8ulRA1C93lOXwuDek9WK9L6+Icxam+dm5WymPoxho5nh+uJh3e11CAmCRvWopcrvbOOqG1pXc6
+ 2y7Mtyu927SiQhv8PM3MXz51TaayIJsjnNyhhiybVHvcap
+X-Received: by 2002:a05:6402:528f:b0:66c:12ad:d769 with SMTP id
+ 4fb4d7f45d1cf-66c12add9fbmr216280a12.7.1774864360007; 
+ Mon, 30 Mar 2026 02:52:40 -0700 (PDT)
+Received: from [192.168.178.84] ([134.19.50.110])
+ by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-66b75ba970esm2306523a12.19.2026.03.30.02.52.39
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Mon, 30 Mar 2026 02:52:39 -0700 (PDT)
+Message-ID: <45754304-12c4-44b2-965c-fee97f839808@gmail.com>
+Date: Mon, 30 Mar 2026 11:52:38 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] dma-fence: Dereference correct dma_fence in
+ dma_fence_chain_find_seqno()
+To: Li Ming <ming.li@zohomail.com>, Sumit Semwal <sumit.semwal@linaro.org>,
+ Lionel Landwerlin <lionel.g.landwerlin@intel.com>
+Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org
+References: <20260327-fix_dma_fence_chain_find_seqno-v1-1-60e80bfb43c8@zohomail.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <20260327-fix_dma_fence_chain_find_seqno-v1-1-60e80bfb43c8@zohomail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,118 +95,50 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This will be used to order things by reclaimability.
+On 3/27/26 15:33, Li Ming wrote:
+> dma_fence_chain_find_seqno() uses dma_fence_chain_for_each() to walk a
+> given dma_fence_chain. dma_fence_chain_for_each() always holds a
+> reference for the current fence during iteration. The reference must
+> be dropped after breaking out. Instead of dereferencing the last fence
+> as intended, dma_fence_chain_find_seqno() incorrectly dereferences the
+> first fence in the chain.
 
-v2:
-- Fix refcounting
+Well once more: Absolutely clear NAK and please search the mailing list for similar changes before you send a patch out.
 
-v3:
-- Fix refcounting (again)
+The existing code is perfectly correct and I can't count how often I had to reject that patch.
 
-v4:
-- Collect R-b
+I think the functionality is obvious but it looks like we really need to add a comment here.
 
-v5:
-- Collect R-b
+Regards,
+Christian.
 
-v6:
-- Warn on is_imported() (not supposed to happen since mmap is
-  redirected to the dmabuf layer) instead of adding a conditional
-  in panthor_gem_vm_open()
-
-Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
-Reviewed-by: Steven Price <steven.price@arm.com>
----
- drivers/gpu/drm/panthor/panthor_gem.c | 42 +++++++++++++++++++++++++--
- drivers/gpu/drm/panthor/panthor_gem.h |  3 ++
- 2 files changed, 43 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/panthor/panthor_gem.c b/drivers/gpu/drm/panthor/panthor_gem.c
-index d9c3a71da29b..eb139759beda 100644
---- a/drivers/gpu/drm/panthor/panthor_gem.c
-+++ b/drivers/gpu/drm/panthor/panthor_gem.c
-@@ -488,6 +488,7 @@ static void panthor_gem_print_info(struct drm_printer *p, unsigned int indent,
- 	drm_printf_indent(p, indent, "vmap_use_count=%u\n",
- 			  refcount_read(&bo->cmap.vaddr_use_count));
- 	drm_printf_indent(p, indent, "vaddr=%p\n", bo->cmap.vaddr);
-+	drm_printf_indent(p, indent, "mmap_count=%u\n", refcount_read(&bo->cmap.mmap_count));
- }
- 
- static int panthor_gem_pin_locked(struct drm_gem_object *obj)
-@@ -604,6 +605,13 @@ static int panthor_gem_mmap(struct drm_gem_object *obj, struct vm_area_struct *v
- 	if (is_cow_mapping(vma->vm_flags))
- 		return -EINVAL;
- 
-+	if (!refcount_inc_not_zero(&bo->cmap.mmap_count)) {
-+		dma_resv_lock(obj->resv, NULL);
-+		if (!refcount_inc_not_zero(&bo->cmap.mmap_count))
-+			refcount_set(&bo->cmap.mmap_count, 1);
-+		dma_resv_unlock(obj->resv);
-+	}
-+
- 	vm_flags_set(vma, VM_PFNMAP | VM_DONTEXPAND | VM_DONTDUMP);
- 	vma->vm_page_prot = vm_get_page_prot(vma->vm_flags);
- 	if (should_map_wc(bo))
-@@ -740,13 +748,43 @@ static vm_fault_t panthor_gem_fault(struct vm_fault *vmf)
- 	return panthor_gem_any_fault(vmf, 0);
- }
- 
-+static void panthor_gem_vm_open(struct vm_area_struct *vma)
-+{
-+	struct panthor_gem_object *bo = to_panthor_bo(vma->vm_private_data);
-+
-+	drm_WARN_ON(bo->base.dev, drm_gem_is_imported(&bo->base));
-+	drm_WARN_ON(bo->base.dev, !refcount_inc_not_zero(&bo->cmap.mmap_count));
-+
-+	drm_gem_vm_open(vma);
-+}
-+
-+static void panthor_gem_vm_close(struct vm_area_struct *vma)
-+{
-+	struct panthor_gem_object *bo = to_panthor_bo(vma->vm_private_data);
-+
-+	if (drm_gem_is_imported(&bo->base))
-+		goto out;
-+
-+	if (refcount_dec_not_one(&bo->cmap.mmap_count))
-+		goto out;
-+
-+	dma_resv_lock(bo->base.resv, NULL);
-+	if (refcount_dec_and_test(&bo->cmap.mmap_count)) {
-+		/* Nothing to do, pages are reclaimed lazily. */
-+	}
-+	dma_resv_unlock(bo->base.resv);
-+
-+out:
-+	drm_gem_object_put(&bo->base);
-+}
-+
- static const struct vm_operations_struct panthor_gem_vm_ops = {
- 	.fault = panthor_gem_fault,
- #ifdef CONFIG_ARCH_SUPPORTS_PMD_PFNMAP
- 	.huge_fault = panthor_gem_any_fault,
- #endif
--	.open = drm_gem_vm_open,
--	.close = drm_gem_vm_close,
-+	.open = panthor_gem_vm_open,
-+	.close = panthor_gem_vm_close,
- };
- 
- static const struct drm_gem_object_funcs panthor_gem_funcs = {
-diff --git a/drivers/gpu/drm/panthor/panthor_gem.h b/drivers/gpu/drm/panthor/panthor_gem.h
-index b66478c9590c..c0a18dca732c 100644
---- a/drivers/gpu/drm/panthor/panthor_gem.h
-+++ b/drivers/gpu/drm/panthor/panthor_gem.h
-@@ -80,6 +80,9 @@ struct panthor_gem_cpu_map {
- 
- 	/** @vaddr_use_count: Number of active vmap() requests on this GEM */
- 	refcount_t vaddr_use_count;
-+
-+	/** @mmap_count: Number of active mmap() requests on this GEM */
-+	refcount_t mmap_count;
- };
- 
- /**
--- 
-2.53.0
+> 
+> Fixes: 7bf60c52e093 ("dma-buf: add new dma_fence_chain container v7")
+> Signed-off-by: Li Ming <ming.li@zohomail.com>
+> ---
+>  drivers/dma-buf/dma-fence-chain.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/dma-buf/dma-fence-chain.c b/drivers/dma-buf/dma-fence-chain.c
+> index a8a90acf4f34..71fa173aef13 100644
+> --- a/drivers/dma-buf/dma-fence-chain.c
+> +++ b/drivers/dma-buf/dma-fence-chain.c
+> @@ -103,7 +103,7 @@ int dma_fence_chain_find_seqno(struct dma_fence **pfence, uint64_t seqno)
+>                     to_dma_fence_chain(*pfence)->prev_seqno < seqno)
+>                         break;
+>         }
+> -       dma_fence_put(&chain->base);
+> +       dma_fence_put(*pfence);
+> 
+>         return 0;
+>  }
+> 
+> ---
+> base-commit: c369299895a591d96745d6492d4888259b004a9e
+> change-id: 20260327-fix_dma_fence_chain_find_seqno-7adea64efe01
+> 
+> Best regards,
+> --
+> Li Ming <ming.li@zohomail.com>
+> 
 
