@@ -4,59 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 694071061B17
-	for <dri-devel@archiver.kernel.org>; Mon, 30 Mar 2026 17:50:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1382E1061B17
+	for <dri-devel@archiver.kernel.org>; Mon, 30 Mar 2026 17:52:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BB66210E2A6;
-	Mon, 30 Mar 2026 17:50:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7332510E557;
+	Mon, 30 Mar 2026 17:52:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="GusvJ86L";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="PpWKh4rR";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 426DB10E2A6;
- Mon, 30 Mar 2026 17:50:58 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 3B886600CB;
- Mon, 30 Mar 2026 17:50:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 78E6CC4CEF7;
- Mon, 30 Mar 2026 17:50:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1774893056;
- bh=Q9spMYTFq+Dexr7WoH95SGr4xl91pz3EmMkNzE9Au14=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=GusvJ86LVvM8M1LBOnDdFpvNBREKpKTRVkuf4BlxLpIwkJ+6vsvHqHFMSXWgo5OZj
- fV17YtxCgW0g5aYj/GQNEHlpCVGWZcSQUyVvqjNcpVqOeAWb8dG0Uj9pTl3AwQqepZ
- aGwveQBzfWFZUpAM5USstEJLGW2F3ANucCDriGcTB02yqPfOaMn4yfb+Qz7TVbGZfK
- O0XcJh6KiyqP+t6QtQu68wjtVnOGm6aZF1bgAM0HesuLXH7/0FPQLb/1PWe66v24ol
- joLTEhHUvOOje1MUMiBj1ZWLbIhT19FGzTVyyAH10KDFQh7X20MF5ebDrUGlLF5ufR
- CzrJ358YAx4qg==
-Date: Mon, 30 Mar 2026 12:50:51 -0500
-From: Bjorn Andersson <andersson@kernel.org>
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Konrad Dybcio <konradybcio@kernel.org>, 
- Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov <lumag@kernel.org>, 
- Abhinav Kumar <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>,
- Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Akhil P Oommen <akhilpo@oss.qualcomm.com>,
- Vikash Garodia <vikash.garodia@oss.qualcomm.com>, 
- Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
- Bryan O'Donoghue <bod@kernel.org>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, linux-media@vger.kernel.org, 
- Wangao Wang <wangao.wang@oss.qualcomm.com>
-Subject: Re: [PATCH v4 2/9] soc: qcom: ubwc: add helpers to get programmable
- values
-Message-ID: <acq3GSPpZWiGucJb@baldur>
-References: <20260125-iris-ubwc-v4-0-1ff30644ac81@oss.qualcomm.com>
- <20260125-iris-ubwc-v4-2-1ff30644ac81@oss.qualcomm.com>
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7665B10E63A
+ for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 17:52:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329; h=Cc:To:In-Reply-To:References:Message-Id:
+ Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:From:Sender:
+ Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender
+ :Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=9BpczLQFYeQoOjynUwNMH2f1dtK+EYppE6GoXY6Zo60=; b=PpWKh4rRltZplvwOLKajaqUUZK
+ pTTCJQpojGIu/yXYwY269+FG86tsJZuIPFSh9E+WNfuH77ktNJy5tx6yptsFtU73BdQtLaOx4JkcR
+ GwA2wQfetBx3QYqkpqJRBSXTXurE4Q4KRbZ9GDtkldFnf/zH5bewTrteLMvSqFPmdKiSxCXrZI0x9
+ Yf6HF4Imf6OS6idmyhnh715d/uEdGobouidPtmMxKktjDCyWiMKOJgLarZW2qQm30bJMTThHpWjcM
+ ViVHGWg1Kh9C0voT4+SEE5LSgCb9qwGhhoFAh+GyvXpfpuo7b7THigAkaJyspZMzeHo9CEPtTLzwC
+ LKPaVq7A==;
+Received: from [189.7.87.169] (helo=[10.0.0.1])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1w7GmS-00961G-OG; Mon, 30 Mar 2026 19:52:05 +0200
+From: =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
+Date: Mon, 30 Mar 2026 14:51:44 -0300
+Subject: [PATCH 2/6] drm/vc4: Fix memory leak of BO array in hang state
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260125-iris-ubwc-v4-2-1ff30644ac81@oss.qualcomm.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Message-Id: <20260330-vc4-misc-fixes-v1-2-92defc940a29@igalia.com>
+References: <20260330-vc4-misc-fixes-v1-0-92defc940a29@igalia.com>
+In-Reply-To: <20260330-vc4-misc-fixes-v1-0-92defc940a29@igalia.com>
+To: Melissa Wen <mwen@igalia.com>, Iago Toral <itoral@igalia.com>, 
+ Maxime Ripard <mripard@kernel.org>, 
+ Dave Stevenson <dave.stevenson@raspberrypi.com>, 
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Boris Brezillon <bbrezillon@kernel.org>
+Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org, 
+ =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=929; i=mcanal@igalia.com;
+ h=from:subject:message-id; bh=E4x0vtpcuWFOSWU8xQM26GIb4IN9G3SdhcPQ6UHAq/g=;
+ b=owEBbQGS/pANAwAKAT/zDop2iPqqAcsmYgBpyrg45O0MIQYcCTvv3Yic7wgdIZNkFDxJPafbu
+ 9LrZWv9/eCJATMEAAEKAB0WIQT45F19ARZ3Bymmd9E/8w6Kdoj6qgUCacq4OAAKCRA/8w6Kdoj6
+ qj4MB/9AEUQbGRC/xPtezOKAHo4At9hxAGN48pvPBRhQbTfhdWb80VmMJvs+bggysrd6EtWpyxD
+ lhzviIc6csa+/cSVSxSOKCzz5+fx5srfWrNdj0fMM6oGUXwW9Ss9UrXrJtNOYdO5FRQ2jHXrpDV
+ EA0QjlPO8vsyX9OIHzgR9+lTBxfBNSK+W93c2Vl6hPJpJsNv0nmz3ombWFKhFIJI0nFcT1Gd/GM
+ r3awbEbpcGRysYbxv3HvXzwYyxYx+DIYNA7bEnP1aRNFQ0WzqyCdJi+t4cMui1kUOoaUV8MI2Pf
+ lB7lPXP3ULILuq8iOLj53DQb0DVoZacBZToqfeI0eTgaNwS3
+X-Developer-Key: i=mcanal@igalia.com; a=openpgp;
+ fpr=F8E45D7D0116770729A677D13FF30E8A7688FAAA
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,63 +76,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sun, Jan 25, 2026 at 01:30:04PM +0200, Dmitry Baryshkov wrote:
-> Currently the database stores macrotile_mode in the data. However it
-> can be derived from the rest of the data: it should be used for UBWC
-> encoding >= 3.0 except for several corner cases (SM8150 and SC8180X).
-> 
-> The ubwc_bank_spread field seems to be based on the impreside data we
-> had for the MDSS and DPU programming. In some cases UBWC engine inside
-> the display controller doesn't need to program it, although bank spread
-> is to be enabled.
-> 
-> Bank swizzle is also currently stored as is, but it is almost standard
-> (banks 1-3 for UBWC 1.0 and 2-3 for other versions), the only exception
-> being Lemans (it uses only bank 3).
-> 
-> Add helpers returning values from the config for now. They will be
-> rewritten later, in a separate series, but having the helper now
-> simplifies refacroring the code later.
-> 
-> Tested-by: Wangao Wang <wangao.wang@oss.qualcomm.com>
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+The hang state's BO array is allocated separately with kzalloc() in
+vc4_save_hang_state() but never freed in vc4_free_hang_state(). Add the
+missing kfree() for the BO array before freeing the hang state struct.
 
-Please find patch 1 and 2 in an immutable branch at:
+Fixes: 214613656b51 ("drm/vc4: Add an interface for capturing the GPU state after a hang.")
+Signed-off-by: Maíra Canal <mcanal@igalia.com>
+---
+ drivers/gpu/drm/vc4/vc4_gem.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-  https://git.kernel.org/pub/scm/linux/kernel/git/qcom/linux.git 20260125-iris-ubwc-v4-1-1ff30644ac81@oss.qualcomm.com
+diff --git a/drivers/gpu/drm/vc4/vc4_gem.c b/drivers/gpu/drm/vc4/vc4_gem.c
+index 2d3df5e621c1a2192656efd6fc8940ebb1ce991f..248c47665a193fa639a481f97ac2af634f415384 100644
+--- a/drivers/gpu/drm/vc4/vc4_gem.c
++++ b/drivers/gpu/drm/vc4/vc4_gem.c
+@@ -62,6 +62,7 @@ vc4_free_hang_state(struct drm_device *dev, struct vc4_hang_state *state)
+ 	for (i = 0; i < state->user_state.bo_count; i++)
+ 		drm_gem_object_put(state->bo[i]);
+ 
++	kfree(state->bo);
+ 	kfree(state);
+ }
+ 
 
-Regards,
-Bjorn
+-- 
+2.53.0
 
-> ---
->  include/linux/soc/qcom/ubwc.h | 15 +++++++++++++++
->  1 file changed, 15 insertions(+)
-> 
-> diff --git a/include/linux/soc/qcom/ubwc.h b/include/linux/soc/qcom/ubwc.h
-> index 5bdeca18d54d..f5d0e2341261 100644
-> --- a/include/linux/soc/qcom/ubwc.h
-> +++ b/include/linux/soc/qcom/ubwc.h
-> @@ -84,4 +84,19 @@ static inline bool qcom_ubwc_min_acc_length_64b(const struct qcom_ubwc_cfg_data
->  		 cfg->ubwc_dec_version == UBWC_3_0);
->  }
->  
-> +static inline bool qcom_ubwc_macrotile_mode(const struct qcom_ubwc_cfg_data *cfg)
-> +{
-> +	return cfg->macrotile_mode;
-> +}
-> +
-> +static inline bool qcom_ubwc_bank_spread(const struct qcom_ubwc_cfg_data *cfg)
-> +{
-> +	return cfg->ubwc_bank_spread;
-> +}
-> +
-> +static inline u32 qcom_ubwc_swizzle(const struct qcom_ubwc_cfg_data *cfg)
-> +{
-> +	return cfg->ubwc_swizzle;
-> +}
-> +
->  #endif /* __QCOM_UBWC_H__ */
-> 
-> -- 
-> 2.47.3
-> 
