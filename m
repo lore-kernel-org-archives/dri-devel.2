@@ -4,142 +4,130 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4F79010D14A4
-	for <dri-devel@archiver.kernel.org>; Mon, 30 Mar 2026 11:52:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0015010D14A2
+	for <dri-devel@archiver.kernel.org>; Mon, 30 Mar 2026 12:25:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B3B8010E663;
-	Mon, 30 Mar 2026 11:52:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2E8E510E4B9;
+	Mon, 30 Mar 2026 12:25:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="GNoxgTcW";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="j/RfPpP1";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="a9uN7pq7";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E12E110E663
- for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 11:52:32 +0000 (UTC)
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 62UBEH611402804
- for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 11:52:32 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- XgZJgX0TxKp/l+YGdpnqFg2Xk4t+k4MwvR0s2wGs6yc=; b=GNoxgTcWeJWByafe
- 661K0CzwlmVtN0ciQX/D4P376uw1N3buiAVLaAB7YthrKgLIHnmowfMj0r6oXVdS
- QRedBV28dyn95nH8U1NDgtEP9p4jaPSPVtV/THLtB/fFRRb+y6af6ZKFzbjMJFaG
- HVJKZ3Mtp1R+KNT9IWMRzOsYvpmauAWOXVdTrLrH7y9eSC9D+VuZnDb3skWNrmVB
- 15OJ1t1wkz16I4Ah+3OjYoeUb7yWM1ugMHVCRCpNI8J3NvC79R1VdJFwVeB+yNhU
- YlNBIcefEt/OInov7YJXFABYn/Mqc97jee+3PYKQi9OhINS4UA2xuygR+6vHewle
- Z7lxiQ==
-Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com
- [74.125.82.199])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d7r4h83uq-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 11:52:31 +0000 (GMT)
-Received: by mail-dy1-f199.google.com with SMTP id
- 5a478bee46e88-2b81ff82e3cso2156421eec.0
- for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 04:52:31 -0700 (PDT)
+Received: from mail-yx1-f45.google.com (mail-yx1-f45.google.com
+ [74.125.224.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9E07C10E1FC
+ for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 12:25:13 +0000 (UTC)
+Received: by mail-yx1-f45.google.com with SMTP id
+ 956f58d0204a3-6501547d7edso2557839d50.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 05:25:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1774871551; x=1775476351;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=XgZJgX0TxKp/l+YGdpnqFg2Xk4t+k4MwvR0s2wGs6yc=;
- b=j/RfPpP1R2cFrcXa6wHCQDvolPQwEEmnTMnIgEu/k0j2Y5yj5BGGvoxf7xOtfdH7a4
- tOzbUi3tFrpSw5iD2McmQjgHqtf3EwP9V+MLlo+9+hgkPunUrRqgH1qSMhJjGoS+N8OU
- 9PkP9bDiP4IgJPppKZPomG2JmS5cWgEBY0SCxAjqE6EGHTwTCx/SbkO3V7TMK8u0fybt
- 3jPXL1L7fFExRHbQPzVmM+PlDiE80yswXcuG2pVxr9RYp4aQzqbNvBgJSPYRRd39bJ2q
- 5bV1o4Vfp8wU7CSV4c4HYZyc5ygoKIorU3s/n6bUY/3qRIVz/XaQ6dQikt4qtT2mS+hr
- eh4Q==
+ d=gmail.com; s=20251104; t=1774873512; x=1775478312; darn=lists.freedesktop.org;
+ h=in-reply-to:cc:autocrypt:from:content-language:references:to
+ :subject:user-agent:mime-version:date:message-id:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=KkLtDs6yFWruoXuiXOulJbkto15/qYEfrQT8RWN5rd4=;
+ b=a9uN7pq7kTR+xwvLCM6ei+UD8P7+fidea9bSfTATIALvPN4b/5MaYQglKV/iIEZy2Z
+ MFMfpkVPlHDEacklO80wFa9jKlKagXV5WWmCEBVHrwPwKgTqKhuWiC9DUMI79nQH/o9m
+ lg6nIe6vUBY5MEDsWhlKdBPWGnYhMKTxeXs8prxNmnXyPVczHXPCBCMjjLemgQCn6USO
+ 1HFX9/cOUykY+pyKLjvV3Q0bVLF0lb8juBGKokbJc3AXlT6J2vm8CeFZci/+x2UyQjQD
+ /FcuVf3IESVQxeqeJYdoNz0x8r8E0CTv2sly+Il6fw/Ax3nfX8KNC1JcYO9WbDq7nzuj
+ bKAQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774871551; x=1775476351;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=XgZJgX0TxKp/l+YGdpnqFg2Xk4t+k4MwvR0s2wGs6yc=;
- b=ZD819fdHroseznDiCi1S2KeaEY1mCHtW+DWFy+qaI0i4HXXuCDnOpbaFjHdzFdzgWh
- LezCdetEQkYPeqSAo39NuXf19MlXwvYCZ5xAB1eb2i16e/AhNX9TaBGYWrluYcZZzWQk
- EXJShyMQkoeL7D+irp7kS9bPglGS1u3H54EU1/a1FdflG1dz2avqEKp4jI/WyTOu+M97
- EhR5Q5b1Xuj+K0/qYvbnzubxdX82HISrWablxbUo9CZw6dvPNan0YCP4hT21d8ppeJI+
- r3a3GBZzFb0O4GShYN1SKsyHcyWKkjEnhmTI1DQNRYOoccQ3Wa22ti9fPbdY3VfmusZS
- 6jWQ==
+ d=1e100.net; s=20251104; t=1774873512; x=1775478312;
+ h=in-reply-to:cc:autocrypt:from:content-language:references:to
+ :subject:user-agent:mime-version:date:message-id:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=KkLtDs6yFWruoXuiXOulJbkto15/qYEfrQT8RWN5rd4=;
+ b=oFS5smajmH3WGizZetlu3CfvtXnasdWUUtjhHGL7R+Q7F94sEUNz1fr3VlW9QEnlpT
+ NILOycT/PJUNDZzuGEsKHgrdmllHDEN9Q+gQ88txJ4KDo1bO80yrrp4Q5HqMG9htAByn
+ IL6kwi1/RKSY5k98GV7cDusr0NPj48//9YR1DlTA7iHGAkmrFtMbpF9Ef3buvuYMkrp2
+ DCm3d5Jefcz1KkNNToUzDIN/gJIr3WsJc3bbSEhc57onfMc7lgRQWQOR5FwIvrcJOPhZ
+ /3/s4IHuzteKqGSpP84LXmCKAU8YPCkYe5IVtZm6C3mH0v/rEC3QcHX0WEBFA/D5rUSm
+ 1NgA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVT4SDzBnU/riyt0wz9YagmHCxDY5LcsOZk6qPWIGsGmmdeQKdFQwSCIcfH7TOyVU4oB4edND8Sfhg=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yw5JtBRZRJdkzPu5Oo6YUQCtftEq0DWqNMCa03K1UZ782j+4d0M
- JmxkkSJiPHnNjrnBBNNLIjmhZow4ZV4KQqY8dDxkYPGCKTs38m7f/WpjnPlo5BxUTevfjvMWPo6
- bN8UAUeexBRhLGSFuqMmsb1xJ1q0KCHScU22MYBfu5AgDCf/T1x6lxc4Mg9IG08C+W01zR/A=
-X-Gm-Gg: ATEYQzzhSMNW0B+x8fClhvmCet+9dlqLX+un57k0oWzpN503oDlO1l15wmIYOOrSz2s
- wo3YZxM+qEU+Ros3qa1xUJRfm4CPfBT2nz0M3UZ62ocwhqXlUs0DpIsF4n1E4TYb5TfRLDqKpfE
- C9YvDx0t9Dww//6txbw7+km5whuYumViKdXCi1VQJ7SI6/4qA3TDVdIxkhEvW5jE4jMpvAPmF10
- 3dYV+zALS5dkO6n7AoSk8E3/Xpx3VlXtpIeQtOaJqE2Y522BAm45mc+sqvAefZX7G9qEy48tP3j
- S+IHJxOJpzTxy5GvCOV9ccE0LtEgxqUJfKxLAugUOVG+zNzSusLbKTwqnP6OwLc/Fesfr1F6nBJ
- hW32M262VcXSmAhS1I0RrCsUPDjEF7S23Rfqmp6/Az1r8jxoxSQg/KiJNZGdXieb31fPj9i11t0
- KCQMQ=
-X-Received: by 2002:a05:7022:6882:b0:123:331f:978f with SMTP id
- a92af1059eb24-12aabb50203mr6812654c88.7.1774871550795; 
- Mon, 30 Mar 2026 04:52:30 -0700 (PDT)
-X-Received: by 2002:a05:7022:6882:b0:123:331f:978f with SMTP id
- a92af1059eb24-12aabb50203mr6812642c88.7.1774871550263; 
- Mon, 30 Mar 2026 04:52:30 -0700 (PDT)
-Received: from [10.110.38.145] (i-global254.qualcomm.com. [199.106.103.254])
+ AJvYcCWV50ZWNHkZx5Q8YqC/awqzNgBfZ4ddbcHvukT0caLpN6Kvx3bO7Y7SGzpYNwB85GrFAkkLs+oDAEE=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzgaagmoftZ50lhm/v5DTgvp9mVLVWtn/0xzHyUQ1W2yG5OB/NT
+ 12ZZX3LH1p27Xlxj5NdtFkApsUELVR20UjlIfTBnOhkt8yUr+TLOrAs7
+X-Gm-Gg: ATEYQzwH5mCVkTKR7l5/sBq/oaCRv2PjdFjTVeOxXgyrbYLACZfCwWkPsNTw1MBx+Uu
+ +G/XUa2Rt0PORbfutfERM4lbCk7e3uOX7LXXYq0t/uQrPhWpflMVHhkr1APiBO3QwN/cb6XL51w
+ Fkll5l2jqkpNyB/dyYWfVgAtC6OQE3X7GPdSYGNFbVWFJG/AE0jJCo2PcPXLH/TRodhbndwW5n+
+ iMNLBXj8PPTdRQPsDb52a2jmZBIYSBTt5NdeALwTqBW6IlYQx3xy4SYnlI1zckWDVDuG/kuLKoE
+ NXHDoPVlII4XfWSfyBEpladvlP/PJEkY52/rPv0NNqpYB67471JS3VTTmrPo/ZxZGY6DOMwmqRb
+ pyAqvMwlpnRjOHnHPzE3Z9lRrfexz3zzOQ1jSShoblM2l9jCESPaBr1RwbZt8l6d8rMTbpJM+Hd
+ Bv9OCyluIXFnnFscu/iUHbvF0GCZ2w4ISUyw28m3dKRrJKT1VxrwWqhi7hr5OV
+X-Received: by 2002:a05:690c:387:b0:79a:4419:71bb with SMTP id
+ 00721157ae682-79bddd16fffmr119526847b3.21.1774873512143; 
+ Mon, 30 Mar 2026 05:25:12 -0700 (PDT)
+Received: from [10.138.34.110] ([172.58.149.67])
  by smtp.gmail.com with ESMTPSA id
- a92af1059eb24-12ab97efb42sm11000274c88.7.2026.03.30.04.52.25
+ 00721157ae682-79cba66cf09sm34567277b3.43.2026.03.30.05.25.09
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 30 Mar 2026 04:52:29 -0700 (PDT)
-Message-ID: <db642c02-8009-40e1-b296-70de8364b43d@oss.qualcomm.com>
-Date: Mon, 30 Mar 2026 19:52:23 +0800
+ Mon, 30 Mar 2026 05:25:11 -0700 (PDT)
+Message-ID: <09a2f7e9-0e36-4009-9813-c5aa8e801557@gmail.com>
+Date: Mon, 30 Mar 2026 08:24:53 -0400
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 12/38] drm/msm/dp: introduce max_streams for DP
- controller MST support
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
- <abhinav.kumar@linux.dev>, Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
- Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Abhinav Kumar <quic_abhinavk@quicinc.com>
-References: <20250825-msm-dp-mst-v3-0-01faacfcdedd@oss.qualcomm.com>
- <20250825-msm-dp-mst-v3-12-01faacfcdedd@oss.qualcomm.com>
- <ltlmp5ytl2f7no7aqq7sl54pwd4f53fuema23xnuwu5uthhbg3@7wamwvv22nle>
- <c71ea478-ed93-4f10-aba2-023180c2ed42@oss.qualcomm.com>
- <ex5zvncmnt5pmb5j2utolgbw3yewj4x4e6nu7sdrgzm7ubasmi@2jdubbxuckwd>
- <99d6795e-1cea-4e7f-b8b6-97f55af55d8d@oss.qualcomm.com>
- <ns7sknmegndsf6uvih6znbwk6bpltjmbykvs6g2ma3ccd767fe@3q5rhx3zj27u>
+Subject: Re: Why memory lending is needed for GPU acceleration
+To: Teddy Astie <teddy.astie@vates.tech>
+References: <84462c4b-7813-4ad1-aeb2-862ae4f3a627@gmail.com>
+ <c38387fe-beef-4f50-b928-74f96b881b7a@gmail.com>
+ <ce114f02-f45e-4638-84ee-a8fd86ce1c5d@vates.tech>
 Content-Language: en-US
-From: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
-In-Reply-To: <ns7sknmegndsf6uvih6znbwk6bpltjmbykvs6g2ma3ccd767fe@3q5rhx3zj27u>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzMwMDA5MyBTYWx0ZWRfX3AgPD+GMm9M0
- ENdexEbhK3ONhP6++NK4fKwxYly9Xlryd4lmEAqNne94DxcjCP7rTTMz3gtwDoOSbS6eTDJjiEi
- DFWWa1hRLkX4EQcUOFQsRr1BaNwozOllByV+hanHT8LOFnOIjnmao0epZovUB0b6y06qbcTvSig
- PAgIscpAWspuwvJeobFVQe5zmjeIm69oqTz2cBzjdpUWiLF0gSOx4107D7NGHN7ViEqWmrggut3
- /nuXj2gtup+9g/1q86etiMSvmMJLNLKwQM5i+iSRwiR5jbaA+YOyUdeiBnj/+oKL6yB7YxIzp1Y
- dJc3cn+AgGHolFfDv2pYGc0cke93qFlvS381jVp9AAMx3jkMhhKq+GYR99TanbG6FGBRsWPL7P2
- Xi6PgSXu/J78s+NMaBM2sLZwMXPDsH691rS48dpBj535d+LCf5cQV0wiSnOI1D6YMlqlpaurVRv
- PgSJWERJkbIirQq93Lg==
-X-Proofpoint-ORIG-GUID: gHNfI15kI2HO4gkLrT7tMVQXaH3Tlihs
-X-Authority-Analysis: v=2.4 cv=PI0COPqC c=1 sm=1 tr=0 ts=69ca63ff cx=c_pps
- a=cFYjgdjTJScbgFmBucgdfQ==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
- a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=COk6AnOGAAAA:8 a=EUspDBNiAAAA:8 a=fQFtLZBTUO1RzxlNfjoA:9 a=3ZKOabzyN94A:10
- a=QEXdDO2ut3YA:10 a=scEy_gLbYbu1JhEsrz4S:22 a=TjNXssC_j7lpFel5tvFf:22
-X-Proofpoint-GUID: gHNfI15kI2HO4gkLrT7tMVQXaH3Tlihs
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-03-29_05,2026-03-28_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 phishscore=0 adultscore=0 impostorscore=0 malwarescore=0
- lowpriorityscore=0 spamscore=0 suspectscore=0 clxscore=1015 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603300093
+From: Demi Marie Obenour <demiobenour@gmail.com>
+Autocrypt: addr=demiobenour@gmail.com; keydata=
+ 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
+ +MYSfkEjBz0E8CLOcAw7JIwAaeBT
+Cc: Xen developer discussion <xen-devel@lists.xenproject.org>,
+ dri-devel@lists.freedesktop.org, Jan Beulich <jbeulich@suse.com>,
+ Juergen Gross <jgross@suse.com>, linux-mm@kvack.org,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Ariadne Conill <ariadne@ariadne.space>,
+ Val Packett <val@invisiblethingslab.com>,
+ =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>, Alyssa Ross <hi@alyssa.is>
+In-Reply-To: <ce114f02-f45e-4638-84ee-a8fd86ce1c5d@vates.tech>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------jlshIcNJGAQuLqmgL2Mliith"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -155,48 +143,453 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------jlshIcNJGAQuLqmgL2Mliith
+Content-Type: multipart/mixed; boundary="------------Ypm0cPcRDo19SiwsEQFv8Pbc";
+ protected-headers="v1"
+Message-ID: <09a2f7e9-0e36-4009-9813-c5aa8e801557@gmail.com>
+Date: Mon, 30 Mar 2026 08:24:53 -0400
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: Why memory lending is needed for GPU acceleration
+To: Teddy Astie <teddy.astie@vates.tech>
+References: <84462c4b-7813-4ad1-aeb2-862ae4f3a627@gmail.com>
+ <c38387fe-beef-4f50-b928-74f96b881b7a@gmail.com>
+ <ce114f02-f45e-4638-84ee-a8fd86ce1c5d@vates.tech>
+Content-Language: en-US
+From: Demi Marie Obenour <demiobenour@gmail.com>
+Autocrypt: addr=demiobenour@gmail.com; keydata=
+ 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
+ +MYSfkEjBz0E8CLOcAw7JIwAaeBT
+Cc: Xen developer discussion <xen-devel@lists.xenproject.org>,
+ dri-devel@lists.freedesktop.org, Jan Beulich <jbeulich@suse.com>,
+ Juergen Gross <jgross@suse.com>, linux-mm@kvack.org,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Ariadne Conill <ariadne@ariadne.space>,
+ Val Packett <val@invisiblethingslab.com>,
+ =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>, Alyssa Ross <hi@alyssa.is>
+In-Reply-To: <ce114f02-f45e-4638-84ee-a8fd86ce1c5d@vates.tech>
+Autocrypt-Gossip: addr=jgross@suse.com; keydata=
+ xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
+ ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
+ dYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJ
+ NwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvx
+ XP3FAp2pkW0xqG7/377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEB
+ AAHNH0p1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT7CwHkEEwECACMFAlOMcK8CGwMH
+ CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRCw3p3WKL8TL8eZB/9G0juS/kDY9LhEXseh
+ mE9U+iA1VsLhgDqVbsOtZ/S14LRFHczNd/Lqkn7souCSoyWsBs3/wO+OjPvxf7m+Ef+sMtr0
+ G5lCWEWa9wa0IXx5HRPW/ScL+e4AVUbL7rurYMfwCzco+7TfjhMEOkC+va5gzi1KrErgNRHH
+ kg3PhlnRY0Udyqx++UYkAsN4TQuEhNN32MvN0Np3WlBJOgKcuXpIElmMM5f1BBzJSKBkW0Jc
+ Wy3h2Wy912vHKpPV/Xv7ZwVJ27v7KcuZcErtptDevAljxJtE7aJG6WiBzm+v9EswyWxwMCIO
+ RoVBYuiocc51872tRGywc03xaQydB+9R7BHPzsBNBFOMcBYBCADLMfoA44MwGOB9YT1V4KCy
+ vAfd7E0BTfaAurbG+Olacciz3yd09QOmejFZC6AnoykydyvTFLAWYcSCdISMr88COmmCbJzn
+ sHAogjexXiif6ANUUlHpjxlHCCcELmZUzomNDnEOTxZFeWMTFF9Rf2k2F0Tl4E5kmsNGgtSa
+ aMO0rNZoOEiD/7UfPP3dfh8JCQ1VtUUsQtT1sxos8Eb/HmriJhnaTZ7Hp3jtgTVkV0ybpgFg
+ w6WMaRkrBh17mV0z2ajjmabB7SJxcouSkR0hcpNl4oM74d2/VqoW4BxxxOD1FcNCObCELfIS
+ auZx+XT6s+CE7Qi/c44ibBMR7hyjdzWbABEBAAHCwF8EGAECAAkFAlOMcBYCGwwACgkQsN6d
+ 1ii/Ey9D+Af/WFr3q+bg/8v5tCknCtn92d5lyYTBNt7xgWzDZX8G6/pngzKyWfedArllp0Pn
+ fgIXtMNV+3t8Li1Tg843EXkP7+2+CQ98MB8XvvPLYAfW8nNDV85TyVgWlldNcgdv7nn1Sq8g
+ HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
+ QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
+ ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
+Autocrypt-Gossip: addr=marmarek@invisiblethingslab.com; keydata=
+ xsBNBE5j9EwBCACbYHjxDrxFAY3n1x9KBFvjzkG1qFSTVBnH4vpD/5Na4sZq4uDDMUCjivrm
+ MzbWYaivYj96BygdOiw7PWxYrhuW0b2WYOeGudZyApgFz42g458s78EciuhgfuWBlxr8dOEN
+ /9ueVFHcvtZmDbHhMVPcQ0O7gwh0JmwkOsf7P7WAfYXsQlhO/EBRrNXR0Je+GEpYADhRktxX
+ h1d3Iz+oKYuwHioLX8ovoAT4+peOuecWUSpUWebpDbTR5i7NRP3PIblB4KzWJa2kh/f3mx4v
+ SRGnHn+BfX42xSe0X7Ktl4Xf+KNq9Wkcjk2CZP57hV2v4pO0ZUOXD7IhlZtnfNj67WjdABEB
+ AAHNPU1hcmVrIE1hcmN6eWtvd3NraS1Hw7NyZWNraSA8bWFybWFyZWtAaW52aXNpYmxldGhp
+ bmdzbGFiLmNvbT7CwHoEEwEIACQCGwMFCwkIBwMFFQoJCAsFFgIDAQACHgECF4AFAll+l7cC
+ GQEACgkQ24/THMrX1yw6kAgAiKiUhzAPXZj5ndqiQDl8u8PUK34SupLzYNMJOCBw5Wh+CPHe
+ XYlQUwfULWxmzjiWCzzWDx2X/ONsYdRGKDKMqG5srOSWe1IYXv00MEutGsK+m/hmC5mqi/97
+ DVNZ1VtKj5WW79IsI0/7ueHsQYNNrXyOfZvKsRE8VIUJ0tNfLFDFlNpq9jONuF+GviMWxrA5
+ FoVaGmjh63xC0fOQYqhP2v8dbYS4B6bO5NZKI2cTHb9Li2iY0e7wIoNgvqgtR3Iv2U2Ry0yL
+ D3mNQhwyxcWChexlymjfqLEZwKqaIOo57HOpt7OA+bMg6MvkdUTjNWf2GE6fqCcALjcToJ3L
+ NDc1KM7ATQROY/RMAQgAtRWgUZ5mOy+c/qzmiVnxqDkiOJjmnIh3Pn+OqCtjcrTyPI9eVc06
+ uH30Jkco0soLiG/UgwVw4XwBlm95j9n6TSUms4mPBh1YiR1hBjsjYwn8zp/Ue9xWk1N6E14H
+ aj55GxmS2H3YIlOXfQLr0X3RHsmKixTOKyisrYlJu71FmettDFV7CgMXy1Bc1LbAE08asvAS
+ ShHFdRiRRtkuVHvY/Ebq9L54kOxtlI6ahrflMcT0YCMON5oe4GgQRh3p2uy+d/LS2bgRcQST
+ IebErj8x0lM271f97GvxV/ypHo7XVIDI5FX1u31Agzx3HQr035GHt4HV4/GVCz+V4xt4BonB
+ tQARAQABwsBfBBgBAgAJBQJOY/RMAhsMAAoJENuP0xzK19cs5MgH/jWLXil2Ud4TdtWnBxc+
+ 2/QZZk2JCssc1PgWNzvH5wH7U+8lGSlUK8ZMOqrrF8C5rX0+xEn7deSrsZChIOnUFo8rhCZK
+ y/mBV+FhkMj24FZZ0n8w3eF4KF2t68Pt+AvMjxQHwxAMdf3QftgQhD0qYkt/28eedUQ+jwz6
+ kipc4qUQmqTEViQRPa3WAnKgNDQUDUwNruzthfGvHUjllf7zbPI8gkbARM0KlTkLikc9u+Ni
+ VMbJTiGPB7YHyw2MIPq1n+mhSPAyXE6CVBnYkonQ7P3SLZssxC3PIarV+DTU68umQB3pfrfF
+ 7hMcAY5csWrK9/x/Zz4RUfgN6Q3HLrSp9UQ=
+Autocrypt-Gossip: addr=hi@alyssa.is; keydata=
+ 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
+ 9KKY1Fh8LBKH
 
+--------------Ypm0cPcRDo19SiwsEQFv8Pbc
+Content-Type: multipart/mixed; boundary="------------CEjOtsrNhNmH0IESK77TKm7Y"
 
-On 3/30/2026 7:42 PM, Dmitry Baryshkov wrote:
-> On Mon, Mar 30, 2026 at 07:32:38PM +0800, Yongxing Mou wrote:
->>
->>
->> On 3/30/2026 6:35 PM, Dmitry Baryshkov wrote:
->>> On Mon, Mar 30, 2026 at 05:57:13PM +0800, Yongxing Mou wrote:
->>>>
->>>>
->>>> On 8/26/2025 1:42 AM, Dmitry Baryshkov wrote:
->>>>> On Mon, Aug 25, 2025 at 10:15:58PM +0800, Yongxing Mou wrote:
->>>>>> From: Abhinav Kumar <quic_abhinavk@quicinc.com>
->>>>>>
->>>>>> Introduce the `mst_streams` field in each DP controller descriptor to
->>>>>> specify the number of supported MST streams. Most platforms support 2 or
->>>>>> 4 MST streams, while platforms without MST support default to a single
->>>>>> stream (`DEFAULT_STREAM_COUNT = 1`).
->>>>>>
->>>>>> This change also accounts for platforms with asymmetric stream support,
->>>>>> e.g., DP0 supporting 4 streams and DP1 supporting 2.
->>>>>
->>>>> How?
->>>>>
->>>> Each DP controller have it own msm_dp_desc ...
+--------------CEjOtsrNhNmH0IESK77TKm7Y
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+On 3/30/26 06:15, Teddy Astie wrote:
+> Le 29/03/2026 =C3=A0 19:32, Demi Marie Obenour a =C3=A9crit=C2=A0:
+>> On 3/24/26 10:17, Demi Marie Obenour wrote:
+>>> Here is a proposed design document for supporting mapping GPU VRAM
+>>> and/or file-backed memory into other domains.  It's not in the form o=
+f
+>>> a patch because the leading + characters would just make it harder to=
+
+>>> read for no particular gain, and because this is still RFC right now.=
+
+>>> Once it is ready to merge, I'll send a proper patch.  Nevertheless,
+>>> you can consider this to be
 >>>
->>> Why do you need to mention it?
+>>> Signed-off-by: Demi Marie Obenour <demiobenour@gmail.com>
 >>>
->> Sorry, I may have misunderstood your “How?”. Could you please clarify what
->> aspect you are referring to (commit message wording vs. the actual
->> implementation)?
-> 
-> "Yes." You mention it as if something was done explicitly to account for
-> those differences. And then fail to say, what / how. My assumtion is
-> that this comes from the commit text style (see
-> Documentation/process/submitting-patches.rst). Please use imperative
-> language rather than descriptive. It will make such questions go away.
-> 
-Thanks for the clarification and for pointing this out. Will rework the 
-commit message in the next revision.
->>>>>>
->>>>>> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
->>>>>> Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
-> 
+>>> This approach is very different from the "frontend-allocates"
+>>> approach used elsewhere in Xen.  It is very much Linux-centric,
+>>> rather than Xen-centric.  In fact, MMU notifiers were invented for
+>>> KVM, and this approach is exactly the same as the one KVM implements.=
 
+>>> However, to the best of my understanding, the design described here i=
+s
+>>> the only viable one.  Linux MM and GPU drivers require it, and change=
+s
+>>> to either to relax this requirement will not be accepted upstream.
+>>
+>> Teddy Astie (CCd) proposed a couple of alternatives on Matrix:
+>>
+>> 1. Create dma-bufs for guest pages and import them into the host.
+>>
+>>     This is a win not only for Xen, but also for KVM.  Right now, shar=
+ed
+>>     (CPU) memory buffers must be copied from the guest to the host,
+>>     which is pointless.  So fixing that is a good thing!  That said,
+>>     I'm still concerned about triggering GPU driver code-paths that
+>>     are not tested on bare metal.
+>>    =20
+>> 2. Use PASID and 2-stage translation so that the GPU can operate in
+>>     guest physical memory.
+>>    =20
+>>     This is also a win.  AMD XDNA absolutely requires PASID support,
+>>     and apparently AMD GPUs can also use PASID.  So being able to use
+>>     PASID is certainly helpful.
+>>
+>> However, I don't think either approach is sufficient for two reasons.
+>>
+>> First, discrete GPUs have dedicated VRAM, which Xen knows nothing abou=
+t.
+>> Only dom0's GPU drivers can manage VRAM, and they will insist on being=
+
+>> able to migrate it between the CPU and the GPU.  Furthermore, VRAM
+>> can only be allocated using GPU driver ioctls, which will allocate
+>> it from dom0-owned memory.
+>>
+>> Second, Certain Wayland protocols, such as screencapture, require prog=
+rams
+>> to be able to import dmabufs.  Both of the above solutions would
+>> require that the pages be pinned.  I don't think this is an option,
+>> as IIUC pin_user_pages() fails on mappings of these dmabufs.  It's why=
+
+>> direct I/O to dmabufs doesn't work.
+>>
+>=20
+> I suppose it fails because of the RAM/VRAM constraint you said=20
+> previously. If the location of the memory stays the same (i.e guest=20
+> memory mapping), pin should be almost "no-op".
+
+Yup, there is no reason it shouldn't work for mappings of guest memory,
+udmabufs or indeed for iGPU dmabufs.  Whether it does work is another
+question.  I believe it sometimes fails even when it could work,
+due to (fixable) Linux kernel limitations.
+
+> (though, having dma-buf buffers coming from GPU drivers failing to pin =
+
+> is probably not a good thing in term of stability; some stuff like=20
+> cameras probably break as a result; but I'm not a expert on that subjec=
+t)
+
+I suspect that it works for the drivers where this situation applies
+in practice.  To the best of my knowledge, these drivers are either
+for iGPUs or for compute workloads.  Compute workloads *do* need tight
+control of whether a workload is in system RAM or VRAM, and typical
+desktops don't have a bunch of them sitting idle so the benefits of
+paging out their VRAM are vastly reduced.
+
+>> To the best of my knowledge, these problems mean that lending memory
+>> is the only way to get robust GPU acceleration for both graphics and
+>> compute workloads under Xen.  Simpler approaches might work for pure
+>> compute workloads, for iGPUs, or for drivers that have Xen-specific
+>> changes.  None of them, however, support graphics workloads on dGPUs
+>> while using the GPU driver the same way bare metal workloads do.
+>>
+>> Linux's graphics stack is massive, and trying to adapt it to work with=
+
+>> Xen isn't going to be sustainable in the long term.  Adapting Xen to
+>> fit the graphics stack is probably more work up front, but it has the
+>> advantage of working with all GPU drivers, including ones that have no=
+t
+>> been written yet.  It also means that the testing done on bare metal i=
+s
+>> still applicable, and that bugs found when using this driver can eithe=
+r
+>> be reproduced on bare metal or can be fixed without driver changes.
+>=20
+> One of my main concerns was about whether dma-buf can be used as=20
+> "general purpose" GPU buffers; what I read in driver code suggest it=20
+> should be fine, but it's a bit on the edge.
+
+Importing dmabufs into GPU drivers should work unless there is a
+reason it cannot work.  If it doesn't, I would consider it to be a bug.
+However, "should work" and "is widely tested" are two different things.
+I don't want to have something regress and whoever is using this
+(probably the Qubes team) responsible for fixing it.
+
+is that what you meant by "it's a bit on the edge"?
+
+>> Finally, I'm not actually attached to memory lending at all.  It's a
+>> lot of complexity, and it's not at all similar to how the rest of
+>> Xen works.  If someone else can come up with a better solution that
+>> doesn't require GPU driver changes, I'd be all for it.  Unfortunately,=
+
+>> I suspect none exists.  One can make almost anything work if one is
+>> willing to patch the drivers, but I am virtually certain that this
+>> will not be long-term sustainable.
+>>
+>=20
+> There's also the virtio-gpu side to consider. Blob mechanism appears to=
+=20
+> insist that GPU memory to come from the host by allowing buffers that=20
+> aren't bound to virtio-gpu BAR yet (that also complexifies the KVM=20
+> situation).
+
+Indeed, that's not a good situation for anyone and ought to just
+be fixed.  CC'ing Alyssa Ross as this probably would help Spectrum too.
+
+> You can have GPU memory that exists in virtio-gpu, without being=20
+> guest-visible, then the guest can map it on its own BAR.
+
+Would you mind explaining this?
+
+One other question: How difficult would it be to implement memory
+lending for someone experienced in Linux, Xen, and their interface?
+What about for someone who is not experienced?
+--=20
+Sincerely,
+Demi Marie Obenour (she/her/hers)
+--------------CEjOtsrNhNmH0IESK77TKm7Y
+Content-Type: application/pgp-keys; name="OpenPGP_0xB288B55FFF9C22C1.asc"
+Content-Disposition: attachment; filename="OpenPGP_0xB288B55FFF9C22C1.asc"
+Content-Description: OpenPGP public key
+Content-Transfer-Encoding: quoted-printable
+
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+
+xsFNBFp+A0oBEADffj6anl9/BHhUSxGTICeVl2tob7hPDdhHNgPR4C8xlYt5q49y
+B+l2nipdaq+4Gk6FZfqC825TKl7eRpUjMriwle4r3R0ydSIGcy4M6eb0IcxmuPYf
+bWpr/si88QKgyGSVZ7GeNW1UnzTdhYHuFlk8dBSmB1fzhEYEk0RcJqg4AKoq6/3/
+UorR+FaSuVwT7rqzGrTlscnTDlPWgRzrQ3jssesI7sZLm82E3pJSgaUoCdCOlL7M
+MPCJwI8JpPlBedRpe9tfVyfu3euTPLPxwcV3L/cfWPGSL4PofBtB8NUU6QwYiQ9H
+zx4xOyn67zW73/G0Q2vPPRst8LBDqlxLjbtx/WLR6h3nBc3eyuZ+q62HS1pJ5EvU
+T1vjyJ1ySrqtUXWQ4XlZyoEFUfpJxJoN0A9HCxmHGVckzTRl5FMWo8TCniHynNXs
+BtDQbabt7aNEOaAJdE7to0AH3T/Bvwzcp0ZJtBk0EM6YeMLtotUut7h2Bkg1b//r
+6bTBswMBXVJ5H44Qf0+eKeUg7whSC9qpYOzzrm7+0r9F5u3qF8ZTx55TJc2g656C
+9a1P1MYVysLvkLvS4H+crmxA/i08Tc1h+x9RRvqba4lSzZ6/Tmt60DPM5Sc4R0nS
+m9BBff0Nm0bSNRS8InXdO1Aq3362QKX2NOwcL5YaStwODNyZUqF7izjK4QARAQAB
+zTxEZW1pIE9iZW5vdXIgKElUTCBFbWFpbCBLZXkpIDxhdGhlbmFAaW52aXNpYmxl
+dGhpbmdzbGFiLmNvbT7CwY4EEwEIADgWIQR2h02fEza6IlkHHHGyiLVf/5wiwQUC
+X6YJvQIbAwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgAAKCRCyiLVf/5wiwWRhD/0Y
+R+YYC5Kduv/2LBgQJIygMsFiRHbR4+tWXuTFqgrxxFSlMktZ6gQrQCWe38WnOXkB
+oY6n/5lSJdfnuGd2UagZ/9dkaGMUkqt+5WshLFly4BnP7pSsWReKgMP7etRTwn3S
+zk1OwFx2lzY1EnnconPLfPBc6rWG2moA6l0WX+3WNR1B1ndqpl2hPSjT2jUCBWDV
+rGOUSX7r5f1WgtBeNYnEXPBCUUM51pFGESmfHIXQrqFDA7nBNiIVFDJTmQzuEqIy
+Jl67pKNgooij5mKzRhFKHfjLRAH4mmWZlB9UjDStAfFBAoDFHwd1HL5VQCNQdqEc
+/9lZDApqWuCPadZN+pGouqLysesIYsNxUhJ7dtWOWHl0vs7/3qkWmWun/2uOJMQh
+ra2u8nA9g91FbOobWqjrDd6x3ZJoGQf4zLqjmn/P514gb697788e573WN/MpQ5XI
+Fl7aM2d6/GJiq6LC9T2gSUW4rbPBiqOCeiUx7Kd/sVm41p9TOA7fEG4bYddCfDsN
+xaQJH6VRK3NOuBUGeL+iQEVF5Xs6Yp+U+jwvv2M5Lel3EqAYo5xXTx4ls0xaxDCu
+fudcAh8CMMqx3fguSb7Mi31WlnZpk0fDuWQVNKyDP7lYpwc4nCCGNKCj622ZSocH
+AcQmX28L8pJdLYacv9pU3jPy4fHcQYvmTavTqowGnM08RGVtaSBNYXJpZSBPYmVu
+b3VyIChsb3ZlciBvZiBjb2RpbmcpIDxkZW1pb2Jlbm91ckBnbWFpbC5jb20+wsF4
+BBMBAgAiBQJafgNKAhsDBgsJCAcDAgYVCAIJCgsEFgIDAQIeAQIXgAAKCRCyiLVf
+/5wiwYa/EACv8a2+MMou9cSCNoZBQaU+fTmyzft9hUE+0d5W2UY1RY3OsjFIzm9R
+/4SVccfsqOYLEo+S0vQMIIIqFEq3FCpXXwPzyimotps05VA8U3Bd7yseojFygOgK
+sAMOAee2RCaDDOnoJue01dfZMzzHPO/TVdp3OvnpWipfv5G1Xg96rwbhMLE3tg6N
+xwAHa31Bv4/Xq8CJOoIWvx6fcmZQpz01/lSvsYn0KrfEbTKkuUf0vM9JrCTCP2oz
+VNN5BYzqaq2M4r+jmSyeXLim922VOWqGkUEQ85BSEemqrRS06IU6NtEMsF8EWt/b
+hWjk/9GDKTcnpdJHTrMxTspExBiNrvpI2t+YPU5B/dJJAUxvmhFrbSIbdB8umBZs
+I3AMYrEmpAbh5x7jEjoskUC7uN3o9vpg1oCLS2ePDLtAtyBtbHnkA4xGD7ar8mem
+xpH9lY/i+sC6CyyIUWcUDnnagKyJP0m9ks0GLsTeOCA0bft2XA6rD6aaCnMUsndT
+ctrab42CV5XypjmC4U1rPJ8JQJUh1/3P48/8sMH+3krxpJ06KNWNFaUbaMTGiltZ
+7x9DngklSYrX0T+2G4kVXNmjaljwkoLahwLla2gUWwBSyofXdqyhQdwZsp01KXNQ
+UCyT/Pg+aDcm/E7OMV3d4lf7g/CSxiX2GSEe6BlhSz+Lmd7ZJ3g32M1ARGVtaSBN
+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
+EtJuZYM5blWncBOJCoWMnBEcTEo/viU3GgcVRw=3D=3D
+=3Dx94R
+-----END PGP PUBLIC KEY BLOCK-----
+
+--------------CEjOtsrNhNmH0IESK77TKm7Y--
+
+--------------Ypm0cPcRDo19SiwsEQFv8Pbc--
+
+--------------jlshIcNJGAQuLqmgL2Mliith
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCgAdFiEEopQtqVJW1aeuo9/sszaHOrMp8lMFAmnKa54ACgkQszaHOrMp
+8lMCiA/9EWOaRgYiZku11AhSTG0TZT9GsRXTB/pXcKauvRsJnnOPldQdrBODkkUI
+pZUKjdmLqeiiGl55EToFdL+ZOwFg6Z9u9S+0Nr99Bzi5o79KFjkhciGFpGYX01vw
+pJh6qUOLXpauHG33OUcjAhxOomH0u8wFizT7Yz2Powh7C538dvljuluxc9fsmwAe
+nLaKcyajeILzt/QNMoE6nMGg1QNkTDsCiYK8v2uVROjl+4XSqtet4BXpyyB8cY8P
+XEmvmWVM3SVnY/xDvid7CY3tyuaCtwl976F1IeesU8VN7x71HiXCK28GBmgrkyGW
+JspRefC2XzGMcDkBaUPcPQ/2Ihdv8rkb/JC1ReGB9kMf1twEh7jqOxjPePt7lJQ3
+j0gUICkGlnpXws/EjZN9vux/AQEnSW1dRtDzGASu5DmmXxqcBCfkpZsovIarVffR
+o+/JQgeAWN7qs5yMni38cFjpaQulvNu+B0w0hxRLmBx9i0oik98b8QID3352LpVg
+iYy9g2+Od33awINuoRphvr+rG/0ychE6kw2ARDzI6DcXWVyWzjn2ydp5efqIGwRG
+e2vGB9WLRBsYkMhj1NcIrskVeFmicxaSgAzubiWNz/BJnnJs376XTNs698CUzj2A
+yfbI5nKyXzDIBMNxpaOSuW9jcudTUwFvulUHVVM61ixEw8UB+64=
+=bmH5
+-----END PGP SIGNATURE-----
+
+--------------jlshIcNJGAQuLqmgL2Mliith--
