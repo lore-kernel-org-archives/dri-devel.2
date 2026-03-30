@@ -4,148 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2B3DEFB3D04
-	for <dri-devel@archiver.kernel.org>; Mon, 30 Mar 2026 10:37:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 36579FB3D04
+	for <dri-devel@archiver.kernel.org>; Mon, 30 Mar 2026 10:39:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7E8FE10E618;
-	Mon, 30 Mar 2026 10:37:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9643610E617;
+	Mon, 30 Mar 2026 10:39:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="lCYLTIFl";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="JzyI6Uic";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="UTGmSygW";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6727010E611
- for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 10:37:04 +0000 (UTC)
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 62UAGckw3173906
- for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 10:37:03 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- rS3q4/ckZwfhIe+L/YtKzkCxLX5gEQTddXgVybWNDR0=; b=lCYLTIFl+FdK0XIG
- ziMxedSFCqONG+x4qug8Avv4zbsIyVFLaCHQ+9QAZZbXyZhpohVrLjO+3ffBzfBT
- uuiLXknUR0XrlDbFDtgQEfjhS49QmnyGDae/1x/72GSTC64pTNwHgdAWBoTCVO0V
- o0wVojDOK/JleyJph9T4o25FCE0m2BUsbQpl9PHiJTnXkHDsYBSH7gz/FUsuHACt
- L45cO85O5whi0Nyyh7yi6PFQHTnjfVUYMKdY4ijmKf73ndatCEJ1E6JaiU3Gk9yH
- QOGVPvFSwVCo/Yq4CEWE3paaZwQUqfhMND5Twg4SoKWKmwNmMXuc9Gt2zPr4YCvr
- njHKaQ==
-Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com
- [209.85.214.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d7q9h024x-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 10:37:03 +0000 (GMT)
-Received: by mail-pl1-f197.google.com with SMTP id
- d9443c01a7336-2b24a00d12cso15686165ad.1
- for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 03:37:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1774867022; x=1775471822;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=rS3q4/ckZwfhIe+L/YtKzkCxLX5gEQTddXgVybWNDR0=;
- b=JzyI6UicrPNNR/aX06wDC/CxfRz/b7JHGOEm0erqLhiYqN4O1ccQVzBRS9CQrDIb9R
- Uq7XLMsOKYLq0K72IkCXb6wscSpNPDztjWh4VbHOSA1Gxm70Qg7jnh4buJ1HvBxrK7Jy
- D3bMge/RLdYijoWl/40r5Q2j27xe0NDdYJzKH2mq1FGKfCTCahTeAZRgLkGAWl5HcYc4
- VdXZKPlK8bQAe/yGcqp/Rkm1VSXxeuQmCrQk9mtlEvDVAtmsMHXymoEqlbNRjxACrfBQ
- V2e4IiVShoCKwx7JxpHau/+UHjuKqFGYO2Bpx0HBdKQHTHvBPWD9hzuqIqpvKjG1ENHV
- voZQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774867022; x=1775471822;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=rS3q4/ckZwfhIe+L/YtKzkCxLX5gEQTddXgVybWNDR0=;
- b=oP9cBx/d5umdJiznKgwm08ayTIK6rO2Lh/ntySfIZRyE48DTX1jrZ7UvTKrnhQfZQo
- jvcMbY5c3Bp4rZ/1Kfy9/FQR8lYvMErCy11qHvZsc73Lvm4uoZ2Z+wOGno+CnDFpLq1u
- DBqjLLu3GjJZcGZrxHh9pL71e8bRF384oAeD/4zwzozflTXp+rHdGuXEiOJe7+kX0x+q
- yDYtCjHyUBrkmmtCZQ51e0erFGCU73LjnX4BtthCXUrpGSqsAP/03BZFhd5lyalNcEGJ
- xL7uKitRtJkxIgFqKBgKaqiXXitRcaR8p/oL3hyLTqOaBTSdBskbfYy7UB3k13ToKiZN
- YseA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVG4tVKEQG1RkMsyojjBMPOoB3a2BrVxFyKYlOWSoW82l7Zjzqi3UF56rtEHvGFAjHEzW0ybl3n6zk=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YySUXoHTTuAzNS+rJz6rQlC/ldELGp3u75tO0VwuwG7kZnyQmio
- Zr+Fc5k79tXa4mWfbZGupC3cvfVBZRSOmkz+gUuVoBMHuYT+97UT7BSWRBeb78XFhZiHgGaK8LF
- KGvvCEByCrI7bFiRrf5WfcKIK+XksbR9vIYkB9yJxB1dAFM/b2KZgPwm06d8SpaZc81cABIQ=
-X-Gm-Gg: ATEYQzyamXiRuRZOAX/SvHfFi86vklSglNjhmrj/AQXDMCvnO3qFu03Vh6NgqvBtAKI
- DjQtKPQ7GWXs0BqEQGjJpw20BpVxieiXbijnlMVQY9MscbjART3XT/3Kpz3Cf9OfaEoAtNeAZkC
- /BSVJGa/iYU2GPp2w9WfsuVvyDVVcB/vwST4BWGwo0erOVv+86wkM2V/BwKU57if8FrrXGiQNjn
- UeHyLZoyw/qCHYTmGrDD0Hu2ULthLrXQhcosSdMJuc/TwgeKhicOtSJ7l2S8LWLhGiLniLSuOCs
- VrZdRpokpXEDdWQIwX3hjLtQTPMnsmOku5pqLUwvwhvWfmXL+WLE8zXytpauZMIq7K6KQuM5nu1
- EAS33M/55Y+ZR1m4+wuOYzrB3eIDyE1tO7UaOZfSJYTi+uEfssqs=
-X-Received: by 2002:a17:902:da4d:b0:2b0:70c8:ccea with SMTP id
- d9443c01a7336-2b0cdc28c47mr99334765ad.13.1774867022306; 
- Mon, 30 Mar 2026 03:37:02 -0700 (PDT)
-X-Received: by 2002:a17:902:da4d:b0:2b0:70c8:ccea with SMTP id
- d9443c01a7336-2b0cdc28c47mr99334605ad.13.1774867021710; 
- Mon, 30 Mar 2026 03:37:01 -0700 (PDT)
-Received: from [10.217.223.121] ([202.46.22.19])
- by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2b2427c5339sm78747725ad.79.2026.03.30.03.36.48
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 30 Mar 2026 03:37:01 -0700 (PDT)
-Message-ID: <000abdb5-a8b4-47c4-860b-5666e650b545@oss.qualcomm.com>
-Date: Mon, 30 Mar 2026 16:06:47 +0530
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id D844F10E61A
+ for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 10:39:05 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 0C7661C00;
+ Mon, 30 Mar 2026 03:38:59 -0700 (PDT)
+Received: from [10.57.61.249] (unknown [10.57.61.249])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 29DCF3F915;
+ Mon, 30 Mar 2026 03:39:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+ t=1774867144; bh=SIk70OLqSrRNeFwNU7snZxxX8G3ys2ug7ym3PFeR8as=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=UTGmSygWDkemRNFxhKpu5KuyQIO5EUu2F9oKA3KO/80AbmKHK0oytKygGtHTI8Ctl
+ a8J33VrSZ/vkd6brZC5rvEMYJAa4AlrH1Tx8RBOYY4CZ3xnAVQjEl5MahUrejyflxc
+ HAGyY5ao+9eBooiPY4U//lXwUy7HTg5fmabRgFmc=
+Message-ID: <8b2b65a3-3db8-469f-90ae-6abccdb3c71a@arm.com>
+Date: Mon, 30 Mar 2026 11:39:00 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 04/15] firmware: qcom: Add a PAS TEE service
-To: Sumit Garg <sumit.garg@kernel.org>, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-media@vger.kernel.org,
- netdev@vger.kernel.org, linux-wireless@vger.kernel.org,
- ath12k@lists.infradead.org, linux-remoteproc@vger.kernel.org
-Cc: andersson@kernel.org, konradybcio@kernel.org, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, robin.clark@oss.qualcomm.com,
- sean@poorly.run, akhilpo@oss.qualcomm.com, lumag@kernel.org,
- abhinav.kumar@linux.dev, jesszhan0024@gmail.com,
- marijn.suijten@somainline.org, airlied@gmail.com, simona@ffwll.ch,
- vikash.garodia@oss.qualcomm.com, dikshita.agarwal@oss.qualcomm.com,
- bod@kernel.org, mchehab@kernel.org, elder@kernel.org,
- andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, jjohnson@kernel.org,
- mathieu.poirier@linaro.org, trilokkumar.soni@oss.qualcomm.com,
- mukesh.ojha@oss.qualcomm.com, pavan.kondeti@oss.qualcomm.com,
- jorge.ramirez@oss.qualcomm.com, tonyh@qti.qualcomm.com,
- vignesh.viswanathan@oss.qualcomm.com, srinivas.kandagatla@oss.qualcomm.com,
- amirreza.zarrabi@oss.qualcomm.com, jens.wiklander@linaro.org,
- op-tee@lists.trustedfirmware.org, apurupa@qti.qualcomm.com,
- skare@qti.qualcomm.com, linux-kernel@vger.kernel.org,
- Sumit Garg <sumit.garg@oss.qualcomm.com>
-References: <20260327131043.627120-1-sumit.garg@kernel.org>
- <20260327131043.627120-5-sumit.garg@kernel.org>
-Content-Language: en-US
-From: Harshal Dev <harshal.dev@oss.qualcomm.com>
-In-Reply-To: <20260327131043.627120-5-sumit.garg@kernel.org>
+Subject: Re: [PATCH v6 0/9] drm/panthor: Add a GEM shrinker
+To: Boris Brezillon <boris.brezillon@collabora.com>,
+ Liviu Dudau <liviu.dudau@arm.com>,
+ =?UTF-8?Q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>
+Cc: dri-devel@lists.freedesktop.org, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Akash Goel <akash.goel@arm.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Dmitry Osipenko <dmitry.osipenko@collabora.com>,
+ Chris Diamand <chris.diamand@arm.com>, Danilo Krummrich <dakr@kernel.org>,
+ Matthew Brost <matthew.brost@intel.com>,
+ =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Alice Ryhl <aliceryhl@google.com>, Chia-I Wu <olvaffe@gmail.com>,
+ kernel@collabora.com
+References: <20260330094848.2169422-1-boris.brezillon@collabora.com>
+From: Steven Price <steven.price@arm.com>
+Content-Language: en-GB
+In-Reply-To: <20260330094848.2169422-1-boris.brezillon@collabora.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzMwMDA4MyBTYWx0ZWRfXzqQDeCdQEyV3
- TOUY468KdXwDTOKysU/jh1cTDgXrYZnFDpG8gYTgF9bZIcN9dgl+tlBgdOSpkoqeF8fWn8n6QsM
- mhedRGPIVcrYfgLQA5IAF/aOfTYOheLcr5Q+ugbQaem6Q5UD5qdXP2j4BEhofSzI4x6sWrO+BX5
- awq8w2B8pZPFlaN+k+vaXooSPUEvVdM8YKhLWWi3Jn/oJLrU48ODlw2bNlHFV6VcCHvkro4X/ZF
- 4mcb5ObRLg26F1zeMUbYmbsNMukqAy6VhvSHYII+csYZoyibj2jXSJlBjKV7u3MYdP8wK06NKlR
- /v4To4z6eMXIFZsWJ+aaxU3pDC3pEMoo/sXE2n4GXxll6JwbCJfUmdBubgVJXAbJ8qWzZnYDNkR
- LfrRzC0BK4ZK8DSAAUcbwJEcapaUJhk8S/98AMei6kXpOuhdHLkIxph0fbETVhghBoFthO/JcgD
- SYqcUNx3br3eREKaRfA==
-X-Authority-Analysis: v=2.4 cv=AZS83nXG c=1 sm=1 tr=0 ts=69ca524f cx=c_pps
- a=cmESyDAEBpBGqyK7t0alAg==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=EUspDBNiAAAA:8 a=RWzqk8q2zN-G-DdlaHkA:9 a=QEXdDO2ut3YA:10
- a=1OuFwYUASf3TG4hYMiVC:22
-X-Proofpoint-GUID: cKjiLdiUKH_Yl53vP8OprVDNCRetVbA9
-X-Proofpoint-ORIG-GUID: cKjiLdiUKH_Yl53vP8OprVDNCRetVbA9
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-03-29_05,2026-03-28_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 phishscore=0 priorityscore=1501 clxscore=1015
- impostorscore=0 suspectscore=0 bulkscore=0 adultscore=0 malwarescore=0
- spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2603050001
- definitions=main-2603300083
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -161,494 +69,163 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Hi Boris,
 
-
-On 3/27/2026 6:40 PM, Sumit Garg wrote:
-> From: Sumit Garg <sumit.garg@oss.qualcomm.com>
+On 30/03/2026 10:48, Boris Brezillon wrote:
+> Hello,
 > 
-> Add support for Peripheral Authentication Service (PAS) driver based
-> on TEE bus with OP-TEE providing the backend PAS service implementation.
+> This is an attempt at adding a GEM shrinker to panthor so the system
+> can finally reclaim GPU memory.
 > 
-> The TEE PAS service ABI is designed to be extensible with additional API
-> as PTA_QCOM_PAS_CAPABILITIES. This allows to accommodate any future
-> extensions of the PAS service needed while still maintaining backwards
-> compatibility.
+> This implementation is losely based on the MSM shrinker (which is why
+> I added the MSM maintainers in Cc), and it's relying on the drm_gpuvm
+> eviction/validation infrastructure.
 > 
-> Signed-off-by: Sumit Garg <sumit.garg@oss.qualcomm.com>
-> ---
->  drivers/firmware/qcom/Kconfig        |  10 +
->  drivers/firmware/qcom/Makefile       |   1 +
->  drivers/firmware/qcom/qcom_pas_tee.c | 478 +++++++++++++++++++++++++++
->  3 files changed, 489 insertions(+)
->  create mode 100644 drivers/firmware/qcom/qcom_pas_tee.c
->
-[...]
+> I've only done very basic IGT-based [1] and chromium-based (opening
+> a lot of tabs on Aquarium until the system starts reclaiming+swapping
+> out GPU buffers) testing, but I'm posting this early so I can get
+> preliminary feedback on the implementation. If someone knows about
+> better tools/ways to test the shrinker, please let me know.
 
-> diff --git a/drivers/firmware/qcom/qcom_pas_tee.c b/drivers/firmware/qcom/qcom_pas_tee.c
-> new file mode 100644
-> index 000000000000..d63122c34f04
-> --- /dev/null
-> +++ b/drivers/firmware/qcom/qcom_pas_tee.c
-> @@ -0,0 +1,478 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-> + */
-> +
-> +#include <linux/delay.h>
-> +#include <linux/of.h>
-> +#include <linux/firmware/qcom/qcom_pas.h>
-> +#include <linux/kernel.h>
-> +#include <linux/module.h>
-> +#include <linux/slab.h>
-> +#include <linux/tee_drv.h>
-> +#include <linux/uuid.h>
-> +
-> +#include "qcom_pas.h"
-> +
-> +/*
-> + * Peripheral Authentication Service (PAS) supported.
-> + *
-> + * [in]  params[0].value.a:	Unique 32bit remote processor identifier
-> + */
-> +#define TA_QCOM_PAS_IS_SUPPORTED		1
-> +
-> +/*
-> + * PAS capabilities.
-> + *
-> + * [in]  params[0].value.a:	Unique 32bit remote processor identifier
-> + * [out] params[1].value.a:	PAS capability flags
-> + */
-> +#define TA_QCOM_PAS_CAPABILITIES		2
-> +
-> +/*
-> + * PAS image initialization.
-> + *
-> + * [in]  params[0].value.a:	Unique 32bit remote processor identifier
-> + * [in]  params[1].memref:	Loadable firmware metadata
-> + */
-> +#define TA_QCOM_PAS_INIT_IMAGE			3
-> +
-> +/*
-> + * PAS memory setup.
-> + *
-> + * [in]  params[0].value.a:	Unique 32bit remote processor identifier
-> + * [in]  params[0].value.b:	Relocatable firmware size
-> + * [in]  params[1].value.a:	32bit LSB relocatable firmware memory address
-> + * [in]  params[1].value.b:	32bit MSB relocatable firmware memory address
-> + */
-> +#define TA_QCOM_PAS_MEM_SETUP			4
-> +
-> +/*
-> + * PAS get resource table.
-> + *
-> + * [in]     params[0].value.a:	Unique 32bit remote processor identifier
-> + * [inout]  params[1].memref:	Resource table config
-> + */
-> +#define TA_QCOM_PAS_GET_RESOURCE_TABLE		5
-> +
-> +/*
-> + * PAS image authentication and co-processor reset.
-> + *
-> + * [in]  params[0].value.a:	Unique 32bit remote processor identifier
-> + * [in]  params[0].value.b:	Firmware size
-> + * [in]  params[1].value.a:	32bit LSB firmware memory address
-> + * [in]  params[1].value.b:	32bit MSB firmware memory address
-> + * [in]  params[2].memref:	Optional fw memory space shared/lent
-> + */
-> +#define TA_QCOM_PAS_AUTH_AND_RESET		6
-> +
-> +/*
-> + * PAS co-processor set suspend/resume state.
-> + *
-> + * [in]  params[0].value.a:	Unique 32bit remote processor identifier
-> + * [in]  params[0].value.b:	Co-processor state identifier
-> + */
-> +#define TA_QCOM_PAS_SET_REMOTE_STATE		7
-> +
-> +/*
-> + * PAS co-processor shutdown.
-> + *
-> + * [in]  params[0].value.a:	Unique 32bit remote processor identifier
-> + */
-> +#define TA_QCOM_PAS_SHUTDOWN			8
-> +
-> +#define TEE_NUM_PARAMS				4
-> +
-> +/**
-> + * struct qcom_pas_tee_private - PAS service private data
-> + * @dev:		PAS service device.
-> + * @ctx:		TEE context handler.
-> + * @session_id:		PAS TA session identifier.
+I did my own pretty basic testing (glmark with memhog) and managed to hit this:
 
-Nit: Column alignment of comment descriptions.
+[  265.053172] ============================================
+[  265.053667] WARNING: possible recursive locking detected
+[  265.054159] 7.0.0-rc3-00694-gadfa5ca08767 #1 Not tainted
+[  265.054655] --------------------------------------------
+[  265.055143] glmark2-es2-drm/443 is trying to acquire lock:
+[  265.055651] ffff0001194011a8 (reservation_ww_class_mutex){+.+.}-{4:4}, at: drm_gpuvm_bo_deferred_cleanup+0x100/0x2c0 [drm_gpuvm]
+[  265.056738] 
+[  265.056738] but task is already holding lock:
+[  265.057278] ffff80008b7c79e8 (reservation_ww_class_mutex){+.+.}-{4:4}, at: panthor_ioctl_group_submit+0x424/0x560 [panthor]
+[  265.058324] 
+[  265.058324] other info that might help us debug this:
+[  265.058927]  Possible unsafe locking scenario:
+[  265.058927] 
+[  265.059475]        CPU0
+[  265.059706]        ----
+[  265.059939]   lock(reservation_ww_class_mutex);
+[  265.060365]   lock(reservation_ww_class_mutex);
+[  265.060788] 
+[  265.060788]  *** DEADLOCK ***
+[  265.060788] 
+[  265.061338]  May be due to missing lock nesting notation
+[  265.061338] 
+[  265.061964] 3 locks held by glmark2-es2-drm/443:
+[  265.062395]  #0: ffff80008493c458 (drm_unplug_srcu){.+.+}-{0:0}, at: drm_dev_enter+0x0/0x140
+[  265.063188]  #1: ffff80008b7c79c0 (reservation_ww_class_acquire){+.+.}-{0:0}, at: panthor_ioctl_group_submit+0x424/0x560 [panthor]
+[  265.064288]  #2: ffff80008b7c79e8 (reservation_ww_class_mutex){+.+.}-{4:4}, at: panthor_ioctl_group_submit+0x424/0x560 [panthor]
+[  265.065370] 
+[  265.065370] stack backtrace:
+[  265.065780] CPU: 4 UID: 1000 PID: 443 Comm: glmark2-es2-drm Not tainted 7.0.0-rc3-00694-gadfa5ca08767 #1 PREEMPT 
+[  265.065787] Hardware name: Radxa ROCK 5B (DT)
+[  265.065791] Call trace:
+[  265.065793]  show_stack+0x18/0x24 (C)
+[  265.065802]  dump_stack_lvl+0x6c/0x94
+[  265.065810]  dump_stack+0x1c/0x28
+[  265.065815]  print_deadlock_bug+0x224/0x238
+[  265.065822]  __lock_acquire+0xe54/0x1600
+[  265.065829]  lock_acquire+0x3cc/0x420
+[  265.065834]  __ww_mutex_lock.constprop.0+0x1fc/0x2c40
+[  265.065844]  ww_mutex_lock+0x50/0x168
+[  265.065850]  drm_gpuvm_bo_deferred_cleanup+0x100/0x2c0 [drm_gpuvm]
+[  265.065862]  panthor_vm_cleanup_op_ctx+0x188/0x270 [panthor]
+[  265.065881]  panthor_vm_bo_validate+0x404/0x758 [panthor]
+[  265.065898]  drm_gpuvm_validate+0x28c/0xf50 [drm_gpuvm]
+[  265.065907]  panthor_vm_prepare_mapped_bos_resvs+0x64/0x80 [panthor]
+[  265.065925]  panthor_ioctl_group_submit+0x418/0x560 [panthor]
+[  265.065942]  drm_ioctl_kernel+0x15c/0x2c0
+[  265.065947]  drm_ioctl+0x56c/0xb1c
+[  265.065952]  __arm64_sys_ioctl+0x124/0x1a4
+[  265.065961]  invoke_syscall+0x70/0x260
+[  265.065967]  el0_svc_common.constprop.0+0xac/0x230
+[  265.065972]  do_el0_svc+0x40/0x58
+[  265.065976]  el0_svc+0x4c/0x210
+[  265.065981]  el0t_64_sync_handler+0xa0/0xe4
+[  265.065986]  el0t_64_sync+0x198/0x19c
 
-> + */
-> +struct qcom_pas_tee_private {
-> +	struct device *dev;
-> +	struct tee_context *ctx;
-> +	u32 session_id;
-> +};
-> +
-> +static bool qcom_pas_tee_supported(struct device *dev, u32 pas_id)
-> +{
-> +	struct qcom_pas_tee_private *data = dev_get_drvdata(dev);
-> +	struct tee_ioctl_invoke_arg inv_arg = {
-> +		.func = TA_QCOM_PAS_IS_SUPPORTED,
-> +		.session = data->session_id,
-> +		.num_params = TEE_NUM_PARAMS
-> +	};
-> +	struct tee_param param[4] = {
-> +		[0] = {
-> +			.attr = TEE_IOCTL_PARAM_ATTR_TYPE_VALUE_INPUT,
-> +			.u.value.a = pas_id
-> +		}
-> +	};
-> +	int ret;
-> +
-> +	ret = tee_client_invoke_func(data->ctx, &inv_arg, param);
-> +	if (ret < 0 || inv_arg.ret != 0) {
-> +		dev_err(dev, "PAS not supported, pas_id: %d, err: %x\n",
-> +			pas_id, inv_arg.ret);
+Thanks,
+Steve
 
-I can see that similar error handling pattern for tee_client_invoke_func() is
-being done by other clients. But it seems that this error log doesn't really convey
-whether we failed before or after entering OPTEE (or some other TEE) for invoking
-the service.
-
-Could be better if we print 'ret' when ret < 0. And print 'inv_arg.ret' when
-inv_arg.ret != 0. So for example, if the param marshalling fails, or some other
-issue is encountered when processing the params in a different back-end TEE
-driver, we could know from the logs.
-
-> +		return false;
-> +	}
-> +
-> +	return true;
-> +}
-> +
-> +static int qcom_pas_tee_init_image(struct device *dev, u32 pas_id,
-> +				   const void *metadata, size_t size,
-> +				   struct qcom_pas_context *ctx)
-> +{
-> +	struct qcom_pas_tee_private *data = dev_get_drvdata(dev);
-> +	struct tee_ioctl_invoke_arg inv_arg = {
-> +		.func = TA_QCOM_PAS_INIT_IMAGE,
-> +		.session = data->session_id,
-> +		.num_params = TEE_NUM_PARAMS
-> +	};
-> +	struct tee_param param[4] = {
-> +		[0] = {
-> +			.attr = TEE_IOCTL_PARAM_ATTR_TYPE_VALUE_INPUT,
-> +			.u.value.a = pas_id
-> +		},
-> +		[1] = {
-> +			.attr = TEE_IOCTL_PARAM_ATTR_TYPE_MEMREF_INPUT,
-> +		}
-> +	};
-> +	struct tee_shm *mdata_shm;
-> +	u8 *mdata_buf = NULL;
-> +	int ret;
-> +
-> +	if (!ctx)
-> +		return -EINVAL;
-> +
-> +	mdata_shm = tee_shm_alloc_kernel_buf(data->ctx, size);
-
-Why not move the DEFINE_FREE() above this function so we can use scoped free
-here as well for mdata_shm?
-
-struct tee_shm *mdata_shm __free(shm_free) = ...
-
-> +	if (IS_ERR(mdata_shm)) {
-> +		dev_err(dev, "mdata_shm allocation failed\n");
-> +		return PTR_ERR(mdata_shm);
-> +	}
-> +
-> +	mdata_buf = tee_shm_get_va(mdata_shm, 0);
-> +	if (IS_ERR(mdata_buf)) {
-> +		dev_err(dev, "mdata_buf get VA failed\n");
-> +		tee_shm_free(mdata_shm);
-> +		return PTR_ERR(mdata_buf);
-> +	}
-> +	memcpy(mdata_buf, metadata, size);
-> +
-> +	param[1].u.memref.shm = mdata_shm;
-> +	param[1].u.memref.size = size;
-> +
-> +	ret = tee_client_invoke_func(data->ctx, &inv_arg, param);
-> +	if (ret < 0 || inv_arg.ret != 0) {
-> +		dev_err(dev, "PAS init image failed, pas_id: %d, err: %x\n",
-
-Nit: We can prefix %x with 0x. "err: 0x%x\n."
-
-> +			pas_id, inv_arg.ret);
-> +		tee_shm_free(mdata_shm);
-> +		return -EINVAL;
-> +	}
-> +	ctx->ptr = (void *)mdata_shm;
-> +
-> +	return 0;
-> +}
-> +
-> +static int qcom_pas_tee_mem_setup(struct device *dev, u32 pas_id,
-> +				  phys_addr_t addr, phys_addr_t size)
-> +{
-> +	struct qcom_pas_tee_private *data = dev_get_drvdata(dev);
-> +	struct tee_ioctl_invoke_arg inv_arg = {
-> +		.func = TA_QCOM_PAS_MEM_SETUP,
-> +		.session = data->session_id,
-> +		.num_params = TEE_NUM_PARAMS
-> +	};
-> +	struct tee_param param[4] = {
-> +		[0] = {
-> +			.attr = TEE_IOCTL_PARAM_ATTR_TYPE_VALUE_INPUT,
-> +			.u.value.a = pas_id,
-> +			.u.value.b = size,
-> +		},
-> +		[1] = {
-> +			.attr = TEE_IOCTL_PARAM_ATTR_TYPE_VALUE_INPUT,
-> +			.u.value.a = lower_32_bits(addr),
-> +			.u.value.b = upper_32_bits(addr),
-> +		}
-> +	};
-> +	int ret;
-> +
-> +	ret = tee_client_invoke_func(data->ctx, &inv_arg, param);
-> +	if (ret < 0 || inv_arg.ret != 0) {
-> +		dev_err(dev, "PAS mem setup failed, pas_id: %d, err: %x\n",
-> +			pas_id, inv_arg.ret);
-> +		return -EINVAL;
-
-I can see that originally in-case of error, qcom_scm_pas_mem_setup() bubbles
-up the return value from qcom_scm_call(). Perhaps we should do the same as well,
-return ret here instead of hard-coded '-EINVAL' which overrides any useful
-return values returned from the back-end TEE driver.
- 
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +DEFINE_FREE(shm_free, struct tee_shm *, tee_shm_free(_T))
-> +
-> +static void *qcom_pas_tee_get_rsc_table(struct device *dev,
-> +					struct qcom_pas_context *ctx,
-> +					void *input_rt, size_t input_rt_size,
-> +					size_t *output_rt_size)
-> +{
-> +	struct qcom_pas_tee_private *data = dev_get_drvdata(dev);
-> +	struct tee_ioctl_invoke_arg inv_arg = {
-> +		.func = TA_QCOM_PAS_GET_RESOURCE_TABLE,
-> +		.session = data->session_id,
-> +		.num_params = TEE_NUM_PARAMS
-> +	};
-> +	struct tee_param param[4] = {
-> +		[0] = {
-> +			.attr = TEE_IOCTL_PARAM_ATTR_TYPE_VALUE_INPUT,
-> +			.u.value.a = ctx->pas_id,
-> +		},
-> +		[1] = {
-> +			.attr = TEE_IOCTL_PARAM_ATTR_TYPE_MEMREF_INOUT,
-> +			.u.memref.size = input_rt_size,
-> +		}
-> +	};
-> +	void *rt_buf = NULL;
-> +	int ret;
-> +
-> +	ret = tee_client_invoke_func(data->ctx, &inv_arg, param);
-> +	if (ret < 0 || inv_arg.ret != 0) {
-> +		dev_err(dev, "PAS get RT failed, pas_id: %d, err: %x\n",
-> +			ctx->pas_id, inv_arg.ret);
-> +		return ERR_PTR(-EINVAL);
-
-Same comment here, we could return ERR_PTR(ret) instead of overriding to
-'-EINVAL'.
-
-> +	}
-> +
-> +	if (param[1].u.memref.size) {
-> +		struct tee_shm *rt_shm __free(shm_free) =
-> +			tee_shm_alloc_kernel_buf(data->ctx,
-> +						 param[1].u.memref.size);
-> +		void *rt_shm_va;
-> +
-> +		if (IS_ERR(rt_shm)) {
-> +			dev_err(dev, "rt_shm allocation failed\n");
-> +			return rt_shm;
-> +		}
-> +
-> +		rt_shm_va = tee_shm_get_va(rt_shm, 0);
-> +		if (IS_ERR_OR_NULL(rt_shm_va)) {
-> +			dev_err(dev, "rt_shm get VA failed\n");
-> +			return ERR_PTR(-EINVAL);
-
-Why not just return rt_shm_va? It already encodes the error in the pointer.
-
-> +		}
-> +		memcpy(rt_shm_va, input_rt, input_rt_size);
-> +
-> +		param[1].u.memref.shm = rt_shm;
-> +		ret = tee_client_invoke_func(data->ctx, &inv_arg, param);
-> +		if (ret < 0 || inv_arg.ret != 0) {
-> +			dev_err(dev, "PAS get RT failed, pas_id: %d, err: %x\n",
-> +				ctx->pas_id, inv_arg.ret);
-> +			return ERR_PTR(-EINVAL);
-
-Same comment.
-
-> +		}
-> +
-> +		if (param[1].u.memref.size) {
-
-Is it possible for param[1].u.memref.size to be 0 after a successful tee_client_invoke_func()?
-
-> +			*output_rt_size = param[1].u.memref.size;
-> +			rt_buf = kmemdup(rt_shm_va, *output_rt_size, GFP_KERNEL);
-> +			if (!rt_buf)
-> +				return ERR_PTR(-ENOMEM);
-> +		}
-> +	}
-> +
-> +	return rt_buf;
-> +}
-> +
-> +static int __qcom_pas_tee_auth_and_reset(struct device *dev, u32 pas_id,
-> +					 phys_addr_t mem_phys, size_t mem_size)
-> +{
-> +	struct qcom_pas_tee_private *data = dev_get_drvdata(dev);
-> +	struct tee_ioctl_invoke_arg inv_arg = {
-> +		.func = TA_QCOM_PAS_AUTH_AND_RESET,
-> +		.session = data->session_id,
-> +		.num_params = TEE_NUM_PARAMS
-> +	};
-> +	struct tee_param param[4] = {
-> +		[0] = {
-> +			.attr = TEE_IOCTL_PARAM_ATTR_TYPE_VALUE_INPUT,
-> +			.u.value.a = pas_id,
-> +			.u.value.b = mem_size,
-> +		},
-> +		[1] = {
-> +			.attr = TEE_IOCTL_PARAM_ATTR_TYPE_VALUE_INPUT,
-> +			.u.value.a = lower_32_bits(mem_phys),
-> +			.u.value.b = upper_32_bits(mem_phys),
-> +		},
-> +		/* Reserved for fw memory space to be shared or lent */
-
-Can you explain this comment a bit more? Plan is to allow passing a MEM_REF here
-which could be lent/shared to TEE via FFA ABI?
-
-> +		[2] = {
-> +			.attr = TEE_IOCTL_PARAM_ATTR_TYPE_MEMREF_INPUT,
-> +		}
-> +	};
-> +	int ret;
-> +
-> +	ret = tee_client_invoke_func(data->ctx, &inv_arg, param);
-> +	if (ret < 0 || inv_arg.ret != 0) {
-> +		dev_err(dev, "PAS auth reset failed, pas_id: %d, err: %x\n",
-> +			pas_id, inv_arg.ret);
-> +		return -EINVAL;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static int qcom_pas_tee_auth_and_reset(struct device *dev, u32 pas_id)
-
-I'm guessing once all clients have migrated to PAS, plan is to drop this wrapper?
-
-> +{
-> +	return __qcom_pas_tee_auth_and_reset(dev, pas_id, 0, 0);
-> +}
-> +
-> +static int qcom_pas_tee_prepare_and_auth_reset(struct device *dev,
-> +					       struct qcom_pas_context *ctx)
-> +{
-> +	return __qcom_pas_tee_auth_and_reset(dev, ctx->pas_id, ctx->mem_phys,
-> +					     ctx->mem_size);
-> +}
-> +
-> +static int qcom_pas_tee_set_remote_state(struct device *dev, u32 state,
-> +					 u32 pas_id)
-> +{
-> +	struct qcom_pas_tee_private *data = dev_get_drvdata(dev);
-> +	struct tee_ioctl_invoke_arg inv_arg = {
-> +		.func = TA_QCOM_PAS_SET_REMOTE_STATE,
-> +		.session = data->session_id,
-> +		.num_params = TEE_NUM_PARAMS
-> +	};
-> +	struct tee_param param[4] = {
-> +		[0] = {
-> +			.attr = TEE_IOCTL_PARAM_ATTR_TYPE_VALUE_INPUT,
-> +			.u.value.a = pas_id,
-> +			.u.value.b = state,
-> +		}
-> +	};
-> +	int ret;
-
-Nit: Why not ret = 0 initialize and always use ret?
-
-> +
-> +	ret = tee_client_invoke_func(data->ctx, &inv_arg, param);
-> +	if (ret < 0 || inv_arg.ret != 0) {
-> +		dev_err(dev, "PAS shutdown failed, pas_id: %d, err: %x\n",
-> +			pas_id, inv_arg.ret);
-> +		return -EINVAL;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static int qcom_pas_tee_shutdown(struct device *dev, u32 pas_id)
-> +{
-> +	struct qcom_pas_tee_private *data = dev_get_drvdata(dev);
-> +	struct tee_ioctl_invoke_arg inv_arg = {
-> +		.func = TA_QCOM_PAS_SHUTDOWN,
-> +		.session = data->session_id,
-> +		.num_params = TEE_NUM_PARAMS
-> +	};
-> +	struct tee_param param[4] = {
-> +		[0] = {
-> +			.attr = TEE_IOCTL_PARAM_ATTR_TYPE_VALUE_INPUT,
-> +			.u.value.a = pas_id
-> +		}
-> +	};
-> +	int ret = 0;
-> +
-> +	ret = tee_client_invoke_func(data->ctx, &inv_arg, param);
-> +	if (ret < 0 || inv_arg.ret != 0) {
-> +		dev_err(dev, "PAS shutdown failed, pas_id: %d, err: %x\n",
-> +			pas_id, inv_arg.ret);
-> +		return -EINVAL;
-> +	}
-> +
-> +	return 0;
-
-You could just return 'ret' here. :)
-
-> +}
-> +
-> +static void qcom_pas_tee_metadata_release(struct device *dev,
-> +					  struct qcom_pas_context *ctx)
-> +{
-> +	struct tee_shm *mdata_shm = ctx->ptr;
-> +
-
-Nit: Unnecessary extra line.
-
-> +	tee_shm_free(mdata_shm);
-> +}
-> +
-
-[...]
-
-> +
-> +module_tee_client_driver(optee_pas_tee_driver);
-> +
-> +MODULE_LICENSE("GPL");
-> +MODULE_DESCRIPTION("TEE bus based Qualcomm PAS driver");
-
-Since this is a tee_client driver, isn't it self-explanatary that it's TEE bus based?
-
+> A few words about some design/implementation choices:
+> - No MADVISE support because I want to see if we can live with just
+>   transparent reclaim
+> - We considered basing this implementation on the generic shrinker work
+>   started by Dmitry [2], but
+>   1. with the activeness/idleness tracking happening at the VM
+>      granularity, having per-BO LRUs would caused a lot of
+>      list_move()s that are not really needed (the VM as a whole
+>      become active/idle, we can track individual BOs)
+>   2. Thomas Zimmermann recently suggested that we should have our
+>      own GEM implementation instead of trying to add this extra reclaim
+>      complexity to gem-shmem. There are some plans to create a
+>      gem-uma (Unified Memory Architecture) lib that would do more
+>      than gem-shmem but in a way that doesn't force all its users
+>      to pay the overhead (size overhead of the gem object, mostly)
+>      for features they don't use. Patch "Part ways with
+>      drm_gem_shmem_object" is showing what this component-based lib
+>      API could look like if it were to be extracted
+> - At the moment we only support swapout, but we could add an
+>   extra flag to specify when buffer content doesn't need to be
+>   preserved to avoid the swapout/swapin dance. First candidate for
+>   this DISCARD_ON_RECLAIM flag would probably be the tiler heap chunks.
+> - Reclaim uses _try_lock() all the way because of the various lock order
+>   inversions between the reclaim path and submission paths. That means
+>   we don't try very hard to reclaim hot GPU buffers, but the locking is
+>   such a mess that I don't really see a better option to be honest.
+> 
+> 
+> Changes in v2:
+> - No fundamental changes in this v2, since the feedback I got were more
+>   focused on bugs than the overall approach. Check the changelog in each
+>   patch for more details.
+> 
+> Changes in v3:
+> - Mostly fixes (see the changelog in each patch)
+> 
+> Changes in v4:
+> - Only fixes (see the changelog in each patch)
+> 
+> Changes in v5:
+> - Only fixes (see the changelog in each patch)
+> 
+> Changes in v6:
+> - Fix huge fault handling and various other things reported by Adrian
+>   and the review bot (see the changelog in each patch for more)
+> 
+> Regards,
+> 
+> Boris
+> 
+> [1]https://gitlab.freedesktop.org/bbrezillon/igt-gpu-tools/-/commit/fc76934a5579767d2aabe787d40e38a17c3f4ea4
+> [2]https://lkml.org/lkml/2024/1/5/665
+> 
+> Akash Goel (1):
+>   drm/panthor: Add a GEM shrinker
+> 
+> Boris Brezillon (8):
+>   drm/gem: Consider GEM object reclaimable if shrinking fails
+>   drm/panthor: Move panthor_gems_debugfs_init() to panthor_gem.c
+>   drm/panthor: Group panthor_kernel_bo_xxx() helpers
+>   drm/panthor: Don't call drm_gpuvm_bo_extobj_add() if the object is
+>     private
+>   drm/panthor: Part ways with drm_gem_shmem_object
+>   drm/panthor: Lazily allocate pages on mmap()
+>   drm/panthor: Split panthor_vm_prepare_map_op_ctx() to prepare for
+>     reclaim
+>   drm/panthor: Track the number of mmap on a BO
+> 
+>  drivers/gpu/drm/drm_gem.c                |   10 +
+>  drivers/gpu/drm/panthor/Kconfig          |    1 -
+>  drivers/gpu/drm/panthor/panthor_device.c |   11 +-
+>  drivers/gpu/drm/panthor/panthor_device.h |   73 ++
+>  drivers/gpu/drm/panthor/panthor_drv.c    |   33 +-
+>  drivers/gpu/drm/panthor/panthor_fw.c     |   16 +-
+>  drivers/gpu/drm/panthor/panthor_gem.c    | 1453 ++++++++++++++++++----
+>  drivers/gpu/drm/panthor/panthor_gem.h    |  136 +-
+>  drivers/gpu/drm/panthor/panthor_mmu.c    |  502 ++++++--
+>  drivers/gpu/drm/panthor/panthor_mmu.h    |    8 +
+>  drivers/gpu/drm/panthor/panthor_sched.c  |    9 +-
+>  11 files changed, 1911 insertions(+), 341 deletions(-)
+> 
 
