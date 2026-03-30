@@ -4,47 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0CD6A1061B13
-	for <dri-devel@archiver.kernel.org>; Mon, 30 Mar 2026 16:02:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5CB671061B13
+	for <dri-devel@archiver.kernel.org>; Mon, 30 Mar 2026 16:19:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 736EE10E610;
-	Mon, 30 Mar 2026 16:02:26 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="lSKb8EfV";
-	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CB13210E610;
- Mon, 30 Mar 2026 16:02:17 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 1435F60123;
- Mon, 30 Mar 2026 16:02:17 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 49843C19423;
- Mon, 30 Mar 2026 16:02:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1774886536;
- bh=JHsk56sU/D4uSJv9rCQtZc/uAUqmgJU0I37W1S+Lpu4=;
- h=Date:From:To:Cc:Subject:From;
- b=lSKb8EfVixD2LlTjyPnjQgzoLECyQEHAOYMUhuv9+QnXzggh47q6sdS37QG4xp4Ez
- dkPWGt61YeuM/KUajyiD8ylUBoPky8582osWymMQYE7sdcqURnFZZGHIluGeKxInEv
- GpWDxtjnUt1G1iclwpn21Wuu3kp7AsDlTV/ky6yVHKI/8wH5oonSbhb76qS7zbd19d
- SCpHHYumD+aM21uqh6WOcWdM6XMQzwcMIX393d0mmXK2UPpaLAvzZZJ/2GYVl42OA8
- dyof6XMD7ZBjysFyatVnxuKMhzmONxtRdTzePi56+kzj5antsHKLMyq0J2379udWwN
- wMJRkwp+N0DHg==
-Date: Mon, 30 Mar 2026 17:02:12 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Simona Vetter <simona.vetter@ffwll.ch>,
- Intel Graphics <intel-gfx@lists.freedesktop.org>,
- DRI <dri-devel@lists.freedesktop.org>
-Cc: Dave Airlie <airlied@redhat.com>,
- Linus Torvalds <torvalds@linux-foundation.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Linux Next Mailing List <linux-next@vger.kernel.org>
-Subject: linux-next: manual merge of the drm-misc tree with the drm tree
-Message-ID: <acqehIhXNVZYxrrY@sirena.org.uk>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 679F910E54A;
+	Mon, 30 Mar 2026 16:19:09 +0000 (UTC)
+X-Greylist: delayed 559 seconds by postgrey-1.36 at gabe;
+ Mon, 30 Mar 2026 16:19:08 UTC
+Received: from leonov.paulk.fr (leonov.paulk.fr [185.233.101.22])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B2FEE10E54A
+ for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 16:19:08 +0000 (UTC)
+Received: from laika.paulk.fr (12.234.24.109.rev.sfr.net [109.24.234.12])
+ by leonov.paulk.fr (Postfix) with ESMTPS id 250751F8005D
+ for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 16:09:39 +0000 (UTC)
+Received: by laika.paulk.fr (Postfix, from userid 65534)
+ id DCED0B2EA47; Mon, 30 Mar 2026 16:09:35 +0000 (UTC)
+Received: from shepard (unknown [192.168.1.1])
+ by laika.paulk.fr (Postfix) with ESMTPSA id 4AAEAB2EA3F;
+ Mon, 30 Mar 2026 16:09:33 +0000 (UTC)
+Date: Mon, 30 Mar 2026 18:09:31 +0200
+From: Paul Kocialkowski <paulk@sys-base.io>
+To: Krzysztof =?utf-8?Q?Ha=C5=82asa?= <khalasa@piap.pl>
+Cc: Liu Ying <victor.liu@nxp.com>, Maxime Ripard <mripard@kernel.org>,
+ Marco Felsch <m.felsch@pengutronix.de>,
+ Marek Vasut <marex@nabladev.com>, Stefan Agner <stefan@agner.ch>,
+ Simona Vetter <simona@ffwll.ch>, imx@lists.linux.dev,
+ Fabio Estevam <festevam@gmail.com>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>, Frank Li <Frank.Li@nxp.com>,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ linux-arm-kernel@lists.infradead.org, Lucas Stach <l.stach@pengutronix.de>
+Subject: Re: i.MX8MP: Fix HDMI LCDIF FIFO underruns
+Message-ID: <acqgO5b8_1fL9t_U@shepard>
+References: <m3ms04caaj.fsf@t19.piap.pl>
+ <32317022-3c44-4ead-9e2d-04caa12b28cb@nabladev.com>
+ <m36pvjbo4xy2rtdymshjpmwu7icl3wlyiwcmmjaozo7jpe5lqk@zt7byx7iwmym>
+ <20260320-amiable-hairy-bullfinch-28bfda@houat>
+ <m3a4w2d4ds.fsf@t19.piap.pl>
+ <ecd02f87-c4b7-44ed-8ecf-98e0990af34a@nxp.com>
+ <m3se9onkv0.fsf@t19.piap.pl>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="wjKSOlVC0gZOJw5h"
+ protocol="application/pgp-signature"; boundary="Jn217E1wIDKakohc"
 Content-Disposition: inline
+In-Reply-To: <m3se9onkv0.fsf@t19.piap.pl>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,62 +66,115 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
---wjKSOlVC0gZOJw5h
-Content-Type: text/plain; charset=us-ascii
+--Jn217E1wIDKakohc
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-Hi all,
+Hi folks,
 
-Today's linux-next merge of the drm-misc tree got a conflict in:
+On Wed 25 Mar 26, 13:40, Krzysztof Ha=C5=82asa wrote:
+> Why did the first (boot) sequence result in success and this second one
+> in failure? This is somehow reproducible.
 
-  drivers/gpu/drm/xe/xe_ggtt_types.h
+I've been seeing the same issue that is described in this thread when drivi=
+ng
+a regular 1080p@60 monitor, which shows a solid color background with a pix=
+el
+=66rom the previous frame when reconfiguring the mode from time to time.
 
-between commit:
+When that happens, I see the lcdif fifo underrun/empty status until a new m=
+ode
+is applied, which often resolves the situation. This situation never happens
+with the downstream nxp bsp driver.
 
-  d9a4a2021d4a5 ("Merge tag 'drm-misc-next-2026-03-12' of https://gitlab.fr=
-eedesktop.org/drm/misc/kernel into drm-next")
+After weeks of investigation I finally narrowed it down to a part of the nxp
+original code that is missing in the upstream driver:
+https://github.com/phytec/linux-phytec-imx/blob/v6.6.23-2.0.0-phy/drivers/g=
+pu/imx/lcdifv3/lcdifv3-common.c#L492
 
-=66rom the drm tree and commit:
+A big old sleep that waits for the DMA engine to finish handling the current
+frame before it is disabled. When this delay is not respected, there seems =
+to
+be "unlucky" times when disabling the DMA engine too early will confuse the
+unit and make it unable to resume proper operation later.
 
-  7aaa8047eafd0 ("Linux 7.0-rc6")
+It is a bit surprising that the issue is not actually related to configuring
+the display engine but to disabling it. This is why the first mode set alwa=
+ys
+works but subsequentil ones might fail. The crtc is essentially disabled and
+re-enabled each time a new mode is applied.
 
-=66rom the drm-misc tree.
+Adding the sleep solves the issue on my side and all mode sets now work
+reliably. It does add a delay before returning to userspace when configuring
+a new mode, but it seems legitimate to me if the underlying hardware is sti=
+ll
+in-flight. I'm also unsure if it would apply to an async atomic commit.
 
-I fixed it up (see below) and can carry the fix as necessary. This
-is now fixed as far as linux-next is concerned, but any non trivial
-conflicts should be mentioned to your upstream maintainer when your tree
-is submitted for merging.  You may also want to consider cooperating
-with the maintainer of the conflicting tree to minimise any particularly
-complex conflicts.
+I will send a patch adding the delay and the undocumented fifo clear
+bit that was discovered in this thread too.
 
-diff --combined drivers/gpu/drm/xe/xe_ggtt_types.h
-index 9af448cde3a1d,cf754e4d502ad..0000000000000
---- a/drivers/gpu/drm/xe/xe_ggtt_types.h
-+++ b/drivers/gpu/drm/xe/xe_ggtt_types.h
-@@@ -11,7 -11,6 +11,7 @@@
- =20
-  struct xe_ggtt;
-  struct xe_ggtt_node;
- +struct xe_gt;
- =20
-  typedef void (*xe_ggtt_set_pte_fn)(struct xe_ggtt *ggtt, u64 addr, u64 pt=
-e);
-  typedef void (*xe_ggtt_transform_cb)(struct xe_ggtt *ggtt,
+All the best,
 
---wjKSOlVC0gZOJw5h
-Content-Type: application/pgp-signature; name="signature.asc"
+Paul
+
+Perhaps there is a more elegant way to handle this=20
+
+
+> Interestingly, Weston usually starts fine in subsequent launches.
+>=20
+> How is this first (actually second - after the first VSYNC) frame
+> different from all the others? Maybe we're programming UPDATE_SHADOW
+> after the actual start of blanking period, but before DE, so it has no
+> chance to reload registers, yet the DMA is somehow not ready?
+>=20
+> The manual (LCDIF display control Register (CTRL)) suggests that the DMA
+> (with present settings) starts to fetch FB data at the end of the
+> previous active video pixel time (DE and pixel data going inactive):
+> fetch_start_option (bits 9-8): Indicates when to start fetching for new
+> frame. This signals also decide the shadow load, fifo clear time
+> 00b - fetch start as soon as FPV begins(as the end of the data_enable).
+>=20
+> This should leave a lot of time to fill the FIFO (before the next DE),
+> shouldn't it?
+>=20
+> 297 MHz pixclk, 3840x2160, 30 Hz, H back porch 296 pixclks, Vfp 176,
+> V back porch 72 lines, Hfp 8 lines, VSYNC 10 lines, HSYNC 88 pixclks.
+> HTotal =3D 4400 pixels which makes Vactive time =3D 4400 * 2160/297e6 =3D
+> 32 ms, with the remaining 1.3333 ms for all the V sync stuff.
+> --=20
+> Krzysztof "Chris" Ha=C5=82asa
+>=20
+> Sie=C4=87 Badawcza =C5=81ukasiewicz
+> Przemys=C5=82owy Instytut Automatyki i Pomiar=C3=B3w PIAP
+> Al. Jerozolimskie 202, 02-486 Warszawa
+
+--=20
+Paul Kocialkowski,
+
+Independent contractor - sys-base - https://www.sys-base.io/
+Free software developer - https://www.paulk.fr/
+
+Expert in multimedia, graphics and embedded hardware support with Linux.
+
+--Jn217E1wIDKakohc
+Content-Type: application/pgp-signature; name=signature.asc
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmnKnoMACgkQJNaLcl1U
-h9BO4gf/SYqtRsYqhr1GglyLs7K8cwckwaUSxGPZBoM7UCn4NkCBfpx1etSR7TGu
-Vyl7aKHqFvV4HbEmqE2A2yLkHB8TqNEQQDLGQF3IFCrmoNmpMcoQRDFoR4btBnaq
-DhwQ7yDPFKfEAj58waPSpgGhGZh+TiTfEZIBwcdFDkTpogFBTGdoXMKj5gBpWojY
-GLUK52KbIHiwTgQg2lP5+EZBKry813y3DnkV+RFj577BZA90nVOHXEg68yoB2ke1
-ZDjsVgbtWNxRYoP9QKXLgiVuYQpnm9jxj6j5eeDYBubIAHfdRuN352UsfODnSCtz
-RJoCoJvp84XQi1eD/2Bb7FV1OxjtqA==
-=k8T1
+iQIzBAEBCgAdFiEEAbcMXZQMtj1fphLChP3B6o/ulQwFAmnKoDsACgkQhP3B6o/u
+lQyx4Q//VSSRsJUGm5WCV7YPfDUG0xf7mOtp4abi14Aex6rUK3pqhg5tQhgPH2+B
+5G/OHVQ9/c8JyD+DInPLpF+4Om0Dh29RYG0MPVpjZoCDMUXUKQ0IjX4kc+ALeU0Z
+zNazd3fX+X5oLLZJWODeXWWEt3aMDQ9YOGVVaNVGEHD/b89BGwqPQiO9MPC4IttA
+VJfX8vaYI0k1ZHgQ5fsj1fny7DXk4wsPVMPEkwZSl5Mq/777aNAMTI0uGq4hvx4c
+Wm2QiF9j9CZnvy8hhc1LPkq5VItvMnKY6bMt9IJO2pRD2+hXdBC5zA94B9SLRyWi
+CmcfqfEVNUGytlIRa0bfR7/CnpQtBnMR6SwP2sJ61TAYt5qo3yS28w1yhUoAr+GQ
+zXWKLJ+CcNIO2PMUNi6xRNQyXdfLGxra8kHAKWuMUocmPuG49TXfuRGRjamC4iOV
+7TnwrSlqcIycrKrPl3zFWrJ4dcmL2iWyzMbwociHkwsAGKfDySOzGsvf0wdxHUSu
+OrvzrwXOqysrquDlaePDw3H4Sz3piJq1bigGcA6hia6yvn3S4MXOn7kS6hGwmyX5
+dAYL/eovcdJmskL0QywMqW643Te+8lc+/iZoJBytRjnKk4oA4CATIRvA25fQGM/J
+BXUFUn0PAqrg7GwVbKn6/9thlUfuwnqGZ7czriJiZ9z0MKVU4is=
+=Hjtk
 -----END PGP SIGNATURE-----
 
---wjKSOlVC0gZOJw5h--
+--Jn217E1wIDKakohc--
