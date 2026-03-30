@@ -4,144 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CAC441061B1E
-	for <dri-devel@archiver.kernel.org>; Mon, 30 Mar 2026 19:39:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1935B1061B20
+	for <dri-devel@archiver.kernel.org>; Mon, 30 Mar 2026 19:40:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 32F1F10E690;
-	Mon, 30 Mar 2026 19:39:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7389010E69E;
+	Mon, 30 Mar 2026 19:40:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="ozLdK5hb";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="MYc+WWw8";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Ysrf6P/X";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A0DE710E690
- for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 19:39:15 +0000 (UTC)
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 62UEDF331090787
- for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 19:39:15 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=+34cAjsx8bqZcK2OkX0asGC0
- QUBSB0eVNVg2SXT/ntk=; b=ozLdK5hbRe0J/retiIb5TPOC868uoqZHr2IQJ9fL
- WdmtH7fVwbeLsAcTMgpcl3GGvM0aRjCTfPNLrT6b/mpzZL/lL1F5/Mfi1640T0qY
- k77f71kn484ZiR/P0Yd8dMsb+YshgLoh8am/RkRV3GmaYe9WAWT1VpcRFAxASmWX
- 6ZH40ifh7mNVYUlicNt6YpykDGKrdU9GcLv55e4tU7iSGWJhSnMLERfz4X2uVAWI
- DF2pUkMubT7xFOeOeYcXEFceEX5FPkKWrO35uzQ3ydW232+LQahI2sz1ZpQMUHoP
- 6i2LdmzD4QkHHyKeWrX/jlBJTth26VPB/dLaWiqsrZvUnw==
-Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com
- [209.85.160.199])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d7trd1age-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 19:39:14 +0000 (GMT)
-Received: by mail-qt1-f199.google.com with SMTP id
- d75a77b69052e-50939597b85so125683561cf.2
- for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 12:39:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1774899554; x=1775504354;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=+34cAjsx8bqZcK2OkX0asGC0QUBSB0eVNVg2SXT/ntk=;
- b=MYc+WWw8xnNhU417qEOiqXQsNO40bQ9WRRMVcybTqO47cBGUu92fZwA+d9H/IJTEcF
- kyx3oQ+GSQhoVNfidN4dPxtInsnv5wZ1apI5vwwQeO5TtwUUMNzvk95myjEfHUHfXnBH
- dVyL3d+ubBew7xJ45Rc7trdzpsN/ojkFAVvNGCGKspaWTIy5r5EBuX1oo0nslmq9oF0h
- VYNnSGEelUAIBmnehVHudlTS/8aRToNH/jqvu9U26lBGRKzuJQR83iF9/ConBks+Ti1u
- mMzfFpdjeP5XknHzYJiSs6VMdrJiXfkOH7pDeAPK8U9s9lZ+1XJUVmKHML1/C4dPRNtU
- QQ2w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774899554; x=1775504354;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=+34cAjsx8bqZcK2OkX0asGC0QUBSB0eVNVg2SXT/ntk=;
- b=VEqm7v/CKeGwMu1cnJgqYV5ZprolmxyI/CaJQbVXgP2cW7ADXBxvX8q/ibK72I6Sm0
- mBAv1hlk/hBiRN4l3ZEar3g6s9fb80aHWhkY0hPx2/PWPWQ0fNJRqPwyFtM5fEjnaJoG
- /9GCw8pa4cti5Czyl6TvhdlHqPvFqUK/k2Org1GPEWX41LMAkz5qHwV169X+syh1WJ6B
- P/Gyir4AGSVtuFD+eAebZs/0t6Q9FGDZ+KgPFMAer+AskNmoHyuIHgO0eEZrNxOQs8He
- 7akQCpb/aXz1q64UWHDgn3Q46g8oygYqz17Zn5RYC6S7WU1hGR8xKJGxU1wrGMoVUatO
- HTVA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCV+JMiKFi1Mw2K41u0aC8XTDq4rSBKr2dG1Un8yscGaMTBKWR9AtGCDojhesLHsoNFsr7wJO7M3RGY=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yx5mjv2InIE4DQyBUvS1AYQqp5G8NbMH26C0Khs0I5N0KXimooq
- yEOAWIr3DVqqPSXovkiPMKXeVyt1l2i63ephT4IfHZmR/XdDocj01zcCVzeqMLmBjgdwoX1eukd
- ekZwa2QfbgW5/xt4gckaGBhK9QzPMDdmgLTjo/7rRRHj1yt0QLpiLmFDULvfbxGAY0e+TIoY=
-X-Gm-Gg: ATEYQzyZqGFPzn69n7Ngu9codKlZs+UI1D/pLPdunfP2rhAq3nQ0z8hQ9B/8YO7TmBO
- 5WJz9y8INDgAN3QPSyuSh01iRA2ToKmz1XtcfNAb3Xe1IYu7eBBB6P8MNDZ0ajTbaNRE+dQz7bH
- iuWP/IA+TCHmcpK+9iTt3Wet/bE5FRprpTvhjfP6x0Yws61QW02MwAHleeuYhLVVl9NpHuBvUwx
- HEECX50+ny+0ZPeyiCWQ28WxCiN0zGPHdPgxCtOTejwLKdy+yjdJ/HIK+8lWYv+WWpD6rRPcJ+B
- CfU4/KKgvmj2S5dz4b7YgZPtNWPVgKWsh7hma4lqW+dek4GAD31sY3b046olqGcAMJQL6/B8TUn
- qypiS63k8acSf4u3kv6CUMeh2Kny0iYNE3kcXexwR9TrfdDfZ0nhREWqekaVUz+C1R1KI88pxIJ
- yhIG4Te7sRpPFAOVs6eMcSCj9RhDKF27K7TyM=
-X-Received: by 2002:a05:622a:15d0:b0:50b:28b9:b0a1 with SMTP id
- d75a77b69052e-50ba391db58mr184558841cf.45.1774899553836; 
- Mon, 30 Mar 2026 12:39:13 -0700 (PDT)
-X-Received: by 2002:a05:622a:15d0:b0:50b:28b9:b0a1 with SMTP id
- d75a77b69052e-50ba391db58mr184558421cf.45.1774899553358; 
- Mon, 30 Mar 2026 12:39:13 -0700 (PDT)
-Received: from umbar.lan
- (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5a2b144f4eesm1848348e87.57.2026.03.30.12.39.11
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 30 Mar 2026 12:39:12 -0700 (PDT)
-Date: Mon, 30 Mar 2026 22:39:10 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Bjorn Andersson <andersson@kernel.org>,
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Loic Poulain <loic.poulain@oss.qualcomm.com>,
- Sumit Garg <sumit.garg@oss.qualcomm.com>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: Re: [PATCH] dt-bindings: display/msm: qcm2290-mdss: Fix missing
- ranges in example
-Message-ID: <yjow6vpqb5cxyhnvepa3humyhgnea4vrttlpdvzvh57ubbet5k@vuqpytq2qq7q>
-References: <20260325122209.147128-2-krzysztof.kozlowski@oss.qualcomm.com>
- <177488647743.633011.6769674149013868210.b4-ty@kernel.org>
- <wsf7oet6r7d55i7f6cdwgor4cqu3hzgqcv3r6lmyfsoivzgzls@v5z7bbea6fxe>
- <05610919-fde5-4cde-92b6-a35c93e84547@kernel.org>
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C9AAC10E64B;
+ Mon, 30 Mar 2026 19:40:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1774899633; x=1806435633;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=OibO0t2JHGSlFvW/svLrXqyNgoskVagFwZ2l+ypwWtg=;
+ b=Ysrf6P/Xy+qpMOXHj0M9SqEFJfCLf1LswjQH0c5Yvh1PrvQtc7HXN4B9
+ Nlzkl27wD2dj/EH0SMRUAHKVlTTS+VsIoxb9V+sSdH3BSCOvM0EhnLmzs
+ bCzt9rMaeaoJFSQGN6TbncF+3SziZePdhA9FkKNA9n/8i57DuvU0nkIes
+ IrdN9ZrlJWVBi/Dwv56EWuEwKGVDzKNWA7T7xoQrO7jgzevGwwyxmxjpf
+ SjvRj83OaehYTVuLun0B8M0+hDA2EgeodBcSYU5SH2mOl97XMUK5a+hkF
+ p3R/SHYcKvaWFrY1P6Y2hHyxA3YhJorV84Rio9PVdtcN9LFTnyn/Gpd7B Q==;
+X-CSE-ConnectionGUID: WbU1Kej4SiS7Zhi6k+FPUQ==
+X-CSE-MsgGUID: Y8s7CrQZRK2WlsWYS9vxCQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11744"; a="93485350"
+X-IronPort-AV: E=Sophos;i="6.23,150,1770624000"; d="scan'208";a="93485350"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+ by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Mar 2026 12:40:32 -0700
+X-CSE-ConnectionGUID: wBzn6x4ATpmmKDP+faegRQ==
+X-CSE-MsgGUID: EU/j9LwkRJ++L9pqobWBag==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,150,1770624000"; d="scan'208";a="221283018"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost)
+ ([10.245.245.155])
+ by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Mar 2026 12:40:30 -0700
+Date: Mon, 30 Mar 2026 22:40:27 +0300
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, jouni.hogander@intel.com,
+ animesh.manna@intel.com
+Subject: Re: [PATCH 08/19] drm/i915/dp: Add a helper to decide if AS SDP can
+ be used
+Message-ID: <acrRq22jrzvdnwBL@intel.com>
+References: <20260330040656.4116502-1-ankit.k.nautiyal@intel.com>
+ <20260330040656.4116502-9-ankit.k.nautiyal@intel.com>
+ <acq_Nix_LJQYmQHq@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <05610919-fde5-4cde-92b6-a35c93e84547@kernel.org>
-X-Proofpoint-GUID: 12dkTohDVFkCjf9y7PgsR6FtP7MH5uEg
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzMwMDE2NCBTYWx0ZWRfX2Q1MMZhL6Fxi
- LjmhpCX9ZpvT4+rz+JrlGrzFdSkg/mQL1ta3Li+uDMDsGYyVhYOqIfBt/pyGmFuyzKpo0V1Ynti
- wmJdGuny3UhHR5ZHBBWmKlalM+b+bwYUmlABE7YCGma3Dss1xoLTxx9hQJ9X6LZaVsUV9RzjZBZ
- YQA5KCLYGRZldAx9ftx3p0rtu+tuAAQLIvDXnyb6u5b4/ben4w306JCP4Zd0G3AYDvGzU6AmeCC
- p22zEi5lKNnvvNAxpTKw5Nu96yI0yRkWEEB480b3Ub92WJl8SJMp5Kq0DbD0Y326JrAF+sFl8JS
- qf3yO70XXe9K1kNFvbcy97k+3luW4PqqZOTv+YjGeX7L0Gz+Dx4oPZm9NO4XPHoQVg3KaYdW/iy
- Lio0HvIDS5P5WZIF2ACzwxZtBcxeFtnKrID/Zi5HiDnu9Ot5Nk30b+LRqdnlWU5sPW4yxFfg6SD
- BWjzFrACGRiOjX6NqqA==
-X-Proofpoint-ORIG-GUID: 12dkTohDVFkCjf9y7PgsR6FtP7MH5uEg
-X-Authority-Analysis: v=2.4 cv=H8/WAuYi c=1 sm=1 tr=0 ts=69cad162 cx=c_pps
- a=WeENfcodrlLV9YRTxbY/uA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22 a=vZIQzkT8WsM8uZE4rHEA:9
- a=CjuIK1q_8ugA:10 a=kacYvNCVWA4VmyqE58fU:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-03-30_01,2026-03-28_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 priorityscore=1501 bulkscore=0 spamscore=0 lowpriorityscore=0
- clxscore=1015 impostorscore=0 phishscore=0 suspectscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603300164
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <acq_Nix_LJQYmQHq@intel.com>
+X-Patchwork-Hint: comment
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -157,30 +77,66 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Mar 30, 2026 at 08:55:04PM +0200, Krzysztof Kozlowski wrote:
-> On 30/03/2026 20:50, Dmitry Baryshkov wrote:
-> > On Mon, Mar 30, 2026 at 11:01:21AM -0500, Bjorn Andersson wrote:
-> >>
-> >> On Wed, 25 Mar 2026 13:22:10 +0100, Krzysztof Kozlowski wrote:
-> >>> Device node has children with MMIO addressing, so must have ranges:
-> >>>
-> >>>   msm/qcom,qcm2290-mdss.example.dtb: display-subsystem@5e00000 (qcom,qcm2290-mdss): 'ranges' is a required property
-> >>>
-> >>>
-> >>
-> >> Applied, thanks!
-> >>
-> >> [1/1] dt-bindings: display/msm: qcm2290-mdss: Fix missing ranges in example
-> >>       commit: 88bdac5443e5269bb39c4968d5ee0becbffe3f82
+On Mon, Mar 30, 2026 at 09:21:42PM +0300, Ville Syrjälä wrote:
+> On Mon, Mar 30, 2026 at 09:36:45AM +0530, Ankit Nautiyal wrote:
+> > Add a helper that determines whether AS SDP can be used for the
+> > current DP configuration. For now this is true only when the sink
+> > supports AS SDP and VRR is enabled, but more conditions may be added
+> > later.
 > > 
-> > Hmm? I don't really mind, but...
+> > Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+> > ---
+> >  drivers/gpu/drm/i915/display/intel_dp.c | 11 ++++++++++-
+> >  1 file changed, 10 insertions(+), 1 deletion(-)
 > > 
-> 
-> Please read changelog in original patch. I was also mentioning this on
-> msm IRC (although not towards you), so this is not done silently.
+> > diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+> > index 499850c2abcf..7ca3f9d583db 100644
+> > --- a/drivers/gpu/drm/i915/display/intel_dp.c
+> > +++ b/drivers/gpu/drm/i915/display/intel_dp.c
+> > @@ -3124,6 +3124,15 @@ static void intel_dp_compute_vsc_colorimetry(const struct intel_crtc_state *crtc
+> >  	vsc->content_type = DP_CONTENT_TYPE_NOT_DEFINED;
+> >  }
+> >  
+> > +static bool intel_dp_can_use_as_sdp(struct intel_dp *intel_dp,
+> > +				    struct intel_crtc_state *crtc_state)
 
-Okay.
+Hmm. Maybe the name should be .._need_as_sdp() or something like that
+instead. I can imagine many cases when we could use the AS SDP but don't
+have to.
+
+> > +{
+> > +	if (!intel_dp->as_sdp_supported)
+> > +		return false;
+> > +
+> 
+> Could have a FIXME here about fastset being borked with this. Didn't
+> read far enough in the series yet to see if you did anything about that.
+> 
+> Either way
+> Reviewed-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
+> 
+> > +	return crtc_state->vrr.enable;
+> > +}
+> > +
+> >  static void intel_dp_compute_as_sdp(struct intel_dp *intel_dp,
+> >  				    struct intel_crtc_state *crtc_state)
+> >  {
+> > @@ -3131,7 +3140,7 @@ static void intel_dp_compute_as_sdp(struct intel_dp *intel_dp,
+> >  	const struct drm_display_mode *adjusted_mode =
+> >  		&crtc_state->hw.adjusted_mode;
+> >  
+> > -	if (!crtc_state->vrr.enable || !intel_dp->as_sdp_supported)
+> > +	if (!intel_dp_can_use_as_sdp(intel_dp, crtc_state))
+> >  		return;
+> >  
+> >  	crtc_state->infoframes.enable |= intel_hdmi_infoframe_enable(DP_SDP_ADAPTIVE_SYNC);
+> > -- 
+> > 2.45.2
+> 
+> -- 
+> Ville Syrjälä
+> Intel
 
 -- 
-With best wishes
-Dmitry
+Ville Syrjälä
+Intel
