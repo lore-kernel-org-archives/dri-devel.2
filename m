@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 77F121061B1B
-	for <dri-devel@archiver.kernel.org>; Mon, 30 Mar 2026 19:26:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8D8331061B1A
+	for <dri-devel@archiver.kernel.org>; Mon, 30 Mar 2026 19:26:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D49CA10E7A4;
-	Mon, 30 Mar 2026 19:26:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EB47F10E7A5;
+	Mon, 30 Mar 2026 19:26:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="DUBF8zzn";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="CipHVpMu";
 	dkim-atps=neutral
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4013F10E7A4
- for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 19:26:44 +0000 (UTC)
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BD73A10E7A5
+ for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 19:26:54 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-03.galae.net (Postfix) with ESMTPS id 1D3E54E42871;
- Mon, 30 Mar 2026 19:26:43 +0000 (UTC)
+ by smtpout-02.galae.net (Postfix) with ESMTPS id 7FAB11A3090;
+ Mon, 30 Mar 2026 19:26:53 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id DC0B35FFA8;
- Mon, 30 Mar 2026 19:26:42 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 4CC545FFA8;
+ Mon, 30 Mar 2026 19:26:53 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 7BD5510450A1D; 
- Mon, 30 Mar 2026 21:26:31 +0200 (CEST)
+ with ESMTPSA id A46FF10450CE2; 
+ Mon, 30 Mar 2026 21:26:40 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1774898799; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ t=1774898810; h=from:subject:date:message-id:to:cc:mime-version:content-type:
  content-transfer-encoding:in-reply-to:references;
- bh=ivxqBE+xFSPsodl278KAuSqCfPXljKrE3bnno2mTk08=;
- b=DUBF8zznaRhYoRbXCbhou5bEfqo1KCg4iOZaX87EG1PqnLrN/gCiL/Qb7x6hmGEUklMQOf
- Q3IdaGFCp8xE7U74CKnO8DzAVepH4yMfVsjedNfCmLKyPpmQv72T379fVZHMNAT47AohL0
- ZeVyXPCpAnTjZxEdAMODIgcJzx4J/6d8aZTaDQGlK4CJMmuVaDMYHigdHzK9McEELlN2EO
- vYRM0iMMuCRiJnziJwMINhUxCuRnV5ZISDV6WRU7cpkwg9ncmROHuX4mPEw5UY8nUfd33O
- eXwOCCnJGNs20ghKae9xfRXUs2zSK32r12Grbze+xI5D+zxW6bcblVuAm2NyEg==
+ bh=r5YD/yxjXsXR/FTuyz0kb/x6C7V4fkojRRR9SHdzDk8=;
+ b=CipHVpMu1QXvt145DSbXYeg6wDRBgyPwSrsA3rmWjAr9xhneOmVEAIrlfDq0sLCBACK+g9
+ P6Wrf9YJybynvalCqXBZW33gqQE9EsdtKgGCoK+EuayXGtnk5ppmD24zUjpgx6AtErXGlA
+ k6wx+6tCFSI3OjSzrEakUrJ1eWd3OeWbRxoz8luAFGZ+93+gX5sYehYIl54e5L4xJBlDNt
+ Wp023PeUgPFeqdN7YdzWIz5oyEwbWkS2rg1Nu1+lpqk2yc0RUMLHCjO2TtyRi8hPXR+9kS
+ 3XesAILVcMNxjKHGI1nh+0I5dHy/rG4LJBmkRbwBbEum678UFwgNgoX3wHU0ig==
 From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Date: Mon, 30 Mar 2026 21:25:42 +0200
-Subject: [PATCH v2 01/10] drm/mxsfb/lcdif: simplify remote pointer
- management using __free
+Date: Mon, 30 Mar 2026 21:25:43 +0200
+Subject: [PATCH v2 02/10] drm/mxsfb/lcdif: simplify ep pointer management
+ using __free
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260330-drm-lcdif-dbanc-v2-1-c7f2af536a24@bootlin.com>
+Message-Id: <20260330-drm-lcdif-dbanc-v2-2-c7f2af536a24@bootlin.com>
 References: <20260330-drm-lcdif-dbanc-v2-0-c7f2af536a24@bootlin.com>
 In-Reply-To: <20260330-drm-lcdif-dbanc-v2-0-c7f2af536a24@bootlin.com>
 To: Marek Vasut <marex@denx.de>, Stefan Agner <stefan@agner.ch>, 
@@ -99,56 +99,75 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Putting the remote device_node reference requires a of_node_put(remote) in
-two places. Use a cleanup action to simplify the code.
+Putting the ep device_node reference requires a of_node_put(ep) in many
+return points. Use a cleanup action to simplify the code.
 
-Reviewed-by: Liu Ying <victor.liu@nxp.com>
-Tested-by: Martyn Welch <martyn.welch@collabora.com>
-Tested-by: Alexander Stein <alexander.stein@ew.tq-group.com> # TQMa8MPxL/MBa8MPxL
 Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 
 ---
 
-Changes in v2:
-- Use the correct cleanup action
-- Fix commit message
-- add missing cleanup.h include
+This patch is new in v2
 ---
- drivers/gpu/drm/mxsfb/lcdif_drv.c | 10 ++++------
- 1 file changed, 4 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/mxsfb/lcdif_drv.c | 13 +++----------
+ 1 file changed, 3 insertions(+), 10 deletions(-)
 
 diff --git a/drivers/gpu/drm/mxsfb/lcdif_drv.c b/drivers/gpu/drm/mxsfb/lcdif_drv.c
-index 47da1d9336b9..7719629487da 100644
+index 7719629487da..8da8a265c05c 100644
 --- a/drivers/gpu/drm/mxsfb/lcdif_drv.c
 +++ b/drivers/gpu/drm/mxsfb/lcdif_drv.c
-@@ -5,6 +5,7 @@
-  * This code is based on drivers/gpu/drm/mxsfb/mxsfb*
-  */
- 
-+#include <linux/cleanup.h>
- #include <linux/clk.h>
- #include <linux/dma-mapping.h>
- #include <linux/io.h>
-@@ -53,16 +54,13 @@ static int lcdif_attach_bridge(struct lcdif_drm_private *lcdif)
+@@ -49,7 +49,7 @@ static const struct drm_encoder_funcs lcdif_encoder_funcs = {
+ static int lcdif_attach_bridge(struct lcdif_drm_private *lcdif)
+ {
+ 	struct device *dev = lcdif->drm->dev;
+-	struct device_node *ep;
++	struct device_node *ep __free(device_node) = NULL;
+ 	struct drm_bridge *bridge;
  	int ret;
  
- 	for_each_endpoint_of_node(dev->of_node, ep) {
--		struct device_node *remote;
-+		struct device_node *remote __free(device_node) =
-+			of_graph_get_remote_port_parent(ep);
- 		struct of_endpoint of_ep;
- 		struct drm_encoder *encoder;
- 
--		remote = of_graph_get_remote_port_parent(ep);
--		if (!of_device_is_available(remote)) {
--			of_node_put(remote);
-+		if (!of_device_is_available(remote))
- 			continue;
--		}
--		of_node_put(remote);
- 
+@@ -65,23 +65,19 @@ static int lcdif_attach_bridge(struct lcdif_drm_private *lcdif)
  		ret = of_graph_parse_endpoint(ep, &of_ep);
  		if (ret < 0) {
+ 			dev_err(dev, "Failed to parse endpoint %pOF\n", ep);
+-			of_node_put(ep);
+ 			return ret;
+ 		}
+ 
+ 		bridge = devm_drm_of_get_bridge(dev, dev->of_node, 0, of_ep.id);
+-		if (IS_ERR(bridge)) {
+-			of_node_put(ep);
++		if (IS_ERR(bridge))
+ 			return dev_err_probe(dev, PTR_ERR(bridge),
+ 					     "Failed to get bridge for endpoint%u\n",
+ 					     of_ep.id);
+-		}
+ 
+ 		encoder = devm_kzalloc(dev, sizeof(*encoder), GFP_KERNEL);
+ 		if (!encoder) {
+ 			dev_err(dev, "Failed to allocate encoder for endpoint%u\n",
+ 				of_ep.id);
+-			of_node_put(ep);
+ 			return -ENOMEM;
+ 		}
+ 
+@@ -91,17 +87,14 @@ static int lcdif_attach_bridge(struct lcdif_drm_private *lcdif)
+ 		if (ret) {
+ 			dev_err(dev, "Failed to initialize encoder for endpoint%u: %d\n",
+ 				of_ep.id, ret);
+-			of_node_put(ep);
+ 			return ret;
+ 		}
+ 
+ 		ret = drm_bridge_attach(encoder, bridge, NULL, 0);
+-		if (ret) {
+-			of_node_put(ep);
++		if (ret)
+ 			return dev_err_probe(dev, ret,
+ 					     "Failed to attach bridge for endpoint%u\n",
+ 					     of_ep.id);
+-		}
+ 	}
+ 
+ 	return 0;
 
 -- 
 2.53.0
