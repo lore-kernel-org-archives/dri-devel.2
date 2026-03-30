@@ -4,64 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 856ADFB3D17
-	for <dri-devel@archiver.kernel.org>; Mon, 30 Mar 2026 10:45:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A01EDFB3D17
+	for <dri-devel@archiver.kernel.org>; Mon, 30 Mar 2026 10:45:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BF59E10E5A6;
-	Mon, 30 Mar 2026 10:45:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 01E8210E58B;
+	Mon, 30 Mar 2026 10:45:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="R81O35q2";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="MZcmC6SR";
 	dkim-atps=neutral
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com
- [209.85.128.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A561910E1C8
- for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 10:44:55 +0000 (UTC)
-Received: by mail-wm1-f51.google.com with SMTP id
- 5b1f17b1804b1-486fd3a577eso38436135e9.1
- for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 03:44:55 -0700 (PDT)
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com
+ [209.85.128.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C394510E5D3
+ for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 10:44:56 +0000 (UTC)
+Received: by mail-wm1-f52.google.com with SMTP id
+ 5b1f17b1804b1-486fb112c09so42246315e9.1
+ for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 03:44:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1774867494; x=1775472294; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1774867495; x=1775472295; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=3uX914YhuYkTgoe0kk9VM5sxxzK+tc1qOdfmAktq/XU=;
- b=R81O35q2/AeOMn/39SSX+yyV16NRJUacAKUYBXVKDCFxMKyAum5C+X5eS1Gikj/chn
- BxxIgalmTTccLv0YmQf7EhQc+zs9oGEHS2jb9j5PuobCSNmBYo/WEN7cqHiBDaLEkedE
- 8qBBATauvkakmyCOUmo73DthzoAdEJ4XGD8K9qmaXdpKGETCTlGtcUcJNVT/Fk4OdkWw
- R49P2Uhr1dqwFcGYT3T/vihKp9Vm3SI4WhOsUZSXCWYpZn1UyPlcZ77OCI8Z3Gw4kFyx
- NwO9qlsAz9j/If498sA420qrAVQ11dpUkU6n8EVXjQik31BdH97Ez8AhQR+s+po9A1oS
- bbdQ==
+ bh=WwQ4dRMFArea8SYkY8eqqNt1lO8reAvWgec/k1eN+cI=;
+ b=MZcmC6SRxlkTERzlksfgOw4i4C806rqulYklOVE0IDoU1lV9cmpCArLYZT9LC8QWkO
+ tE+kWYKjCv2+upfH31vN1dJS/sA9jLonyAzWY7fLV8Et/rrhxtq5uvnZQ9M/MsfNcOa0
+ 4Hc3EdVOclcjdO0XlKxHLnQica0vqtB7ECDI/usLD5EVntD6QP+yYQdWAmbLTykoKxWK
+ uUqZFJIX/MCU1CpC1LcRPU86FX+6G9AnW5k3NPlPeR0Q6JfDy0d/pUcc8Q4ExvIkLelz
+ X3j9NgpgNm1HETNThRh8fu4ajGZ0xqUWolcsug6h48xhY5W2QnuwTk/SScdNywq55/h/
+ seVg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774867494; x=1775472294;
+ d=1e100.net; s=20251104; t=1774867495; x=1775472295;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=3uX914YhuYkTgoe0kk9VM5sxxzK+tc1qOdfmAktq/XU=;
- b=i/bgzqDlifZzVKSTvYTtul9I63yNzSU6T1GlyeuzL15hQSK5gm4YzF096ZAXu6xatV
- 8Ryh91T5wZaD+YImLTAZZbkGqCKr5F1BbCQQsX6EGSdpaL+RuH4iZRzaao0JKzDc3cwG
- ebinyx1Adefg/3y1LZcfh1+3leboq39PiicKY7YyF/SHi6QEwQgRmH2I+Lbt4jNhjS/h
- EABNfpQ99RCnkxtGdKtB3xQLbMJHEzCRQyh2HsrWgSNMSUuAR/mN0WWzX4TPlr/kra9r
- vukaogmNyl9Oft2muo4xcccfRPYH+cQaJlHLYU5Snz6TvGlzhofGdbTWSTilg2P6oWtZ
- uvTg==
+ bh=WwQ4dRMFArea8SYkY8eqqNt1lO8reAvWgec/k1eN+cI=;
+ b=fuSSKmWCbfbSXzmhmuKDMkw8aQgKR17lplvg3ZRthqbuk0fv5lYHAn3es1/HA3qJyS
+ c1nLRLqiqRHQrYMbKOYf6E4ZD0B+9hq8+7SWLfT4NbOf+QA5XlmMXzddS66DihLA1Svi
+ vS3eTsoebFrrOgJl452OOTP52gMPOxpUF2qNrwMsX+3PfhYtoS5v84pyeSO6IcbhchD4
+ 8NNaKSLAMBn3C4dvSFlJbnkTNXnrHjrs/542Z0V9GfWGyOwgvlyD4g1DZLDxU5qz/HwL
+ 58q93LSY/a9pnGxZyddtizfUx8TtGFHF2Xf/DMMjxoHEDL3qweK1NFOOPChwArJrlVgr
+ EZOA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCU89W7CSdh5K6SGswcTJqweaGoRMF7Oi1iD8eB6polHbihbIvplOyts22HiecGCWHyuiXqvlaAkq54=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Ywk4v8A6LB9ma7hlVUkd7TgtqZXb93xRd/0tXZFNi8zHMezu3s3
- 1klvH5ZDAVk2uCqR9l/UXnfEtnguD1NjtPFMQlvoQusCLLW19nhAz2jK
-X-Gm-Gg: ATEYQzxwiDUFmDpyxpZZYhcLP6eXBeMI9Is6oMt5sBiC7X9R0rkeiR8OWK63mwGRFKj
- DLJYjhN9j1PaJmqUXLITeu4ZjgLdprgXcHGslQSKBN0kMyWX128ej1hAPhSwYvNymxgO5XhkpxQ
- kNSVNgwqDpZOHvCN89HlcLfD8Tnnm61h8Tymu8ONLDvRhl6xXvmJuURsqt6+R5od3dnddZ2Cuge
- QWppYB9OgY/Z2iMAqugxhm9GmOeu8Xb41J4KMYUCQcCxLwMab7qNLPf7XKvCoDBk+fZKCyskL2v
- s3lhUU55re5iqycM/kpgjREA5GQtyLX1HFnWDnAauk2eXmhPNvEOMn6ZG8gooVPNSxASIlin36A
- m48bdiLuTWmbFczVLCTALh88aoXY7nn1C0J0FfUKwKiyot5PQg/2F7k9H5Dm5n4DcPlCIrWCY/3
- ZmiZR7f02/RUO6i4KRrKoxZlmipkqUaQ==
-X-Received: by 2002:a05:600c:3504:b0:485:3e20:4013 with SMTP id
- 5b1f17b1804b1-48727f0b109mr170977975e9.28.1774867494040; 
- Mon, 30 Mar 2026 03:44:54 -0700 (PDT)
+ AJvYcCXBmvsvyzLj4YmQv7mOolX75sHY5IinBJ0LJ8mHqe5WwWUhbyXugMX1pe5Gz3C+UvJIJFvW5dMhR6M=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyfcTOFyieSpRsNA4nF3iiQfh+K0/1CFV58/fLqNFsHdS3oJNnT
+ HvdzPX+jg3eEb1M7KrKjV3A6KJBTOXtvf3KlhtGzMZ2oZNZbR+MkWB8/
+X-Gm-Gg: ATEYQzw3XkSkZJp7Roem8aWDPpcF6IyZfYX/wYWzTTFyBfwPx228Q5BKZrvneYBKuEr
+ 8ijriXP2rXOtx7V1gJt0v1Nvfr7YDZGRNkpo3w8Z6rzQvkRi9siYuqhHyCxxbswY+4aZZx+fH3f
+ kcwJ2GTE352DoaSn4GiwwWdXTqsPTudCIhV4nX2YU8MpcpXzq7gSSdtovnbcEIZECuz2sy3D+qQ
+ 4h4PXO7OHYRkIwoHyCNrI1pazXItRUUqzfwnhveGDjNbjyTM9lofRT8O8LSWw90I1AEhdDaqOg8
+ sPC9BUH9sl+J+m9N36PUOuwbyFENvrtFb9cU6jmyIyd5uF3ZJ6H+9gyc5QK9GtTAfBSVuFtofGW
+ 6DdMnTCPR+6d20zJUTwJdf+iqjBsbxU/49/aUoljIF43DaAiUfZkX7UJ5mL7Fq1+ssA3sxCgO2z
+ 0cZfIj9wM01/WVvaX3ivLKXMNzQo99Rw==
+X-Received: by 2002:a05:600c:8489:b0:486:fbdb:b718 with SMTP id
+ 5b1f17b1804b1-4872807483cmr201130955e9.25.1774867495178; 
+ Mon, 30 Mar 2026 03:44:55 -0700 (PDT)
 Received: from biju.lan ([2a00:23c4:a758:8a01:e60:2c8a:54bb:d692])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-48727bfc5ecsm185842685e9.1.2026.03.30.03.44.53
+ 5b1f17b1804b1-48727bfc5ecsm185842685e9.1.2026.03.30.03.44.54
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 30 Mar 2026 03:44:53 -0700 (PDT)
+ Mon, 30 Mar 2026 03:44:54 -0700 (PDT)
 From: Biju <biju.das.au@gmail.com>
 X-Google-Original-From: Biju <biju.das.jz@bp.renesas.com>
 To: Biju Das <biju.das.jz@bp.renesas.com>,
@@ -75,11 +75,11 @@ Cc: Chris Brandt <chris.brandt@renesas.com>,
  linux-renesas-soc@vger.kernel.org, linux-kernel@vger.kernel.org,
  Geert Uytterhoeven <geert+renesas@glider.be>,
  Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>,
- Biju Das <biju.das.au@gmail.com>, stable@vger.kernel.org
-Subject: [PATCH v3 2/3] drm: renesas: rzg2l_mipi_dsi: Increase reset
- deassertion delay
-Date: Mon, 30 Mar 2026 11:44:45 +0100
-Message-ID: <20260330104450.128512-3-biju.das.jz@bp.renesas.com>
+ Biju Das <biju.das.au@gmail.com>
+Subject: [PATCH v3 3/3] drm: renesas: rzg2l_mipi_dsi: Fix deassert/assert of
+ CMN_RSTB signal
+Date: Mon, 30 Mar 2026 11:44:46 +0100
+Message-ID: <20260330104450.128512-4-biju.das.jz@bp.renesas.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260330104450.128512-1-biju.das.jz@bp.renesas.com>
 References: <20260330104450.128512-1-biju.das.jz@bp.renesas.com>
@@ -103,36 +103,87 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 From: Biju Das <biju.das.jz@bp.renesas.com>
 
 The RZ/G2L hardware manual (Rev. 1.50, May 2025), Section 34.4.2.1,
-requires waiting at least 1 msec after deasserting the CMN_RSTB signal
-before the DSI-Tx module is ready. Increase the delay from 1 usec to
-1 msec by replacing udelay(1) with fsleep(1000) for RZ/G2L SoCs.
+requires deasserting the CMN_RSTB signal after setting the Link registers.
+Move the reset_control_deassert() call from rzg2l_mipi_dsi_dphy_init() to
+rzg2l_mipi_dsi_startup(), placing it after the Link register writes. This
+reset signal is optional for RZ/V2H SoCs, so add a NULL check. Drop the
+unused ret variable from rzg2l_mipi_dsi_dphy_init().
 
-Fixes: 7a043f978ed1 ("drm: rcar-du: Add RZ/G2L DSI driver")
-Cc: stable@vger.kernel.org
+The CMN_RSTB signal is not required for reading PHY registers in the
+probe. Move reset_control_assert() from rzg2l_mipi_dsi_dphy_exit() to
+rzg2l_mipi_dsi_stop(), placing it before the dphy_exit() call. Since this
+reset signal is optional for RZ/V2H, the call is a no-op on that SoC.
+
 Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
 ---
 v2->v3:
- * Moved the patch from patch#4 to patch#2.
- * Added fixes tag.
- * Updated commit description.
+ * Merged patch#2 and patch#3 to avoid breakage.
+ * Updated commit description
 v1->v2:
- * Updated commit header and description.
+ * Updated commit header and description
+ * Moved the code from rzg2l_mipi_dsi_dphy_init() to rzg2l_mipi_dsi_startup()
+ * Moved the check before calling reset_control_deassert(), so that it will be
+   skipped for RZ/V2H SoC
 ---
- drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c | 18 +++++++++---------
+ 1 file changed, 9 insertions(+), 9 deletions(-)
 
 diff --git a/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c b/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c
-index ff95cb9a7de5..9d9f77d8f949 100644
+index 9d9f77d8f949..715872130780 100644
 --- a/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c
 +++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c
-@@ -528,7 +528,7 @@ static int rzg2l_mipi_dsi_dphy_init(struct rzg2l_mipi_dsi *dsi,
- 	if (ret < 0)
- 		return ret;
+@@ -484,7 +484,6 @@ static int rzg2l_mipi_dsi_dphy_init(struct rzg2l_mipi_dsi *dsi,
+ 	u32 dphytim1;
+ 	u32 dphytim2;
+ 	u32 dphytim3;
+-	int ret;
  
--	udelay(1);
-+	fsleep(1000);
+ 	/* All DSI global operation timings are set with recommended setting */
+ 	for (i = 0; i < ARRAY_SIZE(rzg2l_mipi_dsi_global_timings); ++i) {
+@@ -524,12 +523,6 @@ static int rzg2l_mipi_dsi_dphy_init(struct rzg2l_mipi_dsi *dsi,
+ 	rzg2l_mipi_dsi_phy_write(dsi, DSIDPHYTIM2, dphytim2);
+ 	rzg2l_mipi_dsi_phy_write(dsi, DSIDPHYTIM3, dphytim3);
  
+-	ret = reset_control_deassert(dsi->rstc);
+-	if (ret < 0)
+-		return ret;
+-
+-	fsleep(1000);
+-
  	return 0;
+ }
+ 
+@@ -541,8 +534,6 @@ static void rzg2l_mipi_dsi_dphy_exit(struct rzg2l_mipi_dsi *dsi)
+ 
+ 	dphyctrl0 &= ~(DSIDPHYCTRL0_EN_LDO1200 | DSIDPHYCTRL0_EN_BGR);
+ 	rzg2l_mipi_dsi_phy_write(dsi, DSIDPHYCTRL0, dphyctrl0);
+-
+-	reset_control_assert(dsi->rstc);
+ }
+ 
+ static int rzg2l_dphy_conf_clks(struct rzg2l_mipi_dsi *dsi, unsigned long mode_freq,
+@@ -811,6 +802,14 @@ static int rzg2l_mipi_dsi_startup(struct rzg2l_mipi_dsi *dsi,
+ 	FIELD_MODIFY(DSISETR_MRPSZ, &dsisetr, RZG2L_DCS_BUF_SIZE);
+ 	rzg2l_mipi_dsi_link_write(dsi, DSISETR, dsisetr);
+ 
++	if (dsi->rstc) {
++		ret = reset_control_deassert(dsi->rstc);
++		if (ret < 0)
++			goto err_phy;
++
++		fsleep(1000);
++	}
++
+ 	return 0;
+ 
+ err_phy:
+@@ -822,6 +821,7 @@ static int rzg2l_mipi_dsi_startup(struct rzg2l_mipi_dsi *dsi,
+ 
+ static void rzg2l_mipi_dsi_stop(struct rzg2l_mipi_dsi *dsi)
+ {
++	reset_control_assert(dsi->rstc);
+ 	dsi->info->dphy_exit(dsi);
+ 	pm_runtime_put(dsi->dev);
  }
 -- 
 2.43.0
