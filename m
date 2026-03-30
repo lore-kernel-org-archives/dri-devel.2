@@ -4,86 +4,182 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A1D6FFF4934
-	for <dri-devel@archiver.kernel.org>; Mon, 30 Mar 2026 02:46:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B59C8FF492D
+	for <dri-devel@archiver.kernel.org>; Mon, 30 Mar 2026 02:49:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F3BF410E189;
-	Mon, 30 Mar 2026 02:46:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 17B1810E06D;
+	Mon, 30 Mar 2026 02:49:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="HV0dtJby";
+	dkim=pass (1024-bit key; unprotected) header.d=mediatek.com header.i=@mediatek.com header.b="twpqltbb";
+	dkim=pass (1024-bit key; unprotected) header.d=mediateko365.onmicrosoft.com header.i=@mediateko365.onmicrosoft.com header.b="ikCbhY7e";
 	dkim-atps=neutral
-Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com
- [209.85.214.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 747BC10E189
- for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 02:46:29 +0000 (UTC)
-Received: by mail-pl1-f174.google.com with SMTP id
- d9443c01a7336-2addb31945aso31258645ad.1
- for <dri-devel@lists.freedesktop.org>; Sun, 29 Mar 2026 19:46:29 -0700 (PDT)
+Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BE35010E0B0
+ for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 02:49:22 +0000 (UTC)
+X-UUID: 0add3e5a2be311f19a16598d5ca7f8ec-20260330
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com;
+ s=dk; 
+ h=MIME-Version:Content-Transfer-Encoding:Content-ID:Content-Type:In-Reply-To:References:Message-ID:Date:Subject:CC:To:From;
+ bh=7XCWz/NOIEOO+XjJOHEEubUYW+UWDUHr3yPIJ1S1dLY=; 
+ b=twpqltbb3hL+Ex89ETCXHm9uYm0VyQ5wtU97F7sxWFbQyHaD7AWStB0mF9cX5QJB1Z/gNZ/i5CMdaaNXc8RwDbt+eDbxGtzNKhjM0s0N7B8RimghCskib6xVH7WEosI9jqXjRWDL2KLueAVWLtWEM71XIliL+z74TRWNtb+2OSg=;
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.12, REQID:3a2ad822-ec3a-41a3-982e-0c93d599ad08, IP:0,
+ U
+ RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+ release,TS:0
+X-CID-META: VersionHash:e7bac3a, CLOUDID:ea1746d5-060f-4ecc-9ee0-121eeeb4a682,
+ B
+ ulkID:nil,BulkQuantity:0,Recheck:0,SF:80|81|82|83|102|110|111|836|888|898,
+ TC:-5,Content:0|15|50,EDM:-3,IP:nil,URL:99|1,File:130,RT:0,Bulk:nil,QS:nil
+ ,BEC:-1,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_ULS
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 0add3e5a2be311f19a16598d5ca7f8ec-20260330
+Received: from mtkmbs13n1.mediatek.inc [(172.21.101.193)] by
+ mailgw02.mediatek.com (envelope-from <jason-jh.lin@mediatek.com>)
+ (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
+ with ESMTP id 1987274484; Mon, 30 Mar 2026 10:49:16 +0800
+Received: from mtkmbs10n2.mediatek.inc (172.21.101.183) by
+ mtkmbs10n1.mediatek.inc (172.21.101.34) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.29; Mon, 30 Mar 2026 10:49:15 +0800
+Received: from SI4PR04CU002.outbound.protection.outlook.com (172.21.101.237)
+ by mtkmbs10n2.mediatek.inc (172.21.101.183) with Microsoft SMTP Server id
+ 15.2.2562.29 via Frontend Transport; Mon, 30 Mar 2026 10:49:15 +0800
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=rSlYJVylTnWyxUvM4rpAUgTa0g49ZFQlqKhBzDQVIjA0xjqcupolIoj7S6tzyZIMVN+ZyhnqnUuEJ7QrVfeuh6dPrgiWO7+9z23jDssJxKUULGSQqjT7UzdlD3kRbT9p7BKj4i7/oB63O9inUWit5r7lKxkYu5WI8Ru5ekvv6jWDroo2OUVqX86zeQ2A0F55xy3RuxLCvc4G91dCg9zCa7uNn5CL7RTFrE5eYkh/3bzid1izWzsZ9TRWRJOqqYQepSj/MkX8Hc+RjP5x+O9nlyEyCpZBpVw4yexoV+VBqDsJlFh3ARC5rJgQEpNvhyfwh7DeAarALANRmGgQCF0GEg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=7XCWz/NOIEOO+XjJOHEEubUYW+UWDUHr3yPIJ1S1dLY=;
+ b=fHf68DkXCuhF/XFC890h6Qb/zXWS7OBjcKzX+AGWDICF5C0xIAGfcXzESXmN5Av/A2P3MEA+2WgFovD/pY2K2F8OSImHOOVX4CJDH0mJ0EfzcmXwzWyJ67LEMz04/sfdAbRSAC63fQtenAUVWvpFIM36hWLAKx2uMEmrSWnb/HiWraUNmgd541saIbkMgpyS/baSOVq6xR17KQPZbVKswooXC0A6/jOlTwdg6JVcVHtFRhup9H4wMZSstmIR/ygnbwX9FPoWXTN17VmtOoM3kQYuPGxCxzGsH8wy1pOP6d0y8zYYMIQ2n995hrRTNnvdGAni4c9D2VSebzbpxbX/vg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=mediatek.com; dmarc=pass action=none header.from=mediatek.com;
+ dkim=pass header.d=mediatek.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1774838789; x=1775443589;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date:from:to
- :cc:subject:date:message-id:reply-to;
- bh=zQbvZ0Ccf315kC/dpSUC5Pun7z9eS6NwI/AtAL6u82A=;
- b=HV0dtJby53kTmHCYtT/1+HaDgpB8ZWvB3cWCA62OIjj8IW931rxbQMSD8xZCkC9SWG
- a9V8lyWu5JNYi2Q5nKa7rsOdMEKhHH2TIHO9vD9hdTZLhYtPFbHxTyK1mPhWK0EBZRWP
- Ahz6o1QHKBUhcn0bRON+DYOVEBsSYQsY6tfYM=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774838789; x=1775443589;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=zQbvZ0Ccf315kC/dpSUC5Pun7z9eS6NwI/AtAL6u82A=;
- b=MeaznbM2iN/ltQR3XrUdEYd2PXtaNrVnSbsnwkTtMAP6GYuVCM6iav1cEcloaZkFka
- nCxCHrg6Ha16LgBA74dllhFHBczdnj51a6vf+UUkdGbbQzHFvarpkhZ9Ysx5sPQzgbv+
- wLT8qHFmq0fapkmylqp3BLHEFI7zH9qYJRLS0IeMT403Kh8PAuB2aPMzrKCqjdimQiIu
- SNXasBHq3zAng4zPkxnwq1xrmP1y5fc2rw2D8KhEkTuWROWQCfuMskxTof6mBJPCHa3f
- vVcbO6A11UOblxbBJxBwXVwWjfFjBp8XhqBYaxkQEakbJbFYmzxfV9AcN64G1/Pcc9Qc
- Blsg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCV3zmrSYUB/I1z5qYz0mg28zfmjr7xuRxwSaqO/L34990cmXVITtvB8VK/iMDckjUbkCy7eCDY0SRQ=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyN1KCcbDJTtB9atrZ1+g1laWhV3u5zs07iSfz8tDF2hTtkf3lv
- OopHXOq4qSTxL8wxwvvq0ydrtYR5VzrYNokRdcI5nRa1ddSzP1zVlFAgyt98jUfN2A==
-X-Gm-Gg: ATEYQzxkmIlKa4AUdgLA9f4JI9zI1NJRvHY+fhx2tpbDBCtTVgiUVF3jUl6T2f9C9GF
- MBba5MODZov+Yj42XSdpZZI6V8fWYnwJKiGafWIp4Z2dKj5TwLGQSyTb9Be5Fao/NWHqYMy3KLX
- v5aRT5ngwEve+02CDCrGlfUJ27NOB0DREVjAs9r1shP89Azl6tdzeigKhalj8h4s2HLRM/Skw7j
- o8IeE8ahj3OWHarbjoZXZjnsiEpZ5sBrxgEQmPp5hb9x/izUk/Dg7D3BEi30VItRSjx1mBNLIdU
- 8t9my54aJHfg20B9NeXBdyc8tvTLbllL2ALDHyV6J1cYhtOgC0es80EWS0efZJMCTQKD8rraqok
- BQewBsHkHqeye58ZZhzZx02NP3H5nbSIrXOIhz2z4NZYNs+l2HMLxsF76cATMWdv16mJemf/0ds
- 4NzSdTJw+3dESvVUG6Iah3WVk4eUEFAQdA+svjqJmdTjGbpuftMRtBwtM45K9jmG4=
-X-Received: by 2002:a17:903:3d0f:b0:2b0:cb96:9840 with SMTP id
- d9443c01a7336-2b0cdcde903mr111910065ad.40.1774838789014; 
- Sun, 29 Mar 2026 19:46:29 -0700 (PDT)
-Received: from google.com ([2a00:79e0:2031:6:2f8f:d84f:5e73:9f26])
- by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2b242683064sm61021995ad.33.2026.03.29.19.46.26
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 29 Mar 2026 19:46:28 -0700 (PDT)
-Date: Mon, 30 Mar 2026 11:46:25 +0900
-From: Sergey Senozhatsky <senozhatsky@chromium.org>
-To: Rob Clark <rob.clark@oss.qualcomm.com>
-Cc: Akhil P Oommen <akhilpo@oss.qualcomm.com>, 
- Sergey Senozhatsky <senozhatsky@chromium.org>, Sean Paul <sean@poorly.run>, 
- Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Tomasz Figa <tfiga@chromium.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>
-Subject: Re: [RFC PATCH] drm: gpu: msm: forbid mem reclaim from reset
-Message-ID: <acnj2pIv_6H56GDT@google.com>
-References: <20260127073341.2862078-1-senozhatsky@chromium.org>
- <acSRDNA8fCP7qAFJ@google.com>
- <fe3177bd-a3d2-4c0a-ab6f-9752eaf32fc4@oss.qualcomm.com>
- <CACSVV00MFgsn8_XjXZxubJibLFE9ULrFqiEW9dQAyU404SLj1g@mail.gmail.com>
+ d=mediateko365.onmicrosoft.com; s=selector2-mediateko365-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=7XCWz/NOIEOO+XjJOHEEubUYW+UWDUHr3yPIJ1S1dLY=;
+ b=ikCbhY7ekFLQqvTEwA8yo4DK02Xadtl4rIHde8XLimrFKQHsOoDf0UZ+W0e6uqJUzFCOjdn2wL3+4WFqMjJPlMJB8MU+sJrAqi1/lUbgwaDrss3BJwhbmhrcuqP9xLIlpF6xS25huIFAumzU1T8FNm007fJ5YjkxoJFidyfHjRI=
+Received: from SEYPR03MB7682.apcprd03.prod.outlook.com (2603:1096:101:149::11)
+ by KL1PR03MB8800.apcprd03.prod.outlook.com (2603:1096:820:142::5)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.27; Mon, 30 Mar
+ 2026 02:48:44 +0000
+Received: from SEYPR03MB7682.apcprd03.prod.outlook.com
+ ([fe80::1fe4:fb59:1b1:1646]) by SEYPR03MB7682.apcprd03.prod.outlook.com
+ ([fe80::1fe4:fb59:1b1:1646%6]) with mapi id 15.20.9745.027; Mon, 30 Mar 2026
+ 02:49:11 +0000
+From: =?utf-8?B?SmFzb24tSkggTGluICjmnpfnnb/npaUp?= <Jason-JH.Lin@mediatek.com>
+To: "jassisinghbrar@gmail.com" <jassisinghbrar@gmail.com>, "AngeloGioacchino
+ Del Regno" <angelogioacchino.delregno@collabora.com>
+CC: "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
+ =?utf-8?B?U2lyaXVzIFdhbmcgKOeOi+eak+aYsSk=?= <Sirius.Wang@mediatek.com>,
+ =?utf-8?B?TW91ZHkgSG8gKOS9leWul+WOnyk=?= <Moudy.Ho@mediatek.com>,
+ "mchehab@kernel.org" <mchehab@kernel.org>,
+ =?utf-8?B?WGlhbmRvbmcgV2FuZyAo546L5YWI5YasKQ==?=
+ <Xiandong.Wang@mediatek.com>, "nicolas@ndufresne.ca" <nicolas@ndufresne.ca>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Project_Global_Chrome_Upstream_Group
+ <Project_Global_Chrome_Upstream_Group@mediatek.com>,
+ "linux-mediatek@lists.infradead.org" <linux-mediatek@lists.infradead.org>,
+ "chunkuang.hu@kernel.org" <chunkuang.hu@kernel.org>,
+ =?utf-8?B?UGF1bC1wbCBDaGVuICjpmbPmn4/pnJYp?= <Paul-pl.Chen@mediatek.com>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ =?utf-8?B?U2luZ28gQ2hhbmcgKOW8teiIiOWciyk=?= <Singo.Chang@mediatek.com>,
+ =?utf-8?B?TmFuY3kgTGluICjmnpfmrKPonqIp?= <Nancy.Lin@mediatek.com>,
+ "wenst@chromium.org" <wenst@chromium.org>,
+ "linux-arm-kernel@lists.infradead.org"
+ <linux-arm-kernel@lists.infradead.org>, "matthias.bgg@gmail.com"
+ <matthias.bgg@gmail.com>
+Subject: Re: [PATCH v2 3/3] mailbox: mtk-cmdq: Remove unsued
+ cmdq_get_shift_pa()
+Thread-Topic: [PATCH v2 3/3] mailbox: mtk-cmdq: Remove unsued
+ cmdq_get_shift_pa()
+Thread-Index: AQHcvAymKsTGwV8sQ0GKshmdt2PLm7XFsxkAgAC0XwA=
+Date: Mon, 30 Mar 2026 02:49:11 +0000
+Message-ID: <e6d566b9ca357e47914b9f620f692c45175ef5fc.camel@mediatek.com>
+References: <20260325040457.2113120-1-jason-jh.lin@mediatek.com>
+ <20260325040457.2113120-4-jason-jh.lin@mediatek.com>
+ <CABb+yY2cjMskJeXsn8+hZj2DcFs05yabHbSaGT5XSi0fn45zCQ@mail.gmail.com>
+In-Reply-To: <CABb+yY2cjMskJeXsn8+hZj2DcFs05yabHbSaGT5XSi0fn45zCQ@mail.gmail.com>
+Accept-Language: zh-TW, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=mediatek.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: SEYPR03MB7682:EE_|KL1PR03MB8800:EE_
+x-ms-office365-filtering-correlation-id: 30dd6a7a-c6cb-4b45-5aa2-08de8e06ec13
+x-ld-processed: a7687ede-7a6b-4ef6-bace-642f677fbe31,ExtAddr
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|1800799024|376014|7416014|366016|38070700021|18002099003|56012099003|22082099003;
+x-microsoft-antispam-message-info: 4AnTDL2bSY3adGVP1Reh0iU6/wiGeG+76F9NbyE6iivYcd7mkwGwY0rgYePKwTRf/Zl21EJ31pYmO0bfy0vpFhLcxM+p+bvU0eONYwBSlGNTy2Jlb6NH6J4UtIu7RlHlI7RQKDtXEVjIPVcxuMvMJg6iB4lI22jBs81tFftaEL8BBUcisub+NCVa8UbLjyvJ96rH4Z/OrZbIBliHBKwFdXDVsnqzEWGQFUU3gf9mr+w6sfoBjnV8G5eHu2BLh1q88uwY1l34vTeird9j33J0ORC+khx7AbXwV9T8A3BdIMqR2h4R0vf8wquSqzZUfk0FN6k3jxFX1x7gBgKA2cyB0vuWdtOyUJ2jQhFctoUb+rYvoYx6sFfqeHFeaGQsjjb9yTMgu7FXU8eLSW0TQes5L63M7GnYCDT71e9biGs50D42SLJBlKXIYVFmB7M+Trfr2GiImkxnfEVOABVG+6BZLRF+3dKcma5F/yCi/VuGNyydkQaCXMBBXRkq3nrfCMKmbGs90f4AbRQIKvB84W4NhG0o8yreD9sSQjUy8poRh5bd6NJjxrxvNFZuVIIAQLrGEJS+3OLOHtjPK4ZZrTWHN5627nX+/O/zAdnFlZy8EtdRw6NYBCR5ntWROlEn7M+ob5AMSLnXJSwmHjBIAOt8oHc4l25EJg0CIHv5flvncvSRp6b63K+wGQS5Bt/BN8NVJFPuc1Su2710DZdpuL8ixpOk5EBEjBA06aW8Vzg7syJgLuGv6InS6S1OKsRJoVbZfvEdRyg4DZpQFDd2vQnBUS80rNqAZuIqKDfmSY8On58=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SEYPR03MB7682.apcprd03.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(7416014)(366016)(38070700021)(18002099003)(56012099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?MktVc0FybDFBK1hRRXZjaWlQcFBXcGJMYXVBSFNTQjlOd2tXK3NheTVVb2xV?=
+ =?utf-8?B?Wm5sZlFiblhxMW9oZldTbjdyVjNsWlduL05FNlRVRnZ1SDhjNUpkRERSOXlG?=
+ =?utf-8?B?SVg0d0dueFRPckhlMGVWaXpneTZOcmVmaU04Z0h1TmQ0bHdEcFJFOTZUQUl3?=
+ =?utf-8?B?TVhPNzRsejdZdzY2RThlT01WVVovK0c5Zm9sei9KcE1VN25rNzBnNHZVMU1H?=
+ =?utf-8?B?VDlrWnBzUWVZSklSWHJMeUlUR013VXVNUHVKbXg3UUZnWkt5Nzdmam44UTNO?=
+ =?utf-8?B?Y0daMVRoS1Z5QkhwVS95ZFlvbk43MkFhRnRDdXZYaSt0bUkvSGtnSVg5Z0dF?=
+ =?utf-8?B?dUY1by9mNE92ZVNBaU1oQ1cxNzBNbXEvVjVsSjMybndPRngwTldtVHB0VHp6?=
+ =?utf-8?B?RnVQN0ZHSm1pc2RPNTZzVHRKRjNHYkVLd0RDR24veTExR3pvcUVRelRrU0k5?=
+ =?utf-8?B?MmFBaFVqd3IwcXlhbE84dlY1K3pjVVBYZWJoYmpXNVAzUXF2RDZQbzJFazA2?=
+ =?utf-8?B?emwwMFFOalRUUGpiNjBLVEhUMWcvRm9pbzlZTmpvY2g1aFdoOTVBZzREMHM0?=
+ =?utf-8?B?VmxNOUdkMTFqN2xDblRlY0Y1UnNXYmNWMDloMThwTjQrb1FqdXNoNU5KR2xG?=
+ =?utf-8?B?UjNXckN5UkpoSG9Xb2ZPYU91Yk9FYTcydVNBWmJJR1p3UVVUanExSTNPRG80?=
+ =?utf-8?B?TnNqWkNQREJTSmZhWjBpOFlkb3ZTWTlsa1FiM3RicTEvcHJOR1NDbHdTUDcr?=
+ =?utf-8?B?dXdsWFdiWTdZT0IreFpSaVJnSWVQOWdLQmwrTTdaWUZDaEhFeGljOGwzSDlo?=
+ =?utf-8?B?alliV2JxdzhETTM1V2RBUnFPeG5NZWNXQi9nUUFLVG5RTjhmZWlYSk4wbmdE?=
+ =?utf-8?B?bE1pN25BYStEcHozRGdyV2s0QkNSYmVIcmY4d0dya3cwY1ZmcWY1KzcwKzhy?=
+ =?utf-8?B?T0tMUFFFSEdvaXQ4S0pJOGovdm9KZTA2SkZqRG1BcklBNFppcGg0Z0NJQnFu?=
+ =?utf-8?B?Z0ZXMVZtVkhocUIyYjh5V2xyV1JLa01mNTRwV2tCZmY2TGo4aENTTWoxNito?=
+ =?utf-8?B?dzJwTGswaFFpYnlLME9RT25qTFVwRmNHSzBmVU1ySkcrS215UnFvMzg2Z1Uz?=
+ =?utf-8?B?cG1pVk1wN04vbk94UlZxNXNCNkNZSHZTT1EvZkVLKzB5YmdpdDM0a2ZaV2dU?=
+ =?utf-8?B?SThkeGNqQ0dsQzRXOWlISWZjRjdkRGd5TUdWNE0zZkxVQ2RkUE9kTXllR0Rk?=
+ =?utf-8?B?NUdLUndMMWlNWDc0ZWhCUWRoUFpUWkFhSU1rakhVaUcvNkFaMXllc0wwVGpY?=
+ =?utf-8?B?R1FRWUU2WTZWK1hjYUV4N3Y4Zm50bW14dGpPNFBJWG1OcVBDV2tHdThuT2Jh?=
+ =?utf-8?B?V1V3VnZIb0lINktsQW9KQTlqRE9FMUFaeUx0L3BWNk44QWpBb1FoSlZjeTZn?=
+ =?utf-8?B?VlZTN2FZTTRtKzdFZFhpZmozVWJNbkpDT2V6MStISUZoUitydzR3YVNUYkoz?=
+ =?utf-8?B?QnE1SVNyWDRVWEVmV1FOb1ozdmdkNHlpOFNydUNJZ085VHMreUEvSGxUZXAw?=
+ =?utf-8?B?Q3ZpZk10eE9OekYrNVdaNm80WE5rcHhRZk5XaWY4WUN1S2FHTXQwdU12NThq?=
+ =?utf-8?B?eFVEaDhZQXc2V1BUK003cHkveGJYdUN4aWh1QkxRNnJXeHJmWFFIdTFBcFFC?=
+ =?utf-8?B?RVU4ZHdtUExmSVE3QXo4RndTbmVoNUVtWXFOajNVZ2QxWUtwL1YySUdKZ3BY?=
+ =?utf-8?B?WjEyZnhMWmVrOVdhd2EvNy9mZVYvMDNvbVFXWGRraWRHUzVCNktvN2oxb0x6?=
+ =?utf-8?B?TXlRZk1uMU9ONzVtREtQTE5ST3BkUmZSRG1ZNGJOTVUweVZsNEQrWGsyeWlr?=
+ =?utf-8?B?cUVlUDRjaFdyWTVWZmJxdHhIMjdaNDZLYWZQNEZHTmpLVGR0R1BTNnV0VGVN?=
+ =?utf-8?B?SlZDd2s5UGNmODROckFVRzZucS94UWVheWN3OHp3OGVUVnV2WTZwckVrWGVE?=
+ =?utf-8?B?alVUc0FiSExoWDhmK2g1TTBiaUdqa0RMSkpxUzEydmk0Q292YzAvUlkxa1hr?=
+ =?utf-8?B?WTlQRlRoUVJzRTlwRGdrV3NHSFJ4dzUzcmVjd1dVWjE0RWJzK0hVYUszeERV?=
+ =?utf-8?B?UDh6aGdUUkJGeEdwMjIwM0p2bHVON0YzckVjc3NuanhkM2FnRDlJam5GQnF3?=
+ =?utf-8?B?WXdhaTFEdnFCOTU1TU1GM2h1SXJvejZYL0l5YVAzOE1hSFlWRnRmNTN6QWVz?=
+ =?utf-8?B?QmVpaFhRZDJEZ0xzcUFtVnUweEZqZEo2QnlINC92aTkvdTUvbXZKeHZxblpX?=
+ =?utf-8?B?V2M5VkExRmIxcmlwZnYyVENRTDVWZXZscXNRSTY3emhwdVhabkRTRTc1aGt5?=
+ =?utf-8?Q?sCTr0btpOB+pUbrM=3D?=
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <C9996E1EF22ABA4991DACE5DAA044F9B@apcprd03.prod.outlook.com>
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CACSVV00MFgsn8_XjXZxubJibLFE9ULrFqiEW9dQAyU404SLj1g@mail.gmail.com>
+X-Exchange-RoutingPolicyChecked: fl1dRkXQbnY1fGGMWj33NSkHAU7PpQ+3vsT9gem0C829tePYKLswG68ze7LT6PLT1zf4bcNUE4YWCPib6e1enBDgnndaxPTDSKYCDZZRHrsyt5XMBC2SewOX6bthYvxzNUzHd5AOnz5rjy2Ra76NZxyzNQCvtmkUSXG1a+bywMcTmOkA7JvCpqLBImtS3aSjaM2quUlRW7WQD4CewMUzxMOLaoWivd2KUdJdfr/G2ab9BFi9KLj6kgRiMPji1XVZ4oT2E6SeRbT/CSP9xDmdq5cnAYwkHzBhpF1cURf7RbHwSiJr88Lyzxcdua+ynRad845wACxw65VMpfTrAZSifw==
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: SEYPR03MB7682.apcprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 30dd6a7a-c6cb-4b45-5aa2-08de8e06ec13
+X-MS-Exchange-CrossTenant-originalarrivaltime: 30 Mar 2026 02:49:11.4690 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: a7687ede-7a6b-4ef6-bace-642f677fbe31
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: Co4al9qUg4cGaOTQM2q+3henIolhrL0A2hzEyUInJSSel4RWQ1U/87SQh917FbcFONkuOjX48MJQd3XCmu23qA+Jt71tMzPUtfENG+ukXTg=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: KL1PR03MB8800
+X-MTK: N
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,58 +195,22 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On (26/03/27 09:08), Rob Clark wrote:
-> On Thu, Mar 26, 2026 at 5:18 PM Akhil P Oommen <akhilpo@oss.qualcomm.com> wrote:
-> >
-> > On 3/26/2026 7:24 AM, Sergey Senozhatsky wrote:
-> > > On (26/01/27 16:33), Sergey Senozhatsky wrote:
-> > >> We sometimes get into a situtation where GPU hangcheck fails to
-> > >> recover GPU:
-> > >>
-> > >> [..]
-> > >> msm_dpu ae01000.display-controller: [drm:hangcheck_handler] *ERROR* (IPv4: 1): hangcheck detected gpu lockup rb 0!
-> > >> msm_dpu ae01000.display-controller: [drm:hangcheck_handler] *ERROR* (IPv4: 1): completed fence: 7840161
-> > >> msm_dpu ae01000.display-controller: [drm:hangcheck_handler] *ERROR* (IPv4: 1): submitted fence: 7840162
-> > >> msm_dpu ae01000.display-controller: [drm:hangcheck_handler] *ERROR* (IPv4: 1): hangcheck detected gpu lockup rb 0!
-> > >> msm_dpu ae01000.display-controller: [drm:hangcheck_handler] *ERROR* (IPv4: 1): completed fence: 7840162
-> > >> msm_dpu ae01000.display-controller: [drm:hangcheck_handler] *ERROR* (IPv4: 1): submitted fence: 7840163
-> > >> [..]
-> > >>
-> > >> The problem is that msm_job worker is blocked on gpu->lock
-> > >>
-> > >> INFO: task ring0:155 blocked for more than 122 seconds.
-> > >> Not tainted 6.6.99-08727-gaac38b365d2c #1
-> > >> task:ring0 state:D stack:0 pid:155 ppid:2 flags:0x00000008
-> > >> Call trace:
-> > >> __switch_to+0x108/0x208
-> > >> schedule+0x544/0x11f0
-> > >> schedule_preempt_disabled+0x30/0x50
-> > >> __mutex_lock_common+0x410/0x850
-> > >> __mutex_lock_slowpath+0x28/0x40
-> > >> mutex_lock+0x5c/0x90
-> > >> msm_job_run+0x9c/0x140
-> > >> drm_sched_main+0x514/0x938
-> > >> kthread+0x114/0x138
-> > >> ret_from_fork+0x10/0x20
-> > >>
-> > >> which is owned by recover worker, which is waiting for DMA fences
-> > >> from a memory reclaim path, under the very same gpu->lock
-> >
-> > I am still thinking if there is a better way to handle this. Btw, Rob
-> > had a few fixes related to this area recently. Do you think those would
-> > help in this scenario?
-> 
-> For some reason I was thinking we used GFP_ATOMIC or similar in the
-> gpu snapshot path.. but we don't :-(
-> 
-> It does look like we handle allocation failures.  So this is probably
-> a better option than fixing up GFP flags everywhere.
-> 
-> Reviewed-by: Rob Clark <rob.clark@oss.qualcomm.com>
-
-Thanks!
-
-> 
-> (and apologies for overlooking this patch earlier)
-
-No worries.
+T24gU3VuLCAyMDI2LTAzLTI5IGF0IDExOjAzIC0wNTAwLCBKYXNzaSBCcmFyIHdyb3RlOg0KPiAN
+Cj4gRXh0ZXJuYWwgZW1haWwgOiBQbGVhc2UgZG8gbm90IGNsaWNrIGxpbmtzIG9yIG9wZW4gYXR0
+YWNobWVudHMgdW50aWwNCj4geW91IGhhdmUgdmVyaWZpZWQgdGhlIHNlbmRlciBvciB0aGUgY29u
+dGVudC4NCj4gDQo+IA0KPiBPbiBUdWUsIE1hciAyNCwgMjAyNiBhdCAxMTowNeKAr1BNIEphc29u
+LUpIIExpbg0KPiA8amFzb24tamgubGluQG1lZGlhdGVrLmNvbT4gd3JvdGU6DQo+ID4gDQo+ID4g
+U2luY2UgdGhlIG1haWxib3ggZHJpdmVyIGRhdGEgY2FuIGJlIG9idGFpbmVkIHVzaW5nDQo+ID4g
+Y21kcV9nZXRfbWJveF9wcml2KCkNCj4gPiBhbmQgYWxsIENNRFEgdXNlcnMgaGF2ZSB0cmFuc2l0
+aW9uZWQgdG8gY21kcV9nZXRfbWJveF9wcml2KCksDQo+ID4gY21kcV9nZXRfc2hpZnRfcGEoKSBj
+YW4gYmUgcmVtb3ZlZC4NCj4gPiANCj4gPiBTaWduZWQtb2ZmLWJ5OiBKYXNvbi1KSCBMaW4gPGph
+c29uLWpoLmxpbkBtZWRpYXRlay5jb20+DQo+ID4gUmV2aWV3ZWQtYnk6IEFuZ2Vsb0dpb2FjY2hp
+bm8gRGVsIFJlZ25vDQo+ID4gPGFuZ2Vsb2dpb2FjY2hpbm8uZGVscmVnbm9AY29sbGFib3JhLmNv
+bT4NCj4gPiAtLS0NCg0KW3NuaXBdDQoNCj4gSSB0aGluayB0aGUgc2ltcGxlc3Qgd291bGQgYmUg
+dG8gdGFrZSB0aGlzIHdpdGggdGhlIG90aGVyIHR3bw0KPiBwcmVkZWNlc3NvciBwYXRjaGVzLg0K
+PiBBY2tlZC1ieTogSmFzc2kgQnJhciA8amFzc2lzaW5naGJyYXJAZ21haWwuY29tPg0KPiANClRo
+YW5rIHlvdSBKYXNzaSENCg0KDQoNCkhpIEFuZ2VsbywNCg0KQ291bGQgeW91IHBsZWFzZSB0YWtl
+IHRoaXMgd2l0aCB0aGlzIHNlcmllcz8NCg0KW1NlcmllcyBWMiAzLzRdIFJlbW92ZSBzaGlmdF9w
+YSBmcm9tIENNRFEganVtcCBmdW5jdGlvbnMNCmh0dHBzOi8vbG9yZS5rZXJuZWwub3JnL2FsbC8y
+MDI2MDMyNTA0MDIzOS4yMTEyNTE3LTEtamFzb24tamgubGluQG1lZGlhdGVrLmNvbS8NCg0KVGhh
+bmtzIQ0KDQpSZWdhcmRzLA0KSmFzb24tSkggTGluDQo=
