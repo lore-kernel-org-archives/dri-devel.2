@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4B3C31061B1B
-	for <dri-devel@archiver.kernel.org>; Mon, 30 Mar 2026 19:28:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CA9E71061B1A
+	for <dri-devel@archiver.kernel.org>; Mon, 30 Mar 2026 19:28:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AC30C10E7BD;
-	Mon, 30 Mar 2026 19:28:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3B6F810E7BC;
+	Mon, 30 Mar 2026 19:28:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="BYrE+kPC";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="oUJWw+sn";
 	dkim-atps=neutral
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5EA1910E7BC
- for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 19:28:12 +0000 (UTC)
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9AD4F10E7BC
+ for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 19:28:22 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-02.galae.net (Postfix) with ESMTPS id 4C1561A3090;
- Mon, 30 Mar 2026 19:28:11 +0000 (UTC)
+ by smtpout-04.galae.net (Postfix) with ESMTPS id 6286DC4042D;
+ Mon, 30 Mar 2026 19:28:51 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 14DD65FFA8;
- Mon, 30 Mar 2026 19:28:11 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 2B5685FFA8;
+ Mon, 30 Mar 2026 19:28:21 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id D2CFD10450CE2; 
- Mon, 30 Mar 2026 21:27:56 +0200 (CEST)
+ with ESMTPSA id D985E10450A1D; 
+ Mon, 30 Mar 2026 21:28:08 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1774898888; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ t=1774898898; h=from:subject:date:message-id:to:cc:mime-version:content-type:
  content-transfer-encoding:in-reply-to:references;
- bh=n1k86Zo5Z3Wbr084UKzF99BGuv5mRcxWHfMNaWnksg8=;
- b=BYrE+kPCb79aNu4Gu6E2PHtB282FFnegJZdAetcKXH+TyauxVCZW1E+I8h/LIBaNEWOIqS
- 5vWSVqjkupG1iyeDCpyx8/UkVeE/dbN8t/ypRyFRTGT1th1EhQckElzuSDbXbfcjDbb1+B
- nVLYkYeulzH6JgFNMhf2873zIAaFlcuWI1WJSRk4FrhYvVlEy607d2QSafHZe48dJ/7Hvl
- Q4UeJZstu5+lKcS4GB09ZVmd/xfOUW8augQdkzvDuP1K5Tbw4oqlSfZM+Lmr7QzrcWlCIp
- xoBHF8W1SEdriIxZajVgVdjCn5p1jcZnxeIGB8XIEN0VsKqu3kKVBoczKlKXTA==
+ bh=RWUsNAX4qkcAdj0Wcj9Oo2se6gzwrm1zu3SjMpebEPg=;
+ b=oUJWw+snQiJK02OPuQbuHCk6voqfaJP4n5+P7ls65RFfDHnsX2qLyzuuWtQtOZpB2d8Ju2
+ /Ql5QOLjabiVDAJsEshL8Rx1jn0a9fEKfk558xZkRHYFjnmqluA6pP7pTYbvRByv/7KgPF
+ qPPd2c2Aptn8+8W2XDOalCkM5rLwHIFbLkHHMZQq066fyk2yZ6aREg12OPszPsII5wkk/c
+ 3ZKS4bQiXN0ix65glAXmXA4TlR1ZKO4pn3beZ17TMH3k7qCbSNdZZKqprWad0MTHo4Kdkm
+ cCuXPz6SezX9ubQncm6HLiFQKMQK6wMfkfN/F/sHH/aJrnaM0jDU02rO0RlELA==
 From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Date: Mon, 30 Mar 2026 21:25:50 +0200
-Subject: [PATCH v2 09/10] drm/bridge: imx8mp-hdmi-tx: switch to
- DRM_BRIDGE_ATTACH_NO_CONNECTOR
+Date: Mon, 30 Mar 2026 21:25:51 +0200
+Subject: [PATCH v2 10/10] drm/mxsfb/lcdif: use
+ DRM_BRIDGE_ATTACH_NO_CONNECTOR and the bridge-connector
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260330-drm-lcdif-dbanc-v2-9-c7f2af536a24@bootlin.com>
+Message-Id: <20260330-drm-lcdif-dbanc-v2-10-c7f2af536a24@bootlin.com>
 References: <20260330-drm-lcdif-dbanc-v2-0-c7f2af536a24@bootlin.com>
 In-Reply-To: <20260330-drm-lcdif-dbanc-v2-0-c7f2af536a24@bootlin.com>
 To: Marek Vasut <marex@denx.de>, Stefan Agner <stefan@agner.ch>, 
@@ -99,47 +99,82 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The imx8mp-hdmi-tx one of many drivers based on dw-hdmi. dw-hdmi in turn
-can operate in two different modes, depending on the platform data as set
-by the driver:
+Convert this driver to DRM_BRIDGE_ATTACH_NO_CONNECTOR and to the
+drm_bridge_connector framework which is the current DRM bridge best
+practice.
 
- A. hdmi->plat_data->output_port = 0:
-    the HDMI output (port@1) in device tree is not used [0]
-
- B. hdmi->plat_data->output_port = 1:
-    the HDMI output (port@1) is parsed to find the next bridge
-
-The imx8mp-hdmi-tx driver falls in case A. Switching to case B, which is
-the current best practice, requires that the HDMI connector is always
-described in the live device tree, and a previous commit ensured this is
-always the case by adding an overlay in case the device tree does not
-comply.
-
-So now we can simply switch to the new mode and support
-DRM_BRIDGE_ATTACH_NO_CONNECTOR.
-
+Tested-by: Martyn Welch <martyn.welch@collabora.com>
+Tested-by: Alexander Stein <alexander.stein@ew.tq-group.com> # TQMa8MPxL/MBa8MPxL
 Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 
 ---
 
 Changes in v2:
-- new patch, split out of the previous patch
+- Added missing select DRM_DISPLAY_HELPER in Kconfig
+- Rebased on previous patch changes
 ---
- drivers/gpu/drm/bridge/imx/imx8mp-hdmi-tx.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/gpu/drm/mxsfb/Kconfig     |  2 ++
+ drivers/gpu/drm/mxsfb/lcdif_drv.c | 16 +++++++++++++++-
+ 2 files changed, 17 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/bridge/imx/imx8mp-hdmi-tx.c b/drivers/gpu/drm/bridge/imx/imx8mp-hdmi-tx.c
-index 32fd3554e267..8e8cfd66f23b 100644
---- a/drivers/gpu/drm/bridge/imx/imx8mp-hdmi-tx.c
-+++ b/drivers/gpu/drm/bridge/imx/imx8mp-hdmi-tx.c
-@@ -138,6 +138,7 @@ static int imx8mp_dw_hdmi_probe(struct platform_device *pdev)
- 	plat_data->phy_name = "SAMSUNG HDMI TX PHY";
- 	plat_data->priv_data = hdmi;
- 	plat_data->phy_force_vendor = true;
-+	plat_data->output_port = 1;
+diff --git a/drivers/gpu/drm/mxsfb/Kconfig b/drivers/gpu/drm/mxsfb/Kconfig
+index 264e74f45554..31db7a824a93 100644
+--- a/drivers/gpu/drm/mxsfb/Kconfig
++++ b/drivers/gpu/drm/mxsfb/Kconfig
+@@ -33,6 +33,8 @@ config DRM_IMX_LCDIF
+ 	select DRM_GEM_DMA_HELPER
+ 	select DRM_PANEL
+ 	select DRM_PANEL_BRIDGE
++	select DRM_DISPLAY_HELPER
++	select DRM_BRIDGE_CONNECTOR
+ 	help
+ 	  Choose this option if you have an LCDIFv3 LCD controller.
+ 	  Those devices are found in various i.MX SoC (i.MX8MP,
+diff --git a/drivers/gpu/drm/mxsfb/lcdif_drv.c b/drivers/gpu/drm/mxsfb/lcdif_drv.c
+index c8ba8f9b1da8..7f07ae24e0dc 100644
+--- a/drivers/gpu/drm/mxsfb/lcdif_drv.c
++++ b/drivers/gpu/drm/mxsfb/lcdif_drv.c
+@@ -18,6 +18,7 @@
+ #include <drm/clients/drm_client_setup.h>
+ #include <drm/drm_atomic_helper.h>
+ #include <drm/drm_bridge.h>
++#include <drm/drm_bridge_connector.h>
+ #include <drm/drm_drv.h>
+ #include <drm/drm_encoder.h>
+ #include <drm/drm_fbdev_dma.h>
+@@ -57,6 +58,7 @@ static int lcdif_attach_bridge(struct lcdif_drm_private *lcdif)
+ 		struct of_endpoint of_ep;
+ 		struct drm_bridge *bridge;
+ 		struct drm_encoder *encoder;
++		struct drm_connector *connector;
+ 		int ret;
  
- 	platform_set_drvdata(pdev, hdmi);
+ 		if (!of_device_is_available(remote))
+@@ -86,11 +88,23 @@ static int lcdif_attach_bridge(struct lcdif_drm_private *lcdif)
+ 					     "Failed to initialize encoder for endpoint%u\n",
+ 					     of_ep.id);
  
+-		ret = drm_bridge_attach(encoder, bridge, NULL, 0);
++		ret = drm_bridge_attach(encoder, bridge, NULL, DRM_BRIDGE_ATTACH_NO_CONNECTOR);
+ 		if (ret)
+ 			return dev_err_probe(dev, ret,
+ 					     "Failed to attach bridge for endpoint%u\n",
+ 					     of_ep.id);
++
++		connector = drm_bridge_connector_init(lcdif->drm, encoder);
++		if (IS_ERR(connector))
++			return dev_err_probe(dev, PTR_ERR(connector),
++					     "Failed to init bridge_connector for endpoint%u\n",
++					     of_ep.id);
++
++		ret = drm_connector_attach_encoder(connector, encoder);
++		if (ret)
++			return dev_err_probe(dev, ret,
++					     "Failed to attach connector for endpoint%u\n",
++					     of_ep.id);
+ 	}
+ 
+ 	return 0;
 
 -- 
 2.53.0
