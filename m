@@ -4,134 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5BB8E1061B1C
-	for <dri-devel@archiver.kernel.org>; Mon, 30 Mar 2026 18:46:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 887251061B1C
+	for <dri-devel@archiver.kernel.org>; Mon, 30 Mar 2026 18:47:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9F15810E627;
-	Mon, 30 Mar 2026 18:46:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D5B2710E68A;
+	Mon, 30 Mar 2026 18:47:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=broadcom.com header.i=@broadcom.com header.b="gAxEx7hg";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="W6FstmcK";
 	dkim-atps=neutral
-Received: from mail-pj1-f99.google.com (mail-pj1-f99.google.com
- [209.85.216.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 981D310E627
- for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 18:46:50 +0000 (UTC)
-Received: by mail-pj1-f99.google.com with SMTP id
- 98e67ed59e1d1-35d99031e4eso1333746a91.1
- for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 11:46:50 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774896410; x=1775501210;
- h=content-transfer-encoding:in-reply-to:autocrypt:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:dkim-signature:x-gm-gg:x-gm-message-state:from:to
- :cc:subject:date:message-id:reply-to;
- bh=M1E+3WVXMJwlqaN80KkJm7QShEoP0ecOMzlPB5qaAL4=;
- b=iRtfuz5BWi7Ff0rSQ/S3qgkEVx3ALsiMEQc+QO5PC7f8tmCXYctH2ysF0ETE1hPpoo
- 7tfzadWDCkIZs7IgweA+F4+pDesB0aGtQPxu9Yy5RNh4S1Ft6TxoiAidM6fsJKEZIy+c
- eL7dFaTnhsYv0Sa1R3z1II2241aPJRRFmE/FAD69uy5iVRQlQtPE0vFhOzzFAD7aqzHG
- AxMI5hTvqP4xMGA4d4e+++6kywdrElD/IBW5zL2UGJWlVGXYUuQcY7juKJM6DFwPkFFd
- /t6QyhcG5PzJ2t/CKT2r1nIJgaMNMeLAUm04n29r9w8aRaHZbhOzuuVN/OlhnR/9Qb8L
- ZiwA==
-X-Gm-Message-State: AOJu0YykoPALqE6jyZ07aSxpEZYhX3flWHmB2vWW5V1GNpqtdk+Tpa+J
- Pln4UrDvdJ8CkBeR/r8r/n/+Z6RNGBo2ywCZ0ufi9pTY+O5aEy4ufEpEYIsttD9Ak7TS1FPDU+b
- ti8jUH7pVrT1Hd/XZXjkGWzSNnAM7as08rWu/nGHTyUtN0+6P73DI9zHup5lvjn4J2Eq5eroxY6
- O1NbwXzs5/LxtwoQgw5HzPL2102Yf7vJKO1Uhba6dgAI0+Sev0Ldphh8h675QKDJDB2PqRnRcXK
- 7HFHZqnqIOjJVe14xkWV/iyWzrY
-X-Gm-Gg: ATEYQzz+eaJvKac8oYbBZQMoLRzEcSn7Mp+a848eBlJg1IhqgdMGcHXSfg0vvF0zvIL
- i1KzroMcNUuKI/0WPHY+MQ4SqK9f5iTseXUvFVhrD15k/xkKKwQE3TxSl/Du7C7YvML+9AT4OWy
- xcgEl7wRoDNlIb+TZJTJuHd+OwiWJq6pgjBN7F0AE61WY7IhahZwv/NHpBXBOR3ujv/lRkmjW37
- 99rrv3ycADu8kv7lfALwlC5sQ0ZxwPpsSHeY14ltTjA2ubVxNlD/GbmUYrNwpbOPyHAm+qcoWVh
- HzMK0JNYKlrmETHPOA/rgVjCraQoA7dIs3lCYK3FMbxlJzdQJ0+oprfjiJINevLRcPHZld12h3z
- OM3+E8B29QSKVIpEYeGRTDtOoPliLK8OVSmxwmpKLlJCoxRnFwzsWHu1KiHjPS19NNyzHKgOEcn
- 3jsc9eLhCiICVx6naca+XytJwnalVhyDtH9DvbMB1CNAxsBWjWYYnXxRMVSMeTGQ==
-X-Received: by 2002:a17:902:da4d:b0:2ae:5eee:7a5 with SMTP id
- d9443c01a7336-2b0cdc280d6mr119202345ad.12.1774896409968; 
- Mon, 30 Mar 2026 11:46:49 -0700 (PDT)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com
- (address-144-49-247-15.dlp.protect.broadcom.com. [144.49.247.15])
- by smtp-relay.gmail.com with ESMTPS id
- d9443c01a7336-2b242742a17sm9591165ad.37.2026.03.30.11.46.49
- for <dri-devel@lists.freedesktop.org>
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Mon, 30 Mar 2026 11:46:49 -0700 (PDT)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-qt1-f198.google.com with SMTP id
- d75a77b69052e-5091782ab06so248443851cf.0
- for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 11:46:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=broadcom.com; s=google; t=1774896408; x=1775501208;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:in-reply-to:autocrypt:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to;
- bh=M1E+3WVXMJwlqaN80KkJm7QShEoP0ecOMzlPB5qaAL4=;
- b=gAxEx7hgxHDNeue/hanKlX/Rh9P9S1dL5N5VmFBcBX9JmBOqQg/xIVldzmLeh5KvLC
- x7P/VA7xYhVNuj6PmPlv4MsZGU9iJijSYYUVB5fRAk8mWFNXXFjBdAjsZeyjBRmtlCcO
- Ks7bq7KXZbtBxHM6NbVmn5rolOxDgouw2o2bs=
-X-Received: by 2002:a05:622a:5591:b0:509:2618:cef1 with SMTP id
- d75a77b69052e-50ba38c8f89mr180654061cf.47.1774896408056; 
- Mon, 30 Mar 2026 11:46:48 -0700 (PDT)
-X-Received: by 2002:a05:622a:5591:b0:509:2618:cef1 with SMTP id
- d75a77b69052e-50ba38c8f89mr180653611cf.47.1774896407577; 
- Mon, 30 Mar 2026 11:46:47 -0700 (PDT)
-Received: from [10.67.48.245] ([192.19.223.252])
- by smtp.gmail.com with ESMTPSA id
- d75a77b69052e-50bb2cccbc4sm75020471cf.13.2026.03.30.11.46.45
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 30 Mar 2026 11:46:47 -0700 (PDT)
-Message-ID: <189a2bcf-88f6-4038-99f9-af11a4e27990@broadcom.com>
-Date: Mon, 30 Mar 2026 11:46:44 -0700
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 10A0010E65A;
+ Mon, 30 Mar 2026 18:47:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1774896436; x=1806432436;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=PIWI0crOj+P0FxeQumFWmGWyqU1qNqCXu0ML4qoFNbM=;
+ b=W6FstmcKRzwAMNOluV3HWXwXMWBFW81j8dZmz9VUZJ1S5zjfKukrRHLG
+ yylCFw+87V1ccgrP+xfzYJboQjmr9Ei655bwBX0YUZeY5WaRZBrDv9QlA
+ D8nwsv4MFlU7i9Nt2UMJ+wyBZpTp/wtC+3F+dZJ3j7ywCxiSy8PAov2cM
+ TN71OJDm5wwIgN3Lohbl+pTUK3XgBlxtQZcz2M4Y9AdI7O2jArdB1Yira
+ vTU+chNapUeqGdsZmaQap2oGqW8dVV4qyOym3HFdkfioySuooQRsdjFV/
+ lqfM5adErlmc8D5PtvQ9QdI1S5GVAhGO66Y40AJMZ/PGw9BC4BdOiF7UG w==;
+X-CSE-ConnectionGUID: zmHf9mL8S9W7C9qV+B45jg==
+X-CSE-MsgGUID: TgAjxVElQSWWhyJ6OGjTgw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11744"; a="75614681"
+X-IronPort-AV: E=Sophos;i="6.23,150,1770624000"; d="scan'208";a="75614681"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+ by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Mar 2026 11:47:15 -0700
+X-CSE-ConnectionGUID: En751reBR6uDEdfE4dj2Qg==
+X-CSE-MsgGUID: qFzwAGSpRweXkPUdVcwvXg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,150,1770624000"; d="scan'208";a="225305660"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost)
+ ([10.245.245.155])
+ by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Mar 2026 11:47:12 -0700
+Date: Mon, 30 Mar 2026 21:47:08 +0300
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, jouni.hogander@intel.com,
+ animesh.manna@intel.com
+Subject: Re: [PATCH 14/19] drm/i915/display: Add helper for AS SDP
+ transmission time selection
+Message-ID: <acrFLD9186X5EOyM@intel.com>
+References: <20260330040656.4116502-1-ankit.k.nautiyal@intel.com>
+ <20260330040656.4116502-15-ankit.k.nautiyal@intel.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 3/3] drm/v3d: Introduce Runtime Power Management
-To: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
- Stefan Wahren <wahrenst@gmx.net>, Maxime Ripard <mripard@kernel.org>,
- Melissa Wen <mwen@igalia.com>, Iago Toral Quiroga <itoral@igalia.com>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>
-Cc: dri-devel@lists.freedesktop.org, linux-rpi-kernel@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, Broadcom internal kernel review list
- <bcm-kernel-feedback-list@broadcom.com>, kernel-dev@igalia.com
-References: <20260328-v3d-power-management-v8-0-94336830df5f@igalia.com>
- <20260328-v3d-power-management-v8-3-94336830df5f@igalia.com>
-Content-Language: en-US, fr-FR
-From: Florian Fainelli <florian.fainelli@broadcom.com>
-Autocrypt: addr=florian.fainelli@broadcom.com; keydata=
- xsBNBFPAG8ABCAC3EO02urEwipgbUNJ1r6oI2Vr/+uE389lSEShN2PmL3MVnzhViSAtrYxeT
- M0Txqn1tOWoIc4QUl6Ggqf5KP6FoRkCrgMMTnUAINsINYXK+3OLe7HjP10h2jDRX4Ajs4Ghs
- JrZOBru6rH0YrgAhr6O5gG7NE1jhly+EsOa2MpwOiXO4DE/YKZGuVe6Bh87WqmILs9KvnNrQ
- PcycQnYKTVpqE95d4M824M5cuRB6D1GrYovCsjA9uxo22kPdOoQRAu5gBBn3AdtALFyQj9DQ
- KQuc39/i/Kt6XLZ/RsBc6qLs+p+JnEuPJngTSfWvzGjpx0nkwCMi4yBb+xk7Hki4kEslABEB
- AAHNMEZsb3JpYW4gRmFpbmVsbGkgPGZsb3JpYW4uZmFpbmVsbGlAYnJvYWRjb20uY29tPsLB
- IQQQAQgAywUCZWl41AUJI+Jo+hcKAAG/SMv+fS3xUQWa0NryPuoRGjsA3SAUAAAAAAAWAAFr
- ZXktdXNhZ2UtbWFza0BwZ3AuY29tjDAUgAAAAAAgAAdwcmVmZXJyZWQtZW1haWwtZW5jb2Rp
- bmdAcGdwLmNvbXBncG1pbWUICwkIBwMCAQoFF4AAAAAZGGxkYXA6Ly9rZXlzLmJyb2FkY29t
- Lm5ldAUbAwAAAAMWAgEFHgEAAAAEFQgJChYhBNXZKpfnkVze1+R8aIExtcQpvGagAAoJEIEx
- tcQpvGagWPEH/2l0DNr9QkTwJUxOoP9wgHfmVhqc0ZlDsBFv91I3BbhGKI5UATbipKNqG13Z
- TsBrJHcrnCqnTRS+8n9/myOF0ng2A4YT0EJnayzHugXm+hrkO5O9UEPJ8a+0553VqyoFhHqA
- zjxj8fUu1px5cbb4R9G4UAySqyeLLeqnYLCKb4+GklGSBGsLMYvLmIDNYlkhMdnnzsSUAS61
- WJYW6jjnzMwuKJ0ZHv7xZvSHyhIsFRiYiEs44kiYjbUUMcXor/uLEuTIazGrE3MahuGdjpT2
- IOjoMiTsbMc0yfhHp6G/2E769oDXMVxCCbMVpA+LUtVIQEA+8Zr6mX0Yk4nDS7OiBlvOwE0E
- U8AbwQEIAKxr71oqe+0+MYCc7WafWEcpQHFUwvYLcdBoOnmJPxDwDRpvU5LhqSPvk/yJdh9k
- 4xUDQu3rm1qIW2I9Puk5n/Jz/lZsqGw8T13DKyu8eMcvaA/irm9lX9El27DPHy/0qsxmxVmU
- pu9y9S+BmaMb2CM9IuyxMWEl9ruWFS2jAWh/R8CrdnL6+zLk60R7XGzmSJqF09vYNlJ6Bdbs
- MWDXkYWWP5Ub1ZJGNJQ4qT7g8IN0qXxzLQsmz6tbgLMEHYBGx80bBF8AkdThd6SLhreCN7Uh
- IR/5NXGqotAZao2xlDpJLuOMQtoH9WVNuuxQQZHVd8if+yp6yRJ5DAmIUt5CCPcAEQEAAcLB
- gQQYAQIBKwUCU8AbwgUbDAAAAMBdIAQZAQgABgUCU8AbwQAKCRCTYAaomC8PVQ0VCACWk3n+
- obFABEp5Rg6Qvspi9kWXcwCcfZV41OIYWhXMoc57ssjCand5noZi8bKg0bxw4qsg+9cNgZ3P
- N/DFWcNKcAT3Z2/4fTnJqdJS//YcEhlr8uGs+ZWFcqAPbteFCM4dGDRruo69IrHfyyQGx16s
- CcFlrN8vD066RKevFepb/ml7eYEdN5SRALyEdQMKeCSf3mectdoECEqdF/MWpfWIYQ1hEfdm
- C2Kztm+h3Nkt9ZQLqc3wsPJZmbD9T0c9Rphfypgw/SfTf2/CHoYVkKqwUIzI59itl5Lze+R5
- wDByhWHx2Ud2R7SudmT9XK1e0x7W7a5z11Q6vrzuED5nQvkhAAoJEIExtcQpvGagugcIAJd5
- EYe6KM6Y6RvI6TvHp+QgbU5dxvjqSiSvam0Ms3QrLidCtantcGT2Wz/2PlbZqkoJxMQc40rb
- fXa4xQSvJYj0GWpadrDJUvUu3LEsunDCxdWrmbmwGRKqZraV2oG7YEddmDqOe0Xm/NxeSobc
- MIlnaE6V0U8f5zNHB7Y46yJjjYT/Ds1TJo3pvwevDWPvv6rdBeV07D9s43frUS6xYd1uFxHC
- 7dZYWJjZmyUf5evr1W1gCgwLXG0PEi9n3qmz1lelQ8lSocmvxBKtMbX/OKhAfuP/iIwnTsww
- 95A2SaPiQZA51NywV8OFgsN0ITl2PlZ4Tp9hHERDe6nQCsNI/Us=
-In-Reply-To: <20260328-v3d-power-management-v8-3-94336830df5f@igalia.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
+In-Reply-To: <20260330040656.4116502-15-ankit.k.nautiyal@intel.com>
+X-Patchwork-Hint: comment
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -147,36 +76,112 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 3/28/26 11:52, Ma√≠ra Canal wrote:
-> Commit 90a64adb0876 ("drm/v3d: Get rid of pm code") removed the last
-> bits of power management code that V3D had, which were actually never
-> hooked. Therefore, currently, the GPU clock is enabled during probe
-> and only disabled when removing the driver.
+On Mon, Mar 30, 2026 at 09:36:51AM +0530, Ankit Nautiyal wrote:
+> AS SDP may be transmitted at T1 or T2 depending on Panel Replay and
+> Adaptive Sync SDP configuration as per DP 2.1. Current we are using
+> T1 only, but future PR/AS SDP modes/features may require T2 or dynamic
+> selection.
 > 
-> Implement proper power management using the kernel's Runtime PM
-> framework.
+> Introduce a helper to return the appropriate AS SDP transmission time so
+> that a single value is consistently used for programming PR_ALPM.
+> For now this returns T1.
 > 
-> Reviewed-by: Melissa Wen <mwen@igalia.com>
-> Signed-off-by: Ma√≠ra Canal <mcanal@igalia.com>
+> v2: Avoid adding new member to crtc_state; use a helper. (Ville)
+> v3: Clarify why AS SDP transmission time is fixed to T1. (Ville)
+> 
+> Bspec: 68920
+> Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 > ---
-[snip]
-
-> +static void
-> +v3d_suspend_sms(struct v3d_dev *v3d)
+>  drivers/gpu/drm/i915/display/intel_alpm.c | 20 +++++++++++++++++++-
+>  drivers/gpu/drm/i915/display/intel_dp.c   | 11 +++++++++++
+>  drivers/gpu/drm/i915/display/intel_dp.h   |  2 ++
+>  3 files changed, 32 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/i915/display/intel_alpm.c b/drivers/gpu/drm/i915/display/intel_alpm.c
+> index a7350ce8e716..76de24a03f61 100644
+> --- a/drivers/gpu/drm/i915/display/intel_alpm.c
+> +++ b/drivers/gpu/drm/i915/display/intel_alpm.c
+> @@ -11,6 +11,7 @@
+>  #include "intel_crtc.h"
+>  #include "intel_de.h"
+>  #include "intel_display_types.h"
+> +#include "intel_display_utils.h"
+>  #include "intel_dp.h"
+>  #include "intel_dp_aux.h"
+>  #include "intel_psr.h"
+> @@ -359,6 +360,23 @@ void intel_alpm_lobf_compute_config(struct intel_dp *intel_dp,
+>  	crtc_state->has_lobf = true;
+>  }
+>  
+> +static u32 get_pr_alpm_as_sdp_transmission_time(const struct intel_crtc_state *crtc_state)
 > +{
-> +	if (v3d->ver < V3D_GEN_71)
-> +		return;
+> +	int as_sdp_setup_time = intel_dp_as_sdp_transmission_time();
 > +
-> +	V3D_SMS_WRITE(V3D_SMS_TEE_CS, V3D_SMS_POWER_OFF);
-> +
-> +	if (wait_for((V3D_GET_FIELD(V3D_SMS_READ(V3D_SMS_TEE_CS),
-> +				    V3D_SMS_STATE) == V3D_SMS_POWER_OFF_STATE), 100)) {
-> +		drm_err(&v3d->drm, "Failed to power off SMS\n");
+> +	switch (as_sdp_setup_time) {
+> +	case DP_PR_AS_SDP_SETUP_TIME_T1:
+> +		return PR_ALPM_CTL_ADAPTIVE_SYNC_SDP_POSITION_T1;
+> +	case DP_PR_AS_SDP_SETUP_TIME_DYNAMIC:
+> +		return PR_ALPM_CTL_ADAPTIVE_SYNC_SDP_POSITION_T1_OR_T2;
+> +	case DP_PR_AS_SDP_SETUP_TIME_T2:
+> +		return PR_ALPM_CTL_ADAPTIVE_SYNC_SDP_POSITION_T2;
+> +	default:
+> +		MISSING_CASE(as_sdp_setup_time);
+> +		return PR_ALPM_CTL_ADAPTIVE_SYNC_SDP_POSITION_T1;
 > +	}
+> +}
+> +
+>  static void lnl_alpm_configure(struct intel_dp *intel_dp,
+>  			       const struct intel_crtc_state *crtc_state)
+>  {
+> @@ -382,7 +400,7 @@ static void lnl_alpm_configure(struct intel_dp *intel_dp,
+>  			ALPM_CTL_AUX_LESS_WAKE_TIME(crtc_state->alpm_state.aux_less_wake_lines);
+>  
+>  		if (intel_dp->as_sdp_supported) {
+> -			u32 pr_alpm_ctl = PR_ALPM_CTL_ADAPTIVE_SYNC_SDP_POSITION_T1;
+> +			u32 pr_alpm_ctl = get_pr_alpm_as_sdp_transmission_time(crtc_state);
+>  
+>  			if (crtc_state->link_off_after_as_sdp_when_pr_active)
+>  				pr_alpm_ctl |= PR_ALPM_CTL_ALLOW_LINK_OFF_BETWEEN_AS_SDP_AND_SU;
+> diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+> index b2007ffe18bc..108e97b26748 100644
+> --- a/drivers/gpu/drm/i915/display/intel_dp.c
+> +++ b/drivers/gpu/drm/i915/display/intel_dp.c
+> @@ -7465,3 +7465,14 @@ bool intel_dp_joiner_candidate_valid(struct intel_connector *connector,
+>  
+>  	return true;
+>  }
+> +
+> +int intel_dp_as_sdp_transmission_time(void)
 
-We would certainly want to propagate any errors from wait_for() here to 
-ensure that we built appropriately timeout and get a chance at debugging.
+This is a DPCD register value, so u8 would seem like the more
+appropriate return type.
 
-Same for v3d_resume_sms().
+With that
+Reviewed-by: Ville Syrj‰l‰ <ville.syrjala@linux.intel.com>
+
+> +{
+> +	/*
+> +	 * DP allows AS SDP position to move during PR active in some cases, but
+> +	 * software-controlled refresh rate changes with DC6v / ALPM require the
+> +	 * AS SDP to remain at T1. Use T1 unconditionally for now.
+> +	 */
+> +
+> +	return DP_PR_AS_SDP_SETUP_TIME_T1;
+> +}
+> diff --git a/drivers/gpu/drm/i915/display/intel_dp.h b/drivers/gpu/drm/i915/display/intel_dp.h
+> index 2849b9ecdc71..2e4609d9d05c 100644
+> --- a/drivers/gpu/drm/i915/display/intel_dp.h
+> +++ b/drivers/gpu/drm/i915/display/intel_dp.h
+> @@ -238,4 +238,6 @@ bool intel_dp_joiner_candidate_valid(struct intel_connector *connector,
+>  	for ((__num_joined_pipes) = 1; (__num_joined_pipes) <= (I915_MAX_PIPES); (__num_joined_pipes)++) \
+>  		for_each_if(intel_dp_joiner_candidate_valid(__connector, (__mode)->hdisplay, __num_joined_pipes))
+>  
+> +int intel_dp_as_sdp_transmission_time(void);
+> +
+>  #endif /* __INTEL_DP_H__ */
+> -- 
+> 2.45.2
+
 -- 
-Florian
+Ville Syrj‰l‰
+Intel
