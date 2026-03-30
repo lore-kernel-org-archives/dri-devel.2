@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 96EC41061B1A
-	for <dri-devel@archiver.kernel.org>; Mon, 30 Mar 2026 19:28:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4B3C31061B1B
+	for <dri-devel@archiver.kernel.org>; Mon, 30 Mar 2026 19:28:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 04AF810E7BA;
-	Mon, 30 Mar 2026 19:28:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AC30C10E7BD;
+	Mon, 30 Mar 2026 19:28:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="dzggqOYk";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="BYrE+kPC";
 	dkim-atps=neutral
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 864A810E7BA
- for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 19:28:00 +0000 (UTC)
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5EA1910E7BC
+ for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 19:28:12 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-04.galae.net (Postfix) with ESMTPS id 94BFDC4042D;
- Mon, 30 Mar 2026 19:28:29 +0000 (UTC)
+ by smtpout-02.galae.net (Postfix) with ESMTPS id 4C1561A3090;
+ Mon, 30 Mar 2026 19:28:11 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 5DF545FFA8;
- Mon, 30 Mar 2026 19:27:59 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 14DD65FFA8;
+ Mon, 30 Mar 2026 19:28:11 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id BE87210450C85; 
- Mon, 30 Mar 2026 21:27:45 +0200 (CEST)
+ with ESMTPSA id D2CFD10450CE2; 
+ Mon, 30 Mar 2026 21:27:56 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1774898875; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ t=1774898888; h=from:subject:date:message-id:to:cc:mime-version:content-type:
  content-transfer-encoding:in-reply-to:references;
- bh=O8T964MxGFYFbkUiXwr8dehorUZYeF8EMTUnPBp/DzI=;
- b=dzggqOYkArba03xn7HMlX41G0CsMlq57WKi7evpTIho+Zpxbx+cP20xQuE4mHMFl0Iymub
- LdrTntpNjVAyJAWBjT3RobLoTUv9jVRuzKL8HUNFQeWQ1TQwSF++t9TIPGnmMg3Ts7yQHP
- 5hRMbHPocvYOvX228m2rBBZU2Mkgt3b6zR3GBV/90NFP4BrbOoU5T3J9QWPDncKQcN4lfJ
- RIhPZNHu8JRjDfixW5IOD+OaHkDNGFpm//GMuB/loVua0QToqQ3w992k1jJoykCOlDw3HS
- 4D8qCLNVhtJlx4OXkAk+X0QNdXaWTV6xbALpoK9PxrnUJ9vPptRbu05lHcoh3w==
+ bh=n1k86Zo5Z3Wbr084UKzF99BGuv5mRcxWHfMNaWnksg8=;
+ b=BYrE+kPCb79aNu4Gu6E2PHtB282FFnegJZdAetcKXH+TyauxVCZW1E+I8h/LIBaNEWOIqS
+ 5vWSVqjkupG1iyeDCpyx8/UkVeE/dbN8t/ypRyFRTGT1th1EhQckElzuSDbXbfcjDbb1+B
+ nVLYkYeulzH6JgFNMhf2873zIAaFlcuWI1WJSRk4FrhYvVlEy607d2QSafHZe48dJ/7Hvl
+ Q4UeJZstu5+lKcS4GB09ZVmd/xfOUW8augQdkzvDuP1K5Tbw4oqlSfZM+Lmr7QzrcWlCIp
+ xoBHF8W1SEdriIxZajVgVdjCn5p1jcZnxeIGB8XIEN0VsKqu3kKVBoczKlKXTA==
 From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Date: Mon, 30 Mar 2026 21:25:49 +0200
-Subject: [PATCH v2 08/10] drm/bridge: imx8mp-hdmi-tx: add an hdmi-connector
- when missing using a DT overlay at boot time
+Date: Mon, 30 Mar 2026 21:25:50 +0200
+Subject: [PATCH v2 09/10] drm/bridge: imx8mp-hdmi-tx: switch to
+ DRM_BRIDGE_ATTACH_NO_CONNECTOR
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260330-drm-lcdif-dbanc-v2-8-c7f2af536a24@bootlin.com>
+Message-Id: <20260330-drm-lcdif-dbanc-v2-9-c7f2af536a24@bootlin.com>
 References: <20260330-drm-lcdif-dbanc-v2-0-c7f2af536a24@bootlin.com>
 In-Reply-To: <20260330-drm-lcdif-dbanc-v2-0-c7f2af536a24@bootlin.com>
 To: Marek Vasut <marex@denx.de>, Stefan Agner <stefan@agner.ch>, 
@@ -99,7 +99,7 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The imx8mp-hdmi-tx is one of many drivers based on dw-hdmi. dw-hdmi in turn
+The imx8mp-hdmi-tx one of many drivers based on dw-hdmi. dw-hdmi in turn
 can operate in two different modes, depending on the platform data as set
 by the driver:
 
@@ -109,238 +109,37 @@ by the driver:
  B. hdmi->plat_data->output_port = 1:
     the HDMI output (port@1) is parsed to find the next bridge
 
-The imx8mp-hdmi-tx driver falls in case A. This implies next_bridge will
-always be NULL, and so dw_hdmi_bridge_attach() [1] will always fail if
-called with the DRM_BRIDGE_ATTACH_NO_CONNECTOR flag.
+The imx8mp-hdmi-tx driver falls in case A. Switching to case B, which is
+the current best practice, requires that the HDMI connector is always
+described in the live device tree, and a previous commit ensured this is
+always the case by adding an overlay in case the device tree does not
+comply.
 
-In fact case A assumes that DRM_BRIDGE_ATTACH_NO_CONNECTOR is not set and
-in that case it adds an HDMI Type A connector programmatically at bridge
-attach time.
-
-Support for DRM_BRIDGE_ATTACH_NO_CONNECTOR is implemented by dw-hdmi.c in
-case B. However switching to base B requires that port@1 is connected to a
-"next bridge" DT node, typically the HDMI connector, because dw-hdmi won't
-add the connector when using DRM_BRIDGE_ATTACH_NO_CONNECTOR.
-
-Many dts files for imx8mp-based boards in the kernel have such a connector
-described and linked to port@1, so the pipeline will be fully attached up
-to a display-connector and a drm_connector added by the
-bridge-connector. Sadly some of those dts files don't have the connector
-described. Adding it would solve the problem easily, but this would break
-existing devices which do not update the dtb when upgrading to a newer
-kernel.
-
-In preparation for switching to case B while preserving backward
-compatibility for such devices, introduce a module adding the
-hdmi-connector node to the live device tree at init time. This will allow
-the dw-hdmi code to find the next bridge (the one wrapping the
-hdmi-connector) and let the pipeline work as before.
-
-The module is inserted only if there is no endpoint in port@1. So boards
-whose device tree describe the connector will not have the device tre
-modified, and will start isntantiating the correct HDMI connector type as
-described in the device tree.
-
-For boards lacking a connector description in DT the overlay will be added,
-abd the HDMI connector will be Type A, which is a reasonable fallback and
-is what the driver is currently doing.
-
-[0] https://elixir.bootlin.com/linux/v7.0-rc1/source/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c#L3310
-[1] https://elixir.bootlin.com/linux/v7.0-rc1/source/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c#L2907
+So now we can simply switch to the new mode and support
+DRM_BRIDGE_ATTACH_NO_CONNECTOR.
 
 Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 
 ---
 
 Changes in v2:
-- don't apply the overlay if the SoC is not i.MX8MP
-- build unconditionally, but depend on DRM_IMX_LCDIF
-- remove useless error check
-- add missing cleanup.h and init.h includes, remove unneeded includes
-- avoid dtc warnings on overlay
-- fix typo in Kconfig help text
-- not added the Tested-bys because the code has changed
-- split the 'plat_data->output_port = 1' line to a separate patch
-
-This patch is inspired by commit 0ff223d99147 ("drm/tilcdc: Convert legacy
-panel binding via DT overlay at boot time")
+- new patch, split out of the previous patch
 ---
- drivers/gpu/drm/bridge/imx/Kconfig                 | 18 +++++++
- drivers/gpu/drm/bridge/imx/Makefile                |  2 +
- .../bridge/imx/imx8mp-hdmi-tx-connector-fixup.c    | 53 ++++++++++++++++++++
- .../bridge/imx/imx8mp-hdmi-tx-connector-fixup.dtso | 56 ++++++++++++++++++++++
- 4 files changed, 129 insertions(+)
+ drivers/gpu/drm/bridge/imx/imx8mp-hdmi-tx.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/bridge/imx/Kconfig b/drivers/gpu/drm/bridge/imx/Kconfig
-index b9028a5e5a06..49f074559b00 100644
---- a/drivers/gpu/drm/bridge/imx/Kconfig
-+++ b/drivers/gpu/drm/bridge/imx/Kconfig
-@@ -18,6 +18,8 @@ config DRM_IMX8MP_DW_HDMI_BRIDGE
- 	depends on OF
- 	depends on COMMON_CLK
- 	select DRM_DW_HDMI
-+	select OF_OVERLAY
-+	select DRM_DISPLAY_CONNECTOR
- 	imply DRM_IMX8MP_HDMI_PAI
- 	imply DRM_IMX8MP_HDMI_PVI
- 	imply PHY_FSL_SAMSUNG_HDMI_PHY
-@@ -25,6 +27,22 @@ config DRM_IMX8MP_DW_HDMI_BRIDGE
- 	  Choose this to enable support for the internal HDMI encoder found
- 	  on the i.MX8MP SoC.
+diff --git a/drivers/gpu/drm/bridge/imx/imx8mp-hdmi-tx.c b/drivers/gpu/drm/bridge/imx/imx8mp-hdmi-tx.c
+index 32fd3554e267..8e8cfd66f23b 100644
+--- a/drivers/gpu/drm/bridge/imx/imx8mp-hdmi-tx.c
++++ b/drivers/gpu/drm/bridge/imx/imx8mp-hdmi-tx.c
+@@ -138,6 +138,7 @@ static int imx8mp_dw_hdmi_probe(struct platform_device *pdev)
+ 	plat_data->phy_name = "SAMSUNG HDMI TX PHY";
+ 	plat_data->priv_data = hdmi;
+ 	plat_data->phy_force_vendor = true;
++	plat_data->output_port = 1;
  
-+config DRM_IMX8MP_DW_HDMI_BRIDGE_CONNECTOR_FIXUP
-+	bool
-+	default y
-+	depends on DRM_IMX_LCDIF
-+	depends on DRM_IMX8MP_DW_HDMI_BRIDGE
-+	depends on OF
-+	help
-+	  Modifies at early boot the live device tree of boards using the
-+	  i.MX8MP fsl,imx8mp-hdmi-tx adding a hdmi-connector node linked to
-+	  the hdmi-tx. This is needed to support bridge-connector usage in
-+	  the i.MX8MP LCDIF driver.
-+
-+	  You need this if you use the i.MX8MP HDMI output and your board
-+	  device tree file does not have an hdmi-connector node connected
-+	  to it.
-+
- config DRM_IMX8MP_HDMI_PAI
- 	tristate "Freescale i.MX8MP HDMI PAI bridge support"
- 	depends on OF
-diff --git a/drivers/gpu/drm/bridge/imx/Makefile b/drivers/gpu/drm/bridge/imx/Makefile
-index 8d01fda25451..84499fe2e444 100644
---- a/drivers/gpu/drm/bridge/imx/Makefile
-+++ b/drivers/gpu/drm/bridge/imx/Makefile
-@@ -1,6 +1,8 @@
- obj-$(CONFIG_DRM_IMX_LDB_HELPER) += imx-ldb-helper.o
- obj-$(CONFIG_DRM_IMX_LEGACY_BRIDGE) += imx-legacy-bridge.o
- obj-$(CONFIG_DRM_IMX8MP_DW_HDMI_BRIDGE) += imx8mp-hdmi-tx.o
-+obj-$(CONFIG_DRM_IMX8MP_DW_HDMI_BRIDGE_CONNECTOR_FIXUP) += imx8mp-hdmi-tx-connector-fixup.o \
-+							   imx8mp-hdmi-tx-connector-fixup.dtbo.o
- obj-$(CONFIG_DRM_IMX8MP_HDMI_PAI) += imx8mp-hdmi-pai.o
- obj-$(CONFIG_DRM_IMX8MP_HDMI_PVI) += imx8mp-hdmi-pvi.o
- obj-$(CONFIG_DRM_IMX8QM_LDB) += imx8qm-ldb.o
-diff --git a/drivers/gpu/drm/bridge/imx/imx8mp-hdmi-tx-connector-fixup.c b/drivers/gpu/drm/bridge/imx/imx8mp-hdmi-tx-connector-fixup.c
-new file mode 100644
-index 000000000000..4c0a22bf416b
---- /dev/null
-+++ b/drivers/gpu/drm/bridge/imx/imx8mp-hdmi-tx-connector-fixup.c
-@@ -0,0 +1,53 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Add an hdmi-connector node to boards using the imx8mp hdmi_tx which
-+ * don't have one. This is needed for the i.MX LCDIF to work with
-+ * DRM_BRIDGE_ATTACH_NO_CONNECTOR.
-+ *
-+ * Copyright (C) 2026 GE HealthCare
-+ * Author: Luca Ceresoli <luca.ceresoli@bootlin.com>
-+ */
-+
-+#include <linux/cleanup.h>
-+#include <linux/init.h>
-+#include <linux/of.h>
-+
-+/* Embedded dtbo symbols created by cmd_wrap_S_dtb in scripts/Makefile.dtbs */
-+extern char __dtbo_imx8mp_hdmi_tx_connector_fixup_begin[];
-+extern char __dtbo_imx8mp_hdmi_tx_connector_fixup_end[];
-+
-+static int __init imx8mp_hdmi_tx_connector_fixup_init(void)
-+{
-+	struct device_node *soc       __free(device_node) = NULL;
-+	struct device_node *hdmi_tx   __free(device_node) = NULL;
-+	struct device_node *endpoint  __free(device_node) = NULL;
-+	struct device_node *hdmi_conn __free(device_node) = NULL;
-+	void *dtbo_start;
-+	u32 dtbo_size;
-+	int ovcs_id;
-+
-+	soc = of_find_node_by_path("/soc@0");
-+	if (!soc)
-+		return 0;
-+
-+	/* This applies to i.MX8MP only, do nothing on other systems */
-+	if (!of_device_is_compatible(soc, "fsl,imx8mp-soc"))
-+		return 0;
-+
-+	hdmi_tx = of_find_node_by_path("/soc@0/bus@32c00000/hdmi@32fd8000");
-+	if (!of_device_is_available(hdmi_tx))
-+		return 0;
-+
-+	/* If endpoint exists, assume an hdmi-connector exists already */
-+	endpoint = of_find_node_by_path("/soc@0/bus@32c00000/hdmi@32fd8000/ports/port@1/endpoint");
-+	if (endpoint)
-+		return 0;
-+
-+	dtbo_start = __dtbo_imx8mp_hdmi_tx_connector_fixup_begin;
-+	dtbo_size = __dtbo_imx8mp_hdmi_tx_connector_fixup_end -
-+		    __dtbo_imx8mp_hdmi_tx_connector_fixup_begin;
-+
-+	return of_overlay_fdt_apply(dtbo_start, dtbo_size, &ovcs_id, NULL);
-+}
-+
-+subsys_initcall(imx8mp_hdmi_tx_connector_fixup_init);
-diff --git a/drivers/gpu/drm/bridge/imx/imx8mp-hdmi-tx-connector-fixup.dtso b/drivers/gpu/drm/bridge/imx/imx8mp-hdmi-tx-connector-fixup.dtso
-new file mode 100644
-index 000000000000..5dbe06d5ffe7
---- /dev/null
-+++ b/drivers/gpu/drm/bridge/imx/imx8mp-hdmi-tx-connector-fixup.dtso
-@@ -0,0 +1,56 @@
-+// SPDX-License-Identifier: GPL-2.0+
-+/*
-+ * DTS overlay adding an hdmi-connector node to boards using the imx8mp hdmi_tx
-+ *
-+ * Copyright (C) 2026 GE HealthCare
-+ * Author: Luca Ceresoli <luca.ceresoli@bootlin.com>
-+ */
-+
-+/dts-v1/;
-+/plugin/;
-+
-+&{/} {
-+	#address-cells = <2>;
-+	#size-cells = <2>;
-+
-+	fixup-hdmi-connector {
-+		compatible = "hdmi-connector";
-+		label = "HDMI";
-+		type = "a";
-+
-+		port {
-+			fixup_hdmi_connector_in: endpoint {
-+				remote-endpoint = <&hdmi_tx_out>;
-+			};
-+		};
-+	};
-+
-+	soc@0 {
-+		#address-cells = <1>;
-+		#size-cells = <1>;
-+		ranges = <0x0 0x0 0x0 0x3e000000>;
-+
-+		bus@32c00000 {
-+			reg = <0x32c00000 0x400000>;
-+			#address-cells = <1>;
-+			#size-cells = <1>;
-+
-+			hdmi@32fd8000 {
-+				reg = <0x32fd8000 0x7eff>;
-+
-+				ports {
-+					#address-cells = <1>;
-+					#size-cells = <0>;
-+
-+					port@1 {
-+						reg = <1>;
-+
-+						hdmi_tx_out: endpoint {
-+							remote-endpoint = <&fixup_hdmi_connector_in>;
-+						};
-+					};
-+				};
-+			};
-+		};
-+	};
-+};
+ 	platform_set_drvdata(pdev, hdmi);
+ 
 
 -- 
 2.53.0
