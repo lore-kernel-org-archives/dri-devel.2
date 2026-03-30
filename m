@@ -4,136 +4,140 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 59DBF1061B1A
-	for <dri-devel@archiver.kernel.org>; Mon, 30 Mar 2026 18:57:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0615E1061B18
+	for <dri-devel@archiver.kernel.org>; Mon, 30 Mar 2026 19:01:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BCA9710E6D6;
-	Mon, 30 Mar 2026 18:57:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EA1E010E711;
+	Mon, 30 Mar 2026 19:01:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="ALQaXzQu";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="HEDSh23D";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="WZZGOEVF";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0A94110E6D6
- for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 18:57:27 +0000 (UTC)
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 62UFwsQQ2723720
- for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 18:57:27 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=bw2n1JjHUO1SVcf10j+QO0Rs
- MwFDwlWuIyf73gWTUSw=; b=ALQaXzQumj5oXkpvH+ySP8jCWuqGUkbYERSGebez
- 0O3gCz3ieEbzs+gh73yC3VwaN1T3JQi1enaq4UXkNPo/xwpC7w69YwB3I1IctwaR
- 1uaGKocjKk9P3xqmOLwRPbfGabovaizuHyreE9FlZVJomnsOwotV9SU2T4gkVHIn
- wW5QV2q37Zts19Y95Xh696Ke4chidpJQxXMNWsWZ2JYx5qyu5C3Fwd/RYDtNsPxE
- 9kMsS4KhwmPmjD//wpFvO+U1Hb2DgNOXWH/i4dccU5+Du4IX6L5jZIul0y4WFMei
- INW/kEQbxRdgr1555svSme3I/cvplQLU45FDJkH1xEKIIA==
-Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com
- [209.85.214.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d7qt0hxkr-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 18:57:27 +0000 (GMT)
-Received: by mail-pl1-f200.google.com with SMTP id
- d9443c01a7336-2a7b8fe7c71so16686775ad.0
- for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 11:57:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1774897046; x=1775501846;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=bw2n1JjHUO1SVcf10j+QO0RsMwFDwlWuIyf73gWTUSw=;
- b=HEDSh23DksqUVqKXbcbMicSxq92pe5+/h6pZE59JPL80glHDc35kyf7mljuwx+hB9t
- h7Wp1wHwQOlKVjYU29jlCgHULrkQCBeSI1Z2g52jxlwfu+OGRmcJOuyXgfDtr1yvfbVQ
- 0mpta02+IPg6BVE8TJuR4upii4zfIFtjpIewzbI+JK9GlpQge8k2riY5xqFUungn/zjQ
- jG1KLFMNf8rGzDK9ioWoTK7mF7DUNUk6qJwqJqdzJuM498+jiK7BS5+eeiHTXB8BWyxS
- Tac53qC/X3satIgLZU6nY967MU4BZbTL/lXKwltCul1QQ18lg6g8vxRclUDj61HMTV2o
- wk1Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774897046; x=1775501846;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=bw2n1JjHUO1SVcf10j+QO0RsMwFDwlWuIyf73gWTUSw=;
- b=VO9MvM5CdrvKe6B/NTDfOUEHolgEsCT577l3y87ha749sMg6h/yF4B+4pTcWnilm67
- qprIlLTVBSge5I2MCkLGoi8g/5DiOQQ6/2fNjByXd8E6PE2KpoZp5sMY4oVZhAqgLQlR
- 5SKUcAsSSmfOGza2K107xw8610QBIz+rqQ8vi2frziHgi7QwLlCiMnIFtCzywXFXXxGs
- +quPrG+Bq6VLHG5o97BYrsbYN44ERWncjwsVQxfMLH+ivsJbUDjd2ThDqX5OXKxKr92A
- S+5hgjekAT6g9joNRriPX+eXpFqcb1Fi2+kpaNQ1v1J7mrXohjorkbFDdefL1kVoA8Db
- vwIA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXfTPCtPiWI4VAvBrTgB1k7jJSM4jRza4VBnab/6o3I9bTu/QzyvbHYEo/tJhUQ4C+9TBiZF2/aHa0=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyRxCupVWZPBeC6oa/g88700Gt9ak9Laa4n2il8SrcoQmF/x0N0
- SunRbTrZb/rIlkwU8i40RZqi2uwV2HwgtCngy6LnvjgvGtK8LPbwlSuzfGcMwoKSA/Jn2dq7+S6
- sWVWoKChSHXOhc2o70LXrjuIyUitJDvl+c52hkwTeoTkB3/EWOnqYq3ghVZh0jTd5rJUvRkY=
-X-Gm-Gg: ATEYQzxZ2Vf1AtRDyoNcqD9cP0+3qd6lmmMfbTsv3igBD2XPKQ+KsF8oJyCinD/gXii
- 6XWIN6Hc4S3EW22MArEb72ChcPsjFh8HHumAlP+bboIyhtiE5JSVWch1tV2NsSpLDQiTJ/wv8aZ
- 3Rzq4yUnwTw1cKk23RHlLvSM3J+QO4ONg2Xb6slqVrFcvs88uLmKcmp/Zs67l9JEVuZ8y2jCGUz
- RCoScAqobSxCTeb/oy+1A8iD3sMsDs6HtMb3DUs4EE02v1/kXvgckFjBpv8nSkr1F90xNHnLgLV
- naqF9bcDRIwZcNfOr47cvAakinFhnn2H3iweSMdNWR9OMEt2CXGZr0bdETpbFcCArFlcln5EumG
- xA/bMEQRmZ4BJYFtNCLrx8BNmpyWojtO+7U8pRAFWO2m2BFYeAkds4017YXpbBWYqVAc/HuFX7K
- bSaI+uqtrIxbGYGEEN+ilXaGQq+9u4FqArA5Sj8jr1tA==
-X-Received: by 2002:a17:903:3d0f:b0:2ae:5d79:a163 with SMTP id
- d9443c01a7336-2b0cdd44230mr80987845ad.5.1774897046169; 
- Mon, 30 Mar 2026 11:57:26 -0700 (PDT)
-X-Received: by 2002:a17:903:3d0f:b0:2ae:5d79:a163 with SMTP id
- d9443c01a7336-2b0cdd44230mr80987605ad.5.1774897045710; 
- Mon, 30 Mar 2026 11:57:25 -0700 (PDT)
-Received: from hu-vishsain-blr.qualcomm.com
- (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
- by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2b2427a27f2sm119371675ad.67.2026.03.30.11.57.21
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 30 Mar 2026 11:57:25 -0700 (PDT)
-Date: Tue, 31 Mar 2026 00:27:19 +0530
-From: Vishnu Saini <vishnu.saini@oss.qualcomm.com>
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
+Received: from BL0PR03CU003.outbound.protection.outlook.com
+ (mail-eastusazon11012009.outbound.protection.outlook.com [52.101.53.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 32F8710E653;
+ Mon, 30 Mar 2026 19:01:48 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=nPhrOLCyq1eAk1TtJGrc5BCRN5yuZRXFgJW6uGaixT9jU1V3MIoHm2jA7tI8h+6NFfNfMsYV9MS5LdXCuDw67z53cm2rK5pE7hrayFUSoP8rKD9A9RE6qE56YB7hT1QkcZ3CMjWYWEoxP/LhXEqm6gS8dQvcJLj24zexAou728/OgRbsL8UCz5nwaadh1L10mAVk6NblyKhcAYeEOdk/CqQDh8+mzp8jW514kMjybfAWEBap8mPCOIgt50oBeeiALkVsBF/thA82L0I61bNxqThEeKoQeiSugJ1b2mT3N2xnsSQAl/ngZZcD0Zr13wSCVxm0EJ+DmXz7aGszZ40JVQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=/dN1fC1/tBnzAkXcN4UCYZt1aGqwlgOuCQbU/frxNFY=;
+ b=orJvWYDBHUxEJ74j1kB93GuYzrc0fM8ABFh44B4z46mmqCzNN2d5/qRT1n0oWABoLOzjVn7Ha/V7bnCaTlnO20DFwJTFOvBvQ5Sk0AWxmdrQoWqG+6YYJOk19jJNaAJIpzP0/4D2m7/gVM5IM50y7Ts+uEnEIHTLlosK5Gg6uA229PGJ5FzCAR2+w1vKmX86Z7kz162oR9TtIxgUbnunGpFxf/it1PGZrJhB/vmeVRUXdhUlP34XpQHuCkBf6/mJdBWQwc/VOl5T3voSdxQRSy2qog5qDBPrd5Sn1bLFlwtYFw1taANd7R5OTqItiytZpJ5mPeOCHlXUzzz/ko00+g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=/dN1fC1/tBnzAkXcN4UCYZt1aGqwlgOuCQbU/frxNFY=;
+ b=WZZGOEVFDNJ/UzgyydwPQ9FjCBlqgsxBkJZucq5rAAz2cOzuiPGTQ1sJT4Kbid03iPwQlqjB4Xrm33ux+ZDyt2P6qW8blkSNDAI9DDlA17s7hY2NGWcgi/TR1qslR7fsn9Yiov6dyn4iwkD27mjRt1hX88ty/WDi+ckeOET5et8=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BL1PR12MB5126.namprd12.prod.outlook.com (2603:10b6:208:312::8)
+ by CY8PR12MB8265.namprd12.prod.outlook.com (2603:10b6:930:72::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.15; Mon, 30 Mar
+ 2026 19:01:42 +0000
+Received: from BL1PR12MB5126.namprd12.prod.outlook.com
+ ([fe80::c3e7:1bc5:2b91:1cfe]) by BL1PR12MB5126.namprd12.prod.outlook.com
+ ([fe80::c3e7:1bc5:2b91:1cfe%6]) with mapi id 15.20.9769.014; Mon, 30 Mar 2026
+ 19:01:41 +0000
+Message-ID: <7461820c-e3ab-40f5-98d2-9878e60ba2ad@amd.com>
+Date: Mon, 30 Mar 2026 15:01:33 -0400
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 0/3] Add "link bpc" DRM property
+To: Pekka Paalanen <pekka.paalanen@collabora.com>,
+ =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>
+Cc: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- prahlad.valluru@oss.qualcomm.com
-Subject: Re: [PATCH] drm/msm/disp/dpu: consider SSPP line width during mode
- valid
-Message-ID: <acrHj02HsaoK5N1b@hu-vishsain-blr.qualcomm.com>
-References: <20260328-msm-next-v1-1-12ac4e27c670@oss.qualcomm.com>
- <v37m6z5le4rk56b7pinr5wbi7l7s2bbgkggglx4eog6w7ja77f@lvyxc5tks2bs>
- <acrBL4fF4aiAw8m9@hu-vishsain-blr.qualcomm.com>
- <c7xvoopmujdmdar4lr5oghcc4olc72fpfrpe6yq7wrmtqaytjg@iweixftggvbg>
+ Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
+ Daniel Stone <daniels@collabora.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, kernel@collabora.com,
+ Derek Foreman <derek.foreman@collabora.com>,
+ Marius Vlad <marius.vlad@collabora.com>
+References: <20260319-link-bpc-v5-0-5306cd04a708@collabora.com>
+ <8676926.T7Z3S40VBb@workhorse>
+ <eff61423-a854-44c1-8634-30e2bd61e005@mailbox.org>
+ <4265353.aeNJFYEL58@workhorse>
+ <254c20a4-cce3-4c8e-9902-514586f3e694@mailbox.org>
+ <20260326155305.736b4e64@fluorite>
+Content-Language: en-US
+From: Harry Wentland <harry.wentland@amd.com>
+In-Reply-To: <20260326155305.736b4e64@fluorite>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: YT4P288CA0025.CANP288.PROD.OUTLOOK.COM
+ (2603:10b6:b01:d3::10) To BL1PR12MB5126.namprd12.prod.outlook.com
+ (2603:10b6:208:312::8)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <c7xvoopmujdmdar4lr5oghcc4olc72fpfrpe6yq7wrmtqaytjg@iweixftggvbg>
-X-Authority-Analysis: v=2.4 cv=XN09iAhE c=1 sm=1 tr=0 ts=69cac797 cx=c_pps
- a=IZJwPbhc+fLeJZngyXXI0A==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=kj9zAlcOel0A:10 a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=EUspDBNiAAAA:8 a=dtW-sFU6C_rc-SncmgUA:9 a=CjuIK1q_8ugA:10
- a=uG9DUKGECoFWVXl0Dc02:22
-X-Proofpoint-GUID: mfZlmPDFGSWtQUPGojoTHLzl_EdUnYjr
-X-Proofpoint-ORIG-GUID: mfZlmPDFGSWtQUPGojoTHLzl_EdUnYjr
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzMwMDE1OCBTYWx0ZWRfX789bJRHe5oC+
- hzm5X0+/f281NKpJeUQ0qr3OwlGH/yZhFLiYCUL/GRHZ/6tboyKOzY7Ys9r74/YT3nRHvMFEZfq
- HtM+1GDfShlnI1L89QCTcxaBuf1elZVjU55GaLaiwhi4TjL/JjwnqR+jCPnbx7tzhzaLMlEa3sL
- Z8w44nJoIQK31v1OnZey8XSfsKr63z2lmjrDDPB/MtnLHpCZqbxmMC6bCYqs/IeZ0iP3EDRsV8a
- uEdu1B1aRR0V0wb0UhVmEf4PZYql29/M9QtZXTxeq394PXGpeT2O9c07RV9AOadhl/bleyEr4Kr
- 51F3GSPIJ5yO+t3sKwWf2M9WeiB48Hy8I3bl5L2tXWJZaNrvwONRNeLcD29LH6OEB/GqVv/yOXr
- DPx+8GiZ44u7PXv47WxF36Fg/V9pgaz1uic7AczdykGhANEFFR8IPfGjxRF9eMkDx+EF8I3r+wf
- i5sW/LFvylfLXN7/ulg==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-03-30_01,2026-03-28_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 priorityscore=1501 phishscore=0 impostorscore=0
- lowpriorityscore=0 spamscore=0 suspectscore=0 bulkscore=0 malwarescore=0
- clxscore=1015 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2603050001
- definitions=main-2603300158
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL1PR12MB5126:EE_|CY8PR12MB8265:EE_
+X-MS-Office365-Filtering-Correlation-Id: 86a442ae-5c1d-493a-c11f-08de8e8ec78a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|366016|7416014|376014|22082099003|18002099003|56012099003;
+X-Microsoft-Antispam-Message-Info: V6hknlNg598xTMf80R9iWWYVaJ3R4HgJL4zrUwRziI6BUOm2vHJcejZWskIBCsePa70uiKuMfR5v6I9lFR8v4EnSiihSHbRyRhYPL70bKaqmdCBRKLPZ8E1yo3jtWQpYp3izpE8wiLMW0sFPRHkO+3BxIQP1LjRnvMDNs47knLvekVq6MQasUJhHFL/+3upwh6gwffZUO0H1iSFplZ7/bJkV/TlVZlxX2t6UDTLic74bMAyMJ5T4APjc8r7T6qwaAdcAZkqifXpgGYzfL8Y0dUPKZ3dvUBy8zQmmtlHjQYYhrQqdqNyR4BHoTuc2oiWLbhwqq8tYZpMzUBrfEUQUdufnTBPnCk7rEzDs2BkoT9Y1iHmV8DAfWm26eWY1RsLb6JsX/gKUGBjcwVM4Brgu0bmSKZH6ymCRECXfzR1rIIGVRR5tklYR7sDVS/TMN+0h03Smt59i3pn7DimR9OuJ0QVAiCiU/fhT/OvWPUTlWYNLfNFy/LeshlccyS1rWWb2v0+ezbVKRlSiI5g66OQCvMp7u0MIENDW/35o25ca4Oxdjzo77p3ONJAe+DjK5IDP9Oomv6Q/v3y+QVW/7FqT6CtPO3Q4ALG7qpQDQRZRYXAhjxw/fQLoM4r/KPJ3iHfeBDP8W0xWpYzrkmlHspfQHaitbuM3ftdoyZkvi/IYCcMMp5p9XBDXwpCcF+v7Tie7
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BL1PR12MB5126.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(7416014)(376014)(22082099003)(18002099003)(56012099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?S2tQR1ViTzB5b29CY3YvbDY4c2l2aHpxU1VTcHU3ZmliYlpKTlRWY29IZlJv?=
+ =?utf-8?B?aGV3TGtIRkdEc1hsVDZ4akNzSFVoa1VuVkRtTEZrcmxEZmRGOEZ0K203RzZt?=
+ =?utf-8?B?LzNObS9WaE1POXQ5N3ZNTE9rUHg0enFoR2lob0JGZ0ErMzNNWEtpNnB1azlJ?=
+ =?utf-8?B?YmFSK2p2M1d4WmkyVWJXOGdKaUdzS2JDMlJqTkZ5QWZmRWFOcng2c0h0WER3?=
+ =?utf-8?B?YllSbVZKV3ZqTFVDdXpEcGRvK05MN3hEZ1lORUxaRUtVNHdtLzZYZjBVUFhy?=
+ =?utf-8?B?ay9lYnc5TVZMRFZmblZCd29SVzF6QUxRZnd0TWh2dnpqL0EvZ1hYR2xaVUxw?=
+ =?utf-8?B?M1JZSjFSejRmbGJjbW9rWEpwaDczRWhVWTlKOHRJSXZVMFF3ZFpmS05ycE9B?=
+ =?utf-8?B?QmRCNDRFc0FqSUFzYkpGaHFUVmxaTldhUCtZNnBlWlZrY0JnWFVaVm5TWFIy?=
+ =?utf-8?B?YlBsWUhHbTgvZXdZTGtTSWFLc1BaT3RoQm1zcFYyUnMvQk1FTkRTc1RNZTdw?=
+ =?utf-8?B?cklud0JKVnhkaXJNKzNOMklRYWdZVG5rNk9zWk5OcFZ1MFVRMEw5b09EUkNm?=
+ =?utf-8?B?dEhwZ20zMUtrZGRYMkQzRWJJSjhjZXZDdEdtREUxbkVPZUR6THQ3TzFFVkVT?=
+ =?utf-8?B?UzZKSXp2NkJsRWd1Z0NjVk9LbVVVV083RUt2bExIMkdwWndwNWRwUndnNWVM?=
+ =?utf-8?B?QnNTNHlkWjY5THhwTDQ3clRrN3JHTGxNUGtRdk52dUhhZTFZY0xYbm1JMlhn?=
+ =?utf-8?B?YnEwUVFnRWVlL0hwcnh4dk44cGIxSTZHKzJDL2JpV3p4L2w0cmZmTHJBK2VP?=
+ =?utf-8?B?V3BFVVRCYTNFQVUralZpUUVuVjNuclIzYStLWlJuVHhqSnl2VnZiNXVBRXRs?=
+ =?utf-8?B?MDI4SU00YnJZdElzMXdPelNEQnd3SkR4SzZSWUkvVmNrb0k1OW4vSU43RVY5?=
+ =?utf-8?B?d1gwY3RGb1JpSkdCaTB3WEkrR1c1c3FMRjZrUndDb254a3ExQUFwVDhMSFFz?=
+ =?utf-8?B?NVJQQ01QNXcrNHpuNThvVVhaZGlodTVxSForaGtwM3BFc2tDZmtYeGRMbWt0?=
+ =?utf-8?B?MjZSYURXRzJCbk9SenBIa2tvdUhTWG4wckhmNkViVHZXMTU4dkNabjNHZ0Jx?=
+ =?utf-8?B?MGlIMVFnUHczNWlXV1Q5ZXJYL3BjQ2tvcjlhSzI4TnR0YjVjTmVRSk5aa2JC?=
+ =?utf-8?B?UFRlYzQ3WEI4RFllMVBBbTZIelFSSVZXSnJvTFJJSTNNYTRFMURDY1d4NVRX?=
+ =?utf-8?B?V2g5R2JiQnFoS3pIZmFOUXBVQmJiMkxja29DdlQ4VUZXWTNuaWQzVzdVNW5L?=
+ =?utf-8?B?S2dRakg5U1VXekVaRW44MURKSUgwbU4wUWVQY3lmOW5yQytoamZOaWFhbm9S?=
+ =?utf-8?B?VTZsTlZZNGttT1g1am1ZUGZjMUVaYWkzWFRZeTA3YXV6bGhueHE5TFhHZDMr?=
+ =?utf-8?B?K2dVa2MxMFRBdE5NU0dNdXAydHFWWGlLTVRPQjk0Tk5EbldrY0JzNStyNUxS?=
+ =?utf-8?B?K3JycG9WNkUyKzQyRVVDQ2hNYjYvMnVWUlBiSjFib1kzVHV6b0t5dFczQ2dV?=
+ =?utf-8?B?VEg4SXcyQlgrVXIrRlF3MktzVlUrZEVWOXNEQzhiWUR0TEQ0M3BFWWtpT2hB?=
+ =?utf-8?B?QW1iT1lDYk5teis3S2xtcnNOQ2J3Z0pjZEoyaUFoWTN0cGdPekNkOUc2VDBO?=
+ =?utf-8?B?TDV2Ni9ETFBUSERxdU9YanlpdmdQbDZGWE42anl6bGkzdUJCUmFzeG80aVVI?=
+ =?utf-8?B?UTdkYjQ2UXFuM0UyNGQ0ZkQ3cXo4cExsK0o2WUJXRkpYeXhpUlZ3TlBjWDM0?=
+ =?utf-8?B?cXFhZGVleEJqeUNkUlUrSlpsaWJLWUJpS0UzV3o4cXAzZ0hWemdlSFplZDdH?=
+ =?utf-8?B?enkwV3ViaUlobHlMVFk1Q0xhNFlnQXlzNHpSYXBQQkdlcytaSWZTays2SVBZ?=
+ =?utf-8?B?NDgyRG5UQzhnY2QzdWswZXVJd3N3Q0tXcy9uczY4Y1IrbEpMVGFqMVB2ampu?=
+ =?utf-8?B?YWMwRkxhM05zeWd4M2tVRE1YMDJuRTJQNGxQamVvalloRG9GZEI5M0ZTUm96?=
+ =?utf-8?B?ZVJQRFY3aW1kMitBSXFpUkRBZE0vSkJKREtKVmNxT211MDlqNnVHVzBsbU9r?=
+ =?utf-8?B?bGs5V2c3S1FVZ2lISnRRcGtTbUtWaHg5YThIWG55SnJkSm9CaC9kNGszN3l2?=
+ =?utf-8?B?bHNidHpvVGRoQVF4dzJnWGorRk9wTkw0dkFVenNiYkRqNW1QNUg3czVrWmJS?=
+ =?utf-8?B?MDVNZVl6c1hkeGxkanA4Y0p3b2NTeE00QkdTb2RUTlFxNUl2YjZVTnl4UVNa?=
+ =?utf-8?B?dUhHdGFjeG9DeFR5Wk83TVBtWmM4MWQ0NEtQWjArbkNDZ1E4MDB2QT09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 86a442ae-5c1d-493a-c11f-08de8e8ec78a
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5126.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Mar 2026 19:01:41.8636 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: qe4k1XDiJJsLoVCwYmxGBZ/0ySG9zmHkB34gQS17MOxxvRGe6khEWP9uDO+ORH/wqvdGU76e7n6U2UGe62prwQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB8265
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -149,45 +153,101 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Mar 30, 2026 at 09:39:31PM +0300, Dmitry Baryshkov wrote:
-> On Tue, Mar 31, 2026 at 12:00:07AM +0530, Vishnu Saini wrote:
-> > On Sun, Mar 29, 2026 at 02:24:53AM +0200, Dmitry Baryshkov wrote:
-> > > On Sat, Mar 28, 2026 at 10:45:35PM +0530, Vishnu Saini wrote:
-> > > > Few targets have lesser SSPP line width compared to mixer width,
-> > > > SSPP line width also needs to be considered during mode valid
-> > > > to avoid failures during atomic_check.
-> > > 
-> > > Technically this is not correct. There is no requirement for the
-> > > planes to cover the whole CRTC. Nor is there a requirement to use only 2
-> > > rectangles to cover the screen. As such, it is perfectly fine in
-> > > mode_valid, if CRTC is wider than 2x max_linewidth. It would be an error
-> > > if the user tries to stretch 2 rectangles in such a case.
-> > 
-> > This is to fix an issue with 5k monitor on rb3gen2, since SSPP maxlinewidth is 2400
-> > it can't cover the whole 5k buffer in left right split mode.
-> > Do we need to fix it from drm backend by dividing 5k buffer into 2 planes and 
-> > use 2 pipes in split mode.
+
+
+On 2026-03-26 09:53, Pekka Paalanen wrote:
+> Hi Michel,
 > 
-> Quad pipe is pending for 7.2, most likely. However, I think, instead you
-> should teach compositor that if the commit fails, it should retry with
-> the lower resolution (it might require somethi g like -E2BIG from te
-> commit).
-Yes, from driver we are returning "-E2BIG" during atomic_check.
-Thank you for the clarity, will try to fix it from compositor.
- 
-> > 4 SSPP rects --> 2 LMs --> 3d_mux --> DP
-> >  
-> > > > 
-> > > > Signed-off-by: Vishnu Saini <vishnu.saini@oss.qualcomm.com>
-> > > > ---
-> > > >  drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c | 12 ++++++++----
-> > > >  1 file changed, 8 insertions(+), 4 deletions(-)
-> > > > 
-> > > 
-> > > -- 
-> > > With best wishes
-> > > Dmitry
+> I have some opinions as well.
 > 
-> -- 
-> With best wishes
-> Dmitry
+> On Tue, 24 Mar 2026 17:44:21 +0100
+> Michel Dänzer <michel.daenzer@mailbox.org> wrote:
+> 
+>> Per my previous posts, my concerns are:
+>>
+>> * The meaning of the "link bpc" property value isn't defined well
+>> enough vs things like dithering or DSC, which will likely result in
+>> compositors / users overestimating what value they need / want,
+>> resulting in compositors spuriously rejecting configurations which
+>> would work perfectly fine, and/or spurious issue reports.
+> 
+> That is ok. Compositors need to understand what the numbers mean, how
+> reliable they are, and act accordingly. Knowing the lower bound for
+> link precision is already useful as it guarantees a minimum precision.
+> It is up to the compositors to decide how they communicate this.
+> 
+> Or course, assuming lossy compression is not too lossy. Maybe
+> lossy compression should be forbidden by default unless explicitly
+> enabled by userspace?
+> 
+
+I disagree. While technically lossy, DSC is perceptually lossless, at
+least according to the designers of DSC. If I'm not mistaken this is
+all based on extensive studies.
+
+The decision to enable DSC or not has an impact on the power consumption
+of the HW, in ways that are often nuanced. Userspace has no way to know
+or understand these nuances. This should be in control of the driver.
+
+At most I could see a "never do DSC or dither" toggle, if one is really
+concerned about this, but I don't realistically see use-cases where this
+would improve user experience, even for users that care about color work
+and correctness.
+
+The YCbCr420 case is different. We probably want a way for userspace to
+understand that half 3/4 of chroma values are being tossed out. This
+would be significant for RGB content but insignificant for YCbCr420
+content.
+
+Harry
+
+>> With my compositor developer hat on, what I'd want to know is
+>> something like: "How many bits of information can be passed over the
+>> link, allowing the display to present it in a way which can be
+>> perceived by the user?" With dithering or DSC, that would be a higher
+>> value than the physical link bpc.
+> 
+> Sure, but this is not that. This is only a part of that. You would
+> also want to know what the monitor does with the signal, the depth of
+> the data path to the panel, and so on. I'm sure those are completely
+> off-topic for a KMS property.
+> 
+> The kernel driver won't know how acceptable temporal dithering, spatial
+> dithering or lossy compression are, so I don't think it should be
+> deciding how many bits of precision they add or subtract. Exactly this
+> makes the link bpc property a well-defined fact rather than an estimate.
+> 
+> The documentation of 'link bpc' could be more explicit about this.
+> 
+>>
+>> * There's no clear use case.
+>>
+>> This is generally a requirement for new KMS UAPI.
+>>
+>> The practical usefulness of the corresponding weston MR is dubious
+>> per the concern above.
+> 
+> I think the example of RGB 10 bpc to be degraded to YCbCr 10 bpc rather
+> than RGB 8 bpc is an excellent use case. I had another use case in
+> https://gitlab.freedesktop.org/wayland/weston/-/merge_requests/1850#note_3115686
+> 
+> Mario Kleiner had excellent cases as well.
+> 
+> Maybe these just need to be spelled more clearly in the commit message.
+> 
+>>> That the link-bpc property does not consider DSC and dithering?
+>>> Two things which the max-bpc property also does not consider?  
+>>
+>> It's not (as much of) an issue with the "max bpc" property because
+>> it's just an upper limit, the driver is free to use a lower effective
+>> bpc.
+> 
+> FWIW, 'max bpc' is a workaround for faulty sink devices that claim to
+> handle a depth but silently misbehave. This is also why I called for a
+> "desired bpc" setting in the Weston MR, to not confuse with the "max
+> bpc" setting.
+> 
+> 
+> Thanks,
+> pq
+
