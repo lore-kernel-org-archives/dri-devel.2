@@ -4,34 +4,34 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5FDC0FB3CEB
-	for <dri-devel@archiver.kernel.org>; Mon, 30 Mar 2026 09:49:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 52D16FB3CEB
+	for <dri-devel@archiver.kernel.org>; Mon, 30 Mar 2026 09:49:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C696D10E5D2;
-	Mon, 30 Mar 2026 09:49:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B95FD10E57C;
+	Mon, 30 Mar 2026 09:49:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="mHIVR9jC";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="qHku1bhJ";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0856610E5AC
- for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 09:49:04 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 367EE10E5AC
+ for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 09:49:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1774864142;
- bh=QZSZybKOV/Ub7X5E81X4kwEJHlPXD1Ewny01uvJW4k4=;
+ s=mail; t=1774864141;
+ bh=CyEpjtm1mi2dgCJ7yTQokBx8HTePUh1AC3OUc4v9Dnw=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=mHIVR9jCDVHAkL6EyaXMK1Uax8u8cGdUoLB/pMRrZXJ0Lc1IQC91PvNYLkyVDXNtq
- in+KlbtgxKdxFHWZaQbJAh9S+Iaan3SAy/YGH+Cvqj2rpajg2LEUcfQ9OOyZkoG5wg
- h6/SuKXeNFjgQfq6r+ZjI8iMSutfLnHx8o4SnUICRodbpZWoR8zPBEvZYJq3vz97qw
- gwpZTHtwzm4WIrVd4z8bhM1G1SlW4EEjUZqy99kmva/3jNC8C5BeKo4Q2qpkhrGgIy
- NOly8nZHUqnOhMjpskEiElOBg6ftMuEESBGlDfWiOAs0oeD19gO83L52FgLcAH3oBm
- SmlBOpx/zUz8g==
+ b=qHku1bhJleqOvlkxs2S0CPwNv/4XzM/chLdvgOqkGn26Cchg1QWUBmhOV2iGLLopA
+ 2iCwbG7guZ0yjSI/16azMV2zwx7GVDxLUrclegjWODWGhSlKaBFxTazPAZCmNMbtJ3
+ YcdR/4JFdTl0YL86WNKncJugMOOh9s/KpRSDafvDp6NAjO5B27X/H+T93hVW4ai2cX
+ q7ryd4EEAad/mP9xxw1kvSPwKTDpQeO0DJsB+e5fy7V0n4HepgLeoFTwRxgU+tT/3Q
+ t/meyn6mhVbD9z2Ld+HUeFk+NyfmuUEyoDU2P+W/FPyjGjmEfSkFCqDFWOixOSif7c
+ LJe9hSqpFLlZw==
 Received: from fedora (unknown [IPv6:2a01:e0a:2c:6930:a2a7:f53:ebb0:945e])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested) (Authenticated sender: bbrezillon)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 0D77F17E41AE;
- Mon, 30 Mar 2026 11:49:02 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 4155717E410F;
+ Mon, 30 Mar 2026 11:49:00 +0200 (CEST)
 From: Boris Brezillon <boris.brezillon@collabora.com>
 To: Boris Brezillon <boris.brezillon@collabora.com>,
  Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
@@ -50,9 +50,9 @@ Cc: dri-devel@lists.freedesktop.org, David Airlie <airlied@gmail.com>,
  =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
  Alice Ryhl <aliceryhl@google.com>, Chia-I Wu <olvaffe@gmail.com>,
  kernel@collabora.com
-Subject: [PATCH v6 5/9] drm/panthor: Part ways with drm_gem_shmem_object
-Date: Mon, 30 Mar 2026 11:48:44 +0200
-Message-ID: <20260330094848.2169422-6-boris.brezillon@collabora.com>
+Subject: [PATCH v6 3/9] drm/panthor: Group panthor_kernel_bo_xxx() helpers
+Date: Mon, 30 Mar 2026 11:48:42 +0200
+Message-ID: <20260330094848.2169422-4-boris.brezillon@collabora.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260330094848.2169422-1-boris.brezillon@collabora.com>
 References: <20260330094848.2169422-1-boris.brezillon@collabora.com>
@@ -73,992 +73,97 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-While drm_gem_shmem_object does most of the job we need it to do, the
-way sub-resources (pages, sgt, vmap) are handled and their lifetimes
-gets in the way of BO reclaim. There has been attempts to address
-that [1], but in the meantime, new gem_shmem users were introduced
-(accel drivers), and some of them manually free some of these resources.
-This makes things harder to control/sanitize/validate.
-
-Thomas Zimmerman is not a huge fan of enforcing lifetimes of sub-resources
-and forcing gem_shmem users to go through new gem_shmem helpers when they
-need manual control of some sort, and I believe this is a dead end if
-we don't force users to follow some stricter rules through carefully
-designed helpers, because there will always be one user doing crazy things
-with gem_shmem_object internals, which ends up tripping out the common
-helpers when they are called.
-
-The consensus we reached was that we would be better off forking
-gem_shmem in panthor. So here we are, parting ways with gem_shmem. The
-current transition tries to minimize the changes, but there are still
-some aspects that are different, the main one being that we no longer
-have a pages_use_count, and pages stays around until the GEM object is
-destroyed (or when evicted once we've added a shrinker). The sgt also
-no longer retains pages. This is losely based on how msm does things by
-the way.
-
-If there's any interest in sharing code (probably with msm, since the
-panthor shrinker is going to be losely based on the msm implementation),
-we can always change gears and do that once we have everything
-working/merged.
-
-[1]https://patchwork.kernel.org/project/dri-devel/patch/20240105184624.508603-1-dmitry.osipenko@collabora.com/
+Move all panthor_kernel_bo_xxx() helpers at the end of the file, just
+before the debugfs init logic. This will make further panthor_gem.c
+refactoring more readable.
 
 v2:
-- Fix refcounting
-- Add a _locked suffix to a bunch of functions expecting the resv lock
-  to be held
-- Take the lock before releasing resources in panthor_gem_free_object()
-
-v3:
-- Use ERR_CAST() to fix an ERR-ptr deref
-- Add missing resv_[un]lock() around a panthor_gem_backing_unpin_locked()
-  call
-
-v4:
-- Fix an error path in panthor_gem_vmap_get_locked()
-- Don't leave bo->base.pages with an ERR_PTR()
-- Make panthor_gem_{pin,unpin}[_locked]() more consistent
-- Don't fail in panthor_gem_dev_map_get_sgt_locked() if the pages are not
-  allocated
-
-v5:
-- Add missing static specifier on our vm_ops
-
-v6:
-- Fix huge_fault handling
-- s/uint32_t/u32/
-- s/drm_dbg_kms/drm_dbg_driver/
 - Collect R-bs
 
-Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
-Reviewed-by: Steven Price <steven.price@arm.com>
-Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
----
- drivers/gpu/drm/panthor/Kconfig         |   1 -
- drivers/gpu/drm/panthor/panthor_drv.c   |   7 +-
- drivers/gpu/drm/panthor/panthor_fw.c    |  16 +-
- drivers/gpu/drm/panthor/panthor_gem.c   | 706 ++++++++++++++++++++----
- drivers/gpu/drm/panthor/panthor_gem.h   |  62 ++-
- drivers/gpu/drm/panthor/panthor_mmu.c   |  48 +-
- drivers/gpu/drm/panthor/panthor_sched.c |   9 +-
- 7 files changed, 675 insertions(+), 174 deletions(-)
+v3:
+- No changes
 
-diff --git a/drivers/gpu/drm/panthor/Kconfig b/drivers/gpu/drm/panthor/Kconfig
-index 55b40ad07f3b..911e7f4810c3 100644
---- a/drivers/gpu/drm/panthor/Kconfig
-+++ b/drivers/gpu/drm/panthor/Kconfig
-@@ -8,7 +8,6 @@ config DRM_PANTHOR
- 	depends on MMU
- 	select DEVFREQ_GOV_SIMPLE_ONDEMAND
- 	select DRM_EXEC
--	select DRM_GEM_SHMEM_HELPER
- 	select DRM_GPUVM
- 	select DRM_SCHED
- 	select IOMMU_IO_PGTABLE_LPAE
-diff --git a/drivers/gpu/drm/panthor/panthor_drv.c b/drivers/gpu/drm/panthor/panthor_drv.c
-index b1339d4db0a9..73fc983dc9b4 100644
---- a/drivers/gpu/drm/panthor/panthor_drv.c
-+++ b/drivers/gpu/drm/panthor/panthor_drv.c
-@@ -21,6 +21,7 @@
- #include <drm/drm_debugfs.h>
- #include <drm/drm_drv.h>
- #include <drm/drm_exec.h>
-+#include <drm/drm_file.h>
- #include <drm/drm_ioctl.h>
- #include <drm/drm_print.h>
- #include <drm/drm_syncobj.h>
-@@ -1578,7 +1579,7 @@ static int panthor_ioctl_bo_query_info(struct drm_device *ddev, void *data,
- 	args->create_flags = bo->flags;
- 
- 	args->extra_flags = 0;
--	if (drm_gem_is_imported(&bo->base.base))
-+	if (drm_gem_is_imported(&bo->base))
- 		args->extra_flags |= DRM_PANTHOR_BO_IS_IMPORTED;
- 
- 	drm_gem_object_put(obj);
-@@ -1793,8 +1794,7 @@ static const struct drm_driver panthor_drm_driver = {
- 	.major = 1,
- 	.minor = 8,
- 
--	.gem_create_object = panthor_gem_create_object,
--	.gem_prime_import_sg_table = drm_gem_shmem_prime_import_sg_table,
-+	.gem_prime_import_sg_table = panthor_gem_prime_import_sg_table,
- 	.gem_prime_import = panthor_gem_prime_import,
- #ifdef CONFIG_DEBUG_FS
- 	.debugfs_init = panthor_debugfs_init,
-@@ -1944,3 +1944,4 @@ module_exit(panthor_exit);
- MODULE_AUTHOR("Panthor Project Developers");
- MODULE_DESCRIPTION("Panthor DRM Driver");
- MODULE_LICENSE("Dual MIT/GPL");
-+MODULE_IMPORT_NS("DMA_BUF");
-diff --git a/drivers/gpu/drm/panthor/panthor_fw.c b/drivers/gpu/drm/panthor/panthor_fw.c
-index 8886002e1d31..be0da5b1f3ab 100644
---- a/drivers/gpu/drm/panthor/panthor_fw.c
-+++ b/drivers/gpu/drm/panthor/panthor_fw.c
-@@ -628,7 +628,6 @@ static int panthor_fw_load_section_entry(struct panthor_device *ptdev,
- 		u32 cache_mode = hdr.flags & CSF_FW_BINARY_IFACE_ENTRY_CACHE_MODE_MASK;
- 		struct panthor_gem_object *bo;
- 		u32 vm_map_flags = 0;
--		struct sg_table *sgt;
- 		u64 va = hdr.va.start;
- 
- 		if (!(hdr.flags & CSF_FW_BINARY_IFACE_ENTRY_WR))
-@@ -666,11 +665,12 @@ static int panthor_fw_load_section_entry(struct panthor_device *ptdev,
- 		panthor_fw_init_section_mem(ptdev, section);
- 
- 		bo = to_panthor_bo(section->mem->obj);
--		sgt = drm_gem_shmem_get_pages_sgt(&bo->base);
--		if (IS_ERR(sgt))
--			return PTR_ERR(sgt);
- 
--		dma_sync_sgtable_for_device(ptdev->base.dev, sgt, DMA_TO_DEVICE);
-+		/* An sgt should have been requested when the kernel BO was GPU-mapped. */
-+		if (drm_WARN_ON_ONCE(&ptdev->base, !bo->dmap.sgt))
-+			return -EINVAL;
-+
-+		dma_sync_sgtable_for_device(ptdev->base.dev, bo->dmap.sgt, DMA_TO_DEVICE);
- 	}
- 
- 	if (hdr.va.start == CSF_MCU_SHARED_REGION_START)
-@@ -730,8 +730,10 @@ panthor_reload_fw_sections(struct panthor_device *ptdev, bool full_reload)
- 			continue;
- 
- 		panthor_fw_init_section_mem(ptdev, section);
--		sgt = drm_gem_shmem_get_pages_sgt(&to_panthor_bo(section->mem->obj)->base);
--		if (!drm_WARN_ON(&ptdev->base, IS_ERR_OR_NULL(sgt)))
-+
-+		/* An sgt should have been requested when the kernel BO was GPU-mapped. */
-+		sgt = to_panthor_bo(section->mem->obj)->dmap.sgt;
-+		if (!drm_WARN_ON_ONCE(&ptdev->base, !sgt))
- 			dma_sync_sgtable_for_device(ptdev->base.dev, sgt, DMA_TO_DEVICE);
- 	}
- }
+v4:
+- No changes
+
+v5:
+- No changes
+
+v6:
+- No changes
+
+Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
+Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
+Reviewed-by: Steven Price <steven.price@arm.com>
+---
+ drivers/gpu/drm/panthor/panthor_gem.c | 212 +++++++++++++-------------
+ 1 file changed, 106 insertions(+), 106 deletions(-)
+
 diff --git a/drivers/gpu/drm/panthor/panthor_gem.c b/drivers/gpu/drm/panthor/panthor_gem.c
-index 5065f99c9bc4..0723a0dc0127 100644
+index c7b8b84a8f8b..5065f99c9bc4 100644
 --- a/drivers/gpu/drm/panthor/panthor_gem.c
 +++ b/drivers/gpu/drm/panthor/panthor_gem.c
-@@ -8,9 +8,11 @@
- #include <linux/dma-mapping.h>
- #include <linux/err.h>
- #include <linux/slab.h>
-+#include <linux/vmalloc.h>
- 
- #include <drm/drm_debugfs.h>
- #include <drm/drm_file.h>
-+#include <drm/drm_prime.h>
- #include <drm/drm_print.h>
- #include <drm/panthor_drm.h>
- 
-@@ -44,7 +46,7 @@ static void panthor_gem_debugfs_bo_init(struct panthor_gem_object *bo)
- 
- static void panthor_gem_debugfs_bo_add(struct panthor_gem_object *bo)
- {
--	struct panthor_device *ptdev = container_of(bo->base.base.dev,
-+	struct panthor_device *ptdev = container_of(bo->base.dev,
- 						    struct panthor_device, base);
- 
- 	bo->debugfs.creator.tgid = current->tgid;
-@@ -57,7 +59,7 @@ static void panthor_gem_debugfs_bo_add(struct panthor_gem_object *bo)
- 
- static void panthor_gem_debugfs_bo_rm(struct panthor_gem_object *bo)
- {
--	struct panthor_device *ptdev = container_of(bo->base.base.dev,
-+	struct panthor_device *ptdev = container_of(bo->base.dev,
- 						    struct panthor_device, base);
- 
- 	if (list_empty(&bo->debugfs.node))
-@@ -80,9 +82,9 @@ static void panthor_gem_debugfs_bo_init(struct panthor_gem_object *bo) {}
- #endif
- 
- static bool
--should_map_wc(struct panthor_gem_object *bo, struct panthor_vm *exclusive_vm)
-+should_map_wc(struct panthor_gem_object *bo)
- {
--	struct panthor_device *ptdev = container_of(bo->base.base.dev, struct panthor_device, base);
-+	struct panthor_device *ptdev = container_of(bo->base.dev, struct panthor_device, base);
- 
- 	/* We can't do uncached mappings if the device is coherent,
- 	 * because the zeroing done by the shmem layer at page allocation
-@@ -112,6 +114,210 @@ should_map_wc(struct panthor_gem_object *bo, struct panthor_vm *exclusive_vm)
- 	return true;
- }
- 
-+static void
-+panthor_gem_backing_cleanup_locked(struct panthor_gem_object *bo)
-+{
-+	dma_resv_assert_held(bo->base.resv);
-+
-+	if (!bo->backing.pages)
-+		return;
-+
-+	drm_gem_put_pages(&bo->base, bo->backing.pages, true, false);
-+	bo->backing.pages = NULL;
-+}
-+
-+static int
-+panthor_gem_backing_get_pages_locked(struct panthor_gem_object *bo)
-+{
-+	struct page **pages;
-+
-+	dma_resv_assert_held(bo->base.resv);
-+
-+	if (bo->backing.pages)
-+		return 0;
-+
-+	pages = drm_gem_get_pages(&bo->base);
-+	if (IS_ERR(pages)) {
-+		drm_dbg_driver(bo->base.dev, "Failed to get pages (%pe)\n", pages);
-+		return PTR_ERR(pages);
-+	}
-+
-+	bo->backing.pages = pages;
-+	return 0;
-+}
-+
-+static int panthor_gem_backing_pin_locked(struct panthor_gem_object *bo)
-+{
-+	int ret;
-+
-+	dma_resv_assert_held(bo->base.resv);
-+	drm_WARN_ON_ONCE(bo->base.dev, drm_gem_is_imported(&bo->base));
-+
-+	if (refcount_inc_not_zero(&bo->backing.pin_count))
-+		return 0;
-+
-+	ret = panthor_gem_backing_get_pages_locked(bo);
-+	if (!ret)
-+		refcount_set(&bo->backing.pin_count, 1);
-+
-+	return ret;
-+}
-+
-+static void panthor_gem_backing_unpin_locked(struct panthor_gem_object *bo)
-+{
-+	dma_resv_assert_held(bo->base.resv);
-+	drm_WARN_ON_ONCE(bo->base.dev, drm_gem_is_imported(&bo->base));
-+
-+	if (refcount_dec_and_test(&bo->backing.pin_count)) {
-+		/* We don't release anything when pin_count drops to zero.
-+		 * Pages stay there until an explicit cleanup is requested.
-+		 */
-+	}
-+}
-+
-+static void
-+panthor_gem_dev_map_cleanup_locked(struct panthor_gem_object *bo)
-+{
-+	dma_resv_assert_held(bo->base.resv);
-+
-+	if (!bo->dmap.sgt)
-+		return;
-+
-+	dma_unmap_sgtable(drm_dev_dma_dev(bo->base.dev), bo->dmap.sgt, DMA_BIDIRECTIONAL, 0);
-+	sg_free_table(bo->dmap.sgt);
-+	kfree(bo->dmap.sgt);
-+	bo->dmap.sgt = NULL;
-+}
-+
-+static struct sg_table *
-+panthor_gem_dev_map_get_sgt_locked(struct panthor_gem_object *bo)
-+{
-+	struct sg_table *sgt;
-+	int ret;
-+
-+	dma_resv_assert_held(bo->base.resv);
-+
-+	if (bo->dmap.sgt)
-+		return bo->dmap.sgt;
-+
-+	/* Pages stay around after they've been allocated. At least that stands
-+	 * until we add a shrinker.
-+	 */
-+	ret = panthor_gem_backing_get_pages_locked(bo);
-+	if (ret)
-+		return ERR_PTR(ret);
-+
-+	sgt = drm_prime_pages_to_sg(bo->base.dev, bo->backing.pages,
-+				    bo->base.size >> PAGE_SHIFT);
-+	if (IS_ERR(sgt))
-+		return sgt;
-+
-+	/* Map the pages for use by the h/w. */
-+	ret = dma_map_sgtable(drm_dev_dma_dev(bo->base.dev), sgt, DMA_BIDIRECTIONAL, 0);
-+	if (ret)
-+		goto err_free_sgt;
-+
-+	bo->dmap.sgt = sgt;
-+	return sgt;
-+
-+err_free_sgt:
-+	sg_free_table(sgt);
-+	kfree(sgt);
-+	return ERR_PTR(ret);
-+}
-+
-+struct sg_table *
-+panthor_gem_get_dev_sgt(struct panthor_gem_object *bo)
-+{
-+	struct sg_table *sgt;
-+
-+	dma_resv_lock(bo->base.resv, NULL);
-+	sgt = panthor_gem_dev_map_get_sgt_locked(bo);
-+	dma_resv_unlock(bo->base.resv);
-+
-+	return sgt;
-+}
-+
-+static void
-+panthor_gem_vmap_cleanup_locked(struct panthor_gem_object *bo)
-+{
-+	if (!bo->cmap.vaddr)
-+		return;
-+
-+	vunmap(bo->cmap.vaddr);
-+	bo->cmap.vaddr = NULL;
-+	panthor_gem_backing_unpin_locked(bo);
-+}
-+
-+static int
-+panthor_gem_prep_for_cpu_map_locked(struct panthor_gem_object *bo)
-+{
-+	if (should_map_wc(bo)) {
-+		struct sg_table *sgt;
-+
-+		sgt = panthor_gem_dev_map_get_sgt_locked(bo);
-+		if (IS_ERR(sgt))
-+			return PTR_ERR(sgt);
-+	}
-+
-+	return 0;
-+}
-+
-+static void *
-+panthor_gem_vmap_get_locked(struct panthor_gem_object *bo)
-+{
-+	pgprot_t prot = PAGE_KERNEL;
-+	void *vaddr;
-+	int ret;
-+
-+	dma_resv_assert_held(bo->base.resv);
-+
-+	if (drm_WARN_ON_ONCE(bo->base.dev, drm_gem_is_imported(&bo->base)))
-+		return ERR_PTR(-EINVAL);
-+
-+	if (refcount_inc_not_zero(&bo->cmap.vaddr_use_count)) {
-+		drm_WARN_ON_ONCE(bo->base.dev, !bo->cmap.vaddr);
-+		return bo->cmap.vaddr;
-+	}
-+
-+	ret = panthor_gem_backing_pin_locked(bo);
-+	if (ret)
-+		return ERR_PTR(ret);
-+
-+	ret = panthor_gem_prep_for_cpu_map_locked(bo);
-+	if (ret)
-+		goto err_unpin;
-+
-+	if (should_map_wc(bo))
-+		prot = pgprot_writecombine(prot);
-+
-+	vaddr = vmap(bo->backing.pages, bo->base.size >> PAGE_SHIFT, VM_MAP, prot);
-+	if (!vaddr) {
-+		ret = -ENOMEM;
-+		goto err_unpin;
-+	}
-+
-+	bo->cmap.vaddr = vaddr;
-+	refcount_set(&bo->cmap.vaddr_use_count, 1);
-+	return vaddr;
-+
-+err_unpin:
-+	panthor_gem_backing_unpin_locked(bo);
-+	return ERR_PTR(ret);
-+}
-+
-+static void
-+panthor_gem_vmap_put_locked(struct panthor_gem_object *bo)
-+{
-+	dma_resv_assert_held(bo->base.resv);
-+
-+	if (drm_WARN_ON_ONCE(bo->base.dev, drm_gem_is_imported(&bo->base)))
-+		return;
-+
-+	if (refcount_dec_and_test(&bo->cmap.vaddr_use_count))
-+		panthor_gem_vmap_cleanup_locked(bo);
-+}
-+
- static void panthor_gem_free_object(struct drm_gem_object *obj)
- {
- 	struct panthor_gem_object *bo = to_panthor_bo(obj);
-@@ -127,8 +333,19 @@ static void panthor_gem_free_object(struct drm_gem_object *obj)
- 
- 	mutex_destroy(&bo->label.lock);
- 
--	drm_gem_free_mmap_offset(&bo->base.base);
--	drm_gem_shmem_free(&bo->base);
-+	if (drm_gem_is_imported(obj)) {
-+		drm_prime_gem_destroy(obj, bo->dmap.sgt);
-+	} else {
-+		dma_resv_lock(obj->resv, NULL);
-+		panthor_gem_vmap_cleanup_locked(bo);
-+		panthor_gem_dev_map_cleanup_locked(bo);
-+		panthor_gem_backing_cleanup_locked(bo);
-+		dma_resv_unlock(obj->resv);
-+	}
-+
-+	drm_gem_object_release(obj);
-+
-+	kfree(bo);
+@@ -132,112 +132,6 @@ static void panthor_gem_free_object(struct drm_gem_object *obj)
  	drm_gem_object_put(vm_root_gem);
  }
  
-@@ -159,15 +376,15 @@ panthor_gem_prime_begin_cpu_access(struct dma_buf *dma_buf,
- {
- 	struct drm_gem_object *obj = dma_buf->priv;
- 	struct drm_device *dev = obj->dev;
--	struct drm_gem_shmem_object *shmem = to_drm_gem_shmem_obj(obj);
-+	struct panthor_gem_object *bo = to_panthor_bo(obj);
- 	struct dma_buf_attachment *attach;
- 
- 	dma_resv_lock(obj->resv, NULL);
--	if (shmem->sgt)
--		dma_sync_sgtable_for_cpu(dev->dev, shmem->sgt, dir);
-+	if (bo->dmap.sgt)
-+		dma_sync_sgtable_for_cpu(drm_dev_dma_dev(dev), bo->dmap.sgt, dir);
- 
--	if (shmem->vaddr)
--		invalidate_kernel_vmap_range(shmem->vaddr, shmem->base.size);
-+	if (bo->cmap.vaddr)
-+		invalidate_kernel_vmap_range(bo->cmap.vaddr, bo->base.size);
- 
- 	list_for_each_entry(attach, &dma_buf->attachments, node) {
- 		struct sg_table *sgt = attach->priv;
-@@ -186,7 +403,7 @@ panthor_gem_prime_end_cpu_access(struct dma_buf *dma_buf,
- {
- 	struct drm_gem_object *obj = dma_buf->priv;
- 	struct drm_device *dev = obj->dev;
--	struct drm_gem_shmem_object *shmem = to_drm_gem_shmem_obj(obj);
-+	struct panthor_gem_object *bo = to_panthor_bo(obj);
- 	struct dma_buf_attachment *attach;
- 
- 	dma_resv_lock(obj->resv, NULL);
-@@ -197,11 +414,11 @@ panthor_gem_prime_end_cpu_access(struct dma_buf *dma_buf,
- 			dma_sync_sgtable_for_device(attach->dev, sgt, dir);
- 	}
- 
--	if (shmem->vaddr)
--		flush_kernel_vmap_range(shmem->vaddr, shmem->base.size);
-+	if (bo->cmap.vaddr)
-+		flush_kernel_vmap_range(bo->cmap.vaddr, bo->base.size);
- 
--	if (shmem->sgt)
--		dma_sync_sgtable_for_device(dev->dev, shmem->sgt, dir);
-+	if (bo->dmap.sgt)
-+		dma_sync_sgtable_for_device(drm_dev_dma_dev(dev), bo->dmap.sgt, dir);
- 
- 	dma_resv_unlock(obj->resv);
- 	return 0;
-@@ -258,53 +475,345 @@ panthor_gem_prime_import(struct drm_device *dev,
- 	return drm_gem_prime_import(dev, dma_buf);
- }
- 
-+static void panthor_gem_print_info(struct drm_printer *p, unsigned int indent,
-+				   const struct drm_gem_object *obj)
-+{
-+	const struct panthor_gem_object *bo = to_panthor_bo(obj);
-+
-+	if (drm_gem_is_imported(&bo->base))
-+		return;
-+
-+	drm_printf_indent(p, indent, "resident=%s\n", str_true_false(bo->backing.pages));
-+	drm_printf_indent(p, indent, "pages_pin_count=%u\n", refcount_read(&bo->backing.pin_count));
-+	drm_printf_indent(p, indent, "vmap_use_count=%u\n",
-+			  refcount_read(&bo->cmap.vaddr_use_count));
-+	drm_printf_indent(p, indent, "vaddr=%p\n", bo->cmap.vaddr);
-+}
-+
-+static int panthor_gem_pin_locked(struct drm_gem_object *obj)
-+{
-+	if (!drm_gem_is_imported(obj))
-+		return panthor_gem_backing_pin_locked(to_panthor_bo(obj));
-+
-+	return 0;
-+}
-+
-+static void panthor_gem_unpin_locked(struct drm_gem_object *obj)
-+{
-+	if (!drm_gem_is_imported(obj))
-+		panthor_gem_backing_unpin_locked(to_panthor_bo(obj));
-+}
-+
-+int panthor_gem_pin(struct panthor_gem_object *bo)
-+{
-+	int ret = 0;
-+
-+	if (drm_gem_is_imported(&bo->base))
-+		return 0;
-+
-+	if (refcount_inc_not_zero(&bo->backing.pin_count))
-+		return 0;
-+
-+	dma_resv_lock(bo->base.resv, NULL);
-+	ret = panthor_gem_backing_pin_locked(bo);
-+	dma_resv_unlock(bo->base.resv);
-+
-+	return ret;
-+}
-+
-+void panthor_gem_unpin(struct panthor_gem_object *bo)
-+{
-+	if (drm_gem_is_imported(&bo->base))
-+		return;
-+
-+	if (refcount_dec_not_one(&bo->backing.pin_count))
-+		return;
-+
-+	dma_resv_lock(bo->base.resv, NULL);
-+	panthor_gem_backing_unpin_locked(bo);
-+	dma_resv_unlock(bo->base.resv);
-+}
-+
-+static struct sg_table *panthor_gem_get_sg_table(struct drm_gem_object *obj)
-+{
-+	struct panthor_gem_object *bo = to_panthor_bo(obj);
-+
-+	drm_WARN_ON_ONCE(obj->dev, drm_gem_is_imported(obj));
-+	drm_WARN_ON_ONCE(obj->dev, !bo->backing.pages);
-+	drm_WARN_ON_ONCE(obj->dev, !refcount_read(&bo->backing.pin_count));
-+
-+	return drm_prime_pages_to_sg(obj->dev, bo->backing.pages, obj->size >> PAGE_SHIFT);
-+}
-+
-+static int panthor_gem_vmap_locked(struct drm_gem_object *obj,
-+				   struct iosys_map *map)
-+{
-+	struct panthor_gem_object *bo = to_panthor_bo(obj);
-+	void *vaddr;
-+
-+	dma_resv_assert_held(obj->resv);
-+
-+	if (drm_gem_is_imported(obj))
-+		return dma_buf_vmap(obj->import_attach->dmabuf, map);
-+
-+	vaddr = panthor_gem_vmap_get_locked(bo);
-+	if (IS_ERR(vaddr))
-+		return PTR_ERR(vaddr);
-+
-+	iosys_map_set_vaddr(map, vaddr);
-+	return 0;
-+}
-+
-+static void panthor_gem_vunmap_locked(struct drm_gem_object *obj,
-+				      struct iosys_map *map)
-+{
-+	struct panthor_gem_object *bo = to_panthor_bo(obj);
-+
-+	dma_resv_assert_held(obj->resv);
-+
-+	if (drm_gem_is_imported(obj)) {
-+		dma_buf_vunmap(obj->import_attach->dmabuf, map);
-+	} else {
-+		drm_WARN_ON_ONCE(obj->dev, bo->cmap.vaddr != map->vaddr);
-+		panthor_gem_vmap_put_locked(bo);
-+	}
-+}
-+
-+static int panthor_gem_mmap(struct drm_gem_object *obj, struct vm_area_struct *vma)
-+{
-+	struct panthor_gem_object *bo = to_panthor_bo(obj);
-+	int ret;
-+
-+	if (drm_gem_is_imported(obj)) {
-+		/* Reset both vm_ops and vm_private_data, so we don't end up with
-+		 * vm_ops pointing to our implementation if the dma-buf backend
-+		 * doesn't set those fields.
-+		 */
-+		vma->vm_private_data = NULL;
-+		vma->vm_ops = NULL;
-+
-+		ret = dma_buf_mmap(obj->dma_buf, vma, 0);
-+
-+		/* Drop the reference drm_gem_mmap_obj() acquired.*/
-+		if (!ret)
-+			drm_gem_object_put(obj);
-+
-+		return ret;
-+	}
-+
-+	if (is_cow_mapping(vma->vm_flags))
-+		return -EINVAL;
-+
-+	dma_resv_lock(obj->resv, NULL);
-+	ret = panthor_gem_backing_get_pages_locked(bo);
-+	if (!ret)
-+		ret = panthor_gem_prep_for_cpu_map_locked(bo);
-+	dma_resv_unlock(obj->resv);
-+
-+	if (ret)
-+		return ret;
-+
-+	vm_flags_set(vma, VM_PFNMAP | VM_DONTEXPAND | VM_DONTDUMP);
-+	vma->vm_page_prot = vm_get_page_prot(vma->vm_flags);
-+	if (should_map_wc(bo))
-+		vma->vm_page_prot = pgprot_writecombine(vma->vm_page_prot);
-+
-+	return 0;
-+}
-+
- static enum drm_gem_object_status panthor_gem_status(struct drm_gem_object *obj)
- {
- 	struct panthor_gem_object *bo = to_panthor_bo(obj);
- 	enum drm_gem_object_status res = 0;
- 
--	if (drm_gem_is_imported(&bo->base.base) || bo->base.pages)
-+	if (drm_gem_is_imported(&bo->base) || bo->backing.pages)
- 		res |= DRM_GEM_OBJECT_RESIDENT;
- 
- 	return res;
- }
- 
--static const struct drm_gem_object_funcs panthor_gem_funcs = {
--	.free = panthor_gem_free_object,
--	.print_info = drm_gem_shmem_object_print_info,
--	.pin = drm_gem_shmem_object_pin,
--	.unpin = drm_gem_shmem_object_unpin,
--	.get_sg_table = drm_gem_shmem_object_get_sg_table,
--	.vmap = drm_gem_shmem_object_vmap,
--	.vunmap = drm_gem_shmem_object_vunmap,
--	.mmap = drm_gem_shmem_object_mmap,
--	.status = panthor_gem_status,
--	.export = panthor_gem_prime_export,
--	.vm_ops = &drm_gem_shmem_vm_ops,
-+static vm_fault_t insert_page(struct vm_fault *vmf, unsigned int order, struct page *page)
-+{
-+	if (!order) {
-+		return vmf_insert_pfn(vmf->vma, vmf->address, page_to_pfn(page));
-+#ifdef CONFIG_ARCH_SUPPORTS_PMD_PFNMAP
-+	} else if (order == PMD_ORDER) {
-+		unsigned long pfn = page_to_pfn(page);
-+		unsigned long paddr = pfn << PAGE_SHIFT;
-+		bool aligned = (vmf->address & ~PMD_MASK) == (paddr & ~PMD_MASK);
-+
-+		if (aligned &&
-+		    folio_test_pmd_mappable(page_folio(page))) {
-+			pfn &= PMD_MASK >> PAGE_SHIFT;
-+			return vmf_insert_pfn_pmd(vmf, pfn, vmf->flags & FAULT_FLAG_WRITE);
-+		}
-+#endif
-+	}
-+
-+	return VM_FAULT_FALLBACK;
-+}
-+
-+static vm_fault_t panthor_gem_any_fault(struct vm_fault *vmf, unsigned int order)
-+{
-+	struct vm_area_struct *vma = vmf->vma;
-+	struct drm_gem_object *obj = vma->vm_private_data;
-+	struct panthor_gem_object *bo = to_panthor_bo(vma->vm_private_data);
-+	loff_t num_pages = obj->size >> PAGE_SHIFT;
-+	vm_fault_t ret;
-+	pgoff_t page_offset;
-+
-+	if (order && order != PMD_ORDER)
-+		return VM_FAULT_FALLBACK;
-+
-+	/* Offset to faulty address in the VMA. */
-+	page_offset = vmf->pgoff - vma->vm_pgoff;
-+
-+	dma_resv_lock(bo->base.resv, NULL);
-+
-+	if (page_offset >= num_pages ||
-+	    drm_WARN_ON_ONCE(obj->dev, !bo->backing.pages)) {
-+		ret = VM_FAULT_SIGBUS;
-+		goto out;
-+	}
-+
-+	ret = insert_page(vmf, order, bo->backing.pages[page_offset]);
-+
-+ out:
-+	dma_resv_unlock(bo->base.resv);
-+
-+	return ret;
-+}
-+
-+static vm_fault_t panthor_gem_fault(struct vm_fault *vmf)
-+{
-+	return panthor_gem_any_fault(vmf, 0);
-+}
-+
-+static void panthor_gem_vm_open(struct vm_area_struct *vma)
-+{
-+	struct panthor_gem_object *bo = to_panthor_bo(vma->vm_private_data);
-+
-+	drm_WARN_ON(bo->base.dev, drm_gem_is_imported(&bo->base));
-+
-+	dma_resv_lock(bo->base.resv, NULL);
-+
-+	/* We should have already pinned the pages when the buffer was first
-+	 * mmap'd, vm_open() just grabs an additional reference for the new
-+	 * mm the vma is getting copied into (ie. on fork()).
-+	 */
-+	drm_WARN_ON_ONCE(bo->base.dev, !bo->backing.pages);
-+
-+	dma_resv_unlock(bo->base.resv);
-+
-+	drm_gem_vm_open(vma);
-+}
-+
-+static const struct vm_operations_struct panthor_gem_vm_ops = {
-+	.fault = panthor_gem_fault,
-+#ifdef CONFIG_ARCH_SUPPORTS_PMD_PFNMAP
-+	.huge_fault = panthor_gem_any_fault,
-+#endif
-+	.open = panthor_gem_vm_open,
-+	.close = drm_gem_vm_close,
- };
- 
 -/**
-- * panthor_gem_create_object - Implementation of driver->gem_create_object.
-- * @ddev: DRM device
-- * @size: Size in bytes of the memory the object will reference
-- *
-- * This lets the GEM helpers allocate object structs for us, and keep
-- * our BO stats correct.
+- * panthor_kernel_bo_destroy() - Destroy a kernel buffer object
+- * @bo: Kernel buffer object to destroy. If NULL or an ERR_PTR(), the destruction
+- * is skipped.
 - */
--struct drm_gem_object *panthor_gem_create_object(struct drm_device *ddev, size_t size)
+-void panthor_kernel_bo_destroy(struct panthor_kernel_bo *bo)
 -{
--	struct panthor_gem_object *obj;
-+static const struct drm_gem_object_funcs panthor_gem_funcs = {
-+	.free = panthor_gem_free_object,
-+	.print_info = panthor_gem_print_info,
-+	.pin = panthor_gem_pin_locked,
-+	.unpin = panthor_gem_unpin_locked,
-+	.get_sg_table = panthor_gem_get_sg_table,
-+	.vmap = panthor_gem_vmap_locked,
-+	.vunmap = panthor_gem_vunmap_locked,
-+	.mmap = panthor_gem_mmap,
-+	.status = panthor_gem_status,
-+	.export = panthor_gem_prime_export,
-+	.vm_ops = &panthor_gem_vm_ops,
-+};
- 
--	obj = kzalloc_obj(*obj);
--	if (!obj)
-+static struct panthor_gem_object *
-+panthor_gem_alloc_object(u32 flags)
-+{
-+	struct panthor_gem_object *bo;
-+
-+	bo = kzalloc_obj(*bo);
-+	if (!bo)
- 		return ERR_PTR(-ENOMEM);
- 
--	obj->base.base.funcs = &panthor_gem_funcs;
--	mutex_init(&obj->label.lock);
-+	bo->base.funcs = &panthor_gem_funcs;
-+	bo->flags = flags;
-+	mutex_init(&bo->label.lock);
-+	panthor_gem_debugfs_bo_init(bo);
-+	return bo;
-+}
- 
--	panthor_gem_debugfs_bo_init(obj);
-+static struct panthor_gem_object *
-+panthor_gem_create(struct drm_device *dev, size_t size, uint32_t flags,
-+		   struct panthor_vm *exclusive_vm, u32 usage_flags)
-+{
-+	struct panthor_gem_object *bo;
-+	int ret;
- 
--	return &obj->base.base;
-+	bo = panthor_gem_alloc_object(flags);
-+	if (IS_ERR(bo))
-+		return bo;
-+
-+	size = PAGE_ALIGN(size);
-+	ret = drm_gem_object_init(dev, &bo->base, size);
-+	if (ret)
-+		goto err_put;
-+
-+	/* Our buffers are kept pinned, so allocating them
-+	 * from the MOVABLE zone is a really bad idea, and
-+	 * conflicts with CMA. See comments above new_inode()
-+	 * why this is required _and_ expected if you're
-+	 * going to pin these pages.
-+	 */
-+	mapping_set_gfp_mask(bo->base.filp->f_mapping,
-+			     GFP_HIGHUSER | __GFP_RETRY_MAYFAIL | __GFP_NOWARN);
-+
-+	ret = drm_gem_create_mmap_offset(&bo->base);
-+	if (ret)
-+		goto err_put;
-+
-+	if (exclusive_vm) {
-+		bo->exclusive_vm_root_gem = panthor_vm_root_gem(exclusive_vm);
-+		drm_gem_object_get(bo->exclusive_vm_root_gem);
-+		bo->base.resv = bo->exclusive_vm_root_gem->resv;
-+	}
-+
-+	panthor_gem_debugfs_set_usage_flags(bo, usage_flags);
-+	return bo;
-+
-+err_put:
-+	drm_gem_object_put(&bo->base);
-+	return ERR_PTR(ret);
-+}
-+
-+struct drm_gem_object *
-+panthor_gem_prime_import_sg_table(struct drm_device *dev,
-+				  struct dma_buf_attachment *attach,
-+				  struct sg_table *sgt)
-+{
-+	struct panthor_gem_object *bo;
-+	int ret;
-+
-+	bo = panthor_gem_alloc_object(0);
-+	if (IS_ERR(bo))
-+		return ERR_CAST(bo);
-+
-+	drm_gem_private_object_init(dev, &bo->base, attach->dmabuf->size);
-+
-+	ret = drm_gem_create_mmap_offset(&bo->base);
-+	if (ret)
-+		goto err_put;
-+
-+	bo->dmap.sgt = sgt;
-+	return &bo->base;
-+
-+err_put:
-+	drm_gem_object_put(&bo->base);
-+	return ERR_PTR(ret);
- }
- 
- /**
-@@ -325,54 +834,22 @@ panthor_gem_create_with_handle(struct drm_file *file,
- 			       u64 *size, u32 flags, u32 *handle)
- {
- 	int ret;
--	struct drm_gem_shmem_object *shmem;
- 	struct panthor_gem_object *bo;
- 
--	shmem = drm_gem_shmem_create(ddev, *size);
--	if (IS_ERR(shmem))
--		return PTR_ERR(shmem);
+-	struct panthor_vm *vm;
 -
--	bo = to_panthor_bo(&shmem->base);
--	bo->flags = flags;
--	bo->base.map_wc = should_map_wc(bo, exclusive_vm);
+-	if (IS_ERR_OR_NULL(bo))
+-		return;
 -
--	if (exclusive_vm) {
--		bo->exclusive_vm_root_gem = panthor_vm_root_gem(exclusive_vm);
--		drm_gem_object_get(bo->exclusive_vm_root_gem);
--		bo->base.base.resv = bo->exclusive_vm_root_gem->resv;
--	}
+-	vm = bo->vm;
+-	panthor_kernel_bo_vunmap(bo);
 -
--	panthor_gem_debugfs_set_usage_flags(bo, 0);
+-	drm_WARN_ON(bo->obj->dev,
+-		    to_panthor_bo(bo->obj)->exclusive_vm_root_gem != panthor_vm_root_gem(vm));
+-	panthor_vm_unmap_range(vm, bo->va_node.start, bo->va_node.size);
+-	panthor_vm_free_va(vm, &bo->va_node);
+-	drm_gem_object_put(bo->obj);
+-	panthor_vm_put(vm);
+-	kfree(bo);
+-}
 -
--	/* If this is a write-combine mapping, we query the sgt to force a CPU
--	 * cache flush (dma_map_sgtable() is called when the sgt is created).
--	 * This ensures the zero-ing is visible to any uncached mapping created
--	 * by vmap/mmap.
--	 * FIXME: Ideally this should be done when pages are allocated, not at
--	 * BO creation time.
--	 */
--	if (shmem->map_wc) {
--		struct sg_table *sgt;
--
--		sgt = drm_gem_shmem_get_pages_sgt(shmem);
--		if (IS_ERR(sgt)) {
--			ret = PTR_ERR(sgt);
--			goto out_put_gem;
--		}
--	}
-+	bo = panthor_gem_create(ddev, *size, flags, exclusive_vm, 0);
-+	if (IS_ERR(bo))
-+		return PTR_ERR(bo);
- 
- 	/*
- 	 * Allocate an id of idr table where the obj is registered
- 	 * and handle has the id what user can see.
- 	 */
--	ret = drm_gem_handle_create(file, &shmem->base, handle);
-+	ret = drm_gem_handle_create(file, &bo->base, handle);
- 	if (!ret)
--		*size = bo->base.base.size;
-+		*size = bo->base.size;
- 
--out_put_gem:
- 	/* drop reference from allocate - handle holds it now. */
--	drm_gem_object_put(&shmem->base);
--
-+	drm_gem_object_put(&bo->base);
- 	return ret;
- }
- 
-@@ -417,18 +894,17 @@ panthor_gem_sync(struct drm_gem_object *obj, u32 type,
- 		 u64 offset, u64 size)
- {
- 	struct panthor_gem_object *bo = to_panthor_bo(obj);
--	struct drm_gem_shmem_object *shmem = &bo->base;
--	const struct drm_device *dev = shmem->base.dev;
-+	struct device *dma_dev = drm_dev_dma_dev(bo->base.dev);
- 	struct sg_table *sgt;
- 	struct scatterlist *sgl;
- 	unsigned int count;
- 
- 	/* Make sure the range is in bounds. */
--	if (offset + size < offset || offset + size > shmem->base.size)
-+	if (offset + size < offset || offset + size > bo->base.size)
- 		return -EINVAL;
- 
- 	/* Disallow CPU-cache maintenance on imported buffers. */
--	if (drm_gem_is_imported(&shmem->base))
-+	if (drm_gem_is_imported(&bo->base))
- 		return -EINVAL;
- 
- 	switch (type) {
-@@ -441,14 +917,14 @@ panthor_gem_sync(struct drm_gem_object *obj, u32 type,
- 	}
- 
- 	/* Don't bother if it's WC-mapped */
--	if (shmem->map_wc)
-+	if (should_map_wc(bo))
- 		return 0;
- 
- 	/* Nothing to do if the size is zero. */
- 	if (size == 0)
- 		return 0;
- 
--	sgt = drm_gem_shmem_get_pages_sgt(shmem);
-+	sgt = panthor_gem_get_dev_sgt(bo);
- 	if (IS_ERR(sgt))
- 		return PTR_ERR(sgt);
- 
-@@ -489,9 +965,9 @@ panthor_gem_sync(struct drm_gem_object *obj, u32 type,
- 		 *
- 		 * for the flush+invalidate case.
- 		 */
--		dma_sync_single_for_device(dev->dev, paddr, len, DMA_TO_DEVICE);
-+		dma_sync_single_for_device(dma_dev, paddr, len, DMA_TO_DEVICE);
- 		if (type == DRM_PANTHOR_BO_SYNC_CPU_CACHE_FLUSH_AND_INVALIDATE)
--			dma_sync_single_for_cpu(dev->dev, paddr, len, DMA_FROM_DEVICE);
-+			dma_sync_single_for_cpu(dma_dev, paddr, len, DMA_FROM_DEVICE);
- 	}
- 
- 	return 0;
-@@ -541,7 +1017,6 @@ panthor_kernel_bo_create(struct panthor_device *ptdev, struct panthor_vm *vm,
- 			 size_t size, u32 bo_flags, u32 vm_map_flags,
- 			 u64 gpu_va, const char *name)
- {
+-/**
+- * panthor_kernel_bo_create() - Create and map a GEM object to a VM
+- * @ptdev: Device.
+- * @vm: VM to map the GEM to. If NULL, the kernel object is not GPU mapped.
+- * @size: Size of the buffer object.
+- * @bo_flags: Combination of drm_panthor_bo_flags flags.
+- * @vm_map_flags: Combination of drm_panthor_vm_bind_op_flags (only those
+- * that are related to map operations).
+- * @gpu_va: GPU address assigned when mapping to the VM.
+- * If gpu_va == PANTHOR_VM_KERNEL_AUTO_VA, the virtual address will be
+- * automatically allocated.
+- * @name: Descriptive label of the BO's contents
+- *
+- * Return: A valid pointer in case of success, an ERR_PTR() otherwise.
+- */
+-struct panthor_kernel_bo *
+-panthor_kernel_bo_create(struct panthor_device *ptdev, struct panthor_vm *vm,
+-			 size_t size, u32 bo_flags, u32 vm_map_flags,
+-			 u64 gpu_va, const char *name)
+-{
 -	struct drm_gem_shmem_object *obj;
- 	struct panthor_kernel_bo *kbo;
- 	struct panthor_gem_object *bo;
- 	u32 debug_flags = PANTHOR_DEBUGFS_GEM_USAGE_FLAG_KERNEL;
-@@ -554,25 +1029,18 @@ panthor_kernel_bo_create(struct panthor_device *ptdev, struct panthor_vm *vm,
- 	if (!kbo)
- 		return ERR_PTR(-ENOMEM);
- 
+-	struct panthor_kernel_bo *kbo;
+-	struct panthor_gem_object *bo;
+-	u32 debug_flags = PANTHOR_DEBUGFS_GEM_USAGE_FLAG_KERNEL;
+-	int ret;
+-
+-	if (drm_WARN_ON(&ptdev->base, !vm))
+-		return ERR_PTR(-EINVAL);
+-
+-	kbo = kzalloc_obj(*kbo);
+-	if (!kbo)
+-		return ERR_PTR(-ENOMEM);
+-
 -	obj = drm_gem_shmem_create(&ptdev->base, size);
 -	if (IS_ERR(obj)) {
 -		ret = PTR_ERR(obj);
@@ -1073,358 +178,157 @@ index 5065f99c9bc4..0723a0dc0127 100644
 -	drm_gem_object_get(bo->exclusive_vm_root_gem);
 -	bo->base.base.resv = bo->exclusive_vm_root_gem->resv;
 -
- 	if (vm == panthor_fw_vm(ptdev))
- 		debug_flags |= PANTHOR_DEBUGFS_GEM_USAGE_FLAG_FW_MAPPED;
+-	if (vm == panthor_fw_vm(ptdev))
+-		debug_flags |= PANTHOR_DEBUGFS_GEM_USAGE_FLAG_FW_MAPPED;
+-
+-	panthor_gem_kernel_bo_set_label(kbo, name);
+-	panthor_gem_debugfs_set_usage_flags(to_panthor_bo(kbo->obj), debug_flags);
+-
+-	/* The system and GPU MMU page size might differ, which becomes a
+-	 * problem for FW sections that need to be mapped at explicit address
+-	 * since our PAGE_SIZE alignment might cover a VA range that's
+-	 * expected to be used for another section.
+-	 * Make sure we never map more than we need.
+-	 */
+-	size = ALIGN(size, panthor_vm_page_size(vm));
+-	ret = panthor_vm_alloc_va(vm, gpu_va, size, &kbo->va_node);
+-	if (ret)
+-		goto err_put_obj;
+-
+-	ret = panthor_vm_map_bo_range(vm, bo, 0, size, kbo->va_node.start, vm_map_flags);
+-	if (ret)
+-		goto err_free_va;
+-
+-	kbo->vm = panthor_vm_get(vm);
+-	return kbo;
+-
+-err_free_va:
+-	panthor_vm_free_va(vm, &kbo->va_node);
+-
+-err_put_obj:
+-	drm_gem_object_put(&obj->base);
+-
+-err_free_bo:
+-	kfree(kbo);
+-	return ERR_PTR(ret);
+-}
+-
+ static struct sg_table *
+ panthor_gem_prime_map_dma_buf(struct dma_buf_attachment *attach,
+ 			      enum dma_data_direction dir)
+@@ -603,6 +497,112 @@ panthor_gem_sync(struct drm_gem_object *obj, u32 type,
+ 	return 0;
+ }
  
-+	bo = panthor_gem_create(&ptdev->base, size, bo_flags, vm, debug_flags);
-+	if (IS_ERR(bo)) {
-+		ret = PTR_ERR(bo);
-+		goto err_free_kbo;
++/**
++ * panthor_kernel_bo_destroy() - Destroy a kernel buffer object
++ * @bo: Kernel buffer object to destroy. If NULL or an ERR_PTR(), the destruction
++ * is skipped.
++ */
++void panthor_kernel_bo_destroy(struct panthor_kernel_bo *bo)
++{
++	struct panthor_vm *vm;
++
++	if (IS_ERR_OR_NULL(bo))
++		return;
++
++	vm = bo->vm;
++	panthor_kernel_bo_vunmap(bo);
++
++	drm_WARN_ON(bo->obj->dev,
++		    to_panthor_bo(bo->obj)->exclusive_vm_root_gem != panthor_vm_root_gem(vm));
++	panthor_vm_unmap_range(vm, bo->va_node.start, bo->va_node.size);
++	panthor_vm_free_va(vm, &bo->va_node);
++	drm_gem_object_put(bo->obj);
++	panthor_vm_put(vm);
++	kfree(bo);
++}
++
++/**
++ * panthor_kernel_bo_create() - Create and map a GEM object to a VM
++ * @ptdev: Device.
++ * @vm: VM to map the GEM to. If NULL, the kernel object is not GPU mapped.
++ * @size: Size of the buffer object.
++ * @bo_flags: Combination of drm_panthor_bo_flags flags.
++ * @vm_map_flags: Combination of drm_panthor_vm_bind_op_flags (only those
++ * that are related to map operations).
++ * @gpu_va: GPU address assigned when mapping to the VM.
++ * If gpu_va == PANTHOR_VM_KERNEL_AUTO_VA, the virtual address will be
++ * automatically allocated.
++ * @name: Descriptive label of the BO's contents
++ *
++ * Return: A valid pointer in case of success, an ERR_PTR() otherwise.
++ */
++struct panthor_kernel_bo *
++panthor_kernel_bo_create(struct panthor_device *ptdev, struct panthor_vm *vm,
++			 size_t size, u32 bo_flags, u32 vm_map_flags,
++			 u64 gpu_va, const char *name)
++{
++	struct drm_gem_shmem_object *obj;
++	struct panthor_kernel_bo *kbo;
++	struct panthor_gem_object *bo;
++	u32 debug_flags = PANTHOR_DEBUGFS_GEM_USAGE_FLAG_KERNEL;
++	int ret;
++
++	if (drm_WARN_ON(&ptdev->base, !vm))
++		return ERR_PTR(-EINVAL);
++
++	kbo = kzalloc_obj(*kbo);
++	if (!kbo)
++		return ERR_PTR(-ENOMEM);
++
++	obj = drm_gem_shmem_create(&ptdev->base, size);
++	if (IS_ERR(obj)) {
++		ret = PTR_ERR(obj);
++		goto err_free_bo;
 +	}
 +
-+	kbo->obj = &bo->base;
++	bo = to_panthor_bo(&obj->base);
++	kbo->obj = &obj->base;
++	bo->flags = bo_flags;
++	bo->base.map_wc = should_map_wc(bo, vm);
++	bo->exclusive_vm_root_gem = panthor_vm_root_gem(vm);
++	drm_gem_object_get(bo->exclusive_vm_root_gem);
++	bo->base.base.resv = bo->exclusive_vm_root_gem->resv;
 +
- 	panthor_gem_kernel_bo_set_label(kbo, name);
--	panthor_gem_debugfs_set_usage_flags(to_panthor_bo(kbo->obj), debug_flags);
- 
- 	/* The system and GPU MMU page size might differ, which becomes a
- 	 * problem for FW sections that need to be mapped at explicit address
-@@ -596,9 +1064,9 @@ panthor_kernel_bo_create(struct panthor_device *ptdev, struct panthor_vm *vm,
- 	panthor_vm_free_va(vm, &kbo->va_node);
- 
- err_put_obj:
--	drm_gem_object_put(&obj->base);
-+	drm_gem_object_put(&bo->base);
- 
--err_free_bo:
-+err_free_kbo:
- 	kfree(kbo);
- 	return ERR_PTR(ret);
- }
-@@ -646,7 +1114,7 @@ static void panthor_gem_debugfs_bo_print(struct panthor_gem_object *bo,
- 					 struct seq_file *m,
- 					 struct gem_size_totals *totals)
- {
--	unsigned int refcount = kref_read(&bo->base.base.refcount);
-+	unsigned int refcount = kref_read(&bo->base.refcount);
- 	char creator_info[32] = {};
- 	size_t resident_size;
- 	u32 gem_usage_flags = bo->debugfs.flags;
-@@ -656,21 +1124,21 @@ static void panthor_gem_debugfs_bo_print(struct panthor_gem_object *bo,
- 	if (!refcount)
- 		return;
- 
--	resident_size = bo->base.pages ? bo->base.base.size : 0;
-+	resident_size = bo->backing.pages ? bo->base.size : 0;
- 
- 	snprintf(creator_info, sizeof(creator_info),
- 		 "%s/%d", bo->debugfs.creator.process_name, bo->debugfs.creator.tgid);
- 	seq_printf(m, "%-32s%-16d%-16d%-16zd%-16zd0x%-16lx",
- 		   creator_info,
--		   bo->base.base.name,
-+		   bo->base.name,
- 		   refcount,
--		   bo->base.base.size,
-+		   bo->base.size,
- 		   resident_size,
--		   drm_vma_node_start(&bo->base.base.vma_node));
-+		   drm_vma_node_start(&bo->base.vma_node));
- 
--	if (drm_gem_is_imported(&bo->base.base))
-+	if (drm_gem_is_imported(&bo->base))
- 		gem_state_flags |= PANTHOR_DEBUGFS_GEM_STATE_FLAG_IMPORTED;
--	if (bo->base.base.dma_buf)
-+	if (bo->base.dma_buf)
- 		gem_state_flags |= PANTHOR_DEBUGFS_GEM_STATE_FLAG_EXPORTED;
- 
- 	seq_printf(m, "0x%-8x 0x%-10x", gem_state_flags, gem_usage_flags);
-@@ -679,10 +1147,8 @@ static void panthor_gem_debugfs_bo_print(struct panthor_gem_object *bo,
- 		seq_printf(m, "%s\n", bo->label.str ? : "");
- 	}
- 
--	totals->size += bo->base.base.size;
-+	totals->size += bo->base.size;
- 	totals->resident += resident_size;
--	if (bo->base.madv > 0)
--		totals->reclaimable += resident_size;
- }
- 
- static void panthor_gem_debugfs_print_bos(struct panthor_device *ptdev,
-diff --git a/drivers/gpu/drm/panthor/panthor_gem.h b/drivers/gpu/drm/panthor/panthor_gem.h
-index 94b2d17cf032..b66478c9590c 100644
---- a/drivers/gpu/drm/panthor/panthor_gem.h
-+++ b/drivers/gpu/drm/panthor/panthor_gem.h
-@@ -5,7 +5,7 @@
- #ifndef __PANTHOR_GEM_H__
- #define __PANTHOR_GEM_H__
- 
--#include <drm/drm_gem_shmem_helper.h>
-+#include <drm/drm_gem.h>
- #include <drm/drm_mm.h>
- 
- #include <linux/iosys-map.h>
-@@ -60,12 +60,51 @@ struct panthor_gem_debugfs {
- 	u32 flags;
- };
- 
-+/**
-+ * struct panthor_gem_backing - GEM memory backing related data
-+ */
-+struct panthor_gem_backing {
-+	/** @pages: Pages requested with drm_gem_get_pages() */
-+	struct page **pages;
++	if (vm == panthor_fw_vm(ptdev))
++		debug_flags |= PANTHOR_DEBUGFS_GEM_USAGE_FLAG_FW_MAPPED;
 +
-+	/** @pin_count: Number of active pin requests on this GEM */
-+	refcount_t pin_count;
-+};
++	panthor_gem_kernel_bo_set_label(kbo, name);
++	panthor_gem_debugfs_set_usage_flags(to_panthor_bo(kbo->obj), debug_flags);
 +
-+/**
-+ * struct panthor_gem_cpu_map - GEM CPU mapping related data
-+ */
-+struct panthor_gem_cpu_map {
-+	/** @vaddr: Address returned by vmap() */
-+	void *vaddr;
-+
-+	/** @vaddr_use_count: Number of active vmap() requests on this GEM */
-+	refcount_t vaddr_use_count;
-+};
-+
-+/**
-+ * struct panthor_gem_dev_map - GEM device mapping related data
-+ */
-+struct panthor_gem_dev_map {
-+	/** @sgt: Device mapped sg_table for this GEM */
-+	struct sg_table *sgt;
-+};
-+
- /**
-  * struct panthor_gem_object - Driver specific GEM object.
-  */
- struct panthor_gem_object {
--	/** @base: Inherit from drm_gem_shmem_object. */
--	struct drm_gem_shmem_object base;
-+	/** @base: Inherit from drm_gem_object. */
-+	struct drm_gem_object base;
-+
-+	/** @backing: Memory backing state */
-+	struct panthor_gem_backing backing;
-+
-+	/** @cmap: CPU mapping state */
-+	struct panthor_gem_cpu_map cmap;
-+
-+	/** @dmap: Device mapping state */
-+	struct panthor_gem_dev_map dmap;
- 
- 	/**
- 	 * @exclusive_vm_root_gem: Root GEM of the exclusive VM this GEM object
-@@ -130,22 +169,25 @@ struct panthor_kernel_bo {
- 	void *kmap;
- };
- 
--static inline
--struct panthor_gem_object *to_panthor_bo(struct drm_gem_object *obj)
--{
--	return container_of(to_drm_gem_shmem_obj(obj), struct panthor_gem_object, base);
--}
-+#define to_panthor_bo(obj) container_of_const(obj, struct panthor_gem_object, base)
- 
- void panthor_gem_init(struct panthor_device *ptdev);
- 
--struct drm_gem_object *panthor_gem_create_object(struct drm_device *ddev, size_t size);
--
-+struct drm_gem_object *
-+panthor_gem_prime_import_sg_table(struct drm_device *dev,
-+				  struct dma_buf_attachment *attach,
-+				  struct sg_table *sgt);
- int
- panthor_gem_create_with_handle(struct drm_file *file,
- 			       struct drm_device *ddev,
- 			       struct panthor_vm *exclusive_vm,
- 			       u64 *size, u32 flags, uint32_t *handle);
- 
-+struct sg_table *
-+panthor_gem_get_dev_sgt(struct panthor_gem_object *bo);
-+int panthor_gem_pin(struct panthor_gem_object *bo);
-+void panthor_gem_unpin(struct panthor_gem_object *bo);
-+
- void panthor_gem_bo_set_label(struct drm_gem_object *obj, const char *label);
- void panthor_gem_kernel_bo_set_label(struct panthor_kernel_bo *bo, const char *label);
- int panthor_gem_sync(struct drm_gem_object *obj,
-diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/panthor/panthor_mmu.c
-index f490e0bf6cac..3f73a35fe1fa 100644
---- a/drivers/gpu/drm/panthor/panthor_mmu.c
-+++ b/drivers/gpu/drm/panthor/panthor_mmu.c
-@@ -5,6 +5,7 @@
- #include <drm/drm_debugfs.h>
- #include <drm/drm_drv.h>
- #include <drm/drm_exec.h>
-+#include <drm/drm_file.h>
- #include <drm/drm_gpuvm.h>
- #include <drm/drm_managed.h>
- #include <drm/drm_print.h>
-@@ -1083,8 +1084,7 @@ static void panthor_vm_bo_free(struct drm_gpuvm_bo *vm_bo)
- {
- 	struct panthor_gem_object *bo = to_panthor_bo(vm_bo->obj);
- 
--	if (!drm_gem_is_imported(&bo->base.base))
--		drm_gem_shmem_unpin(&bo->base);
-+	panthor_gem_unpin(bo);
- 	kfree(vm_bo);
- }
- 
-@@ -1206,7 +1206,7 @@ static int panthor_vm_prepare_map_op_ctx(struct panthor_vm_op_ctx *op_ctx,
- 		return -EINVAL;
- 
- 	/* Make sure the VA and size are in-bounds. */
--	if (size > bo->base.base.size || offset > bo->base.base.size - size)
-+	if (size > bo->base.size || offset > bo->base.size - size)
- 		return -EINVAL;
- 
- 	/* If the BO has an exclusive VM attached, it can't be mapped to other VMs. */
-@@ -1223,39 +1223,30 @@ static int panthor_vm_prepare_map_op_ctx(struct panthor_vm_op_ctx *op_ctx,
- 	if (ret)
- 		goto err_cleanup;
- 
--	if (!drm_gem_is_imported(&bo->base.base)) {
--		/* Pre-reserve the BO pages, so the map operation doesn't have to
--		 * allocate. This pin is dropped in panthor_vm_bo_free(), so
--		 * once we have successfully called drm_gpuvm_bo_create(),
--		 * GPUVM will take care of dropping the pin for us.
--		 */
--		ret = drm_gem_shmem_pin(&bo->base);
--		if (ret)
--			goto err_cleanup;
--	}
-+	/* Pre-reserve the BO pages, so the map operation doesn't have to
-+	 * allocate.
++	/* The system and GPU MMU page size might differ, which becomes a
++	 * problem for FW sections that need to be mapped at explicit address
++	 * since our PAGE_SIZE alignment might cover a VA range that's
++	 * expected to be used for another section.
++	 * Make sure we never map more than we need.
 +	 */
-+	ret = panthor_gem_pin(bo);
++	size = ALIGN(size, panthor_vm_page_size(vm));
++	ret = panthor_vm_alloc_va(vm, gpu_va, size, &kbo->va_node);
 +	if (ret)
-+		goto err_cleanup;
- 
--	sgt = drm_gem_shmem_get_pages_sgt(&bo->base);
-+	sgt = panthor_gem_get_dev_sgt(bo);
- 	if (IS_ERR(sgt)) {
--		if (!drm_gem_is_imported(&bo->base.base))
--			drm_gem_shmem_unpin(&bo->base);
--
-+		panthor_gem_unpin(bo);
- 		ret = PTR_ERR(sgt);
- 		goto err_cleanup;
- 	}
- 
- 	op_ctx->map.sgt = sgt;
- 
--	preallocated_vm_bo = drm_gpuvm_bo_create(&vm->base, &bo->base.base);
-+	preallocated_vm_bo = drm_gpuvm_bo_create(&vm->base, &bo->base);
- 	if (!preallocated_vm_bo) {
--		if (!drm_gem_is_imported(&bo->base.base))
--			drm_gem_shmem_unpin(&bo->base);
--
-+		panthor_gem_unpin(bo);
- 		ret = -ENOMEM;
- 		goto err_cleanup;
- 	}
- 
- 	op_ctx->map.vm_bo = drm_gpuvm_bo_obtain_prealloc(preallocated_vm_bo);
--
- 	op_ctx->map.bo_offset = offset;
- 
- 	/* L1, L2 and L3 page tables.
-@@ -1283,7 +1274,7 @@ static int panthor_vm_prepare_map_op_ctx(struct panthor_vm_op_ctx *op_ctx,
- 	}
- 
- 	/* Insert BO into the extobj list last, when we know nothing can fail. */
--	if (bo->base.base.resv != panthor_vm_resv(vm)) {
-+	if (bo->base.resv != panthor_vm_resv(vm)) {
- 		dma_resv_lock(panthor_vm_resv(vm), NULL);
- 		drm_gpuvm_bo_extobj_add(op_ctx->map.vm_bo);
- 		dma_resv_unlock(panthor_vm_resv(vm));
-@@ -2054,9 +2045,9 @@ static void panthor_vma_link(struct panthor_vm *vm,
- {
- 	struct panthor_gem_object *bo = to_panthor_bo(vma->base.gem.obj);
- 
--	mutex_lock(&bo->base.base.gpuva.lock);
-+	mutex_lock(&bo->base.gpuva.lock);
- 	drm_gpuva_link(&vma->base, vm_bo);
--	mutex_unlock(&bo->base.base.gpuva.lock);
-+	mutex_unlock(&bo->base.gpuva.lock);
- }
- 
- static void panthor_vma_unlink(struct panthor_vma *vma)
-@@ -2108,11 +2099,12 @@ static int panthor_gpuva_sm_step_map(struct drm_gpuva_op *op, void *priv)
- static bool
- iova_mapped_as_huge_page(struct drm_gpuva_op_map *op, u64 addr)
- {
-+	struct panthor_gem_object *bo = to_panthor_bo(op->gem.obj);
- 	const struct page *pg;
- 	pgoff_t bo_offset;
- 
- 	bo_offset = addr - op->va.addr + op->gem.offset;
--	pg = to_panthor_bo(op->gem.obj)->base.pages[bo_offset >> PAGE_SHIFT];
-+	pg = bo->backing.pages[bo_offset >> PAGE_SHIFT];
- 
- 	return folio_size(page_folio(pg)) >= SZ_2M;
- }
-@@ -2181,7 +2173,7 @@ static int panthor_gpuva_sm_step_remap(struct drm_gpuva_op *op,
- 		u64 size = op->remap.prev->va.addr + op->remap.prev->va.range - unmap_start;
- 
- 		ret = panthor_vm_map_pages(vm, unmap_start, flags_to_prot(unmap_vma->flags),
--					   bo->base.sgt, offset, size);
-+					   bo->dmap.sgt, offset, size);
- 		if (ret)
- 			return ret;
- 
-@@ -2195,7 +2187,7 @@ static int panthor_gpuva_sm_step_remap(struct drm_gpuva_op *op,
- 		u64 size = unmap_start + unmap_range - op->remap.next->va.addr;
- 
- 		ret = panthor_vm_map_pages(vm, addr, flags_to_prot(unmap_vma->flags),
--					   bo->base.sgt, op->remap.next->gem.offset, size);
-+					   bo->dmap.sgt, op->remap.next->gem.offset, size);
- 		if (ret)
- 			return ret;
- 
-diff --git a/drivers/gpu/drm/panthor/panthor_sched.c b/drivers/gpu/drm/panthor/panthor_sched.c
-index 2fe04d0f0e3a..97581943a138 100644
---- a/drivers/gpu/drm/panthor/panthor_sched.c
-+++ b/drivers/gpu/drm/panthor/panthor_sched.c
-@@ -3,7 +3,7 @@
- 
- #include <drm/drm_drv.h>
- #include <drm/drm_exec.h>
--#include <drm/drm_gem_shmem_helper.h>
-+#include <drm/drm_file.h>
- #include <drm/drm_managed.h>
- #include <drm/drm_print.h>
- #include <drm/gpu_scheduler.h>
-@@ -871,8 +871,7 @@ panthor_queue_get_syncwait_obj(struct panthor_group *group, struct panthor_queue
- 	int ret;
- 
- 	if (queue->syncwait.kmap) {
--		bo = container_of(queue->syncwait.obj,
--				  struct panthor_gem_object, base.base);
-+		bo = to_panthor_bo(queue->syncwait.obj);
- 		goto out_sync;
- 	}
- 
-@@ -882,7 +881,7 @@ panthor_queue_get_syncwait_obj(struct panthor_group *group, struct panthor_queue
- 	if (drm_WARN_ON(&ptdev->base, IS_ERR_OR_NULL(bo)))
- 		goto err_put_syncwait_obj;
- 
--	queue->syncwait.obj = &bo->base.base;
-+	queue->syncwait.obj = &bo->base;
- 	ret = drm_gem_vmap(queue->syncwait.obj, &map);
- 	if (drm_WARN_ON(&ptdev->base, ret))
- 		goto err_put_syncwait_obj;
-@@ -896,7 +895,7 @@ panthor_queue_get_syncwait_obj(struct panthor_group *group, struct panthor_queue
- 	 * panthor_gem_sync() is a NOP if map_wc=true, so no need to check
- 	 * it here.
- 	 */
--	panthor_gem_sync(&bo->base.base,
-+	panthor_gem_sync(&bo->base,
- 			 DRM_PANTHOR_BO_SYNC_CPU_CACHE_FLUSH_AND_INVALIDATE,
- 			 queue->syncwait.offset,
- 			 queue->syncwait.sync64 ?
++		goto err_put_obj;
++
++	ret = panthor_vm_map_bo_range(vm, bo, 0, size, kbo->va_node.start, vm_map_flags);
++	if (ret)
++		goto err_free_va;
++
++	kbo->vm = panthor_vm_get(vm);
++	return kbo;
++
++err_free_va:
++	panthor_vm_free_va(vm, &kbo->va_node);
++
++err_put_obj:
++	drm_gem_object_put(&obj->base);
++
++err_free_bo:
++	kfree(kbo);
++	return ERR_PTR(ret);
++}
++
+ #ifdef CONFIG_DEBUG_FS
+ struct gem_size_totals {
+ 	size_t size;
 -- 
 2.53.0
 
