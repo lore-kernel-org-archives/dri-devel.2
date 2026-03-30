@@ -4,59 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1961BFF4946
-	for <dri-devel@archiver.kernel.org>; Mon, 30 Mar 2026 06:30:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E1B1AFF494D
+	for <dri-devel@archiver.kernel.org>; Mon, 30 Mar 2026 06:35:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7D58A10E0BC;
-	Mon, 30 Mar 2026 06:30:38 +0000 (UTC)
-Received: from metis.whiteo.stw.pengutronix.de
- (metis.whiteo.stw.pengutronix.de [185.203.201.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 078A810E0BC
- for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 06:30:37 +0000 (UTC)
-Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
- by metis.whiteo.stw.pengutronix.de with esmtps
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <mfe@pengutronix.de>)
- id 1w768N-00072F-BQ; Mon, 30 Mar 2026 08:29:59 +0200
-Received: from pty.whiteo.stw.pengutronix.de ([2a0a:edc0:2:b01:1d::c5])
- by drehscheibe.grey.stw.pengutronix.de with esmtps (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <mfe@pengutronix.de>) id 1w768L-002pX0-1b;
- Mon, 30 Mar 2026 08:29:57 +0200
-Received: from mfe by pty.whiteo.stw.pengutronix.de with local (Exim 4.98.2)
- (envelope-from <mfe@pengutronix.de>) id 1w768L-0000000ENW4-1W0m;
- Mon, 30 Mar 2026 08:29:57 +0200
-Date: Mon, 30 Mar 2026 08:29:57 +0200
-From: Marco Felsch <m.felsch@pengutronix.de>
-To: Marek Vasut <marex@nabladev.com>
-Cc: Liu Ying <victor.liu@nxp.com>, Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Marek Vasut <marex@denx.de>, 
- Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] dt-bindings: display: bridge: ldb: Require reg property
- only for i.MX6SX/8MP LDBs
-Message-ID: <excxf6kxwx44kepc22smvvnirptc4kxpubioxoto7nqleqhoiq@ymch4y6dd5n5>
-References: <20260329-fsl_ldb_schema_fix-v1-1-351372754bc0@nxp.com>
- <crqzju5cqhvmy5msxvuquydmnpb2ft2t3gsyr6qsre6ccqjvzz@46gfcrelczsr>
- <0d7c7403-4b77-42f3-82d6-eaf2be8e5b1e@nabladev.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9F2AD10E3BD;
+	Mon, 30 Mar 2026 06:35:30 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="EGsNMCD/";
+	dkim-atps=neutral
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C9EC210E3B6;
+ Mon, 30 Mar 2026 06:35:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1774852528; x=1806388528;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=3YEWEDFdGeb8+xmVBhVZgs3VmhzuMoNWRWo753eYyyg=;
+ b=EGsNMCD/mBimXxBaAZjDywaEgW5bI0ERSDpqP+1e+WY5Gj8WhR6AV6tk
+ mF7XCE4frqGnJFT1d8/WducTzpVvKJIlI9qvTkvncwEioCTmwT6iQgApB
+ ImB6BZlVWr71YvjUOVDL85GduPhH8MJwVdwuIpoh0y2TV74hHkVq9aTvg
+ ln+8xmFi+o3vWMU9veihETPcvvFEcTtLfQPZvkUOssSgle4JTG1VBkcDF
+ 0oAkBn7vy+X2hto6ThW1vVT2oI3VXF7SX774/0gO1/zA0KZWt5frfs6jt
+ KHrVxlRbUPHT3cN0L9GzLCj1MFvPkHqYOerkyEReDHToeAK0rOG3i4oMO g==;
+X-CSE-ConnectionGUID: esJjy2UhRHuZwYltEP5prg==
+X-CSE-MsgGUID: 31Ri9+CjTuWoIZnH00ZkNA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11743"; a="79700318"
+X-IronPort-AV: E=Sophos;i="6.23,149,1770624000"; d="scan'208";a="79700318"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+ by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Mar 2026 23:35:26 -0700
+X-CSE-ConnectionGUID: beCFwWSgS+2lbCcJcK8YAQ==
+X-CSE-MsgGUID: CS8WvW4LQ5uO+j83pKobFQ==
+X-ExtLoop1: 1
+Received: from igk-lkp-server01.igk.intel.com (HELO 9958d990ccf2)
+ ([10.211.93.152])
+ by fmviesa003.fm.intel.com with ESMTP; 29 Mar 2026 23:35:25 -0700
+Received: from kbuild by 9958d990ccf2 with local (Exim 4.98.2)
+ (envelope-from <lkp@intel.com>) id 1w76Da-00000000841-3q9D;
+ Mon, 30 Mar 2026 06:35:22 +0000
+Date: Mon, 30 Mar 2026 08:34:38 +0200
+From: kernel test robot <lkp@intel.com>
+To: Adriano Vero <litaliano00.contact@gmail.com>,
+ dri-devel@lists.freedesktop.org
+Cc: oe-kbuild-all@lists.linux.dev, jani.nikula@linux.intel.com,
+ alexander.deucher@amd.com, harry.wentland@amd.com,
+ sunpeng.li@amd.com, siqueira@igalia.com, christian.koenig@amd.com,
+ amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Adriano Vero <litaliano00.contact@gmail.com>
+Subject: Re: [PATCH 1/2] drm/edid: populate monitor_range from DisplayID
+ Dynamic Video Timing block
+Message-ID: <202603300847.vflE6oJO-lkp@intel.com>
+References: <20260328132027.22383-1-litaliano00.contact@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <0d7c7403-4b77-42f3-82d6-eaf2be8e5b1e@nabladev.com>
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
-X-SA-Exim-Mail-From: mfe@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260328132027.22383-1-litaliano00.contact@gmail.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,57 +75,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Marek,
+Hi Adriano,
 
-On 26-03-29, Marek Vasut wrote:
-> On 3/29/26 7:42 PM, Marco Felsch wrote:
-> 
-> Hello Marco,
-> 
-> > sorry for not writting back earlier, the last weeks were quite busy.
-> 
-> Tell me about it ...
+kernel test robot noticed the following build warnings:
 
-^^
+[auto build test WARNING on drm/drm-next]
+[also build test WARNING on drm-i915/for-linux-next drm-i915/for-linux-next-fixes drm-tip/drm-tip linus/master v7.0-rc6 next-20260327]
+[cannot apply to drm-misc/drm-misc-next daeinki-drm-exynos/exynos-drm-next]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-> > On 26-03-29, Liu Ying wrote:
-> > > LDB's parent device could be a syscon which doesn't allow a reg property
-> > > to be present in it's child devices, e.g., NXP i.MX93 Media blk-ctrl
-> > > has a child device NXP i.MX93 Parallel Display Format Configuration(PDFC)
-> > > without a reg property(LDB is also a child device of the Media blk-ctrl).
-> > > To make the LDB schema be able to describe LDBs without the reg property
-> > > like i.MX93 LDB, require the reg property only for i.MX6SX/8MP LDBs.
-> > 
-> > NACK, we want to describe the HW and from HW PoV the LDB is and was
-> > always part of a syscon. This is the case for all SoCs i.MX6SX/8MP/93.
-> > 
-> > > Fixes: 8aa2f0ac08d3 ("dt-bindings: display: bridge: ldb: Add check for reg and reg-names")
-> > 
-> > Therefore I would just revert this patch completely.
-> Last time, I pointed out the hardware is part of syscon, but as a subnode
-> and therefore with reg properties. What is the problem there ?
+url:    https://github.com/intel-lab-lkp/linux/commits/Adriano-Vero/drm-amd-display-remove-manual-DisplayID-VRR-parsing-from-freesync-caps/20260330-002329
+base:   https://gitlab.freedesktop.org/drm/kernel.git drm-next
+patch link:    https://lore.kernel.org/r/20260328132027.22383-1-litaliano00.contact%40gmail.com
+patch subject: [PATCH 1/2] drm/edid: populate monitor_range from DisplayID Dynamic Video Timing block
+config: x86_64-rhel-9.4 (https://download.01.org/0day-ci/archive/20260330/202603300847.vflE6oJO-lkp@intel.com/config)
+compiler: gcc-14 (Debian 14.2.0-19) 14.2.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260330/202603300847.vflE6oJO-lkp@intel.com/reproduce)
 
-To quote the DT spec here:
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202603300847.vflE6oJO-lkp@intel.com/
 
-"""
-The reg property describes the address of the device’s resources within
-the address space defined by its parent bus.
-"""
+All warnings (new ones prefixed by >>):
 
-The parent bus is not the parent iomuxc (i.MX6X) nor the blk-ctrl
-(i.MX8MP/93) device. Therefore this is wrong IMHO and should be dropped.
-
-There will be no regression from driver POV since your patchset which
-would add the support to parse the reg is not merged yet.
-
-Regards,
-  Marco
+>> Warning: drivers/gpu/drm/drm_edid.c:6525 function parameter 'connector' not described in 'drm_get_monitor_range_displayid'
+>> Warning: drivers/gpu/drm/drm_edid.c:6525 function parameter 'drm_edid' not described in 'drm_get_monitor_range_displayid'
+>> Warning: drivers/gpu/drm/drm_edid.c:6525 function parameter 'connector' not described in 'drm_get_monitor_range_displayid'
+>> Warning: drivers/gpu/drm/drm_edid.c:6525 function parameter 'drm_edid' not described in 'drm_get_monitor_range_displayid'
 
 -- 
-#gernperDu 
-#CallMeByMyFirstName
-
-Pengutronix e.K.                           |                             |
-Steuerwalder Str. 21                       | https://www.pengutronix.de/ |
-31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
-Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-9    |
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
