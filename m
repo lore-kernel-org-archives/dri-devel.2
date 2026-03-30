@@ -4,63 +4,105 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 787941061B1C
-	for <dri-devel@archiver.kernel.org>; Mon, 30 Mar 2026 18:54:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DAE421061B1A
+	for <dri-devel@archiver.kernel.org>; Mon, 30 Mar 2026 18:55:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8EBEF10E466;
-	Mon, 30 Mar 2026 18:54:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2C15010E6E2;
+	Mon, 30 Mar 2026 18:55:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="DXaQOpxi";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="mn37i09r";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 03C1D10E772;
- Mon, 30 Mar 2026 18:54:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1774896864; x=1806432864;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=xPea/rqNVS9a/xCgCwcOjBGU0n2Q1ZbkcnvwKfw7+QI=;
- b=DXaQOpxiLN9Rl4+1Be5cXb/czuFUJvukHUdP9AajAIAFGi9m/tTUyVAN
- f1DlOeLlxqTkxEtxYzdjaOYxX9l9KQXiudFpB0gQLMPHdQEDSlzBlCvWc
- A3MxvXFJd1tpwfbwPnX9IuzdXZdAD/D64xY0mXQGKP5+XwO4Gf64QTp2X
- opiOgh1lo3mfOf1Rxhtxlr+cY2ThG/ko5Fj7g/6LmIUvFLE7nrO+EhmIU
- IL1ypESEzxsSMNx2jASflRrwgspuKOdNtI4gLjooiIGQKuTbnk9ObkXY3
- SVAgVuC1o/65DBxrF3CytP9aC7nbO4gOdO4wWPEwn2jxxksniFcWQ20Zn A==;
-X-CSE-ConnectionGUID: PxMXp1V1SnuqYo8xOjyONw==
-X-CSE-MsgGUID: sIVKCRrMTYedQPjxCb+dJQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11744"; a="75615239"
-X-IronPort-AV: E=Sophos;i="6.23,150,1770624000"; d="scan'208";a="75615239"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
- by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Mar 2026 11:54:23 -0700
-X-CSE-ConnectionGUID: 39/0aDhbQIWFNSaQEKbhlw==
-X-CSE-MsgGUID: M6NHJHnIS3GDea6XgTaXvQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,150,1770624000"; d="scan'208";a="230201286"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost)
- ([10.245.245.155])
- by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Mar 2026 11:54:20 -0700
-Date: Mon, 30 Mar 2026 21:54:16 +0300
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, jouni.hogander@intel.com,
- animesh.manna@intel.com
-Subject: Re: [PATCH 15/19] drm/i915/psr: Program Panel Replay CONFIG3 using
- AS SDP transmission time
-Message-ID: <acrG2DjG2u0qMb-A@intel.com>
-References: <20260330040656.4116502-1-ankit.k.nautiyal@intel.com>
- <20260330040656.4116502-16-ankit.k.nautiyal@intel.com>
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AAF2310E6CE;
+ Mon, 30 Mar 2026 18:55:12 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id C34B060121;
+ Mon, 30 Mar 2026 18:55:11 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A7AF1C4CEF7;
+ Mon, 30 Mar 2026 18:55:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1774896911;
+ bh=Za1sLILPi3VKM++4FVxCLtzv+8kcPW+6Sz1QlVJb/Mc=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=mn37i09rbWLQfBQaymGdLz5HbbIoyfpvNIjTc+/LhvULg61e80UX5Nj4nwtt8VhUF
+ QMyzj+oR5cOyZRLxC1a4SznTanJTeSyqLOD+grihy6Y+bn4fLQQ/Eq1FYICOaq0uUx
+ G/qQwycgOuTrx3CK1A/nykZad/YDdsWJZQpotuXCHJReXZEf4WrIjKSQzl+RR8kI2O
+ sNc/ZZ7Of3hkKxw194fYqeK0eLi8abJzOqa//DfJn6zsP8ZG4a6N0gCIdvg56iTdqW
+ 8vzSguAn7NGf69OciF8HrXwztZlx7FjHFEuElQiJRO8Ein/LVoAUQOlLwrp3y3I1gq
+ blsRCSvpv/4Ng==
+Message-ID: <05610919-fde5-4cde-92b6-a35c93e84547@kernel.org>
+Date: Mon, 30 Mar 2026 20:55:04 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260330040656.4116502-16-ankit.k.nautiyal@intel.com>
-X-Patchwork-Hint: comment
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] dt-bindings: display/msm: qcm2290-mdss: Fix missing
+ ranges in example
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Bjorn Andersson <andersson@kernel.org>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
+ <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>,
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Loic Poulain <loic.poulain@oss.qualcomm.com>,
+ Sumit Garg <sumit.garg@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+References: <20260325122209.147128-2-krzysztof.kozlowski@oss.qualcomm.com>
+ <177488647743.633011.6769674149013868210.b4-ty@kernel.org>
+ <wsf7oet6r7d55i7f6cdwgor4cqu3hzgqcv3r6lmyfsoivzgzls@v5z7bbea6fxe>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 a/A=
+In-Reply-To: <wsf7oet6r7d55i7f6cdwgor4cqu3hzgqcv3r6lmyfsoivzgzls@v5z7bbea6fxe>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,52 +118,26 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Mar 30, 2026 at 09:36:52AM +0530, Ankit Nautiyal wrote:
-> Panel Replay requires the AS SDP transmission time to be written into
-> PANEL_REPLAY_CONFIG3. This field was previously not programmed.
+On 30/03/2026 20:50, Dmitry Baryshkov wrote:
+> On Mon, Mar 30, 2026 at 11:01:21AM -0500, Bjorn Andersson wrote:
+>>
+>> On Wed, 25 Mar 2026 13:22:10 +0100, Krzysztof Kozlowski wrote:
+>>> Device node has children with MMIO addressing, so must have ranges:
+>>>
+>>>   msm/qcom,qcm2290-mdss.example.dtb: display-subsystem@5e00000 (qcom,qcm2290-mdss): 'ranges' is a required property
+>>>
+>>>
+>>
+>> Applied, thanks!
+>>
+>> [1/1] dt-bindings: display/msm: qcm2290-mdss: Fix missing ranges in example
+>>       commit: 88bdac5443e5269bb39c4968d5ee0becbffe3f82
 > 
-> Use the AS SDP transmission-time helper to populate CONFIG3.
+> Hmm? I don't really mind, but...
 > 
-> Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-> ---
->  drivers/gpu/drm/i915/display/intel_psr.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
-> index ca054135ca30..34b0993d9b1d 100644
-> --- a/drivers/gpu/drm/i915/display/intel_psr.c
-> +++ b/drivers/gpu/drm/i915/display/intel_psr.c
-> @@ -783,7 +783,7 @@ static void _panel_replay_enable_sink(struct intel_dp *intel_dp,
->  				      const struct intel_crtc_state *crtc_state)
->  {
->  	struct intel_display *display = to_intel_display(intel_dp);
-> -	u8 panel_replay_config[2];
-> +	u8 panel_replay_config[3];
->  	int ret;
->  
->  	panel_replay_config[0] = DP_PANEL_REPLAY_ENABLE |
-> @@ -792,6 +792,7 @@ static void _panel_replay_enable_sink(struct intel_dp *intel_dp,
->  				 DP_PANEL_REPLAY_RFB_STORAGE_ERROR_EN |
->  				 DP_PANEL_REPLAY_ACTIVE_FRAME_CRC_ERROR_EN;
->  	panel_replay_config[1] = DP_PANEL_REPLAY_CRC_VERIFICATION;
-> +	panel_replay_config[2] = intel_dp_as_sdp_transmission_time();
 
-PANEL_REPLAY_CONFIG3 0x11a
-...
-PANEL_REPLAY_CONFIG1 0x1b0
-PANEL_REPLAY_CONFIG2 0x1b1
+Please read changelog in original patch. I was also mentioning this on
+msm IRC (although not towards you), so this is not done silently.
 
-So apparently we can't do the burst write for all three :/
-
-Looks like 0x1b2 is not used for anything so don't really understand
-why it wasn't added there. Oh well.
-
->  
->  	if (crtc_state->has_sel_update)
->  		panel_replay_config[0] |= DP_PANEL_REPLAY_SU_ENABLE;
-> -- 
-> 2.45.2
-
--- 
-Ville Syrjälä
-Intel
+Best regards,
+Krzysztof
