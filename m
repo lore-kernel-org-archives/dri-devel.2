@@ -4,136 +4,87 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 21A06FF4958
-	for <dri-devel@archiver.kernel.org>; Mon, 30 Mar 2026 07:53:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 165AFFF4956
+	for <dri-devel@archiver.kernel.org>; Mon, 30 Mar 2026 07:57:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4BC1D10E503;
-	Mon, 30 Mar 2026 07:53:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 46ACF10E3FC;
+	Mon, 30 Mar 2026 07:57:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="XpMTcLAK";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="eheCyEef";
+	dkim=pass (2048-bit key; unprotected) header.d=imgtec.com header.i=@imgtec.com header.b="Jc8mdmrR";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D604E10E4F3
- for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 07:53:52 +0000 (UTC)
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 62U7XH2t3164030
- for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 07:53:52 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- rpOSRoW2BeG5b+IvWAJcqnNsVMW6l5tpe0p8bVysWio=; b=XpMTcLAKjaXwY9Y+
- JnVklt40a6+Wl0+MVgX8XaR56OYUwtEshab0E9+Og37KB5i59zOZaxxStnLEzNX0
- BFHZdX1GcpG7F0xsXmxPvHsNItP9sbcR7euGJ2yRX2hYnH3qyq6aiG2yNuyScBfT
- mGk2UYucFnfBT3aOuOCmQsCdvaOn5zYA4JwGLC+lTuZv1PO1KTfDdBomEzauQkQ+
- 4u9VYsWR6JPS4eiBnZYr4Zydk2///D6tPyoOFmb/O+zMv8JKQ4GUMF6fuwywJdmd
- PG1Zvp/q623QOCgVCgLZ04LTxXnn6otGbEDXvPZouBhMb8CuD3vP7cbzEibOM+2M
- KsjI1w==
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com
- [209.85.216.71])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d6ufmk55c-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 07:53:52 +0000 (GMT)
-Received: by mail-pj1-f71.google.com with SMTP id
- 98e67ed59e1d1-35d9e67f6dcso3935160a91.1
- for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 00:53:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1774857231; x=1775462031;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=rpOSRoW2BeG5b+IvWAJcqnNsVMW6l5tpe0p8bVysWio=;
- b=eheCyEef/0Q8aENArsT9SalWa5gKmN+c8RDizp+FWJK+G/KjNxrZoXnayL/uWdLmar
- xZXyBAvV943QEcJAD62pCmijE1JC+JFFcHe6Angv93PmMs5cC/HIZmm0f9t93rV4GKlj
- rfrzvA1qylJFvTI79EY6gHTIxzpG2AwbDDQNddzayY0uNQeoV5Uy9ABr5/W++/dP2Sh3
- tr2WlECp3QWFuRDs+Ta0v7z070K/YuzhhYQ/AEq+ptGxkaBWRqZBGYK0v1YhXB8YC5LB
- D8Fa63t7fOwec4WzwEB5vtM2Pys+0NoCaSjY/gebLYzGFtaUNrP4JNy3nr6G2Ffeus8b
- NPvg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774857231; x=1775462031;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=rpOSRoW2BeG5b+IvWAJcqnNsVMW6l5tpe0p8bVysWio=;
- b=fIEJhLj/svHp14lG0Yr5kQkjOzYk/kDg2REcNH3D7VlNwPFQHPqNTKzY/iNShuz0rH
- GnwVd9drQlyOmZHhu3/Yvb3HNHrzAbtXnt18NmPqI0wuDDQ+XPwypG72FvyEni3WWCfB
- D+FJRYuWDzzpgiV3sQbnO45yn7FTzsaswu1TuQB5D8Z6WnDJd9+zz/JJMEX/BD7eIexp
- yh+eZBUMBhPZ463NPNrDthfbvyiqhDJAyXEu7piYwZXjWHn8lSGMUQRqxgmnunNyvdqc
- FoqSbFUMYDquvk3hKvTIjlAqG75kQPBpepKLMOoev1BNMYmnGfEic9/a8L3HEMlQAlh+
- X3pg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWfvkH3F5o6XG8rWlAxk1+NVkfeUT8bKFb891umz9wD5Eor31EeyGP4F1JhKXQnuyQLcj9ih9TUrCU=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxnzZnkQjRUJUqHqi4qEWUQiMrT9RppxTxHqp7lGGg0Y0yvVNqJ
- potiJPrP+YGFe1kF0CWO6GtPVStD+90tL2w1WT8MYGDVF3b9v/JqMU5alRhmB8JeedKjlrjPqMD
- 27IIc8GSEtJ4YAc+HJJueCzCyWPoXus/8J7kyJ4bU0NbZRaREnvumvzHBTY4Q3LpTqNoSDvg=
-X-Gm-Gg: ATEYQzz0kgmJ3Lqmqtg9CE3Yq2j9txRWLxmwJGxUZ/Y4YjmPrK9HFdtecuPpvCUEBHp
- L8PR42Cw3607VlVdtoNBKe21zioxCbUCRhNfrNeO0jCGHMQ1HJM6QhZ17FdHnt66RQSSdHELpmB
- ZwOOuH7PJtWEUKAknqEB6R4UfurrpU0lQ/WM7YrHLOa6bFLcLCzxAJdtjKkWu9mwzoKYJiHOGY6
- EeO/MzF2QTL1V4NTOElrme7k/RylNyC2Z+cD2ClPWijl39i43rHUOdjVHYr0d/xnobRaJc3NpGi
- +Vllbj/PUqc/GTXE0TmkdJ/noYl7nqLL0LXgbCVcMGSM4ozm95dkfsrrwpYrIEgchTwoxlKCFiK
- UqsHjtgt1Qh1GTLxbMhnlcx4OB8b7hLcZfEe0Fk2TQt74CbTs
-X-Received: by 2002:a17:90b:380d:b0:359:f3b1:6811 with SMTP id
- 98e67ed59e1d1-35c2ff08081mr10329008a91.1.1774857231616; 
- Mon, 30 Mar 2026 00:53:51 -0700 (PDT)
-X-Received: by 2002:a17:90b:380d:b0:359:f3b1:6811 with SMTP id
- 98e67ed59e1d1-35c2ff08081mr10328989a91.1.1774857231193; 
- Mon, 30 Mar 2026 00:53:51 -0700 (PDT)
-Received: from [10.64.69.173] ([114.94.8.21]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-35c22a54fd5sm15147371a91.2.2026.03.30.00.53.46
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 30 Mar 2026 00:53:50 -0700 (PDT)
-Message-ID: <9d65427c-f192-451e-9e67-c1a068aec2d9@oss.qualcomm.com>
-Date: Mon, 30 Mar 2026 15:53:45 +0800
+Received: from mx07-00376f01.pphosted.com (mx07-00376f01.pphosted.com
+ [185.132.180.163])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C737210E43F
+ for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 07:57:25 +0000 (UTC)
+Received: from pps.filterd (m0168889.ppops.net [127.0.0.1])
+ by mx07-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 62U5HJTk174202; Mon, 30 Mar 2026 08:57:01 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
+ :content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=dk201812; bh=W
+ Ss4R+WJLlaRlbUhl44LAW/kP57HIL0JMAq4hjBcz4I=; b=Jc8mdmrRwGmCRzZUu
+ CIyvDl7b0ayy5gUk3vZsghlDn3DfsBO/hrbVmiJc6XlFiW+5mZb/Cr4IOrUoVTDs
+ 5xoZ19mi3IbD3thYMc8ShQBdGnQ6t6szkV0I/sArLsXxBHqYJf7jTDne6cDUdjV/
+ 4b3XN7O+7ZsK8bsfT7ZlmN/7FdLkaJdEd55SdQBbNaOBQYje8IB8rXD445c1iT44
+ MFh9YQcbxUWxS8+ZS280tlrIGrICnwSC411DJGgTxZaRupP/ljaabxejY3USaWz8
+ JktqsJEWry3kKRpO/+4D2ajTP+AjT5pJK3CuhWLrr1g+4eP6A6U+TXmuz/Mbyw1P
+ WJu5Q==
+Received: from hhmail01.hh.imgtec.org
+ (83-244-153-141.cust-83.exponential-e.net [83.244.153.141])
+ by mx07-00376f01.pphosted.com (PPS) with ESMTPS id 4d67xusfkv-4
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 30 Mar 2026 08:57:01 +0100 (BST)
+Received: from NP-A-BELLE.kl.imgtec.org (172.25.6.106) by
+ HHMAIL01.hh.imgtec.org (10.100.10.19) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37; Mon, 30 Mar 2026 08:56:59 +0100
+From: Alessio Belle <alessio.belle@imgtec.com>
+Date: Mon, 30 Mar 2026 08:56:38 +0100
+Subject: [PATCH 3/8] drm/imagination: Skip check on paired job fence during
+ job submission
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 03/38] drm/msm/dp: break up dp_display_enable into two
- parts
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
- <abhinav.kumar@linux.dev>, Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
- Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Abhinav Kumar <quic_abhinavk@quicinc.com>
-References: <20250825-msm-dp-mst-v3-0-01faacfcdedd@oss.qualcomm.com>
- <20250825-msm-dp-mst-v3-3-01faacfcdedd@oss.qualcomm.com>
- <xwvuajrm76flwhnciclz3bxzj6vmvladm4t73mr2pyrblczi6e@wbyq3x2yabrk>
-Content-Language: en-US
-From: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
-In-Reply-To: <xwvuajrm76flwhnciclz3bxzj6vmvladm4t73mr2pyrblczi6e@wbyq3x2yabrk>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzMwMDA2MCBTYWx0ZWRfX5Y99Ct3qh/bW
- Vv1lODtOdUWd5IekFUIH2+265O1v2XjL0D73aDB+lfR9WvlPFXxoqWJ3XmJOcIX2lv8iu+i2qp7
- b7mol55UsTrWnyO0wa1sYec0dxsR2TuMf+3yWa6EAluUyI5VcpIavu5Fb0P/ul0ytr0uYC51++G
- pEby3IOVbVXCgFsoGMzH/gBHqYgJoeb9TeSqFqFQkoOg5BGsXs4mK8Z6Zi70qW+FvVVxpCLJFC1
- 0rgEv4UM3EAd+S1uxPDpcCI3thxfZ+XFRFbpAZ+acS4qMgvAeL8xjCtu3Xic5fMAfh4H4HvaA+V
- 7qTIJHT4dGTQc+O76r0kSaBMPZAmPpafV811KfV/iJ2ncWLjc45h2TmSJBf88YtXhCMKNkjD2+/
- qtJ3UVsnqpABfAXPN1XUSCZPI1JVy2dE8hqvM+Pz92BeLIwlPDf10fDW/8THGUMwBmVn3Vv2lpB
- wyTqdRfz9Iex2I6+22A==
-X-Authority-Analysis: v=2.4 cv=aOT9aL9m c=1 sm=1 tr=0 ts=69ca2c10 cx=c_pps
- a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=Uz3yg00KUFJ2y2WijEJ4bw==:17
- a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=COk6AnOGAAAA:8 a=EUspDBNiAAAA:8 a=1ibuz8dZZ3-44BQBXskA:9 a=QEXdDO2ut3YA:10
- a=uKXjsCUrEbL0IQVhDsJ9:22 a=TjNXssC_j7lpFel5tvFf:22
-X-Proofpoint-ORIG-GUID: F4jCO7nIdWc0Xlj1NA_mh2tcr1K0dx-W
-X-Proofpoint-GUID: F4jCO7nIdWc0Xlj1NA_mh2tcr1K0dx-W
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-03-29_05,2026-03-28_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 phishscore=0 bulkscore=0 spamscore=0 lowpriorityscore=0
- clxscore=1015 suspectscore=0 adultscore=0 malwarescore=0 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603300060
+Message-ID: <20260330-job-submission-fixes-cleanup-v1-3-7de8c09cef8c@imgtec.com>
+References: <20260330-job-submission-fixes-cleanup-v1-0-7de8c09cef8c@imgtec.com>
+In-Reply-To: <20260330-job-submission-fixes-cleanup-v1-0-7de8c09cef8c@imgtec.com>
+To: Frank Binns <frank.binns@imgtec.com>, Matt Coster <matt.coster@imgtec.com>,
+ Brajesh Gupta <brajesh.gupta@imgtec.com>,
+ "Alexandru Dadu" <alexandru.dadu@imgtec.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Boris Brezillon <boris.brezillon@collabora.com>
+CC: <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
+ <linux-media@vger.kernel.org>, <linaro-mm-sig@lists.linaro.org>, "Alessio
+ Belle" <alessio.belle@imgtec.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1774857418; l=1762;
+ i=alessio.belle@imgtec.com; s=20251208; h=from:subject:message-id;
+ bh=1ruZS5mWr1hpnoKHvH8FYZr7dg1gu8aYTEEk7UMdO64=;
+ b=Hr15ss6AMBUbiy+fmwm5/Y3mpSmrLZJ8SOZMNz5jrX5xTuhQHJgJc6D+iMsZ4YpGmy5qWog6s
+ kwh7wmusx9DAjxsMfMBrg5HWjTQPLi6ArKu3CeLK7ZeBw31shpK4bih
+X-Developer-Key: i=alessio.belle@imgtec.com; a=ed25519;
+ pk=2Vtuk+GKBRjwMqIHpKk+Gx6zl7cgtq0joszcOc0zF4g=
+X-Originating-IP: [172.25.6.106]
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzMwMDA2MSBTYWx0ZWRfX3NNUR7xCuwGU
+ nvZp334Sq2koxY8z6tHxyR8FVAHb7MMfQTWLLxfrbzJXLuD3duLp3Fx/62GxDQ57bI1bkB6Qh4T
+ KY8tjyPGvPvTnKnq8rqh4s4+wKI286pQlUbqCyT3ph9jSy8JNhUnddYAI9EVtIZOV3jLTDX5ZZm
+ p5d5Unp+sD0F+M5LrI7m7tYaoruTrQWQMUuCbHe6tphqPyeMbSXTCEk3cHnLCbak1ESy7jk0Y0y
+ FUHO11npqYdGGGN/uMPCHsNNHvQVNx6jY4v5At5CTLeFtFBChWXk8LHWcyIvDbMI0oEi8ujmfj4
+ zKS8zvD5fyHEoo677mgnld8+7KQ90/FWJJo0QKEGIsmf2iEsMEOUjEc121TJ0cTIPAXqEYdvdvC
+ WSITs4vo1dD83qkSWWRU60ejQHDLIUGKSa5SGOJrxRt/9Hp1eoh6L8w1mtTejHkfhYUPUbIPpjC
+ okVE356rlu/swrH7wxQ==
+X-Authority-Analysis: v=2.4 cv=QO9lhwLL c=1 sm=1 tr=0 ts=69ca2ccd cx=c_pps
+ a=AKOq//PuzOIrVTIF9yBwbA==:117 a=AKOq//PuzOIrVTIF9yBwbA==:17
+ a=txNhvCuK94MA:10 a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=kQ-hrUj2-E3RCbRHssb7:22 a=7RYWX5rxfSByPNLylY2M:22
+ a=r_1tXGB3AAAA:8 a=_Y7jKtEYzl7tsisHUWkA:9 a=QEXdDO2ut3YA:10
+ a=t8nPyN_e6usw4ciXM-Pk:22
+X-Proofpoint-GUID: MoVJ07EmUFPgzr_k86aZsHFyRHmJytHT
+X-Proofpoint-ORIG-GUID: MoVJ07EmUFPgzr_k86aZsHFyRHmJytHT
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -149,50 +100,50 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+While submitting a paired fragment job, there is no need to manually
+look for, and skip, the paired job fence, as the existing logic to
+resolve dependencies to pvr_queue_fence objects will have failed to
+resolve it already and continued with the next one.
 
+Point this out where the fence is actually accessed and drop the related
+check.
 
-On 8/26/2025 1:13 AM, Dmitry Baryshkov wrote:
-> On Mon, Aug 25, 2025 at 10:15:49PM +0800, Yongxing Mou wrote:
->> From: Abhinav Kumar <quic_abhinavk@quicinc.com>
->>
->> dp_display_enable() currently re-trains the link if needed and then
->> enables the pixel clock, programs the controller to start sending the
->> pixel stream. Split these two parts into prepare/enable APIs, to support
->> MST bridges_enable insert the MST payloads funcs between enable
->> stream_clks and program register.
->>
->> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
->> Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
->> ---
->>   drivers/gpu/drm/msm/dp/dp_ctrl.c    |  51 ++++++++++------
->>   drivers/gpu/drm/msm/dp/dp_ctrl.h    |   3 +-
->>   drivers/gpu/drm/msm/dp/dp_display.c | 113 ++++++++++++++++++++++++------------
->>   drivers/gpu/drm/msm/dp/dp_display.h |   1 +
->>   4 files changed, 113 insertions(+), 55 deletions(-)
->>
->>   void msm_dp_bridge_mode_set(struct drm_bridge *drm_bridge,
->> diff --git a/drivers/gpu/drm/msm/dp/dp_display.h b/drivers/gpu/drm/msm/dp/dp_display.h
->> index 60094061c1029bc7a06ffaa80d9403b40aa07eb1..2fbf16f27842bb7639efaa2baecac7bdf8908432 100644
->> --- a/drivers/gpu/drm/msm/dp/dp_display.h
->> +++ b/drivers/gpu/drm/msm/dp/dp_display.h
->> @@ -20,6 +20,7 @@ struct msm_dp {
->>   	bool link_ready;
->>   	bool audio_enabled;
->>   	bool power_on;
->> +	bool prepared;
-> 
-> Why do you need this? The msm_dp_display_prepare() function can only be
-> called from within the atomic_enable() callback, which is not supposed
-> to fail and which is always called in pairs with the atomic_disable()
-> callback.
-> 
-Sure . Will move to the appropriate patch.
->>   	unsigned int connector_type;
->>   	bool is_edp;
->>   	bool internal_hpd;
->>
->> -- 
->> 2.34.1
->>
-> 
+Signed-off-by: Alessio Belle <alessio.belle@imgtec.com>
+---
+ drivers/gpu/drm/imagination/pvr_queue.c | 11 ++++++-----
+ 1 file changed, 6 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/gpu/drm/imagination/pvr_queue.c b/drivers/gpu/drm/imagination/pvr_queue.c
+index f1e54e6d940d..527eae1309d8 100644
+--- a/drivers/gpu/drm/imagination/pvr_queue.c
++++ b/drivers/gpu/drm/imagination/pvr_queue.c
+@@ -646,10 +646,6 @@ static void pvr_queue_submit_job_to_cccb(struct pvr_job *job)
+ 		if (!jfence)
+ 			continue;
+ 
+-		/* This fence will be placed last, as partial render fence. */
+-		if (is_paired_job_fence(fence, job))
+-			continue;
+-
+ 		if (dma_fence_is_signaled(&jfence->base))
+ 			continue;
+ 
+@@ -664,8 +660,13 @@ static void pvr_queue_submit_job_to_cccb(struct pvr_job *job)
+ 		}
+ 	}
+ 
+-	/* Partial render fence goes last. */
+ 	if (job->type == DRM_PVR_JOB_TYPE_FRAGMENT && job->paired_job) {
++		/*
++		 * The loop above will only process dependencies backed by a UFO i.e. with
++		 * a valid parent fence assigned, but the paired job dependency won't have
++		 * one until both jobs have been submitted. Access the parent fence directly
++		 * here instead, submitting it last as partial render fence.
++		 */
+ 		jfence = to_pvr_queue_job_fence(job->paired_job->done_fence);
+ 		if (!WARN_ON(!jfence)) {
+ 			pvr_fw_object_get_fw_addr(jfence->queue->timeline_ufo.fw_obj,
+
+-- 
+2.43.0
 
