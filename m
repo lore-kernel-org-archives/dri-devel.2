@@ -4,141 +4,136 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DD4441061B1B
-	for <dri-devel@archiver.kernel.org>; Mon, 30 Mar 2026 18:42:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A34891061B1B
+	for <dri-devel@archiver.kernel.org>; Mon, 30 Mar 2026 18:44:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 02DA810E4AE;
-	Mon, 30 Mar 2026 18:42:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1886710E23B;
+	Mon, 30 Mar 2026 18:44:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Lg4mFrYV";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="FIwS3TSk";
+	dkim=pass (1024-bit key; unprotected) header.d=broadcom.com header.i=@broadcom.com header.b="Q2MdB0SI";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 89D0810E23B
- for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 18:42:30 +0000 (UTC)
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 62UF02Nr2391788
- for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 18:42:30 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=tmSly2krkyEPd3C1QckzdIz2
- IUKLQUpW62wr+IkZxLo=; b=Lg4mFrYVXlfkHbSHjzYG742sLp8Hw8PbBuqXveTw
- o7U+tcLPv3gt3ouVf0nNtzUc+oQB2a0tDB/7h8AIW9t7DUCmi6mVGSYfMRtNTQBM
- rlbXmLr1nN5nMQFlGGnG1LoeJBut5sP41sHthsDK6u9ugV6QfjmhQ6mJtmR2Dm1h
- fGQV66ppZo8A4qNnaxbBHuvA3IF/IeJmiL/I+OhmESb5H9BbUFPGXGHJmme1TQbg
- iUqA2IW8fY8zQawH9rh5/SKWVVbCcoOM26JOdG7Jzb/g1H0Ul3ZGUSt1bn2O1FWZ
- 5wv92hzXy9B8Y2T+uuw2V0bTSuVdks569KQI67RrlBxbbw==
-Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com
- [209.85.160.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d7ue7gw7e-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 18:42:29 +0000 (GMT)
-Received: by mail-qt1-f198.google.com with SMTP id
- d75a77b69052e-50b52a2d70cso143835741cf.3
- for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 11:42:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1774896149; x=1775500949;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=tmSly2krkyEPd3C1QckzdIz2IUKLQUpW62wr+IkZxLo=;
- b=FIwS3TSkNZq05uT5zNgo2XRHLMF27d2PLC1mCXDLVctjH3HTkm4t2PjvK5CDm6SJAk
- zwTlq0pWqoef9KVqmMo2QwO26ZST6/TuBDg2yV3/yKIiYAtaSaf6RPC9kD+KnnFgC/yn
- HBT8gxQfSEGjfZ9YHXlwBV5KySTuf303z4R6vNgcHljIDy08OIrGSNgWRP5IxSsbF8c2
- xLhYTg51Ooj4CPY2fvIVoxYSG3Uu+cExZN3J1Dyvf/0/VV3lyfxEwTpHAUg95iODf8oq
- 6a0L/aLNVfijdIge2LE+LgsGkF5zaycksmzLSLkg7Mg9smtNZapYyphOFT9Y5zyFFwCo
- u6lQ==
+Received: from mail-pl1-f226.google.com (mail-pl1-f226.google.com
+ [209.85.214.226])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D2DFE10E23B
+ for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 18:44:02 +0000 (UTC)
+Received: by mail-pl1-f226.google.com with SMTP id
+ d9443c01a7336-2aaf43014d0so32273565ad.2
+ for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 11:44:02 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774896149; x=1775500949;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=tmSly2krkyEPd3C1QckzdIz2IUKLQUpW62wr+IkZxLo=;
- b=ILFSSWqQOyoTR/XrCjEnN0Sborjg1MbqNaR2lqUS8wHNUWeBPhif92TCTrpyRdzRl8
- bdTSVaIiUzJnDrAseSJKz2eZlSu7HVqz9ogtvSgNcUyJAjk1Z4I23b+XtgXRuvCuClt9
- 79Hu7WLCRFMWS41NW9Fi8UZS8PGAXw/5SL7NQGO2WYy1P+RGcBHSyR08gkfiHoKghklH
- 4dL5Imb1em/7fcQ1WSCg1rgZxD5DRP3XAE99jpT2TglzVxNyWxKSjrzRDrOjuzdb9hzi
- fX3khnp8f+rzwN6BGzXRx7AwcKRgLfXx96H0o1CbxhlJ6IHNpflTrRl7nbUsKgTkXBqC
- 68pQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVfUuRnnnrfVaKdPOpNpIaXxIhi1QZSm3JotTTRX7wUzhL+3BGz6QYH8Oool4jnE878JbMmqoyzAtU=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Ywh+MNvtMYPbS19E33zoVIj6ftE3glbD3+CJtL/FG+cKApb1UK/
- 8goAUZ4xX/z+KJbHP/PiXQy9v5rOo2c8LwxoXyEVbNiBhO+f6ksd4xhG0X3HnAuqU1ztjZkDd9X
- tvC1GZ74vnLoBYpQBUj09k7pGaunZjERS+JR427tnY4tox24zqHIiZ3vMgKieCYRPdmwwScs=
-X-Gm-Gg: ATEYQzyZCVqZ7TqpYBiW0E3O8HPAVmWsqMVzjIxrYn31KAicXUl2lglRnSbkyizug2d
- Q5H+xE9rE21LDCEah8P0VP4akXIx1bKqyWqjvV6MB6Fpn54jsb3OIJ9qQC5/bqWd2yxuqETvdzd
- V8YtfdtckCtyObxPKCFdm92uUFUyndPYwbrzgSCoE4DaROYfC/q5Gnawz1lX9m17iXqdGUEy8Lv
- b6Wpy2LzWTpnKOBAtbdcmN0d41X+T+qcocoVbdBZXBzgAfQqdxa1UVpPWo1wcu2oV8Y8VAzf1mG
- P/lB688KlD128FqEXQmSswKWQvrJGaeobo1H9OSSUTXccBFQgOomQAo23RSbQ/5p0+zXrNh18WT
- X2zHit0sh9ZfEt9pLR6q3DnF/Jgkas6OROMlXeDmYQJiKXIxNlq/kjtlNv9CV+MLPx0jDGrwuRV
- N2PmWmI7DvJfzYvNUAt3uuJsrx1E1F53xkoa0=
-X-Received: by 2002:ac8:5914:0:b0:509:172f:bd5 with SMTP id
- d75a77b69052e-50ba380a2bamr194038031cf.4.1774896148922; 
- Mon, 30 Mar 2026 11:42:28 -0700 (PDT)
-X-Received: by 2002:ac8:5914:0:b0:509:172f:bd5 with SMTP id
- d75a77b69052e-50ba380a2bamr194037551cf.4.1774896148325; 
- Mon, 30 Mar 2026 11:42:28 -0700 (PDT)
-Received: from umbar.lan
- (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+ d=1e100.net; s=20251104; t=1774896242; x=1775501042;
+ h=content-transfer-encoding:in-reply-to:autocrypt:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:dkim-signature:x-gm-gg:x-gm-message-state:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=9EGyhPkMbZlKeaHk45N37Ig1oxoER5V4siPo1Ha7gTE=;
+ b=LmC6ZucIXepISDwwfg0fNlcEkhIhkiDW8WLAFUQcIAkskNEYsfOXJKNHJWUgtId565
+ fzjxLfHUGu8X4AY5nwdqB34PyxnDNilD+hu0bv3MpX5kpdeuXZJfLMk1T9aE8Ivu79r7
+ JLE2723JrwZuOgrRjn0LAZ7QAoqU1wbgXPbuU6Tscpou5ZKjZggUEu0dANvxQZV2Ts7x
+ +oZG3xcZV7gmMOn7QbP5DOUU9EOala/1ehlODi6WeKHPrURofPa6hTJF168FA5PCM2oD
+ vTNrCH40zG1X0LC98zqTF8amlEQ4vTUbCy6DmZf6AaUkQ1jhztG2fd48QrW0qyMxj8ft
+ a3/w==
+X-Gm-Message-State: AOJu0YzbsTj/4eLNiuQ3fMKHqqQH9rKXDkNQMN5T0dC1RLx4LCkJ96dW
+ DqJtdNykC2LOHVyvkJodj8PLyr1nlkRBBN//kO48WyYGYipzVQ5XGpjKrHqUa2MU0Nd5UOqlO50
+ xXIFY6xDS7KIWghus68zKoZ0fWlLHTSVq3Vcz9iXILE30FW9gz3rouHxTIaEfTIoykLsE7fW7fX
+ fZQ0wycE/gtDcsBzFcvJHYtdPWLY532wuwxAqqImQi61IqhDhYvoQuCJZiJcWJGd3UZ9CIq5k4X
+ mOCBgPFcQTW0JHun/eaL8G0PVTw
+X-Gm-Gg: ATEYQzypwwF2MraOsDUzGpZ2oLrEy9Q/TyK7uiEn2FJIeM/smMn9dl+PejkVer5PBks
+ 86OV4Mux3oE5TUsCYmjVyxIa6ozT16knt3b8vOAuyoidRiUzKG+11qVZcxrOHLoqj69Ks4lqALK
+ ERj13P6K/UsRS5bWbLnTEd3QEc3aGpOZAVMMiCCWH/jjuY9djg3YDBpEuU5gb08nkDqcLf2ToHb
+ Zu5dwY5YSlVXs0STxcazDXZAtpCU1akaOUThExVo3+eCZTzQrbYXXFEghZoyzBwN9WaQlL5SZ1i
+ lHvvKJf73h+sAO75h7qwpcpssmSvGVKwAFZczpsyp/JUw/YlQtRuFeVFcx6P9zu+bvQFpMXHfTt
+ NBBEnZ+jMlTpr88XbepeiEboW7sRvR4G6aiTi258AZ0hJTbeaQ8tg1cKZRapcFyml8mSPQOLlRf
+ 5R45JN1w6E+A3Bh2sIFaQK/OqX1l/krexhHl2V0Dtl8t3yE/haKfZ+TKgIa3Wvbg==
+X-Received: by 2002:a17:903:40cc:b0:2b0:59fd:bbe5 with SMTP id
+ d9443c01a7336-2b0cdc041f0mr145615255ad.4.1774896242214; 
+ Mon, 30 Mar 2026 11:44:02 -0700 (PDT)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com
+ (address-144-49-247-15.dlp.protect.broadcom.com. [144.49.247.15])
+ by smtp-relay.gmail.com with ESMTPS id
+ d9443c01a7336-2b2425f5dffsm9942345ad.9.2026.03.30.11.44.01
+ for <dri-devel@lists.freedesktop.org>
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Mon, 30 Mar 2026 11:44:02 -0700 (PDT)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-qk1-f199.google.com with SMTP id
+ af79cd13be357-8cfcebeb1f3so987932685a.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 11:44:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=broadcom.com; s=google; t=1774896241; x=1775501041;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:in-reply-to:autocrypt:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+ bh=9EGyhPkMbZlKeaHk45N37Ig1oxoER5V4siPo1Ha7gTE=;
+ b=Q2MdB0SIBnatD0HM5pM242AWolN+HH1tF0maB3ubTWCLJT2z2IuuMBLje8TsMqi/qd
+ UXbMmpmAmBgaATI+np9Vyh9Kcn93gDpGr1Fu8XoaGFOdnIkkCrHtzSXb7K2nOANDeSuA
+ P5bYpmeJsr9C1xJ41yU90SOApU1yi1MvqYsPU=
+X-Received: by 2002:a05:620a:2953:b0:8cd:8d4c:aa0c with SMTP id
+ af79cd13be357-8d01c333e13mr1875222885a.0.1774896240882; 
+ Mon, 30 Mar 2026 11:44:00 -0700 (PDT)
+X-Received: by 2002:a05:620a:2953:b0:8cd:8d4c:aa0c with SMTP id
+ af79cd13be357-8d01c333e13mr1875218085a.0.1774896240260; 
+ Mon, 30 Mar 2026 11:44:00 -0700 (PDT)
+Received: from [10.67.48.245] ([192.19.223.252])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5a2b13f435bsm1815809e87.9.2026.03.30.11.42.26
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 30 Mar 2026 11:42:27 -0700 (PDT)
-Date: Mon, 30 Mar 2026 21:42:25 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>
-Cc: Ritesh Kumar <quic_riteshk@quicinc.com>, robin.clark@oss.qualcomm.com,
- lumag@kernel.org, abhinav.kumar@linux.dev, sean@poorly.run,
- marijn.suijten@somainline.org, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
- simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, quic_mahap@quicinc.com, konradybcio@kernel.org,
- mani@kernel.org, James.Bottomley@hansenpartnership.com,
- martin.petersen@oracle.com, vkoul@kernel.org, kishon@kernel.org,
- cros-qcom-dts-watchers@chromium.org, linux-phy@lists.infradead.org,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-scsi@vger.kernel.org,
- quic_vproddut@quicinc.com
-Subject: Re: [PATCH v4 1/2] dt-bindings: phy: qcom-edp: Add reference clock
- for sa8775p eDP PHY
-Message-ID: <yex4vskdbtvodzkkxbs6yxkeiz5bb3x32f5nx5qklf6oyexroq@zspg26phklt2>
-References: <20260128114853.2543416-1-quic_riteshk@quicinc.com>
- <20260128114853.2543416-2-quic_riteshk@quicinc.com>
- <gurq34svc5p52bqx5qwkgjmschzcbklmssjzmu2tg5wzgppkft@c6nrw2ageyp2>
- <c77ff64f-57d1-4495-bfbd-986644aad71d@quicinc.com>
- <acqGFwaVFQ3ZNmlR@baldur>
+ af79cd13be357-8d027f29135sm665778785a.20.2026.03.30.11.43.58
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 30 Mar 2026 11:43:59 -0700 (PDT)
+Message-ID: <0d494a0b-51f7-4832-9102-e45953e294d5@broadcom.com>
+Date: Mon, 30 Mar 2026 11:43:57 -0700
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <acqGFwaVFQ3ZNmlR@baldur>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzMwMDE1NSBTYWx0ZWRfX9uZGdnOM4CW1
- cqdjctrgKmhiAL6qBbLmUhuiVu70/MKytjxLTf39y/egIpJDC8luYsOSJDCKUGgK0Fy9hAs6YML
- JVnjU6azAvV2HJD706/xr/4M07dSBrvrkphC2iCF1M9Lbz3iz3Yc61gHwh021DM3wtZkdtSCH35
- YYSvulE72G4Ui4A3cPlgfBE7aLuX8PlGBtQ/U6re7guW31AJfHGqJUjeUSoguyeewUWMLcgUizT
- AZBn9rDIOBKSBV0AEqRU/Zkyf7w0CiL4bgXF1Aj5GrWc2XP3qldRHZrUrRkb8puR8BsMOQSfOuq
- CW2/jymzV2SIJta06CGSwadZT/WPze5s3QGiYE/NOBTujNaGT1aFuaILdT3419F45sS+/iHolYs
- brr/T18TVDKxKKmSuFjsquj8zP+8rLRuhRpXqAeg+W82xFMXGsKvDNPJMX/BZzrHfz5oSSUUngc
- VmBOCpsc680SawBjGXQ==
-X-Proofpoint-GUID: XTFt8R_yPR7DnX7IP-yToJf6plC6CSjQ
-X-Authority-Analysis: v=2.4 cv=G7sR0tk5 c=1 sm=1 tr=0 ts=69cac416 cx=c_pps
- a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22 a=COk6AnOGAAAA:8
- a=EUspDBNiAAAA:8 a=Ns0KfnHm5iy1vUwMj8cA:9 a=CjuIK1q_8ugA:10
- a=dawVfQjAaf238kedN5IG:22 a=TjNXssC_j7lpFel5tvFf:22
-X-Proofpoint-ORIG-GUID: XTFt8R_yPR7DnX7IP-yToJf6plC6CSjQ
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-03-30_01,2026-03-28_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 phishscore=0 malwarescore=0 lowpriorityscore=0 bulkscore=0
- priorityscore=1501 spamscore=0 adultscore=0 impostorscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603300155
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v8 1/3] drm/v3d: Use
+ devm_reset_control_get_optional_exclusive()
+To: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
+ Stefan Wahren <wahrenst@gmx.net>, Maxime Ripard <mripard@kernel.org>,
+ Melissa Wen <mwen@igalia.com>, Iago Toral Quiroga <itoral@igalia.com>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>
+Cc: dri-devel@lists.freedesktop.org, linux-rpi-kernel@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, Broadcom internal kernel review list
+ <bcm-kernel-feedback-list@broadcom.com>, kernel-dev@igalia.com,
+ Philipp Zabel <p.zabel@pengutronix.de>
+References: <20260328-v3d-power-management-v8-0-94336830df5f@igalia.com>
+ <20260328-v3d-power-management-v8-1-94336830df5f@igalia.com>
+Content-Language: en-US, fr-FR
+From: Florian Fainelli <florian.fainelli@broadcom.com>
+Autocrypt: addr=florian.fainelli@broadcom.com; keydata=
+ xsBNBFPAG8ABCAC3EO02urEwipgbUNJ1r6oI2Vr/+uE389lSEShN2PmL3MVnzhViSAtrYxeT
+ M0Txqn1tOWoIc4QUl6Ggqf5KP6FoRkCrgMMTnUAINsINYXK+3OLe7HjP10h2jDRX4Ajs4Ghs
+ JrZOBru6rH0YrgAhr6O5gG7NE1jhly+EsOa2MpwOiXO4DE/YKZGuVe6Bh87WqmILs9KvnNrQ
+ PcycQnYKTVpqE95d4M824M5cuRB6D1GrYovCsjA9uxo22kPdOoQRAu5gBBn3AdtALFyQj9DQ
+ KQuc39/i/Kt6XLZ/RsBc6qLs+p+JnEuPJngTSfWvzGjpx0nkwCMi4yBb+xk7Hki4kEslABEB
+ AAHNMEZsb3JpYW4gRmFpbmVsbGkgPGZsb3JpYW4uZmFpbmVsbGlAYnJvYWRjb20uY29tPsLB
+ IQQQAQgAywUCZWl41AUJI+Jo+hcKAAG/SMv+fS3xUQWa0NryPuoRGjsA3SAUAAAAAAAWAAFr
+ ZXktdXNhZ2UtbWFza0BwZ3AuY29tjDAUgAAAAAAgAAdwcmVmZXJyZWQtZW1haWwtZW5jb2Rp
+ bmdAcGdwLmNvbXBncG1pbWUICwkIBwMCAQoFF4AAAAAZGGxkYXA6Ly9rZXlzLmJyb2FkY29t
+ Lm5ldAUbAwAAAAMWAgEFHgEAAAAEFQgJChYhBNXZKpfnkVze1+R8aIExtcQpvGagAAoJEIEx
+ tcQpvGagWPEH/2l0DNr9QkTwJUxOoP9wgHfmVhqc0ZlDsBFv91I3BbhGKI5UATbipKNqG13Z
+ TsBrJHcrnCqnTRS+8n9/myOF0ng2A4YT0EJnayzHugXm+hrkO5O9UEPJ8a+0553VqyoFhHqA
+ zjxj8fUu1px5cbb4R9G4UAySqyeLLeqnYLCKb4+GklGSBGsLMYvLmIDNYlkhMdnnzsSUAS61
+ WJYW6jjnzMwuKJ0ZHv7xZvSHyhIsFRiYiEs44kiYjbUUMcXor/uLEuTIazGrE3MahuGdjpT2
+ IOjoMiTsbMc0yfhHp6G/2E769oDXMVxCCbMVpA+LUtVIQEA+8Zr6mX0Yk4nDS7OiBlvOwE0E
+ U8AbwQEIAKxr71oqe+0+MYCc7WafWEcpQHFUwvYLcdBoOnmJPxDwDRpvU5LhqSPvk/yJdh9k
+ 4xUDQu3rm1qIW2I9Puk5n/Jz/lZsqGw8T13DKyu8eMcvaA/irm9lX9El27DPHy/0qsxmxVmU
+ pu9y9S+BmaMb2CM9IuyxMWEl9ruWFS2jAWh/R8CrdnL6+zLk60R7XGzmSJqF09vYNlJ6Bdbs
+ MWDXkYWWP5Ub1ZJGNJQ4qT7g8IN0qXxzLQsmz6tbgLMEHYBGx80bBF8AkdThd6SLhreCN7Uh
+ IR/5NXGqotAZao2xlDpJLuOMQtoH9WVNuuxQQZHVd8if+yp6yRJ5DAmIUt5CCPcAEQEAAcLB
+ gQQYAQIBKwUCU8AbwgUbDAAAAMBdIAQZAQgABgUCU8AbwQAKCRCTYAaomC8PVQ0VCACWk3n+
+ obFABEp5Rg6Qvspi9kWXcwCcfZV41OIYWhXMoc57ssjCand5noZi8bKg0bxw4qsg+9cNgZ3P
+ N/DFWcNKcAT3Z2/4fTnJqdJS//YcEhlr8uGs+ZWFcqAPbteFCM4dGDRruo69IrHfyyQGx16s
+ CcFlrN8vD066RKevFepb/ml7eYEdN5SRALyEdQMKeCSf3mectdoECEqdF/MWpfWIYQ1hEfdm
+ C2Kztm+h3Nkt9ZQLqc3wsPJZmbD9T0c9Rphfypgw/SfTf2/CHoYVkKqwUIzI59itl5Lze+R5
+ wDByhWHx2Ud2R7SudmT9XK1e0x7W7a5z11Q6vrzuED5nQvkhAAoJEIExtcQpvGagugcIAJd5
+ EYe6KM6Y6RvI6TvHp+QgbU5dxvjqSiSvam0Ms3QrLidCtantcGT2Wz/2PlbZqkoJxMQc40rb
+ fXa4xQSvJYj0GWpadrDJUvUu3LEsunDCxdWrmbmwGRKqZraV2oG7YEddmDqOe0Xm/NxeSobc
+ MIlnaE6V0U8f5zNHB7Y46yJjjYT/Ds1TJo3pvwevDWPvv6rdBeV07D9s43frUS6xYd1uFxHC
+ 7dZYWJjZmyUf5evr1W1gCgwLXG0PEi9n3qmz1lelQ8lSocmvxBKtMbX/OKhAfuP/iIwnTsww
+ 95A2SaPiQZA51NywV8OFgsN0ITl2PlZ4Tp9hHERDe6nQCsNI/Us=
+In-Reply-To: <20260328-v3d-power-management-v8-1-94336830df5f@igalia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -154,52 +149,14 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Mar 30, 2026 at 09:28:40AM -0500, Bjorn Andersson wrote:
-> On Wed, Mar 11, 2026 at 06:37:31PM +0530, Ritesh Kumar wrote:
-> > 
-> > On 3/5/2026 12:27 AM, Bjorn Andersson wrote:
-> > > On Wed, Jan 28, 2026 at 05:18:49PM +0530, Ritesh Kumar wrote:
-> > > > The initial sa8775p eDP PHY binding contribution missed adding support for
-> > > > voting on the eDP reference clock. This went unnoticed because the UFS PHY
-> > > > driver happened to enable the same clock.
-> > > > > After commit 77d2fa54a945 ("scsi: ufs: qcom : Refactor
-> > > phy_power_on/off
-> > > > calls"), the eDP reference clock is no longer kept enabled, which results
-> > > > in the following PHY power-on failure:
-> > > > > phy phy-aec2a00.phy.10: phy poweron failed --> -110
-> > > > > To fix this, explicit voting for the eDP reference clock is
-> > > required.
-> > > > This patch adds the eDP reference clock for sa8775p eDP PHY and updates
-> > > > the corresponding example node.
-> > > > > Signed-off-by: Ritesh Kumar <quic_riteshk@quicinc.com>
-> > > 
-> > > Is there any reason why you didn't follow up on this patch Ritesh?
-> > > Looks like it's ready to be merged.
-> > 
-> > I was waiting for patch to merge as there is no pending comments.
-> > 
+On 3/28/26 11:52, Maíra Canal wrote:
+> Simplify optional reset handling by using the function
+> devm_reset_control_get_optional_exclusive().
 > 
-> It's been two months now, if you want your patches to be merged please
-> show that - ask the maintainer for a status update, ask a colleague to
-> send a reviewed-by...
-> 
-> Perhaps the maintainer lost track of your change?
-> 
-> Perhaps it's not clear that the change "need" an Ack from e.g. Dmitry
-> and then it should be merged by Vinod? Because you're changing two
-> different subsystems but leave it up to the maintainers to figure out
-> how to deal with this...
-> 
-> 
-> Either way, show that you want this to be merged, don't just wait until
-> the situation resolves itself.
+> Reviewed-by: Melissa Wen <mwen@igalia.com>
+> Reviewed-by: Philipp Zabel <p.zabel@pengutronix.de>
+> Signed-off-by: Maíra Canal <mcanal@igalia.com>
 
-For merging through linux-phy:
-
-Acked-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-
-Vinod, please pick it up through your tree.
-
+Reviewed-by: Florian Fainelli <florian.fainelli@broadcom.com>
 -- 
-With best wishes
-Dmitry
+Florian
