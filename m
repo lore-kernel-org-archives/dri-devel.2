@@ -4,134 +4,138 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3E42BFF495F
-	for <dri-devel@archiver.kernel.org>; Mon, 30 Mar 2026 08:06:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B9AD2FF4959
+	for <dri-devel@archiver.kernel.org>; Mon, 30 Mar 2026 08:06:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A7B1F10E4FB;
-	Mon, 30 Mar 2026 08:06:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 165C510E4CE;
+	Mon, 30 Mar 2026 08:06:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="lfSTxLHz";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="Z0KiiUpi";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="ZXX/oXNb";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="Z0KiiUpi";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="ZXX/oXNb";
 	dkim-atps=neutral
-Received: from TYVP286CU001.outbound.protection.outlook.com
- (mail-japaneastazon11011010.outbound.protection.outlook.com [52.101.125.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8130310E4F0
- for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 08:05:59 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ppuGGR1UiPkfMfSAsCR2gjhBrLyJUu0W2zUt1Gg2l4Glh77siT6/Qoob0tyW61S91aOcRHamn+j+YX0onn0XKDiE7m5SIU7BSGRpa6itKAWi283i8qNoIWDxWuqTlxugXrOSpi5tfp2pEvNJ5XbChNSkA8UCK2uOw8ImJmL84qqoEro3c2zaiYjmIVA/ZRvvn0eWcjAhwfDx/yKBfi5B6lClrMsOEJ+G24xLrh1xBQfNGtpRsdJa4kKjkNNPiuHT/zvwAlNj862NMQ5sFMXYPL5jdVoRGpSyW8Ga/EttY3s8RvMWKo2w5XeHLuXYgrYpY6yfBSj5AqUyTFOeEpzT6w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=QeA799oDHUYmPVklNmncNtuSoCfRZ9z0x1KwNd0+8bc=;
- b=SCBQS6ykMT2YGJaT3p7zh4hbuayPxSV7d75NVIbF/a5fw6GXHIsF3SG3LCArrMGJU96882HjMFeZGhblP1aMW4bfcA6tRkwRhr5ftpeNuD8qkx2TAfP1xCiQXDEt2pS7AC1u5K8y+GcvR5oE6DThLvoQ1UZzRkboZf9DliBtVoneeI+5jDx86H6LuZA9Oq2qyayGPkUGNj8ObNbMVTHnWOwgIvykc2v2YQN/ykXh4yBSDtiWa+pztwuhrYVuTCRTSFZGKAB5RXuX+H+r2KqzuKJQyQR/P3sYktI5z4vLnXU9WeI1juYvJiggUh2hqDPZ55xUMfbPcVU53ZUQZoZxlA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
- header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=QeA799oDHUYmPVklNmncNtuSoCfRZ9z0x1KwNd0+8bc=;
- b=lfSTxLHzHkdssLx44oJHNCe0OMcArfJSXSoYBv2QwQfHlHP9g/YoyTosCrj9zxnsP1PtCAWrPqjNSM9dNCHO32jaFyEZRoNyyj92wzaAyubYiiq0ctgRylswCUJBpB/iB0dVeU0fJR6kBtc44Ctg4YKiMUb5PLfU8340NDcMkZA=
-Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com (2603:1096:400:3d0::7)
- by TYYPR01MB12163.jpnprd01.prod.outlook.com (2603:1096:405:fc::5)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.28; Mon, 30 Mar
- 2026 08:05:53 +0000
-Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com
- ([fe80::87d1:4928:d55:97de]) by TY3PR01MB11346.jpnprd01.prod.outlook.com
- ([fe80::87d1:4928:d55:97de%4]) with mapi id 15.20.9745.027; Mon, 30 Mar 2026
- 08:05:53 +0000
-From: Biju Das <biju.das.jz@bp.renesas.com>
-To: laurent.pinchart <laurent.pinchart@ideasonboard.com>, Tommaso Merciai
- <tommaso.merciai.xr@bp.renesas.com>
-CC: Tommaso Merciai <tomm.merciai@gmail.com>, geert <geert@linux-m68k.org>,
- "linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: RE: [PATCH] drm: rz-du: Ensure correct suspend/resume ordering with
- VSP
-Thread-Topic: [PATCH] drm: rz-du: Ensure correct suspend/resume ordering with
- VSP
-Thread-Index: AQHcu7jcHKDaFs9uD0+dQmIDdn0jG7W+EqeAgAitVeA=
-Date: Mon, 30 Mar 2026 08:05:52 +0000
-Message-ID: <TY3PR01MB11346B020B270F657727FE12C8652A@TY3PR01MB11346.jpnprd01.prod.outlook.com>
-References: <20260324180512.2277875-1-tommaso.merciai.xr@bp.renesas.com>
- <20260324193311.GB2461076@killaraus.ideasonboard.com>
-In-Reply-To: <20260324193311.GB2461076@killaraus.ideasonboard.com>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=bp.renesas.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: TY3PR01MB11346:EE_|TYYPR01MB12163:EE_
-x-ms-office365-filtering-correlation-id: 1bdeb016-9315-4dd7-08f3-08de8e3329df
-x-ld-processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|7416014|376014|366016|1800799024|38070700021|22082099003|18002099003|56012099003;
-x-microsoft-antispam-message-info: Z2Mux6veeeM+vsFiZwZi+HaZDZnZzrZu9Mu2Jf23Wko+yopJuFtkU2XMZXUSyTN/U2v9P9mabHRlgMU/pD4SHhUIn65dl0GC5BFPYccTbp1+w2qJT8vWmIsLWvDz9Yh5hXwuBIxsUQ79T5Oo/i0tEjDKP7IgfmEdP98Cbx60VjmyQ9Kbgqcz7ltsAJFVePYYZ2I7THdr1b2sAlcabb3StSVbW7gL+uRdh5sFWY2rpAfnBmUybDt3qizXEtNUw0jJJw3BNM4VwM/0gKwVf8wrDkzO4YDzlOXBQzjzVzMU9bBMadX71deA2ruTnzvrzvrU5o1tI1GcM36MN97JMgC4j/sj4hFFprGGt5Dr+vGHGKnVPyAJzyaJCfMjKQigVOlAovPI+ZyMm6bgZyk0FNx8SYRTA3gO+PDfJqj2YO5ycz6pNRUMDvJebaEvoRePUwYum48HakWg3U/VvtZEqVZfuuRkS4dL3y3MV4BsZ8kS9LeXW3iIA24F5JVdu+xaOcNJQq+Audc559WWvX+UhDPRajv8tpdh026C0DSm4iUt9c+wyG8GfMPZbyW8W6G0QtXeIWQE99Sq1WwY1CVAKtCEmQZvkW7PtZA+MlYA4e7XyV5cLcT8pD236lh34nG0BzbrZ7BAmBhfJ2xHszYAKdjxuULArXQHwpmHLsDGHnMIWT5AKIqkWILtUYwOIHCuLphiPuMq4ksjQawNjHWiNY3GYi5DnMKemFMXr20QULkyG29r2u4uh2jCUSeYWfqVcjuZ1QVhL4LqIxpbcC6/ze8+7rcMGFjqbBr9SWiscWCLah0=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:TY3PR01MB11346.jpnprd01.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(7416014)(376014)(366016)(1800799024)(38070700021)(22082099003)(18002099003)(56012099003);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?Ukt6ZlVoSGFCYWY0UkRxcjBIdTZnMXUycVZWQ0gwcHM5QjBFVkE4Zi93cmtK?=
- =?utf-8?B?WExEUEJaQzNidlhKRlM3cHdLazU3cC9XUGR6Y3lYSWFuM3hBZE0ybkMwcmJs?=
- =?utf-8?B?S0F1YWxVYTQ5aE9IdHdXWlBsRmRXTnl5emlCMVRmTnpNc0VCek04UHRxTWVN?=
- =?utf-8?B?cElkUVFoMUQva0RpVE1ROFJycWtTUVZ3WGc0Wjc4dDZ4ajBYK3pUdkQxQXl5?=
- =?utf-8?B?NnFnRUR5RjRCd1pxVE9SMDYrZTRObTE3Q0hITng3TG5aMzVBaUhIY3kvMFVW?=
- =?utf-8?B?WGY2UVJJd2M1YW8vck0yN05VRzFRY0FXSU0wK3ZtRGV5VnIyakxpekxqaDVO?=
- =?utf-8?B?M3puc0lKZnRiTm5iSTBmQ3lIcXBiTXJqVElDa3N0M1VWWUQvYmZDcy9Mb2tz?=
- =?utf-8?B?ZlA4NnpLODRLYlhuRHZnL293ejdieEFGQmVmSDVSV04yL1pOM0RJYXpFMUJH?=
- =?utf-8?B?OXU0cWJ0clZFODBpb1ZScldMOTN4ZFdFSGJzcW8zQys3RFlreWhaZGdNZHh6?=
- =?utf-8?B?N2NIWXgwdmkwWndaaUdQYjhWRis4dnZDN1JsdVpPWmQxQU1aTm80WWxmalVR?=
- =?utf-8?B?OW1rZS9ydXF1SVlmNVdCenBQbWdWZ0ZuK3JEeXRFMnU0ZGVtQ2x4cGdURjBn?=
- =?utf-8?B?ZjMzSHFHUUJPSGNSb3owbHBxWno2RU9Hdk9GMEdRdjZiRUFTeVVHYXk4SjQx?=
- =?utf-8?B?NHZOdTl5QXRuOEZiWnFhM2RYT2IzRTU0NTZrK0Izc3JCa3FGRkNWblhoSHpT?=
- =?utf-8?B?a1Q0SmEwdWRjKzhRK0VtQldJenA3NXM2Y0JrY0xxMmlZdk15OThyVjdqRzRy?=
- =?utf-8?B?N0tkdTZmazdGOE1QK2x3VHlCZ2pFSW9nUFlOK0VLU1ZoVm1tQlhiVS81UTk4?=
- =?utf-8?B?RmpKWDh4bGtFbkJSejhqYlNRd0J2OEd6d3ZjRVJZT0Y0Y1NTdlFiOVZxakxL?=
- =?utf-8?B?MGFSaDVKa3hTVTY1Q0NOcC9VWTllc0IwU0V2aEkwQ1RBaE5POEdSSncrSTM3?=
- =?utf-8?B?U0xJQ3JZamRNL3RBNGNXdzd3MlI4czNHcHJHaWx4SkNNSm1XWGZycTlZcVor?=
- =?utf-8?B?aksyN1VXNkhBTnFoZkgxTXRCREhnYnZPWWVrWU9JYytpMmNpVk1pRjk4akJJ?=
- =?utf-8?B?RzhrV3pCa0hIT0c0S3hVYVRoQk9kaWl5S25qTzdNOEc2Nkc0cWlJbVR4YnFL?=
- =?utf-8?B?eWt5V1p4bWFGcDIyUFpmbGxLSWpFb2FXUWVuNm5SK0h4UEZBandITmhLVnJR?=
- =?utf-8?B?Z3NLa0c1ZGRIUUdveW80VUE2cjNNZ283QUVkQU1NdlJQZi9Yck1VangxT3Ni?=
- =?utf-8?B?ZG91S01tWHFyWUVmM04xTXdPei9icmdwaHlseWc4aWR5VllxcFhNa0JGMGIv?=
- =?utf-8?B?bzFCR1ZKdFIxOS9xeDhLU3BUUkV3Sm1Hcy8zTmZVekVmcnlTN293TmowNENN?=
- =?utf-8?B?S0lDM2NsM3FybFg3WnBSMlMzcGI5Unp4TXhRQnB4bDdpdTlSWU1mdVNnd3cw?=
- =?utf-8?B?bTY0ZWwyQ0hIOG0rM1h2WjlJdXYxekRXVzRodUxVVHhYTCtVUDR5R1JGdE1o?=
- =?utf-8?B?NE5CM1VuNk9uZ3VxTS8wVCtjTWJ2d3VCRVpIYmJ6OXNqYTVIdXo1cDhJa1lo?=
- =?utf-8?B?akdzOE14Z0txL2lHNGUyZVBTOEFPYUF2bGwvTHRPMmlheC80VFZKZmI5SjFj?=
- =?utf-8?B?ZzI1YmFWRTZOb0lBRzlIZ01XakRxckZ5eGgwM2dQaW1wdmNndGN6cDYvOGlG?=
- =?utf-8?B?SkNMQ0tQa1Awa0ozTGhnRGduS2xzcTE1dWFlb0Rjc0FYV2RWNENkQjRCUWx3?=
- =?utf-8?B?d2l4V0taQVdsY3MxbTlTUmwxUWhjNnVZKy83MGNFVHUzamVsaHJDcGhqaWFM?=
- =?utf-8?B?VXZGZ0JPeno1VHBhU0RTdXhnNUxZcFFjVGRjb3pVbjdMYU5ETG1oeFZGSGxB?=
- =?utf-8?B?WGxjeVd6N01ibzdRSzh5R0VVU1pscVNEVWFiZkx1SGNCdmcrTFM3amw2Nis0?=
- =?utf-8?B?a2wrMXc0S1BYbEk1T01TZEJKTXZQVFhjcFdyYmxxeTVtNXh0ZG1wUm5mMnM5?=
- =?utf-8?B?cVJhV1hhcmxaRjFtV1VtQnpNUkRGR1I1enM0TWNOOGhOWmpwZW96ZVJZYlpn?=
- =?utf-8?B?bHRkeFBUQ1hDd1RwTGwxK1FUVDU2NDhCK2h1d250YWJvUEVld2w0RGYxRHE5?=
- =?utf-8?B?N0RjUmZNNUxpbkRvY2NHWjJ6Vnl0cjJpMHVxTllObDk0R3VpYlJ2N1loWlN2?=
- =?utf-8?B?RzAzc05EWDhOQitVWlQrNTNUaVRGZjlhMXlyMm9vbExpb0JIZlR3WUtrODNp?=
- =?utf-8?B?MlJ5VndUbElkbjFpcjdrSnFGb3ByckFmcCtyMWFqN3RzZlBnaHViQT09?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6CC3E10E4CE
+ for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 08:06:47 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 210B95BE85;
+ Mon, 30 Mar 2026 08:06:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1774858006; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=CWmpX9DV1uhzYVPASmxne39l3PVA2qwD4djw9df0ADo=;
+ b=Z0KiiUpi+mjkZoAO1laz0YQAD7cd0VkpeEZSQLqrUxxwufGKu4MjJnSIVLagGUccDHtDXj
+ FHjWMoUSRk/FTCKCDgzqdDV0D8vGCgbCXCAl6nlTBJCHCdKr8SjaSpXKveyTJsYjG2j9GY
+ oJWqX4wtQ4hUsO6JUL4it0xYx8Fn50Y=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1774858006;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=CWmpX9DV1uhzYVPASmxne39l3PVA2qwD4djw9df0ADo=;
+ b=ZXX/oXNbKy1KXwpFa8X9Vmxkrku+HP7PjiCosE1EjtxuMgFppr5Vetqt4j2u8CHWNufdjn
+ fzJ2TWk/ldcXEMDQ==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1774858006; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=CWmpX9DV1uhzYVPASmxne39l3PVA2qwD4djw9df0ADo=;
+ b=Z0KiiUpi+mjkZoAO1laz0YQAD7cd0VkpeEZSQLqrUxxwufGKu4MjJnSIVLagGUccDHtDXj
+ FHjWMoUSRk/FTCKCDgzqdDV0D8vGCgbCXCAl6nlTBJCHCdKr8SjaSpXKveyTJsYjG2j9GY
+ oJWqX4wtQ4hUsO6JUL4it0xYx8Fn50Y=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1774858006;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=CWmpX9DV1uhzYVPASmxne39l3PVA2qwD4djw9df0ADo=;
+ b=ZXX/oXNbKy1KXwpFa8X9Vmxkrku+HP7PjiCosE1EjtxuMgFppr5Vetqt4j2u8CHWNufdjn
+ fzJ2TWk/ldcXEMDQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 96B004A0A2;
+ Mon, 30 Mar 2026 08:06:45 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id PpdaIxUvymmnRwAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Mon, 30 Mar 2026 08:06:45 +0000
+Message-ID: <1ed2d223-fcf2-46e3-8d5f-864440a49491@suse.de>
+Date: Mon, 30 Mar 2026 10:06:45 +0200
 MIME-Version: 1.0
-X-OriginatorOrg: bp.renesas.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TY3PR01MB11346.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1bdeb016-9315-4dd7-08f3-08de8e3329df
-X-MS-Exchange-CrossTenant-originalarrivaltime: 30 Mar 2026 08:05:53.0055 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 33ON1u3O/xNtfd4BSr9iKIUSAz8V6LkqtDJc2YTxzhIjPGzriEgDH4e+eCMsXiGfdeR1Y2bDvFot4e+Y/EigIAt7d87jlZexCp0IhB+UmJc=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYYPR01MB12163
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/shmem_helper: Make sure PMD entries get the writeable
+ upgrade
+To: Boris Brezillon <boris.brezillon@collabora.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, dri-devel@lists.freedesktop.org
+Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ linux-kernel@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>,
+ David Hildenbrand <david@kernel.org>,
+ Lorenzo Stoakes <lorenzo.stoakes@oracle.com>, Zi Yan <ziy@nvidia.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ "Liam R. Howlett" <Liam.Howlett@oracle.com>, Nico Pache <npache@redhat.com>,
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
+ linux-mm@kvack.org, kernel@collabora.com,
+ Biju Das <biju.das.jz@bp.renesas.com>,
+ Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+References: <20260320151914.586945-1-boris.brezillon@collabora.com>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <20260320151914.586945-1-boris.brezillon@collabora.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ ARC_NA(0.00)[]; FUZZY_RATELIMITED(0.00)[rspamd.com];
+ MIME_TRACE(0.00)[0:+]; RCPT_COUNT_TWELVE(0.00)[22];
+ RCVD_TLS_ALL(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ MID_RHS_MATCH_FROM(0.00)[]; FREEMAIL_ENVRCPT(0.00)[gmail.com];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FROM_HAS_DN(0.00)[];
+ FREEMAIL_CC(0.00)[gmail.com,ffwll.ch,vger.kernel.org,linux-foundation.org,kernel.org,oracle.com,nvidia.com,linux.alibaba.com,redhat.com,arm.com,linux.dev,kvack.org,collabora.com,bp.renesas.com];
+ TO_DN_SOME(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,
+ collabora.com:email, suse.de:mid, suse.de:email, suse.com:url,
+ renesas.com:email]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -147,64 +151,131 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-SGkgVG9tbWFzbywNCg0KPiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBMYXVy
-ZW50IFBpbmNoYXJ0IDxsYXVyZW50LnBpbmNoYXJ0QGlkZWFzb25ib2FyZC5jb20+DQo+IFNlbnQ6
-IDI0IE1hcmNoIDIwMjYgMTk6MzMNCj4gU3ViamVjdDogUmU6IFtQQVRDSF0gZHJtOiByei1kdTog
-RW5zdXJlIGNvcnJlY3Qgc3VzcGVuZC9yZXN1bWUgb3JkZXJpbmcgd2l0aCBWU1ANCj4gDQo+IE9u
-IFR1ZSwgTWFyIDI0LCAyMDI2IGF0IDA3OjA1OjA1UE0gKzAxMDAsIFRvbW1hc28gTWVyY2lhaSB3
-cm90ZToNCj4gPiBUaGUgVlNQIHNlcnZlcyBhcyBhbiBpbnRlcmZhY2UgdG8gbWVtb3J5IGFuZCBh
-IGNvbXBvc2l0b3IgdG8gdGhlIERVLg0KPiA+IEl0IHRoZXJlZm9yZSBuZWVkcyB0byBiZSBzdXNw
-ZW5kZWQgYWZ0ZXIgYW5kIHJlc3VtZWQgYmVmb3JlIHRoZSBEVSwgdG8NCj4gPiBiZSBwcm9wZXJs
-eSBzdG9wcGVkIGFuZCByZXN0YXJ0ZWQgaW4gYSBjb250cm9sbGVkIGZhc2hpb24gZHJpdmVuIGJ5
-DQo+ID4gdGhlIERVIGRyaXZlci4gVGhpcyBjdXJyZW50bHkgd29ya3MgYnkgY2hhbmNlLiBBdm9p
-ZCByZWx5aW5nIG9uIGx1Y2sNCj4gPiBieSBlbmZvcmNpbmcgdGhlIGNvcnJlY3Qgc3VzcGVuZC9y
-ZXN1bWUgb3JkZXJpbmcgd2l0aCBkZXZpY2UgbGlua3MuDQo+ID4NCj4gPiBCYXNlZCBvbiBzaW1p
-bGFyIHdvcmsgZG9uZSBieSBMYXVyZW50IFBpbmNoYXJ0IGZvciBSLUNhciBEVS4NCj4gDQo+IElm
-IHRoZSBSLUNhciBEVSBwYXRjaCBnZXRzIG1lcmdlZCBiZWZvcmUgdGhpcyBvbmUsIHlvdSBjb3Vs
-ZCBtZW50aW9uIHRoZSBjb21taXQgSUQgaGVyZS4NCg0KTm93IHRoZSBSLUNhciBwYXRjaCBoaXQg
-b24gZHJtLW1pc2MtbmV4dC4gQ2FuIHlvdSBwbGVhc2UgcmVwb3N0IHRoaXMgcGF0Y2gNCndpdGgg
-Y29tbWl0IElEPw0KDQpDaGVlcnMsDQpCaWp1DQoNCg0KDQo+IA0KPiA+DQo+ID4gU2lnbmVkLW9m
-Zi1ieTogVG9tbWFzbyBNZXJjaWFpIDx0b21tYXNvLm1lcmNpYWkueHJAYnAucmVuZXNhcy5jb20+
-DQo+IA0KPiBSZXZpZXdlZC1ieTogTGF1cmVudCBQaW5jaGFydCA8bGF1cmVudC5waW5jaGFydCty
-ZW5lc2FzQGlkZWFzb25ib2FyZC5jb20+DQo+IA0KPiA+IC0tLQ0KPiA+ICBkcml2ZXJzL2dwdS9k
-cm0vcmVuZXNhcy9yei1kdS9yemcybF9kdV92c3AuYyB8IDE2ICsrKysrKysrKysrKysrKysNCj4g
-PiBkcml2ZXJzL2dwdS9kcm0vcmVuZXNhcy9yei1kdS9yemcybF9kdV92c3AuaCB8ICAyICsrDQo+
-ID4gIDIgZmlsZXMgY2hhbmdlZCwgMTggaW5zZXJ0aW9ucygrKQ0KPiA+DQo+ID4gZGlmZiAtLWdp
-dCBhL2RyaXZlcnMvZ3B1L2RybS9yZW5lc2FzL3J6LWR1L3J6ZzJsX2R1X3ZzcC5jDQo+ID4gYi9k
-cml2ZXJzL2dwdS9kcm0vcmVuZXNhcy9yei1kdS9yemcybF9kdV92c3AuYw0KPiA+IGluZGV4IGJk
-NDg2Mzc3ZjAzNy4uZWI2MjZjM2NjNDIxIDEwMDY0NA0KPiA+IC0tLSBhL2RyaXZlcnMvZ3B1L2Ry
-bS9yZW5lc2FzL3J6LWR1L3J6ZzJsX2R1X3ZzcC5jDQo+ID4gKysrIGIvZHJpdmVycy9ncHUvZHJt
-L3JlbmVzYXMvcnotZHUvcnpnMmxfZHVfdnNwLmMNCj4gPiBAQCAtMjAsNiArMjAsNyBAQA0KPiA+
-ICAjaW5jbHVkZSA8ZHJtL2RybV92YmxhbmsuaD4NCj4gPg0KPiA+ICAjaW5jbHVkZSA8bGludXgv
-Yml0b3BzLmg+DQo+ID4gKyNpbmNsdWRlIDxsaW51eC9kZXZpY2UuaD4NCj4gPiAgI2luY2x1ZGUg
-PGxpbnV4L2RtYS1tYXBwaW5nLmg+DQo+ID4gICNpbmNsdWRlIDxsaW51eC9vZl9wbGF0Zm9ybS5o
-Pg0KPiA+ICAjaW5jbHVkZSA8bGludXgvcGxhdGZvcm1fZGV2aWNlLmg+DQo+ID4gQEAgLTI5Myw2
-ICsyOTQsOSBAQCBzdGF0aWMgdm9pZCByemcybF9kdV92c3BfY2xlYW51cChzdHJ1Y3QgZHJtX2Rl
-dmljZQ0KPiA+ICpkZXYsIHZvaWQgKnJlcykgIHsNCj4gPiAgCXN0cnVjdCByemcybF9kdV92c3Ag
-KnZzcCA9IHJlczsNCj4gPg0KPiA+ICsJaWYgKHZzcC0+bGluaykNCj4gPiArCQlkZXZpY2VfbGlu
-a19kZWwodnNwLT5saW5rKTsNCj4gPiArDQo+ID4gIAlwdXRfZGV2aWNlKHZzcC0+dnNwKTsNCj4g
-PiAgfQ0KPiA+DQo+ID4gQEAgLTMxNyw2ICszMjEsMTggQEAgaW50IHJ6ZzJsX2R1X3ZzcF9pbml0
-KHN0cnVjdCByemcybF9kdV92c3AgKnZzcCwgc3RydWN0IGRldmljZV9ub2RlICpucCwNCj4gPiAg
-CWlmIChyZXQgPCAwKQ0KPiA+ICAJCXJldHVybiByZXQ7DQo+ID4NCj4gPiArCS8qDQo+ID4gKwkg
-KiBFbmZvcmNlIHN1c3BlbmQvcmVzdW1lIG9yZGVyaW5nIGJldHdlZW4gdGhlIERVIChjb25zdW1l
-cikgYW5kIHRoZQ0KPiA+ICsJICogVlNQIChzdXBwbGllcikuIFRoZSBEVSB3aWxsIGJlIHN1c3Bl
-bmRlZCBiZWZvcmUgYW5kIHJlc3VtZSBhZnRlciB0aGUNCj4gPiArCSAqIFZTUC4NCj4gPiArCSAq
-Lw0KPiA+ICsJdnNwLT5saW5rID0gZGV2aWNlX2xpbmtfYWRkKHJjZHUtPmRldiwgdnNwLT52c3As
-IERMX0ZMQUdfU1RBVEVMRVNTKTsNCj4gPiArCWlmICghdnNwLT5saW5rKSB7DQo+ID4gKwkJZGV2
-X2VycihyY2R1LT5kZXYsICJGYWlsZWQgdG8gY3JlYXRlIGRldmljZSBsaW5rIHRvIFZTUCAlc1xu
-IiwNCj4gPiArCQkJZGV2X25hbWUodnNwLT52c3ApKTsNCj4gPiArCQlyZXR1cm4gLUVJTlZBTDsN
-Cj4gPiArCX0NCj4gPiArDQo+ID4gIAlyZXQgPSB2c3AxX2R1X2luaXQodnNwLT52c3ApOw0KPiA+
-ICAJaWYgKHJldCA8IDApDQo+ID4gIAkJcmV0dXJuIHJldDsNCj4gPiBkaWZmIC0tZ2l0IGEvZHJp
-dmVycy9ncHUvZHJtL3JlbmVzYXMvcnotZHUvcnpnMmxfZHVfdnNwLmgNCj4gPiBiL2RyaXZlcnMv
-Z3B1L2RybS9yZW5lc2FzL3J6LWR1L3J6ZzJsX2R1X3ZzcC5oDQo+ID4gaW5kZXggMzIyZWI4MGRj
-YmFmLi5hMjJhYWYwODQzZWQgMTAwNjQ0DQo+ID4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL3JlbmVz
-YXMvcnotZHUvcnpnMmxfZHVfdnNwLmgNCj4gPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vcmVuZXNh
-cy9yei1kdS9yemcybF9kdV92c3AuaA0KPiA+IEBAIC0xNSw2ICsxNSw3IEBADQo+ID4gICNpbmNs
-dWRlIDxsaW51eC9zY2F0dGVybGlzdC5oPg0KPiA+DQo+ID4gIHN0cnVjdCBkZXZpY2U7DQo+ID4g
-K3N0cnVjdCBkZXZpY2VfbGluazsNCj4gPiAgc3RydWN0IGRybV9mcmFtZWJ1ZmZlcjsNCj4gPiAg
-c3RydWN0IHJ6ZzJsX2R1X2RldmljZTsNCj4gPiAgc3RydWN0IHJ6ZzJsX2R1X2Zvcm1hdF9pbmZv
-Ow0KPiA+IEBAIC0yOSw2ICszMCw3IEBAIHN0cnVjdCByemcybF9kdV92c3BfcGxhbmUgeyAgc3Ry
-dWN0IHJ6ZzJsX2R1X3ZzcCB7DQo+ID4gIAl1bnNpZ25lZCBpbnQgaW5kZXg7DQo+ID4gIAlzdHJ1
-Y3QgZGV2aWNlICp2c3A7DQo+ID4gKwlzdHJ1Y3QgZGV2aWNlX2xpbmsgKmxpbms7DQo+ID4gIAlz
-dHJ1Y3QgcnpnMmxfZHVfZGV2aWNlICpkZXY7DQo+ID4gIH07DQo+ID4NCj4gDQo+IC0tDQo+IFJl
-Z2FyZHMsDQo+IA0KPiBMYXVyZW50IFBpbmNoYXJ0DQo=
+
+
+Am 20.03.26 um 16:19 schrieb Boris Brezillon:
+> Unlike PTEs which are automatically upgraded to writeable entries if
+> .pfn_mkwrite() returns 0, the PMD upgrades go through .huge_fault(),
+> and we currently pretend to have handled the make-writeable request
+> even though we only ever map things read-only. Make sure we pass the
+> proper "write" info to vmf_insert_pfn_pmd() in that case.
+>
+> This also means we have to record the mkwrite event in the .huge_fault()
+> path now. Move the dirty tracking logic to a
+> drm_gem_shmem_record_mkwrite() helper so it can also be called from
+> drm_gem_shmem_pfn_mkwrite().
+>
+> Note that this wasn't a problem before commit 28e3918179aa
+> ("drm/gem-shmem: Track folio accessed/dirty status in mmap"), because
+> the pgprot were not lowered to read-only before this commit (see the
+> vma_wants_writenotify() in vma_set_page_prot()).
+>
+> Fixes: 28e3918179aa ("drm/gem-shmem: Track folio accessed/dirty status in mmap")
+> Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
+> Cc: Biju Das <biju.das.jz@bp.renesas.com>
+> Cc: Thomas Zimmermann <tzimmermann@suse.de>
+> Cc: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+
+Acked-by: Thomas Zimmermann <tzimmermann@suse.de>
+
+> ---
+>
+> This patch is based on drm-tip [2], because that's the only branch
+> that has both [1] and the dirty tracking changes that live in
+> drm-misc-next.
+>
+> Also added the THP maintainers in Cc, so I can hopefully get some
+> feedback on the fix. For instance, I'm still unsure
+> drm_gem_shmem_pfn_mkwrite() is race-free (do we need some locking
+> there? should we call folio_mark_dirty_lock()? should we call the
+> fault handler directly from there and have all the dirty tracking
+> in this .[huge_]fault path?).
+>
+> [1]https://yhbt.net/lore/dri-devel/20260319015224.46896-1-pedrodemargomes@gmail.com/
+> [2]https://gitlab.freedesktop.org/drm/tip
+> ---
+>   drivers/gpu/drm/drm_gem_shmem_helper.c | 46 ++++++++++++++++++--------
+>   1 file changed, 32 insertions(+), 14 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/drm_gem_shmem_helper.c b/drivers/gpu/drm/drm_gem_shmem_helper.c
+> index 2062ca607833..545933c7f712 100644
+> --- a/drivers/gpu/drm/drm_gem_shmem_helper.c
+> +++ b/drivers/gpu/drm/drm_gem_shmem_helper.c
+> @@ -554,6 +554,21 @@ int drm_gem_shmem_dumb_create(struct drm_file *file, struct drm_device *dev,
+>   }
+>   EXPORT_SYMBOL_GPL(drm_gem_shmem_dumb_create);
+>   
+> +static void drm_gem_shmem_record_mkwrite(struct vm_fault *vmf)
+> +{
+> +	struct vm_area_struct *vma = vmf->vma;
+> +	struct drm_gem_object *obj = vma->vm_private_data;
+> +	struct drm_gem_shmem_object *shmem = to_drm_gem_shmem_obj(obj);
+> +	loff_t num_pages = obj->size >> PAGE_SHIFT;
+> +	pgoff_t page_offset = vmf->pgoff - vma->vm_pgoff; /* page offset within VMA */
+> +
+> +	if (drm_WARN_ON(obj->dev, !shmem->pages || page_offset >= num_pages))
+> +		return;
+> +
+> +	file_update_time(vma->vm_file);
+> +	folio_mark_dirty(page_folio(shmem->pages[page_offset]));
+> +}
+> +
+>   static vm_fault_t try_insert_pfn(struct vm_fault *vmf, unsigned int order,
+>   				 unsigned long pfn)
+>   {
+> @@ -566,8 +581,23 @@ static vm_fault_t try_insert_pfn(struct vm_fault *vmf, unsigned int order,
+>   
+>   		if (aligned &&
+>   		    folio_test_pmd_mappable(page_folio(pfn_to_page(pfn)))) {
+> +			vm_fault_t ret;
+> +
+>   			pfn &= PMD_MASK >> PAGE_SHIFT;
+> -			return vmf_insert_pfn_pmd(vmf, pfn, false);
+> +
+> +			/* Unlike PTEs which are automatically upgraded to
+> +			 * writeable entries, the PMD upgrades go through
+> +			 * .huge_fault(). Make sure we pass the "write" info
+> +			 * along in that case.
+> +			 * This also means we have to record the write fault
+> +			 * here, instead of in .pfn_mkwrite().
+> +			 */
+> +			ret = vmf_insert_pfn_pmd(vmf, pfn,
+> +						 vmf->flags & FAULT_FLAG_WRITE);
+> +			if (ret == VM_FAULT_NOPAGE && (vmf->flags & FAULT_FLAG_WRITE))
+> +				drm_gem_shmem_record_mkwrite(vmf);
+> +
+> +			return ret;
+>   		}
+>   #endif
+>   	}
+> @@ -655,19 +685,7 @@ static void drm_gem_shmem_vm_close(struct vm_area_struct *vma)
+>   
+>   static vm_fault_t drm_gem_shmem_pfn_mkwrite(struct vm_fault *vmf)
+>   {
+> -	struct vm_area_struct *vma = vmf->vma;
+> -	struct drm_gem_object *obj = vma->vm_private_data;
+> -	struct drm_gem_shmem_object *shmem = to_drm_gem_shmem_obj(obj);
+> -	loff_t num_pages = obj->size >> PAGE_SHIFT;
+> -	pgoff_t page_offset = vmf->pgoff - vma->vm_pgoff; /* page offset within VMA */
+> -
+> -	if (drm_WARN_ON(obj->dev, !shmem->pages || page_offset >= num_pages))
+> -		return VM_FAULT_SIGBUS;
+> -
+> -	file_update_time(vma->vm_file);
+> -
+> -	folio_mark_dirty(page_folio(shmem->pages[page_offset]));
+> -
+> +	drm_gem_shmem_record_mkwrite(vmf);
+>   	return 0;
+>   }
+>   
+
+-- 
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
+
+
