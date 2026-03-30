@@ -4,87 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 159FBFF4956
-	for <dri-devel@archiver.kernel.org>; Mon, 30 Mar 2026 07:57:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4E8B4FF4956
+	for <dri-devel@archiver.kernel.org>; Mon, 30 Mar 2026 08:03:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 717A510E496;
-	Mon, 30 Mar 2026 07:57:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 94D7610E46C;
+	Mon, 30 Mar 2026 08:03:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=imgtec.com header.i=@imgtec.com header.b="smMB3OvY";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="GmfaFkCb";
 	dkim-atps=neutral
-Received: from mx07-00376f01.pphosted.com (mx07-00376f01.pphosted.com
- [185.132.180.163])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 801C210E454
- for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 07:57:29 +0000 (UTC)
-Received: from pps.filterd (m0168889.ppops.net [127.0.0.1])
- by mx07-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 62U5HJTp174202; Mon, 30 Mar 2026 08:57:03 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
- :content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=dk201812; bh=j
- hCCpkEt+BkB84N1zMr4Vl04qUsVX6qxkMXkjdr3+Xg=; b=smMB3OvY7SY0HkV1k
- 7bkGL23Yc9LMGcLqO7mJvkL4fP/hEYA/prpNDfmU4I1okFZB+APeoJpyLKHgzoJd
- BzbnVYp//WENvpChim7jTe+AKWFCZMfb/AEogJ520PSPMCAp5veUiytPwiU7F2NG
- RN/p/TpB29n+65SMFanMWylU5PTmNAssaCYRRe6QBYIjg/Aras49whi/0K1UaAsG
- YVhem+UgO46pW0uuSChbb6vzJxqRBfE8w+TF28T1EzATZAIbrxxEcmjS93QpR167
- s1ueOo7kmbQla6659hT7ZkyCFziz/qp2kaxcZWY9yp2aMnHMtKyIwfC694WBNoB1
- ISFdA==
-Received: from hhmail01.hh.imgtec.org
- (83-244-153-141.cust-83.exponential-e.net [83.244.153.141])
- by mx07-00376f01.pphosted.com (PPS) with ESMTPS id 4d67xusfkv-9
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 30 Mar 2026 08:57:03 +0100 (BST)
-Received: from NP-A-BELLE.kl.imgtec.org (172.25.6.106) by
- HHMAIL01.hh.imgtec.org (10.100.10.19) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Mon, 30 Mar 2026 08:57:01 +0100
-From: Alessio Belle <alessio.belle@imgtec.com>
-Date: Mon, 30 Mar 2026 08:56:43 +0100
-Subject: [PATCH 8/8] drm/imagination: Minor improvements to job submission
- code documentation
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A5EB310E46C;
+ Mon, 30 Mar 2026 08:02:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1774857780; x=1806393780;
+ h=message-id:subject:from:to:cc:date:in-reply-to:
+ references:content-transfer-encoding:mime-version;
+ bh=kuKFZHF+lFo1cxlTyrO7nzp0Jw/QQObhSwNEPMh6obo=;
+ b=GmfaFkCb893jMzJqqbBLO/b7sVpji5sEeMK780InBoRCc4uTjseN/qgt
+ 9WdgXPJSSnz0fqCd7gzOHDoW43bxiZ75+KoL3+UTFIbu2cGM+1gRV1DpT
+ JRPHEm7Me7gJFvszrTMdaoiVUFqS5l2f4KgZ4iYBacBYVfwRR82WxsYWG
+ pTXpm6yW6KJs/wyhqxETBhPeH1akcpEewrO5iM5kWhNvsRGiozoizex3p
+ VojS2kVIt7E8mBOh8Ud0kAx3XnPjTlgBPD2Rtieq5WZqx3LCvJq0560zc
+ H1rL/Ej5ibI/nmxUmJQXRAwo4KksxkI12wmf4QQjVkpTq++RzkGbdpJ7e w==;
+X-CSE-ConnectionGUID: leP2eqTaTWu3aUQkRyylmw==
+X-CSE-MsgGUID: Uo0rkIK0TzSx+bI53DeIgQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11743"; a="75740222"
+X-IronPort-AV: E=Sophos;i="6.23,149,1770624000"; d="scan'208";a="75740222"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+ by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Mar 2026 01:02:59 -0700
+X-CSE-ConnectionGUID: pSVJ/Y8iSPKBxWpfOt+1Tg==
+X-CSE-MsgGUID: x4nrz4GQTiWPmELcvt20IQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,149,1770624000"; d="scan'208";a="225980390"
+Received: from abityuts-desk.ger.corp.intel.com (HELO [10.245.245.95])
+ ([10.245.245.95])
+ by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Mar 2026 01:02:57 -0700
+Message-ID: <10289571cccff20ba52f224080754705c606ccfe.camel@linux.intel.com>
+Subject: Re: [PATCH] drm/xe/bo: Cache vram_region_gpu_offset in struct xe_bo
+From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
+To: Yuri Martins <yurimartins2004@hotmail.com>, intel-xe@lists.freedesktop.org
+Cc: Matthew Brost <matthew.brost@intel.com>, Rodrigo Vivi
+ <rodrigo.vivi@intel.com>, David Airlie <airlied@gmail.com>, Simona Vetter
+ <simona@ffwll.ch>, Matthew Auld <matthew.auld@intel.com>, Matt Roper
+ <matthew.d.roper@intel.com>, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org
+Date: Mon, 30 Mar 2026 10:02:54 +0200
+In-Reply-To: <CP9P284MB3908AC9B3875FD63E955D139A055A@CP9P284MB3908.BRAP284.PROD.OUTLOOK.COM>
+References: <CP9P284MB3908AC9B3875FD63E955D139A055A@CP9P284MB3908.BRAP284.PROD.OUTLOOK.COM>
+Organization: Intel Sweden AB, Registration Number: 556189-6027
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20260330-job-submission-fixes-cleanup-v1-8-7de8c09cef8c@imgtec.com>
-References: <20260330-job-submission-fixes-cleanup-v1-0-7de8c09cef8c@imgtec.com>
-In-Reply-To: <20260330-job-submission-fixes-cleanup-v1-0-7de8c09cef8c@imgtec.com>
-To: Frank Binns <frank.binns@imgtec.com>, Matt Coster <matt.coster@imgtec.com>,
- Brajesh Gupta <brajesh.gupta@imgtec.com>,
- "Alexandru Dadu" <alexandru.dadu@imgtec.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Boris Brezillon <boris.brezillon@collabora.com>
-CC: <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
- <linux-media@vger.kernel.org>, <linaro-mm-sig@lists.linaro.org>, "Alessio
- Belle" <alessio.belle@imgtec.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1774857418; l=5384;
- i=alessio.belle@imgtec.com; s=20251208; h=from:subject:message-id;
- bh=/yF7BgXFlPY5bgvNPfE6BIw+//D50tMFfBnZCd0SRJg=;
- b=vzkL/Rb9EvRS8z1K3VHubqV2TS66bAjYhwngM7cK+U0Y1w9kTtqr4cL/EPYutBLkvx9VKkx1f
- hiQ280MZ06ZBnpOBZpcqgG5aGIpKEO681AwfTjxUzYO6qyZ6MSotSUi
-X-Developer-Key: i=alessio.belle@imgtec.com; a=ed25519;
- pk=2Vtuk+GKBRjwMqIHpKk+Gx6zl7cgtq0joszcOc0zF4g=
-X-Originating-IP: [172.25.6.106]
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzMwMDA2MSBTYWx0ZWRfXzfQ1IDE1g9IL
- DtTr64FZbO4eQUEIc48jvCjh9kHOf02NQfmlo58hbt0LC9X345+aLuoSzG/uwZjdU+gDjEZzWw/
- pZ4/Un439IC4Mrt/aOmDv3Y0fn1G8ETGh+v+hg3vlcjjRQCgwyS3bCxUqbAGKTaQmzS0ldOUNzb
- 4aI+dD80jSXOJXxdbr4GV/dftdq/HnZc1UuPdNfQto8yC56mbLNHVgNWmfBRdjQLRbTOLPJ7zja
- 1PhddJ+szUBJEuL0g2IMQXtGznY+eiTAHs4V42NzugL/U4XcShXiS2mkuz6PcebhgpjYlWBrfSb
- Dg6zOkV+swOPVYXz7veHELpVcKqCjdaozM15H3ClClY/9o1UAMhtjW9EB4rU7gwwPebMxpjDQXy
- O1aC4Wx1K+banTkgeCoy/XAqV0TU4Ob/CMet7FOihOr+AeXqqu4JmB5RZz2yl/IwyS37ESJQXEO
- T97JAQDhlwPbenqByUA==
-X-Authority-Analysis: v=2.4 cv=QO9lhwLL c=1 sm=1 tr=0 ts=69ca2ccf cx=c_pps
- a=AKOq//PuzOIrVTIF9yBwbA==:117 a=AKOq//PuzOIrVTIF9yBwbA==:17
- a=txNhvCuK94MA:10 a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=kQ-hrUj2-E3RCbRHssb7:22 a=7RYWX5rxfSByPNLylY2M:22
- a=r_1tXGB3AAAA:8 a=KCFfvmjXgMu-EKTFBUoA:9 a=QEXdDO2ut3YA:10
- a=t8nPyN_e6usw4ciXM-Pk:22
-X-Proofpoint-GUID: hqAUf5kEAgU4PDF-85MHTxc2iYqDLrnB
-X-Proofpoint-ORIG-GUID: hqAUf5kEAgU4PDF-85MHTxc2iYqDLrnB
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,133 +74,409 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Mixed list of clarifications and typo fixes.
+On Sun, 2026-03-29 at 19:22 -0300, Yuri Martins wrote:
+> The vram_region_gpu_offset() helper chases pointers through TTM
+> resource
+> manager structures on every call. An XXX comment in the codebase
+> noted
+> this was a problem in the VM bind hot path and suggested caching the
+> value with a recalculation on BO move.
+>=20
+> Add a vram_gpu_offset field to struct xe_bo that is updated in
+> xe_bo_move() at the 'out' label, which is the convergence point for
+> all
+> move paths. Provide xe_bo_vram_gpu_offset() as a static inline
+> accessor.
+>=20
+> Convert five callers that always operate on the BO's current
+> resource:
+> =C2=A0 - xe_pt.c: xe_pt_stage_bind() (VM bind hot path)
+> =C2=A0 - xe_bo.c: __xe_bo_addr()
+> =C2=A0 - xe_ggtt.c: xe_ggtt_map_bo()
+> =C2=A0 - xe_lmtt.c: lmtt_insert_bo()
+> =C2=A0 - xe_migrate.c: xe_migrate_access_memory()
+>=20
+> Two callers in xe_migrate.c (pte_update_size and emit_pte) are
+> intentionally not converted because they receive a ttm_resource that
+> may refer to a move destination rather than the BO's current
+> placement.
+>=20
+> Replace the XXX comment on vram_region_gpu_offset() with proper
+> kernel
+> doc that directs callers to prefer the cached accessor.
+>=20
+> Add a KUnit live test (xe_bo_vram_gpu_offset_kunit) that validates
+> cache
+> consistency across BO creation in VRAM, eviction to system memory,
+> and
+> restoration back to VRAM.
+>=20
+> Tested on ASUS Zenbook S14 (Intel Core Ultra 7 258V) with
+> xe_live_test
+> module on Fedora.
+>=20
+> Signed-off-by: Yuri Martins <yurimartins2004@hotmail.com>
 
-Signed-off-by: Alessio Belle <alessio.belle@imgtec.com>
----
- drivers/gpu/drm/imagination/pvr_queue.c            | 38 ++++++++++++++--------
- .../gpu/drm/imagination/pvr_rogue_fwif_shared.h    | 10 +-----
- 2 files changed, 26 insertions(+), 22 deletions(-)
+This adds a pretty large amount of code and some fragility without a
+clear proof of benefit. I think improvements like this needs some real
+performance increase numbers.
 
-diff --git a/drivers/gpu/drm/imagination/pvr_queue.c b/drivers/gpu/drm/imagination/pvr_queue.c
-index 303f4d6cc09e..b5bec656d13c 100644
---- a/drivers/gpu/drm/imagination/pvr_queue.c
-+++ b/drivers/gpu/drm/imagination/pvr_queue.c
-@@ -200,6 +200,13 @@ pvr_queue_fence_is_ufo_backed(struct dma_fence *f)
-  * already backed by a UFO.
-  * @f: The dma_fence to turn into a pvr_queue_fence.
-  *
-+ * This could be called on:
-+ * - a job fence directly, in which case it simply returns the containing pvr_queue_fence;
-+ * - a drm_sched_fence's scheduled or finished fence, in which case it will first try to follow
-+ *   the parent pointer to find the job fence (note that the parent pointer is initialized
-+ *   only after the run_job() callback is called on the drm_sched_fence's owning job);
-+ * - any other dma_fence, in which case it will return NULL.
-+ *
-  * Return:
-  *  * A non-NULL pvr_queue_fence object if the dma_fence is backed by a UFO, or
-  *  * NULL otherwise.
-@@ -367,11 +374,14 @@ static u32 ufo_cmds_size(u32 elem_count)
- 
- static u32 job_cmds_size(struct pvr_job *job, u32 ufo_wait_count)
- {
--	/* One UFO cmd for the fence signaling, one UFO cmd per native fence native,
--	 * and a command for the job itself.
-+	/*
-+	 * One UFO command per native fence this job will be waiting on (unless any are
-+	 * signaled by the time the job is submitted), plus a command for the job itself,
-+	 * plus one UFO command for the fence signaling.
- 	 */
--	return ufo_cmds_size(1) + ufo_cmds_size(ufo_wait_count) +
--	       pvr_cccb_get_size_of_cmd_with_hdr(job->cmd_len);
-+	return ufo_cmds_size(ufo_wait_count) +
-+	       pvr_cccb_get_size_of_cmd_with_hdr(job->cmd_len) +
-+	       ufo_cmds_size(1);
- }
- 
- static bool
-@@ -517,12 +527,16 @@ pvr_queue_get_paired_frag_job_dep(struct pvr_job *job)
- 	if (!frag_job)
- 		return NULL;
- 
-+	/* Have the geometry job wait on the paired fragment job's dependencies as well. */
- 	xa_for_each(&frag_job->base.dependencies, index, f) {
- 		/* Skip already signaled fences. */
- 		if (dma_fence_is_signaled(f))
- 			continue;
- 
--		/* Skip our own fence. */
-+		/*
-+		 * The paired job fence won't be signaled until both jobs have
-+		 * been submitted, so we can't wait on it to schedule them.
-+		 */
- 		if (f == &job->base.s_fence->scheduled)
- 			continue;
- 
-@@ -665,6 +679,7 @@ static void pvr_queue_submit_job_to_cccb(struct pvr_job *job)
- 		if (!jfence)
- 			continue;
- 
-+		/* Some dependencies might have been signaled since prepare_job() */
- 		if (dma_fence_is_signaled(&jfence->base))
- 			continue;
- 
-@@ -714,7 +729,7 @@ static void pvr_queue_submit_job_to_cccb(struct pvr_job *job)
- 	pvr_cccb_write_command_with_header(cccb, job->fw_ccb_cmd_type, job->cmd_len, job->cmd,
- 					   job->id, job->id);
- 
--	/* Signal the job fence. */
-+	/* Update command to signal the job fence. */
- 	pvr_fw_object_get_fw_addr(queue->timeline_ufo.fw_obj, &ufos[0].addr);
- 	ufos[0].value = job->done_fence->seqno;
- 	pvr_cccb_write_command_with_header(cccb, ROGUE_FWIF_CCB_CMD_TYPE_UPDATE,
-@@ -744,10 +759,8 @@ static struct dma_fence *pvr_queue_run_job(struct drm_sched_job *sched_job)
- 	}
- 
- 	/* The only kind of jobs that can be paired are geometry and fragment, and
--	 * we bail out early if we see a fragment job that's paired with a geomtry
--	 * job.
--	 * Paired jobs must also target the same context and point to the same
--	 * HWRT.
-+	 * we bail out early if we see a fragment job that's paired with a geometry job.
-+	 * Paired jobs must also target the same context and point to the same HWRT.
- 	 */
- 	if (WARN_ON(job->paired_job &&
- 		    (job->type != DRM_PVR_JOB_TYPE_GEOMETRY ||
-@@ -966,9 +979,8 @@ pvr_queue_signal_done_fences(struct pvr_queue *queue)
- }
- 
- /**
-- * pvr_queue_check_job_waiting_for_cccb_space() - Check if the job waiting for CCCB space
-- * can be unblocked
-- * pushed to the CCCB
-+ * pvr_queue_check_job_waiting_for_cccb_space() - Check if a job waiting for CCCB space
-+ * can be unblocked and pushed to the CCCB.
-  * @queue: Queue to check
-  *
-  * If we have a job waiting for CCCB, and this job now fits in the CCCB, we signal
-diff --git a/drivers/gpu/drm/imagination/pvr_rogue_fwif_shared.h b/drivers/gpu/drm/imagination/pvr_rogue_fwif_shared.h
-index 869d904e3649..fe54c1cad7a9 100644
---- a/drivers/gpu/drm/imagination/pvr_rogue_fwif_shared.h
-+++ b/drivers/gpu/drm/imagination/pvr_rogue_fwif_shared.h
-@@ -14,15 +14,7 @@
- 
- #define ROGUE_NUM_GEOM_CORES_SIZE 2U
- 
--/*
-- * Maximum number of UFOs in a CCB command.
-- * The number is based on having 32 sync prims (as originally), plus 32 sync
-- * checkpoints.
-- * Once the use of sync prims is no longer supported, we will retain
-- * the same total (64) as the number of sync checkpoints which may be
-- * supporting a fence is not visible to the client driver and has to
-- * allow for the number of different timelines involved in fence merges.
-- */
-+/* Maximum number of UFOs in a CCB command. */
- #define ROGUE_FWIF_CCB_CMD_MAX_UFOS (32U + 32U)
- 
- /*
+> ---
+> =C2=A0drivers/gpu/drm/xe/tests/xe_bo.c | 117
+> +++++++++++++++++++++++++++++++
+> =C2=A0drivers/gpu/drm/xe/xe_bo.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=
+=A0 17 +++--
+> =C2=A0drivers/gpu/drm/xe/xe_bo.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=
+=A0 15 ++++
+> =C2=A0drivers/gpu/drm/xe/xe_bo_types.h |=C2=A0=C2=A0 6 ++
+> =C2=A0drivers/gpu/drm/xe/xe_ggtt.c=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 =
+2 +-
+> =C2=A0drivers/gpu/drm/xe/xe_lmtt.c=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 =
+2 +-
+> =C2=A0drivers/gpu/drm/xe/xe_migrate.c=C2=A0 |=C2=A0=C2=A0 2 +-
+> =C2=A0drivers/gpu/drm/xe/xe_pt.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=
+=A0=C2=A0 2 +-
+> =C2=A08 files changed, 155 insertions(+), 8 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/xe/tests/xe_bo.c
+> b/drivers/gpu/drm/xe/tests/xe_bo.c
+> index 49c95ed67d7e..ed65e25c1b11 100644
+> --- a/drivers/gpu/drm/xe/tests/xe_bo.c
+> +++ b/drivers/gpu/drm/xe/tests/xe_bo.c
+> @@ -603,9 +603,126 @@ static void xe_bo_shrink_kunit(struct kunit
+> *test)
+> =C2=A0	shrink_test_run_device(xe);
+> =C2=A0}
+> =C2=A0
+> +/*
+> + * Test that bo->vram_gpu_offset is kept in sync with the value
+> computed
+> + * by vram_region_gpu_offset() across BO creation, eviction to
+> system
+> + * memory, and restoration back to VRAM.
+> + */
+> +static void vram_gpu_offset_test_run_tile(struct xe_device *xe,
+> +					=C2=A0 struct xe_tile *tile,
+> +					=C2=A0 struct kunit *test)
+> +{
+> +	struct xe_bo *bo;
+> +	unsigned int bo_flags =3D XE_BO_FLAG_VRAM_IF_DGFX(tile);
+> +	struct drm_exec *exec =3D XE_VALIDATION_OPT_OUT;
+> +	u64 expected;
+> +	long timeout;
+> +	int ret;
+> +
+> +	kunit_info(test, "Testing vram_gpu_offset cache on tile
+> %u\n", tile->id);
+> +
+> +	bo =3D xe_bo_create_user(xe, NULL, SZ_1M,
+> DRM_XE_GEM_CPU_CACHING_WC,
+> +			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 bo_flags, exec);
+> +	if (IS_ERR(bo)) {
+> +		KUNIT_FAIL(test, "Failed to create bo: %pe\n", bo);
+> +		return;
+> +	}
+> +
+> +	xe_bo_lock(bo, false);
+> +
+> +	/* After creation the BO should be in VRAM on DGFX. */
+> +	ret =3D xe_bo_validate(bo, NULL, false, exec);
+> +	if (ret) {
+> +		KUNIT_FAIL(test, "Failed to validate bo: %d\n",
+> ret);
+> +		goto out_unlock;
+> +	}
+> +
+> +	/* Wait for any async clears. */
+> +	timeout =3D dma_resv_wait_timeout(bo->ttm.base.resv,
+> +					DMA_RESV_USAGE_KERNEL,
+> false, 5 * HZ);
+> +	if (timeout <=3D 0) {
+> +		KUNIT_FAIL(test, "Timeout waiting for bo after
+> validate.\n");
+> +		goto out_unlock;
+> +	}
+> +
+> +	expected =3D vram_region_gpu_offset(bo->ttm.resource);
+> +	KUNIT_EXPECT_EQ(test, xe_bo_vram_gpu_offset(bo), expected);
+> +
+> +	if (xe_bo_is_vram(bo))
+> +		KUNIT_EXPECT_NE(test, xe_bo_vram_gpu_offset(bo), 0);
+> +
+> +	/* Evict to system memory =E2=80=94 cache must become 0. */
+> +	ret =3D xe_bo_evict(bo, exec);
+> +	if (ret) {
+> +		KUNIT_FAIL(test, "Failed to evict bo: %d\n", ret);
+> +		goto out_unlock;
+> +	}
+> +
+> +	timeout =3D dma_resv_wait_timeout(bo->ttm.base.resv,
+> +					DMA_RESV_USAGE_KERNEL,
+> false, 5 * HZ);
+> +	if (timeout <=3D 0) {
+> +		KUNIT_FAIL(test, "Timeout waiting for bo after
+> evict.\n");
+> +		goto out_unlock;
+> +	}
+> +
+> +	expected =3D vram_region_gpu_offset(bo->ttm.resource);
+> +	KUNIT_EXPECT_EQ(test, xe_bo_vram_gpu_offset(bo), expected);
+> +	KUNIT_EXPECT_EQ(test, xe_bo_vram_gpu_offset(bo), (u64)0);
+> +
+> +	/* Restore back to VRAM =E2=80=94 cache must be updated again. */
+> +	ret =3D xe_bo_validate(bo, NULL, false, exec);
+> +	if (ret) {
+> +		KUNIT_FAIL(test, "Failed to validate bo back to
+> vram: %d\n", ret);
+> +		goto out_unlock;
+> +	}
+> +
+> +	timeout =3D dma_resv_wait_timeout(bo->ttm.base.resv,
+> +					DMA_RESV_USAGE_KERNEL,
+> false, 5 * HZ);
+> +	if (timeout <=3D 0) {
+> +		KUNIT_FAIL(test, "Timeout waiting for bo after
+> restore.\n");
+> +		goto out_unlock;
+> +	}
+> +
+> +	expected =3D vram_region_gpu_offset(bo->ttm.resource);
+> +	KUNIT_EXPECT_EQ(test, xe_bo_vram_gpu_offset(bo), expected);
+> +
+> +	if (xe_bo_is_vram(bo))
+> +		KUNIT_EXPECT_NE(test, xe_bo_vram_gpu_offset(bo), 0);
+> +
+> +out_unlock:
+> +	xe_bo_unlock(bo);
+> +	xe_bo_put(bo);
+> +}
+> +
+> +static int vram_gpu_offset_test_run_device(struct xe_device *xe)
+> +{
+> +	struct kunit *test =3D kunit_get_current_test();
+> +	struct xe_tile *tile;
+> +	int id;
+> +
+> +	if (!IS_DGFX(xe)) {
+> +		kunit_skip(test, "non-discrete device\n");
+> +		return 0;
+> +	}
+> +
+> +	guard(xe_pm_runtime)(xe);
+> +	for_each_tile(tile, xe, id)
+> +		vram_gpu_offset_test_run_tile(xe, tile, test);
+> +
+> +	return 0;
+> +}
+> +
+> +static void xe_bo_vram_gpu_offset_kunit(struct kunit *test)
+> +{
+> +	struct xe_device *xe =3D test->priv;
+> +
+> +	vram_gpu_offset_test_run_device(xe);
+> +}
+> +
+> =C2=A0static struct kunit_case xe_bo_tests[] =3D {
+> =C2=A0	KUNIT_CASE_PARAM(xe_ccs_migrate_kunit,
+> xe_pci_live_device_gen_param),
+> =C2=A0	KUNIT_CASE_PARAM(xe_bo_evict_kunit,
+> xe_pci_live_device_gen_param),
+> +	KUNIT_CASE_PARAM(xe_bo_vram_gpu_offset_kunit,
+> xe_pci_live_device_gen_param),
+> =C2=A0	{}
+> =C2=A0};
+> =C2=A0
+> diff --git a/drivers/gpu/drm/xe/xe_bo.c b/drivers/gpu/drm/xe/xe_bo.c
+> index a7c2dc7f224c..30c4fe326827 100644
+> --- a/drivers/gpu/drm/xe/xe_bo.c
+> +++ b/drivers/gpu/drm/xe/xe_bo.c
+> @@ -1164,6 +1164,9 @@ static int xe_bo_move(struct ttm_buffer_object
+> *ttm_bo, bool evict,
+> =C2=A0		ret =3D xe_sriov_vf_ccs_attach_bo(bo);
+> =C2=A0
+> =C2=A0out:
+> +	bo->vram_gpu_offset =3D ttm_bo->resource ?
+> +		vram_region_gpu_offset(ttm_bo->resource) : 0;
+> +
 
--- 
-2.43.0
+Please avoid recalculate data like this in "move". In general we
+invalidate mappings and cached data in "move_notify" and recalculate on
+first use.
 
+
+> =C2=A0	if ((!ttm_bo->resource || ttm_bo->resource->mem_type =3D=3D
+> XE_PL_SYSTEM) &&
+> =C2=A0	=C2=A0=C2=A0=C2=A0 ttm_bo->ttm) {
+> =C2=A0		long timeout =3D dma_resv_wait_timeout(ttm_bo-
+> >base.resv,
+> @@ -2908,9 +2911,15 @@ int xe_managed_bo_reinit_in_vram(struct
+> xe_device *xe, struct xe_tile *tile, str
+> =C2=A0	return 0;
+> =C2=A0}
+> =C2=A0
+> -/*
+> - * XXX: This is in the VM bind data path, likely should calculate
+> this once and
+> - * store, with a recalculation if the BO is moved.
+> +/**
+> + * vram_region_gpu_offset - Compute GPU offset for a TTM resource's
+> memory region
+> + * @res: The TTM resource.
+> + *
+> + * Computes the GPU-visible offset for @res based on its current
+> memory type.
+> + * Callers that always operate on a BO's current resource should
+> prefer
+> + * xe_bo_vram_gpu_offset() which returns a cached value.
+> + *
+> + * Return: The GPU-visible offset, or 0 for system/TT memory.
+> =C2=A0 */
+> =C2=A0uint64_t vram_region_gpu_offset(struct ttm_resource *res)
+> =C2=A0{
+> @@ -3173,7 +3182,7 @@ dma_addr_t __xe_bo_addr(struct xe_bo *bo, u64
+> offset, size_t page_size)
+> =C2=A0
+> =C2=A0		xe_res_first(bo->ttm.resource, page << PAGE_SHIFT,
+> =C2=A0			=C2=A0=C2=A0=C2=A0=C2=A0 page_size, &cur);
+> -		return cur.start + offset +
+> vram_region_gpu_offset(bo->ttm.resource);
+> +		return cur.start + offset +
+> xe_bo_vram_gpu_offset(bo);
+> =C2=A0	}
+> =C2=A0}
+> =C2=A0
+> diff --git a/drivers/gpu/drm/xe/xe_bo.h b/drivers/gpu/drm/xe/xe_bo.h
+> index 68dea7d25a6b..d911f7327e8b 100644
+> --- a/drivers/gpu/drm/xe/xe_bo.h
+> +++ b/drivers/gpu/drm/xe/xe_bo.h
+> @@ -342,6 +342,21 @@ bool xe_bo_is_vm_bound(struct xe_bo *bo);
+> =C2=A0bool xe_bo_has_single_placement(struct xe_bo *bo);
+> =C2=A0uint64_t vram_region_gpu_offset(struct ttm_resource *res);
+> =C2=A0
+> +/**
+> + * xe_bo_vram_gpu_offset - Return cached GPU offset for BO's memory
+> region
+
+Prefer funcion() format.
+
+> + * @bo: The buffer object.
+> + *
+> + * Returns the GPU offset for the BO's current memory region. This
+> value
+> + * is cached on the BO and updated whenever the BO is moved,
+> avoiding
+> + * repeated pointer chasing through TTM resource manager structures.
+
+Just comment what the function does. No need to re-justfiy here.
+
+> + *
+> + * Return: The GPU-visible offset, or 0 for system/TT memory.
+> + */
+> +static inline u64 xe_bo_vram_gpu_offset(struct xe_bo *bo)
+> +{
+
+Here you'd=20
+if (unlikely(bo->vram_gpu_offset =3D=3D SOME_INVALID_VALUE))
+	recalculate();
+
+
+> +	return bo->vram_gpu_offset;
+> +}
+> +
+
+Thanks,
+Thomas
+
+
+
+
+> =C2=A0bool xe_bo_can_migrate(struct xe_bo *bo, u32 mem_type);
+> =C2=A0
+> =C2=A0int xe_bo_migrate(struct xe_bo *bo, u32 mem_type, struct
+> ttm_operation_ctx *ctc,
+> diff --git a/drivers/gpu/drm/xe/xe_bo_types.h
+> b/drivers/gpu/drm/xe/xe_bo_types.h
+> index ff8317bfc1ae..622a1ec8231e 100644
+> --- a/drivers/gpu/drm/xe/xe_bo_types.h
+> +++ b/drivers/gpu/drm/xe/xe_bo_types.h
+> @@ -109,6 +109,12 @@ struct xe_bo {
+> =C2=A0	 */
+> =C2=A0	u64 min_align;
+> =C2=A0
+> +	/**
+> +	 * @vram_gpu_offset: Cached GPU offset for BO's current
+> memory
+> +	 * region, updated on move. Protected by the BO's dma-resv
+> lock.
+> +	 */
+> +	u64 vram_gpu_offset;
+> +
+> =C2=A0	/**
+> =C2=A0	 * @madv_purgeable: user space advise on BO purgeability,
+> protected
+> =C2=A0	 * by BO's dma-resv lock.
+> diff --git a/drivers/gpu/drm/xe/xe_ggtt.c
+> b/drivers/gpu/drm/xe/xe_ggtt.c
+> index a848d1a41b9b..a24ae3e0e553 100644
+> --- a/drivers/gpu/drm/xe/xe_ggtt.c
+> +++ b/drivers/gpu/drm/xe/xe_ggtt.c
+> @@ -705,7 +705,7 @@ static void xe_ggtt_map_bo(struct xe_ggtt *ggtt,
+> struct xe_ggtt_node *node,
+> =C2=A0						=C2=A0=C2=A0 pte |
+> xe_res_dma(&cur));
+> =C2=A0	} else {
+> =C2=A0		/* Prepend GPU offset */
+> -		pte |=3D vram_region_gpu_offset(bo->ttm.resource);
+> +		pte |=3D xe_bo_vram_gpu_offset(bo);
+> =C2=A0
+> =C2=A0		for (xe_res_first(bo->ttm.resource, 0,
+> xe_bo_size(bo), &cur);
+> =C2=A0		=C2=A0=C2=A0=C2=A0=C2=A0 cur.remaining; xe_res_next(&cur, XE_PAGE=
+_SIZE))
+> diff --git a/drivers/gpu/drm/xe/xe_lmtt.c
+> b/drivers/gpu/drm/xe/xe_lmtt.c
+> index 0c726eda9390..f9257ba1728b 100644
+> --- a/drivers/gpu/drm/xe/xe_lmtt.c
+> +++ b/drivers/gpu/drm/xe/xe_lmtt.c
+> @@ -492,7 +492,7 @@ static void lmtt_insert_bo(struct xe_lmtt *lmtt,
+> unsigned int vfid, struct xe_bo
+> =C2=A0	lmtt_assert(lmtt, IS_ALIGNED(xe_bo_size(bo), page_size));
+> =C2=A0	lmtt_assert(lmtt, xe_bo_is_vram(bo));
+> =C2=A0
+> -	vram_offset =3D vram_region_gpu_offset(bo->ttm.resource);
+> +	vram_offset =3D xe_bo_vram_gpu_offset(bo);
+> =C2=A0	xe_res_first(bo->ttm.resource, 0, xe_bo_size(bo), &cur);
+> =C2=A0	while (cur.remaining) {
+> =C2=A0		addr =3D xe_res_dma(&cur);
+> diff --git a/drivers/gpu/drm/xe/xe_migrate.c
+> b/drivers/gpu/drm/xe/xe_migrate.c
+> index fc918b4fba54..bdaea4979e89 100644
+> --- a/drivers/gpu/drm/xe/xe_migrate.c
+> +++ b/drivers/gpu/drm/xe/xe_migrate.c
+> @@ -2499,7 +2499,7 @@ int xe_migrate_access_memory(struct xe_migrate
+> *m, struct xe_bo *bo,
+> =C2=A0
+> =C2=A0	do {
+> =C2=A0		struct dma_fence *__fence;
+> -		u64 vram_addr =3D vram_region_gpu_offset(bo-
+> >ttm.resource) +
+> +		u64 vram_addr =3D xe_bo_vram_gpu_offset(bo) +
+> =C2=A0			cursor.start;
+> =C2=A0		int current_bytes;
+> =C2=A0		u32 pitch;
+> diff --git a/drivers/gpu/drm/xe/xe_pt.c b/drivers/gpu/drm/xe/xe_pt.c
+> index 8e5f4f0dea3f..7cfce1a92a1a 100644
+> --- a/drivers/gpu/drm/xe/xe_pt.c
+> +++ b/drivers/gpu/drm/xe/xe_pt.c
+> @@ -782,7 +782,7 @@ xe_pt_stage_bind(struct xe_tile *tile, struct
+> xe_vma *vma,
+> =C2=A0	}
+> =C2=A0
+> =C2=A0	xe_walk.default_vram_pte |=3D XE_PPGTT_PTE_DM;
+> -	xe_walk.dma_offset =3D (bo && !is_purged) ?
+> vram_region_gpu_offset(bo->ttm.resource) : 0;
+> +	xe_walk.dma_offset =3D (bo && !is_purged) ?
+> xe_bo_vram_gpu_offset(bo) : 0;
+> =C2=A0	if (!range)
+> =C2=A0		xe_bo_assert_held(bo);
+> =C2=A0
