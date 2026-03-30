@@ -4,63 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4FDFF1061B0F
-	for <dri-devel@archiver.kernel.org>; Mon, 30 Mar 2026 15:40:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9E2EE1061B0F
+	for <dri-devel@archiver.kernel.org>; Mon, 30 Mar 2026 15:40:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9D7D810E16D;
-	Mon, 30 Mar 2026 15:40:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0D09A10E1E0;
+	Mon, 30 Mar 2026 15:40:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="s9kszX8b";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="kf5OLo18";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 274C210E16D
- for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 15:40:17 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 595E610E1E0
+ for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 15:40:46 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 51571600CB;
- Mon, 30 Mar 2026 15:40:16 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7773FC4CEF7;
- Mon, 30 Mar 2026 15:40:15 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id CC6BB60054;
+ Mon, 30 Mar 2026 15:40:45 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A16EC4CEF7;
+ Mon, 30 Mar 2026 15:40:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1774885216;
- bh=qHM7oQRzY9ST2dUBFDQhLmzQd4QRKdkAaxvIMcjy50c=;
- h=From:Date:Subject:To:Cc:From;
- b=s9kszX8bGTBslpUJXFL5Lq/D5pP9huMGeBAeBbm7gRqrYjuQut2CQIdrwBHGzaJWV
- BbK/5U1snRWILPPWfpCG348z8pmmSQBr07ZAv8X5+XVbsYPCcoWuQ/mxN65vtR+92q
- xMRMry2fcHhNBYsRLeQMVUWGtBtDjkfBLV0VcWy5BirZwu1ZQvcLBnR31N24ViNt4M
- rIK3mgJuoe23/CahEOA4ry1bTTOi+lN6uwFQuY+Lpm5niVXRWLre/4DTSGM3a0qg1j
- Uz+jm33jUr+cxkb3p1VW7B/CtO77UiMIZGekm94DIdgQCl2r8rx2O2Xe9E2sWnY3zc
- xlqe4yT1OwjzQ==
+ s=k20201202; t=1774885245;
+ bh=osTkFfqCJuN1re/DqBMhRzC3ySPnwXvxFxHFToRldlo=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=kf5OLo181DAzYAxiyw9DESq93M4X8yvm3mkfYBEgIeNtltZ322hlIjfEyxmE6zsPe
+ yN/a8764shX+LTnOr5c93nwtbSdgZzuMYQuiKhn4oPEYVx2hWz9l1nMTlNPoKlmuDj
+ XpW5JFg1Y3WlXBCetqdDtrlxv2sVDwT2HL6vhT4VECKuKAFSlaUxuanOM7sKLLx2z1
+ ntRcQjn6+LxBPyCI9l0WMbskx9qnIfKswiRk2ifCZxuYv5NPU7bWKRpN97I+o2FKNd
+ IYokoAvx+bhzNvbveBysImch40LqOOtwu/RgvGwSsxTf8Q1lm3vtwGke5xCLHo5HLY
+ NJI4qXYoX21dg==
+Date: Mon, 30 Mar 2026 17:40:42 +0200
 From: Maxime Ripard <mripard@kernel.org>
-Date: Mon, 30 Mar 2026 17:40:07 +0200
-Subject: [PATCH v2] dma/contiguous: Fix broken build
+To: Marek Szyprowski <m.szyprowski@samsung.com>
+Cc: Sumit Semwal <sumit.semwal@linaro.org>, 
+ Benjamin Gaignard <benjamin.gaignard@collabora.com>,
+ Brian Starkey <Brian.Starkey@arm.com>, 
+ John Stultz <jstultz@google.com>, "T.J. Mercier" <tjmercier@google.com>, 
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ Robin Murphy <robin.murphy@arm.com>, 
+ Albert Esteve <aesteve@redhat.com>, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+ iommu@lists.linux.dev, Mark Brown <broonie@kernel.org>
+Subject: Re: [PATCH] dma/contiguous: Fix broken build
+Message-ID: <20260330-fantastic-albatross-of-chaos-aee03f@houat>
+References: <CGME20260330084111eucas1p1e7cd5c886e34d0ed41226fe524d2a55a@eucas1p1.samsung.com>
+ <20260330-dma-build-fix-v1-1-748b64f0d8af@kernel.org>
+ <62b9e47c-1c31-4654-8347-16516faf73f0@samsung.com>
+ <20260330-glaring-pygmy-dodo-fa06f3@houat>
+ <ac7fa9bc-e966-4337-ae54-7bb6d8bd6e5a@samsung.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260330-dma-build-fix-v2-1-26d844575815@kernel.org>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3WMQQ6CMBAAv0L27JptIUA8+Q/DodgtbERqWm00p
- H+3cvc4k8xsEDkIRzhVGwROEsWvBfShguts1olRbGHQpFuqa0J7Nzi+ZLHo5I0dtaZxPBKTg9I
- 8Ahe9/y5D4Vni04fPvk/qZ/+dkkKFXdOPbePI9sadbxxWXo4+TDDknL9ie8p0qwAAAA==
-X-Change-ID: 20260330-dma-build-fix-706a4feb0e0f
-To: Sumit Semwal <sumit.semwal@linaro.org>, 
- Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
- Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>, 
- "T.J. Mercier" <tjmercier@google.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Marek Szyprowski <m.szyprowski@samsung.com>, 
- Robin Murphy <robin.murphy@arm.com>, Albert Esteve <aesteve@redhat.com>
-Cc: linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, 
- iommu@lists.linux.dev, Mark Brown <broonie@kernel.org>, 
- Maxime Ripard <mripard@kernel.org>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5317; i=mripard@kernel.org;
- h=from:subject:message-id; bh=qHM7oQRzY9ST2dUBFDQhLmzQd4QRKdkAaxvIMcjy50c=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDJmnZsZYhk7q1tp/3PGvi+Xf/i/dwdNu/16+/pms0YVrP
- VMM721d1DGVhUGYk0FWTJHliUzY6eXti6sc7Ff+gJnDygQyhIGLUwAmcvsjYzXbvirxL1umLbqk
- OOG3yJI1n/+lyDL1tr++k7Oi5fGs9nnvmibn1EyfVRIXfjW8+PY2hh2MdQrbnOMttT5zdf4zn7V
- E6lZPn5doesH856lTV8r/Sbo6Q/TmxY2Lmv8uWvnYsXErR/JuUwA=
-X-Developer-Key: i=mripard@kernel.org; a=openpgp;
- fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
+Content-Type: multipart/signed; micalg=pgp-sha384;
+ protocol="application/pgp-signature"; boundary="yz4k24ncg52ejfgw"
+Content-Disposition: inline
+In-Reply-To: <ac7fa9bc-e966-4337-ae54-7bb6d8bd6e5a@samsung.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,151 +70,180 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Commit 3a236f6a5cf2 ("dma: contiguous: Turn heap registration logic
-around") didn't remove one last call to dma_heap_cma_register_heap()
-that it removed, thus breaking the build.
 
-That last call is in dma_contiguous_reserve(), to handle the
-registration of the default CMA region heap instance.
+--yz4k24ncg52ejfgw
+Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH] dma/contiguous: Fix broken build
+MIME-Version: 1.0
 
-The default CMA region instance is already somewhat handled by
-retrieving it through the dev_get_cma_area() call in the CMA heap
-driver. However, since commit 854acbe75ff4 ("dma-buf: heaps: Give
-default CMA heap a fixed name"), we will create two heap instances for
-the CMA default region.
+On Mon, Mar 30, 2026 at 02:51:34PM +0200, Marek Szyprowski wrote:
+> On 30.03.2026 13:41, Maxime Ripard wrote:
+> > On Mon, Mar 30, 2026 at 10:59:48AM +0200, Marek Szyprowski wrote:
+> >> On 30.03.2026 10:40, Maxime Ripard wrote:
+> >>> Commit 3a236f6a5cf2 ("dma: contiguous: Turn heap registration logic
+> >>> around") didn't remove one last call to dma_heap_cma_register_heap()
+> >>> that it removed, thus breaking the build.
+> >>>
+> >>> That last call is in dma_contiguous_reserve(), to handle the
+> >>> registration of the default CMA region heap instance if it's declared=
+ in
+> >>> the device tree.
+> >>>
+> >>> However, the default CMA region instance is already handled by
+> >>> retrieving it through dev_get_cma_area() in the CMA heap driver, so t=
+he
+> >>> call to dma_heap_cma_register_heap() wasn't actually needed.
+> >>>
+> >>> Let's remove this call, the now unused function definition, its now
+> >>> empty header, and all includes of this header.
+> >>>
+> >>> Fixes: 3a236f6a5cf2 ("dma: contiguous: Turn heap registration logic a=
+round")
+> >>> Reported-by: Mark Brown <broonie@kernel.org>
+> >>> Closes: https://lore.kernel.org/linux-next/acbjaDJ1a-YQC64d@sirena.co=
+=2Euk/
+> >>> Signed-off-by: Maxime Ripard <mripard@kernel.org>
+> >>> ---
+> >>>  drivers/dma-buf/heaps/cma_heap.c  |  1 -
+> >>>  include/linux/dma-buf/heaps/cma.h | 16 ----------------
+> >>>  kernel/dma/contiguous.c           |  5 -----
+> >>>  3 files changed, 22 deletions(-)
+> >>>
+> >>> diff --git a/drivers/dma-buf/heaps/cma_heap.c b/drivers/dma-buf/heaps=
+/cma_heap.c
+> >>> index f8a3d87f3ccee9630383ba28502eb40b10671cc2..cc517ac68a0bec0788abc=
+b338c03f530d169013b 100644
+> >>> --- a/drivers/dma-buf/heaps/cma_heap.c
+> >>> +++ b/drivers/dma-buf/heaps/cma_heap.c
+> >>> @@ -12,11 +12,10 @@
+> >>> =20
+> >>>  #define pr_fmt(fmt) "cma_heap: " fmt
+> >>> =20
+> >>>  #include <linux/cma.h>
+> >>>  #include <linux/dma-buf.h>
+> >>> -#include <linux/dma-buf/heaps/cma.h>
+> >>>  #include <linux/dma-heap.h>
+> >>>  #include <linux/dma-map-ops.h>
+> >>>  #include <linux/err.h>
+> >>>  #include <linux/highmem.h>
+> >>>  #include <linux/io.h>
+> >>> diff --git a/include/linux/dma-buf/heaps/cma.h b/include/linux/dma-bu=
+f/heaps/cma.h
+> >>> deleted file mode 100644
+> >>> index e751479e21e703e24a5f799b4a7fc8bd0df3c1c4..000000000000000000000=
+0000000000000000000
+> >>> --- a/include/linux/dma-buf/heaps/cma.h
+> >>> +++ /dev/null
+> >>> @@ -1,16 +0,0 @@
+> >>> -/* SPDX-License-Identifier: GPL-2.0 */
+> >>> -#ifndef DMA_BUF_HEAP_CMA_H_
+> >>> -#define DMA_BUF_HEAP_CMA_H_
+> >>> -
+> >>> -struct cma;
+> >>> -
+> >>> -#ifdef CONFIG_DMABUF_HEAPS_CMA
+> >>> -int dma_heap_cma_register_heap(struct cma *cma);
+> >>> -#else
+> >>> -static inline int dma_heap_cma_register_heap(struct cma *cma)
+> >>> -{
+> >>> -	return 0;
+> >>> -}
+> >>> -#endif // CONFIG_DMABUF_HEAPS_CMA
+> >>> -
+> >>> -#endif // DMA_BUF_HEAP_CMA_H_
+> >>> diff --git a/kernel/dma/contiguous.c b/kernel/dma/contiguous.c
+> >>> index ad50512d71d3088a73e4b1ac02d6e6122374888e..9fe001c712339f8388d3f=
+40cca3dfff3f707fcbf 100644
+> >>> --- a/kernel/dma/contiguous.c
+> >>> +++ b/kernel/dma/contiguous.c
+> >>> @@ -40,11 +40,10 @@
+> >>>  #include <asm/page.h>
+> >>> =20
+> >>>  #include <linux/memblock.h>
+> >>>  #include <linux/err.h>
+> >>>  #include <linux/sizes.h>
+> >>> -#include <linux/dma-buf/heaps/cma.h>
+> >>>  #include <linux/dma-map-ops.h>
+> >>>  #include <linux/cma.h>
+> >>>  #include <linux/nospec.h>
+> >>> =20
+> >>>  #ifdef CONFIG_CMA_SIZE_MBYTES
+> >>> @@ -270,14 +269,10 @@ void __init dma_contiguous_reserve(phys_addr_t =
+limit)
+> >>>  						  selected_limit,
+> >>>  						  &dma_contiguous_default_area,
+> >>>  						  fixed);
+> >>>  		if (ret)
+> >>>  			return;
+> >>> -
+> >>> -		ret =3D dma_heap_cma_register_heap(dma_contiguous_default_area);
+> >>> -		if (ret)
+> >>> -			pr_warn("Couldn't register default CMA heap.");
+> >> After this change no dma-buf heap for the default CMA area is=A0create=
+d if it has=A0
+> >> not been specified in device-tree. This might be especially a problem =
+for the
+> >> non-dt systems.
+> > I don't think that's the case? My understanding is that
+> > dma_contiguous_reserve() is called by the arch code, and will create
+> > that region only if it hasn't be set by the DT (that excerpt above is
+> > run only if !dma_contiguous_default_area).
+> >
+> > However, for the DT case, dma_contiguous_default_area will be set by
+> > rmem_cma_setup() a bit below if linux,cma-default is set in the DT.
+> >
+> > dma_contiguous_reserved() is called (on arm64 at least) through
+> > bootmem_init(), called as part of setup_arch().
+> >
+> > rmem_cma_setup() is called through RESERVEDMEM_OF_DECLARE, so through
+> > __reserved_mem_init_node(), so, if we consider only the public
+> > functions, through:
+> >
+> >   * fdt_scan_reserved_mem_reg_nodes(), called by
+> >     unflatten_device_tree(), called right before bootmem_init() in
+> >     setup_arch();
+> >
+> >   * or fdt_scan_reserved_mem() and then
+> >     early_init_fdt_scan_reserved_mem(), called in arm64_memblock_init(),
+> >     itself called in setup_arch() earlier than both
+> >     unflatten_device_tree(), and bootmem_init().
+> >
+> > Thus, the DT case will run first and set dma_contiguous_default_area if
+> > relevant on that platform, and if it's not set, the non-DT case will set
+> > it up. Either way, dma_contiguous_default_area will be set.
+> >
+> > The CMA heap runs much later using a regular module_init. It will
+> > retrieve dma_contiguous_default_area through dev_get_cma_area(), and
+> > will create a heap instance for the default area.
+> >
+> > Am I misunderstanding something?
+>=20
+> The default CMA area is also optional for DT platforms.=A0
+>=20
+> If DT doesn't provide such, it will be created based on the kernel
+> cmdline cma=3D parameter or the default configuration defined in the
+> kernel .config (this is also true for the non-dt platforms). I know
+> that for most Android GKI systems the default CMA area will be defined
+> in DT, but I see no reason to disable dma-buf heap support for the
+> default CMA area if it has been instantiated from kernel cmdline or
+> .config.
 
-The first one is always called "default_cma_region", and is the one
-handled by the call to dev_get_cma_area() mentioned earlier. The second
-one is the name it used to have prior to that last commit for backward
-compatibility.
+I think I see what you mean now, thanks! Sending a v2.
 
-In the case where the default CMA region is defined in the DT, then that
-region is registered through rmem_cma_setup() and that region is added
-to the list of CMA regions to create a CMA heap instance for.
+Maxime
 
-In the case where the default CMA region is not defined in the DT
-though used to be the case covered by the now removed
-dma_heap_cma_register_heap() in dma_contiguous_reserve(). If we only
-remove the call to dma_heap_cma_register_heap(), then the legacy name of
-the CMA heap will not be registered anymore. We thus need to replace
-that call with a call to rmem_cma_insert_area() to make sure we queue
-this instance, if created, to create a heap instance.
+--yz4k24ncg52ejfgw
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Once that call to dma_heap_cma_register_heap() replaced, we can also
-remove the now unused function definition, its now empty header, and all
-includes of this header.
+-----BEGIN PGP SIGNATURE-----
 
-Fixes: 3a236f6a5cf2 ("dma: contiguous: Turn heap registration logic around")
-Reported-by: Mark Brown <broonie@kernel.org>
-Closes: https://lore.kernel.org/linux-next/acbjaDJ1a-YQC64d@sirena.co.uk/
-Signed-off-by: Maxime Ripard <mripard@kernel.org>
----
-Changes in v2:
-- Fix creation of the CMA heap instance with the legacy name when not
-  declared in the DT. 
-- Link to v1: https://lore.kernel.org/r/20260330-dma-build-fix-v1-1-748b64f0d8af@kernel.org
----
- drivers/dma-buf/heaps/cma_heap.c  |  1 -
- include/linux/dma-buf/heaps/cma.h | 16 ----------------
- kernel/dma/contiguous.c           | 14 +++++++++++---
- 3 files changed, 11 insertions(+), 20 deletions(-)
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCacqZegAKCRAnX84Zoj2+
+dv/0AYCFbpEzr5IUt0jDlPnwHS/2nJ+4KWwSAt/X9BHtILMTPLX+BF13+K/RZqoq
+ElsOSf8BgK5CYzl1g39YnplBEk8DwBnQTLE0nHIyCZrifAlSX+pDEP9HP7flyh6U
+rxY+NSZubQ==
+=cEer
+-----END PGP SIGNATURE-----
 
-diff --git a/drivers/dma-buf/heaps/cma_heap.c b/drivers/dma-buf/heaps/cma_heap.c
-index 7216a14262b04bb6130ddf26b7d009f7d15b03fd..9a8b36bc929f6daa483a0139a2919d95127e0d23 100644
---- a/drivers/dma-buf/heaps/cma_heap.c
-+++ b/drivers/dma-buf/heaps/cma_heap.c
-@@ -12,11 +12,10 @@
- 
- #define pr_fmt(fmt) "cma_heap: " fmt
- 
- #include <linux/cma.h>
- #include <linux/dma-buf.h>
--#include <linux/dma-buf/heaps/cma.h>
- #include <linux/dma-heap.h>
- #include <linux/dma-map-ops.h>
- #include <linux/err.h>
- #include <linux/highmem.h>
- #include <linux/io.h>
-diff --git a/include/linux/dma-buf/heaps/cma.h b/include/linux/dma-buf/heaps/cma.h
-deleted file mode 100644
-index e751479e21e703e24a5f799b4a7fc8bd0df3c1c4..0000000000000000000000000000000000000000
---- a/include/linux/dma-buf/heaps/cma.h
-+++ /dev/null
-@@ -1,16 +0,0 @@
--/* SPDX-License-Identifier: GPL-2.0 */
--#ifndef DMA_BUF_HEAP_CMA_H_
--#define DMA_BUF_HEAP_CMA_H_
--
--struct cma;
--
--#ifdef CONFIG_DMABUF_HEAPS_CMA
--int dma_heap_cma_register_heap(struct cma *cma);
--#else
--static inline int dma_heap_cma_register_heap(struct cma *cma)
--{
--	return 0;
--}
--#endif // CONFIG_DMABUF_HEAPS_CMA
--
--#endif // DMA_BUF_HEAP_CMA_H_
-diff --git a/kernel/dma/contiguous.c b/kernel/dma/contiguous.c
-index ad50512d71d3088a73e4b1ac02d6e6122374888e..d5d15983060c5c54744d6a63f2b591e1a3455b86 100644
---- a/kernel/dma/contiguous.c
-+++ b/kernel/dma/contiguous.c
-@@ -40,11 +40,10 @@
- #include <asm/page.h>
- 
- #include <linux/memblock.h>
- #include <linux/err.h>
- #include <linux/sizes.h>
--#include <linux/dma-buf/heaps/cma.h>
- #include <linux/dma-map-ops.h>
- #include <linux/cma.h>
- #include <linux/nospec.h>
- 
- #ifdef CONFIG_CMA_SIZE_MBYTES
-@@ -217,10 +216,19 @@ static void __init dma_numa_cma_reserve(void)
- static inline void __init dma_numa_cma_reserve(void)
- {
- }
- #endif
- 
-+#ifdef CONFIG_OF_RESERVED_MEM
-+static int rmem_cma_insert_area(struct cma *cma);
-+#else
-+static inline int rmem_cma_insert_area(struct cma *cma)
-+{
-+	return 0;
-+}
-+#endif
-+
- /**
-  * dma_contiguous_reserve() - reserve area(s) for contiguous memory handling
-  * @limit: End address of the reserved memory (optional, 0 for any).
-  *
-  * This function reserves memory from early allocator. It should be
-@@ -271,13 +279,13 @@ void __init dma_contiguous_reserve(phys_addr_t limit)
- 						  &dma_contiguous_default_area,
- 						  fixed);
- 		if (ret)
- 			return;
- 
--		ret = dma_heap_cma_register_heap(dma_contiguous_default_area);
-+		ret = rmem_cma_insert_area(dma_contiguous_default_area);
- 		if (ret)
--			pr_warn("Couldn't register default CMA heap.");
-+			pr_warn("Couldn't queue default CMA region for heap creation.");
- 	}
- }
- 
- void __weak
- dma_contiguous_early_fixup(phys_addr_t base, unsigned long size)
-
----
-base-commit: 6c683d5b1903a14e362c9f1628ce9fe61eac35e7
-change-id: 20260330-dma-build-fix-706a4feb0e0f
-
-Best regards,
--- 
-Maxime Ripard <mripard@kernel.org>
-
+--yz4k24ncg52ejfgw--
