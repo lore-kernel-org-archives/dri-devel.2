@@ -4,63 +4,135 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 15FAA1061B1A
-	for <dri-devel@archiver.kernel.org>; Mon, 30 Mar 2026 18:44:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 79D131061B1A
+	for <dri-devel@archiver.kernel.org>; Mon, 30 Mar 2026 18:44:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 67FD310E6FC;
-	Mon, 30 Mar 2026 18:44:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DC72F10E670;
+	Mon, 30 Mar 2026 18:44:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ZheuUBU7";
+	dkim=pass (1024-bit key; unprotected) header.d=broadcom.com header.i=@broadcom.com header.b="UAsHhJUk";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4600B10E681;
- Mon, 30 Mar 2026 18:44:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1774896272; x=1806432272;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=s2k2KDdOHbpajJSKWNzaaHncrxcYkhCkHfd+HYIT8xk=;
- b=ZheuUBU7YxKNjdcRQRvBGWZhReac83hwjkRmKVNQov6lNzGvhg/pW5Zb
- nL42s6eY+bmQg9Zf0MRUFeIzUzbIrVnHt7++dbwb4XHsApv2pvDB0bBoM
- MCYckm3H5xCIHOkI+97o+BtQPguTPa6tIRASYZu6NaPv9bfHUbTC0SzwU
- BwtzCp7FjPOPNW2q0LsQQDoRZFzZhNpYVBTTX65IhGQDS96rV9l0M4uUp
- q0kfXrG6329iXFt0JmOHHSs+U99TQ0SZBByJZ+I380+vmp0fx77xB++73
- RXw9eiKAHzCOG9RrOnN1YHSUxHUxSeZMfTlNDrDQkBWHJUDMTkvNxUqSF A==;
-X-CSE-ConnectionGUID: D4ib3xIpT5y+FHdeuD1qkQ==
-X-CSE-MsgGUID: TPuLV6RKTB2VppGPslYg2g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11744"; a="93481130"
-X-IronPort-AV: E=Sophos;i="6.23,150,1770624000"; d="scan'208";a="93481130"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
- by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Mar 2026 11:44:31 -0700
-X-CSE-ConnectionGUID: 2j7HGIV+TGeNbwBN4hPvIA==
-X-CSE-MsgGUID: O9ws8MdoTSOH7e9PSPtsJQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,150,1770624000"; d="scan'208";a="230599356"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost)
- ([10.245.245.155])
- by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Mar 2026 11:44:30 -0700
-Date: Mon, 30 Mar 2026 21:44:26 +0300
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, jouni.hogander@intel.com,
- animesh.manna@intel.com
-Subject: Re: [PATCH 13/19] drm/i915/psr: Write the PR config DPCDs in burst
- mode
-Message-ID: <acrEiglyKjnRZA0Q@intel.com>
-References: <20260330040656.4116502-1-ankit.k.nautiyal@intel.com>
- <20260330040656.4116502-14-ankit.k.nautiyal@intel.com>
+Received: from mail-pl1-f225.google.com (mail-pl1-f225.google.com
+ [209.85.214.225])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D1CB510E64B
+ for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 18:44:43 +0000 (UTC)
+Received: by mail-pl1-f225.google.com with SMTP id
+ d9443c01a7336-2b258576d8cso6892855ad.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 11:44:43 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1774896283; x=1775501083;
+ h=content-transfer-encoding:in-reply-to:autocrypt:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:dkim-signature:x-gm-gg:x-gm-message-state:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=a7bh5ixiifKbiWJ6yXLI+KwYDZ4p+qUAcuT1NVFVQLQ=;
+ b=MSYVEMeUFcb393vW/D9ULEp/HMWn/Jn9xPoLoRzxgsLzsMlSV/KSvv+c3m14lvAfqS
+ tlUWJxOvSa4+Gfcddb1v94WBcWOqiU4j3JgCcWQYbGWXkZEDMYxknX03u8riLz8R+z1G
+ rzto2hm5LLcCXke8odjGCYSdQOhc2vfNZbX1wKhf9DAOzmkMXNUerEYAzebON2NLDVWp
+ AIqc7B4zyH3j0aPGXEunN+XkiaCYCzXDCRa/7nYIB5mXgqs05Q7acAAuIMilHY4AEZSr
+ 68oIblSEKOjne4EloCqMO3JnuihHAmLhhy9WO4nLNRCMRBba59OSOmiH0f+NkVoaQxDO
+ At/A==
+X-Gm-Message-State: AOJu0YxHxEbVyjkdd0rhKWSY5xdufwib3v3HTQcwMByb85B9Nl8vxs/I
+ MVHKovH9+TQHLykAZspUQFN9VEh6l2F5KBwSgFaKEuvuWME8gI5QBG6hmSTX6jy2tx3IlddiUFM
+ TeDHav7lru16IiV9tSI2O1+K8q7bBBXJre2G53pbKLVWczGffLhX3/yXyXUnmi85COsdbaBi3Hr
+ YK1BCb3+B/XmOJGBoZlwn48GxqZEIZUvQGg6QBJYIbK80pKip1rTLLUZl8xnnRz70noLLgjCf/M
+ 1nQyRuJzEOPfTP1Lq811SwhYSxr
+X-Gm-Gg: ATEYQzxF6yGKgnO7vy5juvH8ZPC2UxZeZV/6ZKwcxzOfw1knPontcNC1j0q7FvYDUWN
+ fLESumlXeag4t4a0uFvpBNt4Kq9Zfyz1BBERAPlUGVslBQ5gTyAsEVsZI2onwGaNOGvqiXHsAxd
+ F9Gy4SBwP2biKEquqhENRc3V32KmnlXgct+SeqFNp5rQz5jJAk6fqoURQwbylr+OSgdz5lT0Mxz
+ YWwE7acIDg0Q84x1h8FR+8WSaB5jhywe9yOtDK0owvDdMNUL/KGkL9uMxFK9IqrBSF325eRWMpI
+ cQ0QorKSc4kp3qezbUrgoqdgoGMn6/iTSFtDvhKHD9u2l9xAkWyWqeUSyw3h11SWjiCZoxbopzW
+ SrqIZ44YPV0KU2XjGNSMMAW0a5m2N9vGPpRO6GDoBvevIrUISVG/g/9Rij1Xbcj+NxK1/6M3bp7
+ MwemMGnkP5GK9LvmNYkIMlHyTr2nt+VN2Yabu6ch6iOs9151dZ5QLZ1KOqqLP+HA==
+X-Received: by 2002:a17:902:f542:b0:2aa:d5e5:b136 with SMTP id
+ d9443c01a7336-2b0cdd7bb09mr141221995ad.38.1774896283190; 
+ Mon, 30 Mar 2026 11:44:43 -0700 (PDT)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com
+ (address-144-49-247-25.dlp.protect.broadcom.com. [144.49.247.25])
+ by smtp-relay.gmail.com with ESMTPS id
+ d9443c01a7336-2b2425f5979sm9260865ad.5.2026.03.30.11.44.42
+ for <dri-devel@lists.freedesktop.org>
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Mon, 30 Mar 2026 11:44:43 -0700 (PDT)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-qt1-f200.google.com with SMTP id
+ d75a77b69052e-50b4ca7e7c2so123404121cf.3
+ for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 11:44:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=broadcom.com; s=google; t=1774896282; x=1775501082;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:in-reply-to:autocrypt:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+ bh=a7bh5ixiifKbiWJ6yXLI+KwYDZ4p+qUAcuT1NVFVQLQ=;
+ b=UAsHhJUkN7wQ7AwX9dp927LDRAg0c7J9GIuuXjxz3c2osN8qMzJeqt8dxPhVJS9zQp
+ ceBnPhwCAXc46tCNm27USmca10oyqNygwA2gHJ4xWxIt4cXJEJKSK+YikpmLjKRXLHj6
+ T1r3z7T5vmdoICyw3GgHCh5CuH04PhESjPTqU=
+X-Received: by 2002:a05:622a:510:b0:50b:3a6d:db5d with SMTP id
+ d75a77b69052e-50ba39ad465mr187299531cf.65.1774896281966; 
+ Mon, 30 Mar 2026 11:44:41 -0700 (PDT)
+X-Received: by 2002:a05:622a:510:b0:50b:3a6d:db5d with SMTP id
+ d75a77b69052e-50ba39ad465mr187298991cf.65.1774896281285; 
+ Mon, 30 Mar 2026 11:44:41 -0700 (PDT)
+Received: from [10.67.48.245] ([192.19.223.252])
+ by smtp.gmail.com with ESMTPSA id
+ d75a77b69052e-50bb2c96a5asm68164441cf.10.2026.03.30.11.44.37
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 30 Mar 2026 11:44:39 -0700 (PDT)
+Message-ID: <f39c38bd-edde-46f2-9b2f-2dbf22e80487@broadcom.com>
+Date: Mon, 30 Mar 2026 11:44:37 -0700
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v8 2/3] drm/v3d: Allocate all resources before enabling
+ the clock
+To: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
+ Stefan Wahren <wahrenst@gmx.net>, Maxime Ripard <mripard@kernel.org>,
+ Melissa Wen <mwen@igalia.com>, Iago Toral Quiroga <itoral@igalia.com>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>
+Cc: dri-devel@lists.freedesktop.org, linux-rpi-kernel@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, Broadcom internal kernel review list
+ <bcm-kernel-feedback-list@broadcom.com>, kernel-dev@igalia.com
+References: <20260328-v3d-power-management-v8-0-94336830df5f@igalia.com>
+ <20260328-v3d-power-management-v8-2-94336830df5f@igalia.com>
+Content-Language: en-US, fr-FR
+From: Florian Fainelli <florian.fainelli@broadcom.com>
+Autocrypt: addr=florian.fainelli@broadcom.com; keydata=
+ xsBNBFPAG8ABCAC3EO02urEwipgbUNJ1r6oI2Vr/+uE389lSEShN2PmL3MVnzhViSAtrYxeT
+ M0Txqn1tOWoIc4QUl6Ggqf5KP6FoRkCrgMMTnUAINsINYXK+3OLe7HjP10h2jDRX4Ajs4Ghs
+ JrZOBru6rH0YrgAhr6O5gG7NE1jhly+EsOa2MpwOiXO4DE/YKZGuVe6Bh87WqmILs9KvnNrQ
+ PcycQnYKTVpqE95d4M824M5cuRB6D1GrYovCsjA9uxo22kPdOoQRAu5gBBn3AdtALFyQj9DQ
+ KQuc39/i/Kt6XLZ/RsBc6qLs+p+JnEuPJngTSfWvzGjpx0nkwCMi4yBb+xk7Hki4kEslABEB
+ AAHNMEZsb3JpYW4gRmFpbmVsbGkgPGZsb3JpYW4uZmFpbmVsbGlAYnJvYWRjb20uY29tPsLB
+ IQQQAQgAywUCZWl41AUJI+Jo+hcKAAG/SMv+fS3xUQWa0NryPuoRGjsA3SAUAAAAAAAWAAFr
+ ZXktdXNhZ2UtbWFza0BwZ3AuY29tjDAUgAAAAAAgAAdwcmVmZXJyZWQtZW1haWwtZW5jb2Rp
+ bmdAcGdwLmNvbXBncG1pbWUICwkIBwMCAQoFF4AAAAAZGGxkYXA6Ly9rZXlzLmJyb2FkY29t
+ Lm5ldAUbAwAAAAMWAgEFHgEAAAAEFQgJChYhBNXZKpfnkVze1+R8aIExtcQpvGagAAoJEIEx
+ tcQpvGagWPEH/2l0DNr9QkTwJUxOoP9wgHfmVhqc0ZlDsBFv91I3BbhGKI5UATbipKNqG13Z
+ TsBrJHcrnCqnTRS+8n9/myOF0ng2A4YT0EJnayzHugXm+hrkO5O9UEPJ8a+0553VqyoFhHqA
+ zjxj8fUu1px5cbb4R9G4UAySqyeLLeqnYLCKb4+GklGSBGsLMYvLmIDNYlkhMdnnzsSUAS61
+ WJYW6jjnzMwuKJ0ZHv7xZvSHyhIsFRiYiEs44kiYjbUUMcXor/uLEuTIazGrE3MahuGdjpT2
+ IOjoMiTsbMc0yfhHp6G/2E769oDXMVxCCbMVpA+LUtVIQEA+8Zr6mX0Yk4nDS7OiBlvOwE0E
+ U8AbwQEIAKxr71oqe+0+MYCc7WafWEcpQHFUwvYLcdBoOnmJPxDwDRpvU5LhqSPvk/yJdh9k
+ 4xUDQu3rm1qIW2I9Puk5n/Jz/lZsqGw8T13DKyu8eMcvaA/irm9lX9El27DPHy/0qsxmxVmU
+ pu9y9S+BmaMb2CM9IuyxMWEl9ruWFS2jAWh/R8CrdnL6+zLk60R7XGzmSJqF09vYNlJ6Bdbs
+ MWDXkYWWP5Ub1ZJGNJQ4qT7g8IN0qXxzLQsmz6tbgLMEHYBGx80bBF8AkdThd6SLhreCN7Uh
+ IR/5NXGqotAZao2xlDpJLuOMQtoH9WVNuuxQQZHVd8if+yp6yRJ5DAmIUt5CCPcAEQEAAcLB
+ gQQYAQIBKwUCU8AbwgUbDAAAAMBdIAQZAQgABgUCU8AbwQAKCRCTYAaomC8PVQ0VCACWk3n+
+ obFABEp5Rg6Qvspi9kWXcwCcfZV41OIYWhXMoc57ssjCand5noZi8bKg0bxw4qsg+9cNgZ3P
+ N/DFWcNKcAT3Z2/4fTnJqdJS//YcEhlr8uGs+ZWFcqAPbteFCM4dGDRruo69IrHfyyQGx16s
+ CcFlrN8vD066RKevFepb/ml7eYEdN5SRALyEdQMKeCSf3mectdoECEqdF/MWpfWIYQ1hEfdm
+ C2Kztm+h3Nkt9ZQLqc3wsPJZmbD9T0c9Rphfypgw/SfTf2/CHoYVkKqwUIzI59itl5Lze+R5
+ wDByhWHx2Ud2R7SudmT9XK1e0x7W7a5z11Q6vrzuED5nQvkhAAoJEIExtcQpvGagugcIAJd5
+ EYe6KM6Y6RvI6TvHp+QgbU5dxvjqSiSvam0Ms3QrLidCtantcGT2Wz/2PlbZqkoJxMQc40rb
+ fXa4xQSvJYj0GWpadrDJUvUu3LEsunDCxdWrmbmwGRKqZraV2oG7YEddmDqOe0Xm/NxeSobc
+ MIlnaE6V0U8f5zNHB7Y46yJjjYT/Ds1TJo3pvwevDWPvv6rdBeV07D9s43frUS6xYd1uFxHC
+ 7dZYWJjZmyUf5evr1W1gCgwLXG0PEi9n3qmz1lelQ8lSocmvxBKtMbX/OKhAfuP/iIwnTsww
+ 95A2SaPiQZA51NywV8OFgsN0ITl2PlZ4Tp9hHERDe6nQCsNI/Us=
+In-Reply-To: <20260328-v3d-power-management-v8-2-94336830df5f@igalia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260330040656.4116502-14-ankit.k.nautiyal@intel.com>
-X-Patchwork-Hint: comment
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,78 +148,18 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Mar 30, 2026 at 09:36:50AM +0530, Ankit Nautiyal wrote:
-> Replace the consecutive single-byte writes to PANEL_REPLAY_CONFIG and
-> CONFIG2 with one drm_dp_dpcd_write() burst starting at PANEL_REPLAY_CONFIG,
-> reducing AUX transactions.
+On 3/28/26 11:52, Ma√≠ra Canal wrote:
+> Move all resource allocation operations before actually enabling the
+> clock, as those operations don't require the GPU to be powered on.
 > 
-> v2: Drop extra conditions, and optimize variables. (Ville)
+> This is a preparation for runtime PM support. The next commit will
+> move all code related to powering on and initiating the GPU into the
+> runtime PM resume callback and all resource allocation will happen
+> before resume().
 > 
-> Suggested-by: Ville Syrj‰l‰ <ville.syrjala@linux.intel.com>
-> Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-> ---
->  drivers/gpu/drm/i915/display/intel_psr.c | 29 ++++++++++++++----------
->  1 file changed, 17 insertions(+), 12 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
-> index 2f1b48cd8efd..ca054135ca30 100644
-> --- a/drivers/gpu/drm/i915/display/intel_psr.c
-> +++ b/drivers/gpu/drm/i915/display/intel_psr.c
-> @@ -782,27 +782,32 @@ static bool psr2_su_region_et_valid(struct intel_connector *connector, bool pane
->  static void _panel_replay_enable_sink(struct intel_dp *intel_dp,
->  				      const struct intel_crtc_state *crtc_state)
->  {
-> -	u8 val = DP_PANEL_REPLAY_ENABLE |
-> -		DP_PANEL_REPLAY_VSC_SDP_CRC_EN |
-> -		DP_PANEL_REPLAY_UNRECOVERABLE_ERROR_EN |
-> -		DP_PANEL_REPLAY_RFB_STORAGE_ERROR_EN |
-> -		DP_PANEL_REPLAY_ACTIVE_FRAME_CRC_ERROR_EN;
-> -	u8 panel_replay_config2 = DP_PANEL_REPLAY_CRC_VERIFICATION;
-> +	struct intel_display *display = to_intel_display(intel_dp);
-> +	u8 panel_replay_config[2];
-> +	int ret;
-> +
-> +	panel_replay_config[0] = DP_PANEL_REPLAY_ENABLE |
-> +				 DP_PANEL_REPLAY_VSC_SDP_CRC_EN |
-> +				 DP_PANEL_REPLAY_UNRECOVERABLE_ERROR_EN |
-> +				 DP_PANEL_REPLAY_RFB_STORAGE_ERROR_EN |
-> +				 DP_PANEL_REPLAY_ACTIVE_FRAME_CRC_ERROR_EN;
-> +	panel_replay_config[1] = DP_PANEL_REPLAY_CRC_VERIFICATION;
->  
->  	if (crtc_state->has_sel_update)
-> -		val |= DP_PANEL_REPLAY_SU_ENABLE;
-> +		panel_replay_config[0] |= DP_PANEL_REPLAY_SU_ENABLE;
->  
->  	if (crtc_state->enable_psr2_su_region_et)
-> -		val |= DP_PANEL_REPLAY_ENABLE_SU_REGION_ET;
-> +		panel_replay_config[0] |= DP_PANEL_REPLAY_ENABLE_SU_REGION_ET;
->  
->  	if (crtc_state->req_psr2_sdp_prior_scanline)
-> -		panel_replay_config2 |=
-> +		panel_replay_config[1] |=
->  			DP_PANEL_REPLAY_SU_REGION_SCANLINE_CAPTURE;
->  
-> -	drm_dp_dpcd_writeb(&intel_dp->aux, PANEL_REPLAY_CONFIG, val);
-> +	ret = drm_dp_dpcd_write(&intel_dp->aux, PANEL_REPLAY_CONFIG,
-> +				panel_replay_config, sizeof(panel_replay_config));
->  
-> -	drm_dp_dpcd_writeb(&intel_dp->aux, PANEL_REPLAY_CONFIG2,
-> -			   panel_replay_config2);
-> +	if (ret != sizeof(panel_replay_config))
-> +		drm_dbg_kms(display->drm, "Failed to write Panel Replay Configs\n");
+> Reviewed-by: Melissa Wen <mwen@igalia.com>
+> Signed-off-by: Ma√≠ra Canal <mcanal@igalia.com>
 
-Looks like we don't actually check for errors on any of the
-other DPCD accesses here. So I'd probably drop it here as well.
-
-Either way
-Reviewed-by: Ville Syrj‰l‰ <ville.syrjala@linux.intel.com>
-
->  }
->  
->  static void _psr_enable_sink(struct intel_dp *intel_dp,
-> -- 
-> 2.45.2
-
+Reviewed-by: Florian Fainelli <florian.fainelli@broadcom.com>
 -- 
-Ville Syrj‰l‰
-Intel
+Florian
