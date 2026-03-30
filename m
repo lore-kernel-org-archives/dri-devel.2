@@ -4,57 +4,87 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9E2EE1061B0F
-	for <dri-devel@archiver.kernel.org>; Mon, 30 Mar 2026 15:40:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5CED11061B0F
+	for <dri-devel@archiver.kernel.org>; Mon, 30 Mar 2026 15:47:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0D09A10E1E0;
-	Mon, 30 Mar 2026 15:40:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C048110E7C9;
+	Mon, 30 Mar 2026 15:47:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="kf5OLo18";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="xW8RPQAX";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 595E610E1E0
- for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 15:40:46 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id CC6BB60054;
- Mon, 30 Mar 2026 15:40:45 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A16EC4CEF7;
- Mon, 30 Mar 2026 15:40:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1774885245;
- bh=osTkFfqCJuN1re/DqBMhRzC3ySPnwXvxFxHFToRldlo=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=kf5OLo181DAzYAxiyw9DESq93M4X8yvm3mkfYBEgIeNtltZ322hlIjfEyxmE6zsPe
- yN/a8764shX+LTnOr5c93nwtbSdgZzuMYQuiKhn4oPEYVx2hWz9l1nMTlNPoKlmuDj
- XpW5JFg1Y3WlXBCetqdDtrlxv2sVDwT2HL6vhT4VECKuKAFSlaUxuanOM7sKLLx2z1
- ntRcQjn6+LxBPyCI9l0WMbskx9qnIfKswiRk2ifCZxuYv5NPU7bWKRpN97I+o2FKNd
- IYokoAvx+bhzNvbveBysImch40LqOOtwu/RgvGwSsxTf8Q1lm3vtwGke5xCLHo5HLY
- NJI4qXYoX21dg==
-Date: Mon, 30 Mar 2026 17:40:42 +0200
-From: Maxime Ripard <mripard@kernel.org>
-To: Marek Szyprowski <m.szyprowski@samsung.com>
-Cc: Sumit Semwal <sumit.semwal@linaro.org>, 
- Benjamin Gaignard <benjamin.gaignard@collabora.com>,
- Brian Starkey <Brian.Starkey@arm.com>, 
- John Stultz <jstultz@google.com>, "T.J. Mercier" <tjmercier@google.com>, 
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- Robin Murphy <robin.murphy@arm.com>, 
- Albert Esteve <aesteve@redhat.com>, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
- iommu@lists.linux.dev, Mark Brown <broonie@kernel.org>
-Subject: Re: [PATCH] dma/contiguous: Fix broken build
-Message-ID: <20260330-fantastic-albatross-of-chaos-aee03f@houat>
-References: <CGME20260330084111eucas1p1e7cd5c886e34d0ed41226fe524d2a55a@eucas1p1.samsung.com>
- <20260330-dma-build-fix-v1-1-748b64f0d8af@kernel.org>
- <62b9e47c-1c31-4654-8347-16516faf73f0@samsung.com>
- <20260330-glaring-pygmy-dodo-fa06f3@houat>
- <ac7fa9bc-e966-4337-ae54-7bb6d8bd6e5a@samsung.com>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha384;
- protocol="application/pgp-signature"; boundary="yz4k24ncg52ejfgw"
-Content-Disposition: inline
-In-Reply-To: <ac7fa9bc-e966-4337-ae54-7bb6d8bd6e5a@samsung.com>
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 03ED910E6A0
+ for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 15:47:43 +0000 (UTC)
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+ by smtpout-03.galae.net (Postfix) with ESMTPS id 079984E42871;
+ Mon, 30 Mar 2026 15:47:40 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+ by smtpout-01.galae.net (Postfix) with ESMTPS id C7EB55FFA8;
+ Mon, 30 Mar 2026 15:47:39 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
+ with ESMTPSA id D8693104505B1; 
+ Mon, 30 Mar 2026 17:47:24 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+ t=1774885657; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ content-transfer-encoding:in-reply-to:references;
+ bh=1aTpyd+0/mSU/s+c0fNfX3pIn8QwVOQZDTaD5Bg1dRU=;
+ b=xW8RPQAXdsgEPWs8JAXpw7qKfhkRJwFTssKu/pCYpXKdD0k3EpKzzFUMSC4jTPa6ha01OP
+ ell4Cyq42Pef0NFr1nkLE9wFav3TJ0wNOIBoHEnRkxxVhcpemnPRAR3tSCfpSs6Ey7VkHr
+ TOdEUjvFf5phGcGYzOoxQwf5Ifg+s7hMaf63HnEo8Q18bSj8gjgWkzMkzyG0tOVOZbgRil
+ BTTi+uv98pOhS29laOmj8YfGLErilsrSZN2gU7edGsqDRBmp9el03ejLQiHrBqbKsfFhGa
+ a0i4TpnHjLdS8Bci2iz0h3DuF34ACgZEomSMpODsX5K4HB5gv1c+LN22Cq49kw==
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 30 Mar 2026 17:47:23 +0200
+Message-Id: <DHG8G8FMXA6C.U6LU563OZ8NR@bootlin.com>
+To: "Liu Ying" <victor.liu@nxp.com>, "Marek Vasut" <marex@denx.de>, "Stefan
+ Agner" <stefan@agner.ch>, "Maarten Lankhorst"
+ <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
+ "Thomas Zimmermann" <tzimmermann@suse.de>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Frank Li"
+ <Frank.Li@nxp.com>, "Sascha Hauer" <s.hauer@pengutronix.de>, "Pengutronix
+ Kernel Team" <kernel@pengutronix.de>, "Fabio Estevam" <festevam@gmail.com>,
+ "Andrzej Hajda" <andrzej.hajda@intel.com>, "Neil Armstrong"
+ <neil.armstrong@linaro.org>, "Robert Foss" <rfoss@kernel.org>, "Laurent
+ Pinchart" <Laurent.pinchart@ideasonboard.com>, "Jonas Karlman"
+ <jonas@kwiboo.se>, "Jernej Skrabec" <jernej.skrabec@gmail.com>, "Rob
+ Herring" <robh@kernel.org>, "Saravana Kannan" <saravanak@kernel.org>
+From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
+Subject: Re: [PATCH 7/8] drm/bridge: imx8mp-hdmi-tx: add an hdmi-connector
+ when missing using a DT overlay at boot time
+Cc: "Kory Maincent (TI.com)" <kory.maincent@bootlin.com>,
+ =?utf-8?q?Herv=C3=A9_Codina?= <herve.codina@bootlin.com>, "Hui Pu"
+ <Hui.Pu@gehealthcare.com>, "Ian Ray" <ian.ray@gehealthcare.com>, "Thomas
+ Petazzoni" <thomas.petazzoni@bootlin.com>,
+ <dri-devel@lists.freedesktop.org>, <imx@lists.linux.dev>,
+ <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+ <devicetree@vger.kernel.org>, "Adam Ford" <aford173@gmail.com>, "Alexander
+ Stein" <alexander.stein@ew.tq-group.com>, "Anson Huang"
+ <Anson.Huang@nxp.com>, "Christopher Obbard"
+ <christopher.obbard@linaro.org>, "Daniel Scally"
+ <dan.scally@ideasonboard.com>, "Emanuele Ghidoli"
+ <emanuele.ghidoli@toradex.com>, "Fabio Estevam" <festevam@denx.de>,
+ "Francesco Dolcini" <francesco.dolcini@toradex.com>, "Frieder Schrempf"
+ <frieder.schrempf@kontron.de>, "Gilles Talis" <gilles.talis@gmail.com>,
+ =?utf-8?q?Goran_Ra=C4=91enovi=C4=87?= <goran.radni@gmail.com>, "Heiko
+ Schocher" <hs@denx.de>, "Joao Paulo Goncalves"
+ <joao.goncalves@toradex.com>, "Josua Mayer" <josua@solid-run.com>, "Kieran
+ Bingham" <kieran.bingham@ideasonboard.com>, "Marco Felsch"
+ <m.felsch@pengutronix.de>, "Martyn Welch" <martyn.welch@collabora.com>,
+ "Oleksij Rempel" <o.rempel@pengutronix.de>, "Peng Fan" <peng.fan@nxp.com>,
+ "Philippe Schenker" <philippe.schenker@toradex.com>, "Richard Hu"
+ <richard.hu@technexion.com>, "Shengjiu Wang" <shengjiu.wang@nxp.com>,
+ "Stefan Eichenberger" <stefan.eichenberger@toradex.com>, "Vitor Soares"
+ <vitor.soares@toradex.com>
+X-Mailer: aerc 0.20.1
+References: <20260320-drm-lcdif-dbanc-v1-0-479a04133e70@bootlin.com>
+ <20260320-drm-lcdif-dbanc-v1-7-479a04133e70@bootlin.com>
+ <544112ab-8ca0-4622-b680-233457198e3e@nxp.com>
+ <DHDNA5HLQPIB.3F21G9QPBUQG8@bootlin.com>
+ <5f06ea5a-5388-440f-91d6-cebb0bee0a88@nxp.com>
+In-Reply-To: <5f06ea5a-5388-440f-91d6-cebb0bee0a88@nxp.com>
+X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,180 +100,142 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Hello Liu,
 
---yz4k24ncg52ejfgw
-Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH] dma/contiguous: Fix broken build
-MIME-Version: 1.0
+On Mon Mar 30, 2026 at 5:02 AM CEST, Liu Ying wrote:
+>>>> --- a/drivers/gpu/drm/bridge/imx/Kconfig
+>>>> +++ b/drivers/gpu/drm/bridge/imx/Kconfig
+>>>> @@ -25,6 +25,23 @@ config DRM_IMX8MP_DW_HDMI_BRIDGE
+>>>>  	  Choose this to enable support for the internal HDMI encoder found
+>>>>  	  on the i.MX8MP SoC.
+>>>>
+>>>> +config DRM_IMX8MP_DW_HDMI_BRIDGE_CONNECTOR_FIXUP
+>>>> +	bool "Support device tree blobs without an hdmi-connector node"
+>>>> +	default y
+>>>
+>>> depends on DRM_IMX_LCDIF ?
+>>
+>> If the imx hdmi-tx is not enabled then HDMI won't work anyway, so users =
+are
+>> not affected and the overlay is not needed. Am I missing something?
+>
+> I meant I'm fine with "default y" and think that this could also depend o=
+n
+> DRM_IMX_LCDIF, because no display controller driver other than the LCDIF
+> driver needs the fixup.
 
-On Mon, Mar 30, 2026 at 02:51:34PM +0200, Marek Szyprowski wrote:
-> On 30.03.2026 13:41, Maxime Ripard wrote:
-> > On Mon, Mar 30, 2026 at 10:59:48AM +0200, Marek Szyprowski wrote:
-> >> On 30.03.2026 10:40, Maxime Ripard wrote:
-> >>> Commit 3a236f6a5cf2 ("dma: contiguous: Turn heap registration logic
-> >>> around") didn't remove one last call to dma_heap_cma_register_heap()
-> >>> that it removed, thus breaking the build.
-> >>>
-> >>> That last call is in dma_contiguous_reserve(), to handle the
-> >>> registration of the default CMA region heap instance if it's declared=
- in
-> >>> the device tree.
-> >>>
-> >>> However, the default CMA region instance is already handled by
-> >>> retrieving it through dev_get_cma_area() in the CMA heap driver, so t=
-he
-> >>> call to dma_heap_cma_register_heap() wasn't actually needed.
-> >>>
-> >>> Let's remove this call, the now unused function definition, its now
-> >>> empty header, and all includes of this header.
-> >>>
-> >>> Fixes: 3a236f6a5cf2 ("dma: contiguous: Turn heap registration logic a=
-round")
-> >>> Reported-by: Mark Brown <broonie@kernel.org>
-> >>> Closes: https://lore.kernel.org/linux-next/acbjaDJ1a-YQC64d@sirena.co=
-=2Euk/
-> >>> Signed-off-by: Maxime Ripard <mripard@kernel.org>
-> >>> ---
-> >>>  drivers/dma-buf/heaps/cma_heap.c  |  1 -
-> >>>  include/linux/dma-buf/heaps/cma.h | 16 ----------------
-> >>>  kernel/dma/contiguous.c           |  5 -----
-> >>>  3 files changed, 22 deletions(-)
-> >>>
-> >>> diff --git a/drivers/dma-buf/heaps/cma_heap.c b/drivers/dma-buf/heaps=
-/cma_heap.c
-> >>> index f8a3d87f3ccee9630383ba28502eb40b10671cc2..cc517ac68a0bec0788abc=
-b338c03f530d169013b 100644
-> >>> --- a/drivers/dma-buf/heaps/cma_heap.c
-> >>> +++ b/drivers/dma-buf/heaps/cma_heap.c
-> >>> @@ -12,11 +12,10 @@
-> >>> =20
-> >>>  #define pr_fmt(fmt) "cma_heap: " fmt
-> >>> =20
-> >>>  #include <linux/cma.h>
-> >>>  #include <linux/dma-buf.h>
-> >>> -#include <linux/dma-buf/heaps/cma.h>
-> >>>  #include <linux/dma-heap.h>
-> >>>  #include <linux/dma-map-ops.h>
-> >>>  #include <linux/err.h>
-> >>>  #include <linux/highmem.h>
-> >>>  #include <linux/io.h>
-> >>> diff --git a/include/linux/dma-buf/heaps/cma.h b/include/linux/dma-bu=
-f/heaps/cma.h
-> >>> deleted file mode 100644
-> >>> index e751479e21e703e24a5f799b4a7fc8bd0df3c1c4..000000000000000000000=
-0000000000000000000
-> >>> --- a/include/linux/dma-buf/heaps/cma.h
-> >>> +++ /dev/null
-> >>> @@ -1,16 +0,0 @@
-> >>> -/* SPDX-License-Identifier: GPL-2.0 */
-> >>> -#ifndef DMA_BUF_HEAP_CMA_H_
-> >>> -#define DMA_BUF_HEAP_CMA_H_
-> >>> -
-> >>> -struct cma;
-> >>> -
-> >>> -#ifdef CONFIG_DMABUF_HEAPS_CMA
-> >>> -int dma_heap_cma_register_heap(struct cma *cma);
-> >>> -#else
-> >>> -static inline int dma_heap_cma_register_heap(struct cma *cma)
-> >>> -{
-> >>> -	return 0;
-> >>> -}
-> >>> -#endif // CONFIG_DMABUF_HEAPS_CMA
-> >>> -
-> >>> -#endif // DMA_BUF_HEAP_CMA_H_
-> >>> diff --git a/kernel/dma/contiguous.c b/kernel/dma/contiguous.c
-> >>> index ad50512d71d3088a73e4b1ac02d6e6122374888e..9fe001c712339f8388d3f=
-40cca3dfff3f707fcbf 100644
-> >>> --- a/kernel/dma/contiguous.c
-> >>> +++ b/kernel/dma/contiguous.c
-> >>> @@ -40,11 +40,10 @@
-> >>>  #include <asm/page.h>
-> >>> =20
-> >>>  #include <linux/memblock.h>
-> >>>  #include <linux/err.h>
-> >>>  #include <linux/sizes.h>
-> >>> -#include <linux/dma-buf/heaps/cma.h>
-> >>>  #include <linux/dma-map-ops.h>
-> >>>  #include <linux/cma.h>
-> >>>  #include <linux/nospec.h>
-> >>> =20
-> >>>  #ifdef CONFIG_CMA_SIZE_MBYTES
-> >>> @@ -270,14 +269,10 @@ void __init dma_contiguous_reserve(phys_addr_t =
-limit)
-> >>>  						  selected_limit,
-> >>>  						  &dma_contiguous_default_area,
-> >>>  						  fixed);
-> >>>  		if (ret)
-> >>>  			return;
-> >>> -
-> >>> -		ret =3D dma_heap_cma_register_heap(dma_contiguous_default_area);
-> >>> -		if (ret)
-> >>> -			pr_warn("Couldn't register default CMA heap.");
-> >> After this change no dma-buf heap for the default CMA area is=A0create=
-d if it has=A0
-> >> not been specified in device-tree. This might be especially a problem =
-for the
-> >> non-dt systems.
-> > I don't think that's the case? My understanding is that
-> > dma_contiguous_reserve() is called by the arch code, and will create
-> > that region only if it hasn't be set by the DT (that excerpt above is
-> > run only if !dma_contiguous_default_area).
-> >
-> > However, for the DT case, dma_contiguous_default_area will be set by
-> > rmem_cma_setup() a bit below if linux,cma-default is set in the DT.
-> >
-> > dma_contiguous_reserved() is called (on arm64 at least) through
-> > bootmem_init(), called as part of setup_arch().
-> >
-> > rmem_cma_setup() is called through RESERVEDMEM_OF_DECLARE, so through
-> > __reserved_mem_init_node(), so, if we consider only the public
-> > functions, through:
-> >
-> >   * fdt_scan_reserved_mem_reg_nodes(), called by
-> >     unflatten_device_tree(), called right before bootmem_init() in
-> >     setup_arch();
-> >
-> >   * or fdt_scan_reserved_mem() and then
-> >     early_init_fdt_scan_reserved_mem(), called in arm64_memblock_init(),
-> >     itself called in setup_arch() earlier than both
-> >     unflatten_device_tree(), and bootmem_init().
-> >
-> > Thus, the DT case will run first and set dma_contiguous_default_area if
-> > relevant on that platform, and if it's not set, the non-DT case will set
-> > it up. Either way, dma_contiguous_default_area will be set.
-> >
-> > The CMA heap runs much later using a regular module_init. It will
-> > retrieve dma_contiguous_default_area through dev_get_cma_area(), and
-> > will create a heap instance for the default area.
-> >
-> > Am I misunderstanding something?
->=20
-> The default CMA area is also optional for DT platforms.=A0
->=20
-> If DT doesn't provide such, it will be created based on the kernel
-> cmdline cma=3D parameter or the default configuration defined in the
-> kernel .config (this is also true for the non-dt platforms). I know
-> that for most Android GKI systems the default CMA area will be defined
-> in DT, but I see no reason to disable dma-buf heap support for the
-> default CMA area if it has been instantiated from kernel cmdline or
-> .config.
+Ah, I see your point. OK, I'll add 'depends on DRM_IMX_LCDIF'.
 
-I think I see what you mean now, thanks! Sending a v2.
+>>> I see build warnings(W=3D1):
+>>> drivers/gpu/drm/bridge/imx/imx8mp-hdmi-tx-connector-fixup.dtso:25.8-37.=
+4: Warning (unit_address_vs_reg): /fragment@0/__overlay__/soc@0: node has a=
+ unit name, but no reg or ranges property
+>>> drivers/gpu/drm/bridge/imx/imx8mp-hdmi-tx-connector-fixup.dtso:26.16-36=
+.5: Warning (unit_address_vs_reg): /fragment@0/__overlay__/soc@0/bus@32c000=
+00: node has a unit name, but no reg or ranges property
+>>> drivers/gpu/drm/bridge/imx/imx8mp-hdmi-tx-connector-fixup.dtso:27.18-35=
+.6: Warning (unit_address_vs_reg): /fragment@0/__overlay__/soc@0/bus@32c000=
+00/hdmi@32fd8000: node has a unit name, but no reg or ranges property
+>>> drivers/gpu/drm/bridge/imx/imx8mp-hdmi-tx-connector-fixup.dtso:29.13-33=
+.8: Warning (unit_address_vs_reg): /fragment@0/__overlay__/soc@0/bus@32c000=
+00/hdmi@32fd8000/ports/port@1: node has a unit name, but no reg or ranges p=
+roperty
+>>
+>> AFAIK the device tree checkes just can't work on overlays. The tools jus=
+t
+>> cannot know on which base tree the overlay can be applied, so they canno=
+t
+>> know the existing properties. That might change in the future, but for n=
+ow
+>> my understanding is that it is OK to have overlays which produce such
+>> harmless warnings, at least for driver-specific overlays like the tilcdc
+>> one [0] which is already in linux-next since a few weeks.
+>
+> Hmm, not sure a few weeks in linux-next is long enough ;)
+> I'd say, I saw the warnings, so simply reported along with a fix to suppr=
+ess
+> them.  TBH, build warnings make me nervous, especially this DT overlay is
+> under the "DRM DRIVERS FOR FREESCALE IMX BRIDGE" umbrella.
 
-Maxime
+That's fine, I'll add the lines needed to suppress the warnings then.
 
---yz4k24ncg52ejfgw
-Content-Type: application/pgp-signature; name="signature.asc"
+>>>> +	fixup-hdmi-connector {
+>>>> +		compatible =3D "hdmi-connector";
+>>>> +		label =3D "HDMI";
+>>>> +		type =3D "a";
+>>>
+>>> What if a board uses another type?
+>>
+>> For boards affected by this patch, currently the connector is created by
+>> dw_hdmi_connector_create() which hardcodes type A [0], so there would be=
+ no
+>> difference.
+>
+> Yes, that's from driver's PoV.  However, userspace may get the type
+> from /sys/firmware/devicetree/base/fixup-hdmi-connector/type and use it
+> to do something.
 
------BEGIN PGP SIGNATURE-----
+I'd say this is incorrect, the device tree is not an API for that. The
+connector type might be known to the driver by other means (ACPI, DP MST,
+whatever). So I think this is a non-problem.
 
-iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCacqZegAKCRAnX84Zoj2+
-dv/0AYCFbpEzr5IUt0jDlPnwHS/2nJ+4KWwSAt/X9BHtILMTPLX+BF13+K/RZqoq
-ElsOSf8BgK5CYzl1g39YnplBEk8DwBnQTLE0nHIyCZrifAlSX+pDEP9HP7flyh6U
-rxY+NSZubQ==
-=cEer
------END PGP SIGNATURE-----
+If userspace needs to know the connector type, that should come from the
+ioctl (DRM_IOCTL_MODE_GETCONNECTOR perhaps).
 
---yz4k24ncg52ejfgw--
+> Maybe, that's trivial.
+
+Not sure I got what you mean here, sorry. What are you referring to?
+
+>> OTOH how can a common module know the specific connector?
+>
+> Hmm, maybe add a module parameter or let users set the type through Kconf=
+ig
+
+I'm afraid none of this would work for distribution kernels, where who
+configures the distribution has no idea on how many different hardware it
+will run.
+
+> or even define an unknown type to honestly tell users that we don't know =
+it?
+
+This sounds like a potentially valid idea, even though I'm not fully
+convinced. Also I suspect it would be a pretty large change, and also
+adding "unknown type" in the device tree seems not compliant with the rule
+that DT describes the hardware (not the lack of info about the hardware).
+
+But definitely it's not needed for this specific case, because:
+
+ * with current code, every imx8mp-hdmi-tx usage adds a type-A connector [0=
+]
+ * with this patch the correct type will be created when described in DT,
+   and type-A will be used only as a fallback when the DT is lacking
+
+So after the patch we'd do sometimes better, never worse in this respect.
+
+Based on the above I'm sending v2 soon, but don't hesitate in following up
+in case I may be missing something (this topic is tricky).
+
+[0] https://elixir.bootlin.com/linux/v7.0-rc5/source/drivers/gpu/drm/bridge=
+/synopsys/dw-hdmi.c#L2601
+
+>> Boards with a different connector should describe the connector in the
+>> device tree, if they need to instantiate the exact type.
+
+I think this is the only valid solution. It's very easy to do, nothing new
+to invent.
+
+Maybe on top of that we could add a warning when the overlay is applied,
+e.g. "imx8mp-hdmi-tx used without a connector described in device tree;
+adding a type A connector as a fallback; please add a valid description to
+your device tree". Maybe pointing to a TODO entry in the documentation.
+
+What do you think about this?
+
+Thanks again for your careful review!
+
+Luca
+
+--
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
