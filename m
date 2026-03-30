@@ -4,142 +4,148 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ABFEEFB3CE5
-	for <dri-devel@archiver.kernel.org>; Mon, 30 Mar 2026 09:53:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BBD43FB3CEB
+	for <dri-devel@archiver.kernel.org>; Mon, 30 Mar 2026 09:56:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 212E110E5CB;
-	Mon, 30 Mar 2026 09:53:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 118DC10E518;
+	Mon, 30 Mar 2026 09:56:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Ued8Ge8B";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="UoTh1SXR";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="N7TrfrOc";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="RluGB1mW";
 	dkim-atps=neutral
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AE40710E5CB
- for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 09:53:04 +0000 (UTC)
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4C91A10E518
+ for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 09:55:59 +0000 (UTC)
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 62U9gQFI866571
- for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 09:53:04 GMT
+ 62U9sZca4086233
+ for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 09:55:59 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:message-id
- :mime-version:subject:to; s=qcppdkim1; bh=gXUaaYBTPyVGwfzrBTCeQK
- 7umpGaf7wY4Ve1YT9tETI=; b=Ued8Ge8BNwaUGjw1r8CHB6/DDxkyj4EIYg7Ksb
- U2+Qdko2lXbtWL0G5nY8tRGYVMHppmidMPwq9/bktLwdPOodBNeB+ECz66sRQNZb
- HFPM4w9V9Rwv8+KqJmNjdMSzCiiU/NlyUkzpM9PLWX7/8cj6Nl8emtAVWKLYP+XV
- ghE2HkT5ZNkIM2UoZlG0auxBIg4f50r6uUK2zshFsxdc9ubPNcilMeAoqOTkIARz
- +t1KEq7kL3AWDhokM87SvpOduBvQITwB3scDDzYAwf7LEi+bWjKOeC6VDiiMZvuJ
- 9C0YQkU3euB5GORrpTqO+3aqLbZM5Ds7dvyqScFIl1A4h/yQ==
-Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com
- [209.85.214.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d685hdgaw-1
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ Teg2kjJs2++27wL+k0/VJSnuNqL33lQ5+jphN52LdQw=; b=N7TrfrOcqlxzG0mu
+ AmYq6rvIioRQ+E6RYjrOAHN6xc/rqAwUKrkFgHBUY1pFv6UFWCITRQWkYg4ZGHg5
+ MUiwpf70jdqLNpjsWyOVQEvIouqLPRk9PDYsfbUrTovxQbhA6i+xt3OIBVCObTYW
+ FTsHvgB8J0XtLZC2X5ZzZiivCdqZJzQ9T/EFECAFwR4f1wddTRxaANiQoywYa1Cl
+ N7/VSGR5GGyScdLnpku2gjvmGCpFn4M9uLhJxGOoGWiBMAHemHanSWU1Kmd2Bhch
+ 5W5h5R3NhjrAeENJJjNEYDeOiEbWoommKyPvXbOazsBgxJoxgQyv8nQBZRiybG3B
+ 4F4x+g==
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
+ [209.85.222.198])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d67715jm8-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 09:53:04 +0000 (GMT)
-Received: by mail-pl1-f198.google.com with SMTP id
- d9443c01a7336-2adef9d486bso83383685ad.2
- for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 02:53:03 -0700 (PDT)
+ for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 09:55:58 +0000 (GMT)
+Received: by mail-qk1-f198.google.com with SMTP id
+ af79cd13be357-8cb485c686cso146583285a.1
+ for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 02:55:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1774864383; x=1775469183;
+ d=oss.qualcomm.com; s=google; t=1774864558; x=1775469358;
  darn=lists.freedesktop.org; 
- h=cc:to:message-id:content-transfer-encoding:mime-version:subject
- :date:from:from:to:cc:subject:date:message-id:reply-to;
- bh=gXUaaYBTPyVGwfzrBTCeQK7umpGaf7wY4Ve1YT9tETI=;
- b=UoTh1SXRqoWhZ7QdyaGFJTKgfAy8BLr1kyUjKlfFVzsu8ilXDW1atJiJ27NzP2GuS6
- RWZM5XbRvEutAssem6No5yvYu8ZINIFM4Pf3RHGfpk3JREbfN0wp9LCU1/TnfQfEGMCT
- wD2SU6MZGcapWRTx131OgHBHblFOu0yLOR3uQcEY20FBzaFy+tQuXrrCqBmONzae7XAm
- 40F14lik1Xgi4mokiKTAChU8/crCagl1DFdR/DvXq55aZjg3Y8wKLEJ+R3fEwnivTudg
- NETFqc8a6U96+NqxmRAWzoDB0eF+D7/iLyoUEZwz5WsQghSxqo/pIt77N7pYVjsaEbUx
- mMVA==
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=Teg2kjJs2++27wL+k0/VJSnuNqL33lQ5+jphN52LdQw=;
+ b=RluGB1mW3pPKkGIWKS+MIPSPeh7h+inn8+RKaSvKZxgyQlDDpXg6bXTKrN1Dfa8GOR
+ fW/eJpX2gP1cUJtUbedFMlvWQImn8kdlLkQSWmfdqPkW7AxbYseedbxc2g7sZfbcY06I
+ fMppGR1yErQicpRzlX+yRm5U0fe5vNnMnnMmJ9pJQCIlLQTLBhTUTRJVSjc4wqL5oAii
+ Xfno9zTLdYTNueOO3NCjsMTLTrr8oQo5VRp4175bgQKK2vF6s3dPMtKPtt+ABDjoHXKf
+ GdGIjDGpiW2YJU6M7BGJ9JdzKPY01ZdD5l0AugX+e547Hqv9tDi90lhVUxg/24UsE6k0
+ ck3Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774864383; x=1775469183;
- h=cc:to:message-id:content-transfer-encoding:mime-version:subject
- :date:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=gXUaaYBTPyVGwfzrBTCeQK7umpGaf7wY4Ve1YT9tETI=;
- b=pqIW9gWCATuYdo8tUzHunxCKjEid4/nyfSQ1SteNKM30sSxRoXTCaC66hk2jvnkd9m
- cjRQA6YKTQxtzMxZT9tFROotv+djcTBd1bCLpMnkc/XhMI7H+P0I8KI0+dWaaluBefTC
- fLZvSR1K4XgqHGd/FHFQx8QBEZjnejrmbcJODvbYEWP6I7Nu1SW9JmJ6BSgYWMuA7338
- l1UNW7G0g8n4RhF1wDwSs2V467pvkLvtdJGHfXpzcnPw8ynOsmVuMC3vGbFTp1RlQ3Zr
- XbMpiUuA99nfcjAloahGuyxqz069zHPjqY81wWhFrjtsCyKmXwKbjDJIIOO/TPU1tybA
- Dcng==
+ d=1e100.net; s=20251104; t=1774864558; x=1775469358;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=Teg2kjJs2++27wL+k0/VJSnuNqL33lQ5+jphN52LdQw=;
+ b=W/pUpq5zCOUOUaQbx2jNYbeGmfzaqDA0UNHnYyk7dD/0HRUB6TVSxCiVkyQuTNkXp/
+ oaI7SokyDGJksxPT9mAPfu4FuuJWa0wDYh7tgzOpH7d3aErxy4ZGZ9r9a+/ioZ39wm9e
+ AR8ixqP8eBM8Ctb/0eTataFn8ahiODWOavuIJHgXwSktzSsA9bFbpzem5YvBljresPzN
+ yQ0YhQBYyTqLCX/CBLxFDcJozpv4w74IOStWd8opYDauiuaKcvDTAf9F2fDfih9EaU3/
+ 3mXYxJnYJDEyVf0LQVi/QlgWRW7Qpsye3iX2Be3iKljL89l0OW8ufdass0GLGfP8X0D9
+ hGWQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXC6bPTF4mn4MT4pz0++np1lLPO7g6pOybFBEusOcpMZc/en9k9CmfYA/3IeJxw6Jcm2X4Wd0GrfqE=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwwWebLVzNWcQ4YH+ddW5BlnPOEY6k1cS+Tj4Wqi4INJ4qIndp0
- dn2xrhG6n3mfWzOqEdYD3IS8iF2GPb8cJt81rv7SZ23DwSYjtcYUVXv8xOPMKLthnSqNJI4mup6
- 8TLVYR772nNjpdJ26UxuNdNvncxf7kd/syHNTifGmwBz9l7Z6+CHJoyDmxJfxIbXAK5BTLcKiND
- hQQcY=
-X-Gm-Gg: ATEYQzyzSdMgqPy842/LT0F+2pcAoQ3s3uSGlgFzZBvXwosPmOCPepRYuozPKfACtlW
- 3mJE8auvKY2/FsLoNHordHCvotJAwkDiL5lg9S9FDqT3DTr8ruFJ+2GxGsLDA/s+8yFXXxMtqxt
- oj5debMatWS2X8DG7gYlbAYqPSmkD+kmfeSQcM3TC3WmO6F6T4mvqAeWpdR8GoyH7zXTr8sEMHE
- 7FbJ4CM0/SJxk90i7W1AISggNFmm/ayMYpnBmTA3VOw2k2R3fbeOMRtH953lO27Kgsxwsd9RAgW
- a5xyqZNCsTFyv/G6um4v/A5vhp7diNUn2moakptRMSgETiHCWXFoMDWJJndPd7sKvXhyzjApQ55
- rrjV0UsLjnPOM+BSVgnJGT79XxXIo8zNA8tZl559OYXtOWUNi
-X-Received: by 2002:a17:903:8c4:b0:2b2:5091:1c1c with SMTP id
- d9443c01a7336-2b250912298mr36178145ad.18.1774864383070; 
- Mon, 30 Mar 2026 02:53:03 -0700 (PDT)
-X-Received: by 2002:a17:903:8c4:b0:2b2:5091:1c1c with SMTP id
- d9443c01a7336-2b250912298mr36177955ad.18.1774864382537; 
- Mon, 30 Mar 2026 02:53:02 -0700 (PDT)
-Received: from hu-mahap-hyd.qualcomm.com ([202.46.23.25])
- by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2b2427c3a4esm94134125ad.78.2026.03.30.02.52.57
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 30 Mar 2026 02:53:02 -0700 (PDT)
-From: Mahadevan P <mahadevan.p@oss.qualcomm.com>
-Date: Mon, 30 Mar 2026 15:22:44 +0530
-Subject: [PATCH v3] drm/msm: default separate_gpu_kms to auto selection
+ AJvYcCV5QoYE5WmF4xa1al+nPP8iAkeS5U+XkK6i+VSoMv+gbF7KGGp2k3g3GmCXYwHF+i3d5l41lyBZwME=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzV0yzVzCEDHHt8baEJ3NtHmFoU9/qyJFquzlPJmP7cUzkBvR4d
+ 6w3Qpa2RKztpEDXQWdIsYEBPRRI7asgeLpI3BcP8wWzz9zesi2f2/01bZP+kgVHlYCnoEab2kZt
+ 6cubv8YelYetL7vNSgiGNGroMnRPf5eDgEg4KBWBgK2SuvbOsYhelzZTyJ0Ya4NlwmVfDsAk=
+X-Gm-Gg: ATEYQzyX+OYRMs85duS5GPKA+smSakBONNj8K3mWFlxnD0yDVv1qyIzPYLV+ZvgYPAW
+ RcyHosRFrmgyZuwSiNKKm89P9FRQ2jm5Zg+OV8+ZAzbmc7jDXahrqbswAqF0+xNIobOSo4UGEf/
+ gFvPB4wXtjlr5+wGR7eAS92cT+QcFqeRTxwFKme9P93J4Rd59HIlIFjwkLzfFlc0mMvlob34lAo
+ 4p2doq0REVJwiOWxtkK1EjVCIUeZCkb8Q2YKVsnC+Ml4WGfcJBIfnVfVrW7yMIcWjnI/skHMoy1
+ 9pesYSfDVQiF/YcbpaYiVmNJq+qrXNhsqIhZrO4x817AnJiNeTJ1tnJFRV9Lzg6E5gpwdaY3xdN
+ BpZkp2wryLV4YI+4MiLV2p6ygHaEJ5yhbvyZ2cwMCPHwYlqver7MzelDVsj38ABUo8u0eC0w8Lm
+ fsMgY=
+X-Received: by 2002:ac8:574b:0:b0:509:2c6e:f6e0 with SMTP id
+ d75a77b69052e-50ba39f670dmr116889281cf.8.1774864557972; 
+ Mon, 30 Mar 2026 02:55:57 -0700 (PDT)
+X-Received: by 2002:ac8:574b:0:b0:509:2c6e:f6e0 with SMTP id
+ d75a77b69052e-50ba39f670dmr116888971cf.8.1774864557560; 
+ Mon, 30 Mar 2026 02:55:57 -0700 (PDT)
+Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl.
+ [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-b9b7ae256bbsm265895766b.3.2026.03.30.02.55.52
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 30 Mar 2026 02:55:56 -0700 (PDT)
+Message-ID: <2edf563e-ee32-4ecc-b912-d0a19b8e5d67@oss.qualcomm.com>
+Date: Mon, 30 Mar 2026 11:55:51 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260330-separate_gpu_kms-v3-1-a3e54b9c9417@oss.qualcomm.com>
-X-B4-Tracking: v=1; b=H4sIAOtHymkC/23OQQ6CMBAF0KuYri2hU6TgynsYQwpMoVEottBoC
- He34MIY3UzyJ/lvZiYOrUZHjruZWPTaadOHwPc7UrWyb5DqOmQCMaQxZyl1OEgrRyyaYSqunaN
- xUkOlkjpnCCTUBotKPzbyfAm51W409rld8GzdvjEAvmL4hXlGGcUMOEOhWJodTsa56D7JW2W6L
- gqDrKaHj8OZ+H3KQ3DKGEQlc1HmCv84y7K8AE/xMeL/AAAA
-X-Change-ID: 20260316-separate_gpu_kms-04d2cf4d91e2
-To: Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 9/9] arm64: dts: qcom: milos: Add display (MDSS)
+To: Luca Weiss <luca.weiss@fairphone.com>,
+ Bjorn Andersson <andersson@kernel.org>,
  Konrad Dybcio <konradybcio@kernel.org>,
- Akhil P Oommen <akhilpo@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
+ <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
  Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Mahadevan P <mahadevan.p@oss.qualcomm.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1774864377; l=10232;
- i=mahadevan.p@oss.qualcomm.com; s=20250923; h=from:subject:message-id;
- bh=fNTiS/H2gUkjedeL15QTSU/7mML3BWEe0xtBdBQqtlg=;
- b=Btm2O22/s5VhxC8DHUlfvFV4Xre388n2HqqyBUe0LyO2602PJHLq51w1MmYWy565DqqvSWhnQ
- iOpAjrQWTpfBYNI00EQwadQ2hVOvwIeR/SmJ4DRCSHK7toCnVGeUUVv
-X-Developer-Key: i=mahadevan.p@oss.qualcomm.com; a=ed25519;
- pk=wed9wuAek0VbCYfkANx7ujIG4VY0XfCYrffFKPN2p0Y=
-X-Authority-Analysis: v=2.4 cv=csKWUl4i c=1 sm=1 tr=0 ts=69ca4800 cx=c_pps
- a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Jonathan Marek <jonathan@marek.ca>,
+ Krishna Manikandan <quic_mkrishn@quicinc.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Alexander Koskovich <akoskovich@pm.me>
+Cc: ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ devicetree@vger.kernel.org
+References: <20260327-milos-mdss-v2-0-bc586683f5ca@fairphone.com>
+ <20260327-milos-mdss-v2-9-bc586683f5ca@fairphone.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260327-milos-mdss-v2-9-bc586683f5ca@fairphone.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: rcYtYJqGHlx1Gn8a-WKIyxhAK5a_pKzU
+X-Authority-Analysis: v=2.4 cv=efYwvrEH c=1 sm=1 tr=0 ts=69ca48ae cx=c_pps
+ a=qKBjSQ1v91RyAK45QCPf5w==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
  a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=7nrE9rN0imP4snLddHEA:9 a=QEXdDO2ut3YA:10
- a=GvdueXVYPmCkWapjIL-Q:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzMwMDA3NyBTYWx0ZWRfX7102N6/cijM6
- pQ64vW6ktJgJzE1lCBROJS3VmD1qE6ZOm48HrpBtcAqheTLOsN5rZ1XrG6qtFIYAEB/JYT9aMWH
- O9aXyoQF1FbG4/5d85iALxQfqYijEJHL4RX2r/edlEHaVqVFhIDxfYMY0lGV5GWviZVbYEOECBo
- 4Azz2+qZKiYp8hC8AGNcr/wa6zA1Z30LKzFsmtO8PpncbiJA9mLjDim5ZOlrOaAu32V83/78MCv
- /1XrRsyacJSXkBmifeINStQiFHks4sxdgHTxzKvOaCp6bCPvoS04NUozlaPbSM86u/Koag94hfZ
- KOmWRksSVArH2tV8scS5E85h/9AbuMema+s5esWr3gmpfRAaxKss0WcdYCquLw/YpvuXYQ7n4XU
- pU9g1r8gsZnuPiyQR0OBHbFvUEMGi8NWV+33LsnEXU4fVpZDoOj+3IWP7oJ3h54NsQFCD9NxQC+
- aT+PCCFV6I+wyNykaFQ==
-X-Proofpoint-ORIG-GUID: lpefr2yV646OzlRb24J4EW1omiIrVeFL
-X-Proofpoint-GUID: lpefr2yV646OzlRb24J4EW1omiIrVeFL
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=6H0WHjuAAAAA:8 a=EUspDBNiAAAA:8 a=WWQFUNGd85j635JlVwcA:9 a=QEXdDO2ut3YA:10
+ a=AYr37p2UDEkA:10 a=NFOGd7dJGGMPyQGDc5-O:22 a=Soq9LBFxuPC4vsCAQt-j:22
+X-Proofpoint-ORIG-GUID: rcYtYJqGHlx1Gn8a-WKIyxhAK5a_pKzU
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzMwMDA3NyBTYWx0ZWRfX5dmGEDOAaFkK
+ bItdPYU6Q2V2qH4Vv9cLg7b+yWvjuxOdHNuT1y9ALjoWs3FRLwGnDUmstQXWBYT4G7hFlwHmXqS
+ Z5Rh68nqKst6LFFndebjnqXtl8bXKUwCydlG/phYd/SrfZ2yvh1Zxz+1g+gbPe3EtFPyZigX++9
+ AFYbiKPxBomiHAJZKr70MLhRm3jx2odVcp7Oadcbj2/f0dd9wnSGjSgaR8RFRfWytdl2tasCRNm
+ ClMArX8sgeNL7iLKnJ7NlBz4KsLrtldRZ0yXawnYm82R/I5q9/beH5cpPdascxE02xMlJiPamHT
+ xLlXDxQ9LnC3n1+aRGqEfQA3BJExgDBL5s8TKn0n63OXmyvcVm8Pm+hxpFE5yQ/Kw9XC4xWuwCk
+ TtcabDj77hMZbf/FGtoE0l+roNo+dsjB4JLMhdFoFQ/i6S1HIMU63lho3hCcnD4/wBfVY4oKLdL
+ W7AdUmDs2njeaLoapNA==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
  definitions=2026-03-29_05,2026-03-28_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 malwarescore=0 clxscore=1015 adultscore=0 impostorscore=0
- priorityscore=1501 bulkscore=0 lowpriorityscore=0 suspectscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603300077
+ bulkscore=0 malwarescore=0 adultscore=0 clxscore=1015 spamscore=0
+ priorityscore=1501 impostorscore=0 lowpriorityscore=0 phishscore=0
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2603050001
+ definitions=main-2603300077
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -155,295 +161,14 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On platforms with multiple display subsystems, such as SA8775P, the GPU
-binds to the first display subsystem that probes. This implicit binding
-prevents subsequent display subsystems from probing successfully,
-breaking multi-display support.
+On 3/27/26 5:12 PM, Luca Weiss wrote:
+> Add device nodes for display: MDSS, DPU, DSI and DSI PHY.
+> 
+> DisplayPort is not added for now.
+> 
+> Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+> ---
 
-Use the tristate separate_gpu_kms module parameter with the default
-value set to auto (-1). In auto mode, the driver selects the binding
-behavior based on the number of GPUs and display subsystems. This allows
-display subsystems to probe independently when required, while
-preserving the existing single-card behavior on simpler systems.
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-The separate_gpu_kms module parameter has the following semantics:
-
-  -1 (auto, default):
-     Select the binding mode based on hardware topology. If exactly one
-     GPU and one display subsystem are present, bind them together to
-     form a single DRM device. Otherwise, expose the GPU and display
-     subsystems as separate DRM devices.
-
-   0:
-     Always bind the GPU and display together to form a single DRM
-     device.
-
-   1:
-     Always expose the GPU and display subsystems as separate DRM
-     devices.
-
-Additionally, ensure that display subsystems are always exposed as
-separate DRM devices when no recognized Adreno GPU is present,
-regardless of the separate_gpu_kms setting.
-
-This ensures correct probing on multi-display platforms without
-affecting single-display, single-GPU systems.
-
-Signed-off-by: Mahadevan P <mahadevan.p@oss.qualcomm.com>
----
-Depends on:
-  https://lore.kernel.org/lkml/20260124-adreno-module-table-v1-1-9c2dbb2638b4@oss.qualcomm.com/
-
-  When separate_gpu_kms is enabled, the GPU and display drivers are
-  probed independently. In this configuration, the Adreno GPU driver
-  may no longer be loaded implicitly via the display subsystem.
-
-  The referenced patch adds a MODULE_DEVICE_TABLE() entry for the
-  Adreno GPU device, ensuring proper module autoloading based on
-  device tree matching. This is required to guarantee that the GPU
-  driver is loaded correctly when GPU and display probing are
-  decoupled.
-
-Changes in v3:
-- Ensure display subsystems are always exposed as separate DRM devices when
-  no recognized Adreno GPU is present (!adreno_has_gpu()), regardless of
-  separate_gpu_kms setting. (Dmitry)
-- Extend auto-selection logic to account for legacy display controllers (MDP4 and MDP5). (Dmitry)
-- Rename msm_mdss_count_masters() to msm_mdss_count() to better reflect functionality. (Dmitry)
-- Common helper to determine presence of a valid Adreno GPU node, avoiding repeated
-  adreno_has_gpu() and availability checks.
-- Update commit message to reflect the above behavior.
-- Link to v2: https://lore.kernel.org/r/20260317-separate_gpu_kms-v2-1-b027ca97b9fe@oss.qualcomm.com
-
-Changes in v2:
-- Drop dependency on Lemans dual-DPU device tree changes as this patch
-  works independently (Dmitry)
-- Switch separate_gpu_kms to tristate and default to auto mode (Rob)
-- Rename msm_gpu_no_components() to msm_separate_gpu_kms_components() for clarity
-- Link to v1: https://lore.kernel.org/r/20260223-seperate_gpu_kms-v1-1-e8231e7f1685@oss.qualcomm.com
----
- drivers/gpu/drm/msm/adreno/adreno_device.c |  2 +-
- drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c   | 14 +++++++
- drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c   | 14 +++++++
- drivers/gpu/drm/msm/msm_drv.c              | 64 ++++++++++++++++++++++++++----
- drivers/gpu/drm/msm/msm_drv.h              |  8 +++-
- drivers/gpu/drm/msm/msm_mdss.c             | 15 +++++++
- 6 files changed, 107 insertions(+), 10 deletions(-)
-
-diff --git a/drivers/gpu/drm/msm/adreno/adreno_device.c b/drivers/gpu/drm/msm/adreno/adreno_device.c
-index 4edfe80c5be7..e40648c05797 100644
---- a/drivers/gpu/drm/msm/adreno/adreno_device.c
-+++ b/drivers/gpu/drm/msm/adreno/adreno_device.c
-@@ -272,7 +272,7 @@ static const struct component_ops a3xx_ops = {
- static int adreno_probe(struct platform_device *pdev)
- {
- 	if (of_device_is_compatible(pdev->dev.of_node, "amd,imageon") ||
--	    msm_gpu_no_components())
-+	    msm_separate_gpu_kms_components())
- 		return msm_gpu_probe(pdev, &a3xx_ops);
- 
- 	return component_add(&pdev->dev, &a3xx_ops);
-diff --git a/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c b/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c
-index 809ca191e9de..409000b739b6 100644
---- a/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c
-+++ b/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c
-@@ -15,6 +15,20 @@
- #include "msm_mmu.h"
- #include "mdp4_kms.h"
- 
-+static const struct of_device_id mdp4_dt_match[];
-+int msm_count_mdp4(void)
-+{
-+	struct device_node *np;
-+	int count = 0;
-+
-+	for_each_matching_node(np, mdp4_dt_match) {
-+		if (of_device_is_available(np))
-+			count++;
-+	}
-+
-+	return count;
-+}
-+
- static int mdp4_hw_init(struct msm_kms *kms)
- {
- 	struct mdp4_kms *mdp4_kms = to_mdp4_kms(to_mdp_kms(kms));
-diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c b/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
-index 1e3dc9bf9494..086895c9f103 100644
---- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
-+++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
-@@ -19,6 +19,20 @@
- #include "msm_mmu.h"
- #include "mdp5_kms.h"
- 
-+static const struct of_device_id mdp5_dt_match[];
-+int msm_count_mdp5(void)
-+{
-+	struct device_node *np;
-+	int count = 0;
-+
-+	for_each_matching_node(np, mdp5_dt_match) {
-+		if (of_device_is_available(np))
-+			count++;
-+	}
-+
-+	return count;
-+}
-+
- static int mdp5_hw_init(struct msm_kms *kms)
- {
- 	struct mdp5_kms *mdp5_kms = to_mdp5_kms(to_mdp_kms(kms));
-diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
-index e5ab1e28851d..e2101c6632ac 100644
---- a/drivers/gpu/drm/msm/msm_drv.c
-+++ b/drivers/gpu/drm/msm/msm_drv.c
-@@ -54,16 +54,64 @@ static bool modeset = true;
- MODULE_PARM_DESC(modeset, "Use kernel modesetting [KMS] (1=on (default), 0=disable)");
- module_param(modeset, bool, 0600);
- 
--static bool separate_gpu_kms;
--MODULE_PARM_DESC(separate_gpu_drm, "Use separate DRM device for the GPU (0=single DRM device for both GPU and display (default), 1=two DRM devices)");
--module_param(separate_gpu_kms, bool, 0400);
-+/*
-+ * separate_gpu_kms (tristate):
-+ *   -1 (default): decide automatically based on hardware topology. Split devices
-+ *                 if there is more than one GPU or more than one display master.
-+ *    0: force single DRM device (bind display + GPU)
-+ *    1: force separate DRM devices
-+ */
-+static int separate_gpu_kms = -1;
-+MODULE_PARM_DESC(separate_gpu_kms,
-+		 "Use separate DRM device for the GPU (-1=auto (default), 0=single DRM device, 1=separate DRM devices)");
-+module_param(separate_gpu_kms, int, 0400);
- 
- DECLARE_FAULT_ATTR(fail_gem_alloc);
- DECLARE_FAULT_ATTR(fail_gem_iova);
- 
--bool msm_gpu_no_components(void)
-+static const struct of_device_id msm_gpu_match[];
-+static inline bool msm_gpu_node_present(struct device_node *np)
-+{
-+	return np && of_device_is_available(np) && adreno_has_gpu(np);
-+}
-+
-+static int msm_count_gpus(void)
-+{
-+	struct device_node *np;
-+	int count = 0;
-+
-+	for_each_matching_node(np, msm_gpu_match) {
-+		if (msm_gpu_node_present(np))
-+			count++;
-+	}
-+
-+	return count;
-+}
-+
-+static bool msm_separate_gpu_kms_auto(void)
-+{
-+	int gpus = msm_count_gpus();
-+	int display_subsystems = msm_count_mdss() + msm_count_mdp4() + msm_count_mdp5();
-+
-+	if (gpus <= 0 || display_subsystems <= 0)
-+		return false;
-+
-+	/* If exactly one GPU and one display subsystem single card */
-+	return (gpus > 1) || (display_subsystems > 1);
-+}
-+
-+bool msm_separate_gpu_kms_components(void)
- {
--	return separate_gpu_kms;
-+	struct device_node *np;
-+
-+	np = of_find_matching_node(NULL, msm_gpu_match);
-+	if (!msm_gpu_node_present(np))
-+		return true;
-+	if (separate_gpu_kms == 1)
-+		return true;
-+	if (separate_gpu_kms == 0)
-+		return false;
-+	return msm_separate_gpu_kms_auto();
- }
- 
- static int msm_drm_uninit(struct device *dev, const struct component_ops *gpu_ops)
-@@ -1019,7 +1067,7 @@ static int add_gpu_components(struct device *dev,
- 	if (!np)
- 		return 0;
- 
--	if (of_device_is_available(np) && adreno_has_gpu(np))
-+	if (msm_gpu_node_present(np))
- 		drm_of_component_match_add(dev, matchptr, component_compare_of, np);
- 
- 	of_node_put(np);
-@@ -1030,7 +1078,7 @@ static int add_gpu_components(struct device *dev,
- static int msm_drm_bind(struct device *dev)
- {
- 	return msm_drm_init(dev,
--			    msm_gpu_no_components() ?
-+			    msm_separate_gpu_kms_components() ?
- 				    &msm_kms_driver :
- 				    &msm_driver,
- 			    NULL);
-@@ -1069,7 +1117,7 @@ int msm_drv_probe(struct device *master_dev,
- 			return ret;
- 	}
- 
--	if (!msm_gpu_no_components()) {
-+	if (!msm_separate_gpu_kms_components()) {
- 		ret = add_gpu_components(master_dev, &match);
- 		if (ret)
- 			return ret;
-diff --git a/drivers/gpu/drm/msm/msm_drv.h b/drivers/gpu/drm/msm/msm_drv.h
-index 6d847d593f1a..a977fe7b36b8 100644
---- a/drivers/gpu/drm/msm/msm_drv.h
-+++ b/drivers/gpu/drm/msm/msm_drv.h
-@@ -555,6 +555,12 @@ void msm_kms_shutdown(struct platform_device *pdev);
- 
- bool msm_disp_drv_should_bind(struct device *dev, bool dpu_driver);
- 
--bool msm_gpu_no_components(void);
-+bool msm_separate_gpu_kms_components(void);
-+
-+int msm_count_mdss(void);
-+
-+int msm_count_mdp4(void);
-+
-+int msm_count_mdp5(void);
- 
- #endif /* __MSM_DRV_H__ */
-diff --git a/drivers/gpu/drm/msm/msm_mdss.c b/drivers/gpu/drm/msm/msm_mdss.c
-index 9047e8d9ee89..4c788f2647b0 100644
---- a/drivers/gpu/drm/msm/msm_mdss.c
-+++ b/drivers/gpu/drm/msm/msm_mdss.c
-@@ -73,6 +73,21 @@ static int msm_mdss_parse_data_bus_icc_path(struct device *dev,
- 	return 0;
- }
- 
-+static const struct of_device_id mdss_dt_match[];
-+
-+int msm_count_mdss(void)
-+{
-+	struct device_node *np;
-+	int count = 0;
-+
-+	for_each_matching_node(np, mdss_dt_match) {
-+		if (of_device_is_available(np))
-+			count++;
-+	}
-+
-+	return count;
-+}
-+
- static void msm_mdss_irq(struct irq_desc *desc)
- {
- 	struct msm_mdss *msm_mdss = irq_desc_get_handler_data(desc);
-
----
-base-commit: b84a0ebe421ca56995ff78b66307667b62b3a900
-change-id: 20260316-separate_gpu_kms-04d2cf4d91e2
-
-Best regards,
--- 
-Mahadevan P <mahadevan.p@oss.qualcomm.com>
-
+Konrad
