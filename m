@@ -4,88 +4,87 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 79D131061B1A
-	for <dri-devel@archiver.kernel.org>; Mon, 30 Mar 2026 18:44:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5BB8E1061B1C
+	for <dri-devel@archiver.kernel.org>; Mon, 30 Mar 2026 18:46:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DC72F10E670;
-	Mon, 30 Mar 2026 18:44:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9F15810E627;
+	Mon, 30 Mar 2026 18:46:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=broadcom.com header.i=@broadcom.com header.b="UAsHhJUk";
+	dkim=pass (1024-bit key; unprotected) header.d=broadcom.com header.i=@broadcom.com header.b="gAxEx7hg";
 	dkim-atps=neutral
-Received: from mail-pl1-f225.google.com (mail-pl1-f225.google.com
- [209.85.214.225])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D1CB510E64B
- for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 18:44:43 +0000 (UTC)
-Received: by mail-pl1-f225.google.com with SMTP id
- d9443c01a7336-2b258576d8cso6892855ad.0
- for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 11:44:43 -0700 (PDT)
+Received: from mail-pj1-f99.google.com (mail-pj1-f99.google.com
+ [209.85.216.99])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 981D310E627
+ for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 18:46:50 +0000 (UTC)
+Received: by mail-pj1-f99.google.com with SMTP id
+ 98e67ed59e1d1-35d99031e4eso1333746a91.1
+ for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 11:46:50 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774896283; x=1775501083;
+ d=1e100.net; s=20251104; t=1774896410; x=1775501210;
  h=content-transfer-encoding:in-reply-to:autocrypt:from
  :content-language:references:cc:to:subject:user-agent:mime-version
  :date:message-id:dkim-signature:x-gm-gg:x-gm-message-state:from:to
  :cc:subject:date:message-id:reply-to;
- bh=a7bh5ixiifKbiWJ6yXLI+KwYDZ4p+qUAcuT1NVFVQLQ=;
- b=MSYVEMeUFcb393vW/D9ULEp/HMWn/Jn9xPoLoRzxgsLzsMlSV/KSvv+c3m14lvAfqS
- tlUWJxOvSa4+Gfcddb1v94WBcWOqiU4j3JgCcWQYbGWXkZEDMYxknX03u8riLz8R+z1G
- rzto2hm5LLcCXke8odjGCYSdQOhc2vfNZbX1wKhf9DAOzmkMXNUerEYAzebON2NLDVWp
- AIqc7B4zyH3j0aPGXEunN+XkiaCYCzXDCRa/7nYIB5mXgqs05Q7acAAuIMilHY4AEZSr
- 68oIblSEKOjne4EloCqMO3JnuihHAmLhhy9WO4nLNRCMRBba59OSOmiH0f+NkVoaQxDO
- At/A==
-X-Gm-Message-State: AOJu0YxHxEbVyjkdd0rhKWSY5xdufwib3v3HTQcwMByb85B9Nl8vxs/I
- MVHKovH9+TQHLykAZspUQFN9VEh6l2F5KBwSgFaKEuvuWME8gI5QBG6hmSTX6jy2tx3IlddiUFM
- TeDHav7lru16IiV9tSI2O1+K8q7bBBXJre2G53pbKLVWczGffLhX3/yXyXUnmi85COsdbaBi3Hr
- YK1BCb3+B/XmOJGBoZlwn48GxqZEIZUvQGg6QBJYIbK80pKip1rTLLUZl8xnnRz70noLLgjCf/M
- 1nQyRuJzEOPfTP1Lq811SwhYSxr
-X-Gm-Gg: ATEYQzxF6yGKgnO7vy5juvH8ZPC2UxZeZV/6ZKwcxzOfw1knPontcNC1j0q7FvYDUWN
- fLESumlXeag4t4a0uFvpBNt4Kq9Zfyz1BBERAPlUGVslBQ5gTyAsEVsZI2onwGaNOGvqiXHsAxd
- F9Gy4SBwP2biKEquqhENRc3V32KmnlXgct+SeqFNp5rQz5jJAk6fqoURQwbylr+OSgdz5lT0Mxz
- YWwE7acIDg0Q84x1h8FR+8WSaB5jhywe9yOtDK0owvDdMNUL/KGkL9uMxFK9IqrBSF325eRWMpI
- cQ0QorKSc4kp3qezbUrgoqdgoGMn6/iTSFtDvhKHD9u2l9xAkWyWqeUSyw3h11SWjiCZoxbopzW
- SrqIZ44YPV0KU2XjGNSMMAW0a5m2N9vGPpRO6GDoBvevIrUISVG/g/9Rij1Xbcj+NxK1/6M3bp7
- MwemMGnkP5GK9LvmNYkIMlHyTr2nt+VN2Yabu6ch6iOs9151dZ5QLZ1KOqqLP+HA==
-X-Received: by 2002:a17:902:f542:b0:2aa:d5e5:b136 with SMTP id
- d9443c01a7336-2b0cdd7bb09mr141221995ad.38.1774896283190; 
- Mon, 30 Mar 2026 11:44:43 -0700 (PDT)
+ bh=M1E+3WVXMJwlqaN80KkJm7QShEoP0ecOMzlPB5qaAL4=;
+ b=iRtfuz5BWi7Ff0rSQ/S3qgkEVx3ALsiMEQc+QO5PC7f8tmCXYctH2ysF0ETE1hPpoo
+ 7tfzadWDCkIZs7IgweA+F4+pDesB0aGtQPxu9Yy5RNh4S1Ft6TxoiAidM6fsJKEZIy+c
+ eL7dFaTnhsYv0Sa1R3z1II2241aPJRRFmE/FAD69uy5iVRQlQtPE0vFhOzzFAD7aqzHG
+ AxMI5hTvqP4xMGA4d4e+++6kywdrElD/IBW5zL2UGJWlVGXYUuQcY7juKJM6DFwPkFFd
+ /t6QyhcG5PzJ2t/CKT2r1nIJgaMNMeLAUm04n29r9w8aRaHZbhOzuuVN/OlhnR/9Qb8L
+ ZiwA==
+X-Gm-Message-State: AOJu0YykoPALqE6jyZ07aSxpEZYhX3flWHmB2vWW5V1GNpqtdk+Tpa+J
+ Pln4UrDvdJ8CkBeR/r8r/n/+Z6RNGBo2ywCZ0ufi9pTY+O5aEy4ufEpEYIsttD9Ak7TS1FPDU+b
+ ti8jUH7pVrT1Hd/XZXjkGWzSNnAM7as08rWu/nGHTyUtN0+6P73DI9zHup5lvjn4J2Eq5eroxY6
+ O1NbwXzs5/LxtwoQgw5HzPL2102Yf7vJKO1Uhba6dgAI0+Sev0Ldphh8h675QKDJDB2PqRnRcXK
+ 7HFHZqnqIOjJVe14xkWV/iyWzrY
+X-Gm-Gg: ATEYQzz+eaJvKac8oYbBZQMoLRzEcSn7Mp+a848eBlJg1IhqgdMGcHXSfg0vvF0zvIL
+ i1KzroMcNUuKI/0WPHY+MQ4SqK9f5iTseXUvFVhrD15k/xkKKwQE3TxSl/Du7C7YvML+9AT4OWy
+ xcgEl7wRoDNlIb+TZJTJuHd+OwiWJq6pgjBN7F0AE61WY7IhahZwv/NHpBXBOR3ujv/lRkmjW37
+ 99rrv3ycADu8kv7lfALwlC5sQ0ZxwPpsSHeY14ltTjA2ubVxNlD/GbmUYrNwpbOPyHAm+qcoWVh
+ HzMK0JNYKlrmETHPOA/rgVjCraQoA7dIs3lCYK3FMbxlJzdQJ0+oprfjiJINevLRcPHZld12h3z
+ OM3+E8B29QSKVIpEYeGRTDtOoPliLK8OVSmxwmpKLlJCoxRnFwzsWHu1KiHjPS19NNyzHKgOEcn
+ 3jsc9eLhCiICVx6naca+XytJwnalVhyDtH9DvbMB1CNAxsBWjWYYnXxRMVSMeTGQ==
+X-Received: by 2002:a17:902:da4d:b0:2ae:5eee:7a5 with SMTP id
+ d9443c01a7336-2b0cdc280d6mr119202345ad.12.1774896409968; 
+ Mon, 30 Mar 2026 11:46:49 -0700 (PDT)
 Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com
- (address-144-49-247-25.dlp.protect.broadcom.com. [144.49.247.25])
+ (address-144-49-247-15.dlp.protect.broadcom.com. [144.49.247.15])
  by smtp-relay.gmail.com with ESMTPS id
- d9443c01a7336-2b2425f5979sm9260865ad.5.2026.03.30.11.44.42
+ d9443c01a7336-2b242742a17sm9591165ad.37.2026.03.30.11.46.49
  for <dri-devel@lists.freedesktop.org>
  (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Mon, 30 Mar 2026 11:44:43 -0700 (PDT)
+ Mon, 30 Mar 2026 11:46:49 -0700 (PDT)
 X-Relaying-Domain: broadcom.com
 X-CFilter-Loop: Reflected
-Received: by mail-qt1-f200.google.com with SMTP id
- d75a77b69052e-50b4ca7e7c2so123404121cf.3
- for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 11:44:42 -0700 (PDT)
+Received: by mail-qt1-f198.google.com with SMTP id
+ d75a77b69052e-5091782ab06so248443851cf.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 11:46:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=broadcom.com; s=google; t=1774896282; x=1775501082;
+ d=broadcom.com; s=google; t=1774896408; x=1775501208;
  darn=lists.freedesktop.org; 
  h=content-transfer-encoding:in-reply-to:autocrypt:from
  :content-language:references:cc:to:subject:user-agent:mime-version
  :date:message-id:from:to:cc:subject:date:message-id:reply-to;
- bh=a7bh5ixiifKbiWJ6yXLI+KwYDZ4p+qUAcuT1NVFVQLQ=;
- b=UAsHhJUkN7wQ7AwX9dp927LDRAg0c7J9GIuuXjxz3c2osN8qMzJeqt8dxPhVJS9zQp
- ceBnPhwCAXc46tCNm27USmca10oyqNygwA2gHJ4xWxIt4cXJEJKSK+YikpmLjKRXLHj6
- T1r3z7T5vmdoICyw3GgHCh5CuH04PhESjPTqU=
-X-Received: by 2002:a05:622a:510:b0:50b:3a6d:db5d with SMTP id
- d75a77b69052e-50ba39ad465mr187299531cf.65.1774896281966; 
- Mon, 30 Mar 2026 11:44:41 -0700 (PDT)
-X-Received: by 2002:a05:622a:510:b0:50b:3a6d:db5d with SMTP id
- d75a77b69052e-50ba39ad465mr187298991cf.65.1774896281285; 
- Mon, 30 Mar 2026 11:44:41 -0700 (PDT)
+ bh=M1E+3WVXMJwlqaN80KkJm7QShEoP0ecOMzlPB5qaAL4=;
+ b=gAxEx7hgxHDNeue/hanKlX/Rh9P9S1dL5N5VmFBcBX9JmBOqQg/xIVldzmLeh5KvLC
+ x7P/VA7xYhVNuj6PmPlv4MsZGU9iJijSYYUVB5fRAk8mWFNXXFjBdAjsZeyjBRmtlCcO
+ Ks7bq7KXZbtBxHM6NbVmn5rolOxDgouw2o2bs=
+X-Received: by 2002:a05:622a:5591:b0:509:2618:cef1 with SMTP id
+ d75a77b69052e-50ba38c8f89mr180654061cf.47.1774896408056; 
+ Mon, 30 Mar 2026 11:46:48 -0700 (PDT)
+X-Received: by 2002:a05:622a:5591:b0:509:2618:cef1 with SMTP id
+ d75a77b69052e-50ba38c8f89mr180653611cf.47.1774896407577; 
+ Mon, 30 Mar 2026 11:46:47 -0700 (PDT)
 Received: from [10.67.48.245] ([192.19.223.252])
  by smtp.gmail.com with ESMTPSA id
- d75a77b69052e-50bb2c96a5asm68164441cf.10.2026.03.30.11.44.37
+ d75a77b69052e-50bb2cccbc4sm75020471cf.13.2026.03.30.11.46.45
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 30 Mar 2026 11:44:39 -0700 (PDT)
-Message-ID: <f39c38bd-edde-46f2-9b2f-2dbf22e80487@broadcom.com>
-Date: Mon, 30 Mar 2026 11:44:37 -0700
+ Mon, 30 Mar 2026 11:46:47 -0700 (PDT)
+Message-ID: <189a2bcf-88f6-4038-99f9-af11a4e27990@broadcom.com>
+Date: Mon, 30 Mar 2026 11:46:44 -0700
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 2/3] drm/v3d: Allocate all resources before enabling
- the clock
+Subject: Re: [PATCH v8 3/3] drm/v3d: Introduce Runtime Power Management
 To: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
  Stefan Wahren <wahrenst@gmx.net>, Maxime Ripard <mripard@kernel.org>,
  Melissa Wen <mwen@igalia.com>, Iago Toral Quiroga <itoral@igalia.com>,
@@ -94,7 +93,7 @@ Cc: dri-devel@lists.freedesktop.org, linux-rpi-kernel@lists.infradead.org,
  linux-arm-kernel@lists.infradead.org, Broadcom internal kernel review list
  <bcm-kernel-feedback-list@broadcom.com>, kernel-dev@igalia.com
 References: <20260328-v3d-power-management-v8-0-94336830df5f@igalia.com>
- <20260328-v3d-power-management-v8-2-94336830df5f@igalia.com>
+ <20260328-v3d-power-management-v8-3-94336830df5f@igalia.com>
 Content-Language: en-US, fr-FR
 From: Florian Fainelli <florian.fainelli@broadcom.com>
 Autocrypt: addr=florian.fainelli@broadcom.com; keydata=
@@ -129,7 +128,7 @@ Autocrypt: addr=florian.fainelli@broadcom.com; keydata=
  MIlnaE6V0U8f5zNHB7Y46yJjjYT/Ds1TJo3pvwevDWPvv6rdBeV07D9s43frUS6xYd1uFxHC
  7dZYWJjZmyUf5evr1W1gCgwLXG0PEi9n3qmz1lelQ8lSocmvxBKtMbX/OKhAfuP/iIwnTsww
  95A2SaPiQZA51NywV8OFgsN0ITl2PlZ4Tp9hHERDe6nQCsNI/Us=
-In-Reply-To: <20260328-v3d-power-management-v8-2-94336830df5f@igalia.com>
+In-Reply-To: <20260328-v3d-power-management-v8-3-94336830df5f@igalia.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
@@ -149,17 +148,35 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 On 3/28/26 11:52, Maíra Canal wrote:
-> Move all resource allocation operations before actually enabling the
-> clock, as those operations don't require the GPU to be powered on.
+> Commit 90a64adb0876 ("drm/v3d: Get rid of pm code") removed the last
+> bits of power management code that V3D had, which were actually never
+> hooked. Therefore, currently, the GPU clock is enabled during probe
+> and only disabled when removing the driver.
 > 
-> This is a preparation for runtime PM support. The next commit will
-> move all code related to powering on and initiating the GPU into the
-> runtime PM resume callback and all resource allocation will happen
-> before resume().
+> Implement proper power management using the kernel's Runtime PM
+> framework.
 > 
 > Reviewed-by: Melissa Wen <mwen@igalia.com>
 > Signed-off-by: Maíra Canal <mcanal@igalia.com>
+> ---
+[snip]
 
-Reviewed-by: Florian Fainelli <florian.fainelli@broadcom.com>
+> +static void
+> +v3d_suspend_sms(struct v3d_dev *v3d)
+> +{
+> +	if (v3d->ver < V3D_GEN_71)
+> +		return;
+> +
+> +	V3D_SMS_WRITE(V3D_SMS_TEE_CS, V3D_SMS_POWER_OFF);
+> +
+> +	if (wait_for((V3D_GET_FIELD(V3D_SMS_READ(V3D_SMS_TEE_CS),
+> +				    V3D_SMS_STATE) == V3D_SMS_POWER_OFF_STATE), 100)) {
+> +		drm_err(&v3d->drm, "Failed to power off SMS\n");
+> +	}
+
+We would certainly want to propagate any errors from wait_for() here to 
+ensure that we built appropriately timeout and get a chance at debugging.
+
+Same for v3d_resume_sms().
 -- 
 Florian
