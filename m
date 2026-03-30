@@ -4,91 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 39E85FF494F
-	for <dri-devel@archiver.kernel.org>; Mon, 30 Mar 2026 13:16:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9F225FF494F
+	for <dri-devel@archiver.kernel.org>; Mon, 30 Mar 2026 13:17:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A71FF10E739;
-	Mon, 30 Mar 2026 13:16:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0C9E510E749;
+	Mon, 30 Mar 2026 13:17:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="fIz7Al96";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="KDoSHNsw";
 	dkim-atps=neutral
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com
- [209.85.128.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1E6D210E739
- for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 13:16:31 +0000 (UTC)
-Received: by mail-wm1-f46.google.com with SMTP id
- 5b1f17b1804b1-4870206f73bso27180645e9.3
- for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 06:16:31 -0700 (PDT)
+Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com
+ [209.85.218.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5F78610E749
+ for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 13:17:01 +0000 (UTC)
+Received: by mail-ej1-f54.google.com with SMTP id
+ a640c23a62f3a-b886fc047d5so721065366b.3
+ for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 06:17:01 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1774876619; cv=none;
+ d=google.com; s=arc-20240605;
+ b=bW/t1RZIgXGTOqgCB++CncQlLzQHioL/6Li3YVgk4zR8+iOi4MxWW5eHlIFutI1RBI
+ YnXaJHjeKUIAHSusEhx8gOsNeHlhajNp2yOKlaRtuS1yNbljQc+1K9Nd12A4bddo8WMU
+ +uC0I8vwAD31pYD9j20gJ4sLANUUi2dfFUuxvLs+iiFZh5H1H3JHz8FHseovrJ586AAK
+ Iz+hp+OiVbwxk44wPcm1jlfi1L9pz3HyZ53tWhHah1L5WKAV7dk8J+iqej+KAZuccuL9
+ UlegTYrCsoG3lJFyDfe6zw4nrOKXQx2D4eSdT/B6mVXQhdR8rny/wWo6quFOfpif0u9q
+ PXYw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:dkim-signature;
+ bh=4kSohZ0qIM3gfjNS010B7woW8lEyiEA79TeyzEn0128=;
+ fh=0mx+UyH3LFEtXExcfzwpsJyquziRn0x1lQsMrkct25Y=;
+ b=MxoN4JrwiIFwOsk/GWvKIu4Z/4wdsNX8JwFPHSKutbpU3zUWVYc+ImXKoYw3yxfrbO
+ jfYjiB8PrQg8O0KAd6mRSWEtmQV9UoUC4W6yF3hLugjEQ0NbVcL9KMGbj/Hvu1yJNhWO
+ Wy8lxOgiFDoMWm9eK0lTOq6hEAZleywt8sgOBTxmRWb/GRkB6fffJodGm+JFjEbp770s
+ SA6Q1/uBzZk4AiJ90E/r+bFZ0eLyesXANlyzhCsOlQn1kzS+HGTdqXnzk9xADYdcCcY9
+ UtKiipNcyoV7+gDFXxmycOxjMkUmpyF9wjdfn4svWGfx2g+oUP1FDqi4/Z9XCVt6xYPF
+ Mx+w==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1774876589; x=1775481389; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=a1C10NA1cQG8ePlBzaiPYyKeha1tOz/zSCaYB7MJP6w=;
- b=fIz7Al96nJmqtovj7LhL+Jr+9QW8NiyhKBI6GqEJyO7rshjyr4s8TNBMhjGTKq9rEq
- ly3k/4acIKuz+zKOJIMsDfNoI3o23S9Uwqxy3jWhzTDmLVQKsx6xy7phEtXRB8k0iX5r
- p07BIjw7npTPHKTHBKGdLW1ghFF+umddFoTFnBjtnXbHKNIWZwi+558DST5c/vQNHVl+
- wUVVTMW1H+fAUrm0pmWc7RhdubIn1bHiRTJqLrdqny38GPSjA2CiC+mZG76KfrRRz1G1
- wdqGv15U7itYA/XKDBLWV1eB+A2y2M/mWqlDqg/GSBzDlo8q5IEyJbko3PPNCVbRX3l5
- 3I+g==
+ d=gmail.com; s=20251104; t=1774876619; x=1775481419; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=4kSohZ0qIM3gfjNS010B7woW8lEyiEA79TeyzEn0128=;
+ b=KDoSHNswugXxekgAMFRiJJKD6EDSFAfRPTJ9/6lwFxqSUtA4igKJmo7IUci7Mny3yq
+ Z+KyU2obVqHjWrhPZ4Ur8xL+rcdspMtQziNxeszgBhbxyQvqaIsXo33ZrGgT+EEyy6hM
+ sfm+vtqrzQTYXSr2CI8n2nqn+ditOUPT6bMNva6hMIkx/TYnGqVqeTaKY2TYLqXx07ST
+ kvtZsQWTtB50RxTW+HGDOzAPhKDUmQvuAvIMsfoHuDImRBOG6aVt947JpVHbpyYP5OgK
+ cjJfzFPS5WCWO1FfQrWGP4muWu7/a5c1pY4LPYS4CWVXtaRd4IFA2KIv20O9e3YJHSW1
+ ftFQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774876589; x=1775481389;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=a1C10NA1cQG8ePlBzaiPYyKeha1tOz/zSCaYB7MJP6w=;
- b=i7D0740FKoh6Aqq6NXPwDwaJADkeneTZckHoKkPCaWLiy9uaqNmVWyPaRLl3u0E4kR
- 1w0r2SA4EAa8+8mNRWW2eRTvD+mi9Ig8V0Ad6ffx9B44sf5xJZIi1geCXAdXf8nc4Nau
- 6c6B+szl11ARRpK15WgOF/cnDfwemzKgRGDbJiECM2wZqkZzazzluz+Cpe/ZI3J7NZ8n
- Xwgx+OL/XhpVdRb/qh4P8AkCWVU2n7VbPru4jaOudx7mJD9CLEx6E8uYB1oHxf6qsdkp
- tyuD2EyhQTIG1TUUuVV138W2vBUQG4+sBEb1BZAXe2NlNMZQnW9hJ2nZEeIWAQpc47rr
- +esQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVyokLfuOeVH9oHT2W4JPJwwhdbgQcxeTaFbwMt4FGyHnx94ghwjfjgg+v8A6MhWcl/8wb30Z+J+bo=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxFb4jMTyV29Ya+eshTtiNKy/HDtBKU8qOGESY2HpoqGssISbiD
- c2l1J4iLprY4MJ/7afSHBw3VMOE/BtECzJ8yZOhC4KapNzlDvKBJQyJZ
-X-Gm-Gg: ATEYQzxsv3dTVTEW1e1xoawnZQ1/2tjJ+sBjXZuoAF0rRbQtHvESMc+N27l3vCXufVp
- gZ58bnxApuJA0HNmTBdNg8EfWgYTtK73ebrPoF39znEP7mQ/sesljoInPkWKocLxv2PKfO0tGqb
- xt+YvFT6LlWVgcJSdflYe+MLU6WziUUysAS40562DYHVMBT+/AFoct+McYyK5fB5bHuIMLVvFt3
- 3HrpB/M128d+H5J662qFOb7YxQ9fdJjfYQyu+jn2+gTqCRLJOxpECjJGir796RMkUNX9vr5ZRuF
- CdwBTYxNQyEKFCvJ9/7qTLIcBiJDPRz7Q3agUdg13XBtNlq4da0c0PggfhY8U1k2l/SQUXGwTE4
- CDktnmFEIVPOTWlKGbgQSJNf1pxzd/c91dzrOmRAoK/eTcfaHqnTYXDx1HKpgoHQTB4NhUmwD8o
- /IxcC9Lqby8upQ/Kz7T0GWMxRW3dP7mWRjZ/9h3uCdcDdnk3U8oWTfsbIVlRG98SNjAPevc3qf
-X-Received: by 2002:a05:600c:1393:b0:485:3c8f:e4d9 with SMTP id
- 5b1f17b1804b1-487280a09a2mr210977455e9.26.1774876589201; 
- Mon, 30 Mar 2026 06:16:29 -0700 (PDT)
-Received: from timur-hyperion.localnet (5E1BC26F.dsl.pool.telekom.hu.
- [94.27.194.111]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4872718dfdfsm78504085e9.30.2026.03.30.06.16.27
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 30 Mar 2026 06:16:28 -0700 (PDT)
-From: Timur =?UTF-8?B?S3Jpc3TDs2Y=?= <timur.kristof@gmail.com>
-To: stable@vger.kernel.org, Rosen Penev <rosenp@gmail.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@linux.ie>,
- Daniel Vetter <daniel@ffwll.ch>, Harry Wentland <harry.wentland@amd.com>,
- Leo Li <sunpeng.li@amd.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Bin Lan <bin.lan.cn@windriver.com>, He Zhe <zhe.he@windriver.com>,
- Vitaly Prosyak <vitaly.prosyak@amd.com>, Alex Hung <alex.hung@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Mario Limonciello <Mario.Limonciello@amd.com>, Ray Wu <ray.wu@amd.com>,
- Wayne Lin <wayne.lin@amd.com>, Roman Li <Roman.Li@amd.com>,
- Eric Yang <Eric.Yang2@amd.com>, Tony Cheng <Tony.Cheng@amd.com>,
- Mauro Rossi <issor.oruam@gmail.com>,
- "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>,
- "open list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>,
- open list <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH for 6.12 3/9] drm/amd/display: Disable fastboot on DCE 6
- too
-Date: Mon, 30 Mar 2026 15:16:26 +0200
-Message-ID: <2312151.9o76ZdvQCi@timur-hyperion>
-In-Reply-To: <20260326234716.16723-4-rosenp@gmail.com>
-References: <20260326234716.16723-1-rosenp@gmail.com>
- <20260326234716.16723-4-rosenp@gmail.com>
+ d=1e100.net; s=20251104; t=1774876619; x=1775481419;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=4kSohZ0qIM3gfjNS010B7woW8lEyiEA79TeyzEn0128=;
+ b=GuAIZ9/mlsTT0PfAwaT8qg/CD91xOktObXA9ijOaaIqTCJehETtC4FEj5WA4k0nrI6
+ jrMKDABgwTadV/J2/Sgu30AXwOTlmKBGlk0Mx245ULutOwrqjTcCWu37kTyIH6K43cah
+ VZEwFC0dTZCrV74dsAm0IoB7IC56ap0/Jlc3dFfOFZ+a5CUKx7y7A8sVJJHpBoon1j7D
+ drGRxnPq2/BWwE++xYXIcT5bsjB3Xtk2pPhQov4lgXmlp5E17M0QQAEYICMUnOb8ziZw
+ 9GE4+S9J04lVpTgzFlDg2S06cZOHHr3Plot6AkSVwR7VkqEfZqix9MoFvTsCgLRwxREO
+ 6ylA==
+X-Gm-Message-State: AOJu0YzPBYfo5XoBKLDv+OEu9ijf2Ltw7TALdBwUHZUDDJaz/lc/NArl
+ MAJPZ+Be+fuGBiVZYn9tR4ATGLXx+p7SGGFgPRkCraCulveqtbB81Zq46nhtdtCiDznlqxICoys
+ g4T3FsNCsuCMOhm09jzvyRZLUKhBW4rpfaA==
+X-Gm-Gg: ATEYQzycoKv4Lab+81E4hyMZEKg7ce63dQGerpUcdFwLxgNOithCSc5Wq/GhCkuDvgK
+ 0kkGeJwbeF8ac/0a0QlQunf8/8hFmCblU/LlJyv7ZOzyQa3EISUTK4uzDTj+4s9BHw5qEOQhwTR
+ +5nqFfBdL1uPgSjHC40b1BD5GlpKlIwUmSEuDWmfQUEjPFWHSE3ha6MQt+AjJyOGk5NTfbstR+B
+ 8xx+4muFyKpaiVAIHe/mMW26ROL6+qjnUFDdpoNGy9ZSKe1Nx5XwHlj/dbdNwh1TOwArAScHRm8
+ Gu1c0MO98HUYS0Jbia4CzGCDHpdU4nXKwR1JOZxc
+X-Received: by 2002:a17:907:960b:b0:b98:4186:d2a8 with SMTP id
+ a640c23a62f3a-b9b5017581bmr686055666b.12.1774876619270; Mon, 30 Mar 2026
+ 06:16:59 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
+References: <20260113091440.43735-1-avinal.xlvii@gmail.com>
+ <20260113091440.43735-3-avinal.xlvii@gmail.com>
+In-Reply-To: <20260113091440.43735-3-avinal.xlvii@gmail.com>
+From: Avinal Kumar <avinal.xlvii@gmail.com>
+Date: Mon, 30 Mar 2026 18:46:46 +0530
+X-Gm-Features: AQROBzA1ws1xhxT1FEAnPgPwiFgqO5McFS6gX6h1HzslqpGw98XQUjwEqsVrH7w
+Message-ID: <CAJ9xu4wLmihoA75TJvG14+=K6Z2dY-fSrCEKm3raKCaeZmMYvQ@mail.gmail.com>
+Subject: Re: [PATCH v3 2/2] drm/panel: panasonic-vvx10f034n00: transition to
+ mipi_dsi wrapped functions
+To: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ neil.armstrong@linaro.org
+Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ airlied@gmail.com, simona@ffwll.ch
+Content-Type: multipart/alternative; boundary="000000000000696d7c064e3daa04"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,57 +104,130 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Friday, March 27, 2026 12:47:10=E2=80=AFAM Central European Summer Time =
-Rosen Penev=20
-wrote:
-> From: Timur Krist=C3=B3f <timur.kristof@gmail.com>
->=20
-> [ Upstream commit 7495962cbceb967e095233a5673ea71f3bcdee7e ]
->=20
-> It already didn't work on DCE 8,
-> so there is no reason to assume it would on DCE 6.
->=20
-> Signed-off-by: Timur Krist=C3=B3f <timur.kristof@gmail.com>
-> Reviewed-by: Rodrigo Siqueira <siqueira@igalia.com>
-> Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-> Reviewed-by: Alex Hung <alex.hung@amd.com>
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> Signed-off-by: Rosen Penev <rosenp@gmail.com>
+--000000000000696d7c064e3daa04
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-This patch is incorrect and should not be backported.
+Hello Neil,
 
-(Note that the error is already fixed upstream. For stable kernels IMO it's=
-=20
-best to drop this one.)
+Just checking if anything is remaining here?
 
+Thanks,
+Avinal
+
+On Tue, Jan 13, 2026 at 2:45=E2=80=AFPM Avinal Kumar <avinal.xlvii@gmail.co=
+m> wrote:
+
+> Changes the panasonic-vvx10f034n00 panel to multi
+> style functions for improved error handling.
+>
+> Signed-off-by: Avinal Kumar <avinal.xlvii@gmail.com>
 > ---
->  drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c | 6 ++----
->  1 file changed, 2 insertions(+), 4 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
-> b/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c index
-> df69e0cebf78..7dc99c85b8ea 100644
-> --- a/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
-> +++ b/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
-> @@ -1910,10 +1910,8 @@ void dce110_enable_accelerated_mode(struct dc *dc,
-> struct dc_state *context)
->=20
->  	get_edp_streams(context, edp_streams, &edp_stream_num);
->=20
-> -	// Check fastboot support, disable on DCE8 because of blank=20
-screens
-> -	if (edp_num && edp_stream_num && dc->ctx->dce_version !=3D=20
-DCE_VERSION_8_0
-> && -		    dc->ctx->dce_version !=3D DCE_VERSION_8_1 &&
-> -		    dc->ctx->dce_version !=3D DCE_VERSION_8_3) {
-> +	/* Check fastboot support, disable on DCE 6-8 because of blank=20
-screens */
-> +	if (edp_num && edp_stream_num && dc->ctx->dce_version <=20
-DCE_VERSION_10_0)
-> { for (i =3D 0; i < edp_num; i++) {
->  			edp_link =3D edp_links[i];
->  			if (edp_link !=3D edp_streams[0]->link)
+>  .../gpu/drm/panel/panel-panasonic-vvx10f034n00.c   | 14 ++++++++++++--
+>  1 file changed, 12 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/panel/panel-panasonic-vvx10f034n00.c
+> b/drivers/gpu/drm/panel/panel-panasonic-vvx10f034n00.c
+> index 3c3308fc55df..73c5827a15a4 100644
+> --- a/drivers/gpu/drm/panel/panel-panasonic-vvx10f034n00.c
+> +++ b/drivers/gpu/drm/panel/panel-panasonic-vvx10f034n00.c
+> @@ -44,14 +44,24 @@ static inline struct wuxga_nt_panel
+> *to_wuxga_nt_panel(struct drm_panel *panel)
+>
+>  static int wuxga_nt_panel_on(struct wuxga_nt_panel *wuxga_nt)
+>  {
+> -       return mipi_dsi_turn_on_peripheral(wuxga_nt->dsi);
+> +       struct mipi_dsi_multi_context dsi_ctx =3D {
+> +               .dsi =3D wuxga_nt->dsi
+> +       };
+> +
+> +       mipi_dsi_turn_on_peripheral_multi(&dsi_ctx);
+> +       return dsi_ctx.accum_err;
+>  }
+>
+>  static int wuxga_nt_panel_disable(struct drm_panel *panel)
+>  {
+>         struct wuxga_nt_panel *wuxga_nt =3D to_wuxga_nt_panel(panel);
+>
+> -       return mipi_dsi_shutdown_peripheral(wuxga_nt->dsi);
+> +       struct mipi_dsi_multi_context dsi_ctx =3D {
+> +               .dsi =3D wuxga_nt->dsi
+> +       };
+> +
+> +       mipi_dsi_shutdown_peripheral_multi(&dsi_ctx);
+> +       return dsi_ctx.accum_err;
+>  }
+>
+>  static int wuxga_nt_panel_unprepare(struct drm_panel *panel)
+> --
+> 2.52.0
+>
+>
 
+--000000000000696d7c064e3daa04
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+<div dir=3D"ltr"><div>Hello Neil,<br><br></div><div>Just checking if anythi=
+ng is remaining here?</div><div><br></div><div>Thanks,</div><div>Avinal</di=
+v></div><br><div class=3D"gmail_quote gmail_quote_container"><div dir=3D"lt=
+r" class=3D"gmail_attr">On Tue, Jan 13, 2026 at 2:45=E2=80=AFPM Avinal Kuma=
+r &lt;<a href=3D"mailto:avinal.xlvii@gmail.com">avinal.xlvii@gmail.com</a>&=
+gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0=
+px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">Chang=
+es the panasonic-vvx10f034n00 panel to multi<br>
+style functions for improved error handling.<br>
+<br>
+Signed-off-by: Avinal Kumar &lt;<a href=3D"mailto:avinal.xlvii@gmail.com" t=
+arget=3D"_blank">avinal.xlvii@gmail.com</a>&gt;<br>
+---<br>
+=C2=A0.../gpu/drm/panel/panel-panasonic-vvx10f034n00.c=C2=A0 =C2=A0| 14 +++=
++++++++++--<br>
+=C2=A01 file changed, 12 insertions(+), 2 deletions(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/panel/panel-panasonic-vvx10f034n00.c b/drivers=
+/gpu/drm/panel/panel-panasonic-vvx10f034n00.c<br>
+index 3c3308fc55df..73c5827a15a4 100644<br>
+--- a/drivers/gpu/drm/panel/panel-panasonic-vvx10f034n00.c<br>
++++ b/drivers/gpu/drm/panel/panel-panasonic-vvx10f034n00.c<br>
+@@ -44,14 +44,24 @@ static inline struct wuxga_nt_panel *to_wuxga_nt_panel(=
+struct drm_panel *panel)<br>
+<br>
+=C2=A0static int wuxga_nt_panel_on(struct wuxga_nt_panel *wuxga_nt)<br>
+=C2=A0{<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0return mipi_dsi_turn_on_peripheral(wuxga_nt-&gt=
+;dsi);<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0struct mipi_dsi_multi_context dsi_ctx =3D {<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0.dsi =3D wuxga_nt-&=
+gt;dsi<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0};<br>
++<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0mipi_dsi_turn_on_peripheral_multi(&amp;dsi_ctx)=
+;<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0return dsi_ctx.accum_err;<br>
+=C2=A0}<br>
+<br>
+=C2=A0static int wuxga_nt_panel_disable(struct drm_panel *panel)<br>
+=C2=A0{<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 struct wuxga_nt_panel *wuxga_nt =3D to_wuxga_nt=
+_panel(panel);<br>
+<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0return mipi_dsi_shutdown_peripheral(wuxga_nt-&g=
+t;dsi);<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0struct mipi_dsi_multi_context dsi_ctx =3D {<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0.dsi =3D wuxga_nt-&=
+gt;dsi<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0};<br>
++<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0mipi_dsi_shutdown_peripheral_multi(&amp;dsi_ctx=
+);<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0return dsi_ctx.accum_err;<br>
+=C2=A0}<br>
+<br>
+=C2=A0static int wuxga_nt_panel_unprepare(struct drm_panel *panel)<br>
+-- <br>
+2.52.0<br>
+<br>
+</blockquote></div>
 
-
+--000000000000696d7c064e3daa04--
