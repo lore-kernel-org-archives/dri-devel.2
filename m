@@ -4,62 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0DBCBFC981D
-	for <dri-devel@archiver.kernel.org>; Mon, 30 Mar 2026 08:52:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AAE4FFC981D
+	for <dri-devel@archiver.kernel.org>; Mon, 30 Mar 2026 08:59:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 57DAD10E47F;
-	Mon, 30 Mar 2026 08:51:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1AAA710E4EA;
+	Mon, 30 Mar 2026 08:59:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="JP5ZWOls";
+	dkim=pass (1024-bit key; unprotected) header.d=samsung.com header.i=@samsung.com header.b="Mbuozpvj";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 59E5210E47F
- for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 08:51:58 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 277FF43C8D
- for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 08:51:58 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 0891FC2BCB2
- for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 08:51:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1774860718;
- bh=HMzWJWb1cz3GZgkuKIMlVdGMlEM1BjSp6sennuuxG8k=;
- h=From:To:Subject:Date:In-Reply-To:References:From;
- b=JP5ZWOlssCmPkCOQBIYt+lWmnCCgalrAXKTm4kmSgQpC34jnwz5PKquElNHQdQkss
- 7LT6B+qouUhbCb9UAuBLCiwWnX5BfKKywqmbojQzKpyZnXxatuN2YmP2NhykYP7AgZ
- IyW3GF6T86VsLswF9KADJ3YbQVW7U31/g2Vt1+Grt0gIZFPjl1mdtI+6I3prOTZQbG
- Jp9BY82Fya+g2WnjMYqKSneTeSOwYEaZBid5+EgODKMbTEc0xszF1DR1kwnDlwmVo1
- +BAPBH/hi15GdSDSf/dVb0xHXjUhr3sHC5rlkysoLgS9hGuD0V5h2WSYYWQRwf8wx4
- ue0V+wgXVQNMQ==
-Received: by aws-us-west-2-korg-bugzilla-1.web.codeaurora.org (Postfix,
- from userid 48) id EE5D3C41613; Mon, 30 Mar 2026 08:51:57 +0000 (UTC)
-From: bugzilla-daemon@kernel.org
-To: dri-devel@lists.freedesktop.org
-Subject: [Bug 221297] AMDGPU SMU driver interface version mismatch on R9700 -
- fan control broken under load
-Date: Mon, 30 Mar 2026 08:51:57 +0000
-X-Bugzilla-Reason: None
-X-Bugzilla-Type: changed
-X-Bugzilla-Watch-Reason: AssignedTo drivers_video-dri@kernel-bugs.osdl.org
-X-Bugzilla-Product: Drivers
-X-Bugzilla-Component: Video(DRI - non Intel)
-X-Bugzilla-Version: 2.5
-X-Bugzilla-Keywords: 
-X-Bugzilla-Severity: normal
-X-Bugzilla-Who: aros@gmx.com
-X-Bugzilla-Status: RESOLVED
-X-Bugzilla-Resolution: ANSWERED
-X-Bugzilla-Priority: P3
-X-Bugzilla-Assigned-To: drivers_video-dri@kernel-bugs.osdl.org
-X-Bugzilla-Flags: 
-X-Bugzilla-Changed-Fields: bug_status resolution
-Message-ID: <bug-221297-2300-GUWrjzGpam@https.bugzilla.kernel.org/>
-In-Reply-To: <bug-221297-2300@https.bugzilla.kernel.org/>
-References: <bug-221297-2300@https.bugzilla.kernel.org/>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Bugzilla-URL: https://bugzilla.kernel.org/
-Auto-Submitted: auto-generated
+Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com
+ [210.118.77.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 939B310E4EA
+ for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 08:59:52 +0000 (UTC)
+Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
+ by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id
+ 20260330085950euoutp01ccd1fdc37fdbd09acf145935c60d43d7~hktl0-pDf1195611956euoutp01d
+ for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 08:59:50 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com
+ 20260330085950euoutp01ccd1fdc37fdbd09acf145935c60d43d7~hktl0-pDf1195611956euoutp01d
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+ s=mail20170921; t=1774861190;
+ bh=cYvbV9vmk6ZuLyfnM/KH4B2QOnv37WDoJ8hEc+JQuDg=;
+ h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
+ b=MbuozpvjXWHXgzgjWuHC+ySMxMXxaTWV7Sd/Tq080KossBGSyJjExqCDgMFiG8JfX
+ eL7VwSyau7cyhIx+lHAGVCbHfb5M06r5oiWHa5is7xp0/GV1SYevmTcaYkhB97c0gx
+ fO581/KMGXd2xcbkYqkiT3PAfMOe7O9FoBaEsFs0=
+Received: from eusmtip2.samsung.com (unknown [203.254.199.222]) by
+ eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
+ 20260330085950eucas1p1f94b35200e0ca2471baa85be6b85512f~hktlSraz10257402574eucas1p1P;
+ Mon, 30 Mar 2026 08:59:50 +0000 (GMT)
+Received: from [106.210.134.192] (unknown [106.210.134.192]) by
+ eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
+ 20260330085949eusmtip2f8fb615228f6bf437e97b25c4fd14566~hktknbyTA1554315543eusmtip2h;
+ Mon, 30 Mar 2026 08:59:49 +0000 (GMT)
+Message-ID: <62b9e47c-1c31-4654-8347-16516faf73f0@samsung.com>
+Date: Mon, 30 Mar 2026 10:59:48 +0200
 MIME-Version: 1.0
+User-Agent: Betterbird (Windows)
+Subject: Re: [PATCH] dma/contiguous: Fix broken build
+To: Maxime Ripard <mripard@kernel.org>, Sumit Semwal
+ <sumit.semwal@linaro.org>, Benjamin Gaignard
+ <benjamin.gaignard@collabora.com>, Brian Starkey <Brian.Starkey@arm.com>,
+ John Stultz <jstultz@google.com>, "T.J. Mercier" <tjmercier@google.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, Robin Murphy
+ <robin.murphy@arm.com>, Albert Esteve <aesteve@redhat.com>
+Cc: linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+ iommu@lists.linux.dev, Mark Brown <broonie@kernel.org>
+Content-Language: en-US
+From: Marek Szyprowski <m.szyprowski@samsung.com>
+In-Reply-To: <20260330-dma-build-fix-v1-1-748b64f0d8af@kernel.org>
+Content-Transfer-Encoding: 8bit
+X-CMS-MailID: 20260330085950eucas1p1f94b35200e0ca2471baa85be6b85512f
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-RootMTR: 20260330084111eucas1p1e7cd5c886e34d0ed41226fe524d2a55a
+X-EPHeader: CA
+X-CMS-RootMailID: 20260330084111eucas1p1e7cd5c886e34d0ed41226fe524d2a55a
+References: <CGME20260330084111eucas1p1e7cd5c886e34d0ed41226fe524d2a55a@eucas1p1.samsung.com>
+ <20260330-dma-build-fix-v1-1-748b64f0d8af@kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,24 +78,110 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-https://bugzilla.kernel.org/show_bug.cgi?id=3D221297
+On 30.03.2026 10:40, Maxime Ripard wrote:
+> Commit 3a236f6a5cf2 ("dma: contiguous: Turn heap registration logic
+> around") didn't remove one last call to dma_heap_cma_register_heap()
+> that it removed, thus breaking the build.
+>
+> That last call is in dma_contiguous_reserve(), to handle the
+> registration of the default CMA region heap instance if it's declared in
+> the device tree.
+>
+> However, the default CMA region instance is already handled by
+> retrieving it through dev_get_cma_area() in the CMA heap driver, so the
+> call to dma_heap_cma_register_heap() wasn't actually needed.
+>
+> Let's remove this call, the now unused function definition, its now
+> empty header, and all includes of this header.
+>
+> Fixes: 3a236f6a5cf2 ("dma: contiguous: Turn heap registration logic around")
+> Reported-by: Mark Brown <broonie@kernel.org>
+> Closes: https://lore.kernel.org/linux-next/acbjaDJ1a-YQC64d@sirena.co.uk/
+> Signed-off-by: Maxime Ripard <mripard@kernel.org>
+> ---
+>  drivers/dma-buf/heaps/cma_heap.c  |  1 -
+>  include/linux/dma-buf/heaps/cma.h | 16 ----------------
+>  kernel/dma/contiguous.c           |  5 -----
+>  3 files changed, 22 deletions(-)
+>
+> diff --git a/drivers/dma-buf/heaps/cma_heap.c b/drivers/dma-buf/heaps/cma_heap.c
+> index f8a3d87f3ccee9630383ba28502eb40b10671cc2..cc517ac68a0bec0788abcb338c03f530d169013b 100644
+> --- a/drivers/dma-buf/heaps/cma_heap.c
+> +++ b/drivers/dma-buf/heaps/cma_heap.c
+> @@ -12,11 +12,10 @@
+>  
+>  #define pr_fmt(fmt) "cma_heap: " fmt
+>  
+>  #include <linux/cma.h>
+>  #include <linux/dma-buf.h>
+> -#include <linux/dma-buf/heaps/cma.h>
+>  #include <linux/dma-heap.h>
+>  #include <linux/dma-map-ops.h>
+>  #include <linux/err.h>
+>  #include <linux/highmem.h>
+>  #include <linux/io.h>
+> diff --git a/include/linux/dma-buf/heaps/cma.h b/include/linux/dma-buf/heaps/cma.h
+> deleted file mode 100644
+> index e751479e21e703e24a5f799b4a7fc8bd0df3c1c4..0000000000000000000000000000000000000000
+> --- a/include/linux/dma-buf/heaps/cma.h
+> +++ /dev/null
+> @@ -1,16 +0,0 @@
+> -/* SPDX-License-Identifier: GPL-2.0 */
+> -#ifndef DMA_BUF_HEAP_CMA_H_
+> -#define DMA_BUF_HEAP_CMA_H_
+> -
+> -struct cma;
+> -
+> -#ifdef CONFIG_DMABUF_HEAPS_CMA
+> -int dma_heap_cma_register_heap(struct cma *cma);
+> -#else
+> -static inline int dma_heap_cma_register_heap(struct cma *cma)
+> -{
+> -	return 0;
+> -}
+> -#endif // CONFIG_DMABUF_HEAPS_CMA
+> -
+> -#endif // DMA_BUF_HEAP_CMA_H_
+> diff --git a/kernel/dma/contiguous.c b/kernel/dma/contiguous.c
+> index ad50512d71d3088a73e4b1ac02d6e6122374888e..9fe001c712339f8388d3f40cca3dfff3f707fcbf 100644
+> --- a/kernel/dma/contiguous.c
+> +++ b/kernel/dma/contiguous.c
+> @@ -40,11 +40,10 @@
+>  #include <asm/page.h>
+>  
+>  #include <linux/memblock.h>
+>  #include <linux/err.h>
+>  #include <linux/sizes.h>
+> -#include <linux/dma-buf/heaps/cma.h>
+>  #include <linux/dma-map-ops.h>
+>  #include <linux/cma.h>
+>  #include <linux/nospec.h>
+>  
+>  #ifdef CONFIG_CMA_SIZE_MBYTES
+> @@ -270,14 +269,10 @@ void __init dma_contiguous_reserve(phys_addr_t limit)
+>  						  selected_limit,
+>  						  &dma_contiguous_default_area,
+>  						  fixed);
+>  		if (ret)
+>  			return;
+> -
+> -		ret = dma_heap_cma_register_heap(dma_contiguous_default_area);
+> -		if (ret)
+> -			pr_warn("Couldn't register default CMA heap.");
+After this change no dma-buf heap for the default CMA area is created if it has 
+not been specified in device-tree. This might be especially a problem for the
+non-dt systems.
 
-Artem S. Tashkinov (aros@gmx.com) changed:
 
-           What    |Removed                     |Added
-----------------------------------------------------------------------------
-             Status|NEW                         |RESOLVED
-         Resolution|---                         |ANSWERED
+>  	}
+>  }
+>  
+>  void __weak
+>  dma_contiguous_early_fixup(phys_addr_t base, unsigned long size)
+>
+>
+Best regards
+-- 
+Marek Szyprowski, PhD
+Samsung R&D Institute Poland
 
---- Comment #1 from Artem S. Tashkinov (aros@gmx.com) ---
-Report here after installing the latest firmware and testing kernels 6.18.2=
-0 or
-6.19.10:
-
-https://gitlab.freedesktop.org/drm/amd/-/issues
-
---=20
-You may reply to this email to add a comment.
-
-You are receiving this mail because:
-You are watching the assignee of the bug.=
