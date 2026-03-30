@@ -4,86 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CA9E71061B1A
-	for <dri-devel@archiver.kernel.org>; Mon, 30 Mar 2026 19:28:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 32B041061B1F
+	for <dri-devel@archiver.kernel.org>; Mon, 30 Mar 2026 19:38:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3B6F810E7BC;
-	Mon, 30 Mar 2026 19:28:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 870CF10E681;
+	Mon, 30 Mar 2026 19:38:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="oUJWw+sn";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="GmDrrGBO";
 	dkim-atps=neutral
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9AD4F10E7BC
- for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 19:28:22 +0000 (UTC)
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-04.galae.net (Postfix) with ESMTPS id 6286DC4042D;
- Mon, 30 Mar 2026 19:28:51 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 2B5685FFA8;
- Mon, 30 Mar 2026 19:28:21 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id D985E10450A1D; 
- Mon, 30 Mar 2026 21:28:08 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1774898898; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding:in-reply-to:references;
- bh=RWUsNAX4qkcAdj0Wcj9Oo2se6gzwrm1zu3SjMpebEPg=;
- b=oUJWw+snQiJK02OPuQbuHCk6voqfaJP4n5+P7ls65RFfDHnsX2qLyzuuWtQtOZpB2d8Ju2
- /Ql5QOLjabiVDAJsEshL8Rx1jn0a9fEKfk558xZkRHYFjnmqluA6pP7pTYbvRByv/7KgPF
- qPPd2c2Aptn8+8W2XDOalCkM5rLwHIFbLkHHMZQq066fyk2yZ6aREg12OPszPsII5wkk/c
- 3ZKS4bQiXN0ix65glAXmXA4TlR1ZKO4pn3beZ17TMH3k7qCbSNdZZKqprWad0MTHo4Kdkm
- cCuXPz6SezX9ubQncm6HLiFQKMQK6wMfkfN/F/sHH/aJrnaM0jDU02rO0RlELA==
-From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Date: Mon, 30 Mar 2026 21:25:51 +0200
-Subject: [PATCH v2 10/10] drm/mxsfb/lcdif: use
- DRM_BRIDGE_ATTACH_NO_CONNECTOR and the bridge-connector
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 53C2710E64B;
+ Mon, 30 Mar 2026 19:38:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1774899493; x=1806435493;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=DcqEoJ7zbucSYNLWuBYakMbn63CgnCLSY/qxrKxZYJo=;
+ b=GmDrrGBOy7h/YNXWSW7bsM7dJYCmnKPrj76rea1Eeurh2j2Mu4hk80NE
+ yzFXoe7kjz+OLeFPJuTkHxh52i7RaxevqoCKiTIGpKzYpRxY+KMQex/gi
+ oBL8RQ8RP7m6j7pxif36Nh8uenf5CDb2t54GolSkKAUnLu64evEadCbcD
+ bmWXm3VR+fEbfoORI3KH57qVvbo/BPNfzmhM9zxi4nfayW/q3v0ayfqTe
+ gv7UlU0NawYDT3+Xd5I+LY/7aBhUpqbhAQ3/XppkYHSLDDEH3OkYjg/9j
+ NvmlxWgmkMldsfq/hL38fgBMWZz2lCuVcqHPldyYX/IWKmIwcu9O7CzUP A==;
+X-CSE-ConnectionGUID: XT/A+jZkSOOoXHGkzhMHag==
+X-CSE-MsgGUID: xwSrb/uQTkCoGnFvL1x09g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11744"; a="98512516"
+X-IronPort-AV: E=Sophos;i="6.23,150,1770624000"; d="scan'208";a="98512516"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+ by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Mar 2026 12:38:13 -0700
+X-CSE-ConnectionGUID: fC3nYYvnTm2dHXI2BtNY/w==
+X-CSE-MsgGUID: Nzs239/rQfShtQ2+/73V+w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,150,1770624000"; d="scan'208";a="231075077"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost)
+ ([10.245.245.155])
+ by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Mar 2026 12:38:11 -0700
+Date: Mon, 30 Mar 2026 22:38:07 +0300
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, jouni.hogander@intel.com,
+ animesh.manna@intel.com
+Subject: Re: [PATCH 18/19] drm/i915/dp: Split AS SDP computation between
+ compute_config and compute_config_late
+Message-ID: <acrRH1MxM18YAOrn@intel.com>
+References: <20260330040656.4116502-1-ankit.k.nautiyal@intel.com>
+ <20260330040656.4116502-19-ankit.k.nautiyal@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260330-drm-lcdif-dbanc-v2-10-c7f2af536a24@bootlin.com>
-References: <20260330-drm-lcdif-dbanc-v2-0-c7f2af536a24@bootlin.com>
-In-Reply-To: <20260330-drm-lcdif-dbanc-v2-0-c7f2af536a24@bootlin.com>
-To: Marek Vasut <marex@denx.de>, Stefan Agner <stefan@agner.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Liu Ying <victor.liu@nxp.com>, Rob Herring <robh@kernel.org>, 
- Saravana Kannan <saravanak@kernel.org>
-Cc: Damon Ding <damon.ding@rock-chips.com>, 
- "Kory Maincent (TI.com)" <kory.maincent@bootlin.com>, 
- =?utf-8?q?Herv=C3=A9_Codina?= <herve.codina@bootlin.com>, 
- Hui Pu <Hui.Pu@gehealthcare.com>, Ian Ray <ian.ray@gehealthcare.com>, 
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- dri-devel@lists.freedesktop.org, imx@lists.linux.dev, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- devicetree@vger.kernel.org, Adam Ford <aford173@gmail.com>, 
- Alexander Stein <alexander.stein@ew.tq-group.com>, 
- Christopher Obbard <christopher.obbard@linaro.org>, 
- Daniel Scally <dan.scally@ideasonboard.com>, 
- Emanuele Ghidoli <emanuele.ghidoli@toradex.com>, 
- Fabio Estevam <festevam@denx.de>, 
- Francesco Dolcini <francesco.dolcini@toradex.com>, 
- Frieder Schrempf <frieder.schrempf@kontron.de>, 
- Gilles Talis <gilles.talis@gmail.com>, 
- =?utf-8?q?Goran_Ra=C4=91enovi=C4=87?= <goran.radni@gmail.com>, 
- Heiko Schocher <hs@denx.de>, Josua Mayer <josua@solid-run.com>, 
- Kieran Bingham <kieran.bingham@ideasonboard.com>, 
- Marco Felsch <m.felsch@pengutronix.de>, 
- Martyn Welch <martyn.welch@collabora.com>, 
- Oleksij Rempel <o.rempel@pengutronix.de>, Peng Fan <peng.fan@nxp.com>, 
- Richard Hu <richard.hu@technexion.com>, 
- Shengjiu Wang <shengjiu.wang@nxp.com>, 
- Stefan Eichenberger <stefan.eichenberger@toradex.com>, 
- Vitor Soares <vitor.soares@toradex.com>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>
-X-Mailer: b4 0.15.1
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260330040656.4116502-19-ankit.k.nautiyal@intel.com>
+X-Patchwork-Hint: comment
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,83 +76,153 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Convert this driver to DRM_BRIDGE_ATTACH_NO_CONNECTOR and to the
-drm_bridge_connector framework which is the current DRM bridge best
-practice.
+On Mon, Mar 30, 2026 at 09:36:55AM +0530, Ankit Nautiyal wrote:
+> Currently we enable AS SDP only when VRR is enabled. As we start using
+> AS SDP for other features, this becomes a problem. The AS SDP
+> configuration can change dynamically based on VRR, CMRR, PR, ALPM, etc.
+> Since these features may be enabled or disabled after the initial
+> configuration, the AS SDP parameters need to be computed later in the
+> pipeline.
+> 
+> However, not all of the AS SDP logic can be moved to the late stage:
+> the VRR guardband optimization depends on knowing early whether AS SDP
+> can be used. Without this, we would end up accounting for AS SDP on all
+> platforms that support it, even for panels that do not support AS SDP.
+> Therefore we set the infoframe enable bit for AS SDP during
+> compute_config(), before the guardband is computed.
+> 
+> To handle these constraints, split the AS SDP programming into two
+> phases:
+> 
+>  - intel_dp_compute_as_sdp()
+>    Runs during compute_config().
+>    Sets only the infoframe enable bit so that the guardband logic can
+>    account for AS SDP requirements.
+> 
+>  - intel_dp_as_sdp_compute_config_late()
+>    Runs during compute_config_late().
+>    Computes all remaining AS SDP fields based on the features that need
+>    it.
+> 
+> The late-stage computation is called from
+> intel_dp_sdp_compute_config_late(), before computing the minimum guardband
+> for SDPs.
+> 
+> This is a preparatory change. A subsequent patch will always enable AS
+> SDP when the source and sink support it.
+> 
+> Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+> ---
+>  drivers/gpu/drm/i915/display/intel_dp.c | 67 ++++++++++++++++---------
+>  1 file changed, 44 insertions(+), 23 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+> index 343bb2a86675..7da3dee226a0 100644
+> --- a/drivers/gpu/drm/i915/display/intel_dp.c
+> +++ b/drivers/gpu/drm/i915/display/intel_dp.c
+> @@ -3142,30 +3142,17 @@ static bool intel_dp_can_use_as_sdp(struct intel_dp *intel_dp,
+>  static void intel_dp_compute_as_sdp(struct intel_dp *intel_dp,
+>  				    struct intel_crtc_state *crtc_state)
+>  {
+> -	struct drm_dp_as_sdp *as_sdp = &crtc_state->infoframes.as_sdp;
+> -	const struct drm_display_mode *adjusted_mode =
+> -		&crtc_state->hw.adjusted_mode;
+> -
+>  	if (!intel_dp_can_use_as_sdp(intel_dp, crtc_state))
+>  		return;
+>  
+> +	/*
+> +	 * Only set the infoframes.enable flag here.
+> +	 * The remaining AS SDP fields are programmed in the
+> +	 * compute_config_late() phase. We need this flag early so that the
+> +	 * VRR guardband calculation can properly account for AS SDP
+> +	 * requirements.
+> +	 */
+>  	crtc_state->infoframes.enable |= intel_hdmi_infoframe_enable(DP_SDP_ADAPTIVE_SYNC);
+> -
+> -	as_sdp->sdp_type = DP_SDP_ADAPTIVE_SYNC;
+> -	as_sdp->length = 0x9;
+> -	as_sdp->duration_incr_ms = 0;
+> -	as_sdp->revision = 0x2;
+> -	as_sdp->vtotal = intel_vrr_vmin_vtotal(crtc_state);
+> -
+> -	if (crtc_state->cmrr.enable) {
+> -		as_sdp->mode = DP_AS_SDP_FAVT_TRR_REACHED;
+> -		as_sdp->target_rr = drm_mode_vrefresh(adjusted_mode);
+> -		as_sdp->target_rr_divider = true;
+> -	} else if (crtc_state->vrr.enable) {
+> -		as_sdp->mode = DP_AS_SDP_AVT_DYNAMIC_VTOTAL;
+> -	} else {
+> -		as_sdp->mode = DP_AS_SDP_AVT_FIXED_VTOTAL;
+> -	}
+>  }
+>  
+>  static void intel_dp_compute_vsc_sdp(struct intel_dp *intel_dp,
+> @@ -7370,11 +7357,45 @@ void intel_dp_mst_resume(struct intel_display *display)
+>  }
+>  
+>  static
+> -int intel_dp_sdp_compute_config_late(struct intel_crtc_state *crtc_state)
+> +void intel_dp_as_sdp_compute_config_late(struct intel_dp *intel_dp,
+> +					 struct intel_crtc_state *crtc_state)
+> +{
+> +	struct drm_dp_as_sdp *as_sdp = &crtc_state->infoframes.as_sdp;
+> +	const struct drm_display_mode *adjusted_mode =
+> +		&crtc_state->hw.adjusted_mode;
+> +
+> +	if ((crtc_state->infoframes.enable &
+> +	    intel_hdmi_infoframe_enable(DP_SDP_ADAPTIVE_SYNC)) == 0)
+> +		return;
+> +
+> +	as_sdp->sdp_type = DP_SDP_ADAPTIVE_SYNC;
+> +	as_sdp->length = 0x9;
+> +	as_sdp->duration_incr_ms = 0;
+> +	as_sdp->revision = 0x2;
+> +	as_sdp->vtotal = intel_vrr_vmin_vtotal(crtc_state);
+> +
+> +	if (crtc_state->cmrr.enable) {
+> +		as_sdp->mode = DP_AS_SDP_FAVT_TRR_REACHED;
+> +		as_sdp->target_rr = drm_mode_vrefresh(adjusted_mode);
+> +		as_sdp->target_rr_divider = true;
+> +	} else if (crtc_state->vrr.enable) {
+> +		as_sdp->mode = DP_AS_SDP_AVT_DYNAMIC_VTOTAL;
+> +	} else {
+> +		as_sdp->mode = DP_AS_SDP_AVT_FIXED_VTOTAL;
+> +	}
 
-Tested-by: Martyn Welch <martyn.welch@collabora.com>
-Tested-by: Alexander Stein <alexander.stein@ew.tq-group.com> # TQMa8MPxL/MBa8MPxL
-Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+Nothing in here right now depends on anything but
+intel_vrr_compute_config(). Was there something specific you will
+need to consult here that is computed later?
 
----
-
-Changes in v2:
-- Added missing select DRM_DISPLAY_HELPER in Kconfig
-- Rebased on previous patch changes
----
- drivers/gpu/drm/mxsfb/Kconfig     |  2 ++
- drivers/gpu/drm/mxsfb/lcdif_drv.c | 16 +++++++++++++++-
- 2 files changed, 17 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/mxsfb/Kconfig b/drivers/gpu/drm/mxsfb/Kconfig
-index 264e74f45554..31db7a824a93 100644
---- a/drivers/gpu/drm/mxsfb/Kconfig
-+++ b/drivers/gpu/drm/mxsfb/Kconfig
-@@ -33,6 +33,8 @@ config DRM_IMX_LCDIF
- 	select DRM_GEM_DMA_HELPER
- 	select DRM_PANEL
- 	select DRM_PANEL_BRIDGE
-+	select DRM_DISPLAY_HELPER
-+	select DRM_BRIDGE_CONNECTOR
- 	help
- 	  Choose this option if you have an LCDIFv3 LCD controller.
- 	  Those devices are found in various i.MX SoC (i.MX8MP,
-diff --git a/drivers/gpu/drm/mxsfb/lcdif_drv.c b/drivers/gpu/drm/mxsfb/lcdif_drv.c
-index c8ba8f9b1da8..7f07ae24e0dc 100644
---- a/drivers/gpu/drm/mxsfb/lcdif_drv.c
-+++ b/drivers/gpu/drm/mxsfb/lcdif_drv.c
-@@ -18,6 +18,7 @@
- #include <drm/clients/drm_client_setup.h>
- #include <drm/drm_atomic_helper.h>
- #include <drm/drm_bridge.h>
-+#include <drm/drm_bridge_connector.h>
- #include <drm/drm_drv.h>
- #include <drm/drm_encoder.h>
- #include <drm/drm_fbdev_dma.h>
-@@ -57,6 +58,7 @@ static int lcdif_attach_bridge(struct lcdif_drm_private *lcdif)
- 		struct of_endpoint of_ep;
- 		struct drm_bridge *bridge;
- 		struct drm_encoder *encoder;
-+		struct drm_connector *connector;
- 		int ret;
- 
- 		if (!of_device_is_available(remote))
-@@ -86,11 +88,23 @@ static int lcdif_attach_bridge(struct lcdif_drm_private *lcdif)
- 					     "Failed to initialize encoder for endpoint%u\n",
- 					     of_ep.id);
- 
--		ret = drm_bridge_attach(encoder, bridge, NULL, 0);
-+		ret = drm_bridge_attach(encoder, bridge, NULL, DRM_BRIDGE_ATTACH_NO_CONNECTOR);
- 		if (ret)
- 			return dev_err_probe(dev, ret,
- 					     "Failed to attach bridge for endpoint%u\n",
- 					     of_ep.id);
-+
-+		connector = drm_bridge_connector_init(lcdif->drm, encoder);
-+		if (IS_ERR(connector))
-+			return dev_err_probe(dev, PTR_ERR(connector),
-+					     "Failed to init bridge_connector for endpoint%u\n",
-+					     of_ep.id);
-+
-+		ret = drm_connector_attach_encoder(connector, encoder);
-+		if (ret)
-+			return dev_err_probe(dev, ret,
-+					     "Failed to attach connector for endpoint%u\n",
-+					     of_ep.id);
- 	}
- 
- 	return 0;
+> +}
+> +
+> +static
+> +int intel_dp_sdp_compute_config_late(struct intel_dp *intel_dp,
+> +				     struct intel_crtc_state *crtc_state)
+>  {
+>  	struct intel_display *display = to_intel_display(crtc_state);
+>  	int guardband = intel_crtc_vblank_length(crtc_state);
+> -	int min_sdp_guardband = intel_dp_sdp_min_guardband(crtc_state, false);
+> +	int min_sdp_guardband;
+> +
+> +	intel_dp_as_sdp_compute_config_late(intel_dp, crtc_state);
+> +
+> +	min_sdp_guardband = intel_dp_sdp_min_guardband(crtc_state, false);
+>  
+>  	if (guardband < min_sdp_guardband) {
+>  		drm_dbg_kms(display->drm, "guardband %d < min sdp guardband %d\n",
+> @@ -7394,7 +7415,7 @@ int intel_dp_compute_config_late(struct intel_encoder *encoder,
+>  
+>  	intel_psr_compute_config_late(intel_dp, crtc_state);
+>  
+> -	ret = intel_dp_sdp_compute_config_late(crtc_state);
+> +	ret = intel_dp_sdp_compute_config_late(intel_dp, crtc_state);
+>  	if (ret)
+>  		return ret;
+>  
+> -- 
+> 2.45.2
 
 -- 
-2.53.0
-
+Ville Syrjälä
+Intel
