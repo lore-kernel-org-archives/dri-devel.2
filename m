@@ -4,63 +4,141 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 887251061B1C
-	for <dri-devel@archiver.kernel.org>; Mon, 30 Mar 2026 18:47:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E0D2B1061B1A
+	for <dri-devel@archiver.kernel.org>; Mon, 30 Mar 2026 18:50:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D5B2710E68A;
-	Mon, 30 Mar 2026 18:47:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3F31710E6B8;
+	Mon, 30 Mar 2026 18:50:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="W6FstmcK";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="cBt+Qo/E";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="YAuR1ZWz";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 10A0010E65A;
- Mon, 30 Mar 2026 18:47:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1774896436; x=1806432436;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=PIWI0crOj+P0FxeQumFWmGWyqU1qNqCXu0ML4qoFNbM=;
- b=W6FstmcKRzwAMNOluV3HWXwXMWBFW81j8dZmz9VUZJ1S5zjfKukrRHLG
- yylCFw+87V1ccgrP+xfzYJboQjmr9Ei655bwBX0YUZeY5WaRZBrDv9QlA
- D8nwsv4MFlU7i9Nt2UMJ+wyBZpTp/wtC+3F+dZJ3j7ywCxiSy8PAov2cM
- TN71OJDm5wwIgN3Lohbl+pTUK3XgBlxtQZcz2M4Y9AdI7O2jArdB1Yira
- vTU+chNapUeqGdsZmaQap2oGqW8dVV4qyOym3HFdkfioySuooQRsdjFV/
- lqfM5adErlmc8D5PtvQ9QdI1S5GVAhGO66Y40AJMZ/PGw9BC4BdOiF7UG w==;
-X-CSE-ConnectionGUID: zmHf9mL8S9W7C9qV+B45jg==
-X-CSE-MsgGUID: TgAjxVElQSWWhyJ6OGjTgw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11744"; a="75614681"
-X-IronPort-AV: E=Sophos;i="6.23,150,1770624000"; d="scan'208";a="75614681"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
- by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Mar 2026 11:47:15 -0700
-X-CSE-ConnectionGUID: En751reBR6uDEdfE4dj2Qg==
-X-CSE-MsgGUID: qFzwAGSpRweXkPUdVcwvXg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,150,1770624000"; d="scan'208";a="225305660"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost)
- ([10.245.245.155])
- by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Mar 2026 11:47:12 -0700
-Date: Mon, 30 Mar 2026 21:47:08 +0300
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, jouni.hogander@intel.com,
- animesh.manna@intel.com
-Subject: Re: [PATCH 14/19] drm/i915/display: Add helper for AS SDP
- transmission time selection
-Message-ID: <acrFLD9186X5EOyM@intel.com>
-References: <20260330040656.4116502-1-ankit.k.nautiyal@intel.com>
- <20260330040656.4116502-15-ankit.k.nautiyal@intel.com>
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 59FB410E696
+ for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 18:50:41 +0000 (UTC)
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 62UHuNuT703531
+ for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 18:50:40 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=DE8Sw5kR9lGM4C3h602YOoTU
+ pOjpbxDUO0a5++U3Gu0=; b=cBt+Qo/ExYBETSAhLuOmZVN0aPscA8YEqFre4PXg
+ /hkz1of2A/QmjdxQK3B+xCXZOpaS1quq79IWwI+vQjA/dEGlz/+LRIVG8uGbmsEq
+ 3f/eB67dUSGUvgt8WkDQTOnK3SSzrEPh1odpOaFOCTw3I+CQcsi1ASSnwL76GpKg
+ 3KQz5WYh8Bb93fyBEHWJAU1MLUxwK/0Ew6UFDyG3Vd/2xbRSdyisPTZ2RWRoBXiY
+ GaOBKHMDk845WDvlgvYQyiJCz6MWXL2M8uYE3yO03lDoVNoFkMeonF1qFiBGsX3O
+ j8NpQeB/2aoahZJUGAyI1RbYLLOYklb16Ud9jl6Z1XsnOQ==
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com
+ [209.85.160.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d7sansgnf-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 18:50:40 +0000 (GMT)
+Received: by mail-qt1-f200.google.com with SMTP id
+ d75a77b69052e-50b4b81c632so156907351cf.1
+ for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 11:50:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1774896640; x=1775501440;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=DE8Sw5kR9lGM4C3h602YOoTUpOjpbxDUO0a5++U3Gu0=;
+ b=YAuR1ZWzG+z9Bag0S4UMmWRdQ6AHto9ZWbBTb19s0s/agzOPRBq4Gl8iWennAhJIcm
+ NPXN6qHzLC8OCePdDMjF+cyIptaaYRMAZAN0PMIBQMOu9JI9fIotyhC6kx4GgpGdl7ir
+ 3pyMKp+GORvs0YnxrD6hyxi5BjvwhDQuQ0x0FxlFWA+PecSHyugZ7ngyHo749re787+8
+ 9V/kfG9cSJC45n1kdPn7qbjeMEORfmMnfcqLNk0Zy5TpbBktVGzlCBnla4AlJ3aZxQTO
+ dVBHAC5T/Ei1YSlG7MKnjsb7rLeZvZV51+E2l+QY3gIpvCgSqQ5PhJm9oeD3XI3O/EBq
+ 0cnw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1774896640; x=1775501440;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=DE8Sw5kR9lGM4C3h602YOoTUpOjpbxDUO0a5++U3Gu0=;
+ b=OMrzVRxHYYngcibIUXXjAWN6UO8KB/AAQ0D5Gp0CSD9te/P3QFqR2KEyLmlCJxsj4+
+ lFgxNwUiRYCD3q95I3T5xgZi2nhgTO92J2r2X0jccYvLMYDF9LhlfgXxwlOfXhA3vbrH
+ 5Q7pxCvX5ETVnsSyDqdUpySxlvMyLX46HULU2xGKFZcc/mtKx+/w3DZx6C8QPPeXgYi/
+ BpKLiGvINSJnj7Y63VymNBuwzEqRqMM7xHVCUaX9ztlBzyLY+0smdijB7Wq0UnMHh9i3
+ Plf+NAwEKTjxL3d7ZUv9F4VP44uWImlPujoF3NsqPaK59qcURMm3cmveGSQWBzaqfk5c
+ rImg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWu1TrKt5tZQibhd/e5zESE2xoU/YyPeDPZAtvCLaFmcISXl1SZNXoqGBDKXIu3Gdnv0Xb+QeC8tj8=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxkGXRnMl3WQy/FJy9O6qAYO1aXK/NqmtFJ+oqZ+hLQiwTd0wLF
+ ff+WiQBLr3dkGSduR4QOq3BvAcc8BW4tlbvz+BoEb3tuNqqZCpGRy/HeTdbYcVJKMHtosYCuFxE
+ jTvN/eSyKK5UbQkWDLuZLkbO0AAxVow6Hw8wFyZ4yvz9aIK8DYPHgkB6NIkIhhGLTbTS0qi0=
+X-Gm-Gg: ATEYQzylXgivlyXDuXGrrTgIiepnkiG2DlUpsQfskRTDO0E1LaAfJCMFjbwz9cLtJAm
+ E3tbvneX/bNm3hghPVnWUBRQiVPDpzr3GOrwI8UYJAWBq8xsqGTZDmv8unDhm048oSycOwmxMi9
+ 1J+na9x0nMSdZh+SmIHpD0uDatGhGkzCoo08ahJweKbqpUQ5w2tdkgE62jDjnsSZjkqurJfNv1P
+ AVBO3DtXWXoUeqs44urLaxb6DvKumXInQg/LRw3PUWFO2R5ey2Nv3ry5r1jOx6V/LfkJ1SVuhBv
+ J778VXYMx2Tw1U3AswSB2j259j+t01UKJjJT3Cnb8h4oN6/K3jJ4BiGnsg0O6soUjdLUtr3kc3Q
+ LmTx1qs8bpfh50/3MKoa5Bfh62MnQl8X93Q8LBGMgg9bBlh83FqSpgJudPG3WnPcrN07tqHSL+S
+ Arqxr0hrPey3TsWh3wD2zyeQchv958hwyNzxE=
+X-Received: by 2002:ac8:5d05:0:b0:509:2053:ab5a with SMTP id
+ d75a77b69052e-50ba39803eemr172246881cf.57.1774896639565; 
+ Mon, 30 Mar 2026 11:50:39 -0700 (PDT)
+X-Received: by 2002:ac8:5d05:0:b0:509:2053:ab5a with SMTP id
+ d75a77b69052e-50ba39803eemr172246411cf.57.1774896638998; 
+ Mon, 30 Mar 2026 11:50:38 -0700 (PDT)
+Received: from umbar.lan
+ (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-5a2b13f4329sm1828151e87.3.2026.03.30.11.50.37
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 30 Mar 2026 11:50:37 -0700 (PDT)
+Date: Mon, 30 Mar 2026 21:50:35 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Bjorn Andersson <andersson@kernel.org>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Loic Poulain <loic.poulain@oss.qualcomm.com>,
+ Sumit Garg <sumit.garg@oss.qualcomm.com>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re: [PATCH] dt-bindings: display/msm: qcm2290-mdss: Fix missing
+ ranges in example
+Message-ID: <wsf7oet6r7d55i7f6cdwgor4cqu3hzgqcv3r6lmyfsoivzgzls@v5z7bbea6fxe>
+References: <20260325122209.147128-2-krzysztof.kozlowski@oss.qualcomm.com>
+ <177488647743.633011.6769674149013868210.b4-ty@kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260330040656.4116502-15-ankit.k.nautiyal@intel.com>
-X-Patchwork-Hint: comment
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+In-Reply-To: <177488647743.633011.6769674149013868210.b4-ty@kernel.org>
+X-Proofpoint-GUID: IH-EJoF8t-_SRxcGOL6nuHvebj7NsHVw
+X-Proofpoint-ORIG-GUID: IH-EJoF8t-_SRxcGOL6nuHvebj7NsHVw
+X-Authority-Analysis: v=2.4 cv=NofcssdJ c=1 sm=1 tr=0 ts=69cac600 cx=c_pps
+ a=JbAStetqSzwMeJznSMzCyw==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22 a=VwQbUJbxAAAA:8
+ a=q8DrNbCZZteTo-H5dVoA:9 a=CjuIK1q_8ugA:10 a=uxP6HrT_eTzRwkO_Te1X:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzMwMDE1NyBTYWx0ZWRfX9AiTcJ/U0Qgw
+ aHuof9lqOKyzbjLFqjTjVEz1sr8g7Re0te5Nj8AWJO2Mr6860epLXEvsYOauBIQZfCnjeAJDnss
+ +aUJhsVZRBtDbNkWTQ6eKO9JWbhkoNx9DD4O8z+xq0IzNjWvd+jOCg1sWrp6rC38C5wNW34RR3x
+ 4F398xo8pRVMziwIqmtyaOiFtEC+5yJzx9L3KTTBzH5tN7LXfSyZxgft1SXjOQ10leqaQaVtY8O
+ yPcCK1Qa8nLiwmyKvHx72cKCRS866ydeNZ+hEL0R71a5f7bm6W3LkCpev+6CpjnTvY3X2kzIFQG
+ A/wfZPfR6lXVwt2mhIEBL5s2JORrQWEN0Dq/neOLnKJWmUcMS4R8Dmm5LYP1mzHHfTD1Bdxfevx
+ xSD1Xmk7ywDflyrl/dRf9Atf2F96qtsZ4OZ5a8VucdGOxG0Rvd489+oqPjsrU5cyXMV3v6dCbXR
+ uYklD+vXzfMn/i2+VCg==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-03-30_01,2026-03-28_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 adultscore=0 bulkscore=0 spamscore=0 priorityscore=1501
+ clxscore=1015 lowpriorityscore=0 phishscore=0 malwarescore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603300157
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,112 +154,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Mar 30, 2026 at 09:36:51AM +0530, Ankit Nautiyal wrote:
-> AS SDP may be transmitted at T1 or T2 depending on Panel Replay and
-> Adaptive Sync SDP configuration as per DP 2.1. Current we are using
-> T1 only, but future PR/AS SDP modes/features may require T2 or dynamic
-> selection.
+On Mon, Mar 30, 2026 at 11:01:21AM -0500, Bjorn Andersson wrote:
 > 
-> Introduce a helper to return the appropriate AS SDP transmission time so
-> that a single value is consistently used for programming PR_ALPM.
-> For now this returns T1.
+> On Wed, 25 Mar 2026 13:22:10 +0100, Krzysztof Kozlowski wrote:
+> > Device node has children with MMIO addressing, so must have ranges:
+> > 
+> >   msm/qcom,qcm2290-mdss.example.dtb: display-subsystem@5e00000 (qcom,qcm2290-mdss): 'ranges' is a required property
+> > 
+> > 
 > 
-> v2: Avoid adding new member to crtc_state; use a helper. (Ville)
-> v3: Clarify why AS SDP transmission time is fixed to T1. (Ville)
+> Applied, thanks!
 > 
-> Bspec: 68920
-> Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-> ---
->  drivers/gpu/drm/i915/display/intel_alpm.c | 20 +++++++++++++++++++-
->  drivers/gpu/drm/i915/display/intel_dp.c   | 11 +++++++++++
->  drivers/gpu/drm/i915/display/intel_dp.h   |  2 ++
->  3 files changed, 32 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/display/intel_alpm.c b/drivers/gpu/drm/i915/display/intel_alpm.c
-> index a7350ce8e716..76de24a03f61 100644
-> --- a/drivers/gpu/drm/i915/display/intel_alpm.c
-> +++ b/drivers/gpu/drm/i915/display/intel_alpm.c
-> @@ -11,6 +11,7 @@
->  #include "intel_crtc.h"
->  #include "intel_de.h"
->  #include "intel_display_types.h"
-> +#include "intel_display_utils.h"
->  #include "intel_dp.h"
->  #include "intel_dp_aux.h"
->  #include "intel_psr.h"
-> @@ -359,6 +360,23 @@ void intel_alpm_lobf_compute_config(struct intel_dp *intel_dp,
->  	crtc_state->has_lobf = true;
->  }
->  
-> +static u32 get_pr_alpm_as_sdp_transmission_time(const struct intel_crtc_state *crtc_state)
-> +{
-> +	int as_sdp_setup_time = intel_dp_as_sdp_transmission_time();
-> +
-> +	switch (as_sdp_setup_time) {
-> +	case DP_PR_AS_SDP_SETUP_TIME_T1:
-> +		return PR_ALPM_CTL_ADAPTIVE_SYNC_SDP_POSITION_T1;
-> +	case DP_PR_AS_SDP_SETUP_TIME_DYNAMIC:
-> +		return PR_ALPM_CTL_ADAPTIVE_SYNC_SDP_POSITION_T1_OR_T2;
-> +	case DP_PR_AS_SDP_SETUP_TIME_T2:
-> +		return PR_ALPM_CTL_ADAPTIVE_SYNC_SDP_POSITION_T2;
-> +	default:
-> +		MISSING_CASE(as_sdp_setup_time);
-> +		return PR_ALPM_CTL_ADAPTIVE_SYNC_SDP_POSITION_T1;
-> +	}
-> +}
-> +
->  static void lnl_alpm_configure(struct intel_dp *intel_dp,
->  			       const struct intel_crtc_state *crtc_state)
->  {
-> @@ -382,7 +400,7 @@ static void lnl_alpm_configure(struct intel_dp *intel_dp,
->  			ALPM_CTL_AUX_LESS_WAKE_TIME(crtc_state->alpm_state.aux_less_wake_lines);
->  
->  		if (intel_dp->as_sdp_supported) {
-> -			u32 pr_alpm_ctl = PR_ALPM_CTL_ADAPTIVE_SYNC_SDP_POSITION_T1;
-> +			u32 pr_alpm_ctl = get_pr_alpm_as_sdp_transmission_time(crtc_state);
->  
->  			if (crtc_state->link_off_after_as_sdp_when_pr_active)
->  				pr_alpm_ctl |= PR_ALPM_CTL_ALLOW_LINK_OFF_BETWEEN_AS_SDP_AND_SU;
-> diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-> index b2007ffe18bc..108e97b26748 100644
-> --- a/drivers/gpu/drm/i915/display/intel_dp.c
-> +++ b/drivers/gpu/drm/i915/display/intel_dp.c
-> @@ -7465,3 +7465,14 @@ bool intel_dp_joiner_candidate_valid(struct intel_connector *connector,
->  
->  	return true;
->  }
-> +
-> +int intel_dp_as_sdp_transmission_time(void)
+> [1/1] dt-bindings: display/msm: qcm2290-mdss: Fix missing ranges in example
+>       commit: 88bdac5443e5269bb39c4968d5ee0becbffe3f82
 
-This is a DPCD register value, so u8 would seem like the more
-appropriate return type.
+Hmm? I don't really mind, but...
 
-With that
-Reviewed-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
-
-> +{
-> +	/*
-> +	 * DP allows AS SDP position to move during PR active in some cases, but
-> +	 * software-controlled refresh rate changes with DC6v / ALPM require the
-> +	 * AS SDP to remain at T1. Use T1 unconditionally for now.
-> +	 */
-> +
-> +	return DP_PR_AS_SDP_SETUP_TIME_T1;
-> +}
-> diff --git a/drivers/gpu/drm/i915/display/intel_dp.h b/drivers/gpu/drm/i915/display/intel_dp.h
-> index 2849b9ecdc71..2e4609d9d05c 100644
-> --- a/drivers/gpu/drm/i915/display/intel_dp.h
-> +++ b/drivers/gpu/drm/i915/display/intel_dp.h
-> @@ -238,4 +238,6 @@ bool intel_dp_joiner_candidate_valid(struct intel_connector *connector,
->  	for ((__num_joined_pipes) = 1; (__num_joined_pipes) <= (I915_MAX_PIPES); (__num_joined_pipes)++) \
->  		for_each_if(intel_dp_joiner_candidate_valid(__connector, (__mode)->hdisplay, __num_joined_pipes))
->  
-> +int intel_dp_as_sdp_transmission_time(void);
-> +
->  #endif /* __INTEL_DP_H__ */
+> 
+> Best regards,
 > -- 
-> 2.45.2
+> Bjorn Andersson <andersson@kernel.org>
 
 -- 
-Ville Syrjälä
-Intel
+With best wishes
+Dmitry
