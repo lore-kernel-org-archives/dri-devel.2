@@ -4,110 +4,140 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6BB301061B20
-	for <dri-devel@archiver.kernel.org>; Mon, 30 Mar 2026 20:21:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 230311061B20
+	for <dri-devel@archiver.kernel.org>; Mon, 30 Mar 2026 20:27:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B0F4D10E689;
-	Mon, 30 Mar 2026 20:21:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 800D410E161;
+	Mon, 30 Mar 2026 20:27:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=invisiblethingslab.com header.i=@invisiblethingslab.com header.b="J98PO7Uc";
-	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="f6ATStt5";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="eXvOf1TI";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="N+kuopon";
 	dkim-atps=neutral
-X-Greylist: delayed 800 seconds by postgrey-1.36 at gabe;
- Mon, 30 Mar 2026 20:21:08 UTC
-Received: from fhigh-a2-smtp.messagingengine.com
- (fhigh-a2-smtp.messagingengine.com [103.168.172.153])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8A6FE10E0E4
- for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 20:21:08 +0000 (UTC)
-Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
- by mailfhigh.phl.internal (Postfix) with ESMTP id D98F41400237;
- Mon, 30 Mar 2026 16:07:47 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
- by phl-compute-06.internal (MEProxy); Mon, 30 Mar 2026 16:07:47 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- invisiblethingslab.com; h=cc:content-transfer-encoding
- :content-type:content-type:date:date:from:from:in-reply-to
- :in-reply-to:message-id:mime-version:references:reply-to:subject
- :subject:to:to; s=fm1; t=1774901267; x=1774987667; bh=BOoZ4+1vDC
- orDNqLh55ozbf1TI816t8IDrbHJQudFlc=; b=J98PO7UciOPuDlbFOLxVr8brvv
- avsxrKqh5I5dda792C57PqhOrTwi6yElbJ6EcGm6wy2pv+yYzvHsrVWiZohtlWP7
- Q8sxa6C1khaJRaSGkalK0Zq1EUXWvg95zEi0HQnththWFTd8ZsgfstZDKhCLDLK+
- G8wHDCqmqyOg1twg4UXO6ehYjIgPuy4Frt0iWEvf3Xubtq2OgrS0qdDygs8NHaX+
- Eds3U+Qkq1anBmPAzIj/rtjU7C6F4mzo04VvwekrW+Bgq6gICNn2VaXWqqetcnOD
- jLzkvw/u0GKOyP8gcaym9P7nD4TihwS7XgiQEeNgO+o/0rNiat5WDqDvxa6Q==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-transfer-encoding:content-type
- :content-type:date:date:feedback-id:feedback-id:from:from
- :in-reply-to:in-reply-to:message-id:mime-version:references
- :reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
- :x-me-sender:x-sasl-enc; s=fm1; t=1774901267; x=1774987667; bh=B
- OoZ4+1vDCorDNqLh55ozbf1TI816t8IDrbHJQudFlc=; b=f6ATStt55tAUXaiSF
- G7gf0ZjnYIGctHHHVSD+wkoL7MKPEth5YQ0Doy7AcTT4OWfL8y7hIkgWwm4I27OI
- PIhRCeZq778Gxx+SkPlKpblZdwcWsurEZlHpNoDD2J9RxbF5+pUUjYbXwFcei7Oh
- LxNh/qRLYAOqFQxzmtH13+JlH/UNd9LHjUrHBDkrTUC2HG5dltlZqNo1/Kl02/Ys
- 0n26SXd8tzGisEaOsaxt90BTAIdIXLhDN4UuXBdywgWUvVX69SKsfUq5GSdWGjuA
- xiRdn2hP1c8fA/rAUQb091He9SPvb38KOSV3x2mzd6PgXOrjwFBjdzk41iV43lT+
- 7FUmQ==
-X-ME-Sender: <xms:E9jKaYdbX1Lkdh2HQfOiqiKutYDNC5y91lnSAJC_MrLXLeXq09rmIg>
- <xme:E9jKafL31T4Oqi-rZyw4LL92u3ErK_rjphXpqK3xVBzTayP44M9oBnJEbfcupUHyT
- 5OdfooOcIfwRtL5IeskskbyCFEWAz5lnb791JdxOUpboSKTRF8>
-X-ME-Received: <xmr:E9jKadwtdu5y-FQLqNnBEsQ2QCyVajtKhqYBrz_7y49NGbO7MZ-x8Oq472UpyMMSSA>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefgedrtddtgdeffeelledtucetufdoteggodetrf
- dotffvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfurfetoffkrfgpnffqhgenuceu
- rghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujf
- gurhepkfffgggfuffvfhfhjggtgfesthekredttddvjeenucfhrhhomhepgggrlhcurfgr
- tghkvghtthcuoehvrghlsehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomheqne
- cuggftrfgrthhtvghrnhepvdevgeevheehtefggeehjefhfeetjeekgfejkeettdejkeeh
- heekvdffvdfhtefgnecuffhomhgrihhnpehkvghrnhgvlhdrohhrghenucevlhhushhtvg
- hrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehvrghlsehinhhvihhsihgs
- lhgvthhhihhnghhslhgrsgdrtghomhdpnhgspghrtghpthhtohepledpmhhouggvpehsmh
- htphhouhhtpdhrtghpthhtohepuggvmhhiohgsvghnohhurhesghhmrghilhdrtghomhdp
- rhgtphhtthhopeigvghnqdguvghvvghlsehlihhsthhsrdigvghnphhrohhjvggtthdroh
- hrghdprhgtphhtthhopegurhhiqdguvghvvghlsehlihhsthhsrdhfrhgvvgguvghskhht
- ohhprdhorhhgpdhrtghpthhtoheplhhinhhugidqmhhmsehkvhgrtghkrdhorhhgpdhrtg
- hpthhtohepjhgsvghulhhitghhsehsuhhsvgdrtghomhdprhgtphhtthhopegrrhhirggu
- nhgvsegrrhhirggunhgvrdhsphgrtggvpdhrtghpthhtoheprghnughrvgifrdgtohhoph
- gvrhefsegtihhtrhhigidrtghomhdprhgtphhtthhopehjghhrohhsshesshhushgvrdgt
- ohhmpdhrtghpthhtohepthgvugguhidrrghsthhivgesvhgrthgvshdrthgvtghh
-X-ME-Proxy: <xmx:E9jKadvk9tVbPIOJQo4UeUVAQqSW7D2yY69AzUbtpFCI47-zJ3TCSA>
- <xmx:E9jKaYAvp5ix4VXM8jtMTbOsl_5ciZfxEnmdwGmJVh_TaP22M5DTIw>
- <xmx:E9jKaXEgqHXU-zFlDd2o0DVAUDMkXdWg07uN2uBOaVkUBRVF3Y1ZjA>
- <xmx:E9jKaQCPjX_A0J4GXRS9f2EBu6KWzLYfYdftFprmCRXw3YArMqivNw>
- <xmx:E9jKaalk8FuQiVBwWWtayCwYnIELz1NFCF-M3O0m8g8l8GfazkJ8Jwnn>
-Feedback-ID: i001e48d0:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 30 Mar 2026 16:07:45 -0400 (EDT)
-Message-ID: <0bbf0349-1006-485f-a2db-6c8b795b4242@invisiblethingslab.com>
-Date: Mon, 30 Mar 2026 17:07:42 -0300
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3799210E161
+ for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 20:27:36 +0000 (UTC)
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 62UIwfSD4053882
+ for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 20:27:35 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ EzrJyb1gVN/4tm0vA1K96mY4OKgfW/vr9tGl8NUqDQI=; b=eXvOf1TI6dbzFYA7
+ YvK2ZIq5YV0inm+hOZ0OjAyLbPu6mPpzwqro5GloE+xCQGJtfWn8pB3B1NXHFLbA
+ OQJVVF8zIKl1k3/MAmHSulaBXMeMyPVMW4mp0psAEPkHjpHLl398mK+xxzFBdi18
+ 8113PMT2N7PtZXjPDVVksytgroqYpl1Xh/2Gt/CCxaIymz/y73ymn5lC3WZXT7eO
+ n3pS+6F6wF5r+Uiiefzmo4t9mvTQNYqhtxCMcHSfz6KugKzwxN+KVZetb+IO7rns
+ ZqZKnVz11vNkGnFU7DQ8ZQVcbaYjVp+5/zIKjDSMuLWf1JTaawQXi2Bht4CBn0tt
+ E4HbdQ==
+Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com
+ [209.85.214.198])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d7xx389fs-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 20:27:35 +0000 (GMT)
+Received: by mail-pl1-f198.google.com with SMTP id
+ d9443c01a7336-2b24a00d12cso21739225ad.1
+ for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 13:27:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1774902455; x=1775507255;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:in-reply-to:content-language:from
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=EzrJyb1gVN/4tm0vA1K96mY4OKgfW/vr9tGl8NUqDQI=;
+ b=N+kuoponcTe/oq1RCbnWXCt0wCAAz+b4EFZUiZiz1p0pXXA4QVcry4iBCm8byd/ciO
+ hALTtDefudRlMEoBPjx1ccqmZ7lWMLtEqBe1Sia6TcwCstNpdxt5ViIs5ETGc/tFe3Re
+ U97HIFUda3MK49Vk8mvNCXTp7m1rEep+g8XRgLtjp2zc2zaDw4cONjjgR+oTU8ISmMq7
+ azxu8SizMZttJtF0GNjrozXyzfh/iEwcvLD52bI3aykXE7ekZ5TyWF2Czra/Jz4owDe4
+ Vy62RDOTGyU0ENxuXIzI9dG0RRLLEZvxTjGTOBnDn6dvslRJNyd7sNTbEXnfmfyx4sSs
+ eqXQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1774902455; x=1775507255;
+ h=content-transfer-encoding:in-reply-to:content-language:from
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=EzrJyb1gVN/4tm0vA1K96mY4OKgfW/vr9tGl8NUqDQI=;
+ b=IC3ikgzF0Yy9EqycCIn/7hI906z+cqXOzErpUPZviJR2jR/HwIuq5+hIq1/i26hH1m
+ IlfLyMvxjWyV/4bYKU8doBzeGHXOX5ch4i9bi7UZft0z+Zbi3Tt2/Tr57J/FzQEP9wuS
+ +kHdmXIDXAeqhNa3rlMgYTRRqirRSXDBp7zFWStyk6Q+jdQS/mD5WYxo43rf9dQESFBw
+ pbN2sIo0KctE4/zQvIUGN0QQY0tM9ciUGdPImW8PSGyGnNO7QKkXmEQkITQJgM6bmjtq
+ 295rfeGpnf1VhWTH7GlUv+3GmEL47ydT3wamBHtv95jcuTq5Bg/TGMd0ofAmVPiXOJP6
+ xxSg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXlfPzfSE4JeiwPexGJPTTLM5HN1NeHXVEcmqsfZDIx+PeV/ntLjOZWFsW4rPMhlryyRNQrzLcxMy4=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwjfKXz+Qr46/ZoE28dA5NEU4WFnNlS3IkXZBkJtZlGrnVvyGZQ
+ Rc76dM7cQot+nyHZSXIcH/NryxyrVlynSl2rbn0jSm6kmJID9c6blrPQ5q5PdDDeQOW6rbtTgKv
+ YMstyGSn28RbcKajv2lT49d15CrWAi0RprtFEcR+lrd/wjAqh97WohoTMjWU7XCziOVI8UL0=
+X-Gm-Gg: ATEYQzwjhsdpLz9ukRkXcPRPYQeg907jBWKLv9esVmvk7y0WNDbd0ETdQAfu+Qn/Ofk
+ s+gud0bIO4ufXV/28Qtc4UN/igaRIWOuy6LBct12zPOzxTquTAwozsCVZR7PXzGGOjXYJgRtWTj
+ zpJUK/mHwhj5TBQWsP0H/BW9dYF48uc5tgC6VVtn0JaIhBET+flbI5enPQzZbJ+CtR6bbqw2PDq
+ /4l2lSVxEr0c+c0xzwSQ5Ph9DxKYppvoUfwFu4iEvSamyiLYXW4DY3gubHSo0q2149bu8DZDXYO
+ zhF3xhKNCRZG49JjADwPgpEJUCy4i4KYljCUmeF+3MzwYA/lhD7F3NmvZltVVtaAhlPDY9Uo1y+
+ zgynAj/ekuT4OpdblTZEXPpqtx3iQJIDJXgkuDqdmh+Ec
+X-Received: by 2002:a17:902:ef0c:b0:2b2:5637:149f with SMTP id
+ d9443c01a7336-2b2563717b6mr43048785ad.23.1774902454929; 
+ Mon, 30 Mar 2026 13:27:34 -0700 (PDT)
+X-Received: by 2002:a17:902:ef0c:b0:2b2:5637:149f with SMTP id
+ d9443c01a7336-2b2563717b6mr43048495ad.23.1774902454453; 
+ Mon, 30 Mar 2026 13:27:34 -0700 (PDT)
+Received: from [10.91.121.222] ([202.46.23.19])
+ by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-2b24266e487sm88192835ad.24.2026.03.30.13.27.28
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 30 Mar 2026 13:27:34 -0700 (PDT)
+Message-ID: <67cca0c6-669c-4dcf-be3f-76fc46d1e59f@oss.qualcomm.com>
+Date: Tue, 31 Mar 2026 01:57:26 +0530
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: Why memory lending is needed for GPU acceleration
-To: Demi Marie Obenour <demiobenour@gmail.com>,
- Xen developer discussion <xen-devel@lists.xenproject.org>,
- dri-devel@lists.freedesktop.org, linux-mm@kvack.org,
- Jan Beulich <jbeulich@suse.com>, Ariadne Conill <ariadne@ariadne.space>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Juergen Gross <jgross@suse.com>,
- Teddy Astie <teddy.astie@vates.tech>
-References: <84462c4b-7813-4ad1-aeb2-862ae4f3a627@gmail.com>
- <c38387fe-beef-4f50-b928-74f96b881b7a@gmail.com>
+Subject: Re: [PATCH v2 10/17] drm/msm/a6xx: Update HFI definitions
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Antonino Maniscalco <antomani103@gmail.com>,
+ Connor Abbott <cwabbott0@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>
+References: <20260327-a8xx-gpu-batch2-v2-0-2b53c38d2101@oss.qualcomm.com>
+ <20260327-a8xx-gpu-batch2-v2-10-2b53c38d2101@oss.qualcomm.com>
+ <3465929e-262f-407e-bc3d-7564787bce3d@oss.qualcomm.com>
+From: Akhil P Oommen <akhilpo@oss.qualcomm.com>
 Content-Language: en-US
-From: Val Packett <val@invisiblethingslab.com>
-Autocrypt: addr=val@invisiblethingslab.com; keydata=
- xm8EaFTEiRMFK4EEACIDAwQ+qzawvLuE95iu+QkRqp8P9z6XvFopWtYOaEnYf/nE8KWCnsCD
- jz82tdbKBpmVOdR6ViLD9tzHvaZ1NqZ9mbrszMXq09VfefoCfZp8jnA2yCT8Y4ykmv6902Ne
- NnlkVwrNKFZhbCBQYWNrZXR0IDx2YWxAaW52aXNpYmxldGhpbmdzbGFiLmNvbT7CswQTEwkA
- OxYhBAFMrro+oMGIFPc7Uc87uZxqzalRBQJoVMSJAhsDBQsJCAcCAiICBhUKCQgLAgQWAgMB
- Ah4HAheAAAoJEM87uZxqzalRlIIBf0cujzfSLhvib9iY8LBh8Tirgypm+hJHoY563xhP0YRS
- pmqZ6goIuSGpEKcW5mV3egF/TLLAOjsfroWae4giImTVOJvLOsUycxAP4O5b1Qiy+cCGsHKA
- nCRzrvqnPkyf4OeRznMEaFTEiRIFK4EEACIDAwSffe3tlMmmg3eKVp7SJ+CNZLN0M5qzHSCV
- dBBkIVvEJo+8SDg4jrx/832rxpvMCz2+x7+OHaeBHKafhOWUccYBLKqV/3nBftxCkbzXDbfY
- d02BY9H4wBIn0Y3GnwoIXRgDAQkJwpgEGBMJACAWIQQBTK66PqDBiBT3O1HPO7mcas2pUQUC
- aFTEiQIbDAAKCRDPO7mcas2pUaptAX9f7yUJLGU4C6XjMJvXd8Sz6cGTyxkngPtUyFiNqtad
- /GXBi3vHKYNfSrdqJ8wmZ8MBgOqWaaa1wE4/3qZU8d4RNR8mF7O40WYK/wdf1ycq1uGad8PN
- UDOwAqdfvuF3w8QMPw==
-In-Reply-To: <c38387fe-beef-4f50-b928-74f96b881b7a@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <3465929e-262f-407e-bc3d-7564787bce3d@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=ErbfbCcA c=1 sm=1 tr=0 ts=69cadcb7 cx=c_pps
+ a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=j4ogTh8yFefVWWEFDRgCtg==:17
+ a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=EUspDBNiAAAA:8 a=IYtLGEtn8_M1e06QnFgA:9 a=QEXdDO2ut3YA:10
+ a=GvdueXVYPmCkWapjIL-Q:22
+X-Proofpoint-ORIG-GUID: g30mFyKO6JgSt8J4Lnyu6MrEkF1urUY9
+X-Proofpoint-GUID: g30mFyKO6JgSt8J4Lnyu6MrEkF1urUY9
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzMwMDE3MiBTYWx0ZWRfX4/xIdytFH7PE
+ x8ndfpoCU6M84sQWFelFH84QgyW6nTrrddnlCPBiU13us0D8hPIiWeYk9Z/jLsVYiGkV6Y68djv
+ rkZszphowZH7j4EHQfG4VlqFEjdjhkfBg5nDzIcD1VsvcGPGvpq51qj4mh2q89BcPsYoIlFDgux
+ PP/URskTyB6LPpzdI0wK9RNKPM2pvWl80qSKi3r8KrpsIW39QpNB34L5fmNjU2YzTAkxAfoTqZ+
+ QOyjCt+BAqxB4Q230TVO1HO8R/1xK8P6/l0xmyZxXhDb/HwGbRBUZa1mnquJUdhfWj4QOgD0/iY
+ qCfEpAPRcVb+fxfxJexMVooCIFSYwPaIlRYZa2UHvz5b7TGglv4BWbEG1brVhGR+RX1w1FinL9D
+ AOn7K17/4gx0vDFuAwCWS1Tt5iZ0/YTSfGVk+6txDL5fv7yInVooM7DTTFPc4za7L4Hr0T0+rZY
+ zHtGzyb7PU7qTShIMNg==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-03-30_01,2026-03-28_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 clxscore=1015 phishscore=0 spamscore=0 lowpriorityscore=0
+ suspectscore=0 malwarescore=0 priorityscore=1501 impostorscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603300172
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -123,135 +153,55 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi,
-
-On 3/29/26 2:32 PM, Demi Marie Obenour wrote:
-> On 3/24/26 10:17, Demi Marie Obenour wrote:
->> Here is a proposed design document for supporting mapping GPU VRAM
->> and/or file-backed memory into other domains.  It's not in the form of
->> a patch because the leading + characters would just make it harder to
->> read for no particular gain, and because this is still RFC right now.
->> Once it is ready to merge, I'll send a proper patch.  Nevertheless,
->> you can consider this to be
+On 3/30/2026 4:45 PM, Konrad Dybcio wrote:
+> On 3/27/26 1:13 AM, Akhil P Oommen wrote:
+>> Update the HFI definitions to support additional GMU based power
+>> features.
 >>
->> Signed-off-by: Demi Marie Obenour <demiobenour@gmail.com>
->>
->> This approach is very different from the "frontend-allocates"
->> approach used elsewhere in Xen.  It is very much Linux-centric,
->> rather than Xen-centric.  In fact, MMU notifiers were invented for
->> KVM, and this approach is exactly the same as the one KVM implements.
->> However, to the best of my understanding, the design described here is
->> the only viable one.  Linux MM and GPU drivers require it, and changes
->> to either to relax this requirement will not be accepted upstream.
-> Teddy Astie (CCd) proposed a couple of alternatives on Matrix:
->
-> 1. Create dma-bufs for guest pages and import them into the host.
->
->     This is a win not only for Xen, but also for KVM.  Right now, shared
->     (CPU) memory buffers must be copied from the guest to the host,
->     which is pointless.  So fixing that is a good thing!  That said,
->     I'm still concerned about triggering GPU driver code-paths that
->     are not tested on bare metal.
+>> Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+>> ---
+> 
+> Whether you want to proceed with bitfields or not:
+> 
+> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-To expand on this: the reason cross-domain Wayland proxies have been 
-doing this SHM copy dance was a deficiency in Linux UAPI. Basically, 
-applications allocate shared memory using local mechanisms like memfd 
-(and good old unlink-of-regular-file, ugh) which weren't compatible with 
-cross-VM sharing. However udmabuf should basically solve it, at least 
-for memfds. (I haven't yet investigated what happens with "unlinked 
-regular files" yet but I don't expect anything good there, welp.)
+Thanks. I still feel it is bitfield layout is a 'bit' complicated.
 
-But I have landed a patch in Linux that removes a silly restriction that 
-tied dmabuf import into virtgpu to KMS-only mode:
+I did an experiment:
 
-https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/commit/?id=df4dc947c46bb9f80038f52c6e38cb2d40c10e50
+#include <stdio.h>
+#include <stdint.h>
+#include <stddef.h>
 
-And I have experimented with it and got a KVM-based VMM to successfully 
-access and print guest memfd contents that were passed to the host via 
-this mechanism. (Time to actually properly implement it into the full 
-system..)
-
-> 2. Use PASID and 2-stage translation so that the GPU can operate in
->     guest physical memory.
->     
->     This is also a win.  AMD XDNA absolutely requires PASID support,
->     and apparently AMD GPUs can also use PASID.  So being able to use
->     PASID is certainly helpful.
->
-> However, I don't think either approach is sufficient for two reasons.
->
-> First, discrete GPUs have dedicated VRAM, which Xen knows nothing about.
-> Only dom0's GPU drivers can manage VRAM, and they will insist on being
-> able to migrate it between the CPU and the GPU.  Furthermore, VRAM
-> can only be allocated using GPU driver ioctls, which will allocate
-> it from dom0-owned memory.
->
-> Second, Certain Wayland protocols, such as screencapture, require programs
-> to be able to import dmabufs.  Both of the above solutions would
-> require that the pages be pinned.  I don't think this is an option,
-> as IIUC pin_user_pages() fails on mappings of these dmabufs.  It's why
-> direct I/O to dmabufs doesn't work.
->
-> To the best of my knowledge, these problems mean that lending memory
-> is the only way to get robust GPU acceleration for both graphics and
-> compute workloads under Xen.  Simpler approaches might work for pure
-> compute workloads, for iGPUs, or for drivers that have Xen-specific
-> changes.  None of them, however, support graphics workloads on dGPUs
-> while using the GPU driver the same way bare metal workloads do.
-> […]
-To recap, how virtio-gpu Host3d memory currently works with KVM is:
-
-- the VMM/virtgpu receives a dmabuf over a socket 
-(Wayland/D-Bus/whatever) and registers it internally with some resource 
-ID that's passed to the guest;
-- When the guest imports that resource, it calls 
-VIRTIO_GPU_CMD_RESOURCE_MAP_BLOB to get a PRIME buffer that can be 
-turned into a dmabuf fd;
-- the VMM's handler for VIRTIO_GPU_CMD_RESOURCE_MAP_BLOB (referencing 
-libkrun here) literally just calls mmap() on the host dmabuf, using the 
-MAP_FIXED flag to place it correctly inside of the VMM process's 
-guest-exposed VA region (configured via KVM_SET_USER_MEMORY_REGION);
-- so any resource imported by the guest, even before guest userspace 
-does mmap(), is mapped (as VM_PFNMAP|VM_IO) until the guest releases it.
-
-So the generic kernel MM is out of the way, these mappings can't be 
-paged out to swap etc. But accessing them may fault, as the comment for 
-drm_gem_mmap_obj says:
-
-  * Depending on their requirements, GEM objects can either
-  * provide a fault handler in their vm_ops (in which case any accesses to
-  * the object will be trapped, to perform migration, GTT binding, surface
-  * register allocation, or performance monitoring), or mmap the buffer 
-memory
-  * synchronously after calling drm_gem_mmap_obj
-
-It all "just works" in KVM because KVM's resolution of the guest's 
-memory accesses tries to be literally equivalent to what's mapped into 
-the userspace VMM process: hva_to_pfn_remapped explicitly calls 
-fixup_user_fault and eventually gets to the GPU driver's fault handler.
-
-Now for Xen this would be… painful,
-
-but,
-
-we have no need to replicate what KVM does. That's far from the only 
-thing that can be done with a dmabuf.
-
-The import-export machinery on the other hand actually does pin the 
-buffers on the driver level, importers are not obligated to support 
-movable buffers (move_notify in dma_buf_attach_ops is entirely optional).
-
-Interestingly, there is already XEN_GNTDEV_DMABUF…
-
-Wait, do we even have any reason at all to suspect 
-that XEN_GNTDEV_DMABUF doesn't already satisfy all of our buffer-sharing 
-requirements?
+struct packed_u8 {
+        uint16_t mitigation_time;
+        uint8_t current_rating    : 6;
+        uint8_t num_phases        : 6;
+        uint8_t path_notification : 1;
+        uint8_t extra_features    : 3;
+} __packed;
 
 
-Thanks,
-~val
+void main() {
 
-P.S. while I have everyone's attention, can I get some eyes on:
-https://lore.kernel.org/all/20251126062124.117425-1-val@invisiblethingslab.com/ 
-?
+        struct packed_u8 data = {
+                 .mitigation_time  = 0xffff,
+                 .current_rating   = 0x3f,  /* all 6 bits set */
+                 .num_phases       = 0x3f,
+                 .path_notification = 1,
+                 .extra_features   = 0x7,
+         };
+
+        printf("Akhil 0x%x\n", *((uint32_t *) &data));
+}
+
+The output I got in Kaanapali is: Akhil 0x7f3fffff
+
+This means that the compiler inserted a padding between current_rating
+and num_phases.
+
+-Akhil.
+
+> 
+> Konrad
 
