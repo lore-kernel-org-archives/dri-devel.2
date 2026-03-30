@@ -4,140 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C817D10D14A3
-	for <dri-devel@archiver.kernel.org>; Mon, 30 Mar 2026 11:32:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DA7A110D14A2
+	for <dri-devel@archiver.kernel.org>; Mon, 30 Mar 2026 11:35:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1BB2910E482;
-	Mon, 30 Mar 2026 11:32:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 461C910E494;
+	Mon, 30 Mar 2026 11:35:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="jZMVkpCn";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="NDmr0ZNX";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="qecIzZ3G";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EA54810E25A
- for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 11:32:48 +0000 (UTC)
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 62UBELUS1402826
- for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 11:32:48 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- IVYNpilIftjXfqm8NGF87/3nEPjp9heJOVRVsPx0j7c=; b=jZMVkpCnWWiyCRha
- xbRzvFuv/ilFPlRd5QcmwcTlfe0DNibv+Ve9fcZ1YDf87NdyxrnDdKrHwzprFWzd
- Y5yoYx09b+4CksJJhbvVjCBwPN9UajoNbMC96ZhUiH/dkW+bGTFyzg11ZMC9Gd6D
- weHgdkiuefv4zhSStplBt8KlfsWHDVPrLrC4Da/5CdVrltXBnutgbqBsGKdT8uSn
- E3Q6KiznC7M5735wB2+xsGhlTZzzRQxzC33D6Q5m7cCeFeeJibNygkh8WgZ4C/fd
- 7ycLPueLAB5dZ3HofL36JBWClx1hpx5O8ibH+yQaV7gvEjUxofzh+o+AULx5wo67
- UzZl4Q==
-Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com
- [74.125.82.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d7r4h8238-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 11:32:47 +0000 (GMT)
-Received: by mail-dy1-f197.google.com with SMTP id
- 5a478bee46e88-2ba8013a9e3so3479163eec.0
- for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 04:32:47 -0700 (PDT)
+Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com
+ [209.85.218.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 995DB10E494
+ for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 11:35:12 +0000 (UTC)
+Received: by mail-ej1-f48.google.com with SMTP id
+ a640c23a62f3a-b93698bb57aso800918166b.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 04:35:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1774870367; x=1775475167;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=IVYNpilIftjXfqm8NGF87/3nEPjp9heJOVRVsPx0j7c=;
- b=NDmr0ZNXr+9UxvdUtOREP7WKjDMvsUgvIJc8K5aoG4WbnD/yB3kjTpp2BfD4psKQ0q
- S0ANU82BtTLKYPh8qIo80frOKBHdbGrX2Q8zKQg57XuMPJzcVmnh6SmWUslVrja0mDfw
- jV/knfcLaw3fgAmZDiUMGAEJiiXOMc9mfajXgOc/h0Y7BpqxsxMdPDaXUw8R2sunEyDd
- 6ZrQDBl8mNE30UCce7BEB98KwieC716Rv3XnDfwbYgBo+ADmUFdRjnuECQIoUDxy5ock
- +vNEi7EO3fqw7l+bQ+9Kp5OnUDn1c9mifnlYcro7o+OnzyG8fAiT1A6MnOnLltmMLT+v
- SYgQ==
+ d=gmail.com; s=20251104; t=1774870511; x=1775475311; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=vqY6YiaLNlQCEP7q+Nu54Vt1vO291I/2sltGJknyu9M=;
+ b=qecIzZ3Gv0QMt6tdG9nWV1Qq5tE1vzVD+O3MVw8oTkYztdGErb6iRFRifeKdqcgwWO
+ 9LVxzXa8pY9Nk8eVXESrRDAeUDB5Hn9BqgkhAPauXrtUO6ynI+jyqpEMSkh+g0vFtK7G
+ VEsz7xLr2tOTOoVKZ82vJlXj8n+EnpFwpL6kmmmmVoHCSn/lk+yu33p3WnbidiVr47GL
+ f6m9puSQUKA6ca9yIVfSqtWCZGpwdN71GqqkT4hsEardHjWEWOakx0RhQHSaLq1nzgzc
+ hJaMQjmTpGaTCDcm2WusQgN+PvUrQrnBEfpz2qZfL8xb0B11xjyxmt3zXKQEOl6NjM4/
+ VKLw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774870367; x=1775475167;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=IVYNpilIftjXfqm8NGF87/3nEPjp9heJOVRVsPx0j7c=;
- b=MJQyzp6m3i++isPEu3Dm6UerHeAlJZNsevso7jcs8Ib2ygdHuOfkqcXeoyo/aLG1OR
- DQOq5zCErpE8xzLe3rgyWziaPeF2mP0eLAb1U7z4jIIxzhZ6cbnh2ZcWG2MaozI99+2o
- KeCjq23GddeesFxr9oaBZyxp49jzmzGZPvhLGQ0N1jbj4XWhQEBjZUx9PtwHD6uo7DyO
- rPY6tU1YWDrAIt2k55Wzt29ir8DofSC/EAAqifhO7WaQXELy+JPycX/CtjrTI3fahHk5
- zhO4ktem+jJwSdikvvrtPTbHhAwlpgZ3057CcOVVlEQjXPKJa4VZgt/2aODM381BGTHo
- WH9w==
+ d=1e100.net; s=20251104; t=1774870511; x=1775475311;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=vqY6YiaLNlQCEP7q+Nu54Vt1vO291I/2sltGJknyu9M=;
+ b=rfsBzNJP9H0gJ76iSajgwg++RVPZlDnLlRTd3VPEr451cWQKgw8pE2A+j2VLuozsew
+ 91ju2MyU6gufIrp6qs6XTu4s8RybwTGzE00bArhCQsH62SYhnB2w2MTpTB2CfTplQ1AK
+ 8Q+LaHV5uufonMZV/aEbNAShh8Ry4xDQndPptoYIz4hUEcKUy13wVD81LmWlF6kExU/1
+ CKYVgisfVg+BPJxFjlY9bVAHsmwKGA1dAZ29BZVriPOWYvX/8EUkelFNBnz79gj0O+BL
+ EQ/DDd5kmKIb6Ff5K6dko/fUc4Q9fG5CKkCMWBQtb7/xrR6gkMGt3Xy80u1O1Tcfz0KX
+ 29eA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCU/3WVnAoHYh952Chy9I+/HuoiSSD6FMMJOh0nn7FMuF2sJpq/V/u8qe0yhUloXYLsGUAe0xYlCBW0=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwSqs2cJLwocczVOebQhuDLGEDNswXHO1Uki0IyPxpE3C3hpHNG
- iuCsU+xgVsG0NIe3BQjzxGvM+9Edam/IQARJYOsDV1Os0fXgPKvj8oTo5vS8eX7RBpnzJ8ugKiN
- s8pAmxo+IITE/C3V90CGGUwbAyXWL1NSkEDpGzFC8lQfeX9q7wtjcG9e7Ru8DgFX0QGxvc9o=
-X-Gm-Gg: ATEYQzzh3GozkFMTACe5j+IFTvVR37ndfNK0vESqNOBUvdxWqIIADvTZ3YiPd6gneHN
- jxOPjkVBCOqAXATTbVxQY3AbqdOvhSNIXtQdof9dtVAnjZTzUzkn4I+BjKBvRSsuq43BCwrCQdB
- ubdYDAz7ZdpF+9hBAIAPV5WMEoLpnf0EiWHNiVznsNixea4dzIRswdySCckSUU+R+g08oEbyDQy
- msv1sISQDLfQSQZXd01aUNGl4vFi//dxqGifJidCwOfAal8+HL2s32pYdT0Rk6guBCDOPEmoNMT
- udhdF9UBJrO+Yjw/PekziDdta9Flarebc6JtZW9R07FnSnfk9L/NctisHjCVWA2rmJqdMpwmP9n
- RsfaBYmJOVVdVq7Xd611QgFd8w63ZmwDHvjREwtB7rZuE8vcUKCcqVQvgpUmi6G3mP1x0a6mrL0
- oz0r8=
-X-Received: by 2002:a05:7301:100c:b0:2c1:558c:16f7 with SMTP id
- 5a478bee46e88-2c185c9c5a8mr6082250eec.6.1774870366906; 
- Mon, 30 Mar 2026 04:32:46 -0700 (PDT)
-X-Received: by 2002:a05:7301:100c:b0:2c1:558c:16f7 with SMTP id
- 5a478bee46e88-2c185c9c5a8mr6082214eec.6.1774870366204; 
- Mon, 30 Mar 2026 04:32:46 -0700 (PDT)
-Received: from [10.110.38.145] (i-global254.qualcomm.com. [199.106.103.254])
- by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-2c3c4aac86esm6776668eec.12.2026.03.30.04.32.40
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 30 Mar 2026 04:32:43 -0700 (PDT)
-Message-ID: <99d6795e-1cea-4e7f-b8b6-97f55af55d8d@oss.qualcomm.com>
-Date: Mon, 30 Mar 2026 19:32:38 +0800
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 12/38] drm/msm/dp: introduce max_streams for DP
- controller MST support
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
- <abhinav.kumar@linux.dev>, Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
- Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
+ AJvYcCX7vUUjj0UZDh7+H8jQjRWPfQT+zvIGfwWIAjxGtfT1HpK8MydShKEjyx4Qq8WWTm4ypsrBtFPNTxQ=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwblB9lzXGAk3Y0yb+Tc/5wkyUr2B7pn/aHHdKcVwarnS2DdKAU
+ bBKF3hM4d1Gtg2vVIzXCzKCnmAXXH/TPhQSbHlNGGchd4MvxkhB+icHn
+X-Gm-Gg: ATEYQzwtVuHsN4g9Ha9YP3QgqGR3MuTOQ4xytqAkxV7LFYIHk2VIVIQhUbL8hf47DjC
+ bwi5XpPtSfrmcF7SKAUNGrq2h0FwnUtN4A0IlV7UtD0X4hINn6Ddy53vA032vrZ7cXB3nU4L2Le
+ 0w9Shf6AiOGu6eC8Y2O44uJ39Y8hX5yxPVjl9nqfPGmOJK7HVRVyqAVPfiqhxeInvtV76qtb+E1
+ cNsxlaKLm8zGQIIVdn0FTuSLY/OnZe9OSwbYo4Nv20Yjp+mzg+RMwLOpaEUgHsjtnw92gG2vtzk
+ aiKVExr3hEl6iQ6DbF2tMo8lIEGNPcLoJkXLRxolTtCH3DiVsuc6Zs4dnopNPxt9NaWajdL9uh9
+ Ep4oxHU+wDY4q5yfG/euqpIv7ESWDvuVJW3OJF2lJdu1Z/pI1eYVfCVZaSM+kwpq/SPEdAdQcSG
+ XJ1iIgvlCWxfjvgyT/S6UVadXOzCY+deyb
+X-Received: by 2002:a17:907:2d8a:b0:b98:f1d:6a63 with SMTP id
+ a640c23a62f3a-b9b2e5921bbmr865454266b.9.1774870510699; 
+ Mon, 30 Mar 2026 04:35:10 -0700 (PDT)
+Received: from localhost ([178.214.243.78]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-66c07ab15basm369758a12.17.2026.03.30.04.35.08
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 30 Mar 2026 04:35:10 -0700 (PDT)
+From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+To: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: lijo.lazar@amd.com, Eric Huang <jinhuieric.huang@amd.com>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Abhinav Kumar <quic_abhinavk@quicinc.com>
-References: <20250825-msm-dp-mst-v3-0-01faacfcdedd@oss.qualcomm.com>
- <20250825-msm-dp-mst-v3-12-01faacfcdedd@oss.qualcomm.com>
- <ltlmp5ytl2f7no7aqq7sl54pwd4f53fuema23xnuwu5uthhbg3@7wamwvv22nle>
- <c71ea478-ed93-4f10-aba2-023180c2ed42@oss.qualcomm.com>
- <ex5zvncmnt5pmb5j2utolgbw3yewj4x4e6nu7sdrgzm7ubasmi@2jdubbxuckwd>
-Content-Language: en-US
-From: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
-In-Reply-To: <ex5zvncmnt5pmb5j2utolgbw3yewj4x4e6nu7sdrgzm7ubasmi@2jdubbxuckwd>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ stable@vger.kernel.org, Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+Subject: [PATCH v3] drm/amdgpu: replace PASID IDR with XArray
+Date: Mon, 30 Mar 2026 16:35:01 +0500
+Message-ID: <20260330113501.25654-1-mikhail.v.gavrilov@gmail.com>
+X-Mailer: git-send-email 2.53.0
+MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzMwMDA5MCBTYWx0ZWRfXyLBoO/LrYuYD
- BxFtuStAuENJL9EKFt+yrV7HEdrzsiJ1Y3R6xTRTStN90x3AjIyhES0sTiFaIaTf9zjR3bYtdkd
- ylGfIiKSbKFb8XCrzAsQLPJNIvGrEYV5dSVEwsZwKCUCNFFfAnwMna8eaFcT0wO/GBnGG/GCgaN
- PUJLGaQ2W8r94EPFAZLTq31V0y2Agh77mZ3AWBt1b9Pi4UbEDIvQWG+lZMcqFZrPqKt9ZD2je5r
- vAe+L9QLj7rM/tOwSWGnvik1+DPsaaboPP2+64bmRGhj8+uFinCOrSxm05nzXIwD8btZcnwpbHL
- snEdvZMVNKPuW0vtogvI1OTPa1+EbYdO3SlfpinNvcWjneNZ3yHOesa7ZR0c+Fisd1jLgDFVyXe
- BTolF+wc6rPPWQX7JSwuwaS5Zzh5ousaW8BKsySTwNf53nCucCyQaG6l9YOJ7FBFpsJtvLI22Cj
- Icrn7OAEbBMS3dF6Xmw==
-X-Proofpoint-ORIG-GUID: MceyjoumL1vXrQaWEZlr4pyxk0VJGhQR
-X-Authority-Analysis: v=2.4 cv=PI0COPqC c=1 sm=1 tr=0 ts=69ca5f5f cx=c_pps
- a=Uww141gWH0fZj/3QKPojxA==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
- a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=COk6AnOGAAAA:8 a=EUspDBNiAAAA:8 a=zP8nz7a8HkQHIvqbjmkA:9 a=3ZKOabzyN94A:10
- a=QEXdDO2ut3YA:10 a=PxkB5W3o20Ba91AHUih5:22 a=TjNXssC_j7lpFel5tvFf:22
-X-Proofpoint-GUID: MceyjoumL1vXrQaWEZlr4pyxk0VJGhQR
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-03-29_05,2026-03-28_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 phishscore=0 adultscore=0 impostorscore=0 malwarescore=0
- lowpriorityscore=0 spamscore=0 suspectscore=0 clxscore=1015 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603300090
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -153,66 +88,171 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Commit 8f1de51f49be ("drm/amdgpu: prevent immediate PASID reuse case")
+converted the global PASID allocator from IDA to IDR with a spinlock
+for cyclic allocation, but introduced two locking bugs:
 
+1) idr_alloc_cyclic() is called with GFP_KERNEL under spin_lock(),
+   which can sleep.
 
-On 3/30/2026 6:35 PM, Dmitry Baryshkov wrote:
-> On Mon, Mar 30, 2026 at 05:57:13PM +0800, Yongxing Mou wrote:
->>
->>
->> On 8/26/2025 1:42 AM, Dmitry Baryshkov wrote:
->>> On Mon, Aug 25, 2025 at 10:15:58PM +0800, Yongxing Mou wrote:
->>>> From: Abhinav Kumar <quic_abhinavk@quicinc.com>
->>>>
->>>> Introduce the `mst_streams` field in each DP controller descriptor to
->>>> specify the number of supported MST streams. Most platforms support 2 or
->>>> 4 MST streams, while platforms without MST support default to a single
->>>> stream (`DEFAULT_STREAM_COUNT = 1`).
->>>>
->>>> This change also accounts for platforms with asymmetric stream support,
->>>> e.g., DP0 supporting 4 streams and DP1 supporting 2.
->>>
->>> How?
->>>
->> Each DP controller have it own msm_dp_desc ...
-> 
-> Why do you need to mention it?
-> 
-Sorry, I may have misunderstood your “How?”. Could you please clarify 
-what aspect you are referring to (commit message wording vs. the actual 
-implementation)?
->>>>
->>>> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
->>>> Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
->>>> ---
->>>>    drivers/gpu/drm/msm/dp/dp_display.c | 21 +++++++++++++++++++++
->>>>    drivers/gpu/drm/msm/dp/dp_display.h |  1 +
->>>>    2 files changed, 22 insertions(+)
->>>>
->>>> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
->>>> index 78d932bceb581ee54116926506b1025bd159108f..a8477a0a180137f15cbb1401c3964636aa32626c 100644
->>>> --- a/drivers/gpu/drm/msm/dp/dp_display.c
->>>> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
->>>> @@ -33,6 +33,7 @@ module_param(psr_enabled, bool, 0);
->>>>    MODULE_PARM_DESC(psr_enabled, "enable PSR for eDP and DP displays");
->>>>    #define HPD_STRING_SIZE 30
->>>> +#define DEFAULT_STREAM_COUNT 1
->>>>    enum {
->>>>    	ISR_DISCONNECTED,
->>>> @@ -52,6 +53,7 @@ struct msm_dp_display_private {
->>>>    	bool core_initialized;
->>>>    	bool phy_initialized;
->>>>    	bool audio_supported;
->>>> +	bool mst_supported;
->>>
->>> Why do we need the separate boot field here? Isn't it enough to check the max_stream?
->>>
->> If remove mst_supported, condition "mst_streams > 1" will appear in multiple
->> places.
-> 
-> And so what? If you want, extract the function, but don't add
-> duplicating data.
-> 
-Got it. will remove this "mst_supported".
->>>>    	struct drm_device *drm_dev;
-> 
+2) amdgpu_pasid_free() can be called from hardirq context via the
+   fence signal path (amdgpu_pasid_free_cb), but the lock is taken
+   with plain spin_lock() in process context, creating a potential
+   deadlock:
+
+     CPU0
+     ----
+     spin_lock(&amdgpu_pasid_idr_lock)   // process context, IRQs on
+     <Interrupt>
+       spin_lock(&amdgpu_pasid_idr_lock) // deadlock
+
+   The hardirq call chain is:
+
+     sdma_v6_0_process_trap_irq
+      -> amdgpu_fence_process
+       -> dma_fence_signal
+        -> drm_sched_job_done
+         -> dma_fence_signal
+          -> amdgpu_pasid_free_cb
+           -> amdgpu_pasid_free
+
+   This was observed on an RX 7900 XTX when exiting a Vulkan game
+   running under Proton/Wine, which triggers the fence callback path
+   during VM teardown.
+
+Replace the IDR + spinlock with an XArray, which provides built-in
+cyclic allocation (__xa_alloc_cyclic) and fine-grained IRQ-safe
+locking (xa_lock_irqsave).  This fixes both bugs in a single,
+cleaner conversion.
+
+Suggested-by: Lazar, Lijo <lijo.lazar@amd.com>
+Fixes: 8f1de51f49be ("drm/amdgpu: prevent immediate PASID reuse case")
+Cc: stable@vger.kernel.org
+Signed-off-by: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+---
+
+v3: Replace IDR with XArray instead of fixing the spinlock, as
+    suggested by Lijo Lazar.
+    https://lore.kernel.org/all/20260330053025.19203-1-mikhail.v.gavrilov@gmail.com/
+v2: Added second patch fixing the {HARDIRQ-ON-W} -> {IN-HARDIRQ-W}
+    lock inconsistency (spin_lock -> spin_lock_irqsave).
+    https://lore.kernel.org/all/20260330053025.19203-1-mikhail.v.gavrilov@gmail.com/
+v1: Fixed sleeping-under-spinlock (idr_alloc_cyclic with GFP_KERNEL)
+    using idr_preload/GFP_NOWAIT.
+    https://lore.kernel.org/all/20260328213900.19255-1-mikhail.v.gavrilov@gmail.com/
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c | 50 +++++++++++++------------
+ 1 file changed, 27 insertions(+), 23 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
+index d88523568b62..1e660fbc42ff 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
+@@ -22,7 +22,7 @@
+  */
+ #include "amdgpu_ids.h"
+ 
+-#include <linux/idr.h>
++#include <linux/xarray.h>
+ #include <linux/dma-fence-array.h>
+ 
+ 
+@@ -35,13 +35,13 @@
+  * PASIDs are global address space identifiers that can be shared
+  * between the GPU, an IOMMU and the driver. VMs on different devices
+  * may use the same PASID if they share the same address
+- * space. Therefore PASIDs are allocated using IDR cyclic allocator
+- * (similar to kernel PID allocation) which naturally delays reuse.
+- * VMs are looked up from the PASID per amdgpu_device.
++ * space. Therefore PASIDs are allocated using an XArray cyclic
++ * allocator (similar to kernel PID allocation) which naturally delays
++ * reuse. VMs are looked up from the PASID per amdgpu_device.
+  */
+ 
+-static DEFINE_IDR(amdgpu_pasid_idr);
+-static DEFINE_SPINLOCK(amdgpu_pasid_idr_lock);
++static DEFINE_XARRAY_ALLOC(amdgpu_pasid_xa);
++static u32 amdgpu_pasid_xa_next;
+ 
+ /* Helper to free pasid from a fence callback */
+ struct amdgpu_pasid_cb {
+@@ -53,8 +53,7 @@ struct amdgpu_pasid_cb {
+  * amdgpu_pasid_alloc - Allocate a PASID
+  * @bits: Maximum width of the PASID in bits, must be at least 1
+  *
+- * Uses kernel's IDR cyclic allocator (same as PID allocation).
+- * Allocates sequentially with automatic wrap-around.
++ * Uses XArray cyclic allocator for sequential allocation with wrap-around.
+  *
+  * Returns a positive integer on success. Returns %-EINVAL if bits==0.
+  * Returns %-ENOSPC if no PASID was available. Returns %-ENOMEM on
+@@ -62,20 +61,25 @@ struct amdgpu_pasid_cb {
+  */
+ int amdgpu_pasid_alloc(unsigned int bits)
+ {
+-	int pasid;
++	unsigned long flags;
++	u32 pasid;
++	int r;
+ 
+ 	if (bits == 0)
+ 		return -EINVAL;
+ 
+-	spin_lock(&amdgpu_pasid_idr_lock);
+-	pasid = idr_alloc_cyclic(&amdgpu_pasid_idr, NULL, 1,
+-				 1U << bits, GFP_KERNEL);
+-	spin_unlock(&amdgpu_pasid_idr_lock);
++	xa_lock_irqsave(&amdgpu_pasid_xa, flags);
++	r = __xa_alloc_cyclic(&amdgpu_pasid_xa, &pasid, xa_mk_value(0),
++			      XA_LIMIT(1, (1U << bits) - 1),
++			      &amdgpu_pasid_xa_next, GFP_ATOMIC);
++	xa_unlock_irqrestore(&amdgpu_pasid_xa, flags);
+ 
+-	if (pasid >= 0)
++	if (r >= 0) {
+ 		trace_amdgpu_pasid_allocated(pasid);
++		return pasid;
++	}
+ 
+-	return pasid;
++	return r;
+ }
+ 
+ /**
+@@ -84,11 +88,13 @@ int amdgpu_pasid_alloc(unsigned int bits)
+  */
+ void amdgpu_pasid_free(u32 pasid)
+ {
++	unsigned long flags;
++
+ 	trace_amdgpu_pasid_freed(pasid);
+ 
+-	spin_lock(&amdgpu_pasid_idr_lock);
+-	idr_remove(&amdgpu_pasid_idr, pasid);
+-	spin_unlock(&amdgpu_pasid_idr_lock);
++	xa_lock_irqsave(&amdgpu_pasid_xa, flags);
++	__xa_erase(&amdgpu_pasid_xa, pasid);
++	xa_unlock_irqrestore(&amdgpu_pasid_xa, flags);
+ }
+ 
+ static void amdgpu_pasid_free_cb(struct dma_fence *fence,
+@@ -625,13 +631,11 @@ void amdgpu_vmid_mgr_fini(struct amdgpu_device *adev)
+ }
+ 
+ /**
+- * amdgpu_pasid_mgr_cleanup - cleanup PASID manager
++ * amdgpu_pasid_mgr_cleanup - Cleanup PASID manager
+  *
+- * Cleanup the IDR allocator.
++ * Free all internal data structures of the XArray allocator.
+  */
+ void amdgpu_pasid_mgr_cleanup(void)
+ {
+-	spin_lock(&amdgpu_pasid_idr_lock);
+-	idr_destroy(&amdgpu_pasid_idr);
+-	spin_unlock(&amdgpu_pasid_idr_lock);
++	xa_destroy(&amdgpu_pasid_xa);
+ }
+-- 
+2.53.0
 
