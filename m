@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3AB321061B18
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AB65E1061B17
 	for <dri-devel@archiver.kernel.org>; Mon, 30 Mar 2026 17:52:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 99AD810E63A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E0B3710E64E;
 	Mon, 30 Mar 2026 17:52:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="B5HnbgT0";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="dGz568b8";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7CFD010E63A
- for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 17:52:15 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 083EE10E63A
+ for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 17:52:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329; h=Cc:To:In-Reply-To:References:Message-Id:
  Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:From:Sender:
  Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender
  :Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
  List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=Kx5Hvpk462Lwzq1+9JzU0yj0s/n4YyP/29WdCQDgofM=; b=B5HnbgT0Uiq/lrctzAa96FUpwX
- k8s48AwjISYdk3QjP+fEDbj0tiRcjPhjrepupZ16e497DP2D0koXPqa3lv13ptuK03TOYr3W8A7Ok
- XS095R1UacqHZU9+lpociJhwSH0xE3hhBOLbVMwAUqZbuaaolUgkrVvCeCupGvQMoU2prSG9qHU0q
- g+xv6gd5Z3Ddi9BdQ/MhnRt686eVlqv0cNASJeyGKLVsgwklTNbf4xvnZ6iDqCl4+hCkrrM2hrVaA
- f3JIjba3QechQ3HzFM+5LRRNlfaC6+ykgdJUcVAEn6+aNDu2zK2s9Z2NPI1TMEInFWWtKs2Ovs1Cn
- bbXmVyKw==;
+ bh=fCM7RajpHxAMkcfWgFzUXFkITxppA2bVRFnD8hPxfJg=; b=dGz568b87gT5gY2D31snmh+XGB
+ GJEloBg5UPpRfMQrqZVQtxSXhfPos9+8ck+92NOekzPUtuxUX4bj0qyxEKua1Qk60Z2FcGKp1YxIw
+ Bdxjjuq84KYzSNSxrIezSvy6K03PGAtJtLoPlmY0w9t74Lqtct8m0+rliB1tAB8eHxMYRE2A3mw9w
+ 4cS2K6v+EX7Wx80nxZOdvz5hAXDck/Z8oz8iRFTBdP96YQTG4RwZG81WwjCr3T9kP86qLpG5lFkwY
+ Ouk1cPr2s0JEADkC4dcO4RghJvOvgDphbYSrGe8E67pyy+FCZnxZ49x9V7cMiu1cX+3sgZwIjUtqU
+ Y+rW82Ag==;
 Received: from [189.7.87.169] (helo=[10.0.0.1])
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1w7GmW-00961G-JI; Mon, 30 Mar 2026 19:52:08 +0200
+ id 1w7Gmi-00961G-57; Mon, 30 Mar 2026 19:52:20 +0200
 From: =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
-Date: Mon, 30 Mar 2026 14:51:45 -0300
-Subject: [PATCH 3/6] drm/vc4: Fix a memory leak in hang state error path
+Date: Mon, 30 Mar 2026 14:51:48 -0300
+Subject: [PATCH 6/6] drm/vc4: Clean-up UAPI header inclusion
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260330-vc4-misc-fixes-v1-3-92defc940a29@igalia.com>
+Message-Id: <20260330-vc4-misc-fixes-v1-6-92defc940a29@igalia.com>
 References: <20260330-vc4-misc-fixes-v1-0-92defc940a29@igalia.com>
 In-Reply-To: <20260330-vc4-misc-fixes-v1-0-92defc940a29@igalia.com>
 To: Melissa Wen <mwen@igalia.com>, Iago Toral <itoral@igalia.com>, 
@@ -50,15 +50,15 @@ To: Melissa Wen <mwen@igalia.com>, Iago Toral <itoral@igalia.com>,
 Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org, 
  =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1855; i=mcanal@igalia.com;
- h=from:subject:message-id; bh=XYKKl90VXfhBo2yti9X0EwlGNrG1YZGLpgD0kbYaz80=;
- b=owEBbQGS/pANAwAKAT/zDop2iPqqAcsmYgBpyrg5k6vj4uH+0uL2l7pXHzVvO41zQlO5ZVFgx
- Zhb3TcWU/eJATMEAAEKAB0WIQT45F19ARZ3Bymmd9E/8w6Kdoj6qgUCacq4OQAKCRA/8w6Kdoj6
- qmuoB/oDSH32dwqxe/etiKn15rL9DNj3yuboATCy5hYpick3SObRBcFRej6cnlWA4LMVd5AVMuU
- mfowsXzG2E4hJh7jV4+dr4BXhQYt0aMttP6pgT0WV3Kemhoec+u9MlOhSg/CPfl2A+Xk7zMYXT/
- VBZ16S9J2fnaKG1uo6kGqDfiBgMSSZKV/VkRRyabiU9/U1eQTV+js8uSJRy9LvO8RDmaKheV+CA
- 126h1ym5ok6obQdJrqGO7RnMg3CLD+kc5nCgGLsJy0MrQfITHhqh+ig72XUGJ5I1MtBMTdC+j92
- eqIVyf7cZMD0s10yIboJtTGcIIM6tFdP1RBarH65YmYM5U5K
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3045; i=mcanal@igalia.com;
+ h=from:subject:message-id; bh=fw9JmH3zCK2kSr/2+QEvwSI5nRvE1To5Yv6s0oRX/qo=;
+ b=owEBbQGS/pANAwAKAT/zDop2iPqqAcsmYgBpyrg5mKa4hizC00u1EzeqPEx1Yvs51Z8WO4L1O
+ YmT2wDPn4WJATMEAAEKAB0WIQT45F19ARZ3Bymmd9E/8w6Kdoj6qgUCacq4OQAKCRA/8w6Kdoj6
+ qjCQB/45pEyTOYYLwexOjlfCMuTdbFizi94kIYk+sP7cAQ6ea+76AdAyVS4ZDpQBeAUmqEYiFTN
+ Z+Xv9gr/gvV0z01LLst4rDIna/ldbVpmLthXZ0qZj/kOtVoYkyO0B1PfzI17FqLNSdMU2Xl1mNC
+ QeEw3whZMVD/SCnJDGD+V33nIvfhm9MeEjA+iOD1dpUk3DPHCHkarazNhJSmocTz9Tym2a4yIQV
+ 1FdetxjsWERCoWuTmme8sxUXAw0CEIjqOSDGaL6PvRmR1fLKma10vS5h/COqj7GVSAHEwyONC+w
+ t0cRSrP7R9vEXKcxVEkkEfXNH/kLzfO0ky9XGEAx7rr+gxrJ
 X-Developer-Key: i=mcanal@igalia.com; a=openpgp;
  fpr=F8E45D7D0116770729A677D13FF30E8A7688FAAA
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -76,62 +76,94 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-When vc4_save_hang_state() encounters an early return condition, it
-returns without freeing the previously allocated `kernel_state`,
-leaking memory.
+"uapi/drm/vc4_drm.h" is already included through "vc4_drv.h". Therefore,
+remove its direct inclusion from several files.
 
-Add the missing kfree() calls by consolidating the early return paths
-into a single place.
-
-Fixes: 214613656b51 ("drm/vc4: Add an interface for capturing the GPU state after a hang.")
+Suggested-by: Melissa Wen <mwen@igalia.com>
 Signed-off-by: Maíra Canal <mcanal@igalia.com>
 ---
- drivers/gpu/drm/vc4/vc4_gem.c | 18 ++++++++++--------
- 1 file changed, 10 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/vc4/vc4_bo.c        | 1 -
+ drivers/gpu/drm/vc4/vc4_drv.c       | 2 --
+ drivers/gpu/drm/vc4/vc4_gem.c       | 1 -
+ drivers/gpu/drm/vc4/vc4_plane.c     | 2 --
+ drivers/gpu/drm/vc4/vc4_render_cl.c | 1 -
+ drivers/gpu/drm/vc4/vc4_validate.c  | 1 -
+ 6 files changed, 8 deletions(-)
 
+diff --git a/drivers/gpu/drm/vc4/vc4_bo.c b/drivers/gpu/drm/vc4/vc4_bo.c
+index 9377e58f9bc256ea81e19cc442d04139feec20fe..2161761b1f2215c3ce7054caf21019d4be5c70d9 100644
+--- a/drivers/gpu/drm/vc4/vc4_bo.c
++++ b/drivers/gpu/drm/vc4/vc4_bo.c
+@@ -22,7 +22,6 @@
+ #include <drm/drm_print.h>
+ 
+ #include "vc4_drv.h"
+-#include "uapi/drm/vc4_drm.h"
+ 
+ static const struct drm_gem_object_funcs vc4_gem_object_funcs;
+ 
+diff --git a/drivers/gpu/drm/vc4/vc4_drv.c b/drivers/gpu/drm/vc4/vc4_drv.c
+index a14ecb7694613f15df3cfdb0195825d961fe1707..616caf9d9915b9ed7f614d6f0339fa6ee2cb80e3 100644
+--- a/drivers/gpu/drm/vc4/vc4_drv.c
++++ b/drivers/gpu/drm/vc4/vc4_drv.c
+@@ -41,8 +41,6 @@
+ 
+ #include <soc/bcm2835/raspberrypi-firmware.h>
+ 
+-#include "uapi/drm/vc4_drm.h"
+-
+ #include "vc4_drv.h"
+ #include "vc4_regs.h"
+ 
 diff --git a/drivers/gpu/drm/vc4/vc4_gem.c b/drivers/gpu/drm/vc4/vc4_gem.c
-index 248c47665a193fa639a481f97ac2af634f415384..ab3c6d5d4eb446804877d6b8da01c3a9f65800df 100644
+index ab3c6d5d4eb446804877d6b8da01c3a9f65800df..e231c906709c1b15bd19e3f478ad86048700ba55 100644
 --- a/drivers/gpu/drm/vc4/vc4_gem.c
 +++ b/drivers/gpu/drm/vc4/vc4_gem.c
-@@ -171,10 +171,8 @@ vc4_save_hang_state(struct drm_device *dev)
- 	spin_lock_irqsave(&vc4->job_lock, irqflags);
- 	exec[0] = vc4_first_bin_job(vc4);
- 	exec[1] = vc4_first_render_job(vc4);
--	if (!exec[0] && !exec[1]) {
--		spin_unlock_irqrestore(&vc4->job_lock, irqflags);
--		return;
--	}
-+	if (!exec[0] && !exec[1])
-+		goto err_free_state;
+@@ -33,7 +33,6 @@
+ #include <drm/drm_print.h>
+ #include <drm/drm_syncobj.h>
  
- 	/* Get the bos from both binner and renderer into hang state. */
- 	state->bo_count = 0;
-@@ -191,10 +189,8 @@ vc4_save_hang_state(struct drm_device *dev)
- 	kernel_state->bo = kzalloc_objs(*kernel_state->bo, state->bo_count,
- 					GFP_ATOMIC);
+-#include "uapi/drm/vc4_drm.h"
+ #include "vc4_drv.h"
+ #include "vc4_regs.h"
+ #include "vc4_trace.h"
+diff --git a/drivers/gpu/drm/vc4/vc4_plane.c b/drivers/gpu/drm/vc4/vc4_plane.c
+index 91d499fefba2189131ff96270a9b001d694ab2ae..a81bad3519ccf3e8056a2ae37ddcfeccc2306a14 100644
+--- a/drivers/gpu/drm/vc4/vc4_plane.c
++++ b/drivers/gpu/drm/vc4/vc4_plane.c
+@@ -26,8 +26,6 @@
+ #include <drm/drm_gem_atomic_helper.h>
+ #include <drm/drm_print.h>
  
--	if (!kernel_state->bo) {
--		spin_unlock_irqrestore(&vc4->job_lock, irqflags);
--		return;
--	}
-+	if (!kernel_state->bo)
-+		goto err_free_state;
+-#include "uapi/drm/vc4_drm.h"
+-
+ #include "vc4_drv.h"
+ #include "vc4_regs.h"
  
- 	k = 0;
- 	for (i = 0; i < 2; i++) {
-@@ -286,6 +282,12 @@ vc4_save_hang_state(struct drm_device *dev)
- 		vc4->hang_state = kernel_state;
- 		spin_unlock_irqrestore(&vc4->job_lock, irqflags);
- 	}
-+
-+	return;
-+
-+err_free_state:
-+	spin_unlock_irqrestore(&vc4->job_lock, irqflags);
-+	kfree(kernel_state);
- }
+diff --git a/drivers/gpu/drm/vc4/vc4_render_cl.c b/drivers/gpu/drm/vc4/vc4_render_cl.c
+index edc471e71c0eb1729c0dcf823ca6c9e0a7e207ed..c264d21bc3fe357ec28048760243b27b3dc26b1b 100644
+--- a/drivers/gpu/drm/vc4/vc4_render_cl.c
++++ b/drivers/gpu/drm/vc4/vc4_render_cl.c
+@@ -37,7 +37,6 @@
  
- static void
+ #include <drm/drm_print.h>
+ 
+-#include "uapi/drm/vc4_drm.h"
+ #include "vc4_drv.h"
+ #include "vc4_packet.h"
+ 
+diff --git a/drivers/gpu/drm/vc4/vc4_validate.c b/drivers/gpu/drm/vc4/vc4_validate.c
+index 545c4c3608f5683209ea1462d61d9d0dd68d0bd7..7f2fadfde7a8ee63a531a98474a8447b37faaac1 100644
+--- a/drivers/gpu/drm/vc4/vc4_validate.c
++++ b/drivers/gpu/drm/vc4/vc4_validate.c
+@@ -45,7 +45,6 @@
+ 
+ #include <drm/drm_print.h>
+ 
+-#include "uapi/drm/vc4_drm.h"
+ #include "vc4_drv.h"
+ #include "vc4_packet.h"
+ 
 
 -- 
 2.53.0
