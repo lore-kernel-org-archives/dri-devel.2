@@ -4,135 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B126F1061B13
-	for <dri-devel@archiver.kernel.org>; Mon, 30 Mar 2026 15:37:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4FDFF1061B0F
+	for <dri-devel@archiver.kernel.org>; Mon, 30 Mar 2026 15:40:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0034210E760;
-	Mon, 30 Mar 2026 15:37:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9D7D810E16D;
+	Mon, 30 Mar 2026 15:40:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="B6Nqa5Xw";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="s9kszX8b";
 	dkim-atps=neutral
-Received: from BN8PR05CU002.outbound.protection.outlook.com
- (mail-eastus2azon11011014.outbound.protection.outlook.com [52.101.57.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9993510E75A;
- Mon, 30 Mar 2026 15:37:56 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=yxkVPjc04IkZhv1K2t7eHQTgslMoHc9BQ9a1xyFx5LTO3K8FUSjgNQsbfvnSA9FX+kDS0s4Q6yvUGfivzUHqSiGk4x7xQfF4M5J+yojS3qFLUwQwr2PeXMfdlKiVkZ8Q+pDEuAdsV2puvna20tzjMCjWEhfD6bmAlD/OquDjgxfeR6Apdo3zA/YV8OjLm80rwMNaSsrz8G9rXnnCG3hjyAZFXL8Xi9kZ8UCLSccXkJSDH9T+Qi9L7lU6h84lxSgI6KEBkZrsFXdQ+2PXCjkgy6+reD+Xu0wBEgPdDrJQMpMRD/RCcqvrYPPgzzVZe2bHy0pzWA8lXMZBLY9BpvBmFg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=tpFOiOkOnWZ7pkBeijW6wZXZouonLtWVJ9PwY39nkCw=;
- b=uC/0e5FQMjh++BL6HgmVbPUlSpZyXQX8Io2tXBHpStDCW8q/qICQmiwP/0rOh06xuROtKi5Rz5fQQrTrSMqdx0OkDCua1aEVwmRY4wZkmRXAi9oS9R2vjmcoFHdNC9r9rjAh+1hsbYqZhxcDMrmVU+TYoVIld8kldRsn5ahbxHEe+tuiIn1Fhsap9jSsheYUKFPidUOG6PBbEmM+YXWVAZeC2Mx9N1Y6e8w1DQEEb18MhWPVbaZ/7v4j1w2e8+Vi2k8Kvh1sTMldmMyA2zwXLG5o87yL9H/Z16sduBeiV+nqrzRdd0j53fSkarvRJcMdusuMgmYJXp9XoupaD1Qb7A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=tpFOiOkOnWZ7pkBeijW6wZXZouonLtWVJ9PwY39nkCw=;
- b=B6Nqa5Xw0duHvYyCC6sHtherCYI+cH+DK2rxMRnN8Ay/Vb8/P8GuKD8rmLfFtWztEoGpJC9X21bZuZ6afiYmj1nAcfE+X5vKMpX7TxAm4ZVdbG7z1TnH2GUB1pS24QntQ7u2GidRNvcIqFCZAmzFioQkxLCK/NlGFULh1JodW3k=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BL1PR12MB5126.namprd12.prod.outlook.com (2603:10b6:208:312::8)
- by SJ5PPFABE38415D.namprd12.prod.outlook.com
- (2603:10b6:a0f:fc02::99e) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.12; Mon, 30 Mar
- 2026 15:37:51 +0000
-Received: from BL1PR12MB5126.namprd12.prod.outlook.com
- ([fe80::c3e7:1bc5:2b91:1cfe]) by BL1PR12MB5126.namprd12.prod.outlook.com
- ([fe80::c3e7:1bc5:2b91:1cfe%6]) with mapi id 15.20.9769.014; Mon, 30 Mar 2026
- 15:37:50 +0000
-Message-ID: <0d438de9-cb79-4db4-8f33-dfef47a9a7bd@amd.com>
-Date: Mon, 30 Mar 2026 11:37:44 -0400
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 01/10] drm/colorop: Add DRM_COLOROP_CSC_FF
-From: Harry Wentland <harry.wentland@amd.com>
-To: Pekka Paalanen <pekka.paalanen@collabora.com>
-Cc: "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>,
- dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, louis.chauvet@bootlin.com, mwen@igalia.com,
- contact@emersion.fr, alex.hung@amd.com, daniels@collabora.com,
- uma.shankar@intel.com, maarten.lankhorst@intel.com, pranay.samala@intel.com,
- swati2.sharma@intel.com
-References: <20260306165307.3233194-1-chaitanya.kumar.borah@intel.com>
- <20260306165307.3233194-2-chaitanya.kumar.borah@intel.com>
- <20260310163229.521186ab@eldfell>
- <53c3f610-942c-46bf-be5f-a4c51625c358@intel.com>
- <20260316105724.47d24409@eldfell>
- <eaaea3f6-76ce-4b20-b7b1-b483594070cd@intel.com>
- <20260316135349.06476e85@eldfell>
- <0969dd82-0212-4fec-b693-e53c6ddd692c@amd.com>
- <20260316180338.0b2f6923@eldfell>
- <cd9e1aa2-85b8-4add-a3b9-ba7acbd29f60@amd.com>
-Content-Language: en-US
-In-Reply-To: <cd9e1aa2-85b8-4add-a3b9-ba7acbd29f60@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YT4P288CA0031.CANP288.PROD.OUTLOOK.COM
- (2603:10b6:b01:d3::9) To BL1PR12MB5126.namprd12.prod.outlook.com
- (2603:10b6:208:312::8)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 274C210E16D
+ for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 15:40:17 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id 51571600CB;
+ Mon, 30 Mar 2026 15:40:16 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7773FC4CEF7;
+ Mon, 30 Mar 2026 15:40:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1774885216;
+ bh=qHM7oQRzY9ST2dUBFDQhLmzQd4QRKdkAaxvIMcjy50c=;
+ h=From:Date:Subject:To:Cc:From;
+ b=s9kszX8bGTBslpUJXFL5Lq/D5pP9huMGeBAeBbm7gRqrYjuQut2CQIdrwBHGzaJWV
+ BbK/5U1snRWILPPWfpCG348z8pmmSQBr07ZAv8X5+XVbsYPCcoWuQ/mxN65vtR+92q
+ xMRMry2fcHhNBYsRLeQMVUWGtBtDjkfBLV0VcWy5BirZwu1ZQvcLBnR31N24ViNt4M
+ rIK3mgJuoe23/CahEOA4ry1bTTOi+lN6uwFQuY+Lpm5niVXRWLre/4DTSGM3a0qg1j
+ Uz+jm33jUr+cxkb3p1VW7B/CtO77UiMIZGekm94DIdgQCl2r8rx2O2Xe9E2sWnY3zc
+ xlqe4yT1OwjzQ==
+From: Maxime Ripard <mripard@kernel.org>
+Date: Mon, 30 Mar 2026 17:40:07 +0200
+Subject: [PATCH v2] dma/contiguous: Fix broken build
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL1PR12MB5126:EE_|SJ5PPFABE38415D:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4fc6b020-075f-404b-3b49-08de8e724d42
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|7416014|366016|1800799024|18002099003|56012099003|22082099003;
-X-Microsoft-Antispam-Message-Info: mnv8T42sRSLkSNZEfcAXFWIny3E1GQ9zl/HZw/IV7gGfpZH7rvgkaK/58Ctdnq8ikD5SBylvZjrHxteo8/h7Pt5Py0xw6/MyzHAgthV9tuMluQwHu7L04VZoz4Zct1sNBOLQ6tyAqC3I+V/kJWbnoIdCPvweT0ArH0uo1hqbK4zf50aGv67URlLk0ze7EYjTCBAvSNntIaL/Ovo+xvSoNpx0LGfukf6/UW7pjlZHyhxRaNM6rUmMH7bm24D6I1T5KRr8wguTxpqCgjK/0WmfNpOai1sSs9RMoCq0II3v+XnRMGrRy3MWCsmwpomnv0+DYDHWy3diATssPwz5cAiynNFgpwdsl4XEIp3MkpW4EAFepHMeFdacLbRgHZqT2vvOGmqLrrgGsbD5/xb4kA6eRKen85l8qRw2pfCGpxr+auyVaJb84IUNQvpmhPILwGTv/xh5gi/QmTkcnEX3TKd6vBWZpcellYoHtwycqdQwdqk/XMueZIZl2zeF/yq8CCz/A862OhXjYOPFdRzm2JQBvsAlodv7fpArPrODJwokZRfSjCOc3MOnjbDwqYL/LhIufmpVakKogVpHd/kSNPjcebAsR2BLBN2acs4eKFiC2ZhvjlN7WrU3yoDqCsCfdzvxbSF7CCx7tg7Ia1ZmRfejQNojf6f0ybx017XOXOZXmgiKcXEKK5oVXy9U0MzQMZXX
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BL1PR12MB5126.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(7416014)(366016)(1800799024)(18002099003)(56012099003)(22082099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SnV1UHl6a0ZPb3gwMitHUEFzL1h0QzNDZDQ4SnhRMUJuaE5KTnlkTWVEY2wr?=
- =?utf-8?B?UEhuZHRVUkxlNkhoelFuOGZCNXB6UmdDS3BPQUlmSkNXeEloa2xTN1owTGNV?=
- =?utf-8?B?Y3RvQlhYdDVRWnJ6WUFDTzdyM0tXNjR0aFJtalRVRktheVFvUHB0R0hZVTRw?=
- =?utf-8?B?ZXg0blJHcFh4YlpTVUJZS0g0Y253VitqOFBpUVZNQUdOek1NVUtSNVRtWG4w?=
- =?utf-8?B?ZmV0bVNUUThQc1orVGtqNjZjM2JqSVVlNnpMV1dZakJEbDh6WnJsbWgwb01k?=
- =?utf-8?B?YWhMMnA3T3VoRFR4SGxrcjE2MVV5KzdyUTNTZDFpVUp6WDgwanRnQnp6WkNY?=
- =?utf-8?B?emNicHZRbGZ3dkpSN0x3WFVGdUxGTnVNcGI0SnRIeVhMMTV5OFl4aEFUdDda?=
- =?utf-8?B?cW40QjlMVk5pTWFXdjIwVklJcGJuK1ExN1FobktQQ0Q0TW5EakFhSkJOV05I?=
- =?utf-8?B?MG5vK2hHR0VZVUlNWFF0dWVVeEVqYnBvVEIwRlU5dE9nRlRQc05Kdmw5TGJM?=
- =?utf-8?B?cnpya2FpeVl2dUlnem5zVUk2ZzR6ZDBscFgvS2xiaE5zeW1GUmhZNFgxRkM4?=
- =?utf-8?B?dVFkait3ZllMd0ZKWEw0S29oMTRmWVZwUyt4UE1lYlNCNS9vblppdDgxbFla?=
- =?utf-8?B?TWJBdkhkZ29SZTE5S3Z0Q0lQaERHckNpZkdRZ2lyc1dWZ0dKYnJTcEt5UXQx?=
- =?utf-8?B?YUNUUFVmMHZwbm1HRHFTZGZhamJrdVdiS0tVckpvUVp4NWtjNlNRK1h3dWE5?=
- =?utf-8?B?RHlVUUh2c09YZWhOcnFPRk1kcGx4NjFabGY0RXJDSm0xM29hMXg5RkhPVGNu?=
- =?utf-8?B?NE5RVFFuckhybGM1MjJFVExRZi9RZGx2WXd0SHB4cUJGdkJZRXhjTStXQzNK?=
- =?utf-8?B?emFHYktmdlAyRkNuajNBbUdKYVBLN3cyRjJKdEU5K2FrR3A1MmxsZVZSWmVK?=
- =?utf-8?B?TGVrVWdBK1dDc0hDOHMvbkRZT0paemRWdndzYk1jaFQ5M21xRDM5alNLWFRP?=
- =?utf-8?B?MGRQY0M1WTJONFhXLzN6R2pGWFkwTlpUWk1KazRxcVNkYlFnWFZrL055RjBK?=
- =?utf-8?B?WkN4VnoxajA5NmJUanhQR2FlaUZ6TmFGZUN2NnIxcWtMczY1Q01tTXZnVnc0?=
- =?utf-8?B?NUFNV1ptZWlQMmlmSTFmRnJyMkZZWWtWV1Y4alpyV2Z5ZHNuR2F0V0d0V3Bn?=
- =?utf-8?B?MGM5M0tIWWxnWm9HQlVlUUNGeXhvclV4QUZVd1ZSMS9BaHI5bFpMT3QyMmlo?=
- =?utf-8?B?aFpyS2NMSEg3bDhaV1EvYmdmeWY0a1JBNzdCVE9uSE9Rc2l6eStrUnJqVERx?=
- =?utf-8?B?bEdObkJWSlpBN2dqbG5IS0ZpRjNEYWlRblFTLy9zWHFKTGE2d2V4dks1ZzV2?=
- =?utf-8?B?ak9Qc3R3RVdDSSt2aS9hT1NKN1V1Z3dQcTMyYyt2ZDRQYzJlZHkyK0pvRW5G?=
- =?utf-8?B?dWxXbU4vemQvcEhETkhKTWhFNlI0UkMzblU4L01lODY5U2gwS3lVd3drVVN2?=
- =?utf-8?B?blY4YkJRU1Q0SUwyVklRNVR5TGlhVTVBYXJmT1NDZHVMRWhEUHdNWm56N1po?=
- =?utf-8?B?MWhzbUdvSkVzMjIwbWxiNGhLTnJOb2R5azc0ZVJVV0hGeFVNeTlHazJid3k2?=
- =?utf-8?B?NmM0UU45dGU0ODlxUVVDcjdXYlRjY1l4enVXSW5tS3o4OWhOTGFyWVB2cGRP?=
- =?utf-8?B?QVkyaE5yYlU3NlhSTjROdnJVVzdycmxRcUJyQU0vNEdDbzUwZzlCS0N4SFYz?=
- =?utf-8?B?WlV6U3k4UXp4WkViTDJ6bHZveXpWdVZLc1ZTQXp3cllMOEx2ZklvaTZNVVhF?=
- =?utf-8?B?NlBNVEJkaUhueHdlMjljN2Y5alkwcGd2N3dNMjJwelhReEE1TDdWN0FlRnJX?=
- =?utf-8?B?WDNjY2lxOERROFVTc2d4dFk1VFUxU0lMNXhZaUJnYmhVUjNsanVDNEFudVVq?=
- =?utf-8?B?b0V4ak1yTnNSdFFKd21YRVJnalF0Y3JxTnF3eTluNmUxbWZQYTM4eW8rcEpw?=
- =?utf-8?B?bVJJaEp0YmRFazJtRlZaakt3bnpYSnJQZVVHbTA2dzZKQnBSYzMzYTVCTE4y?=
- =?utf-8?B?RUtEbExVWkJsWDFCTmVXUWRVenJaOGhJOEFhZ3B4NFRwY0JJZmppTytDc2x2?=
- =?utf-8?B?V1orUitUZFVxU3dkOHpRWnZRaEM0bzRBbk5DK0Zjald2eUNJWDh2NGZIbURw?=
- =?utf-8?B?RTl3U05hQVd5VUxtTVlSdEt6dEdBbTFSaDViUmxjcklUVTREU1E0SDNjcE1T?=
- =?utf-8?B?U3RmTE1zUlQvY3V0SGZKZGUvdUgxSVhGWWlyT1BWeFRaclVZUm11VXRUdjQ3?=
- =?utf-8?B?dkx2NUdSQUM5bVpWU1BTbERwUDhyNS9saHpCQnJLczd5RXVFeFdqQT09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4fc6b020-075f-404b-3b49-08de8e724d42
-X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5126.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Mar 2026 15:37:50.8391 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: kQ6vV46EoEwT3sIQUReQ+08uwoQHYII2SWggX3vx6kbIdWfwA7BueFrfRYdQU9qLZ/3EYa0pmu6eN53SWlPtPA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ5PPFABE38415D
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260330-dma-build-fix-v2-1-26d844575815@kernel.org>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3WMQQ6CMBAAv0L27JptIUA8+Q/DodgtbERqWm00p
+ H+3cvc4k8xsEDkIRzhVGwROEsWvBfShguts1olRbGHQpFuqa0J7Nzi+ZLHo5I0dtaZxPBKTg9I
+ 8Ahe9/y5D4Vni04fPvk/qZ/+dkkKFXdOPbePI9sadbxxWXo4+TDDknL9ie8p0qwAAAA==
+X-Change-ID: 20260330-dma-build-fix-706a4feb0e0f
+To: Sumit Semwal <sumit.semwal@linaro.org>, 
+ Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
+ Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>, 
+ "T.J. Mercier" <tjmercier@google.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Marek Szyprowski <m.szyprowski@samsung.com>, 
+ Robin Murphy <robin.murphy@arm.com>, Albert Esteve <aesteve@redhat.com>
+Cc: linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, 
+ iommu@lists.linux.dev, Mark Brown <broonie@kernel.org>, 
+ Maxime Ripard <mripard@kernel.org>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5317; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=qHM7oQRzY9ST2dUBFDQhLmzQd4QRKdkAaxvIMcjy50c=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDJmnZsZYhk7q1tp/3PGvi+Xf/i/dwdNu/16+/pms0YVrP
+ VMM721d1DGVhUGYk0FWTJHliUzY6eXti6sc7Ff+gJnDygQyhIGLUwAmcvsjYzXbvirxL1umLbqk
+ OOG3yJI1n/+lyDL1tr++k7Oi5fGs9nnvmibn1EyfVRIXfjW8+PY2hh2MdQrbnOMttT5zdf4zn7V
+ E6lZPn5doesH856lTV8r/Sbo6Q/TmxY2Lmv8uWvnYsXErR/JuUwA=
+X-Developer-Key: i=mripard@kernel.org; a=openpgp;
+ fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -148,246 +76,151 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Commit 3a236f6a5cf2 ("dma: contiguous: Turn heap registration logic
+around") didn't remove one last call to dma_heap_cma_register_heap()
+that it removed, thus breaking the build.
 
+That last call is in dma_contiguous_reserve(), to handle the
+registration of the default CMA region heap instance.
 
-On 2026-03-16 13:59, Harry Wentland wrote:
-> 
-> 
-> On 2026-03-16 12:03, Pekka Paalanen wrote:
->> On Mon, 16 Mar 2026 10:36:44 -0400
->> Harry Wentland <harry.wentland@amd.com> wrote:
->>
->>> On 2026-03-16 07:53, Pekka Paalanen wrote:
->>>> On Mon, 16 Mar 2026 16:04:32 +0530
->>>> "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com> wrote:
->>>>   
->>>>> On 3/16/2026 2:27 PM, Pekka Paalanen wrote:  
->>>>>> On Mon, 16 Mar 2026 12:46:39 +0530
->>>>>> "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com> wrote:
->>>>>>     
->>>>>>> Hi Pekka,
->>>>>>>
->>>>>>> Thank you for looking into the patch.    
->>>>>>
->>>>>> Hi Chaitanya!
->>>>>>
->>>>>> Replies inline below.
->>>>>>     
->>>>>>>
->>>>>>> On 3/10/2026 8:02 PM, Pekka Paalanen wrote:    
->>>>>>>> On Fri,  6 Mar 2026 22:22:58 +0530
->>>>>>>> Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com> wrote:
->>>>>>>>        
->>>>>>>>> Introduce DRM_COLOROP_CSC_FF, a new colorop type representing a
->>>>>>>>> fixed-function Color Space Conversion (CSC) block.
->>>>>>>>>
->>>>>>>>> Unlike CTM-based colorops, this block does not expose programmable
->>>>>>>>> coefficients. Instead, userspace selects one of the predefined
->>>>>>>>> hardware modes via a new CSC_FF_TYPE enum property. Supported modes
->>>>>>>>> include common YUV->RGB and RGB709->RGB2020 conversions.
->>>>>>>>>
->>>>>>>>> Signed-off-by: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>  
->>>>
->>>> ...
->>>>   
->>>>>>>>> diff --git a/drivers/gpu/drm/drm_colorop.c b/drivers/gpu/drm/drm_colorop.c
->>>>>>>>> index f421c623b3f0..49422c625f4d 100644
->>>>>>>>> --- a/drivers/gpu/drm/drm_colorop.c
->>>>>>>>> +++ b/drivers/gpu/drm/drm_colorop.c
->>>>>>>>> @@ -68,6 +68,7 @@ static const struct drm_prop_enum_list drm_colorop_type_enum_list[] = {
->>>>>>>>>    	{ DRM_COLOROP_CTM_3X4, "3x4 Matrix"},
->>>>>>>>>    	{ DRM_COLOROP_MULTIPLIER, "Multiplier"},
->>>>>>>>>    	{ DRM_COLOROP_3D_LUT, "3D LUT"},
->>>>>>>>> +	{ DRM_COLOROP_CSC_FF, "CSC Fixed-Function"},    
->>>>>>>>
->>>>>>>> Hi,
->>>>>>>>
->>>>>>>> the fundamental idea seems fine to me, but I have a lot to say about the
->>>>>>>> nomenclature.
->>>>>>>>
->>>>>>>> What would you think of a more readable name DRM_COLOROP_FIXED_MATRIX
->>>>>>>> "Fixed Matrix"?
->>>>>>>>
->>>>>>>> Alternatively DRM_COLOROP_ENUM_MATRIX "Enumerated Matrix".
->>>>>>>>        
->>>>>>>
->>>>>>> I was intentionally staying away from the word matrix because there was
->>>>>>> no programmable matrix but it would make sense to name it something like
->>>>>>> DRM_COLOROP_FIXED_MATRIX (or *_PRESET_MATRIX for that matter).
->>>>>>>    
->>>>>>>>>    };
->>>>>>>>>    
->>>>>>>>>    static const char * const colorop_curve_1d_type_names[] = {
->>>>>>>>> @@ -90,6 +91,13 @@ static const struct drm_prop_enum_list drm_colorop_lut3d_interpolation_list[] =
->>>>>>>>>    	{ DRM_COLOROP_LUT3D_INTERPOLATION_TETRAHEDRAL, "Tetrahedral" },
->>>>>>>>>    };
->>>>>>>>>    
->>>>>>>>> +static const char * const colorop_csc_ff_type_names[] = {
->>>>>>>>> +	[DRM_COLOROP_CSC_FF_YUV601_RGB601]   = "YUV601 to RGB601",
->>>>>>>>> +	[DRM_COLOROP_CSC_FF_YUV709_RGB709]   = "YUV709 to RGB709",
->>>>>>>>> +	[DRM_COLOROP_CSC_FF_YUV2020_RGB2020] = "YUV2020 to RGB2020",
->>>>>>>>> +	[DRM_COLOROP_CSC_FF_RGB709_RGB2020]  = "RGB709 to RGB2020",    
->>>>>>>>
->>>>>>>> I'd suggest names:
->>>>>>>>
->>>>>>>> "YCbCr 601 to RGB"
->>>>>>>> "YCbCr 709 to RGB"
->>>>>>>> "YCbCr 2020 NC to RGB"
->>>>>>>> "RGB709 to RGB2020"
->>>>>>>>
->>>>>>>> or something in that direction.
->>>>>>>>
->>>>>>>> The relevant ITU-R BT specifications use YCbCr nomenclature IIRC. Wrt.
->>>>>>>> YCbCr-to-RGB conversion, there is no RGB601, RGB709 or RGB2020. There
->>>>>>>> is only some RGB, and which primaries it uses is not always tied to
->>>>>>>> which YCbCr conversion was used.
->>>>>>>>       
->>>>>>>
->>>>>>> What I understand from this is that the BT.709(et al.) only defines the
->>>>>>> matrix that is used for YCbCr->RGB, "what" RGB it is defined by the
->>>>>>> primaries (which comes with metadata?).    
->>>>>>
->>>>>> Unfortunately, BT.601, BT.709 and BT.2020 define two separate things each:
->>>>>> - the YCbCr<->RGB conversion, and
->>>>>> - the colorspace primaries (and white point, but that is the same for
->>>>>>    them all).
->>>>>>  
->>>
->>> Would it make sense to treat these as two separate things in terms
->>> of colorops?
->>
->> Hi Harry,
->>
->> no, if your hardware not care. There are no semantics for the numbers
->> in the UAPI, it's just whatever numbers, and mathematical operations on
->> them.
->>
->> I suspect that your hardware does care, though, and actually has
->> separate hardware elements for the YCbCr conversion and the colorspace
->> conversion matrix. After all, one has to be able to put a LUT or a
->> curve between the two to make sense.
->>
->> IOW, two different colorops, yes. But different colorop types? Maybe
->> that depends on whether they would have the same colorop properties or
->> not.
->>
-> 
-> If I understand you correctly you're saying we can have a single
-> colorop type to represent either type. A client of the API needs
-> to understand what it's doing with the colorop and can use it
-> as either a YCbCr conversion matrix in the case of YCbCr-to-RGB
-> conversion, or an NPM for conversion of linear, normalized data
-> from one set of primaries to another.
-> 
-> Is that understanding correct?
-> 
->>> I have done some work on a CSC colorop and intend to send out the
->>> patches in the next couple of days.
->>>
->>> https://gitlab.freedesktop.org/hwentland/linux/-/commits/csc-colorop
->>>
->>> It follows the drm_plane's COLOR_RANGE and COLOR_ENCODING semantic
->>> and is only intended for YCbCr-to-RGB conversion, like the original
->>> properties on the plane.
->>>
->>> For the colorspace conversion within RGB (e.g., BT709 to BT2020)
->>> it might make sense then to have its own colorop if HW works on
->>> pre-defined transformations, or use the CTM 3x3 or 3x4 matrix ops
->>> if HW provides a flexible matrix.
->>>
->>> We might need to think about naming, since colorspace conversion (CSC)
->>> right now seems to refer to both YCbCr conversion and primaries
->>> conversion.
->>
->> Indeed.
->>
->> YCbCr conversion is usually a matrix operation. H.273 calls it
->> MatrixCoefficients, but it also lists cases where you need the EOTF in
->> the mix. I could go with "YCbCr coefficients". The pure matrix forms
->> are used on electrical pixel values.
->>
->> The color space conversion matrices that are based on (Normalized)
->> Primary Matrices (NPM) must be used on optical pixel values. NPM is the
->> matrix that converts optical RGB values to CIE 1931 XYZ. For an
->> RGB-to-RGB conversion you need one NPM and another inverse NPM chained.
->>
-> 
-> This could be expressed in a single matrix, right?
-> 
-> I intend to send out my patches as an RFC either way, but I think I
-> could just as well work with the CSC_FF colorop. I'll have a look at
-> basing my work on this.
-> 
+The default CMA region instance is already somewhat handled by
+retrieving it through the dev_get_cma_area() call in the CMA heap
+driver. However, since commit 854acbe75ff4 ("dma-buf: heaps: Give
+default CMA heap a fixed name"), we will create two heap instances for
+the CMA default region.
 
-I sent out a new version of my series, reworked to use the CSC_FF
-colorop.
+The first one is always called "default_cma_region", and is the one
+handled by the call to dev_get_cma_area() mentioned earlier. The second
+one is the name it used to have prior to that last commit for backward
+compatibility.
 
-https://lore.kernel.org/dri-devel/20260330153451.99472-1-harry.wentland@amd.com/
+In the case where the default CMA region is defined in the DT, then that
+region is registered through rmem_cma_setup() and that region is added
+to the list of CMA regions to create a CMA heap instance for.
 
-Harry
+In the case where the default CMA region is not defined in the DT
+though used to be the case covered by the now removed
+dma_heap_cma_register_heap() in dma_contiguous_reserve(). If we only
+remove the call to dma_heap_cma_register_heap(), then the legacy name of
+the CMA heap will not be registered anymore. We thus need to replace
+that call with a call to rmem_cma_insert_area() to make sure we queue
+this instance, if created, to create a heap instance.
 
-> Harry
-> 
->> I guess using CSC for the latter is not obvious enough because it has
->> been used for the former (color model conversion) as well?
->>
->> How about "color-primary conversion"?
->>
->> I stole it from
->> https://onlinelibrary.wiley.com/doi/pdf/10.1002/9780470994375.app8
->>
->>
->> Thanks,
->> pq
->>
->>>>>> BT.601 actually has two different sets of primaries. Bt.2020 defines
->>>>>> two different YCbCr conversions. BT.709 uses the same primaries as
->>>>>> sRGB, but is different from sRGB on all other aspects.
->>>>>>
->>>>>> Therefore, when you refer to any one of these, you also need to be
->>>>>> clear whether you are referring to the YCbCr conversion or to the
->>>>>> primaries.
->>>>>>     
->>>>>
->>>>> In that case, if the HW block says that it does YCbCr to RGB conversion 
->>>>> using rec BT.709, the resultant RGB follows the primaries as described 
->>>>> by BT.709 or mathematically it does not really matter?  
->>>>
->>>> Hi,
->>>>
->>>> the resultant RGB may or may not follow BT.709 primaries, and knowing
->>>> the primaries is important for further processing in general.
->>>>
->>>> YCbCr<->RGB conversion does not change the primaries. What went in,
->>>> will come out.
->>>>   
->>>>>>> I will read up on why our HW names these bits as such.    
->>>>>>
->>>>>> Sure, but keep in mind that your hardware naming is irrelevant for the
->>>>>> UAPI design.    
->>>>>
->>>>> Understood, I just want to make sure that the HW does exactly what we 
->>>>> will advertise through the UAPI.  
->>>>
->>>> Precisely.
->>>>
->>>>
->>>> Thanks,
->>>> pq
->>>>   
->>>>>>>> For YCbCr 2020 I feel it's nice to remember, that there are two
->>>>>>>> different conversions in the specification: the simple matrix one
->>>>>>>> called "non-constant luminance", and the complex one called "constant
->>>>>>>> luminance". Hence "NC".
->>>>>>>>
->>>>>>>> It's also good to recall that YCbCr-RGB conversions are done in an
->>>>>>>> electrical space, while RGB709-to-RGB2020 conversion must be done in the
->>>>>>>> optical space. It is up to the userspace to arrange the neighbouring
->>>>>>>> colorops to use the fixed matrix right.
->>>>>>>>        
->>>>>>>
->>>>>>> Ack on the above.  
->>>
->>
-> 
+Once that call to dma_heap_cma_register_heap() replaced, we can also
+remove the now unused function definition, its now empty header, and all
+includes of this header.
+
+Fixes: 3a236f6a5cf2 ("dma: contiguous: Turn heap registration logic around")
+Reported-by: Mark Brown <broonie@kernel.org>
+Closes: https://lore.kernel.org/linux-next/acbjaDJ1a-YQC64d@sirena.co.uk/
+Signed-off-by: Maxime Ripard <mripard@kernel.org>
+---
+Changes in v2:
+- Fix creation of the CMA heap instance with the legacy name when not
+  declared in the DT. 
+- Link to v1: https://lore.kernel.org/r/20260330-dma-build-fix-v1-1-748b64f0d8af@kernel.org
+---
+ drivers/dma-buf/heaps/cma_heap.c  |  1 -
+ include/linux/dma-buf/heaps/cma.h | 16 ----------------
+ kernel/dma/contiguous.c           | 14 +++++++++++---
+ 3 files changed, 11 insertions(+), 20 deletions(-)
+
+diff --git a/drivers/dma-buf/heaps/cma_heap.c b/drivers/dma-buf/heaps/cma_heap.c
+index 7216a14262b04bb6130ddf26b7d009f7d15b03fd..9a8b36bc929f6daa483a0139a2919d95127e0d23 100644
+--- a/drivers/dma-buf/heaps/cma_heap.c
++++ b/drivers/dma-buf/heaps/cma_heap.c
+@@ -12,11 +12,10 @@
+ 
+ #define pr_fmt(fmt) "cma_heap: " fmt
+ 
+ #include <linux/cma.h>
+ #include <linux/dma-buf.h>
+-#include <linux/dma-buf/heaps/cma.h>
+ #include <linux/dma-heap.h>
+ #include <linux/dma-map-ops.h>
+ #include <linux/err.h>
+ #include <linux/highmem.h>
+ #include <linux/io.h>
+diff --git a/include/linux/dma-buf/heaps/cma.h b/include/linux/dma-buf/heaps/cma.h
+deleted file mode 100644
+index e751479e21e703e24a5f799b4a7fc8bd0df3c1c4..0000000000000000000000000000000000000000
+--- a/include/linux/dma-buf/heaps/cma.h
++++ /dev/null
+@@ -1,16 +0,0 @@
+-/* SPDX-License-Identifier: GPL-2.0 */
+-#ifndef DMA_BUF_HEAP_CMA_H_
+-#define DMA_BUF_HEAP_CMA_H_
+-
+-struct cma;
+-
+-#ifdef CONFIG_DMABUF_HEAPS_CMA
+-int dma_heap_cma_register_heap(struct cma *cma);
+-#else
+-static inline int dma_heap_cma_register_heap(struct cma *cma)
+-{
+-	return 0;
+-}
+-#endif // CONFIG_DMABUF_HEAPS_CMA
+-
+-#endif // DMA_BUF_HEAP_CMA_H_
+diff --git a/kernel/dma/contiguous.c b/kernel/dma/contiguous.c
+index ad50512d71d3088a73e4b1ac02d6e6122374888e..d5d15983060c5c54744d6a63f2b591e1a3455b86 100644
+--- a/kernel/dma/contiguous.c
++++ b/kernel/dma/contiguous.c
+@@ -40,11 +40,10 @@
+ #include <asm/page.h>
+ 
+ #include <linux/memblock.h>
+ #include <linux/err.h>
+ #include <linux/sizes.h>
+-#include <linux/dma-buf/heaps/cma.h>
+ #include <linux/dma-map-ops.h>
+ #include <linux/cma.h>
+ #include <linux/nospec.h>
+ 
+ #ifdef CONFIG_CMA_SIZE_MBYTES
+@@ -217,10 +216,19 @@ static void __init dma_numa_cma_reserve(void)
+ static inline void __init dma_numa_cma_reserve(void)
+ {
+ }
+ #endif
+ 
++#ifdef CONFIG_OF_RESERVED_MEM
++static int rmem_cma_insert_area(struct cma *cma);
++#else
++static inline int rmem_cma_insert_area(struct cma *cma)
++{
++	return 0;
++}
++#endif
++
+ /**
+  * dma_contiguous_reserve() - reserve area(s) for contiguous memory handling
+  * @limit: End address of the reserved memory (optional, 0 for any).
+  *
+  * This function reserves memory from early allocator. It should be
+@@ -271,13 +279,13 @@ void __init dma_contiguous_reserve(phys_addr_t limit)
+ 						  &dma_contiguous_default_area,
+ 						  fixed);
+ 		if (ret)
+ 			return;
+ 
+-		ret = dma_heap_cma_register_heap(dma_contiguous_default_area);
++		ret = rmem_cma_insert_area(dma_contiguous_default_area);
+ 		if (ret)
+-			pr_warn("Couldn't register default CMA heap.");
++			pr_warn("Couldn't queue default CMA region for heap creation.");
+ 	}
+ }
+ 
+ void __weak
+ dma_contiguous_early_fixup(phys_addr_t base, unsigned long size)
+
+---
+base-commit: 6c683d5b1903a14e362c9f1628ce9fe61eac35e7
+change-id: 20260330-dma-build-fix-706a4feb0e0f
+
+Best regards,
+-- 
+Maxime Ripard <mripard@kernel.org>
 
