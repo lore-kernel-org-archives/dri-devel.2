@@ -4,43 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3BE741061B0F
-	for <dri-devel@archiver.kernel.org>; Mon, 30 Mar 2026 15:35:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 48C001061B0A
+	for <dri-devel@archiver.kernel.org>; Mon, 30 Mar 2026 15:35:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6509010E21E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7339910E230;
 	Mon, 30 Mar 2026 15:35:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="JcpfgSqh";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="mooaXSHx";
 	dkim-atps=neutral
-Received: from CO1PR03CU002.outbound.protection.outlook.com
- (mail-westus2azon11010053.outbound.protection.outlook.com [52.101.46.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 511FA10E21E;
+Received: from CY7PR03CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11010049.outbound.protection.outlook.com
+ [40.93.198.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9CB9510E21E;
  Mon, 30 Mar 2026 15:35:00 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=SVhOf79oHJdC1c5cQBNL3V6kQDYy9HM71HQh5WnMn8dpxmyBg3gWlS1Yxrf9xmMBLQLy7fuucNIe5OJaktc9w39c9Lsfm+nRsNciWBeo6rn0q0IhjxmTITwRhwNmwhdec9wZS27GJA/H6NZLnL/iOOz5oXpf7HrrdTVEE8muCMCTxFWOxPaloRR7I8hPw4tvuevihl2vjuWo+WT2NNK2v/BUPVmztdSNhVZONUwWd4PcSVacZSICMpQzBHYY19PfKGX09piRFfkdnjjWV+O0+RWyPY8M7CDd7jkGdSTYIhIeoNqCn+zL69aUokOEjOVtxaMA2CjYrP8m6qTVU4W2vA==
+ b=kJbhXQRF/NLXIuH/4Jdmc+BvEODifSVndY/I8cMEW5RzW3Go4NPFExHynMYNHR0sgWSDMWvmDme3SwhkJm2QKptgP6kmxcTHRmgRJy17srewCR0B/TFuStuJZKgX665UAfuBIoMGOy7cbjiC76SxWnfqiY/W09P0gS0f62O1YfCcv6C8IFH6iIxtfgCnRTrM15DDG/M2wmGvaHZ4IrgkN9o3qjimw+R5tl3fWcQJMl3K0PTlD6qzPhkUmREdvTXo3Zr7ra7tmHn5UAxjbwC59stDPga2qiCMpKPdW4pUUxpy9K/QjnXcqvKe+uGvf4jibb9WNkKKVozZFtkEw29EaA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=QZGzcnkgeqP2d/67VSSoQ1bKYmfUOtPMbdKZAlT5zH8=;
- b=lTUduFYXi7Ni0WZd9V4vEt1/X4W5lRXBl55fSI6rlc9k23tWgC2453AMZhJkzIJ5z9gz4H5TA4WIjqq+7vjHefGF0ukrRvPrFpfh+kSpID6rPYgt0p0l5+bwMXQrmCPakgGZbJZd2FuNtfmFZgZnGcNUnsfduqqKDGrJ6cTPrVoWSa7rp5G/U1Rbyw01h1DU0Y3H/izFXgsxW8iehvpnNHNSsQPbfSlegqlr44V/8tbxmV+Y6KK+pKK/5u/ylefihstjLH6FowCU42XS+QPqGwzaYSb4Q5MSS3oQehhcSOmg67So8cVeXB6OsitVbGC6NQ5kEsF6fra3tWSWLgGcvw==
+ bh=cLWGYYJkFej8suCIPO25kSCNP02GuDS5GfbxGifw6Kw=;
+ b=WkBfvFomKF++q8t5fhSE6a7fsQxJa8nTQJAIx36jgy/15rSqLQbwHzGEbhIKv0HjHPz+MkgdlqIt0OqcGySD99sv19m+Lj/ghgmvurg5Wet8EdxvIK9OiZVe6EEQ0SXYsdpaPyXF95QCIFbsc2H/Qq5U2j49tglg+MyTsfoPF20Y2tfqjaUbAirTU1GLyeBdc0v69Vz/D696bgVhlpjYm99BktgSo79IMSFrnAldhYltleS3UoC0qx7ct+WOdrfmYXwtKGpKbnRMsLYBxMkdyVQA+mEAiUxUK+MCNBaPNZwoD7kAt/Xmr2frLAaXT4CNMkxH6F9SeEeFyuaU8zgFnQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=QZGzcnkgeqP2d/67VSSoQ1bKYmfUOtPMbdKZAlT5zH8=;
- b=JcpfgSqhPzXqFYbcUbajOGTqT5fk3CmT8L+ktc0e3/9wrSgd/kQ4wAMkZ12QXZbTjbdVtwzA8Eo4l44ROCymmlNcwoaXO5Rwi5XCLz90iRaeM8/56jlKBx8gDfDLw98BAk41MRuD8D+SSJGliq/0ntmyeOh2xhCzg/fOP2QsvIM=
-Received: from SJ0PR03CA0026.namprd03.prod.outlook.com (2603:10b6:a03:33a::31)
- by CH2PR12MB4055.namprd12.prod.outlook.com (2603:10b6:610:78::15)
+ bh=cLWGYYJkFej8suCIPO25kSCNP02GuDS5GfbxGifw6Kw=;
+ b=mooaXSHxACIa2jYMbAhgHNnBv/7W0fL4TXycxHdWZ/SGfrDq6Lk0J2KyRY4pKSMaUn2VUM8ERBJd+YiZAjbVRy1qsI8DzggkF1RhlpbcK97QYkkcmAMsXPfnfwrsDzLqLM+5ClvC6GO6chJQ60cZ1wNqByOYJDipitHTr4Wi8p4=
+Received: from SJ0PR03CA0010.namprd03.prod.outlook.com (2603:10b6:a03:33a::15)
+ by SA1PR12MB9490.namprd12.prod.outlook.com (2603:10b6:806:45b::21)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.15; Mon, 30 Mar
- 2026 15:34:56 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.14; Mon, 30 Mar
+ 2026 15:34:57 +0000
 Received: from SJ5PEPF000001EB.namprd05.prod.outlook.com
- (2603:10b6:a03:33a:cafe::d2) by SJ0PR03CA0026.outlook.office365.com
- (2603:10b6:a03:33a::31) with Microsoft SMTP Server (version=TLS1_3,
+ (2603:10b6:a03:33a:cafe::39) by SJ0PR03CA0010.outlook.office365.com
+ (2603:10b6:a03:33a::15) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.20.9745.28 via Frontend Transport; Mon,
- 30 Mar 2026 15:34:56 +0000
+ 30 Mar 2026 15:34:57 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -50,57 +51,58 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from satlexmb08.amd.com (165.204.84.17) by
  SJ5PEPF000001EB.mail.protection.outlook.com (10.167.242.199) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9745.21 via Frontend Transport; Mon, 30 Mar 2026 15:34:56 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
+ 15.20.9745.21 via Frontend Transport; Mon, 30 Mar 2026 15:34:57 +0000
+Received: from SATLEXMB04.amd.com (10.181.40.145) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Mon, 30 Mar
- 2026 10:34:55 -0500
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Mon, 30 Mar
- 2026 10:34:55 -0500
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.17; Mon, 30 Mar
+ 2026 10:34:56 -0500
+Received: from satlexmb08.amd.com (10.181.42.217) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 30 Mar
+ 2026 10:34:56 -0500
 Received: from hwentlanryzen (10.180.168.240) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
- Transport; Mon, 30 Mar 2026 10:34:54 -0500
+ Transport; Mon, 30 Mar 2026 10:34:56 -0500
 From: Harry Wentland <harry.wentland@amd.com>
 To: <dri-devel@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>
-CC: Harry Wentland <harry.wentland@amd.com>, Alex Hung <alex.hung@amd.com>,
- Daniel Stone <daniels@collabora.com>, Chaitanya Kumar Borah
- <chaitanya.kumar.borah@intel.com>, Uma Shankar <uma.shankar@intel.com>, Louis
- Chauvet <louis.chauvet@bootlin.com>, Melissa Wen <mwen@igalia.com>, Simon Ser
- <contact@emersion.fr>
-Subject: [RFC PATCH v2 0/9] YUV conversion colorop with amdgpu and VKMS
-Date: Mon, 30 Mar 2026 11:34:42 -0400
-Message-ID: <20260330153451.99472-1-harry.wentland@amd.com>
+CC: Harry Wentland <harry.wentland@amd.com>
+Subject: [RFC PATCH v2 2/9] drm/colorop: Add limited-range YUV-to-RGB CSC FF
+ enum values
+Date: Mon, 30 Mar 2026 11:34:44 -0400
+Message-ID: <20260330153451.99472-3-harry.wentland@amd.com>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260330153451.99472-1-harry.wentland@amd.com>
+References: <20260330153451.99472-1-harry.wentland@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
+Received-SPF: None (SATLEXMB04.amd.com: harry.wentland@amd.com does not
+ designate permitted sender hosts)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ5PEPF000001EB:EE_|CH2PR12MB4055:EE_
-X-MS-Office365-Filtering-Correlation-Id: c2e1c3a5-0eed-4fdb-a513-08de8e71e548
+X-MS-TrafficTypeDiagnostic: SJ5PEPF000001EB:EE_|SA1PR12MB9490:EE_
+X-MS-Office365-Filtering-Correlation-Id: d9450ed4-37a8-43b5-7781-08de8e71e5fc
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700016|376014|82310400026|1800799024|56012099003|18002099003;
-X-Microsoft-Antispam-Message-Info: DQC4/6yE/wy1jY2kURCr/uExEjFi7UrQkTkRZx5N3mHCen48+5zvhKLxUhZA5ToX6gzPplpPdGyIe0NYss4eukSQxIOUdLHxBBDIWWr5WITfKugyCSWcc7qE9Pkz79XrlC0S6itKJuT1R9lUyhhwO6q34Qn35EzErZe83YtVhWdYfVmr1Sf4BWZgOtzbeMvOPRVtQ678ZIFcbFLR+aG+aTmjy3r4oA9QYmxy/z8YVo8nc4/syAlS50FAtAcAwYI/UJWgr7tQDVOxrgRe4esstplyZaujpetXeI18LDmY61WnqfqCM9VVVfQSYxwVoHadDLNpSXyCBkRMfUVNay3vMCmga0jX32WH14UaSCKdjOOaZsqYzh6pILkw2f8+NYKaS0nTQYfgmRCJ//hhB+/oCI6EovVcNxR+zVvSghOL9hs4OFrLemKJVXwkjpDblpfmV3S02/aNo0HKb7NbNETGQR/lme3LUPjiN5viCANf9Hs4lrM4AKIHyWt/j5FifHqexIbj75CMxfwRNRKV2a1KUbl1b3cWV7RAvcQT7tPASWsT/cNZj2qNvvtFEbiYnCkzCWnYYI6cegt1X15bYhxSzejoqpA8YGRHoy8bL1CDl2ijFOGuz3FCmpjGF01tobIlu6SwuuGpJTsRJTr2SsOcWZP47ovZCYFc3R0B97i1i18YnA0PDVRTS7ieD/LJUaLgjGezgwY7T48RTWyNYODA/TwzxE+aYIjGZhiO7W5us5M=
+ ARA:13230040|82310400026|1800799024|36860700016|376014|56012099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: zgxuZajRbVwXoS34AS8SCqnN0F99gltUKUQtZkr7GvJ9KYMdrjqRIvOKOlLVEAds4g3p+Akwb+3ZH9s9yhYTCt3JFuEjMCRvcLfNVq3Xe5o8mDhLQf8OFCCOOv2+1+2WoiqPio5+ACSySpjVG4yFxVsnU/n6dZ8rhLSewN2kcoanO/U12AsZ/m2IkiqPF4XIh2hHw6dT591NtH32LkQ2mIt2AtUnKLi08ak8gkdNZNneMl0CFAdAXxpx2hvVQyqcDDD1Q+PC0HcGWLNN7+OjGBrGYwrYGaYHSe59dNgNaig6HxyPvjFfLdhk73kmTkM1hEP1LTWLflHkJNjhhmpWegpC6TILHWMSSZHmvbRum8XwhWwQBPlNTEjf2+0BFKiBh2iNX+E4zSWOx111lRJ3qzB87XtI1yer+FJjElZcxXd7zIBD+VqB01+G0729SLriKUj8chZX854BxPIzKkXi98g5qJ17scglKjwMW1M4+9O1CvrMKHP+CgUIXdi0O/dnQDNyg3F/ZYc/TC9BJj3n+S3UF7/GpI9E3/h4LjZsdJcoFDWhpYikZlRjnyFtugTqgUU3PxKuhxLAFw+M8GG2fkGaduhchme35XgsV9uROH0qBMxL9hpdGf/NKjWeAjHr6eWtSKQmVI2w4U+M3QJ9TPxiIAZGrbOtSmHU1ig9cJYyMfBN1eQZa0wAtyhxjfaLsHlMjkCDy9UmCXAsY+oK07RLYaf1J88XqlyaBHj1Ufq7QoxbqY/B+1ncXD4OSFZWF2GgXmPcEdanXtMXfBomDg==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700016)(376014)(82310400026)(1800799024)(56012099003)(18002099003);
+ SFS:(13230040)(82310400026)(1800799024)(36860700016)(376014)(56012099003)(22082099003)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 6aEGDO50/oCvxbhDBjHHktZFERj9vKzmfbX+xcx3z8/zgdhOkpl9nQo5eDq++Iw8SSc6EzpHSYZv4MpgSjCPZjWQRW2JqP0obUqisLnaacwvgycpGETPq/YnElqUUrGWvUkDJXot0S9Xagxb65aXX4TTsNsHX8wVY0GiA69MdI8l3L58+EhoLUYMKYVNbT5vTTD1aCC+83qYzISOG0fees06UjyxXfTSITzsOfA6TcpnrahoUdONm8/U+IXreyX5YtbN+D0yxG0VkvUSgqwagIkqdchh9f+xmVecqteYPrA+a3S4DjPR1SciNiftO+3r5QYIj5Zs67VeGDxRHrAREFxptPmLw3MMqtnmXUmbSHJb0Q92nWCZCDChujJJ9jw1DRPZb1s9gWz2wTVoqJUVd+IrUWhtSEP6geWbx1s+hvSUDldSuxMgE4GxSaynOZ/4
+X-MS-Exchange-AntiSpam-MessageData-0: RAA4aXsbqrBkJzV3lhifJwGl/SmCOiRHjP2dAZR98djEkR1xbEEaik/T6re6+1zm6qtmGN07uKDk6iwayHwkIGgrrp7xLnugu2ZtyTMJICSltnfTWwk5M9fu4F9qPTfNaS+SHPrcRvp+JHGTMnD6Sp5W/DQFo1xDZfNUL/ACitHxZywvpQuwmk5qadJ7pJz5ANPMp568wBjpb49hd2W7y97wstegDjUf/HcTIAfhslXlKebgk/mD9BAqAlYYuUhHT4Qi4PhL1jXnbQJqIX7bd/v01bXp6GMTg3DVzh4fz1PPqMVXqW1tGvDSPbdXwWoZ/5DAh5EMcSQIoH0NgDRapInCn3tOzj/ZwxbKiW62jAK5GZzwR4mI5NQCev+ujFJvF2B8hvt8idDJO3EgoArH+RpAFgbKRnSrtznBLbWko6lEP8fVsnKmzvG8Hq8fKrrA
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Mar 2026 15:34:56.1029 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c2e1c3a5-0eed-4fdb-a513-08de8e71e548
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Mar 2026 15:34:57.2821 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d9450ed4-37a8-43b5-7781-08de8e71e5fc
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb08.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF000001EB.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4055
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB9490
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,78 +118,124 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-When we merged the drm_plane color pipeline API the major gap
-that existed was the lack of a YUV to RGB conversion colorop.
-We deprecated any legacy drm_plane color properties, which
-means that the COLOR_RANGE and COLOR_ENCODING properties can't
-be used with the COLOR_PIPELINE property on a drm_plane. In
-practice this means that we can't use a COLOR_PIPELINE on
-YCbCr encoded framebuffers.
+Add three new limited-range YUV-to-RGB conversion presets to the
+CSC Fixed-Function colorop enum:
 
-This patchset expands on the CSC_FF colorop proposed by Chaitanya
-and adds limited range variants of the YCbCr to RGB conversions.
+  - DRM_COLOROP_CSC_FF_YUV601_LIMITED_RGB601
+  - DRM_COLOROP_CSC_FF_YUV709_LIMITED_RGB709
+  - DRM_COLOROP_CSC_FF_YUV2020_LIMITED_RGB2020
 
-His full patchset can be found at
-https://patchwork.freedesktop.org/patch/709860
+The existing full-range enums (YUV601_RGB601, YUV709_RGB709,
+YUV2020_RGB2020) are kept as-is. The limited-range variants are
+inserted after their corresponding full-range entries.
 
-This code has been tested with IGT and an experimental KWin branch.
+This gives drivers the ability to advertise support for both full
+and limited range YCbCr framebuffers via the color pipeline,
+replacing the need for separate COLOR_ENCODING and COLOR_RANGE
+properties on the CSC colorop.
 
-IGT branch:
-https://gitlab.freedesktop.org/hwentland/igt-gpu-tools/-/tree/csc-ff-colorop
+Assisted-by Claude:claude-opus-4.6
 
-KWin branch:
-https://invent.kde.org/hwentlan/kwin/-/tree/csc-3dlut
+Signed-off-by: Harry Wentland <harry.wentland@amd.com>
+---
+ drivers/gpu/drm/drm_colorop.c | 11 +++++----
+ include/drm/drm_colorop.h     | 42 ++++++++++++++++++++++++++++++-----
+ 2 files changed, 43 insertions(+), 10 deletions(-)
 
-The kernel branch containing these changes, based on drm-misc-next
-can be found at:
-https://gitlab.freedesktop.org/hwentland/linux/-/tree/csc-ff-colorop
-
-In order to successfully use this branch you might need a few
-bugfixes. The kernel tree containing those fixes plus these patches
-can be found at:
-https://gitlab.freedesktop.org/hwentland/linux/-/tree/csc-ff-colorop-all
-
-Further background on this work can be found at:
-https://hwentland.github.io/2026/03/10/plane-color-pipeline-csc-3d-lut-kwin.html
-
-v2:
-- use Chaitanya's CSC_FF block for named matrices
-
-Cc: Alex Hung <alex.hung@amd.com>
-Cc: Daniel Stone <daniels@collabora.com>
-Cc: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
-Cc: Uma Shankar <uma.shankar@intel.com>
-Cc: Louis Chauvet <louis.chauvet@bootlin.com>
-Cc: Melissa Wen <mwen@igalia.com>
-Cc: Simon Ser <contact@emersion.fr>
-
-Chaitanya Kumar Borah (1):
-  drm/colorop: Add DRM_COLOROP_CSC_FF
-
-Harry Wentland (8):
-  drm/colorop: Add limited-range YUV-to-RGB CSC FF enum values
-  drm/vkms: Add CSC FF colorop to color pipeline
-  drm/vkms: Add atomic check and matrix handling for CSC FF colorop
-  drm/amd/display: Add CSC FF colorop to color pipeline
-  drm/amd/display: Implement CSC FF colorop color space mapping
-  drm/amd/display: Use GAMCOR for first TF if CSC is used
-  drm/amd/display: Check actual state during commit_tail
-  drm/amd/display: Set color_space to plane_infos
-
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  14 ++-
- .../amd/display/amdgpu_dm/amdgpu_dm_color.c   | 102 ++++++++++++++++-
- .../amd/display/amdgpu_dm/amdgpu_dm_colorop.c |  27 ++++-
- .../amd/display/amdgpu_dm/amdgpu_dm_colorop.h |   1 +
- drivers/gpu/drm/drm_atomic.c                  |   4 +
- drivers/gpu/drm/drm_atomic_uapi.c             |   4 +
- drivers/gpu/drm/drm_colorop.c                 | 108 ++++++++++++++++++
- drivers/gpu/drm/vkms/vkms_colorop.c           |  66 +++++++----
- drivers/gpu/drm/vkms/vkms_composer.c          |   6 +
- drivers/gpu/drm/vkms/vkms_plane.c             |  70 +++++++++++-
- include/drm/drm_colorop.h                     | 102 +++++++++++++++++
- include/uapi/drm/drm_mode.h                   |  13 +++
- 12 files changed, 487 insertions(+), 30 deletions(-)
-
---
+diff --git a/drivers/gpu/drm/drm_colorop.c b/drivers/gpu/drm/drm_colorop.c
+index 6a345e2e8b15..f0d11cf7e3cd 100644
+--- a/drivers/gpu/drm/drm_colorop.c
++++ b/drivers/gpu/drm/drm_colorop.c
+@@ -92,10 +92,13 @@ static const struct drm_prop_enum_list drm_colorop_lut3d_interpolation_list[] =
+ };
+ 
+ static const char * const colorop_csc_ff_type_names[] = {
+-	[DRM_COLOROP_CSC_FF_YUV601_RGB601]   = "YUV601 to RGB601",
+-	[DRM_COLOROP_CSC_FF_YUV709_RGB709]   = "YUV709 to RGB709",
+-	[DRM_COLOROP_CSC_FF_YUV2020_RGB2020] = "YUV2020 to RGB2020",
+-	[DRM_COLOROP_CSC_FF_RGB709_RGB2020]  = "RGB709 to RGB2020",
++	[DRM_COLOROP_CSC_FF_YUV601_RGB601]           = "YUV601 to RGB601",
++	[DRM_COLOROP_CSC_FF_YUV601_LIMITED_RGB601]    = "YUV601 Limited to RGB601",
++	[DRM_COLOROP_CSC_FF_YUV709_RGB709]            = "YUV709 to RGB709",
++	[DRM_COLOROP_CSC_FF_YUV709_LIMITED_RGB709]    = "YUV709 Limited to RGB709",
++	[DRM_COLOROP_CSC_FF_YUV2020_RGB2020]          = "YUV2020 to RGB2020",
++	[DRM_COLOROP_CSC_FF_YUV2020_LIMITED_RGB2020]  = "YUV2020 Limited to RGB2020",
++	[DRM_COLOROP_CSC_FF_RGB709_RGB2020]           = "RGB709 to RGB2020",
+ };
+ 
+ /* Init Helpers */
+diff --git a/include/drm/drm_colorop.h b/include/drm/drm_colorop.h
+index 2cd8e0779c2a..c414b9070afb 100644
+--- a/include/drm/drm_colorop.h
++++ b/include/drm/drm_colorop.h
+@@ -145,31 +145,61 @@ enum drm_colorop_csc_ff_type {
+ 	 *
+ 	 * enum string "YUV601 to RGB601"
+ 	 *
+-	 * Selects the fixed-function CSC preset that converts YUV
+-	 * (BT.601) colorimetry to RGB (BT.601).
++	 * Selects the fixed-function CSC preset that converts full-range
++	 * YUV (BT.601) colorimetry to RGB (BT.601).
+ 	 */
+ 	DRM_COLOROP_CSC_FF_YUV601_RGB601,
+ 
++	/**
++	 * @DRM_COLOROP_CSC_FF_YUV601_LIMITED_RGB601:
++	 *
++	 * enum string "YUV601 Limited to RGB601"
++	 *
++	 * Selects the fixed-function CSC preset that converts limited-range
++	 * YUV (BT.601) colorimetry to RGB (BT.601).
++	 */
++	DRM_COLOROP_CSC_FF_YUV601_LIMITED_RGB601,
++
+ 	/**
+ 	 * @DRM_COLOROP_CSC_FF_YUV709_RGB709:
+ 	 *
+ 	 * enum string "YUV709 to RGB709"
+ 	 *
+-	 * Selects the fixed-function CSC preset that converts YUV
+-	 * (BT.709) colorimetry to RGB (BT.709).
++	 * Selects the fixed-function CSC preset that converts full-range
++	 * YUV (BT.709) colorimetry to RGB (BT.709).
+ 	 */
+ 	DRM_COLOROP_CSC_FF_YUV709_RGB709,
+ 
++	/**
++	 * @DRM_COLOROP_CSC_FF_YUV709_LIMITED_RGB709:
++	 *
++	 * enum string "YUV709 Limited to RGB709"
++	 *
++	 * Selects the fixed-function CSC preset that converts limited-range
++	 * YUV (BT.709) colorimetry to RGB (BT.709).
++	 */
++	DRM_COLOROP_CSC_FF_YUV709_LIMITED_RGB709,
++
+ 	/**
+ 	 * @DRM_COLOROP_CSC_FF_YUV2020_RGB2020:
+ 	 *
+ 	 * enum string "YUV2020 to RGB2020"
+ 	 *
+-	 * Selects the fixed-function CSC preset that converts YUV
+-	 * (BT.2020) colorimetry to RGB (BT.2020).
++	 * Selects the fixed-function CSC preset that converts full-range
++	 * YUV (BT.2020) colorimetry to RGB (BT.2020).
+ 	 */
+ 	DRM_COLOROP_CSC_FF_YUV2020_RGB2020,
+ 
++	/**
++	 * @DRM_COLOROP_CSC_FF_YUV2020_LIMITED_RGB2020:
++	 *
++	 * enum string "YUV2020 Limited to RGB2020"
++	 *
++	 * Selects the fixed-function CSC preset that converts limited-range
++	 * YUV (BT.2020) colorimetry to RGB (BT.2020).
++	 */
++	DRM_COLOROP_CSC_FF_YUV2020_LIMITED_RGB2020,
++
+ 	/**
+ 	 * @DRM_COLOROP_CSC_FF_RGB709_RGB2020:
+ 	 *
+-- 
 2.53.0
 
