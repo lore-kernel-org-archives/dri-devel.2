@@ -4,56 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D19FC1061B13
-	for <dri-devel@archiver.kernel.org>; Mon, 30 Mar 2026 16:02:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0FB191061B13
+	for <dri-devel@archiver.kernel.org>; Mon, 30 Mar 2026 16:02:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3504E10E41F;
-	Mon, 30 Mar 2026 16:02:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5EBFB10E002;
+	Mon, 30 Mar 2026 16:02:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="hHrnOzRl";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="IhcZ4Ysg";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5617F10E41F;
- Mon, 30 Mar 2026 16:02:02 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5FFC010E1D6;
+ Mon, 30 Mar 2026 16:02:08 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 0CA5A43A16;
- Mon, 30 Mar 2026 16:02:02 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6AED5C4CEF7;
- Mon, 30 Mar 2026 16:02:00 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 44E4A42A9C;
+ Mon, 30 Mar 2026 16:02:08 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E230C4CEF7;
+ Mon, 30 Mar 2026 16:02:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1774886521;
- bh=koYo+yLuvebxKhVW/TeuYKONtZdgfhNP1zbiYBgdN+0=;
- h=From:To:Subject:Date:In-Reply-To:References:From;
- b=hHrnOzRlD+pU/+xEAq1NZ/mJxtudoV0WsTuTrqllzBoEsm/0BiSnq1Js5BCqVGMtP
- Nsb2ple72fNmeZL+UCrj2nwPbdqQg4kCeE5JmRhHOKgXQYqpwaIUHQPs+jagnxxlwv
- uwlETPwL/bTPZqZrug7Mf8GSltD08VSDwId0aEyUO6q/+pEeNYK/R5iUuoNBjmFrOY
- blz6yyw54BlqopIKV/2iittVUsG/BBgQdii5/zE35p/FK+40ErZC0gWw/GsfxcSVl6
- 7QLhaK/ylDDbhP3IAEelnOgXhVw2LOxWzQmHm7JCyf+Lua6hzcE0oqQZuP5vWUa+mg
- XOI9OD5BfP+TA==
+ s=k20201202; t=1774886528;
+ bh=JRe/h3QUUXC6ufx1Rcdh/ruu1ORtHrWd1AbceXMWXp4=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=IhcZ4Ysg/DOpwcK9BdX4SXoUrkFQDzNi41uvEn+O5Wcrvm+4IRdUmm2agM5wc5gj1
+ h8WgqtrR4lNY8fj6h/lwJg6JOKzIjdqXcI9qOl4MK5cUXCXV0CUcV2Q7M/eBqrUeC2
+ qOlJYnEFXYthHOzCW0hjBRKx/o4MMvBttcKmymQ4lusczT7aM4EdxBiTcd9kbdm32e
+ 0u/yWq1dVSsxdnA7VxwxwQpkwTSXueArNP+IlKMkTr116a44rxgs1OM5d9C5a+51Q9
+ 5309N74oYVOqYnbRZK2h5+TwozFVqNYJ9OXBt/kwmOQ/451b307yn9Qprz+eIM6Lc9
+ j9/jnE7RYY3Ug==
 From: Bjorn Andersson <andersson@kernel.org>
 To: Rob Clark <robin.clark@oss.qualcomm.com>,
  Dmitry Baryshkov <lumag@kernel.org>,
  Abhinav Kumar <abhinav.kumar@linux.dev>,
  Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
  Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>,
  Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Loic Poulain <loic.poulain@oss.qualcomm.com>,
- Sumit Garg <sumit.garg@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: Re: [PATCH] dt-bindings: display/msm: qcm2290-mdss: Fix missing
- ranges in example
-Date: Mon, 30 Mar 2026 11:01:21 -0500
-Message-ID: <177488647743.633011.6769674149013868210.b4-ty@kernel.org>
+ Conor Dooley <conor+dt@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
+ Krishna Manikandan <quic_mkrishn@quicinc.com>,
+ Jonathan Marek <jonathan@marek.ca>, Pengyu Luo <mitltlatltl@gmail.com>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Tianyu Gao <gty0622@gmail.com>,
+ White Lewis <liu224806@gmail.com>
+Subject: Re: (subset) [PATCH v4 0/4] Add DSI display support for SC8280XP
+Date: Mon, 30 Mar 2026 11:01:26 -0500
+Message-ID: <177488647766.633011.14712098899135901424.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260325122209.147128-2-krzysztof.kozlowski@oss.qualcomm.com>
-References: <20260325122209.147128-2-krzysztof.kozlowski@oss.qualcomm.com>
+In-Reply-To: <20260308064835.479356-1-mitltlatltl@gmail.com>
+References: <20260308064835.479356-1-mitltlatltl@gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -73,17 +73,14 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
-On Wed, 25 Mar 2026 13:22:10 +0100, Krzysztof Kozlowski wrote:
-> Device node has children with MMIO addressing, so must have ranges:
-> 
->   msm/qcom,qcm2290-mdss.example.dtb: display-subsystem@5e00000 (qcom,qcm2290-mdss): 'ranges' is a required property
-> 
+On Sun, 08 Mar 2026 14:48:31 +0800, Pengyu Luo wrote:
+> Add DSI display support for SC8280XP.
 > 
 
 Applied, thanks!
 
-[1/1] dt-bindings: display/msm: qcm2290-mdss: Fix missing ranges in example
-      commit: 88bdac5443e5269bb39c4968d5ee0becbffe3f82
+[4/4] arm64: dts: qcom: sc8280xp: Add dsi nodes on SC8280XP
+      commit: 2f4c5dea9a285cc24a80e9fef8d7014bffce967b
 
 Best regards,
 -- 
