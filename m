@@ -4,43 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C21991061B1B
-	for <dri-devel@archiver.kernel.org>; Mon, 30 Mar 2026 19:27:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D1C6A1061B1A
+	for <dri-devel@archiver.kernel.org>; Mon, 30 Mar 2026 19:27:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 28FDE10E7B6;
-	Mon, 30 Mar 2026 19:27:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 484AF10E7B7;
+	Mon, 30 Mar 2026 19:27:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="GI5rb1mn";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="F9vgzbbE";
 	dkim-atps=neutral
 Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F09D010E7B6
- for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 19:27:15 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9275810E7B7
+ for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 19:27:26 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-03.galae.net (Postfix) with ESMTPS id D47734E4286D;
- Mon, 30 Mar 2026 19:27:14 +0000 (UTC)
+ by smtpout-03.galae.net (Postfix) with ESMTPS id 774BC4E4286D;
+ Mon, 30 Mar 2026 19:27:25 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id A46055FFA8;
- Mon, 30 Mar 2026 19:27:14 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 479D05FFA8;
+ Mon, 30 Mar 2026 19:27:25 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 4AC1610450A1D; 
- Mon, 30 Mar 2026 21:27:01 +0200 (CEST)
+ with ESMTPSA id 7C99510450C85; 
+ Mon, 30 Mar 2026 21:27:12 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1774898831; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ t=1774898842; h=from:subject:date:message-id:to:cc:mime-version:content-type:
  content-transfer-encoding:in-reply-to:references;
- bh=LB8F39dnm+yWAxgcFRa27us+SDsfN60WmWpBoxHvYqA=;
- b=GI5rb1mnrDS9yyt7I390DDbYlsXwX8BS4puwHEeopz0HSK5o/wu98GWdd6j9u/Mhonljpn
- qhm9z8GtkMdy97Yzrxm1oGVFOWVPO7Xsmx92BtXSLGoEOMSNJ1S0a4G4H3YKK2D8EeKtym
- tT/LFv15ALlCfXuu6+XScOoVcvUDwrT6yl2Kv+W7YTlIppzMsKZcu1Bw0Qxv9BuT7N0zHB
- B+E/8elgjZ1biUVaIryxfGZo+l7B3my0qCtriSrqaSsAp+CZ1zSk/JR6m4JKSFMqCtWU4T
- NePGfLp0dJJwKIV7CJBt/GuXPfqjB0tDmnOGx3HwVboWrtztr8c/Azs8toXsHA==
+ bh=VuQRGR76TLjd4qdXspTNlbhKj4opWUlSzRZbLjOVvpA=;
+ b=F9vgzbbEcNJVkvVzGgGFoBmR/Y82n5lzSKHfow5QeEc5erRoRaeUyYagLIDpymkFqaYhrV
+ 0aJZwyRDdf72JL1fmibdwxK+nfwuW+cd1y9OIqSKMV1CIvv/7/QizOsBpDumAFaSV1v6vH
+ K77yGlxpXpBgJyMvFDcm8HsB/PZrCjqrf8ddbS/Zw6ObrJC/1rJAmAU77pzZplXF761A5B
+ CEDcj/JElQGEBeOahSZfQfZ4TmAB56xSfrlB8jaNccZwYnGydUjvKHrESw/cz8FW7W0KLd
+ u8cXbiiSho5q5HMhryYZmlIeCXZ81/fmvUptQG3N2qNQIsM94wuLpjbXCeiLnw==
 From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Date: Mon, 30 Mar 2026 21:25:45 +0200
-Subject: [PATCH v2 04/10] drm/mxsfb/lcdif: lcdif_attach_bridge: move
- iteration-specific variables declaration inside loop
+Date: Mon, 30 Mar 2026 21:25:46 +0200
+Subject: [PATCH v2 05/10] drm/bridge: dw-hdmi: document the output_port field
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260330-drm-lcdif-dbanc-v2-4-c7f2af536a24@bootlin.com>
+Message-Id: <20260330-drm-lcdif-dbanc-v2-5-c7f2af536a24@bootlin.com>
 References: <20260330-drm-lcdif-dbanc-v2-0-c7f2af536a24@bootlin.com>
 In-Reply-To: <20260330-drm-lcdif-dbanc-v2-0-c7f2af536a24@bootlin.com>
 To: Marek Vasut <marex@denx.de>, Stefan Agner <stefan@agner.ch>, 
@@ -99,41 +98,38 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The bridge and ret variables are per-iteration variables, whose values
-don't have to be carried to the next iteration or be used after the loop
-end. Move their declaration inside the loop scope as a cleanup and to make
-code clearer.
+The meaning of this flag may not be obvious at first sight.
 
+Reviewed-by: Liu Ying <victor.liu@nxp.com>
+Tested-by: Martyn Welch <martyn.welch@collabora.com>
+Tested-by: Alexander Stein <alexander.stein@ew.tq-group.com> # TQMa8MPxL/MBa8MPxL
 Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 
 ---
 
-This patch is new in v2
+Changes in v2:
+- improved comment as suggested by Liu
 ---
- drivers/gpu/drm/mxsfb/lcdif_drv.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ include/drm/bridge/dw_hdmi.h | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/drivers/gpu/drm/mxsfb/lcdif_drv.c b/drivers/gpu/drm/mxsfb/lcdif_drv.c
-index 1c76709c4d94..c8ba8f9b1da8 100644
---- a/drivers/gpu/drm/mxsfb/lcdif_drv.c
-+++ b/drivers/gpu/drm/mxsfb/lcdif_drv.c
-@@ -50,14 +50,14 @@ static int lcdif_attach_bridge(struct lcdif_drm_private *lcdif)
- {
- 	struct device *dev = lcdif->drm->dev;
- 	struct device_node *ep __free(device_node) = NULL;
--	struct drm_bridge *bridge;
--	int ret;
+diff --git a/include/drm/bridge/dw_hdmi.h b/include/drm/bridge/dw_hdmi.h
+index 336f062e1f9d..8500dd4f99d8 100644
+--- a/include/drm/bridge/dw_hdmi.h
++++ b/include/drm/bridge/dw_hdmi.h
+@@ -126,6 +126,12 @@ struct dw_hdmi_phy_ops {
+ struct dw_hdmi_plat_data {
+ 	struct regmap *regm;
  
- 	for_each_endpoint_of_node(dev->of_node, ep) {
- 		struct device_node *remote __free(device_node) =
- 			of_graph_get_remote_port_parent(ep);
- 		struct of_endpoint of_ep;
-+		struct drm_bridge *bridge;
- 		struct drm_encoder *encoder;
-+		int ret;
++	/*
++	 * The HDMI output port number must be 1 if the port is described
++	 * in the device tree. 0 if the device tree does not describe the
++	 * next component (legacy mode, i.e. without
++	 * DRM_BRIDGE_ATTACH_NO_CONNECTOR flag when attaching bridge).
++	 */
+ 	unsigned int output_port;
  
- 		if (!of_device_is_available(remote))
- 			continue;
+ 	unsigned long input_bus_encoding;
 
 -- 
 2.53.0
