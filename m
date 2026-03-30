@@ -4,150 +4,124 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5821910D14AC
-	for <dri-devel@archiver.kernel.org>; Mon, 30 Mar 2026 13:26:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A65B710D14B2
+	for <dri-devel@archiver.kernel.org>; Mon, 30 Mar 2026 13:30:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B9D0010E7AB;
-	Mon, 30 Mar 2026 13:26:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D37DE10E226;
+	Mon, 30 Mar 2026 13:30:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="i2YqA8ZH";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="jX35BalB";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="VxF0AyjC";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 11EF610E7AB
- for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 13:26:05 +0000 (UTC)
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 62UBEV8L1403185
- for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 13:26:05 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- S/+lpfhPJyGKPek8uoVu5/C6sdT3Q8uum2gyN2ApDYY=; b=i2YqA8ZHTTDkzyZy
- 9eSkbv+aR3j93V0mJ3PpjXqi12E87DnLacfuS1fk3z+UdLhDywPCHjBEpazZiAKy
- PnJMoV6y9w4P/oSskGqmUxgZ7HG3GXMkqeSjfWHewxhuxLb2PjiMJb+CyWO9c5xh
- eHZ7Fv08Y3XjR3JzvOcshApcNQbuf+hxhy/JQc1C6ciUNL9HEEGt+4hTBkSoI7ET
- 5dVOelTftSvfWgdSCJR/e24dJlfKxr6moT4m3To0erfXpdDmiBULOaZTpuDzgNNY
- r2yn43jjICw07qHiH04Daa51Yif2YWr39zmS6ecSFgotytsEVO7ONDNZocw77BFu
- ALE7tw==
-Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com
- [209.85.160.199])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d7r4h8kpd-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 13:26:05 +0000 (GMT)
-Received: by mail-qt1-f199.google.com with SMTP id
- d75a77b69052e-50b4fe4ff7bso182399771cf.0
- for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 06:26:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1774877164; x=1775481964;
- darn=lists.freedesktop.org; 
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=S/+lpfhPJyGKPek8uoVu5/C6sdT3Q8uum2gyN2ApDYY=;
- b=jX35BalBgr9EQPuJ0e1KF5aYbIUumqwPyhsXrZ/lsbjqKJFpqD3pQEE4DeJSreFibg
- JPeX1q2zScK+3DCV81uTZ3kSqfMfYZDt1EeouSenwBlruyLATsTB2t7AiUK+i+V6bj5x
- mg6qBSn7V1cUCzLR0JveAevhS1hv01mi8umSFQ7z7f6IeXzEpLHAjLVXmx0NbmZqJiRq
- 7sXrxl9DlG4BlynZaW+6GKgKyPfmvFEXCq80BgpnyYLUpnXHPQ7rNsyKfFJcn/xgfyHG
- 1d506xk+wl7ok/Vbnhg16RaLVeAYQYTMmwBe9hNb7igDwq+fMst4/bdpkmtsBpM11q5w
- UUFw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774877164; x=1775481964;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
- :cc:subject:date:message-id:reply-to;
- bh=S/+lpfhPJyGKPek8uoVu5/C6sdT3Q8uum2gyN2ApDYY=;
- b=AiuvWrbeBjnOZnnhgw8gRWJ0MUSG2M2MAp1bppjC6g2greSvpj/azAnLcD0INCYHo0
- fdDX6uMnEF7hXkR4HG8Rzo+kNlzyataRuLIPL2DUydZgZ/v1XZrBdMsZOCL+MbO+H04l
- BYOw4vANh+VD5tiDsujg9tyVZEsnMMQfgT3FdTgB8YeMTf8I7VHcPv2+Po7LV7cdt90v
- 5OCIkchL4fqxjG7YcbpELfIDuK2oSqqnBVCeostG0kdPG88B40zRGOgos+Z9MkMr2KW1
- C3A/MJwjQG9CI2FodcGeq3bGVS/VnIa9vIRMUVvg5zgxtYX9eWq4j+DKuLGcEHj0Taft
- eAjg==
-X-Gm-Message-State: AOJu0YxIHvxfC5sqElTP7kzQVm6HOx0xhVLFlLXJHir1xenM9eOuk4FH
- z0XXm5x7tz/iz6HhZWOL27UDfimA6uDMmZiUoNOamWP3y4GSwieAfduZSENNpCCeptCdhMDmmeY
- TWPctASy4bGP/HweZhV0kuS/yCVZi+mGeNfStXt0iXPmoWWkhdPYowBbVDPFNGmOBQ2mmg3DnuI
- jDAUU=
-X-Gm-Gg: ATEYQzwGRJVK0jfqs7lGQJA5ubWtl73YqEtFolTJhllCjTMMrYCzasUvyr3OhqAaXLM
- VbJu5IvR1tn2DDi8gxdVM7Xp5a+9izO18+R68NI3k4z9sUjuyDxHrn9rBOoe50U3ABFfcJXdUTn
- f6SPIzMiZOG1uuzRk2QM2G6dEdXJqMaqPrqYf9RsHkWbF/Ye6hUol8FUHWWhp4Uc5vc4qMffZfL
- tBeRK3pBprB+NzRJnI3+Sh7dUWmQQg59rpKnE4BwuB9ZG/nFIRNGpoME3G2Sx6bxEQfLjuDaumK
- yichd+qGTvUCB6bqZl77lk3n6VfQ1E4r09k5w/DP/XF7rH27qLDQs7YjuGZVGJRo3g8oXr8Lwcc
- yQSPQX901U97LCLQsQlLvmE5kSEoGuV1xghe4SihPFZA688C3lRJV4FdjulxP+0MR3jCnhyPbxa
- Xqfkyoc0YLWuLJ+Lvi3DjUZQUKS4FuKCNmLEk=
-X-Received: by 2002:a05:622a:8f0e:b0:50b:3128:9916 with SMTP id
- d75a77b69052e-50b99410cdcmr160273161cf.18.1774877163845; 
- Mon, 30 Mar 2026 06:26:03 -0700 (PDT)
-X-Received: by 2002:a05:622a:8f0e:b0:50b:3128:9916 with SMTP id
- d75a77b69052e-50b99410cdcmr160272611cf.18.1774877163313; 
- Mon, 30 Mar 2026 06:26:03 -0700 (PDT)
-Received: from umbar.lan
- (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5a2b13fd035sm1698928e87.18.2026.03.30.06.26.01
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 30 Mar 2026 06:26:01 -0700 (PDT)
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Date: Mon, 30 Mar 2026 16:25:53 +0300
-Subject: [PATCH 4/4] drm/panel: simple: add Waveshare LCD panels
+Received: from SJ2PR03CU001.outbound.protection.outlook.com
+ (mail-westusazon11012023.outbound.protection.outlook.com [52.101.43.23])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4D7F710E226
+ for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 13:29:59 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=qia19ncz6iw9s0SVwq5f/wJDt5cFdzugaKZnNY7XxIXtC6okKM+75ekzRAhJrXLvSuodXJB44qW4jOWO214MZ+2cJEjErqhw1AzQ9IJDHZk/Y3z9PugnD82y84XIaBCKZciAtlkhA11v7yonfHeGU4+m9daFZ5bQAOsxqqOhc7F6r4Vpvz6kfhAxmyoan0XT3F/BdiO1mJ7xB21TRPTwHYWkyvRK+8Bux0wjZfLVbv3AtIqBgxxdsaO0LCyNQ77snsAaHFEMLOmGaI7sK2K2RLnAKsE6LVNoh6SUTi2unF/lP/F3vcb0EMeAbWtrNGcdHxx/t8KgaVBqSVSD//64Yw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=LHu7oARcXqcT/LqkwGigPTk9t6jPyJrXft+ZJ+vmMcU=;
+ b=PIqI7pGGerNGIADOHBzyw2gZhpJ163Afp9l2RdXgtBtjVu2glQADqUEIEkHAjBeTJjMzr0BoVUE5TXDeYgUaHPULtDPweFw/Wl9OIDyy6LSKcJcLGRYeO4Swkn4O6F2AwLJKv2vk/EXGMqkHITpn7Fn1MGkapnHm8FXnuGYsE2O/4yb2OEyH6bfTG4+1hnDu6xLikvyDjlhcU2u2wvmgGS/KeMvcR7zzn9a6yznN9ioh2SI/fp1E6oP36NOI8lAbAvV6hqi3OAcoAK+7X+knBufBxsUfce3Ow+yynSf+sRBNKpWfrCEzL9WEkg3A3XxTWbgwdHKger6D1YBXH17bJw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=LHu7oARcXqcT/LqkwGigPTk9t6jPyJrXft+ZJ+vmMcU=;
+ b=VxF0AyjCz20eZ7BjTxW+KL4CZbGsdT7D7vL4EinTpMlBnW1UzwYpRd1QRXCYm8vcYmyg4Ck6eBAqdBCy6lHD1K+rrhWOFYVMQiSZaBOURYl8GSCTw+F0cHNHGzP/ClfxJTW1SQ0lvvFRwzMrd4+lhErK4Afb6mgOZs2m6DySI/MlL+IlV/pRvhMa0eNRYJVQG+IhpT9wHrDwmFLd249xLhEyKU5phhURmOg1sVlIcX0kJ+1GR0qH9rL9APx5f8h2B1J1V4/+9z5pNVlV2b5cs+mbVaOAjm90z5yCqTWGxdAzC35+tlieSC1vpXekXwhvZ1Qb31kYgqe6RJDNAD0PKA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from LV8PR12MB9620.namprd12.prod.outlook.com (2603:10b6:408:2a1::19)
+ by SJ2PR12MB8737.namprd12.prod.outlook.com (2603:10b6:a03:545::21)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.15; Mon, 30 Mar
+ 2026 13:29:53 +0000
+Received: from LV8PR12MB9620.namprd12.prod.outlook.com
+ ([fe80::299d:f5e0:3550:1528]) by LV8PR12MB9620.namprd12.prod.outlook.com
+ ([fe80::299d:f5e0:3550:1528%5]) with mapi id 15.20.9769.014; Mon, 30 Mar 2026
+ 13:29:53 +0000
+Date: Mon, 30 Mar 2026 10:29:52 -0300
+From: Jason Gunthorpe <jgg@nvidia.com>
+To: Matt Evans <mattev@meta.com>
+Cc: Alex Williamson <alex@shazbot.org>, Leon Romanovsky <leon@kernel.org>,
+ Alex Mastro <amastro@fb.com>, Mahmoud Adam <mngyadam@amazon.de>,
+ David Matlack <dmatlack@google.com>,
+ =?utf-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ Kevin Tian <kevin.tian@intel.com>, Ankit Agrawal <ankita@nvidia.com>,
+ Pranjal Shrivastava <praan@google.com>,
+ Alistair Popple <apopple@nvidia.com>,
+ Vivek Kasireddy <vivek.kasireddy@intel.com>,
+ linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+ kvm@vger.kernel.org
+Subject: Re: [RFC v2 PATCH 02/10] vfio/pci: Clean up DMABUFs before disabling
+ function
+Message-ID: <20260330132952.GS310919@nvidia.com>
+References: <20260312184613.3710705-1-mattev@meta.com>
+ <20260312184613.3710705-3-mattev@meta.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260312184613.3710705-3-mattev@meta.com>
+X-ClientProxiedBy: BL0PR05CA0004.namprd05.prod.outlook.com
+ (2603:10b6:208:91::14) To LV8PR12MB9620.namprd12.prod.outlook.com
+ (2603:10b6:408:2a1::19)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260330-ws-lcd-v1-4-309834a435c0@oss.qualcomm.com>
-References: <20260330-ws-lcd-v1-0-309834a435c0@oss.qualcomm.com>
-In-Reply-To: <20260330-ws-lcd-v1-0-309834a435c0@oss.qualcomm.com>
-To: Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Thierry Reding <thierry.reding@gmail.com>,
- Sam Ravnborg <sam@ravnborg.org>, Joseph Guo <qijian.guo@nxp.com>,
- Marek Vasut <marek.vasut+renesas@mailbox.org>,
- Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-X-Mailer: b4 0.15.1
-X-Developer-Signature: v=1; a=openpgp-sha256; l=11552;
- i=dmitry.baryshkov@oss.qualcomm.com; h=from:subject:message-id;
- bh=cARUtvGtD11vBtFkeSEutnYfrhEMM/CC1CsBezboId4=;
- b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBpynnhWod1RdnnttekYSduhR+Z6oqpcUEYr96bT
- jZmyYmNxJiJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCacp54QAKCRCLPIo+Aiko
- 1R3qCACZHd/RjPnEL9lUqmzeFXKWGoEGCFPOplBIdJakm449kLeif4nP/G/8N9rrHsjUJD0rjzG
- RymObvtZW/Ir7Kx0kHarj2Gq3B0ZPHaqja0M/w/QgdJ5b9f3Uj/4GLPyuyUbEE9DagEcTCIBtEp
- tHGsrhtHA+50Ims2/ulFTfP7NHM7kSaliaTA3L58oDubpL2oKOEfQ4p55V2u8zV0FMUmoge34NQ
- ZSZ4DLmzqVWn+v1uZEpZ6E/wT443ji1aA9uieqshLlxG6bW08Hk+eMtSAin4E7/Zgax7uK/OGn5
- LqJRhHliBTHTZo5xeU6jmFRDkCOzJOlCL5e87zp8neZsjkED
-X-Developer-Key: i=dmitry.baryshkov@oss.qualcomm.com; a=openpgp;
- fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzMwMDEwNSBTYWx0ZWRfX/TQeMVF8ebVh
- vhonvAtkP9jHp6BJL9SrfYJuEqAxaXRyX+WmBvRCzME48J9FDxtJe/jIVatjTSbSIIjVl8gJEZT
- XLLHQNLxPSUU7JFIM1KwBHWCqfZVKWSPp+SEUl1RwwhMhmG4SPCOWlTCNCeXNTxdsagDe8w1Vm3
- oHOqd+ZSeo8pkKqa0tr8YKFJHdAtZrosaaOPtRzqhZC8AOqKbea6JFbUjpu4dzL2YM7n2/ZKOpE
- utnxyPnYRHJRLQncndGa4kVvMY+JhdIkV7UL90GJCdWgsqmjgxQVXsT8P2pP359oZqcy0XjFo7e
- X3pJPzXOBhfKUWsgblZM6fLzB5cQFWH5nM+mVjaAwP9RfqnFdQpc/qEUegAdK7PD7qRk2J7ug39
- NoI/mB268ah9gdsU8fMq07CcAwwzljj3ajfLrl6DFdA1jeR8KMOx8XSSeYk7ipGPrB6A/tDIyr3
- dZDYZFl+RbXFtgcQ6hA==
-X-Proofpoint-ORIG-GUID: Oji9QNgOFY0_sYYqcn7LLICVTn4oFzhs
-X-Authority-Analysis: v=2.4 cv=PI0COPqC c=1 sm=1 tr=0 ts=69ca79ed cx=c_pps
- a=WeENfcodrlLV9YRTxbY/uA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22 a=EUspDBNiAAAA:8
- a=cPmbVODp-joscUQKHs4A:9 a=QEXdDO2ut3YA:10 a=kacYvNCVWA4VmyqE58fU:22
-X-Proofpoint-GUID: Oji9QNgOFY0_sYYqcn7LLICVTn4oFzhs
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-03-29_05,2026-03-28_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 phishscore=0 adultscore=0 impostorscore=0 malwarescore=0
- lowpriorityscore=0 spamscore=0 suspectscore=0 clxscore=1015 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603300105
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LV8PR12MB9620:EE_|SJ2PR12MB8737:EE_
+X-MS-Office365-Filtering-Correlation-Id: d98875ad-2983-4e78-1a78-08de8e606cf0
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|7416014|376014|366016|22082099003|18002099003|56012099003;
+X-Microsoft-Antispam-Message-Info: M9J/TwJwDqumeOSsPEFp5Nsf0kvZfyF2qux7T8afKKg8obGy3427UAX1cr/7IJ5tS2T//8ekDw7zwFWd0gh4Kuq/NDSkPrbbrD/PSBQr+pupPwE4MFx7aBVRA0zmNZhNHxXnzfU2Rf9IyvK+qF1pvV0cgyD+QqrVmjYtmhakacef+Gm2DNK4wbtnVp0T2Jnk4Ka4U7EE3DARflaGrMHjAjcyuNwYGsnRX6Kf9KbR7LB/nxinSKtXqHoGRdQ08ZVSxc/MbwOu3UR0ZcB9FhhD1pfmJci3iGMtkOOJrO0Q+0ZBg0ZmG8hmeY/NetRD7D3c7hmSXTcs9QtL2M5v8YYL3WbwvXB3Mh2avPR9L7hmmDhWVtXq1zDFP2V3vyYsRyxTcgPNx6woYmnHaWhZj8pELKawxZvV/VGzdJXTNcg5zAejB3mAkTtqAVhg6kBJW4hXfpW6dFAw45cGM2Z9Xa2N99eLS+0hXOzxNfpyH31fUV1crEFnZ/PbkIrptrPZiN+wSWKejgDKNj8gsvf2NjvEeMC8j6gLBZ8BILVXkQt9ymuNOggjpDg29KKmO6S9RASz2RBjNESSdNWbOnXDzdhqXjDk70WEsgf8f4uy8a9mbbEYd7pOFvkOe5xabbjE68Ce0cTQOxl5P+EdTjlxBWXkPDoHLUtHmHar9sdErcN0yOjHnWBvVMYQU2JRKl1vcanwGncnTxCeWWAaz2CophYbNS8t9QME6HOEJcIwzBacWWw=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:LV8PR12MB9620.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(7416014)(376014)(366016)(22082099003)(18002099003)(56012099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?tOxcbMQ/YsRPetYIOFGHqp3+2LYxMnEcNC1plELL1pidwjvFV2j0YTC8ecoe?=
+ =?us-ascii?Q?+D7MLYV2a69zdM/22dny9NK3eziPtiMIZlAtSkkMOeKTucxW1Q2x7Zo+iqwP?=
+ =?us-ascii?Q?crI/g9jrfhvhnEmdpPmGvw1/NDt+j0oZJenRVLccWEKNNCjN2Y74fxehPY+t?=
+ =?us-ascii?Q?JQbbZuJJ/hg5L3LOQ2vrB4Lb4HqjLCMl5gO4YnvPdTg0+207bkblJtchWxJm?=
+ =?us-ascii?Q?uLC5q4UZ8aNeIVh+uUwAIvZWAp6yhuped2PwrFwcaQOogK1Hkjik8p6S99Rr?=
+ =?us-ascii?Q?JT2mbcUKuTxkib7YPtuGAlr/b4Hl8CZbJ79r0ztDyGYUQ5YOB1RB6kGpyLR8?=
+ =?us-ascii?Q?wKhQna/Mk8r2l1Ch6aB4S8k8fLXQkOZo/zJrY94Vrc05NilPaK0ejNFnqhQR?=
+ =?us-ascii?Q?cBWA3n0ccMsOmF4ks7yZVZpP7c5LfR9NQZWsJ5n1SzWKy28l0KRFXiQm+t/H?=
+ =?us-ascii?Q?quo5A9u4x7QrC+xXWQc+M0laNAeBSHzC6g75dyVBG1qHeFCg/aM3+b1VBJmY?=
+ =?us-ascii?Q?DImNdU/YLREY/4V4A31etNBlQr/+uEoZvlTBg1LlhYQNeNu16RfZeYttmylO?=
+ =?us-ascii?Q?D31kWgt/lLBM8+WVjbSiYm97qW16/fJGXDHPBWTDidWzXtxkEpmFDt6tvKPI?=
+ =?us-ascii?Q?dhAMMoKMghcDfeQp7CYtT6LX+V63SnXWZdtzNhZrPCgz3lnaGV2Fj//s3T3F?=
+ =?us-ascii?Q?hI9E9/PcPVAKBXMqoFIK5gdT3eeU6v3EpZjROVOMLqE7s3rkz3Lt1QXnoOmB?=
+ =?us-ascii?Q?270kqMDUHqcVgZKCACzDBECqsgBKR6aWO5NZXPvZ36EtYhZipl7PELFtKSlH?=
+ =?us-ascii?Q?F+2IgqkOMr58T1ck62zZzly5vO/nX5hhumqeX39WsiJ8qpoTvhZcU3EmGWbO?=
+ =?us-ascii?Q?ZqpCFQ1Qh0ggY0yhdOPvcu6jVKdfW9qeu9kfI3sM5UMOllRrM6aZNCuynq6g?=
+ =?us-ascii?Q?OXK66pgCf3PtoL709ZUvose05Q3nQMBiwFyFL6jbpJN3E01oVVAIWh1bIoQG?=
+ =?us-ascii?Q?4hKQ3xnX6OyoElUMBK3uz7b6FUWZu/mKHiflm1yIfLOYOjeuiveA7HxeYMgu?=
+ =?us-ascii?Q?T6WzYzMlxHSN5e+vZJFwKnptZJppi6SguLaSy5DyageB7s8OZMCzh0gtLHVd?=
+ =?us-ascii?Q?c62ex1ml6801/MoClo4Nx0wG7+P5eJQoIUZouqYQuRqSeMh3VJiUNgLtKR1b?=
+ =?us-ascii?Q?DtN2T+DLMwwgZWGMPQHJGPsjMohmHrqv8MzblTJa2e6TgsSyj5ykSUukf2vN?=
+ =?us-ascii?Q?Yii+1Qjry2nl6ozhqJhoOkGAKc9i2kwXLklnTOjzMOHMjOWzuaW7tv1nxBaz?=
+ =?us-ascii?Q?P1mhCPLvLnvoK+7NtHsKIktftZgDCqmL7YnucWSrbuERObnK9tc0sNNQvr7Q?=
+ =?us-ascii?Q?Mzrt5mznQjdZ9pE6NYKe6hD+6tXz/plx7qvGZtWrjnnkHfXDu2KyGu2fA2uN?=
+ =?us-ascii?Q?l4qV37mxTf5DkZ6JqktveiNLKrEvw7D/zDaJRnozXreNmKoSYeUlZiECX+Un?=
+ =?us-ascii?Q?tKzXnziP/wjx9gtXnez1Ub3sLrU5S2xqkOqQyYYpi4zlO3KoPT16VImdpQ3L?=
+ =?us-ascii?Q?fFiXGPRbeLY8lRoi9nyUGuSa8w46k9LHmmj4b/K4UwhxPeKTT2LqVISKMgwf?=
+ =?us-ascii?Q?2Vw1h6EYpq5pWDwgu/mtDmCkMa9RuaNrJLbkFgjrgbm3ZxcgmzcOKl8nq2Yc?=
+ =?us-ascii?Q?/y5jSn/mjzxk0G+nZaCJ9aRanjONuT2PjC9xRhPLmIxDGiUr?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d98875ad-2983-4e78-1a78-08de8e606cf0
+X-MS-Exchange-CrossTenant-AuthSource: LV8PR12MB9620.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Mar 2026 13:29:53.2019 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Am+YZVIU4IPxKM8pjflYcF38Cbw36CioUFMhtac5/BkltjqmOAkxBLVoLK9LWxP7
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8737
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -163,420 +137,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Waveshare have a serie of DSI panel kits with the DPI or LVDS panel
-being attached to the DSI2DPI or DSI2LVDS bridge. The commit
-46be11b678e0 ("drm/panel: simple: Add Waveshare 13.3" panel support")
-added definitions for one of those panels, describe the rest of them.
+On Thu, Mar 12, 2026 at 11:46:00AM -0700, Matt Evans wrote:
+> On device shutdown, make vfio_pci_core_close_device() call
+> vfio_pci_dma_buf_cleanup() before the function is disabled via
+> vfio_pci_core_disable().  This ensures that all access via DMABUFs is
+> revoked before the function's BARs become inaccessible.
+> 
+> This fixes an issue where, if the function is disabled first, a tiny
+> window exists in which the function's MSE is cleared and yet BARs
+> could still be accessed via the DMABUF.  The resources would also be
+> freed and up for grabs by a different driver.
+> 
+> Fixes: 5d74781ebc86c ("vfio/pci: Add dma-buf export support for MMIO regions")
+> Signed-off-by: Matt Evans <mattev@meta.com>
+> ---
+>  drivers/vfio/pci/vfio_pci_core.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
 
-Note, since the panels are hidden behind the bridges which are not being
-programmed by the kernel, I could not confirm the pixel format for the
-panels.
+This seems like it should not be RFC and it should go to stable?
 
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
----
- drivers/gpu/drm/panel/panel-simple.c | 381 +++++++++++++++++++++++++++++++++++
- 1 file changed, 381 insertions(+)
+The normal mmaps are cleaned because they hold the file open while
+they exist, dmabuf upends that and it does need zapping early.
 
-diff --git a/drivers/gpu/drm/panel/panel-simple.c b/drivers/gpu/drm/panel/panel-simple.c
-index 236bd56208cc..b2708a1fe464 100644
---- a/drivers/gpu/drm/panel/panel-simple.c
-+++ b/drivers/gpu/drm/panel/panel-simple.c
-@@ -5061,6 +5061,342 @@ static const struct panel_desc vl050_8048nt_c01 = {
- 	.bus_flags = DRM_BUS_FLAG_DE_HIGH | DRM_BUS_FLAG_PIXDATA_SAMPLE_NEGEDGE,
- };
- 
-+static const struct drm_display_mode waveshare_28_lcd_mode = {
-+	.clock = 50000,
-+	.hdisplay = 480,
-+	.hsync_start = 480 + 150,
-+	.hsync_end = 480 + 150 + 50,
-+	.htotal = 480 + 150 + 50 + 150,
-+	.vdisplay = 640,
-+	.vsync_start = 640 + 150,
-+	.vsync_end = 640 + 150 + 50,
-+	.vtotal = 640 + 150 + 50 + 150,
-+	.flags = DRM_MODE_FLAG_PVSYNC | DRM_MODE_FLAG_PHSYNC,
-+};
-+
-+static const struct panel_desc waveshare_28_lcd_panel = {
-+	.modes = &waveshare_28_lcd_mode,
-+	.num_modes = 1,
-+	.bpc = 8,
-+	.size = {
-+		.width = 44,
-+		.height = 58,
-+	},
-+	.bus_format = MEDIA_BUS_FMT_RGB888_1X24,
-+	.connector_type = DRM_MODE_CONNECTOR_DPI,
-+	.bus_flags = DRM_BUS_FLAG_PIXDATA_SAMPLE_POSEDGE |
-+		     DRM_BUS_FLAG_SYNC_SAMPLE_POSEDGE,
-+};
-+
-+static const struct drm_display_mode waveshare_34_lcd_c_mode = {
-+	.clock = 50000,
-+	.hdisplay = 800,
-+	.hsync_start = 800 + 32,
-+	.hsync_end = 800 + 32 + 6,
-+	.htotal = 800 + 32 + 6 + 120,
-+	.vdisplay = 800,
-+	.vsync_start = 800 + 8,
-+	.vsync_end = 800 + 8 + 4,
-+	.vtotal = 800 + 8 + 4 + 16,
-+};
-+
-+static const struct panel_desc waveshare_34_lcd_c_panel = {
-+	.modes = &waveshare_34_lcd_c_mode,
-+	.num_modes = 1,
-+	.bpc = 8,
-+	.size = {
-+		.width = 88,
-+		.height = 88,
-+	},
-+	.bus_format = MEDIA_BUS_FMT_RGB888_1X7X4_SPWG,
-+	.connector_type = DRM_MODE_CONNECTOR_LVDS,
-+};
-+
-+static const struct drm_display_mode waveshare_40_lcd_mode = {
-+	.clock = 50000,
-+	.hdisplay = 480,
-+	.hsync_start = 480 + 150,
-+	.hsync_end = 480 + 150 + 100,
-+	.htotal = 480 + 150 + 100 + 150,
-+	.vdisplay = 800,
-+	.vsync_start = 800 + 20,
-+	.vsync_end = 800 + 20 + 100,
-+	.vtotal = 800 + 20 + 100 + 20,
-+	.flags = DRM_MODE_FLAG_PVSYNC | DRM_MODE_FLAG_PHSYNC,
-+};
-+
-+static const struct panel_desc waveshare_40_lcd_panel = {
-+	.modes = &waveshare_40_lcd_mode,
-+	.num_modes = 1,
-+	.bpc = 8,
-+	.size = {
-+		.width = 52,
-+		.height = 87,
-+	},
-+	.bus_format = MEDIA_BUS_FMT_RGB888_1X24,
-+	.connector_type = DRM_MODE_CONNECTOR_DPI,
-+	.bus_flags = DRM_BUS_FLAG_PIXDATA_SAMPLE_POSEDGE |
-+		     DRM_BUS_FLAG_SYNC_SAMPLE_POSEDGE,
-+};
-+
-+static const struct drm_display_mode waveshare_40_lcd_c_mode = {
-+	.clock = 50000,
-+	.hdisplay = 720,
-+	.hsync_start = 720 + 32,
-+	.hsync_end = 720 + 32 + 200,
-+	.htotal = 720 + 32 + 200 + 120,
-+	.vdisplay = 720,
-+	.vsync_start = 720 + 8,
-+	.vsync_end = 720 + 8 + 4,
-+	.vtotal = 720 + 8 + 4 + 16,
-+};
-+
-+static const struct panel_desc waveshare_40_lcd_c_panel = {
-+	.modes = &waveshare_40_lcd_c_mode,
-+	.num_modes = 1,
-+	.bpc = 8,
-+	.size = {
-+		.width = 102,
-+		.height = 102,
-+	},
-+	.bus_format = MEDIA_BUS_FMT_RGB888_1X7X4_SPWG,
-+	.connector_type = DRM_MODE_CONNECTOR_LVDS,
-+};
-+
-+static const struct drm_display_mode waveshare_50_lcd_c_mode = {
-+	.clock = 50000,
-+	.hdisplay = 1024,
-+	.hsync_start = 1024 + 100,
-+	.hsync_end = 1024 + 100 + 100,
-+	.htotal = 1024 + 100 + 100 + 100,
-+	.vdisplay = 600,
-+	.vsync_start = 600 + 10,
-+	.vsync_end = 600 + 10 + 10,
-+	.vtotal = 600 + 10 + 10 + 10,
-+	.flags = DRM_MODE_FLAG_PVSYNC | DRM_MODE_FLAG_PHSYNC,
-+};
-+
-+static const struct panel_desc waveshare_50_lcd_c_panel = {
-+	.modes = &waveshare_50_lcd_c_mode,
-+	.num_modes = 1,
-+	.bpc = 8,
-+	.size = {
-+		.width = 109,
-+		.height = 66,
-+	},
-+	.bus_format = MEDIA_BUS_FMT_RGB888_1X24,
-+	.connector_type = DRM_MODE_CONNECTOR_DPI,
-+	.bus_flags = DRM_BUS_FLAG_PIXDATA_SAMPLE_POSEDGE |
-+		     DRM_BUS_FLAG_SYNC_SAMPLE_POSEDGE,
-+};
-+
-+static const struct drm_display_mode waveshare_50_lcd_d_mode = {
-+	.clock = 83333,
-+	.hdisplay = 720,
-+	.hsync_start = 720 + 100,
-+	.hsync_end = 720 + 100 + 80,
-+	.htotal = 720 + 100 + 80 + 100,
-+	.vdisplay = 1280,
-+	.vsync_start = 1280 + 20,
-+	.vsync_end = 1280 + 20 + 20,
-+	.vtotal = 1280 + 20 + 20 + 20,
-+};
-+
-+static const struct panel_desc waveshare_50_lcd_d_panel = {
-+	.modes = &waveshare_50_lcd_d_mode,
-+	.num_modes = 1,
-+	.bpc = 8,
-+	.size = {
-+		.width = 62,
-+		.height = 110,
-+	},
-+	.bus_format = MEDIA_BUS_FMT_RGB888_1X7X4_SPWG,
-+	.connector_type = DRM_MODE_CONNECTOR_LVDS,
-+};
-+
-+static const struct drm_display_mode waveshare_625_lcd_mode = {
-+	.clock = 83333,
-+	.hdisplay = 720,
-+	.hsync_start = 720 + 50,
-+	.hsync_end = 720 + 50 + 50,
-+	.htotal = 720 + 50 + 50 + 50,
-+	.vdisplay = 1560,
-+	.vsync_start = 1560 + 20,
-+	.vsync_end = 1560 + 20 + 20,
-+	.vtotal = 1560 + 20 + 20 + 20,
-+};
-+
-+static const struct panel_desc waveshare_625_lcd_panel = {
-+	.modes = &waveshare_625_lcd_mode,
-+	.num_modes = 1,
-+	.bpc = 8,
-+	.size = {
-+		.width = 66,
-+		.height = 144,
-+	},
-+	.bus_format = MEDIA_BUS_FMT_RGB888_1X7X4_SPWG,
-+	.connector_type = DRM_MODE_CONNECTOR_LVDS,
-+};
-+
-+static const struct panel_desc waveshare_70_lcd_c_panel = {
-+	.modes = &waveshare_50_lcd_c_mode,
-+	.num_modes = 1,
-+	.bpc = 8,
-+	.size = {
-+		.width = 155,
-+		.height = 87,
-+	},
-+	.bus_format = MEDIA_BUS_FMT_RGB888_1X24,
-+	.connector_type = DRM_MODE_CONNECTOR_DPI,
-+	.bus_flags = DRM_BUS_FLAG_PIXDATA_SAMPLE_POSEDGE |
-+		     DRM_BUS_FLAG_SYNC_SAMPLE_POSEDGE,
-+};
-+
-+static const struct drm_display_mode waveshare_80_lcd_c_mode;
-+static const struct panel_desc waveshare_70_lcd_e_panel = {
-+	.modes = &waveshare_80_lcd_c_mode,
-+	.num_modes = 1,
-+	.bpc = 8,
-+	.size = {
-+		.width = 152,
-+		.height = 95,
-+	},
-+	.bus_format = MEDIA_BUS_FMT_RGB888_1X7X4_SPWG,
-+	.connector_type = DRM_MODE_CONNECTOR_LVDS,
-+};
-+
-+static const struct drm_display_mode waveshare_70_lcd_h_mode = {
-+	.clock = 83333,
-+	.hdisplay = 1280,
-+	.hsync_start = 1280 + 64,
-+	.hsync_end = 1280 + 64 + 64,
-+	.htotal = 1280 + 64 + 64 + 64,
-+	.vdisplay = 720,
-+	.vsync_start = 720 + 64,
-+	.vsync_end = 720 + 64 + 64,
-+	.vtotal = 720 + 64 + 64 + 64,
-+};
-+
-+static const struct panel_desc waveshare_70_lcd_h_panel = {
-+	.modes = &waveshare_70_lcd_h_mode,
-+	.num_modes = 1,
-+	.bpc = 8,
-+	.size = {
-+		.width = 155,
-+		.height = 88,
-+	},
-+	.bus_format = MEDIA_BUS_FMT_RGB888_1X7X4_SPWG,
-+	.connector_type = DRM_MODE_CONNECTOR_LVDS,
-+};
-+
-+static const struct drm_display_mode waveshare_79_lcd_mode = {
-+	.clock = 50000,
-+	.hdisplay = 400,
-+	.hsync_start = 400 + 40,
-+	.hsync_end = 400 + 40 + 30,
-+	.htotal = 400 + 40 + 30 + 40,
-+	.vdisplay = 1280,
-+	.vsync_start = 1280 + 20,
-+	.vsync_end = 1280 + 20 + 10,
-+	.vtotal = 1280 + 20 + 10 + 20,
-+};
-+
-+static const struct panel_desc waveshare_79_lcd_panel = {
-+	.modes = &waveshare_79_lcd_mode,
-+	.num_modes = 1,
-+	.bpc = 8,
-+	.size = {
-+		.width = 60,
-+		.height = 191,
-+	},
-+	.bus_format = MEDIA_BUS_FMT_RGB888_1X7X4_SPWG,
-+	.connector_type = DRM_MODE_CONNECTOR_LVDS,
-+};
-+
-+static const struct drm_display_mode waveshare_80_lcd_c_mode = {
-+	.clock = 83333,
-+	.hdisplay = 1280,
-+	.hsync_start = 1280 + 156,
-+	.hsync_end = 1280 + 156 + 20,
-+	.htotal = 1280 + 156 + 20 + 40,
-+	.vdisplay = 800,
-+	.vsync_start = 800 + 40,
-+	.vsync_end = 800 + 40 + 48,
-+	.vtotal = 800 + 40 + 48 + 40,
-+};
-+
-+static const struct panel_desc waveshare_80_lcd_c_panel = {
-+	.modes = &waveshare_80_lcd_c_mode,
-+	.num_modes = 1,
-+	.bpc = 8,
-+	.size = {
-+		.width = 173,
-+		.height = 108,
-+	},
-+	.bus_format = MEDIA_BUS_FMT_RGB888_1X7X4_SPWG,
-+	.connector_type = DRM_MODE_CONNECTOR_LVDS,
-+};
-+
-+static const struct drm_display_mode waveshare_88_lcd_mode = {
-+	.clock = 83333,
-+	.hdisplay = 480,
-+	.hsync_start = 480 + 50,
-+	.hsync_end = 480 + 50 + 50,
-+	.htotal = 480 + 50 + 50 + 50,
-+	.vdisplay = 1920,
-+	.vsync_start = 1920 + 20,
-+	.vsync_end = 1920 + 20 + 20,
-+	.vtotal = 1920 + 20 + 20 + 20,
-+};
-+
-+static const struct panel_desc waveshare_88_lcd_panel = {
-+	.modes = &waveshare_88_lcd_mode,
-+	.num_modes = 1,
-+	.bpc = 8,
-+	.size = {
-+		.width = 56,
-+		.height = 220,
-+	},
-+	.bus_format = MEDIA_BUS_FMT_RGB888_1X7X4_SPWG,
-+	.connector_type = DRM_MODE_CONNECTOR_LVDS,
-+};
-+
-+static const struct panel_desc waveshare_101_lcd_c_panel = {
-+	.modes = &waveshare_80_lcd_c_mode,
-+	.num_modes = 1,
-+	.bpc = 8,
-+	.size = {
-+		.width = 217,
-+		.height = 136,
-+	},
-+	.bus_format = MEDIA_BUS_FMT_RGB888_1X7X4_SPWG,
-+	.connector_type = DRM_MODE_CONNECTOR_LVDS,
-+};
-+
-+static const struct drm_display_mode waveshare_119_lcd_mode = {
-+	.clock = 50000,
-+	.hdisplay = 320,
-+	.hsync_start = 320 + 60,
-+	.hsync_end = 320 + 60 + 60,
-+	.htotal = 320 + 60 + 60 + 60,
-+	.vdisplay = 1480,
-+	.vsync_start = 1480 + 60,
-+	.vsync_end = 1480 + 60 + 60,
-+	.vtotal = 1480 + 60 + 60 + 60,
-+};
-+
-+static const struct panel_desc waveshare_119_lcd_panel = {
-+	.modes = &waveshare_119_lcd_mode,
-+	.num_modes = 1,
-+	.bpc = 8,
-+	.size = {
-+		.width = 58,
-+		.height = 268,
-+	},
-+	.bus_format = MEDIA_BUS_FMT_RGB888_1X7X4_SPWG,
-+	.connector_type = DRM_MODE_CONNECTOR_LVDS,
-+};
-+
- static const struct drm_display_mode waveshare_133inch_mode = {
- 	.clock = 148500,
- 	.hdisplay = 1920,
-@@ -5697,6 +6033,51 @@ static const struct of_device_id platform_of_match[] = {
- 	}, {
- 		.compatible = "vxt,vl050-8048nt-c01",
- 		.data = &vl050_8048nt_c01,
-+	}, {
-+		.compatible = "waveshare,2.8inch-panel",
-+		.data = &waveshare_28_lcd_panel
-+	}, {
-+		.compatible = "waveshare,3.4inch-c-panel",
-+		.data = &waveshare_34_lcd_c_panel
-+	}, {
-+		.compatible = "waveshare,4.0inch-panel",
-+		.data = &waveshare_40_lcd_panel
-+	}, {
-+		.compatible = "waveshare,4.0inch-c-panel",
-+		.data = &waveshare_40_lcd_c_panel
-+	}, {
-+		.compatible = "waveshare,5.0inch-c-panel",
-+		.data = &waveshare_50_lcd_c_panel
-+	}, {
-+		.compatible = "waveshare,5.0inch-d-panel",
-+		.data = &waveshare_50_lcd_d_panel
-+	}, {
-+		.compatible = "waveshare,6.25inch-panel",
-+		.data = &waveshare_625_lcd_panel
-+	}, {
-+		.compatible = "waveshare,7.0inch-c-panel",
-+		.data = &waveshare_70_lcd_c_panel
-+	}, {
-+		.compatible = "waveshare,7.0inch-e-panel",
-+		.data = &waveshare_70_lcd_e_panel
-+	}, {
-+		.compatible = "waveshare,7.0inch-h-panel",
-+		.data = &waveshare_70_lcd_h_panel
-+	}, {
-+		.compatible = "waveshare,7.9inch-panel",
-+		.data = &waveshare_79_lcd_panel
-+	}, {
-+		.compatible = "waveshare,8.0inch-c-panel",
-+		.data = &waveshare_80_lcd_c_panel
-+	}, {
-+		.compatible = "waveshare,8.8inch-panel",
-+		.data = &waveshare_88_lcd_panel
-+	}, {
-+		.compatible = "waveshare,10.1inch-c-panel",
-+		.data = &waveshare_101_lcd_c_panel
-+	}, {
-+		.compatible = "waveshare,11.9inch-panel",
-+		.data = &waveshare_119_lcd_panel
- 	}, {
- 		.compatible = "waveshare,13.3inch-panel",
- 		.data = &waveshare_133inch,
+Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
 
--- 
-2.47.3
-
+Jason
