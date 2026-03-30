@@ -4,58 +4,135 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 43D5AFB3D00
-	for <dri-devel@archiver.kernel.org>; Mon, 30 Mar 2026 10:28:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 06057FB3CF7
+	for <dri-devel@archiver.kernel.org>; Mon, 30 Mar 2026 10:33:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A87F610E5E0;
-	Mon, 30 Mar 2026 10:28:28 +0000 (UTC)
-Received: from metis.whiteo.stw.pengutronix.de
- (metis.whiteo.stw.pengutronix.de [185.203.201.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C0E7010E5E0
- for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 10:28:26 +0000 (UTC)
-Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
- by metis.whiteo.stw.pengutronix.de with esmtps
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <mfe@pengutronix.de>)
- id 1w79qj-0000CQ-RV; Mon, 30 Mar 2026 12:28:01 +0200
-Received: from pty.whiteo.stw.pengutronix.de ([2a0a:edc0:2:b01:1d::c5])
- by drehscheibe.grey.stw.pengutronix.de with esmtps (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <mfe@pengutronix.de>) id 1w79qi-002rMd-1h;
- Mon, 30 Mar 2026 12:28:00 +0200
-Received: from mfe by pty.whiteo.stw.pengutronix.de with local (Exim 4.98.2)
- (envelope-from <mfe@pengutronix.de>) id 1w79qi-0000000EQ4g-1fiC;
- Mon, 30 Mar 2026 12:28:00 +0200
-Date: Mon, 30 Mar 2026 12:28:00 +0200
-From: Marco Felsch <m.felsch@pengutronix.de>
-To: Liu Ying <victor.liu@nxp.com>
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Marek Vasut <marex@denx.de>, 
- Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] dt-bindings: display: bridge: ldb: Require reg property
- only for i.MX6SX/8MP LDBs
-Message-ID: <oyietcoxdawgjmpdc3kkmru2azuuqrkmn3onm37wpu6f3t2pqg@g7aswu7zsfrq>
-References: <20260329-fsl_ldb_schema_fix-v1-1-351372754bc0@nxp.com>
- <crqzju5cqhvmy5msxvuquydmnpb2ft2t3gsyr6qsre6ccqjvzz@46gfcrelczsr>
- <aabe88e5-70f9-4ea1-b750-e425970a2761@nxp.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4AE9210E5F3;
+	Mon, 30 Mar 2026 10:33:20 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="FviTyNg0";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="OHdAfALn";
+	dkim-atps=neutral
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CE95010E5F0
+ for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 10:33:18 +0000 (UTC)
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 62U5xRRg2765461
+ for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 10:33:18 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=2w7omVV5MGhgUuytY9/a+Hrv
+ /Zkn5JBJZX3qNOAW4dI=; b=FviTyNg07d3LeINqlYTW6MooVmHX2v0TPesAwWwr
+ NKH2RGSEYwoODh5Vd5fb12GmzgoKbG6+pDbe1Bm7sD1STgldoGvqHyAHUwTlIV9Y
+ RhwgDlLSrmCmEasOJrIhIATDYOg+6KY+xIc7YTnQxseq9aObPO1p0oA0FwKa/LDv
+ Ii8wps687/YtfmztuFzldRFPRfU4FtTXo7TFbiEhQwDh9udI0uGLpK3k3aPioZPo
+ GZb+q/+cOD2hZ3pC3+k4Hm2aJIqLxjQRjjA0Z6Jq4RbnQp1nkXaBvbWbpDrhpHY8
+ 3An8oNm6Icc+KNggH9PpsBRmQoAEffcTDEI0VlBSokKTAg==
+Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com
+ [209.85.160.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d6v9c3p6f-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 10:33:17 +0000 (GMT)
+Received: by mail-qt1-f199.google.com with SMTP id
+ d75a77b69052e-5094741c1c1so107456621cf.1
+ for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 03:33:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1774866797; x=1775471597;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=2w7omVV5MGhgUuytY9/a+Hrv/Zkn5JBJZX3qNOAW4dI=;
+ b=OHdAfALnZR5eJLACbdL6DXDLqu/pcyRulVIqozChXpBIX3NoqOz0aEX4vScfAWw+lD
+ 8Cg52OgA+HAwF3/4upKjjYvaVfMw41wWGKLrc+Kvyh+mOKCPGsQJXD8G8XT6hqATe+Av
+ Q1CuP3cgJDr/CR48WnXOm6wdFgoOAZdjv+v+d3BVPvvcjQddgZpbbi7hPqBGiJE6ScQW
+ mvIz9zpgqVMweIlMVjOFx2+bVAwRO6zoux+6T6eifI5VZPJDlVmkxvEvSVv1N4l8rHow
+ vDHUdwyjp+/+16uV7T+6sspUmufw3twAaiZ4ZDsed22BkR/uy6RpXGcFE1BZDh4eitey
+ epnw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1774866797; x=1775471597;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=2w7omVV5MGhgUuytY9/a+Hrv/Zkn5JBJZX3qNOAW4dI=;
+ b=eJ3dOL7kjk8Ghtt7k3U+HL7psdiRpOLQs6sJ7C2c73QmODeNweBl6To9tg5wxPBzt6
+ gE+5l2/ynjY35W3GhaEPRPbZ20bkRxYo5YWKpZ357oUHiAb2g6ZUhzdP/5fqcS4Gh9eK
+ xKs3WzgzThwFWDD9HJI1P4YeK26YTlh8r2dGytjSrZLPXP3XtnpwjOsg4jNcNzfSFX+t
+ IfbVm1mnYeiFhPJIWjaM6lX//M9pSrfwd0KYsC8p3U13mUUUfiqKYhKceHBL8FzpZNGD
+ jLo9DiLNY03qpKoDnQoIw18zeRxfCc3C5Sy/1v33qo25GrtUMrNdfBl3zooRtj1tGlTx
+ GmbQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCV+w+BBFQ5BHnFzFijHAl0RWCAzsy0rU9Ev6G05jcQ8xjnE5dqxHi1tdA6YQkctY+ooXhI1Tv/G9s4=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yzvihi8cGxQTTQqlSHXJiSgLBYXRJ4ky4K49NkGo6sgskNd2UUp
+ 5y1l6D4So6MAUOEvTeR/pXEWZ1xiT4A0fm3hEgQY5r5/Jd8WAOVC/LNHm/rAHusQdp59SYoJAvS
+ AT63WVz4wEvNFOHNrEVEzdQROzkBobIgs7coJeVm0YUYoFJdAyLhRC8Bj2NrjPyHW5b+xiP8=
+X-Gm-Gg: ATEYQzxi5/498rChAbCwkEgQSqyzPflODutKcNmmdrbZlUaFsi6rpjP60quKD4NhJIi
+ /GJBTxrINwyVBCOYP8mbJJqMeWWSpetAHz5N20Nh6nFxZf3fbOOR1OdsN/9Au3R0AOmukzqWGqG
+ 9gBkxqdL1iIW5uB5BkytVLlyo8ofb2iNYTURT0UNurGhSRqUtt0QhDuCJlsT+hGxvlpibFq39V4
+ EL85jZsa0WOocFOyUEKUsLT7oTrLacLi1BDM00ahleL9+v7Tnni6+s6U8zGGQu7TkpMsNa931fd
+ YokqM0P+cdre47B3AgaTIHilD3vhnxgWeOhdmhUBC8/CnDRO63dmc2A8VUMDbAe8z8/FA4Y4laU
+ wwzdMV04F/dGpL0dts8a0U7vFUQP2yFo5I0ajjQcSjAxT04ZHajaq8GSOSuntH36UOBdsmFKMcl
+ adyJ+HyLx2x/jVt/JwKCcwpqP2Dgm+eXQT35M=
+X-Received: by 2002:a05:622a:345:b0:509:f36:496d with SMTP id
+ d75a77b69052e-50ba395d137mr157807851cf.33.1774866797213; 
+ Mon, 30 Mar 2026 03:33:17 -0700 (PDT)
+X-Received: by 2002:a05:622a:345:b0:509:f36:496d with SMTP id
+ d75a77b69052e-50ba395d137mr157807491cf.33.1774866796688; 
+ Mon, 30 Mar 2026 03:33:16 -0700 (PDT)
+Received: from umbar.lan
+ (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-5a2b13f429fsm1563883e87.2.2026.03.30.03.33.15
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 30 Mar 2026 03:33:15 -0700 (PDT)
+Date: Mon, 30 Mar 2026 13:33:13 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
+ Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 05/38] drm/msm/dp: splite msm_dp_ctrl_config_ctrl()
+ into link parts and stream parts
+Message-ID: <r4dtuhse2v2i33x56fjymlouk4ue4ftj2ff7pt3scsgoknegc2@innzpujxngit>
+References: <20250825-msm-dp-mst-v3-0-01faacfcdedd@oss.qualcomm.com>
+ <20250825-msm-dp-mst-v3-5-01faacfcdedd@oss.qualcomm.com>
+ <vvemyg2t3ycjwb3uhwua7ow6yjvo2mnu5tdrqc3ed3iuj5ue3v@bfvgfhcxbgke>
+ <e9d15987-7c8a-4ec6-8c65-a882139ba0cb@oss.qualcomm.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <aabe88e5-70f9-4ea1-b750-e425970a2761@nxp.com>
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
-X-SA-Exim-Mail-From: mfe@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: dri-devel@lists.freedesktop.org
+In-Reply-To: <e9d15987-7c8a-4ec6-8c65-a882139ba0cb@oss.qualcomm.com>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzMwMDA4MiBTYWx0ZWRfX8SGIicn7OxhT
+ qjWHnrZWLi8+TVZiTrkV5GKhXkhD6/R5fH6LyoKPOUebRPsuUGelYGPCaYYX67a0rpn5Mt9QKVo
+ pP3yo2dIBtM0pzjGFP+MjijIFLOlBFKEJiUz51ylVszYjBobHm35h8coBYygn6N9M1/3lMtTahb
+ b3j6CppZYEMxLoHLC5XXXoj8zbLay0WK3TZ+0X54NDlbf57PUC0yeSM0vfx8iS0J7sl5oYyuYb4
+ BAwmb64xki3rzM394MMdm5yO7YQZbnrEADoMoXc9UUiHbnHT7u2AZitdeVSpehdQenAx5voPgMy
+ 6VHRCC+C/KCcRhyZxl8BjID7hOGOeCNAYqp9zUj+vjIdXwTAwFWu8FcwzwNhVTj92PQ64KP7c7N
+ R9j5HnRmHFZ2514zYcUaaa+TUpTbqbUyUP3Tv3CxVS5pRdOhuqQIUqNV8fdI1uQw6rKhdoqz1Vc
+ zUtPYvFMFv18EfGMmyQ==
+X-Authority-Analysis: v=2.4 cv=EIQLElZC c=1 sm=1 tr=0 ts=69ca516d cx=c_pps
+ a=WeENfcodrlLV9YRTxbY/uA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22 a=EUspDBNiAAAA:8
+ a=oLyNmjNKlfozL-9H-OIA:9 a=CjuIK1q_8ugA:10 a=kacYvNCVWA4VmyqE58fU:22
+X-Proofpoint-GUID: _dhCNrtnjXFSWO2vaxr7uln22JRcZYqA
+X-Proofpoint-ORIG-GUID: _dhCNrtnjXFSWO2vaxr7uln22JRcZYqA
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-03-29_05,2026-03-28_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 lowpriorityscore=0 impostorscore=0 malwarescore=0 adultscore=0
+ phishscore=0 spamscore=0 clxscore=1015 priorityscore=1501 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603300082
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,144 +148,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 26-03-30, Liu Ying wrote:
-> On Sun, Mar 29, 2026 at 07:42:23PM +0200, Marco Felsch wrote:
-> > Hi Liu,
+On Mon, Mar 30, 2026 at 05:00:56PM +0800, Yongxing Mou wrote:
 > 
-> Hi Marco,
 > 
+> On 8/26/2025 1:28 AM, Dmitry Baryshkov wrote:
+> > On Mon, Aug 25, 2025 at 10:15:51PM +0800, Yongxing Mou wrote:
+> > > The DP_CONFIGURATION_CTRL register contains both link-level and
+> > > stream-specific fields. Currently, msm_dp_ctrl_config_ctrl() configures
+> > > all of them together, which makes it harder to support MST.
+> > > 
+> > > This patch separates the configuration into two functions:
 > > 
-> > sorry for not writting back earlier, the last weeks were quite busy.
+> > git grep "This patch" Documentation/process
+> > Got it. Will fix it next patch.
+> > > - msm_dp_ctrl_config_ctrl_link(): handles link-related fields
+> > > - msm_dp_ctrl_config_ctrl_streams(): handles stream-specific fields
+> > > 
+> > > It also moves the link-related configuration out of
+> > > msm_dp_ctrl_configure_source_params().
 > > 
-> > On 26-03-29, Liu Ying wrote:
-> >> LDB's parent device could be a syscon which doesn't allow a reg property
-> >> to be present in it's child devices, e.g., NXP i.MX93 Media blk-ctrl
-> >> has a child device NXP i.MX93 Parallel Display Format Configuration(PDFC)
-> >> without a reg property(LDB is also a child device of the Media blk-ctrl).
-> >> To make the LDB schema be able to describe LDBs without the reg property
-> >> like i.MX93 LDB, require the reg property only for i.MX6SX/8MP LDBs.
+> > Why? And it looks like a separate patch...
 > > 
-> > NACK, we want to describe the HW and from HW PoV the LDB is and was
-> > always part of a syscon. This is the case for all SoCs i.MX6SX/8MP/93.
-> 
-> The reality is that i.MX6SX and i.MX8MP LDB DT nodes are already in-tree.
+> Because the patches following msm_dp_ctrl_configure_source_params() will
+> take a panel parameter, and lane_mapping and peripheral_flush seem to be
+> more closely related to the link, they have been moved out.
 
-What do you mean by 'already in-tee'?
+This still looks like a separate patch.
 
-> People may take them as ABI(not only for Linux, but also for other
-> potential projects which use the LDB schema and/or the DT nodes).
-
-Not sure about this. The DT sould be backward compatible, meaning an old
-DT shouldn't break new users e.g. old DT with 'reg' property present
-shouldn't break new u-boot/barebox/linux/... drivers. But a new DT could
-fix/change the behavior for new u-boot/barebox/linux/... drivers.
-
-So no, I don't see a problem here.
-
-> >> Fixes: 8aa2f0ac08d3 ("dt-bindings: display: bridge: ldb: Add check for reg and reg-names")
-> > 
-> > Therefore I would just revert this patch completely.
-> 
-> IMHO, it doesn't make too much difference between my patch and reverting
-> this offending patch, because of the ABI, i.e., the reg properties in
-> i.MX6SX and i.MX8MP LDB DT nodes are supposed to be stable.
-
-Please see above. If that would be the case, your DT must be rock-solid
-bug-free from day one, which is highly unlikely.
-
-> I feel that what you are asking for is even more than simply reverting
-> this offending patch, that is to say, completely disallowing the reg and
-> reg-names properties for LDBs across all SoCs.  But again, that would
-> break the ABI.
-
-Please see above. IMHO it's more confusing if the same "IP" requires the
-'reg' for i.MX6SX/8MP but doesn't require it for the i.MX93. Therefore I
-would like to keep it consistent.
-
-Regards,
-  Marco
-
-> 
-> > 
-> > Regards,
-> >   Marco
-> > 
-> >> Signed-off-by: Liu Ying <victor.liu@nxp.com>
-> >> ---
-> >>  .../bindings/display/bridge/fsl,ldb.yaml           | 23 ++++++++++++++++------
-> >>  1 file changed, 17 insertions(+), 6 deletions(-)
-> >>
-> >> diff --git a/Documentation/devicetree/bindings/display/bridge/fsl,ldb.yaml b/Documentation/devicetree/bindings/display/bridge/fsl,ldb.yaml
-> >> index 7f380879fffd..5f6dc2b11d7b 100644
-> >> --- a/Documentation/devicetree/bindings/display/bridge/fsl,ldb.yaml
-> >> +++ b/Documentation/devicetree/bindings/display/bridge/fsl,ldb.yaml
-> >> @@ -28,6 +28,7 @@ properties:
-> >>      const: ldb
-> >>  
-> >>    reg:
-> >> +    minItems: 1
-> >>      maxItems: 2
-> >>  
-> >>    reg-names:
-> >> @@ -68,7 +69,6 @@ required:
-> >>    - compatible
-> >>    - clocks
-> >>    - ports
-> >> -  - reg
-> >>  
-> >>  allOf:
-> >>    - if:
-> >> @@ -83,12 +83,23 @@ allOf:
-> >>          ports:
-> >>            properties:
-> >>              port@2: false
-> >> +
-> >>    - if:
-> >> -      not:
-> >> -        properties:
-> >> -          compatible:
-> >> -            contains:
-> >> -              const: fsl,imx6sx-ldb
-> >> +      properties:
-> >> +        compatible:
-> >> +          contains:
-> >> +            enum:
-> >> +              - fsl,imx6sx-ldb
-> >> +              - fsl,imx8mp-ldb
-> >> +    then:
-> >> +      required:
-> >> +        - reg
-> >> +
-> >> +  - if:
-> >> +      properties:
-> >> +        compatible:
-> >> +          contains:
-> >> +            const: fsl,imx8mp-ldb
-> >>      then:
-> >>        required:
-> >>          - reg-names
-> >>
-> >> ---
-> >> base-commit: 3b058d1aeeeff27a7289529c4944291613b364e9
-> >> change-id: 20260329-fsl_ldb_schema_fix-4fe01c42bff3
-> >>
-> >> Best regards,
-> >> -- 
-> >> Liu Ying <victor.liu@nxp.com>
-> >>
-> >>
-> > 
-> 
-> -- 
-> Regards,
-> Liu Ying
-> 
+> > > 
+> > > Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+> > > ---
+> > >   drivers/gpu/drm/msm/dp/dp_ctrl.c | 49 +++++++++++++++++++++++++---------------
+> > >   1 file changed, 31 insertions(+), 18 deletions(-)
+> > > 
 
 -- 
-#gernperDu 
-#CallMeByMyFirstName
-
-Pengutronix e.K.                           |                             |
-Steuerwalder Str. 21                       | https://www.pengutronix.de/ |
-31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
-Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-9    |
+With best wishes
+Dmitry
