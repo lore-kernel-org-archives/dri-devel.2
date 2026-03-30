@@ -4,130 +4,126 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E76BF1061B19
-	for <dri-devel@archiver.kernel.org>; Mon, 30 Mar 2026 17:36:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4A7BC1061B17
+	for <dri-devel@archiver.kernel.org>; Mon, 30 Mar 2026 17:38:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 39D9910E214;
-	Mon, 30 Mar 2026 17:36:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 32BC710E158;
+	Mon, 30 Mar 2026 17:38:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="u+Zuo1fw";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="BV1IhFPw";
 	dkim-atps=neutral
-Received: from MW6PR02CU001.outbound.protection.outlook.com
- (mail-westus2azon11012027.outbound.protection.outlook.com [52.101.48.27])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 376A110E1FC;
- Mon, 30 Mar 2026 17:36:44 +0000 (UTC)
+Received: from SJ2PR03CU001.outbound.protection.outlook.com
+ (mail-westusazon11012061.outbound.protection.outlook.com [52.101.43.61])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DEB9A10E158
+ for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 17:38:38 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=IXPitejKFNOnjej0KjePkzIfR5Zb9tklcQpKHc46lOFmpqcwt32TLBJSzEGqcWYXYniF2yvAXYT6uetDU9qFOJeZdw/VnwbTlU65x1bZ9whRoglJmtgteYHRoNJMa0hYli0ljg5KbT8wxH7K44QGRP+CcI+iOK3hvDbqZa4BasZkaVSFN6C7wJ5kXnS/jxncD5/NcZPEbvMcVIdgz6RoMQ2LQIfoTMvsCj1v8Eyjou9P/A2Z4clQ7xiLAIrzpanPpkGXN7uK7DarRd6Du9rJk+Q9qQQ9nICZm4+lGvrtmbz4IMJZ6eQASws+FLjcpOWDZ0BHJZuQxbx4zsT8dMH9hA==
+ b=BrsrOxqc0NmGueIAZSRmdfh7op/nN2D1J5OF+++cycmjSI9YDedvGdZQUzA5CcSvyrpor1bj4FF83T6v1pAjo9J4zKjDQXMQ13ak6XOEVi6px9e6SSWTnwgh+HPUtC2j4g2xIuS9jiJnoIGsdGn/Vv4mkjdwxemT1DlKGJ/L5XIegISw2j2D//tZpY/Orr0KHk4KHiB1TYj7syGPHPJ3MXx5vFkJGuaAxJmsKdMaNeCVGgUQqh7BHqUYHKo2I3djXp+3G8+8wxClihmoBezapntLEBWAXrkEXpwVlDMB73eUZ8MI/cTbqtYNH0H5+ZfILL2NAHosK2WFXHwpKwnukQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=m0kkc2wlCVsv5E5XvEzCudkwZ0qToaZZIXHqgwgWDog=;
- b=vNuxEKAfT461nSYj+DN9S0G7F2NsEJV28+KCtiE1YrwqLVq23nOhLWsTE0aFlhbRneBhcVtIMZ3cyF9p70RIYa6DVfyPYgmnDjeIx5IjaOC49J79x/pwiBL5vw0p9f7lVGuVlWNlRWDUUQvsYzvK5oByje1oDnknriSKR7KBa8p3JVZKOcr8sBdmHbwfH/DkmmGRXxhgCfSMErsPtFIm7aysN6AudHjUjG4FH8jC/X4KAQg9ebDw06X9ESK0yLTsdR48n4vwD2tEhKvOHgRSYSFip7Eyj5UoXj0sofY3VUdZ+1ZhLLql0oaYR4reXhS+dXQ6Pke4TWFBRMADSXuuzw==
+ bh=3kvybm4fNI1bNuhdSTNiiffgvzWLPk3Na4YKHH3Qfck=;
+ b=KUsTUNQ8o8wAWCC9Ko0IR48I3TzMnTnTNxNYcrpUecifagPcnnobmrSfukXufykH/jx99Gv33mmsvs5Agwm+3kBJQoMD6GN/CDUhR4ofQIz+5ngz+X6RuhIVDufGwwUGDzRxR2MfUKtRIjRnEfcDOSw5VOP4RCd02yrNIhMUtTe3QqTb7sKDgf9vDtjLU3vrtuWQBc2mjVGWK9m0VA3H2e7BkdMkkXC9Nsc9R8lWXJV4AAthCRudIN67llLz5bfw1vVJx9vlTPXYMzPTpFj6Tag5zQjTVA+ha5eYshLlU6EV2lR6mpMrHiqrI7bYD3FKktNUCP9U32joh9+Dt6RVLw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=m0kkc2wlCVsv5E5XvEzCudkwZ0qToaZZIXHqgwgWDog=;
- b=u+Zuo1fwfdFN/xxwjV6YYAZTkAAHO0fbIg9rq2BU3bdxAewyKUTjlM3cimrYpPtl4zLkVfuWZCog7aWvyXw7Ir9UjMHd28fH5I0/++KXj5/45/a24fSmM7wuTix1fYl59DZuB+2/JxjFFE6mhmJK5/upJ2LYzOJEAtjOPHqVQqk=
+ bh=3kvybm4fNI1bNuhdSTNiiffgvzWLPk3Na4YKHH3Qfck=;
+ b=BV1IhFPwlUkiYC/XA+ONAFwNHig/iDmrnc2xeNb0UC2Cy8k96UiFg+TEM0thZv50bxwoFdC7rT+WkXvqmeRCwylOXdgCEeHFMzGpSJfGHLt12yiyvL/M+v4h3JBoL1IasbhHG0umA6y9dJ47dfFdMiDdaDpQ1Eg6ZNAsxpEnDv0=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BL1PR12MB5126.namprd12.prod.outlook.com (2603:10b6:208:312::8)
- by DM6PR12MB4074.namprd12.prod.outlook.com (2603:10b6:5:218::11) with
- Microsoft SMTP Server (version=TLS1_2,
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by BY5PR12MB4324.namprd12.prod.outlook.com (2603:10b6:a03:209::10)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.15; Mon, 30 Mar
- 2026 17:36:42 +0000
-Received: from BL1PR12MB5126.namprd12.prod.outlook.com
- ([fe80::c3e7:1bc5:2b91:1cfe]) by BL1PR12MB5126.namprd12.prod.outlook.com
- ([fe80::c3e7:1bc5:2b91:1cfe%6]) with mapi id 15.20.9769.014; Mon, 30 Mar 2026
- 17:36:42 +0000
-Message-ID: <78da9dfc-561f-487c-8b68-0ea408819225@amd.com>
-Date: Mon, 30 Mar 2026 13:36:38 -0400
+ 2026 17:38:34 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.20.9769.014; Mon, 30 Mar 2026
+ 17:38:33 +0000
+Message-ID: <5391e530-6ddc-4132-905c-c23ff0b277a0@amd.com>
+Date: Mon, 30 Mar 2026 19:38:29 +0200
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amd/display: Change dither policy for 10 bpc output
- back to dithering
-To: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>,
- Mario Kleiner <mario.kleiner.de@gmail.com>,
- "Kovac, Krunoslav" <Krunoslav.Kovac@amd.com>
-Cc: "Cyr, Aric" <Aric.Cyr@amd.com>, "Koo, Anthony" <Anthony.Koo@amd.com>,
- "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- dri-devel <dri-devel@lists.freedesktop.org>
-References: <20260321052033.23472-1-mario.kleiner.de@gmail.com>
- <DM4PR12MB521342239D4CF694B4A68E0AE64AA@DM4PR12MB5213.namprd12.prod.outlook.com>
- <CAEsyxyiCN6KmyDBGZBJYKv+wt6w6j5QdUfTa1zJojAQ20V84xg@mail.gmail.com>
- <d6e190eb-4843-43ab-9706-fadabde9cbce@mailbox.org>
+Subject: Re: [PATCH RESEND] dma-fence: Dereference correct dma_fence in
+ dma_fence_chain_find_seqno()
+To: Li Ming <ming.li@zohomail.com>, Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Lionel Landwerlin <lionel.g.landwerlin@intel.com>
+Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org
+References: <20260328-fix_dma_fence_chain_find_seqno-v1-1-3847c8ef0292@zohomail.com>
+ <bb78ce6f-603a-40eb-ac47-bf5ea06a6cc8@zohomail.com>
 Content-Language: en-US
-From: Harry Wentland <harry.wentland@amd.com>
-In-Reply-To: <d6e190eb-4843-43ab-9706-fadabde9cbce@mailbox.org>
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <bb78ce6f-603a-40eb-ac47-bf5ea06a6cc8@zohomail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YT4P288CA0026.CANP288.PROD.OUTLOOK.COM
- (2603:10b6:b01:d3::8) To BL1PR12MB5126.namprd12.prod.outlook.com
- (2603:10b6:208:312::8)
+X-ClientProxiedBy: MN0PR03CA0024.namprd03.prod.outlook.com
+ (2603:10b6:208:52f::32) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL1PR12MB5126:EE_|DM6PR12MB4074:EE_
-X-MS-Office365-Filtering-Correlation-Id: 52814942-ab17-4571-16c3-08de8e82e7bc
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|BY5PR12MB4324:EE_
+X-MS-Office365-Filtering-Correlation-Id: af7f6641-ef5d-4794-02b5-08de8e832a6b
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|366016|376014|18002099003|22082099003|56012099003; 
-X-Microsoft-Antispam-Message-Info: 9uTTFKUf2AmZpYr3muw+yG67UfSwFn3njCp7ZRAajl67c1x0mGnKYVBxtgwrQP76OsqpOkFePH7cA1Khq/I2nKbPsGJlqfkW2xi+aZAxBFjUu6sFvIaWUWGUpkLV/ab8miw/i3RzDTHWxcmOhOtibJY1KXenbiN5DpfcRAyfiNwKAnq6Iw9QH5ge2GfoZufw5LhbERHud049zboLz8gpjy301LxbW0/LMNwwKjVNSmIPIyi6m8yQHOPjD9tMmCfE1Hl8Cd1WbehuK2hYY3AQ/kAhNC6krey0UgD4uUnrs8B4AX0aTOeXYwXMebOah9e6vNNLkXhl9B7bPI4DeRNHl9s812/0ETwH6x9ES2DpL0xdQd7n0NhvLOXUGyykQ3y8MkaIvabJt0jOdrZmgmdMqYzSqMo9Gvh09Sn8XMNc5277M0BaCTzhbhwB5yev6miCahDp3mCKOLG6Wz97+hbhehvjBa/S0BmJ5LdjS6a3j6rAOGzhuh/xGP1iZOkzSqI4ssI5+um1f12pvihDsYxUzGoYklri/FI5vinfQGRTHMOTsbYtHPPxBfFC4x1RIlqz2OjHl1BijaCPEHJ9j/OvmIfBQa4iyPRV6PcaM7wBLq4IA2y56ecvObJZPIxsO11BmyzLzlo9m7c4vEtSnbPHClM4RF7kDHKNoh95SfaUhuBWnLbtcYpXJ5YL7Atuxrqb1cr0WcmPmxTMUXmt/L48cZkTvQbvrUav8TMAqgiUhjQ=
+ ARA:13230040|1800799024|376014|366016|22082099003|18002099003|56012099003; 
+X-Microsoft-Antispam-Message-Info: Mlk3DW5oxg1KxMddX+LJD3dFuIdYW/LKe6e/mQq80F3N0YafbzjLtTo81+NYpv+9WkIas0GogKK/ToZl5bvTwFPp+5GCgi475UGT9h1lKjUsK0TDMDerX95BuMCNGtWaIinLXMJPDhs+jXOKpJVb/wFXFYBxn7iqO8IUIHXg3OU5lkUimZ9MPlIwMrgYS84vMBW+cP+OBPEj/I7XQ2QTP5IvQx7DzyROjzjqk/tB9dAFLHktEogjiSiO4SeppH7VnMGoPbBSXL22Pu0q/Z00i0Tg9md/hnuSOX9h7fAD+exM8NDukODgDEqmAcgSeSO47zmT9Fu8vh/ZA75MlDvMfU0HcRrjOTZWreX3QF7BnBvOTaKHWtgorTRoHwukZDg2qoVz07+O8uwbo1MXc/Mvhzs1Mobh6KEtNV3TlCIoJo/0gEn4TQKZyHZEL7JTvTfnMx8wM4S8a8IPwDsDKqiA/dyClLtb49UFZQkw2K0iH7yno/KN1m4Jo5n1vpGC6QClo1ezhPnKD38m6Gzfp5FAsoe9ks0FuJ2vEMkz6x5KGxAb7DNNNUClY2NTuwB6JwJD2lZdRe5od3nh/Euk5USDUrJoUagLUArQv9+vBSZT1LLM9ZHFmgMiFm2Ma/u+z1bVeGEuZaPqA3gQhaKLOV85DPHD7Av3tYF47UKLeklUkXDXn4kNNXDxJBZgntdQHQFbiblMQmCA4ZE3xOaKqJc1xLRzUtCT6gliF3EHlS5LPP8=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BL1PR12MB5126.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014)(18002099003)(22082099003)(56012099003);
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(366016)(22082099003)(18002099003)(56012099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?YXJaVXo1T1JTL3dNYWNsWUdEOHJLK3RNSXFjc3JQVm9ndjFUN1RKeEV2ZkVM?=
- =?utf-8?B?MkcrbWd6NEk3MWVmajVTcWhxejB2MjVaM3lGLzM5OUlWT1R6bTBBVUxpaUpO?=
- =?utf-8?B?bWlCdjkwOW9PSGhsbVZDOFNtckhZTDZSdDYvOEVId3VrWlVlc1FOREp4ZGFV?=
- =?utf-8?B?dVpFeW50b2NvZ0RGMDNIRTlnT0xOMjdhY2hRaTl5WEN2aG9XejJscldITmdu?=
- =?utf-8?B?a2Z2aVpoeVBuT0QrSlJOb0VPaHpFWmZFQjluT0R0QUdUV2NmQWRMalFuVktF?=
- =?utf-8?B?bVA1d1ZSUFMvZXJHNERETzBJajhGelUyaVh4ZjBGRUVLS0xTNHFPMFFsQkNo?=
- =?utf-8?B?UmJoQ3l3S0pmOHlKK1pvTnNmWjB2K01PNnArNXh3WlMva2pmeThrZ0IxKzBK?=
- =?utf-8?B?MDJCMmZPMXlrTGlObGtHcXlhTk95bTI4QWI2UHJmOXlVcGZwcXYyRHZ2R2dz?=
- =?utf-8?B?TExWeVBRYi84UWRPNkI0aUVJNllwRFUraFRUWnB6aGtXNTQ1RWoxcGNodDB4?=
- =?utf-8?B?dXlUdnB6R2NGN0VQdyswV1c3THNqRHR5d3VoMmxtazI2M1F1aUlHbzBIbHJY?=
- =?utf-8?B?K0NYM3lLYWhrOHoxcUFKckNrQkcrTll5SEpRcWh3VHZZTHlaUHpXQ2FFYy81?=
- =?utf-8?B?RHpNZ1g2LzZYV3k4UTFEOGNSWWxSOGkza0JObGlab3BWcmxhZi91WjNKbldW?=
- =?utf-8?B?OFMrTFVTck5FWUYxZEJYVXlBRzhqTkUyV3IwQ3Y4MFlKZVlkVHUxQjlENzVG?=
- =?utf-8?B?VVR6cmtyTGtwd09aMldhWFM4NE9nTFptUm9KNTluM0tyNmZOaVJCZ2hLenhV?=
- =?utf-8?B?REVkc0xXOVd5M1c1eTdjaThzWlVvUm9VbFNuNnlOMEVITGFBUXNWNU9jM2U0?=
- =?utf-8?B?WlI0VkVJRXRsdkRLenA0M3RxbHdMRHEwVGVYaEhINzgyMlVrdjlYcENCTkMw?=
- =?utf-8?B?aXFoMXV4MWE0dHMzbUJnNnZneTQ1VnY0djZIRWJHTVRMdVUwb2dQZ2cyYVB1?=
- =?utf-8?B?Z0hSMktuTVhacHcrZ3NDb2REbjB6a3dxaGlBeThDMFZhNGdtUklnMVl4ZG5o?=
- =?utf-8?B?TmpmSFRKRktjWWZVZGQ4UythdU8zUnpZVncrZWE4dUJtamgxNlA4NXNPelB3?=
- =?utf-8?B?SVlVYklVNFc5bEo2ZnBmZnV1L0VKSG9LbXpQT1N2Ty9KSDZ5ejM2d2FFLzJZ?=
- =?utf-8?B?dExYa25lVkRCNVJnaWhNdUlXTEVMUW5LMHhxQ3lrK2xTR2VXWHBFcDJEN0Mx?=
- =?utf-8?B?amxyQlFrN1dDZkoxVXlTSlJNbk5xSkxidWFOd3ZDNjlTdk1aazB4bS9jeFF5?=
- =?utf-8?B?VEcybDgrYjhEVE9BZUlJbURtdk55MU5Mb012TEswY0plY3gzSTB0dWpGWVZ0?=
- =?utf-8?B?Z0RUUmordTlHekNKc2pCckR4VFJYbzEzNGhGVlVpRXdzQ01kei9RM3N5VXBF?=
- =?utf-8?B?TWhVdHlRZ1MzL0ZuVlF3U0UrdlMva1JTdlZsUThLb2VIRmdoNWRYd0pEMTRq?=
- =?utf-8?B?bFVPUUk5RG4xdEFyMnF2NTU0U0pxdnpBamZWWVZ0MkVXUkJzb0d1Ym5VZGZ6?=
- =?utf-8?B?cDYxNnBSbmU1aEY3Wk0zZkNXZjlVTXZFclcrVDV6Q0VKRzdhdUs3dHdrNzlk?=
- =?utf-8?B?cG1mMCtjMFRvZUx5TlpRVVZON2wwMStNT0ZDR01OQnp2Z0NTNmgxenloUGNU?=
- =?utf-8?B?eXhvK1VieFd5ejJrZlhTeU9vKzBhZ1N1VkZoMEh3WmNMaXZsSXprSk9DUFMw?=
- =?utf-8?B?NU52VGdXM1c3K2ZvOFk5cEcrbTE3Rm45UWU4NWJPMVF6dVdWSVFxTWV0N0lS?=
- =?utf-8?B?WlF0TkpxcnRzVW5QUSt2K0ozdHVzYWZUMG5yd3ZHZHVGTDcxU2puQndBMDh1?=
- =?utf-8?B?eEVvQ0ZZdk5oSVJDNGZjK1liODZLR3hJaVJyanFhUFd2V3gzeUdUZzhhR1Rw?=
- =?utf-8?B?dFRtdXF6Q0RpZzdUcW44bUxzb1VpWEtUNUlvSUFsUGJSMEZTazY1cEo3M3Qy?=
- =?utf-8?B?bkNiMUZ3cFhyanF2STFhb01GdGgrdEZlZXFhUTlWQmlYenpYaWYwajQyeGRv?=
- =?utf-8?B?NUpQaXRQcGhFZTd4ZmxvUDRqYTRBRVhDbnFzbVN5dTdma3l2NElITDN6VmRr?=
- =?utf-8?B?WS9QcGpGWlFWMGNSdjZoQmg5VU5mV09lbFc1S0RDSmNSZ3BGMWJCOXpFZVVV?=
- =?utf-8?B?MUlVc20zSVVQK2dUTTR4N2VTaXJpU0JIbWNwNHVEeVoxcmtGTEZpSmc1eXhh?=
- =?utf-8?B?REJYMjdXTnhVWVNaRVJpWnJnQUVYdUxMWnFxcXZtdlRPOTFteTg4NkVjSGRH?=
- =?utf-8?B?M2hQUkRKR1hyeWJITE4wWEFpckxtSjloRTFPRmUzRWxuaUVIQlljdz09?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?L3RrVHR2YU9kcHpOaHcwdHhWM1Y5VEdqc3ZRL0lIckhzQ3lGZGRCQVRkUy85?=
+ =?utf-8?B?OCtxT2dBdkhlWDRxOE8zTStNWEd2VWt5QjdFV2VQa2JGMmpadkZKemo0RUx2?=
+ =?utf-8?B?anRLU2p4bDZBaVpzeWFiN0RLK05VL0Q1TGUrQlRLUjhoNFQrZlVxOXJkSndF?=
+ =?utf-8?B?RUJhVi83U3ZSdTBPNnRnWjRZSTNmeUpOTzcrd3J5Tll3OFpXYmQzU0pLRkhR?=
+ =?utf-8?B?aFloVzFwbkZObXliWE44aGNkREtKd1lxTVp6b1V3OTJQS3pmeWhBRGZDOHIy?=
+ =?utf-8?B?SktTbGVaL1ZUQ3RLT0JZWWROUUZOQXMzeCtiVXZRTUhvajRMQ1BiVFpBNUVK?=
+ =?utf-8?B?dGFpaVJ2NjJjTldVYzBmcnhLQTdERjBPdEdXN2dLNndVRVpsaFIrV2ZWWUps?=
+ =?utf-8?B?OFEzV0NwQ1FTeUhvc3A4RVFRUkh5aWtyRlJ0ZC9zU2ZtdGZVakg1a2lzcHRR?=
+ =?utf-8?B?cTBlNU1pVnFNTUg5eUdLVUZIeS9Ec0Z3YzdXQ08xOEpzdVY5NFlmUCthWDJ4?=
+ =?utf-8?B?U01USGEyMll5OEtjZ1RJWThKWmUxUXV3R1BPSldCKy9JaVZneWlOSXgyUWNr?=
+ =?utf-8?B?VG5tMGRnZk1Ja3NOSFUzd1JGdXFnS0RJZUxYZTVuOFJOWU1PMGRJS2xVaHg5?=
+ =?utf-8?B?VktrL1JYbUJsUm9VVHFKUHp3WDdNVXdmczhTZ2hMbS83d2NlRkhERjJjcllw?=
+ =?utf-8?B?aGZKMFlSMU9qbVczbHZ6a2xLZ2xrMWRiMnNXblh2N0Z2dmZRVm9YYnJHelBy?=
+ =?utf-8?B?YzlVZFZjMHVFbEZuNzVlMTd2TEdqa05mdEpQL2NBQzZqOVNkSXprZzE0WlJI?=
+ =?utf-8?B?OUZDNVBWYzhDYU84bWpuVUlyc2VxVDVRRVdVOE5zd2JlYkd4RUFvSkFZTEs5?=
+ =?utf-8?B?dzFIdkZMM09LY3J2U0xvZXQxU3NLeS9Fd0FHOXpkaWN6c05mWElYaUtTcGRN?=
+ =?utf-8?B?cm1uTHlqR2tyS0ppZ21RdTdnUXhsTFZwT3BMUGwybkQ1NTB4UUNwSEgrNEY1?=
+ =?utf-8?B?TzdRL2dJWitYSlYzZDdtQS9CeVpUdDgrS0FYcEw3VTB0dlhDdTZjMFkyNHl6?=
+ =?utf-8?B?Z3g5Z3ZEcXlCSHZ1NmFHOW9Mc0pEOWQyNXpHbzEvNEg1dTJyVStFUmJEbHpx?=
+ =?utf-8?B?ZTJvU2ZWbjU0eUk3ZEJkbGZmNHpFclVnakNjb0ZlMS9TTHMyNENGYTFNSVY4?=
+ =?utf-8?B?TDFJQ1dxNVZnM1hrNEJSY01YelJlbWZsRlVxL0N5KzRGWVpiSU93dmdacjRV?=
+ =?utf-8?B?ZlhvY2NlZHhtTVUraHdrWTBEOXFvTCtLU3hVdjZXYXVncmQ3VXZWQ05VUHcx?=
+ =?utf-8?B?cmNSWHQ1Z0hBaWRlUWpRblNGcy8xSzZkMzczcGV1NC95UERrUHNSZHpoYVE2?=
+ =?utf-8?B?NkVKS2MySDR3M2xRZUpObDVyY2pBcVM2c0thU2RkZ2tQUVBGQ1NpdjU3UWlo?=
+ =?utf-8?B?VXhFZFE4dTdIYXZFa2Z6Rkxzc2R3THVvcFhGK3RYbkQ4SlJybHIzd0xIalo3?=
+ =?utf-8?B?MjJiT2E5NDZLN0Z6eGZNd1N2cVRkZUs4ZGNkNFJqbFBJbUU2T25aNGlkNmI3?=
+ =?utf-8?B?cUNyZzc5UHRxTlJ6OXd0Y3p0OVluTW1yQ0RyRVE5VzJhOVVwRTdZWjU3R0dx?=
+ =?utf-8?B?MWRSMHdRZFZ6bHpldzhvV1ZRNFRBSWYzUzJOSnh2OVRFM0F1R0xCSDluRm9U?=
+ =?utf-8?B?WTRlVksxcUZoRU5tK3BrQXp4Rzc4WHVzZm1ZMk1HbjcxZDc5L2gvR2FGQVFv?=
+ =?utf-8?B?bXptckRHZjdLMU1uQUVLYkszRGZWb0tFR0pRNG1maVNhaDBiWjJybS9iZ0lY?=
+ =?utf-8?B?Um93Y1FERXZJNHptUDE5NFJpOGxkaTJvV1psbFlZRTZNZHBCZmJCZHl4S01p?=
+ =?utf-8?B?dnpwOVdLcWxhZEprTEk4ZXdmUkllQXh3R01hNEw4YmRyeHIyZkpPdXdSSW5N?=
+ =?utf-8?B?dGI1TXdidEluQVpVN2NwSjJodEdCZGs2ZTUzSzNEdU5yK1N3YTFxMGZla1J1?=
+ =?utf-8?B?dStRWGtIY05mNExHTDlmT09vMmdyempZRXVWVmtBQjB0TTkxaEhEUFg3MnNM?=
+ =?utf-8?B?SUZmWVFUS2c3VmcvZUo3VlNYZkxlV1FZWmNjSExIUm1YQWF4TjlqV2ZRODcw?=
+ =?utf-8?B?T1FjZ0RrSnRES1BYQzZXQUo1Qmt5SzFsaEg4R241NlVabHY2eWJ4RnNNa0lD?=
+ =?utf-8?B?MlhKdUpXZHlObU5pN0M4U2NocWwzRmg4a01CVm9mOTRMNFFITG1iSldWdXAy?=
+ =?utf-8?B?cy9McFBLREo5eSt4MW1RN2ZlODIxL2g5cWJkU1h0TURwKzJpRmZiMjhVZ0VC?=
+ =?utf-8?Q?iH1jlESzHb7CAlEsrM?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 52814942-ab17-4571-16c3-08de8e82e7bc
-X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5126.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: af7f6641-ef5d-4794-02b5-08de8e832a6b
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Mar 2026 17:36:41.9431 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Mar 2026 17:38:33.8126 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: /PfoRLXGebXZDEYEmFrUR8aOf2Nr8yiQOvQsZo0BVniNi1hRhIOIjJ9GBjKAPtDefUEvsVvl82H19U1/aYzAHQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4074
+X-MS-Exchange-CrossTenant-UserPrincipalName: 8dQ9KTj01JlVchyeCKttMCTUJNheT2OHME2mSdeRmj9y9bg1i2uJvMghFHuSCJHI
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4324
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -143,33 +139,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-
-
-On 2026-03-30 12:20, Michel Dänzer wrote:
-> On 3/24/26 20:20, Mario Kleiner wrote:
->> On Sun, Mar 22, 2026 at 7:11 PM Kovac, Krunoslav <Krunoslav.Kovac@amd.com <mailto:Krunoslav.Kovac@amd.com>> wrote:
-
-snip
-
+On 3/28/26 11:26, Li Ming wrote:
 > 
->>>     I believe we don't have surface info in that code, but one way to work around it would be to use spatial dithering for FP16/ARGB16 and rounding for 10 bits. But if we just switch to spatial, some of the earlier complaints about 10-bit output having one-off bit errors will be coming back.
+> 在 2026/3/28 02:47, Li Ming 写道:
+>> dma_fence_chain_find_seqno() uses dma_fence_chain_for_each() to walk a
+>> given dma_fence_chain. dma_fence_chain_for_each() always holds a
+>> reference for the current fence during iteration. The reference must
+>> be dropped after breaking out. Instead of dereferencing the last fence
+>> as intended, dma_fence_chain_find_seqno() incorrectly dereferences the
+>> first fence in the chain.
 >>
->> Looking at all callers of resource_build_bit_depth_reduction_params(), they all have access to the associated "struct pipe_ctx", which should give access to pipe_ctx ->plane_state->format of an associated display plane. I could prepare a patch that passes the pipe_ctx from each caller into resource_build_bit_depth_reduction_params() and that function could check if a 16 bpc framebuffer is in use and switch to spatial dithering down-to-10-bpc in this case, and leave the rounding/truncation to 10 bpc otherwise.
+>> Fixes: 7bf60c52e093 ("dma-buf: add new dma_fence_chain container v7")
+>> Signed-off-by: Li Ming <ming.li@zohomail.com>
+>> ---
+>>   drivers/dma-buf/dma-fence-chain.c | 2 +-
+>>   1 file changed, 1 insertion(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/dma-buf/dma-fence-chain.c b/drivers/dma-buf/dma-fence-chain.c
+>> index a8a90acf4f34..71fa173aef13 100644
+>> --- a/drivers/dma-buf/dma-fence-chain.c
+>> +++ b/drivers/dma-buf/dma-fence-chain.c
+>> @@ -103,7 +103,7 @@ int dma_fence_chain_find_seqno(struct dma_fence **pfence, uint64_t seqno)
+>>               to_dma_fence_chain(*pfence)->prev_seqno < seqno)
+>>               break;
+>>       }
+>> -    dma_fence_put(&chain->base);
+>> +    dma_fence_put(*pfence);
+>>         return 0;
+>>   }
+>>
+>> ---
+>> base-commit: c369299895a591d96745d6492d4888259b004a9e
+>> change-id: 20260327-fix_dma_fence_chain_find_seqno-7adea64efe01
+>>
+>> Best regards,
 > 
-> That doesn't really make sense, the output of the display HW colour pipeline has more than 10 bpc regardless of framebuffer format.
+> After looking deeper into this issue, it is not a bug.
 > 
+> Seems like this function requires that caller needs to hold the reference of the give fence before calling it. When pfence changed, need to transfer the reference from the original fence to the new fence. That is why it releases the reference for the original fence in the end.
 
-The output will be determined by the link bandwidth, display-advertised supported bpc, and userspace-selected "max bpc" on a drm_connector. This could very well be 10 bpc, 8 bpc, even 6 bpc. Or are you referring to the internal DCN HW representation of the values? They're higher, but that's somewhat irrelevant.
+Yeah exactly that. We have documented the behavior in the kerneldoc:
+
+ * Advance the fence pointer to the chain node which will signal this sequence
+ * number.
+
+But that is somehow not enough.
+
+If you have suggestions how to improve the comments then please speak up. This patch has been suggested as "fix" numerous times.
+
+Regards,
+Christian.
+
 
 > 
->> This workaround, that you also propose, would be the least bad of all bad solutions.
+> Sorry to make this noise.
 > 
-> Seems pretty bad to me, mixing up things which aren't directly related.
 > 
-
-I'm not sure I follow. Dither by definition is about relating the input bpc to the output bpc.
-
-Harry
-
+> Ming
 > 
 
