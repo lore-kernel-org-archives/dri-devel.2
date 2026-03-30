@@ -4,154 +4,111 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 29C631061B23
-	for <dri-devel@archiver.kernel.org>; Mon, 30 Mar 2026 21:34:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 739841061B20
+	for <dri-devel@archiver.kernel.org>; Mon, 30 Mar 2026 21:38:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2A1F710E19E;
-	Mon, 30 Mar 2026 21:34:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B2C7710E69D;
+	Mon, 30 Mar 2026 21:38:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="XYbKyioH";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="CxJRf7Eb";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="OidhBKRx";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DEFE010E19E
- for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 21:34:20 +0000 (UTC)
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 62UFxRk01402660
- for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 21:34:20 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:reply-to:subject:to; s=
- qcppdkim1; bh=3LlKiUEOpiPEoMZQb+uCcX+3SA93NAXe4enYwUSdS9s=; b=XY
- bKyioHQ8R74hcWfXN0BTumsSF/TlZ6OaI2GZNwfa3DAh+5Y30h9TwpewSAqqgBhf
- rAEssd2ewA32BjZ+ntX4EOG3kEmkg6BMe1N3GUJbXb+KyhvhP6XE+WW/o0kDKstJ
- kxKReJTfb7KfjrvAADJqn+JewSAJHbXy3vDHxGd+JJhf2DGjLmztH/DoQCXYBZzW
- NjmDjidJE3VsZ2hKi7f9vnV2kJhFFwVBhfTwJRgIMvXlH+5kVEpMic/2NUgauhoW
- SBlFbQnKdSyXKvC0gmOd9FCf2b4IyVI5Smlt+yv+TE9Igjz0DFjneX3nUrGBed/T
- U45r3Fx0E1e0u2BVXNuw==
-Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com
- [209.85.167.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d7r4hag0v-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 21:34:19 +0000 (GMT)
-Received: by mail-oi1-f200.google.com with SMTP id
- 5614622812f47-467b2af6710so13257502b6e.2
- for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 14:34:19 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1774906459; cv=none;
+Received: from mail-lf1-f50.google.com (mail-lf1-f50.google.com
+ [209.85.167.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A668510E69D
+ for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 21:38:49 +0000 (UTC)
+Received: by mail-lf1-f50.google.com with SMTP id
+ 2adb3069b0e04-59e4a04f059so5076857e87.2
+ for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 14:38:49 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1774906728; cv=none;
  d=google.com; s=arc-20240605;
- b=e9CQnXsUfsS09j0isQaFYhBYl3WQr80oHtp+ZOjt1sdZWQM6x5kFIrZlfezR2AbS7p
- C+xZiaHpRhMXUHer+HHww5mX94HtzpzDZaX2bZE/ZzCkj7SUqPnbyjZ/bD+k3heTRPtC
- CEgp7FkLjZRdpePLez31VDAYPzhBwgJKLbnlmRZqZpOjt582V45YLWAAH+7mDxpb1Dop
- 769ijT5+WeC3zC/Dbw5oebKKB9dAt9xxHN1Kt3y+3aAq+PyTbwcIbSOtjWOnb8IM/tpB
- xy8Bp8kJP/Rn/BqkayEWKRx2pLu67hjXx6xhSk+GVfsAo5EGEu9Q6iDVZBwrX/YplbcR
- byCg==
+ b=DnbrgDA3tHmydECw92UdwHSuRs+IsV62cuix88cCIatTU0Vkd8J1w8r5CLeNWwqN92
+ RjFPfpZ+BjGbC/sK0HjvSAqJo7dp5G+1FYugZ1QbRIIUNyQeiZow2yq+FEY5EOq7gSMh
+ C3tYW5PGjZFDrYFARhZ17U+elZRkFPDSp29IR7j5Fiz9hE/NdApiH1QhMpupLsBH7Auc
+ E760wFPJU0E0PcK8PaggOfab6yPr9NkQTxxYRMBAOBnJJADZOW7Vez4c9uqAqhW7Wm0s
+ zhGF7U8FRV19/LstwuOI7ju3FAz6Cop6BPzTbrfuvUbIPO8UX50wfGcPWO6UKYh4M6he
+ KNTg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20240605; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :reply-to:in-reply-to:references:mime-version:dkim-signature;
- bh=3LlKiUEOpiPEoMZQb+uCcX+3SA93NAXe4enYwUSdS9s=;
- fh=DS0aOXqgPMgn2z/cJsSZXAT0IydHmnSeP9NZS4L/NI0=;
- b=dfhZ55RS3bWXD9T5UyZ5v1dFovWBRJ7OWwONjQNnWZ/R9fi2F6dCE41SwZPCBdJByq
- yZr8+5dcTV1rHOP3NvCtOtdkfEuVGTYLzKY+bTWQ/cE5JBTC+76jSVSxyOwp9homGURX
- fuoxP/pF700otyvitzXHMm4AV4EKehjL/api9FPO9cVI92sfstTw5o/7BmQPSB/eo25k
- eIN/l6EcAgR04NdtDQBciv9bQ+h5X0eFME4U8jVjr0wcGBmyQ9b390RZq/qlA/o40a2/
- cSt48XNn5xB6mI5kl0i/h8saZLJRvLnCzZSyeMx4SLxvH+4mERNOPi7RDqtKKDQx9w+i
- oR8Q==; darn=lists.freedesktop.org
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=RyXWT6CZTRjvrBzjlgkYqR6hvQZ/LcLxcXjlYxt3yys=;
+ fh=ppvvcv5lYQpPrR4yHAjAU5oBwUh32z8bGgD2/GRyqsY=;
+ b=HQUjWr91lQEwGiuDWyT2oz09yD2RTmwcZUfle0tixMO4ZLQ3zwzPEGRLnecmvxSnn2
+ Vve7HJ81O6TUfy8fO73U2ZRZuNvUzYwJsU8NILjK2e7Y0b8wJ7MqnVqqV2li9P3J2nXH
+ BYYZfqlyJtBN+wNNAIS6apYMUeqPxuiXUtajfxt78qz0wBU4M6lDKl2cd7WWuDhv/RUo
+ USCy8IuiLT5U4XohFZXPFChyz8tqM/atzo53oTcNym7k99z+0OBFzNHNl7LxdCAnMLQ0
+ LIekhNQrBiZ5WQPpdOuR+/zjshxqegClWq8Nj144F0OezeUnC0cs9SsZqxFy1FlvVazc
+ R88w==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1774906459; x=1775511259;
- darn=lists.freedesktop.org; 
+ d=gmail.com; s=20251104; t=1774906728; x=1775511528; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :reply-to:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to;
- bh=3LlKiUEOpiPEoMZQb+uCcX+3SA93NAXe4enYwUSdS9s=;
- b=CxJRf7EbVR8OEVvEefFdNau9a8//xbQzDfgjDI4AYaQYFviSB4UNvmtzlJctVE8Ro2
- EwK50dbx9d4Tw/vOeNTfH69a9ZHM/OWFGqCB5mll9ZKFg6uO77bYCx0lyhJAyJzlQ4ji
- dDua8wweNncq2FzF4MmnYzIOK7xuwCpeuh8dv52opLDl9birTAHIAImyUh9pILxVHHIG
- Q7MUmYXbJwtdAc3EZ3N6tyrs6qsBoSdo+tOlIXJRnCiGVTGxAO9tSmN5OEjim/9+XOUF
- glk4vu867vUXjJZiRx3saLVTwxHKcdlBW+l+26gSv3kbxAhcBP+qLalMXD8f3kp5W1Lk
- xSdA==
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=RyXWT6CZTRjvrBzjlgkYqR6hvQZ/LcLxcXjlYxt3yys=;
+ b=OidhBKRxAd3DSjgPGVt59s5wOrzVk/A1dRr/CC2v8RvK5pp1zmJheskeMFcFwhi04P
+ MPBFH0cUGGC+Tw6BKFUaXccZ63lgFXDismdiZQ04VlCrT+HdMN3cMrl0XIjV2Xs4y7N2
+ nPx5Lt4hyKTg2pEKIL6NJXtOzsSfx+xXpKnTzNTKemW2yYozrKD8/ORTLPbhZEPsnTgY
+ bsF8AGEWg4QcsIb/a8OqEnB/yRHDR2EefyKZYcZoZrAJlaELFYvVHOaNgM7bt0Plw3vG
+ oBj25HAs2DZa/5qj1HN7eMJRUrVgEEocBh8nOcoGnTvzzdxl3JSuaf38QhYv5PiSh2fH
+ JaMQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774906459; x=1775511259;
+ d=1e100.net; s=20251104; t=1774906728; x=1775511528;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :reply-to:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=3LlKiUEOpiPEoMZQb+uCcX+3SA93NAXe4enYwUSdS9s=;
- b=NK+IL+G15RU7tRiiSAjT1tv2MEycUeUcG9KdDcTwxSCr2AKYRlRMvycLnQvyNMA6MX
- YazTqSvD82rPQH/Cbt25FpYFHVF/+NbGNQwB5SjcVRTrDq1sG3+VgE0dMLDratMs04x9
- nfTTTJEUVKZUeGhUjxarlbNae6bkEt78diQmlljJmY0w7OvU0H37+Ey/Jh8wxtoElO3V
- 4JJbw0/pnRFnx1tfydt0Z+g/SOsAZHr4dmRmZLMG4YgFstx0tP/YVcyukEUfvmu+m5jZ
- F3BIqhAk2MWJe5FKnogBIMbYQBiIs9V+vilyuXVaX+9B088YKA90aWPWz0VXiLABU8jo
- o90Q==
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=RyXWT6CZTRjvrBzjlgkYqR6hvQZ/LcLxcXjlYxt3yys=;
+ b=ZNTO258MYJ+5XzAgIOOWs2n3uF7D0iR1y7/zOMPnYZheqspg9DZ9r6yB7uyb/0/q42
+ fTHJRXPeSk9gqBuOR7plhYrp0iNfoJGjjgXn6oiX9YAjlEWqbyEVbMo16Vqe+CkaU17E
+ sCiVkoOwtpooeHiTGlgyS+TJhLH+0p1FKAPvrLonka2Q6qgbtbP7GIzwllq1AGFS+LwM
+ WoRR8ZTqLtmQxneeAw1/doSKtKTTImb0HAGk8H5WWEnXyGLpOAUrLVDeK2bNeAjg+DT8
+ 2EfpXLZB8qdbzriCtN00QGYwnvJupMWSs0fk2fTNvWBA83Qotg87sdIT1IVv9Ax2bOgl
+ 08ig==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVA8zoVMtcc+NMVD6AMq3M4ItkKUxpFwsp45w3tm2MAKhgocY350IFCi2jAgGGUn/LA7Damt/3AKrc=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzHm42R8A5rsnDp7/fKUl+gtYxd2K+s7/c3kU426r22DCXSIdI8
- HoEiI7aeBNWxFTJX++vF3zKGcQGbkT0gHQTAO1nP1qi9bnkpOvioLp7nJWWtCNho1niDQNg4dkc
- Lg8hNhnPlbNBlFxAA+nVJeju7bbPcCshbkE3IfkXptX8VU5IiFuI2yTwjTHfFtokv+YuBn14m4N
- G52IadRbY1we/GfP/rX5EiboQ2kp44BtInhKzGyY4l5GOvLg==
-X-Gm-Gg: ATEYQzwvWDGMzwoiFTNLq84QkIjPFUd2TZLfO/EoNibuhoq2USLIp+HrPQB+xR0jcjM
- ecdQ3kjSwNNwQZJ62Cx3hNZlsiBMjdg741YJ2DwX4TUBhrrzPczrqGFDgzM7/gs7frRT0ckaxMC
- E1A5B6k6VMXIXYrbwXZ+D/6DXy3YLVFSGc2ofISqrtE+wwcXi1p1kqbHiquLDqQOUoOwIjhzh5T
- 7KbER+vYxuUnrg6FAY/ruf6Lh16FJUbjYXXBw==
-X-Received: by 2002:a05:6808:1184:b0:467:2a6e:adb3 with SMTP id
- 5614622812f47-46a8a42e498mr6226470b6e.23.1774906459288; 
- Mon, 30 Mar 2026 14:34:19 -0700 (PDT)
-X-Received: by 2002:a05:6808:1184:b0:467:2a6e:adb3 with SMTP id
- 5614622812f47-46a8a42e498mr6226444b6e.23.1774906458873; Mon, 30 Mar 2026
- 14:34:18 -0700 (PDT)
+ AJvYcCV/GwwgWeJpIawjkNI00dtyOwLTTRc+UR+V7mwq9CSeC+BF1VaoaWHvxy5ZOfPiH6009SbaSN0CNYI=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxmX3TV98UlC0n1crkE3MUmgSoDblcH0leq7yPWMXoI/NMMr4a2
+ 3Neo544UaBit3+SUrtje4HT47WKoeLWsGnG6DXcJnmwl1h/0bmxtSNedUBS16VW8sy4Xy3L7n+H
+ 4iXH2jHjpbKWSqfsIoo/laOaARK2IbSw=
+X-Gm-Gg: ATEYQzy4Fy9Bt3h5Ug8ifXH70xjmq7Tlp8zZXboCoFyyTLAHX2DiHVuFGd9vBJ76HAm
+ KDWisxwukdLNXDqggiMz7xJcBzlOcU8UODOux69bq7uirOSHWuxhuRflp75eRKxDLQI/z7gHq50
+ fxLEFhKriQRPSDO88GQjKX1DLlVCAbXcI9iZ5GHepMJdfdMMgEv3js4t6eLG7kmacPweZUzbWLC
+ 7iw0FRAWph8IcgEJIK5NiL5AFw82UGngZMsPFAcMHujZr938TyzjzRuVTGuxu7/bJTb682IAayX
+ QC+dbjogZyxJC+yBX4r0vqJ2M1EZvenzwtJhEtuSS1VJ1seby4J7lLh+4NREf4Pdb42XyFD+L3g
+ IkfIUqQ==
+X-Received: by 2002:a05:6512:1084:b0:5a1:4473:bb44 with SMTP id
+ 2adb3069b0e04-5a2ab92d9e4mr5216280e87.33.1774906727539; Mon, 30 Mar 2026
+ 14:38:47 -0700 (PDT)
 MIME-Version: 1.0
-References: <20260327-a8xx-gpu-batch2-v2-0-2b53c38d2101@oss.qualcomm.com>
- <20260327-a8xx-gpu-batch2-v2-3-2b53c38d2101@oss.qualcomm.com>
- <2ddea137-bff2-4576-94ed-4f3a48aed386@oss.qualcomm.com>
- <6037882e-3716-47f9-9303-b448ab8fed79@oss.qualcomm.com>
-In-Reply-To: <6037882e-3716-47f9-9303-b448ab8fed79@oss.qualcomm.com>
-From: Rob Clark <rob.clark@oss.qualcomm.com>
-Date: Mon, 30 Mar 2026 14:34:08 -0700
-X-Gm-Features: AQROBzBlZc9G6qmr6Lv7xrF6Fx40xRoPwHxRj-mNzMX7XCK3aG0lTexXvjaa2wI
-Message-ID: <CACSVV01WDDj+peMZ4qArDF0qe0A+o9UiKq27y4ab3XBK+aCWjg@mail.gmail.com>
-Subject: Re: [PATCH v2 03/17] drm/msm/a6xx: Switch to preemption safe AO
- counter
-To: Akhil P Oommen <akhilpo@oss.qualcomm.com>
-Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Sean Paul <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Antonino Maniscalco <antomani103@gmail.com>,
- Connor Abbott <cwabbott0@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>
+References: <20260326234716.16723-1-rosenp@gmail.com>
+ <2312151.9o76ZdvQCi@timur-hyperion>
+ <6b15401c-1fdf-4d3b-84aa-dfc47f430895@amd.com>
+ <7351746.9J7NaK4W3v@timur-hyperion>
+In-Reply-To: <7351746.9J7NaK4W3v@timur-hyperion>
+From: Rosen Penev <rosenp@gmail.com>
+Date: Mon, 30 Mar 2026 14:38:35 -0700
+X-Gm-Features: AQROBzClHbQKYMQEBk1N37wHNV8JfR61-qIixPaDukv245DWUjEWx7ElX5PJJLU
+Message-ID: <CAKxU2N-CRua=kMVm8gdf2AnbCFyLsLTbf=-9NZHAkhL3sJC-tw@mail.gmail.com>
+Subject: Re: [PATCH for 6.12 3/9] drm/amd/display: Disable fastboot on DCE 6
+ too
+To: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>
+Cc: stable@vger.kernel.org,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Alex Deucher <alexander.deucher@amd.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>, 
+ David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, 
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Bin Lan <bin.lan.cn@windriver.com>, 
+ He Zhe <zhe.he@windriver.com>, Vitaly Prosyak <vitaly.prosyak@amd.com>, 
+ Alex Hung <alex.hung@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>, 
+ Mario Limonciello <Mario.Limonciello@amd.com>, Ray Wu <ray.wu@amd.com>, 
+ Wayne Lin <wayne.lin@amd.com>, Roman Li <Roman.Li@amd.com>,
+ Eric Yang <Eric.Yang2@amd.com>, 
+ Tony Cheng <Tony.Cheng@amd.com>, Mauro Rossi <issor.oruam@gmail.com>, 
+ "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>, 
+ "open list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>,
+ open list <linux-kernel@vger.kernel.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzMwMDE4MyBTYWx0ZWRfXxuvhxnhSZksy
- MUhRnniC02ug9XZxALru8o4HBp4klK66NLxS1rQ4T/IZfSKDHpFNXD3KypEsEWm4M7nzrkiufGW
- obarZOQp4+zKDD4UqXV1uJ2f8ZWTICdKfYFUUgcjXRXbJI0C8VjdL/hb2hkxqH6gGJBXE75OvtO
- A7ZEcTNhMx7kM6crqlXVG4M/Hoydc+1tcCfhorLHcqTt4BQZqeibCby4GexXBsHI1b75tJcb/Ny
- oki8Pg4JAztAkFLSELnQkjyDL2xLMVtbSmDt3kfGsETZDbML+bQ4zLWgYrUG/XS1L/LW4+Vey76
- OHeus2pXd1zuh46WtDOfufy9scbEz6xxSWhh7/1EBt5RuO+anQ+Q9hokG6ali3TkK76DVm5DqET
- h2pPb8efglZ8rCz/4ms+AiWOOTx8fE2TioEaXJkGReFLA/jC12w1Ul5BAkaIE2dBnewfNih/pfM
- aPEmZKYLVflo2BHUtWw==
-X-Proofpoint-ORIG-GUID: R2Jw89wdFSj-29Q3WwrKIIFyhZpOI51w
-X-Authority-Analysis: v=2.4 cv=PI0COPqC c=1 sm=1 tr=0 ts=69caec5b cx=c_pps
- a=AKZTfHrQPB8q3CcvmcIuDA==:117 a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=ZpdpYltYx_vBUK5n70dp:22 a=EUspDBNiAAAA:8 a=e9XDKlPaf5x7KOCXZO4A:9
- a=QEXdDO2ut3YA:10 a=pF_qn-MSjDawc0seGVz6:22
-X-Proofpoint-GUID: R2Jw89wdFSj-29Q3WwrKIIFyhZpOI51w
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-03-30_01,2026-03-28_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 phishscore=0 adultscore=0 impostorscore=0 malwarescore=0
- lowpriorityscore=0 spamscore=0 suspectscore=0 clxscore=1015 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603300183
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -164,43 +121,102 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: rob.clark@oss.qualcomm.com
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Mar 30, 2026 at 1:51=E2=80=AFPM Akhil P Oommen <akhilpo@oss.qualcom=
-m.com> wrote:
+On Mon, Mar 30, 2026 at 7:21=E2=80=AFAM Timur Krist=C3=B3f <timur.kristof@g=
+mail.com> wrote:
 >
-> On 3/27/2026 5:02 PM, Konrad Dybcio wrote:
-> > On 3/27/26 1:13 AM, Akhil P Oommen wrote:
-> >> CP_ALWAYS_ON_COUNTER is not save-restored during preemption, so it won=
-'t
-> >> provide accurate data about the 'submit' when preemption is enabled.
-> >> Switch to CP_ALWAYS_ON_CONTEXT which is preemption safe.
-> >>
-> >> Fixes: e7ae83da4a28 ("drm/msm/a6xx: Implement preemption for a7xx targ=
-ets")
-> >> Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
-> >> ---
+> On Monday, March 30, 2026 3:55:55=E2=80=AFPM Central European Summer Time=
+ Christian
+> K=C3=B6nig wrote:
+> > On 3/30/26 15:16, Timur Krist=C3=B3f wrote:
+> > > On Friday, March 27, 2026 12:47:10=E2=80=AFAM Central European Summer=
+ Time Rosen
+> > > Penev>
+> > > wrote:
+> > >> From: Timur Krist=C3=B3f <timur.kristof@gmail.com>
+> > >>
+> > >> [ Upstream commit 7495962cbceb967e095233a5673ea71f3bcdee7e ]
+> > >>
+> > >> It already didn't work on DCE 8,
+> > >> so there is no reason to assume it would on DCE 6.
+> > >>
+> > >> Signed-off-by: Timur Krist=C3=B3f <timur.kristof@gmail.com>
+> > >> Reviewed-by: Rodrigo Siqueira <siqueira@igalia.com>
+> > >> Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+> > >> Reviewed-by: Alex Hung <alex.hung@amd.com>
+> > >> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> > >> Signed-off-by: Rosen Penev <rosenp@gmail.com>
+> > >
+> > > This patch is incorrect and should not be backported.
+> > >
+> > > (Note that the error is already fixed upstream. For stable kernels IM=
+O
+> > > it's
+> > > best to drop this one.)
 > >
-> > (this is not a blocking comment)
+> > Is there some alternative which needs to be backported or should the ol=
+d
+> > kernel just work out of the box because we never enabled some feature
+> > there?
 > >
-> > would the _COUNTER counter be useful to keep for any other purpose?
+> > Apart from that the patch set looks good to me.
+> >
 >
-> That is actually a good question. I was fixated on the fdinfo aspect
-> that I missed that this is used in the submit_retire trace too. In the
-> trace, I think it is preferable to use the _COUNTER (or keep both) so
-> that we can visualize the order in which GPU processed the submits.
+> This patch had a typo and does the opposite of what it should, ie. it dis=
+ables
+> eDP fastboot on DCE10 and newer instead of disabling it on DCE8 and older=
+.
 >
-> Rob, what do you think? If required we can drop this patch from this
-> series. Or I can send a fix up as this affect only the ftrace.
-
-So.. there was some really old ftrace based gpu timeline visualization
-in chrome ("catapult"), but that has been superceded by perfetto
-userspace traces.  The latter uses RB_DONE_TS event to record
-timestamps.
-
-I guess being able to record a sensable duration is the main thing.
-
-BR,
--R
+> The upstream fix is here:
+> https://lists.freedesktop.org/archives/amd-gfx/2026-February/138577.html
+> which disables eDP fastboot on DCE10 and older.
+Not sure what the process is here. I make sure everything can be git
+cherry-pick ed. In that case, both should be present.
+>
+> >
+> > >> ---
+> > >>
+> > >>  drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c | 6 ++---=
+-
+> > >>  1 file changed, 2 insertions(+), 4 deletions(-)
+> > >>
+> > >> diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq=
+.c
+> > >> b/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c index
+> > >> df69e0cebf78..7dc99c85b8ea 100644
+> > >> --- a/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
+> > >> +++ b/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
+> > >> @@ -1910,10 +1910,8 @@ void dce110_enable_accelerated_mode(struct dc=
+ *dc,
+> > >> struct dc_state *context)
+> > >>
+> > >>    get_edp_streams(context, edp_streams, &edp_stream_num);
+> > >>
+> > >> -  // Check fastboot support, disable on DCE8 because of blank
+> > >
+> > > screens
+> > >
+> > >> -  if (edp_num && edp_stream_num && dc->ctx->dce_version !=3D
+> > >
+> > > DCE_VERSION_8_0
+> > >
+> > >> && -                   dc->ctx->dce_version !=3D DCE_VERSION_8_1 &&
+> > >> -              dc->ctx->dce_version !=3D DCE_VERSION_8_3) {
+> > >> +  /* Check fastboot support, disable on DCE 6-8 because of blank
+> > >
+> > > screens */
+> > >
+> > >> +  if (edp_num && edp_stream_num && dc->ctx->dce_version <
+> > >
+> > > DCE_VERSION_10_0)
+> > >
+> > >> { for (i =3D 0; i < edp_num; i++) {
+> > >>
+> > >>                    edp_link =3D edp_links[i];
+> > >>                    if (edp_link !=3D edp_streams[0]->link)
+>
+>
+>
+>
