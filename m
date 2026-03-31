@@ -4,40 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7028A1061B21
-	for <dri-devel@archiver.kernel.org>; Tue, 31 Mar 2026 10:12:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B9DD0FF60FF
+	for <dri-devel@archiver.kernel.org>; Tue, 31 Mar 2026 10:13:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C029310EA36;
-	Tue, 31 Mar 2026 10:12:03 +0000 (UTC)
-Received: from ni.piap.pl (ni.piap.pl [195.187.100.5])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 00D9210E8F7
- for <dri-devel@lists.freedesktop.org>; Tue, 31 Mar 2026 10:12:01 +0000 (UTC)
-Received: from t19.piap.pl (OSB1819.piap.pl [10.0.9.19])
- by ni.piap.pl (Postfix) with ESMTPS id 8A00EC3EEAC9;
- Tue, 31 Mar 2026 12:11:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 ni.piap.pl 8A00EC3EEAC9
-From: =?utf-8?Q?Krzysztof_Ha=C5=82asa?= <khalasa@piap.pl>
-To: Paul Kocialkowski <paulk@sys-base.io>
-Cc: <dri-devel@lists.freedesktop.org>,  <imx@lists.linux.dev>,
- <linux-arm-kernel@lists.infradead.org>,  <linux-kernel@vger.kernel.org>,
- Marek Vasut <marex@denx.de>,  Stefan Agner <stefan@agner.ch>,  Maarten
- Lankhorst <maarten.lankhorst@linux.intel.com>,  Maxime Ripard
- <mripard@kernel.org>,  Thomas Zimmermann <tzimmermann@suse.de>,  David
- Airlie <airlied@gmail.com>,  Simona Vetter <simona@ffwll.ch>,  Frank Li
- <Frank.Li@nxp.com>,  Sascha Hauer <s.hauer@pengutronix.de>,  Pengutronix
- Kernel Team <kernel@pengutronix.de>,  Fabio Estevam <festevam@gmail.com>,
- Lucas Stach <l.stach@pengutronix.de>,  Marco Felsch
- <m.felsch@pengutronix.de>,  Liu Ying <victor.liu@nxp.com>
-Subject: Re: [PATCH 3/3] drm: lcdif: Wait for vblank before disabling DMA
-In-Reply-To: <20260330224619.2620782-4-paulk@sys-base.io> (Paul Kocialkowski's
- message of "Tue, 31 Mar 2026 00:46:19 +0200")
-References: <20260330224619.2620782-1-paulk@sys-base.io>
- <20260330224619.2620782-4-paulk@sys-base.io>
-Date: Tue, 31 Mar 2026 12:11:56 +0200
-Message-ID: <m3y0j8mhoz.fsf@t19.piap.pl>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+	by gabe.freedesktop.org (Postfix) with ESMTP id 05A5110E8F7;
+	Tue, 31 Mar 2026 10:13:56 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="PhzILfvJ";
+	dkim-atps=neutral
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 71AE310E8B9;
+ Tue, 31 Mar 2026 10:13:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1774952034; x=1806488034;
+ h=message-id:subject:from:to:cc:date:in-reply-to:
+ references:content-transfer-encoding:mime-version;
+ bh=WB4ZU2W0fnkqVa71Ajs9awDToKlAuxHcyX8HDRc2mck=;
+ b=PhzILfvJx9h75++I4VXma+yveSGJFEXOrE+rjaCJihfXxyfpcyOGd6dJ
+ PjpC0xQFRuXgXHLZiacHcx+/B6NoHBsatYzOBqJ5UYy9/z7p+EkDmXJHo
+ eJQR0Suhd6LiRlFilAfXWwy8/ySBXgJXPU6vdDX100WuoCGyyMA6ndnkM
+ qN852bR04j8C+QxMd+QaGgBSyBypknGtotv2hIL5rPTKitQZKMMWxi9C7
+ iz0xvvAH6zRS26ZcNWf5uwla5xAMfAk0Xq0IY4F0wP6OO7Fb7BJNLsvsv
+ 6TJDH6A6xiMPjYz3i1AfqxRtEAxxDAXzSoJdaiEKWMo3brr0+Ao7QbdPY A==;
+X-CSE-ConnectionGUID: hR7x718qR2iLimNGbHLyZg==
+X-CSE-MsgGUID: OqUPXnwgQY62Z94ThV+mQg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11744"; a="79820305"
+X-IronPort-AV: E=Sophos;i="6.23,151,1770624000"; d="scan'208";a="79820305"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+ by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 31 Mar 2026 03:13:54 -0700
+X-CSE-ConnectionGUID: zJWcel2GTNiOsEk9VQ05Pg==
+X-CSE-MsgGUID: C7tPcceQSgWfVjjxlJsFiw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,151,1770624000"; d="scan'208";a="226298354"
+Received: from smoticic-mobl1.ger.corp.intel.com (HELO [10.245.244.28])
+ ([10.245.244.28])
+ by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 31 Mar 2026 03:13:50 -0700
+Message-ID: <e4855d379990345e47e1175ff4b20a757888ff42.camel@linux.intel.com>
+Subject: Re: [PATCH 4/5] drm/exec, drm/xe: Avoid abusing the drm_exec retry
+ pointer
+From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
+To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, 
+ intel-xe@lists.freedesktop.org
+Cc: Felix Kuehling <Felix.Kuehling@amd.com>, Alex Deucher	
+ <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>, Simona
+ Vetter	 <simona@ffwll.ch>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>,  Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Danilo Krummrich
+ <dakr@kernel.org>,  Matthew Brost <matthew.brost@intel.com>, Alice Ryhl
+ <aliceryhl@google.com>, Rob Clark	 <robin.clark@oss.qualcomm.com>, Dmitry
+ Baryshkov <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul	 <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
+Date: Tue, 31 Mar 2026 12:13:47 +0200
+In-Reply-To: <916ac7fc-d699-453f-af60-5cb3b15c1156@amd.com>
+References: <20260331092023.81616-1-thomas.hellstrom@linux.intel.com>
+ <20260331092023.81616-5-thomas.hellstrom@linux.intel.com>
+ <916ac7fc-d699-453f-af60-5cb3b15c1156@amd.com>
+Organization: Intel Sweden AB, Registration Number: 556189-6027
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
+MIME-Version: 1.0
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,188 +85,110 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Paul,
+On Tue, 2026-03-31 at 11:44 +0200, Christian K=C3=B6nig wrote:
+> On 3/31/26 11:20, Thomas Hellstr=C3=B6m wrote:
+> > The xe driver was using the drm_exec retry pointer directly to
+> > restart the locking loop after out-of-memory errors. This is
+> > relying on documented behaviour.
+> >=20
+> > Instead add a drm_exec_retry() macro that can be used in this
+> > situation, and that also asserts that the struct drm_exec is
+> > in a state that is compatible with retrying:
+> > Either newly initialized or in a contended state with all locks
+> > dropped.
+> >=20
+> > Use that macro in xe.
+> >=20
+> > Signed-off-by: Thomas Hellstr=C3=B6m <thomas.hellstrom@linux.intel.com>
+> > ---
+> > =C2=A0drivers/gpu/drm/xe/xe_validation.h |=C2=A0 2 +-
+> > =C2=A0include/drm/drm_exec.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 13 +++++++++++++
+> > =C2=A02 files changed, 14 insertions(+), 1 deletion(-)
+> >=20
+> > diff --git a/drivers/gpu/drm/xe/xe_validation.h
+> > b/drivers/gpu/drm/xe/xe_validation.h
+> > index a30e732c4d51..4cd955ce6cd2 100644
+> > --- a/drivers/gpu/drm/xe/xe_validation.h
+> > +++ b/drivers/gpu/drm/xe/xe_validation.h
+> > @@ -146,7 +146,7 @@ bool xe_validation_should_retry(struct
+> > xe_validation_ctx *ctx, int *ret);
+> > =C2=A0#define xe_validation_retry_on_oom(_ctx,
+> > _ret)				\
+> > =C2=A0	do
+> > {								\
+> > =C2=A0		if (xe_validation_should_retry(_ctx,
+> > _ret))		\
+> > -			goto
+> > *__drm_exec_retry_ptr;			\
+> > +			drm_exec_retry((_ctx)-
+> > >exec);			\
+>=20
+> Oh, that goto is extremely questionable to begin with.
+>=20
+> > =C2=A0	} while (0)
+> > =C2=A0
+> > =C2=A0/**
+> > diff --git a/include/drm/drm_exec.h b/include/drm/drm_exec.h
+> > index fc95a979e253..5ed5be1f8244 100644
+> > --- a/include/drm/drm_exec.h
+> > +++ b/include/drm/drm_exec.h
+> > @@ -138,6 +138,19 @@ static inline bool
+> > drm_exec_is_contended(struct drm_exec *exec)
+> > =C2=A0	return !!exec->contended;
+> > =C2=A0}
+> > =C2=A0
+> > +/**
+> > + * drm_exec_retry() - Unconditionally restart the loop to grab all
+> > locks.
+> > + * @exec: drm_exec object
+> > + *
+> > + * Unconditionally retry the loop to lock all objects. For
+> > consistency,
+> > + * the exec object needs to be newly initialized or contended.
+> > + */
+> > +#define drm_exec_retry(_exec)				\
+> > +	do {						\
+> > +		WARN_ON(!drm_exec_is_contended(_exec)); \
+>=20
+> This warning would trigger!
+>=20
+> See the code in xe_bo_notifier_prepare_pinned() for example:
+>=20
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 drm_exec=
+_retry_on_contention(&exec);
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ret =3D =
+PTR_ERR(backup);
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 xe_valid=
+ation_retry_on_oom(&ctx, &ret);
+>=20
+> Without contention we would just skip the loop and never lock
+> anything.
+>=20
+> What XE does here just doesn't work as far as I can see.
 
-Paul Kocialkowski writes:
+So if the xe_validation_retry_on_oom() is actually retrying it
+internally call drm_exec_fini() and drm_exec_init() first, which means
+that the warning doesn't trigger, due to the dummy value of contended.
 
-> It is necessary to wait for the full frame to finish streaming
-> through the DMA engine before we can safely disable it by removing
-> the DISP_PARA_DISP_ON bit. Disabling it in-flight can leave the
-> hardware confused and unable to resume streaming for the next frame.
->
-> This causes the FIFO underrun and empty status bits to be set and
-> a single solid color to be shown on the display, coming from one of
-> the pixels of the previous frame. The issue occurs sporadically when
-> a new mode is set, which triggers the crtc disable and enable paths.
->
-> Setting the shadow load bit and waiting for it to be cleared by the
-> DMA engine allows waiting for completion.
->
-> The NXP BSP driver addresses this issue with a hardcoded 25 ms sleep.
+So the warning does its job, and xe is safe.
 
-...or "addressed" in the previous version :-)
-
-Test results: it works for me: at 1080p60 and 2160p30. I.e. it fixed the
-underrun problem. It's interesting how a CRTC shutdown can affect it's
-subsequent start following an SW_RESET.
-
-Or... perhaps it has something to do with the clocks? Also see below.
-If somehow the DMA engine was "running" with it's clock disabled, it
-would result in an underrun, or worse.
+Thanks,
+Thomas
 
 
-BTW apparently something converted your tab characters into spaces.
 
-> --- a/drivers/gpu/drm/mxsfb/lcdif_kms.c
-> +++ b/drivers/gpu/drm/mxsfb/lcdif_kms.c
-> @@ -393,6 +393,22 @@ static void lcdif_disable_controller(struct lcdif_dr=
-m_private *lcdif)
->         if (ret)
->                 drm_err(lcdif->drm, "Failed to disable controller!\n");
->
-> +       /*
-> +        * It is necessary to wait for the full frame to finish streaming
-> +        * through the DMA engine before we can safely disable it by remo=
-ving
-> +        * the DISP_PARA_DISP_ON bit. Disabling it in-flight can leave the
-> +        * hardware confused and unable to resume streaming for the next =
-frame.
-> +        */
-> +       reg =3D readl(lcdif->base + LCDC_V8_CTRLDESCL0_5);
-> +       reg |=3D CTRLDESCL0_5_SHADOW_LOAD_EN;
-> +       writel(reg, lcdif->base + LCDC_V8_CTRLDESCL0_5);
-> +
-> +       ret =3D readl_poll_timeout(lcdif->base + LCDC_V8_CTRLDESCL0_5,
-> +                                reg, !(reg & CTRLDESCL0_5_SHADOW_LOAD_EN=
-),
-> +                                0, 36000);     /* Wait ~2 frame times ma=
-x */
-
-I guess this comment is not necessarily correct - at 2160p30 one frame =3D
-ca. 33 ms. Still works, though (I guess anything more than one frame is
-enough). I don't know how long a frame on HDMI (or LVDS, MIPI etc.) can
-take. 30 FPS on 2160p is common because the i.MX8MP can't display 2160p60.
-
-Also, found an issue. Perhaps unrelated? Powered the board without HDMI
-connected. Then connected 1080p60 display. It came in 1024x768, console
-64x24 :-)
-Run weston. Pressed ctrl-alt-backspace. It deadlocked. Sysrq (serial
-console, show blocked state) showed (with *lcdif* in it):
-task:systemd-logind  state:D stack:0     pid:253   tgid:253   ppid:1      t=
-ask_flags:0x400100 flags:0x00000800
-Call trace:
- ...
- schedule+0x34/0x118
- rpm_resume+0x188/0x678
- __pm_runtime_resume+0x4c/0x98
- clk_pm_runtime_get.part.0.isra.0+0x1c/0x94
- clk_core_set_rate_nolock+0xd0/0x2fc
- clk_set_rate+0x38/0x158
- lcdif_crtc_atomic_enable+0x74/0x8d0
- drm_atomic_helper_commit_crtc_enable+0xac/0x104
- drm_atomic_helper_commit_tail_rpm+0x68/0xd8
- commit_tail+0xa4/0x1a4
- drm_atomic_helper_commit+0x178/0x1a0
- drm_atomic_commit+0x8c/0xcc
- drm_client_modeset_commit_atomic+0x1f8/0x25c
- drm_client_modeset_commit_locked+0x60/0x17c
- __drm_fb_helper_restore_fbdev_mode_unlocked.part.0+0x2c/0x8c
- drm_fb_helper_set_par+0x5c/0x78
- fb_set_var+0x190/0x35c
- fbcon_blank+0x178/0x24c
- do_unblank_screen+0xa8/0x19c
- vt_ioctl+0x4fc/0x14c0
- tty_ioctl+0x228/0xb88
- __arm64_sys_ioctl+0x90/0xe4
- ...
-
-This is reproducible, though not always.
-It seems it locks on some mutex - the shell works until I do 'cat
-log.txt' or similar. Now (with std output/error redirection?), weston
-doesn't even start.
-
-dmesg doesn't show anything of interest.
-weston: 14.0.2
-using /dev/dri/card1
-DRM: supports atomic modesetting
-DRM: supports GBM modifiers
-DRM: does not support Atomic async page flip
-DRM: supports picture aspect ratio
-Loading module '/usr/lib64/libweston-14/gl-renderer.so'
-Using rendering device: /dev/dri/renderD128
-EGL version: 1.5
-EGL vendor: Mesa Project
-EGL client APIs: OpenGL OpenGL_ES
-...
-Registered plugin API 'weston_drm_output_api_v1' of size 40
-Registered plugin API 'weston_drm_virtual_output_api_v2' of size 48
-Color manager: no-op
-  protocol support: no
-Output 'HDMI-A-1' attempts EOTF mode SDR and colorimetry mode default.
-Output 'HDMI-A-1' using color profile: stock sRGB color profile
-Chosen EGL config details: id:  17 rgba: 8 8 8 0 buf: 24 dep:  0 stcl: 0 in=
-t: 1-1 type: win vis_id: XRGB8
-)
-Output HDMI-A-1 (crtc 37) video modes:
-1920x1080@60.0, preferred, current, 148.5 MHz
-
-Output 'HDMI-A-1' enabled with head(s) HDMI-A-1
-Loading module '/usr/lib64/weston/desktop-shell.so'
-launching '/usr/libexec/weston-keyboard'
-launching '/usr/libexec/weston-desktop-shell'
-Warning: computed repaint delay for output [HDMI-A-1] is abnormal: -69164 m=
-sec (happens always)
-
-could not load cursor 'dnd-copy'
-could not load cursor 'dnd-copy'
-could not load cursor 'dnd-none'
-could not load cursor 'dnd-none'
-
-Why all these clk* mutexes? Perhaps something didn't work out as it
-should there? clk_set_rate isn't supposed to take much time, is it?
-
-$ grep clk /tmp/minicom.cap -C1
-[  728.310054]  __pm_runtime_resume+0x4c/0x98
-[  728.310059]  clk_pm_runtime_get.part.0.isra.0+0x1c/0x94
-[  728.310065]  clk_core_set_rate_nolock+0xd0/0x2fc
-[  728.310071]  clk_set_rate+0x38/0x158
-[  728.310076]  lcdif_crtc_atomic_enable+0x74/0x8d0
---
-[  728.310210]  mutex_lock+0x48/0x58
-[  728.310216]  clk_prepare_lock+0x80/0xc0
-[  728.310223]  clk_unprepare+0x28/0x44
-[  728.310227]  fsl_samsung_hdmi_phy_suspend+0x24/0x40
---
-[  728.310344]  mutex_lock+0x48/0x58
-[  728.310350]  clk_prepare_lock+0x80/0xc0
-[  728.310359]  clk_unprepare+0x28/0x44
-[  728.310364]  etnaviv_gpu_clk_disable.isra.0+0x28/0x80
-[  728.310372]  etnaviv_gpu_rpm_suspend+0x78/0x1dc
---
-[  728.310494]  mutex_lock+0x48/0x58
-[  728.310499]  clk_prepare_lock+0x80/0xc0
-[  728.310506]  clk_unprepare+0x28/0x44
-[  728.310512]  sdhci_esdhc_runtime_suspend+0x7c/0x198
---
-[  728.310627]  mutex_lock+0x48/0x58
-[  728.310632]  clk_prepare_lock+0x80/0xc0
-[  728.310639]  clk_round_rate+0x38/0x1d8
-[  728.310646]  dev_pm_opp_set_rate+0xe4/0x2e0
---
-[  728.310760]  mutex_lock+0x48/0x58
-[  728.310765]  clk_prepare_lock+0x80/0xc0
-[  728.310771]  clk_prepare+0x1c/0x50
-[  728.310778]  sdhci_esdhc_runtime_resume+0x34/0x180
---
-[  728.311286]  mutex_lock+0x48/0x58
-[  728.311292]  clk_prepare_lock+0x80/0xc0
-[  728.311298]  clk_prepare+0x1c/0x50
-[  728.311303]  sdhci_esdhc_runtime_resume+0x34/0x180
-
-Something fishy here.
---
-Krzysztof "Chris" Ha=C5=82asa
-
-Sie=C4=87 Badawcza =C5=81ukasiewicz
-Przemys=C5=82owy Instytut Automatyki i Pomiar=C3=B3w PIAP
-Al. Jerozolimskie 202, 02-486 Warszawa
+>=20
+> Regards,
+> Christian.
+>=20
+> > +		goto *__drm_exec_retry_ptr;		\
+> > +	} while (0)
+> > +
+> > =C2=A0void drm_exec_init(struct drm_exec *exec, u32 flags, unsigned nr)=
+;
+> > =C2=A0void drm_exec_fini(struct drm_exec *exec);
+> > =C2=A0bool drm_exec_cleanup(struct drm_exec *exec);
