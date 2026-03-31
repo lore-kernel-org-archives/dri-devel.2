@@ -4,47 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 32C4C10F9304
-	for <dri-devel@archiver.kernel.org>; Tue, 31 Mar 2026 21:46:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90ADF10F9307
+	for <dri-devel@archiver.kernel.org>; Tue, 31 Mar 2026 22:08:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7FE5D10EBD0;
-	Tue, 31 Mar 2026 21:46:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EEC1A10EC76;
+	Tue, 31 Mar 2026 22:08:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="mBHh8com";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="M5Lx4SGH";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 91A2F10EBAA;
- Tue, 31 Mar 2026 21:46:57 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5C45410EC5B;
+ Tue, 31 Mar 2026 22:08:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1774993618; x=1806529618;
+ t=1774994935; x=1806530935;
  h=date:from:to:cc:subject:message-id:references:
  mime-version:in-reply-to;
- bh=8CzbMDSvZeJn5Itl+zxEgLTb8DbCHtZJcrvef0FzJ7o=;
- b=mBHh8comPCLf2oQqrq+fZhrRFiVkpzO91UK0yeekRC2XWo3BWr38F+JZ
- fRtamaK6a9Smr0FnR1C3mkMiXSaO5Byf+5NVBTaGlOpp0M4P+X498Oo7b
- UNHc3cqdfCuwQuaywTbi3kG47jblvfhdZqFwLxe5gbvfO/E+g9Ue6vp5E
- 6ESHuBEpQwmL1YaMPjBJgIICpNJd5+Ml/xfa7BoyMXfwk09NFVkEkR3bU
- sOIUhFk8yjznSY1X44iAqfrmI/xlRvlODYrE8jMTvbNPsI0YO67WfHeNh
- 2xZPxOuxPlmcLIX8f0OVYpxtKHhanxph5QvVpFDJYSIi6It1GesY4eQDO Q==;
-X-CSE-ConnectionGUID: zxhSlixoROWjXxpq5vS5sw==
-X-CSE-MsgGUID: x9JncpZ1TZ6fp4RKNhcVhw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11745"; a="78617179"
-X-IronPort-AV: E=Sophos;i="6.23,152,1770624000"; d="scan'208";a="78617179"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
- by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Mar 2026 14:46:57 -0700
-X-CSE-ConnectionGUID: 1kJXuaA0SWyUtve3PNRyOQ==
-X-CSE-MsgGUID: 3YgiorwjS56PbqxV7jYLCA==
+ bh=TJ9efL6+obsXSuvLhbvwl/96x+C8iR5ULWJu8P9ou/g=;
+ b=M5Lx4SGHIud8VL1YmxrZmTaXi92LNO4KkSxmHY0le2Plg1+XYDo2MS3X
+ yEbu//ewnFiIrEyvuWGemiAztgVcQsq3MqkpbR99NzYkFAzbny96hWaVn
+ Q4fIWQmNR+5PbJwMkNdyF4p5PwaDFj9ewE7WQnkzya3xxgaAleNqUB2/j
+ lZ0iAYtv/vzMjR6ACNnfLwSqoVHLhMjqhEzAZR0yR2u/ZDc2tCWpCeEt2
+ Bb+y5alXmzWVuJhtbus2uVCxdxqmJ7Fj6+aX89I+H169L1W68/KhBGtN2
+ itLq1HI3qWLRrnk4jlFBMAf8PpeKLJcih5ASBpgsh5+Cx+JDiTd35Gqh7 g==;
+X-CSE-ConnectionGUID: T8H1vsC4SyGJoWC+Z95WaA==
+X-CSE-MsgGUID: S5v8nZrmS++2SPlj3CsAzQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11745"; a="75916213"
+X-IronPort-AV: E=Sophos;i="6.23,152,1770624000"; d="scan'208";a="75916213"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+ by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 31 Mar 2026 15:08:54 -0700
+X-CSE-ConnectionGUID: hZ45NYVOS969R2USmDmiIw==
+X-CSE-MsgGUID: brpXuMoLQquB2tgssGs0aA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,152,1770624000"; d="scan'208";a="223607882"
-Received: from igk-lkp-server01.igk.intel.com (HELO 9958d990ccf2)
- ([10.211.93.152])
- by fmviesa008.fm.intel.com with ESMTP; 31 Mar 2026 14:46:52 -0700
-Received: from kbuild by 9958d990ccf2 with local (Exim 4.98.2)
- (envelope-from <lkp@intel.com>) id 1w7gvB-000000008Y1-3uYK;
- Tue, 31 Mar 2026 21:46:49 +0000
-Date: Tue, 31 Mar 2026 23:46:28 +0200
+Received: from lkp-server01.sh.intel.com (HELO 283bf2e1b94a) ([10.239.97.150])
+ by fmviesa003.fm.intel.com with ESMTP; 31 Mar 2026 15:08:49 -0700
+Received: from kbuild by 283bf2e1b94a with local (Exim 4.98.2)
+ (envelope-from <lkp@intel.com>) id 1w7hGP-000000004LB-0kCW;
+ Tue, 31 Mar 2026 22:08:45 +0000
+Date: Wed, 1 Apr 2026 06:07:51 +0800
 From: kernel test robot <lkp@intel.com>
 To: Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
  intel-xe@lists.freedesktop.org
@@ -68,7 +66,7 @@ Cc: oe-kbuild-all@lists.linux.dev,
  linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
 Subject: Re: [PATCH 5/5] drm/exec, drm/xe, drm/amdgpu: Add an accessor for
  struct drm_exec::ticket
-Message-ID: <202603312339.70s7djVd-lkp@intel.com>
+Message-ID: <202604010642.6F4lO2Gd-lkp@intel.com>
 References: <20260331092023.81616-6-thomas.hellstrom@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
@@ -94,8 +92,8 @@ Hi Thomas,
 kernel test robot noticed the following build errors:
 
 [auto build test ERROR on drm-misc/drm-misc-next]
-[also build test ERROR on next-20260331]
-[cannot apply to drm-xe/drm-xe-next linus/master v6.16-rc1]
+[also build test ERROR on next-20260330]
+[cannot apply to drm-xe/drm-xe-next linus/master v7.0-rc6]
 [If your patch is applied to the wrong git tree, kindly drop us a note.
 And when submitting patch, we suggest to use '--base' as documented in
 https://git-scm.com/docs/git-format-patch#_base_tree_information]
@@ -104,38 +102,36 @@ url:    https://github.com/intel-lab-lkp/linux/commits/Thomas-Hellstr-m/drm-exec
 base:   https://gitlab.freedesktop.org/drm/misc/kernel.git drm-misc-next
 patch link:    https://lore.kernel.org/r/20260331092023.81616-6-thomas.hellstrom%40linux.intel.com
 patch subject: [PATCH 5/5] drm/exec, drm/xe, drm/amdgpu: Add an accessor for struct drm_exec::ticket
-config: x86_64-rhel-9.4 (https://download.01.org/0day-ci/archive/20260331/202603312339.70s7djVd-lkp@intel.com/config)
-compiler: gcc-14 (Debian 14.2.0-19) 14.2.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260331/202603312339.70s7djVd-lkp@intel.com/reproduce)
+config: riscv-randconfig-r073-20260401 (https://download.01.org/0day-ci/archive/20260401/202604010642.6F4lO2Gd-lkp@intel.com/config)
+compiler: clang version 23.0.0git (https://github.com/llvm/llvm-project 2cd67b8b69f78e3f95918204320c3075a74ba16c)
+smatch: v0.5.0-9004-gb810ac53
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260401/202604010642.6F4lO2Gd-lkp@intel.com/reproduce)
 
 If you fix the issue in a separate patch/commit (i.e. not just a new version of
 the same patch/commit), kindly add following tags
 | Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202603312339.70s7djVd-lkp@intel.com/
+| Closes: https://lore.kernel.org/oe-kbuild-all/202604010642.6F4lO2Gd-lkp@intel.com/
 
 All errors (new ones prefixed by >>):
 
-   drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c: In function 'amdgpu_amdkfd_gpuvm_restore_process_bos':
->> drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c:3001:66: error: incompatible type for argument 1 of 'drm_exec_ticket'
+>> drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c:3001:59: error: passing 'struct drm_exec' to parameter of incompatible type 'struct drm_exec *'; take the address with &
     3001 |         ret = process_validate_vms(process_info, drm_exec_ticket(exec));
          |                                                                  ^~~~
-         |                                                                  |
-         |                                                                  struct drm_exec
-   In file included from drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c:30:
-   include/drm/drm_exec.h:154:71: note: expected 'struct drm_exec *' but argument is of type 'struct drm_exec'
+         |                                                                  &
+   include/drm/drm_exec.h:154:71: note: passing argument to parameter 'exec' here
      154 | static inline struct ww_acquire_ctx *drm_exec_ticket(struct drm_exec *exec)
-         |                                                      ~~~~~~~~~~~~~~~~~^~~~
-   drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c:3042:77: error: incompatible type for argument 1 of 'drm_exec_ticket'
+         |                                                                       ^
+   drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c:3042:63: error: passing 'struct drm_exec' to parameter of incompatible type 'struct drm_exec *'; take the address with &
     3042 |                 ret = amdgpu_vm_handle_moved(adev, peer_vm, drm_exec_ticket(exec));
          |                                                                             ^~~~
-         |                                                                             |
-         |                                                                             struct drm_exec
-   include/drm/drm_exec.h:154:71: note: expected 'struct drm_exec *' but argument is of type 'struct drm_exec'
+         |                                                                             &
+   include/drm/drm_exec.h:154:71: note: passing argument to parameter 'exec' here
      154 | static inline struct ww_acquire_ctx *drm_exec_ticket(struct drm_exec *exec)
-         |                                                      ~~~~~~~~~~~~~~~~~^~~~
+         |                                                                       ^
+   2 errors generated.
 
 
-vim +/drm_exec_ticket +3001 drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+vim +3001 drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
 
   2897	
   2898	/** amdgpu_amdkfd_gpuvm_restore_process_bos - Restore all BOs for the given
