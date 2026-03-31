@@ -4,133 +4,99 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B9B3FFF60D5
-	for <dri-devel@archiver.kernel.org>; Tue, 31 Mar 2026 19:57:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4526910F92FA
+	for <dri-devel@archiver.kernel.org>; Tue, 31 Mar 2026 20:14:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1CA4010EB3C;
-	Tue, 31 Mar 2026 19:57:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A49D910E0D4;
+	Tue, 31 Mar 2026 20:14:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="aiDuP4PS";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="TY4Dz/Ig";
 	dkim-atps=neutral
-Received: from DM1PR04CU001.outbound.protection.outlook.com
- (mail-centralusazon11010038.outbound.protection.outlook.com [52.101.61.38])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B98FD10EB3C;
- Tue, 31 Mar 2026 19:57:44 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=hm5voHgWwrlo7ssp2rJLtFnOWs1gvRkCRrc6MK/cezcCaCuwFVGFBY1VgWTP13zEYF6lQVcs/+TEMJpkwx2HWwxh2PDpmO0eI0gw+DliHMZl3fQt4phovhQyw+OctVrVm71IPgTCmZjAlWgsA2WSJ9MuF+ij1nr2oZMh+wbbrGrHrRyB+LLDbNp2KC4IyLYWOsreLstdAx68PVfYdVyr5Wkz1oxaLAssxCy2AOn2M3PW9gGLgJBkxxtJajBSgo4pBOOKNjNg/EIMKhSQDONuVvYH0F0C5xW0izKEIegfrs8Qu+aQyD0XLgBcqY1+xtEa9yLHZwTDt7eRbdGPQM9OfA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=v2J1Q75wpDET7sltz6H28h1eOlt2e9gJQZO5cKxbN98=;
- b=Rl4Dn2eGnws1DhWpxwQhU5SupH3OzyhPxgyJdwqS1fqHYTEsrJD5dWTYLt4hafSjgg5zxS5SLLxgvbDWiDh8w+6JFihhiVElwhpavz/z4FXoEThD86fIO0QPWDj7QNKdBB4+uFl2Z7IKxnAyLvvzIjdkW3qbQdoXv3k8CA72UfLUJYJu/5mfZaz1eY2fADPsfsOKP5C/VtPkRHPLvCJHkLctRK0tzJGekEU9pBm1WyncBKnjsIob/GrhmhcUih2BCcvvV3IJ+qXFRHuWoePPT/rEPEcfAG4R+YjpaxyOXXGpjgvhuQUQVLunRKiDk23WFuIavrfkRIPCVqz7Y7RApQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=v2J1Q75wpDET7sltz6H28h1eOlt2e9gJQZO5cKxbN98=;
- b=aiDuP4PSDMzTG9gby9KJutNdJgud0j5fX2uEhvVTHON/Ojs1gRbFnrOjtruroGnf8QJ9QILaGgI3NDOSEpP0RgWtHpYpM4CIidlDlJml0yQpHNZG2PPy0RfNh/HA9HyQ8R6NivLB0N21oMGsDbgo+kVJml5LPItmDAKqjL66v/8=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB5213.namprd12.prod.outlook.com (2603:10b6:5:394::16)
- by SN7PR12MB8146.namprd12.prod.outlook.com (2603:10b6:806:323::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.17; Tue, 31 Mar
- 2026 19:57:40 +0000
-Received: from DM4PR12MB5213.namprd12.prod.outlook.com
- ([fe80::5d60:577:358f:89c4]) by DM4PR12MB5213.namprd12.prod.outlook.com
- ([fe80::5d60:577:358f:89c4%6]) with mapi id 15.20.9769.014; Tue, 31 Mar 2026
- 19:57:40 +0000
-Message-ID: <acabf03c-aad6-47b1-9f91-e6ea8e710636@amd.com>
-Date: Tue, 31 Mar 2026 15:57:37 -0400
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amd/display: Change dither policy for 10 bpc output
- back to dithering
-To: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>,
- Harry Wentland <harry.wentland@amd.com>,
- Mario Kleiner <mario.kleiner.de@gmail.com>,
- "Kovac, Krunoslav" <Krunoslav.Kovac@amd.com>
-Cc: "Cyr, Aric" <Aric.Cyr@amd.com>, "Koo, Anthony" <Anthony.Koo@amd.com>,
- "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- dri-devel <dri-devel@lists.freedesktop.org>
+Received: from mail-dl1-f52.google.com (mail-dl1-f52.google.com [74.125.82.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8F9F110E0D4
+ for <dri-devel@lists.freedesktop.org>; Tue, 31 Mar 2026 20:14:06 +0000 (UTC)
+Received: by mail-dl1-f52.google.com with SMTP id
+ a92af1059eb24-1279eced0b9so8342405c88.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 31 Mar 2026 13:14:06 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1774988046; cv=none;
+ d=google.com; s=arc-20240605;
+ b=U4dvMMkAGNuqMmmi7tjaQq2iyHLWBXeQr3nlMJAGTZ1rIvXv77+BXMWZHXQSjDApYt
+ sWJ0/ivirJrf8iM+I2vy/V/pRFJBgRVL2XxHtCBmpkUoowQERgZ7yLUriB1iaZ61++yf
+ BgSCwk6QUl5DsSh656vXWcjoEtAISVO0gk/6yuS2w7zIx25V9lMYY8An5ysDiGZrgex4
+ yI08eMzItQ8II7XTCvCl2myf2fGTcZ5lOWNDZmAoNoUIuJhNkdeuazsVbQ5nXor6c8VG
+ 6bOHGym43q2U+lrEAOYVSG/q2ZKurW2kTqu0QBEiQ3rK2WVhlIVxG7zX/EMzVge49jeN
+ uSgQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:dkim-signature;
+ bh=adlVBk9dfXeCp5nC+AZB/db4iwNHAQ6dLGmrn04g9ho=;
+ fh=yKJ3ULC6ibWcJKzGukqHas2j+dSUVKc4UMe7FOkrg9M=;
+ b=do+kiTzEPPPWbWYkft4VyPML5W6jcHdnAWKEyxw0cwVjy4C65yxchGpb5GcExYint6
+ 8x5sa18A4oVnHOU5OPzCbXL12RqHu5raSfa/Z6kbMDIkU7F509lqle8cqJrlh1yOPd0t
+ CAuT/bU2RsDPAr1ieOTVF7udZFOb0oKMsQDdhJhh72mU91cBZQchqoRvlYegdURzm+0X
+ eTzd6Utyc/193CdNDkVybBnYmeT4ItZVzofdaLi5X9XYuW2xRMha9IDZyWeVOU8ZoIJQ
+ a4Wq1LnAa41eVkB/Kj4iXEPEEbQC1s9YyTNc5R0eGXXq7FyrBK+N4lVBE/4o07GRfnzK
+ H/jg==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1774988046; x=1775592846; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=adlVBk9dfXeCp5nC+AZB/db4iwNHAQ6dLGmrn04g9ho=;
+ b=TY4Dz/IgxNCuPDfBXs3+ZN9iKwNwb0oTsY6a1vBIZX+kEJmbG1F1YrvNwWfcPkbUCP
+ CndavSQU4i0nKRzYA3PeZcD4JcE/zGqVqQDipjM7Nzv7Q1di8FostqTu60yZTuYhAbUj
+ OkgM28mmD1l44R93lCqtwAJuzdM1mJjSRI5oLGYlMxjgaapjKuq3MeEWacwHoSptZEk2
+ xshzmflEFcenfc92RD0QgElnKwkcD26o8w4xheUS6QQyKfcey7j/qzWtcALObywQgcP0
+ kIpGzSbc1zVOxg3JTGBzSAnXn4CFMnHefmO1EL8zL0UDAGKea7ukog2PHlyBigv4/3BS
+ 3S4Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1774988046; x=1775592846;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=adlVBk9dfXeCp5nC+AZB/db4iwNHAQ6dLGmrn04g9ho=;
+ b=EU6FDPat83odY1Zux9JY7qAfRoHw1Cn00Q/HlY1S9HbrkvSAqs3MgkTyqXi+Tsxx0+
+ YGRHeuoTTLKnyl+FcWkqXJgrOHKfCzLrKRQDLyCtQLyW7HPPIMSgINwKbrMsNTpKkQ7c
+ tfsQ+/3FPqciNWKKfVxjXckL8HrlLymDr+xts01hDTc11Tyqo23IMDpxZ9fksNEesvBz
+ eVRIkCoCJUW3KHlCN9uHDqmg9HUGjiaFj1zykBga/jyd01IolPzC1kzHaWWNGi56Ay/5
+ 5E1iknmupIomHjYCbcrn3ucRp2ukHOKhSh64NMUvaVMvdub6T8SdGTFr90XhWXX7tJzl
+ x9gg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUBVTxXthbbwmxXiWmxEafTVTw1nZ8BNoPromi4NfAifbO4bdGy5mNQVJwLkJFWVW1xBEjKSqfhOaA=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yye5SGcGdlNSvu8T8+zUMmUgT/kEZfVcbHpmuHP+o2D3z440Cdq
+ k8BpptxUbMjf9mcEpkHh7Wyax+PaleZB0mLu3j2m7L1c/OaMXbZzrR9Y5uK/gjC/945YbimTK2D
+ i1zMc7+K6cliWW/olvywELUEopnqp1cg=
+X-Gm-Gg: ATEYQzwzE5yEh+oKONn+wi+jpIAxtdyQeN1Iw9Ty3r+sJV9FBRNQoxNi14P8j6+Oo+F
+ /CJfXKBGAJTsI03qEh2kvwHkemCXYB6oV2se/RyfryJ2jx7y4wGwPpkkjcF19gPAdAZ/CyZBogD
+ QqMjHc8oztn/bzw4u5mT7GVQO+8TjCtdFY5Dj/49cnS8BW6Q+gIVpGZCxDRa+GRfyoznA/pylhy
+ mc7JCFeE0ND5pbLGLDf50n9KOqAPp8r1ilSlSmvqDZhYLUk/noDuR22+sJCEiWhlvguWmwzlgaR
+ 2KEKiUk=
+X-Received: by 2002:a05:7022:ec2:b0:12a:91fe:f5c0 with SMTP id
+ a92af1059eb24-12be64e9473mr526553c88.32.1774988045467; Tue, 31 Mar 2026
+ 13:14:05 -0700 (PDT)
+MIME-Version: 1.0
 References: <20260321052033.23472-1-mario.kleiner.de@gmail.com>
  <DM4PR12MB521342239D4CF694B4A68E0AE64AA@DM4PR12MB5213.namprd12.prod.outlook.com>
  <CAEsyxyiCN6KmyDBGZBJYKv+wt6w6j5QdUfTa1zJojAQ20V84xg@mail.gmail.com>
  <d6e190eb-4843-43ab-9706-fadabde9cbce@mailbox.org>
  <78da9dfc-561f-487c-8b68-0ea408819225@amd.com>
  <3d669989-fcb2-44b4-9c17-9ae3db0b6f14@mailbox.org>
-Content-Language: en-US
-From: "Kovac, Krunoslav" <kkovac@amd.com>
 In-Reply-To: <3d669989-fcb2-44b4-9c17-9ae3db0b6f14@mailbox.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YT4P288CA0027.CANP288.PROD.OUTLOOK.COM
- (2603:10b6:b01:d3::6) To DM4PR12MB5213.namprd12.prod.outlook.com
- (2603:10b6:5:394::16)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB5213:EE_|SN7PR12MB8146:EE_
-X-MS-Office365-Filtering-Correlation-Id: c210d33b-df15-4091-029f-08de8f5fc338
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|1800799024|376014|18002099003|56012099003|22082099003; 
-X-Microsoft-Antispam-Message-Info: k48+ALWUk8a+HM9NdGNaRE2KqK+aDaIB7GTNvzS/6A6wwQIBZkkcoyHIspDRSjDlha8pxeuYEXYwNB1JHM8eVp6u7gSpeW5cE/1gn9/v1/umleQRjCpkMlZGGaD1wFXzi0PhbNgJ1EWbmZu6eP+S2MsXEzrgR2iKmdx9Oy/2K1s4CiSzxOQR8JJ31kCObG4yQ251n4COWFRAzfkQzGX8b/K4gDVTY79XBZpX4AqLUGjsZ/QLcNuhsWCgArvsP2qtDyjzveFOR4eZFG4PS97qwJUCnreLBhw4mntRkAqKBjvU/1yZA7wk9iYDsP/pY6g816VKgRPQcAG+Pr/HTkDJ6VkbWMOhV2CrIIgiXwMKrNtEEhg2dbspGzb1yu172ZEDVVLXtJYZqKCN+Yi3ez9JidXVS35FSHptHDoxbYY08lYD/mjis71TPx5WvGcQtSmOzV9MgbN12MEj/U8wwS/w4pIhBJ+vCWoT9jdtuNglhoJfxeHzofTpZo4xjvnERW6t3GdFnaGwmQk3AIs6VJjv9b6vnC49qutKPkMqksLRxCwHZEQAKhabsdDxRim7pZXotwX/c6YoN2ZUHlDV03vHdewOszCbt9UZtnE/K8G1mnOtjw8jerkxQu0f5TSJmXbPqCy5C9fTl5zaqcR7uqSG0Zg9020AJkmQapyCNTEjjaffGdrLiosR4FuZ/nYRTVImHKVZ2g//0V/sJsx5uqAqiJGYQvYwDIzFroGf70u3BDY=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB5213.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014)(18002099003)(56012099003)(22082099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Ty9IVCtOci9YWlBYbzc2UlM5K1VmM1A5WFdwbzRmZWNwdW1WbitldTNud3N5?=
- =?utf-8?B?Q0pMN29zM1U4MG9pTmRrSG8zU2xYYkFpUWd3K2JOSjZnbWcyb1dYUXp0WkdL?=
- =?utf-8?B?UHhiT1BsTCt2MjZoN29WYXhYcXdIL0NFcC8weE5rbmdtejQ5cTgwM1RqVGFS?=
- =?utf-8?B?UnpSbUkwLzU4NGNLTE9tZzVFWUNIQ3g4ZGY1Z1lJNWt2S1ZGVWFFaXBGeWk3?=
- =?utf-8?B?d0NuYmFwVWFHL01wQzJTTHBUOHpGbFZhVkZWU1Nhci95SGpGL095K2J4dENx?=
- =?utf-8?B?bXlIUmlhb01PQkRUQmdGSHFGdHg2MGVzSWdockgzRk5BYjFGOFhNTFVYY1Fo?=
- =?utf-8?B?aklRWDloZEZQbGN4QkdCcFU4RjZpME9SRkJIVEEyM0swZ2FnTVAxaG4yQXNE?=
- =?utf-8?B?YmN1aERLQTVnWldGMjIxS1lwdDRsNE1zU0RIRk9zeFcxWUNhcDlFdUlqWTV2?=
- =?utf-8?B?d25Ub1hGR01UOW45aXpYSHhybGZIL3FjV0l0c0l2MWgyN3B5TlpNbVJyRS9p?=
- =?utf-8?B?R21hNmduektRTHFTY1BmUU1nYUdGaGxqc2N2YlV2ekZoZmU5eUgwak5IdVZQ?=
- =?utf-8?B?TFBJalF5SVh4dURpaEFEWXVUMGh3QWZJMThxSDhQMkR3UjBZZjRBMUJEcjc1?=
- =?utf-8?B?R3U2MXJOUGZTQ2ZxVmZGQTA5dC85WEFrdFNTRDYzNUNNc2Q2UjF1RDZteGlR?=
- =?utf-8?B?RzZTQ1dydzBoM3NjdHY3SDlSblZZK3NFTHhHdk1pVnF2aXUwWnZkZTh1eUQy?=
- =?utf-8?B?VWdMb3U5QWlvRmtvOGc0c3BtRklkYkdRUllVaE1nYitId001TTBrUWlzdVdQ?=
- =?utf-8?B?N3RUeEFqL0tiUXZTTUptS215RWdNZkdZbk9EZncrQlJDNjBNU3pzL1hxbFM2?=
- =?utf-8?B?a3IraUVzTGJVbXZtdEVGbjdjRHFHeUFYa3RObXlOS1NkYzY2bUt3cmZ0NlRY?=
- =?utf-8?B?d0J1ZnJQcVE2b0FxMVBLRk1wc3ROdUJQUjJBdDdOendmMU9oVGQwSWVnSEJy?=
- =?utf-8?B?VzFaeU9Wd0lBWEdNRTJsQVBRU1YyNWFHdzdvTG5lM1VFdDFhdnE0T2U4cGRu?=
- =?utf-8?B?SFAvUFZ5RmUyRk5kcUxaNkluMkc0TTI1VERPU3ZycCs2TEc5Ukp3NTQySkhq?=
- =?utf-8?B?NFMzeGN0elpTdGh4M2svUDJoMlZ3NjNjOUtJZjFhZW9YYmViUDB1RGxuR2VZ?=
- =?utf-8?B?VkdIWTNUaDNtdklGdURtODJEMlpzRkFVNG56eG5objArUFN4cWIzWWI2S00v?=
- =?utf-8?B?TjJKSWtHZEhHMkswemh3bFNrelpFdFhnc2FLTlIxY2lYS1hWYnNEN0U2S3hO?=
- =?utf-8?B?V09kVWtMNUcxaGhnRjlaOS9FZUVCQ0xkbEZxVTlLWk92T1J3L3lwSTU5d0RH?=
- =?utf-8?B?MCtFRHozYjVBTnJzZEpYYUw1Sll5byttMXpYVXRUWjYzY3ZNblplOXp0cVl6?=
- =?utf-8?B?bVlpTFJoS0ExdEZjWXFGdlowUzFiZ1paVVZWOTFxYTlnVTJSMHlNaWU0OW9j?=
- =?utf-8?B?NmQ2ZG1wUHJ5dm5jVGxIdVU1YTBmRzl4d0lhanBMcktFRXl5RjRPVGcrZU5h?=
- =?utf-8?B?Z05GaXpjc1YzTFd5TGgyOHZybm9jVGxlbkNqWmh3dFlHSHdHUEozTjlhQ1dU?=
- =?utf-8?B?YzZTcitWSUFUVStwQ0ptdkJQVW9sZzluNHhiN2t3bWQ4dVpNQWxXWTdNN3NT?=
- =?utf-8?B?VGVFY1hqT2w1VmE5MHNReHhSRDZXcVJQUHl3cGRKYURBYm4zemowR1l2bnhz?=
- =?utf-8?B?Tzg5R1NsVlhUb3RXMmZoMnFOZmNqUldTcmt1eG91T2wrL3Budk1PKzh4OWhy?=
- =?utf-8?B?RUtmNG5BMDlac3ZHQWR0UXNIY05xaE1PdW5DWGFYRWFTVDQrQnJ4RUxvOFE0?=
- =?utf-8?B?WWtyMDRxVE0vVlhLUitYa2dOdmtsaVdZRzRtU1diWjJZWGJ4K3hDWnRTWWQ0?=
- =?utf-8?B?R2ZvVEtILytUVlFJTkQvb25mUzA0dVZaMHpjZDNRT0JsMDN1c0R6TmZRSUYz?=
- =?utf-8?B?UENwVHEzMUh2a0lTcW9Jbjl2dHFINUVVRWo1eDI0NTRIK1VqanFhcS9pZjE2?=
- =?utf-8?B?T0JYVUFtdVhlSlpKbE5MZHNUK1d4NnZMSGdwN0tpU3gvTzU2QSswT0xVTHVo?=
- =?utf-8?B?S2N1emwvdnpnOU5TcUUyYlRhajFpWEZpMFAxbFFUVkhvbW5NRUhxQ3Bjc25w?=
- =?utf-8?B?OURLZjlEUXBRY0tuNFFQUGxsWGJham1henVFalZ3YVlyK2o0NVhEZUYxREt6?=
- =?utf-8?B?MjdVeDBBZlo5WTlQOEphb1I2ODZPemxtcjVIMGhFYmtkazRTdHlrVm94NXpR?=
- =?utf-8?Q?US9gf5kgenorlrt58Y?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c210d33b-df15-4091-029f-08de8f5fc338
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5213.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Mar 2026 19:57:40.3629 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: pMyCgxdrb7WH4r0ea69m5ESQi6JaAcWzDRpVd/paTWBolGHjk+LnlGnNCY4usvsT
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB8146
+From: Mario Kleiner <mario.kleiner.de@gmail.com>
+Date: Tue, 31 Mar 2026 22:13:29 +0200
+X-Gm-Features: AQROBzBmAgvgKnAWQAopD4QXZRTRDfF6FFL1YbUaCBrKBwQkirDJAWsvUTo1US8
+Message-ID: <CAEsyxyie_2Tr9_3vqz3N=_9u=Z1b4SqBGMcptKW454XH5ZEsQw@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/display: Change dither policy for 10 bpc output
+ back to dithering
+To: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>
+Cc: Harry Wentland <harry.wentland@amd.com>, "Kovac,
+ Krunoslav" <Krunoslav.Kovac@amd.com>, 
+ "Cyr, Aric" <Aric.Cyr@amd.com>, "Koo, Anthony" <Anthony.Koo@amd.com>, 
+ "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>, 
+ dri-devel <dri-devel@lists.freedesktop.org>
+Content-Type: multipart/alternative; boundary="000000000000ee4641064e579b2a"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -146,30 +112,307 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 3/31/2026 03:16, Michel Dänzer wrote:
+--000000000000ee4641064e579b2a
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+To clarify: I do agree with Michel and Kruno that in most typical use cases
+you'd probably want to get all or as much of the internal HW pipelines
+precision as possible to the Eyes of the person in front of the display, or
+at least an approximation of it. My understanding of current AMD hardware
+is that you can have an up to 16 bpc framebuffer, which gets
+truncated/rounded down to 12 bpc somewhere in the pipeline (gamma tables,
+color transformation matrices, etc.) and then retained at 12 bpc until
+shortly before the actual output, which can be 6, 8, 10 or 12 bpc depending
+on connection type, bandwidth, "max bpc" etc.
+
+If the final output depth is lower than 12 bpc one would usually still want
+an approximation of 12 bpc reaching the "eyes" of the person
+(/animal/retina in some of the use cases of my research users) in front of
+the display, and spatial dithering down from 12 bpc -> 10/8/6 bpc is the
+way to go. That's also true for most of my users use cases, and especially
+for the use cases involving 16 bpc framebuffers/surfaces.
+
+Some more special use cases will require an absolutely perfect identity
+passthrough of pixel color values, where any kind of transformation in the
+pipeline, including spatial dithering, would be bad. Some of your customers
+seem to require this for 10 bpc output. Some of my users require this for 8
+bpc output of a 8 bpc framebuffer. Specifically, some neuroscience research
+requires up to 16 bpc color or luminance precision, but all graphics cards
+and normal displays max out at 12 bpc. There exist special display devices
+and converters that can do up to 16 bpc precision (native or via some form
+of spatial or temporal dithering), e.g., the Bits# or Display++ from
+Cambridge Research Systems (UK) and Datapixx, ViewPixx and ProPixx devices
+from VPixx in Canada. These are essentially active DVI-D or DisplayPort 8
+bpc to 14 bpc or 16 bpc VGA analog converters with 14 or 16 DAC's, or
+special purpose LCD panels or DLP video projectors which can do 14/16 bpc
+precision. Because commercially available gpu's and PHY's do not support
+true 16 bpc output (the DP and HDMI standards specify such signal formats,
+but no actual transmitter hardware afaik), these devices encode 16 bpc
+color content on top of a 8 bpc framebuffer and link: The software renders
+16 bpc unorm/fp or 32 bpc float content and then uses GLSL shaders to split
+up 16 bpc into 8 MSB and 8 LSB and puts the 8 MSB into the 8 bpc red
+channel and 8 LSB into the 8 bpc blue channel (and 8 bpc color index
+overlay into the 8 bpc blue channel) to false-color encode a pure grayscale
+image + some 256 color index palette overlay. Or for true color images, it
+sacrifices half the horizontal resolution by putting 8 MSB of each color
+channel into the even pixel columns, and the 8 LSB into the odd pixel
+columns. So a false color 8 rgb8 framebuffer -> pixel identity passthrough
+-> 8 bpc link output via DVI-D or DP, and the video sink then decodes and
+reassembles again into 16 bpc color/luminance content and uses special
+display hardware to these 16 bpc into the eyes of the being in front of the
+display. Some medical imaging displays, e.g., for Radiology use (e.g.,
+cancer screening) in hospitals or at eye doctors, also use such special
+framebuffer encodings to get > 12 bpc content out of the gpu Siemens
+Medical and similar companies sell these for research and medical use.
+
+Another use case of my users requiring perfect pixel identity passthrough
+is to encode side-band signals into the scanlines of the vactive area of an
+image, encoding binary control data and packets as false color pixel
+values, similar to the various info packets transmitted inside vblank. This
+for control data that is very custom and not standardized in any Vesa or
+HDMI standard, e.g., in my case to control special neuroscience hardware,
+e.g., sound microsecond synchronized to pictures, sending various analog
+waveforms to electrophysiology equipment or haptic stimulation, or digital
+trigger signals to transmagnetic stimulators (magnetic pulses to brain
+regions), or start/stop/synchronize various recording equipment (fMRI and
+MEG scanners, electrophysiological recordings, video capture etc.)
+
+For the pixel identity passthrough, the difference is that I only need it
+for 8 bpc framebuffers to 8 bpc (DVI-D or DP) outputs atm., and that works
+fine under OpenGL with an identity gamma table loaded, despite spatial
+dithering down to 8 bpc active. Right now, I neither have the need nor the
+equipment to verify 10 bpc identity passthrough, as my capture hw can only
+process 8 bpc signals.
+
+I don't think there is an automated way for the driver to guess the proper
+configuration in all cases. The proper solution would be a drm connector
+property that can be queried/set to control dithering on/off/method/target
+depth, and plumb that through. Or maybe something that could be derived
+from existing connector properties? E.g., if a content property has
+something standardized that essentially requires identity passthrough? In
+my case, it is important that such settings still fully work under native
+X11 via RandR properties. Something that is only realistically accessible
+via an atomic client or Wayland server is insufficient for me.
+
+So yes, as Michel points out, there is a disconnect between the framebuffer
+color depth and hw pipeline depth and what dither settings should be used.
+But Harry's patch, if it worked, would be at least a good enough
+guess-o-matic or heuristic to make the situation better in the short
+term, even if it is not optimal. Or at least for my users use cases it
+would make it better, as for my use cases the framebuffer color depth
+usually corresponds to what my users need as effective output precision.
+For me there is also the urgency of wanting to have a not broken situation
+for Linux 7.0 and upcoming Ubuntu 26.04-LTS / Fedora Core 44. If I have the
+choice of having the current state, or this patch, I'd gladly have this
+patch as a step up.
+
+I hoped this patch would be still simple and contained and early enough, to
+make it into drm-fixes for Linux 7.0, and maybe be backportable to older
+kernels, as all kernels since late 2023 are impaired from my use cases
+point of view. But as I said, my testing didn't confirm the patch is
+actually working - it always ends up enabling dithering. Which, to be
+sneaky, would also be a step up for me, as that "only" breaks use cases
+that don't affect my users specifically :/
+
+On Tue, Mar 31, 2026 at 9:16=E2=80=AFAM Michel D=C3=A4nzer <michel.daenzer@=
+mailbox.org>
+wrote:
+
 > On 3/30/26 19:36, Harry Wentland wrote:
->> On 2026-03-30 12:20, Michel Dänzer wrote:
->>> On 3/24/26 20:20, Mario Kleiner wrote:
->>>> On Sun, Mar 22, 2026 at 7:11 PM Kovac, Krunoslav <Krunoslav.Kovac@amd.com <mailto:Krunoslav.Kovac@amd.com>> wrote:
->>
->>>>>      I believe we don't have surface info in that code, but one way to work around it would be to use spatial dithering for FP16/ARGB16 and rounding for 10 bits. But if we just switch to spatial, some of the earlier complaints about 10-bit output having one-off bit errors will be coming back.
->>>>
->>>> Looking at all callers of resource_build_bit_depth_reduction_params(), they all have access to the associated "struct pipe_ctx", which should give access to pipe_ctx ->plane_state->format of an associated display plane. I could prepare a patch that passes the pipe_ctx from each caller into resource_build_bit_depth_reduction_params() and that function could check if a 16 bpc framebuffer is in use and switch to spatial dithering down-to-10-bpc in this case, and leave the rounding/truncation to 10 bpc otherwise.
->>>
->>> That doesn't really make sense, the output of the display HW colour pipeline has more than 10 bpc regardless of framebuffer format.
->>>
->>
->> The output will be determined by the link bandwidth, display-advertised supported bpc, and userspace-selected "max bpc" on a drm_connector. This could very well be 10 bpc, 8 bpc, even 6 bpc. Or are you referring to the internal DCN HW representation of the values?
-> 
+> > On 2026-03-30 12:20, Michel D=C3=A4nzer wrote:
+> >> On 3/24/26 20:20, Mario Kleiner wrote:
+> >>> On Sun, Mar 22, 2026 at 7:11=E2=80=AFPM Kovac, Krunoslav <
+> Krunoslav.Kovac@amd.com <mailto:Krunoslav.Kovac@amd.com>> wrote:
+> >
+> >>>>     I believe we don't have surface info in that code, but one way t=
+o
+> work around it would be to use spatial dithering for FP16/ARGB16 and
+> rounding for 10 bits. But if we just switch to spatial, some of the earli=
+er
+> complaints about 10-bit output having one-off bit errors will be coming
+> back.
+> >>>
+> >>> Looking at all callers of resource_build_bit_depth_reduction_params()=
+,
+> they all have access to the associated "struct pipe_ctx", which should gi=
+ve
+> access to pipe_ctx ->plane_state->format of an associated display plane. =
+I
+> could prepare a patch that passes the pipe_ctx from each caller
+> into resource_build_bit_depth_reduction_params() and that function could
+> check if a 16 bpc framebuffer is in use and switch to spatial dithering
+> down-to-10-bpc in this case, and leave the rounding/truncation to 10 bpc
+> otherwise.
+> >>
+> >> That doesn't really make sense, the output of the display HW colour
+> pipeline has more than 10 bpc regardless of framebuffer format.
+> >>
+> >
+> > The output will be determined by the link bandwidth, display-advertised
+> supported bpc, and userspace-selected "max bpc" on a drm_connector. This
+> could very well be 10 bpc, 8 bpc, even 6 bpc. Or are you referring to the
+> internal DCN HW representation of the values?
+>
 > I am indeed.
-> 
->> They're higher, but that's somewhat irrelevant.
-> 
-> How so? Surely dithering is applied to those values, not to the original values sampled from the framebuffer. 
+>
+> > They're higher, but that's somewhat irrelevant.
+>
+> How so? Surely dithering is applied to those values, not to the original
+> values sampled from the framebuffer.
+>
+>
+> --
+> Earthling Michel D=C3=A4nzer       \        GNOME / Xwayland / Mesa devel=
+oper
+> https://redhat.com             \               Libre software enthusiast
+>
 
-Our internal precision is higher than 12, but since we first "trim" to 12bpc and then dither to 10bpc, bypass case is actually ok in practice even with dithering.
+--000000000000ee4641064e579b2a
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Normally for this case where we want 10bpc to go out as-is we would put HW color pipeline blocks to bypass. There are some exceptions however, and unfortunately one of them is not that uncommon. It's the multi-plane case where linear blending is desired, which is the norm for HDR. In this case, we do degamma, blend, regamma.
-Degamma+regamma can be set in a way that makes them true inverses at 10bpc precision for common EOTFs, but not with dithering.
-It's pretty hard to notice difference between dithering and rounding at 10bpc even with a colorimeter, and since we had complaints about 10-bit one-off errors, we went with rounding. I still think it's a preferred option for 10bpc surfaces.
+<div dir=3D"ltr"><div>To clarify: I do agree with Michel and Kruno that in =
+most typical use cases you&#39;d probably want to get all or as much of the=
+ internal HW pipelines precision as possible to the Eyes of the person in f=
+ront of the display, or at least an approximation of it. My understanding o=
+f current AMD hardware is that you can have an up to 16 bpc framebuffer, wh=
+ich gets truncated/rounded down to 12 bpc somewhere in the pipeline (gamma =
+tables, color transformation matrices, etc.) and then retained at 12 bpc un=
+til shortly before the actual output, which can be 6, 8, 10 or 12 bpc depen=
+ding on connection type, bandwidth, &quot;max bpc&quot; etc.</div><div><br>=
+</div><div>If the final output depth is lower than 12 bpc one would usually=
+ still want an approximation of 12 bpc reaching the &quot;eyes&quot; of the=
+ person (/animal/retina in some of the use cases of my research users) in f=
+ront of the display, and spatial dithering down from 12 bpc -&gt; 10/8/6 bp=
+c is the way=C2=A0to go. That&#39;s also true=C2=A0for most of my users use=
+ cases, and especially for the use cases involving 16 bpc framebuffers/surf=
+aces.</div><div><br></div><div>Some more special use cases will require an =
+absolutely perfect identity passthrough of pixel color values, where any ki=
+nd of transformation in the pipeline, including spatial dithering, would be=
+ bad. Some of your customers seem to require this for 10 bpc output. Some o=
+f my users require this for 8 bpc output of a 8 bpc framebuffer. Specifical=
+ly, some neuroscience research requires up to 16 bpc color or luminance pre=
+cision, but all graphics cards and normal displays max out at 12 bpc. There=
+ exist special display devices and converters that can do up to 16 bpc prec=
+ision (native or via some form of spatial or temporal dithering), e.g., the=
+ Bits# or Display++ from Cambridge Research Systems (UK) and Datapixx, View=
+Pixx and ProPixx devices from VPixx in Canada. These are essentially active=
+ DVI-D or DisplayPort 8 bpc to 14 bpc or 16 bpc VGA analog converters with =
+14 or 16 DAC&#39;s, or special purpose LCD panels or DLP video projectors w=
+hich can do 14/16 bpc precision. Because commercially available gpu&#39;s a=
+nd PHY&#39;s do not support true 16 bpc output (the DP and HDMI standards s=
+pecify such signal formats, but no actual transmitter hardware afaik), thes=
+e devices encode 16 bpc color content on top of a 8 bpc framebuffer and lin=
+k: The software renders 16 bpc unorm/fp or 32 bpc float content and then us=
+es GLSL shaders to split up 16 bpc into 8 MSB and 8 LSB and puts the 8 MSB =
+into the 8 bpc red channel and 8 LSB into the 8 bpc blue channel (and 8 bpc=
+ color index overlay into the 8 bpc blue channel) to false-color encode a p=
+ure grayscale image=C2=A0+ some 256 color index palette overlay. Or for tru=
+e color images, it sacrifices half the horizontal resolution by putting 8 M=
+SB of each color channel into the even pixel columns, and the 8 LSB into th=
+e odd pixel columns. So a false color 8 rgb8 framebuffer -&gt; pixel identi=
+ty passthrough -&gt; 8 bpc link output via DVI-D or DP, and the video sink =
+then decodes and reassembles again into 16 bpc color/luminance content and =
+uses special display hardware to these 16 bpc into the eyes of the being in=
+ front of the display. Some medical imaging displays, e.g., for Radiology u=
+se (e.g., cancer screening) in hospitals or at eye doctors, also use such s=
+pecial framebuffer encodings to get &gt; 12 bpc content out of the gpu Siem=
+ens Medical and similar companies sell these for research and medical use.<=
+/div><div><br></div><div>Another use case of my users requiring perfect pix=
+el=C2=A0identity passthrough is to encode side-band signals into the scanli=
+nes of the vactive area of an image, encoding binary control data and packe=
+ts as false color pixel values, similar to the various info packets transmi=
+tted inside vblank. This for control data that is very custom and not stand=
+ardized in any Vesa or HDMI standard, e.g., in my case to control special n=
+euroscience hardware, e.g., sound microsecond synchronized to pictures, sen=
+ding various analog waveforms to electrophysiology equipment or haptic stim=
+ulation, or digital trigger signals to transmagnetic stimulators (magnetic =
+pulses to brain regions), or start/stop/synchronize various recording equip=
+ment (fMRI and MEG scanners, electrophysiological recordings, video capture=
+ etc.)</div><div><br></div><div>For the pixel identity passthrough, the dif=
+ference is that I only need it for 8 bpc framebuffers to 8 bpc (DVI-D or DP=
+) outputs atm., and that works fine under OpenGL with an identity gamma tab=
+le loaded, despite spatial dithering down to 8 bpc active. Right now, I nei=
+ther have the need nor the equipment to verify 10 bpc identity passthrough,=
+ as my capture hw can only process 8 bpc signals.</div><div><br></div><div>=
+I don&#39;t think there is an automated way for the driver to guess the pro=
+per configuration in all cases. The proper solution would be a drm connecto=
+r property that can be queried/set to control dithering on/off/method/targe=
+t depth, and plumb that through. Or maybe something that could be derived f=
+rom existing connector properties? E.g., if a content property has somethin=
+g standardized that essentially requires identity passthrough? In my case, =
+it is important that such settings still fully work under native X11 via Ra=
+ndR properties. Something that is only realistically accessible via an atom=
+ic client or Wayland server is insufficient for me.</div><div><br></div><di=
+v>So yes, as Michel points out, there is a disconnect between the framebuff=
+er color depth and hw pipeline depth and what dither settings should be use=
+d. But Harry&#39;s patch, if it worked, would be at least a good enough gue=
+ss-o-matic or heuristic to make the situation better in the short term,=C2=
+=A0even if it is not optimal. Or at least for my users use cases it would m=
+ake it better, as for my use cases the framebuffer color depth usually corr=
+esponds to what my users need as effective output precision. For me there i=
+s also the urgency of wanting to have a not broken situation for Linux 7.0 =
+and upcoming Ubuntu 26.04-LTS / Fedora Core 44. If I have the choice of hav=
+ing the current state, or this patch, I&#39;d gladly have this patch as a s=
+tep up.</div><div><br></div><div>I hoped this patch would be still simple a=
+nd contained and early enough, to make it into drm-fixes for Linux 7.0, and=
+ maybe be backportable to older kernels, as all kernels since late 2023 are=
+ impaired from my use cases point of view. But as I said, my testing didn&#=
+39;t confirm the patch is actually working - it always ends up enabling dit=
+hering. Which, to be sneaky, would also be a step up for me, as that &quot;=
+only&quot; breaks use cases that don&#39;t affect my users specifically :/<=
+/div></div><br><div class=3D"gmail_quote gmail_quote_container"><div dir=3D=
+"ltr" class=3D"gmail_attr">On Tue, Mar 31, 2026 at 9:16=E2=80=AFAM Michel D=
+=C3=A4nzer &lt;<a href=3D"mailto:michel.daenzer@mailbox.org">michel.daenzer=
+@mailbox.org</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" styl=
+e=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);paddin=
+g-left:1ex">On 3/30/26 19:36, Harry Wentland wrote:<br>
+&gt; On 2026-03-30 12:20, Michel D=C3=A4nzer wrote:<br>
+&gt;&gt; On 3/24/26 20:20, Mario Kleiner wrote:<br>
+&gt;&gt;&gt; On Sun, Mar 22, 2026 at 7:11=E2=80=AFPM Kovac, Krunoslav &lt;<=
+a href=3D"mailto:Krunoslav.Kovac@amd.com" target=3D"_blank">Krunoslav.Kovac=
+@amd.com</a> &lt;mailto:<a href=3D"mailto:Krunoslav.Kovac@amd.com" target=
+=3D"_blank">Krunoslav.Kovac@amd.com</a>&gt;&gt; wrote:<br>
+&gt; <br>
+&gt;&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0I believe we don&#39;t have surface inf=
+o in that code, but one way to work around it would be to use spatial dithe=
+ring for FP16/ARGB16 and rounding for 10 bits. But if we just switch to spa=
+tial, some of the earlier complaints about 10-bit output having one-off bit=
+ errors will be coming back.<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt; Looking at all callers of=C2=A0resource_build_bit_depth_reduct=
+ion_params(), they all have access to the associated &quot;struct pipe_ctx&=
+quot;, which should give access to pipe_ctx -&gt;plane_state-&gt;format of =
+an associated display plane. I could prepare a patch that passes the pipe_c=
+tx from each caller into=C2=A0resource_build_bit_depth_reduction_params() a=
+nd that function could check if a 16 bpc framebuffer is in use and switch t=
+o spatial dithering down-to-10-bpc in this case, and leave the rounding/tru=
+ncation to 10 bpc otherwise.<br>
+&gt;&gt;<br>
+&gt;&gt; That doesn&#39;t really make sense, the output of the display HW c=
+olour pipeline has more than 10 bpc regardless of framebuffer format.<br>
+&gt;&gt;<br>
+&gt; <br>
+&gt; The output will be determined by the link bandwidth, display-advertise=
+d supported bpc, and userspace-selected &quot;max bpc&quot; on a drm_connec=
+tor. This could very well be 10 bpc, 8 bpc, even 6 bpc. Or are you referrin=
+g to the internal DCN HW representation of the values?<br>
+<br>
+I am indeed.<br>
+<br>
+&gt; They&#39;re higher, but that&#39;s somewhat irrelevant.<br>
+<br>
+How so? Surely dithering is applied to those values, not to the original va=
+lues sampled from the framebuffer.<br>
+<br>
+<br>
+-- <br>
+Earthling Michel D=C3=A4nzer=C2=A0 =C2=A0 =C2=A0 =C2=A0\=C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 GNOME / Xwayland / Mesa developer<br>
+<a href=3D"https://redhat.com" rel=3D"noreferrer" target=3D"_blank">https:/=
+/redhat.com</a>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0\=C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0Libre software enthusiast<br>
+</blockquote></div>
 
+--000000000000ee4641064e579b2a--
