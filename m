@@ -4,95 +4,95 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 573C1FF60E7
-	for <dri-devel@archiver.kernel.org>; Tue, 31 Mar 2026 08:23:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B4D97FF60E7
+	for <dri-devel@archiver.kernel.org>; Tue, 31 Mar 2026 08:23:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A16E810E62A;
-	Tue, 31 Mar 2026 08:22:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F0B3710E7E6;
+	Tue, 31 Mar 2026 08:23:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="F+7bvyny";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="drrzuRri";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="lAYcu7qa";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="FlOQ1StL";
 	dkim-atps=neutral
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
  [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0FDBF10E561
- for <dri-devel@lists.freedesktop.org>; Tue, 31 Mar 2026 08:22:57 +0000 (UTC)
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 877DF10E561
+ for <dri-devel@lists.freedesktop.org>; Tue, 31 Mar 2026 08:23:22 +0000 (UTC)
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 62V7OS7v2465180
- for <dri-devel@lists.freedesktop.org>; Tue, 31 Mar 2026 08:22:57 GMT
+ 62V84BeJ430979
+ for <dri-devel@lists.freedesktop.org>; Tue, 31 Mar 2026 08:23:21 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- Ty9ajhQdOOIwc79Wf8xk5txDu2PvCUdpTXfca71qAjU=; b=F+7bvynyr19IUZqn
- bG9LLBFKsQWN+ClFKtNxECjQmi2H3DaVvZOZn9uH6ocEmFgJNqKALpkOPFAFUWRs
- bSucBFqvewzjj+ZRjxRt1ki/mh76TVAwvLtShNuWwVIPSyNm9xtXMNzcdYP+pDvL
- GMGAiJKXlJbjgGyKU/sAWLyyz5X+cPLFkWrA76d19hY5BsAr/RvtafD9ACpdR5GR
- P+Evy/Fx8b5zF8u0iCHfMg0PpNkhV/haoVtgtaea/BopGnE9P2Z9DcSHik07pOjd
- KIbFqbVLEIK4xfHeM2Bg9GKNcaEyoJ4pL73IAMrorwK+Pa97R5GQ3K9uNcuuAWWd
- lVOc0w==
-Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com
- [209.85.219.72])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d89ut88y2-1
+ oQq1wkGEX+ClBiMhfWlR5FzeIGm8ijkGs4W5JaGUg6U=; b=lAYcu7qakxGiVyjL
+ 8XBGCUUob2SLtzam9C8y87L6fbi0YUk/d65e9+s9Hof6kl2P35yIucHWo1RbioJ6
+ zECkpC+nkcVn95joURvyTW3qpdfZfYOUEwNdeV5RxoMqVVvyHTE8DAMGx2zz2w6u
+ HDJMDg7BQwIAaUZW6s5QWDTrNXYFljHszAlmbb7P/DT6o1oTFJm+9AegtAHKPzyb
+ C8QoYZ+fnXJe2fG9dxD1W0GC3/HISWr9/XSX3cVKXiIs6bwlwKDmgGX2f0JpSrQ3
+ Lk7A9cJORrn9hlAKVD3TD3ponHuqmgHgYRDs6YC4qVB1PcOhOF4LvQwUbwOHr1vm
+ fEfGow==
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com
+ [209.85.160.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d84bfhead-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Tue, 31 Mar 2026 08:22:56 +0000 (GMT)
-Received: by mail-qv1-f72.google.com with SMTP id
- 6a1803df08f44-89ed6f0c71aso11815226d6.1
- for <dri-devel@lists.freedesktop.org>; Tue, 31 Mar 2026 01:22:56 -0700 (PDT)
+ for <dri-devel@lists.freedesktop.org>; Tue, 31 Mar 2026 08:23:21 +0000 (GMT)
+Received: by mail-qt1-f200.google.com with SMTP id
+ d75a77b69052e-50943e69b08so19644911cf.2
+ for <dri-devel@lists.freedesktop.org>; Tue, 31 Mar 2026 01:23:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1774945376; x=1775550176;
+ d=oss.qualcomm.com; s=google; t=1774945401; x=1775550201;
  darn=lists.freedesktop.org; 
  h=content-transfer-encoding:in-reply-to:from:content-language
  :references:cc:to:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=Ty9ajhQdOOIwc79Wf8xk5txDu2PvCUdpTXfca71qAjU=;
- b=drrzuRrimxE/uoMIu+uUE+UIsH9KMc/XnDSjR+d7tyHLGLCOr5P5ONdX76VfXvkWJN
- r+GBS4w9IMz4xyC1tbLbRFJwy8dbU9+IjbVkXcIaX676EGznnQLlBKbqysIUkv3xyJIm
- HfMUE+yLPJcROwnnCdXhF2mBweusS8fC1C0bzbNf/ZGba/Wvl7J8civAMGYhM2fjhI4A
- OhgT2IPAuNWD5uD2OxQOUZeVdPxGGqVpQdxh92GjpltHANi5wUbBwvidgwTUUEEw5/7c
- aOlMWX1uXJSZwRJWB3evg2NqpJu8139nsXteVkJtZ58qko+xxkuNcWhRZcvUEXVznNGC
- 6ehA==
+ bh=oQq1wkGEX+ClBiMhfWlR5FzeIGm8ijkGs4W5JaGUg6U=;
+ b=FlOQ1StLCcZk+KueV/AO/l0H6r+fuigIh003gTVtqiqaoss6H417ZOIcgzybPW/qIw
+ gxqwyd6X58EGPvKOrzAjayM3bXe3TKyzo53cYlOkQXdczqdpco+bV9mwWOPnd/Fnjl/e
+ kopxxhpRJWQW6B31YaQ2bX32cVengWL7A+MrIBYWNdBYW/WDC5NcINGPlU8niWBgw8mg
+ 5tT2PqmohuiTDfa4/Jb/8k9rleE/beqB6VXsQzNnxfCetMCkJuC+aglilx/obikIlcwE
+ OWDLIAlNN9CghttcVPGGkaqNmMLxo38wED3Ghzo8V6W2/H4ck3FJX6Ue0FyziK+L2JEc
+ 8eBg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774945376; x=1775550176;
+ d=1e100.net; s=20251104; t=1774945401; x=1775550201;
  h=content-transfer-encoding:in-reply-to:from:content-language
  :references:cc:to:subject:user-agent:mime-version:date:message-id
  :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=Ty9ajhQdOOIwc79Wf8xk5txDu2PvCUdpTXfca71qAjU=;
- b=NaM5FvNiuez5sYpLxshtjkiR6enkDkeRNx0NIua8vzpGqAFA+VvBCWSYed97gBCLDo
- 9ShmJWxMbY8JPIPRHbbsjEg2h9PjUP8qrRTPQcUS8PLZJ6XQ3R4c4y3oIOEAS67GIjZJ
- WYPpqZnnzjiJmEIQk3PCkDTCJ4qmZ6bgSyPDbfewID8Iey7vRLPkq9h4EVD7botgXJAa
- U9UsVlmAL5IY1vokmmedQmOPoRwq0lHT8q6yF5kpSyFuVnoOPc6msZB1njrLLQjTNA0T
- tYFl1p+sFkj6b21mbqaoCfV+14CGFYDs/+uZcx21t7vBwrq3ppF0CS2faCxKkyt49FMC
- Ge3A==
+ bh=oQq1wkGEX+ClBiMhfWlR5FzeIGm8ijkGs4W5JaGUg6U=;
+ b=oB2S6yxhtN7stvqwe1FwQMlXprRk8UA7a0aSgBa413YTOYBKVn7KB1BA3VxqjfUxIA
+ rE4Q2tyaQVfi1kHH/s/CLVUshV+5QUddKf97aVfluDgDHEwNkwto2/77G1R8QMl+sW/l
+ xhxQ7HwHjuy3k4gY6ha50zskInF9eAfJ73eiHRKVgWgROPmZb1mu2SQDOmiFEucYS0DD
+ Bi8Oqb50ix7H3JNU2kzWozP+SRK2s/DDIQQpC6PdwI7eCDVGJo7d/0VOX9jJj6nwZOa+
+ umyAqndunguTswXlRUt/0S/4mVQ3cu0yQ615yPyBzsfdeIknvcyEg25bWbkJ4wSDn2kd
+ JnkA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUCwDZOboxD/u5l01azQH4s6AUg01fGFxtljl44uMkZtGDp+PH0seYnAGOtIpvllZO0mCCqlyPJ5N0=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yw2B1fyiRK5an6FdgF1wOK3rsV6SwAZ14+wOJz0pcoaf80a3NWK
- h90R4x1/TdM5L0rSESx+E6Yf5CqzqN4kE/hmScE3DGAxu/zl5aE7JQGucugHnz9PFkyKpVPtfJt
- hMH3fsIiFG0XkpIb5j9QhWeCMotJkRG78RZAplnphNCFh0cnq6aX1oy9i+z0iBh2Uu+OjoEU=
-X-Gm-Gg: ATEYQzxALfXB7r/kvasjS2GAb79K3OsxcJF9qNDziADqplde0qApWFIDTR4Je0vx8rW
- WEIjirGWLqMPKNgjqM4XHYiI2Q+6Wzc2F9xvHC8o3zTD3mbAAPUwJgCT2JNUQlxvggAia49ww0T
- p6K3xDOSD362L8Sr0ZPJByGcDvzeEfLIxqTvfDYCy1KyyUQQOS5iWkViKyGfP3cJY5HW5S4wTLl
- Rq/T55sIhS/PJiVKnX7KQVrd5PD5vLh5FVEe9FFiSMG1ggKXiVuiTafjpAOuuDMIZavqoZz6Z5b
- V8gWDHsJmiHZzactRuX9jXzKkb8rwdPVHrIslkZKxF2cuqa6KW6p9524EmgsXq7ef4gR1kajrbf
- rY0AYCcKzTXVtQzqIlskukB5bGJqq7pdKSQ+jId/6EWbeYkOTHb+VETrUJz30tFQa9s5+zCLpeK
- qw4F8=
-X-Received: by 2002:a05:6214:766:b0:89c:5fbe:cc5b with SMTP id
- 6a1803df08f44-89ce8b8423dmr160477566d6.0.1774945376394; 
- Tue, 31 Mar 2026 01:22:56 -0700 (PDT)
-X-Received: by 2002:a05:6214:766:b0:89c:5fbe:cc5b with SMTP id
- 6a1803df08f44-89ce8b8423dmr160477306d6.0.1774945375960; 
- Tue, 31 Mar 2026 01:22:55 -0700 (PDT)
+ AJvYcCVmFaK6hw7Gk6/NnIZqkurtgKOXTSJRIArZiHqxWX/ALcTW6y2sN6GkfO/TEiOi5H6aJOb75tveIh8=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxeKBp3Se3AKhhIst9CZb5FieqcrahPfmDcKjtjztvTjM12KjFo
+ i6mNx7Cvsa3gWkwQqXzm8a4CYfrxCP6cwTEU97UK2lrgztBR7QVNkPf46FD3UI6Hsi7KbT2cPB9
+ pfMTSS93LYQmOsAq+IX/bAvtWGOUQbLlJtxFNX2e8ZoWo4kRWgGAm8jmWDOVKD/DBPAxg4rA=
+X-Gm-Gg: ATEYQzzZcTSnnMEoWfaeyaCICTmq01edTJ4dnMPNKTwtMHXi1Bn7mKkrn/O4q/FdaHO
+ H192DuaUMQ82KTz6J8aDGLbsU60Zcl4N7n6UQklnks3RLVl2PT5kiLXh2eB7rkRt2Ov36bNkK60
+ SNBl10nc27JK1PObsxqXyKyr5iF0fGH7n315gkcG+AvW68gGDvqrW9NoyTHIA3jiMcLFHm7jBp2
+ IUzNJQiswP2qpBOG0ZRxw/9yJGGgi/7seBV8e1q8p9r4KlkRT11TmZTLq0/Xtt9UvnP7MlmJeHR
+ aChebXECSmbO4SqRRMUlyGxtKXBkAf/axOHl9nmbp/6VWodgNeXyg7GpHbIY9ez9NzPXqR2Zr/l
+ wKmP2U5KB6P7BXQI1zQ2XRGUJsz6oLRaPBLg4SP1h3+qu97dmLCkREKp2rX38bg8O/foZqc8Z7c
+ NLlmE=
+X-Received: by 2002:a05:622a:30b:b0:509:15aa:cf03 with SMTP id
+ d75a77b69052e-50ba3970575mr159030391cf.4.1774945400998; 
+ Tue, 31 Mar 2026 01:23:20 -0700 (PDT)
+X-Received: by 2002:a05:622a:30b:b0:509:15aa:cf03 with SMTP id
+ d75a77b69052e-50ba3970575mr159030271cf.4.1774945400588; 
+ Tue, 31 Mar 2026 01:23:20 -0700 (PDT)
 Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl.
  [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b9b7ae522d4sm387153766b.22.2026.03.31.01.22.52
+ 4fb4d7f45d1cf-66bf3e16f80sm1743697a12.25.2026.03.31.01.23.17
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 31 Mar 2026 01:22:54 -0700 (PDT)
-Message-ID: <2108dfe4-bbe9-48b8-b77f-e7d2904f18b4@oss.qualcomm.com>
-Date: Tue, 31 Mar 2026 10:22:52 +0200
+ Tue, 31 Mar 2026 01:23:19 -0700 (PDT)
+Message-ID: <a5608e05-ce8e-42bd-8178-d197e6105b58@oss.qualcomm.com>
+Date: Tue, 31 Mar 2026 10:23:16 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 10/17] drm/msm/a6xx: Update HFI definitions
+Subject: Re: [PATCH v2 02/17] drm/msm/a8xx: Fix the ticks used in submit traces
 To: Akhil P Oommen <akhilpo@oss.qualcomm.com>
 Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
@@ -108,38 +108,38 @@ Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>
 References: <20260327-a8xx-gpu-batch2-v2-0-2b53c38d2101@oss.qualcomm.com>
- <20260327-a8xx-gpu-batch2-v2-10-2b53c38d2101@oss.qualcomm.com>
- <3465929e-262f-407e-bc3d-7564787bce3d@oss.qualcomm.com>
- <67cca0c6-669c-4dcf-be3f-76fc46d1e59f@oss.qualcomm.com>
+ <20260327-a8xx-gpu-batch2-v2-2-2b53c38d2101@oss.qualcomm.com>
+ <438fd5f0-8a03-4d86-bc5a-6fd32c7a6480@oss.qualcomm.com>
+ <d1122bb6-da47-4089-96d8-9a3e7673fa0e@oss.qualcomm.com>
 Content-Language: en-US
 From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <67cca0c6-669c-4dcf-be3f-76fc46d1e59f@oss.qualcomm.com>
+In-Reply-To: <d1122bb6-da47-4089-96d8-9a3e7673fa0e@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: XhlO1DDDcU2TLGp6upodahn6ccdvbN66
-X-Authority-Analysis: v=2.4 cv=C5LkCAP+ c=1 sm=1 tr=0 ts=69cb8461 cx=c_pps
- a=7E5Bxpl4vBhpaufnMqZlrw==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
+X-Authority-Analysis: v=2.4 cv=INwPywvG c=1 sm=1 tr=0 ts=69cb8479 cx=c_pps
+ a=JbAStetqSzwMeJznSMzCyw==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
  a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=EUspDBNiAAAA:8 a=xmSHU_qjkZn9DgC3Z3sA:9 a=QEXdDO2ut3YA:10
- a=pJ04lnu7RYOZP9TFuWaZ:22
-X-Proofpoint-GUID: XhlO1DDDcU2TLGp6upodahn6ccdvbN66
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzMxMDA3OSBTYWx0ZWRfX98FcF1a4sofA
- XXHkv/ajtkkRV+sPKFGWXK46/db+ObkanDwKezbwqFOAkpWgoewWRIz8KzztF9xo/Db/dG/ohC8
- s0XbSc0fDZ8WaUxACTPK9EKs0MDGV8OHjHEPPWJrwADxzFuJ4UJeo3giZN1a9v+tUJWURs169P3
- Ug2AMwRGJX4j1o4G2Jqy/fM9RyqCrgkXkMFTD39o5vn2Gt4Z3zCFr3pxpyMauCP5V5AwiLs0y7x
- 9O1Mt2VkW1ZjyHZMuDxUnzcU2EYMqKC2qlRYbUWhZ2vG35PVOdljwUOLQHixNm0k+cRms8tBX6X
- nsWkdYzTHvfGaUaDrTNmy17QWQUlTfCzRlJYqmJ/jYi1TgOHesqaTtOBgA/eoFeH0c7YD+jeq3O
- mGm/I1A0sR4WNyXyMz2uDsWjTxoDYEQVaE7ORjXc7VRdj122k0yH6YI6UvAfmSolRPKNCvCUvVg
- bQGqaSHkrPB3xOeP8rQ==
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=S_9RJizizuE5VhlQKy8A:9 a=QEXdDO2ut3YA:10 a=uxP6HrT_eTzRwkO_Te1X:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzMxMDA3OSBTYWx0ZWRfX346FztftI6hk
+ hjW1D/g3rIH/S1yR0crh+vmkYOHGXCh7v4Mhtih8497m8c5+2OMXJ9n4Dv6LUnA+63tKF7H8NbJ
+ LUONmNQ3Ri+UyexXwHUGhSsb5TLzgH6/TgBIw6v01GgEc7WnvaScLcqG+ILTTQDTG2r4eL2xHcI
+ vgUZOhw42Gw918HPGxlrSsaED4lCaH2plPCNzbUQY8LIAs9WC79+/YUg/1che8s3WsIxpdJCTey
+ xGhgtRPN/YPC6Uog32HRJx4Eukl41UzfkD9ErdncaN3OCSHeEfbNTMwiZRSPxUBu+Eyd1n9ep3f
+ ARLUgbQKVSCAapaTe+/Xafab9tndvvuywRaWYP5Ll0th+xTOj+CCAXdy33sWSFbVbvONpqa6f0e
+ /H/p+cBrbZd50msY9dKpbMYeZ2Wb4Fd85MUoqKyDdMprlEp6lRmJyzzNgmygKsoi6xkRzy2QNhd
+ dI6Wvt8Z//lt1tIEDqw==
+X-Proofpoint-GUID: Utt5mzK79WItcT5hGbsRiHUi81SUfloa
+X-Proofpoint-ORIG-GUID: Utt5mzK79WItcT5hGbsRiHUi81SUfloa
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
  definitions=2026-03-31_02,2026-03-28_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 impostorscore=0 clxscore=1015 malwarescore=0 bulkscore=0
- suspectscore=0 lowpriorityscore=0 adultscore=0 phishscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603310079
+ suspectscore=0 lowpriorityscore=0 clxscore=1015 malwarescore=0
+ impostorscore=0 adultscore=0 phishscore=0 priorityscore=1501 spamscore=0
+ bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2603050001
+ definitions=main-2603310079
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -155,76 +155,24 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 3/30/26 10:27 PM, Akhil P Oommen wrote:
-> On 3/30/2026 4:45 PM, Konrad Dybcio wrote:
+On 3/30/26 10:58 PM, Akhil P Oommen wrote:
+> On 3/27/2026 5:07 PM, Konrad Dybcio wrote:
 >> On 3/27/26 1:13 AM, Akhil P Oommen wrote:
->>> Update the HFI definitions to support additional GMU based power
->>> features.
+>>> GMU_ALWAYS_ON_COUNTER_* registers got moved in A8x, but currently, A6x
+>>> register offsets are used in the submit traces instead of A8x offsets.
+>>> To fix this, refactor a bit and use adreno_gpu->funcs->get_timestamp()
+>>> everywhere.
 >>>
->>> Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
->>> ---
+>>> While we are at it, update a8xx_gmu_get_timestamp() to use the GMU AO
+>>> counter.
 >>
->> Whether you want to proceed with bitfields or not:
->>
->> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+>> Which I assume does not need the GMU to be in any particular state, just
+>> have its clocks enabled?
 > 
-> Thanks. I still feel it is bitfield layout is a 'bit' complicated.
-> 
-> I did an experiment:
-> 
-> #include <stdio.h>
-> #include <stdint.h>
-> #include <stddef.h>
-> 
-> struct packed_u8 {
->         uint16_t mitigation_time;
->         uint8_t current_rating    : 6;
->         uint8_t num_phases        : 6;
->         uint8_t path_notification : 1;
->         uint8_t extra_features    : 3;
-> } __packed;
-> 
-> 
-> void main() {
-> 
->         struct packed_u8 data = {
->                  .mitigation_time  = 0xffff,
->                  .current_rating   = 0x3f,  /* all 6 bits set */
->                  .num_phases       = 0x3f,
->                  .path_notification = 1,
->                  .extra_features   = 0x7,
->          };
-> 
->         printf("Akhil 0x%x\n", *((uint32_t *) &data));
-> }
-> 
-> The output I got in Kaanapali is: Akhil 0x7f3fffff
-> 
-> This means that the compiler inserted a padding between current_rating
-> and num_phases.
+> On A750+, there is a cx timer calibration during gmu resume to match the
+> GPU AO counters with the CPU counter. That should be complete before we
+> read this.
 
-That's because __packed doesn't work outside the kernel - you're just
-creating a variable named __packed, so this is effectively the same as:
-
-struct foo {
-        int a;
-        int b;
-        unsigned char c : 2;
-} __hotdog;
-
-int main () {
-        printf("Akhil 0x%x\n", *((uint32_t *) &__hotdog));
-}
-
-Outside the kernel tree, you need to use the full annoying __attribute__((foo))
-syntax:
-
-include/linux/compiler_attributes.h:#define __packed                        __attribute__((__packed__))
-
-with that changed, we get:
-
-Akhil 0xffffffff
-
-which is the expected behavior
+Worth a comment!
 
 Konrad
