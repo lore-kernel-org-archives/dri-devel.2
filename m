@@ -4,127 +4,166 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B7CB91061B2B
-	for <dri-devel@archiver.kernel.org>; Tue, 31 Mar 2026 02:45:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ED3321061B2B
+	for <dri-devel@archiver.kernel.org>; Tue, 31 Mar 2026 03:02:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2986310E1D0;
-	Tue, 31 Mar 2026 02:45:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 23D3310E840;
+	Tue, 31 Mar 2026 03:02:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="jjpCb+0d";
+	dkim=pass (2048-bit key; unprotected) header.d=nxp.com header.i=@nxp.com header.b="hi3L3XY8";
 	dkim-atps=neutral
-Received: from CH5PR02CU005.outbound.protection.outlook.com
- (mail-northcentralusazon11012071.outbound.protection.outlook.com
- [40.107.200.71])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 819D110E1D0
- for <dri-devel@lists.freedesktop.org>; Tue, 31 Mar 2026 02:45:47 +0000 (UTC)
+Received: from AM0PR02CU008.outbound.protection.outlook.com
+ (mail-westeuropeazon11013064.outbound.protection.outlook.com [52.101.72.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C486410E840
+ for <dri-devel@lists.freedesktop.org>; Tue, 31 Mar 2026 03:02:16 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ex9Q5idkdKCowRcYhnlVjhPbqHSAkwNBzIINdUiMGNnruTB6VVDEMOYh7HelGqiLIswpDrD+BVxccJ99g9pfUSVNpSif90PLBYvBh5lf7E3/q/JG7TjN6SWxUXAjnF8eC4njU0FBuo1QHoE43qeb5EbkvmHYlut3jHe723cfDqaQkgsKhS0dMqG292GCx8e5fHvoilYMhfQCKYkldo2Q1WbQQwz8QTFFhlWm6xM8DAq9Udcy/KKhtV4C0USvLbyOqtIhUIcTvV6NIO6uregofXcl7JA0fFlnT5qoHzLVT1UakU7K27jEyDsyxsEaM8mXHpXYSTDw2TEhq9qi74ebYg==
+ b=sXup4tSqWQUugY5t9JvbxQVwmVxP+4zMuuCLcoocvzBlDCfTzX7BeY6orYDwHJPZ595ymjWhX6BB8YlCUODsp5zEEg1+KDecquEjxsGJOHNNZ3MUvSen8uJnFak1j/KCgh21674RMY3HmBKxm5zOghYAmd0ed7DsGs0hu0rYQR7oXIwGoMYF+kzdoy9JSfCStnSfVvzikd1BgoHJ6uBGrVH/8awIUyxVXsJ5DcqMYfa2jc8QogTm/UIM9lvhJQtKCco6G0GpDRxZeBNM7XQDSiLCd8cOvZjrN1s9lI8DWSBlBhyiO3UqeSC9Dqs0auUdoboyVBBPM2L90A7oeMtVfA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=i6H6dw0dDg2lWw7VlCu9adg9NCcbhOTuO60LMZ8jqZo=;
- b=mGcYo/86p+LbXXSYTS/uiwMnvk+kbOu2e1svTwFEpVv17r17WVm9OiW0VqgKpe4fZKTQBtHt56ytgUCupkwg+nklJ0by7VNAlSZGsMVhrx7RNXbzbTjmLCj3PF/oIZNx9dnOpDbuZ/T92w0/76FM4DXqr1PpG71m411wXTyOn/WaL75Nn/Ykd86bynRHhJ/BGi1ILCFoYehNW5QH4UR3yPMXOQXUa2Ta/EHdn6rpbOuP433qirO0AfSg/j4ZWY5+6EqsAdnlR0ygK3LQTmJWqUxfeMyJfcq3PMWjXoOsunT/1qj92Swarfa7zF1KBFlnMTuyfc+/nkega9MEDunImA==
+ bh=MvpBgWS7U2b6h2vo3zcaPZZU+/nWrCzii+JNQgSTPGI=;
+ b=aKj6qNN4CVJwKfyrcr25ebLMbhHwUn5zpF4fP0mSiq0AOCJfc6P4d/2TZAH3CFKdaIbo6xmSrDUOpdZUBVYReLf+qfbdmN3AnB66p7BE+qzT9eHwHBpOtN+paWLyy0BruFTHciA5fnEouZBX35tclmxP2AEumWkRISH3YwfF60l3fiybpFp2kItSWAw3Vcvq2PEVQXz6AHHnuAD7oXMg59N3hUKDnfrZgoAr48S1bWlG6+pgjm7CaVXhbDH4kkw5c68HRJByMRmOErXuJs0S3HZAJ954KSi5Au0slyXJscY7HSv+GDgzyVAEgWisiAZhFFTfR8XrEbBBxGALyqLOaw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=i6H6dw0dDg2lWw7VlCu9adg9NCcbhOTuO60LMZ8jqZo=;
- b=jjpCb+0dHCAfqsp6BWTzOU8EfmRLT7PZGLHbSoip/uGiLzh+lGC9/VoMCQXKo4svauJDhK0VBh3PbJ+K/UfWSwv+xbtgmgBM5ZmP8j4XNJQIinDct6UmT/wsqyglfWMgnJah+s9CJbIEGFXlFnQ0zhGjjV3Zy1sMp8nmpMtH7Uo=
+ bh=MvpBgWS7U2b6h2vo3zcaPZZU+/nWrCzii+JNQgSTPGI=;
+ b=hi3L3XY8XLuaV9ZN9/i6jOVw53qqlyS3yGYo9mdV0/Vf9LUPeUmE32TR2o/JxOg7fWPiUWPQiiRvBN4x9me8++zT03xQUfPrpagq8w/3vw+LXCR9SaLLa62yyqdu1/ZqwbqJ4bCft44yIyWmldhm1y4kaXrK8u/2e3l9tN24CCHN7QrpJw9w/KLV1IO3yHOsHJ+gPKz+gSFdVcVMxvwIFZ0Xxac46cW21gaAMuKcAavxQTtUKMdzZtRR1+P3tHsWl4UPxd2CMKU6+5tSD6Dz0wgQ3OUGF9EZohtrYS0TjUr8g2fKaq1CWl9/bRGdaM+Ub+18Vzv1PZSIDPcIVt4xRA==
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from SA0PR12MB4557.namprd12.prod.outlook.com (2603:10b6:806:9d::10)
- by DM4PR12MB8449.namprd12.prod.outlook.com (2603:10b6:8:17f::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.15; Tue, 31 Mar
- 2026 02:45:44 +0000
-Received: from SA0PR12MB4557.namprd12.prod.outlook.com
- ([fe80::885a:79b3:8288:287]) by SA0PR12MB4557.namprd12.prod.outlook.com
- ([fe80::885a:79b3:8288:287%5]) with mapi id 15.20.9769.014; Tue, 31 Mar 2026
- 02:45:43 +0000
-Message-ID: <0d5d0bdf-3a2a-4217-9552-1cd56210cbb2@amd.com>
-Date: Mon, 30 Mar 2026 21:45:40 -0500
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from AM7PR04MB7046.eurprd04.prod.outlook.com (2603:10a6:20b:113::22)
+ by GV1PR04MB10306.eurprd04.prod.outlook.com (2603:10a6:150:1c9::22)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.28; Tue, 31 Mar
+ 2026 03:02:10 +0000
+Received: from AM7PR04MB7046.eurprd04.prod.outlook.com
+ ([fe80::4609:64af:8a4b:fd64]) by AM7PR04MB7046.eurprd04.prod.outlook.com
+ ([fe80::4609:64af:8a4b:fd64%3]) with mapi id 15.20.9745.027; Tue, 31 Mar 2026
+ 03:02:10 +0000
+Message-ID: <9a6e74ed-d4ab-4f11-ab17-25e1a2b64b2d@nxp.com>
+Date: Tue, 31 Mar 2026 11:03:14 +0800
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH V1 4/6] accel/amdxdna: Add AIE4 firmware loading
-To: Lizhi Hou <lizhi.hou@amd.com>, ogabbay@kernel.org,
- quic_jhugo@quicinc.com, dri-devel@lists.freedesktop.org,
- maciej.falkowski@linux.intel.com
-Cc: David Zhang <yidong.zhang@amd.com>, linux-kernel@vger.kernel.org,
- max.zhen@amd.com, sonal.santan@amd.com,
- Hayden Laccabue <Hayden.Laccabue@amd.com>
-References: <20260330163705.3153647-1-lizhi.hou@amd.com>
- <20260330163705.3153647-5-lizhi.hou@amd.com>
+Subject: Re: [PATCH 7/8] drm/bridge: imx8mp-hdmi-tx: add an hdmi-connector
+ when missing using a DT overlay at boot time
+To: Luca Ceresoli <luca.ceresoli@bootlin.com>, Marek Vasut <marex@denx.de>,
+ Stefan Agner <stefan@agner.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>
+Cc: "Kory Maincent (TI.com)" <kory.maincent@bootlin.com>,
+ =?UTF-8?Q?Herv=C3=A9_Codina?= <herve.codina@bootlin.com>,
+ Hui Pu <Hui.Pu@gehealthcare.com>, Ian Ray <ian.ray@gehealthcare.com>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+ dri-devel@lists.freedesktop.org, imx@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, Adam Ford <aford173@gmail.com>,
+ Alexander Stein <alexander.stein@ew.tq-group.com>,
+ Anson Huang <Anson.Huang@nxp.com>,
+ Christopher Obbard <christopher.obbard@linaro.org>,
+ Daniel Scally <dan.scally@ideasonboard.com>,
+ Emanuele Ghidoli <emanuele.ghidoli@toradex.com>,
+ Fabio Estevam <festevam@denx.de>,
+ Francesco Dolcini <francesco.dolcini@toradex.com>,
+ Frieder Schrempf <frieder.schrempf@kontron.de>,
+ Gilles Talis <gilles.talis@gmail.com>,
+ =?UTF-8?B?R29yYW4gUmHEkWVub3ZpxIc=?= <goran.radni@gmail.com>,
+ Heiko Schocher <hs@denx.de>,
+ Joao Paulo Goncalves <joao.goncalves@toradex.com>,
+ Josua Mayer <josua@solid-run.com>,
+ Kieran Bingham <kieran.bingham@ideasonboard.com>,
+ Marco Felsch <m.felsch@pengutronix.de>,
+ Martyn Welch <martyn.welch@collabora.com>,
+ Oleksij Rempel <o.rempel@pengutronix.de>, Peng Fan <peng.fan@nxp.com>,
+ Philippe Schenker <philippe.schenker@toradex.com>,
+ Richard Hu <richard.hu@technexion.com>, Shengjiu Wang
+ <shengjiu.wang@nxp.com>,
+ Stefan Eichenberger <stefan.eichenberger@toradex.com>,
+ Vitor Soares <vitor.soares@toradex.com>
+References: <20260320-drm-lcdif-dbanc-v1-0-479a04133e70@bootlin.com>
+ <20260320-drm-lcdif-dbanc-v1-7-479a04133e70@bootlin.com>
+ <544112ab-8ca0-4622-b680-233457198e3e@nxp.com>
+ <DHDNA5HLQPIB.3F21G9QPBUQG8@bootlin.com>
+ <5f06ea5a-5388-440f-91d6-cebb0bee0a88@nxp.com>
+ <DHG8G8FMXA6C.U6LU563OZ8NR@bootlin.com>
+From: Liu Ying <victor.liu@nxp.com>
 Content-Language: en-US
-From: Mario Limonciello <mario.limonciello@amd.com>
-In-Reply-To: <20260330163705.3153647-5-lizhi.hou@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: BN1PR14CA0023.namprd14.prod.outlook.com
- (2603:10b6:408:e3::28) To SA0PR12MB4557.namprd12.prod.outlook.com
- (2603:10b6:806:9d::10)
+In-Reply-To: <DHG8G8FMXA6C.U6LU563OZ8NR@bootlin.com>
+Content-Type: text/plain; charset=UTF-8
+X-ClientProxiedBy: MA5PR01CA0236.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:a01:1f4::10) To AM7PR04MB7046.eurprd04.prod.outlook.com
+ (2603:10a6:20b:113::22)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA0PR12MB4557:EE_|DM4PR12MB8449:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9183f59f-9b8b-4141-f1da-08de8ecf9a97
+X-MS-TrafficTypeDiagnostic: AM7PR04MB7046:EE_|GV1PR04MB10306:EE_
+X-MS-Office365-Filtering-Correlation-Id: 31439cb8-3b04-44b9-e168-08de8ed1e6ab
+X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|366016|376014|56012099003|18002099003|22082099003; 
-X-Microsoft-Antispam-Message-Info: 0DwXPGwJuJqrV5cy9zl77Y+47IAK+OGznew+f75dTyJyIiNik+B7+xwBqyJZsBjyqpBImjzTkI3MxbUQdRmfgkw3a2m9P48F0Q6Mm0ds1e6qjBdO4ER/5PFkwoNi6WuuoBjgsFS6ZgCnmBe9x1hcrmXKfq/f4p80SsngR3v0IFws0NMVcmu/iMZ3VuSbknKGitKNPOyk4OQRqr6Xb5AJILJ64Vr3sK54/Q5FbS86p3ug7RPCcVGMNdU/ffTSs3hoTtcl8di1Q5YN+Xl2sKbdVU62JpuiaECzSVtFgl2rIlHX+f+xQz6I+KJTpUF7nP0bJjk2XxjpF26SrPDm3KPKL/TePf/bcagIxMQ33MmaByeCbquhLJXySOqPDUaMe+8qVVtlPWUuctgh+/2oFgJehLWaLzLkukpGI14orOy6P1NnAzdbHhwd/6WsNnLfZ477CcNFMoqGAy947RsbaAnjDdy4hEtvpxRDi66teaydNGk+nSKjF4hdWGGpO/j7K5EQQ/l7Vkdwx2hZaG+KtmydmlqfVmSF3Ue/EWsKO6t8znaGITqqqqZk+CF3CRbpDQ6untKiHRImPDdiiJj03lZkksZVGExsFFWAFFYGiW9Zxt/SIFRczapHkGssnI8f8laF5G4U7Sl9/QOYTEYN9m0+3mjih+zgcQyU2l09ZRjXIx/nCKHO3EWqNarYzOkW9Jsu10g2FTi88LTKqD+4ijozez5+/2crDt+txBeprtgkRMI=
+ ARA:13230040|366016|19092799006|1800799024|376014|7416014|921020|56012099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: m/CydDk4M/hDGZpf34sFgM+sJdlBg4/D8C4QZpaM8JVZuvFCG0LGuP3QsHaHbSv/h4Tua8+3gGlgM7aUpZIknLtu+lQj5mH6lDFn7hhR2mKO5wXVxg6WzlR1LJ84zY3JZakHGHni1dKaHEks0/GLPAJ9A2/XC0xTXOpN8QyUCpEPzJnQA2bT6HonFrD7jb5dznAKCTFA80UCtP/imQXGBqwtfbgGmxGR5scYwNMx+YIzUanefGBidBGGF8NJKy9hiwUlK+KCdYaiZklx/k2DoB/qdUqq9gmuzq6sgCVGTfUNcs0xjbnGQ3cfn8xDgUukMlhFlZcSS9/k1DMjygW625nqO8DffdlS1thMgjy2QNeRwYpeWZJjY9cgnG5P6SRs2aoYxuGwycVk+XE02zJvPYO73B2VcwEwAk1pyzl38tGShE9gfxTnFyJ53brb0a3RBMbyCgJgOHb9tB+VXYEEC/pObxQb/CySCL2GyrnHoxW6/1JE3L4BAubz/t3uJTekMizqe2v3Vkr4L0Pk3QymlRvrByVjkiHKKQvoJKWaPSnG9uw08eZ7GMMJgZHx0BdiigVn16KT6Vk08Z2k+Lp5olNNnn4uw2ndGO6DghpgpjjrDEeMwVkS6eoodGFeZyuqmgOuEBjfvOQxUz84ab0+XMFVmuA1AdiRIN9wjxqe6XoIYyDhd7ismMe/k+ECtVlQjybL+IhZL94cFZ+vX5zuF6UUbT/zZr3Ugal4yizru0M=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SA0PR12MB4557.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014)(56012099003)(18002099003)(22082099003);
+ IPV:NLI; SFV:NSPM; H:AM7PR04MB7046.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(19092799006)(1800799024)(376014)(7416014)(921020)(56012099003)(18002099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RzZoZkY1Z1BJdllKMUlTL1VuWU5udnhuems0ZE9tcGNGZ0xDN3F1WjVyK3pV?=
- =?utf-8?B?MkpDVERpWTYzNmJ0RitoR2xWVGo2WWs4dkZaMVd3Zm45ZkI3RUlNNnlDU0Nq?=
- =?utf-8?B?QzgvZEI2VVR6cVlBVFhOMXU2Yi85TTdZZmtjYnkzU0M5b3FZQjNPRXJXVEVG?=
- =?utf-8?B?VFJjV21TTlptN1VxbmhzRmRudXp2cWVSa3M1eW13d3dzZDB3TExQSmNaU2Rn?=
- =?utf-8?B?eDh2Y3N4TkJoZjhjeVNuYmcwM05ieEFudDkxQWtId3VGeTNickpMVjl5d1F6?=
- =?utf-8?B?aElvRnlMamUyZ0pmM2dlOFJLdDdFVVk2ckh5MlpNaWRmczA0ZkY5THdRb3Jh?=
- =?utf-8?B?SHBpR2xHM0pyZzAvUStwaDFtZGZqeVZMdjdjcVY5Uko5cGNsUGIwc2Y1dVRn?=
- =?utf-8?B?ekVSSEs4RFhpc240SDNjQWVia3BLRHg3TXRaOXpZS2lxRFYzclcrYmEzL0h3?=
- =?utf-8?B?ZHNvbXduMlJSUWhMUnZpVG5wSUd0bmFockV4R1c2SVF6dW0yZEhNaHpicjl3?=
- =?utf-8?B?VWFYN05QeE1EYlJLTHBnTkFHeUt6eWhCSHBLNHVQSzVJb0hUbjBuMGc3ZjlJ?=
- =?utf-8?B?Z3JqUEhhWm5Sdk5IaXJUd1F5ZnEzWGJhTmZZeWsrSjRCRVE3RFVPWWhnb1J0?=
- =?utf-8?B?amZxWVZiK1lGcDBwcXRaNDIyVjJCM1VsM0hIaVdjeGM4S0VWQzRzb2V5TDJZ?=
- =?utf-8?B?YTJ1ZHBDd0lRajdtaGc5QUF3QXpzd0ZTZ0xldTQ1YjZIZG5UL29Ia2pycXpx?=
- =?utf-8?B?czRkNXFFcUk3VjdyS01BS3ZvOXRtQ2QrL280NVlmUUEwS3VNczBJVzFrQysw?=
- =?utf-8?B?MEJOemQ2S3RHYWh1KzIzZWpoeFZZRDJhZmF6TEdvRG5xVlNHdmtFNjZVSy9G?=
- =?utf-8?B?VU1lMVRSN09zeU9VWmIyMFhpU0lwMFppZ0RGWm5leUtsbldjY3NPVFh5NlRO?=
- =?utf-8?B?WVJld29BenZXbUw3S1U2SS9vVm9rRCsyZ3UvNFNOYUZ3dTFMRktvbEZjK29I?=
- =?utf-8?B?UkhsSmdHZWVlS3dKY0lDSWxoaDI3V090NHBSZ1VkYUlRSjlYUFJhaUh2Y1Nk?=
- =?utf-8?B?MjNsbTY2aytxMVI2MlJGNWdLYlAxU2VNMmFNRFNJZ2N0MDhKZFNUT3NSbjdV?=
- =?utf-8?B?SDFtNzBjVjN5dGFmbDRsYkxQNjQ3WDBOeDhidEdKVnAvMC92U3FDemhXRjdE?=
- =?utf-8?B?Q3M1MHdESU1FczlsK09IdmxabWZKUFBuM21kb0xZdk5DV2ovckgxb0dhTjJN?=
- =?utf-8?B?b2U1enZ4S0RqNlRGaVFHMWIrYkR0cnFxQ21BZWZsQjljRnZTQ1YwWlNPdlFs?=
- =?utf-8?B?L2plb1d1UnFDTUpWUTRTY1pwMjQzUGVwOUo1RnhVSXEyY3lXN3A0STRpRCtQ?=
- =?utf-8?B?ZEJ2bFVzTWpYWkRkakdEQ2JJTld1b0pJMWxTOHg2M210akQ3M2tYb1VFd1lD?=
- =?utf-8?B?WGlFTEluUjRlVVAxWENiQlZGL0tCVUNPQktFNWNXZzl5Q0JjUFpyRmpsRElz?=
- =?utf-8?B?ZVJ1cDdzQjkvSDlldEo5RFhuZzdzeXNZMG1EMHZkcE53NG45cWNzU2YrdGtE?=
- =?utf-8?B?NU00NVdZempoQnZoZTVTMEJjTzFFQWNReW0vVXZFckFxSmphbzRlMldSU3Rv?=
- =?utf-8?B?NTFXekJGRkhRUHBiWi82WHZaLys0bGgxZVZWcnArK0lJTVFxS05mY1M0cFBx?=
- =?utf-8?B?MitFRm1JbDZoaC9PM1JUK1Z5NlF1bjUxcUpqZHZpZ1ZOVVl2NEVFVUxWdkFq?=
- =?utf-8?B?Tjk4MXhQU3VCb29kMlBhZlk5NmR3NGNodzBJZm8xNTdsd0VnK1pIcU1Fd25E?=
- =?utf-8?B?M1dIRG11cGlIMWNzbVN4ZjF3a2c1Z0J5TzJhRHJ4dFF4RENLbXRqL0JUTHRn?=
- =?utf-8?B?YzZzU3pRT3dTQVhSYTdUQVl1aXdacnRHMWdEQjZscm5rVVF1b3BZZWZ0ZnVs?=
- =?utf-8?B?UGhCZXAyZUI0ZHZ6ZjlQcUkzdVZMdnUxVGxhVkk0UmF6ZG8wRTNMT0RGSmpx?=
- =?utf-8?B?eG4yQnhCYlgzRVRuaUd0eEQ3QitTdTBZWVFYd3BkYW9CU0lDYVAxRmZ1WEJO?=
- =?utf-8?B?MU9aamUvdkZ6eUlRT05hNWNrZ29LVWVWQzNxR3p4NTkyU3kxVHptbnZoMlhW?=
- =?utf-8?B?bUJUaU51WVN4aGJqd1NXa0xZNXdwQWpPYmd1cGRSNmY0VTdreWVOb25oQ1lC?=
- =?utf-8?B?RTd4TmFYOTlva2xMeGRnVkt4aVBZZDBkQ1J4Zm5OZDlrb21jZVliZUtBSWpN?=
- =?utf-8?B?UXZlZnMvZ09qdjVpdFg4Q2IyaFBiaGhia2NaNnNIWWVMTmNudTNzRUlmeXpq?=
- =?utf-8?Q?nyKWWJlYKC9JtplaVT?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9183f59f-9b8b-4141-f1da-08de8ecf9a97
-X-MS-Exchange-CrossTenant-AuthSource: SA0PR12MB4557.namprd12.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WHJTYlc1U2Z0ZkJUMVhLMUdLaHFUTkZyUEcwcWRBd3lyOE5XWTNSbXh5NFJz?=
+ =?utf-8?B?K0pwSTZ0NkFmYS9xdzhkQjRPQjBTVmsvRWpGU25nVTRURFlaTW15Q0l4N3Vt?=
+ =?utf-8?B?U25sbjhCRnA1cjM4TXdSMXFid0g5cXZVanJzQml4dmUydHVDOSs2cUhHY1dq?=
+ =?utf-8?B?NDBlSjNBVVdVR0RkV1lyVkszQjVONFVraVVwWWN4OGJOMUxlcXNrOVFXVU9S?=
+ =?utf-8?B?SkxxSzVYaThrdzdRbzd2R3F3Z0Z6WjRQQ1NHblVqLzY2VFFuOGtDUkg5cnlE?=
+ =?utf-8?B?cFdwYmVGblhBTEVFeklnM0RFMExlTkZLN0luRmtCU29OZEMxVlBBZHNMTHkr?=
+ =?utf-8?B?TEhLZnV3S0VVYWJtNmdjcWlMOVlaVFkwZFlyUjR3NDdZZUh5NlJ5WnpNSTYz?=
+ =?utf-8?B?RU44RVdURVV0cFRTV3MzVnNsM3JEbzhPdG5wcElNdWVXYlhQVHNOYjAzdUh6?=
+ =?utf-8?B?ZjY5a2Z4NFFJYldHc1dnTVhSWi9KeEtyT1JLQklGdjhmaitrRXVqMmUzSXBj?=
+ =?utf-8?B?Rmxwck9SekgyelFyMU9sV09sbWthYUlyb2k4MTVLOEFiQ0tmd3FtaGVoNmhP?=
+ =?utf-8?B?ZExLc0FvTTJuYWtrKy80QlU1dlR0S2pYQWtBZWNTRWhGL0V2Z05SOU9Vc1Fn?=
+ =?utf-8?B?MWtvNTZDS0tPZFcybjA3VmlyTnpxYzRzSWMxWFBwemRPdDBxY2NLNEhvMHA2?=
+ =?utf-8?B?S1ByK01wOHFpb1QxVy9nZnQ1ZllrakY3RUNNTklZaVNHMlg3NUdHaGpXNm9T?=
+ =?utf-8?B?Y2Y0WGFkWjZlbWRmKzJGZmFMai9NeUFqMlVLWCtPaVZBVy93RHBTUTl6L3M1?=
+ =?utf-8?B?MUdkWWl5UHg4WENwRUtIK2hmUFc5K2JGTEZMRjJvUG5hTVBYZEZLRnZIZ0x5?=
+ =?utf-8?B?RUdnS3VRM0JOWi8xVEgzRnUzNWl4RjIyNjVva3lGMDc1QzY2eGQ5N2Y2cGZL?=
+ =?utf-8?B?QS83RFY3dWJxclpub3N2bWJ6ZVRzL3V6bCtLUmxZSENKVGRCeXdLdkhCc3d0?=
+ =?utf-8?B?UkxFdm95NSszemdtQVhCYjNBbHhmeDg0eG1sOWRSOGNvdTY4ZzQ0Rkhackla?=
+ =?utf-8?B?S0JGaUEzNkhoQXNKUnQvSWRpZHJSQVNyd3FPUCtjcVk1SWJxaXMvYzI1TjIv?=
+ =?utf-8?B?Z0ZIemhhWTdqRVM5RmJGeVZRMEFmQXVoOHlLRnhmVkdUYnNWZ0xNRXQ4bmRN?=
+ =?utf-8?B?WWFEbkxxZ1g5YWExbXVCZDBlb3pzQUNvK3N6UktOOUZmWVNWSUFlQ0w4T0dn?=
+ =?utf-8?B?Qm9Kaml3TU5nZ2R2SkdWWHladHF1UjAzUllKREJUQ1dJVm42QWFoREcvV01C?=
+ =?utf-8?B?Z2EyOFU5RFRTdm0wZ1l0RGE2VzFKN3ZvWDNVczVTbmxtOVczM2lzVFJ4aFZR?=
+ =?utf-8?B?VGI3RjVnMkorMUJoSVI2S3lZc0hvZkhNaEkvdUFDaGEzQ3ppazdNcGxzdFV5?=
+ =?utf-8?B?SkhJb0N1cTdYOGs1amlMQzJyd1RJYjBWTFNjL282OXUrbHg0UmcwQ1hES1hB?=
+ =?utf-8?B?S3VkRHgzSnc4MTlIbUhUU2FFcStIaUdQbGZHM0F4WHVFMitIWVBRdWFDaXha?=
+ =?utf-8?B?NzkxSmxqRXFRTitESWg3QkQzNjdsWnJWOXF5V1JXeklxeDBSWDhSYXAyM3VO?=
+ =?utf-8?B?VE1sNCszR0JDZXlBdmZ0emlWUDh2ckV6bkZMU2hrLzVEcjkvOW1sazlQd2Vx?=
+ =?utf-8?B?K01xQk52ODlvMUNyYWpidkp1b1dlWkc2MHg2b1J3OFgza0pxSFZnUUNENFVU?=
+ =?utf-8?B?RkppbG92dFR5elZWMmRza1ZQbGk1SlArNEV4ZzJCUGkxcXhZMjJuZjl2YXlU?=
+ =?utf-8?B?MFEwd1doRzJTWkxMNmEzS3I0RXBhRmxzaGVRTEVzdHhXZnNMeXhQcTIwNHMr?=
+ =?utf-8?B?VkMxdVFaY2QrZjFvNVZxTENJTTJjTXNLR2kvcGFuYnQxc3pNbEdsYXlWUExM?=
+ =?utf-8?B?RWN0eWtWMjJQaXB4M2I5Z2RXNngvZ3c3RUIybU9KZmgxdDRhN1ZJK29yWCsw?=
+ =?utf-8?B?bFd4L2lHdDhzRHZya2hLSG05ZzJEUVZ0NVc0ak0vUGtzL1F4Vm04bDA5NmdN?=
+ =?utf-8?B?OHlubC9wQ3pab0VPLzRFNThjdDV2Tm5TMmkrRFh3a0ZBOEtkZ25Bbzl1QXZy?=
+ =?utf-8?B?eXp2ckpvWlF4Z1FaZnF5dlpLVUdONVFxRENncnBBWWFkNE5XYU05WE13NDQx?=
+ =?utf-8?B?SXgrNEZUN0JPL1VWZWJkbU5zLzB4MW9VUWQ5aVZLVWx5NWV0aWI3TFNVRDZD?=
+ =?utf-8?B?azVsUDZmZTRoZm0xeWZGcjR1RHBLelVKWmhGTTZaeVFXQXdHVStWa3JPc0tU?=
+ =?utf-8?B?YW1ydlVHcVIrNEVXSGRPWXZmQmN2cDdETzBGVFl3ckh2U0p5UHRQdz09?=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 31439cb8-3b04-44b9-e168-08de8ed1e6ab
+X-MS-Exchange-CrossTenant-AuthSource: AM7PR04MB7046.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Mar 2026 02:45:43.7808 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Mar 2026 03:02:10.5468 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 8etuCIqw00mlQCveqD2c9miRepkJ8IS1DDvbOsDII2T7zhig31nzOkq4uOXtjl/f00Ijc1l9qzwtY7rFAQn/bA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB8449
+X-MS-Exchange-CrossTenant-UserPrincipalName: R1rJDFy8c7r1INyhb0q51ihZAm1ts5spnjlB8VqC4NRexNhHTaA4WobI/1ESlESKrHHpAsVGfUbrTStCFz9hIw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV1PR04MB10306
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -140,555 +179,117 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Hi Luca,
 
-
-On 3/30/26 11:37, Lizhi Hou wrote:
-> From: David Zhang <yidong.zhang@amd.com>
+On Mon, Mar 30, 2026 at 05:47:23PM +0200, Luca Ceresoli wrote:
+> Hello Liu,
 > 
-> Add support for loading AIE4 firmware through the common PSP
-> interfaces.
+> On Mon Mar 30, 2026 at 5:02 AM CEST, Liu Ying wrote:
+
+[...]
+
+>>>>> +	fixup-hdmi-connector {
+>>>>> +		compatible = "hdmi-connector";
+>>>>> +		label = "HDMI";
+>>>>> +		type = "a";
+>>>>
+>>>> What if a board uses another type?
+>>>
+>>> For boards affected by this patch, currently the connector is created by
+>>> dw_hdmi_connector_create() which hardcodes type A [0], so there would be no
+>>> difference.
+>>
+>> Yes, that's from driver's PoV.  However, userspace may get the type
+>> from /sys/firmware/devicetree/base/fixup-hdmi-connector/type and use it
+>> to do something.
 > 
-> Compared to AIE2, AIE4 introduces an additional CERT firmware image.
-> aiem_psp_create() performs CERT setup when the CERT image size is
-> non-zero.
+> I'd say this is incorrect, the device tree is not an API for that. The
+> connector type might be known to the driver by other means (ACPI, DP MST,
+> whatever). So I think this is a non-problem.
+
+I just feel that it's not great to report potentially wrong type to users
+through the above sys node ...
+
 > 
-> Co-developed-by: Hayden Laccabue <Hayden.Laccabue@amd.com>
-> Signed-off-by: Hayden Laccabue <Hayden.Laccabue@amd.com>
-> Signed-off-by: David Zhang <yidong.zhang@amd.com>
-> Signed-off-by: Lizhi Hou <lizhi.hou@amd.com>
-> ---
->   drivers/accel/amdxdna/aie.h       |   4 +
->   drivers/accel/amdxdna/aie2_pci.c  |   2 +
->   drivers/accel/amdxdna/aie4_pci.c  | 109 ++++++++++++++++++++++-
->   drivers/accel/amdxdna/aie4_pci.h  |   4 +
->   drivers/accel/amdxdna/aie_psp.c   | 141 +++++++++++++++++++++++-------
->   drivers/accel/amdxdna/npu3_regs.c |  23 +++++
->   6 files changed, 247 insertions(+), 36 deletions(-)
+> If userspace needs to know the connector type, that should come from the
+> ioctl (DRM_IOCTL_MODE_GETCONNECTOR perhaps).
 > 
-> diff --git a/drivers/accel/amdxdna/aie.h b/drivers/accel/amdxdna/aie.h
-> index 124c0f7e9ca0..423ed34af9ee 100644
-> --- a/drivers/accel/amdxdna/aie.h
-> +++ b/drivers/accel/amdxdna/aie.h
-> @@ -57,7 +57,11 @@ struct aie_bar_off_pair {
->   struct psp_config {
->   	const void		*fw_buf;
->   	u32			fw_size;
-> +	const void              *certfw_buf;
-> +	u32                     certfw_size;
->   	void __iomem		*psp_regs[PSP_MAX_REGS];
-> +	u32			arg2_mask;
-> +	u32			notify_val;
->   };
->   
->   /* aie.c */
-> diff --git a/drivers/accel/amdxdna/aie2_pci.c b/drivers/accel/amdxdna/aie2_pci.c
-> index e4b7893bd429..0489e668cd73 100644
-> --- a/drivers/accel/amdxdna/aie2_pci.c
-> +++ b/drivers/accel/amdxdna/aie2_pci.c
-> @@ -549,6 +549,8 @@ static int aie2_init(struct amdxdna_dev *xdna)
->   
->   	psp_conf.fw_size = fw->size;
->   	psp_conf.fw_buf = fw->data;
-> +	psp_conf.arg2_mask = GENMASK(23, 0);
-> +	psp_conf.notify_val = 1;
->   	for (i = 0; i < PSP_MAX_REGS; i++)
->   		psp_conf.psp_regs[i] = tbl[PSP_REG_BAR(ndev, i)] + PSP_REG_OFF(ndev, i);
->   	ndev->aie.psp_hdl = aiem_psp_create(&xdna->ddev, &psp_conf);
-> diff --git a/drivers/accel/amdxdna/aie4_pci.c b/drivers/accel/amdxdna/aie4_pci.c
-> index 0f360c1ccebd..e7993b315996 100644
-> --- a/drivers/accel/amdxdna/aie4_pci.c
-> +++ b/drivers/accel/amdxdna/aie4_pci.c
-> @@ -6,11 +6,15 @@
->   #include <drm/amdxdna_accel.h>
->   #include <drm/drm_managed.h>
->   #include <drm/drm_print.h>
-> +#include <linux/firmware.h>
-> +#include <linux/sizes.h>
->   
->   #include "aie4_pci.h"
->   #include "amdxdna_pci_drv.h"
->   
-> -#define NO_IOHUB	0
-> +#define NO_IOHUB		0
-> +#define CERTFW_MAX_SIZE         (SZ_32K + SZ_256)
-> +#define PSP_NOTIFY_INTR		0xD007BE11
->   
->   /*
->    * The management mailbox channel is allocated by firmware.
-> @@ -207,13 +211,12 @@ static int aie4_mailbox_init(struct amdxdna_dev *xdna)
->   
->   static void aie4_fw_unload(struct amdxdna_dev_hdl *ndev)
->   {
-> -	/* TODO */
-> +	aie_psp_stop(ndev->aie.psp_hdl);
->   }
->   
->   static int aie4_fw_load(struct amdxdna_dev_hdl *ndev)
->   {
-> -	/* TODO */
-> -	return 0;
-> +	return aie_psp_start(ndev->aie.psp_hdl);
->   }
->   
->   static int aie4_hw_start(struct amdxdna_dev *xdna)
-> @@ -261,11 +264,98 @@ static void aie4_hw_stop(struct amdxdna_dev *xdna)
->   	aie4_fw_unload(ndev);
->   }
->   
-> +static int aie4_request_firmware(struct amdxdna_dev_hdl *ndev,
-> +				 const struct firmware **npufw,
-> +				 const struct firmware **certfw)
-> +{
-> +	struct amdxdna_dev *xdna = ndev->aie.xdna;
-> +	struct pci_dev *pdev = to_pci_dev(xdna->ddev.dev);
-> +	char fw_name[128];
-> +	int ret;
-> +
-> +	ret = snprintf(fw_name, sizeof(fw_name), "amdnpu/%04x_%02x/%s",
-> +		       pdev->device, pdev->revision, ndev->priv->npufw_path);
-> +	if (ret >= sizeof(fw_name)) {
-> +		XDNA_ERR(xdna, "npu firmware path is truncated");
-> +		return -EINVAL;
-> +	}
-> +
-> +	ret = request_firmware(npufw, fw_name, &pdev->dev);
-> +	if (ret) {
-> +		XDNA_ERR(xdna, "failed to request_firmware %s, ret %d", fw_name, ret);
-> +		return ret;
-> +	}
-> +
-> +	ret = snprintf(fw_name, sizeof(fw_name), "amdnpu/%04x_%02x/%s",
-> +		       pdev->device, pdev->revision, ndev->priv->certfw_path);
-> +	if (ret >= sizeof(fw_name)) {
-> +		XDNA_ERR(xdna, "cert firmware path is truncated");
-> +		ret = -EINVAL;
-> +		goto release_npufw;
-> +	}
-> +
-> +	ret = request_firmware(certfw, fw_name, &pdev->dev);
-> +	if (ret) {
-> +		XDNA_ERR(xdna, "failed to request_firmware %s, ret %d", fw_name, ret);
-> +		goto release_npufw;
-> +	}
-> +
-> +	if ((*certfw)->size > CERTFW_MAX_SIZE) {
-> +		XDNA_ERR(xdna, "CERTFW over maximum size of 32 KB + 256 B");
-> +		ret = -EINVAL;
-> +		goto release_certfw;
-> +	}
+>> Maybe, that's trivial.
+> 
+> Not sure I got what you mean here, sorry. What are you referring to?
 
-Should there be a similar size check for NPU FW?  Not sure why it would 
-only be done for Cert FW.
+... with the above potentially wrong type being said, I think maybe this
+drawback is not a big deal and could be ignored.  Sorry for not being
+clear in my last reply.
 
-> +
-> +	return 0;
-> +
-> +release_certfw:
-> +	release_firmware(*certfw);
-> +release_npufw:
-> +	release_firmware(*npufw);
-> +
-> +	return ret;
-> +}
-> +
-> +static void aie4_release_firmware(struct amdxdna_dev_hdl *ndev,
-> +				  const struct firmware *npufw,
-> +				  const struct firmware *certfw)
-> +{
-> +	release_firmware(certfw);
-> +	release_firmware(npufw);
-> +}
-> +
-> +static int aie4_prepare_firmware(struct amdxdna_dev_hdl *ndev,
-> +				 const struct firmware *npufw,
-> +				 const struct firmware *certfw,
-> +				 void __iomem *tbl[PCI_NUM_RESOURCES])
-> +{
-> +	struct amdxdna_dev *xdna = ndev->aie.xdna;
-> +	struct psp_config psp_conf;
-> +	int i;
-> +
-> +	psp_conf.fw_size = npufw->size;
-> +	psp_conf.fw_buf = npufw->data;
-> +	psp_conf.certfw_size = certfw->size;
-> +	psp_conf.certfw_buf = certfw->data;
-> +	psp_conf.arg2_mask = ~0;
-> +	psp_conf.notify_val = PSP_NOTIFY_INTR;
-> +	for (i = 0; i < PSP_MAX_REGS; i++)
-> +		psp_conf.psp_regs[i] = tbl[PSP_REG_BAR(ndev, i)] + PSP_REG_OFF(ndev, i);
-> +	ndev->aie.psp_hdl = aiem_psp_create(&xdna->ddev, &psp_conf);
-> +	if (!ndev->aie.psp_hdl) {
-> +		XDNA_ERR(xdna, "failed to create psp");
-> +		return -ENOMEM;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
->   static int aie4_pcidev_init(struct amdxdna_dev_hdl *ndev)
->   {
->   	struct amdxdna_dev *xdna = ndev->aie.xdna;
->   	struct pci_dev *pdev = to_pci_dev(xdna->ddev.dev);
->   	void __iomem *tbl[PCI_NUM_RESOURCES] = {0};
-> +	const struct firmware *npufw, *certfw;
->   	unsigned long bars = 0;
->   	int ret, i;
->   
-> @@ -282,6 +372,8 @@ static int aie4_pcidev_init(struct amdxdna_dev_hdl *ndev)
->   		return ret;
->   	}
->   
-> +	for (i = 0; i < PSP_MAX_REGS; i++)
-> +		set_bit(PSP_REG_BAR(ndev, i), &bars);
->   	set_bit(xdna->dev_info->mbox_bar, &bars);
->   	set_bit(xdna->dev_info->sram_bar, &bars);
->   
-> @@ -300,6 +392,15 @@ static int aie4_pcidev_init(struct amdxdna_dev_hdl *ndev)
->   
->   	pci_set_master(pdev);
->   
-> +	ret = aie4_request_firmware(ndev, &npufw, &certfw);
-> +	if (ret)
-> +		goto clear_master;
-> +
-> +	ret = aie4_prepare_firmware(ndev, npufw, certfw, tbl);
-> +	aie4_release_firmware(ndev, npufw, certfw);
-> +	if (ret)
-> +		goto clear_master;
-> +
->   	ret = aie4_irq_init(xdna);
->   	if (ret)
->   		goto clear_master;
-> diff --git a/drivers/accel/amdxdna/aie4_pci.h b/drivers/accel/amdxdna/aie4_pci.h
-> index f3810a969431..ee388ccf7196 100644
-> --- a/drivers/accel/amdxdna/aie4_pci.h
-> +++ b/drivers/accel/amdxdna/aie4_pci.h
-> @@ -14,9 +14,13 @@
->   #include "amdxdna_mailbox.h"
->   
->   struct amdxdna_dev_priv {
-> +	const char              *npufw_path;
-> +	const char              *certfw_path;
->   	u32			mbox_bar;
->   	u32			mbox_rbuf_bar;
->   	u64			mbox_info_off;
-> +
-> +	struct aie_bar_off_pair	psp_regs_off[PSP_MAX_REGS];
->   };
->   
->   struct amdxdna_dev_hdl {
-> diff --git a/drivers/accel/amdxdna/aie_psp.c b/drivers/accel/amdxdna/aie_psp.c
-> index 8743b812a449..458dca7cc5a0 100644
-> --- a/drivers/accel/amdxdna/aie_psp.c
-> +++ b/drivers/accel/amdxdna/aie_psp.c
-> @@ -18,6 +18,7 @@
->   #define PSP_VALIDATE		1
->   #define PSP_START		2
->   #define PSP_RELEASE_TMR		3
-> +#define PSP_VALIDATE_CERT       4
->   
->   /* PSP special arguments */
->   #define PSP_START_COPY_FW	1
-> @@ -27,10 +28,20 @@
->   #define PSP_ERROR_BAD_STATE	0xFFFF0007
->   
->   #define PSP_FW_ALIGN		0x10000
-> +#define PSP_CFW_ALIGN           0x8000
->   #define PSP_POLL_INTERVAL	20000	/* us */
->   #define PSP_POLL_TIMEOUT	1000000	/* us */
->   
-> -#define PSP_REG(p, reg) ((p)->psp_regs[reg])
-> +#define PSP_REG(p, reg) ((p)->conf.psp_regs[reg])
-> +#define PSP_SET_CMD(psp, reg_vals, cmd, arg0, arg1, arg2)		\
-> +({									\
-> +	u32 *_regs = reg_vals;						\
-> +	u32 _cmd = cmd;							\
-> +	_regs[0] = _cmd;						\
-> +	_regs[1] = arg0;						\
-> +	_regs[2] = arg1;						\
-> +	_regs[3] = ((arg2) | ((_cmd) << 24)) & (psp)->conf.arg2_mask;	\
-> +})
->   
+> 
+>>> OTOH how can a common module know the specific connector?
+>>
+>> Hmm, maybe add a module parameter or let users set the type through Kconfig
+> 
+> I'm afraid none of this would work for distribution kernels, where who
+> configures the distribution has no idea on how many different hardware it
+> will run.
+> 
+>> or even define an unknown type to honestly tell users that we don't know it?
+> 
+> This sounds like a potentially valid idea, even though I'm not fully
+> convinced. Also I suspect it would be a pretty large change, and also
+> adding "unknown type" in the device tree seems not compliant with the rule
+> that DT describes the hardware (not the lack of info about the hardware).
+> 
+> But definitely it's not needed for this specific case, because:
+> 
+>  * with current code, every imx8mp-hdmi-tx usage adds a type-A connector [0]
+>  * with this patch the correct type will be created when described in DT,
+>    and type-A will be used only as a fallback when the DT is lacking
+> 
+> So after the patch we'd do sometimes better, never worse in this respect.
 
-For AIE4, arg2_mask is set to ~0 (0xFFFFFFFF), which means the full
-32-bit value including cmd<<24 is preserved.
+Well, kind of a bit worse since the sys node exposes a potentially wrong type.
 
-If arg2 uses bits 24-31, the OR operation could corrupt the cmd field. 
-For example:
+> 
+> Based on the above I'm sending v2 soon, but don't hesitate in following up
+> in case I may be missing something (this topic is tricky).
 
-   arg2 = 0x02000000 (32MB firmware size, bit 25 set)
-   cmd = 1 (PSP_VALIDATE)
-   _regs[3] = (0x02000000 | 0x01000000) & 0xFFFFFFFF
-            = 0x03000000
+Agreed, it's tricky.
 
-This puts cmd=3 instead of cmd=1 in bits 24-31, while the size field
-in bits 0-23 becomes 0 instead of the intended value.
+> 
+> [0] https://elixir.bootlin.com/linux/v7.0-rc5/source/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c#L2601
+> 
+>>> Boards with a different connector should describe the connector in the
+>>> device tree, if they need to instantiate the exact type.
+> 
+> I think this is the only valid solution. It's very easy to do, nothing new
+> to invent.
+> 
+> Maybe on top of that we could add a warning when the overlay is applied,
+> e.g. "imx8mp-hdmi-tx used without a connector described in device tree;
+> adding a type A connector as a fallback; please add a valid description to
+> your device tree".
 
-Should arg2 be masked before the OR to ensure it only uses bits 0-23?
+I'd say this doesn't sound a bad idea but I hope the message is clear and
+short.
 
-   _regs[3] = ((arg2 & 0x00FFFFFF) | (_cmd << 24)) & (psp)->conf.arg2_mask;
+> Maybe pointing to a TODO entry in the documentation.
 
-This would prevent arg2 from corrupting the cmd field on AIE4 while
-maintaining backward compatibility with AIE2 (which masks out the cmd
-bits anyway).
+To parameterize the HDMI connector type?  If so, I'm okay with that.
 
+> 
+> What do you think about this?
+> 
+> Thanks again for your careful review!
 
->   struct psp_device {
->   	struct drm_device	*ddev;
-> @@ -38,7 +49,9 @@ struct psp_device {
->   	u32			fw_buf_sz;
->   	u64			fw_paddr;
->   	void			*fw_buffer;
-> -	void __iomem		*psp_regs[PSP_MAX_REGS];
-> +	u32                     certfw_buf_sz;
-> +	u64                     certfw_paddr;
-> +	void                    *certfw_buffer;
->   };
->   
->   static int psp_exec(struct psp_device *psp, u32 *reg_vals)
-> @@ -47,13 +60,22 @@ static int psp_exec(struct psp_device *psp, u32 *reg_vals)
->   	int ret, i;
->   	u32 ready;
->   
-> +	/* Check for PSP ready before any write */
-> +	ret = readx_poll_timeout(readl, PSP_REG(psp, PSP_STATUS_REG), ready,
-> +				 FIELD_GET(PSP_STATUS_READY, ready),
-> +				 PSP_POLL_INTERVAL, PSP_POLL_TIMEOUT);
-> +	if (ret) {
-> +		drm_err(psp->ddev, "PSP is not ready, ret 0x%x", ret);
-> +		return ret;
-> +	}
-> +
->   	/* Write command and argument registers */
->   	for (i = 0; i < PSP_NUM_IN_REGS; i++)
->   		writel(reg_vals[i], PSP_REG(psp, i));
->   
->   	/* clear and set PSP INTR register to kick off */
->   	writel(0, PSP_REG(psp, PSP_INTR_REG));
-> -	writel(1, PSP_REG(psp, PSP_INTR_REG));
-> +	writel(psp->conf.notify_val, PSP_REG(psp, PSP_INTR_REG));
->   
->   	/* PSP should be busy. Wait for ready, so we know task is done. */
->   	ret = readx_poll_timeout(readl, PSP_REG(psp, PSP_STATUS_REG), ready,
-> @@ -90,69 +112,124 @@ int aie_psp_waitmode_poll(struct psp_device *psp)
->   
->   void aie_psp_stop(struct psp_device *psp)
->   {
-> -	u32 reg_vals[PSP_NUM_IN_REGS] = { PSP_RELEASE_TMR, };
-> +	u32 reg_vals[PSP_NUM_IN_REGS];
->   	int ret;
->   
-> +	PSP_SET_CMD(psp, reg_vals, PSP_RELEASE_TMR, 0, 0, 0);
-> +
->   	ret = psp_exec(psp, reg_vals);
->   	if (ret)
->   		drm_err(psp->ddev, "release tmr failed, ret %d", ret);
->   }
->   
-> -int aie_psp_start(struct psp_device *psp)
-> +static int psp_validate_fw(struct psp_device *psp, u8 cmd, u64 paddr, u32 buf_sz)
->   {
->   	u32 reg_vals[PSP_NUM_IN_REGS];
->   	int ret;
->   
-> -	reg_vals[0] = PSP_VALIDATE;
-> -	reg_vals[1] = lower_32_bits(psp->fw_paddr);
-> -	reg_vals[2] = upper_32_bits(psp->fw_paddr);
-> -	reg_vals[3] = psp->fw_buf_sz;
-> +	PSP_SET_CMD(psp, reg_vals, cmd, lower_32_bits(paddr),
-> +		    upper_32_bits(paddr), buf_sz);
->   
->   	ret = psp_exec(psp, reg_vals);
-> -	if (ret) {
-> +	if (ret)
->   		drm_err(psp->ddev, "failed to validate fw, ret %d", ret);
-> -		return ret;
-> -	}
->   
-> -	memset(reg_vals, 0, sizeof(reg_vals));
-> -	reg_vals[0] = PSP_START;
-> -	reg_vals[1] = PSP_START_COPY_FW;
-> +	return ret;
-> +}
-> +
-> +static int psp_start(struct psp_device *psp)
-> +{
-> +	u32 reg_vals[PSP_NUM_IN_REGS];
-> +	int ret;
-> +
-> +	PSP_SET_CMD(psp, reg_vals, PSP_START, PSP_START_COPY_FW, 0, 0);
-> +
->   	ret = psp_exec(psp, reg_vals);
-> -	if (ret) {
-> +	if (ret)
->   		drm_err(psp->ddev, "failed to start fw, ret %d", ret);
-> +
-> +	return ret;
-> +}
-> +
-> +int aie_psp_start(struct psp_device *psp)
-> +{
-> +	int ret;
-> +
-> +	ret = psp_validate_fw(psp, PSP_VALIDATE,
-> +			      psp->fw_paddr, psp->fw_buf_sz);
-> +	if (ret)
->   		return ret;
-> -	}
->   
-> -	return 0;
-> +	if (!psp->certfw_buf_sz)
-> +		goto psp_start;
-> +
-> +	ret = psp_validate_fw(psp, PSP_VALIDATE_CERT,
-> +			      psp->certfw_paddr, psp->certfw_buf_sz);
-> +	if (ret)
-> +		return ret;
-> +psp_start:
-> +	return psp_start(psp);
-> +}
-> +
-> +/*
-> + * PSP requires host physical address to load firmware.
-> + * Allocate a buffer, obtain its physical address, align, and copy data in.
-> + */
-> +static void *psp_alloc_fw_buf(struct psp_device *psp, const void *fw_data,
-> +			      u32 fw_size, u32 align, u32 *buf_sz,
-> +			      u64 *paddr)
-> +{
-> +	u32 alloc_sz;
-> +	void *buffer;
-> +	u64 offset;
-> +
-> +	*buf_sz = ALIGN(fw_size, align);
-> +	alloc_sz = *buf_sz + align;
-> +
-> +	buffer = drmm_kmalloc(psp->ddev, alloc_sz, GFP_KERNEL);
-> +	if (!buffer)
-> +		return NULL;
-> +
-> +	*paddr = virt_to_phys(buffer);
-> +	offset = ALIGN(*paddr, align) - *paddr;
-> +	*paddr += offset;
-> +	memcpy(buffer + offset, fw_data, fw_size);
-> +
-> +	return buffer;
->   }
->   
+Thanks for your patches! Appreciated.
 
-Two comments:
+> 
+> Luca
+> 
+> --
+> Luca Ceresoli, Bootlin
+> Embedded Linux and Kernel engineering
+> https://bootlin.com/
 
-1) Can the integer overflow check be added here? If fw_size is very large
-(close to UINT_MAX), ALIGN(fw_size, align) could overflow:
-
-   fw_size = 0xFFFF0000 (4GB - 64KB)
-   align = 0x10000 (64KB)
-   *buf_sz = ALIGN(0xFFFF0000, 0x10000) = 0x0 (overflow)
-   alloc_sz = 0x0 + 0x10000 = 0x10000
-
-2) virt_to_phys() on drmm_kmalloc() allocated memory assumes
-physical contiguity. Not sure size of this FW.
-
-For allocations larger than a few MB, kmalloc may
-not provide physically contiguous pages. Would dma_alloc_coherent() be
-more appropriate.
-
->   struct psp_device *aiem_psp_create(struct drm_device *ddev, struct psp_config *conf)
->   {
->   	struct psp_device *psp;
-> -	u64 offset;
->   
->   	psp = drmm_kzalloc(ddev, sizeof(*psp), GFP_KERNEL);
->   	if (!psp)
->   		return NULL;
->   
->   	psp->ddev = ddev;
-> -	memcpy(psp->psp_regs, conf->psp_regs, sizeof(psp->psp_regs));
-> +	psp->fw_buffer = psp_alloc_fw_buf(psp, conf->fw_buf, conf->fw_size,
-> +					  PSP_FW_ALIGN, &psp->fw_buf_sz,
-> +					  &psp->fw_paddr);
-> +	if (!psp->fw_buffer)
-> +		return NULL;
-> +
-> +	if (!conf->certfw_size) {
-> +		drm_dbg(ddev, "no cert fw");
-> +		goto done;
-> +	}
->   
-> -	psp->fw_buf_sz = ALIGN(conf->fw_size, PSP_FW_ALIGN);
-> -	psp->fw_buffer = drmm_kmalloc(ddev, psp->fw_buf_sz + PSP_FW_ALIGN, GFP_KERNEL);
-> -	if (!psp->fw_buffer) {
-> -		drm_err(ddev, "no memory for fw buffer");
-> +	/* CERT firmware */
-> +	psp->certfw_buffer = psp_alloc_fw_buf(psp, conf->certfw_buf,
-> +					      conf->certfw_size, PSP_CFW_ALIGN,
-> +					      &psp->certfw_buf_sz,
-> +					      &psp->certfw_paddr);
-> +	if (!psp->certfw_buffer) {
-> +		drm_err(ddev, "no memory for cert fw buffer");
->   		return NULL;
->   	}
->   
-> -	/*
-> -	 * AMD Platform Security Processor(PSP) requires host physical
-> -	 * address to load NPU firmware.
-> -	 */
-> -	psp->fw_paddr = virt_to_phys(psp->fw_buffer);
-> -	offset = ALIGN(psp->fw_paddr, PSP_FW_ALIGN) - psp->fw_paddr;
-> -	psp->fw_paddr += offset;
-> -	memcpy(psp->fw_buffer + offset, conf->fw_buf, conf->fw_size);
-> +done:
-> +	memcpy(&psp->conf, conf, sizeof(psp->conf));
->   
->   	return psp;
->   }
-> diff --git a/drivers/accel/amdxdna/npu3_regs.c b/drivers/accel/amdxdna/npu3_regs.c
-> index f6e20f4858db..fb2bd60b8f00 100644
-> --- a/drivers/accel/amdxdna/npu3_regs.c
-> +++ b/drivers/accel/amdxdna/npu3_regs.c
-> @@ -16,6 +16,15 @@
->   
->   /* PCIe BAR Index for NPU3 */
->   #define NPU3_REG_BAR_INDEX	0
-> +#define NPU3_PSP_BAR_INDEX      4
-> +
-> +#define MMNPU_APERTURE3_BASE    0x3810000
-> +#define NPU3_PSP_BAR_BASE       MMNPU_APERTURE3_BASE
-> +
-> +#define MPASP_C2PMSG_123_ALT_1  0x3810AEC
-> +#define MPASP_C2PMSG_156_ALT_1  0x3810B70
-> +#define MPASP_C2PMSG_157_ALT_1  0x3810B74
-> +#define MPASP_C2PMSG_73_ALT_1   0x3810A24
->   
->   static const struct amdxdna_fw_feature_tbl npu3_fw_feature_table[] = {
->   	{ .major = 5, .min_minor = 10 },
-> @@ -23,14 +32,28 @@ static const struct amdxdna_fw_feature_tbl npu3_fw_feature_table[] = {
->   };
->   
->   static const struct amdxdna_dev_priv npu3_dev_priv = {
-> +	.npufw_path             = "npu.dev.sbin",
-> +	.certfw_path            = "cert.dev.sbin",
->   	.mbox_bar		= NPU3_MBOX_BAR,
->   	.mbox_rbuf_bar		= NPU3_MBOX_BUFFER_BAR,
->   	.mbox_info_off		= NPU3_MBOX_INFO_OFF,
-> +	.psp_regs_off   = {
-> +		DEFINE_BAR_OFFSET(PSP_CMD_REG,    NPU3_PSP, MPASP_C2PMSG_123_ALT_1),
-> +		DEFINE_BAR_OFFSET(PSP_ARG0_REG,   NPU3_PSP, MPASP_C2PMSG_156_ALT_1),
-> +		DEFINE_BAR_OFFSET(PSP_ARG1_REG,   NPU3_PSP, MPASP_C2PMSG_157_ALT_1),
-> +		DEFINE_BAR_OFFSET(PSP_ARG2_REG,   NPU3_PSP, MPASP_C2PMSG_123_ALT_1),
-> +		DEFINE_BAR_OFFSET(PSP_INTR_REG,   NPU3_PSP, MPASP_C2PMSG_73_ALT_1),
-> +		DEFINE_BAR_OFFSET(PSP_STATUS_REG, NPU3_PSP, MPASP_C2PMSG_123_ALT_1),
-> +		DEFINE_BAR_OFFSET(PSP_RESP_REG,   NPU3_PSP, MPASP_C2PMSG_156_ALT_1),
-> +		/* npu3 doesn't use 8th pwaitmode register */
-> +	},
-> +
->   };
->   
->   const struct amdxdna_dev_info dev_npu3_pf_info = {
->   	.mbox_bar		= NPU3_MBOX_BAR,
->   	.sram_bar		= NPU3_MBOX_BUFFER_BAR,
-> +	.psp_bar                = NPU3_PSP_BAR_INDEX,
->   	.vbnv			= "RyzenAI-npu3-pf",
->   	.device_type		= AMDXDNA_DEV_TYPE_PF,
->   	.dev_priv		= &npu3_dev_priv,
-
+-- 
+Regards,
+Liu Ying
