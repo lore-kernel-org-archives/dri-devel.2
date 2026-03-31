@@ -4,71 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9A06E1061B26
-	for <dri-devel@archiver.kernel.org>; Tue, 31 Mar 2026 10:19:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 04B66FF60FB
+	for <dri-devel@archiver.kernel.org>; Tue, 31 Mar 2026 10:28:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CB87A10E8E2;
-	Tue, 31 Mar 2026 10:19:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6613C10E9EF;
+	Tue, 31 Mar 2026 10:28:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="OTL/A8Zu";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="qNeGW2RE";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B144E10E8E0;
- Tue, 31 Mar 2026 10:19:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1774952345; x=1806488345;
- h=message-id:subject:from:to:cc:date:in-reply-to:
- references:content-transfer-encoding:mime-version;
- bh=blz/jUK8AtcaMi8EKklPzfx4JUx4Tdr61s7OVRw3Rl0=;
- b=OTL/A8ZuPCfypViYy4TGQq+4C0d6O8gdM7/SqO1u9Mo1bfPD9zOprnZx
- 7/3XO8uhgaSRK0LuLow1zYDDs5ipjq/489Nnaba7n475wQAv9HnkJki5Z
- hhrpgj30MweDPTcZMFjRhrYLrX48SkluwcNVwIvox6R3FxaGp/5sGQrMz
- W9VAKx8JD7Of+jslRANbg4B41hYddkr7kIysPVc/co/Hh/YhPHpdCAQ0b
- tDgr43a+nPAImIHaPVicWeYgcsGZJ3s3DwxPBib5BLoMGulG4OqQg5clX
- sVUkUqJFBpkTV0ELnA4gNoNEGzp8iBc5WPPqndj8yb5kdD3uF0LQkucNk g==;
-X-CSE-ConnectionGUID: uYsSETx9TlG8CLXs0Ub8+g==
-X-CSE-MsgGUID: 6j/hPR+ITU6v+N+dI0SR7Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11744"; a="101416702"
-X-IronPort-AV: E=Sophos;i="6.23,151,1770624000"; d="scan'208";a="101416702"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
- by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Mar 2026 03:19:04 -0700
-X-CSE-ConnectionGUID: d5Zw98KhQpm13p8szeFkBw==
-X-CSE-MsgGUID: gyJmIAwEQLWN0YQkUMVi4Q==
-X-ExtLoop1: 1
-Received: from smoticic-mobl1.ger.corp.intel.com (HELO [10.245.244.28])
- ([10.245.244.28])
- by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Mar 2026 03:18:59 -0700
-Message-ID: <7971009f03546a98f6137b18195b135e5e2eeee8.camel@linux.intel.com>
-Subject: Re: [PATCH 5/5] drm/exec, drm/xe, drm/amdgpu: Add an accessor for
- struct drm_exec::ticket
-From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
-To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, 
- intel-xe@lists.freedesktop.org
-Cc: Felix Kuehling <Felix.Kuehling@amd.com>, Alex Deucher	
- <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>, Simona
- Vetter	 <simona@ffwll.ch>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>,  Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Danilo Krummrich
- <dakr@kernel.org>,  Matthew Brost <matthew.brost@intel.com>, Alice Ryhl
- <aliceryhl@google.com>, Rob Clark	 <robin.clark@oss.qualcomm.com>, Dmitry
- Baryshkov <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul	 <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>, 
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
-Date: Tue, 31 Mar 2026 12:18:56 +0200
-In-Reply-To: <ac68886e-d4f0-408b-9ddc-909cda18c6f5@amd.com>
-References: <20260331092023.81616-1-thomas.hellstrom@linux.intel.com>
- <20260331092023.81616-6-thomas.hellstrom@linux.intel.com>
- <ac68886e-d4f0-408b-9ddc-909cda18c6f5@amd.com>
-Organization: Intel Sweden AB, Registration Number: 556189-6027
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B7A7410E9EF;
+ Tue, 31 Mar 2026 10:28:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1774952915;
+ bh=aOnw8uG1bF/umdq2HHno0LlsuApV4JZmSR7Oe9w5svA=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=qNeGW2RErsqXeMjsQ3E8PrMQRzMa+Yp76N5P1LLboHDi6Zpd2W/+DGRsCZ3OtmOPK
+ LToNk635P9lUBJOMTXVUfvgm0+e9jqIlgwrw9h+j2b74h+YPpH1ClalH5yxB04yPEc
+ HBMzebO1ft3z1BphfVDTvctmXwwUaTWmGq1HKEZanMzt1ss9MEZXGpfe07oLeAbEpa
+ 3ml7WQRAHjX6lS71doegTKYUTLsgSGFxgl9N/wNYdAQA+Ngcygg+wFQkH4hJYmWP1z
+ yMG+tEoV1OUFFDSuvihVCVeoUhJuEj5JLLW7+9OeiBaFSIaAEKLfM7XRgOx17Mdc0i
+ Tv0PTBZRI6g7A==
+Received: from fluorite (unknown [194.136.85.206])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256) (No client certificate requested)
+ (Authenticated sender: pq)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 7E1C117E5F0E;
+ Tue, 31 Mar 2026 12:28:34 +0200 (CEST)
+Date: Tue, 31 Mar 2026 13:28:22 +0300
+From: Pekka Paalanen <pekka.paalanen@collabora.com>
+To: Harry Wentland <harry.wentland@amd.com>
+Cc: Michel =?UTF-8?B?RMOkbnplcg==?= <michel.daenzer@mailbox.org>, Nicolas
+ Frattaroli <nicolas.frattaroli@collabora.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Leo Li <sunpeng.li@amd.com>, Rodrigo
+ Siqueira <siqueira@igalia.com>, Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>, Ville
+ =?UTF-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>, Daniel Stone
+ <daniels@collabora.com>, Dmitry Baryshkov
+ <dmitry.baryshkov@oss.qualcomm.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ kernel@collabora.com, Derek Foreman <derek.foreman@collabora.com>, Marius
+ Vlad <marius.vlad@collabora.com>
+Subject: Re: [PATCH v5 0/3] Add "link bpc" DRM property
+Message-ID: <20260331132822.5ac57253@fluorite>
+In-Reply-To: <7461820c-e3ab-40f5-98d2-9878e60ba2ad@amd.com>
+References: <20260319-link-bpc-v5-0-5306cd04a708@collabora.com>
+ <8676926.T7Z3S40VBb@workhorse>
+ <eff61423-a854-44c1-8634-30e2bd61e005@mailbox.org>
+ <4265353.aeNJFYEL58@workhorse>
+ <254c20a4-cce3-4c8e-9902-514586f3e694@mailbox.org>
+ <20260326155305.736b4e64@fluorite>
+ <7461820c-e3ab-40f5-98d2-9878e60ba2ad@amd.com>
+X-Mailer: Claws Mail 4.3.1 (GTK 3.24.51; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
+Content-Type: multipart/signed; boundary="Sig_/MQ0.wLD4iLWOheFBMvZLWA3";
+ protocol="application/pgp-signature"; micalg=pgp-sha256
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,158 +78,106 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi,
+--Sig_/MQ0.wLD4iLWOheFBMvZLWA3
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, 2026-03-31 at 11:46 +0200, Christian K=C3=B6nig wrote:
-> On 3/31/26 11:20, Thomas Hellstr=C3=B6m wrote:
-> > Drivers were accessing this drm_exec member directly.
+On Mon, 30 Mar 2026 15:01:33 -0400
+Harry Wentland <harry.wentland@amd.com> wrote:
+
+> On 2026-03-26 09:53, Pekka Paalanen wrote:
+> > Hi Michel,
+> >=20
+> > I have some opinions as well.
+> >=20
+> > On Tue, 24 Mar 2026 17:44:21 +0100
+> > Michel D=C3=A4nzer <michel.daenzer@mailbox.org> wrote:
+> >  =20
+> >> Per my previous posts, my concerns are:
+> >>
+> >> * The meaning of the "link bpc" property value isn't defined well
+> >> enough vs things like dithering or DSC, which will likely result in
+> >> compositors / users overestimating what value they need / want,
+> >> resulting in compositors spuriously rejecting configurations which
+> >> would work perfectly fine, and/or spurious issue reports. =20
+> >=20
+> > That is ok. Compositors need to understand what the numbers mean, how
+> > reliable they are, and act accordingly. Knowing the lower bound for
+> > link precision is already useful as it guarantees a minimum precision.
+> > It is up to the compositors to decide how they communicate this.
+> >=20
+> > Or course, assuming lossy compression is not too lossy. Maybe
+> > lossy compression should be forbidden by default unless explicitly
+> > enabled by userspace?
+> >  =20
 >=20
-> I don't see a problem with that as long as we have documented that
-> this is allowed.
+> I disagree. While technically lossy, DSC is perceptually lossless, at
+> least according to the designers of DSC. If I'm not mistaken this is
+> all based on extensive studies.
+>=20
+> The decision to enable DSC or not has an impact on the power consumption
+> of the HW, in ways that are often nuanced. Userspace has no way to know
+> or understand these nuances. This should be in control of the driver.
 
-It's more of forward-looking for the case I mentioned in the cover-
-letter. If drm_exec becomes a subclass of a drm_transaction or
-whatever, then this would likely be &exec->txn.ticket;
+I guess time will tell.
 
-Could ofc postpone that to any such refactor, but since the patch is up
-for review...
+Are you saying that enabling DSC might have disadvantages aside from
+image quality?
+
+> At most I could see a "never do DSC or dither" toggle, if one is really
+> concerned about this, but I don't realistically see use-cases where this
+> would improve user experience, even for users that care about color work
+> and correctness.
+
+I'm not familiar with DSC, so I cannot criticise it. Dithering OTOH
+seems to be obviously suspect though.
+
+Temporal dithering - what if your refresh rate is 30 Hz for some movie
+playback?
+
+Spatial dithering - what if you have a low-resolution screen?
+
+I would not assume that dithering is always ok, and always achieves its
+theoretical results.
+
+> The YCbCr420 case is different. We probably want a way for userspace to
+> understand that half 3/4 of chroma values are being tossed out. This
+> would be significant for RGB content but insignificant for YCbCr420
+> content.
+
+Do you mean full resolution vs. chroma sub-sampled to 2x2 blocks? I
+would again not assume "insignificant", because it depends on the
+picture content and angular pixel density (can you see individual
+pixels at your viewing distance). Gray-scale text will be fine, but
+colored text is another question.
+
+I'm fine with proceeding with these assumptions, as long as it is
+acknowledged that these assumptions might turn out false later and have
+a contingency plan.
+
 
 Thanks,
-Thomas
+pq
 
+--Sig_/MQ0.wLD4iLWOheFBMvZLWA3
+Content-Type: application/pgp-signature
+Content-Description: OpenPGP digital signature
 
->=20
-> Regards,
-> Christian.
->=20
-> > Provide an accessor, drm_exec_ticket() to avoid that.
-> >=20
-> > Signed-off-by: Thomas Hellstr=C3=B6m <thomas.hellstrom@linux.intel.com>
-> > ---
-> > =C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c | 4 ++--
-> > =C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 6 +++---
-> > =C2=A0drivers/gpu/drm/xe/xe_validation.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 4 ++--
-> > =C2=A0include/drm/drm_exec.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 5 +++++
-> > =C2=A04 files changed, 12 insertions(+), 7 deletions(-)
-> >=20
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-> > b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-> > index 29b400cdd6d5..8a4fb9a62485 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-> > @@ -2998,7 +2998,7 @@ int
-> > amdgpu_amdkfd_gpuvm_restore_process_bos(void *info, struct
-> > dma_fence __rcu *
-> > =C2=A0	/* Validate PDs, PTs and evicted DMABuf imports last.
-> > Otherwise BO
-> > =C2=A0	 * validations above would invalidate DMABuf imports
-> > again.
-> > =C2=A0	 */
-> > -	ret =3D process_validate_vms(process_info, &exec.ticket);
-> > +	ret =3D process_validate_vms(process_info,
-> > drm_exec_ticket(exec));
-> > =C2=A0	if (ret) {
-> > =C2=A0		pr_debug("Validating VMs failed, ret: %d\n", ret);
-> > =C2=A0		goto validate_map_fail;
-> > @@ -3039,7 +3039,7 @@ int
-> > amdgpu_amdkfd_gpuvm_restore_process_bos(void *info, struct
-> > dma_fence __rcu *
-> > =C2=A0			goto validate_map_fail;
-> > =C2=A0		}
-> > =C2=A0
-> > -		ret =3D amdgpu_vm_handle_moved(adev, peer_vm,
-> > &exec.ticket);
-> > +		ret =3D amdgpu_vm_handle_moved(adev, peer_vm,
-> > drm_exec_ticket(exec));
-> > =C2=A0		if (ret) {
-> > =C2=A0			dev_dbg(adev->dev,
-> > =C2=A0				"Memory eviction: handle moved
-> > failed, pid %8d. Try again.\n",
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-> > b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-> > index c4ee19603460..c725a7976c63 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-> > @@ -1157,7 +1157,7 @@ static int amdgpu_cs_vm_handling(struct
-> > amdgpu_cs_parser *p)
-> > =C2=A0			return r;
-> > =C2=A0	}
-> > =C2=A0
-> > -	r =3D amdgpu_vm_handle_moved(adev, vm, &p->exec.ticket);
-> > +	r =3D amdgpu_vm_handle_moved(adev, vm, drm_exec_ticket(&p-
-> > >exec));
-> > =C2=A0	if (r)
-> > =C2=A0		return r;
-> > =C2=A0
-> > @@ -1358,7 +1358,7 @@ static int amdgpu_cs_submit(struct
-> > amdgpu_cs_parser *p,
-> > =C2=A0	cs->out.handle =3D seq;
-> > =C2=A0	leader->uf_sequence =3D seq;
-> > =C2=A0
-> > -	amdgpu_vm_bo_trace_cs(&fpriv->vm, &p->exec.ticket);
-> > +	amdgpu_vm_bo_trace_cs(&fpriv->vm, drm_exec_ticket(&p-
-> > >exec));
-> > =C2=A0	for (i =3D 0; i < p->gang_size; ++i) {
-> > =C2=A0		amdgpu_job_free_resources(p->jobs[i]);
-> > =C2=A0		trace_amdgpu_cs_ioctl(p->jobs[i]);
-> > @@ -1793,7 +1793,7 @@ int amdgpu_cs_find_mapping(struct
-> > amdgpu_cs_parser *parser,
-> > =C2=A0	*map =3D mapping;
-> > =C2=A0
-> > =C2=A0	/* Double check that the BO is reserved by this CS */
-> > -	if (dma_resv_locking_ctx((*bo)->tbo.base.resv) !=3D &parser-
-> > >exec.ticket)
-> > +	if (dma_resv_locking_ctx((*bo)->tbo.base.resv) !=3D
-> > drm_exec_ticket(&parser->exec))
-> > =C2=A0		return -EINVAL;
-> > =C2=A0
-> > =C2=A0	/* Make sure VRAM is allocated contigiously */
-> > diff --git a/drivers/gpu/drm/xe/xe_validation.c
-> > b/drivers/gpu/drm/xe/xe_validation.c
-> > index a611438eaafe..8dff4d0ec895 100644
-> > --- a/drivers/gpu/drm/xe/xe_validation.c
-> > +++ b/drivers/gpu/drm/xe/xe_validation.c
-> > @@ -156,7 +156,7 @@ int xe_validation_ctx_init(struct
-> > xe_validation_ctx *ctx, struct xe_validation_d
-> > =C2=A0
-> > =C2=A0#ifdef CONFIG_DEBUG_WW_MUTEX_SLOWPATH
-> > =C2=A0/*
-> > - * This abuses both drm_exec and ww_mutex internals and should be
-> > + * This abuses ww_mutex internals and should be
-> > =C2=A0 * replaced by checking for -EDEADLK when we can make TTM
-> > =C2=A0 * stop converting -EDEADLK to -ENOMEM.
-> > =C2=A0 * An alternative is to not have exhaustive eviction with
-> > @@ -164,7 +164,7 @@ int xe_validation_ctx_init(struct
-> > xe_validation_ctx *ctx, struct xe_validation_d
-> > =C2=A0 */
-> > =C2=A0static bool xe_validation_contention_injected(struct drm_exec
-> > *exec)
-> > =C2=A0{
-> > -	return !!exec->ticket.contending_lock;
-> > +	return !!drm_exec_ticket(exec)->contending_lock;
-> > =C2=A0}
-> > =C2=A0
-> > =C2=A0#else
-> > diff --git a/include/drm/drm_exec.h b/include/drm/drm_exec.h
-> > index 5ed5be1f8244..50d056a87de0 100644
-> > --- a/include/drm/drm_exec.h
-> > +++ b/include/drm/drm_exec.h
-> > @@ -151,6 +151,11 @@ static inline bool
-> > drm_exec_is_contended(struct drm_exec *exec)
-> > =C2=A0		goto *__drm_exec_retry_ptr;		\
-> > =C2=A0	} while (0)
-> > =C2=A0
-> > +static inline struct ww_acquire_ctx *drm_exec_ticket(struct
-> > drm_exec *exec)
-> > +{
-> > +	return &exec->ticket;
-> > +}
-> > +
-> > =C2=A0void drm_exec_init(struct drm_exec *exec, u32 flags, unsigned nr)=
-;
-> > =C2=A0void drm_exec_fini(struct drm_exec *exec);
-> > =C2=A0bool drm_exec_cleanup(struct drm_exec *exec);
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmnLocYACgkQI1/ltBGq
+qqfF3A//fu8zKlepmLlixQNDwd9W3lIa3DZF6Upro7OFw4TcpYJLyh/3g6aDXwo4
+TftqKM0s6MHZXjqSE6+2YCoMD6a/QGi0TFL0nRRwk3RbZHENIbHjmxyBhAXewRIJ
+he55NjcSzxq8C+FXB7yllHu/G6rUX0arA+QVC9nkv4aztAe2A3DyzpRGtnVluIWQ
+P//C7WT8aiTmSuMjjs6ptSyX/cC7jIkHBKy8F0TZgSyYfvMMbWdDT/N95ZcyaaNc
+z2lmCNmBW1+Z6UtfhfN11vsbBNadGMJREeqVoYDuU5rloF2+XONS6jOiNZR8+jse
+ooCvIZbjV9sjd+uvCUkogdK379m6nmuA0ggxfvrbPsckTwxf0hffo0OCSGKpsbe+
+pXzJlldGQqk+66Q44XMWEogPcfiDSo7r5Cy081+o35ncViC58J2Jox4rWcl2OZFa
+xKK/fBJB4pFc4aY5HxDq5hsFHjtHnsvwCB10APWHch/TGATjAWaK7r0vZRUPq9X6
+p9wul7w6Fmge5eWga+tKi2HYQK83FsUNqhw9s432V67F17HMnFNqxxi4ZjOoyY1d
+yeTr22/UH6vqHiDOH8Q+WElU2aRdxX7tGg+H841l+N0dwh9PeoXsXx8N0fD+ufax
+PPfSqvXlkNrqc/0r2wS4k1SQzhdStg1kctT2p/35z4LwJsAdBPw=
+=qMax
+-----END PGP SIGNATURE-----
+
+--Sig_/MQ0.wLD4iLWOheFBMvZLWA3--
