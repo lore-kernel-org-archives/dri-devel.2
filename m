@@ -4,67 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BCE8FFF60D9
-	for <dri-devel@archiver.kernel.org>; Tue, 31 Mar 2026 07:42:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 39B57FF60D8
+	for <dri-devel@archiver.kernel.org>; Tue, 31 Mar 2026 07:49:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2261310E8D2;
-	Tue, 31 Mar 2026 07:42:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A143010E175;
+	Tue, 31 Mar 2026 07:49:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=samsung.com header.i=@samsung.com header.b="uva1diva";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="Lg2A+cAQ";
 	dkim-atps=neutral
-Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com
- [210.118.77.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 68EC010E8DD
- for <dri-devel@lists.freedesktop.org>; Tue, 31 Mar 2026 07:42:57 +0000 (UTC)
-Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
- by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id
- 20260331074255euoutp015dbdf75373cde0c379010e9a1f68f7a4~h3Tt5dDMY1373113731euoutp01w
- for <dri-devel@lists.freedesktop.org>; Tue, 31 Mar 2026 07:42:55 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com
- 20260331074255euoutp015dbdf75373cde0c379010e9a1f68f7a4~h3Tt5dDMY1373113731euoutp01w
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
- s=mail20170921; t=1774942975;
- bh=n6XU63OSDlDGmqLMrEtDGpPy3DmkqxntfJ1+FJlHctA=;
- h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
- b=uva1divasw/L0LnvvNXqSh4Wm6b9AqbtLPVQWtUbIp/1bh2/Gr5c0VE6nNsxufcmV
- unmyOBjWthGNcHBvNP1/rpfrTUVnInX/mrXX/q7AteDLCWnP52f6RB914SiNvu+wOi
- XxHIS8p4vCRuUC90yZcpEn+Xbfvv1H1qe4krHElw=
-Received: from eusmtip2.samsung.com (unknown [203.254.199.222]) by
- eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
- 20260331074255eucas1p1bd4e8f4b94051f94cb080e283de744f8~h3Ttipnyj2795927959eucas1p1b;
- Tue, 31 Mar 2026 07:42:55 +0000 (GMT)
-Received: from [106.210.134.192] (unknown [106.210.134.192]) by
- eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
- 20260331074253eusmtip2ee24dfba73ffe7e4389932ec930dced9~h3TsKWxn_0253302533eusmtip2V;
- Tue, 31 Mar 2026 07:42:53 +0000 (GMT)
-Message-ID: <69b0e509-c469-4587-87b5-52d8e29e4c1a@samsung.com>
-Date: Tue, 31 Mar 2026 09:42:52 +0200
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A1B5E10E175
+ for <dri-devel@lists.freedesktop.org>; Tue, 31 Mar 2026 07:49:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1774943389;
+ bh=LaeQPMcIQimdwej9sn0zSQ45Z5DVj1wYw17CvwPXfDs=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=Lg2A+cAQKcXa7S5/O329V33nbxIKn+z3BybTFk3IRdqxsQ6gy3eMPS/LlUs9br9a1
+ CkqKWZAKCM5iN2+J6dv63qLNiG8YHNsM70PsRFLTZFmHl2SEtbDLVS0L2ujFEElxmB
+ pRuhIZ3wLBJokjXFnF7JGHYcj3waCEcGWMV7VyakM4pBRLt1faCSJezv9foyasiTVV
+ s2mC6kJBYx37RHozWgl5ODl+XH3qBpJ/uMc1llpgDb5c+fXvx50GLQwmXcHw4zVa2H
+ JNf2+53TPnBseGhDeTBKrQzhLF0bmhUjBWE24L6GbkE4DftXvqd319Pl7bIKjZPLMb
+ SrR5lszs0Puyw==
+Received: from fedora (unknown [IPv6:2a01:e0a:2c:6930:d919:a6e:5ea1:8a9f])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256) (No client certificate requested)
+ (Authenticated sender: bbrezillon)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 15E4617E3B54;
+ Tue, 31 Mar 2026 09:49:49 +0200 (CEST)
+Date: Tue, 31 Mar 2026 09:49:44 +0200
+From: Boris Brezillon <boris.brezillon@collabora.com>
+To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Cc: dri-devel@lists.freedesktop.org, kernel-dev@igalia.com, Christian
+ =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>, Philipp Stanner
+ <phasta@kernel.org>, linux-media@vger.kernel.org,
+ linaro-mm-sig@lists.linaro.org
+Subject: Re: [PATCH] dma-fence: Move signalling tracepoint to before ops detach
+Message-ID: <20260331094944.772833c0@fedora>
+In-Reply-To: <20260330133623.17704-1-tvrtko.ursulin@igalia.com>
+References: <20260330133623.17704-1-tvrtko.ursulin@igalia.com>
+Organization: Collabora
+X-Mailer: Claws Mail 4.3.1 (GTK 3.24.51; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
-User-Agent: Betterbird (Windows)
-Subject: Re: [PATCH v2] dma/contiguous: Fix broken build
-To: Maxime Ripard <mripard@kernel.org>
-Cc: Sumit Semwal <sumit.semwal@linaro.org>, Benjamin Gaignard
- <benjamin.gaignard@collabora.com>, Brian Starkey <Brian.Starkey@arm.com>,
- John Stultz <jstultz@google.com>, "T.J. Mercier" <tjmercier@google.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, Robin Murphy
- <robin.murphy@arm.com>, Albert Esteve <aesteve@redhat.com>,
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
- iommu@lists.linux.dev, Mark Brown <broonie@kernel.org>
-Content-Language: en-US
-From: Marek Szyprowski <m.szyprowski@samsung.com>
-In-Reply-To: <20260331-kind-therapeutic-buzzard-8fc55e@houat>
-Content-Transfer-Encoding: 7bit
-X-CMS-MailID: 20260331074255eucas1p1bd4e8f4b94051f94cb080e283de744f8
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20260330154021eucas1p1ddf347acd21646c96fda4b266ddfc03b
-X-EPHeader: CA
-X-CMS-RootMailID: 20260330154021eucas1p1ddf347acd21646c96fda4b266ddfc03b
-References: <CGME20260330154021eucas1p1ddf347acd21646c96fda4b266ddfc03b@eucas1p1.samsung.com>
- <20260330-dma-build-fix-v2-1-26d844575815@kernel.org>
- <a097600b-0860-495f-b918-adef327bdaec@samsung.com>
- <20260331-kind-therapeutic-buzzard-8fc55e@houat>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,162 +64,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 31.03.2026 09:40, Maxime Ripard wrote:
-> On Mon, Mar 30, 2026 at 07:49:26PM +0200, Marek Szyprowski wrote:
->> On 30.03.2026 17:40, Maxime Ripard wrote:
->>> Commit 3a236f6a5cf2 ("dma: contiguous: Turn heap registration logic
->>> around") didn't remove one last call to dma_heap_cma_register_heap()
->>> that it removed, thus breaking the build.
->>>
->>> That last call is in dma_contiguous_reserve(), to handle the
->>> registration of the default CMA region heap instance.
->>>
->>> The default CMA region instance is already somewhat handled by
->>> retrieving it through the dev_get_cma_area() call in the CMA heap
->>> driver. However, since commit 854acbe75ff4 ("dma-buf: heaps: Give
->>> default CMA heap a fixed name"), we will create two heap instances for
->>> the CMA default region.
->>>
->>> The first one is always called "default_cma_region", and is the one
->>> handled by the call to dev_get_cma_area() mentioned earlier. The second
->>> one is the name it used to have prior to that last commit for backward
->>> compatibility.
->>>
->>> In the case where the default CMA region is defined in the DT, then that
->>> region is registered through rmem_cma_setup() and that region is added
->>> to the list of CMA regions to create a CMA heap instance for.
->>>
->>> In the case where the default CMA region is not defined in the DT
->>> though used to be the case covered by the now removed
->>> dma_heap_cma_register_heap() in dma_contiguous_reserve(). If we only
->>> remove the call to dma_heap_cma_register_heap(), then the legacy name of
->>> the CMA heap will not be registered anymore. We thus need to replace
->>> that call with a call to rmem_cma_insert_area() to make sure we queue
->>> this instance, if created, to create a heap instance.
->>>
->>> Once that call to dma_heap_cma_register_heap() replaced, we can also
->>> remove the now unused function definition, its now empty header, and all
->>> includes of this header.
->>>
->>> Fixes: 3a236f6a5cf2 ("dma: contiguous: Turn heap registration logic around")
->>> Reported-by: Mark Brown <broonie@kernel.org>
->>> Closes: https://lore.kernel.org/linux-next/acbjaDJ1a-YQC64d@sirena.co.uk/
->>> Signed-off-by: Maxime Ripard <mripard@kernel.org>
->>> ---
->>> Changes in v2:
->>> - Fix creation of the CMA heap instance with the legacy name when not
->>>   declared in the DT. 
->>> - Link to v1: https://lore.kernel.org/r/20260330-dma-build-fix-v1-1-748b64f0d8af@kernel.org
->>> ---
->>>  drivers/dma-buf/heaps/cma_heap.c  |  1 -
->>>  include/linux/dma-buf/heaps/cma.h | 16 ----------------
->>>  kernel/dma/contiguous.c           | 14 +++++++++++---
->>>  3 files changed, 11 insertions(+), 20 deletions(-)
->>>
->>> diff --git a/drivers/dma-buf/heaps/cma_heap.c b/drivers/dma-buf/heaps/cma_heap.c
->>> index 7216a14262b04bb6130ddf26b7d009f7d15b03fd..9a8b36bc929f6daa483a0139a2919d95127e0d23 100644
->>> --- a/drivers/dma-buf/heaps/cma_heap.c
->>> +++ b/drivers/dma-buf/heaps/cma_heap.c
->>> @@ -12,11 +12,10 @@
->>>  
->>>  #define pr_fmt(fmt) "cma_heap: " fmt
->>>  
->>>  #include <linux/cma.h>
->>>  #include <linux/dma-buf.h>
->>> -#include <linux/dma-buf/heaps/cma.h>
->>>  #include <linux/dma-heap.h>
->>>  #include <linux/dma-map-ops.h>
->>>  #include <linux/err.h>
->>>  #include <linux/highmem.h>
->>>  #include <linux/io.h>
->>> diff --git a/include/linux/dma-buf/heaps/cma.h b/include/linux/dma-buf/heaps/cma.h
->>> deleted file mode 100644
->>> index e751479e21e703e24a5f799b4a7fc8bd0df3c1c4..0000000000000000000000000000000000000000
->>> --- a/include/linux/dma-buf/heaps/cma.h
->>> +++ /dev/null
->>> @@ -1,16 +0,0 @@
->>> -/* SPDX-License-Identifier: GPL-2.0 */
->>> -#ifndef DMA_BUF_HEAP_CMA_H_
->>> -#define DMA_BUF_HEAP_CMA_H_
->>> -
->>> -struct cma;
->>> -
->>> -#ifdef CONFIG_DMABUF_HEAPS_CMA
->>> -int dma_heap_cma_register_heap(struct cma *cma);
->>> -#else
->>> -static inline int dma_heap_cma_register_heap(struct cma *cma)
->>> -{
->>> -	return 0;
->>> -}
->>> -#endif // CONFIG_DMABUF_HEAPS_CMA
->>> -
->>> -#endif // DMA_BUF_HEAP_CMA_H_
->>> diff --git a/kernel/dma/contiguous.c b/kernel/dma/contiguous.c
->>> index ad50512d71d3088a73e4b1ac02d6e6122374888e..d5d15983060c5c54744d6a63f2b591e1a3455b86 100644
->>> --- a/kernel/dma/contiguous.c
->>> +++ b/kernel/dma/contiguous.c
->>> @@ -40,11 +40,10 @@
->>>  #include <asm/page.h>
->>>  
->>>  #include <linux/memblock.h>
->>>  #include <linux/err.h>
->>>  #include <linux/sizes.h>
->>> -#include <linux/dma-buf/heaps/cma.h>
->>>  #include <linux/dma-map-ops.h>
->>>  #include <linux/cma.h>
->>>  #include <linux/nospec.h>
->>>  
->>>  #ifdef CONFIG_CMA_SIZE_MBYTES
->>> @@ -217,10 +216,19 @@ static void __init dma_numa_cma_reserve(void)
->>>  static inline void __init dma_numa_cma_reserve(void)
->>>  {
->>>  }
->>>  #endif
->>>  
->>> +#ifdef CONFIG_OF_RESERVED_MEM
->>> +static int rmem_cma_insert_area(struct cma *cma);
->>> +#else
->>> +static inline int rmem_cma_insert_area(struct cma *cma)
->>> +{
->>> +	return 0;
->>> +}
->>> +#endif
->>> +
->>>  /**
->>>   * dma_contiguous_reserve() - reserve area(s) for contiguous memory handling
->>>   * @limit: End address of the reserved memory (optional, 0 for any).
->>>   *
->>>   * This function reserves memory from early allocator. It should be
->>> @@ -271,13 +279,13 @@ void __init dma_contiguous_reserve(phys_addr_t limit)
->>>  						  &dma_contiguous_default_area,
->>>  						  fixed);
->>>  		if (ret)
->>>  			return;
->>>  
->>> -		ret = dma_heap_cma_register_heap(dma_contiguous_default_area);
->>> +		ret = rmem_cma_insert_area(dma_contiguous_default_area);
->>>  		if (ret)
->>> -			pr_warn("Couldn't register default CMA heap.");
->>> +			pr_warn("Couldn't queue default CMA region for heap creation.");
->>>  	}
->>>  }
->>>  
->>>  void __weak
->>>  dma_contiguous_early_fixup(phys_addr_t base, unsigned long size)
->>>
->>> ---
->> Huh, this is still not the correct fix to restore the old behavior.
->> When !CONFIG_OF_RESERVED_MEM the default cma area should be still
->> registered as the default cma dma-buf heap.
-> You're right, but it feels that it's a fundamental flaw in the original
-> patch rather than a quick fix for the build now. Can you drop the
-> patches you applied entirely? If so, I'll send a new version of that
-> series.
+On Mon, 30 Mar 2026 14:36:23 +0100
+Tvrtko Ursulin <tvrtko.ursulin@igalia.com> wrote:
 
-I've dropped the whole branch already.
+> Move the signalling tracepoint to before fence->ops are reset otherwise
+> tracepoint will dereference a null pointer.
 
-Best regards
--- 
-Marek Szyprowski, PhD
-Samsung R&D Institute Poland
+I suspect other trace points are impacted too
+(trace_dma_fence_destroy() is, at the very least).
+
+>=20
+> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+> Fixes: 541c8f2468b9 ("dma-buf: detach fence ops on signal v3")
+> Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
+> Cc: Philipp Stanner <phasta@kernel.org>
+> Cc: Boris Brezillon <boris.brezillon@collabora.com>
+> Cc: linux-media@vger.kernel.org
+> Cc: linaro-mm-sig@lists.linaro.org
+> ---
+>  drivers/dma-buf/dma-fence.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+>=20
+> diff --git a/drivers/dma-buf/dma-fence.c b/drivers/dma-buf/dma-fence.c
+> index 1826ba73094c..1c1eaecaf1b0 100644
+> --- a/drivers/dma-buf/dma-fence.c
+> +++ b/drivers/dma-buf/dma-fence.c
+> @@ -363,6 +363,8 @@ void dma_fence_signal_timestamp_locked(struct dma_fen=
+ce *fence,
+>  				      &fence->flags)))
+>  		return;
+> =20
+> +	trace_dma_fence_signaled(fence);
+> +
+>  	/*
+>  	 * When neither a release nor a wait operation is specified set the ops
+>  	 * pointer to NULL to allow the fence structure to become independent
+> @@ -377,7 +379,6 @@ void dma_fence_signal_timestamp_locked(struct dma_fen=
+ce *fence,
+> =20
+>  	fence->timestamp =3D timestamp;
+>  	set_bit(DMA_FENCE_FLAG_TIMESTAMP_BIT, &fence->flags);
+> -	trace_dma_fence_signaled(fence);
+> =20
+>  	list_for_each_entry_safe(cur, tmp, &cb_list, node) {
+>  		INIT_LIST_HEAD(&cur->node);
 
