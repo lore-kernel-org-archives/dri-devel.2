@@ -4,135 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7399AFF60F9
-	for <dri-devel@archiver.kernel.org>; Tue, 31 Mar 2026 09:46:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3A09BFF60EF
+	for <dri-devel@archiver.kernel.org>; Tue, 31 Mar 2026 10:00:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D1E7210E95B;
-	Tue, 31 Mar 2026 09:46:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A6DD710E9FA;
+	Tue, 31 Mar 2026 10:00:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="TCED0JKj";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Ss2nXoTT";
 	dkim-atps=neutral
-Received: from PH8PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11012034.outbound.protection.outlook.com [40.107.209.34])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 16C4410E9F9;
- Tue, 31 Mar 2026 09:46:52 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=yr47DFdjAgOvGVf/WoWWVAex6UCK6ahlNxXCkOHZRlO1dETd1LyqaVTcfA+cvNdWNjqZ/wKsBiU0t/yfRx0io+SWyZytCNFto5UTOyR3aUqeXtVJnJ2w6bBeWJi4uSaxbAlHfP/BzNt2ka4Lc7ZFuDHycmQJEEfnX0c0/6LJG3ahhDo1UCa0o0Bsu/9lTKIHoXFl4EpJ2AXJD319i+S8qlucSgBeGxhMP95EtkwDgX60tCLviaj5eoNhHNRLcoM+b6exe0ShkBg5vnCffwdr8/1n0gWjqYlPgR0eo3KL/otX1r/emQnDoQ8FzepGFMM64//yaN1quBHa+gVd5I2rQA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/ISJK8XWJAC0Hpkw6jQsnuYqpA1s+yZTQhivQ4OrxKs=;
- b=RtDMb+tEl0MMP760b7n9mQQM7WyWxr5+22rdEfKW+AslVCGKUjmypjnqbc0ceJB7a2nEpAe/poly+3skdyXT/uQLLMKQZq6OETryPe9H6rb0WRgxqHNcs3LRPJrNzAWfdCoQyOddCosWnGi2w9r6n+fluDyBhd1Z6kJx/m2KfFm90KmIP2rCK5sFgMxIJ4yay0p/rqDYX4mkHOADYs0FTFYgI693ifo9MW17n+hB5INWj18COpj0Gy36CJY+r47i99usFaJf+MnyOGwpNLbW7SKpnFT8S77QtPRuNyjcns4hW0z7UWbThEjX87U9gKLXrJG3tm6zQCLV2Zz/e01zCQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/ISJK8XWJAC0Hpkw6jQsnuYqpA1s+yZTQhivQ4OrxKs=;
- b=TCED0JKjgdhBYol6gZI/YouruBAaSxTyDhcbEjuvD7Qu07xI0HIf6dD9lwlV57uhRNdrjO7LOTOGa+R3vrV0pbibECnAsQqn5cmrhHUdYGYVmPb75QgthTFXSrDXM46fem6QkUW0QpDGTv2LidWKvXVymz5ub/qMQUm83xFKYns=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by DS7PR12MB5790.namprd12.prod.outlook.com (2603:10b6:8:75::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.15; Tue, 31 Mar
- 2026 09:46:47 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.20.9769.014; Tue, 31 Mar 2026
- 09:46:47 +0000
-Message-ID: <ac68886e-d4f0-408b-9ddc-909cda18c6f5@amd.com>
-Date: Tue, 31 Mar 2026 11:46:39 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 5/5] drm/exec, drm/xe, drm/amdgpu: Add an accessor for
- struct drm_exec::ticket
-To: =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- intel-xe@lists.freedesktop.org
-Cc: Felix Kuehling <Felix.Kuehling@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Danilo Krummrich <dakr@kernel.org>, Matthew Brost <matthew.brost@intel.com>,
- Alice Ryhl <aliceryhl@google.com>, Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
- <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>,
- Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
-References: <20260331092023.81616-1-thomas.hellstrom@linux.intel.com>
- <20260331092023.81616-6-thomas.hellstrom@linux.intel.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260331092023.81616-6-thomas.hellstrom@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR4P281CA0156.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:ba::18) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A5ADD10E9FA
+ for <dri-devel@lists.freedesktop.org>; Tue, 31 Mar 2026 10:00:22 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id C4B8760121;
+ Tue, 31 Mar 2026 10:00:21 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE3DBC2BCB0;
+ Tue, 31 Mar 2026 10:00:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1774951221;
+ bh=NmPYacRlRMgDK6wlfQdVkWEvsfihThv4t5CQJjQ7Y7I=;
+ h=From:Subject:Date:To:Cc:From;
+ b=Ss2nXoTTqQTPpFf+vd8KL2TOHaj3gYelQORnJjYSaDskPaCsG/ahwxR5wQyo09pev
+ QyEsyS4gOFfegOmiVrVX41jQ1kJ8mXgEz1yDMzeH+1LykYYKx4+klu1Dxmxho07FAZ
+ one1+BWa39lVLE8FS9yHz48EUzN+8WFCQGli65jzK4ESyd09ULQ/ayN+8J1Zgr6s22
+ Hq1dL/OncUCyQuhVYvy/MACSqKFlizO2SoIp9uFCRVxm6cyOdM5dZ6CrIxwWwaazWW
+ iARNOAknbGwHy+620T97BwjBbRtB6vLJ3XFlG2X/w88YFvkuNwrGQ9E57OpsA48hGP
+ sDSIXDEMWJb/g==
+From: Maxime Ripard <mripard@kernel.org>
+Subject: [PATCH v4 0/8] dma-buf: heaps: Turn heaps into modules
+Date: Tue, 31 Mar 2026 12:00:09 +0200
+Message-Id: <20260331-dma-buf-heaps-as-modules-v4-0-e18fda504419@kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DS7PR12MB5790:EE_
-X-MS-Office365-Filtering-Correlation-Id: 50bc9d59-c5d2-435e-dfa4-08de8f0a6ce1
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|366016|7416014|376014|56012099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: /MRL6+5ZwL22Z7KRF1MgzHtEYVofYO1+Qu7BRsKIChjjYZ48KxCcx+7Exz0hT2+8hWxh6z7TeD4tvz/T9vJnkRx16CnW+1X/lSwQZYW79pql058ambmw9I6moZVzTIKPWAtLLFfoi8zdB88n5c2LGOHc8YfrcaTbNEwRqlo35s2qA1Bo/LQKHu+omUj8dftWmelvH6alVV2UWQ2FsD92kcIChfu4DElzC1IfUk40JM58V0js4UDz/qekC+vz67vr7wqygHhHe6NrU5vVfJHQ2m1OIVgzHnIJ1N1zsHokPr/HC3xZsbgTkX/rDiQjSzmEMK6S28vU+e63CP1K68gy6fwI/X9gGetg5ejlCdTQTul+3jMkhOtE5owVs2dFyX/W1Zg2Ky2M5Te4rjmsyKuBnyxuUgcWG7tX3byMPPtBchVGZP2sSDxPUIdb6UYxqLtCOHtT+h0Lc6HphU3TqZi+l/c0nbXSBQq0VaSfE7nB5WCG7kMIfoqQmMg8Jd0LXvYyAAqAFuIrrFX9SdAfIK8h0C8lTaM8FWSKaCNxl1rzaDNIRGbl0bkgqE2CLw5XbpkkGTXsVwvLlZHeaqZGEW/ehA0DvUr0cIiBZLJLONcOgM3sUn7UUsLhKMtdxe7AwwWtWBwLUgD3zEqWCDqGMlWhRqtAsOGHLMEycLI9lp+R/JWs9+jrF+trg7zCVArubocdeMkmm+mEKipd0fl+spuGdZShyMkIqFbw57EqISwvBKg=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(7416014)(376014)(56012099003)(18002099003)(22082099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MkFaTHpYdkZPemRkRVJZY3k1cVRwZ1lUZFB6clpNVmlnK3JnNlVkYTl1aWlT?=
- =?utf-8?B?ZHpFTytidjBIQWxxaDVlT285ZVB4b2FoTHdOdzJpYTNOdzFkaDhoRU41dnpl?=
- =?utf-8?B?bXB5Q0tWV1hSMk1UQUx5TW1aMVlvR2podzR2WDlHeEFVNkVRcEpNaVN2RFFs?=
- =?utf-8?B?TXZnY2hXUGVUSmRzOVI5ZXcycnVrVy83SlpzeGRxVWtwL0FiQWtZejRnSDZy?=
- =?utf-8?B?amw3SHdER2kxamJQY1hJWUdkK1FxZXd0VE04TkVrWjhrbVlOYTlMZDlBRTdv?=
- =?utf-8?B?Rkp0THVqVzJrTU93K2t0NHBQUXNzMkpkcVBzZU02eEduYys3NEZPd1NaUnNK?=
- =?utf-8?B?cGVMM2FsKzFhR01abE1VSVlYSjJoUlJPc1pCNm5QRHFuVEZ6T0UyWEVIaTNh?=
- =?utf-8?B?TVY5Z2JxalpvSmpDVmY1YlM4eUZ3QkMrYXZsRWdYMWhEMlM4TEozUEhBSCsv?=
- =?utf-8?B?bnBNQm1oRGw0emU4RGlhZnUvbXczVjExcDVxZFNCaVhvS3VOMHRPQzI5TGZx?=
- =?utf-8?B?U1FMU2p5b1A1Kzh2UFFHSHR3VVU3SFg0T1F1RHJEZDRxUWlXUFdTR1FTUU52?=
- =?utf-8?B?ZGJYWUJualNyc3VhMkovY1E0T2x3ZHNuNHRUNlp0QVFqUWM2dmhCT25jZEJE?=
- =?utf-8?B?d2RuZTUyK0E2RTJPZGNaTzdrcDVhVklDVjBmYWtRZk5ZV0ozeXBTODNQUDdw?=
- =?utf-8?B?OWtMckJjQ2RvQWlvUUcxcGlPNjJCSGNqTDFtdkhkVm1Fc0JieGJCd2tFenkw?=
- =?utf-8?B?N0FJVzgzRXFXdHdaeVVzRTlxcXI3akNwb1FEWUVabVNxTWw4Q2Q5MkNVTWwz?=
- =?utf-8?B?SVQzbGtrNk1iZzNqVjNKdTE5ZEsrVFB1OGFPTXZ6RWdTTGVFMFRLMGdEYVBp?=
- =?utf-8?B?N3RYTkxRS2FDdi9OT1ZPTlpKdVlrSk9pQ0dINWVxUUMxTUY3V1lYTFY1MXJI?=
- =?utf-8?B?L0hROHliVTBHQ3VISFBJcnpqOHlZV3ZaK0lSTUpqUWlEVEU0NGphRytpUmNM?=
- =?utf-8?B?MTAxNHZ4Ykx0cTNhQjFPTUZpVDdoK0NhbC8ra2xGUkJhQk1iaHZNKzR3ekd4?=
- =?utf-8?B?ZlM5QXRPR1hyVitoOGh4b2U3U1hOWGdsemRIam0wM2phMVhtWlZvNWpsQUFu?=
- =?utf-8?B?aEYzOHRZcjhXNHY5cHcwemdWSFNWRlVJRWNIdjZjS0tYNStMdEoyK3AwY2xQ?=
- =?utf-8?B?ZnpYamJhSTdNQUtUTGxveUJmNEpHVlI4WkpQVnlLa2N5NVQwbHJtMGR6ZGlD?=
- =?utf-8?B?LzFpVkVEK3YvZDhsRVNwbnB6VW9PSlliWmNOSlBuWFdIWGgwMlk3amJhTG1E?=
- =?utf-8?B?RTYxWWRLZy9CT3dLMWIzQTZCdUVrQmxZWkkvVElZVU1yUFN3enk5ZVVHZGFw?=
- =?utf-8?B?Wkh1T1hNM2F4TjFYVDByUlZoMnRqRWV6ZStlVTFmTURkTXl5U0lieUJUWm13?=
- =?utf-8?B?TGxaaTBkazRrby9XQkxHTmY4SVp1Y3p1YjhvUDhSN1ltdkhYemd3Z2ZCRVpZ?=
- =?utf-8?B?czAva216M3JpTWJYUTYxNGRyVFAwdFlkczgzcU1iR2ZBck8xeDl0N1MvQUpx?=
- =?utf-8?B?YmNISGI0Tjg4RGZZbC9FSVo0NHUrb1M0SXFyQkpmV2tmbUQ2NDVtQ08vVkVC?=
- =?utf-8?B?T25sdkpySzlrNWZzRHBKRlM0THRNSUwyVzVvYW8xR2V1TjEzRDhxcjRESU5a?=
- =?utf-8?B?Z2VJeStoOE1kbCtET1l5cGs5eTU3eDhGSDNCaUhxc1lDSGdodnJHaWc5ekhS?=
- =?utf-8?B?bDczcUNpZkREaDJHMkNTbUF0bGhwamUzbkpndVp2OHh6NVVKOFVndkFVMGJU?=
- =?utf-8?B?YXRuSXdKR1VLcWpPWTh5NWV4MDh6MzV4TnlMNkNuN1pNOC9mbHRPRi8ydGVt?=
- =?utf-8?B?Mmdib0NVZjBWWjVMRUZCbGN4MVFuRXVjeHZhLzBad09XRnA4SDNIZy9yb3J4?=
- =?utf-8?B?LzBZa0ZRaUFjK3F6ck1yajhaK01QQ3FQM2NVVHpzWGNweTVZUUVYeDcxNXNE?=
- =?utf-8?B?c1JlcFE0MXN3MURzUlo3anN1U05pWStPZzZ5QlRQZU4wS0x2NGxKR3JPbUpE?=
- =?utf-8?B?K3VSM0M0ZGk1YWQ0c0w2NllkVDFOSWVSMVdsd016V2lNVzQ2VkVSYlFJeDFH?=
- =?utf-8?B?c1VrRGVabUg2dkIrSHRha21MSEpDYWRMZ0ZYTzEzK3ArZE5xMmU4c0xzZWhR?=
- =?utf-8?B?eXJRaFdPWVpyeTBrSVRXU2Zpa2ZyVHBLdmVlLzhFSEJKV0RELzRVaE91NHpT?=
- =?utf-8?B?WlIrWU11ZzRlSi9kT0o4WU1LM0hnQmp4Vm1LVmRtT3cwVTIvR3ZXOUUxb2o4?=
- =?utf-8?Q?YrOe3/0A5U5NBCzRRj?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 50bc9d59-c5d2-435e-dfa4-08de8f0a6ce1
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Mar 2026 09:46:47.5655 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: KGQtcWtR+vHM3mAOHa/j7eF3sN6nnPMcbNDvyuEPTGvSsZN3hihdSh1BQzd3tPdL
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB5790
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/43OwQ6CMAwG4FcxO1vTdQPEk+9hPIxRZFGBbEI0h
+ Hd3cFFjYjz+Tf+vHUVg7ziI3WoUngcXXNvEoNcrYWvTnBhcGbMgpBSJEiivBoq+gppNF8AEuLZ
+ lf+EAEpUuFNu8IiNivfNcuftCH44x1y7cWv9YLg1ynv6BDhIQSGIetwzmWO7P7Bu+bFp/ErM60
+ LuU/ZAoSjrRhjljTK39ktRLUqh+SGr+SSutt5JshtmHNE3TE6FYwwtVAQAA
+X-Change-ID: 20260225-dma-buf-heaps-as-modules-1034b3ec9f2a
+To: Sumit Semwal <sumit.semwal@linaro.org>, 
+ Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
+ Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>, 
+ "T.J. Mercier" <tjmercier@google.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Marek Szyprowski <m.szyprowski@samsung.com>, 
+ Robin Murphy <robin.murphy@arm.com>, 
+ Andrew Morton <akpm@linux-foundation.org>, 
+ David Hildenbrand <david@kernel.org>, 
+ Lorenzo Stoakes <lorenzo.stoakes@oracle.com>, 
+ "Liam R. Howlett" <Liam.Howlett@oracle.com>, 
+ Vlastimil Babka <vbabka@suse.cz>, Mike Rapoport <rppt@kernel.org>, 
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>
+Cc: Albert Esteve <aesteve@redhat.com>, linux-media@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, 
+ linux-kernel@vger.kernel.org, iommu@lists.linux.dev, linux-mm@kvack.org, 
+ Maxime Ripard <mripard@kernel.org>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2731; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=NmPYacRlRMgDK6wlfQdVkWEvsfihThv4t5CQJjQ7Y7I=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDJmnZ+vtyny391ST68fupKZOXg+LP5MLLv56Wdf4VfGRu
+ aKiLp9Sx1QWBmFOBlkxRZYnMmGnl7cvrnKwX/kDZg4rE8gQBi5OAZjI7jjGhjMPOeZ5mJ7+U1+7
+ xX37xEN5MWZqs+/M9C8X8bm0z/FoLz9j0KvsW/Pit7Gqf5wid2nGZsaGyfNf758uxcDkcvtFq+j
+ R52FKkjJPNM+bFbHOO2xhN0OHoWLtsnPrFVSuunzRmHlE9U0nAA==
+X-Developer-Key: i=mripard@kernel.org; a=openpgp;
+ fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -148,113 +83,72 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 3/31/26 11:20, Thomas Hellström wrote:
-> Drivers were accessing this drm_exec member directly.
+Hi,
 
-I don't see a problem with that as long as we have documented that this is allowed.
+The recent introduction of heaps in the optee driver [1] made possible
+the creation of heaps as modules.
 
-Regards,
-Christian.
+It's generally a good idea if possible, including for the already
+existing system and CMA heaps.
 
-> Provide an accessor, drm_exec_ticket() to avoid that.
-> 
-> Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c | 4 ++--
->  drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c           | 6 +++---
->  drivers/gpu/drm/xe/xe_validation.c               | 4 ++--
->  include/drm/drm_exec.h                           | 5 +++++
->  4 files changed, 12 insertions(+), 7 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-> index 29b400cdd6d5..8a4fb9a62485 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-> @@ -2998,7 +2998,7 @@ int amdgpu_amdkfd_gpuvm_restore_process_bos(void *info, struct dma_fence __rcu *
->  	/* Validate PDs, PTs and evicted DMABuf imports last. Otherwise BO
->  	 * validations above would invalidate DMABuf imports again.
->  	 */
-> -	ret = process_validate_vms(process_info, &exec.ticket);
-> +	ret = process_validate_vms(process_info, drm_exec_ticket(exec));
->  	if (ret) {
->  		pr_debug("Validating VMs failed, ret: %d\n", ret);
->  		goto validate_map_fail;
-> @@ -3039,7 +3039,7 @@ int amdgpu_amdkfd_gpuvm_restore_process_bos(void *info, struct dma_fence __rcu *
->  			goto validate_map_fail;
->  		}
->  
-> -		ret = amdgpu_vm_handle_moved(adev, peer_vm, &exec.ticket);
-> +		ret = amdgpu_vm_handle_moved(adev, peer_vm, drm_exec_ticket(exec));
->  		if (ret) {
->  			dev_dbg(adev->dev,
->  				"Memory eviction: handle moved failed, pid %8d. Try again.\n",
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-> index c4ee19603460..c725a7976c63 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-> @@ -1157,7 +1157,7 @@ static int amdgpu_cs_vm_handling(struct amdgpu_cs_parser *p)
->  			return r;
->  	}
->  
-> -	r = amdgpu_vm_handle_moved(adev, vm, &p->exec.ticket);
-> +	r = amdgpu_vm_handle_moved(adev, vm, drm_exec_ticket(&p->exec));
->  	if (r)
->  		return r;
->  
-> @@ -1358,7 +1358,7 @@ static int amdgpu_cs_submit(struct amdgpu_cs_parser *p,
->  	cs->out.handle = seq;
->  	leader->uf_sequence = seq;
->  
-> -	amdgpu_vm_bo_trace_cs(&fpriv->vm, &p->exec.ticket);
-> +	amdgpu_vm_bo_trace_cs(&fpriv->vm, drm_exec_ticket(&p->exec));
->  	for (i = 0; i < p->gang_size; ++i) {
->  		amdgpu_job_free_resources(p->jobs[i]);
->  		trace_amdgpu_cs_ioctl(p->jobs[i]);
-> @@ -1793,7 +1793,7 @@ int amdgpu_cs_find_mapping(struct amdgpu_cs_parser *parser,
->  	*map = mapping;
->  
->  	/* Double check that the BO is reserved by this CS */
-> -	if (dma_resv_locking_ctx((*bo)->tbo.base.resv) != &parser->exec.ticket)
-> +	if (dma_resv_locking_ctx((*bo)->tbo.base.resv) != drm_exec_ticket(&parser->exec))
->  		return -EINVAL;
->  
->  	/* Make sure VRAM is allocated contigiously */
-> diff --git a/drivers/gpu/drm/xe/xe_validation.c b/drivers/gpu/drm/xe/xe_validation.c
-> index a611438eaafe..8dff4d0ec895 100644
-> --- a/drivers/gpu/drm/xe/xe_validation.c
-> +++ b/drivers/gpu/drm/xe/xe_validation.c
-> @@ -156,7 +156,7 @@ int xe_validation_ctx_init(struct xe_validation_ctx *ctx, struct xe_validation_d
->  
->  #ifdef CONFIG_DEBUG_WW_MUTEX_SLOWPATH
->  /*
-> - * This abuses both drm_exec and ww_mutex internals and should be
-> + * This abuses ww_mutex internals and should be
->   * replaced by checking for -EDEADLK when we can make TTM
->   * stop converting -EDEADLK to -ENOMEM.
->   * An alternative is to not have exhaustive eviction with
-> @@ -164,7 +164,7 @@ int xe_validation_ctx_init(struct xe_validation_ctx *ctx, struct xe_validation_d
->   */
->  static bool xe_validation_contention_injected(struct drm_exec *exec)
->  {
-> -	return !!exec->ticket.contending_lock;
-> +	return !!drm_exec_ticket(exec)->contending_lock;
->  }
->  
->  #else
-> diff --git a/include/drm/drm_exec.h b/include/drm/drm_exec.h
-> index 5ed5be1f8244..50d056a87de0 100644
-> --- a/include/drm/drm_exec.h
-> +++ b/include/drm/drm_exec.h
-> @@ -151,6 +151,11 @@ static inline bool drm_exec_is_contended(struct drm_exec *exec)
->  		goto *__drm_exec_retry_ptr;		\
->  	} while (0)
->  
-> +static inline struct ww_acquire_ctx *drm_exec_ticket(struct drm_exec *exec)
-> +{
-> +	return &exec->ticket;
-> +}
-> +
->  void drm_exec_init(struct drm_exec *exec, u32 flags, unsigned nr);
->  void drm_exec_fini(struct drm_exec *exec);
->  bool drm_exec_cleanup(struct drm_exec *exec);
+The system one is pretty trivial, the CMA one is a bit more involved,
+especially since we have a call from kernel/dma/contiguous.c to the CMA
+heap code. This was solved by turning the logic around and making the
+CMA heap call into the contiguous DMA code.
+
+Let me know what you think,
+Maxime
+
+1: https://lore.kernel.org/dri-devel/20250911135007.1275833-4-jens.wiklander@linaro.org/
+
+Signed-off-by: Maxime Ripard <mripard@kernel.org>
+---
+Changes in v4:
+- Fix compilation failure
+- Rework to take into account OF_RESERVED_MEM
+- Fix regression making the default CMA area disappear if not created
+  through the DT
+- Added some documentation and comments
+- Link to v3: https://lore.kernel.org/r/20260303-dma-buf-heaps-as-modules-v3-0-24344812c707@kernel.org
+
+Changes in v3:
+- Squashed cma_get_name and cma_alloc/release patches
+- Fixed typo in Export dev_get_cma_area commit title
+- Fixed compilation failure with DMA_CMA but not OF_RESERVED_MEM
+- Link to v2: https://lore.kernel.org/r/20260227-dma-buf-heaps-as-modules-v2-0-454aee7e06cc@kernel.org
+
+Changes in v2:
+- Collect tags
+- Don't export dma_contiguous_default_area anymore, but export
+  dev_get_cma_area instead
+- Mentioned that heap modules can't be removed
+- Link to v1: https://lore.kernel.org/r/20260225-dma-buf-heaps-as-modules-v1-0-2109225a090d@kernel.org
+
+---
+Maxime Ripard (8):
+      dma: contiguous: Turn heap registration logic around
+      dma: contiguous: Make dev_get_cma_area() a proper function
+      dma: contiguous: Make dma_contiguous_default_area static
+      dma: contiguous: Export dev_get_cma_area()
+      mm: cma: Export cma_alloc(), cma_release() and cma_get_name()
+      dma-buf: heaps: Export mem_accounting parameter
+      dma-buf: heaps: cma: Turn the heap into a module
+      dma-buf: heaps: system: Turn the heap into a module
+
+ drivers/dma-buf/dma-heap.c          |  1 +
+ drivers/dma-buf/heaps/Kconfig       |  4 +--
+ drivers/dma-buf/heaps/cma_heap.c    | 22 +++----------
+ drivers/dma-buf/heaps/system_heap.c |  5 +++
+ include/linux/dma-buf/heaps/cma.h   | 16 ---------
+ include/linux/dma-map-ops.h         | 14 ++++----
+ kernel/dma/contiguous.c             | 66 +++++++++++++++++++++++++++++++++----
+ mm/cma.c                            |  3 ++
+ 8 files changed, 82 insertions(+), 49 deletions(-)
+---
+base-commit: c081b71f11732ad2c443f170ab19c3ebe8a1a422
+change-id: 20260225-dma-buf-heaps-as-modules-1034b3ec9f2a
+
+Best regards,
+-- 
+Maxime Ripard <mripard@kernel.org>
 
