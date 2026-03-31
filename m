@@ -4,109 +4,160 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 823291061B32
-	for <dri-devel@archiver.kernel.org>; Tue, 31 Mar 2026 11:31:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E7FAE1061B3B
+	for <dri-devel@archiver.kernel.org>; Tue, 31 Mar 2026 11:41:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 969F010E1F2;
-	Tue, 31 Mar 2026 11:31:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 57D5510EA40;
+	Tue, 31 Mar 2026 11:41:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=invisiblethingslab.com header.i=@invisiblethingslab.com header.b="GxDKYTTl";
-	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="bD26wddQ";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="LLnsPwzj";
 	dkim-atps=neutral
-X-Greylist: delayed 495 seconds by postgrey-1.36 at gabe;
- Tue, 31 Mar 2026 11:31:34 UTC
-Received: from fout-b7-smtp.messagingengine.com
- (fout-b7-smtp.messagingengine.com [202.12.124.150])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 722BD10E1F2
- for <dri-devel@lists.freedesktop.org>; Tue, 31 Mar 2026 11:31:34 +0000 (UTC)
-Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
- by mailfout.stl.internal (Postfix) with ESMTP id C661B1D000D9;
- Tue, 31 Mar 2026 07:23:18 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
- by phl-compute-03.internal (MEProxy); Tue, 31 Mar 2026 07:23:19 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- invisiblethingslab.com; h=cc:content-transfer-encoding
- :content-type:content-type:date:date:from:from:in-reply-to
- :in-reply-to:message-id:mime-version:references:reply-to:subject
- :subject:to:to; s=fm1; t=1774956198; x=1775042598; bh=EcsUa8C2fg
- TQynsJHHMDaklxMetgPOWxao6hBDdfyVA=; b=GxDKYTTl1LNI9F+u4S4DgCLgOv
- Kcrq7mFbpjCVCKrG5K4gNU3h1M0R8W6EkrPExlvHBvibFlwJNcPgNenjazcYTIhz
- WrtBXTgBC2QXxI+F4YXrKafTVzThf70Qfj0OgSG69FLx+GuYtYbrgu6+FGaUL/iq
- Kvx6ybnYKL6PLW/6sWvGYS4EBKcqnSLB9Ri6Dz8oQRD4lyiribAXJFUhT35osPqF
- 74n4Ef4q2d+B0cQEB+JmZHQqENMHLXmoDFpe1wd0BKlAP4afuf3oV1cqFbRIGsTH
- UItvChIYv+GYs3asFj5lxMsPsZysXuryiHVj/8EMt8MHQqD2X5cz0UpWm6tA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-transfer-encoding:content-type
- :content-type:date:date:feedback-id:feedback-id:from:from
- :in-reply-to:in-reply-to:message-id:mime-version:references
- :reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
- :x-me-sender:x-sasl-enc; s=fm2; t=1774956198; x=1775042598; bh=E
- csUa8C2fgTQynsJHHMDaklxMetgPOWxao6hBDdfyVA=; b=bD26wddQtzO270IPw
- 3ipfar8cmhKmQY+21H4AGg8ZLpn+Gpn1LiPuK+B8dzIVrTDTZrfg0ttp4OXuPnrN
- HDZEjKIdDj9LWXwosWx4hF0l9zbxGh81XBL2TaaY77sNHDOFuFxzyjbiNs4fT2EA
- smilVaa7TtIcoO6ONR/bNHeA+9SuXXle4ZZ467I1KbPw75g1W2YJnMpw65UCEouL
- QIxOWzteB49CdAYQUECZD8ROLaTkKrDqWTpMa2ytJDi1Xsv6SCEZEjntGhuiMjZS
- YvtvDxIP0t6CpHh+nF2V7fvPEWXJH4d1NxFVCO8Tlnvkw7ePqegcaaMuSf+HWMax
- wlfMA==
-X-ME-Sender: <xms:pq7LaYbWTgmmp6kgmkYgE-X6Ogs44xkJKyCNFbPgFbrVh_f02ug0aA>
- <xme:pq7Lacsqw6bAyDjA8LEksJ1YBDAqA4A6sDWondKd0H4qkU3oyULOrhZPpX13dD0Ao
- yTu6l3925xEtlgp0Gv3_YKrj4ybXsg1Cupw1UEOvmdmQ5BaSw>
-X-ME-Received: <xmr:pq7LaaNpJT3EiGNei-ycp77s-x-rpZGXdFewRYALvzuXbiK5SqVlIqyMLjk9adeQiQ>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefhedrtddtgddtjecutefuodetggdotefrodftvf
- curfhrohhfihhlvgemucfhrghsthforghilhdpuffrtefokffrpgfnqfghnecuuegrihhl
- ohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjughrpe
- fkffggfgfuvfhfhfgjtgfgsehtkeertddtvdejnecuhfhrohhmpeggrghlucfrrggtkhgv
- thhtuceovhgrlhesihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenucggtf
- frrghtthgvrhhnpeeigfffgfduvefgueeljefgfedugeeivdelkeetieeifefgveettefh
- hfejleegfeenucffohhmrghinhepfhhrvggvuggvshhkthhophdrohhrghenucevlhhush
- htvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehvrghlsehinhhvihhs
- ihgslhgvthhhihhnghhslhgrsgdrtghomhdpnhgspghrtghpthhtohepiedpmhhouggvpe
- hsmhhtphhouhhtpdhrtghpthhtohepthgvugguhidrrghsthhivgesvhgrthgvshdrthgv
- tghhpdhrtghpthhtohepuggvmhhiohgsvghnohhurhesghhmrghilhdrtghomhdprhgtph
- htthhopeigvghnqdguvghvvghlsehlihhsthhsrdigvghnphhrohhjvggtthdrohhrghdp
- rhgtphhtthhopegurhhiqdguvghvvghlsehlihhsthhsrdhfrhgvvgguvghskhhtohhprd
- horhhgpdhrtghpthhtoheplhhinhhugidqmhhmsehkvhgrtghkrdhorhhgpdhrtghpthht
- oheprghrihgrughnvgesrghrihgrughnvgdrshhprggtvg
-X-ME-Proxy: <xmx:pq7LaT6LSvG_5p75fUx-R-PjzGyJuXhAK3aQPJdl5uQ7kK6Xu_gLdA>
- <xmx:pq7LaQR0B-XiB0n4hGmvO5Cuw-AkgNdjgOaTp7g8furXZpdRMPWVuQ>
- <xmx:pq7LaQAC5qBSdtGk0KPTSBkXMFOqi2Vda7mDAZlf7o76rHUHMEeVfw>
- <xmx:pq7LaQG2_uoBLonEXgv0s4UO3v-yweveB3CsFHrClOnBcLKs2bSMHw>
- <xmx:pq7LadqsRxsg0-wb_n4gPdR28Kx_8H5d6lgrj1ykbaG3lR-yuELmZ3wH>
-Feedback-ID: i001e48d0:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 31 Mar 2026 07:23:16 -0400 (EDT)
-Message-ID: <36d831f6-f21a-4c0d-b442-e526d8c946b9@invisiblethingslab.com>
-Date: Tue, 31 Mar 2026 08:23:14 -0300
-MIME-Version: 1.0
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C97E510EA40;
+ Tue, 31 Mar 2026 11:41:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1774957280; x=1806493280;
+ h=message-id:date:subject:to:cc:references:from:
+ in-reply-to:content-transfer-encoding:mime-version;
+ bh=8j2T6BR8LUpI3LMqR76k9TkYtVO2rmo7bppO21SbTPk=;
+ b=LLnsPwzjOJ9AA+JxG5y1FvvN14pETQJYcE0mH+TbyQD741KKgLuMSXXg
+ Z5Zf8n3q/DcluCmV+a0glbg/VxUtFyVlLNZIyiKOhoC6ct6JG5ESw3QGB
+ b44xtwb0vWXQIqS+gEa2zlA2eKyUYovgbzcq6slyveUhPheZi/DONmPhS
+ 5DgStsVOzhaKwV64XZajetr5wtCPFfdBy5IB2eLWraQwwMHvj9DuRpZGo
+ GHoBrQY9rkiM8atyI2TCx8Pzq9l/X6tVD8XS1mvJibgQj3p7NP/n46eDo
+ Vb4sfxHB6d79XXe6ugwOCOkDKMn/SSzzUAIYUYPmsKMqV7SMV9yKuGvtr w==;
+X-CSE-ConnectionGUID: LW/uhnNdRVCMFblTI0Myfw==
+X-CSE-MsgGUID: /el5gBNVQg2j6FrvvnEJuw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11744"; a="87431912"
+X-IronPort-AV: E=Sophos;i="6.23,151,1770624000"; d="scan'208";a="87431912"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+ by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 31 Mar 2026 04:41:19 -0700
+X-CSE-ConnectionGUID: 5nnKFFg5Q2usvkd0BEvY4A==
+X-CSE-MsgGUID: 0M5lE2isTKqjYK1GVseWyA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,151,1770624000"; d="scan'208";a="223042316"
+Received: from orsmsx901.amr.corp.intel.com ([10.22.229.23])
+ by fmviesa007.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 31 Mar 2026 04:41:18 -0700
+Received: from ORSMSX903.amr.corp.intel.com (10.22.229.25) by
+ ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37; Tue, 31 Mar 2026 04:41:17 -0700
+Received: from ORSEDG901.ED.cps.intel.com (10.7.248.11) by
+ ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37 via Frontend Transport; Tue, 31 Mar 2026 04:41:17 -0700
+Received: from SN4PR0501CU005.outbound.protection.outlook.com (40.93.194.60)
+ by edgegateway.intel.com (134.134.137.111) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37; Tue, 31 Mar 2026 04:41:17 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ELMBwDVQuFoISRdSipApPLlJZ4JcZ2GcKBaoiteJZv0HmKd3nQtPaoM5G0TdYlol1Dp5L+GoER8NJNN+c1k5duObq5iTFyVsXiYUq09CceKXEpFl9v8mSvcycl6XjGpEhiAXe93OZ3TR6j00ZXJh0d93NywypqfNsFyuOskYyMpYEGPrn+lQDZELkYKqYsHWDfMqLZENFme+mxRq2+/vgwMiCF1ZGvdN3ueHAkSDxGYGWiyr8ydvfcU6F3FusF6nXLne3vryHhq+gW7Y0FtzLFeT8GnL7WV/YA61/dAL5zJkOPY+ooqwi/9GOD1eP24AH/MNvzbPMCG/26u196gHnQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=TvAwWM5r4vIGeguX/Ze0KTYOY87jgLriBpbc4b9z/T4=;
+ b=cvQvNyoKpJNzZ4zYVbgR0+A9wCRPFFMyClRpXO8OwbE73jUN9rPkuEFYm12JGZBLk1z7mwwCc50L/P3l42pUzCFxW2WG55wcgP5kaAt8J2yeXSe/0FBJf+9SJpfSuknoJhrImOOZqTqTnzck12KD/pCmlXEFih7PzW7PkjiuiZIWf1/pjhUxdmF0qnnA+lx+Xs2L5hpz3wqOtq3Yn1tEmeuMFSzHOtojaAQ5aozZrkTl1gxbLfTEceNiS/RekycabI8dRKHpbnad5I+ClFQvSnNC00y6suY8qnEDVC51XppxgckNL77+Yeq9x8y2kBGDGwKNkzjjzim6tCE1AN91Ow==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from DM4PR11MB5341.namprd11.prod.outlook.com (2603:10b6:5:390::22)
+ by MN0PR11MB6277.namprd11.prod.outlook.com (2603:10b6:208:3c3::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.15; Tue, 31 Mar
+ 2026 11:41:13 +0000
+Received: from DM4PR11MB5341.namprd11.prod.outlook.com
+ ([fe80::68b9:ea3c:8166:3cc4]) by DM4PR11MB5341.namprd11.prod.outlook.com
+ ([fe80::68b9:ea3c:8166:3cc4%4]) with mapi id 15.20.9723.013; Tue, 31 Mar 2026
+ 11:41:13 +0000
+Message-ID: <f4630288-72fd-479a-b413-816a4bd4ca12@intel.com>
+Date: Tue, 31 Mar 2026 17:11:05 +0530
 User-Agent: Mozilla Thunderbird
-Subject: Re: Why memory lending is needed for GPU acceleration
-To: Teddy Astie <teddy.astie@vates.tech>,
- Demi Marie Obenour <demiobenour@gmail.com>,
- Xen developer discussion <xen-devel@lists.xenproject.org>,
- dri-devel@lists.freedesktop.org, linux-mm@kvack.org,
- Ariadne Conill <ariadne@ariadne.space>
-References: <84462c4b-7813-4ad1-aeb2-862ae4f3a627@gmail.com>
- <c38387fe-beef-4f50-b928-74f96b881b7a@gmail.com>
- <0bbf0349-1006-485f-a2db-6c8b795b4242@invisiblethingslab.com>
- <1de15ce0-9f7e-4253-80a7-ecd94caa4325@vates.tech>
+Subject: Re: [PATCH 04/19] drm/dp: Add DPCD for configuring AS SDP for PR + VRR
+To: =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
+CC: <intel-gfx@lists.freedesktop.org>, <intel-xe@lists.freedesktop.org>,
+ <dri-devel@lists.freedesktop.org>, <jouni.hogander@intel.com>,
+ <animesh.manna@intel.com>
+References: <20260330040656.4116502-1-ankit.k.nautiyal@intel.com>
+ <20260330040656.4116502-5-ankit.k.nautiyal@intel.com>
+ <acq-qi3C8B8rQ4o8@intel.com>
 Content-Language: en-US
-From: Val Packett <val@invisiblethingslab.com>
-Autocrypt: addr=val@invisiblethingslab.com; keydata=
- xm8EaFTEiRMFK4EEACIDAwQ+qzawvLuE95iu+QkRqp8P9z6XvFopWtYOaEnYf/nE8KWCnsCD
- jz82tdbKBpmVOdR6ViLD9tzHvaZ1NqZ9mbrszMXq09VfefoCfZp8jnA2yCT8Y4ykmv6902Ne
- NnlkVwrNKFZhbCBQYWNrZXR0IDx2YWxAaW52aXNpYmxldGhpbmdzbGFiLmNvbT7CswQTEwkA
- OxYhBAFMrro+oMGIFPc7Uc87uZxqzalRBQJoVMSJAhsDBQsJCAcCAiICBhUKCQgLAgQWAgMB
- Ah4HAheAAAoJEM87uZxqzalRlIIBf0cujzfSLhvib9iY8LBh8Tirgypm+hJHoY563xhP0YRS
- pmqZ6goIuSGpEKcW5mV3egF/TLLAOjsfroWae4giImTVOJvLOsUycxAP4O5b1Qiy+cCGsHKA
- nCRzrvqnPkyf4OeRznMEaFTEiRIFK4EEACIDAwSffe3tlMmmg3eKVp7SJ+CNZLN0M5qzHSCV
- dBBkIVvEJo+8SDg4jrx/832rxpvMCz2+x7+OHaeBHKafhOWUccYBLKqV/3nBftxCkbzXDbfY
- d02BY9H4wBIn0Y3GnwoIXRgDAQkJwpgEGBMJACAWIQQBTK66PqDBiBT3O1HPO7mcas2pUQUC
- aFTEiQIbDAAKCRDPO7mcas2pUaptAX9f7yUJLGU4C6XjMJvXd8Sz6cGTyxkngPtUyFiNqtad
- /GXBi3vHKYNfSrdqJ8wmZ8MBgOqWaaa1wE4/3qZU8d4RNR8mF7O40WYK/wdf1ycq1uGad8PN
- UDOwAqdfvuF3w8QMPw==
-In-Reply-To: <1de15ce0-9f7e-4253-80a7-ecd94caa4325@vates.tech>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: "Nautiyal, Ankit K" <ankit.k.nautiyal@intel.com>
+In-Reply-To: <acq-qi3C8B8rQ4o8@intel.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: MA5P287CA0108.INDP287.PROD.OUTLOOK.COM
+ (2603:1096:a01:1b5::16) To DM4PR11MB5341.namprd11.prod.outlook.com
+ (2603:10b6:5:390::22)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM4PR11MB5341:EE_|MN0PR11MB6277:EE_
+X-MS-Office365-Filtering-Correlation-Id: 153da0c5-556e-428a-f7f7-08de8f1a6944
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|376014|1800799024|18002099003|22082099003|56012099003; 
+X-Microsoft-Antispam-Message-Info: nxtsM28GidTdROyV+bt0HZKZZPpxCXUkvp/4BxAwk3Wbe/iewYLdBjnC1Yv0NUfAdado9JMHZzMlNIgSj22tdm7pAp10aEEGHhmU+mMIe1vKJF8Mf8kcyus6iZ6YNgnvW73cqefLUi6w2/1S5PaYcICDkGYKVvbwUGK2ITELHIqs7LGgNZ3Lvwz/8DCDfMkj6Qh7fboOZ49PnWdobelAjCOTHvuL9VCqYS+0H4AAHuCZQXY92VIYnFH6cVxYx4ehMe0rucDcCEElAw2tpzb+OkhEFk7K6aF/i2igj8bjV+thFAbMs98j/r4x3rzs6PAeurgz9UXJPDVdUZ1pehFf1I+OUoSlItp02BfKdx/clX7RvN1RPLGGqkr5W5Rq/EsV1S/nDbESIWIdVxHWmGF0AwY7jVHq0VTMR35DeAnxOBeLGLVIgmOr+MqDQykdJW/pPARVKBEGe1J6C26L7RBvuLNDjWUan3Dm5eGiWia5KvBw3F1K8h5irnJ53NY3BYwoj3WdLs91JKbJzfZXZTbvBHLJ2DTfWUpXZUA9WCrfCUfQAKudofAqGAbJJtrvSggyrsPIT88N8OttqyiHj98WtEHYMy1BCdQWSD5fUw1L0g86CDlRWHcMUgBWjoAcKWNjOe62zSWNj37jYPlxYPT6W1waD+s0uFDXcuzCgK9I+KrKnD/mzChLYjtdv5O60CibgTKwzX5KI+TmafIMYrR5dDhEGh9GLO4qSi7DIXTVVZg=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM4PR11MB5341.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(376014)(1800799024)(18002099003)(22082099003)(56012099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Q0FCeVd5SmVzU09aNHJXVmJmNWd6eFgzcFRPQWNELzFkS3V4a3pUVVQ3RmVS?=
+ =?utf-8?B?ZEt4WWFmVjZ3REVuQ0FGaUNjSExLTHdjdmxhczBMa0FBTWRzWHJBZ3JXWktC?=
+ =?utf-8?B?TTJWNVQxMHFld0dHaWl3NUhlanFYM3VWSTRCazdPNnJmcDZtSUpUQnRBTnlR?=
+ =?utf-8?B?WUFIcDVQQ3d0Yk1UYTZLZVpsNlVHUGVmeThQS2JRRStNaHMwSTRzVldYWHUv?=
+ =?utf-8?B?Y25EY1VMa3JDY2hQempRMjF3eUljVmJYYzRpeG9NWEsvY1lOUHNPZW1jS3dW?=
+ =?utf-8?B?K3JPTmQrTExhU3JWQlQwUW03Y1pyRFpac0J5endLWnJ3Z1FOUHF1WlFaNDBa?=
+ =?utf-8?B?b1VmVzlCYzNYVjJINmgycWdVa0xaREhqRGJLRk9XeUhxODNhMUZIb1htWlV0?=
+ =?utf-8?B?T2pIYU9vU3N3SHo2aGV5Q3hLWHRNM2I1Z29BMFhtZHdWekcyMTZEc0ErOHBM?=
+ =?utf-8?B?bkRCeUhsS3V0NnZidmR6ZjUxT2hoWjNHOXM0Z3lGM2Ura3JBSWFLOVBaektJ?=
+ =?utf-8?B?NTMzbjlQRndrM0lXcmV1Tjd0L3haWmdRUUJyMmFjOFA3VWc1Y2RXWTJuRDlJ?=
+ =?utf-8?B?N0lMazlWeVY2OWp4U3FwZmxaT1lFOThFRUx2YUE5L240ZHNpWEVjaW55cW5U?=
+ =?utf-8?B?OUh1SWcxam1UZWZKRWsrWmhUMXV2ekpISGQzQUtqQ0toZ1BQYWhBeVJDOWFp?=
+ =?utf-8?B?SXRwMm0vS2hFdXArd29sVkcxcWZRRkY5UFhaVDhLTmlETC9ZZHMvdmhUNWV4?=
+ =?utf-8?B?VGtlVGppcXNIY0FDMGxkeTRSdUo1WllmL3NtOXlGWGUzQzFRZ2lXektoVWlx?=
+ =?utf-8?B?anNzQk9ZM1RyaDNwV2lZOWVDeU1LQWtiQlZOeVExMjhpVHdLSno0YUh6YUFJ?=
+ =?utf-8?B?emZhVUJncU9EMGxTQm45bUUzVTdodG11RzI5NG9adWJzaVVSZjRWUUZLSmxM?=
+ =?utf-8?B?MzJVTE05cFpUbC9Wd0NGMjVZanBFV2M0c1VZaEd2OXVKNnBBbnNBK08wd0p0?=
+ =?utf-8?B?d0p5b1FuaG1IemFFa2hBdUowMDhzQ0puaUp6dStCdTNTeVN0TWZ1Q05WSnNo?=
+ =?utf-8?B?endvY3VXRlM4VjJrM3pmaGQzNm1WNStyOWF0bWhjRGNGeTBjSzJkWWdJK1ZJ?=
+ =?utf-8?B?Q0tJenB6cWVESHl3UUlSbXZpY3FGZWFyYnpQV1RNTUFlWE51dkMwVk1TS05W?=
+ =?utf-8?B?ZjVyR3UrYk1sUGdjWmgwKzhzUEFPamxWZTBaZkVvTFpkVmVQTDBWUllidzRh?=
+ =?utf-8?B?ZzNlM1NQWEZFTG1CRjFaSWJXU24wc2JlZzdUdk4rbDVZWDFyVDZMMUp1SWQv?=
+ =?utf-8?B?blEzT056dGxRMWlzMFVtQS8yTTdNdlp2M1RUc3N6TXcxQ0RadmtiWFN5Uity?=
+ =?utf-8?B?N0NDQS9ieUovSnI4MTUrQmFEVVp3NGJFTkVHRlZNZEdxd0lNYUhyOEp0MVdQ?=
+ =?utf-8?B?aGptcmFxbENMM0NJc2dvU0JXdm5rbStsUVU4cjVBZm1WUjh4aThqaXMvOU5N?=
+ =?utf-8?B?VGFBWitLeGh2azgwNlpJdkZyY2lkdnlJMEpxcnUzNDlqUHpFNTY3amJzTU9h?=
+ =?utf-8?B?S1NiaENhUzc2dUFLUGkxbjhCUlpSQ0pVcXFyeThEaVJCWFZXVjViRWk3NCtU?=
+ =?utf-8?B?ekJ1NWVraTRuVlk0cmpRZmlxSHRDQTV5dnZmeTFSUmd2WXhmbW9CT1lGaFdi?=
+ =?utf-8?B?NGd4VU9mNkJKNXV5RU55Sk91akI5cmJhRExUaVVtd2xxdHB0RTRiT3RDRDF4?=
+ =?utf-8?B?Kzkvb3NwKy84cklLVWU5RGRid3dIK1g3RkEybUlWWENra0NEUGdZNHhkR2VE?=
+ =?utf-8?B?aEJ2enZ2SjNjVTdjcndFY3d1bkFWeWVOU05XcXFjYVkvR1pNankvK1BxSjRo?=
+ =?utf-8?B?VWlpLzdvb0Y4cU9EQzZrYzVmWTU3RlJ3VGtJaCtCQ3lBTm11Zlp2THh3SUZh?=
+ =?utf-8?B?bzJsaW5Rd1dEVWpoZTJFZWVmS0xLbUZMVkRZUzJ2VUwyUFJTSHIrR0RtNHFq?=
+ =?utf-8?B?UHpjNGRrOUo4TWdiSEtCeFhpSGVkelZQQzJWRlpvSktEbnJiZGg1eXpPRjd2?=
+ =?utf-8?B?dGlMekFSb2Q2RmREK2FYSTUvV05ia1I2a0RpTWZhT0hBek4xMFRzYVQ1T2hm?=
+ =?utf-8?B?ZWNPcUFxandCQjU3eVlSKzNnTnJ1L0U4MEVRdDdoMHlvLzIwMEhOUzV5dVhx?=
+ =?utf-8?B?VW5yY3JYaDNLclpHNUxnZHM5REJYRE91YVhydnVGTTZ2ZHB0Z29LRmREVUtG?=
+ =?utf-8?B?RU1zNHZIQ1dIOFBBNXNhUXBNVTY3cmRxQ1E1dXl5bHdNZjJRK0pTOVdQQ0ZX?=
+ =?utf-8?B?NnZQS1o0L28zMm5uaC9qQ2l1aE8ySEJoSXRpUWRVcGthYzhLZ0xJU1hlYnVr?=
+ =?utf-8?Q?+DGKuBeXzcVSZNnc=3D?=
+X-Exchange-RoutingPolicyChecked: LrDp86XA7Yhlvbt0rAVtgDYlVcQjEt0uY70+b6gZvmmbWOyxhyr08PfdL7Q21KC8iGdTyFP0dj4ujAcNbh6EfffhA62IXQ8MnsxAm3x1tLEAUYA5F5JuxkpMD3vjNkA2mdTcKpS4HRAteGUhpI6EDlB8V85G56fCW7RMplaGPmBuzT6Vg4dZNeiQK+A+NftJarBfA6aXh2UrLyudYnFljqv+JjgUYQvXDQh7IJj4HkLdORSIYFKjrjXQLZUURLLhGCMK1UXEIyv5uNTTGR/SexXlPV4/rbcvYzMY5N0TqFHuc17/fMOE2vE+Sww3/ZfHxyq/aihyPjkO/t+jai47qQ==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 153da0c5-556e-428a-f7f7-08de8f1a6944
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR11MB5341.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Mar 2026 11:41:13.5755 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: DipURinLnGv2S+e6i/dPV1b2aSNcIP2BzkC12VtPYzmjwCbmAjvy27m9Jjyu2kliQo5fpSvu1ScSrMqBHGayq4Oyap9SxYZ5180HgN4OcNU=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR11MB6277
+X-OriginatorOrg: intel.com
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -123,106 +174,53 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
-On 3/31/26 6:42 AM, Teddy Astie wrote:
-> Le 30/03/2026 à 22:13, Val Packett a écrit :
->> [..]
+On 3/30/2026 11:49 PM, Ville Syrjälä wrote:
+> On Mon, Mar 30, 2026 at 09:36:41AM +0530, Ankit Nautiyal wrote:
+>> Add additional DPCDs required to be configured to support VRR with Panel
+>> Replay. These DPCDs are specifically required for configuring Adaptive Sync
+>> SDP and are introduced in DP v2.1.
 >>
->> we have no need to replicate what KVM does. That's far from the only
->> thing that can be done with a dmabuf.
+>> v2:
+>>   - Correct the shift for the bits. (Ville)
+>>   - Add DP_PR_ prefix for the PR-related fields.
+>> v3:
+>>   - Use macro values in their shifted form to match the convention (Ville)
 >>
->> The import-export machinery on the other hand actually does pin the
->> buffers on the driver level, importers are not obligated to support
->> movable buffers (move_notify in dma_buf_attach_ops is entirely optional).
+>> Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+>> ---
+>>   include/drm/display/drm_dp.h | 5 +++++
+>>   1 file changed, 5 insertions(+)
 >>
-> dma-buf is by concept non-movable if actively used (otherwise, it would
-> break DMA). It's just a foreign buffer, and from device standpoint, just
-> plain RAM that needs to be mapped.
+>> diff --git a/include/drm/display/drm_dp.h b/include/drm/display/drm_dp.h
+>> index 8d172863eba3..93a188113d36 100644
+>> --- a/include/drm/display/drm_dp.h
+>> +++ b/include/drm/display/drm_dp.h
+>> @@ -775,6 +775,11 @@
+>>   # define DP_PANEL_REPLAY_SU_Y_GRANULARITY_EXTENDED_VAL_SEL_MASK  (0xf << 3)
+>>   # define DP_PANEL_REPLAY_SU_REGION_SCANLINE_CAPTURE		 (1 << 7)
+>>   
+>> +#define PANEL_REPLAY_CONFIG3				0x11a /* DP 2.1 */
+> I would still define a DP_PR_AS_SDP_SETUP_TIME_MASK here, to
+> make it clear which bits are part of this.
+
+
+  I think I added that in previous implementation, but dropped in this. 
+I will add it again.
+
+Regards,
+
+Ankit
+
 >
->> Interestingly, there is already XEN_GNTDEV_DMABUF…
->>
->> Wait, do we even have any reason at all to suspect
->> that XEN_GNTDEV_DMABUF doesn't already satisfy all of our buffer-sharing
->> requirements?
->>
-> XEN_GNTDEV_DMABUF has been designed for GPU use-cases, and more
-> precisely for paravirtualizing a display. The only issue I would have
-> with it is that grants are not scalable for GPU 3D use cases (with
-> hundreds of MB to share).
-
-At least for the Qubes side, we aren't aiming at running Crysis on a 
-paravirtualized GPU just yet anyway :) First we just want desktop apps 
-to run well.
-
-Keep in mind that with virtgpu paravirtualization, actual buffer sharing 
-between domains only happens for CPU access, which is mostly used for:
-
-- initial resource uploads;
-- the occasional readback (which is inherently slow and all graphics 
-devs try not to *ever* do);
-- special cases like screen capture.
-
-Most CPU mappings of GPU driver managed buffers live for the duration of 
-a single memcpy. Mapping size can get large for games indeed, but for 
-desktop applications it's rather small.
-
-On the rendering hot path the guest virtgpu driver just submits jobs 
-that refer to abstract handles managed by virglrenderer on the host, and 
-buffer sharing is *not* happening.
-
-> But we can still keep the concept of a structured guest-owned memory
-> that is shared with Dom0 (but for larger quantities), I have some ideas
-> regarding improving that area in Xen.
+> With that
+> Reviewed-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 >
-> The only issue with changing the memory sharing model is that you would
-> need to adjust the virtio-gpu aspect, but the rest can stay the same.
->
-> The biggest concern regarding driver compatibility is more about :
-> - can dma-buf be used as general buffers : probably yes (even with
-> OpenGL/Vulkan); exception may be proprietary Nvidia drivers that lacks
-> the feature; maybe very old hardware may struggle more with it
-Current nvidia blob drivers do not lack the feature btw..
-> - can guest UMD work without access to vram : yes (apparently), AMDGPU
-> has a special case where VRAM is not visible (e.g too small PCI BAR),
-> there is vram size vs "vram visible size" (which could be 0); you could
-> fallback vram-guest-visible with ram mapped on device
-
-UMDs work on a higher level, they work on buffers which are managed by 
-the KMD.
-
-In any paravirtualization situation (whether "native 
-contexts"/vDRM which runs the full HW-specific UMD in the guest, or 
-API-forwarding solutions like Venus) the only guest KMD is virtio-gpu! 
-The guest kernel isn't really aware of what VRAM even is.
-
-https://gitlab.freedesktop.org/mesa/mesa/-/blob/main/src/amd/common/virtio/amdgpu_virtio_bo.c
-
-^ this 300-ish-line file is everything amdgpu ever does with buffer 
-objects on the virtio backend.
-
-All it can do is manage host handles, import guest dmabufs into virtgpu 
-to get handles for them, export handles to get guest dmabufs, and map 
-handles for guest CPU access via the VIRTGPU_MAP ioctl. There are no 
-special details to any of this, it's all very straightforward.
-
-It seems to me that implementing VIRTGPU_MAP in terms of dmabuf grants 
-would be easy!..
-
-I'll need to get to that point first though, right now I'm still working 
-on making basic virtio itself work in our (x86) situation.
-
-> - can it be defined in Vulkan terms (from driver) : You can have
-> device_local memory without having it host-visible (i.e memory exists,
-> but can't be added in the guest). You would probably just lose some
-> zero-copy paths with VRAM. Though you still have RAM shared with GPU
-> (GTT in AMDGPU) if that matters.
-
-What did you mean by "added" in the guest?
-
-We shouldn't ever have to touch this level at all, anyhow…
-> Worth noting that if you're on integration graphics, you don't have VRAM
-> and everything is RAM anyway.
-
-
-Thanks,
-~val
-
+>> +# define DP_PR_AS_SDP_SETUP_TIME_T1			(0 << 6)
+>> +# define DP_PR_AS_SDP_SETUP_TIME_DYNAMIC		(1 << 6) /* DP 2.1 Table 2-227 */
+>> +# define DP_PR_AS_SDP_SETUP_TIME_T2			(2 << 6)
+>> +
+>>   #define DP_PAYLOAD_ALLOCATE_SET		    0x1c0
+>>   #define DP_PAYLOAD_ALLOCATE_START_TIME_SLOT 0x1c1
+>>   #define DP_PAYLOAD_ALLOCATE_TIME_SLOT_COUNT 0x1c2
+>> -- 
+>> 2.45.2
