@@ -4,76 +4,138 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 58C52FF60CF
-	for <dri-devel@archiver.kernel.org>; Tue, 31 Mar 2026 06:17:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7536FFF60CE
+	for <dri-devel@archiver.kernel.org>; Tue, 31 Mar 2026 06:27:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BF4F510E85C;
-	Tue, 31 Mar 2026 06:17:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D796810E86E;
+	Tue, 31 Mar 2026 06:27:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="KYjl3cbi";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="v/lAwbIC";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="PKqHkUWP";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="v/lAwbIC";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="PKqHkUWP";
 	dkim-atps=neutral
-Received: from mail-lj1-f182.google.com (mail-lj1-f182.google.com
- [209.85.208.182])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EF0AF10E862
- for <dri-devel@lists.freedesktop.org>; Tue, 31 Mar 2026 06:17:03 +0000 (UTC)
-Received: by mail-lj1-f182.google.com with SMTP id
- 38308e7fff4ca-38bd60d7a2cso50420861fa.1
- for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 23:17:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1774937822; x=1775542622; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=slrIynpsyCDGbw/DVJ139y58tD8HDF7VkYtGZ4Dd10U=;
- b=KYjl3cbiqXD1V2LSE3rOHTotoq21mJE1uC9i75jAQR5DiaJ6jKLxz37NqEPPJLmJIZ
- wBq2gKPt6GU++CO0UwpC5R/YQrRTExuTr2wfVney9QRwz/zVKU8hmJL7MMtrDWlOm+L5
- l6jSv7Bp3/VRw4nSoQej3HvvI7lEsPyNhG0iMk/477Q+SQWVvsIcDH4VkLSyOdp1RSNr
- 9Hsq1Cse/NGH2A04E0uFTUxvDeVvZNT2rZ4ep+zRRB8cYS3Ep9xrDJkC+ON1Rsy/vrGA
- 9+mVfq5LG1RgQdO/j07CagTFJOrfC7ITefkmZWPFrGmFg9UK+K1yXGgL0YhUwYu4CEBM
- fzLQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774937822; x=1775542622;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=slrIynpsyCDGbw/DVJ139y58tD8HDF7VkYtGZ4Dd10U=;
- b=Dgjw0lmHgotViuFUbA+EMxyjRKsiJVVnL7TiYWSwcr2IypgC+x6XTf2JoQutVjfQ78
- aEPGZtoxynWAlpTtWyCQ4YfcdphJX0rEteSZcoX2YwfbamjLMj93RsylsDn02L9XjSMI
- +YVRKdpkojv5wie0uRt2Qp9CP5FPSCgKY+c6jIkZByKa17urBAYJaw6Dqv9iIOipkhLz
- UAslcFArwJGR1u3siVKKKYZoW/aKih90dRwYX5MpJunszCnoDRe6x4bxzDqGMiMEclKO
- oAB0Z+aGNUuO2kv/9Vjp/5+lFuIFl2exmqaRb76WKon21v8Myi325HZYL4TRTyhJVe23
- Gypw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWeDm9vqS0/DCizAqVjPNc2aqc3LVZshCIZ7P/TXPYmQAp7y+WVsThc/RApFQUbRgEBdpYQ3uhgatc=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yx+xNhf6aobEPwQCjJtPKdi0hgRsFVbFQuDLoIS68AC+zwKHuZj
- MksJe1Tjw/U0hody2PauOl2M3dGAjIL+pmNgS71nRWzmJNFlfmvGMZT9
-X-Gm-Gg: ATEYQzy4xh1c4b8FJRfVsoTWS7DlvJAJxdp/TnrO/cxfMKjkKo2ws8006RNwCuliiL9
- MoGoaVAHYJH7RHETc0JrNlg+gn19vO1iThTyrRsaRrKRd/AKUckvN92XmLR4mRGX81dQEoAMDNH
- TK1NUIj6QPh7RPNbveCpy4px9kya3ghGKRiE2g4iPX2LQFj9Apf2ZWk3UG1CmIwyLhuKFEnOuDc
- iFPtGQM5yF73VVSITfe8MqFr9QlKJ/bp7yGUsB0rTRIGcWyZpQfBARSmyLvfGEip6wvrjVanzDt
- ERN4lHcXHCuyXiQXH6PDhT9qYcjqw3MXY2kqS4CASaG+VCwG1YK+4FXWUlb+4f7NEcDufXwiwrP
- W4qZ3te++KqdagQSpjrRtTFcOrfWV52yp+QJtdOtz2Xv/FZthTPZFBNSOfG8EV1LE5WC6mm9TzR
- mo5kebGatEGSbCckBpMwHZnS3tzJlrJOPy7Q==
-X-Received: by 2002:a05:6512:3b2c:b0:5a2:b3fc:b877 with SMTP id
- 2adb3069b0e04-5a2b3fcbaacmr2578412e87.25.1774937821564; 
- Mon, 30 Mar 2026 23:17:01 -0700 (PDT)
-Received: from localhost ([188.234.148.119]) by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5a2b1455e14sm2145277e87.64.2026.03.30.23.17.00
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 30 Mar 2026 23:17:00 -0700 (PDT)
-From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
-To: kraxel@redhat.com,
-	vivek.kasireddy@intel.com
-Cc: sumit.semwal@linaro.org, christian.koenig@amd.com,
- dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org,
- linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
-Subject: [PATCH v2] dma-buf/udmabuf: skip redundant cpu sync to fix cacheline
- EEXIST warning
-Date: Tue, 31 Mar 2026 11:16:57 +0500
-Message-ID: <20260331061657.79983-1-mikhail.v.gavrilov@gmail.com>
-X-Mailer: git-send-email 2.53.0
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 042A410E86E
+ for <dri-devel@lists.freedesktop.org>; Tue, 31 Mar 2026 06:27:14 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id A487E5BE93;
+ Tue, 31 Mar 2026 06:27:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1774938432; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=hhP7i2cWQDIIFHNdX6ILKwrN6C18zchEHCGzRCfvmbs=;
+ b=v/lAwbICLIZvEMjQ/bFibQnGLCTKrriY2Sz2U1CdMpzOPVkH3xmakmeVdxKjBnOytngq+R
+ jN9pKp2serFmxXqMOBRYAmXFF72iQc0sEie2uumqDv0JVPyu69mu2NCeHRu3cvpfhV36ZB
+ AvySCGHp3kzu+1xT0UBWSgX/C1GIbAc=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1774938432;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=hhP7i2cWQDIIFHNdX6ILKwrN6C18zchEHCGzRCfvmbs=;
+ b=PKqHkUWPrxZ/0QDxv1YCXf5gWyO9XO0FGzvUndBbEioC4ZjUfdbfPg4nds2WLTYxqaFVoN
+ qBrHApRLnKgFsqCA==
+Authentication-Results: smtp-out2.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b="v/lAwbIC";
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=PKqHkUWP
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1774938432; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=hhP7i2cWQDIIFHNdX6ILKwrN6C18zchEHCGzRCfvmbs=;
+ b=v/lAwbICLIZvEMjQ/bFibQnGLCTKrriY2Sz2U1CdMpzOPVkH3xmakmeVdxKjBnOytngq+R
+ jN9pKp2serFmxXqMOBRYAmXFF72iQc0sEie2uumqDv0JVPyu69mu2NCeHRu3cvpfhV36ZB
+ AvySCGHp3kzu+1xT0UBWSgX/C1GIbAc=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1774938432;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=hhP7i2cWQDIIFHNdX6ILKwrN6C18zchEHCGzRCfvmbs=;
+ b=PKqHkUWPrxZ/0QDxv1YCXf5gWyO9XO0FGzvUndBbEioC4ZjUfdbfPg4nds2WLTYxqaFVoN
+ qBrHApRLnKgFsqCA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 6ADE84A0A2;
+ Tue, 31 Mar 2026 06:27:12 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id yoqfGEBpy2klGgAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Tue, 31 Mar 2026 06:27:12 +0000
+Message-ID: <21479f6d-80c1-4f46-8a41-e50a2d564a94@suse.de>
+Date: Tue, 31 Mar 2026 08:27:11 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH drm-misc-next v4 0/4] drm: verisilicon: convert drm_format
+ to vs_format in atomic_check
+To: Icenowy Zheng <zhengxingda@iscas.ac.cn>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Icenowy Zheng <uwu@icenowy.me>
+References: <20260331060126.1291966-1-zhengxingda@iscas.ac.cn>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <20260331060126.1291966-1-zhengxingda@iscas.ac.cn>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-Rspamd-Action: no action
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ MX_GOOD(-0.01)[]; FREEMAIL_ENVRCPT(0.00)[gmail.com];
+ FUZZY_RATELIMITED(0.00)[rspamd.com];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; TO_DN_SOME(0.00)[];
+ FREEMAIL_TO(0.00)[iscas.ac.cn,linux.intel.com,kernel.org,gmail.com,ffwll.ch]; 
+ MIME_TRACE(0.00)[0:+]; ARC_NA(0.00)[];
+ RCPT_COUNT_SEVEN(0.00)[8]; MID_RHS_MATCH_FROM(0.00)[];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ RCVD_TLS_ALL(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
+ FROM_HAS_DN(0.00)[];
+ SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+ RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,suse.de:mid,suse.com:url,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns];
+ DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received,2a07:de40:b281:104:10:150:64:97:from];
+ DKIM_TRACE(0.00)[suse.de:+]
+X-Rspamd-Queue-Id: A487E5BE93
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,83 +151,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-When CONFIG_DMA_API_DEBUG_SG is enabled, importing a udmabuf into a DRM
-driver (e.g. amdgpu for video playback in GNOME Videos / Showtime)
-triggers a spurious warning:
+Hi,
 
-  DMA-API: amdgpu 0000:03:00.0: cacheline tracking EEXIST, \
-      overlapping mappings aren't supported
-  WARNING: kernel/dma/debug.c:619 at add_dma_entry+0x473/0x5f0
+I only looked briefly over the update, but it seems good now.
 
-The call chain is:
+Best regards
+Thomas
 
-  amdgpu_cs_ioctl
-   -> amdgpu_ttm_backend_bind
-    -> dma_buf_map_attachment
-     -> [udmabuf] map_udmabuf -> get_sg_table
-      -> dma_map_sgtable(dev, sg, direction, 0)  // attrs=0
-       -> debug_dma_map_sg -> add_dma_entry -> EEXIST
 
-This happens because udmabuf builds a per-page scatter-gather list via
-sg_set_folio().  When begin_cpu_udmabuf() has already created an sg
-table mapped for the misc device, and an importer such as amdgpu maps
-the same pages for its own device via map_udmabuf(), the DMA debug
-infrastructure sees two active mappings whose physical addresses share
-cacheline boundaries and warns about the overlap.
+Am 31.03.26 um 08:01 schrieb Icenowy Zheng:
+> This patchset tries to move the process of converting drm_format to
+> vs_format into plane's atomic_check callback (instead of the
+> atomic_commit one, which the process currently sits) for more proper
+> error handling (because atomic_commit cannot fail).
+>
+> In addition, because of the original flow of primary plane's
+> atomic_check seems to be flawed, it's also updated before filling
+> vs_format is added there.
+>
+> Icenowy Zheng (4):
+>    drm: verisilicon: make vs_format conversion function return int
+>    drm: verisilicon: subclass drm_plane_state
+>    drm: verisilicon: call atomic helper's plane state check even if no
+>      CRTC
+>    drm: verisilicon: fill plane's vs_format in atomic_check
+>
+>   drivers/gpu/drm/verisilicon/vs_plane.c        | 54 ++++++++++++++++++-
+>   drivers/gpu/drm/verisilicon/vs_plane.h        | 18 ++++++-
+>   .../gpu/drm/verisilicon/vs_primary_plane.c    | 48 ++++++++++-------
+>   3 files changed, 98 insertions(+), 22 deletions(-)
+>
 
-The DMA_ATTR_SKIP_CPU_SYNC flag suppresses this check in
-add_dma_entry() because it signals that no CPU cache maintenance is
-performed at map/unmap time, making the cacheline overlap harmless.
-
-All other major dma-buf exporters already pass this flag:
-  - drm_gem_map_dma_buf() passes DMA_ATTR_SKIP_CPU_SYNC
-  - amdgpu_dma_buf_map() passes DMA_ATTR_SKIP_CPU_SYNC
-
-The CPU sync at map/unmap time is also redundant for udmabuf:
-begin_cpu_udmabuf() and end_cpu_udmabuf() already perform explicit
-cache synchronization via dma_sync_sgtable_for_cpu/device() when CPU
-access is requested through the dma-buf interface.
-
-Pass DMA_ATTR_SKIP_CPU_SYNC to dma_map_sgtable() and
-dma_unmap_sgtable() in udmabuf to suppress the spurious warning and
-skip the redundant sync.
-
-Fixes: 284562e1f348 ("udmabuf: implement begin_cpu_access/end_cpu_access hooks")
-Cc: stable@vger.kernel.org
-Signed-off-by: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
----
-
-v1 -> v2:
-  - Rebased on drm-tip to resolve conflict with folio conversion
-    patches. No code change, same two-line fix.
-
-v1: https://lore.kernel.org/all/20260317053653.28888-1-mikhail.v.gavrilov@gmail.com/
-
- drivers/dma-buf/udmabuf.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/dma-buf/udmabuf.c b/drivers/dma-buf/udmabuf.c
-index 94b26ea706a3..bced421c0d65 100644
---- a/drivers/dma-buf/udmabuf.c
-+++ b/drivers/dma-buf/udmabuf.c
-@@ -145,7 +145,7 @@ static struct sg_table *get_sg_table(struct device *dev, struct dma_buf *buf,
- 	if (ret < 0)
- 		goto err_alloc;
- 
--	ret = dma_map_sgtable(dev, sg, direction, 0);
-+	ret = dma_map_sgtable(dev, sg, direction, DMA_ATTR_SKIP_CPU_SYNC);
- 	if (ret < 0)
- 		goto err_map;
- 	return sg;
-@@ -160,7 +160,7 @@ static struct sg_table *get_sg_table(struct device *dev, struct dma_buf *buf,
- static void put_sg_table(struct device *dev, struct sg_table *sg,
- 			 enum dma_data_direction direction)
- {
--	dma_unmap_sgtable(dev, sg, direction, 0);
-+	dma_unmap_sgtable(dev, sg, direction, DMA_ATTR_SKIP_CPU_SYNC);
- 	sg_free_table(sg);
- 	kfree(sg);
- }
 -- 
-2.53.0
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
+
 
