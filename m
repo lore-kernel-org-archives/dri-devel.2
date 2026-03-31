@@ -4,101 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3A287FF60FB
-	for <dri-devel@archiver.kernel.org>; Tue, 31 Mar 2026 10:16:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9A06E1061B26
+	for <dri-devel@archiver.kernel.org>; Tue, 31 Mar 2026 10:19:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 843A010E190;
-	Tue, 31 Mar 2026 10:16:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CB87A10E8E2;
+	Tue, 31 Mar 2026 10:19:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=suse.com header.i=@suse.com header.b="blyVjuiH";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="OTL/A8Zu";
 	dkim-atps=neutral
-Received: from mail-lf1-f49.google.com (mail-lf1-f49.google.com
- [209.85.167.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0B69D10E190
- for <dri-devel@lists.freedesktop.org>; Tue, 31 Mar 2026 10:16:16 +0000 (UTC)
-Received: by mail-lf1-f49.google.com with SMTP id
- 2adb3069b0e04-5a2a70bb66aso5468755e87.0
- for <dri-devel@lists.freedesktop.org>; Tue, 31 Mar 2026 03:16:15 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1774952174; cv=none;
- d=google.com; s=arc-20240605;
- b=OyyZo3yoUxrgn5CWRZV1Duitpu2gucopkAaLilPLF+neNOM5pbdd8UAd5loFO8X579
- wB7jGyqVFPKSErvJqf1Ip4LFnEGpjN/EzFhMM4CP0o7oYCOIgtdOfzcYN4tKAQrWK3Zq
- PEmBQSI7ft2DTPyTCAXxhiT31NRU+pxQQDmsChVZuObSdX3rKxFCdZfe5VicmbacA/7G
- Jg9jAhba2k9s4jomvVx/YgxDXZcfBLhIRrRGR7GKu73QT01ISq/Ao53/mzE8BGZ08Al2
- 90IH8bKjxLxCG9QrLK9cN7DdRrm9Ut22st6ZImNrZ5wjWGWHaoC5s43JdyvonIG70adC
- l0MA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=u82NxCxMOoHokl6CWFUxRda+nqKiH6ew72AuZPbDCik=;
- fh=Y9zuUfCMTkentwW+1N+b9WZKFMIhqQqueDabrIF0jr8=;
- b=g9r3/OwvAUbI/O506djPepohTnapkeunNiO3YSNoYI4s6NoQ9EG0uF30x1vzx5M1Nu
- I0kMFVbfTLGMOa8B6j5YVjoSUK+URys9BoPNHUkqQen5QufMLB/iiS/ECf431XHfMi2F
- CB+V+fyR56PP63yntMDX0GtKjpt8W1UpEYKdpSrii1KVGTEzHMVu0C1zXWgQt9DIWzcw
- Y7R5BIemQkD9hioP1esxXr2r23U61jrDXCZdlQXBHCcTuw0Vtm9Uv6g2BkIywQl7FeY7
- CjzhFDGsNSZzKX+yQwddIrp6E9ZON16N3DV0futgl4IJUirLSdVl5uUC39lVljv1Qzb1
- /9NA==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=suse.com; s=google; t=1774952174; x=1775556974; darn=lists.freedesktop.org; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=u82NxCxMOoHokl6CWFUxRda+nqKiH6ew72AuZPbDCik=;
- b=blyVjuiHC3GcFsmCJLIknid92jtdLVJb9V7lAgkJi3I7Mm+f0SsRefb7lwwuxFc8+d
- ogqblnPiPjd1NIKRDBW3bn8m+nwkmOzlSZl/oNfjrybsgwHrhso/Q+MTe8oIOUQfshnI
- 0vswpyUBpRAX+sta1X0k4yoynFQWUFwgJSxKWYEISjWf293qGukEl3vWGBWmcBFFTbis
- AMtTRYTNAivHbbMBxvO0/cW2WPKmGP/vjtIAA3v98a1TqKBqePCehQR9m23wQmdLrfGl
- rkFEa/4DRHoutIPnCN7N/wdHZpEU4+tmmBaMCJeGISzdJKBA4VIdCXQino+6zZ1YKf6g
- S7Sw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774952174; x=1775556974;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=u82NxCxMOoHokl6CWFUxRda+nqKiH6ew72AuZPbDCik=;
- b=IrYX6et34wqnNDUjF70bg1rxd2j30IZomQ/PG3sYYy4zfhN5AinIBdU4qGECvURNnp
- O+YChHjsimwstjQcrPUYmlKOnI3ET9Ccm+FDdqjn4H+bjoaywi/Nm2r99Nlp/LO7SJi2
- uMbfxpnGkefLTtttrVgSTkoXZg8/A9w40ro4cSBFnb5Kw2U5tbstdNgoz2mMbKK6oirn
- 3VClRhvCfcpB6rCdTkoy2RZR0HEuUzyMpakTA5wW3BEa/iBp2Zltuk/qDEA1QuTVwLl3
- nVyMeCMK23Png1WmG92hsCdtpTwEJp4dPO1tdOUzn8gJqcVWPJDiDsEsVlrVcJnbz7hg
- /wGw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXt5JhNNV0SrChM1LVzb3hpBBVBwdbwbLZTRq1FlzAHzdMjJuOvVMZ+zItw23QGBEB3UkoOhckrae0=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yy1TbmAet4vR6Z2GBYsqxA7SYNHUW9ntLOcDynl1LYEOI0wOWTu
- doBKREBnLsF3IyjdTdsSQhgno1BWXPkNMZa7zUcAra76ojl05CvPIdGsIg06A9wySKisrmHXucX
- uSouFSUcd2goVOvaPKKr7nFR8KR7kVsWDNTCwopBURQ==
-X-Gm-Gg: ATEYQzxEYmCKj3WK1frKq7KtxEveIAZ2549wHAIklbkPiFzv5R1ERn9L/DiDrfssjVV
- VgCQNPIwgJt1E0Jc2vz2ubkvM8WSRnJWDI5daQM2tbZr3YaBK+f85cJ+wBeYRw+1PzSciXc5Ql4
- GEILZp2hhnzRbYMcZi+UuSPWM6O69q9h8JQq9ByZ0Ur3dHb/0hkf8LWvI2uU7ZroRbpEWNbCBqb
- MZWa1xfsUfNudkezIq7EEucX5dKFrIyF0ccqFbmm+tmM3NdS8mcxjbeI55bckPftEtusqxVU0vI
- Vje1sDb/SHs4OEeTdWXRmjeaXnPFEMf7TXTGonrf
-X-Received: by 2002:a05:6512:159a:b0:5a2:babe:3da0 with SMTP id
- 2adb3069b0e04-5a2babe3e6dmr1186154e87.9.1774952174303; Tue, 31 Mar 2026
- 03:16:14 -0700 (PDT)
-MIME-Version: 1.0
-References: <20251031102020.95349-1-marco.crivellari@suse.com>
-In-Reply-To: <20251031102020.95349-1-marco.crivellari@suse.com>
-From: Marco Crivellari <marco.crivellari@suse.com>
-Date: Tue, 31 Mar 2026 12:16:02 +0200
-X-Gm-Features: AQROBzAn2cAn3gEpMt82N1QLhNz98nbUv3YGR1QgS4BXC7xzjLgXrHHAT7NjA-E
-Message-ID: <CAAofZF6X=1+AeOR9v4zjfM91i9PQK3BdWKOes_oh+kgAMUdQoQ@mail.gmail.com>
-Subject: Re: [PATCH 0/2] replaced old wq name,
- added WQ_PERCPU to alloc_workqueue
-To: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- nouveau@lists.freedesktop.org
-Cc: Tejun Heo <tj@kernel.org>, Lai Jiangshan <jiangshanlai@gmail.com>, 
- Frederic Weisbecker <frederic@kernel.org>,
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
- Michal Hocko <mhocko@suse.com>, Lyude Paul <lyude@redhat.com>,
- Danilo Krummrich <dakr@kernel.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B144E10E8E0;
+ Tue, 31 Mar 2026 10:19:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1774952345; x=1806488345;
+ h=message-id:subject:from:to:cc:date:in-reply-to:
+ references:content-transfer-encoding:mime-version;
+ bh=blz/jUK8AtcaMi8EKklPzfx4JUx4Tdr61s7OVRw3Rl0=;
+ b=OTL/A8ZuPCfypViYy4TGQq+4C0d6O8gdM7/SqO1u9Mo1bfPD9zOprnZx
+ 7/3XO8uhgaSRK0LuLow1zYDDs5ipjq/489Nnaba7n475wQAv9HnkJki5Z
+ hhrpgj30MweDPTcZMFjRhrYLrX48SkluwcNVwIvox6R3FxaGp/5sGQrMz
+ W9VAKx8JD7Of+jslRANbg4B41hYddkr7kIysPVc/co/Hh/YhPHpdCAQ0b
+ tDgr43a+nPAImIHaPVicWeYgcsGZJ3s3DwxPBib5BLoMGulG4OqQg5clX
+ sVUkUqJFBpkTV0ELnA4gNoNEGzp8iBc5WPPqndj8yb5kdD3uF0LQkucNk g==;
+X-CSE-ConnectionGUID: uYsSETx9TlG8CLXs0Ub8+g==
+X-CSE-MsgGUID: 6j/hPR+ITU6v+N+dI0SR7Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11744"; a="101416702"
+X-IronPort-AV: E=Sophos;i="6.23,151,1770624000"; d="scan'208";a="101416702"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+ by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 31 Mar 2026 03:19:04 -0700
+X-CSE-ConnectionGUID: d5Zw98KhQpm13p8szeFkBw==
+X-CSE-MsgGUID: gyJmIAwEQLWN0YQkUMVi4Q==
+X-ExtLoop1: 1
+Received: from smoticic-mobl1.ger.corp.intel.com (HELO [10.245.244.28])
+ ([10.245.244.28])
+ by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 31 Mar 2026 03:18:59 -0700
+Message-ID: <7971009f03546a98f6137b18195b135e5e2eeee8.camel@linux.intel.com>
+Subject: Re: [PATCH 5/5] drm/exec, drm/xe, drm/amdgpu: Add an accessor for
+ struct drm_exec::ticket
+From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
+To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, 
+ intel-xe@lists.freedesktop.org
+Cc: Felix Kuehling <Felix.Kuehling@amd.com>, Alex Deucher	
+ <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>, Simona
+ Vetter	 <simona@ffwll.ch>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>,  Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Danilo Krummrich
+ <dakr@kernel.org>,  Matthew Brost <matthew.brost@intel.com>, Alice Ryhl
+ <aliceryhl@google.com>, Rob Clark	 <robin.clark@oss.qualcomm.com>, Dmitry
+ Baryshkov <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul	 <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
+Date: Tue, 31 Mar 2026 12:18:56 +0200
+In-Reply-To: <ac68886e-d4f0-408b-9ddc-909cda18c6f5@amd.com>
+References: <20260331092023.81616-1-thomas.hellstrom@linux.intel.com>
+ <20260331092023.81616-6-thomas.hellstrom@linux.intel.com>
+ <ac68886e-d4f0-408b-9ddc-909cda18c6f5@amd.com>
+Organization: Intel Sweden AB, Registration Number: 556189-6027
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
+MIME-Version: 1.0
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,23 +86,156 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Hi,
 
-On Fri, Oct 31, 2025 at 11:20=E2=80=AFAM Marco Crivellari
-<marco.crivellari@suse.com> wrote:
-> Marco Crivellari (2):
->   drm/nouveau: replace use of system_unbound_wq with system_dfl_wq
->   drm/nouveau: WQ_PERCPU added to alloc_workqueue users
->
->  drivers/gpu/drm/nouveau/dispnv50/disp.c | 2 +-
->  drivers/gpu/drm/nouveau/nouveau_drm.c   | 2 +-
->  drivers/gpu/drm/nouveau/nouveau_sched.c | 3 ++-
->  3 files changed, 4 insertions(+), 3 deletions(-)
+On Tue, 2026-03-31 at 11:46 +0200, Christian K=C3=B6nig wrote:
+> On 3/31/26 11:20, Thomas Hellstr=C3=B6m wrote:
+> > Drivers were accessing this drm_exec member directly.
+>=20
+> I don't see a problem with that as long as we have documented that
+> this is allowed.
 
-Gentle ping.
+It's more of forward-looking for the case I mentioned in the cover-
+letter. If drm_exec becomes a subclass of a drm_transaction or
+whatever, then this would likely be &exec->txn.ticket;
 
-Thanks!
+Could ofc postpone that to any such refactor, but since the patch is up
+for review...
 
---=20
+Thanks,
+Thomas
 
-Marco Crivellari
 
-L3 Support Engineer
+>=20
+> Regards,
+> Christian.
+>=20
+> > Provide an accessor, drm_exec_ticket() to avoid that.
+> >=20
+> > Signed-off-by: Thomas Hellstr=C3=B6m <thomas.hellstrom@linux.intel.com>
+> > ---
+> > =C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c | 4 ++--
+> > =C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 6 +++---
+> > =C2=A0drivers/gpu/drm/xe/xe_validation.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 4 ++--
+> > =C2=A0include/drm/drm_exec.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 5 +++++
+> > =C2=A04 files changed, 12 insertions(+), 7 deletions(-)
+> >=20
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+> > b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+> > index 29b400cdd6d5..8a4fb9a62485 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+> > @@ -2998,7 +2998,7 @@ int
+> > amdgpu_amdkfd_gpuvm_restore_process_bos(void *info, struct
+> > dma_fence __rcu *
+> > =C2=A0	/* Validate PDs, PTs and evicted DMABuf imports last.
+> > Otherwise BO
+> > =C2=A0	 * validations above would invalidate DMABuf imports
+> > again.
+> > =C2=A0	 */
+> > -	ret =3D process_validate_vms(process_info, &exec.ticket);
+> > +	ret =3D process_validate_vms(process_info,
+> > drm_exec_ticket(exec));
+> > =C2=A0	if (ret) {
+> > =C2=A0		pr_debug("Validating VMs failed, ret: %d\n", ret);
+> > =C2=A0		goto validate_map_fail;
+> > @@ -3039,7 +3039,7 @@ int
+> > amdgpu_amdkfd_gpuvm_restore_process_bos(void *info, struct
+> > dma_fence __rcu *
+> > =C2=A0			goto validate_map_fail;
+> > =C2=A0		}
+> > =C2=A0
+> > -		ret =3D amdgpu_vm_handle_moved(adev, peer_vm,
+> > &exec.ticket);
+> > +		ret =3D amdgpu_vm_handle_moved(adev, peer_vm,
+> > drm_exec_ticket(exec));
+> > =C2=A0		if (ret) {
+> > =C2=A0			dev_dbg(adev->dev,
+> > =C2=A0				"Memory eviction: handle moved
+> > failed, pid %8d. Try again.\n",
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+> > b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+> > index c4ee19603460..c725a7976c63 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+> > @@ -1157,7 +1157,7 @@ static int amdgpu_cs_vm_handling(struct
+> > amdgpu_cs_parser *p)
+> > =C2=A0			return r;
+> > =C2=A0	}
+> > =C2=A0
+> > -	r =3D amdgpu_vm_handle_moved(adev, vm, &p->exec.ticket);
+> > +	r =3D amdgpu_vm_handle_moved(adev, vm, drm_exec_ticket(&p-
+> > >exec));
+> > =C2=A0	if (r)
+> > =C2=A0		return r;
+> > =C2=A0
+> > @@ -1358,7 +1358,7 @@ static int amdgpu_cs_submit(struct
+> > amdgpu_cs_parser *p,
+> > =C2=A0	cs->out.handle =3D seq;
+> > =C2=A0	leader->uf_sequence =3D seq;
+> > =C2=A0
+> > -	amdgpu_vm_bo_trace_cs(&fpriv->vm, &p->exec.ticket);
+> > +	amdgpu_vm_bo_trace_cs(&fpriv->vm, drm_exec_ticket(&p-
+> > >exec));
+> > =C2=A0	for (i =3D 0; i < p->gang_size; ++i) {
+> > =C2=A0		amdgpu_job_free_resources(p->jobs[i]);
+> > =C2=A0		trace_amdgpu_cs_ioctl(p->jobs[i]);
+> > @@ -1793,7 +1793,7 @@ int amdgpu_cs_find_mapping(struct
+> > amdgpu_cs_parser *parser,
+> > =C2=A0	*map =3D mapping;
+> > =C2=A0
+> > =C2=A0	/* Double check that the BO is reserved by this CS */
+> > -	if (dma_resv_locking_ctx((*bo)->tbo.base.resv) !=3D &parser-
+> > >exec.ticket)
+> > +	if (dma_resv_locking_ctx((*bo)->tbo.base.resv) !=3D
+> > drm_exec_ticket(&parser->exec))
+> > =C2=A0		return -EINVAL;
+> > =C2=A0
+> > =C2=A0	/* Make sure VRAM is allocated contigiously */
+> > diff --git a/drivers/gpu/drm/xe/xe_validation.c
+> > b/drivers/gpu/drm/xe/xe_validation.c
+> > index a611438eaafe..8dff4d0ec895 100644
+> > --- a/drivers/gpu/drm/xe/xe_validation.c
+> > +++ b/drivers/gpu/drm/xe/xe_validation.c
+> > @@ -156,7 +156,7 @@ int xe_validation_ctx_init(struct
+> > xe_validation_ctx *ctx, struct xe_validation_d
+> > =C2=A0
+> > =C2=A0#ifdef CONFIG_DEBUG_WW_MUTEX_SLOWPATH
+> > =C2=A0/*
+> > - * This abuses both drm_exec and ww_mutex internals and should be
+> > + * This abuses ww_mutex internals and should be
+> > =C2=A0 * replaced by checking for -EDEADLK when we can make TTM
+> > =C2=A0 * stop converting -EDEADLK to -ENOMEM.
+> > =C2=A0 * An alternative is to not have exhaustive eviction with
+> > @@ -164,7 +164,7 @@ int xe_validation_ctx_init(struct
+> > xe_validation_ctx *ctx, struct xe_validation_d
+> > =C2=A0 */
+> > =C2=A0static bool xe_validation_contention_injected(struct drm_exec
+> > *exec)
+> > =C2=A0{
+> > -	return !!exec->ticket.contending_lock;
+> > +	return !!drm_exec_ticket(exec)->contending_lock;
+> > =C2=A0}
+> > =C2=A0
+> > =C2=A0#else
+> > diff --git a/include/drm/drm_exec.h b/include/drm/drm_exec.h
+> > index 5ed5be1f8244..50d056a87de0 100644
+> > --- a/include/drm/drm_exec.h
+> > +++ b/include/drm/drm_exec.h
+> > @@ -151,6 +151,11 @@ static inline bool
+> > drm_exec_is_contended(struct drm_exec *exec)
+> > =C2=A0		goto *__drm_exec_retry_ptr;		\
+> > =C2=A0	} while (0)
+> > =C2=A0
+> > +static inline struct ww_acquire_ctx *drm_exec_ticket(struct
+> > drm_exec *exec)
+> > +{
+> > +	return &exec->ticket;
+> > +}
+> > +
+> > =C2=A0void drm_exec_init(struct drm_exec *exec, u32 flags, unsigned nr)=
+;
+> > =C2=A0void drm_exec_fini(struct drm_exec *exec);
+> > =C2=A0bool drm_exec_cleanup(struct drm_exec *exec);
