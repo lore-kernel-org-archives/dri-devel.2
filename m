@@ -4,91 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4ED36109B485
-	for <dri-devel@archiver.kernel.org>; Tue, 31 Mar 2026 14:55:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8EC3C109B485
+	for <dri-devel@archiver.kernel.org>; Tue, 31 Mar 2026 14:56:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9D80210E911;
-	Tue, 31 Mar 2026 14:55:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EA74910E979;
+	Tue, 31 Mar 2026 14:56:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="nfwrA9fI";
+	dkim=pass (2048-bit key; unprotected) header.d=suse.com header.i=@suse.com header.b="UDQOpdOr";
 	dkim-atps=neutral
-Received: from mail-vk1-f175.google.com (mail-vk1-f175.google.com
- [209.85.221.175])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9A9BE10E911
- for <dri-devel@lists.freedesktop.org>; Tue, 31 Mar 2026 14:55:33 +0000 (UTC)
-Received: by mail-vk1-f175.google.com with SMTP id
- 71dfb90a1353d-56ba10b5f70so291430e0c.3
- for <dri-devel@lists.freedesktop.org>; Tue, 31 Mar 2026 07:55:33 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1774968932; cv=none;
+Received: from mail-lf1-f48.google.com (mail-lf1-f48.google.com
+ [209.85.167.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6B61610E979
+ for <dri-devel@lists.freedesktop.org>; Tue, 31 Mar 2026 14:56:57 +0000 (UTC)
+Received: by mail-lf1-f48.google.com with SMTP id
+ 2adb3069b0e04-5a283c44478so6255373e87.3
+ for <dri-devel@lists.freedesktop.org>; Tue, 31 Mar 2026 07:56:57 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1774969015; cv=none;
  d=google.com; s=arc-20240605;
- b=eDTYQHbIIX4SBURmqewdW+od5lb0Q/W4oYk2w/6OuFbMEPNN8z9zgwLxWtqJnylTUz
- z7Ak02ZnRFW6iw+ZQ5BjT5KOUvv0+OWj74Pm53IYwqZYmHr/PqxIh8Oy2YdF6ZMvOp80
- QxialLpo7xYWzKXKd22No2hnU8JYnMxTauGil1xGPFQZLTDPwt5gkyqCKKRqbIfJYxyY
- UAGxJaz557QY3f+UArlG9uOpQjl/vfUIAeIxSjOY460VLvMyor5jWQWpgw0z221QdKlW
- AC/U45D1tuFkHS0R5J8TemSh5SET3nAJd8x4kqr82etJl5VNbrtJU+mav/ylL/a9qNXT
- JNig==
+ b=N/Kk+Bwi42C4onqw2jJWGMYpig4SJOMmZcCY5CnsxphSCOe5LqC4YBB40UnP390cm/
+ flEbCJY+q3nwQYM8oB6bNjM4dULJrYinsdrru5VWh3Rj36/bAH82evPACRNjw87XUhoe
+ oHyeM9hPbOkGKTp+5//q9ovp+Z7RWwmoxXkvl9xpaOry8WNSDIrSLLEdDO/vFmyiCLzq
+ J6aiGz2VsoP8Gh3Q+b9WuoB1dMk9gEi/7XmlMvm1R5BFgokmiS+vfFcmTFcmPCMpL3Gt
+ QyFOLXajBJEyuZTU6MCHqMqIfDTZP2NzQC9W32OZjo1I49qTBSCbkGoHmCk9pZo0mA3j
+ d0KQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20240605; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=iw+4CAwzc9WeJr+OGofkDsKUrB1nWPaURjPoaaX0QUk=;
- fh=oZCrZzAY/zVKEXzNXwsE2Op+x09kg3ED4ygWRJEImxg=;
- b=S8IIz7NGlstKFLKZ4Ed1INmNoZKFGE5PM/zn/FcJBTra5iqKLFzTC4iHa6/ibOfhky
- NHM59up+fjeXVA1qX480tTsRpwHMBZ3r5OV7gqY9ywRCiZ/FDpe3BMX6DWCxoFDTboiz
- QHVAzIRJ9M8NG2atwqQ7+HaSpsAOrTau/66QjJLy+TLpGB/JL+DXadS2sYB9x6Ef6rsK
- Z2OEq4TMza8gIOsrLIT3I02DXVU/LUAGg5/QXCF8kSTyfjsG1NUw/cwcfEON08ab1z4N
- g5g4EJNpXMmFTIs87pGilOAq9YpcIp9IFTOYd3ppSS6DbdaXXEpS1ZPCBI/7IIBT9hYD
- ZK1A==; darn=lists.freedesktop.org
+ bh=ANeukgXaFkO22KK2P8lUGEhokznHH/pS+8BuIXKDR9E=;
+ fh=CtL8UKoh2YhepDlnxa0GUUdJlJ3MMdYFo4DvKrLJ6yQ=;
+ b=bO2zCgQq+pQbwfhicnXnKI85/ONKEUQd+eB/OZYqffc+dKxBHXOSRL35JMMdqchU8l
+ OsvrCBC3ImRN1lvTxXUtjlMFkVlYHhP5N9Bjjn/W85ffrUtc31Ys+5ZfQ6hJA8L311it
+ QNFUar2I0os0JlyFgIUfcoi4MqAWZu6djc2ijXnoUYtZ8pO1yuyX05OCgIeOaMYovdB3
+ eolYknt8Uu/cgivZqZJyaXPXfr/rrdzw3CB9ATsAZpa5YhENPAGYa0o43fXaPwaDV39J
+ py8CXZszBOZVcfrWFiGFAGkXSHIL77s+0pbKzutYcTaHS5drRNloB/U9m2V/Nb838TEH
+ Q2kQ==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1774968932; x=1775573732; darn=lists.freedesktop.org;
+ d=suse.com; s=google; t=1774969015; x=1775573815; darn=lists.freedesktop.org; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=iw+4CAwzc9WeJr+OGofkDsKUrB1nWPaURjPoaaX0QUk=;
- b=nfwrA9fIlGFs28aFdVXr7U+FF7AOvfbOT18eb8nxjLmf+znRX2YY4leXqsXEqQmcs1
- uoNoO45YqYd/6PV6M+Ziled4iCIDWPfJVTQxpvEtjzwHipmNyF6jH1JFshfoLQhPb0ZB
- zSloQTblht7MZDFecAyHB5GnU5ACUn6XsuW4WyZEyx8N5HEBjGUcAZ7iTHpNVrz6y1n2
- sN5ZuUCWPk/icpFT4buOu/fSsMurfngzO6uJ5EbXVUwzaXPA/2v6HEk4FJzruMoXkG2/
- /wXKUWOotvdM2rBezdLe3EZ53YRV1Y4pNf+qj73rqTnpChCusiWlUUvoNJmPQFb/WnTz
- ZOEw==
+ bh=ANeukgXaFkO22KK2P8lUGEhokznHH/pS+8BuIXKDR9E=;
+ b=UDQOpdOrkvuRJUSmQHNjfPMG/vNpot+0B9D7ggeK3qokrhIXTl74fm0KkaPGaFXDOr
+ zlJxUw0eSBG/P9EOEv5GYToMd8tKmQWjCG/m2tcAAKL5sHcZay7qK1y6SgaU1z9q1UD2
+ T9rrX4TxXscA+uLUop6ne/khJRcS/FteToVBvhLPn5nXvwJL0JafQt0lBfyVgkIrxtIk
+ H7bs8WEcnWjJ2OCmFC2o4kGH92Bicj4InzjFBMLToTOs0XKG2s1VAS0WldofQElu0NOr
+ 7YAEBVEGncy57G55/Xoep65hHa/DxjO3YGgo98OHlcR13CC5esU+cFqBNjwQuBipie8k
+ lpvA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774968932; x=1775573732;
+ d=1e100.net; s=20251104; t=1774969015; x=1775573815;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=iw+4CAwzc9WeJr+OGofkDsKUrB1nWPaURjPoaaX0QUk=;
- b=iRmflxiygGJBOb3u6Q96xGtIHY4cePHgWDEzJzxklD3Q3HH4fIXMCFL6hCeGZ35ggH
- /f6EVZFwljEm4tVATzb/9HqgLQ9a+CqrbFNzrESUGbiLr6Xq5JU6tTctpEyci4wPRLfr
- TFCtjHAUuIj/2JU+GdsmHnG1WNaMMqU1fvKBxYhF37LsgENo0NYEgDUCBQd8DQeoEywu
- WggA1lZjkkcOTVYtla4H8zm6Vi2jENXjx+FCjockn63rXU2ZnGKbaC+SBAxauIaFZEom
- li+lQ//yaV27kpViirmh4yQ/RY6T28ibeq8bdKpYLE0b4AwwlcuEtP5w5beu2Z76oGfn
- vJNw==
+ bh=ANeukgXaFkO22KK2P8lUGEhokznHH/pS+8BuIXKDR9E=;
+ b=axySqRvN2oerQuDowx/MK1QkTsAbSMsF57NQ2823aCuMPsxOJ7HmAzp94URrlRYBYO
+ 1NoagBGSJuVarBQJo5stH9xe4q4/j7rlDg5UA2RKPrPDFPllSDFzbUgZMUYw7vsRPWkD
+ du095hIkxNG36RI4UK7cNHq+szMpjR18qRTSYTaRuwelimU6uIVGX3O4PDfamiEsnHzG
+ XHUy+6m013e9vxZHb2tp5uJx6CabwhPaat3K0Kej6b7fm+UhAdKRi0+E1zYqv8juMaj1
+ CGv8vPyjy1S1DXdcGM2gxgnHySu5KDOnQendI/pZmfgM5gwBoiNvmAYrAQNtBgKebdYe
+ 2lWQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXAYbIoyf+XZSaziGS76CUQjacOfqggtb2BaVEptTqQ6AzmEEV48Xo3lYb4wQDrGw7lS+HdH//RlEA=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyTMOJOew/r6HRVptpHvXqSkLR3Axnw3pGMYI9FvVDWYDBMbWmk
- 29m8pOmcx4GZi3qfPPVqujPylHUwJ0MEXefAfAVhalRuECeHvlliYeQES6lOJrIcllzx2se6Qd0
- y1rSNxP19Q+K7Ng9k7OX0pEV/g/lriTM=
-X-Gm-Gg: ATEYQzwWJ+0/R2+8tSBMFb50TPSNe//e8iZ5T3zM7pbsH4jyrA2wE65L1yL62PlSk7D
- 8cyfgh8zinYKZD095dXvkH8NrkwJpx23y35qX5RugSgOGbKkNCS+hQD3rvNZi7i3LnxDR6+AoJ/
- BP51WHO3MJtI2tUlzxu6B3wgWj917XHkrF6pGTsg8oWhks7cBCQ+dwU6xSX2cqGJ2Qz5+Ym6NZ1
- JvHDCurJpj8i1h8h4wNk+xtjKYMAxW0MhOSApI10Bssvup6lrGSl2F29jqWuFbgEUKF2Rqpttbl
- /U6b95UfLIIqhhEBInhTfOLy7qvp6aNhKS6vA14GCFlIAhStxz+6Py/HMf4QUKMd9av6JCU8dTH
- WVlyu
-X-Received: by 2002:a05:6102:21ba:b0:602:7589:6536 with SMTP id
- ada2fe7eead31-604f8fd7c24mr2235805137.2.1774968932353; Tue, 31 Mar 2026
- 07:55:32 -0700 (PDT)
+ AJvYcCXe9iBoVXWWWo+nFgOBw35mgl0FH+drh7DEVoC0mF4gzax/1y9tihg9/c3FryOEui+bMLxdDz1dk0k=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzLvcDnD3iHOPsq/60bWkv88Kkjv4WuNImdj7G0owhZrRyUtEnt
+ nUdbrjaVWJeBqEyHNp2PC9ov00X4U+L8hK61BA62fOqhqHqM8zzYjswD6CCWt9ZAQvdZpylPeYj
+ Urk4zv1C1+y2jF4eZVN2nsq9Tz/NLw98w8X8dOfbHCQ==
+X-Gm-Gg: ATEYQzw2/ltoPERt1ACcPH0/ocdJ6A3tvYc8b6uh0x6AfrCMRKMtP9/eY2WGoNHWLLD
+ oIV3yXMQ66QvN2AEOwaGb8hEu1H+4D5o8cLrCy8EfXh1FwrXWfZ6c7Dn/jronyPYdFIdZgjvh2p
+ RyrGEiDZ7zTfBLH1QSthXvJ+ixcnXs7HAQpGUmYF0acyJq3aSNz0kJNfX+OqesM+vSjbf79pfxN
+ smUCmIaVIEziJnLptmE/UvHbMzKvcbEvArsMCZXDU3M/USKxkGHNpqioNSvKS1zUs73OS3pn1Wu
+ 48A2SMnawk7E2zk0OtS/uzFOi3obzDLuKLBzmysk
+X-Received: by 2002:a05:6512:1088:b0:5a2:a13e:9095 with SMTP id
+ 2adb3069b0e04-5a2ab5ff25emr7387493e87.9.1774969015482; Tue, 31 Mar 2026
+ 07:56:55 -0700 (PDT)
 MIME-Version: 1.0
 References: <20251224144708.61167-1-marco.crivellari@suse.com>
  <20251224144708.61167-2-marco.crivellari@suse.com>
-In-Reply-To: <20251224144708.61167-2-marco.crivellari@suse.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 31 Mar 2026 10:55:20 -0400
-X-Gm-Features: AQROBzAlliLpxduaovQB73KEGle6JGM5wuLvaBXl7gbMww3qmuvTovlmipmFmVE
-Message-ID: <CADnq5_NJFv=xEyN+VQOvt=7QifK2rFUcKru92YAeX+2m-9PSNw@mail.gmail.com>
+ <CADnq5_NJFv=xEyN+VQOvt=7QifK2rFUcKru92YAeX+2m-9PSNw@mail.gmail.com>
+In-Reply-To: <CADnq5_NJFv=xEyN+VQOvt=7QifK2rFUcKru92YAeX+2m-9PSNw@mail.gmail.com>
+From: Marco Crivellari <marco.crivellari@suse.com>
+Date: Tue, 31 Mar 2026 16:56:43 +0200
+X-Gm-Features: AQROBzBVA_D1iAW-Kp85UaH1G04gvnNXlDENnGgd1wdQCpwHDZgCRMm0f50Wzfg
+Message-ID: <CAAofZF4cmrZFFiMnxFh+LEc5b4WF3VQ1z7GXaeqovK9UU_H1Cg@mail.gmail.com>
 Subject: Re: [PATCH v3 1/4] drm/amdgpu: replace use of system_unbound_wq with
  system_dfl_wq
-To: Marco Crivellari <marco.crivellari@suse.com>
+To: Alex Deucher <alexdeucher@gmail.com>
 Cc: linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, 
  dri-devel@lists.freedesktop.org, Tejun Heo <tj@kernel.org>, 
  Lai Jiangshan <jiangshanlai@gmail.com>,
@@ -115,102 +115,17 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Applied the series.  Thanks!
+On Tue, Mar 31, 2026 at 4:55=E2=80=AFPM Alex Deucher <alexdeucher@gmail.com=
+> wrote:
+>
+> Applied the series.  Thanks!
+>
+> Alex
 
-Alex
+Many thanks!
 
-On Wed, Dec 24, 2025 at 10:06=E2=80=AFAM Marco Crivellari
-<marco.crivellari@suse.com> wrote:
->
-> This patch continues the effort to refactor workqueue APIs, which has beg=
-un
-> with the changes introducing new workqueues and a new alloc_workqueue fla=
-g:
->
->    commit 128ea9f6ccfb ("workqueue: Add system_percpu_wq and system_dfl_w=
-q")
->    commit 930c2ea566af ("workqueue: Add new WQ_PERCPU flag")
->
-> The point of the refactoring is to eventually alter the default behavior =
-of
-> workqueues to become unbound by default so that their workload placement =
-is
-> optimized by the scheduler.
->
-> Before that to happen after a careful review and conversion of each indiv=
-idual
-> case, workqueue users must be converted to the better named new workqueue=
-s with
-> no intended behaviour changes:
->
->    system_wq -> system_percpu_wq
->    system_unbound_wq -> system_dfl_wq
->
-> This way the old obsolete workqueues (system_wq, system_unbound_wq) can b=
-e
-> removed in the future.
->
-> Suggested-by: Tejun Heo <tj@kernel.org>
-> Signed-off-by: Marco Crivellari <marco.crivellari@suse.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/aldebaran.c     | 2 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 2 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c  | 2 +-
->  3 files changed, 3 insertions(+), 3 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/aldebaran.c b/drivers/gpu/drm/amd=
-/amdgpu/aldebaran.c
-> index daa7b23bc775..a7bc65099755 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/aldebaran.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/aldebaran.c
-> @@ -179,7 +179,7 @@ aldebaran_mode2_perform_reset(struct amdgpu_reset_con=
-trol *reset_ctl,
->         list_for_each_entry(tmp_adev, reset_device_list, reset_list) {
->                 /* For XGMI run all resets in parallel to speed up the pr=
-ocess */
->                 if (tmp_adev->gmc.xgmi.num_physical_nodes > 1) {
-> -                       if (!queue_work(system_unbound_wq,
-> +                       if (!queue_work(system_dfl_wq,
->                                         &tmp_adev->reset_cntl->reset_work=
-))
->                                 r =3D -EALREADY;
->                 } else
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm=
-/amd/amdgpu/amdgpu_device.c
-> index 12201b8e99b3..2ee416c36ca3 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -6173,7 +6173,7 @@ int amdgpu_do_asic_reset(struct list_head *device_l=
-ist_handle,
->                 list_for_each_entry(tmp_adev, device_list_handle, reset_l=
-ist) {
->                         /* For XGMI run all resets in parallel to speed u=
-p the process */
->                         if (tmp_adev->gmc.xgmi.num_physical_nodes > 1) {
-> -                               if (!queue_work(system_unbound_wq,
-> +                               if (!queue_work(system_dfl_wq,
->                                                 &tmp_adev->xgmi_reset_wor=
-k))
->                                         r =3D -EALREADY;
->                         } else
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c b/drivers/gpu/drm/=
-amd/amdgpu/amdgpu_reset.c
-> index 28c4ad62f50e..9c4631608526 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c
-> @@ -116,7 +116,7 @@ static int amdgpu_reset_xgmi_reset_on_init_perform_re=
-set(
->         /* Mode1 reset needs to be triggered on all devices together */
->         list_for_each_entry(tmp_adev, reset_device_list, reset_list) {
->                 /* For XGMI run all resets in parallel to speed up the pr=
-ocess */
-> -               if (!queue_work(system_unbound_wq, &tmp_adev->xgmi_reset_=
-work))
-> +               if (!queue_work(system_dfl_wq, &tmp_adev->xgmi_reset_work=
-))
->                         r =3D -EALREADY;
->                 if (r) {
->                         dev_err(tmp_adev->dev,
-> --
-> 2.52.0
->
+--=20
+
+Marco Crivellari
+
+L3 Support Engineer
