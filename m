@@ -4,142 +4,109 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 09D82109B492
-	for <dri-devel@archiver.kernel.org>; Tue, 31 Mar 2026 15:44:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 25F63109B493
+	for <dri-devel@archiver.kernel.org>; Tue, 31 Mar 2026 15:46:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 746FE10EB77;
-	Tue, 31 Mar 2026 15:44:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7553B10EBA5;
+	Tue, 31 Mar 2026 15:45:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Fyw1gg6T";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="C1DfrJBa";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="foj5kiFu";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DC72F10EB77
- for <dri-devel@lists.freedesktop.org>; Tue, 31 Mar 2026 15:44:45 +0000 (UTC)
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 62VESYi1332256
- for <dri-devel@lists.freedesktop.org>; Tue, 31 Mar 2026 15:44:45 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=6TAf7nEBKKkrb6urwtK+2WvS
- R6mnnMsyYenmFBA8pss=; b=Fyw1gg6TkUdSA8BJP93PR/LKuBvTeNeDCf3r8ygR
- YjOeDevTbWh9g+LP3pWOHl1/wPr0Rc3Ub3oTLNzMpvsuP+WaWSJAg/D3Cm81ZH8w
- qobvJM4zHAyjucIhXx6+4l+sduvt+QRyZGHV25+hDgDamj8ZEeeeuykHreizT0Kc
- tGQZGRMWPgg3rKrS5GgMcIAp7Y0pKrKuwB9jw5LyHgrBjLHdOs94DOIYS0mzF8B5
- HlB5GK7l6WPr+hpUiBtE4upJFDYRvfecByuZnbgYRPZdT7LEnAF/nkF0Z+d1rdLS
- A9cc3tP/FKPk7QLwpmvDSOkDi3fkRMlD6R4/sIC35Y+RYg==
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
- [209.85.160.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d8g2arc8w-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Tue, 31 Mar 2026 15:44:45 +0000 (GMT)
-Received: by mail-qt1-f197.google.com with SMTP id
- d75a77b69052e-50b781542c1so140830711cf.1
- for <dri-devel@lists.freedesktop.org>; Tue, 31 Mar 2026 08:44:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1774971884; x=1775576684;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=6TAf7nEBKKkrb6urwtK+2WvSR6mnnMsyYenmFBA8pss=;
- b=C1DfrJBa7yWKJic92ike9aQf5PLGSUM1CkiIKM42iKOetwCa+c/apPU0GiteCeA4OU
- 3CBGV83fKRhcJvILN/kjxwdyKaewZOzQ6JvVMNGdw9uPQTJ9ZCjsqPbnm3gzUrfrlaN3
- 4XGxegWweJOtSqYv7j/W1TcgW8Ece5pS8vrtU3rOIBdW/FLUoBS5+utftuky1rCks1ub
- oG+5EXDpStharg3Qn+nYSw/Q0Sq8nqy0q0CD4hodzIdvFNdA/MSc0zOQ3W8ijxpI1EmY
- eU5CfMbuIIPWrwaig2NoWO0svXbP2rqnHY7cWQNotO9Bnonl6m6EAEu/0bG95BahAU7w
- fCsQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774971884; x=1775576684;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=6TAf7nEBKKkrb6urwtK+2WvSR6mnnMsyYenmFBA8pss=;
- b=a9fFQVuyQRdGEgindA4TgzQnyGmf4nwfR9wx2qdc58/CCE2rZ3PBfDVdQOQ2bwRPFU
- BV/I4bwuNZ11sM1obAtiSEkfGY5CD5WghqEQ6PEiGs242k1AxEGZr04ygvM3yLSkaHP8
- Q3/ZikYpBxZr2VcxEqXQNe//YyLB006POYUdGg9yPyIuYlQvgOJ7B2i93xtATjAwcHnk
- /fJDwvrz1DcIFvsvSbEJOGLI7RY9X2R0uXK1n/pIGnbXq+dcYg7P7+mGZCjoaGrOCkji
- 9kVRHL8nU5XTH9wHVFeNSSflHSgxzcl9NDFaPtwHvHd6kD2vy/b0lx3hSvRP6P1Ns5L/
- sXZw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVLVr2gJJCPMBphE2yjUrYVbLZqFu6PGZfFt5DDWKko5rvBXe3gS4XwLFIPGQi95Q9CbXSGYMtc6vE=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yzx5k77CKZxSepfV1yTZ+1ylkx5P7fomflek24qZXOsqoq63Ysd
- Mr9aEicm94KwuGda/DbVif9TaZFuTgDNtXkVaRqPkT8Ul7w/L94gz46LEBAkfk2CaJV6/aAIkC5
- y30VOJ9BQxcDjVBRE98u6Tej7Rwt1W94E193ubAF/YNcvJLt4DINA2XkvYCzy8TXryGeISbo=
-X-Gm-Gg: ATEYQzzexQyrbi+StwEhv63UkYtwcOTqHWI1VNe3Ej1WCMHEGauw/KYF2d7Miz9DPw2
- uRmP240dq6fxbTIV/q5FgdXo0aIYjzj1mFRKU1TBrQYf2Qcz90h30wwfn6zdzQJAAWWidOAkPOl
- gOHqENZ7tTCaNnSbIqeYnd19jxDLp0gz40UdcGkYT1DhOW50T8mQM4SEt5lJmKAWRfdGfzTO5R9
- mSUIcOznFU2YtoEuPntL1atglEzJ+IjHwtkTCUdIVxCmjGh1RQ84plon5iMF1R4lRz1Zrq+KdH+
- EImvbsiMrHpEAmlJCiTzNtziBRMojwChlIHQDgiiB0w1BPvwK5Yy/uGyD4Utumrlpf6FlBmpPjU
- 3lZKIDg0Myxs1nU1uWjQibit19CzHhgtg+CZ4DkZk8D5I4OHOUnjUDP1SpJa0hJZBkvQIV1n552
- /t7ip0Bkto8328+/J9KK7hUlrHw12if3t0sW8=
-X-Received: by 2002:a05:622a:2443:b0:50b:4b81:e376 with SMTP id
- d75a77b69052e-50ba38b2183mr217156061cf.42.1774971884375; 
- Tue, 31 Mar 2026 08:44:44 -0700 (PDT)
-X-Received: by 2002:a05:622a:2443:b0:50b:4b81:e376 with SMTP id
- d75a77b69052e-50ba38b2183mr217155421cf.42.1774971883843; 
- Tue, 31 Mar 2026 08:44:43 -0700 (PDT)
-Received: from umbar.lan
- (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
- by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-38c8389524esm21709301fa.21.2026.03.31.08.44.42
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 31 Mar 2026 08:44:42 -0700 (PDT)
-Date: Tue, 31 Mar 2026 18:44:40 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Thierry Reding <thierry.reding@gmail.com>,
- Sam Ravnborg <sam@ravnborg.org>, Joseph Guo <qijian.guo@nxp.com>,
- Marek Vasut <marek.vasut+renesas@mailbox.org>,
- Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/4] dt-bindings: display: waveshare,dsp2dpi: describe
- DSI2LVDS setup
-Message-ID: <ffnfk5styiydummm5pb2psvojoucrfn43k5f6d37hnbhyus7k5@3blckxmwunbq>
-References: <20260330-ws-lcd-v1-0-309834a435c0@oss.qualcomm.com>
- <20260330-ws-lcd-v1-1-309834a435c0@oss.qualcomm.com>
- <20260331-roaring-carrot-stork-edaef8@quoll>
+Received: from DM1PR04CU001.outbound.protection.outlook.com
+ (mail-centralusazon11010024.outbound.protection.outlook.com [52.101.61.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1C40910E2B1;
+ Tue, 31 Mar 2026 15:45:59 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=zOPBtkgbPe5NW4ZMU5F2B9atYAWSSXtnyaqWzbxUUCezMjKhxsib9OVbvyEbmHy0/4H/+3Qztn/Ffw82nUE7bZsAejMtaB66QsthS6itDwFhiLnvP6VgECB+4ESsNilTcqOZoq848CHFAdUn+G8r5kdgWlXgsJ921qfTkaoj5IcSj5EB+ARsrBOGr+J80IIGlFedr9cT9A+Mc9OvPVb+Y8LuTZUjjN1ydzvZSfFA1fSlVaRTsgXS3kf7EShM4/dgC1cyU/HKHP66a1kcIuHLkd7+nS0yKCk1HveUhXJi2Uej8320dnF6JQmxjj34/GVLHKQQp6dxMGW+hw1mjPqO7Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=9DaoARQpeI5cJKYRJGALOOBxT8lCEO910+g9swoxUZw=;
+ b=xN0CAgIVlhCFBn324oDmWIbHrWKQw2V6cq+ZudY6oNNYFJRwBARqxplHIG0q/HVQ2ct34FAl+PywoaaLpJpd6dS3iMdLfyVQEeesMhFiQ0Yv6GMvP/mbPjiAamI6S+XoQAlrtQyigCGF/Cyszr7rtVjDfnUmv9dd4d+fw8x1eGjvPP64YLuo9NWm/LCF5WWfGr7ga4NOX+lwfihcdUz6H1szbZyo9UgVii0vZPMkQpE78ocYZvC2cC5MIf5pyQ8Acx9+m9Prc6tINIOgw3nDvw3mXahGEmsPEzZIK0FZSYqMNFAHJmkgcqbRKyJG7gdhTxSjMr4xbB13nYly197xzA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=gmail.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=9DaoARQpeI5cJKYRJGALOOBxT8lCEO910+g9swoxUZw=;
+ b=foj5kiFuixY5s3DeuK+K3pL85VJBhf4reDAq+4dwUZVGKuZ7XCSzxDvA8oIaSlVN6Bo2yfVj7AuQ/kfWStACQSIXFphuyYGXm0jTliH0wV6Qd8Lgb/UzC1C2Y+EC3gP6wgVNjFJB/eMsLygiTq15RCmuxi6FPe8aw7hV276WZ6U=
+Received: from MN2PR14CA0007.namprd14.prod.outlook.com (2603:10b6:208:23e::12)
+ by CH3PR12MB8185.namprd12.prod.outlook.com (2603:10b6:610:123::17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.15; Tue, 31 Mar
+ 2026 15:45:55 +0000
+Received: from BN1PEPF00006000.namprd05.prod.outlook.com
+ (2603:10b6:208:23e:cafe::a) by MN2PR14CA0007.outlook.office365.com
+ (2603:10b6:208:23e::12) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9745.29 via Frontend Transport; Tue,
+ 31 Mar 2026 15:45:49 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ BN1PEPF00006000.mail.protection.outlook.com (10.167.243.232) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9745.21 via Frontend Transport; Tue, 31 Mar 2026 15:45:55 +0000
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Tue, 31 Mar
+ 2026 10:45:53 -0500
+Received: from [10.254.93.25] (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
+ Transport; Tue, 31 Mar 2026 10:45:52 -0500
+Message-ID: <3d928ea8-dee9-40cc-9fcc-af063b67138a@amd.com>
+Date: Tue, 31 Mar 2026 11:45:52 -0400
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260331-roaring-carrot-stork-edaef8@quoll>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzMxMDE1MSBTYWx0ZWRfX783onrL7XmOy
- cj1djj9QM+ONgRPJs3Jg62j4or6zbsKpH1h25jp6qhE2P6jutm4ILR6mvzRcOEX/Q1M2Zh7MeAV
- P1DhR0hI+eUfVJRRjB6Skwtbc/fGnSwI97M7RRW8qLUAurWqCpbJXEwIUgbS8gabbIdMI25UTpE
- 3Q/WvT5jmhWJ4ZGZluAa2kbWdnZV/+bzOYTS205bfoquzZv9v80EvkJg6sbZPI3nrGvNi/lMFmm
- W1p9rXr2/TcFs7TsdBbY2Po1mMMGjpoUo35U3WsHwSYCOAYInHO/g48djjHnQnU4L8Ws2YGU6EF
- qpAcP2aj/UE1F6hY0Z43mXqV3VBLpDs+PjBDR8pmUacNbtpmNmHG96MuJAUw9f6Iv5OW4nZGVcv
- cowvbBiMOIp2RloP2vR2ufwVzDcRJFik6vFgnyJTsNXla2NXwXaISRoWC2LIL0vcr/MZxwVq/tn
- nfzNvWV/oLzW3QN5xUg==
-X-Authority-Analysis: v=2.4 cv=G4ER0tk5 c=1 sm=1 tr=0 ts=69cbebed cx=c_pps
- a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22 a=DPn2wOqBzvvA9j5Ou-wA:9
- a=CjuIK1q_8ugA:10 a=a_PwQJl-kcHnX1M80qC6:22
-X-Proofpoint-GUID: u7dpouh2IckDzp32f-rbKAJ_QuhIBtJz
-X-Proofpoint-ORIG-GUID: u7dpouh2IckDzp32f-rbKAJ_QuhIBtJz
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-03-31_03,2026-03-31_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 bulkscore=0 clxscore=1015 priorityscore=1501
- malwarescore=0 adultscore=0 impostorscore=0 spamscore=0 phishscore=0
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2603050001
- definitions=main-2603310151
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v8 0/8] drm/amd/display: more drm_edid to AMD display
+ driver (partial)
+To: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>,
+ <airlied@gmail.com>, <alexander.deucher@amd.com>, <alex.hung@amd.com>,
+ <andrzej.hajda@intel.com>, <christian.koenig@amd.com>,
+ <harry.wentland@amd.com>, <jernej.skrabec@gmail.com>, <jonas@kwiboo.se>,
+ <Laurent.pinchart@ideasonboard.com>, <maarten.lankhorst@linux.intel.com>,
+ <mario.limonciello@amd.com>, <mripard@kernel.org>, <mwen@igalia.com>,
+ <neil.armstrong@linaro.org>, <rfoss@kernel.org>, <simona@ffwll.ch>,
+ <siqueira@igalia.com>, <tzimmermann@suse.de>
+CC: Jani Nikula <jani.nikula@linux.intel.com>, Michel Daenzer
+ <michel.daenzer@mailbox.org>, <amd-gfx@lists.freedesktop.org>,
+ <dri-devel@lists.freedesktop.org>, <kernel-dev@igalia.com>
+References: <20260225121903.236115-1-mwen@igalia.com>
+ <3856874.aCxCBeP46V@timur-hyperion>
+Content-Language: en-US
+From: Leo Li <sunpeng.li@amd.com>
+In-Reply-To: <3856874.aCxCBeP46V@timur-hyperion>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN1PEPF00006000:EE_|CH3PR12MB8185:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4acd0c7c-191f-4077-68bf-08de8f3c9898
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|7416014|36860700016|1800799024|42112799006|82310400026|921020|56012099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: icqQpR5nAJuOYnU96KnNb4WrtlGL+BRauPwpgL+YnjMokddxzJOaQa+HW24gBD2USdSrV+VxOwS5pYxSyC4mOMxeh3ZarV9z6ZfmvRqUxFcpISv7dOO9yszLZEJHZyReD3IO3g5MfYzjHwyJV7F7+fwbi3vth6PXia7Mes3trZwC3Mfwhs9lVQmhgolPa4Kw2f/WZXtE4pfNekIX4ls2Rok49B/S6+NPvabhdCZn5bkigmDIJhu4skF/yqooXYW2UumwJWh8MBX1NMVS3OF86+E/pze5pEkrLxOgE98ib/OIBP+PMVyZkk63sc0z1Tismallnxwq+aOj8i7sWWq1vGRSXncseJDr5LrCE9SttDCUnEt0TR0HwiGIlQc4XxFllCDVgMqvE3yBIq1/aDkjJWwRQpUu4ApvBZZWxWNCbl70FP7AWrywB80Kn8bRzaVaqmvuT5SwK9YikCym52vrZZiDojUeQYZYIbAYXVOeIwKJitPwfuY1WKqPuvOftGpAxWdEgVPWe2blFN4poeAhG6qaAjnZ3OloCjxdaPKItdeGyhWZ4NGoOnVI4uVQiIVOcZm80uZlSanI8cwAVFfYkuNpY6bK5BibpSUnnInmyNfdsw3z+Hg1LmlbSpWfumOK2ATNwaoLPctaY4won6aGKjjN7vouixhqaLcm1L6oIEwt267FT0oXrN6pWZK3ZTWkjDLG41aVFv48bJD1PHsA2oiGX+8sps0XrBXp7jjhUMA3kH6t/VOcQXz8EIMbOTI2Lj8VfX1olds3HNdREi/R/+xcAZLn7Ob1CUz97owS/Ea45AG9TiD7o5Iqsto3DhNs
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(7416014)(36860700016)(1800799024)(42112799006)(82310400026)(921020)(56012099003)(18002099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: i+bOPnapl1pAfjW7oqfAfeC0X78y2gJ5xdKKjuWNVJ3ua6M6pPuw7QtWP7e/QOUDMUn3ukxCQMdJBakeDHxFLDsLniVUL7xy5ypKrdv3t8Ehy9WOo31VRn+vluek1xTP71P+1Mjy1Lj5LI7KMT8alKFWaIYjv+0QM+bms2hUneCsBjbDu8WZNxxST38+NV3AL/FKj4wv40EaMizIoL1pyUnijFNsBQXACD8J4o3y/Q1ksAFzgNBCSlxLhHGpSRr6CJYvAO3cCMQnUG+VpkFU2U9dRRm9h1Iqnz2BxdGwubbiCzEQ1HGX23XlZMfeQb7ETRlcnm4H0bPAHRm8mkN+hah8/hfAiX395ulSkZqL47Kj1u90tq0S+jhlK6uiETOKtubPxgF/lysrMH0p5ZfEiHOcQIjwocVZzYCjAFL30PmzSghUGDGjcLm/0KPkH50N
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Mar 2026 15:45:55.3690 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4acd0c7c-191f-4077-68bf-08de8f3c9898
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN1PEPF00006000.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8185
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -155,19 +122,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, Mar 31, 2026 at 10:40:12AM +0200, Krzysztof Kozlowski wrote:
-> On Mon, Mar 30, 2026 at 04:25:50PM +0300, Dmitry Baryshkov wrote:
-> > Several the Waveshare DSI LCD panel kits use DSI2LVDS ICN6202 bridge
+
+
+On 2026-02-27 03:52, Timur Kristóf wrote:
+> On Wednesday, February 25, 2026 1:04:29 PM Central European Standard Time 
+> Melissa Wen wrote:
+>> Hi,
+>>
+>> This is a reduced version of `drm/amd/display: more drm_edid to AMD
+>> display driver` [1] sent a few months ago only with the less invasive
+>> changes, i.e., those changes that don't affect DC. This partial focus on
+>> using more drm_edid helpers instead of raw EDID helpers. Most patches
+>> here are already reviewed by someone and I think they can be merged
+>> without major concerns. They can also prevent new initiatives of keeping
+>> parsing raw EDID as driver specific code, which can make harder for us
+>> to remove `drm_edid_raw()`. They should focus on moving raw EDID
+>> handling to the DRM common code instead.
+>>
+>> Regarding code changes from previous version, here I added some r-b tags
+>> (from Mario and Timur), fixed commit message syntax (Mario) and
+>> centralized error handling (Timur). I'll follow up the changes in DC to
+>> accept the Linux/DRM opaque object in a separate series since those look
+>> more sensitive.
+>>
+>> [1] https://lore.kernel.org/amd-gfx/20251106165536.161662-1-mwen@igalia.com/
+>>
+>> BR,
+>>
+>> Melissa
+>>
 > 
-> If you know the hardware bridge used, should not it be the front
-> compatible (with waveshare,dsi2lvds fallback)? Or even alone? Can the
-> waveshare kits come with different bridges? I guess yes, they could.
+> Nice work, Melissa.
+> 
+> Reviewed-by: Timur Kristóf <timur.kristof@gmail.com>
+> For this series.
 
-After additional thought (and an email to Marek): the actual ICN bridge
-chip is an integrated entity. It is not (and it should not) be
-programmed by the host. The kit handles it internally. As such, I don't
-think we should be a part of the DT.
+Thanks for your patience Melissa, series is also
+Reviewed-by: Leo Li <sunpeng.li@amd.com>
 
--- 
-With best wishes
-Dmitry
+We'll include it in this week's testing.
+
+- Leo
+> 
+> 
+
