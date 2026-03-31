@@ -4,73 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8A1991061B26
-	for <dri-devel@archiver.kernel.org>; Tue, 31 Mar 2026 11:10:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 019501061B2E
+	for <dri-devel@archiver.kernel.org>; Tue, 31 Mar 2026 11:18:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CBDF510E9F8;
-	Tue, 31 Mar 2026 11:10:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D4CB910EB10;
+	Tue, 31 Mar 2026 11:18:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="aD2dlTwb";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="V/ItdmvV";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3D5F610E9F8;
- Tue, 31 Mar 2026 11:10:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1774955404; x=1806491404;
- h=message-id:subject:from:to:cc:date:in-reply-to:
- references:content-transfer-encoding:mime-version;
- bh=S/YMK+Slo64Pl27uOtdErMDxgZRg/+RbqxMRJWMNB3o=;
- b=aD2dlTwbwDrZZbWo+eEv+00ct5cFRBunfifjUms6vtC7/LTc3utxE/fs
- s5iSVZ25z+Lj2IG4cN1pFVtYxcJyUfA/csjZLjsYa5TYxGmEo9uF6JM0C
- NjEK0HTkkpP/cL49rQGBxa6B5Ir8FjTAWqg+5J3Esjq3ASroUU+pwEDDN
- u+IlpexkAbQniFqZ8/wR4bt2SrhYswWmWKwQGOxDQzg5tno3k+T2xNoCM
- QtaF8AbGt3aBOtyNUIFSHLLbPraABkzshIOl/4D9MFl/dsdKq84MSKJC/
- WHZ2bS95RO5XN2t7dELPLHsB4poh5aRKfvkN/ffDnmHqCIDVU/Cs/8Nnt A==;
-X-CSE-ConnectionGUID: WA6FvUT3Q0mMosE6UZ7PoQ==
-X-CSE-MsgGUID: DzMakB5pR/Kiu7xMNaxOHg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11744"; a="93352719"
-X-IronPort-AV: E=Sophos;i="6.23,151,1770624000"; d="scan'208";a="93352719"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
- by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Mar 2026 04:10:04 -0700
-X-CSE-ConnectionGUID: pUOxKPQLTd6RLmiM9z/DZg==
-X-CSE-MsgGUID: LxULi2sPRgmiTuKJOjKLrg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,151,1770624000"; d="scan'208";a="231160488"
-Received: from smoticic-mobl1.ger.corp.intel.com (HELO [10.245.244.28])
- ([10.245.244.28])
- by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Mar 2026 04:09:58 -0700
-Message-ID: <0e73b7e6dbcec756332f672c443ff127c1707fa4.camel@linux.intel.com>
-Subject: Re: [PATCH 4/5] drm/exec, drm/xe: Avoid abusing the drm_exec retry
- pointer
-From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
-To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, 
- intel-xe@lists.freedesktop.org
-Cc: Felix Kuehling <Felix.Kuehling@amd.com>, Alex Deucher	
- <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>, Simona
- Vetter	 <simona@ffwll.ch>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>,  Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Danilo Krummrich
- <dakr@kernel.org>,  Matthew Brost <matthew.brost@intel.com>, Alice Ryhl
- <aliceryhl@google.com>, Rob Clark	 <robin.clark@oss.qualcomm.com>, Dmitry
- Baryshkov <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul	 <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>, 
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
-Date: Tue, 31 Mar 2026 13:09:56 +0200
-In-Reply-To: <e4855d379990345e47e1175ff4b20a757888ff42.camel@linux.intel.com>
-References: <20260331092023.81616-1-thomas.hellstrom@linux.intel.com>
- <20260331092023.81616-5-thomas.hellstrom@linux.intel.com>
- <916ac7fc-d699-453f-af60-5cb3b15c1156@amd.com>
- <e4855d379990345e47e1175ff4b20a757888ff42.camel@linux.intel.com>
-Organization: Intel Sweden AB, Registration Number: 556189-6027
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
+Received: from mail-lj1-f178.google.com (mail-lj1-f178.google.com
+ [209.85.208.178])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7D1C410EB10
+ for <dri-devel@lists.freedesktop.org>; Tue, 31 Mar 2026 11:18:16 +0000 (UTC)
+Received: by mail-lj1-f178.google.com with SMTP id
+ 38308e7fff4ca-38cb8e42d1dso3491231fa.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 31 Mar 2026 04:18:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1774955894; x=1775560694; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=rr4XYxZlbgfRszfW0peUqy8RdEvlcyzb6hrOTDVWLRU=;
+ b=V/ItdmvV/WT2eQzBtgasskifjonRs0OwDDT+fwU32WZmPJDQP7hLP2Db6YT9Dx4L+F
+ ll7sn+4au+EZeE8IPmqP2w4lfx/zwAsiIS8IxsAXJAtak9mkvZ2k3z8uffAlcw5KB+pk
+ gI1GUQaY4bBXfQy2+H5OsXiHnXzAD+1T9v32iUs8K7akz4A56Ud8KOnV0H8UH/4QSgqo
+ W6ET3Jgc7+Unn3tcEKczoscC64qEqP5tnKD7jYhBlEc7pZ9SkBEHat095eGWvx15YQ9M
+ gI9MmkTKlZKcqc+H8jug9xakXIPxaw1EuVVsWeBXUnHVOPI+7dWCs18kXsqQ9MQFiMBP
+ zXwA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1774955894; x=1775560694;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=rr4XYxZlbgfRszfW0peUqy8RdEvlcyzb6hrOTDVWLRU=;
+ b=Tv5R7H/sbrr7EQfvn9brz+KbY/HVfPhKJ5ttoVqCbzwgD38lYcwpkNlUe27bb16Ngi
+ F0Q4tCIo/8PddcR1ecCYrEgJ8dckvAk88ijL0SrqZY8cqAsofriDVKkQvfnLgJYbhq0M
+ WmkwTr9fFk8l2PvaybxtC7kcTJNVoR2Mz9LmU0Qb4Kv7ff3+tfwmIeJSSV+8xx2rTFpy
+ j/Xp2Hs7E/d6uXphUaUQgnsYIUVSsC6HVHXAjgv/mYcCmixcQvYFTpc6jQovTzo2YsVJ
+ cf/DjS888YHfsP0oarBlI8d0CFWFEZ7SJag1HehEL1F1Sl6Fdwh24TqvfAaq+aAmjYPx
+ XxFg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUncWsbFgsirMvIpYU7OchxNcgU5iMzubenWhIJIZrKPiRJhqUzzLU7oCSaOSta9KQbCp9GczHSlE4=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwNbdr1Ipi4ojKIYjcfE4dxyT4dPus/oKvi6Ezj8KmiYma1/Gp/
+ 3d8WlPxasdMpO2+xlZbNTXARz5UzaIq0FgzPXNTmM+hPwNeZHrLiL+Ad
+X-Gm-Gg: ATEYQzzQ0B7YChJYW/TYldmeKe/ME7ss2vCNtemfk8PEwBu9WQ7kxH6IWDNzwUozzlL
+ E7fKFARgclH8QprQmLzAwe7uFoZHDkDZUGeP9NGnG1EOXz0TrsSO4LdoX+Jqxdcbv7l+WHVEeHu
+ 8adejqv7N0lpeRYBqGhwE1sA5hL4GMyf7Dt/L0Zb7K/ahETGghup6LARTV7/dbepZdOcqm4KGVU
+ J+3qHQEFgMplZ/esc4wMZLBPr3r3CDWSG5O1JlE3Tn1S6Ar9G0Jj5422H2VGxhNX9PM2Y4IDDGP
+ pZ+mdqMmGfWzQAA45i/8dBKEKQ5drKyFscW393HfGWzxO7YIZ6Te9FAjUn7DDHZz2yG9N+vrncJ
+ gvZ0M0lBYGY2/fvk6ylkK/+khxtdU86toh/68d1y4uj1s0mznYSVehBuBl8p4ej4CYqPuDYfTnE
+ 5Sx2wP7J+MiKfx+bnR0/IOgMDAGXn6KnTSRA==
+X-Received: by 2002:a2e:bc15:0:b0:38a:3ad8:6f32 with SMTP id
+ 38308e7fff4ca-38c740b8c29mr55919451fa.30.1774955894075; 
+ Tue, 31 Mar 2026 04:18:14 -0700 (PDT)
+Received: from localhost ([188.234.148.119]) by smtp.gmail.com with ESMTPSA id
+ 38308e7fff4ca-38c8389524esm20069411fa.21.2026.03.31.04.18.12
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 31 Mar 2026 04:18:13 -0700 (PDT)
+From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+To: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: lijo.lazar@amd.com, Eric Huang <jinhuieric.huang@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+Subject: [PATCH v6] drm/amdgpu: replace PASID IDR with XArray
+Date: Tue, 31 Mar 2026 16:17:24 +0500
+Message-ID: <20260331111808.16578-1-mikhail.v.gavrilov@gmail.com>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,132 +89,171 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, 2026-03-31 at 12:13 +0200, Thomas Hellstr=C3=B6m wrote:
-> On Tue, 2026-03-31 at 11:44 +0200, Christian K=C3=B6nig wrote:
-> > On 3/31/26 11:20, Thomas Hellstr=C3=B6m wrote:
-> > > The xe driver was using the drm_exec retry pointer directly to
-> > > restart the locking loop after out-of-memory errors. This is
-> > > relying on documented behaviour.
-> > >=20
-> > > Instead add a drm_exec_retry() macro that can be used in this
-> > > situation, and that also asserts that the struct drm_exec is
-> > > in a state that is compatible with retrying:
-> > > Either newly initialized or in a contended state with all locks
-> > > dropped.
-> > >=20
-> > > Use that macro in xe.
-> > >=20
-> > > Signed-off-by: Thomas Hellstr=C3=B6m
-> > > <thomas.hellstrom@linux.intel.com>
-> > > ---
-> > > =C2=A0drivers/gpu/drm/xe/xe_validation.h |=C2=A0 2 +-
-> > > =C2=A0include/drm/drm_exec.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 13 +++++++++++++
-> > > =C2=A02 files changed, 14 insertions(+), 1 deletion(-)
-> > >=20
-> > > diff --git a/drivers/gpu/drm/xe/xe_validation.h
-> > > b/drivers/gpu/drm/xe/xe_validation.h
-> > > index a30e732c4d51..4cd955ce6cd2 100644
-> > > --- a/drivers/gpu/drm/xe/xe_validation.h
-> > > +++ b/drivers/gpu/drm/xe/xe_validation.h
-> > > @@ -146,7 +146,7 @@ bool xe_validation_should_retry(struct
-> > > xe_validation_ctx *ctx, int *ret);
-> > > =C2=A0#define xe_validation_retry_on_oom(_ctx,
-> > > _ret)				\
-> > > =C2=A0	do
-> > > {								\
-> > > =C2=A0		if (xe_validation_should_retry(_ctx,
-> > > _ret))		\
-> > > -			goto
-> > > *__drm_exec_retry_ptr;			\
-> > > +			drm_exec_retry((_ctx)-
-> > > > exec);			\
-> >=20
-> > Oh, that goto is extremely questionable to begin with.
-> >=20
-> > > =C2=A0	} while (0)
-> > > =C2=A0
-> > > =C2=A0/**
-> > > diff --git a/include/drm/drm_exec.h b/include/drm/drm_exec.h
-> > > index fc95a979e253..5ed5be1f8244 100644
-> > > --- a/include/drm/drm_exec.h
-> > > +++ b/include/drm/drm_exec.h
-> > > @@ -138,6 +138,19 @@ static inline bool
-> > > drm_exec_is_contended(struct drm_exec *exec)
-> > > =C2=A0	return !!exec->contended;
-> > > =C2=A0}
-> > > =C2=A0
-> > > +/**
-> > > + * drm_exec_retry() - Unconditionally restart the loop to grab
-> > > all
-> > > locks.
-> > > + * @exec: drm_exec object
-> > > + *
-> > > + * Unconditionally retry the loop to lock all objects. For
-> > > consistency,
-> > > + * the exec object needs to be newly initialized or contended.
-> > > + */
-> > > +#define drm_exec_retry(_exec)				\
-> > > +	do {						\
-> > > +		WARN_ON(!drm_exec_is_contended(_exec)); \
-> >=20
-> > This warning would trigger!
-> >=20
-> > See the code in xe_bo_notifier_prepare_pinned() for example:
-> >=20
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 drm_e=
-xec_retry_on_contention(&exec);
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ret =
-=3D PTR_ERR(backup);
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 xe_va=
-lidation_retry_on_oom(&ctx, &ret);
-> >=20
-> > Without contention we would just skip the loop and never lock
-> > anything.
-> >=20
-> > What XE does here just doesn't work as far as I can see.
->=20
-> So if the xe_validation_retry_on_oom() is actually retrying it
-> internally call drm_exec_fini() and drm_exec_init() first, which
-> means
-> that the warning doesn't trigger, due to the dummy value of
-> contended.
->=20
-> So the warning does its job, and xe is safe.
+Commit 8f1de51f49be ("drm/amdgpu: prevent immediate PASID reuse case")
+converted the global PASID allocator from IDA to IDR with a spinlock
+for cyclic allocation, but introduced two locking bugs:
 
-So the xe stuff is actually basically an outer loop to
-drm_exec_until_all_locked().
+1) idr_alloc_cyclic() is called with GFP_KERNEL under spin_lock(),
+   which can sleep.
 
-We could ofc explicitly code that implementing an
-xe_validation_until_all_valid() and have a separate goto ptr, but I'm
-not sure that is cleaner, really. They'd point to the same address
-anyway.
+2) amdgpu_pasid_free() can be called from hardirq context via the
+   fence signal path (amdgpu_pasid_free_cb), but the lock is taken
+   with plain spin_lock() in process context, creating a potential
+   deadlock:
 
-In the end, the WARN_ON in drm_exec_retry() would ensure drm_exec is
-not in an awkward state anyway.
+     CPU0
+     ----
+     spin_lock(&amdgpu_pasid_idr_lock)   // process context, IRQs on
+     <Interrupt>
+       spin_lock(&amdgpu_pasid_idr_lock) // deadlock
 
-Thanks,
-Thomas
-=20
+   The hardirq call chain is:
 
+     sdma_v6_0_process_trap_irq
+      -> amdgpu_fence_process
+       -> dma_fence_signal
+        -> drm_sched_job_done
+         -> dma_fence_signal
+          -> amdgpu_pasid_free_cb
+           -> amdgpu_pasid_free
 
->=20
-> Thanks,
-> Thomas
->=20
->=20
->=20
-> >=20
-> > Regards,
-> > Christian.
-> >=20
-> > > +		goto *__drm_exec_retry_ptr;		\
-> > > +	} while (0)
-> > > +
-> > > =C2=A0void drm_exec_init(struct drm_exec *exec, u32 flags, unsigned
-> > > nr);
-> > > =C2=A0void drm_exec_fini(struct drm_exec *exec);
-> > > =C2=A0bool drm_exec_cleanup(struct drm_exec *exec);
+   This was observed on an RX 7900 XTX when exiting a Vulkan game
+   running under Proton/Wine, which triggers the fence callback path
+   during VM teardown.
+
+Replace the IDR + spinlock with XArray using XA_FLAGS_LOCK_IRQ (all
+xa operations use IRQ-safe locking internally) and XA_FLAGS_ALLOC1
+(zero is not a valid PASID).  Both xa_alloc_cyclic() and xa_erase()
+then handle locking consistently, fixing both bugs.
+
+Suggested-by: Lijo Lazar <lijo.lazar@amd.com>
+Fixes: 8f1de51f49be ("drm/amdgpu: prevent immediate PASID reuse case")
+Signed-off-by: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+---
+
+v6: Use DEFINE_XARRAY_FLAGS with XA_FLAGS_LOCK_IRQ | XA_FLAGS_ALLOC1
+    so all xa operations use IRQ-safe locking internally.  Drop
+    Cc: stable since the regression was never released to any stable
+    kernel. (Christian König)
+v5: Use explicit xa_lock_irqsave/__xa_erase for amdgpu_pasid_free()
+    since xa_erase() only uses plain xa_lock() which is not safe from
+    hardirq context.
+    https://lore.kernel.org/all/20260330191120.105065-1-mikhail.v.gavrilov@gmail.com/
+v4: Use xa_alloc_cyclic/xa_erase directly instead of explicit
+    xa_lock_irqsave, as suggested by Lijo Lazar.
+    https://lore.kernel.org/all/20260330162038.25073-1-mikhail.v.gavrilov@gmail.com/
+v3: Replace IDR with XArray instead of fixing the spinlock, as
+    suggested by Lijo Lazar.
+    https://lore.kernel.org/all/20260330110346.16548-1-mikhail.v.gavrilov@gmail.com/
+v2: Added second patch fixing the {HARDIRQ-ON-W} -> {IN-HARDIRQ-W}
+    lock inconsistency (spin_lock -> spin_lock_irqsave).
+    https://lore.kernel.org/all/20260330053025.19203-1-mikhail.v.gavrilov@gmail.com/
+v1: Fixed sleeping-under-spinlock (idr_alloc_cyclic with GFP_KERNEL)
+    using idr_preload/GFP_NOWAIT.
+    https://lore.kernel.org/all/20260328213900.19255-1-mikhail.v.gavrilov@gmail.com/
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c | 43 +++++++++++--------------
+ 1 file changed, 19 insertions(+), 24 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
+index d88523568b62..9f264d439f3d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
+@@ -22,7 +22,7 @@
+  */
+ #include "amdgpu_ids.h"
+ 
+-#include <linux/idr.h>
++#include <linux/xarray.h>
+ #include <linux/dma-fence-array.h>
+ 
+ 
+@@ -35,13 +35,13 @@
+  * PASIDs are global address space identifiers that can be shared
+  * between the GPU, an IOMMU and the driver. VMs on different devices
+  * may use the same PASID if they share the same address
+- * space. Therefore PASIDs are allocated using IDR cyclic allocator
+- * (similar to kernel PID allocation) which naturally delays reuse.
+- * VMs are looked up from the PASID per amdgpu_device.
++ * space. Therefore PASIDs are allocated using an XArray cyclic
++ * allocator (similar to kernel PID allocation) which naturally delays
++ * reuse. VMs are looked up from the PASID per amdgpu_device.
+  */
+ 
+-static DEFINE_IDR(amdgpu_pasid_idr);
+-static DEFINE_SPINLOCK(amdgpu_pasid_idr_lock);
++static DEFINE_XARRAY_FLAGS(amdgpu_pasid_xa, XA_FLAGS_LOCK_IRQ | XA_FLAGS_ALLOC1);
++static u32 amdgpu_pasid_xa_next;
+ 
+ /* Helper to free pasid from a fence callback */
+ struct amdgpu_pasid_cb {
+@@ -53,8 +53,7 @@ struct amdgpu_pasid_cb {
+  * amdgpu_pasid_alloc - Allocate a PASID
+  * @bits: Maximum width of the PASID in bits, must be at least 1
+  *
+- * Uses kernel's IDR cyclic allocator (same as PID allocation).
+- * Allocates sequentially with automatic wrap-around.
++ * Uses XArray cyclic allocator for sequential allocation with wrap-around.
+  *
+  * Returns a positive integer on success. Returns %-EINVAL if bits==0.
+  * Returns %-ENOSPC if no PASID was available. Returns %-ENOMEM on
+@@ -62,20 +61,22 @@ struct amdgpu_pasid_cb {
+  */
+ int amdgpu_pasid_alloc(unsigned int bits)
+ {
+-	int pasid;
++	u32 pasid;
++	int r;
+ 
+ 	if (bits == 0)
+ 		return -EINVAL;
+ 
+-	spin_lock(&amdgpu_pasid_idr_lock);
+-	pasid = idr_alloc_cyclic(&amdgpu_pasid_idr, NULL, 1,
+-				 1U << bits, GFP_KERNEL);
+-	spin_unlock(&amdgpu_pasid_idr_lock);
++	r = xa_alloc_cyclic(&amdgpu_pasid_xa, &pasid, xa_mk_value(0),
++			    XA_LIMIT(1, (1U << bits) - 1),
++			    &amdgpu_pasid_xa_next, GFP_KERNEL);
+ 
+-	if (pasid >= 0)
++	if (r >= 0) {
+ 		trace_amdgpu_pasid_allocated(pasid);
++		return pasid;
++	}
+ 
+-	return pasid;
++	return r;
+ }
+ 
+ /**
+@@ -86,9 +87,7 @@ void amdgpu_pasid_free(u32 pasid)
+ {
+ 	trace_amdgpu_pasid_freed(pasid);
+ 
+-	spin_lock(&amdgpu_pasid_idr_lock);
+-	idr_remove(&amdgpu_pasid_idr, pasid);
+-	spin_unlock(&amdgpu_pasid_idr_lock);
++	xa_erase(&amdgpu_pasid_xa, pasid);
+ }
+ 
+ static void amdgpu_pasid_free_cb(struct dma_fence *fence,
+@@ -625,13 +624,9 @@ void amdgpu_vmid_mgr_fini(struct amdgpu_device *adev)
+ }
+ 
+ /**
+- * amdgpu_pasid_mgr_cleanup - cleanup PASID manager
+- *
+- * Cleanup the IDR allocator.
++ * amdgpu_pasid_mgr_cleanup - Cleanup PASID manager
+  */
+ void amdgpu_pasid_mgr_cleanup(void)
+ {
+-	spin_lock(&amdgpu_pasid_idr_lock);
+-	idr_destroy(&amdgpu_pasid_idr);
+-	spin_unlock(&amdgpu_pasid_idr_lock);
++	xa_destroy(&amdgpu_pasid_xa);
+ }
+-- 
+2.53.0
+
