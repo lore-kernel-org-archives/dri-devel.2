@@ -4,68 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C57FE109B46F
-	for <dri-devel@archiver.kernel.org>; Tue, 31 Mar 2026 14:41:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6DFD3109B46F
+	for <dri-devel@archiver.kernel.org>; Tue, 31 Mar 2026 14:44:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3D02710E95C;
-	Tue, 31 Mar 2026 14:41:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C785710E140;
+	Tue, 31 Mar 2026 14:44:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="KwWG5Ll1";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="rj6yay0F";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1B4F110E95C
- for <dri-devel@lists.freedesktop.org>; Tue, 31 Mar 2026 14:41:49 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9509110E140
+ for <dri-devel@lists.freedesktop.org>; Tue, 31 Mar 2026 14:44:39 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 02CBB405D2;
- Tue, 31 Mar 2026 14:41:49 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 865E8C19423;
- Tue, 31 Mar 2026 14:41:48 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 9F4566024D;
+ Tue, 31 Mar 2026 14:44:38 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D34BC19423;
+ Tue, 31 Mar 2026 14:44:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1774968108;
- bh=f9IVXML8pzkc0Fde3hPA9gWyRq9PebHuGmGgFZLCLNw=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=KwWG5Ll1gWJRgP8Qzn9wCJI/71SLPGoHadBncQdMAv+gaKWYS4vfAd1NgnYOb2YuD
- 7cvLRuJgkbsodg8HALjvnQU5TCE7A0t2R0hDF6sSV/LIs7AdSj7QcunTWZRRIsFNDO
- VSU0pvDLWw35gO6MgJXCDAV57KvuvEZmkk1M/SMLnFvqsp1ZTjUDh/LuIHG+bmplwB
- BTcshPedQC0lRx4GNipUuuSG2ngiskdaB2ttM7ClHKnC2EUzrensdvIpH2F5YBunn5
- QDFdQy2QtlLLPVR/OyRqB0CBpH0Thi2HRWWZ5y/WNdnbiA7o7ObA+eoIam/CIVjSMe
- t97wCpjMRC+wA==
-From: Maxime Ripard <mripard@kernel.org>
-Date: Tue, 31 Mar 2026 16:41:24 +0200
-Subject: [PATCH v2 2/2] Documentation: drm: Remove drm_atomic_state rename
- entry
+ s=k20201202; t=1774968278;
+ bh=3Jhe3TYvRFJkGv7Zr9SSw2NSWBUOqC4UfBtpEzkNAq4=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=rj6yay0F8xnQmb2P+v/FnkDjrmuTOcOJYfOxuiibrcXSN9gjxUZ4lLxVRJbEbUYcS
+ JN7r1VaXkvKla+H4EMfP13kjj5KfmKUrTosQUkMKLfJkQYOVXJwf1rs9/Qh5DQQJry
+ ymJfWPTgj8DhkiErhAymB7y3E3e5qJLlgB66V/NM86KxvwDSkxvRgERA4O2T8AFwOU
+ RDyfZ4Rs4dxSJOF36eVqZyClMR5Z1okIXEgkQ4hAts6VxccPH8hoCBK2CcfORUMbem
+ q97xkpxD0/oWeQnKHq+ajwsKw9BWSA0PVbpuTEzR0lhadJ75DkuojegAu/+PCiYayh
+ 5u3BksmTnqH8g==
+Date: Tue, 31 Mar 2026 15:44:32 +0100
+From: Mark Brown <broonie@kernel.org>
+To: =?iso-8859-1?Q?Ma=EDra?= Canal <mcanal@igalia.com>
+Cc: Michael Turquette <mturquette@baylibre.com>,
+ Stephen Boyd <sboyd@kernel.org>,
+ Nicolas Saenz Julienne <nsaenz@kernel.org>,
+ Florian Fainelli <florian.fainelli@broadcom.com>,
+ Stefan Wahren <wahrenst@gmx.net>,
+ Maxime Ripard <mripard@kernel.org>, Melissa Wen <mwen@igalia.com>,
+ Iago Toral Quiroga <itoral@igalia.com>,
+ Chema Casanova <jmcasanova@igalia.com>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>, linux-clk@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-rpi-kernel@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org,
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+ kernel-dev@igalia.com
+Subject: Re: [PATCH v7 1/5] clk: bcm: rpi: Manage clock rate in
+ prepare/unprepare callbacks
+Message-ID: <8a3c104f-9259-46a9-a6d2-a907d699e49c@sirena.org.uk>
+References: <20260312-v3d-power-management-v7-0-9f006a1d4c55@igalia.com>
+ <20260312-v3d-power-management-v7-1-9f006a1d4c55@igalia.com>
+ <5f0bec08-f458-4fba-8bf3-06817a100c4c@sirena.org.uk>
+ <d251c380-f2f5-4daf-9661-bbb6dc6c959e@igalia.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260331-drm-drm-atomic-update-v2-2-7e8fe6ddcd32@kernel.org>
-References: <20260331-drm-drm-atomic-update-v2-0-7e8fe6ddcd32@kernel.org>
-In-Reply-To: <20260331-drm-drm-atomic-update-v2-0-7e8fe6ddcd32@kernel.org>
-To: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Thomas Zimmermann <tzimmermann@suse.de>, Jonathan Corbet <corbet@lwn.net>
-Cc: Jani Nikula <jani.nikula@linux.intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Tvrtko Ursulin <tursulin@ursulin.net>, 
- Alex Deucher <alexander.deucher@amd.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Rob Clark <robin.clark@oss.qualcomm.com>, 
- Dmitry Baryshkov <lumag@kernel.org>, 
- Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Dave Stevenson <dave.stevenson@raspberrypi.com>, 
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
- dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org, 
- Maxime Ripard <mripard@kernel.org>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1734; i=mripard@kernel.org;
- h=from:subject:message-id; bh=f9IVXML8pzkc0Fde3hPA9gWyRq9PebHuGmGgFZLCLNw=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDJmn7yq90T66ZIPFSpmDlwxsl70RKomeI/n1j0+dQM764
- 6zbDr/a2jGVhUGYk0FWTJHliUzY6eXti6sc7Ff+gJnDygQyhIGLUwAmYjWXseH+E8//mxsbjbkM
- 3VJC7za/PcJqW2e3YIni/DZhi8NyH0WrLIyXn2c9f/nwhetRLlcV3zLWih28v/zLFcOTxy4LxTJ
- lrZ0853Lhhjyfetcr5RylPB+KrfICO18bdk+NZVvCm+1apx0NAA==
-X-Developer-Key: i=mripard@kernel.org; a=openpgp;
- fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="mw1gwsm7ZbtolsXc"
+Content-Disposition: inline
+In-Reply-To: <d251c380-f2f5-4daf-9661-bbb6dc6c959e@igalia.com>
+X-Cookie: I just had a NOSE JOB!!
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,52 +75,69 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-We just did that item so we can remove it.
 
-Signed-off-by: Maxime Ripard <mripard@kernel.org>
----
- Documentation/gpu/todo.rst | 23 -----------------------
- 1 file changed, 23 deletions(-)
+--mw1gwsm7ZbtolsXc
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-diff --git a/Documentation/gpu/todo.rst b/Documentation/gpu/todo.rst
-index 356f4e18b95723141cb5eb0e41bd1c3d12fa1cff..407ceb14524e6971a13812fed4496d0feb91108a 100644
---- a/Documentation/gpu/todo.rst
-+++ b/Documentation/gpu/todo.rst
-@@ -118,33 +118,10 @@ still look at that flag.
- 
- Contact: Simona Vetter, respective driver maintainers
- 
- Level: Advanced
- 
--Rename drm_atomic_commit
-------------------------
--
--The KMS framework uses two slightly different definitions for the ``state``
--concept. For a given object (plane, CRTC, encoder, etc., so
--``drm_$OBJECT_state``), the state is the entire state of that object. However,
--at the device level, ``drm_atomic_commit`` refers to a state update for a
--limited number of objects.
--
--The state isn't the entire device state, but only the full state of some
--objects in that device. This is confusing to newcomers, and
--``drm_atomic_commit`` should be renamed to something clearer like
--``drm_atomic_commit``.
--
--In addition to renaming the structure itself, it would also imply renaming some
--related functions (``drm_atomic_commit_alloc``, ``drm_atomic_commit_get``,
--``drm_atomic_commit_put``, ``drm_atomic_commit_init``,
--``__drm_atomic_commit_free``, etc.).
--
--Contact: Maxime Ripard <mripard@kernel.org>
--
--Level: Advanced
--
- Fallout from atomic KMS
- -----------------------
- 
- ``drm_atomic_helper.c`` provides a batch of functions which implement legacy
- IOCTLs on top of the new atomic driver interface. Which is really nice for
+On Tue, Mar 31, 2026 at 11:32:07AM -0300, Ma=EDra Canal wrote:
+> On 31/03/26 09:49, Mark Brown wrote:
+> > On Thu, Mar 12, 2026 at 06:34:23PM -0300, Ma=EDra Canal wrote:
 
--- 
-2.53.0
+> > > Rather than pushing rate management to clock consumers, handle it
+> > > directly in the clock framework's prepare/unprepare callbacks. In
+> > > unprepare, set the rate to the minimum before disabling the clock.
+> > > In prepare, for clocks marked with `maximize` (currently v3d),
+> > > restore the rate to the maximum after enabling.
 
+> > I'm seeing boot regressions in -next with NFS root on Raspberry Pi 3B+
+> > which bisect to this commit.  We get a likely unrelated oops from the
+> > firmware interface and the boot grinds to a halt some time later since
+> > the ethernet never comes up:
+
+> I've managed to address this issue locally with the following diff:
+
+> diff --git a/drivers/clk/bcm/clk-raspberrypi.c
+> b/drivers/clk/bcm/clk-raspberrypi.c
+> index df2d246eb6ef..ef5ae3b4adca 100644
+> --- a/drivers/clk/bcm/clk-raspberrypi.c
+> +++ b/drivers/clk/bcm/clk-raspberrypi.c
+> @@ -160,6 +160,7 @@ raspberrypi_clk_variants[RPI_FIRMWARE_NUM_CLK_ID] =3D=
+ {
+>         [RPI_FIRMWARE_VEC_CLK_ID] =3D {
+>                 .export =3D true,
+>                 .minimize =3D true,
+> +               .flags =3D CLK_IGNORE_UNUSED,
+>         },
+>         [RPI_FIRMWARE_DISP_CLK_ID] =3D {
+>                 .export =3D true,
+
+> It looks like the VEC_CLK can't be disabled at boot time. Otherwise, a
+> bus lookup will happen (similar what happens to other RPi firmware
+> clocks).
+
+> Is it possible for me to test this change in LAVA CI before sending it
+> to the list? Just to double check that this patch indeed fixes the
+> issue on your side as well.
+
+I can give you access to submit jobs easily enough, if you're already
+familiar with LAVA and have somewhere to host the binaries that'd work.
+It might be more straightforward for me to just test it.
+
+--mw1gwsm7ZbtolsXc
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmnL3c8ACgkQJNaLcl1U
+h9DMywf/c7JBjgSLiPt0az2ROBbBsrilMJsPqSNTsDXA7X5NknfUFp72tFaotahG
+8vusN+z69oaPzUBfSXNsdkuURtbFw+lfZvxE4POlhNUeCVHgMtV2d3ZMkOp08tXW
+gsRgIsUPBRLUmJ1tbBJ2gLJefotLzW2GMgl9p2jn/fX9K7JGzb3WEE0mlGz+cEi5
+hhbYGyU5uEgI4inXmDrG5zb68H+yhuYSAFcmKVhGjPs+8C0UNLX8cD8sOYo64KR0
+6dYyMlGKUGrQyleLJ9kvD/k+enQTS043Vz81Iu0dGsn+RUM9J114a4jOg0R+0V4I
+JdWePwdWTSYwrYz1SOACpRqaYrMVEQ==
+=AW0Y
+-----END PGP SIGNATURE-----
+
+--mw1gwsm7ZbtolsXc--
