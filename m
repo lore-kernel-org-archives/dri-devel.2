@@ -4,98 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 17068FF60C8
-	for <dri-devel@archiver.kernel.org>; Tue, 31 Mar 2026 05:00:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0ABCEFF60C2
+	for <dri-devel@archiver.kernel.org>; Tue, 31 Mar 2026 05:29:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6432710E1CF;
-	Tue, 31 Mar 2026 05:00:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2113010E1B7;
+	Tue, 31 Mar 2026 05:29:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Ee6fnoy/";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="LFmuju9V";
 	dkim-atps=neutral
-Received: from mail-ot1-f45.google.com (mail-ot1-f45.google.com
- [209.85.210.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2831310E1CF
- for <dri-devel@lists.freedesktop.org>; Tue, 31 Mar 2026 05:00:14 +0000 (UTC)
-Received: by mail-ot1-f45.google.com with SMTP id
- 46e09a7af769-7d743cd9e5bso3477300a34.2
- for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 22:00:14 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1774933213; cv=none;
- d=google.com; s=arc-20240605;
- b=cLir6hfayTfU+B3yU0FrPhAyoFdfsY9WmExWb7n/CcsPMcxFi8Jvu0jVlNHexCgA9Q
- T4Iu9ilz3s50RrdVO7FC3G3fbXVYQsXShwuE6qA4G0/Sx8JV9RT22gQKyScFyjkP+Cy3
- eUFqFASH9kfeN4yV6n7n0aV7lYhi23yfVYg9oXwtlx7TGOYaQkpgaH8XrMz4ZnsHpDT3
- Cdzrzzktobz3qUjMIP8b4FPtAQPe/QovRWoF97LWFLRjuV+OZR3oKfayjY6DRfEkPuGv
- 0peJy1MuR1S8D/vjj4kSMjZmb6bZJCRdPD07NZWABurqkiPyfWagCSvzGGkPDMlUCpmr
- d7Kw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=qn9GR33IpU25pLfXu1OSUX8rRbknNQbsON2unRJuEZI=;
- fh=Zoq3Mpx/ioOKeykwrFTZbK/9cS1PW3cMywYnwHBYxRg=;
- b=ExR7GHjEassqGHNVFXcYNmccGmJbk471YKhWB5XxA7NaztytUFVBxyKKvqJDwBR7Z2
- HHw54YVBYrwl+NINTsOB5A4+akHek5b2g0uxorBxDQvMXn7/gQ0pG86kGfhIYYzFpqHg
- BC1k6d3Kjvgtw2Zr3xUhdxGcRpRzor52yoUH9aoV2+IOpf1DdQr3+WevRGApbDrpeYEk
- Ytb51EuJHYYPwTgzxgWh6KsPe7jcdBJWNKZorLMNsCSeq5W7dRBRLm5JeR8bY6cWI6+l
- ge/3hGRIflk0zv8/WXdseMoUnDlsKfVvAJmS3EUPLZ6Y3m6y1EKLTXSjctWhQQAvvOWT
- BTAA==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1774933213; x=1775538013; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=qn9GR33IpU25pLfXu1OSUX8rRbknNQbsON2unRJuEZI=;
- b=Ee6fnoy/X+pVJy19dqTlvvU0jacZa/XNtfib9EqnPApj0B2SRot6epY3G1mUjWuL1A
- Zxmv9IAiM1Wq1A7rpFUQ1WQq1p5a7vkH+G7UolqSi/KvFsoWziZm9fDXJYpR1VE1sC0T
- dkdIsNh3iPgVOi4rfSRuUrwYdz30LiP+r2mZACFOXx6EHppu8DnoUrMTQsvAGO9eqIrn
- poAWy4HwuhTSr/lZt8+UnIeVZGc3NWKXfVZZ/xhtjGar32Ys6ukstd1hF2JcMRbxRGpP
- 9dk74WypxMa7rLJNc55geqvi+G3LGgsgmQFIFanvUx1nIxr+jKJbMaxCooQSuf8GEa2Z
- O14g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774933213; x=1775538013;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=qn9GR33IpU25pLfXu1OSUX8rRbknNQbsON2unRJuEZI=;
- b=Of1CbWsRyi1urSpxc8+rIURMx14LHV/y3vc7tqf2vaqIRZChpkvLdoWY4t8EPU284w
- 6Bynf5740WyivIysKjak60bXdXBIrzudf/KQFyVeui2eDxTtEh7Mq0jn/daTXGGggVIK
- 05hpuI3Yx6Fs65R6esvofN2hHNqU9psJezs+K+FE7Z3P+9U3t7mg0HmJBUDW16TJ/+o8
- sXi6reRKVRHgNNUEB/h0xjYEQYsHEB/sZ+U/wpVKbMbgUbEAA1ctaHZbsB9aeWVgBUsZ
- 1JQ2sHoJr1P4gNCMxhgd+jPmmy/ioldL+M8T/CBNqLptiQAaQbALoUg+k9fVeZAZuuig
- jj0w==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVuicMf53aACGPhDIpVuowDwfXMcKdM96HeM7XxAjVlnJ9vtggo25UG+28HjdKWw3G6mivycTGUJds=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyU5IcbS3CpLaP50T8r0d9/kR19AHWiGkK9tPDuhctuNdbNme6+
- apsvKwTKdS9DYKckp33gXxFAplwmX9XWwwF6kYNA+UZDf+wVECUz+rM/9YGh3/8UDln1pXcBLru
- SEGPri3jYg25bne2xQGB0Ug4HQp9+vPhckkZXKJclt0pXAfE=
-X-Gm-Gg: ATEYQzyFvmYGXDexsUjNehPIQ3RRGOwAUbuI6zGU0fSvp47ylaKi9ESs7oTw5RPhr+r
- DYy8kECq2WbkPtGEIvaCy6zUXUTvMHTuO6/cfhlUi6+oA6//TWgTJw4UxT5WoK1uoN0jZf19Kus
- L9Axp61qQpdCk2X1NcfUb5PhkZC1xQZLhwZzlaZc9paVjB9dRbHey5PVy7cZrxQ/mxQSj/Hp7oA
- K7P9rs7pyj+JNd2/QsHE74ujBz5wULl0Xf9BztCFV+43o52w9+gvKYvXf9aCyMw8ZyLJNTdRoc+
- exocvs1DTl5I6ml9i1yo
-X-Received: by 2002:a05:6830:82a9:b0:7d7:455d:1003 with SMTP id
- 46e09a7af769-7d9fad9b3d5mr8646097a34.4.1774933213062; Mon, 30 Mar 2026
- 22:00:13 -0700 (PDT)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 46EC110E1B7
+ for <dri-devel@lists.freedesktop.org>; Tue, 31 Mar 2026 05:29:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1774934957; x=1806470957;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=o1Bk7rs5EZIf2qz8ktfdQWe5awGZBRbBKlEegLMxjCE=;
+ b=LFmuju9VQuMhilQCH1rWSVBuW7oO07NEWq8/E0zRS14qp/bKY+8eG8aA
+ JMNuTOAVuIxc/5WjPgtihpKrSFejKW4CLnRdFnJqKD7gYPhXLzVXWBk7h
+ tOH2sQXtD+aHVDdUTE6/ICMYvlZf/hMrwY17wkrppgYJE29AYvrqYijUI
+ e9KltdDENBYjR1Ji5zK7R+FrJFM6w44dZxPAORD5ui3SbCnZNl9a1+yF0
+ R9DG8tC9O1oyfqgG7Mse/71q8ATXU+JJLmLYy0UJJVooUGcrJ2Q4HH+JL
+ Y8jYwk18NpTZDFwnT/6b6lwR2Ob+n+bf9RAhfwYY1VJrd6lsDoZUYZ541 g==;
+X-CSE-ConnectionGUID: VH9z4TGiTXuktqu6vFH9dw==
+X-CSE-MsgGUID: tOUi/C2sS4CUkn9B7ynN5Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11744"; a="86631292"
+X-IronPort-AV: E=Sophos;i="6.23,151,1770624000"; d="scan'208";a="86631292"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+ by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Mar 2026 22:29:17 -0700
+X-CSE-ConnectionGUID: NR39ryqhReeLtYQ36YL0fg==
+X-CSE-MsgGUID: BdXPiGJIS7eHxwvNOKEhLg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,151,1770624000"; d="scan'208";a="264191701"
+Received: from lkp-server01.sh.intel.com (HELO 283bf2e1b94a) ([10.239.97.150])
+ by orviesa001.jf.intel.com with ESMTP; 30 Mar 2026 22:29:13 -0700
+Received: from kbuild by 283bf2e1b94a with local (Exim 4.98.2)
+ (envelope-from <lkp@intel.com>) id 1w7Rf3-000000002Gv-2FGq;
+ Tue, 31 Mar 2026 05:29:09 +0000
+Date: Tue, 31 Mar 2026 13:28:19 +0800
+From: kernel test robot <lkp@intel.com>
+To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ Marek Vasut <marex@denx.de>, Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: oe-kbuild-all@lists.linux.dev, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Subject: Re: [PATCH v2 02/12] drm/bridge: tc358762: Improce SYSCTRL register
+ defines
+Message-ID: <202603311306.2ez4eHxU-lkp@intel.com>
+References: <20260327-tc358762-fixes-v2-2-3589d3c45f4a@ideasonboard.com>
 MIME-Version: 1.0
-References: <20260314232722.15555-1-mikhail.v.gavrilov@gmail.com>
- <CH3PR11MB7177D5538C726029D80BA6CEF841A@CH3PR11MB7177.namprd11.prod.outlook.com>
-In-Reply-To: <CH3PR11MB7177D5538C726029D80BA6CEF841A@CH3PR11MB7177.namprd11.prod.outlook.com>
-From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
-Date: Tue, 31 Mar 2026 10:00:01 +0500
-X-Gm-Features: AQROBzCwLvCBjKMjXnGlDUOQAPoq0K7FN6AFDT1twLET-_2xPEv2urT74LC2vBE
-Message-ID: <CABXGCsP+4pSyXHcOBokD5kSuVVa86xhjD+8OTy2woGavovhNKQ@mail.gmail.com>
-Subject: Re: [PATCH] udmabuf: fix DMA direction mismatch in release_udmabuf()
-To: "Kasireddy, Vivek" <vivek.kasireddy@intel.com>
-Cc: "kraxel@redhat.com" <kraxel@redhat.com>,
- "sumit.semwal@linaro.org" <sumit.semwal@linaro.org>, 
- "christian.koenig@amd.com" <christian.koenig@amd.com>, 
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, 
- "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>, 
- "linaro-mm-sig@lists.linaro.org" <linaro-mm-sig@lists.linaro.org>, 
- "stable@vger.kernel.org" <stable@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260327-tc358762-fixes-v2-2-3589d3c45f4a@ideasonboard.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,20 +81,77 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, Mar 17, 2026 at 10:42=E2=80=AFAM Kasireddy, Vivek
-<vivek.kasireddy@intel.com> wrote:
->
-> Reviewed-by: Vivek Kasireddy <vivek.kasireddy@intel.com>
->
-> Thanks,
-> Vivek
->
+Hi Tomi,
 
-Hi Gerd,
+kernel test robot noticed the following build errors:
 
-Gentle ping on this patch. It has Vivek's Reviewed-by and fixes a
-DMA-API warning present since v5.5.
+[auto build test ERROR on 11439c4635edd669ae435eec308f4ab8a0804808]
 
---=20
-Best Regards,
-Mike Gavrilov.
+url:    https://github.com/intel-lab-lkp/linux/commits/Tomi-Valkeinen/drm-bridge-tc358762-Clean-up-register-defines/20260328-164947
+base:   11439c4635edd669ae435eec308f4ab8a0804808
+patch link:    https://lore.kernel.org/r/20260327-tc358762-fixes-v2-2-3589d3c45f4a%40ideasonboard.com
+patch subject: [PATCH v2 02/12] drm/bridge: tc358762: Improce SYSCTRL register defines
+config: i386-allmodconfig (https://download.01.org/0day-ci/archive/20260331/202603311306.2ez4eHxU-lkp@intel.com/config)
+compiler: gcc-14 (Debian 14.2.0-19) 14.2.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260331/202603311306.2ez4eHxU-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202603311306.2ez4eHxU-lkp@intel.com/
+
+All errors (new ones prefixed by >>):
+
+   drivers/gpu/drm/bridge/tc358762.c: In function 'tc358762_init':
+>> drivers/gpu/drm/bridge/tc358762.c:154:24: error: implicit declaration of function 'FIELD_PREP' [-Wimplicit-function-declaration]
+     154 |                        FIELD_PREP(SYSCTRL_DPIDATA_IO_MASK, SYSCTRL_DPIDATA_IO_4MA) |
+         |                        ^~~~~~~~~~
+
+
+vim +/FIELD_PREP +154 drivers/gpu/drm/bridge/tc358762.c
+
+   127	
+   128	static int tc358762_init(struct tc358762 *ctx)
+   129	{
+   130		u32 lcdctrl;
+   131	
+   132		tc358762_write(ctx, DSI_LANEENABLE,
+   133			       DSI_LANEENABLE_L0EN | DSI_LANEENABLE_CLEN);
+   134		tc358762_write(ctx, PPI_D0S_CLRSIPOCOUNT, 5);
+   135		tc358762_write(ctx, PPI_D1S_CLRSIPOCOUNT, 5);
+   136		tc358762_write(ctx, PPI_D0S_ATMR, 0);
+   137		tc358762_write(ctx, PPI_D1S_ATMR, 0);
+   138		tc358762_write(ctx, PPI_LPTXTIMECNT, LPX_PERIOD);
+   139	
+   140		tc358762_write(ctx, SPICMR, 0x00);
+   141	
+   142		lcdctrl = LCDCTRL_VSDELAY(1) | LCDCTRL_RGB888 |
+   143			  LCDCTRL_UNK6 | LCDCTRL_VTGEN;
+   144	
+   145		if (ctx->mode.flags & DRM_MODE_FLAG_NHSYNC)
+   146			lcdctrl |= LCDCTRL_HSPOL;
+   147	
+   148		if (ctx->mode.flags & DRM_MODE_FLAG_NVSYNC)
+   149			lcdctrl |= LCDCTRL_VSPOL;
+   150	
+   151		tc358762_write(ctx, LCDCTRL, lcdctrl);
+   152	
+   153		tc358762_write(ctx, SYSCTRL,
+ > 154			       FIELD_PREP(SYSCTRL_DPIDATA_IO_MASK, SYSCTRL_DPIDATA_IO_4MA) |
+   155			       FIELD_PREP(SYSCTRL_DPISTB_IO_MASK, SYSCTRL_DPISTB_IO_4MA) |
+   156			       FIELD_PREP(SYSCTRL_PCLKDIV_MASK, SYSCTRL_PCLKDIV_DIV_3));
+   157	
+   158		msleep(100);
+   159	
+   160		tc358762_write(ctx, PPI_STARTPPI, PPI_STARTPPI_STARTPPI);
+   161		tc358762_write(ctx, DSI_STARTDSI, DSI_STARTDSI_STARTDSI);
+   162	
+   163		msleep(100);
+   164	
+   165		return tc358762_clear_error(ctx);
+   166	}
+   167	
+
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
