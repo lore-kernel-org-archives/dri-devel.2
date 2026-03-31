@@ -4,161 +4,143 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1776BFF60F4
-	for <dri-devel@archiver.kernel.org>; Tue, 31 Mar 2026 17:33:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B96A210F92E9
+	for <dri-devel@archiver.kernel.org>; Tue, 31 Mar 2026 17:38:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 630CD10E1FB;
-	Tue, 31 Mar 2026 17:33:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0069610EC10;
+	Tue, 31 Mar 2026 17:38:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="AL4QQYcD";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="GiCJjpE/";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2132610E1FB;
- Tue, 31 Mar 2026 17:33:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1774978417; x=1806514417;
- h=message-id:date:subject:to:cc:references:from:
- in-reply-to:content-transfer-encoding:mime-version;
- bh=CGqzcrhIUJF7YxNhb+zXkjzgdfU9byHqx/la9YsWWGM=;
- b=AL4QQYcDD1K3pw+TyMJsDH0BZ8emQOwEbj18RMmLmZluPgvjMfsUlGwF
- N/wJHoQhnxXRVxuO6lTLG8cVgAV0PoAZx8a1axbVEeCwro7jmA6K8Oq54
- VZl0uB3eq/sH9uhz1xgT11kikMR597u+R2dBcxrwSNn++QP7xCeQDet4w
- 8X/0GQehmvmFnE3XVMfW5Q2d+pme6K3lx18LMcUKx5s4Cc29cMDeDARdj
- rr2H2ZTV8JW29j6S0YCH4vUv4n3q5KQ3vT0CRtjTrDHJv9s+esmiIU0ET
- ixv9+xuy9sCs5AyrNp2Uz9rg/+zMpvMfVJfTfN0D5yVBLCVrHEpPlX2Zb w==;
-X-CSE-ConnectionGUID: u75OE7RTTiWhXo5/ZJ5V2Q==
-X-CSE-MsgGUID: XvLUSJ4/TmObxgaG9X2BtQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11745"; a="76115685"
-X-IronPort-AV: E=Sophos;i="6.23,152,1770624000"; d="scan'208";a="76115685"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
- by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Mar 2026 10:33:36 -0700
-X-CSE-ConnectionGUID: tE9kalocQJC072HityKwtQ==
-X-CSE-MsgGUID: s7gjPTIURsyBfqLhN1j9Yw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,152,1770624000"; d="scan'208";a="264363951"
-Received: from orsmsx902.amr.corp.intel.com ([10.22.229.24])
- by orviesa001.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Mar 2026 10:32:09 -0700
-Received: from ORSMSX903.amr.corp.intel.com (10.22.229.25) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Tue, 31 Mar 2026 10:32:08 -0700
-Received: from ORSEDG901.ED.cps.intel.com (10.7.248.11) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37 via Frontend Transport; Tue, 31 Mar 2026 10:32:08 -0700
-Received: from BYAPR05CU005.outbound.protection.outlook.com (52.101.85.40) by
- edgegateway.intel.com (134.134.137.111) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Tue, 31 Mar 2026 10:32:07 -0700
+Received: from CY3PR05CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11013033.outbound.protection.outlook.com
+ [40.93.201.33])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 517D110EAB4;
+ Tue, 31 Mar 2026 17:38:05 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=D7YHtQ9zme7jytwZ+Xnee5wK15Fefk1BFAAGDM4Zwn+7OgG4FQAWYK4RrHfeMyLDwsCRdRMqTqii17H/pnF4XujRlFoolbWGZ3QdeEJ+9MS8HX15IvFy7Fm6edv9S/dvkorOJpev8llt1PjZyZ5Gjfx6Uwwr9oJiseQYc7TWNvUD9ynBgeVDtR3LldBkVY/r5L8VAF8pKepNONEaCQotIz+WvgwfeH09oNq8Cgg7SSlE6toZII9MUbAMoP2TfhGEw6lDRdueZLrCzmsSMYA0NxL+xKlzvAgVzZQiJZAKxj0ffDGEW1fxrF8uiwFi2kL3GaDL6THFuOj/VaAg92tvNQ==
+ b=q5OAq/bngF0f4eBET5FP11+utW/tfn60BFNx/yRlcSRICXC+dppE1Cfrjmkz7IMdMwgu1nlpOMJEazyNzAwil0RWH/m088sUShcfPUmgtWBQP5ouzh9SDPFxc2D8WgfqcMF9TNi+KYss9LmuXHWVU3vD/g9xHwrlGQTkTSU8qcQ3gAqIAAvcKIl1gJ/4y7J4G0GqNxo1rWQbo01yIeLdgbhFT3tLT2lkR4We0BQ73A8CzhVEMzrVIL12RUiSLcVNc7mzJE6Bgzy4ngJzm8BLNHusHWfciTLpmi9DMPshgNHhP3yCWt5Xo0azx2YIoQDOZhtHOrk/N5y6Apz0T08oRw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=FlIwp/bMmjEyrq2jKTQ/3DUg8Vw0oA4CB0pDBDANdoc=;
- b=M97XCNTPSyVTT/yaBRJBM/aIOdvFKZt57wCls/bKUAAF6XHAQpZKduTLUXGTQDHFLyl4AHrm5zSOYKKfjUngdHrfZakbVjkpCPfChi3lkNS431hYlcfUPOx0vOG6KlsAJ/hfyZP1bQqsa46fHmCPAvmNE2rPG8cAG5l2bA9ZuxyJNNLjEHU2jJhk6MLjBjOaF+eSiU5bPDthPOERYdSNZgGtd07iJ75wFPbwcOg1/NCo9Q7yPQdLsmhGBp8yHvBsXXOICGuN8UY5JACF9lbVfGWZoCHF6SJALkIRMx3uGM+S4urcs3ivC+8p9iKyX2lP2gi2SoT49rWpbeeCPGLaNw==
+ bh=RGwsU0MMe38vlWll4YzG1aMyykRkWQRX2OSgmEqlFrM=;
+ b=FN46klQNF1ANl49DM3Z6cXZIfa9AgTvWi3IU0W59enmE2ifkJCb17SebDBZb0KW6DE+RcSjeK3IYmwiM2uh5GR8UUwk/oUOTNXRAPmETpfopqgz41R0/uU1yLQDPlIhhfn+su8UZ5wtnxYDEkgqvYK+HiP3sbnaOGR9xvl3ynKZtfGTGa4TxF/Vp+uXygRHkyH9DFOjMkX/pMnHeGU6aUYkWQgEABVCuktUO9c7gpt/lx3FmAbNolrQ/zRxT1Ccg8OVRm4I9zS5eGxhfyljO2O4hCv2rqUPmQRh5URD6wOATSLWva+Ie6kgaMczRryh2K2dXEdbTLCHmAFJR8NggQg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=RGwsU0MMe38vlWll4YzG1aMyykRkWQRX2OSgmEqlFrM=;
+ b=GiCJjpE/4u9kFenyKomh0XtspBwLWEjxvlTlAoIZFY74YsjUbR6JPqSfpDL6SOfYSuVTe1P5B8QbX/cKmUWDwEbsUBjd/vcDTfMTCxUTj6mQ5bJvDkg4/gHkMlVeSurnIf0BWafZKc5D7h/nYr1kvJBsTHEXAaxXhasANBKj41o=
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from SJ1PR11MB6129.namprd11.prod.outlook.com (2603:10b6:a03:488::12)
- by PH3PPF9E162731D.namprd11.prod.outlook.com (2603:10b6:518:1::d3c)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.19; Tue, 31 Mar
- 2026 17:32:03 +0000
-Received: from SJ1PR11MB6129.namprd11.prod.outlook.com
- ([fe80::45f:5907:efdb:cb5b]) by SJ1PR11MB6129.namprd11.prod.outlook.com
- ([fe80::45f:5907:efdb:cb5b%3]) with mapi id 15.20.9769.015; Tue, 31 Mar 2026
- 17:32:02 +0000
-Message-ID: <aaedf481-9e32-4061-b7c7-8d5425f20526@intel.com>
-Date: Tue, 31 Mar 2026 23:01:56 +0530
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BL1PR12MB5126.namprd12.prod.outlook.com (2603:10b6:208:312::8)
+ by DM4PR12MB7622.namprd12.prod.outlook.com (2603:10b6:8:109::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.16; Tue, 31 Mar
+ 2026 17:38:00 +0000
+Received: from BL1PR12MB5126.namprd12.prod.outlook.com
+ ([fe80::c3e7:1bc5:2b91:1cfe]) by BL1PR12MB5126.namprd12.prod.outlook.com
+ ([fe80::c3e7:1bc5:2b91:1cfe%6]) with mapi id 15.20.9769.015; Tue, 31 Mar 2026
+ 17:38:00 +0000
+Message-ID: <eb9b60f8-4eac-46e4-be9f-8ba1973c24ae@amd.com>
+Date: Tue, 31 Mar 2026 13:37:53 -0400
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 00/10] CSC Colorop with COLOR_RANGE and COLOR_ENCODING
-Content-Language: en-GB
-To: Harry Wentland <harry.wentland@amd.com>,
- <dri-devel@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>
-CC: Alex Hung <alex.hung@amd.com>, Daniel Stone <daniels@collabora.com>, "Uma
- Shankar" <uma.shankar@intel.com>, Louis Chauvet <louis.chauvet@bootlin.com>,
- Melissa Wen <mwen@igalia.com>, Simon Ser <contact@emersion.fr>
-References: <20260317160350.229028-1-harry.wentland@amd.com>
- <9fbdff81-f909-4baf-9560-1104acf36ff0@intel.com>
- <968daa97-55cb-4cc4-b6da-def2376ef57e@amd.com>
-From: "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>
-In-Reply-To: <968daa97-55cb-4cc4-b6da-def2376ef57e@amd.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+Subject: Re: [PATCH v5 0/3] Add "link bpc" DRM property
+To: Pekka Paalanen <pekka.paalanen@collabora.com>
+Cc: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>,
+ Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
+ Daniel Stone <daniels@collabora.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, kernel@collabora.com,
+ Derek Foreman <derek.foreman@collabora.com>,
+ Marius Vlad <marius.vlad@collabora.com>
+References: <20260319-link-bpc-v5-0-5306cd04a708@collabora.com>
+ <8676926.T7Z3S40VBb@workhorse>
+ <eff61423-a854-44c1-8634-30e2bd61e005@mailbox.org>
+ <4265353.aeNJFYEL58@workhorse>
+ <254c20a4-cce3-4c8e-9902-514586f3e694@mailbox.org>
+ <20260326155305.736b4e64@fluorite>
+ <7461820c-e3ab-40f5-98d2-9878e60ba2ad@amd.com>
+ <20260331132822.5ac57253@fluorite>
+Content-Language: en-US
+From: Harry Wentland <harry.wentland@amd.com>
+In-Reply-To: <20260331132822.5ac57253@fluorite>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: MA5PR01CA0173.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a01:1a9::7) To SJ1PR11MB6129.namprd11.prod.outlook.com
- (2603:10b6:a03:488::12)
+X-ClientProxiedBy: YQ1P288CA0013.CANP288.PROD.OUTLOOK.COM
+ (2603:10b6:c01:9e::9) To BL1PR12MB5126.namprd12.prod.outlook.com
+ (2603:10b6:208:312::8)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PR11MB6129:EE_|PH3PPF9E162731D:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3b9a3a92-e8bf-4117-6aac-08de8f4b6bcb
+X-MS-TrafficTypeDiagnostic: BL1PR12MB5126:EE_|DM4PR12MB7622:EE_
+X-MS-Office365-Filtering-Correlation-Id: 85b384ad-9ada-442b-2b27-08de8f4c40f0
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|376014|1800799024|56012099003|18002099003|22082099003; 
-X-Microsoft-Antispam-Message-Info: 6XFaJDAo96+l8uiWEuS47vOMeI5t+rmGYpsZlmk6tNrdt8mWfYgzHRaSnq53Pvm+HWjA/v8AEuQEjYyqw1WJ5fiLomQS4Hm4fMEk5Ji4eBYGKJr4hHcTmAzWduJazN9CT0/6DVjhUgHrXl8Yk03cX6wjkr9M0WCkNQ2Pq4VCxF3jHl80nc/wEOfSuTdjsuJESBa4ikhH8QIaxuRcZPlcE+qeN/+n8blplRoACQY1Jr+jokVJytJkrSpsGQYez31b6K9VjwIOi6Qp0TEIrOZQ8VKffYglSZ48XRtQdA8AtY995utvltdd3nSZq0OKySY6wopWwzlCaDxSAbyyMgQCmJrUY7ixAE0sIKFx9AyM9aGtdWvU5uDb8T47XzFa8Bq4Tpil4zrn90t95rEpMW4tbCgTm0FLQMJjD3JtZITOkHVvmfOMmhHcFnJUm840Rh6MG/SvASz6C6VlBTCMHXUXIya3ZtQNpol5WNe+QP+/+NyRujLYQG0eXRjlVjYq0CDHGnC+jCZATj0kOfc5dYi6PbSDzZW9aSU+NFFP3NzZipZ2F8Ws+bfsm4+qKJxYeCYq3Cu3InLuhDIiq9MTLkg4+0EfS1tTBwtxVAv/fKQnMX9G3qKn2NBXvcHSbSmcc7fvLWheNuTrRkSkgT7ZjIaAuDgj7JA1dHXL2kCXSQFFqVsDGoP8TPVdmNAYDtJKaFRUlI+beTg1WZ3IB+Ag0bkUsw==
+ ARA:13230040|1800799024|366016|376014|7416014|22082099003|56012099003|18002099003;
+X-Microsoft-Antispam-Message-Info: RWDgVFEBrGGJe0iw4SguAqdVix+C+FAi+sHGtmvyoUZCbSTEkAdg+xCCvXaS4ejE+hJzcXRByBBwlnHaLaR84A1qd2AShehG+dGdkcaX4FmHD9ghjmV60YU3H8H8vrMINfxmxDF+TbmLOcvzUu7kZG7OmtLOv64iOMu47kJQvjWQGBzqmGsy7lSRnH8A7nuW+jwGQmN+mGl+Yonx7oS0HXFbV5QYgz05uiicP1bQAfULrct9VbqZHwXZNEIiP3bAFdn49j1ThilVQKJLKR1YqxR8NAPBmVKj4uf1DCQSh6xNuUUNh8g1AFdy9fcWStDw/ElGc22YoGWSwYMtVUHBhOcisxZiK1jZKLNacUE6Nu9foaLd7Zw0Nu3qgdqmFsaXPuPOR1VJxO3ceja8v5t/kOf3GnnObDU195aFxNJLmUrQF0jKswMQ4CqMqZZQ5vbQlVA85k/L3gWnK4SkW2XpeFlQ4jdq/XINgZmsn3+LSLVMADXPJlbgSI2rVJz1oP9xuMqA+VWe1HbdBQWF8zNzlMTrtR9DvOzoWxDZltPhGlsTUAMxSWs9m3PbdZ6JxLVJXjj4CC7zx/Cdv4F17sPv0rehLOfa31AVdkKyvSYj+aeVLrfIIXXdWwaLTMCgxqdKpM6yZ0V3xvKFT5VGBcfMLVuvRUiKWx+0L697+YjGPQDDwcQ95EdDnCK+DM0SjITh05MaBWhCPp72sNfEoKbuEdfe89K5980bzmtZcVZ6isc=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SJ1PR11MB6129.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(1800799024)(56012099003)(18002099003)(22082099003);
+ IPV:NLI; SFV:NSPM; H:BL1PR12MB5126.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(376014)(7416014)(22082099003)(56012099003)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bzZnbzVnRVIyRjBuVEhJVm1wS3hCNGVpaGdHQ1lNOHprL3pxTWhFeVYyWFgz?=
- =?utf-8?B?c0pSQklRZ3JGUVU0TllJNnVZYWdrUHBQeWowNGdCRC9vV0o2YWxlUkdBbkc4?=
- =?utf-8?B?SEZpR0NRblA1VDZqRjl5aXhuZDB6dWh1TFpHU2hjYjUvbk83RWtCZDc0QU9C?=
- =?utf-8?B?djlRRTVnVGx5VWNmU2g5Y0xMdWQwaGRKemJvcTlUWDlYNEtPYy9YbndBNC9K?=
- =?utf-8?B?dElnSFQvNzlUVFJOZVJXOTdQMU90TU5PdEo2RDl2Y3Z4aWF4MUQ3Uld0UEJx?=
- =?utf-8?B?eENQais2OWVzNUo5ZGJuaURuZ0NzOHQzQTZRcXNQV1FVMVRoZEtIdnYwYjF1?=
- =?utf-8?B?SjNPQ0J0d2s2bGUrS01USEkycC9ra1BjUlZSakIxM0FSb1BXWXlXRkhMWTl6?=
- =?utf-8?B?TEZGUGZZZ2w4ME40a2ErT3F0czBjQ3FJd2JBT0dtbE1nbnY2Y2N2bzMzTkFP?=
- =?utf-8?B?OUNWdnFRelR4VmxTa1pPV1F5ZXBHUGIrL2RiTEpqeU9KOXlkU0dwbElEMkxL?=
- =?utf-8?B?WENreHBRQ29IWVV2K0xSTGNOa0s3UXZjOGJHbDdWRGZPaUZZbmxPVmZndjVU?=
- =?utf-8?B?TldldXJLZEY5VDdSUThzRlNpdDRzaDZ0WnQ4V2pBNnNBYjRQQUk3UytRQThI?=
- =?utf-8?B?RnNZZ3NvSFM5elhhdnQ5dUo5bkw1SWc5TWdaWWRjdldhQlpwYmlpZVpzTWJD?=
- =?utf-8?B?eW5yWGRidXZydmhBS0VPd3BEMk1QVTdYeDdNRWRyWnFycDZORUxYTEVrd0Fm?=
- =?utf-8?B?RWhvWHVoYTdZb0h6dmNnNjZEc0NCODFFZS9lWmtKSWo1cFlaemVMOFNRaTRN?=
- =?utf-8?B?MlJsV2ppWEllNWY4TS9YUlp5dnZ2RXVYRS8xazRjQitTbHR3Y21mU3lkbHJ1?=
- =?utf-8?B?ZW1QcFV5NFZ2RnZhZGluK045TEUzV3hpVGRWOUk2V0htcWZsZzdxdFRnczVS?=
- =?utf-8?B?clRCeU1IbWsrdjU4dHFZWmpPaFBaNzBxR0hBbk4zOXRiT1J1WTFjQm0wMk0r?=
- =?utf-8?B?c2dKNmx5eS9LNnlldm4xYlM2bVJpN2FqOFBUb1EvZkRKQmMrZlJHdjYvTFA3?=
- =?utf-8?B?SC8zQTNmVUVscTJtaW1QOS9QaHJDSW9XR0pZeDFnc004SGNiUENQM0pQUHRF?=
- =?utf-8?B?QW9HMEZxbDBkT2NnUklyKzhYNytvQW1mb2tndjc5SXcwL3owdCtqcGpvSU04?=
- =?utf-8?B?SEU1T3lLNUlTYWMwamt2R3VUSXU5c2xEU1hhL1RhNG9IVVVFWWdDQUxzT2Zx?=
- =?utf-8?B?S0JYdGYxNm5Cckg5ZURYblZIUWJ6S1BYcDVQYmpyMFliS2JETkZZQVFZM0pV?=
- =?utf-8?B?Q2ZaYVIzendoMG5EVHNqbUNtOU1KSnZROUhPTTNLNFZuSWJLVGZUbklZM0Zs?=
- =?utf-8?B?YlNqWHo1cmxVR1YwaXU0N0ljMlowUnZZV1RmUEppazdkNXppMTBiV3A0U2do?=
- =?utf-8?B?U0o3aUw3NFQvWlFQVS9sVkhzZ1Fhd04rWEpWZUVSSDA1dkRObWZQazZlZFMr?=
- =?utf-8?B?c1BTNzNvSWVJZmZyMDFtbzNsV1dMQW9VckZHNWRnMlFqZDg2MWcrdWYzT0Ro?=
- =?utf-8?B?UTRiOE1sQmJiOFpCMWxMSllZaTlDWGYwTjZPdldiaVhJRkc5SGM4Wlp5UGFL?=
- =?utf-8?B?cmwrRklwZk1udG90WUw5WnRiL0IzMG9UdzZ5elNRQUtvMUc1a0kvWkNhR0hx?=
- =?utf-8?B?R09Lbkp2bXloK0xWbzVTNExsUk5tVUhQK0h3RkdlUGRrSW1qbFpSUnlRcUc5?=
- =?utf-8?B?d2hlL3IwV0IrTDR0M3hkMWRMUHE0L3F0QTIyRGN3MWZBM2FHTmhEckVmQ2ow?=
- =?utf-8?B?RFFiUDVkMjdudzZtVHVoOVlGdWN1WTVhTXU2dGwxZFZ4VHlCdVBnWUVYNmNV?=
- =?utf-8?B?S2pnNitCa2Z5K1JTQW9VSXdaZ0ZqbXMyUzdTU0p4b1NTRi9vZ1J5cjJjU1hN?=
- =?utf-8?B?OTVTUkpWZHAzOG52Z1RDNVZ4dGlrbHc2Si9QalNkREY1Vjl0dmRpeWZ6MUVI?=
- =?utf-8?B?SldhSHQvZVF5VkhaUEY4bGo1enlud1VscjhjVnpEaFpibUhPazFkbVVaaFdD?=
- =?utf-8?B?Y1BvSmU4SXZNT2Z0MVlheVBCMXY3eTU2eldnblVnQ2tCQllLZUdIbWduQ0t0?=
- =?utf-8?B?QkFtb2xVaFdjZjA1TmdWREhWQllmMzg5WUNuTUUySlNZMXdteCtqYXZkelkr?=
- =?utf-8?B?bHN5M3hKaTNZaWZFMjNQZFpXTEZFSTVRcFRFU2hZcVJOaGlpSTc2aWUrdDM4?=
- =?utf-8?B?WDRTRXBRR3hnK0phMEgwMTAzcU56eW4zS3NOYU9HRG1DSndGaEt5dzlWRXZF?=
- =?utf-8?B?UytJSlB6TTlNMXVJdWppYnYrOG1CQk1sOUo2Z3owSVlBOHRFUmtoSEZZUExM?=
- =?utf-8?Q?78RP6m6eCZ/6T2UmlO751gtLFb4FlS0WUgQ+w?=
-X-Exchange-RoutingPolicyChecked: g7miviwpaFc2GS3qiSXutVyBHuMCR2PF+AP5qcu5xro1hVdVnx6+QQk/Tt7IaZttsjJGWZvY+0nQbbKtc7oN/NLpPedc4LdUl05Oth3EhoXSo9OjQZxGpGL6Zzq5Zs1t7Mh5vjkaYCjruTpluFga5G57I8iAJ1KgcpbwDLTkyS8N12LQIci2mCPtFmTBIDtZ3VfFIueg7zrNMTxvYhgx7RRg/8rBFaEoEqdFIYD+UsCPpCoI4USzPQvQT3jHw2YlYnLEPf34zvEngZmvXc8cZULzOT3mtxcR641w0iySnHC32cGJMZ2yYksXwmL4MUNTIRYMRCa69AG2VVqQiEAx0w==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3b9a3a92-e8bf-4117-6aac-08de8f4b6bcb
-X-MS-Exchange-CrossTenant-AuthSource: SJ1PR11MB6129.namprd11.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WDN2Mk5TUGxhSHNQa2xEL3EyNmVkR0k5eWU4ZWNBck1ZMWpsTkx1RGRSblp5?=
+ =?utf-8?B?eXorSVBmRmlzSjdtVHVld05ER3ZyZi9CZmVsUVhXVWV5SU9RZGVDbytGWVo3?=
+ =?utf-8?B?ZU5ZSnhrSWR3cG1SbGRubXcrdHVTcGZtUHJXRThwUlJaaU44SWUwSXhVMUZH?=
+ =?utf-8?B?T0xlMDVZSEhkWDAwcURPV2hxbEhGbXVWKzNvUDE5NmZMTDRrTURmakZFTkNu?=
+ =?utf-8?B?enc2RW5tY0VUellUd01uUVllZHlPRStvQzIxK29KdXo5N0dEeTZuRkRqQ3R0?=
+ =?utf-8?B?bTg5aTFQdzA0bENrL3VGZERCb2M4cUJGbjRLNG1ScGo1alM1MGtIRTE3Szk3?=
+ =?utf-8?B?WUJWbmtPSWVaSlRHUlZaN3BqdjA3RGgyeWdSa0MzK2hRZHhzemR1S3pMYjlY?=
+ =?utf-8?B?NitGNHNxbGpIM2V6dmNKNHZlemoxcUNFZk9ZVHh5bGNZY3JkVmRDZTVicmM2?=
+ =?utf-8?B?czVSaDlidEl5WGs1NEZIdlZ6QVdXQ1B6VzNveVl0Z2FySXB5RTA0YVFYZlJE?=
+ =?utf-8?B?Q21UR0VCNVY5dTcvOGYvT1Ruc0l6NWtXekxETUdSejBtTGhBRDlXdGZXLzIw?=
+ =?utf-8?B?QkVZSStXZFFpVm80aFEvSnM4WEE3NU9mQmRKc3J0MkpUTjVSYWtnVk8vYVA4?=
+ =?utf-8?B?aHZYV2xJV09wMmRoWSt0SGhuRDdKckJrZ0JqMytOYks3Tm5xMHErR0JNQnVh?=
+ =?utf-8?B?SWJZL1NoT295RXhISDM5aE84dytRaEw2MFRZa2R3S1RLeEgxTWFWZGM4S1dM?=
+ =?utf-8?B?UlBwQVNPV3lWKzloeVd4ajMyNUlyM0dUUXhhKzNzV25FbmU3Sjl4ZVBNM0Zr?=
+ =?utf-8?B?Rm90cGQ4cCs4aTg2VGpVLzAxbkdrdkVwekJIbG9uWFg3TFNVUi9oUUxCbTFE?=
+ =?utf-8?B?VWtjTXBZcEZyNGFRdklDblUwL3p0b1JIaU95V0xEUWl5MUdqRUtXSGRmREtV?=
+ =?utf-8?B?aUFoNFBzYUZsS2tVMTNsTlpoREkyem5OVTlKWjhQN3E0ejFSMVlqNkdJUUw1?=
+ =?utf-8?B?UnJEWGY4c25ISk1IaFNGT1ZSby9NZXc3ZHBEanZtV0FRQXFwLzFRelJlSGpY?=
+ =?utf-8?B?bkFGcEN5VGVGQlVvNHVsd1Q1WGVKYnZ1LzhKQ0ZuMExDTzNTUXhxdDNCbXdS?=
+ =?utf-8?B?V1RhaDlycThCV0VXNTIrOCtTQm45T2xKSEZ1aFlrS2U3VW8wQmJTcmNMeEQ4?=
+ =?utf-8?B?SFFIQW9MK2RiV25hUHU4bjFFbWdKMytPc2tvc25SamlhYUNDM1hvVGF1WURX?=
+ =?utf-8?B?NUpTai9qSnZuWVFDVU0zTFZiOHFPZmFMUjlucmtUUUVrRkhEaUVGQ1VpVENs?=
+ =?utf-8?B?VE1SNHdndWRwcURKbHZpZ3lTSDRWWU9USmpvZ2V6ZXlBUEYxSnVEdVNqcUVD?=
+ =?utf-8?B?TmlPcnpiVGxtMDY5UmlaL1lsOHNpVU1rMjZzSVpwM3FJdFZhekZ5MmsraVgw?=
+ =?utf-8?B?N2ZrS0I1Rks1dWVwZk9jNk9lSm9YMDhxOTdBTTF5enJOS2o5TWdTVFgvQ0ZV?=
+ =?utf-8?B?VmxnMmx0ZUNJMS9PQ2hqcUVKM0tyS1dHdGtJYzFpL2J3VFE3eTUyNlRYeWVN?=
+ =?utf-8?B?bHorb3V0d3ZyQWtWVWowNzNrZmllcGh6ZHgvTnNjMWd1SlNVRWdRa2NFdTZr?=
+ =?utf-8?B?RkpMUUppVS9yUEpJaTdzdzZLS3NHc1V5L0w5ZTZ1a0dOb0VxNWRCWStBQVlK?=
+ =?utf-8?B?eGRCdmFRSmxpZFcvckNCLy9TS1QxOTVQaDlWeGxwaGVzU1kwZ3lMWC95dHJW?=
+ =?utf-8?B?Z0VKUDBGbW9kdTQ0Q0pKbXU4Y2NMOTh6VUw2WVVsbHI1V0pGU0I3MFNXUlFq?=
+ =?utf-8?B?QUx4cjN0a2hlSS91ajFBbzAyRFI1aWs2bElnb2NhZExZaFNPKzFrZTZsYVh2?=
+ =?utf-8?B?NUN4NGxqYk1EWUxPekIwT1BrY1YrYWlZNWxUclozZkV0RnZjNkRpUzRNN0Fl?=
+ =?utf-8?B?THZFcDBQQkFSbGl6ZVNGbCt5ZnptcjdjQUZZd1J1WEJrbVFWK3dvbkpXN2lD?=
+ =?utf-8?B?T2FHZm9ieU1zcU1qWDNkOERMaHljczhOQU5TMVZhelNWWW9EaDRRVDBEWWpR?=
+ =?utf-8?B?ZnlDSE4zSXhFNmxHU1dFN0N3K2pDcWRQZldmOU9BRVErWHpLb3NCVVhicWR1?=
+ =?utf-8?B?MEQ3Ujl4Z3A2Nmw0aXFMc1ZLenczWGppUGw1aGc3NlM2UGpwT2g5emdPZy9D?=
+ =?utf-8?B?RGtWaXhJdlhkY1pFSmdMY2JKaDMvRlQ0V2pjWHVOWU9Hb28wM0szeHVkT2RQ?=
+ =?utf-8?B?Z0dYVjY5QXRuLzIvd0gwVDdjOTc4Zzg0Vnl5UmVLRDJEVFFpSTVOTGFoQStl?=
+ =?utf-8?B?eGxEdlcvN2xlRmQvekJEWmZ1R3hSWUw3UU5VTHlLaEVLNStXYUJVUT09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 85b384ad-9ada-442b-2b27-08de8f4c40f0
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5126.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Mar 2026 17:32:02.9163 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Mar 2026 17:38:00.4616 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 7s9bvxSvagHPoPJomETwuRSKXzyKbMCDNeY0+xVObFC416hpNfANmqXSTSngs8mebD2LYn9yT99o7Kj559n4wI7NSvbofXOI/pnD9jllRR0=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH3PPF9E162731D
-X-OriginatorOrg: intel.com
+X-MS-Exchange-CrossTenant-UserPrincipalName: +iuGsEQvCXkdEVeHGyhE+5wlLklBdDtOq+d6JIr5zcimm6574/Fscrr4gn3nh2n3i8dZ6G0xr1DypQqkM+I+xg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB7622
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -176,143 +158,105 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
 
-On 3/25/2026 10:28 PM, Harry Wentland wrote:
+On 2026-03-31 06:28, Pekka Paalanen wrote:
+> On Mon, 30 Mar 2026 15:01:33 -0400
+> Harry Wentland <harry.wentland@amd.com> wrote:
 > 
-> 
-> On 2026-03-24 13:01, Borah, Chaitanya Kumar wrote:
->> Hello Harry,
->>
->> Few thoughts on the series from Intel perspective.
->>
->> On 3/17/2026 9:33 PM, Harry Wentland wrote:
->>> When we merged the drm_plane color pipeline API the major gap
->>> that existed was the lack of a color-space conversion colorop.
->>> We deprecated any legacy drm_plane color properties, which
->>> means that the COLOR_RANGE and COLOR_ENCODING properties can't
->>> be used with the COLOR_PIPELINE property on a drm_plane. In
->>> practice this means that we can't use a COLOR_PIPELINE on
->>> YCbCr encoded framebuffers.
+>> On 2026-03-26 09:53, Pekka Paalanen wrote:
+>>> Hi Michel,
 >>>
->>> This patchset adds a CSC colorop with the COLOR_RANGE and
->>> COLOR_ENCODING properties and implements support in VKMS and
->>> amdgpu.
+>>> I have some opinions as well.
 >>>
+>>> On Tue, 24 Mar 2026 17:44:21 +0100
+>>> Michel Dänzer <michel.daenzer@mailbox.org> wrote:
+>>>   
+>>>> Per my previous posts, my concerns are:
+>>>>
+>>>> * The meaning of the "link bpc" property value isn't defined well
+>>>> enough vs things like dithering or DSC, which will likely result in
+>>>> compositors / users overestimating what value they need / want,
+>>>> resulting in compositors spuriously rejecting configurations which
+>>>> would work perfectly fine, and/or spurious issue reports.  
+>>>
+>>> That is ok. Compositors need to understand what the numbers mean, how
+>>> reliable they are, and act accordingly. Knowing the lower bound for
+>>> link precision is already useful as it guarantees a minimum precision.
+>>> It is up to the compositors to decide how they communicate this.
+>>>
+>>> Or course, assuming lossy compression is not too lossy. Maybe
+>>> lossy compression should be forbidden by default unless explicitly
+>>> enabled by userspace?
+>>>   
 >>
->> AFAIU, while COLOR_RANGE and COLOR_ENCODING were plane properties, they were more representative of how the framebuffer provided to the plane should be interpreted, rather than selecting a transformation. So using them to define CSC behavior is bit of a semantic drift.
+>> I disagree. While technically lossy, DSC is perceptually lossless, at
+>> least according to the designers of DSC. If I'm not mistaken this is
+>> all based on extensive studies.
 >>
+>> The decision to enable DSC or not has an impact on the power consumption
+>> of the HW, in ways that are often nuanced. Userspace has no way to know
+>> or understand these nuances. This should be in control of the driver.
 > 
-> I guess CSC is misleading for this colorop. YUV conversion would
-> describe it better.
+> I guess time will tell.
 > 
->> From, Intel's HW perspective we could re-use this CSC colorop but it would be
->> preferable to introduce new enums like "YCbCr709 to RGB", "YCbCr601 to RGB" as discussed in [1]. That way we can still represent the "RGB709 to RGB2020" conversion that Intel's fixed matrix CSC supports (instead of inventing a new colorop). We might need to change the name of colorop to something like Fixed Matrix to be inclusive of both YCbCr to RGB conversion and Primary conversion.
->>
-> 
-> At the core your CSC FF colorop and the one I'm trying to introduce are
-> both backed by a fixed matrix. We could even express the range via the
-> CSC FF colorop by introducing full and limited matrix variants for
-> YCbCr to RGB conversion, like "YCbCr709 limited to RGB" (which is
-> probably the norm for SDR/sRGB) and "YCbCr709 full to RGB" for full
-> range YCbCr content.
-> 
-> For BT.601, BT.709, BT.2020 and full and limited range that would give
-> us 6 enum entries, which is quite manageable.
-> 
-> Intel would then only advertise the full-range enums, plus the RGB-to-RGB
-> CSC enums (like RGB709 to RGB2020) while AMD would advertise full and
-> limited range YCbCr to RGB enums only, no RGB-to-RGB variants.
-> 
-> If this makes sense to you I'll be happy to rework my YUV conversion
-> patches based on that. I think that'll work fine.
+> Are you saying that enabling DSC might have disadvantages aside from
+> image quality?
 > 
 
-I see you already have floated a new version of the series with this 
-change. It should work in principle, I will have a look. Thank you for 
-the changes.
+The opposite; enabling DSC might have advantages, in particular in power
+efficiency. And image quality impacts are negligible or (perceptually)
+non-existant, from my understanding. Afaik, Apple, which prides itself
+on image quality and being a platform for content producers, enables DSC
+by default on their systems.
 
->> Regarding the range property, we could re-use the COLOR_RANGE property as you have done. In the case of Intel, we would only expose DRM_COLOR_YCBCR_FULL_RANGE as supported for this CSC, and use a separate colorop to perform YUV range correction. This allows userspace to still pass limited-range framebuffers. I am assuming here that it matters for user-space if the conversion was done in limited or full range.
->>
+>> At most I could see a "never do DSC or dither" toggle, if one is really
+>> concerned about this, but I don't realistically see use-cases where this
+>> would improve user experience, even for users that care about color work
+>> and correctness.
 > 
-> It sounds like you'd need another colorop for range conversion. I wonder if
-> it makes sense to also use the CSC FF block for that and introduce a
-> "YUV limited to YUV full" range conversion enum. In that case naming the
-> op named_matrix, might work better, as it can express range conversion,
-> YUV conversion, and color space conversions.
+> I'm not familiar with DSC, so I cannot criticise it. Dithering OTOH
+> seems to be obviously suspect though.
+> 
+> Temporal dithering - what if your refresh rate is 30 Hz for some movie
+> playback?
+> 
+> Spatial dithering - what if you have a low-resolution screen?
+> 
+> I would not assume that dithering is always ok, and always achieves its
+> theoretical results.
 > 
 
-Even though limited to full conversion is not strictly a matrix 
-operation, I guess it can be re-presented as one.
+Quite possibly, but we haven't really seen complaints about dither other
+than in scenarios where people explictly test that input pixels equal
+output pixels exactly.
 
-==
-Chaitanya
+>> The YCbCr420 case is different. We probably want a way for userspace to
+>> understand that half 3/4 of chroma values are being tossed out. This
+>> would be significant for RGB content but insignificant for YCbCr420
+>> content.
+> 
+> Do you mean full resolution vs. chroma sub-sampled to 2x2 blocks? I
+> would again not assume "insignificant", because it depends on the
+> picture content and angular pixel density (can you see individual
+> pixels at your viewing distance). Gray-scale text will be fine, but
+> colored text is another question.
+> 
 
-> Harry
+Yes. I think downgrading an output to YCbCr420 (chroma sub-sampled to
+2x2 blocks) is a significant image quality impact.
+
+> I'm fine with proceeding with these assumptions, as long as it is
+> acknowledged that these assumptions might turn out false later and have
+> a contingency plan.
 > 
->> [1] https://lore.kernel.org/dri-devel/20260306165307.3233194-2-chaitanya.kumar.borah@intel.com/
->>
->> ==
->> Chaitanya
->>
->>> An alternate way of possibly representing this has been proposed
->>> here:
->>> https://patchwork.freedesktop.org/patch/709860
->>>
->>> This code has been tested with IGT and an experimental KWin branch.
->>>
->>> IGT branch:
->>> https://gitlab.freedesktop.org/hwentland/igt-gpu-tools/-/tree/csc-colorop
->>>
->>> KWin branch:
->>> https://invent.kde.org/hwentlan/kwin/-/tree/csc-3dlut
->>>
->>> The kernel branch containing these changes, based on drm-misc-next
->>> can be found at:
->>> https://gitlab.freedesktop.org/hwentland/linux/-/tree/csc-colorop
->>>
->>> In order to successfully use this branch you might need a few
->>> bugfixes. The kernel tree containing those fixes plus these patches
->>> can be found at:
->>> https://gitlab.freedesktop.org/hwentland/linux/-/tree/csc-colorop-all
->>>
->>> Further background on this work can be found at:
->>> https://hwentland.github.io/2026/03/10/plane-color-pipeline-csc-3d-lut-kwin.html
->>>
->>> Cc: Alex Hung <alex.hung@amd.com>
->>> Cc: Daniel Stone <daniels@collabora.com>
->>> Cc: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
->>> Cc: Uma Shankar <uma.shankar@intel.com>
->>> Cc: Louis Chauvet <louis.chauvet@bootlin.com>
->>> Cc: Melissa Wen <mwen@igalia.com>
->>> Cc: Simon Ser <contact@emersion.fr>
->>>
->>> Harry Wentland (10):
->>>     drm/colorop: Add CSC colorop type
->>>     drm/colorop: Add CSC colorop initialization helper
->>>     drm/atomic: Add CSC colorop state handling
->>>     drm/vkms: Add CSC colorop support
->>>     drm/vkms: Add atomic check and matrix handling for CSC colorop
->>>     drm/amd/display: Implement CSC colorop support
->>>     drm/amd/display: Use GAMCOR for first TF if CSC is used
->>>     drm/amd/display: Check CSC colorop bypass before programming
->>>     drm/amd/display: Check actual state during commit_tail
->>>     drm/amd/display: Set color_space to plane_infos
->>>
->>>    .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  14 ++-
->>>    .../amd/display/amdgpu_dm/amdgpu_dm_color.c   | 115 +++++++++++++++++-
->>>    .../amd/display/amdgpu_dm/amdgpu_dm_colorop.c |  25 +++-
->>>    drivers/gpu/drm/drm_atomic.c                  |   6 +
->>>    drivers/gpu/drm/drm_atomic_uapi.c             |   8 ++
->>>    drivers/gpu/drm/drm_colorop.c                 |  91 ++++++++++++++
->>>    drivers/gpu/drm/vkms/vkms_colorop.c           |  64 +++++++---
->>>    drivers/gpu/drm/vkms/vkms_composer.c          |   5 +
->>>    drivers/gpu/drm/vkms/vkms_plane.c             |  50 +++++++-
->>>    include/drm/drm_colorop.h                     |  39 ++++++
->>>    include/uapi/drm/drm_mode.h                   |   1 +
->>>    11 files changed, 388 insertions(+), 30 deletions(-)
->>>
->>> -- 
->>> 2.53.0
->>>
->>
+
+I guess that goes to Michel's question about what's expected of
+compositors here and whether there is clarity... I'm not sure
+I really have an answer on that other than documenting our
+expectations.
+
+Harry
+
 > 
+> Thanks,
+> pq
 
