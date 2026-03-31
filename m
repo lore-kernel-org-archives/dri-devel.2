@@ -4,63 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B69641061B3C
-	for <dri-devel@archiver.kernel.org>; Tue, 31 Mar 2026 12:36:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A1E3E1061B3F
+	for <dri-devel@archiver.kernel.org>; Tue, 31 Mar 2026 12:38:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 17C1810EB46;
-	Tue, 31 Mar 2026 12:36:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0E0FC10EB4E;
+	Tue, 31 Mar 2026 12:38:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="N656eDf9";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="FS6kXAmF";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1317610EA6F
- for <dri-devel@lists.freedesktop.org>; Tue, 31 Mar 2026 12:36:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329; h=Cc:To:In-Reply-To:References:Message-Id:
- Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:From:Sender:
- Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender
- :Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=d8W810olyE4Grx8Cf9/sjrmSSNSFZmKRuS1xFXeDvgk=; b=N656eDf9ZDmmp35lc86+A9SaB0
- gdpt+1Ay7Jz6YgBk/v1sPOLxUoK+plMdGBQUYY4zkRmlQDK5zi3Uqac9ebtnKrxvDzL0gHsxVvhe2
- gl2UZmvHAYY8chx6Kw024BmvKfQnqkHFiGZ1tVJjEhgDykzJCgZ2q5W7Z2UOFA2wJQo5s+7ZOK+Ff
- TWwH+JmwZVZGVQ3UUMS1UliSIGNj9jwGo2mlChLv/u4DYRjY8gss+pLp01nqi0WGq0xpDsRir0CYx
- tGgRZbaXWMHl5LV5lRa53NMVF+Eec80CvQz7m0LuL9u1IIiMsI5KQECWVnsJvGW7G9MHI9NPPpVde
- k9+R8C6w==;
-Received: from [189.7.87.169] (helo=[10.0.0.1])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1w7YKW-009RtV-51; Tue, 31 Mar 2026 14:36:24 +0200
-From: =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
-Date: Tue, 31 Mar 2026 09:35:52 -0300
-Subject: [PATCH v9 2/3] drm/v3d: Allocate all resources before enabling the
- clock
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 37BCB10EB4E;
+ Tue, 31 Mar 2026 12:38:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1774960691;
+ bh=S0CKoNmtiR80EiXI1XqQCW2Q8QkoknvLl0vsGXaPoFk=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=FS6kXAmFfYfAZ4FCoHYbUM3HJGh6s0riKivkg8zLsr1VMSNQ9VLSKc75pjbP9MR5v
+ nkHoZPifWHHmj0FJR9D5/AIRqaj8+itdeM+nZUbXudWOsG22T9gha0aERXKIZqlRDf
+ vYGlSTY7m+WyiWyqz9+W0/31WZpWXVpL6x1TQyDinpkCrCPM5MBHmr3+XUyA5gfxgz
+ b5t+Y86+LqIeQhP7L5aPf41abHNIaRiYehEF0yP/di5My0EerhJXjkNQ76rhxIuzpJ
+ vX/J+EuLyHMbAMGueXNmaVLvd8VQX8PJZrjO5x4rJsfN0d0CUfZOD3cBDbEJU2Rj05
+ VX60VIMcZ7k+g==
+Received: from fluorite (unknown [194.136.85.206])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256) (No client certificate requested)
+ (Authenticated sender: pq)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 2255317E62F0;
+ Tue, 31 Mar 2026 14:38:10 +0200 (CEST)
+Date: Tue, 31 Mar 2026 15:38:05 +0300
+From: Pekka Paalanen <pekka.paalanen@collabora.com>
+To: Michel =?UTF-8?B?RMOkbnplcg==?= <michel.daenzer@mailbox.org>
+Cc: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Harry Wentland <harry.wentland@amd.com>,
+ Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>, Alex
+ Deucher <alexander.deucher@amd.com>, Christian =?UTF-8?B?S8O2bmln?=
+ <christian.koenig@amd.com>, Ville =?UTF-8?B?U3lyasOkbMOk?=
+ <ville.syrjala@linux.intel.com>, Daniel Stone <daniels@collabora.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, kernel@collabora.com, Derek Foreman
+ <derek.foreman@collabora.com>, Marius Vlad <marius.vlad@collabora.com>
+Subject: Re: [PATCH v5 0/3] Add "link bpc" DRM property
+Message-ID: <20260331153805.376486e2@fluorite>
+In-Reply-To: <47325395-3790-4cb4-8efd-84a3d8ddb80c@mailbox.org>
+References: <20260319-link-bpc-v5-0-5306cd04a708@collabora.com>
+ <8676926.T7Z3S40VBb@workhorse>
+ <eff61423-a854-44c1-8634-30e2bd61e005@mailbox.org>
+ <4265353.aeNJFYEL58@workhorse>
+ <254c20a4-cce3-4c8e-9902-514586f3e694@mailbox.org>
+ <20260326155305.736b4e64@fluorite>
+ <47325395-3790-4cb4-8efd-84a3d8ddb80c@mailbox.org>
+X-Mailer: Claws Mail 4.3.1 (GTK 3.24.51; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260331-v3d-power-management-v9-2-f52ff87bfd36@igalia.com>
-References: <20260331-v3d-power-management-v9-0-f52ff87bfd36@igalia.com>
-In-Reply-To: <20260331-v3d-power-management-v9-0-f52ff87bfd36@igalia.com>
-To: Stefan Wahren <wahrenst@gmx.net>, Maxime Ripard <mripard@kernel.org>, 
- Melissa Wen <mwen@igalia.com>, Iago Toral Quiroga <itoral@igalia.com>, 
- Dave Stevenson <dave.stevenson@raspberrypi.com>, 
- Florian Fainelli <florian.fainelli@broadcom.com>
-Cc: dri-devel@lists.freedesktop.org, linux-rpi-kernel@lists.infradead.org, 
- linux-arm-kernel@lists.infradead.org, 
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
- kernel-dev@igalia.com, =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=7626; i=mcanal@igalia.com;
- h=from:subject:message-id; bh=k5eHize83TwQZgBlf6JTKnnaekzwh2PkSIn9Uc0yIo8=;
- b=owGbwMvMwMVo/5mvq6zj1yrG02pJDJmn9+/pS3EyMij6rxjcoD1nhvKCjvcKDydx61j2CjXdq
- bDWqxLoZDRmYWDkYpAVU2T58SS2llGsnF1zWflFmEGsTCBTGLg4BWAieULs/wOmbKy4s/A210Tr
- NH0Ne40/+8MzBU1SIwrCV7rdt3Dw2dT343+aaBLPWjsJ7e3rgk5fNp8Tuijw/PTwz1LtNbv/hvD
- Mv94g+K9dkOvFzFte/ikxcaEu+1lv3DzZqhDnIB6fXXDid44ki9TV1BX7OxxmXVIo3qna4VR+c3
- mQb8JJuwPHS94c/b3Pwveqgcn+g628zxnW2m5w2Vvgk1rzx/jMDD/PCLew0qZGWa+G2lSFvmKDP
- lP5PKvbvR9M7z/YInLmaLmK38oHfyYrFGdP6JCWveV8IH15LrPvhg0fuV48zJ32pu3H5yMp879Y
- Cx/+sciuwukRT+u/uTNzp3SaezsFXuIJcZe4EBxh17AIAA==
-X-Developer-Key: i=mcanal@igalia.com; a=openpgp;
- fpr=F8E45D7D0116770729A677D13FF30E8A7688FAAA
+Content-Type: multipart/signed; boundary="Sig_/5fH5pBa3XUnIzyJWR4ys.0y";
+ protocol="application/pgp-signature"; micalg=pgp-sha256
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,262 +77,123 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Move all resource allocation operations before actually enabling the
-clock, as those operations don't require the GPU to be powered on.
+--Sig_/5fH5pBa3XUnIzyJWR4ys.0y
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-This is a preparation for runtime PM support. The next commit will
-move all code related to powering on and initiating the GPU into the
-runtime PM resume callback and all resource allocation will happen
-before resume().
+On Tue, 31 Mar 2026 10:01:59 +0200
+Michel D=C3=A4nzer <michel.daenzer@mailbox.org> wrote:
 
-Reviewed-by: Melissa Wen <mwen@igalia.com>
-Reviewed-by: Florian Fainelli <florian.fainelli@broadcom.com>
-Signed-off-by: Maíra Canal <mcanal@igalia.com>
----
- drivers/gpu/drm/v3d/v3d_drv.c | 93 ++++++++++++++++++++++---------------------
- drivers/gpu/drm/v3d/v3d_drv.h |  1 +
- drivers/gpu/drm/v3d/v3d_gem.c | 18 ++++-----
- drivers/gpu/drm/v3d/v3d_irq.c | 15 +++----
- 4 files changed, 62 insertions(+), 65 deletions(-)
+> On 3/26/26 14:53, Pekka Paalanen wrote:
+> > On Tue, 24 Mar 2026 17:44:21 +0100
+> > Michel D=C3=A4nzer <michel.daenzer@mailbox.org> wrote:
+> >  =20
+> >> Per my previous posts, my concerns are:
+> >>
+> >> * The meaning of the "link bpc" property value isn't defined well
+> >> enough vs things like dithering or DSC, which will likely result in
+> >> compositors / users overestimating what value they need / want,
+> >> resulting in compositors spuriously rejecting configurations which
+> >> would work perfectly fine, and/or spurious issue reports. =20
+> >=20
+> > That is ok. Compositors need to understand what the numbers mean, how
+> > reliable they are, and act accordingly. Knowing the lower bound for
+> > link precision is already useful as it guarantees a minimum precision. =
+=20
+>=20
+> I don't disagree, this needs to be made clear in the documentation
+> though, if not reflected in the property name itself.
+>=20
+>=20
+> >> * There's no clear use case.
+> >>
+> >> This is generally a requirement for new KMS UAPI.
+> >>
+> >> The practical usefulness of the corresponding weston MR is dubious
+> >> per the concern above. =20
+> >=20
+> > I think the example of RGB 10 bpc to be degraded to YCbCr 10 bpc
+> > rather than RGB 8 bpc is an excellent use case. =20
+>=20
+> This series and the corresponding Weston MR aren't enough to address
+> that use case though, are they? All they achieve is logging a
+> potentially misleading warning.
+>=20
+> It might make sense to combine this series and the Weston MR with
+> whatever else is needed for that use case.
 
-diff --git a/drivers/gpu/drm/v3d/v3d_drv.c b/drivers/gpu/drm/v3d/v3d_drv.c
-index c5e7c778ec7a1a39d81155f7ed2a7ba811b5e3aa..e57b36f4d81a59d15a223afdc4078ae6456de9a9 100644
---- a/drivers/gpu/drm/v3d/v3d_drv.c
-+++ b/drivers/gpu/drm/v3d/v3d_drv.c
-@@ -363,14 +363,50 @@ static int v3d_platform_drm_probe(struct platform_device *pdev)
- 			return ret;
- 	}
- 
-+	if (v3d->ver < V3D_GEN_41) {
-+		ret = map_regs(v3d, &v3d->gca_regs, "gca");
-+		if (ret)
-+			return ret;
-+	}
-+
-+	v3d->reset = devm_reset_control_get_optional_exclusive(dev, NULL);
-+	if (IS_ERR(v3d->reset))
-+		return dev_err_probe(dev, PTR_ERR(v3d->reset),
-+				     "Failed to get reset control\n");
-+
-+	if (!v3d->reset) {
-+		ret = map_regs(v3d, &v3d->bridge_regs, "bridge");
-+		if (ret) {
-+			dev_err(dev, "Failed to get bridge registers\n");
-+			return ret;
-+		}
-+	}
-+
- 	v3d->clk = devm_clk_get_optional(dev, NULL);
- 	if (IS_ERR(v3d->clk))
- 		return dev_err_probe(dev, PTR_ERR(v3d->clk), "Failed to get V3D clock\n");
- 
-+	ret = v3d_irq_init(v3d);
-+	if (ret)
-+		return ret;
-+
-+	v3d_perfmon_init(v3d);
-+
-+	v3d->mmu_scratch = dma_alloc_wc(dev, 4096, &v3d->mmu_scratch_paddr,
-+					GFP_KERNEL | __GFP_NOWARN | __GFP_ZERO);
-+	if (!v3d->mmu_scratch) {
-+		dev_err(dev, "Failed to allocate MMU scratch page\n");
-+		return -ENOMEM;
-+	}
-+
-+	ret = v3d_gem_init(drm);
-+	if (ret)
-+		goto dma_free;
-+
- 	ret = clk_prepare_enable(v3d->clk);
- 	if (ret) {
- 		dev_err(&pdev->dev, "Couldn't enable the V3D clock\n");
--		return ret;
-+		goto gem_destroy;
- 	}
- 
- 	v3d_idle_sms(v3d);
-@@ -399,44 +435,9 @@ static int v3d_platform_drm_probe(struct platform_device *pdev)
- 	ident3 = V3D_READ(V3D_HUB_IDENT3);
- 	v3d->rev = V3D_GET_FIELD(ident3, V3D_HUB_IDENT3_IPREV);
- 
--	v3d_perfmon_init(v3d);
--
--	v3d->reset = devm_reset_control_get_optional_exclusive(dev, NULL);
--	if (IS_ERR(v3d->reset)) {
--		ret = dev_err_probe(dev, PTR_ERR(v3d->reset),
--				    "Failed to get reset control\n");
--		goto clk_disable;
--	}
--
--	if (!v3d->reset) {
--		ret = map_regs(v3d, &v3d->bridge_regs, "bridge");
--		if (ret) {
--			dev_err(dev, "Failed to get bridge registers\n");
--			goto clk_disable;
--		}
--	}
--
--	if (v3d->ver < V3D_GEN_41) {
--		ret = map_regs(v3d, &v3d->gca_regs, "gca");
--		if (ret)
--			goto clk_disable;
--	}
--
--	v3d->mmu_scratch = dma_alloc_wc(dev, 4096, &v3d->mmu_scratch_paddr,
--					GFP_KERNEL | __GFP_NOWARN | __GFP_ZERO);
--	if (!v3d->mmu_scratch) {
--		dev_err(dev, "Failed to allocate MMU scratch page\n");
--		ret = -ENOMEM;
--		goto clk_disable;
--	}
--
--	ret = v3d_gem_init(drm);
--	if (ret)
--		goto dma_free;
--
--	ret = v3d_irq_init(v3d);
--	if (ret)
--		goto gem_destroy;
-+	v3d_init_hw_state(v3d);
-+	v3d_mmu_set_page_table(v3d);
-+	v3d_irq_enable(v3d);
- 
- 	ret = drm_dev_register(drm, 0);
- 	if (ret)
-@@ -452,12 +453,13 @@ static int v3d_platform_drm_probe(struct platform_device *pdev)
- 	drm_dev_unregister(drm);
- irq_disable:
- 	v3d_irq_disable(v3d);
-+clk_disable:
-+	v3d_power_off_sms(v3d);
-+	clk_disable_unprepare(v3d->clk);
- gem_destroy:
- 	v3d_gem_destroy(drm);
- dma_free:
- 	dma_free_wc(dev, 4096, v3d->mmu_scratch, v3d->mmu_scratch_paddr);
--clk_disable:
--	clk_disable_unprepare(v3d->clk);
- 	return ret;
- }
- 
-@@ -471,14 +473,13 @@ static void v3d_platform_drm_remove(struct platform_device *pdev)
- 
- 	drm_dev_unregister(drm);
- 
--	v3d_gem_destroy(drm);
--
--	dma_free_wc(v3d->drm.dev, 4096, v3d->mmu_scratch,
--		    v3d->mmu_scratch_paddr);
--
- 	v3d_power_off_sms(v3d);
- 
- 	clk_disable_unprepare(v3d->clk);
-+
-+	v3d_gem_destroy(drm);
-+
-+	dma_free_wc(dev, 4096, v3d->mmu_scratch, v3d->mmu_scratch_paddr);
- }
- 
- static struct platform_driver v3d_platform_driver = {
-diff --git a/drivers/gpu/drm/v3d/v3d_drv.h b/drivers/gpu/drm/v3d/v3d_drv.h
-index 6a3cad933439812d78da5797749c020a9bf46402..ebf406b615bb52de9cb98ea8efe941a5787fb4bd 100644
---- a/drivers/gpu/drm/v3d/v3d_drv.h
-+++ b/drivers/gpu/drm/v3d/v3d_drv.h
-@@ -565,6 +565,7 @@ struct dma_fence *v3d_fence_create(struct v3d_dev *v3d, enum v3d_queue q);
- 
- /* v3d_gem.c */
- extern bool super_pages;
-+void v3d_init_hw_state(struct v3d_dev *v3d);
- int v3d_gem_init(struct drm_device *dev);
- void v3d_gem_destroy(struct drm_device *dev);
- void v3d_reset_sms(struct v3d_dev *v3d);
-diff --git a/drivers/gpu/drm/v3d/v3d_gem.c b/drivers/gpu/drm/v3d/v3d_gem.c
-index 75d9eccd796664e67277c1f83ad59063f164d1da..def6a9612b857a241f6b2e1f601509928e3f9f8b 100644
---- a/drivers/gpu/drm/v3d/v3d_gem.c
-+++ b/drivers/gpu/drm/v3d/v3d_gem.c
-@@ -36,13 +36,6 @@ v3d_init_core(struct v3d_dev *v3d, int core)
- 	V3D_CORE_WRITE(core, V3D_CTL_L2TFLEND, ~0);
- }
- 
--/* Sets invariant state for the HW. */
--static void
--v3d_init_hw_state(struct v3d_dev *v3d)
--{
--	v3d_init_core(v3d, 0);
--}
--
- static void
- v3d_idle_axi(struct v3d_dev *v3d, int core)
- {
-@@ -259,6 +252,14 @@ v3d_invalidate_caches(struct v3d_dev *v3d)
- 	v3d_invalidate_slices(v3d, 0);
- }
- 
-+/* Sets invariant state for the HW. */
-+void
-+v3d_init_hw_state(struct v3d_dev *v3d)
-+{
-+	v3d_init_core(v3d, 0);
-+}
-+
-+
- static void
- v3d_huge_mnt_init(struct v3d_dev *v3d)
- {
-@@ -328,9 +329,6 @@ v3d_gem_init(struct drm_device *dev)
- 		goto err_dma_alloc;
- 	}
- 
--	v3d_init_hw_state(v3d);
--	v3d_mmu_set_page_table(v3d);
--
- 	v3d_huge_mnt_init(v3d);
- 
- 	ret = v3d_sched_init(v3d);
-diff --git a/drivers/gpu/drm/v3d/v3d_irq.c b/drivers/gpu/drm/v3d/v3d_irq.c
-index c28e74ab5442857031b48bcbd4e43eb48c1e0f07..86efaef2722c3602346b037ba536228b2f368a81 100644
---- a/drivers/gpu/drm/v3d/v3d_irq.c
-+++ b/drivers/gpu/drm/v3d/v3d_irq.c
-@@ -248,17 +248,10 @@ v3d_hub_irq(int irq, void *arg)
- int
- v3d_irq_init(struct v3d_dev *v3d)
- {
--	int irq, ret, core;
-+	int irq, ret;
- 
- 	INIT_WORK(&v3d->overflow_mem_work, v3d_overflow_mem_work);
- 
--	/* Clear any pending interrupts someone might have left around
--	 * for us.
--	 */
--	for (core = 0; core < v3d->cores; core++)
--		V3D_CORE_WRITE(core, V3D_CTL_INT_CLR, V3D_CORE_IRQS(v3d->ver));
--	V3D_WRITE(V3D_HUB_INT_CLR, V3D_HUB_IRQS(v3d->ver));
--
- 	irq = platform_get_irq_optional(v3d_to_pdev(v3d), 1);
- 	if (irq == -EPROBE_DEFER)
- 		return irq;
-@@ -296,7 +289,6 @@ v3d_irq_init(struct v3d_dev *v3d)
- 			goto fail;
- 	}
- 
--	v3d_irq_enable(v3d);
- 	return 0;
- 
- fail:
-@@ -310,6 +302,11 @@ v3d_irq_enable(struct v3d_dev *v3d)
- {
- 	int core;
- 
-+	/* Clear any pending interrupts someone might have left around for us. */
-+	for (core = 0; core < v3d->cores; core++)
-+		V3D_CORE_WRITE(core, V3D_CTL_INT_CLR, V3D_CORE_IRQS(v3d->ver));
-+	V3D_WRITE(V3D_HUB_INT_CLR, V3D_HUB_IRQS(v3d->ver));
-+
- 	/* Enable our set of interrupts, masking out any others. */
- 	for (core = 0; core < v3d->cores; core++) {
- 		V3D_CORE_WRITE(core, V3D_CTL_INT_MSK_SET, ~V3D_CORE_IRQS(v3d->ver));
+What do you believe is missing?
 
--- 
-2.53.0
+Informing the user that the display quality may not be as expected is
+the point. Weston does not have any other kind of UI atm. than printing
+to the log.
 
+> > I had another use case in
+> > https://gitlab.freedesktop.org/wayland/weston/-/merge_requests/1850#not=
+e_3115686 =20
+>=20
+> That would need to take dithering into account as well?
+
+Yes, dithering could be an adverse effect or not sufficient. Hence the
+'link bpc' property should not consider any kind of dithering, to be on
+the safe side. I fully expect dithering to become explicitly
+controllable, as policy belongs in userspace.
+
+The point of dithering is to adjust the stimuli on screen, that is, to
+make a visible difference on dithered vs. not. Maintaining a display
+profile valid requires keeping the stimuli response as it was during
+profiling. Therefore turning dithering on or off would invalidate the
+profile in cases where dithering is useful.
+
+> > Mario Kleiner had excellent cases as well. =20
+>=20
+> I raised unanswered questions on those.
+>=20
+>=20
+> >>> That the link-bpc property does not consider DSC and dithering?
+> >>> Two things which the max-bpc property also does not consider?   =20
+> >>
+> >> It's not (as much of) an issue with the "max bpc" property because
+> >> it's just an upper limit, the driver is free to use a lower effective
+> >> bpc. =20
+> >=20
+> > FWIW, 'max bpc' is a workaround for faulty sink devices that claim to
+> > handle a depth but silently misbehave. =20
+>=20
+> That's not the only use case (in fact I'm not sure I'd heard of this
+> before). E.g. it can also be used in cases where some HW bottleneck
+> prevents using maximum refresh rate at maximum bpc for all displays,
+> to explicitly choose which display(s) to limit bpc for, allowing max
+> bpc for the rest.
+
+That was what I came to understand when some years I dug into the
+history to figure out why 'max bpc' was added initially. What you say
+is another good use case considering the state of the UAPI which offers
+no direct control.
+
+
+Thanks,
+pq
+
+--Sig_/5fH5pBa3XUnIzyJWR4ys.0y
+Content-Type: application/pgp-signature
+Content-Description: OpenPGP digital signature
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmnLwC0ACgkQI1/ltBGq
+qqfVXQ/9GC3+5m0LDoPDR3e0HJxVDkFaEOVQ4gD+YdmBsiFxD4pPBs/bSE5ExufZ
+h2jZTsnoD5isn+VMWqNb3CptrwXgGPm+9gNoa07Fkml1Wft4t4nW6+cz8vBO1sV1
+Hi4U87R3Rn2rzyCYdmVch2HXjUV209g3fZP3WSytgjx7p9RlQjXfesjruFdUGUtl
+bDFdW7wQdCPWuTVoqNr/dd8NsUVFHmveOuGuBbnJUmjc24APBm0ss4rA9RdpyaOu
+NGraJAj14lsrqI///WUhWxEF03KdEor+kqsiBFogrOp0kEIlHQt5pVSbHV28BNhQ
+HpOrAcoSnAtLQJlsn6qYgDATUe9z5rKcn6/AwPhhItZ4zutDTlUHOE7yjMnlEZKa
+S5CoNg031OrrTp3RDT4M+1tEacLpNeag+dBcDu95k9q4jAwnPAXMS/knvCAmKCd2
+wtoxkc3Vdo6hjqApAXYNzqiGv9B55K1SP3UjraX9QgPARb7ukkxpdpbFK3VRRW3T
+EVu+Vx77zrHYKaJc+7WE4A3c1+KwcuXSaEn2Q3JXaJeDxycgf0En/sXMbantxGta
+fy5IMk3ZQ5z/VL0CgcMLf0elcRFUj0vuRc+cevXm4gJwIrYfGNQvAUE1noFxnEiV
+ytMNIARJ+EY7eJNWwMju/T+ErntDVED5OFOjl9fR474prWtqSNY=
+=2fLs
+-----END PGP SIGNATURE-----
+
+--Sig_/5fH5pBa3XUnIzyJWR4ys.0y--
