@@ -4,45 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F02DD10F9307
-	for <dri-devel@archiver.kernel.org>; Tue, 31 Mar 2026 21:21:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CA05810F9303
+	for <dri-devel@archiver.kernel.org>; Tue, 31 Mar 2026 21:21:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3EA9B10EB84;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9F9FB10EB85;
 	Tue, 31 Mar 2026 21:21:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="CjqyBDxC";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="Odq6RBep";
 	dkim-atps=neutral
-Received: from CY3PR05CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11013047.outbound.protection.outlook.com
- [40.93.201.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BDE1910EA72;
- Tue, 31 Mar 2026 21:21:13 +0000 (UTC)
+Received: from BN8PR05CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11011027.outbound.protection.outlook.com [52.101.57.27])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8E8B310EB80;
+ Tue, 31 Mar 2026 21:21:19 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=RD1u9Le1IrSZoxGjxrwuKo/QnWQHf3+j4KC+cWpHmyghScSPQAMGZvQZhZLBFeetRO6ODvZJLFTor8tqCwz9tn7J4MqE3AUZGQ5XPy75NWYY9VJyAh8mqe3idf+WUwYHveruO3z8IsZQuf7r6aKFtN2kXODp1doqmNVUhG8qKJz0pUN34Fpfa+Ai0aub6trGNXi8p42rZP18KSAHKytM24rAOYut4g5NaHNM7iq1sGSeKly1MYE9PlgJk/kFKkV5UdqxI/divWg0FxiWhivPVZGOTKn1QFhY7qdeXa54gQVFAPnkVMtgolL5dMXmuQgCTJavV+uJwRIFzIdrh3glqg==
+ b=Z32cwQEQ7hTS3cJmIjLjLeK2tjBP+nI/9IydaMg+fJmB5AOCj/qxFoJlGiA0ZJkoaj1pMH6ZdOHgBoal03najwSQeQLf9eOXL2hSxbDhlBkuxzbEGZZYQZjjoQCCY8E2mOSamoAtZV7axmY+iXJ1cxJomF6qudeSTd5vdAgOIECBbIRlt/Jy1+P04p0tARvqgc8nrDVbj+749C3R0mFtxff4uQ8of9BEiGkzuI6cIKJu7ojVqwu4LvDenBfhT47a4jvRgnlq4k4c6npjffdEisYTXpBHsT13/7bf0DJxaw1Um7T59roPs28HxEkxQrW9CO/tp7Nz4yXcwwOo5Q/H9w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=peECcFfG9Ef7jRtC35L6+RGkxOZPEbYul7W++Dw2oh0=;
- b=ccJC5qbMXLHLOa/YndCTAx4v7bQ6lEQKaUygYcDE45dCH0X/2dmCXypfQKPTrwIpd7Hfv1hBYGOyIaQcf3uSrxiN6XUNuEMlC93FMqaIFjVrhTSn+xj7dvsZGbTIxKPWeG1OZALEc7zSTx2PTUNFOBdgMd44s49Ufe9g9ztZoBsmwveud0eI4rId6Wzztx2E/4/ZWI+/lgKYohIPX/loadh2hwGs3FyyVj/nkjy3dbYMxhX439/2Pg2CBwMC3HDxcTlZ8VViv5sQOOuZk+Fz4Ytitn/QsyQdpejheV/oNfM3xxP9F6gWTYPz4HFuxNbPiwj2lNJyShoqLIOUwJcCeA==
+ bh=H33nm66InsEMrisLhY04OyeLYVU6n0M/5qc1OO9Emgk=;
+ b=Q34UPw0EHoVp50cfxbRxbS3jmxJh+xCkm3zXGIh4X0ho/fQzW4mInEQSwiQSQGApgVzwuUQWjyr1wwUmdKSvOzSykY9o5ZDqss3JkXTnGYElpS0PGQtJT1fPMqynSOtQiZHcSs6t9lN2WpVVrp1TH6QgHNN7r2w25qorFi0nuhHG5PhsL1tLNAm0EMrP5JLldliqgKGETB/f2q/IUbvzi6EZFLdFsMSVI62uIHLqwEnNwAh+jDSpl4PjH9+8NsYskXlG8fhBPc5/94jhkNSU3IVMnr0DVVPzTnrzjm8eYIEqnTevep+PgjEbz1AzirlNPuov1N7NUObaM4ooxmoQeQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=peECcFfG9Ef7jRtC35L6+RGkxOZPEbYul7W++Dw2oh0=;
- b=CjqyBDxCgjZZWXnRLtH4Rw4uaiAB2v34IDXaKuq2CD5EGeqoaa/IhfKQZ8kfTi0V2JohI2wgDFo8OcTtfVKfA27ZqZU6arAp4kF42dwN34rNycI7nRroDRaTOAmH8xqvsZ9Hrq4oyWb3R+ReNlr8N4rc8oG8T1dPMlW/Yq6xD9J2afAdEsiJqI1ILqGBVFX+fBckmYrY3f43zNCPaEp3v7f7jRJtCcjRIeIsyp1zF1qpiSY8xJ+6Ig9a88f10E6f9YoKy7YdH+z6i5Fw9FRshHCRn9v0f/9Y+ublD8UvDqjSelMKxyjm29mG8Es9DBsAWUCUBXs349uVabfJGLT8QA==
+ bh=H33nm66InsEMrisLhY04OyeLYVU6n0M/5qc1OO9Emgk=;
+ b=Odq6RBep/YiZaOTanNlwAP+9QM5XzSSjEhONZ+KMhTi6zIJ/J+r2DRaaxWs8k/9Jef28oJlRcIVXY3HE8j+NQonFLFErMTX0ZjKoXKOzAvXVKwfXCbTNgmgpct1xDcmn5UGxcEDNXDPBdaneeot4Lr8w8cq3MEGkGv6d5TaCco5F4fFbwOHqMHERSR9koh5yn5OPqrg6RBJIfYviWYMmPgZ8s+vyLIwEo6hvIgwtJmQKE8uUEL7IC3D3THv0csPwnIeewjBipnjG/hh6h2FF/3Wux9hY9cAq6snubtQjzaI4FA00XuIzOCyAwdtTX9YWRo+sgBwItJr1kkYE1hIaAA==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
 Received: from DS0PR12MB6486.namprd12.prod.outlook.com (2603:10b6:8:c5::21) by
  BL1PR12MB5849.namprd12.prod.outlook.com (2603:10b6:208:384::18) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.8; Tue, 31 Mar
- 2026 21:21:06 +0000
+ 2026 21:21:13 +0000
 Received: from DS0PR12MB6486.namprd12.prod.outlook.com
  ([fe80::88a9:f314:c95f:8b33]) by DS0PR12MB6486.namprd12.prod.outlook.com
  ([fe80::88a9:f314:c95f:8b33%4]) with mapi id 15.20.9769.014; Tue, 31 Mar 2026
- 21:21:06 +0000
+ 21:21:13 +0000
 From: Joel Fernandes <joelagnelf@nvidia.com>
 To: linux-kernel@vger.kernel.org
 Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
@@ -79,72 +78,72 @@ Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
  linux-doc@vger.kernel.org, amd-gfx@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
  linux-fbdev@vger.kernel.org, Joel Fernandes <joelagnelf@nvidia.com>
-Subject: [PATCH v10 02/21] gpu: nova-core: gsp: Extract usable FB region from
- GSP
-Date: Tue, 31 Mar 2026 17:20:29 -0400
-Message-Id: <20260331212048.2229260-3-joelagnelf@nvidia.com>
+Subject: [PATCH v10 05/21] docs: gpu: nova-core: Document the PRAMIN aperture
+ mechanism
+Date: Tue, 31 Mar 2026 17:20:32 -0400
+Message-Id: <20260331212048.2229260-6-joelagnelf@nvidia.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260331212048.2229260-1-joelagnelf@nvidia.com>
 References: <20260311004008.2208806-1-joelagnelf@nvidia.com>
  <20260331212048.2229260-1-joelagnelf@nvidia.com>
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-ClientProxiedBy: BL1PR13CA0237.namprd13.prod.outlook.com
- (2603:10b6:208:2bf::32) To DS0PR12MB6486.namprd12.prod.outlook.com
+X-ClientProxiedBy: MN0PR05CA0002.namprd05.prod.outlook.com
+ (2603:10b6:208:52c::11) To DS0PR12MB6486.namprd12.prod.outlook.com
  (2603:10b6:8:c5::21)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: DS0PR12MB6486:EE_|BL1PR12MB5849:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8b4e0c35-3fa4-4fd9-2fd4-08de8f6b6b9d
+X-MS-Office365-Filtering-Correlation-Id: 0e4397e4-ece1-4ad5-7b12-08de8f6b6f73
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
  ARA:13230040|1800799024|7416014|376014|366016|22082099003|18002099003|56012099003;
-X-Microsoft-Antispam-Message-Info: e+H54qBkSjcAiIusplIS1f5dJKT83U9hgQD3SVCSwGC/JbhF/Mk1uDL+k83A3HwXjhJhHhIM680SpbQYbV/TODVZxIlkD8fV47QoIQW+CZieiPQezBTZAaGgFnMwc1K2a+3Yz+aYpt3oHI1J/Goz+5sgaRsXKLPlVqjZLikXcgzP7QiKwP26JvwkT+2HiFzRnT9Ppy9rz17VPALz6T4vD2rdoC7vhhNqGj+m9q4KKWapRw3G/mkGTpW6/BPI/k70NWOzKIEaFjnyxIe9dMYtlkrdNzyu27842Jd7jLpk3tZxkcnXR0VlFx8wl9GcQjfNoQtcPHKPyzurho3sH0LaX6tCZsFHVeZGKXTNA3kEWPHNpExW07EZ0eI8EF7yIcnP7QsRQscz81QjxGkJ7SURGVmucZ3Jan55DusCWsagOcVDknz5Vgb1Eqq9fj8sGfqm9J4nvFiAw30vfqmw7ZvgYi32LtzMf47oGkSJTk+SC+z11yS1KLzqzPxyfww/u2tpJHzLQrxN6oI+S6T1h9+HFArEFr46YFTOD8wSM4Ubx7F6LbbtOMZ4SghjyDQIj2fGBRK1MaGGUokkHSRLtJsapl+IKrimluVAb/0QWI0N6ZRtvzN/SMZx45TXA7Bj3End1ZG5czpkJt30e25Srnqno1prud1IEQcmPYg1rxQsyUXL4r+i8DJpIZqzEMtg351qU6DMd9GW8g11Gas5rRachew+AYNjG7EAyexM1pxNWIk=
+X-Microsoft-Antispam-Message-Info: ueJve5RZ2mn2pCQF7F855S68xPTAZV9jb6EHmEnH8TPdubZUSgMi5OhiLT5bnalUELNcryJXKLFVs8jiZ+aBTAfCWd8mSXuehgSmYpYhKp+XUlqRq4PE4PaSZveHl4GIDrnex77/2K+8ng4hb9EwKuJrfQ+CoiX6w+78wKgUyYjporCho293H/6iBAzm9vZQ5HgJR2HeIfMrBBKkyzqrtroZ+B8eQD1NquznGOj//B/CH2XuErbLc3AyDGbQbZREBUsIUQOZgzCMG723XREPP5ZkIngC3B9mDAvvRXQa8o6avX3rzHHo2B8sjmcGCPEQZyK7r8BWhA8MshtYUEgSpb5/db6hYq74QHRnh/QYPdb5HBIGIsrb/30zO4wTKnURBkKWfPFlvElxBK1vFYf2ocXXrz9bkeASKmUW3LQavxUJm+JnoSsBHKE5Jga5/lZJ4vsRIB/+4Xqk6Zfxbn/m3yg7Sg2n/D1BXf6Edp8JIinUekVr8htlZb+njPp0A924eB00It2AxHLHVBtN2K5I9H2QAEu88GpNZQzpc/QakzX6I3U6OfZ35oLP0iaSoDjXk7Fvi3LY6Q69O7jFzoHBDCq/jWrlB4o30j3Ab6/iuM58JTsw224k6WNy4cLeu+n9St8Ba9uULd191sWr0BmLr2iumua11vhsi29sWaJ/7a2u5wxHgCHxA/Sox5wPFc3dMWHP9ZFX3MRps1nvvRQBRVa4dQNkWyrHIE0GkuBz/Qc=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DS0PR12MB6486.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFS:(13230040)(1800799024)(7416014)(376014)(366016)(22082099003)(18002099003)(56012099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?hqDneO9ejHFmaLBQ58ax56jHxAIAqRC5aPVVil0ghI9IsnC1EA0JKvNJGETr?=
- =?us-ascii?Q?f++vyhFNQTHlI0x/l2RLPT3gH+auNkeR/M3XxSOZeR1zSR1h/VAl+Mb9gu0w?=
- =?us-ascii?Q?kwhqYWk7aM2m62mluzmwKi2ThoXW8Ny9ki2AImWOqVSKR0Q4pJkX0/LzP2nz?=
- =?us-ascii?Q?bJ2SLgqvO8sqf7YlQQDa6+81vKZn3PCpk3qKadHMSjJi6n1Rqt3lSvCTWY8J?=
- =?us-ascii?Q?dYayw3U1kne4+FvooFdyRqxmMiTX5DHXFe4u9DNLiBABIAaXhhyF+1EgMpQs?=
- =?us-ascii?Q?3mEV+n6w+u9b9RTKOGTPbi6tIHd32BYL0VFfd/6T3ClIk92oALsCL8zcY/Lb?=
- =?us-ascii?Q?FUVYNioFeXo97/XWs3ThoQjlFkqPKHCCA6MvHVpZJ284obtyameHmCfrUTOV?=
- =?us-ascii?Q?n4pMjEBZxV2motCOPNyLGfS/p407XnchAlDnFWaVHrq+8oXRcQNFdaFWXoIQ?=
- =?us-ascii?Q?LdywqSNHYQAN3XvXhkrKqesxnSl+E4LDE/DsO4gWUbTXuU9kjgAtcacprkM7?=
- =?us-ascii?Q?R5oo9uZPuwxtIMXjq4I6jQmYKmDnfwalhjcLC5n8pA3Ee7CO5nU3/Zoeol9N?=
- =?us-ascii?Q?fSPs3eBIb2SAJndvQQj4enkBqfoxoPf/IvNK0Q1tQdGGZ28j2VX93abQfh7I?=
- =?us-ascii?Q?NGovV3Vq1UJKGSZuVY3pYAV/h3x12Hzy/DKOrSmWQvk+F1MQzpcbLeNz7KFC?=
- =?us-ascii?Q?ilNlUXwKNPtoi5eIquyUd1FIBCkm8xa3VQS5j01oBk4lNuZmCtjw9/DUghTu?=
- =?us-ascii?Q?FniNjGgWDdivWOK6SNbPogDV2f0xUuqUECfrQl5qWC1V+b7XGavivqZn6LJx?=
- =?us-ascii?Q?9VNvmkm53rylS6yJkGtXm4opffve39OX9HmAXef3sn5cZJDUD50wVjkel8yA?=
- =?us-ascii?Q?gaV90Ps1k9sE9VpA1ExZbdCstcYLGImoMeFyCm7SqDL+OINKG9XBc79BOvnv?=
- =?us-ascii?Q?srUrm/fDKIE/PBB65qmj7LNxvuuYFa1vReWyiS+ZkT6HSlEAYYP9hT+3yFuJ?=
- =?us-ascii?Q?+NUMO/t/dMc7RlUN3cttT2NcQx8hdpNDKNHzirnZ+MrB8uHDB4rZqj9wypXV?=
- =?us-ascii?Q?+jrmri04bczWmHrtXL6ZyjRvsUEvxV6ajSvoYg1f47Qtx5AYDgzmDWIXTQRp?=
- =?us-ascii?Q?gN+iDdyed936j3XYm8GBsW14PpSx6Pw5QMB/JFQc6k8LKUQD8gUcFCflApvn?=
- =?us-ascii?Q?g+u/LuzmfdFbF1RV9Zr7WOq5fiuloOxoRboQYqu8RjFcGRqVQNrsUKAuRD3U?=
- =?us-ascii?Q?hFBO85AcVL5+7yCm7KMoEkybzSCwxis9RkrLVKJqKh4uPc55+9joYRci8I7e?=
- =?us-ascii?Q?7+ITI3VNnT3xztPnWk2A6jl55i5Qleyo6gkpkcp12cxWe2fqXK48ui/6zGRm?=
- =?us-ascii?Q?FnqtkW3vOB8q5U7IAWhRbtYIxBv9FAKPzTFKNai86GG0ON9rfT+p88HjWp/z?=
- =?us-ascii?Q?MQx1cimT59tTH26eH1joYBE0VtqzmBTjSdGR29iXA6rIp1aiLkTxTIutxqqF?=
- =?us-ascii?Q?WmAV0HOkqhjbK/7OpBJNI7wE/rEuVMqdW+sKEIdshLV2YwPmxg4Dayg12VCs?=
- =?us-ascii?Q?Ue2ydnMTyw6Dda4sSjndCZFhlVeSe2s2GFZN463168dX+AiJ58BCoj/O1eaV?=
- =?us-ascii?Q?x8hPRbb5sjcPbetqm4nsz1fHpE10vl0arsUGwmxGmKRZSFtTmo197REAZYVm?=
- =?us-ascii?Q?fbNS2G5G3yi4wPbGxQ5eyp9dd5N9sVsmLqZHnw5FNraFPiTC1uQjeJc/kZEV?=
- =?us-ascii?Q?l8ohHjTIuQ=3D=3D?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?cQIrrTSqkkLtHIlP369ubS1rv8OEw9o/MgJpP57wyvzE/ZbSWBCTnGeJM8q0?=
+ =?us-ascii?Q?cTdhFY7/BWnpRjsirk4BS4MEI3rOsSjCyrqFFc/9p/79Xk+qtDi9CA+PfRbN?=
+ =?us-ascii?Q?BqY9VEkavu69f/+qpPyJCzPauvkcR5Awx7kMMADyps2ZyDGDvtoIkRvMVB55?=
+ =?us-ascii?Q?WRt3gLf3GGaSWKZAwmfMM8W1BnULx3paWETWr3VKKHiB4rlZZtZP9O8uIIqy?=
+ =?us-ascii?Q?mKmigyTrjsKsLUFsFHtpmi30ugkhpXnMHlukZEDu7Dn0eI74rikh8+tjSsGd?=
+ =?us-ascii?Q?5aCxEenYOt4uCuqaBdNEQobnYoXW6E8RDMQLsf/5KI9BWjnyrRiJAVHQU+BO?=
+ =?us-ascii?Q?FtAIiuBg93XMNtbXMofkelW4pciXRztR1R95tEhY4jbuwQ5ZRu7tgao3zNN6?=
+ =?us-ascii?Q?uqDO/dMWsW4Zgg3NvT9TcJLb5E3Ev1a7WXvD9LtdtloKQZNVVCiJAFTA8APx?=
+ =?us-ascii?Q?coFTu1DxdtNDi7LynGbAkIgXQyxy4MAf28COGE5bWjC5c0Rw9WEjy8Nh94MS?=
+ =?us-ascii?Q?gDgkPEjmhxH5yo0RBKTzhRndiO5Nf/P1VHhEyUgj5KbI1yG16WmieQp/qErH?=
+ =?us-ascii?Q?pNQYNsPj1pMZZz9jDers53gMj5JW811DRi12tb/lRehqF+SHOxZ/5o/SffWx?=
+ =?us-ascii?Q?u38td7d34j0nmt0uc3z/gZbm0r83/w2vE/0r/ddNmqXflQJs6s7UjFvVZUvd?=
+ =?us-ascii?Q?Gxgr8cX04DHHby0ocJq7Am4LgU8pruPx8OZUZjDh1v4IBZ9XWmEKVo6jTyNf?=
+ =?us-ascii?Q?pCJYepylS8Yen2UYXJs3dB1uH3ahNEjlucgQGaZkM35uYQo2lC4xJ2fUT0hT?=
+ =?us-ascii?Q?Z3bKJqxOnG3rkGtjDdOaO8kDMZd3mN+xT1jLRS8jsRR6Xd5sRBUWov6UnF9D?=
+ =?us-ascii?Q?mEZ1S4Wp0KGPPl5qGiL5RZkXLvYUbx/kX9HtZMGHMkEqK4bsNGIBkYY3XmAe?=
+ =?us-ascii?Q?z6cqRSoeA3D7SFBPQPrai1NWJshsm7hZJ9fdp6rZBdQGRHt8rGdDQMauVTvt?=
+ =?us-ascii?Q?KwBLug8gyXhI/L+V3zRX0vZHub378JLAeYdnyiO5QyKOiC+bYgPB4Geq7ibF?=
+ =?us-ascii?Q?SxQ3fkf/3KDWyETu6HG+LZanzyKfzQbskivPvfXyku53HqaUcw676GbhTv6j?=
+ =?us-ascii?Q?OZO0OixdAWEs1fwzmRNzAKaVlFk3TdiIiwaASf6p7+qvH3BZ5ucxwrZ5zkT9?=
+ =?us-ascii?Q?AgdoI4pewKIm9C8t0SEdHUa+XI/ubQ6dHstV+SbOouoBsDIBdqXDeFrup4tc?=
+ =?us-ascii?Q?HJibYZv5Yn0KAsJvadvFkxqT2SMlKssg0y5t/4rM2lLScK1kTLYowh0KdUs+?=
+ =?us-ascii?Q?zixxeIelmS4WTgzJ3r2XWYwyc3LKUXkB9yo/i2Y7Wd9JhpOiudlxGV8pPpva?=
+ =?us-ascii?Q?ixYpkZIMyQUxQMAG9mS0Qtp9vATo3nkpWex3aDGrcVdEh3BfKGevV5wWNOIv?=
+ =?us-ascii?Q?o1/9J7/LDbWSVOZyg0eOuokwUlaw6DF8aqnJg7UWkaROW2Et00WDa6j6Griu?=
+ =?us-ascii?Q?TemjSwCXEGtBGm90UCtOD97/KIiVo6Yk3T9lU4ikWGuyCYKnwjiIZ33GKwCs?=
+ =?us-ascii?Q?9pXyueX2FKW8PG9ao2NqL4LTcrg196/9JSRBGzXp2tSVZJ/kE5+f9Oz+wp50?=
+ =?us-ascii?Q?ehryaGe9zOcPjXn2TlQ/mYH2yGrVeidxb9JpHSXJIS20E15yTpSKTHeRtT4E?=
+ =?us-ascii?Q?P0NZ6NDFJuNjcMYWF1uA3Jy9q/veE/3YDbSV8qRgm7fOPBT12/Ilam+W0YkZ?=
+ =?us-ascii?Q?860T0+GFHg=3D=3D?=
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8b4e0c35-3fa4-4fd9-2fd4-08de8f6b6b9d
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0e4397e4-ece1-4ad5-7b12-08de8f6b6f73
 X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6486.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Mar 2026 21:21:06.6081 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Mar 2026 21:21:12.9364 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: wJGaAIqxSE5SXKmUpW8SHTVqpXRCKKDNGvW/21YnmTGGxcYU7GksRabCfR/qK1kuZIBdXSEPrM8Y3PhIrTW/Pg==
+X-MS-Exchange-CrossTenant-UserPrincipalName: +kDhjKQ8wBF5Vgt3XX2BydCDD9Kl8CvaSxbgq5UuSn5lLmIcmKbheHemXS22IrBuyvTqYYi9wJMYrXZ3HUWoog==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5849
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -161,125 +160,158 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add first_usable_fb_region() to GspStaticConfigInfo to extract the first
-usable FB region from GSP's fbRegionInfoParams. Usable regions are those
-that are not reserved or protected.
+Add documentation for the PRAMIN aperture mechanism used by nova-core
+for direct VRAM access.
 
-The extracted region is stored in GetGspStaticInfoReply and exposed as
-usable_fb_region field for use by the memory subsystem.
+Nova only uses TARGET=VRAM for VRAM access. The SYS_MEM target values
+are documented for completeness but not used by the driver.
 
 Cc: Nikola Djukic <ndjukic@nvidia.com>
 Signed-off-by: Joel Fernandes <joelagnelf@nvidia.com>
 ---
- drivers/gpu/nova-core/gsp/commands.rs    | 11 ++++--
- drivers/gpu/nova-core/gsp/fw/commands.rs | 44 +++++++++++++++++++++++-
- 2 files changed, 52 insertions(+), 3 deletions(-)
+ Documentation/gpu/nova/core/pramin.rst | 123 +++++++++++++++++++++++++
+ Documentation/gpu/nova/index.rst       |   1 +
+ 2 files changed, 124 insertions(+)
+ create mode 100644 Documentation/gpu/nova/core/pramin.rst
 
-diff --git a/drivers/gpu/nova-core/gsp/commands.rs b/drivers/gpu/nova-core/gsp/commands.rs
-index c89c7b57a751..41742c1633c8 100644
---- a/drivers/gpu/nova-core/gsp/commands.rs
-+++ b/drivers/gpu/nova-core/gsp/commands.rs
-@@ -4,6 +4,7 @@
-     array,
-     convert::Infallible,
-     ffi::FromBytesUntilNulError,
-+    ops::Range,
-     str::Utf8Error, //
- };
- 
-@@ -189,22 +190,28 @@ fn init(&self) -> impl Init<Self::Command, Self::InitError> {
-     }
- }
- 
--/// The reply from the GSP to the [`GetGspInfo`] command.
-+/// The reply from the GSP to the [`GetGspStaticInfo`] command.
- pub(crate) struct GetGspStaticInfoReply {
-     gpu_name: [u8; 64],
-+    /// Usable FB (VRAM) region for driver memory allocation.
-+    #[expect(dead_code)]
-+    pub(crate) usable_fb_region: Range<u64>,
- }
- 
- impl MessageFromGsp for GetGspStaticInfoReply {
-     const FUNCTION: MsgFunction = MsgFunction::GetGspStaticInfo;
-     type Message = GspStaticConfigInfo;
--    type InitError = Infallible;
-+    type InitError = Error;
- 
-     fn read(
-         msg: &Self::Message,
-         _sbuffer: &mut SBufferIter<array::IntoIter<&[u8], 2>>,
-     ) -> Result<Self, Self::InitError> {
-+        let (base, size) = msg.first_usable_fb_region().ok_or(ENODEV)?;
+diff --git a/Documentation/gpu/nova/core/pramin.rst b/Documentation/gpu/nova/core/pramin.rst
+new file mode 100644
+index 000000000000..bcedb6e06d33
+--- /dev/null
++++ b/Documentation/gpu/nova/core/pramin.rst
+@@ -0,0 +1,123 @@
++.. SPDX-License-Identifier: GPL-2.0
 +
-         Ok(GetGspStaticInfoReply {
-             gpu_name: msg.gpu_name_str(),
-+            usable_fb_region: base..base.saturating_add(size),
-         })
-     }
- }
-diff --git a/drivers/gpu/nova-core/gsp/fw/commands.rs b/drivers/gpu/nova-core/gsp/fw/commands.rs
-index db46276430be..9fffa74d03f9 100644
---- a/drivers/gpu/nova-core/gsp/fw/commands.rs
-+++ b/drivers/gpu/nova-core/gsp/fw/commands.rs
-@@ -10,7 +10,10 @@
-     }, //
- };
- 
--use crate::gsp::GSP_PAGE_SIZE;
-+use crate::{
-+    gsp::GSP_PAGE_SIZE,
-+    num::IntoSafeCast, //
-+};
- 
- use super::bindings;
- 
-@@ -121,6 +124,45 @@ impl GspStaticConfigInfo {
-     pub(crate) fn gpu_name_str(&self) -> [u8; 64] {
-         self.0.gpuNameString
-     }
++=========================
++PRAMIN aperture mechanism
++=========================
 +
-+    /// Returns an iterator over valid FB regions from GSP firmware data.
-+    fn fb_regions(
-+        &self,
-+    ) -> impl Iterator<Item = &bindings::NV2080_CTRL_CMD_FB_GET_FB_REGION_FB_REGION_INFO> {
-+        let fb_info = &self.0.fbRegionInfoParams;
-+        fb_info
-+            .fbRegion
-+            .iter()
-+            .take(fb_info.numFBRegions.into_safe_cast())
-+            .filter(|reg| reg.limit >= reg.base)
-+    }
++.. note::
++   The following description is approximate and current as of the Ampere family.
++   It may change for future generations and is intended to assist in understanding
++   the driver code.
 +
-+    /// Extracts the first usable FB region from GSP firmware data.
-+    ///
-+    /// Returns the first region suitable for driver memory allocation as a `(base, size)` tuple.
-+    /// Usable regions are those that:
-+    /// - Are not reserved for firmware internal use.
-+    /// - Are not protected (hardware-enforced access restrictions).
-+    /// - Support compression (can use GPU memory compression for bandwidth).
-+    /// - Support ISO (isochronous memory for display requiring guaranteed bandwidth).
-+    ///
-+    /// TODO: Multiple discontinuous usable regions of RAM are possible in
-+    /// special cases. We need to support it (to also match Nouveau's behavior).
-+    pub(crate) fn first_usable_fb_region(&self) -> Option<(u64, u64)> {
-+        self.fb_regions().find_map(|reg| {
-+            // Filter: not reserved, not protected, supports compression and ISO.
-+            if reg.reserved == 0
-+                && reg.bProtected == 0
-+                && reg.supportCompressed != 0
-+                && reg.supportISO != 0
-+            {
-+                let size = reg.limit - reg.base + 1;
-+                Some((reg.base, size))
-+            } else {
-+                None
-+            }
-+        })
-+    }
- }
- 
- // SAFETY: Padding is explicit and will not contain uninitialized data.
++Introduction
++============
++
++PRAMIN is a hardware aperture mechanism that provides CPU access to GPU Video RAM (VRAM) before
++the GPU's Memory Management Unit (MMU) and page tables are initialized. This 1MB sliding window,
++located at a fixed offset within BAR0, is essential for setting up page tables and other critical
++GPU data structures without relying on the GPU's MMU.
++
++Architecture Overview
++=====================
++
++The PRAMIN aperture mechanism is logically implemented by the GPU's PBUS (PCIe Bus Controller Unit)
++and provides a CPU-accessible window into VRAM through the PCIe interface::
++
++    +-----------------+    PCIe     +------------------------------+
++    |      CPU        |<----------->|           GPU                |
++    +-----------------+             |                              |
++                                    |  +----------------------+    |
++                                    |  |       PBUS           |    |
++                                    |  |  (Bus Controller)    |    |
++                                    |  |                      |    |
++                                    |  |  +--------------+<------------ (window starts at
++                                    |  |  |   PRAMIN     |    |    |     BAR0 + 0x700000)
++                                    |  |  |   Window     |    |    |
++                                    |  |  |   (1MB)      |    |    |
++                                    |  |  +--------------+    |    |
++                                    |  |         |            |    |
++                                    |  +---------|------------+    |
++                                    |            |                 |
++                                    |            v                 |
++                                    |  +----------------------+<------------ (Program PRAMIN to any
++                                    |  |       VRAM           |    |    64KB-aligned VRAM boundary)
++                                    |  |    (Several GBs)     |    |
++                                    |  |                      |    |
++                                    |  |  FB[0x000000000000]  |    |
++                                    |  |          ...         |    |
++                                    |  |  FB[0x7FFFFFFFFFF]   |    |
++                                    |  +----------------------+    |
++                                    +------------------------------+
++
++PBUS (PCIe Bus Controller) is responsible for, among other things, handling MMIO
++accesses to the BAR registers.
++
++PRAMIN Window Operation
++=======================
++
++The PRAMIN window provides a 1MB sliding aperture that can be repositioned over
++the entire VRAM address space using the ``NV_PBUS_BAR0_WINDOW`` register.
++
++Window Control Mechanism
++-------------------------
++
++::
++
++    NV_PBUS_BAR0_WINDOW Register (0x1700):
++    +-------+--------+--------------------------------------+
++    | 31:26 | 25:24  |               23:0                   |
++    | RSVD  | TARGET |            BASE_ADDR                 |
++    |       |        |        (bits 39:16 of VRAM address)  |
++    +-------+--------+--------------------------------------+
++
++    The 24-bit BASE_ADDR field encodes bits [39:16] of the target VRAM address,
++    providing 40-bit (1TB) address space coverage with 64KB alignment.
++
++    TARGET field (bits 25:24):
++    - 0x0: VRAM (Video Memory)
++    - 0x1: SYS_MEM_COH (Coherent System Memory)
++    - 0x2: SYS_MEM_NONCOH (Non-coherent System Memory)
++    - 0x3: Reserved
++
++    .. note::
++       Nova only uses TARGET=VRAM (0x0) for video memory access. The SYS_MEM
++       target values are documented here for hardware completeness but are
++       not used by the driver.
++
++64KB Alignment Requirement
++---------------------------
++
++The PRAMIN window must be aligned to 64KB boundaries in VRAM. This is enforced
++by the ``BASE_ADDR`` field representing bits [39:16] of the target address::
++
++    VRAM Address Calculation:
++    actual_vram_addr = (BASE_ADDR << 16) + pramin_offset
++    Where:
++    - BASE_ADDR: 24-bit value from NV_PBUS_BAR0_WINDOW[23:0]
++    - pramin_offset: 20-bit offset within the PRAMIN window [0x00000-0xFFFFF]
++
++    Example Window Positioning:
++    +---------------------------------------------------------+
++    |                    VRAM Space                           |
++    |                                                         |
++    |  0x000000000  +-----------------+ <-- 64KB aligned      |
++    |               | PRAMIN Window   |                       |
++    |               |    (1MB)        |                       |
++    |  0x0000FFFFF  +-----------------+                       |
++    |                                                         |
++    |       |              ^                                  |
++    |       |              | Window can slide                 |
++    |       v              | to any 64KB-aligned boundary     |
++    |                                                         |
++    |  0x123400000  +-----------------+ <-- 64KB aligned      |
++    |               | PRAMIN Window   |                       |
++    |               |    (1MB)        |                       |
++    |  0x1234FFFFF  +-----------------+                       |
++    |                                                         |
++    |                       ...                               |
++    |                                                         |
++    |  0x7FFFF0000  +-----------------+ <-- 64KB aligned      |
++    |               | PRAMIN Window   |                       |
++    |               |    (1MB)        |                       |
++    |  0x7FFFFFFFF  +-----------------+                       |
++    +---------------------------------------------------------+
+diff --git a/Documentation/gpu/nova/index.rst b/Documentation/gpu/nova/index.rst
+index e39cb3163581..b8254b1ffe2a 100644
+--- a/Documentation/gpu/nova/index.rst
++++ b/Documentation/gpu/nova/index.rst
+@@ -32,3 +32,4 @@ vGPU manager VFIO driver and the nova-drm driver.
+    core/devinit
+    core/fwsec
+    core/falcon
++   core/pramin
 -- 
 2.34.1
 
