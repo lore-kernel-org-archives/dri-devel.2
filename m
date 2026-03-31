@@ -4,72 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C9E3BFF60CF
-	for <dri-devel@archiver.kernel.org>; Tue, 31 Mar 2026 07:23:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A3C35FF60D8
+	for <dri-devel@archiver.kernel.org>; Tue, 31 Mar 2026 07:23:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5D69710E8A0;
-	Tue, 31 Mar 2026 07:23:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 95C4810E897;
+	Tue, 31 Mar 2026 07:23:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="IY/yWiEi";
+	dkim=pass (2048-bit key; secure) header.d=usp.br header.i=@usp.br header.b="La4IRbCP";
 	dkim-atps=neutral
-Received: from mail-vs1-f50.google.com (mail-vs1-f50.google.com
- [209.85.217.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9A41D10E05A
- for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 22:45:27 +0000 (UTC)
-Received: by mail-vs1-f50.google.com with SMTP id
- ada2fe7eead31-60319f32a59so1290882137.0
- for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 15:45:27 -0700 (PDT)
+Received: from mail-ua1-f46.google.com (mail-ua1-f46.google.com
+ [209.85.222.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B6C9010E7D4
+ for <dri-devel@lists.freedesktop.org>; Tue, 31 Mar 2026 01:52:36 +0000 (UTC)
+Received: by mail-ua1-f46.google.com with SMTP id
+ a1e0cc1a2514c-94de68feaf4so3093760241.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 18:52:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1774910726; x=1775515526; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=YyMKSyJ5pE5wHB1zuiBld9F84C6sMv1AiRN68buAW4A=;
- b=IY/yWiEimhsacrI6zw8hZQYzKaMKwDbHhJHFbAV3vPqs38LSov47WdmSYcCOdyPaCJ
- hX85plv8e0p320shZOJaCDJ8cIkwIDyBbFqF5nCjqMebd7OiE81n5r/NjCrrwX2UAEcz
- TQM7sxfC6k0k66KiiAJqgZqr3J8gGYC2/dyd1rZ2AcxARTtthwXS9Z2XiZ6cGL/EKOki
- lEPueikT9adNB2/pK1i6qgJN5E10NX3tumna0qbNIgP02BarOs5wCANPTx8DLFUU2uHP
- tV7e7jasqA7c/3emUTaPcd4i5bE3/efoph+TNo5Xd0fUP1k8bywnzGAsTkKwp4RnNAR1
- NWng==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774910726; x=1775515526;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=usp.br; s=usp-google; t=1774921955; x=1775526755; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=YyMKSyJ5pE5wHB1zuiBld9F84C6sMv1AiRN68buAW4A=;
- b=Ym809sxOBpDGmVZ/Qkn16xsQPaSQKN3EenL7rbWw202liV2zlxSEucV//+OXHV3NTC
- Bxk9jAApB2WYxLRg1OT3i4PyDKBq5YKhWMZHCMsSwN0OtQlnlDKJzKJgZMNNysbvCEnE
- yImK6Kn5utKDjLhviV5DZIdigdYNAw/rtxVl335thZVzzW0jZrCnYi0on+w/f9sqx/0j
- g6CDBVBhetA65q4XJQ9uYhZHUoCsQITCJKIFpxj7o6uzSAKZCFTjecL4l2ayf0rERrKJ
- G0/jSJwNJOIbl6bwpIN84qaKolFJYDUQpext0X+NES/SZdPzg31B38r2sZZkXgVKWx4d
- a5Aw==
+ bh=GAXZ+JVlQDzpRClVg4fHLc14WbopBlWfTMLP+TpCKYM=;
+ b=La4IRbCPWnB6kVUMlKlbsw1AkcW3KHNyFFDPMgY/S+5ByNqxc3BJRYMWUKfVvAMdZZ
+ GltSLbVMg2hasOKwXHL3hsZeTRh4PWCTrExX5PwGS7aCGj7k93d3JUTo0sPTBKpeSm9Q
+ 0cdoJUwGFSO8IqGrvd5FHjQVDWPB29BEpRooD++KsevuhCFFBYb/BFJFxrD9Ktmt/Gwt
+ 9EO8EG5rmw0lY6xQ4//wPbALr4GUHiE7Mle5EuWMisHeJ0ubROHU2Ax17ZlYA8ZvixaJ
+ QwoucI5/hkWvJqNRLteMsToFVX5b+uI9ZIRzSk0eV2zMgQuiO0ED5VGHHzbA+PTqgt86
+ EfZQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1774921955; x=1775526755;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=GAXZ+JVlQDzpRClVg4fHLc14WbopBlWfTMLP+TpCKYM=;
+ b=RMhCYFcpabX1JnzYZPbycRjwas1AJZB/JXtcALOaubD9QYdwLroPy+oMIe1sm7l5Rd
+ WZ9bBk8VRPndMs9hgnNXUMXQzyrSXThKCrREPl4FyKd2/hJmdcblM84znCXIcu1H8Ex0
+ qWA8S7zE2lKPCcDzcr1K/S8GwT0DNHhlH+CnidOcrtqVVCUd7Q9szHUCAEw2twrcDRfl
+ biT9L7HjjBoGgEwgRfWgaGyj3k5GZVNifKXS3BQLdPY3QIY3GZnPiXg2dDER9OaRbTsO
+ uNZAXZ9cEr92e4eobHDeSvK17WBvNAS5rSdXb69tx0sJxkewwfIKSrQfM2kli/ZNUQ/o
+ Ml3g==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUqHO3l7n6cyOb/MItvofatP1C7AUFCcjVmK7/MdECfR9iJQ/tC/FaxN4n8lrYvywYGORTZXVJAGeo=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwjIBhJmrVy31SOw+6+KIBICRg2PtM0bvWKAgjQJUz4O6lpwjTb
- 3DKbHg9zdUtvV/Bbzv3nOZX5OP1nimseJQzziVSROyVbFHLWMC1ea9fQ
-X-Gm-Gg: ATEYQzyJKmmg4mKDImIlbE4cDilpjKn0DSuu4TGUw/YzaCwpV+w35zV8+4FiYuaIsX4
- 7th31wlsMHsbwHVh/0PdeWT+QUkx49AUvLpVAvJw1OQZD+/+r3ZihJBMRNhERDAP95Gz+3otRgh
- XNJT1ei+ZXkC15CfL+dnFqFZMnu7phS6s8pHOT/hbmqLWw/Gde82XeRclxnCKToDhBooMteyrD3
- uFmsWfTb0tvGH0XpuFmhh+l+sdJlGrTme0VZXj89cslUNby/CutZ9ZGroPLnEqlrPPOL6KX1+Wp
- qUDDZE0+eUQo1ikqr4kuyMI/TJfPA2Jw8tySzOinAQ4NY6z6xNrXxovYVag8FI6WwgNrqDoRjtZ
- lOpsXjk4HnvXGBsgYlaJMzdVwsz++ocsug78JL+lLYCRh2dgUafuEF6nNgzgE9gSPtx8sH0PJZh
- Pd85++3Vrk0MQG+feZXrfVNSXOlA==
-X-Received: by 2002:a05:6102:3710:b0:605:3556:6619 with SMTP id
- ada2fe7eead31-60535566a13mr1976654137.31.1774910726457; 
- Mon, 30 Mar 2026 15:45:26 -0700 (PDT)
-Received: from osabio.. ([2804:18:133:b9ee:165a:1d6e:ccaa:37f5])
+ AJvYcCU0bMTz40VQg8P88QZpM06C6oidXmDVORqL9Vt2+Yoraro4ViXMrI9wTGSVwt6sw0cZl1+1cXrQg1A=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwGW5x/gO3F+MIUSlPNQbKuROc4HwU9NfTanj2Nvv9oyRwbItWh
+ 40ar0g0Rv0WcEcZT4ST+10X2qlQAzem3iLQF2boJRFmihFw5Y/vtjwCAA5Fo+UbVOPk=
+X-Gm-Gg: ATEYQzzduqTSC8WY9YZDPFFoaOCyf7lSOVAUb/CXnFaMkrz1a8Ay5YvLumm1EqZzJgW
+ pS86yztoFi7gM+bnd4MEx6U92aR5GiCmd0YNvRNvyf7naxMFmhHpX4zpZSkZmuV9FYuGhHnFzxM
+ 5BCWfGkmOMtxZZy4MwMxiL9zuLbt5hp5wdqc8YNLPzoXUXmCFPzzFL5zbnCMJKrj+N6I9gy9+39
+ D7HfWMzEGdQo9mAkXUti/L56vFJxaoC3UHeMv0D50ZtCrfUPebKD4Bn1UN2G8GZ0g2ePR2r0Mv4
+ IQ7TnmSxKNZ51bkCLdx5uDfvPX68JfnBmOGkfGbsRMoh3GOGWXoo0BE+W76XIiP6s+HTDzAvYWz
+ KMTt6rR3KA8l2KNMs2y4zb3gLNUuAwaCTuhMdyeI3egFWIMwD2l70Jvlap4OiTH4FXfjbl+iR2u
+ tgIjvESymvNM91uHOs7YJ9YQGEwjaJ4ELjIu/LdkvaRpF594znZA+Iv0ZFOearL+8pud+6XRClY
+ xfSVFm4OfkYSZkNkl/5ajZtUMm+2rV+xmaRZgFeF4lP3uLEMkPBbpkpzOuE
+X-Received: by 2002:a05:6102:5486:b0:605:26eb:cc15 with SMTP id
+ ada2fe7eead31-60526ebcf5cmr3513492137.32.1774921954840; 
+ Mon, 30 Mar 2026 18:52:34 -0700 (PDT)
+Received: from gui-host.Dlink ([177.33.104.190])
  by smtp.gmail.com with ESMTPSA id
- a1e0cc1a2514c-9539e2e7926sm9255600241.7.2026.03.30.15.45.23
+ ada2fe7eead31-605129b8347sm10852730137.3.2026.03.30.18.52.30
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 30 Mar 2026 15:45:26 -0700 (PDT)
-From: Gabriel Almeida <gabrielsousa230@gmail.com>
-To: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
+ Mon, 30 Mar 2026 18:52:34 -0700 (PDT)
+From: Guilherme Ivo Bozi <guilherme.bozi@usp.br>
+To: harry.wentland@amd.com, sunpeng.li@amd.com, siqueira@igalia.com,
+ alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
  simona@ffwll.ch
-Cc: linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, gabrielsousa230@gmail.com
-Subject: [PATCH] drm/amdgpu: deduplicate register access and helper routines
-Date: Mon, 30 Mar 2026 19:45:03 -0300
-Message-ID: <20260330224503.548284-1-gabrielsousa230@gmail.com>
-X-Mailer: git-send-email 2.43.0
+Cc: guilherme.bozi@usp.br, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Subject: [PATCH v3] drm/amd/display: Deduplicate DCN DDC register assignment
+Date: Mon, 30 Mar 2026 22:52:02 -0300
+Message-ID: <20260331015202.51017-1-guilherme.bozi@usp.br>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <CAJgF-xs=3fbKQO5Mj=coPMXq0ecWmV0bJDNFN44coEHV3WS=wg@mail.gmail.com>
+References: <CAJgF-xs=3fbKQO5Mj=coPMXq0ecWmV0bJDNFN44coEHV3WS=wg@mail.gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 31 Mar 2026 07:23:33 +0000
@@ -88,447 +93,353 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Some helper functions are implemented multiple times with identical
-logic across different source files.
+Several DCN generations implement identical define_ddc_registers()
+functions to assign DDC register, shift and mask pointers based on
+GPIO ID.
 
-Extract these implementations into a shared helper file
-(amdgpu_common.c) and update existing code to reuse them.
+Introduce a shared inline helper,
+dcn_define_ddc_registers_common(), and convert all DCN
+implementations to use it.
 
-This simplifies the codebase and avoids duplication without
+This reduces duplication and improves maintainability without
 changing behavior.
 
 No functional changes intended.
 
-Signed-off-by: Gabriel Almeida <gabrielsousa230@gmail.com>
+Signed-off-by: Guilherme Ivo Bozi <guilherme.bozi@usp.br>
 ---
- drivers/gpu/drm/amd/amdgpu/Makefile        |  2 ++
- drivers/gpu/drm/amd/amdgpu/amdgpu_common.c | 42 ++++++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_common.h | 12 +++++++
- drivers/gpu/drm/amd/amdgpu/nv.c            | 38 +++-----------------
- drivers/gpu/drm/amd/amdgpu/soc15.c         | 31 ++--------------
- drivers/gpu/drm/amd/amdgpu/soc21.c         | 38 +++-----------------
- drivers/gpu/drm/amd/amdgpu/soc24.c         | 29 ++-------------
- drivers/gpu/drm/amd/amdgpu/soc_v1_0.c      | 21 ++---------
- 8 files changed, 72 insertions(+), 141 deletions(-)
- create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_common.c
- create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_common.h
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/Makefile b/drivers/gpu/drm/amd/amdgpu/Makefile
-index 6a7e9bfec..84cce03d7 100644
---- a/drivers/gpu/drm/amd/amdgpu/Makefile
-+++ b/drivers/gpu/drm/amd/amdgpu/Makefile
-@@ -69,6 +69,8 @@ amdgpu-y += amdgpu_device.o amdgpu_reg_access.o amdgpu_doorbell_mgr.o amdgpu_kms
- 	amdgpu_ring_mux.o amdgpu_xcp.o amdgpu_seq64.o amdgpu_aca.o amdgpu_dev_coredump.o \
- 	amdgpu_cper.o amdgpu_userq_fence.o amdgpu_eviction_fence.o amdgpu_ip.o
+v2:
+	- Corrected type mismatch (ddc_shift - ddc_sh_mask)
+
+v3:
+	- Fix threading (previous version was not sent as reply)
+	- Squashed fix to avoid build breakage
+
+ .../display/dc/gpio/dcn20/hw_factory_dcn20.c  | 27 ++++---------
+ .../display/dc/gpio/dcn21/hw_factory_dcn21.c  | 27 ++++---------
+ .../display/dc/gpio/dcn30/hw_factory_dcn30.c  | 27 ++++---------
+ .../dc/gpio/dcn315/hw_factory_dcn315.c        | 27 ++++---------
+ .../display/dc/gpio/dcn32/hw_factory_dcn32.c  | 27 ++++---------
+ .../dc/gpio/dcn401/hw_factory_dcn401.c        | 26 ++++---------
+ .../amd/display/dc/gpio/hw_factory_dcn_ddc.h  | 39 +++++++++++++++++++
+ 7 files changed, 86 insertions(+), 114 deletions(-)
+ create mode 100644 drivers/gpu/drm/amd/display/dc/gpio/hw_factory_dcn_ddc.h
+
+diff --git a/drivers/gpu/drm/amd/display/dc/gpio/dcn20/hw_factory_dcn20.c b/drivers/gpu/drm/amd/display/dc/gpio/dcn20/hw_factory_dcn20.c
+index e0bd0c722e00..905d14079b91 100644
+--- a/drivers/gpu/drm/amd/display/dc/gpio/dcn20/hw_factory_dcn20.c
++++ b/drivers/gpu/drm/amd/display/dc/gpio/dcn20/hw_factory_dcn20.c
+@@ -32,6 +32,8 @@
+ #include "../hw_hpd.h"
+ #include "../hw_generic.h"
  
-+amdgpu-y += amdgpu_common.o
++#include "../hw_factory_dcn_ddc.h"
 +
- amdgpu-$(CONFIG_PROC_FS) += amdgpu_fdinfo.o
+ #include "hw_factory_dcn20.h"
  
- amdgpu-$(CONFIG_PERF_EVENTS) += amdgpu_pmu.o
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_common.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_common.c
+ 
+@@ -182,25 +184,12 @@ static void define_ddc_registers(
+ 		struct hw_gpio_pin *pin,
+ 		uint32_t en)
+ {
+-	struct hw_ddc *ddc = HW_DDC_FROM_BASE(pin);
+-
+-	switch (pin->id) {
+-	case GPIO_ID_DDC_DATA:
+-		ddc->regs = &ddc_data_regs_dcn[en];
+-		ddc->base.regs = &ddc_data_regs_dcn[en].gpio;
+-		break;
+-	case GPIO_ID_DDC_CLOCK:
+-		ddc->regs = &ddc_clk_regs_dcn[en];
+-		ddc->base.regs = &ddc_clk_regs_dcn[en].gpio;
+-		break;
+-	default:
+-		ASSERT_CRITICAL(false);
+-		return;
+-	}
+-
+-	ddc->shifts = &ddc_shift[en];
+-	ddc->masks = &ddc_mask[en];
+-
++	dcn_define_ddc_registers_common(
++		pin, en,
++		ddc_data_regs_dcn,
++		ddc_clk_regs_dcn,
++		ddc_shift,
++		ddc_mask);
+ }
+ 
+ static void define_hpd_registers(struct hw_gpio_pin *pin, uint32_t en)
+diff --git a/drivers/gpu/drm/amd/display/dc/gpio/dcn21/hw_factory_dcn21.c b/drivers/gpu/drm/amd/display/dc/gpio/dcn21/hw_factory_dcn21.c
+index 2f57ee6deabc..f347b8c7e2b6 100644
+--- a/drivers/gpu/drm/amd/display/dc/gpio/dcn21/hw_factory_dcn21.c
++++ b/drivers/gpu/drm/amd/display/dc/gpio/dcn21/hw_factory_dcn21.c
+@@ -32,6 +32,8 @@
+ #include "../hw_hpd.h"
+ #include "../hw_generic.h"
+ 
++#include "../hw_factory_dcn_ddc.h"
++
+ #include "hw_factory_dcn21.h"
+ 
+ #include "dcn/dcn_2_1_0_offset.h"
+@@ -170,25 +172,12 @@ static void define_ddc_registers(
+ 		struct hw_gpio_pin *pin,
+ 		uint32_t en)
+ {
+-	struct hw_ddc *ddc = HW_DDC_FROM_BASE(pin);
+-
+-	switch (pin->id) {
+-	case GPIO_ID_DDC_DATA:
+-		ddc->regs = &ddc_data_regs_dcn[en];
+-		ddc->base.regs = &ddc_data_regs_dcn[en].gpio;
+-		break;
+-	case GPIO_ID_DDC_CLOCK:
+-		ddc->regs = &ddc_clk_regs_dcn[en];
+-		ddc->base.regs = &ddc_clk_regs_dcn[en].gpio;
+-		break;
+-	default:
+-		ASSERT_CRITICAL(false);
+-		return;
+-	}
+-
+-	ddc->shifts = &ddc_shift[en];
+-	ddc->masks = &ddc_mask[en];
+-
++	dcn_define_ddc_registers_common(
++		pin, en,
++		ddc_data_regs_dcn,
++		ddc_clk_regs_dcn,
++		ddc_shift,
++		ddc_mask);
+ }
+ 
+ static void define_hpd_registers(struct hw_gpio_pin *pin, uint32_t en)
+diff --git a/drivers/gpu/drm/amd/display/dc/gpio/dcn30/hw_factory_dcn30.c b/drivers/gpu/drm/amd/display/dc/gpio/dcn30/hw_factory_dcn30.c
+index 36a5736c58c9..25eef1ee10fe 100644
+--- a/drivers/gpu/drm/amd/display/dc/gpio/dcn30/hw_factory_dcn30.c
++++ b/drivers/gpu/drm/amd/display/dc/gpio/dcn30/hw_factory_dcn30.c
+@@ -32,6 +32,8 @@
+ #include "../hw_hpd.h"
+ #include "../hw_generic.h"
+ 
++#include "../hw_factory_dcn_ddc.h"
++
+ #include "hw_factory_dcn30.h"
+ 
+ 
+@@ -199,25 +201,12 @@ static void define_ddc_registers(
+ 		struct hw_gpio_pin *pin,
+ 		uint32_t en)
+ {
+-	struct hw_ddc *ddc = HW_DDC_FROM_BASE(pin);
+-
+-	switch (pin->id) {
+-	case GPIO_ID_DDC_DATA:
+-		ddc->regs = &ddc_data_regs_dcn[en];
+-		ddc->base.regs = &ddc_data_regs_dcn[en].gpio;
+-		break;
+-	case GPIO_ID_DDC_CLOCK:
+-		ddc->regs = &ddc_clk_regs_dcn[en];
+-		ddc->base.regs = &ddc_clk_regs_dcn[en].gpio;
+-		break;
+-	default:
+-		ASSERT_CRITICAL(false);
+-		return;
+-	}
+-
+-	ddc->shifts = &ddc_shift[en];
+-	ddc->masks = &ddc_mask[en];
+-
++	dcn_define_ddc_registers_common(
++		pin, en,
++		ddc_data_regs_dcn,
++		ddc_clk_regs_dcn,
++		ddc_shift,
++		ddc_mask);
+ }
+ 
+ static void define_hpd_registers(struct hw_gpio_pin *pin, uint32_t en)
+diff --git a/drivers/gpu/drm/amd/display/dc/gpio/dcn315/hw_factory_dcn315.c b/drivers/gpu/drm/amd/display/dc/gpio/dcn315/hw_factory_dcn315.c
+index 5feebb3b95ca..571a6f1b0cf9 100644
+--- a/drivers/gpu/drm/amd/display/dc/gpio/dcn315/hw_factory_dcn315.c
++++ b/drivers/gpu/drm/amd/display/dc/gpio/dcn315/hw_factory_dcn315.c
+@@ -32,6 +32,8 @@
+ #include "../hw_hpd.h"
+ #include "../hw_generic.h"
+ 
++#include "../hw_factory_dcn_ddc.h"
++
+ #include "hw_factory_dcn315.h"
+ 
+ #include "dcn/dcn_3_1_5_offset.h"
+@@ -191,25 +193,12 @@ static void define_ddc_registers(
+ 		struct hw_gpio_pin *pin,
+ 		uint32_t en)
+ {
+-	struct hw_ddc *ddc = HW_DDC_FROM_BASE(pin);
+-
+-	switch (pin->id) {
+-	case GPIO_ID_DDC_DATA:
+-		ddc->regs = &ddc_data_regs_dcn[en];
+-		ddc->base.regs = &ddc_data_regs_dcn[en].gpio;
+-		break;
+-	case GPIO_ID_DDC_CLOCK:
+-		ddc->regs = &ddc_clk_regs_dcn[en];
+-		ddc->base.regs = &ddc_clk_regs_dcn[en].gpio;
+-		break;
+-	default:
+-		ASSERT_CRITICAL(false);
+-		return;
+-	}
+-
+-	ddc->shifts = &ddc_shift[en];
+-	ddc->masks = &ddc_mask[en];
+-
++	dcn_define_ddc_registers_common(
++		pin, en,
++		ddc_data_regs_dcn,
++		ddc_clk_regs_dcn,
++		ddc_shift,
++		ddc_mask);
+ }
+ 
+ static void define_hpd_registers(struct hw_gpio_pin *pin, uint32_t en)
+diff --git a/drivers/gpu/drm/amd/display/dc/gpio/dcn32/hw_factory_dcn32.c b/drivers/gpu/drm/amd/display/dc/gpio/dcn32/hw_factory_dcn32.c
+index 985f10b39750..d6e97b246bae 100644
+--- a/drivers/gpu/drm/amd/display/dc/gpio/dcn32/hw_factory_dcn32.c
++++ b/drivers/gpu/drm/amd/display/dc/gpio/dcn32/hw_factory_dcn32.c
+@@ -32,6 +32,8 @@
+ #include "../hw_hpd.h"
+ #include "../hw_generic.h"
+ 
++#include "../hw_factory_dcn_ddc.h"
++
+ #include "hw_factory_dcn32.h"
+ 
+ #include "dcn/dcn_3_2_0_offset.h"
+@@ -203,25 +205,12 @@ static void define_ddc_registers(
+ 		struct hw_gpio_pin *pin,
+ 		uint32_t en)
+ {
+-	struct hw_ddc *ddc = HW_DDC_FROM_BASE(pin);
+-
+-	switch (pin->id) {
+-	case GPIO_ID_DDC_DATA:
+-		ddc->regs = &ddc_data_regs_dcn[en];
+-		ddc->base.regs = &ddc_data_regs_dcn[en].gpio;
+-		break;
+-	case GPIO_ID_DDC_CLOCK:
+-		ddc->regs = &ddc_clk_regs_dcn[en];
+-		ddc->base.regs = &ddc_clk_regs_dcn[en].gpio;
+-		break;
+-	default:
+-		ASSERT_CRITICAL(false);
+-		return;
+-	}
+-
+-	ddc->shifts = &ddc_shift[en];
+-	ddc->masks = &ddc_mask[en];
+-
++	dcn_define_ddc_registers_common(
++		pin, en,
++		ddc_data_regs_dcn,
++		ddc_clk_regs_dcn,
++		ddc_shift,
++		ddc_mask);
+ }
+ 
+ static void define_hpd_registers(struct hw_gpio_pin *pin, uint32_t en)
+diff --git a/drivers/gpu/drm/amd/display/dc/gpio/dcn401/hw_factory_dcn401.c b/drivers/gpu/drm/amd/display/dc/gpio/dcn401/hw_factory_dcn401.c
+index 928abca18a18..06a4d7a8a1ac 100644
+--- a/drivers/gpu/drm/amd/display/dc/gpio/dcn401/hw_factory_dcn401.c
++++ b/drivers/gpu/drm/amd/display/dc/gpio/dcn401/hw_factory_dcn401.c
+@@ -12,6 +12,7 @@
+ #include "../hw_hpd.h"
+ #include "../hw_generic.h"
+ 
++#include "../hw_factory_dcn_ddc.h"
+ 
+ #include "dcn/dcn_4_1_0_offset.h"
+ #include "dcn/dcn_4_1_0_sh_mask.h"
+@@ -195,25 +196,12 @@ static void define_ddc_registers(
+ 		struct hw_gpio_pin *pin,
+ 		uint32_t en)
+ {
+-	struct hw_ddc *ddc = HW_DDC_FROM_BASE(pin);
+-
+-	switch (pin->id) {
+-	case GPIO_ID_DDC_DATA:
+-		ddc->regs = &ddc_data_regs_dcn[en];
+-		ddc->base.regs = &ddc_data_regs_dcn[en].gpio;
+-		break;
+-	case GPIO_ID_DDC_CLOCK:
+-		ddc->regs = &ddc_clk_regs_dcn[en];
+-		ddc->base.regs = &ddc_clk_regs_dcn[en].gpio;
+-		break;
+-	default:
+-		ASSERT_CRITICAL(false);
+-		return;
+-	}
+-
+-	ddc->shifts = &ddc_shift[en];
+-	ddc->masks = &ddc_mask[en];
+-
++	dcn_define_ddc_registers_common(
++		pin, en,
++		ddc_data_regs_dcn,
++		ddc_clk_regs_dcn,
++		ddc_shift,
++		ddc_mask);
+ }
+ 
+ static void define_hpd_registers(struct hw_gpio_pin *pin, uint32_t en)
+diff --git a/drivers/gpu/drm/amd/display/dc/gpio/hw_factory_dcn_ddc.h b/drivers/gpu/drm/amd/display/dc/gpio/hw_factory_dcn_ddc.h
 new file mode 100644
-index 000000000..34ade6f63
+index 000000000000..863177cf67e8
 --- /dev/null
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_common.c
-@@ -0,0 +1,42 @@
-+// SPDX-License-Identifier: GPL-2.0
-+#include <linux/module.h>
++++ b/drivers/gpu/drm/amd/display/dc/gpio/hw_factory_dcn_ddc.h
+@@ -0,0 +1,39 @@
++/* SPDX-License-Identifier: MIT */
++/*
++ * Copyright 2024 Advanced Micro Devices, Inc.
++ */
 +
-+#include "amdgpu.h"
-+#include "amdgpu_common.h"
-+#include "mxgpu_nv.h"
++#ifndef __DAL_HW_FACTORY_DCN_DDC_H__
++#define __DAL_HW_FACTORY_DCN_DDC_H__
 +
-+uint32_t read_indexed_register(struct amdgpu_device *adev,
-+			       u32 se_num, u32 sh_num, u32 reg_offset)
++static inline void dcn_define_ddc_registers_common(
++		struct hw_gpio_pin *pin,
++		uint32_t en,
++		const struct ddc_registers *data_regs,
++		const struct ddc_registers *clk_regs,
++		const struct ddc_sh_mask *shift,
++		const struct ddc_sh_mask *mask)
 +{
-+	uint32_t val;
++	struct hw_ddc *ddc = HW_DDC_FROM_BASE(pin);
 +
-+	mutex_lock(&adev->grbm_idx_mutex);
-+	if (se_num != 0xffffffff || sh_num != 0xffffffff)
-+		amdgpu_gfx_select_se_sh(adev, se_num, sh_num, 0xffffffff, 0);
++	switch (pin->id) {
++	case GPIO_ID_DDC_DATA:
++		ddc->regs = &data_regs[en];
++		ddc->base.regs = &data_regs[en].gpio;
++		break;
 +
-+	val = RREG32(reg_offset);
++	case GPIO_ID_DDC_CLOCK:
++		ddc->regs = &clk_regs[en];
++		ddc->base.regs = &clk_regs[en].gpio;
++		break;
 +
-+	if (se_num != 0xffffffff || sh_num != 0xffffffff)
-+		amdgpu_gfx_select_se_sh(adev, 0xffffffff, 0xffffffff, 0xffffffff, 0);
-+	mutex_unlock(&adev->grbm_idx_mutex);
-+	return val;
-+}
-+
-+void program_aspm(struct amdgpu_device *adev)
-+{
-+	if (!amdgpu_device_should_use_aspm(adev))
++	default:
++		ASSERT_CRITICAL(false);
 +		return;
++	}
 +
-+	if (adev->nbio.funcs->program_aspm)
-+		adev->nbio.funcs->program_aspm(adev);
++	ddc->shifts = &shift[en];
++	ddc->masks = &mask[en];
 +}
 +
-+int common_sw_init(struct amdgpu_ip_block *ip_block)
-+{
-+	struct amdgpu_device *adev = ip_block->adev;
-+
-+	if (amdgpu_sriov_vf(adev))
-+		xgpu_nv_mailbox_add_irq_id(adev);
-+
-+	return 0;
-+}
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_common.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_common.h
-new file mode 100644
-index 000000000..314b3506b
---- /dev/null
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_common.h
-@@ -0,0 +1,12 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
-+#ifndef __AMDGPU_COMMON_H__
-+#define __AMDGPU_COMMON_H__
-+
-+uint32_t read_indexed_register(struct amdgpu_device *adev,
-+			       u32 se_num, u32 sh_num, u32 reg_offset);
-+
-+void program_aspm(struct amdgpu_device *adev);
-+
-+int common_sw_init(struct amdgpu_ip_block *ip_block);
-+
-+#endif
-diff --git a/drivers/gpu/drm/amd/amdgpu/nv.c b/drivers/gpu/drm/amd/amdgpu/nv.c
-index 7ce1a1b95..cf8052c73 100644
---- a/drivers/gpu/drm/amd/amdgpu/nv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/nv.c
-@@ -29,6 +29,7 @@
- 
- #include "amdgpu.h"
- #include "amdgpu_atombios.h"
-+#include "amdgpu_common.h"
- #include "amdgpu_ih.h"
- #include "amdgpu_uvd.h"
- #include "amdgpu_vce.h"
-@@ -354,29 +355,13 @@ static struct soc15_allowed_register_entry nv_allowed_read_registers[] = {
- 	{ SOC15_REG_ENTRY(GC, 0, mmGB_ADDR_CONFIG)},
- };
- 
--static uint32_t nv_read_indexed_register(struct amdgpu_device *adev, u32 se_num,
--					 u32 sh_num, u32 reg_offset)
--{
--	uint32_t val;
--
--	mutex_lock(&adev->grbm_idx_mutex);
--	if (se_num != 0xffffffff || sh_num != 0xffffffff)
--		amdgpu_gfx_select_se_sh(adev, se_num, sh_num, 0xffffffff, 0);
--
--	val = RREG32(reg_offset);
--
--	if (se_num != 0xffffffff || sh_num != 0xffffffff)
--		amdgpu_gfx_select_se_sh(adev, 0xffffffff, 0xffffffff, 0xffffffff, 0);
--	mutex_unlock(&adev->grbm_idx_mutex);
--	return val;
--}
- 
- static uint32_t nv_get_register_value(struct amdgpu_device *adev,
- 				      bool indexed, u32 se_num,
- 				      u32 sh_num, u32 reg_offset)
- {
- 	if (indexed) {
--		return nv_read_indexed_register(adev, se_num, sh_num, reg_offset);
-+		return read_indexed_register(adev, se_num, sh_num, reg_offset);
- 	} else {
- 		if (reg_offset == SOC15_REG_OFFSET(GC, 0, mmGB_ADDR_CONFIG))
- 			return adev->gfx.config.gb_addr_config;
-@@ -511,16 +496,6 @@ static int nv_set_vce_clocks(struct amdgpu_device *adev, u32 evclk, u32 ecclk)
- 	return 0;
- }
- 
--static void nv_program_aspm(struct amdgpu_device *adev)
--{
--	if (!amdgpu_device_should_use_aspm(adev))
--		return;
--
--	if (adev->nbio.funcs->program_aspm)
--		adev->nbio.funcs->program_aspm(adev);
--
--}
--
- const struct amdgpu_ip_block_version nv_common_ip_block = {
- 	.type = AMD_IP_BLOCK_TYPE_COMMON,
- 	.major = 1,
-@@ -965,12 +940,7 @@ static int nv_common_late_init(struct amdgpu_ip_block *ip_block)
- 
- static int nv_common_sw_init(struct amdgpu_ip_block *ip_block)
- {
--	struct amdgpu_device *adev = ip_block->adev;
--
--	if (amdgpu_sriov_vf(adev))
--		xgpu_nv_mailbox_add_irq_id(adev);
--
--	return 0;
-+	return common_sw_init(ip_block);
- }
- 
- static int nv_common_hw_init(struct amdgpu_ip_block *ip_block)
-@@ -984,7 +954,7 @@ static int nv_common_hw_init(struct amdgpu_ip_block *ip_block)
- 		adev->nbio.funcs->apply_l1_link_width_reconfig_wa(adev);
- 
- 	/* enable aspm */
--	nv_program_aspm(adev);
-+	program_aspm(adev);
- 	/* setup nbio registers */
- 	adev->nbio.funcs->init_registers(adev);
- 	/* remap HDP registers to a hole in mmio space,
-diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c b/drivers/gpu/drm/amd/amdgpu/soc15.c
-index b456e4541..a6b91363d 100644
---- a/drivers/gpu/drm/amd/amdgpu/soc15.c
-+++ b/drivers/gpu/drm/amd/amdgpu/soc15.c
-@@ -28,6 +28,7 @@
- #include <drm/amdgpu_drm.h>
- 
- #include "amdgpu.h"
-+#include "amdgpu_common.h"
- #include "amdgpu_ih.h"
- #include "amdgpu_uvd.h"
- #include "amdgpu_vce.h"
-@@ -401,29 +402,12 @@ static struct soc15_allowed_register_entry soc15_allowed_read_registers[] = {
- 	{ SOC15_REG_ENTRY(GC, 0, mmDB_DEBUG2)},
- };
- 
--static uint32_t soc15_read_indexed_register(struct amdgpu_device *adev, u32 se_num,
--					 u32 sh_num, u32 reg_offset)
--{
--	uint32_t val;
--
--	mutex_lock(&adev->grbm_idx_mutex);
--	if (se_num != 0xffffffff || sh_num != 0xffffffff)
--		amdgpu_gfx_select_se_sh(adev, se_num, sh_num, 0xffffffff, 0);
--
--	val = RREG32(reg_offset);
--
--	if (se_num != 0xffffffff || sh_num != 0xffffffff)
--		amdgpu_gfx_select_se_sh(adev, 0xffffffff, 0xffffffff, 0xffffffff, 0);
--	mutex_unlock(&adev->grbm_idx_mutex);
--	return val;
--}
--
- static uint32_t soc15_get_register_value(struct amdgpu_device *adev,
- 					 bool indexed, u32 se_num,
- 					 u32 sh_num, u32 reg_offset)
- {
- 	if (indexed) {
--		return soc15_read_indexed_register(adev, se_num, sh_num, reg_offset);
-+		return read_indexed_register(adev, se_num, sh_num, reg_offset);
- 	} else {
- 		if (reg_offset == SOC15_REG_OFFSET(GC, 0, mmGB_ADDR_CONFIG))
- 			return adev->gfx.config.gb_addr_config;
-@@ -695,15 +679,6 @@ static int soc15_set_vce_clocks(struct amdgpu_device *adev, u32 evclk, u32 ecclk
- 	return 0;
- }
- 
--static void soc15_program_aspm(struct amdgpu_device *adev)
--{
--	if (!amdgpu_device_should_use_aspm(adev))
--		return;
--
--	if (adev->nbio.funcs->program_aspm)
--		adev->nbio.funcs->program_aspm(adev);
--}
--
- const struct amdgpu_ip_block_version vega10_common_ip_block =
- {
- 	.type = AMD_IP_BLOCK_TYPE_COMMON,
-@@ -1284,7 +1259,7 @@ static int soc15_common_hw_init(struct amdgpu_ip_block *ip_block)
- 	struct amdgpu_device *adev = ip_block->adev;
- 
- 	/* enable aspm */
--	soc15_program_aspm(adev);
-+	program_aspm(adev);
- 	/* setup nbio registers */
- 	adev->nbio.funcs->init_registers(adev);
- 	/* remap HDP registers to a hole in mmio space,
-diff --git a/drivers/gpu/drm/amd/amdgpu/soc21.c b/drivers/gpu/drm/amd/amdgpu/soc21.c
-index fbd1d97f3..586d62202 100644
---- a/drivers/gpu/drm/amd/amdgpu/soc21.c
-+++ b/drivers/gpu/drm/amd/amdgpu/soc21.c
-@@ -27,6 +27,7 @@
- 
- #include "amdgpu.h"
- #include "amdgpu_atombios.h"
-+#include "amdgpu_common.h"
- #include "amdgpu_ih.h"
- #include "amdgpu_uvd.h"
- #include "amdgpu_vce.h"
-@@ -306,29 +307,12 @@ static struct soc15_allowed_register_entry soc21_allowed_read_registers[] = {
- 	{ SOC15_REG_ENTRY(GC, 0, regGB_ADDR_CONFIG)},
- };
- 
--static uint32_t soc21_read_indexed_register(struct amdgpu_device *adev, u32 se_num,
--					 u32 sh_num, u32 reg_offset)
--{
--	uint32_t val;
--
--	mutex_lock(&adev->grbm_idx_mutex);
--	if (se_num != 0xffffffff || sh_num != 0xffffffff)
--		amdgpu_gfx_select_se_sh(adev, se_num, sh_num, 0xffffffff, 0);
--
--	val = RREG32(reg_offset);
--
--	if (se_num != 0xffffffff || sh_num != 0xffffffff)
--		amdgpu_gfx_select_se_sh(adev, 0xffffffff, 0xffffffff, 0xffffffff, 0);
--	mutex_unlock(&adev->grbm_idx_mutex);
--	return val;
--}
--
- static uint32_t soc21_get_register_value(struct amdgpu_device *adev,
- 				      bool indexed, u32 se_num,
- 				      u32 sh_num, u32 reg_offset)
- {
- 	if (indexed) {
--		return soc21_read_indexed_register(adev, se_num, sh_num, reg_offset);
-+		return read_indexed_register(adev, se_num, sh_num, reg_offset);
- 	} else {
- 		if (reg_offset == SOC15_REG_OFFSET(GC, 0, regGB_ADDR_CONFIG) && adev->gfx.config.gb_addr_config)
- 			return adev->gfx.config.gb_addr_config;
-@@ -470,15 +454,6 @@ static int soc21_set_vce_clocks(struct amdgpu_device *adev, u32 evclk, u32 ecclk
- 	return 0;
- }
- 
--static void soc21_program_aspm(struct amdgpu_device *adev)
--{
--	if (!amdgpu_device_should_use_aspm(adev))
--		return;
--
--	if (adev->nbio.funcs->program_aspm)
--		adev->nbio.funcs->program_aspm(adev);
--}
--
- const struct amdgpu_ip_block_version soc21_common_ip_block = {
- 	.type = AMD_IP_BLOCK_TYPE_COMMON,
- 	.major = 1,
-@@ -912,12 +887,7 @@ static int soc21_common_late_init(struct amdgpu_ip_block *ip_block)
- 
- static int soc21_common_sw_init(struct amdgpu_ip_block *ip_block)
- {
--	struct amdgpu_device *adev = ip_block->adev;
--
--	if (amdgpu_sriov_vf(adev))
--		xgpu_nv_mailbox_add_irq_id(adev);
--
--	return 0;
-+	return common_sw_init(ip_block);
- }
- 
- static int soc21_common_hw_init(struct amdgpu_ip_block *ip_block)
-@@ -925,7 +895,7 @@ static int soc21_common_hw_init(struct amdgpu_ip_block *ip_block)
- 	struct amdgpu_device *adev = ip_block->adev;
- 
- 	/* enable aspm */
--	soc21_program_aspm(adev);
-+	program_aspm(adev);
- 	/* setup nbio registers */
- 	adev->nbio.funcs->init_registers(adev);
- 	/* remap HDP registers to a hole in mmio space,
-diff --git a/drivers/gpu/drm/amd/amdgpu/soc24.c b/drivers/gpu/drm/amd/amdgpu/soc24.c
-index d1adf19a5..f9341c0e4 100644
---- a/drivers/gpu/drm/amd/amdgpu/soc24.c
-+++ b/drivers/gpu/drm/amd/amdgpu/soc24.c
-@@ -26,6 +26,7 @@
- #include <linux/pci.h>
- 
- #include "amdgpu.h"
-+#include "amdgpu_common.h"
- #include "amdgpu_ih.h"
- #include "amdgpu_uvd.h"
- #include "amdgpu_vce.h"
-@@ -132,31 +133,12 @@ static struct soc15_allowed_register_entry soc24_allowed_read_registers[] = {
- 	{ SOC15_REG_ENTRY(GC, 0, regGB_ADDR_CONFIG)},
- };
- 
--static uint32_t soc24_read_indexed_register(struct amdgpu_device *adev,
--					    u32 se_num,
--					    u32 sh_num,
--					    u32 reg_offset)
--{
--	uint32_t val;
--
--	mutex_lock(&adev->grbm_idx_mutex);
--	if (se_num != 0xffffffff || sh_num != 0xffffffff)
--		amdgpu_gfx_select_se_sh(adev, se_num, sh_num, 0xffffffff, 0);
--
--	val = RREG32(reg_offset);
--
--	if (se_num != 0xffffffff || sh_num != 0xffffffff)
--		amdgpu_gfx_select_se_sh(adev, 0xffffffff, 0xffffffff, 0xffffffff, 0);
--	mutex_unlock(&adev->grbm_idx_mutex);
--	return val;
--}
--
- static uint32_t soc24_get_register_value(struct amdgpu_device *adev,
- 					 bool indexed, u32 se_num,
- 					 u32 sh_num, u32 reg_offset)
- {
- 	if (indexed) {
--		return soc24_read_indexed_register(adev, se_num, sh_num, reg_offset);
-+		return read_indexed_register(adev, se_num, sh_num, reg_offset);
- 	} else {
- 		if (reg_offset == SOC15_REG_OFFSET(GC, 0, regGB_ADDR_CONFIG) &&
- 		    adev->gfx.config.gb_addr_config)
-@@ -455,12 +437,7 @@ static int soc24_common_late_init(struct amdgpu_ip_block *ip_block)
- 
- static int soc24_common_sw_init(struct amdgpu_ip_block *ip_block)
- {
--	struct amdgpu_device *adev = ip_block->adev;
--
--	if (amdgpu_sriov_vf(adev))
--		xgpu_nv_mailbox_add_irq_id(adev);
--
--	return 0;
-+	return common_sw_init(ip_block);
- }
- 
- static int soc24_common_hw_init(struct amdgpu_ip_block *ip_block)
-diff --git a/drivers/gpu/drm/amd/amdgpu/soc_v1_0.c b/drivers/gpu/drm/amd/amdgpu/soc_v1_0.c
-index 709b1669b..2f77fb0b6 100644
---- a/drivers/gpu/drm/amd/amdgpu/soc_v1_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/soc_v1_0.c
-@@ -21,6 +21,7 @@
-  *
-  */
- #include "amdgpu.h"
-+#include "amdgpu_common.h"
- #include "soc15.h"
- #include "soc15_common.h"
- #include "soc_v1_0.h"
-@@ -184,31 +185,13 @@ static struct soc15_allowed_register_entry soc_v1_0_allowed_read_registers[] = {
- 	{ SOC15_REG_ENTRY(GC, 0, regGB_ADDR_CONFIG_1) },
- };
- 
--static uint32_t soc_v1_0_read_indexed_register(struct amdgpu_device *adev,
--					       u32 se_num,
--					       u32 sh_num,
--					       u32 reg_offset)
--{
--	uint32_t val;
--
--	mutex_lock(&adev->grbm_idx_mutex);
--	if (se_num != 0xffffffff || sh_num != 0xffffffff)
--		amdgpu_gfx_select_se_sh(adev, se_num, sh_num, 0xffffffff, 0);
--
--	val = RREG32(reg_offset);
--
--	if (se_num != 0xffffffff || sh_num != 0xffffffff)
--		amdgpu_gfx_select_se_sh(adev, 0xffffffff, 0xffffffff, 0xffffffff, 0);
--	mutex_unlock(&adev->grbm_idx_mutex);
--	return val;
--}
- 
- static uint32_t soc_v1_0_get_register_value(struct amdgpu_device *adev,
- 					    bool indexed, u32 se_num,
- 					    u32 sh_num, u32 reg_offset)
- {
- 	if (indexed) {
--		return soc_v1_0_read_indexed_register(adev, se_num, sh_num, reg_offset);
-+		return read_indexed_register(adev, se_num, sh_num, reg_offset);
- 	} else {
- 		if (reg_offset == SOC15_REG_OFFSET(GC, 0, regGB_ADDR_CONFIG_1) &&
- 		    adev->gfx.config.gb_addr_config)
++#endif /* __DAL_HW_FACTORY_DCN_DDC_H__ */
 -- 
-2.43.0
+2.47.3
 
