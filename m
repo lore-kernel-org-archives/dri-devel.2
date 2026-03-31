@@ -4,146 +4,102 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB75610F930B
-	for <dri-devel@archiver.kernel.org>; Tue, 31 Mar 2026 21:22:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 099AC10F9302
+	for <dri-devel@archiver.kernel.org>; Tue, 31 Mar 2026 21:25:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8806310EC04;
-	Tue, 31 Mar 2026 21:21:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7C31C10EBE6;
+	Tue, 31 Mar 2026 21:25:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="OIesg9Is";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="GM7fl7IF";
 	dkim-atps=neutral
-Received: from PH8PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11012026.outbound.protection.outlook.com [40.107.209.26])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 24E5410EBEC;
- Tue, 31 Mar 2026 21:21:49 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=zJRT6gmosD4x3nxRHi9wcI3VxPlVysR72LqrjjVcT52JQJScCrroIL23EwR0qNcHo2NWbFHtplSFFzUwJoIHYAcoaOwmaszGrrxIDu90MFybSEVIRaJ82jHRRcsv1R2ogdz7cCg7+b1Ev+dwog2sjjG5ocNQJQVFl/p6SqTy4+8bP3GG/Rm7nqBfeJUK1XQLy/UZMHJIM+Lvvxro6LyAAVlJW23vz2FASiUE9BXV5BLvDGTKSXGp0qY13eB85PoitdrObbzmJvZ5hsjdYbp6sCjIiY7ZQ9hcI1iFh38NwVen66HWKcVPyJsCfaw/qNxU6ONJTNo67EQTjbpwcaKPmw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=dNfNKmYzCflEyH8VhSrOQysOvD0OAVzABVVU1E01sPQ=;
- b=H4qyR/kKYi1zoove88KZ+sMHgzvW1/ikO3HrpY1N1Uz+gOvVZeY+pKaCS7aWOcov2HdfH4VvcRKRXIoOeR+Mhy1p35Knh5ZtVN3cufdzkr96dQezkD/sp1etlpNoacsQo3/JOKPCsrmT5yJGowC0cAZ0PH0fs6Z8WjOVOyqBiuoiBKwixAzNqXUK+JyavUsGjhW7r5nKB87Ls7/UzH1xfUDhnQhmZolgHJ3QVtdPz1eJKvfgeRjDkax/4RBK4WIrv7WXetxuISGpe1TQtYV0XrjGZ3y+xam+cyLwCLkI/a/8drhjk76Bb2DfBsMyYLFgkcotfQv3fA2XisLfR4WciA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=dNfNKmYzCflEyH8VhSrOQysOvD0OAVzABVVU1E01sPQ=;
- b=OIesg9Ish9n7oJxvbLphalIKn+i6RsZ5xWQfpJidOOsAYaQy/u3yQdWAocQu/gH8um3k/LF9fUb26gp6JcvzjAc4vOLyq8qAZU9GSnIbWxDRlw2IoMn5zs4i1df5QY/5P053RIHLbydv3PFTXHBJ1MJb+VuXrLXxkOXAn86IZq35fUTFAGCs+Lct/lbCoFg7HcI7qnliGl9kaPWYmxPDJQz0rnc6V8qjJnsafDOrnJyE7fQpahnkqQMrjFrrpZ7Moz3Shg5s5Mz6/JyyjLwhmtejZxEhXFJFChGBy6wOHCB2Lxp9LLkrecem9XP1Ze4y/+bNMUx3gmp2ZLVFfH2aDQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DS0PR12MB6486.namprd12.prod.outlook.com (2603:10b6:8:c5::21) by
- SA3PR12MB8809.namprd12.prod.outlook.com (2603:10b6:806:31f::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.16; Tue, 31 Mar
- 2026 21:21:45 +0000
-Received: from DS0PR12MB6486.namprd12.prod.outlook.com
- ([fe80::88a9:f314:c95f:8b33]) by DS0PR12MB6486.namprd12.prod.outlook.com
- ([fe80::88a9:f314:c95f:8b33%4]) with mapi id 15.20.9769.014; Tue, 31 Mar 2026
- 21:21:44 +0000
-From: Joel Fernandes <joelagnelf@nvidia.com>
-To: linux-kernel@vger.kernel.org
-Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
- Gary Guo <gary@garyguo.net>, Bjorn Roy Baron <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
- Danilo Krummrich <dakr@kernel.org>, Dave Airlie <airlied@redhat.com>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Koen Koning <koen.koning@linux.intel.com>, dri-devel@lists.freedesktop.org,
- rust-for-linux@vger.kernel.org, Nikola Djukic <ndjukic@nvidia.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Jonathan Corbet <corbet@lwn.net>,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian Koenig <christian.koenig@amd.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, Huang Rui <ray.huang@amd.com>,
- Matthew Auld <matthew.auld@intel.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Lucas De Marchi <lucas.demarchi@intel.com>,
- Thomas Hellstrom <thomas.hellstrom@linux.intel.com>,
- Helge Deller <deller@gmx.de>, Alex Gaynor <alex.gaynor@gmail.com>,
- Boqun Feng <boqun.feng@gmail.com>, John Hubbard <jhubbard@nvidia.com>,
- Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
- Edwin Peer <epeer@nvidia.com>, Alexandre Courbot <acourbot@nvidia.com>,
- Andrea Righi <arighi@nvidia.com>, Andy Ritger <aritger@nvidia.com>,
- Zhi Wang <zhiw@nvidia.com>, Balbir Singh <balbirs@nvidia.com>,
- Philipp Stanner <phasta@kernel.org>,
- Elle Rhumsaa <elle@weathered-steel.dev>, alexeyi@nvidia.com,
- Eliot Courtney <ecourtney@nvidia.com>, joel@joelfernandes.org,
- linux-doc@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- linux-fbdev@vger.kernel.org, Joel Fernandes <joelagnelf@nvidia.com>
-Subject: [PATCH v10 20/21] gpu: nova-core: mm: Add PRAMIN aperture self-tests
-Date: Tue, 31 Mar 2026 17:20:47 -0400
-Message-Id: <20260331212048.2229260-21-joelagnelf@nvidia.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260331212048.2229260-1-joelagnelf@nvidia.com>
-References: <20260311004008.2208806-1-joelagnelf@nvidia.com>
- <20260331212048.2229260-1-joelagnelf@nvidia.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: CY5PR20CA0015.namprd20.prod.outlook.com
- (2603:10b6:930:3::18) To DS0PR12MB6486.namprd12.prod.outlook.com
- (2603:10b6:8:c5::21)
+Received: from mail-dl1-f44.google.com (mail-dl1-f44.google.com [74.125.82.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D2A1010EBE6
+ for <dri-devel@lists.freedesktop.org>; Tue, 31 Mar 2026 21:25:27 +0000 (UTC)
+Received: by mail-dl1-f44.google.com with SMTP id
+ a92af1059eb24-12a71ade78cso7392876c88.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 31 Mar 2026 14:25:27 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1774992327; cv=none;
+ d=google.com; s=arc-20240605;
+ b=WiBiZYubFRco0UeoYZQJrM3dDtfeWx2CDni+5XW70CaS4Tu1D2zppVk3omv50Yms4S
+ 3x/K4d8CEGVm9GpR/5j9R1jF2J+be+UZ20Tof4r+MWHT2fA9OEKDoRCkOArGWYSE8m3p
+ sJ7eXMKANpSw+8UdAoKK3qjKQwIjepxXrMaQF85mHSVhGu9ZHDROrFe+OlvSY8Z6SSMW
+ q95GU67QpyfYcy0yc9VTLaPIb/Dbd1mtjZmmfwWg3Ip36pAVoqHA9D/NiYSlW1jtQFyj
+ yIDyNjTA6uHZErWLjkypCTQf977dU/J++k6iHohYJui9mtAqqj3NYu8k7GgEbQjoV4Gk
+ o6yQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:dkim-signature;
+ bh=PJtc7MyBAFI3tK7+cZOuROzeutpIe2Qst2X4qNqsY80=;
+ fh=aIWUNrzR+A8fAjxmJsoW0c75z+7VTK9zHOS87YL0oY4=;
+ b=l0jmIAi5FeSJ5eIJm7ID/LflP9Q2K+rkUszoODUBOf2czx+PZJSZM6uklmwf4tM23i
+ ow69EQyj5vxE+Ogz88yS2VKuiUNJUr6MEOxtEzQQhdrUfvPR0eQXia6Bo4pjdYg/SIdB
+ FZQh4rRDz19tMXUGyQIpPHX5JZchROcMDm0pugb6+ISVjjktmp+1Eds64llvQzgXM/6e
+ kfqFh/4vZjSBob9FGs8BN/Gu27/5MEpVxsp8skG82Ahi4u/itu1Qi8UyJwvGCitrUMs/
+ zAsgPbJNtxvAIPlTOzrO0wmDsZ2UMClj5Q4nTEBsyLLfBJLO9Rh/qwBRWuHtCeB9bKiT
+ jT5w==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1774992327; x=1775597127; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=PJtc7MyBAFI3tK7+cZOuROzeutpIe2Qst2X4qNqsY80=;
+ b=GM7fl7IFQmKbF8Q36R0LBFhMJCOW22OY5w1BICkQnTmCPj+y3WFIQLOH5FPEmLVVru
+ B6Pyb1lsNDhxzEcCUISlN1mK/OLYjcXp9wvhf7wCRiNPGAwlS2x3kuSzyApRLpJUL7ug
+ lq2+vgP0D53Xbc5lrz3TAHCbQLJ5Q+Jq2TpipRwEPhNCAgNYsY0b2GnY7fofXSIUapQ0
+ DFx9qji38bp9f8yzi6X9MuhOLJbdrYOORSCLQQS7F3x1t4zzT/513qHmMqBaah2KE3/N
+ Wv+nXgTlMhghQRSr0hUrgDRnxBohwuftmPkRJWqtLFsWBwC8ajRvowR/TuJC3WilNaT+
+ Lkuw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1774992327; x=1775597127;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=PJtc7MyBAFI3tK7+cZOuROzeutpIe2Qst2X4qNqsY80=;
+ b=Hf729QY6YjzfaptvDC0XRnPKJzC9yzJZBInwS6hBHgb3CZkK87xP5HyTS/qTMmNTmg
+ lN/YjGOL2cQD2pBvjkVplrjXVrxInVnnF2Xleik29yPslQ5+X3LfEK/jvthhoT4OFUz3
+ nrluM+HbuILWcMACk5XSjiac/Ftcx+OLzxDUolnL2A4G83ydpXli7/sEW4b33xebt5H1
+ EMapzZ1NAzo/UZZzUB7OBj9hBzGk3gX7TeEbDAiLLX3vxpNOt24p74CgwTKfeqF2z4mR
+ S6lMo/bNh3xYTLdAJNelxtolX79ppJkpViu6KwVSbhu4yvSL4u46sIYW8Fw5ABUMKvja
+ snfw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWkrpnhGC7Q45+bh5sPDduLaLHHcwTw4FspuyiYxyEycrVzM/sZn+pdtr6s/A0hhSGdm7RVgHzB+Es=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yz1jCqid3OgOj26wyrC4mF8+KSRT4Oik3A9cY34ZgOLaOxZLMFP
+ /t+Tx3yazSocA6lnQdGV2XgdPyYcifYwyuGIkcZd7NB2q96JMq8hGYfkP2ZxgrpSOe4eUPZAQg5
+ yYB7biXVdpK8isATnB5UmpyqIZWciRgw=
+X-Gm-Gg: ATEYQzzxst5yLHg7T3IAn6spC8KXvn9soZL5NrbUuA81yaeDKZsnpDHjfQ7fHNQgI0b
+ IwXz2je94995U6Mh+eh4HEzB4EUbsXP1FeHVDnkqlAXtSdxP/vUp6lQa1DK2NxS8MWlxHFrGhhV
+ kr0guHmcdR3GSuUMEIwc1wnv83MJpQE4tWesUEZ2HV+zovebpa8o1D9VPQBVeZO4fVV557HojYX
+ eliXavOEc7XciCq0ylHFy+LDFDwQ5lLYSAzEd7eu74q+9p5R6Gbe+B9oVcNHIwUlZmLjlcl5jm4
+ yufYjqq4RTfcnQgObY9WP/izBUTRcHfJyyAqv+rH
+X-Received: by 2002:a05:7022:6987:b0:128:ca83:5aa1 with SMTP id
+ a92af1059eb24-12be649ca84mr651704c88.16.1774992326852; Tue, 31 Mar 2026
+ 14:25:26 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB6486:EE_|SA3PR12MB8809:EE_
-X-MS-Office365-Filtering-Correlation-Id: bd478f39-0c0c-4bee-30cc-08de8f6b8279
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|366016|7416014|1800799024|22082099003|56012099003|18002099003;
-X-Microsoft-Antispam-Message-Info: 0e2eyqpGqUhMF+UW4V9pTjoAG6W4HViUZjrMwNDZmNFyZ7T/VNpSemr6gBjtoH9c0fFwLuHwct/13/WGGqnoDhvZEr696hKFrKFoGe7ZnBsd+lYXPhxgXp8ZTba91Ao2HX+y6TZ1PkKHvERb/6RsB8X4KhZEQ7BJyOrG+8DHmsKZMOqwLJvZGcZMjw/FUt5VHIeINm53cj7SG1jf38i01J/DbG8cLmKJ0tKl68mvl1wbLV1cKqTH4BrVQ8owWvu7LAbJIzSvya6aJP6l4Ag0tg0+KpzGV4rQQJnGPCYMRtVfv4wVwlQwa2iOqnnldiR2aoBhm8/dMNKMkiR6EeDg1ONHjXU234I03qxnDfbwO1mYT5aM20TWugTXtbxHFBoctELRFNJUHSNMOVdbT1HIaySleat29Ia8338r9hQE6vVdReClutMOKEJ6XSdFINotEbZXabC31g85L3KpSJr4BYJGKtcO2BnvZfo1/ZR2Efg0/gusippnPYaBAOb4LqVgqnL4aSfKd/cU2iUDpBOrqYsP307Z6SRa1XrSpGS4W61Ce8YR7rQ6Q+arXl2T+yfkuqRbIn9qMSli8apWw8zy6LT4D4tkdWtr1ZrWN9I3toCMtRL3Wu9jIxbhsb/JUPdYKKubjXf4wk5rZ8uQ8PumshQzhdXcfLnZi1qQDpnClFLk3vV3AnzhuyIUqyCBzYXgJIcC+TqA2pjfnchV3DNsfDhyLx4bT0g+Axd8ls8Fe2c=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS0PR12MB6486.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(366016)(7416014)(1800799024)(22082099003)(56012099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?MhTdegMcNyR13REKJcTDZ1B9FNv6Hxctxd5RTCN1fawJ5XGfloPgng6c8yp7?=
- =?us-ascii?Q?FmMwvc8cWIv14XpOAunllK9GMY5B2PwLc01Q9oULJYQBO5K28ujlgOVujy1t?=
- =?us-ascii?Q?E0QI4tuqpp3pjrx8lH1+yYJMdMmILTjJWJFmJ52Gga09CVAKv/4GWDMmq9U/?=
- =?us-ascii?Q?bTavT4aH0rnpW87hmJlprV6cGEyEzyZW6DCKKhfkgkBuoYbxME+Ni7yJ48n/?=
- =?us-ascii?Q?4IUUzMJldnlgBVLcoKXBiNWWRtf/d5ImzJW4Z6SKK7/IjAe5638tdv1csLvC?=
- =?us-ascii?Q?L+ZDNIWK/nLKTJJm2bY817DDJt7wtGOGctUGm6vo0AgRFIh9yJKjkTKF0ZBw?=
- =?us-ascii?Q?nx1EuKsiU8rieA+bzoeX6jiDyhgC9d1DUqIkV0qBgi32TuciP3YfhlOsqK2m?=
- =?us-ascii?Q?EFL/yDbPfCPwtMrWsKsM4xffC3QO9zRl5WgkHoQMRD1voabwKOG1s4thCe52?=
- =?us-ascii?Q?yD3aRJMPRovpBmH+CL5FCSuOEzDAWhIcAj6fFO3HBni8Yfn9DR8f1EAH3VC6?=
- =?us-ascii?Q?5etKghOsxhT5e67JvWylULwzJuWL2T0rbcLe3ytdY1w4hICZSbaWkVmcTUvu?=
- =?us-ascii?Q?C4Og4cLfEOzvg2verLkpFjaPxBnbcUVSUspN8YRDCO6eDy9SuwYNrz+6fiIy?=
- =?us-ascii?Q?8yaTfKq2MubDErUNg9JAPjUR30wumQxhy5rrUuGzcEjhFb2crZybEn7m2OUl?=
- =?us-ascii?Q?zRWqxQTqyq/8wfNq3r3/WVEnYKYl9BXyN/5iSLvDkCWyIS/vL7o15BARXp3a?=
- =?us-ascii?Q?altGrbVMSU/QAgMvvMWCau2j3yn/TO0nZaqJWTP/1Knud4ui1lLYj2ilCbI8?=
- =?us-ascii?Q?novlWG8og3D1eerxqm+XNfU6JoLTjrd4ROedWAQt7V2H7H8caAQE6Im/Cgcm?=
- =?us-ascii?Q?6MqEwQre43tcg9u/DZiEIipSeWi/+4QVic0nzNHfsQ5eocK7RJu7iv8YDusp?=
- =?us-ascii?Q?FobbXUB8dtC9WHeq6R4xEnzG+mN8zUbXWnNoSS24jZY6fOIMHK+TV1c1VEhW?=
- =?us-ascii?Q?9iUPC3ivzXWUgWYFtx+P9n7TgO+RoA+LIPRvSrl6qgiCZYdSWtepoTgsEHY4?=
- =?us-ascii?Q?ict3Vpth2+3LbGaG39iqmxMD5AyhJipm0Unpj1DFzFrvpQb+AdJQkMyHPs3M?=
- =?us-ascii?Q?1eSEtGPtm6SdUVaYOzyUqZ893SG9qQtPcbFQ5K5wlcP9qcFluIOf/7mXD+V3?=
- =?us-ascii?Q?ZGVr3//dShEtIHphTfJzyT/NdIxzFq7XZEaSAzmEKKiQcR+d2CfgsdQ514AF?=
- =?us-ascii?Q?KaQEXUuEE55PHHO90DBz+PuXU8yobazCxLDrnwqyOpglYANTmvnOuB2f/LI8?=
- =?us-ascii?Q?fF907PzhNBGdFr+l+aEAXXnp6NM1TWS0fEopCdwYwP6kK1BWsbCd41NNgdRC?=
- =?us-ascii?Q?NDZHiH95Q3Cq7kLeA2D+DQ4HF7TvcOWA7Mih/N/kIAdhWoWwPkA3UYisSUuV?=
- =?us-ascii?Q?SF53VuM8OBDgafBm8dj9K7W1Zk/dB4lFRnyzJefXXzLaPUS0L3UiouE9iUt+?=
- =?us-ascii?Q?srh921MoQgE9k+tPmeHquNaTY83TCJfNFmw+G7L6ZFCfitoc2MKQANvY4w9Q?=
- =?us-ascii?Q?owa2R8vbxkun6DKWZdJ68h4StDqyK44a0n5RXSIv3GxwB0rRo7/jGztmanBq?=
- =?us-ascii?Q?s8z3+WijAaNYtguFKTw0zFN7OxZbeZhC52LB8JL0Zxi2Fp3eiG84btEbwjnv?=
- =?us-ascii?Q?mpYDjeEf7JQ2DEIoA6bWsVKG0mIelEneXkmV3Nrz8ZgZvm9fOhVkgJ6RNm3U?=
- =?us-ascii?Q?OJZnEtpH7w=3D=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: bd478f39-0c0c-4bee-30cc-08de8f6b8279
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6486.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Mar 2026 21:21:44.7946 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: SScsIP4hjsJmvtPNpv8Qwk5GVRj5B9bfVYhacI/9ENvoH7FW+cc94rkRld4j63baeh6WdjC2LSTXsoC9JwCw6w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB8809
+References: <20260321052033.23472-1-mario.kleiner.de@gmail.com>
+ <DM4PR12MB521342239D4CF694B4A68E0AE64AA@DM4PR12MB5213.namprd12.prod.outlook.com>
+ <CAEsyxyiCN6KmyDBGZBJYKv+wt6w6j5QdUfTa1zJojAQ20V84xg@mail.gmail.com>
+ <d6e190eb-4843-43ab-9706-fadabde9cbce@mailbox.org>
+ <78da9dfc-561f-487c-8b68-0ea408819225@amd.com>
+ <3d669989-fcb2-44b4-9c17-9ae3db0b6f14@mailbox.org>
+ <CAEsyxyie_2Tr9_3vqz3N=_9u=Z1b4SqBGMcptKW454XH5ZEsQw@mail.gmail.com>
+ <220ec077-3187-457e-b42a-7b2bd87528f6@amd.com>
+In-Reply-To: <220ec077-3187-457e-b42a-7b2bd87528f6@amd.com>
+From: Mario Kleiner <mario.kleiner.de@gmail.com>
+Date: Tue, 31 Mar 2026 23:24:49 +0200
+X-Gm-Features: AQROBzBHWVFUsPLoXaBf7RRWqL7r70mbphe3rcN6urpAHwoTn5UJxbjgRylS-48
+Message-ID: <CAEsyxyiuzpd3Ykd7YFGiBDNJ8oFmSTHLXOSs1EqQOsVTn5a7bA@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/display: Change dither policy for 10 bpc output
+ back to dithering
+To: "Kovac, Krunoslav" <kkovac@amd.com>
+Cc: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>, 
+ Harry Wentland <harry.wentland@amd.com>, "Kovac,
+ Krunoslav" <Krunoslav.Kovac@amd.com>, 
+ "Cyr, Aric" <Aric.Cyr@amd.com>, "Koo, Anthony" <Anthony.Koo@amd.com>, 
+ "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>, 
+ dri-devel <dri-devel@lists.freedesktop.org>
+Content-Type: multipart/alternative; boundary="0000000000001f0373064e589be7"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -159,258 +115,579 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add self-tests for the PRAMIN aperture mechanism to verify correct
-operation during GPU probe. The tests validate various alignment
-requirements and corner cases.
+--0000000000001f0373064e589be7
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The tests are default disabled and behind CONFIG_NOVA_MM_SELFTESTS.
-When enabled, tests run after GSP boot during probe.
+On Tue, Mar 31, 2026 at 11:06=E2=80=AFPM Kovac, Krunoslav <kkovac@amd.com> =
+wrote:
 
-Cc: Nikola Djukic <ndjukic@nvidia.com>
-Signed-off-by: Joel Fernandes <joelagnelf@nvidia.com>
----
- drivers/gpu/nova-core/gpu.rs       |   3 +
- drivers/gpu/nova-core/mm/pramin.rs | 209 +++++++++++++++++++++++++++++
- 2 files changed, 212 insertions(+)
+> On 3/31/2026 16:13, Mario Kleiner wrote:
+> > To clarify: I do agree with Michel and Kruno that in most typical use
+> cases
+> > you'd probably want to get all or as much of the internal HW pipelines
+> > precision as possible to the Eyes of the person in front of the display=
+,
+> or
+> > at least an approximation of it. My understanding of current AMD hardwa=
+re
+> > is that you can have an up to 16 bpc framebuffer, which gets
+> > truncated/rounded down to 12 bpc somewhere in the pipeline (gamma table=
+s,
+> > color transformation matrices, etc.) and then retained at 12 bpc until
+> > shortly before the actual output, which can be 6, 8, 10 or 12 bpc
+> depending
+> > on connection type, bandwidth, "max bpc" etc.
+>
+> At the start of the pipeline we immediately go into a 19bpc space. Except
+> around 3DLUT, all color processing happens at this precision.
+> It's near the end of the color pipeline that we go from 19 to 12 in a
+> block called DENORM. Other than some specialized ABM block, we then go in=
+to
+> FMT that does 12 -> monitor bpc.
+>
 
-diff --git a/drivers/gpu/nova-core/gpu.rs b/drivers/gpu/nova-core/gpu.rs
-index 021fc7cc7247..8206ec015b26 100644
---- a/drivers/gpu/nova-core/gpu.rs
-+++ b/drivers/gpu/nova-core/gpu.rs
-@@ -355,6 +355,9 @@ pub(crate) fn run_selftests(
-     fn run_mm_selftests(self: Pin<&mut Self>, pdev: &pci::Device<device::Bound>) -> Result {
-         use crate::driver::BAR1_SIZE;
- 
-+        // PRAMIN aperture self-tests.
-+        crate::mm::pramin::run_self_test(pdev.as_ref(), self.mm.pramin(), self.spec.chipset)?;
-+
-         // BAR1 self-tests.
-         let bar1 = Arc::pin_init(
-             pdev.iomap_region_sized::<BAR1_SIZE>(1, c"nova-core/bar1"),
-diff --git a/drivers/gpu/nova-core/mm/pramin.rs b/drivers/gpu/nova-core/mm/pramin.rs
-index fde0eb30eaeb..059d00c49611 100644
---- a/drivers/gpu/nova-core/mm/pramin.rs
-+++ b/drivers/gpu/nova-core/mm/pramin.rs
-@@ -180,6 +180,11 @@ pub(crate) fn new(
-         }))
-     }
- 
-+    /// Returns the valid VRAM region for this PRAMIN instance.
-+    pub(crate) fn vram_region(&self) -> &Range<u64> {
-+        &self.vram_region
-+    }
-+
-     /// Acquire exclusive PRAMIN access.
-     ///
-     /// Returns a [`PraminWindow`] guard that provides VRAM read/write accessors.
-@@ -278,3 +283,207 @@ fn compute_window(
-     define_pramin_write!(try_write32, u32);
-     define_pramin_write!(try_write64, u64);
- }
-+
-+/// Offset within the VRAM region to use as the self-test area.
-+#[cfg(CONFIG_NOVA_MM_SELFTESTS)]
-+const SELFTEST_REGION_OFFSET: usize = 0x1000;
-+
-+/// Test read/write at byte-aligned locations.
-+#[cfg(CONFIG_NOVA_MM_SELFTESTS)]
-+fn test_byte_readwrite(
-+    dev: &kernel::device::Device,
-+    win: &mut PraminWindow<'_>,
-+    base: usize,
-+) -> Result {
-+    for i in 0u8..4 {
-+        let offset = base + 1 + usize::from(i);
-+        let val = 0xA0 + i;
-+        win.try_write8(offset, val)?;
-+        let read_val = win.try_read8(offset)?;
-+        if read_val != val {
-+            dev_err!(
-+                dev,
-+                "PRAMIN: FAIL - offset {:#x}: wrote {:#x}, read {:#x}\n",
-+                offset,
-+                val,
-+                read_val
-+            );
-+            return Err(EIO);
-+        }
-+    }
-+    Ok(())
-+}
-+
-+/// Test writing a `u32` and reading back as individual `u8`s.
-+#[cfg(CONFIG_NOVA_MM_SELFTESTS)]
-+fn test_u32_as_bytes(
-+    dev: &kernel::device::Device,
-+    win: &mut PraminWindow<'_>,
-+    base: usize,
-+) -> Result {
-+    let offset = base + 0x10;
-+    let val: u32 = 0xDEADBEEF;
-+    win.try_write32(offset, val)?;
-+
-+    // Read back as individual bytes (little-endian: EF BE AD DE).
-+    let expected_bytes: [u8; 4] = [0xEF, 0xBE, 0xAD, 0xDE];
-+    for (i, &expected) in expected_bytes.iter().enumerate() {
-+        let read_val = win.try_read8(offset + i)?;
-+        if read_val != expected {
-+            dev_err!(
-+                dev,
-+                "PRAMIN: FAIL - offset {:#x}: expected {:#x}, read {:#x}\n",
-+                offset + i,
-+                expected,
-+                read_val
-+            );
-+            return Err(EIO);
-+        }
-+    }
-+    Ok(())
-+}
-+
-+/// Test window repositioning across 1MB boundaries.
-+#[cfg(CONFIG_NOVA_MM_SELFTESTS)]
-+fn test_window_reposition(
-+    dev: &kernel::device::Device,
-+    win: &mut PraminWindow<'_>,
-+    base: usize,
-+) -> Result {
-+    let offset_a: usize = base;
-+    let offset_b: usize = base + 0x200000; // base + 2MB (different 1MB region).
-+    let val_a: u32 = 0x11111111;
-+    let val_b: u32 = 0x22222222;
-+
-+    win.try_write32(offset_a, val_a)?;
-+    win.try_write32(offset_b, val_b)?;
-+
-+    let read_b = win.try_read32(offset_b)?;
-+    if read_b != val_b {
-+        dev_err!(
-+            dev,
-+            "PRAMIN: FAIL - offset {:#x}: expected {:#x}, read {:#x}\n",
-+            offset_b,
-+            val_b,
-+            read_b
-+        );
-+        return Err(EIO);
-+    }
-+
-+    let read_a = win.try_read32(offset_a)?;
-+    if read_a != val_a {
-+        dev_err!(
-+            dev,
-+            "PRAMIN: FAIL - offset {:#x}: expected {:#x}, read {:#x}\n",
-+            offset_a,
-+            val_a,
-+            read_a
-+        );
-+        return Err(EIO);
-+    }
-+    Ok(())
-+}
-+
-+/// Test that offsets outside the VRAM region are rejected.
-+#[cfg(CONFIG_NOVA_MM_SELFTESTS)]
-+fn test_invalid_offset(
-+    dev: &kernel::device::Device,
-+    win: &mut PraminWindow<'_>,
-+    vram_end: u64,
-+) -> Result {
-+    let invalid_offset: usize = vram_end.into_safe_cast();
-+    let result = win.try_read32(invalid_offset);
-+    if result.is_ok() {
-+        dev_err!(
-+            dev,
-+            "PRAMIN: FAIL - read at invalid offset {:#x} should have failed\n",
-+            invalid_offset
-+        );
-+        return Err(EIO);
-+    }
-+    Ok(())
-+}
-+
-+/// Test that misaligned multi-byte accesses are rejected.
-+#[cfg(CONFIG_NOVA_MM_SELFTESTS)]
-+fn test_misaligned_access(
-+    dev: &kernel::device::Device,
-+    win: &mut PraminWindow<'_>,
-+    base: usize,
-+) -> Result {
-+    // `u16` at odd offset (not 2-byte aligned).
-+    let offset_u16 = base + 0x21;
-+    if win.try_write16(offset_u16, 0xABCD).is_ok() {
-+        dev_err!(
-+            dev,
-+            "PRAMIN: FAIL - misaligned u16 write at {:#x} should have failed\n",
-+            offset_u16
-+        );
-+        return Err(EIO);
-+    }
-+
-+    // `u32` at 2-byte-aligned (not 4-byte-aligned) offset.
-+    let offset_u32 = base + 0x32;
-+    if win.try_write32(offset_u32, 0x12345678).is_ok() {
-+        dev_err!(
-+            dev,
-+            "PRAMIN: FAIL - misaligned u32 write at {:#x} should have failed\n",
-+            offset_u32
-+        );
-+        return Err(EIO);
-+    }
-+
-+    // `u64` read at 4-byte-aligned (not 8-byte-aligned) offset.
-+    let offset_u64 = base + 0x44;
-+    if win.try_read64(offset_u64).is_ok() {
-+        dev_err!(
-+            dev,
-+            "PRAMIN: FAIL - misaligned u64 read at {:#x} should have failed\n",
-+            offset_u64
-+        );
-+        return Err(EIO);
-+    }
-+    Ok(())
-+}
-+
-+/// Run PRAMIN self-tests during boot if self-tests are enabled.
-+#[cfg(CONFIG_NOVA_MM_SELFTESTS)]
-+pub(crate) fn run_self_test(
-+    dev: &kernel::device::Device,
-+    pramin: &Pramin,
-+    chipset: crate::gpu::Chipset,
-+) -> Result {
-+    use crate::gpu::Architecture;
-+
-+    // PRAMIN uses NV_PBUS_BAR0_WINDOW which is only available on pre-Hopper GPUs.
-+    // Hopper+ uses NV_XAL_EP_BAR0_WINDOW instead, requiring a separate HAL that
-+    // has not been implemented yet.
-+    if !matches!(
-+        chipset.arch(),
-+        Architecture::Turing | Architecture::Ampere | Architecture::Ada
-+    ) {
-+        dev_info!(
-+            dev,
-+            "PRAMIN: Skipping self-tests for {:?} (only pre-Hopper supported)\n",
-+            chipset
-+        );
-+        return Ok(());
-+    }
-+
-+    dev_info!(dev, "PRAMIN: Starting self-test...\n");
-+
-+    let vram_region = pramin.vram_region();
-+    let base: usize = vram_region.start.into_safe_cast();
-+    let base = base + SELFTEST_REGION_OFFSET;
-+    let vram_end = vram_region.end;
-+    let mut win = pramin.get_window()?;
-+
-+    test_byte_readwrite(dev, &mut win, base)?;
-+    test_u32_as_bytes(dev, &mut win, base)?;
-+    test_window_reposition(dev, &mut win, base)?;
-+    test_invalid_offset(dev, &mut win, vram_end)?;
-+    test_misaligned_access(dev, &mut win, base)?;
-+
-+    dev_info!(dev, "PRAMIN: All self-tests PASSED\n");
-+    Ok(())
-+}
--- 
-2.34.1
+Interesting new info, good to know.
 
+
+> I didn't see any difference with my capture HW for 8bpc->8bpc either, so =
+I
+> left spatial dithering as default. There's enough extra precision that
+> apparently it doesn't matter here.
+>
+
+Yes, that satisfies both the high precision and identity passthrough use
+cases.
+
+
+>
+> Maybe your case always has an FP16 plane, say compositing space?
+>
+
+It all depends on the application. My software is not a single purpose
+self-contained app, but a toolkit - a set of extensions for
+Matlab/Octave/Python with many wildly different use cases and requirements.
+Think of it as SDL, but tailored to neuroscience research and related
+bio-medical research, and for scientists with usually only basic
+programming skills (Matlab scripting language or Python). Can be 8 bpc SDR,
+10 bpc SDR or HDR, effective ~11 bpc unorm SDR (hw that can do fp16
+surfaces but not rgba16 unorm) 12 bpc (AMD hw with rgba16unorm framebuffer
+-> native 12 bpc or dithered 12 bpc) SDR/HDR, 14 bpc or 16 bpc SDR on
+special (and very expensive) neuroscience display equipment. For high
+precision modes, the software often uses fp32 "framebuffers" and its own
+composition pipeline with various GLSL shader plugins for post-processing,
+then outputting to the actual 8/10/fp16/16bpc framebuffer via OpenGL or
+Vulkan or OpenXR for VR applications. So it's difficult to explain the
+specific use case, because there isn't a specific use case.
+
+
+> > If the final output depth is lower than 12 bpc one would usually still
+> want
+> > an approximation of 12 bpc reaching the "eyes" of the person
+> > (/animal/retina in some of the use cases of my research users) in front
+> of
+> > the display, and spatial dithering down from 12 bpc -> 10/8/6 bpc is th=
+e
+> > way to go. That's also true for most of my users use cases, and
+> especially
+> > for the use cases involving 16 bpc framebuffers/surfaces.
+> >
+> > Some more special use cases will require an absolutely perfect identity
+> > passthrough of pixel color values, where any kind of transformation in
+> the
+> > pipeline, including spatial dithering, would be bad. Some of your
+> customers
+> > seem to require this for 10 bpc output. Some of my users require this
+> for 8
+> > bpc output of a 8 bpc framebuffer. Specifically, some neuroscience
+> research
+> > requires up to 16 bpc color or luminance precision, but all graphics
+> cards
+> > and normal displays max out at 12 bpc. There exist special display
+> devices
+> > and converters that can do up to 16 bpc precision (native or via some
+> form
+> > of spatial or temporal dithering), e.g., the Bits# or Display++ from
+> > Cambridge Research Systems (UK) and Datapixx, ViewPixx and ProPixx
+> devices
+> > from VPixx in Canada. These are essentially active DVI-D or DisplayPort=
+ 8
+> > bpc to 14 bpc or 16 bpc VGA analog converters with 14 or 16 DAC's, or
+> > special purpose LCD panels or DLP video projectors which can do 14/16 b=
+pc
+> > precision. Because commercially available gpu's and PHY's do not suppor=
+t
+> > true 16 bpc output (the DP and HDMI standards specify such signal
+> formats,
+> > but no actual transmitter hardware afaik), these devices encode 16 bpc
+> > color content on top of a 8 bpc framebuffer and link: The software
+> renders
+> > 16 bpc unorm/fp or 32 bpc float content and then uses GLSL shaders to
+> split
+> > up 16 bpc into 8 MSB and 8 LSB and puts the 8 MSB into the 8 bpc red
+> > channel and 8 LSB into the 8 bpc blue channel (and 8 bpc color index
+> > overlay into the 8 bpc blue channel) to false-color encode a pure
+> grayscale
+> > image + some 256 color index palette overlay. Or for true color images,
+> it
+> > sacrifices half the horizontal resolution by putting 8 MSB of each colo=
+r
+> > channel into the even pixel columns, and the 8 LSB into the odd pixel
+> > columns. So a false color 8 rgb8 framebuffer -> pixel identity
+> passthrough
+> > -> 8 bpc link output via DVI-D or DP, and the video sink then decodes a=
+nd
+> > reassembles again into 16 bpc color/luminance content and uses special
+> > display hardware to these 16 bpc into the eyes of the being in front of
+> the
+> > display. Some medical imaging displays, e.g., for Radiology use (e.g.,
+> > cancer screening) in hospitals or at eye doctors, also use such special
+> > framebuffer encodings to get > 12 bpc content out of the gpu Siemens
+> > Medical and similar companies sell these for research and medical use.
+> >
+> > Another use case of my users requiring perfect pixel identity passthrou=
+gh
+> > is to encode side-band signals into the scanlines of the vactive area o=
+f
+> an
+> > image, encoding binary control data and packets as false color pixel
+> > values, similar to the various info packets transmitted inside vblank.
+> This
+> > for control data that is very custom and not standardized in any Vesa o=
+r
+> > HDMI standard, e.g., in my case to control special neuroscience hardwar=
+e,
+> > e.g., sound microsecond synchronized to pictures, sending various analo=
+g
+> > waveforms to electrophysiology equipment or haptic stimulation, or
+> digital
+> > trigger signals to transmagnetic stimulators (magnetic pulses to brain
+> > regions), or start/stop/synchronize various recording equipment (fMRI a=
+nd
+> > MEG scanners, electrophysiological recordings, video capture etc.)
+> >
+> > For the pixel identity passthrough, the difference is that I only need =
+it
+> > for 8 bpc framebuffers to 8 bpc (DVI-D or DP) outputs atm., and that
+> works
+> > fine under OpenGL with an identity gamma table loaded, despite spatial
+> > dithering down to 8 bpc active. Right now, I neither have the need nor
+> the
+> > equipment to verify 10 bpc identity passthrough, as my capture hw can
+> only
+> > process 8 bpc signals.
+> >
+> > I don't think there is an automated way for the driver to guess the
+> proper
+> > configuration in all cases. The proper solution would be a drm connecto=
+r
+> > property that can be queried/set to control dithering
+> on/off/method/target
+> > depth, and plumb that through. Or maybe something that could be derived
+> > from existing connector properties? E.g., if a content property has
+> > something standardized that essentially requires identity passthrough? =
+In
+> > my case, it is important that such settings still fully work under nati=
+ve
+> > X11 via RandR properties. Something that is only realistically accessib=
+le
+> > via an atomic client or Wayland server is insufficient for me.
+> >
+> > So yes, as Michel points out, there is a disconnect between the
+> framebuffer
+> > color depth and hw pipeline depth and what dither settings should be
+> used.
+> > But Harry's patch, if it worked, would be at least a good enough
+> > guess-o-matic or heuristic to make the situation better in the short
+> > term, even if it is not optimal. Or at least for my users use cases it
+> > would make it better, as for my use cases the framebuffer color depth
+> > usually corresponds to what my users need as effective output precision=
+.
+> > For me there is also the urgency of wanting to have a not broken
+> situation
+> > for Linux 7.0 and upcoming Ubuntu 26.04-LTS / Fedora Core 44. If I have
+> the
+> > choice of having the current state, or this patch, I'd gladly have this
+> > patch as a step up.
+> >
+> > I hoped this patch would be still simple and contained and early enough=
+,
+> to
+> > make it into drm-fixes for Linux 7.0, and maybe be backportable to olde=
+r
+> > kernels, as all kernels since late 2023 are impaired from my use cases
+> > point of view. But as I said, my testing didn't confirm the patch is
+> > actually working - it always ends up enabling dithering. Which, to be
+> > sneaky, would also be a step up for me, as that "only" breaks use cases
+> > that don't affect my users specifically :/
+> >
+> > On Tue, Mar 31, 2026 at 9:16=E2=80=AFAM Michel D=C3=A4nzer <
+> michel.daenzer@mailbox.org>
+> > wrote:
+> >
+> >> On 3/30/26 19:36, Harry Wentland wrote:
+> >>> On 2026-03-30 12:20, Michel D=C3=A4nzer wrote:
+> >>>> On 3/24/26 20:20, Mario Kleiner wrote:
+> >>>>> On Sun, Mar 22, 2026 at 7:11=E2=80=AFPM Kovac, Krunoslav <
+> >> Krunoslav.Kovac@amd.com <mailto:Krunoslav.Kovac@amd.com>> wrote:
+> >>>
+> >>>>>>      I believe we don't have surface info in that code, but one wa=
+y
+> to
+> >> work around it would be to use spatial dithering for FP16/ARGB16 and
+> >> rounding for 10 bits. But if we just switch to spatial, some of the
+> earlier
+> >> complaints about 10-bit output having one-off bit errors will be comin=
+g
+> >> back.
+> >>>>>
+> >>>>> Looking at all callers of
+> resource_build_bit_depth_reduction_params(),
+> >> they all have access to the associated "struct pipe_ctx", which should
+> give
+> >> access to pipe_ctx ->plane_state->format of an associated display
+> plane. I
+> >> could prepare a patch that passes the pipe_ctx from each caller
+> >> into resource_build_bit_depth_reduction_params() and that function cou=
+ld
+> >> check if a 16 bpc framebuffer is in use and switch to spatial ditherin=
+g
+> >> down-to-10-bpc in this case, and leave the rounding/truncation to 10 b=
+pc
+> >> otherwise.
+> >>>>
+> >>>> That doesn't really make sense, the output of the display HW colour
+> >> pipeline has more than 10 bpc regardless of framebuffer format.
+> >>>>
+> >>>
+> >>> The output will be determined by the link bandwidth, display-advertis=
+ed
+> >> supported bpc, and userspace-selected "max bpc" on a drm_connector. Th=
+is
+> >> could very well be 10 bpc, 8 bpc, even 6 bpc. Or are you referring to
+> the
+> >> internal DCN HW representation of the values?
+> >>
+> >> I am indeed.
+> >>
+> >>> They're higher, but that's somewhat irrelevant.
+> >>
+> >> How so? Surely dithering is applied to those values, not to the origin=
+al
+> >> values sampled from the framebuffer.
+> >>
+> >>
+> >> --
+> >> Earthling Michel D=C3=A4nzer       \        GNOME / Xwayland / Mesa de=
+veloper
+> >> https://redhat.com             \               Libre software
+> enthusiast
+> >>
+> >
+>
+>
+
+--0000000000001f0373064e589be7
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"><br></div><br><div class=3D"gmail_quote g=
+mail_quote_container"><div dir=3D"ltr" class=3D"gmail_attr">On Tue, Mar 31,=
+ 2026 at 11:06=E2=80=AFPM Kovac, Krunoslav &lt;<a href=3D"mailto:kkovac@amd=
+.com">kkovac@amd.com</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quo=
+te" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204=
+);padding-left:1ex">On 3/31/2026 16:13, Mario Kleiner wrote:<br>
+&gt; To clarify: I do agree with Michel and Kruno that in most typical use =
+cases<br>
+&gt; you&#39;d probably want to get all or as much of the internal HW pipel=
+ines<br>
+&gt; precision as possible to the Eyes of the person in front of the displa=
+y, or<br>
+&gt; at least an approximation of it. My understanding of current AMD hardw=
+are<br>
+&gt; is that you can have an up to 16 bpc framebuffer, which gets<br>
+&gt; truncated/rounded down to 12 bpc somewhere in the pipeline (gamma tabl=
+es,<br>
+&gt; color transformation matrices, etc.) and then retained at 12 bpc until=
+<br>
+&gt; shortly before the actual output, which can be 6, 8, 10 or 12 bpc depe=
+nding<br>
+&gt; on connection type, bandwidth, &quot;max bpc&quot; etc.<br>
+<br>
+At the start of the pipeline we immediately go into a 19bpc space. Except a=
+round 3DLUT, all color processing happens at this precision.<br>
+It&#39;s near the end of the color pipeline that we go from 19 to 12 in a b=
+lock called DENORM. Other than some specialized ABM block, we then go into =
+FMT that does 12 -&gt; monitor bpc.<br></blockquote><div><br></div><div>Int=
+eresting new info, good to know.</div><div><br></div><blockquote class=3D"g=
+mail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204=
+,204,204);padding-left:1ex">
+<br>
+I didn&#39;t see any difference with my capture HW for 8bpc-&gt;8bpc either=
+, so I left spatial dithering as default. There&#39;s enough extra precisio=
+n that apparently it doesn&#39;t matter here.<br></blockquote><div><br></di=
+v><div>Yes, that satisfies both the high precision and identity passthrough=
+ use cases.</div><div>=C2=A0</div><blockquote class=3D"gmail_quote" style=
+=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding=
+-left:1ex">
+<br>
+Maybe your case always has an FP16 plane, say compositing space?<br></block=
+quote><div><br></div><div>It all depends on the application. My software is=
+ not a single purpose self-contained app, but a toolkit - a set of extensio=
+ns for Matlab/Octave/Python with many wildly different use cases and requir=
+ements. Think of it as SDL, but tailored to neuroscience research and relat=
+ed bio-medical research, and for scientists with usually only basic program=
+ming skills (Matlab scripting language or Python). Can be 8 bpc SDR, 10 bpc=
+ SDR or HDR, effective ~11 bpc unorm SDR (hw that can do fp16 surfaces but =
+not rgba16 unorm) 12 bpc (AMD hw with rgba16unorm framebuffer -&gt; native =
+12 bpc or dithered 12 bpc) SDR/HDR, 14 bpc or 16 bpc SDR on special (and ve=
+ry expensive) neuroscience display equipment. For high precision modes, the=
+ software often uses fp32 &quot;framebuffers&quot; and its own composition =
+pipeline with various GLSL shader plugins for post-processing, then outputt=
+ing to the actual 8/10/fp16/16bpc framebuffer via OpenGL or Vulkan or OpenX=
+R for VR applications. So it&#39;s difficult to explain the specific use ca=
+se, because there isn&#39;t a specific use case.</div><div><br></div><block=
+quote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1=
+px solid rgb(204,204,204);padding-left:1ex">
+<br>
+&gt; If the final output depth is lower than 12 bpc one would usually still=
+ want<br>
+&gt; an approximation of 12 bpc reaching the &quot;eyes&quot; of the person=
+<br>
+&gt; (/animal/retina in some of the use cases of my research users) in fron=
+t of<br>
+&gt; the display, and spatial dithering down from 12 bpc -&gt; 10/8/6 bpc i=
+s the<br>
+&gt; way to go. That&#39;s also true for most of my users use cases, and es=
+pecially<br>
+&gt; for the use cases involving 16 bpc framebuffers/surfaces.<br>
+&gt; <br>
+&gt; Some more special use cases will require an absolutely perfect identit=
+y<br>
+&gt; passthrough of pixel color values, where any kind of transformation in=
+ the<br>
+&gt; pipeline, including spatial dithering, would be bad. Some of your cust=
+omers<br>
+&gt; seem to require this for 10 bpc output. Some of my users require this =
+for 8<br>
+&gt; bpc output of a 8 bpc framebuffer. Specifically, some neuroscience res=
+earch<br>
+&gt; requires up to 16 bpc color or luminance precision, but all graphics c=
+ards<br>
+&gt; and normal displays max out at 12 bpc. There exist special display dev=
+ices<br>
+&gt; and converters that can do up to 16 bpc precision (native or via some =
+form<br>
+&gt; of spatial or temporal dithering), e.g., the Bits# or Display++ from<b=
+r>
+&gt; Cambridge Research Systems (UK) and Datapixx, ViewPixx and ProPixx dev=
+ices<br>
+&gt; from VPixx in Canada. These are essentially active DVI-D or DisplayPor=
+t 8<br>
+&gt; bpc to 14 bpc or 16 bpc VGA analog converters with 14 or 16 DAC&#39;s,=
+ or<br>
+&gt; special purpose LCD panels or DLP video projectors which can do 14/16 =
+bpc<br>
+&gt; precision. Because commercially available gpu&#39;s and PHY&#39;s do n=
+ot support<br>
+&gt; true 16 bpc output (the DP and HDMI standards specify such signal form=
+ats,<br>
+&gt; but no actual transmitter hardware afaik), these devices encode 16 bpc=
+<br>
+&gt; color content on top of a 8 bpc framebuffer and link: The software ren=
+ders<br>
+&gt; 16 bpc unorm/fp or 32 bpc float content and then uses GLSL shaders to =
+split<br>
+&gt; up 16 bpc into 8 MSB and 8 LSB and puts the 8 MSB into the 8 bpc red<b=
+r>
+&gt; channel and 8 LSB into the 8 bpc blue channel (and 8 bpc color index<b=
+r>
+&gt; overlay into the 8 bpc blue channel) to false-color encode a pure gray=
+scale<br>
+&gt; image + some 256 color index palette overlay. Or for true color images=
+, it<br>
+&gt; sacrifices half the horizontal resolution by putting 8 MSB of each col=
+or<br>
+&gt; channel into the even pixel columns, and the 8 LSB into the odd pixel<=
+br>
+&gt; columns. So a false color 8 rgb8 framebuffer -&gt; pixel identity pass=
+through<br>
+&gt; -&gt; 8 bpc link output via DVI-D or DP, and the video sink then decod=
+es and<br>
+&gt; reassembles again into 16 bpc color/luminance content and uses special=
+<br>
+&gt; display hardware to these 16 bpc into the eyes of the being in front o=
+f the<br>
+&gt; display. Some medical imaging displays, e.g., for Radiology use (e.g.,=
+<br>
+&gt; cancer screening) in hospitals or at eye doctors, also use such specia=
+l<br>
+&gt; framebuffer encodings to get &gt; 12 bpc content out of the gpu Siemen=
+s<br>
+&gt; Medical and similar companies sell these for research and medical use.=
+<br>
+&gt; <br>
+&gt; Another use case of my users requiring perfect pixel identity passthro=
+ugh<br>
+&gt; is to encode side-band signals into the scanlines of the vactive area =
+of an<br>
+&gt; image, encoding binary control data and packets as false color pixel<b=
+r>
+&gt; values, similar to the various info packets transmitted inside vblank.=
+ This<br>
+&gt; for control data that is very custom and not standardized in any Vesa =
+or<br>
+&gt; HDMI standard, e.g., in my case to control special neuroscience hardwa=
+re,<br>
+&gt; e.g., sound microsecond synchronized to pictures, sending various anal=
+og<br>
+&gt; waveforms to electrophysiology equipment or haptic stimulation, or dig=
+ital<br>
+&gt; trigger signals to transmagnetic stimulators (magnetic pulses to brain=
+<br>
+&gt; regions), or start/stop/synchronize various recording equipment (fMRI =
+and<br>
+&gt; MEG scanners, electrophysiological recordings, video capture etc.)<br>
+&gt; <br>
+&gt; For the pixel identity passthrough, the difference is that I only need=
+ it<br>
+&gt; for 8 bpc framebuffers to 8 bpc (DVI-D or DP) outputs atm., and that w=
+orks<br>
+&gt; fine under OpenGL with an identity gamma table loaded, despite spatial=
+<br>
+&gt; dithering down to 8 bpc active. Right now, I neither have the need nor=
+ the<br>
+&gt; equipment to verify 10 bpc identity passthrough, as my capture hw can =
+only<br>
+&gt; process 8 bpc signals.<br>
+&gt; <br>
+&gt; I don&#39;t think there is an automated way for the driver to guess th=
+e proper<br>
+&gt; configuration in all cases. The proper solution would be a drm connect=
+or<br>
+&gt; property that can be queried/set to control dithering on/off/method/ta=
+rget<br>
+&gt; depth, and plumb that through. Or maybe something that could be derive=
+d<br>
+&gt; from existing connector properties? E.g., if a content property has<br=
+>
+&gt; something standardized that essentially requires identity passthrough?=
+ In<br>
+&gt; my case, it is important that such settings still fully work under nat=
+ive<br>
+&gt; X11 via RandR properties. Something that is only realistically accessi=
+ble<br>
+&gt; via an atomic client or Wayland server is insufficient for me.<br>
+&gt; <br>
+&gt; So yes, as Michel points out, there is a disconnect between the frameb=
+uffer<br>
+&gt; color depth and hw pipeline depth and what dither settings should be u=
+sed.<br>
+&gt; But Harry&#39;s patch, if it worked, would be at least a good enough<b=
+r>
+&gt; guess-o-matic or heuristic to make the situation better in the short<b=
+r>
+&gt; term, even if it is not optimal. Or at least for my users use cases it=
+<br>
+&gt; would make it better, as for my use cases the framebuffer color depth<=
+br>
+&gt; usually corresponds to what my users need as effective output precisio=
+n.<br>
+&gt; For me there is also the urgency of wanting to have a not broken situa=
+tion<br>
+&gt; for Linux 7.0 and upcoming Ubuntu 26.04-LTS / Fedora Core 44. If I hav=
+e the<br>
+&gt; choice of having the current state, or this patch, I&#39;d gladly have=
+ this<br>
+&gt; patch as a step up.<br>
+&gt; <br>
+&gt; I hoped this patch would be still simple and contained and early enoug=
+h, to<br>
+&gt; make it into drm-fixes for Linux 7.0, and maybe be backportable to old=
+er<br>
+&gt; kernels, as all kernels since late 2023 are impaired from my use cases=
+<br>
+&gt; point of view. But as I said, my testing didn&#39;t confirm the patch =
+is<br>
+&gt; actually working - it always ends up enabling dithering. Which, to be<=
+br>
+&gt; sneaky, would also be a step up for me, as that &quot;only&quot; break=
+s use cases<br>
+&gt; that don&#39;t affect my users specifically :/<br>
+&gt; <br>
+&gt; On Tue, Mar 31, 2026 at 9:16=E2=80=AFAM Michel D=C3=A4nzer &lt;<a href=
+=3D"mailto:michel.daenzer@mailbox.org" target=3D"_blank">michel.daenzer@mai=
+lbox.org</a>&gt;<br>
+&gt; wrote:<br>
+&gt; <br>
+&gt;&gt; On 3/30/26 19:36, Harry Wentland wrote:<br>
+&gt;&gt;&gt; On 2026-03-30 12:20, Michel D=C3=A4nzer wrote:<br>
+&gt;&gt;&gt;&gt; On 3/24/26 20:20, Mario Kleiner wrote:<br>
+&gt;&gt;&gt;&gt;&gt; On Sun, Mar 22, 2026 at 7:11=E2=80=AFPM Kovac, Krunosl=
+av &lt;<br>
+&gt;&gt; <a href=3D"mailto:Krunoslav.Kovac@amd.com" target=3D"_blank">Kruno=
+slav.Kovac@amd.com</a> &lt;mailto:<a href=3D"mailto:Krunoslav.Kovac@amd.com=
+" target=3D"_blank">Krunoslav.Kovac@amd.com</a>&gt;&gt; wrote:<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt;&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 I believe we don&#39;t have su=
+rface info in that code, but one way to<br>
+&gt;&gt; work around it would be to use spatial dithering for FP16/ARGB16 a=
+nd<br>
+&gt;&gt; rounding for 10 bits. But if we just switch to spatial, some of th=
+e earlier<br>
+&gt;&gt; complaints about 10-bit output having one-off bit errors will be c=
+oming<br>
+&gt;&gt; back.<br>
+&gt;&gt;&gt;&gt;&gt;<br>
+&gt;&gt;&gt;&gt;&gt; Looking at all callers of resource_build_bit_depth_red=
+uction_params(),<br>
+&gt;&gt; they all have access to the associated &quot;struct pipe_ctx&quot;=
+, which should give<br>
+&gt;&gt; access to pipe_ctx -&gt;plane_state-&gt;format of an associated di=
+splay plane. I<br>
+&gt;&gt; could prepare a patch that passes the pipe_ctx from each caller<br=
+>
+&gt;&gt; into resource_build_bit_depth_reduction_params() and that function=
+ could<br>
+&gt;&gt; check if a 16 bpc framebuffer is in use and switch to spatial dith=
+ering<br>
+&gt;&gt; down-to-10-bpc in this case, and leave the rounding/truncation to =
+10 bpc<br>
+&gt;&gt; otherwise.<br>
+&gt;&gt;&gt;&gt;<br>
+&gt;&gt;&gt;&gt; That doesn&#39;t really make sense, the output of the disp=
+lay HW colour<br>
+&gt;&gt; pipeline has more than 10 bpc regardless of framebuffer format.<br=
+>
+&gt;&gt;&gt;&gt;<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt; The output will be determined by the link bandwidth, display-a=
+dvertised<br>
+&gt;&gt; supported bpc, and userspace-selected &quot;max bpc&quot; on a drm=
+_connector. This<br>
+&gt;&gt; could very well be 10 bpc, 8 bpc, even 6 bpc. Or are you referring=
+ to the<br>
+&gt;&gt; internal DCN HW representation of the values?<br>
+&gt;&gt;<br>
+&gt;&gt; I am indeed.<br>
+&gt;&gt;<br>
+&gt;&gt;&gt; They&#39;re higher, but that&#39;s somewhat irrelevant.<br>
+&gt;&gt;<br>
+&gt;&gt; How so? Surely dithering is applied to those values, not to the or=
+iginal<br>
+&gt;&gt; values sampled from the framebuffer.<br>
+&gt;&gt;<br>
+&gt;&gt;<br>
+&gt;&gt; --<br>
+&gt;&gt; Earthling Michel D=C3=A4nzer=C2=A0 =C2=A0 =C2=A0 =C2=A0\=C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 GNOME / Xwayland / Mesa developer<br>
+&gt;&gt; <a href=3D"https://redhat.com" rel=3D"noreferrer" target=3D"_blank=
+">https://redhat.com</a>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0\=
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0Libre software enthu=
+siast<br>
+&gt;&gt;<br>
+&gt; <br>
+<br>
+</blockquote></div></div>
+
+--0000000000001f0373064e589be7--
