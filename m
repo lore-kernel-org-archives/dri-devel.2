@@ -4,143 +4,141 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3C44E10F92E3
-	for <dri-devel@archiver.kernel.org>; Tue, 31 Mar 2026 17:44:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3999310F92E6
+	for <dri-devel@archiver.kernel.org>; Tue, 31 Mar 2026 17:47:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 61E9E10EAB4;
-	Tue, 31 Mar 2026 17:44:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4A57F10EB06;
+	Tue, 31 Mar 2026 17:47:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="S1JXZVqi";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="IcX3LTJ0";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="EmsPiYRg";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B4DA110EAB4
- for <dri-devel@lists.freedesktop.org>; Tue, 31 Mar 2026 17:44:17 +0000 (UTC)
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 62VGdUMe3239966
- for <dri-devel@lists.freedesktop.org>; Tue, 31 Mar 2026 17:44:16 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- D+yGuI/cnn9s0aXH93O9cB1RiK/gxeg7flRhGmZ3lRE=; b=S1JXZVqirPIsnDKO
- eNlI8hu0j1OVYc+QTtfzhIir27jFgYQehRjJjQA0ZwyZKkD8XBhtiZH707YlaNQ6
- CZwDOScICExmkufo6Rek9e5Y/XZQvbyy9+xvVQvIqXSPcmb3TUn9UvfZVRl8Ey4G
- 63jWwFpzI7iTMpMB0+vEbPjl218yvzBwzJ+RbrhRPlx1cf2pDfiJ30G2DjtT+Y3i
- pafCLu5tNErS9Tlhj6LhO2O4RL195lZP959c+knhEG9QdEy7oCZ/KDQe7RI/PHCZ
- O9jI7S4xcvNxAOlukEyWFzT1I0IylPI6pgQbrwlmn+np7OjySI2B3t5lNyGatc9A
- t0RReQ==
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com
- [209.85.214.199])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d8b1ytaa1-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Tue, 31 Mar 2026 17:44:16 +0000 (GMT)
-Received: by mail-pl1-f199.google.com with SMTP id
- d9443c01a7336-2b249541063so31021515ad.3
- for <dri-devel@lists.freedesktop.org>; Tue, 31 Mar 2026 10:44:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1774979056; x=1775583856;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:in-reply-to:content-language:from
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=D+yGuI/cnn9s0aXH93O9cB1RiK/gxeg7flRhGmZ3lRE=;
- b=IcX3LTJ0N6l+DL1hMoXaQh3ePpKguOEzZEDlRHHVnjqWutWa2D/rG9dLMIpg4bHNOy
- LYAwmWwkO3zXqMbaxC1vB+dG8N3g7NDI3SiG+QT5fMbnRIH8L8N6rv/S4aVQiLvz3NJd
- aug00lDlAHv4x5HT6sTinYlISX43KOeYIYvB0RsWmi6iw8/JDwzn8vrwWW7vo9CXK/ub
- 00PRPHcthA0Ygc4TuqJfW8R1RPM4Q4UyHzRmRS1f7FtT0S1rzWpf+VFfVxqnBO7XQ8vY
- buPeX+AU56/aAsT1W7W4XckOSGdVaM8YGQDss4X7c5m+eU2ZFJgkX8aDPGE7KTIxwX3r
- GSpg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774979056; x=1775583856;
- h=content-transfer-encoding:in-reply-to:content-language:from
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=D+yGuI/cnn9s0aXH93O9cB1RiK/gxeg7flRhGmZ3lRE=;
- b=nFiLKwZ56HZ7v89PBQr9p9nRpnjiMoH4Z28m3mqTsTVvUncpUK5J/ozuvryKjD8Vzl
- LtdUoZ6fSDGA3U3S7x76kwd+P8tyd+pWmkEd7rvFt1mSvK5wFDcpirY/pm9a3hEMT/FY
- y3FEO1JV1FSfw3IHS/d8c04ZEOZtv1rYTZygWavWYQWhFI0XRfH1N6iST82qKJ7sfGT6
- HmSTGj96qY6MNXlaMFpi0ZHH+Y8WE9+VseT4BQr7RTUCIABPFLhcinY/cwY8nWjAVKqR
- inTWybP2ghCF3Ivr++QGC8SestseQ4wdfQacZKOq+FJwnItozHpw5TGFHznX9zudvW7o
- sVnw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVLrPZpl7r7em8QDCTN0MnGfFqs6T4sH0CYWyMSiTXx6qyDDtFatZDz3TsLVaBgkjjkBf10ivv22PM=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwqpuLpxSKQOx9tg2cnT9ljHYbrJoTGnIVdIu8Jrc9qcEjuak2Y
- OEjOZB8WePLN2dQk4MJf62ciUEe4eFwjBdxLoyV0P05Gz6pJPw11qbnYUWHyUsZtbd2CUmmHWBX
- TFrEx2Mc8VYFIhVktE/D1X5OLRsNtbk92a7xJGsYbzZW+sLV7yfWcLFzEs376a0gFPklsnGU=
-X-Gm-Gg: ATEYQzy2XwGCJxqYwLmzslizon+Okk1OQ5uX5rnLPNa+737KfsgtAzuQn2DwR2Q164O
- WgaHIUYYkInzaRxH/nU5gYb8YAOlqEixoOsYjYkiAR/kD+Dta2+zo2+mJ6jEB0dXjwvFmgGbky1
- d0Xk3HWgZAXGwsOVbGE2MXH4iF/GXMOvDM7r+DlH9tmsNTMYaLMAzVXCDmsxDaoz6W7Smm8bqvp
- Ppurrk/QU2Rkb5p8HvwygvTFxNV8ADf92ANFB3y252GfK9faaLgZDzd3MPsHUYPbpYcvBMQx1wK
- 5AJ54z8MTpPjIhlJnYeegm/c8gI8+RCRtlvfU0vU1CD1DSSDfKFE2Gkto02RieprH/Pl7U9aTcW
- fpNoXfq5eV25x2/jfqdxyUlxTFQ8H0mUvUpwVQyCbeKf8
-X-Received: by 2002:a17:903:2acc:b0:2b2:5515:661c with SMTP id
- d9443c01a7336-2b269c9c7f9mr922105ad.31.1774979055670; 
- Tue, 31 Mar 2026 10:44:15 -0700 (PDT)
-X-Received: by 2002:a17:903:2acc:b0:2b2:5515:661c with SMTP id
- d9443c01a7336-2b269c9c7f9mr921875ad.31.1774979055071; 
- Tue, 31 Mar 2026 10:44:15 -0700 (PDT)
-Received: from [192.168.1.11] ([106.222.233.0])
- by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2b242765be9sm159057465ad.39.2026.03.31.10.44.09
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 31 Mar 2026 10:44:14 -0700 (PDT)
-Message-ID: <43a76705-bad2-4b17-9dd8-86721b80ea76@oss.qualcomm.com>
-Date: Tue, 31 Mar 2026 23:14:07 +0530
-MIME-Version: 1.0
+Received: from PH0PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11011007.outbound.protection.outlook.com [40.107.208.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B84FB10E1D5;
+ Tue, 31 Mar 2026 17:47:36 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=NLkPS6Nx/3toaOltWmXE4Rbg6hz+astOBIBNdzsbzddMQ2mnkB76VDgdVsMuA0cxAzTpBFDXcsPYd1kshSQ1yIOdxnQmkQH6FhWmY6jwSCtQFTCOoJ1OEWPcSFYOQDwdVT2bSs0JjRGy31w3ZZNmlAzYXuQZhDxw44m8MsytkUU+ebaJR0PDq2ZRvODu17LZTl+TkHhfs8mKWmkYX6uMeK0ERhIdyXbdup6Ch1hXVL1/WjVwyGG5zaADvHXzMhkoO/3HHb04Y0y6/DUqGg+JNnL9NLsS1yGZVoNFCo3rXKI0f6PXvGOrMacKZ/Uj8v7HJeV+O1t+FfrUmePtmgvCPQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=h0NJ4DI84zx+2pOiaXzEieaMR6WRjvfD75KZR1+0sdQ=;
+ b=JtR+dMNPT0Bh7AUHZFcvdJH6dQ7TkQJ95MgipEH6R9nu0/YQC+FeE2/ogm8wBiY7hIOHCElMuGPAv0qYYyP8HVGc8t0nKxJMuIvLKcK1QAJqfsU0onpjBBxKWnFV6Pku0SL1qyLFEk5HwqC6MdNQzHNIfuCBoRsTfOjIZ6GO/NUNLIpKLQJnySaawusew9AGXfz9QBPw+9MAUzXhTUjgYgXzQmxJdDsP3NUxcayXnVG1FWn7LeYe1MatgHMDCVlSMK/Vcdwx11NQ2ndYhJbYwrPMutaWw8C/sdWsQs07M5V0l1AymNIVYOQX/LYzGivj93+06UtMSFksdN9Haw3hHQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=h0NJ4DI84zx+2pOiaXzEieaMR6WRjvfD75KZR1+0sdQ=;
+ b=EmsPiYRgNkiE50BouqkLGeyWYkoK/oXFNmlsic4QaJKxKqcIi+/zXJo/03ykcZsgDYycjJE3o/K1IW2oSUwwXNL3zCA/QURLeAgEFMD71PI8RzKXONChsmZlbzn9qcxUo63t/spPgBHd80qi8MTpXUcucNh/MBxh+8G8dAaXPt4=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BL1PR12MB5126.namprd12.prod.outlook.com (2603:10b6:208:312::8)
+ by CH2PR12MB4088.namprd12.prod.outlook.com (2603:10b6:610:a5::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.16; Tue, 31 Mar
+ 2026 17:47:33 +0000
+Received: from BL1PR12MB5126.namprd12.prod.outlook.com
+ ([fe80::c3e7:1bc5:2b91:1cfe]) by BL1PR12MB5126.namprd12.prod.outlook.com
+ ([fe80::c3e7:1bc5:2b91:1cfe%6]) with mapi id 15.20.9769.015; Tue, 31 Mar 2026
+ 17:47:33 +0000
+Message-ID: <dc7f59af-05d0-4942-b21b-b85289f7eee1@amd.com>
+Date: Tue, 31 Mar 2026 13:47:27 -0400
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 10/17] drm/msm/a6xx: Update HFI definitions
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Antonino Maniscalco <antomani103@gmail.com>,
- Connor Abbott <cwabbott0@gmail.com>,
+Subject: Re: [PATCH v5 0/3] Add "link bpc" DRM property
+To: Pekka Paalanen <pekka.paalanen@collabora.com>
+Cc: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>,
+ Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>
-References: <20260327-a8xx-gpu-batch2-v2-0-2b53c38d2101@oss.qualcomm.com>
- <20260327-a8xx-gpu-batch2-v2-10-2b53c38d2101@oss.qualcomm.com>
- <3465929e-262f-407e-bc3d-7564787bce3d@oss.qualcomm.com>
- <67cca0c6-669c-4dcf-be3f-76fc46d1e59f@oss.qualcomm.com>
- <2108dfe4-bbe9-48b8-b77f-e7d2904f18b4@oss.qualcomm.com>
-From: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
+ Daniel Stone <daniels@collabora.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, kernel@collabora.com,
+ Derek Foreman <derek.foreman@collabora.com>,
+ Marius Vlad <marius.vlad@collabora.com>
+References: <20260319-link-bpc-v5-0-5306cd04a708@collabora.com>
+ <4265353.aeNJFYEL58@workhorse>
+ <254c20a4-cce3-4c8e-9902-514586f3e694@mailbox.org>
+ <5416161.aeNJFYEL58@workhorse>
+ <792c4540-d690-4453-a32e-62e23e78d628@mailbox.org>
+ <9d525fe4-b091-4cd9-b977-de19ffe4b957@amd.com>
+ <20260331155028.71246d7a@fluorite>
 Content-Language: en-US
-In-Reply-To: <2108dfe4-bbe9-48b8-b77f-e7d2904f18b4@oss.qualcomm.com>
+From: Harry Wentland <harry.wentland@amd.com>
+In-Reply-To: <20260331155028.71246d7a@fluorite>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: _W2XNXbnBw3SJiyls92o1pI4z7_reDmO
-X-Proofpoint-ORIG-GUID: _W2XNXbnBw3SJiyls92o1pI4z7_reDmO
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzMxMDE2OSBTYWx0ZWRfX5lC32puj7/k9
- jsQynmJDt13MkePalzuCrhf0rxDVHRBzNzUMLqAEqL0k+9FJb5rGvqjxYtoaob2QVf+lG63hCLb
- Q0bUaBF0jeohoVXUf6vtiEOzt6NuJwM413yBhgqNVy8bho0YSpOjrYfbzvzHeeGeeI1UYyK8sbR
- weDKL4nDt/t6mypHHK9iUXh6B+VUqydZ51qV3vixsDcAXr8B1h0gBsaVALL9LihkDNrBSVwwHS/
- lbuEyyAAQlmSSnAwYCcEMaI5Vll3ryo59BD6Tmb6Z0aW2IP0PFjO2DPX/DBiOPTm78GsKxHOszf
- d6OnjSnwNHnt0GFdUZI9DwAZVl0c46NQJ5YkxfgnG7Vj7Onapc43hhFdaEeUMHFG3Mb1cEuTbx7
- tUlY9vZSxF9CflQp2ErNOnnbKGzh7uK6l8DATROx5AuxHSJPIVjcnvwIXBbZilImFrOBftC1rzo
- njwWP7jsucQTE2Tq9LA==
-X-Authority-Analysis: v=2.4 cv=aJT9aL9m c=1 sm=1 tr=0 ts=69cc07f0 cx=c_pps
- a=JL+w9abYAAE89/QcEU+0QA==:117 a=LIJ1G+IszuYCLGPi0MaIKw==:17
- a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=EUspDBNiAAAA:8 a=FyolfZIV0nzXbpKuJ4EA:9 a=QEXdDO2ut3YA:10
- a=324X-CrmTo6CU4MGRt3R:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-03-31_04,2026-03-31_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 spamscore=0 phishscore=0 bulkscore=0 malwarescore=0
- priorityscore=1501 adultscore=0 lowpriorityscore=0 clxscore=1015
- impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2603050001
- definitions=main-2603310169
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: YQ1P288CA0007.CANP288.PROD.OUTLOOK.COM
+ (2603:10b6:c01:9e::12) To BL1PR12MB5126.namprd12.prod.outlook.com
+ (2603:10b6:208:312::8)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL1PR12MB5126:EE_|CH2PR12MB4088:EE_
+X-MS-Office365-Filtering-Correlation-Id: a91d8968-8914-4cd9-a07f-08de8f4d9684
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|1800799024|376014|7416014|18002099003|22082099003|56012099003;
+X-Microsoft-Antispam-Message-Info: tu8gbklVsGkCmjsrqAy/8YmTCy/fOOVt/EjcJRzrASmKlgXnaByUFzLL8K2kZyr2RtxS1tsiTsqFf64TT9sdOM2+mdQp9mwNZ6NdBB7IgYp69gVX24YVPLjbfgzcG6azh3zcCrnV/YV/wFZnvarXH/NEN1JBPN1/ms/iAUkN67bM9pdjfAN6VsU8S75+6fFE52/QZjPEqPUSllU/VBGCtWpweFMF9oEiaRHrKZtgLKNe2WqxQsSQjkqy4JNWJWsu2K2eOMOs3r/iH7aKK8cKKDHKWgQqtz4S1gXrXDVR8o/okz0XiUNNEWF1rbssKsVuwGr8UnPcax0eHPeyWnYl7kpARgZelXDH5anXNthErPXpRdkLiu2Ttysw4oTM9zpcbx0r6GPGQEfjde7IPBs0cRj2wd7pZMqdOINPyeCFMlSMPGujYHxIEyzckkSfh/X4EMtTnAC1n4hNfBFG14k9eMnH/prwcBfCfLKLQWxCU58M8Hh5BwdU3smXHuax8QPqM+Suw5x56wUR/PBIWYvOhWhzx5g2Pf+cf05i7fwRYMvN5mCpy7NMnRhkHEoZbShde27Dez75jfbe7G5kw+EKUUPDu4Ac0ixKfS2YW5m9zN7A6LklXAFl1obRSlmVlAEyaSvEf8+iOqHlpFeb+Lpvc6SdwOb9o9uXZF/4WnlQBMBWyzO+oltnqECqP9D5W59+nElHk2wEnMtg5G9rcrb+d5UvoZC88JLxS8S/3bBnXLs=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BL1PR12MB5126.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(376014)(7416014)(18002099003)(22082099003)(56012099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WDEvWWNyM3dzaFk2S0hYalIxRHUyeUpHdkZwRVNNaXFxaUZiZWlDY3IzK2NT?=
+ =?utf-8?B?NTJsdTZ0QXFscU5QYklVTjIzbFVKVnJxdElkQlYwWlBIbDBMMS91aHlsZWpF?=
+ =?utf-8?B?WDd3cUdueVl1RTk5RFBHcXRINy84amk5ek13b2x2OUNaVUNMTXhPNFRVTnk5?=
+ =?utf-8?B?RHN1dk9VeVZOQmRhbGxUdS82aktGcHJWSUpHaVJRTWkreWdOaS9NcUU4ZGZX?=
+ =?utf-8?B?Tm5tbGYzMjJBVHlhTHQzRkw5RFNBZEhLVU1OTjRoQ1B0YmxQL3kzZW5ZZzIr?=
+ =?utf-8?B?UXpOTEJRSHFBcHUzOFNZdWlIZmh3b2Q2NkNPNmFmOU8raGFmYWpuRXI1NitQ?=
+ =?utf-8?B?bWlkV09haDFDRCtZUml5a1hDOHlIbzRnSlBQT1VtM0V0TGd5RGRsbjR2OXlh?=
+ =?utf-8?B?VHlnTDJjeFZyM0J0UnI2L0lYZTlYZ2FQVk1oVTdoYzgwSHIzMWJMRFBGTEt4?=
+ =?utf-8?B?ZllVUjlZUmhSbjBoUFlkTzhVNTNTWGxKcFMzRmJSdUxOWkhiNEJBZGF2MlMw?=
+ =?utf-8?B?cm9JenVaT0YvSno2Sit4c1hScDQzT0lGNU05WFZuUXRsTkF5NkZMV1V4Mllt?=
+ =?utf-8?B?dnRrTlFpcWhTTW5FZWZSYlBaY20xcnBNcjAyTDZuenRCQktoNUNocUVYMGZx?=
+ =?utf-8?B?cFFBSDZ2WFhHZ0dtRGw3OFU1cjc1TkZZcHBjVkozaG5tVHJpUlhMRjQyL0c2?=
+ =?utf-8?B?czRmaEcwWWxwOW9NMWd4WFlNWjkyTDNJTEtyMDFBZnpQYjd1STBGYWFNVUJ6?=
+ =?utf-8?B?Wkg2QU0rSHBMRGY4WFFzRm1YbXFUTENVei8rb1RYNm1tRm1EemN6UEtMbWdE?=
+ =?utf-8?B?VzNqbUJoanJ2NkE0MjBHUjRwajlnczljQk5IcEpwYU94N2g2R1dxcmE3SXpk?=
+ =?utf-8?B?cmNQUWJROTZVYjNvS1g4OVcvQnZZamZOWlNQT21oZ3JHZ2hVaExDTmRXOW85?=
+ =?utf-8?B?VWlMZkFCeUovL04xSnVIVXZFK3l0U0hrRDVLR2xlVndWdXlRYTFNWlpvVmlt?=
+ =?utf-8?B?QytWT09RZkVSN2VYbEwyajg0NWIrSzczWlFBMXVXa0VBMFdQdWN5dlk2RUxX?=
+ =?utf-8?B?RFVja3Fhc3VKcmVKWkFHVVpuWEJBTWQyZHVTS2xla3RYS1A1T2NVcHFFdlFz?=
+ =?utf-8?B?VGVPanNvM2t0QW1PdkFLcFhNbDc4MjRtN1ZrdUNvUXpyZCtFa3dybHhnOHQw?=
+ =?utf-8?B?SEZsVnlFTTYwTTlhdFZ2N3JoSm9RRWFKZ1M5R2toMmRoME1uWTNsVkg2V0pK?=
+ =?utf-8?B?bmJpUys1UytxYmdFeU5hd2VZL0xKdUZKdVcxcUwzYW5OamdIZkFiMVZITzZp?=
+ =?utf-8?B?d2hhTU0rSkRyY3NGTlI3bHNRaEZuNUNJb2FBcDlNU0tCRW9RaVlOR1hQekxZ?=
+ =?utf-8?B?YnBrc29xcnBpb1hrNjZRcHUzT200NE5DR1MrVGJVSDdLdjFUQzlneVEyd0U0?=
+ =?utf-8?B?azRjeTZKT2RWNDcyblY3UkhoVzh3eTI2K1lKZlNXWnlzU1Z6YjY1YkNSU2pJ?=
+ =?utf-8?B?VS9EWEw1d3A5VDlVcEJOd1puTlN0ZFprRnJ3dlQxQUF6amxCN3VaekkySGpw?=
+ =?utf-8?B?MkZPYVhJTy9LVXlCemo5TmxGWSsvUllmM0hTbk1tTUp2a2RYRWpYbzZrSHh4?=
+ =?utf-8?B?ZXhjYzcyRWRZSVNSZGlGbUdGZU9pSWVGTHU2dlUxdG9lb3hhUm1vMytySjQ1?=
+ =?utf-8?B?MVhWd2ozQklRc2VyRzRDMi92TDdKZXFqOTdLSURRQ0hjVndCeWovbThDdUpU?=
+ =?utf-8?B?bXZUL1lKcmNSUnArd3YwRkc1aU1kVW5MYWJCU3dtaG9LeTBuTCtQOGExVmU0?=
+ =?utf-8?B?QWNTT29rNnJkS0UrOFlvbGtKUlNJTGFabUdvYkZaRTQzRXVHRUJsOTBLQnc0?=
+ =?utf-8?B?bkZIRGYxaGprSXpqRndpeUszeWUrL29OZEt2eGlZeDFGZnh2ekdBdGI4NTln?=
+ =?utf-8?B?VC9iSVNUTVNqK1ZtMkhZSWZ1cFFnNmFFUW01akt3ZDF6T28xcmUvalFBTnlM?=
+ =?utf-8?B?TUg2aWJyNUo5QVgrVi9NUXNzZGRpRVN5aUJSS1E3NFJXNjM5V2tNMDhqYmlW?=
+ =?utf-8?B?YkV2STArcGZuNlVaendzWlRoRVIySUNQSHNENDdwcXFSUCtBZUZOT3BUWXY4?=
+ =?utf-8?B?WlA5R3FkRW80cnZCL2VIZ1FDZm1EVUpQcVFlVWJXK0laYnVKQXRUREkyN3pO?=
+ =?utf-8?B?QjBWaHl1TWJkVjBMYUdReVdpVDhYbVlYYTNEUHprNldrY1FoNFdkY0dubTRJ?=
+ =?utf-8?B?MXIyL2ppSEg5bDRVby9TNUg2ek40M05xUC8wWis4QjZnWTNtd1BFR2xodzZM?=
+ =?utf-8?B?V1IzQkR2TWJOdkMvQkVJM2ZpYTl6SVJCdlJzcGxKVFV6UFM1bDJSdz09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a91d8968-8914-4cd9-a07f-08de8f4d9684
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5126.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Mar 2026 17:47:33.5101 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: RnhFqADfVz4UTHXcL8V+NnUWJWRW/ru1Nv9mOHAVE16nzCKq/d7Ti0HC/U+ynNtrZBZ+6y8LCdXjHPS4gO0xNw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4088
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -156,88 +154,85 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 3/31/2026 1:52 PM, Konrad Dybcio wrote:
-> On 3/30/26 10:27 PM, Akhil P Oommen wrote:
->> On 3/30/2026 4:45 PM, Konrad Dybcio wrote:
->>> On 3/27/26 1:13 AM, Akhil P Oommen wrote:
->>>> Update the HFI definitions to support additional GMU based power
->>>> features.
+
+
+On 2026-03-31 08:50, Pekka Paalanen wrote:
+> On Mon, 30 Mar 2026 14:52:23 -0400
+> Harry Wentland <harry.wentland@amd.com> wrote:
+> 
+>> On 2026-03-30 12:57, Michel Dänzer wrote:
+>>> On 3/26/26 13:17, Nicolas Frattaroli wrote:  
+>>>> On Tuesday, 24 March 2026 17:44:21 Central European Standard Time you wrote:  
+>>>>> On 3/24/26 16:25, Nicolas Frattaroli wrote:  
+>>>>>> On Monday, 23 March 2026 18:27:41 Central European Standard Time Michel Dänzer wrote:  
+>>>>>>> On 3/23/26 17:55, Nicolas Frattaroli wrote:  
+>>>>>>>>
+>>>>>>>> "Someone might not understand its purpose" is, in my eyes, not a valid reason to
+>>>>>>>> not have this property, [...]  
+>>>>>>> Per my previous posts, that's not my concern.  
+>>>>>>
+>>>>>> Then what is your concern?  
+>>>>>
+>>>>> Per my previous posts, my concerns are:
+>>>>>
+>>>>> * The meaning of the "link bpc" property value isn't defined well
+>>>>> enough vs things like dithering or DSC, which will likely result in
+>>>>> compositors / users overestimating what value they need / want,
+>>>>> resulting in compositors spuriously rejecting configurations which 
+>>>>> would work perfectly fine, and/or spurious issue reports.  
 >>>>
->>>> Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
->>>> ---
+>>>> Dithering and DSC are supposed to be transparent, no?  
 >>>
->>> Whether you want to proceed with bitfields or not:
+>>> Not really, no. They achieve higher "effective" (as perceived by
+>>> the user) bpc using a lower physical bpc.
 >>>
->>> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+>>>   
+>>>> If a link bpc is 10 but DSC is on so it's 9 on the wire, it's
+>>>> still 10 bits.  
+>>>
+>>> If DSC encodes user-perceived 10 bpc at a lower physical bpc, and
+>>> the "link bpc" property reports 10, that would satisfy my concern
+>>> for DSC. 
 >>
->> Thanks. I still feel it is bitfield layout is a 'bit' complicated.
+>> Conceptually I would understand DSC to not effect the reported bpc, so
+>> a 10bpc output bpc would be reported as 10bpc via the property, but
+>> DSC would compress that down to a lower value on the wire.
 >>
->> I did an experiment:
->>
->> #include <stdio.h>
->> #include <stdint.h>
->> #include <stddef.h>
->>
->> struct packed_u8 {
->>         uint16_t mitigation_time;
->>         uint8_t current_rating    : 6;
->>         uint8_t num_phases        : 6;
->>         uint8_t path_notification : 1;
->>         uint8_t extra_features    : 3;
->> } __packed;
->>
->>
->> void main() {
->>
->>         struct packed_u8 data = {
->>                  .mitigation_time  = 0xffff,
->>                  .current_rating   = 0x3f,  /* all 6 bits set */
->>                  .num_phases       = 0x3f,
->>                  .path_notification = 1,
->>                  .extra_features   = 0x7,
->>          };
->>
->>         printf("Akhil 0x%x\n", *((uint32_t *) &data));
->> }
->>
->> The output I got in Kaanapali is: Akhil 0x7f3fffff
->>
->> This means that the compiler inserted a padding between current_rating
->> and num_phases.
+>> Dithering wouldn't do that. An 8bpc output would be reported as 8bpc
+>> even if dithering makes it perceptually look like 10bpc.
 > 
-> That's because __packed doesn't work outside the kernel - you're just
-> creating a variable named __packed, so this is effectively the same as:
+> That seems quite arbitrary, but ok, that could work.
 > 
-> struct foo {
->         int a;
->         int b;
->         unsigned char c : 2;
-> } __hotdog;
+>> I can understand the challenge of how to intelligently use it to
+>> report anything back to users. I could see some compositors being happy
+>> to use the bpc alone, while others might want to know dithering and/or
+>> DSC state (compression ratio?) as well.
 > 
-> int main () {
->         printf("Akhil 0x%x\n", *((uint32_t *) &__hotdog));
-> }
+> People who care about the picture quality down to these levels will
+> likely want to know and learn about these techniques. They may also
+> want to explicitly control them.
 > 
-> Outside the kernel tree, you need to use the full annoying __attribute__((foo))
-> syntax:
+> In time, when these have been used enough in the wild, compositor
+> developers will learn what makes a difference and what does not, so
+> they will adjust their reporting to end users. The most important thing
+> for the kernel is it offer an unambiguous and stable UAPI for these.
 > 
-> include/linux/compiler_attributes.h:#define __packed                        __attribute__((__packed__))
+> Policy belongs in userspace.
 > 
-> with that changed, we get:
-> 
-> Akhil 0xffffffff
-> 
-> which is the expected behavior
 
-Yeah, I can confirm this. The AAPCS doc which describes this is a bit
-difficult to decipher for the case where a bitfield straddles between 2
-storage units. Anyway the experiment confirms that your assumption is
-correct.
+I don't like this as a blanket statement. There is a lot of policy that
+intersects with HW nuances, whether it comes to power or otherwise.
+Taking away driver vendor's abilities to optimize will hurt the Linux
+ecosystem in the long run.
 
-Will address this separately when I post the CLX patches.
+IMO this needs to be evaluated on a case by case basis. There are
+many places where it does make sense to give userspace a greater
+say on policy, but we don't want to push driver (HW specific) logic
+up into userspace.
 
--Akhil.
+Harry
 
 > 
-> Konrad
+> Thanks,
+> pq
 
