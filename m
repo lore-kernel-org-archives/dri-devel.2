@@ -4,54 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 41513109B467
-	for <dri-devel@archiver.kernel.org>; Tue, 31 Mar 2026 13:33:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2CF7F109B46C
+	for <dri-devel@archiver.kernel.org>; Tue, 31 Mar 2026 13:35:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9C72510E99C;
-	Tue, 31 Mar 2026 13:33:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 89E7310E97A;
+	Tue, 31 Mar 2026 13:35:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="hEdSEeDK";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="K81gF7XR";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 16E5A10E99C
- for <dri-devel@lists.freedesktop.org>; Tue, 31 Mar 2026 13:33:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=7Iy8Lnyd0AwTsveWfRUVA+4TI8u8R4YvbqTLkryPmtI=; b=hEdSEeDKMrCDMqjLYJ2uM61sSK
- mTfNrh7FX1rLy1csxQMQMzf8lVigi6EVOQpOO2Hc+s2ynFoPJduS4UV1n1Oq1MfMznsmPILoaVmQe
- 9ePy1HhtZVJD3Lt0+6FZzhPIqsSEAPjqK6QFLjycjnPfsUnlN9IohAdOtJpxrDM9FW2NnzrLqgPdz
- hqyk3rBzjN4bjvYkuH4AjCN7++Vyaikpb2O+PicxQ5TUUWuunlObu4mGlik3q+UqjrLm8gXq4hiVD
- T6sn8hOns93taOPnJcz6Buvh/OITTN+hPXLnfHpeFKSTG+lBLoTV3f7udNQ9S1I1AQuokZ3LiYzVL
- fdzuXn2Q==;
-Received: from [189.89.58.122] (helo=[192.168.18.14])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1w7ZDA-009TKC-Hi; Tue, 31 Mar 2026 15:32:52 +0200
-Message-ID: <168701a9-c219-4eb5-b6fc-fdc13ec006f4@igalia.com>
-Date: Tue, 31 Mar 2026 10:32:47 -0300
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E635A10E97A
+ for <dri-devel@lists.freedesktop.org>; Tue, 31 Mar 2026 13:35:48 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 9590444459;
+ Tue, 31 Mar 2026 13:35:48 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F3D6EC19423;
+ Tue, 31 Mar 2026 13:35:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1774964148;
+ bh=T7CKcWnw0/Y648smPZCLrFLT4ryWZtkgPW//JWGynMw=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=K81gF7XRIHDSqtDeXLYPJ49+bK0BxJmbsE9v1yZoU0aXCXcf96P4V2APhihTnCt0D
+ CZOIQQqb58JErx9VcfbX3QTfkyJlb01SNRArlqjjUIXfVGLYt7dPW95Pu2KsdmNwNR
+ 4ycSoDd+/RPv701ksTbAW4Au8cr3OZ6ccMwL7zLJs9vwvFDWr9Cb0p6mjbIv6jds1V
+ ISGAxfZurcIMqWk02UViuL5pFtTZ7LEBH/Nbg4ODW4iH8gas8f/cz9wuerbJU+JFxy
+ 8vTwwE1+2O+PEEyJSRDfcyZ43PerNEL+bUsfN06Z3IC2SVho9tK8ZuqvFYAQQJ1hfe
+ xkPhRr1qLLchw==
+Date: Tue, 31 Mar 2026 07:35:46 -0600
+From: Keith Busch <kbusch@kernel.org>
+To: Leon Romanovsky <leon@kernel.org>
+Cc: Zhiping Zhang <zhipingz@meta.com>, Jason Gunthorpe <jgg@ziepe.ca>,
+ Bjorn Helgaas <bhelgaas@google.com>, linux-rdma@vger.kernel.org,
+ linux-pci@vger.kernel.org, netdev@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Yochai Cohen <yochai@nvidia.com>,
+ Yishai Hadas <yishaih@nvidia.com>, Bjorn Helgaas <helgaas@kernel.org>
+Subject: Re: [RFC v2 1/2] vfio: add callback to get tph info for dmabuf
+Message-ID: <acvNsvS5ShlQlrox@kbusch-mbp>
+References: <20260324234615.3731237-1-zhipingz@meta.com>
+ <20260324234615.3731237-2-zhipingz@meta.com>
+ <20260325082534.GN814676@unreal> <acW2BwQKaUbS3eL9@kbusch-mbp>
+ <20260331083758.GA814676@unreal> <acvFV8c5QVxnt3Em@kbusch-mbp>
+ <20260331132942.GC814676@unreal>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/6] drm/vc4: Fix a memory leak in hang state error path
-To: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
- Iago Toral <itoral@igalia.com>, Maxime Ripard <mripard@kernel.org>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Boris Brezillon <bbrezillon@kernel.org>
-Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org
-References: <20260330-vc4-misc-fixes-v1-0-92defc940a29@igalia.com>
- <20260330-vc4-misc-fixes-v1-3-92defc940a29@igalia.com>
-Content-Language: en-US
-From: Melissa Wen <mwen@igalia.com>
-In-Reply-To: <20260330-vc4-misc-fixes-v1-3-92defc940a29@igalia.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260331132942.GC814676@unreal>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,67 +64,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On Tue, Mar 31, 2026 at 04:29:42PM +0300, Leon Romanovsky wrote:
+> On Tue, Mar 31, 2026 at 07:00:07AM -0600, Keith Busch wrote:
+> > On Tue, Mar 31, 2026 at 11:37:58AM +0300, Leon Romanovsky wrote:
+> > > On Thu, Mar 26, 2026 at 04:41:11PM -0600, Keith Busch wrote:
+> > > > 
+> > > > You're suggesting that Ziping append the new fields to the end of this
+> > > > struct? I don't think we can modify the layout of a uapi.
+> > > 
+> > > He needs to add before flex array. This struct is submitted by the user
+> > > and kernel can easily calculate the position of that array.
+> > 
+> > No, you can't just do that. Existing applications would break when they
+> > compile against the updated kernel header. They don't know about this
+> > new "tph" supplied flag, but they'll all accidently use the new
+> > dma_ranges offset. 
+> 
+> So we need to always pass TPH flag and treat 0 as do-nothing-field.
 
-
-On 30/03/2026 14:51, Maíra Canal wrote:
-> When vc4_save_hang_state() encounters an early return condition, it
-> returns without freeing the previously allocated `kernel_state`,
-> leaking memory.
->
-> Add the missing kfree() calls by consolidating the early return paths
-> into a single place.
-Nice catch!
-
-Reviewed-by: Melissa Wen <mwen@igalia.com>
->
-> Fixes: 214613656b51 ("drm/vc4: Add an interface for capturing the GPU state after a hang.")
-> Signed-off-by: Maíra Canal <mcanal@igalia.com>
-> ---
->   drivers/gpu/drm/vc4/vc4_gem.c | 18 ++++++++++--------
->   1 file changed, 10 insertions(+), 8 deletions(-)
->
-> diff --git a/drivers/gpu/drm/vc4/vc4_gem.c b/drivers/gpu/drm/vc4/vc4_gem.c
-> index 248c47665a193fa639a481f97ac2af634f415384..ab3c6d5d4eb446804877d6b8da01c3a9f65800df 100644
-> --- a/drivers/gpu/drm/vc4/vc4_gem.c
-> +++ b/drivers/gpu/drm/vc4/vc4_gem.c
-> @@ -171,10 +171,8 @@ vc4_save_hang_state(struct drm_device *dev)
->   	spin_lock_irqsave(&vc4->job_lock, irqflags);
->   	exec[0] = vc4_first_bin_job(vc4);
->   	exec[1] = vc4_first_render_job(vc4);
-> -	if (!exec[0] && !exec[1]) {
-> -		spin_unlock_irqrestore(&vc4->job_lock, irqflags);
-> -		return;
-> -	}
-> +	if (!exec[0] && !exec[1])
-> +		goto err_free_state;
->   
->   	/* Get the bos from both binner and renderer into hang state. */
->   	state->bo_count = 0;
-> @@ -191,10 +189,8 @@ vc4_save_hang_state(struct drm_device *dev)
->   	kernel_state->bo = kzalloc_objs(*kernel_state->bo, state->bo_count,
->   					GFP_ATOMIC);
->   
-> -	if (!kernel_state->bo) {
-> -		spin_unlock_irqrestore(&vc4->job_lock, irqflags);
-> -		return;
-> -	}
-> +	if (!kernel_state->bo)
-> +		goto err_free_state;
->   
->   	k = 0;
->   	for (i = 0; i < 2; i++) {
-> @@ -286,6 +282,12 @@ vc4_save_hang_state(struct drm_device *dev)
->   		vc4->hang_state = kernel_state;
->   		spin_unlock_irqrestore(&vc4->job_lock, irqflags);
->   	}
-> +
-> +	return;
-> +
-> +err_free_state:
-> +	spin_unlock_irqrestore(&vc4->job_lock, irqflags);
-> +	kfree(kernel_state);
->   }
->   
->   static void
->
-
+I don't think you're understanding the implications. If Zhiping appends
+new fields in front of the flex array dma_ranges, then existing
+applications will implicitly use the new offset if they are recompiled
+against the new kernel header. But if the binary was compiled against
+the older kernel header, then that application would use the previous
+offset. Both applications have the TPH flag cleared to 0. How is the
+kernel supposed to know which offset the application used?
